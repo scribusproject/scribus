@@ -1,18 +1,22 @@
-EXTRA_DIST = acropass.png acroinfo.png acrosec.png acro1.png acro3.png cmsmodify1.png colormgmtscreen.png cups1.png cups2.png docheader1.png docheader2.png fonts2.png fontpref2.png fontpref3.png fontpref1.png gammagrayscale.png gsadv1.png gsadv2.png gsadv3.png hyphen1.png hyphen2.png hyphen3.png inkscape.png kfontinstaller.png ksnapshot.png monprof1.png monprof2.png monprof3.png monprof4.png pdfxcolor.png pdfxintent.png pstoedit1.png pdfx3-1.png svg1.png gimpoptions1.png prefsguides.png printpreview.png  RDF.png batik1.png  gimpoptions2.png  prefspanel1.png  scribus2.png cmspanel.png  gimpoptions3.png  prefspanel2.png scribustru4.png colormanager2.png  hyphen1.png prefspanel3.png  Scripter_error_string.png fontprev.png hyphen2.png  prefspanel4.png prefspanel5.png Scripter.png fonts.png  hyphen3.png printer3.png xnview.png spinbox1.png scribuscms1.png printer1.png printer2.png printseps.png formularz_export_PDF.png formularz_js_skrypt.png formularz_js_sprawdzanie.png formularz_nowy.png formularz_pole_num.png siatka_jednostki_miar.png siatka_menu.png symbole.png ulica.png wlasciwosci_pola.png wyslij_formularz.png result.png prefsblgrid1.png
+EXTRA_DIST = acropass.png acroinfo.png acrosec.png acro1.png acro2.png acro3.png acroreader5.1.png cmsmodify1.png colormgmtscreen.png cups1.png cups2.png docheader1.png docheader2.png fonts2.png fonts3.png fonts4.png fontpref2.png fontpref3.png fontpref1.png fontsampler.png fontsampler2.png gammagrayscale.png gsadv1.png gsadv2.png gsadv3.png hyphen1.png hyphen2.png hyphen3.png inkscape.png kfontinstaller.png ksnapshot.png monprof1.png monprof2.png monprof3.png monprof4.png pdfxcolor.png pdfxintent.png pstoedit1.png pdfx3-1.png svg1.png gimpoptions1.png prefsguides.png printpreview.png  RDF.png batik1.png  gimpoptions2.png  prefspanel1.png  scribus2.png cmspanel.png  gimpoptions3.png  prefspanel2.png scribustru4.png colormanager2.png  hyphen1.png prefspanel3.png  Scripter_error_string.png fontprev.png hyphen2.png  prefspanel4.png prefspanel5.png Scripter.png fonts.png  hyphen3.png  xnview.png spinbox1.png scribuscms1.png printer1.png printer2.png printseps.png formularz_export_PDF.png formularz_js_skrypt.png formularz_js_sprawdzanie.png formularz_nowy.png formularz_pole_num.png siatka_jednostki_miar.png siatka_menu.png symbole.png ulica.png wlasciwosci_pola.png wyslij_formularz.png result.png prefsblgrid1.png swmenu.png swdialog.png after_short_words.png before_short_words.png
 
 install-data-local:
 
 	$(mkinstalldirs) $(DESTDIR)$(prefix)/share/scribus/doc/en/images/
-	$(INSTALL_DATA) $(srcdir)/acro1.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/acro1.png
-	$(INSTALL_DATA) $(srcdir)/acro3.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/acro3.png
-	$(INSTALL_DATA) $(srcdir)/acroinfo.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/acroinfo.png
 	$(INSTALL_DATA) $(srcdir)/acropass.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/acropass.png
+	$(INSTALL_DATA) $(srcdir)/acroinfo.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/acroinfo.png
 	$(INSTALL_DATA) $(srcdir)/acrosec.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/acrosec.png
+	$(INSTALL_DATA) $(srcdir)/acro1.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/acro1.png
+	$(INSTALL_DATA) $(srcdir)/acro2.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/acro2.png
+	$(INSTALL_DATA) $(srcdir)/acro3.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/acro3.png
+	$(INSTALL_DATA) $(srcdir)/acroreader5.1.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/acroreader5.1.png
+	$(INSTALL_DATA) $(srcdir)/after_short_words.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/after_short_words.png
+	$(INSTALL_DATA) $(srcdir)/before_short_words.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/before_short_words.png
 	$(INSTALL_DATA) $(srcdir)/batik1.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/batik1.png
-	$(INSTALL_DATA) $(srcdir)/cmsmodify1.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/cmsmodify1.png
 	$(INSTALL_DATA) $(srcdir)/cmspanel.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/cmspanel.png
-	$(INSTALL_DATA) $(srcdir)/colormanager2.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/colormanager2.png
+	$(INSTALL_DATA) $(srcdir)/cmsmodify1.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/cmsmodify1.png
 	$(INSTALL_DATA) $(srcdir)/colormgmtscreen.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/colormgmtscreen.png
+	$(INSTALL_DATA) $(srcdir)/colormanager2.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/colormanager2.png
 	$(INSTALL_DATA) $(srcdir)/cups1.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/cups1.png
 	$(INSTALL_DATA) $(srcdir)/cups2.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/cups2.png
 	$(INSTALL_DATA) $(srcdir)/docheader1.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/docheader1.png
@@ -20,13 +24,13 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/fontpref1.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/fontpref1.png
 	$(INSTALL_DATA) $(srcdir)/fontpref2.png  $(DESTDIR)$(prefix)/share/scribus/doc/en/images/fontpref2.png 
 	$(INSTALL_DATA) $(srcdir)/fontpref3.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/fontpref3.png
-	$(INSTALL_DATA) $(srcdir)/fontprev.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/fontprev.png
 	$(INSTALL_DATA) $(srcdir)/fonts.png  $(DESTDIR)$(prefix)/share/scribus/doc/en/images/fonts.png 
-	$(INSTALL_DATA) $(srcdir)/formularz_export_PDF.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/formularz_export_PDF.png
-	$(INSTALL_DATA) $(srcdir)/formularz_js_skrypt.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/formularz_js_skrypt.png
-	$(INSTALL_DATA) $(srcdir)/formularz_js_sprawdzanie.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/formularz_js_sprawdzanie.png
-	$(INSTALL_DATA) $(srcdir)/formularz_nowy.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/formularz_nowy.png
-	$(INSTALL_DATA) $(srcdir)/formularz_pole_num.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/formularz_pole_num.png
+	$(INSTALL_DATA) $(srcdir)/fonts2.png  $(DESTDIR)$(prefix)/share/scribus/doc/en/images/fonts2.png 
+	$(INSTALL_DATA) $(srcdir)/fonts3.png  $(DESTDIR)$(prefix)/share/scribus/doc/en/images/fonts3.png 
+	$(INSTALL_DATA) $(srcdir)/fonts4.png  $(DESTDIR)$(prefix)/share/scribus/doc/en/images/fonts4.png 
+	$(INSTALL_DATA) $(srcdir)/fontprev.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/fontprev.png
+	$(INSTALL_DATA) $(srcdir)/fontsampler.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/fontsampler.png
+	$(INSTALL_DATA) $(srcdir)/fontsampler2.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/fontsampler2.png
 	$(INSTALL_DATA) $(srcdir)/gammagrayscale.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/gammagrayscale.png
 	$(INSTALL_DATA) $(srcdir)/gimpoptions1.png  $(DESTDIR)$(prefix)/share/scribus/doc/en/images/gimpoptions1.png 
 	$(INSTALL_DATA) $(srcdir)/gimpoptions2.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/gimpoptions2.png
@@ -44,9 +48,10 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/monprof2.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/monprof2.png
 	$(INSTALL_DATA) $(srcdir)/monprof3.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/monprof3.png
 	$(INSTALL_DATA) $(srcdir)/monprof4.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/monprof4.png
-	$(INSTALL_DATA) $(srcdir)/pdfx3-1.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/pdfx3-1.png 
 	$(INSTALL_DATA) $(srcdir)/pdfxcolor.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/pdfxcolor.png
 	$(INSTALL_DATA) $(srcdir)/pdfxintent.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/pdfxintent.png
+	$(INSTALL_DATA) $(srcdir)/pstoedit1.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/pstoedit1.png
+	$(INSTALL_DATA) $(srcdir)/pdfx3-1.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/pdfx3-1.png 
 	$(INSTALL_DATA) $(srcdir)/prefsblgrid1.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/prefsblgrid1.png
 	$(INSTALL_DATA) $(srcdir)/prefsguides.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/prefsguides.png
 	$(INSTALL_DATA) $(srcdir)/prefspanel1.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/prefspanel1.png 
@@ -54,63 +59,70 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/prefspanel3.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/prefspanel3.png
 	$(INSTALL_DATA) $(srcdir)/prefspanel4.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/prefspanel4.png
 	$(INSTALL_DATA) $(srcdir)/prefspanel5.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/prefspanel5.png
+	$(INSTALL_DATA) $(srcdir)/RDF.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/RDF.png
 	$(INSTALL_DATA) $(srcdir)/printer1.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/printer1.png
 	$(INSTALL_DATA) $(srcdir)/printer2.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/printer2.png
-	$(INSTALL_DATA) $(srcdir)/printer3.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/printer3.png
-	$(INSTALL_DATA) $(srcdir)/printpreview.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/printpreview.png
 	$(INSTALL_DATA) $(srcdir)/printseps.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/printseps.png
-	$(INSTALL_DATA) $(srcdir)/pstoedit1.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/pstoedit1.png
-	$(INSTALL_DATA) $(srcdir)/RDF.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/RDF.png
+	$(INSTALL_DATA) $(srcdir)/printpreview.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/printpreview.png
 	$(INSTALL_DATA) $(srcdir)/result.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/result.png
+	$(INSTALL_DATA) $(srcdir)/Scripter_error_string.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/Scripter_error_string.png
+	$(INSTALL_DATA) $(srcdir)/Scripter.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/Scripter.png
 	$(INSTALL_DATA) $(srcdir)/scribus2.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/scribus2.png
 	$(INSTALL_DATA) $(srcdir)/scribuscms1.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/scribuscms1.png
 	$(INSTALL_DATA) $(srcdir)/scribustru4.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/scribustru4.png
-	$(INSTALL_DATA) $(srcdir)/Scripter.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/Scripter.png
-	$(INSTALL_DATA) $(srcdir)/Scripter_error_string.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/Scripter_error_string.png
+	$(INSTALL_DATA) $(srcdir)/spinbox1.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/spinbox1.png
+	$(INSTALL_DATA) $(srcdir)/swmenu.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/swmenu.png
+	$(INSTALL_DATA) $(srcdir)/swdialog.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/swdialog.png
+	$(INSTALL_DATA) $(srcdir)/svg1.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/svg1.png
+	$(INSTALL_DATA) $(srcdir)/xnview.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/xnview.png
+	$(INSTALL_DATA) $(srcdir)/formularz_export_PDF.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/formularz_export_PDF.png
+	$(INSTALL_DATA) $(srcdir)/formularz_js_skrypt.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/formularz_js_skrypt.png
+	$(INSTALL_DATA) $(srcdir)/formularz_js_sprawdzanie.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/formularz_js_sprawdzanie.png
+	$(INSTALL_DATA) $(srcdir)/formularz_nowy.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/formularz_nowy.png
+	$(INSTALL_DATA) $(srcdir)/formularz_pole_num.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/formularz_pole_num.png
 	$(INSTALL_DATA) $(srcdir)/siatka_jednostki_miar.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/siatka_jednostki_miar.png
 	$(INSTALL_DATA) $(srcdir)/siatka_menu.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/siatka_menu.png
-	$(INSTALL_DATA) $(srcdir)/spinbox1.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/spinbox1.png
-	$(INSTALL_DATA) $(srcdir)/svg1.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/svg1.png
 	$(INSTALL_DATA) $(srcdir)/symbole.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/symbole.png
 	$(INSTALL_DATA) $(srcdir)/ulica.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/ulica.png
 	$(INSTALL_DATA) $(srcdir)/wlasciwosci_pola.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/wlasciwosci_pola.png
 	$(INSTALL_DATA) $(srcdir)/wyslij_formularz.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/wyslij_formularz.png
-	$(INSTALL_DATA) $(srcdir)/xnview.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/xnview.png
 
 uninstall-local:
 
-
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/acro1.png
+	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/acro2.png
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/acro3.png
+	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/acroreader5.1.png
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/acroinfo.png
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/acropass.png
+	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/after_short_words.png
+	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/before_short_words.png
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/acrosec.png
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/batik1.png	
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/cmsmodify1.png
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/cmspanel.png
-	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/cmspanel.png
-	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/colormanager2.png
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/colormanager2.png
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/colormgmtscreen.png
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/cups1.png
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/cups2.png
+	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/cmspanel.png
+	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/colormanager2.png
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/docheader1.png
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/docheader2.png
+	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/fontprev.png
+	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/fonts.png
+	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/fonts2.png
+	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/fonts3.png
+	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/fonts4.png
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/fontpref1.png 
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/fontpref2.png
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/fontpref3.png
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/fontprev.png
-	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/fontprev.png
-	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/fonts.png
-	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/fonts2.png
-	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/formularz_export_PDF.png
-	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/formularz_js_skrypt.png
-	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/formularz_js_sprawdzanie.png
-	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/formularz_nowy.png
-	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/formularz_pole_num.png
+	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/fontsampler.png
+	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/fontsampler2.png
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/gammagrayscale.png
-	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/gimpoptions1.png
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/gimpoptions2.png
+	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/gimpoptions1.png
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/gimpoptions3.png
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/gsadv1.png
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/gsadv2.png
@@ -125,7 +137,6 @@ uninstall-local:
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/monprof2.png
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/monprof3.png
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/monprof4.png
-	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/pdfx3-1.png
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/pdfxcolor.png
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/pdfxintent.png
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/prefsblgrid1.png
@@ -137,23 +148,30 @@ uninstall-local:
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/prefspanel5.png
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/printer1.png 
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/printer2.png
-	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/printer3.png
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/printpreview.png
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/printseps.png
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/pstoedit1.png
-	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/RDF.png
+	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/pdfx3-1.png
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/result.png
-	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/scribus2.png
-	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/scribuscms1.png
-	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/scribustru4.png
+	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/RDF.png
+	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/spinbox1.png
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/Scripter.png
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/Scripter_error_string.png
+	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/scribus2.png
+	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/scribustru4.png
+	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/svg1.png
+	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/scribuscms1.png
+	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/swdialog.png
+	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/swmenu.png
+	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/xnview.png
+	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/formularz_export_PDF.png
+	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/formularz_js_skrypt.png
+	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/formularz_js_sprawdzanie.png
+	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/formularz_nowy.png
+	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/formularz_pole_num.png
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/siatka_jednostki_miar.png
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/siatka_menu.png
-	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/spinbox1.png
-	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/svg1.png
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/symbole.png
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/ulica.png
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/wlasciwosci_pola.png
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/wyslij_formularz.png
-	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/xnview.png

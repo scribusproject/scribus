@@ -1,25 +1,19 @@
 <qt>
 <title>CJK, Indic Script and Other non-Latin Fonts</title>
 <h2>CJK, Indic Script and Other non-Latin Fonts</h2>
-
-<p>CJK (Chinese, Japanese, Korean) usage in Scribus is possible. Actually, except for adding KOIR-8 encodings, not much has been done to support CJK fonts (yet). However, some users have reported some success, including using exported PDFs for commercial print jobs. Thanks to QT's excellent Unicode support, already some of the work is done.</p>
-
+<p>CJK (Chinese, Japanese, Korean) usage in Scribus is possible. Actually, except for adding KOIR-8 encodings, not much has been done to support CJK fonts (yet). However, some users have reported some success, including using exported PDFs for commercial print jobs. Thanks to QT's excellent Unicode support, already some of the work is done. Major work is underway on the next genration of Scribus to vastly expand support for non-Latin scripts. Stay tuned.</p>
 <h4>So, what Scribus can do now ?</h4>
-
 <ul>
-	<li>Almost any good Unicode font will display individual glyphs in Scribus. Testing with the Cyberbit Unicode font shows no issues, except for loading speed. </li>
-	<li>Arabic script can be written and imported, but the special features of line endings are not yet enabled.</li>
-	<li>Hebrew is well supported and right to left text is already enabled in Scribus.</li>
-	<li>Indic Scripts are a much more difficult task, however, we have strong interest in supporting them. One Indian developer has been working with Scribus developers to modify the display canvas to fully support the special features needed to display and print them properly.</li>
+	<li>Almost any good Unicode font will display individual glyphs in Scribus. Testing with large Unicode fonts such as Bitsream Cyberbit font shows no issues in display or printing, except for loading speed. </li>
+	<li>Arabic script can be written and imported, but the special features of glyph combination in line endings are not yet enabled.</li>
+	<li>Hebrew is well supported and right to left text is already enabled in Scribus. There are some issue with some accents.</li>
+	<li>Indic Scripts are a much more difficult task, however, we have strong interest in supporting them. One developer has been working with Scribus developers to modify the display canvas to fully support the special features needed to display and print them properly.</li>
 	<li>Glyph combining in these languages is not supported (yet).</li>
 	<li>Scribus supports both Unicode TrueType fonts and OpenType Fonts, even if you export PDF 1.3.</li>
 	<li>Exported EPS or Postscript works fine with most CJK or Unicode fonts.</li>
 	<li>Cyrillic works perfectly and Scribus has active translators for Russian and Ukrainian.</li>
 </ul>
-
-
 <h4>Hints: </h4>
-
 <ul>
 	<li>To reduce the size of your exported PDF and postscript files either:
 		<ol>

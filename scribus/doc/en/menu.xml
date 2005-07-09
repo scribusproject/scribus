@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <menu>
 	<area text="Welcome" file="index.html">
-		<submenuitem text="Download" file="download.html"/>
-		<submenuitem text="Documentation Changes" file="docchanges.html"/>
+	<submenuitem text="Readme First" file="readme.html"/>
+
 	</area>
 	<area text="Documentation" file="documentation.html">
 		<submenuitem text="Introduction" file="intro.html">
@@ -21,15 +21,21 @@
 		<submenuitem text="Cross Platform" file="cross-platform.html">
 			<submenuitem text="Mac OSX/Fink" file="machints1.html"/>
 			<submenuitem text="Mac OSX/Fink &amp; CVS" file="machints2.html"/>
-			<submenuitem text="Windows &amp; Cygwin" file="cygwin.html"/>
 		</submenuitem>
 		<submenuitem text="Setup" file="settings1.html">
 			<submenuitem text="Keyboard Shortcuts" file="keys.html"/>
+			<submenuitem text="Mouse Shortcuts" file="mouse.html"/>
 			<submenuitem text="Hyphenation" file="hyphenator.html"/>
 			<submenuitem text="Font Setup" file="fonts1.html"/>
 			<submenuitem text="Fonts in Depth" file="fonts2.html"/>
 			<submenuitem text="Non-Latin Fonts" file="fonts3.html"/>
-		</submenuitem>
+			<submenuitem text="Basic Font Tests" file="fonts4.html"/>
+			<submenuitem text="Basic Font Tests 2" file="fonts5.html"/>
+			</submenuitem>
+			<!-- <submenuitem text="Document Text" file="text.html" />
+			<submenuitem text="Doc. Info" file="docinfo.html" />
+			<submenuitem text="Short Words Plug-in" file="short-words.html" />
+	      </submenuitem> -->
 		<submenuitem text="Importing" file="importhints.html">
 			<submenuitem text="Importing (Advanced)" file="importhints2.html"/>
 			<submenuitem text="Importing SVGs" file="scribus-svg.html"/>
@@ -50,6 +56,9 @@
 			<submenuitem text="Pre-Press" file="prepress.html"/>
 		</submenuitem>
 		<submenuitem text="Color Management" file="cms.html">
+			<submenuitem text="Part 2 " file="cms2.html"/>
+			<submenuitem text="Part 3 " file="cms3.html"/>
+			<submenuitem text="Part 4 " file="cms4.html"/>
 			<submenuitem text="Monitor Profiling" file="moncal.html"/>
 		</submenuitem>
 		<submenuitem text="DTP ToolBox" file="toolbox.html">
@@ -60,6 +69,7 @@
 			<submenuitem text="Ghostscript" file="toolbox5.html"/>
 			<submenuitem text="GSview" file="toolbox6.html"/>
 			<submenuitem text="Advanced Ghostscript &amp; GSView" file="toolbox7.html"/>
+			<submenuitem text="GS Fonts" file="gsfont.html"/>
 			<submenuitem text="Imagemagick" file="toolbox8.html"/>
 			<submenuitem text="Inkscape" file="toolbox9.html"/>
 			<submenuitem text="KSnapshot" file="toolbox10.html"/>
@@ -106,6 +116,7 @@
 	</area>
 	<area text="Other Information" file="otherinfo.html">
 		<submenuitem text="Community" file="resources.html"/>
+		<submenuitem text="Download" file="download.html"/>
 		<submenuitem text="Contributions" file="contributions.html"/>
 		<submenuitem text="Scribus Copyright" file="scribuscopyright.html"/>
 		<submenuitem text="Documentation Copyright" file="doccopyright.html"/>
