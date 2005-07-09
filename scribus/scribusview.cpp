@@ -26,6 +26,8 @@
  #include "config.h"
 #endif
 
+#include <assert.h>
+
 #include "pageback.h"
 #include <qcolor.h>
 #include <qfont.h>
