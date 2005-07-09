@@ -24,7 +24,7 @@
 #include "gtparagraphstyle.h"
 #include "gtframestyle.h"
 #include "gtwriter.h"
-
+#include "page.h"
 
 TOCGenerator::TOCGenerator(QObject *parent, const char *name, ScribusDoc *doc) : QObject(parent, name)
 {
@@ -73,7 +73,7 @@ void TOCGenerator::generateDefault()
 			PageItem *currentDocItem;
 			QMap<QString, QString> tocMap;
 			tocMap.clear();
-			uint pageCounter[currDoc->pageCount];
+			uint *pageCounter =  new uint[currDoc->pageCount];
 			uint pageNumberWidth=QString("%1").arg(currDoc->pageCount).length();
 			for (int i=0;i<=currDoc->pageCount;++i)
 				pageCounter[i]=0;
@@ -131,6 +131,7 @@ void TOCGenerator::generateDefault()
 			}
 			if (writer!=NULL)
 				delete writer;
+			delete[] pageCounter;
 		}
 	}
 }
