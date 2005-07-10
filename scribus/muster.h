@@ -51,6 +51,7 @@ private slots:
 
 signals:
 	void createNew(int);
+	void removePage(int);
 	void loadPage(QString, int, bool);
 	void finished();
 	void docAltered(ScribusDoc *);

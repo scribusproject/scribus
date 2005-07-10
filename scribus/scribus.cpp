@@ -9321,6 +9321,7 @@ void ScribusApp::manageMasterPages(QString temp)
 			doc->masterPageMode = true;
 			MasterPagesPalette *dia = new MasterPagesPalette(this, doc, view, temp);
 			connect(dia, SIGNAL(createNew(int)), this, SLOT(slotNewMasterPage(int)));
+			connect(dia, SIGNAL(removePage(int )), this, SLOT(DeletePage2(int )));
 			connect(dia, SIGNAL(loadPage(QString, int, bool)), this, SLOT(loadPage(QString, int, bool)));
 			connect(dia, SIGNAL(finished()), this, SLOT(manageMasterPagesEnd()));
 			connect(dia, SIGNAL(docAltered(ScribusDoc* )), outlinePalette, SLOT(BuildTree(ScribusDoc* )));
