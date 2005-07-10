@@ -84,6 +84,12 @@ class LoremManager : public QDialog
 		//! all lorems with Public Name -> filename structure
 		QMap<QString,QString> availableLorems;
 
+		/*! Apply created LI into a frame
+		\param name filename of the selected LI
+		\param paraCount count of the paragraphs
+		*/
+		void insertLoremIpsum(QString name, int paraCount);
+
 	public slots:
 		virtual void okButton_clicked();
 		virtual void cancelButton_clicked();
@@ -92,7 +98,6 @@ class LoremManager : public QDialog
 		QListView* loremList;
 		QLabel* paraLabel;
 		QSpinBox* paraBox;
-		QCheckBox* alwaysCheckBox;
 		QPushButton* okButton;
 		QPushButton* cancelButton;
 

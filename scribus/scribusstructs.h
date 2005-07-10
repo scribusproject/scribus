@@ -525,6 +525,9 @@ struct ApplicationPrefs
 	double ScratchBottom;
 	bool askBeforeSubstituite;
 	bool haveStylePreview;
+	// lorem ipsum
+	bool useStandardLI;
+	int paragraphsLI;
 };
 
 struct PrintOptions

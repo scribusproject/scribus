@@ -166,7 +166,12 @@ public:
 	QCheckBox* DoGCR;
 	QCheckBox* AskForSubs;
 	QCheckBox* stylePreview;
-	// plugin manager
+	//! lorem ipsum
+	QGroupBox* groupLI;
+	QCheckBox* useStandardLI;
+	QSpinBox* paragraphsLI;
+	QLabel* paraLabelLI;
+	//! plugin manager
 	QWidget* pluginManagerWidget;
 	QGroupBox* plugGroupBox;
 	QListView* pluginsList;
@@ -221,6 +226,8 @@ protected:
 	QHBoxLayout* groupGimpLayout;
 	QVBoxLayout* MiscLayout;
 	QVBoxLayout* groupPrintLayout;
+	//! layout of the lorem ipsum group
+	QVBoxLayout* groupLILayout;
 	QVBoxLayout* tabViewLayout;
 	QVBoxLayout* pageBackgroundLayout;
 	QHBoxLayout* layout10;
@@ -230,12 +237,12 @@ protected:
 	QVBoxLayout* plugLayout1;
 	QVBoxLayout* pluginMainLayout;
 	QGridLayout* plugGroupBoxLayout;
-	
+
 	QStringList defaultAttributesList;
 
 protected slots:
 	virtual void setTOCIndexData(QWidget *widgetToShow);
-		
+
 private slots:
 	void setSelectedGUILang( const QString &newLang );
 	void setActionHistoryLength();

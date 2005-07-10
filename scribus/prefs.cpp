@@ -371,8 +371,8 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	tabDefaultTOCIndexPrefs->setup(&prefsData->defaultToCSetups, NULL);
 	connect( prefsWidgets, SIGNAL(aboutToShow(QWidget *)), this, SLOT(setTOCIndexData(QWidget *)));
 	addItem( tr("Table of Contents and Indexes"), loadIcon("tabtocindex.png"), tabDefaultTOCIndexPrefs);
-	
-	
+
+
 	tabKeys = new KeyManager(prefsWidgets, prefsData->KeyActions);
 	addItem( tr("Keyboard Shortcuts"), loadIcon("key_bindings.png"), tabKeys);
 
@@ -615,6 +615,26 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	stylePreview = new QCheckBox( tr( "Preview of current Paragraph Style visible when editing Styles" ), Misc, "stylePreview" );
 	stylePreview->setChecked(prefsData->haveStylePreview);
 	MiscLayout->addWidget( stylePreview );
+	// lorem ipsum
+	groupLI = new QGroupBox(tr("Lorem Ipsum"), Misc, "groupLI");
+	groupLI->setColumnLayout(0, Qt::Vertical);
+	groupLI->layout()->setSpacing(10);
+	groupLI->layout()->setMargin(10);
+	groupLILayout = new QVBoxLayout(groupLI->layout());
+	groupLILayout->setAlignment(Qt::AlignTop);
+	useStandardLI = new QCheckBox(tr("Always use standard Lorem Ipsum"), groupLI, "useStandardLI");
+	useStandardLI->setChecked(prefsData->useStandardLI);
+	groupLILayout->addWidget(useStandardLI);
+	paraLabelLI = new QLabel(tr("Count of the Paragraphs:"), groupLI, "paraLabelLI");
+	paragraphsLI = new QSpinBox(groupLI, "paragraphsLI");
+	paragraphsLI->setMinValue(1);
+	paragraphsLI->setValue(prefsData->paragraphsLI);
+	QHBoxLayout *liLayout = new QHBoxLayout();
+	liLayout->addWidget(paraLabelLI);
+	liLayout->addWidget(paragraphsLI);
+	groupLILayout->addLayout(liLayout);
+	MiscLayout->addWidget(groupLI);
+	// spacer filling
 	QSpacerItem* spacer_3m = new QSpacerItem( 0, 1, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	MiscLayout->addItem( spacer_3m );
 	addItem(  tr("Miscellaneous"), loadIcon("misc.png"), Misc);
@@ -1009,7 +1029,7 @@ void Preferences::unitChange()
 	unitRatio = unitGetRatioFromIndex(docUnitIndex);
 	decimals = unitGetDecimalsFromIndex(docUnitIndex);
 	einh = unitGetSuffixFromIndex(docUnitIndex);
-	
+
 	pageWidth->setSuffix(einh);
 	pageHeight->setSuffix(einh);
 	tabGuides->minorSpace->setSuffix(einh);
@@ -1033,7 +1053,7 @@ void Preferences::unitChange()
 	GroupRand->setPageWidth(Pagebr);
 	int decimalsOld;
 	double invUnitConversion = 1.0 / oldUnitRatio * unitRatio;
-	
+
 	tabGuides->minorSpace->getValues(&oldMin, &oldMax, &decimalsOld, &val);
 	tabGuides->minorSpace->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 	tabGuides->majorSpace->getValues(&oldMin, &oldMax, &decimalsOld, &val);
@@ -1181,7 +1201,9 @@ void Preferences::switchCMS(bool enable)
 	tabPDF->enableCMS(enable);
 }
 
-/*! Set selected item(=plugin) un/loadable (petr vanek) */
+/*! Set selected item(=plugin) un/loadable
+\author Petr Vanek
+*/
 void Preferences::changePluginLoad(QListViewItem *item, const QPoint &, int column)
 {
 	if (column != 3)
@@ -1202,7 +1224,7 @@ void Preferences::changePluginLoad(QListViewItem *item, const QPoint &, int colu
 
 void Preferences::setTOCIndexData(QWidget *widgetToShow)
 {
-	//Update the attributes list in TOC setup 
+	//Update the attributes list in TOC setup
 	if (widgetToShow==tabDefaultTOCIndexPrefs)
 		tabDefaultTOCIndexPrefs->setupItemAttrs( tabDefaultItemAttributes->getDocAttributesNames() );
 }

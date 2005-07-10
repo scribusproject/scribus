@@ -66,7 +66,7 @@ LoremParser::LoremParser(QString fname)
 			if (element.tagName() == "url")
 				url = element.text();
 			if (element.tagName() == "p")
-				loremIpsum.append(element.text());
+				loremIpsum.append(element.text().simplifyWhiteSpace());
 		}
 		node = node.nextSibling();
 	}
@@ -89,16 +89,6 @@ QString LoremParser::createLorem(uint parCount)
 LoremManager::LoremManager(QWidget* parent, const char* name, bool modal, WFlags fl)
 	: QDialog( parent, name, modal, fl )
 {
-	// setup checking
-	if (!ScApp->HaveDoc)
-		return;
-	if (ScApp->view->SelItem.count() == 0)
-	{
-		ScApp->mainWindowStatusLabel->setText(tr("Select any text item to apply dummy text"));
-		return;
-	}
-
-	// UI construction
 	if ( !name )
 		setName( "LoremManager" );
 	LoremManagerLayout = new QGridLayout( this, 1, 1, 11, 6, "LoremManagerLayout");
@@ -117,14 +107,11 @@ LoremManager::LoremManager(QWidget* parent, const char* name, bool modal, WFlags
 
 	paraBox = new QSpinBox( this, "paraBox" );
 	paraBox->setMinValue( 1 );
-	paraBox->setValue( 4 );
+	paraBox->setValue(ScApp->Prefs.paragraphsLI);
 	layout2->addWidget( paraBox );
 	paraSpacer = new QSpacerItem( 40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout2->addItem( paraSpacer );
 	layout3->addLayout( layout2 );
-
-	alwaysCheckBox = new QCheckBox( this, "alwaysCheckBox" );
-	layout3->addWidget( alwaysCheckBox );
 
 	layout1 = new QHBoxLayout( 0, 0, 6, "layout1");
 	buttonSpacer = new QSpacerItem( 40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -178,8 +165,6 @@ void LoremManager::languageChange()
 {
 	setCaption( tr( "Lorem Ipsum" ) );
 	paraLabel->setText( tr( "Paragraphs:" ) );
-	alwaysCheckBox->setText( tr( "&Always Use Selected Lorem Ipsum" ) );
-	alwaysCheckBox->setAccel( QKeySequence( tr( "Alt+A" ) ) );
 	okButton->setText( tr( "&OK" ) );
 	okButton->setAccel( QKeySequence( tr( "Alt+O" ) ) );
 	cancelButton->setText( tr( "&Cancel" ) );
@@ -195,12 +180,19 @@ void LoremManager::okButton_clicked()
 	else
 		li = loremList->currentItem()->parent();
 
-	LoremParser *lp = new LoremParser(availableLorems[li->text(0)]);
-	if (lp == NULL)
-	{
-		qDebug("LoremManager::okButton_clicked() *lp == NULL");
-		return;
-	}
+	insertLoremIpsum(availableLorems[li->text(0)], paraBox->value());
+	accept();
+}
+
+void LoremManager::cancelButton_clicked()
+{
+	reject();
+}
+
+void LoremManager::insertLoremIpsum(QString name, int paraCount)
+{
+	// is it really applied?
+	bool done = false;
 
 	for (uint i = 0; i < ScApp->view->SelItem.count(); ++i)
 	{
@@ -212,15 +204,31 @@ void LoremManager::okButton_clicked()
 		{
 			QString text = "<qt>" + tr("Do you really want to replace all your text in the frame named %1 with sample text?") + "</qt>";
 			int t = QMessageBox::warning(ScApp, tr("Warning"),
-						QString(text).arg(ScApp->view->SelItem.at(i)->itemName()),
-						QMessageBox::No, QMessageBox::Yes, QMessageBox::NoButton);
+										 QString(text).arg(ScApp->view->SelItem.at(i)->itemName()),
+										 QMessageBox::No, QMessageBox::Yes, QMessageBox::NoButton);
 			if (t == QMessageBox::No)
 				continue;
+			if (t == QMessageBox::Yes)
+			{
+				ScApp->view->ClearItem();
+				/* ClearItem() doesn't return true or false so
+				the following test has to be done */
+				if (ScApp->view->SelItem.at(i)->itemText.count() != 0)
+					continue;
+			}
+		}
+
+		LoremParser *lp = new LoremParser(name);
+		if (lp == NULL)
+		{
+			qDebug("LoremManager::okButton_clicked() *lp == NULL");
+			return;
 		}
 		Serializer *ss = new Serializer("");
 		if (ss != NULL)
 		{
-			ss->Objekt = lp->createLorem(paraBox->value());
+			done = true;
+			ss->Objekt = lp->createLorem(paraCount);
 			int st = ScApp->view->SelItem.at(i)->Doc->currentParaStyle;
 			if (st > 5)
 				ss->GetText(ScApp->view->SelItem.at(i), st, ScApp->view->SelItem.at(i)->Doc->docParagraphStyles[st].Font, ScApp->view->SelItem.at(i)->Doc->docParagraphStyles[st].FontSize, true);
@@ -231,13 +239,9 @@ void LoremManager::okButton_clicked()
 		if (ScApp->view->SelItem.at(i)->Doc->docHyphenator->AutoCheck)
 			ScApp->view->SelItem.at(i)->Doc->docHyphenator->slotHyphenate(ScApp->view->SelItem.at(i));
 	}
-	ScApp->view->updateContents();
-	ScApp->slotDocCh();
-	accept();
+	if (done)
+	{
+		ScApp->view->updateContents();
+		ScApp->slotDocCh();
+	}
 }
-
-void LoremManager::cancelButton_clicked()
-{
-	reject();
-}
-

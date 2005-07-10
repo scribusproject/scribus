@@ -790,7 +790,7 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 			VorlC++;
 		}
 	}
-	
+
 }
 
 bool ScriXmlDoc::ReadStyles(QString fileName, ScribusDoc* doc, ApplicationPrefs *Prefs)
@@ -1109,7 +1109,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 				/*
 				* Attribute von OBJECT auslesen
 				*/
-					if ((QStoInt(obj.attribute("NEXTITEM")) != -1) && 
+					if ((QStoInt(obj.attribute("NEXTITEM")) != -1) &&
 							(QStoInt(obj.attribute("NEXTPAGE")) == PageToLoad))
 					{
 						if (QStoInt(obj.attribute("BACKITEM")) == -1)
@@ -1244,7 +1244,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 				return true;
 			}
 		PAGE=PAGE.nextSibling();
-		}	
+		}
 	DOC=DOC.nextSibling();
 	}
 	return false;
@@ -1294,7 +1294,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 		}
 		fi.close();
 	}
-	doc->PageColors.clear();	
+	doc->PageColors.clear();
 	doc->Layers.clear();
 	CMYKColor lf = CMYKColor();
 	QDomElement elem=docu.documentElement();
@@ -3006,7 +3006,7 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 		else
 			ob.setAttribute("NEXTITEM", -1);
 		ob.setAttribute("LAYER", item->LayerNr);
-		
+
 		//CB PageItemAttributes
 		QDomElement docItemAttrs = docu->createElement("PageItemAttributes");
 		ObjAttrVector *attributes=item->getObjectAttributes();
@@ -3023,7 +3023,7 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 			docItemAttrs.appendChild(itemAttr);
 		}
 		ob.appendChild(docItemAttrs);
-		
+
 		dc->appendChild(ob);
 	}
 }
@@ -3815,6 +3815,12 @@ void ScriXmlDoc::WritePref(ApplicationPrefs *Vor, QString ho)
 		tocElem.appendChild(tocsetup);
 	}
 	elem.appendChild(tocElem);
+	// lorem ipsum
+	QDomElement liElem = docu.createElement("LoremIpsum");
+	liElem.setAttribute("useStandardLI", static_cast<int>(Vor->useStandardLI));
+	liElem.setAttribute("paragraphsLI", Vor->paragraphsLI);
+	elem.appendChild(liElem);
+	// write file
 	QFile f(ho);
 	if(!f.open(IO_WriteOnly))
 		return;
@@ -4022,7 +4028,7 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 			Vorein->DCMSset.DefaultIntentMonitor2 = QStoInt(dc.attribute("DIMo2","3"));
 		}
 		if (!import12 && dc.tagName()=="SHORTCUT")
-		{		
+		{
 			if (Vorein->KeyActions.contains(dc.attribute("ACTION")))
 			{
 				Vorein->KeyActions[dc.attribute("ACTION")].actionName = dc.attribute("ACTION");
@@ -4035,7 +4041,7 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 		{
 			Vorein->curCheckProfile = dc.attribute("currentProfile", tr("Postscript"));
 		}
-		
+
 		if (dc.tagName()=="CheckProfile")
 		{
 			QString name=dc.attribute("Name");
@@ -4055,7 +4061,7 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 				checkerSettings.checkRasterPDF = static_cast<bool>(QStoInt(dc.attribute("checkRasterPDF", "1")));
 				Vorein->checkerProfiles[name] = checkerSettings;
 			}
-		
+
 		}
 		if (dc.tagName()=="PRINTER")
 		{
@@ -4239,6 +4245,12 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 				}
 				TOC = TOC.nextSibling();
 			}
+		}
+		// lorem ispum
+		if (dc.tagName() == "LoremIpsum")
+		{
+			Vorein->useStandardLI = static_cast<bool>(QStoInt(dc.attribute("useStandardLI", "0")));
+			Vorein->paragraphsLI = QStoInt(dc.attribute("paragraphsLI", "10"));
 		}
 		DOC=DOC.nextSibling();
 	}

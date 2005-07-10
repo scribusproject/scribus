@@ -570,6 +570,9 @@ void ScribusApp::initDefaultPrefs()
 	Prefs.ScratchBottom = 20;
 	Prefs.askBeforeSubstituite = true;
 	Prefs.haveStylePreview = true;
+	// lorem ipsum defaults
+	Prefs.useStandardLI = false;
+	Prefs.paragraphsLI = 10;
 	struct checkerPrefs checkerSettings;
 	checkerSettings.ignoreErrors = false;
 	checkerSettings.autoCheck = true;
@@ -8405,6 +8408,9 @@ void ScribusApp::slotPrefsOrg()
 		Prefs.marginColored = dia->checkUnprintable->isChecked();
 		Prefs.askBeforeSubstituite = dia->AskForSubs->isChecked();
 		Prefs.haveStylePreview = dia->stylePreview->isChecked();
+		// lorem ipsum
+		Prefs.useStandardLI = dia->useStandardLI->isChecked();
+		Prefs.paragraphsLI = dia->paragraphsLI->value();
 		if (Prefs.DisScale != dia->DisScale)
 		{
 			Prefs.DisScale = dia->DisScale;
@@ -11060,7 +11066,10 @@ void ScribusApp::mouseReleaseEvent(QMouseEvent *m)
 void ScribusApp::insertSampleText()
 {
 	LoremManager *m = new LoremManager(this, "m", true, 0);
-	m->exec();
+	if (Prefs.useStandardLI)
+		m->insertLoremIpsum("loremipsum.xml", ScApp->Prefs.paragraphsLI);
+	else
+		m->exec();
 	delete(m);
 }
 
