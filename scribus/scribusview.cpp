@@ -8871,7 +8871,7 @@ void ScribusView::GotoPage(int Seite)
 
 void ScribusView::showMasterPage(int nr)
 {
-	Deselect(true);
+	Deselect(false);
 	OldScale = Scale;
 	if (!Doc->MasterP)
 	{
