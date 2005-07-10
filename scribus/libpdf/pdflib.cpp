@@ -2655,6 +2655,8 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, Page* pag)
 				continue;
 			}
 		}
+		if (hl->ch == QChar(9))
+			continue;
 		if ((hl->cstyle & 256) && (hl->cstroke != "None"))
 		{
 			struct ScText hl2;

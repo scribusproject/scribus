@@ -2046,6 +2046,8 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, Page* pg
 				continue;
 			}
 		}
+		if (hl->ch == QChar(9))
+			continue;
 		if ((hl->cstyle & 256) && (hl->cstroke != "None"))
 		{
 			struct ScText hl2;
