@@ -142,6 +142,7 @@
 #include "pagesize.h"
 #include "loremipsum.h"
 #include "marginWidget.h"
+#include "margindialog.h"
 
 using namespace std;
 
@@ -1272,6 +1273,7 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["pageMove"], "Page");
 	scrMenuMgr->addMenuItem(scrActions["pageApplyMasterPage"], "Page");
 	scrMenuMgr->addMenuItem(scrActions["pageManageGuides"], "Page");
+	scrMenuMgr->addMenuItem(scrActions["pageManageMargins"], "Page");
 	scrActions["pageDelete"]->setEnabled(false);
 	scrActions["pageMove"]->setEnabled(false);
 
@@ -7276,6 +7278,23 @@ void ScribusApp::CopyPage()
 		pagePalette->RebuildPage();
 		outlinePalette->BuildTree(doc);
 		AdjustBM();
+	}
+	delete dia;
+}
+
+void ScribusApp::changePageMargins()
+{
+	NoFrameEdit();
+	MarginDialog *dia = new MarginDialog(this, doc);
+	if (dia->exec())
+	{
+		doc->currentPage->initialMargins.Top = dia->GroupRand->RandT;
+		doc->currentPage->initialMargins.Bottom = dia->GroupRand->RandB;
+		doc->currentPage->initialMargins.Left = dia->GroupRand->RandL;
+		doc->currentPage->initialMargins.Right = dia->GroupRand->RandR;
+		view->reformPages();
+		view->DrawNew();
+		slotDocCh();
 	}
 	delete dia;
 }

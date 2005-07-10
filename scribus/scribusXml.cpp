@@ -2723,10 +2723,10 @@ void ScriXmlDoc::WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc
 		pg.setAttribute("PAGEYPOS",page->Yoffset);
 		pg.setAttribute("PAGEWIDTH",page->Width);
 		pg.setAttribute("PAGEHEIGHT",page->Height);
-		pg.setAttribute("BORDERLEFT",page->Margins.Left);
-		pg.setAttribute("BORDERRIGHT",page->Margins.Right);
-		pg.setAttribute("BORDERTOP",page->Margins.Top);
-		pg.setAttribute("BORDERBOTTOM",page->Margins.Bottom);
+		pg.setAttribute("BORDERLEFT",page->initialMargins.Left);
+		pg.setAttribute("BORDERRIGHT",page->initialMargins.Right);
+		pg.setAttribute("BORDERTOP",page->initialMargins.Top);
+		pg.setAttribute("BORDERBOTTOM",page->initialMargins.Bottom);
 		pg.setAttribute("NUM",page->PageNr);
 		pg.setAttribute("NAM",page->PageNam);
 		pg.setAttribute("MNAM",page->MPageNam);

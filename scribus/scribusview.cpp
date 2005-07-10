@@ -8358,6 +8358,10 @@ Page* ScribusView::addPage(int nr)
 	Page* fe = new Page(Doc->ScratchLeft, Doc->pageCount*(Doc->pageHeight+Doc->ScratchBottom+Doc->ScratchTop)+Doc->ScratchTop, Doc->pageWidth, Doc->pageHeight);
 	fe->Margins.Top = Doc->pageMargins.Top;
 	fe->Margins.Bottom = Doc->pageMargins.Bottom;
+	fe->initialMargins.Top = Doc->pageMargins.Top;
+	fe->initialMargins.Bottom = Doc->pageMargins.Bottom;
+	fe->initialMargins.Left = Doc->pageMargins.Left;
+	fe->initialMargins.Right = Doc->pageMargins.Right;
 	fe->setPageNr(nr);
 	Doc->Pages.insert(nr, fe);
 	Doc->currentPage = fe;
@@ -8510,13 +8514,13 @@ void ScribusView::reformPages()
 			{
 				if (Seite->LeftPg)
 				{
-					Seite->Margins.Left = Doc->pageMargins.Right;
-					Seite->Margins.Right = Doc->pageMargins.Left;
+					Seite->Margins.Left = Seite->initialMargins.Right;
+					Seite->Margins.Right = Seite->initialMargins.Left;
 				}
 				else
 				{
-					Seite->Margins.Right = Doc->pageMargins.Right;
-					Seite->Margins.Left = Doc->pageMargins.Left;
+					Seite->Margins.Right = Seite->initialMargins.Right;
+					Seite->Margins.Left = Seite->initialMargins.Left;
 				}
 			}
 			else
@@ -8525,37 +8529,37 @@ void ScribusView::reformPages()
 				{
 					if (Doc->FirstPageLeft)
 					{
-						Seite->Margins.Left = Doc->pageMargins.Right;
-						Seite->Margins.Right = Doc->pageMargins.Left;
+						Seite->Margins.Left = Seite->initialMargins.Right;
+						Seite->Margins.Right = Seite->initialMargins.Left;
 					}
 					else
 					{
-						Seite->Margins.Right = Doc->pageMargins.Right;
-						Seite->Margins.Left = Doc->pageMargins.Left;
+						Seite->Margins.Right = Seite->initialMargins.Right;
+						Seite->Margins.Left = Seite->initialMargins.Left;
 					}
 				}
 				else
 				{
 					if (Doc->FirstPageLeft)
 					{
-						Seite->Margins.Right = Doc->pageMargins.Right;
-						Seite->Margins.Left = Doc->pageMargins.Left;
+						Seite->Margins.Right = Seite->initialMargins.Right;
+						Seite->Margins.Left = Seite->initialMargins.Left;
 					}
 					else
 					{
-						Seite->Margins.Left = Doc->pageMargins.Right;
-						Seite->Margins.Right = Doc->pageMargins.Left;
+						Seite->Margins.Left = Seite->initialMargins.Right;
+						Seite->Margins.Right = Seite->initialMargins.Left;
 					}
 				}
 			}
 		}
 		else
 		{
-			Seite->Margins.Right = Doc->pageMargins.Right;
-			Seite->Margins.Left = Doc->pageMargins.Left;
+			Seite->Margins.Right = Seite->initialMargins.Right;
+			Seite->Margins.Left = Seite->initialMargins.Left;
 		}
-		Seite->Margins.Top = Doc->pageMargins.Top;
-		Seite->Margins.Bottom = Doc->pageMargins.Bottom;
+		Seite->Margins.Top = Seite->initialMargins.Top;
+		Seite->Margins.Bottom = Seite->initialMargins.Bottom;
 		if (Doc->MasterP)
 		{
 			Seite->Xoffset = Doc->ScratchLeft;
@@ -8867,6 +8871,7 @@ void ScribusView::GotoPage(int Seite)
 
 void ScribusView::showMasterPage(int nr)
 {
+	Deselect(true);
 	OldScale = Scale;
 	if (!Doc->MasterP)
 	{

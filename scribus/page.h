@@ -42,6 +42,7 @@ public:
 	double Width;
 	double Height;
 	MarginStruct Margins;
+	MarginStruct initialMargins;
   /** Nummer der Seite */
 	uint PageNr;
 	bool LeftPg;

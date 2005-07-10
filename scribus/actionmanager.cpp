@@ -335,6 +335,7 @@ void ActionManager::initPageMenuActions()
 	scrActions->insert("pageMove", new ScrAction(ScApp, "pageMove"));
 	scrActions->insert("pageApplyMasterPage", new ScrAction(ScApp, "pageApplyMasterPage"));
 	scrActions->insert("pageManageGuides", new ScrAction(ScApp, "pageManageGuides"));
+	scrActions->insert("pageManageMargins", new ScrAction(ScApp, "pageManageMargins"));
 
 	connect( (*scrActions)["pageInsert"], SIGNAL(activated()), ScApp, SLOT(slotNewPageM()) );
 	connect( (*scrActions)["pageImport"], SIGNAL(activated()), ScApp, SLOT(slotPageImport()) );
@@ -343,6 +344,7 @@ void ActionManager::initPageMenuActions()
 	connect( (*scrActions)["pageMove"], SIGNAL(activated()), ScApp, SLOT(MovePage()) );
 	connect( (*scrActions)["pageApplyMasterPage"], SIGNAL(activated()), ScApp, SLOT(ApplyMasterPage()) );
 	connect( (*scrActions)["pageManageGuides"], SIGNAL(activated()), ScApp, SLOT(ManageGuides()) );
+	connect( (*scrActions)["pageManageMargins"], SIGNAL(activated()), ScApp, SLOT(changePageMargins()) );
 }
 
 void ActionManager::initViewMenuActions()
@@ -888,6 +890,7 @@ void ActionManager::languageChange()
 	(*scrActions)["pageMove"]->setTexts( tr("&Move..."));
 	(*scrActions)["pageApplyMasterPage"]->setTexts( tr("&Apply Master Page..."));
 	(*scrActions)["pageManageGuides"]->setTexts( tr("Manage &Guides..."));
+	(*scrActions)["pageManageMargins"]->setTexts( tr("Manage Margins..."));
 
 	//View Menu
 	(*scrActions)["viewFitInWindow"]->setTexts( tr("&Fit in window"));

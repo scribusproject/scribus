@@ -336,6 +336,7 @@ public slots:
 	/** Verschiebt Seiten */
 	void MovePage();
 	void CopyPage();
+	void changePageMargins();
 	/** Zoom the view */
 	void slotZoom(double zoomFactor); // 20, 50, 100, or -100 for Fit
 	/** Schaltet Raender ein/aus */

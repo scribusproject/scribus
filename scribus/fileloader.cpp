@@ -916,19 +916,25 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 				else
 					Apage->Width=QStodouble(pg.attribute("PAGEWITH"));
 				Apage->Height = QStodouble(pg.attribute("PAGEHEIGHT"));
+				Apage->initialMargins.Top = QStodouble(pg.attribute("BORDERTOP"));
+				Apage->initialMargins.Bottom = QStodouble(pg.attribute("BORDERBOTTOM"));
+				Apage->initialMargins.Left = QStodouble(pg.attribute("BORDERLEFT"));
+				Apage->initialMargins.Right = QStodouble(pg.attribute("BORDERRIGHT"));
+				Apage->Margins.Top = Apage->initialMargins.Top;
+				Apage->Margins.Bottom = Apage->initialMargins.Bottom;
 				if (doc->PageFP)
 				{
 					if (doc->MasterP)
 					{
 						if (Apage->LeftPg)
 						{
-							Apage->Margins.Right = QStodouble(pg.attribute("BORDERLEFT"));
-							Apage->Margins.Left = QStodouble(pg.attribute("BORDERRIGHT"));
+							Apage->Margins.Right = Apage->initialMargins.Left;
+							Apage->Margins.Left = Apage->initialMargins.Right;
 						}
 						else
 						{
-							Apage->Margins.Left = QStodouble(pg.attribute("BORDERLEFT"));
-							Apage->Margins.Right = QStodouble(pg.attribute("BORDERRIGHT"));
+							Apage->Margins.Left = Apage->initialMargins.Left;
+							Apage->Margins.Right = Apage->initialMargins.Right;
 						}
 					}
 					else
@@ -937,44 +943,36 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 						{
 							if (doc->FirstPageLeft)
 							{
-								Apage->Margins.Right = QStodouble(pg.attribute("BORDERLEFT"));
-								Apage->Margins.Left = QStodouble(pg.attribute("BORDERRIGHT"));
+								Apage->Margins.Right = Apage->initialMargins.Left;
+								Apage->Margins.Left = Apage->initialMargins.Right;
 							}
 							else
 							{
-								Apage->Margins.Left = QStodouble(pg.attribute("BORDERLEFT"));
-								Apage->Margins.Right = QStodouble(pg.attribute("BORDERRIGHT"));
+								Apage->Margins.Left = Apage->initialMargins.Left;
+								Apage->Margins.Right = Apage->initialMargins.Right;
 							}
 						}
 						else
 						{
 							if (doc->FirstPageLeft)
 							{
-								Apage->Margins.Left = QStodouble(pg.attribute("BORDERLEFT"));
-								Apage->Margins.Right = QStodouble(pg.attribute("BORDERRIGHT"));
+								Apage->Margins.Left = Apage->initialMargins.Left;
+								Apage->Margins.Right = Apage->initialMargins.Right;
 							}
 							else
 							{
-								Apage->Margins.Right = QStodouble(pg.attribute("BORDERLEFT"));
-								Apage->Margins.Left = QStodouble(pg.attribute("BORDERRIGHT"));
+								Apage->Margins.Right = Apage->initialMargins.Left;
+								Apage->Margins.Left = Apage->initialMargins.Right;
 							}
 						}
 					}
 				}
 				else
 				{
-					Apage->Margins.Left = QStodouble(pg.attribute("BORDERLEFT"));
-					Apage->Margins.Right = QStodouble(pg.attribute("BORDERRIGHT"));
+					Apage->Margins.Left = Apage->initialMargins.Left;
+					Apage->Margins.Right = Apage->initialMargins.Right;
 				}
 				doc->MasterP = false;
-				Apage->Margins.Top = QStodouble(pg.attribute("BORDERTOP"));
-				Apage->Margins.Bottom = QStodouble(pg.attribute("BORDERBOTTOM"));
-				doc->pageWidth = Apage->Width;
-				doc->pageHeight = Apage->Height;
-				doc->pageMargins.Left = Apage->Margins.Left;
-				doc->pageMargins.Right = Apage->Margins.Right;
-				doc->pageMargins.Top = Apage->Margins.Top;
-				doc->pageMargins.Bottom = Apage->Margins.Bottom;
 				if ((pg.hasAttribute("NumVGuides")) && (QStoInt(pg.attribute("NumVGuides","0")) != 0))
 				{
 					tmp = pg.attribute("VerticalGuides");
