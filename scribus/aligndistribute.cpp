@@ -443,9 +443,9 @@ void AlignDistributePalette::alignLeftOut()
 				if (currDoc->PageFP && !currDoc->MasterP)
 				{
 					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->FirstPageLeft))
-						newX += currDoc->pageWidth;
+						newX += currDoc->currentPage->Width;
 					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->FirstPageLeft))
-						newX += currDoc->pageWidth;
+						newX += currDoc->currentPage->Width;
 				}
 				break;
 			case Margins:
@@ -453,11 +453,11 @@ void AlignDistributePalette::alignLeftOut()
 				if (currDoc->PageFP && !currDoc->MasterP)
 				{
 					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->FirstPageLeft))
-						newX += currDoc->pageWidth;
+						newX += currDoc->currentPage->Width;
 					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->FirstPageLeft))
-						newX += currDoc->pageWidth;
+						newX += currDoc->currentPage->Width;
 				}
-				newX += currDoc->pageMargins.Left;
+				newX += currDoc->currentPage->Margins.Left;
 				break;
 			case Guide:
 				newX=currDoc->ScratchLeft + guidePosition;
@@ -500,9 +500,9 @@ void AlignDistributePalette::alignLeftIn()
 				if (currDoc->PageFP && !currDoc->MasterP)
 				{
 					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->FirstPageLeft))
-						newX += currDoc->pageWidth;
+						newX += currDoc->currentPage->Width;
 					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->FirstPageLeft))
-						newX += currDoc->pageWidth;
+						newX += currDoc->currentPage->Width;
 				}
 				break;
 			case Margins:
@@ -510,11 +510,11 @@ void AlignDistributePalette::alignLeftIn()
 				if (currDoc->PageFP && !currDoc->MasterP)
 				{
 					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->FirstPageLeft))
-						newX += currDoc->pageWidth;
+						newX += currDoc->currentPage->Width;
 					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->FirstPageLeft))
-						newX += currDoc->pageWidth;
+						newX += currDoc->currentPage->Width;
 				}
-				newX += currDoc->pageMargins.Left;
+				newX += currDoc->currentPage->Margins.Left;
 				break;
 			case Guide:
 				newX=currDoc->ScratchLeft + guidePosition;
@@ -560,23 +560,23 @@ void AlignDistributePalette::alignCenterHor()
 				if (currDoc->PageFP && !currDoc->MasterP)
 				{
 					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->FirstPageLeft))
-						newX += currDoc->pageWidth;
+						newX += currDoc->currentPage->Width;
 					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->FirstPageLeft))
-						newX += currDoc->pageWidth;
+						newX += currDoc->currentPage->Width;
 				}
-				newX += currDoc->pageWidth/2;
+				newX += currDoc->currentPage->Width/2;
 				break;
 			case Margins:
 				newX = currDoc->ScratchLeft;
 				if (currDoc->PageFP && !currDoc->MasterP)
 				{
 					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->FirstPageLeft))
-						newX += currDoc->pageWidth;
+						newX += currDoc->currentPage->Width;
 					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->FirstPageLeft))
-						newX += currDoc->pageWidth;
+						newX += currDoc->currentPage->Width;
 				}
-				newX += currDoc->pageMargins.Left;
-				newX += (currDoc->pageWidth - currDoc->pageMargins.Right - currDoc->pageMargins.Left)/2;
+				newX += currDoc->currentPage->Margins.Left;
+				newX += (currDoc->currentPage->Width - currDoc->currentPage->Margins.Right - currDoc->currentPage->Margins.Left)/2;
 				break;
 			case Guide:
 				newX=currDoc->ScratchLeft + guidePosition;
@@ -624,23 +624,23 @@ void AlignDistributePalette::alignRightIn()
 				if (currDoc->PageFP && !currDoc->MasterP)
 				{
 					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->FirstPageLeft))
-						newX += currDoc->pageWidth;
+						newX += currDoc->currentPage->Width;
 					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->FirstPageLeft))
-						newX += currDoc->pageWidth;
+						newX += currDoc->currentPage->Width;
 				}
-				newX += currDoc->pageWidth;
+				newX += currDoc->currentPage->Width;
 				break;
 			case Margins:
 				newX = currDoc->ScratchLeft;
 				if (currDoc->PageFP && !currDoc->MasterP)
 				{
 					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->FirstPageLeft))
-						newX += currDoc->pageWidth;
+						newX += currDoc->currentPage->Width;
 					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->FirstPageLeft))
-						newX += currDoc->pageWidth;
+						newX += currDoc->currentPage->Width;
 				}
-				newX += currDoc->pageWidth;
-				newX -= currDoc->pageMargins.Right;
+				newX += currDoc->currentPage->Width;
+				newX -= currDoc->currentPage->Margins.Right;
 				break;
 			case Guide:
 				newX=currDoc->ScratchLeft + guidePosition;
@@ -683,23 +683,23 @@ void AlignDistributePalette::alignRightOut()
 				if (currDoc->PageFP && !currDoc->MasterP)
 				{
 					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->FirstPageLeft))
-						newX += currDoc->pageWidth;
+						newX += currDoc->currentPage->Width;
 					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->FirstPageLeft))
-						newX += currDoc->pageWidth;
+						newX += currDoc->currentPage->Width;
 				}
-				newX += currDoc->pageWidth;
+				newX += currDoc->currentPage->Width;
 				break;
 			case Margins:
 				newX = currDoc->ScratchLeft;
 				if (currDoc->PageFP && !currDoc->MasterP)
 				{
 					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->FirstPageLeft))
-						newX += currDoc->pageWidth;
+						newX += currDoc->currentPage->Width;
 					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->FirstPageLeft))
-						newX += currDoc->pageWidth;
+						newX += currDoc->currentPage->Width;
 				}
-				newX += currDoc->pageWidth;
-				newX -= currDoc->pageMargins.Right;
+				newX += currDoc->currentPage->Width;
+				newX -= currDoc->currentPage->Margins.Right;
 				break;
 			case Guide:
 				newX=currDoc->ScratchLeft + guidePosition;
@@ -749,7 +749,7 @@ void AlignDistributePalette::alignTopOut()
 						if (!currDoc->FirstPageLeft && currDoc->currentPage->PageNr % 2 == 1)
 							multiplier++;
 					}
-					newY += (currDoc->ScratchBottom + currDoc->ScratchTop + currDoc->pageHeight) * static_cast<double>(multiplier);
+					newY += (currDoc->ScratchBottom + currDoc->ScratchTop + currDoc->currentPage->Height) * static_cast<double>(multiplier);
 				}
 				break;
 			case Margins:
@@ -764,9 +764,9 @@ void AlignDistributePalette::alignTopOut()
 						if (!currDoc->FirstPageLeft && currDoc->currentPage->PageNr % 2 == 1)
 							multiplier++;
 					}
-					newY += (currDoc->ScratchBottom + currDoc->ScratchTop + currDoc->pageHeight) * static_cast<double>(multiplier);
+					newY += (currDoc->ScratchBottom + currDoc->ScratchTop + currDoc->currentPage->Height) * static_cast<double>(multiplier);
 				}
-				newY += currDoc->pageMargins.Top;
+				newY += currDoc->currentPage->Margins.Top;
 				break;
 			case Guide:
 				newY=currDoc->ScratchTop + guidePosition;
@@ -816,7 +816,7 @@ void AlignDistributePalette::alignTopIn()
 						if (!currDoc->FirstPageLeft && currDoc->currentPage->PageNr % 2 == 1)
 							multiplier++;
 					}
-					newY += (currDoc->ScratchBottom + currDoc->ScratchTop + currDoc->pageHeight) * static_cast<double>(multiplier);
+					newY += (currDoc->ScratchBottom + currDoc->ScratchTop + currDoc->currentPage->Height) * static_cast<double>(multiplier);
 				}
 				break;
 			case Margins:
@@ -831,9 +831,9 @@ void AlignDistributePalette::alignTopIn()
 						if (!currDoc->FirstPageLeft && currDoc->currentPage->PageNr % 2 == 1)
 							multiplier++;
 					}
-					newY += (currDoc->ScratchBottom + currDoc->ScratchTop + currDoc->pageHeight) * static_cast<double>(multiplier);
+					newY += (currDoc->ScratchBottom + currDoc->ScratchTop + currDoc->currentPage->Height) * static_cast<double>(multiplier);
 				}
-				newY += currDoc->pageMargins.Top;
+				newY += currDoc->currentPage->Margins.Top;
 				break;
 			case Guide:
 				newY=currDoc->ScratchTop + guidePosition;
@@ -887,9 +887,9 @@ void AlignDistributePalette::alignCenterVer()
 						if (!currDoc->FirstPageLeft && currDoc->currentPage->PageNr % 2 == 1)
 							multiplier++;
 					}
-					newY += (currDoc->ScratchBottom + currDoc->ScratchTop + currDoc->pageHeight) * static_cast<double>(multiplier);
+					newY += (currDoc->ScratchBottom + currDoc->ScratchTop + currDoc->currentPage->Height) * static_cast<double>(multiplier);
 				}
-				newY += currDoc->pageHeight/2;
+				newY += currDoc->currentPage->Height/2;
 				break;
 			case Margins:
 				newY = currDoc->ScratchTop;
@@ -903,10 +903,10 @@ void AlignDistributePalette::alignCenterVer()
 						if (!currDoc->FirstPageLeft && currDoc->currentPage->PageNr % 2 == 1)
 							multiplier++;
 					}
-					newY += (currDoc->ScratchBottom + currDoc->ScratchTop + currDoc->pageHeight) * static_cast<double>(multiplier);
+					newY += (currDoc->ScratchBottom + currDoc->ScratchTop + currDoc->currentPage->Height) * static_cast<double>(multiplier);
 				}
-				newY += currDoc->pageMargins.Top;
-				newY += (currDoc->pageHeight - currDoc->pageMargins.Bottom - currDoc->pageMargins.Top)/2;
+				newY += currDoc->currentPage->Margins.Top;
+				newY += (currDoc->currentPage->Height - currDoc->currentPage->Margins.Bottom - currDoc->currentPage->Margins.Top)/2;
 				break;
 			case Guide:
 				newY=currDoc->ScratchTop + guidePosition;
@@ -962,9 +962,9 @@ void AlignDistributePalette::alignBottomIn()
 						if (!currDoc->FirstPageLeft && currDoc->currentPage->PageNr % 2 == 1)
 							multiplier++;
 					}
-					newY += (currDoc->ScratchBottom + currDoc->ScratchTop + currDoc->pageHeight) * static_cast<double>(multiplier);
+					newY += (currDoc->ScratchBottom + currDoc->ScratchTop + currDoc->currentPage->Height) * static_cast<double>(multiplier);
 				}
-				newY += currDoc->pageHeight;
+				newY += currDoc->currentPage->Height;
 				break;
 			case Margins:
 				newY = currDoc->ScratchTop;
@@ -978,10 +978,10 @@ void AlignDistributePalette::alignBottomIn()
 						if (!currDoc->FirstPageLeft && currDoc->currentPage->PageNr % 2 == 1)
 							multiplier++;
 					}
-					newY += (currDoc->ScratchBottom + currDoc->ScratchTop + currDoc->pageHeight) * static_cast<double>(multiplier);
+					newY += (currDoc->ScratchBottom + currDoc->ScratchTop + currDoc->currentPage->Height) * static_cast<double>(multiplier);
 				}
-				newY += currDoc->pageHeight;
-				newY -= currDoc->pageMargins.Bottom;
+				newY += currDoc->currentPage->Height;
+				newY -= currDoc->currentPage->Margins.Bottom;
 				break;
 			case Guide:
 				newY=currDoc->ScratchTop + guidePosition;
@@ -1031,9 +1031,9 @@ void AlignDistributePalette::alignBottomOut()
 						if (!currDoc->FirstPageLeft && currDoc->currentPage->PageNr % 2 == 1)
 							multiplier++;
 					}
-					newY += (currDoc->ScratchBottom + currDoc->ScratchTop + currDoc->pageHeight) * static_cast<double>(multiplier);
+					newY += (currDoc->ScratchBottom + currDoc->ScratchTop + currDoc->currentPage->Height) * static_cast<double>(multiplier);
 				}
-				newY += currDoc->pageHeight;
+				newY += currDoc->currentPage->Height;
 				break;
 			case Margins:
 				newY = currDoc->ScratchTop;
@@ -1047,10 +1047,10 @@ void AlignDistributePalette::alignBottomOut()
 						if (!currDoc->FirstPageLeft && currDoc->currentPage->PageNr % 2 == 1)
 							multiplier++;
 					}
-					newY += (currDoc->ScratchBottom + currDoc->ScratchTop + currDoc->pageHeight) * static_cast<double>(multiplier);
+					newY += (currDoc->ScratchBottom + currDoc->ScratchTop + currDoc->currentPage->Height) * static_cast<double>(multiplier);
 				}
-				newY += currDoc->pageHeight;
-				newY -= currDoc->pageMargins.Bottom;
+				newY += currDoc->currentPage->Height;
+				newY -= currDoc->currentPage->Margins.Bottom;
 				break;
 			case Guide:
 				newY=currDoc->ScratchTop + guidePosition;
