@@ -4674,6 +4674,10 @@ tekst redigerings området under &quot;Kildekode&quot; mærkaten og klik OK for 
         <source>Select the source file to load</source>
         <translation>Vælg kildetekst filen, der skal indlæses</translation>
     </message>
+    <message>
+        <source>Python source files *(.py)</source>
+        <translation>Python kildetekst filer *(.py)</translation>
+    </message>
 </context>
 <context>
     <name>EditStyle</name>
@@ -7833,7 +7837,7 @@ ellers er coordinaterne vist i forhold til objektet</translation>
         <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.
 Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.
 PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management.</source>
-        <translation>Bestemmer PDF kompatibiliteten. Standarden er Acrobat 4.0, som giver den største kompatibilitet.
+        <translation type="obsolete">Bestemmer PDF kompatibiliteten. Standarden er Acrobat 4.0, som giver den største kompatibilitet.
 Vælg Acrobat 5.0, hvis filen har PDF 1.4 egenskaber, som f.eks. transparens eller hvis du ønsker 128 bit kryptering.
 PDF/X-3 bruges til eksport til PDF for kommerciel udskrivning og kan vælges, når farvestyring er aktiveret.</translation>
     </message>
@@ -8347,6 +8351,15 @@ Redigering af kommentarer og felter er ikke muligt uden afkryds.</translation>
     <message>
         <source>&lt;qt&gt;PDF security can not be used with PDF/X-3. If you want to turn on security, change your PDF version (compatibility level) to something other than PDF/X-3.&lt;/qt&gt;</source>
         <translation>&lt;qt&gt;PDF sikkerhed kan ikke bruges sammen med PDF/X-3. Hvis du ønsker at aktivere sikkerhed, så vælg en anden PDF version (kompatibilitets niveau) end PDF/X-3.&lt;/qt&gt;</translation>
+    </message>
+    <message>
+        <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.
+Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.
+PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management. Note: PDF/X-3 will convert all CMYK images to ICC based RGB colors.</source>
+        <translation>Bestemmer PDF kompatibiliteten. Standarden er Acrobat 4.0, som giver den største kompatibilitet.
+Vælg Acrobat 5.0, hvis filen har PDF 1.4 egenskaber, som f.eks. transparens eller hvis du ønsker 128 bit kryptering.
+PDF/X-3 bruges til eksport til PDF for kommerciel udskrivning og kan vælges, når farvestyring er aktiveret. Note: PDF/X-3 vil konvertere
+alle CMYK billeder til ICC baserede RGB farver.</translation>
     </message>
 </context>
 <context>
@@ -11243,6 +11256,10 @@ funktionens dokumentation. </translation>
     <message>
         <source>Croatian</source>
         <translation>Kroatisk</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation>Normal</translation>
     </message>
 </context>
 <context>
