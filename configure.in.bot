@@ -5,7 +5,6 @@ if test -z "$LIBJPEG"; then
 	AC_MSG_ERROR([You need libjpeg to compile Scribus. See the BUILDING file.])
 fi
 
-
 echo
 echo "Configuration Summary:"
 echo
@@ -96,7 +95,7 @@ fi
 
 echo "Other details:"
 
-echo -n "    "
+echo -n "   "
 if test -z "${GS_PATH}" ; then
 	echo "***GhostScript could not be found. See README.***"
 else
