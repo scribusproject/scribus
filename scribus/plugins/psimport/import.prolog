@@ -466,7 +466,8 @@
 			(n\n)print			% start polygon
 			writecurrentcolor	% write color
 			storeMatrix
-			1 index exch 1 getinterval dup /curstr exch def false root_charpath
+			1 index exch 1 getinterval dup /curstr exch def 
+			false root_charpath
 			{_move} {_line} {_curve} {_close} pathforall
 			(f\n)print			% close polygon
 			newpath

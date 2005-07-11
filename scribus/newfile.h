@@ -28,13 +28,14 @@ public:
 	QButtonGroup* ButtonGroup1_2;
 	MarginWidget* GroupRand;
 	QGroupBox* GroupBox3;
-	QGroupBox* GroupBox4;
+	QGroupBox* AutoFrame;
 	QLabel* TextLabel1;
 	QLabel* TextLabel2;
 	QLabel* TextLabel3;
 	QLabel* TextLabel4;
 	QLabel* TextLabel1_2;
 	QLabel* TextLabel1_3;
+	QLabel* TextLabel1_3a;
 	QLabel* TextLabel2_2;
 	QLabel* TextLabel2_3;
 	QComboBox* ComboBox1;
@@ -42,10 +43,10 @@ public:
 	QComboBox* ComboBox3;
 	QCheckBox* Doppelseiten;
 	QCheckBox* ErsteSeite;
-	QCheckBox* AutoFrame;
 	MSpinBox* Distance;
 	QSpinBox* SpinBox10;
 	QSpinBox* PgNr;
+	QSpinBox* PgNum;
 	MSpinBox* Breite;
 	MSpinBox* Hoehe;
 	QPushButton* OKButton;
@@ -58,7 +59,6 @@ public:
 	QString unitSuffix;
 	int unitIndex;
 	void setSize(QString gr);
-	void code_repeat(int);
 
 public slots:
 	void setHoehe(int v);
@@ -69,7 +69,6 @@ public slots:
 	void setOrien(int ori);
 	void setPGsize(const QString &);
 	void setDS();
-	void setAT();
 
 protected:
 	QGridLayout* Layout4;

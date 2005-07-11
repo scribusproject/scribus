@@ -2814,6 +2814,14 @@ bool ScribusApp::slotFileNew()
 		QString pagesize = ps2->getPageName();
 		retVal = doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->ComboBox3->currentItem(),
 		                dia->ErsteSeite->isChecked(), orientation, dia->PgNr->value(), pagesize);
+		if (dia->PgNum->value() > 1)
+		{
+			for (int pg = 1; pg < dia->PgNum->value(); pg++)
+			{
+				slotNewPage(pg);
+			}
+			view->GotoPage(0);
+		}
 		mainWindowStatusLabel->setText( tr("Ready"));
 		delete ps2;
 	}
@@ -3617,7 +3625,9 @@ void ScribusApp::HaveNewDoc()
 	scrMenuMgr->setMenuEnabled("FileExport", true);
 	scrActions["fileExportAsEPS"]->setEnabled(true);
 	scrActions["fileExportAsPDF"]->setEnabled(true);
-	scrActions["pageImport"]->setEnabled(true);
+/* Disabled this for 1.3.0 as it doesn't work yet */
+/*	scrActions["pageImport"]->setEnabled(true); */
+	scrActions["pageImport"]->setEnabled(false);
 	//scrActions["toolsPreflightVerifier"]->setEnabled(true);
 
 	if (HaveGS==0 && scrActions["PrintPreview"])
@@ -4871,8 +4881,6 @@ bool ScribusApp::loadDoc(QString fileName)
 			doc->MasterP = false;
 		}
 		doc->loading = false;
-//		view->slotDoZoom();
-//		view->GotoPage(0);
 		doc->DocItems = doc->Items;
 		doc->RePos = true;
 		QPixmap pgPix(10, 10);

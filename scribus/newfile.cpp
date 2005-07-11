@@ -131,50 +131,55 @@ NewDoc::NewDoc( QWidget* parent, ApplicationPrefs *Vor ) : QDialog( parent, "new
 	PgNr->setMinValue( 1 );
 	TextLabel1_3->setBuddy(PgNr);
 	GroupBox3Layout->addWidget( PgNr, 0, 2, Qt::AlignRight );
+	TextLabel1_3a = new QLabel( tr( "N&umber of Pages:" ), GroupBox3, "TextLabel1_3a" );
+	GroupBox3Layout->addMultiCellWidget( TextLabel1_3a, 1, 1, 0, 1 );
+	PgNum = new QSpinBox( GroupBox3, "PgNum" );
+	PgNum->setMaxValue( 10000 );
+	PgNum->setMinValue( 1 );
+	TextLabel1_3a->setBuddy(PgNum);
+	GroupBox3Layout->addWidget( PgNum, 1, 2, Qt::AlignRight );
 	TextLabel2_3 = new QLabel( tr( "&Default Unit:" ), GroupBox3, "TextLabel2_3" );
-	GroupBox3Layout->addWidget( TextLabel2_3, 1, 0 );
+	GroupBox3Layout->addWidget( TextLabel2_3, 2, 0 );
 	ComboBox3 = new QComboBox( true, GroupBox3, "ComboBox3" );
 	ComboBox3->insertStringList(unitGetTextUnitList());
 	ComboBox3->setCurrentItem(unitIndex);
 	ComboBox3->setEditable(false);
 	TextLabel2_3->setBuddy(ComboBox3);
-	GroupBox3Layout->addMultiCellWidget( ComboBox3, 1, 1, 1, 2 );
+	GroupBox3Layout->addMultiCellWidget( ComboBox3, 2, 2, 1, 2 );
 	Layout10->addWidget( GroupBox3 );
 
-	AutoFrame = new QCheckBox( tr( "&Automatic Text Frames" ), this, "AutoFrame" );
-	Layout10->addWidget( AutoFrame );
-
-	GroupBox4 = new QGroupBox( this, "GroupBox4" );
-	GroupBox4->setTitle( tr( "Column Guides" ) );
-	GroupBox4->setColumnLayout(0, Qt::Vertical );
-	GroupBox4->layout()->setSpacing( 0 );
-	GroupBox4->layout()->setMargin( 0 );
-	GroupBox4Layout = new QHBoxLayout( GroupBox4->layout() );
+	AutoFrame = new QGroupBox( this, "GroupBox4" );
+	AutoFrame->setTitle( tr( "&Automatic Text Frames" ) );
+	AutoFrame->setColumnLayout(0, Qt::Vertical );
+	AutoFrame->layout()->setSpacing( 0 );
+	AutoFrame->layout()->setMargin( 0 );
+	AutoFrame->setCheckable( true );
+	AutoFrame->setChecked(false);
+	GroupBox4Layout = new QHBoxLayout( AutoFrame->layout() );
 	GroupBox4Layout->setAlignment( Qt::AlignTop );
 	GroupBox4Layout->setSpacing( 5 );
 	GroupBox4Layout->setMargin( 10 );
 	Layout2 = new QGridLayout;
 	Layout2->setSpacing( 6 );
 	Layout2->setMargin( 5 );
-	TextLabel4 = new QLabel( tr( "&Gap:" ), GroupBox4, "TextLabel4" );
+	TextLabel4 = new QLabel( tr( "&Gap:" ), AutoFrame, "TextLabel4" );
 	Layout2->addWidget( TextLabel4, 1, 0 );
-	TextLabel3 = new QLabel( tr( "Colu&mns:" ), GroupBox4, "TextLabel3" );
+	TextLabel3 = new QLabel( tr( "Colu&mns:" ), AutoFrame, "TextLabel3" );
 	Layout2->addWidget( TextLabel3, 0, 0 );
-	Distance = new MSpinBox( 0, 1000, GroupBox4, precision );
+	Distance = new MSpinBox( 0, 1000, AutoFrame, precision );
 	Distance->setSuffix( unitSuffix );
 	Distance->setValue(11 * unitRatio);
 	Dist = 11;
 	TextLabel4->setBuddy(Distance);
 	Layout2->addWidget( Distance, 1, 1, Qt::AlignLeft );
-	SpinBox10 = new QSpinBox( GroupBox4, "SpinBox10" );
+	SpinBox10 = new QSpinBox( AutoFrame, "SpinBox10" );
 	SpinBox10->setButtonSymbols( QSpinBox::UpDownArrows );
 	SpinBox10->setMinValue( 1 );
 	SpinBox10->setValue( 1 );
 	TextLabel3->setBuddy(SpinBox10);
 	Layout2->addWidget( SpinBox10, 0, 1, Qt::AlignLeft );
 	GroupBox4Layout->addLayout( Layout2 );
-	Layout10->addWidget( GroupBox4 );
-	GroupBox4->setEnabled(false);
+	Layout10->addWidget( AutoFrame );
 
 	Layout1 = new QHBoxLayout;
 	Layout1->setSpacing( 6 );
@@ -190,9 +195,6 @@ NewDoc::NewDoc( QWidget* parent, ApplicationPrefs *Vor ) : QDialog( parent, "new
 	Layout10->addLayout( Layout1 );
 	NewDocLayout->addLayout( Layout10 );
 	setMinimumSize(sizeHint());
-	//tab order
-	QWidget::setTabOrder ( AutoFrame, SpinBox10 );
-	QWidget::setTabOrder ( SpinBox10, Distance );
 	//tooltips
 	QToolTip::add( ComboBox1, tr( "Document page size, either a standard size or a custom size" ) );
 	QToolTip::add( ComboBox2, tr( "Orientation of the document's pages" ) );
@@ -201,6 +203,7 @@ NewDoc::NewDoc( QWidget* parent, ApplicationPrefs *Vor ) : QDialog( parent, "new
 	QToolTip::add( Doppelseiten, tr( "Enable single or spread based layout" ) );
 	QToolTip::add( ErsteSeite, tr( "Make the first page the left page of the document" ) );
 	QToolTip::add( PgNr, tr( "First page number of the document" ) );
+	QToolTip::add( PgNum, tr( "Initial number of pages of the document" ) );
 	QToolTip::add( ComboBox3, tr( "Default unit of measurement for document editing" ) );
 	QToolTip::add( AutoFrame, tr( "Create text frames automatically when new pages are added" ) );
 	QToolTip::add( SpinBox10, tr( "Number of columns to create in automatically created text frames" ) );
@@ -210,24 +213,10 @@ NewDoc::NewDoc( QWidget* parent, ApplicationPrefs *Vor ) : QDialog( parent, "new
 	connect( OKButton, SIGNAL( clicked() ), this, SLOT( ExitOK() ) );
 	connect( CancelB, SIGNAL( clicked() ), this, SLOT( reject() ) );
 	connect( Doppelseiten, SIGNAL( clicked() ), this, SLOT( setDS() ) );
-	connect( AutoFrame, SIGNAL( clicked() ), this, SLOT( setAT() ) );
 	connect(ComboBox1, SIGNAL(activated(const QString &)), this, SLOT(setPGsize(const QString &)));
 	connect(ComboBox2, SIGNAL(activated(int)), this, SLOT(setOrien(int)));
 	connect(ComboBox3, SIGNAL(activated(int)), this, SLOT(setUnit(int)));
 	connect(Distance, SIGNAL(valueChanged(int)), this, SLOT(setDist(int)));
-}
-
-void NewDoc::code_repeat(int m)
-{
-	// #869 pv - auto-flip landscape/portrait based on the height:width ratio
-	//if (ComboBox1->currentItem() == USERFORMAT)
-	if (ComboBox1->currentText() == customTextTR)
-	{
-		if (Breite->value() > Hoehe->value())
-			ComboBox2->setCurrentItem(LANDSCAPE);
-		else
-			ComboBox2->setCurrentItem(PORTRAIT);
-	} // end of #869
 }
 
 void NewDoc::setBreite(int)
@@ -308,7 +297,13 @@ void NewDoc::setOrien(int ori)
 	}
 	// #869 pv - defined constants added + code repeat (check w/h)
 	(ori == PORTRAIT) ? Orient = PORTRAIT : Orient = LANDSCAPE;
-	code_repeat(666); // just check w/h
+	if (ComboBox1->currentText() == customTextTR)
+	{
+		if (Breite->value() > Hoehe->value())
+			ComboBox2->setCurrentItem(LANDSCAPE);
+		else
+			ComboBox2->setCurrentItem(PORTRAIT);
+	}
 	// end of #869
 	GroupRand->setPageHeight(Pageho);
 	GroupRand->setPageWidth(Pagebr);
@@ -373,11 +368,6 @@ void NewDoc::setSize(QString gr)
 	GroupRand->setPageWidth(Pagebr);
 	connect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
 	connect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
-}
-
-void NewDoc::setAT()
-{
-	GroupBox4->setEnabled(AutoFrame->isChecked());
 }
 
 void NewDoc::setDS()
