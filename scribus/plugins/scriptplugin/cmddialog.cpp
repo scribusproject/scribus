@@ -22,6 +22,8 @@ PyObject *scribus_filedia(PyObject* /* self */, PyObject* args, PyObject* kw)
 	int issave = 0;
 	int isdir = 0;
 	// FIXME: parsing named params failure. e.g. fileDialog(caption="foo", issave=True)
+	// FIXME: it's a bug in Python. I'm monitoring it
+	// https://sourceforge.net/tracker/index.php?func=detail&aid=893549&group_id=5470&atid=105470
 	char* kwargs[] = {const_cast<char*>("caption"), const_cast<char*>("filter"),
 						const_cast<char*>("defaultname"), const_cast<char*>("haspreview"),
 						const_cast<char*>("issave"), const_cast<char*>("isdir"),
@@ -30,7 +32,6 @@ PyObject *scribus_filedia(PyObject* /* self */, PyObject* args, PyObject* kw)
 									 "utf-8", &caption, "utf-8", &filter, "utf-8", &defName,
 									 &haspreview, &issave, &isdir))
 	{
-		qDebug("1");
 		return NULL;
 	}
 	QApplication::setOverrideCursor(QCursor(Qt::ArrowCursor));
