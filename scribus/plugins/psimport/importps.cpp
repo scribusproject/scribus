@@ -360,9 +360,11 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	// then finish building the command and call gs
 	cmd1 += " -sOutputFile="+tmpFile+" "+pfad2+" ";
 	cmd2 = " -c flush cfile closefile quit";
-	bool ret = system(cmd1 + "\""+fn+"\"" + cmd2);
+	QCString finalCmd = QString(cmd1 + "\""+fn+"\"" + cmd2).local8Bit();
+	bool ret = system(finalCmd);
 	if (ret != 0)
 	{
+		qDebug("PostScript import failed when calling gs as: \n%s\n", finalCmd.data());
 		QString mess = tr("Importing File:\n%1\nfailed!").arg(fn);
 		QMessageBox::critical(0, tr("Fatal Error"), mess, 1, 0, 0);
 		return false;
