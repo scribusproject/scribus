@@ -1,2446 +1,6 @@
 <!DOCTYPE TS>
 <TS>
   <context>
-    <name></name>
-    <message>
-      <source>getFontSize([&quot;name&quot;]) -> float
-
-Returns the font size in points for the text frame &quot;name&quot;. If this text
-frame has some text selected the value assigned to the first character of
-the selection is returned.
-If &quot;name&quot; is not given the currently selected item is used.
-</source>
-      <translation>getFontSize([&quot;name&quot;]) -> float
-
-Returns the font size in points for the text frame &quot;name&quot;. If this text
-frame has some text selected the value assigned to the first character of
-the selection is returned.
-If &quot;name&quot; is not given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-      <source>getColorNames() -> list
-
-Returns a list containing the names of all defined colors in the document.
-If no document is open, returns a list of the default document colors.
-</source>
-      <translation>getColorNames() -> list
-
-Returns a list containing the names of all defined colours in the document.
-If no document is open, returns a list of the default document colours.
-</translation>
-    </message>
-    <message>
-      <source>newDocDialog() -> bool
-
-Displays the &quot;New Document&quot; dialog box. Creates a new document if the user
-accepts the settings. Does not create a document if the user presses cancel.
-Returns true if a new document was created.
-</source>
-      <translation>newDocDialog() -> bool
-
-Displays the &quot;New Document&quot; dialog box. Creates a new document if the user
-accepts the settings. Does not create a document if the user presses cancel.
-Returns true if a new document was created.
-</translation>
-    </message>
-    <message>
-      <source>getFillColor([&quot;name&quot;]) -> string
-
-Returns the name of the fill color of the object &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-</source>
-      <translation>getFillColor([&quot;name&quot;]) -> string
-
-Returns the name of the fill colour of the object &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-      <source>moveObject(dx, dy [, &quot;name&quot;])
-
-Moves the object &quot;name&quot; by dx and dy relative to its current position. The
-distances are expressed in the current measurement unit of the document (see
-UNIT constants). If &quot;name&quot; is not given the currently selected item is used.
-If the object &quot;name&quot; belongs to a group, the whole group is moved.
-</source>
-      <translation>moveObject(dx, dy [, &quot;name&quot;])
-
-Moves the object &quot;name&quot; by dx and dy relative to its current position. The
-distances are expressed in the current measurement unit of the document (see
-UNIT constants). If &quot;name&quot; is not given the currently selected item is used.
-If the object &quot;name&quot; belongs to a group, the whole group is moved.
-</translation>
-    </message>
-    <message>
-      <source>setRedraw(bool)
-
-Disables page redraw when bool = False, otherwise redrawing is enabled.
-This change will persist even after the script exits, so make sure to call
-setRedraw(True) in a finally: clause at the top level of your script.
-</source>
-      <translation>setRedraw(bool)
-
-Disables page redraw when bool = False, otherwise redrawing is enabled.
-This change will persist even after the script exits, so make sure to call
-setRedraw(True) in a finally: clause at the top level of your script.
-</translation>
-    </message>
-    <message>
-      <source>createRect(x, y, width, height, [&quot;name&quot;]) -> string
-
-Creates a new rectangle on the current page and returns its name. The
-coordinates are given in the current measurement units of the document
-(see UNIT constants). &quot;name&quot; should be a unique identifier for the object
-because you need this name to reference that object in future. If &quot;name&quot;
-is not given Scribus will create one for you.
-
-May raise NameExistsError if you explicitly pass a name that's already used.
-</source>
-      <translation>createRect(x, y, width, height, [&quot;name&quot;]) -> string
-
-Creates a new rectangle on the current page and returns its name. The
-coordinates are given in the current measurement units of the document
-(see UNIT constants). &quot;name&quot; should be a unique identifier for the object
-because you need this name to reference that object in future. If &quot;name&quot;
-is not given Scribus will create one for you.
-
-May raise NameExistsError if you explicitly pass a name that's already used.
-</translation>
-    </message>
-    <message>
-      <source>setGradientFill(type, &quot;color1&quot;, shade1, &quot;color2&quot;, shade2, [&quot;name&quot;])
-
-Sets the gradient fill of the object &quot;name&quot; to type. Color descriptions are
-the same as for setFillColor() and setFillShade(). See the constants for
-available types (FILL_&lt;type>).
-</source>
-      <translation>setGradientFill(type, &quot;colour1&quot;, shade1, &quot;colour2&quot;, shade2, [&quot;name&quot;])
-
-Sets the gradient fill of the object &quot;name&quot; to type. Colour descriptions are
-the same as for setFillColor() and setFillShade(). See the constants for
-available types (FILL_&lt;type>).
-</translation>
-    </message>
-    <message>
-      <source>messagebarText(&quot;string&quot;)
-
-Writes the &quot;string&quot; into the Scribus message bar (status line). The text
-must be UTF8 encoded or 'unicode' string(recommended).
-</source>
-      <translation>messagebarText(&quot;string&quot;)
-
-Writes the &quot;string&quot; into the Scribus message bar (status line). The text
-must be UTF8 encoded or 'unicode' string(recommended).
-</translation>
-    </message>
-    <message>
-      <source>newDoc(size, margins, orientation, firstPageNumber,
-                   unit, facingPages, firstSideLeft) -> bool
-
-Creates a new document and returns true if successful. The parameters have the
-following meaning:
-
-    size = A tuple (width, height) describing the size of the document. You can
-    use predefined constants named PAPER_&lt;paper_type> e.g. PAPER_A4 etc.
-
-    margins = A tuple (left, right, top, bottom) describing the document
-    margins
-
-    orientation = the page orientation - constants PORTRAIT, LANDSCAPE
-
-    firstPageNumer = is the number of the first page in the document used for
-    pagenumbering. While you'll usually want 1, it's useful to have higher
-    numbers if you're creating a document in several parts.
-
-    unit: this value sets the measurement units used by the document. Use a
-    predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
-    UNIT_PICAS, UNIT_POINTS.
-
-    facingPages = FACINGPAGES, NOFACINGPAGES
-
-    firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT
-
-The values for width, height and the margins are expressed in the given unit
-for the document. PAPER_* constants are expressed in points. If your document
-is not in points, make sure to account for this.
-
-example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
-                FACINGPAGES, FIRSTPAGERIGHT)
-</source>
-      <translation>newDoc(size, margins, orientation, firstPageNumber,
-                   unit, facingPages, firstSideLeft) -> bool
-
-Creates a new document and returns true if successful. The parameters have the
-following meaning:
-
-    size = A tuple (width, height) describing the size of the document. You can
-    use predefined constants named PAPER_&lt;paper_type> e.g. PAPER_A4 etc.
-
-    margins = A tuple (left, right, top, bottom) describing the document
-    margins
-
-    orientation = the page orientation - constants PORTRAIT, LANDSCAPE
-
-    firstPageNumer = is the number of the first page in the document used for
-    pagenumbering. While you'll usually want 1, it's useful to have higher
-    numbers if you're creating a document in several parts.
-
-    unit: this value sets the measurement units used by the document. Use a
-    predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
-    UNIT_PICAS, UNIT_POINTS.
-
-    facingPages = FACINGPAGES, NOFACINGPAGES
-
-    firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT
-
-The values for width, height and the margins are expressed in the given unit
-for the document. PAPER_* constants are expressed in points. If your document
-is not in points, make sure to account for this.
-
-example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
-                FACINGPAGES, FIRSTPAGERIGHT)
-</translation>
-    </message>
-    <message>
-      <source>newPage(where [,&quot;masterpage&quot;])
-
-Creates a new page. If &quot;where&quot; is -1 the new Page is appended to the
-document, otherwise the new page is inserted before &quot;where&quot;. Page numbers are
-counted from 1 upwards, no matter what the displayed first page number of your
-document is. The optional parameter &quot;masterpage&quot; specifies the name of the
-master page for the new page.
-
-May raise IndexError if the page number is out of range
-</source>
-      <translation>newPage(where [,&quot;masterpage&quot;])
-
-Creates a new page. If &quot;where&quot; is -1 the new Page is appended to the
-document, otherwise the new page is inserted before &quot;where&quot;. Page numbers are
-counted from 1 upwards, no matter what the displayed first page number of your
-document is. The optional parameter &quot;masterpage&quot; specifies the name of the
-master page for the new page.
-
-May raise IndexError if the page number is out of range
-</translation>
-    </message>
-  </context>
-  <context>
-    <name>@default</name>
-    <message>
-      <source>getFont([&quot;name&quot;]) -> string
-
-Returns the font name for the text frame &quot;name&quot;. If this text frame
-has some text selected the value assigned to the first character
-of the selection is returned. If &quot;name&quot; is not given the currently
-selected item is used.
-</source>
-      <translation>getFont([&quot;name&quot;]) -> string
-
-Returns the font name for the text frame &quot;name&quot;. If this text frame
-has some text selected the value assigned to the first character
-of the selection is returned. If &quot;name&quot; is not given the currently
-selected item is used.
-</translation>
-    </message>
-    <message>
-      <source>getTextLength([&quot;name&quot;]) -> integer
-
-Returns the length of the text in the text frame &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-</source>
-      <translation>getTextLength([&quot;name&quot;]) -> integer
-
-Returns the length of the text in the text frame &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-      <source>getText([&quot;name&quot;]) -> string
-
-Returns the text of the text frame &quot;name&quot;. If this text frame has some text
-selected, the selected text is returned. All text in the frame, not just
-currently visible text, is returned. If &quot;name&quot; is not given the currently
-selected item is used.
-</source>
-      <translation>getText([&quot;name&quot;]) -> string
-
-Returns the text of the text frame &quot;name&quot;. If this text frame has some text
-selected, the selected text is returned. All text in the frame, not just
-currently visible text, is returned. If &quot;name&quot; is not given the currently
-selected item is used.
-</translation>
-    </message>
-    <message>
-      <source>getAllText([&quot;name&quot;]) -> string
-
-Returns the text of the text frame &quot;name&quot; and of all text frames which are
-linked with this frame. If this textframe has some text selected, the selected
-text is returned. If &quot;name&quot; is not given the currently selected item is
-used.
-</source>
-      <translation>getAllText([&quot;name&quot;]) -> string
-
-Returns the text of the text frame &quot;name&quot; and of all text frames which are
-linked with this frame. If this textframe has some text selected, the selected
-text is returned. If &quot;name&quot; is not given the currently selected item is
-used.
-</translation>
-    </message>
-    <message>
-      <source>getLineSpacing([&quot;name&quot;]) -> float
-
-Returns the line spacing (&quot;leading&quot;) of the text frame &quot;name&quot; expressed in
-points. If &quot;name&quot; is not given the currently selected item is used.
-</source>
-      <translation>getLineSpacing([&quot;name&quot;]) -> float
-
-Returns the line spacing (&quot;leading&quot;) of the text frame &quot;name&quot; expressed in
-points. If &quot;name&quot; is not given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-      <source>getColumnGap([&quot;name&quot;]) -> float
-
-Returns the column gap size of the text frame &quot;name&quot; expressed in points. If
-&quot;name&quot; is not given the currently selected item is used.
-</source>
-      <translation>getColumnGap([&quot;name&quot;]) -> float
-
-Returns the column gap size of the text frame &quot;name&quot; expressed in points. If
-&quot;name&quot; is not given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-      <source>getColumns([&quot;name&quot;]) -> integer
-
-Gets the number of columns of the text frame &quot;name&quot;. If &quot;name&quot; is not
-given the currently selected item is used.
-</source>
-      <translation>getColumns([&quot;name&quot;]) -> integer
-
-Gets the number of columns of the text frame &quot;name&quot;. If &quot;name&quot; is not
-given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-      <source>setText(&quot;text&quot;, [&quot;name&quot;])
-
-Sets the text of the text frame &quot;name&quot; to the text of the string &quot;text&quot;.
-Text must be UTF8 encoded - use e.g. unicode(text, 'iso-8859-2'). See the FAQ
-for more details. If &quot;name&quot; is not given the currently selected item is
-used.
-</source>
-      <translation>setText(&quot;text&quot;, [&quot;name&quot;])
-
-Sets the text of the text frame &quot;name&quot; to the text of the string &quot;text&quot;.
-Text must be UTF8 encoded - use e.g. unicode(text, 'iso-8859-2'). See the FAQ
-for more details. If &quot;name&quot; is not given the currently selected item is
-used.
-</translation>
-    </message>
-    <message>
-      <source>setFont(&quot;font&quot;, [&quot;name&quot;])
-
-Sets the font of the text frame &quot;name&quot; to &quot;font&quot;. If there is some text
-selected only the selected text is changed.  If &quot;name&quot; is not given the
-currently selected item is used.
-
-May throw ValueError if the font cannot be found.
-</source>
-      <translation>setFont(&quot;font&quot;, [&quot;name&quot;])
-
-Sets the font of the text frame &quot;name&quot; to &quot;font&quot;. If there is some text
-selected only the selected text is changed.  If &quot;name&quot; is not given the
-currently selected item is used.
-
-May throw ValueError if the font cannot be found.
-</translation>
-    </message>
-    <message>
-      <source>setFontSize(size, [&quot;name&quot;])
-
-Sets the font size of the text frame &quot;name&quot; to &quot;size&quot;. &quot;size&quot; is treated
-as a value in points. If there is some text selected only the selected text is
-changed. &quot;size&quot; must be in the range 1 to 512. If &quot;name&quot; is not given the
-currently selected item is used.
-
-May throw ValueError for a font size that's out of bounds.
-</source>
-      <translation>setFontSize(size, [&quot;name&quot;])
-
-Sets the font size of the text frame &quot;name&quot; to &quot;size&quot;. &quot;size&quot; is treated
-as a value in points. If there is some text selected only the selected text is
-changed. &quot;size&quot; must be in the range 1 to 512. If &quot;name&quot; is not given the
-currently selected item is used.
-
-May throw ValueError for a font size that's out of bounds.
-</translation>
-    </message>
-    <message>
-      <source>setLineSpacing(size, [&quot;name&quot;])
-
-Sets the line spacing (&quot;leading&quot;) of the text frame &quot;name&quot; to &quot;size&quot;.
-&quot;size&quot; is a value in points. If &quot;name&quot; is not given the currently selected
-item is used.
-
-May throw ValueError if the line spacing is out of bounds.
-</source>
-      <translation>setLineSpacing(size, [&quot;name&quot;])
-
-Sets the line spacing (&quot;leading&quot;) of the text frame &quot;name&quot; to &quot;size&quot;.
-&quot;size&quot; is a value in points. If &quot;name&quot; is not given the currently selected
-item is used.
-
-May throw ValueError if the line spacing is out of bounds.
-</translation>
-    </message>
-    <message>
-      <source>setColumnGap(size, [&quot;name&quot;])
-
-Sets the column gap of the text frame &quot;name&quot; to the value &quot;size&quot;. If
-&quot;name&quot; is not given the currently selected item is used.
-
-May throw ValueError if the column gap is out of bounds (must be positive).
-</source>
-      <translation>setColumnGap(size, [&quot;name&quot;])
-
-Sets the column gap of the text frame &quot;name&quot; to the value &quot;size&quot;. If
-&quot;name&quot; is not given the currently selected item is used.
-
-May throw ValueError if the column gap is out of bounds (must be positive).
-</translation>
-    </message>
-    <message>
-      <source>setColumns(nr, [&quot;name&quot;])
-
-Sets the number of columns of the text frame &quot;name&quot; to the integer &quot;nr&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-
-May throw ValueError if number of columns is not at least one.
-</source>
-      <translation>setColumns(nr, [&quot;name&quot;])
-
-Sets the number of columns of the text frame &quot;name&quot; to the integer &quot;nr&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-
-May throw ValueError if number of columns is not at least one.
-</translation>
-    </message>
-    <message>
-      <source>setTextAlignment(align, [&quot;name&quot;])
-
-Sets the text alignment of the text frame &quot;name&quot; to the specified alignment.
-If &quot;name&quot; is not given the currently selected item is used. &quot;align&quot; should
-be one of the ALIGN_ constants defined in this module - see dir(scribus).
-
-May throw ValueError for an invalid alignment constant.
-</source>
-      <translation>setTextAlignment(align, [&quot;name&quot;])
-
-Sets the text alignment of the text frame &quot;name&quot; to the specified alignment.
-If &quot;name&quot; is not given the currently selected item is used. &quot;align&quot; should
-be one of the ALIGN_ constants defined in this module - see dir(scribus).
-
-May throw ValueError for an invalid alignment constant.
-</translation>
-    </message>
-    <message>
-      <source>deleteText([&quot;name&quot;])
-
-Deletes any text in the text frame &quot;name&quot;. If there is some text selected,
-only the selected text will be deleted. If &quot;name&quot; is not given the currently
-selected item is used.
-</source>
-      <translation>deleteText([&quot;name&quot;])
-
-Deletes any text in the text frame &quot;name&quot;. If there is some text selected,
-only the selected text will be deleted. If &quot;name&quot; is not given the currently
-selected item is used.
-</translation>
-    </message>
-    <message>
-      <source>setTextColor(&quot;color&quot;, [&quot;name&quot;])
-
-Sets the text color of the text frame &quot;name&quot; to the color &quot;color&quot;. If there
-is some text selected only the selected text is changed. If &quot;name&quot; is not
-given the currently selected item is used.
-</source>
-      <translation>setTextColor(&quot;colour&quot;, [&quot;name&quot;])
-
-Sets the text colour of the text frame &quot;name&quot; to the colour &quot;colour&quot;. If there
-is some text selected only the selected text is changed. If &quot;name&quot; is not
-given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-      <source>setTextStroke(&quot;color&quot;, [&quot;name&quot;])
-
-Set &quot;color&quot; of the text stroke. If &quot;name&quot; is not given the currently
-selected item is used.
-</source>
-      <translation>setTextStroke(&quot;colour&quot;, [&quot;name&quot;])
-
-Set &quot;colour&quot; of the text stroke. If &quot;name&quot; is not given the currently
-selected item is used.
-</translation>
-    </message>
-    <message>
-      <source>setTextShade(shade, [&quot;name&quot;])
-
-Sets the shading of the text color of the object &quot;name&quot; to &quot;shade&quot;. If
-there is some text selected only the selected text is changed. &quot;shade&quot; must
-be an integer value in the range from 0 (lightest) to 100 (full color
-intensity). If &quot;name&quot; is not given the currently selected item is
-used.
-</source>
-      <translation>setTextShade(shade, [&quot;name&quot;])
-
-Sets the shading of the text colour of the object &quot;name&quot; to &quot;shade&quot;. If
-there is some text selected only the selected text is changed. &quot;shade&quot; must
-be an integer value in the range from 0 (lightest) to 100 (full colour
-intensity). If &quot;name&quot; is not given the currently selected item is
-used.
-</translation>
-    </message>
-    <message>
-      <source>linkTextFrames(&quot;fromname&quot;, &quot;toname&quot;)
-
-Link two text frames. The frame named &quot;fromname&quot; is linked to the
-frame named &quot;toname&quot;. The target frame must be an empty text frame
-and must not link to or be linked from any other frames already.
-
-May throw ScribusException if linking rules are violated.
-</source>
-      <translation>linkTextFrames(&quot;fromname&quot;, &quot;toname&quot;)
-
-Link two text frames. The frame named &quot;fromname&quot; is linked to the
-frame named &quot;toname&quot;. The target frame must be an empty text frame
-and must not link to or be linked from any other frames already.
-
-May throw ScribusException if linking rules are violated.
-</translation>
-    </message>
-    <message>
-      <source>unlinkTextFrames(&quot;name&quot;)
-
-Remove the specified (named) object from the text frame flow/linkage. If the
-frame was in the middle of a chain, the previous and next frames will be
-connected, eg 'a->b->c' becomes 'a->c' when you unlinkTextFrames(b)'
-
-May throw ScribusException if linking rules are violated.
-</source>
-      <translation>unlinkTextFrames(&quot;name&quot;)
-
-Remove the specified (named) object from the text frame flow/linkage. If the
-frame was in the middle of a chain, the previous and next frames will be
-connected, eg 'a->b->c' becomes 'a->c' when you unlinkTextFrames(b)'
-
-May throw ScribusException if linking rules are violated.
-</translation>
-    </message>
-    <message>
-      <source>traceText([&quot;name&quot;])
-
-Convert the text frame &quot;name&quot; to outlines. If &quot;name&quot; is not given the
-currently selected item is used.</source>
-      <translation>traceText([&quot;name&quot;])
-
-Convert the text frame &quot;name&quot; to outlines. If &quot;name&quot; is not given the
-currently selected item is used.</translation>
-    </message>
-    <message>
-      <source>getColor(&quot;name&quot;) -> tuple
-
-Returns a tuple (C, M, Y, K) containing the four color components of the
-color &quot;name&quot; from the current document. If no document is open, returns
-the value of the named color from the default document colors.
-
-May raise NotFoundError if the named color wasn't found.
-May raise ValueError if an invalid color name is specified.
-</source>
-      <translation>getColor(&quot;name&quot;) -> tuple
-
-Returns a tuple (C, M, Y, K) containing the four colour components of the
-colour &quot;name&quot; from the current document. If no document is open, returns
-the value of the named colour from the default document colours.
-
-May raise NotFoundError if the named colour wasn't found.
-May raise ValueError if an invalid colour name is specified.
-</translation>
-    </message>
-    <message>
-      <source>changeColor(&quot;name&quot;, c, m, y, k)
-
-Changes the color &quot;name&quot; to the specified CMYK value. The color value is
-defined via four components c = Cyan, m = Magenta, y = Yellow and k = Black.
-Color components should be in the range from 0 to 255.
-
-May raise NotFoundError if the named color wasn't found.
-May raise ValueError if an invalid color name is specified.
-</source>
-      <translation>changeColor(&quot;name&quot;, c, m, y, k)
-
-Changes the colour &quot;name&quot; to the specified CMYK value. The colour value is
-defined via four components c = Cyan, m = Magenta, y = Yellow and k = Black.
-Colour components should be in the range from 0 to 255.
-
-May raise NotFoundError if the named colour wasn't found.
-May raise ValueError if an invalid colour name is specified.
-</translation>
-    </message>
-    <message>
-      <source>deleteColor(&quot;name&quot;, &quot;replace&quot;)
-
-Deletes the color &quot;name&quot;. Every occurence of that color is replaced by the
-color &quot;replace&quot;. If not specified, &quot;replace&quot; defaults to the color
-&quot;None&quot; - transparent.
-
-deleteColor works on the default document colors if there is no document open.
-In that case, &quot;replace&quot;, if specified, has no effect.
-
-May raise NotFoundError if a named color wasn't found.
-May raise ValueError if an invalid color name is specified.
-</source>
-      <translation>deleteColor(&quot;name&quot;, &quot;replace&quot;)
-
-Deletes the colour &quot;name&quot;. Every occurence of that colour is replaced by the
-colour &quot;replace&quot;. If not specified, &quot;replace&quot; defaults to the colour
-&quot;None&quot; - transparent.
-
-deleteColor works on the default document colours if there is no document open.
-In that case, &quot;replace&quot;, if specified, has no effect.
-
-May raise NotFoundError if a named colour wasn't found.
-May raise ValueError if an invalid colour name is specified.
-</translation>
-    </message>
-    <message>
-      <source>replaceColor(&quot;name&quot;, &quot;replace&quot;)
-
-Every occurence of the color &quot;name&quot; is replaced by the color &quot;replace&quot;.
-
-May raise NotFoundError if a named color wasn't found.
-May raise ValueError if an invalid color name is specified.
-</source>
-      <translation>replaceColor(&quot;name&quot;, &quot;replace&quot;)
-
-Every occurence of the colour &quot;name&quot; is replaced by the colour &quot;replace&quot;.
-
-May raise NotFoundError if a named colour wasn't found.
-May raise ValueError if an invalid colour name is specified.
-</translation>
-    </message>
-    <message>
-      <source>messageBox(&quot;caption&quot;, &quot;message&quot;,
-    icon=ICON_NONE, button1=BUTTON_OK|BUTTONOPT_DEFAULT,
-    button2=BUTTON_NONE, button3=BUTTON_NONE) -> integer
-
-Displays a message box with the title &quot;caption&quot;, the message &quot;message&quot;, and
-an icon &quot;icon&quot; and up to 3 buttons. By default no icon is used and a single
-button, OK, is displayed. Only the caption and message arguments are required,
-though setting an icon and appropriate button(s) is strongly
-recommended. The message text may contain simple HTML-like markup.
-
-Returns the number of the button the user pressed. Button numbers start
-at 1.
-
-For the icon and the button parameters there are predefined constants available
-with the same names as in the Qt Documentation. These are the BUTTON_* and
-ICON_* constants defined in the module. There are also two extra constants that
-can be binary-ORed with button constants:
-    BUTTONOPT_DEFAULT   Pressing enter presses this button.
-    BUTTONOPT_ESCAPE    Pressing escape presses this button.
-
-Usage examples:
-result = messageBox('Script failed',
-                    'This script only works when you have a text frame selected.',
-                    ICON_ERROR)
-result = messageBox('Monkeys!', 'Something went ook! &lt;i>Was it a monkey?&lt;/i>',
-                    ICON_WARNING, BUTTON_YES|BUTTONOPT_DEFAULT,
-                    BUTTON_NO, BUTTON_IGNORE|BUTTONOPT_ESCAPE)
-
-Defined button and icon constants:
-BUTTON_NONE, BUTTON_ABORT, BUTTON_CANCEL, BUTTON_IGNORE, BUTTON_NO,
-BUTTON_NOALL, BUTTON_OK, BUTTON_RETRY, BUTTON_YES, BUTTON_YESALL,
-ICON_NONE, ICON_INFORMATION, ICON_WARNING, ICON_CRITICAL.
-</source>
-      <translation>messageBox(&quot;caption&quot;, &quot;message&quot;,
-    icon=ICON_NONE, button1=BUTTON_OK|BUTTONOPT_DEFAULT,
-    button2=BUTTON_NONE, button3=BUTTON_NONE) -> integer
-
-Displays a message box with the title &quot;caption&quot;, the message &quot;message&quot;, and
-an icon &quot;icon&quot; and up to 3 buttons. By default no icon is used and a single
-button, OK, is displayed. Only the caption and message arguments are required,
-though setting an icon and appropriate button(s) is strongly
-recommended. The message text may contain simple HTML-like markup.
-
-Returns the number of the button the user pressed. Button numbers start
-at 1.
-
-For the icon and the button parameters there are predefined constants available
-with the same names as in the Qt Documentation. These are the BUTTON_* and
-ICON_* constants defined in the module. There are also two extra constants that
-can be binary-ORed with button constants:
-    BUTTONOPT_DEFAULT   Pressing enter presses this button.
-    BUTTONOPT_ESCAPE    Pressing escape presses this button.
-
-Usage examples:
-result = messageBox('Script failed',
-                    'This script only works when you have a text frame selected.',
-                    ICON_ERROR)
-result = messageBox('Monkeys!', 'Something went ook! &lt;i>Was it a monkey?&lt;/i>',
-                    ICON_WARNING, BUTTON_YES|BUTTONOPT_DEFAULT,
-                    BUTTON_NO, BUTTON_IGNORE|BUTTONOPT_ESCAPE)
-
-Defined button and icon constants:
-BUTTON_NONE, BUTTON_ABORT, BUTTON_CANCEL, BUTTON_IGNORE, BUTTON_NO,
-BUTTON_NOALL, BUTTON_OK, BUTTON_RETRY, BUTTON_YES, BUTTON_YESALL,
-ICON_NONE, ICON_INFORMATION, ICON_WARNING, ICON_CRITICAL.
-</translation>
-    </message>
-    <message>
-      <source>valueDialog(caption, message [,defaultvalue]) -> string
-
-Shows the common 'Ask for string' dialog and returns its value as a string
-Parameters: window title, text in the window and optional 'default' value.
-
-Example: valueDialog('title', 'text in the window', 'optional')
-</source>
-      <translation>valueDialog(caption, message [,defaultvalue]) -> string
-
-Shows the common 'Ask for string' dialog and returns its value as a string
-Parameters: window title, text in the window and optional 'default' value.
-
-Example: valueDialog('title', 'text in the window', 'optional')
-</translation>
-    </message>
-    <message>
-      <source>closeDoc()
-
-Closes the current document without prompting to save.
-
-May throw NoDocOpenError if there is no document to close
-</source>
-      <translation>closeDoc()
-
-Closes the current document without prompting to save.
-
-May throw NoDocOpenError if there is no document to close
-</translation>
-    </message>
-    <message>
-      <source>haveDoc() -> bool
-
-Returns true if there is a document open.
-</source>
-      <translation>haveDoc() -> bool
-
-Returns true if there is a document open.
-</translation>
-    </message>
-    <message>
-      <source>openDoc(&quot;name&quot;)
-
-Opens the document &quot;name&quot;.
-
-May raise ScribusError if the document could not be opened.
-</source>
-      <translation>openDoc(&quot;name&quot;)
-
-Opens the document &quot;name&quot;.
-
-May raise ScribusError if the document could not be opened.
-</translation>
-    </message>
-    <message>
-      <source>saveDoc()
-
-Saves the current document with its current name, returns true if successful.
-If the document has not already been saved, this may bring up an interactive
-save file dialog.
-
-If the save fails, there is currently no way to tell.
-</source>
-      <translation>saveDoc()
-
-Saves the current document with its current name, returns true if successful.
-If the document has not already been saved, this may bring up an interactive
-save file dialog.
-
-If the save fails, there is currently no way to tell.
-</translation>
-    </message>
-    <message>
-      <source>saveDocAs(&quot;name&quot;)
-
-Saves the current document under the new name &quot;name&quot; (which may be a full or
-relative path).
-
-May raise ScribusError if the save fails.
-</source>
-      <translation>saveDocAs(&quot;name&quot;)
-
-Saves the current document under the new name &quot;name&quot; (which may be a full or
-relative path).
-
-May raise ScribusError if the save fails.
-</translation>
-    </message>
-    <message>
-      <source>saveDocAs(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -> bool
-
-Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
-strings.
-</source>
-      <translation>saveDocAs(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -> bool
-
-Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
-strings.
-</translation>
-    </message>
-    <message>
-      <source>setMargins(lr, rr, tr, br)
-
-Sets the margins of the document, Left(lr), Right(rr), Top(tr) and Bottom(br)
-margins are given in the measurement units of the document - see UNIT_&lt;type>
-constants.
-</source>
-      <translation>setMargins(lr, rr, tr, br)
-
-Sets the margins of the document, Left(lr), Right(rr), Top(tr) and Bottom(br)
-margins are given in the measurement units of the document - see UNIT_&lt;type>
-constants.
-</translation>
-    </message>
-    <message>
-      <source>setUnit(type)
-
-Changes the measurement unit of the document. Possible values for &quot;unit&quot; are
-defined as constants UNIT_&lt;type>.
-
-May raise ValueError if an invalid unit is passed.
-</source>
-      <translation>setUnit(type)
-
-Changes the measurement unit of the document. Possible values for &quot;unit&quot; are
-defined as constants UNIT_&lt;type>.
-
-May raise ValueError if an invalid unit is passed.
-</translation>
-    </message>
-    <message>
-      <source>getUnit() -> integer (Scribus unit constant)
-
-Returns the measurement units of the document. The returned value will be one
-of the UNIT_* constants:
-UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.
-</source>
-      <translation>getUnit() -> integer (Scribus unit constant)
-
-Returns the measurement units of the document. The returned value will be one
-of the UNIT_* constants:
-UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.
-</translation>
-    </message>
-    <message>
-      <source>loadStylesFromFile(&quot;filename&quot;)
-
-Loads paragraph styles from the Scribus document at &quot;filename&quot; into the
-current document.
-</source>
-      <translation>loadStylesFromFile(&quot;filename&quot;)
-
-Loads paragraph styles from the Scribus document at &quot;filename&quot; into the
-current document.
-</translation>
-    </message>
-    <message>
-      <source>setDocType(facingPages, firstPageLeft)
-
-Sets the document type. To get facing pages set the first parameter to
-FACINGPAGES, to switch facingPages off use NOFACINGPAGES instead.  If you want
-to be the first page a left side set the second parameter to FIRSTPAGELEFT, for
-a right page use FIRSTPAGERIGHT.
-</source>
-      <translation>setDocType(facingPages, firstPageLeft)
-
-Sets the document type. To get facing pages set the first parameter to
-FACINGPAGES, to switch facingPages off use NOFACINGPAGES instead.  If you want
-to be the first page a left side set the second parameter to FIRSTPAGELEFT, for
-a right page use FIRSTPAGERIGHT.
-</translation>
-    </message>
-    <message>
-      <source>getLineColor([&quot;name&quot;]) -> string
-
-Returns the name of the line color of the object &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-</source>
-      <translation>getLineColor([&quot;name&quot;]) -> string
-
-Returns the name of the line colour of the object &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-      <source>getLineWidth([&quot;name&quot;]) -> integer
-
-Returns the line width of the object &quot;name&quot;. If &quot;name&quot;
-is not given the currently selected Item is used.
-</source>
-      <translation>getLineWidth([&quot;name&quot;]) -> integer
-
-Returns the line width of the object &quot;name&quot;. If &quot;name&quot;
-is not given the currently selected Item is used.
-</translation>
-    </message>
-    <message>
-      <source>getLineShade([&quot;name&quot;]) -> integer
-
-Returns the shading value of the line color of the object &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-</source>
-      <translation>getLineShade([&quot;name&quot;]) -> integer
-
-Returns the shading value of the line colour of the object &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-      <source>getLineJoin([&quot;name&quot;]) -> integer (see contants)
-
-Returns the line join style of the object &quot;name&quot;. If &quot;name&quot; is not given
-the currently selected item is used.  The join types are:
-JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND
-</source>
-      <translation>getLineJoin([&quot;name&quot;]) -> integer (see contants)
-
-Returns the line join style of the object &quot;name&quot;. If &quot;name&quot; is not given
-the currently selected item is used.  The join types are:
-JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND
-</translation>
-    </message>
-    <message>
-      <source>getLineEnd([&quot;name&quot;]) -> integer (see constants)
-
-Returns the line cap style of the object &quot;name&quot;. If &quot;name&quot; is not given the
-currently selected item is used. The cap types are:
-CAP_FLAT, CAP_ROUND, CAP_SQUARE
-</source>
-      <translation>getLineEnd([&quot;name&quot;]) -> integer (see constants)
-
-Returns the line cap style of the object &quot;name&quot;. If &quot;name&quot; is not given the
-currently selected item is used. The cap types are:
-CAP_FLAT, CAP_ROUND, CAP_SQUARE
-</translation>
-    </message>
-    <message>
-      <source>getLineStyle([&quot;name&quot;]) -> integer (see constants)
-
-Returns the line style of the object &quot;name&quot;. If &quot;name&quot; is not given the
-currently selected item is used. Line style constants are:
-LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID
-</source>
-      <translation>getLineStyle([&quot;name&quot;]) -> integer (see constants)
-
-Returns the line style of the object &quot;name&quot;. If &quot;name&quot; is not given the
-currently selected item is used. Line style constants are:
-LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID
-</translation>
-    </message>
-    <message>
-      <source>getFillShade([&quot;name&quot;]) -> integer
-
-Returns the shading value of the fill color of the object &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-</source>
-      <translation>getFillShade([&quot;name&quot;]) -> integer
-
-Returns the shading value of the fill colour of the object &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-      <source>getImageScale([&quot;name&quot;]) -> (x,y)
-
-Returns a (x, y) tuple containing the scaling values of the image frame
-&quot;name&quot;.  If &quot;name&quot; is not given the currently selected item is used.
-</source>
-      <translation>getImageScale([&quot;name&quot;]) -> (x,y)
-
-Returns a (x, y) tuple containing the scaling values of the image frame
-&quot;name&quot;.  If &quot;name&quot; is not given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-      <source>getImageName([&quot;name&quot;]) -> string
-
-Returns the filename for the image in the image frame. If &quot;name&quot; is not
-given the currently selected item is used.
-</source>
-      <translation>getImageName([&quot;name&quot;]) -> string
-
-Returns the filename for the image in the image frame. If &quot;name&quot; is not
-given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-      <source>getSize([&quot;name&quot;]) -> (width,height)
-
-Returns a (width, height) tuple with the size of the object &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used. The size is
-expressed in the current measurement unit of the document - see UNIT_&lt;type>
-for reference.
-</source>
-      <translation>getSize([&quot;name&quot;]) -> (width,height)
-
-Returns a (width, height) tuple with the size of the object &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used. The size is
-expressed in the current measurement unit of the document - see UNIT_&lt;type>
-for reference.
-</translation>
-    </message>
-    <message>
-      <source>getRotation([&quot;name&quot;]) -> integer
-
-Returns the rotation of the object &quot;name&quot;. The value is expressed in degrees,
-and clockwise is positive. If &quot;name&quot; is not given the currently selected item
-is used.
-</source>
-      <translation>getRotation([&quot;name&quot;]) -> integer
-
-Returns the rotation of the object &quot;name&quot;. The value is expressed in degrees,
-and clockwise is positive. If &quot;name&quot; is not given the currently selected item
-is used.
-</translation>
-    </message>
-    <message>
-      <source>getAllObjects() -> list
-
-Returns a list containing the names of all objects on the current page.
-</source>
-      <translation>getAllObjects() -> list
-
-Returns a list containing the names of all objects on the current page.
-</translation>
-    </message>
-    <message>
-      <source>moveObjectAbs(x, y [, &quot;name&quot;])
-
-Moves the object &quot;name&quot; to a new location. The coordinates are expressed in
-the current measurement unit of the document (see UNIT constants).  If &quot;name&quot;
-is not given the currently selected item is used.  If the object &quot;name&quot;
-belongs to a group, the whole group is moved.
-</source>
-      <translation>moveObjectAbs(x, y [, &quot;name&quot;])
-
-Moves the object &quot;name&quot; to a new location. The coordinates are expressed in
-the current measurement unit of the document (see UNIT constants).  If &quot;name&quot;
-is not given the currently selected item is used.  If the object &quot;name&quot;
-belongs to a group, the whole group is moved.
-</translation>
-    </message>
-    <message>
-      <source>rotateObject(rot [, &quot;name&quot;])
-
-Rotates the object &quot;name&quot; by &quot;rot&quot; degrees relatively. The object is
-rotated by the vertex that is currently selected as the rotation point - by
-default, the top left vertext at zero rotation. Positive values mean counter
-clockwise rotation when the default rotation point is used. If &quot;name&quot; is not
-given the currently selected item is used.
-</source>
-      <translation>rotateObject(rot [, &quot;name&quot;])
-
-Rotates the object &quot;name&quot; by &quot;rot&quot; degrees relatively. The object is
-rotated by the vertex that is currently selected as the rotation point - by
-default, the top left vertext at zero rotation. Positive values mean counter
-clockwise rotation when the default rotation point is used. If &quot;name&quot; is not
-given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-      <source>sizeObject(width, height [, &quot;name&quot;])
-
-Resizes the object &quot;name&quot; to the given width and height. If &quot;name&quot;
-is not given the currently selected item is used.
-</source>
-      <translation>sizeObject(width, height [, &quot;name&quot;])
-
-Resizes the object &quot;name&quot; to the given width and height. If &quot;name&quot;
-is not given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-      <source>getSelectedObject([nr]) -> string
-
-Returns the name of the selected object. &quot;nr&quot; if given indicates the number
-of the selected object, e.g. 0 means the first selected object, 1 means the
-second selected Object and so on.
-</source>
-      <translation>getSelectedObject([nr]) -> string
-
-Returns the name of the selected object. &quot;nr&quot; if given indicates the number
-of the selected object, e.g. 0 means the first selected object, 1 means the
-second selected Object and so on.
-</translation>
-    </message>
-    <message>
-      <source>selectionCount() -> integer
-
-Returns the number of selected objects.
-</source>
-      <translation>selectionCount() -> integer
-
-Returns the number of selected objects.
-</translation>
-    </message>
-    <message>
-      <source>selectObject(&quot;name&quot;)
-
-Selects the object with the given &quot;name&quot;.
-</source>
-      <translation>selectObject(&quot;name&quot;)
-
-Selects the object with the given &quot;name&quot;.
-</translation>
-    </message>
-    <message>
-      <source>deselectAll()
-
-Deselects all objects in the whole document.
-</source>
-      <translation>deselectAll()
-
-Deselects all objects in the whole document.
-</translation>
-    </message>
-    <message>
-      <source>groupObjects(list)
-
-Groups the objects named in &quot;list&quot; together. &quot;list&quot; must contain the names
-of the objects to be grouped. If &quot;list&quot; is not given the currently selected
-items are used.
-</source>
-      <translation>groupObjects(list)
-
-Groups the objects named in &quot;list&quot; together. &quot;list&quot; must contain the names
-of the objects to be grouped. If &quot;list&quot; is not given the currently selected
-items are used.
-</translation>
-    </message>
-    <message>
-      <source>unGroupObjects(&quot;name&quot;)
-
-Destructs the group the object &quot;name&quot; belongs to.If &quot;name&quot; is not given the currently selected item is used.</source>
-      <translation>unGroupObjects(&quot;name&quot;)
-
-Destructs the group the object &quot;name&quot; belongs to.If &quot;name&quot; is not given the currently selected item is used.</translation>
-    </message>
-    <message>
-      <source>scaleGroup(factor [,&quot;name&quot;])
-
-Scales the group the object &quot;name&quot; belongs to. Values greater than 1 enlarge
-the group, values smaller than 1 make the group smaller e.g a value of 0.5
-scales the group to 50 % of its original size, a value of 1.5 scales the group
-to 150 % of its original size.  The value for &quot;factor&quot; must be greater than
-0. If &quot;name&quot; is not given the currently selected item is used.
-
-May raise ValueError if an invalid scale factor is passed.
-</source>
-      <translation>scaleGroup(factor [,&quot;name&quot;])
-
-Scales the group the object &quot;name&quot; belongs to. Values greater than 1 enlarge
-the group, values smaller than 1 make the group smaller e.g a value of 0.5
-scales the group to 50 % of its original size, a value of 1.5 scales the group
-to 150 % of its original size.  The value for &quot;factor&quot; must be greater than
-0. If &quot;name&quot; is not given the currently selected item is used.
-
-May raise ValueError if an invalid scale factor is passed.
-</translation>
-    </message>
-    <message>
-      <source>loadImage(&quot;filename&quot; [, &quot;name&quot;])
-
-Loads the picture &quot;picture&quot; into the image frame &quot;name&quot;. If &quot;name&quot; is
-not given the currently selected item is used.
-
-May raise WrongFrameTypeError if the target frame is not an image frame
-</source>
-      <translation>loadImage(&quot;filename&quot; [, &quot;name&quot;])
-
-Loads the picture &quot;picture&quot; into the image frame &quot;name&quot;. If &quot;name&quot; is
-not given the currently selected item is used.
-
-May raise WrongFrameTypeError if the target frame is not an image frame
-</translation>
-    </message>
-    <message>
-      <source>scaleImage(x, y [, &quot;name&quot;])
-
-Sets the scaling factors of the picture in the image frame &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used. A number of 1
-means 100 %.
-
-May raise WrongFrameTypeError if the target frame is not an image frame
-</source>
-      <translation>scaleImage(x, y [, &quot;name&quot;])
-
-Sets the scaling factors of the picture in the image frame &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used. A number of 1
-means 100 %.
-
-May raise WrongFrameTypeError if the target frame is not an image frame
-</translation>
-    </message>
-    <message>
-      <source>lockObject([&quot;name&quot;]) -> bool
-
-Locks the object &quot;name&quot; if it's unlocked or unlock it if it's locked.
-If &quot;name&quot; is not given the currently selected item is used. Returns true
-if locked.
-</source>
-      <translation>lockObject([&quot;name&quot;]) -> bool
-
-Locks the object &quot;name&quot; if it's unlocked or unlock it if it's locked.
-If &quot;name&quot; is not given the currently selected item is used. Returns true
-if locked.
-</translation>
-    </message>
-    <message>
-      <source>isLocked([&quot;name&quot;]) -> bool
-
-Returns true if is the object &quot;name&quot; locked.  If &quot;name&quot; is not given the
-currently selected item is used.
-</source>
-      <translation>isLocked([&quot;name&quot;]) -> bool
-
-Returns true if is the object &quot;name&quot; locked.  If &quot;name&quot; is not given the
-currently selected item is used.
-</translation>
-    </message>
-    <message>
-      <source>getFontNames() -> list
-
-Returns a list with the names of all available fonts.
-</source>
-      <translation>getFontNames() -> list
-
-Returns a list with the names of all available fonts.
-</translation>
-    </message>
-    <message>
-      <source>getXFontNames() -> list of tuples
-
-Returns a larger font info. It's a list of the tuples with:
-[ (Scribus name, Family, Real name, subset (1|0), embed PS (1|0), font file), (...), ... ]
-</source>
-      <translation>getXFontNames() -> list of tuples
-
-Returns a larger font info. It's a list of the tuples with:
-[ (Scribus name, Family, Real name, subset (1|0), embed PS (1|0), font file), (...), ... ]
-</translation>
-    </message>
-    <message>
-      <source>getLayers() -> list
-
-Returns a list with the names of all defined layers.
-</source>
-      <translation>getLayers() -> list
-
-Returns a list with the names of all defined layers.
-</translation>
-    </message>
-    <message>
-      <source>setActiveLayer(&quot;name&quot;)
-
-Sets the active layer to the layer named &quot;name&quot;.
-
-May raise NotFoundError if the layer can't be found.
-May raise ValueError if the layer name isn't acceptable.
-</source>
-      <translation>setActiveLayer(&quot;name&quot;)
-
-Sets the active layer to the layer named &quot;name&quot;.
-
-May raise NotFoundError if the layer can't be found.
-May raise ValueError if the layer name isn't acceptable.
-</translation>
-    </message>
-    <message>
-      <source>getActiveLayer() -> string
-
-Returns the name of the current active layer.
-</source>
-      <translation>getActiveLayer() -> string
-
-Returns the name of the current active layer.
-</translation>
-    </message>
-    <message>
-      <source>sentToLayer(&quot;layer&quot; [, &quot;name&quot;])
-
-Sends the object &quot;name&quot; to the layer &quot;layer&quot;. The layer must exist.
-If &quot;name&quot; is not given the currently selected item is used.
-
-May raise NotFoundError if the layer can't be found.
-May raise ValueError if the layer name isn't acceptable.
-</source>
-      <translation>sentToLayer(&quot;layer&quot; [, &quot;name&quot;])
-
-Sends the object &quot;name&quot; to the layer &quot;layer&quot;. The layer must exist.
-If &quot;name&quot; is not given the currently selected item is used.
-
-May raise NotFoundError if the layer can't be found.
-May raise ValueError if the layer name isn't acceptable.
-</translation>
-    </message>
-    <message>
-      <source>setLayerVisible(&quot;layer&quot;, visible)
-
-Sets the layer &quot;layer&quot; to be visible or not. If is the visible set to false
-the layer is invisible.
-
-May raise NotFoundError if the layer can't be found.
-May raise ValueError if the layer name isn't acceptable.
-</source>
-      <translation>setLayerVisible(&quot;layer&quot;, visible)
-
-Sets the layer &quot;layer&quot; to be visible or not. If is the visible set to false
-the layer is invisible.
-
-May raise NotFoundError if the layer can't be found.
-May raise ValueError if the layer name isn't acceptable.
-</translation>
-    </message>
-    <message>
-      <source>setLayerPrintable(&quot;layer&quot;, printable)
-
-Sets the layer &quot;layer&quot; to be printable or not. If is the printable set to
-false the layer won't be printed.
-
-May raise NotFoundError if the layer can't be found.
-May raise ValueError if the layer name isn't acceptable.
-</source>
-      <translation>setLayerPrintable(&quot;layer&quot;, printable)
-
-Sets the layer &quot;layer&quot; to be printable or not. If is the printable set to
-false the layer won't be printed.
-
-May raise NotFoundError if the layer can't be found.
-May raise ValueError if the layer name isn't acceptable.
-</translation>
-    </message>
-    <message>
-      <source>deleteLayer(&quot;layer&quot;)
-
-Deletes the layer with the name &quot;layer&quot;. Nothing happens if the layer doesn't
-exists or if it's the only layer in the document.
-
-May raise NotFoundError if the layer can't be found.
-May raise ValueError if the layer name isn't acceptable.
-</source>
-      <translation>deleteLayer(&quot;layer&quot;)
-
-Deletes the layer with the name &quot;layer&quot;. Nothing happens if the layer doesn't
-exists or if it's the only layer in the document.
-
-May raise NotFoundError if the layer can't be found.
-May raise ValueError if the layer name isn't acceptable.
-</translation>
-    </message>
-    <message>
-      <source>createLayer(layer)
-
-Creates a new layer with the name &quot;name&quot;.
-
-May raise ValueError if the layer name isn't acceptable.
-</source>
-      <translation>createLayer(layer)
-
-Creates a new layer with the name &quot;name&quot;.
-
-May raise ValueError if the layer name isn't acceptable.
-</translation>
-    </message>
-    <message>
-      <source>getGuiLanguage() -> string
-
-Returns a string with the -lang value.
-</source>
-      <translation>getGuiLanguage() -> string
-
-Returns a string with the -lang value.
-</translation>
-    </message>
-    <message>
-      <source>createEllipse(x, y, width, height, [&quot;name&quot;]) -> string
-
-Creates a new ellipse on the current page and returns its name.
-The coordinates are given in the current measurement units of the document
-(see UNIT constants). &quot;name&quot; should be a unique identifier for the object
-because you need this name for further referencing of that object. If &quot;name&quot;
-is not given Scribus will create one for you.
-
-May raise NameExistsError if you explicitly pass a name that's already used.
-</source>
-      <translation>createEllipse(x, y, width, height, [&quot;name&quot;]) -> string
-
-Creates a new ellipse on the current page and returns its name.
-The coordinates are given in the current measurement units of the document
-(see UNIT constants). &quot;name&quot; should be a unique identifier for the object
-because you need this name for further referencing of that object. If &quot;name&quot;
-is not given Scribus will create one for you.
-
-May raise NameExistsError if you explicitly pass a name that's already used.
-</translation>
-    </message>
-    <message>
-      <source>createImage(x, y, width, height, [&quot;name&quot;]) -> string
-
-Creates a new picture frame on the current page and returns its name. The
-coordinates are given in the current measurement units of the document.
-&quot;name&quot; should be a unique identifier for the object because you need this
-name for further access to that object. If &quot;name&quot; is not given Scribus will
-create one for you.
-
-May raise NameExistsError if you explicitly pass a name that's already used.
-</source>
-      <translation>createImage(x, y, width, height, [&quot;name&quot;]) -> string
-
-Creates a new picture frame on the current page and returns its name. The
-coordinates are given in the current measurement units of the document.
-&quot;name&quot; should be a unique identifier for the object because you need this
-name for further access to that object. If &quot;name&quot; is not given Scribus will
-create one for you.
-
-May raise NameExistsError if you explicitly pass a name that's already used.
-</translation>
-    </message>
-    <message>
-      <source>createText(x, y, width, height, [&quot;name&quot;]) -> string
-
-Creates a new text frame on the actual page and returns its name.
-The coordinates are given in the actual measurement unit of the document (see
-UNIT constants). &quot;name&quot; should be a unique identifier for the object because
-you need this name for further referencing of that object. If &quot;name&quot; is not
-given Scribus will create one for you.
-
-May raise NameExistsError if you explicitly pass a name that's already used.
-</source>
-      <translation>createText(x, y, width, height, [&quot;name&quot;]) -> string
-
-Creates a new text frame on the actual page and returns its name.
-The coordinates are given in the actual measurement unit of the document (see
-UNIT constants). &quot;name&quot; should be a unique identifier for the object because
-you need this name for further referencing of that object. If &quot;name&quot; is not
-given Scribus will create one for you.
-
-May raise NameExistsError if you explicitly pass a name that's already used.
-</translation>
-    </message>
-    <message>
-      <source>createLine(x1, y1, x2, y2, [&quot;name&quot;]) -> string
-
-Creates a new line from the point(x1, y1) to the point(x2, y2) and returns
-its name. The coordinates are given in the current measurement unit of the
-document (see UNIT constants). &quot;name&quot; should be a unique identifier for the
-object because you need this name for further access to that object. If
-&quot;name&quot; is not given Scribus will create one for you.
-
-May raise NameExistsError if you explicitly pass a name that's already used.
-</source>
-      <translation>createLine(x1, y1, x2, y2, [&quot;name&quot;]) -> string
-
-Creates a new line from the point(x1, y1) to the point(x2, y2) and returns
-its name. The coordinates are given in the current measurement unit of the
-document (see UNIT constants). &quot;name&quot; should be a unique identifier for the
-object because you need this name for further access to that object. If
-&quot;name&quot; is not given Scribus will create one for you.
-
-May raise NameExistsError if you explicitly pass a name that's already used.
-</translation>
-    </message>
-    <message>
-      <source>createPolyLine(list, [&quot;name&quot;]) -> string
-
-Creates a new polyline and returns its name. The points for the polyline are
-stored in the list &quot;list&quot; in the following order: [x1, y1, x2, y2...xn. yn].
-The coordinates are given in the current measurement units of the document (see
-UNIT constants). &quot;name&quot; should be a unique identifier for the object because
-you need this name for further access to that object. If &quot;name&quot; is not given
-Scribus will create one for you.
-
-May raise NameExistsError if you explicitly pass a name that's already used.
-May raise ValueError if an insufficient number of points is passed or if
-the number of values passed don't group into points without leftovers.
-</source>
-      <translation>createPolyLine(list, [&quot;name&quot;]) -> string
-
-Creates a new polyline and returns its name. The points for the polyline are
-stored in the list &quot;list&quot; in the following order: [x1, y1, x2, y2...xn. yn].
-The coordinates are given in the current measurement units of the document (see
-UNIT constants). &quot;name&quot; should be a unique identifier for the object because
-you need this name for further access to that object. If &quot;name&quot; is not given
-Scribus will create one for you.
-
-May raise NameExistsError if you explicitly pass a name that's already used.
-May raise ValueError if an insufficient number of points is passed or if
-the number of values passed don't group into points without leftovers.
-</translation>
-    </message>
-    <message>
-      <source>createPolygon(list, [&quot;name&quot;]) -> string
-
-Creates a new polygon and returns its name. The points for the polygon are
-stored in the list &quot;list&quot; in the following order: [x1, y1, x2, y2...xn. yn].
-At least three points are required. There is no need to repeat the first point
-to close the polygon. The polygon is automatically closed by connecting the
-first and the last point.  The coordinates are given in the current measurement
-units of the document (see UNIT constants).  &quot;name&quot; should be a unique
-identifier for the object because you need this name for further access to that
-object. If &quot;name&quot; is not given Scribus will create one for you.
-
-May raise NameExistsError if you explicitly pass a name that's already used.
-May raise ValueError if an insufficient number of points is passed or if
-the number of values passed don't group into points without leftovers.
-</source>
-      <translation>createPolygon(list, [&quot;name&quot;]) -> string
-
-Creates a new polygon and returns its name. The points for the polygon are
-stored in the list &quot;list&quot; in the following order: [x1, y1, x2, y2...xn. yn].
-At least three points are required. There is no need to repeat the first point
-to close the polygon. The polygon is automatically closed by connecting the
-first and the last point.  The coordinates are given in the current measurement
-units of the document (see UNIT constants).  &quot;name&quot; should be a unique
-identifier for the object because you need this name for further access to that
-object. If &quot;name&quot; is not given Scribus will create one for you.
-
-May raise NameExistsError if you explicitly pass a name that's already used.
-May raise ValueError if an insufficient number of points is passed or if
-the number of values passed don't group into points without leftovers.
-</translation>
-    </message>
-    <message>
-      <source>createBezierLine(list, [&quot;name&quot;]) -> string
-
-Creates a new bezier curve and returns its name. The points for the bezier
-curve are stored in the list &quot;list&quot; in the following order:
-[x1, y1, kx1, ky1, x2, y2, kx2, ky2...xn. yn, kxn. kyn]
-In the points list, x and y mean the x and y coordinates of the point and kx
-and ky meaning the control point for the curve.  The coordinates are given in
-the current measurement units of the document (see UNIT constants). &quot;name&quot;
-should be a unique identifier for the object because you need this name for
-further access to that object. If &quot;name&quot; is not given Scribus will create one
-for you.
-
-May raise NameExistsError if you explicitly pass a name that's already used.
-May raise ValueError if an insufficient number of points is passed or if
-the number of values passed don't group into points without leftovers.
-</source>
-      <translation>createBezierLine(list, [&quot;name&quot;]) -> string
-
-Creates a new bezier curve and returns its name. The points for the bezier
-curve are stored in the list &quot;list&quot; in the following order:
-[x1, y1, kx1, ky1, x2, y2, kx2, ky2...xn. yn, kxn. kyn]
-In the points list, x and y mean the x and y coordinates of the point and kx
-and ky meaning the control point for the curve.  The coordinates are given in
-the current measurement units of the document (see UNIT constants). &quot;name&quot;
-should be a unique identifier for the object because you need this name for
-further access to that object. If &quot;name&quot; is not given Scribus will create one
-for you.
-
-May raise NameExistsError if you explicitly pass a name that's already used.
-May raise ValueError if an insufficient number of points is passed or if
-the number of values passed don't group into points without leftovers.
-</translation>
-    </message>
-    <message>
-      <source>createPathText(x, y, &quot;textbox&quot;, &quot;beziercurve&quot;, [&quot;name&quot;]) -> string
-
-Creates a new pathText by merging the two objects &quot;textbox&quot; and
-&quot;beziercurve&quot; and returns its name. The coordinates are given in the current
-measurement unit of the document (see UNIT constants). &quot;name&quot; should be a
-unique identifier for the object because you need this name for further access
-to that object. If &quot;name&quot; is not given Scribus will create one for you.
-
-May raise NameExistsError if you explicitly pass a name that's already used.
-May raise NotFoundError if one or both of the named base object don't exist.
-</source>
-      <translation>createPathText(x, y, &quot;textbox&quot;, &quot;beziercurve&quot;, [&quot;name&quot;]) -> string
-
-Creates a new pathText by merging the two objects &quot;textbox&quot; and
-&quot;beziercurve&quot; and returns its name. The coordinates are given in the current
-measurement unit of the document (see UNIT constants). &quot;name&quot; should be a
-unique identifier for the object because you need this name for further access
-to that object. If &quot;name&quot; is not given Scribus will create one for you.
-
-May raise NameExistsError if you explicitly pass a name that's already used.
-May raise NotFoundError if one or both of the named base object don't exist.
-</translation>
-    </message>
-    <message>
-      <source>deleteObject([&quot;name&quot;])
-
-Deletes the item with the name &quot;name&quot;. If &quot;name&quot; is not given the currently
-selected item is deleted.
-</source>
-      <translation>deleteObject([&quot;name&quot;])
-
-Deletes the item with the name &quot;name&quot;. If &quot;name&quot; is not given the currently
-selected item is deleted.
-</translation>
-    </message>
-    <message>
-      <source>textFlowsAroundFrame(&quot;name&quot; [, state])
-
-Enables/disables &quot;Text Flows Around Frame&quot; feature for object &quot;name&quot;.
-Called with parameters string name and optional boolean &quot;state&quot;. If &quot;state&quot;
-is not passed, text flow is toggled.
-</source>
-      <translation>textFlowsAroundFrame(&quot;name&quot; [, state])
-
-Enables/disables &quot;Text Flows Around Frame&quot; feature for object &quot;name&quot;.
-Called with parameters string name and optional boolean &quot;state&quot;. If &quot;state&quot;
-is not passed, text flow is toggled.
-</translation>
-    </message>
-    <message>
-      <source>objectExists([&quot;name&quot;]) -> bool
-
-Test if an object with specified name really exists in the document.
-The optional parameter is the object name. When no object name is given,
-returns True if there is something selected.
-</source>
-      <translation>objectExists([&quot;name&quot;]) -> bool
-
-Test if an object with specified name really exists in the document.
-The optional parameter is the object name. When no object name is given,
-returns True if there is something selected.
-</translation>
-    </message>
-    <message>
-      <source>setStyle(&quot;style&quot; [, &quot;name&quot;])
-
-Apply the named &quot;style&quot; to the object named &quot;name&quot;. If is no object name
-given, it's applied on the selected object.
-</source>
-      <translation>setStyle(&quot;style&quot; [, &quot;name&quot;])
-
-Apply the named &quot;style&quot; to the object named &quot;name&quot;. If is no object name
-given, it's applied on the selected object.
-</translation>
-    </message>
-    <message>
-      <source>getAllStyles() -> list
-
-Return a list of the names of all paragraph styles in the current document.
-</source>
-      <translation>getAllStyles() -> list
-
-Return a list of the names of all paragraph styles in the current document.
-</translation>
-    </message>
-    <message>
-      <source>currentPage() -> integer
-
-Returns the number of the current working page. Page numbers are counted from 1
-upwards, no matter what the displayed first page number of your document is.
-</source>
-      <translation>currentPage() -> integer
-
-Returns the number of the current working page. Page numbers are counted from 1
-upwards, no matter what the displayed first page number of your document is.
-</translation>
-    </message>
-    <message>
-      <source>redrawAll()
-
-Redraws all pages.
-</source>
-      <translation>redrawAll()
-
-Redraws all pages.
-</translation>
-    </message>
-    <message>
-      <source>savePageAsEPS(&quot;name&quot;)
-
-Saves the current page as an EPS to the file &quot;name&quot;.
-
-May raise ScribusError if the save failed.
-</source>
-      <translation>savePageAsEPS(&quot;name&quot;)
-
-Saves the current page as an EPS to the file &quot;name&quot;.
-
-May raise ScribusError if the save failed.
-</translation>
-    </message>
-    <message>
-      <source>deletePage(nr)
-
-Deletes the given page. Does nothing if the document contains only one page.
-Page numbers are counted from 1 upwards, no matter what the displayed first
-page number is.
-
-May raise IndexError if the page number is out of range
-</source>
-      <translation>deletePage(nr)
-
-Deletes the given page. Does nothing if the document contains only one page.
-Page numbers are counted from 1 upwards, no matter what the displayed first
-page number is.
-
-May raise IndexError if the page number is out of range
-</translation>
-    </message>
-    <message>
-      <source>gotoPage(nr)
-
-Moves to the page &quot;nr&quot; (that is, makes the current page &quot;nr&quot;). Note that
-gotoPage doesn't (curently) change the page the user's view is displaying, it
-just sets the page that script commands will operates on.
-
-May raise IndexError if the page number is out of range.
-</source>
-      <translation>gotoPage(nr)
-
-Moves to the page &quot;nr&quot; (that is, makes the current page &quot;nr&quot;). Note that
-gotoPage doesn't (curently) change the page the user's view is displaying, it
-just sets the page that script commands will operates on.
-
-May raise IndexError if the page number is out of range.
-</translation>
-    </message>
-    <message>
-      <source>pageCount() -> integer
-
-Returns the number of pages in the document.
-</source>
-      <translation>pageCount() -> integer
-
-Returns the number of pages in the document.
-</translation>
-    </message>
-    <message>
-      <source>getHGuides() -> list
-
-Returns a list containing positions of the horizontal guides. Values are in the
-document's current units - see UNIT_&lt;type> constants.
-</source>
-      <translation>getHGuides() -> list
-
-Returns a list containing positions of the horizontal guides. Values are in the
-document's current units - see UNIT_&lt;type> constants.
-</translation>
-    </message>
-    <message>
-      <source>setHGuides(list)
-
-Sets horizontal guides. Input parameter must be a list of guide positions
-measured in the current document units - see UNIT_&lt;type> constants.
-
-Example: setHGuides(getHGuides() + [200.0, 210.0] # add new guides without any lost
-         setHGuides([90,250]) # replace current guides entirely
-</source>
-      <translation>setHGuides(list)
-
-Sets horizontal guides. Input parameter must be a list of guide positions
-measured in the current document units - see UNIT_&lt;type> constants.
-
-Example: setHGuides(getHGuides() + [200.0, 210.0] # add new guides without any lost
-         setHGuides([90,250]) # replace current guides entirely
-</translation>
-    </message>
-    <message>
-      <source>getVGuides()
-
-See getHGuides.
-</source>
-      <translation>getVGuides()
-
-See getHGuides.
-</translation>
-    </message>
-    <message>
-      <source>setVGuides()
-
-See setHGuides.
-</source>
-      <translation>setVGuides()
-
-See setHGuides.
-</translation>
-    </message>
-    <message>
-      <source>getPageSize() -> tuple
-
-Returns a tuple with page dimensions measured in the document's current units.
-See UNIT_&lt;type> constants and getPageMargins()
-</source>
-      <translation>getPageSize() -> tuple
-
-Returns a tuple with page dimensions measured in the document's current units.
-See UNIT_&lt;type> constants and getPageMargins()
-</translation>
-    </message>
-    <message>
-      <source>getPageItems() -> list
-
-Returns a list of tuples with items on the current page. The tuple is:
-(name, objectType, order) E.g. [('Text1', 4, 0), ('Image1', 2, 1)]
-means that object named 'Text1' is a text frame (type 4) and is the first at
-the page...
-</source>
-      <translation>getPageItems() -> list
-
-Returns a list of tuples with items on the current page. The tuple is:
-(name, objectType, order) E.g. [('Text1', 4, 0), ('Image1', 2, 1)]
-means that object named 'Text1' is a text frame (type 4) and is the first at
-the page...
-</translation>
-    </message>
-    <message>
-      <source>setFillColor(&quot;color&quot;, [&quot;name&quot;])
-
-Sets the fill color of the object &quot;name&quot; to the color &quot;color&quot;. &quot;color&quot;
-is the name of one of the defined colors. If &quot;name&quot; is not given the
-currently selected item is used.
-</source>
-      <translation>setFillColor(&quot;colour&quot;, [&quot;name&quot;])
-
-Sets the fill colour of the object &quot;name&quot; to the colour &quot;colour&quot;. &quot;colour&quot;
-is the name of one of the defined colours. If &quot;name&quot; is not given the
-currently selected item is used.
-</translation>
-    </message>
-    <message>
-      <source>setLineColor(&quot;color&quot;, [&quot;name&quot;])
-
-Sets the line color of the object &quot;name&quot; to the color &quot;color&quot;. If &quot;name&quot;
-is not given the currently selected item is used.
-</source>
-      <translation>setLineColor(&quot;colour&quot;, [&quot;name&quot;])
-
-Sets the line colour of the object &quot;name&quot; to the colour &quot;colour&quot;. If &quot;name&quot;
-is not given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-      <source>setLineWidth(width, [&quot;name&quot;])
-
-Sets line width of the object &quot;name&quot; to &quot;width&quot;. &quot;width&quot; must be in the
-range from 0.0 to 12.0 inclusive, and is measured in points. If &quot;name&quot; is not
-given the currently selected item is used.
-
-May raise ValueError if the line width is out of bounds.
-</source>
-      <translation>setLineWidth(width, [&quot;name&quot;])
-
-Sets line width of the object &quot;name&quot; to &quot;width&quot;. &quot;width&quot; must be in the
-range from 0.0 to 12.0 inclusive, and is measured in points. If &quot;name&quot; is not
-given the currently selected item is used.
-
-May raise ValueError if the line width is out of bounds.
-</translation>
-    </message>
-    <message>
-      <source>setLineShade(shade, [&quot;name&quot;])
-
-Sets the shading of the line color of the object &quot;name&quot; to &quot;shade&quot;.
-&quot;shade&quot; must be an integer value in the range from 0 (lightest) to 100
-(full color intensity). If &quot;name&quot; is not given the currently selected item
-is used.
-
-May raise ValueError if the line shade is out of bounds.
-</source>
-      <translation>setLineShade(shade, [&quot;name&quot;])
-
-Sets the shading of the line colour of the object &quot;name&quot; to &quot;shade&quot;.
-&quot;shade&quot; must be an integer value in the range from 0 (lightest) to 100
-(full colour intensity). If &quot;name&quot; is not given the currently selected item
-is used.
-
-May raise ValueError if the line shade is out of bounds.
-</translation>
-    </message>
-    <message>
-      <source>setLineJoin(join, [&quot;name&quot;])
-
-Sets the line join style of the object &quot;name&quot; to the style &quot;join&quot;.
-If &quot;name&quot; is not given the currently selected item is used. There are
-predefined constants for join - JOIN_&lt;type>.
-</source>
-      <translation>setLineJoin(join, [&quot;name&quot;])
-
-Sets the line join style of the object &quot;name&quot; to the style &quot;join&quot;.
-If &quot;name&quot; is not given the currently selected item is used. There are
-predefined constants for join - JOIN_&lt;type>.
-</translation>
-    </message>
-    <message>
-      <source>setLineEnd(endtype, [&quot;name&quot;])
-
-Sets the line cap style of the object &quot;name&quot; to the style &quot;cap&quot;.
-If &quot;name&quot; is not given the currently selected item is used. There are
-predefined constants for &quot;cap&quot; - CAP_&lt;type>.
-</source>
-      <translation>setLineEnd(endtype, [&quot;name&quot;])
-
-Sets the line cap style of the object &quot;name&quot; to the style &quot;cap&quot;.
-If &quot;name&quot; is not given the currently selected item is used. There are
-predefined constants for &quot;cap&quot; - CAP_&lt;type>.
-</translation>
-    </message>
-    <message>
-      <source>setLineStyle(style, [&quot;name&quot;])
-
-Sets the line style of the object &quot;name&quot; to the style &quot;style&quot;. If &quot;name&quot;
-is not given the currently selected item is used. There are predefined
-constants for &quot;style&quot; - LINE_&lt;style>.
-</source>
-      <translation>setLineStyle(style, [&quot;name&quot;])
-
-Sets the line style of the object &quot;name&quot; to the style &quot;style&quot;. If &quot;name&quot;
-is not given the currently selected item is used. There are predefined
-constants for &quot;style&quot; - LINE_&lt;style>.
-</translation>
-    </message>
-    <message>
-      <source>setFillShade(shade, [&quot;name&quot;])
-
-Sets the shading of the fill color of the object &quot;name&quot; to &quot;shade&quot;.
-&quot;shade&quot; must be an integer value in the range from 0 (lightest) to 100
-(full Color intensity). If &quot;name&quot; is not given the currently selected
-Item is used.
-
-May raise ValueError if the fill shade is out of bounds.
-</source>
-      <translation>setFillShade(shade, [&quot;name&quot;])
-
-Sets the shading of the fill colour of the object &quot;name&quot; to &quot;shade&quot;.
-&quot;shade&quot; must be an integer value in the range from 0 (lightest) to 100
-(full Colour intensity). If &quot;name&quot; is not given the currently selected
-Item is used.
-
-May raise ValueError if the fill shade is out of bounds.
-</translation>
-    </message>
-    <message>
-      <source>setCornerRadius(radius, [&quot;name&quot;])
-
-Sets the corner radius of the object &quot;name&quot;. The radius is expressed
-in points. If &quot;name&quot; is not given the currently selected item is used.
-
-May raise ValueError if the corner radius is negative.
-</source>
-      <translation>setCornerRadius(radius, [&quot;name&quot;])
-
-Sets the corner radius of the object &quot;name&quot;. The radius is expressed
-in points. If &quot;name&quot; is not given the currently selected item is used.
-
-May raise ValueError if the corner radius is negative.
-</translation>
-    </message>
-    <message>
-      <source>setMultiLine(&quot;namedStyle&quot;, [&quot;name&quot;])
-
-Sets the line style of the object &quot;name&quot; to the named style &quot;namedStyle&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-
-May raise NotFoundError if the line style doesn't exist.
-</source>
-      <translation>setMultiLine(&quot;namedStyle&quot;, [&quot;name&quot;])
-
-Sets the line style of the object &quot;name&quot; to the named style &quot;namedStyle&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-
-May raise NotFoundError if the line style doesn't exist.
-</translation>
-    </message>
-    <message>
-      <source>progressReset()
-
-Cleans up the Scribus progress bar previous settings. It is called before the
-new progress bar use. See progressSet.
-</source>
-      <translation>progressReset()
-
-Cleans up the Scribus progress bar previous settings. It is called before the
-new progress bar use. See progressSet.
-</translation>
-    </message>
-    <message>
-      <source>progressTotal(max)
-
-Sets the progress bar's maximum steps value to the specified number.
-See progressSet.
-</source>
-      <translation>progressTotal(max)
-
-Sets the progress bar's maximum steps value to the specified number.
-See progressSet.
-</translation>
-    </message>
-    <message>
-      <source>progressSet(nr)
-
-Set the progress bar position to &quot;nr&quot;, a value relative to the previously set
-progressTotal. The progress bar uses the concept of steps; you give it the
-total number of steps and the number of steps completed so far and it will
-display the percentage of steps that have been completed. You can specify the
-total number of steps with progressTotal(). The current number of steps is set
-with progressSet(). The progress bar can be rewound to the beginning with
-progressReset(). [based on info taken from Trolltech's Qt docs]
-</source>
-      <translation>progressSet(nr)
-
-Set the progress bar position to &quot;nr&quot;, a value relative to the previously set
-progressTotal. The progress bar uses the concept of steps; you give it the
-total number of steps and the number of steps completed so far and it will
-display the percentage of steps that have been completed. You can specify the
-total number of steps with progressTotal(). The current number of steps is set
-with progressSet(). The progress bar can be rewound to the beginning with
-progressReset(). [based on info taken from Trolltech's Qt docs]
-</translation>
-    </message>
-    <message>
-      <source>setCursor()
-
-[UNSUPPORTED!] This might break things, so steer clear for now.
-</source>
-      <translation>setCursor()
-
-[UNSUPPORTED!] This might break things, so steer clear for now.
-</translation>
-    </message>
-    <message>
-      <source>docChanged(bool)
-
-Enable/disable save icon in the Scribus icon bar and the Save menu item. It's
-useful to call this procedure when you're changing the document, because Scribus
-won't automatically notice when you change the document using a script.
-</source>
-      <translation>docChanged(bool)
-
-Enable/disable save icon in the Scribus icon bar and the Save menu item. It's
-useful to call this procedure when you're changing the document, because Scribus
-won't automatically notice when you change the document using a script.
-</translation>
-    </message>
-    <message>
-      <source>setScaleImageToFrame(scaletoframe, proportional=None, name=&lt;selection>)
-
-Sets the scale to frame on the selected or specified image frame to `scaletoframe'.
-If `proportional' is specified, set fixed aspect ratio scaling to `proportional'.
-Both `scaletoframe' and `proportional' are boolean.
-
-May raise WrongFrameTypeError.
-</source>
-      <translation>setScaleImageToFrame(scaletoframe, proportional=None, name=&lt;selection>)
-
-Sets the scale to frame on the selected or specified image frame to `scaletoframe'.
-If `proportional' is specified, set fixed aspect ratio scaling to `proportional'.
-Both `scaletoframe' and `proportional' are boolean.
-
-May raise WrongFrameTypeError.
-</translation>
-    </message>
-    <message>
-      <source>isLayerPrintable(&quot;layer&quot;) -> bool
-
-Returns whether the layer &quot;layer&quot; is printable or not, a value of True means
-that the layer &quot;layer&quot; can be printed, a value of False means that printing
-the layer &quot;layer&quot; is disabled.
-
-May raise NotFoundError if the layer can't be found.
-May raise ValueError if the layer name isn't acceptable.
-</source>
-      <translation>isLayerPrintable(&quot;layer&quot;) -> bool
-
-Returns whether the layer &quot;layer&quot; is printable or not, a value of True means
-that the layer &quot;layer&quot; can be printed, a value of False means that printing
-the layer &quot;layer&quot; is disabled.
-
-May raise NotFoundError if the layer can't be found.
-May raise ValueError if the layer name isn't acceptable.
-</translation>
-    </message>
-    <message>
-      <source>renderFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size, format=&quot;PPM&quot;) -> bool
-
-Creates an image preview of font &quot;name&quot; with given text &quot;sample&quot; and size.
-If &quot;filename&quot; is not &quot;&quot;, image is saved into &quot;filename&quot;. Otherwise
-image data is returned as a string. The optional &quot;format&quot; argument
-specifies the image format to generate, and supports any format allowed
-by QPixmap.save(). Common formats are PPM, JPEG, PNG and XPM.
-
-May raise NotFoundError if the specified font can't be found.
-May raise ValueError if an empty sample or filename is passed.
-</source>
-      <translation>renderFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size, format=&quot;PPM&quot;) -> bool
-
-Creates an image preview of font &quot;name&quot; with given text &quot;sample&quot; and size.
-If &quot;filename&quot; is not &quot;&quot;, image is saved into &quot;filename&quot;. Otherwise
-image data is returned as a string. The optional &quot;format&quot; argument
-specifies the image format to generate, and supports any format allowed
-by QPixmap.save(). Common formats are PPM, JPEG, PNG and XPM.
-
-May raise NotFoundError if the specified font can't be found.
-May raise ValueError if an empty sample or filename is passed.
-</translation>
-    </message>
-    <message>
-      <source>setPDFBookmark(&quot;toggle&quot;, [&quot;name&quot;])
-
-Sets wether (toggle = 1) the text frame &quot;name&quot; is a bookmark nor not.
-If &quot;name&quot; is not given the currently selected item is used.
-
-May raise WrongFrameTypeError if the target frame is not a text frame
-</source>
-      <translation>setPDFBookmark(&quot;toggle&quot;, [&quot;name&quot;])
-
-Sets wether (toggle = 1) the text frame &quot;name&quot; is a bookmark nor not.
-If &quot;name&quot; is not given the currently selected item is used.
-
-May raise WrongFrameTypeError if the target frame is not a text frame
-</translation>
-    </message>
-    <message>
-      <source>isPDFBookmark([&quot;name&quot;]) -> bool
-
-Returns true if the text frame &quot;name&quot; is a PDF bookmark.
-If &quot;name&quot; is not given the currently selected item is used.
-
-May raise WrongFrameTypeError if the target frame is not a text frame
-</source>
-      <translation>isPDFBookmark([&quot;name&quot;]) -> bool
-
-Returns true if the text frame &quot;name&quot; is a PDF bookmark.
-If &quot;name&quot; is not given the currently selected item is used.
-
-May raise WrongFrameTypeError if the target frame is not a text frame
-</translation>
-    </message>
-    <message>
-      <source>getPageMargins()
-
-Returns the page margins as a (top, left, right, bottom) tuple in the current
-units. See UNIT_&lt;type> constants and getPageSize().
-</source>
-      <translation>getPageMargins()
-
-Returns the page margins as a (top, left, right, bottom) tuple in the current
-units. See UNIT_&lt;type> constants and getPageSize().
-</translation>
-    </message>
-    <message>
-      <source>getColorAsRGB(&quot;name&quot;) -> tuple
-
-Returns a tuple (R,G,B) containing the three color components of the
-color &quot;name&quot; from the current document, converted to the RGB color
-space. If no document is open, returns the value of the named color
-from the default document colors.
-
-May raise NotFoundError if the named color wasn't found.
-May raise ValueError if an invalid color name is specified.
-</source>
-      <translation>getColorAsRGB(&quot;name&quot;) -> tuple
-
-Returns a tuple (R,G,B) containing the three colour components of the
-colour &quot;name&quot; from the current document, converted to the RGB colour
-space. If no document is open, returns the value of the named colour
-from the default document colours.
-
-May raise NotFoundError if the named colour wasn't found.
-May raise ValueError if an invalid colour name is specified.
-</translation>
-    </message>
-    <message>
-      <source>defineColor(&quot;name&quot;, c, m, y, k)
-
-Defines a new color &quot;name&quot;. The color Value is defined via four components:
-c = Cyan, m = Magenta, y = Yello and k = Black. Color components should be in
-the range from 0 to 255.
-
-May raise ValueError if an invalid color name is specified.
-</source>
-      <translation>defineColor(&quot;name&quot;, c, m, y, k)
-
-Defines a new colour &quot;name&quot;. The colour Value is defined via four components:
-c = Cyan, m = Magenta, y = Yello and k = Black. Colour components should be in
-the range from 0 to 255.
-
-May raise ValueError if an invalid colour name is specified.
-</translation>
-    </message>
-    <message>
-      <source>getCornerRadius([&quot;name&quot;]) -> integer
-
-Returns the corner radius of the object &quot;name&quot;. The radius isexpressed in points. If &quot;name&quot; is not given the currentlyselected item is used.
-</source>
-      <translation>getCornerRadius([&quot;name&quot;]) -> integer
-
-Returns the corner radius of the object &quot;name&quot;. The radius isexpressed in points. If &quot;name&quot; is not given the currentlyselected item is used.
-</translation>
-    </message>
-    <message>
-      <source>getPosition([&quot;name&quot;]) -> (x,y)
-
-Returns a (x, y) tuple with the position of the object &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.The position is expressed in the actual measurement unit of the document
-- see UNIT_&lt;type> for reference.
-</source>
-      <translation>getPosition([&quot;name&quot;]) -> (x,y)
-
-Returns a (x, y) tuple with the position of the object &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.The position is expressed in the actual measurement unit of the document
-- see UNIT_&lt;type> for reference.
-</translation>
-    </message>
-    <message>
-      <source>getPropertyCType(object, property, includesuper=True)
-
-Returns the name of the C type of `property' of `object'. See getProperty()
-for details of arguments.
-
-If `includesuper' is true, search inherited properties too.
-</source>
-      <translation>getPropertyCType(object, property, includesuper=True)
-
-Returns the name of the C type of `property' of `object'. See getProperty()
-for details of arguments.
-
-If `includesuper' is true, search inherited properties too.
-</translation>
-    </message>
-    <message>
-      <source>getPropertyNames(object, includesuper=True)
-
-Return a list of property names supported by `object'.
-If `includesuper' is true, return properties supported
-by parent classes as well.
-</source>
-      <translation>getPropertyNames(object, includesuper=True)
-
-Return a list of property names supported by `object'.
-If `includesuper' is true, return properties supported
-by parent classes as well.
-</translation>
-    </message>
-    <message>
-      <source>getProperty(object, property)
-
-Return the value of the property `property' of the passed `object'.
-
-The `object' argument may be a string, in which case the named PageItem
-is searched for. It may also be a PyCObject, which may point to any
-C++ QObject instance.
-
-The `property' argument must be a string, and is the name of the property
-to look up on `object'.
-
-The return value varies depending on the type of the property.
-</source>
-      <translation>getProperty(object, property)
-
-Return the value of the property `property' of the passed `object'.
-
-The `object' argument may be a string, in which case the named PageItem
-is searched for. It may also be a PyCObject, which may point to any
-C++ QObject instance.
-
-The `property' argument must be a string, and is the name of the property
-to look up on `object'.
-
-The return value varies depending on the type of the property.
-</translation>
-    </message>
-    <message>
-      <source>setProperty(object, property, value)
-
-Set `property' of `object' to `value'. If `value' cannot be converted to a type
-compatible with the type of `property', an exception is raised. An exception may
-also be raised if the underlying setter fails.
-
-See getProperty() for more information.
-</source>
-      <translation>setProperty(object, property, value)
-
-Set `property' of `object' to `value'. If `value' cannot be converted to a type
-compatible with the type of `property', an exception is raised. An exception may
-also be raised if the underlying setter fails.
-
-See getProperty() for more information.
-</translation>
-    </message>
-    <message>
-      <source>getChildren(object, ofclass=None, ofname=None, regexpmatch=False, recursive=True)
-
-Return a list of children of `object', possibly restricted to children
-of class named `ofclass' or children named `ofname'. If `recursive' is true,
-search recursively through children, grandchildren, etc.
-
-See QObject::children() in the Qt docs for more information.
-</source>
-      <translation>getChildren(object, ofclass=None, ofname=None, regexpmatch=False, recursive=True)
-
-Return a list of children of `object', possibly restricted to children
-of class named `ofclass' or children named `ofname'. If `recursive' is true,
-search recursively through children, grandchildren, etc.
-
-See QObject::children() in the Qt docs for more information.
-</translation>
-    </message>
-    <message>
-      <source>getChild(object, childname, ofclass=None, recursive=True)
-
-Return the first child of `object' named `childname', possibly restricting
-the search to children of type name `ofclass'. If `recursive' is true,
-search recursively through children, grandchildren, etc.
-</source>
-      <translation>getChild(object, childname, ofclass=None, recursive=True)
-
-Return the first child of `object' named `childname', possibly restricting
-the search to children of type name `ofclass'. If `recursive' is true,
-search recursively through children, grandchildren, etc.
-</translation>
-    </message>
-    <message>
-      <source>rotateObjectAbs(rot [, &quot;name&quot;])
-
-Sets the rotation of the object &quot;name&quot; to &quot;rot&quot;. Positve values
-mean counter clockwise rotation. If &quot;name&quot; is not given the currently
-selected item is used.
-</source>
-      <translation>rotateObjectAbs(rot [, &quot;name&quot;])
-
-Sets the rotation of the object &quot;name&quot; to &quot;rot&quot;. Positve values
-mean counter clockwise rotation. If &quot;name&quot; is not given the currently
-selected item is used.
-</translation>
-    </message>
-    <message>
-      <source>isLayerPrintable(&quot;layer&quot;) -> bool
-
-Returns whether the layer &quot;layer&quot; is visible or not, a value of True means
-that the layer &quot;layer&quot; is visible, a value of False means that the layer
-&quot;layer&quot; is invisible.
-
-May raise NotFoundError if the layer can't be found.
-May raise ValueError if the layer name isn't acceptable.
-</source>
-      <translation>isLayerPrintable(&quot;layer&quot;) -> bool
-
-Returns whether the layer &quot;layer&quot; is visible or not, a value of True means
-that the layer &quot;layer&quot; is visible, a value of False means that the layer
-&quot;layer&quot; is invisible.
-
-May raise NotFoundError if the layer can't be found.
-May raise ValueError if the layer name isn't acceptable.
-</translation>
-    </message>
-    <message>
-      <source>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
-
-Inserts the text &quot;text&quot; at the position &quot;pos&quot; into the text frame &quot;name&quot;.
-Text must be UTF encoded (see setText() as reference) The first character has an
-index of 0. Inserting at position -1 appends text to the frame. If &quot;name&quot; is
-not given the currently selected Item is used.
-
-May throw IndexError for an insertion out of bounds.
-</source>
-      <translation>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
-
-Inserts the text &quot;text&quot; at the position &quot;pos&quot; into the text frame &quot;name&quot;.
-Text must be UTF encoded (see setText() as reference) The first character has an
-index of 0. Inserting at position -1 appends text to the frame. If &quot;name&quot; is
-not given the currently selected Item is used.
-
-May throw IndexError for an insertion out of bounds.
-</translation>
-    </message>
-    <message>
-      <source>selectText(start, count, [&quot;name&quot;])
-
-Selects &quot;count&quot; characters of text in the text frame &quot;name&quot; starting from the
-character &quot;start&quot;. Character counting starts at 0. If &quot;count&quot; is zero, any
-text selection will be cleared.  If &quot;name&quot; is not given the currently
-selected item is used.
-
-May throw IndexError if the selection is outside the bounds of the text.
-</source>
-      <translation>selectText(start, count, [&quot;name&quot;])
-
-Selects &quot;count&quot; characters of text in the text frame &quot;name&quot; starting from the
-character &quot;start&quot;. Character counting starts at 0. If &quot;count&quot; is zero, any
-text selection will be cleared.  If &quot;name&quot; is not given the currently
-selected item is used.
-
-May throw IndexError if the selection is outside the bounds of the text.
-</translation>
-    </message>
-    <message>
-      <source>textOverflows([&quot;name&quot;, nolinks]) -> integer
-
-Returns the actual number of overflowing characters in text frame &quot;name&quot;.
-If is nolinks set to non zero value it takes only one frame - it doesn't
-use text frame linking. Without this parameter it search all linking chain.
-
-May raise WrongFrameTypeError if the target frame is not an text frame
-</source>
-      <translation>textOverflows([&quot;name&quot;, nolinks]) -> integer
-
-Returns the actual number of overflowing characters in text frame &quot;name&quot;.
-If is nolinks set to non zero value it takes only one frame - it doesn't
-use text frame linking. Without this parameter it search all linking chain.
-
-May raise WrongFrameTypeError if the target frame is not an text frame
-</translation>
-    </message>
-    <message>
-      <source>fileDialog(&quot;caption&quot;, [&quot;filter&quot;, &quot;defaultname&quot;, haspreview, issave, isdir]) -> string with filename
-
-Shows a File Open dialog box with the caption &quot;caption&quot;. Files are filtered
-with the filter string &quot;filter&quot;. A default filename or file path can also
-supplied, leave this string empty when you don't want to use it.  A value of
-True for haspreview enables a small preview widget in the FileSelect box.  When
-the issave parameter is set to True the dialog acts like a &quot;Save As&quot; dialog
-otherwise it acts like a &quot;File Open Dialog&quot;. When the isdir parameter is True
-the dialog shows and returns only directories. The default for all of the
-opional parameters is False.
-
-The filter, if specified, takes the form 'comment (*.type *.type2 ...)'.
-For example 'Images (*.png *.xpm *.jpg)'.
-
-Refer to the Qt-Documentation for QFileDialog for details on filters.
-
-Example: fileDialog('Open input', 'CSV files (*.csv)')
-Example: fileDialog('Save report', defaultname='report.txt', issave=True)
-</source>
-      <translation>fileDialog(&quot;caption&quot;, [&quot;filter&quot;, &quot;defaultname&quot;, haspreview, issave, isdir]) -> string with filename
-
-Shows a File Open dialog box with the caption &quot;caption&quot;. Files are filtered
-with the filter string &quot;filter&quot;. A default filename or file path can also
-supplied, leave this string empty when you don't want to use it.  A value of
-True for haspreview enables a small preview widget in the FileSelect box.  When
-the issave parameter is set to True the dialog acts like a &quot;Save As&quot; dialog
-otherwise it acts like a &quot;File Open Dialog&quot;. When the isdir parameter is True
-the dialog shows and returns only directories. The default for all of the
-opional parameters is False.
-
-The filter, if specified, takes the form 'comment (*.type *.type2 ...)'.
-For example 'Images (*.png *.xpm *.jpg)'.
-
-Refer to the Qt-Documentation for QFileDialog for details on filters.
-
-Example: fileDialog('Open input', 'CSV files (*.csv)')
-Example: fileDialog('Save report', defaultname='report.txt', issave=True)
-</translation>
-    </message>
-  </context>
-  <context>
     <name>About</name>
     <message>
       <source>Scribus Version %1
@@ -2525,14 +85,16 @@ Example: fileDialog('Save report', defaultname='report.txt', issave=True)
       <translation>Windows Port:</translation>
     </message>
     <message>
-      <source>This panel shows the version, build date and
- compiled in library support in Scribus
-The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support.
-Missing library support is indicated by a *</source>
-      <translation>This panel shows the version, build date and
- compiled in library support in Scribus
-The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support.
-Missing library support is indicated by a *</translation>
+      <source>Mac OSX Aqua Port:</source>
+      <translation>Mac OSX Aqua Port:</translation>
+    </message>
+    <message>
+      <source>Wiki</source>
+      <translation>Wiki</translation>
+    </message>
+    <message>
+      <source>This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Missing library support is indicated by a *</source>
+      <translation>This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Missing library support is indicated by a *</translation>
     </message>
   </context>
   <context>
@@ -2962,10 +524,6 @@ Missing library support is indicated by a *</translation>
       <translation>&amp;Layers</translation>
     </message>
     <message>
-      <source>P&amp;age Palette</source>
-      <translation>P&amp;age Palette</translation>
-    </message>
-    <message>
       <source>&amp;Bookmarks</source>
       <translation>&amp;Bookmarks</translation>
     </message>
@@ -3296,6 +854,18 @@ Missing library support is indicated by a *</translation>
     <message>
       <source>Toggle Guides</source>
       <translation>Toggle Guides</translation>
+    </message>
+    <message>
+      <source>&amp;Arrange Pages</source>
+      <translation>&amp;Arrange Pages</translation>
+    </message>
+    <message>
+      <source>Dehyphenate Text</source>
+      <translation>Dehyphenate Text</translation>
+    </message>
+    <message>
+      <source>Manage Margins...</source>
+      <translation>Manage Margins...</translation>
     </message>
   </context>
   <context>
@@ -4286,49 +1856,6 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
   </context>
   <context>
-    <name>ApplyT</name>
-    <message>
-      <source>Apply Template</source>
-      <translation>Apply Template</translation>
-    </message>
-    <message>
-      <source>Normal</source>
-      <translation>Normal</translation>
-    </message>
-    <message>
-      <source>&amp;Template:</source>
-      <translation>&amp;Template:</translation>
-    </message>
-    <message>
-      <source>To:</source>
-      <translation>To:</translation>
-    </message>
-    <message>
-      <source>&amp;OK</source>
-      <translation>&amp;OK</translation>
-    </message>
-    <message>
-      <source>&amp;Cancel</source>
-      <translation>&amp;Cancel</translation>
-    </message>
-    <message>
-      <source>Apply to &amp;current page</source>
-      <translation>Apply to &amp;current page</translation>
-    </message>
-    <message>
-      <source>Apply to all &amp;even pages</source>
-      <translation>Apply to all &amp;even pages</translation>
-    </message>
-    <message>
-      <source>Apply to all &amp;odd pages</source>
-      <translation>Apply to all &amp;odd pages</translation>
-    </message>
-    <message>
-      <source>Apply to &amp;all pages:</source>
-      <translation>Apply to &amp;all pages:</translation>
-    </message>
-  </context>
-  <context>
     <name>ArrowChooser</name>
     <message>
       <source>None</source>
@@ -5040,6 +2567,62 @@ and the Delete key removes the last inserted one</translation>
     <message>
       <source>Tetradic (Double Complementary)</source>
       <translation>Tetradic (Double Complementary)</translation>
+    </message>
+    <message>
+      <source>Base Color</source>
+      <translation>Base Colour</translation>
+    </message>
+    <message>
+      <source>Monochromatic Light</source>
+      <translation>Monochromatic Light</translation>
+    </message>
+    <message>
+      <source>Monochromatic Dark</source>
+      <translation>Monochromatic Dark</translation>
+    </message>
+    <message>
+      <source>1st. Analogous</source>
+      <translation>1st. Analogous</translation>
+    </message>
+    <message>
+      <source>2nd. Analogous</source>
+      <translation>2nd. Analogous</translation>
+    </message>
+    <message>
+      <source>1st. Split</source>
+      <translation>1st. Split</translation>
+    </message>
+    <message>
+      <source>2nd. Split</source>
+      <translation>2nd. Split</translation>
+    </message>
+    <message>
+      <source>3rd. Split</source>
+      <translation>3rd. Split</translation>
+    </message>
+    <message>
+      <source>4th. Split</source>
+      <translation>4th. Split</translation>
+    </message>
+    <message>
+      <source>1st. Triadic</source>
+      <translation>1st. Triadic</translation>
+    </message>
+    <message>
+      <source>2nd. Triadic</source>
+      <translation>2nd. Triadic</translation>
+    </message>
+    <message>
+      <source>1st. Tetradic (base opposite)</source>
+      <translation>1st. Tetradic (base opposite)</translation>
+    </message>
+    <message>
+      <source>2nd. Tetradic (angle)</source>
+      <translation>2nd. Tetradic (angle)</translation>
+    </message>
+    <message>
+      <source>3rd. Tetradic (angle opposite)</source>
+      <translation>3rd. Tetradic (angle opposite)</translation>
     </message>
   </context>
   <context>
@@ -7238,12 +4821,12 @@ A value of 0 means unlimited hyphenations.</translation>
       <translation>New Layer</translation>
     </message>
     <message>
-      <source>Do you want to delete all Objects on this Layer too?</source>
-      <translation>Do you want to delete all Objects on this Layer too?</translation>
-    </message>
-    <message>
       <source>Name</source>
       <translation>Name</translation>
+    </message>
+    <message>
+      <source>Do you want to delete all objects on this layer too?</source>
+      <translation>Do you want to delete all objects on this layer too?</translation>
     </message>
   </context>
   <context>
@@ -7319,6 +4902,123 @@ A value of 0 means unlimited hyphenations.</translation>
     <message>
       <source>Do you really want to delete this Style?</source>
       <translation>Do you really want to delete this Style?</translation>
+    </message>
+  </context>
+  <context>
+    <name>LoremManager</name>
+    <message>
+      <source>Select Lorem Ipsum</source>
+      <translation>Select Lorem Ipsum</translation>
+    </message>
+    <message>
+      <source>Author:</source>
+      <translation>Author:</translation>
+    </message>
+    <message>
+      <source>Get More:</source>
+      <translation>Get More:</translation>
+    </message>
+    <message>
+      <source>XML File:</source>
+      <translation>XML File:</translation>
+    </message>
+    <message>
+      <source>Lorem Ipsum</source>
+      <translation>Lorem Ipsum</translation>
+    </message>
+    <message>
+      <source>Paragraphs:</source>
+      <translation>Paragraphs:</translation>
+    </message>
+    <message>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
+    </message>
+    <message>
+      <source>Alt+O</source>
+      <translation>Alt+O</translation>
+    </message>
+    <message>
+      <source>&amp;Cancel</source>
+      <translation>&amp;Cancel</translation>
+    </message>
+    <message>
+      <source>Alt+C</source>
+      <translation>Alt+C</translation>
+    </message>
+    <message>
+      <source>Do you really want to replace all your text in the frame named %1 with sample text?</source>
+      <translation>Do you really want to replace all your text in the frame named %1 with sample text?</translation>
+    </message>
+    <message>
+      <source>Warning</source>
+      <translation>Warning</translation>
+    </message>
+  </context>
+  <context>
+    <name>MarginDialog</name>
+    <message>
+      <source>Manage Margins</source>
+      <translation>Manage Margins</translation>
+    </message>
+    <message>
+      <source>Margin Guides</source>
+      <translation>Margin Guides</translation>
+    </message>
+    <message>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
+    </message>
+    <message>
+      <source>&amp;Cancel</source>
+      <translation>&amp;Cancel</translation>
+    </message>
+  </context>
+  <context>
+    <name>MarginWidget</name>
+    <message>
+      <source>&amp;Bottom:</source>
+      <translation>&amp;Bottom:</translation>
+    </message>
+    <message>
+      <source>&amp;Top:</source>
+      <translation>&amp;Top:</translation>
+    </message>
+    <message>
+      <source>&amp;Right:</source>
+      <translation>&amp;Right:</translation>
+    </message>
+    <message>
+      <source>&amp;Left:</source>
+      <translation>&amp;Left:</translation>
+    </message>
+    <message>
+      <source>Distance between the top margin guide and the edge of the page</source>
+      <translation>Distance between the top margin guide and the edge of the page</translation>
+    </message>
+    <message>
+      <source>Distance between the bottom margin guide and the edge of the page</source>
+      <translation>Distance between the bottom margin guide and the edge of the page</translation>
+    </message>
+    <message>
+      <source>Distance between the left margin guide and the edge of the page.
+If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
+      <translation>Distance between the left margin guide and the edge of the page.
+If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</translation>
+    </message>
+    <message>
+      <source>Distance between the right margin guide and the edge of the page.
+If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
+      <translation>Distance between the right margin guide and the edge of the page.
+If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</translation>
+    </message>
+    <message>
+      <source>&amp;Inside:</source>
+      <translation>&amp;Inside:</translation>
+    </message>
+    <message>
+      <source>O&amp;utside:</source>
+      <translation>O&amp;utside:</translation>
     </message>
   </context>
   <context>
@@ -8354,26 +6054,6 @@ Please choose another.</translation>
       <translation>Make the first page the left page of the document</translation>
     </message>
     <message>
-      <source>Distance between the top margin guide and the edge of the page</source>
-      <translation>Distance between the top margin guide and the edge of the page</translation>
-    </message>
-    <message>
-      <source>Distance between the bottom margin guide and the edge of the page</source>
-      <translation>Distance between the bottom margin guide and the edge of the page</translation>
-    </message>
-    <message>
-      <source>Distance between the left margin guide and the edge of the page.
-If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-      <translation>Distance between the left margin guide and the edge of the page.
-If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</translation>
-    </message>
-    <message>
-      <source>Distance between the right margin guide and the edge of the page.
-If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-      <translation>Distance between the right margin guide and the edge of the page.
-If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</translation>
-    </message>
-    <message>
       <source>First page number of the document</source>
       <translation>First page number of the document</translation>
     </message>
@@ -8418,22 +6098,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
       <translation>Left &amp;Page First</translation>
     </message>
     <message>
-      <source>&amp;Left:</source>
-      <translation>&amp;Left:</translation>
-    </message>
-    <message>
-      <source>&amp;Right:</source>
-      <translation>&amp;Right:</translation>
-    </message>
-    <message>
-      <source>&amp;Top:</source>
-      <translation>&amp;Top:</translation>
-    </message>
-    <message>
-      <source>&amp;Bottom:</source>
-      <translation>&amp;Bottom:</translation>
-    </message>
-    <message>
       <source>F&amp;irst Page Number:</source>
       <translation>F&amp;irst Page Number:</translation>
     </message>
@@ -8460,14 +6124,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
       <source>&amp;Cancel</source>
       <translation>&amp;Cancel</translation>
-    </message>
-    <message>
-      <source>&amp;Inside:</source>
-      <translation>&amp;Inside:</translation>
-    </message>
-    <message>
-      <source>O&amp;utside:</source>
-      <translation>O&amp;utside:</translation>
     </message>
   </context>
   <context>
@@ -8659,12 +6315,12 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
       <translation>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</translation>
     </message>
     <message>
-      <source>OpenOffice.org Writer Importer Options</source>
-      <translation>OpenOffice.org Writer Importer Options</translation>
-    </message>
-    <message>
       <source>Overwrite Paragraph Styles</source>
       <translation>Overwrite Paragraph Styles</translation>
+    </message>
+    <message>
+      <source>OpenDocument Importer Options</source>
+      <translation>OpenDocument Importer Options</translation>
     </message>
   </context>
   <context>
@@ -8849,16 +6505,6 @@ Consider using the Preflight Checker to correct them</translation>
     <message>
       <source>PathText</source>
       <translation>PathText</translation>
-    </message>
-    <message>
-      <source>Do you really want to replace all your text
-in the frame named %1 with sample text?</source>
-      <translation>Do you really want to replace all your text
-in the frame named %1 with sample text?</translation>
-    </message>
-    <message>
-      <source>Warning</source>
-      <translation>Warning</translation>
     </message>
     <message>
       <source>Copy of</source>
@@ -9152,7 +6798,18 @@ in the frame named %1 with sample text?</translation>
     </message>
     <message>
       <source>Cannot find plugin</source>
+      <comment>plugin manager</comment>
       <translation>Cannot find plugin</translation>
+    </message>
+    <message>
+      <source>unknown error</source>
+      <comment>plugin manager</comment>
+      <translation>unknown error</translation>
+    </message>
+    <message>
+      <source>Cannot find symbol (%1)</source>
+      <comment>plugin manager</comment>
+      <translation>Cannot find symbol (%1)</translation>
     </message>
   </context>
   <context>
@@ -9306,10 +6963,6 @@ a positive value will make it convex</translation>
       <translation>Medium</translation>
     </message>
     <message>
-      <source>To adjust the display drag the ruler below with the Slider.</source>
-      <translation>To adjust the display drag the ruler below with the Slider.</translation>
-    </message>
-    <message>
       <source>Choose a Directory</source>
       <translation>Choose a Directory</translation>
     </message>
@@ -9382,26 +7035,6 @@ Scribus inherits any available KDE or Qt themes</translation>
     <message>
       <source>Make the first page the left page of a document</source>
       <translation>Make the first page the left page of a document</translation>
-    </message>
-    <message>
-      <source>Distance between the top margin guide and the edge of the page</source>
-      <translation>Distance between the top margin guide and the edge of the page</translation>
-    </message>
-    <message>
-      <source>Distance between the bottom margin guide and the edge of the page</source>
-      <translation>Distance between the bottom margin guide and the edge of the page</translation>
-    </message>
-    <message>
-      <source>Distance between the left margin guide and the edge of the page.
-If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-      <translation>Distance between the left margin guide and the edge of the page.
-If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</translation>
-    </message>
-    <message>
-      <source>Distance between the right margin guide and the edge of the page.
-If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-      <translation>Distance between the right margin guide and the edge of the page.
-If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</translation>
     </message>
     <message>
       <source>When enabled, Scribus saves a backup copy of your file with the .bak extension
@@ -9570,14 +7203,6 @@ each time the time period elapses</translation>
       <translation>Clip to Page &amp;Margins</translation>
     </message>
     <message>
-      <source>&amp;Inside:</source>
-      <translation>&amp;Inside:</translation>
-    </message>
-    <message>
-      <source>O&amp;utside:</source>
-      <translation>O&amp;utside:</translation>
-    </message>
-    <message>
       <source>Apply &amp;Under Color Removal</source>
       <translation>Apply &amp;Under Colour Removal</translation>
     </message>
@@ -9636,10 +7261,6 @@ instance of gimp.</translation>
     <message>
       <source>Fonts</source>
       <translation>Fonts</translation>
-    </message>
-    <message>
-      <source>Document Checker</source>
-      <translation>Document Checker</translation>
     </message>
     <message>
       <source>Color Management</source>
@@ -9789,6 +7410,58 @@ If set to 0 infinite amount of actions will be stored.</translation>
       <source>Preview of current Paragraph Style visible when editing Styles</source>
       <translation>Preview of current Paragraph Style visible when editing Styles</translation>
     </message>
+    <message>
+      <source>To adjust the display drag the ruler below with the slider.</source>
+      <translation>To adjust the display drag the ruler below with the slider.</translation>
+    </message>
+    <message>
+      <source>Display non-printing characters such as paragraph markers in text frames</source>
+      <translation>Display non-printing characters such as paragraph markers in text frames</translation>
+    </message>
+    <message>
+      <source>Place a ruler against your screen and drag the slider to set the zoom level so Scribus will display your pages and objects on them at the correct size</source>
+      <translation>Place a ruler against your screen and drag the slider to set the zoom level so Scribus will display your pages and objects on them at the correct size</translation>
+    </message>
+    <message>
+      <source>Defines amount of space left of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
+      <translation>Defines amount of space left of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</translation>
+    </message>
+    <message>
+      <source>Defines amount of space right of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
+      <translation>Defines amount of space right of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</translation>
+    </message>
+    <message>
+      <source>Defines amount of space above the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
+      <translation>Defines amount of space above the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</translation>
+    </message>
+    <message>
+      <source>Defines amount of space below the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
+      <translation>Defines amount of space below the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</translation>
+    </message>
+    <message>
+      <source>Preflight Verifier</source>
+      <translation>Preflight Verifier</translation>
+    </message>
+    <message>
+      <source>dpi</source>
+      <translation>dpi</translation>
+    </message>
+    <message>
+      <source>Resolution:</source>
+      <translation>Resolution:</translation>
+    </message>
+    <message>
+      <source>Lorem Ipsum</source>
+      <translation>Lorem Ipsum</translation>
+    </message>
+    <message>
+      <source>Always use standard Lorem Ipsum</source>
+      <translation>Always use standard Lorem Ipsum</translation>
+    </message>
+    <message>
+      <source>Count of the Paragraphs:</source>
+      <translation>Count of the Paragraphs:</translation>
+    </message>
   </context>
   <context>
     <name>PrefsDialogBase</name>
@@ -9874,6 +7547,10 @@ If set to 0 infinite amount of actions will be stored.</translation>
     <message>
       <source>&amp;Save As...</source>
       <translation>&amp;Save As...</translation>
+    </message>
+    <message>
+      <source>&amp;Run As Console</source>
+      <translation>&amp;Run As Console</translation>
     </message>
   </context>
   <context>
@@ -11431,10 +9108,6 @@ Do you want to replace it with the file you are saving?</translation>
       <translation>&amp;Recent Scripts</translation>
     </message>
     <message>
-      <source>Python Scripts (*.py);; All Files (*)</source>
-      <translation>Python Scripts (*.py);; All Files (*)</translation>
-    </message>
-    <message>
       <source>About Script</source>
       <translation>About Script</translation>
     </message>
@@ -11697,6 +9370,23 @@ is not exhaustive due to exceptions from called functions.
       <comment>python error</comment>
       <translation>Cannot group less than two items</translation>
     </message>
+    <message>
+      <source> c</source>
+      <translation> c</translation>
+    </message>
+    <message>
+      <source>c</source>
+      <translation>c</translation>
+    </message>
+    <message>
+      <source>Cicero (c)</source>
+      <translation>Cicero (c)</translation>
+    </message>
+    <message>
+      <source>The filename should not be empty string.</source>
+      <comment>python error</comment>
+      <translation>The filename should not be empty string.</translation>
+    </message>
   </context>
   <context>
     <name>QTextEdit</name>
@@ -11845,26 +9535,6 @@ is not exhaustive due to exceptions from called functions.
       <translation>Make the first page the left page of the document</translation>
     </message>
     <message>
-      <source>Distance between the top margin guide and the edge of the page</source>
-      <translation>Distance between the top margin guide and the edge of the page</translation>
-    </message>
-    <message>
-      <source>Distance between the bottom margin guide and the edge of the page</source>
-      <translation>Distance between the bottom margin guide and the edge of the page</translation>
-    </message>
-    <message>
-      <source>Distance between the left margin guide and the edge of the page.
-If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-      <translation>Distance between the left margin guide and the edge of the page.
-If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</translation>
-    </message>
-    <message>
-      <source>Distance between the right margin guide and the edge of the page.
-If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-      <translation>Distance between the right margin guide and the edge of the page.
-If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</translation>
-    </message>
-    <message>
       <source>&amp;Top:</source>
       <translation>&amp;Top:</translation>
     </message>
@@ -11887,14 +9557,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
       <source>Left &amp;Page First</source>
       <translation>Left &amp;Page First</translation>
-    </message>
-    <message>
-      <source>&amp;Inside:</source>
-      <translation>&amp;Inside:</translation>
-    </message>
-    <message>
-      <source>&amp;Outside:</source>
-      <translation>&amp;Outside:</translation>
     </message>
     <message>
       <source>Page Size</source>
@@ -12013,10 +9675,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
       <translation>Fonts</translation>
     </message>
     <message>
-      <source>Document Checker</source>
-      <translation>Document Checker</translation>
-    </message>
-    <message>
       <source>PDF Export</source>
       <translation>PDF Export</translation>
     </message>
@@ -12059,6 +9717,26 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
       <source>Show Text Control Characters</source>
       <translation>Show Text Control Characters</translation>
+    </message>
+    <message>
+      <source>Display non-printing characters such as paragraph markers in text frames</source>
+      <translation>Display non-printing characters such as paragraph markers in text frames</translation>
+    </message>
+    <message>
+      <source>Preflight Verifier</source>
+      <translation>Preflight Verifier</translation>
+    </message>
+  </context>
+  <context>
+    <name>RunScriptDialog</name>
+    <message>
+      <source>Python Scripts (*.py);; All Files (*)</source>
+      <translation>Python Scripts (*.py);; All Files (*)</translation>
+    </message>
+    <message>
+      <source>Run as Extension Script</source>
+      <comment>run script dialog</comment>
+      <translation>Run as Extension Script</translation>
     </message>
   </context>
   <context>
@@ -12755,6 +10433,10 @@ Consider using the Preflight Verifier to correct them</translation>
       <source>Send to Layer</source>
       <translation>Send to Layer</translation>
     </message>
+    <message>
+      <source>Previe&amp;w Settings</source>
+      <translation>Previe&amp;w Settings</translation>
+    </message>
   </context>
   <context>
     <name>ScribusView</name>
@@ -12935,6 +10617,14 @@ Consider using the Preflight Verifier to correct them</translation>
     <message>
       <source>Python Scripts (*.py)</source>
       <translation>Python Scripts (*.py)</translation>
+    </message>
+    <message>
+      <source>There was an internal error while trying the command you entered. Details were printed to stderr. </source>
+      <translation>There was an internal error while trying the command you entered. Details were printed to stderr. </translation>
+    </message>
+    <message>
+      <source>Setting up the Python plugin failed. Error details were printed to stderr. </source>
+      <translation>Setting up the Python plugin failed. Error details were printed to stderr. </translation>
     </message>
   </context>
   <context>
@@ -13822,6 +11512,22 @@ Consider using the Preflight Verifier to correct them</translation>
     <message>
       <source>Turns the margins on or off</source>
       <translation>Turns the margins on or off</translation>
+    </message>
+    <message>
+      <source>Guides are not visible through objects on the page</source>
+      <translation>Guides are not visible through objects on the page</translation>
+    </message>
+    <message>
+      <source>Guides are visible above all objects on the page</source>
+      <translation>Guides are visible above all objects on the page</translation>
+    </message>
+    <message>
+      <source>Distance between the lines of the baseline grid</source>
+      <translation>Distance between the lines of the baseline grid</translation>
+    </message>
+    <message>
+      <source>Distance from the top of the page for the first baseline</source>
+      <translation>Distance from the top of the page for the first baseline</translation>
     </message>
   </context>
   <context>
@@ -15734,16 +13440,12 @@ with checked button too.</translation>
       <translation>Remember association</translation>
     </message>
     <message>
-      <source>Remember the file extension - importer association
-and do not ask again to select an importer for
-files of this type.</source>
-      <translation>Remember the file extension - importer association
-and do not ask again to select an importer for
-files of this type.</translation>
-    </message>
-    <message>
       <source>&amp;OK</source>
       <translation>&amp;OK</translation>
+    </message>
+    <message>
+      <source>Remember the file extension - importer association and do not ask again to select an importer for files of this type.</source>
+      <translation>Remember the file extension - importer association and do not ask again to select an importer for files of this type.</translation>
     </message>
   </context>
   <context>
