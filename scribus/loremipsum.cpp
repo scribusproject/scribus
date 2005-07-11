@@ -202,20 +202,11 @@ void LoremManager::insertLoremIpsum(QString name, int paraCount)
 			continue;
 		if (ScApp->view->SelItem.at(i)->itemText.count() != 0)
 		{
-			QString text = "<qt>" + tr("Do you really want to replace all your text in the frame named %1 with sample text?") + "</qt>";
-			int t = QMessageBox::warning(ScApp, tr("Warning"),
-										 QString(text).arg(ScApp->view->SelItem.at(i)->itemName()),
-										 QMessageBox::No, QMessageBox::Yes, QMessageBox::NoButton);
-			if (t == QMessageBox::No)
+			ScApp->view->ClearItem();
+			/* ClearItem() doesn't return true or false so
+			the following test has to be done */
+			if (ScApp->view->SelItem.at(i)->itemText.count() != 0)
 				continue;
-			if (t == QMessageBox::Yes)
-			{
-				ScApp->view->ClearItem();
-				/* ClearItem() doesn't return true or false so
-				the following test has to be done */
-				if (ScApp->view->SelItem.at(i)->itemText.count() != 0)
-					continue;
-			}
 		}
 
 		LoremParser *lp = new LoremParser(name);
