@@ -3,7 +3,7 @@
 
 #include "util.h"
 
-PyObject *scribus_newrect(PyObject */*self*/, PyObject* args)
+PyObject *scribus_newrect(PyObject* /* self */, PyObject* args)
 {
 	double x, y, b, h;
 	char *Name = const_cast<char*>("");
@@ -28,7 +28,7 @@ PyObject *scribus_newrect(PyObject */*self*/, PyObject* args)
 }
 
 
-PyObject *scribus_newellipse(PyObject */*self*/, PyObject* args)
+PyObject *scribus_newellipse(PyObject* /* self */, PyObject* args)
 {
 	double x, y, b, h;
 	char *Name = const_cast<char*>("");
@@ -52,7 +52,7 @@ PyObject *scribus_newellipse(PyObject */*self*/, PyObject* args)
 }
 
 
-PyObject *scribus_newimage(PyObject */*self*/, PyObject* args)
+PyObject *scribus_newimage(PyObject* /* self */, PyObject* args)
 {
 	double x, y, b, h;
 	char *Name = const_cast<char*>("");
@@ -73,7 +73,7 @@ PyObject *scribus_newimage(PyObject */*self*/, PyObject* args)
 }
 
 
-PyObject *scribus_newtext(PyObject */*self*/, PyObject* args)
+PyObject *scribus_newtext(PyObject* /* self */, PyObject* args)
 {
 	double x, y, b, h;
 	char *Name = const_cast<char*>("");
@@ -96,7 +96,7 @@ PyObject *scribus_newtext(PyObject */*self*/, PyObject* args)
 }
 
 
-PyObject *scribus_newline(PyObject */*self*/, PyObject* args)
+PyObject *scribus_newline(PyObject* /* self */, PyObject* args)
 {
 	double x, y, b, h;
 	char *Name = const_cast<char*>("");
@@ -139,7 +139,7 @@ PyObject *scribus_newline(PyObject */*self*/, PyObject* args)
 }
 
 
-PyObject *scribus_polyline(PyObject */*self*/, PyObject* args)
+PyObject *scribus_polyline(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	PyObject *il;
@@ -214,7 +214,7 @@ PyObject *scribus_polyline(PyObject */*self*/, PyObject* args)
 }
 
 
-PyObject *scribus_polygon(PyObject */*self*/, PyObject* args)
+PyObject *scribus_polygon(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	PyObject *il;
@@ -291,7 +291,7 @@ PyObject *scribus_polygon(PyObject */*self*/, PyObject* args)
 	return PyString_FromString(it->itemName().utf8());
 }
 
-PyObject *scribus_bezierline(PyObject */*self*/, PyObject* args)
+PyObject *scribus_bezierline(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	PyObject *il;
@@ -380,7 +380,7 @@ PyObject *scribus_bezierline(PyObject */*self*/, PyObject* args)
 
 /* 03/31/2004 - xception handling
  */
-PyObject *scribus_pathtext(PyObject */*self*/, PyObject* args)
+PyObject *scribus_pathtext(PyObject* /* self */, PyObject* args)
 {
 	double x, y;
 	char *Name = const_cast<char*>("");
@@ -418,7 +418,7 @@ PyObject *scribus_pathtext(PyObject */*self*/, PyObject* args)
 
 /* 03/21/2004 - exception raised when Name doesn't exists. Doesn't crash then. (subik)
  */
-PyObject *scribus_deleteobj(PyObject */*self*/, PyObject* args)
+PyObject *scribus_deleteobj(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
@@ -438,7 +438,7 @@ PyObject *scribus_deleteobj(PyObject */*self*/, PyObject* args)
 
 /* 03/21/2004 - exception raises by non existent name (subik)
  */
-PyObject *scribus_textflow(PyObject */*self*/, PyObject* args)
+PyObject *scribus_textflow(PyObject* /* self */, PyObject* args)
 {
 	char *name = const_cast<char*>("");
 	int state = -1;
@@ -461,7 +461,7 @@ PyObject *scribus_textflow(PyObject */*self*/, PyObject* args)
 }
 
 
-PyObject *scribus_objectexists(PyObject */*self*/, PyObject* args)
+PyObject *scribus_objectexists(PyObject* /* self */, PyObject* args)
 {
 	char* name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name))
@@ -478,7 +478,7 @@ PyObject *scribus_objectexists(PyObject */*self*/, PyObject* args)
  * Apply the named style to the currently selected object.
  * pv, 2004-09-13, optionaly param objectName + "check the page" stuff
  */
-PyObject *scribus_setstyle(PyObject */*self*/, PyObject* args)
+PyObject *scribus_setstyle(PyObject* /* self */, PyObject* args)
 {
 	char *style = const_cast<char*>("");
 	char *name = const_cast<char*>("");
@@ -532,7 +532,7 @@ PyObject *scribus_setstyle(PyObject */*self*/, PyObject* args)
  * Craig Ringer, 2004-09-09
  * Enumerate all known paragraph styles
  */
-PyObject *scribus_getstylenames(PyObject */*self*/)
+PyObject *scribus_getstylenames(PyObject* /* self */)
 {
 	PyObject *styleList;
 	if(!checkHaveDocument())

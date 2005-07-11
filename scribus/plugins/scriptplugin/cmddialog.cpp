@@ -5,7 +5,7 @@
 #include <qmessagebox.h>
 #include <qcursor.h>
 
-PyObject *scribus_newdocdia(PyObject */*self*/)
+PyObject *scribus_newdocdia(PyObject* /* self */)
 {
 	QApplication::setOverrideCursor(QCursor(Qt::ArrowCursor));
 	bool ret = Carrier->slotFileNew();
@@ -13,7 +13,7 @@ PyObject *scribus_newdocdia(PyObject */*self*/)
 	return PyInt_FromLong(static_cast<long>(ret));
 }
 
-PyObject *scribus_filedia(PyObject */*self*/, PyObject* args, PyObject* kw)
+PyObject *scribus_filedia(PyObject* /* self */, PyObject* args, PyObject* kw)
 {
 	char *caption = const_cast<char*>("");
 	char *filter = const_cast<char*>("");
@@ -55,7 +55,7 @@ PyObject *scribus_filedia(PyObject */*self*/, PyObject* args, PyObject* kw)
 	return PyString_FromString(fName.utf8());
 }
 
-PyObject *scribus_messdia(PyObject */*self*/, PyObject* args, PyObject* kw)
+PyObject *scribus_messdia(PyObject* /* self */, PyObject* args, PyObject* kw)
 {
 	char *caption = const_cast<char*>("");
 	char *message = const_cast<char*>("");
@@ -76,7 +76,7 @@ PyObject *scribus_messdia(PyObject */*self*/, PyObject* args, PyObject* kw)
 	return PyInt_FromLong(static_cast<long>(result));
 }
 
-PyObject *scribus_valdialog(PyObject */*self*/, PyObject* args)
+PyObject *scribus_valdialog(PyObject* /* self */, PyObject* args)
 {
 	char *caption = const_cast<char*>("");
 	char *message = const_cast<char*>("");

@@ -1,7 +1,7 @@
 #include "cmdtext.h"
 #include "cmdutil.h"
 
-PyObject *scribus_getfontsize(PyObject */*self*/, PyObject* args)
+PyObject *scribus_getfontsize(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
@@ -27,7 +27,7 @@ PyObject *scribus_getfontsize(PyObject */*self*/, PyObject* args)
 		return PyFloat_FromDouble(static_cast<long>(it->ISize / 10.0));
 }
 
-PyObject *scribus_getfont(PyObject */*self*/, PyObject* args)
+PyObject *scribus_getfont(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
@@ -53,7 +53,7 @@ PyObject *scribus_getfont(PyObject */*self*/, PyObject* args)
 		return PyString_FromString(it->IFont.utf8());
 }
 
-PyObject *scribus_gettextsize(PyObject */*self*/, PyObject* args)
+PyObject *scribus_gettextsize(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
@@ -71,7 +71,7 @@ PyObject *scribus_gettextsize(PyObject */*self*/, PyObject* args)
 	return PyInt_FromLong(static_cast<long>(i->itemText.count()));
 }
 
-PyObject *scribus_getcolumns(PyObject */*self*/, PyObject* args)
+PyObject *scribus_getcolumns(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
@@ -89,7 +89,7 @@ PyObject *scribus_getcolumns(PyObject */*self*/, PyObject* args)
 	return PyInt_FromLong(static_cast<long>(i->Cols));
 }
 
-PyObject *scribus_getlinespace(PyObject */*self*/, PyObject* args)
+PyObject *scribus_getlinespace(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
@@ -107,7 +107,7 @@ PyObject *scribus_getlinespace(PyObject */*self*/, PyObject* args)
 	return PyFloat_FromDouble(static_cast<double>(i->LineSp));
 }
 
-PyObject *scribus_getcolumngap(PyObject */*self*/, PyObject* args)
+PyObject *scribus_getcolumngap(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
@@ -125,7 +125,7 @@ PyObject *scribus_getcolumngap(PyObject */*self*/, PyObject* args)
 	return PyFloat_FromDouble(PointToValue(static_cast<double>(i->ColGap)));
 }
 
-PyObject *scribus_getframetext(PyObject */*self*/, PyObject* args)
+PyObject *scribus_getframetext(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
@@ -156,7 +156,7 @@ PyObject *scribus_getframetext(PyObject */*self*/, PyObject* args)
 	return PyString_FromString(text.utf8());
 }
 
-PyObject *scribus_gettext(PyObject */*self*/, PyObject* args)
+PyObject *scribus_gettext(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
@@ -232,7 +232,7 @@ PyObject *scribus_gettext(PyObject */*self*/, PyObject* args)
 	return PyString_FromString(text.utf8());
 }
 
-PyObject *scribus_setboxtext(PyObject */*self*/, PyObject* args)
+PyObject *scribus_setboxtext(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	char *Text;
@@ -321,7 +321,7 @@ PyObject *scribus_setboxtext(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_inserttext(PyObject */*self*/, PyObject* args)
+PyObject *scribus_inserttext(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	char *Text;
@@ -388,7 +388,7 @@ PyObject *scribus_inserttext(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_setalign(PyObject */*self*/, PyObject* args)
+PyObject *scribus_setalign(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	int alignment;
@@ -421,7 +421,7 @@ PyObject *scribus_setalign(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_setfontsize(PyObject */*self*/, PyObject* args)
+PyObject *scribus_setfontsize(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	double size;
@@ -455,7 +455,7 @@ PyObject *scribus_setfontsize(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_setfont(PyObject */*self*/, PyObject* args)
+PyObject *scribus_setfont(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	char *Font = const_cast<char*>("");
@@ -491,7 +491,7 @@ PyObject *scribus_setfont(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_setlinespace(PyObject */*self*/, PyObject* args)
+PyObject *scribus_setlinespace(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	double w;
@@ -517,7 +517,7 @@ PyObject *scribus_setlinespace(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_setcolumngap(PyObject */*self*/, PyObject* args)
+PyObject *scribus_setcolumngap(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	double w;
@@ -543,7 +543,7 @@ PyObject *scribus_setcolumngap(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_setcolumns(PyObject */*self*/, PyObject* args)
+PyObject *scribus_setcolumns(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	int w;
@@ -569,7 +569,7 @@ PyObject *scribus_setcolumns(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_selecttext(PyObject */*self*/, PyObject* args)
+PyObject *scribus_selecttext(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	int start, selcount;
@@ -621,7 +621,7 @@ PyObject *scribus_selecttext(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_deletetext(PyObject */*self*/, PyObject* args)
+PyObject *scribus_deletetext(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
@@ -659,7 +659,7 @@ PyObject *scribus_deletetext(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_settextfill(PyObject */*self*/, PyObject* args)
+PyObject *scribus_settextfill(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	char *Color;
@@ -693,7 +693,7 @@ PyObject *scribus_settextfill(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_settextstroke(PyObject */*self*/, PyObject* args)
+PyObject *scribus_settextstroke(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	char *Color;
@@ -727,7 +727,7 @@ PyObject *scribus_settextstroke(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_settextshade(PyObject */*self*/, PyObject* args)
+PyObject *scribus_settextshade(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	int w;
@@ -766,7 +766,7 @@ PyObject *scribus_settextshade(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_linktextframes(PyObject */*self*/, PyObject* args)
+PyObject *scribus_linktextframes(PyObject* /* self */, PyObject* args)
 {
 	char *name1;
 	char *name2;
@@ -816,7 +816,7 @@ PyObject *scribus_linktextframes(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_unlinktextframes(PyObject */*self*/, PyObject* args)
+PyObject *scribus_unlinktextframes(PyObject* /* self */, PyObject* args)
 {
 	char *name;
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &name))
@@ -868,7 +868,7 @@ PyObject *scribus_unlinktextframes(PyObject */*self*/, PyObject* args)
  * 2004-09-07 (Craig Ringer)
  * 2004-09-14 pv frame type, optional frame name param
  */
-PyObject *scribus_tracetext(PyObject */*self*/, PyObject* args)
+PyObject *scribus_tracetext(PyObject* /* self */, PyObject* args)
 {
 	char *name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name))
@@ -931,7 +931,7 @@ PyObject *scribus_istextoverflowing(PyObject * self, PyObject* args, PyObject* k
 	return PyInt_FromLong(static_cast<long>(chars - maxchars));
 }
 
-PyObject *scribus_setpdfbookmark(PyObject */*self*/, PyObject* args)
+PyObject *scribus_setpdfbookmark(PyObject* /* self */, PyObject* args)
 {
 	char *name = const_cast<char*>("");
 	bool toggle;
@@ -964,7 +964,7 @@ PyObject *scribus_setpdfbookmark(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_ispdfbookmark(PyObject */*self*/, PyObject* args)
+PyObject *scribus_ispdfbookmark(PyObject* /* self */, PyObject* args)
 {
 	char *name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name))

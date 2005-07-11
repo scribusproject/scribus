@@ -4,7 +4,7 @@
 #include <qstring.h>
 #include <qcursor.h>
 
-PyObject *scribus_messagebartext(PyObject */*self*/, PyObject* args)
+PyObject *scribus_messagebartext(PyObject* /* self */, PyObject* args)
 {
 	char *aText;
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &aText))
@@ -14,7 +14,7 @@ PyObject *scribus_messagebartext(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_progressreset(PyObject */*self*/)
+PyObject *scribus_progressreset(PyObject* /* self */)
 {
 	Carrier->mainWindowProgressBar->reset();
 	qApp->processEvents();
@@ -22,7 +22,7 @@ PyObject *scribus_progressreset(PyObject */*self*/)
 	return Py_None;
 }
 
-PyObject *scribus_progresssettotalsteps(PyObject */*self*/, PyObject* args)
+PyObject *scribus_progresssettotalsteps(PyObject* /* self */, PyObject* args)
 {
 	int steps;
 	if (!PyArg_ParseTuple(args, "i", &steps))
@@ -34,7 +34,7 @@ PyObject *scribus_progresssettotalsteps(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_progresssetprogress(PyObject */*self*/, PyObject* args)
+PyObject *scribus_progresssetprogress(PyObject* /* self */, PyObject* args)
 {
 	int position;
 	if (!PyArg_ParseTuple(args, "i", &position))
@@ -51,7 +51,7 @@ PyObject *scribus_progresssetprogress(PyObject */*self*/, PyObject* args)
 }
 
 
-PyObject *scribus_setcursor(PyObject */*self*/, PyObject* args)
+PyObject *scribus_setcursor(PyObject* /* self */, PyObject* args)
 {
 	char *aCursor;
 	qDebug("WARNING! SetCursor() is not stable!");
@@ -65,7 +65,7 @@ PyObject *scribus_setcursor(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_docchanged(PyObject */*self*/, PyObject* args)
+PyObject *scribus_docchanged(PyObject* /* self */, PyObject* args)
 {
 	int aValue;
 	if (!PyArg_ParseTuple(args, "i", &aValue))

@@ -6,7 +6,7 @@
 
 #include "scfontmetrics.h"
 
-PyObject *scribus_setredraw(PyObject */*self*/, PyObject* args)
+PyObject *scribus_setredraw(PyObject* /* self */, PyObject* args)
 {
 	int e;
 	if (!PyArg_ParseTuple(args, "i", &e))
@@ -18,7 +18,7 @@ PyObject *scribus_setredraw(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_fontnames(PyObject */*self*/)
+PyObject *scribus_fontnames(PyObject* /* self */)
 {
 	int cc2 = 0;
 	SCFontsIterator it2(Carrier->Prefs.AvailFonts);
@@ -41,7 +41,7 @@ PyObject *scribus_fontnames(PyObject */*self*/)
 	return l;
 }
 
-PyObject *scribus_xfontnames(PyObject */*self*/)
+PyObject *scribus_xfontnames(PyObject* /* self */)
 {
 	PyObject *l = PyList_New(Carrier->Prefs.AvailFonts.count());
 	SCFontsIterator it(Carrier->Prefs.AvailFonts);
@@ -133,7 +133,7 @@ PyObject *scribus_renderfont(PyObject* /*self*/, PyObject* args, PyObject* kw)
 	}
 }
 
-PyObject *scribus_getlayers(PyObject */*self*/)
+PyObject *scribus_getlayers(PyObject* /* self */)
 {
 	if(!checkHaveDocument())
 		return NULL;
@@ -144,7 +144,7 @@ PyObject *scribus_getlayers(PyObject */*self*/)
 	return l;
 }
 
-PyObject *scribus_setactlayer(PyObject */*self*/, PyObject* args)
+PyObject *scribus_setactlayer(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
@@ -176,7 +176,7 @@ PyObject *scribus_setactlayer(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_getactlayer(PyObject */*self*/)
+PyObject *scribus_getactlayer(PyObject* /* self */)
 {
 	if(!checkHaveDocument())
 		return NULL;
@@ -189,7 +189,7 @@ PyObject *scribus_getactlayer(PyObject */*self*/)
 	return PyString_FromString(Carrier->doc->Layers[lam].Name.utf8());
 }
 
-PyObject *scribus_senttolayer(PyObject */*self*/, PyObject* args)
+PyObject *scribus_senttolayer(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	char *Layer = const_cast<char*>("");
@@ -228,7 +228,7 @@ PyObject *scribus_senttolayer(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_layervisible(PyObject */*self*/, PyObject* args)
+PyObject *scribus_layervisible(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	int vis = 1;
@@ -260,7 +260,7 @@ PyObject *scribus_layervisible(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_layerprint(PyObject */*self*/, PyObject* args)
+PyObject *scribus_layerprint(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	int vis = 1;
@@ -292,7 +292,7 @@ PyObject *scribus_layerprint(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_glayervisib(PyObject */*self*/, PyObject* args)
+PyObject *scribus_glayervisib(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
@@ -323,7 +323,7 @@ PyObject *scribus_glayervisib(PyObject */*self*/, PyObject* args)
 	return PyInt_FromLong(static_cast<long>(i));
 }
 
-PyObject *scribus_glayerprint(PyObject */*self*/, PyObject* args)
+PyObject *scribus_glayerprint(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
@@ -354,7 +354,7 @@ PyObject *scribus_glayerprint(PyObject */*self*/, PyObject* args)
 	return PyInt_FromLong(static_cast<long>(i));
 }
 
-PyObject *scribus_removelayer(PyObject */*self*/, PyObject* args)
+PyObject *scribus_removelayer(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
@@ -409,7 +409,7 @@ PyObject *scribus_removelayer(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_createlayer(PyObject */*self*/, PyObject* args)
+PyObject *scribus_createlayer(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
@@ -436,7 +436,7 @@ PyObject *scribus_createlayer(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_getlanguage(PyObject */*self*/)
+PyObject *scribus_getlanguage(PyObject* /* self */)
 {
 	return PyString_FromString(Carrier->getGuiLanguage().utf8());
 }

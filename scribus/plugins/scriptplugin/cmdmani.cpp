@@ -1,7 +1,7 @@
 #include "cmdmani.h"
 #include "cmdutil.h"
 
-PyObject *scribus_loadimage(PyObject */*self*/, PyObject* args)
+PyObject *scribus_loadimage(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	char *Image;
@@ -22,7 +22,7 @@ PyObject *scribus_loadimage(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_scaleimage(PyObject */*self*/, PyObject* args)
+PyObject *scribus_scaleimage(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	double x, y;
@@ -46,7 +46,7 @@ PyObject *scribus_scaleimage(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_moveobjrel(PyObject */*self*/, PyObject* args)
+PyObject *scribus_moveobjrel(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	double x, y;
@@ -78,7 +78,7 @@ PyObject *scribus_moveobjrel(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_moveobjabs(PyObject */*self*/, PyObject* args)
+PyObject *scribus_moveobjabs(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	double x, y;
@@ -114,7 +114,7 @@ PyObject *scribus_moveobjabs(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_rotobjrel(PyObject */*self*/, PyObject* args)
+PyObject *scribus_rotobjrel(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	double x;
@@ -130,7 +130,7 @@ PyObject *scribus_rotobjrel(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_rotobjabs(PyObject */*self*/, PyObject* args)
+PyObject *scribus_rotobjabs(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	double x;
@@ -146,7 +146,7 @@ PyObject *scribus_rotobjabs(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_sizeobjabs(PyObject */*self*/, PyObject* args)
+PyObject *scribus_sizeobjabs(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	double x, y;
@@ -162,7 +162,7 @@ PyObject *scribus_sizeobjabs(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_groupobj(PyObject */*self*/, PyObject* args)
+PyObject *scribus_groupobj(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	PyObject *il = 0;
@@ -218,7 +218,7 @@ PyObject *scribus_groupobj(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_ungroupobj(PyObject */*self*/, PyObject* args)
+PyObject *scribus_ungroupobj(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
@@ -233,7 +233,7 @@ PyObject *scribus_ungroupobj(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_scalegroup(PyObject */*self*/, PyObject* args)
+PyObject *scribus_scalegroup(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	double sc;
@@ -259,7 +259,7 @@ PyObject *scribus_scalegroup(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_getselobjnam(PyObject */*self*/, PyObject* args)
+PyObject *scribus_getselobjnam(PyObject* /* self */, PyObject* args)
 {
 	int i = 0;
 	if (!PyArg_ParseTuple(args, "|i", &i))
@@ -273,14 +273,14 @@ PyObject *scribus_getselobjnam(PyObject */*self*/, PyObject* args)
 		return PyString_FromString("");
 }
 
-PyObject *scribus_selcount(PyObject */*self*/)
+PyObject *scribus_selcount(PyObject* /* self */)
 {
 	if(!checkHaveDocument())
 		return NULL;
 	return PyInt_FromLong(static_cast<long>(Carrier->view->SelItem.count()));
 }
 
-PyObject *scribus_selectobj(PyObject */*self*/, PyObject* args)
+PyObject *scribus_selectobj(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
@@ -295,7 +295,7 @@ PyObject *scribus_selectobj(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_deselect(PyObject */*self*/)
+PyObject *scribus_deselect(PyObject* /* self */)
 {
 	if(!checkHaveDocument())
 		return NULL;
@@ -304,7 +304,7 @@ PyObject *scribus_deselect(PyObject */*self*/)
 	return Py_None;
 }
 
-PyObject *scribus_lockobject(PyObject */*self*/, PyObject* args)
+PyObject *scribus_lockobject(PyObject* /* self */, PyObject* args)
 {
 	char *name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name))
@@ -320,7 +320,7 @@ PyObject *scribus_lockobject(PyObject */*self*/, PyObject* args)
 	return PyInt_FromLong(0);
 }
 
-PyObject *scribus_islocked(PyObject */*self*/, PyObject* args)
+PyObject *scribus_islocked(PyObject* /* self */, PyObject* args)
 {
 	char *name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name))
@@ -337,7 +337,7 @@ PyObject *scribus_islocked(PyObject */*self*/, PyObject* args)
 	return PyBool_FromLong(0);
 }
 
-PyObject *scribus_setscaleimagetoframe(PyObject */*self*/, PyObject* args, PyObject* kw)
+PyObject *scribus_setscaleimagetoframe(PyObject* /* self */, PyObject* args, PyObject* kw)
 {
 	char *name = const_cast<char*>("");
 	long int scaleToFrame = 0;

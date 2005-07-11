@@ -1,7 +1,7 @@
 #include "cmdcolor.h"
 #include "cmdutil.h"
 
-PyObject *scribus_colornames(PyObject */*self*/)
+PyObject *scribus_colornames(PyObject* /* self */)
 {
 	ColorList edc;
 	PyObject *l;
@@ -17,7 +17,7 @@ PyObject *scribus_colornames(PyObject */*self*/)
 	return l;
 }
 
-PyObject *scribus_getcolor(PyObject */*self*/, PyObject* args)
+PyObject *scribus_getcolor(PyObject* /* self */, PyObject* args)
 {
 	ColorList edc;
 	char *Name = const_cast<char*>("");
@@ -40,7 +40,7 @@ PyObject *scribus_getcolor(PyObject */*self*/, PyObject* args)
 	return Py_BuildValue("(iiii)", static_cast<long>(c), static_cast<long>(m), static_cast<long>(y), static_cast<long>(k));
 }
 
-PyObject *scribus_getcolorasrgb(PyObject */*self*/, PyObject* args)
+PyObject *scribus_getcolorasrgb(PyObject* /* self */, PyObject* args)
 {
 	ColorList edc;
 	char *Name = const_cast<char*>("");
@@ -62,7 +62,7 @@ PyObject *scribus_getcolorasrgb(PyObject */*self*/, PyObject* args)
 	return Py_BuildValue("(iii)", static_cast<long>(rgb.red()), static_cast<long>(rgb.green()), static_cast<long>(rgb.blue()));
 }
 
-PyObject *scribus_setcolor(PyObject */*self*/, PyObject* args)
+PyObject *scribus_setcolor(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	int c, m, y, k;
@@ -96,7 +96,7 @@ PyObject *scribus_setcolor(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_newcolor(PyObject */*self*/, PyObject* args)
+PyObject *scribus_newcolor(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	int c, m, y, k;
@@ -130,7 +130,7 @@ PyObject *scribus_newcolor(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_delcolor(PyObject */*self*/, PyObject* args)
+PyObject *scribus_delcolor(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	char *Repl = const_cast<char*>("None");
@@ -170,7 +170,7 @@ PyObject *scribus_delcolor(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_replcolor(PyObject */*self*/, PyObject* args)
+PyObject *scribus_replcolor(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	char *Repl = const_cast<char*>("None");

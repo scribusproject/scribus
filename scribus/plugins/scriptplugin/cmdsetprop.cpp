@@ -1,7 +1,7 @@
 #include "cmdsetprop.h"
 #include "cmdutil.h"
 
-PyObject *scribus_setgradfill(PyObject */*self*/, PyObject* args)
+PyObject *scribus_setgradfill(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	char *Color1;
@@ -29,7 +29,7 @@ PyObject *scribus_setgradfill(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_setfillcolor(PyObject */*self*/, PyObject* args)
+PyObject *scribus_setfillcolor(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	char *Color;
@@ -45,7 +45,7 @@ PyObject *scribus_setfillcolor(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_setlinecolor(PyObject */*self*/, PyObject* args)
+PyObject *scribus_setlinecolor(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	char *Color;
@@ -61,7 +61,7 @@ PyObject *scribus_setlinecolor(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_setlinewidth(PyObject */*self*/, PyObject* args)
+PyObject *scribus_setlinewidth(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	double w;
@@ -82,7 +82,7 @@ PyObject *scribus_setlinewidth(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_setlineshade(PyObject */*self*/, PyObject* args)
+PyObject *scribus_setlineshade(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	int w;
@@ -103,7 +103,7 @@ PyObject *scribus_setlineshade(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_setfillshade(PyObject */*self*/, PyObject* args)
+PyObject *scribus_setfillshade(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	int w;
@@ -124,7 +124,7 @@ PyObject *scribus_setfillshade(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_setlinejoin(PyObject */*self*/, PyObject* args)
+PyObject *scribus_setlinejoin(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	int w;
@@ -140,7 +140,7 @@ PyObject *scribus_setlinejoin(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_setlineend(PyObject */*self*/, PyObject* args)
+PyObject *scribus_setlineend(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	int w;
@@ -156,7 +156,7 @@ PyObject *scribus_setlineend(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_setlinestyle(PyObject */*self*/, PyObject* args)
+PyObject *scribus_setlinestyle(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	int w;
@@ -172,7 +172,7 @@ PyObject *scribus_setlinestyle(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_setcornerrad(PyObject */*self*/, PyObject* args)
+PyObject *scribus_setcornerrad(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	int w;
@@ -201,7 +201,7 @@ PyObject *scribus_setcornerrad(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_setmultiline(PyObject */*self*/, PyObject* args)
+PyObject *scribus_setmultiline(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	char *Style = NULL;
