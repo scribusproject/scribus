@@ -3940,10 +3940,14 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 				sxn = sx * (1.0 / aufl);
 				syn = sy * (1.0 / aufl);
 			}
+			if (img.hasAlphaBuffer())
+				alphaM = true;
 		}
 		else
 		{
 			img = LoadPict(fn, &gray);
+			if (img.hasAlphaBuffer())
+				alphaM = true;
 			if (Options->RecalcPic)
 			{
 				double afl = QMIN(Options->PicRes, Options->Resolution);
@@ -3963,8 +3967,6 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 			}
 			aufl = 1;
 		}
-		if (img.hasAlphaBuffer())
-			alphaM = true;
 		if (inver)
 			img.invertPixels();
 		if (!Options->RecalcPic)
