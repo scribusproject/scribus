@@ -2250,7 +2250,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 		elem.setAttribute("H", item->Height);
 	}
 	elem.setAttribute("COUNT", Selitems->count());
-	elem.setAttribute("Version", "1.3cvs");
+	elem.setAttribute("Version", QString(VERSION));
 	QMap<QString,QFont>::Iterator itf;
 	for (itf = doc->UsedFonts.begin(); itf != doc->UsedFonts.end(); ++itf)
 	{
@@ -3035,7 +3035,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	QString st="<SCRIBUSUTF8NEW></SCRIBUSUTF8NEW>";
 	docu.setContent(st);
 	QDomElement elem=docu.documentElement();
-	elem.setAttribute("Version", "1.3.0cvs");
+	elem.setAttribute("Version", QString(VERSION));
 	QDomElement dc=docu.createElement("DOCUMENT");
 	dc.setAttribute("ANZPAGES",doc->DocPages.count());
 	dc.setAttribute("PAGEWIDTH",doc->pageWidth);
