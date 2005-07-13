@@ -33,6 +33,20 @@
 extern QPixmap loadIcon(QString nam);
 extern ScribusApp* ScApp;
 
+const unsigned short PicStatus::COL_FILENAME = 0;
+const unsigned short PicStatus::COL_PATH = 1;
+const unsigned short PicStatus::COL_PAGE = 2;
+const unsigned short PicStatus::COL_GOTO = 3;
+const unsigned short PicStatus::COL_PRINT = 4;
+const unsigned short PicStatus::COL_STATUS = 5;
+const unsigned short PicStatus::COL_SEARCH = 6;
+
+const QString PicStatus::trOK = PicStatus::tr("OK");
+const QString PicStatus::trMissing = PicStatus::tr("Missing");
+const QString PicStatus::trSearch = PicStatus::tr("Search");
+const QString PicStatus::trCancelSearch = PicStatus::tr("Cancel Search");
+const QString PicStatus::trGoto = PicStatus::tr("Goto");
+
 /*!
  \fn void PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi)
  \author Franz Schmid
@@ -51,7 +65,7 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi) :
 {
 	uint p, i;
 	QString tmp;
-	setCaption( tr( "Pictures" ) );
+	setCaption( tr( "Manage Pictures" ) );
 	setIcon(loadIcon("AppIcon.png"));
 	doc = docu;
 	view = viewi;
@@ -94,31 +108,31 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi) :
 		if (doc->MasterItems.at(i)->itemType() == PageItem::ImageFrame)
 		{
 			QFileInfo fi = QFileInfo(doc->MasterItems.at(i)->Pfile);
-			PicTable->setText(Zeilen2, 0, fi.fileName());
-			PicTable->setText(Zeilen2, 1, fi.dirPath());
-			PicTable->setText(Zeilen2, 2, doc->MasterItems.at(i)->OnMasterPage);
+			PicTable->setText(Zeilen2, COL_FILENAME, fi.fileName());
+			PicTable->setText(Zeilen2, COL_PATH, fi.dirPath());
+			PicTable->setText(Zeilen2, COL_PAGE, doc->MasterItems.at(i)->OnMasterPage);
 			QToolButton *tb2 = new QToolButton(this, tmp.setNum(Zeilen2));
-			tb2->setText( tr("Goto"));
+			tb2->setText( trGoto);
 			tb2->setEraseColor(white);
-			PicTable->setColumnWidth(3, tb2->fontMetrics().width( tr("Goto"))+10);
-			PicTable->setCellWidget(Zeilen2, 3, tb2);
+			PicTable->setColumnWidth(COL_GOTO, tb2->fontMetrics().width( trGoto)+10);
+			PicTable->setCellWidget(Zeilen2, COL_GOTO, tb2);
 			connect(tb2, SIGNAL(clicked()), this, SLOT(GotoPic()));
 			QCheckBox *cp2 = new QCheckBox(this, tmp.setNum(Zeilen2));
 			cp2->setText( tr("Yes"));
 			cp2->setChecked(doc->MasterItems.at(i)->printable());
 			cp2->setEraseColor(white);
 			FlagsPic.append(cp2);
-			PicTable->setCellWidget(Zeilen2, 4, cp2);
+			PicTable->setCellWidget(Zeilen2, COL_PRINT, cp2);
 			connect(cp2, SIGNAL(clicked()), this, SLOT(PrintPic()));
 			if (doc->MasterItems.at(i)->PicAvail)
-				PicTable->setText(Zeilen2, 5, tr("&OK"));
+				PicTable->setText(Zeilen2, COL_STATUS, trOK);
 			else
-				PicTable->setText(Zeilen2, 5, tr("Missing"));
+				PicTable->setText(Zeilen2, COL_STATUS, trMissing);
 			QToolButton *tb = new QToolButton(this, tmp.setNum(Zeilen2));
-			tb->setText( tr("Search"));
-			PicTable->setColumnWidth(6, tb2->fontMetrics().width( tr("Search"))+10);
+			tb->setText( trSearch);
+			PicTable->setColumnWidth(COL_SEARCH, tb->fontMetrics().width( trCancelSearch)+10);
 			tb->setEraseColor(white);
-			PicTable->setCellWidget(Zeilen2, 6, tb);
+			PicTable->setCellWidget(Zeilen2, COL_SEARCH, tb);
 			connect(tb, SIGNAL(clicked()), this, SLOT(SearchPic()));
 			Zeilen2++;
 		}
@@ -128,60 +142,60 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi) :
 		if (doc->Items.at(i)->itemType() == PageItem::ImageFrame)
 		{
 			QFileInfo fi = QFileInfo(doc->Items.at(i)->Pfile);
-			PicTable->setText(Zeilen2, 0, fi.fileName());
-			PicTable->setText(Zeilen2, 1, fi.dirPath());
+			PicTable->setText(Zeilen2, COL_FILENAME, fi.fileName());
+			PicTable->setText(Zeilen2, COL_PATH, fi.dirPath());
 			p = doc->Items.at(i)->OwnPage;
-			PicTable->setText(Zeilen2, 2, tmp.setNum(p+1));
+			PicTable->setText(Zeilen2, COL_PAGE, tmp.setNum(p+1));
 			QToolButton *tb2 = new QToolButton(this, tmp.setNum(Zeilen2));
-			tb2->setText( tr("Goto"));
+			tb2->setText( trGoto);
 			tb2->setEraseColor(white);
-			PicTable->setColumnWidth(3, tb2->fontMetrics().width( tr("Goto"))+10);
-			PicTable->setCellWidget(Zeilen2, 3, tb2);
+			PicTable->setColumnWidth(COL_GOTO, tb2->fontMetrics().width( trGoto)+10);
+			PicTable->setCellWidget(Zeilen2, COL_GOTO, tb2);
 			connect(tb2, SIGNAL(clicked()), this, SLOT(GotoPic()));
 			QCheckBox *cp2 = new QCheckBox(this, tmp.setNum(Zeilen2));
 			cp2->setText( tr("Yes"));
 			cp2->setChecked(doc->Items.at(i)->printable());
 			cp2->setEraseColor(white);
 			FlagsPic.append(cp2);
-			PicTable->setCellWidget(Zeilen2, 4, cp2);
+			PicTable->setCellWidget(Zeilen2, COL_PRINT, cp2);
 			connect(cp2, SIGNAL(clicked()), this, SLOT(PrintPic()));
 			if (doc->Items.at(i)->PicAvail)
-				PicTable->setText(Zeilen2, 5, tr("&OK"));
+				PicTable->setText(Zeilen2, COL_STATUS, trOK);
 			else
-				PicTable->setText(Zeilen2, 5, tr("Missing"));
+				PicTable->setText(Zeilen2, COL_STATUS, trMissing);
 			QToolButton *tb = new QToolButton(this, tmp.setNum(Zeilen2));
-			tb->setText( tr("Search"));
-			PicTable->setColumnWidth(6, tb2->fontMetrics().width( tr("Search"))+10);
+			tb->setText( trSearch);
+			PicTable->setColumnWidth(COL_SEARCH, tb->fontMetrics().width( trCancelSearch)+10);
 			tb->setEraseColor(white);
-			PicTable->setCellWidget(Zeilen2, 6, tb);
+			PicTable->setCellWidget(Zeilen2, COL_SEARCH, tb);
 			connect(tb, SIGNAL(clicked()), this, SLOT(SearchPic()));
 			Zeilen2++;
 		}
 	}
 
-	PicTable->adjustColumn(0);
-	PicTable->adjustColumn(1);
-	PicTable->adjustColumn(2);
-	PicTable->adjustColumn(4);
-	PicTable->adjustColumn(5);
+	PicTable->adjustColumn(COL_FILENAME);
+	PicTable->adjustColumn(COL_PATH);
+	PicTable->adjustColumn(COL_PAGE);
+	PicTable->adjustColumn(COL_PRINT);
+	PicTable->adjustColumn(COL_STATUS);
 	PicTable->setSorting(false);
 	PicTable->setSelectionMode(QTable::NoSelection);
 	PicTable->setColumnMovingEnabled(false);
 	PicTable->setRowMovingEnabled(false);
 	Header->setMovingEnabled(false);
-	PicTable->setColumnReadOnly(0, true);
-	PicTable->setColumnReadOnly(1, true);
-	PicTable->setColumnReadOnly(2, true);
-	PicTable->setColumnReadOnly(5, true);
+	PicTable->setColumnReadOnly(COL_FILENAME, true);
+	PicTable->setColumnReadOnly(COL_PATH, true);
+	PicTable->setColumnReadOnly(COL_PAGE, true);
+	PicTable->setColumnReadOnly(COL_STATUS, true);
 	PicStatusLayout->addWidget( PicTable );
 
 	Layout2 = new QHBoxLayout;
-	Layout2->setSpacing( 6 );
+	Layout2->setSpacing( 3 );
 	Layout2->setMargin( 0 );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout2->addItem( spacer );
 
-	OkB = new QPushButton( tr( "&OK" ), this, "OkB" );
+	OkB = new QPushButton( tr( "OK" ), this, "OkB" );
 	Layout2->addWidget( OkB );
 	PicStatusLayout->addLayout( Layout2 );
 
@@ -222,8 +236,8 @@ void PicStatus::SearchPic()
 {
 	// FIXME: This is a pretty ugly hack IMO - carried over from the old
 	// SearchPic. Table handling needs work.
-	uint ZNr = QString(sender()->name()).toUInt();
-	QString fileName = PicTable->text(ZNr, 0);
+	unsigned int row = QString(sender()->name()).toUInt();
+	QString fileName = PicTable->text(row, 0);
 	// Set up the search, then return to the event loop until it notifies us
 	// that it's done.
 	// Note: m_search will be deleted when this PicStatus is, so there's no
@@ -233,40 +247,39 @@ void PicStatus::SearchPic()
 	connect(m_search,
 			SIGNAL(searchComplete(const QStringList&, const QString&)),
 			SLOT(SearchPicFinished(const QStringList&, const QString&)));
-	connect(m_search, SIGNAL(searchAborted(bool)), SLOT(SearchPicAborted()));
+	connect(m_search, SIGNAL(searchAborted(bool)), SLOT(SearchPicAborted(bool)));
+	// Set up the UI to let the user cancel the search, then start it
+	setSearchButton(row, true, m_search);
 	m_search->start();
 }
 
-void PicStatus::SearchPicAborted()
+void PicStatus::SearchPicAborted(bool userCancelled)
 {
-	// A running search failed
-	QMessageBox::warning(this, tr("Scribus - Image Search"),
-			tr("The search failed: %1").arg(m_search->failReason()),
-			QMessageBox::Ok|QMessageBox::Default|QMessageBox::Escape,
-			QMessageBox::NoButton);
+	// Restore button to normal "search"
+	unsigned int row = getRowByFileName(m_search->fileName());
+	setSearchButton(row, false, m_search);
+	// and inform user if it it wasn't them who asked to stop it.
+	if (!userCancelled)
+		// A running search failed
+		QMessageBox::warning(this, tr("Scribus - Image Search"),
+				tr("The search failed: %1").arg(m_search->failReason()),
+				QMessageBox::Ok|QMessageBox::Default|QMessageBox::Escape,
+				QMessageBox::NoButton);
 }
 
 void PicStatus::SearchPicFinished(const QStringList & matches, const QString & fileName)
 {
 	// First, find out what row the search result is about
-	bool found = false;
-	unsigned int row;
-	// I don't see us having more than MAXINT/2 pics, so that cast should be fine...
-	for (row = 0; row < static_cast<unsigned int>(PicTable->numRows()); ++row)
-	{
-		if ( PicTable->text(row, 0) == fileName )
-		{
-			found = true;
-			break;
-		}
-	}
-	Q_ASSERT(found); // We should never be called with a pic name that's not in the table
-	uint ZNr = row;
+	unsigned int ZNr = getRowByFileName(fileName);
+	// Restore the gui to "search"
+	setSearchButton(ZNr, false, m_search);
+	// Then display a dialog for the user to select images from
+	// if one or more were found
 	uint ItNr = ItemNrs[ZNr];
 	uint PgNr = PicTable->text(ZNr, 2).toInt()-1;
 	QString BildNam = PicTable->text(ZNr, 0);
 	QString OldPfad = PicTable->text(ZNr, 1);
-	QStringList Pfade = m_search->matchingFiles();
+	QStringList Pfade = matches;
 	if (Pfade.count() > 0)
 	{
 		PicSearch *dia = new PicSearch(this, BildNam, Pfade);
@@ -286,14 +299,14 @@ void PicStatus::SearchPicFinished(const QStringList & matches, const QString & f
 							view->LoadPict(fileName, ItNr);
 							PicTable->setText(zz, 1, doc->Items.at(ItNr)->Pfile);
 							PicTable->setText(zz, 5, doc->Items.at(ItNr)->PicAvail ?
-							                  tr("OK") : tr("Missing"));
+							                  trOK : trMissing);
 						}
 						else
 						{
 							view->LoadPict(fileName, ItNr);
 							PicTable->setText(zz, 1, doc->MasterItems.at(ItNr)->Pfile);
 							PicTable->setText(zz, 5, doc->MasterItems.at(ItNr)->PicAvail ?
-							                  tr("OK") : tr("Missing"));
+							                  trOK : trMissing);
 						}
 					}
 				}
@@ -317,20 +330,57 @@ void PicStatus::SearchPicFinished(const QStringList & matches, const QString & f
 						view->LoadPict(Pfade[0], ItNr);
 						PicTable->setText(zz, 1, doc->Items.at(ItNr)->Pfile);
 						PicTable->setText(zz, 5, doc->Items.at(ItNr)->PicAvail ?
-						                  tr("OK") : tr("Missing"));
+						                  trOK : trMissing);
 					}
 					else
 					{
 						view->LoadPict(Pfade[0], ItNr);
 						PicTable->setText(zz, 1, doc->MasterItems.at(ItNr)->Pfile);
 						PicTable->setText(zz, 5, doc->MasterItems.at(ItNr)->PicAvail ?
-						                  tr("OK") : tr("Missing"));
+						                  trOK : trMissing);
 					}
 				}
 			}
 			view->DrawNew();
 		}
 	}
+}
+
+void PicStatus::setSearchButton(int row, bool toCancel, FileSearch* searcher)
+{
+	QWidget* item = PicTable->cellWidget(row, COL_SEARCH);
+	Q_ASSERT(item);
+	QToolButton* tb = dynamic_cast<QToolButton*>(item);
+	Q_ASSERT(tb);
+	if (toCancel)
+	{
+		tb->setText( trCancelSearch );
+		disconnect(tb, SIGNAL(clicked()), this, SLOT(SearchPic()));
+		connect(tb, SIGNAL(clicked()), searcher, SLOT(cancel()));
+	}
+	else
+	{
+		tb->setText(trSearch);
+		disconnect(tb, SIGNAL(clicked()), searcher, SLOT(cancel()));
+		connect(tb, SIGNAL(clicked()), SLOT(SearchPic()));
+	}
+}
+
+int PicStatus::getRowByFileName(const QString & fileName)
+{
+	bool found = false;
+	unsigned int row;
+	// This cast is OK since numRows must logically return >=0
+	for (row = 0; row < static_cast<unsigned int>(PicTable->numRows()); ++row)
+	{
+		if ( PicTable->text(row, 0) == fileName )
+		{
+			found = true;
+			break;
+		}
+	}
+	Q_ASSERT(found);
+	return row;
 }
 
 /*!

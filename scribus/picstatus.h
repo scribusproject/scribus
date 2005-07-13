@@ -35,7 +35,7 @@ public:
 private slots:
     void GotoPic();
     void SearchPic();
-    void SearchPicAborted();
+    void SearchPicAborted(bool userCancelled);
     void SearchPicFinished(const QStringList & matches, const QString & fileName);
     void PrintPic();
 
@@ -43,6 +43,31 @@ protected:
     QVBoxLayout* PicStatusLayout;
     QHBoxLayout* Layout2;
 	FileSearch* m_search;
+
+	// Return the row index for the row containing the specified
+	// filename. Behavour is undefined if the filename is not in the
+	// table.
+	int getRowByFileName(const QString& fileName);
+
+	// Toggle a searc button in the table between "Search" and "Cancel Search",
+	// fixing signal connections as well.
+	void PicStatus::setSearchButton(int row, bool toCancel, FileSearch* searcher);
+
+	// Column indexes
+	static const unsigned short COL_FILENAME;
+	static const unsigned short COL_PATH;
+	static const unsigned short COL_PAGE;
+	static const unsigned short COL_GOTO;
+	static const unsigned short COL_PRINT;
+	static const unsigned short COL_STATUS;
+	static const unsigned short COL_SEARCH;
+
+	// Common translated strings
+	static const QString trOK;
+	static const QString trMissing;
+	static const QString trSearch;
+	static const QString trCancelSearch;
+	static const QString trGoto;
 
 signals:
 	void selectPage(int);
