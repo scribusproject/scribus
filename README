@@ -1,4 +1,4 @@
-This is Scribus Version 1.3.0cvs, the first release of the 1.3.x development
+This is Scribus Version 1.3.0, the first release of the 1.3.x development
 series.
 
 CHANGES 1.2.x to 1.3.x
@@ -18,7 +18,7 @@ Imporant notes on the differences between 1.2.x and 1.3.x:
    separately from 1.2.x.
 
 4) You *can* install both versions in parallel and run them at the same time.
-   The only caveat is to install them using different %prefix/ directories e.g
+   The only caveat is to install them using different prefix/ directories e.g
    1.2 in /usr/local and 1.3 in /opt or $home/bin. You can use the --prefix
    argument to configure to set where Scribus should be installed.
 
@@ -38,13 +38,14 @@ For detailed changes please see the ChangeLog.
 
 To use Scribus in your native language be sure that the environment variable
 LC_ALL, LC_MESSAGES, LANG, Qt locale, OR the command line option
-of -l/--lang <lang> is set correctly.
+of -l/--lang <lang> is set correctly. This is also can be changed in the preferences
+ and takes effect immediately.
 
 The EPS/PS import feature in 1.3.x uses advanced features of Ghostscript.  We
 recommend ALL users update to the newest version of Ghostscript available for
-your distro. In addtion, if you still have GS 7.0x, there are detailed hints on
+your distribution. In addtion, if you still have GS 7.0x, there are detailed hints on
 docs.scribus.net for installing GS 8.x in parallel to the GS installed by your
-distro.
+distribution.
 
 Activating Color Management *requires* installation of CMYK and RGB ICC
 profiles. Please see the included help files, FAQ's on www.scribus.net and
@@ -57,7 +58,7 @@ libraries. It's being worked on upstream. Don't file a bug report. Instead
 change the font used if you need the outlines. This is not a Scribus bug.
 Some testing has shown that this bug is not present in freetype 2.1.9, but
 we counsel caution trying to upgrade freetype2. Upgrading freetype2 on some
-distros can be quite difficult.
+distributions can be quite difficult.
 
 Issue with gradients:
 
@@ -105,7 +106,7 @@ want to install gs-afpl then use:
     `update-alternatives --config gs'
 as root to select gs-afpl as the default version of GhostScript to use.
 
-DISTRO AND OS SPECIFIC NOTES
+DISTRIBUTION AND OS SPECIFIC NOTES
 =====================
 
 Debian
@@ -177,12 +178,12 @@ the Scribus Wiki: http://wiki.scribus.net/ .
 
 A native win32 port is in the early stages of development. There is no ETA.
 More information will be announced on the mailing list as progess continues.
-You can also follow development at http://scribusdev.blogspot.com/ .
+
 
 Additional information
 ======================
 
-Many other hints and info are on the www.scribus.net and docs.scribus.net
+More hints and other information are on the www.scribus.net and docs.scribus.net
 sites. Full compile, install and FAQ's are available there.
 
 There is a lively on-line community, both on IRC @ #scribus on irc.freenode.net
@@ -196,4 +197,4 @@ For the Scribus Team,
 
 Franz Schmid
 Peter Linnell
-in June 2005
+in July 2005
