@@ -15,7 +15,7 @@ extern QPixmap loadIcon(QString nam);
  \param alt QStringList List of Paths where an Image with the given Name is present
  \retval None
  */
-PicSearch::PicSearch(QWidget* parent, QString name, QStringList alt)
+PicSearch::PicSearch(QWidget* parent, const QString & fileName, const QStringList & alt)
     : QDialog( parent, "pi2", true, 0 )
 {
     setCaption( tr( "Result" ) );
@@ -36,7 +36,7 @@ PicSearch::PicSearch(QWidget* parent, QString name, QStringList alt)
     Layout2->addWidget( TextLabel1 );
 
     Datei = new QLabel( this, "Datei" );
-    Datei->setText( tr( name ) );
+    Datei->setText( tr( fileName ) );
     Layout2->addWidget( Datei );
     QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
     Layout2->addItem( spacer );

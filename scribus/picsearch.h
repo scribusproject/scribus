@@ -15,7 +15,7 @@ class PicSearch : public QDialog
     Q_OBJECT
 
 public:
-    PicSearch( QWidget* parent, QString name, QStringList alt);
+    PicSearch( QWidget* parent, const QString & fileName, const QStringList & alt);
     ~PicSearch() {};
 
     QLabel* TextLabel1;
