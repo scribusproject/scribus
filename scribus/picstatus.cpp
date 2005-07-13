@@ -28,6 +28,7 @@
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "pageitem.h"
+#include "filesearch.h"
 #include "scribus.h"
 extern QPixmap loadIcon(QString nam);
 extern ScribusApp* ScApp;
@@ -44,8 +45,9 @@ to search for missing Images.
  \retval None
  */
 
-PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi)
-		: QDialog( parent, "pic", true, 0 )
+PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi) :
+	QDialog( parent, "pic", true, 0 ),
+	m_search(0)
 {
 	uint p, i;
 	QString tmp;
@@ -218,23 +220,54 @@ void PicStatus::GotoPic()
  */
 void PicStatus::SearchPic()
 {
+	// FIXME: This is a pretty ugly hack IMO - carried over from the old
+	// SearchPic. Table handling needs work.
 	uint ZNr = QString(sender()->name()).toUInt();
+	QString fileName = PicTable->text(ZNr, 0);
+	// Set up the search, then return to the event loop until it notifies us
+	// that it's done.
+	// Note: m_search will be deleted when this PicStatus is, so there's no
+	// need to worry about cleanup.
+	m_search = new FileSearch(this, fileName);
+	Q_CHECK_PTR(m_search);
+	connect(m_search,
+			SIGNAL(searchComplete(const QStringList&, const QString&)),
+			SLOT(SearchPicFinished(const QStringList&, const QString&)));
+	connect(m_search, SIGNAL(searchAborted(bool)), SLOT(SearchPicAborted()));
+	m_search->start();
+}
+
+void PicStatus::SearchPicAborted()
+{
+	// A running search failed
+	QMessageBox::warning(this, tr("Scribus - Image Search"),
+			tr("The search failed: %1").arg(m_search->failReason()),
+			QMessageBox::Ok|QMessageBox::Default|QMessageBox::Escape,
+			QMessageBox::NoButton);
+}
+
+void PicStatus::SearchPicFinished(const QStringList & matches, const QString & fileName)
+{
+	// First, find out what row the search result is about
+	bool found = false;
+	unsigned int row;
+	// I don't see us having more than MAXINT/2 pics, so that cast should be fine...
+	for (row = 0; row < static_cast<unsigned int>(PicTable->numRows()); ++row)
+	{
+		if ( PicTable->text(row, 0) == fileName )
+		{
+			found = true;
+			break;
+		}
+	}
+	Q_ASSERT(found); // We should never be called with a pic name that's not in the table
+	uint ZNr = row;
 	uint ItNr = ItemNrs[ZNr];
 	uint PgNr = PicTable->text(ZNr, 2).toInt()-1;
-	QString BildNam =	PicTable->text(ZNr, 0);
-	QString OldPfad =	PicTable->text(ZNr, 1);
-	QStringList Pfade;
-	qApp->setOverrideCursor(QCursor(waitCursor), true);
-	qApp->processEvents();
-	QString home = QDir::homeDirPath();
-	FILE *fp = popen("find "+home+" -name " + BildNam, "r");
-	qApp->setOverrideCursor(QCursor(arrowCursor), true);
-	if (fp == NULL)
-		return;
-	QTextStream ts(fp, IO_ReadOnly);
-	QString tmp = ts.read();
-	Pfade = QStringList::split("\n", tmp);
-	if (Pfade.count() > 1)
+	QString BildNam = PicTable->text(ZNr, 0);
+	QString OldPfad = PicTable->text(ZNr, 1);
+	QStringList Pfade = m_search->matchingFiles();
+	if (Pfade.count() > 0)
 	{
 		PicSearch *dia = new PicSearch(this, BildNam, Pfade);
 		if (dia->exec())
@@ -298,7 +331,6 @@ void PicStatus::SearchPic()
 			view->DrawNew();
 		}
 	}
-	pclose(fp);
 }
 
 /*!

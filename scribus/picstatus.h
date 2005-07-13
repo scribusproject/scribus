@@ -12,6 +12,7 @@
 #include <qvaluelist.h>
 class ScribusDoc;
 class ScribusView;
+class FileSearch;
 
 class PicStatus : public QDialog
 { 
@@ -34,11 +35,14 @@ public:
 private slots:
     void GotoPic();
     void SearchPic();
+    void SearchPicAborted();
+    void SearchPicFinished(const QStringList & matches, const QString & fileName);
     void PrintPic();
 
 protected:
     QVBoxLayout* PicStatusLayout;
     QHBoxLayout* Layout2;
+	FileSearch* m_search;
 
 signals:
 	void selectPage(int);
