@@ -32,7 +32,11 @@ private slots:
 	void ShowPrev();
 	void selBild(QListBoxItem *c);
 	void GenPreview();
-		
+
+signals:
+	// Emitted when the pic for a row is replaced. Arg is row index.
+	void rowPicChanged(unsigned int);
+
 protected:
     QVBoxLayout* PicSearchLayout;
     QHBoxLayout* Layout2;

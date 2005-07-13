@@ -60,8 +60,7 @@ to search for missing Images.
  */
 
 PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi) :
-	QDialog( parent, "pic", true, 0 ),
-	m_search(0)
+	QDialog( parent, "pic", true, 0 )
 {
 	uint p, i;
 	QString tmp;
@@ -240,113 +239,79 @@ void PicStatus::SearchPic()
 	QString fileName = PicTable->text(row, 0);
 	// Set up the search, then return to the event loop until it notifies us
 	// that it's done.
-	// Note: m_search will be deleted when this PicStatus is, so there's no
+	// Note: search will be deleted when this PicStatus is, so there's no
 	// need to worry about cleanup.
-	m_search = new FileSearch(this, fileName);
-	Q_CHECK_PTR(m_search);
-	connect(m_search,
+	FileSearch* search = new FileSearch(this, fileName, "/home/craig/tmp"); //XXX
+	Q_CHECK_PTR(search);
+	connect(search,
 			SIGNAL(searchComplete(const QStringList&, const QString&)),
 			SLOT(SearchPicFinished(const QStringList&, const QString&)));
-	connect(m_search, SIGNAL(searchAborted(bool)), SLOT(SearchPicAborted(bool)));
+	connect(search, SIGNAL(searchAborted(bool)), SLOT(SearchPicAborted(bool)));
 	// Set up the UI to let the user cancel the search, then start it
-	setSearchButton(row, true, m_search);
-	m_search->start();
+	setSearchButton(row, true, search);
+	search->start();
 }
 
 void PicStatus::SearchPicAborted(bool userCancelled)
 {
+	const FileSearch* search = dynamic_cast<const FileSearch*>(sender());
+	Q_ASSERT(search);
 	// Restore button to normal "search"
-	unsigned int row = getRowByFileName(m_search->fileName());
-	setSearchButton(row, false, m_search);
+	unsigned int row = getRowByFileName(search->fileName());
+	setSearchButton(row, false, search);
 	// and inform user if it it wasn't them who asked to stop it.
 	if (!userCancelled)
 		// A running search failed
 		QMessageBox::warning(this, tr("Scribus - Image Search"),
-				tr("The search failed: %1").arg(m_search->failReason()),
+				tr("The search failed: %1").arg(search->failReason()),
 				QMessageBox::Ok|QMessageBox::Default|QMessageBox::Escape,
 				QMessageBox::NoButton);
 }
 
 void PicStatus::SearchPicFinished(const QStringList & matches, const QString & fileName)
 {
+	const FileSearch* search = dynamic_cast<const FileSearch*>(sender());
+	Q_ASSERT(search);
 	// First, find out what row the search result is about
-	unsigned int ZNr = getRowByFileName(fileName);
+	unsigned int row = getRowByFileName(fileName);
 	// Restore the gui to "search"
-	setSearchButton(ZNr, false, m_search);
+	setSearchButton(row, false, search);
 	// Then display a dialog for the user to select images from
 	// if one or more were found
-	uint ItNr = ItemNrs[ZNr];
-	uint PgNr = PicTable->text(ZNr, 2).toInt()-1;
-	QString BildNam = PicTable->text(ZNr, 0);
-	QString OldPfad = PicTable->text(ZNr, 1);
-	QStringList Pfade = matches;
-	if (Pfade.count() > 0)
+	if (matches.count() == 0)
 	{
-		PicSearch *dia = new PicSearch(this, BildNam, Pfade);
-		if (dia->exec())
-		{
-			QString fileName = dia->Bild;
-			if (!fileName.isEmpty())
-			{
-				for (uint zz = 0; zz < static_cast<uint>(Zeilen); ++zz)
-				{
-					if (PicTable->text(zz, 1) == OldPfad)
-					{
-						PgNr = PicTable->text(zz, 2).toInt()-1;
-						ItNr = ItemNrs[zz];
-						if (PicTable->cellWidget(zz, 3)->isEnabled())
-						{
-							view->LoadPict(fileName, ItNr);
-							PicTable->setText(zz, 1, doc->Items.at(ItNr)->Pfile);
-							PicTable->setText(zz, 5, doc->Items.at(ItNr)->PicAvail ?
-							                  trOK : trMissing);
-						}
-						else
-						{
-							view->LoadPict(fileName, ItNr);
-							PicTable->setText(zz, 1, doc->MasterItems.at(ItNr)->Pfile);
-							PicTable->setText(zz, 5, doc->MasterItems.at(ItNr)->PicAvail ?
-							                  trOK : trMissing);
-						}
-					}
-				}
-				view->DrawNew();
-			}
-		}
-		delete dia;
+		QMessageBox::information(this, tr("Scribus - Image Search"),
+				tr("No images named \"%1\" were found.").arg(fileName),
+				QMessageBox::Ok|QMessageBox::Default|QMessageBox::Escape,
+				QMessageBox::NoButton);
 	}
 	else
 	{
-		if (Pfade.count() == 1)
+		PicSearch *dia = new PicSearch(this, fileName, matches);
+		if (dia->exec())
 		{
-			for (uint zz = 0; zz < static_cast<uint>(Zeilen); ++zz)
-			{
-				if (PicTable->text(zz, 1) == OldPfad)
-				{
-					PgNr = PicTable->text(zz, 2).toInt()-1;
-					ItNr = ItemNrs[zz];
-					if (PicTable->cellWidget(zz, 3)->isEnabled())
-					{
-						view->LoadPict(Pfade[0], ItNr);
-						PicTable->setText(zz, 1, doc->Items.at(ItNr)->Pfile);
-						PicTable->setText(zz, 5, doc->Items.at(ItNr)->PicAvail ?
-						                  trOK : trMissing);
-					}
-					else
-					{
-						view->LoadPict(Pfade[0], ItNr);
-						PicTable->setText(zz, 1, doc->MasterItems.at(ItNr)->Pfile);
-						PicTable->setText(zz, 5, doc->MasterItems.at(ItNr)->PicAvail ?
-						                  trOK : trMissing);
-					}
-				}
-			}
+			// Update the image
+			unsigned int itemNumber = ItemNrs[row];
+			//unsigned int pageNumber = PicTable->text(row, COL_PAGE).toInt()-1;
+			QString oldDirPath = PicTable->text(row, COL_PATH);
+			QString newFilePath = dia->Bild;
+			Q_ASSERT(!newFilePath.isEmpty());
+			// FIXME: error checking
+			view->LoadPict(newFilePath, itemNumber);
+			// WTF?
+			bool isMaster = PicTable->cellWidget(row, COL_GOTO)->isEnabled();
+			PageItem* item = isMaster ? doc->Items.at(itemNumber) : doc->MasterItems.at(itemNumber);
+			// Set missing flag again. Since we do no error checking of the load,
+			// missing will generally mean "failed to load".
+			PicTable->setText(row, COL_STATUS, item->PicAvail ? trOK : trMissing);
+			PicTable->setText(row, COL_PATH, QFileInfo(newFilePath).dirPath(true));
 			view->DrawNew();
 		}
+		delete dia;
 	}
 }
 
-void PicStatus::setSearchButton(int row, bool toCancel, FileSearch* searcher)
+void PicStatus::setSearchButton(int row, bool toCancel, const FileSearch* searcher)
 {
 	QWidget* item = PicTable->cellWidget(row, COL_SEARCH);
 	Q_ASSERT(item);

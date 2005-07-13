@@ -42,7 +42,6 @@ private slots:
 protected:
     QVBoxLayout* PicStatusLayout;
     QHBoxLayout* Layout2;
-	FileSearch* m_search;
 
 	// Return the row index for the row containing the specified
 	// filename. Behavour is undefined if the filename is not in the
@@ -51,7 +50,7 @@ protected:
 
 	// Toggle a searc button in the table between "Search" and "Cancel Search",
 	// fixing signal connections as well.
-	void PicStatus::setSearchButton(int row, bool toCancel, FileSearch* searcher);
+	void PicStatus::setSearchButton(int row, bool toCancel, const FileSearch* searcher);
 
 	// Column indexes
 	static const unsigned short COL_FILENAME;
