@@ -10,14 +10,14 @@
 <p>We have specifically disabled the ability to open 1.3.x files in the stable 1.2.x versions. </p>
 <ol>
 <li>Because of the new enhanced menu/keyboard shortcuts code, 1.2.x  keyboard
-   short cuts are not migrated and will need to be recreated once on the first
+   short cuts are not migrated and will be recreated once on the first
    launch 1.3.0. There are vastly more keyboard shortcuts and they can be exported to use on other machines if customized.</li>
 
 <li>On initial launch, 1.3.0 will offer to convert preferences to the new 1.3.0
    format. This is recommended. Scribus 1.3.x will store its preferences
    separately from 1.2.x.</li>
 <li>You <strong>can</strong> install both versions in parallel and run them at the same time.
-   The only caveat is to install them using different %prefix/ directories e.g
+   The only caveat is to install them using different prefix/ directories e.g
    1.2 in /usr/local and 1.3 in /opt or $home/bin. You can use the --prefix
    argument to configure to set where Scribus should be installed.</li>
 
@@ -32,7 +32,7 @@
 <li>This documentation is based on 1.2.x, but there are some updates for 1.3, notably concerning the preferences.</li>
 <li>Scribus now has true facing pages and images and other objects can span them.</li>
 <li>Scribus now has "scratch space" which can be used to store objects partially or fully off the page.</li>
-<li>Scribus now has its own built-in pre-flight file verifier for printing or exporting PDF. The default settings are to prevent a number of issues which cause problems printing or exporting PDF with sufficient quality. You can choose to ignore them in settings, but they are carefully chosen to ensure a minimum of quality or avoid known limitations of PS3 or PDF versions.</li>
+<li>Scribus now has its own built-in pre-flight file verifier for printing or exporting PDF. The default settings are to ensure images and fonts are of sufficient quality to provide trouble-free printing or PDF export. You can choose to ignore them in settings, but they are carefully chosen to ensure a minimum of quality or avoid known limitations of PS3 or PDF versions.</li>
 <li>Work is on-going to make Scribus more platform independent and alpha quality builds of Scribus are already working on Win32 and MacOSX. </li>
 
 
@@ -46,14 +46,14 @@
 
 <p>To use Scribus in your native language be sure that the environment variable
 LC_ALL, LC_MESSAGES, LANG, Qt locale, OR the command line option
-of -l/--lang <lang> is set correctly.</p>
+of -l/--lang <lang> is set correctly. This is also can be changed in the preferences and takes effect immediately.</p>
 
 
 	
 <p>The EPS/PS import features in 1.3.x uses advanced features of Ghostscript.
 	We recommend ALL users update to the newest version of Ghostscript available
-	for your distro. There are detailed hints on docs.scribus.net for installing
-	GS 8.x in parallel to the GS installed by your distro.</p>
+	for your distribution. There are detailed hints on docs.scribus.net for installing
+	GS 8.x in parallel to the GS installed by your distribution.</p>
 	
 <p>Activating Color Management *requires* installation of CMYK and RGB ICC
 	profiles. Please see the included help files and http://docs.scribus.net for
@@ -69,9 +69,9 @@ of -l/--lang <lang> is set correctly.</p>
 <p>There is a bug in font outline handling for some fonts in the freetype
 	libraries. It's being worked on upstream. Don't file a bug report. Instead
 	change the font used if you need the outlines. This is not a Scribus bug.
-	Some testing has shown that this bug is not present in freetype 2.1.9, but
+	Some testing has shown that this bug is not present in freetype 2.1.9+, but
 	we counsel caution trying to upgrade freetype2. Upgrading freetype2 on some
-	distros can be quite difficult.</p>
+	distributions can be quite difficult.</p>
 	
 <p>	Issue with gradients:</p>
 	
@@ -107,8 +107,8 @@ of -l/--lang <lang> is set correctly.</p>
 <p>There is a separate file, PACKAGING for detailed hints and denotes on building
 	packages for Scribus.</p>
 	
-<p>Many other hints and info are on the www.scribus.net and docs.scribus.net
-	sites. Full compile, install and FAQ's are available there.</p>
+<p> More hints and other information are on the www.scribus.net and docs.scribus.net
+	sites. Full compile, install and FAQs are available there.</p>
 	
 <p>There is a lively on-line community, both on IRC @ #scribus on irc.freenode.net
 	and the mailing list. Mailing list info can be found at:
