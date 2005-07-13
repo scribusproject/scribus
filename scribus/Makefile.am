@@ -53,6 +53,7 @@ scribus_SOURCES = \
 	effectsdialog.cpp	\
 	extimageprops.cpp	\
 	fileloader.cpp	\
+	filesearch.cpp	\
 	fileunzip.cpp	\
 	filewatcher.cpp	\
 	fmitem.cpp	\
