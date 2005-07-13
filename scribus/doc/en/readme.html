@@ -1,42 +1,56 @@
-<h3>Scribus Version 1.2.2 Readme
+<qt>
+<title>Scribus Version 1.3.0 Readme</title>
+<h3>
 </h3>
 <h4>What's New ?</h4>
-<p>The Scribus 1.2.x versions feature a complete rewrite of the rendering engine.
-All rendering is done via libart and freetype2.
-This requires that libart_lgpl and freetype2 are installed.</p>
+<p>The Scribus 1.3.0  is the first development release of the next generation for Scribus. While it is fairly stable, there are a number of under the hood changes which are on-going. </p>
 
-<p>Version 1.2.2 now includes the Short Words plug-in, which was previously
-installed as a separate plug-in. To prevent upgrade problems, you might want to
-uninstall if it was installed via a package or RPM. This was also shipped as the
-scribus-vlna package in both source and rpm format. See PACKAGING for more details.</p>
 
-<p>Scribus 1.2.2 also has a new OpenOffice.org Writer and Draw importer. This
-requires libxml2, preferably version 2.6.x+. The OpenOffice.org Writer importer
-will import styles from the OpenOffice.org doc and will create similar styles
-within your Scribus document. Version 1.2.1 supported Open Office 1.1.x and Star Office 6/7 file formats.
-Version 1.2.2 supports Open Office 2.x/Star Office 8.x (OASIS) as well.
-</p>
+<h3>The file format has changed and is NOT backwardly compatible. You have been warned.<h3>
+<p>We have specifically disabled the ability to open 1.3.x files in the stable 1.2.x versions. </p>
+<ol>
+<li>Because of the new enhanced menu/keyboard shortcuts code, 1.2.x  keyboard
+   short cuts are not migrated and will need to be recreated once on the first
+   launch 1.3.0. There are vastly more keyboard shortcuts and they can be exported to use on other machines if customized.</li>
 
-<p>Additionally Scribus uses now a different way to find fonts, sadly this gives
-some changes in the font names Scribus uses. To convert old documents follow
-the procedure below:</p>
+<li>On initial launch, 1.3.0 will offer to convert preferences to the new 1.3.0
+   format. This is recommended. Scribus 1.3.x will store its preferences
+   separately from 1.2.x.</li>
+<li>You <strong>can</strong> install both versions in parallel and run them at the same time.
+   The only caveat is to install them using different %prefix/ directories e.g
+   1.2 in /usr/local and 1.3 in /opt or $home/bin. You can use the --prefix
+   argument to configure to set where Scribus should be installed.</li>
 
+</ol>
+
+
+<h4>Scribus 1.3.x is based on the latest 1.2.x branch code, but also includes:</h4>
 <ul>
-<li>Create a document with the old Version of Scribus containing all your Fonts.</li>
-<li>Open the new Scribus and go to the Font Substitution List.
-</li>Clear out all current substitutions.
-<li>Open the Document created in 1) and substitute all the fonts with the
-correct new fonts.</li>
-<li>When you now open old documents Scribus will convert all Font Names
-automatically.</li>
+<li>Our plans for a new file format should start to come to fruition in the 1.3.1 development period.</li>
+<li>Much more extensive support for CMYK images, including clipping paths in TIFF files, as well as new support for native Photoshop &#174; PSD files. 16 bit CMYK TIFF and PSD support will follow soon. Use of CMYK images is recommended with color management properly setup and active for best on screen appearance.CMYK-JPEG is also supported. </li>
+<li>Completely revised document and application preferences. They are independently set of each other. New documents will inherit the current application preferences. Moreover 1.3.x preferences can exist side by side without issue.</li>
+<li>This documentation is based on 1.2.x, but there are some updates for 1.3, notably concerning the preferences.</li>
+<li>Scribus now has true facing pages and images and other objects can span them.</li>
+<li>Scribus now has "scratch space" which can be used to store objects partially or fully off the page.</li>
+<li>Scribus now has its own built-in pre-flight file verifier for printing or exporting PDF. The default settings are to prevent a number of issues which cause problems printing or exporting PDF with sufficient quality. You can choose to ignore them in settings, but they are carefully chosen to ensure a minimum of quality or avoid known limitations of PS3 or PDF versions.</li>
+<li>Work is on-going to make Scribus more platform independent and alpha quality builds of Scribus are already working on Win32 and MacOSX. </li>
+
+
+
 </ul>
+
+
+
+
 <p>For detailed changes please see the ChangeLog.</p>
 
 <p>To use Scribus in your native language be sure that the environment variable
 LC_ALL, LC_MESSAGES, LANG, Qt locale, OR the command line option
 of -l/--lang <lang> is set correctly.</p>
+
+
 	
-<p>The new EPS/PS import feature in 1.2.x uses advanced features of Ghostscript.
+<p>The EPS/PS import features in 1.3.x uses advanced features of Ghostscript.
 	We recommend ALL users update to the newest version of Ghostscript available
 	for your distro. There are detailed hints on docs.scribus.net for installing
 	GS 8.x in parallel to the GS installed by your distro.</p>
@@ -76,15 +90,14 @@ of -l/--lang <lang> is set correctly.</p>
 	They are in the "Recommends" and will be installed by all sensible apt
 	front-ends.
 </p>	
-<p><strong>	For SuSE 9.x Users:</strong></p>
+<p><strong>	For Suse 9.x Users:</strong></p>
 	<ul>
 <li>The littlecms libs 1.10, which shipped with Suse 9.0 does not offer complete
 	support for all the the latest CMS features in Scribus 1.2. There are updated
-	SuSE 9.x RPM's available on the Scribus.net site. We also recommend using the
-	latest version of lcms.</li>
+	Suse 9.x RPM's available on the Scribus.net site. We also recommend using the
+	latest version of lcms.littlecms 1.1.4 is the current version.</li>
 	
-<li>If you are using Qt 3.3.x, please ensure you are using the latest Qt 3.3.2-2+
-	rpms. The -2+ versions have an important fix for drag and drop in Scribus.</li>
+<li>We recommend using the latest Qt-3.3.4 rpms from Suse.</li>
 	<li>
 	To enable direct CUPS support which we recommend, make sure both cups-devel and
 	openssl-devel are installed. Suse enables ssl support in CUPS.</li></ul>
@@ -105,5 +118,6 @@ of -l/--lang <lang> is set correctly.</p>
 	
 <p>Franz Schmid<br />
 	Peter Linnell<br />
-	in June 2005<br />
+	in July 2005<br />
 </p>
+</qt>
