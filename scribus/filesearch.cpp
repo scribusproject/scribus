@@ -109,10 +109,6 @@ void FileSearch::next()
 	// and added to the list of matches if they do.
 	// We need to select the directory to step into, and search its contents.
 
-	Q_ASSERT(m_tree.count() > 0);
-	Q_ASSERT(m_tree.count() == m_iter.count());
-	Q_ASSERT(m_tree.count() == m_depth + 1);
-
 	// skip '.', '..'
 	while ( *(m_iter.top()) == "." || *(m_iter.top()) == ".." )
 		++m_iter.top();
@@ -126,15 +122,13 @@ void FileSearch::next()
 		m_tree.pop();
 		m_dir.cdUp();
 		m_depth--;
-		// Sanity check - if we've run out of tree to search, depth should be -1
-		// and the stack should be empty. Otherwise, depth should be >= 0 and
-		// the stack should be non-empty.
-		Q_ASSERT( (m_depth == -1) == ( m_iter.count() == 0 ) );
 		// Check if we've run out of tree and should finish up
 		if (m_depth < 0)
 		{
 			// We've run out of tree, so we're all done. Kill the timer and
 			// tell our owner we've finished.
+			Q_ASSERT(m_iter.count() == 0);
+			Q_ASSERT(m_tree.count() == 0);
 			m_status = Status_Finished;
 			m_timer->stop();
 			emit searchComplete(m_matchingFiles, m_fileName);
@@ -152,11 +146,8 @@ void FileSearch::next()
 	{
 		// There are still subdirectories to search. Select the next one and step
 		// into it, incrementing the iterator for the current dir in the process.
-		QString subdir = *(m_iter.top());
+		m_dir.cd(*(m_iter.top()));
 		++m_iter.top();
-		Q_ASSERT(!subdir.isEmpty());
-		
-		m_dir.cd(subdir);
 		m_depth++;
 		pushStack();
 		addCurrentDirFiles();
@@ -165,7 +156,7 @@ void FileSearch::next()
 
 void FileSearch::pushStack()
 {
-	m_tree.push(m_dir.entryList(QDir::Dirs));
+	m_tree.push(m_dir.entryList(QDir::Dirs|QDir::NoSymLinks));
 	m_iter.push(m_tree.top().begin());
 }
 
