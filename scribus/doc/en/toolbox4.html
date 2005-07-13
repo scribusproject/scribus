@@ -2,13 +2,13 @@
 <title>GIMP 2.x</title>
 <h2>GIMP 2.x</h2>
 
-<p>There is not much to say about the best image application for Linux. GIMP 2.x has too many improvements to list. Note the screen captures are using the beta of GIMP 2.2. </p>
+<p>There is not much to say about the best image application for Linux. GIMP 2.x has too many improvements to list. </p>
 
 <p>However, setting up GIMP for print work with Scribus requires some adjustments to the defaults as shown below: </p>
 
 <ul>
 <li>Some distributions do not install the "Separate" plug-in which enables you to export CMYK TIFF and duotones. If you want to use duotones, it is recommended.</li>
-<li>Make sure you have the latest 2.x.x stable version. There were some important bug fixes made after 2.0.1.In my testing GIMP 2.2 betas have been production quality stable. </li>
+<li>Make sure you have the latest 2.x.x stable version. There were some important bug fixes made after 2.0.1.</li>
 <li>GIMP now can work with CMYK colors. While the color model internally is still RGBplus alpha channels, you can use CMYK measurements and CMYK color definitions. To supplement this, there is a third party plug-in called Separate, which can export CMYK TIFF, using a neat trick with alpha layers. The separate plug-in can also embed ICC profiles into the exported TIFF.</li>
 <li>One of the really appreciated improvements is the text handling. GIMP 2.x uses <code>fontconfig</code>, so finding the fonts on your system are much less of an issue. Text can be kept in a separate layer to ease editing and correcting. In the 1.2.x versions certain type of handling were difficult, but there is little to complain about now. It is a pleasure to use the new text controls. In addition, there is also a separate freetype plug-in for GIMP, which allows you to manipulate type in the same means Scribus and Inkscape do. Recommended. You can find this on the ftp.gimp.org site.</li>
 <li>The way that pixels are adjusted (interpolated) in filters and effects are applied use Linear as the default. This is a good compromise for speed vs. accuracy.  Cubic should almost always be the default for print work, but do expect many operations, (re-scaling, filter application) to run slower. Using Cubic can make sometimes a dramatic difference in the perceived print quality of an image.</li>
