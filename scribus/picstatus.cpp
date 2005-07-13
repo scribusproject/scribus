@@ -241,7 +241,7 @@ void PicStatus::SearchPic()
 	// that it's done.
 	// Note: search will be deleted when this PicStatus is, so there's no
 	// need to worry about cleanup.
-	FileSearch* search = new FileSearch(this, fileName, "/home/craig/tmp"); //XXX
+	FileSearch* search = new FileSearch(this, fileName);
 	Q_CHECK_PTR(search);
 	connect(search,
 			SIGNAL(searchComplete(const QStringList&, const QString&)),
@@ -290,25 +290,27 @@ void PicStatus::SearchPicFinished(const QStringList & matches, const QString & f
 		PicSearch *dia = new PicSearch(this, fileName, matches);
 		if (dia->exec())
 		{
-			// Update the image
-			unsigned int itemNumber = ItemNrs[row];
-			//unsigned int pageNumber = PicTable->text(row, COL_PAGE).toInt()-1;
-			QString oldDirPath = PicTable->text(row, COL_PATH);
-			QString newFilePath = dia->Bild;
-			Q_ASSERT(!newFilePath.isEmpty());
-			// FIXME: error checking
-			view->LoadPict(newFilePath, itemNumber);
-			// WTF?
-			bool isMaster = PicTable->cellWidget(row, COL_GOTO)->isEnabled();
-			PageItem* item = isMaster ? doc->Items.at(itemNumber) : doc->MasterItems.at(itemNumber);
-			// Set missing flag again. Since we do no error checking of the load,
-			// missing will generally mean "failed to load".
-			PicTable->setText(row, COL_STATUS, item->PicAvail ? trOK : trMissing);
-			PicTable->setText(row, COL_PATH, QFileInfo(newFilePath).dirPath(true));
+			Q_ASSERT(!dia->Bild.isEmpty());
+			loadPictByRow(dia->Bild, row);
 			view->DrawNew();
 		}
 		delete dia;
 	}
+}
+
+bool PicStatus::loadPictByRow(const QString & newFilePath, unsigned int row)
+{
+	unsigned int itemNumber = ItemNrs[row];
+	// FIXME: error checking
+	view->LoadPict(newFilePath, itemNumber);
+	// WTF?
+	bool isMaster = PicTable->cellWidget(row, COL_GOTO)->isEnabled();
+	PageItem* item = isMaster ? doc->Items.at(itemNumber) : doc->MasterItems.at(itemNumber);
+	// Set missing flag again. Since we do no error checking of the load,
+	// missing will generally mean "failed to load".
+	PicTable->setText(row, COL_STATUS, item->PicAvail ? trOK : trMissing);
+	PicTable->setText(row, COL_PATH, QFileInfo(newFilePath).dirPath(true));
+	return item->PicAvail;
 }
 
 void PicStatus::setSearchButton(int row, bool toCancel, const FileSearch* searcher)

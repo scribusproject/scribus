@@ -52,6 +52,9 @@ protected:
 	// fixing signal connections as well.
 	void PicStatus::setSearchButton(int row, bool toCancel, const FileSearch* searcher);
 
+	// Load the image specified into the PageItem shown on row `row'
+	bool PicStatus::loadPictByRow(const QString & newFilePath, unsigned int row);
+
 	// Column indexes
 	static const unsigned short COL_FILENAME;
 	static const unsigned short COL_PATH;
