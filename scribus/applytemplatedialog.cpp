@@ -35,7 +35,7 @@ enum {
  *  name 'name' and widget flags set to 'f'.
  *
  *  The dialog will by default be modeless, unless you set 'modal' to
- *  TRUE to construct a modal dialog.
+ *  true to construct a modal dialog.
  */
 ApplyMasterPageDialog::ApplyMasterPageDialog( QWidget* parent, const char* name, bool modal, WFlags fl )
 		: QDialog( parent, name, modal, fl )
@@ -51,7 +51,7 @@ ApplyMasterPageDialog::ApplyMasterPageDialog( QWidget* parent, const char* name,
 	spacer2 = new QSpacerItem( 100, 21, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	templateNameLayout->addItem( spacer2 );
 
-	masterPageComboBox = new QComboBox( FALSE, this, "masterPageComboBox" );
+	masterPageComboBox = new QComboBox( false, this, "masterPageComboBox" );
 	templateNameLayout->addWidget( masterPageComboBox );
 	ApplyMasterPageDialogLayout->addLayout( templateNameLayout );
 
@@ -65,7 +65,7 @@ ApplyMasterPageDialog::ApplyMasterPageDialog( QWidget* parent, const char* name,
 	applyToPageButtonGroupLayout->setAlignment( Qt::AlignTop );
 
 	currentPageRadioButton = new QRadioButton( applyToPageButtonGroup, "currentPageRadioButton" );
-	currentPageRadioButton->setChecked( TRUE );
+	currentPageRadioButton->setChecked( true );
 	applyToPageButtonGroupLayout->addWidget( currentPageRadioButton );
 
 	evenPagesRadioButton = new QRadioButton( applyToPageButtonGroup, "evenPagesRadioButton" );
@@ -83,7 +83,7 @@ ApplyMasterPageDialog::ApplyMasterPageDialog( QWidget* parent, const char* name,
 	rangeLayout->addWidget( useRangeCheckBox );
 
 	fromPageSpinBox = new QSpinBox( applyToPageButtonGroup, "fromPageSpinBox" );
-	fromPageSpinBox->setEnabled( FALSE );
+	fromPageSpinBox->setEnabled( false );
 	fromPageSpinBox->setMinValue( 1 );
 	rangeLayout->addWidget( fromPageSpinBox );
 
@@ -91,7 +91,7 @@ ApplyMasterPageDialog::ApplyMasterPageDialog( QWidget* parent, const char* name,
 	rangeLayout->addWidget( toPageLabel );
 
 	toPageSpinBox = new QSpinBox( applyToPageButtonGroup, "toPageSpinBox" );
-	toPageSpinBox->setEnabled( FALSE );
+	toPageSpinBox->setEnabled( false );
 	toPageSpinBox->setMinValue( 1 );
 	rangeLayout->addWidget( toPageSpinBox );
 	spacer3 = new QSpacerItem( 16, 21, QSizePolicy::Expanding, QSizePolicy::Minimum );
