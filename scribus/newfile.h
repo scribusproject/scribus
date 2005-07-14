@@ -12,7 +12,10 @@
 #include <qspinbox.h>
 #include <qlayout.h>
 #include <qtooltip.h>
+#include <qtabwidget.h>
+#include <qframe.h>
 #include "mspinbox.h"
+#include "customfdialog.h"
 
 #include "scribusstructs.h"
 class MarginWidget;
@@ -22,9 +25,13 @@ class NewDoc : public QDialog
 	Q_OBJECT
 
 public:
-	NewDoc( QWidget* parent, ApplicationPrefs *Vor );
+	NewDoc( QWidget* parent, ApplicationPrefs *Vor, bool startUp = false );
 	~NewDoc() {};
+	void createNewDocPage();
+	void createOpenDocPage();
 
+	QTabWidget* tabWidget;
+	QFrame* newDocFrame;
 	QButtonGroup* ButtonGroup1_2;
 	MarginWidget* GroupRand;
 	QGroupBox* GroupBox3;
@@ -49,16 +56,21 @@ public:
 	QSpinBox* PgNum;
 	MSpinBox* Breite;
 	MSpinBox* Hoehe;
+	QFrame* openDocFrame;
+	CustomFDialog *fileDialog;
 	QPushButton* OKButton;
 	QPushButton* CancelB;
+	ApplicationPrefs *PrefsData;
 	double unitRatio;
 	int Orient;
+	int precision;
 	double Pagebr;
 	double Pageho;
 	double Dist;
 	QString unitSuffix;
 	int unitIndex;
 	void setSize(QString gr);
+	int tabSelected;
 
 public slots:
 	void setHoehe(int v);
@@ -71,6 +83,7 @@ public slots:
 	void setDS();
 
 protected:
+	QVBoxLayout* TabbedNewDocLayout;
 	QGridLayout* Layout4;
 	QHBoxLayout* NewDocLayout;
 	QVBoxLayout* Layout9;

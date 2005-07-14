@@ -4404,8 +4404,8 @@ bool ScribusApp::slotDocOpen()
 		formats += tr("SVG Images (*.svg);;");
 #endif
 	if (pluginManager->DLLexists(12))
-		formats += tr("OpenOffice.org Draw (*.sxd);;All Files (*)");
-	formats + tr("All Files (*)");
+		formats += tr("OpenOffice.org Draw (*.sxd);;");
+	formats += tr("All Files (*)");
 	QString fileName = CFileDialog( docDir, tr("Open"), formats);
 	if (fileName == "")
 		// User cancelled

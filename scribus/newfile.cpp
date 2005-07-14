@@ -1,9 +1,13 @@
 #include "newfile.h"
 #include "newfile.moc"
 #include <qtooltip.h>
+#include <qobjectlist.h>
+#include <qpoint.h>
+#include "prefsfile.h"
 #include "units.h"
 #include "pagesize.h"
 #include "marginWidget.h"
+#include "scconfig.h"
 
 // definitions for clear reading the code - pv
 #define PORTRAIT    0
@@ -11,22 +15,79 @@
 #define USERFORMAT 30
 
 extern QPixmap loadIcon(QString nam);
+extern PrefsFile* prefsFile;
 
-NewDoc::NewDoc( QWidget* parent, ApplicationPrefs *Vor ) : QDialog( parent, "newDoc", true, 0 )
+NewDoc::NewDoc( QWidget* parent, ApplicationPrefs *Vor, bool startUp ) : QDialog( parent, "newDoc", true, 0 )
 {
+	tabSelected = 0;
 	customText="Custom";
 	customTextTR=QObject::tr( "Custom" );
 	unitIndex = Vor->docUnitIndex;
 	unitSuffix = unitGetSuffixFromIndex(unitIndex);
 	unitRatio = unitGetRatioFromIndex(unitIndex);
-	int precision = unitGetPrecisionFromIndex(unitIndex);
+	precision = unitGetPrecisionFromIndex(unitIndex);
+	PrefsData = Vor;
 	Orient = 0;
 	setCaption( tr( "New Document" ) );
 	setIcon(loadIcon("AppIcon.png"));
-	NewDocLayout = new QHBoxLayout( this, 10, 5, "NewDocLayout");
-	Layout9 = new QVBoxLayout(0, 0, 5, "Layout9");
+	TabbedNewDocLayout = new QVBoxLayout( this, 10, 5, "Form1Layout");
+	if (startUp)
+		tabWidget = new QTabWidget( this, "tabWidget2" );
+	createNewDocPage();
+	if (startUp)
+	{
+		tabWidget->addTab(newDocFrame, tr("New Document"));
+		createOpenDocPage();
+		tabWidget->addTab(openDocFrame, tr("Open Document"));
+		TabbedNewDocLayout->addWidget(tabWidget);
+	}
+	else
+		TabbedNewDocLayout->addWidget(newDocFrame);
 
-	ButtonGroup1_2 = new QButtonGroup(this, "ButtonGroup1_2" );
+	Layout1 = new QHBoxLayout;
+	Layout1->setSpacing( 6 );
+	Layout1->setMargin( 0 );
+	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	Layout1->addItem( spacer );
+	OKButton = new QPushButton( tr( "&OK" ), this, "OKButton" );
+	OKButton->setDefault( true );
+	Layout1->addWidget( OKButton );
+	CancelB = new QPushButton( tr( "&Cancel" ), this, "CancelB" );
+	CancelB->setAutoDefault( false );
+	Layout1->addWidget( CancelB );
+	TabbedNewDocLayout->addLayout( Layout1 );
+	//tooltips
+	QToolTip::add( ComboBox1, tr( "Document page size, either a standard size or a custom size" ) );
+	QToolTip::add( ComboBox2, tr( "Orientation of the document's pages" ) );
+	QToolTip::add( Breite, tr( "Width of the document's pages, editable if you have chosen a custom page size" ) );
+	QToolTip::add( Hoehe, tr( "Height of the document's pages, editable if you have chosen a custom page size" ) );
+	QToolTip::add( Doppelseiten, tr( "Enable single or spread based layout" ) );
+	QToolTip::add( ErsteSeite, tr( "Make the first page the left page of the document" ) );
+	QToolTip::add( PgNr, tr( "First page number of the document" ) );
+	QToolTip::add( PgNum, tr( "Initial number of pages of the document" ) );
+	QToolTip::add( ComboBox3, tr( "Default unit of measurement for document editing" ) );
+	QToolTip::add( AutoFrame, tr( "Create text frames automatically when new pages are added" ) );
+	QToolTip::add( SpinBox10, tr( "Number of columns to create in automatically created text frames" ) );
+	QToolTip::add( Distance, tr( "Distance between automatically created columns" ) );
+
+	// signals and slots connections
+	connect( OKButton, SIGNAL( clicked() ), this, SLOT( ExitOK() ) );
+	connect( CancelB, SIGNAL( clicked() ), this, SLOT( reject() ) );
+	connect( Doppelseiten, SIGNAL( clicked() ), this, SLOT( setDS() ) );
+	connect(ComboBox1, SIGNAL(activated(const QString &)), this, SLOT(setPGsize(const QString &)));
+	connect(ComboBox2, SIGNAL(activated(int)), this, SLOT(setOrien(int)));
+	connect(ComboBox3, SIGNAL(activated(int)), this, SLOT(setUnit(int)));
+	connect(Distance, SIGNAL(valueChanged(int)), this, SLOT(setDist(int)));
+	resize(minimumSizeHint());
+	clearWState( WState_Polished );
+}
+
+void NewDoc::createNewDocPage()
+{
+	newDocFrame = new QFrame(this, "newDocFrame");
+	NewDocLayout = new QHBoxLayout( newDocFrame, 10, 5, "NewDocLayout");
+	Layout9 = new QVBoxLayout(0, 0, 5, "Layout9");
+	ButtonGroup1_2 = new QButtonGroup(newDocFrame, "ButtonGroup1_2" );
 	ButtonGroup1_2->setTitle( tr( "Page Size" ));
 	ButtonGroup1_2->setColumnLayout(0, Qt::Vertical);
 	ButtonGroup1_2->layout()->setSpacing(6);
@@ -36,16 +97,8 @@ NewDoc::NewDoc( QWidget* parent, ApplicationPrefs *Vor ) : QDialog( parent, "new
 	Layout6 = new QGridLayout(0, 1, 1, 0, 6, "Layout6");
 	TextLabel1 = new QLabel( tr( "&Size:" ), ButtonGroup1_2, "TextLabel1" );
 	Layout6->addWidget( TextLabel1, 0, 0 );
-	PageSize *ps=new PageSize(Vor->pageSize);
+	PageSize *ps=new PageSize(PrefsData->pageSize);
 	ComboBox1 = new QComboBox( true, ButtonGroup1_2, "ComboBox1" );
-	/*
-	QString sizelist[] = {"A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "B0", "B1", "B2", "B3", "B4",
-	                      "B5", "B6", "B7", "B8", "B9", "B10", "C5E", "Comm10E", "DLE", tr("Executive"), tr("Folio"),
-	                      tr("Ledger"), tr("Legal"), tr("Letter"), tr("Tabloid"), tr("Custom")};
-	size_t const num_mappings = (sizeof sizelist)/(sizeof *sizelist);
-	for (uint m = 0; m < num_mappings; ++m)
-		ComboBox1->insertItem(sizelist[m]);
-	*/
 	ComboBox1->insertStringList(ps->getTrPageSizeList());
 	ComboBox1->insertItem( customTextTR );
 	ComboBox1->setEditable(false);
@@ -57,7 +110,7 @@ NewDoc::NewDoc( QWidget* parent, ApplicationPrefs *Vor ) : QDialog( parent, "new
 	ComboBox2->insertItem( tr( "Portrait" ) );
 	ComboBox2->insertItem( tr( "Landscape" ) );
 	ComboBox2->setEditable(false);
-	ComboBox2->setCurrentItem(Vor->pageOrientation);
+	ComboBox2->setCurrentItem(PrefsData->pageOrientation);
 	TextLabel2->setBuddy(ComboBox2);
 	Layout6->addWidget( ComboBox2, 1, 1 );
 	ButtonGroup1_2Layout->addLayout( Layout6 );
@@ -80,27 +133,27 @@ NewDoc::NewDoc( QWidget* parent, ApplicationPrefs *Vor ) : QDialog( parent, "new
 	ButtonGroup1_2Layout->addLayout( Layout5 );
 	Layout8 = new QHBoxLayout( 0, 0, 6, "Layout8");
 	Doppelseiten = new QCheckBox( tr( "&Facing Pages" ), ButtonGroup1_2, "Doppelseiten" );
-	Doppelseiten->setChecked(Vor->FacingPages);
+	Doppelseiten->setChecked(PrefsData->FacingPages);
 	Layout8->addWidget( Doppelseiten );
 	ErsteSeite = new QCheckBox( tr( "Left &Page First" ), ButtonGroup1_2, "CheckBox3" );
-	ErsteSeite->setChecked(Vor->LeftPageFirst);
+	ErsteSeite->setChecked(PrefsData->LeftPageFirst);
 	Layout8->addWidget( ErsteSeite );
 	ButtonGroup1_2Layout->addLayout( Layout8 );
 	Layout9->addWidget( ButtonGroup1_2 );
 
 	struct MarginStruct marg;
-	marg.Top = Vor->RandOben;
-	marg.Bottom = Vor->RandUnten;
-	marg.Left = Vor->RandLinks;
-	marg.Right = Vor->RandRechts;
-	GroupRand = new MarginWidget(this,  tr( "Margin Guides" ), &marg, precision, unitRatio, unitSuffix );
-	GroupRand->setPageHeight(Vor->PageHeight);
-	GroupRand->setPageWidth(Vor->PageWidth);
-	GroupRand->setFacingPages(Vor->FacingPages);
+	marg.Top = PrefsData->RandOben;
+	marg.Bottom = PrefsData->RandUnten;
+	marg.Left = PrefsData->RandLinks;
+	marg.Right = PrefsData->RandRechts;
+	GroupRand = new MarginWidget(newDocFrame,  tr( "Margin Guides" ), &marg, precision, unitRatio, unitSuffix );
+	GroupRand->setPageHeight(PrefsData->PageHeight);
+	GroupRand->setPageWidth(PrefsData->PageWidth);
+	GroupRand->setFacingPages(PrefsData->FacingPages);
 	Layout9->addWidget( GroupRand );
 	NewDocLayout->addLayout( Layout9 );
-	Breite->setValue(Vor->PageWidth * unitRatio);
-	Hoehe->setValue(Vor->PageHeight * unitRatio);
+	Breite->setValue(PrefsData->PageWidth * unitRatio);
+	Hoehe->setValue(PrefsData->PageHeight * unitRatio);
 	QStringList pageSizes=ps->getPageSizeList();
 	int sizeIndex=pageSizes.findIndex(ps->getPageText());
 	if (sizeIndex!=-1)
@@ -111,13 +164,13 @@ NewDoc::NewDoc( QWidget* parent, ApplicationPrefs *Vor ) : QDialog( parent, "new
 	Breite->setEnabled(hwEnabled);
 	Hoehe->setEnabled(hwEnabled);
 	setDS();
-	setSize(Vor->pageSize);
-	setOrien(Vor->pageOrientation);
-	Breite->setValue(Vor->PageWidth * unitRatio);
-	Hoehe->setValue(Vor->PageHeight * unitRatio);
+	setSize(PrefsData->pageSize);
+	setOrien(PrefsData->pageOrientation);
+	Breite->setValue(PrefsData->PageWidth * unitRatio);
+	Hoehe->setValue(PrefsData->PageHeight * unitRatio);
 	Layout10 = new QVBoxLayout( 0, 0, 6, "Layout10");
 
-	GroupBox3 = new QGroupBox( this, "GroupBox3" );
+	GroupBox3 = new QGroupBox( newDocFrame, "GroupBox3" );
 	GroupBox3->setTitle( tr( "Options" ) );
 	GroupBox3->setColumnLayout(0, Qt::Vertical );
 	GroupBox3->layout()->setSpacing( 5 );
@@ -148,7 +201,7 @@ NewDoc::NewDoc( QWidget* parent, ApplicationPrefs *Vor ) : QDialog( parent, "new
 	GroupBox3Layout->addMultiCellWidget( ComboBox3, 2, 2, 1, 2 );
 	Layout10->addWidget( GroupBox3 );
 
-	AutoFrame = new QGroupBox( this, "GroupBox4" );
+	AutoFrame = new QGroupBox( newDocFrame, "GroupBox4" );
 	AutoFrame->setTitle( tr( "&Automatic Text Frames" ) );
 	AutoFrame->setColumnLayout(0, Qt::Vertical );
 	AutoFrame->layout()->setSpacing( 0 );
@@ -180,43 +233,41 @@ NewDoc::NewDoc( QWidget* parent, ApplicationPrefs *Vor ) : QDialog( parent, "new
 	Layout2->addWidget( SpinBox10, 0, 1, Qt::AlignLeft );
 	GroupBox4Layout->addLayout( Layout2 );
 	Layout10->addWidget( AutoFrame );
-
-	Layout1 = new QHBoxLayout;
-	Layout1->setSpacing( 6 );
-	Layout1->setMargin( 0 );
-	OKButton = new QPushButton( tr( "&OK" ), this, "OKButton" );
-	OKButton->setDefault( true );
-	Layout1->addWidget( OKButton );
-	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout1->addItem( spacer );
-	CancelB = new QPushButton( tr( "&Cancel" ), this, "CancelB" );
-	CancelB->setAutoDefault( false );
-	Layout1->addWidget( CancelB );
-	Layout10->addLayout( Layout1 );
 	NewDocLayout->addLayout( Layout10 );
-	setMinimumSize(sizeHint());
-	//tooltips
-	QToolTip::add( ComboBox1, tr( "Document page size, either a standard size or a custom size" ) );
-	QToolTip::add( ComboBox2, tr( "Orientation of the document's pages" ) );
-	QToolTip::add( Breite, tr( "Width of the document's pages, editable if you have chosen a custom page size" ) );
-	QToolTip::add( Hoehe, tr( "Height of the document's pages, editable if you have chosen a custom page size" ) );
-	QToolTip::add( Doppelseiten, tr( "Enable single or spread based layout" ) );
-	QToolTip::add( ErsteSeite, tr( "Make the first page the left page of the document" ) );
-	QToolTip::add( PgNr, tr( "First page number of the document" ) );
-	QToolTip::add( PgNum, tr( "Initial number of pages of the document" ) );
-	QToolTip::add( ComboBox3, tr( "Default unit of measurement for document editing" ) );
-	QToolTip::add( AutoFrame, tr( "Create text frames automatically when new pages are added" ) );
-	QToolTip::add( SpinBox10, tr( "Number of columns to create in automatically created text frames" ) );
-	QToolTip::add( Distance, tr( "Distance between automatically created columns" ) );
+}
 
-	// signals and slots connections
-	connect( OKButton, SIGNAL( clicked() ), this, SLOT( ExitOK() ) );
-	connect( CancelB, SIGNAL( clicked() ), this, SLOT( reject() ) );
-	connect( Doppelseiten, SIGNAL( clicked() ), this, SLOT( setDS() ) );
-	connect(ComboBox1, SIGNAL(activated(const QString &)), this, SLOT(setPGsize(const QString &)));
-	connect(ComboBox2, SIGNAL(activated(int)), this, SLOT(setOrien(int)));
-	connect(ComboBox3, SIGNAL(activated(int)), this, SLOT(setUnit(int)));
-	connect(Distance, SIGNAL(valueChanged(int)), this, SLOT(setDist(int)));
+void NewDoc::createOpenDocPage()
+{
+	PrefsContext* docContext = prefsFile->getContext("docdirs", false);
+	QString docDir = ".";
+	if (PrefsData->DocDir != "")
+		docDir = docContext->get("docsopen", PrefsData->DocDir);
+	else
+		docDir = docContext->get("docsopen", ".");
+	QString formats = "";
+#ifdef HAVE_LIBZ
+	formats += tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);;");
+#else
+	formats += tr("Documents (*.sla *.scd);;");
+#endif
+	formats += tr("All Files (*)");
+	openDocFrame = new QFrame(this, "openDocFrame");
+	QVBoxLayout* openDocLayout = new QVBoxLayout(openDocFrame, 5,5, "openDocLayout");
+	fileDialog = new CustomFDialog(openDocFrame, docDir, tr("Open"), formats, false,  true, false, false, false);
+	fileDialog->setSizeGripEnabled(false);
+	fileDialog->setModal(false);
+	QObjectList *l = fileDialog->queryList("QPushButton");
+	QObjectListIt it(*l);
+	QObject *obj;
+	while ((obj = it.current()) != 0)
+	{
+		++it;
+		((QPushButton*)obj)->hide();
+	}
+	delete l;
+	QPoint point = QPoint(0,0);
+	fileDialog->reparent(openDocFrame, point);
+	openDocLayout->addWidget(fileDialog);
 }
 
 void NewDoc::setBreite(int)
@@ -279,9 +330,10 @@ void NewDoc::setUnit(int newUnitIndex)
 
 void NewDoc::ExitOK()
 {
-		Pagebr = Breite->value() / unitRatio;
-		Pageho = Hoehe->value() / unitRatio;
-		accept();
+	Pagebr = Breite->value() / unitRatio;
+	Pageho = Hoehe->value() / unitRatio;
+//	tabSelected = tabWidget->currentPageIndex();
+	accept();
 }
 
 void NewDoc::setOrien(int ori)
