@@ -24,14 +24,14 @@ MarginWidget::MarginWidget( QWidget* parent, QString title, MarginStruct* margs,
 	bottomR->setSuffix( einh );
 	bottomR->setValue(RandB * unitRatio);
 	GroupLayout->addWidget( bottomR, 1, 1 );
-	rightR = new MSpinBox( 0, 1000, this, decimals );
-	rightR->setSuffix( einh );
-	rightR->setValue(RandR * unitRatio);
-	GroupLayout->addWidget( rightR, 1, 3 );
 	leftR = new MSpinBox( 0, 1000, this, decimals );
 	leftR->setSuffix( einh );
 	leftR->setValue(RandL * unitRatio);
 	GroupLayout->addWidget( leftR, 0, 3 );
+	rightR = new MSpinBox( 0, 1000, this, decimals );
+	rightR->setSuffix( einh );
+	rightR->setValue(RandR * unitRatio);
+	GroupLayout->addWidget( rightR, 1, 3 );	
 	GRText2 = new QLabel( bottomR, tr( "&Bottom:" ), this, "GRText2" );
 	GroupLayout->addWidget( GRText2, 1, 0 );
 	GRText1 = new QLabel( topR, tr( "&Top:" ), this, "GRText1" );
