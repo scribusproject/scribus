@@ -26,6 +26,7 @@
 #include "scribusdoc.h"
 #include "scribus.h"
 #include "units.h"
+#include "prefsmanager.h"
 
 #if QT_VERSION  > 0x030102
 	#define SPLITHC SplitVCursor
@@ -38,6 +39,7 @@ extern ScribusApp* ScApp;
 
 Hruler::Hruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa)
 {
+	prefsManager=PrefsManager::instance();
 	setEraseColor(QColor(255,255,255));
 	currDoc = doc;
 	currView = pa;
@@ -133,7 +135,7 @@ void Hruler::mousePressEvent(QMouseEvent *m)
 	}
 	else
 	{
-		if (ScApp->Prefs.guidesSettings.guidesShown)
+		if (prefsManager->appPrefs.guidesSettings.guidesShown)
 		{
 			QPoint py = currView->viewport()->mapFromGlobal(m->globalPos());
 			currView->DrHY = py.y();

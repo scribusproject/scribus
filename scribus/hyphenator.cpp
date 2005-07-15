@@ -28,6 +28,7 @@
 #include "scpaths.h"
 #include "scribus.h"
 #include "prefsfile.h"
+#include "prefsmanager.h"
 
 extern PrefsFile* prefsFile;
 
@@ -55,7 +56,7 @@ Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok, ScribusApp* app) : QObj
 		Language = doc->Language;
 	else
 	{
-		Language = Sap->Prefs.Language;
+		Language = PrefsManager::instance()->appPrefs.Language;
 		doc->Language = Language;
 	}
 	pfad += "dicts/" + Sap->Sprachen[Language];

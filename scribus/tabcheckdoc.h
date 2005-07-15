@@ -4,7 +4,7 @@
 #include <qvariant.h>
 #include <qwidget.h>
 
-#include "scribusstructs.h"
+#include "prefsstructs.h"
 class QVBoxLayout;
 class QHBoxLayout;
 class QComboBox;

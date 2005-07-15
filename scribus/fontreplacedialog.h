@@ -19,7 +19,7 @@ class FontReplaceDialog : public QDialog
 	Q_OBJECT
 
 public:
-	FontReplaceDialog( QWidget* parent, ApplicationPrefs *Prefs, QMap<QString, QString> *RList);
+	FontReplaceDialog( QWidget* parent, QMap<QString, QString> *RList);
 	~FontReplaceDialog() {};
 
 	QLabel* textLabel1;

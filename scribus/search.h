@@ -28,7 +28,7 @@ class SearchReplace : public QDialog
 	Q_OBJECT
 
 public:
-	SearchReplace( QWidget* parent, ScribusDoc *doc, ApplicationPrefs *Prefs, PageItem* ite, bool mode = true );
+	SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, bool mode = true );
 	~SearchReplace() {};
 	virtual void slotDoSearch();
 	virtual void slotDoReplace();

@@ -85,7 +85,7 @@ class Mpalette : public ScrPaletteBase
 	Q_OBJECT
 
 public:
-	Mpalette(QWidget* parent, ApplicationPrefs *Prefs);
+	Mpalette(QWidget* parent);
 	~Mpalette() {};
 	void updateCList();
 	void updateCmsList();

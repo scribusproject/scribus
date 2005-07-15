@@ -16,14 +16,15 @@
 #include "scribus.h"
 #include "splash.h"
 #include "util.h"
+#include "prefsmanager.h"
 
 using namespace std;
 
 extern ScribusApp* ScApp;
 
-ScPreview::ScPreview(ApplicationPrefs *prefs)
+ScPreview::ScPreview()
 {
-	Prefs = prefs;
+	prefsManager = PrefsManager::instance();
 	Farben.clear();
 	MLineStyles.clear();
 	Segments.clear();
@@ -58,7 +59,7 @@ QPixmap ScPreview::createPreview(QString data)
 	uint a, zae;
 	double CurY, EndX, CurX, wide, rota, wid;
 	QValueList<ArrowDesc> arrowStyles;
-	arrowStyles = Prefs->arrowStyles;
+	arrowStyles = prefsManager->appPrefs.arrowStyles;
 	QDomDocument docu("scridoc");
 	docu.setContent(data);
 	QDomElement elem=docu.documentElement();
@@ -71,7 +72,7 @@ QPixmap ScPreview::createPreview(QString data)
 	double GrY = QStodouble(elem.attribute("YP"));
 	double GrW = QStodouble(elem.attribute("W"));
 	double GrH = QStodouble(elem.attribute("H"));
-	double pmmax = Prefs->PSize / QMAX(GrW+50, GrH+50);
+	double pmmax = prefsManager->appPrefs.PSize / QMAX(GrW+50, GrH+50);
 	QPixmap tmp = QPixmap(static_cast<int>(GrW)+50, static_cast<int>(GrH)+50);
 	ScPainter *pS = new ScPainter(&tmp, tmp.width(), tmp.height());
 	pS->translate(25,25);
@@ -100,39 +101,39 @@ QPixmap ScPreview::createPreview(QString data)
 		if(pg.tagName()=="FONT")
 		{
 			tmpf = GetAttr(&pg, "NAME");
-			if ((!Prefs->AvailFonts.find(tmpf)) || (!Prefs->AvailFonts[tmpf]->UseFont))
+			if ((!prefsManager->appPrefs.AvailFonts.find(tmpf)) || (!prefsManager->appPrefs.AvailFonts[tmpf]->UseFont))
 			{
-				if ((!Prefs->GFontSub.contains(tmpf)) || (!Prefs->AvailFonts[Prefs->GFontSub[tmpf]]->UseFont))
+				if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!prefsManager->appPrefs.AvailFonts[prefsManager->appPrefs.GFontSub[tmpf]]->UseFont))
 				{
 					if (ScApp->splashScreen != NULL)
 						ScApp->splashScreen->hide();
-					MissingFont *dia = new MissingFont(0, tmpf, Prefs, 0);
+					MissingFont *dia = new MissingFont(0, tmpf, 0);
 					dia->exec();
 					tmpf = dia->getReplacementFont();
 					delete dia;
 					if (ScApp->splashScreen != NULL)
 						ScApp->splashScreen->show();
-					Prefs->GFontSub[pg.attribute("NAME")] = tmpf;
+					prefsManager->appPrefs.GFontSub[pg.attribute("NAME")] = tmpf;
 				}
 				else
-					tmpf = Prefs->GFontSub[tmpf];
+					tmpf = prefsManager->appPrefs.GFontSub[tmpf];
 			}
 			if (!DoFonts2.contains(tmpf))
 			{
 				FT_Face      face;
-				error = FT_New_Face( library, Prefs->AvailFonts[tmpf]->Datei, Prefs->AvailFonts[tmpf]->faceIndex, &face );
+				error = FT_New_Face( library, prefsManager->appPrefs.AvailFonts[tmpf]->Datei, prefsManager->appPrefs.AvailFonts[tmpf]->faceIndex, &face );
 				if (error)
-					tmpf = Prefs->toolSettings.defFont;
-				if (Prefs->AvailFonts[tmpf]->ReadMetrics())
-					Prefs->AvailFonts[tmpf]->CharWidth[13] = 0;
+					tmpf = prefsManager->appPrefs.toolSettings.defFont;
+				if (prefsManager->appPrefs.AvailFonts[tmpf]->ReadMetrics())
+					prefsManager->appPrefs.AvailFonts[tmpf]->CharWidth[13] = 0;
 				else
 				{
-					tmpf = Prefs->toolSettings.defFont;
-					Prefs->AvailFonts[tmpf]->ReadMetrics();
-					Prefs->AvailFonts[tmpf]->CharWidth[13] = 0;
+					tmpf = prefsManager->appPrefs.toolSettings.defFont;
+					prefsManager->appPrefs.AvailFonts[tmpf]->ReadMetrics();
+					prefsManager->appPrefs.AvailFonts[tmpf]->CharWidth[13] = 0;
 				}
 			}
-			fo = Prefs->AvailFonts[tmpf]->Font;
+			fo = prefsManager->appPrefs.AvailFonts[tmpf]->Font;
 			fo.setPointSize(12);
 			DoFonts[GetAttr(&pg, "NAME")] = tmpf;
 			DoFonts2[GetAttr(&pg, "NAME")] = fo;
@@ -351,7 +352,7 @@ QPixmap ScPreview::createPreview(QString data)
 					if (hg->ch == QChar(5))
 						hg->ch = QChar(13);
 					it++;
-					hg->cfont = Prefs->AvailFonts[*it];
+					hg->cfont = prefsManager->appPrefs.AvailFonts[*it];
 					it++;
 					hg->csize = qRound((*it).toDouble() * 10.0);
 					it++;
@@ -569,14 +570,14 @@ QPixmap ScPreview::createPreview(QString data)
 						if (hl->cstyle != 0)
 						{
 							if (hl->cstyle & 1)
-								chs = static_cast<int>(hl->csize * Prefs->typographicSetttings.scalingSuperScript / 100);
+								chs = static_cast<int>(hl->csize * prefsManager->appPrefs.typographicSetttings.scalingSuperScript / 100);
 							if (hl->cstyle & 2)
-								chs = static_cast<int>(hl->csize * Prefs->typographicSetttings.scalingSubScript / 100);
+								chs = static_cast<int>(hl->csize * prefsManager->appPrefs.typographicSetttings.scalingSubScript / 100);
 							if (hl->cstyle & 64)
 							{
 								if (chx.upper() != chx)
 								{
-									chs = static_cast<int>(hl->csize * Prefs->typographicSetttings.valueSmallCaps / 100);
+									chs = static_cast<int>(hl->csize * prefsManager->appPrefs.typographicSetttings.valueSmallCaps / 100);
 									chx = chx.upper();
 								}
 							}
@@ -752,30 +753,30 @@ QPixmap ScPreview::createPreview(QString data)
 						pS->setPen(tmpfa);
 					}
 					chs = hl->csize;
-					asce = Prefs->AvailFonts[hl->cfont->SCName]->numAscent * (hl->csize / 10.0);
+					asce = prefsManager->appPrefs.AvailFonts[hl->cfont->SCName]->numAscent * (hl->csize / 10.0);
 					int chst = hl->cstyle & 127;
 					if (chst != 0)
 					{
 						if (chst & 1)
 						{
-							CurY -= asce * Prefs->typographicSetttings.valueSuperScript / 100;
-							chs = static_cast<int>(hl->csize * Prefs->typographicSetttings.scalingSuperScript / 100);
+							CurY -= asce * prefsManager->appPrefs.typographicSetttings.valueSuperScript / 100;
+							chs = static_cast<int>(hl->csize * prefsManager->appPrefs.typographicSetttings.scalingSuperScript / 100);
 						}
 						if (chst & 2)
 						{
-							CurY += asce * Prefs->typographicSetttings.valueSubScript / 100;
-							chs = static_cast<int>(hl->csize * Prefs->typographicSetttings.scalingSubScript / 100);
+							CurY += asce * prefsManager->appPrefs.typographicSetttings.valueSubScript / 100;
+							chs = static_cast<int>(hl->csize * prefsManager->appPrefs.typographicSetttings.scalingSubScript / 100);
 						}
 						if (chst & 64)
 						{
 							if (chx.upper() != chx)
 							{
-								chs = static_cast<int>(hl->csize * Prefs->typographicSetttings.valueSmallCaps / 100);
+								chs = static_cast<int>(hl->csize * prefsManager->appPrefs.typographicSetttings.valueSmallCaps / 100);
 								chx = chx.upper();
 							}
 						}
 					}
-					wide = Prefs->AvailFonts[hl->cfont->SCName]->CharWidth[chx[0].unicode()]*(chs / 10.0);
+					wide = prefsManager->appPrefs.AvailFonts[hl->cfont->SCName]->CharWidth[chx[0].unicode()]*(chs / 10.0);
 					if ((CurX+(wide+chs * hl->cextra / 10000.0)/2) >= wid)
 					{
 						if (zae < cl.size()-1)
@@ -868,12 +869,12 @@ void ScPreview::DrawZeichenS(ScPainter *p, double xco, double yco, QString ch, Q
 	double wide;
 	double csi = static_cast<double>(Siz) / 100.0;
 	uint chr = ccx[0].unicode();
-	if (Prefs->AvailFonts[ZFo]->CharWidth.contains(chr))
+	if (prefsManager->appPrefs.AvailFonts[ZFo]->CharWidth.contains(chr))
 	{
-		wide = Prefs->AvailFonts[ZFo]->CharWidth[chr]*(Siz / 10.0);
+		wide = prefsManager->appPrefs.AvailFonts[ZFo]->CharWidth[chr]*(Siz / 10.0);
 		QWMatrix chma;
 		chma.scale(csi, csi);
-		FPointArray gly = Prefs->AvailFonts[ZFo]->GlyphArray[chr].Outlines.copy();
+		FPointArray gly = prefsManager->appPrefs.AvailFonts[ZFo]->GlyphArray[chr].Outlines.copy();
 		if (gly.size() < 4)
 			return;
 		gly.map(chma);
@@ -896,19 +897,19 @@ void ScPreview::DrawZeichenS(ScPainter *p, double xco, double yco, QString ch, Q
 			p->fillPath();
 		if ((Style & 4) && ((mod % 2) != 0))
 		{
-			p->setLineWidth(Prefs->AvailFonts[ZFo]->strokeWidth * Siz / 20);
+			p->setLineWidth(prefsManager->appPrefs.AvailFonts[ZFo]->strokeWidth * Siz / 20);
 			p->strokePath();
 		}
 		if (Style & 16)
 		{
-			double st = Prefs->AvailFonts[ZFo]->strikeout_pos * (Siz / 10.0);
-			p->setLineWidth(QMAX(Prefs->AvailFonts[ZFo]->strokeWidth * (Siz / 10.0), 1));
+			double st = prefsManager->appPrefs.AvailFonts[ZFo]->strikeout_pos * (Siz / 10.0);
+			p->setLineWidth(QMAX(prefsManager->appPrefs.AvailFonts[ZFo]->strokeWidth * (Siz / 10.0), 1));
 			p->drawLine(FPoint(xco, yco-st), FPoint(xco+wide, yco-st));
 		}
 		if (Style & 8)
 		{
-			double st = Prefs->AvailFonts[ZFo]->underline_pos * (Siz / 10.0);
-			p->setLineWidth(QMAX(Prefs->AvailFonts[ZFo]->strokeWidth * (Siz / 10.0), 1));
+			double st = prefsManager->appPrefs.AvailFonts[ZFo]->underline_pos * (Siz / 10.0);
+			p->setLineWidth(QMAX(prefsManager->appPrefs.AvailFonts[ZFo]->strokeWidth * (Siz / 10.0), 1));
 			p->drawLine(FPoint(xco, yco-st), FPoint(xco+wide, yco-st));
 		}
 	}

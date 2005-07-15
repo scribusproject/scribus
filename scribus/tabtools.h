@@ -110,7 +110,6 @@ public:
 	QLabel* startArrowText;
 	QLabel* endArrowText;
 	QLabel* arrowText;
-	SCFonts *fon;
 
 protected slots:
 	virtual void toggleChain();

@@ -10,6 +10,7 @@
 #include "scconfig.h"
 #include "scribus.h"
 #include "pluginmanager.h"
+#include "prefsmanager.h"
 
 // definitions for clear reading the code - pv
 #define PORTRAIT    0
@@ -20,17 +21,17 @@ extern QPixmap loadIcon(QString nam);
 extern PrefsFile* prefsFile;
 extern ScribusApp* ScApp;
 
-NewDoc::NewDoc( QWidget* parent, ApplicationPrefs *Vor, bool startUp ) : QDialog( parent, "newDoc", true, 0 )
+NewDoc::NewDoc( QWidget* parent, bool startUp ) : QDialog( parent, "newDoc", true, 0 )
 {
+	prefsManager=PrefsManager::instance();
 	tabSelected = 0;
 	onStartup = startUp;
 	customText="Custom";
 	customTextTR=QObject::tr( "Custom" );
-	unitIndex = Vor->docUnitIndex;
+	unitIndex = prefsManager->appPrefs.docUnitIndex;
 	unitSuffix = unitGetSuffixFromIndex(unitIndex);
 	unitRatio = unitGetRatioFromIndex(unitIndex);
 	precision = unitGetPrecisionFromIndex(unitIndex);
-	PrefsData = Vor;
 	Orient = 0;
 	setCaption( tr( "New Document" ) );
 	setIcon(loadIcon("AppIcon.png"));
@@ -55,8 +56,8 @@ NewDoc::NewDoc( QWidget* parent, ApplicationPrefs *Vor, bool startUp ) : QDialog
 	Layout1->setMargin( 0 );
 	if (startUp)
 	{
-		startUpDialog = new QCheckBox( tr( "Don't show this Dialog again" ), this, "startUpDialog" );
-		startUpDialog->setChecked(!PrefsData->showStartupDialog);
+		startUpDialog = new QCheckBox( tr( "Do not show this dialog again" ), this, "startUpDialog" );
+		startUpDialog->setChecked(!prefsManager->appPrefs.showStartupDialog);
 		Layout1->addWidget( startUpDialog );
 	}
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -109,7 +110,7 @@ void NewDoc::createNewDocPage()
 	Layout6 = new QGridLayout(0, 1, 1, 0, 6, "Layout6");
 	TextLabel1 = new QLabel( tr( "&Size:" ), ButtonGroup1_2, "TextLabel1" );
 	Layout6->addWidget( TextLabel1, 0, 0 );
-	PageSize *ps=new PageSize(PrefsData->pageSize);
+	PageSize *ps=new PageSize(prefsManager->appPrefs.pageSize);
 	ComboBox1 = new QComboBox( true, ButtonGroup1_2, "ComboBox1" );
 	ComboBox1->insertStringList(ps->getTrPageSizeList());
 	ComboBox1->insertItem( customTextTR );
@@ -122,7 +123,7 @@ void NewDoc::createNewDocPage()
 	ComboBox2->insertItem( tr( "Portrait" ) );
 	ComboBox2->insertItem( tr( "Landscape" ) );
 	ComboBox2->setEditable(false);
-	ComboBox2->setCurrentItem(PrefsData->pageOrientation);
+	ComboBox2->setCurrentItem(prefsManager->appPrefs.pageOrientation);
 	TextLabel2->setBuddy(ComboBox2);
 	Layout6->addWidget( ComboBox2, 1, 1 );
 	ButtonGroup1_2Layout->addLayout( Layout6 );
@@ -145,27 +146,27 @@ void NewDoc::createNewDocPage()
 	ButtonGroup1_2Layout->addLayout( Layout5 );
 	Layout8 = new QHBoxLayout( 0, 0, 6, "Layout8");
 	Doppelseiten = new QCheckBox( tr( "&Facing Pages" ), ButtonGroup1_2, "Doppelseiten" );
-	Doppelseiten->setChecked(PrefsData->FacingPages);
+	Doppelseiten->setChecked(prefsManager->appPrefs.FacingPages);
 	Layout8->addWidget( Doppelseiten );
 	ErsteSeite = new QCheckBox( tr( "Left &Page First" ), ButtonGroup1_2, "CheckBox3" );
-	ErsteSeite->setChecked(PrefsData->LeftPageFirst);
+	ErsteSeite->setChecked(prefsManager->appPrefs.LeftPageFirst);
 	Layout8->addWidget( ErsteSeite );
 	ButtonGroup1_2Layout->addLayout( Layout8 );
 	Layout9->addWidget( ButtonGroup1_2 );
 
 	struct MarginStruct marg;
-	marg.Top = PrefsData->RandOben;
-	marg.Bottom = PrefsData->RandUnten;
-	marg.Left = PrefsData->RandLinks;
-	marg.Right = PrefsData->RandRechts;
+	marg.Top = prefsManager->appPrefs.RandOben;
+	marg.Bottom = prefsManager->appPrefs.RandUnten;
+	marg.Left = prefsManager->appPrefs.RandLinks;
+	marg.Right = prefsManager->appPrefs.RandRechts;
 	GroupRand = new MarginWidget(newDocFrame,  tr( "Margin Guides" ), &marg, precision, unitRatio, unitSuffix );
-	GroupRand->setPageHeight(PrefsData->PageHeight);
-	GroupRand->setPageWidth(PrefsData->PageWidth);
-	GroupRand->setFacingPages(PrefsData->FacingPages);
+	GroupRand->setPageHeight(prefsManager->appPrefs.PageHeight);
+	GroupRand->setPageWidth(prefsManager->appPrefs.PageWidth);
+	GroupRand->setFacingPages(prefsManager->appPrefs.FacingPages);
 	Layout9->addWidget( GroupRand );
 	NewDocLayout->addLayout( Layout9 );
-	Breite->setValue(PrefsData->PageWidth * unitRatio);
-	Hoehe->setValue(PrefsData->PageHeight * unitRatio);
+	Breite->setValue(prefsManager->appPrefs.PageWidth * unitRatio);
+	Hoehe->setValue(prefsManager->appPrefs.PageHeight * unitRatio);
 	QStringList pageSizes=ps->getPageSizeList();
 	int sizeIndex=pageSizes.findIndex(ps->getPageText());
 	if (sizeIndex!=-1)
@@ -176,10 +177,10 @@ void NewDoc::createNewDocPage()
 	Breite->setEnabled(hwEnabled);
 	Hoehe->setEnabled(hwEnabled);
 	setDS();
-	setSize(PrefsData->pageSize);
-	setOrien(PrefsData->pageOrientation);
-	Breite->setValue(PrefsData->PageWidth * unitRatio);
-	Hoehe->setValue(PrefsData->PageHeight * unitRatio);
+	setSize(prefsManager->appPrefs.pageSize);
+	setOrien(prefsManager->appPrefs.pageOrientation);
+	Breite->setValue(prefsManager->appPrefs.PageWidth * unitRatio);
+	Hoehe->setValue(prefsManager->appPrefs.PageHeight * unitRatio);
 	Layout10 = new QVBoxLayout( 0, 0, 6, "Layout10");
 
 	GroupBox3 = new QGroupBox( newDocFrame, "GroupBox3" );
@@ -252,8 +253,8 @@ void NewDoc::createOpenDocPage()
 {
 	PrefsContext* docContext = prefsFile->getContext("docdirs", false);
 	QString docDir = ".";
-	if (PrefsData->DocDir != "")
-		docDir = docContext->get("docsopen", PrefsData->DocDir);
+	if (prefsManager->appPrefs.DocDir != "")
+		docDir = docContext->get("docsopen", prefsManager->appPrefs.DocDir);
 	else
 		docDir = docContext->get("docsopen", ".");
 	QString formats = "";
@@ -298,7 +299,7 @@ void NewDoc::createRecentDocPage()
 	recentDocLayout = new QVBoxLayout(recentDocFrame, 5, 5, "recentDocLayout");
 	recentDocList = new QListBox(recentDocFrame, "recentDocList");
 	recentDocLayout->addWidget(recentDocList);
-	uint max = QMIN(ScApp->Prefs.RecentDCount, ScApp->RecentDocs.count());
+	uint max = QMIN(prefsManager->appPrefs.RecentDCount, ScApp->RecentDocs.count());
 	for (uint m = 0; m < max; ++m)
 	{
 		recentDocList->insertItem(ScApp->RecentDocs[m]);

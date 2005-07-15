@@ -28,6 +28,7 @@
 #include "scribus.h"
 #include "scpaths.h"
 #include "serializer.h"
+#include "prefsmanager.h"
 
 extern ScribusApp *ScApp;
 
@@ -107,7 +108,7 @@ LoremManager::LoremManager(QWidget* parent, const char* name, bool modal, WFlags
 
 	paraBox = new QSpinBox( this, "paraBox" );
 	paraBox->setMinValue( 1 );
-	paraBox->setValue(ScApp->Prefs.paragraphsLI);
+	paraBox->setValue(PrefsManager::instance()->appPrefs.paragraphsLI);
 	layout2->addWidget( paraBox );
 	paraSpacer = new QSpacerItem( 40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout2->addItem( paraSpacer );

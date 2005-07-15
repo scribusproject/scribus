@@ -14,6 +14,7 @@
 #include <prefsfile.h>
 
 #include "scfontmetrics.h"
+#include "prefsmanager.h"
 
 extern QPixmap loadIcon(QString nam);
 extern PrefsFile *prefsFile;
@@ -165,7 +166,7 @@ FontPreview::FontPreview(ScribusApp *carrier, QWidget* parent, const char* name,
 		if (carrier->view->SelItem.count() != 0)
 			item = fontList->findItem(carrier->doc->CurrFont, 0);
 		else
-			item = fontList->findItem(carrier->Prefs.toolSettings.defFont, 0);
+			item = fontList->findItem(PrefsManager::instance()->appPrefs.toolSettings.defFont, 0);
 	}
 	if (item != 0)
 	{
@@ -222,7 +223,7 @@ void FontPreview::fontList_changed()
 	QString t = tr("Woven silk pyjamas exchanged for blue quartz", "font preview");
 	t.replace('\n', " "); // remove French <NL> from translation...
 	QListViewItem *item = fontList->currentItem();
-	QPixmap pixmap = fontSamples(carrier->Prefs.AvailFonts[item->text(0)], sizeSpin->value(), t, white /*paletteBackgroundColor()*/);
+	QPixmap pixmap = fontSamples(PrefsManager::instance()->appPrefs.AvailFonts[item->text(0)], sizeSpin->value(), t, white /*paletteBackgroundColor()*/);
 	fontPreview->clear();
 	if (!pixmap.isNull())
 		fontPreview->setPixmap(pixmap);
@@ -232,7 +233,7 @@ void FontPreview::updateFontList(QString searchStr)
 {
 	fontList->clear();
 	QString sstr = searchStr.lower();
-	for (SCFontsIterator fontIter(carrier->Prefs.AvailFonts); fontIter.current(); ++fontIter)
+	for (SCFontsIterator fontIter(PrefsManager::instance()->appPrefs.AvailFonts); fontIter.current(); ++fontIter)
 	{
 		if (searchStr.length()!=0 && !fontIter.current()->SCName.lower().contains(sstr))
 			continue;

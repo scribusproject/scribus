@@ -22,6 +22,7 @@
 #include <qpainter.h>
 class ScribusDoc;
 class ScribusView;
+class PrefsManager;
 /**Vertikales Lineal
   *@author Franz Schmid
   */
@@ -56,6 +57,7 @@ public slots: // Public slots
 private:
 	double iter, iter2;
 	int cor;
+	PrefsManager *prefsManager;
 };
 
 #endif

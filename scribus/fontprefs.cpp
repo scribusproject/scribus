@@ -9,17 +9,16 @@
 #include "prefsfile.h"
 #include "scribus.h"
 #include "scribusdoc.h"
-
+#include "prefsmanager.h"
 #include "scconfig.h"
 
 extern QPixmap loadIcon(QString nam);
 extern PrefsFile* prefsFile;
 extern ScribusApp *ScApp;
 
-FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, ApplicationPrefs *prefs, QString PPath, ScribusDoc* doc ) : QTabWidget( parent, "fpre" )
+FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, QString PPath, ScribusDoc* doc ) : QTabWidget( parent, "fpre" )
 {
-	Prefs = prefs;
-	RList = Prefs->GFontSub;
+	RList = PrefsManager::instance()->appPrefs.GFontSub;
 	HomeP = PPath;
 	DocAvail = Hdoc;
 	UsedFonts.clear();
@@ -111,7 +110,7 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, ApplicationPr
 	Table3->setLeftMargin(0);
 	Table3->verticalHeader()->hide();
 	Table3->setNumCols( 2 );
-	Table3->setNumRows(Prefs->GFontSub.count());
+	Table3->setNumRows(PrefsManager::instance()->appPrefs.GFontSub.count());
 	Header2 = Table3->horizontalHeader();
 	Header2->setLabel(0, tr("Font Name"));
 	Header2->setLabel(1, tr("Replacement"));
@@ -236,7 +235,7 @@ void FontPrefs::UpdateFliste()
 {
 	QString tmp;
 	UsedFonts.clear();
-	SCFontsIterator it(Prefs->AvailFonts);
+	SCFontsIterator it(PrefsManager::instance()->appPrefs.AvailFonts);
 	for ( ; it.current() ; ++it)
 	{
 		if (fontFlags[it.currentKey()].FlagUse)
@@ -356,20 +355,21 @@ void FontPrefs::DelPath()
 
 void FontPrefs::RebuildDialog()
 {
-	Prefs->AvailFonts.clear();
-	Prefs->AvailFonts.GetFonts(HomeP);
+	SCFonts* availFonts=&(PrefsManager::instance()->appPrefs.AvailFonts);
+	availFonts->clear();
+	availFonts->GetFonts(HomeP);
 	if (DocAvail)
 	{
 		for (uint a = 0; a < PathList->count(); ++a)
 		{
-			Prefs->AvailFonts.AddScalableFonts(PathList->text(a)+"/", docc->DocName);
-			Prefs->AvailFonts.updateFontMap();
+			availFonts->AddScalableFonts(PathList->text(a)+"/", docc->DocName);
+			availFonts->updateFontMap();
 		}
 	}
 	UsedFonts.clear();
 	fontFlags.clear();
 	fontList->clear();
-	SCFontsIterator it(Prefs->AvailFonts);
+	SCFontsIterator it(*availFonts);
 	for ( ; it.current(); ++it)
 	{
 		fontSet foS;

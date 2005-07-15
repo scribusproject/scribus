@@ -20,6 +20,7 @@
 #include "scpaths.h"
 #include "scfontmetrics.h"
 #include "util.h"
+#include "prefsmanager.h"
 
 extern PrefsFile* prefsFile;
 
@@ -147,8 +148,8 @@ EPSPlug::EPSPlug( ScribusApp *plug, QString fName )
 /* Set default Page to size defined in Preferences */
 	x = 0.0;
 	y = 0.0;
-	b = plug->Prefs.PageWidth;
-	h = plug->Prefs.PageHeight;
+	b = PrefsManager::instance()->appPrefs.PageWidth;
+	h = PrefsManager::instance()->appPrefs.PageHeight;
 	if ((ext == "eps") || (ext == "ps"))
 	{
 		QString tmp, BBox, tmp2, dummy, FarNam;
@@ -344,7 +345,7 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	QString pfad2;
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.extension(false).lower();
-	cmd1 = Prog->Prefs.gs_exe;
+	cmd1 = PrefsManager::instance()->appPrefs.gs_exe;
 	pfad2 = QDir::convertSeparators(pfad + "import.prolog");
 	cmd1 += " -q -dNOPAUSE -dNODISPLAY";
 	cmd1 += " -dBATCH -g"+tmp2.setNum(qRound(b-x))+"x"+tmp3.setNum(qRound(h-y))+" -c "+tmp4.setNum(-x)+" "+tmp.setNum(-y)+" translate";

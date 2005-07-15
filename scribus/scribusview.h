@@ -52,7 +52,7 @@ class ScribusView : public QScrollView
 	Q_OBJECT
 
 public:
-    ScribusView(QWidget *parent=0, ScribusDoc *doc=0, ApplicationPrefs *prefs=0);
+    ScribusView(QWidget *parent=0, ScribusDoc *doc=0);
     ~ScribusView() {};
   /** Vergroesserungseingabefeld */
 	MSpinBox* LE;

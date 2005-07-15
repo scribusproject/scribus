@@ -32,6 +32,7 @@
 #include "prefscontext.h"
 #include "prefstable.h"
 #include "util.h"
+#include "prefsmanager.h"
 
 extern PrefsFile *prefsFile;
 ScribusApp* Carrier;
@@ -140,15 +141,16 @@ void MenuPreview::RunPreview()
 		}
 		dia->exec();
 		Carrier->pluginManager->dllReturn = "";
-		Carrier->Prefs.PrPr_Mode = dia->EnableCMYK->isChecked();
-		Carrier->Prefs.PrPr_AlphaText = dia->AliasText->isChecked();
-		Carrier->Prefs.PrPr_AlphaGraphics = dia->AliasGr->isChecked();
-		Carrier->Prefs.PrPr_Transparency = dia->AliasTr->isChecked();
-		Carrier->Prefs.PrPr_C = dia->EnableCMYK_C->isChecked();
-		Carrier->Prefs.PrPr_M = dia->EnableCMYK_M->isChecked();
-		Carrier->Prefs.PrPr_Y = dia->EnableCMYK_Y->isChecked();
-		Carrier->Prefs.PrPr_K = dia->EnableCMYK_K->isChecked();
-		Carrier->Prefs.Gcr_Mode = dia->EnableGCR->isChecked();
+		PrefsManager *prefsManager=PrefsManager::instance();
+		prefsManager->appPrefs.PrPr_Mode = dia->EnableCMYK->isChecked();
+		prefsManager->appPrefs.PrPr_AlphaText = dia->AliasText->isChecked();
+		prefsManager->appPrefs.PrPr_AlphaGraphics = dia->AliasGr->isChecked();
+		prefsManager->appPrefs.PrPr_Transparency = dia->AliasTr->isChecked();
+		prefsManager->appPrefs.PrPr_C = dia->EnableCMYK_C->isChecked();
+		prefsManager->appPrefs.PrPr_M = dia->EnableCMYK_M->isChecked();
+		prefsManager->appPrefs.PrPr_Y = dia->EnableCMYK_Y->isChecked();
+		prefsManager->appPrefs.PrPr_K = dia->EnableCMYK_K->isChecked();
+		prefsManager->appPrefs.Gcr_Mode = dia->EnableGCR->isChecked();
 		delete dia;
 		system("rm -f "+Carrier->PrefsPfad+"/tmp.ps");
 		system("rm -f "+Carrier->PrefsPfad+"/sc.png");
@@ -166,6 +168,7 @@ void MenuPreview::RunPreview()
  */
 PPreview::PPreview( QWidget* parent, ScribusApp *pl) : QDialog( parent, "Preview", true, 0 )
 {
+	prefsManager=PrefsManager::instance();
 	QString tmp;
 	setCaption( tr("Print Preview"));
 	app = pl;
@@ -190,11 +193,11 @@ PPreview::PPreview( QWidget* parent, ScribusApp *pl) : QDialog( parent, "Preview
 	Layout2->setMargin(0);
 	AliasText = new QCheckBox(this, "TextAntiAlias");
 	AliasText->setText( tr("Anti-alias &Text"));
-	AliasText->setChecked(app->Prefs.PrPr_AlphaText);
+	AliasText->setChecked(prefsManager->appPrefs.PrPr_AlphaText);
 	Layout2->addWidget(AliasText);
 	AliasGr = new QCheckBox(this, "GraphicsAntiAlias");
 	AliasGr->setText( tr("Anti-alias &Graphics"));
-	AliasGr->setChecked(app->Prefs.PrPr_AlphaGraphics);
+	AliasGr->setChecked(prefsManager->appPrefs.PrPr_AlphaGraphics);
 	Layout2->addWidget(AliasGr);
 	Layout1->addLayout(Layout2);
 
@@ -203,11 +206,11 @@ PPreview::PPreview( QWidget* parent, ScribusApp *pl) : QDialog( parent, "Preview
 	Layout3->setMargin(0);
 	AliasTr = new QCheckBox(this, "DisplayTransparency");
 	AliasTr->setText( tr("Display Trans&parency"));
-	AliasTr->setChecked(app->Prefs.PrPr_Transparency);
+	AliasTr->setChecked(prefsManager->appPrefs.PrPr_Transparency);
 	Layout3->addWidget(AliasTr);
 	EnableGCR = new QCheckBox(this, "DisplayGCR");
 	EnableGCR->setText( tr("&Under Color Removal"));
-	EnableGCR->setChecked(app->Prefs.Gcr_Mode);
+	EnableGCR->setChecked(prefsManager->appPrefs.Gcr_Mode);
 	Layout3->addWidget(EnableGCR);
 	Layout1->addLayout(Layout3);
 
@@ -216,26 +219,26 @@ PPreview::PPreview( QWidget* parent, ScribusApp *pl) : QDialog( parent, "Preview
 	Layout4->setMargin(0);
 	EnableCMYK = new QCheckBox(this, "DisplayCMYK");
 	EnableCMYK->setText( tr("&Display CMYK"));
-	EnableCMYK->setChecked(app->Prefs.PrPr_Mode);
+	EnableCMYK->setChecked(prefsManager->appPrefs.PrPr_Mode);
 	Layout4->addWidget(EnableCMYK);
 	Layout5 = new QHBoxLayout();
 	Layout5->setSpacing(0);
 	Layout5->setMargin(0);
 	EnableCMYK_C = new QCheckBox(this, "DisplayCMYK_C");
 	EnableCMYK_C->setText( tr("&C"));
-	EnableCMYK_C->setChecked(app->Prefs.PrPr_C);
+	EnableCMYK_C->setChecked(prefsManager->appPrefs.PrPr_C);
 	Layout5->addWidget(EnableCMYK_C);
 	EnableCMYK_M = new QCheckBox(this, "DisplayCMYK_M");
 	EnableCMYK_M->setText( tr("&M"));
-	EnableCMYK_M->setChecked(app->Prefs.PrPr_M);
+	EnableCMYK_M->setChecked(prefsManager->appPrefs.PrPr_M);
 	Layout5->addWidget(EnableCMYK_M);
 	EnableCMYK_Y = new QCheckBox(this, "DisplayCMYK_Y");
 	EnableCMYK_Y->setText( tr("&Y"));
-	EnableCMYK_Y->setChecked(app->Prefs.PrPr_Y);
+	EnableCMYK_Y->setChecked(prefsManager->appPrefs.PrPr_Y);
 	Layout5->addWidget(EnableCMYK_Y);
 	EnableCMYK_K = new QCheckBox(this, "DisplayCMYK_K");
 	EnableCMYK_K->setText( tr("&K"));
-	EnableCMYK_K->setChecked(app->Prefs.PrPr_K);
+	EnableCMYK_K->setChecked(prefsManager->appPrefs.PrPr_K);
 	Layout5->addWidget(EnableCMYK_K);
 	Layout4->addLayout(Layout5);
 	Layout1->addLayout(Layout4);
@@ -249,7 +252,7 @@ PPreview::PPreview( QWidget* parent, ScribusApp *pl) : QDialog( parent, "Preview
 	PLayout->addWidget(Anzeige);
 	int w = Anz->width() + 20;
 	resize(QMIN(QApplication::desktop()->width(),w), 500);
-	if (!app->Prefs.PrPr_Mode)
+	if (!PrefsManager::instance()->appPrefs.PrPr_Mode)
 	{
 		EnableCMYK_C->setEnabled(false);
 		EnableCMYK_M->setEnabled(false);
@@ -423,7 +426,7 @@ int PPreview::RenderPreview(int Seite, int Res)
 		}
 		ReallyUsed.clear();
 		app->GetUsedFonts(&ReallyUsed);
-		PSLib *dd = app->getPSDriver(true, app->Prefs.AvailFonts, ReallyUsed, app->doc->PageColors, false);
+		PSLib *dd = app->getPSDriver(true, ReallyUsed, app->doc->PageColors, false);
 		if (dd != NULL)
 		{
 			dd->PS_set_file(app->PrefsPfad+"/tmp.ps");
@@ -439,7 +442,7 @@ int PPreview::RenderPreview(int Seite, int Res)
 	QString tmp, tmp2, tmp3;
 	double b = app->doc->pageWidth * Res / 72;
 	double h = app->doc->pageHeight * Res / 72;
-	cmd1 = app->Prefs.gs_exe;
+	cmd1 = prefsManager->appPrefs.gs_exe;
 	cmd1 += " -q -dNOPAUSE -r"+tmp.setNum(Res)+" -g"+tmp2.setNum(qRound(b))+"x"+tmp3.setNum(qRound(h));
 	if (EnableCMYK->isChecked())
 		cmd1 += " -sDEVICE=bitcmyk -dGrayValues=256";

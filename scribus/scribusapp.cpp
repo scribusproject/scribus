@@ -31,6 +31,7 @@
 #include "scpaths.h"
 #include "prefsfile.h"
 #include "langmgr.h"
+#include "prefsmanager.h"
 
 #define ARG_VERSION "--version"
 #define ARG_HELP "--help"
@@ -58,11 +59,16 @@ extern ScribusQApp* ScQApp;
 
 bool ScribusQApp::useGUI=false;
 
-ScribusQApp::ScribusQApp ( int & argc, char ** argv ) : QApplication(argc, argv)
+ScribusQApp::ScribusQApp( int & argc, char ** argv ) : QApplication(argc, argv)
 {
 	ScQApp=this;
 	ScApp=NULL;
 	lang="";
+}
+
+ScribusQApp::~ScribusQApp()
+{
+	PrefsManager::deleteInstance();
 }
 
 void ScribusQApp::initLang()
@@ -177,7 +183,7 @@ int ScribusQApp::init()
 			scribus->loadDoc(file);
 		else
 		{
-			if (scribus->Prefs.showStartupDialog)
+			if (PrefsManager::instance()->appPrefs.showStartupDialog)
 				scribus->startUpDialog();
 		}
 

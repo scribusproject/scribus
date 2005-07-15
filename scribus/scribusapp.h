@@ -25,7 +25,8 @@ class ScribusQApp : public QApplication
 	Q_OBJECT
 
 	public:
-		ScribusQApp ( int & argc, char ** argv );
+		ScribusQApp( int & argc, char ** argv );
+		~ScribusQApp();
 		int init();
 		void initLang();
 		void parseCommandLine();

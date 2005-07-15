@@ -23,6 +23,7 @@
 #include "fontcombo.h"
 #include "fontcombo.moc"
 #include "page.h"
+#include "prefsmanager.h"
 
 FontListItem::FontListItem(QComboBox* parent, QString f, QFont fo) : QListBoxItem(parent->listBox())
 {
@@ -49,15 +50,16 @@ void FontListItem::paint(QPainter *painter)
 	painter->drawText(3, fontMetrics.ascent() + fontMetrics.leading() / 2, fontName);
 }
 
-FontCombo::FontCombo(QWidget* pa, ApplicationPrefs *Prefs) : QComboBox(true, pa)
+FontCombo::FontCombo(QWidget* pa) : QComboBox(true, pa)
 {
+	prefsManager = PrefsManager::instance();
 	setEditable(false);
 	QFont f(font());
 	f.setPointSize(f.pointSize()-1);
 	setFont(f);
 	QStringList rlist;
 	rlist.clear();
-	SCFontsIterator it(Prefs->AvailFonts);
+	SCFontsIterator it(prefsManager->appPrefs.AvailFonts);
 	for ( ; it.current(); ++it)
 	{
 		if (it.current()->UseFont)
@@ -70,12 +72,12 @@ FontCombo::FontCombo(QWidget* pa, ApplicationPrefs *Prefs) : QComboBox(true, pa)
 	listBox()->setMinimumWidth(listBox()->maxItemWidth()+24);
 }
 
-void FontCombo::RebuildList(ApplicationPrefs *Prefs, ScribusDoc *currentDoc)
+void FontCombo::RebuildList(ScribusDoc *currentDoc)
 {
 	QStringList rlist;
 	clear();
 	rlist.clear();
-	SCFontsIterator it(Prefs->AvailFonts);
+	SCFontsIterator it(prefsManager->appPrefs.AvailFonts);
 	for ( ; it.current(); ++it)
 	{
 		if (it.current()->UseFont)
@@ -95,9 +97,9 @@ void FontCombo::RebuildList(ApplicationPrefs *Prefs, ScribusDoc *currentDoc)
 	listBox()->setMinimumWidth(listBox()->maxItemWidth()+24);
 }
 
-FontComboH::FontComboH(QWidget* parent, ApplicationPrefs *Prefs) : QWidget(parent, "FontComboH")
+FontComboH::FontComboH(QWidget* parent) : QWidget(parent, "FontComboH")
 {
-	PrefsData = Prefs;
+	prefsManager = PrefsManager::instance();
 	currDoc = 0;
 	fontComboLayout = new QVBoxLayout( this, 0, 0, "fontComboLayout");
 	fontFamily = new QComboBox( true, this, "fontFamily" );
@@ -106,10 +108,10 @@ FontComboH::FontComboH(QWidget* parent, ApplicationPrefs *Prefs) : QWidget(paren
 	fontStyle = new QComboBox( true, this, "fontStyle" );
 	fontStyle->setEditable(false);
 	fontComboLayout->addWidget(fontStyle);
-	QStringList flist = Prefs->AvailFonts.fontMap.keys();
+	QStringList flist = prefsManager->appPrefs.AvailFonts.fontMap.keys();
 	fontFamily->insertStringList(flist);
 	fontStyle->clear();
-	QStringList slist = Prefs->AvailFonts.fontMap[fontFamily->currentText()];
+	QStringList slist = prefsManager->appPrefs.AvailFonts.fontMap[fontFamily->currentText()];
 	slist.sort();
 	fontStyle->insertStringList(slist);
 	connect(fontFamily, SIGNAL(activated(int)), this, SLOT(familySelected(int)));
@@ -121,7 +123,7 @@ void FontComboH::familySelected(int id)
 	disconnect(fontStyle, SIGNAL(activated(int)), this, SLOT(styleSelected(int)));
 	QString curr = fontStyle->currentText();
 	fontStyle->clear();
-	QStringList slist = PrefsData->AvailFonts.fontMap[fontFamily->text(id)];
+	QStringList slist = prefsManager->appPrefs.AvailFonts.fontMap[fontFamily->text(id)];
 	slist.sort();
 	fontStyle->insertStringList(slist);
 	if (slist.contains(curr))
@@ -144,11 +146,11 @@ void FontComboH::setCurrentFont(QString f)
 {
 	disconnect(fontFamily, SIGNAL(activated(int)), this, SLOT(familySelected(int)));
 	disconnect(fontStyle, SIGNAL(activated(int)), this, SLOT(styleSelected(int)));
-	QString family = PrefsData->AvailFonts[f]->Family;
-	QString style = PrefsData->AvailFonts[f]->Effect;
+	QString family = prefsManager->appPrefs.AvailFonts[f]->Family;
+	QString style = prefsManager->appPrefs.AvailFonts[f]->Effect;
 	fontFamily->setCurrentText(family);
 	fontStyle->clear();
-	QStringList slist = PrefsData->AvailFonts.fontMap[family];
+	QStringList slist = prefsManager->appPrefs.AvailFonts.fontMap[family];
 	slist.sort();
 	QStringList ilist;
 	ilist.clear();
@@ -156,7 +158,7 @@ void FontComboH::setCurrentFont(QString f)
 	{
 		for (QStringList::ConstIterator it3 = slist.begin(); it3 != slist.end(); ++it3)
 		{
-			if ((currDoc->DocName == PrefsData->AvailFonts[family + " " + *it3]->PrivateFont) || (PrefsData->AvailFonts[family + " " + *it3]->PrivateFont == ""))
+			if ((currDoc->DocName == prefsManager->appPrefs.AvailFonts[family + " " + *it3]->PrivateFont) || (prefsManager->appPrefs.AvailFonts[family + " " + *it3]->PrivateFont == ""))
 				ilist.append(*it3);
 		}
 		fontStyle->insertStringList(ilist);
@@ -175,20 +177,20 @@ void FontComboH::RebuildList(ScribusDoc *currentDoc)
 	disconnect(fontStyle, SIGNAL(activated(int)), this, SLOT(styleSelected(int)));
 	fontFamily->clear();
 	fontStyle->clear();
-	QStringList rlist = PrefsData->AvailFonts.fontMap.keys();
+	QStringList rlist = prefsManager->appPrefs.AvailFonts.fontMap.keys();
 	QStringList flist;
 	flist.clear();
 	for (QStringList::ConstIterator it2 = rlist.begin(); it2 != rlist.end(); ++it2)
 	{
 		if (currentDoc != NULL)
 		{
-			QStringList slist = PrefsData->AvailFonts.fontMap[*it2];
+			QStringList slist = prefsManager->appPrefs.AvailFonts.fontMap[*it2];
 			slist.sort();
 			QStringList ilist;
 			ilist.clear();
 			for (QStringList::ConstIterator it3 = slist.begin(); it3 != slist.end(); ++it3)
 			{
-				if ((currentDoc->DocName == PrefsData->AvailFonts[*it2 + " " + *it3]->PrivateFont) || (PrefsData->AvailFonts[*it2 + " " + *it3]->PrivateFont == ""))
+				if ((currentDoc->DocName == prefsManager->appPrefs.AvailFonts[*it2 + " " + *it3]->PrivateFont) || (prefsManager->appPrefs.AvailFonts[*it2 + " " + *it3]->PrivateFont == ""))
 					ilist.append(*it3);
 			}
 			if (!ilist.isEmpty())
@@ -199,7 +201,7 @@ void FontComboH::RebuildList(ScribusDoc *currentDoc)
 	}
 	fontFamily->insertStringList(flist);
 	QString family = fontFamily->currentText();
-	QStringList slist = PrefsData->AvailFonts.fontMap[family];
+	QStringList slist = prefsManager->appPrefs.AvailFonts.fontMap[family];
 	slist.sort();
 	QStringList ilist;
 	ilist.clear();
@@ -207,7 +209,7 @@ void FontComboH::RebuildList(ScribusDoc *currentDoc)
 	{
 		for (QStringList::ConstIterator it3 = slist.begin(); it3 != slist.end(); ++it3)
 		{
-			if ((currentDoc->DocName == PrefsData->AvailFonts[family + " " + *it3]->PrivateFont) || (PrefsData->AvailFonts[family + " " + *it3]->PrivateFont == ""))
+			if ((currentDoc->DocName == prefsManager->appPrefs.AvailFonts[family + " " + *it3]->PrivateFont) || (prefsManager->appPrefs.AvailFonts[family + " " + *it3]->PrivateFont == ""))
 				ilist.append(*it3);
 		}
 		fontStyle->insertStringList(ilist);

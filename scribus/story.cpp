@@ -1890,7 +1890,7 @@ void SToolBAlign::SetAlign(int s)
 /* Toolbar for Font related Settings */
 SToolBFont::SToolBFont(QMainWindow* parent) : QToolBar( tr("Font Settings"), parent)
 {
-	Fonts = new FontCombo(this, &ScApp->Prefs);
+	Fonts = new FontCombo(this);
 	Fonts->setMaximumSize(190, 30);
 	Size = new MSpinBox( 0.5, 2048, this, 1 );
 	Size->setPrefix( "" );
@@ -1961,6 +1961,7 @@ void SToolBFont::newSizeHandler()
 StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite) 
 	: QMainWindow(parent, "StoryEditor", WType_TopLevel) //  WType_Dialog) //WShowModal | 
 {
+	prefsManager=PrefsManager::instance();
 	currDoc = docc;
 	buildGUI();
 	currItem = ite;
@@ -1984,6 +1985,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 /* Main Story Editor Class, no current document */
 StoryEditor::StoryEditor(QWidget* parent) : QMainWindow(parent, "StoryEditor", WType_TopLevel) // WType_Dialog) //WShowModal | 
 {
+	prefsManager=PrefsManager::instance();
 	currDoc = NULL;
 	buildGUI();
 	currItem = NULL;
@@ -2149,9 +2151,12 @@ void StoryEditor::buildGUI()
 	emenu->setItemEnabled(Mdel, 0);
 	emenu->setItemEnabled(Mupdt, 0);
 	resize( QSize(660, 500).expandedTo(minimumSizeHint()) );
-	Editor->setPaper(ScApp->Prefs.STEcolor);
+	if (prefsManager==NULL)
+		qDebug(QString("%1").arg("prefsmgr null"));
+	
+	Editor->setPaper(prefsManager->appPrefs.STEcolor);
 	QFont fo;
-	fo.fromString(ScApp->Prefs.STEfont);
+	fo.fromString(prefsManager->appPrefs.STEfont);
 	Editor->setFont(fo);
 	EditorBar->setFrameStyle(Editor->frameStyle());
 	EditorBar->setLineWidth(Editor->lineWidth());
@@ -2382,7 +2387,7 @@ void StoryEditor::setBackPref()
 	if (neu.isValid())
 	{
 		Editor->setPaper(neu);
-		ScApp->Prefs.STEcolor = neu;
+		prefsManager->appPrefs.STEcolor = neu;
 	}
 	blockUpdate = false;
 }
@@ -2391,7 +2396,7 @@ void StoryEditor::setFontPref()
 {
 	blockUpdate = true;
 	Editor->setFont( QFontDialog::getFont( 0, Editor->font() ) );
-	ScApp->Prefs.STEfont = Editor->font().toString();
+	prefsManager->appPrefs.STEfont = Editor->font().toString();
 	EditorBar->doRepaint();
 	blockUpdate = false;
 }
@@ -2427,8 +2432,8 @@ void StoryEditor::newTxStroke(int c, int s)
 void StoryEditor::newTxFont(const QString &f)
 {
 	if(!currDoc->UsedFonts.contains(f)) {
-		if (!currDoc->AddFont(f, ScApp->Prefs.AvailFonts[f]->Font)) {
-			FontTools->Fonts->RebuildList(&(ScApp->Prefs), currDoc);
+		if (!currDoc->AddFont(f, prefsManager->appPrefs.AvailFonts[f]->Font)) {
+			FontTools->Fonts->RebuildList(currDoc);
 			return;
 		};
 	}
@@ -3037,7 +3042,7 @@ void StoryEditor::SearchText()
 {
 	blockUpdate = true;
 	EditorBar->setRepaint(false);
-	SearchReplace* dia = new SearchReplace(this, currDoc, &ScApp->Prefs, currItem, false);
+	SearchReplace* dia = new SearchReplace(this, currDoc, currItem, false);
 	dia->exec();
 	delete dia;
 	qApp->processEvents();
@@ -3371,7 +3376,7 @@ void StoryEditor::LoadTextFile()
 		QString LoadEnc = "";
 		QString fileName = "";
 		PrefsContext* dirs = prefsFile->getContext("dirs");
-		QString wdir = dirs->get("story_load", ScApp->Prefs.DocDir);
+		QString wdir = dirs->get("story_load", prefsManager->appPrefs.DocDir);
 		CustomFDialog dia(this, wdir, tr("Open"), tr("Text Files (*.txt);;All Files(*)"), false, true, false, true);
 		if (dia.exec() != QDialog::Accepted)
 			return;
@@ -3407,7 +3412,7 @@ void StoryEditor::SaveTextFile()
 	QString LoadEnc = "";
 	QString fileName = "";
 	PrefsContext* dirs = prefsFile->getContext("dirs");
-	QString wdir = dirs->get("story_save", ScApp->Prefs.DocDir);
+	QString wdir = dirs->get("story_save", prefsManager->appPrefs.DocDir);
 	CustomFDialog dia(this, wdir, tr("Save as"), tr("Text Files (*.txt);;All Files(*)"), false, false, false, true);
 	qApp->processEvents();
 	if (dia.exec() != QDialog::Accepted)

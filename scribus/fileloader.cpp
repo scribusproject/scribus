@@ -24,6 +24,7 @@
 	#include <zlib.h>
 #endif
 #include "util.h"
+#include "prefsmanager.h"
 
 /*!
  \fn FileLoader::FileLoader(QString fileName, ScribusApp* app)
@@ -35,6 +36,7 @@
  */
 FileLoader::FileLoader(QString fileName, ScribusApp* app)
 {
+	prefsManager=PrefsManager::instance();
 	FileName = fileName;
 	FileType = -1;
 	havePS = app->pluginManager->DLLexists(6);
@@ -152,19 +154,19 @@ bool FileLoader::LoadFile(ScribusApp* app)
 {
 	bool ret = false;
 	newReplacement = false;
-	app->doc->guidesSettings.marginsShown = app->Prefs.guidesSettings.marginsShown;
-	app->doc->guidesSettings.framesShown = app->Prefs.guidesSettings.framesShown;
-	app->doc->guidesSettings.gridShown = app->Prefs.guidesSettings.gridShown;
-	app->doc->guidesSettings.guidesShown = app->Prefs.guidesSettings.guidesShown;
-	app->doc->guidesSettings.baseShown = app->Prefs.guidesSettings.baseShown;
-	app->doc->guidesSettings.linkShown = app->Prefs.guidesSettings.linkShown;
-	app->doc->toolSettings.polyC = app->Prefs.toolSettings.polyC;
-	app->doc->toolSettings.polyF = app->Prefs.toolSettings.polyF;
-	app->doc->toolSettings.polyR = app->Prefs.toolSettings.polyR;
-	app->doc->toolSettings.polyFd = app->Prefs.toolSettings.polyFd;
-	app->doc->toolSettings.polyS = app->Prefs.toolSettings.polyS;
-	app->doc->AutoSave = app->Prefs.AutoSave;
-	app->doc->AutoSaveTime = app->Prefs.AutoSaveTime;
+	app->doc->guidesSettings.marginsShown = prefsManager->appPrefs.guidesSettings.marginsShown;
+	app->doc->guidesSettings.framesShown = prefsManager->appPrefs.guidesSettings.framesShown;
+	app->doc->guidesSettings.gridShown = prefsManager->appPrefs.guidesSettings.gridShown;
+	app->doc->guidesSettings.guidesShown = prefsManager->appPrefs.guidesSettings.guidesShown;
+	app->doc->guidesSettings.baseShown = prefsManager->appPrefs.guidesSettings.baseShown;
+	app->doc->guidesSettings.linkShown = prefsManager->appPrefs.guidesSettings.linkShown;
+	app->doc->toolSettings.polyC = prefsManager->appPrefs.toolSettings.polyC;
+	app->doc->toolSettings.polyF = prefsManager->appPrefs.toolSettings.polyF;
+	app->doc->toolSettings.polyR = prefsManager->appPrefs.toolSettings.polyR;
+	app->doc->toolSettings.polyFd = prefsManager->appPrefs.toolSettings.polyFd;
+	app->doc->toolSettings.polyS = prefsManager->appPrefs.toolSettings.polyS;
+	app->doc->AutoSave = prefsManager->appPrefs.AutoSave;
+	app->doc->AutoSaveTime = prefsManager->appPrefs.AutoSaveTime;
 	ReplacedFonts.clear();
 	dummyFois.clear();
 	dummyFois.setAutoDelete(true);
@@ -177,7 +179,7 @@ bool FileLoader::LoadFile(ScribusApp* app)
 				ss->ReplacedFonts.clear();
 				ss->newReplacement = false;
 				ss->dummyFois.clear();
-				ret = ss->ReadDoc(FileName, app->Prefs.AvailFonts, app->doc, app->view, app->mainWindowProgressBar);
+				ret = ss->ReadDoc(FileName, prefsManager->appPrefs.AvailFonts, app->doc, app->view, app->mainWindowProgressBar);
 				QObject::disconnect(ss, SIGNAL(NewPage(int)), app, SLOT(slotNewPage(int)));
 				ReplacedFonts = ss->ReplacedFonts;
 				newReplacement = ss->newReplacement;
@@ -186,7 +188,7 @@ bool FileLoader::LoadFile(ScribusApp* app)
 			}
 			break;
 		case 1:
-			ret = ReadDoc(app, FileName, app->Prefs.AvailFonts, app->doc, app->view, app->mainWindowProgressBar);
+			ret = ReadDoc(app, FileName, prefsManager->appPrefs.AvailFonts, app->doc, app->view, app->mainWindowProgressBar);
 			break;
 		case 2:
 			app->pluginManager->dllInput = FileName;
@@ -239,16 +241,16 @@ bool FileLoader::LoadFile(ScribusApp* app)
 	}
 	if (ReplacedFonts.count() != 0)
 	{
-		if ((app->Prefs.askBeforeSubstituite) || (newReplacement))
+		if ((prefsManager->appPrefs.askBeforeSubstituite) || (newReplacement))
 		{
 			qApp->setOverrideCursor(QCursor(Qt::arrowCursor), true);
-			FontReplaceDialog *dia = new FontReplaceDialog(0, &app->Prefs, &ReplacedFonts);
+			FontReplaceDialog *dia = new FontReplaceDialog(0, &ReplacedFonts);
 			dia->exec();
 			QMap<QString,QString>::Iterator itfsu;
 			for (itfsu = ReplacedFonts.begin(); itfsu != ReplacedFonts.end(); ++itfsu)
 			{
 				if (dia->stickyReplacements->isChecked())
-					app->Prefs.GFontSub[itfsu.key()] = itfsu.data();
+					prefsManager->appPrefs.GFontSub[itfsu.key()] = itfsu.data();
 			}
 			delete dia;
 		}
@@ -323,12 +325,12 @@ bool FileLoader::LoadFile(ScribusApp* app)
 		{
 			if (!app->doc->UsedFonts.contains(itfsu.data()))
 			{
-				QFont fo = app->Prefs.AvailFonts[itfsu.data()]->Font;
+				QFont fo = prefsManager->appPrefs.AvailFonts[itfsu.data()]->Font;
 				fo.setPointSize(qRound(app->doc->toolSettings.defSize / 10.0));
 				app->doc->AddFont(itfsu.data(), fo);
 			}
 		}
-		if (app->Prefs.askBeforeSubstituite)
+		if (prefsManager->appPrefs.askBeforeSubstituite)
 			ReplacedFonts.clear();
 		dummyFois.clear();
 	}
@@ -1065,7 +1067,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 							Neu->fill_gradient.addStop(SetColor(doc, name, shade), ramp, 0.5, opa, name, shade);
 						}
 						if (it.tagName()=="ITEXT")
-							GetItemText(&it, doc, view->Prefs, Neu);
+							GetItemText(&it, doc, Neu);
 						
 						//CB PageItemAttributes
 						if(it.tagName()=="PageItemAttributes")
@@ -1201,7 +1203,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 	return true;
 }
 
-void FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPrefs *Prefs, PageItem* obj)
+void FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj)
 {
 	struct ScText *hg;
 	Foi* dummy;
@@ -1212,7 +1214,7 @@ void FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPrefs 
 	tmp2.replace(QRegExp("\n"), QChar(13));
 	tmp2.replace(QRegExp("\t"), QChar(9));
 	tmpf = it->attribute("CFONT", doc->toolSettings.defFont);
-	if ((!Prefs->AvailFonts.find(tmpf)) || (!Prefs->AvailFonts[tmpf]->UseFont))
+	if ((!prefsManager->appPrefs.AvailFonts.find(tmpf)) || (!prefsManager->appPrefs.AvailFonts[tmpf]->UseFont))
 	{
 		bool isThere = false;
 		for (uint dl = 0; dl < dummyFois.count(); ++dl)
@@ -1230,19 +1232,19 @@ void FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPrefs 
 			dummyFois.append(dummy);
 		}
 		unknown = true;
-		if ((!Prefs->GFontSub.contains(tmpf)) || (!Prefs->AvailFonts[Prefs->GFontSub[tmpf]]->UseFont))
+		if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!prefsManager->appPrefs.AvailFonts[prefsManager->appPrefs.GFontSub[tmpf]]->UseFont))
 		{
 			newReplacement = true;
-			ReplacedFonts.insert(tmpf, Prefs->toolSettings.defFont);
+			ReplacedFonts.insert(tmpf, prefsManager->appPrefs.toolSettings.defFont);
 		}
 		else
-			ReplacedFonts.insert(tmpf, Prefs->GFontSub[tmpf]);
+			ReplacedFonts.insert(tmpf, prefsManager->appPrefs.GFontSub[tmpf]);
 	}
 	else
 	{
 		if (!doc->UsedFonts.contains(tmpf))
 		{
-			QFont fo = Prefs->AvailFonts[tmpf]->Font;
+			QFont fo = prefsManager->appPrefs.AvailFonts[tmpf]->Font;
 			fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
 			doc->AddFont(tmpf, fo);
 		}

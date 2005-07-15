@@ -75,19 +75,20 @@
 #include "scfontmetrics.h"
 #include "util.h"
 #include "story.h"
+#include "prefsmanager.h"
 
 using namespace std;
 
 extern ProfilesL InputProfiles;
 extern ScribusApp* ScApp;
 
-ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc, ApplicationPrefs *prefs) : QScrollView(parent, "s", WRepaintNoErase | WNorthWestGravity)
+ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc) : QScrollView(parent, "s", WRepaintNoErase | WNorthWestGravity)
 {
 	Ready = false;
 	updateOn = true;
 	Doc = doc;
 	Doc->pageCount = 0;
-	Prefs = prefs;
+	Prefs = &(PrefsManager::instance()->appPrefs);
 	setHScrollBarMode(QScrollView::AlwaysOn);
 	setVScrollBarMode(QScrollView::AlwaysOn);
 	setMargins(25, 25, 0, 0);

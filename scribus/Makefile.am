@@ -126,6 +126,7 @@ scribus_SOURCES = \
 	prefs.cpp	\
 	prefsdialogbase.cpp	\
 	prefsfile.cpp	\
+	prefsmanager.cpp	\
 	prefsreader.cpp	\
 	prefstable.cpp	\
 	query.cpp	\
@@ -318,6 +319,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/prefscontext.h                $(prefix)/include/scribus/prefscontext.h
 	$(INSTALL_DATA) $(srcdir)/prefsdialogbase.h             $(prefix)/include/scribus/prefsdialogbase.h
 	$(INSTALL_DATA) $(srcdir)/prefsfile.h                   $(prefix)/include/scribus/prefsfile.h
+	$(INSTALL_DATA) $(srcdir)/prefsmanager.h                $(prefix)/include/scribus/prefsmanager.h
 	$(INSTALL_DATA) $(srcdir)/prefsreader.h                 $(prefix)/include/scribus/prefsreader.h
 	$(INSTALL_DATA) $(srcdir)/prefstable.h                  $(prefix)/include/scribus/prefstable.h
 	$(INSTALL_DATA) $(srcdir)/query.h                       $(prefix)/include/scribus/query.h
@@ -492,6 +494,7 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/prefscontext.h
 	-rm -f $(prefix)/include/scribus/prefsdialogbase.h
 	-rm -f $(prefix)/include/scribus/prefsfile.h
+	-rm -f $(prefix)/include/scribus/prefsmanager.h
 	-rm -f $(prefix)/include/scribus/prefsreader.h
 	-rm -f $(prefix)/include/scribus/prefstable.h
 	-rm -f $(prefix)/include/scribus/query.h

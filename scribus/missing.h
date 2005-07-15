@@ -15,7 +15,7 @@ class MissingFont : public QDialog
     Q_OBJECT
 
 public:
-    MissingFont( QWidget* parent, QString fon, ApplicationPrefs *Prefs, ScribusDoc* doc);
+    MissingFont( QWidget* parent, QString fon, ScribusDoc* doc);
     ~MissingFont() {};
 	
 	const QString getReplacementFont();

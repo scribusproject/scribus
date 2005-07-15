@@ -14,11 +14,12 @@
 #include "scribus.h"
 #include "util.h"
 #include "loremipsum.h"
+#include "prefsmanager.h"
 
 extern ScribusApp* ScApp;
 
 
-EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<ParagraphStyle> v, bool neu, ApplicationPrefs *Prefs, double au, int dEin, ScribusDoc *doc)
+EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<ParagraphStyle> v, bool neu, double au, int dEin, ScribusDoc *doc)
 		: QDialog( parent, "EditST", true, 0)
 {
 	parentDoc = doc;
@@ -26,7 +27,6 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	setIcon(loadIcon("AppIcon.png"));
 	AutoVal = au;
 	DocsEin = dEin;
-	PrefsData = Prefs;
 	EditStyleLayout = new QVBoxLayout( this, 10, 5, "EditStyleLayout");
 
 	TextLabel1 = new QLabel( tr( "&Name:" ), this, "TextLabel1" );
@@ -48,7 +48,7 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	GroupFont->layout()->setMargin( 10 );
 	GroupFontLayout = new QVBoxLayout( GroupFont->layout() );
 	GroupFontLayout->setAlignment( Qt::AlignLeft );
-	FontC = new FontComboH(GroupFont, Prefs);
+	FontC = new FontComboH(GroupFont);
 	FontC->setCurrentFont(vor->Font);
 	GroupFontLayout->addWidget( FontC );
 	layout7 = new QHBoxLayout( 0, 0, 5, "layout7");
@@ -286,7 +286,7 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	layoutPreview->setSpacing(6);
 	layoutPreview->setMargin(0);
 	previewCaption = new QCheckBox( tr("Preview of the Paragraph Style"), this, "previewCaption" );
-	previewCaption->setChecked(Prefs->haveStylePreview);
+	previewCaption->setChecked(PrefsManager::instance()->appPrefs.haveStylePreview);
 	layoutPreview->addWidget(previewCaption);
 	previewText = new QLabel(this, "previewText");
 	previewText->setMinimumSize(640, 200);
@@ -414,7 +414,7 @@ void EditStyle::togglePreview()
 		previewText->hide();
 		previewText->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 	}
-	PrefsData->haveStylePreview = previewCaption->isChecked();
+	PrefsManager::instance()->appPrefs.haveStylePreview = previewCaption->isChecked();
 	layout()->activate();
 	resize(minimumSizeHint());
 }

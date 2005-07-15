@@ -6,11 +6,12 @@
 
 class QString;
 class CMYKColor;
+class PrefsManager;
 
 class ScPreview
 {
 public:
-	ScPreview(ApplicationPrefs *prefs);
+	ScPreview();
 	~ScPreview() {};
 	QPixmap createPreview(QString data);
 	void SetFarbe(QColor *tmp, QString farbe, int shad);
@@ -18,8 +19,9 @@ public:
 	QMap<QString,CMYKColor> Farben;
 	QMap<QString,multiLine> MLineStyles;
 	QValueList<uint> Segments;
-	ApplicationPrefs *Prefs;
 	FT_Library   library;
+protected:
+	PrefsManager* prefsManager;
 };
 #endif
 

@@ -11,6 +11,8 @@
 #include <qcombobox.h>
 #include <qpushbutton.h>
 
+#include "prefsstructs.h"
+
 TabCheckDoc::TabCheckDoc( QWidget* parent, QMap<QString, checkerPrefs> prefsData, QString prefProfile ) : QWidget( parent, "tabcheckDoc", 0 )
 {
 	checkerProfile = prefsData;

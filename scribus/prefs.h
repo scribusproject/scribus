@@ -39,6 +39,7 @@ class FontPrefs;
 class DocumentItemAttributes;
 class TOCIndexPrefs;
 class MarginWidget;
+class PrefsManager;
 
 #include "langmgr.h"
 
@@ -47,7 +48,7 @@ class Preferences : public PrefsDialogBase
     	Q_OBJECT
 
 public:
-	Preferences( QWidget* parent, ApplicationPrefs *prefsData);
+	Preferences( QWidget* parent);
 	~Preferences();
 
 	QString prefsPageSizeName;
@@ -251,6 +252,7 @@ private slots:
 
 private:
 	LanguageManager langMgr;
+	PrefsManager* prefsManager;
 };
 
 #endif // PREFS_H

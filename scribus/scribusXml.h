@@ -15,34 +15,35 @@
 #include <qprogressbar.h>
 
 class SplashScreen;
+class PrefsManager;
 
 class ScriXmlDoc : public QObject
 {
 Q_OBJECT
 public:
-	ScriXmlDoc() {};
+	ScriXmlDoc();
 	~ScriXmlDoc() {};
 	bool IsScribus(QString fileName);
 	QString ReadDatei(QString fileName);
-	QString AskForFont(SCFonts &avail, QString fStr, ApplicationPrefs *Prefs, ScribusDoc *doc);
-	QString GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPrefs *Prefs, bool VorLFound, bool impo, bool docreading, PageItem* obj = 0);
+	QString AskForFont(SCFonts &avail, QString fStr, ScribusDoc *doc);
+	QString GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, bool impo, bool docreading, PageItem* obj = 0);
 	void SetItemProps(QDomElement *ob, PageItem* item, bool newFormat);
 	bool ReadLStyles(QString fileName, QMap<QString,multiLine> *Sty);
-	void GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, ApplicationPrefs *Prefs, bool fl);
-	bool ReadStyles(QString fileName, ScribusDoc* doc, ApplicationPrefs *Prefs);
+	void GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl);
+	bool ReadStyles(QString fileName, ScribusDoc* doc);
 	bool ReadColors(QString fileName);
 	bool ReadPageCount(QString fileName, int *num1, int *num2);
 	bool ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, ScribusView *view, int PageToLoad, bool Mpage);
 	QString WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, ScribusView *view);
 	bool ReadElemHeader(QString file, bool isFile, double *x, double *y, double *w, double *h);
 	bool ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int Xp, int Yp, bool Fi, bool loc,
-					 QMap<QString,QString> &FontSub, ApplicationPrefs *Prefs, ScribusView *view);
+					 QMap<QString,QString> &FontSub, ScribusView *view);
 	bool ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *docu, ScribusView *viewx, QProgressBar *dia2);
 	void WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, bool master);
 	void WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, int master);
 	bool WriteDoc(QString fileName, ScribusDoc *docu, QProgressBar *dia2);
-	void WritePref(ApplicationPrefs *Vor, QString ho);
-	bool ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScreen *splash, bool import12);
+	void WritePref(QString ho);
+	bool ReadPref(QString ho, SplashScreen *splash, bool import12);
 	ColorList Farben;
 	QValueList<ParagraphStyle> docParagraphStyles;
 	struct Linked 
@@ -61,6 +62,9 @@ public:
 	
 signals:
 	void NewPage(int);
+	
+protected:
+	PrefsManager* prefsManager;
 };
 
 #endif // _SCRIBUS_CONFIG_

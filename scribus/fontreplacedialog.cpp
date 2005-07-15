@@ -13,7 +13,7 @@
 #include "fontcombo.h"
 extern QPixmap loadIcon(QString nam);
 
-FontReplaceDialog::FontReplaceDialog( QWidget* parent, ApplicationPrefs *Prefs, QMap<QString, QString> *RList) : QDialog( parent, "FontReplaceDialog", true, 0 )
+FontReplaceDialog::FontReplaceDialog( QWidget* parent, QMap<QString, QString> *RList) : QDialog( parent, "FontReplaceDialog", true, 0 )
 {
 	setCaption( tr( "Font Substitution" ) );
 	setIcon(loadIcon("AppIcon.png"));
@@ -39,7 +39,7 @@ FontReplaceDialog::FontReplaceDialog( QWidget* parent, ApplicationPrefs *Prefs, 
 	for (itfsu = RList->begin(); itfsu != RList->end(); ++itfsu)
 	{
 		replacementTable->setText(a, 0, itfsu.key());
-		FontCombo* item = new FontCombo(this, Prefs);
+		FontCombo* item = new FontCombo(this);
 		item->setCurrentText(itfsu.data());
 		replacementTable->setCellWidget(a, 1, item);
 		a++;

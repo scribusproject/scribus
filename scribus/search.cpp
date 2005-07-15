@@ -27,7 +27,7 @@ extern QPixmap loadIcon(QString nam);
 extern PrefsFile* prefsFile;
 
 
-SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, ApplicationPrefs *Prefs, PageItem* ite, bool mode )
+SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, bool mode )
 							: QDialog( parent, "SearchReplace", true, 0 )
 {
 	setCaption( tr( "Search/Replace" ) );
@@ -93,7 +93,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, ApplicationPrefs
 	SStyleVal->setCurrentItem(doc->currentParaStyle);
 	SStyleVal->setEnabled(false);
 	SearchLayout->addWidget( SStyleVal, 1, 1 );
-	SFontVal = new FontCombo(Search, Prefs);
+	SFontVal = new FontCombo(Search);
 	SFontVal->setMaximumSize(190, 30);
 	SFontVal->setCurrentText(doc->CurrFont);
 	SFontVal->setEnabled(false);
@@ -191,7 +191,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, ApplicationPrefs
 	RStyleVal->setCurrentItem(doc->currentParaStyle);
 	RStyleVal->setEnabled(false);
 	ReplaceLayout->addWidget( RStyleVal, 1, 1 );
-	RFontVal = new FontCombo(Replace, Prefs);
+	RFontVal = new FontCombo(Replace);
 	RFontVal->setMaximumSize(190, 30);
 	RFontVal->setCurrentText(doc->CurrFont);
 	RFontVal->setEnabled(false);

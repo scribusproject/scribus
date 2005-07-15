@@ -27,6 +27,7 @@
 #include <qmap.h>
 #include <qstring.h>
 class PageItem;
+class PrefsManager;
 #include "gtfont.h"
 #include "gtframestyle.h"
 #include "gtparagraphstyle.h"
@@ -60,6 +61,7 @@ private:
 	QString parseColor(const QString &s);
 	QColor parseColorN(const QString &rgbColor);
 	void finalize();
+	PrefsManager *prefsManager;
 public:
 	gtAction(bool append);
 	gtAction(bool append, PageItem *pageitem);

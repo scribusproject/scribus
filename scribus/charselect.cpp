@@ -197,7 +197,7 @@ CharSelect::CharSelect( QWidget* parent, PageItem *item, ScribusApp *pl) : QDial
 	fontLabel = new QLabel( this, "fontLabel" );
 	fontLabel->setText( tr( "Font:" ) );
 	selectionsLayout->addWidget( fontLabel );
-	fontSelector = new FontCombo(this, &pl->Prefs);
+	fontSelector = new FontCombo(this);
 	fontSelector->setMaximumSize(190, 30);
 	fontSelector->setCurrentText(fontInUse);
 	selectionsLayout->addWidget( fontSelector );

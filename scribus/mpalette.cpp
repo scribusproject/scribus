@@ -84,7 +84,7 @@ void NameWidget::focusOutEvent(QFocusEvent *e)
 	QLineEdit::focusOutEvent(e);
 }
 
-Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( parent, "Mdouble", false, 0)
+Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "Mdouble", false, 0)
 {
 	HaveDoc = false;
 	HaveItem = false;
@@ -426,7 +426,7 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	layout41 = new QGridLayout( 0, 1, 1, 0, 5, "layout41");
 	layout41->setAlignment( Qt::AlignLeft );
 
-	Fonts = new FontComboH(page_3, Prefs);
+	Fonts = new FontComboH(page_3);
 	Fonts->setMaximumSize(200, 80);
 	layout41->addMultiCellWidget( Fonts, 0, 0, 0, 3 );
 

@@ -12,7 +12,7 @@
 #include <qpainter.h>
 #include "units.h"
 #include "pdfoptions.h"
-
+#include "prefsmanager.h"
 #include "scconfig.h"
 
 extern QPixmap loadIcon(QString nam);
@@ -22,7 +22,8 @@ extern bool CMSuse;
 #endif
 extern bool CMSavail;
 #include "scribus.h"
-extern ScribusApp* ScApp;
+//extern ScribusApp* ScApp;
+
 
 
 TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &AllFonts,
@@ -633,7 +634,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 		if (vie != 0)
 			tp = vie->Doc->CMSSettings.DefaultInputProfile2;
 		else
-			tp = ScApp->Prefs.DCMSset.DefaultInputProfile2;
+			tp = PrefsManager::instance()->appPrefs.DCMSset.DefaultInputProfile2;
 	}
 	ProfilesL::Iterator itp;
 	for (itp = InputProfiles.begin(); itp != InputProfiles.end(); ++itp)
@@ -654,7 +655,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 		if (vie != 0)
 			tp1 = vie->Doc->CMSSettings.DefaultInputProfile2;
 		else
-			tp1 = ScApp->Prefs.DCMSset.DefaultInputProfile2;
+			tp1 = PrefsManager::instance()->appPrefs.DCMSset.DefaultInputProfile2;
 	}
 	for (itp2 = InputProfiles.begin(); itp2 != InputProfiles.end(); ++itp2)
 	{
@@ -701,7 +702,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 		if (vie != 0)
 			tp3 = vie->Doc->CMSSettings.DefaultPrinterProfile;
 		else
-			tp3 = ScApp->Prefs.DCMSset.DefaultPrinterProfile;
+			tp3 = PrefsManager::instance()->appPrefs.DCMSset.DefaultPrinterProfile;
 	}
 	for (itp3 = PDFXProfiles->begin(); itp3 != PDFXProfiles->end(); ++itp3)
 	{
@@ -1033,7 +1034,7 @@ void TabPDFOptions::EnableLPI(int a)
 			if (view != 0)
 				tp = view->Doc->CMSSettings.DefaultInputProfile2;
 			else
-				tp = ScApp->Prefs.DCMSset.DefaultInputProfile2;
+				tp = PrefsManager::instance()->appPrefs.DCMSset.DefaultInputProfile2;
 		}
 		ProfilesL::Iterator itp;
 		SolidPr->clear();
@@ -1055,7 +1056,7 @@ void TabPDFOptions::EnableLPI(int a)
 			if (view != 0)
 				tp1 = view->Doc->CMSSettings.DefaultInputProfile2;
 			else
-				tp1 = ScApp->Prefs.DCMSset.DefaultInputProfile2;
+				tp1 = PrefsManager::instance()->appPrefs.DCMSset.DefaultInputProfile2;
 		}
 		ImageP->clear();
 		for (itp2 = InputProfiles.begin(); itp2 != InputProfiles.end(); ++itp2)

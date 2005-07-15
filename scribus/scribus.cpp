@@ -143,6 +143,7 @@
 #include "loremipsum.h"
 #include "marginWidget.h"
 #include "margindialog.h"
+#include "prefsmanager.h"
 
 using namespace std;
 
@@ -177,6 +178,7 @@ ScribusApp::ScribusApp()
 	actionManager=NULL;
 	scrMenuMgr=NULL;
 	undoManager=NULL;
+	prefsManager=NULL;
 } // ScribusApp::ScribusApp()
 
 /*
@@ -207,7 +209,7 @@ int ScribusApp::initScribus(bool showSplash, bool showFontInfo, const QString ne
 	if (importingFrom12)
 		convert12Preferences(PrefsPfad);
 
-
+	prefsManager = PrefsManager::instance();
 	undoManager = UndoManager::instance();
 	objectSpecificUndo = false;
 	pluginManager = new PluginManager();
@@ -263,9 +265,9 @@ int ScribusApp::initScribus(bool showSplash, bool showFontInfo, const QString ne
 		qApp->processEvents();
 		storyEditor = new StoryEditor(this);
 
-		HaveGS = system(Prefs.gs_exe+" -h > /dev/null 2>&1");
-		HavePngAlpha = system(Prefs.gs_exe+" -sDEVICE=pngalpha -c quit > /dev/null 2>&1");
-		DocDir = Prefs.DocDir;
+		HaveGS = system(prefsManager->appPrefs.gs_exe+" -h > /dev/null 2>&1");
+		HavePngAlpha = system(prefsManager->appPrefs.gs_exe+" -sDEVICE=pngalpha -c quit > /dev/null 2>&1");
+		DocDir = prefsManager->appPrefs.DocDir;
 
 		if (splashScreen != NULL)
 			splashScreen->setStatus( tr("Reading ICC Profiles"));
@@ -389,27 +391,27 @@ void ScribusApp::initFonts(bool showFontInfo)
 void ScribusApp::initDefaultPrefs()
 {
 	/** Default font and size **/
-	SCFontsIterator it(Prefs.AvailFonts);
-	Prefs.toolSettings.defFont = it.currentKey();
-	Prefs.toolSettings.defSize = 120;
-	Prefs.AppFontSize = qApp->font().pointSize();
+	SCFontsIterator it(prefsManager->appPrefs.AvailFonts);
+	prefsManager->appPrefs.toolSettings.defFont = it.currentKey();
+	prefsManager->appPrefs.toolSettings.defSize = 120;
+	prefsManager->appPrefs.AppFontSize = qApp->font().pointSize();
 
 	/** Default colours **/
-	Prefs.DColors.clear();
+	prefsManager->appPrefs.DColors.clear();
 	QString pfadC = ScPaths::instance().libDir();
 	QString pfadC2 = pfadC + "rgbscribus.txt";
 	QFile fiC(pfadC2);
 	if (!fiC.exists())
 	{
-		Prefs.DColors.insert("White", CMYKColor(0, 0, 0, 0));
-		Prefs.DColors.insert("Black", CMYKColor(0, 0, 0, 255));
-		Prefs.DColors.insert("Blue", CMYKColor(255, 255, 0, 0));
-		Prefs.DColors.insert("Cyan", CMYKColor(255, 0, 0, 0));
-		Prefs.DColors.insert("Green", CMYKColor(255, 0, 255, 0));
-		Prefs.DColors.insert("Red", CMYKColor(0, 255, 255, 0));
-		Prefs.DColors.insert("Yellow", CMYKColor(0, 0, 255, 0));
-		Prefs.DColors.insert("Magenta", CMYKColor(0, 255, 0, 0));
-		Prefs.DColorSet = "Scribus-Small";
+		prefsManager->appPrefs.DColors.insert("White", CMYKColor(0, 0, 0, 0));
+		prefsManager->appPrefs.DColors.insert("Black", CMYKColor(0, 0, 0, 255));
+		prefsManager->appPrefs.DColors.insert("Blue", CMYKColor(255, 255, 0, 0));
+		prefsManager->appPrefs.DColors.insert("Cyan", CMYKColor(255, 0, 0, 0));
+		prefsManager->appPrefs.DColors.insert("Green", CMYKColor(255, 0, 255, 0));
+		prefsManager->appPrefs.DColors.insert("Red", CMYKColor(0, 255, 255, 0));
+		prefsManager->appPrefs.DColors.insert("Yellow", CMYKColor(0, 0, 255, 0));
+		prefsManager->appPrefs.DColors.insert("Magenta", CMYKColor(0, 255, 0, 0));
+		prefsManager->appPrefs.DColorSet = "Scribus-Small";
 	}
 	else
 	{
@@ -429,151 +431,151 @@ void ScribusApp::initDefaultPrefs()
 				CoE >> Cname;
 				CMYKColor tmp;
 				tmp.setColorRGB(Rval, Gval, Bval);
-				Prefs.DColors.insert(Cname, tmp);
+				prefsManager->appPrefs.DColors.insert(Cname, tmp);
 			}
 			fiC.close();
 		}
-		Prefs.DColorSet = "X11 RGB-Set";
+		prefsManager->appPrefs.DColorSet = "X11 RGB-Set";
 	}
 
-	Prefs.Wheelval = 40;
-	Prefs.guidesSettings.marginsShown = true;
-	Prefs.guidesSettings.framesShown = true;
-	Prefs.guidesSettings.gridShown = false;
-	Prefs.guidesSettings.guidesShown = false;
-	Prefs.guidesSettings.baseShown = false;
-	Prefs.guidesSettings.showPic = true;
-	Prefs.guidesSettings.showControls = false;
-	Prefs.guidesSettings.linkShown = false;
-	Prefs.guidesSettings.grabRad = 4;
-	Prefs.guidesSettings.guideRad = 10;
-	Prefs.guidesSettings.minorGrid = 20;
-	Prefs.guidesSettings.majorGrid = 100;
-	Prefs.guidesSettings.minorColor = QColor(green);
-	Prefs.guidesSettings.majorColor = QColor(green);
-	Prefs.guidesSettings.margColor = QColor(blue);
-	Prefs.guidesSettings.guideColor = QColor(darkBlue);
-	Prefs.guidesSettings.baseColor = QColor(lightGray);
-	Prefs.typographicSetttings.valueSuperScript = 33;
-	Prefs.typographicSetttings.scalingSuperScript = 100;
-	Prefs.typographicSetttings.valueSubScript = 33;
-	Prefs.typographicSetttings.scalingSubScript = 100;
-	Prefs.typographicSetttings.valueSmallCaps = 75;
-	Prefs.typographicSetttings.autoLineSpacing = 20;
-	Prefs.typographicSetttings.valueUnderlinePos = -1;
-	Prefs.typographicSetttings.valueUnderlineWidth = -1;
-	Prefs.typographicSetttings.valueStrikeThruPos = -1;
-	Prefs.typographicSetttings.valueStrikeThruWidth = -1;
-	Prefs.typographicSetttings.valueBaseGrid = 14.4;
-	Prefs.typographicSetttings.offsetBaseGrid = 0.0;
-	Prefs.GUI = "Default";
-	Prefs.toolSettings.dPen = "Black";
-	Prefs.toolSettings.dBrush = "Black";
-	Prefs.toolSettings.dShade = 100;
-	Prefs.toolSettings.dShade2 = 100;
-	Prefs.toolSettings.dLineArt = SolidLine;
-	Prefs.toolSettings.dWidth = 1;
-	Prefs.toolSettings.dPenLine = "Black";
-	Prefs.toolSettings.dPenText = "Black";
-	Prefs.toolSettings.dStrokeText = "Black";
-	Prefs.toolSettings.tabFillChar = "";
-	Prefs.toolSettings.dTabWidth = 36.0;
-	Prefs.DpapColor = QColor(white);
-	Prefs.toolSettings.dCols = 1;
-	Prefs.toolSettings.dGap = 0.0;
-	Prefs.toolSettings.dShadeLine = 100;
-	Prefs.toolSettings.dLstyleLine = SolidLine;
-	Prefs.toolSettings.dWidthLine = 1;
-	Prefs.toolSettings.dStartArrow = 0;
-	Prefs.toolSettings.dEndArrow = 0;
-	Prefs.toolSettings.magMin = 10;
-	Prefs.toolSettings.magMax = 3200;
-	Prefs.toolSettings.magStep = 25;
-	Prefs.toolSettings.dBrushPict = "White";
-	Prefs.toolSettings.shadePict = 100;
-	Prefs.toolSettings.scaleX = 1;
-	Prefs.toolSettings.scaleY = 1;
-	Prefs.guidesSettings.before = true;
-	Prefs.docUnitIndex = 0;
-	Prefs.toolSettings.polyC = 4;
-	Prefs.toolSettings.polyF = 0.5;
-	Prefs.toolSettings.polyS = false;
-	Prefs.toolSettings.polyFd = 0;
-	Prefs.toolSettings.polyR = 0;
-	Prefs.mainToolBarSettings.visible = true;
-	Prefs.pdfToolBarSettings.visible = true;
-	Prefs.PSize = 40;
-	Prefs.SaveAtQ = true;
-	Prefs.ClipMargin = true;
-	Prefs.GCRMode = false;
-	Prefs.RecentDocs.clear();
-	Prefs.RecentDCount = 5;
-	Prefs.marginColored = false;
-	Prefs.pageSize = "A4";
-	Prefs.pageOrientation = 0;
-	Prefs.PageWidth = 595;
-	Prefs.PageHeight = 842;
-	Prefs.RandOben = 40;
-	Prefs.RandUnten = 40;
-	Prefs.RandLinks = 40;
-	Prefs.RandRechts = 40;
-	Prefs.FacingPages = false;
-	Prefs.LeftPageFirst = false;
-	Prefs.toolSettings.scaleType = true;
-	Prefs.toolSettings.aspectRatio = true;
-	Prefs.toolSettings.lowResType = 1;
-	Prefs.toolSettings.useEmbeddedPath = false;
-	Prefs.MinWordLen = 3;
-	Prefs.HyCount = 2;
-	Prefs.Language = "";
-	Prefs.Automatic = true;
-	Prefs.AutoCheck = false;
-	Prefs.AutoSave = false;
-	Prefs.AutoSaveTime = 600000;
-	Prefs.DisScale = 1.0;
-	Prefs.DocDir = QDir::homeDirPath();
-	Prefs.ProfileDir = "";
-	Prefs.ScriptDir = "";
-	Prefs.documentTemplatesDir = "";
-	Prefs.CustomColorSets.clear();
-	Prefs.PrPr_Mode = false;
-	Prefs.Gcr_Mode = true;
-	Prefs.PrPr_AlphaText = false;
-	Prefs.PrPr_AlphaGraphics = false;
-	Prefs.PrPr_Transparency = false;
-	Prefs.PrPr_C = true;
-	Prefs.PrPr_M = true;
-	Prefs.PrPr_Y = true;
-	Prefs.PrPr_K = true;
-	Prefs.imageEditorExecutable = "gimp";
-	Prefs.gs_AntiAliasGraphics = true;
-	Prefs.gs_AntiAliasText = true;
-	Prefs.gs_exe = "gs";
-	Prefs.gs_Resolution = 72;
-	Prefs.STEcolor = QColor(white);
-	Prefs.STEfont = font().toString();
-	Prefs.DCMSset.DefaultMonitorProfile = "";
-	Prefs.DCMSset.DefaultPrinterProfile = "";
-	Prefs.DCMSset.DefaultInputProfile = "";
-	Prefs.DCMSset.DefaultInputProfile2 = "";
-	Prefs.DCMSset.CMSinUse = false;
-	Prefs.DCMSset.SoftProofOn = false;
-	Prefs.DCMSset.GamutCheck = false;
-	Prefs.DCMSset.BlackPoint = true;
-	Prefs.DCMSset.DefaultIntentMonitor = 1;
-	Prefs.DCMSset.DefaultIntentMonitor2 = 1;
-	Prefs.DCMSset.DefaultIntentPrinter = 0;
-	Prefs.GFontSub.clear();
-	Prefs.ScratchLeft = 100;
-	Prefs.ScratchRight = 100;
-	Prefs.ScratchTop = 20;
-	Prefs.ScratchBottom = 20;
-	Prefs.askBeforeSubstituite = true;
-	Prefs.haveStylePreview = true;
+	prefsManager->appPrefs.Wheelval = 40;
+	prefsManager->appPrefs.guidesSettings.marginsShown = true;
+	prefsManager->appPrefs.guidesSettings.framesShown = true;
+	prefsManager->appPrefs.guidesSettings.gridShown = false;
+	prefsManager->appPrefs.guidesSettings.guidesShown = false;
+	prefsManager->appPrefs.guidesSettings.baseShown = false;
+	prefsManager->appPrefs.guidesSettings.showPic = true;
+	prefsManager->appPrefs.guidesSettings.showControls = false;
+	prefsManager->appPrefs.guidesSettings.linkShown = false;
+	prefsManager->appPrefs.guidesSettings.grabRad = 4;
+	prefsManager->appPrefs.guidesSettings.guideRad = 10;
+	prefsManager->appPrefs.guidesSettings.minorGrid = 20;
+	prefsManager->appPrefs.guidesSettings.majorGrid = 100;
+	prefsManager->appPrefs.guidesSettings.minorColor = QColor(green);
+	prefsManager->appPrefs.guidesSettings.majorColor = QColor(green);
+	prefsManager->appPrefs.guidesSettings.margColor = QColor(blue);
+	prefsManager->appPrefs.guidesSettings.guideColor = QColor(darkBlue);
+	prefsManager->appPrefs.guidesSettings.baseColor = QColor(lightGray);
+	prefsManager->appPrefs.typographicSetttings.valueSuperScript = 33;
+	prefsManager->appPrefs.typographicSetttings.scalingSuperScript = 100;
+	prefsManager->appPrefs.typographicSetttings.valueSubScript = 33;
+	prefsManager->appPrefs.typographicSetttings.scalingSubScript = 100;
+	prefsManager->appPrefs.typographicSetttings.valueSmallCaps = 75;
+	prefsManager->appPrefs.typographicSetttings.autoLineSpacing = 20;
+	prefsManager->appPrefs.typographicSetttings.valueUnderlinePos = -1;
+	prefsManager->appPrefs.typographicSetttings.valueUnderlineWidth = -1;
+	prefsManager->appPrefs.typographicSetttings.valueStrikeThruPos = -1;
+	prefsManager->appPrefs.typographicSetttings.valueStrikeThruWidth = -1;
+	prefsManager->appPrefs.typographicSetttings.valueBaseGrid = 14.4;
+	prefsManager->appPrefs.typographicSetttings.offsetBaseGrid = 0.0;
+	prefsManager->appPrefs.GUI = "Default";
+	prefsManager->appPrefs.toolSettings.dPen = "Black";
+	prefsManager->appPrefs.toolSettings.dBrush = "Black";
+	prefsManager->appPrefs.toolSettings.dShade = 100;
+	prefsManager->appPrefs.toolSettings.dShade2 = 100;
+	prefsManager->appPrefs.toolSettings.dLineArt = SolidLine;
+	prefsManager->appPrefs.toolSettings.dWidth = 1;
+	prefsManager->appPrefs.toolSettings.dPenLine = "Black";
+	prefsManager->appPrefs.toolSettings.dPenText = "Black";
+	prefsManager->appPrefs.toolSettings.dStrokeText = "Black";
+	prefsManager->appPrefs.toolSettings.tabFillChar = "";
+	prefsManager->appPrefs.toolSettings.dTabWidth = 36.0;
+	prefsManager->appPrefs.DpapColor = QColor(white);
+	prefsManager->appPrefs.toolSettings.dCols = 1;
+	prefsManager->appPrefs.toolSettings.dGap = 0.0;
+	prefsManager->appPrefs.toolSettings.dShadeLine = 100;
+	prefsManager->appPrefs.toolSettings.dLstyleLine = SolidLine;
+	prefsManager->appPrefs.toolSettings.dWidthLine = 1;
+	prefsManager->appPrefs.toolSettings.dStartArrow = 0;
+	prefsManager->appPrefs.toolSettings.dEndArrow = 0;
+	prefsManager->appPrefs.toolSettings.magMin = 10;
+	prefsManager->appPrefs.toolSettings.magMax = 3200;
+	prefsManager->appPrefs.toolSettings.magStep = 25;
+	prefsManager->appPrefs.toolSettings.dBrushPict = "White";
+	prefsManager->appPrefs.toolSettings.shadePict = 100;
+	prefsManager->appPrefs.toolSettings.scaleX = 1;
+	prefsManager->appPrefs.toolSettings.scaleY = 1;
+	prefsManager->appPrefs.guidesSettings.before = true;
+	prefsManager->appPrefs.docUnitIndex = 0;
+	prefsManager->appPrefs.toolSettings.polyC = 4;
+	prefsManager->appPrefs.toolSettings.polyF = 0.5;
+	prefsManager->appPrefs.toolSettings.polyS = false;
+	prefsManager->appPrefs.toolSettings.polyFd = 0;
+	prefsManager->appPrefs.toolSettings.polyR = 0;
+	prefsManager->appPrefs.mainToolBarSettings.visible = true;
+	prefsManager->appPrefs.pdfToolBarSettings.visible = true;
+	prefsManager->appPrefs.PSize = 40;
+	prefsManager->appPrefs.SaveAtQ = true;
+	prefsManager->appPrefs.ClipMargin = true;
+	prefsManager->appPrefs.GCRMode = false;
+	prefsManager->appPrefs.RecentDocs.clear();
+	prefsManager->appPrefs.RecentDCount = 5;
+	prefsManager->appPrefs.marginColored = false;
+	prefsManager->appPrefs.pageSize = "A4";
+	prefsManager->appPrefs.pageOrientation = 0;
+	prefsManager->appPrefs.PageWidth = 595;
+	prefsManager->appPrefs.PageHeight = 842;
+	prefsManager->appPrefs.RandOben = 40;
+	prefsManager->appPrefs.RandUnten = 40;
+	prefsManager->appPrefs.RandLinks = 40;
+	prefsManager->appPrefs.RandRechts = 40;
+	prefsManager->appPrefs.FacingPages = false;
+	prefsManager->appPrefs.LeftPageFirst = false;
+	prefsManager->appPrefs.toolSettings.scaleType = true;
+	prefsManager->appPrefs.toolSettings.aspectRatio = true;
+	prefsManager->appPrefs.toolSettings.lowResType = 1;
+	prefsManager->appPrefs.toolSettings.useEmbeddedPath = false;
+	prefsManager->appPrefs.MinWordLen = 3;
+	prefsManager->appPrefs.HyCount = 2;
+	prefsManager->appPrefs.Language = "";
+	prefsManager->appPrefs.Automatic = true;
+	prefsManager->appPrefs.AutoCheck = false;
+	prefsManager->appPrefs.AutoSave = false;
+	prefsManager->appPrefs.AutoSaveTime = 600000;
+	prefsManager->appPrefs.DisScale = 1.0;
+	prefsManager->appPrefs.DocDir = QDir::homeDirPath();
+	prefsManager->appPrefs.ProfileDir = "";
+	prefsManager->appPrefs.ScriptDir = "";
+	prefsManager->appPrefs.documentTemplatesDir = "";
+	prefsManager->appPrefs.CustomColorSets.clear();
+	prefsManager->appPrefs.PrPr_Mode = false;
+	prefsManager->appPrefs.Gcr_Mode = true;
+	prefsManager->appPrefs.PrPr_AlphaText = false;
+	prefsManager->appPrefs.PrPr_AlphaGraphics = false;
+	prefsManager->appPrefs.PrPr_Transparency = false;
+	prefsManager->appPrefs.PrPr_C = true;
+	prefsManager->appPrefs.PrPr_M = true;
+	prefsManager->appPrefs.PrPr_Y = true;
+	prefsManager->appPrefs.PrPr_K = true;
+	prefsManager->appPrefs.imageEditorExecutable = "gimp";
+	prefsManager->appPrefs.gs_AntiAliasGraphics = true;
+	prefsManager->appPrefs.gs_AntiAliasText = true;
+	prefsManager->appPrefs.gs_exe = "gs";
+	prefsManager->appPrefs.gs_Resolution = 72;
+	prefsManager->appPrefs.STEcolor = QColor(white);
+	prefsManager->appPrefs.STEfont = font().toString();
+	prefsManager->appPrefs.DCMSset.DefaultMonitorProfile = "";
+	prefsManager->appPrefs.DCMSset.DefaultPrinterProfile = "";
+	prefsManager->appPrefs.DCMSset.DefaultInputProfile = "";
+	prefsManager->appPrefs.DCMSset.DefaultInputProfile2 = "";
+	prefsManager->appPrefs.DCMSset.CMSinUse = false;
+	prefsManager->appPrefs.DCMSset.SoftProofOn = false;
+	prefsManager->appPrefs.DCMSset.GamutCheck = false;
+	prefsManager->appPrefs.DCMSset.BlackPoint = true;
+	prefsManager->appPrefs.DCMSset.DefaultIntentMonitor = 1;
+	prefsManager->appPrefs.DCMSset.DefaultIntentMonitor2 = 1;
+	prefsManager->appPrefs.DCMSset.DefaultIntentPrinter = 0;
+	prefsManager->appPrefs.GFontSub.clear();
+	prefsManager->appPrefs.ScratchLeft = 100;
+	prefsManager->appPrefs.ScratchRight = 100;
+	prefsManager->appPrefs.ScratchTop = 20;
+	prefsManager->appPrefs.ScratchBottom = 20;
+	prefsManager->appPrefs.askBeforeSubstituite = true;
+	prefsManager->appPrefs.haveStylePreview = true;
 	// lorem ipsum defaults
-	Prefs.useStandardLI = false;
-	Prefs.paragraphsLI = 10;
-	Prefs.showStartupDialog = true;
+	prefsManager->appPrefs.useStandardLI = false;
+	prefsManager->appPrefs.paragraphsLI = 10;
+	prefsManager->appPrefs.showStartupDialog = true;
 	struct checkerPrefs checkerSettings;
 	checkerSettings.ignoreErrors = false;
 	checkerSettings.autoCheck = true;
@@ -586,61 +588,61 @@ void ScribusApp::initDefaultPrefs()
 	checkerSettings.checkAnnotations = false;
 	checkerSettings.checkRasterPDF = true;
 	checkerSettings.minResolution = 72.0;
-	Prefs.checkerProfiles.insert( tr("Postscript"), checkerSettings);
-	Prefs.checkerProfiles.insert( tr("PDF 1.3"), checkerSettings);
+	prefsManager->appPrefs.checkerProfiles.insert( tr("Postscript"), checkerSettings);
+	prefsManager->appPrefs.checkerProfiles.insert( tr("PDF 1.3"), checkerSettings);
 	checkerSettings.checkTransparency = false;
-	Prefs.checkerProfiles.insert( tr("PDF 1.4"), checkerSettings);
+	prefsManager->appPrefs.checkerProfiles.insert( tr("PDF 1.4"), checkerSettings);
 	checkerSettings.checkTransparency = true;
 	checkerSettings.checkAnnotations = true;
 	checkerSettings.minResolution = 144.0;
-	Prefs.checkerProfiles.insert( tr("PDF/X-3"), checkerSettings);
-	Prefs.curCheckProfile = tr("Postscript");
-	Prefs.PDF_Options.Thumbnails = false;
-	Prefs.PDF_Options.Articles = false;
-	Prefs.PDF_Options.useLayers = false;
-	Prefs.PDF_Options.Compress = true;
-	Prefs.PDF_Options.CompressMethod = 0;
-	Prefs.PDF_Options.Quality = 0;
-	Prefs.PDF_Options.RecalcPic = false;
-	Prefs.PDF_Options.Bookmarks = false;
-	Prefs.PDF_Options.PicRes = 300;
-	Prefs.PDF_Options.Version = PDFOptions::PDFVersion_14;
-	Prefs.PDF_Options.Resolution = 300;
-	Prefs.PDF_Options.Binding = 0;
-	Prefs.PDF_Options.EmbedList.clear();
-	Prefs.PDF_Options.SubsetList.clear();
-	Prefs.PDF_Options.MirrorH = false;
-	Prefs.PDF_Options.MirrorV = false;
-	Prefs.PDF_Options.RotateDeg = 0;
-	Prefs.PDF_Options.PresentMode = false;
-	Prefs.PDF_Options.Datei = "";
-	Prefs.PDF_Options.PresentVals.clear();
-	Prefs.PDF_Options.isGrayscale = false;
-	Prefs.PDF_Options.UseRGB = true;
-	Prefs.PDF_Options.UseProfiles = false;
-	Prefs.PDF_Options.UseProfiles2 = false;
-	Prefs.PDF_Options.SolidProf = "";
-	Prefs.PDF_Options.SComp = 3;
-	Prefs.PDF_Options.ImageProf = "";
-	Prefs.PDF_Options.PrintProf = "";
-	Prefs.PDF_Options.Info = "";
-	Prefs.PDF_Options.Intent = 0;
-	Prefs.PDF_Options.Intent2 = 0;
-	Prefs.PDF_Options.BleedTop = 0;
-	Prefs.PDF_Options.BleedLeft = 0;
-	Prefs.PDF_Options.BleedRight = 0;
-	Prefs.PDF_Options.BleedBottom = 0;
-	Prefs.PDF_Options.EmbeddedI = false;
-	Prefs.PDF_Options.Encrypt = false;
-	Prefs.PDF_Options.PassOwner = "";
-	Prefs.PDF_Options.PassUser = "";
-	Prefs.PDF_Options.Permissions = -4;
-	Prefs.PDF_Options.UseLPI = false;
-	Prefs.PDF_Options.LPISettings.clear();
+	prefsManager->appPrefs.checkerProfiles.insert( tr("PDF/X-3"), checkerSettings);
+	prefsManager->appPrefs.curCheckProfile = tr("Postscript");
+	prefsManager->appPrefs.PDF_Options.Thumbnails = false;
+	prefsManager->appPrefs.PDF_Options.Articles = false;
+	prefsManager->appPrefs.PDF_Options.useLayers = false;
+	prefsManager->appPrefs.PDF_Options.Compress = true;
+	prefsManager->appPrefs.PDF_Options.CompressMethod = 0;
+	prefsManager->appPrefs.PDF_Options.Quality = 0;
+	prefsManager->appPrefs.PDF_Options.RecalcPic = false;
+	prefsManager->appPrefs.PDF_Options.Bookmarks = false;
+	prefsManager->appPrefs.PDF_Options.PicRes = 300;
+	prefsManager->appPrefs.PDF_Options.Version = PDFOptions::PDFVersion_14;
+	prefsManager->appPrefs.PDF_Options.Resolution = 300;
+	prefsManager->appPrefs.PDF_Options.Binding = 0;
+	prefsManager->appPrefs.PDF_Options.EmbedList.clear();
+	prefsManager->appPrefs.PDF_Options.SubsetList.clear();
+	prefsManager->appPrefs.PDF_Options.MirrorH = false;
+	prefsManager->appPrefs.PDF_Options.MirrorV = false;
+	prefsManager->appPrefs.PDF_Options.RotateDeg = 0;
+	prefsManager->appPrefs.PDF_Options.PresentMode = false;
+	prefsManager->appPrefs.PDF_Options.Datei = "";
+	prefsManager->appPrefs.PDF_Options.PresentVals.clear();
+	prefsManager->appPrefs.PDF_Options.isGrayscale = false;
+	prefsManager->appPrefs.PDF_Options.UseRGB = true;
+	prefsManager->appPrefs.PDF_Options.UseProfiles = false;
+	prefsManager->appPrefs.PDF_Options.UseProfiles2 = false;
+	prefsManager->appPrefs.PDF_Options.SolidProf = "";
+	prefsManager->appPrefs.PDF_Options.SComp = 3;
+	prefsManager->appPrefs.PDF_Options.ImageProf = "";
+	prefsManager->appPrefs.PDF_Options.PrintProf = "";
+	prefsManager->appPrefs.PDF_Options.Info = "";
+	prefsManager->appPrefs.PDF_Options.Intent = 0;
+	prefsManager->appPrefs.PDF_Options.Intent2 = 0;
+	prefsManager->appPrefs.PDF_Options.BleedTop = 0;
+	prefsManager->appPrefs.PDF_Options.BleedLeft = 0;
+	prefsManager->appPrefs.PDF_Options.BleedRight = 0;
+	prefsManager->appPrefs.PDF_Options.BleedBottom = 0;
+	prefsManager->appPrefs.PDF_Options.EmbeddedI = false;
+	prefsManager->appPrefs.PDF_Options.Encrypt = false;
+	prefsManager->appPrefs.PDF_Options.PassOwner = "";
+	prefsManager->appPrefs.PDF_Options.PassUser = "";
+	prefsManager->appPrefs.PDF_Options.Permissions = -4;
+	prefsManager->appPrefs.PDF_Options.UseLPI = false;
+	prefsManager->appPrefs.PDF_Options.LPISettings.clear();
 
 	//Attribute setup
-	Prefs.defaultItemAttributes.clear();
-	Prefs.defaultToCSetups.clear();
+	prefsManager->appPrefs.defaultItemAttributes.clear();
+	prefsManager->appPrefs.defaultToCSetups.clear();
 }
 
 
@@ -698,15 +700,15 @@ void ScribusApp::initArrowStyles()
 	points.addQuadPoint(-5, 5, -5, 5, -5, 5, -5, 5);
 	points.addQuadPoint(0, 0, 0, 0, 0, 0, 0, 0);
 	arrow.points = points.copy();
-	Prefs.arrowStyles.append(arrow);
+	prefsManager->appPrefs.arrowStyles.append(arrow);
 	arrow.name = "Arrow1M";
 	points.map(arrowScaling);
 	arrow.points = points.copy();
-	Prefs.arrowStyles.append(arrow);
+	prefsManager->appPrefs.arrowStyles.append(arrow);
 	arrow.name = "Arrow1S";
 	points.map(arrowScaling);
 	arrow.points = points.copy();
-	Prefs.arrowStyles.append(arrow);
+	prefsManager->appPrefs.arrowStyles.append(arrow);
 	arrow.name = "SquareL";
 	points.resize(0);
 	points.addQuadPoint(-5, -5, -5, -5, -5, -5, -5, -5);
@@ -715,15 +717,15 @@ void ScribusApp::initArrowStyles()
 	points.addQuadPoint(-5, 5, -5, 5, -5, 5, -5, 5);
 	points.addQuadPoint(-5, -5, -5, -5, -5, -5, -5, -5);
 	arrow.points = points.copy();
-	Prefs.arrowStyles.append(arrow);
+	prefsManager->appPrefs.arrowStyles.append(arrow);
 	arrow.name = "SquareM";
 	points.map(arrowScaling);
 	arrow.points = points.copy();
-	Prefs.arrowStyles.append(arrow);
+	prefsManager->appPrefs.arrowStyles.append(arrow);
 	arrow.name = "SquareS";
 	points.map(arrowScaling);
 	arrow.points = points.copy();
-	Prefs.arrowStyles.append(arrow);
+	prefsManager->appPrefs.arrowStyles.append(arrow);
 	arrow.name = "TriangleInL";
 	points.resize(0);
 	points.addQuadPoint(5.77, 0, 5.77, 0, 5.77, 0, 5.77, 0);
@@ -731,15 +733,15 @@ void ScribusApp::initArrowStyles()
 	points.addQuadPoint(-2.88, -5, -2.88, -5, -2.88, -5, -2.88, -5);
 	points.addQuadPoint(5.77, 0, 5.77, 0, 5.77, 0, 5.77, 0);
 	arrow.points = points.copy();
-	Prefs.arrowStyles.append(arrow);
+	prefsManager->appPrefs.arrowStyles.append(arrow);
 	arrow.name = "TriangleInM";
 	points.map(arrowScaling);
 	arrow.points = points.copy();
-	Prefs.arrowStyles.append(arrow);
+	prefsManager->appPrefs.arrowStyles.append(arrow);
 	arrow.name = "TriangleInS";
 	points.map(arrowScaling);
 	arrow.points = points.copy();
-	Prefs.arrowStyles.append(arrow);
+	prefsManager->appPrefs.arrowStyles.append(arrow);
 	arrow.name = "TriangleOutL";
 	points.resize(0);
 	points.addQuadPoint(-5.77, 0, -5.77, 0, -5.77, 0, -5.77, 0);
@@ -747,15 +749,15 @@ void ScribusApp::initArrowStyles()
 	points.addQuadPoint(2.88, -5, 2.88, -5, 2.88, -5, 2.88, -5);
 	points.addQuadPoint(-5.77, 0, -5.77, 0, -5.77, 0, -5.77, 0);
 	arrow.points = points.copy();
-	Prefs.arrowStyles.append(arrow);
+	prefsManager->appPrefs.arrowStyles.append(arrow);
 	arrow.name = "TriangleOutM";
 	points.map(arrowScaling);
 	arrow.points = points.copy();
-	Prefs.arrowStyles.append(arrow);
+	prefsManager->appPrefs.arrowStyles.append(arrow);
 	arrow.name = "TriangleOutS";
 	points.map(arrowScaling);
 	arrow.points = points.copy();
-	Prefs.arrowStyles.append(arrow);
+	prefsManager->appPrefs.arrowStyles.append(arrow);
 }
 
 void ScribusApp::initPalettes()
@@ -767,11 +769,11 @@ void ScribusApp::initPalettes()
 	connect( outlinePalette, SIGNAL(paletteShown(bool)), scrActions["toolsOutline"], SLOT(setOn(bool)));
 	outlinePalette->setPrefsContext("OutlinePalette");
 	outlinePalette->reportDisplay->installEventFilter(this);
-	propertiesPalette = new Mpalette(this, &Prefs);
+	propertiesPalette = new Mpalette(this);
 	connect( scrActions["toolsProperties"], SIGNAL(toggled(bool)) , propertiesPalette, SLOT(setPaletteShown(bool)) );
 	connect( propertiesPalette, SIGNAL(paletteShown(bool)), scrActions["toolsProperties"], SLOT(setOn(bool)));
 	propertiesPalette->setPrefsContext("PropertiesPalette");
-	propertiesPalette->Cpal->SetColors(Prefs.DColors);
+	propertiesPalette->Cpal->SetColors(prefsManager->appPrefs.DColors);
 	propertiesPalette->Cpal->UseTrans(true);
 	propertiesPalette->Fonts->RebuildList(0);
 	propertiesPalette->installEventFilter(this);
@@ -785,7 +787,7 @@ void ScribusApp::initPalettes()
 	layerPalette->setPrefsContext("LayerPalette");
 	layerPalette->installEventFilter(this);
 	layerPalette->Table->installEventFilter(this);
-	scrapbookPalette = new Biblio(this, &Prefs);
+	scrapbookPalette = new Biblio(this);
 	connect( scrActions["toolsScrapbook"], SIGNAL(toggled(bool)) , scrapbookPalette, SLOT(setPaletteShown(bool)) );
 	connect( scrapbookPalette, SIGNAL(paletteShown(bool)), scrActions["toolsScrapbook"], SLOT(setOn(bool)));
 	scrapbookPalette->setPrefsContext("ScrapbookPalette");
@@ -1417,7 +1419,7 @@ void ScribusApp::SetKeyEntry(QString actName, QString cleanMenuText, QString key
 			ke.keySequence = keyseq;
 			ke.cleanMenuText=cleanMenuText;
 			ke.tableRow=rowNumber;
-			Prefs.KeyActions.insert(actName, ke);
+			prefsManager->appPrefs.KeyActions.insert(actName, ke);
 		}
 		else
 			qDebug("%s", QString("Action Name: %1 does not exist").arg(actName).ascii());
@@ -1513,16 +1515,16 @@ void ScribusApp::wheelEvent(QWheelEvent *w)
 		if ((w->orientation() != Qt::Vertical) || ( w->state() & ShiftButton ))
 		{
 			if (w->delta() < 0)
-				view->scrollBy(Prefs.Wheelval, 0);
+				view->scrollBy(prefsManager->appPrefs.Wheelval, 0);
 			else
-				view->scrollBy(-Prefs.Wheelval, 0);
+				view->scrollBy(-prefsManager->appPrefs.Wheelval, 0);
 		}
 		else
 		{
 			if (w->delta() < 0)
-				view->scrollBy(0, Prefs.Wheelval);
+				view->scrollBy(0, prefsManager->appPrefs.Wheelval);
 			else
-				view->scrollBy(0, -Prefs.Wheelval);
+				view->scrollBy(0, -prefsManager->appPrefs.Wheelval);
 		}
 		w->accept();
 	}
@@ -1770,12 +1772,12 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 				return;
 				break;
 			case Key_Prior:
-				view->scrollBy(0, -Prefs.Wheelval);
+				view->scrollBy(0, -prefsManager->appPrefs.Wheelval);
 				keyrep = false;
 				return;
 				break;
 			case Key_Next:
-				view->scrollBy(0, Prefs.Wheelval);
+				view->scrollBy(0, prefsManager->appPrefs.Wheelval);
 				keyrep = false;
 				return;
 				break;
@@ -2687,7 +2689,7 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 		SavePrefs();
 		delete prefsFile;
 		UndoManager::deleteInstance();
-		if ((Prefs.SaveAtQ) && (scrapbookPalette->changed()))
+		if ((prefsManager->appPrefs.SaveAtQ) && (scrapbookPalette->changed()))
 		{
 			if (scrapbookPalette->getScrapbookFileName().isEmpty())
 				scrapbookPalette->setScrapbookFileName(PrefsPfad+"/scrap13.scs");
@@ -2695,7 +2697,7 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 		}
 		if (scrapbookPalette->objectCount() == 0)
 			unlink(PrefsPfad+"/scrap13.scs");
-		Prefs.AvailFonts.~SCFonts();
+		prefsManager->appPrefs.AvailFonts.~SCFonts();
 		exit(0);
 	}
 	else
@@ -2710,7 +2712,7 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 		docCheckerPalette->hide();
 		SavePrefs();
 		UndoManager::deleteInstance();
-		if ((Prefs.SaveAtQ) && (scrapbookPalette->changed()))
+		if ((prefsManager->appPrefs.SaveAtQ) && (scrapbookPalette->changed()))
 		{
 			if (scrapbookPalette->getScrapbookFileName().isEmpty())
 				scrapbookPalette->setScrapbookFileName(PrefsPfad+"/scrap13.scs");
@@ -2719,7 +2721,7 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 		if (scrapbookPalette->objectCount() == 0)
 			unlink(PrefsPfad+"/scrap13.scs");
 		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-		Prefs.AvailFonts.~SCFonts();
+		prefsManager->appPrefs.AvailFonts.~SCFonts();
 		pluginManager->finalizePlugs();
 		delete prefsFile;
 		exit(0);
@@ -2796,7 +2798,7 @@ void ScribusApp::startUpDialog()
 {
 	QString fileName = "";
 	PrefsContext* docContext = prefsFile->getContext("docdirs", false);
-	NewDoc* dia = new NewDoc(this, &Prefs, true);
+	NewDoc* dia = new NewDoc(this, true);
 	if (dia->exec())
 	{
 		if (dia->tabSelected == 0)
@@ -2847,7 +2849,7 @@ void ScribusApp::startUpDialog()
 			}
 		}
 	}
-	Prefs.showStartupDialog = !dia->startUpDialog->isChecked();
+	prefsManager->appPrefs.showStartupDialog = !dia->startUpDialog->isChecked();
 	delete dia;
 	windowsMenuAboutToShow();
 	mainWindowStatusLabel->setText( tr("Ready"));
@@ -2856,7 +2858,7 @@ void ScribusApp::startUpDialog()
 bool ScribusApp::slotFileNew()
 {
 	bool retVal;
-	NewDoc* dia = new NewDoc(this, &Prefs);
+	NewDoc* dia = new NewDoc(this);
 	if (dia->exec())
 	{
 		bool facingPages, autoframes;
@@ -2900,7 +2902,7 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 	QString cc;
 	if (HaveDoc)
 		doc->OpenNodes = outlinePalette->buildReopenVals();
-	doc = new ScribusDoc(&Prefs);
+	doc = new ScribusDoc();
 	doc->is12doc=false;
 	docCheckerPalette->clearErrorList();
 	doc->docUnitIndex = einh;
@@ -2911,17 +2913,17 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 	doc->FirstPnum = SNr;
 	doc->setName(doc->DocName+cc.setNum(DocNr));
 	doc->HasCMS = true;
-	doc->CMSSettings.DefaultInputProfile = Prefs.DCMSset.DefaultInputProfile;
-	doc->CMSSettings.DefaultInputProfile2 = Prefs.DCMSset.DefaultInputProfile2;
-	doc->CMSSettings.DefaultMonitorProfile = Prefs.DCMSset.DefaultMonitorProfile;
-	doc->CMSSettings.DefaultPrinterProfile = Prefs.DCMSset.DefaultPrinterProfile;
-	doc->CMSSettings.DefaultIntentPrinter = Prefs.DCMSset.DefaultIntentPrinter;
-	doc->CMSSettings.DefaultIntentMonitor = Prefs.DCMSset.DefaultIntentMonitor;
-	doc->CMSSettings.DefaultIntentMonitor2 = Prefs.DCMSset.DefaultIntentMonitor2;
-	doc->CMSSettings.SoftProofOn = Prefs.DCMSset.SoftProofOn;
-	doc->CMSSettings.GamutCheck = Prefs.DCMSset.GamutCheck;
-	doc->CMSSettings.BlackPoint = Prefs.DCMSset.BlackPoint;
-	doc->CMSSettings.CMSinUse = Prefs.DCMSset.CMSinUse;
+	doc->CMSSettings.DefaultInputProfile = prefsManager->appPrefs.DCMSset.DefaultInputProfile;
+	doc->CMSSettings.DefaultInputProfile2 = prefsManager->appPrefs.DCMSset.DefaultInputProfile2;
+	doc->CMSSettings.DefaultMonitorProfile = prefsManager->appPrefs.DCMSset.DefaultMonitorProfile;
+	doc->CMSSettings.DefaultPrinterProfile = prefsManager->appPrefs.DCMSset.DefaultPrinterProfile;
+	doc->CMSSettings.DefaultIntentPrinter = prefsManager->appPrefs.DCMSset.DefaultIntentPrinter;
+	doc->CMSSettings.DefaultIntentMonitor = prefsManager->appPrefs.DCMSset.DefaultIntentMonitor;
+	doc->CMSSettings.DefaultIntentMonitor2 = prefsManager->appPrefs.DCMSset.DefaultIntentMonitor2;
+	doc->CMSSettings.SoftProofOn = prefsManager->appPrefs.DCMSset.SoftProofOn;
+	doc->CMSSettings.GamutCheck = prefsManager->appPrefs.DCMSset.GamutCheck;
+	doc->CMSSettings.BlackPoint = prefsManager->appPrefs.DCMSset.BlackPoint;
+	doc->CMSSettings.CMSinUse = prefsManager->appPrefs.DCMSset.CMSinUse;
 	doc->PDF_Options.SolidProf = doc->CMSSettings.DefaultInputProfile2;
 	doc->PDF_Options.ImageProf = doc->CMSSettings.DefaultInputProfile;
 	doc->PDF_Options.PrintProf = doc->CMSSettings.DefaultPrinterProfile;
@@ -2943,7 +2945,7 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 	HaveDoc++;
 	DocNr++;
 	doc->appMode = modeNormal;
-	doc->PageColors = Prefs.DColors;
+	doc->PageColors = prefsManager->appPrefs.DColors;
 	doc->loading = true;
 	ScribusWin* w = new ScribusWin(wsp, doc);
 	if (view!=NULL)
@@ -2951,8 +2953,8 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 		actionManager->disconnectNewViewActions();
 		disconnect(view, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
 	}
-	view = new ScribusView(w, doc, &Prefs);
-	view->setScale(1.0*Prefs.DisScale);
+	view = new ScribusView(w, doc);
+	view->setScale(1.0*prefsManager->appPrefs.DisScale);
 	actionManager->connectNewViewActions(view);
 	alignDistributePalette->setView(view);
 	w->setView(view);
@@ -2967,16 +2969,16 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 	if (CMSavail)
 	{
 #ifdef HAVE_CMS
-		doc->SoftProofing = Prefs.DCMSset.SoftProofOn;
-		doc->Gamut = Prefs.DCMSset.GamutCheck;
-		CMSuse = Prefs.DCMSset.CMSinUse;
-		doc->IntentPrinter = Prefs.DCMSset.DefaultIntentPrinter;
-		doc->IntentMonitor = Prefs.DCMSset.DefaultIntentMonitor;
-		SoftProofing = Prefs.DCMSset.SoftProofOn;
-		Gamut = Prefs.DCMSset.GamutCheck;
-		BlackPoint = Prefs.DCMSset.BlackPoint;
-		IntentPrinter = Prefs.DCMSset.DefaultIntentPrinter;
-		IntentMonitor = Prefs.DCMSset.DefaultIntentMonitor;
+		doc->SoftProofing = prefsManager->appPrefs.DCMSset.SoftProofOn;
+		doc->Gamut = prefsManager->appPrefs.DCMSset.GamutCheck;
+		CMSuse = prefsManager->appPrefs.DCMSset.CMSinUse;
+		doc->IntentPrinter = prefsManager->appPrefs.DCMSset.DefaultIntentPrinter;
+		doc->IntentMonitor = prefsManager->appPrefs.DCMSset.DefaultIntentMonitor;
+		SoftProofing = prefsManager->appPrefs.DCMSset.SoftProofOn;
+		Gamut = prefsManager->appPrefs.DCMSset.GamutCheck;
+		BlackPoint = prefsManager->appPrefs.DCMSset.BlackPoint;
+		IntentPrinter = prefsManager->appPrefs.DCMSset.DefaultIntentPrinter;
+		IntentMonitor = prefsManager->appPrefs.DCMSset.DefaultIntentMonitor;
 		doc->OpenCMSProfiles(InputProfiles, MonitorProfiles, PrinterProfiles);
 		stdProofG = doc->stdProof;
 		stdTransG = doc->stdTrans;
@@ -3001,7 +3003,7 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 			doc->CMSSettings.ComponentsPrinter = 3;
 		doc->PDF_Options.SComp = doc->CMSSettings.ComponentsInput2;
 #endif
-		if (Prefs.DCMSset.CMSinUse)
+		if (prefsManager->appPrefs.DCMSset.CMSinUse)
 			RecalcColors();
 	}
 	doc->setPage(width, h, tpr, lr, rr, br, sp, ab, atf, fp);
@@ -3041,10 +3043,10 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 	connect(w, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
 	connect(fileWatcher, SIGNAL(fileChanged(QString )), view, SLOT(updatePict(QString)));
 	connect(fileWatcher, SIGNAL(fileDeleted(QString )), view, SLOT(removePict(QString)));
-	doc->AutoSave = Prefs.AutoSave;
-	doc->AutoSaveTime = Prefs.AutoSaveTime;
+	doc->AutoSave = prefsManager->appPrefs.AutoSave;
+	doc->AutoSaveTime = prefsManager->appPrefs.AutoSaveTime;
 	if (doc->AutoSave)
-		doc->ASaveTimer->start(Prefs.AutoSaveTime);
+		doc->ASaveTimer->start(doc->AutoSaveTime);
 	scrActions["fileSave"]->setEnabled(false);
 	undoManager->switchStack(doc->DocName);
 	tocGenerator->setDoc(doc);
@@ -3054,8 +3056,8 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 void ScribusApp::newView()
 {
 	ScribusWin* w = new ScribusWin(wsp, doc);
-	view = new ScribusView(w, doc, &Prefs);
-	view->setScale(1.0*Prefs.DisScale);
+	view = new ScribusView(w, doc);
+	view->setScale(1.0*prefsManager->appPrefs.DisScale);
 	w->setView(view);
 	ActWin = w;
 	w->setCentralWidget(view);
@@ -3434,7 +3436,7 @@ bool ScribusApp::SetupDoc()
 			}
 		}
 		uint a = 0;
-		SCFontsIterator it(Prefs.AvailFonts);
+		SCFontsIterator it(prefsManager->appPrefs.AvailFonts);
 		for ( ; it.current() ; ++it)
 		{
 			it.current()->EmbedPS = dia->tabFonts->fontFlags[it.currentKey()].FlagPS;
@@ -3443,10 +3445,10 @@ bool ScribusApp::SetupDoc()
 		}
 		a = 0;
 		QMap<QString,QString>::Iterator itfsu;
-		Prefs.GFontSub.clear();
+		prefsManager->appPrefs.GFontSub.clear();
 		for (itfsu = dia->tabFonts->RList.begin(); itfsu != dia->tabFonts->RList.end(); ++itfsu)
 		{
-			Prefs.GFontSub[itfsu.key()] = dia->tabFonts->FlagsRepl.at(a)->currentText();
+			prefsManager->appPrefs.GFontSub[itfsu.key()] = dia->tabFonts->FlagsRepl.at(a)->currentText();
 			a++;
 		}
 		QStringList uf = doc->UsedFonts.keys();
@@ -3459,9 +3461,9 @@ bool ScribusApp::SetupDoc()
 		QStringList::Iterator it3a;
 		for (it3a = uf.begin(); it3a != uf.end(); ++it3a)
 		{
-			doc->AddFont((*it3a), Prefs.AvailFonts[(*it3a)]->Font);
+			doc->AddFont((*it3a), prefsManager->appPrefs.AvailFonts[(*it3a)]->Font);
 		}
-		FontSub->RebuildList(&Prefs, doc);
+		FontSub->RebuildList(doc);
 		propertiesPalette->Fonts->RebuildList(doc);
 		doc->PDF_Options.Thumbnails = dia->tabPDF->CheckBox1->isChecked();
 		doc->PDF_Options.Compress = dia->tabPDF->Compression->isChecked();
@@ -3618,7 +3620,7 @@ void ScribusApp::SwitchWin()
 	propertiesPalette->SetLineFormats(doc);
 	propertiesPalette->startArrow->rebuildList(&doc->arrowStyles);
 	propertiesPalette->endArrow->rebuildList(&doc->arrowStyles);
-	FontSub->RebuildList(&Prefs, doc);
+	FontSub->RebuildList(doc);
 	propertiesPalette->Fonts->RebuildList(doc);
 	layerPalette->setLayers(&doc->Layers, &doc->ActiveLayer);
 	rebuildLayersList();
@@ -4352,7 +4354,7 @@ void ScribusApp::rebuildRecentFileMenu()
 		scrMenuMgr->removeMenuItem((*it), recentFileMenuName);
 
 	scrRecentFileActions.clear();
-	uint max = QMIN(Prefs.RecentDCount, RecentDocs.count());
+	uint max = QMIN(prefsManager->appPrefs.RecentDCount, RecentDocs.count());
 	for (uint m = 0; m < max; ++m)
 	{
 		QString strippedName=RecentDocs[m];
@@ -4447,8 +4449,8 @@ bool ScribusApp::slotDocOpen()
 {
 	PrefsContext* docContext = prefsFile->getContext("docdirs", false);
 	QString docDir = ".";
-	if (Prefs.DocDir != "")
-		docDir = docContext->get("docsopen", Prefs.DocDir);
+	if (prefsManager->appPrefs.DocDir != "")
+		docDir = docContext->get("docsopen", prefsManager->appPrefs.DocDir);
 	else
 		docDir = docContext->get("docsopen", ".");
 	QString formats = "";
@@ -4587,7 +4589,7 @@ bool ScribusApp::loadPage(QString fileName, int Nr, bool Mpa)
 		doc->loading = true;
 		ScriXmlDoc *ss = new ScriXmlDoc();
 		uint cc = doc->Items.count();
-		if(!ss->ReadPage(fileName, Prefs.AvailFonts, doc, view, Nr, Mpa))
+		if(!ss->ReadPage(fileName, prefsManager->appPrefs.AvailFonts, doc, view, Nr, Mpa))
 		{
 			delete ss;
 			doc->loading = false;
@@ -4683,9 +4685,9 @@ bool ScribusApp::loadDoc(QString fileName)
 			QMessageBox::critical(this, tr("Fatal Error"), tr("File %1 \nis not in an acceptable format").arg(FName), tr("&OK"));
 			return false;
 		}
-		Prefs.AvailFonts.AddScalableFonts(fi.dirPath(true)+"/", FName);
-		Prefs.AvailFonts.updateFontMap();
-		doc=new ScribusDoc(&Prefs);
+		prefsManager->appPrefs.AvailFonts.AddScalableFonts(fi.dirPath(true)+"/", FName);
+		prefsManager->appPrefs.AvailFonts.updateFontMap();
+		doc=new ScribusDoc();
 		doc->is12doc=is12doc;
 		doc->appMode = modeNormal;
 		doc->HasCMS = false;
@@ -4695,8 +4697,8 @@ bool ScribusApp::loadDoc(QString fileName)
 		mainWindowStatusLabel->setText( tr("Loading..."));
 		mainWindowProgressBar->reset();
 		ScribusWin* w = new ScribusWin(wsp, doc);
-		view = new ScribusView(w, doc, &Prefs);
-		view->setScale(1.0*Prefs.DisScale);
+		view = new ScribusView(w, doc);
+		view->setScale(1.0*prefsManager->appPrefs.DisScale);
 		w->setView(view);
 		alignDistributePalette->setView(view);
 		ActWin = w;
@@ -4787,16 +4789,16 @@ bool ScribusApp::loadDoc(QString fileName)
 		}
 		if (!doc->HasCMS)
 		{
-			doc->CMSSettings.DefaultInputProfile = Prefs.DCMSset.DefaultInputProfile;
-			doc->CMSSettings.DefaultInputProfile2 = Prefs.DCMSset.DefaultInputProfile2;
-			doc->CMSSettings.DefaultMonitorProfile = Prefs.DCMSset.DefaultMonitorProfile;
-			doc->CMSSettings.DefaultPrinterProfile = Prefs.DCMSset.DefaultPrinterProfile;
-			doc->CMSSettings.DefaultIntentPrinter = Prefs.DCMSset.DefaultIntentPrinter;
-			doc->CMSSettings.DefaultIntentMonitor = Prefs.DCMSset.DefaultIntentMonitor;
-			doc->CMSSettings.DefaultIntentMonitor2 = Prefs.DCMSset.DefaultIntentMonitor2;
-			doc->CMSSettings.SoftProofOn = Prefs.DCMSset.SoftProofOn;
-			doc->CMSSettings.GamutCheck = Prefs.DCMSset.GamutCheck;
-			doc->CMSSettings.BlackPoint = Prefs.DCMSset.BlackPoint;
+			doc->CMSSettings.DefaultInputProfile = prefsManager->appPrefs.DCMSset.DefaultInputProfile;
+			doc->CMSSettings.DefaultInputProfile2 = prefsManager->appPrefs.DCMSset.DefaultInputProfile2;
+			doc->CMSSettings.DefaultMonitorProfile = prefsManager->appPrefs.DCMSset.DefaultMonitorProfile;
+			doc->CMSSettings.DefaultPrinterProfile = prefsManager->appPrefs.DCMSset.DefaultPrinterProfile;
+			doc->CMSSettings.DefaultIntentPrinter = prefsManager->appPrefs.DCMSset.DefaultIntentPrinter;
+			doc->CMSSettings.DefaultIntentMonitor = prefsManager->appPrefs.DCMSset.DefaultIntentMonitor;
+			doc->CMSSettings.DefaultIntentMonitor2 = prefsManager->appPrefs.DCMSset.DefaultIntentMonitor2;
+			doc->CMSSettings.SoftProofOn = prefsManager->appPrefs.DCMSset.SoftProofOn;
+			doc->CMSSettings.GamutCheck = prefsManager->appPrefs.DCMSset.GamutCheck;
+			doc->CMSSettings.BlackPoint = prefsManager->appPrefs.DCMSset.BlackPoint;
 			doc->CMSSettings.CMSinUse = false;
 		}
 		if (CMSavail)
@@ -4808,49 +4810,49 @@ bool ScribusApp::loadDoc(QString fileName)
 			{
 				cmsWarning = true;
 				missing.append(doc->CMSSettings.DefaultInputProfile);
-				replacement.append(Prefs.DCMSset.DefaultInputProfile);
-				doc->CMSSettings.DefaultInputProfile = Prefs.DCMSset.DefaultInputProfile;
+				replacement.append(prefsManager->appPrefs.DCMSset.DefaultInputProfile);
+				doc->CMSSettings.DefaultInputProfile = prefsManager->appPrefs.DCMSset.DefaultInputProfile;
 			}
 			if (!InputProfiles.contains(doc->CMSSettings.DefaultInputProfile2))
 			{
 				cmsWarning = true;
 				missing.append(doc->CMSSettings.DefaultInputProfile2);
-				replacement.append(Prefs.DCMSset.DefaultInputProfile2);
-				doc->CMSSettings.DefaultInputProfile2 = Prefs.DCMSset.DefaultInputProfile2;
+				replacement.append(prefsManager->appPrefs.DCMSset.DefaultInputProfile2);
+				doc->CMSSettings.DefaultInputProfile2 = prefsManager->appPrefs.DCMSset.DefaultInputProfile2;
 			}
 			if (!MonitorProfiles.contains(doc->CMSSettings.DefaultMonitorProfile))
 			{
 				cmsWarning = true;
 				missing.append(doc->CMSSettings.DefaultMonitorProfile);
-				replacement.append(Prefs.DCMSset.DefaultMonitorProfile);
-				doc->CMSSettings.DefaultMonitorProfile = Prefs.DCMSset.DefaultMonitorProfile;
+				replacement.append(prefsManager->appPrefs.DCMSset.DefaultMonitorProfile);
+				doc->CMSSettings.DefaultMonitorProfile = prefsManager->appPrefs.DCMSset.DefaultMonitorProfile;
 			}
 			if (!PrinterProfiles.contains(doc->CMSSettings.DefaultPrinterProfile))
 			{
 				cmsWarning = true;
 				missing.append(doc->CMSSettings.DefaultPrinterProfile);
-				replacement.append(Prefs.DCMSset.DefaultPrinterProfile);
-				doc->CMSSettings.DefaultPrinterProfile = Prefs.DCMSset.DefaultPrinterProfile;
+				replacement.append(prefsManager->appPrefs.DCMSset.DefaultPrinterProfile);
+				doc->CMSSettings.DefaultPrinterProfile = prefsManager->appPrefs.DCMSset.DefaultPrinterProfile;
 			}
 			if (!PrinterProfiles.contains(doc->PDF_Options.PrintProf))
 			{
 				cmsWarning = true;
 				missing.append(doc->PDF_Options.PrintProf);
-				replacement.append(Prefs.DCMSset.DefaultPrinterProfile);
+				replacement.append(prefsManager->appPrefs.DCMSset.DefaultPrinterProfile);
 				doc->PDF_Options.PrintProf = doc->CMSSettings.DefaultPrinterProfile;
 			}
 			if (!InputProfiles.contains(doc->PDF_Options.ImageProf))
 			{
 				cmsWarning = true;
 				missing.append(doc->PDF_Options.ImageProf);
-				replacement.append(Prefs.DCMSset.DefaultInputProfile);
+				replacement.append(prefsManager->appPrefs.DCMSset.DefaultInputProfile);
 				doc->PDF_Options.ImageProf = doc->CMSSettings.DefaultInputProfile;
 			}
 			if (!InputProfiles.contains(doc->PDF_Options.SolidProf))
 			{
 				cmsWarning = true;
 				missing.append(doc->PDF_Options.SolidProf);
-				replacement.append(Prefs.DCMSset.DefaultInputProfile2);
+				replacement.append(prefsManager->appPrefs.DCMSset.DefaultInputProfile2);
 				doc->PDF_Options.SolidProf = doc->CMSSettings.DefaultInputProfile2;
 			}
 			if ((cmsWarning) && (doc->HasCMS))
@@ -5141,8 +5143,8 @@ void ScribusApp::slotFileOpen()
 			formatD += " *.eps *.EPS *.pdf *.PDF";
 			formatD += ");;"+formats;
 			QString docDir = ".";
-			if (Prefs.DocDir != "")
-				docDir = dirs->get("images", Prefs.DocDir);
+			if (prefsManager->appPrefs.DocDir != "")
+				docDir = dirs->get("images", prefsManager->appPrefs.DocDir);
 			else
 				docDir = dirs->get("images", ".");
 			QString fileName = CFileDialog( docDir, tr("Open"), formatD, "", true);
@@ -5279,8 +5281,8 @@ bool ScribusApp::slotFileSaveAs()
 	}
 	else
 	{
-		if (Prefs.DocDir != "")
-			wdir = docContext->get("save_as", Prefs.DocDir);
+		if (prefsManager->appPrefs.DocDir != "")
+			wdir = docContext->get("save_as", prefsManager->appPrefs.DocDir);
 		else
 			wdir = docContext->get("save_as", ".");
 		if (wdir.right(1) != "/")
@@ -5420,9 +5422,9 @@ bool ScribusApp::DoFileClose()
 	{
 #ifdef HAVE_CMS
 		CMSuse = false;
-		SoftProofing = Prefs.DCMSset.SoftProofOn;
-		IntentPrinter = Prefs.DCMSset.DefaultIntentPrinter;
-		IntentMonitor = Prefs.DCMSset.DefaultIntentMonitor;
+		SoftProofing = prefsManager->appPrefs.DCMSset.SoftProofOn;
+		IntentPrinter = prefsManager->appPrefs.DCMSset.DefaultIntentPrinter;
+		IntentMonitor = prefsManager->appPrefs.DCMSset.DefaultIntentMonitor;
 #endif
 		scrActions["fileDocSetup"]->setEnabled(false);
 		scrActions["filePrint"]->setEnabled(false);
@@ -5475,7 +5477,7 @@ bool ScribusApp::DoFileClose()
 		WerkTools->setEnabled(false);
 		WerkToolsP->setEnabled(false);
 		ColorMenC->clear();
-		propertiesPalette->Cpal->SetColors(Prefs.DColors);
+		propertiesPalette->Cpal->SetColors(prefsManager->appPrefs.DColors);
 		propertiesPalette->Cpal->ChooseGrad(0);
 		mainWindowStatusLabel->setText( tr("Ready"));
 		PrinterUsed = false;
@@ -5566,7 +5568,7 @@ void ScribusApp::slotReallyPrint()
 		}
 	}
 	options.copies = 1;
-	Druck *printer = new Druck(this, options.filename, options.printer, PDef.Command, Prefs.GCRMode);
+	Druck *printer = new Druck(this, options.filename, options.printer, PDef.Command, prefsManager->appPrefs.GCRMode);
 	printer->setMinMax(1, doc->Pages.count(), doc->currentPage->PageNr+1);
 	if (printer->exec())
 	{
@@ -5639,7 +5641,7 @@ bool ScribusApp::doPrint(PrintOptions *options)
 	GetUsedFonts(&ReallyUsed);
 	fileWatcher->forceScan();
 	fileWatcher->stop();
-	PSLib *dd = getPSDriver(true, Prefs.AvailFonts, ReallyUsed, doc->PageColors, false);
+	PSLib *dd = getPSDriver(true, ReallyUsed, doc->PageColors, false);
 	if (dd != NULL)
 	{
 		bool PSfile = false;
@@ -6231,8 +6233,8 @@ void ScribusApp::SaveText()
 {
 	LoadEnc = "";
 	QString wdir = ".";
-	if (Prefs.DocDir != "")
-		wdir = dirs->get("save_text", Prefs.DocDir);
+	if (prefsManager->appPrefs.DocDir != "")
+		wdir = dirs->get("save_text", prefsManager->appPrefs.DocDir);
 	else
 		wdir = dirs->get("save_text", ".");
 	QString fn = CFileDialog( wdir, tr("Save as"), tr("Text Files (*.txt);;All Files(*)"), "", false, false, false, true);
@@ -6424,7 +6426,7 @@ void ScribusApp::slotZoom(double zoomFactor)
 	}
 	//Zoom to %
 	else
-		finalZoomFactor = zoomFactor*Prefs.DisScale/100.0;
+		finalZoomFactor = zoomFactor*prefsManager->appPrefs.DisScale/100.0;
 
 	view->setScale(finalZoomFactor);
 	view->slotDoZoom();
@@ -6506,8 +6508,8 @@ void ScribusApp::setPagePalette(bool visible)
 {
 	if (!visible)
 	{
-		Prefs.SepalT = pagePalette->masterPageList->Thumb;
-		Prefs.SepalN = pagePalette->PageView->Namen;
+		prefsManager->appPrefs.SepalT = pagePalette->masterPageList->Thumb;
+		prefsManager->appPrefs.SepalN = pagePalette->PageView->Namen;
 	}
 }
 
@@ -7401,10 +7403,10 @@ void ScribusApp::SetNewFont(QString nf)
 	QString nf2 = nf;
 	if (!doc->UsedFonts.contains(nf))
 	{
-		if (doc->AddFont(nf, Prefs.AvailFonts[nf]->Font))
+		if (doc->AddFont(nf, prefsManager->appPrefs.AvailFonts[nf]->Font))
 		{
-			a = FontMenu->insertItem(new FmItem(nf, Prefs.AvailFonts[nf]->Font));
-			FontID.insert(a, Prefs.AvailFonts[nf]->SCName);
+			a = FontMenu->insertItem(new FmItem(nf, prefsManager->appPrefs.AvailFonts[nf]->Font));
+			FontID.insert(a, prefsManager->appPrefs.AvailFonts[nf]->SCName);
 		}
 		else
 		{
@@ -7610,7 +7612,7 @@ void ScribusApp::slotEditStyles()
 {
 	if (HaveDoc)
 	{
-		StilFormate *dia = new StilFormate(this, doc, &Prefs);
+		StilFormate *dia = new StilFormate(this, doc);
 		connect(dia, SIGNAL(saveStyle(StilFormate *)), this, SLOT(saveStyles(StilFormate *)));
 		if (dia->exec())
 			saveStyles(dia);
@@ -7929,10 +7931,10 @@ void ScribusApp::saveStyles(StilFormate *dia)
 			QString nf = doc->docParagraphStyles[a].Font;
 			if (!doc->UsedFonts.contains(nf))
 			{
-				if (doc->AddFont(nf, Prefs.AvailFonts[nf]->Font))
+				if (doc->AddFont(nf, prefsManager->appPrefs.AvailFonts[nf]->Font))
 				{
-					int ff = FontMenu->insertItem(new FmItem(nf, Prefs.AvailFonts[nf]->Font));
-					FontID.insert(ff, Prefs.AvailFonts[nf]->SCName);
+					int ff = FontMenu->insertItem(new FmItem(nf, prefsManager->appPrefs.AvailFonts[nf]->Font));
+					FontID.insert(ff, prefsManager->appPrefs.AvailFonts[nf]->SCName);
 				}
 				else
 					doc->docParagraphStyles[a].Font = doc->toolSettings.defFont;
@@ -7997,8 +7999,8 @@ void ScribusApp::slotEditColors()
 	if (HaveDoc)
 		edc = doc->PageColors;
 	else
-		edc = Prefs.DColors;
-	Farbmanager* dia = new Farbmanager(this, edc, HaveDoc, Prefs.DColorSet, Prefs.CustomColorSets);
+		edc = prefsManager->appPrefs.DColors;
+	Farbmanager* dia = new Farbmanager(this, edc, HaveDoc, prefsManager->appPrefs.DColorSet, prefsManager->appPrefs.CustomColorSets);
 	if (dia->exec())
 	{
 		if (HaveDoc)
@@ -8126,13 +8128,13 @@ void ScribusApp::slotEditColors()
 		}
 		else
 		{
-			Prefs.DColors = dia->EditColors;
-			Prefs.DColorSet = dia->LoadColSet->text();
-			propertiesPalette->Cpal->SetColors(Prefs.DColors);
+			prefsManager->appPrefs.DColors = dia->EditColors;
+			prefsManager->appPrefs.DColorSet = dia->LoadColSet->text();
+			propertiesPalette->Cpal->SetColors(prefsManager->appPrefs.DColors);
 		}
 	}
 	if (!HaveDoc)
-		Prefs.CustomColorSets = dia->CColSet;
+		prefsManager->appPrefs.CustomColorSets = dia->CColSet;
 	delete dia;
 }
 
@@ -8379,8 +8381,8 @@ void ScribusApp::buildFontMenu()
 	FontMenu->clear();
 	int a;
 	QString b = " ";
-	SCFontsIterator it(Prefs.AvailFonts);
-	FontSub = new FontCombo(0, &Prefs);
+	SCFontsIterator it(prefsManager->appPrefs.AvailFonts);
+	FontSub = new FontCombo(0);
 	FontMenu->insertItem(FontSub);
 	connect(FontSub, SIGNAL(activated(int)), this, SLOT(setItemFont2(int)));
 	FontMenu->insertSeparator();
@@ -8407,8 +8409,8 @@ void ScribusApp::buildFontMenu()
 
 const bool ScribusApp::GetAllFonts(bool showFontInfo)
 {
-	Prefs.AvailFonts.GetFonts(PrefsPfad, showFontInfo);
-	if (Prefs.AvailFonts.isEmpty())
+	prefsManager->appPrefs.AvailFonts.GetFonts(PrefsPfad, showFontInfo);
+	if (prefsManager->appPrefs.AvailFonts.isEmpty())
 		return true;
 	return false;
 }
@@ -8419,208 +8421,208 @@ void ScribusApp::slotPrefsOrg()
 	double UmReFaktor;
 	setAppMode(modeNormal);
 	bool zChange = false;
-	Preferences *dia = new Preferences(this, &Prefs);
+	Preferences *dia = new Preferences(this);
 	if (dia->exec())
 	{
-		Prefs.AppFontSize = dia->GFsize->value();
-		Prefs.Wheelval = dia->SpinBox3->value();
-		Prefs.RecentDCount = dia->Recen->value();
-		Prefs.DocDir = dia->Docs->text();
-		DocDir = Prefs.DocDir;
-		Prefs.ProfileDir = dia->ProPfad->text();
-		Prefs.ScriptDir = dia->ScriptPfad->text();
-		Prefs.documentTemplatesDir = dia->DocumentTemplateDir->text();
+		prefsManager->appPrefs.AppFontSize = dia->GFsize->value();
+		prefsManager->appPrefs.Wheelval = dia->SpinBox3->value();
+		prefsManager->appPrefs.RecentDCount = dia->Recen->value();
+		prefsManager->appPrefs.DocDir = dia->Docs->text();
+		DocDir = prefsManager->appPrefs.DocDir;
+		prefsManager->appPrefs.ProfileDir = dia->ProPfad->text();
+		prefsManager->appPrefs.ScriptDir = dia->ScriptPfad->text();
+		prefsManager->appPrefs.documentTemplatesDir = dia->DocumentTemplateDir->text();
 		switch (dia->PreviewSize->currentItem())
 		{
 		case 0:
-			Prefs.PSize = 40;
+			prefsManager->appPrefs.PSize = 40;
 			break;
 		case 1:
-			Prefs.PSize = 60;
+			prefsManager->appPrefs.PSize = 60;
 			break;
 		case 2:
-			Prefs.PSize = 80;
+			prefsManager->appPrefs.PSize = 80;
 			break;
 		}
-		Prefs.SaveAtQ = dia->SaveAtQuit->isChecked();
+		prefsManager->appPrefs.SaveAtQ = dia->SaveAtQuit->isChecked();
 		scrapbookPalette->rebuildView();
 		scrapbookPalette->AdjustMenu();
-		if (Prefs.guiLanguage!=dia->selectedGUILang)
+		if (prefsManager->appPrefs.guiLanguage!=dia->selectedGUILang)
 		{
 			ScQApp->changeGUILanguage(dia->selectedGUILang);
 		}
-		Prefs.guiLanguage=dia->selectedGUILang;
-		if (Prefs.GUI != dia->GUICombo->currentText())
+		prefsManager->appPrefs.guiLanguage=dia->selectedGUILang;
+		if (prefsManager->appPrefs.GUI != dia->GUICombo->currentText())
 		{
-			Prefs.GUI = dia->GUICombo->currentText();
-			qApp->setStyle(QStyleFactory::create(Prefs.GUI));
+			prefsManager->appPrefs.GUI = dia->GUICombo->currentText();
+			qApp->setStyle(QStyleFactory::create(prefsManager->appPrefs.GUI));
 		}
 		QFont apf = qApp->font();
-		apf.setPointSize(Prefs.AppFontSize);
+		apf.setPointSize(prefsManager->appPrefs.AppFontSize);
 		qApp->setFont(apf,true);
-		dia->tabTools->polyWidget->getValues(&Prefs.toolSettings.polyC, &Prefs.toolSettings.polyFd, &Prefs.toolSettings.polyF, &Prefs.toolSettings.polyS, &Prefs.toolSettings.polyR);
-		Prefs.pageSize = dia->prefsPageSizeName;
-		Prefs.pageOrientation = dia->GZComboO->currentItem();
-		Prefs.PageWidth = dia->Pagebr;
-		Prefs.PageHeight = dia->Pageho;
-		Prefs.RandOben = dia->GroupRand->RandT;
-		Prefs.RandUnten = dia->GroupRand->RandB;
-		Prefs.RandLinks = dia->GroupRand->RandL;
-		Prefs.RandRechts = dia->GroupRand->RandR;
-		Prefs.FacingPages = dia->facingPages->isChecked();
-		Prefs.LeftPageFirst = dia->Linkszuerst->isChecked();
-		Prefs.imageEditorExecutable = dia->GimpName->text();
-		Prefs.gs_AntiAliasGraphics = dia->GSantiGraph->isChecked();
-		Prefs.gs_AntiAliasText = dia->GSantiText->isChecked();
-		Prefs.gs_exe = dia->GSName->text();
-		Prefs.gs_Resolution = dia->GSResolution->value();
-		Prefs.ClipMargin = dia->ClipMarg->isChecked();
-		Prefs.GCRMode = dia->DoGCR->isChecked();
-		Prefs.guidesSettings.before = dia->tabGuides->inBackground->isChecked();
-		Prefs.marginColored = dia->checkUnprintable->isChecked();
-		Prefs.askBeforeSubstituite = dia->AskForSubs->isChecked();
-		Prefs.haveStylePreview = dia->stylePreview->isChecked();
-		Prefs.showStartupDialog = dia->startUpDialog->isChecked();
+		dia->tabTools->polyWidget->getValues(&prefsManager->appPrefs.toolSettings.polyC, &prefsManager->appPrefs.toolSettings.polyFd, &prefsManager->appPrefs.toolSettings.polyF, &prefsManager->appPrefs.toolSettings.polyS, &prefsManager->appPrefs.toolSettings.polyR);
+		prefsManager->appPrefs.pageSize = dia->prefsPageSizeName;
+		prefsManager->appPrefs.pageOrientation = dia->GZComboO->currentItem();
+		prefsManager->appPrefs.PageWidth = dia->Pagebr;
+		prefsManager->appPrefs.PageHeight = dia->Pageho;
+		prefsManager->appPrefs.RandOben = dia->GroupRand->RandT;
+		prefsManager->appPrefs.RandUnten = dia->GroupRand->RandB;
+		prefsManager->appPrefs.RandLinks = dia->GroupRand->RandL;
+		prefsManager->appPrefs.RandRechts = dia->GroupRand->RandR;
+		prefsManager->appPrefs.FacingPages = dia->facingPages->isChecked();
+		prefsManager->appPrefs.LeftPageFirst = dia->Linkszuerst->isChecked();
+		prefsManager->appPrefs.imageEditorExecutable = dia->GimpName->text();
+		prefsManager->appPrefs.gs_AntiAliasGraphics = dia->GSantiGraph->isChecked();
+		prefsManager->appPrefs.gs_AntiAliasText = dia->GSantiText->isChecked();
+		prefsManager->appPrefs.gs_exe = dia->GSName->text();
+		prefsManager->appPrefs.gs_Resolution = dia->GSResolution->value();
+		prefsManager->appPrefs.ClipMargin = dia->ClipMarg->isChecked();
+		prefsManager->appPrefs.GCRMode = dia->DoGCR->isChecked();
+		prefsManager->appPrefs.guidesSettings.before = dia->tabGuides->inBackground->isChecked();
+		prefsManager->appPrefs.marginColored = dia->checkUnprintable->isChecked();
+		prefsManager->appPrefs.askBeforeSubstituite = dia->AskForSubs->isChecked();
+		prefsManager->appPrefs.haveStylePreview = dia->stylePreview->isChecked();
+		prefsManager->appPrefs.showStartupDialog = dia->startUpDialog->isChecked();
 		// lorem ipsum
-		Prefs.useStandardLI = dia->useStandardLI->isChecked();
-		Prefs.paragraphsLI = dia->paragraphsLI->value();
-		if (Prefs.DisScale != dia->DisScale)
+		prefsManager->appPrefs.useStandardLI = dia->useStandardLI->isChecked();
+		prefsManager->appPrefs.paragraphsLI = dia->paragraphsLI->value();
+		if (prefsManager->appPrefs.DisScale != dia->DisScale)
 		{
-			Prefs.DisScale = dia->DisScale;
+			prefsManager->appPrefs.DisScale = dia->DisScale;
 			zChange = true;
 		}
 		propertiesPalette->Cpal->UseTrans(true);
-		Prefs.docUnitIndex = dia->UnitCombo->currentItem();
-		UmReFaktor = unitGetRatioFromIndex(Prefs.docUnitIndex);
-		Prefs.ScratchBottom = dia->bottomScratch->value() / UmReFaktor;
-		Prefs.ScratchLeft = dia->leftScratch->value() / UmReFaktor;
-		Prefs.ScratchRight = dia->rightScratch->value() / UmReFaktor;
-		Prefs.ScratchTop = dia->topScratch->value() / UmReFaktor;
-		Prefs.DpapColor = dia->colorPaper;
-		Prefs.toolSettings.defFont = dia->tabTools->fontComboText->currentText();
-		Prefs.toolSettings.defSize = dia->tabTools->sizeComboText->currentText().left(2).toInt() * 10;
-		Prefs.guidesSettings.marginsShown = dia->tabGuides->marginBox->isChecked();
-		Prefs.guidesSettings.framesShown = dia->checkFrame->isChecked();
-		Prefs.guidesSettings.gridShown = dia->tabGuides->checkGrid->isChecked();
-		Prefs.guidesSettings.guidesShown = dia->tabGuides->guideBox->isChecked();
-		Prefs.guidesSettings.baseShown = dia->tabGuides->baselineBox->isChecked();
-		Prefs.guidesSettings.showPic = dia->checkPictures->isChecked();
-		Prefs.guidesSettings.linkShown = dia->checkLink->isChecked();
-		Prefs.guidesSettings.showControls = dia->checkControl->isChecked();
-		Prefs.guidesSettings.grabRad = dia->tabGuides->grabDistance->value();
-		Prefs.guidesSettings.guideRad = dia->tabGuides->snapDistance->value() / UmReFaktor;
-		Prefs.guidesSettings.minorGrid = dia->tabGuides->minorSpace->value() / UmReFaktor;
-		Prefs.guidesSettings.majorGrid = dia->tabGuides->majorSpace->value() / UmReFaktor;
-		Prefs.guidesSettings.minorColor = dia->tabGuides->colorMinorGrid;
-		Prefs.guidesSettings.majorColor = dia->tabGuides->colorMajorGrid;
-		Prefs.guidesSettings.margColor = dia->tabGuides->colorMargin;
-		Prefs.guidesSettings.guideColor = dia->tabGuides->colorGuides;
-		Prefs.guidesSettings.baseColor = dia->tabGuides->colorBaselineGrid;
-		Prefs.checkerProfiles = dia->tabDocChecker->checkerProfile;
-		Prefs.curCheckProfile = dia->tabDocChecker->curCheckProfile->currentText();
-		Prefs.typographicSetttings.valueSuperScript = dia->tabTypo->superDisplacement->value();
-		Prefs.typographicSetttings.scalingSuperScript = dia->tabTypo->superScaling->value();
-		Prefs.typographicSetttings.valueSubScript = dia->tabTypo->subDisplacement->value();
-		Prefs.typographicSetttings.scalingSubScript = dia->tabTypo->subScaling->value();
-		Prefs.typographicSetttings.valueSmallCaps = dia->tabTypo->capsScaling->value();
-		Prefs.typographicSetttings.autoLineSpacing = dia->tabTypo->autoLine->value();
-		Prefs.typographicSetttings.valueBaseGrid = dia->tabGuides->baseGrid->value() / UmReFaktor;
-		Prefs.typographicSetttings.offsetBaseGrid = dia->tabGuides->baseOffset->value() / UmReFaktor;
-		Prefs.typographicSetttings.valueUnderlinePos = qRound(dia->tabTypo->underlinePos->value() * 10);
-		Prefs.typographicSetttings.valueUnderlineWidth = qRound(dia->tabTypo->underlineWidth->value() * 10);
-		Prefs.typographicSetttings.valueStrikeThruPos = qRound(dia->tabTypo->strikethruPos->value() * 10);
-		Prefs.typographicSetttings.valueStrikeThruWidth = qRound(dia->tabTypo->strikethruWidth->value() * 10);
-		Prefs.toolSettings.dPen = dia->tabTools->colorComboLineShape->currentText();
-		if (Prefs.toolSettings.dPen == tr("None"))
-			Prefs.toolSettings.dPen = "None";
-		Prefs.toolSettings.dPenText = dia->tabTools->colorComboText->currentText();
-		if (Prefs.toolSettings.dPenText == tr("None"))
-			Prefs.toolSettings.dPenText = "None";
-		Prefs.toolSettings.dStrokeText = dia->tabTools->colorComboStrokeText->currentText();
-		if (Prefs.toolSettings.dStrokeText == tr("None"))
-			Prefs.toolSettings.dStrokeText = "None";
-		Prefs.toolSettings.dCols = dia->tabTools->columnsText->value();
-		Prefs.toolSettings.dGap = dia->tabTools->gapText->value() / UmReFaktor;
-		Prefs.toolSettings.dTabWidth = dia->tabTools->gapTab->value() / UmReFaktor;
-		Prefs.toolSettings.dBrush = dia->tabTools->comboFillShape->currentText();
-		if (Prefs.toolSettings.dBrush == tr("None"))
-			Prefs.toolSettings.dBrush = "None";
-		Prefs.toolSettings.dShade = dia->tabTools->shadingFillShape->value();
-		Prefs.toolSettings.dShade2 = dia->tabTools->shadingLineShape->value();
+		prefsManager->appPrefs.docUnitIndex = dia->UnitCombo->currentItem();
+		UmReFaktor = unitGetRatioFromIndex(prefsManager->appPrefs.docUnitIndex);
+		prefsManager->appPrefs.ScratchBottom = dia->bottomScratch->value() / UmReFaktor;
+		prefsManager->appPrefs.ScratchLeft = dia->leftScratch->value() / UmReFaktor;
+		prefsManager->appPrefs.ScratchRight = dia->rightScratch->value() / UmReFaktor;
+		prefsManager->appPrefs.ScratchTop = dia->topScratch->value() / UmReFaktor;
+		prefsManager->appPrefs.DpapColor = dia->colorPaper;
+		prefsManager->appPrefs.toolSettings.defFont = dia->tabTools->fontComboText->currentText();
+		prefsManager->appPrefs.toolSettings.defSize = dia->tabTools->sizeComboText->currentText().left(2).toInt() * 10;
+		prefsManager->appPrefs.guidesSettings.marginsShown = dia->tabGuides->marginBox->isChecked();
+		prefsManager->appPrefs.guidesSettings.framesShown = dia->checkFrame->isChecked();
+		prefsManager->appPrefs.guidesSettings.gridShown = dia->tabGuides->checkGrid->isChecked();
+		prefsManager->appPrefs.guidesSettings.guidesShown = dia->tabGuides->guideBox->isChecked();
+		prefsManager->appPrefs.guidesSettings.baseShown = dia->tabGuides->baselineBox->isChecked();
+		prefsManager->appPrefs.guidesSettings.showPic = dia->checkPictures->isChecked();
+		prefsManager->appPrefs.guidesSettings.linkShown = dia->checkLink->isChecked();
+		prefsManager->appPrefs.guidesSettings.showControls = dia->checkControl->isChecked();
+		prefsManager->appPrefs.guidesSettings.grabRad = dia->tabGuides->grabDistance->value();
+		prefsManager->appPrefs.guidesSettings.guideRad = dia->tabGuides->snapDistance->value() / UmReFaktor;
+		prefsManager->appPrefs.guidesSettings.minorGrid = dia->tabGuides->minorSpace->value() / UmReFaktor;
+		prefsManager->appPrefs.guidesSettings.majorGrid = dia->tabGuides->majorSpace->value() / UmReFaktor;
+		prefsManager->appPrefs.guidesSettings.minorColor = dia->tabGuides->colorMinorGrid;
+		prefsManager->appPrefs.guidesSettings.majorColor = dia->tabGuides->colorMajorGrid;
+		prefsManager->appPrefs.guidesSettings.margColor = dia->tabGuides->colorMargin;
+		prefsManager->appPrefs.guidesSettings.guideColor = dia->tabGuides->colorGuides;
+		prefsManager->appPrefs.guidesSettings.baseColor = dia->tabGuides->colorBaselineGrid;
+		prefsManager->appPrefs.checkerProfiles = dia->tabDocChecker->checkerProfile;
+		prefsManager->appPrefs.curCheckProfile = dia->tabDocChecker->curCheckProfile->currentText();
+		prefsManager->appPrefs.typographicSetttings.valueSuperScript = dia->tabTypo->superDisplacement->value();
+		prefsManager->appPrefs.typographicSetttings.scalingSuperScript = dia->tabTypo->superScaling->value();
+		prefsManager->appPrefs.typographicSetttings.valueSubScript = dia->tabTypo->subDisplacement->value();
+		prefsManager->appPrefs.typographicSetttings.scalingSubScript = dia->tabTypo->subScaling->value();
+		prefsManager->appPrefs.typographicSetttings.valueSmallCaps = dia->tabTypo->capsScaling->value();
+		prefsManager->appPrefs.typographicSetttings.autoLineSpacing = dia->tabTypo->autoLine->value();
+		prefsManager->appPrefs.typographicSetttings.valueBaseGrid = dia->tabGuides->baseGrid->value() / UmReFaktor;
+		prefsManager->appPrefs.typographicSetttings.offsetBaseGrid = dia->tabGuides->baseOffset->value() / UmReFaktor;
+		prefsManager->appPrefs.typographicSetttings.valueUnderlinePos = qRound(dia->tabTypo->underlinePos->value() * 10);
+		prefsManager->appPrefs.typographicSetttings.valueUnderlineWidth = qRound(dia->tabTypo->underlineWidth->value() * 10);
+		prefsManager->appPrefs.typographicSetttings.valueStrikeThruPos = qRound(dia->tabTypo->strikethruPos->value() * 10);
+		prefsManager->appPrefs.typographicSetttings.valueStrikeThruWidth = qRound(dia->tabTypo->strikethruWidth->value() * 10);
+		prefsManager->appPrefs.toolSettings.dPen = dia->tabTools->colorComboLineShape->currentText();
+		if (prefsManager->appPrefs.toolSettings.dPen == tr("None"))
+			prefsManager->appPrefs.toolSettings.dPen = "None";
+		prefsManager->appPrefs.toolSettings.dPenText = dia->tabTools->colorComboText->currentText();
+		if (prefsManager->appPrefs.toolSettings.dPenText == tr("None"))
+			prefsManager->appPrefs.toolSettings.dPenText = "None";
+		prefsManager->appPrefs.toolSettings.dStrokeText = dia->tabTools->colorComboStrokeText->currentText();
+		if (prefsManager->appPrefs.toolSettings.dStrokeText == tr("None"))
+			prefsManager->appPrefs.toolSettings.dStrokeText = "None";
+		prefsManager->appPrefs.toolSettings.dCols = dia->tabTools->columnsText->value();
+		prefsManager->appPrefs.toolSettings.dGap = dia->tabTools->gapText->value() / UmReFaktor;
+		prefsManager->appPrefs.toolSettings.dTabWidth = dia->tabTools->gapTab->value() / UmReFaktor;
+		prefsManager->appPrefs.toolSettings.dBrush = dia->tabTools->comboFillShape->currentText();
+		if (prefsManager->appPrefs.toolSettings.dBrush == tr("None"))
+			prefsManager->appPrefs.toolSettings.dBrush = "None";
+		prefsManager->appPrefs.toolSettings.dShade = dia->tabTools->shadingFillShape->value();
+		prefsManager->appPrefs.toolSettings.dShade2 = dia->tabTools->shadingLineShape->value();
 		switch (dia->tabTools->tabFillCombo->currentItem())
 		{
 			case 0:
-				Prefs.toolSettings.tabFillChar = "";
+				prefsManager->appPrefs.toolSettings.tabFillChar = "";
 				break;
 			case 1:
-				Prefs.toolSettings.tabFillChar = ".";
+				prefsManager->appPrefs.toolSettings.tabFillChar = ".";
 				break;
 			case 2:
-				Prefs.toolSettings.tabFillChar = "-";
+				prefsManager->appPrefs.toolSettings.tabFillChar = "-";
 				break;
 			case 3:
-				Prefs.toolSettings.tabFillChar = "_";
+				prefsManager->appPrefs.toolSettings.tabFillChar = "_";
 				break;
 			case 4:
-				Prefs.toolSettings.tabFillChar = dia->tabTools->tabFillCombo->currentText().right(1);
+				prefsManager->appPrefs.toolSettings.tabFillChar = dia->tabTools->tabFillCombo->currentText().right(1);
 				break;
 		}
 		switch (dia->tabTools->comboStyleShape->currentItem())
 		{
 		case 0:
-			Prefs.toolSettings.dLineArt = SolidLine;
+			prefsManager->appPrefs.toolSettings.dLineArt = SolidLine;
 			break;
 		case 1:
-			Prefs.toolSettings.dLineArt = DashLine;
+			prefsManager->appPrefs.toolSettings.dLineArt = DashLine;
 			break;
 		case 2:
-			Prefs.toolSettings.dLineArt = DotLine;
+			prefsManager->appPrefs.toolSettings.dLineArt = DotLine;
 			break;
 		case 3:
-			Prefs.toolSettings.dLineArt = DashDotLine;
+			prefsManager->appPrefs.toolSettings.dLineArt = DashDotLine;
 			break;
 		case 4:
-			Prefs.toolSettings.dLineArt = DashDotDotLine;
+			prefsManager->appPrefs.toolSettings.dLineArt = DashDotDotLine;
 			break;
 		}
-		Prefs.toolSettings.dWidth = dia->tabTools->lineWidthShape->value();
-		Prefs.toolSettings.dPenLine = dia->tabTools->colorComboLine->currentText();
-		if (Prefs.toolSettings.dPenLine == tr("None"))
-			Prefs.toolSettings.dPenLine = "None";
-		Prefs.toolSettings.dShadeLine = dia->tabTools->shadingLine->value();
+		prefsManager->appPrefs.toolSettings.dWidth = dia->tabTools->lineWidthShape->value();
+		prefsManager->appPrefs.toolSettings.dPenLine = dia->tabTools->colorComboLine->currentText();
+		if (prefsManager->appPrefs.toolSettings.dPenLine == tr("None"))
+			prefsManager->appPrefs.toolSettings.dPenLine = "None";
+		prefsManager->appPrefs.toolSettings.dShadeLine = dia->tabTools->shadingLine->value();
 		switch (dia->tabTools->comboStyleLine->currentItem())
 		{
 		case 0:
-			Prefs.toolSettings.dLstyleLine = SolidLine;
+			prefsManager->appPrefs.toolSettings.dLstyleLine = SolidLine;
 			break;
 		case 1:
-			Prefs.toolSettings.dLstyleLine = DashLine;
+			prefsManager->appPrefs.toolSettings.dLstyleLine = DashLine;
 			break;
 		case 2:
-			Prefs.toolSettings.dLstyleLine = DotLine;
+			prefsManager->appPrefs.toolSettings.dLstyleLine = DotLine;
 			break;
 		case 3:
-			Prefs.toolSettings.dLstyleLine = DashDotLine;
+			prefsManager->appPrefs.toolSettings.dLstyleLine = DashDotLine;
 			break;
 		case 4:
-			Prefs.toolSettings.dLstyleLine = DashDotDotLine;
+			prefsManager->appPrefs.toolSettings.dLstyleLine = DashDotDotLine;
 			break;
 		}
-		Prefs.toolSettings.dWidthLine = dia->tabTools->lineWidthLine->value();
-		Prefs.toolSettings.dStartArrow = dia->tabTools->startArrow->currentItem();
-		Prefs.toolSettings.dEndArrow = dia->tabTools->endArrow->currentItem();
-		Prefs.toolSettings.magMin = dia->tabTools->minimumZoom->value();
-		Prefs.toolSettings.magMax = dia->tabTools->maximumZoom->value();
-		Prefs.toolSettings.magStep = dia->tabTools->zoomStep->value();
-		Prefs.toolSettings.dBrushPict = dia->tabTools->comboFillImage->currentText();
-		if (Prefs.toolSettings.dBrushPict == tr("None"))
-			Prefs.toolSettings.dBrushPict = "None";
-		Prefs.toolSettings.shadePict = dia->tabTools->shadingFillImage->value();
-		Prefs.toolSettings.scaleX = static_cast<double>(dia->tabTools->scalingHorizontal->value()) / 100.0;
-		Prefs.toolSettings.scaleY = static_cast<double>(dia->tabTools->scalingVertical->value()) / 100.0;
-		Prefs.toolSettings.scaleType = dia->tabTools->buttonGroup3->isChecked();
-		Prefs.toolSettings.aspectRatio = dia->tabTools->checkRatioImage->isChecked();
-		Prefs.toolSettings.useEmbeddedPath = dia->tabTools->embeddedPath->isChecked();
+		prefsManager->appPrefs.toolSettings.dWidthLine = dia->tabTools->lineWidthLine->value();
+		prefsManager->appPrefs.toolSettings.dStartArrow = dia->tabTools->startArrow->currentItem();
+		prefsManager->appPrefs.toolSettings.dEndArrow = dia->tabTools->endArrow->currentItem();
+		prefsManager->appPrefs.toolSettings.magMin = dia->tabTools->minimumZoom->value();
+		prefsManager->appPrefs.toolSettings.magMax = dia->tabTools->maximumZoom->value();
+		prefsManager->appPrefs.toolSettings.magStep = dia->tabTools->zoomStep->value();
+		prefsManager->appPrefs.toolSettings.dBrushPict = dia->tabTools->comboFillImage->currentText();
+		if (prefsManager->appPrefs.toolSettings.dBrushPict == tr("None"))
+			prefsManager->appPrefs.toolSettings.dBrushPict = "None";
+		prefsManager->appPrefs.toolSettings.shadePict = dia->tabTools->shadingFillImage->value();
+		prefsManager->appPrefs.toolSettings.scaleX = static_cast<double>(dia->tabTools->scalingHorizontal->value()) / 100.0;
+		prefsManager->appPrefs.toolSettings.scaleY = static_cast<double>(dia->tabTools->scalingVertical->value()) / 100.0;
+		prefsManager->appPrefs.toolSettings.scaleType = dia->tabTools->buttonGroup3->isChecked();
+		prefsManager->appPrefs.toolSettings.aspectRatio = dia->tabTools->checkRatioImage->isChecked();
+		prefsManager->appPrefs.toolSettings.useEmbeddedPath = dia->tabTools->embeddedPath->isChecked();
 		int haRes = 0;
 		if (dia->tabTools->checkFullRes->isChecked())
 			haRes = 0;
@@ -8628,18 +8630,18 @@ void ScribusApp::slotPrefsOrg()
 			haRes = 1;
 		if (dia->tabTools->checkHalfRes->isChecked())
 			haRes = 2;
-		Prefs.toolSettings.lowResType = haRes;
-		Prefs.AutoSave = dia->ASon->isChecked();
-		Prefs.AutoSaveTime = dia->ASTime->value() * 60 * 1000;
-		Prefs.MinWordLen = dia->tabHyphenator->wordLen->value();
-		Prefs.Language = GetLang(dia->tabHyphenator->language->currentText());
-		Prefs.Automatic = !dia->tabHyphenator->verbose->isChecked();
-		Prefs.AutoCheck = dia->tabHyphenator->input->isChecked();
-		Prefs.HyCount = dia->tabHyphenator->maxCount->value();
+		prefsManager->appPrefs.toolSettings.lowResType = haRes;
+		prefsManager->appPrefs.AutoSave = dia->ASon->isChecked();
+		prefsManager->appPrefs.AutoSaveTime = dia->ASTime->value() * 60 * 1000;
+		prefsManager->appPrefs.MinWordLen = dia->tabHyphenator->wordLen->value();
+		prefsManager->appPrefs.Language = GetLang(dia->tabHyphenator->language->currentText());
+		prefsManager->appPrefs.Automatic = !dia->tabHyphenator->verbose->isChecked();
+		prefsManager->appPrefs.AutoCheck = dia->tabHyphenator->input->isChecked();
+		prefsManager->appPrefs.HyCount = dia->tabHyphenator->maxCount->value();
 		if (CMSavail)
 			dia->tabColorManagement->setValues();
 		uint a = 0;
-		SCFontsIterator it(Prefs.AvailFonts);
+		SCFontsIterator it(prefsManager->appPrefs.AvailFonts);
 		for ( ; it.current() ; ++it)
 		{
 			it.current()->EmbedPS = dia->tabFonts->fontFlags[it.currentKey()].FlagPS;
@@ -8648,33 +8650,33 @@ void ScribusApp::slotPrefsOrg()
 		}
 		a = 0;
 		QMap<QString,QString>::Iterator itfsu;
-		Prefs.GFontSub.clear();
+		prefsManager->appPrefs.GFontSub.clear();
 		for (itfsu = dia->tabFonts->RList.begin(); itfsu != dia->tabFonts->RList.end(); ++itfsu)
 		{
-			Prefs.GFontSub[itfsu.key()] = dia->tabFonts->FlagsRepl.at(a)->currentText();
+			prefsManager->appPrefs.GFontSub[itfsu.key()] = dia->tabFonts->FlagsRepl.at(a)->currentText();
 			a++;
 		}
-		FontSub->RebuildList(&Prefs, 0);
+		FontSub->RebuildList(0);
 		propertiesPalette->Fonts->RebuildList(0);
-		Prefs.PDF_Options.Thumbnails = dia->tabPDF->CheckBox1->isChecked();
-		Prefs.PDF_Options.Compress = dia->tabPDF->Compression->isChecked();
-		Prefs.PDF_Options.CompressMethod = dia->tabPDF->CMethod->currentItem();
-		Prefs.PDF_Options.Quality = dia->tabPDF->CQuality->currentItem();
-		Prefs.PDF_Options.Resolution = dia->tabPDF->Resolution->value();
-		Prefs.PDF_Options.RecalcPic = dia->tabPDF->DSColor->isChecked();
-		Prefs.PDF_Options.PicRes = dia->tabPDF->ValC->value();
-		Prefs.PDF_Options.Bookmarks = dia->tabPDF->CheckBM->isChecked();
-		Prefs.PDF_Options.Binding = dia->tabPDF->ComboBind->currentItem();
-		Prefs.PDF_Options.MirrorH = dia->tabPDF->MirrorH->isOn();
-		Prefs.PDF_Options.MirrorV = dia->tabPDF->MirrorV->isOn();
-		Prefs.PDF_Options.RotateDeg = dia->tabPDF->RotateDeg->currentItem() * 90;
-		Prefs.PDF_Options.Articles = dia->tabPDF->Article->isChecked();
-		Prefs.PDF_Options.Encrypt = dia->tabPDF->Encry->isChecked();
-		Prefs.PDF_Options.UseLPI = dia->tabPDF->UseLPI->isChecked();
-		Prefs.PDF_Options.BleedBottom = dia->tabPDF->BleedBottom->value() / UmReFaktor;
-		Prefs.PDF_Options.BleedTop = dia->tabPDF->BleedTop->value() / UmReFaktor;
-		Prefs.PDF_Options.BleedLeft = dia->tabPDF->BleedLeft->value() / UmReFaktor;
-		Prefs.PDF_Options.BleedRight = dia->tabPDF->BleedRight->value() / UmReFaktor;
+		prefsManager->appPrefs.PDF_Options.Thumbnails = dia->tabPDF->CheckBox1->isChecked();
+		prefsManager->appPrefs.PDF_Options.Compress = dia->tabPDF->Compression->isChecked();
+		prefsManager->appPrefs.PDF_Options.CompressMethod = dia->tabPDF->CMethod->currentItem();
+		prefsManager->appPrefs.PDF_Options.Quality = dia->tabPDF->CQuality->currentItem();
+		prefsManager->appPrefs.PDF_Options.Resolution = dia->tabPDF->Resolution->value();
+		prefsManager->appPrefs.PDF_Options.RecalcPic = dia->tabPDF->DSColor->isChecked();
+		prefsManager->appPrefs.PDF_Options.PicRes = dia->tabPDF->ValC->value();
+		prefsManager->appPrefs.PDF_Options.Bookmarks = dia->tabPDF->CheckBM->isChecked();
+		prefsManager->appPrefs.PDF_Options.Binding = dia->tabPDF->ComboBind->currentItem();
+		prefsManager->appPrefs.PDF_Options.MirrorH = dia->tabPDF->MirrorH->isOn();
+		prefsManager->appPrefs.PDF_Options.MirrorV = dia->tabPDF->MirrorV->isOn();
+		prefsManager->appPrefs.PDF_Options.RotateDeg = dia->tabPDF->RotateDeg->currentItem() * 90;
+		prefsManager->appPrefs.PDF_Options.Articles = dia->tabPDF->Article->isChecked();
+		prefsManager->appPrefs.PDF_Options.Encrypt = dia->tabPDF->Encry->isChecked();
+		prefsManager->appPrefs.PDF_Options.UseLPI = dia->tabPDF->UseLPI->isChecked();
+		prefsManager->appPrefs.PDF_Options.BleedBottom = dia->tabPDF->BleedBottom->value() / UmReFaktor;
+		prefsManager->appPrefs.PDF_Options.BleedTop = dia->tabPDF->BleedTop->value() / UmReFaktor;
+		prefsManager->appPrefs.PDF_Options.BleedLeft = dia->tabPDF->BleedLeft->value() / UmReFaktor;
+		prefsManager->appPrefs.PDF_Options.BleedRight = dia->tabPDF->BleedRight->value() / UmReFaktor;
 		if (dia->tabPDF->Encry->isChecked())
 		{
 			int Perm = -64;
@@ -8688,59 +8690,59 @@ void ScribusApp::slotPrefsOrg()
 				Perm += 16;
 			if (dia->tabPDF->AddSec->isChecked())
 				Perm += 32;
-			Prefs.PDF_Options.Permissions = Perm;
-			Prefs.PDF_Options.PassOwner = dia->tabPDF->PassOwner->text();
-			Prefs.PDF_Options.PassUser = dia->tabPDF->PassUser->text();
+			prefsManager->appPrefs.PDF_Options.Permissions = Perm;
+			prefsManager->appPrefs.PDF_Options.PassOwner = dia->tabPDF->PassOwner->text();
+			prefsManager->appPrefs.PDF_Options.PassUser = dia->tabPDF->PassUser->text();
 		}
 		if (dia->tabPDF->PDFVersionCombo->currentItem() == 0)
-			Prefs.PDF_Options.Version = PDFOptions::PDFVersion_13;
+			prefsManager->appPrefs.PDF_Options.Version = PDFOptions::PDFVersion_13;
 		if (dia->tabPDF->PDFVersionCombo->currentItem() == 1)
-			Prefs.PDF_Options.Version = PDFOptions::PDFVersion_14;
+			prefsManager->appPrefs.PDF_Options.Version = PDFOptions::PDFVersion_14;
 		if (dia->tabPDF->PDFVersionCombo->currentItem() == 2)
-			Prefs.PDF_Options.Version = PDFOptions::PDFVersion_15;
+			prefsManager->appPrefs.PDF_Options.Version = PDFOptions::PDFVersion_15;
 		if (dia->tabPDF->PDFVersionCombo->currentItem() == 3)
-			Prefs.PDF_Options.Version = PDFOptions::PDFVersion_X3;
+			prefsManager->appPrefs.PDF_Options.Version = PDFOptions::PDFVersion_X3;
 		if (dia->tabPDF->OutCombo->currentItem() == 0)
 		{
-			Prefs.PDF_Options.isGrayscale = false;
-			Prefs.PDF_Options.UseRGB = true;
-			Prefs.PDF_Options.UseProfiles = false;
-			Prefs.PDF_Options.UseProfiles2 = false;
+			prefsManager->appPrefs.PDF_Options.isGrayscale = false;
+			prefsManager->appPrefs.PDF_Options.UseRGB = true;
+			prefsManager->appPrefs.PDF_Options.UseProfiles = false;
+			prefsManager->appPrefs.PDF_Options.UseProfiles2 = false;
 		}
 		else
 		{
 			if (dia->tabPDF->OutCombo->currentItem() == 2)
 			{
-				Prefs.PDF_Options.isGrayscale = true;
-				Prefs.PDF_Options.UseRGB = false;
-				Prefs.PDF_Options.UseProfiles = false;
-				Prefs.PDF_Options.UseProfiles2 = false;
+				prefsManager->appPrefs.PDF_Options.isGrayscale = true;
+				prefsManager->appPrefs.PDF_Options.UseRGB = false;
+				prefsManager->appPrefs.PDF_Options.UseProfiles = false;
+				prefsManager->appPrefs.PDF_Options.UseProfiles2 = false;
 			}
 			else
 			{
-				Prefs.PDF_Options.isGrayscale = false;
-				Prefs.PDF_Options.UseRGB = false;
+				prefsManager->appPrefs.PDF_Options.isGrayscale = false;
+				prefsManager->appPrefs.PDF_Options.UseRGB = false;
 #ifdef HAVE_CMS
 				if (CMSuse)
 				{
-					Prefs.PDF_Options.UseProfiles = dia->tabPDF->EmbedProfs->isChecked();
-					Prefs.PDF_Options.UseProfiles2 = dia->tabPDF->EmbedProfs2->isChecked();
-					Prefs.PDF_Options.Intent = dia->tabPDF->IntendS->currentItem();
-					Prefs.PDF_Options.Intent2 = dia->tabPDF->IntendI->currentItem();
-					Prefs.PDF_Options.EmbeddedI = dia->tabPDF->NoEmbedded->isChecked();
-					Prefs.PDF_Options.SolidProf = dia->tabPDF->SolidPr->currentText();
-					Prefs.PDF_Options.ImageProf = dia->tabPDF->ImageP->currentText();
-					Prefs.PDF_Options.PrintProf = dia->tabPDF->PrintProfC->currentText();
+					prefsManager->appPrefs.PDF_Options.UseProfiles = dia->tabPDF->EmbedProfs->isChecked();
+					prefsManager->appPrefs.PDF_Options.UseProfiles2 = dia->tabPDF->EmbedProfs2->isChecked();
+					prefsManager->appPrefs.PDF_Options.Intent = dia->tabPDF->IntendS->currentItem();
+					prefsManager->appPrefs.PDF_Options.Intent2 = dia->tabPDF->IntendI->currentItem();
+					prefsManager->appPrefs.PDF_Options.EmbeddedI = dia->tabPDF->NoEmbedded->isChecked();
+					prefsManager->appPrefs.PDF_Options.SolidProf = dia->tabPDF->SolidPr->currentText();
+					prefsManager->appPrefs.PDF_Options.ImageProf = dia->tabPDF->ImageP->currentText();
+					prefsManager->appPrefs.PDF_Options.PrintProf = dia->tabPDF->PrintProfC->currentText();
 					}
 #endif
 				}
 		}
 
-		Prefs.defaultItemAttributes = *(dia->tabDefaultItemAttributes->getNewAttributes());
-		Prefs.defaultToCSetups = *(dia->tabDefaultTOCIndexPrefs->getNewToCs());
+		prefsManager->appPrefs.defaultItemAttributes = *(dia->tabDefaultItemAttributes->getNewAttributes());
+		prefsManager->appPrefs.defaultToCSetups = *(dia->tabDefaultTOCIndexPrefs->getNewToCs());
 
 		GetCMSProfiles();
-		Prefs.KeyActions = dia->tabKeys->getNewKeyMap();
+		prefsManager->appPrefs.KeyActions = dia->tabKeys->getNewKeyMap();
 		SetShortCut();
 		SavePrefs();
 		emit prefsChanged();
@@ -8749,8 +8751,8 @@ void ScribusApp::slotPrefsOrg()
 		{
 			QWidget* w = wsp->windowList().at( i );
 			ScribusWin* swin = (ScribusWin*)w;
-			swin->doc->guidesSettings.before = Prefs.guidesSettings.before;
-			swin->doc->marginColored = Prefs.marginColored;
+			swin->doc->guidesSettings.before = prefsManager->appPrefs.guidesSettings.before;
+			swin->doc->marginColored = prefsManager->appPrefs.marginColored;
 		}
 	}
 	delete dia;
@@ -8762,24 +8764,24 @@ void ScribusApp::SavePrefs()
 	// accidentally nuke the settings if the crash is before prefs are loaded
 	if (emergencyActivated)
 		return;
-	Prefs.mainWinSettings.xPosition = abs(pos().x());
-	Prefs.mainWinSettings.yPosition = abs(pos().y());
-	Prefs.mainWinSettings.width = size().width();
-	Prefs.mainWinSettings.height = size().height();
-	Prefs.mainToolBarSettings.visible = WerkTools->isVisible();
-	Prefs.pdfToolBarSettings.visible = WerkToolsP->isVisible();
+	prefsManager->appPrefs.mainWinSettings.xPosition = abs(pos().x());
+	prefsManager->appPrefs.mainWinSettings.yPosition = abs(pos().y());
+	prefsManager->appPrefs.mainWinSettings.width = size().width();
+	prefsManager->appPrefs.mainWinSettings.height = size().height();
+	prefsManager->appPrefs.mainToolBarSettings.visible = WerkTools->isVisible();
+	prefsManager->appPrefs.pdfToolBarSettings.visible = WerkToolsP->isVisible();
 
-	Prefs.RecentDocs.clear();
-	uint max = QMIN(Prefs.RecentDCount, RecentDocs.count());
+	prefsManager->appPrefs.RecentDocs.clear();
+	uint max = QMIN(prefsManager->appPrefs.RecentDCount, RecentDocs.count());
 	for (uint m = 0; m < max; ++m)
 	{
-		Prefs.RecentDocs.append(RecentDocs[m]);
+		prefsManager->appPrefs.RecentDocs.append(RecentDocs[m]);
 	}
-	Prefs.PrinterName = PDef.Pname;
-	Prefs.PrinterFile = PDef.Dname;
-	Prefs.PrinterCommand = PDef.Command;
+	prefsManager->appPrefs.PrinterName = PDef.Pname;
+	prefsManager->appPrefs.PrinterFile = PDef.Dname;
+	prefsManager->appPrefs.PrinterCommand = PDef.Command;
 	ScriXmlDoc *ss = new ScriXmlDoc();
-	ss->WritePref(&Prefs, PrefsPfad+"/scribus13.rc");
+	ss->WritePref(PrefsPfad+"/scribus13.rc");
 	delete ss;
 
     SavePrefsXML();
@@ -8790,7 +8792,7 @@ void ScribusApp::SavePrefsXML()
     if (prefsFile) {
         PrefsContext* userprefsContext = prefsFile->getContext("user_preferences");
         if (userprefsContext) {
-            userprefsContext->set("gui_language",Prefs.guiLanguage);
+            userprefsContext->set("gui_language",prefsManager->appPrefs.guiLanguage);
             //continue here...
             //Prefs."blah blah" =...
         }
@@ -8801,29 +8803,29 @@ void ScribusApp::SavePrefsXML()
 void ScribusApp::ReadPrefs(bool import12)
 {
 	ScriXmlDoc *ss = new ScriXmlDoc();
-	bool erg = ss->ReadPref(&Prefs, PrefsPfad+"/scribus13.rc", splashScreen, import12);
+	bool erg = ss->ReadPref(PrefsPfad+"/scribus13.rc", splashScreen, import12);
 	delete ss;
 	if (!erg)
 		return;
-	PDef.Pname = Prefs.PrinterName;
-	PDef.Dname = Prefs.PrinterFile;
-	PDef.Command = Prefs.PrinterCommand;
+	PDef.Pname = prefsManager->appPrefs.PrinterName;
+	PDef.Dname = prefsManager->appPrefs.PrinterFile;
+	PDef.Command = prefsManager->appPrefs.PrinterCommand;
 
-	uint max = QMIN(Prefs.RecentDCount, Prefs.RecentDocs.count());
+	uint max = QMIN(prefsManager->appPrefs.RecentDCount, prefsManager->appPrefs.RecentDocs.count());
 	for (uint m = 0; m < max; ++m)
 	{
-		QFileInfo fd(Prefs.RecentDocs[m]);
+		QFileInfo fd(prefsManager->appPrefs.RecentDocs[m]);
 		if (fd.exists())
 		{
-			RecentDocs.append(Prefs.RecentDocs[m]);
-			fileWatcher->addFile(Prefs.RecentDocs[m]);
+			RecentDocs.append(prefsManager->appPrefs.RecentDocs[m]);
+			fileWatcher->addFile(prefsManager->appPrefs.RecentDocs[m]);
 		}
 	}
 	rebuildRecentFileMenu();
-	move(Prefs.mainWinSettings.xPosition, Prefs.mainWinSettings.yPosition);
-	resize(Prefs.mainWinSettings.width, Prefs.mainWinSettings.height);
+	move(prefsManager->appPrefs.mainWinSettings.xPosition, prefsManager->appPrefs.mainWinSettings.yPosition);
+	resize(prefsManager->appPrefs.mainWinSettings.width, prefsManager->appPrefs.mainWinSettings.height);
 	ReadPrefsXML();
-	if (Prefs.checkerProfiles.count() == 0)
+	if (prefsManager->appPrefs.checkerProfiles.count() == 0)
 	{
 		struct checkerPrefs checkerSettings;
 		checkerSettings.ignoreErrors = false;
@@ -8837,15 +8839,15 @@ void ScribusApp::ReadPrefs(bool import12)
 		checkerSettings.checkAnnotations = false;
 		checkerSettings.checkRasterPDF = true;
 		checkerSettings.minResolution = 72.0;
-		Prefs.checkerProfiles.insert( tr("Postscript"), checkerSettings);
-		Prefs.checkerProfiles.insert( tr("PDF 1.3"), checkerSettings);
+		prefsManager->appPrefs.checkerProfiles.insert( tr("Postscript"), checkerSettings);
+		prefsManager->appPrefs.checkerProfiles.insert( tr("PDF 1.3"), checkerSettings);
 		checkerSettings.checkTransparency = false;
-		Prefs.checkerProfiles.insert( tr("PDF 1.4"), checkerSettings);
+		prefsManager->appPrefs.checkerProfiles.insert( tr("PDF 1.4"), checkerSettings);
 		checkerSettings.checkTransparency = true;
 		checkerSettings.checkAnnotations = true;
 		checkerSettings.minResolution = 144.0;
-		Prefs.checkerProfiles.insert( tr("PDF/X-3"), checkerSettings);
-		Prefs.curCheckProfile = tr("Postscript");
+		prefsManager->appPrefs.checkerProfiles.insert( tr("PDF/X-3"), checkerSettings);
+		prefsManager->appPrefs.curCheckProfile = tr("Postscript");
 	}
 }
 
@@ -8854,7 +8856,7 @@ void ScribusApp::ReadPrefsXML()
     if (prefsFile) {
         PrefsContext* userprefsContext = prefsFile->getContext("user_preferences");
         if (userprefsContext) {
-            Prefs.guiLanguage = userprefsContext->get("gui_language","");
+            prefsManager->appPrefs.guiLanguage = userprefsContext->get("gui_language","");
             //continue here...
             //Prefs."blah blah" =...
         }
@@ -8882,14 +8884,15 @@ void ScribusApp::ShowSubs()
 	docCheckerPalette->startup();
 	alignDistributePalette->startup();
 
-	setTools(Prefs.mainToolBarSettings.visible);
-	setPDFTools(Prefs.pdfToolBarSettings.visible);
+	setTools(prefsManager->appPrefs.mainToolBarSettings.visible);
+	setPDFTools(prefsManager->appPrefs.pdfToolBarSettings.visible);
 	setActiveWindow();
 	raise();
 }
 
-PSLib* ScribusApp::getPSDriver(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, ColorList DocColors, bool pdf)
+PSLib* ScribusApp::getPSDriver(bool psart, QMap<QString,QFont> DocFonts, ColorList DocColors, bool pdf)
 {
+	SCFonts* AllFonts=&(prefsManager->appPrefs.AvailFonts);
 	typedef PSLib* (*sdem)(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, ColorList DocColors, bool pdf);
 	sdem demo;
 	QString pfad = QString("%1/libs/libpostscript.%3").arg(ScPaths::instance().libDir()).arg(PluginManager::platformDllExtension());
@@ -8906,7 +8909,7 @@ PSLib* ScribusApp::getPSDriver(bool psart, SCFonts &AllFonts, QMap<QString,QFont
 		PluginManager::unloadDLL(PSDriver);
 		return NULL;
 	}
-	PSLib *dia = (*demo)(psart, AllFonts, DocFonts, DocColors, pdf);
+	PSLib *dia = (*demo)(psart, *AllFonts, DocFonts, DocColors, pdf);
 	return dia;
 }
 
@@ -8927,11 +8930,11 @@ bool ScribusApp::DoSaveAsEps(QString fn)
 	GetUsedFonts(&ReallyUsed);
 	fileWatcher->forceScan();
 	fileWatcher->stop();
-	PSLib *dd = getPSDriver(false, Prefs.AvailFonts, ReallyUsed, doc->PageColors, false);
+	PSLib *dd = getPSDriver(false, ReallyUsed, doc->PageColors, false);
 	if (dd != NULL)
 	{
 		if (dd->PS_set_file(fn))
-			dd->CreatePS(doc, view, pageNs, false, tr("All"), true, false, false, true, Prefs.GCRMode, false);
+			dd->CreatePS(doc, view, pageNs, false, tr("All"), true, false, false, true, prefsManager->appPrefs.GCRMode, false);
 		else
 			return_value = false;
 		delete dd;
@@ -8995,8 +8998,8 @@ void ScribusApp::reallySaveAsEps()
 		fna = di.currentDirPath()+"/"+doc->DocName+".eps";
 	}
 	QString wdir = ".";
-	if (Prefs.DocDir != "")
-		wdir = dirs->get("eps", Prefs.DocDir);
+	if (prefsManager->appPrefs.DocDir != "")
+		wdir = dirs->get("eps", prefsManager->appPrefs.DocDir);
 	else
 		wdir = dirs->get("eps", ".");
 	QString fn = CFileDialog( wdir, tr("Save as"), tr("EPS Files (*.eps);;All Files (*)"), "", false, false);
@@ -9110,7 +9113,7 @@ void ScribusApp::doSaveAsPDF()
 		}
 		doc->PDF_Options.SubsetList = tmpEm;
 	}
-	PDF_Opts *dia = new PDF_Opts(this, doc->DocName, ReallyUsed, view, &doc->PDF_Options, doc->PDF_Options.PresentVals, &PDFXProfiles, Prefs.AvailFonts);
+	PDF_Opts *dia = new PDF_Opts(this, doc->DocName, ReallyUsed, view, &doc->PDF_Options, doc->PDF_Options.PresentVals, &PDFXProfiles, prefsManager->appPrefs.AvailFonts);
 	if (dia->exec())
 	{
 		std::vector<int> pageNs;
@@ -9365,7 +9368,7 @@ void ScribusApp::slotElemRead(QString Name, int x, int y, bool art, bool loca, S
 	if (doc == docc)
 		NoFrameEdit();
 	ScriXmlDoc *ss = new ScriXmlDoc();
-	if(ss->ReadElem(Name, Prefs.AvailFonts, docc, x, y, art, loca, Prefs.GFontSub, &Prefs, vie))
+	if(ss->ReadElem(Name, prefsManager->appPrefs.AvailFonts, docc, x, y, art, loca, prefsManager->appPrefs.GFontSub, vie))
 	{
 		vie->DrawNew();
 		if (doc == docc)
@@ -9879,11 +9882,11 @@ void ScribusApp::GetCMSProfiles()
 	QString pfad = ScPaths::instance().libDir();
 	pfad += "profiles/";
 	GetCMSProfilesDir(pfad);
-	if (Prefs.ProfileDir != "")
+	if (prefsManager->appPrefs.ProfileDir != "")
 	{
-		if(Prefs.ProfileDir.right(1) != "/")
-			Prefs.ProfileDir += "/";
-		GetCMSProfilesDir(Prefs.ProfileDir);
+		if(prefsManager->appPrefs.ProfileDir.right(1) != "/")
+			prefsManager->appPrefs.ProfileDir += "/";
+		GetCMSProfilesDir(prefsManager->appPrefs.ProfileDir);
 	}
 	if ((!PrinterProfiles.isEmpty()) && (!InputProfiles.isEmpty()) && (!MonitorProfiles.isEmpty()))
 		CMSavail = true;
@@ -9896,31 +9899,31 @@ void ScribusApp::initCMS()
 	if (CMSavail)
 	{
 		ProfilesL::Iterator ip;
-		if ((Prefs.DCMSset.DefaultInputProfile == "") || (!InputProfiles.contains(Prefs.DCMSset.DefaultInputProfile)))
+		if ((prefsManager->appPrefs.DCMSset.DefaultInputProfile == "") || (!InputProfiles.contains(prefsManager->appPrefs.DCMSset.DefaultInputProfile)))
 		{
 			ip = InputProfiles.begin();
-			Prefs.DCMSset.DefaultInputProfile = ip.key();
+			prefsManager->appPrefs.DCMSset.DefaultInputProfile = ip.key();
 		}
-		if ((Prefs.DCMSset.DefaultInputProfile2 == "") || (!InputProfiles.contains(Prefs.DCMSset.DefaultInputProfile2)))
+		if ((prefsManager->appPrefs.DCMSset.DefaultInputProfile2 == "") || (!InputProfiles.contains(prefsManager->appPrefs.DCMSset.DefaultInputProfile2)))
 		{
 			ip = InputProfiles.begin();
-			Prefs.DCMSset.DefaultInputProfile2 = ip.key();
+			prefsManager->appPrefs.DCMSset.DefaultInputProfile2 = ip.key();
 		}
-		if ((Prefs.DCMSset.DefaultMonitorProfile == "") || (!MonitorProfiles.contains(Prefs.DCMSset.DefaultMonitorProfile)))
+		if ((prefsManager->appPrefs.DCMSset.DefaultMonitorProfile == "") || (!MonitorProfiles.contains(prefsManager->appPrefs.DCMSset.DefaultMonitorProfile)))
 		{
 			ip = MonitorProfiles.begin();
-			Prefs.DCMSset.DefaultMonitorProfile = ip.key();
+			prefsManager->appPrefs.DCMSset.DefaultMonitorProfile = ip.key();
 		}
-		if ((Prefs.DCMSset.DefaultPrinterProfile == "") || (!PrinterProfiles.contains(Prefs.DCMSset.DefaultPrinterProfile)))
+		if ((prefsManager->appPrefs.DCMSset.DefaultPrinterProfile == "") || (!PrinterProfiles.contains(prefsManager->appPrefs.DCMSset.DefaultPrinterProfile)))
 		{
 			ip = PrinterProfiles.begin();
-			Prefs.DCMSset.DefaultPrinterProfile = ip.key();
+			prefsManager->appPrefs.DCMSset.DefaultPrinterProfile = ip.key();
 		}
 #ifdef HAVE_CMS
-		SoftProofing = Prefs.DCMSset.SoftProofOn;
+		SoftProofing = prefsManager->appPrefs.DCMSset.SoftProofOn;
 		CMSuse = false;
-		IntentPrinter = Prefs.DCMSset.DefaultIntentPrinter;
-		IntentMonitor = Prefs.DCMSset.DefaultIntentMonitor;
+		IntentPrinter = prefsManager->appPrefs.DCMSset.DefaultIntentPrinter;
+		IntentMonitor = prefsManager->appPrefs.DCMSset.DefaultIntentMonitor;
 #endif
 	}
 }
@@ -10076,7 +10079,7 @@ void ScribusApp::ModifyAnnot()
 
 void ScribusApp::SetShortCut()
 {
-	for (QMap<QString,Keys>::Iterator it = Prefs.KeyActions.begin(); it != Prefs.KeyActions.end(); ++it )
+	for (QMap<QString,Keys>::Iterator it = prefsManager->appPrefs.KeyActions.begin(); it != prefsManager->appPrefs.KeyActions.end(); ++it )
 	{
 		if (it.data().actionName!="")
 			if (scrActions[it.data().actionName])
@@ -10354,7 +10357,7 @@ void ScribusApp::initHyphenator()
 	InstLang.insert("Ukrainian", L_Ukrainian);
 	QString lang = QString(QTextCodec::locale()).left(2);
 	LangTransl.clear();
-	Prefs.Language = "English";
+	prefsManager->appPrefs.Language = "English";
 	pfad = QDir::convertSeparators(ScPaths::instance().libDir() + "dicts/");
 	QDir d(pfad, "*.dic", QDir::Name, QDir::Files | QDir::NoSymLinks);
 	if ((d.exists()) && (d.count() != 0))
@@ -10372,10 +10375,10 @@ void ScribusApp::initHyphenator()
 			LangTransl.insert(datein, tDatein);
 			Sprachen.insert(datein, d[dc]);
 			if (fileLangAbbrev == lang)
-				Prefs.Language = datein;
+				prefsManager->appPrefs.Language = datein;
 		}
 		if (datein == "")
-			Prefs.Language = "English";
+			prefsManager->appPrefs.Language = "English";
 	}
 	propertiesPalette->fillLangCombo(LangTransl);
 }
@@ -10499,8 +10502,8 @@ QString ScribusApp::Collect(bool compress, bool withFonts)
 	bool compressR = compress;
 	bool withFontsR = withFonts;
 	QString wdir = ".";
-	if (Prefs.DocDir != "")
-		wdir = dirs->get("collect", Prefs.DocDir);
+	if (prefsManager->appPrefs.DocDir != "")
+		wdir = dirs->get("collect", prefsManager->appPrefs.DocDir);
 	else
 		wdir = dirs->get("collect", ".");
 	QString s = CFileDialog(wdir, tr("Choose a Directory"), "", "", false, false, false, false, true, &compressR, &withFontsR);
@@ -10630,8 +10633,8 @@ QString ScribusApp::Collect(bool compress, bool withFonts)
 					QMap<QString,QFont>::Iterator it3;
 					for (it3 = doc->UsedFonts.begin(); it3 != doc->UsedFonts.end(); ++it3)
 					{
-						QFileInfo itf = QFileInfo(Prefs.AvailFonts[it3.key()]->Datei);
-						copyFile(Prefs.AvailFonts[it3.key()]->Datei, s + itf.fileName());
+						QFileInfo itf = QFileInfo(prefsManager->appPrefs.AvailFonts[it3.key()]->Datei);
+						copyFile(prefsManager->appPrefs.AvailFonts[it3.key()]->Datei, s + itf.fileName());
 					}
 				}
 			}
@@ -10701,8 +10704,8 @@ void ScribusApp::ReorgFonts()
 			doc->UsedFonts.remove(itfo);
 		}
 	}
-	doc->AddFont(Prefs.toolSettings.defFont, Prefs.AvailFonts[Prefs.toolSettings.defFont]->Font);
-	doc->AddFont(doc->toolSettings.defFont, Prefs.AvailFonts[doc->toolSettings.defFont]->Font);
+	doc->AddFont(prefsManager->appPrefs.toolSettings.defFont, prefsManager->appPrefs.AvailFonts[prefsManager->appPrefs.toolSettings.defFont]->Font);
+	doc->AddFont(doc->toolSettings.defFont, prefsManager->appPrefs.AvailFonts[doc->toolSettings.defFont]->Font);
 	buildFontMenu();
 }
 
@@ -10934,7 +10937,7 @@ void ScribusApp::SearchText()
 	PageItem *currItem = view->SelItem.at(0);
 	setAppMode(modeEdit);
 	currItem->CPos = 0;
-	SearchReplace* dia = new SearchReplace(this, doc, &Prefs, currItem);
+	SearchReplace* dia = new SearchReplace(this, doc, currItem);
 	connect(dia, SIGNAL(NewFont(QString)), this, SLOT(SetNewFont(QString)));
 	connect(dia, SIGNAL(NewAbs(int)), this, SLOT(setAbsValue(int)));
 	dia->exec();
@@ -10961,9 +10964,10 @@ void ScribusApp::callImageEditor()
 	QStringList cmd;
 	if (view->SelItem.count() != 0)
 	{
+		QString imageEditorExecutable=prefsManager->appPrefs.imageEditorExecutable;
 		if (ExternalApp != 0)
 		{
-			QString mess = tr("The program")+" "+Prefs.imageEditorExecutable;
+			QString mess = tr("The program")+" "+imageEditorExecutable;
 			mess += "\n" + tr("is already running!");
 			QMessageBox::information(this, tr("Information"), mess, 1, 0, 0);
 			return;
@@ -10972,14 +10976,14 @@ void ScribusApp::callImageEditor()
 		if (currItem->PicAvail)
 		{
 			ExternalApp = new QProcess(NULL);
-            cmd = QStringList::split(" ", Prefs.imageEditorExecutable);
+            cmd = QStringList::split(" ", imageEditorExecutable);
 			cmd.append(currItem->Pfile);
 			ExternalApp->setArguments(cmd);
 			if ( !ExternalApp->start() )
 			{
 				delete ExternalApp;
 				ExternalApp = 0;
-				QString mess = tr("The program")+" "+Prefs.imageEditorExecutable;
+				QString mess = tr("The program")+" "+imageEditorExecutable;
 				mess += "\n" + tr("is missing!");
 				QMessageBox::critical(this, tr("Warning"), mess, 1, 0, 0);
 				return;
@@ -11139,8 +11143,8 @@ void ScribusApp::mouseReleaseEvent(QMouseEvent *m)
 void ScribusApp::insertSampleText()
 {
 	LoremManager *m = new LoremManager(this, "m", true, 0);
-	if (Prefs.useStandardLI)
-		m->insertLoremIpsum("loremipsum.xml", ScApp->Prefs.paragraphsLI);
+	if (prefsManager->appPrefs.useStandardLI)
+		m->insertLoremIpsum("loremipsum.xml", prefsManager->appPrefs.paragraphsLI);
 	else
 		m->exec();
 	delete(m);

@@ -13,6 +13,7 @@
 #include <qpushbutton.h>
 #include <qpixmap.h>
 #include "mspinbox.h"
+#include "prefsstructs.h"
 #include "scribusstructs.h"
 #include "units.h"
 

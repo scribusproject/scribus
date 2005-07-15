@@ -43,6 +43,7 @@
 #include "bookpalette.h"
 #include "scfontmetrics.h"
 #include "util.h"
+#include "prefsmanager.h"
 
 using namespace std;
 
@@ -62,7 +63,7 @@ bool Run(ScribusApp *plug, QString fn, QString nam, int Components, std::vector<
 	bool ret = false;
 	int progresscount=0;
 	PDFlib *dia = new PDFlib();
-	if (dia->PDF_Begin_Doc(fn, plug->doc, plug->view, &plug->doc->PDF_Options, plug->Prefs.AvailFonts,
+	if (dia->PDF_Begin_Doc(fn, plug->doc, plug->view, &plug->doc->PDF_Options, PrefsManager::instance()->appPrefs.AvailFonts,
 				 plug->doc->UsedFonts, plug->bookmarkPalette->BView))
 	{
 		QMap<int, int> pageNsMpa;

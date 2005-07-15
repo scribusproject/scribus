@@ -13,6 +13,8 @@
 #include <qlistbox.h>
 #include <qlistview.h>
 #include "scribusstructs.h"
+#include "prefsmanager.h"
+
 class ScribusDoc;
 
 class FontPrefs : public QTabWidget
@@ -20,7 +22,7 @@ class FontPrefs : public QTabWidget
 	Q_OBJECT
 
 public:
-	FontPrefs( QWidget* parent, SCFonts &flist, bool Hdoc, ApplicationPrefs *prefs, QString PPath, ScribusDoc* doc );
+	FontPrefs( QWidget* parent, SCFonts &flist, bool Hdoc, QString PPath, ScribusDoc* doc );
 	~FontPrefs() {};
 	void restoreDefaults();
 
@@ -45,7 +47,6 @@ public:
 	};
 	QMap<QString, fontSet> fontFlags;
 	QPtrList<QComboBox> FlagsRepl;
-	ApplicationPrefs *Prefs;
 	QMap<QString,QString> RList;
 	QStringList UsedFonts;
 	QString HomeP;

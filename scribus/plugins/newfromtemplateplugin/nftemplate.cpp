@@ -13,6 +13,7 @@
 #include "menumanager.h"
 #include "pluginmanager.h"
 #include "undomanager.h"
+#include "prefsmanager.h"
 
 ScribusApp* Carrier;
 QWidget* par;
@@ -82,7 +83,7 @@ void run(QWidget *d, ScribusApp *plug)
 
 void MenuNFT::RunNFTPlug()
 {
-	nftdialog* nftdia = new nftdialog(par, Carrier->getGuiLanguage(), Carrier->Prefs.documentTemplatesDir);
+	nftdialog* nftdia = new nftdialog(par, Carrier->getGuiLanguage(), PrefsManager::instance()->appPrefs.documentTemplatesDir);
 	if (nftdia->exec())
 	{
 		qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
@@ -91,7 +92,7 @@ void MenuNFT::RunNFTPlug()
 		UndoManager::instance()->renameStack(nftdia->currentDocumentTemplate->name);
 		Carrier->doc->DocName = nftdia->currentDocumentTemplate->name;
 		Carrier->ActWin->setCaption(QObject::tr("Document Template: ") + nftdia->currentDocumentTemplate->name);
-		QDir::setCurrent(Carrier->Prefs.DocDir);
+		QDir::setCurrent(PrefsManager::instance()->appPrefs.DocDir);
 		Carrier->removeRecent(QDir::cleanDirPath(nftdia->currentDocumentTemplate->file));
 		qApp->restoreOverrideCursor();
 	}

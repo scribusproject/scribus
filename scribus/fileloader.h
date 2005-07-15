@@ -11,6 +11,7 @@ class ScribusDoc;
 class ScribusView;
 class ScribusApp;
 class SCFonts;
+class PrefsManager;
 
 class FileLoader
 {
@@ -22,7 +23,7 @@ public:
 	QString ReadDatei(QString fileName);
 	bool LoadFile(ScribusApp* app);
 	bool ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, ScribusDoc *doc, ScribusView *view, QProgressBar *dia2);
-	void GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPrefs *Prefs, PageItem* obj);
+	void GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj);
 	PageItem* PasteItem(QDomElement *obj, ScribusDoc *doc, ScribusView *view);
 	QString FileName;
 	int FileType;
@@ -34,6 +35,9 @@ public:
 	QMap<QString,QString> ReplacedFonts;
 	QMap<uint,QString> DoVorl;
 	QPtrList<Foi> dummyFois;
+	
+private:
+	PrefsManager* prefsManager;
 };
 
 #endif

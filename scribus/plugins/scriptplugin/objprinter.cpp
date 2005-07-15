@@ -1,5 +1,6 @@
 #include "objprinter.h"
 #include "cmdutil.h"
+#include "prefsmanager.h"
 
 #include <structmember.h>
 #include <qfileinfo.h>
@@ -445,7 +446,7 @@ static PyObject *Printer_print(Printer *self)
 	QMap<QString,QFont> ReallyUsed;
 	ReallyUsed.clear();
 	Carrier->GetUsedFonts(&ReallyUsed);
-	PSLib *dd = Carrier->getPSDriver(true, Carrier->Prefs.AvailFonts, ReallyUsed, Carrier->doc->PageColors, false);
+	PSLib *dd = Carrier->getPSDriver(true, ReallyUsed, Carrier->doc->PageColors, false);
 	if (dd != NULL)
 	{
 		if (!fil)

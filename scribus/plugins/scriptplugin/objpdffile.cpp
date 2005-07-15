@@ -1,6 +1,7 @@
 #include "objpdffile.h"
 #include "cmdutil.h"
 #include "bookpalette.h"
+#include "prefsmanager.h"
 
 #include <structmember.h>
 #include <qfileinfo.h>
@@ -271,7 +272,7 @@ static int PDFfile_init(PDFfile *self, PyObject */*args*/, PyObject */*kwds*/)
 	tmpEm = ReallyUsed.keys();
 	QValueList<QString>::Iterator itef;
 	for (itef = tmpEm.begin(); itef != tmpEm.end(); ++itef) {
-		if (Carrier->Prefs.AvailFonts[(*itef).ascii()]->HasMetrics) {
+		if (PrefsManager::instance()->appPrefs.AvailFonts[(*itef).ascii()]->HasMetrics) {
 			PyObject *tmp= NULL;
 			tmp = PyString_FromString((*itef).ascii());
 			if (tmp) {

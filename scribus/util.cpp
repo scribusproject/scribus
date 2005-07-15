@@ -50,6 +50,7 @@
 #include "prefsfile.h"
 #include "prefscontext.h"
 #include "prefstable.h"
+#include "prefsmanager.h"
 
 extern PrefsFile *prefsFile;
 
@@ -182,7 +183,8 @@ int callGS(const QStringList& args_in, const QString device)
 
 int callGS(const QString& args_in, const QString device)
 {
-	QString cmd1 = ScApp->Prefs.gs_exe;
+	PrefsManager* prefsManager=PrefsManager::instance();
+	QString cmd1 = prefsManager->appPrefs.gs_exe;
 	cmd1 += " -q -dNOPAUSE";
 	// Choose rendering device
 	if (device != "")
@@ -193,9 +195,9 @@ int callGS(const QString& args_in, const QString device)
 	else
 		cmd1 += " -sDEVICE=pngalpha";
 	// and antialiasing
-	if (ScApp->Prefs.gs_AntiAliasText)
+	if (prefsManager->appPrefs.gs_AntiAliasText)
 		cmd1 += " -dTextAlphaBits=4";
-	if (ScApp->Prefs.gs_AntiAliasGraphics)
+	if (prefsManager->appPrefs.gs_AntiAliasGraphics)
 		cmd1 += " -dGraphicsAlphaBits=4";
 
 	// Add any extra font paths being used by Scribus to gs's font search path
@@ -1238,3 +1240,25 @@ FPoint getMinClipF(FPointArray* Clip)
 	return rp;
 }
 
+/*!
+ \fn QString checkFileExtension(const QString &currName, const QString &extension)
+ \author Craig Bradney
+ \brief A quick function to make sure a filename has the correct extension and add it if not
+ \param currName Current filename
+ \param extension File extension to ensure exists
+ */
+QString checkFileExtension(const QString &currName, const QString &extension)
+{
+	QString newName(currName);
+	//If filename ends with a period, just add the extension
+	if (newName.right(1)==".")
+	{
+		newName+=extension.lower();
+		return newName;
+	}
+	//If filename doesnt end with the period+extension, add it on
+	QString dotExt("." + extension.lower());
+	if (!newName.endsWith(dotExt,false))
+		newName+=dotExt;
+	return newName;
+}

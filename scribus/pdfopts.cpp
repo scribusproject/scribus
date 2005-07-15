@@ -129,12 +129,5 @@ void PDF_Opts::ChangeFile()
 
 void PDF_Opts::fileNameChanged()
 {
-	QString currentText=fileNameLineEdit->text();
-	if (currentText.right(1)==".")
-	{
-		fileNameLineEdit->setText(currentText+"pdf");
-		return;
-	}
-	if (currentText.right(4).lower()!=".pdf")
-		fileNameLineEdit->setText(currentText+".pdf");
+	fileNameLineEdit->setText(checkFileExtension(fileNameLineEdit->text(),"pdf"));
 }

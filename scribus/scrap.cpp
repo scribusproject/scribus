@@ -18,15 +18,15 @@
 #include "scpreview.h"
 #include "prefsfile.h"
 #include "util.h"
+#include "prefsmanager.h"
 
 extern PrefsFile* prefsFile;
 
 /* The Scrapbook View Class
  * inherited from QIconView */
-BibView::BibView(QWidget* parent, ApplicationPrefs *prefs) : QIconView(parent)
+BibView::BibView(QWidget* parent) : QIconView(parent)
 {
 	objectMap.clear();
-	Prefs = prefs;
 }
 
 void BibView::keyPressEvent(QKeyEvent *k)
@@ -108,7 +108,7 @@ void BibView::ReadContents(QString name)
 		QDomElement dc=DOC.toElement();
 		if (dc.tagName()=="OBJEKT")
 		{
-			ScPreview *pre = new ScPreview(Prefs);
+			ScPreview *pre = new ScPreview();
 			AddObj(GetAttr(&dc, "NAME"), GetAttr(&dc, "DATA"), pre->createPreview(GetAttr(&dc, "DATA")));
 			delete pre;
 		}
@@ -127,7 +127,7 @@ void BibView::RebuildView()
 	QMap<QString,Elem>::Iterator itf;
 	for (itf = objectMap.begin(); itf != objectMap.end(); ++itf)
 	{
-		ScPreview *pre = new ScPreview(Prefs);
+		ScPreview *pre = new ScPreview();
 		itf.data().Preview = pre->createPreview(itf.data().Data);
 		(void) new QIconViewItem(this, itf.key(), itf.data().Preview);
 		delete pre;
@@ -135,13 +135,11 @@ void BibView::RebuildView()
 }
 
 /* This is the main Dialog-Class for the Scrapbook */
-Biblio::Biblio( QWidget* parent, ApplicationPrefs *prefs)
-		: ScrPaletteBase( parent, "Sclib", false, 0 )
+Biblio::Biblio( QWidget* parent) : ScrPaletteBase( parent, "Sclib", false, 0 )
 {
 	resize( 230, 190 );
 	setIcon(loadIcon("AppIcon.png"));
 	ScFilename = "";
-	Prefs = prefs;
 	Changed = false;
 	BiblioLayout = new QVBoxLayout( this );
 	BiblioLayout->setSpacing( 0 );
@@ -156,7 +154,7 @@ Biblio::Biblio( QWidget* parent, ApplicationPrefs *prefs)
 	vSmall = vmenu->insertItem( "" );
 	vMedium = vmenu->insertItem( "" );
 	vLarge = vmenu->insertItem( "" );
-	switch (prefs->PSize)
+	switch (PrefsManager::instance()->appPrefs.PSize)
 	{
 	case 40:
 		vmenu->setItemChecked(vSmall, true);
@@ -180,7 +178,7 @@ Biblio::Biblio( QWidget* parent, ApplicationPrefs *prefs)
 	Frame3Layout->setSpacing( 6 );
 	Frame3Layout->setMargin( 11 );
 
-	BibWin = new BibView(Frame3, prefs);
+	BibWin = new BibView(Frame3);
 	BibWin->setAutoArrange(true);
 	BibWin->setSorting(true);
 	BibWin->setResizeMode(QIconView::Adjust);
@@ -282,13 +280,13 @@ void Biblio::SetPreview(int id)
 	switch (a)
 	{
 	case 0:
-		Prefs->PSize = 40;
+		PrefsManager::instance()->appPrefs.PSize = 40;
 		break;
 	case 1:
-		Prefs->PSize = 60;
+		PrefsManager::instance()->appPrefs.PSize = 60;
 		break;
 	case 2:
-		Prefs->PSize = 80;
+		PrefsManager::instance()->appPrefs.PSize = 80;
 		break;
 	}
 	AdjustMenu();
@@ -300,7 +298,7 @@ void Biblio::AdjustMenu()
 	vmenu->setItemChecked(vSmall, false);
 	vmenu->setItemChecked(vMedium, false);
 	vmenu->setItemChecked(vLarge, false);
-	switch (Prefs->PSize)
+	switch (PrefsManager::instance()->appPrefs.PSize)
 	{
 	case 40:
 		vmenu->setItemChecked(vSmall, true);
@@ -354,7 +352,7 @@ void Biblio::DeleteObj(QString name, QIconViewItem *ite)
 	BibWin->sort(BibWin->sortDirection());
 	BibWin->arrangeItemsInGrid(true);
 	Changed = true;
-	if (Prefs->SaveAtQ)
+	if (PrefsManager::instance()->appPrefs.SaveAtQ)
 		Save();
 }
 
@@ -379,7 +377,7 @@ void Biblio::ItemRenamed(QIconViewItem *ite)
 			BibWin->sort(BibWin->sortDirection());
 			BibWin->arrangeItemsInGrid(true);
 			Changed = true;
-			if (Prefs->SaveAtQ)
+			if (PrefsManager::instance()->appPrefs.SaveAtQ)
 				Save();
 		}
 	}
@@ -415,7 +413,7 @@ void Biblio::DropOn(QDropEvent *e)
 			}
 		}
 		ObjFromMenu(text);
-		if (Prefs->SaveAtQ)
+		if (PrefsManager::instance()->appPrefs.SaveAtQ)
 			Save();
 	}
 }
@@ -451,7 +449,7 @@ void Biblio::ObjFromMenu(QString text)
 		ff = QString::fromUtf8(tmp);
 	else
 		ff = tmp;
-	ScPreview *pre = new ScPreview(Prefs);
+	ScPreview *pre = new ScPreview();
 	QPixmap pm = pre->createPreview(ff);
 	BibWin->AddObj(nam, ff, pm);
 	(void) new QIconViewItem(BibWin, nam, pm);

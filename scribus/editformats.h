@@ -36,7 +36,7 @@ class StilFormate : public QDialog
 	Q_OBJECT
 
 public:
-	StilFormate( QWidget* parent, ScribusDoc *doc, ApplicationPrefs *avail);
+	StilFormate( QWidget* parent, ScribusDoc *doc);
 	~StilFormate() {};
 
 	QListBox* ListBox1;
@@ -50,7 +50,6 @@ public:
 	QPushButton* CancelB;
 	int sFnumber;
 	QValueList<ParagraphStyle> TempVorl;
-	ApplicationPrefs *fon;
 	ScribusDoc *Docu;
 	void UpdateFList();
 

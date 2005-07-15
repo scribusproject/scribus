@@ -60,5 +60,6 @@ int callGS(const QStringList& args_in, const QString device="");
 int callGS(const QString& args_in, const QString device="");
 int copyFile(QString source, QString target);
 int moveFile(QString source, QString target);
+QString checkFileExtension(const QString &, const QString &);
 
 #endif

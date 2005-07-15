@@ -88,6 +88,7 @@ class PluginManager;
 class ActionManager;
 class AlignDistributePalette;
 class TOCGenerator;
+class PrefsManager;
 
 /**
   * This Class is the base class for your application. It sets up the main
@@ -127,7 +128,7 @@ public:
 	void applyNewMaster(QString name);
 	void updateRecent(QString fn);
 	QString GetLang(QString inLang);
-	PSLib* getPSDriver(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, ColorList DocColors, bool pdf);
+	PSLib* getPSDriver(bool psart, QMap<QString,QFont> DocFonts, ColorList DocColors, bool pdf);
 	void closePSDriver();
 	bool getPDFDriver(QString fn, QString nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs);
 	bool DoSaveAsEps(QString fn);
@@ -172,7 +173,6 @@ public:
 	bool NoFonts;
 	int HaveDoc;
 	PrefsContext* dirs;
-	struct ApplicationPrefs Prefs;
 	/** view is the main widget which represents your working area. The View
 	 * class should handle all events of the view widget.  It is kept empty so
 	 * you can create your view according to your application's needs by
@@ -553,6 +553,7 @@ private:
 	void *PSDriver;
 	int DocNr;
 	UndoManager *undoManager;
+	PrefsManager *prefsManager;
 	bool PrinterUsed;
 	struct PDe {
 					QString Pname;

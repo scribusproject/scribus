@@ -23,6 +23,7 @@
 #include "pageitem.h"
 #include "splash.h"
 #include "units.h"
+#include "prefsmanager.h"
 
 #include <iostream>
 
@@ -34,6 +35,12 @@
 #include "util.h"
 
 using namespace std;
+
+ScriXmlDoc::ScriXmlDoc()
+{
+	prefsManager=PrefsManager::instance();
+}
+ 
 
 /*!
 	\fn ScriXmlDoc::IsScribus(QString fileName)
@@ -92,7 +99,7 @@ QString ScriXmlDoc::ReadDatei(QString fileName)
 /** end changes */
 }
 
-QString ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPrefs *Prefs, bool VorLFound, bool impo, bool docreading, PageItem* obj)
+QString ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, bool impo, bool docreading, PageItem* obj)
 {
 	QString tmp2, tmf, tmpf, tmp3, tmp;
 	tmp = "";
@@ -106,7 +113,7 @@ QString ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPre
 		bool unknown = false;
 		struct ScText *hg;
 		Foi* dummy;
-		if ((!Prefs->AvailFonts.find(tmpf)) || (!Prefs->AvailFonts[tmpf]->UseFont))
+		if ((!prefsManager->appPrefs.AvailFonts.find(tmpf)) || (!prefsManager->appPrefs.AvailFonts[tmpf]->UseFont))
 		{
 			bool isThere = false;
 			for (uint dl = 0; dl < dummyFois.count(); ++dl)
@@ -124,19 +131,19 @@ QString ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPre
 				dummyFois.append(dummy);
 			}
 			unknown = true;
-			if ((!Prefs->GFontSub.contains(tmpf)) || (!Prefs->AvailFonts[Prefs->GFontSub[tmpf]]->UseFont))
+			if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!prefsManager->appPrefs.AvailFonts[prefsManager->appPrefs.GFontSub[tmpf]]->UseFont))
 			{
 				newReplacement = true;
-				ReplacedFonts.insert(tmpf, Prefs->toolSettings.defFont);
+				ReplacedFonts.insert(tmpf, prefsManager->appPrefs.toolSettings.defFont);
 			}
 			else
-				ReplacedFonts.insert(tmpf, Prefs->GFontSub[tmpf]);
+				ReplacedFonts.insert(tmpf, prefsManager->appPrefs.GFontSub[tmpf]);
 		}
 		else
 		{
 			if (!doc->UsedFonts.contains(tmpf))
 			{
-				QFont fo = Prefs->AvailFonts[tmpf]->Font;
+				QFont fo = prefsManager->appPrefs.AvailFonts[tmpf]->Font;
 				fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
 				doc->AddFont(tmpf, fo);
 			}
@@ -210,7 +217,7 @@ QString ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPre
 			tmpf = doc->toolSettings.defFont;
 		tmf = tmpf;
 		if (!DoFonts.contains(tmpf))
-			tmpf = AskForFont(Prefs->AvailFonts, tmpf, Prefs, doc);
+			tmpf = AskForFont(prefsManager->appPrefs.AvailFonts, tmpf, doc);
 		else
 			tmpf = DoFonts[tmf];
 	}
@@ -267,24 +274,24 @@ QString ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPre
 	return tmp;
 }
 
-QString ScriXmlDoc::AskForFont(SCFonts &avail, QString fStr, ApplicationPrefs *Prefs, ScribusDoc *doc)
+QString ScriXmlDoc::AskForFont(SCFonts &avail, QString fStr, ScribusDoc *doc)
 {
 	QFont fo;
 	QString tmpf = fStr;
 	if ((!avail.find(tmpf)) || (!avail[tmpf]->UseFont))
 	{
-		if ((!Prefs->GFontSub.contains(tmpf)) || (!avail[Prefs->GFontSub[tmpf]]->UseFont))
+		if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!avail[prefsManager->appPrefs.GFontSub[tmpf]]->UseFont))
 		{
 			qApp->setOverrideCursor(QCursor(arrowCursor), true);
-			MissingFont *dia = new MissingFont(0, tmpf, Prefs, doc);
+			MissingFont *dia = new MissingFont(0, tmpf, doc);
 			dia->exec();
 			tmpf = dia->getReplacementFont();
 			delete dia;
 			qApp->setOverrideCursor(QCursor(waitCursor), true);
-			Prefs->GFontSub[fStr] = tmpf;
+			prefsManager->appPrefs.GFontSub[fStr] = tmpf;
 		}
 		else
-			tmpf = Prefs->GFontSub[tmpf];
+			tmpf = prefsManager->appPrefs.GFontSub[tmpf];
 		ReplacedFonts[fStr] = tmpf;
 	}
 	if (!doc->UsedFonts.contains(tmpf))
@@ -553,7 +560,7 @@ bool ScriXmlDoc::ReadLStyles(QString fileName, QMap<QString,multiLine> *Sty)
 	return true;
 }
 
-void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, ApplicationPrefs *Prefs, bool fl)
+void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl)
 {
 	bool fou;
 	QString tmpf, tmf, tmV;
@@ -573,7 +580,7 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 		tmpf = doc->toolSettings.defFont;
 	tmf = tmpf;
 	if (!DoFonts.contains(tmpf))
-		tmpf = AskForFont(Prefs->AvailFonts, tmpf, Prefs, doc);
+		tmpf = AskForFont(prefsManager->appPrefs.AvailFonts, tmpf, doc);
 	else
 		tmpf = DoFonts[tmf];
 	vg->Font = tmpf;
@@ -793,7 +800,7 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 
 }
 
-bool ScriXmlDoc::ReadStyles(QString fileName, ScribusDoc* doc, ApplicationPrefs *Prefs)
+bool ScriXmlDoc::ReadStyles(QString fileName, ScribusDoc* doc)
 {
 	struct ParagraphStyle vg;
 	QDomDocument docu("scridoc");
@@ -817,7 +824,7 @@ bool ScriXmlDoc::ReadStyles(QString fileName, ScribusDoc* doc, ApplicationPrefs 
 		{
 			QDomElement pg=PAGE.toElement();
 			if(pg.tagName()=="STYLE")
-				GetStyle(&pg, &vg, docParagraphStyles, doc, Prefs, false);
+				GetStyle(&pg, &vg, docParagraphStyles, doc, false);
 			PAGE=PAGE.nextSibling();
 		}
 		DOC=DOC.nextSibling();
@@ -979,7 +986,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 			}
 			if(pg.tagName()=="STYLE")
 			{
-				GetStyle(&pg, &vg, doc->docParagraphStyles, doc, view->Prefs, true);
+				GetStyle(&pg, &vg, doc->docParagraphStyles, doc, true);
 				VorLFound = true;
 			}
 			if(pg.tagName()=="JAVA")
@@ -1135,7 +1142,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 						tmpf = doc->toolSettings.defFont;
 					tmf = tmpf;
 					if (!DoFonts.contains(tmpf))
-						tmpf = AskForFont(avail, tmpf, view->Prefs, doc);
+						tmpf = AskForFont(avail, tmpf, doc);
 					else
 						tmpf = DoFonts[tmf];
 					OB.IFont = tmpf;
@@ -1702,7 +1709,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 					{
 						QDomElement it=IT.toElement();
 						if (it.tagName()=="ITEXT")
-							GetItemText(&it, doc, view->Prefs, false, false, true, Neu);
+							GetItemText(&it, doc, false, false, true, Neu);
 						IT=IT.nextSibling();
 					}
 					Neu->isAutoText=static_cast<bool>(QStoInt(obj.attribute("AUTOTEXT")));
@@ -1942,8 +1949,9 @@ bool ScriXmlDoc::ReadElemHeader(QString file, bool isFile, double *x, double *y,
 	return true;
 }
 
-bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int Xp, int Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub, ApplicationPrefs *Prefs, ScribusView *view)
+bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int Xp, int Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub, ScribusView *view)
 {
+	ApplicationPrefs *Prefs=&(prefsManager->appPrefs);
 	struct CopyPasteBuffer OB;
 	struct ParagraphStyle vg;
 	QString tmp, tmpf, tmp2, tmp3, tmp4, f, tmV, tmf;
@@ -2044,7 +2052,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 			{
 				if (!FontSub.contains(tmpf) || (!avail[FontSub[tmpf]]->UseFont))
 				{
-					MissingFont *dia = new MissingFont(0, tmpf, Prefs, doc);
+					MissingFont *dia = new MissingFont(0, tmpf, doc);
 					dia->exec();
 					tmpf = dia->getReplacementFont();
 					FontSub[pg.attribute("NAME")] = tmpf;
@@ -2091,7 +2099,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 		}
 		if(pg.tagName()=="STYLE")
 		{
-			GetStyle(&pg, &vg, doc->docParagraphStyles, doc, Prefs, true);
+			GetStyle(&pg, &vg, doc->docParagraphStyles, doc, true);
 			VorLFound = true;
 		}
 		DOC=DOC.nextSibling();
@@ -3481,8 +3489,9 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	return true;
 }
 
-void ScriXmlDoc::WritePref(ApplicationPrefs *Vor, QString ho)
+void ScriXmlDoc::WritePref(QString ho)
 {
+	ApplicationPrefs *Vor=&(prefsManager->appPrefs);
 	QDomDocument docu("scribusrc");
 	QString st="<SCRIBUSRC></SCRIBUSRC>";
 	docu.setContent(st);
@@ -3831,8 +3840,9 @@ void ScriXmlDoc::WritePref(ApplicationPrefs *Vor, QString ho)
 	f.close();
 }
 
-bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScreen *splash, bool import12)
+bool ScriXmlDoc::ReadPref(QString ho, SplashScreen *splash, bool import12)
 {
+	ApplicationPrefs *Vorein=&(prefsManager->appPrefs);
 	QDomDocument docu("scridoc");
 	QFile f(ho);
 	if(!f.open(IO_ReadOnly))
@@ -4110,7 +4120,7 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 			{
 				if (splash)
 					splash->hide();
-				MissingFont *dia = new MissingFont(0, tmpf, Vorein, 0);
+				MissingFont *dia = new MissingFont(0, tmpf, 0);
 				dia->exec();
 				newFont = dia->getReplacementFont();
 				delete dia;

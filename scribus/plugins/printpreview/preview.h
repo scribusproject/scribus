@@ -98,5 +98,6 @@ protected:
 	QVBoxLayout* Layout3;
 	QVBoxLayout* Layout4;
 	QHBoxLayout* Layout5;
+	PrefsManager *prefsManager;
 };
 #endif // QUERY_H

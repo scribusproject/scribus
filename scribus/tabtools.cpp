@@ -13,17 +13,18 @@
 #include "scribus.h"
 #include "scfontmetrics.h"
 #include "util.h"
+#include "prefsmanager.h"
 
 
 extern ScribusApp* ScApp;
 
 TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex, ScribusDoc* doc) : QWidget( parent, "tabtools", 0 )
 {
+	PrefsManager* prefsManager=PrefsManager::instance();
 	unit = unitGetSuffixFromIndex(unitIndex);
 	precision = unitGetPrecisionFromIndex(unitIndex);
 	unitRatio = unitGetRatioFromIndex(unitIndex);
 	
-	fon = &ScApp->Prefs.AvailFonts;
 	tabToolsLayout = new QHBoxLayout( this, 0, 5, "tabToolsLayout");
 	buttonGroupTools = new QButtonGroup( this, "buttonGroupTools" );
 	buttonGroupTools->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)0, (QSizePolicy::SizeType)5, 0, 0, buttonGroupTools->sizePolicy().hasHeightForWidth() ) );
@@ -73,7 +74,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 
 	subTabText = new QWidget( subStackTools, "subTabText" );
 	subTabTextLayout = new QGridLayout( subTabText, 1, 1, 11, 6, "subTabTextLayout");
-	fontComboText = new FontCombo(subTabText, &ScApp->Prefs);
+	fontComboText = new FontCombo(subTabText);
 	for (int fc=0; fc<fontComboText->count(); ++fc)
 	{
 		if (fontComboText->text(fc) == prefsData->defFont)
@@ -117,9 +118,9 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	}
 	else
 	{
-		for (itc = ScApp->Prefs.DColors.begin(); itc != ScApp->Prefs.DColors.end(); ++itc)
+		for (itc = prefsManager->appPrefs.DColors.begin(); itc != prefsManager->appPrefs.DColors.end(); ++itc)
 		{
-			QPixmap * pm = getSmallPixmap(ScApp->Prefs.DColors[itc.key()].getRGBColor());
+			QPixmap * pm = getSmallPixmap(prefsManager->appPrefs.DColors[itc.key()].getRGBColor());
 			colorComboText->insertItem( *pm, itc.key());
 			if (itc.key() == prefsData->dPenText)
 				colorComboText->setCurrentItem(colorComboText->count()-1);
@@ -145,9 +146,9 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	}
 	else
 	{
-		for (itc = ScApp->Prefs.DColors.begin(); itc != ScApp->Prefs.DColors.end(); ++itc)
+		for (itc = prefsManager->appPrefs.DColors.begin(); itc != prefsManager->appPrefs.DColors.end(); ++itc)
 		{
-			QPixmap * pm = getSmallPixmap(ScApp->Prefs.DColors[itc.key()].getRGBColor());
+			QPixmap * pm = getSmallPixmap(prefsManager->appPrefs.DColors[itc.key()].getRGBColor());
 			colorComboStrokeText->insertItem( *pm, itc.key());
 			if (itc.key() == prefsData->dStrokeText)
 				colorComboStrokeText->setCurrentItem(colorComboStrokeText->count()-1);
@@ -237,9 +238,9 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	}
 	else
 	{
-		for (itc = ScApp->Prefs.DColors.begin(); itc != ScApp->Prefs.DColors.end(); ++itc)
+		for (itc = prefsManager->appPrefs.DColors.begin(); itc != prefsManager->appPrefs.DColors.end(); ++itc)
 		{
-			QPixmap * pm = getSmallPixmap(ScApp->Prefs.DColors[itc.key()].getRGBColor());
+			QPixmap * pm = getSmallPixmap(prefsManager->appPrefs.DColors[itc.key()].getRGBColor());
 			colorComboLineShape->insertItem( *pm, itc.key());
 			if (itc.key() == prefsData->dPen)
 				colorComboLineShape->setCurrentItem(colorComboLineShape->count()-1);
@@ -273,9 +274,9 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	}
 	else
 	{
-		for (itc = ScApp->Prefs.DColors.begin(); itc != ScApp->Prefs.DColors.end(); ++itc)
+		for (itc = prefsManager->appPrefs.DColors.begin(); itc != prefsManager->appPrefs.DColors.end(); ++itc)
 		{
-			QPixmap * pm = getSmallPixmap(ScApp->Prefs.DColors[itc.key()].getRGBColor());
+			QPixmap * pm = getSmallPixmap(prefsManager->appPrefs.DColors[itc.key()].getRGBColor());
 			comboFillShape->insertItem( *pm, itc.key());
 			if (itc.key() == prefsData->dBrush)
 				comboFillShape->setCurrentItem(comboFillShape->count()-1);
@@ -346,9 +347,9 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	}
 	else
 	{
-		for (itc = ScApp->Prefs.DColors.begin(); itc != ScApp->Prefs.DColors.end(); ++itc)
+		for (itc = prefsManager->appPrefs.DColors.begin(); itc != prefsManager->appPrefs.DColors.end(); ++itc)
 		{
-			QPixmap * pm = getSmallPixmap(ScApp->Prefs.DColors[itc.key()].getRGBColor());
+			QPixmap * pm = getSmallPixmap(prefsManager->appPrefs.DColors[itc.key()].getRGBColor());
 			colorComboLine->insertItem( *pm, itc.key());
 			if (itc.key() == prefsData->dPenLine)
 				colorComboLine->setCurrentItem(colorComboLine->count()-1);
@@ -401,8 +402,8 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	}
 	else
 	{
-		startArrow->rebuildList(&ScApp->Prefs.arrowStyles);
-		endArrow->rebuildList(&ScApp->Prefs.arrowStyles);
+		startArrow->rebuildList(&prefsManager->appPrefs.arrowStyles);
+		endArrow->rebuildList(&prefsManager->appPrefs.arrowStyles);
 	}
 	startArrow->setCurrentItem(prefsData->dStartArrow);
 	endArrow->setCurrentItem(prefsData->dEndArrow);
@@ -484,9 +485,9 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	}
 	else
 	{
-		for (itc = ScApp->Prefs.DColors.begin(); itc != ScApp->Prefs.DColors.end(); ++itc)
+		for (itc = prefsManager->appPrefs.DColors.begin(); itc != prefsManager->appPrefs.DColors.end(); ++itc)
 		{
-			QPixmap * pm = getSmallPixmap(ScApp->Prefs.DColors[itc.key()].getRGBColor());
+			QPixmap * pm = getSmallPixmap(prefsManager->appPrefs.DColors[itc.key()].getRGBColor());
 			comboFillImage->insertItem( *pm, itc.key());
 			if (itc.key() == prefsData->dBrushPict)
 				comboFillImage->setCurrentItem(comboFillImage->count()-1);
@@ -746,7 +747,7 @@ void TabTools::setSample()
 {
 	QString ts = tr( "Woven silk pyjamas exchanged for blue quartz" );
 	int s = sizeComboText->currentText().left(2).toInt();
-	QPixmap pm = fontSamples((*fon)[fontComboText->currentText()], s, ts, paletteBackgroundColor());
+	QPixmap pm = fontSamples(PrefsManager::instance()->appPrefs.AvailFonts[fontComboText->currentText()], s, ts, paletteBackgroundColor());
 	previewText->setPixmap(pm);
 }
 

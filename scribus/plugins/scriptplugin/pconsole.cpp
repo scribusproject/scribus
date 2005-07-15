@@ -21,6 +21,7 @@ the Free Software Foundation; either version 2 of the License, or
 #include <qfiledialog.h>
 #include <qsyntaxhighlighter.h>
 #include "scribus.h"
+#include "prefsmanager.h"
 
 extern QPixmap loadIcon(QString nam);
 extern ScribusApp *ScApp;
@@ -32,7 +33,7 @@ PythonConsole::PythonConsole( QWidget* parent)
 	setIcon(loadIcon("AppIcon.png"));
 	QFont font = QFont("Fixed");
 	font.setStyleHint(QFont::TypeWriter);
-	font.setPointSize(ScApp->Prefs.AppFontSize);
+	font.setPointSize(PrefsManager::instance()->appPrefs.AppFontSize);
 
 	// setup the menu
 	menuBar = new QMenuBar(this, "menuBar");

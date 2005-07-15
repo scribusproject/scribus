@@ -21,6 +21,7 @@
 #include "pluginmanager.h"
 #include "util.h"
 #include "scfontmetrics.h"
+#include "prefsmanager.h"
 
 using namespace std;
 
@@ -1607,7 +1608,7 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 		family.replace( QRegExp( "'" ) , QChar( ' ' ) );
 		obj->Family = Doku->toolSettings.defFont; // family;
 		bool found = false;
-		SCFontsIterator it(Prog->Prefs.AvailFonts);
+		SCFontsIterator it(PrefsManager::instance()->appPrefs.AvailFonts);
 		for ( ; it.current(); ++it)
 		{
 			QString fam;

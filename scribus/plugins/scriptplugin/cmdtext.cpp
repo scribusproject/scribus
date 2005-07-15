@@ -1,5 +1,6 @@
 #include "cmdtext.h"
 #include "cmdutil.h"
+#include "prefsmanager.h"
 
 PyObject *scribus_getfontsize(PyObject* /* self */, PyObject* args)
 {
@@ -471,7 +472,7 @@ PyObject *scribus_setfont(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set font on a non-text frame.","python error"));
 		return NULL;
 	}
-	if (Carrier->Prefs.AvailFonts.find(QString::fromUtf8(Font)))
+	if (PrefsManager::instance()->appPrefs.AvailFonts.find(QString::fromUtf8(Font)))
 	{
 		int Apm = Carrier->doc->appMode;
 		Carrier->view->SelItem.clear();

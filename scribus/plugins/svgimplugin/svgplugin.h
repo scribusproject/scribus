@@ -7,6 +7,8 @@
 #include "vgradient.h"
 #include "pluginmanager.h"
 
+class PrefsManager;
+
 /** Calls the Plugin with the main Application window as parent
   * and the main Application Class as parameter */
 extern "C" void run(QWidget *d, ScribusApp *plug);

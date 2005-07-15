@@ -25,13 +25,14 @@
 #include "pageitem.h"
 #include "undomanager.h"
 #include "undostate.h"
+#include "prefsmanager.h"
 
 
 extern QPixmap loadIcon(QString nam);
 
-ScribusDoc::ScribusDoc(struct ApplicationPrefs *prefsData) : UndoObject(QObject::tr("Document"))
+ScribusDoc::ScribusDoc() : UndoObject(QObject::tr("Document"))
 {
-	prefsValues = prefsData;
+	ApplicationPrefs* prefsData=&(PrefsManager::instance()->appPrefs);
 	modified = false;
 	MasterP = false;
 	NrItems = 0;
@@ -521,7 +522,7 @@ void ScribusDoc::loadStylesFromFile(QString fileName, QValueList<ParagraphStyle>
 		for (uint x = 5; x < wrkStyles->count(); ++x)
 			ss->docParagraphStyles.append((*wrkStyles)[x]);
 		uint old = wrkStyles->count()-5;
-		if (ss->ReadStyles(fileName, this, prefsValues))
+		if (ss->ReadStyles(fileName, this))
 		{
 			if (ss->docParagraphStyles.count() > old)
 			{

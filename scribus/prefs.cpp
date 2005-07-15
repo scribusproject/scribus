@@ -33,6 +33,7 @@
 #include "docitemattrprefs.h"
 #include "tocindexprefs.h"
 #include "marginWidget.h"
+#include "prefsmanager.h"
 
 using namespace std;
 
@@ -42,16 +43,18 @@ extern ProfilesL InputProfiles;
 extern ScribusApp *ScApp;
 
 /*!
- \fn Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData)
+ \fn Preferences::Preferences( QWidget* parent)
  \author Franz Schmid
  \date
  \brief Constructor for Preferences dialog box
  \param parent QWidget pointer to parent window
- \param prefsData ApplicationPrefs * struct
+ \param prefsData->ApplicationPrefs * struct
  \retval Preferences dialog
  */
-Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsDialogBase( parent )
+Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 {
+	prefsManager=PrefsManager::instance();
+	ApplicationPrefs* prefsData=&(prefsManager->appPrefs);
 	int decimals;
 	ap = (ScribusApp*)parent;
 	docUnitIndex = prefsData->docUnitIndex;
@@ -83,8 +86,8 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	languageList.sort();
 	guiLangCombo = new QComboBox( false, ButtonGroup1, "guiLangCombo");
 	guiLangCombo->insertStringList( languageList );
-	guiLangCombo->setCurrentText(langMgr.getLangFromAbbrev(prefsData->guiLanguage));
 	selectedGUILang=prefsData->guiLanguage;
+	guiLangCombo->setCurrentText(langMgr.getLangFromAbbrev(selectedGUILang));
 	guiLangLabel = new QLabel(guiLangCombo, tr("&Language:"), ButtonGroup1, "guiLangLabel");
 	ButtonGroup1Layout->addWidget( guiLangLabel, 0, 0 );
 	ButtonGroup1Layout->addWidget( guiLangCombo, 0, 1 );
@@ -336,7 +339,7 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	tabHyphenator->maxCount->setValue(prefsData->HyCount);
 	addItem( tr("Hyphenator"), loadIcon("hyphenate.png"), tabHyphenator);
 
-	tabFonts = new FontPrefs(  prefsWidgets, ap->Prefs.AvailFonts, false, prefsData, ap->PrefsPfad, 0);
+	tabFonts = new FontPrefs(  prefsWidgets, prefsData->AvailFonts, false, ap->PrefsPfad, 0);
 	addItem( tr("Fonts"), loadIcon("font.png"), tabFonts);
 
 	tabDocChecker = new TabCheckDoc(  prefsWidgets, prefsData->checkerProfiles, prefsData->curCheckProfile);
@@ -351,7 +354,7 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	DocFonts.clear();
 	tabPDF = new TabPDFOptions( prefsWidgets,
 								&prefsData->PDF_Options,
-								ap->Prefs.AvailFonts,
+								prefsData->AvailFonts,
 								&ap->PDFXProfiles,
 								DocFonts,
 								prefsData->PDF_Options.PresentVals,

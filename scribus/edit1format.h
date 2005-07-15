@@ -29,7 +29,7 @@ class EditStyle : public QDialog
 	Q_OBJECT
 
 public:
-	EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<ParagraphStyle> v, bool neu, ApplicationPrefs *Prefs,
+	EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<ParagraphStyle> v, bool neu,
 	           double au, int dEin, ScribusDoc *doc);
 	~EditStyle() {};
 
@@ -90,7 +90,6 @@ public:
 	PageItem *previewItem;
 	//! Reference to the own ScribusDoc (preferences etc.) 12/30/2004 petr vanek
 	ScribusDoc *parentDoc;
-	ApplicationPrefs *PrefsData;
 
 private slots:
 	void toggleLsp(int id);

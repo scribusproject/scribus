@@ -41,6 +41,7 @@
 #include "styleselect.h"
 #include "alignselect.h"
 #include "shadebutton.h"
+#include "prefsmanager.h"
 
 struct PtiSmall {
 		    int csize;
@@ -434,6 +435,8 @@ protected:
     QHBoxLayout* StoryEd2Layout;
 	QGridLayout* ButtonGroup1Layout;
 	QGridLayout* ButtonGroup2Layout;
+	
+	PrefsManager* prefsManager;
 };
 
 #endif

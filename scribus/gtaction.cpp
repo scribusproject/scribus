@@ -25,11 +25,13 @@
 #include <qcursor.h>
 #include <qstringlist.h>
 #include "color.h"
+#include "prefsmanager.h"
 
 extern ScribusApp* ScApp;
 
 gtAction::gtAction(bool append)
 {
+	prefsManager=PrefsManager::instance();
 	textFrame = ScApp->view->SelItem.at(0);
 	it = textFrame;
 	lastParagraphStyle = -1;
@@ -469,7 +471,7 @@ QString gtAction::validateFont(gtFont* font)
 	QString useFont = font->getName();
 	if ((useFont == NULL) || (useFont == ""))
 		useFont = textFrame->IFont;
-	else if (ScApp->Prefs.AvailFonts[font->getName()] == 0)
+	else if (prefsManager->appPrefs.AvailFonts[font->getName()] == 0)
 	{
 		bool found = false;
 		useFont == NULL;
@@ -507,22 +509,22 @@ QString gtAction::validateFont(gtFont* font)
 			}
 			if (!found)
 			{
-				if (!ScApp->Prefs.GFontSub.contains(font->getName()))
+				if (!prefsManager->appPrefs.GFontSub.contains(font->getName()))
 				{
-					MissingFont *dia = new MissingFont(0, useFont, &ScApp->Prefs, ScApp->doc);
+					MissingFont *dia = new MissingFont(0, useFont, ScApp->doc);
 					dia->exec();
 					useFont = dia->getReplacementFont();
-					ScApp->Prefs.GFontSub[font->getName()] = useFont;
+					prefsManager->appPrefs.GFontSub[font->getName()] = useFont;
 					delete dia;
 				}
 				else
-					useFont = ScApp->Prefs.GFontSub[font->getName()];
+					useFont = prefsManager->appPrefs.GFontSub[font->getName()];
 			}
 		}
 	}
 
 	if(!ScApp->doc->UsedFonts.contains(useFont))
-		ScApp->doc->AddFont(useFont, ScApp->Prefs.AvailFonts[useFont]->Font);
+		ScApp->doc->AddFont(useFont, prefsManager->appPrefs.AvailFonts[useFont]->Font);
 	return useFont;
 }
 
@@ -532,7 +534,7 @@ QString gtAction::findFontName(gtFont* font)
 	for (uint i = 0; i < static_cast<uint>(gtFont::NAMECOUNT); ++i)
 	{
 		QString nname = font->getName(i);
-		if (ScApp->Prefs.AvailFonts[nname] != 0)
+		if (prefsManager->appPrefs.AvailFonts[nname] != 0)
 		{
 			ret = nname;
 			break;

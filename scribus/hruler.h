@@ -25,6 +25,7 @@
 class ScribusView;
 class ScribusDoc;
 class ScribusApp;
+class PrefsManager;
 /**Waagrechtes Lineal
 *@author Franz Schmid
 */
@@ -80,6 +81,7 @@ signals:
 private:
 	double iter, iter2;
 	int cor;
+	PrefsManager *prefsManager;
 };
 
 #endif

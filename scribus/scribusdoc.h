@@ -33,7 +33,7 @@
 #include <qstringlist.h>
 #include <qtimer.h>
 
-#include "scribusstructs.h"
+#include "prefsstructs.h"
 #include "documentinformation.h"
 #include "undoobject.h"
 #include "hyphenator.h"
@@ -57,7 +57,7 @@ class ScribusDoc : public QObject, public UndoObject
 {
 
 public:
-    ScribusDoc(struct ApplicationPrefs *prefsData);
+    ScribusDoc();
     ~ScribusDoc();
     void setModified();
     void setUnModified();
@@ -161,7 +161,6 @@ public: // Public attributes
 	QString DocName;
 	QMap<QString,QFont> UsedFonts;
 	SCFonts *AllFonts;
-	ApplicationPrefs *prefsValues;
 	QColor papColor;
 	int CurrentSel;
 	int CurrentStyle;

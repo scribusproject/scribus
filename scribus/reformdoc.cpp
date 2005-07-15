@@ -20,6 +20,7 @@
 #include "docitemattrprefs.h"
 #include "tocindexprefs.h"
 #include "marginWidget.h"
+#include "prefsmanager.h"
 
 extern QPixmap loadIcon(QString nam);
 extern bool CMSavail;
@@ -283,13 +284,13 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	tabHyphenator->maxCount->setValue(doc->docHyphenator->HyCount);
 	addItem( tr("Hyphenator"), loadIcon("hyphenate.png"), tabHyphenator);
 
-	tabFonts = new FontPrefs(  prefsWidgets, ap->Prefs.AvailFonts, true, &ap->Prefs, ap->PrefsPfad, doc);
+	tabFonts = new FontPrefs(  prefsWidgets, PrefsManager::instance()->appPrefs.AvailFonts, true, ap->PrefsPfad, doc);
 	addItem( tr("Fonts"), loadIcon("font.png"), tabFonts);
 
 	tabDocChecker = new TabCheckDoc(  prefsWidgets, doc->checkerProfiles, doc->curCheckProfile);
 	addItem( tr("Preflight Verifier"), loadIcon("checkdoc.png"), tabDocChecker);
 
-	tabPDF = new TabPDFOptions( prefsWidgets, &doc->PDF_Options, ap->Prefs.AvailFonts,
+	tabPDF = new TabPDFOptions( prefsWidgets, &doc->PDF_Options, PrefsManager::instance()->appPrefs.AvailFonts,
 								&ap->PDFXProfiles, doc->UsedFonts, doc->PDF_Options.PresentVals,
 								einheit, doc->pageHeight, doc->pageWidth, 0 );
 	addItem( tr("PDF Export"), loadIcon("acroread.png"), tabPDF);

@@ -18,7 +18,9 @@
 #include "mspinbox.h"
 #include "customfdialog.h"
 
+
 #include "scribusstructs.h"
+class PrefsManager;
 class MarginWidget;
 
 class NewDoc : public QDialog
@@ -26,7 +28,7 @@ class NewDoc : public QDialog
 	Q_OBJECT
 
 public:
-	NewDoc( QWidget* parent, ApplicationPrefs *Vor, bool startUp = false );
+	NewDoc( QWidget* parent, bool startUp = false );
 	~NewDoc() {};
 	void createNewDocPage();
 	void createOpenDocPage();
@@ -66,7 +68,6 @@ public:
 	QListBox* recentDocList;
 	QPushButton* OKButton;
 	QPushButton* CancelB;
-	ApplicationPrefs *PrefsData;
 	double unitRatio;
 	int Orient;
 	int precision;
@@ -104,6 +105,7 @@ protected:
 	QHBoxLayout* Layout1;
 	QVBoxLayout* recentDocLayout;
 	QString customText, customTextTR;
+	PrefsManager* prefsManager;
 };
 
 #endif // NEWDOC_H

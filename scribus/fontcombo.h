@@ -28,6 +28,7 @@ class QListBoxItem;
 class QFont;
 
 class ScribusDoc;
+class PrefsManager;
 
 /**
   *@author Franz Schmid
@@ -53,10 +54,12 @@ private:
 class FontCombo : public QComboBox  
 {
 public:
-	FontCombo(QWidget* pa, ApplicationPrefs *Prefs);
+	FontCombo(QWidget* pa);
 	~FontCombo() {};
 
-	void RebuildList(ApplicationPrefs *Prefs, ScribusDoc *currentDoc);
+	void RebuildList(ScribusDoc *currentDoc);
+private:
+	PrefsManager* prefsManager;
 };
 
 class FontComboH : public QWidget
@@ -65,7 +68,7 @@ class FontComboH : public QWidget
 	Q_OBJECT
 
 public:
-	FontComboH(QWidget* parent, ApplicationPrefs *Prefs);
+	FontComboH(QWidget* parent);
 	~FontComboH() {};
 	QString currentFont();
 	void RebuildList(ScribusDoc *currentDoc);
@@ -83,7 +86,7 @@ private slots:
 private:
 	QComboBox* fontFamily;
 	QComboBox* fontStyle;
-	ApplicationPrefs *PrefsData;
+	PrefsManager* prefsManager;
 	ScribusDoc *currDoc;
 
 protected:

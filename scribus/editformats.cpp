@@ -111,12 +111,11 @@ ChooseStyles::ChooseStyles( QWidget* parent, QValueList<ParagraphStyle> *styleLi
 	connect(OkButton, SIGNAL(clicked()), this, SLOT(accept()));
 }
 
-StilFormate::StilFormate( QWidget* parent, ScribusDoc *doc, ApplicationPrefs *avail) : QDialog( parent, "Formate", true, 0)
+StilFormate::StilFormate( QWidget* parent, ScribusDoc *doc) : QDialog( parent, "Formate", true, 0)
 {
 	resize( 327, 260 );
 	setCaption( tr( "Edit Styles" ) );
 	setIcon(loadIcon("AppIcon.png"));
-	fon = avail;
 	Docu = doc;
 	StilFormateLayout = new QHBoxLayout( this );
 	StilFormateLayout->setSpacing( 5 );
@@ -248,7 +247,7 @@ void StilFormate::dupFormat()
 	sty.kernVal = TempVorl[sFnumber].kernVal;
 	TempVorl.append(sty);
 	sFnumber = TempVorl.count()-1;
-	EditStyle* dia2 = new EditStyle(this, &TempVorl[sFnumber], TempVorl, true, fon,
+	EditStyle* dia2 = new EditStyle(this, &TempVorl[sFnumber], TempVorl, true, 
 	                                static_cast<double>(Docu->typographicSetttings.autoLineSpacing), Docu->docUnitIndex, Docu);
 	if (!dia2->exec())
 		TempVorl.remove(TempVorl.fromLast());
@@ -292,7 +291,7 @@ void StilFormate::neuesFormat()
 	sty.kernVal = 0;
 	TempVorl.append(sty);
 	sFnumber = TempVorl.count()-1;
-	EditStyle* dia2 = new EditStyle(this, &TempVorl[sFnumber], TempVorl, true, fon, static_cast<double>(Docu->typographicSetttings.autoLineSpacing), Docu->docUnitIndex, Docu);
+	EditStyle* dia2 = new EditStyle(this, &TempVorl[sFnumber], TempVorl, true,  static_cast<double>(Docu->typographicSetttings.autoLineSpacing), Docu->docUnitIndex, Docu);
 	if (!dia2->exec())
 		TempVorl.remove(TempVorl.fromLast());
 	delete dia2;
@@ -301,7 +300,7 @@ void StilFormate::neuesFormat()
 
 void StilFormate::editFormat()
 {
-	EditStyle* dia = new EditStyle(this, &TempVorl[sFnumber], TempVorl, false, fon,
+	EditStyle* dia = new EditStyle(this, &TempVorl[sFnumber], TempVorl, false, 
 	                               static_cast<double>(Docu->typographicSetttings.autoLineSpacing), Docu->docUnitIndex, Docu);
 	dia->exec();
 	delete dia;

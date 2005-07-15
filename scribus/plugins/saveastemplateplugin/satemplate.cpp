@@ -3,8 +3,9 @@
  ***************************************************************************/
 #include "satemplate.h"
 #include "satemplate.moc"
-#include <prefsfile.h>
-#include <pluginmanager.h>
+#include "prefsfile.h"
+#include "pluginmanager.h"
+#include "prefsmanager.h"
 
 extern PrefsFile* prefsFile;
 ScribusApp* Carrier;
@@ -83,7 +84,7 @@ void MenuSAT::RunSATPlug()
 	QString currentFile = Carrier->doc->DocName;
 	bool hasName = Carrier->doc->hasName;
 	bool isModified = Carrier->doc->isModified();
-	QString userTemplatesDir = Carrier->Prefs.documentTemplatesDir;
+	QString userTemplatesDir = PrefsManager::instance()->appPrefs.documentTemplatesDir;
 	PrefsContext* dirs = prefsFile->getContext("dirs");
 	QString oldCollect = dirs->get("collect", ".");
 	QString templatesDir = ".";
