@@ -18,8 +18,6 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#include "qlibrary.h"
-
 #include "gtgettext.h"
 #include "pluginmanager.h"
 #include "scpaths.h"
@@ -121,47 +119,60 @@ void gtGetText::run(bool append)
 void gtGetText::CallDLL(const ImporterData& idata, const QString& filePath,
                         const QString& encoding, bool textOnly, bool append)
 {
+	void* gtplugin;
 	typedef void (*sdem)(QString filename, QString encoding, bool textOnly, gtWriter *writer);
 	sdem fp_GetText;
 	QString pluginFilePath = QString("%1/gettext/%2").arg(ScPaths::instance().pluginDir()).arg(idata.soFilePath);
-	// This is the new, QLibrary based plugin loading code.
-	QLibrary gtplugin(pluginFilePath);
-	gtplugin.setAutoUnload(true);
-	fp_GetText = (sdem)gtplugin.resolve("GetText");
+	gtplugin = PluginManager::loadDLL("pluginFilePath");
+	if (!gtplugin)
+	{
+		qWarning("Failed to load plugin %s", pluginFilePath.ascii());
+		return;
+	}
+	fp_GetText = (sdem) PluginManager::resolveSym(gtplugin, "GetText");
 	if (!fp_GetText)
 	{
 		qWarning("Failed to get GetText() from %s", pluginFilePath.ascii());
+		PluginManager::unloadDLL(gtplugin);
 		return;
 	}
 	gtWriter *w = new gtWriter(append);
 	(*fp_GetText)(filePath, encoding, textOnly, w);
 	delete w;
+	PluginManager::unloadDLL(gtplugin);
 }
 
 bool gtGetText::DLLName(QString name, QString *ffName, QStringList *fEndings)
 {
+	void* gtplugin;
 	typedef QString (*sdem0)();
 	typedef QStringList (*sdem1)();
 	sdem0 fp_FileFormatName;
 	sdem1 fp_FileExtensions;
 	QString pluginFilePath = QString("%1/gettext/%2").arg(ScPaths::instance().pluginDir()).arg(name);
-
-	QLibrary gtplugin(pluginFilePath);
-	gtplugin.setAutoUnload(true);
-	fp_FileFormatName = (sdem0)gtplugin.resolve("FileFormatName");
+	gtplugin = PluginManager::loadDLL(pluginFilePath);
+	if (!gtplugin)
+	{
+		qWarning("Failed to load plugin %s", pluginFilePath.ascii());
+		return false;
+	}
+	fp_FileFormatName = (sdem0) PluginManager::resolveSym( gtplugin, "FileFormatName");
 	if (!fp_FileFormatName)
 	{
 		qWarning("Failed to get FileFormatName() from %s", pluginFilePath.ascii());
+		PluginManager::unloadDLL(gtplugin);
 		return false;
 	}
-	fp_FileExtensions = (sdem1)gtplugin.resolve("FileExtensions");
+	fp_FileExtensions = (sdem1) PluginManager::resolveSym( gtplugin, "FileExtensions");
 	if (!fp_FileExtensions)
 	{
 		qWarning("Failed to get FileExtensions() from %s", pluginFilePath.ascii());
+		PluginManager::unloadDLL(gtplugin);
 		return false;
 	}
 	*ffName = (*fp_FileFormatName)();
 	*fEndings = (*fp_FileExtensions)();
+	PluginManager::unloadDLL(gtplugin);
 	return true;
 }
 
