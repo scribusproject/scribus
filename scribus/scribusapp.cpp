@@ -175,6 +175,11 @@ int ScribusQApp::init()
 
 		if (file != "")
 			scribus->loadDoc(file);
+		else
+		{
+			if (scribus->Prefs.showStartupDialog)
+				scribus->startUpDialog();
+		}
 
 		// A hook for plug-ins and scripts to trigger on. Some plugins and scripts
 		// require the app to be fully set up (in particular, the main window to be

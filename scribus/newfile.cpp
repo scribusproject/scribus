@@ -8,6 +8,8 @@
 #include "pagesize.h"
 #include "marginWidget.h"
 #include "scconfig.h"
+#include "scribus.h"
+#include "pluginmanager.h"
 
 // definitions for clear reading the code - pv
 #define PORTRAIT    0
@@ -16,10 +18,12 @@
 
 extern QPixmap loadIcon(QString nam);
 extern PrefsFile* prefsFile;
+extern ScribusApp* ScApp;
 
 NewDoc::NewDoc( QWidget* parent, ApplicationPrefs *Vor, bool startUp ) : QDialog( parent, "newDoc", true, 0 )
 {
 	tabSelected = 0;
+	onStartup = startUp;
 	customText="Custom";
 	customTextTR=QObject::tr( "Custom" );
 	unitIndex = Vor->docUnitIndex;
@@ -37,6 +41,8 @@ NewDoc::NewDoc( QWidget* parent, ApplicationPrefs *Vor, bool startUp ) : QDialog
 	if (startUp)
 	{
 		tabWidget->addTab(newDocFrame, tr("New Document"));
+		createRecentDocPage();
+		tabWidget->addTab(recentDocFrame, tr("Recent Documents"));
 		createOpenDocPage();
 		tabWidget->addTab(openDocFrame, tr("Open Document"));
 		TabbedNewDocLayout->addWidget(tabWidget);
@@ -47,6 +53,12 @@ NewDoc::NewDoc( QWidget* parent, ApplicationPrefs *Vor, bool startUp ) : QDialog
 	Layout1 = new QHBoxLayout;
 	Layout1->setSpacing( 6 );
 	Layout1->setMargin( 0 );
+	if (startUp)
+	{
+		startUpDialog = new QCheckBox( tr( "Don't show this Dialog again" ), this, "startUpDialog" );
+		startUpDialog->setChecked(!PrefsData->showStartupDialog);
+		Layout1->addWidget( startUpDialog );
+	}
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout1->addItem( spacer );
 	OKButton = new QPushButton( tr( "&OK" ), this, "OKButton" );
@@ -250,6 +262,16 @@ void NewDoc::createOpenDocPage()
 #else
 	formats += tr("Documents (*.sla *.scd);;");
 #endif
+	if (ScApp->pluginManager->DLLexists(6))
+		formats += tr("Postscript Files (*.eps *.EPS *.ps *.PS);;");
+	if (ScApp->pluginManager->DLLexists(10))
+#ifdef HAVE_LIBZ
+		formats += tr("SVG Images (*.svg *.svgz);;");
+#else
+		formats += tr("SVG Images (*.svg);;");
+#endif
+	if (ScApp->pluginManager->DLLexists(12))
+		formats += tr("OpenOffice.org Draw (*.sxd);;");
 	formats += tr("All Files (*)");
 	openDocFrame = new QFrame(this, "openDocFrame");
 	QVBoxLayout* openDocLayout = new QVBoxLayout(openDocFrame, 5,5, "openDocLayout");
@@ -268,6 +290,19 @@ void NewDoc::createOpenDocPage()
 	QPoint point = QPoint(0,0);
 	fileDialog->reparent(openDocFrame, point);
 	openDocLayout->addWidget(fileDialog);
+}
+
+void NewDoc::createRecentDocPage()
+{
+	recentDocFrame = new QFrame(this, "recentDocFrame");
+	recentDocLayout = new QVBoxLayout(recentDocFrame, 5, 5, "recentDocLayout");
+	recentDocList = new QListBox(recentDocFrame, "recentDocList");
+	recentDocLayout->addWidget(recentDocList);
+	uint max = QMIN(ScApp->Prefs.RecentDCount, ScApp->RecentDocs.count());
+	for (uint m = 0; m < max; ++m)
+	{
+		recentDocList->insertItem(ScApp->RecentDocs[m]);
+	}
 }
 
 void NewDoc::setBreite(int)
@@ -332,7 +367,10 @@ void NewDoc::ExitOK()
 {
 	Pagebr = Breite->value() / unitRatio;
 	Pageho = Hoehe->value() / unitRatio;
-//	tabSelected = tabWidget->currentPageIndex();
+	if (onStartup)
+		tabSelected = tabWidget->currentPageIndex();
+	else
+		tabSelected = 0;
 	accept();
 }
 

@@ -528,6 +528,7 @@ struct ApplicationPrefs
 	// lorem ipsum
 	bool useStandardLI;
 	int paragraphsLI;
+	bool showStartupDialog;
 };
 
 struct PrintOptions

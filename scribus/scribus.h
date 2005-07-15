@@ -110,6 +110,7 @@ public:
 	bool warningVersion(QWidget *parent);
 	void SetShortCut();
 	void SetKeyEntry(QString actName, QString cleanMenuText, QString keyseq, int rowNumber);
+	void startUpDialog();
 	bool doFileNew(double width, double h, double tpr, double lr, double rr, double br, double ab, double sp,
 									bool atf, bool fp, int einh, bool firstleft, int Ori, int SNr, QString pagesize);
 	bool DoFileSave(QString fn);
@@ -231,6 +232,7 @@ public:
 	MenuManager* scrMenuMgr;
 	ActionManager* actionManager;
 	PluginManager* pluginManager;
+	QStringList RecentDocs;
 
 public slots:
 	void languageChange();
@@ -550,7 +552,6 @@ private:
 	int HaveGS;
 	void *PSDriver;
 	int DocNr;
-	QStringList RecentDocs;
 	UndoManager *undoManager;
 	bool PrinterUsed;
 	struct PDe {

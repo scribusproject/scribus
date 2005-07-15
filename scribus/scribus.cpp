@@ -573,6 +573,7 @@ void ScribusApp::initDefaultPrefs()
 	// lorem ipsum defaults
 	Prefs.useStandardLI = false;
 	Prefs.paragraphsLI = 10;
+	Prefs.showStartupDialog = true;
 	struct checkerPrefs checkerSettings;
 	checkerSettings.ignoreErrors = false;
 	checkerSettings.autoCheck = true;
@@ -2789,6 +2790,67 @@ void ScribusApp::parsePagesString(QString pages, std::vector<int>* pageNs, int s
 bool ScribusApp::arrowKeyDown()
 {
 	return _arrowKeyDown;
+}
+
+void ScribusApp::startUpDialog()
+{
+	QString fileName = "";
+	PrefsContext* docContext = prefsFile->getContext("docdirs", false);
+	NewDoc* dia = new NewDoc(this, &Prefs, true);
+	if (dia->exec())
+	{
+		if (dia->tabSelected == 0)
+		{
+			bool facingPages, autoframes;
+			double pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, numberCols, columnDistance;
+			topMargin = dia->GroupRand->RandT;
+			bottomMargin = dia->GroupRand->RandB;
+			leftMargin = dia->GroupRand->RandL;
+			rightMargin = dia->GroupRand->RandR;
+			columnDistance = dia->Dist;
+			pageWidth = dia->Pagebr;
+			pageHeight = dia->Pageho;
+			numberCols = dia->SpinBox10->value();
+			autoframes = dia->AutoFrame->isChecked();
+			facingPages = dia->Doppelseiten->isChecked();
+			int orientation = dia->Orient;
+			PageSize *ps2 = new PageSize(dia->ComboBox1->currentText());
+			QString pagesize = ps2->getPageName();
+			doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->ComboBox3->currentItem(),
+							dia->ErsteSeite->isChecked(), orientation, dia->PgNr->value(), pagesize);
+			if (dia->PgNum->value() > 1)
+			{
+				for (int pg = 1; pg < dia->PgNum->value(); pg++)
+				{
+					slotNewPage(pg);
+				}
+				view->GotoPage(0);
+			}
+			delete ps2;
+		}
+		else
+		{
+			if (dia->tabSelected == 1)
+			{
+				fileName = dia->recentDocList->currentText();
+				if (fileName != "")
+					loadRecent(fileName);
+			}
+			else
+			{
+				fileName = dia->fileDialog->selectedFile();
+				if (fileName != "")
+				{
+					docContext->set("docsopen", fileName.left(fileName.findRev("/")));
+					loadDoc(fileName);
+				}
+			}
+		}
+	}
+	Prefs.showStartupDialog = !dia->startUpDialog->isChecked();
+	delete dia;
+	windowsMenuAboutToShow();
+	mainWindowStatusLabel->setText( tr("Ready"));
 }
 
 bool ScribusApp::slotFileNew()
@@ -8418,6 +8480,7 @@ void ScribusApp::slotPrefsOrg()
 		Prefs.marginColored = dia->checkUnprintable->isChecked();
 		Prefs.askBeforeSubstituite = dia->AskForSubs->isChecked();
 		Prefs.haveStylePreview = dia->stylePreview->isChecked();
+		Prefs.showStartupDialog = dia->startUpDialog->isChecked();
 		// lorem ipsum
 		Prefs.useStandardLI = dia->useStandardLI->isChecked();
 		Prefs.paragraphsLI = dia->paragraphsLI->value();

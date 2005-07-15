@@ -166,6 +166,7 @@ public:
 	QCheckBox* DoGCR;
 	QCheckBox* AskForSubs;
 	QCheckBox* stylePreview;
+	QCheckBox* startUpDialog;
 	//! lorem ipsum
 	QGroupBox* groupLI;
 	QCheckBox* useStandardLI;

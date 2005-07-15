@@ -3512,6 +3512,7 @@ void ScriXmlDoc::WritePref(ApplicationPrefs *Vor, QString ho)
 	dc.setAttribute("STECOLOR", Vor->STEcolor.name());
 	dc.setAttribute("STEFONT", Vor->STEfont);
 	dc.setAttribute("STYLEPREVIEW", static_cast<int>(Vor->haveStylePreview));
+	dc.setAttribute("StartUp", static_cast<int>(Vor->showStartupDialog));
 	elem.appendChild(dc);
 	QDomElement dc1=docu.createElement("GRID");
 	dc1.setAttribute("MINOR",Vor->guidesSettings.minorGrid);
@@ -3877,6 +3878,7 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 			Vorein->guidesSettings.showPic = static_cast<bool>(QStoInt(dc.attribute("SHOWPICT","1")));
 			Vorein->guidesSettings.showControls = static_cast<bool>(QStoInt(dc.attribute("SHOWControl","0")));
 			Vorein->haveStylePreview = static_cast<bool>(QStoInt(dc.attribute("STYLEPREVIEW","1")));
+			Vorein->showStartupDialog = static_cast<bool>(QStoInt(dc.attribute("StartUp","1")));
 			Vorein->ScratchBottom = QStodouble(dc.attribute("ScratchBottom", "20"));
 			// FIXME A typo in early 1.3cvs (MAR 05) means we must support loading of
 			// FIXME 'ScatchLeft' for a while too. This can be removed in a few months.

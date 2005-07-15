@@ -615,6 +615,9 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	stylePreview = new QCheckBox( tr( "Preview of current Paragraph Style visible when editing Styles" ), Misc, "stylePreview" );
 	stylePreview->setChecked(prefsData->haveStylePreview);
 	MiscLayout->addWidget( stylePreview );
+	startUpDialog = new QCheckBox( tr( "Show Startup Dialog" ), Misc, "startUpDialog" );
+	startUpDialog->setChecked(prefsData->showStartupDialog);
+	MiscLayout->addWidget( startUpDialog );
 	// lorem ipsum
 	groupLI = new QGroupBox(tr("Lorem Ipsum"), Misc, "groupLI");
 	groupLI->setColumnLayout(0, Qt::Vertical);

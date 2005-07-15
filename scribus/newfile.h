@@ -14,6 +14,7 @@
 #include <qtooltip.h>
 #include <qtabwidget.h>
 #include <qframe.h>
+#include <qlistbox.h>
 #include "mspinbox.h"
 #include "customfdialog.h"
 
@@ -29,6 +30,8 @@ public:
 	~NewDoc() {};
 	void createNewDocPage();
 	void createOpenDocPage();
+	void createRecentDocPage();
+	void setSize(QString gr);
 
 	QTabWidget* tabWidget;
 	QFrame* newDocFrame;
@@ -50,6 +53,7 @@ public:
 	QComboBox* ComboBox3;
 	QCheckBox* Doppelseiten;
 	QCheckBox* ErsteSeite;
+	QCheckBox* startUpDialog;
 	MSpinBox* Distance;
 	QSpinBox* SpinBox10;
 	QSpinBox* PgNr;
@@ -58,6 +62,8 @@ public:
 	MSpinBox* Hoehe;
 	QFrame* openDocFrame;
 	CustomFDialog *fileDialog;
+	QFrame* recentDocFrame;
+	QListBox* recentDocList;
 	QPushButton* OKButton;
 	QPushButton* CancelB;
 	ApplicationPrefs *PrefsData;
@@ -69,8 +75,8 @@ public:
 	double Dist;
 	QString unitSuffix;
 	int unitIndex;
-	void setSize(QString gr);
 	int tabSelected;
+	bool onStartup;
 
 public slots:
 	void setHoehe(int v);
@@ -96,6 +102,7 @@ protected:
 	QHBoxLayout* GroupBox4Layout;
 	QGridLayout* Layout2;
 	QHBoxLayout* Layout1;
+	QVBoxLayout* recentDocLayout;
 	QString customText, customTextTR;
 };
 
