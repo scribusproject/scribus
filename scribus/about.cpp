@@ -13,6 +13,7 @@
 #include <qtooltip.h>
 
 #include "scconfig.h"
+#include "util.h"
 
 #include "langmgr.h"
 
@@ -70,7 +71,12 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	bu += "*";
 #endif
 
-	buildID->setText( tr("Scribus Version %1\n%2 %3").arg(VERSION).arg( tr("Build-ID:")).arg(bu));
+	QString gsver(getGSVersion());
+	if (!gsver.isNull())
+		gsver = tr("Using GhostScript version %1").arg(gsver);
+	else
+		gsver = tr("No GS version available");
+	buildID->setText( tr("Scribus Version %1\n%2 %3 (%4)").arg(VERSION).arg( tr("Build-ID:")).arg(bu).arg(gsver));
 	tabLayout1->addWidget( buildID );
 	tabWidget2->insertTab( tab, tr( "&About" ) );
 	tab_2 = new QWidget( tabWidget2, "tab_2" );

@@ -58,6 +58,10 @@ QImage ProofImage(QImage *Im);
 int System(const QStringList & args);
 int callGS(const QStringList& args_in, const QString device="");
 int callGS(const QString& args_in, const QString device="");
+// Return gs version. If gs couldn't be found or there was a problem parsing output, return false
+// (in which case minor and major have undefined values).
+QString getGSVersion();
+bool getNumericGSVersion(int & major, int & minor);
 int copyFile(QString source, QString target);
 int moveFile(QString source, QString target);
 QString checkFileExtension(const QString &, const QString &);

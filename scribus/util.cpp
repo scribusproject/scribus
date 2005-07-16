@@ -214,6 +214,35 @@ int callGS(const QString& args_in, const QString device)
 	return system(cmd1.local8Bit());
 }
 
+// Return the GhostScript version string, or QString::null if it couldn't be retrived.
+QString getGSVersion()
+{
+	// Open a pipe to gs
+	FILE *fp = popen(QString("%1 --version")
+			.arg(PrefsManager::instance()->appPrefs.gs_exe).local8Bit(), "r");
+	if (!fp)
+		return QString::null;
+	// Read out the text
+	QTextStream ts(fp, IO_ReadOnly);
+	return ts.readLine();
+}
+
+// Return the GhostScript major and minor version numbers.
+bool getNumericGSVersion(int & major, int & minor)
+{
+	QString gs_ver_string(getGSVersion());
+	// gs's version string is of the form MAJOR.MINOR, so look for the .
+	// then convert to numbers. 7.07 will become (7,7) for example.
+	bool success = false;
+	major = gs_ver_string.section('.', 0, 0).toInt(&success);
+	if (!success)
+		return false;
+	minor = gs_ver_string.section('.', 1, 1).toInt(&success);
+	if (!success)
+		return false;
+	return true;
+}
+
 int copyFile(QString source, QString target)
 {
 	if ((source.isNull()) || (target.isNull()))
