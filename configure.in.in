@@ -91,7 +91,7 @@ missing_libs=""
 # Usage: libmissing libfreetype required
 #        libmissing libfontconfig optional
 # to report a missing library
-function libmissing() {
+libmissing() {
 	# name of library
 	libname="${1}"
 	# one of "optional" or "required"
