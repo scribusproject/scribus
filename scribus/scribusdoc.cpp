@@ -275,6 +275,8 @@ ScribusDoc::ScribusDoc() : UndoObject(QObject::tr("Document"))
 	ScratchRight = prefsData->ScratchRight;
 	ScratchTop = prefsData->ScratchTop;
 	ScratchBottom = prefsData->ScratchBottom;
+	minCanvasCoordinate = FPoint(0, 0);
+	maxCanvasCoordinate = FPoint(ScratchLeft + pageWidth + ScratchRight, ScratchTop + pageHeight + ScratchBottom);
 	arrowStyles = prefsData->arrowStyles;
 	undoManager = UndoManager::instance();
 	docItemErrors.clear();

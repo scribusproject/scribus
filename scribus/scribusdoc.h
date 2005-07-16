@@ -113,6 +113,9 @@ public: // Public attributes
 	double ScratchRight;
 	double ScratchTop;
 	double ScratchBottom;
+/** Minimum and Maximum Points of Document */
+	FPoint minCanvasCoordinate;
+	FPoint maxCanvasCoordinate;
   /** List of Pages */
 	QPtrList<Page> Pages;
   /** List of Master Pages */

@@ -261,6 +261,7 @@ public:
 	void setGroupTransactionStarted(bool isOn);
 	void setScale(const double newScale);
 	const double getScale();
+	void adjustCanvas(FPoint minPos, FPoint maxPos);
 
 public slots: // Public slots
 	void languageChange();

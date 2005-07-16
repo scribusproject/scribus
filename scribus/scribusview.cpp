@@ -4796,6 +4796,7 @@ void ScribusView::setRedrawBounding(PageItem *currItem)
 	currItem->BoundingH = bh - currItem->BoundingY;
 	if (currItem->itemType() == PageItem::Line)
 		currItem->BoundingH = QMAX(currItem->BoundingH, 1);
+	adjustCanvas(FPoint(currItem->BoundingX, currItem->BoundingY), FPoint(bw, bh));
 }
 
 void ScribusView::setGroupRect()
@@ -8499,6 +8500,7 @@ void ScribusView::reformPages()
 	Page* Seite;
 	QMap<uint, oldPageVar> pageTable;
 	struct oldPageVar oldPg;
+	FPoint maxSize;
 	for (uint a = 0; a < Doc->Pages.count(); ++a)
 	{
 		Seite = Doc->Pages.at(a);
@@ -8626,16 +8628,30 @@ void ScribusView::reformPages()
 	if (Doc->PageFP)
 	{
 		if (Doc->FirstPageLeft)
-			resizeContents(qRound((Doc->pageWidth*2+Doc->ScratchLeft+Doc->ScratchRight) * Scale), qRound(((Doc->pageCount-1)/2 + 1) * (Doc->pageHeight+Doc->ScratchBottom+Doc->ScratchTop) * Scale));
+			maxSize = FPoint(Doc->pageWidth*2+Doc->ScratchLeft+Doc->ScratchRight, ((Doc->pageCount-1)/2 + 1) * (Doc->pageHeight+Doc->ScratchBottom+Doc->ScratchTop));
 		else
-			resizeContents(qRound((Doc->pageWidth*2+Doc->ScratchLeft+Doc->ScratchRight) * Scale), qRound((Doc->pageCount/2 + 1) * (Doc->pageHeight+Doc->ScratchBottom+Doc->ScratchTop) * Scale));
+			maxSize = FPoint(Doc->pageWidth*2+Doc->ScratchLeft+Doc->ScratchRight, (Doc->pageCount/2 + 1) * (Doc->pageHeight+Doc->ScratchBottom+Doc->ScratchTop));
 	}
 	else
-		resizeContents(qRound((Doc->pageWidth+Doc->ScratchLeft+Doc->ScratchRight) * Scale), qRound(Doc->pageCount * (Doc->pageHeight+Doc->ScratchBottom+Doc->ScratchTop) * Scale));
+		maxSize = FPoint(Doc->pageWidth+Doc->ScratchLeft+Doc->ScratchRight, Doc->pageCount * (Doc->pageHeight+Doc->ScratchBottom+Doc->ScratchTop));
+	adjustCanvas(FPoint(0,0), maxSize);
 	if (!ScApp->ScriptRunning)
 		setContentsPos(qRound((Doc->currentPage->Xoffset-10) * Scale), qRound((Doc->currentPage->Yoffset-10) * Scale));
 	setRulerPos(contentsX(), contentsY());
 	setMenTxt(Doc->currentPage->PageNr);
+}
+
+void ScribusView::adjustCanvas(FPoint minPos, FPoint maxPos)
+{
+	double newMaxX = QMAX(Doc->maxCanvasCoordinate.x(), maxPos.x());
+	double newMaxY = QMAX(Doc->maxCanvasCoordinate.y(), maxPos.y());
+	double newMinX = Doc->minCanvasCoordinate.x();
+	double newMinY = Doc->minCanvasCoordinate.y();
+	if (Doc->maxCanvasCoordinate != FPoint(newMaxX, newMaxY))
+	{
+		resizeContents(qRound((newMaxX - newMinX) * Scale), qRound((newMaxY - newMinY) * Scale));
+		Doc->maxCanvasCoordinate = FPoint(newMaxX, newMaxY);
+	}
 }
 
 void ScribusView::setMenTxt(int Seite)
@@ -8652,6 +8668,7 @@ void ScribusView::setMenTxt(int Seite)
 /** Fuehrt die Vergroesserung/Verkleinerung aus */
 void ScribusView::slotDoZoom()
 {
+	FPoint maxSize;
 	undoManager->setUndoEnabled(false);
 	if (Scale > 32*Prefs->DisScale)
 	{
@@ -8662,12 +8679,13 @@ void ScribusView::slotDoZoom()
 	if (Doc->PageFP)
 	{
 		if (Doc->FirstPageLeft)
-			resizeContents(qRound((Doc->pageWidth*2+Doc->ScratchLeft+Doc->ScratchRight) * Scale), qRound(((Doc->pageCount-1)/2 + 1) * (Doc->pageHeight+Doc->ScratchBottom+Doc->ScratchTop) * Scale));
+			maxSize = FPoint(Doc->pageWidth*2+Doc->ScratchLeft+Doc->ScratchRight, ((Doc->pageCount-1)/2 + 1) * (Doc->pageHeight+Doc->ScratchBottom+Doc->ScratchTop));
 		else
-			resizeContents(qRound((Doc->pageWidth*2+Doc->ScratchLeft+Doc->ScratchRight) * Scale), qRound((Doc->pageCount/2 + 1) * (Doc->pageHeight+Doc->ScratchBottom+Doc->ScratchTop) * Scale));
+			maxSize = FPoint(Doc->pageWidth*2+Doc->ScratchLeft+Doc->ScratchRight, (Doc->pageCount/2 + 1) * (Doc->pageHeight+Doc->ScratchBottom+Doc->ScratchTop));
 	}
 	else
-		resizeContents(qRound((Doc->pageWidth+Doc->ScratchLeft+Doc->ScratchRight) * Scale), qRound(Doc->pageCount * (Doc->pageHeight+Doc->ScratchBottom+Doc->ScratchTop) * Scale));
+		maxSize = FPoint(Doc->pageWidth+Doc->ScratchLeft+Doc->ScratchRight, Doc->pageCount * (Doc->pageHeight+Doc->ScratchBottom+Doc->ScratchTop));
+	adjustCanvas(FPoint(0,0), maxSize);
 	setRulerPos(contentsX(), contentsY());
 	if (SelItem.count() != 0)
 	{
@@ -8685,10 +8703,10 @@ void ScribusView::slotZoomIn(int mx,int my)
 {
 	if ((mx == 0) && (my == 0))
 	{
-		int x = qRound(QMAX(contentsX() / Scale, 0));
-		int y = qRound(QMAX(contentsY() / Scale, 0));
-		int w = qRound(QMIN(visibleWidth() / Scale, Doc->pageWidth));
-		int h = qRound(QMIN(visibleHeight() / Scale, Doc->pageHeight));
+		int x = qRound(QMAX(contentsX() / Scale, Doc->minCanvasCoordinate.x()));
+		int y = qRound(QMAX(contentsY() / Scale, Doc->minCanvasCoordinate.y()));
+		int w = qRound(QMIN(visibleWidth() / Scale, Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()));
+		int h = qRound(QMIN(visibleHeight() / Scale, Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()));
 		rememberPreviousSettings(w / 2 + x,h / 2 + y);
 	}
 	else
@@ -8707,10 +8725,10 @@ void ScribusView::slotZoomOut(int mx,int my)
 {
 	if ((mx == 0) && (my == 0))
 	{
-		int x = qRound(QMAX(contentsX() / Scale, 0));
-		int y = qRound(QMAX(contentsY() / Scale, 0));
-		int w = qRound(QMIN(visibleWidth() / Scale, Doc->pageWidth));
-		int h = qRound(QMIN(visibleHeight() / Scale, Doc->pageHeight));
+		int x = qRound(QMAX(contentsX() / Scale, Doc->minCanvasCoordinate.x()));
+		int y = qRound(QMAX(contentsY() / Scale, Doc->minCanvasCoordinate.y()));
+		int w = qRound(QMIN(visibleWidth() / Scale, Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()));
+		int h = qRound(QMIN(visibleHeight() / Scale, Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()));
 		rememberPreviousSettings(w / 2 + x,h / 2 + y);
 	}
 	else
