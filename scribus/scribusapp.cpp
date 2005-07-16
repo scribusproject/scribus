@@ -389,6 +389,7 @@ void ScribusQApp::showHeader()
 	std::cout << QObject::tr("---------------------------------------") << std::endl;
 	std::cout << QObject::tr("Homepage:       http://www.scribus.net ") << std::endl;
 	std::cout << QObject::tr("Documentation:  http://docs.scribus.net") << std::endl;
+	std::cout << QObject::tr("Wiki:           http://wiki.scribus.net") << std::endl;
 	std::cout << QObject::tr("Issues:         http://bugs.scribus.net") << std::endl;
 	std::cout << std::endl;	
 }

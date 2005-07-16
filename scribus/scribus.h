@@ -106,6 +106,7 @@ public:
 	/** destructor */
 	~ScribusApp() {};
 	int initScribus(bool showSplash, bool showFontInfo, const QString newGuiLanguage);
+	void showSplash(bool);
 	void closeSplash();
 	const QString getGuiLanguage();
 	bool warningVersion(QWidget *parent);
@@ -492,11 +493,9 @@ private:
 	void initToolBars(); // setup the toolbars
 	void initFonts(bool showFontInfo); // setup the toolbars
 	void initHyphenator();
-	void initDefaultPrefs();
 	void initDefaultValues();
 	void initKeyboardShortcuts();
 	void initPalettes();
-	void initArrowStyles();
 	void initScrapbook();
 	void initCMS();
 
@@ -504,12 +503,6 @@ private:
 	QString recentFileMenuName;
 	QString layerMenuName;
 	bool scribusInitialized;
-	/// Find and return preferences location
-	QString getPreferencesLocation();
-	/// copy 1.2 prefs XML before loading, and old .rc files that we don't yet convert
-	bool copy12Preferences(const QString prefsLocation);
-	/// convert 1.2 style preferences to new XML format
-	void convert12Preferences(const QString prefsLocation);
 	QComboBox *ColorMenC;
 	/** ShapeMenu enthaelt die Rahmenformen */
 	QPopupMenu *ShapeMenu;

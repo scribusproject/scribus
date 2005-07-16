@@ -203,13 +203,14 @@ int ScribusApp::initScribus(bool showSplash, bool showFontInfo, const QString ne
 	scrLayersActions.clear();
 	scrMenuMgr = new MenuManager(this->menuBar());
 
-	PrefsPfad = getPreferencesLocation();
-	bool importingFrom12=copy12Preferences(PrefsPfad);
+	prefsManager = PrefsManager::instance();
+	prefsManager->setupPreferencesLocation();
+	PrefsPfad = prefsManager->preferencesLocation();
+	bool importingFrom12=prefsManager->copy12Preferences();
 	prefsFile = new PrefsFile(QDir::convertSeparators(PrefsPfad + "/prefs13.xml"));
 	if (importingFrom12)
-		convert12Preferences(PrefsPfad);
+		prefsManager->convert12Preferences(*prefsFile);
 
-	prefsManager = PrefsManager::instance();
 	undoManager = UndoManager::instance();
 	objectSpecificUndo = false;
 	pluginManager = new PluginManager();
@@ -231,8 +232,9 @@ int ScribusApp::initScribus(bool showSplash, bool showFontInfo, const QString ne
 	else
 	{
 		buildFontMenu();
-		initDefaultPrefs();
-		initArrowStyles();
+		prefsManager->initDefaults();
+		prefsManager->initDefaultGUIFont(qApp->font());
+		prefsManager->initArrowStyles();
 		resize(610, 600);
 		QVBox* vb = new QVBox( this );
 		vb->setFrameStyle( QFrame::StyledPanel | QFrame::Sunken );
@@ -323,6 +325,12 @@ void ScribusApp::initSplash(bool showSplash)
 		splashScreen = NULL;
 }
 
+void ScribusApp::showSplash(bool shown)
+{
+	if (splashScreen!=NULL && shown!=splashScreen->isShown())
+		splashScreen->setShown(shown);
+}
+
 void ScribusApp::closeSplash()
 {
 	if (splashScreen!=NULL)
@@ -388,264 +396,6 @@ void ScribusApp::initFonts(bool showFontInfo)
 	}
 }
 
-void ScribusApp::initDefaultPrefs()
-{
-	/** Default font and size **/
-	SCFontsIterator it(prefsManager->appPrefs.AvailFonts);
-	prefsManager->appPrefs.toolSettings.defFont = it.currentKey();
-	prefsManager->appPrefs.toolSettings.defSize = 120;
-	prefsManager->appPrefs.AppFontSize = qApp->font().pointSize();
-
-	/** Default colours **/
-	prefsManager->appPrefs.DColors.clear();
-	QString pfadC = ScPaths::instance().libDir();
-	QString pfadC2 = pfadC + "rgbscribus.txt";
-	QFile fiC(pfadC2);
-	if (!fiC.exists())
-	{
-		prefsManager->appPrefs.DColors.insert("White", CMYKColor(0, 0, 0, 0));
-		prefsManager->appPrefs.DColors.insert("Black", CMYKColor(0, 0, 0, 255));
-		prefsManager->appPrefs.DColors.insert("Blue", CMYKColor(255, 255, 0, 0));
-		prefsManager->appPrefs.DColors.insert("Cyan", CMYKColor(255, 0, 0, 0));
-		prefsManager->appPrefs.DColors.insert("Green", CMYKColor(255, 0, 255, 0));
-		prefsManager->appPrefs.DColors.insert("Red", CMYKColor(0, 255, 255, 0));
-		prefsManager->appPrefs.DColors.insert("Yellow", CMYKColor(0, 0, 255, 0));
-		prefsManager->appPrefs.DColors.insert("Magenta", CMYKColor(0, 255, 0, 0));
-		prefsManager->appPrefs.DColorSet = "Scribus-Small";
-	}
-	else
-	{
-		if (fiC.open(IO_ReadOnly))
-		{
-			QString ColorEn, Cname;
-			int Rval, Gval, Bval;
-			QTextStream tsC(&fiC);
-			ColorEn = tsC.readLine();
-			while (!tsC.atEnd())
-			{
-				ColorEn = tsC.readLine();
-				QTextStream CoE(&ColorEn, IO_ReadOnly);
-				CoE >> Rval;
-				CoE >> Gval;
-				CoE >> Bval;
-				CoE >> Cname;
-				CMYKColor tmp;
-				tmp.setColorRGB(Rval, Gval, Bval);
-				prefsManager->appPrefs.DColors.insert(Cname, tmp);
-			}
-			fiC.close();
-		}
-		prefsManager->appPrefs.DColorSet = "X11 RGB-Set";
-	}
-
-	prefsManager->appPrefs.Wheelval = 40;
-	prefsManager->appPrefs.guidesSettings.marginsShown = true;
-	prefsManager->appPrefs.guidesSettings.framesShown = true;
-	prefsManager->appPrefs.guidesSettings.gridShown = false;
-	prefsManager->appPrefs.guidesSettings.guidesShown = false;
-	prefsManager->appPrefs.guidesSettings.baseShown = false;
-	prefsManager->appPrefs.guidesSettings.showPic = true;
-	prefsManager->appPrefs.guidesSettings.showControls = false;
-	prefsManager->appPrefs.guidesSettings.linkShown = false;
-	prefsManager->appPrefs.guidesSettings.grabRad = 4;
-	prefsManager->appPrefs.guidesSettings.guideRad = 10;
-	prefsManager->appPrefs.guidesSettings.minorGrid = 20;
-	prefsManager->appPrefs.guidesSettings.majorGrid = 100;
-	prefsManager->appPrefs.guidesSettings.minorColor = QColor(green);
-	prefsManager->appPrefs.guidesSettings.majorColor = QColor(green);
-	prefsManager->appPrefs.guidesSettings.margColor = QColor(blue);
-	prefsManager->appPrefs.guidesSettings.guideColor = QColor(darkBlue);
-	prefsManager->appPrefs.guidesSettings.baseColor = QColor(lightGray);
-	prefsManager->appPrefs.typographicSetttings.valueSuperScript = 33;
-	prefsManager->appPrefs.typographicSetttings.scalingSuperScript = 100;
-	prefsManager->appPrefs.typographicSetttings.valueSubScript = 33;
-	prefsManager->appPrefs.typographicSetttings.scalingSubScript = 100;
-	prefsManager->appPrefs.typographicSetttings.valueSmallCaps = 75;
-	prefsManager->appPrefs.typographicSetttings.autoLineSpacing = 20;
-	prefsManager->appPrefs.typographicSetttings.valueUnderlinePos = -1;
-	prefsManager->appPrefs.typographicSetttings.valueUnderlineWidth = -1;
-	prefsManager->appPrefs.typographicSetttings.valueStrikeThruPos = -1;
-	prefsManager->appPrefs.typographicSetttings.valueStrikeThruWidth = -1;
-	prefsManager->appPrefs.typographicSetttings.valueBaseGrid = 14.4;
-	prefsManager->appPrefs.typographicSetttings.offsetBaseGrid = 0.0;
-	prefsManager->appPrefs.GUI = "Default";
-	prefsManager->appPrefs.toolSettings.dPen = "Black";
-	prefsManager->appPrefs.toolSettings.dBrush = "Black";
-	prefsManager->appPrefs.toolSettings.dShade = 100;
-	prefsManager->appPrefs.toolSettings.dShade2 = 100;
-	prefsManager->appPrefs.toolSettings.dLineArt = SolidLine;
-	prefsManager->appPrefs.toolSettings.dWidth = 1;
-	prefsManager->appPrefs.toolSettings.dPenLine = "Black";
-	prefsManager->appPrefs.toolSettings.dPenText = "Black";
-	prefsManager->appPrefs.toolSettings.dStrokeText = "Black";
-	prefsManager->appPrefs.toolSettings.tabFillChar = "";
-	prefsManager->appPrefs.toolSettings.dTabWidth = 36.0;
-	prefsManager->appPrefs.DpapColor = QColor(white);
-	prefsManager->appPrefs.toolSettings.dCols = 1;
-	prefsManager->appPrefs.toolSettings.dGap = 0.0;
-	prefsManager->appPrefs.toolSettings.dShadeLine = 100;
-	prefsManager->appPrefs.toolSettings.dLstyleLine = SolidLine;
-	prefsManager->appPrefs.toolSettings.dWidthLine = 1;
-	prefsManager->appPrefs.toolSettings.dStartArrow = 0;
-	prefsManager->appPrefs.toolSettings.dEndArrow = 0;
-	prefsManager->appPrefs.toolSettings.magMin = 10;
-	prefsManager->appPrefs.toolSettings.magMax = 3200;
-	prefsManager->appPrefs.toolSettings.magStep = 25;
-	prefsManager->appPrefs.toolSettings.dBrushPict = "White";
-	prefsManager->appPrefs.toolSettings.shadePict = 100;
-	prefsManager->appPrefs.toolSettings.scaleX = 1;
-	prefsManager->appPrefs.toolSettings.scaleY = 1;
-	prefsManager->appPrefs.guidesSettings.before = true;
-	prefsManager->appPrefs.docUnitIndex = 0;
-	prefsManager->appPrefs.toolSettings.polyC = 4;
-	prefsManager->appPrefs.toolSettings.polyF = 0.5;
-	prefsManager->appPrefs.toolSettings.polyS = false;
-	prefsManager->appPrefs.toolSettings.polyFd = 0;
-	prefsManager->appPrefs.toolSettings.polyR = 0;
-	prefsManager->appPrefs.mainToolBarSettings.visible = true;
-	prefsManager->appPrefs.pdfToolBarSettings.visible = true;
-	prefsManager->appPrefs.PSize = 40;
-	prefsManager->appPrefs.SaveAtQ = true;
-	prefsManager->appPrefs.ClipMargin = true;
-	prefsManager->appPrefs.GCRMode = false;
-	prefsManager->appPrefs.RecentDocs.clear();
-	prefsManager->appPrefs.RecentDCount = 5;
-	prefsManager->appPrefs.marginColored = false;
-	prefsManager->appPrefs.pageSize = "A4";
-	prefsManager->appPrefs.pageOrientation = 0;
-	prefsManager->appPrefs.PageWidth = 595;
-	prefsManager->appPrefs.PageHeight = 842;
-	prefsManager->appPrefs.RandOben = 40;
-	prefsManager->appPrefs.RandUnten = 40;
-	prefsManager->appPrefs.RandLinks = 40;
-	prefsManager->appPrefs.RandRechts = 40;
-	prefsManager->appPrefs.FacingPages = false;
-	prefsManager->appPrefs.LeftPageFirst = false;
-	prefsManager->appPrefs.toolSettings.scaleType = true;
-	prefsManager->appPrefs.toolSettings.aspectRatio = true;
-	prefsManager->appPrefs.toolSettings.lowResType = 1;
-	prefsManager->appPrefs.toolSettings.useEmbeddedPath = false;
-	prefsManager->appPrefs.MinWordLen = 3;
-	prefsManager->appPrefs.HyCount = 2;
-	prefsManager->appPrefs.Language = "";
-	prefsManager->appPrefs.Automatic = true;
-	prefsManager->appPrefs.AutoCheck = false;
-	prefsManager->appPrefs.AutoSave = false;
-	prefsManager->appPrefs.AutoSaveTime = 600000;
-	prefsManager->appPrefs.DisScale = 1.0;
-	prefsManager->appPrefs.DocDir = QDir::homeDirPath();
-	prefsManager->appPrefs.ProfileDir = "";
-	prefsManager->appPrefs.ScriptDir = "";
-	prefsManager->appPrefs.documentTemplatesDir = "";
-	prefsManager->appPrefs.CustomColorSets.clear();
-	prefsManager->appPrefs.PrPr_Mode = false;
-	prefsManager->appPrefs.Gcr_Mode = true;
-	prefsManager->appPrefs.PrPr_AlphaText = false;
-	prefsManager->appPrefs.PrPr_AlphaGraphics = false;
-	prefsManager->appPrefs.PrPr_Transparency = false;
-	prefsManager->appPrefs.PrPr_C = true;
-	prefsManager->appPrefs.PrPr_M = true;
-	prefsManager->appPrefs.PrPr_Y = true;
-	prefsManager->appPrefs.PrPr_K = true;
-	prefsManager->appPrefs.imageEditorExecutable = "gimp";
-	prefsManager->appPrefs.gs_AntiAliasGraphics = true;
-	prefsManager->appPrefs.gs_AntiAliasText = true;
-	prefsManager->appPrefs.gs_exe = "gs";
-	prefsManager->appPrefs.gs_Resolution = 72;
-	prefsManager->appPrefs.STEcolor = QColor(white);
-	prefsManager->appPrefs.STEfont = font().toString();
-	prefsManager->appPrefs.DCMSset.DefaultMonitorProfile = "";
-	prefsManager->appPrefs.DCMSset.DefaultPrinterProfile = "";
-	prefsManager->appPrefs.DCMSset.DefaultInputProfile = "";
-	prefsManager->appPrefs.DCMSset.DefaultInputProfile2 = "";
-	prefsManager->appPrefs.DCMSset.CMSinUse = false;
-	prefsManager->appPrefs.DCMSset.SoftProofOn = false;
-	prefsManager->appPrefs.DCMSset.GamutCheck = false;
-	prefsManager->appPrefs.DCMSset.BlackPoint = true;
-	prefsManager->appPrefs.DCMSset.DefaultIntentMonitor = 1;
-	prefsManager->appPrefs.DCMSset.DefaultIntentMonitor2 = 1;
-	prefsManager->appPrefs.DCMSset.DefaultIntentPrinter = 0;
-	prefsManager->appPrefs.GFontSub.clear();
-	prefsManager->appPrefs.ScratchLeft = 100;
-	prefsManager->appPrefs.ScratchRight = 100;
-	prefsManager->appPrefs.ScratchTop = 20;
-	prefsManager->appPrefs.ScratchBottom = 20;
-	prefsManager->appPrefs.askBeforeSubstituite = true;
-	prefsManager->appPrefs.haveStylePreview = true;
-	// lorem ipsum defaults
-	prefsManager->appPrefs.useStandardLI = false;
-	prefsManager->appPrefs.paragraphsLI = 10;
-	prefsManager->appPrefs.showStartupDialog = true;
-	struct checkerPrefs checkerSettings;
-	checkerSettings.ignoreErrors = false;
-	checkerSettings.autoCheck = true;
-	checkerSettings.checkGlyphs = true;
-	checkerSettings.checkOrphans = true;
-	checkerSettings.checkOverflow = true;
-	checkerSettings.checkPictures = true;
-	checkerSettings.checkResolution = true;
-	checkerSettings.checkTransparency = true;
-	checkerSettings.checkAnnotations = false;
-	checkerSettings.checkRasterPDF = true;
-	checkerSettings.minResolution = 72.0;
-	prefsManager->appPrefs.checkerProfiles.insert( tr("Postscript"), checkerSettings);
-	prefsManager->appPrefs.checkerProfiles.insert( tr("PDF 1.3"), checkerSettings);
-	checkerSettings.checkTransparency = false;
-	prefsManager->appPrefs.checkerProfiles.insert( tr("PDF 1.4"), checkerSettings);
-	checkerSettings.checkTransparency = true;
-	checkerSettings.checkAnnotations = true;
-	checkerSettings.minResolution = 144.0;
-	prefsManager->appPrefs.checkerProfiles.insert( tr("PDF/X-3"), checkerSettings);
-	prefsManager->appPrefs.curCheckProfile = tr("Postscript");
-	prefsManager->appPrefs.PDF_Options.Thumbnails = false;
-	prefsManager->appPrefs.PDF_Options.Articles = false;
-	prefsManager->appPrefs.PDF_Options.useLayers = false;
-	prefsManager->appPrefs.PDF_Options.Compress = true;
-	prefsManager->appPrefs.PDF_Options.CompressMethod = 0;
-	prefsManager->appPrefs.PDF_Options.Quality = 0;
-	prefsManager->appPrefs.PDF_Options.RecalcPic = false;
-	prefsManager->appPrefs.PDF_Options.Bookmarks = false;
-	prefsManager->appPrefs.PDF_Options.PicRes = 300;
-	prefsManager->appPrefs.PDF_Options.Version = PDFOptions::PDFVersion_14;
-	prefsManager->appPrefs.PDF_Options.Resolution = 300;
-	prefsManager->appPrefs.PDF_Options.Binding = 0;
-	prefsManager->appPrefs.PDF_Options.EmbedList.clear();
-	prefsManager->appPrefs.PDF_Options.SubsetList.clear();
-	prefsManager->appPrefs.PDF_Options.MirrorH = false;
-	prefsManager->appPrefs.PDF_Options.MirrorV = false;
-	prefsManager->appPrefs.PDF_Options.RotateDeg = 0;
-	prefsManager->appPrefs.PDF_Options.PresentMode = false;
-	prefsManager->appPrefs.PDF_Options.Datei = "";
-	prefsManager->appPrefs.PDF_Options.PresentVals.clear();
-	prefsManager->appPrefs.PDF_Options.isGrayscale = false;
-	prefsManager->appPrefs.PDF_Options.UseRGB = true;
-	prefsManager->appPrefs.PDF_Options.UseProfiles = false;
-	prefsManager->appPrefs.PDF_Options.UseProfiles2 = false;
-	prefsManager->appPrefs.PDF_Options.SolidProf = "";
-	prefsManager->appPrefs.PDF_Options.SComp = 3;
-	prefsManager->appPrefs.PDF_Options.ImageProf = "";
-	prefsManager->appPrefs.PDF_Options.PrintProf = "";
-	prefsManager->appPrefs.PDF_Options.Info = "";
-	prefsManager->appPrefs.PDF_Options.Intent = 0;
-	prefsManager->appPrefs.PDF_Options.Intent2 = 0;
-	prefsManager->appPrefs.PDF_Options.BleedTop = 0;
-	prefsManager->appPrefs.PDF_Options.BleedLeft = 0;
-	prefsManager->appPrefs.PDF_Options.BleedRight = 0;
-	prefsManager->appPrefs.PDF_Options.BleedBottom = 0;
-	prefsManager->appPrefs.PDF_Options.EmbeddedI = false;
-	prefsManager->appPrefs.PDF_Options.Encrypt = false;
-	prefsManager->appPrefs.PDF_Options.PassOwner = "";
-	prefsManager->appPrefs.PDF_Options.PassUser = "";
-	prefsManager->appPrefs.PDF_Options.Permissions = -4;
-	prefsManager->appPrefs.PDF_Options.UseLPI = false;
-	prefsManager->appPrefs.PDF_Options.LPISettings.clear();
-
-	//Attribute setup
-	prefsManager->appPrefs.defaultItemAttributes.clear();
-	prefsManager->appPrefs.defaultToCSetups.clear();
-}
-
-
 void ScribusApp::initDefaultValues()
 {
 	dirs = prefsFile->getContext("dirs");
@@ -684,80 +434,6 @@ void ScribusApp::initKeyboardShortcuts()
 		//	qDebug(it.key());
 		//qDebug(QString("|-\n|%1||%2||%3").arg(it.key()).arg(it.data()->cleanMenuText()).arg(QString(it.data()->accel())));
 	}
-}
-
-void ScribusApp::initArrowStyles()
-{
-	struct ArrowDesc arrow;
-	FPointArray points;
-	QWMatrix arrowScaling;
-	arrowScaling.scale(0.5, 0.5);
-	arrow.name = "Arrow1L";
-	arrow.userArrow = false;
-	points.addQuadPoint(0, 0, 0, 0, 0, 0, 0, 0);
-	points.addQuadPoint(-5, -5, -5, -5, -5, -5, -5, -5);
-	points.addQuadPoint(12, 0, 12, 0, 12, 0, 12, 0);
-	points.addQuadPoint(-5, 5, -5, 5, -5, 5, -5, 5);
-	points.addQuadPoint(0, 0, 0, 0, 0, 0, 0, 0);
-	arrow.points = points.copy();
-	prefsManager->appPrefs.arrowStyles.append(arrow);
-	arrow.name = "Arrow1M";
-	points.map(arrowScaling);
-	arrow.points = points.copy();
-	prefsManager->appPrefs.arrowStyles.append(arrow);
-	arrow.name = "Arrow1S";
-	points.map(arrowScaling);
-	arrow.points = points.copy();
-	prefsManager->appPrefs.arrowStyles.append(arrow);
-	arrow.name = "SquareL";
-	points.resize(0);
-	points.addQuadPoint(-5, -5, -5, -5, -5, -5, -5, -5);
-	points.addQuadPoint(5, -5, 5, -5, 5, -5, 5, -5);
-	points.addQuadPoint(5, 5, 5, 5, 5, 5, 5, 5);
-	points.addQuadPoint(-5, 5, -5, 5, -5, 5, -5, 5);
-	points.addQuadPoint(-5, -5, -5, -5, -5, -5, -5, -5);
-	arrow.points = points.copy();
-	prefsManager->appPrefs.arrowStyles.append(arrow);
-	arrow.name = "SquareM";
-	points.map(arrowScaling);
-	arrow.points = points.copy();
-	prefsManager->appPrefs.arrowStyles.append(arrow);
-	arrow.name = "SquareS";
-	points.map(arrowScaling);
-	arrow.points = points.copy();
-	prefsManager->appPrefs.arrowStyles.append(arrow);
-	arrow.name = "TriangleInL";
-	points.resize(0);
-	points.addQuadPoint(5.77, 0, 5.77, 0, 5.77, 0, 5.77, 0);
-	points.addQuadPoint(-2.88, 5, -2.88, 5, -2.88, 5, -2.88, 5);
-	points.addQuadPoint(-2.88, -5, -2.88, -5, -2.88, -5, -2.88, -5);
-	points.addQuadPoint(5.77, 0, 5.77, 0, 5.77, 0, 5.77, 0);
-	arrow.points = points.copy();
-	prefsManager->appPrefs.arrowStyles.append(arrow);
-	arrow.name = "TriangleInM";
-	points.map(arrowScaling);
-	arrow.points = points.copy();
-	prefsManager->appPrefs.arrowStyles.append(arrow);
-	arrow.name = "TriangleInS";
-	points.map(arrowScaling);
-	arrow.points = points.copy();
-	prefsManager->appPrefs.arrowStyles.append(arrow);
-	arrow.name = "TriangleOutL";
-	points.resize(0);
-	points.addQuadPoint(-5.77, 0, -5.77, 0, -5.77, 0, -5.77, 0);
-	points.addQuadPoint(2.88, 5, 2.88, 5, 2.88, 5, 2.88, 5);
-	points.addQuadPoint(2.88, -5, 2.88, -5, 2.88, -5, 2.88, -5);
-	points.addQuadPoint(-5.77, 0, -5.77, 0, -5.77, 0, -5.77, 0);
-	arrow.points = points.copy();
-	prefsManager->appPrefs.arrowStyles.append(arrow);
-	arrow.name = "TriangleOutM";
-	points.map(arrowScaling);
-	arrow.points = points.copy();
-	prefsManager->appPrefs.arrowStyles.append(arrow);
-	arrow.name = "TriangleOutS";
-	points.map(arrowScaling);
-	arrow.points = points.copy();
-	prefsManager->appPrefs.arrowStyles.append(arrow);
 }
 
 void ScribusApp::initPalettes()
@@ -895,127 +571,6 @@ bool ScribusApp::warningVersion(QWidget *parent)
 	if (t == 1)
 		retval = true;
 	return retval;
-}
-
-/*!
- \fn QString ScribusApp::getPreferencesLocation()
- \author Craig Bradney
- \date Thu 18 Nov 2004
- \brief Get the user's preference file location. Rename any existing old preferences files
- \param None
- \retval QString Location of the user's preferences
- */
-
-QString ScribusApp::getPreferencesLocation()
-{
-	QString Pff = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus");
-	QFileInfo Pffi = QFileInfo(Pff);
-	QString PrefsPfad;
-	//If we are using ~/.scribus
-	if (Pffi.exists())
-	{
-		if (Pffi.isDir())
-			PrefsPfad = Pff;
-		else
-			PrefsPfad = QDir::homeDirPath();
-	}
-	else // Move to using ~/.scribus/scribus.* from ~/.scribus.*
-	{
-		QDir prefsDirectory = QDir();
-		prefsDirectory.mkdir(Pff);
-		PrefsPfad = Pff;
-		QString oldPR = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus.rc");
-		QFileInfo oldPi = QFileInfo(oldPR);
-		if (oldPi.exists())
-			moveFile(oldPR, Pff+"/scribus.rc");
-		QString oldPR2 = QDir::convertSeparators(QDir::homeDirPath()+"/.scribusfont.rc");
-		QFileInfo oldPi2 = QFileInfo(oldPR2);
-		if (oldPi2.exists())
-			moveFile(oldPR2, Pff+"/scribusfont.rc");
-		QString oldPR3 = QDir::convertSeparators(QDir::homeDirPath()+"/.scribusscrap.scs");
-		QFileInfo oldPi3 = QFileInfo(oldPR3);
-		if (oldPi3.exists())
-			moveFile(oldPR3, Pff+"/scrap.scs");
-	}
-	return PrefsPfad;
-}
-
-/*!
- \fn bool ScribusApp::copy12Preferences(const QString prefsLocation)
- \author Craig Bradney
- \date Sun 09 Jan 2005
- \brief Copy 1.2 prefs XML before loading, and copy rc files we don't yet convert
- \param prefsLocation Location of user preferences
- \retval bool true if prefs were imported
- */
-bool ScribusApp::copy12Preferences(const QString prefsLocation)
-{
-	//Now make copies for 1.3 use and leave the old ones alone for <1.3.0 usage
-	QString oldPR[4], newPR[4];
-	oldPR[0]=QDir::convertSeparators(prefsLocation+"/scribus.rc");
-	oldPR[1]=QDir::convertSeparators(prefsLocation+"/scrap.scs");
-	oldPR[2]=QDir::convertSeparators(prefsLocation+"/prefs.xml");
-	oldPR[3]=QDir::convertSeparators(prefsLocation+"/scripter.rc");
-	newPR[0]=QDir::convertSeparators(prefsLocation+"/scribus13.rc");
-	newPR[1]=QDir::convertSeparators(prefsLocation+"/scrap13.scs");
-	newPR[2]=QDir::convertSeparators(prefsLocation+"/prefs13.xml");
-	newPR[3]=QDir::convertSeparators(prefsLocation+"/scripter13.rc");
-
-	bool existsOldPR[4], existsNewPR[4];
-	for (uint i=0;i<4;++i)
-	{
-		existsOldPR[i]=QFile::exists(oldPR[i]);
-		existsNewPR[i]=QFile::exists(newPR[i]);
-	}
-
-	bool retVal=false;
-	//Only check for these two as they will be autocreated if they dont exist.
-	if( (existsOldPR[0] && !existsNewPR[0]) || (existsOldPR[3] && !existsNewPR[3]) )
-	{
-		retVal=true; // converting from 1.2 prefs
-		if (splashScreen)
-			splashScreen->hide();
-		if ( (QMessageBox::question( this, tr("Migrate Old Scribus Settings?"),
-			  tr("Scribus has detected existing Scribus 1.2 preferences files.\n"
-					  "Do you want to migrate them to the new Scribus version?"),
-			  QMessageBox::Yes | QMessageBox::Default, QMessageBox::No, QMessageBox::NoButton))==QMessageBox::Yes )
-		{
-			for (uint i=0;i<4;++i)
-			{
-				if (existsOldPR[i] && !existsNewPR[i])
-					copyFile(oldPR[i], newPR[i]);
-			}
-		}
-		if (splashScreen)
-			splashScreen->show();
-	}
-
-	return retVal;
-}
-
-/*!
- \fn void ScribusApp::convert12Preferences(const QString prefsLocation)
- \author Craig Ringer
- \date Sun 26 June 2005
- \brief Import 1.2.x prefs rc data into new prefs xml
- \param prefsLocation Location of user preferences
- \retval None
- */
-void ScribusApp::convert12Preferences(const QString prefsLocation)
-{
-	// Import 1.2 font search path prefs
-	QFile fontPrefsFile12(QDir::convertSeparators(prefsLocation+"/scribusfont.rc"));
-	if (fontPrefsFile12.open(IO_ReadOnly))
-	{
-		PrefsContext *pc = prefsFile->getContext("Fonts");
-		PrefsTable *fontPrefs = pc->getTable("ExtraFontDirs");
-		QTextStream tsx(&fontPrefsFile12);
-		QString extraPath = tsx.read();
-		fontPrefsFile12.close();
-		QStringList extraFonts = QStringList::split("\n",extraPath);
-		for (uint i = 0; i < extraFonts.count(); ++i)
-			fontPrefs->set(i, 0, extraFonts[i]);
-	}
 }
 
 void ScribusApp::initMenuBar()
