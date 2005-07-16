@@ -123,7 +123,7 @@ void gtGetText::CallDLL(const ImporterData& idata, const QString& filePath,
 	typedef void (*sdem)(QString filename, QString encoding, bool textOnly, gtWriter *writer);
 	sdem fp_GetText;
 	QString pluginFilePath = QString("%1/gettext/%2").arg(ScPaths::instance().pluginDir()).arg(idata.soFilePath);
-	gtplugin = PluginManager::loadDLL("pluginFilePath");
+	gtplugin = PluginManager::loadDLL(pluginFilePath);
 	if (!gtplugin)
 	{
 		qWarning("Failed to load plugin %s", pluginFilePath.ascii());
