@@ -5543,8 +5543,7 @@ void ScribusApp::slotEditPaste()
 					hg->cembedded = 0;
 				}
 			}
-/* Inline Objects are disabled for the 1.3.0 release, will go into 1.3.1 when some issues with Copy/Paste are solved */
-/*			else if (Buffer2.startsWith("<SCRIBUSELEM"))
+			else if (Buffer2.startsWith("<SCRIBUSELEM"))
 			{
 				bool savedAlignGrid = doc->useRaster;
 				bool savedAlignGuides = doc->SnapGuides;
@@ -5601,7 +5600,7 @@ void ScribusApp::slotEditPaste()
 				hg->cembedded = currItem2;
 				currItem->itemText.insert(currItem->CPos, hg);
 				currItem->CPos += 1;
-			} */
+			}
 			else
 			{
 				Serializer *ss = new Serializer("");
@@ -5729,9 +5728,7 @@ void ScribusApp::ClipChange()
 		{
 			if (cc.startsWith("<SCRIBUSELEM"))
 			{
-			/* Remove the following line to have inline Objects enabled again */
-				if (doc->appMode != modeEdit)
-					scrActions["editPaste"]->setEnabled(true);
+				scrActions["editPaste"]->setEnabled(true);
 			}
 			else
 			{
