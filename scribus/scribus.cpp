@@ -2389,18 +2389,18 @@ void ScribusApp::startUpDialog()
 		{
 			if (dia->tabSelected == 1)
 			{
-				fileName = dia->recentDocList->currentText();
-				if (fileName != "")
-					loadRecent(fileName);
-			}
-			else
-			{
 				fileName = dia->fileDialog->selectedFile();
 				if (fileName != "")
 				{
 					docContext->set("docsopen", fileName.left(fileName.findRev("/")));
 					loadDoc(fileName);
 				}
+			}
+			else
+			{
+				fileName = dia->recentDocList->currentText();
+				if (fileName != "")
+					loadRecent(fileName);
 			}
 		}
 	}

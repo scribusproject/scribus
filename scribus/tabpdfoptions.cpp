@@ -855,7 +855,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	QToolTip::add( Compression, tr( "Compression of text and graphics.\nUnless you have a reason, leave this checked. This reduces PDF size." ) );
 	QToolTip::add( CMethod, tr( "Version of compression for images.\nAutomatic allows Scribus to choose the best method.\nZIP is good for images with solid colors.\nJPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).\nLeave it set to automatic, unless you have a need for special compression options." ) );
 	QToolTip::add( CQuality, tr( "Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)" ) );
-	QToolTip::add( DSColor, tr( "Downsample your bitmap images to the selected DPI.\nLeaving this unchecked will render them at their native resolution." ) );
+	QToolTip::add( DSColor, tr( "Resample your bitmap images to the selected DPI.\nLeaving this unchecked will render them at their native resolution." ) );
 	QToolTip::add( ValC, tr( "DPI (Dots Per Inch) for image export.") );
 	QToolTip::add( Encry, tr( "Enable the security features in your exported PDF.\nIf you selected PDF 1.3, the PDF will be protected by 40 bit encryption.\nIf you selected PDF 1.4, the PDF will be protected by 128 bit encryption.\nDisclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations." ) );
 	QToolTip::add( PassOwner, tr( "Choose a master password which enables or disables all the\nsecurity features in your exported PDF" ) );
