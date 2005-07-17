@@ -203,10 +203,17 @@ int callGS(const QString& args_in, const QString device)
 	// Add any extra font paths being used by Scribus to gs's font search path
 	PrefsContext *pc = prefsFile->getContext("Fonts");
 	PrefsTable *extraFonts = pc->getTable("ExtraFontDirs");
+#ifndef _WIN32
 	if (extraFonts->getRowCount() >= 1)
 		cmd1 += QString(" -sFONTPATH='%1'").arg(extraFonts->get(0,0));
 	for (int i = 1; i < extraFonts->getRowCount(); ++i)
 		cmd1 += QString(":'%1'").arg(extraFonts->get(i,0));
+#else
+	if (extraFonts->getRowCount() >= 1)
+		cmd1 += QString(" -sFONTPATH=\"%1\"").arg(extraFonts->get(0,0));
+	for (int i = 1; i < extraFonts->getRowCount(); ++i)
+		cmd1 += QString(";\"%1\"").arg(extraFonts->get(i,0));
+#endif
 
 	// then add any user specified args and run gs
 	cmd1 += " " + args_in + " -c showpage -c quit";
@@ -281,16 +288,17 @@ int moveFile(QString source, QString target)
 QPixmap LoadPDF(QString fn, int Page, int Size, int *w, int *h)
 {
 	QString tmp, cmd1, cmd2;
+	QString pdfFile = QDir::convertSeparators(fn);
 	QString tmpFile = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/sc.png");
 	QPixmap pm;
 	int ret = -1;
 	tmp.setNum(Page);
 	QStringList args;
 	args.append("-r72");
-	args.append("-sOutputFile="+tmpFile);
+	args.append("-sOutputFile=\""+tmpFile+"\"");
 	args.append("-dFirstPage="+tmp);
 	args.append("-dLastPage="+tmp);
-	args.append("\""+fn+"\"");
+	args.append("\""+pdfFile+"\"");
 	ret = callGS(args);
 	if (ret == 0)
 	{

@@ -229,7 +229,11 @@ void PrefsManager::initDefaults()
 	appPrefs.imageEditorExecutable = "gimp";
 	appPrefs.gs_AntiAliasGraphics = true;
 	appPrefs.gs_AntiAliasText = true;
-	appPrefs.gs_exe = "gs";
+#ifndef _WIN32
+ 	appPrefs.gs_exe = "gs";
+#else
+	appPrefs.gs_exe = "gswin32c.exe";
+#endif
 	appPrefs.gs_Resolution = 72;
 	appPrefs.STEcolor = QColor(white);
 	appPrefs.DCMSset.DefaultMonitorProfile = "";

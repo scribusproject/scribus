@@ -302,7 +302,8 @@ void FontPrefs::AddPath()
 	if (s != "")
 	{
 		dirs->set("fontprefs", s.left(s.findRev("/", -2)));
-		s = s.left(s.length()-1);
+		if( s.endsWith("/") )
+			s = s.left(s.length()-1);
 		if (PathList->findItem(s))
 			return;
 		PathList->insertItem(s);

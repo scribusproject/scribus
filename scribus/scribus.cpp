@@ -267,8 +267,13 @@ int ScribusApp::initScribus(bool showSplash, bool showFontInfo, const QString ne
 		qApp->processEvents();
 		storyEditor = new StoryEditor(this);
 
+#ifndef _WIN32
 		HaveGS = system(prefsManager->appPrefs.gs_exe+" -h > /dev/null 2>&1");
 		HavePngAlpha = system(prefsManager->appPrefs.gs_exe+" -sDEVICE=pngalpha -c quit > /dev/null 2>&1");
+#else
+		HaveGS = system(prefsManager->appPrefs.gs_exe+" -h >NUL");
+		HavePngAlpha = system(prefsManager->appPrefs.gs_exe+" -sDEVICE=pngalpha -c quit >NUL");
+#endif
 		DocDir = prefsManager->appPrefs.DocDir;
 
 		if (splashScreen != NULL)

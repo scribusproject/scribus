@@ -2679,16 +2679,17 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 	bool found = false;
 	int retg = -1;
 	QString tmpFile = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/sc.png");
+	QString picFile = QDir::convertSeparators(fn);
 	if (ext == "pdf")
 	{
 		QStringList args;
 		xres = gsRes;
 		yres = gsRes;
 		args.append("-r"+QString::number(gsRes));
-		args.append("-sOutputFile="+tmpFile);
+		args.append("-sOutputFile=\""+tmpFile + "\"");
 		args.append("-dFirstPage=1");
 		args.append("-dLastPage=1");
-		args.append("\""+fn+"\"");
+		args.append("\""+picFile+"\"");
 		retg = callGS(args);
 		if (retg == 0)
 		{
@@ -2760,9 +2761,9 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 			xres = gsRes;
 			yres = gsRes;
 			args.append("-r"+QString::number(gsRes));
-			args.append("-sOutputFile="+tmpFile);
+			args.append("-sOutputFile=\""+tmpFile+"\"");
 			args.append("-g"+tmp.setNum(qRound(b))+"x"+tmp2.setNum(qRound(h)));
-			args.append("\""+fn+"\"");
+			args.append("\""+picFile+"\"");
 			retg = callGS(args);
 			if (retg == 0)
 			{
