@@ -845,7 +845,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 			              "a token can be * for all the pages, 1-5 for\n"
 			              "a range of pages or a single page number.") );
 
-	QToolTip::add( PDFVersionCombo, tr( "Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility.\nChoose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption.\nPDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management." ) );
+	QToolTip::add( PDFVersionCombo, tr( "Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility.\nChoose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption.\nPDF/X-3 is for exporting the PDF, when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer." ) );
 	QToolTip::add( ComboBind, tr( "Determines the binding of pages in the PDF. Unless you know\nyou need to change it leave the default choice - Left." ) );
 	QToolTip::add( CheckBox1, tr( "Generates thumbnails of each page in the PDF.\nSome viewers can use the thumbnails for navigation." ) );
 	QToolTip::add( Article, tr( "Generate PDF Articles, which is useful for navigating linked articles in a PDF." ) );
@@ -855,7 +855,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	QToolTip::add( Compression, tr( "Compression of text and graphics.\nUnless you have a reason, leave this checked. This reduces PDF size." ) );
 	QToolTip::add( CMethod, tr( "Version of compression for images.\nAutomatic allows Scribus to choose the best method.\nZIP is good for images with solid colors.\nJPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).\nLeave it set to automatic, unless you have a need for special compression options." ) );
 	QToolTip::add( CQuality, tr( "Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)" ) );
-	QToolTip::add( DSColor, tr( "Resample your bitmap images to the selected DPI.\nLeaving this unchecked will render them at their native resolution." ) );
+	QToolTip::add( DSColor, tr( "Re-sample your bitmap images to the selected DPI.\nLeaving this unchecked will render them at their native resolution.\nThis can increase memory usage and slow down export." ) );
 	QToolTip::add( ValC, tr( "DPI (Dots Per Inch) for image export.") );
 	QToolTip::add( Encry, tr( "Enable the security features in your exported PDF.\nIf you selected PDF 1.3, the PDF will be protected by 40 bit encryption.\nIf you selected PDF 1.4, the PDF will be protected by 128 bit encryption.\nDisclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations." ) );
 	QToolTip::add( PassOwner, tr( "Choose a master password which enables or disables all the\nsecurity features in your exported PDF" ) );
