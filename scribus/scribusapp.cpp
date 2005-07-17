@@ -185,6 +185,8 @@ int ScribusQApp::init()
 		{
 			if (PrefsManager::instance()->appPrefs.showStartupDialog)
 				scribus->startUpDialog();
+			else
+				scribus->setFocus();
 		}
 
 		// A hook for plug-ins and scripts to trigger on. Some plugins and scripts

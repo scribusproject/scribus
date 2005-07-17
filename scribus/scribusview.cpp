@@ -207,6 +207,7 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 		vr = contentsToViewport(QPoint(clipx, clipy));
 		ScPainter *painter = new ScPainter(viewport(), clipw, cliph, vr.x(), vr.y());
 		painter->clear(paletteBackgroundColor());
+		painter->translate(-Doc->minCanvasCoordinate.x()*Scale, -Doc->minCanvasCoordinate.y()*Scale);
 		painter->translate(-clipx, -clipy);
 		painter->setLineWidth(1);
 		painter->setFillMode(ScPainter::Solid);
@@ -221,7 +222,9 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 				int y = static_cast<int>(Doc->Pages.at(a)->Yoffset * Scale);
 				int w = static_cast<int>(Doc->Pages.at(a)->Width * Scale);
 				int h = static_cast<int>(Doc->Pages.at(a)->Height * Scale);
-				if (QRect(x, y, w+5, h+5).intersects(QRect(clipx, clipy, clipw, cliph)))
+				QRect drawRect = QRect(x, y, w+5, h+5);
+				drawRect.moveBy(qRound(-Doc->minCanvasCoordinate.x() * Scale), qRound(-Doc->minCanvasCoordinate.y() * Scale));
+				if (drawRect.intersects(QRect(clipx, clipy, clipw, cliph)))
 				{
 					painter->setFillMode(ScPainter::Solid);
 					painter->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
@@ -247,7 +250,9 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 					int y = static_cast<int>(Doc->Pages.at(a)->Yoffset * Scale);
 					int w = static_cast<int>(Doc->Pages.at(a)->Width * Scale);
 					int h = static_cast<int>(Doc->Pages.at(a)->Height * Scale);
-					if (QRect(x, y, w+5, h+5).intersects(QRect(clipx, clipy, clipw, cliph)))
+					QRect drawRect = QRect(x, y, w+5, h+5);
+					drawRect.moveBy(qRound(-Doc->minCanvasCoordinate.x() * Scale), qRound(-Doc->minCanvasCoordinate.y() * Scale));
+					if (drawRect.intersects(QRect(clipx, clipy, clipw, cliph)))
 						DrawPageMarks(painter, Doc->Pages.at(a), QRect(clipx, clipy, clipw, cliph));
 				}
 			}
@@ -258,7 +263,9 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 			int y = static_cast<int>(Doc->ScratchTop * Scale);
 			int w = static_cast<int>(Doc->currentPage->Width * Scale);
 			int h = static_cast<int>(Doc->currentPage->Height * Scale);
-			if (QRect(x, y, w+5, h+5).intersects(QRect(clipx, clipy, clipw, cliph)))
+			QRect drawRect = QRect(x, y, w+5, h+5);
+			drawRect.moveBy(qRound(-Doc->minCanvasCoordinate.x() * Scale), qRound(-Doc->minCanvasCoordinate.y() * Scale));
+			if (drawRect.intersects(QRect(clipx, clipy, clipw, cliph)))
 			{
 				painter->setFillMode(ScPainter::Solid);
 				painter->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
@@ -270,7 +277,7 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 					DrawPageMarks(painter, Doc->currentPage, QRect(clipx, clipy, clipw, cliph));
 			}
 			DrawPageItems(painter, QRect(clipx, clipy, clipw, cliph));
-			if ((!Doc->guidesSettings.before) && (QRect(x, y, w+5, h+5).intersects(QRect(clipx, clipy, clipw, cliph))))
+			if ((!Doc->guidesSettings.before) && (drawRect.intersects(QRect(clipx, clipy, clipw, cliph))))
 				DrawPageMarks(painter, Doc->currentPage, QRect(clipx, clipy, clipw, cliph));
 		}
 		if ((SelItem.count() != 0) || (linkedFramesToShow.count() != 0))
@@ -615,6 +622,7 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 							continue;
 					}
 					QRect oldR = getRedrawBounding(currItem);
+//					oldR.moveBy(qRound(-Doc->minCanvasCoordinate.x() * Scale), qRound(-Doc->minCanvasCoordinate.y() * Scale));
 					if (clip.intersects(oldR))
 					{
 						if (evSpon)
@@ -1208,8 +1216,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 	if (Doc->guidesSettings.guidesShown)
 	{
 		bool fg = false;
-		double nx = m->x()/Scale;
-		double ny = m->y()/Scale;
+		double nx = m->x()/Scale + Doc->minCanvasCoordinate.x();
+		double ny = m->y()/Scale + Doc->minCanvasCoordinate.y();
 		if (Doc->currentPage->YGuides.count() != 0)
 		{
 			for (uint yg = 0; yg < Doc->currentPage->YGuides.count(); ++yg)
@@ -1805,7 +1813,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		if (Doc->appMode == modeDrawRegularPolygon)
 		{
 			currItem = SelItem.at(0);
-			FPoint np1 = FPoint(m->x() / Scale, m->y() / Scale);
+			FPoint np1 = FPoint(m->x() / Scale + Doc->minCanvasCoordinate.x(), m->y() / Scale + Doc->minCanvasCoordinate.y());
 			np1 = ApplyGridF(np1);
 			currItem->Width = np1.x() - currItem->Xpos;
 			currItem->Height = np1.y()- currItem->Ypos;
@@ -1931,8 +1939,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				if (currItem->Sizing)
 				{
 					FPoint npx;
-					double nx = m->pos().x()/Scale;
-					double ny = m->pos().y()/Scale;
+					double nx = m->pos().x()/Scale + Doc->minCanvasCoordinate.x();
+					double ny = m->pos().y()/Scale + Doc->minCanvasCoordinate.y();
 					if (Doc->SnapGuides)
 					{
 						ApplyGuides(&nx, &ny);
@@ -2025,8 +2033,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						{
 							if (sav)
 							{
-								double nx = m->pos().x()/Scale;
-								double ny = m->pos().y()/Scale;
+								double nx = m->pos().x()/Scale + Doc->minCanvasCoordinate.x();
+								double ny = m->pos().y()/Scale + Doc->minCanvasCoordinate.y();
 								if (Doc->useRaster)
 								{
 									FPoint ra = ApplyGridF(FPoint(nx, ny));
@@ -2109,8 +2117,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						{
 							if (sav)
 							{
-								double nx = m->pos().x()/Scale;
-								double ny = m->pos().y()/Scale;
+								double nx = m->pos().x()/Scale + Doc->minCanvasCoordinate.x();
+								double ny = m->pos().y()/Scale + Doc->minCanvasCoordinate.y();
 								if (Doc->useRaster)
 								{
 									FPoint ra = ApplyGridF(FPoint(nx, ny));
@@ -2769,7 +2777,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 	double sc = Scale;
 	horizRuler->Draw(m->x());
 	vertRuler->Draw(m->y());
-	emit MousePos(m->x()/Scale-Doc->currentPage->Xoffset, m->y()/Scale-Doc->currentPage->Yoffset);
+	emit MousePos(m->x()/Scale-Doc->currentPage->Xoffset + Doc->minCanvasCoordinate.x(), m->y()/Scale-Doc->currentPage->Yoffset + Doc->minCanvasCoordinate.y());
 	if (Doc->guidesSettings.guidesShown)
 	{
 		if (MoveGY)
@@ -3068,8 +3076,8 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 			{
 				if ((Mpressed) && (ClRe == -1) && (SegP1 == -1) && (SegP2 == -1))
 				{
-					newX = qRound(m->x()/sc);
-					newY = qRound(m->y()/sc);
+					newX = qRound(m->x()/sc + Doc->minCanvasCoordinate.x());
+					newY = qRound(m->y()/sc + Doc->minCanvasCoordinate.y());
 					p.begin(viewport());
 					ToView(&p);
 					p.scale(Scale, Scale);
@@ -3237,6 +3245,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 							case 1:
 								p.begin(viewport());
 								Transform(currItem, &p);
+								p.translate(qRound(-Doc->minCanvasCoordinate.x()), qRound(-Doc->minCanvasCoordinate.y()));
 								if ((m->state() & ShiftButton) && (!(m->state() & ControlButton)))
 									mop = QPoint(m->x(), static_cast<int>((currItem->Ypos + (newX - currItem->Xpos)) * sc));
 								else
@@ -3306,6 +3315,8 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 								}
 								else
 								{
+									newX = qRound(m->x()/sc + Doc->minCanvasCoordinate.x());
+									newY = qRound(m->y()/sc + Doc->minCanvasCoordinate.y());
 									p.begin(viewport());
 									np2 = QPoint(newX, newY);
 									np2 = ApplyGrid(np2);
@@ -3333,7 +3344,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 							double nx = np2.x();
 							double ny = np2.y();
 							ApplyGuides(&nx, &ny);
-							p.translate(static_cast<int>(currItem->Xpos), static_cast<int>(currItem->Ypos));
+							p.translate(static_cast<int>(currItem->Xpos - Doc->minCanvasCoordinate.x()), static_cast<int>(currItem->Ypos - Doc->minCanvasCoordinate.y()));
 							p.rotate(currItem->Rot);
 							np2 = p.xFormDev(QPoint(qRound(nx), qRound(ny)));
 							p.end();
@@ -3437,6 +3448,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 			if (GroupSel)
 			{
 				QRect mpo = QRect(qRound(m->x()/Scale)-Doc->guidesSettings.grabRad, qRound(m->y()/Scale)-Doc->guidesSettings.grabRad, Doc->guidesSettings.grabRad*2, Doc->guidesSettings.grabRad*2);
+				mpo.moveBy(qRound(Doc->minCanvasCoordinate.x()), qRound(Doc->minCanvasCoordinate.y()));
 				double gx, gy, gh, gw;
 				getGroupRect(&gx, &gy, &gw, &gh);
 				if ((QRect(static_cast<int>(gx), static_cast<int>(gy), static_cast<int>(gw), static_cast<int>(gh)).intersects(mpo))
@@ -3532,6 +3544,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 				p.begin(viewport());
 				Transform(currItem, &p);
 				QRect mpo = QRect(m->x()-Doc->guidesSettings.grabRad, m->y()-Doc->guidesSettings.grabRad, Doc->guidesSettings.grabRad*2, Doc->guidesSettings.grabRad*2);
+				mpo.moveBy(qRound(Doc->minCanvasCoordinate.x() * Scale), qRound(Doc->minCanvasCoordinate.y() * Scale));
 				if (Doc->EditClip)
 				{
 					FPointArray Clip;
@@ -3640,8 +3653,8 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 	{
 		if ((Mpressed) && (m->state() == LeftButton))
 		{
-			newX = qRound(m->x()/sc);
-			newY = qRound(m->y()/sc);
+			newX = qRound(m->x()/sc + Doc->minCanvasCoordinate.x());
+			newY = qRound(m->y()/sc + Doc->minCanvasCoordinate.y());
 			p.begin(viewport());
 			ToView(&p);
 			p.scale(Scale, Scale);
@@ -3716,14 +3729,19 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 	QRect tx, mpo;
 	Mpressed = true;
 	Imoved = false;
-	SeRx = qRound(m->x()/Scale);
-	SeRy = qRound(m->y()/Scale);
+//	SeRx = qRound(m->x()/Scale + Doc->minCanvasCoordinate.x());
+//	SeRy = qRound(m->y()/Scale + Doc->minCanvasCoordinate.y());
 	HaveSelRect = false;
 	Doc->DragP = false;
 	Doc->leaveDrag = false;
+//	Mxp = qRound(m->x()/Scale + Doc->minCanvasCoordinate.x());
+//	Myp = qRound(m->y()/Scale + Doc->minCanvasCoordinate.y());
 	Mxp = qRound(m->x()/Scale);
 	Myp = qRound(m->y()/Scale);
+	SeRx = Mxp;
+	SeRy = Myp;
 	mpo = QRect(m->x()-Doc->guidesSettings.grabRad, m->y()-Doc->guidesSettings.grabRad, Doc->guidesSettings.grabRad*2, Doc->guidesSettings.grabRad*2);
+	mpo.moveBy(qRound(Doc->minCanvasCoordinate.x() * Scale), qRound(Doc->minCanvasCoordinate.y() * Scale));
 	if (Doc->appMode != modeEdit)
 	{
 		Rxp = ApplyGrid(QPoint(Mxp, Myp)).x();
@@ -4000,6 +4018,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 					double gx, gy, gh, gw;
 					getGroupRect(&gx, &gy, &gw, &gh);
 					mpo = QRect(qRound(m->x() / Scale) - Doc->guidesSettings.grabRad, qRound(m->y() / Scale) - Doc->guidesSettings.grabRad, Doc->guidesSettings.grabRad*2, Doc->guidesSettings.grabRad*2);
+					mpo.moveBy(qRound(Doc->minCanvasCoordinate.x()), qRound(Doc->minCanvasCoordinate.y()));
 					if ((QRect(static_cast<int>(gx), static_cast<int>(gy), static_cast<int>(gw), static_cast<int>(gh)).intersects(mpo))
 					      && (m->state() != (ControlButton | AltButton)) && (m->state() != ShiftButton))
 					{
@@ -4091,8 +4110,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				SeleItem(m);
 				if (SelItem.count() == 0)
 				{
-					Mxp = qRound(m->x()/Scale);
-					Myp = qRound(m->y()/Scale);
+					Mxp = qRound(m->x()/Scale + Doc->minCanvasCoordinate.x());
+					Myp = qRound(m->y()/Scale + Doc->minCanvasCoordinate.y());
 					SeRx = Mxp;
 					SeRy = Myp;
 				}
@@ -4785,7 +4804,9 @@ QRect ScribusView::getRedrawBounding(PageItem *currItem)
 	int y = qRound(floor(currItem->BoundingY - currItem->OldPwidth / 2.0 - 5) * Scale);
 	int w = qRound(ceil(currItem->BoundingW + currItem->OldPwidth + 10) * Scale);
 	int h = qRound(ceil(currItem->BoundingH + currItem->OldPwidth + 10) * Scale);
-	return QRect(x, y, w, h);
+	QRect ret = QRect(x, y, w, h);
+	ret.moveBy(qRound(-Doc->minCanvasCoordinate.x() * Scale), qRound(-Doc->minCanvasCoordinate.y() * Scale));
+	return ret;
 }
 
 void ScribusView::setRedrawBounding(PageItem *currItem)
@@ -4847,6 +4868,7 @@ void ScribusView::setGroupRect()
 void ScribusView::getGroupRectScreen(double *x, double *y, double *w, double *h)
 {
 	QPoint in  = QPoint(qRound(GroupX*Scale), qRound(GroupY*Scale));
+	in -= QPoint(qRound(Doc->minCanvasCoordinate.x() * Scale), qRound(Doc->minCanvasCoordinate.y() * Scale));
 	QPoint out = contentsToViewport(in);
 	*x = static_cast<double>(out.x());
 	*y = static_cast<double>(out.y());
@@ -4908,6 +4930,7 @@ void ScribusView::PaintSizeRect(QPainter *p, QRect neu)
 void ScribusView::ToView(QPainter *p)
 {
 	QPoint out = contentsToViewport(QPoint(0, 0));
+	p->translate(qRound(-Doc->minCanvasCoordinate.x()*Scale), qRound(-Doc->minCanvasCoordinate.y()*Scale));
 	p->translate(out.x(), out.y());
 }
 
@@ -5822,7 +5845,7 @@ bool ScribusView::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, 
 			return true;
 		QPainter p;
 		p.begin(viewport());
-		QPoint in  = QPoint(qRound(currItem->Xpos*Scale), qRound(currItem->Ypos*Scale));
+		QPoint in  = QPoint(qRound((currItem->Xpos-Doc->minCanvasCoordinate.x())*Scale), qRound((currItem->Ypos-Doc->minCanvasCoordinate.y())*Scale));
 		QPoint out = contentsToViewport(in);
 		p.translate(out.x(), out.y());
 		p.scale(Scale, Scale);
@@ -7063,6 +7086,7 @@ void ScribusView::selectPage(QMouseEvent *m)
 	Mxp = static_cast<int>(m->x()/Scale);
 	Myp = static_cast<int>(m->y()/Scale);
 	mpo = QRect(m->x()-Doc->guidesSettings.grabRad, m->y()-Doc->guidesSettings.grabRad, Doc->guidesSettings.grabRad*2, Doc->guidesSettings.grabRad*2);
+	mpo.moveBy(qRound(Doc->minCanvasCoordinate.x() * Scale), qRound(Doc->minCanvasCoordinate.y() * Scale));
 	ClRe = -1;
 	Deselect(false);
 	if (!Doc->MasterP)
@@ -7096,7 +7120,10 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 	Mpressed = true;
 	Mxp = static_cast<int>(m->x()/Scale);
 	Myp = static_cast<int>(m->y()/Scale);
+	int MxpS = static_cast<int>(m->x()/Scale + Doc->minCanvasCoordinate.x());
+	int MypS = static_cast<int>(m->y()/Scale + Doc->minCanvasCoordinate.y());
 	mpo = QRect(m->x()-Doc->guidesSettings.grabRad, m->y()-Doc->guidesSettings.grabRad, Doc->guidesSettings.grabRad*2, Doc->guidesSettings.grabRad*2);
+	mpo.moveBy(qRound(Doc->minCanvasCoordinate.x() * Scale), qRound(Doc->minCanvasCoordinate.y() * Scale));
 	ClRe = -1;
 	if ((SelItem.count() != 0) && (m->state() == ControlButton))
 		currItem = SelItem.at(0);
@@ -7387,7 +7414,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 		}
 		currItem = Doc->Items.prev();
 	}
-	if ((Doc->guidesSettings.guidesShown) && (Doc->appMode == modeNormal) && (!Doc->GuideLock) && (OnPage(Mxp, Myp) != -1))
+	if ((Doc->guidesSettings.guidesShown) && (Doc->appMode == modeNormal) && (!Doc->GuideLock) && (OnPage(MxpS, MypS) != -1))
 	{
 		GxM = -1;
 		GyM = -1;
@@ -7395,8 +7422,8 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 		{
 			for (uint yg = 0; yg < Doc->currentPage->YGuides.count(); ++yg)
 			{
-				if ((Doc->currentPage->YGuides[yg]+Doc->currentPage->Yoffset < (Myp+Doc->guidesSettings.grabRad)) &&
-					 (Doc->currentPage->YGuides[yg]+Doc->currentPage->Yoffset > (Myp-Doc->guidesSettings.grabRad)))
+				if ((Doc->currentPage->YGuides[yg]+Doc->currentPage->Yoffset < (MypS+Doc->guidesSettings.grabRad)) &&
+					 (Doc->currentPage->YGuides[yg]+Doc->currentPage->Yoffset > (MypS-Doc->guidesSettings.grabRad)))
 				{
 					GyM = yg;
 					QPoint py = viewport()->mapFromGlobal(m->globalPos());
@@ -7409,8 +7436,8 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 		{
 			for (uint xg = 0; xg < Doc->currentPage->XGuides.count(); ++xg)
 			{
-				if ((Doc->currentPage->XGuides[xg]+Doc->currentPage->Xoffset < (Mxp+Doc->guidesSettings.grabRad)) &&
-					 (Doc->currentPage->XGuides[xg]+Doc->currentPage->Xoffset > (Mxp-Doc->guidesSettings.grabRad)))
+				if ((Doc->currentPage->XGuides[xg]+Doc->currentPage->Xoffset < (MxpS+Doc->guidesSettings.grabRad)) &&
+					 (Doc->currentPage->XGuides[xg]+Doc->currentPage->Xoffset > (MxpS-Doc->guidesSettings.grabRad)))
 				{
 					GxM = xg;
 					QPoint py = viewport()->mapFromGlobal(m->globalPos());
@@ -7451,36 +7478,44 @@ void ScribusView::HandleSizer(QPainter *p, PageItem *currItem, QRect mpo, QMouse
 	double d1;
 	QMap<double,int> distance;
 	n1 = transformPoint( FPoint(currItem->Width, currItem->Height), currItem->Xpos, currItem->Ypos, currItem->Rot, 1, 1);
+	n1 -= QPoint(qRound(Doc->minCanvasCoordinate.x()), qRound(Doc->minCanvasCoordinate.y()));
 	d1 = sqrt(pow(n1.x() * Scale - m->x(),2)+pow(n1.y() * Scale - m->y(),2));
 	if (d1 < Doc->guidesSettings.grabRad)
 		distance.insert(d1, 1);
 	n1 = transformPoint( FPoint(0, 0), currItem->Xpos, currItem->Ypos, currItem->Rot, 1, 1);
+	n1 -= QPoint(qRound(Doc->minCanvasCoordinate.x()), qRound(Doc->minCanvasCoordinate.y()));
 	d1 = sqrt(pow(n1.x() * Scale - m->x(),2)+pow(n1.y() * Scale - m->y(),2));
 	if (d1 < Doc->guidesSettings.grabRad)
 		distance.insert(d1, 2);
 	if (currItem->itemType() != PageItem::Line)
 	{
 		n1 = transformPoint( FPoint(currItem->Width, 0), currItem->Xpos, currItem->Ypos, currItem->Rot, 1, 1);
+		n1 -= QPoint(qRound(Doc->minCanvasCoordinate.x()), qRound(Doc->minCanvasCoordinate.y()));
 		d1 = sqrt(pow(n1.x() * Scale - m->x(),2)+pow(n1.y() * Scale - m->y(),2));
 		if (d1 < Doc->guidesSettings.grabRad)
 			distance.insert(d1, 3);
 		n1 = transformPoint( FPoint(0, currItem->Height), currItem->Xpos, currItem->Ypos, currItem->Rot, 1, 1);
+		n1 -= QPoint(qRound(Doc->minCanvasCoordinate.x()), qRound(Doc->minCanvasCoordinate.y()));
 		d1 = sqrt(pow(n1.x() * Scale - m->x(),2)+pow(n1.y() * Scale - m->y(),2));
 		if (d1 < Doc->guidesSettings.grabRad)
 			distance.insert(d1, 4);
 		n1 = transformPoint( FPoint(currItem->Width/2, currItem->Height), currItem->Xpos, currItem->Ypos, currItem->Rot, 1, 1);
+		n1 -= QPoint(qRound(Doc->minCanvasCoordinate.x()), qRound(Doc->minCanvasCoordinate.y()));
 		d1 = sqrt(pow(n1.x() * Scale - m->x(),2)+pow(n1.y() * Scale - m->y(),2));
 		if (d1 < Doc->guidesSettings.grabRad)
 			distance.insert(d1, 5);
 		n1 = transformPoint( FPoint(currItem->Width, currItem->Height/2), currItem->Xpos, currItem->Ypos, currItem->Rot, 1, 1);
+		n1 -= QPoint(qRound(Doc->minCanvasCoordinate.x()), qRound(Doc->minCanvasCoordinate.y()));
 		d1 = sqrt(pow(n1.x() * Scale - m->x(),2)+pow(n1.y() * Scale - m->y(),2));
 		if (d1 < Doc->guidesSettings.grabRad)
 			distance.insert(d1, 6);
 		n1 = transformPoint( FPoint(0, currItem->Height/2), currItem->Xpos, currItem->Ypos, currItem->Rot, 1, 1);
+		n1 -= QPoint(qRound(Doc->minCanvasCoordinate.x()), qRound(Doc->minCanvasCoordinate.y()));
 		d1 = sqrt(pow(n1.x() * Scale - m->x(),2)+pow(n1.y() * Scale - m->y(),2));
 		if (d1 < Doc->guidesSettings.grabRad)
 			distance.insert(d1, 7);
 		n1 = transformPoint( FPoint(currItem->Width/2, 0), currItem->Xpos, currItem->Ypos, currItem->Rot, 1, 1);
+		n1 -= QPoint(qRound(Doc->minCanvasCoordinate.x()), qRound(Doc->minCanvasCoordinate.y()));
 		d1 = sqrt(pow(n1.x() * Scale - m->x(),2)+pow(n1.y() * Scale - m->y(),2));
 		if (d1 < Doc->guidesSettings.grabRad)
 			distance.insert(d1, 8);
@@ -7488,6 +7523,7 @@ void ScribusView::HandleSizer(QPainter *p, PageItem *currItem, QRect mpo, QMouse
 	QValueList<int> result = distance.values();
 	if (result.count() != 0)
 		HowTo = result[0];
+	mpo.moveBy(qRound(-Doc->minCanvasCoordinate.x() * Scale), qRound(Doc->minCanvasCoordinate.y() * Scale));
 	HandleCurs(p, currItem, mpo);
 	if (HowTo != 0)
 	{
@@ -8332,6 +8368,8 @@ void ScribusView::rememberPreviousSettings(int mx, int my)
 
 void ScribusView::setRulerPos(int x, int y)
 {
+	x += qRound(Doc->minCanvasCoordinate.x()*Scale);
+	y += qRound(Doc->minCanvasCoordinate.y()*Scale);
 	if (ScApp->ScriptRunning)
 		return;
 	horizRuler->offs = x-static_cast<int>(Doc->ScratchLeft*Scale)-1;
@@ -8636,7 +8674,7 @@ void ScribusView::reformPages()
 		maxSize = FPoint(Doc->pageWidth+Doc->ScratchLeft+Doc->ScratchRight, Doc->pageCount * (Doc->pageHeight+Doc->ScratchBottom+Doc->ScratchTop));
 	adjustCanvas(FPoint(0,0), maxSize);
 	if (!ScApp->ScriptRunning)
-		setContentsPos(qRound((Doc->currentPage->Xoffset-10) * Scale), qRound((Doc->currentPage->Yoffset-10) * Scale));
+		setContentsPos(qRound((Doc->currentPage->Xoffset-10 - Doc->minCanvasCoordinate.x()) * Scale), qRound((Doc->currentPage->Yoffset-10 - Doc->minCanvasCoordinate.y()) * Scale));
 	setRulerPos(contentsX(), contentsY());
 	setMenTxt(Doc->currentPage->PageNr);
 }
@@ -8645,12 +8683,15 @@ void ScribusView::adjustCanvas(FPoint minPos, FPoint maxPos)
 {
 	double newMaxX = QMAX(Doc->maxCanvasCoordinate.x(), maxPos.x());
 	double newMaxY = QMAX(Doc->maxCanvasCoordinate.y(), maxPos.y());
-	double newMinX = Doc->minCanvasCoordinate.x();
-	double newMinY = Doc->minCanvasCoordinate.y();
-	if (Doc->maxCanvasCoordinate != FPoint(newMaxX, newMaxY))
+	double newMinX = QMIN(Doc->minCanvasCoordinate.x(), minPos.x());
+	double newMinY = QMIN(Doc->minCanvasCoordinate.y(), minPos.y());
+	if (!Imoved)
 	{
 		resizeContents(qRound((newMaxX - newMinX) * Scale), qRound((newMaxY - newMinY) * Scale));
+		scrollBy(qRound((Doc->minCanvasCoordinate.x() - newMinX) * Scale), qRound((Doc->minCanvasCoordinate.y() - newMinY) * Scale));
 		Doc->maxCanvasCoordinate = FPoint(newMaxX, newMaxY);
+		Doc->minCanvasCoordinate = FPoint(newMinX, newMinY);
+		setRulerPos(contentsX(), contentsY());
 	}
 }
 
@@ -8685,8 +8726,7 @@ void ScribusView::slotDoZoom()
 	}
 	else
 		maxSize = FPoint(Doc->pageWidth+Doc->ScratchLeft+Doc->ScratchRight, Doc->pageCount * (Doc->pageHeight+Doc->ScratchBottom+Doc->ScratchTop));
-	adjustCanvas(FPoint(0,0), maxSize);
-	setRulerPos(contentsX(), contentsY());
+	adjustCanvas(Doc->minCanvasCoordinate, maxSize);
 	if (SelItem.count() != 0)
 	{
 		PageItem *currItem = SelItem.at(0);
@@ -8779,7 +8819,7 @@ void ScribusView::SetCCPo(int x, int y)
 {
 	if (ScApp->ScriptRunning)
 		return;
-	center(static_cast<int>(x * Scale), static_cast<int>(y * Scale));
+	center(static_cast<int>((x - Doc->minCanvasCoordinate.x()) * Scale), static_cast<int>((y - Doc->minCanvasCoordinate.y())* Scale));
 	setRulerPos(contentsX(), contentsY());
 }
 
@@ -8787,7 +8827,7 @@ void ScribusView::SetCPo(int x, int y)
 {
 	if (ScApp->ScriptRunning)
 		return;
-	setContentsPos(static_cast<int>(x * Scale), static_cast<int>(y * Scale));
+	setContentsPos(static_cast<int>((x - Doc->minCanvasCoordinate.x()) * Scale), static_cast<int>((y - Doc->minCanvasCoordinate.y())* Scale));
 	setRulerPos(contentsX(), contentsY());
 }
 
@@ -9107,8 +9147,8 @@ void ScribusView::FromVRuler(QMouseEvent *m)
 void ScribusView::SetYGuide(QMouseEvent *m, int oldIndex)
 {
 	QPoint py = viewport()->mapFromGlobal(m->globalPos());
-	double newX = (py.x() + contentsX()) / Scale;
-	double newY = (py.y() + contentsY()) / Scale;
+	double newX = (py.x() + contentsX()) / Scale + Doc->minCanvasCoordinate.x();
+	double newY = (py.y() + contentsY()) / Scale + Doc->minCanvasCoordinate.y();
 	int pg = OnPage(newX, newY);
 	if (pg != -1)
 	{
@@ -9131,8 +9171,8 @@ void ScribusView::SetYGuide(QMouseEvent *m, int oldIndex)
 void ScribusView::SetXGuide(QMouseEvent *m, int oldIndex)
 {
 	QPoint py = viewport()->mapFromGlobal(m->globalPos());
-	double newX = (py.x() + contentsX()) / Scale;
-	double newY = (py.y() + contentsY()) / Scale;
+	double newX = (py.x() + contentsX()) / Scale + Doc->minCanvasCoordinate.x();
+	double newY = (py.y() + contentsY()) / Scale + Doc->minCanvasCoordinate.y();
 	int pg = OnPage(newX, newY);
 	if (pg != -1)
 	{
