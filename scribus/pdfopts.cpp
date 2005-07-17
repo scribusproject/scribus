@@ -868,7 +868,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 			              "a token can be * for all the pages, 1-5 for\n"
 			              "a range of pages or a single page number.") );
 
-	QToolTip::add( ComboBox1, tr( "Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.\nChoose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.\nPDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management. Note: PDF/X-3 will convert all CMYK images to ICC based RGB colors." ) );
+	QToolTip::add( ComboBox1, tr( "Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.\nChoose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.\nPDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing\n and is selectable when you have activated color management.\nNote: PDF/X-3 will convert all CMYK images to ICC based RGB colors.\n Use only when advised by your printer or in some cases printing\n to a 4 color digital color laser printer." ) );
 	QToolTip::add( ComboBind, tr( "Determines the binding of pages in the PDF. Unless you know\nyou need to change it leave the default choice - Left." ) );
 	QToolTip::add( CheckBox1, tr( "Generates thumbnails of each page in the PDF.\nSome viewers can use the thumbnails for navigation." ) );
 	QToolTip::add( Article, tr( "Generate PDF Articles, which is useful for navigating linked articles in a PDF." ) );
@@ -877,7 +877,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	QToolTip::add( Compression, tr( "Compression of text and graphics.\nUnless you have a reason, leave this checked. This reduces PDF size." ) );
 	QToolTip::add( CMethod, tr( "Version of compression for images.\nAutomatic allows Scribus to choose the best method.\nZIP is good for images with solid colors.\nJPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).\nLeave it set to automatic, unless you have a need for special compression options." ) );
 	QToolTip::add( CQuality, tr( "Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)" ) );
-	QToolTip::add( DSColor, tr( "Downsample your bitmap images to the selected DPI.\nLeaving this unchecked will render them at their native resolution." ) );
+	QToolTip::add( DSColor, tr( "Re-sample your bitmap images to the selected DPI.\nLeaving this unchecked will render them at their native resolution.\nThis can increase memory usage and slow down export." ) );
 	QToolTip::add( ValC, tr( "DPI (Dots Per Inch) for image export.") );
 	QToolTip::add( EmbedFonts, tr( "Embed fonts into the PDF. Embedding the fonts\nwill preserve the layout and appearance of your document." ) );
 	QToolTip::add( CheckBox10, tr( "Enables presentation effects when using Acrobat Reader in full screen mode." ) );
