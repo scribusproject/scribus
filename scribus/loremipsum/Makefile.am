@@ -6,7 +6,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/arabic.xml $(prefix)/share/scribus/loremipsum/arabic.xml
 	$(INSTALL_DATA) $(srcdir)/czech.xml $(prefix)/share/scribus/loremipsum/czech.xml
 	$(INSTALL_DATA) $(srcdir)/greece.xml $(prefix)/share/scribus/loremipsum/greece.xml
-	$(INSTALL_DATA) $(srcdir)/jiddish.xml $(prefix)/share/scribus/loremipsum/jiddish.xml
+	$(INSTALL_DATA) $(srcdir)/hebrew.xml $(prefix)/share/scribus/loremipsum/hebrew.xml
 	$(INSTALL_DATA) $(srcdir)/russian.xml $(prefix)/share/scribus/loremipsum/russian.xml
 
 uninstall-local:
@@ -14,5 +14,5 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/loremipsum/arabic.xml
 	-rm -f $(prefix)/share/scribus/loremipsum/czech.xml
 	-rm -f $(prefix)/share/scribus/loremipsum/greece.xml
-	-rm -f $(prefix)/share/scribus/loremipsum/jiddish.xml
+	-rm -f $(prefix)/share/scribus/loremipsum/hebrew.xml
 	-rm -f $(prefix)/share/scribus/loremipsum/russian.xml
