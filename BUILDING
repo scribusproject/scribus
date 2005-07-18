@@ -207,6 +207,8 @@ Red Hat / Fedora
 ================
 
 Recommended packages for compiling from source on FC3 / FC4:
+	libstdc++-devel (Required)
+	gcc-c++ (Required)
 	qt-devel (Required)
 	freetype-devel (Required)
 	libart_lgpl-devel (Required)
