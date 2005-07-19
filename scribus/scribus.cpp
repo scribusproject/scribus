@@ -2385,7 +2385,11 @@ void ScribusApp::startUpDialog()
 				for (int pg = 1; pg < dia->PgNum->value(); pg++)
 				{
 					slotNewPage(pg);
+					applyNewMaster( tr("Normal"));
+					doc->DocPages = doc->Pages;
 				}
+				outlinePalette->BuildTree(doc);
+				pagePalette->RebuildPage();
 				view->GotoPage(0);
 			}
 			delete ps2;
@@ -2443,7 +2447,11 @@ bool ScribusApp::slotFileNew()
 			for (int pg = 1; pg < dia->PgNum->value(); pg++)
 			{
 				slotNewPage(pg);
+				applyNewMaster( tr("Normal"));
+				doc->DocPages = doc->Pages;
 			}
+			outlinePalette->BuildTree(doc);
+			pagePalette->RebuildPage();
 			view->GotoPage(0);
 		}
 		mainWindowStatusLabel->setText( tr("Ready"));

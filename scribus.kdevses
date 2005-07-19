@@ -7,7 +7,11 @@
    <breakpointList/>
   </kdevdebugger>
   <kdevbookmarks>
-   <bookmarks/>
+   <bookmarks>
+    <bookmark url="/home/franz/Entwicklung/AnonCVS/Scribus13x/Scribus/scribus/scribus.cpp" >
+     <mark line="2449" />
+    </bookmark>
+   </bookmarks>
   </kdevbookmarks>
   <kdevvalgrind>
    <executable path="" params="" />

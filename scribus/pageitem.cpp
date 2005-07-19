@@ -681,8 +681,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 
 			QPtrList<ZZ> LiList;
 			LiList.setAutoDelete(true);
-			QRect e2 = QRect(qRound(e.x() / sc), qRound(e.y() / sc), qRound(e.width() / sc), qRound(e.height() / sc));
-			e2.moveBy(qRound(Doc->minCanvasCoordinate.x()), qRound(Doc->minCanvasCoordinate.y()));
+			QRect e2 = QRect(qRound(e.x()  / sc + Doc->minCanvasCoordinate.x()), qRound(e.y()  / sc + Doc->minCanvasCoordinate.y()), qRound(e.width() / sc), qRound(e.height() / sc));
 			p->save();
 			pf2.begin(ScApp->view->viewport());
 			pf2.translate(Xpos, Ypos);
