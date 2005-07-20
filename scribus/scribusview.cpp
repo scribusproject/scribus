@@ -1279,7 +1279,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 	{
 		QPainter p;
 		p.begin(viewport());
-		ToView(&p);
+		QPoint out = contentsToViewport(QPoint(0, 0));
+		p.translate(out.x(), out.y());
 		p.setRasterOp(XorROP);
 		p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
 		p.drawLine(Dxp, Dyp, Mxp, Myp);
@@ -2875,7 +2876,8 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 		newX = m->x();
 		newY = m->y();
 		p.begin(viewport());
-		ToView(&p);
+		QPoint out = contentsToViewport(QPoint(0, 0));
+		p.translate(out.x(), out.y());
 		p.setRasterOp(XorROP);
 		p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
 		p.drawLine(Dxp, Dyp, Mxp, Myp);
@@ -8802,7 +8804,7 @@ void ScribusView::slotDoZoom()
 	}
 	else
 		maxSize = FPoint(Doc->pageWidth+Doc->ScratchLeft+Doc->ScratchRight, Doc->pageCount * (Doc->pageHeight+Doc->ScratchBottom+Doc->ScratchTop));
-	adjustCanvas(Doc->minCanvasCoordinate, maxSize);
+	resizeContents(qRound((maxSize.x() - Doc->minCanvasCoordinate.x()) * Scale), qRound((maxSize.x() - Doc->minCanvasCoordinate.y()) * Scale));
 	if (SelItem.count() != 0)
 	{
 		PageItem *currItem = SelItem.at(0);
