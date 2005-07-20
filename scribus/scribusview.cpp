@@ -1661,30 +1661,42 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			pmen->insertSeparator();
 			ScApp->scrActions["editUndoAction"]->addTo(pmen);
 			ScApp->scrActions["editRedoAction"]->addTo(pmen);
+			if (currItem->itemType() == PageItem::ImageFrame ||
+				currItem->itemType() == PageItem::TextFrame ||
+				currItem->itemType() == PageItem::PathText)
+			{
+				pmen->insertSeparator();
+				if (currItem->itemType() == PageItem::ImageFrame)
+				{
+					ScApp->scrActions["fileImportImage"]->addTo(pmen);
+					ScApp->scrActions["itemImageIsVisible"]->addTo(pmen);
+					pmen->insertItem( tr("Preview Settings"), pmenResolution);
+					ScApp->scrActions["itemPreviewLow"]->addTo(pmenResolution);
+					ScApp->scrActions["itemPreviewNormal"]->addTo(pmenResolution);
+					ScApp->scrActions["itemPreviewFull"]->addTo(pmenResolution);
+					if ((currItem->PicAvail) && (currItem->pixm.imgInfo.valid))
+						ScApp->scrActions["itemExtendedImageProperties"]->addTo(pmen);
+					if (currItem->PicAvail)
+						ScApp->scrActions["itemUpdateImage"]->addTo(pmen);
+					if (currItem->PicAvail && currItem->isRaster)
+						ScApp->scrActions["editEditWithImageEditor"]->addTo(pmen);
+					if ((currItem->PicAvail) && (!currItem->isTableItem))
+						ScApp->scrActions["itemAdjustFrameToImage"]->addTo(pmen);
+				}
+				if (currItem->itemType() == PageItem::TextFrame)
+				{
+					ScApp->scrActions["fileImportText"]->addTo(pmen);
+					ScApp->scrActions["fileImportAppendText"]->addTo(pmen);
+					ScApp->scrActions["toolsEditWithStoryEditor"]->addTo(pmen);
+					ScApp->scrActions["insertSampleText"]->addTo(pmen);
+				}
+				if (currItem->itemType() == PageItem::PathText)
+					ScApp->scrActions["toolsEditWithStoryEditor"]->addTo(pmen);
+			}
 			pmen->insertSeparator();
 			ScApp->scrActions["itemAttributes"]->addTo(pmen);
-			if (currItem->itemType() == PageItem::ImageFrame)
-			{
-				ScApp->scrActions["fileImportImage"]->addTo(pmen);
-				ScApp->scrActions["itemImageIsVisible"]->addTo(pmen);
-				pmen->insertItem( tr("Preview Settings"), pmenResolution);
-				ScApp->scrActions["itemPreviewLow"]->addTo(pmenResolution);
-				ScApp->scrActions["itemPreviewNormal"]->addTo(pmenResolution);
-				ScApp->scrActions["itemPreviewFull"]->addTo(pmenResolution);
-				if ((currItem->PicAvail) && (currItem->pixm.imgInfo.valid))
-					ScApp->scrActions["itemExtendedImageProperties"]->addTo(pmen);
-				if (currItem->PicAvail)
-					ScApp->scrActions["itemUpdateImage"]->addTo(pmen);
-				if (currItem->PicAvail && currItem->isRaster)
-					ScApp->scrActions["editEditWithImageEditor"]->addTo(pmen);
-				if ((currItem->PicAvail) && (!currItem->isTableItem))
-					ScApp->scrActions["itemAdjustFrameToImage"]->addTo(pmen);
-			}
 			if (currItem->itemType() == PageItem::TextFrame)
 			{
-				ScApp->scrActions["fileImportText"]->addTo(pmen);
-				ScApp->scrActions["fileImportAppendText"]->addTo(pmen);
-				ScApp->scrActions["toolsEditWithStoryEditor"]->addTo(pmen);
 				if (Doc->currentPage->PageNam == "")
 				{
 					ScApp->scrActions["itemPDFIsAnnotation"]->addTo(pmenPDF);
@@ -1699,8 +1711,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				}
 				pmen->insertItem( tr("&PDF Options"), pmenPDF);
 			}
-			if (currItem->itemType() == PageItem::PathText)
-				ScApp->scrActions["toolsEditWithStoryEditor"]->addTo(pmen);
+			pmen->insertSeparator();
 			ScApp->scrActions["itemLock"]->addTo(pmen);
 			ScApp->scrActions["itemLockSize"]->addTo(pmen);
 			if (!currItem->isSingleSel)
