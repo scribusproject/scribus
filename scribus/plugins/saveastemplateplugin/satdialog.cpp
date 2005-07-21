@@ -3,10 +3,10 @@
  ***************************************************************************/
 #include "satdialog.h"
 #include "satdialog.moc"
+#include "prefsmanager.h"
 #include <prefsfile.h>
 
 extern QPixmap loadIcon(QString nam);
-extern PrefsFile* prefsFile;
 
 satdialog::satdialog(QWidget* parent, QString tmplName, int pageW, int pageH) : QDialog(parent, "satdialog", true)
 {
@@ -189,7 +189,7 @@ void satdialog::minimumDetail()
 
 void satdialog::readPrefs() 
 {
-	prefs = prefsFile->getPluginContext("satemplate");
+	prefs = PrefsManager::instance()->prefsFile->getPluginContext("satemplate");
 	author = prefs->get("author", "");
 	email = prefs->get("email", "");
 	isFullDetail = prefs->getBool("isFullDetail", false);

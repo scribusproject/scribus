@@ -21,6 +21,7 @@
 #include "color.h"
 #include "scribusXml.h"
 #include "mpalette.h"
+#include "prefsmanager.h"
 #include "prefsfile.h"
 #include "prefscontext.h"
 #include "prefstable.h"
@@ -32,8 +33,6 @@
 #include "scfontmetrics.h"
 
 using namespace std;
-
-extern PrefsFile* prefsFile;
 
 /*!
  \fn QString Name()
@@ -98,7 +97,7 @@ void run(QWidget *d, ScribusApp *plug)
 		fileName = plug->pluginManager->dllInput;
 	else
 	{
-		PrefsContext* prefs = prefsFile->getPluginContext("OODrawImport");
+		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("OODrawImport");
 		QString wdir = prefs->get("wdir", ".");
 		CustomFDialog diaf(d, wdir, QObject::tr("Open"), QObject::tr("OpenOffice.org Draw (*.sxd);;All Files (*)"));
 		if (diaf.exec())

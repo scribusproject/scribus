@@ -14,9 +14,8 @@
 #include <qimage.h>
 #include <qdir.h>
 #include <qfiledialog.h>
+#include "prefsmanager.h"
 #include <prefsfile.h>
-
-extern PrefsFile* prefsFile;
 
 /*
  *  Constructs a ExportForm as a child of 'parent', with the
@@ -28,7 +27,7 @@ extern PrefsFile* prefsFile;
 ExportForm::ExportForm(QWidget* parent, int size, int quality, QString type)
 	: QDialog(parent, "ExportForm", true, 0)
 {
-	prefs = prefsFile->getPluginContext("pixmapexport");
+	prefs = PrefsManager::instance()->prefsFile->getPluginContext("pixmapexport");
 	ExportFormLayout = new QVBoxLayout( this, 10, 5, "ExportFormLayout");
 	layout1 = new QHBoxLayout( 0, 0, 5, "layout1");
 	TextLabel1 = new QLabel( this, "TextLabel1" );

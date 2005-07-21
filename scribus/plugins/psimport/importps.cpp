@@ -22,8 +22,6 @@
 #include "util.h"
 #include "prefsmanager.h"
 
-extern PrefsFile* prefsFile;
-
 /*!
  \fn QString Name()
  \author Franz Schmid
@@ -100,7 +98,7 @@ void run(QWidget *d, ScribusApp *plug)
 	}
 	else
 	{
-		PrefsContext* prefs = prefsFile->getPluginContext("importps");
+		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("importps");
 		QString wdir = prefs->get("wdir", ".");
 		QString formats = QObject::tr("All Supported Formats (*.eps *.EPS *.ps *.PS);;");
 		formats += "EPS (*.eps *.EPS);;PS (*.ps *.PS);;" + QObject::tr("All Files (*)");
@@ -352,7 +350,7 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	// Add any extra font paths being used by Scribus to gs's font search
 	// path We have to use Scribus's prefs context, not a plugin context, to
 	// get to the required information.
-	PrefsContext *pc = prefsFile->getContext("Fonts");
+	PrefsContext *pc = PrefsManager::instance()->prefsFile->getContext("Fonts");
 	PrefsTable *extraFonts = pc->getTable("ExtraFontDirs");
 	if (extraFonts->getRowCount() >= 1)
 		cmd1 += QString(" -sFONTPATH='%1'").arg(extraFonts->get(0,0));

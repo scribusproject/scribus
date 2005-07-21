@@ -10,6 +10,7 @@
 #include "pdfopts.moc"
 
 #include "customfdialog.h"
+#include "prefsmanager.h"
 #include "prefsfile.h"
 #include "units.h"
 #include "pdfoptions.h"
@@ -22,7 +23,6 @@ extern ProfilesL InputProfiles;
 extern bool CMSuse;
 #endif
 extern bool CMSavail;
-extern PrefsFile* prefsFile;
 
 PDF_Opts::PDF_Opts( QWidget* parent,  QString docFileName, QMap<QString,QFont> DocFonts, ScribusView *currView, PDFOptions *pdfOptions, QValueList<PDFPresentationData> Eff, ProfilesL *PDFXProfiles, SCFonts &AllFonts)
 		: QDialog( parent, "pdf", true, 0 )
@@ -46,7 +46,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString docFileName, QMap<QString,QFont> D
 		fileNameLineEdit->setText(pdfOptions->Datei);
 	else
 	{
-		PrefsContext* dirs = prefsFile->getContext("dirs");
+		PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 		QFileInfo fi = QFileInfo(docFileName);
 		QString pdfdir = dirs->get("pdf", fi.dirPath());
 		if (pdfdir.right(1) != "/")
@@ -112,7 +112,7 @@ void PDF_Opts::DoExport()
 void PDF_Opts::ChangeFile()
 {
 	QString fn;
-	PrefsContext* dirs = prefsFile->getContext("dirs");
+	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("pdf", ".");
 	CustomFDialog dia(this, wdir, tr("Save as"), tr("PDF Files (*.pdf);;All Files (*)"), false, false);
 	if (fileNameLineEdit->text() != "")

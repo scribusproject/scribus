@@ -6,11 +6,11 @@
 
 #include "scribusdoc.h"
 #include "customfdialog.h"
+#include "prefsmanager.h"
 #include "prefsfile.h"
 #include "scribusXml.h"
 
 extern QPixmap loadIcon(QString nam);
-extern PrefsFile* prefsFile;
 
 ChooseStyles::ChooseStyles( QWidget* parent, QValueList<ParagraphStyle> *styleList, QValueList<ParagraphStyle> *styleOld)
  : QDialog( parent, "ChooseStyles", true, 0 )
@@ -327,7 +327,7 @@ void StilFormate::deleteFormat()
 
 void StilFormate::loadStyles()
 {
-	PrefsContext* dirs = prefsFile->getContext("dirs");
+	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("editformats", ".");
 #ifdef HAVE_LIBZ
 	CustomFDialog dia(this, wdir, tr("Open"), tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"));

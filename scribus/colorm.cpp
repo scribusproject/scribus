@@ -19,6 +19,7 @@
 #include "cmykfw.h"
 #include "query.h"
 #include "scribus.h"
+#include "prefsmanager.h"
 #include "prefsfile.h"
 #include "scpaths.h"
 
@@ -26,7 +27,6 @@
 
 extern QPixmap loadIcon(QString nam);
 extern ScribusApp* ScApp;
-extern PrefsFile* prefsFile;
 
 Farbmanager::Farbmanager( QWidget* parent, ColorList doco, bool HDoc, QString DcolSet, QStringList Cust )
 		: QDialog( parent, "dd", true, 0 )
@@ -296,7 +296,7 @@ void Farbmanager::loadDefaults(int id)
 void Farbmanager::loadFarben()
 {
 	QString fileName;
-	PrefsContext* dirs = prefsFile->getContext("dirs");
+	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("colors", ".");
 #ifdef HAVE_LIBZ
 	CustomFDialog dia(this, wdir, tr("Open"), tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"));

@@ -22,13 +22,13 @@
 #include "undomanager.moc"
 #include "undogui.h"
 #include "scconfig.h"
+#include "prefsmanager.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include <qvaluelist.h>
 
 #include "scpaths.h"
 
-extern PrefsFile *prefsFile;
 extern QPixmap loadIcon(QString nam);
 
 UndoManager* UndoManager::_instance          = 0;
@@ -70,7 +70,7 @@ UndoManager::UndoManager()
 	currentUndoObjectId = -1;
 	if (!UndoManager::IGuides)
 		initIcons();
-	prefs = prefsFile->getContext("undo");
+	prefs = PrefsManager::instance()->prefsFile->getContext("undo");
 	historyLength = prefs->getInt("historyLength", 20);
 	if (historyLength < 0)
 		historyLength = 10;

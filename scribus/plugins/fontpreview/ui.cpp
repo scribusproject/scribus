@@ -17,7 +17,6 @@
 #include "prefsmanager.h"
 
 extern QPixmap loadIcon(QString nam);
-extern PrefsFile *prefsFile;
 
 /*! Main window for "Font Preview" plugin. It's only gui.
  *
@@ -35,7 +34,7 @@ FontPreview::FontPreview(ScribusApp *carrier, QWidget* parent, const char* name,
 		setName( "FontPreview" );
 	setIcon(loadIcon("AppIcon.png"));
 	// scribus config
-	prefs = prefsFile->getPluginContext("fontpreview");
+	prefs = PrefsManager::instance()->prefsFile->getPluginContext("fontpreview");
 	sortColumn = prefs->getUInt("sortColumn", 0);
 	xsize = prefs->getUInt("xsize", 640);
 	ysize = prefs->getUInt("ysize", 480);

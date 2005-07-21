@@ -25,8 +25,6 @@
 #include "prefstable.h"
 #include "prefsmanager.h"
 
-extern PrefsFile* prefsFile;
-
 #include "scriptercore.moc"
 
 ScripterCore::ScripterCore(QWidget* parent)
@@ -443,7 +441,7 @@ void ScripterCore::slotExecute()
 
 void ScripterCore::ReadPlugPrefs()
 {
-	PrefsContext* prefs = prefsFile->getPluginContext("scriptplugin");
+	PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("scriptplugin");
 	if (!prefs)
 	{
 		qDebug("scriptplugin: Unable to load prefs");
@@ -466,7 +464,7 @@ void ScripterCore::ReadPlugPrefs()
 
 void ScripterCore::SavePlugPrefs()
 {
-	PrefsContext* prefs = prefsFile->getPluginContext("scriptplugin");
+	PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("scriptplugin");
 	if (!prefs)
 	{
 		qDebug("scriptplugin: Unable to load prefs");

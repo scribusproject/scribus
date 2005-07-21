@@ -30,7 +30,6 @@
 #include "prefsfile.h"
 #include "prefsmanager.h"
 
-extern PrefsFile* prefsFile;
 
 /*!
  \fn Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok, ScribusApp* app)
@@ -314,7 +313,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 						}
 						outs += found2.right(1);
 						qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-						PrefsContext* prefs = prefsFile->getContext("hyhpen_options");
+						PrefsContext* prefs = PrefsManager::instance()->prefsFile->getContext("hyhpen_options");
 						int xpos = prefs->getInt("Xposition", -9999);
 						int ypos = prefs->getInt("Yposition", -9999);
 						HyAsk *dia = new HyAsk((QWidget*)parent(), outs);

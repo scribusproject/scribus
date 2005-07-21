@@ -1,20 +1,20 @@
 #include "editor.h"
 #include "editor.moc"
 #include "selfield.h"
+#include "prefsmanager.h"
 #include "prefsfile.h"
 #include <qfile.h>
 #include <qtextstream.h>
 #include <qfiledialog.h>
 
 extern QPixmap loadIcon(QString nam);
-extern PrefsFile* prefsFile;
 
 Editor::Editor( QWidget* parent, QString daten, ScribusView* vie) : QDialog( parent, "editor", true, 0 )
 {
 	setCaption( tr( "Editor" ) );
 	setIcon(loadIcon("AppIcon.png"));
 	view = vie;
-	dirs = prefsFile->getContext("dirs");
+	dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	EditorLayout = new QVBoxLayout( this, 0, 0, "EditorLayout");
 	EditTex = new QTextEdit( this, "EditTex" );
 

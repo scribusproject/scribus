@@ -7,7 +7,6 @@
 #include "pluginmanager.h"
 #include "prefsmanager.h"
 
-extern PrefsFile* prefsFile;
 ScribusApp* Carrier;
 QWidget* par;
 
@@ -85,7 +84,7 @@ void MenuSAT::RunSATPlug()
 	bool hasName = Carrier->doc->hasName;
 	bool isModified = Carrier->doc->isModified();
 	QString userTemplatesDir = PrefsManager::instance()->appPrefs.documentTemplatesDir;
-	PrefsContext* dirs = prefsFile->getContext("dirs");
+	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString oldCollect = dirs->get("collect", ".");
 	QString templatesDir = ".";
 	if (userTemplatesDir == "")

@@ -25,8 +25,6 @@
 
 using namespace std;
 
-extern PrefsFile* prefsFile;
-
 /*!
  \fn QString Name()
  \author Franz Schmid
@@ -99,7 +97,7 @@ void run(QWidget *d, ScribusApp *plug)
 		fileName = plug->pluginManager->dllInput;
 	else
 	{
-		PrefsContext* prefs = prefsFile->getPluginContext("SVGPlugin");
+		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("SVGPlugin");
 		QString wdir = prefs->get("wdir", ".");
 #ifdef HAVE_LIBZ
 		CustomFDialog diaf(d, wdir, QObject::tr("Open"), QObject::tr("SVG-Images (*.svg *.svgz);;All Files (*)"));

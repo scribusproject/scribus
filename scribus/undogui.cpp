@@ -30,13 +30,13 @@
  
 #include "undogui.h"
 #include "undogui.moc"
+#include "prefsmanager.h"
 #include "prefsfile.h"
 #include "prefscontext.h"
 #include "scribus.h"
 #include "menumanager.h"
 
 extern QPixmap loadIcon(QString nam);
-extern PrefsFile* prefsFile;
 extern ScribusApp *ScApp;
 
 UndoGui::UndoGui(QWidget* parent, const char* name, WFlags f) : QWidget(parent, name, f)
@@ -251,7 +251,7 @@ UndoPalette::UndoPalette(QWidget* parent, const char* name)
 	initialRedoKS = redoButton->accel();
 	layout->addLayout(buttonLayout);
 
-	undoPrefs = prefsFile->getContext("undo");
+	undoPrefs = PrefsManager::instance()->prefsFile->getContext("undo");
 	updateFromPrefs();
 	languageChange();
 	connect(ScApp, SIGNAL(prefsChanged()), this, SLOT(updateFromPrefs()));

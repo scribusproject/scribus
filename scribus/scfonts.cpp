@@ -27,6 +27,7 @@
 #include "scfonts_ttf.h"
 #include "scfontmetrics.h"
 
+#include "prefsmanager.h"
 #include "prefsfile.h"
 #include "prefscontext.h"
 #include "prefstable.h"
@@ -45,8 +46,6 @@
 #include FT_INTERNAL_STREAM_H
 #include FT_TRUETYPE_TAGS_H
 #include FT_TRUETYPE_TABLES_H
-
-extern PrefsFile* prefsFile;
 
 Foi::Foi(QString scname, QString path, bool embedps) :
 	SCName(scname), Datei(path), faceIndex(0), EmbedPS(embedps)
@@ -894,7 +893,7 @@ void SCFonts::AddXFontServerPath()
  * fallback if no suitable fonts are found elsewere */
 void SCFonts::AddUserPath(QString pf)
 {
-	PrefsContext *pc = prefsFile->getContext("Fonts");
+	PrefsContext *pc = PrefsManager::instance()->prefsFile->getContext("Fonts");
 	PrefsTable *extraDirs = pc->getTable("ExtraFontDirs");
 	for (int i = 0; i < extraDirs->getRowCount(); ++i)
 		AddPath(extraDirs->get(i, 0));

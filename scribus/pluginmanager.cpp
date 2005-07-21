@@ -12,6 +12,7 @@
 #include "splash.h"
 #include "mpalette.h"
 #include "tree.h"
+#include "prefsmanager.h"
 #include "prefsfile.h"
 #include "scpaths.h"
 
@@ -25,14 +26,13 @@
 
 extern ScribusApp *ScApp;
 extern ScribusQApp *ScQApp;
-extern PrefsFile *prefsFile;
 
 
 PluginManager::PluginManager()
 {
 	dllInput = "";
 	dllReturn = "";
-	prefs = prefsFile->getPluginContext("pluginmanager");
+	prefs = PrefsManager::instance()->prefsFile->getPluginContext("pluginmanager");
 }
 
 PluginManager::~PluginManager()

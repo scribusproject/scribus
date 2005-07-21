@@ -13,7 +13,6 @@
 #include "scconfig.h"
 
 extern QPixmap loadIcon(QString nam);
-extern PrefsFile* prefsFile;
 extern ScribusApp *ScApp;
 
 FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, QString PPath, ScribusDoc* doc ) : QTabWidget( parent, "fpre" )
@@ -266,7 +265,7 @@ void FontPrefs::DelEntry()
 void FontPrefs::readPaths()
 {
 	Q_ASSERT(!DocAvail); // should never be called in doc-specific prefs
-	PrefsContext *fontPrefsContext = prefsFile->getContext("Fonts");
+	PrefsContext *fontPrefsContext = PrefsManager::instance()->prefsFile->getContext("Fonts");
 	PrefsTable *fontPathTable = fontPrefsContext->getTable("ExtraFontDirs");
 	PathList->clear();
 	for (int i = 0; i < fontPathTable->getRowCount(); ++i)
@@ -276,7 +275,7 @@ void FontPrefs::readPaths()
 void FontPrefs::writePaths()
 {
 	Q_ASSERT(!DocAvail); // should never be called in doc-specific prefs
-	PrefsContext *fontPrefsContext = prefsFile->getContext("Fonts");
+	PrefsContext *fontPrefsContext = PrefsManager::instance()->prefsFile->getContext("Fonts");
 	PrefsTable *fontPathTable = fontPrefsContext->getTable("ExtraFontDirs");
 	fontPathTable->clear();
 	for (int i = 0; i < PathList->count(); ++i)
@@ -296,7 +295,7 @@ void FontPrefs::SelectPath(QListBoxItem *c)
 void FontPrefs::AddPath()
 {
 	Q_ASSERT(!DocAvail); // should never be called in doc-specific prefs
-	PrefsContext* dirs = prefsFile->getContext("dirs");
+	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	CurrentPath = dirs->get("fontprefs", ".");
 	QString s = QFileDialog::getExistingDirectory(CurrentPath, this, "d", tr("Choose a Directory"), true);
 	if (s != "")

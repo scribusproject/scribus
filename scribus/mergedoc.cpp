@@ -15,6 +15,7 @@
 #include "mergedoc.moc"
 #include "customfdialog.h"
 #include "scribusXml.h"
+#include "prefsmanager.h"
 #include "prefsfile.h"
 
 #include "scconfig.h"
@@ -22,7 +23,6 @@
 #include <qcursor.h>
 
 extern QPixmap loadIcon(QString nam);
-extern PrefsFile* prefsFile;
 
 MergeDoc::MergeDoc( QWidget* parent, bool importMasterPages, int targetDocPageCount, int currentPage ) : 
     QDialog( parent, "merge", true, 0 )
@@ -116,7 +116,7 @@ void MergeDoc::changeFile()
 	int dummy;
 	bool ret = false;
 	count = 0;
-	PrefsContext* dirs = prefsFile->getContext("dirs");
+	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("merge", ".");
 #ifdef HAVE_LIBZ
 	CustomFDialog *dia = new CustomFDialog(this, wdir, tr("Open"), tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"));

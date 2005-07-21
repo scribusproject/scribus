@@ -1,5 +1,6 @@
 #include "tfdia.h"
 #include "tfdia.moc"
+#include "prefsmanager.h"
 #include <prefsfile.h>
 #include <qpixmap.h>
 #include <qtooltip.h>
@@ -10,14 +11,13 @@
 #include <qsizepolicy.h>
 
 extern QPixmap loadIcon(QString nam);
-extern PrefsFile* prefsFile;
 
 tfDia::tfDia() : QDialog()
 {
 	setCaption(tr("Create filter"));
 	setIcon(loadIcon("AppIcon.png"));
 	setMinimumWidth(524);
-	prefs = prefsFile->getPluginContext("TextFilter");
+	prefs = PrefsManager::instance()->prefsFile->getPluginContext("TextFilter");
 	setGeometry(prefs->getInt("x", 0),
                 prefs->getInt("y", 0),
                 prefs->getInt("width", 400),

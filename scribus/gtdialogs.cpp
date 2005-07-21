@@ -20,12 +20,12 @@
 
 #include "gtdialogs.h"
 #include "gtdialogs.moc"
+#include "prefsmanager.h"
 #include "prefsfile.h"
 #include <qlabel.h>
 
 extern QPixmap loadIcon(QString nam);
 extern QString DocDir;
-extern PrefsFile* prefsFile;
 
 /********* Class gtFileDialog ************************************************************************/
 
@@ -184,14 +184,14 @@ gtDialogs::gtDialogs()
 	fileName = "";
 	encoding = "";
 	importer = -1;
-	prefs = prefsFile->getContext("gtDialogs");
+	prefs = PrefsManager::instance()->prefsFile->getContext("gtDialogs");
 	pwd = QDir::currentDirPath();
 }
 
 bool gtDialogs::runFileDialog(const QString& filters, const QStringList& importers)
 {
 	bool accepted = false;
-	PrefsContext* dirs = prefsFile->getContext("dirs");
+	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString dir = dirs->get("get_text", ".");
 	fdia = new gtFileDialog(filters, importers, dir);
 	

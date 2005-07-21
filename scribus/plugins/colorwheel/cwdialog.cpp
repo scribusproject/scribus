@@ -13,10 +13,10 @@
 #include <qspinbox.h>
 #include <qpainter.h>
 
-#include <prefsfile.h>
-#include <mpalette.h>
+#include "prefsmanager.h"
+#include "prefsfile.h"
+#include "mpalette.h"
 
-extern PrefsFile *prefsFile;
 extern ScribusApp *ScApp;
 
 ColorWheelDialog::ColorWheelDialog(QWidget* parent, const char* name, bool modal, WFlags fl)
@@ -91,7 +91,7 @@ ColorWheelDialog::ColorWheelDialog(QWidget* parent, const char* name, bool modal
 	typeCombo->insertItem(colorWheel->getTypeDescription(colorWheel->Tetradic), colorWheel->Tetradic);
 
 	// preferences
-	prefs = prefsFile->getPluginContext("colorwheel");
+	prefs = PrefsManager::instance()->prefsFile->getPluginContext("colorwheel");
 	typeCombo->setCurrentItem(prefs->getInt("cw_type", 0));
 	angleSpin->setValue(prefs->getInt("cw_angle", 15));
 	colorWheel->angle = angleSpin->value();

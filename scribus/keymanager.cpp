@@ -30,12 +30,12 @@
 
 #include "menumanager.h"
 #include "scribus.h"
+#include "prefsmanager.h"
 #include "prefsfile.h"
 #include "prefscontext.h"
 #include "scpaths.h"
 
 extern bool overwrite(QWidget *parent, QString filename);
-extern PrefsFile* prefsFile;
 extern ScribusApp* ScApp;
 
 KeyManager::KeyManager(QWidget* parent, QMap<QString,Keys> oldKeyMap): QWidget( parent, "key" )
@@ -380,7 +380,7 @@ void KeyManager::loadKeySetFile()
 
 void KeyManager::importKeySetFile()
 {
-	PrefsContext* dirs = prefsFile->getContext("dirs");
+	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString currentPath = dirs->get("keymapprefs_import", ".");
 	QString s = QFileDialog::getOpenFileName(currentPath, tr("Key Set XML Files (*.ksxml)"), this, "load open file dialog", "Choose a file to open" );
 	if (s != "")
@@ -388,7 +388,7 @@ void KeyManager::importKeySetFile()
 }
 void KeyManager::exportKeySetFile()
 {   
-	PrefsContext* dirs = prefsFile->getContext("dirs");
+	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString currentPath= dirs->get("keymapprefs_export", ".");
 	QString s = QFileDialog::getSaveFileName(currentPath, tr("Key Set XML Files (*.ksxml)"), this, "save open file dialog", "Choose a file to save" );
 	if (s != "")

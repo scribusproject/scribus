@@ -7,13 +7,12 @@
 #include <qtextcodec.h>
 #include <qregexp.h> 
 #include <qmap.h>
+#include "prefsmanager.h"
 #include <prefsfile.h>
 #include <vector>
 #include <gtframestyle.h>
 #include <gtparagraphstyle.h>
 #include "tfdia.h"
-
-extern PrefsFile* prefsFile;
 
 QString FileFormatName()
 {
@@ -39,7 +38,7 @@ TextFilter::TextFilter(const QString& fname, const QString& enc, gtWriter* w)
 	encoding = enc;
 	writer = w;
 	writer->setOverridePStyleFont(false);
-	prefs = prefsFile->getPluginContext("TextFilter");
+	prefs = PrefsManager::instance()->prefsFile->getPluginContext("TextFilter");
 	tfDia* tfdia = new tfDia();
 	if (tfdia->exec())
 	{

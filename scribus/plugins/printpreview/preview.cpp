@@ -34,7 +34,6 @@
 #include "util.h"
 #include "prefsmanager.h"
 
-extern PrefsFile *prefsFile;
 ScribusApp* Carrier;
 QWidget* par;
 
@@ -458,7 +457,7 @@ int PPreview::RenderPreview(int Seite, int Res)
 	if (AliasGr->isChecked())
 		cmd1 += " -dGraphicsAlphaBits=4";
 	// Add any extra font paths being used by Scribus to gs's font search path
-	PrefsContext *pc = prefsFile->getContext("Fonts");
+	PrefsContext *pc = prefsManager->prefsFile->getContext("Fonts");
 	PrefsTable *extraFonts = pc->getTable("ExtraFontDirs");
 	if (extraFonts->getRowCount() >= 1)
 		cmd1 += QString(" -sFONTPATH='%1'").arg(extraFonts->get(0,0));

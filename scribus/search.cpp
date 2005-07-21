@@ -15,6 +15,7 @@
 #include "mspinbox.h"
 #include "fontcombo.h"
 #include "page.h"
+#include "prefsmanager.h"
 #include "prefsfile.h"
 #include "prefscontext.h"
 #include "styleselect.h"
@@ -24,8 +25,6 @@
 
 extern ScribusApp* ScApp;
 extern QPixmap loadIcon(QString nam);
-extern PrefsFile* prefsFile;
-
 
 SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, bool mode )
 							: QDialog( parent, "SearchReplace", true, 0 )
@@ -329,7 +328,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	setTabOrder( DoReplace, AllReplace );
 	setTabOrder( AllReplace, Leave );
 	
-	prefs = prefsFile->getContext("SearchReplace");
+	prefs = PrefsManager::instance()->prefsFile->getContext("SearchReplace");
 	readPrefs();
 }
 

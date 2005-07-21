@@ -19,8 +19,7 @@
 #include "prefsfile.h"
 #include "util.h"
 #include "prefsmanager.h"
-
-extern PrefsFile* prefsFile;
+//CB TODO bring in the prefsManager instance locally here too
 
 /* The Scrapbook View Class
  * inherited from QIconView */
@@ -239,7 +238,7 @@ void Biblio::Save()
 
 void Biblio::SaveAs()
 {
-	PrefsContext* dirs = prefsFile->getContext("dirs");
+	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString fn = QFileDialog::getSaveFileName(dirs->get("scrap_saveas", "."),
 	                                          tr("Scrapbooks (*.scs);;All Files (*)"), this);
 	if (!fn.isEmpty())
@@ -261,7 +260,7 @@ void Biblio::SaveAs()
 void Biblio::Load()
 {
 	Save();
-	PrefsContext* dirs = prefsFile->getContext("dirs");
+	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString fileName = QFileDialog::getOpenFileName(dirs->get("scrap_load", "."),
 	                                                tr("Scrapbooks (*.scs);;All Files (*)"),this);
 	if (!fileName.isEmpty())

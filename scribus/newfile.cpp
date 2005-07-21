@@ -18,7 +18,6 @@
 #define USERFORMAT 30
 
 extern QPixmap loadIcon(QString nam);
-extern PrefsFile* prefsFile;
 extern ScribusApp* ScApp;
 
 NewDoc::NewDoc( QWidget* parent, bool startUp ) : QDialog( parent, "newDoc", true, 0 )
@@ -251,7 +250,7 @@ void NewDoc::createNewDocPage()
 
 void NewDoc::createOpenDocPage()
 {
-	PrefsContext* docContext = prefsFile->getContext("docdirs", false);
+	PrefsContext* docContext = prefsManager->prefsFile->getContext("docdirs", false);
 	QString docDir = ".";
 	if (prefsManager->appPrefs.DocDir != "")
 		docDir = docContext->get("docsopen", prefsManager->appPrefs.DocDir);

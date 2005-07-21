@@ -6,11 +6,11 @@
 
 #include "customfdialog.h"
 #include "scribusXml.h"
+#include "prefsmanager.h"
 #include "prefsfile.h"
 #include "multiline.h"
 
 extern QPixmap loadIcon(QString nam);
-extern PrefsFile* prefsFile;
 
 LineFormate::LineFormate( QWidget* parent, ScribusDoc *doc)
 		: QDialog( parent, "Formate", true, 0)
@@ -177,7 +177,7 @@ void LineFormate::deleteFormat()
 void LineFormate::loadLStyles()
 {
 	QString fileName;
-	PrefsContext* dirs = prefsFile->getContext("dirs");
+	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("lineformats", ".");
 #ifdef HAVE_LIBZ
 	CustomFDialog dia(this, wdir, tr("Open"), tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"));

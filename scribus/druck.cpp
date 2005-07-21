@@ -11,6 +11,7 @@
 
 #include "scconfig.h"
 
+#include "prefsmanager.h"
 #include "prefsfile.h"
 #include "customfdialog.h"
 #include "cupsoptions.h"
@@ -26,8 +27,6 @@
 extern bool CMSuse;
 #endif
 #include <util.h>
-
-extern PrefsFile* prefsFile;
 
 AdvOptions::AdvOptions(QWidget* parent, bool Hm, bool Vm, bool Ic, int ps, bool DoGcr, bool doDev) : QDialog( parent, "prin", true, 0 )
 {
@@ -109,7 +108,7 @@ AdvOptions::AdvOptions(QWidget* parent, bool Hm, bool Vm, bool Ic, int ps, bool 
 Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool gcr)
 		: QDialog( parent, "Dr", true, 0)
 {
-	prefs = prefsFile->getContext("print_options");
+	prefs = PrefsManager::instance()->prefsFile->getContext("print_options");
 	PrinterOpts = "";
 	setCaption( tr( "Setup Printer" ) );
 	setIcon(loadIcon("AppIcon.png"));
@@ -574,7 +573,7 @@ void Druck::SelMode(bool e)
 
 void Druck::SelFile()
 {
-	PrefsContext* dirs = prefsFile->getContext("dirs");
+	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("druck", ".");
 	CustomFDialog dia(this, wdir, tr("Save as"), tr("Postscript Files (*.ps);;All Files (*)"), false, false);
 	if (LineEdit1->text() != "")

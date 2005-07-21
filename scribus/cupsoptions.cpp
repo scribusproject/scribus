@@ -17,6 +17,7 @@
 
 #include "cupsoptions.h"
 #include "cupsoptions.moc"
+#include "prefsmanager.h"
 #include "prefsfile.h"
 
 #include "scconfig.h"
@@ -27,14 +28,13 @@
 #endif
 #include <qtooltip.h>
 extern QPixmap loadIcon(QString nam);
-extern PrefsFile* prefsFile;
 
 CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent, "prin", true, 0 )
 {
 	FlagsOpt.clear();
 	setCaption( tr( "Printer Options" ) );
 	setIcon(loadIcon("AppIcon.png"));
-	prefs = prefsFile->getContext("cups_options");
+	prefs = PrefsManager::instance()->prefsFile->getContext("cups_options");
 	setSizeGripEnabled(true);
 	CupsOptionsLayout = new QVBoxLayout( this );
 	CupsOptionsLayout->setSpacing( 5 );

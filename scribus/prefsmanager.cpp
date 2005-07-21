@@ -42,6 +42,7 @@ PrefsManager::PrefsManager(QObject *parent, const char *name)
 
 PrefsManager::~PrefsManager()
 {
+	delete prefsFile;
 }
 
 PrefsManager* PrefsManager::instance()
@@ -63,6 +64,31 @@ void PrefsManager::deleteInstance()
 ApplicationPrefs* PrefsManager::applicationPrefs()
 {
 	return &appPrefs;
+}
+
+PrefsFile* PrefsManager::applicationPrefsFile()
+{
+	return prefsFile;
+}
+
+const bool PrefsManager::importingFrom12x()
+{
+	return importingFrom12;
+}
+
+
+void PrefsManager::setup()
+{
+	setupPreferencesLocation();
+
+	importingFrom12=copy12Preferences();
+	prefsFile = new PrefsFile(QDir::convertSeparators(prefsLocation + "/prefs13.xml"));
+	if (importingFrom12)
+		convert12Preferences();
+	//<<CB TODO Reset keyboard shortcuts of all 1.3 users as too many
+	//     have conflicts if they dont nuke their settings.
+	// - Remove for 1.3.0 release: importingFrom12=true;
+	//>>CB
 }
 
 void PrefsManager::initDefaults()
@@ -519,13 +545,13 @@ bool PrefsManager::copy12Preferences()
  \brief Import 1.2.x prefs rc data into new prefs xml
  \retval None
  */
-void PrefsManager::convert12Preferences(PrefsFile &prefsFile)
+void PrefsManager::convert12Preferences()
 {
 	// Import 1.2 font search path prefs
 	QFile fontPrefsFile12(QDir::convertSeparators(prefsLocation+"/scribusfont.rc"));
 	if (fontPrefsFile12.open(IO_ReadOnly))
 	{
-		PrefsContext *pc = prefsFile.getContext("Fonts");
+		PrefsContext *pc = prefsFile->getContext("Fonts");
 		PrefsTable *fontPrefs = pc->getTable("ExtraFontDirs");
 		QTextStream tsx(&fontPrefsFile12);
 		QString extraPath = tsx.read();

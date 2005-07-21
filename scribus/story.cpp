@@ -37,7 +37,6 @@
 #include "pluginmanager.h"
 #include "pageitem.h"
 
-extern PrefsFile* prefsFile;
 extern QPixmap loadIcon(QString nam);
 extern ScribusApp* ScApp;
 
@@ -3375,7 +3374,7 @@ void StoryEditor::LoadTextFile()
 		EditorBar->setRepaint(false);
 		QString LoadEnc = "";
 		QString fileName = "";
-		PrefsContext* dirs = prefsFile->getContext("dirs");
+		PrefsContext* dirs = prefsManager->prefsFile->getContext("dirs");
 		QString wdir = dirs->get("story_load", prefsManager->appPrefs.DocDir);
 		CustomFDialog dia(this, wdir, tr("Open"), tr("Text Files (*.txt);;All Files(*)"), false, true, false, true);
 		if (dia.exec() != QDialog::Accepted)
@@ -3411,7 +3410,7 @@ void StoryEditor::SaveTextFile()
 	blockUpdate = true;
 	QString LoadEnc = "";
 	QString fileName = "";
-	PrefsContext* dirs = prefsFile->getContext("dirs");
+	PrefsContext* dirs = prefsManager->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("story_save", prefsManager->appPrefs.DocDir);
 	CustomFDialog dia(this, wdir, tr("Save as"), tr("Text Files (*.txt);;All Files(*)"), false, false, false, true);
 	qApp->processEvents();

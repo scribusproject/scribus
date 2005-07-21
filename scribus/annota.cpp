@@ -10,11 +10,11 @@
 #include "annota.h"
 #include "annota.moc"
 #include "customfdialog.h"
+#include "prefsmanager.h"
 #include "prefsfile.h"
 #include <qstringlist.h>
 
 extern QPixmap loadIcon(QString nam);
-extern PrefsFile* prefsFile;
 
 Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusView* vie)
 		: QDialog( parent, "AN", true, 0 )
@@ -320,7 +320,7 @@ void Annota::SetZiel(int it)
 void Annota::GetFile()
 {
 	QString fn;
-	PrefsContext* dirs = prefsFile->getContext("dirs");
+	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("annot_getfile", ".");
 	CustomFDialog dia(this, wdir, tr("Open"), tr("PDF-Documents (*.pdf);;All Files (*)"));
 	if (Destfile->text() != "")

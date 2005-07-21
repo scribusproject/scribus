@@ -19,16 +19,16 @@ or documentation
 #include "shortwords.h"
 
 #include "scribus.h"
+#include "prefsmanager.h"
 #include "prefsfile.h"
 #include <qdir.h>
 #include <qstringlist.h>
 
 extern ScribusApp *ScApp;
-extern PrefsFile *prefsFile;
 
 Config::Config()
 {
-	prefs = prefsFile->getPluginContext("short-words");
+	prefs = PrefsManager::instance()->prefsFile->getPluginContext("short-words");
 	action = prefs->getUInt("action", 0);
 	userConfig = prefs->getUInt("userConfig", 0);
 	editor = prefs->get("editor", "");

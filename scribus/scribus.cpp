@@ -170,7 +170,6 @@ QString DocDir;
 extern ScribusApp* ScApp;
 extern ScribusQApp* ScQApp;
 extern bool emergencyActivated;
-PrefsFile* prefsFile;
 
 ScribusApp::ScribusApp()
 {
@@ -204,13 +203,10 @@ int ScribusApp::initScribus(bool showSplash, bool showFontInfo, const QString ne
 	scrMenuMgr = new MenuManager(this->menuBar());
 
 	prefsManager = PrefsManager::instance();
-	prefsManager->setupPreferencesLocation();
+	prefsManager->setup();
 	PrefsPfad = prefsManager->preferencesLocation();
-	bool importingFrom12=prefsManager->copy12Preferences();
-	prefsFile = new PrefsFile(QDir::convertSeparators(PrefsPfad + "/prefs13.xml"));
-	if (importingFrom12)
-		prefsManager->convert12Preferences(*prefsFile);
-
+	
+	
 	undoManager = UndoManager::instance();
 	objectSpecificUndo = false;
 	pluginManager = new PluginManager();
@@ -256,11 +252,8 @@ int ScribusApp::initScribus(bool showSplash, bool showFontInfo, const QString ne
 		if (splashScreen != NULL)
 			splashScreen->setStatus( tr("Reading Preferences"));
 		qApp->processEvents();
-		//<<CB TODO Reset keyboard shortcuts of all 1.3 users as too many
-		//     have conflicts if they dont nuke their settings.
-		// - Remove for 1.3.0 release: importingFrom12=true;
-		//>>CB
-		ReadPrefs(importingFrom12);
+
+		ReadPrefs(prefsManager->importingFrom12x());
 
 		if (splashScreen != NULL)
 			splashScreen->setStatus( tr("Initializing Story Editor"));
@@ -403,7 +396,7 @@ void ScribusApp::initFonts(bool showFontInfo)
 
 void ScribusApp::initDefaultValues()
 {
-	dirs = prefsFile->getContext("dirs");
+	dirs = prefsManager->prefsFile->getContext("dirs");
 	HaveDoc = false;
 	singleClose = false;
 	ScriptRunning = false;
@@ -2247,7 +2240,6 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 		// plugins can use prefs mgr from their cleanup routines.
 		pluginManager->finalizePlugs();
 		SavePrefs();
-		delete prefsFile;
 		UndoManager::deleteInstance();
 		if ((prefsManager->appPrefs.SaveAtQ) && (scrapbookPalette->changed()))
 		{
@@ -2283,7 +2275,6 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 		prefsManager->appPrefs.AvailFonts.~SCFonts();
 		pluginManager->finalizePlugs();
-		delete prefsFile;
 		exit(0);
 	}
 }
@@ -2357,7 +2348,7 @@ bool ScribusApp::arrowKeyDown()
 void ScribusApp::startUpDialog()
 {
 	QString fileName = "";
-	PrefsContext* docContext = prefsFile->getContext("docdirs", false);
+	PrefsContext* docContext = prefsManager->prefsFile->getContext("docdirs", false);
 	NewDoc* dia = new NewDoc(this, true);
 	if (dia->exec())
 	{
@@ -4015,7 +4006,7 @@ void ScribusApp::sendToLayer(int layerNumber)
 
 bool ScribusApp::slotDocOpen()
 {
-	PrefsContext* docContext = prefsFile->getContext("docdirs", false);
+	PrefsContext* docContext = prefsManager->prefsFile->getContext("docdirs", false);
 	QString docDir = ".";
 	if (prefsManager->appPrefs.DocDir != "")
 		docDir = docContext->get("docsopen", prefsManager->appPrefs.DocDir);
@@ -4839,7 +4830,7 @@ bool ScribusApp::slotFileSaveAs()
 	//
 	bool ret = false;
 	QString fna;
-	PrefsContext* docContext = prefsFile->getContext("docdirs", false);
+	PrefsContext* docContext = prefsManager->prefsFile->getContext("docdirs", false);
 	QString wdir = ".";
 	if (doc->hasName)
 	{
@@ -8354,14 +8345,15 @@ void ScribusApp::SavePrefs()
 
 void ScribusApp::SavePrefsXML()
 {
-    if (prefsFile) {
-        PrefsContext* userprefsContext = prefsFile->getContext("user_preferences");
+    if (prefsManager->prefsFile) 
+    {
+        PrefsContext* userprefsContext = prefsManager->prefsFile->getContext("user_preferences");
         if (userprefsContext) {
             userprefsContext->set("gui_language",prefsManager->appPrefs.guiLanguage);
             //continue here...
             //Prefs."blah blah" =...
         }
-        prefsFile->write();
+        prefsManager->prefsFile->write();
     }
 }
 
@@ -8418,8 +8410,9 @@ void ScribusApp::ReadPrefs(bool import12)
 
 void ScribusApp::ReadPrefsXML()
 {
-    if (prefsFile) {
-        PrefsContext* userprefsContext = prefsFile->getContext("user_preferences");
+    if (prefsManager->prefsFile) 
+    {
+        PrefsContext* userprefsContext = prefsManager->prefsFile->getContext("user_preferences");
         if (userprefsContext) {
             prefsManager->appPrefs.guiLanguage = userprefsContext->get("gui_language","");
             //continue here...

@@ -17,11 +17,11 @@
 #include <qstringlist.h>
 #include <qdatetime.h>
 #include <qpixmap.h>
+#include "prefsmanager.h"
 #include "prefsfile.h"
 #include "scimage.h"
 
 extern QPixmap loadIcon(QString nam);
-extern PrefsFile* prefsFile;
 
 Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList Farben, ScribusView* vie)
 		: QDialog( parent, "AN", true, 0 )
@@ -36,7 +36,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	view = vie;
 	MaxSeite = Seite;
 	QStringList tl;
-	dirs = prefsFile->getContext("dirs");
+	dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	if ((item->AnActType == 2) || (item->AnActType == 7))
 	{
 		QString tm = item->AnAction;

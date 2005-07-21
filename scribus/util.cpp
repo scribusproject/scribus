@@ -52,8 +52,6 @@
 #include "prefstable.h"
 #include "prefsmanager.h"
 
-extern PrefsFile *prefsFile;
-
 extern "C"
 {
 #define XMD_H           // shut JPEGlib up
@@ -201,7 +199,7 @@ int callGS(const QString& args_in, const QString device)
 		cmd1 += " -dGraphicsAlphaBits=4";
 
 	// Add any extra font paths being used by Scribus to gs's font search path
-	PrefsContext *pc = prefsFile->getContext("Fonts");
+	PrefsContext *pc = PrefsManager::instance()->prefsFile->getContext("Fonts");
 	PrefsTable *extraFonts = pc->getTable("ExtraFontDirs");
 #ifndef _WIN32
 	if (extraFonts->getRowCount() >= 1)

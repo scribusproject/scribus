@@ -28,12 +28,11 @@
 #ifdef HAVE_LIBZ
 #include <zlib.h>
 #endif
+#include "prefsmanager.h"
 #include <prefsfile.h>
 #include <prefscontext.h>
 #include "pluginmanager.h"
 #include "util.h"
-
-extern PrefsFile* prefsFile;
 
 /*!
  \fn QString Name()
@@ -104,7 +103,7 @@ void run(QWidget *d, ScribusApp *plug)
 {
 	if (plug->HaveDoc)
 		{
-		PrefsContext* prefs = prefsFile->getPluginContext("svgex");
+		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("svgex");
 		QString wdir = prefs->get("wdir", ".");
 #ifdef HAVE_LIBZ
 		QString fileName = plug->CFileDialog(wdir, QObject::tr("Save as"), QObject::tr("SVG-Images (*.svg *.svgz);;All Files (*)"),"", false, false, true);

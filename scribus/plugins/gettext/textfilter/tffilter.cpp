@@ -4,11 +4,11 @@
 #include <qlayout.h>
 #include <qtooltip.h>
 #include <scribus.h>
+#include "prefsmanager.h"
 #include <prefsfile.h>
 
 extern ScribusApp* ScApp;
 extern QPixmap loadIcon(QString nam);
-extern PrefsFile* prefsFile;
 
 tfFilter::tfFilter(QWidget *parent, const char *name,
                    int action, QString regExp, QString replace, QString pstyleName,
@@ -82,7 +82,7 @@ void tfFilter::createWidget()
 // 	thirdRegexpCheck = NULL;
 	fifthRegexpCheck = NULL;
 
-	prefs = prefsFile->getPluginContext("TextFilter");
+	prefs = PrefsManager::instance()->prefsFile->getPluginContext("TextFilter");
 	history = prefs->getTable("history");
 
 	QHBoxLayout *layout = new QHBoxLayout(this);

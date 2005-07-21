@@ -23,11 +23,9 @@
 
 #include "scrpalettebase.h"
 #include "scrpalettebase.moc"
+#include "prefsmanager.h"
 #include "prefsfile.h"
 #include "prefscontext.h"
-
-
-extern PrefsFile* prefsFile;
 
 ScrPaletteBase::ScrPaletteBase(  QWidget * parent, const char * name, bool modal, WFlags f) : QDialog ( parent, name, modal, f) 
 {
@@ -40,7 +38,7 @@ void ScrPaletteBase::setPrefsContext(QString context)
 		prefsContextName=context;
 		if (prefsContextName != "")
 		{
-			palettePrefs = prefsFile->getContext(prefsContextName);
+			palettePrefs = PrefsManager::instance()->prefsFile->getContext(prefsContextName);
 			if (palettePrefs)
 				visibleOnStartup = palettePrefs->getBool("visible");
 		}

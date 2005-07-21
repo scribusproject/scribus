@@ -23,6 +23,7 @@
 
 #ifdef HAVE_XML
 
+#include "prefsmanager.h"
 #include <prefsfile.h>
 #include <prefscontext.h>
 #include <prefstable.h>
@@ -30,8 +31,6 @@
 #include "stylereader.h"
 #include "contentreader.h"
 #include "sxwdia.h"
-
-extern PrefsFile* prefsFile;
 
 QString FileFormatName()
 {
@@ -53,7 +52,7 @@ void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer
 
 SxwIm::SxwIm(QString fileName, QString enc, gtWriter* w, bool textOnly)
 {
-	PrefsContext* prefs = prefsFile->getPluginContext("SxwIm");
+	PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("SxwIm");
 	bool update = prefs->getBool("update", true);
 	bool prefix = prefs->getBool("prefix", true);
 	bool ask = prefs->getBool("askAgain", true);

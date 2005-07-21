@@ -46,6 +46,7 @@ public:
 	*/
 	static void deleteInstance();
 
+	void setup();
 	/**
 	* @brief Initialise the defaults for prefs in this class
 	* Only set the GUI font stuff up if we have a GUI!!!
@@ -55,16 +56,19 @@ public:
 	void initArrowStyles();
 	///Locate our preferences
 	QString setupPreferencesLocation();
-	/// copy 1.2 prefs XML before loading, and old .rc files that we don't yet convert
+	/// copy 1.2 prefs XML before loading, and old .rc files that we do not yet convert
 	bool copy12Preferences();
 	/// convert 1.2 style preferences to new XML format
-	void convert12Preferences(PrefsFile &);
+	void convert12Preferences();
 	const QString preferencesLocation();
 
 	ApplicationPrefs* applicationPrefs();
+	PrefsFile* applicationPrefsFile();
+	const bool importingFrom12x();
 	
-	
+	//Temporarily public while this class takes shape so progress can happen and cvs can build
 	struct ApplicationPrefs appPrefs;
+	PrefsFile* prefsFile;
 private:
 	/**
 	* @brief The only instance of PrefsManager available.
@@ -75,6 +79,7 @@ private:
 	static PrefsManager* _instance;
 	
 	QString prefsLocation;
+	bool importingFrom12;
 
 };
 
