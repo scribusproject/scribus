@@ -2659,8 +2659,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		}
 		else
 		{
-			int mx = qRound(m->x() / Scale);
-			int my = qRound(m->y() / Scale);
+			int mx = qRound(m->x() / Scale + Doc->minCanvasCoordinate.x());
+			int my = qRound(m->y() / Scale + Doc->minCanvasCoordinate.y());
 			Magnify ? slotZoomIn2(mx,my) : slotZoomOut2(mx,my);
 			if (sc == Scale)
 			{
@@ -8787,7 +8787,6 @@ void ScribusView::setMenTxt(int Seite)
 /** Fuehrt die Vergroesserung/Verkleinerung aus */
 void ScribusView::slotDoZoom()
 {
-	FPoint maxSize;
 	undoManager->setUndoEnabled(false);
 	if (Scale > 32*Prefs->DisScale)
 	{
@@ -8795,16 +8794,7 @@ void ScribusView::slotDoZoom()
 		return;
 	}
 	updateOn = false;
-	if (Doc->PageFP)
-	{
-		if (Doc->FirstPageLeft)
-			maxSize = FPoint(Doc->pageWidth*2+Doc->ScratchLeft+Doc->ScratchRight, ((Doc->pageCount-1)/2 + 1) * (Doc->pageHeight+Doc->ScratchBottom+Doc->ScratchTop));
-		else
-			maxSize = FPoint(Doc->pageWidth*2+Doc->ScratchLeft+Doc->ScratchRight, (Doc->pageCount/2 + 1) * (Doc->pageHeight+Doc->ScratchBottom+Doc->ScratchTop));
-	}
-	else
-		maxSize = FPoint(Doc->pageWidth+Doc->ScratchLeft+Doc->ScratchRight, Doc->pageCount * (Doc->pageHeight+Doc->ScratchBottom+Doc->ScratchTop));
-	resizeContents(qRound((maxSize.x() - Doc->minCanvasCoordinate.x()) * Scale), qRound((maxSize.x() - Doc->minCanvasCoordinate.y()) * Scale));
+	resizeContents(qRound((Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()) * Scale), qRound((Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()) * Scale));
 	if (SelItem.count() != 0)
 	{
 		PageItem *currItem = SelItem.at(0);
