@@ -2799,7 +2799,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 	bool erf = false;
 	double sc = Scale;
 	horizRuler->Draw(m->x() + qRound(Doc->minCanvasCoordinate.x()*sc));
-	vertRuler->Draw(m->y() + qRound(Doc->minCanvasCoordinate.y()*sc));
+	vertRuler->Draw(m->y());
 	emit MousePos(m->x()/Scale-Doc->currentPage->Xoffset + Doc->minCanvasCoordinate.x(), m->y()/Scale-Doc->currentPage->Yoffset + Doc->minCanvasCoordinate.y());
 	if (Doc->guidesSettings.guidesShown)
 	{
@@ -8440,13 +8440,12 @@ void ScribusView::rememberPreviousSettings(int mx, int my)
 void ScribusView::setRulerPos(int x, int y)
 {
 	x += qRound(Doc->minCanvasCoordinate.x()*Scale);
-	y += qRound(Doc->minCanvasCoordinate.y()*Scale);
 	if (ScApp->ScriptRunning)
 		return;
 	horizRuler->offs = x-static_cast<int>(Doc->ScratchLeft*Scale)-1;
 	horizRuler->repX = false;
 	horizRuler->repaint();
-	vertRuler->offs = y-static_cast<int>(Doc->ScratchTop*Scale)-1;
+	vertRuler->offs = qRound(y / Scale + Doc->minCanvasCoordinate.y());
 	vertRuler->repaint();
 	evSpon = true;
 }

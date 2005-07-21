@@ -2174,14 +2174,20 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 						tb.tabFillChar = tbCh[0];
 					OB.TabValues.append(tb);
 				}
-				if (it.tagName()=="ITEXT")
-					tmp += GetItemText(&it, doc, Prefs, VorLFound, true, false);
 				IT=IT.nextSibling();
 			}
-			OB.itemText = tmp;
+			OB.itemText = "";
 			OB.LayerNr = -1;
 			view->PasteItem(&OB, true, true);
 			PageItem* Neu = doc->Items.at(doc->Items.count()-1);
+			IT=DOC.firstChild();
+			while(!IT.isNull())
+			{
+				QDomElement it=IT.toElement();
+				if (it.tagName()=="ITEXT")
+					GetItemText(&it, doc, VorLFound, true, true, Neu);
+				IT=IT.nextSibling();
+			}
 			if (Neu->isTableItem)
 			{
 				TableItems.append(Neu);

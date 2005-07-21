@@ -41,8 +41,7 @@ Vruler::Vruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa)
 	setEraseColor(QColor(255,255,255));
 	currDoc = doc;
 	currView = pa;
-	offs = -12;
-	Markp = 0;
+	offs = 0;
 	oldMark = 0;
 	Mpressed = false;
 	unitChange();
@@ -80,8 +79,8 @@ void Vruler::paintEvent(QPaintEvent *)
 {
 	if (currDoc->loading)
 		return;
-	int xx, pc;
-	double of, xl;
+	QString tx = "";
+	double xl, frac;
 	double sc = currView->getScale();
 	QFont ff = font();
 	ff.setPointSize(8);
@@ -89,96 +88,73 @@ void Vruler::paintEvent(QPaintEvent *)
 	QPainter p;
 	p.begin(this);
 	p.drawLine(24, 0, 24, height());
-	p.translate(0, -offs);
 	p.setBrush(black);
 	p.setPen(black);
 	p.setFont(font());
-	if (currDoc->PageFP)
+	double cc = height() / sc;
+	double firstMark = ceil(offs / iter) * iter - offs;
+	while (firstMark < cc)
 	{
-		if (currDoc->FirstPageLeft)
-		{
-			if (currDoc->pageCount % 2 == 0)
-				pc = currDoc->pageCount / 2;
-			else
-				pc = (currDoc->pageCount+1) / 2;
-		}
-		else
-		{
-			if (currDoc->pageCount % 2 == 0)
-				pc = currDoc->pageCount / 2 + 1;
-			else
-				pc = currDoc->pageCount / 2 + 1;
-		}
+		p.drawLine(18, qRound(firstMark * sc), 24, qRound(firstMark * sc));
+		firstMark += iter;
 	}
-	else
-		pc = currDoc->pageCount;
-	for (xx = 0; xx < pc; ++xx)
+	firstMark = ceil(offs / iter2) * iter2 - offs;
+	int markC = static_cast<int>(ceil(offs / iter2));
+	while (firstMark < cc)
 	{
-		of = xx * (currDoc->pageHeight+currDoc->ScratchBottom+currDoc->ScratchTop);
-		for (xl = 0; xl < currDoc->pageHeight; xl += iter)
+		p.drawLine(11, qRound(firstMark * sc), 24, qRound(firstMark * sc));
+		int textY = qRound(firstMark * sc)+10;
+		switch (currDoc->docUnitIndex)
 		{
-			int markerY=qRound((xl+of)*sc)+1;
-			if (( markerY > offs) && (markerY < offs+height()))
-				p.drawLine(18, markerY, 24, markerY);
+			case 1:
+				p.drawText(9, textY, QString::number(markC * iter2 / (iter2 / 100)));
+				break;
+			case 2:
+				xl = (markC * iter2 / iter2) / cor;
+				tx = QString::number(static_cast<int>(xl));
+				frac = xl - static_cast<int>(xl);
+				if ((static_cast<int>(xl) == 0) && (frac > 0.1))
+					tx = "";
+				if ((frac > 0.24) && (frac < 0.26))
+					tx += QChar(0xBC);
+				if ((frac > 0.49) && (frac < 0.51))
+					tx += QChar(0xBD);
+				if ((frac > 0.74) && (frac < 0.76))
+					tx += QChar(0xBE);
+				p.drawText(9, textY, tx);
+				break;
+			case 3:
+			case 5:
+				p.drawText(9, textY, QString::number(markC * iter2 / (iter2 / 10)));
+				break;
+			case 4:
+				p.drawText(9, textY, QString::number(markC * iter2 / iter2));
+				break;
+			default:
+				p.drawText(9, textY, QString::number(markC * iter2));
+				break;
 		}
-		for (xl = 0; xl < currDoc->pageHeight+(iter2/2); xl += iter2)
-		{
-			int markerY=qRound((xl+of)*sc)+1;
-			if ((markerY > offs) && (markerY < offs+height()))
-			{
-				p.drawLine(11, markerY, 24, markerY);
-				int textY=qRound((xl+of+10/sc) * sc);
-				switch (currDoc->docUnitIndex)
-				{
-					case 2:
-					{
-						QString tx = "";
-						int num1 = static_cast<int>(xl / iter2 / cor);
-						if (num1 != 0)
-							tx = QString::number(num1);
-						double frac = (xl / iter2 / cor) - num1;
-						if ((frac > 0.24) && (frac < 0.26))
-							tx += QChar(0xBC);
-						if ((frac > 0.49) && (frac < 0.51))
-							tx += QChar(0xBD);
-						if ((frac > 0.74) && (frac < 0.76))
-							tx += QChar(0xBE);
-						p.drawText(9, textY, tx);
-						break;
-					}
-					case 3:
-					case 5:
-						p.drawText(9, textY, QString::number(xl / iter / cor));
-						break;
-					case 4:
-						p.drawText(9, textY, QString::number(xl / iter / 10 / cor));
-						break;	
-					default:
-						p.drawText(9, textY, QString::number(xl / iter * 10 / cor));
-						break;
-				}
-			}
-		}
+		firstMark += iter2;
+		markC++;
 	}
 	p.end();
 }
 /** Zeichnet den Pfeil */
 void Vruler::Draw(int wo)
 {
-	Markp = wo-qRound(currDoc->ScratchTop*currView->getScale());
 	QPainter p;
 	p.begin(this);
-	p.translate(0, -offs);
+	p.translate(0, -(offs-currDoc->minCanvasCoordinate.y())*currView->getScale());
 	p.setPen(white);
 	p.setBrush(white);
 	p.drawRect(0, oldMark-3, 10, 6);
 	p.setPen(red);
 	p.setBrush(red);
 	QPointArray cr;
-	cr.setPoints(3, 9, Markp, 0, Markp+2, 0, Markp-2);
+	cr.setPoints(3, 9, wo, 0, wo+2, 0, wo-2);
 	p.drawPolygon(cr);
 	p.end();
-	oldMark = Markp;
+	oldMark = wo;
 }
 
 void Vruler::unitChange()

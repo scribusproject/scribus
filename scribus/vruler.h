@@ -41,7 +41,6 @@ public:
 	void mouseReleaseEvent(QMouseEvent *m);
 	void mouseMoveEvent(QMouseEvent *m);
 	int offs;
-	int Markp;
 	int oldMark;
 	bool Mpressed;
 private: // Private attributes
