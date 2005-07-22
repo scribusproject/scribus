@@ -44,7 +44,7 @@ public:
 	void UpdateTabList();
 	int offs;
 	int Markp;
-	bool repX;
+	int oldMark;
 	bool Mpressed;
 	QValueList<PageItem::TabRecord> TabValues;
 	double ItemPos;

@@ -40,6 +40,7 @@ public:
 	void mousePressEvent(QMouseEvent *m);
 	void mouseReleaseEvent(QMouseEvent *m);
 	void mouseMoveEvent(QMouseEvent *m);
+	void drawNumber(QString num, int starty, QPainter *p);
 	int offs;
 	int oldMark;
 	bool Mpressed;

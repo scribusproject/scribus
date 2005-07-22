@@ -103,11 +103,11 @@ void Vruler::paintEvent(QPaintEvent *)
 	while (firstMark < cc)
 	{
 		p.drawLine(11, qRound(firstMark * sc), 24, qRound(firstMark * sc));
-		int textY = qRound(firstMark * sc)+10;
+		int textY = qRound(firstMark * sc)-2;
 		switch (currDoc->docUnitIndex)
 		{
 			case 1:
-				p.drawText(9, textY, QString::number(markC * iter2 / (iter2 / 100)));
+				tx = QString::number(markC * iter2 / (iter2 / 100));
 				break;
 			case 2:
 				xl = (markC * iter2 / iter2) / cor;
@@ -121,37 +121,51 @@ void Vruler::paintEvent(QPaintEvent *)
 					tx += QChar(0xBD);
 				if ((frac > 0.74) && (frac < 0.76))
 					tx += QChar(0xBE);
-				p.drawText(9, textY, tx);
+				tx = tx;
 				break;
 			case 3:
 			case 5:
-				p.drawText(9, textY, QString::number(markC * iter2 / (iter2 / 10)));
+				tx = QString::number(markC * iter2 / (iter2 / 10));
 				break;
 			case 4:
-				p.drawText(9, textY, QString::number(markC * iter2 / iter2));
+				tx = QString::number(markC * iter2 / iter2);
 				break;
 			default:
-				p.drawText(9, textY, QString::number(markC * iter2));
+				tx = QString::number(markC * iter2);
 				break;
 		}
+		drawNumber(tx, textY, &p);
 		firstMark += iter2;
 		markC++;
 	}
 	p.end();
 }
+
+void Vruler::drawNumber(QString num, int starty, QPainter *p)
+{
+	int textY = starty;
+	for (uint a = 0; a < num.length(); ++a)
+	{
+		QString c = num.mid(a, 1);
+		p->drawText(9, textY, c);
+		textY += 11;
+	}
+}
+
 /** Zeichnet den Pfeil */
 void Vruler::Draw(int wo)
 {
 	QPainter p;
 	p.begin(this);
-	p.translate(0, -(offs-currDoc->minCanvasCoordinate.y())*currView->getScale());
+//	p.translate(0, -(offs-currDoc->minCanvasCoordinate.y())*currView->getScale());
+	p.translate(0, -currView->contentsY());
 	p.setPen(white);
 	p.setBrush(white);
-	p.drawRect(0, oldMark-3, 10, 6);
+	p.drawRect(0, oldMark-3, 9, 6);
 	p.setPen(red);
 	p.setBrush(red);
 	QPointArray cr;
-	cr.setPoints(3, 9, wo, 0, wo+2, 0, wo-2);
+	cr.setPoints(3, 8, wo, 0, wo+2, 0, wo-2);
 	p.drawPolygon(cr);
 	p.end();
 	oldMark = wo;

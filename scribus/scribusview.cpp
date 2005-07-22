@@ -646,10 +646,10 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 						if ((Doc->appMode == modeEdit) && (currItem->Select) && (currItem->itemType() == PageItem::TextFrame))
 						{
 							//CB 230305 Stop redrawing the horizontal ruler if it hasnt changed when typing text!!!
-							if ((qRound(horizRuler->ItemPos*10000) != qRound((currItem->Xpos - Doc->ScratchLeft)*10000)) || (qRound(horizRuler->ItemEndPos*10000) != qRound(((currItem->Xpos+currItem->Width) - Doc->ScratchLeft)*10000)))
+							if ((qRound(horizRuler->ItemPos*10000) != qRound((currItem->Xpos + Doc->minCanvasCoordinate.x())*10000)) || (qRound(horizRuler->ItemEndPos*10000) != qRound(((currItem->Xpos+currItem->Width) + Doc->minCanvasCoordinate.x())*10000)))
 							{
-								horizRuler->ItemPos = currItem->Xpos - Doc->ScratchLeft;
-								horizRuler->ItemEndPos = (currItem->Xpos+currItem->Width) - Doc->ScratchLeft;
+								horizRuler->ItemPos = currItem->Xpos + Doc->minCanvasCoordinate.x();
+								horizRuler->ItemEndPos = (currItem->Xpos+currItem->Width) + Doc->minCanvasCoordinate.x();
 								if (currItem->lineColor() != "None")
 									horizRuler->lineCorr = currItem->Pwidth / 2.0;
 								else
@@ -665,7 +665,6 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 								else
 									horizRuler->Revers = false;
 								horizRuler->ItemPosValid = true;
-								horizRuler->repX = false;
 								if (Doc->currentParaStyle < 5)
 									horizRuler->TabValues = currItem->TabValues;
 								else
@@ -2798,7 +2797,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 	QPointArray Bez(4);
 	bool erf = false;
 	double sc = Scale;
-	horizRuler->Draw(m->x() + qRound(Doc->minCanvasCoordinate.x()*sc));
+	horizRuler->Draw(m->x());
 	vertRuler->Draw(m->y());
 	emit MousePos(m->x()/Scale-Doc->currentPage->Xoffset + Doc->minCanvasCoordinate.x(), m->y()/Scale-Doc->currentPage->Yoffset + Doc->minCanvasCoordinate.y());
 	if (Doc->guidesSettings.guidesShown)
@@ -7177,6 +7176,7 @@ void ScribusView::selectPage(QMouseEvent *m)
 				break;
 			}
 		}
+		setRulerPos(contentsX(), contentsY());
 	}
 }
 
@@ -8439,13 +8439,13 @@ void ScribusView::rememberPreviousSettings(int mx, int my)
 
 void ScribusView::setRulerPos(int x, int y)
 {
-	x += qRound(Doc->minCanvasCoordinate.x()*Scale);
 	if (ScApp->ScriptRunning)
 		return;
-	horizRuler->offs = x-static_cast<int>(Doc->ScratchLeft*Scale)-1;
-	horizRuler->repX = false;
+	horizRuler->offs = qRound(x / Scale + Doc->minCanvasCoordinate.x());
+//	horizRuler->offs = qRound(x / Scale + Doc->minCanvasCoordinate.x() - Doc->currentPage->Xoffset);
 	horizRuler->repaint();
 	vertRuler->offs = qRound(y / Scale + Doc->minCanvasCoordinate.y());
+//	vertRuler->offs = qRound(y / Scale + Doc->minCanvasCoordinate.y() - Doc->currentPage->Yoffset);
 	vertRuler->repaint();
 	evSpon = true;
 }
@@ -8873,7 +8873,6 @@ void ScribusView::DrawNew()
 		return;
 	evSpon = false;
 	updateContents();
-	horizRuler->repX = false;
 	horizRuler->repaint();
 	vertRuler->repaint();
 	setMenTxt(Doc->currentPage->PageNr);
@@ -10667,8 +10666,8 @@ void ScribusView::chAbStyle(PageItem *currItem, int s)
 		RefreshItem(currItem);
 	if (Doc->appMode == modeEdit)
 	{
-		horizRuler->ItemPos = currItem->Xpos - Doc->ScratchLeft;
-		horizRuler->ItemEndPos = (currItem->Xpos+currItem->Width) - Doc->ScratchLeft;
+		horizRuler->ItemPos = currItem->Xpos + Doc->minCanvasCoordinate.x();
+		horizRuler->ItemEndPos = (currItem->Xpos+currItem->Width) + Doc->minCanvasCoordinate.x();
 		if (currItem->lineColor() != "None")
 			horizRuler->lineCorr = currItem->Pwidth / 2.0;
 		else
@@ -10684,7 +10683,6 @@ void ScribusView::chAbStyle(PageItem *currItem, int s)
 		else
 			horizRuler->Revers = false;
 		horizRuler->ItemPosValid = true;
-		horizRuler->repX = false;
 		if (s < 5)
 			horizRuler->TabValues = currItem->TabValues;
 		else

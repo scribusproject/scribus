@@ -3432,7 +3432,6 @@ void ScribusApp::HaveNewSel(int Nr)
 	scrActions["insertSampleText"]->setEnabled(false);
 
 	view->horizRuler->ItemPosValid = false;
-	view->horizRuler->repX = false;
 	view->horizRuler->repaint();
 	switch (Nr)
 	{
@@ -3559,8 +3558,8 @@ void ScribusApp::HaveNewSel(int Nr)
 			scrActions["insertGlyph"]->setEnabled(true);
 			if (currItem->itemType()==PageItem::TextFrame)
 				actionManager->enableUnicodeActions(true);
-			view->horizRuler->ItemPos = currItem->Xpos - doc->ScratchLeft;
-			view->horizRuler->ItemEndPos = currItem->Xpos+currItem->Width - doc->ScratchLeft;
+			view->horizRuler->ItemPos = currItem->Xpos + doc->minCanvasCoordinate.x();
+			view->horizRuler->ItemEndPos = currItem->Xpos+currItem->Width + doc->minCanvasCoordinate.x();
 			if (currItem->lineColor() != "None")
 				view->horizRuler->lineCorr = currItem->Pwidth / 2.0;
 			else
@@ -3576,7 +3575,6 @@ void ScribusApp::HaveNewSel(int Nr)
 			else
 				view->horizRuler->Revers = false;
 			view->horizRuler->ItemPosValid = true;
-			view->horizRuler->repX = false;
 			if (doc->currentParaStyle < 5)
 				view->horizRuler->TabValues = currItem->TabValues;
 			else
@@ -6404,7 +6402,6 @@ void ScribusApp::setAppMode(int mode)
 				scrMenuMgr->setMenuEnabled("Item", true);
 			}
 			view->horizRuler->ItemPosValid = false;
-			view->horizRuler->repX = false;
 			view->horizRuler->repaint();
 		}
 		if (mode == modeEdit)
