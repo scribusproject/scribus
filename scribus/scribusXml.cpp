@@ -1951,7 +1951,6 @@ bool ScriXmlDoc::ReadElemHeader(QString file, bool isFile, double *x, double *y,
 
 bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int Xp, int Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub, ScribusView *view)
 {
-	ApplicationPrefs *Prefs=&(prefsManager->appPrefs);
 	struct CopyPasteBuffer OB;
 	struct ParagraphStyle vg;
 	QString tmp, tmpf, tmp2, tmp3, tmp4, f, tmV, tmf;

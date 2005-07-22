@@ -21,6 +21,7 @@
 
 #include "prefsmanager.h"
 
+#include "filewatcher.h"
 #include "pdfoptions.h"
 #include "prefsfile.h"
 #include "scfonts.h"
@@ -28,10 +29,13 @@
 #include "scribus.h"
 #include "scribusstructs.h"
 #include "scribusapp.h"
+#include "scribusXml.h"
 #include "util.h"
+#include "werktoolb.h"
 
 extern ScribusApp* ScApp;
 extern ScribusQApp* ScQApp;
+extern bool emergencyActivated;
 
 PrefsManager* PrefsManager::_instance = 0;
 
@@ -560,4 +564,109 @@ void PrefsManager::convert12Preferences()
 		for (uint i = 0; i < extraFonts.count(); ++i)
 			fontPrefs->set(i, 0, extraFonts[i]);
 	}
+}
+
+void PrefsManager::ReadPrefs()
+{
+	ScriXmlDoc *ss = new ScriXmlDoc();
+	bool erg = ss->ReadPref(prefsLocation+"/scribus13.rc", ScApp->splashScreen, importingFrom12);
+	delete ss;
+	if (!erg)
+		return;
+	ScApp->setDefaultPrinter(appPrefs.PrinterName, appPrefs.PrinterFile, appPrefs.PrinterCommand);
+
+	uint max = QMIN(appPrefs.RecentDCount, appPrefs.RecentDocs.count());
+	for (uint m = 0; m < max; ++m)
+	{
+		QFileInfo fd(appPrefs.RecentDocs[m]);
+		if (fd.exists())
+		{
+			ScApp->RecentDocs.append(appPrefs.RecentDocs[m]);
+			ScApp->fileWatcher->addFile(appPrefs.RecentDocs[m]);
+		}
+	}
+	ScApp->rebuildRecentFileMenu();
+	ScApp->move(appPrefs.mainWinSettings.xPosition, appPrefs.mainWinSettings.yPosition);
+	ScApp->resize(appPrefs.mainWinSettings.width, appPrefs.mainWinSettings.height);
+	ReadPrefsXML();
+	if (appPrefs.checkerProfiles.count() == 0)
+	{
+		struct checkerPrefs checkerSettings;
+		checkerSettings.ignoreErrors = false;
+		checkerSettings.autoCheck = true;
+		checkerSettings.checkGlyphs = true;
+		checkerSettings.checkOrphans = true;
+		checkerSettings.checkOverflow = true;
+		checkerSettings.checkPictures = true;
+		checkerSettings.checkResolution = true;
+		checkerSettings.checkTransparency = true;
+		checkerSettings.checkAnnotations = false;
+		checkerSettings.checkRasterPDF = true;
+		checkerSettings.minResolution = 72.0;
+		appPrefs.checkerProfiles.insert( tr("Postscript"), checkerSettings);
+		appPrefs.checkerProfiles.insert( tr("PDF 1.3"), checkerSettings);
+		checkerSettings.checkTransparency = false;
+		appPrefs.checkerProfiles.insert( tr("PDF 1.4"), checkerSettings);
+		checkerSettings.checkTransparency = true;
+		checkerSettings.checkAnnotations = true;
+		checkerSettings.minResolution = 144.0;
+		appPrefs.checkerProfiles.insert( tr("PDF/X-3"), checkerSettings);
+		appPrefs.curCheckProfile = tr("Postscript");
+	}
+}
+
+void PrefsManager::ReadPrefsXML()
+{
+    if (prefsFile) 
+    {
+        PrefsContext* userprefsContext = prefsFile->getContext("user_preferences");
+        if (userprefsContext) {
+            appPrefs.guiLanguage = userprefsContext->get("gui_language","");
+            //continue here...
+            //Prefs."blah blah" =...
+        }
+    }
+}
+
+
+void PrefsManager::SavePrefs()
+{
+	// If closing because of a crash don't save prefs as we can
+	// accidentally nuke the settings if the crash is before prefs are loaded
+	if (emergencyActivated)
+		return;
+	appPrefs.mainWinSettings.xPosition = abs(ScApp->pos().x());
+	appPrefs.mainWinSettings.yPosition = abs(ScApp->pos().y());
+	appPrefs.mainWinSettings.width = ScApp->size().width();
+	appPrefs.mainWinSettings.height = ScApp->size().height();
+	appPrefs.mainToolBarSettings.visible = ScApp->mainToolBarVisible();
+	appPrefs.pdfToolBarSettings.visible = ScApp->pdfToolBarVisible();
+
+	appPrefs.RecentDocs.clear();
+	uint max = QMIN(appPrefs.RecentDCount, ScApp->RecentDocs.count());
+	for (uint m = 0; m < max; ++m)
+	{
+		appPrefs.RecentDocs.append(ScApp->RecentDocs[m]);
+	}
+	ScApp->getDefaultPrinter(&appPrefs.PrinterName, &appPrefs.PrinterFile, &appPrefs.PrinterCommand);
+
+	ScriXmlDoc *ss = new ScriXmlDoc();
+	ss->WritePref(prefsLocation+"/scribus13.rc");
+	delete ss;
+
+    SavePrefsXML();
+}
+
+void PrefsManager::SavePrefsXML()
+{
+    if (prefsFile) 
+    {
+        PrefsContext* userprefsContext = prefsFile->getContext("user_preferences");
+        if (userprefsContext) {
+            userprefsContext->set("gui_language",appPrefs.guiLanguage);
+            //continue here...
+            //Prefs."blah blah" =...
+        }
+        prefsFile->write();
+    }
 }

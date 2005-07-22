@@ -61,6 +61,10 @@ public:
 	/// convert 1.2 style preferences to new XML format
 	void convert12Preferences();
 	const QString preferencesLocation();
+	void ReadPrefs();
+	void ReadPrefsXML();
+	void SavePrefs();
+	void SavePrefsXML();	
 
 	ApplicationPrefs* applicationPrefs();
 	PrefsFile* applicationPrefsFile();

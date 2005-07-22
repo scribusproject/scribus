@@ -113,6 +113,13 @@ public:
 	void SetShortCut();
 	void SetKeyEntry(QString actName, QString cleanMenuText, QString keyseq, int rowNumber);
 	void startUpDialog();
+	void setDefaultPrinter(const QString&, const QString&, const QString&);
+	void getDefaultPrinter(QString*, QString*, QString*);
+	const bool mainToolBarVisible();
+	const bool pdfToolBarVisible();
+	const bool editToolBarVisible();
+	const bool fileToolBarVisible();
+	
 	bool doFileNew(double width, double h, double tpr, double lr, double rr, double br, double ab, double sp,
 									bool atf, bool fp, int einh, bool firstleft, int Ori, int SNr, QString pagesize);
 	bool DoFileSave(QString fn);
@@ -123,8 +130,6 @@ public:
 	void wheelEvent(QWheelEvent *w);
 	void deleteSelectedTextFromFrame(PageItem *currItem);
 	void setTBvals(PageItem *currItem);
-	void SavePrefs();
-	void SavePrefsXML();
 	void ShowSubs();
 	void applyNewMaster(QString name);
 	void updateRecent(QString fn);
@@ -214,7 +219,7 @@ public:
 	bool singleClose;
 	bool ScriptRunning;
 	Autoforms* SCustom;
-	WerkToolB* WerkTools;
+	WerkToolB* mainToolBar;
 	int HavePngAlpha;
 	bool UniCinp;
 	int UniCinC;
@@ -250,8 +255,6 @@ public slots:
 	void DelBookMark(PageItem *ite);
 	void BookMarkTxT(PageItem *ite);
 	void StoreBookmarks();
-	void ReadPrefs(bool import12);
-	void ReadPrefsXML();
 	void ManageGuides();
 	void setItemFillTransparency(double t);
 	void setItemLineTransparency(double t);
@@ -509,9 +512,9 @@ private:
 	/** FontMenu enthaelt die Fonts */
 	QPopupMenu *FontMenu;
 	FontCombo* FontSub;
-	QToolBar *WerkTools2;
+	QToolBar *fileToolBar;
 	QToolBar *editToolBar;
-	WerkToolBP* WerkToolsP;
+	WerkToolBP* pdfToolBar;
 	QToolButton* DatOpe;
 	QToolButton* DatSav;
 	QToolButton* DatClo;

@@ -253,7 +253,7 @@ int ScribusApp::initScribus(bool showSplash, bool showFontInfo, const QString ne
 			splashScreen->setStatus( tr("Reading Preferences"));
 		qApp->processEvents();
 
-		ReadPrefs(prefsManager->importingFrom12x());
+		prefsManager->ReadPrefs();
 
 		if (splashScreen != NULL)
 			splashScreen->setStatus( tr("Initializing Story Editor"));
@@ -341,34 +341,34 @@ void ScribusApp::closeSplash()
 
 void ScribusApp::initToolBars()
 {
-	WerkTools2 = new QToolBar( tr("File"), this);
-	scrActions["fileNew"]->addTo(WerkTools2);
-	scrActions["fileOpen"]->addTo(WerkTools2);
+	fileToolBar = new QToolBar( tr("File"), this);
+	scrActions["fileNew"]->addTo(fileToolBar);
+	scrActions["fileOpen"]->addTo(fileToolBar);
 	scrMenuMgr->addMenuToWidgetOfAction("FileOpenRecent", scrActions["fileOpen"]);
-	scrActions["fileSave"]->addTo(WerkTools2);
-	scrActions["fileClose"]->addTo(WerkTools2);
-	scrActions["filePrint"]->addTo(WerkTools2);
-	scrActions["toolsPreflightVerifier"]->addTo(WerkTools2);
-	scrActions["fileExportAsPDF"]->addTo(WerkTools2);
+	scrActions["fileSave"]->addTo(fileToolBar);
+	scrActions["fileClose"]->addTo(fileToolBar);
+	scrActions["filePrint"]->addTo(fileToolBar);
+	scrActions["toolsPreflightVerifier"]->addTo(fileToolBar);
+	scrActions["fileExportAsPDF"]->addTo(fileToolBar);
 
 	editToolBar = new QToolBar( tr("Edit"), this);
 	UndoWidget* uWidget = new UndoWidget(editToolBar, "uWidget");
 	undoManager->registerGui(uWidget);
 
-	WerkTools = new WerkToolB(this);
-	setDockEnabled(WerkTools, DockLeft, false);
-	setDockEnabled(WerkTools, DockRight, false);
-	WerkTools->Sichtbar = true;
-	WerkTools->setEnabled(false);
-	WerkToolsP = new WerkToolBP(this);
-	setDockEnabled(WerkToolsP, DockLeft, false);
-	setDockEnabled(WerkToolsP, DockRight, false);
-	WerkToolsP->setEnabled(false);
-	WerkToolsP->Sichtbar = true;
+	mainToolBar = new WerkToolB(this);
+	setDockEnabled(mainToolBar, DockLeft, false);
+	setDockEnabled(mainToolBar, DockRight, false);
+	mainToolBar->Sichtbar = true;
+	mainToolBar->setEnabled(false);
+	pdfToolBar = new WerkToolBP(this);
+	setDockEnabled(pdfToolBar, DockLeft, false);
+	setDockEnabled(pdfToolBar, DockRight, false);
+	pdfToolBar->setEnabled(false);
+	pdfToolBar->Sichtbar = true;
 
-	connect(WerkTools, SIGNAL(Schliessen()), this, SLOT(ToggleTools()));
-	connect(WerkToolsP, SIGNAL(NewMode(int)), this, SLOT(setAppMode(int)));
-	connect(WerkToolsP, SIGNAL(Schliessen()), this, SLOT(TogglePDFTools()));
+	connect(mainToolBar, SIGNAL(Schliessen()), this, SLOT(ToggleTools()));
+	connect(pdfToolBar, SIGNAL(NewMode(int)), this, SLOT(setAppMode(int)));
+	connect(pdfToolBar, SIGNAL(Schliessen()), this, SLOT(TogglePDFTools()));
 }
 
 void ScribusApp::initFonts(bool showFontInfo)
@@ -2239,7 +2239,7 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 		// Shut down plugins before saving prefs to ensure
 		// plugins can use prefs mgr from their cleanup routines.
 		pluginManager->finalizePlugs();
-		SavePrefs();
+		prefsManager->SavePrefs();
 		UndoManager::deleteInstance();
 		if ((prefsManager->appPrefs.SaveAtQ) && (scrapbookPalette->changed()))
 		{
@@ -2262,7 +2262,7 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 		pagePalette->hide();
 		measurementPalette->hide();
 		docCheckerPalette->hide();
-		SavePrefs();
+		prefsManager->SavePrefs();
 		UndoManager::deleteInstance();
 		if ((prefsManager->appPrefs.SaveAtQ) && (scrapbookPalette->changed()))
 		{
@@ -3277,8 +3277,8 @@ void ScribusApp::HaveNewDoc()
 	scrMenuMgr->setMenuEnabled("Page", true);
 	scrMenuMgr->setMenuEnabled("Extras", true);
 
-	WerkTools->setEnabled(true);
-	WerkToolsP->setEnabled(true);
+	mainToolBar->setEnabled(true);
+	pdfToolBar->setEnabled(true);
 
 	bool setter = doc->Pages.count() > 1 ? true : false;
 	scrActions["pageDelete"]->setEnabled(setter);
@@ -5033,8 +5033,8 @@ bool ScribusApp::DoFileClose()
 		scrMenuMgr->setMenuEnabled("Extras", false);
 		scrMenuMgr->setMenuEnabled("Style", false);
 		scrMenuMgr->setMenuEnabled("Item", false);
-		WerkTools->setEnabled(false);
-		WerkToolsP->setEnabled(false);
+		mainToolBar->setEnabled(false);
+		pdfToolBar->setEnabled(false);
 		ColorMenC->clear();
 		propertiesPalette->Cpal->SetColors(prefsManager->appPrefs.DColors);
 		propertiesPalette->Cpal->ChooseGrad(0);
@@ -6089,34 +6089,34 @@ void ScribusApp::toggleUndoPalette()
 
 void ScribusApp::setTools(bool visible)
 {
-	WerkTools->setShown(visible);
-	WerkTools->Sichtbar = visible;
+	mainToolBar->setShown(visible);
+	mainToolBar->Sichtbar = visible;
 	scrActions["toolsToolbarTools"]->setOn(visible);
 }
 
 void ScribusApp::ToggleTools()
 {
-	setTools(!WerkTools->Sichtbar);
+	setTools(!mainToolBar->Sichtbar);
 }
 
 void ScribusApp::setPDFTools(bool visible)
 {
 	if (visible)
 	{
-		WerkToolsP->show();
-		WerkToolsP->Sichtbar = true;
+		pdfToolBar->show();
+		pdfToolBar->Sichtbar = true;
 	}
 	else
 	{
-		WerkToolsP->hide();
-		WerkToolsP->Sichtbar = false;
+		pdfToolBar->hide();
+		pdfToolBar->Sichtbar = false;
 	}
 	scrActions["toolsToolbarPDF"]->setOn(visible);
 }
 
 void ScribusApp::TogglePDFTools()
 {
-	setPDFTools(!WerkToolsP->Sichtbar);
+	setPDFTools(!pdfToolBar->Sichtbar);
 }
 
 void ScribusApp::TogglePics()
@@ -6270,8 +6270,8 @@ void ScribusApp::ToggleFrameEdit()
 		scrActions["toolsLinkTextFrame"]->setEnabled(false);
 		scrActions["toolsUnlinkTextFrame"]->setEnabled(false);
 		scrActions["toolsMeasurements"]->setEnabled(false);
-		WerkToolsP->PDFTool->setEnabled(false);
-		WerkToolsP->PDFaTool->setEnabled(false);
+		pdfToolBar->PDFTool->setEnabled(false);
+		pdfToolBar->PDFaTool->setEnabled(false);
 		scrActions["itemDelete"]->setEnabled(false);
 		if (view->SelItem.count() != 0)
 		{
@@ -6301,8 +6301,8 @@ void ScribusApp::NoFrameEdit()
 	scrActions["toolsInsertBezier"]->setEnabled(true);
 	scrActions["toolsInsertFreehandLine"]->setEnabled(true);
 	scrActions["toolsInsertPolygon"]->setEnabled(true);
-	WerkToolsP->PDFTool->setEnabled(true);
-	WerkToolsP->PDFaTool->setEnabled(true);
+	pdfToolBar->PDFTool->setEnabled(true);
+	pdfToolBar->PDFaTool->setEnabled(true);
 	scrActions["toolsEditContents"]->setOn(false);
 	scrActions["toolsEditWithStoryEditor"]->setOn(false);
 	scrActions["toolsMeasurements"]->setEnabled(true);
@@ -6326,8 +6326,8 @@ void ScribusApp::NoFrameEdit()
 
 void ScribusApp::slotSelect()
 {
-	WerkToolsP->PDFTool->setOn(false);
-	WerkToolsP->PDFaTool->setOn(false);
+	pdfToolBar->PDFTool->setOn(false);
+	pdfToolBar->PDFaTool->setOn(false);
 	//scrActions["toolsMeasurements"]->setOn(false);
 	setAppMode(modeNormal);
 }
@@ -6516,9 +6516,9 @@ void ScribusApp::setAppMode(int mode)
 		}
 		if (mode == modeDrawShapes)
 		{
-			doc->SubMode = WerkTools->SubMode;
-			doc->ShapeValues = WerkTools->ShapeVals;
-			doc->ValCount = WerkTools->ValCount;
+			doc->SubMode = mainToolBar->SubMode;
+			doc->ShapeValues = mainToolBar->ShapeVals;
+			doc->ValCount = mainToolBar->ValCount;
 			propertiesPalette->SCustom->setPixmap(propertiesPalette->SCustom->getIconPixmap(doc->SubMode));
 			SCustom->setPixmap(SCustom->getIconPixmap(doc->SubMode));
 		}
@@ -6526,8 +6526,8 @@ void ScribusApp::setAppMode(int mode)
 			doc->SubMode = -1;
 		if (mode == modeNormal)
 		{
-			WerkToolsP->PDFTool->setOn(false);
-			WerkToolsP->PDFaTool->setOn(false);
+			pdfToolBar->PDFTool->setOn(false);
+			pdfToolBar->PDFaTool->setOn(false);
 			propertiesPalette->Cpal->gradEditButton->setOn(false);
 		}
 		if (mode == modeLinkFrames)
@@ -8300,7 +8300,7 @@ void ScribusApp::slotPrefsOrg()
 		GetCMSProfiles();
 		prefsManager->appPrefs.KeyActions = dia->tabKeys->getNewKeyMap();
 		SetShortCut();
-		SavePrefs();
+		prefsManager->SavePrefs();
 		emit prefsChanged();
 		QWidgetList windows = wsp->windowList();
 		for ( int i = 0; i < static_cast<int>(windows.count()); ++i )
@@ -8312,113 +8312,6 @@ void ScribusApp::slotPrefsOrg()
 		}
 	}
 	delete dia;
-}
-
-void ScribusApp::SavePrefs()
-{
-	// If closing because of a crash don't save prefs as we can
-	// accidentally nuke the settings if the crash is before prefs are loaded
-	if (emergencyActivated)
-		return;
-	prefsManager->appPrefs.mainWinSettings.xPosition = abs(pos().x());
-	prefsManager->appPrefs.mainWinSettings.yPosition = abs(pos().y());
-	prefsManager->appPrefs.mainWinSettings.width = size().width();
-	prefsManager->appPrefs.mainWinSettings.height = size().height();
-	prefsManager->appPrefs.mainToolBarSettings.visible = WerkTools->isVisible();
-	prefsManager->appPrefs.pdfToolBarSettings.visible = WerkToolsP->isVisible();
-
-	prefsManager->appPrefs.RecentDocs.clear();
-	uint max = QMIN(prefsManager->appPrefs.RecentDCount, RecentDocs.count());
-	for (uint m = 0; m < max; ++m)
-	{
-		prefsManager->appPrefs.RecentDocs.append(RecentDocs[m]);
-	}
-	prefsManager->appPrefs.PrinterName = PDef.Pname;
-	prefsManager->appPrefs.PrinterFile = PDef.Dname;
-	prefsManager->appPrefs.PrinterCommand = PDef.Command;
-	ScriXmlDoc *ss = new ScriXmlDoc();
-	ss->WritePref(PrefsPfad+"/scribus13.rc");
-	delete ss;
-
-    SavePrefsXML();
-}
-
-void ScribusApp::SavePrefsXML()
-{
-    if (prefsManager->prefsFile) 
-    {
-        PrefsContext* userprefsContext = prefsManager->prefsFile->getContext("user_preferences");
-        if (userprefsContext) {
-            userprefsContext->set("gui_language",prefsManager->appPrefs.guiLanguage);
-            //continue here...
-            //Prefs."blah blah" =...
-        }
-        prefsManager->prefsFile->write();
-    }
-}
-
-void ScribusApp::ReadPrefs(bool import12)
-{
-	ScriXmlDoc *ss = new ScriXmlDoc();
-	bool erg = ss->ReadPref(PrefsPfad+"/scribus13.rc", splashScreen, import12);
-	delete ss;
-	if (!erg)
-		return;
-	PDef.Pname = prefsManager->appPrefs.PrinterName;
-	PDef.Dname = prefsManager->appPrefs.PrinterFile;
-	PDef.Command = prefsManager->appPrefs.PrinterCommand;
-
-	uint max = QMIN(prefsManager->appPrefs.RecentDCount, prefsManager->appPrefs.RecentDocs.count());
-	for (uint m = 0; m < max; ++m)
-	{
-		QFileInfo fd(prefsManager->appPrefs.RecentDocs[m]);
-		if (fd.exists())
-		{
-			RecentDocs.append(prefsManager->appPrefs.RecentDocs[m]);
-			fileWatcher->addFile(prefsManager->appPrefs.RecentDocs[m]);
-		}
-	}
-	rebuildRecentFileMenu();
-	move(prefsManager->appPrefs.mainWinSettings.xPosition, prefsManager->appPrefs.mainWinSettings.yPosition);
-	resize(prefsManager->appPrefs.mainWinSettings.width, prefsManager->appPrefs.mainWinSettings.height);
-	ReadPrefsXML();
-	if (prefsManager->appPrefs.checkerProfiles.count() == 0)
-	{
-		struct checkerPrefs checkerSettings;
-		checkerSettings.ignoreErrors = false;
-		checkerSettings.autoCheck = true;
-		checkerSettings.checkGlyphs = true;
-		checkerSettings.checkOrphans = true;
-		checkerSettings.checkOverflow = true;
-		checkerSettings.checkPictures = true;
-		checkerSettings.checkResolution = true;
-		checkerSettings.checkTransparency = true;
-		checkerSettings.checkAnnotations = false;
-		checkerSettings.checkRasterPDF = true;
-		checkerSettings.minResolution = 72.0;
-		prefsManager->appPrefs.checkerProfiles.insert( tr("Postscript"), checkerSettings);
-		prefsManager->appPrefs.checkerProfiles.insert( tr("PDF 1.3"), checkerSettings);
-		checkerSettings.checkTransparency = false;
-		prefsManager->appPrefs.checkerProfiles.insert( tr("PDF 1.4"), checkerSettings);
-		checkerSettings.checkTransparency = true;
-		checkerSettings.checkAnnotations = true;
-		checkerSettings.minResolution = 144.0;
-		prefsManager->appPrefs.checkerProfiles.insert( tr("PDF/X-3"), checkerSettings);
-		prefsManager->appPrefs.curCheckProfile = tr("Postscript");
-	}
-}
-
-void ScribusApp::ReadPrefsXML()
-{
-    if (prefsManager->prefsFile) 
-    {
-        PrefsContext* userprefsContext = prefsManager->prefsFile->getContext("user_preferences");
-        if (userprefsContext) {
-            prefsManager->appPrefs.guiLanguage = userprefsContext->get("gui_language","");
-            //continue here...
-            //Prefs."blah blah" =...
-        }
-    }
 }
 
 void ScribusApp::ShowSubs()
@@ -10761,4 +10654,38 @@ void ScribusApp::languageChange()
 		mainWindowYPosDataLabel->setText("         ");
 		mainWindowStatusLabel->setText( tr("Ready"));
 	}
+}
+
+void ScribusApp::setDefaultPrinter(const QString& name, const QString& file, const QString& command)
+{
+	PDef.Pname = name;
+	PDef.Dname = file;
+	PDef.Command = command;
+}
+
+void ScribusApp::getDefaultPrinter(QString *name, QString *file, QString *command)
+{
+	*name=PDef.Pname;
+	*file=PDef.Dname;
+	*command=PDef.Command;
+}
+
+const bool ScribusApp::fileToolBarVisible()
+{
+	return fileToolBar->isVisible();
+}
+
+const bool ScribusApp::editToolBarVisible()
+{
+	return editToolBar->isVisible();
+}
+
+const bool ScribusApp::mainToolBarVisible()
+{
+	return mainToolBar->isVisible();
+}
+
+const bool ScribusApp::pdfToolBarVisible()
+{
+	return pdfToolBar->isVisible();
 }
