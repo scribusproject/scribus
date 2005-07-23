@@ -412,7 +412,7 @@ void Hruler::paintEvent(QPaintEvent *)
 		switch (currDoc->docUnitIndex)
 		{
 			case 1:
-				tx = QString::number(markC * iter2 / (iter2 / 100));
+				tx = QString::number(markC * iter2 / (iter2 / 100) / cor);
 				break;
 			case 2:
 				xl = (markC * iter2 / iter2) / cor;
@@ -430,10 +430,10 @@ void Hruler::paintEvent(QPaintEvent *)
 				break;
 			case 3:
 			case 5:
-				tx = QString::number(markC * iter2 / (iter2 / 10));
+				tx = QString::number(markC * iter2 / (iter2 / 10) / cor);
 				break;
 			case 4:
-				tx = QString::number(markC * iter2 / iter2);
+				tx = QString::number(markC * iter2 / iter2 / cor);
 				break;
 			default:
 				tx = QString::number(markC * iter2);

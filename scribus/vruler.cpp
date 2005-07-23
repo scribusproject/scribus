@@ -103,11 +103,11 @@ void Vruler::paintEvent(QPaintEvent *)
 	while (firstMark < cc)
 	{
 		p.drawLine(11, qRound(firstMark * sc), 24, qRound(firstMark * sc));
-		int textY = qRound(firstMark * sc)-2;
+		int textY = qRound(firstMark * sc)+10;
 		switch (currDoc->docUnitIndex)
 		{
 			case 1:
-				tx = QString::number(markC * iter2 / (iter2 / 100));
+				tx = QString::number(markC * iter2 / (iter2 / 100) / cor);
 				break;
 			case 2:
 				xl = (markC * iter2 / iter2) / cor;
@@ -125,10 +125,10 @@ void Vruler::paintEvent(QPaintEvent *)
 				break;
 			case 3:
 			case 5:
-				tx = QString::number(markC * iter2 / (iter2 / 10));
+				tx = QString::number(markC * iter2 / (iter2 / 10) / cor);
 				break;
 			case 4:
-				tx = QString::number(markC * iter2 / iter2);
+				tx = QString::number(markC * iter2 / iter2 / cor);
 				break;
 			default:
 				tx = QString::number(markC * iter2);

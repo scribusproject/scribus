@@ -921,10 +921,10 @@ QString ScImage::ImageToCMYK_PDF(bool pre)
 				int y = qBlue(r);
 				int k = qAlpha(r);
 				/*				*s = qRgba(m, y, k, c); */
-				ImgStr += static_cast<char> (c);
-				ImgStr += static_cast<char> (m);
-				ImgStr += static_cast<char> (y);
-				ImgStr += static_cast<char> (k);
+				ImgStr += static_cast<unsigned char> (c);
+				ImgStr += static_cast<unsigned char> (m);
+				ImgStr += static_cast<unsigned char> (y);
+				ImgStr += static_cast<unsigned char> (k);
 				s++;
 			}
 		}
@@ -943,10 +943,10 @@ QString ScImage::ImageToCMYK_PDF(bool pre)
 				int k = QMIN(QMIN(c, m), y);
 				//				*s = qRgba(m, y, k, c);
 //				*s = qRgba(c, m, y, k);
-				ImgStr += static_cast<char> (c - k);
-				ImgStr += static_cast<char> (m - k);
-				ImgStr += static_cast<char> (y - k);
-				ImgStr += static_cast<char> (k);
+				ImgStr += static_cast<unsigned char> (c - k);
+				ImgStr += static_cast<unsigned char> (m - k);
+				ImgStr += static_cast<unsigned char> (y - k);
+				ImgStr += static_cast<unsigned char> (k);
 				s++;
 			}
 		}
@@ -973,23 +973,23 @@ QString ScImage::ImageToCMYK_PS(int pl, bool pre)
 				int k = qAlpha(r);
 				if (pl == -1)
 				{
-					ImgStr += static_cast<char> (c);
-					ImgStr += static_cast<char> (m);
-					ImgStr += static_cast<char> (y);
-					ImgStr += static_cast<char> (k);
+					ImgStr += static_cast<unsigned char> (c);
+					ImgStr += static_cast<unsigned char> (m);
+					ImgStr += static_cast<unsigned char> (y);
+					ImgStr += static_cast<unsigned char> (k);
 				}
 				else
 				{
 					if (pl == -2)
-						ImgStr += static_cast<char> (QMIN(255, qRound(0.3 * c + 0.59 * m + 0.11 * y + k)));
+						ImgStr += static_cast<unsigned char> (QMIN(255, qRound(0.3 * c + 0.59 * m + 0.11 * y + k)));
 					if (pl == 1)
-						ImgStr += static_cast<char> (c);
+						ImgStr += static_cast<unsigned char> (c);
 					if (pl == 2)
-						ImgStr += static_cast<char> (m);
+						ImgStr += static_cast<unsigned char> (m);
 					if (pl == 3)
-						ImgStr += static_cast<char> (y);
+						ImgStr += static_cast<unsigned char> (y);
 					if (pl == 0)
-						ImgStr += static_cast<char> (k);
+						ImgStr += static_cast<unsigned char> (k);
 				}
 			}
 		}
@@ -1008,23 +1008,23 @@ QString ScImage::ImageToCMYK_PS(int pl, bool pre)
 				int k = QMIN(QMIN(c, m), y);
 				if (pl == -1)
 				{
-					ImgStr += static_cast<char> (c - k);
-					ImgStr += static_cast<char> (m - k);
-					ImgStr += static_cast<char> (y - k);
-					ImgStr += static_cast<char> (k);
+					ImgStr += static_cast<unsigned char> (c - k);
+					ImgStr += static_cast<unsigned char> (m - k);
+					ImgStr += static_cast<unsigned char> (y - k);
+					ImgStr += static_cast<unsigned char> (k);
 				}
 				else
 				{
 					if (pl == -2)
-						ImgStr += static_cast<char> (QMIN(255, qRound(0.3 * c + 0.59 * m + 0.11 * y + k)));
+						ImgStr += static_cast<unsigned char> (QMIN(255, qRound(0.3 * c + 0.59 * m + 0.11 * y + k)));
 					if (pl == 1)
-						ImgStr += static_cast<char> (c - k);
+						ImgStr += static_cast<unsigned char> (c - k);
 					if (pl == 2)
-						ImgStr += static_cast<char> (m - k);
+						ImgStr += static_cast<unsigned char> (m - k);
 					if (pl == 3)
-						ImgStr += static_cast<char> (y - k);
+						ImgStr += static_cast<unsigned char> (y - k);
 					if (pl == 0)
-						ImgStr += static_cast<char> (k);
+						ImgStr += static_cast<unsigned char> (k);
 				}
 			}
 		}
@@ -2458,7 +2458,10 @@ QString ScImage::getAlpha(QString fn, bool PDF, bool pdf14)
 		if (load(fn))
 		{
 			*this = convertDepth(32);
-			setAlphaBuffer(true);
+ 			 if (hasAlphaBuffer())
+				setAlphaBuffer(true);
+			else
+				return retS;
 		}
 		else
 			return retS;
@@ -3310,14 +3313,14 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 				for (int i = 0; i < height(); i++)
 				{
 					QRgb *ptr = (QRgb *) scanLine(i);
-					unsigned char c, m, y ,k;
+					unsigned char cc, cm, cy ,ck;
 					for (int j = 0; j < width(); j++)
 					{
-						c = 255 - qRed(*ptr);
-						m = 255 - qGreen(*ptr);
-						y = 255 - qBlue(*ptr);
-						k = QMIN(QMIN(c, m), y);
-						*ptr++ = qRgba(c,m,y,k);
+						cc = 255 - qRed(*ptr);
+						cm = 255 - qGreen(*ptr);
+						cy = 255 - qBlue(*ptr);
+						ck = QMIN(QMIN(cc, cm), cy);
+						*ptr++ = qRgba(cc-ck,cm-ck,cy-ck,ck);
 					}
 				}
 			}
@@ -3329,14 +3332,14 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 				for (int i = 0; i < height(); i++)
 				{
 					QRgb *ptr = (QRgb *) scanLine(i);
-					unsigned char r, g, b, k;
+					unsigned char cr, cg, cb, ck;
 					for (int j = 0; j < width(); j++)
 					{
-						k = qAlpha(*ptr);
-						r = 255 - QMIN(255, qRed(*ptr) + k);
-						g = 255 - QMIN(255, qGreen(*ptr) + k);
-						b = 255 - QMIN(255, qBlue(*ptr) + k);
-						*ptr++ = qRgba(r,g,b,255);
+						ck = qAlpha(*ptr);
+						cr = 255 - QMIN(255, qRed(*ptr) + ck);
+						cg = 255 - QMIN(255, qGreen(*ptr) + ck);
+						cb = 255 - QMIN(255, qBlue(*ptr) + ck);
+						*ptr++ = qRgba(cr,cg,cb,255);
 					}
 				}
 			}
