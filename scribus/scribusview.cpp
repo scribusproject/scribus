@@ -646,10 +646,9 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 						if ((Doc->appMode == modeEdit) && (currItem->Select) && (currItem->itemType() == PageItem::TextFrame))
 						{
 							//CB 230305 Stop redrawing the horizontal ruler if it hasnt changed when typing text!!!
-							if ((qRound(horizRuler->ItemPos*10000) != qRound((currItem->Xpos + Doc->minCanvasCoordinate.x())*10000)) || (qRound(horizRuler->ItemEndPos*10000) != qRound(((currItem->Xpos+currItem->Width) + Doc->minCanvasCoordinate.x())*10000)))
+							if ((qRound(horizRuler->ItemPos*10000) != qRound((currItem->Xpos)*10000)) || (qRound(horizRuler->ItemEndPos*10000) != qRound(((currItem->Xpos+currItem->Width) )*10000)))
 							{
-								horizRuler->ItemPos = currItem->Xpos + Doc->minCanvasCoordinate.x();
-								horizRuler->ItemEndPos = (currItem->Xpos+currItem->Width) + Doc->minCanvasCoordinate.x();
+								horizRuler->setItemPosition(currItem->Xpos, currItem->Width);
 								if (currItem->lineColor() != "None")
 									horizRuler->lineCorr = currItem->Pwidth / 2.0;
 								else
@@ -1539,6 +1538,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		ScApp->scrActions["viewShowGuides"]->addTo(pmen);
 		ScApp->scrActions["viewShowBaseline"]->addTo(pmen);
 		ScApp->scrActions["viewShowTextChain"]->addTo(pmen);
+		ScApp->scrActions["viewRulerMode"]->addTo(pmen);
 		pmen->insertSeparator();
 		ScApp->scrActions["viewSnapToGrid"]->addTo(pmen);
 		ScApp->scrActions["viewSnapToGuides"]->addTo(pmen);
@@ -7217,6 +7217,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 				break;
 			}
 		}
+		setRulerPos(contentsX(), contentsY());
 	}
 	if (m->state() == (ControlButton | AltButton))
 		Deselect(false);
@@ -8441,11 +8442,17 @@ void ScribusView::setRulerPos(int x, int y)
 {
 	if (ScApp->ScriptRunning)
 		return;
-	horizRuler->offs = qRound(x / Scale + Doc->minCanvasCoordinate.x());
-//	horizRuler->offs = qRound(x / Scale + Doc->minCanvasCoordinate.x() - Doc->currentPage->Xoffset);
+	if (Doc->guidesSettings.rulerMode)
+	{
+		horizRuler->offs = qRound(x / Scale + Doc->minCanvasCoordinate.x() - Doc->currentPage->Xoffset);
+		vertRuler->offs = qRound(y / Scale + Doc->minCanvasCoordinate.y() - Doc->currentPage->Yoffset);
+	}
+	else
+	{
+		horizRuler->offs = qRound(x / Scale + Doc->minCanvasCoordinate.x());
+		vertRuler->offs = qRound(y / Scale + Doc->minCanvasCoordinate.y());
+	}
 	horizRuler->repaint();
-	vertRuler->offs = qRound(y / Scale + Doc->minCanvasCoordinate.y());
-//	vertRuler->offs = qRound(y / Scale + Doc->minCanvasCoordinate.y() - Doc->currentPage->Yoffset);
 	vertRuler->repaint();
 	evSpon = true;
 }
@@ -8873,8 +8880,7 @@ void ScribusView::DrawNew()
 		return;
 	evSpon = false;
 	updateContents();
-	horizRuler->repaint();
-	vertRuler->repaint();
+	setRulerPos(contentsX(), contentsY());
 	setMenTxt(Doc->currentPage->PageNr);
 	disconnect(LE, SIGNAL(valueChanged(int)), this, SLOT(Zval()));
 	LE->setValue(Scale/Prefs->DisScale*100);
@@ -10666,8 +10672,7 @@ void ScribusView::chAbStyle(PageItem *currItem, int s)
 		RefreshItem(currItem);
 	if (Doc->appMode == modeEdit)
 	{
-		horizRuler->ItemPos = currItem->Xpos + Doc->minCanvasCoordinate.x();
-		horizRuler->ItemEndPos = (currItem->Xpos+currItem->Width) + Doc->minCanvasCoordinate.x();
+		horizRuler->setItemPosition(currItem->Xpos, currItem->Width);
 		if (currItem->lineColor() != "None")
 			horizRuler->lineCorr = currItem->Pwidth / 2.0;
 		else

@@ -465,6 +465,10 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	checkFrame->setText( tr( "Show Frames" ) );
 	checkFrame->setChecked(prefsData->guidesSettings.framesShown);
 	pageBackgroundLayout->addWidget( checkFrame );
+	checkRuler = new QCheckBox( pageBackground, "checkRuler" );
+	checkRuler->setText( tr( "Rulers relative to Page" ) );
+	checkRuler->setChecked(prefsData->guidesSettings.rulerMode);
+	pageBackgroundLayout->addWidget( checkRuler );
 	tabViewLayout->addWidget( pageBackground );
 
 	groupScratch = new QGroupBox( tabView, "GroupBox7" );

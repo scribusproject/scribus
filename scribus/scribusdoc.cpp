@@ -55,6 +55,7 @@ ScribusDoc::ScribusDoc() : UndoObject(QObject::tr("Document"))
 	guidesSettings.linkShown = prefsData->guidesSettings.linkShown;
 	guidesSettings.showPic = prefsData->guidesSettings.showPic;
 	guidesSettings.showControls = prefsData->guidesSettings.showControls;
+	guidesSettings.rulerMode = prefsData->guidesSettings.rulerMode;
 	guidesSettings.grabRad = prefsData->guidesSettings.grabRad;
 	guidesSettings.guideRad = prefsData->guidesSettings.guideRad;
 	guidesSettings.minorGrid = prefsData->guidesSettings.minorGrid;

@@ -3134,6 +3134,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	dc.setAttribute("SHOWPICT", static_cast<int>(doc->guidesSettings.showPic));
 	dc.setAttribute("SHOWControl", static_cast<int>(doc->guidesSettings.showControls));
 	dc.setAttribute("SHOWLINK", static_cast<int>(doc->guidesSettings.linkShown));
+	dc.setAttribute("rulerMode", static_cast<int>(doc->guidesSettings.rulerMode));
 	dc.setAttribute("GuideRad", doc->guidesSettings.guideRad);
 	dc.setAttribute("GRAB",doc->guidesSettings.grabRad);
 	dc.setAttribute("POLYC", doc->toolSettings.polyC);
@@ -3519,6 +3520,7 @@ void ScriXmlDoc::WritePref(QString ho)
 	dc.setAttribute("SHOWLINK", static_cast<int>(Vor->guidesSettings.linkShown));
 	dc.setAttribute("SHOWPICT", static_cast<int>(Vor->guidesSettings.showPic));
 	dc.setAttribute("SHOWControl", static_cast<int>(Vor->guidesSettings.showControls));
+	dc.setAttribute("rulerMode", static_cast<int>(Vor->guidesSettings.rulerMode));
 	dc.setAttribute("ScratchBottom", Vor->ScratchBottom);
 	dc.setAttribute("ScratchLeft", Vor->ScratchLeft);
 	dc.setAttribute("ScratchRight", Vor->ScratchRight);
@@ -3892,6 +3894,7 @@ bool ScriXmlDoc::ReadPref(QString ho, SplashScreen *splash, bool import12)
 			Vorein->guidesSettings.linkShown = static_cast<bool>(QStoInt(dc.attribute("SHOWLINK","0")));
 			Vorein->guidesSettings.showPic = static_cast<bool>(QStoInt(dc.attribute("SHOWPICT","1")));
 			Vorein->guidesSettings.showControls = static_cast<bool>(QStoInt(dc.attribute("SHOWControl","0")));
+			Vorein->guidesSettings.rulerMode = static_cast<bool>(QStoInt(dc.attribute("rulerMode","1")));
 			Vorein->haveStylePreview = static_cast<bool>(QStoInt(dc.attribute("STYLEPREVIEW","1")));
 			Vorein->showStartupDialog = static_cast<bool>(QStoInt(dc.attribute("StartUp","1")));
 			Vorein->ScratchBottom = QStodouble(dc.attribute("ScratchBottom", "20"));

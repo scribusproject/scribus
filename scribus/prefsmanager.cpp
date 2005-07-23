@@ -153,6 +153,7 @@ void PrefsManager::initDefaults()
 	appPrefs.guidesSettings.showPic = true;
 	appPrefs.guidesSettings.showControls = false;
 	appPrefs.guidesSettings.linkShown = false;
+	appPrefs.guidesSettings.rulerMode = true;
 	appPrefs.guidesSettings.grabRad = 4;
 	appPrefs.guidesSettings.guideRad = 10;
 	appPrefs.guidesSettings.minorGrid = 20;

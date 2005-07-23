@@ -350,6 +350,7 @@ public slots:
 	void ToggleFrames();
 	void ToggleTextLinks();
 	void ToggleTextControls();
+	void ToggleRuler();
 	/** Schaltet Werkzeuge ein/aus */
  	void setTools(bool visible);
 	void ToggleTools();
@@ -535,7 +536,7 @@ private:
 	int viewUndoPalette;
 
 	bool PalettesStat[10];
-	bool GuidesStat[8];
+	bool GuidesStat[9];
 
 	bool keyrep;
 	/** @brief Tells if an arrow key is pressed down */

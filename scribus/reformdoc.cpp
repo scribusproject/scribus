@@ -220,10 +220,14 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	checkFrame->setText( tr( "Show Frames" ) );
 	checkFrame->setChecked(doc->guidesSettings.framesShown);
 	pageBackgroundLayout->addWidget( checkFrame );
+	checkRuler = new QCheckBox( pageBackground, "checkRuler" );
+	checkRuler->setText( tr( "Rulers relative to Page" ) );
+	checkRuler->setChecked(doc->guidesSettings.rulerMode);
+	pageBackgroundLayout->addWidget( checkRuler );
 	tabViewLayout->addWidget( pageBackground );
 
 	groupScratch = new QGroupBox( tabView, "GroupBox7" );
-	groupScratch->setTitle( tr( "Scratch Space" ) );
+	groupScratch->setTitle( tr( "Minimum Scratch Space" ) );
 	groupScratch->setColumnLayout(0, Qt::Vertical );
 	groupScratch->layout()->setSpacing( 0 );
 	groupScratch->layout()->setMargin( 0 );
@@ -378,6 +382,7 @@ void ReformDoc::restoreDefaults()
 		checkPictures->setChecked(currDoc->guidesSettings.showPic);
 		checkLink->setChecked(currDoc->guidesSettings.linkShown);
 		checkFrame->setChecked(currDoc->guidesSettings.framesShown);
+		checkRuler->setChecked(currDoc->guidesSettings.rulerMode);
 		topScratch->setValue(currDoc->ScratchTop * unitRatio);
 		leftScratch->setValue(currDoc->ScratchLeft * unitRatio);
 		bottomScratch->setValue(currDoc->ScratchBottom * unitRatio);

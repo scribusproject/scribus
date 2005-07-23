@@ -96,6 +96,7 @@ public:
 	QCheckBox* checkFrame;
 	QCheckBox* checkPictures;
 	QCheckBox* checkControl;
+	QCheckBox* checkRuler;
 	QPushButton* backColor;
 	QCheckBox* checkUnprintable;
 	QGroupBox* groupScratch;

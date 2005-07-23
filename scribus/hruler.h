@@ -42,6 +42,7 @@ public:
 	void mouseReleaseEvent(QMouseEvent *);
 	void mouseMoveEvent(QMouseEvent *m);
 	void UpdateTabList();
+	void setItemPosition(double pos, double width);
 	int offs;
 	int Markp;
 	int oldMark;
@@ -58,7 +59,6 @@ public:
 	double lineCorr;
 	double Indent;
 	double First;
-	double Offset;
 	double Scaling;
 	int RulerCode;
 	int MouseX;

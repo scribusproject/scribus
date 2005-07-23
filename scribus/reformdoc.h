@@ -70,6 +70,7 @@ public:
 	QCheckBox* checkFrame;
 	QCheckBox* checkPictures;
 	QCheckBox* checkControl;
+	QCheckBox* checkRuler;
 
 	DocInfos* docInfos;
 	TabGuides* tabGuides;

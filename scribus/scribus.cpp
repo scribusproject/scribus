@@ -853,6 +853,7 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["viewShowBaseline"], "View");
 	scrMenuMgr->addMenuItem(scrActions["viewShowTextChain"], "View");
 	scrMenuMgr->addMenuItem(scrActions["viewShowTextControls"], "View");
+	scrMenuMgr->addMenuItem(scrActions["viewRulerMode"], "View");
 	scrMenuMgr->addMenuSeparator("View");
 	scrMenuMgr->addMenuItem(scrActions["viewSnapToGrid"], "View");
 	scrMenuMgr->addMenuItem(scrActions["viewSnapToGuides"], "View");
@@ -2726,6 +2727,7 @@ void ScribusApp::newActWin(QWidget *w)
 	scrActions["viewShowImages"]->setOn(doc->guidesSettings.showPic);
 	scrActions["viewShowTextChain"]->setOn(doc->guidesSettings.linkShown);
 	scrActions["viewShowTextControls"]->setOn(doc->guidesSettings.showControls);
+	scrActions["viewRulerMode"]->setOn(doc->guidesSettings.rulerMode);
 	if (!doc->masterPageMode)
 		pagePalette->Rebuild();
 	outlinePalette->BuildTree(doc);
@@ -2790,6 +2792,7 @@ bool ScribusApp::SetupDoc()
 		doc->guidesSettings.showPic = dia->checkPictures->isChecked();
 		doc->guidesSettings.linkShown = dia->checkLink->isChecked();
 		doc->guidesSettings.showControls = dia->checkControl->isChecked();
+		doc->guidesSettings.rulerMode = dia->checkRuler->isChecked();
 		doc->guidesSettings.grabRad = dia->tabGuides->grabDistance->value();
 		doc->guidesSettings.guideRad = dia->tabGuides->snapDistance->value() / doc->unitRatio;
 		doc->guidesSettings.minorGrid = dia->tabGuides->minorSpace->value() / doc->unitRatio;
@@ -3117,6 +3120,7 @@ bool ScribusApp::SetupDoc()
 		scrActions["viewShowImages"]->setOn(doc->guidesSettings.showPic);
 		scrActions["viewShowTextChain"]->setOn(doc->guidesSettings.linkShown);
 		scrActions["viewShowTextControls"]->setOn(doc->guidesSettings.showControls);
+		scrActions["viewRulerMode"]->setOn(doc->guidesSettings.rulerMode);
 		for (uint b=0; b<doc->Items.count(); ++b)
 		{
 			if (doc->Items.at(b)->itemType() == PageItem::ImageFrame)
@@ -3558,8 +3562,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			scrActions["insertGlyph"]->setEnabled(true);
 			if (currItem->itemType()==PageItem::TextFrame)
 				actionManager->enableUnicodeActions(true);
-			view->horizRuler->ItemPos = currItem->Xpos + doc->minCanvasCoordinate.x();
-			view->horizRuler->ItemEndPos = currItem->Xpos+currItem->Width + doc->minCanvasCoordinate.x();
+			view->horizRuler->setItemPosition(currItem->Xpos, currItem->Width);
 			if (currItem->lineColor() != "None")
 				view->horizRuler->lineCorr = currItem->Pwidth / 2.0;
 			else
@@ -6141,6 +6144,7 @@ void ScribusApp::ToggleAllGuides()
 		doc->guidesSettings.baseShown = GuidesStat[5];
 		doc->guidesSettings.linkShown = GuidesStat[6];
 		doc->guidesSettings.showControls = GuidesStat[7];
+		doc->guidesSettings.rulerMode = GuidesStat[8];
 		ToggleMarks();
 		ToggleFrames();
 		ToggleRaster();
@@ -6148,6 +6152,7 @@ void ScribusApp::ToggleAllGuides()
 		ToggleBase();
 		ToggleTextLinks();
 		ToggleTextControls();
+		ToggleRuler();
 	}
 	else
 	{
@@ -6159,6 +6164,7 @@ void ScribusApp::ToggleAllGuides()
 		GuidesStat[5] = !doc->guidesSettings.baseShown;
 		GuidesStat[6] = !doc->guidesSettings.linkShown;
 		GuidesStat[7] = !doc->guidesSettings.showControls;
+		GuidesStat[8] = !doc->guidesSettings.rulerMode;
 		doc->guidesSettings.marginsShown = false;
 		doc->guidesSettings.framesShown = false;
 		doc->guidesSettings.gridShown = false;
@@ -6166,6 +6172,7 @@ void ScribusApp::ToggleAllGuides()
 		doc->guidesSettings.baseShown = false;
 		doc->guidesSettings.linkShown = false;
 		doc->guidesSettings.showControls = false;
+		doc->guidesSettings.rulerMode = false;
 		scrActions["viewShowMargins"]->setOn(doc->guidesSettings.marginsShown);
 		scrActions["viewShowFrames"]->setOn(doc->guidesSettings.framesShown);
 		scrActions["viewShowGrid"]->setOn(doc->guidesSettings.gridShown);
@@ -6173,6 +6180,7 @@ void ScribusApp::ToggleAllGuides()
 		scrActions["viewShowBaseline"]->setOn(doc->guidesSettings.baseShown);
 		scrActions["viewShowTextChain"]->setOn(doc->guidesSettings.linkShown);
 		scrActions["viewShowTextControls"]->setOn(doc->guidesSettings.showControls);
+		scrActions["viewRulerMode"]->setOn(doc->guidesSettings.rulerMode);
 	}
 	view->DrawNew();
 }
@@ -6223,6 +6231,13 @@ void ScribusApp::ToggleTextControls()
 {
 	GuidesStat[0] = false;
 	doc->guidesSettings.showControls = !doc->guidesSettings.showControls;
+	view->DrawNew();
+}
+
+void ScribusApp::ToggleRuler()
+{
+	GuidesStat[0] = false;
+	doc->guidesSettings.rulerMode = !doc->guidesSettings.rulerMode;
 	view->DrawNew();
 }
 
@@ -8057,6 +8072,7 @@ void ScribusApp::slotPrefsOrg()
 		prefsManager->appPrefs.toolSettings.defSize = dia->tabTools->sizeComboText->currentText().left(2).toInt() * 10;
 		prefsManager->appPrefs.guidesSettings.marginsShown = dia->tabGuides->marginBox->isChecked();
 		prefsManager->appPrefs.guidesSettings.framesShown = dia->checkFrame->isChecked();
+		prefsManager->appPrefs.guidesSettings.rulerMode = dia->checkRuler->isChecked();
 		prefsManager->appPrefs.guidesSettings.gridShown = dia->tabGuides->checkGrid->isChecked();
 		prefsManager->appPrefs.guidesSettings.guidesShown = dia->tabGuides->guideBox->isChecked();
 		prefsManager->appPrefs.guidesSettings.baseShown = dia->tabGuides->baselineBox->isChecked();
