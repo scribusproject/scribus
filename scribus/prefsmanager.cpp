@@ -22,6 +22,7 @@
 #include "prefsmanager.h"
 
 #include "filewatcher.h"
+#include "pagesize.h"
 #include "pdfoptions.h"
 #include "prefsfile.h"
 #include "scfonts.h"
@@ -223,8 +224,9 @@ void PrefsManager::initDefaults()
 	appPrefs.marginColored = false;
 	appPrefs.pageSize = "A4";
 	appPrefs.pageOrientation = 0;
-	appPrefs.PageWidth = 595;
-	appPrefs.PageHeight = 842;
+	PageSize a4("A4");
+	appPrefs.PageWidth = a4.getPageWidth();
+	appPrefs.PageHeight = a4.getPageHeight();
 	appPrefs.RandOben = 40;
 	appPrefs.RandUnten = 40;
 	appPrefs.RandLinks = 40;
