@@ -343,7 +343,7 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	QString pfad2;
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.extension(false).lower();
-	cmd1 = PrefsManager::instance()->appPrefs.gs_exe;
+	cmd1 = PrefsManager::instance()->ghostscriptExecutable();
 	pfad2 = QDir::convertSeparators(pfad + "import.prolog");
 	cmd1 += " -q -dNOPAUSE -dNODISPLAY";
 	cmd1 += " -dBATCH -g"+tmp2.setNum(qRound(b-x))+"x"+tmp3.setNum(qRound(h-y))+" -c "+tmp4.setNum(-x)+" "+tmp.setNum(-y)+" translate";

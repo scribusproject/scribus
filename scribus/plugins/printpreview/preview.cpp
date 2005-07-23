@@ -441,7 +441,7 @@ int PPreview::RenderPreview(int Seite, int Res)
 	QString tmp, tmp2, tmp3;
 	double b = app->doc->pageWidth * Res / 72;
 	double h = app->doc->pageHeight * Res / 72;
-	cmd1 = prefsManager->appPrefs.gs_exe;
+	cmd1 = prefsManager->ghostscriptExecutable();
 	cmd1 += " -q -dNOPAUSE -r"+tmp.setNum(Res)+" -g"+tmp2.setNum(qRound(b))+"x"+tmp3.setNum(qRound(h));
 	if (EnableCMYK->isChecked())
 		cmd1 += " -sDEVICE=bitcmyk -dGrayValues=256";
