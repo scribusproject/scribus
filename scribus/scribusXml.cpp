@@ -3694,8 +3694,8 @@ void ScriXmlDoc::WritePref(QString ho)
 	dc8Pr.setAttribute("Black", static_cast<int>(Vor->PrPr_K));
 	elem.appendChild(dc8Pr);
 	QDomElement dc8Ex = docu.createElement("EXTERNAL");
-	dc8Ex.setAttribute("GIMP", Vor->imageEditorExecutable);
-	dc8Ex.setAttribute("GS", Vor->gs_exe);
+	dc8Ex.setAttribute("GIMP", prefsManager->imageEditorExecutable());
+	dc8Ex.setAttribute("GS", prefsManager->ghostscriptExecutable());
 	dc8Ex.setAttribute("AlphaGraphics", static_cast<int>(Vor->gs_AntiAliasGraphics));
 	dc8Ex.setAttribute("AlphaText", static_cast<int>(Vor->gs_AntiAliasText));
 	dc8Ex.setAttribute("Resolution", Vor->gs_Resolution);
@@ -4102,11 +4102,12 @@ bool ScriXmlDoc::ReadPref(QString ho, SplashScreen *splash, bool import12)
 		}
 		if (dc.tagName()=="EXTERNAL")
 		{
-			Vorein->gs_exe = dc.attribute("GS", "gs");
+			prefsManager->setGhostscriptExecutable(dc.attribute("GS", "gs"));
+			//Vorein->gs_exe = dc.attribute("GS", "gs");
 			Vorein->gs_AntiAliasText = static_cast<bool>(QStoInt(dc.attribute("AlphaText", "0")));
 			Vorein->gs_AntiAliasGraphics = static_cast<bool>(QStoInt(dc.attribute("AlphaGraphics", "0")));
 			Vorein->gs_Resolution = QStoInt(dc.attribute("Resolution", "72"));
-			Vorein->imageEditorExecutable = dc.attribute("GIMP", "gimp");
+			prefsManager->setImageEditorExecutable(dc.attribute("GIMP", "gimp"));
 		}
 		if (dc.tagName()=="HYPHEN")
 		{

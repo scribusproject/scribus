@@ -182,7 +182,7 @@ int callGS(const QStringList& args_in, const QString device)
 int callGS(const QString& args_in, const QString device)
 {
 	PrefsManager* prefsManager=PrefsManager::instance();
-	QString cmd1 = prefsManager->appPrefs.gs_exe;
+	QString cmd1 = prefsManager->ghostscriptExecutable();
 	cmd1 += " -q -dNOPAUSE";
 	// Choose rendering device
 	if (device != "")
@@ -224,7 +224,7 @@ QString getGSVersion()
 {
 	// Open a pipe to gs
 	FILE *fp = popen(QString("%1 --version")
-			.arg(PrefsManager::instance()->appPrefs.gs_exe).local8Bit(), "r");
+			.arg(PrefsManager::instance()->ghostscriptExecutable()).local8Bit(), "r");
 	if (!fp)
 		return QString::null;
 	// Read out the text

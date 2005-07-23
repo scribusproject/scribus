@@ -670,3 +670,23 @@ void PrefsManager::SavePrefsXML()
         prefsFile->write();
     }
 }
+
+void PrefsManager::setGhostscriptExecutable(const QString& executableName)
+{
+	appPrefs.gs_exe=executableName;
+}
+
+void PrefsManager::setImageEditorExecutable(const QString& executableName)
+{
+	appPrefs.imageEditorExecutable=executableName;
+}
+
+const QString PrefsManager::ghostscriptExecutable()
+{
+	return appPrefs.gs_exe;
+}
+
+const QString PrefsManager::imageEditorExecutable()
+{
+	return appPrefs.imageEditorExecutable;
+}

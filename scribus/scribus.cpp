@@ -261,11 +261,11 @@ int ScribusApp::initScribus(bool showSplash, bool showFontInfo, const QString ne
 		storyEditor = new StoryEditor(this);
 
 #ifndef _WIN32
-		HaveGS = system(prefsManager->appPrefs.gs_exe+" -h > /dev/null 2>&1");
-		HavePngAlpha = system(prefsManager->appPrefs.gs_exe+" -sDEVICE=pngalpha -c quit > /dev/null 2>&1");
+		HaveGS = system(prefsManager->ghostscriptExecutable()+" -h > /dev/null 2>&1");
+		HavePngAlpha = system(prefsManager->ghostscriptExecutable()+" -sDEVICE=pngalpha -c quit > /dev/null 2>&1");
 #else
-		HaveGS = system(prefsManager->appPrefs.gs_exe+" -h >NUL");
-		HavePngAlpha = system(prefsManager->appPrefs.gs_exe+" -sDEVICE=pngalpha -c quit >NUL");
+		HaveGS = system(prefsManager->ghostscriptExecutable()+" -h >NUL");
+		HavePngAlpha = system(prefsManager->ghostscriptExecutable()+" -sDEVICE=pngalpha -c quit >NUL");
 #endif
 		DocDir = prefsManager->appPrefs.DocDir;
 
@@ -8024,10 +8024,11 @@ void ScribusApp::slotPrefsOrg()
 		prefsManager->appPrefs.RandRechts = dia->GroupRand->RandR;
 		prefsManager->appPrefs.FacingPages = dia->facingPages->isChecked();
 		prefsManager->appPrefs.LeftPageFirst = dia->Linkszuerst->isChecked();
-		prefsManager->appPrefs.imageEditorExecutable = dia->GimpName->text();
+		prefsManager->setImageEditorExecutable(dia->GimpName->text());
 		prefsManager->appPrefs.gs_AntiAliasGraphics = dia->GSantiGraph->isChecked();
 		prefsManager->appPrefs.gs_AntiAliasText = dia->GSantiText->isChecked();
-		prefsManager->appPrefs.gs_exe = dia->GSName->text();
+		prefsManager->setGhostscriptExecutable(dia->GSName->text());
+		//prefsManager->appPrefs.gs_exe = dia->GSName->text();
 		prefsManager->appPrefs.gs_Resolution = dia->GSResolution->value();
 		prefsManager->appPrefs.ClipMargin = dia->ClipMarg->isChecked();
 		prefsManager->appPrefs.GCRMode = dia->DoGCR->isChecked();
@@ -10412,7 +10413,7 @@ void ScribusApp::callImageEditor()
 	QStringList cmd;
 	if (view->SelItem.count() != 0)
 	{
-		QString imageEditorExecutable=prefsManager->appPrefs.imageEditorExecutable;
+		QString imageEditorExecutable=prefsManager->imageEditorExecutable();
 		if (ExternalApp != 0)
 		{
 			QString mess = tr("The program")+" "+imageEditorExecutable;

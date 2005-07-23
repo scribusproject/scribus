@@ -558,7 +558,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	groupGSLayout->setAlignment( Qt::AlignTop );
 	GSlayout = new QHBoxLayout( 0, 0, 6, "GSlayout");
 	GSName = new QLineEdit( groupGS, "GSName" );
-	GSName->setText(prefsData->gs_exe);
+	GSName->setText(prefsManager->ghostscriptExecutable());
 	GSText = new QLabel( GSName, tr( "&Name of Executable:" ), groupGS, "GSText" );
 	GSlayout->addWidget( GSText );
 	GSlayout->addWidget( GSName );
@@ -587,7 +587,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	groupGimpLayout = new QHBoxLayout( groupGimp->layout() );
 	groupGimpLayout->setAlignment( Qt::AlignTop );
 	GimpName = new QLineEdit( groupGimp, "GimpName" );
-	GimpName->setText(prefsData->imageEditorExecutable);
+	GimpName->setText(prefsManager->imageEditorExecutable());
 	GimpText = new QLabel( GimpName, tr( "Name of &Executable:" ), groupGimp, "GimpText" );
 	groupGimpLayout->addWidget( GimpText );
 	groupGimpLayout->addWidget( GimpName );

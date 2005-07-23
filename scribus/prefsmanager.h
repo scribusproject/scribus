@@ -64,7 +64,12 @@ public:
 	void ReadPrefs();
 	void ReadPrefsXML();
 	void SavePrefs();
-	void SavePrefsXML();	
+	void SavePrefsXML();
+	
+	void setGhostscriptExecutable(const QString&);
+	void setImageEditorExecutable(const QString&);
+	const QString ghostscriptExecutable();
+	const QString imageEditorExecutable();
 
 	ApplicationPrefs* applicationPrefs();
 	PrefsFile* applicationPrefsFile();
