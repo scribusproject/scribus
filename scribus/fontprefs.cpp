@@ -27,6 +27,8 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, QString PPath
 	tab1 = new QWidget( this, "tab1" );
 	tab1Layout = new QVBoxLayout( tab1, 0, 5, "tab1Layout");
 	fontList = new QListView(tab1, "fontList" );
+	fontList->setAllColumnsShowFocus(true);
+	fontList->setShowSortIndicator(true);
 	fontList->addColumn( tr("Font Name", "font preview"));
 	fontList->addColumn( tr("Use Font", "font preview"));
 	fontList->addColumn( tr("Embed in:", "font preview"));
@@ -97,7 +99,7 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, QString PPath
 	fontList->setSorting(0);
 	fontList->sort();
 	UsedFonts.sort();
-	fontList->setSorting(-1);
+	//fontList->setSorting(-1);
 	tab1Layout->addWidget( fontList );
 	insertTab( tab1, tr( "&Available Fonts" ) );
 
@@ -424,9 +426,9 @@ void FontPrefs::RebuildDialog()
 		row->setText(4, it.current()->fontPath());
 		fontFlags.insert(it.currentKey(), foS);
 	}
-	fontList->setSorting(0);
+	//fontList->setSorting(0);
 	fontList->sort();
 	UsedFonts.sort();
-	fontList->setSorting(-1);
+	//fontList->setSorting(-1);
 	UpdateFliste();
 }
