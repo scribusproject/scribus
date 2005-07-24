@@ -38,6 +38,7 @@
 class Hruler;
 class Vruler;
 class UndoManager;
+class RulerMover;
 #include "mspinbox.h"
 #include "pageselector.h"
 
@@ -57,7 +58,7 @@ public:
   /** Vergroesserungseingabefeld */
 	MSpinBox* LE;
 	PageSelector* PGS;
-	QToolButton *UN;
+	RulerMover *UN;
 	Hruler *horizRuler;
 	Vruler *vertRuler;
   /** Dokument zu dem die Seite gehoert */
@@ -136,6 +137,8 @@ public:
 	QImage MPageToPixmap(QString name, int maxGr);
 	void RecalcPictures(ProfilesL *Pr, QProgressBar *dia = 0);
 	void RecalcPicturesRes();
+	void rulerMove(QMouseEvent *m);
+	void setRuler(QMouseEvent *m);
 	void FromHRuler(QMouseEvent *m);
 	void FromVRuler(QMouseEvent *m);
 	void SetYGuide(QMouseEvent *m, int oldIndex);

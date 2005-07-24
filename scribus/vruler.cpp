@@ -157,7 +157,6 @@ void Vruler::Draw(int wo)
 {
 	QPainter p;
 	p.begin(this);
-//	p.translate(0, -(offs-currDoc->minCanvasCoordinate.y())*currView->getScale());
 	p.translate(0, -currView->contentsY());
 	p.setPen(white);
 	p.setBrush(white);

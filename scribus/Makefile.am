@@ -132,6 +132,7 @@ scribus_SOURCES = \
 	query.cpp	\
 	rc4.c	\
 	reformdoc.cpp	\
+	rulermover.cpp	\
 	scfonts.cpp	\
 	scfonts_ttf.cpp	\
 	scfontmetrics.cpp	\
@@ -324,6 +325,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/prefstable.h                  $(prefix)/include/scribus/prefstable.h
 	$(INSTALL_DATA) $(srcdir)/query.h                       $(prefix)/include/scribus/query.h
 	$(INSTALL_DATA) $(srcdir)/rc4.h                         $(prefix)/include/scribus/rc4.h
+	$(INSTALL_DATA) $(srcdir)/rulermover.h                      $(prefix)/include/scribus/rulermover.h
 	$(INSTALL_DATA) $(srcdir)/reformdoc.h                   $(prefix)/include/scribus/reformdoc.h
 	$(INSTALL_DATA) $(srcdir)/scfonts.h                     $(prefix)/include/scribus/scfonts.h
 	$(INSTALL_DATA) $(srcdir)/scfonts_ttf.h                 $(prefix)/include/scribus/scfonts_ttf.h
@@ -499,6 +501,7 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/prefstable.h
 	-rm -f $(prefix)/include/scribus/query.h
 	-rm -f $(prefix)/include/scribus/rc4.h
+	-rm -f $(prefix)/include/scribus/rulermover.h
 	-rm -f $(prefix)/include/scribus/reformdoc.h
 	-rm -f $(prefix)/include/scribus/scfonts.h
 	-rm -f $(prefix)/include/scribus/scfonts_ttf.h

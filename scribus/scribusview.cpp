@@ -76,6 +76,7 @@
 #include "util.h"
 #include "story.h"
 #include "prefsmanager.h"
+#include "rulermover.h"
 
 using namespace std;
 
@@ -118,11 +119,11 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc) : QScrollView(parent,
 	LY->setFocusPolicy(QWidget::NoFocus);
 	horizRuler = new Hruler(this, Doc);
 	vertRuler = new Vruler(this, Doc);
-	UN = new QToolButton(this);
+	UN = new RulerMover(this);
 	Unitmen = new QPopupMenu(this);
-	UN->setPopup(Unitmen);
+//	UN->setPopup(Unitmen);
 	UN->setFocusPolicy(QWidget::NoFocus);
-	UN->setPopupDelay(10);
+//	UN->setPopupDelay(10);
 	Ready = true;
 	viewport()->setMouseTracking(true);
 	setAcceptDrops(true);
@@ -179,10 +180,11 @@ void ScribusView::languageChange()
 	LE->setSuffix( tr( " %" ) );
 	LY->setText( tr("Layer")+" 0");	
 	//CB TODO Convert to actions later
-	UN->setText(unitGetStrFromIndex(Doc->docUnitIndex));
+//	UN->setText(unitGetStrFromIndex(Doc->docUnitIndex));
 	Unitmen->clear();
 	for (int i=0;i<=unitGetMaxIndex();++i)
 		Unitmen->insertItem(unitGetStrFromIndex(i));
+	Unitmen->setItemChecked(Unitmen->idAt(Doc->docUnitIndex), true);
 
 }
 
@@ -1539,6 +1541,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		ScApp->scrActions["viewShowBaseline"]->addTo(pmen);
 		ScApp->scrActions["viewShowTextChain"]->addTo(pmen);
 		ScApp->scrActions["viewRulerMode"]->addTo(pmen);
+		pmen->insertSeparator();
+		pmen->insertItem( tr("Unit"), Unitmen);
 		pmen->insertSeparator();
 		ScApp->scrActions["viewSnapToGrid"]->addTo(pmen);
 		ScApp->scrActions["viewSnapToGuides"]->addTo(pmen);
@@ -8444,14 +8448,16 @@ void ScribusView::setRulerPos(int x, int y)
 		return;
 	if (Doc->guidesSettings.rulerMode)
 	{
-		horizRuler->offs = qRound(x / Scale + Doc->minCanvasCoordinate.x() - Doc->currentPage->Xoffset);
-		vertRuler->offs = qRound(y / Scale + Doc->minCanvasCoordinate.y() - Doc->currentPage->Yoffset);
+		horizRuler->offs = qRound(x / Scale - Doc->currentPage->Xoffset);
+		vertRuler->offs = qRound(y / Scale - Doc->currentPage->Yoffset);
 	}
 	else
 	{
-		horizRuler->offs = qRound(x / Scale + Doc->minCanvasCoordinate.x());
-		vertRuler->offs = qRound(y / Scale + Doc->minCanvasCoordinate.y());
+		horizRuler->offs = qRound(x / Scale);
+		vertRuler->offs = qRound(y / Scale);
 	}
+	horizRuler->offs += qRound(Doc->minCanvasCoordinate.x() - 1 - Doc->rulerXoffset);
+	vertRuler->offs += qRound(Doc->minCanvasCoordinate.y() - 1 - Doc->rulerYoffset);
 	horizRuler->repaint();
 	vertRuler->repaint();
 	evSpon = true;
@@ -8985,6 +8991,11 @@ void ScribusView::ChgUnit(int art)
 	int d = Unitmen->indexOf(art);
 	emit changeUN(d);
 	unitChange();
+	for (uint al = 0; al < Unitmen->count(); ++al)
+	{
+		Unitmen->setItemChecked(Unitmen->idAt(al), false);
+	}
+	Unitmen->setItemChecked(art, true);
 	vertRuler->repaint();
 	horizRuler->repaint();
 }
@@ -9178,6 +9189,54 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr)
 		previewMode = false;
 	}
 	return im;
+}
+
+void ScribusView::rulerMove(QMouseEvent *m)
+{
+	QPoint py = viewport()->mapFromGlobal(m->globalPos());
+	int newY = py.y();
+	int newX = py.x();
+	QPoint out = viewportToContents(py);
+	emit MousePos((py.x() + contentsX())/Scale, (py.y() + contentsY())/Scale);
+	horizRuler->Draw(out.x());
+	vertRuler->Draw(out.y());
+	QPainter p;
+	p.begin(viewport());
+	p.setRasterOp(XorROP);
+	p.setPen(QPen(white, 1, SolidLine, FlatCap, MiterJoin));
+	p.drawLine(0, DrHY, viewport()->width(), DrHY);
+	p.drawLine(0, newY, viewport()->width(), newY);
+	p.drawLine(DrVX, 0, DrVX, viewport()->height());
+	p.drawLine(newX, 0, newX, viewport()->height());
+	p.end();
+	DrHY = newY;
+	DrVX = newX;
+}
+
+void ScribusView::setRuler(QMouseEvent *m)
+{
+	QPoint py = viewport()->mapFromGlobal(m->globalPos());
+	Doc->rulerXoffset = (py.x() + contentsX()) / Scale + Doc->minCanvasCoordinate.x();
+	Doc->rulerYoffset = (py.y() + contentsY()) / Scale + Doc->minCanvasCoordinate.y();
+	if (Doc->guidesSettings.rulerMode)
+	{
+		Doc->rulerXoffset -= Doc->currentPage->Xoffset;
+		Doc->rulerYoffset -= Doc->currentPage->Yoffset;
+	}
+	setRulerPos(contentsX(), contentsY());
+	updateContents();
+	if (SelItem.count() != 0)
+	{
+		if (SelItem.count() > 1)
+		{
+			double x, y, w, h;
+			getGroupRect(&x, &y, &w, &h);
+			emit ItemPos(x, y);
+			emit ItemGeom(w, h);
+		}
+		else
+			EmitValues(SelItem.at(0));
+	}
 }
 
 void ScribusView::FromHRuler(QMouseEvent *m)

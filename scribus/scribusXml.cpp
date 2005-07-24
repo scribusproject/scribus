@@ -1908,7 +1908,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 			Its->NextBox = 0;
 		}
 	}
-	view->UN->setText(unitGetStrFromIndex(doc->docUnitIndex));
+//	view->UN->setText(unitGetStrFromIndex(doc->docUnitIndex));
 	dia2->setProgress(DOC.childNodes().count());
 	return true;
 }
