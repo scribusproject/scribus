@@ -176,7 +176,6 @@ public:
 	ProfilesL PDFXProfiles;
 	double DispX;
 	double DispY;
-	bool NoFonts;
 	int HaveDoc;
 	PrefsContext* dirs;
 	/** view is the main widget which represents your working area. The View
@@ -426,7 +425,6 @@ public slots:
 	bool SetupDoc();
 	void objectAttributes();
 	void generateTableOfContents();
-	const bool GetAllFonts(bool showFontInfo);
 	void buildFontMenu();
 	void slotPrefsOrg();
 	void slotEditStyles();
@@ -492,10 +490,11 @@ protected:
 private:
     /** init methods */
 	void initSplash(bool showSplash);
+	void setSplashStatus(const QString&);
 	void initMenuBar(); // initMenuBar creates the menu_bar and inserts the menuitems
 	void initStatusBar(); // setup the statusbar
 	void initToolBars(); // setup the toolbars
-	void initFonts(bool showFontInfo); // setup the toolbars
+	const bool initFonts(const bool showFontInfo);
 	void initHyphenator();
 	void initDefaultValues();
 	void initKeyboardShortcuts();

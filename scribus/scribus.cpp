@@ -221,9 +221,8 @@ int ScribusApp::initScribus(bool showSplash, bool showFontInfo, const QString ne
 
 	BuFromApp = false;
 
-	initFonts(showFontInfo);
-
-	if (NoFonts)
+	bool haveFonts=initFonts(showFontInfo);
+	if (!haveFonts)
 		retVal=1;
 	else
 	{
@@ -242,22 +241,13 @@ int ScribusApp::initScribus(bool showSplash, bool showFontInfo, const QString ne
 
 		fileWatcher = new FileWatcher(this);
 
-		if (splashScreen != NULL)
-			splashScreen->setStatus( tr("Initializing Plugins"));
-		qApp->processEvents();
+		setSplashStatus( tr("Initializing Plugins") );
 		pluginManager->initPlugs();
-
+		setSplashStatus( tr("Initializing Keyboard Shortcuts") );
 		initKeyboardShortcuts();
-
-		if (splashScreen != NULL)
-			splashScreen->setStatus( tr("Reading Preferences"));
-		qApp->processEvents();
-
+		setSplashStatus( tr("Reading Preferences") );
 		prefsManager->ReadPrefs();
-
-		if (splashScreen != NULL)
-			splashScreen->setStatus( tr("Initializing Story Editor"));
-		qApp->processEvents();
+		setSplashStatus( tr("Initializing Story Editor") );
 		storyEditor = new StoryEditor(this);
 
 #ifndef _WIN32
@@ -269,24 +259,16 @@ int ScribusApp::initScribus(bool showSplash, bool showFontInfo, const QString ne
 #endif
 		DocDir = prefsManager->appPrefs.DocDir;
 
-		if (splashScreen != NULL)
-			splashScreen->setStatus( tr("Reading ICC Profiles"));
+		setSplashStatus( tr("Reading ICC Profiles") );
 		CMSavail = false;
 		GetCMSProfiles();
 		initCMS();
 
-		if (splashScreen != NULL)
-			splashScreen->setStatus( tr("Initializing Hyphenator"));
-		qApp->processEvents();
+		setSplashStatus( tr("Initializing Hyphenator") );
 		initHyphenator();
-
-		if (splashScreen != NULL)
-			splashScreen->setStatus( tr("Reading Scrapbook"));
+		setSplashStatus( tr("Reading Scrapbook") );
 		initScrapbook();
-
-		if (splashScreen != NULL)
-			splashScreen->setStatus( tr("Setting up Shortcuts"));
-		qApp->processEvents();
+		setSplashStatus( tr("Setting up Shortcuts") );
 		SetShortCut();
 
 		emit prefsChanged();
@@ -317,10 +299,17 @@ void ScribusApp::initSplash(bool showSplash)
 	if (showSplash)
 	{
 		splashScreen = new SplashScreen();
-		splashScreen->setStatus(QObject::tr("Initializing..."));
+		setSplashStatus(QObject::tr("Initializing..."));
 	}
 	else
 		splashScreen = NULL;
+}
+
+void ScribusApp::setSplashStatus(const QString& newText)
+{
+	if (splashScreen != NULL)
+		splashScreen->setStatus( newText );
+	qApp->processEvents();
 }
 
 void ScribusApp::showSplash(bool shown)
@@ -371,14 +360,12 @@ void ScribusApp::initToolBars()
 	connect(pdfToolBar, SIGNAL(Schliessen()), this, SLOT(TogglePDFTools()));
 }
 
-void ScribusApp::initFonts(bool showFontInfo)
+//Returns false when there are no fonts
+const bool ScribusApp::initFonts(bool showFontInfo)
 {
-	if (splashScreen!=NULL) {
-		splashScreen->setStatus( tr("Searching for Fonts"));
-		qApp->processEvents();
-	}
-	NoFonts=GetAllFonts(showFontInfo);
-	if (NoFonts)
+	setSplashStatus( tr("Searching for Fonts") );
+	bool haveFonts=prefsManager->GetAllFonts(showFontInfo);
+	if (!haveFonts)
 	{
 		if (splashScreen!=NULL)
 			splashScreen->close(); // 10/10/2004 pv fix #1200
@@ -387,11 +374,8 @@ void ScribusApp::initFonts(bool showFontInfo)
 		QMessageBox::critical(this, tr("Fatal Error"), mess, 1, 0, 0);
 	}
 	else
-	if (splashScreen!=NULL)
-	{
-		splashScreen->setStatus( tr("Font System Initialized"));
-		qApp->processEvents();
-	}
+		setSplashStatus( tr("Font System Initialized") );
+	return haveFonts;
 }
 
 void ScribusApp::initDefaultValues()
@@ -7982,14 +7966,6 @@ void ScribusApp::buildFontMenu()
 		}
 	}
 	connect(FontMenu, SIGNAL(activated(int)), this, SLOT(setItemFont(int)));
-}
-
-const bool ScribusApp::GetAllFonts(bool showFontInfo)
-{
-	prefsManager->appPrefs.AvailFonts.GetFonts(PrefsPfad, showFontInfo);
-	if (prefsManager->appPrefs.AvailFonts.isEmpty())
-		return true;
-	return false;
 }
 
 void ScribusApp::slotPrefsOrg()

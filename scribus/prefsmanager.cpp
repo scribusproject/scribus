@@ -693,3 +693,12 @@ const QString PrefsManager::imageEditorExecutable()
 {
 	return appPrefs.imageEditorExecutable;
 }
+
+//Changed to return false when we have no fonts
+const bool PrefsManager::GetAllFonts(bool showFontInfo)
+{
+	appPrefs.AvailFonts.GetFonts(prefsLocation, showFontInfo);
+	if (appPrefs.AvailFonts.isEmpty())
+		return false;
+	return true;
+}

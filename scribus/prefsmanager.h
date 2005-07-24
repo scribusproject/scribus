@@ -70,6 +70,7 @@ public:
 	void setImageEditorExecutable(const QString&);
 	const QString ghostscriptExecutable();
 	const QString imageEditorExecutable();
+	const bool GetAllFonts(bool showFontInfo);
 
 	ApplicationPrefs* applicationPrefs();
 	PrefsFile* applicationPrefsFile();
