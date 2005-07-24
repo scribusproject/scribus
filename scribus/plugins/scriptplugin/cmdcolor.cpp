@@ -7,7 +7,7 @@ PyObject *scribus_colornames(PyObject* /* self */)
 	ColorList edc;
 	PyObject *l;
 	int cc = 0;
-	edc = Carrier->HaveDoc ? Carrier->doc->PageColors : PrefsManager::instance()->appPrefs.DColors;
+	edc = Carrier->HaveDoc ? Carrier->doc->PageColors : PrefsManager::instance()->colorSet();
 	ColorList::Iterator it;
 	l = PyList_New(edc.count());
 	for (it = edc.begin(); it != edc.end(); ++it)
@@ -30,7 +30,7 @@ PyObject *scribus_getcolor(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot get a color with an empty name.","python error"));
 		return NULL;
 	}
-	edc = Carrier->HaveDoc ? Carrier->doc->PageColors : PrefsManager::instance()->appPrefs.DColors;
+	edc = Carrier->HaveDoc ? Carrier->doc->PageColors : PrefsManager::instance()->colorSet();
 	QString col = QString::fromUtf8(Name);
 	if (!edc.contains(col))
 	{
@@ -52,7 +52,7 @@ PyObject *scribus_getcolorasrgb(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot get a color with an empty name.","python error"));
 		return NULL;
 	}
-	edc = Carrier->HaveDoc ? Carrier->doc->PageColors : PrefsManager::instance()->appPrefs.DColors;
+	edc = Carrier->HaveDoc ? Carrier->doc->PageColors : PrefsManager::instance()->colorSet();
 	QString col = QString::fromUtf8(Name);
 	if (!edc.contains(col))
 	{
@@ -86,12 +86,13 @@ PyObject *scribus_setcolor(PyObject* /* self */, PyObject* args)
 	}
 	else
 	{
-		if (!PrefsManager::instance()->appPrefs.DColors.contains(col))
+		ColorList* colorList=PrefsManager::instance()->colorSetPtr();
+		if (!colorList->contains(col))
 		{
 			PyErr_SetString(NotFoundError, QObject::tr("Color not found in default colors.","python error"));
 			return NULL;
 		}
-		PrefsManager::instance()->appPrefs.DColors[col].setColor(c, m, y, k);
+		(*colorList)[col].setColor(c, m, y, k);
 	}
 	Py_INCREF(Py_None);
 	return Py_None;
@@ -120,13 +121,13 @@ PyObject *scribus_newcolor(PyObject* /* self */, PyObject* args)
 		}
 	else
 		{
-			PrefsManager *prefsManager=PrefsManager::instance();
-			if (!prefsManager->appPrefs.DColors.contains(col))
-				prefsManager->appPrefs.DColors.insert(col, CMYKColor(c, m, y, k));
+			ColorList* colorList=PrefsManager::instance()->colorSetPtr();
+			if (!colorList->contains(col))
+				colorList->insert(col, CMYKColor(c, m, y, k));
 			else
 				// FIXME: Given that we have a changeColour function, should we really be
 				// silently changing colours in newColour?
-				prefsManager->appPrefs.DColors[col].setColor(c, m, y, k);
+				(*colorList)[col].setColor(c, m, y, k);
 		}
 	Py_INCREF(Py_None);
 	return Py_None;
@@ -160,8 +161,9 @@ PyObject *scribus_delcolor(PyObject* /* self */, PyObject* args)
 	}
 	else
 	{
-		if (PrefsManager::instance()->appPrefs.DColors.contains(col))
-			PrefsManager::instance()->appPrefs.DColors.remove(col);
+		ColorList* colorList=PrefsManager::instance()->colorSetPtr();
+		if (colorList->contains(col))
+			colorList->remove(col);
 		else
 		{
 			PyErr_SetString(NotFoundError, QObject::tr("Color not found in default colors.","python error"));

@@ -70,6 +70,15 @@ public:
 	void setImageEditorExecutable(const QString&);
 	const QString ghostscriptExecutable();
 	const QString imageEditorExecutable();
+	const QString documentDir(); // Get the users preferred document directory
+	const int mouseWheelValue();
+	void setShowStartupDialog(const bool);
+	void setColorSet(const ColorList&); // Sets the preferences' color set
+	void setColorSetName(const QString&); // Sets the preferences' color set name
+	const ColorList& colorSet(); // Returns the preferences' color set
+	ColorList* colorSetPtr(); // Returns a pointer to the preferences' color set. Needed for now until colors are better defined
+	const QString& colorSetName(); // Returns the preferences' color set name
+	
 	const bool GetAllFonts(bool showFontInfo);
 
 	ApplicationPrefs* applicationPrefs();

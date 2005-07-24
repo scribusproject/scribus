@@ -47,6 +47,7 @@ PrefsManager::PrefsManager(QObject *parent, const char *name)
 
 PrefsManager::~PrefsManager()
 {
+	appPrefs.AvailFonts.~SCFonts();
 	delete prefsFile;
 }
 
@@ -694,6 +695,16 @@ const QString PrefsManager::imageEditorExecutable()
 	return appPrefs.imageEditorExecutable;
 }
 
+const QString PrefsManager::documentDir()
+{
+	return appPrefs.DocDir;
+}
+
+const int PrefsManager::mouseWheelValue()
+{
+	return appPrefs.Wheelval;
+}
+
 //Changed to return false when we have no fonts
 const bool PrefsManager::GetAllFonts(bool showFontInfo)
 {
@@ -701,4 +712,34 @@ const bool PrefsManager::GetAllFonts(bool showFontInfo)
 	if (appPrefs.AvailFonts.isEmpty())
 		return false;
 	return true;
+}
+
+void PrefsManager::setShowStartupDialog(const bool showDialog)
+{
+	appPrefs.showStartupDialog=showDialog;
+}
+
+const ColorList& PrefsManager::colorSet()
+{
+	return appPrefs.DColors;
+}
+
+ColorList* PrefsManager::colorSetPtr()
+{
+	return &appPrefs.DColors;
+}
+
+const QString& PrefsManager::colorSetName()
+{
+	return appPrefs.DColorSet;
+}
+
+void PrefsManager::setColorSet(const ColorList& colorSet)
+{
+	appPrefs.DColors=colorSet;
+}
+
+void PrefsManager::setColorSetName(const QString& colorSetName)
+{
+	appPrefs.DColorSet=colorSetName;
 }

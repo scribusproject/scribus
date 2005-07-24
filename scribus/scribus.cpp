@@ -257,7 +257,7 @@ int ScribusApp::initScribus(bool showSplash, bool showFontInfo, const QString ne
 		HaveGS = system(prefsManager->ghostscriptExecutable()+" -h >NUL");
 		HavePngAlpha = system(prefsManager->ghostscriptExecutable()+" -sDEVICE=pngalpha -c quit >NUL");
 #endif
-		DocDir = prefsManager->appPrefs.DocDir;
+		DocDir = prefsManager->documentDir();
 
 		setSplashStatus( tr("Reading ICC Profiles") );
 		CMSavail = false;
@@ -431,7 +431,7 @@ void ScribusApp::initPalettes()
 	connect( scrActions["toolsProperties"], SIGNAL(toggled(bool)) , propertiesPalette, SLOT(setPaletteShown(bool)) );
 	connect( propertiesPalette, SIGNAL(paletteShown(bool)), scrActions["toolsProperties"], SLOT(setOn(bool)));
 	propertiesPalette->setPrefsContext("PropertiesPalette");
-	propertiesPalette->Cpal->SetColors(prefsManager->appPrefs.DColors);
+	propertiesPalette->Cpal->SetColors(prefsManager->colorSet());
 	propertiesPalette->Cpal->UseTrans(true);
 	propertiesPalette->Fonts->RebuildList(0);
 	propertiesPalette->installEventFilter(this);
@@ -1059,19 +1059,20 @@ void ScribusApp::wheelEvent(QWheelEvent *w)
 {
 	if (HaveDoc)
 	{
+		int wheelVal=prefsManager->mouseWheelValue();
 		if ((w->orientation() != Qt::Vertical) || ( w->state() & ShiftButton ))
 		{
 			if (w->delta() < 0)
-				view->scrollBy(prefsManager->appPrefs.Wheelval, 0);
+				view->scrollBy(wheelVal, 0);
 			else
-				view->scrollBy(-prefsManager->appPrefs.Wheelval, 0);
+				view->scrollBy(-wheelVal, 0);
 		}
 		else
 		{
 			if (w->delta() < 0)
-				view->scrollBy(0, prefsManager->appPrefs.Wheelval);
+				view->scrollBy(0, wheelVal);
 			else
-				view->scrollBy(0, -prefsManager->appPrefs.Wheelval);
+				view->scrollBy(0, -wheelVal);
 		}
 		w->accept();
 	}
@@ -1319,12 +1320,12 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 				return;
 				break;
 			case Key_Prior:
-				view->scrollBy(0, -prefsManager->appPrefs.Wheelval);
+				view->scrollBy(0, -prefsManager->mouseWheelValue());
 				keyrep = false;
 				return;
 				break;
 			case Key_Next:
-				view->scrollBy(0, prefsManager->appPrefs.Wheelval);
+				view->scrollBy(0, prefsManager->mouseWheelValue());
 				keyrep = false;
 				return;
 				break;
@@ -2243,7 +2244,6 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 		}
 		if (scrapbookPalette->objectCount() == 0)
 			unlink(PrefsPfad+"/scrap13.scs");
-		prefsManager->appPrefs.AvailFonts.~SCFonts();
 		exit(0);
 	}
 	else
@@ -2267,7 +2267,6 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 		if (scrapbookPalette->objectCount() == 0)
 			unlink(PrefsPfad+"/scrap13.scs");
 		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-		prefsManager->appPrefs.AvailFonts.~SCFonts();
 		pluginManager->finalizePlugs();
 		exit(0);
 	}
@@ -2398,7 +2397,7 @@ void ScribusApp::startUpDialog()
 			}
 		}
 	}
-	prefsManager->appPrefs.showStartupDialog = !dia->startUpDialog->isChecked();
+	prefsManager->setShowStartupDialog(!dia->startUpDialog->isChecked());
 	delete dia;
 	windowsMenuAboutToShow();
 	mainWindowStatusLabel->setText( tr("Ready"));
@@ -2498,7 +2497,7 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 	HaveDoc++;
 	DocNr++;
 	doc->appMode = modeNormal;
-	doc->PageColors = prefsManager->appPrefs.DColors;
+	doc->PageColors = prefsManager->colorSet();
 	doc->loading = true;
 	ScribusWin* w = new ScribusWin(wsp, doc);
 	if (view!=NULL)
@@ -4002,8 +4001,9 @@ bool ScribusApp::slotDocOpen()
 {
 	PrefsContext* docContext = prefsManager->prefsFile->getContext("docdirs", false);
 	QString docDir = ".";
-	if (prefsManager->appPrefs.DocDir != "")
-		docDir = docContext->get("docsopen", prefsManager->appPrefs.DocDir);
+	QString prefsDocDir=prefsManager->documentDir();
+	if (prefsDocDir != "")
+		docDir = docContext->get("docsopen", prefsDocDir);
 	else
 		docDir = docContext->get("docsopen", ".");
 	QString formats = "";
@@ -4696,8 +4696,9 @@ void ScribusApp::slotFileOpen()
 			formatD += " *.eps *.EPS *.pdf *.PDF";
 			formatD += ");;"+formats;
 			QString docDir = ".";
-			if (prefsManager->appPrefs.DocDir != "")
-				docDir = dirs->get("images", prefsManager->appPrefs.DocDir);
+			QString prefsDocDir=prefsManager->documentDir();
+			if (prefsDocDir != "")
+				docDir = dirs->get("images", prefsDocDir);
 			else
 				docDir = dirs->get("images", ".");
 			QString fileName = CFileDialog( docDir, tr("Open"), formatD, "", true);
@@ -4834,8 +4835,9 @@ bool ScribusApp::slotFileSaveAs()
 	}
 	else
 	{
-		if (prefsManager->appPrefs.DocDir != "")
-			wdir = docContext->get("save_as", prefsManager->appPrefs.DocDir);
+		QString prefsDocDir=prefsManager->documentDir();
+		if (prefsDocDir != "")
+			wdir = docContext->get("save_as", prefsDocDir);
 		else
 			wdir = docContext->get("save_as", ".");
 		if (wdir.right(1) != "/")
@@ -5030,7 +5032,7 @@ bool ScribusApp::DoFileClose()
 		mainToolBar->setEnabled(false);
 		pdfToolBar->setEnabled(false);
 		ColorMenC->clear();
-		propertiesPalette->Cpal->SetColors(prefsManager->appPrefs.DColors);
+		propertiesPalette->Cpal->SetColors(prefsManager->colorSet());
 		propertiesPalette->Cpal->ChooseGrad(0);
 		mainWindowStatusLabel->setText( tr("Ready"));
 		PrinterUsed = false;
@@ -5783,8 +5785,9 @@ void ScribusApp::SaveText()
 {
 	LoadEnc = "";
 	QString wdir = ".";
-	if (prefsManager->appPrefs.DocDir != "")
-		wdir = dirs->get("save_text", prefsManager->appPrefs.DocDir);
+	QString prefsDocDir=prefsManager->documentDir();
+	if (prefsDocDir != "")
+		wdir = dirs->get("save_text", prefsDocDir);
 	else
 		wdir = dirs->get("save_text", ".");
 	QString fn = CFileDialog( wdir, tr("Save as"), tr("Text Files (*.txt);;All Files(*)"), "", false, false, false, true);
@@ -7560,8 +7563,8 @@ void ScribusApp::slotEditColors()
 	if (HaveDoc)
 		edc = doc->PageColors;
 	else
-		edc = prefsManager->appPrefs.DColors;
-	Farbmanager* dia = new Farbmanager(this, edc, HaveDoc, prefsManager->appPrefs.DColorSet, prefsManager->appPrefs.CustomColorSets);
+		edc = prefsManager->colorSet();
+	Farbmanager* dia = new Farbmanager(this, edc, HaveDoc, prefsManager->colorSetName(), prefsManager->appPrefs.CustomColorSets);
 	if (dia->exec())
 	{
 		if (HaveDoc)
@@ -7689,9 +7692,9 @@ void ScribusApp::slotEditColors()
 		}
 		else
 		{
-			prefsManager->appPrefs.DColors = dia->EditColors;
-			prefsManager->appPrefs.DColorSet = dia->LoadColSet->text();
-			propertiesPalette->Cpal->SetColors(prefsManager->appPrefs.DColors);
+			prefsManager->setColorSet(dia->EditColors);
+			prefsManager->setColorSetName(dia->LoadColSet->text());
+			propertiesPalette->Cpal->SetColors(prefsManager->colorSet());
 		}
 	}
 	if (!HaveDoc)
@@ -7981,7 +7984,7 @@ void ScribusApp::slotPrefsOrg()
 		prefsManager->appPrefs.Wheelval = dia->SpinBox3->value();
 		prefsManager->appPrefs.RecentDCount = dia->Recen->value();
 		prefsManager->appPrefs.DocDir = dia->Docs->text();
-		DocDir = prefsManager->appPrefs.DocDir;
+		DocDir = prefsManager->documentDir();
 		prefsManager->appPrefs.ProfileDir = dia->ProPfad->text();
 		prefsManager->appPrefs.ScriptDir = dia->ScriptPfad->text();
 		prefsManager->appPrefs.documentTemplatesDir = dia->DocumentTemplateDir->text();
@@ -8448,8 +8451,9 @@ void ScribusApp::reallySaveAsEps()
 		fna = di.currentDirPath()+"/"+doc->DocName+".eps";
 	}
 	QString wdir = ".";
-	if (prefsManager->appPrefs.DocDir != "")
-		wdir = dirs->get("eps", prefsManager->appPrefs.DocDir);
+	QString prefsDocDir=prefsManager->documentDir();
+	if (prefsDocDir != "")
+		wdir = dirs->get("eps", prefsDocDir);
 	else
 		wdir = dirs->get("eps", ".");
 	QString fn = CFileDialog( wdir, tr("Save as"), tr("EPS Files (*.eps);;All Files (*)"), "", false, false);
@@ -9952,8 +9956,9 @@ QString ScribusApp::Collect(bool compress, bool withFonts)
 	bool compressR = compress;
 	bool withFontsR = withFonts;
 	QString wdir = ".";
-	if (prefsManager->appPrefs.DocDir != "")
-		wdir = dirs->get("collect", prefsManager->appPrefs.DocDir);
+	QString prefsDocDir=prefsManager->documentDir();
+	if (prefsDocDir != "")
+		wdir = dirs->get("collect", prefsDocDir);
 	else
 		wdir = dirs->get("collect", ".");
 	QString s = CFileDialog(wdir, tr("Choose a Directory"), "", "", false, false, false, false, true, &compressR, &withFontsR);

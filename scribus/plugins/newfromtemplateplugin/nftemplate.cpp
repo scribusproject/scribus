@@ -92,7 +92,7 @@ void MenuNFT::RunNFTPlug()
 		UndoManager::instance()->renameStack(nftdia->currentDocumentTemplate->name);
 		Carrier->doc->DocName = nftdia->currentDocumentTemplate->name;
 		Carrier->ActWin->setCaption(QObject::tr("Document Template: ") + nftdia->currentDocumentTemplate->name);
-		QDir::setCurrent(PrefsManager::instance()->appPrefs.DocDir);
+		QDir::setCurrent(PrefsManager::instance()->documentDir());
 		Carrier->removeRecent(QDir::cleanDirPath(nftdia->currentDocumentTemplate->file));
 		qApp->restoreOverrideCursor();
 	}

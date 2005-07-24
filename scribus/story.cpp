@@ -3375,7 +3375,7 @@ void StoryEditor::LoadTextFile()
 		QString LoadEnc = "";
 		QString fileName = "";
 		PrefsContext* dirs = prefsManager->prefsFile->getContext("dirs");
-		QString wdir = dirs->get("story_load", prefsManager->appPrefs.DocDir);
+		QString wdir = dirs->get("story_load", prefsManager->documentDir());
 		CustomFDialog dia(this, wdir, tr("Open"), tr("Text Files (*.txt);;All Files(*)"), false, true, false, true);
 		if (dia.exec() != QDialog::Accepted)
 			return;
