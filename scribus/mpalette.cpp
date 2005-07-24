@@ -1401,8 +1401,13 @@ void Mpalette::setXY(double x, double y)
 	inY = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
 	if (tmp)
 	{
-		inX -= doc->currentPage->Xoffset;
-		inY -= doc->currentPage->Yoffset;
+		inX -= doc->rulerXoffset;
+		inY -= doc->rulerYoffset;
+		if (doc->guidesSettings.rulerMode)
+		{
+			inX -= doc->currentPage->Xoffset;
+			inY -= doc->currentPage->Yoffset;
+		}
 	}
 	Xpos->setValue(inX*Umrech);
 	Ypos->setValue(inY*Umrech);
@@ -1798,8 +1803,13 @@ void Mpalette::NewX()
 	base = 0;
 	if ((HaveDoc) && (HaveItem))
 	{
-		x += doc->currentPage->Xoffset;
-		y += doc->currentPage->Yoffset;
+		x += doc->rulerXoffset;
+		y += doc->rulerYoffset;
+		if (doc->guidesSettings.rulerMode)
+		{
+			x += doc->currentPage->Xoffset;
+			y += doc->currentPage->Yoffset;
+		}
 		if (ScApp->view->GroupSel)
 		{
 			ScApp->view->getGroupRect(&gx, &gy, &gw, &gh);
@@ -1855,8 +1865,13 @@ void Mpalette::NewY()
 	base = 0;
 	if ((HaveDoc) && (HaveItem))
 	{
-		x += doc->currentPage->Xoffset;
-		y += doc->currentPage->Yoffset;
+		x += doc->rulerXoffset;
+		y += doc->rulerYoffset;
+		if (doc->guidesSettings.rulerMode)
+		{
+			x += doc->currentPage->Xoffset;
+			y += doc->currentPage->Yoffset;
+		}
 		if (ScApp->view->GroupSel)
 		{
 			ScApp->view->getGroupRect(&gx, &gy, &gw, &gh);

@@ -149,6 +149,8 @@ ScribusDoc::ScribusDoc() : UndoObject(QObject::tr("Document"))
 	FirstAuto = 0;
 	DraggedElem = 0;
 	GroupCounter = 1;
+	rulerXoffset = 0.0;
+	rulerYoffset = 0.0;
 	docParagraphStyles.clear();
 	struct ParagraphStyle vg;
 	vg.Vname = "Normal Internal";
@@ -277,7 +279,7 @@ ScribusDoc::ScribusDoc() : UndoObject(QObject::tr("Document"))
 	ScratchTop = prefsData->ScratchTop;
 	ScratchBottom = prefsData->ScratchBottom;
 	minCanvasCoordinate = FPoint(0, 0);
-	maxCanvasCoordinate = FPoint(ScratchLeft + pageWidth + ScratchRight, ScratchTop + pageHeight + ScratchBottom);
+	maxCanvasCoordinate = FPoint(ScratchLeft + ScratchRight, ScratchTop + ScratchBottom);
 	arrowStyles = prefsData->arrowStyles;
 	undoManager = UndoManager::instance();
 	docItemErrors.clear();

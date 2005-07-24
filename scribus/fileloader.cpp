@@ -476,6 +476,8 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 		doc->guidesSettings.linkShown = static_cast<bool>(QStoInt(dc.attribute("SHOWLINK", "0")));
 		doc->guidesSettings.showControls = static_cast<bool>(QStoInt(dc.attribute("SHOWControl","0")));
 		doc->guidesSettings.rulerMode = static_cast<bool>(QStoInt(dc.attribute("rulerMode","1")));
+		doc->rulerXoffset = QStodouble(dc.attribute("rulerXoffset", "0"));
+		doc->rulerYoffset =QStodouble(dc.attribute("rulerYoffset", "0"));
 		doc->SnapGuides = static_cast<bool>(QStoInt(dc.attribute("SnapToGuides","0")));
 		doc->useRaster = static_cast<bool>(QStoInt(dc.attribute("SnapToGrid","0")));
 		doc->toolSettings.polyC = QStoInt(dc.attribute("POLYC", "4"));

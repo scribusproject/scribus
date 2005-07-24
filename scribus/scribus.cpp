@@ -953,13 +953,22 @@ void ScribusApp::initStatusBar()
 
 void ScribusApp::setMousePositionOnStatusBar(double xp, double yp)
 {
+	double xn = xp;
+	double yn = yp;
+	if (doc->guidesSettings.rulerMode)
+	{
+		xn -= doc->currentPage->Xoffset;
+		yn -= doc->currentPage->Yoffset;
+	}
+	xn -= doc->rulerXoffset;
+	yn -= doc->rulerYoffset;
 	QString suffix=unitGetSuffixFromIndex(doc->docUnitIndex);
 	int multiplier=unitGetDecimalsFromIndex(doc->docUnitIndex);
 	double divisor=static_cast<double>(multiplier);
 	int precision=unitGetPrecisionFromIndex(doc->docUnitIndex);
 	QString tmp;
-	mainWindowXPosDataLabel->setText(tmp.setNum(qRound(xp*doc->unitRatio * multiplier) / divisor, 'f', precision) + suffix);
-	mainWindowYPosDataLabel->setText(tmp.setNum(qRound(yp*doc->unitRatio * multiplier) / divisor, 'f', precision) + suffix);
+	mainWindowXPosDataLabel->setText(tmp.setNum(qRound(xn*doc->unitRatio * multiplier) / divisor, 'f', precision) + suffix);
+	mainWindowYPosDataLabel->setText(tmp.setNum(qRound(yn*doc->unitRatio * multiplier) / divisor, 'f', precision) + suffix);
 }
 
 void ScribusApp::SetKeyEntry(QString actName, QString cleanMenuText, QString keyseq, int rowNumber)

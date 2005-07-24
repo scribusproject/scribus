@@ -116,6 +116,8 @@ public: // Public attributes
 /** Minimum and Maximum Points of Document */
 	FPoint minCanvasCoordinate;
 	FPoint maxCanvasCoordinate;
+	double rulerXoffset;
+	double rulerYoffset;
   /** List of Pages */
 	QPtrList<Page> Pages;
   /** List of Master Pages */

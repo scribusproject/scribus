@@ -900,7 +900,7 @@ void ScribusView::contentsDragMoveEvent(QDragMoveEvent *e)
 				PaintSizeRect(&p, QRect(pv, QPoint(pv.x()+qRound(gw), pv.y()+qRound(gh))));
 			DraggedGroupFirst = false;
 			p.end();
-			emit MousePos(GroupX-Doc->currentPage->Xoffset+Doc->minCanvasCoordinate.x(), GroupY-Doc->currentPage->Yoffset+Doc->minCanvasCoordinate.y());
+			emit MousePos(GroupX+Doc->minCanvasCoordinate.x(), GroupY+Doc->minCanvasCoordinate.y());
 			horizRuler->Draw(e->pos().x());
 			vertRuler->Draw(e->pos().y());
 			return;
@@ -2799,7 +2799,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 	double sc = Scale;
 	horizRuler->Draw(m->x());
 	vertRuler->Draw(m->y());
-	emit MousePos(m->x()/Scale-Doc->currentPage->Xoffset + Doc->minCanvasCoordinate.x(), m->y()/Scale-Doc->currentPage->Yoffset + Doc->minCanvasCoordinate.y());
+	emit MousePos(m->x()/Scale + Doc->minCanvasCoordinate.x(), m->y()/Scale + Doc->minCanvasCoordinate.y());
 	if (Doc->guidesSettings.guidesShown)
 	{
 		if (MoveGY)
@@ -9185,7 +9185,7 @@ void ScribusView::FromHRuler(QMouseEvent *m)
 	QPoint py = viewport()->mapFromGlobal(m->globalPos());
 	int newY = py.y();
 	QPoint out = viewportToContents(py);
-	emit MousePos((py.x() + contentsX())/Scale-Doc->currentPage->Xoffset, (py.y() + contentsY())/Scale-Doc->currentPage->Yoffset);
+	emit MousePos((py.x() + contentsX())/Scale, (py.y() + contentsY())/Scale);
 	horizRuler->Draw(out.x());
 	vertRuler->Draw(out.y());
 	QPainter p;
@@ -9203,7 +9203,7 @@ void ScribusView::FromVRuler(QMouseEvent *m)
 	QPoint py = viewport()->mapFromGlobal(m->globalPos());
 	int newY = py.x();
 	QPoint out = viewportToContents(py);
-	emit MousePos((py.x() + contentsX())/Scale-Doc->currentPage->Xoffset, (py.y() + contentsY())/Scale-Doc->currentPage->Yoffset);
+	emit MousePos((py.x() + contentsX())/Scale, (py.y() + contentsY())/Scale);
 	horizRuler->Draw(out.x());
 	vertRuler->Draw(out.y());
 	QPainter p;

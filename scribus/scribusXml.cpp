@@ -3135,6 +3135,8 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	dc.setAttribute("SHOWControl", static_cast<int>(doc->guidesSettings.showControls));
 	dc.setAttribute("SHOWLINK", static_cast<int>(doc->guidesSettings.linkShown));
 	dc.setAttribute("rulerMode", static_cast<int>(doc->guidesSettings.rulerMode));
+	dc.setAttribute("rulerXoffset", doc->rulerXoffset);
+	dc.setAttribute("rulerYoffset", doc->rulerYoffset);
 	dc.setAttribute("GuideRad", doc->guidesSettings.guideRad);
 	dc.setAttribute("GRAB",doc->guidesSettings.grabRad);
 	dc.setAttribute("POLYC", doc->toolSettings.polyC);
