@@ -439,8 +439,8 @@ int PPreview::RenderPreview(int Seite, int Res)
 			return ret;
 	}
 	QString tmp, tmp2, tmp3;
-	double b = app->doc->pageWidth * Res / 72;
-	double h = app->doc->pageHeight * Res / 72;
+	double b = app->doc->Pages.at(Seite)->Width * Res / 72;
+	double h = app->doc->Pages.at(Seite)->Height * Res / 72;
 	cmd1 = prefsManager->ghostscriptExecutable();
 	cmd1 += " -q -dNOPAUSE -r"+tmp.setNum(Res)+" -g"+tmp2.setNum(qRound(b))+"x"+tmp3.setNum(qRound(h));
 	if (EnableCMYK->isChecked())

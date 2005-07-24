@@ -3150,6 +3150,8 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	dc.setAttribute("ScratchLeft", doc->ScratchLeft);
 	dc.setAttribute("ScratchRight", doc->ScratchRight);
 	dc.setAttribute("ScratchTop", doc->ScratchTop);
+	dc.setAttribute("GapHorizontal", doc->PageGapHorizontal);
+	dc.setAttribute("GapVertical", doc->PageGapVertical);
 	dc.setAttribute("StartArrow", doc->toolSettings.dStartArrow);
 	dc.setAttribute("EndArrow", doc->toolSettings.dEndArrow);
 	dc.setAttribute("PEN",doc->toolSettings.dPen);
@@ -3527,6 +3529,8 @@ void ScriXmlDoc::WritePref(QString ho)
 	dc.setAttribute("ScratchLeft", Vor->ScratchLeft);
 	dc.setAttribute("ScratchRight", Vor->ScratchRight);
 	dc.setAttribute("ScratchTop", Vor->ScratchTop);
+	dc.setAttribute("GapHorizontal", Vor->PageGapHorizontal);
+	dc.setAttribute("GapVertical", Vor->PageGapVertical);
 	dc.setAttribute("STECOLOR", Vor->STEcolor.name());
 	dc.setAttribute("STEFONT", Vor->STEfont);
 	dc.setAttribute("STYLEPREVIEW", static_cast<int>(Vor->haveStylePreview));
@@ -3908,6 +3912,8 @@ bool ScriXmlDoc::ReadPref(QString ho, SplashScreen *splash, bool import12)
 				Vorein->ScratchLeft = QStodouble(dc.attribute("ScratchLeft", "100"));
 			Vorein->ScratchRight = QStodouble(dc.attribute("ScratchRight", "100"));
 			Vorein->ScratchTop = QStodouble(dc.attribute("ScratchTop", "20"));
+			Vorein->PageGapHorizontal = QStodouble(dc.attribute("GapHorizontal", "0"));
+			Vorein->PageGapVertical = QStodouble(dc.attribute("GapVertical", "40"));
 			if (dc.hasAttribute("STECOLOR"))
 				Vorein->STEcolor = QColor(dc.attribute("STECOLOR"));
 			if (dc.hasAttribute("STEFONT"))

@@ -55,6 +55,11 @@ public:
 	MSpinBox* bottomScratch;
 	MSpinBox* leftScratch;
 	MSpinBox* rightScratch;
+	QGroupBox* groupGap;
+	MSpinBox* gapVertical;
+	MSpinBox* gapHorizontal;
+	QLabel* TextLabel5sg;
+	QLabel* TextLabel7sg;
 	QCheckBox* facingPages;
 	QCheckBox* firstPage;
 	QLabel* Linkss;
@@ -108,6 +113,8 @@ protected:
 	QHBoxLayout* dsGroupBox7Layout;
 	QHBoxLayout* groupBox7aLayout;
 	QHBoxLayout* groupScratchLayout;
+	QHBoxLayout* groupGapLayout;
+	QGridLayout* layout4sg;
 	QGridLayout* dsLayout4;
 	QGridLayout* layout4;
 	QGridLayout* layout4a;

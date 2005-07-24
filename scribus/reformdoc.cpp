@@ -272,6 +272,37 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	layout4s->addWidget( Rechtss, 1, 2 );
 	groupScratchLayout->addLayout( layout4s );
 	tabViewLayout->addWidget( groupScratch );
+
+	groupGap = new QGroupBox( tabView, "GroupBox7" );
+	groupGap->setTitle( tr( "Gaps between Pages" ) );
+	groupGap->setColumnLayout(0, Qt::Vertical );
+	groupGap->layout()->setSpacing( 0 );
+	groupGap->layout()->setMargin( 0 );
+	groupGapLayout = new QHBoxLayout( groupGap->layout() );
+	groupGapLayout->setAlignment( Qt::AlignTop );
+	groupGapLayout->setSpacing( 0 );
+	groupGapLayout->setMargin( 10 );
+	layout4sg = new QGridLayout;
+	layout4sg->setSpacing( 6 );
+	layout4sg->setMargin( 0 );
+	gapHorizontal = new MSpinBox( groupGap, 4 );
+	gapHorizontal->setSuffix( ein );
+	gapHorizontal->setDecimals( decimals );
+	gapHorizontal->setMaxValue(1000);
+	gapHorizontal->setValue(doc->PageGapHorizontal * unitRatio);
+	layout4sg->addWidget( gapHorizontal, 0, 1 );
+	TextLabel5sg = new QLabel(gapHorizontal, tr( "Horizontal:" ), groupGap, "TextLabel5" );
+	layout4sg->addWidget( TextLabel5sg, 0, 0 );
+	gapVertical = new MSpinBox( groupGap, 4 );
+	gapVertical->setSuffix( ein );
+	gapVertical->setDecimals( decimals );
+	gapVertical->setMaxValue(1000);
+	gapVertical->setValue(doc->PageGapVertical * unitRatio);
+	layout4sg->addWidget( gapVertical, 0, 3 );
+	TextLabel7sg = new QLabel(gapVertical, tr( "Vertical:" ), groupGap, "Links" );
+	layout4sg->addWidget( TextLabel7sg, 0, 2 );
+	groupGapLayout->addLayout( layout4sg );
+	tabViewLayout->addWidget( groupGap );
 	addItem( tr("Display"), loadIcon("screen.png"), tabView);
 
 	tabTypo = new TabTypograpy(  prefsWidgets, &doc->typographicSetttings);
@@ -387,6 +418,8 @@ void ReformDoc::restoreDefaults()
 		leftScratch->setValue(currDoc->ScratchLeft * unitRatio);
 		bottomScratch->setValue(currDoc->ScratchBottom * unitRatio);
 		rightScratch->setValue(currDoc->ScratchRight * unitRatio);
+		gapVertical->setValue(currDoc->PageGapVertical * unitRatio);
+		gapHorizontal->setValue(currDoc->PageGapHorizontal * unitRatio);
 	}
 	else if (current == tabHyphenator)
 	{
@@ -439,6 +472,8 @@ void ReformDoc::unitChange()
 	bottomScratch->setSuffix(einh);
 	leftScratch->setSuffix(einh);
 	rightScratch->setSuffix(einh);
+	gapVertical->setSuffix( einh );
+	gapHorizontal->setSuffix( einh );
 	tabPDF->BleedBottom->setSuffix(einh);
 	tabPDF->BleedTop->setSuffix(einh);
 	tabPDF->BleedRight->setSuffix(einh);
@@ -472,6 +507,10 @@ void ReformDoc::unitChange()
 	leftScratch->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 	rightScratch->getValues(&oldMin, &oldMax, &decimalsOld, &val);
 	rightScratch->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
+	gapVertical->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	gapVertical->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
+	gapHorizontal->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	gapHorizontal->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 	tabPDF->BleedBottom->getValues(&oldMin, &oldMax, &decimalsOld, &val);
 	tabPDF->BleedBottom->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 	tabPDF->BleedTop->getValues(&oldMin, &oldMax, &decimalsOld, &val);

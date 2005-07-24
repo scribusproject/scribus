@@ -894,7 +894,7 @@ void ActionManager::languageChange()
 	(*scrActions)["pageMove"]->setTexts( tr("&Move..."));
 	(*scrActions)["pageApplyMasterPage"]->setTexts( tr("&Apply Master Page..."));
 	(*scrActions)["pageManageGuides"]->setTexts( tr("Manage &Guides..."));
-	(*scrActions)["pageManageMargins"]->setTexts( tr("Manage Margins..."));
+	(*scrActions)["pageManageMargins"]->setTexts( tr("Manage Page Properties..."));
 
 	//View Menu
 	(*scrActions)["viewFitInWindow"]->setTexts( tr("&Fit in window"));

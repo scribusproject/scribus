@@ -286,6 +286,8 @@ void PrefsManager::initDefaults()
 	appPrefs.ScratchRight = 100;
 	appPrefs.ScratchTop = 20;
 	appPrefs.ScratchBottom = 20;
+	appPrefs.PageGapVertical = 40;
+	appPrefs.PageGapHorizontal = 0;
 	appPrefs.askBeforeSubstituite = true;
 	appPrefs.haveStylePreview = true;
 	// lorem ipsum defaults

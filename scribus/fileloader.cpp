@@ -496,6 +496,8 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 			doc->ScratchLeft = QStodouble(dc.attribute("ScratchLeft", "100"));
 		doc->ScratchRight = QStodouble(dc.attribute("ScratchRight", "100"));
 		doc->ScratchTop = QStodouble(dc.attribute("ScratchTop", "20"));
+		doc->PageGapHorizontal = QStodouble(dc.attribute("GapHorizontal", "0"));
+		doc->PageGapVertical = QStodouble(dc.attribute("GapVertical", "40"));
 		doc->toolSettings.dStartArrow = QStoInt(dc.attribute("StartArrow", "0"));
 		doc->toolSettings.dEndArrow = QStoInt(dc.attribute("EndArrow", "0"));
 		doc->toolSettings.scaleX = QStodouble(dc.attribute("PICTSCX","1"));
@@ -921,6 +923,8 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 				else
 					Apage->Width=QStodouble(pg.attribute("PAGEWITH"));
 				Apage->Height = QStodouble(pg.attribute("PAGEHEIGHT"));
+				Apage->initialHeight = Apage->Height;
+				Apage->initialWidth = Apage->Width;
 				Apage->initialMargins.Top = QStodouble(pg.attribute("BORDERTOP"));
 				Apage->initialMargins.Bottom = QStodouble(pg.attribute("BORDERBOTTOM"));
 				Apage->initialMargins.Left = QStodouble(pg.attribute("BORDERLEFT"));

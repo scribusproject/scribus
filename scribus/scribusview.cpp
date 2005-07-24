@@ -1546,6 +1546,10 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		pmen->insertSeparator();
 		ScApp->scrActions["viewSnapToGrid"]->addTo(pmen);
 		ScApp->scrActions["viewSnapToGuides"]->addTo(pmen);
+		pmen->insertSeparator();
+		ScApp->scrActions["pageApplyMasterPage"]->addTo(pmen);
+		ScApp->scrActions["pageManageGuides"]->addTo(pmen);
+		ScApp->scrActions["pageManageMargins"]->addTo(pmen);
 		pmen->exec(QCursor::pos());
 		setGlobalUndoMode();
 		delete pmen;
@@ -8622,11 +8626,18 @@ void ScribusView::reformPages()
 	QMap<uint, oldPageVar> pageTable;
 	struct oldPageVar oldPg;
 	FPoint maxSize;
+	double maxYPos, maxXPos, currentXPos, currentYPos;
+	maxYPos = 0;
+	maxXPos = 0;
+	currentYPos = Doc->ScratchTop;
+	currentXPos = Doc->ScratchLeft;
+	if ((Doc->PageFP) && (!Doc->FirstPageLeft))
+		currentXPos += Doc->pageWidth+Doc->PageGapHorizontal;
 	for (uint a = 0; a < Doc->Pages.count(); ++a)
 	{
 		Seite = Doc->Pages.at(a);
-		Seite->Width = Doc->pageWidth;
-		Seite->Height = Doc->pageHeight;
+		Seite->Width = Seite->initialWidth;
+		Seite->Height = Seite->initialHeight;
 		oldPg.oldXO = Seite->Xoffset;
 		oldPg.oldYO = Seite->Yoffset;
 		oldPg.newPg = a;
@@ -8693,39 +8704,38 @@ void ScribusView::reformPages()
 		{
 			if (Doc->PageFP)
 			{
-				if (a % 2 == 0)
+				Seite->Xoffset = currentXPos;
+				Seite->Yoffset = currentYPos;
+				if (a % 2 != 0)
 				{
 					if (Doc->FirstPageLeft)
 					{
-						Seite->Xoffset = Doc->ScratchLeft;
-						Seite->Yoffset = a/2 * (Doc->pageHeight+Doc->ScratchBottom+Doc->ScratchTop)+Doc->ScratchTop;
+						currentXPos = Doc->ScratchLeft;
+						currentYPos += QMAX(Doc->pageHeight, Seite->Height)+Doc->PageGapVertical;
 					}
 					else
-					{
-						Seite->Xoffset = Doc->ScratchLeft + Doc->pageWidth;
-						Seite->Yoffset = (a+1)/2 * (Doc->pageHeight+Doc->ScratchBottom+Doc->ScratchTop)+Doc->ScratchTop;
-					}
+						currentXPos += QMAX(Doc->pageWidth, Seite->Width) + Doc->PageGapHorizontal;
 				}
 				else
 				{
 					if (Doc->FirstPageLeft)
-					{
-						Seite->Xoffset = Doc->ScratchLeft + Doc->pageWidth;
-						Seite->Yoffset = a/2 * (Doc->pageHeight+Doc->ScratchBottom+Doc->ScratchTop)+Doc->ScratchTop;
-					}
+						currentXPos += QMAX(Doc->pageWidth, Seite->Width) + Doc->PageGapHorizontal;
 					else
 					{
-						Seite->Xoffset = Doc->ScratchLeft;
-						Seite->Yoffset = (a+1)/2 * (Doc->pageHeight+Doc->ScratchBottom+Doc->ScratchTop)+Doc->ScratchTop;
+						currentXPos = Doc->ScratchLeft;
+						currentYPos += QMAX(Doc->pageHeight, Seite->Height)+Doc->PageGapVertical;
 					}
 				}
 			}
 			else
 			{
-				Seite->Xoffset = Doc->ScratchLeft;
-				Seite->Yoffset = a * (Doc->pageHeight+Doc->ScratchBottom+Doc->ScratchTop)+Doc->ScratchTop;
+				Seite->Xoffset = currentXPos;
+				Seite->Yoffset = currentYPos;
+				currentYPos += QMAX(Doc->pageHeight, Seite->Height)+Doc->PageGapVertical;
 			}
 		}
+		maxXPos = QMAX(maxXPos, Seite->Xoffset+Seite->Width+Doc->ScratchRight);
+		maxYPos = QMAX(maxYPos, Seite->Yoffset+Seite->Height+Doc->ScratchBottom);
 	}
 	for (uint ite = 0; ite < Doc->Items.count(); ++ite)
 	{
@@ -8746,15 +8756,7 @@ void ScribusView::reformPages()
 		}
 		setRedrawBounding(item);
 	}
-	if (Doc->PageFP)
-	{
-		if (Doc->FirstPageLeft)
-			maxSize = FPoint(Doc->pageWidth*2+Doc->ScratchLeft+Doc->ScratchRight, ((Doc->pageCount-1)/2 + 1) * (Doc->pageHeight+Doc->ScratchBottom+Doc->ScratchTop));
-		else
-			maxSize = FPoint(Doc->pageWidth*2+Doc->ScratchLeft+Doc->ScratchRight, (Doc->pageCount/2 + 1) * (Doc->pageHeight+Doc->ScratchBottom+Doc->ScratchTop));
-	}
-	else
-		maxSize = FPoint(Doc->pageWidth+Doc->ScratchLeft+Doc->ScratchRight, Doc->pageCount * (Doc->pageHeight+Doc->ScratchBottom+Doc->ScratchTop));
+	maxSize = FPoint(maxXPos, maxYPos);
 	adjustCanvas(FPoint(0,0), maxSize);
 	if (!ScApp->ScriptRunning)
 		setContentsPos(qRound((Doc->currentPage->Xoffset-10 - Doc->minCanvasCoordinate.x()) * Scale), qRound((Doc->currentPage->Yoffset-10 - Doc->minCanvasCoordinate.y()) * Scale));

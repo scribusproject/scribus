@@ -108,6 +108,11 @@ public:
 	QLabel* TextLabel5s;
 	QLabel* Linkss;
 	QLabel* Rechtss;
+	QGroupBox* groupGap;
+	MSpinBox* gapVertical;
+	MSpinBox* gapHorizontal;
+	QLabel* TextLabel5sg;
+	QLabel* TextLabel7sg;
 
 	TabTools* tabTools;
 
@@ -232,10 +237,12 @@ protected:
 	//! layout of the lorem ipsum group
 	QVBoxLayout* groupLILayout;
 	QVBoxLayout* tabViewLayout;
-	QVBoxLayout* pageBackgroundLayout;
+	QGridLayout* pageBackgroundLayout;
 	QHBoxLayout* layout10;
 	QHBoxLayout* groupScratchLayout;
 	QGridLayout* Layout4s;
+	QHBoxLayout* groupGapLayout;
+	QGridLayout* layout4sg;
 	// plugin manager
 	QVBoxLayout* plugLayout1;
 	QVBoxLayout* pluginMainLayout;

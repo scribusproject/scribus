@@ -41,6 +41,8 @@ public:
 	double Yoffset;
 	double Width;
 	double Height;
+	double initialWidth;
+	double initialHeight;
 	MarginStruct Margins;
 	MarginStruct initialMargins;
   /** Nummer der Seite */

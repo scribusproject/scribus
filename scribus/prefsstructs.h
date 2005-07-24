@@ -201,6 +201,8 @@ struct ApplicationPrefs
 	double ScratchRight;
 	double ScratchTop;
 	double ScratchBottom;
+	double PageGapVertical;
+	double PageGapHorizontal;
 	bool askBeforeSubstituite;
 	bool haveStylePreview;
 	// lorem ipsum

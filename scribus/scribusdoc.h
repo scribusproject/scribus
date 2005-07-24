@@ -113,6 +113,8 @@ public: // Public attributes
 	double ScratchRight;
 	double ScratchTop;
 	double ScratchBottom;
+	double PageGapVertical;
+	double PageGapHorizontal;
 /** Minimum and Maximum Points of Document */
 	FPoint minCanvasCoordinate;
 	FPoint maxCanvasCoordinate;

@@ -29,6 +29,8 @@ Page::Page(double x, double y, double b, double h) : UndoObject(QObject::tr("Pag
 	Yoffset = y;
 	Width = b;
 	Height = h;
+	initialWidth = b;
+	initialHeight = h;
 	Margins.Top = 40;
 	Margins.Left = 40;
 	Margins.Right = 40;

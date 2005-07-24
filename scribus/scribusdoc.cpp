@@ -278,6 +278,8 @@ ScribusDoc::ScribusDoc() : UndoObject(QObject::tr("Document"))
 	ScratchRight = prefsData->ScratchRight;
 	ScratchTop = prefsData->ScratchTop;
 	ScratchBottom = prefsData->ScratchBottom;
+	PageGapVertical = prefsData->PageGapVertical;
+	PageGapHorizontal = prefsData->PageGapHorizontal;
 	minCanvasCoordinate = FPoint(0, 0);
 	maxCanvasCoordinate = FPoint(ScratchLeft + ScratchRight, ScratchTop + ScratchBottom);
 	arrowStyles = prefsData->arrowStyles;

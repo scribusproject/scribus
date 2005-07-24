@@ -2773,6 +2773,38 @@ bool ScribusApp::SetupDoc()
 		doc->PageSize = dia->prefsPageSizeName;
 		doc->pageWidth = dia->pageWidth;
 		doc->pageHeight = dia->pageHeight;
+		for (uint p = 0; p < doc->Pages.count(); ++p)
+		{
+			Page *pp = doc->Pages.at(p);
+			pp->Width = doc->pageWidth;
+			pp->Height = doc->pageHeight;
+			pp->initialWidth = doc->pageWidth;
+			pp->initialHeight = doc->pageHeight;
+			pp->Margins.Left = rr2;
+			pp->Margins.Right = lr2;
+			pp->Margins.Top = tpr2;
+			pp->Margins.Bottom = br2;
+			pp->initialMargins.Left = rr2;
+			pp->initialMargins.Right = lr2;
+			pp->initialMargins.Top = tpr2;
+			pp->initialMargins.Bottom = br2;
+		}
+		for (uint p = 0; p < doc->MasterPages.count(); ++p)
+		{
+			Page *pp = doc->MasterPages.at(p);
+			pp->Width = doc->pageWidth;
+			pp->Height = doc->pageHeight;
+			pp->initialWidth = doc->pageWidth;
+			pp->initialHeight = doc->pageHeight;
+			pp->Margins.Left = rr2;
+			pp->Margins.Right = lr2;
+			pp->Margins.Top = tpr2;
+			pp->Margins.Bottom = br2;
+			pp->initialMargins.Left = rr2;
+			pp->initialMargins.Right = lr2;
+			pp->initialMargins.Top = tpr2;
+			pp->initialMargins.Bottom = br2;
+		}
 		doc->guidesSettings.before = dia->tabGuides->inBackground->isChecked();
 		doc->marginColored = dia->checkUnprintable->isChecked();
 		doc->papColor = dia->colorPaper;
@@ -2918,6 +2950,8 @@ bool ScribusApp::SetupDoc()
 		doc->ScratchLeft = dia->leftScratch->value() / doc->unitRatio;
 		doc->ScratchRight = dia->rightScratch->value() / doc->unitRatio;
 		doc->ScratchTop = dia->topScratch->value() / doc->unitRatio;
+		doc->PageGapHorizontal = dia->gapHorizontal->value() / doc->unitRatio;
+		doc->PageGapVertical = dia->gapVertical->value() / doc->unitRatio;
 		doc->AutoSave = dia->groupAutoSave->isChecked();
 		doc->AutoSaveTime = dia->autoSaveTime->value() * 60 * 1000;
 		if (doc->AutoSave)
@@ -6933,6 +6967,8 @@ void ScribusApp::changePageMargins()
 		doc->currentPage->initialMargins.Bottom = dia->GroupRand->RandB;
 		doc->currentPage->initialMargins.Left = dia->GroupRand->RandL;
 		doc->currentPage->initialMargins.Right = dia->GroupRand->RandR;
+		doc->currentPage->initialHeight = dia->heightMSpinBox->value() / doc->unitRatio;
+		doc->currentPage->initialWidth = dia->widthMSpinBox->value() / doc->unitRatio;
 		view->reformPages();
 		view->DrawNew();
 		slotDocCh();
@@ -8055,6 +8091,8 @@ void ScribusApp::slotPrefsOrg()
 		prefsManager->appPrefs.ScratchLeft = dia->leftScratch->value() / UmReFaktor;
 		prefsManager->appPrefs.ScratchRight = dia->rightScratch->value() / UmReFaktor;
 		prefsManager->appPrefs.ScratchTop = dia->topScratch->value() / UmReFaktor;
+		prefsManager->appPrefs.PageGapHorizontal = dia->gapHorizontal->value() / UmReFaktor;
+		prefsManager->appPrefs.PageGapVertical = dia->gapVertical->value() / UmReFaktor;
 		prefsManager->appPrefs.DpapColor = dia->colorPaper;
 		prefsManager->appPrefs.toolSettings.defFont = dia->tabTools->fontComboText->currentText();
 		prefsManager->appPrefs.toolSettings.defSize = dia->tabTools->sizeComboText->currentText().left(2).toInt() * 10;
