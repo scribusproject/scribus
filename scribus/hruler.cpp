@@ -219,6 +219,7 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 		}
 		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 		emit DocChanged(false);
+		currView->updateContents();
 	}
 	Mpressed = false;
 }

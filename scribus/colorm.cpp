@@ -451,7 +451,10 @@ void Farbmanager::editFarbe()
 	{
 		EditColors[dia->Farbname->text()] = dia->Farbe;
 		if (sFarbe != dia->Farbname->text())
+		{
 			Ersatzliste.insert(sFarbe, dia->Farbname->text());
+			EditColors.remove(sFarbe);
+		}
 		updateCList();
 	}
 	delete dia;

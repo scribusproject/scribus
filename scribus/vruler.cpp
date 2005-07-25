@@ -67,6 +67,7 @@ void Vruler::mouseReleaseEvent(QMouseEvent *m)
 	}
 	qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 	Mpressed = false;
+	currView->updateContents();
 }
 
 void Vruler::mouseMoveEvent(QMouseEvent *m)

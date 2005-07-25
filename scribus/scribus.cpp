@@ -2761,32 +2761,20 @@ bool ScribusApp::SetupDoc()
 		for (uint p = 0; p < doc->Pages.count(); ++p)
 		{
 			Page *pp = doc->Pages.at(p);
-			pp->Width = doc->pageWidth;
-			pp->Height = doc->pageHeight;
 			pp->initialWidth = doc->pageWidth;
 			pp->initialHeight = doc->pageHeight;
-			pp->Margins.Left = rr2;
-			pp->Margins.Right = lr2;
-			pp->Margins.Top = tpr2;
-			pp->Margins.Bottom = br2;
-			pp->initialMargins.Left = rr2;
-			pp->initialMargins.Right = lr2;
+			pp->initialMargins.Left = lr2;
+			pp->initialMargins.Right = rr2;
 			pp->initialMargins.Top = tpr2;
 			pp->initialMargins.Bottom = br2;
 		}
 		for (uint p = 0; p < doc->MasterPages.count(); ++p)
 		{
 			Page *pp = doc->MasterPages.at(p);
-			pp->Width = doc->pageWidth;
-			pp->Height = doc->pageHeight;
 			pp->initialWidth = doc->pageWidth;
 			pp->initialHeight = doc->pageHeight;
-			pp->Margins.Left = rr2;
-			pp->Margins.Right = lr2;
-			pp->Margins.Top = tpr2;
-			pp->Margins.Bottom = br2;
-			pp->initialMargins.Left = rr2;
-			pp->initialMargins.Right = lr2;
+			pp->initialMargins.Left = lr2;
+			pp->initialMargins.Right = rr2;
 			pp->initialMargins.Top = tpr2;
 			pp->initialMargins.Bottom = br2;
 		}
