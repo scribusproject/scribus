@@ -50,11 +50,13 @@ class Preferences : public PrefsDialogBase
 public:
 	Preferences( QWidget* parent);
 	~Preferences();
+	void drawRuler();
+	void updatePreferences();
 
 	QString prefsPageSizeName;
 	//const QString getSelectedGUILang( void );
 	QString selectedGUILang;
-	void drawRuler();
+
 
 	QWidget* tab;
 	QLabel* TextLabel1_2;

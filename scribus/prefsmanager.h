@@ -72,13 +72,17 @@ public:
 	const QString imageEditorExecutable();
 	const QString documentDir(); // Get the users preferred document directory
 	const int mouseWheelValue();
+	const double displayScale(); // Get the user set display scale
+	const QString& guiLanguage(); // Get the GUI language from preferences
+	const QString& guiStyle(); // Get the GUI style from preferences
+	const int& guiFontSize(); // Get the GUI style from preferences
+	void setKeyEntry(const QString&, const QString&, const QString&, const int&);	
 	void setShowStartupDialog(const bool);
 	void setColorSet(const ColorList&); // Sets the preferences' color set
 	void setColorSetName(const QString&); // Sets the preferences' color set name
 	const ColorList& colorSet(); // Returns the preferences' color set
 	ColorList* colorSetPtr(); // Returns a pointer to the preferences' color set. Needed for now until colors are better defined
 	const QString& colorSetName(); // Returns the preferences' color set name
-	
 	const bool GetAllFonts(bool showFontInfo);
 
 	ApplicationPrefs* applicationPrefs();

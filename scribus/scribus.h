@@ -111,7 +111,6 @@ public:
 	const QString getGuiLanguage();
 	bool warningVersion(QWidget *parent);
 	void SetShortCut();
-	void SetKeyEntry(QString actName, QString cleanMenuText, QString keyseq, int rowNumber);
 	void startUpDialog();
 	void setDefaultPrinter(const QString&, const QString&, const QString&);
 	void getDefaultPrinter(QString*, QString*, QString*);

@@ -745,3 +745,42 @@ void PrefsManager::setColorSetName(const QString& colorSetName)
 {
 	appPrefs.DColorSet=colorSetName;
 }
+
+
+void PrefsManager::setKeyEntry(const QString& actName, const QString& cleanMenuText, const QString& keyseq, const int& rowNumber)
+{
+	Keys ke;
+	if (actName!="")
+	{
+		if (ScApp->scrActions[actName])
+		{
+			ke.actionName=actName;
+			ke.keySequence = keyseq;
+			ke.cleanMenuText=cleanMenuText;
+			ke.tableRow=rowNumber;
+			appPrefs.KeyActions.insert(actName, ke);
+		}
+		else
+			qDebug("%s", QString("Action Name: %1 does not exist").arg(actName).ascii());
+	}
+}
+
+const double PrefsManager::displayScale()
+{
+	return appPrefs.DisScale;
+}
+
+const QString& PrefsManager::guiLanguage()
+{
+	return appPrefs.guiLanguage;
+}
+
+const QString& PrefsManager::guiStyle()
+{
+	return appPrefs.GUI;
+}
+
+const int& PrefsManager::guiFontSize()
+{
+	return appPrefs.AppFontSize;
+}

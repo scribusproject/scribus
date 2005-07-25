@@ -411,7 +411,10 @@ void ScribusApp::initKeyboardShortcuts()
 	for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = scrActions.begin(); it!=scrActions.end(); ++it )
 	{
 		if ((ScrAction*)(it.data())!=NULL)
-			SetKeyEntry(it.key(), it.data()->cleanMenuText(), QString(it.data()->accel()),0);
+		{
+			QString accelerator=it.data()->accel();
+			prefsManager->setKeyEntry(it.key(), it.data()->cleanMenuText(), accelerator,0);
+		}
 		//else
 		//	qDebug(it.key());
 		//qDebug(QString("|-\n|%1||%2||%3").arg(it.key()).arg(it.data()->cleanMenuText()).arg(QString(it.data()->accel())));
@@ -953,24 +956,6 @@ void ScribusApp::setMousePositionOnStatusBar(double xp, double yp)
 	QString tmp;
 	mainWindowXPosDataLabel->setText(tmp.setNum(qRound(xn*doc->unitRatio * multiplier) / divisor, 'f', precision) + suffix);
 	mainWindowYPosDataLabel->setText(tmp.setNum(qRound(yn*doc->unitRatio * multiplier) / divisor, 'f', precision) + suffix);
-}
-
-void ScribusApp::SetKeyEntry(QString actName, QString cleanMenuText, QString keyseq, int rowNumber)
-{
-	Keys ke;
-	if (actName!="")
-	{
-		if (scrActions[actName])
-		{
-			ke.actionName=actName;
-			ke.keySequence = keyseq;
-			ke.cleanMenuText=cleanMenuText;
-			ke.tableRow=rowNumber;
-			prefsManager->appPrefs.KeyActions.insert(actName, ke);
-		}
-		else
-			qDebug("%s", QString("Action Name: %1 does not exist").arg(actName).ascii());
-	}
 }
 
 void ScribusApp::deleteSelectedTextFromFrame(PageItem *currItem)
@@ -2506,7 +2491,7 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 		disconnect(view, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
 	}
 	view = new ScribusView(w, doc);
-	view->setScale(1.0*prefsManager->appPrefs.DisScale);
+	view->setScale(prefsManager->displayScale());
 	actionManager->connectNewViewActions(view);
 	alignDistributePalette->setView(view);
 	w->setView(view);
@@ -2609,7 +2594,7 @@ void ScribusApp::newView()
 {
 	ScribusWin* w = new ScribusWin(wsp, doc);
 	view = new ScribusView(w, doc);
-	view->setScale(1.0*prefsManager->appPrefs.DisScale);
+	view->setScale(prefsManager->displayScale());
 	w->setView(view);
 	ActWin = w;
 	w->setCentralWidget(view);
@@ -4285,7 +4270,7 @@ bool ScribusApp::loadDoc(QString fileName)
 		mainWindowProgressBar->reset();
 		ScribusWin* w = new ScribusWin(wsp, doc);
 		view = new ScribusView(w, doc);
-		view->setScale(1.0*prefsManager->appPrefs.DisScale);
+		view->setScale(prefsManager->displayScale());
 		w->setView(view);
 		alignDistributePalette->setView(view);
 		ActWin = w;
@@ -6013,7 +5998,7 @@ void ScribusApp::slotZoom(double zoomFactor)
 	}
 	//Zoom to %
 	else
-		finalZoomFactor = zoomFactor*prefsManager->appPrefs.DisScale/100.0;
+		finalZoomFactor = zoomFactor*prefsManager->displayScale()/100.0;
 
 	view->setScale(finalZoomFactor);
 	view->slotDoZoom();
@@ -8010,337 +7995,43 @@ void ScribusApp::buildFontMenu()
 void ScribusApp::slotPrefsOrg()
 {
 	//reset the appMode so we restore our tools shortcuts
-	double UmReFaktor;
+	QString oldGUILanguage=prefsManager->guiLanguage();
+	QString oldGUIStyle=prefsManager->guiStyle();
+	int oldGUIFontSize=prefsManager->guiFontSize();
+	//double oldDisplayScale=prefsManager->displayScale();
 	setAppMode(modeNormal);
-	bool zChange = false;
 	Preferences *dia = new Preferences(this);
 	if (dia->exec())
 	{
-		prefsManager->appPrefs.AppFontSize = dia->GFsize->value();
-		prefsManager->appPrefs.Wheelval = dia->SpinBox3->value();
-		prefsManager->appPrefs.RecentDCount = dia->Recen->value();
-		prefsManager->appPrefs.DocDir = dia->Docs->text();
+		dia->updatePreferences();
+		prefsManager->SavePrefs();
 		DocDir = prefsManager->documentDir();
-		prefsManager->appPrefs.ProfileDir = dia->ProPfad->text();
-		prefsManager->appPrefs.ScriptDir = dia->ScriptPfad->text();
-		prefsManager->appPrefs.documentTemplatesDir = dia->DocumentTemplateDir->text();
-		switch (dia->PreviewSize->currentItem())
-		{
-		case 0:
-			prefsManager->appPrefs.PSize = 40;
-			break;
-		case 1:
-			prefsManager->appPrefs.PSize = 60;
-			break;
-		case 2:
-			prefsManager->appPrefs.PSize = 80;
-			break;
-		}
-		prefsManager->appPrefs.SaveAtQ = dia->SaveAtQuit->isChecked();
 		scrapbookPalette->rebuildView();
 		scrapbookPalette->AdjustMenu();
-		if (prefsManager->appPrefs.guiLanguage!=dia->selectedGUILang)
+		QString newGUILanguage=prefsManager->guiLanguage();
+		if (oldGUILanguage!=newGUILanguage)
+			ScQApp->changeGUILanguage(newGUILanguage);
+		QString newGUIStyle=prefsManager->guiStyle();
+		if (oldGUIStyle != newGUIStyle)
+			qApp->setStyle(QStyleFactory::create(newGUIStyle));
+		int newGUIFontSize=prefsManager->guiFontSize();
+		if (oldGUIFontSize!=newGUIFontSize)
 		{
-			ScQApp->changeGUILanguage(dia->selectedGUILang);
+			QFont apf = qApp->font();
+			apf.setPointSize(prefsManager->appPrefs.AppFontSize);
+			qApp->setFont(apf,true);
 		}
-		prefsManager->appPrefs.guiLanguage=dia->selectedGUILang;
-		if (prefsManager->appPrefs.GUI != dia->GUICombo->currentText())
-		{
-			prefsManager->appPrefs.GUI = dia->GUICombo->currentText();
-			qApp->setStyle(QStyleFactory::create(prefsManager->appPrefs.GUI));
-		}
-		QFont apf = qApp->font();
-		apf.setPointSize(prefsManager->appPrefs.AppFontSize);
-		qApp->setFont(apf,true);
-		dia->tabTools->polyWidget->getValues(&prefsManager->appPrefs.toolSettings.polyC, &prefsManager->appPrefs.toolSettings.polyFd, &prefsManager->appPrefs.toolSettings.polyF, &prefsManager->appPrefs.toolSettings.polyS, &prefsManager->appPrefs.toolSettings.polyR);
-		prefsManager->appPrefs.pageSize = dia->prefsPageSizeName;
-		prefsManager->appPrefs.pageOrientation = dia->GZComboO->currentItem();
-		prefsManager->appPrefs.PageWidth = dia->Pagebr;
-		prefsManager->appPrefs.PageHeight = dia->Pageho;
-		prefsManager->appPrefs.RandOben = dia->GroupRand->RandT;
-		prefsManager->appPrefs.RandUnten = dia->GroupRand->RandB;
-		prefsManager->appPrefs.RandLinks = dia->GroupRand->RandL;
-		prefsManager->appPrefs.RandRechts = dia->GroupRand->RandR;
-		prefsManager->appPrefs.FacingPages = dia->facingPages->isChecked();
-		prefsManager->appPrefs.LeftPageFirst = dia->Linkszuerst->isChecked();
-		prefsManager->setImageEditorExecutable(dia->GimpName->text());
-		prefsManager->appPrefs.gs_AntiAliasGraphics = dia->GSantiGraph->isChecked();
-		prefsManager->appPrefs.gs_AntiAliasText = dia->GSantiText->isChecked();
-		prefsManager->setGhostscriptExecutable(dia->GSName->text());
-		//prefsManager->appPrefs.gs_exe = dia->GSName->text();
-		prefsManager->appPrefs.gs_Resolution = dia->GSResolution->value();
-		prefsManager->appPrefs.ClipMargin = dia->ClipMarg->isChecked();
-		prefsManager->appPrefs.GCRMode = dia->DoGCR->isChecked();
-		prefsManager->appPrefs.guidesSettings.before = dia->tabGuides->inBackground->isChecked();
-		prefsManager->appPrefs.marginColored = dia->checkUnprintable->isChecked();
-		prefsManager->appPrefs.askBeforeSubstituite = dia->AskForSubs->isChecked();
-		prefsManager->appPrefs.haveStylePreview = dia->stylePreview->isChecked();
-		prefsManager->appPrefs.showStartupDialog = dia->startUpDialog->isChecked();
-		// lorem ipsum
-		prefsManager->appPrefs.useStandardLI = dia->useStandardLI->isChecked();
-		prefsManager->appPrefs.paragraphsLI = dia->paragraphsLI->value();
-		if (prefsManager->appPrefs.DisScale != dia->DisScale)
-		{
-			prefsManager->appPrefs.DisScale = dia->DisScale;
+		/*
+		double newDisplayScale=prefsManager->displayScale();
+		if (oldDisplayScale != newDisplayScale)
 			zChange = true;
-		}
+		*/
 		propertiesPalette->Cpal->UseTrans(true);
-		prefsManager->appPrefs.docUnitIndex = dia->UnitCombo->currentItem();
-		UmReFaktor = unitGetRatioFromIndex(prefsManager->appPrefs.docUnitIndex);
-		prefsManager->appPrefs.ScratchBottom = dia->bottomScratch->value() / UmReFaktor;
-		prefsManager->appPrefs.ScratchLeft = dia->leftScratch->value() / UmReFaktor;
-		prefsManager->appPrefs.ScratchRight = dia->rightScratch->value() / UmReFaktor;
-		prefsManager->appPrefs.ScratchTop = dia->topScratch->value() / UmReFaktor;
-		prefsManager->appPrefs.PageGapHorizontal = dia->gapHorizontal->value() / UmReFaktor;
-		prefsManager->appPrefs.PageGapVertical = dia->gapVertical->value() / UmReFaktor;
-		prefsManager->appPrefs.DpapColor = dia->colorPaper;
-		prefsManager->appPrefs.toolSettings.defFont = dia->tabTools->fontComboText->currentText();
-		prefsManager->appPrefs.toolSettings.defSize = dia->tabTools->sizeComboText->currentText().left(2).toInt() * 10;
-		prefsManager->appPrefs.guidesSettings.marginsShown = dia->tabGuides->marginBox->isChecked();
-		prefsManager->appPrefs.guidesSettings.framesShown = dia->checkFrame->isChecked();
-		prefsManager->appPrefs.guidesSettings.rulerMode = dia->checkRuler->isChecked();
-		prefsManager->appPrefs.guidesSettings.gridShown = dia->tabGuides->checkGrid->isChecked();
-		prefsManager->appPrefs.guidesSettings.guidesShown = dia->tabGuides->guideBox->isChecked();
-		prefsManager->appPrefs.guidesSettings.baseShown = dia->tabGuides->baselineBox->isChecked();
-		prefsManager->appPrefs.guidesSettings.showPic = dia->checkPictures->isChecked();
-		prefsManager->appPrefs.guidesSettings.linkShown = dia->checkLink->isChecked();
-		prefsManager->appPrefs.guidesSettings.showControls = dia->checkControl->isChecked();
-		prefsManager->appPrefs.guidesSettings.grabRad = dia->tabGuides->grabDistance->value();
-		prefsManager->appPrefs.guidesSettings.guideRad = dia->tabGuides->snapDistance->value() / UmReFaktor;
-		prefsManager->appPrefs.guidesSettings.minorGrid = dia->tabGuides->minorSpace->value() / UmReFaktor;
-		prefsManager->appPrefs.guidesSettings.majorGrid = dia->tabGuides->majorSpace->value() / UmReFaktor;
-		prefsManager->appPrefs.guidesSettings.minorColor = dia->tabGuides->colorMinorGrid;
-		prefsManager->appPrefs.guidesSettings.majorColor = dia->tabGuides->colorMajorGrid;
-		prefsManager->appPrefs.guidesSettings.margColor = dia->tabGuides->colorMargin;
-		prefsManager->appPrefs.guidesSettings.guideColor = dia->tabGuides->colorGuides;
-		prefsManager->appPrefs.guidesSettings.baseColor = dia->tabGuides->colorBaselineGrid;
-		prefsManager->appPrefs.checkerProfiles = dia->tabDocChecker->checkerProfile;
-		prefsManager->appPrefs.curCheckProfile = dia->tabDocChecker->curCheckProfile->currentText();
-		prefsManager->appPrefs.typographicSetttings.valueSuperScript = dia->tabTypo->superDisplacement->value();
-		prefsManager->appPrefs.typographicSetttings.scalingSuperScript = dia->tabTypo->superScaling->value();
-		prefsManager->appPrefs.typographicSetttings.valueSubScript = dia->tabTypo->subDisplacement->value();
-		prefsManager->appPrefs.typographicSetttings.scalingSubScript = dia->tabTypo->subScaling->value();
-		prefsManager->appPrefs.typographicSetttings.valueSmallCaps = dia->tabTypo->capsScaling->value();
-		prefsManager->appPrefs.typographicSetttings.autoLineSpacing = dia->tabTypo->autoLine->value();
-		prefsManager->appPrefs.typographicSetttings.valueBaseGrid = dia->tabGuides->baseGrid->value() / UmReFaktor;
-		prefsManager->appPrefs.typographicSetttings.offsetBaseGrid = dia->tabGuides->baseOffset->value() / UmReFaktor;
-		prefsManager->appPrefs.typographicSetttings.valueUnderlinePos = qRound(dia->tabTypo->underlinePos->value() * 10);
-		prefsManager->appPrefs.typographicSetttings.valueUnderlineWidth = qRound(dia->tabTypo->underlineWidth->value() * 10);
-		prefsManager->appPrefs.typographicSetttings.valueStrikeThruPos = qRound(dia->tabTypo->strikethruPos->value() * 10);
-		prefsManager->appPrefs.typographicSetttings.valueStrikeThruWidth = qRound(dia->tabTypo->strikethruWidth->value() * 10);
-		prefsManager->appPrefs.toolSettings.dPen = dia->tabTools->colorComboLineShape->currentText();
-		if (prefsManager->appPrefs.toolSettings.dPen == tr("None"))
-			prefsManager->appPrefs.toolSettings.dPen = "None";
-		prefsManager->appPrefs.toolSettings.dPenText = dia->tabTools->colorComboText->currentText();
-		if (prefsManager->appPrefs.toolSettings.dPenText == tr("None"))
-			prefsManager->appPrefs.toolSettings.dPenText = "None";
-		prefsManager->appPrefs.toolSettings.dStrokeText = dia->tabTools->colorComboStrokeText->currentText();
-		if (prefsManager->appPrefs.toolSettings.dStrokeText == tr("None"))
-			prefsManager->appPrefs.toolSettings.dStrokeText = "None";
-		prefsManager->appPrefs.toolSettings.dCols = dia->tabTools->columnsText->value();
-		prefsManager->appPrefs.toolSettings.dGap = dia->tabTools->gapText->value() / UmReFaktor;
-		prefsManager->appPrefs.toolSettings.dTabWidth = dia->tabTools->gapTab->value() / UmReFaktor;
-		prefsManager->appPrefs.toolSettings.dBrush = dia->tabTools->comboFillShape->currentText();
-		if (prefsManager->appPrefs.toolSettings.dBrush == tr("None"))
-			prefsManager->appPrefs.toolSettings.dBrush = "None";
-		prefsManager->appPrefs.toolSettings.dShade = dia->tabTools->shadingFillShape->value();
-		prefsManager->appPrefs.toolSettings.dShade2 = dia->tabTools->shadingLineShape->value();
-		switch (dia->tabTools->tabFillCombo->currentItem())
-		{
-			case 0:
-				prefsManager->appPrefs.toolSettings.tabFillChar = "";
-				break;
-			case 1:
-				prefsManager->appPrefs.toolSettings.tabFillChar = ".";
-				break;
-			case 2:
-				prefsManager->appPrefs.toolSettings.tabFillChar = "-";
-				break;
-			case 3:
-				prefsManager->appPrefs.toolSettings.tabFillChar = "_";
-				break;
-			case 4:
-				prefsManager->appPrefs.toolSettings.tabFillChar = dia->tabTools->tabFillCombo->currentText().right(1);
-				break;
-		}
-		switch (dia->tabTools->comboStyleShape->currentItem())
-		{
-		case 0:
-			prefsManager->appPrefs.toolSettings.dLineArt = SolidLine;
-			break;
-		case 1:
-			prefsManager->appPrefs.toolSettings.dLineArt = DashLine;
-			break;
-		case 2:
-			prefsManager->appPrefs.toolSettings.dLineArt = DotLine;
-			break;
-		case 3:
-			prefsManager->appPrefs.toolSettings.dLineArt = DashDotLine;
-			break;
-		case 4:
-			prefsManager->appPrefs.toolSettings.dLineArt = DashDotDotLine;
-			break;
-		}
-		prefsManager->appPrefs.toolSettings.dWidth = dia->tabTools->lineWidthShape->value();
-		prefsManager->appPrefs.toolSettings.dPenLine = dia->tabTools->colorComboLine->currentText();
-		if (prefsManager->appPrefs.toolSettings.dPenLine == tr("None"))
-			prefsManager->appPrefs.toolSettings.dPenLine = "None";
-		prefsManager->appPrefs.toolSettings.dShadeLine = dia->tabTools->shadingLine->value();
-		switch (dia->tabTools->comboStyleLine->currentItem())
-		{
-		case 0:
-			prefsManager->appPrefs.toolSettings.dLstyleLine = SolidLine;
-			break;
-		case 1:
-			prefsManager->appPrefs.toolSettings.dLstyleLine = DashLine;
-			break;
-		case 2:
-			prefsManager->appPrefs.toolSettings.dLstyleLine = DotLine;
-			break;
-		case 3:
-			prefsManager->appPrefs.toolSettings.dLstyleLine = DashDotLine;
-			break;
-		case 4:
-			prefsManager->appPrefs.toolSettings.dLstyleLine = DashDotDotLine;
-			break;
-		}
-		prefsManager->appPrefs.toolSettings.dWidthLine = dia->tabTools->lineWidthLine->value();
-		prefsManager->appPrefs.toolSettings.dStartArrow = dia->tabTools->startArrow->currentItem();
-		prefsManager->appPrefs.toolSettings.dEndArrow = dia->tabTools->endArrow->currentItem();
-		prefsManager->appPrefs.toolSettings.magMin = dia->tabTools->minimumZoom->value();
-		prefsManager->appPrefs.toolSettings.magMax = dia->tabTools->maximumZoom->value();
-		prefsManager->appPrefs.toolSettings.magStep = dia->tabTools->zoomStep->value();
-		prefsManager->appPrefs.toolSettings.dBrushPict = dia->tabTools->comboFillImage->currentText();
-		if (prefsManager->appPrefs.toolSettings.dBrushPict == tr("None"))
-			prefsManager->appPrefs.toolSettings.dBrushPict = "None";
-		prefsManager->appPrefs.toolSettings.shadePict = dia->tabTools->shadingFillImage->value();
-		prefsManager->appPrefs.toolSettings.scaleX = static_cast<double>(dia->tabTools->scalingHorizontal->value()) / 100.0;
-		prefsManager->appPrefs.toolSettings.scaleY = static_cast<double>(dia->tabTools->scalingVertical->value()) / 100.0;
-		prefsManager->appPrefs.toolSettings.scaleType = dia->tabTools->buttonGroup3->isChecked();
-		prefsManager->appPrefs.toolSettings.aspectRatio = dia->tabTools->checkRatioImage->isChecked();
-		prefsManager->appPrefs.toolSettings.useEmbeddedPath = dia->tabTools->embeddedPath->isChecked();
-		int haRes = 0;
-		if (dia->tabTools->checkFullRes->isChecked())
-			haRes = 0;
-		if (dia->tabTools->checkNormalRes->isChecked())
-			haRes = 1;
-		if (dia->tabTools->checkHalfRes->isChecked())
-			haRes = 2;
-		prefsManager->appPrefs.toolSettings.lowResType = haRes;
-		prefsManager->appPrefs.AutoSave = dia->ASon->isChecked();
-		prefsManager->appPrefs.AutoSaveTime = dia->ASTime->value() * 60 * 1000;
-		prefsManager->appPrefs.MinWordLen = dia->tabHyphenator->wordLen->value();
-		prefsManager->appPrefs.Language = GetLang(dia->tabHyphenator->language->currentText());
-		prefsManager->appPrefs.Automatic = !dia->tabHyphenator->verbose->isChecked();
-		prefsManager->appPrefs.AutoCheck = dia->tabHyphenator->input->isChecked();
-		prefsManager->appPrefs.HyCount = dia->tabHyphenator->maxCount->value();
-		if (CMSavail)
-			dia->tabColorManagement->setValues();
-		uint a = 0;
-		SCFontsIterator it(prefsManager->appPrefs.AvailFonts);
-		for ( ; it.current() ; ++it)
-		{
-			it.current()->EmbedPS = dia->tabFonts->fontFlags[it.currentKey()].FlagPS;
-			it.current()->UseFont = dia->tabFonts->fontFlags[it.currentKey()].FlagUse;
-			it.current()->Subset = dia->tabFonts->fontFlags[it.currentKey()].FlagSub;
-		}
-		a = 0;
-		QMap<QString,QString>::Iterator itfsu;
-		prefsManager->appPrefs.GFontSub.clear();
-		for (itfsu = dia->tabFonts->RList.begin(); itfsu != dia->tabFonts->RList.end(); ++itfsu)
-		{
-			prefsManager->appPrefs.GFontSub[itfsu.key()] = dia->tabFonts->FlagsRepl.at(a)->currentText();
-			a++;
-		}
 		FontSub->RebuildList(0);
 		propertiesPalette->Fonts->RebuildList(0);
-		prefsManager->appPrefs.PDF_Options.Thumbnails = dia->tabPDF->CheckBox1->isChecked();
-		prefsManager->appPrefs.PDF_Options.Compress = dia->tabPDF->Compression->isChecked();
-		prefsManager->appPrefs.PDF_Options.CompressMethod = dia->tabPDF->CMethod->currentItem();
-		prefsManager->appPrefs.PDF_Options.Quality = dia->tabPDF->CQuality->currentItem();
-		prefsManager->appPrefs.PDF_Options.Resolution = dia->tabPDF->Resolution->value();
-		prefsManager->appPrefs.PDF_Options.RecalcPic = dia->tabPDF->DSColor->isChecked();
-		prefsManager->appPrefs.PDF_Options.PicRes = dia->tabPDF->ValC->value();
-		prefsManager->appPrefs.PDF_Options.Bookmarks = dia->tabPDF->CheckBM->isChecked();
-		prefsManager->appPrefs.PDF_Options.Binding = dia->tabPDF->ComboBind->currentItem();
-		prefsManager->appPrefs.PDF_Options.MirrorH = dia->tabPDF->MirrorH->isOn();
-		prefsManager->appPrefs.PDF_Options.MirrorV = dia->tabPDF->MirrorV->isOn();
-		prefsManager->appPrefs.PDF_Options.RotateDeg = dia->tabPDF->RotateDeg->currentItem() * 90;
-		prefsManager->appPrefs.PDF_Options.Articles = dia->tabPDF->Article->isChecked();
-		prefsManager->appPrefs.PDF_Options.Encrypt = dia->tabPDF->Encry->isChecked();
-		prefsManager->appPrefs.PDF_Options.UseLPI = dia->tabPDF->UseLPI->isChecked();
-		prefsManager->appPrefs.PDF_Options.BleedBottom = dia->tabPDF->BleedBottom->value() / UmReFaktor;
-		prefsManager->appPrefs.PDF_Options.BleedTop = dia->tabPDF->BleedTop->value() / UmReFaktor;
-		prefsManager->appPrefs.PDF_Options.BleedLeft = dia->tabPDF->BleedLeft->value() / UmReFaktor;
-		prefsManager->appPrefs.PDF_Options.BleedRight = dia->tabPDF->BleedRight->value() / UmReFaktor;
-		if (dia->tabPDF->Encry->isChecked())
-		{
-			int Perm = -64;
-			if (dia->tabPDF->PDFVersionCombo->currentItem() == 1)
-				Perm &= ~0x00240000;
-			if (dia->tabPDF->PrintSec->isChecked())
-				Perm += 4;
-			if (dia->tabPDF->ModifySec->isChecked())
-				Perm += 8;
-			if (dia->tabPDF->CopySec->isChecked())
-				Perm += 16;
-			if (dia->tabPDF->AddSec->isChecked())
-				Perm += 32;
-			prefsManager->appPrefs.PDF_Options.Permissions = Perm;
-			prefsManager->appPrefs.PDF_Options.PassOwner = dia->tabPDF->PassOwner->text();
-			prefsManager->appPrefs.PDF_Options.PassUser = dia->tabPDF->PassUser->text();
-		}
-		if (dia->tabPDF->PDFVersionCombo->currentItem() == 0)
-			prefsManager->appPrefs.PDF_Options.Version = PDFOptions::PDFVersion_13;
-		if (dia->tabPDF->PDFVersionCombo->currentItem() == 1)
-			prefsManager->appPrefs.PDF_Options.Version = PDFOptions::PDFVersion_14;
-		if (dia->tabPDF->PDFVersionCombo->currentItem() == 2)
-			prefsManager->appPrefs.PDF_Options.Version = PDFOptions::PDFVersion_15;
-		if (dia->tabPDF->PDFVersionCombo->currentItem() == 3)
-			prefsManager->appPrefs.PDF_Options.Version = PDFOptions::PDFVersion_X3;
-		if (dia->tabPDF->OutCombo->currentItem() == 0)
-		{
-			prefsManager->appPrefs.PDF_Options.isGrayscale = false;
-			prefsManager->appPrefs.PDF_Options.UseRGB = true;
-			prefsManager->appPrefs.PDF_Options.UseProfiles = false;
-			prefsManager->appPrefs.PDF_Options.UseProfiles2 = false;
-		}
-		else
-		{
-			if (dia->tabPDF->OutCombo->currentItem() == 2)
-			{
-				prefsManager->appPrefs.PDF_Options.isGrayscale = true;
-				prefsManager->appPrefs.PDF_Options.UseRGB = false;
-				prefsManager->appPrefs.PDF_Options.UseProfiles = false;
-				prefsManager->appPrefs.PDF_Options.UseProfiles2 = false;
-			}
-			else
-			{
-				prefsManager->appPrefs.PDF_Options.isGrayscale = false;
-				prefsManager->appPrefs.PDF_Options.UseRGB = false;
-#ifdef HAVE_CMS
-				if (CMSuse)
-				{
-					prefsManager->appPrefs.PDF_Options.UseProfiles = dia->tabPDF->EmbedProfs->isChecked();
-					prefsManager->appPrefs.PDF_Options.UseProfiles2 = dia->tabPDF->EmbedProfs2->isChecked();
-					prefsManager->appPrefs.PDF_Options.Intent = dia->tabPDF->IntendS->currentItem();
-					prefsManager->appPrefs.PDF_Options.Intent2 = dia->tabPDF->IntendI->currentItem();
-					prefsManager->appPrefs.PDF_Options.EmbeddedI = dia->tabPDF->NoEmbedded->isChecked();
-					prefsManager->appPrefs.PDF_Options.SolidProf = dia->tabPDF->SolidPr->currentText();
-					prefsManager->appPrefs.PDF_Options.ImageProf = dia->tabPDF->ImageP->currentText();
-					prefsManager->appPrefs.PDF_Options.PrintProf = dia->tabPDF->PrintProfC->currentText();
-					}
-#endif
-				}
-		}
-
-		prefsManager->appPrefs.defaultItemAttributes = *(dia->tabDefaultItemAttributes->getNewAttributes());
-		prefsManager->appPrefs.defaultToCSetups = *(dia->tabDefaultTOCIndexPrefs->getNewToCs());
 
 		GetCMSProfiles();
-		prefsManager->appPrefs.KeyActions = dia->tabKeys->getNewKeyMap();
 		SetShortCut();
-		prefsManager->SavePrefs();
 		emit prefsChanged();
 		QWidgetList windows = wsp->windowList();
 		for ( int i = 0; i < static_cast<int>(windows.count()); ++i )

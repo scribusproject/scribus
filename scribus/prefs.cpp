@@ -34,11 +34,16 @@
 #include "tocindexprefs.h"
 #include "marginWidget.h"
 #include "prefsmanager.h"
+#include "polygonwidget.h"
+#include "fontcombo.h"
+#include "linecombo.h"
+#include "arrowchooser.h"
 
 using namespace std;
 
 extern QPixmap loadIcon(QString nam);
 extern bool CMSavail;
+extern bool CMSuse;
 extern ProfilesL InputProfiles;
 extern ScribusApp *ScApp;
 
@@ -1273,4 +1278,304 @@ void Preferences::setTOCIndexData(QWidget *widgetToShow)
 	//Update the attributes list in TOC setup
 	if (widgetToShow==tabDefaultTOCIndexPrefs)
 		tabDefaultTOCIndexPrefs->setupItemAttrs( tabDefaultItemAttributes->getDocAttributesNames() );
+}
+
+void Preferences::updatePreferences()
+{
+	prefsManager->appPrefs.AppFontSize = GFsize->value();
+	prefsManager->appPrefs.Wheelval = SpinBox3->value();
+	prefsManager->appPrefs.RecentDCount = Recen->value();
+	prefsManager->appPrefs.DocDir = Docs->text();
+	prefsManager->appPrefs.ProfileDir = ProPfad->text();
+	prefsManager->appPrefs.ScriptDir = ScriptPfad->text();
+	prefsManager->appPrefs.documentTemplatesDir = DocumentTemplateDir->text();
+	switch (PreviewSize->currentItem())
+	{
+		case 0:
+			prefsManager->appPrefs.PSize = 40;
+			break;
+		case 1:
+			prefsManager->appPrefs.PSize = 60;
+			break;
+		case 2:
+			prefsManager->appPrefs.PSize = 80;
+			break;
+	}
+	prefsManager->appPrefs.SaveAtQ = SaveAtQuit->isChecked();
+	prefsManager->appPrefs.guiLanguage=selectedGUILang;
+	prefsManager->appPrefs.GUI = GUICombo->currentText();
+	tabTools->polyWidget->getValues(&prefsManager->appPrefs.toolSettings.polyC, &prefsManager->appPrefs.toolSettings.polyFd, &prefsManager->appPrefs.toolSettings.polyF, &prefsManager->appPrefs.toolSettings.polyS, &prefsManager->appPrefs.toolSettings.polyR);
+	prefsManager->appPrefs.pageSize = prefsPageSizeName;
+	prefsManager->appPrefs.pageOrientation = GZComboO->currentItem();
+	prefsManager->appPrefs.PageWidth = Pagebr;
+	prefsManager->appPrefs.PageHeight = Pageho;
+	prefsManager->appPrefs.RandOben = GroupRand->RandT;
+	prefsManager->appPrefs.RandUnten = GroupRand->RandB;
+	prefsManager->appPrefs.RandLinks = GroupRand->RandL;
+	prefsManager->appPrefs.RandRechts = GroupRand->RandR;
+	prefsManager->appPrefs.FacingPages = facingPages->isChecked();
+	prefsManager->appPrefs.LeftPageFirst = Linkszuerst->isChecked();
+	prefsManager->setImageEditorExecutable(GimpName->text());
+	prefsManager->appPrefs.gs_AntiAliasGraphics = GSantiGraph->isChecked();
+	prefsManager->appPrefs.gs_AntiAliasText = GSantiText->isChecked();
+	prefsManager->setGhostscriptExecutable(GSName->text());
+	prefsManager->appPrefs.gs_Resolution = GSResolution->value();
+	prefsManager->appPrefs.ClipMargin = ClipMarg->isChecked();
+	prefsManager->appPrefs.GCRMode = DoGCR->isChecked();
+	prefsManager->appPrefs.guidesSettings.before = tabGuides->inBackground->isChecked();
+	prefsManager->appPrefs.marginColored = checkUnprintable->isChecked();
+	prefsManager->appPrefs.askBeforeSubstituite = AskForSubs->isChecked();
+	prefsManager->appPrefs.haveStylePreview = stylePreview->isChecked();
+	prefsManager->appPrefs.showStartupDialog = startUpDialog->isChecked();
+	// lorem ipsum
+	prefsManager->appPrefs.useStandardLI = useStandardLI->isChecked();
+	prefsManager->appPrefs.paragraphsLI = paragraphsLI->value();
+	prefsManager->appPrefs.DisScale = DisScale;
+	
+	prefsManager->appPrefs.docUnitIndex = UnitCombo->currentItem();
+	double prefsUnitRatio = unitGetRatioFromIndex(UnitCombo->currentItem());
+	prefsManager->appPrefs.ScratchBottom = bottomScratch->value() / prefsUnitRatio;
+	prefsManager->appPrefs.ScratchLeft = leftScratch->value() / prefsUnitRatio;
+	prefsManager->appPrefs.ScratchRight = rightScratch->value() / prefsUnitRatio;
+	prefsManager->appPrefs.ScratchTop = topScratch->value() / prefsUnitRatio;
+	prefsManager->appPrefs.PageGapHorizontal = gapHorizontal->value() / prefsUnitRatio;
+	prefsManager->appPrefs.PageGapVertical = gapVertical->value() / prefsUnitRatio;
+	prefsManager->appPrefs.DpapColor = colorPaper;
+	prefsManager->appPrefs.toolSettings.defFont = tabTools->fontComboText->currentText();
+	prefsManager->appPrefs.toolSettings.defSize = tabTools->sizeComboText->currentText().left(2).toInt() * 10;
+	prefsManager->appPrefs.guidesSettings.marginsShown = tabGuides->marginBox->isChecked();
+	prefsManager->appPrefs.guidesSettings.framesShown = checkFrame->isChecked();
+	prefsManager->appPrefs.guidesSettings.rulerMode = checkRuler->isChecked();
+	prefsManager->appPrefs.guidesSettings.gridShown = tabGuides->checkGrid->isChecked();
+	prefsManager->appPrefs.guidesSettings.guidesShown = tabGuides->guideBox->isChecked();
+	prefsManager->appPrefs.guidesSettings.baseShown = tabGuides->baselineBox->isChecked();
+	prefsManager->appPrefs.guidesSettings.showPic = checkPictures->isChecked();
+	prefsManager->appPrefs.guidesSettings.linkShown = checkLink->isChecked();
+	prefsManager->appPrefs.guidesSettings.showControls = checkControl->isChecked();
+	prefsManager->appPrefs.guidesSettings.grabRad = tabGuides->grabDistance->value();
+	prefsManager->appPrefs.guidesSettings.guideRad = tabGuides->snapDistance->value() / prefsUnitRatio;
+	prefsManager->appPrefs.guidesSettings.minorGrid = tabGuides->minorSpace->value() / prefsUnitRatio;
+	prefsManager->appPrefs.guidesSettings.majorGrid = tabGuides->majorSpace->value() / prefsUnitRatio;
+	prefsManager->appPrefs.guidesSettings.minorColor = tabGuides->colorMinorGrid;
+	prefsManager->appPrefs.guidesSettings.majorColor = tabGuides->colorMajorGrid;
+	prefsManager->appPrefs.guidesSettings.margColor = tabGuides->colorMargin;
+	prefsManager->appPrefs.guidesSettings.guideColor = tabGuides->colorGuides;
+	prefsManager->appPrefs.guidesSettings.baseColor = tabGuides->colorBaselineGrid;
+	prefsManager->appPrefs.checkerProfiles = tabDocChecker->checkerProfile;
+	prefsManager->appPrefs.curCheckProfile = tabDocChecker->curCheckProfile->currentText();
+	prefsManager->appPrefs.typographicSetttings.valueSuperScript = tabTypo->superDisplacement->value();
+	prefsManager->appPrefs.typographicSetttings.scalingSuperScript = tabTypo->superScaling->value();
+	prefsManager->appPrefs.typographicSetttings.valueSubScript = tabTypo->subDisplacement->value();
+	prefsManager->appPrefs.typographicSetttings.scalingSubScript = tabTypo->subScaling->value();
+	prefsManager->appPrefs.typographicSetttings.valueSmallCaps = tabTypo->capsScaling->value();
+	prefsManager->appPrefs.typographicSetttings.autoLineSpacing = tabTypo->autoLine->value();
+	prefsManager->appPrefs.typographicSetttings.valueBaseGrid = tabGuides->baseGrid->value() / prefsUnitRatio;
+	prefsManager->appPrefs.typographicSetttings.offsetBaseGrid = tabGuides->baseOffset->value() / prefsUnitRatio;
+	prefsManager->appPrefs.typographicSetttings.valueUnderlinePos = qRound(tabTypo->underlinePos->value() * 10);
+	prefsManager->appPrefs.typographicSetttings.valueUnderlineWidth = qRound(tabTypo->underlineWidth->value() * 10);
+	prefsManager->appPrefs.typographicSetttings.valueStrikeThruPos = qRound(tabTypo->strikethruPos->value() * 10);
+	prefsManager->appPrefs.typographicSetttings.valueStrikeThruWidth = qRound(tabTypo->strikethruWidth->value() * 10);
+	prefsManager->appPrefs.toolSettings.dPen = tabTools->colorComboLineShape->currentText();
+	if (prefsManager->appPrefs.toolSettings.dPen == tr("None"))
+		prefsManager->appPrefs.toolSettings.dPen = "None";
+	prefsManager->appPrefs.toolSettings.dPenText = tabTools->colorComboText->currentText();
+	if (prefsManager->appPrefs.toolSettings.dPenText == tr("None"))
+		prefsManager->appPrefs.toolSettings.dPenText = "None";
+	prefsManager->appPrefs.toolSettings.dStrokeText = tabTools->colorComboStrokeText->currentText();
+	if (prefsManager->appPrefs.toolSettings.dStrokeText == tr("None"))
+		prefsManager->appPrefs.toolSettings.dStrokeText = "None";
+	prefsManager->appPrefs.toolSettings.dCols = tabTools->columnsText->value();
+	prefsManager->appPrefs.toolSettings.dGap = tabTools->gapText->value() / prefsUnitRatio;
+	prefsManager->appPrefs.toolSettings.dTabWidth = tabTools->gapTab->value() / prefsUnitRatio;
+	prefsManager->appPrefs.toolSettings.dBrush = tabTools->comboFillShape->currentText();
+	if (prefsManager->appPrefs.toolSettings.dBrush == tr("None"))
+		prefsManager->appPrefs.toolSettings.dBrush = "None";
+	prefsManager->appPrefs.toolSettings.dShade = tabTools->shadingFillShape->value();
+	prefsManager->appPrefs.toolSettings.dShade2 = tabTools->shadingLineShape->value();
+	switch (tabTools->tabFillCombo->currentItem())
+	{
+		case 0:
+			prefsManager->appPrefs.toolSettings.tabFillChar = "";
+			break;
+		case 1:
+			prefsManager->appPrefs.toolSettings.tabFillChar = ".";
+			break;
+		case 2:
+			prefsManager->appPrefs.toolSettings.tabFillChar = "-";
+			break;
+		case 3:
+			prefsManager->appPrefs.toolSettings.tabFillChar = "_";
+			break;
+		case 4:
+			prefsManager->appPrefs.toolSettings.tabFillChar = tabTools->tabFillCombo->currentText().right(1);
+			break;
+	}
+	switch (tabTools->comboStyleShape->currentItem())
+	{
+		case 0:
+			prefsManager->appPrefs.toolSettings.dLineArt = SolidLine;
+			break;
+		case 1:
+			prefsManager->appPrefs.toolSettings.dLineArt = DashLine;
+			break;
+		case 2:
+			prefsManager->appPrefs.toolSettings.dLineArt = DotLine;
+			break;
+		case 3:
+			prefsManager->appPrefs.toolSettings.dLineArt = DashDotLine;
+			break;
+		case 4:
+			prefsManager->appPrefs.toolSettings.dLineArt = DashDotDotLine;
+			break;
+	}
+	prefsManager->appPrefs.toolSettings.dWidth = tabTools->lineWidthShape->value();
+	prefsManager->appPrefs.toolSettings.dPenLine = tabTools->colorComboLine->currentText();
+	if (prefsManager->appPrefs.toolSettings.dPenLine == tr("None"))
+		prefsManager->appPrefs.toolSettings.dPenLine = "None";
+	prefsManager->appPrefs.toolSettings.dShadeLine = tabTools->shadingLine->value();
+	switch (tabTools->comboStyleLine->currentItem())
+	{
+	case 0:
+		prefsManager->appPrefs.toolSettings.dLstyleLine = SolidLine;
+		break;
+	case 1:
+		prefsManager->appPrefs.toolSettings.dLstyleLine = DashLine;
+		break;
+	case 2:
+		prefsManager->appPrefs.toolSettings.dLstyleLine = DotLine;
+		break;
+	case 3:
+		prefsManager->appPrefs.toolSettings.dLstyleLine = DashDotLine;
+		break;
+	case 4:
+		prefsManager->appPrefs.toolSettings.dLstyleLine = DashDotDotLine;
+		break;
+	}
+	prefsManager->appPrefs.toolSettings.dWidthLine = tabTools->lineWidthLine->value();
+	prefsManager->appPrefs.toolSettings.dStartArrow = tabTools->startArrow->currentItem();
+	prefsManager->appPrefs.toolSettings.dEndArrow = tabTools->endArrow->currentItem();
+	prefsManager->appPrefs.toolSettings.magMin = tabTools->minimumZoom->value();
+	prefsManager->appPrefs.toolSettings.magMax = tabTools->maximumZoom->value();
+	prefsManager->appPrefs.toolSettings.magStep = tabTools->zoomStep->value();
+	prefsManager->appPrefs.toolSettings.dBrushPict = tabTools->comboFillImage->currentText();
+	if (prefsManager->appPrefs.toolSettings.dBrushPict == tr("None"))
+		prefsManager->appPrefs.toolSettings.dBrushPict = "None";
+	prefsManager->appPrefs.toolSettings.shadePict = tabTools->shadingFillImage->value();
+	prefsManager->appPrefs.toolSettings.scaleX = static_cast<double>(tabTools->scalingHorizontal->value()) / 100.0;
+	prefsManager->appPrefs.toolSettings.scaleY = static_cast<double>(tabTools->scalingVertical->value()) / 100.0;
+	prefsManager->appPrefs.toolSettings.scaleType = tabTools->buttonGroup3->isChecked();
+	prefsManager->appPrefs.toolSettings.aspectRatio = tabTools->checkRatioImage->isChecked();
+	prefsManager->appPrefs.toolSettings.useEmbeddedPath = tabTools->embeddedPath->isChecked();
+	int haRes = 0;
+	if (tabTools->checkFullRes->isChecked())
+		haRes = 0;
+	if (tabTools->checkNormalRes->isChecked())
+		haRes = 1;
+	if (tabTools->checkHalfRes->isChecked())
+		haRes = 2;
+	prefsManager->appPrefs.toolSettings.lowResType = haRes;
+	prefsManager->appPrefs.AutoSave = ASon->isChecked();
+	prefsManager->appPrefs.AutoSaveTime = ASTime->value() * 60 * 1000;
+	prefsManager->appPrefs.MinWordLen = tabHyphenator->wordLen->value();
+	prefsManager->appPrefs.Language = ScApp->GetLang(tabHyphenator->language->currentText());
+	prefsManager->appPrefs.Automatic = !tabHyphenator->verbose->isChecked();
+	prefsManager->appPrefs.AutoCheck = tabHyphenator->input->isChecked();
+	prefsManager->appPrefs.HyCount = tabHyphenator->maxCount->value();
+	if (CMSavail)
+		tabColorManagement->setValues();
+	uint a = 0;
+	SCFontsIterator it(prefsManager->appPrefs.AvailFonts);
+	for ( ; it.current() ; ++it)
+	{
+		it.current()->EmbedPS = tabFonts->fontFlags[it.currentKey()].FlagPS;
+		it.current()->UseFont = tabFonts->fontFlags[it.currentKey()].FlagUse;
+		it.current()->Subset = tabFonts->fontFlags[it.currentKey()].FlagSub;
+	}
+	a = 0;
+	QMap<QString,QString>::Iterator itfsuend=tabFonts->RList.end();
+	prefsManager->appPrefs.GFontSub.clear();
+	for (QMap<QString,QString>::Iterator itfsu = tabFonts->RList.begin(); itfsu != itfsuend; ++itfsu)
+		prefsManager->appPrefs.GFontSub[itfsu.key()] = tabFonts->FlagsRepl.at(a++)->currentText();
+	prefsManager->appPrefs.PDF_Options.Thumbnails = tabPDF->CheckBox1->isChecked();
+	prefsManager->appPrefs.PDF_Options.Compress = tabPDF->Compression->isChecked();
+	prefsManager->appPrefs.PDF_Options.CompressMethod = tabPDF->CMethod->currentItem();
+	prefsManager->appPrefs.PDF_Options.Quality = tabPDF->CQuality->currentItem();
+	prefsManager->appPrefs.PDF_Options.Resolution = tabPDF->Resolution->value();
+	prefsManager->appPrefs.PDF_Options.RecalcPic = tabPDF->DSColor->isChecked();
+	prefsManager->appPrefs.PDF_Options.PicRes = tabPDF->ValC->value();
+	prefsManager->appPrefs.PDF_Options.Bookmarks = tabPDF->CheckBM->isChecked();
+	prefsManager->appPrefs.PDF_Options.Binding = tabPDF->ComboBind->currentItem();
+	prefsManager->appPrefs.PDF_Options.MirrorH = tabPDF->MirrorH->isOn();
+	prefsManager->appPrefs.PDF_Options.MirrorV = tabPDF->MirrorV->isOn();
+	prefsManager->appPrefs.PDF_Options.RotateDeg = tabPDF->RotateDeg->currentItem() * 90;
+	prefsManager->appPrefs.PDF_Options.Articles = tabPDF->Article->isChecked();
+	prefsManager->appPrefs.PDF_Options.Encrypt = tabPDF->Encry->isChecked();
+	prefsManager->appPrefs.PDF_Options.UseLPI = tabPDF->UseLPI->isChecked();
+	prefsManager->appPrefs.PDF_Options.BleedBottom = tabPDF->BleedBottom->value() / prefsUnitRatio;
+	prefsManager->appPrefs.PDF_Options.BleedTop = tabPDF->BleedTop->value() / prefsUnitRatio;
+	prefsManager->appPrefs.PDF_Options.BleedLeft = tabPDF->BleedLeft->value() / prefsUnitRatio;
+	prefsManager->appPrefs.PDF_Options.BleedRight = tabPDF->BleedRight->value() / prefsUnitRatio;
+	if (tabPDF->Encry->isChecked())
+	{
+		int Perm = -64;
+		if (tabPDF->PDFVersionCombo->currentItem() == 1)
+			Perm &= ~0x00240000;
+		if (tabPDF->PrintSec->isChecked())
+			Perm += 4;
+		if (tabPDF->ModifySec->isChecked())
+			Perm += 8;
+		if (tabPDF->CopySec->isChecked())
+			Perm += 16;
+		if (tabPDF->AddSec->isChecked())
+			Perm += 32;
+		prefsManager->appPrefs.PDF_Options.Permissions = Perm;
+		prefsManager->appPrefs.PDF_Options.PassOwner = tabPDF->PassOwner->text();
+		prefsManager->appPrefs.PDF_Options.PassUser = tabPDF->PassUser->text();
+	}
+	if (tabPDF->PDFVersionCombo->currentItem() == 0)
+		prefsManager->appPrefs.PDF_Options.Version = PDFOptions::PDFVersion_13;
+	if (tabPDF->PDFVersionCombo->currentItem() == 1)
+		prefsManager->appPrefs.PDF_Options.Version = PDFOptions::PDFVersion_14;
+	if (tabPDF->PDFVersionCombo->currentItem() == 2)
+		prefsManager->appPrefs.PDF_Options.Version = PDFOptions::PDFVersion_15;
+	if (tabPDF->PDFVersionCombo->currentItem() == 3)
+		prefsManager->appPrefs.PDF_Options.Version = PDFOptions::PDFVersion_X3;
+	if (tabPDF->OutCombo->currentItem() == 0)
+	{
+		prefsManager->appPrefs.PDF_Options.isGrayscale = false;
+		prefsManager->appPrefs.PDF_Options.UseRGB = true;
+		prefsManager->appPrefs.PDF_Options.UseProfiles = false;
+		prefsManager->appPrefs.PDF_Options.UseProfiles2 = false;
+	}
+	else
+	{
+		if (tabPDF->OutCombo->currentItem() == 2)
+		{
+			prefsManager->appPrefs.PDF_Options.isGrayscale = true;
+			prefsManager->appPrefs.PDF_Options.UseRGB = false;
+			prefsManager->appPrefs.PDF_Options.UseProfiles = false;
+			prefsManager->appPrefs.PDF_Options.UseProfiles2 = false;
+		}
+		else
+		{
+			prefsManager->appPrefs.PDF_Options.isGrayscale = false;
+			prefsManager->appPrefs.PDF_Options.UseRGB = false;
+#ifdef HAVE_CMS
+			if (CMSuse)
+			{
+				prefsManager->appPrefs.PDF_Options.UseProfiles = tabPDF->EmbedProfs->isChecked();
+				prefsManager->appPrefs.PDF_Options.UseProfiles2 = tabPDF->EmbedProfs2->isChecked();
+				prefsManager->appPrefs.PDF_Options.Intent = tabPDF->IntendS->currentItem();
+				prefsManager->appPrefs.PDF_Options.Intent2 = tabPDF->IntendI->currentItem();
+				prefsManager->appPrefs.PDF_Options.EmbeddedI = tabPDF->NoEmbedded->isChecked();
+				prefsManager->appPrefs.PDF_Options.SolidProf = tabPDF->SolidPr->currentText();
+				prefsManager->appPrefs.PDF_Options.ImageProf = tabPDF->ImageP->currentText();
+				prefsManager->appPrefs.PDF_Options.PrintProf = tabPDF->PrintProfC->currentText();
+			}
+#endif
+		}
+	}
+	prefsManager->appPrefs.defaultItemAttributes = *(tabDefaultItemAttributes->getNewAttributes());
+	prefsManager->appPrefs.defaultToCSetups = *(tabDefaultTOCIndexPrefs->getNewToCs());
+	prefsManager->appPrefs.KeyActions = tabKeys->getNewKeyMap();
 }
