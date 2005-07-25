@@ -61,7 +61,7 @@ void JavaDocs::slotAdd()
 	if (dia->exec())
 	{
 		nam = dia->getEditText();
-		while (Doc->JavaScripts.contains(nam) || (nam == ""))
+		while (Doc->JavaScripts.contains(nam) || (nam.isEmpty()))
 		{
 			if (!dia->exec())
 			{

@@ -1097,7 +1097,7 @@ void ScribusApp::specialActionKeyEvent(QString actionName, int unicodevalue)
 					hg->cselect = false;
 					hg->cstyle = doc->CurrentStyle;
 					hg->cab = doc->currentParaStyle;
-					if (doc->docParagraphStyles[doc->currentParaStyle].Font != "")
+					if (!doc->docParagraphStyles[doc->currentParaStyle].Font.isEmpty())
 					{
 						hg->cfont = (*doc->AllFonts)[doc->docParagraphStyles[doc->currentParaStyle].Font];
 						hg->csize = doc->docParagraphStyles[doc->currentParaStyle].FontSize;
@@ -1623,7 +1623,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 								hg->cselect = false;
 								hg->cstyle = doc->CurrentStyle;
 								hg->cab = doc->currentParaStyle;
-								if (doc->docParagraphStyles[doc->currentParaStyle].Font != "")
+								if (!doc->docParagraphStyles[doc->currentParaStyle].Font.isEmpty())
 								{
 									hg->cfont = (*doc->AllFonts)[doc->docParagraphStyles[doc->currentParaStyle].Font];
 									hg->csize = doc->docParagraphStyles[doc->currentParaStyle].FontSize;
@@ -2067,7 +2067,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							hg->cselect = false;
 							hg->cstyle = doc->CurrentStyle;
 							hg->cab = doc->currentParaStyle;
-							if (doc->docParagraphStyles[doc->currentParaStyle].Font != "")
+							if (!doc->docParagraphStyles[doc->currentParaStyle].Font.isEmpty())
 							{
 								hg->cfont = (*doc->AllFonts)[doc->docParagraphStyles[doc->currentParaStyle].Font];
 								hg->csize = doc->docParagraphStyles[doc->currentParaStyle].FontSize;
@@ -2109,7 +2109,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							hg->cselect = false;
 							hg->cstyle = doc->CurrentStyle;
 							hg->cab = doc->currentParaStyle;
-							if (doc->docParagraphStyles[doc->currentParaStyle].Font != "")
+							if (!doc->docParagraphStyles[doc->currentParaStyle].Font.isEmpty())
 							{
 								hg->cfont = (*doc->AllFonts)[doc->docParagraphStyles[doc->currentParaStyle].Font];
 								hg->csize = doc->docParagraphStyles[doc->currentParaStyle].FontSize;
@@ -2136,7 +2136,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 									}
 									Twort.prepend(Tcha);
 								}
-								if (Twort != "")
+								if (!Twort.isEmpty())
 								{
 									if (doc->docHyphenator->Language != currItem->Language)
 										doc->docHyphenator->slotNewDict(currItem->Language);
@@ -2315,7 +2315,7 @@ void ScribusApp::parsePagesString(QString pages, std::vector<int>* pageNs, int s
 			if ((pageNr > 0) && (pageNr <= sourcePageCount))
 				pageNs->push_back(pageNr);
 		}
-	} while (tmp != "");
+	} while (!tmp.isEmpty());
 }
 
 bool ScribusApp::arrowKeyDown()
@@ -2368,7 +2368,7 @@ void ScribusApp::startUpDialog()
 			if (dia->tabSelected == 1)
 			{
 				fileName = dia->fileDialog->selectedFile();
-				if (fileName != "")
+				if (!fileName.isEmpty())
 				{
 					docContext->set("docsopen", fileName.left(fileName.findRev("/")));
 					loadDoc(fileName);
@@ -2377,7 +2377,7 @@ void ScribusApp::startUpDialog()
 			else
 			{
 				fileName = dia->recentDocList->currentText();
-				if (fileName != "")
+				if (!fileName.isEmpty())
 					loadRecent(fileName);
 			}
 		}
@@ -3263,7 +3263,7 @@ void ScribusApp::HaveNewDoc()
 
 	scrActions["editCut"]->setEnabled(false);
 	scrActions["editCopy"]->setEnabled(false);
-	scrActions["editPaste"]->setEnabled(Buffer2 != "");
+	scrActions["editPaste"]->setEnabled(!Buffer2.isEmpty());
 	scrActions["editSelectAll"]->setEnabled(true);
 	scrActions["editDeselectAll"]->setEnabled(false);
 	scrActions["editParaStyles"]->setEnabled(true);
@@ -4009,7 +4009,7 @@ bool ScribusApp::slotDocOpen()
 	PrefsContext* docContext = prefsManager->prefsFile->getContext("docdirs", false);
 	QString docDir = ".";
 	QString prefsDocDir=prefsManager->documentDir();
-	if (prefsDocDir != "")
+	if (!prefsDocDir.isEmpty())
 		docDir = docContext->get("docsopen", prefsDocDir);
 	else
 		docDir = docContext->get("docsopen", ".");
@@ -4031,7 +4031,7 @@ bool ScribusApp::slotDocOpen()
 		formats += tr("OpenOffice.org Draw (*.sxd);;");
 	formats += tr("All Files (*)");
 	QString fileName = CFileDialog( docDir, tr("Open"), formats);
-	if (fileName == "")
+	if (fileName.isEmpty())
 		// User cancelled
 		return false;
 	docContext->set("docsopen", fileName.left(fileName.findRev("/")));
@@ -4704,7 +4704,7 @@ void ScribusApp::slotFileOpen()
 			formatD += ");;"+formats;
 			QString docDir = ".";
 			QString prefsDocDir=prefsManager->documentDir();
-			if (prefsDocDir != "")
+			if (!prefsDocDir.isEmpty())
 				docDir = dirs->get("images", prefsDocDir);
 			else
 				docDir = dirs->get("images", ".");
@@ -4843,7 +4843,7 @@ bool ScribusApp::slotFileSaveAs()
 	else
 	{
 		QString prefsDocDir=prefsManager->documentDir();
-		if (prefsDocDir != "")
+		if (!prefsDocDir.isEmpty())
 			wdir = docContext->get("save_as", prefsDocDir);
 		else
 			wdir = docContext->get("save_as", ".");
@@ -5593,7 +5593,7 @@ void ScribusApp::slotEditPaste()
 				hg->cselect = false;
 				hg->cstyle = doc->CurrentStyle;
 				hg->cab = doc->currentParaStyle;
-				if (doc->docParagraphStyles[doc->currentParaStyle].Font != "")
+				if (!doc->docParagraphStyles[doc->currentParaStyle].Font.isEmpty())
 				{
 					hg->cfont = (*doc->AllFonts)[doc->docParagraphStyles[doc->currentParaStyle].Font];
 					hg->csize = doc->docParagraphStyles[doc->currentParaStyle].FontSize;
@@ -5793,7 +5793,7 @@ void ScribusApp::SaveText()
 	LoadEnc = "";
 	QString wdir = ".";
 	QString prefsDocDir=prefsManager->documentDir();
-	if (prefsDocDir != "")
+	if (!prefsDocDir.isEmpty())
 		wdir = dirs->get("save_text", prefsDocDir);
 	else
 		wdir = dirs->get("save_text", ".");
@@ -7153,7 +7153,7 @@ void ScribusApp::saveLStyles(LineFormate *dia)
 	for (uint d = 0; d < doc->DocItems.count(); ++d)
 	{
 		ite = doc->DocItems.at(d);
-		if (ite->NamedLStyle != "")
+		if (!ite->NamedLStyle.isEmpty())
 		{
 			if (!doc->MLineStyles.contains(ite->NamedLStyle))
 				ite->NamedLStyle = dia->Replacement[ite->NamedLStyle];
@@ -7162,7 +7162,7 @@ void ScribusApp::saveLStyles(LineFormate *dia)
 	for (uint d1 = 0; d1 < doc->MasterItems.count(); ++d1)
 	{
 		ite = doc->MasterItems.at(d1);
-		if (ite->NamedLStyle != "")
+		if (!ite->NamedLStyle.isEmpty())
 		{
 			if (!doc->MLineStyles.contains(ite->NamedLStyle))
 				ite->NamedLStyle = dia->Replacement[ite->NamedLStyle];
@@ -7171,7 +7171,7 @@ void ScribusApp::saveLStyles(LineFormate *dia)
 	for (uint d1 = 0; d1 < doc->FrameItems.count(); ++d1)
 	{
 		ite = doc->FrameItems.at(d1);
-		if (ite->NamedLStyle != "")
+		if (!ite->NamedLStyle.isEmpty())
 		{
 			if (!doc->MLineStyles.contains(ite->NamedLStyle))
 				ite->NamedLStyle = dia->Replacement[ite->NamedLStyle];
@@ -7499,7 +7499,7 @@ void ScribusApp::saveStyles(StilFormate *dia)
 	}
 	for (uint a=0; a<doc->docParagraphStyles.count(); ++a)
 	{
-		if (doc->docParagraphStyles[a].Font != "")
+		if (!doc->docParagraphStyles[a].Font.isEmpty())
 		{
 			QString nf = doc->docParagraphStyles[a].Font;
 			if (!doc->UsedFonts.contains(nf))
@@ -8169,7 +8169,7 @@ void ScribusApp::reallySaveAsEps()
 	}
 	QString wdir = ".";
 	QString prefsDocDir=prefsManager->documentDir();
-	if (prefsDocDir != "")
+	if (!prefsDocDir.isEmpty())
 		wdir = dirs->get("eps", prefsDocDir);
 	else
 		wdir = dirs->get("eps", ".");
@@ -9020,7 +9020,7 @@ QString ScribusApp::CFileDialog(QString wDir, QString caption, QString filter, Q
 {
 	QString retval = "";
 	CustomFDialog *dia = new CustomFDialog(this, wDir, caption, filter, Pre, mod, comp, cod, onlyDirs);
-	if (defNa != "")
+	if (!defNa.isEmpty())
 		dia->setSelection(defNa);
 	if (onlyDirs)
 	{
@@ -9053,7 +9053,7 @@ void ScribusApp::GetCMSProfiles()
 	QString pfad = ScPaths::instance().libDir();
 	pfad += "profiles/";
 	GetCMSProfilesDir(pfad);
-	if (prefsManager->appPrefs.ProfileDir != "")
+	if (!prefsManager->appPrefs.ProfileDir.isEmpty())
 	{
 		if(prefsManager->appPrefs.ProfileDir.right(1) != "/")
 			prefsManager->appPrefs.ProfileDir += "/";
@@ -9070,22 +9070,22 @@ void ScribusApp::initCMS()
 	if (CMSavail)
 	{
 		ProfilesL::Iterator ip;
-		if ((prefsManager->appPrefs.DCMSset.DefaultInputProfile == "") || (!InputProfiles.contains(prefsManager->appPrefs.DCMSset.DefaultInputProfile)))
+		if ((prefsManager->appPrefs.DCMSset.DefaultInputProfile.isEmpty()) || (!InputProfiles.contains(prefsManager->appPrefs.DCMSset.DefaultInputProfile)))
 		{
 			ip = InputProfiles.begin();
 			prefsManager->appPrefs.DCMSset.DefaultInputProfile = ip.key();
 		}
-		if ((prefsManager->appPrefs.DCMSset.DefaultInputProfile2 == "") || (!InputProfiles.contains(prefsManager->appPrefs.DCMSset.DefaultInputProfile2)))
+		if ((prefsManager->appPrefs.DCMSset.DefaultInputProfile2.isEmpty()) || (!InputProfiles.contains(prefsManager->appPrefs.DCMSset.DefaultInputProfile2)))
 		{
 			ip = InputProfiles.begin();
 			prefsManager->appPrefs.DCMSset.DefaultInputProfile2 = ip.key();
 		}
-		if ((prefsManager->appPrefs.DCMSset.DefaultMonitorProfile == "") || (!MonitorProfiles.contains(prefsManager->appPrefs.DCMSset.DefaultMonitorProfile)))
+		if ((prefsManager->appPrefs.DCMSset.DefaultMonitorProfile.isEmpty()) || (!MonitorProfiles.contains(prefsManager->appPrefs.DCMSset.DefaultMonitorProfile)))
 		{
 			ip = MonitorProfiles.begin();
 			prefsManager->appPrefs.DCMSset.DefaultMonitorProfile = ip.key();
 		}
-		if ((prefsManager->appPrefs.DCMSset.DefaultPrinterProfile == "") || (!PrinterProfiles.contains(prefsManager->appPrefs.DCMSset.DefaultPrinterProfile)))
+		if ((prefsManager->appPrefs.DCMSset.DefaultPrinterProfile.isEmpty()) || (!PrinterProfiles.contains(prefsManager->appPrefs.DCMSset.DefaultPrinterProfile)))
 		{
 			ip = PrinterProfiles.begin();
 			prefsManager->appPrefs.DCMSset.DefaultPrinterProfile = ip.key();
@@ -9252,7 +9252,7 @@ void ScribusApp::SetShortCut()
 {
 	for (QMap<QString,Keys>::Iterator it = prefsManager->appPrefs.KeyActions.begin(); it != prefsManager->appPrefs.KeyActions.end(); ++it )
 	{
-		if (it.data().actionName!="")
+		if (!it.data().actionName.isEmpty())
 			if (scrActions[it.data().actionName])
 				scrActions[it.data().actionName]->setAccel(it.data().keySequence);
 	}
@@ -9399,103 +9399,103 @@ void ScribusApp::initHyphenator()
 				trans->load(pfad + d2[dc]);
 				QString translatedLang = "";
 				translatedLang = trans->findMessage("ScribusApp", "Croatian", "").translation();
-				if (translatedLang != "")
+				if (!translatedLang.isEmpty())
 					L_Croatian.append(translatedLang);
 				translatedLang = "";
 				translatedLang = trans->findMessage("ScribusApp", "German", "").translation();
-				if (translatedLang != "")
+				if (!translatedLang.isEmpty())
 					L_German.append(translatedLang);
 				translatedLang = "";
 				translatedLang = trans->findMessage("ScribusApp", "Polish", "").translation();
-				if (translatedLang != "")
+				if (!translatedLang.isEmpty())
 					L_Polish.append(translatedLang);
 				translatedLang = "";
 				translatedLang = trans->findMessage("ScribusApp", "English", "").translation();
-				if (translatedLang != "")
+				if (!translatedLang.isEmpty())
 					L_English.append(translatedLang);
 				translatedLang = "";
 				translatedLang = trans->findMessage("ScribusApp", "Spanish", "").translation();
-				if (translatedLang != "")
+				if (!translatedLang.isEmpty())
 					L_Spanish.append(translatedLang);
 				translatedLang = "";
 				translatedLang = trans->findMessage("ScribusApp", "Italian", "").translation();
-				if (translatedLang != "")
+				if (!translatedLang.isEmpty())
 					L_Italian.append(translatedLang);
 				translatedLang = "";
 				translatedLang = trans->findMessage("ScribusApp", "French", "").translation();
-				if (translatedLang != "")
+				if (!translatedLang.isEmpty())
 					L_French.append(translatedLang);
 				translatedLang = "";
 				translatedLang = trans->findMessage("ScribusApp", "Russian", "").translation();
-				if (translatedLang != "")
+				if (!translatedLang.isEmpty())
 					L_Russian.append(translatedLang);
 				translatedLang = "";
 				translatedLang = trans->findMessage("ScribusApp", "Danish", "").translation();
-				if (translatedLang != "")
+				if (!translatedLang.isEmpty())
 					L_Danish.append(translatedLang);
 				translatedLang = "";
 				translatedLang = trans->findMessage("ScribusApp", "Slovak", "").translation();
-				if (translatedLang != "")
+				if (!translatedLang.isEmpty())
 					L_Slovak.append(translatedLang);
 				translatedLang = "";
 				translatedLang = trans->findMessage("ScribusApp", "Hungarian", "").translation();
-				if (translatedLang != "")
+				if (!translatedLang.isEmpty())
 					L_Hungarian.append(translatedLang);
 				translatedLang = "";
 				translatedLang = trans->findMessage("ScribusApp", "Czech", "").translation();
-				if (translatedLang != "")
+				if (!translatedLang.isEmpty())
 					L_Czech.append(translatedLang);
 				translatedLang = "";
 				translatedLang = trans->findMessage("ScribusApp", "Dutch", "").translation();
-				if (translatedLang != "")
+				if (!translatedLang.isEmpty())
 					L_Dutch.append(translatedLang);
 				translatedLang = "";
 				translatedLang = trans->findMessage("ScribusApp", "Portuguese", "").translation();
-				if (translatedLang != "")
+				if (!translatedLang.isEmpty())
 					L_Portuguese.append(translatedLang);
 				translatedLang = "";
 				translatedLang = trans->findMessage("ScribusApp", "Portuguese (BR)", "").translation();
-				if (translatedLang != "")
+				if (!translatedLang.isEmpty())
 					L_Portuguese_BR.append(translatedLang);
 				translatedLang = "";
 				translatedLang = trans->findMessage("ScribusApp", "Ukrainian", "").translation();
-				if (translatedLang != "")
+				if (!translatedLang.isEmpty())
 					L_Ukrainian.append(translatedLang);
 				translatedLang = "";
 				translatedLang = trans->findMessage("ScribusApp", "Greek", "").translation();
-				if (translatedLang != "")
+				if (!translatedLang.isEmpty())
 					L_Greek.append(translatedLang);
 				translatedLang = "";
 				translatedLang = trans->findMessage("ScribusApp", "Catalan", "").translation();
-				if (translatedLang != "")
+				if (!translatedLang.isEmpty())
 					L_Catalan.append(translatedLang);
 				translatedLang = "";
 				translatedLang = trans->findMessage("ScribusApp", "Finnish", "").translation();
-				if (translatedLang != "")
+				if (!translatedLang.isEmpty())
 					L_Finnish.append(translatedLang);
 				translatedLang = "";
 				translatedLang = trans->findMessage("ScribusApp", "Irish", "").translation();
-				if (translatedLang != "")
+				if (!translatedLang.isEmpty())
 					L_Irish.append(translatedLang);
 				translatedLang = "";
 				translatedLang = trans->findMessage("ScribusApp", "Lithuanian", "").translation();
-				if (translatedLang != "")
+				if (!translatedLang.isEmpty())
 					L_Lithuanian.append(translatedLang);
 				translatedLang = "";
 				translatedLang = trans->findMessage("ScribusApp", "Swedish", "").translation();
-				if (translatedLang != "")
+				if (!translatedLang.isEmpty())
 					L_Swedish.append(translatedLang);
 				translatedLang = "";
 				translatedLang = trans->findMessage("ScribusApp", "Slovenian", "").translation();
-				if (translatedLang != "")
+				if (!translatedLang.isEmpty())
 					L_Slovenian.append(translatedLang);
 				translatedLang = "";
 				translatedLang = trans->findMessage("ScribusApp", "Afrikaans", "").translation();
-				if (translatedLang != "")
+				if (!translatedLang.isEmpty())
 					L_Afrikaans.append(translatedLang);
 				translatedLang = "";
 				translatedLang = trans->findMessage("ScribusApp", "Bulgarian", "").translation();
-				if (translatedLang != "")
+				if (!translatedLang.isEmpty())
 					L_Bulgarian.append(translatedLang);
 				delete trans;
 			}
@@ -9548,7 +9548,7 @@ void ScribusApp::initHyphenator()
 			if (fileLangAbbrev == lang)
 				prefsManager->appPrefs.Language = datein;
 		}
-		if (datein == "")
+		if (datein.isEmpty())
 			prefsManager->appPrefs.Language = "English";
 	}
 	propertiesPalette->fillLangCombo(LangTransl);
@@ -9674,12 +9674,12 @@ QString ScribusApp::Collect(bool compress, bool withFonts)
 	bool withFontsR = withFonts;
 	QString wdir = ".";
 	QString prefsDocDir=prefsManager->documentDir();
-	if (prefsDocDir != "")
+	if (!prefsDocDir.isEmpty())
 		wdir = dirs->get("collect", prefsDocDir);
 	else
 		wdir = dirs->get("collect", ".");
 	QString s = CFileDialog(wdir, tr("Choose a Directory"), "", "", false, false, false, false, true, &compressR, &withFontsR);
-	if (s != "")
+	if (!s.isEmpty())
 	{
 		fileWatcher->forceScan();
 		fileWatcher->stop();
@@ -9762,7 +9762,7 @@ QString ScribusApp::Collect(bool compress, bool withFonts)
 							if (ite->isAnnotation)
 							{
 								QFileInfo itf;
-								if (ite->Pfile != "")
+								if (!ite->Pfile.isEmpty())
 								{
 									itf = QFileInfo(ite->Pfile);
 									if (itf.exists())
@@ -9773,7 +9773,7 @@ QString ScribusApp::Collect(bool compress, bool withFonts)
 										fileWatcher->addFile(s + itf.fileName());
 									}
 								}
-								if (ite->Pfile2 != "")
+								if (!ite->Pfile2.isEmpty())
 								{
 									itf = QFileInfo(ite->Pfile2);
 									if (itf.exists())
@@ -9782,7 +9782,7 @@ QString ScribusApp::Collect(bool compress, bool withFonts)
 										ite->Pfile2 = s + itf.fileName();
 									}
 								}
-								if (ite->Pfile3 != "")
+								if (!ite->Pfile3.isEmpty())
 								{
 									itf = QFileInfo(ite->Pfile3);
 									if (itf.exists())

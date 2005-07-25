@@ -510,13 +510,14 @@ void SCFonts::AddScalableFonts(const QString &path, QString DocName)
 			QFileInfo fi2(pathfile);
 			if (fi2.isDir()) 
 			{
-				if (DocName == "")
+				if (DocName.isEmpty())
 					AddScalableFonts(pathfile);
 				continue;
 			}
 			QString ext = fi.extension(false).lower();
 			QString ext2 = fi2.extension(false).lower();
-			if ((ext != ext2) && (ext == "")) ext = ext2;
+			if ((ext != ext2) && (ext.isEmpty())) 
+				ext = ext2;
 			if ((ext == "ttc") || (ext == "dfont") || (ext == "pfa") || (ext == "pfb") || (ext == "ttf") || (ext == "otf"))
 			{
 				error = AddScalableFont(pathfile, library, DocName);
@@ -524,7 +525,7 @@ void SCFonts::AddScalableFonts(const QString &path, QString DocName)
 					qDebug(QObject::tr("Font %1 is broken, discarding it").arg(pathfile));
 			}
 #ifdef FT_MACINTOSH
-			else if (ext == "" && DocName == "") 
+			else if (ext.isEmpty() && DocName.isEmpty())
 			{
 				error = AddScalableFont(pathfile, library, DocName);
 				if (error)

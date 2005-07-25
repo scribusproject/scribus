@@ -84,7 +84,7 @@ void FontCombo::RebuildList(ScribusDoc *currentDoc)
 		{
 			if (currentDoc != NULL)
 			{
-				if ((currentDoc->DocName == it.current()->PrivateFont) || (it.current()->PrivateFont == ""))
+				if ((currentDoc->DocName == it.current()->PrivateFont) || (it.current()->PrivateFont.isEmpty()))
 					rlist.append(it.currentKey());
 			}
 			else
@@ -158,7 +158,7 @@ void FontComboH::setCurrentFont(QString f)
 	{
 		for (QStringList::ConstIterator it3 = slist.begin(); it3 != slist.end(); ++it3)
 		{
-			if ((currDoc->DocName == prefsManager->appPrefs.AvailFonts[family + " " + *it3]->PrivateFont) || (prefsManager->appPrefs.AvailFonts[family + " " + *it3]->PrivateFont == ""))
+			if ((currDoc->DocName == prefsManager->appPrefs.AvailFonts[family + " " + *it3]->PrivateFont) || (prefsManager->appPrefs.AvailFonts[family + " " + *it3]->PrivateFont.isEmpty()))
 				ilist.append(*it3);
 		}
 		fontStyle->insertStringList(ilist);
@@ -190,7 +190,7 @@ void FontComboH::RebuildList(ScribusDoc *currentDoc)
 			ilist.clear();
 			for (QStringList::ConstIterator it3 = slist.begin(); it3 != slist.end(); ++it3)
 			{
-				if ((currentDoc->DocName == prefsManager->appPrefs.AvailFonts[*it2 + " " + *it3]->PrivateFont) || (prefsManager->appPrefs.AvailFonts[*it2 + " " + *it3]->PrivateFont == ""))
+				if ((currentDoc->DocName == prefsManager->appPrefs.AvailFonts[*it2 + " " + *it3]->PrivateFont) || (prefsManager->appPrefs.AvailFonts[*it2 + " " + *it3]->PrivateFont.isEmpty()))
 					ilist.append(*it3);
 			}
 			if (!ilist.isEmpty())
@@ -209,7 +209,7 @@ void FontComboH::RebuildList(ScribusDoc *currentDoc)
 	{
 		for (QStringList::ConstIterator it3 = slist.begin(); it3 != slist.end(); ++it3)
 		{
-			if ((currentDoc->DocName == prefsManager->appPrefs.AvailFonts[family + " " + *it3]->PrivateFont) || (prefsManager->appPrefs.AvailFonts[family + " " + *it3]->PrivateFont == ""))
+			if ((currentDoc->DocName == prefsManager->appPrefs.AvailFonts[family + " " + *it3]->PrivateFont) || (prefsManager->appPrefs.AvailFonts[family + " " + *it3]->PrivateFont.isEmpty()))
 				ilist.append(*it3);
 		}
 		fontStyle->insertStringList(ilist);

@@ -61,7 +61,7 @@ void TxtIm::loadText()
 void TxtIm::toUnicode()
 {
 	QTextCodec *codec;
-	if (encoding == "")
+	if (encoding.isEmpty())
 		codec = QTextCodec::codecForLocale();
 	else
 		codec = QTextCodec::codecForName(encoding);

@@ -175,7 +175,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool 
 	}
 #endif
 	PrintDest->insertItem( tr("File"));
-	if (PDev == "")
+	if (PDev.isEmpty())
 	{
 		Geraet = PrintDest->text(0);
 		ToFile = false;
@@ -576,7 +576,7 @@ void Druck::SelFile()
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("druck", ".");
 	CustomFDialog dia(this, wdir, tr("Save as"), tr("Postscript Files (*.ps);;All Files (*)"), false, false);
-	if (LineEdit1->text() != "")
+	if (!LineEdit1->text().isEmpty())
 		dia.setSelection(LineEdit1->text());
 	if (dia.exec() == QDialog::Accepted)
 	{

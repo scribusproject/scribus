@@ -211,7 +211,7 @@ QPixmap ScPreview::createPreview(QString data)
 				OB.GrEndX = QStodouble(pg.attribute("GRENDX","0.0"));
 				OB.GrEndY = QStodouble(pg.attribute("GRENDY","0.0"));
 				OB.GrColor = pg.attribute("GRCOLOR","");
-				if (OB.GrColor != "")
+				if (!OB.GrColor.isEmpty())
 				{
 					OB.GrColor2 = pg.attribute("GRCOLOR2","");
 					OB.GrShade = QStoInt(pg.attribute("GRSHADE","100"));
@@ -334,14 +334,14 @@ QPixmap ScPreview::createPreview(QString data)
 				IT=IT.nextSibling();
 			}
 			OB.itemText = tmpx;
-			if (OB.itemText != "")
+			if (!OB.itemText.isEmpty())
 			{
 				QTextStream t(&OB.itemText, IO_ReadOnly);
 				QString cc;
 				while (!t.atEnd())
 				{
 					cc = t.readLine();
-					if (cc == "")
+					if (cc.isEmpty())
 						continue;
 					QStringList wt;
 					QStringList::Iterator it;
@@ -428,23 +428,23 @@ QPixmap ScPreview::createPreview(QString data)
 			{
 				pS->setFillMode(2);
 				pS->fill_gradient.clearStops();
-				if ((OB.GrColor != "") && (OB.GrColor2 != ""))
+				if ((!OB.GrColor.isEmpty()) && (!OB.GrColor2.isEmpty()))
 				{
 					if (OB.GrType == 5)
 					{
-						if ((OB.GrColor != "None") && (OB.GrColor != ""))
+						if ((OB.GrColor != "None") && (!OB.GrColor.isEmpty()))
 							SetFarbe(&tmpfa, OB.GrColor, OB.GrShade);
 						pS->fill_gradient.addStop(tmpfa, 0.0, 0.5, 1.0);
-						if ((OB.GrColor2 != "None") && (OB.GrColor2 != ""))
+						if ((OB.GrColor2 != "None") && (!OB.GrColor2.isEmpty()))
 							SetFarbe(&tmpfa, OB.GrColor2, OB.GrShade2);
 						pS->fill_gradient.addStop(tmpfa, 1.0, 0.5, 1.0);
 					}
 					else
 					{
-						if ((OB.GrColor2 != "None") && (OB.GrColor2 != ""))
+						if ((OB.GrColor2 != "None") && (!OB.GrColor2.isEmpty()))
 							SetFarbe(&tmpfa, OB.GrColor2, OB.GrShade2);
 						pS->fill_gradient.addStop(tmpfa, 0.0, 0.5, 1.0);
-						if ((OB.GrColor != "None") && (OB.GrColor != ""))
+						if ((OB.GrColor != "None") && (!OB.GrColor.isEmpty()))
 							SetFarbe(&tmpfa, OB.GrColor, OB.GrShade);
 						pS->fill_gradient.addStop(tmpfa, 1.0, 0.5, 1.0);
 					}
@@ -514,7 +514,7 @@ QPixmap ScPreview::createPreview(QString data)
 					pS->setupPolygon(&OB.PoLine);
 					pS->drawPolygon();
 				}
-				if (OB.Pfile != "")
+				if (!OB.Pfile.isEmpty())
 				{
 					QFileInfo fi = QFileInfo(OB.Pfile);
 					if (fi.exists())
@@ -601,7 +601,7 @@ QPixmap ScPreview::createPreview(QString data)
 				}
 				break;
 			case PageItem::Line:
-				if (OB.NamedLStyle == "")
+				if (OB.NamedLStyle.isEmpty())
 					pS->drawLine(FPoint(0, 0), FPoint(OB.Width, 0));
 				else
 				{
@@ -658,7 +658,7 @@ QPixmap ScPreview::createPreview(QString data)
 				break;
 			case PageItem::PolyLine:
 				pS->setupPolygon(&OB.PoLine);
-				if (OB.NamedLStyle == "")
+				if (OB.NamedLStyle.isEmpty())
 					pS->drawPolyLine();
 				else
 				{
@@ -824,7 +824,7 @@ QPixmap ScPreview::createPreview(QString data)
 				else
 					pS->setLineWidth(0);
 				pS->setupPolygon(&OB.PoLine);
-				if (OB.NamedLStyle == "")
+				if (OB.NamedLStyle.isEmpty())
 					pS->drawPolyLine();
 				else
 				{

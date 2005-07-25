@@ -73,7 +73,7 @@ void TextFilter::loadText()
 void TextFilter::toUnicode()
 {
 	QTextCodec *codec;
-	if (encoding == "")
+	if (encoding.isEmpty())
 		codec = QTextCodec::codecForLocale();
 	else
 		codec = QTextCodec::codecForName(encoding);
@@ -149,7 +149,7 @@ void TextFilter::write()
 					int style = (*filters)[j]->getStyle();
 					bool removeMatch = (*filters)[j]->removeMatch();
 					QRegExp rx = QRegExp(regExp);
-					if (pstyle != "")
+					if (!pstyle.isEmpty())
 					{
 						switch (action)
 						{

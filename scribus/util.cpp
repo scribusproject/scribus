@@ -185,7 +185,7 @@ int callGS(const QString& args_in, const QString device)
 	QString cmd1 = prefsManager->ghostscriptExecutable();
 	cmd1 += " -q -dNOPAUSE";
 	// Choose rendering device
-	if (device != "")
+	if (!device.isEmpty())
 		// user specified device
 		cmd1 += " -sDEVICE="+device;
 	else if (ScApp->HavePngAlpha != 0)
@@ -1013,10 +1013,10 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 		OB->GrEndX = QStodouble(obj->attribute("GRENDX","0.0"));
 		OB->GrEndY = QStodouble(obj->attribute("GRENDY","0.0"));
 		OB->GrColor = obj->attribute("GRCOLOR","");
-		if (OB->GrColor == "")
+		if (OB->GrColor.isEmpty())
 			OB->GrColor = "Black";
 		OB->GrColor2 = obj->attribute("GRCOLOR2","Black");
-		if (OB->GrColor2 == "")
+		if (OB->GrColor2.isEmpty())
 			OB->GrColor2 = "Black";
 		OB->GrShade = QStoInt(obj->attribute("GRSHADE","100"));
 		OB->GrShade2 = QStoInt(obj->attribute("GRSHADE2","100"));
@@ -1053,7 +1053,7 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 	OB->An_C_act = obj->attribute("ANCACT","");
 	OB->AnActType = QStoInt(obj->attribute("ANACTYP","0"));
 	OB->An_Extern = obj->attribute("ANEXTERN","");
-	if ((OB->An_Extern != "") && (OB->AnActType != 8))
+	if ((!OB->An_Extern.isEmpty()) && (OB->AnActType != 8))
 	{
 		QFileInfo efp(OB->An_Extern);
 		OB->An_Extern = efp.absFilePath();

@@ -956,7 +956,7 @@ void Mpalette::SetCurItem(PageItem *i)
 	connect(FlipV, SIGNAL(clicked()), this, SLOT(DoFlipV()));
 	langCombo->setCurrentText(ScApp->LangTransl[i->Language]);
 	bool setter;
-	if (i->NamedLStyle == "")
+	if (i->NamedLStyle.isEmpty())
 	{
 		StyledLine->setCurrentItem(0);
 		setter = true;
@@ -3048,7 +3048,7 @@ void Mpalette::updateCmsList()
 		}
 		else
 		{
-			if (CurItem->EmProfile != "")
+			if (!CurItem->EmProfile.isEmpty())
 				InputP->insertItem(CurItem->EmProfile);
 		}
 		MonitorI->setCurrentItem(CurItem->IRender);
@@ -3151,7 +3151,7 @@ void Mpalette::setActFarben(QString p, QString b, int shp, int shb)
 	int c = 0;
 	PM2->setValue(shb);
 	PM1->setValue(shp);
-	if ((b != "None") && (b != ""))
+	if ((b != "None") && (!b.isEmpty()))
 	{
 		c++;
 		for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
@@ -3163,7 +3163,7 @@ void Mpalette::setActFarben(QString p, QString b, int shp, int shb)
 	}
 	TxFill->setCurrentItem(c);
 	c = 0;
-	if ((p != "None") && (p != ""))
+	if ((p != "None") && (!p.isEmpty()))
 	{
 		c++;
 		for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
@@ -3296,7 +3296,7 @@ void Mpalette::NewName()
 		return;
 	QString NameOld = CurItem->itemName();
 	QString NameNew = NameEdit->text();
-	if (NameNew == "")
+	if (NameNew.isEmpty())
 	{
 		NameEdit->setText(NameOld);
 		return;

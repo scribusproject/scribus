@@ -178,7 +178,7 @@ void ChTable::showAlternate()
 CharSelect::CharSelect( QWidget* parent, PageItem *item, ScribusApp *pl) : QDialog( parent, "CharSelect", true, 0 )
 {
 	QString font;
-	if (pl->pluginManager->dllInput != "")
+	if (!pl->pluginManager->dllInput.isEmpty())
 		font = pl->pluginManager->dllInput;
 	else
 		font = pl->doc->CurrFont;
@@ -201,7 +201,7 @@ CharSelect::CharSelect( QWidget* parent, PageItem *item, ScribusApp *pl) : QDial
 	fontSelector->setMaximumSize(190, 30);
 	fontSelector->setCurrentText(fontInUse);
 	selectionsLayout->addWidget( fontSelector );
-	if ((ap->doc->currentParaStyle > 4) ||  (ap->pluginManager->dllInput != ""))
+	if ((ap->doc->currentParaStyle > 4) ||  (!ap->pluginManager->dllInput.isEmpty()))
 		fontSelector->setEnabled(false);
 	rangeLabel = new QLabel( this, "fontLabel" );
 	rangeLabel->setText( tr( "Character Class:" ) );
@@ -682,7 +682,7 @@ void CharSelect::delEdit()
 
 void CharSelect::insChar()
 {
-	if (ap->pluginManager->dllInput != "")
+	if (!ap->pluginManager->dllInput.isEmpty())
 	{
 		ap->pluginManager->dllReturn += chToIns;
 		delEdit();
@@ -716,7 +716,7 @@ void CharSelect::insChar()
 		hg->cselect = false;
 		hg->cstyle = ap->doc->CurrentStyle;
 		hg->cab = ap->doc->currentParaStyle;
-		if (ap->doc->docParagraphStyles[ap->doc->currentParaStyle].Font != "")
+		if (!ap->doc->docParagraphStyles[ap->doc->currentParaStyle].Font.isEmpty())
 		{
 			hg->cfont = (*ap->doc->AllFonts)[ap->doc->docParagraphStyles[ap->doc->currentParaStyle].Font];
 			hg->csize = ap->doc->docParagraphStyles[ap->doc->currentParaStyle].FontSize;

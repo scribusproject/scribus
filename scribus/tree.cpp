@@ -326,7 +326,7 @@ void Tree::slotAddElement(PageItem *item)
 		return;
 	disconnect(reportDisplay, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
 	QListViewItem * object;
-	if (item->OnMasterPage != "")
+	if (!item->OnMasterPage.isEmpty())
 	{
 		QListViewItem * page = masterPageMapRev[item->OnMasterPage];
 		object = new QListViewItem( page, 0 );

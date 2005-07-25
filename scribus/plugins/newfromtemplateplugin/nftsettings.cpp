@@ -23,7 +23,7 @@ void nftsettings::read()
 
 	addTemplates(scribusShare);
 	addTemplates(scribusUserHome+"/templates");
-	if ((userTemplateDir != NULL) && (userTemplateDir != ""))
+	if ((!userTemplateDir.isNull()) && (!userTemplateDir.isEmpty()))
 		addTemplates(userTemplateDir);
 }
 

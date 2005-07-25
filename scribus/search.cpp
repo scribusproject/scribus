@@ -711,7 +711,7 @@ void SearchReplace::slotDoReplace()
 							hg->cab = RStyleVal->currentItem();
 						else
 							hg->cab = Doc->currentParaStyle;
-						if (Doc->docParagraphStyles[hg->cab].Font != "")
+						if (!Doc->docParagraphStyles[hg->cab].Font.isEmpty())
 						{
 							hg->cfont = (*Doc->AllFonts)[Doc->docParagraphStyles[hg->cab].Font];
 							hg->csize = Doc->docParagraphStyles[hg->cab].FontSize;

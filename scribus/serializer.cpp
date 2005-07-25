@@ -94,7 +94,7 @@ void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, boo
 		hg->ch = Objekt.at(a);
 		if ((hg->ch == QChar(10)) || (hg->ch == QChar(5)))
 			hg->ch = QChar(13);
-		if (doku->docParagraphStyles[Absatz].Font != "")
+		if (!doku->docParagraphStyles[Absatz].Font.isEmpty())
 		{
 			hg->cfont = (*doku->AllFonts)[doku->docParagraphStyles[Absatz].Font];
 			hg->csize = doku->docParagraphStyles[Absatz].FontSize;
@@ -155,7 +155,7 @@ void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, boo
 bool Serializer::Write(QString Cod)
 {
 	QTextCodec *codec;
-	if (Cod == "")
+	if (Cod.isEmpty())
 		codec = QTextCodec::codecForLocale();
 	else
 		codec = QTextCodec::codecForName(Cod);
@@ -175,7 +175,7 @@ bool Serializer::Read(QString Cod)
 {
 	QTextCodec *codec;
 	bool tmp = loadText(Filename, &Objekt);
-	if (Cod == "")
+	if (Cod.isEmpty())
 		codec = QTextCodec::codecForLocale();
 	else
 		codec = QTextCodec::codecForName(Cod);

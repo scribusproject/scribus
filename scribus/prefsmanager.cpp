@@ -750,7 +750,7 @@ void PrefsManager::setColorSetName(const QString& colorSetName)
 void PrefsManager::setKeyEntry(const QString& actName, const QString& cleanMenuText, const QString& keyseq, const int& rowNumber)
 {
 	Keys ke;
-	if (actName!="")
+	if (!actName.isEmpty())
 	{
 		if (ScApp->scrActions[actName])
 		{

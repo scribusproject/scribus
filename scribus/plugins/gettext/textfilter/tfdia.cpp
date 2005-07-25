@@ -215,7 +215,7 @@ void tfDia::clear()
 void tfDia::okClicked()
 {
 	storeLastFilter();
-	if ((saveEdit->text() != "") && (saveEdit->text() != tr("Give a name to this filter for saving")))
+	if ((!saveEdit->text().isEmpty()) && (saveEdit->text() != tr("Give a name to this filter for saving")))
 	{
 		PrefsTable* savedFilters = prefs->getTable("tf_Filters");
 		if (savedFilters->find(0, QString("tf_" + saveEdit->text())) == -1)

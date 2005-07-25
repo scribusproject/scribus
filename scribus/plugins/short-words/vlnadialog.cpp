@@ -203,7 +203,7 @@ void VlnaDialog::editUserCfg()
 
 void VlnaDialog::editFile(QString fName)
 {
-	if (cfg->editor == "")
+	if (cfg->editor.isEmpty())
 		setupEditor();
 	QFileInfo fi(fName);
 	if (fi.isWritable())

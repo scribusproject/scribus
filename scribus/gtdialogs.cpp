@@ -198,7 +198,7 @@ bool gtDialogs::runFileDialog(const QString& filters, const QStringList& importe
 	if (fdia->exec() == QDialog::Accepted)
 	{
 		fileName = fdia->selectedFile();
-		if (fileName != "")
+		if (!fileName.isEmpty())
 			accepted = true;
 		encoding = fdia->encodingCombo->currentText();
 		importer = fdia->importerCombo->currentItem() - 1;
@@ -260,7 +260,7 @@ bool gtDialogs::runImporterDialog(const QStringList& importers)
 						fileExtension = ".no_extension";
 					else
 						fileExtension = fileName.right(fileName.length() - fileName.findRev("."));
-					if (fileExtension != "")
+					if (!fileExtension.isEmpty())
 					{
 						prefs->set(fileExtension, static_cast<int>(i));
 						if (shouldRemember)

@@ -194,7 +194,7 @@ bool HTMLReader::startElement(const QString&, const QString&, const QString &nam
 			}
 			if (attrs.localName(i) == "alt")
 			{
-				if (attrs.value(i) != "")
+				if (!attrs.value(i).isEmpty())
 					imgline += ", alt: " + attrs.value(i);
 			}
 		}
@@ -303,7 +303,7 @@ bool HTMLReader::endElement(const QString&, const QString&, const QString &name)
 	else if (name == "a")
 	{
 		toggleEffect(UNDERLINE);
-		if ((href != "") && ((href.find("//") != -1) ||
+		if ((!href.isEmpty()) && ((href.find("//") != -1) ||
 		    (href.find("mailto:") != -1) || (href.find("www") != -1)))
 		{
 			href = href.remove("mailto:");
@@ -585,7 +585,7 @@ htmlSAXHandlerPtr mySAXHandler = &mySAXHandlerStruct;
 
 HTMLReader::~HTMLReader()
 {
-	if (extLinks != "")
+	if (!extLinks.isEmpty())
 	{
 		writer->append(QObject::tr("\nExternal Links\n"), pstyleh4);
 		writer->append(extLinks, pstyle);

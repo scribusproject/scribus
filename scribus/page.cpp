@@ -50,7 +50,7 @@ Page::Page(double x, double y, double b, double h) : UndoObject(QObject::tr("Pag
 void Page::setPageNr(int pageNr)
 {
 	PageNr = pageNr;
-	if (PageNam == "")
+	if (PageNam.isEmpty())
 		setUName(QString(QObject::tr("Page") + " %1").arg(ScApp->doc->FirstPnum + PageNr));
 	else
 		setUName(PageNam);
@@ -184,7 +184,7 @@ void Page::moveYGuide(int fromIndex, double to)
 void Page::setPageName(const QString& newName)
 {
 	PageNam = newName;
-	if (newName != "")
+	if (!newName.isEmpty())
 		setUName(QObject::tr("Master Page ") + newName);
 }
 

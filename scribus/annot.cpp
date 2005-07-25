@@ -347,21 +347,21 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	{
 		QPixmap pmI1;
 		ScImage im;
-		if (item->Pfile != "")
+		if (!item->Pfile.isEmpty())
 		{
 			im.LoadPicture(item->Pfile, "", 0, false, false, 1, 72);
 			pmI1.convertFromImage(im);
 			NiconPrev->setPixmap(pmI1);
 			IconNR->setEnabled(true);
 		}
-		if (item->Pfile2 != "")
+		if (!item->Pfile2.isEmpty())
 		{
 			im.LoadPicture(item->Pfile2, "", 0, false, false, 1, 72);
 			pmI1.convertFromImage(im);
 			PiconPrev->setPixmap(pmI1);
 			IconPR->setEnabled(true);
 		}
-		if (item->Pfile3 != "")
+		if (!item->Pfile3.isEmpty())
 		{
 			im.LoadPicture(item->Pfile3, "", 0, false, false, 1, 72);
 			pmI1.convertFromImage(im);
@@ -647,7 +647,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	else
 	{
 		LExtern->setChecked(true);
-		if (Destfile->text() != "")
+		if (!Destfile->text().isEmpty())
 		{
 			Breite = Pg1->Breite;
 			Hoehe = Pg1->Hoehe;
@@ -1090,7 +1090,7 @@ Annot::~Annot()
 void Annot::NewName()
 {
 	QString NameNew = Name->text();
-	if (NameNew == "")
+	if (NameNew.isEmpty())
 	{
 		Name->setText(OldName);
 		return;
@@ -1184,9 +1184,9 @@ void Annot::IconsEin()
 	PiconPrev->setEnabled(setter);
 	RiconPrev->setEnabled(setter);
 	PlaceIcon->setEnabled(setter);
-	IconNR->setEnabled(item->Pfile != "" ? true : false);
-	IconPR->setEnabled(item->Pfile2!= "" ? true : false);
-	IconRR->setEnabled(item->Pfile3!= "" ? true : false);
+	IconNR->setEnabled(!item->Pfile.isEmpty() ? true : false);
+	IconPR->setEnabled(!item->Pfile2.isEmpty() ? true : false);
+	IconRR->setEnabled(!item->Pfile3.isEmpty() ? true : false);
 	item->AnUseIcons = UseIcons->isChecked();
 }
 
@@ -1449,7 +1449,7 @@ void Annot::DecodeNum()
 			}
 		else
 			CurSym->setText("");
-		if (CurSym->text() != "")
+		if (!CurSym->text().isEmpty())
 			{
 			CurSym->setEnabled(true);
 			UseCurr->setEnabled(true);
@@ -1562,7 +1562,7 @@ void Annot::SetVali()
 	MinValid->setEnabled(false);
 	EditValScript->setEnabled(false);
 	ValidScript->setEnabled(false);
-	if (item->An_V_act == "")
+	if (item->An_V_act.isEmpty())
 		NoValid->setChecked(true);
 	else
 	{
@@ -1599,7 +1599,7 @@ void Annot::SetCalc()
 	CalcArt->setEnabled(false);
 	EditCalc->setEnabled(false);
 	SeField->setEnabled(false);
-	if (item->An_C_act == "")
+	if (item->An_C_act.isEmpty())
 		NoCalc->setChecked(true);
 	else
 	{
@@ -1716,7 +1716,7 @@ void Annot::SetVals()
 	if (item->AnType == 2)
 		{
 		item->AnFlag += 65536;
-		if (item->Pfile == "")
+		if (item->Pfile.isEmpty())
 			item->AnUseIcons = false;
 		}
 	else
@@ -1870,7 +1870,7 @@ void Annot::SetVals()
 				}
 			break;
 		case 2:
-			if ((LExtern->isChecked()) && (Destfile->text() != ""))
+			if ((LExtern->isChecked()) && (!Destfile->text().isEmpty()))
 				{
 				item->An_Extern = Destfile->text();
 				item->AnActType = 7;
@@ -1896,23 +1896,23 @@ void Annot::SetVals()
 			item->AnAction = SubURLa->text().stripWhiteSpace();
 			break;
 		}
-	if (item->An_E_act != "")
+	if (!item->An_E_act.isEmpty())
 		AAct = true;
-	if (item->An_X_act != "")
+	if (!item->An_X_act.isEmpty())
 		AAct = true;
-	if (item->An_D_act != "")
+	if (!item->An_D_act.isEmpty())
 		AAct = true;
-	if (item->An_Fo_act != "")
+	if (!item->An_Fo_act.isEmpty())
 		AAct = true;
-	if (item->An_Bl_act != "")
+	if (!item->An_Bl_act.isEmpty())
 		AAct = true;
-	if (item->An_K_act != "")
+	if (!item->An_K_act.isEmpty())
 		AAct = true;
-	if (item->An_F_act != "")
+	if (!item->An_F_act.isEmpty())
 		AAct = true;
-	if (item->An_V_act != "")
+	if (!item->An_V_act.isEmpty())
 		AAct = true;
-	if (item->An_C_act != "")
+	if (!item->An_C_act.isEmpty())
 		AAct = true;
 	if (AAct)
 		item->AnAAact = true;
@@ -2039,10 +2039,10 @@ void Annot::SetExternL()
 		enable = true;
 		//		Destfile->setEnabled(true);
 		//		ChFile->setEnabled(true);
-		if (Destfile->text() == "")
+		if (Destfile->text().isEmpty())
 		{
 			GetFile();
-			if (Destfile->text() == "")
+			if (Destfile->text().isEmpty())
 			{
 				item->AnActType = 2;
 				enable = false;
@@ -2147,7 +2147,7 @@ void Annot::GetFile()
 	QString fn;
 	QString wdir = dirs->get("annot_getfile", ".");
 	CustomFDialog dia(this, wdir, tr("Open"), tr("PDF Files (*.pdf);;All Files (*)"));
-	if (Destfile->text() != "")
+	if (!Destfile->text().isEmpty())
 		dia.setSelection(Destfile->text());
 	if (dia.exec() == QDialog::Accepted)
 	{

@@ -305,7 +305,7 @@ void PDFlib::CalcOwnerKey(QString Owner, QString User)
 	QString pw = User;
 	QString pw2;
 	pw2 = Owner;
-	if (pw2 == "")
+	if (pw2.isEmpty())
 		pw2 = User;
 	pw = FitKey(pw);
 	pw2 = FitKey(pw2);
@@ -990,14 +990,14 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 					continue;
 				if (ite->ChangedMasterItem)
 					continue;
-				if ((pag->PageNam != "") && (ite->OwnPage != static_cast<int>(pag->PageNr)) && (ite->OwnPage != -1))
+				if ((!pag->PageNam.isEmpty()) && (ite->OwnPage != static_cast<int>(pag->PageNr)) && (ite->OwnPage != -1))
 					continue;
 				PutPage("q\n");
 				if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options->Version >= 14))
 					PutPage(PDF_Transparenz(ite));
 				if ((ite->isBookmark) && (Options->Bookmarks))
 					PDF_Bookmark(ite->BMnr, pag->Height - (ite->Ypos - pag->Yoffset));
-				if (!ite->printable() || ((ite->itemType() == PageItem::TextFrame) && (pag->PageNam != "")))
+				if (!ite->printable() || ((ite->itemType() == PageItem::TextFrame) && (!pag->PageNam.isEmpty())))
 				{
 					PutPage("Q\n");
 					continue;
@@ -1109,12 +1109,12 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 							PutPage("-1 0 0 1 "+FToStr(ite->Width)+" 0 cm\n");
 						if (ite->imageFlippedV())
 							PutPage("1 0 0 -1 0 "+FToStr(-ite->Height)+" cm\n");
-						if ((ite->PicAvail) && (ite->Pfile != ""))
+						if ((ite->PicAvail) && (!ite->Pfile.isEmpty()))
 							PutPage(PDF_Image(ite, ite->Pfile, ite->LocalScX, ite->LocalScY, ite->LocalX, -ite->LocalY, false, ite->IProfile, ite->UseEmbedded, ite->IRender));
 						PutPage("Q\n");
-						if (((ite->lineColor() != "None") || (ite->NamedLStyle != "")) && (!ite->isTableItem))
+						if (((ite->lineColor() != "None") || (!ite->NamedLStyle.isEmpty())) && (!ite->isTableItem))
 						{
-							if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
+							if ((ite->NamedLStyle.isEmpty()) && (ite->Pwidth != 0.0))
 							{
 								PutPage(SetClipPath(ite));
 								PutPage("h\nS\n");
@@ -1134,7 +1134,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 					case PageItem::TextFrame:
 						break;
 					case PageItem::Line:
-						if (ite->NamedLStyle == "")
+						if (ite->NamedLStyle.isEmpty())
 						{
 							PutPage("0 0 m\n");
 							PutPage(FToStr(ite->Width)+" 0 l\n");
@@ -1216,9 +1216,9 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 								PutPage("h\nf*\n");
 							}
 						}
-						if ((ite->lineColor() != "None") || (ite->NamedLStyle != ""))
+						if ((ite->lineColor() != "None") || (!ite->NamedLStyle.isEmpty()))
 						{
-							if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
+							if ((ite->NamedLStyle.isEmpty()) && (ite->Pwidth != 0.0))
 							{
 								PutPage(SetClipPath(ite));
 								PutPage("h\nS\n");
@@ -1249,9 +1249,9 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 								}
 							}
 						}
-						if ((ite->lineColor() != "None") || (ite->NamedLStyle != ""))
+						if ((ite->lineColor() != "None") || (!ite->NamedLStyle.isEmpty()))
 						{
-							if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
+							if ((ite->NamedLStyle.isEmpty()) && (ite->Pwidth != 0.0))
 							{
 								PutPage(SetClipPath(ite, false));
 								PutPage("S\n");
@@ -1346,9 +1346,9 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 							if (ite->PoLine.size() > 3)
 							{
 								PutPage("q\n");
-								if ((ite->lineColor() != "None") || (ite->NamedLStyle != ""))
+								if ((ite->lineColor() != "None") || (!ite->NamedLStyle.isEmpty()))
 								{
-									if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
+									if ((ite->NamedLStyle.isEmpty()) && (ite->Pwidth != 0.0))
 									{
 										PutPage(SetClipPath(ite, false));
 										PutPage("S\n");
@@ -1570,9 +1570,9 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 	ll.LNr = 0;
 	if (Options->UseLPI)
 		PutPage("/"+HTName+" gs\n");
-	if ( (Options->MirrorH) && (pag->MPageNam != "") )
+	if ( (Options->MirrorH) && (!pag->MPageNam.isEmpty()) )
 		PutPage("-1 0 0 1 "+FToStr(ActPageP->Width)+" 0 cm\n");
-	if ( (Options->MirrorV) && (pag->MPageNam != "") )
+	if ( (Options->MirrorV) && (!pag->MPageNam.isEmpty()) )
 		PutPage("1 0 0 -1 0 "+FToStr(ActPageP->Height)+" cm\n");
 	if (clip)
 	{
@@ -1583,7 +1583,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 	}
 	else
 		PutPage("0 0 "+FToStr(ActPageP->Width)+" "+FToStr(ActPageP->Height)+" re W n\n");
-	if (pag->MPageNam != "")
+	if (!pag->MPageNam.isEmpty())
 	{
 		Page* mPage = doc->MasterPages.at(doc->MasterNames[doc->Pages.at(PNr)->MPageNam]);
 		if (doc->MasterItems.count() != 0)
@@ -1603,7 +1603,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 						ite = pag->FromMaster.at(am);
 						if ((ite->LayerNr != ll.LNr) || (!ite->printable()))
 							continue;
-						if ((pag->PageNam != "") && (ite->OwnPage != static_cast<int>(pag->PageNr)) && (ite->OwnPage != -1))
+						if ((!pag->PageNam.isEmpty()) && (ite->OwnPage != static_cast<int>(pag->PageNr)) && (ite->OwnPage != -1))
 							continue;
 						QString name = "/"+pag->MPageNam.simplifyWhiteSpace().replace( QRegExp("\\s"), "" ) + IToStr(ite->ItemNr);
 						if (ite->itemType() != PageItem::TextFrame)
@@ -1700,9 +1700,9 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 								PutPage("1 0 0 -1 0 "+FToStr(-ite->Height)+" cm\n");
 							PutPage(setTextSt(ite, PNr, pag));
 							PutPage("Q\n");
-							if (((ite->lineColor() != "None") || (ite->NamedLStyle != "")) && (!ite->isTableItem))
+							if (((ite->lineColor() != "None") || (!ite->NamedLStyle.isEmpty())) && (!ite->isTableItem))
 							{
-								if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
+								if ((ite->NamedLStyle.isEmpty()) && (ite->Pwidth != 0.0))
 								{
 									PutPage(SetClipPath(ite));
 									PutPage("h\nS\n");
@@ -1728,7 +1728,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 							continue;
 						if (ite->ChangedMasterItem)
 							continue;
-						if ((pag->PageNam != "") && (ite->OwnPage != static_cast<int>(pag->PageNr)) && (ite->OwnPage != -1))
+						if ((!pag->PageNam.isEmpty()) && (ite->OwnPage != static_cast<int>(pag->PageNr)) && (ite->OwnPage != -1))
 							continue;
 						if (!ite->isTableItem)
 							continue;
@@ -1843,7 +1843,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 	for (uint la = 0; la < doc->Layers.count(); ++la)
 	{
 		Level2Layer(doc, &ll, Lnr);
-		if (pag->PageNam != "")
+		if (!pag->PageNam.isEmpty())
 			PItems = doc->MasterItems;
 		else
 			PItems = doc->Items;
@@ -1877,7 +1877,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 						continue;
 					if (ite->ChangedMasterItem)
 						continue;
-					if ((pag->PageNam != "") && (ite->OwnPage != static_cast<int>(pag->PageNr)) && (ite->OwnPage != -1))
+					if ((!pag->PageNam.isEmpty()) && (ite->OwnPage != static_cast<int>(pag->PageNr)) && (ite->OwnPage != -1))
 						continue;
 					PutPage("q\n");
 					if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options->Version >= 14))
@@ -2008,14 +2008,14 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, Page* pag, uint PNr, bool embedde
 		return tmp;
 	if (ite->ChangedMasterItem)
 		return tmp;
-	if ((pag->PageNam != "") && (ite->OwnPage != static_cast<int>(pag->PageNr)) && (ite->OwnPage != -1))
+	if ((!pag->PageNam.isEmpty()) && (ite->OwnPage != static_cast<int>(pag->PageNr)) && (ite->OwnPage != -1))
 		return tmp;
 	tmp += "q\n";
 	if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options->Version >= 14))
 		tmp += PDF_Transparenz(ite);
 	if ((ite->isBookmark) && (Options->Bookmarks))
 		PDF_Bookmark(ite->BMnr, pag->Height - (ite->Ypos - pag->Yoffset));
-	if (!ite->printable() || ((ite->itemType() == PageItem::TextFrame) && (pag->PageNam != "")))
+	if (!ite->printable() || ((ite->itemType() == PageItem::TextFrame) && (!pag->PageNam.isEmpty())))
 	{
 		tmp += "Q\n";
 		return tmp;
@@ -2130,12 +2130,12 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, Page* pag, uint PNr, bool embedde
 				tmp += "-1 0 0 1 "+FToStr(ite->Width)+" 0 cm\n";
 			if (ite->imageFlippedV())
 				tmp += "1 0 0 -1 0 "+FToStr(-ite->Height)+" cm\n";
-			if ((ite->PicAvail) && (ite->Pfile != ""))
+			if ((ite->PicAvail) && (!ite->Pfile.isEmpty()))
 				tmp += PDF_Image(ite, ite->Pfile, ite->LocalScX, ite->LocalScY, ite->LocalX, -ite->LocalY, false, ite->IProfile, ite->UseEmbedded, ite->IRender);
 			tmp += "Q\n";
-			if (((ite->lineColor() != "None") || (ite->NamedLStyle != "")) && (!ite->isTableItem))
+			if (((ite->lineColor() != "None") || (!ite->NamedLStyle.isEmpty())) && (!ite->isTableItem))
 			{
-				if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
+				if ((ite->NamedLStyle.isEmpty()) && (ite->Pwidth != 0.0))
 				{
 					tmp += SetClipPath(ite);
 					tmp += "h\nS\n";
@@ -2175,9 +2175,9 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, Page* pag, uint PNr, bool embedde
 				tmp += "1 0 0 -1 0 "+FToStr(-ite->Height)+" cm\n";
 			tmp += setTextSt(ite, PNr, pag);
 			tmp += "Q\n";
-			if (((ite->lineColor() != "None") || (ite->NamedLStyle != "")) && (!ite->isTableItem))
+			if (((ite->lineColor() != "None") || (!ite->NamedLStyle.isEmpty())) && (!ite->isTableItem))
 			{
-				if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
+				if ((ite->NamedLStyle.isEmpty()) && (ite->Pwidth != 0.0))
 				{
 					tmp += SetClipPath(ite);
 					tmp += "h\nS\n";
@@ -2195,7 +2195,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, Page* pag, uint PNr, bool embedde
 			}
 			break;
 		case PageItem::Line:
-			if (ite->NamedLStyle == "")
+			if (ite->NamedLStyle.isEmpty())
 			{
 				tmp += "0 0 m\n";
 				tmp += FToStr(ite->Width)+" 0 l\n";
@@ -2277,9 +2277,9 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, Page* pag, uint PNr, bool embedde
 					tmp += "h\nf*\n";
 				}
 			}
-			if ((ite->lineColor() != "None") || (ite->NamedLStyle != ""))
+			if ((ite->lineColor() != "None") || (!ite->NamedLStyle.isEmpty()))
 			{
-				if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
+				if ((ite->NamedLStyle.isEmpty()) && (ite->Pwidth != 0.0))
 				{
 					tmp += SetClipPath(ite);
 					tmp += "h\nS\n";
@@ -2310,9 +2310,9 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, Page* pag, uint PNr, bool embedde
 					}
 				}
 			}
-			if ((ite->lineColor() != "None") || (ite->NamedLStyle != ""))
+			if ((ite->lineColor() != "None") || (!ite->NamedLStyle.isEmpty()))
 			{
-				if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
+				if ((ite->NamedLStyle.isEmpty()) && (ite->Pwidth != 0.0))
 				{
 					tmp += SetClipPath(ite, false);
 					tmp += "S\n";
@@ -2407,9 +2407,9 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, Page* pag, uint PNr, bool embedde
 				if (ite->PoLine.size() > 3)
 				{
 					tmp += "q\n";
-					if ((ite->lineColor() != "None") || (ite->NamedLStyle != ""))
+					if ((ite->lineColor() != "None") || (!ite->NamedLStyle.isEmpty()))
 					{
-						if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
+						if ((ite->NamedLStyle.isEmpty()) && (ite->Pwidth != 0.0))
 						{
 							tmp += SetClipPath(ite, false);
 							tmp += "S\n";
@@ -3545,7 +3545,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 			Seite.FormObjects.append(ObjCounter-1);
 			PutDoc("/Subtype /Widget\n");
 			PutDoc("/T "+EncString("("+ite->itemName()+")",ObjCounter-1)+"\n");
-			if (ite->AnToolTip != "")
+			if (!ite->AnToolTip.isEmpty())
 				PutDoc("/TU "+EncString("("+PDFEncode(ite->AnToolTip)+")",ObjCounter-1)+"\n");
 			PutDoc("/F ");
 			QString mm[] = {"4", "2", "0", "32"};
@@ -3629,32 +3629,32 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 			{
 				case 2:
 					PutDoc("/CA "+EncString("("+bm+")",ObjCounter-1)+" ");
-					if (ite->AnRollOver != "")
+					if (!ite->AnRollOver.isEmpty())
 						PutDoc("/RC "+ EncString("("+PDFEncode(ite->AnRollOver)+")",ObjCounter-1)+" ");
-					if (ite->AnDown != "")
+					if (!ite->AnDown.isEmpty())
 						PutDoc("/AC "+ EncString("("+PDFEncode(ite->AnDown)+")",ObjCounter-1)+" ");
 					if (ite->AnUseIcons)
 					{
-						if (ite->Pfile != "")
+						if (!ite->Pfile.isEmpty())
 						{
 							IconOb += ite->pixm.hasAlphaBuffer() ? 3 : 2;
 							PutDoc("/I "+IToStr(ObjCounter+IconOb-1)+" 0 R ");
 						}
-						if (ite->Pfile2 != "")
+						if (!ite->Pfile2.isEmpty())
 						{
 							img.LoadPicture(ite->Pfile2, "", 0, false, false, 1, 72);
 							QString im = "";
 							im = img3.getAlpha(ite->Pfile2, true, false);
-							IconOb += im != "" ? 3 : 2;
+							IconOb += !im.isEmpty() ? 3 : 2;
 							im = "";
 							PutDoc("/IX "+IToStr(ObjCounter+IconOb-1)+" 0 R ");
 						}
-						if (ite->Pfile3 != "")
+						if (!ite->Pfile3.isEmpty())
 						{
 							img2.LoadPicture(ite->Pfile3, "", 0, false, false, 1, 72);
 							QString im = "";
 							im = img3.getAlpha(ite->Pfile3, true, false);
-							IconOb += im != "" ? 3 : 2;
+							IconOb += !im.isEmpty() ? 3 : 2;
 							im = "";
 							PutDoc("/RI "+IToStr(ObjCounter+IconOb-1)+" 0 R ");
 						}
@@ -3717,7 +3717,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 				}
 				if (ite->AnActType == 1)
 				{
-					if (ite->AnAction != "")
+					if (!ite->AnAction.isEmpty())
 					{
 						PutDoc("/A << /Type /Action /S /JavaScript /JS ");
 						PutDoc(ite->AnType > 2 ? IToStr(ObjCounter+1+IconOb) :
@@ -3727,7 +3727,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 				}
 				if (ite->AnAAact)
 				{
-					if (ite->AnAction != "")
+					if (!ite->AnAction.isEmpty())
 					{
 						PutDoc("/A << /Type /Action /S /JavaScript /JS ");
 						PutDoc(ite->AnType > 2 ? IToStr(ObjCounter+1+IconOb) :
@@ -3737,20 +3737,20 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 					PutDoc("/AA ");
 					if (ite->AnType > 2)
 						{
-						if (ite->AnAction != "")
+						if (!ite->AnAction.isEmpty())
 							PutDoc(IToStr(ObjCounter+2+IconOb));
 						else
 							PutDoc(IToStr(ObjCounter+1+IconOb));
 						}
 					else
 						{
-						if (ite->AnAction != "")
+						if (!ite->AnAction.isEmpty())
 							PutDoc(IToStr(ObjCounter+1+IconOb));
 						else
 							PutDoc(IToStr(ObjCounter));
 						}
 					PutDoc(" 0 R\n");
-					if (ite->An_C_act != "")
+					if (!ite->An_C_act.isEmpty())
 						CalcFields.append(ObjCounter-1+IconOb);
 				}
 				if (ite->AnActType == 2)
@@ -3794,21 +3794,21 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 	PutDoc(">>\nendobj\n");
 	if ((ite->AnType == 2) && (ite->AnUseIcons))
 	{
-		if (ite->Pfile != "")
+		if (!ite->Pfile.isEmpty())
 		{
 			PDF_Image(ite, ite->Pfile, ite->LocalScX, ite->LocalScY, ite->LocalX, -ite->LocalY, true);
 			cc = IToStr(ite->pixm.width())+" 0 0 "+IToStr(ite->pixm.height())+" 0 0 cm\n";
 			cc += "/"+ResNam+IToStr(ResCount-1)+" Do";
 			PDF_xForm(ite->pixm.width(), ite->pixm.height(), cc);
 		}
-		if (ite->Pfile2 != "")
+		if (!ite->Pfile2.isEmpty())
 		{
 			PDF_Image(ite, ite->Pfile2, ite->LocalScX, ite->LocalScY, ite->LocalX, -ite->LocalY, true);
 			cc = IToStr(img.width())+" 0 0 "+IToStr(img.height())+" 0 0 cm\n";
 			cc += "/"+ResNam+IToStr(ResCount-1)+" Do";
 			PDF_xForm(img.width(), img.height(), cc);
 		}
-		if (ite->Pfile3 != "")
+		if (!ite->Pfile3.isEmpty())
 		{
 			PDF_Image(ite, ite->Pfile3, ite->LocalScX, ite->LocalScY, ite->LocalX, -ite->LocalY, true);
 			cc = IToStr(img2.width())+" 0 0 "+IToStr(img2.height())+" 0 0 cm\n";
@@ -3871,59 +3871,59 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		cc += " Tj\nET\nQ\nEMC";
 		PDF_xForm(ite->Width, ite->Height, cc);
 	}
-	if ((ite->AnType > 1) && ((ite->AnActType == 1) || (ite->AnAAact)) && (ite->AnAction != ""))
+	if ((ite->AnType > 1) && ((ite->AnActType == 1) || (ite->AnAAact)) && (!ite->AnAction.isEmpty()))
 		WritePDFStream(&ite->AnAction);
 	if ((ite->AnType > 1) && (ite->AnAAact))
 	{
 		StartObj(ObjCounter);
 		ObjCounter++;
 		PutDoc("<<\n");
-		if (ite->An_E_act != "")
+		if (!ite->An_E_act.isEmpty())
 		{
 			PutDoc("/E << /Type /Action /S /JavaScript /JS "+IToStr(ObjCounter+AAcoun)+" 0 R >>\n");
 			AAcoun++;
 		}
-		if (ite->An_X_act != "")
+		if (!ite->An_X_act.isEmpty())
 		{
 			PutDoc("/X << /Type /Action /S /JavaScript /JS "+IToStr(ObjCounter+AAcoun)+" 0 R >>\n");
 			AAcoun++;
 		}
-		if (ite->An_D_act != "")
+		if (!ite->An_D_act.isEmpty())
 		{
 			PutDoc("/D << /Type /Action /S /JavaScript /JS "+IToStr(ObjCounter+AAcoun)+" 0 R >>\n");
 			AAcoun++;
 		}
-		if (ite->An_Fo_act != "")
+		if (!ite->An_Fo_act.isEmpty())
 		{
 			PutDoc("/Fo << /Type /Action /S /JavaScript /JS "+IToStr(ObjCounter+AAcoun)+" 0 R >>\n");
 			AAcoun++;
 		}
-		if (ite->An_Bl_act != "")
+		if (!ite->An_Bl_act.isEmpty())
 		{
 			PutDoc("/Bl << /Type /Action /S /JavaScript /JS "+IToStr(ObjCounter+AAcoun)+" 0 R >>\n");
 			AAcoun++;
 		}
 		if ((ite->AnType == 3) || (ite->AnType == 5) || (ite->AnType == 6))
 		{
-			if (ite->An_K_act != "")
+			if (!ite->An_K_act.isEmpty())
 			{
 				PutDoc("/K << /Type /Action /S /JavaScript /JS "+IToStr(ObjCounter+AAcoun)+
 					" 0 R >>\n");
 				AAcoun++;
 			}
-			if (ite->An_F_act != "")
+			if (!ite->An_F_act.isEmpty())
 			{
 				PutDoc("/F << /Type /Action /S /JavaScript /JS "+IToStr(ObjCounter+AAcoun)+
 					" 0 R >>\n");
 				AAcoun++;
 			}
-			if (ite->An_V_act != "")
+			if (!ite->An_V_act.isEmpty())
 			{
 				PutDoc("/V << /Type /Action /S /JavaScript /JS "+IToStr(ObjCounter+AAcoun)+
 					" 0 R >>\n");
 				AAcoun++;
 			}
-			if (ite->An_C_act != "")
+			if (!ite->An_C_act.isEmpty())
 			{
 				PutDoc("/C << /Type /Action /S /JavaScript /JS "+IToStr(ObjCounter+AAcoun)+
 					" 0 R >>\n");
@@ -3931,25 +3931,25 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 			}
 		}
 		PutDoc(">>\nendobj\n");
-		if (ite->An_E_act != "")
+		if (!ite->An_E_act.isEmpty())
 			WritePDFStream(&ite->An_E_act);
-		if (ite->An_X_act != "")
+		if (!ite->An_X_act.isEmpty())
 			WritePDFStream(&ite->An_X_act);
-		if (ite->An_D_act != "")
+		if (!ite->An_D_act.isEmpty())
 			WritePDFStream(&ite->An_D_act);
-		if (ite->An_Fo_act != "")
+		if (!ite->An_Fo_act.isEmpty())
 			WritePDFStream(&ite->An_Fo_act);
-		if (ite->An_Bl_act != "")
+		if (!ite->An_Bl_act.isEmpty())
 			WritePDFStream(&ite->An_Bl_act);
 		if ((ite->AnType == 3) || (ite->AnType == 5) || (ite->AnType == 6))
 		{
-			if (ite->An_K_act != "")
+			if (!ite->An_K_act.isEmpty())
 				WritePDFStream(&ite->An_K_act);
-			if (ite->An_F_act != "")
+			if (!ite->An_F_act.isEmpty())
 				WritePDFStream(&ite->An_F_act);
-			if (ite->An_V_act != "")
+			if (!ite->An_V_act.isEmpty())
 				WritePDFStream(&ite->An_V_act);
-			if (ite->An_C_act != "")
+			if (!ite->An_C_act.isEmpty())
 				WritePDFStream(&ite->An_C_act);
 		}
 	}
@@ -4280,7 +4280,7 @@ QString PDFlib::PDF_Image(PageItem* c, QString fn, double sx, double sy, double 
 			im2 = img2.getAlpha(fn, true, true);
 		else
 			im2 = img2.getAlpha(fn, true, false);
-		if (im2 != "")
+		if (!im2.isEmpty())
 			alphaM = true;
 		bool imgE = false;
 		if ((Options->UseRGB) || (Options->isGrayscale))

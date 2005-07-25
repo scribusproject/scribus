@@ -93,7 +93,7 @@ bool actionEnabledOnStartup()
 void run(QWidget *d, ScribusApp *plug)
 {
 	QString fileName;
-	if (plug->pluginManager->dllInput != "")
+	if (!plug->pluginManager->dllInput.isEmpty())
 		fileName = plug->pluginManager->dllInput;
 	else
 	{
@@ -188,7 +188,7 @@ void SVGPlug::convert()
 	double width = !docElem.attribute("width").isEmpty() ? parseUnit(docElem.attribute( "width" )) : 550.0;
 	double height = !docElem.attribute("height").isEmpty() ? parseUnit(docElem.attribute( "height" )) : 841.0;
 	Conversion = 0.8;
-	if (Prog->pluginManager->dllInput != "")
+	if (!Prog->pluginManager->dllInput.isEmpty())
 	{
 		Prog->doc->setPage(width, height, 0, 0, 0, 0, 0, 0, false, false);
 		Prog->view->addPage(0);
@@ -201,7 +201,7 @@ void SVGPlug::convert()
 			ret = true;
 		}
 	}
-	if ((ret) || (Prog->pluginManager->dllInput != ""))
+	if ((ret) || (!Prog->pluginManager->dllInput.isEmpty()))
 	{
 		if (width > height)
 			Prog->doc->PageOri = 1;
@@ -255,10 +255,10 @@ void SVGPlug::convert()
 	Doku->DoDrawing = true;
 	Prog->view->setUpdatesEnabled(true);
 	Prog->ScriptRunning = false;
-	if (Prog->pluginManager->dllInput == "")
+	if (Prog->pluginManager->dllInput.isEmpty())
 		Doku->loading = false;
 	qApp->setOverrideCursor(QCursor(arrowCursor), true);
-	if ((Elements.count() > 0) && (!ret) && (Prog->pluginManager->dllInput == ""))
+	if ((Elements.count() > 0) && (!ret) && (Prog->pluginManager->dllInput.isEmpty()))
 	{
 		Doku->DragP = true;
 		Doku->DraggedElem = 0;
@@ -531,7 +531,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			double w = b.attribute( "width" ).isEmpty() ? 1.0 : parseUnit( b.attribute( "width" ) );
 			double h = b.attribute( "height" ).isEmpty() ? 1.0 : parseUnit( b.attribute( "height" ) );
 			z = Prog->view->PaintPict(x+BaseX, y+BaseY, w, h);
-			if (fname != "")
+			if (!fname.isEmpty())
 				Prog->view->LoadPict(fname, z);
 			PageItem* ite = Doku->Items.at(z);
 			if (ImgClip.size() != 0)
@@ -1476,7 +1476,7 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 			unsigned int start = params.find("#") + 1;
 			unsigned int end = params.findRev(")");
 			QString key = params.mid(start, end - start);
-			while (m_gradients[key].reference != "")
+			while (!m_gradients[key].reference.isEmpty())
 			{
 				QString key2 = m_gradients[key].reference;
 				if (m_gradients[key2].typeValid)

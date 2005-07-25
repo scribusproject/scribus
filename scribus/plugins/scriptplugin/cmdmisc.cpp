@@ -89,7 +89,7 @@ PyObject *scribus_renderfont(PyObject* /*self*/, PyObject* args, PyObject* kw)
 		return NULL;
 	}
 	QString ts = QString::fromUtf8(Sample);
-	if (ts == "")
+	if (ts.isEmpty())
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot render an empty sample.","python error"));
 		return NULL;
@@ -100,7 +100,7 @@ PyObject *scribus_renderfont(PyObject* /*self*/, PyObject* args, PyObject* kw)
 	QPixmap pm = FontSample(PrefsManager::instance()->appPrefs.AvailFonts[QString::fromUtf8(Name)], Size, ts, Qt::white);
 	// If the user specified an empty filename, return the image data as
 	// a string. Otherwise, save it to disk.
-	if (QString::fromUtf8(FileName) == "")
+	if (QString::fromUtf8(FileName).isEmpty())
 	{
 		QCString buffer_string = "";
 		QBuffer buffer(buffer_string);

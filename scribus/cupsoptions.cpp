@@ -83,7 +83,7 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent, "pr
 				if (choice->marked)
 					Marked = QString(choice->choice);
   			}
-			if (Marked != "")
+			if (!Marked.isEmpty())
 			{
 				Table->setNumRows(Table->numRows()+1);
 				Table->setText(Table->numRows()-1, 0, QString(option->text));

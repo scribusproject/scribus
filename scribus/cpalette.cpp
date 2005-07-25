@@ -275,7 +275,7 @@ void Cpalette::updateBoxS(QString colorName)
 	disconnect(colorListQLBox, SIGNAL(selected(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));
 	ColorList::Iterator it;
 	int c = 0;
-	if ((colorName != "None") && (colorName != ""))
+	if ((colorName != "None") && (!colorName.isEmpty()))
 	{
 		if (!GradientMode)
 			c++;

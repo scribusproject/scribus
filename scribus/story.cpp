@@ -184,7 +184,7 @@ void SEditor::setCurrentDocument(ScribusDoc *docc)
 void SEditor::imEndEvent(QIMEvent *e)
 {
 	QString uc = e->text();
-	if ((uc != "") && ((*doc->AllFonts)[CurrFont]->CharWidth.contains(uc[0].unicode())))
+	if ((!uc.isEmpty()) && ((*doc->AllFonts)[CurrFont]->CharWidth.contains(uc[0].unicode())))
 	{
 		insChars(e->text());
 		QTextEdit::imEndEvent(e);
@@ -489,7 +489,7 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 				case Key_End:
 					break;
 				default:
-					if ((k->text() != "") && ((*doc->AllFonts)[CurrFont]->CharWidth.contains(uc[0].unicode())))
+					if ((!k->text().isEmpty()) && ((*doc->AllFonts)[CurrFont]->CharWidth.contains(uc[0].unicode())))
 					{
 						insChars(k->text());
 						QTextEdit::keyPressEvent(k);
@@ -812,7 +812,7 @@ void SEditor::saveItemText(PageItem *currItem)
 				hg->cunderwidth = CurrTextUnderWidth;
 				hg->cstrikepos = CurrTextStrikePos;
 				hg->cstrikewidth = CurrTextStrikeWidth;
-				if (doc->docParagraphStyles[ParagStyles[p-1]].Font != "")
+				if (!doc->docParagraphStyles[ParagStyles[p-1]].Font.isEmpty())
 				{
 					hg->cfont = (*doc->AllFonts)[doc->docParagraphStyles[ParagStyles[p-1]].Font];
 					hg->csize = doc->docParagraphStyles[ParagStyles[p-1]].FontSize;
@@ -1527,7 +1527,7 @@ void SEditor::setFarbe(bool marker)
 void SEditor::copy()
 {
 	emit SideBarUp(false);
-	if ((hasSelectedText()) && (selectedText() != ""))
+	if ((hasSelectedText()) && (!selectedText().isEmpty()))
 	{
 		disconnect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(ClipChange()));
 		disconnect(QApplication::clipboard(), SIGNAL(selectionChanged()), this, SLOT(SelClipChange()));
@@ -2588,7 +2588,7 @@ void StoryEditor::updateProps(int p, int ch)
 			StrokeTools->SetShade(currItem->ShTxtStroke);
 			FillTools->SetShade(currItem->ShTxtFill);
 			QString b = currItem->TxtFill;
-			if ((b != "None") && (b != ""))
+			if ((b != "None") && (!b.isEmpty()))
 			{
 				c++;
 				for (it = currDoc->PageColors.begin(); it != currDoc->PageColors.end(); ++it)
@@ -2601,7 +2601,7 @@ void StoryEditor::updateProps(int p, int ch)
 			FillTools->SetColor(c);
 			c = 0;
 			b = currItem->TxtStroke;
-			if ((b != "None") && (b != ""))
+			if ((b != "None") && (!b.isEmpty()))
 			{
 				c++;
 				for (it = currDoc->PageColors.begin(); it != currDoc->PageColors.end(); ++it)
@@ -2697,7 +2697,7 @@ void StoryEditor::updateProps(int p, int ch)
 	StrokeTools->SetShade(Editor->CurrTextStrokeSh);
 	FillTools->SetShade(Editor->CurrTextFillSh);
 	QString b = Editor->CurrTextFill;
-	if ((b != "None") && (b != ""))
+	if ((b != "None") && (!b.isEmpty()))
 	{
 		c++;
 		for (it = currDoc->PageColors.begin(); it != currDoc->PageColors.end(); ++it)
@@ -2710,7 +2710,7 @@ void StoryEditor::updateProps(int p, int ch)
 	FillTools->SetColor(c);
 	c = 0;
 	b = Editor->CurrTextStroke;
-	if ((b != "None") && (b != ""))
+	if ((b != "None") && (!b.isEmpty()))
 	{
 		c++;
 		for (it = currDoc->PageColors.begin(); it != currDoc->PageColors.end(); ++it)
@@ -2793,7 +2793,7 @@ void StoryEditor::Do_insSp()
 	CharSelect *dia = new CharSelect(this, currItem, ScApp);
 	dia->exec();
 	delete dia;
-	if (ScApp->pluginManager->dllReturn != "")
+	if (!ScApp->pluginManager->dllReturn.isEmpty())
 	{
 		Editor->insChars(ScApp->pluginManager->dllReturn);
 		Editor->insert(ScApp->pluginManager->dllReturn);
@@ -2811,7 +2811,7 @@ void StoryEditor::Do_fontPrev()
 	if (ScApp->pluginManager->DLLexists(2))
 	{
 		ScApp->pluginManager->callDLL( 2 );
-		if (ScApp->pluginManager->dllReturn != "")
+		if (!ScApp->pluginManager->dllReturn.isEmpty())
 		{
 			newTxFont(ScApp->pluginManager->dllReturn);
 			FontTools->SetFont(ScApp->pluginManager->dllReturn);
@@ -3097,7 +3097,7 @@ void StoryEditor::changeAlignSB(int pa, int align)
 			{
 				if (Editor->currentParaStyle > 4)
 				{
-					if (currDoc->docParagraphStyles[Editor->currentParaStyle].Font != "")
+					if (!currDoc->docParagraphStyles[Editor->currentParaStyle].Font.isEmpty())
 					{
 						chars->at(s)->cfont = currDoc->docParagraphStyles[Editor->currentParaStyle].Font;
 						chars->at(s)->csize = currDoc->docParagraphStyles[Editor->currentParaStyle].FontSize;
@@ -3147,7 +3147,7 @@ void StoryEditor::changeAlignSB(int pa, int align)
 	{
 		if (Editor->currentParaStyle > 4)
 		{
-			if (currDoc->docParagraphStyles[Editor->currentParaStyle].Font != "")
+			if (!currDoc->docParagraphStyles[Editor->currentParaStyle].Font.isEmpty())
 			{
 				Editor->CurrFont = currDoc->docParagraphStyles[Editor->currentParaStyle].Font;
 				Editor->CurrFontSize = currDoc->docParagraphStyles[Editor->currentParaStyle].FontSize;
@@ -3240,7 +3240,7 @@ void StoryEditor::changeAlign(int )
 				{
 					if (Editor->currentParaStyle > 4)
 					{
-						if (currDoc->docParagraphStyles[Editor->currentParaStyle].Font != "")
+						if (!currDoc->docParagraphStyles[Editor->currentParaStyle].Font.isEmpty())
 						{
 							chars->at(s)->cfont = currDoc->docParagraphStyles[Editor->currentParaStyle].Font;
 							chars->at(s)->csize = currDoc->docParagraphStyles[Editor->currentParaStyle].FontSize;
@@ -3293,7 +3293,7 @@ void StoryEditor::changeAlign(int )
 	{
 		if (Editor->currentParaStyle > 4)
 		{
-			if (currDoc->docParagraphStyles[Editor->currentParaStyle].Font != "")
+			if (!currDoc->docParagraphStyles[Editor->currentParaStyle].Font.isEmpty())
 			{
 				Editor->CurrFont = currDoc->docParagraphStyles[Editor->currentParaStyle].Font;
 				Editor->CurrFontSize = currDoc->docParagraphStyles[Editor->currentParaStyle].FontSize;

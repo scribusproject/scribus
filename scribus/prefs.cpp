@@ -861,7 +861,7 @@ Preferences::~Preferences()
 void Preferences::changeDocs()
 {
 	QString s = QFileDialog::getExistingDirectory(Docs->text(), this, "d", tr("Choose a Directory"), true);
-	if (s != "")
+	if (!s.isEmpty())
 		Docs->setText(s);
 }
 
@@ -876,7 +876,7 @@ void Preferences::changeDocs()
 void Preferences::changeProfs()
 {
 	QString s = QFileDialog::getExistingDirectory(ProPfad->text(), this, "d", tr("Choose a Directory"), true);
-	if (s != "")
+	if (!s.isEmpty())
 		ProPfad->setText(s);
 }
 
@@ -891,7 +891,7 @@ void Preferences::changeProfs()
 void Preferences::changeScripts()
 {
 	QString s = QFileDialog::getExistingDirectory(ScriptPfad->text(), this, "d", tr("Choose a Directory"), true);
-	if (s != "")
+	if (!s.isEmpty())
 		ScriptPfad->setText(s);
 }
 
@@ -906,7 +906,7 @@ void Preferences::changeScripts()
 void Preferences::changeDocumentTemplates()
 {
 	QString s = QFileDialog::getExistingDirectory(DocumentTemplateDir->text(), this, "d", tr("Choose a Directory"), true);
-	if (s != "")
+	if (!s.isEmpty())
 		DocumentTemplateDir->setText(s);
 }
 

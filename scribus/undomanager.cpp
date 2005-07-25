@@ -160,7 +160,7 @@ void UndoManager::commit(const QString &targetName,
 
 	if (tmps->sizet() > 0) // are there any actions inside the commited transaction
 	{
-		if (tmps->getName() == "")
+		if (tmps->getName().isEmpty())
 			tmps->useActionName();
 		action(tmpu, tmps);
 	} // if not just delete objects
@@ -392,7 +392,7 @@ void UndoManager::action(UndoObject* target, UndoState* state,
                          const QString &targetName, QPixmap *targetPixmap)
 {
 	QString oldName = target->getUName();
-	if (targetName != "")
+	if (!targetName.isEmpty())
 		target->setUName(targetName);
 	action(target, state, targetPixmap);
 	target->setUName(oldName);

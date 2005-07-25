@@ -26,7 +26,7 @@ Navigator::Navigator(QWidget *parent, int Size, int Seite, ScribusView* vie, QSt
 {
 	setScaledContents(false);
 	setAlignment(static_cast<int>( QLabel::AlignLeft | QLabel::AlignTop) );
-	if (fn != "")
+	if (!fn.isEmpty())
 	{
 		QPixmap img = LoadPDF(fn, Seite, Size, &Breite, &Hoehe);
 		if (!img.isNull())
@@ -90,7 +90,7 @@ void Navigator::drawMark(int x, int y)
 bool Navigator::SetSeite(int Seite, int Size, QString fn)
 {
 	bool ret = false;
-	if (fn != "")
+	if (!fn.isEmpty())
 	{
 		QPixmap img = LoadPDF(fn, Seite, Size, &Breite, &Hoehe);
 		if (!img.isNull())

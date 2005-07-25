@@ -133,7 +133,7 @@ void MenuPreview::RunPreview()
 	{
 		Carrier->pluginManager->dllReturn = "";
 		PPreview *dia = new PPreview(par, Carrier);
-		if (Carrier->pluginManager->dllReturn != "")
+		if (!Carrier->pluginManager->dllReturn.isEmpty())
 		{
 			delete dia;
 			return;

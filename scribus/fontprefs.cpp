@@ -300,7 +300,7 @@ void FontPrefs::AddPath()
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	CurrentPath = dirs->get("fontprefs", ".");
 	QString s = QFileDialog::getExistingDirectory(CurrentPath, this, "d", tr("Choose a Directory"), true);
-	if (s != "")
+	if (!s.isEmpty())
 	{
 		dirs->set("fontprefs", s.left(s.findRev("/", -2)));
 		if( s.endsWith("/") )
@@ -320,7 +320,7 @@ void FontPrefs::ChangePath()
 {
 	Q_ASSERT(!DocAvail); // should never be called in doc-specific prefs
 	QString s = QFileDialog::getExistingDirectory(CurrentPath, this, "d", tr("Choose a Directory"), true);
-	if (s != "")
+	if (!s.isEmpty())
 	{
 		s = s.left(s.length()-1);
 		if (PathList->findItem(s))

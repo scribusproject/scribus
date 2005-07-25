@@ -45,7 +45,7 @@ double docUnitYToPageY(double pageUnitY)
 
 int GetItem(QString Name)
 {
-	if (Name != "")
+	if (!Name.isEmpty())
 	{
 		for (uint a = 0; a < Carrier->doc->Items.count(); a++)
 		{

@@ -179,7 +179,7 @@ int ScribusQApp::init()
 		scribus->show();
 		scribus->ShowSubs();
 
-		if (file != "")
+		if (!file.isEmpty())
 			scribus->loadDoc(file);
 		else
 		{
@@ -219,7 +219,7 @@ QStringList ScribusQApp::getLang(QString lang)
 	QStringList langs;
 
 	// read the locales
-	if (lang != "")
+	if (!lang.isEmpty())
 		langs.push_back(lang);
 	
 	//add in user preferences lang, only overridden by lang command line option
@@ -241,18 +241,18 @@ QStringList ScribusQApp::getLang(QString lang)
 				PrefsContext* userprefsContext = prefsFile->getContext("user_preferences");
 				if (userprefsContext) {
 					QString prefslang = userprefsContext->get("gui_language","");
-					if (prefslang!="")
+					if (!prefslang.isEmpty())
 						langs.push_back(prefslang);
 				}
 			}
 		}
 	}
 
-	if ((lang = ::getenv("LC_ALL")) != "")
+	if (!(lang = ::getenv("LC_ALL")).isEmpty())
 		langs.push_back(lang);
-	if ((lang = ::getenv("LC_MESSAGES")) != "")
+	if (!(lang = ::getenv("LC_MESSAGES")).isEmpty())
 		langs.push_back(lang);
-	if ((lang = ::getenv("LANG")) != "")
+	if (!(lang = ::getenv("LANG")).isEmpty())
 		langs.push_back(lang);
 
 	langs.push_back(QString(QTextCodec::locale()));
@@ -320,7 +320,7 @@ void ScribusQApp::installTranslators(QStringList langs)
 void ScribusQApp::changeGUILanguage(QString newGUILang)
 {
 	QStringList newLangs;
-	if (newGUILang=="")
+	if (newGUILang.isEmpty())
 		newLangs.append("en");
 	else
 		newLangs.append(newGUILang);

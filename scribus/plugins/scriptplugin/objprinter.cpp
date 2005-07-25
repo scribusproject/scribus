@@ -174,7 +174,7 @@ static int Printer_init(Printer *self, PyObject */*args*/, PyObject */*kwds*/)
 	}
 // set defaul name of file to print into
 	QString tf = Carrier->doc->PDF_Options.Datei;
-	if (tf == "") {
+	if (tf.isEmpty()) {
 		QFileInfo fi = QFileInfo(Carrier->doc->DocName);
 		tf = fi.dirPath()+"/"+fi.baseName()+".pdf";
 	}
@@ -471,7 +471,7 @@ static PyObject *Printer_print(Printer *self)
 
 			if (!fil)
 			{
-				if (printcomm != "")
+				if (!printcomm.isEmpty())
 					cmd = printcomm + " "+fna;
 				else
 				{

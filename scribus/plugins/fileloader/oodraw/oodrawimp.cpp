@@ -93,7 +93,7 @@ bool actionEnabledOnStartup()
 void run(QWidget *d, ScribusApp *plug)
 {
 	QString fileName;
-	if (plug->pluginManager->dllInput != "")
+	if (!plug->pluginManager->dllInput.isEmpty())
 		fileName = plug->pluginManager->dllInput;
 	else
 	{
@@ -192,7 +192,7 @@ void OODPlug::convert()
 	QDomElement properties = style->namedItem( "style:properties" ).toElement();
 	double width = !properties.attribute( "fo:page-width" ).isEmpty() ? parseUnit(properties.attribute( "fo:page-width" ) ) : 550.0;
 	double height = !properties.attribute( "fo:page-height" ).isEmpty() ? parseUnit(properties.attribute( "fo:page-height" ) ) : 841.0;
-	if (Prog->pluginManager->dllInput != "")
+	if (!Prog->pluginManager->dllInput.isEmpty())
 		Prog->doc->setPage(width, height, 0, 0, 0, 0, 0, 0, false, false);
 	else
 	{
@@ -202,7 +202,7 @@ void OODPlug::convert()
 			ret = true;
 		}
 	}
-	if ((ret) || (Prog->pluginManager->dllInput != ""))
+	if ((ret) || (!Prog->pluginManager->dllInput.isEmpty()))
 	{
 		if (width > height)
 			Prog->doc->PageOri = 1;
@@ -255,14 +255,14 @@ void OODPlug::convert()
 	for( QDomNode drawPag = body.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling() )
 	{
 		QDomElement dpg = drawPag.toElement();
-		if (Prog->pluginManager->dllInput != "")
+		if (!Prog->pluginManager->dllInput.isEmpty())
 			Prog->view->addPage(PageCounter);
 		PageCounter++;
 		m_styleStack.clear();
 		fillStyleStack( dpg );
 		parseGroup( dpg );
 	}
-	if ((Elements.count() > 1) && (Prog->pluginManager->dllInput == ""))
+	if ((Elements.count() > 1) && (Prog->pluginManager->dllInput.isEmpty()))
 	{
 		Prog->view->SelItem.clear();
 		for (uint a = 0; a < Elements.count(); ++a)
@@ -276,10 +276,10 @@ void OODPlug::convert()
 	Doku->DoDrawing = true;
 	Prog->view->setUpdatesEnabled(true);
 	Prog->ScriptRunning = false;
-	if (Prog->pluginManager->dllInput == "")
+	if (Prog->pluginManager->dllInput.isEmpty())
 		Doku->loading = false;
 	qApp->setOverrideCursor(QCursor(Qt::arrowCursor), true);
-	if ((Elements.count() > 0) && (!ret) && (Prog->pluginManager->dllInput == ""))
+	if ((Elements.count() > 0) && (!ret) && (Prog->pluginManager->dllInput.isEmpty()))
 	{
 		Doku->DragP = true;
 		Doku->DraggedElem = 0;
@@ -627,7 +627,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			ite->setLineTransparency(StrokeTrans);
 			if (dashes.count() != 0)
 				ite->DashValues = dashes;
-			if (drawID != "")
+			if (!drawID.isEmpty())
 				ite->setItemName(drawID);
 			if (b.hasAttribute("draw:transform"))
 			{
@@ -804,7 +804,7 @@ void OODPlug::storeObjectStyles( const QDomElement& object )
 double OODPlug::parseUnit(const QString &unit)
 {
 	QString unitval=unit;
-	if (unit == "")
+	if (unit.isEmpty())
 		return 0.0;
 	if( unit.right( 2 ) == "pt" )
 		unitval.replace( "pt", "" );

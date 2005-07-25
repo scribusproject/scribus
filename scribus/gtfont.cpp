@@ -258,7 +258,7 @@ void gtFont::setSlant(QString newSlant)
 {
 	slant = newSlant;
 	useFullName = false;
-	if (newSlant != "")
+	if (!newSlant.isEmpty())
 	{
 		if (weight == fontWeights[REGULAR])
 			setWeight(NO_WEIGHT);
@@ -301,7 +301,7 @@ void gtFont::setWidth(QString newWidth)
 {
 	width = newWidth;
 	useFullName = false;
-	if (newWidth != "")
+	if (!newWidth.isEmpty())
 	{
 		if (weight == fontWeights[REGULAR])
 			setWeight(NO_WEIGHT);
@@ -427,11 +427,11 @@ QString gtFont::getName(uint i)
 			fname = fname + " " + append + " " + width + " " + slant + " " + weight;
 			break;
 		case 12:
-			if ((append == "") && (weight == "") && (slant == "") && (width == ""))
+			if ((append.isEmpty()) && (weight.isEmpty()) && (slant.isEmpty()) && (width.isEmpty()))
 				fname = fname + " " + fontWeights[REGULAR];
 			break;
 		case 13:
-			if ((append == "") && (weight == "") && (slant == "") && (width == ""))
+			if ((append.isEmpty()) && (weight.isEmpty()) && (slant.isEmpty()) && (width.isEmpty()))
 				fname = fname + " " + fontWeights[ROMAN];
 			break;
 	}

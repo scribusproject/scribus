@@ -475,7 +475,7 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 	ll.isViewable = false;
 	ll.LNr = 0;
 	double z = painter->zoomFactor();
-	if (page->MPageNam != "")
+	if (!page->MPageNam.isEmpty())
 	{
 		Page* Mp = Doc->MasterPages.at(Doc->MasterNames[page->MPageNam]);
 		if (page->FromMaster.count() != 0)
@@ -618,7 +618,7 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 						continue;
 					if ((Doc->MasterP) && ((currItem->OwnPage != -1) && (currItem->OwnPage != static_cast<int>(Doc->currentPage->PageNr))))
 						continue;
-					if ((!Doc->MasterP) && (currItem->OnMasterPage != ""))
+					if ((!Doc->MasterP) && (!currItem->OnMasterPage.isEmpty()))
 					{
 						if (currItem->OnMasterPage != Doc->currentPage->PageNam)
 							continue;
@@ -1199,7 +1199,7 @@ void ScribusView::contentsMouseDoubleClickEvent(QMouseEvent *m)
 				contentsMousePressEvent(m);
 				return;
 			}
-			if ((currItem->itemType() == PageItem::ImageFrame) && (currItem->Pfile==""))
+			if ((currItem->itemType() == PageItem::ImageFrame) && (currItem->Pfile.isEmpty()))
  				emit LoadPic();
  			else
  				emit Amode(modeEdit);
@@ -1705,7 +1705,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			ScApp->scrActions["itemAttributes"]->addTo(pmen);
 			if (currItem->itemType() == PageItem::TextFrame)
 			{
-				if (Doc->currentPage->PageNam == "")
+				if (Doc->currentPage->PageNam.isEmpty())
 				{
 					ScApp->scrActions["itemPDFIsAnnotation"]->addTo(pmenPDF);
 					ScApp->scrActions["itemPDFIsBookmark"]->addTo(pmenPDF);
@@ -10511,7 +10511,7 @@ void ScribusView::chAbStyle(PageItem *currItem, int s)
 				}
 				if (s > 4)
 				{
-					if (Doc->docParagraphStyles[s].Font != "")
+					if (!Doc->docParagraphStyles[s].Font.isEmpty())
 					{
 						nextItem->itemText.at(a)->cfont = (*Doc->AllFonts)[Doc->docParagraphStyles[s].Font];
 						nextItem->itemText.at(a)->csize = Doc->docParagraphStyles[s].FontSize;
@@ -10577,7 +10577,7 @@ void ScribusView::chAbStyle(PageItem *currItem, int s)
 			{
 				if (s > 4)
 				{
-					if (Doc->docParagraphStyles[s].Font != "")
+					if (!Doc->docParagraphStyles[s].Font.isEmpty)
 					{
 						nextItem->itemText.at(a)->cfont = (*Doc->AllFonts)[Doc->docParagraphStyles[s].Font];
 						nextItem->itemText.at(a)->csize = Doc->docParagraphStyles[s].FontSize;
@@ -10655,7 +10655,7 @@ void ScribusView::chAbStyle(PageItem *currItem, int s)
 			{
 				if (s > 4)
 				{
-					if (Doc->docParagraphStyles[s].Font != "")
+					if (!Doc->docParagraphStyles[s].Font.isEmpty())
 					{
 						currItem->itemText.at(a)->cfont = (*Doc->AllFonts)[Doc->docParagraphStyles[s].Font];
 						currItem->itemText.at(a)->csize = Doc->docParagraphStyles[s].FontSize;
@@ -10971,7 +10971,7 @@ void ScribusView::loadPict(QString fn, PageItem *pageItem, bool reload)
 			Item->LocalScY = 72.0 / yres;
 			Item->LocalX = 0;
 			Item->LocalY = 0;
-			if ((Doc->toolSettings.useEmbeddedPath) && (Item->pixm.imgInfo.clipPath != ""))
+			if ((Doc->toolSettings.useEmbeddedPath) && (!Item->pixm.imgInfo.clipPath.isEmpty()))
 			{
 				Item->pixm.imgInfo.usedPath = Item->pixm.imgInfo.clipPath;
 				clPath = Item->pixm.imgInfo.clipPath;
@@ -11009,7 +11009,7 @@ void ScribusView::loadPict(QString fn, PageItem *pageItem, bool reload)
 			Item->isRaster = false;
 		else
 			Item->isRaster = true;
-		if (Item->pixm.imgInfo.profileName != "")
+		if (!Item->pixm.imgInfo.profileName.isEmpty())
 		{
 			Item->IProfile = "Embedded " + Item->pixm.imgInfo.profileName;
 			Item->EmProfile = "Embedded " + Item->pixm.imgInfo.profileName;
@@ -11319,7 +11319,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		Doc->Items.at(z)->EmProfile = Buffer->EmProfile;
 		Doc->Items.at(z)->IRender = Buffer->IRender;
 		Doc->Items.at(z)->UseEmbedded = Buffer->UseEmbedded;
-		if (Doc->Items.at(z)->Pfile != "")
+		if (!Doc->Items.at(z)->Pfile.isEmpty())
 			LoadPict(Doc->Items.at(z)->Pfile, z);
 		Doc->Items.at(z)->LocalScX = Buffer->LocalScX;
 		Doc->Items.at(z)->LocalScY = Buffer->LocalScY;
@@ -11358,14 +11358,14 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 			Doc->Items.at(z)->BBoxX = Buffer->BBoxX;
 			Doc->Items.at(z)->BBoxH = Buffer->BBoxH;
 		}
-		if (Buffer->itemText != "")
+		if (!Buffer->itemText.isEmpty())
 		{
 			QTextStream t(&Buffer->itemText, IO_ReadOnly);
 			QString cc;
 			while (!t.atEnd())
 			{
 				cc = t.readLine();
-				if (cc == "")
+				if (cc.isEmpty())
 					continue;
 				QStringList wt;
 				QStringList::Iterator it;
@@ -11510,7 +11510,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	currItem->BottomLinkID = Buffer->BottomLinkID;
 	currItem->startArrowIndex = Buffer->startArrowIndex;
 	currItem->endArrowIndex = Buffer->endArrowIndex;
-	if (Buffer->AnName != "")
+	if (!Buffer->AnName.isEmpty())
 	{
 		if (!drag)
 		{
@@ -11614,24 +11614,24 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		currItem->IFont = Doc->toolSettings.defFont;
 	if (Buffer->GrType != 0)
 	{
-		if ((Buffer->GrColor != "") && (Buffer->GrColor2 != ""))
+		if ((!Buffer->GrColor.isEmpty()) && (!Buffer->GrColor2.isEmpty()))
 		{
 			currItem->fill_gradient.clearStops();
 			if (Buffer->GrType == 5)
 			{
-				if ((Buffer->GrColor != "None") && (Buffer->GrColor != ""))
+				if ((Buffer->GrColor != "None") && (!Buffer->GrColor.isEmpty()))
 					currItem->SetFarbe(&tmp, Buffer->GrColor, Buffer->GrShade);
 				currItem->fill_gradient.addStop(tmp, 0.0, 0.5, 1.0, Buffer->GrColor, Buffer->GrShade);
-				if ((Buffer->GrColor2 != "None") && (Buffer->GrColor2 != ""))
+				if ((Buffer->GrColor2 != "None") && (!Buffer->GrColor2.isEmpty()))
 					currItem->SetFarbe(&tmp, Buffer->GrColor2, Buffer->GrShade2);
 				currItem->fill_gradient.addStop(tmp, 1.0, 0.5, 1.0, Buffer->GrColor2, Buffer->GrShade2);
 			}
 			else
 			{
-				if ((Buffer->GrColor2 != "None") && (Buffer->GrColor2 != ""))
+				if ((Buffer->GrColor2 != "None") && (!Buffer->GrColor2.isEmpty()))
 					currItem->SetFarbe(&tmp, Buffer->GrColor2, Buffer->GrShade2);
 				currItem->fill_gradient.addStop(tmp, 0.0, 0.5, 1.0, Buffer->GrColor2, Buffer->GrShade2);
-				if ((Buffer->GrColor != "None") && (Buffer->GrColor != ""))
+				if ((Buffer->GrColor != "None") && (!Buffer->GrColor.isEmpty()))
 					currItem->SetFarbe(&tmp, Buffer->GrColor, Buffer->GrShade);
 				currItem->fill_gradient.addStop(tmp, 1.0, 0.5, 1.0, Buffer->GrColor, Buffer->GrShade);
 			}

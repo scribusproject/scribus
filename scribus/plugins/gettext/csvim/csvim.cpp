@@ -212,7 +212,7 @@ void CsvIm::setupTabulators()
 QString CsvIm::toUnicode(const QString& text)
 {
 	QTextCodec *codec;
-	if (encoding == "")
+	if (encoding.isEmpty())
 		codec = QTextCodec::codecForLocale();
 	else
 		codec = QTextCodec::codecForName(encoding);

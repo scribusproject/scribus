@@ -123,7 +123,7 @@ void MergeDoc::changeFile()
 #else
 	CustomFDialog *dia = new CustomFDialog(this, wdir, tr("Open"), tr("Documents (*.sla *.scd);;All Files (*)"));
 #endif
-	if (fromDocData->text() != "")
+	if (!fromDocData->text().isEmpty())
 		dia->setSelection(fromDocData->text());
 	if (dia->exec() == QDialog::Accepted)
 	{

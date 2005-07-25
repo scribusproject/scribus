@@ -91,7 +91,7 @@ bool actionEnabledOnStartup()
 void run(QWidget *d, ScribusApp *plug)
 {
 	QString fileName;
-	if (plug->pluginManager->dllInput != "")
+	if (!plug->pluginManager->dllInput.isEmpty())
 	{
 		fileName = plug->pluginManager->dllInput;
 		UndoManager::instance()->setUndoEnabled(false);
@@ -230,7 +230,7 @@ EPSPlug::EPSPlug( ScribusApp *plug, QString fName )
 		}
 	}
 	Prog = plug;
-	if (plug->pluginManager->dllInput != "")
+	if (!plug->pluginManager->dllInput.isEmpty())
 	{
 		Prog->doc->setPage(b-x, h-y, 0, 0, 0, 0, 0, 0, false, false);
 		Prog->view->addPage(0);
@@ -243,7 +243,7 @@ EPSPlug::EPSPlug( ScribusApp *plug, QString fName )
 			ret = true;
 		}
 	}
-	if ((ret) || (Prog->pluginManager->dllInput != ""))
+	if ((ret) || (!Prog->pluginManager->dllInput.isEmpty()))
 	{
 		if (b-x > h-y)
 			Prog->doc->PageOri = 1;
@@ -269,7 +269,7 @@ EPSPlug::EPSPlug( ScribusApp *plug, QString fName )
 	if (convert(fName, x, y, b, h))
 	{
 		QDir::setCurrent(CurDirP);
-		if ((Elements.count() > 0) && (plug->pluginManager->dllInput == ""))
+		if ((Elements.count() > 0) && (plug->pluginManager->dllInput.isEmpty()))
 		{
 			Prog->view->SelItem.clear();
 			for (uint a = 0; a < Elements.count(); ++a)
@@ -285,7 +285,7 @@ EPSPlug::EPSPlug( ScribusApp *plug, QString fName )
 		Prog->ScriptRunning = false;
 		Doku->loading = false;
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
-		if ((Elements.count() > 0) && (!ret) && (plug->pluginManager->dllInput == ""))
+		if ((Elements.count() > 0) && (!ret) && (plug->pluginManager->dllInput.isEmpty()))
 		{
 			Doku->DragP = true;
 			Doku->DraggedElem = 0;
@@ -320,7 +320,7 @@ EPSPlug::EPSPlug( ScribusApp *plug, QString fName )
 		Prog->ScriptRunning = false;
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	}
-	if (plug->pluginManager->dllInput == "")
+	if (plug->pluginManager->dllInput.isEmpty())
 		Doku->loading = false;
 	plug->pluginManager->dllInput = "";
 }
@@ -411,7 +411,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 			QTextStream Code(&tmp, IO_ReadOnly);
 			Code >> token;
 			params = Code.read();
-			if ((lasttoken == "sp") && (Prog->pluginManager->dllInput != "") && (!eps))
+			if ((lasttoken == "sp") && (!Prog->pluginManager->dllInput.isEmpty()) && (!eps))
 			{
 				Prog->view->addPage(pagecount);
 				pagecount++;
@@ -605,7 +605,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 
 void EPSPlug::LineTo(FPointArray *i, QString vals)
 {
-	if (vals == "")
+	if (vals.isEmpty())
 		return;
 	double x1, x2, y1, y2;
 	QTextStream Code(&vals, IO_ReadOnly);
@@ -634,7 +634,7 @@ void EPSPlug::LineTo(FPointArray *i, QString vals)
  */
 void EPSPlug::Curve(FPointArray *i, QString vals)
 {
-	if (vals == "")
+	if (vals.isEmpty())
 		return;
 	double x1, x2, y1, y2, x3, y3, x4, y4;
 	QTextStream Code(&vals, IO_ReadOnly);
@@ -667,7 +667,7 @@ void EPSPlug::Curve(FPointArray *i, QString vals)
 QString EPSPlug::parseColor(QString vals, colorModel model)
 {
 	QString ret = "None";
-	if (vals == "")
+	if (vals.isEmpty())
 		return ret;
 	double c, m, y, k, r, g, b;
 	CMYKColor tmp;

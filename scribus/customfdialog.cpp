@@ -188,12 +188,12 @@ void FDialogPreview::GenPreview(QString name)
 				QDomElement dc=DOC.toElement();
 				QString Tit = tr("Title:")+" ";
 				QString ti2 = dc.attribute("TITLE");
-				if (ti2 == "")
+				if (ti2.isEmpty())
 					ti2= tr("No Title");
 				Tit += ti2+"\n";
 				QString Aut = tr("Author:")+" ";
 				QString au2 = dc.attribute("AUTHOR");
-				if (au2 == "")
+				if (au2.isEmpty())
 					au2 = tr("Unknown");
 				Aut += au2;
 				setText( tr("Scribus Document")+"\n\n"+Tit+Aut);

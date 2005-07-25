@@ -256,7 +256,7 @@ void NewDoc::createOpenDocPage()
 	PrefsContext* docContext = prefsManager->prefsFile->getContext("docdirs", false);
 	QString docDir = ".";
 	QString prefsDocDir=prefsManager->documentDir();
-	if (prefsDocDir != "")
+	if (!prefsDocDir.isEmpty())
 		docDir = docContext->get("docsopen", prefsDocDir);
 	else
 		docDir = docContext->get("docsopen", ".");

@@ -42,7 +42,7 @@ MasterPagesPalette::MasterPagesPalette( QWidget* parent, ScribusDoc *pCurrentDoc
 	masterPagesLayout->addWidget( masterPageData );
 
 
-	if (masterPageName == "")
+	if (masterPageName.isEmpty())
 	{
 		sMuster = "Normal";
 		updateMasterPageList(sMuster);

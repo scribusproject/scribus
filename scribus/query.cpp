@@ -61,7 +61,7 @@ Query::Query( QWidget* parent,  const char* name, bool modal, WFlags fl, QString
 
 void Query::Leave()
 {
-	if (answerEdit->text() == "")
+	if (answerEdit->text().isEmpty())
 		return;
 	else
 		accept();

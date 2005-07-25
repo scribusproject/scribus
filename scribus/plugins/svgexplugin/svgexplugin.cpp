@@ -234,7 +234,7 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 	QPtrList<PageItem> Items;
 	Page* SavedAct = plug->doc->currentPage;
 	plug->doc->currentPage = Seite;
-	if (Seite->PageNam == "")
+	if (Seite->PageNam.isEmpty())
 		Items = plug->doc->DocItems;
 	else
 		Items = plug->doc->MasterItems;
@@ -416,7 +416,7 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 				gr.setAttribute("transform", trans);
 				if (Item->itemType() != PageItem::TextFrame)
 				{
-					if (Item->NamedLStyle == "")
+					if (Item->NamedLStyle.isEmpty())
 					{
 						if ((Item->itemType() == PageItem::Line) || (Item->itemType() == PageItem::PolyLine) || (Item->itemType() == PageItem::PathText))
 							gr.setAttribute("style", "fill:none; "+stroke+" "+strokeW+" "+strokeLC+" "+strokeLJ+" "+strokeDA);
@@ -431,7 +431,7 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 				case 3:
 				*/
 				case PageItem::Polygon:
-						if (Item->NamedLStyle == "")
+						if (Item->NamedLStyle.isEmpty())
 						{
 							ob = docu->createElement("path");
 							ob.setAttribute("d", SetClipPath(Item)+"Z");
@@ -460,7 +460,7 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 							ob.setAttribute("style", fill);
 							gr.appendChild(ob);
 						}
-						if ((Item->PicAvail) && (Item->Pfile != ""))
+						if ((Item->PicAvail) && (!Item->Pfile.isEmpty()))
 						{
 							ob = docu->createElement("clipPath");
 							ob.setAttribute("id", Clipi+IToStr(ClipCount));
@@ -488,7 +488,7 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 							ClipCount++;
 							gr.appendChild(ob);
 						}
-						if (Item->NamedLStyle == "")
+						if (Item->NamedLStyle.isEmpty())
 						{
 							ob = docu->createElement("path");
 							ob.setAttribute("d", SetClipPath(Item)+"Z");
@@ -507,7 +507,7 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 						}
 					break;
 				case PageItem::PolyLine:
-						if (Item->NamedLStyle == "")
+						if (Item->NamedLStyle.isEmpty())
 						{
 							ob = docu->createElement("path");
 							ob.setAttribute("d", SetClipPath(Item));
@@ -554,7 +554,7 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 						}
 					break;
 				case PageItem::Line:
-						if (Item->NamedLStyle == "")
+						if (Item->NamedLStyle.isEmpty())
 						{
 							ob = docu->createElement("path");
 							ob.setAttribute("d", "M 0 0 L "+FToStr(Item->Width)+" 0");
@@ -574,7 +574,7 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 				case PageItem::PathText:
 						if (Item->PoShow)
 						{
-							if (Item->NamedLStyle == "")
+							if (Item->NamedLStyle.isEmpty())
 							{
 								ob = docu->createElement("path");
 								ob.setAttribute("d", SetClipPath(Item));

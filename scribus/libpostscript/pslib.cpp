@@ -270,7 +270,7 @@ void PSLib::PS_begin_doc(int, double x, double y, double breite, double hoehe, i
 	PutDoc(Prolog);
 	PutDoc("%%BeginSetup\n");
 	PutDoc("/pdfmark where {pop} {userdict /pdfmark /cleartomark load put} ifelse\n");
-	if (FontDesc != "")
+	if (!FontDesc.isEmpty())
 		PutDoc(FontDesc);
 	PutDoc("Scribusdict begin\n");
 	PutDoc(Fonts);
@@ -685,7 +685,7 @@ void PSLib::PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bo
 	ImgStr = "";
 	QString iMask = "";
 	iMask = image.getAlpha(fn, false, false);
-	if (iMask != "")
+	if (!iMask.isEmpty())
 	{
 		if (CompAvail)
 		{
@@ -714,7 +714,7 @@ void PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 			PutSeite("bEPS\n");
       			PutSeite(ToStr(scalex) + " " + ToStr(scaley) + " sc\n");
       			PutSeite(ToStr(x) + " " + ToStr(y) + " tr\n");
-			if (Name != "")
+			if (!Name.isEmpty())
 			{
 				PutSeite(PSEncode(Name)+"Bild cvx exec\n");
 				PutSeite(PSEncode(Name)+"Bild resetfile\n");
@@ -760,13 +760,13 @@ void PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 		QString iMask = "";
 		ScImage img2;
 		iMask = img2.getAlpha(fn, false, false);
- 		if (iMask != "")
+ 		if (!iMask.isEmpty())
  		{
 			if (DoSep)
 				ImgStr = image.ImageToCMYK_PS(Plate, true);
 			else
 				ImgStr = GraySc ? image.ImageToCMYK_PS( -2, true) : image.ImageToCMYK_PS(-1, true);
-			if (Name == "")
+			if (Name.isEmpty())
 			{
 				if (CompAvail)
 				{
@@ -827,7 +827,7 @@ void PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 			PutSeite("   /DataSource "+PSEncode(Name)+"Mask\n");
 			PutSeite(">>\n");
 			PutSeite("imagemask\n");
-			if (Name != "")
+			if (!Name.isEmpty())
 			{
 				PutSeite(PSEncode(Name)+"Bild resetfile\n");
 				PutSeite(PSEncode(Name)+"Mask resetfile\n");
@@ -845,7 +845,7 @@ void PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 				PutSeite( GraySc ? "   /Decode [1 0]\n" : "   /Decode [0 1 0 1 0 1 0 1]\n");
 			PutSeite("   /ImageMatrix [" + IToStr(w) + " 0 0 " + IToStr(-h) + " 0 " + IToStr(h) +
 					"]\n");
-			if (Name != "")
+			if (!Name.isEmpty())
 			{
 				PutSeite("   /DataSource "+PSEncode(Name)+"Bild >>\n");
 				PutSeite("image\n");
@@ -989,7 +989,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 							continue;
 						if ((it->OwnPage != static_cast<int>(Doc->MasterPages.at(ap)->PageNr)) && (it->OwnPage != -1))
 							continue;
-						if ((it->itemType() == PageItem::ImageFrame) && (it->PicAvail) && (it->Pfile != "") && (it->printable()) && (!sep) && (farb))
+						if ((it->itemType() == PageItem::ImageFrame) && (it->PicAvail) && (!it->Pfile.isEmpty()) && (it->printable()) && (!sep) && (farb))
 							PS_ImageData(it, it->Pfile, it->itemName(), it->IProfile, it->UseEmbedded, Ic);
 						PS_TemplateStart(Doc->MasterPages.at(ap)->PageNam + tmps.setNum(it->ItemNr), Doc->MasterPages.at(ap)->Width, Doc->MasterPages.at(ap)->Height);
 						ProcessItem(Doc, Doc->MasterPages.at(ap), it, ap+1, sep, farb, Ic, gcr, true);
@@ -1039,7 +1039,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 			if (SepNam == QObject::tr("All"))
 				PS_plate(sepac);
 		}
-		if (Doc->Pages.at(a)->MPageNam != "")
+		if (!Doc->Pages.at(a)->MPageNam.isEmpty())
 		{
 			int h, s, v, k;
 			QCString chxc;
@@ -1097,7 +1097,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 									PS_translate(0, -ite->Height);
 									PS_scale(1, -1);
 								}
-								if ((ite->PicAvail) && (ite->Pfile != ""))
+								if ((ite->PicAvail) && (!ite->Pfile.isEmpty()))
 								{
 									PS_translate(0, -ite->BBoxH*ite->LocalScY);
 									if ((!sep) && (farb))
@@ -1106,9 +1106,9 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 										PS_image(ite, -ite->BBoxX+ite->LocalX, -ite->LocalY, ite->Pfile, ite->LocalScX, ite->LocalScY, ite->IProfile, ite->UseEmbedded, Ic);
 								}
 								PS_restore();
-								if (((ite->lineColor() != "None") || (ite->NamedLStyle != "")) && (!ite->isTableItem))
+								if (((ite->lineColor() != "None") || (!ite->NamedLStyle.isEmpty())) && (!ite->isTableItem))
 								{
-									if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
+									if ((ite->NamedLStyle.isEmpty()) && (ite->Pwidth != 0.0))
 									{
 										SetFarbe(Doc, ite->lineColor(), ite->lineShade(), &h, &s, &v, &k, gcr);
 										PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
@@ -1165,9 +1165,9 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 									PS_scale(1, -1);
 								}
 								setTextSt(Doc, ite, gcr, a, mPage, sep, farb, Ic, true);
-								if (((ite->lineColor() != "None") || (ite->NamedLStyle != "")) && (!ite->isTableItem))
+								if (((ite->lineColor() != "None") || (!ite->NamedLStyle.isEmpty())) && (!ite->isTableItem))
 								{
-									if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
+									if ((ite->NamedLStyle.isEmpty()) && (ite->Pwidth != 0.0))
 									{
 										SetFarbe(Doc, ite->lineColor(), ite->lineShade(), &h, &s, &v, &k, gcr);
 										PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
@@ -1310,7 +1310,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			{
 				SetClipPath(&c->PoLine);
 				PS_closepath();
-				if ((c->GrType != 0) && (a->PageNam == ""))
+				if ((c->GrType != 0) && (a->PageNam.isEmpty()))
 					HandleGradient(Doc, c, c->Width, c->Height, gcr);
 				else
 					PS_fill();
@@ -1333,18 +1333,18 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				PS_translate(0, -c->Height);
 				PS_scale(1, -1);
 			}
-			if ((c->PicAvail) && (c->Pfile != ""))
+			if ((c->PicAvail) && (!c->Pfile.isEmpty()))
 			{
 				PS_translate(0, -c->BBoxH*c->LocalScY);
-				if ((a->PageNam != "") && (!sep) && (farb))
+				if ((!a->PageNam.isEmpty()) && (!sep) && (farb))
 					PS_image(c, -c->BBoxX+c->LocalX, -c->LocalY, c->Pfile, c->LocalScX, c->LocalScY, c->IProfile, c->UseEmbedded, ic, c->itemName());
 				else
 					PS_image(c, -c->BBoxX+c->LocalX, -c->LocalY, c->Pfile, c->LocalScX, c->LocalScY, c->IProfile, c->UseEmbedded, ic);
 			}
 			PS_restore();
-			if (((c->lineColor() != "None") || (c->NamedLStyle != "")) && (!c->isTableItem))
+			if (((c->lineColor() != "None") || (!c->NamedLStyle.isEmpty())) && (!c->isTableItem))
 			{
-				if ((c->NamedLStyle == "") && (c->Pwidth != 0.0))
+				if ((c->NamedLStyle.isEmpty()) && (c->Pwidth != 0.0))
 				{
 					SetFarbe(Doc, c->lineColor(), c->lineShade(), &h, &s, &v, &k, gcr);
 					PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
@@ -1402,7 +1402,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			{
 				SetClipPath(&c->PoLine);
 				PS_closepath();
-				if ((c->GrType != 0) && (a->PageNam == ""))
+				if ((c->GrType != 0) && (a->PageNam.isEmpty()))
 					HandleGradient(Doc, c, c->Width, c->Height, gcr);
 				else
 					PS_fill();
@@ -1418,14 +1418,14 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				PS_scale(1, -1);
 			}
 			setTextSt(Doc, c, gcr, PNr-1, a, sep, farb, ic, master);
-			if (((c->lineColor() != "None") || (c->NamedLStyle != "")) && (!c->isTableItem))
+			if (((c->lineColor() != "None") || (!c->NamedLStyle.isEmpty())) && (!c->isTableItem))
 			{
 				SetFarbe(Doc, c->lineColor(), c->lineShade(), &h, &s, &v, &k, gcr);
 				PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 				PS_setlinewidth(c->Pwidth);
 				PS_setcapjoin(c->PLineEnd, c->PLineJoin);
 				PS_setdash(c->PLineArt, c->DashOffset, c->DashValues);
-				if ((c->NamedLStyle == "") && (c->Pwidth != 0.0))
+				if ((c->NamedLStyle.isEmpty()) && (c->Pwidth != 0.0))
 				{
 					SetClipPath(&c->PoLine);
 					PS_closepath();
@@ -1449,7 +1449,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			}
 			break;
 		case PageItem::Line:
-			if ((c->NamedLStyle == "") && (c->Pwidth != 0.0))
+			if ((c->NamedLStyle.isEmpty()) && (c->Pwidth != 0.0))
 			{
 				PS_moveto(0, 0);
 				PS_lineto(c->Width, 0);
@@ -1516,9 +1516,9 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				else
 					PS_fill();
 			}
-			if ((c->lineColor() != "None") || (c->NamedLStyle != ""))
+			if ((c->lineColor() != "None") || (!c->NamedLStyle.isEmpty()))
 			{
-				if ((c->NamedLStyle == "") && (c->Pwidth != 0.0))
+				if ((c->NamedLStyle.isEmpty()) && (c->Pwidth != 0.0))
 				{
 					SetClipPath(&c->PoLine);
 					PS_closepath();
@@ -1552,7 +1552,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					PS_fill();
 				PS_newpath();
 			}
-			if ((c->NamedLStyle == "") && (c->Pwidth != 0.0))
+			if ((c->NamedLStyle.isEmpty()) && (c->Pwidth != 0.0))
 			{
 				SetClipPath(&c->PoLine, false);
 				PS_stroke();
@@ -1628,7 +1628,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				if (c->PoLine.size() > 3)
 				{
 					PS_save();
-					if ((c->NamedLStyle == "") && (c->Pwidth != 0.0))
+					if ((c->NamedLStyle.isEmpty()) && (c->Pwidth != 0.0))
 					{
 						SetClipPath(&c->PoLine, false);
 						PS_stroke();
@@ -1742,7 +1742,7 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, b
 	for (uint la = 0; la < Doc->Layers.count(); ++la)
 	{
 		Level2Layer(Doc, &ll, Lnr);
-		if (a->PageNam != "")
+		if (!a->PageNam.isEmpty())
 			PItems = Doc->MasterItems;
 		else
 			PItems = Doc->Items;
@@ -1753,9 +1753,9 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, b
 				c = PItems.at(b);
 				if (c->LayerNr != ll.LNr)
 					continue;
-				if ((a->PageNam != "") && (c->itemType() == PageItem::TextFrame))
+				if ((!a->PageNam.isEmpty()) && (c->itemType() == PageItem::TextFrame))
 					continue;
-				if ((a->PageNam != "") && (c->itemType() == PageItem::ImageFrame) && ((sep) || (!farb)))
+				if ((!a->PageNam.isEmpty()) && (c->itemType() == PageItem::ImageFrame) && ((sep) || (!farb)))
 					continue;
 				if ((!Art) && (view->SelItem.count() != 0) && (!c->Select))
 					continue;
@@ -1771,7 +1771,7 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, b
 					continue;
 				if (c->ChangedMasterItem)
 					continue;
-				if ((a->PageNam != "") && (c->OwnPage != static_cast<int>(a->PageNr)) && (c->OwnPage != -1))
+				if ((!a->PageNam.isEmpty()) && (c->OwnPage != static_cast<int>(a->PageNr)) && (c->OwnPage != -1))
 					continue;
 				ProcessItem(Doc, a, c, PNr, sep, farb, ic, gcr, false);
 			}
@@ -1781,9 +1781,9 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, b
 			c = PItems.at(b);
 			if (c->LayerNr != ll.LNr)
 				continue;
-			if ((a->PageNam != "") && (c->itemType() == PageItem::TextFrame))
+			if ((!a->PageNam.isEmpty()) && (c->itemType() == PageItem::TextFrame))
 				continue;
-			if ((a->PageNam != "") && (c->itemType() == PageItem::ImageFrame) && ((sep) || (!farb)))
+			if ((!a->PageNam.isEmpty()) && (c->itemType() == PageItem::ImageFrame) && ((sep) || (!farb)))
 				continue;
 			int x = static_cast<int>(a->Xoffset);
 			int y = static_cast<int>(a->Yoffset);
@@ -1799,7 +1799,7 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, b
 				continue;
 			if (!c->isTableItem)
 				continue;
-			if ((a->PageNam != "") && (c->OwnPage != static_cast<int>(a->PageNr)) && (c->OwnPage != -1))
+			if ((!a->PageNam.isEmpty()) && (c->OwnPage != static_cast<int>(a->PageNr)) && (c->OwnPage != -1))
 				continue;
 			if (c->printable())
 			{

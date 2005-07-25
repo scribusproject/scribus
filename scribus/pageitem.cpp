@@ -437,7 +437,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 		if (!isTableItem)
 		{
 			p->setupPolygon(&PoLine);
-			if (NamedLStyle == "")
+			if (NamedLStyle.isEmpty())
 				p->strokePath();
 			else
 			{
@@ -577,7 +577,7 @@ void PageItem::DrawObj_ImageFrame(ScPainter *p, double sc)
 			p->setupPolygon(&PoLine);
 			p->fillPath();
 		}
-		if (Pfile == "")
+		if (Pfile.isEmpty())
 		{
 			if ((Frame) && (Doc->guidesSettings.framesShown))
 			{
@@ -695,7 +695,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 				lineCorr = Pwidth / 2.0;
 			else
 				lineCorr = 0;
-			if ((isAnnotation) && (AnType == 2) && (Pfile != "") && (PicAvail) && (PicArt) && (AnUseIcons))
+			if ((isAnnotation) && (AnType == 2) && (!Pfile.isEmpty()) && (PicAvail) && (PicArt) && (AnUseIcons))
 			{
 				p->setupPolygon(&PoLine);
 				p->setClipPath();
@@ -950,7 +950,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 				int LayerLev = Layer2Level(Doc, LayerNr);
 				if (!isEmbedded)
 				{
-					if (OnMasterPage != "")
+					if (!OnMasterPage.isEmpty())
 					{
 						Page* Mp = Doc->MasterPages.at(Doc->MasterNames[OnMasterPage]);
 						Page* Dp = Doc->Pages.at(savedOwnPage);
@@ -2523,7 +2523,7 @@ void PageItem::DrawObj_Line(ScPainter *p)
 {
 	if (!Doc->RePos)
 	{
-			if (NamedLStyle == "")
+			if (NamedLStyle.isEmpty())
 				p->drawLine(FPoint(0, 0), FPoint(Width, 0));
 			else
 			{
@@ -2625,7 +2625,7 @@ void PageItem::DrawObj_PolyLine(ScPainter *p)
 			p->fillPath();
 		}
 		p->setupPolygon(&PoLine, false);
-		if (NamedLStyle == "")
+		if (NamedLStyle.isEmpty())
 			p->strokePath();
 		else
 		{
@@ -3243,7 +3243,7 @@ void PageItem::DrawPolyL(QPainter *p, QPointArray pts)
 		uint FirstVal = 0;
 		for (it2 = Segments.begin(); it2 != Segments.end(); ++it2)
 		{
-			if (NamedLStyle == "")
+			if (NamedLStyle.isEmpty())
 				p->drawPolyline(pts, FirstVal, (*it2)-FirstVal);
 			else
 			{
@@ -3261,7 +3261,7 @@ void PageItem::DrawPolyL(QPainter *p, QPointArray pts)
 			}
 			FirstVal = (*it2);
 		}
-		if (NamedLStyle == "")
+		if (NamedLStyle.isEmpty())
 			p->drawPolyline(pts, FirstVal);
 		else
 		{
@@ -3280,7 +3280,7 @@ void PageItem::DrawPolyL(QPainter *p, QPointArray pts)
 	}
 	else
 	{
-		if (NamedLStyle == "")
+		if (NamedLStyle.isEmpty())
 			p->drawPolyline(pts);
 		else
 		{
@@ -3543,9 +3543,9 @@ void PageItem::setCustomLineStyle(const QString& newStyle)
 		return; // nothing to do -> return
 	if (UndoManager::undoEnabled())
 	{
-		QString oldStyle = NamedLStyle == "" ? Um::NoStyle : NamedLStyle;
-		QString nStyle   = newStyle == "" ? Um::NoStyle : newStyle;
-		QString action   = newStyle == "" ? Um::NoLineStyle : Um::CustomLineStyle;
+		QString oldStyle = NamedLStyle.isEmpty() ? Um::NoStyle : NamedLStyle;
+		QString nStyle   = newStyle.isEmpty() ? Um::NoStyle : newStyle;
+		QString action   = newStyle.isEmpty() ? Um::NoLineStyle : Um::CustomLineStyle;
 		SimpleState *ss = new SimpleState(action,
 				QString(Um::FromTo).arg(oldStyle).arg(nStyle),Um::ILineStyle);
 		ss->set("CUSTOM_LINE_STYLE", "customlinestyle");
@@ -4785,7 +4785,7 @@ void PageItem::restoreGetImage(SimpleState *state, bool isUndo)
 	QString fn = state->get("OLD_IMAGE_PATH");
 	if (!isUndo)
 		fn = state->get("NEW_IMAGE_PATH");
-	if (fn == "")
+	if (fn.isEmpty())
 	{
 		select();
 		ScApp->view->ClearItem();

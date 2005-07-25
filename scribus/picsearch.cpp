@@ -107,7 +107,7 @@ void PicSearch::ShowPrev()
 	if (Preview->isChecked())
 	{
 		PixmapLabel1->show();
-		if (Bild != "")
+		if (!Bild.isEmpty())
 			GenPreview();
 	}
 	else

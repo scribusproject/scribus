@@ -170,7 +170,7 @@ void gtAction::write(const QString& text, gtStyle *style)
 			hg->ch = QChar(13);
 		if ((inPara) && (!overridePStyleFont))
 		{
-			if (ScApp->doc->docParagraphStyles[paragraphStyle].Font == "")
+			if (ScApp->doc->docParagraphStyles[paragraphStyle].Font.isEmpty())
 				hg->cfont = (*ScApp->doc->AllFonts)[fontName2];
 			else
 				hg->cfont = (*ScApp->doc->AllFonts)[ScApp->doc->docParagraphStyles[paragraphStyle].Font];
@@ -469,7 +469,7 @@ QString gtAction::validateFont(gtFont* font)
 	}
 
 	QString useFont = font->getName();
-	if ((useFont == NULL) || (useFont == ""))
+	if ((useFont.isNull()) || (useFont.isEmpty()))
 		useFont = textFrame->IFont;
 	else if (prefsManager->appPrefs.AvailFonts[font->getName()] == 0)
 	{

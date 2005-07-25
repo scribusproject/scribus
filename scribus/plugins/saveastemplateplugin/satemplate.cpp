@@ -87,7 +87,7 @@ void MenuSAT::RunSATPlug()
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString oldCollect = dirs->get("collect", ".");
 	QString templatesDir = ".";
-	if (userTemplatesDir == "")
+	if (userTemplatesDir.isEmpty())
 		templatesDir = QDir::homeDirPath() + "/.scribus/templates";
 	else
 	{
@@ -96,7 +96,7 @@ void MenuSAT::RunSATPlug()
 		templatesDir = userTemplatesDir;
 	}
 	dirs->set("collect", templatesDir);
-	if (Carrier->Collect() == "")
+	if (Carrier->Collect().isEmpty())
 		return;
 	if (oldCollect != ".")
 		dirs->set("collect", oldCollect);
@@ -224,7 +224,7 @@ void sat::appendTmplXml()
 QString sat::getTemplateTag()
 {
 	QString category = dia->catsCombo->currentText();
-	if (category == "")
+	if (category.isEmpty())
 		category = QObject::tr("Own Templates");
 	else
 	{

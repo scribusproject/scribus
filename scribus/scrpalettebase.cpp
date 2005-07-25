@@ -33,10 +33,10 @@ ScrPaletteBase::ScrPaletteBase(  QWidget * parent, const char * name, bool modal
 
 void ScrPaletteBase::setPrefsContext(QString context)
 {
-	if (prefsContextName=="")
+	if (prefsContextName.isEmpty())
 	{
 		prefsContextName=context;
-		if (prefsContextName != "")
+		if (!prefsContextName.isEmpty())
 		{
 			palettePrefs = PrefsManager::instance()->prefsFile->getContext(prefsContextName);
 			if (palettePrefs)

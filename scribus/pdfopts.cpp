@@ -42,7 +42,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString docFileName, QMap<QString,QFont> D
 	Layout5->setMargin( 0 );
 	fileNameLineEdit = new QLineEdit( this, "fileNameLineEdit" );
 	fileNameLineEdit->setMinimumSize( QSize( 268, 22 ) );
-	if (pdfOptions->Datei != "")
+	if (!pdfOptions->Datei.isEmpty())
 		fileNameLineEdit->setText(pdfOptions->Datei);
 	else
 	{
@@ -115,7 +115,7 @@ void PDF_Opts::ChangeFile()
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("pdf", ".");
 	CustomFDialog dia(this, wdir, tr("Save as"), tr("PDF Files (*.pdf);;All Files (*)"), false, false);
-	if (fileNameLineEdit->text() != "")
+	if (!fileNameLineEdit->text().isEmpty())
 		dia.setSelection(fileNameLineEdit->text());
 	if (dia.exec() == QDialog::Accepted)
 	{

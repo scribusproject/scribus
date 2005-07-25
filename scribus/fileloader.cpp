@@ -85,7 +85,7 @@ int FileLoader::CheckScribus()
 {
 	int ret = -1;
 	QString fText = ReadDatei(FileName);
-	if (fText == "")
+	if (fText.isEmpty())
 		return ret;
 	if ((fText.startsWith("<SCRIBUSUTF8NEW")) && (fText.contains("<PAGE ", true) != 0))
 		return 1;
@@ -257,7 +257,7 @@ bool FileLoader::LoadFile(ScribusApp* app)
 		for (uint d = 0; d < app->doc->MasterItems.count(); ++d)
 		{
 			PageItem *it = app->doc->MasterItems.at(d);
-			if ((!app->doc->UsedFonts.contains(it->IFont)) && (it->IFont != ""))
+			if ((!app->doc->UsedFonts.contains(it->IFont)) && (!it->IFont.isEmpty()))
 				it->IFont = ReplacedFonts[it->IFont];
 			if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
 			{
@@ -271,7 +271,7 @@ bool FileLoader::LoadFile(ScribusApp* app)
 		for (uint d = 0; d < app->doc->DocItems.count(); ++d)
 		{
 			PageItem *it = app->doc->DocItems.at(d);
-			if ((!app->doc->UsedFonts.contains(it->IFont)) && (it->IFont != ""))
+			if ((!app->doc->UsedFonts.contains(it->IFont)) && (!it->IFont.isEmpty()))
 				it->IFont = ReplacedFonts[it->IFont];
 			if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
 			{
@@ -285,7 +285,7 @@ bool FileLoader::LoadFile(ScribusApp* app)
 		for (uint d = 0; d < app->doc->FrameItems.count(); ++d)
 		{
 			PageItem *it = app->doc->FrameItems.at(d);
-			if ((!app->doc->UsedFonts.contains(it->IFont)) && (it->IFont != ""))
+			if ((!app->doc->UsedFonts.contains(it->IFont)) && (!it->IFont.isEmpty()))
 				it->IFont = ReplacedFonts[it->IFont];
 			if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
 			{
@@ -298,7 +298,7 @@ bool FileLoader::LoadFile(ScribusApp* app)
 		}
 		for (uint a = 0; a < app->doc->docParagraphStyles.count(); ++a)
 		{
-			if ((!app->doc->UsedFonts.contains(app->doc->docParagraphStyles[a].Font)) && (app->doc->docParagraphStyles[a].Font != ""))
+			if ((!app->doc->UsedFonts.contains(app->doc->docParagraphStyles[a].Font)) && (!app->doc->docParagraphStyles[a].Font.isEmpty()))
 				app->doc->docParagraphStyles[a].Font = ReplacedFonts[app->doc->docParagraphStyles[a].Font];
 		}
 		QValueList<QString> tmpList;
@@ -667,7 +667,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 							tb.tabType = QStoInt(it.attribute("Type"));
 							QString tbCh = "";
 							tbCh = it.attribute("Fill","");
-							if (tbCh == "")
+							if (tbCh.isEmpty())
 								tb.tabFillChar = QChar();
 							else
 								tb.tabFillChar = tbCh[0];
@@ -880,7 +880,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 				PgNam = pg.attribute("NAM", "");
 				Pgc = doc->pageCount;
 				AtFl = doc->PageAT;
-				if (PgNam == "")
+				if (PgNam.isEmpty())
 				{
 					doc->pageCount = Pgc;
 					doc->Pages = doc->DocPages;
@@ -896,7 +896,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 				}
 				app->slotNewPage(a);
 				Apage = doc->Pages.at(a);
-				if (PgNam == "")
+				if (PgNam.isEmpty())
 				{
 					doc->DocPages = doc->Pages;
 					doc->pageCount = Pgc+1;
@@ -1027,7 +1027,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 						doc->Pages = doc->MasterPages;
 						doc->MasterP = true;
 					}
-					if ((pg.attribute("OnMasterPage") != "") && (pg.tagName()=="MASTEROBJECT"))
+					if ((!pg.attribute("OnMasterPage").isEmpty()) && (pg.tagName()=="MASTEROBJECT"))
 						doc->currentPage = doc->MasterPages.at(doc->MasterNames[pg.attribute("OnMasterPage")]);
 					if ((QStoInt(pg.attribute("NEXTITEM")) != -1) || (static_cast<bool>(QStoInt(pg.attribute("AUTOTEXT")))))
 					{
@@ -1375,7 +1375,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc, ScribusView *
 			}
 			IT=IT.nextSibling();
 		}
-		if (currItem->Pfile != "")
+		if (!currItem->Pfile.isEmpty())
 			view->loadPict(currItem->Pfile, currItem, false);
 		currItem->LocalScX = scx;
 		currItem->LocalScY = scy;
@@ -1489,7 +1489,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc, ScribusView *
 	currItem->isAnnotation = QStoInt(obj->attribute("ANNOTATION","0"));
 	currItem->AnType = QStoInt(obj->attribute("ANTYPE","0"));
 	QString AnName = obj->attribute("ANNAME","");
-	if (AnName != "")
+	if (!AnName.isEmpty())
 	{
 		if (currItem->itemName() == AnName)
 			currItem->AutoName = true;
@@ -1511,7 +1511,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc, ScribusView *
 	currItem->An_C_act = obj->attribute("ANCACT","");
 	currItem->AnActType = QStoInt(obj->attribute("ANACTYP","0"));
 	currItem->An_Extern = obj->attribute("ANEXTERN","");
-	if ((currItem->An_Extern != "") && (currItem->AnActType != 8))
+	if ((!currItem->An_Extern.isEmpty()) && (currItem->AnActType != 8))
 	{
 		QFileInfo efp(currItem->An_Extern);
 		currItem->An_Extern = efp.absFilePath();
@@ -1616,7 +1616,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc, ScribusView *
 				tb.tabType = QStoInt(it.attribute("Type"));
 				QString tbCh = "";
 				tbCh = it.attribute("Fill","");
-				if (tbCh == "")
+				if (tbCh.isEmpty())
 					tb.tabFillChar = QChar();
 				else
 					tb.tabFillChar = tbCh[0];
@@ -1697,7 +1697,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc, ScribusView *
 		currItem->GrEndX = QStodouble(obj->attribute("GRENDX","0.0"));
 		currItem->GrEndY = QStodouble(obj->attribute("GRENDY","0.0"));
 		GrColor = obj->attribute("GRCOLOR","");
-		if (GrColor != "")
+		if (!GrColor.isEmpty())
 		{
 			GrColor2 = obj->attribute("GRCOLOR2","");
 			GrShade = QStoInt(obj->attribute("GRSHADE","100"));
@@ -1707,23 +1707,23 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc, ScribusView *
 	if (currItem->GrType != 0)
 	{
 		currItem->fill_gradient.clearStops();
-		if ((GrColor != "") && (GrColor2 != ""))
+		if ((!GrColor.isEmpty()) && (!GrColor2.isEmpty()))
 		{
 			if (currItem->GrType == 5)
 			{
-				if ((GrColor != "None") && (GrColor != ""))
+				if ((GrColor != "None") && (!GrColor.isEmpty()))
 					currItem->SetFarbe(&tmpc, GrColor, GrShade);
 				currItem->fill_gradient.addStop(tmpc, 0.0, 0.5, 1.0, GrColor, GrShade);
-				if ((GrColor2 != "None") && (GrColor2 != ""))
+				if ((GrColor2 != "None") && (!GrColor2.isEmpty()))
 					currItem->SetFarbe(&tmpc, GrColor2, GrShade2);
 				currItem->fill_gradient.addStop(tmpc, 1.0, 0.5, 1.0, GrColor2, GrShade2);
 			}
 			else
 			{
-				if ((GrColor2 != "None") && (GrColor2 != ""))
+				if ((GrColor2 != "None") && (!GrColor2.isEmpty()))
 					currItem->SetFarbe(&tmpc, GrColor2, GrShade2);
 				currItem->fill_gradient.addStop(tmpc, 0.0, 0.5, 1.0, GrColor2, GrShade2);
-				if ((GrColor != "None") && (GrColor != ""))
+				if ((GrColor != "None") && (!GrColor.isEmpty()))
 					currItem->SetFarbe(&tmpc, GrColor, GrShade);
 				currItem->fill_gradient.addStop(tmpc, 1.0, 0.5, 1.0, GrColor, GrShade);
 			}

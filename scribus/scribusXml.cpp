@@ -53,7 +53,7 @@ ScriXmlDoc::ScriXmlDoc()
 bool ScriXmlDoc::IsScribus(QString fileName)
 {
 	QString fText = ReadDatei(fileName);
-	if ((fText == "") || (!fText.startsWith("<SCRIBUS")) || (fText.contains("<PAGE ", true) == 0))
+	if ((fText.isEmpty()) || (!fText.startsWith("<SCRIBUS")) || (fText.contains("<PAGE ", true) == 0))
  		return false;
 	return true;
 }
@@ -213,7 +213,7 @@ QString ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound
 	}
 	else
 	{
-		if (tmpf == "")
+		if (tmpf.isEmpty())
 			tmpf = doc->toolSettings.defFont;
 		tmf = tmpf;
 		if (!DoFonts.contains(tmpf))
@@ -426,15 +426,15 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 	ob->setAttribute("TEXTRA",item->TExtra);
 	ob->setAttribute("BEXTRA",item->BExtra);
 	ob->setAttribute("REXTRA",item->RExtra);
-	if (((item->itemType() == PageItem::ImageFrame) || (item->itemType() == PageItem::TextFrame)) && (item->Pfile != ""))
+	if (((item->itemType() == PageItem::ImageFrame) || (item->itemType() == PageItem::TextFrame)) && (!item->Pfile.isEmpty()))
 		ob->setAttribute("PFILE",Path2Relative(item->Pfile));
 	else
 		ob->setAttribute("PFILE","");
-	if (item->Pfile2 != "")
+	if (!item->Pfile2.isEmpty())
 		ob->setAttribute("PFILE2",Path2Relative(item->Pfile2));
 	else
 		ob->setAttribute("PFILE2","");
-	if (item->Pfile3 != "")
+	if (!item->Pfile3.isEmpty())
 		ob->setAttribute("PFILE3",Path2Relative(item->Pfile3));
 	else
 		ob->setAttribute("PFILE3","");
@@ -511,7 +511,7 @@ bool ScriXmlDoc::ReadLStyles(QString fileName, QMap<QString,multiLine> *Sty)
 	QDomDocument docu("scridoc");
 	QString f = "";
 	f = ReadDatei(fileName);
-	if (f == "")
+	if (f.isEmpty())
 		return false;
 	if(!docu.setContent(f))
 		return false;
@@ -576,7 +576,7 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 	vg->gapBefore = QStodouble(pg->attribute("VOR","0"));
 	vg->gapAfter = QStodouble(pg->attribute("NACH","0"));
 	tmpf = pg->attribute("FONT", doc->toolSettings.defFont);
-	if (tmpf == "")
+	if (tmpf.isEmpty())
 		tmpf = doc->toolSettings.defFont;
 	tmf = tmpf;
 	if (!DoFonts.contains(tmpf))
@@ -636,7 +636,7 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 				tb.tabType = QStoInt(it.attribute("Type"));
 				QString tbCh = "";
 				tbCh = it.attribute("Fill","");
-				if (tbCh == "")
+				if (tbCh.isEmpty())
 					tb.tabFillChar = QChar();
 				else
 					tb.tabFillChar = tbCh[0];
@@ -808,7 +808,7 @@ bool ScriXmlDoc::ReadStyles(QString fileName, ScribusDoc* doc)
 	QString tmpf, tmf;
 	DoFonts.clear();
 	f = ReadDatei(fileName);
-	if (f == "")
+	if (f.isEmpty())
 		return false;
 	if(!docu.setContent(f))
 		return false;
@@ -837,7 +837,7 @@ bool ScriXmlDoc::ReadColors(QString fileName)
 	QDomDocument docu("scridoc");
 	QString f = "";
 	f = ReadDatei(fileName);
-	if (f == "")
+	if (f.isEmpty())
 		return false;
 	if(!docu.setContent(f))
 		return false;
@@ -882,7 +882,7 @@ bool ScriXmlDoc::ReadPageCount(QString fileName, int *num1, int *num2)
 	QDomDocument docu("scridoc");
 	QString f = "";
 	f = ReadDatei(fileName);
-	if (f == "")
+	if (f.isEmpty())
 		return false;
 	if(!docu.setContent(f))
 		return false;
@@ -899,7 +899,7 @@ bool ScriXmlDoc::ReadPageCount(QString fileName, int *num1, int *num2)
 			if(pg.tagName()=="PAGE")
 			{
 				PgNam = pg.attribute("NAM", "");
-				if (PgNam == "")
+				if (PgNam.isEmpty())
 					counter++;
 				else
 				{
@@ -954,7 +954,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 	QDomDocument docu("scridoc");
 	f = "";
 	f = ReadDatei(fileName);
-	if (f == "")
+	if (f.isEmpty())
 		return false;
 	if(!docu.setContent(f))
 		return false;
@@ -1062,7 +1062,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 			if ((pg.tagName()=="PAGE") && (QStoInt(pg.attribute("NUM")) == PageToLoad))
 			{
 				a = doc->currentPage->PageNr;
-				if ((pg.attribute("NAM", "") == "") && (Mpage))
+				if (!(pg.attribute("NAM", "").isEmpty()) && (Mpage))
 				{
 					PAGE=PAGE.nextSibling();
 					continue;
@@ -1138,7 +1138,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 					OB.BMnr = QStoInt(obj.attribute("BookNr","0"));
 					OB.textAlignment = DoVorl[QStoInt(obj.attribute("ALIGN","0"))].toUInt();
 					tmpf = obj.attribute("IFONT", doc->toolSettings.defFont);
-					if (tmpf == "")
+					if (tmpf.isEmpty())
 						tmpf = doc->toolSettings.defFont;
 					tmf = tmpf;
 					if (!DoFonts.contains(tmpf))
@@ -1561,7 +1561,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				PgNam = pg.attribute("NAM", "");
 				Pgc = doc->pageCount;
 				AtFl = doc->PageAT;
-				if (PgNam == "")
+				if (PgNam.isEmpty())
 				{
 					doc->pageCount = Pgc;
 					doc->Pages = doc->DocPages;
@@ -1748,7 +1748,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 							ta->BottomLink = 0;
 					}
 				}
-				if (PgNam == "")
+				if (PgNam.isEmpty())
 				{
 					doc->DocPages = doc->Pages;
 					doc->DocItems = doc->Items;
@@ -2121,9 +2121,9 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 			OB.BMnr = 0;
 			OB.textAlignment = DoVorl[QStoInt(pg.attribute("ALIGN","0"))].toUInt();
 			tmf = pg.attribute("IFONT", doc->toolSettings.defFont);
-			if (tmf == "")
+			if (tmf.isEmpty())
 				tmf = doc->toolSettings.defFont;
-			if (DoFonts[tmf] == "")
+			if (DoFonts[tmf].isEmpty())
 				OB.IFont = doc->toolSettings.defFont;
 			else
 				OB.IFont = DoFonts[tmf];
@@ -2167,7 +2167,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 					tb.tabType = QStoInt(it.attribute("Type"));
 					QString tbCh = "";
 					tbCh = it.attribute("Fill","");
-					if (tbCh == "")
+					if (tbCh.isEmpty())
 						tb.tabFillChar = QChar();
 					else
 						tb.tabFillChar = tbCh[0];
@@ -4122,7 +4122,7 @@ bool ScriXmlDoc::ReadPref(QString ho, SplashScreen *splash, bool import12)
 		}
 		if (dc.tagName()=="HYPHEN")
 		{
-			if (dc.attribute("LANG", "") != "")
+			if (!dc.attribute("LANG", "").isEmpty())
 				Vorein->Language = dc.attribute("LANG");
 			Vorein->MinWordLen = QStoInt(dc.attribute("WORDLEN", "3"));
 			Vorein->HyCount = QStoInt(dc.attribute("HYCOUNT", "2"));
@@ -4144,7 +4144,7 @@ bool ScriXmlDoc::ReadPref(QString ho, SplashScreen *splash, bool import12)
 			}
 			else
 				newFont = dc.attribute("FACE");
-			if (newFont!="")
+			if (!newFont.isEmpty())
 				Vorein->toolSettings.defFont = newFont;
 			Vorein->toolSettings.defSize = qRound(QStodouble(dc.attribute("SIZE")) * 10.0);
 			Vorein->askBeforeSubstituite = static_cast<bool>(QStoInt(dc.attribute("AutomaticSubst", "1")));

@@ -170,7 +170,7 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLangu
 	QString fileName;
 	mHistory.clear();
 	struct histd his;
-	language = guiLanguage=="" ? QString("en") : guiLanguage.left(2);
+	language = guiLanguage.isEmpty() ? QString("en") : guiLanguage.left(2);
 	helpBrowsermainLayout = new QVBoxLayout( this);
 	buttonLayout = new QHBoxLayout;
 	buttonLayout->setSpacing( 6 );
@@ -373,10 +373,10 @@ void HelpBrowser::jumpToHelpSection(QString jumpToSection, QString jumpToFile)
 	QString toLoad;
 	bool noDocs=false;
 
-	if (jumpToFile=="")
+	if (jumpToFile.isEmpty())
 	{
 		toLoad = ScPaths::instance().docDir() + language + "/"; //clean this later to handle 5 char locales
-		if (jumpToSection=="")
+		if (jumpToSection.isEmpty())
 		{
 			if (listView->firstChild())
 			{
@@ -438,7 +438,7 @@ void HelpBrowser::loadHelp(QString filename)
 	{
 		textBrowser->setSource(toLoad);
 		his.title = textBrowser->documentTitle();
-		if (his.title == "")
+		if (his.title.isEmpty())
 			his.title = toLoad;
 		his.url = toLoad;
 		mHistory[histMenu->insertItem(his.title)] = his;

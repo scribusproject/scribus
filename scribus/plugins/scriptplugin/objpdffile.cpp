@@ -240,7 +240,7 @@ static int PDFfile_init(PDFfile *self, PyObject */*args*/, PyObject */*kwds*/)
 	}
 // defaut save into file
 	QString tf = Carrier->doc->PDF_Options.Datei;
-	if (tf == "") {
+	if (tf.isEmpty()) {
 		QFileInfo fi = QFileInfo(Carrier->doc->DocName);
 		tf = fi.dirPath()+"/"+fi.baseName()+".pdf";
 	}

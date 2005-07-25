@@ -57,7 +57,7 @@ void run(QWidget *d, ScribusApp *plug)
 	// run it and wait for user's reaction
 	if (dlg->exec() == QDialog::Accepted)
 	{
-		if  (plug->pluginManager->dllInput == "")
+		if  (plug->pluginManager->dllInput.isEmpty())
 			plug->SetNewFont(dlg->fontList->currentItem()->text(0));
 		else
 			plug->pluginManager->dllReturn = dlg->fontList->currentItem()->text(0);

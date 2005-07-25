@@ -97,7 +97,7 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 	TextLabel3 = new QLabel( SpinBox1, tr("&Page:"), GroupBox1, "TextLabel3" );
 	GroupBox1Layout->addWidget( TextLabel3, 1, 0 );
 	GroupBox1Layout->addWidget( SpinBox1, 1, 1 );
-	if ((Destfile->text() != "") && (item->AnActType == 7))
+	if ((!Destfile->text().isEmpty()) && (item->AnActType == 7))
 		Pg = new Navigator( GroupBox1, 100, item->AnZiel+1, view, item->An_Extern);
 	else
 		Pg = new Navigator( GroupBox1, 100, item->AnZiel, view);
@@ -210,7 +210,7 @@ void Annota::SetVals()
 	case 12:
 		item->AnAction = tmp.setNum(SpinBox2->value())+" "+
 		                 tmp2.setNum(Hoehe-SpinBox3->value())+" 0";
-		if (Destfile->text() != "")
+		if (!Destfile->text().isEmpty())
 		{
 			item->An_Extern = Destfile->text();
 			item->AnActType = 7;
@@ -219,7 +219,7 @@ void Annota::SetVals()
 		break;
 	case 13:
 		item->AnAction = "";
-		if (Destfile->text() != "")
+		if (!Destfile->text().isEmpty())
 		{
 			item->An_Extern = Destfile->text();
 			item->AnActType = 8;
@@ -255,12 +255,12 @@ void Annota::SetZiel(int it)
 		Destfile->show();
 		ChFile->show();
 		Destfile->setReadOnly(true);
-		if ((Destfile->text() == "")  || (item->AnActType == 8))
+		if ((Destfile->text().isEmpty())  || (item->AnActType == 8))
 		{
 			Destfile->setText("");
 			GetFile();
 		}
-		if (Destfile->text() == "")
+		if (Destfile->text().isEmpty())
 		{
 			item->AnActType = 2;
 			Destfile->setText("");
@@ -323,7 +323,7 @@ void Annota::GetFile()
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("annot_getfile", ".");
 	CustomFDialog dia(this, wdir, tr("Open"), tr("PDF-Documents (*.pdf);;All Files (*)"));
-	if (Destfile->text() != "")
+	if (!Destfile->text().isEmpty())
 		dia.setSelection(Destfile->text());
 	if (dia.exec() == QDialog::Accepted)
 	{

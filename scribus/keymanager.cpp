@@ -61,7 +61,8 @@ KeyManager::KeyManager(QWidget* parent, QMap<QString,Keys> oldKeyMap): QWidget( 
 	{
 		if (keyMap.contains(*it))
 		{
-			if (QString(keyMap[*it].actionName)!="" && QString(keyMap[*it].actionName)!=QString::null)
+			QString actName=QString(keyMap[*it].actionName);
+			if (!actName.isEmpty() && !actName.isNull())
 			{
 				QTableItem *item = new QTableItem(keyTable, QTableItem::Never, keyMap[*it].cleanMenuText);
 				keyTable->setItem(currentRow, 0, item);
@@ -89,7 +90,8 @@ KeyManager::KeyManager(QWidget* parent, QMap<QString,Keys> oldKeyMap): QWidget( 
 	{
 		if (keyMap.contains(*it))
 		{
-			if (QString(keyMap[*it].actionName)!="" && QString(keyMap[*it].actionName)!=QString::null)
+			QString actName=QString(keyMap[*it].actionName);
+			if (!actName.isEmpty() && !actName.isNull())
 			{
 				QTableItem *item = new QTableItem(keyTable, QTableItem::Never, keyMap[*it].cleanMenuText);
 				keyTable->setItem(currentRow, 0, item);
@@ -216,7 +218,7 @@ void KeyManager::keyPressEvent(QKeyEvent *k)
 	if (setKeyButton->isOn())
 	{
 		QStringList tl;
-		if (keyDisplay->text() != "")
+		if (!keyDisplay->text().isEmpty())
 		{
 			tl = tl.split("+", keyDisplay->text());
 			Part4 = tl[tl.count()-1];
@@ -274,7 +276,7 @@ void KeyManager::keyReleaseEvent(QKeyEvent *k)
 {
 	if (setKeyButton->isOn())
 	{
-		if (keyDisplay->text() != "")
+		if (!keyDisplay->text().isEmpty())
 		{
 			QStringList tl;
 			tl = tl.split("+", keyDisplay->text());
@@ -327,7 +329,7 @@ void KeyManager::dispKey(int row)
 	{
 		if (it.data().tableRow == row)
 		{
-			if (it.data().keySequence == "")
+			if (it.data().keySequence.isEmpty())
 				noKey->setChecked(true);
 			else
 				userDef->setChecked(true);
@@ -383,7 +385,7 @@ void KeyManager::importKeySetFile()
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString currentPath = dirs->get("keymapprefs_import", ".");
 	QString s = QFileDialog::getOpenFileName(currentPath, tr("Key Set XML Files (*.ksxml)"), this, "load open file dialog", "Choose a file to open" );
-	if (s != "")
+	if (!s.isEmpty())
 		importKeySet(s);
 }
 void KeyManager::exportKeySetFile()
@@ -391,7 +393,7 @@ void KeyManager::exportKeySetFile()
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString currentPath= dirs->get("keymapprefs_export", ".");
 	QString s = QFileDialog::getSaveFileName(currentPath, tr("Key Set XML Files (*.ksxml)"), this, "save open file dialog", "Choose a file to save" );
-	if (s != "")
+	if (!s.isEmpty())
 		exportKeySet(s);
 }
 
@@ -477,9 +479,10 @@ bool KeyManager::exportKeySet(QString filename)
 		QString keyset=QString("<shortcutset name=\"%1\"></shortcutset>").arg(setName);
 		doc.setContent(keyset);
 		QDomElement keySetElement=doc.documentElement();
-		for (QMap<QString,Keys>::Iterator it=keyMap.begin(); it!=keyMap.end(); ++it)
+		QMap<QString,Keys>::Iterator itEnd=keyMap.end();
+		for (QMap<QString,Keys>::Iterator it=keyMap.begin(); it!=itEnd; ++it)
 		{
-			if (it.data().keySequence=="" && it.key()=="")
+			if (it.data().keySequence.isEmpty() && it.key().isEmpty())
 				continue;
 			QDomElement function_shortcut=doc.createElement("function");
 			function_shortcut.setAttribute("name",it.key());

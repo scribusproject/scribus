@@ -223,7 +223,7 @@ int MSpinBox::mapTextToValue(bool *)
 		ts.replace(strCM, "*10.0/4.512");
 		ts.replace(strC, "");
 	}
-	if (su != "")
+	if (!su.isEmpty())
 		ts.replace(su, " ");
 	int ret = fp.Parse(ts.latin1(), "", true);
 	if (ret >= 0)

@@ -158,7 +158,7 @@ FontPreview::FontPreview(ScribusApp *carrier, QWidget* parent, const char* name,
 
 	// set initial listitem
 	QListViewItem *item;
-	if (carrier->pluginManager->dllInput != "")
+	if (!carrier->pluginManager->dllInput.isEmpty())
 		item = fontList->findItem(carrier->pluginManager->dllInput, 0);
 	else
 	{

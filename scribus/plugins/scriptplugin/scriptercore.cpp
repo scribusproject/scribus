@@ -505,7 +505,7 @@ void ScripterCore::aboutScript()
 	QTextStream outputstream(&output);
 	QString content = intputstream.read();
 	QString docstring = content.section("\"\"\"", 1, 1);
-	if (docstring != "")
+	if (!docstring.isEmpty())
 	{
 		outputstream << "<h1>Documentation for: " << fi.fileName() << "</h1><p>";
 		outputstream << docstring.replace("\n\n", "<p>");
