@@ -665,7 +665,7 @@ void HelpBrowser::itemSelected(QListViewItem *item)
 {
 	if ( !item )
 		return;
-	if (item->text(1)!=QString::null)
+	if (!item->text(1).isNull())
 	{
 		QString pfad = ScPaths::instance().docDir();
 		loadHelp(QDir::convertSeparators(pfad + language + "/" + item->text(1)));
@@ -674,7 +674,7 @@ void HelpBrowser::itemSelected(QListViewItem *item)
 
 void HelpBrowser::itemSearchSelected(QListViewItem *item)
 {
-	if (item && item->text(1) != QString::null)
+	if (item && !item->text(1).isNull())
 	{
 		loadHelp(item->text(1));
 		findText = searchingEdit->text();
@@ -727,14 +727,14 @@ void HelpBrowser::searchingButton_clicked()
 void HelpBrowser::find()
 {
 	findText = QInputDialog::getText( tr("Find"), tr("Search Term:"), QLineEdit::Normal, findText, 0, this);
-	if (findText == QString::null)
+	if (findText.isNull())
 		return;
 	findNext();
 }
 
 void HelpBrowser::findNext()
 {
-	if (findText == QString::null)
+	if (findText.isNull())
 	{
 		find();
 		return;
@@ -745,7 +745,7 @@ void HelpBrowser::findNext()
 
 void HelpBrowser::findPrevious()
 {
-	if (findText == QString::null)
+	if (findText.isNull())
 	{
 		find();
 		return;
@@ -793,7 +793,7 @@ void HelpBrowser::bookmarkButton_clicked()
 	QString fname(QDir::cleanDirPath(textBrowser->source()));
 	title = QInputDialog::getText( tr("New Bookmark"), tr("New Bookmark's Title:"), QLineEdit::Normal, title, 0, this);
 	// user cancel
-	if (title == QString::null)
+	if (title.isNull())
 		return;
 	QListViewItem *item = new QListViewItem(bookmarksView, title, fname);
 	bookmarksView->insertItem(item);

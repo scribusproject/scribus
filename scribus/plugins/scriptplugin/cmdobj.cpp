@@ -22,7 +22,7 @@ PyObject *scribus_newrect(PyObject* /* self */, PyObject* args)
 									 Carrier->doc->toolSettings.dBrush,
 									 Carrier->doc->toolSettings.dPen);
 	Carrier->view->SetRectFrame(Carrier->doc->Items.at(i));
-	if (Name.isEmpty())
+	if (Name == "")
 		Carrier->doc->Items.at(i)->setItemName(QString::fromUtf8(Name));
 	return PyString_FromString(Carrier->doc->Items.at(i)->itemName().utf8());
 }
@@ -46,7 +46,7 @@ PyObject *scribus_newellipse(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	Carrier->view->SetOvalFrame(Carrier->doc->Items.at(i));
-	if (Name.isEmpty())
+	if (Name == "")
 		Carrier->doc->Items.at(i)->setItemName(QString::fromUtf8(Name));
 	return PyString_FromString(Carrier->doc->Items.at(i)->itemName().utf8());
 }
@@ -67,7 +67,7 @@ PyObject *scribus_newimage(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	Carrier->view->SetRectFrame(Carrier->doc->Items.at(i));
-	if (Name.isEmpty())
+	if (Name == "")
 		Carrier->doc->Items.at(i)->setItemName(QString::fromUtf8(Name));
 	return PyString_FromString(Carrier->doc->Items.at(i)->itemName().utf8());
 }
@@ -90,7 +90,7 @@ PyObject *scribus_newtext(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	Carrier->view->SetRectFrame(Carrier->doc->Items.at(i));
-	if (Name.isEmpty())
+	if (Name == "")
 		Carrier->doc->Items.at(i)->setItemName(QString::fromUtf8(Name));
 	return PyString_FromString(Carrier->doc->Items.at(i)->itemName().utf8());
 }
@@ -133,7 +133,7 @@ PyObject *scribus_newline(PyObject* /* self */, PyObject* args)
 	}
 	Carrier->view->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), i, false, false);
 	Carrier->view->AdjustItemSize(it);
-	if (Name.isEmpty())
+	if (Name == "")
 		it->setItemName(QString::fromUtf8(Name));
 	return PyString_FromString(it->itemName().utf8());
 }
@@ -206,7 +206,7 @@ PyObject *scribus_polyline(PyObject* /* self */, PyObject* args)
 	}
 	Carrier->view->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false);
 	Carrier->view->AdjustItemSize(it);
-	if (Name.isEmpty())
+	if (Name == "")
 	{
 		it->setItemName(QString::fromUtf8(Name));
 	}
@@ -286,7 +286,7 @@ PyObject *scribus_polygon(PyObject* /* self */, PyObject* args)
 	}
 	Carrier->view->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false);
 	Carrier->view->AdjustItemSize(it);
-	if (Name.isEmpty())
+	if (Name == "")
 		it->setItemName(QString::fromUtf8(Name));
 	return PyString_FromString(it->itemName().utf8());
 }
@@ -372,7 +372,7 @@ PyObject *scribus_bezierline(PyObject* /* self */, PyObject* args)
 	}
 	Carrier->view->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false);
 	Carrier->view->AdjustItemSize(it);
-	if (Name.isEmpty())
+	if (Name == "")
 		it->setItemName(QString::fromUtf8(Name));
 	return PyString_FromString(it->itemName().utf8());
 }
@@ -410,7 +410,7 @@ PyObject *scribus_pathtext(PyObject* /* self */, PyObject* args)
 	PageItem *it = Carrier->doc->Items.at(i);
 	Carrier->view->ToPathText();
 	Carrier->view->MoveItem(pageUnitXToDocX(x) - it->Xpos, pageUnitYToDocY(y) - it->Ypos, it);
-	if (Name.isEmpty())
+	if (Name == "")
 		it->setItemName(QString::fromUtf8(Name));
 	return PyString_FromString(it->itemName().utf8());
 }

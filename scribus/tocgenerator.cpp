@@ -90,7 +90,7 @@ void TOCGenerator::generateDefault()
 					if (!(*tocSetupIt).listNonPrintingFrames && !currentDocItem->printable())
 						continue;
 					ObjectAttribute objattr=currentDocItem->getObjectAttribute((*tocSetupIt).itemAttrName);
-					if (objattr.name!=QString::null)
+					if (!objattr.name.isNull())
 					{
 						//TODO Handle docs with non consecutive page numbers when that is possible
 						QString key=QString("%1,%2").arg(currentDocItem->OwnPage + currDoc->FirstPnum, pageNumberWidth).arg(pageCounter[currentDocItem->OwnPage]++);

@@ -10577,7 +10577,7 @@ void ScribusView::chAbStyle(PageItem *currItem, int s)
 			{
 				if (s > 4)
 				{
-					if (!Doc->docParagraphStyles[s].Font.isEmpty)
+					if (!Doc->docParagraphStyles[s].Font.isEmpty())
 					{
 						nextItem->itemText.at(a)->cfont = (*Doc->AllFonts)[Doc->docParagraphStyles[s].Font];
 						nextItem->itemText.at(a)->csize = Doc->docParagraphStyles[s].FontSize;

@@ -41,7 +41,7 @@ bool MenuManager::createMenu(const QString &menuName, const QString &menuText, c
 	if (newMenu)
 	{
 		menuList.insert(menuName, newMenu);
-		if (parent!=QString::null && menuList[parent])
+		if (!parent.isNull() && menuList[parent])
 			retVal=menuList[parent]->insertSubMenu(newMenu);
 	}
 	else
@@ -88,7 +88,7 @@ void MenuManager::setMenuText(const QString &menuName, const QString &menuText)
 	{
 		menuList[menuName]->setMenuText(menuText);
 		QString parent=menuList[menuName]->getParentMenuName();
-		if (parent!=QString::null)
+		if (!parent.isNull())
 			menuList[parent]->repopulateLocalMenu();
 		
 		int id=menuList[menuName]->getMenuBarID();
@@ -108,7 +108,7 @@ QPopupMenu *MenuManager::getLocalPopupMenu(const QString &menuName)
 
 bool MenuManager::deleteMenu(const QString &menuName, const QString &parent)
 {
-	if (parent!=QString::null)
+	if (!parent.isNull())
 	{
 		if (menuList[parent] && menuList[parent]->hasSubMenu(menuList[menuName]))
 			menuList[parent]->removeSubMenu(menuList[menuName]);

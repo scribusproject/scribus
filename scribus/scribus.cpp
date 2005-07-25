@@ -1142,7 +1142,7 @@ bool ScribusApp::eventFilter( QObject */*o*/, QEvent *e )
 			keyMod |= ALT;
 
 		QKeySequence currKeySeq = QKeySequence(k->key() | keyMod);
-		if (QString(currKeySeq)==QString::null)
+		if (QString(currKeySeq).isNull())
 			return false;
 		retVal=true;
 		//Palette actions
@@ -10285,7 +10285,7 @@ void ScribusApp::mouseReleaseEvent(QMouseEvent *m)
 				else
 					colorName=QString::null;
 			}
-			if (colorName!=QString::null && view->SelItem.count() > 0)
+			if (!colorName.isNull() && view->SelItem.count() > 0)
 			{
 				for (uint i = 0; i < view->SelItem.count(); ++i)
 				{
