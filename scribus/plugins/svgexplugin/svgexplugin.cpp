@@ -102,34 +102,46 @@ bool actionEnabledOnStartup()
 void run(QWidget *d, ScribusApp *plug)
 {
 	if (plug->HaveDoc)
-		{
+	{
 		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("svgex");
 		QString wdir = prefs->get("wdir", ".");
+		QString defaultName = plug->doc->DocName;
+		if (defaultName == QString::null)
+			defaultName = "";
+		else
+		{
+			// a little magic to setup the name with page numbering
+			QFileInfo fi(defaultName);
+			defaultName = fi.baseName(true);
+			QString number;
+			number = number.setNum(plug->doc->currentPage->PageNr + plug->doc->FirstPnum);
+			defaultName += "-page" + number + ".svg";
+		}
 #ifdef HAVE_LIBZ
-		QString fileName = plug->CFileDialog(wdir, QObject::tr("Save as"), QObject::tr("SVG-Images (*.svg *.svgz);;All Files (*)"),"", false, false, true);
+		QString fileName = plug->CFileDialog(wdir, QObject::tr("Save as"), QObject::tr("SVG-Images (*.svg *.svgz);;All Files (*)"), defaultName, false, false, true);
 #else
-		QString fileName = plug->CFileDialog(wdir, QObject::tr("Save as"), QObject::tr("SVG-Images (*.svg);;All Files (*)"),"", false, false);
+		QString fileName = plug->CFileDialog(wdir, QObject::tr("Save as"), QObject::tr("SVG-Images (*.svg);;All Files (*)"), defaultName, false, false);
 #endif
 		if (!fileName.isEmpty())
+		{
+			prefs->set("wdir", fileName.left(fileName.findRev("/")));
+			QFile f(fileName);
+			if (f.exists())
 			{
-		prefs->set("wdir", fileName.left(fileName.findRev("/")));
-  		QFile f(fileName);
-  		if (f.exists())
-  			{
-  			int exit=QMessageBox::warning(d, QObject::tr("Warning"),
-  																		QObject::tr("Do you really want to overwrite the File:\n%1 ?").arg(fileName),
-                                			QObject::tr("Yes"),
-                                			QObject::tr("No"),
-                                			0, 0, 1);
-  			if (exit != 0)
-  				return;
-  			}
-  		SVGExPlug *dia = new SVGExPlug(plug, fileName);
-  		delete dia;
+				int exit=QMessageBox::warning(d, QObject::tr("Warning"),
+					QObject::tr("Do you really want to overwrite the File:\n%1 ?").arg(fileName),
+					QObject::tr("Yes"),
+					QObject::tr("No"),
+					0, 0, 1);
+				if (exit != 0)
+					return;
 			}
+			SVGExPlug *dia = new SVGExPlug(plug, fileName);
+			delete dia;
+		}
 		else
 			return;
-  	}
+	}
 }
 
 /*!
