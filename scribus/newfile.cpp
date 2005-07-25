@@ -90,6 +90,9 @@ NewDoc::NewDoc( QWidget* parent, bool startUp ) : QDialog( parent, "newDoc", tru
 	connect(ComboBox2, SIGNAL(activated(int)), this, SLOT(setOrien(int)));
 	connect(ComboBox3, SIGNAL(activated(int)), this, SLOT(setUnit(int)));
 	connect(Distance, SIGNAL(valueChanged(int)), this, SLOT(setDist(int)));
+	if (startUp)
+		connect(recentDocList, SIGNAL(doubleClicked(QListBoxItem*)), this, SLOT(recentDocList_doubleClicked(QListBoxItem*)));
+
 	resize(minimumSizeHint());
 	clearWState( WState_Polished );
 }
@@ -327,7 +330,7 @@ void NewDoc::setUnit(int newUnitIndex)
 {
 	disconnect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
 	disconnect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
-		
+
 	double oldUnitRatio = unitRatio;
 	double val, oldB, oldBM, oldH, oldHM;
 	int decimals;
@@ -338,7 +341,7 @@ void NewDoc::setUnit(int newUnitIndex)
 	oldH /= oldUnitRatio;
 	oldHM /= oldUnitRatio;
 
-	unitIndex = newUnitIndex;	
+	unitIndex = newUnitIndex;
 	unitRatio = unitGetRatioFromIndex(newUnitIndex);
 	decimals = unitGetDecimalsFromIndex(newUnitIndex);
 	if (ComboBox2->currentItem() == PORTRAIT)
@@ -418,7 +421,7 @@ void NewDoc::setSize(QString gr)
 {
 	Pagebr = Breite->value() / unitRatio;
 	Pageho = Hoehe->value() / unitRatio;
-	
+
 	disconnect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
 	disconnect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
 	Breite->setEnabled(false);
@@ -429,7 +432,7 @@ void NewDoc::setSize(QString gr)
 	int page_y[] = {3368, 2380, 1684, 1190, 842, 595, 421, 297, 210, 148, 4008, 2836, 2004, 1418, 1002, 709,
 	                501, 355, 250, 178, 125, 649, 683, 624, 720, 935, 792, 1008, 792, 1225};
 	*/
-	
+
 	//if (gr == USERFORMAT)
 	if (gr==customTextTR || gr==customText)
 	{
@@ -467,3 +470,9 @@ void NewDoc::setDS()
 	ErsteSeite->setEnabled(Doppelseiten->isChecked());
 }
 
+void NewDoc::recentDocList_doubleClicked(QListBoxItem * /*item*/)
+{
+	/* Yep. There is nothing to solve. ScribusApp handles all
+	openings etc. It's Franz's programming style ;) */
+	ExitOK();
+}

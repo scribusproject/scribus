@@ -88,6 +88,11 @@ public slots:
 	void setOrien(int ori);
 	void setPGsize(const QString &);
 	void setDS();
+	/*! Opens document on doubleclick
+	\param item QListViewItem sent by signall caller
+	\author Petr Vanek <petr@yarpen.cz
+	*/
+	void recentDocList_doubleClicked(QListBoxItem * item);
 
 protected:
 	QVBoxLayout* TabbedNewDocLayout;
