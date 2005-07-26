@@ -15,15 +15,30 @@ class QLayout;
 class QLabel;
 class QPushButton;
 class QSpinBox;
+class QGroupBox;
+class QCheckBox;
+class MSpinBox;
 class ScribusDoc;
 
 class InsPage : public QDialog
-{ 
-    Q_OBJECT
+{
+	Q_OBJECT
 
 public:
-    InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int maxPages, bool facingPages );
-    ~InsPage() {};
+	InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int maxPages, bool facingPages );
+	~InsPage() {};
+	QGroupBox* dsGroupBox7;
+	MSpinBox* widthMSpinBox;
+	MSpinBox* heightMSpinBox;
+	QLabel*	widthQLabel;
+	QLabel*	heightQLabel;
+	QLabel* TextLabel1;
+	QLabel* TextLabel2;
+	QComboBox* sizeQComboBox;
+	QComboBox* orientationQComboBox;
+	QCheckBox* moveObjects;
+	double unitRatio;
+	QString prefsPageSizeName;
 
 	const QString getMasterPage();
 	const QString getMasterPage2();
@@ -32,25 +47,28 @@ public:
 	const int getCount();
 
 private:
-    QLabel* insCountLabel;
-    QLabel* masterPageLabel;
-    QLabel* masterPage2Label;
-    QLabel* pagesLabel;
-    QPushButton* cancelButton;
-    QPushButton* okButton;
-    QComboBox* insWhereData;
-    QComboBox* masterPageData;
-    QComboBox* masterPage2Data;
-    QSpinBox* insWherePageData;
-    QSpinBox* insCountData;
-    QVBoxLayout* dialogLayout;
-    QGridLayout* whereLayout;
-    QHBoxLayout* masterPageLayout;
-    QHBoxLayout* masterPage2Layout;
-    QHBoxLayout* okCancelLayout;
+	QLabel* insCountLabel;
+	QLabel* masterPageLabel;
+	QLabel* masterPage2Label;
+	QLabel* pagesLabel;
+	QPushButton* cancelButton;
+	QPushButton* okButton;
+	QComboBox* insWhereData;
+	QComboBox* masterPageData;
+	QComboBox* masterPage2Data;
+	QSpinBox* insWherePageData;
+	QSpinBox* insCountData;
+	QVBoxLayout* dialogLayout;
+	QGridLayout* whereLayout;
+	QHBoxLayout* masterPageLayout;
+	QHBoxLayout* masterPage2Layout;
+	QHBoxLayout* okCancelLayout;
+	QGridLayout* dsGroupBox7Layout;
 
 private slots:
 	void insWherePageDataDisable (int index);
+	void setSize(const QString &);
+	void setOrien(int ori);
 };
 
 #endif // INSPAGE_H

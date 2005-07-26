@@ -243,6 +243,8 @@ void OODPlug::convert()
 		}
 	}
 	Doku = Prog->doc;
+	FPoint minSize = Doku->minCanvasCoordinate;
+	FPoint maxSize = Doku->maxCanvasCoordinate;
 	Prog->view->Deselect();
 	Elements.clear();
 	Doku->loading = true;
@@ -292,6 +294,10 @@ void OODPlug::convert()
 		Prog->view->setGroupRect();
 		QDragObject *dr = new QTextDrag(ss->WriteElem(&Prog->view->SelItem, Doku, Prog->view), Prog->view->viewport());
 		Prog->view->DeleteItem();
+		Prog->view->resizeContents(qRound((maxSize.x() - minSize.x()) * Prog->view->getScale()), qRound((maxSize.y() - minSize.y()) * Prog->view->getScale()));
+		Prog->view->scrollBy(qRound((Doku->minCanvasCoordinate.x() - minSize.x()) * Prog->view->getScale()), qRound((Doku->minCanvasCoordinate.y() - minSize.y()) * Prog->view->getScale()));
+		Doku->minCanvasCoordinate = minSize;
+		Doku->maxCanvasCoordinate = maxSize;
 		dr->setPixmap(loadIcon("DragPix.xpm"));
 		dr->drag();
 		delete ss;

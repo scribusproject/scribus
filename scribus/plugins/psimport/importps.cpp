@@ -259,6 +259,8 @@ EPSPlug::EPSPlug( ScribusApp *plug, QString fName )
 			Doku->PageColors.insert(it.key(), it.data());
 	}
 	Elements.clear();
+	FPoint minSize = Doku->minCanvasCoordinate;
+	FPoint maxSize = Doku->maxCanvasCoordinate;
 	Doku->loading = true;
 	Doku->DoDrawing = false;
 	Prog->view->setUpdatesEnabled(false);
@@ -298,6 +300,10 @@ EPSPlug::EPSPlug( ScribusApp *plug, QString fName )
 			Prog->view->setGroupRect();
 			QDragObject *dr = new QTextDrag(ss->WriteElem(&Prog->view->SelItem, Doku, Prog->view), Prog->view->viewport());
 			Prog->view->DeleteItem();
+			Prog->view->resizeContents(qRound((maxSize.x() - minSize.x()) * Prog->view->getScale()), qRound((maxSize.y() - minSize.y()) * Prog->view->getScale()));
+			Prog->view->scrollBy(qRound((Doku->minCanvasCoordinate.x() - minSize.x()) * Prog->view->getScale()), qRound((Doku->minCanvasCoordinate.y() - minSize.y()) * Prog->view->getScale()));
+			Doku->minCanvasCoordinate = minSize;
+			Doku->maxCanvasCoordinate = maxSize;
 			Prog->view->updateContents();
 			dr->setPixmap(loadIcon("DragPix.xpm"));
 			dr->drag();

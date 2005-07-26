@@ -2761,22 +2761,34 @@ bool ScribusApp::SetupDoc()
 		for (uint p = 0; p < doc->Pages.count(); ++p)
 		{
 			Page *pp = doc->Pages.at(p);
-			pp->initialWidth = doc->pageWidth;
-			pp->initialHeight = doc->pageHeight;
-			pp->initialMargins.Left = lr2;
-			pp->initialMargins.Right = rr2;
-			pp->initialMargins.Top = tpr2;
-			pp->initialMargins.Bottom = br2;
+			if (dia->sizeAllPages->isChecked())
+			{
+				pp->initialWidth = doc->pageWidth;
+				pp->initialHeight = doc->pageHeight;
+			}
+			if (dia->marginsForAllPages->isChecked())
+			{
+				pp->initialMargins.Left = lr2;
+				pp->initialMargins.Right = rr2;
+				pp->initialMargins.Top = tpr2;
+				pp->initialMargins.Bottom = br2;
+			}
 		}
 		for (uint p = 0; p < doc->MasterPages.count(); ++p)
 		{
 			Page *pp = doc->MasterPages.at(p);
-			pp->initialWidth = doc->pageWidth;
-			pp->initialHeight = doc->pageHeight;
-			pp->initialMargins.Left = lr2;
-			pp->initialMargins.Right = rr2;
-			pp->initialMargins.Top = tpr2;
-			pp->initialMargins.Bottom = br2;
+			if (dia->sizeAllPages->isChecked())
+			{
+				pp->initialWidth = doc->pageWidth;
+				pp->initialHeight = doc->pageHeight;
+			}
+			if (dia->marginsForAllPages->isChecked())
+			{
+				pp->initialMargins.Left = lr2;
+				pp->initialMargins.Right = rr2;
+				pp->initialMargins.Top = tpr2;
+				pp->initialMargins.Bottom = br2;
+			}
 		}
 		doc->guidesSettings.before = dia->tabGuides->inBackground->isChecked();
 		doc->marginColored = dia->checkUnprintable->isChecked();
@@ -4068,7 +4080,7 @@ bool ScribusApp::slotPageImport()
 				startPage = dia->getImportWherePage() + 1;
 			else
 				startPage = doc->pageCount + 1;
-			addNewPages(dia->getImportWherePage(), importWhere, pageNs.size());
+			addNewPages(dia->getImportWherePage(), importWhere, pageNs.size(), doc->pageHeight, doc->pageWidth, doc->PageOri, doc->PageSize, true);
 			nrToImport = pageNs.size();
 		}
 		else
@@ -4095,7 +4107,7 @@ bool ScribusApp::slotPageImport()
 				switch( mb.exec() ) {
 					case QMessageBox::Yes:
 						nrToImport = pageNs.size();
-						addNewPages(doc->pageCount, 2, pageNs.size() - (doc->pageCount - doc->currentPage->PageNr));
+						addNewPages(doc->pageCount, 2, pageNs.size() - (doc->pageCount - doc->currentPage->PageNr), doc->pageHeight, doc->pageWidth, doc->PageOri, doc->PageSize, true);
 					break;
 					case QMessageBox::No:
 						nrToImport = doc->pageCount - doc->currentPage->PageNr;
@@ -5843,13 +5855,19 @@ void ScribusApp::slotNewPageM()
 		addNewPages(dia->getWherePage(),
 		            dia->getWhere(),
 		            dia->getCount(),
+					dia->heightMSpinBox->value() / doc->unitRatio,
+					dia->widthMSpinBox->value() / doc->unitRatio,
+					dia->orientationQComboBox->currentItem(),
+					dia->prefsPageSizeName,
+					dia->moveObjects->isChecked(),
 		            dia->getMasterPage(),
-		            MasterPage2);
+		            MasterPage2
+		            );
 	}
 	delete dia;
 }
 
-void ScribusApp::addNewPages(int wo, int where, int numPages, QString based1, QString based2)
+void ScribusApp::addNewPages(int wo, int where, int numPages, double height, double width, int orient, QString siz, bool mov, QString based1, QString based2)
 {
 	if (UndoManager::undoEnabled())
 	{
@@ -5861,6 +5879,11 @@ void ScribusApp::addNewPages(int wo, int where, int numPages, QString based1, QS
 		ss->set("COUNT", numPages);
 		ss->set("BASED1", based1);
 		ss->set("BASED2", based2);
+		ss->set("HEIGHT", height);
+		ss->set("WIDTH", width);
+		ss->set("ORIENT", orient);
+		ss->set("SIZE", siz);
+		ss->set("MOVED", mov);
 		undoManager->action(this, ss);
 	}
 	int cc;
@@ -5871,7 +5894,11 @@ void ScribusApp::addNewPages(int wo, int where, int numPages, QString based1, QS
 		wot -= 1;
 		for (cc = 0; cc < numPages; ++cc)
 		{
-			slotNewPage(wot);
+			slotNewPage(wot, mov);
+			doc->currentPage->initialHeight = height;
+			doc->currentPage->initialWidth = width;
+			doc->currentPage->PageOri = orient;
+			doc->currentPage->PageSize = siz;
 			if (doc->PageFP)
 			{
 				if ((doc->currentPage->PageNr % 2 == 0) && (doc->FirstPageLeft))
@@ -5891,7 +5918,11 @@ void ScribusApp::addNewPages(int wo, int where, int numPages, QString based1, QS
 	case 1:
 		for (cc = 0; cc < numPages; ++cc)
 		{
-			slotNewPage(wot);
+			slotNewPage(wot, mov);
+			doc->currentPage->initialHeight = height;
+			doc->currentPage->initialWidth = width;
+			doc->currentPage->PageOri = orient;
+			doc->currentPage->PageSize = siz;
 			if (doc->PageFP)
 			{
 				if ((doc->currentPage->PageNr % 2 == 0) && (doc->FirstPageLeft))
@@ -5911,7 +5942,11 @@ void ScribusApp::addNewPages(int wo, int where, int numPages, QString based1, QS
 	case 2:
 		for (cc = 0; cc < numPages; ++cc)
 		{
-			slotNewPage(doc->Pages.count());
+			slotNewPage(doc->Pages.count(), mov);
+			doc->currentPage->initialHeight = height;
+			doc->currentPage->initialWidth = width;
+			doc->currentPage->PageOri = orient;
+			doc->currentPage->PageSize = siz;
 			if (doc->PageFP)
 			{
 				if ((doc->currentPage->PageNr % 2 == 0) && (doc->FirstPageLeft))
@@ -5929,6 +5964,7 @@ void ScribusApp::addNewPages(int wo, int where, int numPages, QString based1, QS
 		break;
 	}
 	pagePalette->RebuildPage();
+	view->reformPages(mov);
 	view->DrawNew();
 	if (doc->masterPageMode)
 		doc->MasterPages = doc->Pages;
@@ -5945,9 +5981,9 @@ void ScribusApp::slotNewMasterPage(int w)
 		slotNewPage(w);
 }
 
-void ScribusApp::slotNewPage(int w)
+void ScribusApp::slotNewPage(int w, bool mov)
 {
-	view->addPage(w);
+	view->addPage(w, mov);
 /*	if ((!doc->loading) && (!doc->masterPageMode))
 		outlinePalette->BuildTree(doc); */
 	bool setter = doc->Pages.count() > 1 ? true : false;
@@ -6942,7 +6978,9 @@ void ScribusApp::changePageMargins()
 		doc->currentPage->initialMargins.Right = dia->GroupRand->RandR;
 		doc->currentPage->initialHeight = dia->heightMSpinBox->value() / doc->unitRatio;
 		doc->currentPage->initialWidth = dia->widthMSpinBox->value() / doc->unitRatio;
-		view->reformPages();
+		doc->currentPage->PageOri = dia->orientationQComboBox->currentItem();
+		doc->currentPage->PageSize = dia->prefsPageSizeName;
+		view->reformPages(dia->moveObjects->isChecked());
 		view->DrawNew();
 		slotDocCh();
 	}
@@ -8903,7 +8941,7 @@ void ScribusApp::restoreDeletePage(SimpleState *state, bool isUndo)
 	}
 	if (isUndo)
 	{
-		addNewPages(wo, where, 1, tmpl, tmpl);
+		addNewPages(wo, where, 1, doc->pageHeight, doc->pageWidth, doc->PageOri, doc->PageSize, true, tmpl, tmpl);
 		UndoObject *tmp =
 			undoManager->replaceObject(state->getUInt("DUMMY_ID"), doc->Pages.at(pagenr - 1));
 		delete tmp;
@@ -8925,6 +8963,11 @@ void ScribusApp::restoreAddPage(SimpleState *state, bool isUndo)
 	int count      = state->getInt("COUNT");
 	QString based1 = state->get("BASED1");
 	QString based2 = state->get("BASED2");
+	double height = state->getDouble("HEIGHT");
+	double width = state->getDouble("WIDTH");
+	int orient = state->getInt("ORIENT");
+	QString siz = state->get("SIZE");
+	bool mov = static_cast<bool>(state->getInt("MOVED"));
 
 	int delFrom, delTo;
 	switch (where)
@@ -8962,7 +9005,7 @@ void ScribusApp::restoreAddPage(SimpleState *state, bool isUndo)
 	}
 	else
 	{
-		addNewPages(wo, where, count, based1, based2);
+		addNewPages(wo, where, count, height, width, orient, siz, mov, based1, based2);
 		for (int i = delFrom - 1; i < delTo; ++i)
 		{
 			UndoObject *tmp = undoManager->replaceObject(

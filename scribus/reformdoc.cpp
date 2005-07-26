@@ -41,6 +41,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	reformDocLayout = new QVBoxLayout( tabPage );
 	reformDocLayout->setSpacing( 5 );
 	reformDocLayout->setMargin( 0 );
+	reformDocLayout->setAlignment( Qt::AlignTop );
 	dsGroupBox7 = new QGroupBox( tabPage, "GroupBox7" );
 	dsGroupBox7->setTitle( tr( "Page Size" ) );
 	dsGroupBox7->setColumnLayout(0, Qt::Vertical );
@@ -115,6 +116,21 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	GroupRand->setPageWidth(pageWidth);
 	GroupRand->setFacingPages(doc->PageFP );
 	reformDocLayout->addWidget( GroupRand );
+	
+	applyLayout = new QHBoxLayout();
+	applyLayout->setAlignment( Qt::AlignTop );
+	applyLayout->setSpacing( 6 );
+	applyLayout->setMargin( 0 );
+	sizeAllPages = new QCheckBox( tabPage, "moveObjects" );
+	sizeAllPages->setText( tr( "Apply size settings to all Pages" ) );
+	sizeAllPages->setChecked( false );
+	applyLayout->addWidget( sizeAllPages );
+	marginsForAllPages = new QCheckBox( tabPage, "moveObjects" );
+	marginsForAllPages->setText( tr( "Apply margin settings to all Pages" ) );
+	marginsForAllPages->setChecked( false );
+	applyLayout->addWidget( marginsForAllPages );
+	reformDocLayout->addLayout( applyLayout );
+	
 	groupBox7a = new QGroupBox( tabPage, "groupBox7" );
 	groupBox7a->setTitle( tr( "Layout" ) );
 	groupBox7a->setColumnLayout(0, Qt::Vertical );

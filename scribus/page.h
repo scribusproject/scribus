@@ -50,6 +50,8 @@ public:
 	bool LeftPg;
 	QString MPageNam;
 	QString PageNam;
+	QString PageSize;
+	int PageOri;
 	QValueList<double> XGuides;
 	QValueList<double> YGuides;
 	QPtrList<PageItem> FromMaster;

@@ -916,6 +916,10 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 					Apage->MPageNam = Mus;
 				else
 					Apage->MPageNam = "";
+				if (pg.hasAttribute("Size"))
+					Apage->PageSize = pg.attribute("Size");
+				if (pg.hasAttribute("Orientation"))
+					Apage->PageOri = QStoInt(pg.attribute("Orientation"));
 				Apage->Xoffset = QStodouble(pg.attribute("PAGEXPOS"));
 				Apage->Yoffset = QStodouble(pg.attribute("PAGEYPOS"));
 				if (pg.hasAttribute("PAGEWIDTH"))

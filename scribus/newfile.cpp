@@ -93,6 +93,8 @@ NewDoc::NewDoc( QWidget* parent, bool startUp ) : QDialog( parent, "newDoc", tru
 	if (startUp)
 		connect(recentDocList, SIGNAL(doubleClicked(QListBoxItem*)), this, SLOT(recentDocList_doubleClicked(QListBoxItem*)));
 
+	setMinimumSize(minimumSizeHint());
+	setMaximumSize(minimumSizeHint());
 	resize(minimumSizeHint());
 	clearWState( WState_Polished );
 }
@@ -249,6 +251,7 @@ void NewDoc::createNewDocPage()
 	GroupBox4Layout->addLayout( Layout2 );
 	Layout10->addWidget( AutoFrame );
 	NewDocLayout->addLayout( Layout10 );
+	delete ps;
 }
 
 void NewDoc::createOpenDocPage()

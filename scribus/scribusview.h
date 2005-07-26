@@ -112,7 +112,7 @@ public:
 	void DrawMasterItems(ScPainter *painter, Page *page, QRect clip);
 	void DrawPageItems(ScPainter *painter, QRect clip);
 	void DrawPageMarks(ScPainter *p, Page* page, QRect clip);
-	Page* addPage(int nr);
+	Page* addPage(int nr, bool mov = true);
 	QPtrList<PageItem> SelItem;
 	QPtrList<PageItem> linkedFramesToShow;
 	QValueList<int> SelNode;
@@ -128,7 +128,7 @@ public:
 	void delPage(int Nr);
   /** verschiebt Seiten */
 	void movePage(int from, int to, int ziel, int art);
-	void reformPages();
+	void reformPages(bool moveObjects = true);
 	void LaMenu();
 	void showMasterPage(int nr);
 	void hideMasterPage();

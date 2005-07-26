@@ -43,6 +43,7 @@
 #include <qurl.h>
 #include <qdir.h>
 #include <qevent.h>
+#include <qsizegrip.h>
 #if QT_VERSION  > 0x030102
 	#define SPLITVC SplitHCursor
 	#define SPLITHC SplitVCursor
@@ -173,6 +174,7 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc) : QScrollView(parent,
 	connect(this, SIGNAL(contentsMoving(int, int)), this, SLOT(setRulerPos(int, int)));
 	connect(this, SIGNAL(HaveSel(int)), this, SLOT(selectionChanged()));
 	evSpon = false;
+	setCornerWidget(new QSizeGrip(this));
 }
 
 void ScribusView::languageChange()
@@ -8480,7 +8482,7 @@ void ScribusView::Zval()
 }
 
 /** Adds a Page */
-Page* ScribusView::addPage(int nr)
+Page* ScribusView::addPage(int nr, bool mov)
 {
 	Page* fe = new Page(Doc->ScratchLeft, Doc->pageCount*(Doc->pageHeight+Doc->ScratchBottom+Doc->ScratchTop)+Doc->ScratchTop, Doc->pageWidth, Doc->pageHeight);
 	fe->Margins.Top = Doc->pageMargins.Top;
@@ -8490,11 +8492,13 @@ Page* ScribusView::addPage(int nr)
 	fe->initialMargins.Left = Doc->pageMargins.Left;
 	fe->initialMargins.Right = Doc->pageMargins.Right;
 	fe->setPageNr(nr);
+	fe->PageSize = Doc->PageSize;
+	fe->PageOri = Doc->PageOri;
 	Doc->Pages.insert(nr, fe);
 	Doc->currentPage = fe;
 	Doc->pageCount++;
 	PGS->setMaxValue(Doc->pageCount);
-	reformPages();
+	reformPages(mov);
 	if ((Doc->PageAT) && (!Doc->loading))
 	{
 		int z = PaintText(fe->Margins.Left+fe->Xoffset,
@@ -8620,7 +8624,7 @@ void ScribusView::movePage(int from, int to, int ziel, int art)
 	reformPages();
 }
 
-void ScribusView::reformPages()
+void ScribusView::reformPages(bool moveObjects)
 {
 	Page* Seite;
 	QMap<uint, oldPageVar> pageTable;
@@ -8726,10 +8730,20 @@ void ScribusView::reformPages()
 		}
 		else
 		{
-			oldPg = pageTable[item->OwnPage];
-			item->Xpos = item->Xpos - oldPg.oldXO + Doc->Pages.at(oldPg.newPg)->Xoffset;
-			item->Ypos = item->Ypos - oldPg.oldYO + Doc->Pages.at(oldPg.newPg)->Yoffset;
-			item->OwnPage = static_cast<int>(oldPg.newPg);
+			if (moveObjects)
+			{
+				oldPg = pageTable[item->OwnPage];
+				item->Xpos = item->Xpos - oldPg.oldXO + Doc->Pages.at(oldPg.newPg)->Xoffset;
+				item->Ypos = item->Ypos - oldPg.oldYO + Doc->Pages.at(oldPg.newPg)->Yoffset;
+				item->OwnPage = static_cast<int>(oldPg.newPg);
+			}
+			else
+			{
+				if (item->Groups.count() != 0)
+					GroupOnPage(item);
+				else
+					item->OwnPage = OnPage(item);
+			}
 		}
 		setRedrawBounding(item);
 	}

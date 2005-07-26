@@ -51,6 +51,8 @@ public:
 	QSpinBox* pageNumber;
 	MSpinBox* widthMSpinBox;
 	MSpinBox* heightMSpinBox;
+	QCheckBox* sizeAllPages;
+	QCheckBox* marginsForAllPages;
 	MSpinBox* topScratch;
 	MSpinBox* bottomScratch;
 	MSpinBox* leftScratch;
@@ -112,6 +114,7 @@ protected:
 	QVBoxLayout* reformDocLayout;
 	QHBoxLayout* dsGroupBox7Layout;
 	QHBoxLayout* groupBox7aLayout;
+	QHBoxLayout* applyLayout;
 	QHBoxLayout* groupScratchLayout;
 	QHBoxLayout* groupGapLayout;
 	QGridLayout* layout4sg;
