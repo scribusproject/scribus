@@ -270,15 +270,13 @@ EPSPlug::EPSPlug( ScribusApp *plug, QString fName )
 	QDir::setCurrent(fi.dirPath());
 	if (convert(fName, x, y, b, h))
 	{
+		Prog->view->SelItem.clear();
 		QDir::setCurrent(CurDirP);
-		if ((Elements.count() > 0) && (plug->pluginManager->dllInput.isEmpty()))
+		if ((Elements.count() > 1) && (plug->pluginManager->dllInput.isEmpty()))
 		{
-			Prog->view->SelItem.clear();
 			for (uint a = 0; a < Elements.count(); ++a)
 			{
 				Elements.at(a)->Groups.push(Doku->GroupCounter);
-				if (!ret)
-					Prog->view->SelItem.append(Elements.at(a));
 			}
 			Doku->GroupCounter++;
 		}
@@ -295,6 +293,7 @@ EPSPlug::EPSPlug( ScribusApp *plug, QString fName )
 			for (uint dre=0; dre<Elements.count(); ++dre)
 			{
 				Doku->DragElements.append(Elements.at(dre)->ItemNr);
+				Prog->view->SelItem.append(Elements.at(dre));
 			}
 			ScriXmlDoc *ss = new ScriXmlDoc();
 			Prog->view->setGroupRect();

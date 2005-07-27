@@ -264,14 +264,12 @@ void OODPlug::convert()
 		fillStyleStack( dpg );
 		parseGroup( dpg );
 	}
+	Prog->view->SelItem.clear();
 	if ((Elements.count() > 1) && (Prog->pluginManager->dllInput.isEmpty()))
 	{
-		Prog->view->SelItem.clear();
 		for (uint a = 0; a < Elements.count(); ++a)
 		{
 			Elements.at(a)->Groups.push(Doku->GroupCounter);
-			if (!ret)
-				Prog->view->SelItem.append(Elements.at(a));
 		}
 		Doku->GroupCounter++;
 	}
@@ -289,6 +287,7 @@ void OODPlug::convert()
 		for (uint dre=0; dre<Elements.count(); ++dre)
 		{
 			Doku->DragElements.append(Elements.at(dre)->ItemNr);
+			Prog->view->SelItem.append(Elements.at(dre));
 		}
 		ScriXmlDoc *ss = new ScriXmlDoc();
 		Prog->view->setGroupRect();

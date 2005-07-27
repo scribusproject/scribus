@@ -2536,6 +2536,12 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						MoveItem(0, 0, currItem, false);
 				}
 				Imoved = false;
+				if (GroupSel)
+				{
+					double gx, gy, gh, gw;
+					getGroupRect(&gx, &gy, &gw, &gh);
+					adjustCanvas(FPoint(gx, gy), FPoint(gx+gw, gy+gh));
+				}
 				setRedrawBounding(currItem);
 				currItem->OwnPage = OnPage(currItem);
 				if (currItem->OwnPage != -1)
