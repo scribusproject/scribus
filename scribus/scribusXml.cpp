@@ -847,14 +847,11 @@ bool ScriXmlDoc::ReadColors(QString fileName)
 			// 10/25/2004 pv - None is "reserved" color. cannot be defined in any file...
 			if(pg.tagName()=="COLOR" && pg.attribute("NAME")!="None")
 			{
-				if(pg.tagName()=="COLOR")
-				{
-					if (pg.hasAttribute("CMYK"))
-						lf.setNamedColor(pg.attribute("CMYK"));
-					else
-						lf.fromQColor(QColor(pg.attribute("RGB")));
-					Farben[pg.attribute("NAME")] = lf;
-				}
+				if (pg.hasAttribute("CMYK"))
+					lf.setNamedColor(pg.attribute("CMYK"));
+				else
+					lf.fromQColor(QColor(pg.attribute("RGB")));
+				Farben[pg.attribute("NAME")] = lf;
 			}
 			PAGE=PAGE.nextSibling();
 		}
