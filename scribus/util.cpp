@@ -546,7 +546,7 @@ QString CompressStr(QString *in)
 	}
 	else {
 		for (uint cl = 0; cl < exlen; ++cl)
-			out += bc[cl];
+			out += QChar(bc[cl]);
 	}
 #else
 	out = *in;

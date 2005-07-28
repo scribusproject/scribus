@@ -837,21 +837,24 @@ void ScImage::Convert2JPG(QString fn, int Quality, bool isCMYK, bool isGray)
 
 QString ScImage::ImageToTxt()
 {
+	int i = 0;
 	int h = height();
 	int w = width();
+	unsigned char u;
 	QString ImgStr = "";
+	ImgStr.reserve(3 * h * w);
 	for( int yi=0; yi < h; ++yi )
 	{
 		QRgb * s = (QRgb*)(scanLine( yi ));
 		for( int xi=0; xi < w; ++xi )
 		{
 			QRgb r=*s++;
-			unsigned char u=qRed(r);
-			ImgStr += u;
+			u=qRed(r);
+			ImgStr[i++] = u;
 			u=qGreen(r);
-			ImgStr += u;
+			ImgStr[i++] = u;
 			u=qBlue(r);
-			ImgStr += u;
+			ImgStr[i++] = u;
 		}
 	}
 	return ImgStr;
@@ -859,9 +862,11 @@ QString ScImage::ImageToTxt()
 
 QString ScImage::ImageToCMYK()
 {
+	int i = 0;
 	int h = height();
 	int w = width();
 	QString ImgStr = "";
+	ImgStr.reserve(4 * h * w);
 	for( int yi=0; yi < h; ++yi )
 	{
 		QRgb * s = (QRgb*)(scanLine( yi ));
@@ -873,10 +878,10 @@ QString ScImage::ImageToCMYK()
 			int y = 255 - qBlue(r);
 			int k = QMIN(QMIN(c, m), y);
 			*s = qRgba(m - k, y - k, k, c - k);
-			ImgStr += static_cast<char> (c - k);
-			ImgStr += static_cast<char> (m - k);
-			ImgStr += static_cast<char> (y - k);
-			ImgStr += static_cast<char> (k);
+			ImgStr[i++] = static_cast<char> (c - k);
+			ImgStr[i++] = static_cast<char> (m - k);
+			ImgStr[i++] = static_cast<char> (y - k);
+			ImgStr[i++] = static_cast<char> (k);
 			s++;
 		}
 	}
@@ -885,9 +890,11 @@ QString ScImage::ImageToCMYK()
 
 QString ScImage::ImageToGray()
 {
+	int i = 0;
 	int h = height();
 	int w = width();
 	QString ImgStr = "";
+	ImgStr.reserve( h * w);
 	for( int yi=0; yi < h; ++yi )
 	{
 		QRgb * s = (QRgb*)(scanLine( yi ));
@@ -896,7 +903,7 @@ QString ScImage::ImageToGray()
 			QRgb r=*s;
 			int k = QMIN(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255);
 			*s = qRgba(k, 0, 0, 0);
-			ImgStr += k;
+			ImgStr[i++] = k;
 			s++;
 		}
 	}
@@ -905,9 +912,11 @@ QString ScImage::ImageToGray()
 
 QString ScImage::ImageToCMYK_PDF(bool pre)
 {
+	int i = 0;
 	int h = height();
 	int w = width();
 	QString ImgStr = "";
+	ImgStr.reserve( 4 * h * w );
 	if (pre)
 	{
 		for( int yi=0; yi < h; ++yi )
@@ -921,10 +930,10 @@ QString ScImage::ImageToCMYK_PDF(bool pre)
 				int y = qBlue(r);
 				int k = qAlpha(r);
 				/*				*s = qRgba(m, y, k, c); */
-				ImgStr += static_cast<unsigned char> (c);
-				ImgStr += static_cast<unsigned char> (m);
-				ImgStr += static_cast<unsigned char> (y);
-				ImgStr += static_cast<unsigned char> (k);
+				ImgStr[i++] = static_cast<unsigned char> (c);
+				ImgStr[i++] = static_cast<unsigned char> (m);
+				ImgStr[i++] = static_cast<unsigned char> (y);
+				ImgStr[i++] = static_cast<unsigned char> (k);
 				s++;
 			}
 		}
@@ -943,10 +952,10 @@ QString ScImage::ImageToCMYK_PDF(bool pre)
 				int k = QMIN(QMIN(c, m), y);
 				//				*s = qRgba(m, y, k, c);
 //				*s = qRgba(c, m, y, k);
-				ImgStr += static_cast<unsigned char> (c - k);
-				ImgStr += static_cast<unsigned char> (m - k);
-				ImgStr += static_cast<unsigned char> (y - k);
-				ImgStr += static_cast<unsigned char> (k);
+				ImgStr[i++] = static_cast<unsigned char> (c - k);
+				ImgStr[i++] = static_cast<unsigned char> (m - k);
+				ImgStr[i++] = static_cast<unsigned char> (y - k);
+				ImgStr[i++] = static_cast<unsigned char> (k);
 				s++;
 			}
 		}
@@ -956,9 +965,14 @@ QString ScImage::ImageToCMYK_PDF(bool pre)
 
 QString ScImage::ImageToCMYK_PS(int pl, bool pre)
 {
+	int i = 0;
 	int h = height();
 	int w = width();
 	QString ImgStr = "";
+	if(pl == -1)
+		ImgStr.reserve(4 * h * w);
+	else
+		ImgStr.reserve(h * w);
 	if (pre)
 	{
 		for( int yi=0; yi < h; ++yi )
@@ -973,23 +987,23 @@ QString ScImage::ImageToCMYK_PS(int pl, bool pre)
 				int k = qAlpha(r);
 				if (pl == -1)
 				{
-					ImgStr += static_cast<unsigned char> (c);
-					ImgStr += static_cast<unsigned char> (m);
-					ImgStr += static_cast<unsigned char> (y);
-					ImgStr += static_cast<unsigned char> (k);
+					ImgStr[i++] = static_cast<unsigned char> (c);
+					ImgStr[i++] = static_cast<unsigned char> (m);
+					ImgStr[i++] = static_cast<unsigned char> (y);
+					ImgStr[i++] = static_cast<unsigned char> (k);
 				}
 				else
 				{
 					if (pl == -2)
-						ImgStr += static_cast<unsigned char> (QMIN(255, qRound(0.3 * c + 0.59 * m + 0.11 * y + k)));
+						ImgStr[i++] = static_cast<unsigned char> (QMIN(255, qRound(0.3 * c + 0.59 * m + 0.11 * y + k)));
 					if (pl == 1)
-						ImgStr += static_cast<unsigned char> (c);
+						ImgStr[i++] = static_cast<unsigned char> (c);
 					if (pl == 2)
-						ImgStr += static_cast<unsigned char> (m);
+						ImgStr[i++] = static_cast<unsigned char> (m);
 					if (pl == 3)
-						ImgStr += static_cast<unsigned char> (y);
+						ImgStr[i++] = static_cast<unsigned char> (y);
 					if (pl == 0)
-						ImgStr += static_cast<unsigned char> (k);
+						ImgStr[i++] = static_cast<unsigned char> (k);
 				}
 			}
 		}
@@ -1008,23 +1022,23 @@ QString ScImage::ImageToCMYK_PS(int pl, bool pre)
 				int k = QMIN(QMIN(c, m), y);
 				if (pl == -1)
 				{
-					ImgStr += static_cast<unsigned char> (c - k);
-					ImgStr += static_cast<unsigned char> (m - k);
-					ImgStr += static_cast<unsigned char> (y - k);
-					ImgStr += static_cast<unsigned char> (k);
+					ImgStr[i++] = static_cast<unsigned char> (c - k);
+					ImgStr[i++] = static_cast<unsigned char> (m - k);
+					ImgStr[i++] = static_cast<unsigned char> (y - k);
+					ImgStr[i++] = static_cast<unsigned char> (k);
 				}
 				else
 				{
 					if (pl == -2)
-						ImgStr += static_cast<unsigned char> (QMIN(255, qRound(0.3 * c + 0.59 * m + 0.11 * y + k)));
+						ImgStr[i++] = static_cast<unsigned char> (QMIN(255, qRound(0.3 * c + 0.59 * m + 0.11 * y + k)));
 					if (pl == 1)
-						ImgStr += static_cast<unsigned char> (c - k);
+						ImgStr[i++] = static_cast<unsigned char> (c - k);
 					if (pl == 2)
-						ImgStr += static_cast<unsigned char> (m - k);
+						ImgStr[i++] = static_cast<unsigned char> (m - k);
 					if (pl == 3)
-						ImgStr += static_cast<unsigned char> (y - k);
+						ImgStr[i++] = static_cast<unsigned char> (y - k);
 					if (pl == 0)
-						ImgStr += static_cast<unsigned char> (k);
+						ImgStr[i++] = static_cast<unsigned char> (k);
 				}
 			}
 		}
@@ -1034,20 +1048,23 @@ QString ScImage::ImageToCMYK_PS(int pl, bool pre)
 
 QString ScImage::MaskToTxt(bool PDF)
 {
+	int i = 0;
 	int h = height();
 	int w = width();
 	int w2;
+	unsigned char u;
 	w2 = w / 8;
 	if ((w % 8) != 0)
 		w2++;
 	QString ImgStr = "";
+	ImgStr.reserve(h * w2);
 	for( int yi=0; yi < h; ++yi )
 	{
 		uchar * s = scanLine( yi );
 		for( int xi=0; xi < w2; ++xi )
 		{
-			unsigned char u = *(s+xi);
-			ImgStr += PDF ? ~u : u;
+			u = *(s+xi);
+			ImgStr[i++] = (PDF ? ~u : u);
 		}
 	}
 	return ImgStr;
@@ -1055,17 +1072,20 @@ QString ScImage::MaskToTxt(bool PDF)
 
 QString ScImage::MaskToTxt14()
 {
+	int i = 0;
 	int h = height();
 	int w = width();
+	unsigned char u;
 	QString ImgStr = "";
+	ImgStr.reserve(h * w);
 	for( int yi=0; yi < h; ++yi )
 	{
 		QRgb * s = (QRgb*)(scanLine( yi ));
 		for( int xi=0; xi < w; ++xi )
 		{
 			QRgb r=*s++;
-			unsigned char u=qAlpha(r);
-			ImgStr += u;
+			u = qAlpha(r);
+			ImgStr[i++] = u;
 		}
 	}
 	return ImgStr;
@@ -2468,19 +2488,22 @@ QString ScImage::getAlpha(QString fn, bool PDF, bool pdf14)
 	}
 	if (isNull())
 		return retS;
+	int i = 0;
+	unsigned char u;
 	int hm = height();
 	int wm = width();
 	int w2;
 	if (pdf14)
 	{
+		retS.reserve(hm * wm);
 		for( int yi=0; yi < hm; ++yi )
 		{
 			QRgb * s = (QRgb*)(scanLine( yi ));
 			for( int xi=0; xi < wm; ++xi )
 			{
 				QRgb r=*s++;
-				unsigned char u=qAlpha(r);
-				retS += u;
+				u=qAlpha(r);
+				retS[i++] = u;
 			}
 		}
 	}
@@ -2492,13 +2515,14 @@ QString ScImage::getAlpha(QString fn, bool PDF, bool pdf14)
 		w2 = wm / 8;
 		if ((wm % 8) != 0)
 			w2++;
+		retS.reserve(hm * w2);
 		for( int yi=0; yi < hm; ++yi )
 		{
 			uchar * s = iMask.scanLine( yi );
 			for( int xi=0; xi < w2; ++xi )
 			{
-				unsigned char u = *(s+xi);
-				retS += PDF ? ~u : u;
+				u = *(s+xi);
+				retS[i++] = (PDF ? ~u : u);
 			}
 		}
 	}
