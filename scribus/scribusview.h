@@ -61,6 +61,10 @@ public:
 	RulerMover *UN;
 	Hruler *horizRuler;
 	Vruler *vertRuler;
+	QPushButton *zoomOutToolbarButton;
+	QPushButton *zoomInToolbarButton;
+	QPushButton *LY;
+	QToolButton *unitSwitcher;
   /** Dokument zu dem die Seite gehoert */
 	ScribusDoc *Doc;
 	ApplicationPrefs *Prefs;
@@ -321,9 +325,6 @@ public slots: // Public slots
 	void changePreview(int id);
 
 private: // Private attributes
-	QPushButton *zoomOutToolbarButton;
-	QPushButton *zoomInToolbarButton;
-	QPushButton *LY;
 	QPopupMenu *Unitmen;
 	QPopupMenu *Laymen;
 	QPopupMenu *pmen3;

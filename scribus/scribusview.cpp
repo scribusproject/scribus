@@ -97,7 +97,14 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc) : QScrollView(parent,
 	setResizePolicy(Manual);
 	viewport()->setBackgroundMode(PaletteBackground);
 	QFont fo = QFont(font());
-	fo.setPointSize(10);
+	int posi = fo.pointSize()-2;
+	fo.setPointSize(posi);
+	Unitmen = new QPopupMenu(this);
+	unitSwitcher = new QToolButton(this);
+	unitSwitcher->setPopup(Unitmen);
+	unitSwitcher->setFocusPolicy(QWidget::NoFocus);
+	unitSwitcher->setPopupDelay(10);
+	unitSwitcher->setFont(fo);
 	LE = new MSpinBox( 10, 3200, this, 2 );
 	LE->setFont(fo);
 	LE->setValue( 100 );
@@ -121,10 +128,7 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc) : QScrollView(parent,
 	horizRuler = new Hruler(this, Doc);
 	vertRuler = new Vruler(this, Doc);
 	UN = new RulerMover(this);
-	Unitmen = new QPopupMenu(this);
-//	UN->setPopup(Unitmen);
 	UN->setFocusPolicy(QWidget::NoFocus);
-//	UN->setPopupDelay(10);
 	Ready = true;
 	viewport()->setMouseTracking(true);
 	setAcceptDrops(true);
@@ -174,7 +178,7 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc) : QScrollView(parent,
 	connect(this, SIGNAL(contentsMoving(int, int)), this, SLOT(setRulerPos(int, int)));
 	connect(this, SIGNAL(HaveSel(int)), this, SLOT(selectionChanged()));
 	evSpon = false;
-	setCornerWidget(new QSizeGrip(this));
+//	setCornerWidget(new QSizeGrip(this));
 }
 
 void ScribusView::languageChange()
@@ -182,7 +186,7 @@ void ScribusView::languageChange()
 	LE->setSuffix( tr( " %" ) );
 	LY->setText( tr("Layer")+" 0");	
 	//CB TODO Convert to actions later
-//	UN->setText(unitGetStrFromIndex(Doc->docUnitIndex));
+	unitSwitcher->setText(unitGetStrFromIndex(Doc->docUnitIndex));
 	Unitmen->clear();
 	for (int i=0;i<=unitGetMaxIndex();++i)
 		Unitmen->insertItem(unitGetStrFromIndex(i));
@@ -8388,37 +8392,9 @@ void ScribusView::PasteToPage()
 /** Waagrechter Scrollbalken */
 void ScribusView::setHBarGeometry(QScrollBar &bar, int x, int y, int w, int h)
 {
-	bar.setGeometry(x+270, y, w-270, h);
+	bar.setGeometry(x, y, w, h);
 	if (Ready)
-	{
-		QFontMetrics fom(LE->font());
-		LE->setGeometry(x, y, 60, h);
-		if (fom.height() > LE->ed->height())
-		{
-			QFont ff = LE->font();
-			do
-			{
-				int si = LE->font().pointSize();
-				ff.setPointSize(si-1);
-				LE->setFont(ff);
-				fom = QFontMetrics(LE->font());
-			}
-			while (fom.height() > LE->ed->height());
-			PGS->setFont(ff);
-			LY->setFont(ff);
-			horizRuler->setFont(ff);
-			vertRuler->setFont(ff);
-		}
-		QRect forec = fom.boundingRect("3200.00 %");
-		int sadj = forec.width() - LE->ed->width();
-		LE->setGeometry(x, y, 60+sadj, h);
-		zoomOutToolbarButton->setGeometry(x+60+sadj, y, 15, h);
-		zoomInToolbarButton->setGeometry(x+75+sadj, y, 15, h);
-		PGS->setGeometry(x+90+sadj, y, 215, h);
-		LY->setGeometry(x+305+sadj, y, 110, h);
 		horizRuler->setGeometry(25, 1, w-24, 25);
-		bar.setGeometry(x+415+sadj, y, w-(415+sadj), h);
-	}
 }
 
 /** Senkrechter Scrollbalken */

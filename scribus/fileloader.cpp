@@ -1209,7 +1209,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 			Its->NextBox = 0;
 		}
 	}
-//	view->UN->setText(unitGetStrFromIndex(doc->docUnitIndex));
+	view->unitSwitcher->setText(unitGetStrFromIndex(doc->docUnitIndex));
 	dia2->setProgress(DOC.childNodes().count());
 	return true;
 }

@@ -8600,7 +8600,7 @@ void ScribusApp::slotChangeUnit(int art, bool draw)
 {
 	doc->docUnitIndex = art;
 	doc->unitRatio = unitGetRatioFromIndex( doc->docUnitIndex );
-//	view->UN->setText( unitGetStrFromIndex( doc->docUnitIndex) );
+	view->unitSwitcher->setText( unitGetStrFromIndex( doc->docUnitIndex) );
 	propertiesPalette->UnitChange();
 	alignDistributePalette->unitChange();
 	if (draw)

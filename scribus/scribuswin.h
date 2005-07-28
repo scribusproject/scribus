@@ -20,6 +20,8 @@
 
 #include <qmainwindow.h>
 #include <qmessagebox.h>
+#include <qlayout.h>
+#include <qframe.h>
 #include "scribusview.h"
 class ScribusDoc;
 #include "muster.h"
@@ -39,6 +41,7 @@ public:
 	ScribusView* view;
 	ScribusDoc* doc;
 	MasterPagesPalette* muster;
+	QFrame *statusFrame;
 	bool MenuStat[7];
 	int winIndex;
 	
@@ -48,6 +51,9 @@ public slots:
 signals:
 	void Schliessen();
 	void AutoSaved();
+
+protected:
+	QHBoxLayout* statusFrameLayout;
 };
 
 #endif

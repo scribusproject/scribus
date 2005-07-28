@@ -38,6 +38,24 @@ void ScribusWin::setView(ScribusView* dview)
 	doc->viewCount++;
 	doc->viewID++;
 	winIndex = doc->viewID;
+	QPoint point = QPoint(0,0);
+	statusFrame = new QFrame(this, "newDocFrame");
+	statusFrameLayout = new QHBoxLayout( statusFrame, 0, 0, "statusFrame");
+	view->unitSwitcher->reparent(statusFrame, point);
+	view->LE->reparent(statusFrame, point);
+	view->zoomOutToolbarButton->reparent(statusFrame, point);
+	view->zoomInToolbarButton->reparent(statusFrame, point);
+	view->PGS->reparent(statusFrame, point);
+	view->LY->reparent(statusFrame, point);
+	statusFrameLayout->addWidget(view->unitSwitcher);
+	statusFrameLayout->addWidget(view->LE);
+	statusFrameLayout->addWidget(view->zoomOutToolbarButton);
+	statusFrameLayout->addWidget(view->zoomInToolbarButton);
+	statusFrameLayout->addWidget(view->PGS);
+	statusFrameLayout->addWidget(view->LY);
+	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	statusFrameLayout->addItem( spacer );
+	statusBar()->addWidget(statusFrame, 4, true);
 }
 
 void ScribusWin::slotAutoSave()
