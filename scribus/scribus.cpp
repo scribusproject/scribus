@@ -6893,6 +6893,15 @@ void ScribusApp::CopyPage()
 			break;
 		}
 		Page* Ziel = doc->currentPage;
+		Ziel->initialHeight = from->Height;
+		Ziel->initialWidth = from->Width;
+		Ziel->PageOri = from->PageOri;
+		Ziel->PageSize = from->PageSize;
+		Ziel->initialMargins.Top = from->Margins.Top;
+		Ziel->initialMargins.Bottom = from->Margins.Bottom;
+		Ziel->initialMargins.Left = from->Margins.Left;
+		Ziel->initialMargins.Right = from->Margins.Right;
+		view->reformPages();
 		QMap<int,int> TableID;
 		QPtrList<PageItem> TableItems;
 		TableID.clear();
@@ -6900,17 +6909,20 @@ void ScribusApp::CopyPage()
 		uint oldItems = doc->Items.count();
 		for (uint ite = 0; ite < oldItems; ++ite)
 		{
-			CopyPageItem(&Buffer, doc->Items.at(ite));
-			Buffer.Xpos = Buffer.Xpos - from->Xoffset + Ziel->Xoffset;
-			Buffer.Ypos = Buffer.Ypos - from->Yoffset + Ziel->Yoffset;
-			view->PasteItem(&Buffer, true, true);
-			PageItem* Neu = doc->Items.at(doc->Items.count()-1);
-			if (doc->Items.at(ite)->isBookmark)
-				AddBookMark(Neu);
-			if (Neu->isTableItem)
+			if (doc->Items.at(ite)->OwnPage == static_cast<int>(from->PageNr))
 			{
-				TableItems.append(Neu);
-				TableID.insert(ite, Neu->ItemNr);
+				CopyPageItem(&Buffer, doc->Items.at(ite));
+				Buffer.Xpos = Buffer.Xpos - from->Xoffset + Ziel->Xoffset;
+				Buffer.Ypos = Buffer.Ypos - from->Yoffset + Ziel->Yoffset;
+				view->PasteItem(&Buffer, true, true);
+				PageItem* Neu = doc->Items.at(doc->Items.count()-1);
+				if (doc->Items.at(ite)->isBookmark)
+					AddBookMark(Neu);
+				if (Neu->isTableItem)
+				{
+					TableItems.append(Neu);
+					TableID.insert(ite, Neu->ItemNr);
+				}
 			}
 		}
 		if (TableItems.count() != 0)
@@ -6936,6 +6948,7 @@ void ScribusApp::CopyPage()
 					ta->BottomLink = 0;
 			}
 		}
+		Apply_MasterPage(from->MPageNam, Ziel->PageNr, false);
 		if (from->YGuides.count() != 0)
 		{
 			for (uint y = 0; y < from->YGuides.count(); ++y)
@@ -6954,7 +6967,6 @@ void ScribusApp::CopyPage()
 			}
 			qHeapSort(Ziel->XGuides);
 		}
-		Ziel->MPageNam = from->MPageNam;
 		view->Deselect(true);
 		doc->loading = false;
 		view->DrawNew();
@@ -7851,29 +7863,18 @@ void ScribusApp::DeleteObjekt()
 void ScribusApp::ObjektDup()
 {
 	slotSelect();
-	double dx, dy;
 	bool savedAlignGrid = doc->useRaster;
 	bool savedAlignGuides = doc->SnapGuides;
 	doc->useRaster = false;
 	doc->SnapGuides = false;
-	if (view->SelItem.at(0)->OwnPage == -1)
-	{
-		dx = 0;
-		dy = 0;
-	}
-	else
-	{
-		dx = doc->currentPage->Xoffset;
-		dy = doc->currentPage->Yoffset;
-	}
 	slotEditCopy();
 	view->Deselect(true);
 	slotEditPaste();
 	for (uint b=0; b<view->SelItem.count(); ++b)
 	{
 		view->SelItem.at(b)->setLocked(false);
-		view->SelItem.at(b)->Xpos += dx;
-		view->SelItem.at(b)->Ypos += dy;
+		view->SelItem.at(b)->Xpos;
+		view->SelItem.at(b)->Ypos;
 		view->MoveItem(DispX, DispY, view->SelItem.at(b));
 	}
 	doc->useRaster = savedAlignGrid;
@@ -7883,17 +7884,6 @@ void ScribusApp::ObjektDup()
 void ScribusApp::ObjektDupM()
 {
 	slotSelect();
-	double dx, dy;
-	if (view->SelItem.at(0)->OwnPage == -1)
-	{
-		dx = 0;
-		dy = 0;
-	}
-	else
-	{
-		dx = doc->currentPage->Xoffset;
-		dy = doc->currentPage->Yoffset;
-	}
 	NoFrameEdit();
 	Mdup *dia = new Mdup(this, DispX * doc->unitRatio, DispY * doc->unitRatio, doc->docUnitIndex);
 	if (dia->exec())
@@ -7918,8 +7908,8 @@ void ScribusApp::ObjektDupM()
 				for (uint b=0; b<view->SelItem.count(); ++b)
 				{
 					view->SelItem.at(b)->setLocked(false);
-					view->SelItem.at(b)->Xpos += dx;
-					view->SelItem.at(b)->Ypos += dy;
+					view->SelItem.at(b)->Xpos;
+					view->SelItem.at(b)->Ypos;
 					view->MoveItem(dH2, dV2, view->SelItem.at(b), true);
 				}
 				dH2 += dH;
