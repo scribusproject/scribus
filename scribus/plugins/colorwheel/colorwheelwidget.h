@@ -4,7 +4,7 @@
 
 #include <qlabel.h>
 #include <qvaluevector.h>
-#include <cmykcolor.h>
+#include <sccolor.h>
 #include <scribusstructs.h>
 
 /**
@@ -125,9 +125,9 @@ class ColorWheel : public QLabel
 		/** Appends the base color into color list. */
 		void baseColor();
 
-		/** Creates a Scribus CMYKColor from rgb value.
+		/** Creates a Scribus ScColor from rgb value.
 		\param QRgb a rgb value of the color. */
-		CMYKColor cmykColor(QRgb rgb);
+		ScColor cmykColor(QRgb rgb);
 
 };
 

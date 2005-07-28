@@ -33,7 +33,6 @@ scribus_SOURCES = \
 	charselect.cpp	\
 	checkDocument.cpp	\
 	cmsprefs.cpp	\
-	cmykcolor.cpp	\
 	cmykfw.cpp	\
 	colorchart.cpp	\
 	colorm.cpp	\
@@ -133,6 +132,7 @@ scribus_SOURCES = \
 	rc4.c	\
 	reformdoc.cpp	\
 	rulermover.cpp	\
+	sccolor.cpp	\
 	scfonts.cpp	\
 	scfonts_ttf.cpp	\
 	scfontmetrics.cpp	\
@@ -226,7 +226,6 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/charselect.h                  $(prefix)/include/scribus/charselect.h
 	$(INSTALL_DATA) $(srcdir)/checkDocument.h               $(prefix)/include/scribus/checkDocument.h
 	$(INSTALL_DATA) $(srcdir)/cmsprefs.h                    $(prefix)/include/scribus/cmsprefs.h
-	$(INSTALL_DATA) $(srcdir)/cmykcolor.h                   $(prefix)/include/scribus/cmykcolor.h
 	$(INSTALL_DATA) $(srcdir)/cmykfw.h                      $(prefix)/include/scribus/cmykfw.h
 	$(INSTALL_DATA) $(srcdir)/color.h                       $(prefix)/include/scribus/color.h
 	$(INSTALL_DATA) $(srcdir)/colorchart.h                  $(prefix)/include/scribus/colorchart.h
@@ -327,6 +326,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/rc4.h                         $(prefix)/include/scribus/rc4.h
 	$(INSTALL_DATA) $(srcdir)/rulermover.h                      $(prefix)/include/scribus/rulermover.h
 	$(INSTALL_DATA) $(srcdir)/reformdoc.h                   $(prefix)/include/scribus/reformdoc.h
+	$(INSTALL_DATA) $(srcdir)/sccolor.h                   $(prefix)/include/scribus/sccolor.h
 	$(INSTALL_DATA) $(srcdir)/scfonts.h                     $(prefix)/include/scribus/scfonts.h
 	$(INSTALL_DATA) $(srcdir)/scfonts_ttf.h                 $(prefix)/include/scribus/scfonts_ttf.h
 	$(INSTALL_DATA) $(srcdir)/scfontmetrics.h              $(prefix)/include/scribus/scfontmetrics.h
@@ -402,7 +402,6 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/charselect.h
 	-rm -f $(prefix)/include/scribus/checkDocument.h
 	-rm -f $(prefix)/include/scribus/cmsprefs.h
-	-rm -f $(prefix)/include/scribus/cmykcolor.h
 	-rm -f $(prefix)/include/scribus/cmykfw.h
 	-rm -f $(prefix)/include/scribus/color.h
 	-rm -f $(prefix)/include/scribus/colorchart.h
@@ -503,6 +502,7 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/rc4.h
 	-rm -f $(prefix)/include/scribus/rulermover.h
 	-rm -f $(prefix)/include/scribus/reformdoc.h
+	-rm -f $(prefix)/include/scribus/sccolor.h
 	-rm -f $(prefix)/include/scribus/scfonts.h
 	-rm -f $(prefix)/include/scribus/scfonts_ttf.h
 	-rm -f $(prefix)/include/scribus/scmenu.h

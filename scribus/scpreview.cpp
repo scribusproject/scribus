@@ -37,7 +37,7 @@ QPixmap ScPreview::createPreview(QString data)
 	struct ScText *hl;
 	QPtrList<ScText> Ptexti;
 	bool error;
-	CMYKColor lf = CMYKColor();
+	ScColor lf = ScColor();
 	QFont fo;
 	QMap<QString,QString> DoFonts;
 	QMap<QString,QFont> DoFonts2;

@@ -364,7 +364,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 		return false;
 	doc->PageColors.clear();
 	doc->Layers.clear();
-	CMYKColor lf = CMYKColor();
+	ScColor lf = ScColor();
 	QDomElement elem=docu.documentElement();
 	if (elem.tagName() != "SCRIBUSUTF8NEW")
 		return false;

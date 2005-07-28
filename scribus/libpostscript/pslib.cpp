@@ -1945,7 +1945,7 @@ void PSLib::SetFarbe(ScribusDoc* Doc, QString farb, int shade, int *h, int *s, i
 	s1 = *s;
 	v1 = *v;
 	k1 = *k;
-	CMYKColor tmp = Doc->PageColors[farb];
+	ScColor tmp = Doc->PageColors[farb];
 	if (gcr)
 		tmp.applyGCR();
 	tmp.getCMYK(&h1, &s1, &v1, &k1);

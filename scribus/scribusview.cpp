@@ -9786,7 +9786,7 @@ void ScribusView::insertColor(QString nam, double c, double m, double y, double 
 {
 	if (!Doc->PageColors.contains(nam))
 	{
-		CMYKColor tmp = CMYKColor(static_cast<int>(255 * c), static_cast<int>(255 * m),
+		ScColor tmp = ScColor(static_cast<int>(255 * c), static_cast<int>(255 * m),
 		                          static_cast<int>(255 * y), static_cast<int>(255 * k));
 		Doc->PageColors.insert(nam, tmp);
 	}

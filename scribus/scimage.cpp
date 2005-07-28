@@ -85,7 +85,7 @@ void ScImage::initialize()
 	imgInfo.layerInfo.clear();
 }
 
-void ScImage::applyEffect(QValueList<imageEffect> effectsList, QMap<QString,CMYKColor> colors, bool cmyk)
+void ScImage::applyEffect(QValueList<imageEffect> effectsList, QMap<QString,ScColor> colors, bool cmyk)
 {
 	if (effectsList.count() != 0)
 	{
@@ -604,13 +604,13 @@ void ScImage::applyCurve(bool cmyk)
 	}
 }
 
-void ScImage::colorize(CMYKColor color, int shade, bool cmyk)
+void ScImage::colorize(ScColor color, int shade, bool cmyk)
 {
 	int h = height();
 	int w = width();
 	int cc, cm, cy, ck;
 	int hu, sa, v;
-	CMYKColor tmp2;
+	ScColor tmp2;
 	QColor tmpR;
 	if (cmyk)
 		color.getShadeColorCMYK(&cc, &cm, &cy, &ck, shade);

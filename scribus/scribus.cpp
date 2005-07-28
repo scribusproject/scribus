@@ -5229,10 +5229,10 @@ bool ScribusApp::doPrint(PrintOptions *options)
 		if (PSfile)
 		{
 			// Write the PS to a file
-			CMYKColor::UseProf = options->useICC;
+			ScColor::UseProf = options->useICC;
 			dd->CreatePS(doc, view, options->pageNumbers, options->outputSeparations, options->separationName,
 			               options->useColor, options->mirrorH, options->mirrorV, options->useICC, options->doGCR, options->setDevParam);
-			CMYKColor::UseProf = true;
+			ScColor::UseProf = true;
 			if (options->PSLevel != 3)
 			{
 				// use gs to convert our PS to a lower version
@@ -9205,7 +9205,7 @@ void ScribusApp::RecalcColors(QProgressBar *dia)
 		QPixmap pm = QPixmap(15, 15);
 		int a = 0;
 		ColorMenC->insertItem( tr("None"));
-		CMYKColor tmp;
+		ScColor tmp;
 //		tmp.fromQColor(doc->papColor);
 //		tmp.RecalcRGB();
 //		doc->papColor = tmp.getRGBColor();
@@ -10320,7 +10320,7 @@ void ScribusApp::mouseReleaseEvent(QMouseEvent *m)
 				} while (!nameFound && ok);
 				if ( ok && !colorName.isEmpty() )
 				{
-					CMYKColor newColor(selectedColor.red(), selectedColor.green(), selectedColor.blue());
+					ScColor newColor(selectedColor.red(), selectedColor.green(), selectedColor.blue());
 					doc->PageColors[colorName]=newColor;
 					propertiesPalette->Cpal->SetColors(ScApp->doc->PageColors);
 					propertiesPalette->updateCList();

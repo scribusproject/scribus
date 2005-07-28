@@ -638,7 +638,7 @@ QString gtAction::parseColor(const QString &s)
 		}
 		if (!found)
 		{
-			CMYKColor tmp;
+			ScColor tmp;
 			tmp.fromQColor(c);
 			ScApp->doc->PageColors.insert("FromGetText"+c.name(), tmp);
 			ScApp->propertiesPalette->Cpal->SetColors(ScApp->doc->PageColors);

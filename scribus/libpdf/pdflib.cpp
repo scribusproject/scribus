@@ -3060,7 +3060,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 QString PDFlib::SetFarbe(QString farbe, int Shade)
 {
 	QString tmp;
-	CMYKColor tmpC;
+	ScColor tmpC;
 	int h, s, v, k;
 	tmpC = doc->PageColors[farbe];
 	QColor tmpR;

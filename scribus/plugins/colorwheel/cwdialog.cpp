@@ -281,7 +281,7 @@ void ColorWheelDialog::setPreview()
 {
 	int x = previewLabel->width();
 	int y = previewLabel->height();
-	QValueList<CMYKColor> cols = colorWheel->colorList.values();
+	QValueList<ScColor> cols = colorWheel->colorList.values();
 	int xstep = x / cols.count();
 	QPixmap pm = QPixmap(x, y);
 	QPainter *p = new QPainter(&pm);

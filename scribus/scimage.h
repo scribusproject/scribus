@@ -19,7 +19,7 @@
 #include <qdir.h>
 #include <qstringlist.h>
 #include "fpointarray.h"
-#include "cmykcolor.h"
+#include "sccolor.h"
 extern "C"
 {
 #define XMD_H           // shut JPEGlib up
@@ -70,14 +70,14 @@ public:
 	void Convert2JPG(QString fn, int Quality, bool isCMYK, bool isGray);
 	QString MaskToTxt(bool PDF = true);
 	QString MaskToTxt14();
-	void applyEffect(QValueList<imageEffect> effectsList, QMap<QString,CMYKColor> colors, bool cmyk);
+	void applyEffect(QValueList<imageEffect> effectsList, QMap<QString,ScColor> colors, bool cmyk);
 	void solarize(double factor, bool cmyk);
 	void blur(double radius= 0.0, double sigma = 1.0);
 	void sharpen(double radius= 0.0, double sigma = 1.0);
 	void contrast(int contrastValue, bool cmyk);
 	void brightness(int brightnessValue, bool cmyk);
 	void invert(bool cmyk);
-	void colorize(CMYKColor color, int shade, bool cmyk);
+	void colorize(ScColor color, int shade, bool cmyk);
 	void toGrayscale(bool cmyk);
 	void swapRGBA();
 	void createLowRes(double scale);

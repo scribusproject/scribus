@@ -1,5 +1,5 @@
 /***************************************************************************
-                          cmykcolor.h  -  description
+                          sccolor.h  -  description
                              -------------------
     begin                : Sun Sep 9 2001
     copyright            : (C) 2001 by Franz Schmid
@@ -15,8 +15,9 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef CMYKCOLOR_H
-#define CMYKCOLOR_H
+#ifndef SCCOLOR_H
+#define SCCOLOR_H
+
 
 #include <qcolor.h>
 class QString;
@@ -34,25 +35,25 @@ enum colorModel
 	colorModelCMYK
 };
 
-class CMYKColor 
+class ScColor 
 {
 public:
-	CMYKColor();
-/** Constructs a CMYKColor with 4 Components
+	ScColor();
+/** Constructs a ScColor with 4 Components
  * in the range from 0 - 255 */
-	CMYKColor(int c, int m, int y, int k);
+	ScColor(int c, int m, int y, int k);
 /** Constructs a RGBColor with 3 Components
  * in the range from 0 - 255 */
-	CMYKColor(int r, int g, int b);
-	~CMYKColor() {};
+	ScColor(int r, int g, int b);
+	~ScColor() {};
 /** flag to enable and disable use of color management (default: true) */
 	static bool UseProf;
 
 /** Same as the Constructor but for an existing Color */
 	void setColor(int c, int m, int y, int k);
 
-/** Computes a CMYKColor from an RGB-Color
- * Applies Gray-Component-Removal to the resulting CMYKColor
+/** Computes a ScColor from an RGB-Color
+ * Applies Gray-Component-Removal to the resulting ScColor
  * or if color management is enabled, an approriate transform */
 	void setColorRGB(int r, int g, int b);
 
@@ -62,14 +63,14 @@ public:
 /** get the color model */
 	colorModel getColorModel ();
 
-/** Computes a CMYKColor for a QColor */
+/** Computes a ScColor for a QColor */
 	void fromQColor(QColor color);
 
 /** Returns the transformed/proofed RGB color  */
 	QColor getRGBColor();
 	void getRawRGBColor(int *r, int *g, int *b);
 
-/** Returns the 4 Values that form an CMYKColor */
+/** Returns the 4 Values that form an ScColor */
 	void getCMYK(int *c, int *m, int *y, int *k);
 
 /** Returns the 3 Values that form an RGBColor */
@@ -84,10 +85,10 @@ public:
 /** Return a proofed QColor with the specified shade */
 	QColor getShadeColorProof(int level);
 
-/** Applys Gray-Component-Removal to an CMYKColor */
+/** Applys Gray-Component-Removal to an ScColor */
 	void applyGCR();
 
-/** Returns the CMYKColor as an Hex-String in the Form #CCYYMMKK for
+/** Returns the ScColor as an Hex-String in the Form #CCYYMMKK for
  * a CMYK color or ##RRGGBB for a RGB color*/
 	QString name();
 

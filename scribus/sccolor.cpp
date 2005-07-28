@@ -1,5 +1,5 @@
 /***************************************************************************
-                          cmykcolor.cpp  -  description
+                          sccolor.cpp  -  description
                              -------------------
     begin                : Sun Sep 9 2001
     copyright            : (C) 2001 by Franz Schmid
@@ -18,7 +18,7 @@
 #include <qcolor.h>
 #include <qstring.h>
 
-#include "cmykcolor.h"
+#include "sccolor.h"
 
 #include "scconfig.h"
 
@@ -33,27 +33,27 @@
 	extern bool CMSuse;
 #endif
 extern bool CMSavail;
-bool CMYKColor::UseProf = true;
+bool ScColor::UseProf = true;
 
-CMYKColor::CMYKColor()
+ScColor::ScColor()
 {
 	setColor(0, 0, 0, 0);
 	Spot = false;
 }
 
-CMYKColor::CMYKColor(int c, int m, int y, int k)
+ScColor::ScColor(int c, int m, int y, int k)
 {
 	setColor(c, m, y, k);
 	Spot = false;
 }
  
-CMYKColor::CMYKColor(int r, int g, int b)
+ScColor::ScColor(int r, int g, int b)
 {
 	setColorRGB(r, g, b);
 	Spot = false;
 }
 
-void CMYKColor::setColor(int c, int m, int y, int k)
+void ScColor::setColor(int c, int m, int y, int k)
 {
 	C = c;
 	M = m;
@@ -63,7 +63,7 @@ void CMYKColor::setColor(int c, int m, int y, int k)
 	RecalcRGB();
 }
 
-void CMYKColor::setColorRGB(int r, int g, int b)
+void ScColor::setColorRGB(int r, int g, int b)
 {
 	R = r;
 	G = g;
@@ -72,35 +72,35 @@ void CMYKColor::setColorRGB(int r, int g, int b)
 	RecalcRGB();
 }
 
-void CMYKColor::setColorModel (colorModel cm)
+void ScColor::setColorModel (colorModel cm)
 {
 	Model = cm;
 	RecalcRGB();
 }
 
-colorModel CMYKColor::getColorModel ()
+colorModel ScColor::getColorModel ()
 {
 	return Model;
  }
 
-void CMYKColor::fromQColor(QColor color)
+void ScColor::fromQColor(QColor color)
 {
 	int r, g, b;
 	color.rgb(&r, &g, &b);
 	setColorRGB(r, g, b);
 }
 
-QColor CMYKColor::getRGBColor()
+QColor ScColor::getRGBColor()
 {
 	return RGB;
 }
  
-void CMYKColor::getShadeColorCMYK(int *c, int *m, int *y, int *k, int level)
+void ScColor::getShadeColorCMYK(int *c, int *m, int *y, int *k, int level)
 {
 	if (Model == colorModelRGB)
 	{
 		int r, g, b;
-		CMYKColor tmpR;
+		ScColor tmpR;
 		getShadeColorRGB(&r, &g, &b, level);
 		tmpR.setColorRGB(r, g, b);
 		tmpR.getCMYK(c, m, y, k);
@@ -114,7 +114,7 @@ void CMYKColor::getShadeColorCMYK(int *c, int *m, int *y, int *k, int level)
 	}
 }
 
-void CMYKColor::getShadeColorRGB(int *r, int *g, int *b, int level)
+void ScColor::getShadeColorRGB(int *r, int *g, int *b, int level)
 {
 	int h, s, v, snew;
 	
@@ -122,7 +122,7 @@ void CMYKColor::getShadeColorRGB(int *r, int *g, int *b, int level)
 	{
 		int c, m, y, k;
 		getShadeColorCMYK(&c, &m, &y, &k, level);
-		CMYKColor tmpC(c, m, y, k);
+		ScColor tmpC(c, m, y, k);
 		tmpC.getRGB(r, g, b);
 	}
 	else
@@ -145,10 +145,10 @@ void CMYKColor::getShadeColorRGB(int *r, int *g, int *b, int level)
 	}
 }
 
-QColor CMYKColor::getShadeColorProof(int level)
+QColor ScColor::getShadeColorProof(int level)
 {
 	QColor tmp;
-	CMYKColor tmp2;
+	ScColor tmp2;
 	int r, g, b, c, m ,y, k;
 	
 	if (Model == colorModelRGB)
@@ -165,21 +165,21 @@ QColor CMYKColor::getShadeColorProof(int level)
 	return tmp2.getRGBColor();
 }
 
-void CMYKColor::getRawRGBColor(int *r, int *g, int *b)
+void ScColor::getRawRGBColor(int *r, int *g, int *b)
 {
 	*r = 255-QMIN(255, C+K);
 	*g = 255-QMIN(255, M+K);
 	*b = 255-QMIN(255, Y+K);
 }
 
-void CMYKColor::getRGB(int *r, int *g, int *b)
+void ScColor::getRGB(int *r, int *g, int *b)
 {
 	*r = R;
 	*g = G;
 	*b = B;
 }
 
-void CMYKColor::getCMYK(int *c, int *m, int *y, int *k)
+void ScColor::getCMYK(int *c, int *m, int *y, int *k)
 {
 	*c = C;
 	*m = M;
@@ -187,7 +187,7 @@ void CMYKColor::getCMYK(int *c, int *m, int *y, int *k)
 	*k = K;
 }
 
-void CMYKColor::applyGCR()
+void ScColor::applyGCR()
 {
 #ifdef HAVE_CMS
 	if (!(CMSuse && CMSavail))
@@ -203,7 +203,7 @@ void CMYKColor::applyGCR()
 #endif
 }
 
-QString CMYKColor::name()
+QString ScColor::name()
 {
 	QString tmp, name="#";
 	switch (Model) 
@@ -245,7 +245,7 @@ QString CMYKColor::name()
 	return "";
 }
 
-void CMYKColor::setNamedColor(QString name)
+void ScColor::setNamedColor(QString name)
 {
 	bool ok;
 	if (name.length () == 9)
@@ -265,7 +265,7 @@ void CMYKColor::setNamedColor(QString name)
 	}
 }
 
-void CMYKColor::RecalcRGB()
+void ScColor::RecalcRGB()
 {
 #ifdef HAVE_CMS
 	WORD inC[4];

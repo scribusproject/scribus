@@ -832,7 +832,7 @@ bool ScriXmlDoc::ReadColors(QString fileName)
 	if(!docu.setContent(f))
 		return false;
 	Farben.clear();
-	CMYKColor lf = CMYKColor();
+	ScColor lf = ScColor();
 	QDomElement elem=docu.documentElement();
 	if ((elem.tagName() != "SCRIBUS") && (elem.tagName() != "SCRIBUSUTF8") && (elem.tagName() != "SCRIBUSUTF8NEW"))
 		return false;
@@ -945,7 +945,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 		return false;
 	if(!docu.setContent(f))
 		return false;
-	CMYKColor lf = CMYKColor();
+	ScColor lf = ScColor();
 	QDomElement elem=docu.documentElement();
 	if ((elem.tagName() != "SCRIBUS") && (elem.tagName() != "SCRIBUSUTF8"))
 		return false;
@@ -1290,7 +1290,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 	}
 	doc->PageColors.clear();
 	doc->Layers.clear();
-	CMYKColor lf = CMYKColor();
+	ScColor lf = ScColor();
 	QDomElement elem=docu.documentElement();
 	if ((elem.tagName() != "SCRIBUS") && (elem.tagName() != "SCRIBUSUTF8"))
 		return false;
@@ -1951,7 +1951,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 	int x;
 	double GrX, GrY;
 	int GrMax = doc->GroupCounter;
-	CMYKColor lf = CMYKColor();
+	ScColor lf = ScColor();
 	QDomDocument docu("scridoc");
 	if (Fi)
 	{
@@ -3854,7 +3854,7 @@ bool ScriXmlDoc::ReadPref(QString ho, SplashScreen *splash, bool import12)
 	if (elem.tagName() != "SCRIBUSRC")
 		return false;
 	Vorein->DColors.clear();
-	CMYKColor lf = CMYKColor();
+	ScColor lf = ScColor();
 	Vorein->checkerProfiles.clear();
 	QDomNode DOC=elem.firstChild();
 	while(!DOC.isNull())

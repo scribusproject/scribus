@@ -221,7 +221,7 @@ void SVGPlug::convert()
 	qApp->setOverrideCursor(QCursor(waitCursor), true);
 	gc->Family = Doku->toolSettings.defFont;
 	if (!Doku->PageColors.contains("Black"))
-		Doku->PageColors.insert("Black", CMYKColor(0, 0, 0, 255));
+		Doku->PageColors.insert("Black", ScColor(0, 0, 0, 255));
 	m_gc.push( gc );
 	viewTransformX = 0;
 	viewTransformY = 0;
@@ -1438,7 +1438,7 @@ QString SVGPlug::parseColor( const QString &s )
 	}
 	if (!found)
 	{
-		CMYKColor tmp;
+		ScColor tmp;
 		tmp.fromQColor(c);
 		Doku->PageColors.insert("FromSVG"+c.name(), tmp);
 		Prog->propertiesPalette->Cpal->SetColors(Doku->PageColors);

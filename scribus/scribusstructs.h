@@ -13,7 +13,7 @@
 #include <vector>
 
 #include "scfonts.h"
-#include "cmykcolor.h"
+#include "sccolor.h"
 #include "fpointarray.h"
 #include "vgradient.h"
 #include "pageitem.h"
@@ -330,7 +330,7 @@ struct Keys
 };
 
 /** Definition der Farbenlisten */
-typedef QMap<QString,CMYKColor> ColorList;
+typedef QMap<QString,ScColor> ColorList;
 
 
 

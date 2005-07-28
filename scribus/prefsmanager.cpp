@@ -111,14 +111,14 @@ void PrefsManager::initDefaults()
 	QFile fiC(pfadC2);
 	if (!fiC.exists())
 	{
-		appPrefs.DColors.insert("White", CMYKColor(0, 0, 0, 0));
-		appPrefs.DColors.insert("Black", CMYKColor(0, 0, 0, 255));
-		appPrefs.DColors.insert("Blue", CMYKColor(255, 255, 0, 0));
-		appPrefs.DColors.insert("Cyan", CMYKColor(255, 0, 0, 0));
-		appPrefs.DColors.insert("Green", CMYKColor(255, 0, 255, 0));
-		appPrefs.DColors.insert("Red", CMYKColor(0, 255, 255, 0));
-		appPrefs.DColors.insert("Yellow", CMYKColor(0, 0, 255, 0));
-		appPrefs.DColors.insert("Magenta", CMYKColor(0, 255, 0, 0));
+		appPrefs.DColors.insert("White", ScColor(0, 0, 0, 0));
+		appPrefs.DColors.insert("Black", ScColor(0, 0, 0, 255));
+		appPrefs.DColors.insert("Blue", ScColor(255, 255, 0, 0));
+		appPrefs.DColors.insert("Cyan", ScColor(255, 0, 0, 0));
+		appPrefs.DColors.insert("Green", ScColor(255, 0, 255, 0));
+		appPrefs.DColors.insert("Red", ScColor(0, 255, 255, 0));
+		appPrefs.DColors.insert("Yellow", ScColor(0, 0, 255, 0));
+		appPrefs.DColors.insert("Magenta", ScColor(0, 255, 0, 0));
 		appPrefs.DColorSet = "Scribus-Small";
 	}
 	else
@@ -137,7 +137,7 @@ void PrefsManager::initDefaults()
 				CoE >> Gval;
 				CoE >> Bval;
 				CoE >> Cname;
-				CMYKColor tmp;
+				ScColor tmp;
 				tmp.setColorRGB(Rval, Gval, Bval);
 				appPrefs.DColors.insert(Cname, tmp);
 			}

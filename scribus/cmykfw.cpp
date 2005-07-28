@@ -16,7 +16,7 @@ extern bool CMSuse;
 #endif
 extern QPixmap loadIcon(QString nam);
 
-CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name, ColorList *Colors, QStringList Cust  )
+CMYKChoose::CMYKChoose( QWidget* parent, ScColor orig, QString name, ColorList *Colors, QStringList Cust  )
 		: QDialog( parent, "fw", true, 0 )
 {
 	if (orig.getColorModel () == colorModelCMYK)
@@ -424,13 +424,13 @@ QPixmap CMYKChoose::SliderPix(int farbe)
 				switch (farbe)
 				{
 				case 180:
-					tmp = CMYKColor(x, m, y, k).getRGBColor();
+					tmp = ScColor(x, m, y, k).getRGBColor();
 					break;
 				case 300:
-					tmp = CMYKColor(c, x, y, k).getRGBColor();
+					tmp = ScColor(c, x, y, k).getRGBColor();
 					break;
 				case 60:
-					tmp = CMYKColor(c, m, x, k).getRGBColor();
+					tmp = ScColor(c, m, x, k).getRGBColor();
 					break;
 				}
 				p.setBrush(tmp);
@@ -440,13 +440,13 @@ QPixmap CMYKChoose::SliderPix(int farbe)
 				switch (farbe)
 				{
 				case 180:
-					tmp = CMYKColor(x, 0, 0, 0).getRGBColor();
+					tmp = ScColor(x, 0, 0, 0).getRGBColor();
 					break;
 				case 300:
-				        tmp = CMYKColor(0, x, 0, 0).getRGBColor();
+				        tmp = ScColor(0, x, 0, 0).getRGBColor();
 					break;
 				case 60:
-					tmp = CMYKColor(0, 0, x, 0).getRGBColor();
+					tmp = ScColor(0, 0, x, 0).getRGBColor();
 					break;
 				}
 				p.setBrush(tmp);
@@ -460,13 +460,13 @@ QPixmap CMYKChoose::SliderPix(int farbe)
 				switch (farbe)
 				{
 				case 0:
-					tmp = CMYKColor(x, g, b).getRGBColor();
+					tmp = ScColor(x, g, b).getRGBColor();
 					break;
 				case 120:
-					tmp = CMYKColor(r, x, b).getRGBColor();
+					tmp = ScColor(r, x, b).getRGBColor();
 					break;
 				case 240:
-					tmp = CMYKColor(r, g, x).getRGBColor();
+					tmp = ScColor(r, g, x).getRGBColor();
 					break;
 				}
 				p.setBrush(tmp);
@@ -476,13 +476,13 @@ QPixmap CMYKChoose::SliderPix(int farbe)
 				switch (farbe)
 				{
 				case 0:
-					tmp = CMYKColor(x, 0, 0).getRGBColor();
+					tmp = ScColor(x, 0, 0).getRGBColor();
 					break;
 				case 120:
-				        tmp = CMYKColor(0, x, 0).getRGBColor();
+				        tmp = ScColor(0, x, 0).getRGBColor();
 					break;
 				case 240:
-					tmp = CMYKColor(0, 0, x).getRGBColor();
+					tmp = ScColor(0, 0, x).getRGBColor();
 					break;
 				}
 				p.setBrush(tmp);
@@ -506,9 +506,9 @@ QPixmap CMYKChoose::SliderBlack()
 	for (int x = 0; x < 255; x += 5)
 	{
 		if (dynamic)
-			p.setBrush(CMYKColor(c, m, y, x).getRGBColor());
+			p.setBrush(ScColor(c, m, y, x).getRGBColor());
 		else
-			p.setBrush(CMYKColor(0, 0, 0, x).getRGBColor());
+			p.setBrush(ScColor(0, 0, 0, x).getRGBColor());
 		p.drawRect(x, 0, 5, 10);
 		val -= 5;
 	}
@@ -561,7 +561,7 @@ void CMYKChoose::SelSwatch(int n)
 				ColorEn = tsC.readLine();
 				while (!tsC.atEnd())
 				{
-					CMYKColor tmp;
+					ScColor tmp;
 					ColorEn = tsC.readLine();
 					QTextStream CoE(&ColorEn, IO_ReadOnly);
 					CoE >> Rval;
@@ -584,14 +584,14 @@ void CMYKChoose::SelSwatch(int n)
 			}
 			else
 			{
-				CurrSwatch.insert("White", CMYKColor(0, 0, 0, 0));
-				CurrSwatch.insert("Black", CMYKColor(0, 0, 0, 255));
-				CurrSwatch.insert("Blue", CMYKColor(255, 255, 0, 0));
-				CurrSwatch.insert("Cyan", CMYKColor(255, 0, 0, 0));
-				CurrSwatch.insert("Green", CMYKColor(255, 0, 255, 0));
-				CurrSwatch.insert("Red", CMYKColor(0, 255, 255, 0));
-				CurrSwatch.insert("Yellow", CMYKColor(0, 0, 255, 0));
-				CurrSwatch.insert("Magenta", CMYKColor(0, 255, 0, 0));
+				CurrSwatch.insert("White", ScColor(0, 0, 0, 0));
+				CurrSwatch.insert("Black", ScColor(0, 0, 0, 255));
+				CurrSwatch.insert("Blue", ScColor(255, 255, 0, 0));
+				CurrSwatch.insert("Cyan", ScColor(255, 0, 0, 0));
+				CurrSwatch.insert("Green", ScColor(255, 0, 255, 0));
+				CurrSwatch.insert("Red", ScColor(0, 255, 255, 0));
+				CurrSwatch.insert("Yellow", ScColor(0, 0, 255, 0));
+				CurrSwatch.insert("Magenta", ScColor(0, 255, 0, 0));
 			}
 		}
 		ColorSwatch->clear();
@@ -758,7 +758,7 @@ void CMYKChoose::setColor()
 		YellowSL->setValue(y);
 		blockSignals(false);
 	}
-	CMYKColor tmp;
+	ScColor tmp;
 	if (CMYKmode)
 	{
 		tmp.setColor(c, m, y, k);
@@ -796,7 +796,7 @@ void CMYKChoose::setColor2(int h, int s, bool ende)
 	QColor tm = QColor(QMAX(QMIN(359,h),0), QMAX(QMIN(255,255-s),0), 255-BlackComp, QColor::Hsv);
 	int r, g, b;
 	tm.rgb(&r, &g, &b);
-	CMYKColor tmp;
+	ScColor tmp;
 	tmp.fromQColor(tm);
 	if (CMYKmode)
 		tmp.setColorModel(colorModelCMYK);
@@ -809,7 +809,7 @@ void CMYKChoose::setColor2(int h, int s, bool ende)
 
 void CMYKChoose::SelFromSwatch(int c)
 {
-	CMYKColor tmp = CurrSwatch[ColorSwatch->text(c)];
+	ScColor tmp = CurrSwatch[ColorSwatch->text(c)];
 	if (CMYKmode)
 		tmp.setColorModel(colorModelCMYK);
 	imageN.fill(tmp.getRGBColor());

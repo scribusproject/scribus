@@ -113,7 +113,7 @@ PyObject *scribus_newcolor(PyObject* /* self */, PyObject* args)
 	if (Carrier->HaveDoc)
 		{
 			if (!Carrier->doc->PageColors.contains(col))
-				Carrier->doc->PageColors.insert(col, CMYKColor(c, m, y, k));
+				Carrier->doc->PageColors.insert(col, ScColor(c, m, y, k));
 			else
 				// FIXME: Given that we have a changeColour function, should we really be
 				// silently changing colours in newColour?
@@ -123,7 +123,7 @@ PyObject *scribus_newcolor(PyObject* /* self */, PyObject* args)
 		{
 			ColorList* colorList=PrefsManager::instance()->colorSetPtr();
 			if (!colorList->contains(col))
-				colorList->insert(col, CMYKColor(c, m, y, k));
+				colorList->insert(col, ScColor(c, m, y, k));
 			else
 				// FIXME: Given that we have a changeColour function, should we really be
 				// silently changing colours in newColour?

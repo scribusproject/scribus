@@ -152,7 +152,7 @@ EPSPlug::EPSPlug( ScribusApp *plug, QString fName )
 	{
 		QString tmp, BBox, tmp2, dummy, FarNam;
 		QChar tc;
-		CMYKColor cc;
+		ScColor cc;
 		QFile f(fName);
 		if (f.open(IO_ReadOnly))
 		{
@@ -190,7 +190,7 @@ EPSPlug::EPSPlug( ScribusApp *plug, QString fName )
 					FarNam = FarNam.stripWhiteSpace();
 					FarNam = FarNam.remove(0,1);
 					FarNam = FarNam.remove(FarNam.length()-1,1);
-					cc = CMYKColor(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y), static_cast<int>(255 * k));
+					cc = ScColor(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y), static_cast<int>(255 * k));
 					CustColors.insert(FarNam, cc);
 					while (!ts.atEnd())
 					{
@@ -210,7 +210,7 @@ EPSPlug::EPSPlug( ScribusApp *plug, QString fName )
 						FarNam = FarNam.stripWhiteSpace();
 						FarNam = FarNam.remove(0,1);
 						FarNam = FarNam.remove(FarNam.length()-1,1);
-						cc = CMYKColor(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y), static_cast<int>(255 * k));
+						cc = ScColor(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y), static_cast<int>(255 * k));
 						CustColors.insert(FarNam, cc);
 					}
 				}
@@ -682,7 +682,7 @@ QString EPSPlug::parseColor(QString vals, colorModel model)
 	if (vals.isEmpty())
 		return ret;
 	double c, m, y, k, r, g, b;
-	CMYKColor tmp;
+	ScColor tmp;
 	ColorList::Iterator it;
 	QTextStream Code(&vals, IO_ReadOnly);
 	bool found = false;

@@ -172,9 +172,9 @@ void ColorWheel::sampleByAngle(double angle, QString name)
 	colorList[name] = cmykColor(rgb);
 }
 
-CMYKColor ColorWheel::cmykColor(QRgb rgb)
+ScColor ColorWheel::cmykColor(QRgb rgb)
 {
-	CMYKColor c = CMYKColor();
+	ScColor c = ScColor();
 	c.fromQColor(QColor(rgb));
 	c.setColorModel(colorModelCMYK);
 	return c;

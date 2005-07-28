@@ -253,7 +253,7 @@ void OODPlug::convert()
 	Prog->ScriptRunning = true;
 	qApp->setOverrideCursor(QCursor(Qt::waitCursor), true);
 	if (!Doku->PageColors.contains("Black"))
-		Doku->PageColors.insert("Black", CMYKColor(0, 0, 0, 255));
+		Doku->PageColors.insert("Black", ScColor(0, 0, 0, 255));
 	for( QDomNode drawPag = body.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling() )
 	{
 		QDomElement dpg = drawPag.toElement();
@@ -894,7 +894,7 @@ QString OODPlug::parseColor( const QString &s )
 	}
 	if (!found)
 	{
-		CMYKColor tmp;
+		ScColor tmp;
 		tmp.fromQColor(c);
 		Doku->PageColors.insert("FromOODraw"+c.name(), tmp);
 		Prog->propertiesPalette->Cpal->SetColors(Doku->PageColors);

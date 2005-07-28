@@ -215,14 +215,14 @@ void Farbmanager::loadDefaults(int id)
 	{
 	case 0:
 		LoadColSet->setText("Scribus Small");
-		EditColors.insert("White", CMYKColor(0, 0, 0, 0));
-		EditColors.insert("Black", CMYKColor(0, 0, 0, 255));
-		EditColors.insert("Blue", CMYKColor(255, 255, 0, 0));
-		EditColors.insert("Cyan", CMYKColor(255, 0, 0, 0));
-		EditColors.insert("Green", CMYKColor(255, 0, 255, 0));
-		EditColors.insert("Red", CMYKColor(0, 255, 255, 0));
-		EditColors.insert("Yellow", CMYKColor(0, 0, 255, 0));
-		EditColors.insert("Magenta", CMYKColor(0, 255, 0, 0));
+		EditColors.insert("White", ScColor(0, 0, 0, 0));
+		EditColors.insert("Black", ScColor(0, 0, 0, 255));
+		EditColors.insert("Blue", ScColor(255, 255, 0, 0));
+		EditColors.insert("Cyan", ScColor(255, 0, 0, 0));
+		EditColors.insert("Green", ScColor(255, 0, 255, 0));
+		EditColors.insert("Red", ScColor(0, 255, 255, 0));
+		EditColors.insert("Yellow", ScColor(0, 0, 255, 0));
+		EditColors.insert("Magenta", ScColor(0, 255, 0, 0));
 		break;
 	case 1:
 		pfadC2 = pfadC + "rgbscribus.txt";
@@ -256,7 +256,7 @@ void Farbmanager::loadDefaults(int id)
 			ColorEn = tsC.readLine();
 			while (!tsC.atEnd())
 			{
-				CMYKColor tmp;
+				ScColor tmp;
 				ColorEn = tsC.readLine();
 				QTextStream CoE(&ColorEn, IO_ReadOnly);
 				CoE >> Rval;
@@ -280,14 +280,14 @@ void Farbmanager::loadDefaults(int id)
 		else
 		{
 			LoadColSet->setText("Scribus Small");
-			EditColors.insert("White", CMYKColor(0, 0, 0, 0));
-			EditColors.insert("Black", CMYKColor(0, 0, 0, 255));
-			EditColors.insert("Blue", CMYKColor(255, 255, 0, 0));
-			EditColors.insert("Cyan", CMYKColor(255, 0, 0, 0));
-			EditColors.insert("Green", CMYKColor(255, 0, 255, 0));
-			EditColors.insert("Red", CMYKColor(0, 255, 255, 0));
-			EditColors.insert("Yellow", CMYKColor(0, 0, 255, 0));
-			EditColors.insert("Magenta", CMYKColor(0, 255, 0, 0));
+			EditColors.insert("White", ScColor(0, 0, 0, 0));
+			EditColors.insert("Black", ScColor(0, 0, 0, 255));
+			EditColors.insert("Blue", ScColor(255, 255, 0, 0));
+			EditColors.insert("Cyan", ScColor(255, 0, 0, 0));
+			EditColors.insert("Green", ScColor(255, 0, 255, 0));
+			EditColors.insert("Red", ScColor(0, 255, 255, 0));
+			EditColors.insert("Yellow", ScColor(0, 0, 255, 0));
+			EditColors.insert("Magenta", ScColor(0, 255, 0, 0));
 		}
 	}
 	updateCList();
@@ -418,8 +418,8 @@ void Farbmanager::delUnused()
 	EditColors = UsedC;
 	if (EditColors.count() == 0)
 	{
-		EditColors.insert("White", CMYKColor(0, 0, 0, 0));
-		EditColors.insert("Black", CMYKColor(0, 0, 0, 255));
+		EditColors.insert("White", ScColor(0, 0, 0, 0));
+		EditColors.insert("Black", ScColor(0, 0, 0, 255));
 	}
 	updateCList();
 }
@@ -433,7 +433,7 @@ void Farbmanager::duplFarbe()
 
 void Farbmanager::neueFarbe()
 {
-	CMYKColor tmpFarbe = CMYKColor(0, 0, 0, 0);
+	ScColor tmpFarbe = ScColor(0, 0, 0, 0);
 	CMYKChoose* dia = new CMYKChoose(this, tmpFarbe, tr("New Color"), &EditColors, CColSet);
 	if (dia->exec())
 	{
@@ -445,7 +445,7 @@ void Farbmanager::neueFarbe()
 
 void Farbmanager::editFarbe()
 {
-	CMYKColor tmpFarbe = EditColors[sFarbe];
+	ScColor tmpFarbe = EditColors[sFarbe];
 	CMYKChoose* dia = new CMYKChoose(this, tmpFarbe, sFarbe, &EditColors, CColSet);
 	if (dia->exec())
 	{

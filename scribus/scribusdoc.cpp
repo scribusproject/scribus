@@ -68,8 +68,8 @@ ScribusDoc::ScribusDoc() : UndoObject(QObject::tr("Document"))
 	guidesSettings.baseColor = prefsData->guidesSettings.baseColor;
 	guidesSettings.before = prefsData->guidesSettings.before;
 	PageColors.clear();
-	PageColors.insert("Black", CMYKColor(0, 0, 0, 255));
-	PageColors.insert("White", CMYKColor(0, 0, 0, 0));
+	PageColors.insert("Black", ScColor(0, 0, 0, 255));
+	PageColors.insert("White", ScColor(0, 0, 0, 0));
 	if (prefsData->toolSettings.dPen != "None")
 		PageColors.insert(prefsData->toolSettings.dPen, prefsData->DColors[prefsData->toolSettings.dPen]);
 	toolSettings.dPen = prefsData->toolSettings.dPen;
