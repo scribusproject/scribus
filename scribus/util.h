@@ -65,5 +65,7 @@ bool getNumericGSVersion(int & major, int & minor);
 int copyFile(QString source, QString target);
 int moveFile(QString source, QString target);
 QString checkFileExtension(const QString &, const QString &);
+// On Windows, return short path name, else return longPath;
+QString getShortPathName(QString longPath);
 
 #endif

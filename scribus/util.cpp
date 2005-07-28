@@ -182,7 +182,7 @@ int callGS(const QStringList& args_in, const QString device)
 int callGS(const QString& args_in, const QString device)
 {
 	PrefsManager* prefsManager=PrefsManager::instance();
-	QString cmd1 = prefsManager->ghostscriptExecutable();
+	QString cmd1 = getShortPathName(prefsManager->ghostscriptExecutable());
 	cmd1 += " -q -dNOPAUSE";
 	// Choose rendering device
 	if (!device.isEmpty())
@@ -222,14 +222,27 @@ int callGS(const QString& args_in, const QString device)
 // Return the GhostScript version string, or QString::null if it couldn't be retrived.
 QString getGSVersion()
 {
-	// Open a pipe to gs
-	FILE *fp = popen(QString("%1 --version")
-			.arg(PrefsManager::instance()->ghostscriptExecutable()).local8Bit(), "r");
-	if (!fp)
-		return QString::null;
-	// Read out the text
-	QTextStream ts(fp, IO_ReadOnly);
-	return ts.readLine();
+	QString gsVer;
+	QStringList args;
+	QString gsExe = getShortPathName(PrefsManager::instance()->ghostscriptExecutable());
+	args.append(gsExe.local8Bit());
+	args.append(QString("--version").local8Bit());
+	QProcess* proc = new QProcess(args);
+	proc->setCommunication(QProcess::Stdout);
+	proc->start();
+	while(proc->isRunning())
+	{
+#ifndef _WIN32
+		usleep(5000);
+#else
+		Sleep(5);
+#endif
+		qApp->processEvents();
+	}
+	if(!proc->exitStatus())
+		gsVer = proc->readLineStdout();
+	delete proc;
+	return gsVer;
 }
 
 // Return the GhostScript major and minor version numbers.
@@ -246,6 +259,25 @@ bool getNumericGSVersion(int & major, int & minor)
 	if (!success)
 		return false;
 	return true;
+}
+
+// On Windows, return short path name, else return longPath;
+QString getShortPathName(QString longPath)
+{
+	QString shortPath = longPath;
+#if defined _WIN32
+	QFileInfo fInfo(longPath);
+	if(fInfo.exists())
+	{
+		char shortName[MAX_PATH + 1];
+		// An error should not be blocking as ERROR_INVALID_PARAMETER can simply mean
+		// that volume does not support 8.3 filenames, so return longPath in this case
+		int ret = GetShortPathName(QDir::convertSeparators(longPath).local8Bit(), shortName, sizeof(shortName));
+		if( ret != ERROR_INVALID_PARAMETER && ret < sizeof(shortName))
+			shortPath = shortName;
+	}
+#endif
+	return shortPath;
 }
 
 int copyFile(QString source, QString target)

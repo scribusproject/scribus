@@ -441,7 +441,7 @@ int PPreview::RenderPreview(int Seite, int Res)
 	QString tmp, tmp2, tmp3;
 	double b = app->doc->Pages.at(Seite)->Width * Res / 72;
 	double h = app->doc->Pages.at(Seite)->Height * Res / 72;
-	cmd1 = prefsManager->ghostscriptExecutable();
+	cmd1 = getShortPathName(prefsManager->ghostscriptExecutable());
 	cmd1 += " -q -dNOPAUSE -r"+tmp.setNum(Res)+" -g"+tmp2.setNum(qRound(b))+"x"+tmp3.setNum(qRound(h));
 	if (EnableCMYK->isChecked())
 		cmd1 += " -sDEVICE=bitcmyk -dGrayValues=256";
@@ -459,10 +459,17 @@ int PPreview::RenderPreview(int Seite, int Res)
 	// Add any extra font paths being used by Scribus to gs's font search path
 	PrefsContext *pc = prefsManager->prefsFile->getContext("Fonts");
 	PrefsTable *extraFonts = pc->getTable("ExtraFontDirs");
+#ifndef _WIN32
 	if (extraFonts->getRowCount() >= 1)
 		cmd1 += QString(" -sFONTPATH='%1'").arg(extraFonts->get(0,0));
 	for (int i = 1; i < extraFonts->getRowCount(); ++i)
 		cmd1 += QString(":'%1'").arg(extraFonts->get(i,0));
+#else
+	if (extraFonts->getRowCount() >= 1)
+		cmd1 += QString(" -sFONTPATH=\"%1\"").arg(extraFonts->get(0,0));
+	for (int i = 1; i < extraFonts->getRowCount(); ++i)
+		cmd1 += QString(";\"%1\"").arg(extraFonts->get(i,0));
+#endif
 	// then add any final args and call gs
 	cmd1 += " -sOutputFile="+app->PrefsPfad+"/sc.png ";
 	cmd2 = " -c showpage -c quit";

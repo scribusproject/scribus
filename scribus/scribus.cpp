@@ -254,8 +254,8 @@ int ScribusApp::initScribus(bool showSplash, bool showFontInfo, const QString ne
 		HaveGS = system(prefsManager->ghostscriptExecutable()+" -h > /dev/null 2>&1");
 		HavePngAlpha = system(prefsManager->ghostscriptExecutable()+" -sDEVICE=pngalpha -c quit > /dev/null 2>&1");
 #else
-		HaveGS = system(prefsManager->ghostscriptExecutable()+" -h >NUL");
-		HavePngAlpha = system(prefsManager->ghostscriptExecutable()+" -sDEVICE=pngalpha -c quit >NUL");
+		HaveGS = system(getShortPathName(prefsManager->ghostscriptExecutable())+" -h >NUL");
+		HavePngAlpha = system(getShortPathName(prefsManager->ghostscriptExecutable())+" -sDEVICE=pngalpha -c quit >NUL");
 #endif
 		DocDir = prefsManager->documentDir();
 

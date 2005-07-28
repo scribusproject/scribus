@@ -348,7 +348,7 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	QString pfad2;
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.extension(false).lower();
-	cmd1 = PrefsManager::instance()->ghostscriptExecutable();
+	cmd1 = getShortPathName(PrefsManager::instance()->ghostscriptExecutable());
 	pfad2 = QDir::convertSeparators(pfad + "import.prolog");
 	cmd1 += " -q -dNOPAUSE -dNODISPLAY";
 	cmd1 += " -dBATCH -g"+tmp2.setNum(qRound(b-x))+"x"+tmp3.setNum(qRound(h-y))+" -c "+tmp4.setNum(-x)+" "+tmp.setNum(-y)+" translate";
@@ -357,10 +357,17 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	// get to the required information.
 	PrefsContext *pc = PrefsManager::instance()->prefsFile->getContext("Fonts");
 	PrefsTable *extraFonts = pc->getTable("ExtraFontDirs");
+#ifndef _WIN32
 	if (extraFonts->getRowCount() >= 1)
 		cmd1 += QString(" -sFONTPATH='%1'").arg(extraFonts->get(0,0));
 	for (int i = 1; i < extraFonts->getRowCount(); ++i)
 		cmd1 += QString(":'%1'").arg(extraFonts->get(i,0));
+#else
+	if (extraFonts->getRowCount() >= 1)
+		cmd1 += QString(" -sFONTPATH=\"%1\"").arg(extraFonts->get(0,0));
+	for (int i = 1; i < extraFonts->getRowCount(); ++i)
+		cmd1 += QString(";\"%1\"").arg(extraFonts->get(i,0));
+#endif
 	// then finish building the command and call gs
 	cmd1 += " -sOutputFile="+tmpFile+" "+pfad2+" ";
 	cmd2 = " -c flush cfile closefile quit";
