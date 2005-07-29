@@ -151,10 +151,11 @@ TabTypograpy::TabTypograpy( QWidget* parent, struct typoPrefs *prefsData) : QWid
 
 void TabTypograpy::restoreDefaults(struct typoPrefs *prefsData)
 {
-	subDisplacement->setValue( prefsData->valueSubScript );
 	capsScaling->setValue( prefsData->valueSmallCaps );
-	superScaling->setValue( prefsData->scalingSuperScript );
+	subDisplacement->setValue( prefsData->valueSubScript );
 	subScaling->setValue( prefsData->scalingSubScript );
+	superDisplacement->setValue( prefsData->valueSuperScript);
+	superScaling->setValue( prefsData->scalingSuperScript );
 	autoLine->setValue( prefsData->autoLineSpacing );
 	underlinePos->setValue(prefsData->valueUnderlinePos);
 	underlineWidth->setValue(prefsData->valueUnderlineWidth);
