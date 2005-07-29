@@ -19,7 +19,6 @@ extern int IntentPrinter;
 #endif
 #include "util.h"
 
-extern ProfilesL InputProfiles;
 extern ScribusApp* ScApp;
 
 
@@ -3249,7 +3248,7 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 			if (isCMYK)
 				inputProf = CMSprinterProf;
 			else
-				inputProf = cmsOpenProfileFromFile(InputProfiles[Prof], "r");
+				inputProf = cmsOpenProfileFromFile(ScApp->InputProfiles[Prof], "r");
 		}
 	}
 	if (CMSuse && useProf && inputProf)

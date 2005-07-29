@@ -55,7 +55,7 @@ Hruler::Hruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa)
 void Hruler::mousePressEvent(QMouseEvent *m)
 {
 	Mpressed = true;
-	if (currDoc->loading)
+	if (currDoc->isLoading())
 		return;
 	if (ItemPosValid)
 	{
@@ -145,7 +145,7 @@ void Hruler::mousePressEvent(QMouseEvent *m)
 
 void Hruler::mouseReleaseEvent(QMouseEvent *m)
 {
-	if (currDoc->loading)
+	if (currDoc->isLoading())
 	{
 		Mpressed = false;
 		return;
@@ -226,7 +226,7 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 
 void Hruler::mouseMoveEvent(QMouseEvent *m)
 {
-	if (currDoc->loading)
+	if (currDoc->isLoading())
 		return;
 	if (ItemPosValid)
 	{
@@ -383,7 +383,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 
 void Hruler::paintEvent(QPaintEvent *)
 {
-	if (currDoc->loading)
+	if (currDoc->isLoading())
 		return;
 	QString tx = "";
 	double xl, frac;

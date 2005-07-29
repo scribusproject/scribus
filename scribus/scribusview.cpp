@@ -81,7 +81,6 @@
 
 using namespace std;
 
-extern ProfilesL InputProfiles;
 extern ScribusApp* ScApp;
 
 ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc) : QScrollView(parent, "s", WRepaintNoErase | WNorthWestGravity)
@@ -204,7 +203,7 @@ void ScribusView::viewportPaintEvent ( QPaintEvent * p )
 void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int cliph)
 {
 	QPoint vr;
-	if (Doc->loading)
+	if (Doc->isLoading())
 		return;
 	if (!updateOn)
 		return;
@@ -2798,7 +2797,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			undoManager->commit(targetName, ite->getUPixmap(),
 								Um::Create + " " + ite->getUName(),  "", Um::ICreate);
 			_itemCreationTransactionStarted = false;
-			if (!Doc->loading)
+			if (!Doc->isLoading())
 				emit AddObj(ite);
 		}
 	}
@@ -8088,7 +8087,7 @@ void ScribusView::ToPicFrame()
 	currItem->Frame = true;
 	RefreshItem(currItem);
 	emit HaveSel(currItem->itemType());
-	if (!Doc->loading)
+	if (!Doc->isLoading())
 		emit UpdtObj(Doc->currentPage->PageNr, currItem->ItemNr);
 	EmitValues(currItem);
 	emit DocChanged();
@@ -8106,7 +8105,7 @@ void ScribusView::ToPolyFrame()
 	currItem->ContourLine = currItem->PoLine.copy();
 	RefreshItem(currItem);
 	emit HaveSel(currItem->itemType());
-	if (!Doc->loading)
+	if (!Doc->isLoading())
 		emit UpdtObj(Doc->currentPage->PageNr, currItem->ItemNr);
 	EmitValues(currItem);
 	emit DocChanged();
@@ -8120,7 +8119,7 @@ void ScribusView::ToTextFrame()
 	currItem->Frame = true;
 	RefreshItem(currItem);
 	emit HaveSel(currItem->itemType());
-	if (!Doc->loading)
+	if (!Doc->isLoading())
 		emit UpdtObj(Doc->currentPage->PageNr, currItem->ItemNr);
 	EmitValues(currItem);
 	emit DocChanged();
@@ -8136,7 +8135,7 @@ void ScribusView::ToBezierFrame()
 	AdjustItemSize(currItem);
 	RefreshItem(currItem);
 	emit HaveSel(currItem->itemType());
-	if (!Doc->loading)
+	if (!Doc->isLoading())
 		emit UpdtObj(Doc->currentPage->PageNr, currItem->ItemNr);
 	EmitValues(currItem);
 	emit DocChanged();
@@ -8157,7 +8156,7 @@ void ScribusView::Bezier2Poly()
 	currItem->ContourLine = currItem->PoLine.copy();
 	RefreshItem(currItem);
 	emit HaveSel(currItem->itemType());
-	if (!Doc->loading)
+	if (!Doc->isLoading())
 		emit UpdtObj(Doc->currentPage->PageNr, currItem->ItemNr);
 	EmitValues(currItem);
 	emit DocChanged();
@@ -8481,7 +8480,7 @@ Page* ScribusView::addPage(int nr, bool mov)
 	Doc->pageCount++;
 	PGS->setMaxValue(Doc->pageCount);
 	reformPages(mov);
-	if ((Doc->PageAT) && (!Doc->loading))
+	if ((Doc->PageAT) && (!Doc->isLoading()))
 	{
 		int z = PaintText(fe->Margins.Left+fe->Xoffset,
 		                  fe->Margins.Top+fe->Yoffset,
@@ -8512,7 +8511,7 @@ Page* ScribusView::addPage(int nr, bool mov)
 			Doc->RePos = savre;
 		}
 	}
-	if ((!ScApp->ScriptRunning) && (!Doc->loading) && (!Doc->MasterP))
+	if ((!ScApp->ScriptRunning) && (!Doc->isLoading()) && (!Doc->MasterP))
 		PGS->GotoPg(nr);
 	Mpressed = false;
 	Doc->DragP = false;
@@ -8766,7 +8765,7 @@ void ScribusView::setMenTxt(int Seite)
 		return;
 	disconnect(PGS, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
 	PGS->setMaxValue(Doc->pageCount);
-	if ((!Doc->loading) && (!Doc->MasterP))
+	if ((!Doc->isLoading()) && (!Doc->MasterP))
 		PGS->GotoPg(Seite);
 	connect(PGS, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
 }
@@ -8982,7 +8981,7 @@ void ScribusView::GotoPage(int Seite)
 		return;
 	SetCPo(qRound(Doc->currentPage->Xoffset-10), qRound(Doc->currentPage->Yoffset-10));
 	PGS->setMaxValue(Doc->pageCount);
-	if ((!Doc->loading) && (!Doc->MasterP))
+	if ((!Doc->isLoading()) && (!Doc->MasterP))
 		PGS->GotoPg(Seite);
 }
 
@@ -9462,7 +9461,7 @@ int ScribusView::PaintEllipse(double x, double y, double b, double h, double w, 
 	ite->ItemNr = Doc->Items.count()-1;
 	SetOvalFrame(ite);
 	ite->ContourLine = ite->PoLine.copy();
-	if (!Doc->loading)
+	if (!Doc->isLoading())
 	{
 		ite->paintObj();
 //		emit AddObj(ite);
@@ -9513,7 +9512,7 @@ int ScribusView::PaintPict(double x, double y, double b, double h)
 	ite->ItemNr = Doc->Items.count()-1;
 	SetRectFrame(ite);
 	ite->ContourLine = ite->PoLine.copy();
-	if (!Doc->loading)
+	if (!Doc->isLoading())
 	{
 		ite->paintObj();
 //		emit AddObj(ite);
@@ -9558,7 +9557,7 @@ int ScribusView::PaintRect(double x, double y, double b, double h, double w, QSt
 	ite->ItemNr = Doc->Items.count()-1;
 	SetRectFrame(ite);
 	ite->ContourLine = ite->PoLine.copy();
-	if (!Doc->loading)
+	if (!Doc->isLoading())
 	{
 		ite->paintObj();
 //		emit AddObj(ite);
@@ -9603,7 +9602,7 @@ int ScribusView::PaintPoly(double x, double y, double b, double h, double w, QSt
 	ite->ItemNr =Doc-> Items.count()-1;
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
-	if (!Doc->loading)
+	if (!Doc->isLoading())
 	{
 		ite->paintObj();
 //		emit AddObj(ite);
@@ -9647,7 +9646,7 @@ int ScribusView::PaintPolyLine(double x, double y, double b, double h, double w,
 	ite->setLineShade(Doc->toolSettings.dShade2);
 	ite->ItemNr = Doc->Items.count()-1;
 	ite->ClipEdited = true;
-	if (!Doc->loading)
+	if (!Doc->isLoading())
 	{
 		ite->paintObj();
 //		emit AddObj(ite);
@@ -9689,7 +9688,7 @@ int ScribusView::PaintText(double x, double y, double b, double h, double w, QSt
 	ite->ItemNr = Doc->Items.count()-1;
 	SetRectFrame(ite);
 	ite->ContourLine = ite->PoLine.copy();
-	if (!Doc->loading)
+	if (!Doc->isLoading())
 	{
 		ite->paintObj();
 //		emit AddObj(ite);
@@ -9733,7 +9732,7 @@ int ScribusView::PaintLine(double x, double y, double b, double h, double w, QSt
 	ite->PLineArt = PenStyle(Doc->toolSettings.dLstyleLine);
 	ite->setLineShade(Doc->toolSettings.dShadeLine);
 	ite->ItemNr = Doc->Items.count()-1;
-	if (!Doc->loading)
+	if (!Doc->isLoading())
 	{
 		ite->paintObj();
 //		emit AddObj(ite);
@@ -11025,7 +11024,7 @@ void ScribusView::loadPict(QString fn, PageItem *pageItem, bool reload)
 		}
 		Item->pixm.applyEffect(Item->effectsInUse, Doc->PageColors, false);
 	}
-	if (!Doc->loading)
+	if (!Doc->isLoading())
 	{
 		emit RasterPic(Item->isRaster);
 //		emit UpdtObj(PageNr, ItNr);

@@ -18,7 +18,6 @@
 
 #include "scconfig.h"
 
-extern ProfilesL InputProfiles;
 #ifdef HAVE_CMS
 extern bool CMSuse;
 #endif

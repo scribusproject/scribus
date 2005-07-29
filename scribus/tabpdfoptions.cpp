@@ -16,13 +16,12 @@
 #include "scconfig.h"
 
 extern QPixmap loadIcon(QString nam);
-extern ProfilesL InputProfiles;
 #ifdef HAVE_CMS
 extern bool CMSuse;
 #endif
 extern bool CMSavail;
 #include "scribus.h"
-//extern ScribusApp* ScApp;
+extern ScribusApp* ScApp;
 
 
 
@@ -629,7 +628,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 #ifdef HAVE_CMS
 
 	QString tp = Optionen->SolidProf;
-	if (!InputProfiles.contains(tp))
+	if (!ScApp->InputProfiles.contains(tp))
 	{
 		if (vie != 0)
 			tp = vie->Doc->CMSSettings.DefaultInputProfile2;
@@ -637,7 +636,8 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 			tp = PrefsManager::instance()->appPrefs.DCMSset.DefaultInputProfile2;
 	}
 	ProfilesL::Iterator itp;
-	for (itp = InputProfiles.begin(); itp != InputProfiles.end(); ++itp)
+	ProfilesL::Iterator itpend=ScApp->InputProfiles.end();
+	for (itp = ScApp->InputProfiles.begin(); itp != itpend; ++itp)
 	{
 		SolidPr->insertItem(itp.key());
 		if (itp.key() == tp)
@@ -648,16 +648,17 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	}
 	if ((CMSuse) && (CMSavail))
 		IntendS->setCurrentItem(Optionen->Intent);
-	ProfilesL::Iterator itp2;
 	QString tp1 = Optionen->ImageProf;
-	if (!InputProfiles.contains(tp1))
+	if (!ScApp->InputProfiles.contains(tp1))
 	{
 		if (vie != 0)
 			tp1 = vie->Doc->CMSSettings.DefaultInputProfile2;
 		else
 			tp1 = PrefsManager::instance()->appPrefs.DCMSset.DefaultInputProfile2;
 	}
-	for (itp2 = InputProfiles.begin(); itp2 != InputProfiles.end(); ++itp2)
+	ProfilesL::Iterator itp2;
+	ProfilesL::Iterator itp2end=ScApp->InputProfiles.end();
+	for (itp2 = ScApp->InputProfiles.begin(); itp2 != itp2end; ++itp2)
 	{
 		ImageP->insertItem(itp2.key());
 		if (itp2.key() == tp1)
@@ -1029,16 +1030,17 @@ void TabPDFOptions::EnableLPI(int a)
 	{
 #ifdef HAVE_CMS
 		QString tp = Opts->SolidProf;
-		if (!InputProfiles.contains(tp))
+		if (!ScApp->InputProfiles.contains(tp))
 		{
 			if (view != 0)
 				tp = view->Doc->CMSSettings.DefaultInputProfile2;
 			else
 				tp = PrefsManager::instance()->appPrefs.DCMSset.DefaultInputProfile2;
 		}
-		ProfilesL::Iterator itp;
 		SolidPr->clear();
-		for (itp = InputProfiles.begin(); itp != InputProfiles.end(); ++itp)
+		ProfilesL::Iterator itp;
+		ProfilesL::Iterator itpend=ScApp->InputProfiles.end();
+		for (itp = ScApp->InputProfiles.begin(); itp != itpend; ++itp)
 		{
 			SolidPr->insertItem(itp.key());
 			if (itp.key() == tp)
@@ -1049,9 +1051,8 @@ void TabPDFOptions::EnableLPI(int a)
 		}
 		if (cms)
 			IntendS->setCurrentItem(Opts->Intent);
-		ProfilesL::Iterator itp2;
 		QString tp1 = Opts->ImageProf;
-		if (!InputProfiles.contains(tp1))
+		if (!ScApp->InputProfiles.contains(tp1))
 		{
 			if (view != 0)
 				tp1 = view->Doc->CMSSettings.DefaultInputProfile2;
@@ -1059,7 +1060,9 @@ void TabPDFOptions::EnableLPI(int a)
 				tp1 = PrefsManager::instance()->appPrefs.DCMSset.DefaultInputProfile2;
 		}
 		ImageP->clear();
-		for (itp2 = InputProfiles.begin(); itp2 != InputProfiles.end(); ++itp2)
+		ProfilesL::Iterator itp2;
+		ProfilesL::Iterator itp2end=ScApp->InputProfiles.end();
+		for (itp2 = ScApp->InputProfiles.begin(); itp2 != itp2end; ++itp2)
 		{
 			ImageP->insertItem(itp2.key());
 			if (itp2.key() == tp1)

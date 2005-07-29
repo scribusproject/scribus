@@ -55,14 +55,15 @@ class PDFOptions;
 
 class ScribusDoc : public QObject, public UndoObject
 {
-
 public:
-    ScribusDoc();
-    ~ScribusDoc();
-    void setModified();
-    void setUnModified();
-    bool isModified() const;
-  /** Setzt die Seitenattribute */
+	ScribusDoc();
+	~ScribusDoc();
+	void setup(const int, const bool, const bool, const int, const int, const QString&, const QString&);
+	void setLoading(const bool);
+	const bool isLoading();
+	void setModified(const bool);
+	bool isModified() const;
+/** Setzt die Seitenattribute */
 	void setPage(double b, double h, double t, double l, double r, double bo, double sp, double ab, bool atf, bool fp);
 	void resetPage(double t, double l, double r, double bo, bool fp);
 	bool AddFont(QString name, QFont fo);
@@ -95,6 +96,8 @@ public:
 	QStringList getItemAttributeNames();
 
 protected:
+	void addSymbols();
+	bool loading;
     bool modified;
     UndoManager *undoManager;
 
@@ -107,7 +110,6 @@ public: // Public attributes
 	int viewID;
 	bool SnapGuides;
 	bool GuideLock;
-	bool loading;
 	/** Scratch space around Pages */
 	double ScratchLeft;
 	double ScratchRight;
@@ -261,7 +263,7 @@ public: // Public attributes
 	int RotMode;
 	bool AutoSave;
 	int AutoSaveTime;
-	QTimer *ASaveTimer;
+	QTimer *autoSaveTimer;
 	FT_Library   library;
 	QMap<QString,FT_Face> FFonts;
 	QMap<QString,multiLine> MLineStyles;

@@ -197,7 +197,7 @@ void Tree::slotShowSelect(uint SNr, int Nr)
 {
 	if (ScApp->ScriptRunning)
 		return;
-	if (document->loading)
+	if (document->isLoading())
 		return;
 	if (selectionTriggered)
 		return;
@@ -322,7 +322,7 @@ void Tree::slotAddElement(PageItem *item)
 {
 	if (ScApp->ScriptRunning)
 		return;
-	if (document->loading)
+	if (document->isLoading())
 		return;
 	disconnect(reportDisplay, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
 	QListViewItem * object;

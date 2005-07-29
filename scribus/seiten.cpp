@@ -600,14 +600,14 @@ void SeitenPal::DelMPage(QString tmp)
 	Vie->DrawNew();
 	RebuildTemp();
 	RebuildPage();
-	Vie->Doc->setModified();
+	Vie->Doc->setModified(true);
 }
 
 void SeitenPal::MPage(int r, int c)
 {
 	Vie->movePage(r, r + 1, c, r > c ? 0 : (c > PageView->MaxC ? 2 : 1));
 	RebuildPage();
-	Vie->Doc->setModified();
+	Vie->Doc->setModified(true);
 }
 
 void SeitenPal::GotoPage(int r, int c, int b)
@@ -648,7 +648,7 @@ void SeitenPal::handleFacingPagesChk()
 	Vie->DrawNew();
 	Vie->GotoPage(Vie->Doc->currentPage->PageNr);
 	RebuildPage();
-	Vie->Doc->setModified();
+	Vie->Doc->setModified(true);
 	firstPageLeftChk->setEnabled(fp ? true : false);
 }
 
@@ -666,7 +666,7 @@ void SeitenPal::handleFirstPageLeftChk()
 	Vie->DrawNew();
 	Vie->GotoPage(Vie->Doc->currentPage->PageNr);
 	RebuildPage();
-	Vie->Doc->setModified();
+	Vie->Doc->setModified(true);
 }
 
 void SeitenPal::RebuildTemp()

@@ -120,7 +120,7 @@ public:
 	const bool fileToolBarVisible();
 	
 	bool doFileNew(double width, double h, double tpr, double lr, double rr, double br, double ab, double sp,
-									bool atf, bool fp, int einh, bool firstleft, int Ori, int SNr, QString pagesize);
+									bool atf, bool fp, int einh, bool firstleft, int Ori, int SNr, const QString&);
 	bool DoFileSave(QString fn);
 	void closeEvent(QCloseEvent *ce);
 	void keyPressEvent(QKeyEvent *k);
@@ -170,6 +170,7 @@ public:
 	QString Buffer2;
 	QString Buffer3;
 	bool BuFromApp;
+	ProfilesL InputProfiles;
 	ProfilesL MonitorProfiles;
 	ProfilesL PrinterProfiles;
 	ProfilesL PDFXProfiles;

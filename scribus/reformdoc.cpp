@@ -24,7 +24,6 @@
 
 extern QPixmap loadIcon(QString nam);
 extern bool CMSavail;
-extern ProfilesL InputProfiles;
 
 ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( parent )
 {
@@ -360,7 +359,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	int cmsTab = 0;
 	if (CMSavail)
 	{
-		tabColorManagement = new CMSPrefs(prefsWidgets, &doc->CMSSettings, &InputProfiles, &ap->PrinterProfiles, &ap->MonitorProfiles);
+		tabColorManagement = new CMSPrefs(prefsWidgets, &doc->CMSSettings, &ap->InputProfiles, &ap->PrinterProfiles, &ap->MonitorProfiles);
 		cmsTab = addItem( tr("Color Management"), loadIcon("blend.png"), tabColorManagement);
 	}
 

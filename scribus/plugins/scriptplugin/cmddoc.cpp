@@ -42,7 +42,7 @@ PyObject *scribus_setmargins(PyObject* /* self */, PyObject* args)
 	btr = ValueToPoint(btr);
 	Carrier->doc->resetPage(tpr, lr, rr, btr, Carrier->doc->PageFP);
 	Carrier->view->reformPages();
-	Carrier->doc->setModified();
+	Carrier->doc->setModified(true);
 	Carrier->view->GotoPage(Carrier->doc->currentPage->PageNr);
 	Carrier->view->DrawNew();
 	Py_INCREF(Py_None);
@@ -53,7 +53,7 @@ PyObject *scribus_closedoc(PyObject* /* self */)
 {
 	if(!checkHaveDocument())
 		return NULL;
-	Carrier->doc->setUnModified();
+	Carrier->doc->setModified(false);
 	bool ret = Carrier->slotFileClose();
 	qApp->processEvents();
 	return PyInt_FromLong(static_cast<long>(ret));

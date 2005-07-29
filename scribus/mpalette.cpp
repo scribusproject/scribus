@@ -21,7 +21,6 @@
 
 using namespace std;
 
-extern ProfilesL InputProfiles;
 extern ScribusApp* ScApp;
 
 LabelButton::LabelButton(QWidget* parent, QString text1, QString text2) : QLabel(parent)
@@ -3035,13 +3034,14 @@ void Mpalette::updateCmsList()
 		disconnect(InputP, SIGNAL(activated(const QString&)), this, SLOT(ChProf(const QString&)));
 		InputP->clear();
 		ProfilesL::Iterator itP;
-		for (itP = InputProfiles.begin(); itP != InputProfiles.end(); ++itP)
+		ProfilesL::Iterator itPend=ScApp->InputProfiles.end();
+		for (itP = ScApp->InputProfiles.begin(); itP != itPend; ++itP)
 		{
 			InputP->insertItem(itP.key());
 			if (itP.key() == CurItem->IProfile)
 				InputP->setCurrentItem(InputP->count()-1);
 		}
-		if (!InputProfiles.contains(CurItem->IProfile))
+		if (!ScApp->InputProfiles.contains(CurItem->IProfile))
 		{
 			InputP->insertItem(CurItem->IProfile);
 			InputP->setCurrentItem(InputP->count()-1);

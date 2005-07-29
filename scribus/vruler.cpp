@@ -78,7 +78,7 @@ void Vruler::mouseMoveEvent(QMouseEvent *m)
 
 void Vruler::paintEvent(QPaintEvent *)
 {
-	if (currDoc->loading)
+	if (currDoc->isLoading())
 		return;
 	QString tx = "";
 	double xl, frac;

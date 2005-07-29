@@ -12,7 +12,6 @@ void ReOrderText(ScribusDoc *doc, ScribusView *view);
 // end of utils.cpp
 //this is in file scribus.cpp
 
-extern ProfilesL InputProfiles;
 #ifdef HAVE_CMS
 extern bool CMSuse;
 #endif
@@ -447,7 +446,7 @@ static int PDFfile_init(PDFfile *self, PyObject */*args*/, PyObject */*kwds*/)
 	self->intents = Carrier->doc->PDF_Options.Intent; // int - 0 - 3
 	self->intenti = Carrier->doc->PDF_Options.Intent2; // int - 0 - 3
 	QString tp = Carrier->doc->PDF_Options.SolidProf;
-	if (!InputProfiles.contains(tp))
+	if (!Carrier->InputProfiles.contains(tp))
 		tp = Carrier->view->Doc->CMSSettings.DefaultInputProfile2;
 	PyObject *solidpr = NULL;
 	solidpr = PyString_FromString(tp.ascii());
@@ -459,7 +458,7 @@ static int PDFfile_init(PDFfile *self, PyObject */*args*/, PyObject */*kwds*/)
 		return -1;
 	}
 	QString tp2 = Carrier->doc->PDF_Options.ImageProf;
-	if (!InputProfiles.contains(tp2))
+	if (!Carrier->InputProfiles.contains(tp2))
 		tp2 = Carrier->view->Doc->CMSSettings.DefaultInputProfile2;
 	PyObject *imagepr = NULL;
 	imagepr = PyString_FromString(tp2.ascii());

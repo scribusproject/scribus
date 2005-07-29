@@ -120,16 +120,11 @@ void MenuSAT::RunSATPlug()
 		// Restore the state that was before Carrier->Collect()
 		Carrier->doc->DocName = currentFile;
 		Carrier->doc->hasName = hasName;
+		Carrier->doc->setModified(isModified);
 		if (isModified)
-		{
-			Carrier->doc->setModified();
 			Carrier->ActWin->setCaption(currentFile+"*");
-		}
 		else
-		{
-			Carrier->doc->setUnModified();
 			Carrier->ActWin->setCaption(currentFile);
-		}
 		Carrier->removeRecent(docPath);
 		QDir::setCurrent(currentDirPath);
 		delete satdia;

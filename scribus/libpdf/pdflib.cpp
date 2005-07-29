@@ -53,12 +53,14 @@ extern bool CMSuse;
 #ifdef HAVE_TIFF
 	#include <tiffio.h>
 #endif
-extern ProfilesL InputProfiles;
+
+ScribusApp *pdflibScApp;
 
 extern "C" bool Run(ScribusApp *plug, QString fn, QString nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs, QProgressBar *dia2);
 
 bool Run(ScribusApp *plug, QString fn, QString nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs, QProgressBar *dia2)
 {
+	pdflibScApp=plug;
 	QPixmap pm;
 	bool ret = false;
 	int progresscount=0;
@@ -903,7 +905,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 		ObjCounter++;
 		QString dataP;
 		struct ICCD dataD;
-		loadText(InputProfiles[Options->SolidProf], &dataP);
+		loadText(pdflibScApp->InputProfiles[Options->SolidProf], &dataP);
 		PutDoc("<<\n");
 		if ((Options->Compress) && (CompAvail))
 		{
@@ -4067,20 +4069,20 @@ QString PDFlib::PDF_Image(PageItem* c, QString fn, double sx, double sy, double 
 									dataP += EmbedBuffer[el];
 							}
 							else
-								loadText(InputProfiles[Options->ImageProf], &dataP);
+								loadText(pdflibScApp->InputProfiles[Options->ImageProf], &dataP);
 						}
 						else
-							loadText(InputProfiles[Options->ImageProf], &dataP);
+							loadText(pdflibScApp->InputProfiles[Options->ImageProf], &dataP);
 						TIFFClose(tif);
 					}
 					else
-						loadText(InputProfiles[Options->ImageProf], &dataP);
+						loadText(pdflibScApp->InputProfiles[Options->ImageProf], &dataP);
 				}
 #else
-				loadText(InputProfiles[Options->ImageProf], &dataP);
+				loadText(pdflibScApp->InputProfiles[Options->ImageProf], &dataP);
 #endif
 				else
-					loadText((Embedded ? InputProfiles[Options->ImageProf] : InputProfiles[Profil]), &dataP);
+					loadText((Embedded ? pdflibScApp->InputProfiles[Options->ImageProf] : pdflibScApp->InputProfiles[Profil]), &dataP);
 				PutDoc("<<\n");
 				if ((Options->CompressMethod != 3) && (CompAvail))
 				{

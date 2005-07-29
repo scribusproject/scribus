@@ -165,7 +165,7 @@ int IntentMonitor;
 int IntentPrinter;
 #endif
 bool CMSavail;
-ProfilesL InputProfiles;
+
 QString DocDir;
 extern ScribusApp* ScApp;
 extern ScribusQApp* ScQApp;
@@ -2434,56 +2434,17 @@ bool ScribusApp::slotFileNew()
 }
 
 bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double rr, double br, double ab, double sp,
-                           bool atf, bool fp, int einh, bool firstleft, int Ori, int SNr, QString PageSize)
+                           bool atf, bool fp, int einh, bool firstleft, int Ori, int SNr, const QString& defaultPageSize)
 {
 	QString cc;
 	if (HaveDoc)
 		doc->OpenNodes = outlinePalette->buildReopenVals();
 	doc = new ScribusDoc();
-	doc->is12doc=false;
+	doc->setLoading(true);
+	doc->setup(einh, fp, firstleft, Ori, SNr, defaultPageSize, doc->DocName+cc.setNum(DocNr));
 	docCheckerPalette->clearErrorList();
-	doc->docUnitIndex = einh;
-	if (fp)
-		doc->FirstPageLeft = firstleft;
-	doc->PageOri = Ori;
-	doc->PageSize = PageSize;
-	doc->FirstPnum = SNr;
-	doc->setName(doc->DocName+cc.setNum(DocNr));
-	doc->HasCMS = true;
-	doc->CMSSettings.DefaultInputProfile = prefsManager->appPrefs.DCMSset.DefaultInputProfile;
-	doc->CMSSettings.DefaultInputProfile2 = prefsManager->appPrefs.DCMSset.DefaultInputProfile2;
-	doc->CMSSettings.DefaultMonitorProfile = prefsManager->appPrefs.DCMSset.DefaultMonitorProfile;
-	doc->CMSSettings.DefaultPrinterProfile = prefsManager->appPrefs.DCMSset.DefaultPrinterProfile;
-	doc->CMSSettings.DefaultIntentPrinter = prefsManager->appPrefs.DCMSset.DefaultIntentPrinter;
-	doc->CMSSettings.DefaultIntentMonitor = prefsManager->appPrefs.DCMSset.DefaultIntentMonitor;
-	doc->CMSSettings.DefaultIntentMonitor2 = prefsManager->appPrefs.DCMSset.DefaultIntentMonitor2;
-	doc->CMSSettings.SoftProofOn = prefsManager->appPrefs.DCMSset.SoftProofOn;
-	doc->CMSSettings.GamutCheck = prefsManager->appPrefs.DCMSset.GamutCheck;
-	doc->CMSSettings.BlackPoint = prefsManager->appPrefs.DCMSset.BlackPoint;
-	doc->CMSSettings.CMSinUse = prefsManager->appPrefs.DCMSset.CMSinUse;
-	doc->PDF_Options.SolidProf = doc->CMSSettings.DefaultInputProfile2;
-	doc->PDF_Options.ImageProf = doc->CMSSettings.DefaultInputProfile;
-	doc->PDF_Options.PrintProf = doc->CMSSettings.DefaultPrinterProfile;
-	doc->PDF_Options.Intent = doc->CMSSettings.DefaultIntentMonitor;
-	doc->PDF_Options.Intent2 = doc->CMSSettings.DefaultIntentMonitor2;
-
-	struct LPIData lpo;
-	lpo.Frequency = 75;
-	lpo.SpotFunc = 2;
-	lpo.Angle = 105;
-	doc->PDF_Options.LPISettings.insert("Cyan", lpo);
-	lpo.Angle = 75;
-	doc->PDF_Options.LPISettings.insert("Magenta", lpo);
-	lpo.Angle = 90;
-	doc->PDF_Options.LPISettings.insert("Yellow", lpo);
-	lpo.Angle = 45;
-	doc->PDF_Options.LPISettings.insert("Black", lpo);
-	doc->ActiveLayer = 0;
 	HaveDoc++;
 	DocNr++;
-	doc->appMode = modeNormal;
-	doc->PageColors = prefsManager->colorSet();
-	doc->loading = true;
 	ScribusWin* w = new ScribusWin(wsp, doc);
 	if (view!=NULL)
 	{
@@ -2506,47 +2467,20 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 	if (CMSavail)
 	{
 #ifdef HAVE_CMS
-		doc->SoftProofing = prefsManager->appPrefs.DCMSset.SoftProofOn;
-		doc->Gamut = prefsManager->appPrefs.DCMSset.GamutCheck;
 		CMSuse = prefsManager->appPrefs.DCMSset.CMSinUse;
-		doc->IntentPrinter = prefsManager->appPrefs.DCMSset.DefaultIntentPrinter;
-		doc->IntentMonitor = prefsManager->appPrefs.DCMSset.DefaultIntentMonitor;
 		SoftProofing = prefsManager->appPrefs.DCMSset.SoftProofOn;
 		Gamut = prefsManager->appPrefs.DCMSset.GamutCheck;
 		BlackPoint = prefsManager->appPrefs.DCMSset.BlackPoint;
 		IntentPrinter = prefsManager->appPrefs.DCMSset.DefaultIntentPrinter;
 		IntentMonitor = prefsManager->appPrefs.DCMSset.DefaultIntentMonitor;
-		doc->OpenCMSProfiles(InputProfiles, MonitorProfiles, PrinterProfiles);
-		stdProofG = doc->stdProof;
-		stdTransG = doc->stdTrans;
-		stdProofImgG = doc->stdProofImg;
-		stdTransImgG = doc->stdTransImg;
-		stdProofCMYKG = doc->stdProofCMYK;
-		stdTransCMYKG = doc->stdTransCMYK;
-		stdTransRGBG = doc->stdTransRGB;
-		CMSoutputProf = doc->DocOutputProf;
-		CMSprinterProf = doc->DocPrinterProf;
-		if (static_cast<int>(cmsGetColorSpace(doc->DocInputProf)) == icSigRgbData)
-			doc->CMSSettings.ComponentsInput2 = 3;
-		if (static_cast<int>(cmsGetColorSpace(doc->DocInputProf)) == icSigCmykData)
-			doc->CMSSettings.ComponentsInput2 = 4;
-		if (static_cast<int>(cmsGetColorSpace(doc->DocInputProf)) == icSigCmyData)
-			doc->CMSSettings.ComponentsInput2 = 3;
-		if (static_cast<int>(cmsGetColorSpace(doc->DocPrinterProf)) == icSigRgbData)
-			doc->CMSSettings.ComponentsPrinter = 3;
-		if (static_cast<int>(cmsGetColorSpace(doc->DocPrinterProf)) == icSigCmykData)
-			doc->CMSSettings.ComponentsPrinter = 4;
-		if (static_cast<int>(cmsGetColorSpace(doc->DocPrinterProf)) == icSigCmyData)
-			doc->CMSSettings.ComponentsPrinter = 3;
-		doc->PDF_Options.SComp = doc->CMSSettings.ComponentsInput2;
 #endif
 		if (prefsManager->appPrefs.DCMSset.CMSinUse)
 			RecalcColors();
 	}
 	doc->setPage(width, h, tpr, lr, rr, br, sp, ab, atf, fp);
-	doc->loading = false;
+	doc->setLoading(false);
 	slotNewPage(0);
-	doc->loading = true;
+	doc->setLoading(true);
 	HaveNewDoc();
 	doc->DocPages = doc->Pages;
 	doc->Pages = doc->MasterPages;
@@ -2563,8 +2497,8 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 	doc->Pages = doc->DocPages;
 	doc->MasterP = false;
 	doc->Pages.at(0)->MPageNam = "Normal";
-	doc->setUnModified();
-	doc->loading = false;
+	doc->setModified(false);
+	doc->setLoading(false);
 	doc->DocItems = doc->Items;
 	doc->currentPage = doc->Pages.at(0);
 	doc->OpenNodes.clear();
@@ -2576,14 +2510,14 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 	else
 		w->show();
 	view->show();
-	connect(doc->ASaveTimer, SIGNAL(timeout()), w, SLOT(slotAutoSave()));
+	connect(doc->autoSaveTimer, SIGNAL(timeout()), w, SLOT(slotAutoSave()));
 	connect(w, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
 	connect(fileWatcher, SIGNAL(fileChanged(QString )), view, SLOT(updatePict(QString)));
 	connect(fileWatcher, SIGNAL(fileDeleted(QString )), view, SLOT(removePict(QString)));
 	doc->AutoSave = prefsManager->appPrefs.AutoSave;
 	doc->AutoSaveTime = prefsManager->appPrefs.AutoSaveTime;
 	if (doc->AutoSave)
-		doc->ASaveTimer->start(doc->AutoSaveTime);
+		doc->autoSaveTimer->start(doc->AutoSaveTime);
 	scrActions["fileSave"]->setEnabled(false);
 	undoManager->switchStack(doc->DocName);
 	tocGenerator->setDoc(doc);
@@ -2678,7 +2612,7 @@ void ScribusApp::newActWin(QWidget *w)
 	pagePalette->SetView(view);
 	alignDistributePalette->setView(view);
 	ScribusWin* swin;
-	if (!doc->loading)
+	if (!doc->isLoading())
 	{
 		scanDocument();
 		docCheckerPalette->buildErrorList(doc);
@@ -2713,7 +2647,7 @@ void ScribusApp::newActWin(QWidget *w)
 	bookmarkPalette->BView->First = doc->First;
 	bookmarkPalette->BView->Last = doc->Last; */
 	RestoreBookMarks();
-	if (!doc->loading)
+	if (!doc->isLoading())
 	{
 		if (view->SelItem.count() != 0)
 		{
@@ -2941,8 +2875,8 @@ bool ScribusApp::SetupDoc()
 		doc->AutoSaveTime = dia->autoSaveTime->value() * 60 * 1000;
 		if (doc->AutoSave)
 		{
-			doc->ASaveTimer->stop();
-			doc->ASaveTimer->start(doc->AutoSaveTime);
+			doc->autoSaveTimer->stop();
+			doc->autoSaveTimer->start(doc->AutoSaveTime);
 		}
 		doc->docHyphenator->slotNewDict(dia->tabHyphenator->language->currentText());
 		doc->docHyphenator->slotNewSettings(dia->tabHyphenator->wordLen->value(),
@@ -3856,13 +3790,13 @@ void ScribusApp::slotDocCh(bool /*reb*/)
 		for (uint upd = 0; upd < view->SelItem.count(); ++upd)
 			outlinePalette->slotUpdateElement(doc->currentPage->PageNr, view->SelItem.at(upd)->ItemNr);
 	} */
-	if (!doc->loading && docCheckerPalette->isVisible())
+	if (!doc->isLoading() && docCheckerPalette->isVisible())
 	{
 		scanDocument();
 		docCheckerPalette->buildErrorList(doc);
 	}
 	if (!doc->isModified())
-		doc->setModified();
+		doc->setModified(true);
 	ActWin->setCaption( doc->DocName + "*");
 	scrActions["fileSave"]->setEnabled(true);
 	scrActions["fileSaveAs"]->setEnabled(true);
@@ -4158,13 +4092,13 @@ bool ScribusApp::loadPage(QString fileName, int Nr, bool Mpa)
 	{
 		if (!Mpa)
 			doc->OpenNodes = outlinePalette->buildReopenVals();
-		doc->loading = true;
+		doc->setLoading(true);
 		ScriXmlDoc *ss = new ScriXmlDoc();
 		uint cc = doc->Items.count();
 		if(!ss->ReadPage(fileName, prefsManager->appPrefs.AvailFonts, doc, view, Nr, Mpa))
 		{
 			delete ss;
-			doc->loading = false;
+			doc->setLoading(false);
 			return false;
 		}
 		delete ss;
@@ -4199,7 +4133,7 @@ bool ScribusApp::loadPage(QString fileName, int Nr, bool Mpa)
 		rebuildLayersList();
 		view->LaMenu();
 		layerPalette->rebuildList();
-		doc->loading = false;
+		doc->setLoading(false);
 		ret = true;
 	}
 	if (!Mpa)
@@ -4265,7 +4199,7 @@ bool ScribusApp::loadDoc(QString fileName)
 		doc->HasCMS = false;
 		doc->ActiveLayer = 0;
 		doc->OpenNodes.clear();
-		doc->loading = true;
+		doc->setLoading(true);
 		mainWindowStatusLabel->setText( tr("Loading..."));
 		mainWindowProgressBar->reset();
 		ScribusWin* w = new ScribusWin(wsp, doc);
@@ -4516,7 +4450,7 @@ bool ScribusApp::loadDoc(QString fileName)
 			doc->Pages = doc->DocPages;
 			doc->MasterP = false;
 		}
-		doc->loading = false;
+		doc->setLoading(false);
 		doc->DocItems = doc->Items;
 		doc->RePos = true;
 		QPixmap pgPix(10, 10);
@@ -4625,7 +4559,7 @@ bool ScribusApp::loadDoc(QString fileName)
 //		if (doc->OldBM)
 //			StoreBookmarks();
 		doc->RePos = false;
-		doc->setUnModified();
+		doc->setModified(false);
 		updateRecent(FName);
 		mainWindowStatusLabel->setText( tr("Ready"));
 		ret = true;
@@ -4649,13 +4583,13 @@ bool ScribusApp::loadDoc(QString fileName)
 		newActWin(w);
 		view->slotDoZoom();
 		view->GotoPage(0);
-		connect(doc->ASaveTimer, SIGNAL(timeout()), w, SLOT(slotAutoSave()));
+		connect(doc->autoSaveTimer, SIGNAL(timeout()), w, SLOT(slotAutoSave()));
 		connect(w, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
 		connect(fileWatcher, SIGNAL(fileChanged(QString )), view, SLOT(updatePict(QString)));
 		connect(fileWatcher, SIGNAL(fileDeleted(QString )), view, SLOT(removePict(QString)));
 		connect(undoManager, SIGNAL(undoRedoDone()), view, SLOT(DrawNew()));
 		if (doc->AutoSave)
-			doc->ASaveTimer->start(doc->AutoSaveTime);
+			doc->autoSaveTimer->start(doc->AutoSaveTime);
 		scrActions["fileSave"]->setEnabled(false);
 		doc->NrItems = bookmarkPalette->BView->NrItems;
 		doc->First = bookmarkPalette->BView->First;
@@ -4795,7 +4729,7 @@ void ScribusApp::slotFileRevert()
 		QString fn = doc->DocName;
 		QFileInfo fi(fn);
 		QDir::setCurrent(fi.dirPath(true));
-		doc->setUnModified();
+		doc->setModified(false);
 		if (doc==storyEditor->currentDocument())
 			storyEditor->close();
 		slotFileClose();
@@ -4909,7 +4843,7 @@ bool ScribusApp::DoFileSave(QString fn)
 	delete ss;
 	if (ret)
 	{
-		doc->setUnModified();
+		doc->setModified(false);
 		ActWin->setCaption(fn);
 		doc->setName(fn);
 		undoManager->renameStack(fn);
@@ -4967,8 +4901,8 @@ bool ScribusApp::DoFileClose()
 		qApp->processEvents();
 	}
 	setAppMode(modeNormal);
-	doc->ASaveTimer->stop();
-	disconnect(doc->ASaveTimer, SIGNAL(timeout()), doc->WinHan, SLOT(slotAutoSave()));
+	doc->autoSaveTimer->stop();
+	disconnect(doc->autoSaveTimer, SIGNAL(timeout()), doc->WinHan, SLOT(slotAutoSave()));
 	disconnect(doc->WinHan, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
 	disconnect(fileWatcher, SIGNAL(fileChanged(QString )), view, SLOT(updatePict(QString)));
 	disconnect(fileWatcher, SIGNAL(fileDeleted(QString )), view, SLOT(removePict(QString)));
@@ -5062,7 +4996,7 @@ bool ScribusApp::DoFileClose()
 	outlinePalette->pageMap.clear();
 	outlinePalette->masterPageMap.clear();
 	outlinePalette->masterPageItemMap.clear();
-	doc->loading = true;
+	doc->setLoading(true);
 	outlinePalette->reportDisplay->clear();
 	layerPalette->ClearInhalt();
 	docCheckerPalette->clearErrorList();
@@ -5989,7 +5923,7 @@ void ScribusApp::slotNewPage(int w, bool mov)
 	bool setter = doc->Pages.count() > 1 ? true : false;
 	scrActions["pageDelete"]->setEnabled(setter);
 	scrActions["pageMove"]->setEnabled(setter);
-	if ((!doc->loading) && (!doc->masterPageMode))
+	if ((!doc->isLoading()) && (!doc->masterPageMode))
 		AdjustBM();
 /*	if ((!doc->loading) && (!doc->masterPageMode))
 	{
@@ -6877,7 +6811,7 @@ void ScribusApp::CopyPage()
 	MovePages *dia = new MovePages(this, doc->currentPage->PageNr+1, doc->Pages.count(), false);
 	if (dia->exec())
 	{
-		doc->loading = true;
+		doc->setLoading(true);
 		Page* from = doc->Pages.at(dia->getFromPage()-1);
 		int wo = dia->getWherePage();
 		switch (dia->getWhere())
@@ -6968,7 +6902,7 @@ void ScribusApp::CopyPage()
 			qHeapSort(Ziel->XGuides);
 		}
 		view->Deselect(true);
-		doc->loading = false;
+		doc->setLoading(false);
 		view->DrawNew();
 		slotDocCh();
 		pagePalette->RebuildPage();
@@ -10097,11 +10031,11 @@ void ScribusApp::emergencySave()
 			ActWin = (ScribusWin*)windows.at(i);
 			doc = ActWin->doc;
 			view = ActWin->view;
-			doc->setUnModified();
+			doc->setModified(false);
 			if (doc->hasName)
 			{
 				std::cout << "Saving: " << doc->DocName+".emergency" << std::endl;
-				doc->ASaveTimer->stop();
+				doc->autoSaveTimer->stop();
 				disconnect(ActWin, SIGNAL(Schliessen()), ScApp, SLOT(DoFileClose()));
 				ScriXmlDoc *ss = new ScriXmlDoc();
 				ss->WriteDoc(doc->DocName+".emergency", doc, 0);

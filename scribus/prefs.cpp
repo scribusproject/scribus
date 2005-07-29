@@ -44,7 +44,6 @@ using namespace std;
 extern QPixmap loadIcon(QString nam);
 extern bool CMSavail;
 extern bool CMSuse;
-extern ProfilesL InputProfiles;
 extern ScribusApp *ScApp;
 
 /*!
@@ -352,7 +351,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 
 	if (CMSavail)
 	{
-		tabColorManagement = new CMSPrefs(prefsWidgets, &prefsData->DCMSset, &InputProfiles, &ap->PrinterProfiles, &ap->MonitorProfiles);
+		tabColorManagement = new CMSPrefs(prefsWidgets, &prefsData->DCMSset, &ap->InputProfiles, &ap->PrinterProfiles, &ap->MonitorProfiles);
 		addItem( tr("Color Management"), loadIcon("blend.png"), tabColorManagement);
 	}
 	QMap<QString,QFont> DocFonts;

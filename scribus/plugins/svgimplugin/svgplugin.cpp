@@ -214,7 +214,7 @@ void SVGPlug::convert()
 	FPoint maxSize = Doku->maxCanvasCoordinate;
 	Prog->view->Deselect();
 	Elements.clear();
-	Doku->loading = true;
+	Doku->setLoading(true);
 	Doku->DoDrawing = false;
 	Prog->view->setUpdatesEnabled(false);
 	Prog->ScriptRunning = true;
@@ -256,7 +256,7 @@ void SVGPlug::convert()
 	Prog->view->setUpdatesEnabled(true);
 	Prog->ScriptRunning = false;
 	if (Prog->pluginManager->dllInput.isEmpty())
-		Doku->loading = false;
+		Doku->setLoading(false);
 	qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	if ((Elements.count() > 0) && (!ret) && (Prog->pluginManager->dllInput.isEmpty()))
 	{
@@ -285,7 +285,7 @@ void SVGPlug::convert()
 	}
 	else
 	{
-		Doku->setUnModified();
+		Doku->setModified(false);
 		Prog->slotDocCh();
 	}
 }

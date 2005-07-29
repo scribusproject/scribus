@@ -261,7 +261,7 @@ EPSPlug::EPSPlug( ScribusApp *plug, QString fName )
 	Elements.clear();
 	FPoint minSize = Doku->minCanvasCoordinate;
 	FPoint maxSize = Doku->maxCanvasCoordinate;
-	Doku->loading = true;
+	Doku->setLoading(true);
 	Doku->DoDrawing = false;
 	Prog->view->setUpdatesEnabled(false);
 	Prog->ScriptRunning = true;
@@ -283,7 +283,7 @@ EPSPlug::EPSPlug( ScribusApp *plug, QString fName )
 		Doku->DoDrawing = true;
 		Prog->view->setUpdatesEnabled(true);
 		Prog->ScriptRunning = false;
-		Doku->loading = false;
+		Doku->setLoading(false);
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 		if ((Elements.count() > 0) && (!ret) && (plug->pluginManager->dllInput.isEmpty()))
 		{
@@ -313,7 +313,7 @@ EPSPlug::EPSPlug( ScribusApp *plug, QString fName )
 		}
 		else
 		{
-			Doku->setUnModified();
+			Doku->setModified(false);
 			Prog->slotDocCh();
 		}
 	}
@@ -326,7 +326,7 @@ EPSPlug::EPSPlug( ScribusApp *plug, QString fName )
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	}
 	if (plug->pluginManager->dllInput.isEmpty())
-		Doku->loading = false;
+		Doku->setLoading(false);
 	plug->pluginManager->dllInput = "";
 }
 

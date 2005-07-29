@@ -20,7 +20,7 @@ PyObject *scribus_importsvg(PyObject* /* self */, PyObject* args)
 
 	Carrier->pluginManager->dllInput = QString::fromUtf8(aText);
 	Carrier->pluginManager->callDLL(10);
-	Carrier->doc->loading = false;
+	Carrier->doc->setLoading(false);
 
 	Py_INCREF(Py_None);
 	return Py_None;

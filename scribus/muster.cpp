@@ -138,7 +138,7 @@ void MasterPagesPalette::duplicateMasterPage()
 		atf = currentDoc->PageAT;
 		currentDoc->PageAT = false;
 		emit createNew(nr);
-		currentDoc->loading = true;
+		currentDoc->setLoading(true);
 		if (currentDoc->PageFP)
 			currentDoc->Pages.at(nr)->LeftPg = dia->Links->currentItem() == 0 ? true : false;
 		int inde = currentDoc->MasterNames[sMuster];
@@ -208,7 +208,7 @@ void MasterPagesPalette::duplicateMasterPage()
 		updateMasterPageList(MasterPageName);
 		currentDoc->PageAT = atf;
 		currentDoc->MasterPages = currentDoc->Pages;
-		currentDoc->loading = false;
+		currentDoc->setLoading(false);
 		currentView->DrawNew();
 		emit docAltered(currentDoc);
 	}

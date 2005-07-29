@@ -69,7 +69,7 @@ void ScribusWin::slotAutoSave()
 		ScriXmlDoc *ss = new ScriXmlDoc();
 		if (ss->WriteDoc(fn, doc, 0))
 		{
-			doc->setUnModified();
+			doc->setModified(false);
 			setCaption(doc->DocName);
 			qApp->processEvents();
 			emit AutoSaved();
