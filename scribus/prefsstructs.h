@@ -129,7 +129,7 @@ struct ApplicationPrefs
 	QColor DpapColor;
 	QString GUI;
 	guidesPrefs guidesSettings;
-	typoPrefs typographicSetttings;
+	typoPrefs typographicSettings;
 	toolPrefs toolSettings;
 	QMap<QString, checkerPrefs> checkerProfiles;
 	QString curCheckProfile;

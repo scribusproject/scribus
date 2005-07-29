@@ -190,7 +190,7 @@ public: // Public attributes
 	int CurrTextStrikeWidth;
 	bool EditClip;
 	int EditClipMode;
-	typoPrefs typographicSetttings;
+	typoPrefs typographicSettings;
 	guidesPrefs guidesSettings;
 	toolPrefs toolSettings;
 	QMap<QString, checkerPrefs> checkerProfiles;

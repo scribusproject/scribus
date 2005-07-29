@@ -100,10 +100,10 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	TxtOutline = 10;
 	TxTStyle = 0;
 	TxtBase = 0;
-	TxtUnderWidth = Doc->typographicSetttings.valueUnderlineWidth;
-	TxtUnderPos = Doc->typographicSetttings.valueUnderlinePos;
-	TxtStrikePos = Doc->typographicSetttings.valueStrikeThruPos;
-	TxtStrikeWidth = Doc->typographicSetttings.valueStrikeThruWidth;
+	TxtUnderWidth = Doc->typographicSettings.valueUnderlineWidth;
+	TxtUnderPos = Doc->typographicSettings.valueUnderlinePos;
+	TxtStrikePos = Doc->typographicSettings.valueStrikeThruPos;
+	TxtStrikeWidth = Doc->typographicSettings.valueStrikeThruWidth;
 	GrType = 0;
 	GrStartX = 0;
 	GrStartY = 0;
@@ -121,7 +121,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	IFont = Doc->toolSettings.defFont;
 	ISize = Doc->toolSettings.defSize;
 	LineSpMode = 0;
-	LineSp = ((Doc->toolSettings.defSize / 10.0) * static_cast<double>(Doc->typographicSetttings.autoLineSpacing) / 100) + (Doc->toolSettings.defSize / 10.0);
+	LineSp = ((Doc->toolSettings.defSize / 10.0) * static_cast<double>(Doc->typographicSettings.autoLineSpacing) / 100) + (Doc->toolSettings.defSize / 10.0);
 	Doc->docParagraphStyles[0].LineSpa = LineSp;
 	CurX = 0;
 	CurY = 0;
@@ -757,7 +757,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 					if (hl->cstyle & 2048)
 					{
 						if (Doc->docParagraphStyles[hl->cab].BaseAdj)
-							chs = qRound(10 * ((Doc->typographicSetttings.valueBaseGrid * (Doc->docParagraphStyles[hl->cab].DropLin-1)+(hl->cfont->numAscent * (Doc->docParagraphStyles[hl->cab].FontSize / 10.0))) / (RealCHeight(Doc, hl->cfont, chx, 10))));
+							chs = qRound(10 * ((Doc->typographicSettings.valueBaseGrid * (Doc->docParagraphStyles[hl->cab].DropLin-1)+(hl->cfont->numAscent * (Doc->docParagraphStyles[hl->cab].FontSize / 10.0))) / (RealCHeight(Doc, hl->cfont, chx, 10))));
 						else
 						{
 							if (Doc->docParagraphStyles[hl->cab].LineSpaMode == 0)
@@ -1088,7 +1088,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 					if (Doc->docParagraphStyles[hl->cab].Drop)
 					{
 						if (Doc->docParagraphStyles[hl->cab].BaseAdj)
-							chs = qRound(Doc->typographicSetttings.valueBaseGrid  * Doc->docParagraphStyles[hl->cab].DropLin * 10);
+							chs = qRound(Doc->typographicSettings.valueBaseGrid  * Doc->docParagraphStyles[hl->cab].DropLin * 10);
 						else
 							chs = qRound(Doc->docParagraphStyles[hl->cab].LineSpa * Doc->docParagraphStyles[hl->cab].DropLin * 10);
 					}
@@ -1184,7 +1184,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 							{
 								DropLines = Doc->docParagraphStyles[absa].DropLin;
 								if (Doc->docParagraphStyles[hl->cab].BaseAdj)
-									CurY += Doc->typographicSetttings.valueBaseGrid * (DropLines-1);
+									CurY += Doc->typographicSettings.valueBaseGrid * (DropLines-1);
 								else
 								{
 									if (Doc->docParagraphStyles[absa].LineSpaMode == 0)
@@ -1199,8 +1199,8 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 					{
 						if (Doc->docParagraphStyles[hl->cab].BaseAdj)
 						{
-							chsd = qRound(10 * ((Doc->typographicSetttings.valueBaseGrid * (DropLines-1)+(hl->cfont->numAscent * (Doc->docParagraphStyles[hl->cab].FontSize / 10.0))) / (RealCHeight(Doc, hl->cfont, chx, 10))));
-							chs = qRound(10 * ((Doc->typographicSetttings.valueBaseGrid * (DropLines-1)+(hl->cfont->numAscent * (Doc->docParagraphStyles[hl->cab].FontSize / 10.0))) / RealCAscent(Doc, hl->cfont, chx, 10)));
+							chsd = qRound(10 * ((Doc->typographicSettings.valueBaseGrid * (DropLines-1)+(hl->cfont->numAscent * (Doc->docParagraphStyles[hl->cab].FontSize / 10.0))) / (RealCHeight(Doc, hl->cfont, chx, 10))));
+							chs = qRound(10 * ((Doc->typographicSettings.valueBaseGrid * (DropLines-1)+(hl->cfont->numAscent * (Doc->docParagraphStyles[hl->cab].FontSize / 10.0))) / RealCAscent(Doc, hl->cfont, chx, 10)));
 						}
 						else
 						{
@@ -1255,7 +1255,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 						{
 							wide = hl->cembedded->Width + hl->cembedded->Pwidth;
 							if (Doc->docParagraphStyles[hl->cab].BaseAdj)
-								asce = Doc->typographicSetttings.valueBaseGrid * DropLines;
+								asce = Doc->typographicSettings.valueBaseGrid * DropLines;
 							else
 							{
 								if (Doc->docParagraphStyles[absa].LineSpaMode == 0)
@@ -1311,7 +1311,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 								if (DropCmode)
 								{
 									if (Doc->docParagraphStyles[hl->cab].BaseAdj)
-										desc2 = -hl->cfont->numDescender * Doc->typographicSetttings.valueBaseGrid * Doc->docParagraphStyles[hl->cab].DropLin;
+										desc2 = -hl->cfont->numDescender * Doc->typographicSettings.valueBaseGrid * Doc->docParagraphStyles[hl->cab].DropLin;
 									else
 										desc2 = -hl->cfont->numDescender * Doc->docParagraphStyles[hl->cab].LineSpa * Doc->docParagraphStyles[hl->cab].DropLin;
 								}
@@ -1323,9 +1323,9 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 								double by = Ypos;
 								if (OwnPage != -1)
 									by = Ypos - Doc->Pages.at(OwnPage)->Yoffset;
-								int ol1 = qRound((by + CurY - Doc->typographicSetttings.offsetBaseGrid) * 10000.0);
-								int ol2 = static_cast<int>(ol1 / Doc->typographicSetttings.valueBaseGrid);
-								CurY = ceil(  ol2 / 10000.0 ) * Doc->typographicSetttings.valueBaseGrid + Doc->typographicSetttings.offsetBaseGrid - by;
+								int ol1 = qRound((by + CurY - Doc->typographicSettings.offsetBaseGrid) * 10000.0);
+								int ol2 = static_cast<int>(ol1 / Doc->typographicSettings.valueBaseGrid);
+								CurY = ceil(  ol2 / 10000.0 ) * Doc->typographicSettings.valueBaseGrid + Doc->typographicSettings.offsetBaseGrid - by;
 							}
 						}
 						else
@@ -1351,9 +1351,9 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 							double by = Ypos;
 							if (OwnPage != -1)
 								by = Ypos - Doc->Pages.at(OwnPage)->Yoffset;
-							int ol1 = qRound((by + CurY - Doc->typographicSetttings.offsetBaseGrid) * 10000.0);
-							int ol2 = static_cast<int>(ol1 / Doc->typographicSetttings.valueBaseGrid);
-							CurY = ceil(  ol2 / 10000.0 ) * Doc->typographicSetttings.valueBaseGrid + Doc->typographicSetttings.offsetBaseGrid - by;
+							int ol1 = qRound((by + CurY - Doc->typographicSettings.offsetBaseGrid) * 10000.0);
+							int ol2 = static_cast<int>(ol1 / Doc->typographicSettings.valueBaseGrid);
+							CurY = ceil(  ol2 / 10000.0 ) * Doc->typographicSettings.valueBaseGrid + Doc->typographicSettings.offsetBaseGrid - by;
 						}
 						if (CurY-TopOffset < 0.0)
 							CurY = TopOffset+1;
@@ -1381,9 +1381,9 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 									double by = Ypos;
 									if (OwnPage != -1)
 										by = Ypos - Doc->Pages.at(OwnPage)->Yoffset;
-									int ol1 = qRound((by + CurY - Doc->typographicSetttings.offsetBaseGrid) * 10000.0);
-									int ol2 = static_cast<int>(ol1 / Doc->typographicSetttings.valueBaseGrid);
-									CurY = ceil(  ol2 / 10000.0 ) * Doc->typographicSetttings.valueBaseGrid + Doc->typographicSetttings.offsetBaseGrid - by;
+									int ol1 = qRound((by + CurY - Doc->typographicSettings.offsetBaseGrid) * 10000.0);
+									int ol2 = static_cast<int>(ol1 / Doc->typographicSettings.valueBaseGrid);
+									CurY = ceil(  ol2 / 10000.0 ) * Doc->typographicSettings.valueBaseGrid + Doc->typographicSettings.offsetBaseGrid - by;
 								}
 								if (CurY+BExtra+lineCorr > Height)
 								{
@@ -1406,7 +1406,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 											if (DropCmode)
 											{
 												if (Doc->docParagraphStyles[hl->cab].BaseAdj)
-													desc2 = -hl->cfont->numDescender * Doc->typographicSetttings.valueBaseGrid * Doc->docParagraphStyles[hl->cab].DropLin;
+													desc2 = -hl->cfont->numDescender * Doc->typographicSettings.valueBaseGrid * Doc->docParagraphStyles[hl->cab].DropLin;
 												else
 													desc2 = -hl->cfont->numDescender * Doc->docParagraphStyles[hl->cab].LineSpa * Doc->docParagraphStyles[hl->cab].DropLin;
 											}
@@ -1418,9 +1418,9 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 											double by = Ypos;
 											if (OwnPage != -1)
 												by = Ypos - Doc->Pages.at(OwnPage)->Yoffset;
-											int ol1 = qRound((by + CurY - Doc->typographicSetttings.offsetBaseGrid) * 10000.0);
-											int ol2 = static_cast<int>(ol1 / Doc->typographicSetttings.valueBaseGrid);
-											CurY = ceil(  ol2 / 10000.0 ) * Doc->typographicSetttings.valueBaseGrid + Doc->typographicSetttings.offsetBaseGrid - by;
+											int ol1 = qRound((by + CurY - Doc->typographicSettings.offsetBaseGrid) * 10000.0);
+											int ol2 = static_cast<int>(ol1 / Doc->typographicSettings.valueBaseGrid);
+											CurY = ceil(  ol2 / 10000.0 ) * Doc->typographicSettings.valueBaseGrid + Doc->typographicSettings.offsetBaseGrid - by;
 										}
 									}
 									else
@@ -1667,15 +1667,15 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 						tcli.resize(4);
 						if (Doc->docParagraphStyles[hl->cab].BaseAdj)
 						{
-							CurY -= Doc->typographicSetttings.valueBaseGrid * (DropLines-1);
+							CurY -= Doc->typographicSettings.valueBaseGrid * (DropLines-1);
 							double by = Ypos;
 							if (OwnPage != -1)
 								by = Ypos - Doc->Pages.at(OwnPage)->Yoffset;
-							int ol1 = qRound((by + CurY - Doc->typographicSetttings.offsetBaseGrid) * 10000.0);
-							int ol2 = static_cast<int>(ol1 / Doc->typographicSetttings.valueBaseGrid);
-							CurY = ceil(  ol2 / 10000.0 ) * Doc->typographicSetttings.valueBaseGrid + Doc->typographicSetttings.offsetBaseGrid - by;
-							tcli.setPoint(0, QPoint(qRound(hl->xp), qRound(maxDY-DropLines*Doc->typographicSetttings.valueBaseGrid)));
-							tcli.setPoint(1, QPoint(qRound(maxDX), qRound(maxDY-DropLines*Doc->typographicSetttings.valueBaseGrid)));
+							int ol1 = qRound((by + CurY - Doc->typographicSettings.offsetBaseGrid) * 10000.0);
+							int ol2 = static_cast<int>(ol1 / Doc->typographicSettings.valueBaseGrid);
+							CurY = ceil(  ol2 / 10000.0 ) * Doc->typographicSettings.valueBaseGrid + Doc->typographicSettings.offsetBaseGrid - by;
+							tcli.setPoint(0, QPoint(qRound(hl->xp), qRound(maxDY-DropLines*Doc->typographicSettings.valueBaseGrid)));
+							tcli.setPoint(1, QPoint(qRound(maxDX), qRound(maxDY-DropLines*Doc->typographicSettings.valueBaseGrid)));
 						}
 						else
 						{
@@ -1872,7 +1872,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 									{
 										fromOut = false;
 										if (Doc->docParagraphStyles[absa].BaseAdj)
-											CurY += Doc->typographicSetttings.valueBaseGrid;
+											CurY += Doc->typographicSettings.valueBaseGrid;
 										else
 											CurY += Doc->docParagraphStyles[absa].LineSpa;
 										if ((CurY+desc+BExtra+lineCorr > Height) && (CurrCol+1 == Cols))
@@ -1925,7 +1925,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 										CurY = maxDY;
 								}
 								if (Doc->docParagraphStyles[hl->cab].BaseAdj)
-									CurY += Doc->typographicSetttings.valueBaseGrid;
+									CurY += Doc->typographicSettings.valueBaseGrid;
 								else
 								{
 									if (a < MaxText-1)
@@ -3041,13 +3041,13 @@ double PageItem::SetZeichAttr(struct ScText *hl, int *chs, QString *chx)
 	{
 		if (chst & 1)
 		{
-			retval -= asce * Doc->typographicSetttings.valueSuperScript / 100;
-			*chs = QMAX(static_cast<int>(hl->csize * Doc->typographicSetttings.scalingSuperScript / 100), 1);
+			retval -= asce * Doc->typographicSettings.valueSuperScript / 100;
+			*chs = QMAX(static_cast<int>(hl->csize * Doc->typographicSettings.scalingSuperScript / 100), 1);
 		}
 		if (chst & 2)
 		{
-			retval += asce * Doc->typographicSetttings.valueSubScript / 100;
-			*chs = QMAX(static_cast<int>(hl->csize * Doc->typographicSetttings.scalingSubScript / 100), 1);
+			retval += asce * Doc->typographicSettings.valueSubScript / 100;
+			*chs = QMAX(static_cast<int>(hl->csize * Doc->typographicSettings.scalingSubScript / 100), 1);
 		}
 		if (chst & 32)
 		{
@@ -3058,7 +3058,7 @@ double PageItem::SetZeichAttr(struct ScText *hl, int *chs, QString *chx)
 		{
 			if (chx->upper() != *chx)
 			{
-				*chs = QMAX(static_cast<int>(hl->csize * Doc->typographicSetttings.valueSmallCaps / 100), 1);
+				*chs = QMAX(static_cast<int>(hl->csize * Doc->typographicSettings.valueSmallCaps / 100), 1);
 				*chx = chx->upper();
 			}
 		}

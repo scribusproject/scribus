@@ -14,7 +14,6 @@
 #include <qdom.h>
 #include <qprogressbar.h>
 
-class SplashScreen;
 class PrefsManager;
 
 class ScriXmlDoc : public QObject
@@ -42,8 +41,6 @@ public:
 	void WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, bool master);
 	void WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, int master);
 	bool WriteDoc(QString fileName, ScribusDoc *docu, QProgressBar *dia2);
-	void WritePref(QString ho);
-	bool ReadPref(QString ho, SplashScreen *splash, bool import12);
 	ColorList Farben;
 	QValueList<ParagraphStyle> docParagraphStyles;
 	struct Linked 

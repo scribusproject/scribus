@@ -424,18 +424,18 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 		doc->documentInfo.setCover(dc.attribute("DOCCOVER", ""));
 		doc->documentInfo.setRights(dc.attribute("DOCRIGHTS", ""));
 		doc->documentInfo.setContrib(dc.attribute("DOCCONTRIB", ""));
-		doc->typographicSetttings.valueSuperScript = QStoInt(dc.attribute("VHOCH"));
-		doc->typographicSetttings.scalingSuperScript = QStoInt(dc.attribute("VHOCHSC"));
-		doc->typographicSetttings.valueSubScript = QStoInt(dc.attribute("VTIEF"));
-		doc->typographicSetttings.scalingSubScript = QStoInt(dc.attribute("VTIEFSC"));
-		doc->typographicSetttings.valueSmallCaps = QStoInt(dc.attribute("VKAPIT"));
-		doc->typographicSetttings.valueBaseGrid = QStodouble(dc.attribute("BASEGRID", "12"));
-		doc->typographicSetttings.offsetBaseGrid = QStodouble(dc.attribute("BASEO", "0"));
-		doc->typographicSetttings.autoLineSpacing = QStoInt(dc.attribute("AUTOL","20"));
-		doc->typographicSetttings.valueUnderlinePos = QStoInt(dc.attribute("UnderlinePos","-1"));
-		doc->typographicSetttings.valueUnderlineWidth = QStoInt(dc.attribute("UnderlineWidth","-1"));
-		doc->typographicSetttings.valueStrikeThruPos = QStoInt(dc.attribute("StrikeThruPos","-1"));
-		doc->typographicSetttings.valueStrikeThruWidth = QStoInt(dc.attribute("StrikeThruWidth","-1"));
+		doc->typographicSettings.valueSuperScript = QStoInt(dc.attribute("VHOCH"));
+		doc->typographicSettings.scalingSuperScript = QStoInt(dc.attribute("VHOCHSC"));
+		doc->typographicSettings.valueSubScript = QStoInt(dc.attribute("VTIEF"));
+		doc->typographicSettings.scalingSubScript = QStoInt(dc.attribute("VTIEFSC"));
+		doc->typographicSettings.valueSmallCaps = QStoInt(dc.attribute("VKAPIT"));
+		doc->typographicSettings.valueBaseGrid = QStodouble(dc.attribute("BASEGRID", "12"));
+		doc->typographicSettings.offsetBaseGrid = QStodouble(dc.attribute("BASEO", "0"));
+		doc->typographicSettings.autoLineSpacing = QStoInt(dc.attribute("AUTOL","20"));
+		doc->typographicSettings.valueUnderlinePos = QStoInt(dc.attribute("UnderlinePos","-1"));
+		doc->typographicSettings.valueUnderlineWidth = QStoInt(dc.attribute("UnderlineWidth","-1"));
+		doc->typographicSettings.valueStrikeThruPos = QStoInt(dc.attribute("StrikeThruPos","-1"));
+		doc->typographicSettings.valueStrikeThruWidth = QStoInt(dc.attribute("StrikeThruWidth","-1"));
 		doc->GroupCounter=QStoInt(dc.attribute("GROUPC","1"));
 		doc->HasCMS = static_cast<bool>(QStoInt(dc.attribute("HCMS","0")));
 		doc->CMSSettings.SoftProofOn = static_cast<bool>(QStoInt(dc.attribute("DPSo","0")));
@@ -1117,7 +1117,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 					if (Neu->LineSpMode == 3)
 					{
 						doc->docParagraphStyles[0].BaseAdj = true;
-						Neu->LineSp = doc->typographicSetttings.valueBaseGrid-1;
+						Neu->LineSp = doc->typographicSettings.valueBaseGrid-1;
 					}
 					if (Neu->isAutoText)
 						doc->LastAuto = Neu;

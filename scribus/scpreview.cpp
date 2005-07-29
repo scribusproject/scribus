@@ -570,14 +570,14 @@ QPixmap ScPreview::createPreview(QString data)
 						if (hl->cstyle != 0)
 						{
 							if (hl->cstyle & 1)
-								chs = static_cast<int>(hl->csize * prefsManager->appPrefs.typographicSetttings.scalingSuperScript / 100);
+								chs = static_cast<int>(hl->csize * prefsManager->appPrefs.typographicSettings.scalingSuperScript / 100);
 							if (hl->cstyle & 2)
-								chs = static_cast<int>(hl->csize * prefsManager->appPrefs.typographicSetttings.scalingSubScript / 100);
+								chs = static_cast<int>(hl->csize * prefsManager->appPrefs.typographicSettings.scalingSubScript / 100);
 							if (hl->cstyle & 64)
 							{
 								if (chx.upper() != chx)
 								{
-									chs = static_cast<int>(hl->csize * prefsManager->appPrefs.typographicSetttings.valueSmallCaps / 100);
+									chs = static_cast<int>(hl->csize * prefsManager->appPrefs.typographicSettings.valueSmallCaps / 100);
 									chx = chx.upper();
 								}
 							}
@@ -759,19 +759,19 @@ QPixmap ScPreview::createPreview(QString data)
 					{
 						if (chst & 1)
 						{
-							CurY -= asce * prefsManager->appPrefs.typographicSetttings.valueSuperScript / 100;
-							chs = static_cast<int>(hl->csize * prefsManager->appPrefs.typographicSetttings.scalingSuperScript / 100);
+							CurY -= asce * prefsManager->appPrefs.typographicSettings.valueSuperScript / 100;
+							chs = static_cast<int>(hl->csize * prefsManager->appPrefs.typographicSettings.scalingSuperScript / 100);
 						}
 						if (chst & 2)
 						{
-							CurY += asce * prefsManager->appPrefs.typographicSetttings.valueSubScript / 100;
-							chs = static_cast<int>(hl->csize * prefsManager->appPrefs.typographicSetttings.scalingSubScript / 100);
+							CurY += asce * prefsManager->appPrefs.typographicSettings.valueSubScript / 100;
+							chs = static_cast<int>(hl->csize * prefsManager->appPrefs.typographicSettings.scalingSubScript / 100);
 						}
 						if (chst & 64)
 						{
 							if (chx.upper() != chx)
 							{
-								chs = static_cast<int>(hl->csize * prefsManager->appPrefs.typographicSetttings.valueSmallCaps / 100);
+								chs = static_cast<int>(hl->csize * prefsManager->appPrefs.typographicSettings.valueSmallCaps / 100);
 								chx = chx.upper();
 							}
 						}

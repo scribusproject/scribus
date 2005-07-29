@@ -329,9 +329,9 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	tabLayout_7->addLayout( Layout21 );
 	addItem( tr("Document"), loadIcon("page.png"), tab_7);
 
-	tabGuides = new TabGuides(prefsWidgets, &prefsData->guidesSettings, &prefsData->typographicSetttings, docUnitIndex);
+	tabGuides = new TabGuides(prefsWidgets, &prefsData->guidesSettings, &prefsData->typographicSettings, docUnitIndex);
 	addItem( tr("Guides"), loadIcon("guides.png"), tabGuides);
-	tabTypo = new TabTypograpy(  prefsWidgets, &prefsData->typographicSetttings);
+	tabTypo = new TabTypograpy(  prefsWidgets, &prefsData->typographicSettings);
 	addItem( tr("Typography"), loadIcon("font.png"), tabTypo);
 	tabTools = new TabTools(  prefsWidgets, &prefsData->toolSettings, docUnitIndex, 0);
 	addItem( tr("Tools"), loadIcon("tools.png"), tabTools);
@@ -1363,18 +1363,18 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.guidesSettings.baseColor = tabGuides->colorBaselineGrid;
 	prefsManager->appPrefs.checkerProfiles = tabDocChecker->checkerProfile;
 	prefsManager->appPrefs.curCheckProfile = tabDocChecker->curCheckProfile->currentText();
-	prefsManager->appPrefs.typographicSetttings.valueSuperScript = tabTypo->superDisplacement->value();
-	prefsManager->appPrefs.typographicSetttings.scalingSuperScript = tabTypo->superScaling->value();
-	prefsManager->appPrefs.typographicSetttings.valueSubScript = tabTypo->subDisplacement->value();
-	prefsManager->appPrefs.typographicSetttings.scalingSubScript = tabTypo->subScaling->value();
-	prefsManager->appPrefs.typographicSetttings.valueSmallCaps = tabTypo->capsScaling->value();
-	prefsManager->appPrefs.typographicSetttings.autoLineSpacing = tabTypo->autoLine->value();
-	prefsManager->appPrefs.typographicSetttings.valueBaseGrid = tabGuides->baseGrid->value() / prefsUnitRatio;
-	prefsManager->appPrefs.typographicSetttings.offsetBaseGrid = tabGuides->baseOffset->value() / prefsUnitRatio;
-	prefsManager->appPrefs.typographicSetttings.valueUnderlinePos = qRound(tabTypo->underlinePos->value() * 10);
-	prefsManager->appPrefs.typographicSetttings.valueUnderlineWidth = qRound(tabTypo->underlineWidth->value() * 10);
-	prefsManager->appPrefs.typographicSetttings.valueStrikeThruPos = qRound(tabTypo->strikethruPos->value() * 10);
-	prefsManager->appPrefs.typographicSetttings.valueStrikeThruWidth = qRound(tabTypo->strikethruWidth->value() * 10);
+	prefsManager->appPrefs.typographicSettings.valueSuperScript = tabTypo->superDisplacement->value();
+	prefsManager->appPrefs.typographicSettings.scalingSuperScript = tabTypo->superScaling->value();
+	prefsManager->appPrefs.typographicSettings.valueSubScript = tabTypo->subDisplacement->value();
+	prefsManager->appPrefs.typographicSettings.scalingSubScript = tabTypo->subScaling->value();
+	prefsManager->appPrefs.typographicSettings.valueSmallCaps = tabTypo->capsScaling->value();
+	prefsManager->appPrefs.typographicSettings.autoLineSpacing = tabTypo->autoLine->value();
+	prefsManager->appPrefs.typographicSettings.valueBaseGrid = tabGuides->baseGrid->value() / prefsUnitRatio;
+	prefsManager->appPrefs.typographicSettings.offsetBaseGrid = tabGuides->baseOffset->value() / prefsUnitRatio;
+	prefsManager->appPrefs.typographicSettings.valueUnderlinePos = qRound(tabTypo->underlinePos->value() * 10);
+	prefsManager->appPrefs.typographicSettings.valueUnderlineWidth = qRound(tabTypo->underlineWidth->value() * 10);
+	prefsManager->appPrefs.typographicSettings.valueStrikeThruPos = qRound(tabTypo->strikethruPos->value() * 10);
+	prefsManager->appPrefs.typographicSettings.valueStrikeThruWidth = qRound(tabTypo->strikethruWidth->value() * 10);
 	prefsManager->appPrefs.toolSettings.dPen = tabTools->colorComboLineShape->currentText();
 	if (prefsManager->appPrefs.toolSettings.dPen == tr("None"))
 		prefsManager->appPrefs.toolSettings.dPen = "None";

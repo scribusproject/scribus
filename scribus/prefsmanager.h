@@ -65,6 +65,9 @@ public:
 	void ReadPrefsXML();
 	void SavePrefs();
 	void SavePrefsXML();
+	//Moved from scribusXml.cpp
+	void WritePref(QString ho);
+	bool ReadPref(QString ho);
 	
 	void setGhostscriptExecutable(const QString&);
 	void setImageEditorExecutable(const QString&);

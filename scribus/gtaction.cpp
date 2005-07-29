@@ -381,10 +381,10 @@ void gtAction::createParagraphStyle(gtParagraphStyle* pstyle)
 	vg.scaleV = 1000;
 	vg.baseOff = 0;
 	vg.kernVal = 0;
-	vg.txtUnderPos = ScApp->doc->typographicSetttings.valueUnderlinePos;
-	vg.txtUnderWidth = ScApp->doc->typographicSetttings.valueUnderlineWidth;
-	vg.txtStrikePos = ScApp->doc->typographicSetttings.valueStrikeThruPos;
-	vg.txtStrikeWidth = ScApp->doc->typographicSetttings.valueStrikeThruPos;
+	vg.txtUnderPos = ScApp->doc->typographicSettings.valueUnderlinePos;
+	vg.txtUnderWidth = ScApp->doc->typographicSettings.valueUnderlineWidth;
+	vg.txtStrikePos = ScApp->doc->typographicSettings.valueStrikeThruPos;
+	vg.txtStrikeWidth = ScApp->doc->typographicSettings.valueStrikeThruPos;
 	textFrame->Doc->docParagraphStyles.append(vg);
 	ScApp->propertiesPalette->Spal->updateFormatList();
 }
@@ -451,10 +451,10 @@ void gtAction::updateParagraphStyle(int pstyleIndex, gtParagraphStyle* pstyle)
 	vg.scaleV = 1000;
 	vg.baseOff = 0;
 	vg.kernVal = 0;
-	vg.txtUnderPos = ScApp->doc->typographicSetttings.valueUnderlinePos;
-	vg.txtUnderWidth = ScApp->doc->typographicSetttings.valueUnderlineWidth;
-	vg.txtStrikePos = ScApp->doc->typographicSetttings.valueStrikeThruPos;
-	vg.txtStrikeWidth = ScApp->doc->typographicSetttings.valueStrikeThruPos;
+	vg.txtUnderPos = ScApp->doc->typographicSettings.valueUnderlinePos;
+	vg.txtUnderWidth = ScApp->doc->typographicSettings.valueUnderlineWidth;
+	vg.txtStrikePos = ScApp->doc->typographicSettings.valueStrikeThruPos;
+	vg.txtStrikeWidth = ScApp->doc->typographicSettings.valueStrikeThruPos;
 	ScApp->doc->docParagraphStyles[pstyleIndex] = vg;
 }
 
@@ -545,7 +545,7 @@ QString gtAction::findFontName(gtFont* font)
 
 double gtAction::getLineSpacing(int fontSize)
 {
-	return ((fontSize / 10.0) * static_cast<double>(ScApp->doc->typographicSetttings.autoLineSpacing) / 100) + (fontSize / 10.0);
+	return ((fontSize / 10.0) * static_cast<double>(ScApp->doc->typographicSettings.autoLineSpacing) / 100) + (fontSize / 10.0);
 }
 
 double gtAction::getFrameWidth()

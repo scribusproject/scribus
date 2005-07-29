@@ -1670,14 +1670,14 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				{
 					if (chx.upper() != chx)
 					{
-						tsz = hl->csize * Doc->typographicSetttings.valueSmallCaps / 100;
+						tsz = hl->csize * Doc->typographicSettings.valueSmallCaps / 100;
 						chx = chx.upper();
 					}
 				}
 				if (hl->cstyle & 1)
-					tsz = hl->csize * Doc->typographicSetttings.scalingSuperScript / 100;
+					tsz = hl->csize * Doc->typographicSettings.scalingSuperScript / 100;
 				if (hl->cstyle & 2)
-					tsz = hl->csize * Doc->typographicSetttings.scalingSuperScript / 100;
+					tsz = hl->csize * Doc->typographicSettings.scalingSuperScript / 100;
 				if (hl->ccolor != "None")
 				{
 					SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
@@ -2091,7 +2091,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 	if (hl->cstyle & 2048)
 	{
 		if (Doc->docParagraphStyles[hl->cab].BaseAdj)
-			tsz = qRound(10 * ((Doc->typographicSetttings.valueBaseGrid *  (Doc->docParagraphStyles[hl->cab].DropLin-1)+(hl->cfont->numAscent * (Doc->docParagraphStyles[hl->cab].FontSize / 10.0))) / (RealCHeight(Doc, hl->cfont, chx, 10))));
+			tsz = qRound(10 * ((Doc->typographicSettings.valueBaseGrid *  (Doc->docParagraphStyles[hl->cab].DropLin-1)+(hl->cfont->numAscent * (Doc->docParagraphStyles[hl->cab].FontSize / 10.0))) / (RealCHeight(Doc, hl->cfont, chx, 10))));
 		else
 		{
 			if (Doc->docParagraphStyles[hl->cab].LineSpaMode == 0)
@@ -2161,14 +2161,14 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 	{
 		if (chx.upper() != chx)
 		{
-			tsz = hl->csize * Doc->typographicSetttings.valueSmallCaps / 100;
+			tsz = hl->csize * Doc->typographicSettings.valueSmallCaps / 100;
 			chx = chx.upper();
 		}
 	}
 	if (hl->cstyle & 1)
-		tsz = hl->csize * Doc->typographicSetttings.scalingSuperScript / 100;
+		tsz = hl->csize * Doc->typographicSettings.scalingSuperScript / 100;
 	if (hl->cstyle & 2)
-		tsz = hl->csize * Doc->typographicSetttings.scalingSuperScript / 100;
+		tsz = hl->csize * Doc->typographicSettings.scalingSuperScript / 100;
 	/* Subset all TTF Fonts until the bug in the TTF-Embedding Code is fixed */
 	Foi::FontType ftype = hl->cfont->typeCode;
 	if ((ftype == Foi::TTF) || (hl->cfont->isOTF) || (hl->cfont->Subset))

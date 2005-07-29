@@ -2711,7 +2711,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 	if (hl->cstyle & 2048)
 	{
 		if (doc->docParagraphStyles[hl->cab].BaseAdj)
-			tsz = qRound(10 * ((doc->typographicSetttings.valueBaseGrid * (doc->docParagraphStyles[hl->cab].DropLin-1)+(hl->cfont->numAscent * (doc->docParagraphStyles[hl->cab].FontSize / 10.0))) / (RealCHeight(doc, hl->cfont, chx, 10))));
+			tsz = qRound(10 * ((doc->typographicSettings.valueBaseGrid * (doc->docParagraphStyles[hl->cab].DropLin-1)+(hl->cfont->numAscent * (doc->docParagraphStyles[hl->cab].FontSize / 10.0))) / (RealCHeight(doc, hl->cfont, chx, 10))));
 		else
 		{
 			if (doc->docParagraphStyles[hl->cab].LineSpaMode == 0)
@@ -2775,14 +2775,14 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 	{
 		if (chx.upper() != chx)
 		{
-			tsz = hl->csize * doc->typographicSetttings.valueSmallCaps / 100;
+			tsz = hl->csize * doc->typographicSettings.valueSmallCaps / 100;
 			chx = chx.upper();
 		}
 	}
 	if (hl->cstyle & 1)
-		tsz = hl->csize * doc->typographicSetttings.scalingSuperScript / 100;
+		tsz = hl->csize * doc->typographicSettings.scalingSuperScript / 100;
 	if (hl->cstyle & 2)
-		tsz = hl->csize * doc->typographicSetttings.scalingSubScript / 100;
+		tsz = hl->csize * doc->typographicSettings.scalingSubScript / 100;
 	if (hl->cstroke != "None")
 	{
 		StrokeColor = "";

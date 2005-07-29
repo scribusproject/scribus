@@ -751,7 +751,7 @@ void ScribusView::DrawPageMarks(ScPainter *p, Page *page, QRect)
 	if (Doc->guidesSettings.baseShown)
 	{
 		p->setPen(Doc->guidesSettings.baseColor, lw, SolidLine, FlatCap, MiterJoin);
-		for (double yg = Doc->typographicSetttings.offsetBaseGrid; yg < page->Height; yg += Doc->typographicSetttings.valueBaseGrid)
+		for (double yg = Doc->typographicSettings.offsetBaseGrid; yg < page->Height; yg += Doc->typographicSettings.valueBaseGrid)
 			p->drawLine(FPoint(0, yg), FPoint(page->Width, yg));
 	}
 	if (Doc->guidesSettings.gridShown)
@@ -2446,7 +2446,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						if (currItem->itemText.count() != 0)
 						{
 							currItem->ISize = QMAX(qRound(currItem->ISize * scy), 1);
-							currItem->LineSp = ((currItem->ISize / 10.0)* static_cast<double>(Doc->typographicSetttings.autoLineSpacing) / 100) + (currItem->ISize / 10.0);
+							currItem->LineSp = ((currItem->ISize / 10.0)* static_cast<double>(Doc->typographicSettings.autoLineSpacing) / 100) + (currItem->ISize / 10.0);
 							currItem->TxtScale = QMIN(QMAX(qRound(currItem->TxtScale * scx), 25), 400);
 							Doc->CurrTextScale = currItem->TxtScale;
 							Doc->CurrFontSize = currItem->ISize;
@@ -6234,7 +6234,7 @@ void ScribusView::scaleGroup(double scx, double scy)
 		bb->ISize = QMAX(qRound(bb->ISize*((scx+scy)/2)), 1);
 		if ((bb->itemText.count() != 0) && (!bb->isTableItem))
 		{
-			bb->LineSp = ((bb->ISize / 10.0) * static_cast<double>(Doc->typographicSetttings.autoLineSpacing) / 100) + (bb->ISize / 10.0);
+			bb->LineSp = ((bb->ISize / 10.0) * static_cast<double>(Doc->typographicSettings.autoLineSpacing) / 100) + (bb->ISize / 10.0);
 			for (aa = 0; aa < bb->itemText.count(); ++aa)
 				bb->itemText.at(aa)->csize = QMAX(qRound(bb->itemText.at(aa)->csize*((scx+scy)/2)), 1);
 			if (bb->itemType() == PageItem::PathText)
@@ -10781,7 +10781,7 @@ void ScribusView::ChLineSpaMode(int w)
 				currItem->LineSpMode = w;
 				if (w == 0)
 				{
-					currItem->LineSp = ((currItem->ISize / 10.0) * static_cast<double>(Doc->typographicSetttings.autoLineSpacing) / 100) + (currItem->ISize / 10.0);
+					currItem->LineSp = ((currItem->ISize / 10.0) * static_cast<double>(Doc->typographicSettings.autoLineSpacing) / 100) + (currItem->ISize / 10.0);
 					Doc->docParagraphStyles[0].BaseAdj = false;
 				}
 				else if (w == 1)
@@ -10792,7 +10792,7 @@ void ScribusView::ChLineSpaMode(int w)
 				else
 				{
 					Doc->docParagraphStyles[0].BaseAdj = true;
-					currItem->LineSp = Doc->typographicSetttings.valueBaseGrid-1;
+					currItem->LineSp = Doc->typographicSettings.valueBaseGrid-1;
 				}
 				Doc->docParagraphStyles[0].LineSpa = currItem->LineSp;
 				emit ItemTextAttr(currItem->LineSp);
@@ -10818,7 +10818,7 @@ void ScribusView::chFSize(int size)
 			{
 				if (currItem->LineSpMode == 0)
 				{
-					currItem->LineSp = ((size / 10.0) * static_cast<double>(Doc->typographicSetttings.autoLineSpacing) / 100) + (size / 10.0);
+					currItem->LineSp = ((size / 10.0) * static_cast<double>(Doc->typographicSettings.autoLineSpacing) / 100) + (size / 10.0);
 					Doc->docParagraphStyles[0].LineSpa = currItem->LineSp;
 					emit ItemTextAttr(currItem->LineSp);
 				}
@@ -10830,7 +10830,7 @@ void ScribusView::chFSize(int size)
 				}
 				else
 				{
-					currItem->LineSp = Doc->typographicSetttings.valueBaseGrid-1;
+					currItem->LineSp = Doc->typographicSettings.valueBaseGrid-1;
 					emit ItemTextAttr(currItem->LineSp);
 				}
 				currItem->setFontSize(size);
@@ -11444,7 +11444,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	if (currItem->LineSpMode == 3)
 	{
 		Doc->docParagraphStyles[0].BaseAdj = true;
-		currItem->LineSp = Doc->typographicSetttings.valueBaseGrid-1;
+		currItem->LineSp = Doc->typographicSettings.valueBaseGrid-1;
 	}
 	currItem->setImageFlippedH(Buffer->flippedH);
 	currItem->setImageFlippedV(Buffer->flippedV);
@@ -11815,7 +11815,7 @@ void ScribusView::TextToPath()
 			{
 				if (chx.upper() != chx)
 				{
-					chs = QMAX(static_cast<int>(currItem->itemText.at(a)->csize * Doc->typographicSetttings.valueSmallCaps / 100), 1);
+					chs = QMAX(static_cast<int>(currItem->itemText.at(a)->csize * Doc->typographicSettings.valueSmallCaps / 100), 1);
 					chx = chx.upper();
 				}
 			}

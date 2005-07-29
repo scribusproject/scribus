@@ -185,7 +185,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	docInfos = new DocInfos(prefsWidgets, doc->documentInfo);
 	addItem( tr("Document Information"), loadIcon("documentinfo32.png"), docInfos);
 
-	tabGuides = new TabGuides(prefsWidgets, &doc->guidesSettings, &doc->typographicSetttings, einheit);
+	tabGuides = new TabGuides(prefsWidgets, &doc->guidesSettings, &doc->typographicSettings, einheit);
 	addItem( tr("Guides"), loadIcon("guides.png"), tabGuides);
 
 	tabView = new QWidget( prefsWidgets, "tabView" );
@@ -321,7 +321,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	tabViewLayout->addWidget( groupGap );
 	addItem( tr("Display"), loadIcon("screen.png"), tabView);
 
-	tabTypo = new TabTypograpy(  prefsWidgets, &doc->typographicSetttings);
+	tabTypo = new TabTypograpy(  prefsWidgets, &doc->typographicSettings);
 	addItem( tr("Typography"), loadIcon("font.png"), tabTypo);
 
 	tabTools = new TabTools(  prefsWidgets, &doc->toolSettings, einheit, doc);
@@ -446,9 +446,9 @@ void ReformDoc::restoreDefaults()
 		tabHyphenator->maxCount->setValue(currDoc->docHyphenator->HyCount);
 	}
 	else if (current == tabGuides)
-		tabGuides->restoreDefaults(&currDoc->guidesSettings, &currDoc->typographicSetttings, einheit);
+		tabGuides->restoreDefaults(&currDoc->guidesSettings, &currDoc->typographicSettings, einheit);
 	else if (current == tabTypo)
-		tabTypo->restoreDefaults(&currDoc->typographicSetttings);
+		tabTypo->restoreDefaults(&currDoc->typographicSettings);
 	else if (current == tabTools)
 		tabTools->restoreDefaults();
 	else if (current == tabFonts)
