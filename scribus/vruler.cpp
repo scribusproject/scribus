@@ -76,7 +76,7 @@ void Vruler::mouseMoveEvent(QMouseEvent *m)
 		currView->FromVRuler(m);
 }
 
-void Vruler::paintEvent(QPaintEvent *)
+void Vruler::paintEvent(QPaintEvent *e)
 {
 	if (currDoc->isLoading())
 		return;
@@ -88,7 +88,8 @@ void Vruler::paintEvent(QPaintEvent *)
 	setFont(ff);
 	QPainter p;
 	p.begin(this);
-	p.drawLine(24, 0, 24, height());
+	p.setClipRect(e->rect());
+	p.drawLine(16, 0, 16, height());
 	p.setBrush(black);
 	p.setPen(black);
 	p.setFont(font());
@@ -96,14 +97,14 @@ void Vruler::paintEvent(QPaintEvent *)
 	double firstMark = ceil(offs / iter) * iter - offs;
 	while (firstMark < cc)
 	{
-		p.drawLine(18, qRound(firstMark * sc), 24, qRound(firstMark * sc));
+		p.drawLine(10, qRound(firstMark * sc), 16, qRound(firstMark * sc));
 		firstMark += iter;
 	}
 	firstMark = ceil(offs / iter2) * iter2 - offs;
 	int markC = static_cast<int>(ceil(offs / iter2));
 	while (firstMark < cc)
 	{
-		p.drawLine(11, qRound(firstMark * sc), 24, qRound(firstMark * sc));
+		p.drawLine(3, qRound(firstMark * sc), 16, qRound(firstMark * sc));
 		int textY = qRound(firstMark * sc)+10;
 		switch (currDoc->docUnitIndex)
 		{
@@ -148,7 +149,7 @@ void Vruler::drawNumber(QString num, int starty, QPainter *p)
 	for (uint a = 0; a < num.length(); ++a)
 	{
 		QString c = num.mid(a, 1);
-		p->drawText(9, textY, c);
+		p->drawText(1, textY, c);
 		textY += 11;
 	}
 }
@@ -156,19 +157,18 @@ void Vruler::drawNumber(QString num, int starty, QPainter *p)
 /** Zeichnet den Pfeil */
 void Vruler::Draw(int wo)
 {
+	int currentCoor = wo - currView->contentsY();
+	repaint(0, oldMark-3, 17, 6);
+	QPointArray cr;
 	QPainter p;
 	p.begin(this);
 	p.translate(0, -currView->contentsY());
-	p.setPen(white);
-	p.setBrush(white);
-	p.drawRect(0, oldMark-3, 9, 6);
 	p.setPen(red);
 	p.setBrush(red);
-	QPointArray cr;
-	cr.setPoints(3, 8, wo, 0, wo+2, 0, wo-2);
+	cr.setPoints(3, 16, wo, 0, wo+2, 0, wo-2);
 	p.drawPolygon(cr);
 	p.end();
-	oldMark = wo;
+	oldMark = currentCoor;
 }
 
 void Vruler::unitChange()

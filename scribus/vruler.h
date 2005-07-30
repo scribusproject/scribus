@@ -36,12 +36,13 @@ class Vruler : public QWidget
 public: 
 	Vruler(ScribusView *pa, ScribusDoc *doc);
 	~Vruler() {};
-	void paintEvent(QPaintEvent *);
+	void paintEvent(QPaintEvent *e);
 	void mousePressEvent(QMouseEvent *m);
 	void mouseReleaseEvent(QMouseEvent *m);
 	void mouseMoveEvent(QMouseEvent *m);
 	void drawNumber(QString num, int starty, QPainter *p);
 	int offs;
+	bool repainted;
 	int oldMark;
 	bool Mpressed;
 private: // Private attributes

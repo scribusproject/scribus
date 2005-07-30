@@ -37,7 +37,7 @@ class Hruler : public QWidget
 public:
 	Hruler(ScribusView *pa, ScribusDoc *doc);
 	~Hruler() {};
-	void paintEvent(QPaintEvent *);
+	void paintEvent(QPaintEvent *e);
 	void mousePressEvent(QMouseEvent *m);
 	void mouseReleaseEvent(QMouseEvent *);
 	void mouseMoveEvent(QMouseEvent *m);

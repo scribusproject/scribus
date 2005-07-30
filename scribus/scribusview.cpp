@@ -92,7 +92,7 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc) : QScrollView(parent,
 	Prefs = &(PrefsManager::instance()->appPrefs);
 	setHScrollBarMode(QScrollView::AlwaysOn);
 	setVScrollBarMode(QScrollView::AlwaysOn);
-	setMargins(25, 25, 0, 0);
+	setMargins(17, 17, 0, 0);
 	setResizePolicy(Manual);
 	viewport()->setBackgroundMode(PaletteBackground);
 	QFont fo = QFont(font());
@@ -102,8 +102,9 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc) : QScrollView(parent,
 	unitSwitcher = new QToolButton(this);
 	unitSwitcher->setPopup(Unitmen);
 	unitSwitcher->setFocusPolicy(QWidget::NoFocus);
-	unitSwitcher->setPopupDelay(10);
+	unitSwitcher->setPopupDelay(0);
 	unitSwitcher->setFont(fo);
+	unitSwitcher->setMinimumSize(42,10);
 	LE = new MSpinBox( 10, 3200, this, 2 );
 	LE->setFont(fo);
 	LE->setValue( 100 );
@@ -8393,7 +8394,7 @@ void ScribusView::setHBarGeometry(QScrollBar &bar, int x, int y, int w, int h)
 {
 	bar.setGeometry(x, y, w, h);
 	if (Ready)
-		horizRuler->setGeometry(25, 1, w-24, 25);
+		horizRuler->setGeometry(17, 1, w-16, 17);
 }
 
 /** Senkrechter Scrollbalken */
@@ -8402,8 +8403,8 @@ void ScribusView::setVBarGeometry(QScrollBar &bar, int x, int y, int w, int h)
 	bar.setGeometry(x, y, w, h);
 	if (Ready)
 	{
-		vertRuler->setGeometry(1, 25, 25, h-24);
-		UN->setGeometry(1, 1, 25, 25);
+		vertRuler->setGeometry(1, 17, 17, h-16);
+		UN->setGeometry(1, 1, 17, 17);
 	}
 }
 
