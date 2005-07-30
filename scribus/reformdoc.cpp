@@ -113,7 +113,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	GroupRand = new MarginWidget(tabPage,  tr( "Margin Guides" ), &doc->pageMargins, decimals, unitRatio, ein );
 	GroupRand->setPageHeight(pageHeight);
 	GroupRand->setPageWidth(pageWidth);
-	GroupRand->setFacingPages(doc->PageFP );
+	GroupRand->setFacingPages(doc->PageFP == doublePage );
 	reformDocLayout->addWidget( GroupRand );
 	
 	applyLayout = new QHBoxLayout();
@@ -143,12 +143,12 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	layout4a->setSpacing( 6 );
 	layout4a->setMargin( 0 );
 	facingPages = new QCheckBox( tr( "&Facing Pages" ),groupBox7a, "facingPages" );
-	facingPages->setChecked( doc->PageFP );
+	facingPages->setChecked( doc->PageFP == doublePage );
 	layout4a->addMultiCellWidget( facingPages, 2, 2, 0, 1 );
 	firstPage = new QCheckBox( tr( "Left &Page First" ), groupBox7a, "n" );
 	firstPage->setChecked( doc->FirstPageLeft );
 	layout4a->addMultiCellWidget( firstPage, 2, 2, 2, 3 );
-	if (!doc->PageFP)
+	if (!(doc->PageFP == doublePage))
 		firstPage->setEnabled(false);
 	setDS();
 	TextLabel1_3 = new QLabel( tr( "F&irst Page Number:" ), groupBox7a, "TextLabel1_3" );
@@ -408,7 +408,7 @@ void ReformDoc::restoreDefaults()
 		groupAutoSave->setChecked( currDoc->AutoSave );
 		pageNumber->setValue(currDoc->FirstPnum);
 		firstPage->setChecked( currDoc->FirstPageLeft );
-		GroupRand->setFacingPages( currDoc->PageFP );
+		GroupRand->setFacingPages( currDoc->PageFP == doublePage );
 		GroupRand->rightR->setValue(currDoc->pageMargins.Right * unitRatio);
 		GroupRand->bottomR->setValue(currDoc->pageMargins.Bottom * unitRatio);
 		GroupRand->leftR->setValue(currDoc->pageMargins.Left * unitRatio);

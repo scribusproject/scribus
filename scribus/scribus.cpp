@@ -185,6 +185,7 @@ ScribusApp::ScribusApp()
  */
 int ScribusApp::initScribus(bool showSplash, bool showFontInfo, const QString newGuiLanguage)
 {
+	noneString = tr("None");
 	int retVal=0;
 	ExternalApp = 0;
 	guiLanguage = newGuiLanguage;
@@ -2332,7 +2333,8 @@ void ScribusApp::startUpDialog()
 	{
 		if (dia->tabSelected == 0)
 		{
-			bool facingPages, autoframes;
+			bool autoframes;
+			int facingPages;
 			double pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, numberCols, columnDistance;
 			topMargin = dia->GroupRand->RandT;
 			bottomMargin = dia->GroupRand->RandB;
@@ -2343,7 +2345,10 @@ void ScribusApp::startUpDialog()
 			pageHeight = dia->Pageho;
 			numberCols = dia->SpinBox10->value();
 			autoframes = dia->AutoFrame->isChecked();
-			facingPages = dia->Doppelseiten->isChecked();
+			if (dia->Doppelseiten->isChecked())
+				facingPages = doublePage;
+			else
+				facingPages = singlePage;
 			int orientation = dia->Orient;
 			PageSize *ps2 = new PageSize(dia->ComboBox1->currentText());
 			QString pagesize = ps2->getPageName();
@@ -2394,7 +2399,8 @@ bool ScribusApp::slotFileNew()
 	NewDoc* dia = new NewDoc(this);
 	if (dia->exec())
 	{
-		bool facingPages, autoframes;
+		bool autoframes;
+		int facingPages;
 		double pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, numberCols, columnDistance;
 		topMargin = dia->GroupRand->RandT;
 		bottomMargin = dia->GroupRand->RandB;
@@ -2405,7 +2411,10 @@ bool ScribusApp::slotFileNew()
 		pageHeight = dia->Pageho;
 		numberCols = dia->SpinBox10->value();
 		autoframes = dia->AutoFrame->isChecked();
-		facingPages = dia->Doppelseiten->isChecked();
+		if (dia->Doppelseiten->isChecked())
+			facingPages = doublePage;
+		else
+			facingPages = singlePage;
 		int orientation = dia->Orient;
 		PageSize *ps2 = new PageSize(dia->ComboBox1->currentText());
 		QString pagesize = ps2->getPageName();
@@ -2434,7 +2443,7 @@ bool ScribusApp::slotFileNew()
 }
 
 bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double rr, double br, double ab, double sp,
-                           bool atf, bool fp, int einh, bool firstleft, int Ori, int SNr, const QString& defaultPageSize)
+                           bool atf, int fp, int einh, bool firstleft, int Ori, int SNr, const QString& defaultPageSize)
 {
 	QString cc;
 	if (HaveDoc)
@@ -2674,7 +2683,7 @@ void ScribusApp::windowsMenuActivated( int id )
 
 bool ScribusApp::SetupDoc()
 {
-	bool fp = doc->PageFP;
+	int fp = doc->PageFP;
 	double tpr2, lr2, rr2, br2;
 	bool ret = false;
 	ReformDoc* dia = new ReformDoc(this, doc);
@@ -2686,7 +2695,7 @@ bool ScribusApp::SetupDoc()
 		lr2 = dia->GroupRand->RandL;
 		rr2 = dia->GroupRand->RandR;
 		fp = dia->facingPages->isChecked();
-		if (fp)
+		if (fp == doublePage)
 			doc->FirstPageLeft = dia->firstPage->isChecked();
 		doc->FirstPnum = dia->pageNumber->value();
 		doc->resetPage(tpr2, lr2, rr2, br2, fp);
@@ -3089,9 +3098,12 @@ void ScribusApp::SwitchWin()
 {
 	int a;
 	ColorList::Iterator it;
-	a = 0;
+	a = 1;
+	disconnect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
 	ColorMenC->clear();
 	ColorMenC->insertItem( tr("None"));
+	if (doc->toolSettings.dBrush == tr("None"))
+		ColorMenC->setCurrentItem(0);
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 	{
 		QColor rgb = doc->PageColors[it.key()].getRGBColor();
@@ -3101,6 +3113,7 @@ void ScribusApp::SwitchWin()
 			ColorMenC->setCurrentItem(a);
 		a++;
 	}
+	connect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
 	buildFontMenu();
 #ifdef HAVE_CMS
 	SoftProofing = doc->SoftProofing;
@@ -3237,9 +3250,12 @@ void ScribusApp::HaveNewDoc()
 
 	ColorList::Iterator it;
 	QPixmap pm = QPixmap(15, 15);
-	a = 0;
+	a = 1;
+	disconnect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
 	ColorMenC->clear();
 	ColorMenC->insertItem( tr("None"));
+	if (doc->toolSettings.dBrush == tr("None"))
+		ColorMenC->setCurrentItem(0);
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 	{
 		pm.fill(doc->PageColors[it.key()].getRGBColor());
@@ -3248,6 +3264,7 @@ void ScribusApp::HaveNewDoc()
 			ColorMenC->setCurrentItem(a);
 		a++;
 	}
+	connect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
 	propertiesPalette->Cpal->SetColors(doc->PageColors);
 	propertiesPalette->Cpal->ChooseGrad(0);
 	ActWin->setCaption(doc->DocName);
@@ -5786,7 +5803,7 @@ void ScribusApp::slotNewPageM()
 	InsPage *dia = new InsPage(this, doc, doc->currentPage->PageNr, doc->Pages.count(), doc->PageFP);
 	if (dia->exec())
 	{
-		QString MasterPage2 = (doc->PageFP) ? dia->getMasterPage2() : tr("Normal");
+		QString MasterPage2 = (doc->PageFP == doublePage) ? dia->getMasterPage2() : tr("Normal");
 
 		addNewPages(dia->getWherePage(),
 		            dia->getWhere(),
@@ -5835,7 +5852,7 @@ void ScribusApp::addNewPages(int wo, int where, int numPages, double height, dou
 			doc->currentPage->initialWidth = width;
 			doc->currentPage->PageOri = orient;
 			doc->currentPage->PageSize = siz;
-			if (doc->PageFP)
+			if (doc->PageFP == doublePage)
 			{
 				if ((doc->currentPage->PageNr % 2 == 0) && (doc->FirstPageLeft))
 					applyNewMaster(based1);
@@ -5859,7 +5876,7 @@ void ScribusApp::addNewPages(int wo, int where, int numPages, double height, dou
 			doc->currentPage->initialWidth = width;
 			doc->currentPage->PageOri = orient;
 			doc->currentPage->PageSize = siz;
-			if (doc->PageFP)
+			if (doc->PageFP == doublePage)
 			{
 				if ((doc->currentPage->PageNr % 2 == 0) && (doc->FirstPageLeft))
 					applyNewMaster(based1);
@@ -5883,7 +5900,7 @@ void ScribusApp::addNewPages(int wo, int where, int numPages, double height, dou
 			doc->currentPage->initialWidth = width;
 			doc->currentPage->PageOri = orient;
 			doc->currentPage->PageSize = siz;
-			if (doc->PageFP)
+			if (doc->PageFP == doublePage)
 			{
 				if ((doc->currentPage->PageNr % 2 == 0) && (doc->FirstPageLeft))
 					applyNewMaster(based1);
@@ -7503,11 +7520,14 @@ void ScribusApp::saveStyles(StilFormate *dia)
 	propertiesPalette->Spal->updateFormatList();
 	propertiesPalette->Cpal->SetColors(doc->PageColors);
 	propertiesPalette->updateCList();
+	disconnect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
 	ColorList::Iterator it;
 	ColorMenC->clear();
 	QPixmap pm = QPixmap(15, 15);
-	int ac = 0;
+	int ac = 1;
 	ColorMenC->insertItem( tr("None"));
+	if (doc->toolSettings.dBrush == tr("None"))
+		ColorMenC->setCurrentItem(0);
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 	{
 		pm.fill(doc->PageColors[it.key()].getRGBColor());
@@ -7516,6 +7536,7 @@ void ScribusApp::saveStyles(StilFormate *dia)
 			ColorMenC->setCurrentItem(ac);
 		ac++;
 	}
+	connect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
 	view->DrawNew();
 	slotDocCh();
 }
@@ -7568,11 +7589,14 @@ void ScribusApp::slotEditColors()
 			doc->PageColors = dia->EditColors;
 			propertiesPalette->Cpal->SetColors(doc->PageColors);
 			propertiesPalette->updateCList();
+			disconnect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
 			ColorList::Iterator it;
 			ColorMenC->clear();
 			QPixmap pm = QPixmap(15, 15);
-			a = 0;
+			a = 1;
 			ColorMenC->insertItem( tr("None"));
+			if (doc->toolSettings.dBrush == tr("None"))
+				ColorMenC->setCurrentItem(0);
 			for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 			{
 				pm.fill(doc->PageColors[it.key()].getRGBColor());
@@ -7581,6 +7605,7 @@ void ScribusApp::slotEditColors()
 					ColorMenC->setCurrentItem(a);
 				a++;
 			}
+			connect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
 			ers = dia->Ersatzliste;
 			if (!ers.isEmpty())
 			{
@@ -9127,10 +9152,13 @@ void ScribusApp::RecalcColors(QProgressBar *dia)
 			doc->MasterPages = doc->Pages;
 		else
 			doc->DocPages = doc->Pages;
+		disconnect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
 		ColorMenC->clear();
 		QPixmap pm = QPixmap(15, 15);
-		int a = 0;
+		int a = 1;
 		ColorMenC->insertItem( tr("None"));
+		if (doc->toolSettings.dBrush == tr("None"))
+			ColorMenC->setCurrentItem(0);
 		ScColor tmp;
 //		tmp.fromQColor(doc->papColor);
 //		tmp.RecalcRGB();
@@ -9146,6 +9174,7 @@ void ScribusApp::RecalcColors(QProgressBar *dia)
 			if (dia != NULL)
 				dia->setProgress(a);
 		}
+		connect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
 		for (uint c=0; c<doc->Items.count(); ++c)
 		{
 			PageItem *ite = doc->Items.at(c);
@@ -10343,6 +10372,7 @@ void ScribusApp::languageChange()
 		mainWindowXPosDataLabel->setText("         ");
 		mainWindowYPosDataLabel->setText("         ");
 		mainWindowStatusLabel->setText( tr("Ready"));
+		noneString = tr("None");
 	}
 }
 

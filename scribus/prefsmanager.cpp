@@ -234,7 +234,7 @@ void PrefsManager::initDefaults()
 	appPrefs.RandUnten = 40;
 	appPrefs.RandLinks = 40;
 	appPrefs.RandRechts = 40;
-	appPrefs.FacingPages = false;
+	appPrefs.FacingPages = singlePage;
 	appPrefs.LeftPageFirst = false;
 	appPrefs.toolSettings.scaleType = true;
 	appPrefs.toolSettings.aspectRatio = true;
@@ -934,7 +934,7 @@ void PrefsManager::WritePref(QString ho)
 	dc76.setAttribute("RANDU",appPrefs.RandUnten);
 	dc76.setAttribute("RANDL",appPrefs.RandLinks);
 	dc76.setAttribute("RANDR",appPrefs.RandRechts);
-	dc76.setAttribute("DOPPEL", static_cast<int>(appPrefs.FacingPages));
+	dc76.setAttribute("DOPPEL", appPrefs.FacingPages);
 	dc76.setAttribute("LINKS", static_cast<int>(appPrefs.LeftPageFirst));
 	dc76.setAttribute("AutoSave", static_cast<int>(appPrefs.AutoSave));
 	dc76.setAttribute("AutoSaveTime", appPrefs.AutoSaveTime);
@@ -1322,7 +1322,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.RandUnten = QStodouble(dc.attribute("RANDU","40"));
 			appPrefs.RandLinks = QStodouble(dc.attribute("RANDL","9"));
 			appPrefs.RandRechts = QStodouble(dc.attribute("RANDR","9"));
-			appPrefs.FacingPages = static_cast<bool>(QStoInt(dc.attribute("DOPPEL","0")));
+			appPrefs.FacingPages = QStoInt(dc.attribute("DOPPEL","0"));
 			appPrefs.LeftPageFirst = static_cast<bool>(QStoInt(dc.attribute("LINKS","0")));
 			appPrefs.AutoSave = static_cast<bool>(QStoInt(dc.attribute("AutoSave","0")));
 			appPrefs.AutoSaveTime = QStoInt(dc.attribute("AutoSaveTime","600000"));

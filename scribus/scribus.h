@@ -120,7 +120,7 @@ public:
 	const bool fileToolBarVisible();
 	
 	bool doFileNew(double width, double h, double tpr, double lr, double rr, double br, double ab, double sp,
-									bool atf, bool fp, int einh, bool firstleft, int Ori, int SNr, const QString&);
+									bool atf, int fp, int einh, bool firstleft, int Ori, int SNr, const QString&);
 	bool DoFileSave(QString fn);
 	void closeEvent(QCloseEvent *ce);
 	void keyPressEvent(QKeyEvent *k);
@@ -177,6 +177,7 @@ public:
 	double DispX;
 	double DispY;
 	int HaveDoc;
+	QString noneString;
 	PrefsContext* dirs;
 	/** view is the main widget which represents your working area. The View
 	 * class should handle all events of the view widget.  It is kept empty so

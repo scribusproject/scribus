@@ -3037,8 +3037,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	dc.setAttribute("ORIENTATION",doc->PageOri);
 	dc.setAttribute("PAGESIZE",doc->PageSize);
 	dc.setAttribute("FIRSTNUM",doc->FirstPnum);
-	if(doc->PageFP)
-		dc.setAttribute("BOOK",1);
+	dc.setAttribute("BOOK", doc->PageFP);
 	if(doc->FirstPageLeft)
 		dc.setAttribute("FIRSTLEFT",1);
 	if(doc->PageAT)

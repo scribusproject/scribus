@@ -161,7 +161,7 @@ struct ApplicationPrefs
 	double RandUnten;
 	double RandLinks;
 	double RandRechts;
-	bool FacingPages;
+	int FacingPages;
 	bool LeftPageFirst;
 	int MinWordLen;
 	int HyCount;

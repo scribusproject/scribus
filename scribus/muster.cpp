@@ -139,7 +139,7 @@ void MasterPagesPalette::duplicateMasterPage()
 		currentDoc->PageAT = false;
 		emit createNew(nr);
 		currentDoc->setLoading(true);
-		if (currentDoc->PageFP)
+		if (currentDoc->PageFP == doublePage)
 			currentDoc->Pages.at(nr)->LeftPg = dia->Links->currentItem() == 0 ? true : false;
 		int inde = currentDoc->MasterNames[sMuster];
 		QMap<int,int> TableID;
@@ -241,7 +241,7 @@ void MasterPagesPalette::newMasterPage()
 		atf = currentDoc->PageAT;
 		currentDoc->PageAT = false;
 		emit createNew(nr);
-		if (currentDoc->PageFP)
+		if (currentDoc->PageFP == doublePage)
 			currentDoc->Pages.at(nr)->LeftPg = dia->Links->currentItem() == 0 ? true : false;
 		currentDoc->Pages.at(nr)->setPageName(MasterPageName);
 		currentDoc->Pages.at(nr)->MPageNam = "";

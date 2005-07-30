@@ -150,7 +150,7 @@ void NewDoc::createNewDocPage()
 	ButtonGroup1_2Layout->addLayout( Layout5 );
 	Layout8 = new QHBoxLayout( 0, 0, 6, "Layout8");
 	Doppelseiten = new QCheckBox( tr( "&Facing Pages" ), ButtonGroup1_2, "Doppelseiten" );
-	Doppelseiten->setChecked(prefsManager->appPrefs.FacingPages);
+	Doppelseiten->setChecked(prefsManager->appPrefs.FacingPages == doublePage);
 	Layout8->addWidget( Doppelseiten );
 	ErsteSeite = new QCheckBox( tr( "Left &Page First" ), ButtonGroup1_2, "CheckBox3" );
 	ErsteSeite->setChecked(prefsManager->appPrefs.LeftPageFirst);
@@ -166,7 +166,7 @@ void NewDoc::createNewDocPage()
 	GroupRand = new MarginWidget(newDocFrame,  tr( "Margin Guides" ), &marg, precision, unitRatio, unitSuffix );
 	GroupRand->setPageHeight(prefsManager->appPrefs.PageHeight);
 	GroupRand->setPageWidth(prefsManager->appPrefs.PageWidth);
-	GroupRand->setFacingPages(prefsManager->appPrefs.FacingPages);
+	GroupRand->setFacingPages(prefsManager->appPrefs.FacingPages == doublePage);
 	Layout9->addWidget( GroupRand );
 	NewDocLayout->addLayout( Layout9 );
 	Breite->setValue(prefsManager->appPrefs.PageWidth * unitRatio);

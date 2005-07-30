@@ -935,7 +935,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 				Apage->initialMargins.Right = QStodouble(pg.attribute("BORDERRIGHT"));
 				Apage->Margins.Top = Apage->initialMargins.Top;
 				Apage->Margins.Bottom = Apage->initialMargins.Bottom;
-				if (doc->PageFP)
+				if (doc->PageFP == doublePage)
 				{
 					if (doc->MasterP)
 					{

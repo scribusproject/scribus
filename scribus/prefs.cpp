@@ -263,7 +263,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	Layout8 = new QHBoxLayout( 0, 0, 6, "Layout8");
 
 	facingPages = new QCheckBox( tr( "&Facing Pages" ), GroupSize, "facingPages" );
-	facingPages->setChecked(prefsData->FacingPages);
+	facingPages->setChecked(prefsData->FacingPages == doublePage);
 	Layout8->addWidget( facingPages );
 
 	Linkszuerst = new QCheckBox( tr( "Left &Page First" ), GroupSize, "Linkszuerst" );
@@ -282,7 +282,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	GroupRand = new MarginWidget(tab_7,  tr( "Margin Guides" ), &marg, decimals, unitRatio, unitGetSuffixFromIndex(docUnitIndex) );
 	GroupRand->setPageHeight(prefsData->PageHeight);
 	GroupRand->setPageWidth(prefsData->PageWidth);
-	GroupRand->setFacingPages(prefsData->FacingPages);
+	GroupRand->setFacingPages(prefsData->FacingPages == doublePage);
 	Layout21->addWidget( GroupRand );
 	QBoxLayout *asurLayout = new QHBoxLayout( 0, 0, 6, "asurLayout");
 
@@ -1312,7 +1312,10 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.RandUnten = GroupRand->RandB;
 	prefsManager->appPrefs.RandLinks = GroupRand->RandL;
 	prefsManager->appPrefs.RandRechts = GroupRand->RandR;
-	prefsManager->appPrefs.FacingPages = facingPages->isChecked();
+	if (facingPages->isChecked())
+		prefsManager->appPrefs.FacingPages  = doublePage;
+	else
+		prefsManager->appPrefs.FacingPages = singlePage;
 	prefsManager->appPrefs.LeftPageFirst = Linkszuerst->isChecked();
 	prefsManager->setImageEditorExecutable(GimpName->text());
 	prefsManager->appPrefs.gs_AntiAliasGraphics = GSantiGraph->isChecked();
@@ -1375,19 +1378,19 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.typographicSettings.valueStrikeThruPos = qRound(tabTypo->strikethruPos->value() * 10);
 	prefsManager->appPrefs.typographicSettings.valueStrikeThruWidth = qRound(tabTypo->strikethruWidth->value() * 10);
 	prefsManager->appPrefs.toolSettings.dPen = tabTools->colorComboLineShape->currentText();
-	if (prefsManager->appPrefs.toolSettings.dPen == tr("None"))
+	if (prefsManager->appPrefs.toolSettings.dPen == ScApp->noneString)
 		prefsManager->appPrefs.toolSettings.dPen = "None";
 	prefsManager->appPrefs.toolSettings.dPenText = tabTools->colorComboText->currentText();
-	if (prefsManager->appPrefs.toolSettings.dPenText == tr("None"))
+	if (prefsManager->appPrefs.toolSettings.dPenText == ScApp->noneString)
 		prefsManager->appPrefs.toolSettings.dPenText = "None";
 	prefsManager->appPrefs.toolSettings.dStrokeText = tabTools->colorComboStrokeText->currentText();
-	if (prefsManager->appPrefs.toolSettings.dStrokeText == tr("None"))
+	if (prefsManager->appPrefs.toolSettings.dStrokeText == ScApp->noneString)
 		prefsManager->appPrefs.toolSettings.dStrokeText = "None";
 	prefsManager->appPrefs.toolSettings.dCols = tabTools->columnsText->value();
 	prefsManager->appPrefs.toolSettings.dGap = tabTools->gapText->value() / prefsUnitRatio;
 	prefsManager->appPrefs.toolSettings.dTabWidth = tabTools->gapTab->value() / prefsUnitRatio;
 	prefsManager->appPrefs.toolSettings.dBrush = tabTools->comboFillShape->currentText();
-	if (prefsManager->appPrefs.toolSettings.dBrush == tr("None"))
+	if (prefsManager->appPrefs.toolSettings.dBrush == ScApp->noneString)
 		prefsManager->appPrefs.toolSettings.dBrush = "None";
 	prefsManager->appPrefs.toolSettings.dShade = tabTools->shadingFillShape->value();
 	prefsManager->appPrefs.toolSettings.dShade2 = tabTools->shadingLineShape->value();
@@ -1429,7 +1432,7 @@ void Preferences::updatePreferences()
 	}
 	prefsManager->appPrefs.toolSettings.dWidth = tabTools->lineWidthShape->value();
 	prefsManager->appPrefs.toolSettings.dPenLine = tabTools->colorComboLine->currentText();
-	if (prefsManager->appPrefs.toolSettings.dPenLine == tr("None"))
+	if (prefsManager->appPrefs.toolSettings.dPenLine == ScApp->noneString)
 		prefsManager->appPrefs.toolSettings.dPenLine = "None";
 	prefsManager->appPrefs.toolSettings.dShadeLine = tabTools->shadingLine->value();
 	switch (tabTools->comboStyleLine->currentItem())
@@ -1457,7 +1460,7 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.toolSettings.magMax = tabTools->maximumZoom->value();
 	prefsManager->appPrefs.toolSettings.magStep = tabTools->zoomStep->value();
 	prefsManager->appPrefs.toolSettings.dBrushPict = tabTools->comboFillImage->currentText();
-	if (prefsManager->appPrefs.toolSettings.dBrushPict == tr("None"))
+	if (prefsManager->appPrefs.toolSettings.dBrushPict == ScApp->noneString)
 		prefsManager->appPrefs.toolSettings.dBrushPict = "None";
 	prefsManager->appPrefs.toolSettings.shadePict = tabTools->shadingFillImage->value();
 	prefsManager->appPrefs.toolSettings.scaleX = static_cast<double>(tabTools->scalingHorizontal->value()) / 100.0;

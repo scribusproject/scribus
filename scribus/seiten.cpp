@@ -578,7 +578,7 @@ void SeitenPal::DelMPage(QString tmp)
 	{
 		Seite = Vie->Doc->MasterPages.at(aa);
 		Seite->PageNr = aa;
-		if (Vie->Doc->PageFP)
+		if (Vie->Doc->PageFP == doublePage)
 		{
 			Seite->Margins.Left = Seite->LeftPg ? Vie->Doc->pageMargins.Right : Vie->Doc->pageMargins.Left;
 			Seite->Margins.Right= Seite->LeftPg? Vie->Doc->pageMargins.Left : Vie->Doc->pageMargins.Right;
@@ -658,8 +658,8 @@ void SeitenPal::handleFirstPageLeftChk()
 	double lr = Vie->Doc->pageMargins.Left;
 	double rr = Vie->Doc->pageMargins.Right;
 	double br = Vie->Doc->pageMargins.Bottom;
-	bool fp2 = Vie->Doc->PageFP;
-	if (fp2)
+	int fp2 = Vie->Doc->PageFP;
+	if (fp2 == doublePage)
 		Vie->Doc->FirstPageLeft = firstPageLeftChk->isChecked();
 	Vie->Doc->resetPage(tpr, lr, rr, br, fp2);
 	Vie->reformPages();
@@ -705,14 +705,14 @@ void SeitenPal::RebuildPage()
 		connect(firstPageLeftChk, SIGNAL(clicked()), this, SLOT(handleFirstPageLeftChk()));
 		return;
 	}
-	PageView->Doppel = Vie->Doc->PageFP;
+	PageView->Doppel = Vie->Doc->PageFP == doublePage;
 	PageView->Links = Vie->Doc->FirstPageLeft;
 	facingPagesChk->setChecked(PageView->Doppel);
 	firstPageLeftChk->setChecked(PageView->Links);
 	if (PageView->Doppel)
 		firstPageLeftChk->setEnabled(true);
 	PageView->MaxC = Vie->Doc->Pages.count()-1;
-	if (Vie->Doc->PageFP)
+	if (Vie->Doc->PageFP == doublePage)
 	{
 		int cc, cb;
 		bool Side;
@@ -776,7 +776,7 @@ void SeitenPal::RebuildPage()
 		PageView->adjustColumn(0);
 	}
 	PageView->setRowHeight(PageView->numRows()-1, 10);
-	if (Vie->Doc->PageFP)
+	if (Vie->Doc->PageFP == doublePage)
 		PageView->setPixmap(PageView->numRows()-1, 2, PageView->pix);
 	PageView->setRowReadOnly(PageView->numRows()-1, true);
 	PageView->repaint();

@@ -8605,7 +8605,7 @@ void ScribusView::reformPages(bool moveObjects)
 	maxXPos = 0;
 	currentYPos = Doc->ScratchTop;
 	currentXPos = Doc->ScratchLeft;
-	if ((Doc->PageFP) && (!Doc->FirstPageLeft))
+	if ((Doc->PageFP == doublePage) && (!Doc->FirstPageLeft))
 		currentXPos += Doc->pageWidth+Doc->PageGapHorizontal;
 	lastYPos = Doc->Pages.at(0)->initialHeight;
 	for (uint a = 0; a < Doc->Pages.count(); ++a)
@@ -8635,7 +8635,7 @@ void ScribusView::reformPages(bool moveObjects)
 		}
 		else
 		{
-			if (Doc->PageFP)
+			if (Doc->PageFP == doublePage)
 			{
 				Seite->Xoffset = currentXPos;
 				Seite->Yoffset = currentYPos;
@@ -9945,7 +9945,7 @@ void ScribusView::ItemFont(QString fon)
 
 void ScribusView::ItemPen(QString farbe)
 {
-	if (farbe == tr("None"))
+	if (farbe == ScApp->noneString)
 		farbe = "None";
 	if (SelItem.count() != 0)
 	{
@@ -9969,7 +9969,7 @@ void ScribusView::ItemPen(QString farbe)
 
 void ScribusView::ItemTextBrush(QString farbe)
 {
-	if (farbe == tr("None"))
+	if (farbe == ScApp->noneString)
 		farbe = "None";
 	if (SelItem.count() != 0)
 	{
@@ -10039,7 +10039,7 @@ void ScribusView::ItemTextBrushS(int sha)
 
 void ScribusView::ItemTextPen(QString farbe)
 {
-	if (farbe == tr("None"))
+	if (farbe == ScApp->noneString)
 		farbe = "None";
 	if (SelItem.count() != 0)
 	{
@@ -10339,7 +10339,7 @@ void ScribusView::setItemTextOutline(int sha)
 
 void ScribusView::ItemBrush(QString farbe)
 {
-	if (farbe == tr("None"))
+	if (farbe == ScApp->noneString)
 		farbe = "None";
 
 	if (SelItem.count() != 0)

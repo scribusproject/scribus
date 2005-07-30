@@ -331,10 +331,10 @@ ScribusDoc::~ScribusDoc()
 	FT_Done_FreeType( library );
 }
 
-void ScribusDoc::setup(const int unitIndex, const bool fp, const bool firstLeft, const int orientation, const int firstPageNumber, const QString& defaultPageSize, const QString& documentName)
+void ScribusDoc::setup(const int unitIndex, const int fp, const bool firstLeft, const int orientation, const int firstPageNumber, const QString& defaultPageSize, const QString& documentName)
 {
 	docUnitIndex=unitIndex;
-	if (fp)
+	if (fp == doublePage)
 		FirstPageLeft = firstLeft;
 	PageOri = orientation;
 	PageSize = defaultPageSize;
@@ -642,7 +642,7 @@ bool ScribusDoc::isModified() const
   return modified;
 }
 /** Setzt die Seitenattribute */
-void ScribusDoc::setPage(double b, double h, double t, double l, double r, double bo, double sp, double ab, bool atf, bool fp)
+void ScribusDoc::setPage(double b, double h, double t, double l, double r, double bo, double sp, double ab, bool atf, int fp)
 {
 	pageWidth = b;
 	pageHeight = h;
@@ -656,7 +656,7 @@ void ScribusDoc::setPage(double b, double h, double t, double l, double r, doubl
 	PageAT = atf;
 }
 
-void ScribusDoc::resetPage(double t, double l, double r, double bo, bool fp)
+void ScribusDoc::resetPage(double t, double l, double r, double bo, int fp)
 {
 	pageMargins.Top = t;
 	pageMargins.Left = l;

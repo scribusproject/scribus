@@ -359,6 +359,14 @@ typedef QMap<QString,QString> ProfilesL;
 typedef QValueVector<SingleLine> multiLine;
 typedef QMap<int, int> errorCodes;
 
+enum PageLayout
+{
+	singlePage,
+	doublePage,
+	triplePage,
+	quadroPage
+};
+
 enum AppMode
 {
 	modeNormal,

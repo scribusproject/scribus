@@ -25,7 +25,7 @@ NewTm::NewTm( QWidget* parent, QString text, QString titel, ScribusDoc *doc)
 	Layout2->addWidget( Frage );
 	Layout2->addWidget( Answer );
 	QueryLayout->addLayout( Layout2 );
-	if (doc->PageFP)
+	if (doc->PageFP == doublePage)
 	{
 		Layout3 = new QHBoxLayout;
 		Layout3->setSpacing( 6 );

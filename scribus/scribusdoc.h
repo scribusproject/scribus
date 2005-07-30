@@ -58,14 +58,14 @@ class ScribusDoc : public QObject, public UndoObject
 public:
 	ScribusDoc();
 	~ScribusDoc();
-	void setup(const int, const bool, const bool, const int, const int, const QString&, const QString&);
+	void setup(const int, const int, const bool, const int, const int, const QString&, const QString&);
 	void setLoading(const bool);
 	const bool isLoading();
 	void setModified(const bool);
 	bool isModified() const;
 /** Setzt die Seitenattribute */
-	void setPage(double b, double h, double t, double l, double r, double bo, double sp, double ab, bool atf, bool fp);
-	void resetPage(double t, double l, double r, double bo, bool fp);
+	void setPage(double b, double h, double t, double l, double r, double bo, double sp, double ab, bool atf, int fp);
+	void resetPage(double t, double l, double r, double bo, int fp);
 	Page* addPage(const int);
 	bool AddFont(QString name, QFont fo);
 	void OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo);
@@ -151,7 +151,7 @@ public: // Public attributes
   /** Flag for automatic Textframes */
 	bool PageAT;
   /** Flag for facing Pages */
-	bool PageFP;
+	int PageFP;
 	/** Flag fuer Hoch- oder Querformat 0 = Hochformat */
 	int PageOri;	
 	QString PageSize;
