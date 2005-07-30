@@ -8522,75 +8522,15 @@ Page* ScribusView::addPage(int nr, bool mov)
 /** Lscht eine Seite */
 void ScribusView::delPage(int Nr)
 {
-	if (Doc->pageCount == 1)
+	if (!Doc->deletePage(Nr))
 		return;
-	if (Doc->pageCount < Nr-1)
-		return;
-	Page* Seite;
-	Seite = Doc->Pages.at(Nr);
-	PageItem *currItem;
-	for (currItem = Seite->FromMaster.first(); currItem; currItem = Seite->FromMaster.next())
-	{
-		if (currItem->ChangedMasterItem)
-		{
-			Seite->FromMaster.remove(currItem);
-			delete currItem;
-		}
-	}
-	Seite->FromMaster.clear();
-	Doc->Pages.remove(Nr);
-	delete Seite;
-	Doc->pageCount -= 1;
-	Doc->currentPage = Doc->Pages.at(0);
-	if (Doc->masterPageMode)
-		Doc->MasterPages = Doc->Pages;
-	else
-		Doc->DocPages = Doc->Pages;
 	PGS->setMaxValue(Doc->pageCount);
 	PGS->GotoPg(0);
 }
 
 void ScribusView::movePage(int from, int to, int ziel, int art)
 {
-	QPtrList<Page> Buf;
-	int a;
-	uint b;
-	int zz = ziel;
-	Buf.clear();
-	for (a = from; a < to; a++)
-	{
-		Buf.append(Doc->Pages.at(from));
-		Doc->Pages.remove(from);
-		if (a <= zz)
-			zz--;
-	}
-	switch (art)
-	{
-	case 0:
-		for (b = 0; b < Buf.count(); b++)
-		{
-			Doc->Pages.insert(zz, Buf.at(b));
-			zz++;
-		}
-		break;
-	case 1:
-		for (b = 0; b < Buf.count(); b++)
-		{
-			zz++;
-			Doc->Pages.insert(zz, Buf.at(b));
-		}
-		break;
-	case 2:
-		for (b = 0; b < Buf.count(); b++)
-		{
-			Doc->Pages.append(Buf.at(b));
-		}
-		break;
-	}
-	if (Doc->masterPageMode)
-		Doc->MasterPages = Doc->Pages;
-	else
-		Doc->DocPages = Doc->Pages;
+	Doc->movePage(from, to, ziel, art);
 	reformPages();
 }
 

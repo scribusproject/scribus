@@ -833,3 +833,64 @@ Page* ScribusDoc::addPage(const int pageNumber)
 	pageCount++;
 	return addedPage;
 }
+
+bool ScribusDoc::deletePage(const int pageNumber)
+{
+	if (pageCount == 1)
+		return false;
+	if (pageCount < pageNumber-1)
+		return false;
+	Page* Seite = Pages.at(pageNumber);
+	PageItem *currItem;
+	for (currItem = Seite->FromMaster.first(); currItem; currItem = Seite->FromMaster.next())
+	{
+		if (currItem->ChangedMasterItem)
+		{
+			Seite->FromMaster.remove(currItem);
+			delete currItem;
+		}
+	}
+	Seite->FromMaster.clear();
+	Pages.remove(pageNumber);
+	delete Seite;
+	pageCount -= 1;
+	currentPage = Pages.at(0);
+	if (masterPageMode)
+		MasterPages = Pages;
+	else
+		DocPages = Pages;
+	return true;
+}
+
+void ScribusDoc::movePage(const int from, const int to, const int ziel, const int art)
+{
+	QPtrList<Page> Buf;
+	int zz = ziel;
+	Buf.clear();
+	for (int a = from; a < to; a++)
+	{
+		Buf.append(Pages.at(from));
+		Pages.remove(from);
+		if (a <= zz)
+			zz--;
+	}
+	switch (art)
+	{
+		case 0:
+			for (uint b = 0; b < Buf.count(); b++)
+				Pages.insert(zz++, Buf.at(b));
+			break;
+		case 1:
+			for (uint b = 0; b < Buf.count(); b++)
+				Pages.insert(++zz, Buf.at(b));
+			break;
+		case 2:
+			for (uint b = 0; b < Buf.count(); b++)
+				Pages.append(Buf.at(b));
+			break;
+	}
+	if (masterPageMode)
+		MasterPages = Pages;
+	else
+		DocPages = Pages;
+}

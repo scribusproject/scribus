@@ -67,6 +67,8 @@ public:
 	void setPage(double b, double h, double t, double l, double r, double bo, double sp, double ab, bool atf, int fp);
 	void resetPage(double t, double l, double r, double bo, int fp);
 	Page* addPage(const int);
+	bool deletePage(const int);
+	void movePage(const int, const int, const int, const int);
 	bool AddFont(QString name, QFont fo);
 	void OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo);
 	void CloseCMSProfiles();
