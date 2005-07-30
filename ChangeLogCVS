@@ -1,0 +1,12 @@
+Scribus - 1.2.3cvs
+==================
+- 0002325: [Usability] Tooltip of Export to PDF / general / checkbox "Compress Text and Vector Graphic" (plinnell)
+- 0002232: [Import / Export] poor color export with png with RGBA and mostly black/grey colors (fschmid)
+- 0002217: [Translation] Update Danish Translation (cbradney)
+- 0001970: [User Interface] filter in load source and save source as is wrong (ringerc)
+- 0002199: [Fonts] lmodern fonts are missing glyphs in 1.2.2.1 and 1.3.0 (cbradney)
+- 0002208: [Internal] Ineffective "if" instructions (fschmid)
+- 0002204: [Import / Export] add pdf-extension to any exported file even if user has entered another filename and forgot to add .pdf (cbradney)
+- 0002207: [Fonts] Using Wingdings in sjc script triggers a crash.. did not previously (cbradney)
+- 0002181: [User Interface] Need to add visibility to dragging guides when View > Guide is turned off (fschmid)
+- 0002145: [User Interface] change the tooltips to reflect CMYK > RGB conversion in PDF/X-3 (plinnell)
