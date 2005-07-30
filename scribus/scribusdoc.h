@@ -66,6 +66,7 @@ public:
 /** Setzt die Seitenattribute */
 	void setPage(double b, double h, double t, double l, double r, double bo, double sp, double ab, bool atf, bool fp);
 	void resetPage(double t, double l, double r, double bo, bool fp);
+	Page* addPage(const int);
 	bool AddFont(QString name, QFont fo);
 	void OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo);
 	void CloseCMSProfiles();

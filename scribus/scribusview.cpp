@@ -8466,19 +8466,7 @@ void ScribusView::Zval()
 /** Adds a Page */
 Page* ScribusView::addPage(int nr, bool mov)
 {
-	Page* fe = new Page(Doc->ScratchLeft, Doc->pageCount*(Doc->pageHeight+Doc->ScratchBottom+Doc->ScratchTop)+Doc->ScratchTop, Doc->pageWidth, Doc->pageHeight);
-	fe->Margins.Top = Doc->pageMargins.Top;
-	fe->Margins.Bottom = Doc->pageMargins.Bottom;
-	fe->initialMargins.Top = Doc->pageMargins.Top;
-	fe->initialMargins.Bottom = Doc->pageMargins.Bottom;
-	fe->initialMargins.Left = Doc->pageMargins.Left;
-	fe->initialMargins.Right = Doc->pageMargins.Right;
-	fe->setPageNr(nr);
-	fe->PageSize = Doc->PageSize;
-	fe->PageOri = Doc->PageOri;
-	Doc->Pages.insert(nr, fe);
-	Doc->currentPage = fe;
-	Doc->pageCount++;
+	Page* fe=Doc->addPage(nr);
 	PGS->setMaxValue(Doc->pageCount);
 	reformPages(mov);
 	if ((Doc->PageAT) && (!Doc->isLoading()))

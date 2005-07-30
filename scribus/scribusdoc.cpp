@@ -814,3 +814,22 @@ void ScribusDoc::addSymbols()
 	symNewFrame.addQuadPoint(2.4375, 5.70312, 2.4375, 5.70312, 1.67188, 6.0625, 1.71875, 5.875);
 	symNewFrame.addQuadPoint(1.67188, 6.0625, 1.67188, 6.0625, 1.75, 6.20312, 1.75, 6.20312);
 }
+
+Page* ScribusDoc::addPage(const int pageNumber)
+{
+	Page* addedPage = new Page(ScratchLeft, pageCount*(pageHeight+ScratchBottom+ScratchTop)+ScratchTop, pageWidth, pageHeight);
+	Q_ASSERT(addedPage!=NULL);
+	addedPage->Margins.Top = pageMargins.Top;
+	addedPage->Margins.Bottom = pageMargins.Bottom;
+	addedPage->initialMargins.Top = pageMargins.Top;
+	addedPage->initialMargins.Bottom = pageMargins.Bottom;
+	addedPage->initialMargins.Left = pageMargins.Left;
+	addedPage->initialMargins.Right = pageMargins.Right;
+	addedPage->setPageNr(pageNumber);
+	addedPage->PageSize = PageSize;
+	addedPage->PageOri = PageOri;
+	Pages.insert(pageNumber, addedPage);
+	currentPage = addedPage;
+	pageCount++;
+	return addedPage;
+}

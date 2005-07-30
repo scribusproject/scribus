@@ -2502,6 +2502,8 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 	doc->DocItems = doc->Items;
 	doc->currentPage = doc->Pages.at(0);
 	doc->OpenNodes.clear();
+	
+	//Independent finishing tasks after doc setup
 	outlinePalette->BuildTree(doc);
 	pagePalette->Rebuild();
 	bookmarkPalette->BView->clear();
@@ -2512,8 +2514,8 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 	view->show();
 	connect(doc->autoSaveTimer, SIGNAL(timeout()), w, SLOT(slotAutoSave()));
 	connect(w, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
-	connect(fileWatcher, SIGNAL(fileChanged(QString )), view, SLOT(updatePict(QString)));
-	connect(fileWatcher, SIGNAL(fileDeleted(QString )), view, SLOT(removePict(QString)));
+	connect(fileWatcher, SIGNAL(fileChanged(QString)), view, SLOT(updatePict(QString)));
+	connect(fileWatcher, SIGNAL(fileDeleted(QString)), view, SLOT(removePict(QString)));
 	doc->AutoSave = prefsManager->appPrefs.AutoSave;
 	doc->AutoSaveTime = prefsManager->appPrefs.AutoSaveTime;
 	if (doc->AutoSave)
