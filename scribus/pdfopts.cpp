@@ -883,7 +883,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	QToolTip::add( CheckBM, tr( "Embed the bookmarks you created in your document.\nThese are useful for navigating long PDF documents." ) );
 	QToolTip::add( Resolution, tr( "Export resolution of text and vector graphics.\nThis does not affect the resolution of bitmap images like photos." ) );
 	QToolTip::add( Compression, tr( " Lossless compression of text and graphics.\nUnless you have a reason, leave this checked. This reduces PDF size." ) );
-	QToolTip::add( CMethod, tr( "Type of compression used for images.\nAutomatic allows Scribus to choose the best method.\nZIP is lossless and good for images with solid colors.\nJPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).\nLeave it set to automatic, unless you have a need for special compression options." ) );
+	QToolTip::add( CMethod, "<qt>" + tr( "Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options." ) + "</qt>");
 	QToolTip::add( CQuality, tr( "Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)" ) );
 	QToolTip::add( DSColor, tr( "Re-sample your bitmap images to the selected DPI.\nLeaving this unchecked will render them at their native resolution.\nThis can increase memory usage and slow down export." ) );
 	QToolTip::add( ValC, tr( "DPI (Dots Per Inch) for image export.") );
