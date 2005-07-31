@@ -260,6 +260,71 @@ bool getNumericGSVersion(int & major, int & minor)
 	return true;
 }
 
+QString getGSDefaultExeName(void)
+{
+	QString gsName;
+#if defined _WIN32
+	// Try to locate GhostScript thanks to the registry
+	DWORD size;
+	HKEY hKey;
+	LONG retValue;
+	DWORD regType = REG_SZ;
+	char regVersion[MAX_PATH];
+	char regPath[MAX_PATH];
+	char gsPath[MAX_PATH];
+
+	// Set gsName to its default value
+	gsName = "gswin32c.exe";
+	
+	// Search AFPL Ghostscript first as it has more chance to be up to date
+	if( RegOpenKey(HKEY_LOCAL_MACHINE, "SOFTWARE\\AFPL Ghostscript", &hKey) == ERROR_SUCCESS )
+		strcpy(regPath, "SOFTWARE\\AFPL Ghostscript");
+	else if( RegOpenKey(HKEY_LOCAL_MACHINE, "SOFTWARE\\GPL Ghostscript", &hKey) == ERROR_SUCCESS )  
+		strcpy(regPath, "SOFTWARE\\GPL Ghostscript");
+	else
+		return gsName;
+
+	// Search the first SubKey corresponding to the version key
+	size = sizeof(regVersion) - 1;
+	retValue = RegEnumKeyEx(hKey, 0, regVersion, &size, NULL, NULL, NULL, NULL);
+	RegCloseKey(hKey);
+	if( retValue != ERROR_SUCCESS )
+		return gsName;
+
+	strcat(regPath, "\\");
+	strcat(regPath, regVersion);
+
+	// Get the GS_DLL Value
+	if (RegOpenKey(HKEY_LOCAL_MACHINE, regPath, &hKey) != ERROR_SUCCESS)
+          return gsName;
+	size = sizeof(gsPath) - 1;
+	retValue = RegQueryValueEx(hKey, "GS_DLL", 0, &regType, (LPBYTE) gsPath, &size);
+	RegCloseKey(hKey);
+	if( retValue != ERROR_SUCCESS )
+		return gsName;
+	
+	// We now have GhostScript dll path, but we want gswin32c.exe
+	// Normally gswin32c.exe and gsdll.dll are in the same directory
+	gsName = gsPath;
+	size = gsName.findRev("\\");
+	if(size <= 0)
+		return QString("gswin32c.exe");
+	gsName = gsName.left(size + 1);
+	gsName += "gswin32c.exe";
+
+	// Check GhostScript executable existence.
+	QFileInfo fInfo(gsName);
+	if( fInfo.exists() )
+		gsName.replace("\\", "/"); // Return a qt-styled path
+	else
+		gsName = "gswin32c.exe";
+
+#else
+	gsName = "gs";
+#endif
+	return gsName;
+}
+
 // On Windows, return short path name, else return longPath;
 QString getShortPathName(QString longPath)
 {

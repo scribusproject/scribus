@@ -62,6 +62,7 @@ int callGS(const QString& args_in, const QString device="");
 // (in which case minor and major have undefined values).
 QString getGSVersion();
 bool getNumericGSVersion(int & major, int & minor);
+QString getGSDefaultExeName(void);
 int copyFile(QString source, QString target);
 int moveFile(QString source, QString target);
 QString checkFileExtension(const QString &, const QString &);

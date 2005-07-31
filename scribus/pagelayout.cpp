@@ -60,6 +60,7 @@ void PageLayouts::selectItem(uint nr)
 			firstPage->setMaxValue( layoutsView->index(ic)+1 );
 			firstPage->setValue( 1 );
 			layoutsView->setSelected(ic, true);
+			layoutsView->ensureVisible(0, ic->y(), 5, 5);
 			break;
 		}
 		ic = ic->nextItem();
