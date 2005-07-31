@@ -117,6 +117,7 @@
 	<area text="Other Information" file="otherinfo.html">
 		<submenuitem text="Community" file="resources.html"/>
 		<submenuitem text="Download" file="download.html"/>
+		<submenuitem text="Printers" file="scprinters.html"/>
 		<submenuitem text="Contributions" file="contributions.html"/>
 		<submenuitem text="Scribus Copyright" file="scribuscopyright.html"/>
 		<submenuitem text="Documentation Copyright" file="doccopyright.html"/>
