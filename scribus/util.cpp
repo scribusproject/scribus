@@ -127,7 +127,7 @@ QImage ProofImage(QImage *Image)
 
 /******************************************************************
  * Function System()
- *  
+ *
  * Create a new process via QProcess and wait until finished.
  * return the process exit code.
  *
@@ -1242,7 +1242,7 @@ QColor SetColor(ScribusDoc *currentDoc, QString color, int shad)
  * QPixmaps are really slow with Qt/Mac 3.3.4. Really, *really*, slow.
  * So we better cache them.
  */
-QPixmap * getSmallPixmap(QColor rgb) 
+QPixmap * getSmallPixmap(QColor rgb)
 {
 	static QMap<QRgb, QPixmap*> pxCache;
 
@@ -1255,10 +1255,10 @@ QPixmap * getSmallPixmap(QColor rgb)
 	return pm;
 }
 
-QPixmap * getWidePixmap(QColor rgb) 
+QPixmap * getWidePixmap(QColor rgb)
 {
 	static QMap<QRgb, QPixmap*> pxCache;
-	
+
 	QPixmap * pm = pxCache[rgb.rgb()];
 	if (!pm) {
 		pm = new QPixmap(30, 15);
@@ -1327,4 +1327,26 @@ QString checkFileExtension(const QString &currName, const QString &extension)
 	if (!newName.endsWith(dotExt,false))
 		newName+=dotExt;
 	return newName;
+}
+
+/*! Creates a common name for page exports (SVG, bitmap, EPS).
+Output format is: documentname-page01.extension
+\param pageNo number of the exported page (begins from 1)
+\param extension "svg" or e.g. "png" etc.
+\retval QString standardized filename
+\author Petr Vanek
+*/
+QString getFileNameByPage(uint pageNo, QString extension)
+{
+	QString number;
+	number = number.setNum(pageNo + ScApp->doc->FirstPnum);
+	QString defaultName = ScApp->doc->DocName;
+	if (defaultName.isNull())
+		defaultName = "export";
+	else
+	{
+		QFileInfo fi(defaultName);
+		defaultName = fi.baseName(true);
+	}
+	return QString("%1-page%2.%3").arg(defaultName).arg(number).arg(extension);
 }

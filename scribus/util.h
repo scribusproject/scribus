@@ -67,5 +67,7 @@ int moveFile(QString source, QString target);
 QString checkFileExtension(const QString &, const QString &);
 // On Windows, return short path name, else return longPath;
 QString getShortPathName(QString longPath);
+// Create a common name for page exports (SVG, bitmap, EPS)
+QString getFileNameByPage(uint pageNo, QString extension);
 
 #endif

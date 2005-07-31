@@ -105,18 +105,7 @@ void run(QWidget *d, ScribusApp *plug)
 	{
 		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("svgex");
 		QString wdir = prefs->get("wdir", ".");
-		QString defaultName = plug->doc->DocName;
-		if (defaultName == QString::null)
-			defaultName = "";
-		else
-		{
-			// a little magic to setup the name with page numbering
-			QFileInfo fi(defaultName);
-			defaultName = fi.baseName(true);
-			QString number;
-			number = number.setNum(plug->doc->currentPage->PageNr + plug->doc->FirstPnum);
-			defaultName += "-page" + number + ".svg";
-		}
+		QString defaultName = getFileNameByPage(plug->doc->currentPage->PageNr, "svg");
 #ifdef HAVE_LIBZ
 		QString fileName = plug->CFileDialog(wdir, QObject::tr("Save as"), QObject::tr("SVG-Images (*.svg *.svgz);;All Files (*)"), defaultName, false, false, true);
 #else

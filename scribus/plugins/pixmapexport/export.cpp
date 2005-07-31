@@ -9,6 +9,7 @@
 #include "scraction.h"
 #include "menumanager.h"
 #include "pluginmanager.h"
+#include "util.h"
 
 
 QString name()
@@ -113,11 +114,7 @@ ExportBitmap::ExportBitmap(ScribusApp *plug)
 
 QString ExportBitmap::getFileName(uint pageNr)
 {
-	QFileInfo path(carrier->doc->DocName);
-	QString name = path.baseName(); // needed tp fix the "/home/user/blah.sla"
-	QString number;
-	number = number.setNum(pageNr + carrier->doc->FirstPnum);
-	return QDir::cleanDirPath(QDir::convertSeparators(exportDir + "/" + name + "-"+ number + "." + bitmapType.lower()));
+	return QDir::cleanDirPath(QDir::convertSeparators(exportDir + "/" + getFileNameByPage(pageNr, bitmapType.lower())));
 }
 
 ExportBitmap::~ExportBitmap()

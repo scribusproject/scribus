@@ -207,8 +207,8 @@ int ScribusApp::initScribus(bool showSplash, bool showFontInfo, const QString ne
 	prefsManager = PrefsManager::instance();
 	prefsManager->setup();
 	PrefsPfad = prefsManager->preferencesLocation();
-	
-	
+
+
 	undoManager = UndoManager::instance();
 	objectSpecificUndo = false;
 	pluginManager = new PluginManager();
@@ -2502,7 +2502,7 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 	doc->DocItems = doc->Items;
 	doc->currentPage = doc->Pages.at(0);
 	doc->OpenNodes.clear();
-	
+
 	//Independent finishing tasks after doc setup
 	outlinePalette->BuildTree(doc);
 	pagePalette->Rebuild();
@@ -8136,23 +8136,24 @@ void ScribusApp::reallySaveAsEps()
 		scrActions["toolsPreflightVerifier"]->setOn(false);
 		disconnect(docCheckerPalette, SIGNAL(ignoreAllErrors()), this, SLOT(reallySaveAsEps()));
 	}
-	if (!doc->DocName.startsWith( tr("Document")))
+	if (!doc->DocName.startsWith(tr("Document")))
 	{
 		QFileInfo fi(doc->DocName);
-		fna = fi.dirPath()+"/"+fi.baseName()+".eps";
+		fna = fi.dirPath() + "/" + getFileNameByPage(doc->currentPage->PageNr, "eps");
 	}
 	else
 	{
 		QDir di = QDir();
-		fna = di.currentDirPath()+"/"+doc->DocName+".eps";
+		fna = di.currentDirPath() + "/" + getFileNameByPage(doc->currentPage->PageNr, "eps");
 	}
+	fna = QDir::convertSeparators(fna);
 	QString wdir = ".";
 	QString prefsDocDir=prefsManager->documentDir();
 	if (!prefsDocDir.isEmpty())
 		wdir = dirs->get("eps", prefsDocDir);
 	else
 		wdir = dirs->get("eps", ".");
-	QString fn = CFileDialog( wdir, tr("Save as"), tr("EPS Files (*.eps);;All Files (*)"), "", false, false);
+	QString fn = CFileDialog( wdir, tr("Save as"), tr("EPS Files (*.eps);;All Files (*)"), fna, false, false);
 	if (!fn.isEmpty())
 	{
 		dirs->set("eps", fn.left(fn.findRev("/")));
