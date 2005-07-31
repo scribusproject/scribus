@@ -38,6 +38,7 @@
 #include "fontcombo.h"
 #include "linecombo.h"
 #include "arrowchooser.h"
+#include "pagelayout.h"
 
 using namespace std;
 
@@ -187,6 +188,18 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	tab_7 = new QWidget( prefsWidgets, "tab_7" );
 	tabLayout_7 = new QHBoxLayout( tab_7, 0, 5, "tabLayout_7");
 	Layout21 = new QVBoxLayout( 0, 0, 6, "Layout21");
+	dsLayout4p = new QHBoxLayout;
+	dsLayout4p->setSpacing( 5 );
+	dsLayout4p->setMargin( 0 );
+	dsLayout4p->setAlignment( Qt::AlignLeft );
+	docLayout = new PageLayouts(tab_7);
+	docLayout->selectItem(prefsData->FacingPages);
+	docLayout->firstPage->setValue(prefsData->LeftPageFirst);
+	dsLayout4p->addWidget( docLayout );
+	dsLayout4pv = new QVBoxLayout;
+	dsLayout4pv->setSpacing( 5 );
+	dsLayout4pv->setMargin( 0 );
+
 	GroupSize = new QButtonGroup( tr( "Page Size" ), tab_7, "GroupSize" );
 	GroupSize->setColumnLayout(0, Qt::Vertical );
 	GroupSize->layout()->setSpacing( 6 );
@@ -259,20 +272,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	Layout5_2->addWidget( pageHeight );
 
 	GroupSizeLayout->addLayout( Layout5_2 );
-
-	Layout8 = new QHBoxLayout( 0, 0, 6, "Layout8");
-
-	facingPages = new QCheckBox( tr( "&Facing Pages" ), GroupSize, "facingPages" );
-	facingPages->setChecked(prefsData->FacingPages == doublePage);
-	Layout8->addWidget( facingPages );
-
-	Linkszuerst = new QCheckBox( tr( "Left &Page First" ), GroupSize, "Linkszuerst" );
-	Linkszuerst->setChecked(prefsData->LeftPageFirst);
-	if (!facingPages->isChecked())
-		Linkszuerst->setEnabled(false);
-	Layout8->addWidget( Linkszuerst );
-	GroupSizeLayout->addLayout( Layout8 );
-	Layout21->addWidget( GroupSize );
+	dsLayout4pv->addWidget( GroupSize );
 
 	struct MarginStruct marg;
 	marg.Top = prefsData->RandOben;
@@ -282,8 +282,9 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	GroupRand = new MarginWidget(tab_7,  tr( "Margin Guides" ), &marg, decimals, unitRatio, unitGetSuffixFromIndex(docUnitIndex) );
 	GroupRand->setPageHeight(prefsData->PageHeight);
 	GroupRand->setPageWidth(prefsData->PageWidth);
-	GroupRand->setFacingPages(prefsData->FacingPages == doublePage);
-	Layout21->addWidget( GroupRand );
+	dsLayout4pv->addWidget( GroupRand );
+	dsLayout4p->addLayout( dsLayout4pv );
+	Layout21->addLayout( dsLayout4p );
 	QBoxLayout *asurLayout = new QHBoxLayout( 0, 0, 6, "asurLayout");
 
 	GroupAS = new QGroupBox( tr( "Autosave" ), tab_7, "GroupAS" );
@@ -729,7 +730,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	pluginMainLayout->addWidget(plugGroupBox);
 	addItem( tr("Plugins"), loadIcon("plugins.png"), pluginManagerWidget);
 
-	setDS();
+	setDS(prefsData->FacingPages);
 	//tab order
 	QWidget::setTabOrder( GFsize, SpinBox3 );
 	QWidget::setTabOrder( SpinBox3, UnitCombo );
@@ -763,8 +764,8 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	QToolTip::add( GZComboO, tr( "Default orientation of document pages" ) );
 	QToolTip::add( pageWidth, tr( "Width of document pages, editable if you have chosen a custom page size" ) );
 	QToolTip::add( pageHeight, tr( "Height of document pages, editable if you have chosen a custom page size" ) );
-	QToolTip::add( facingPages, tr( "Enable single or spread based layout" ) );
-	QToolTip::add( Linkszuerst, tr( "Make the first page the left page of a document" ) );
+//	QToolTip::add( facingPages, tr( "Enable single or spread based layout" ) );
+//	QToolTip::add( Linkszuerst, tr( "Make the first page the left page of a document" ) );
 	QToolTip::add( ASon, tr( "When enabled, Scribus saves a backup copy of your file with the .bak extension\neach time the time period elapses" ) );
 	QToolTip::add( ASTime, tr( "Time period between saving automatically" ) );
 
@@ -805,9 +806,9 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	connect(UnitCombo, SIGNAL(activated(int)), this, SLOT(unitChange()));
 	connect(pageWidth, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	connect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
+	connect(docLayout, SIGNAL( selectedLayout(int) ), this, SLOT( setDS(int) ) );
 	connect(GZComboO, SIGNAL(activated(int)), this, SLOT(setOrien(int)));
 	connect(GZComboF, SIGNAL(activated(const QString &)), this, SLOT(setSize(const QString &)));
-	connect(facingPages, SIGNAL(clicked()), this, SLOT(setDS()));
 	connect(FileC, SIGNAL(clicked()), this, SLOT(changeDocs()));
 	connect(FileC2, SIGNAL(clicked()), this, SLOT(changeProfs()));
 	connect(FileC3, SIGNAL(clicked()), this, SLOT(changeScripts()));
@@ -917,13 +918,10 @@ void Preferences::changeDocumentTemplates()
  \param None
  \retval None
  */
-void Preferences::setDS()
+void Preferences::setDS(int layout)
 {
-	bool m = facingPages->isChecked() ? true : false;
-	GroupRand->setFacingPages(m);
-	Linkszuerst->setEnabled(m);
-	if (m == false)
-		Linkszuerst->setChecked(false);
+	GroupRand->setFacingPages(!(layout == singlePage));
+	choosenLayout = layout;
 }
 
 /*!
@@ -1312,11 +1310,8 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.RandUnten = GroupRand->RandB;
 	prefsManager->appPrefs.RandLinks = GroupRand->RandL;
 	prefsManager->appPrefs.RandRechts = GroupRand->RandR;
-	if (facingPages->isChecked())
-		prefsManager->appPrefs.FacingPages  = doublePage;
-	else
-		prefsManager->appPrefs.FacingPages = singlePage;
-	prefsManager->appPrefs.LeftPageFirst = Linkszuerst->isChecked();
+	prefsManager->appPrefs.FacingPages  = choosenLayout;
+	prefsManager->appPrefs.LeftPageFirst = docLayout->firstPage->value()-1;
 	prefsManager->setImageEditorExecutable(GimpName->text());
 	prefsManager->appPrefs.gs_AntiAliasGraphics = GSantiGraph->isChecked();
 	prefsManager->appPrefs.gs_AntiAliasText = GSantiText->isChecked();

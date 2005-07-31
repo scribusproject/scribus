@@ -3038,8 +3038,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	dc.setAttribute("PAGESIZE",doc->PageSize);
 	dc.setAttribute("FIRSTNUM",doc->FirstPnum);
 	dc.setAttribute("BOOK", doc->PageFP);
-	if(doc->FirstPageLeft)
-		dc.setAttribute("FIRSTLEFT",1);
+	dc.setAttribute("FIRSTLEFT", doc->FirstPageLeft);
 	if(doc->PageAT)
 		dc.setAttribute("AUTOTEXT",1);
 	dc.setAttribute("AUTOSPALTEN",doc->PageSp);

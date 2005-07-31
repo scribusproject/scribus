@@ -111,6 +111,7 @@ scribus_SOURCES = \
 	page.cpp	\
 	pageitemattributes.ui	\
 	pageitem.cpp	\
+	pagelayout.cpp	\
 	pageselector.cpp	\
 	pagesize.cpp	\
 	pdfoptions.cpp	\
@@ -306,6 +307,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/page.h                        $(prefix)/include/scribus/page.h
 	$(INSTALL_DATA) $(srcdir)/pageitem.h                    $(prefix)/include/scribus/pageitem.h
 	$(INSTALL_DATA) $(srcdir)/pageitemattributes.h          $(prefix)/include/scribus/pageitemattributes.h
+	$(INSTALL_DATA) $(srcdir)/pagelayout.h                  $(prefix)/include/scribus/pagelayout.h
 	$(INSTALL_DATA) $(srcdir)/pageselector.h                $(prefix)/include/scribus/pageselector.h
 	$(INSTALL_DATA) $(srcdir)/pagesize.h                    $(prefix)/include/scribus/pagesize.h
 	$(INSTALL_DATA) $(srcdir)/pagestructs.h                 $(prefix)/include/scribus/pagestructs.h
@@ -482,6 +484,7 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/page.h
 	-rm -f $(prefix)/include/scribus/pageitem.h
 	-rm -f $(prefix)/include/scribus/pageitemattributes.h
+	-rm -f $(prefix)/include/scribus/pagelayout.h
 	-rm -f $(prefix)/include/scribus/pageselector.h
 	-rm -f $(prefix)/include/scribus/pagesize.h
 	-rm -f $(prefix)/include/scribus/pagestructs.h

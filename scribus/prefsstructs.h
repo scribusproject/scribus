@@ -162,7 +162,7 @@ struct ApplicationPrefs
 	double RandLinks;
 	double RandRechts;
 	int FacingPages;
-	bool LeftPageFirst;
+	int LeftPageFirst;
 	int MinWordLen;
 	int HyCount;
 	QString Language;

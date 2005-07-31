@@ -22,6 +22,7 @@
 #include "scribusstructs.h"
 class PrefsManager;
 class MarginWidget;
+class PageLayouts;
 
 class NewDoc : public QDialog
 {
@@ -37,6 +38,7 @@ public:
 
 	QTabWidget* tabWidget;
 	QFrame* newDocFrame;
+	PageLayouts* docLayout;
 	QButtonGroup* ButtonGroup1_2;
 	MarginWidget* GroupRand;
 	QGroupBox* GroupBox3;
@@ -53,8 +55,6 @@ public:
 	QComboBox* ComboBox1;
 	QComboBox* ComboBox2;
 	QComboBox* ComboBox3;
-	QCheckBox* Doppelseiten;
-	QCheckBox* ErsteSeite;
 	QCheckBox* startUpDialog;
 	MSpinBox* Distance;
 	QSpinBox* SpinBox10;
@@ -71,6 +71,7 @@ public:
 	double unitRatio;
 	int Orient;
 	int precision;
+	int choosenLayout;
 	double Pagebr;
 	double Pageho;
 	double Dist;
@@ -87,7 +88,7 @@ public slots:
 	void ExitOK();
 	void setOrien(int ori);
 	void setPGsize(const QString &);
-	void setDS();
+	void setDS(int layout);
 	/*! Opens document on doubleclick
 	\param item QListViewItem sent by signall caller
 	\author Petr Vanek <petr@yarpen.cz
@@ -102,7 +103,6 @@ protected:
 	QVBoxLayout* ButtonGroup1_2Layout;
 	QGridLayout* Layout6;
 	QHBoxLayout* Layout5;
-	QHBoxLayout* Layout8;
 	QVBoxLayout* Layout10;
 	QGridLayout* GroupBox3Layout;
 	QHBoxLayout* GroupBox4Layout;

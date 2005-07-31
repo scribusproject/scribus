@@ -11,7 +11,7 @@
 #include "scribus.h"
 #include "pluginmanager.h"
 #include "prefsmanager.h"
-
+#include "pagelayout.h"
 // definitions for clear reading the code - pv
 #define PORTRAIT    0
 #define LANDSCAPE   1
@@ -73,8 +73,8 @@ NewDoc::NewDoc( QWidget* parent, bool startUp ) : QDialog( parent, "newDoc", tru
 	QToolTip::add( ComboBox2, tr( "Orientation of the document's pages" ) );
 	QToolTip::add( Breite, tr( "Width of the document's pages, editable if you have chosen a custom page size" ) );
 	QToolTip::add( Hoehe, tr( "Height of the document's pages, editable if you have chosen a custom page size" ) );
-	QToolTip::add( Doppelseiten, tr( "Enable single or spread based layout" ) );
-	QToolTip::add( ErsteSeite, tr( "Make the first page the left page of the document" ) );
+//	QToolTip::add( Doppelseiten, tr( "Enable single or spread based layout" ) );
+//	QToolTip::add( ErsteSeite, tr( "Make the first page the left page of the document" ) );
 	QToolTip::add( PgNr, tr( "First page number of the document" ) );
 	QToolTip::add( PgNum, tr( "Initial number of pages of the document" ) );
 	QToolTip::add( ComboBox3, tr( "Default unit of measurement for document editing" ) );
@@ -85,7 +85,7 @@ NewDoc::NewDoc( QWidget* parent, bool startUp ) : QDialog( parent, "newDoc", tru
 	// signals and slots connections
 	connect( OKButton, SIGNAL( clicked() ), this, SLOT( ExitOK() ) );
 	connect( CancelB, SIGNAL( clicked() ), this, SLOT( reject() ) );
-	connect( Doppelseiten, SIGNAL( clicked() ), this, SLOT( setDS() ) );
+	connect( docLayout, SIGNAL( selectedLayout(int) ), this, SLOT( setDS(int ) ) );
 	connect(ComboBox1, SIGNAL(activated(const QString &)), this, SLOT(setPGsize(const QString &)));
 	connect(ComboBox2, SIGNAL(activated(int)), this, SLOT(setOrien(int)));
 	connect(ComboBox3, SIGNAL(activated(int)), this, SLOT(setUnit(int)));
@@ -103,6 +103,10 @@ void NewDoc::createNewDocPage()
 {
 	newDocFrame = new QFrame(this, "newDocFrame");
 	NewDocLayout = new QHBoxLayout( newDocFrame, 10, 5, "NewDocLayout");
+	docLayout = new PageLayouts(newDocFrame);
+	docLayout->selectItem(prefsManager->appPrefs.FacingPages);
+	docLayout->firstPage->setValue(prefsManager->appPrefs.LeftPageFirst);
+	NewDocLayout->addWidget( docLayout );
 	Layout9 = new QVBoxLayout(0, 0, 5, "Layout9");
 	ButtonGroup1_2 = new QButtonGroup(newDocFrame, "ButtonGroup1_2" );
 	ButtonGroup1_2->setTitle( tr( "Page Size" ));
@@ -148,14 +152,6 @@ void NewDoc::createNewDocPage()
 	TextLabel2_2->setBuddy(Hoehe);
 	Layout5->addWidget( Hoehe );
 	ButtonGroup1_2Layout->addLayout( Layout5 );
-	Layout8 = new QHBoxLayout( 0, 0, 6, "Layout8");
-	Doppelseiten = new QCheckBox( tr( "&Facing Pages" ), ButtonGroup1_2, "Doppelseiten" );
-	Doppelseiten->setChecked(prefsManager->appPrefs.FacingPages == doublePage);
-	Layout8->addWidget( Doppelseiten );
-	ErsteSeite = new QCheckBox( tr( "Left &Page First" ), ButtonGroup1_2, "CheckBox3" );
-	ErsteSeite->setChecked(prefsManager->appPrefs.LeftPageFirst);
-	Layout8->addWidget( ErsteSeite );
-	ButtonGroup1_2Layout->addLayout( Layout8 );
 	Layout9->addWidget( ButtonGroup1_2 );
 
 	struct MarginStruct marg;
@@ -180,7 +176,7 @@ void NewDoc::createNewDocPage()
 	bool hwEnabled=(ComboBox1->currentText()==customTextTR);
 	Breite->setEnabled(hwEnabled);
 	Hoehe->setEnabled(hwEnabled);
-	setDS();
+	setDS(prefsManager->appPrefs.FacingPages);
 	setSize(prefsManager->appPrefs.pageSize);
 	setOrien(prefsManager->appPrefs.pageOrientation);
 	Breite->setValue(prefsManager->appPrefs.PageWidth * unitRatio);
@@ -467,10 +463,10 @@ void NewDoc::setSize(QString gr)
 	connect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
 }
 
-void NewDoc::setDS()
+void NewDoc::setDS(int layout)
 {
-	GroupRand->setFacingPages(Doppelseiten->isChecked());
-	ErsteSeite->setEnabled(Doppelseiten->isChecked());
+	GroupRand->setFacingPages(!(layout == singlePage));
+	choosenLayout = layout;
 }
 
 void NewDoc::recentDocList_doubleClicked(QListBoxItem * /*item*/)

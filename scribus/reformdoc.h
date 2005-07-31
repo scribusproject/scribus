@@ -32,6 +32,7 @@ class FontPrefs;
 class DocumentItemAttributes;
 class TOCIndexPrefs;
 class MarginWidget;
+class PageLayouts;
 
 class ReformDoc : public PrefsDialogBase
 {
@@ -41,6 +42,7 @@ public:
 	ReformDoc( QWidget* parent, ScribusDoc* doc );
 	~ReformDoc() {};
 	QWidget* tabPage;
+	PageLayouts* docLayout;
 	MarginWidget* GroupRand;
 	QGroupBox* groupBox7a;
 	QGroupBox* dsGroupBox7;
@@ -62,8 +64,6 @@ public:
 	MSpinBox* gapHorizontal;
 	QLabel* TextLabel5sg;
 	QLabel* TextLabel7sg;
-	QCheckBox* facingPages;
-	QCheckBox* firstPage;
 	QLabel* Linkss;
 	QLabel* Rechtss;
 	QLabel*	widthQLabel;
@@ -107,6 +107,7 @@ public:
 	double unitRatio;
 	double pageWidth;
 	double pageHeight;
+	int choosenLayout;
 	QColor colorPaper;
 	QString prefsPageSizeName;
 
@@ -114,11 +115,12 @@ protected:
 	QVBoxLayout* reformDocLayout;
 	QHBoxLayout* dsGroupBox7Layout;
 	QHBoxLayout* groupBox7aLayout;
-	QHBoxLayout* applyLayout;
 	QHBoxLayout* groupScratchLayout;
 	QHBoxLayout* groupGapLayout;
 	QGridLayout* layout4sg;
 	QGridLayout* dsLayout4;
+	QHBoxLayout* dsLayout4p;
+	QVBoxLayout* dsLayout4pv;
 	QGridLayout* layout4;
 	QGridLayout* layout4a;
 	QGridLayout* layout4s;
@@ -136,7 +138,7 @@ protected slots:
 	virtual void restoreDefaults();
 	virtual void unitChange();
 	virtual void changePaperColor();
-	virtual void setDS();
+	virtual void setDS(int layout);
 	virtual void setSize(const QString &);
 	virtual void setOrien(int ori);
 	virtual void setPageWidth(int v);

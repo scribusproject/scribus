@@ -144,6 +144,7 @@
 #include "marginWidget.h"
 #include "margindialog.h"
 #include "prefsmanager.h"
+#include "pagelayout.h"
 
 using namespace std;
 
@@ -2333,27 +2334,22 @@ void ScribusApp::startUpDialog()
 	{
 		if (dia->tabSelected == 0)
 		{
-			bool autoframes;
-			int facingPages;
-			double pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, numberCols, columnDistance;
-			topMargin = dia->GroupRand->RandT;
-			bottomMargin = dia->GroupRand->RandB;
-			leftMargin = dia->GroupRand->RandL;
-			rightMargin = dia->GroupRand->RandR;
-			columnDistance = dia->Dist;
-			pageWidth = dia->Pagebr;
-			pageHeight = dia->Pageho;
-			numberCols = dia->SpinBox10->value();
-			autoframes = dia->AutoFrame->isChecked();
-			if (dia->Doppelseiten->isChecked())
-				facingPages = doublePage;
-			else
-				facingPages = singlePage;
+			int facingPages = dia->choosenLayout;
+			int firstPage = dia->docLayout->firstPage->value()-1;
+			double topMargin = dia->GroupRand->RandT;
+			double bottomMargin = dia->GroupRand->RandB;
+			double leftMargin = dia->GroupRand->RandL;
+			double rightMargin = dia->GroupRand->RandR;
+			double columnDistance = dia->Dist;
+			double pageWidth = dia->Pagebr;
+			double pageHeight = dia->Pageho;
+			double numberCols = dia->SpinBox10->value();
+			bool autoframes = dia->AutoFrame->isChecked();
 			int orientation = dia->Orient;
 			PageSize *ps2 = new PageSize(dia->ComboBox1->currentText());
 			QString pagesize = ps2->getPageName();
 			doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->ComboBox3->currentItem(),
-							dia->ErsteSeite->isChecked(), orientation, dia->PgNr->value(), pagesize);
+							firstPage, orientation, dia->PgNr->value(), pagesize);
 			if (dia->PgNum->value() > 1)
 			{
 				for (int pg = 1; pg < dia->PgNum->value(); pg++)
@@ -2399,27 +2395,22 @@ bool ScribusApp::slotFileNew()
 	NewDoc* dia = new NewDoc(this);
 	if (dia->exec())
 	{
-		bool autoframes;
-		int facingPages;
-		double pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, numberCols, columnDistance;
-		topMargin = dia->GroupRand->RandT;
-		bottomMargin = dia->GroupRand->RandB;
-		leftMargin = dia->GroupRand->RandL;
-		rightMargin = dia->GroupRand->RandR;
-		columnDistance = dia->Dist;
-		pageWidth = dia->Pagebr;
-		pageHeight = dia->Pageho;
-		numberCols = dia->SpinBox10->value();
-		autoframes = dia->AutoFrame->isChecked();
-		if (dia->Doppelseiten->isChecked())
-			facingPages = doublePage;
-		else
-			facingPages = singlePage;
+		int facingPages = dia->choosenLayout;
+		int firstPage = dia->docLayout->firstPage->value()-1;
+		double topMargin = dia->GroupRand->RandT;
+		double bottomMargin = dia->GroupRand->RandB;
+		double leftMargin = dia->GroupRand->RandL;
+		double rightMargin = dia->GroupRand->RandR;
+		double columnDistance = dia->Dist;
+		double pageWidth = dia->Pagebr;
+		double pageHeight = dia->Pageho;
+		double numberCols = dia->SpinBox10->value();
+		bool autoframes = dia->AutoFrame->isChecked();
 		int orientation = dia->Orient;
 		PageSize *ps2 = new PageSize(dia->ComboBox1->currentText());
 		QString pagesize = ps2->getPageName();
 		retVal = doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->ComboBox3->currentItem(),
-		                dia->ErsteSeite->isChecked(), orientation, dia->PgNr->value(), pagesize);
+		                firstPage, orientation, dia->PgNr->value(), pagesize);
 		if (dia->PgNum->value() > 1)
 		{
 			for (int pg = 1; pg < dia->PgNum->value(); pg++)
@@ -2694,9 +2685,8 @@ bool ScribusApp::SetupDoc()
 		br2 = dia->GroupRand->RandB;
 		lr2 = dia->GroupRand->RandL;
 		rr2 = dia->GroupRand->RandR;
-		fp = dia->facingPages->isChecked();
-		if (fp == doublePage)
-			doc->FirstPageLeft = dia->firstPage->isChecked();
+		fp = dia->choosenLayout;
+		doc->FirstPageLeft = dia->docLayout->firstPage->value()-1;
 		doc->FirstPnum = dia->pageNumber->value();
 		doc->resetPage(tpr2, lr2, rr2, br2, fp);
 		doc->PageOri = dia->orientationQComboBox->currentItem();

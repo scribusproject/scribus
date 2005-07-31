@@ -331,14 +331,14 @@ ScribusDoc::~ScribusDoc()
 	FT_Done_FreeType( library );
 }
 
-void ScribusDoc::setup(const int unitIndex, const int fp, const bool firstLeft, const int orientation, const int firstPageNumber, const QString& defaultPageSize, const QString& documentName)
+void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, const int orientation, const int firstPageNumber, const QString& defaultPageSize, const QString& documentName)
 {
 	docUnitIndex=unitIndex;
-	if (fp == doublePage)
-		FirstPageLeft = firstLeft;
+	FirstPageLeft = firstLeft;
 	PageOri = orientation;
 	PageSize = defaultPageSize;
 	FirstPnum = firstPageNumber;
+	PageFP = fp;
 	setName(documentName);
 	HasCMS = true;
 	

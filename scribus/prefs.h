@@ -40,6 +40,7 @@ class DocumentItemAttributes;
 class TOCIndexPrefs;
 class MarginWidget;
 class PrefsManager;
+class PageLayouts;
 
 #include "langmgr.h"
 
@@ -143,8 +144,7 @@ public:
 	QLabel* GZText4;
 	MSpinBox* pageWidth;
 	MSpinBox* pageHeight;
-	QCheckBox* facingPages;
-	QCheckBox* Linkszuerst;
+	PageLayouts* docLayout;
 	MarginWidget* GroupRand;
 	QGroupBox* GroupAS;
 	QCheckBox* ASon;
@@ -191,6 +191,7 @@ public:
 	double PFactor;
 	double Pagebr;
 	double Pageho;
+	int choosenLayout;
 	int docUnitIndex;
 	double DisScale;
 	ScribusApp *ap;
@@ -203,7 +204,7 @@ public slots:
 	void changeProfs();
 	void changeScripts();
 	void changeDocumentTemplates();
-	void setDS();
+	void setDS(int layout);
 	void setPageWidth(int v);
 	void setPageHeight(int v);
 	void setSize(const QString &);
@@ -225,7 +226,6 @@ protected:
 	QVBoxLayout* GroupSizeLayout;
 	QGridLayout* Layout6;
 	QHBoxLayout* Layout5_2;
-	QHBoxLayout* Layout8;
 	QGridLayout* GroupASLayout;
 	QVBoxLayout* CaliGroupLayout;
 	QHBoxLayout* layout15ca;
@@ -249,6 +249,8 @@ protected:
 	QVBoxLayout* plugLayout1;
 	QVBoxLayout* pluginMainLayout;
 	QGridLayout* plugGroupBoxLayout;
+	QHBoxLayout* dsLayout4p;
+	QVBoxLayout* dsLayout4pv;
 
 	QStringList defaultAttributesList;
 

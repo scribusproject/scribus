@@ -58,7 +58,7 @@ class ScribusDoc : public QObject, public UndoObject
 public:
 	ScribusDoc();
 	~ScribusDoc();
-	void setup(const int, const int, const bool, const int, const int, const QString&, const QString&);
+	void setup(const int, const int, const int, const int, const int, const QString&, const QString&);
 	void setLoading(const bool);
 	const bool isLoading();
 	void setModified(const bool);
@@ -214,7 +214,7 @@ public: // Public attributes
 	QValueList<ParagraphStyle> docParagraphStyles;
 	QValueList<Layer> Layers;
 	bool MasterP;
-	bool FirstPageLeft;
+	int FirstPageLeft;
 	bool marginColored;
 	int GroupCounter;
 	CMSData CMSSettings;

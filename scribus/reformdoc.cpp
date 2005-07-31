@@ -21,6 +21,7 @@
 #include "tocindexprefs.h"
 #include "marginWidget.h"
 #include "prefsmanager.h"
+#include "pagelayout.h"
 
 extern QPixmap loadIcon(QString nam);
 extern bool CMSavail;
@@ -41,6 +42,17 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	reformDocLayout->setSpacing( 5 );
 	reformDocLayout->setMargin( 0 );
 	reformDocLayout->setAlignment( Qt::AlignTop );
+	dsLayout4p = new QHBoxLayout;
+	dsLayout4p->setSpacing( 5 );
+	dsLayout4p->setMargin( 0 );
+	docLayout = new PageLayouts(tabPage);
+	docLayout->selectItem(doc->PageFP);
+	docLayout->firstPage->setValue(doc->FirstPageLeft);
+	dsLayout4p->addWidget( docLayout );
+
+	dsLayout4pv = new QVBoxLayout;
+	dsLayout4pv->setSpacing( 5 );
+	dsLayout4pv->setMargin( 0 );
 	dsGroupBox7 = new QGroupBox( tabPage, "GroupBox7" );
 	dsGroupBox7->setTitle( tr( "Page Size" ) );
 	dsGroupBox7->setColumnLayout(0, Qt::Vertical );
@@ -51,7 +63,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	dsGroupBox7Layout->setSpacing( 0 );
 	dsGroupBox7Layout->setMargin( 10 );
 	dsLayout4 = new QGridLayout;
-	dsLayout4->setSpacing( 6 );
+	dsLayout4->setSpacing( 5 );
 	dsLayout4->setMargin( 0 );
 	sizeQComboBox = new QComboBox( true, dsGroupBox7, "sizeQComboBox" );
 	sizeQComboBox->setEditable(false);
@@ -108,30 +120,17 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	dsLayout4->addWidget( unitQLabel, 2, 0 );
 	dsLayout4->addWidget( unitCombo, 2, 1 );
 	dsGroupBox7Layout->addLayout( dsLayout4 );
-	reformDocLayout->addWidget( dsGroupBox7 );
+	dsLayout4pv->addWidget( dsGroupBox7 );
 
 	GroupRand = new MarginWidget(tabPage,  tr( "Margin Guides" ), &doc->pageMargins, decimals, unitRatio, ein );
 	GroupRand->setPageHeight(pageHeight);
 	GroupRand->setPageWidth(pageWidth);
-	GroupRand->setFacingPages(doc->PageFP == doublePage );
-	reformDocLayout->addWidget( GroupRand );
-	
-	applyLayout = new QHBoxLayout();
-	applyLayout->setAlignment( Qt::AlignTop );
-	applyLayout->setSpacing( 6 );
-	applyLayout->setMargin( 0 );
-	sizeAllPages = new QCheckBox( tabPage, "moveObjects" );
-	sizeAllPages->setText( tr( "Apply size settings to all Pages" ) );
-	sizeAllPages->setChecked( false );
-	applyLayout->addWidget( sizeAllPages );
-	marginsForAllPages = new QCheckBox( tabPage, "moveObjects" );
-	marginsForAllPages->setText( tr( "Apply margin settings to all Pages" ) );
-	marginsForAllPages->setChecked( false );
-	applyLayout->addWidget( marginsForAllPages );
-	reformDocLayout->addLayout( applyLayout );
+	dsLayout4pv->addWidget( GroupRand );
+	dsLayout4p->addLayout( dsLayout4pv );
+	reformDocLayout->addLayout( dsLayout4p );
 	
 	groupBox7a = new QGroupBox( tabPage, "groupBox7" );
-	groupBox7a->setTitle( tr( "Layout" ) );
+	groupBox7a->setTitle( tr( "Options" ) );
 	groupBox7a->setColumnLayout(0, Qt::Vertical );
 	groupBox7a->layout()->setSpacing( 0 );
 	groupBox7a->layout()->setMargin( 0 );
@@ -142,22 +141,22 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	layout4a = new QGridLayout;
 	layout4a->setSpacing( 6 );
 	layout4a->setMargin( 0 );
-	facingPages = new QCheckBox( tr( "&Facing Pages" ),groupBox7a, "facingPages" );
-	facingPages->setChecked( doc->PageFP == doublePage );
-	layout4a->addMultiCellWidget( facingPages, 2, 2, 0, 1 );
-	firstPage = new QCheckBox( tr( "Left &Page First" ), groupBox7a, "n" );
-	firstPage->setChecked( doc->FirstPageLeft );
-	layout4a->addMultiCellWidget( firstPage, 2, 2, 2, 3 );
-	if (!(doc->PageFP == doublePage))
-		firstPage->setEnabled(false);
-	setDS();
+	sizeAllPages = new QCheckBox( groupBox7a, "moveObjects" );
+	sizeAllPages->setText( tr( "Apply size settings to all Pages" ) );
+	sizeAllPages->setChecked( false );
+	layout4a->addMultiCellWidget( sizeAllPages, 1, 1, 0, 1 );
+	marginsForAllPages = new QCheckBox( groupBox7a, "moveObjects" );
+	marginsForAllPages->setText( tr( "Apply margin settings to all Pages" ) );
+	marginsForAllPages->setChecked( false );
+	layout4a->addMultiCellWidget( marginsForAllPages, 1, 1, 2, 3 );
+	setDS(doc->PageFP);
 	TextLabel1_3 = new QLabel( tr( "F&irst Page Number:" ), groupBox7a, "TextLabel1_3" );
-	layout4a->addMultiCellWidget( TextLabel1_3, 3, 3, 0, 1 );
+	layout4a->addMultiCellWidget( TextLabel1_3, 0, 0, 0, 1 );
 	pageNumber = new QSpinBox( groupBox7a, "pageNumber" );
 	pageNumber->setMaxValue( 10000 );
 	pageNumber->setMinValue( 1 );
 	pageNumber->setValue(doc->FirstPnum);
-	layout4a->addWidget( pageNumber, 3, 2, Qt::AlignRight );
+	layout4a->addWidget( pageNumber, 0, 2, Qt::AlignRight );
 	TextLabel1_3->setBuddy(pageNumber);
 	groupBox7aLayout->addLayout( layout4a );
 	reformDocLayout->addWidget( groupBox7a );
@@ -372,11 +371,11 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	QToolTip::add( checkPictures, "<qt>" + tr("Turns the display of pictures on or off") + "</qt>");
 	QToolTip::add( backColor, "<qt>" + tr( "Color for paper" ) + "</qt>" );
 	QToolTip::add( checkUnprintable, "<qt>" + tr( "Mask the area outside the margins in the margin color" ) + "</qt>" );
-	QToolTip::add( facingPages, "<qt>" + tr( "Enable single or spread based layout" ) + "</qt>" );
-	QToolTip::add( firstPage, "<qt>" + tr( "Make the first page the left page of the document" ) + "</qt>" );
+//	QToolTip::add( facingPages, "<qt>" + tr( "Enable single or spread based layout" ) + "</qt>" );
+//	QToolTip::add( firstPage, "<qt>" + tr( "Make the first page the left page of the document" ) + "</qt>" );
 
 	// signals and slots connections
-	connect( facingPages, SIGNAL( clicked() ), this, SLOT( setDS() ) );
+	connect(docLayout, SIGNAL( selectedLayout(int) ), this, SLOT( setDS(int) ) );
 	connect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	connect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
 	connect(backColor, SIGNAL(clicked()), this, SLOT(changePaperColor()));
@@ -407,8 +406,9 @@ void ReformDoc::restoreDefaults()
 		autoSaveTime->setValue(currDoc->AutoSaveTime / 1000 / 60);
 		groupAutoSave->setChecked( currDoc->AutoSave );
 		pageNumber->setValue(currDoc->FirstPnum);
-		firstPage->setChecked( currDoc->FirstPageLeft );
-		GroupRand->setFacingPages( currDoc->PageFP == doublePage );
+		docLayout->selectItem(currDoc->PageFP);
+		docLayout->firstPage->setValue(static_cast<int>(currDoc->FirstPageLeft));
+		setDS(currDoc->PageFP);
 		GroupRand->rightR->setValue(currDoc->pageMargins.Right * unitRatio);
 		GroupRand->bottomR->setValue(currDoc->pageMargins.Bottom * unitRatio);
 		GroupRand->leftR->setValue(currDoc->pageMargins.Left * unitRatio);
@@ -557,10 +557,10 @@ void ReformDoc::changePaperColor()
 	}
 }
 
-void ReformDoc::setDS()
+void ReformDoc::setDS(int layout)
 {
-	GroupRand->setFacingPages(facingPages->isChecked());
-	firstPage->setEnabled(facingPages->isChecked());
+	GroupRand->setFacingPages(!(layout == singlePage));
+	choosenLayout = layout;
 }
 
 void ReformDoc::setPageWidth(int)
