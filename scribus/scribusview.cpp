@@ -8541,12 +8541,12 @@ void ScribusView::reformPages(bool moveObjects)
 	struct oldPageVar oldPg;
 	FPoint maxSize;
 	double maxYPos, maxXPos, currentXPos, currentYPos, lastYPos;
+	int counter = Doc->FirstPageLeft;
 	maxYPos = 0;
 	maxXPos = 0;
 	currentYPos = Doc->ScratchTop;
 	currentXPos = Doc->ScratchLeft;
-	if ((Doc->PageFP == doublePage) && (!Doc->FirstPageLeft))
-		currentXPos += Doc->pageWidth+Doc->PageGapHorizontal;
+	currentXPos += (Doc->pageWidth+Doc->PageGapHorizontal) * counter;
 	lastYPos = Doc->Pages.at(0)->initialHeight;
 	for (uint a = 0; a < Doc->Pages.count(); ++a)
 	{
@@ -8575,32 +8575,21 @@ void ScribusView::reformPages(bool moveObjects)
 		}
 		else
 		{
-			if (Doc->PageFP == doublePage)
+			switch (Doc->PageFP)
 			{
-				Seite->Xoffset = currentXPos;
-				Seite->Yoffset = currentYPos;
-				if (a % 2 != 0)
-				{
-					if (Doc->FirstPageLeft)
+				case singlePage:
+					Seite->Xoffset = currentXPos;
+					Seite->Yoffset = currentYPos;
+					currentYPos += Seite->Height+Doc->PageGapVertical;
+					Seite->Margins.Right = Seite->initialMargins.Right;
+					Seite->Margins.Left = Seite->initialMargins.Left;
+					break;
+				case doublePage:
+					Seite->Xoffset = currentXPos;
+					Seite->Yoffset = currentYPos;
+					if (counter == 0)
 					{
-						currentXPos = Doc->ScratchLeft;
-						currentYPos += QMAX(lastYPos, Seite->Height)+Doc->PageGapVertical;
-						lastYPos = Seite->Height;
-						Seite->Margins.Right = Seite->initialMargins.Right;
-						Seite->Margins.Left = Seite->initialMargins.Left;
-					}
-					else
-					{
-						currentXPos += QMAX(Doc->pageWidth, Seite->Width) + Doc->PageGapHorizontal;
-						Seite->Margins.Left = Seite->initialMargins.Right;
-						Seite->Margins.Right = Seite->initialMargins.Left;
-					}
-				}
-				else
-				{
-					if (Doc->FirstPageLeft)
-					{
-						currentXPos += QMAX(Doc->pageWidth, Seite->Width) + Doc->PageGapHorizontal;
+						currentXPos += Seite->Width + Doc->PageGapHorizontal;
 						Seite->Margins.Left = Seite->initialMargins.Right;
 						Seite->Margins.Right = Seite->initialMargins.Left;
 					}
@@ -8612,15 +8601,70 @@ void ScribusView::reformPages(bool moveObjects)
 						Seite->Margins.Right = Seite->initialMargins.Right;
 						Seite->Margins.Left = Seite->initialMargins.Left;
 					}
-				}
-			}
-			else
-			{
-				Seite->Xoffset = currentXPos;
-				Seite->Yoffset = currentYPos;
-				currentYPos += Seite->Height+Doc->PageGapVertical;
-				Seite->Margins.Right = Seite->initialMargins.Right;
-				Seite->Margins.Left = Seite->initialMargins.Left;
+					counter++;
+					if (counter > 1)
+						counter = 0;
+					break;
+				case triplePage:
+					Seite->Xoffset = currentXPos;
+					Seite->Yoffset = currentYPos;
+					if ((counter == 0) || (counter == 1))
+					{
+						currentXPos += Seite->Width + Doc->PageGapHorizontal;
+						lastYPos = QMAX(lastYPos, Seite->Height);
+						if (counter == 0)
+						{
+							Seite->Margins.Left = Seite->initialMargins.Right;
+							Seite->Margins.Right = Seite->initialMargins.Left;
+						}
+						else
+						{
+							Seite->Margins.Left = Seite->initialMargins.Left;
+							Seite->Margins.Right = Seite->initialMargins.Left;
+						}
+					}
+					else
+					{
+						currentXPos = Doc->ScratchLeft;
+						currentYPos += QMAX(lastYPos, Seite->Height)+Doc->PageGapVertical;
+						lastYPos = QMAX(lastYPos, Seite->Height);
+						Seite->Margins.Right = Seite->initialMargins.Right;
+						Seite->Margins.Left = Seite->initialMargins.Left;
+					}
+					counter++;
+					if (counter > 2)
+						counter = 0;
+					break;
+				case quadroPage:
+					Seite->Xoffset = currentXPos;
+					Seite->Yoffset = currentYPos;
+					if ((counter == 0) || (counter == 1) || (counter == 2))
+					{
+						currentXPos += Seite->Width + Doc->PageGapHorizontal;
+						lastYPos = QMAX(lastYPos, Seite->Height);
+						if (counter == 0)
+						{
+							Seite->Margins.Left = Seite->initialMargins.Right;
+							Seite->Margins.Right = Seite->initialMargins.Left;
+						}
+						else
+						{
+							Seite->Margins.Left = Seite->initialMargins.Left;
+							Seite->Margins.Right = Seite->initialMargins.Left;
+						}
+					}
+					else
+					{
+						currentXPos = Doc->ScratchLeft;
+						currentYPos += QMAX(lastYPos, Seite->Height)+Doc->PageGapVertical;
+						lastYPos = QMAX(lastYPos, Seite->Height);
+						Seite->Margins.Right = Seite->initialMargins.Right;
+						Seite->Margins.Left = Seite->initialMargins.Left;
+					}
+					counter++;
+					if (counter > 3)
+						counter = 0;
+					break;
 			}
 		}
 		Seite->Margins.Top = Seite->initialMargins.Top;

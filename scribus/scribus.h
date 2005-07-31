@@ -120,7 +120,7 @@ public:
 	const bool fileToolBarVisible();
 	
 	bool doFileNew(double width, double h, double tpr, double lr, double rr, double br, double ab, double sp,
-									bool atf, int fp, int einh, bool firstleft, int Ori, int SNr, const QString&);
+									bool atf, int fp, int einh, int firstleft, int Ori, int SNr, const QString&);
 	bool DoFileSave(QString fn);
 	void closeEvent(QCloseEvent *ce);
 	void keyPressEvent(QKeyEvent *k);

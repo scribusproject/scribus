@@ -105,7 +105,7 @@ void NewDoc::createNewDocPage()
 	NewDocLayout = new QHBoxLayout( newDocFrame, 10, 5, "NewDocLayout");
 	docLayout = new PageLayouts(newDocFrame);
 	docLayout->selectItem(prefsManager->appPrefs.FacingPages);
-	docLayout->firstPage->setValue(prefsManager->appPrefs.LeftPageFirst);
+	docLayout->firstPage->setValue(prefsManager->appPrefs.LeftPageFirst+1);
 	NewDocLayout->addWidget( docLayout );
 	Layout9 = new QVBoxLayout(0, 0, 5, "Layout9");
 	ButtonGroup1_2 = new QButtonGroup(newDocFrame, "ButtonGroup1_2" );

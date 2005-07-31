@@ -490,8 +490,8 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 {
 	int ret = -1;
 	QPixmap Bild;
-	double b = app->doc->pageWidth * Res / 72;
-	double h = app->doc->pageHeight * Res / 72;
+	double b = app->doc->Pages.at(Seite)->Width * Res / 72;
+	double h = app->doc->Pages.at(Seite)->Height * Res / 72;
 	qApp->setOverrideCursor(QCursor(waitCursor), true);
 	if ((Seite != APage) || (EnableCMYK->isChecked() != CMode)
 	        || (AliasText->isChecked() != TxtAl) || (AliasGr->isChecked() != GrAl) || (EnableGCR->isChecked() != GMode)

@@ -194,7 +194,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	dsLayout4p->setAlignment( Qt::AlignLeft );
 	docLayout = new PageLayouts(tab_7);
 	docLayout->selectItem(prefsData->FacingPages);
-	docLayout->firstPage->setValue(prefsData->LeftPageFirst);
+	docLayout->firstPage->setValue(prefsData->LeftPageFirst+1);
 	dsLayout4p->addWidget( docLayout );
 	dsLayout4pv = new QVBoxLayout;
 	dsLayout4pv->setSpacing( 5 );
