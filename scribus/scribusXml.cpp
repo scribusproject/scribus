@@ -1317,7 +1317,10 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 		doc->PageSize = dc.attribute("PAGESIZE");
 		doc->FirstPnum = QStoInt(dc.attribute("FIRSTNUM","1"));
 		doc->PageFP=QStoInt(dc.attribute("BOOK", "0"));
-		doc->FirstPageLeft=QStoInt(dc.attribute("FIRSTLEFT","0"));
+		if (QStoInt(dc.attribute("FIRSTLEFT","0")) == 1)
+			doc->FirstPageLeft = 0;
+		else
+			doc->FirstPageLeft = 1;
 		doc->PageAT=QStoInt(dc.attribute("AUTOTEXT"));
 		doc->PageSp=QStoInt(dc.attribute("AUTOSPALTEN"));
 		doc->PageSpa=QStodouble(dc.attribute("ABSTSPALTEN"));
@@ -3038,7 +3041,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	dc.setAttribute("PAGESIZE",doc->PageSize);
 	dc.setAttribute("FIRSTNUM",doc->FirstPnum);
 	dc.setAttribute("BOOK", doc->PageFP);
-	dc.setAttribute("FIRSTLEFT", doc->FirstPageLeft);
+	dc.setAttribute("StartPage", doc->FirstPageLeft);
 	if(doc->PageAT)
 		dc.setAttribute("AUTOTEXT",1);
 	dc.setAttribute("AUTOSPALTEN",doc->PageSp);

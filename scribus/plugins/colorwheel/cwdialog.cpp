@@ -331,6 +331,7 @@ void ColorWheelDialog::setPreview()
 
 QColor ColorWheelDialog::computeDefect(QColor c)
 {
+	int g;
 	if (defectCombo->currentItem() == normalVision)
 		return c;
 	double l, m, s;
@@ -345,7 +346,7 @@ QColor ColorWheelDialog::computeDefect(QColor c)
 			break;
 		case (colorBlindnessVision):
 			// into gray
-			int g = QMIN(qRound(0.3*c.red() + 0.59*c.green() + 0.11*c.blue()), 255);
+			g = QMIN(qRound(0.3*c.red() + 0.59*c.green() + 0.11*c.blue()), 255);
 			return QColor(g, g, g);
 		default:
 			return c;

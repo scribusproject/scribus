@@ -388,7 +388,15 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 		doc->PageOri = QStoInt(dc.attribute("ORIENTATION","0"));
 		doc->FirstPnum = QStoInt(dc.attribute("FIRSTNUM","1"));
 		doc->PageFP=QStoInt(dc.attribute("BOOK", "0"));
-		doc->FirstPageLeft=QStoInt(dc.attribute("FIRSTLEFT","0"));
+		if (dc.hasAttribute("StartPage"))
+			doc->FirstPageLeft = QStoInt(dc.attribute("StartPage", "0"));
+		else
+		{
+			if (QStoInt(dc.attribute("FIRSTLEFT","0")) == 1)
+				doc->FirstPageLeft = 0;
+			else
+				doc->FirstPageLeft = 1;
+		}
 		doc->PageAT=QStoInt(dc.attribute("AUTOTEXT"));
 		doc->PageSp=QStoInt(dc.attribute("AUTOSPALTEN"));
 		doc->PageSpa=QStodouble(dc.attribute("ABSTSPALTEN"));
@@ -935,56 +943,6 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 				Apage->initialMargins.Right = QStodouble(pg.attribute("BORDERRIGHT"));
 				Apage->Margins.Top = Apage->initialMargins.Top;
 				Apage->Margins.Bottom = Apage->initialMargins.Bottom;
-				if (doc->PageFP == doublePage)
-				{
-					if (doc->MasterP)
-					{
-						if (Apage->LeftPg)
-						{
-							Apage->Margins.Right = Apage->initialMargins.Left;
-							Apage->Margins.Left = Apage->initialMargins.Right;
-						}
-						else
-						{
-							Apage->Margins.Left = Apage->initialMargins.Left;
-							Apage->Margins.Right = Apage->initialMargins.Right;
-						}
-					}
-					else
-					{
-						if (a % 2 == 0)
-						{
-							if (doc->FirstPageLeft)
-							{
-								Apage->Margins.Right = Apage->initialMargins.Left;
-								Apage->Margins.Left = Apage->initialMargins.Right;
-							}
-							else
-							{
-								Apage->Margins.Left = Apage->initialMargins.Left;
-								Apage->Margins.Right = Apage->initialMargins.Right;
-							}
-						}
-						else
-						{
-							if (doc->FirstPageLeft)
-							{
-								Apage->Margins.Left = Apage->initialMargins.Left;
-								Apage->Margins.Right = Apage->initialMargins.Right;
-							}
-							else
-							{
-								Apage->Margins.Right = Apage->initialMargins.Left;
-								Apage->Margins.Left = Apage->initialMargins.Right;
-							}
-						}
-					}
-				}
-				else
-				{
-					Apage->Margins.Left = Apage->initialMargins.Left;
-					Apage->Margins.Right = Apage->initialMargins.Right;
-				}
 				doc->MasterP = false;
 				if ((pg.hasAttribute("NumVGuides")) && (QStoInt(pg.attribute("NumVGuides","0")) != 0))
 				{
@@ -1176,7 +1134,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 	doc->pageCount = doc->Pages.count();
 	doc->Items = doc->DocItems;
 	doc->MasterP = false;
-//	view->reformPages();
+	view->reformPages();
 	if (doc->Layers.count() == 0)
 	{
 		la.LNr = 0;
