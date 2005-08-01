@@ -35,6 +35,13 @@ ColorWheelDialog::ColorWheelDialog(QWidget* parent, const char* name, bool modal
 	colorWheel->setMaximumSize(QSize(300, 300));
 	wheelLayout->addWidget(colorWheel);
 
+	defectLayout = new QHBoxLayout(0, 0, 6, "defectLayout");
+	defectLabel = new QLabel(this, "defectLabel");
+	defectLayout->addWidget(defectLabel);
+	defectCombo = new QComboBox(false, this, "defectCombo");
+	defectLayout->addWidget(defectCombo);
+	wheelLayout->addLayout(defectLayout);
+
 	previewLabel = new QLabel(this, "previewLabel");
 	previewLabel->setFrameShape(QFrame::Box);
 	previewLabel->setMinimumSize(QSize(300, 120));
@@ -89,6 +96,11 @@ ColorWheelDialog::ColorWheelDialog(QWidget* parent, const char* name, bool modal
 	typeCombo->insertItem(colorWheel->getTypeDescription(colorWheel->Split), colorWheel->Split);
 	typeCombo->insertItem(colorWheel->getTypeDescription(colorWheel->Triadic), colorWheel->Triadic);
 	typeCombo->insertItem(colorWheel->getTypeDescription(colorWheel->Tetradic), colorWheel->Tetradic);
+	// defects
+	defectCombo->insertItem(tr("Normal Vision"));
+	defectCombo->insertItem(tr("Protanopy"));
+	defectCombo->insertItem(tr("Deuteranopy"));
+	defectCombo->insertItem(tr("Full Color Blindness"));
 
 	// preferences
 	prefs = PrefsManager::instance()->prefsFile->getPluginContext("colorwheel");
@@ -107,6 +119,7 @@ ColorWheelDialog::ColorWheelDialog(QWidget* parent, const char* name, bool modal
 	typeCombo_activated(typeCombo->currentItem());
 	// signals and slots connections
 	connect(typeCombo, SIGNAL(activated(int)), this, SLOT(typeCombo_activated(int)));
+	connect(defectCombo, SIGNAL(activated(int)), this, SLOT(defectCombo_activated(int)));
 	connect(colorWheel, SIGNAL(clicked(int, const QPoint&)), this, SLOT(colorWheel_clicked(int, const QPoint&)));
 	colorWheel_clicked(0, QPoint(0, 0));
 	connect(angleSpin, SIGNAL(valueChanged(int)), this, SLOT(angleSpin_valueChanged(int)));
@@ -137,6 +150,7 @@ ColorWheelDialog::~ColorWheelDialog()
  */
 void ColorWheelDialog::languageChange()
 {
+	defectLabel->setText(tr("Vision Defect:"));
 	setCaption(tr("Color Wheel"));
 	colorList->addColumn(tr("Color"));
 	colorList->addColumn(tr("Name"));
@@ -159,6 +173,7 @@ void ColorWheelDialog::languageChange()
 	QToolTip::add(previewLabel, "<qt>" + tr("Here you have the sample color schema") + "</qt>");
 	QToolTip::add(typeCombo, "<qt>" + tr("Select one of the method to create color schema. See documentation for more info") + "</qt>");
 	QToolTip::add(colorList, "<qt>" + tr("Here you have the color of your chosen color schema") + "</qt>");
+	QToolTip::add(defectCombo, "<qt>" + tr("You can simulate common vision defects here. Just select type of the defect") + "</qt>");
 }
 
 void ColorWheelDialog::fillColorList()
@@ -277,6 +292,11 @@ void ColorWheelDialog::cancelButton_clicked()
 	reject();
 }
 
+void ColorWheelDialog::defectCombo_activated(int /*index*/)
+{
+	setPreview();
+}
+
 void ColorWheelDialog::setPreview()
 {
 	int x = previewLabel->width();
@@ -292,8 +312,9 @@ void ColorWheelDialog::setPreview()
 	p->drawRect(0, 0, x, y);
 	for (uint i = 0; i < cols.count(); ++i)
 	{
-		p->setPen(cols[i].getRGBColor());
-		p->setBrush(cols[i].getRGBColor());
+		QColor c = computeDefect(cols[i].getRGBColor());
+		p->setPen(c);
+		p->setBrush(c);
 		p->drawRect(i * xstep, 0, xstep, y);
 	}
 	p->setPen(Qt::black);
@@ -306,4 +327,62 @@ void ColorWheelDialog::setPreview()
 	delete(p);
 	previewLabel->clear();
 	previewLabel->setPixmap(pm);
+}
+
+QColor ColorWheelDialog::computeDefect(QColor c)
+{
+	if (defectCombo->currentItem() == normalVision)
+		return c;
+	double l, m, s;
+	getLMSfromRGB(c, &l, &m, &s);
+	switch (defectCombo->currentItem())
+	{
+		case (protanopeVision):
+			l = getProtanopesLMS(m, s);
+			break;
+		case (deuteranopeVision):
+			m = getDeuteranopesLMS(l, s);
+			break;
+		case (colorBlindnessVision):
+			// into gray
+			int g = QMIN(qRound(0.3*c.red() + 0.59*c.green() + 0.11*c.blue()), 255);
+			return QColor(g, g, g);
+		default:
+			return c;
+			break;
+	}
+	return getRGBfromLMS(l, m, s);
+}
+
+void ColorWheelDialog::getLMSfromRGB(QColor rgb, double *l, double *m, double *s)
+{
+	/* It's common matrix multiplication. I'm doing it this
+		way not to use more library dependencies (petr) */
+	double r = (double)rgb.red();
+	double g = (double)rgb.green();
+	double b = (double)rgb.blue();
+	*l = 17.88240*r + 43.5161*g + 4.11935*b;
+	*m = 3.45525*r + 27.1554*g + 3.86714*b;
+	*s = 0.0299566*r + 0.184309*g + 1.46709*b;
+}
+
+QColor ColorWheelDialog::getRGBfromLMS(double l, double m, double s)
+{
+	/* inverse matrix to the getLMSfromRGB */
+	double r = 0.080944*l -0.130504*m + 0.116721*s;
+	double g = -0.010249*l + 0.054019*m -0.113615*s;
+	double b = -0.000365*l  -0.004122*m + 0.693511*s;
+	return QColor((int)r, (int)g, (int)b);
+}
+
+/* M and S components without change */
+double ColorWheelDialog::getProtanopesLMS(double m, double s)
+{
+	return 2.02344*m - 2.52581*s;
+}
+
+/* L and S components without change */
+double ColorWheelDialog::getDeuteranopesLMS(double l, double s)
+{
+	return 0.494207*l + 1.24827*s;
 }
