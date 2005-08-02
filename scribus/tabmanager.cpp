@@ -10,14 +10,14 @@
 #include "scribusstructs.h"
 extern QPixmap loadIcon(QString nam);
 
-TabManager::TabManager( QWidget* parent, int dEin, QValueList<PageItem::TabRecord> inTab, double wid) : QDialog( parent, "TabManager", true, 0 )
+TabManager::TabManager( QWidget* parent, int dEin, QValueList<PageItem::TabRecord> inTab, double) : QDialog( parent, "TabManager", true, 0 )
 {
 	setCaption( tr( "Manage Tabulators" ) );
 	setIcon(loadIcon("AppIcon.png"));
 	docUnitRatio=unitGetRatioFromIndex(dEin);
 	tmpTab = inTab;
 	TabManagerLayout = new QVBoxLayout( this, 5, 5, "TabManagerLayout");
-	TabList = new Tabruler(this, false, dEin, inTab, wid);
+	TabList = new Tabruler(this, false, dEin, inTab, -1);
 	TabManagerLayout->addWidget( TabList );
 	layout10 = new QHBoxLayout;
 	layout10->setSpacing( 6 );

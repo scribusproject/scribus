@@ -463,10 +463,10 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QValueList<PageIt
 	tabFillCombo = new QComboBox( true, this, "tabFillCombo" );
 	tabFillCombo->setEditable(false);
 	tabFillCombo->insertItem( tr("None"));
-	tabFillCombo->insertItem( "Dot");
-	tabFillCombo->insertItem( "Hyphen");
-	tabFillCombo->insertItem( "Underscore");
-	tabFillCombo->insertItem( "Custom");
+	tabFillCombo->insertItem( tr("Dot"));
+	tabFillCombo->insertItem( tr("Hyphen"));
+	tabFillCombo->insertItem( tr("Underscore"));
+	tabFillCombo->insertItem( tr("Custom"));
 	tabFillComboT = new QLabel(tabFillCombo, tr( "Fill Char:" ), this, "tabFillComboT" );
 	layout1->addWidget( tabFillComboT );
 	layout1->addWidget( tabFillCombo );
