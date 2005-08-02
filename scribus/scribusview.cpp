@@ -3708,7 +3708,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 	}
 	else
 	{
-		if ((Mpressed) && (m->state() == LeftButton))
+		if ((Mpressed) && (m->state() == LeftButton) && (GyM == -1) && (GxM == -1))
 		{
 			newX = qRound(m->x()/sc + Doc->minCanvasCoordinate.x());
 			newY = qRound(m->y()/sc + Doc->minCanvasCoordinate.y());
@@ -3723,6 +3723,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 			SeRx = newX;
 			SeRy = newY;
 			HaveSelRect = true;
+			return;
 		}
 		if ((Doc->guidesSettings.guidesShown) && (Doc->appMode == modeNormal) && (!Doc->GuideLock) && (OnPage(m->x()/sc, m->y()/sc) != -1) && (!GetItem(&currItem)))
 		{
@@ -7489,7 +7490,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 				if (SelItem.count() == 1)
 				{
 					HandleSizer(&p, currItem, mpo, m);
-					if (HowTo == 0)
+					if ((HowTo == 0) && (!currItem->locked()))
 						qApp->setOverrideCursor(QCursor(SizeAllCursor), true);
 				}
 				else

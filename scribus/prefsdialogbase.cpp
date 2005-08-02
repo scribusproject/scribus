@@ -24,6 +24,7 @@ PrefsDialogBase::PrefsDialogBase( QWidget* parent ) : QDialog( parent, "PrefsDia
 	prefsSelection->setItemsMovable(false);
 	prefsSelection->setAutoArrange( false );
 	prefsSelection->setSorting( false );
+	prefsSelection->setWordWrapIconText(false);
 	prefsSelection->setFocusPolicy(QWidget::NoFocus);
 	prefsSelection->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)0, (QSizePolicy::SizeType)7, 0, 0, prefsSelection->sizePolicy().hasHeightForWidth() ) );
 	layout3->addWidget( prefsSelection );
