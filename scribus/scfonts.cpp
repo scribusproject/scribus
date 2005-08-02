@@ -491,6 +491,10 @@ void SCFonts::AddScalableFonts(const QString &path, QString DocName)
 	{
 		for (uint dc = 0; dc < d.count(); ++dc)
 		{
+			// readdir may return . or .., which we don't want to recurse
+			// over. Skip 'em.
+			if (d[dc] == "." || d[dc] == "..")
+				continue;
 			QFileInfo fi(path+d[dc]);
 			if (!fi.exists())      // Sanity check for broken Symlinks
 				continue;
