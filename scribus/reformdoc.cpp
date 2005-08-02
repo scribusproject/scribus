@@ -382,7 +382,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	connect(unitCombo, SIGNAL(activated(int)), this, SLOT(unitChange()));
 	connect(backToDefaults, SIGNAL(clicked()), this, SLOT(restoreDefaults()));
 	connect(orientationQComboBox, SIGNAL(activated(int)), this, SLOT(setOrien(int)));
-	connect(sizeQComboBox, SIGNAL(activated(const QString &)), this, SLOT(setSize(const QString &)));
+	connect(sizeQComboBox, SIGNAL(activated(const QString &)), this, SLOT(setPageSize()));
 
 	if (CMSavail)
 	{
@@ -573,6 +573,11 @@ void ReformDoc::setPageHeight(int)
 {
 	pageHeight = heightMSpinBox->value() / unitRatio;
 	GroupRand->setPageHeight(pageHeight);
+}
+
+void ReformDoc::setPageSize()
+{
+	setOrien(orientationQComboBox->currentItem());
 }
 
 void ReformDoc::setSize(const QString & gr)

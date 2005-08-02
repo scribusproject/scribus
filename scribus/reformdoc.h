@@ -139,6 +139,7 @@ protected slots:
 	virtual void unitChange();
 	virtual void changePaperColor();
 	virtual void setDS(int layout);
+	virtual void setPageSize();
 	virtual void setSize(const QString &);
 	virtual void setOrien(int ori);
 	virtual void setPageWidth(int v);

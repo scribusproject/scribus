@@ -38,6 +38,7 @@ public:
 	QString prefsPageSizeName;
 
 public slots:
+	virtual void setPageSize();
 	virtual void setSize(const QString &);
 	virtual void setOrien(int ori);
 	virtual void setPageWidth(int v);

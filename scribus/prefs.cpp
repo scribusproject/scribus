@@ -808,7 +808,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	connect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
 	connect(docLayout, SIGNAL( selectedLayout(int) ), this, SLOT( setDS(int) ) );
 	connect(GZComboO, SIGNAL(activated(int)), this, SLOT(setOrien(int)));
-	connect(GZComboF, SIGNAL(activated(const QString &)), this, SLOT(setSize(const QString &)));
+	connect(GZComboF, SIGNAL(activated(const QString &)), this, SLOT(setPageSize()));
 	connect(FileC, SIGNAL(clicked()), this, SLOT(changeDocs()));
 	connect(FileC2, SIGNAL(clicked()), this, SLOT(changeProfs()));
 	connect(FileC3, SIGNAL(clicked()), this, SLOT(changeScripts()));
@@ -950,6 +950,11 @@ void Preferences::setPageHeight(int)
 {
 	Pageho = pageHeight->value() / unitRatio;
 	GroupRand->setPageHeight(Pageho);
+}
+
+void Preferences::setPageSize()
+{
+	setOrien(GZComboO->currentItem());
 }
 
 /*!

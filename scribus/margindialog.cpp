@@ -114,7 +114,7 @@ MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent
 	connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
 	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
 	connect(orientationQComboBox, SIGNAL(activated(int)), this, SLOT(setOrien(int)));
-	connect(sizeQComboBox, SIGNAL(activated(const QString &)), this, SLOT(setSize(const QString &)));
+	connect(sizeQComboBox, SIGNAL(activated(const QString &)), this, SLOT(setPageSize()));
 	connect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	connect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
 	setMinimumSize(minimumSizeHint());
@@ -132,6 +132,11 @@ void MarginDialog::setPageHeight(int)
 {
 	pageHeight = heightMSpinBox->value() / unitRatio;
 	GroupRand->setPageHeight(pageHeight);
+}
+
+void MarginDialog::setPageSize()
+{
+	setOrien(orientationQComboBox->currentItem());
 }
 
 void MarginDialog::setSize(const QString & gr)

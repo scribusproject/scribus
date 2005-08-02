@@ -207,6 +207,7 @@ public slots:
 	void setDS(int layout);
 	void setPageWidth(int v);
 	void setPageHeight(int v);
+	void setPageSize();
 	void setSize(const QString &);
 	void setOrien(int ori);
 	void unitChange();
