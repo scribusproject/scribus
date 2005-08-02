@@ -589,48 +589,56 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	ExtTool = new QWidget( prefsWidgets, "ExtTool" );
 	ExtToolLayout = new QVBoxLayout( ExtTool, 0, 5, "ExtToolLayout");
 	ExtToolLayout->setAlignment( Qt::AlignTop );
-	groupGS = new QGroupBox( tr( "Postscript Interpreter" ), ExtTool, "groupGS" );
-	groupGS->setColumnLayout(0, Qt::Vertical );
-	groupGS->layout()->setSpacing( 6 );
-	groupGS->layout()->setMargin( 10 );
-	groupGSLayout = new QVBoxLayout( groupGS->layout() );
-	groupGSLayout->setAlignment( Qt::AlignTop );
-	GSlayout = new QHBoxLayout( 0, 0, 6, "GSlayout");
-	GSName = new QLineEdit( groupGS, "GSName" );
-	GSName->setText(prefsManager->ghostscriptExecutable());
-	GSText = new QLabel( GSName, tr( "&Name of Executable:" ), groupGS, "GSText" );
-	GSlayout->addWidget( GSText );
-	GSlayout->addWidget( GSName );
-	groupGSLayout->addLayout( GSlayout );
-	GSantiText = new QCheckBox( tr( "Antialias &Text" ), groupGS, "GSantiText" );
+	ghostscriptGroup = new QGroupBox( tr( "Postscript Interpreter" ), ExtTool, "ghostscriptGroup" );
+	ghostscriptGroup->setColumnLayout(0, Qt::Vertical );
+	ghostscriptGroup->layout()->setSpacing( 6 );
+	ghostscriptGroup->layout()->setMargin( 10 );
+	groupGhostScriptLayout = new QVBoxLayout( ghostscriptGroup->layout() );
+	groupGhostScriptLayout->setAlignment( Qt::AlignTop );
+	ghostscriptLayout = new QHBoxLayout( 0, 0, 6, "ghostscriptLayout");
+	ghostscriptLineEdit = new QLineEdit( ghostscriptGroup, "ghostscriptLineEdit" );
+	ghostscriptLineEdit->setText(prefsManager->ghostscriptExecutable());
+	ghostscriptLabel = new QLabel( ghostscriptLineEdit, tr( "&Name of Executable:" ), ghostscriptGroup, "ghostscriptLabel" );
+	ghostscriptChangeButton = new QToolButton( ghostscriptGroup, "ghostscriptChangeButton" );
+	ghostscriptChangeButton->setMinimumSize( QSize( 88, 24 ) );
+	ghostscriptChangeButton->setText( tr( "&Change..." ) );
+	ghostscriptLayout->addWidget( ghostscriptLabel );
+	ghostscriptLayout->addWidget( ghostscriptLineEdit );
+	ghostscriptLayout->addWidget( ghostscriptChangeButton );
+	groupGhostScriptLayout->addLayout( ghostscriptLayout );
+	GSantiText = new QCheckBox( tr( "Antialias &Text" ), ghostscriptGroup, "GSantiText" );
 	GSantiText->setChecked(prefsData->gs_AntiAliasText);
-	groupGSLayout->addWidget( GSantiText );
-	GSantiGraph = new QCheckBox( tr( "Antialias &Graphics" ), groupGS, "GSantiGraph" );
+	groupGhostScriptLayout->addWidget( GSantiText );
+	GSantiGraph = new QCheckBox( tr( "Antialias &Graphics" ), ghostscriptGroup, "GSantiGraph" );
 	GSantiGraph->setChecked(prefsData->gs_AntiAliasGraphics);
-	groupGSLayout->addWidget( GSantiGraph );
-	GSlayout2 = new QHBoxLayout( 0, 0, 6, "GSlayout");
-	GSResolution = new QSpinBox( groupGS, "Time" );
+	groupGhostScriptLayout->addWidget( GSantiGraph );
+	GSlayout2 = new QHBoxLayout( 0, 0, 6, "ghostscriptLayout");
+	GSResolution = new QSpinBox( ghostscriptGroup, "Time" );
 	GSResolution->setMaxValue( 2400 );
 	GSResolution->setMinValue( 10 );
 	GSResolution->setSuffix( " " + tr("dpi") );
 	GSResolution->setValue(prefsData->gs_Resolution);
-	GSResText = new QLabel( GSResolution, tr( "Resolution:" ), groupGS, "GSResText" );
+	GSResText = new QLabel( GSResolution, tr( "Resolution:" ), ghostscriptGroup, "GSResText" );
 	GSlayout2->addWidget( GSResText );
 	GSlayout2->addWidget( GSResolution );
-	groupGSLayout->addLayout( GSlayout2 );
-	ExtToolLayout->addWidget( groupGS );
-	groupGimp = new QGroupBox( tr( "Image Processing Tool" ), ExtTool, "groupGimp" );
-	groupGimp->setColumnLayout(0, Qt::Vertical );
-	groupGimp->layout()->setSpacing( 6 );
-	groupGimp->layout()->setMargin( 10 );
-	groupGimpLayout = new QHBoxLayout( groupGimp->layout() );
-	groupGimpLayout->setAlignment( Qt::AlignTop );
-	GimpName = new QLineEdit( groupGimp, "GimpName" );
-	GimpName->setText(prefsManager->imageEditorExecutable());
-	GimpText = new QLabel( GimpName, tr( "Name of &Executable:" ), groupGimp, "GimpText" );
-	groupGimpLayout->addWidget( GimpText );
-	groupGimpLayout->addWidget( GimpName );
-	ExtToolLayout->addWidget( groupGimp );
+	groupGhostScriptLayout->addLayout( GSlayout2 );
+	ExtToolLayout->addWidget( ghostscriptGroup );
+	groupImageEditor = new QGroupBox( tr( "Image Processing Tool" ), ExtTool, "groupImageEditor" );
+	groupImageEditor->setColumnLayout(0, Qt::Vertical );
+	groupImageEditor->layout()->setSpacing( 6 );
+	groupImageEditor->layout()->setMargin( 10 );
+	groupImageEditorLayout = new QHBoxLayout( groupImageEditor->layout() );
+	groupImageEditorLayout->setAlignment( Qt::AlignTop );
+	imageEditorLineEdit = new QLineEdit( groupImageEditor, "imageEditorLineEdit" );
+	imageEditorLineEdit->setText(prefsManager->imageEditorExecutable());
+	imageEditorLabel = new QLabel( imageEditorLineEdit, tr( "Name of &Executable:" ), groupImageEditor, "imageEditorLabel" );
+	imageEditorChangeButton = new QToolButton( groupImageEditor, "imageEditorChangeButton" );
+	imageEditorChangeButton->setMinimumSize( QSize( 88, 24 ) );
+	imageEditorChangeButton->setText( tr( "&Change..." ) );
+	groupImageEditorLayout->addWidget( imageEditorLabel );
+	groupImageEditorLayout->addWidget( imageEditorLineEdit );
+	groupImageEditorLayout->addWidget( imageEditorChangeButton );
+	ExtToolLayout->addWidget( groupImageEditor );
 	QSpacerItem* spacer_gs = new QSpacerItem( 0, 1, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	ExtToolLayout->addItem( spacer_gs );
 	addItem(  tr("External Tools"), loadIcon("misc.png"), ExtTool);
@@ -779,10 +787,10 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	QToolTip::add( CaliText, tr( "Set the default zoom level" ) );
 	QToolTip::add( CaliGroup, "<qt>" + tr( "Place a ruler against your screen and drag the slider to set the zoom level so Scribus will display your pages and objects on them at the correct size" ) + "</qt>" );
 
-	QToolTip::add( GSName, tr( "Filesystem location for the Ghostscript interpreter" ) );
+	QToolTip::add( ghostscriptLineEdit, tr( "Filesystem location for the Ghostscript interpreter" ) );
 	QToolTip::add( GSantiText, tr( "Antialias text for EPS and PDF onscreen rendering" ) );
 	QToolTip::add( GSantiGraph, tr( "Antialias graphics for EPS and PDF onscreen rendering" ) );
-	QToolTip::add( GimpName, tr( "File system location for graphics editor. If you use gimp\n"
+	QToolTip::add( imageEditorLineEdit, tr( "File system location for graphics editor. If you use gimp\n"
 						"and your distro includes it, we recommend 'gimp-remote',\n"
 						"as it allows you to edit the image in an already running\n"
 						"instance of gimp." ) );
@@ -813,6 +821,8 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	connect(FileC2, SIGNAL(clicked()), this, SLOT(changeProfs()));
 	connect(FileC3, SIGNAL(clicked()), this, SLOT(changeScripts()));
 	connect(FileC4, SIGNAL(clicked()), this, SLOT(changeDocumentTemplates()));
+	connect(ghostscriptChangeButton, SIGNAL(clicked()), this, SLOT(changeGhostscript()));
+	connect(imageEditorChangeButton, SIGNAL(clicked()), this, SLOT(changeImageEditor()));
 	connect(CaliSlider, SIGNAL(valueChanged(int)), this, SLOT(setDisScale()));
 	connect(buttonOk, SIGNAL(clicked()), this, SLOT(setActionHistoryLength()));
 	connect(pluginsList, SIGNAL(clicked(QListViewItem *, const QPoint &, int)),
@@ -908,6 +918,36 @@ void Preferences::changeDocumentTemplates()
 	QString s = QFileDialog::getExistingDirectory(DocumentTemplateDir->text(), this, "d", tr("Choose a Directory"), true);
 	if (!s.isEmpty())
 		DocumentTemplateDir->setText(s);
+}
+
+/*!
+ \fn void Preferences::ChangeDocumentTemplates()
+ \author Craig Bradney
+ \brief Runs QFileDialog to get Preferences Path to Ghostscript
+ \param None
+ \retval None
+ */
+void Preferences::changeGhostscript()
+{
+	QFileInfo fi(ghostscriptLineEdit->text());
+	QString s = QFileDialog::getOpenFileName(fi.dirPath(), QString::null, this, "changeGhostscript", tr("Locate Ghostscript"));
+	if (!s.isEmpty())
+		ghostscriptLineEdit->setText(s);
+}
+
+/*!
+ \fn void Preferences::ChangeDocumentTemplates()
+ \author Craig Bradney
+ \brief Runs QFileDialog to get Preferences Path to Image Editor
+ \param None
+ \retval None
+ */
+void Preferences::changeImageEditor()
+{
+	QFileInfo fi(imageEditorLineEdit->text());
+	QString s = QFileDialog::getOpenFileName(fi.dirPath(), QString::null, this, "changeImageEditor", tr("Locate your image editor"));
+	if (!s.isEmpty())
+		imageEditorLineEdit->setText(s);
 }
 
 /*!
@@ -1191,6 +1231,11 @@ void Preferences::drawRuler()
 		iter2 = 120.0;
 		maxi = 240.0;
 		break;
+	case 4:
+		iter = 12.0;
+		iter2 = 120.0;
+		maxi = 240.0;
+		break;		
 	default:
 		iter = 10.0;
 		iter2 = iter * 10.0;
@@ -1317,10 +1362,10 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.RandRechts = GroupRand->RandR;
 	prefsManager->appPrefs.FacingPages  = choosenLayout;
 	prefsManager->appPrefs.LeftPageFirst = docLayout->firstPage->value()-1;
-	prefsManager->setImageEditorExecutable(GimpName->text());
+	prefsManager->setImageEditorExecutable(imageEditorLineEdit->text());
 	prefsManager->appPrefs.gs_AntiAliasGraphics = GSantiGraph->isChecked();
 	prefsManager->appPrefs.gs_AntiAliasText = GSantiText->isChecked();
-	prefsManager->setGhostscriptExecutable(GSName->text());
+	prefsManager->setGhostscriptExecutable(ghostscriptLineEdit->text());
 	prefsManager->appPrefs.gs_Resolution = GSResolution->value();
 	prefsManager->appPrefs.ClipMargin = ClipMarg->isChecked();
 	prefsManager->appPrefs.GCRMode = DoGCR->isChecked();

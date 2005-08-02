@@ -159,16 +159,18 @@ public:
 	QSlider* CaliSlider;
 	QLabel* CaliAnz;
  	QWidget* ExtTool;
-	QGroupBox* groupGS;
-	QLabel* GSText;
-	QLineEdit* GSName;
+	QGroupBox* ghostscriptGroup;
+	QLabel* ghostscriptLabel;
+	QLineEdit* ghostscriptLineEdit;
+	QToolButton* ghostscriptChangeButton;
 	QCheckBox* GSantiText;
 	QCheckBox* GSantiGraph;
 	QSpinBox* GSResolution;
 	QLabel* GSResText;
-	QGroupBox* groupGimp;
-	QLabel* GimpText;
-	QLineEdit* GimpName;
+	QGroupBox* groupImageEditor;
+	QLabel* imageEditorLabel;
+	QLineEdit* imageEditorLineEdit;
+	QToolButton* imageEditorChangeButton;
 	QWidget* Misc;
 	QGroupBox* groupPrint;
 	QCheckBox* ClipMarg;
@@ -199,11 +201,14 @@ public:
 
 
 public slots:
-	virtual void changePaperColor();
 	void changeDocs();
 	void changeProfs();
 	void changeScripts();
 	void changeDocumentTemplates();
+	void changeGhostscript();
+	void changeImageEditor();
+	virtual void changePaperColor();
+
 	void setDS(int layout);
 	void setPageWidth(int v);
 	void setPageHeight(int v);
@@ -214,7 +219,13 @@ public slots:
 	void setDisScale();
 	void switchCMS(bool enable);
 
+
 protected:
+	
+	QHBoxLayout* groupImageEditorLayout;
+	QVBoxLayout* groupGhostScriptLayout;
+	QHBoxLayout* ghostscriptLayout;
+	
 	QGridLayout* tabLayout;
 	QGridLayout* ButtonGroup1Layout;
 	QGridLayout* GroupBox200Layout;
@@ -231,10 +242,9 @@ protected:
 	QVBoxLayout* CaliGroupLayout;
 	QHBoxLayout* layout15ca;
 	QVBoxLayout* ExtToolLayout;
-	QVBoxLayout* groupGSLayout;
-	QHBoxLayout* GSlayout;
+	
+	
 	QHBoxLayout* GSlayout2;
-	QHBoxLayout* groupGimpLayout;
 	QVBoxLayout* MiscLayout;
 	QVBoxLayout* groupPrintLayout;
 	//! layout of the lorem ipsum group
