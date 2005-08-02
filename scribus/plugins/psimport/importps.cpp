@@ -384,7 +384,7 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 		parseOutput(tmpFile, true);
 	else
 		parseOutput(tmpFile, false);
-	system("rm -f "+tmpFile);
+	QFile::remove(tmpFile);
 	return true;
 }
 

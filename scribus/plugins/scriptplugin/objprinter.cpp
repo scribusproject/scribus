@@ -4,6 +4,7 @@
 
 #include <structmember.h>
 #include <qfileinfo.h>
+#include <qdir.h>
 #include <vector>
 #include "libpostscript/pslib.h"
 
@@ -452,6 +453,7 @@ static PyObject *Printer_print(Printer *self)
 		if (!fil)
 			fna = Carrier->PrefsPfad+"/tmp.ps";
 		PSfile = dd->PS_set_file(fna);
+		fna = QDir::convertSeparators(fna);
 		if (PSfile)
 		{
 			dd->CreatePS(Carrier->doc, Carrier->view, pageNs, sep, SepName, color, mirrorH, mirrorV, useICC, DoGCR, false);
@@ -466,7 +468,11 @@ static PyObject *Printer_print(Printer *self)
 					system("ps2ps -dLanguageLevel=1 "+opts+" \""+fna+"\" \""+fna+".tmp\"");
 				else
 					system("ps2ps "+opts+" \""+fna+"\" \""+fna+".tmp\"");
+			#ifndef _WIN32
 				system("mv \""+fna+".tmp\" \""+fna+"\"");
+			#else
+				system("move /y \""+fna+".tmp\" \""+fna+"\"");
+			#endif
 			}
 
 			if (!fil)

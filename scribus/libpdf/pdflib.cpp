@@ -4408,7 +4408,7 @@ QString PDFlib::PDF_Image(PageItem* c, QString fn, double sx, double sy, double 
 					im = "";
 					loadText(tmpFile, &im);
 					cm = 1;
-					system("rm -f "+tmpFile);
+					QFile::remove(tmpFile);
 				}
 				else
 					cm = 2;
@@ -4446,7 +4446,7 @@ QString PDFlib::PDF_Image(PageItem* c, QString fn, double sx, double sy, double 
 					loadText(tmpFile, &im);
 					cm = 1;
 				}
-				system("rm -f "+tmpFile);
+				QFile::remove(tmpFile);
 			}
 		}
 		PutDoc("/BitsPerComponent 8\n");

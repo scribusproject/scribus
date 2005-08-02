@@ -151,8 +151,8 @@ void MenuPreview::RunPreview()
 		prefsManager->appPrefs.PrPr_K = dia->EnableCMYK_K->isChecked();
 		prefsManager->appPrefs.Gcr_Mode = dia->EnableGCR->isChecked();
 		delete dia;
-		system("rm -f "+Carrier->PrefsPfad+"/tmp.ps");
-		system("rm -f "+Carrier->PrefsPfad+"/sc.png");
+		QFile::remove(Carrier->PrefsPfad+"/tmp.ps");
+		QFile::remove(Carrier->PrefsPfad+"/sc.png");
 	}
 }
 

@@ -375,7 +375,7 @@ int moveFile(QString source, QString target)
 	if (source == target)
 		return -1;
 	copyFile(source, target);
-	unlink(source);
+	QFile::remove(source);
 	return 0;
 }
 

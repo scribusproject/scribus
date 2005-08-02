@@ -5169,6 +5169,7 @@ bool ScribusApp::doPrint(PrintOptions *options)
 			PSfile = dd->PS_set_file(PrefsPfad+"/tmp.ps");
 			filename = PrefsPfad+"/tmp.ps";
 		}
+		filename = QDir::convertSeparators(filename);
 		if (PSfile)
 		{
 			// Write the PS to a file
@@ -5188,7 +5189,11 @@ bool ScribusApp::doPrint(PrintOptions *options)
 					system("ps2ps -dLanguageLevel=1 "+opts+" \""+filename+"\" \""+filename+".tmp\"");
 				else
 					system("ps2ps "+opts+" \""+filename+"\" \""+filename+".tmp\"");
+			#ifndef _WIN32
 				system("mv \""+filename+".tmp\" \""+filename+"\"");
+			#else
+				system("move /y \""+filename+".tmp\" \""+filename+"\"");
+			#endif
 			}
 			if (!options->toFile)
 			{
