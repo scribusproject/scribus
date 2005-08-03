@@ -1,8 +1,7 @@
 #ifndef _FILESEARCH_H
 #define _FILESEARCH_H
 
-#include <qobject.h>
-#include <qstring.h>
+#include "deferredtask.h"
 #include <qstringlist.h>
 #include <qvaluestack.h>
 #include <qdir.h>
@@ -14,7 +13,7 @@ class QTimer;
 // letting you get on with other things and take action when you're informed
 // that the search is complete.
 // A FileSearch is single use.
-class FileSearch : public QObject
+class FileSearch : public DeferredTask
 {
 	Q_OBJECT
 
@@ -33,15 +32,7 @@ public:
 
 public slots:
 	// Begin searching.
-	void start();
-
-	// Abort the search
-	void cancel();
-
-	// True iff the search has finished running and results are ready. This
-	// will return false if (a) the search has not started, (b) the search is
-	// still running, or (c) the search has been cancelled.
-	bool finished() const;
+	virtual void start();
 
 	// Return a list of files matched. Note that it is safe to call this
 	// while the search is still running, or after it has failed.
@@ -49,9 +40,6 @@ public slots:
 
 	// Return the number of files found so far.
 	int foundCount() const;
-
-	// If the search failed, return a string indicating why.
-	const QString & failReason() const;
 
 	// Return the name we're searching for
 	const QString & fileName() const;
@@ -61,11 +49,6 @@ public slots:
 	// absolute dirname, etc.
 	const QDir & currentDir() const;
 
-protected slots:
-	// Search the current directory's files, then move to the next directory
-	// to search.
-	void next();
-
 signals:
 	// Emitted when the search has finished.
 	// param 1 is list of paths matched,
@@ -73,9 +56,8 @@ signals:
 	// Remember you can simply discard one or both params.
 	void searchComplete(const QStringList&, const QString&);
 
-	// Emitted when the search fails or is canceled. Bool arg is true if the
-	// search was canceled by user interaction.
-	void searchAborted(bool);
+protected slots:
+	virtual void next();
 
 protected:
 	// Push a list of subdirs in the current directory onto m_tree, and
@@ -113,16 +95,6 @@ protected:
 
 	// Maximum depth to search to
 	int m_maxdepth;
-
-	// Current state of search. We just use an int, as this is
-	// private to the implemementation.
-	int m_status;
-
-	// We use a QTimer to do our search during idle time in the event loop.
-	QTimer* m_timer;
-
-	// Stores the error message to return to the user, if any
-	QString m_failReason;
 };
 
 #endif

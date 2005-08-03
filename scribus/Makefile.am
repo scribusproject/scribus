@@ -40,6 +40,7 @@ scribus_SOURCES = \
 	cupsoptions.cpp	\
 	customfdialog.cpp	\
 	dcolor.cpp	\
+	deferredtask.cpp	\
 	delpages.cpp	\
 	docinfo.cpp	\
 	docitemattrprefs.ui	\

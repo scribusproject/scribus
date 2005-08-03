@@ -246,7 +246,7 @@ void PicStatus::SearchPic()
 	connect(search,
 			SIGNAL(searchComplete(const QStringList&, const QString&)),
 			SLOT(SearchPicFinished(const QStringList&, const QString&)));
-	connect(search, SIGNAL(searchAborted(bool)), SLOT(SearchPicAborted(bool)));
+	connect(search, SIGNAL(aborted(bool)), SLOT(SearchPicAborted(bool)));
 	// Set up the UI to let the user cancel the search, then start it
 	setSearchButton(row, true, search);
 	search->start();
@@ -263,7 +263,7 @@ void PicStatus::SearchPicAborted(bool userCancelled)
 	if (!userCancelled)
 		// A running search failed
 		QMessageBox::warning(this, tr("Scribus - Image Search"),
-				tr("The search failed: %1").arg(search->failReason()),
+				tr("The search failed: %1").arg(search->lastError()),
 				QMessageBox::Ok|QMessageBox::Default|QMessageBox::Escape,
 				QMessageBox::NoButton);
 }

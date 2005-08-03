@@ -13,42 +13,22 @@ enum FileSearchStatus
 };
 
 FileSearch::FileSearch(QObject* parent, const QString & fileName, const QString & searchBase, int depthLimit) :
-	QObject(parent),
+	DeferredTask(parent),
 	m_searchBase(searchBase.isNull() ? QDir::homeDirPath() : searchBase),
 	m_fileName(fileName),
 	m_depth(0),
-	m_maxdepth(depthLimit),
-	m_status(Status_NotStarted),
-	m_timer(0)
+	m_maxdepth(depthLimit)
 {
+	DeferredTask::init();
 	m_dir.setPath(m_searchBase);
 	Q_ASSERT(m_dir.exists());
 	// Give ourselves a useful name for object browsers, etc.
 	setName(QString("FileSearch for \"%1\"").arg(m_searchBase).local8Bit());
-	// And build the timer we'll use to access the event loop
-	m_timer = new QTimer(this, "FileSearch timer");
-	Q_CHECK_PTR(m_timer);
-	connect(m_timer, SIGNAL(timeout()), SLOT(next()) );
 }
 
 FileSearch::~FileSearch()
 {
-	// We're being destroyed while the search is running.
-	if (m_status == Status_Running)
-	{
-		m_status = Status_Failed;
-		// Report a failure. This error generally indicates a program bug,
-		// non-translatable because it should never be user visible.
-		m_failReason = "Searcher deleted";
-		emit searchAborted(false);
-	}
-	// Our timer, if we have one, is automatically destroyed when
-	// we are so don't worry about it.
-}
-
-bool FileSearch::finished() const
-{
-	return m_status == Status_Finished;
+	DeferredTask::cleanup();
 }
 
 const QStringList & FileSearch::matchingFiles() const
@@ -59,14 +39,6 @@ const QStringList & FileSearch::matchingFiles() const
 int FileSearch::foundCount() const
 {
 	return m_matchingFiles.count();
-}
-
-const QString & FileSearch::failReason() const
-{
-	// Should only be called when something has in fact failed
-	// DO NOT use this method to check for failure!
-	Q_ASSERT(!m_failReason.isEmpty());
-	return m_failReason;
 }
 
 const QString & FileSearch::fileName() const
@@ -81,23 +53,11 @@ const QDir & FileSearch::currentDir() const
 
 void FileSearch::start()
 {
-	m_status = Status_Running;
 	// Push the list of subdirs for the starting dir onto the stack
 	pushStack();
 	// and add the current directory's files to the list
 	addCurrentDirFiles();
-	// Start the timer to do our search in the event loop's idle time
-	m_timer->start(0, false);
-}
-
-void FileSearch::cancel()
-{
-	m_status = Status_Cancelled;
-	if (m_timer)
-		m_timer->stop();
-	// Cancelled by request
-	m_failReason = tr("Search cancelled");
-	emit searchAborted(true);
+	DeferredTask::start();
 }
 
 void FileSearch::next()
@@ -129,8 +89,7 @@ void FileSearch::next()
 			// tell our owner we've finished.
 			Q_ASSERT(m_iter.count() == 0);
 			Q_ASSERT(m_tree.count() == 0);
-			m_status = Status_Finished;
-			m_timer->stop();
+			DeferredTask::done();
 			emit searchComplete(m_matchingFiles, m_fileName);
 		}
 		else
