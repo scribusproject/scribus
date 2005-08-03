@@ -75,6 +75,13 @@ signals:
 	// so long as you do so AFTER calling done().
 	void finished();
 
+	// Emitted to inform anybody interested of the approximate level of
+	// progress made in the processing task. The argument is a positive integer
+	// percentage from 0 to 100 inclusive. Subclasses are not required to emit
+	// this signal, but it's a good idea if the user is likely to care about
+	// what your class does.
+	void progress(int);
+
 protected slots:
 	// Do the next small chunk of processing, then return. You must implement this method
 	// to do whatever processing work you need to. It will be called repeatedly until it emits
