@@ -257,8 +257,8 @@ void LayerPalette::removeLayer(bool deleteItems)
 			(*it).Level -= 1;
 	}
 	rebuildList();
-	emit LayerRemoved(num2, deleteItems);
 	*Activ = 0;
+	emit LayerRemoved(num2, deleteItems);
 	MarkActiveLayer(*Activ);
 	emit LayerActivated(*Activ);
 	ScApp->slotDocCh();
