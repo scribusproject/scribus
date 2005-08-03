@@ -92,6 +92,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td>Petr Vaněk</td><td>petr@yarpen.cz</td></tr>" +
 											"<tr><td>Riku Leino</td><td>tsoots@gmail.com</td></tr>" +
 											"<tr><td>Craig Ringer</td><td>craig@postnewspapers.com.au</td></tr>" +
+											"<tr><td>Andreas Vox</td><td>avox@arcor.de</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + tr("Contributions from:").utf8()  + "</b></td><td></td></tr>" +
 											"<tr><td>Niyam Bhushan</td><td></td></tr>" +
