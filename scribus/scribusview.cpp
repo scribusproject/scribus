@@ -492,7 +492,8 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 		if (page->FromMaster.count() != 0)
 		{
 			Lnr = 0;
-			for (uint la = 0; la < Doc->Layers.count(); ++la)
+			int layerCount=Doc->layerCount();
+			for (uint la = 0; la < layerCount; ++la)
 			{
 				Level2Layer(Doc, &ll, Lnr);
 				bool pr = true;
@@ -611,7 +612,8 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 	if (Doc->Items.count() != 0)
 	{
 		Lnr = 0;
-		for (uint la2 = 0; la2 < Doc->Layers.count(); ++la2)
+		int layerCount=Doc->layerCount();
+		for (uint la2 = 0; la2 < layerCount; ++la2)
 		{
 			Level2Layer(Doc, &ll, Lnr);
 			bool pr = true;
@@ -1741,7 +1743,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			if (!currItem->isSingleSel)
 			{
 				ScApp->scrActions["itemSendToScrapbook"]->addTo(pmen);
-				if (Doc->Layers.count() > 1)
+				if (Doc->layerCount() > 1)
 				{
 					for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = ScApp->scrLayersActions.begin(); it!=ScApp->scrLayersActions.end(); ++it )
 						(*it)->addTo(pmen3);
@@ -2605,7 +2607,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					p.end();
 					if ((Doc->MasterP) && (docItem->OnMasterPage != Doc->currentPage->PageNam))
 						continue;
-					if (((Sele.contains(apr.boundingRect())) || (Sele.contains(apr2))) && (docItem->LayerNr == Doc->ActiveLayer))
+					if (((Sele.contains(apr.boundingRect())) || (Sele.contains(apr2))) && (docItem->LayerNr == Doc->activeLayer()))
 						SelectItemNr(a, false);
 				}
 			}
@@ -7294,7 +7296,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 		currItem = Doc->currentPage->FromMaster.last();
 		for (a = 0; a < Doc->currentPage->FromMaster.count(); ++a)
 		{
-			if (currItem->LayerNr == Doc->ActiveLayer)
+			if (currItem->LayerNr == Doc->activeLayer())
 			{
 				p.begin(this);
 				double OldX = currItem->Xpos;
@@ -7440,7 +7442,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 			currItem = Doc->Items.prev();
 			continue;
 		}
-		if (currItem->LayerNr == Doc->ActiveLayer)
+		if (currItem->LayerNr == Doc->activeLayer())
 		{
 			p.begin(this);
 			Transform(currItem, &p);
@@ -8842,65 +8844,38 @@ void ScribusView::SetCPo(int x, int y)
 	setRulerPos(contentsX(), contentsY());
 }
 
-void ScribusView::LaMenu()
+void ScribusView::updateLayerMenu()
 {
-	uint a;
-	QValueList<Layer>::iterator it;
 	disconnect(Laymen, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
- 	Laymen->clear();
- 	if (Doc->Layers.count() != 0)
- 	{
-		for (a=0; a < Doc->Layers.count(); a++)
- 		{
-			for (it = Doc->Layers.begin(); it != Doc->Layers.end(); ++it)
-			{
-				if (Doc->Layers.count()-(*it).Level-1 == a)
-					Laymen->insertItem((*it).Name);
-			}
- 		}
- 	}
-	for (it = Doc->Layers.begin(); it != Doc->Layers.end(); ++it)
-	{
-		if ((*it).LNr == Doc->ActiveLayer)
-			break;
-	}
-	Laymen->setItemChecked(Laymen->idAt(Laymen->count()-1-(*it).Level), true);
+	Laymen->clear();
+	QStringList newNames;
+	Doc->orderedLayerList(&newNames);
+	
+	for (QStringList::Iterator it=newNames.begin(); it!=newNames.end(); ++it)
+        Laymen->insertItem(*it);
+
+	Laymen->setItemChecked(Laymen->idAt(Laymen->count()-1-Doc->layerLevelFromNumber(Doc->activeLayer())), true);
 	connect(Laymen, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
 }
 
-void ScribusView::setLayMenTxt(int l)
+void ScribusView::setLayerMenuText(const QString &layerName)
 {
-	QValueList<Layer>::iterator it;
-	QString lName;
 	disconnect(Laymen, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
-	for (it = Doc->Layers.begin(); it != Doc->Layers.end(); ++it)
-	{
-		if ((*it).LNr == l)
-			break;
-	}
-	lName=(*it).Name;
-	LY->setText(lName);
+	LY->setText(layerName);
 	connect(Laymen, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
 }
 
 void ScribusView::GotoLa(int l)
 {
-	int d = Doc->Layers.count()-Laymen->indexOf(l)-1;
-	QValueList<Layer>::iterator it;
-	for (it = Doc->Layers.begin(); it != Doc->Layers.end(); ++it)
-	{
-		if ( d == (*it).Level )
-		{
-			Doc->ActiveLayer = (*it).LNr;
-			setLayMenTxt((*it).LNr);
-			emit changeLA((*it).LNr);
-			break;
-		}
-	}
+	int level = Doc->layerCount()-Laymen->indexOf(l)-1;
+	int layerNumber=Doc->layerNumberFromLevel(level);
+	if (layerNumber==-1)
+		return;
+	Doc->setActiveLayer(layerNumber);
+	setLayerMenuText(Doc->activeLayerName());
+	emit changeLA(layerNumber);
 	for (uint al = 0; al < Laymen->count(); ++al)
-	{
 		Laymen->setItemChecked(Laymen->idAt(al), false);
-	}
 	Laymen->setItemChecked(l, true);
 }
 

@@ -922,7 +922,8 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 	int maxLayer = 0;
 	int maxLevel = 0;
 	layerTrans.clear();
-	for (uint la2 = 0; la2 < doc->Layers.count(); ++la2)
+	int layerCount=doc->layerCount();
+	for (uint la2 = 0; la2 < layerCount; ++la2)
 	{
 		maxLayer = QMAX(doc->Layers[la2].LNr, maxLayer);
 		maxLevel = QMAX(doc->Layers[la2].Level, maxLevel);
@@ -984,7 +985,8 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 				la.isViewable = QStoInt(pg.attribute("SICHTBAR"));
 				la.isPrintable = QStoInt(pg.attribute("DRUCKEN"));
 				bool laex = false;
-				for (uint la2 = 0; la2 < doc->Layers.count(); ++la2)
+				int layerCount=doc->layerCount();
+				for (uint la2 = 0; la2 < layerCount; ++la2)
 				{
 					if (doc->Layers[la2].Name == la.Name)
 					{
@@ -1389,7 +1391,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 		doc->CMSSettings.DefaultIntentPrinter = QStoInt(dc.attribute("DIPr","0"));
 		doc->CMSSettings.DefaultIntentMonitor = QStoInt(dc.attribute("DIMo","1"));
 		doc->CMSSettings.DefaultIntentMonitor2 = QStoInt(dc.attribute("DIMo2","1"));
-		doc->ActiveLayer = QStoInt(dc.attribute("ALAYER","0"));
+		doc->setActiveLayer(QStoInt(dc.attribute("ALAYER","0")));
 		doc->Language = dc.attribute("LANGUAGE", "");
 		doc->MinWordLen = QStoInt(dc.attribute("MINWORDLEN", "3"));
 		doc->HyCount = QStoInt(dc.attribute("HYCOUNT", "2"));
@@ -1851,7 +1853,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 	doc->Items = doc->DocItems;
 	doc->MasterP = false;
 	view->reformPages();
-	if (doc->Layers.count() == 0)
+	if (doc->layerCount() == 0)
 	{
 		la.LNr = 0;
 		la.Level = 0;
@@ -3093,7 +3095,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	dc.setAttribute("DIPr",doc->CMSSettings.DefaultIntentPrinter);
 	dc.setAttribute("DIMo",doc->CMSSettings.DefaultIntentMonitor);
 	dc.setAttribute("DIMo2",doc->CMSSettings.DefaultIntentMonitor2);
-	dc.setAttribute("ALAYER", doc->ActiveLayer);
+	dc.setAttribute("ALAYER", doc->activeLayer());
 	dc.setAttribute("LANGUAGE", doc->Language);
 	dc.setAttribute("MINWORDLEN", doc->MinWordLen);
 	dc.setAttribute("HYCOUNT", doc->HyCount);
@@ -3309,7 +3311,8 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 			dc.appendChild(fo);
 		}
 	}
-	for (uint lay = 0; lay < doc->Layers.count(); ++lay)
+	int layerCount=doc->layerCount();
+	for (uint lay = 0; lay < layerCount; ++lay)
 	{
 		QDomElement la = docu.createElement("LAYERS");
 		la.setAttribute("NUMMER",doc->Layers[lay].LNr);

@@ -603,7 +603,8 @@ void BezierPoints(QPointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4)
 
 void Level2Layer(ScribusDoc *currentDoc, struct Layer *ll, int Level)
 {
-	for (uint la2 = 0; la2 < currentDoc->Layers.count(); ++la2)
+	int layerCount=currentDoc->layerCount();
+	for (uint la2 = 0; la2 < layerCount; ++la2)
 	{
 		if (currentDoc->Layers[la2].Level == Level)
 		{
@@ -616,16 +617,19 @@ void Level2Layer(ScribusDoc *currentDoc, struct Layer *ll, int Level)
 	}
 }
 
+/* CB Replaced by ScribusDoc::layerLevelFromNumber
 int Layer2Level(ScribusDoc *currentDoc, int LayerNr)
 {
-	for (uint la2 = 0; la2 < currentDoc->Layers.count(); ++la2)
+	int retVal=currentDoc->layerLevelFromNumber(LayerNr);
+	int layerCount=currentDoc->layerCount();
+	for (uint la2 = 0; la2 < layerCount; ++la2)
 	{
 		if (currentDoc->Layers[la2].LNr == LayerNr)
 			return currentDoc->Layers[la2].Level;
 	}
 	return 0;
 }
-
+*/
 QString CompressStr(QString *in)
 {
 	QString out = "";

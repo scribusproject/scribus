@@ -457,7 +457,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 		doc->CMSSettings.DefaultIntentPrinter = QStoInt(dc.attribute("DIPr","0"));
 		doc->CMSSettings.DefaultIntentMonitor = QStoInt(dc.attribute("DIMo","1"));
 		doc->CMSSettings.DefaultIntentMonitor2 = QStoInt(dc.attribute("DIMo2","1"));
-		doc->ActiveLayer = QStoInt(dc.attribute("ALAYER","0"));
+		doc->setActiveLayer(QStoInt(dc.attribute("ALAYER","0")));
 		doc->Language = dc.attribute("LANGUAGE", "");
 		doc->MinWordLen = QStoInt(dc.attribute("MINWORDLEN", "3"));
 		doc->HyCount = QStoInt(dc.attribute("HYCOUNT", "2"));

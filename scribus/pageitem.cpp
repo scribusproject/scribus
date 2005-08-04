@@ -256,7 +256,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	UseEmbedded = true;
 	EmProfile = "";
 	Groups.clear();
-	LayerNr = Doc->ActiveLayer;
+	LayerNr = Doc->activeLayer();
 	ScaleType = true;
 	AspectRatio = true;
 	Reverse = false;
@@ -969,7 +969,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 				}
 				Doc->docParagraphStyles[0].LineSpa = LineSp;
 				QRegion cl = QRegion(pf2.xForm(Clip));
-				int LayerLev = Layer2Level(Doc, LayerNr);
+				int LayerLev = Doc->layerLevelFromNumber(LayerNr);
 				if (!isEmbedded)
 				{
 					if (!OnMasterPage.isEmpty())
@@ -979,7 +979,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 						for (a = 0; a < Doc->MasterItems.count(); ++a)
 						{
 							PageItem* docItem = Doc->MasterItems.at(a);
-							int LayerLevItem = Layer2Level(Doc, docItem->LayerNr);
+							int LayerLevItem = Doc->layerLevelFromNumber(docItem->LayerNr);
 							if (((docItem->ItemNr > ItemNr) && (docItem->LayerNr == LayerNr)) || (LayerLevItem > LayerLev))
 							{
 								if (docItem->textFlowsAroundFrame())
@@ -1050,7 +1050,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 					for (a = 0; a < Doc->Items.count(); ++a)
 					{
 						PageItem* docItem = Doc->Items.at(a);
-						int LayerLevItem = Layer2Level(Doc, docItem->LayerNr);
+						int LayerLevItem = Doc->layerLevelFromNumber(docItem->LayerNr);
 						if (((docItem->ItemNr > ItemNr) && (docItem->LayerNr == LayerNr)) || (LayerLevItem > LayerLev))
 						{
 							if (docItem->textFlowsAroundFrame())
@@ -4921,3 +4921,14 @@ void PageItem::setPrintable(bool toPrint)
 {
 	isPrintable=toPrint;
 }
+
+bool PageItem::isTagged() const
+{
+	return tagged;
+}
+
+void PageItem::setTagged(bool tag)
+{
+	tagged=tag;
+}
+

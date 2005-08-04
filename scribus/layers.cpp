@@ -15,10 +15,9 @@
 #include <qheader.h>
 #include <qvaluelist.h>
 #include <qtooltip.h>
+#include <qcheckbox.h>
 
 #include "scribus.h"
-#include "undomanager.h"
-#include "undostate.h"
 
 #include "layers.h"
 #include "layers.moc"
@@ -75,46 +74,45 @@ LayerPalette::LayerPalette(QWidget* parent)
 	QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout1->addItem( spacer );
 
-	NewLayer = new QPushButton( this, "NewLayer" );
-	NewLayer->setMinimumSize( QSize( 50, 24 ) );
-	NewLayer->setMaximumSize( QSize( 50, 24 ) );
-	NewLayer->setText( "" );
-	NewLayer->setPixmap(loadIcon("Newlayer.png"));
-	Layout1->addWidget( NewLayer );
+	newLayerButton = new QPushButton( this, "newLayerButton" );
+	newLayerButton->setMinimumSize( QSize( 50, 24 ) );
+	newLayerButton->setMaximumSize( QSize( 50, 24 ) );
+	newLayerButton->setText( "" );
+	newLayerButton->setPixmap(loadIcon("Newlayer.png"));
+	Layout1->addWidget( newLayerButton );
 
-	DeleteLayer = new QPushButton( this, "DeleteLayer" );
-	DeleteLayer->setMinimumSize( QSize( 50, 24 ) );
-	DeleteLayer->setMaximumSize( QSize( 50, 24 ) );
-	DeleteLayer->setText( "" );
-	DeleteLayer->setPixmap(loadIcon("Deletelayer.png"));
-	Layout1->addWidget( DeleteLayer );
+	deleteLayerButton = new QPushButton( this, "deleteLayerButton" );
+	deleteLayerButton->setMinimumSize( QSize( 50, 24 ) );
+	deleteLayerButton->setMaximumSize( QSize( 50, 24 ) );
+	deleteLayerButton->setText( "" );
+	deleteLayerButton->setPixmap(loadIcon("Deletelayer.png"));
+	Layout1->addWidget( deleteLayerButton );
 
-	RaiseLayer = new QPushButton( this, "RaiseLayer" );
-	RaiseLayer->setMinimumSize( QSize( 50, 24 ) );
-	RaiseLayer->setMaximumSize( QSize( 50, 24 ) );
-	RaiseLayer->setText( "" );
-	RaiseLayer->setPixmap(loadIcon("Raiselayer.png"));
-	Layout1->addWidget( RaiseLayer );
+	raiseLayerButton = new QPushButton( this, "raiseLayerButton" );
+	raiseLayerButton->setMinimumSize( QSize( 50, 24 ) );
+	raiseLayerButton->setMaximumSize( QSize( 50, 24 ) );
+	raiseLayerButton->setText( "" );
+	raiseLayerButton->setPixmap(loadIcon("Raiselayer.png"));
+	Layout1->addWidget( raiseLayerButton );
 
-	LowerLayer = new QPushButton( this, "LowerLayer" );
-	LowerLayer->setMinimumSize( QSize( 50, 24 ) );
-	LowerLayer->setMaximumSize( QSize( 50, 24 ) );
-	LowerLayer->setText( "" );
-	LowerLayer->setPixmap(loadIcon("Lowerlayer.png"));
-	Layout1->addWidget( LowerLayer );
+	lowerLayerButton = new QPushButton( this, "lowerLayerButton" );
+	lowerLayerButton->setMinimumSize( QSize( 50, 24 ) );
+	lowerLayerButton->setMaximumSize( QSize( 50, 24 ) );
+	lowerLayerButton->setText( "" );
+	lowerLayerButton->setPixmap(loadIcon("Lowerlayer.png"));
+	Layout1->addWidget( lowerLayerButton );
 
 	LayerPaletteLayout->addLayout( Layout1 );
 	ClearInhalt();
 	languageChange();
 	
-	connect(NewLayer, SIGNAL(clicked()), this, SLOT(addLayer()));
-	connect(DeleteLayer, SIGNAL(clicked()), this, SLOT(removeLayer()));
-	connect(RaiseLayer, SIGNAL(clicked()), this, SLOT(upLayer()));
-	connect(LowerLayer, SIGNAL(clicked()), this, SLOT(downLayer()));
+	connect(newLayerButton, SIGNAL(clicked()), this, SLOT(addLayer()));
+	connect(deleteLayerButton, SIGNAL(clicked()), this, SLOT(removeLayer()));
+	connect(raiseLayerButton, SIGNAL(clicked()), this, SLOT(upLayer()));
+	connect(lowerLayerButton, SIGNAL(clicked()), this, SLOT(downLayer()));
 	connect(Table, SIGNAL(valueChanged(int, int)), this, SLOT(changeName(int, int)));
 	connect(Table, SIGNAL(updtName(int)), this, SLOT(updateName(int)));
 
-	undoManager = UndoManager::instance();
 }
 /*
 void LayerPalette::closeEvent(QCloseEvent *ce)
@@ -132,7 +130,7 @@ void LayerPalette::reject()
 void LayerPalette::updateName(int r)
 {
 	changeName(r, 0);
-	emit LayerActivated(*Activ);
+	ScApp->changeLayer(ScApp->doc->activeLayer());
 }
 
 void LayerPalette::ClearInhalt()
@@ -141,50 +139,54 @@ void LayerPalette::ClearInhalt()
 	int b = Table->numRows();
 	for (int a = 0; a < b; ++a)
 		Table->removeRow(0);
-	FlagsPrint.clear();
-	FlagsSicht.clear();
-	NewLayer->setEnabled(false);
-	DeleteLayer->setEnabled(false);
-	RaiseLayer->setEnabled(false);
-	LowerLayer->setEnabled(false);
+	flagsPrintable.clear();
+	flagsVisible.clear();
+	newLayerButton->setEnabled(false);
+	deleteLayerButton->setEnabled(false);
+	raiseLayerButton->setEnabled(false);
+	lowerLayerButton->setEnabled(false);
 }
 
-void LayerPalette::setLayers(QValueList<Layer> *layin, int *act)
+void LayerPalette::setLayers(QValueList<Layer> *layin, int act)
 {
 	layers = layin;
-	Activ = act;
 	rebuildList();
 	disconnect(Table, SIGNAL(currentChanged(int, int)), this, SLOT(setActiveLayer(int)));
-	MarkActiveLayer(*Activ);
-	NewLayer->setEnabled(true);
-	DeleteLayer->setEnabled(true);
-	RaiseLayer->setEnabled(true);
-	LowerLayer->setEnabled(true);
+	markActiveLayer();
+	newLayerButton->setEnabled(true);
+	deleteLayerButton->setEnabled(true);
+	raiseLayerButton->setEnabled(true);
+	lowerLayerButton->setEnabled(true);
 	connect(Table, SIGNAL(currentChanged(int, int)), this, SLOT(setActiveLayer(int)));
 }
 
 void LayerPalette::rebuildList()
 {
 	disconnect(Table, SIGNAL(currentChanged(int, int)), this, SLOT(setActiveLayer(int)));
-	FlagsPrint.clear();
-	FlagsSicht.clear();
+	flagsPrintable.clear();
+	flagsVisible.clear();
 	QString tmp;
 	QValueList<Layer>::iterator it;
-	Table->setNumRows(layers->count());
+	int layerCount=ScApp->doc->layerCount();
+	Table->setNumRows(layerCount);
 	for (it = layers->begin(); it != layers->end(); ++it)
 	{
-		Table->setText(layers->count()-(*it).Level-1, 2, (*it).Name);
-		QCheckBox *cp = new QCheckBox(this, tmp.setNum((*it).Level));
-		cp->setChecked((*it).isPrintable);
-		Table->setCellWidget(layers->count()-(*it).Level-1, 1, cp);
-		FlagsPrint.append(cp);
+		int layerNumber=(*it).LNr;
+		//TODO once "layers" is not set anymore, need to get layer number differently
+		int layerLevel=ScApp->doc->layerLevelFromNumber(layerNumber);
+		int row=layerCount-layerLevel-1;
+		Table->setText(row, 2, ScApp->doc->layerName(layerNumber));
+		QCheckBox *cp = new QCheckBox(this, tmp.setNum(layerLevel));
+		cp->setChecked(ScApp->doc->layerPrintable(layerNumber));
+		Table->setCellWidget(row, 1, cp);
+		flagsPrintable.append(cp);
 		connect(cp, SIGNAL(clicked()), this, SLOT(printLayer()));
-		QCheckBox *cp2 = new QCheckBox(this, tmp.setNum((*it).Level));
-		cp2->setChecked((*it).isViewable);
-		FlagsSicht.append(cp2);
+		QCheckBox *cp2 = new QCheckBox(this, tmp.setNum(layerLevel));
+		cp2->setChecked(ScApp->doc->layerVisible(layerNumber));
+		flagsVisible.append(cp2);
 		connect(cp2, SIGNAL(clicked()), this, SLOT(visibleLayer()));
-		Table->setCellWidget(layers->count()-(*it).Level-1, 0, cp2);
-		Header->setLabel(layers->count()-(*it).Level-1, tmp.setNum((*it).Level));
+		Table->setCellWidget(row, 0, cp2);
+		Header->setLabel(row, tmp.setNum(layerLevel));
 	}
 	Table->setColumnStretchable(2, true);
 	Table->adjustColumn(2);
@@ -193,383 +195,165 @@ void LayerPalette::rebuildList()
 
 void LayerPalette::addLayer()
 {
-	QString tmp;
-	struct Layer ll;
-	ll.LNr = layers->last().LNr + 1;
-	ll.Level = layers->count();
-	ll.Name = tr("New Layer")+" "+tmp.setNum(ll.LNr);
-	ll.isViewable = true;
-	ll.isPrintable = true;
-	layers->append(ll);
+	ScApp->doc->addLayer(QString::null, true);
 	rebuildList();
-	*Activ = ll.LNr;
-	MarkActiveLayer(*Activ);
-	emit LayerActivated(*Activ);
+	markActiveLayer();
+	ScApp->changeLayer(ScApp->doc->activeLayer());
 	ScApp->slotDocCh();
-	if (UndoManager::undoEnabled())
-	{
-		SimpleState *ss = new SimpleState(Um::AddLayer, "", Um::ICreate);
-		ss->set("ADD_LAYER", "add_layer");
-		ss->set("ACTIVE", *Activ);
-		ss->set("LAYER_NR", ll.LNr);
-		undoManager->action(this, ss, ScApp->doc->DocName, Um::ILayer);
-	}
 }
 
 void LayerPalette::removeLayer()
 {
-	if (layers->count() < 2)
+	int layerCount=ScApp->doc->layerCount();
+	if (layerCount < 2)
 		return;
+	int level = layerCount-1-Table->currentRow();
+	int layerNumber=ScApp->doc->layerNumberFromLevel(level);
 	bool delToo = false;
-	int t = QMessageBox::warning(this, tr("Delete Layer"),
-	                             tr("Do you want to delete all objects on this layer too?"),
-	                             QMessageBox::No | QMessageBox::Default | QMessageBox::Escape,
-	                             QMessageBox::Yes,
-	                             QMessageBox::NoButton);
-	if (t == QMessageBox::Yes)
-		delToo = true;
-
+	if (ScApp->doc->layerContainsItems(layerNumber))
+	{
+		if (QMessageBox::warning(this, tr("Delete Layer"),
+									tr("Do you want to delete all objects on this layer too?"),
+									QMessageBox::No | QMessageBox::Default | QMessageBox::Escape,
+									QMessageBox::Yes,
+									QMessageBox::NoButton)
+			== QMessageBox::Yes)
+			delToo = true;
+	}
 	removeLayer(delToo);
 }
 
 void LayerPalette::removeLayer(bool deleteItems)
 {
-	if (layers->count() < 2)
+	int layerCount=ScApp->doc->layerCount();
+	int level = layerCount-1-Table->currentRow();
+	int layerNumber=ScApp->doc->layerNumberFromLevel(level);
+	if (!ScApp->doc->deleteLayer(layerNumber, deleteItems))
 		return;
-	if (UndoManager::undoEnabled())
-		undoManager->beginTransaction("Layer", Um::IDocument, Um::DeleteLayer, "", Um::IDelete);
-	int num = layers->count()-1-Table->currentRow();
-	QValueList<Layer>::iterator it2;
-	for (it2 = layers->begin(); it2 != layers->end(); ++it2)
-	{
-		if ((*it2).Level == num)
-			break;
-	}
-	QString name = (*it2).Name;
-	int num2 = (*it2).LNr;
-	if (!num2)
-		return;
-	layers->remove(it2);
-	QValueList<Layer>::iterator it;
-	for (it = layers->begin(); it != layers->end(); ++it)
-	{
-		if ((*it).Level > num)
-			(*it).Level -= 1;
-	}
+	
 	rebuildList();
-	*Activ = 0;
-	emit LayerRemoved(num2, deleteItems);
-	MarkActiveLayer(*Activ);
-	emit LayerActivated(*Activ);
+	markActiveLayer();
+	ScApp->changeLayer(ScApp->doc->activeLayer());
 	ScApp->slotDocCh();
-	if (UndoManager::undoEnabled())
-	{
-		SimpleState *ss = new SimpleState(Um::DeleteLayer, "", Um::IDelete);
-		ss->set("REMOVE_LAYER", "remove_layer");
-		ss->set("ACTIVE", *Activ);
-		ss->set("LEVEL", num);
-		ss->set("NAME", name);
-		ss->set("LAYER_NR", num2);
-		ss->set("DELETE", deleteItems);
-		undoManager->action(this, ss, ScApp->doc->DocName, Um::ILayer);
-		undoManager->commit();
-	}
 }
 
 void LayerPalette::upLayer()
 {
-	if ((layers->count() < 2) || (Table->currentRow() == 0))
+	int layerCount=ScApp->doc->layerCount();
+	if ((layerCount < 2) || (Table->currentRow() == 0))
 		return;
-	if (UndoManager::undoEnabled())
-	{
-		SimpleState *ss = new SimpleState(Um::RaiseLayer, "", Um::IUp);
-		ss->set("UP_LAYER", "up_layer");
-		ss->set("ACTIVE", *Activ);
-		undoManager->action(this, ss, ScApp->doc->DocName, Um::ILayer);
-	}
-	int num = layers->count()-1-Table->currentRow();
-	QValueList<Layer>::iterator it;
-	for (it = layers->begin(); it != layers->end(); ++it)
-	{
-		if ((*it).Level == num+1)
-			break;
-	}
-	QValueList<Layer>::iterator it2;
-	for (it2 = layers->begin(); it2 != layers->end(); ++it2)
-	{
-		if ((*it2).Level == num)
-			break;
-	}
-	(*it2).Level += 1;
-	(*it).Level -= 1;
+	int num = layerCount-1-Table->currentRow();
+	ScApp->doc->raiseLayer(num);
 	rebuildList();
+	markActiveLayer();
+	ScApp->changeLayer(ScApp->doc->activeLayer());
 	emit LayerChanged();
-	MarkActiveLayer(*Activ);
 	ScApp->slotDocCh();
 }
 
 void LayerPalette::downLayer()
 {
-	if ((layers->count() < 2) || (Table->currentRow() == static_cast<int>(layers->count()) - 1))
+	int layerCount=ScApp->doc->layerCount();
+	if ((layerCount < 2) || (Table->currentRow() == static_cast<int>(layerCount) - 1))
 		return;
-	if (UndoManager::undoEnabled())
-	{
-		SimpleState *ss = new SimpleState(Um::LowerLayer, "", Um::IDown);
-		ss->set("DOWN_LAYER", "down_layer");
-		ss->set("ACTIVE", *Activ);
-		undoManager->action(this, ss, ScApp->doc->DocName, Um::ILayer);
-	}
-	int num = layers->count()-1-Table->currentRow();
-	QValueList<Layer>::iterator it;
-	for (it = layers->begin(); it != layers->end(); ++it)
-	{
-		if ((*it).Level == num-1)
-			break;
-	}
-	QValueList<Layer>::iterator it2;
-	for (it2 = layers->begin(); it2 != layers->end(); ++it2)
-	{
-		if ((*it2).Level == num)
-			break;
-	}
-	(*it2).Level -= 1;
-	(*it).Level += 1;
+	int num = layerCount-1-Table->currentRow();
+	ScApp->doc->lowerLayer(num);
 	rebuildList();
+	ScApp->changeLayer(ScApp->doc->activeLayer());
 	emit LayerChanged();
-	MarkActiveLayer(*Activ);
+	markActiveLayer();
 	ScApp->slotDocCh();
 }
 
 void LayerPalette::changeName(int row, int col)
 {
-	
 	if (col == 2)
 	{
-		int num = layers->count()-1-row;
-		QValueList<Layer>::iterator it;
-		for (it = layers->begin(); it != layers->end(); ++it)
+		int layerLevel = ScApp->doc->layerCount()-1-row;
+		int layerNumber=ScApp->doc->layerNumberFromLevel(layerLevel);
+		if (layerNumber!=-1)
 		{
-			if ((*it).Level == num)
-			{
-				if (UndoManager::undoEnabled())
-				{
-					SimpleState *ss = new SimpleState(Um::SetLayerName,
-													  QString(Um::FromTo).arg((*it).Name).arg(Table->text(row,col)),
-													  Um::IDown);
-					ss->set("CHANGE_NAME", "change_name");
-					ss->set("ROW", row);
-					ss->set("COL", col);
-					ss->set("NEW_NAME", Table->text(row, col));
-					ss->set("OLD_NAME", (*it).Name);
-					undoManager->action(this, ss, ScApp->doc->DocName, Um::ILayer);
-				}
-				(*it).Name = Table->text(row, col);
-				ScApp->slotDocCh();
-			}
-		}
-	}
-}
-
-void LayerPalette::changeName(int row, int col, const QString &name)
-{
-	if (col == 2)
-	{
-		int num = layers->count()-1-row;
-		QValueList<Layer>::iterator it;
-		for (it = layers->begin(); it != layers->end(); ++it)
-		{
-			if ((*it).Level == num)
-			{
-				(*it).Name = name;
-				Table->setText(row, col, name);
-				ScApp->slotDocCh();
-			}
+			ScApp->doc->changeLayerName(layerNumber, Table->text(row, col));
+			ScApp->slotDocCh();
 		}
 	}
 }
 
 void LayerPalette::visibleLayer()
 {
-	int num = QString(sender()->name()).toInt();
-	QValueList<Layer>::iterator it;
-	QPtrListIterator<QCheckBox> it2(FlagsSicht);
-	for (it = layers->begin(); it != layers->end(); ++it, ++it2)
+	int level = QString(sender()->name()).toInt();
+	int layerNumber=ScApp->doc->layerNumberFromLevel(level);
+	if (layerNumber==-1)
+		return;
+	const QObject* senderBox=sender();
+	if (senderBox->isA("QCheckBox"))
 	{
-		if ((*it).Level == num)
-		{
-			(*it).isViewable = it2.current()->isChecked();
-			emit LayerChanged();
-			ScApp->slotDocCh();
-		}
+		ScApp->doc->setLayerVisible(layerNumber,((QCheckBox*)(senderBox))->isChecked());
+		emit LayerChanged();
+		ScApp->slotDocCh();
 	}
 }
 
 void LayerPalette::printLayer()
 {
-	int num = QString(sender()->name()).toInt();
-	QValueList<Layer>::iterator it;
-	QPtrListIterator<QCheckBox> it2(FlagsPrint);
-	for (it = layers->begin(); it != layers->end(); ++it, ++it2)
+	int level = QString(sender()->name()).toInt();
+	int layerNumber=ScApp->doc->layerNumberFromLevel(level);
+	if (layerNumber==-1)
+		return;
+	const QObject* senderBox=sender();
+	if (senderBox->isA("QCheckBox"))
 	{
-		if ((*it).Level == num)
-		{
-			bool printable =  it2.current()->isChecked();
-			if (UndoManager::undoEnabled())
-			{
-				SimpleState *ss = new SimpleState(printable ? Um::PrintLayer : Um::DoNotPrintLayer,
-						                          "", Um::IPrint);
-				ss->set("PRINT_LAYER", "print_layer");
-				ss->set("ACTIVE", (*it).LNr);
-				ss->set("PRINT", printable);
-				undoManager->action(this, ss, ScApp->doc->DocName, Um::IDocument);
-			}
-			(*it).isPrintable = printable;
-			ScApp->slotDocCh();
-		}
+		ScApp->doc->setLayerPrintable(layerNumber,((QCheckBox*)(senderBox))->isChecked());
+		ScApp->slotDocCh();
 	}
 }
 
+//used for undo only.. TODO
 void LayerPalette::printLayer(int layerNr, bool isPrintable)
 {
+	ScApp->doc->setLayerPrintable(layerNr, isPrintable);
 	QValueList<Layer>::iterator it;
-	QPtrListIterator<QCheckBox> it2(FlagsPrint);
+	QPtrListIterator<QCheckBox> it2(flagsPrintable);
 	for (it = layers->begin(); it != layers->end(); ++it, ++it2)
 	{
 		if ((*it).LNr == layerNr)
 		{
-			(*it).isPrintable = isPrintable;
 			(*it2)->setChecked(isPrintable);
 			ScApp->slotDocCh();
+			break;
 		}
 	}
 }
 
-void LayerPalette::MarkActiveLayer(int l)
+void LayerPalette::markActiveLayer(int layerNumber)
 {
 	disconnect(Table, SIGNAL(currentChanged(int, int)), this, SLOT(setActiveLayer(int)));
-	QValueList<Layer>::iterator it;
-	for (it = layers->begin(); it != layers->end(); ++it)
-	{
-		if ((*it).LNr == l)
-			break;
-	}
-	Table->setCurrentCell(layers->count()-1-(*it).Level, 2);
+	int layerToMark=layerNumber;
+	if (layerNumber==-1)
+		layerToMark=ScApp->doc->activeLayer();
+	Table->setCurrentCell(ScApp->doc->layerCount()-1-ScApp->doc->layerLevelFromNumber(layerToMark), 2);
 	connect(Table, SIGNAL(currentChanged(int, int)), this, SLOT(setActiveLayer(int)));
 }
 
 void LayerPalette::setActiveLayer(int row)
 {
-	QValueList<Layer>::iterator it;
-	for (it = layers->begin(); it != layers->end(); ++it)
-	{
-		if ((*it).Level == static_cast<int>(layers->count())-1-row)
-			break;
-	}
-	*Activ = (*it).LNr;
-	emit LayerActivated(*Activ);
-}
-
-void LayerPalette::restore(UndoState *state, bool isUndo)
-{
-	SimpleState *ss = dynamic_cast<SimpleState*>(state);
-	if (ss)
-	{
-		if (ss->contains("UP_LAYER"))
-		{
-			MarkActiveLayer(ss->getInt("ACTIVE"));
-			if (isUndo)
-				downLayer();
-			else
-				upLayer();
-		}
-		else if (ss->contains("DOWN_LAYER"))
-		{
-			MarkActiveLayer(ss->getInt("ACTIVE"));
-			if (isUndo)
-				upLayer();
-			else
-				downLayer();
-		}
-		else if (ss->contains("PRINT_LAYER"))
-		{
-			bool print = ss->getBool("PRINT");
-			printLayer(ss->getInt("ACTIVE"), isUndo ? !print : print);
-		}
-		else if (ss->contains("ADD_LAYER"))
-		{
-			if (isUndo)
-			{
-				MarkActiveLayer(ss->getInt("ACTIVE"));
-				removeLayer(false);
-			}
-			else
-			{
-				QValueList<Layer>::iterator it;
-				for (it = layers->begin(); it != layers->end(); ++it)
-				{
-					if ((*it).LNr == *Activ)
-					{
-						(*it).LNr = ss->getInt("LAYER_NR");
-						*Activ = (*it).LNr;
-						break;
-					}
-				}
-				addLayer();
-			}
-		}
-		else if (ss->contains("REMOVE_LAYER"))
-		{
-			if (isUndo)
-			{
-				addLayer();
-				QValueList<Layer>::iterator it;
-				for (it = layers->begin(); it != layers->end(); ++it)
-				{
-					if ((*it).LNr == *Activ)
-					{
-						(*it).LNr = ss->getInt("LAYER_NR");
-						*Activ = (*it).LNr;
-						break;
-					}
-				}
-				int level = ss->getInt("LEVEL");
-				int num = layers->count()-1-Table->currentRow();
-				while (num != level)
-				{
-					downLayer();
-					++level;
-				}
-				changeName(ss->getInt("LEVEL"), 2, ss->get("NAME"));
-			}
-			else
-			{
-				MarkActiveLayer(ss->getInt("LAYER_NR"));
-				removeLayer(ss->getBool("DELETE"));
-			}
-		}
-		else if (ss->contains("CHANGE_NAME"))
-		{
-			int col = ss->getInt("COL");
-			int row = ss->getInt("ROW");
-			QString name = ss->get("OLD_NAME");
-			if (!isUndo)
-				name = ss->get("NEW_NAME");
-			changeName(row, col, name);
-		}
-	}
+	int layerNumber=ScApp->doc->layerNumberFromLevel(ScApp->doc->layerCount()-1-row);
+	bool found=ScApp->doc->setActiveLayer(layerNumber);
+	if (found)
+		ScApp->changeLayer(ScApp->doc->activeLayer());
 }
 
 void LayerPalette::languageChange()
 {
 	setCaption( tr( "Layers" ) );
-	QHeader *header = Table->horizontalHeader();
-	header->setLabel(2, tr("Name"));
-	QToolTip::remove( NewLayer );
-	QToolTip::remove( DeleteLayer );
-	QToolTip::remove( RaiseLayer );
-	QToolTip::remove( LowerLayer );
-	QToolTip::add( NewLayer, tr( "Add a new Layer" ) );
-	QToolTip::add( DeleteLayer, tr( "Delete Layer" ) );
-	QToolTip::add( RaiseLayer, tr( "Raise Layer" ) );
-	QToolTip::add( LowerLayer, tr( "Lower Layer" ) );
+	Table->horizontalHeader()->setLabel(2, tr("Name"));
+	QToolTip::remove( newLayerButton );
+	QToolTip::remove( deleteLayerButton );
+	QToolTip::remove( raiseLayerButton );
+	QToolTip::remove( lowerLayerButton );
+	QToolTip::add( newLayerButton, tr( "Add a new layer" ) );
+	QToolTip::add( deleteLayerButton, tr( "Delete layer" ) );
+	QToolTip::add( raiseLayerButton, tr( "Raise layer" ) );
+	QToolTip::add( lowerLayerButton, tr( "Lower layer" ) );
 }
+

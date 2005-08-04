@@ -778,7 +778,18 @@ struct TabRecord
 	 * @sa printable()
 	 */
 	void setPrintable(bool toPrint);
-
+	
+	/**
+	 * @brief Set the tagged member for use when deleting items, instead of reselecting them.
+	 * @sa setTagged()
+	 */
+	bool isTagged() const;
+	/**
+	 * @brief Tells if the frame is tagged or not
+	 * @sa isTagged()
+	 */
+	void setTagged(bool);
+	
 protected:
 	/**
 	 * @name Restore helper methods
@@ -943,6 +954,12 @@ protected:
 	 * @sa PageItem::printable(), PageItem::setPrintable()
 	 */
 	bool isPrintable;
+	
+	/**
+	 * @brief Is this item set to have an action done to it, eg deleted
+	 * @sa PageItem::isTagged(), PageItem::setTagged()
+	 */
+	bool tagged;
 
 };
 

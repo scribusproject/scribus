@@ -618,6 +618,96 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 			else
 				GuideLock = ss->getBool("GUIDE_LOCK");	
 		}
+		/*
+		else if (ss->contains("UP_LAYER"))
+		{
+			ScApp->layerPalette->markActiveLayer(ss->getInt("ACTIVE"));
+			if (isUndo)
+				//downLayer();
+				lowerLayer(ss->getInt("ACTIVE"));
+			else
+				//upLayer();
+				raiseLayer(ss->getInt("ACTIVE"));
+		}
+		else if (ss->contains("DOWN_LAYER"))
+		{
+			ScApp->layerPalette->markActiveLayer(ss->getInt("ACTIVE"));
+			if (isUndo)
+				//upLayer();
+				raiseLayer(ss->getInt("ACTIVE"));
+			else
+				//downLayer();
+				lowerLayer(ss->getInt("ACTIVE"));
+		}
+		else if (ss->contains("PRINT_LAYER"))
+		{
+			bool print = ss->getBool("PRINT");
+			//printLayer(ss->getInt("ACTIVE"), isUndo ? !print : print);
+			setLayerPrintable(ss->getInt("ACTIVE"), isUndo ? !print : print);
+		}
+		/*
+		else if (ss->contains("ADD_LAYER"))
+		{
+			if (isUndo)
+			{
+				//markActiveLayer(ss->getInt("ACTIVE"));
+				removeLayer(false);
+			}
+			else
+			{
+				QValueList<Layer>::iterator it;
+				for (it = layers->begin(); it != layers->end(); ++it)
+				{
+					if ((*it).LNr == *Activ)
+					{
+						(*it).LNr = ss->getInt("LAYER_NR");
+						*Activ = (*it).LNr;
+						break;
+					}
+				}
+				addLayer();
+			}
+		}
+		else if (ss->contains("REMOVE_LAYER"))
+		{
+			if (isUndo)
+			{
+				addLayer();
+				QValueList<Layer>::iterator it;
+				for (it = layers->begin(); it != layers->end(); ++it)
+				{
+					if ((*it).LNr == *Activ)
+					{
+						(*it).LNr = ss->getInt("LAYER_NR");
+						*Activ = (*it).LNr;
+						break;
+					}
+				}
+				int level = ss->getInt("LEVEL");
+				int num = layers->count()-1-Table->currentRow();
+				while (num != level)
+				{
+					downLayer();
+					++level;
+				}
+				changeName(ss->getInt("LEVEL"), 2, ss->get("NAME"));
+			}
+			else
+			{
+				markActiveLayer(ss->getInt("LAYER_NR"));
+				removeLayer(ss->getBool("DELETE"));
+			}
+		}
+		else if (ss->contains("CHANGE_NAME"))
+		{
+			int col = ss->getInt("COL");
+			int row = ss->getInt("ROW");
+			QString name = ss->get("OLD_NAME");
+			if (!isUndo)
+				name = ss->get("NEW_NAME");
+			changeName(row, col, name);
+		}
+		*/
 	}
 }
 
@@ -893,4 +983,439 @@ void ScribusDoc::movePage(const int from, const int to, const int ziel, const in
 		MasterPages = Pages;
 	else
 		DocPages = Pages;
+}
+
+void ScribusDoc::addLayer(const QString& layerName=QString::null, const bool activate=false)
+{
+	struct Layer ll;
+	ll.LNr = Layers.last().LNr + 1;
+	ll.Level = Layers.count();
+	if (layerName.isNull() || layerName.isEmpty())
+	{
+		QString tmp;
+		ll.Name = tr("New Layer")+" "+tmp.setNum(ll.LNr);
+	}
+	else
+		ll.Name = layerName;
+	ll.isViewable = true;
+	ll.isPrintable = true;
+	Layers.append(ll);
+	if (activate)
+		setActiveLayer(ll.LNr);
+		
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::AddLayer, "", Um::ICreate);
+		ss->set("ADD_LAYER", "add_layer");
+		ss->set("ACTIVE", ActiveLayer);
+		ss->set("LAYER_NR", ll.LNr);
+		undoManager->action(this, ss, DocName, Um::ILayer);
+	}
+}
+
+const bool ScribusDoc::deleteLayer(const int layerNumber, const bool deleteItems)
+{
+	if (Layers.count() < 2)
+		return false;
+		
+	if (UndoManager::undoEnabled())
+		undoManager->beginTransaction("Layer", Um::IDocument, Um::DeleteLayer, "", Um::IDelete);
+	
+	QValueList<Layer>::iterator it2;
+	QValueList<Layer>::iterator it2end=Layers.end();
+	bool found=false;
+	int layerLevel;
+	for (it2 = Layers.begin(); it2 != it2end; ++it2)
+	{
+		if ((*it2).LNr == layerNumber)
+		{
+			layerLevel=(*it2).Level;
+			found=true;
+			break;
+		}
+	}
+	if (!found)
+		return false;
+	
+	ScApp->LayerRemove(layerNumber, deleteItems);
+	/*
+	//Layer found, do we want to delete its items too?
+	if (masterPageMode)
+		MasterPages = Pages;
+	else
+		DocPages = Pages;
+	for (uint b = 0; b < MasterItems.count(); ++b)
+	{
+		if (MasterItems.at(b)->LayerNr == layerNumber)
+		{
+			if (deleteItems)
+			{
+				MasterItems.at(b)->setTagged(true);
+				DocItems.at(b)->setLocked(false);
+			}
+			else
+				MasterItems.at(b)->setTagged(false);
+		}
+	}
+//	if (view->SelItem.count() != 0)
+//		view->DeleteItem();
+//	view->SelItem.clear();
+	for (uint b = 0; b < DocItems.count(); ++b)
+	{
+		if (DocItems.at(b)->LayerNr == l)
+		{
+			if (deleteItems)
+			{
+				DocItems.at(b)->setTagged(true);
+				DocItems.at(b)->setLocked(false);
+			}
+			else
+				DocItems.at(b)->setLayer(0);
+		}
+	}
+//	if (view->SelItem.count() != 0)
+//		view->DeleteItem();
+
+	bool deletedOk=deleteTaggedItems();
+	Q_ASSERT(deletedOk);
+	
+	*/
+	//Now delete the layer
+		
+	QString name = (*it2).Name;
+	Layers.remove(it2);
+	QValueList<Layer>::iterator it;
+	QValueList<Layer>::iterator itend=Layers.end();
+	for (it = Layers.begin(); it != itend; ++it)
+	{
+		if ((*it).Level > layerLevel)
+			(*it).Level -= 1;
+	}
+	setActiveLayer(0); //TODO change to use layer below
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::DeleteLayer, "", Um::IDelete);
+		ss->set("REMOVE_LAYER", "remove_layer");
+		ss->set("ACTIVE", layerNumber);
+		ss->set("LEVEL", layerLevel);
+		ss->set("NAME", name);
+		ss->set("LAYER_NR", layerNumber);
+		ss->set("DELETE", deleteItems);
+		undoManager->action(this, ss, DocName, Um::ILayer);
+		undoManager->commit();
+	}
+}
+
+//TODO: Move raise and lower here
+void ScribusDoc::moveLayer()
+{
+}
+
+const int ScribusDoc::activeLayer()
+{
+	return ActiveLayer;
+}
+
+const QString& ScribusDoc::activeLayerName()
+{
+	QValueList<Layer>::iterator itend=Layers.end();
+	QValueList<Layer>::iterator it;
+	bool found=false;
+	for (it = Layers.begin(); it != itend; ++it)
+	{
+		if ((*it).LNr == ActiveLayer)
+		{
+			found=true;
+			break;
+		}
+	}
+	Q_ASSERT(found);
+	return (*it).Name;
+}
+
+const bool ScribusDoc::setActiveLayer(const int layerToActivate)
+{
+	bool found=false;
+	int layerCount=Layers.count();
+	for (uint i=0; i < layerCount; ++i)
+	{
+		if (Layers[i].LNr == layerToActivate)
+		{
+			found = true;
+			break;
+		}
+	}
+	if (found)
+		ActiveLayer=layerToActivate;
+	return found;
+}
+
+const bool ScribusDoc::setActiveLayer(const QString& layerNameToActivate)
+{
+	bool found=false;
+	int layerCount=Layers.count();
+	uint i;
+	for (i=0; i < layerCount; ++i)
+	{
+		if (Layers[i].Name == layerNameToActivate)
+		{
+			found = true;
+			break;
+		}
+	}
+	if (found)
+		ActiveLayer=Layers[i].LNr;
+	return found;
+}
+
+const bool ScribusDoc::setLayerPrintable(const int layerNumber, const bool isPrintable)
+{
+	QValueList<Layer>::iterator itend=Layers.end();
+	QValueList<Layer>::iterator it;
+	bool found=false;
+	for (it = Layers.begin(); it != itend; ++it)
+	{
+		if ((*it).LNr == layerNumber)
+		{
+			bool oldPrintable = (*it).isPrintable;
+			(*it).isPrintable = isPrintable;
+			
+			if (oldPrintable!=isPrintable && UndoManager::undoEnabled())
+			{
+				SimpleState *ss = new SimpleState(isPrintable ? Um::PrintLayer : Um::DoNotPrintLayer,
+						                          "", Um::IPrint);
+				ss->set("PRINT_LAYER", "print_layer");
+				ss->set("ACTIVE", (*it).LNr);
+				ss->set("PRINT", isPrintable);
+				undoManager->action(this, ss, DocName, Um::IDocument);
+			}
+			found=true;
+			break;
+		}
+	}
+	return found;
+}
+
+const bool ScribusDoc::layerPrintable(const int layerNumber)
+{
+	QValueList<Layer>::iterator itend=Layers.end();
+	QValueList<Layer>::iterator it;
+	for (it = Layers.begin(); it != itend; ++it)
+	{
+		if ((*it).LNr == layerNumber)
+			return (*it).isPrintable;
+	}
+	return false;
+}
+
+const bool ScribusDoc::setLayerVisible(const int layerNumber, const bool isViewable)
+{
+	QValueList<Layer>::iterator itend=Layers.end();
+	QValueList<Layer>::iterator it;
+	bool found=false;
+	for (it = Layers.begin(); it != itend; ++it)
+	{
+		if ((*it).LNr == layerNumber)
+		{
+			(*it).isViewable = isViewable;
+			found=true;
+			break;
+		}
+	}
+	return found;
+}
+
+const bool ScribusDoc::layerVisible(const int layerNumber)
+{
+	QValueList<Layer>::iterator itend=Layers.end();
+	QValueList<Layer>::iterator it;
+	for (it = Layers.begin(); it != itend; ++it)
+	{
+		if ((*it).LNr == layerNumber)
+			return (*it).isViewable;
+	}
+	return false;
+}
+
+const int ScribusDoc::layerLevelFromNumber(const int layerNumber)
+{
+	int layerCount=Layers.count();
+	for (uint i=0; i < layerCount; ++i)
+	{
+		if (Layers[i].LNr == layerNumber)
+			return Layers[i].Level;
+	}
+	return -1;
+}
+
+const int ScribusDoc::layerCount()
+{
+	return Layers.count();
+}
+
+const int ScribusDoc::layerNumberFromLevel(const int layerLevel)
+{
+	int layerCount=Layers.count();
+	for (uint i=0; i < layerCount; ++i)
+	{
+		if (Layers[i].Level == layerLevel)
+			return Layers[i].LNr;
+	}
+	return -1;
+}
+
+const bool ScribusDoc::lowerLayer(const int layerNumber)
+{
+	if (Layers.count() < 2)
+		return false;
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::LowerLayer, "", Um::IDown);
+		ss->set("DOWN_LAYER", "down_layer");
+		ss->set("ACTIVE", ActiveLayer);
+		undoManager->action(this, ss, DocName, Um::ILayer);
+	}
+	
+	QValueList<Layer>::iterator it;
+	QValueList<Layer>::iterator itend=Layers.end();
+	for (it = Layers.begin(); it != itend; ++it)
+	{
+		if ((*it).Level == layerNumber-1)
+			break;
+	}
+	QValueList<Layer>::iterator it2;
+	QValueList<Layer>::iterator it2end=Layers.end();
+	for (it2 = Layers.begin(); it2 != it2end; ++it2)
+	{
+		if ((*it2).Level == layerNumber)
+			break;
+	}
+	(*it2).Level -= 1;
+	(*it).Level += 1;
+	return true;
+}
+
+const bool ScribusDoc::raiseLayer(const int layerNumber)
+{
+	if (Layers.count() < 2)
+		return false;
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::RaiseLayer, "", Um::IUp);
+		ss->set("UP_LAYER", "up_layer");
+		ss->set("ACTIVE", ActiveLayer);
+		undoManager->action(this, ss, DocName, Um::ILayer);
+	}
+	
+	QValueList<Layer>::iterator it;
+	QValueList<Layer>::iterator itend=Layers.end();
+	for (it = Layers.begin(); it != itend; ++it)
+	{
+		if ((*it).Level == layerNumber+1)
+			break;
+	}
+	QValueList<Layer>::iterator it2;
+	QValueList<Layer>::iterator it2end=Layers.end();
+	for (it2 = Layers.begin(); it2 != it2end; ++it2)
+	{
+		if ((*it2).Level == layerNumber)
+			break;
+	}
+	(*it2).Level += 1;
+	(*it).Level -= 1;
+	return true;
+}
+
+const QString& ScribusDoc::layerName(const int layerNumber)
+{
+	int layerCount=Layers.count();
+	for (uint i=0; i < layerCount; ++i)
+	{
+		if (Layers[i].LNr == layerNumber)
+			return Layers[i].Name;
+	}
+	return QString::null;
+}
+
+const bool ScribusDoc::changeLayerName(const int layerNumber, const QString& newName)
+{
+	int layerCount=Layers.count();
+	for (uint i=0; i < layerCount; ++i)
+	{
+		if (Layers[i].LNr == layerNumber)
+		{
+			if (UndoManager::undoEnabled())
+			{
+				SimpleState *ss = new SimpleState(Um::SetLayerName,
+												  QString(Um::FromTo).arg(Layers[i].Name).arg(newName),
+												  Um::IDown);
+				ss->set("CHANGE_NAME", "change_name");
+				//ss->set("ROW", row);
+				//ss->set("COL", col);
+				ss->set("NEW_NAME", newName);
+				ss->set("OLD_NAME", Layers[i].Name);
+				undoManager->action(this, ss, DocName, Um::ILayer);
+			}
+			Layers[i].Name = newName;
+		}
+	}
+}
+
+const bool ScribusDoc::layerContainsItems(const int layerNumber)
+{
+	if (masterPageMode)
+		MasterPages = Pages;
+	else
+		DocPages = Pages;
+	int masterItemsCount=MasterItems.count();
+	for (uint i = 0; i < masterItemsCount; ++i)
+	{
+		if (MasterItems.at(i)->LayerNr == layerNumber)
+			return true;
+	}
+	int docItemsCount=DocItems.count();
+	for (uint i = 0; i < docItemsCount; ++i)
+	{
+		if (DocItems.at(i)->LayerNr == layerNumber)
+			return true;
+	}
+	return false;
+}
+
+void ScribusDoc::orderedLayerList(QStringList* list)
+{
+	Q_ASSERT(list!=NULL);
+	if (Layers.count() != 0)
+	{
+		for (int i=0; i < Layers.count(); ++i)
+		{
+			for (QValueList<Layer>::iterator it = Layers.begin(); it != Layers.end(); ++it)
+			{
+				if (Layers.count()-(*it).Level-1 == i)
+					list->append((*it).Name);
+			}
+ 		}
+ 	}
+}
+
+//Make the doc delete the items, not the view. TODO: Currently does nada, zilch, zero
+
+const bool ScribusDoc::deleteTaggedItems()
+{
+	QString tooltip = Um::ItemsInvolved + "\n";
+	//Master Items
+	for (uint b = 0; b < MasterItems.count(); ++b)
+	{
+		if (MasterItems.at(b)->isTagged())
+		{
+		}
+	}
+	//Doc Items
+	for (uint b = 0; b < DocItems.count(); ++b)
+	{
+		if (DocItems.at(b)->isTagged())
+		{
+		}
+	}
+	return true;
 }

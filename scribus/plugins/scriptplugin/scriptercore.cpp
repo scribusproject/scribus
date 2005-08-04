@@ -137,7 +137,7 @@ void ScripterCore::FinishScriptRun()
 		Carrier->propertiesPalette->Spal->setFormats(Carrier->doc);
 		Carrier->propertiesPalette->SetLineFormats(Carrier->doc);
 		Carrier->propertiesPalette->Cpal->SetColors(Carrier->doc->PageColors);
-		Carrier->layerPalette->setLayers(&Carrier->doc->Layers, &Carrier->doc->ActiveLayer);
+		Carrier->layerPalette->setLayers(&Carrier->doc->Layers, Carrier->doc->activeLayer());
 		Carrier->outlinePalette->BuildTree(Carrier->doc);
 		Carrier->pagePalette->SetView(Carrier->view);
 		Carrier->pagePalette->Rebuild();

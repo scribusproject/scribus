@@ -157,18 +157,10 @@ PyObject *scribus_setactlayer(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error"));
 		return NULL;
 	}
-	bool found = false;
-	for (uint lam=0; lam < Carrier->doc->Layers.count(); ++lam)
-	{
-		if (Carrier->doc->Layers[lam].Name == QString::fromUtf8(Name))
-		{
-			Carrier->doc->ActiveLayer = Carrier->doc->Layers[lam].LNr;
-			Carrier->changeLayer(Carrier->doc->Layers[lam].LNr);
-			found = true;
-			break;
-		}
-	}
-	if (!found)
+	bool found = Carrier->doc->setActiveLayer(QString::fromUtf8(Name));
+	if (found)
+		Carrier->changeLayer(Carrier->doc->activeLayer());
+	else
 	{
 		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error"));
 		return NULL;
@@ -181,13 +173,7 @@ PyObject *scribus_getactlayer(PyObject* /* self */)
 {
 	if(!checkHaveDocument())
 		return NULL;
-	uint lam = 0;
-	for (lam=0; lam < Carrier->doc->Layers.count(); ++lam)
-	{
-		if (Carrier->doc->Layers[lam].LNr == Carrier->doc->ActiveLayer)
-			break;
-	}
-	return PyString_FromString(Carrier->doc->Layers[lam].Name.utf8());
+	return PyString_FromString(Carrier->doc->activeLayerName().utf8());
 }
 
 PyObject *scribus_senttolayer(PyObject* /* self */, PyObject* args)
@@ -395,7 +381,7 @@ PyObject *scribus_removelayer(PyObject* /* self */, PyObject* args)
 					(*it).Level -= 1;
 			}
 			Carrier->LayerRemove(num2);
-			Carrier->doc->ActiveLayer = 0;
+			Carrier->doc->setActiveLayer(0);
 			Carrier->changeLayer(0);
 			found = true;
 			break;
@@ -422,17 +408,8 @@ PyObject *scribus_createlayer(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot create layer without a name.","python error"));
 		return NULL;
 	}
-	QString tmp;
-	struct Layer ll;
-	ll.LNr = Carrier->doc->Layers.last().LNr + 1;
-	ll.Level = Carrier->doc->Layers.count();
-	// FIXME: what if the name exists?
-	ll.Name = QString::fromUtf8(Name);
-	ll.isViewable = true;
-	ll.isPrintable = true;
-	Carrier->doc->Layers.append(ll);
-	Carrier->doc->ActiveLayer = ll.LNr;
-	Carrier->changeLayer(ll.LNr);
+	Carrier->doc->addLayer(QString::fromUtf8(Name), true);
+	Carrier->changeLayer(Carrier->doc->activeLayer());
 	Py_INCREF(Py_None);
 	return Py_None;
 }

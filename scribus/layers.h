@@ -6,7 +6,6 @@
 #include <qvaluelist.h>
 
 #include "scrpalettebase.h"
-#include "undoobject.h"
 
 class QPushButton;
 class QLayout;
@@ -14,8 +13,7 @@ class QToolTip;
 class QPixmap;
 class QCheckBox;
 class QHeader;
-class UndoManager;
-class UndoState;
+
 
 class LayerTable : public QTable
 {
@@ -35,7 +33,7 @@ signals:
 	void updtName(int);
 };
 
-class LayerPalette : public ScrPaletteBase, public UndoObject
+class LayerPalette : public ScrPaletteBase
 {
 	Q_OBJECT
 
@@ -43,19 +41,11 @@ public:
 	LayerPalette(QWidget* parent);
 	~LayerPalette() {};
 
-	QTable* Table;
-	QHeader* Header;
-	QPushButton* NewLayer;
-	QPushButton* DeleteLayer;
-	QPushButton* RaiseLayer;
-	QPushButton* LowerLayer;
-	QValueList<Layer> *layers;
 	//void closeEvent(QCloseEvent *ce);
-	void setLayers(QValueList<Layer> *layin, int *act);
+	void setLayers(QValueList<Layer> *layin, int act);
 	void rebuildList();
-	QPtrList<QCheckBox> FlagsPrint;
-	QPtrList<QCheckBox> FlagsSicht;
-	int *Activ;
+	
+	QTable* Table;	//public for the event filter in scribus.cpp.. TODO
 
 public slots:
 	void updateName(int r);
@@ -65,18 +55,15 @@ public slots:
 	void upLayer();
 	void downLayer();
 	void changeName(int row, int col);
-	void changeName(int row, int col, const QString &name);
 	void visibleLayer();
 	void printLayer();
 	void printLayer(int layerNr, bool isPrintable);
 	void setActiveLayer(int row);
 	void ClearInhalt();
-	void MarkActiveLayer(int l);
-	void restore(UndoState *state, bool isUndo);
+	void markActiveLayer(int layerNumber=-1);
 	void languageChange();
 
 signals:
-	void LayerRemoved(int, bool);
 	void LayerChanged();
 	void LayerActivated(int);
 	//void Schliessen();
@@ -84,8 +71,15 @@ signals:
 protected:
 	QVBoxLayout* LayerPaletteLayout;
 	QHBoxLayout* Layout1;
-	UndoManager *undoManager;
-
+	QHeader* Header;
+	QPushButton* newLayerButton;
+	QPushButton* deleteLayerButton;
+	QPushButton* raiseLayerButton;
+	QPushButton* lowerLayerButton;
+	QPtrList<QCheckBox> flagsPrintable;
+	QPtrList<QCheckBox> flagsVisible;
+	QValueList<Layer> *layers;
+		
 protected slots:
 	//virtual void reject();
 };

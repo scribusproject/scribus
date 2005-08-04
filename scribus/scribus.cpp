@@ -521,8 +521,6 @@ void ScribusApp::initPalettes()
 	connect(propertiesPalette->Spal, SIGNAL(newStyle(int)), this, SLOT(setNewAbStyle(int)));
 	connect(propertiesPalette, SIGNAL(EditLSt()), this, SLOT(slotEditLineStyles()));
 	connect(nodePalette, SIGNAL(Schliessen()), this, SLOT(NoFrameEdit()));
-	connect(layerPalette, SIGNAL(LayerActivated(int)), this, SLOT(changeLayer(int)));
-	connect(layerPalette, SIGNAL(LayerRemoved(int, bool)), this, SLOT(LayerRemove(int, bool)));
 	connect(layerPalette, SIGNAL(LayerChanged()), this, SLOT(showLayer()));
 	connect(pagePalette, SIGNAL(EditTemp(QString)), this, SLOT(manageMasterPages(QString)));
 	connect(pagePalette->PageView, SIGNAL(UseTemp(QString, int)), this, SLOT(Apply_MasterPage(QString, int)));
@@ -3135,10 +3133,10 @@ void ScribusApp::SwitchWin()
 	propertiesPalette->endArrow->rebuildList(&doc->arrowStyles);
 	FontSub->RebuildList(doc);
 	propertiesPalette->Fonts->RebuildList(doc);
-	layerPalette->setLayers(&doc->Layers, &doc->ActiveLayer);
+	layerPalette->setLayers(&doc->Layers, doc->activeLayer());
 	rebuildLayersList();
-	view->LaMenu();
-	view->setLayMenTxt(doc->ActiveLayer);
+	view->updateLayerMenu();
+	view->setLayerMenuText(doc->activeLayerName());
 	doc->currentParaStyle = 0;
 	slotChangeUnit(doc->docUnitIndex, false);
 	if (doc->EditClip)
@@ -3266,16 +3264,16 @@ void ScribusApp::HaveNewDoc()
 	propertiesPalette->SetLineFormats(doc);
 	propertiesPalette->startArrow->rebuildList(&doc->arrowStyles);
 	propertiesPalette->endArrow->rebuildList(&doc->arrowStyles);
-	layerPalette->setLayers(&doc->Layers, &doc->ActiveLayer);
+	layerPalette->setLayers(&doc->Layers, doc->activeLayer());
 	rebuildLayersList();
-	view->LaMenu();
-	view->setLayMenTxt(doc->ActiveLayer);
+	view->updateLayerMenu();
+	view->setLayerMenuText(doc->activeLayerName());
 	doc->currentParaStyle = 0;
 	slotChangeUnit(doc->docUnitIndex);
 	doc->docHyphenator = new Hyphenator(this, doc, this);
 	buildFontMenu();
 	connect(view, SIGNAL(changeUN(int)), this, SLOT(slotChangeUnit(int)));
-	connect(view, SIGNAL(changeLA(int)), layerPalette, SLOT(MarkActiveLayer(int)));
+	connect(view, SIGNAL(changeLA(int)), layerPalette, SLOT(markActiveLayer(int)));
 	connect(view->horizRuler, SIGNAL(MarkerMoved(double, double)), this, SLOT(setMousePositionOnStatusBar(double, double)));
 	connect(view->horizRuler, SIGNAL(DocChanged(bool)), this, SLOT(slotDocCh(bool)));
 	connect(view, SIGNAL(ClipPo(double, double)), nodePalette, SLOT(SetXY(double, double)));
@@ -3899,11 +3897,17 @@ void ScribusApp::rebuildLayersList()
 				}
 			}
 		}
+		int currActiveLayer=doc->activeLayer();
+		bool found=false;
 		for (it = doc->Layers.begin(); it != doc->Layers.end(); ++it)
 		{
-			if ((*it).LNr == doc->ActiveLayer)
+			if ((*it).LNr == currActiveLayer)
+			{
+				found=true;
 				break;
+			}
 		}
+		Q_ASSERT(found);
 		scrLayersActions[QString("%1").arg((*it).LNr)]->setOn(true);
 
 		for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=scrLayersActions.end(); ++it )
@@ -4140,7 +4144,7 @@ bool ScribusApp::loadPage(QString fileName, int Nr, bool Mpa)
 		}
 		slotDocCh();
 		rebuildLayersList();
-		view->LaMenu();
+		view->updateLayerMenu();
 		layerPalette->rebuildList();
 		doc->setLoading(false);
 		ret = true;
@@ -4206,7 +4210,7 @@ bool ScribusApp::loadDoc(QString fileName)
 		doc->is12doc=is12doc;
 		doc->appMode = modeNormal;
 		doc->HasCMS = false;
-		doc->ActiveLayer = 0;
+		doc->setActiveLayer(0);
 		doc->OpenNodes.clear();
 		doc->setLoading(true);
 		mainWindowStatusLabel->setText( tr("Loading..."));
@@ -5639,7 +5643,7 @@ void ScribusApp::SelectAll()
 		for (uint a = 0; a < doc->Items.count(); ++a)
 		{
 			currItem = doc->Items.at(a);
-			if (currItem->LayerNr == doc->ActiveLayer)
+			if (currItem->LayerNr == doc->activeLayer())
 			{
 				if (!currItem->Select)
 				{
@@ -9263,9 +9267,9 @@ void ScribusApp::PutScrap()
 void ScribusApp::changeLayer(int l)
 {
 	view->Deselect(true);
-	view->setLayMenTxt(l);
 	rebuildLayersList();
-	view->LaMenu();
+	view->updateLayerMenu();
+	view->setLayerMenuText(doc->activeLayerName());
 	view->DrawNew();
 }
 
@@ -9274,6 +9278,7 @@ void ScribusApp::showLayer()
 	view->DrawNew();
 }
 
+//TODO replace with the ScribusDoc::deleteTaggedItems
 void ScribusApp::LayerRemove(int l, bool dl)
 {
 	if (doc->masterPageMode)
@@ -9313,7 +9318,7 @@ void ScribusApp::LayerRemove(int l, bool dl)
 	if (view->SelItem.count() != 0)
 		view->DeleteItem();
 	rebuildLayersList();
-	view->LaMenu();
+	view->updateLayerMenu();
 }
 
 void ScribusApp::UnDoAction()

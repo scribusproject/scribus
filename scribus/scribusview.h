@@ -133,7 +133,7 @@ public:
   /** verschiebt Seiten */
 	void movePage(int from, int to, int ziel, int art);
 	void reformPages(bool moveObjects = true);
-	void LaMenu();
+	void updateLayerMenu();
 	void showMasterPage(int nr);
 	void hideMasterPage();
 	int CountElements();
@@ -286,7 +286,7 @@ public slots: // Public slots
   /** Redraws everything */
 	void DrawNew();
 	void setMenTxt(int Seite);
-	void setLayMenTxt(int l);
+	void setLayerMenuText(const QString &);
 	void GotoPa(int Seite);
 	void GotoLa(int l);
 	void GotoPage(int Seite);

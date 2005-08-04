@@ -66,9 +66,34 @@ public:
 /** Setzt die Seitenattribute */
 	void setPage(double b, double h, double t, double l, double r, double bo, double sp, double ab, bool atf, int fp);
 	void resetPage(double t, double l, double r, double bo, int fp);
+	// Add, delete and move pages
 	Page* addPage(const int);
 	bool deletePage(const int);
 	void movePage(const int, const int, const int, const int);
+	// Add, delete and move layers
+	void addLayer(const QString&, const bool);
+	const bool deleteLayer(const int, const bool);
+	void moveLayer();
+	const int activeLayer();
+	const QString& activeLayerName();
+	const bool setActiveLayer(const int);
+	const bool setActiveLayer(const QString &);
+	const bool setLayerPrintable(const int, const bool);
+	const bool layerPrintable(const int);
+	const bool setLayerVisible(const int, const bool);
+	const bool layerVisible(const int);
+	const int layerLevelFromNumber(const int);
+	const int layerNumberFromLevel(const int);
+	const int layerCount();
+	const bool lowerLayer(const int);
+	const bool raiseLayer(const int);
+	const QString &layerName(const int);
+	const bool changeLayerName(const int, const QString&);
+	const bool layerContainsItems(const int);
+	void orderedLayerList(QStringList*);
+	//Items
+	const bool deleteTaggedItems();
+	
 	bool AddFont(QString name, QFont fo);
 	void OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo);
 	void CloseCMSProfiles();
@@ -101,11 +126,12 @@ public:
 protected:
 	void addSymbols();
 	bool loading;
-    bool modified;
-    UndoManager *undoManager;
+	bool modified;
+	int ActiveLayer;
+	UndoManager *undoManager;
 
 public: // Public attributes
-    bool is12doc; //public for now, it will be removed later
+	bool is12doc; //public for now, it will be removed later
 	int NrItems;
 	int First;
 	int Last;
@@ -218,7 +244,6 @@ public: // Public attributes
 	bool marginColored;
 	int GroupCounter;
 	CMSData CMSSettings;
-	int ActiveLayer;
 #ifdef HAVE_CMS
 	cmsHPROFILE DocInputProf;
 	cmsHPROFILE DocOutputProf;

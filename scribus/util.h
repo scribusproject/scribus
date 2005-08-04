@@ -40,7 +40,7 @@ char *toHex( uchar u );
 QString String2Hex(QString *in, bool lang = true);
 QString CompressStr(QString *in);
 void Level2Layer(ScribusDoc *currentDoc, struct Layer *ll, int Level);
-int Layer2Level(ScribusDoc *currentDoc, int LayerNr);
+//int Layer2Level(ScribusDoc *currentDoc, int LayerNr);
 void BezierPoints(QPointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4);
 double xy2Deg(double x, double y);
 QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
