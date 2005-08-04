@@ -169,7 +169,7 @@ public:
 	void SetPolyClip(PageItem *currItem, int up);
 	void ConvertClip(PageItem *currItem);
 	void UpdatePolyClip(PageItem *currItem);
-	void MarkClip(PageItem *currItem);
+	void MarkClip(PageItem *currItem, FPointArray cli, bool once = false);
 	bool PointOnLine(QPoint Start, QPoint Ende, QRect MArea);
 	void MirrorPolyH();
 	void MirrorPolyV();

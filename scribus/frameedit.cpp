@@ -471,7 +471,11 @@ void NodePalette::MoveK()
 {
 	doc->EditClipMode = 0;
 	view->EdPoints = false;
-	view->MarkClip(view->SelItem.at(0));
+	PageItem *currItem = view->SelItem.at(0);
+	if (view->EditContour)
+		view->MarkClip(currItem, currItem->ContourLine, true);
+	else
+		view->MarkClip(currItem, currItem->PoLine, true);
 	SymMove->setEnabled(true);
 	AsymMove->setEnabled(true);
 	ResNode->setEnabled(false);
@@ -482,7 +486,11 @@ void NodePalette::MoveN()
 {
 	doc->EditClipMode = 0;
 	view->EdPoints = true;
-	view->MarkClip(view->SelItem.at(0));
+	PageItem *currItem = view->SelItem.at(0);
+	if (view->EditContour)
+		view->MarkClip(currItem, currItem->ContourLine, true);
+	else
+		view->MarkClip(currItem, currItem->PoLine, true);
 	MoveNode->setOn(true);
 	SymMove->setEnabled(false);
 	AsymMove->setEnabled(false);

@@ -444,7 +444,12 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 		PageItem *currItem = SelItem.at(0);
 		currItem->paintObj();
 		if ((Doc->EditClip) && (currItem->Select))
-			MarkClip(currItem);
+		{
+		if (EditContour)
+			MarkClip(currItem, currItem->ContourLine, true);
+		else
+			MarkClip(currItem, currItem->PoLine, true);
+		}
 		if (GroupSel)
 		{
 			setGroupRect();
@@ -1491,14 +1496,17 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			}
 		}
 		HaveSelRect = false;
-		MarkClip(currItem);
+		if (EditContour)
+			MarkClip(currItem, currItem->ContourLine, true);
+		else
+			MarkClip(currItem, currItem->PoLine, true);
 		return;
 	}
 	if ((Doc->EditClip) && (SegP1 == -1) && (SegP2 == -1))
 	{
+		currItem = SelItem.at(0);
 		if (Imoved)
 		{
-			currItem = SelItem.at(0);
 			currItem->OldB2 = currItem->Width;
 			currItem->OldH2 = currItem->Height;
 			double nx = m->x()/Scale + Doc->minCanvasCoordinate.x();
@@ -1512,6 +1520,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			FPoint np = transformPointI(FPoint(nx, ny), currItem->Xpos, currItem->Ypos, currItem->Rot, 1, 1);
 			MoveClipPoint(currItem, np);
 		}
+		AdjustItemSize(currItem);
 		updateContents();
 		Imoved = false;
 		return;
@@ -1522,6 +1531,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		SegP2 = -1;
 		currItem = SelItem.at(0);
 		Imoved = false;
+		AdjustItemSize(currItem);
 		updateContents();
 		return;
 	}
@@ -4056,11 +4066,14 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 						currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
 					AdjustItemSize(currItem);
 					updateContents();
+					if (EditContour)
+						MarkClip(currItem, currItem->ContourLine, true);
+					else
+						MarkClip(currItem, currItem->PoLine, true);
 					emit PStatus(currItem->itemType(), currItem->PoLine.size());
 					emit DocChanged();
 					qApp->setOverrideCursor(QCursor(pointingHandCursor), true);
 				}
-				MarkClip(currItem);
 				return;
 			}
 			if (GetItem(&currItem))
@@ -5263,16 +5276,21 @@ void ScribusView::UpdatePolyClip(PageItem *currItem)
 	SetPolyClip(currItem, static_cast<int>(asce+currItem->BaseOffs));
 }
 
-void ScribusView::MarkClip(PageItem *currItem)
+void ScribusView::MarkClip(PageItem *currItem, FPointArray cli, bool once)
 {
 	double x, y;
 	QPainter p;
-	FPointArray cli;
 	QPointArray Bez(4);
 	p.begin(viewport());
 	ToView(&p);
 	Transform(currItem, &p);
-	p.setPen(QPen(blue, 1, SolidLine, FlatCap, MiterJoin));
+	if (once)
+		p.setPen(QPen(blue, 1, SolidLine, FlatCap, MiterJoin));
+	else
+	{
+		p.setRasterOp(XorROP);
+		p.setPen(QPen(yellow, 1, SolidLine, FlatCap, MiterJoin));
+	}
 	p.setBrush(NoBrush);
 	if ((EditContour) && (currItem->ContourLine.size() != 0))
 		cli = currItem->ContourLine;
@@ -5284,10 +5302,16 @@ void ScribusView::MarkClip(PageItem *currItem)
 		{
 			if (cli.point(poi).x() > 900000)
 				continue;
-			p.setPen(QPen(blue, 1, SolidLine, FlatCap, MiterJoin));
+			if (once)
+				p.setPen(QPen(blue, 1, SolidLine, FlatCap, MiterJoin));
+			else
+				p.setPen(QPen(yellow, 1, SolidLine, FlatCap, MiterJoin));
 			BezierPoints(&Bez, cli.pointQ(poi), cli.pointQ(poi+1), cli.pointQ(poi+3), cli.pointQ(poi+2));
 			p.drawCubicBezier(Bez);
-			p.setPen(QPen(blue, 1, DotLine, FlatCap, MiterJoin));
+			if (once)
+				p.setPen(QPen(blue, 1, DotLine, FlatCap, MiterJoin));
+			else
+				p.setPen(QPen(yellow, 1, DotLine, FlatCap, MiterJoin));
 			p.drawLine(Bez.point(0), Bez.point(1));
 			p.drawLine(Bez.point(2), Bez.point(3));
 		}
@@ -5298,26 +5322,41 @@ void ScribusView::MarkClip(PageItem *currItem)
 			continue;
 		if (EdPoints)
 		{
-			p.setPen(QPen(magenta, 8, SolidLine, RoundCap, MiterJoin));
+			if (once)
+				p.setPen(QPen(magenta, 8, SolidLine, RoundCap, MiterJoin));
+			else
+				p.setPen(QPen(green, 8, SolidLine, RoundCap, MiterJoin));
 			cli.point(a+1, &x, &y);
 			p.drawLine(qRound(x), qRound(y), qRound(x), qRound(y));
-			p.setPen(QPen(blue, 8, SolidLine, RoundCap, MiterJoin));
+			if (once)
+				p.setPen(QPen(blue, 8, SolidLine, RoundCap, MiterJoin));
+			else
+				p.setPen(QPen(yellow, 8, SolidLine, RoundCap, MiterJoin));
 			cli.point(a, &x, &y);
 			p.drawLine(qRound(x), qRound(y), qRound(x), qRound(y));
 		}
 		else
 		{
-			p.setPen(QPen(blue, 8, SolidLine, RoundCap, MiterJoin));
+			if (once)
+				p.setPen(QPen(blue, 8, SolidLine, RoundCap, MiterJoin));
+			else
+				p.setPen(QPen(yellow, 8, SolidLine, RoundCap, MiterJoin));
 			cli.point(a, &x, &y);
 			p.drawLine(qRound(x), qRound(y), qRound(x), qRound(y));
-			p.setPen(QPen(magenta, 8, SolidLine, RoundCap, MiterJoin));
+			if (once)
+				p.setPen(QPen(magenta, 8, SolidLine, RoundCap, MiterJoin));
+			else
+				p.setPen(QPen(green, 8, SolidLine, RoundCap, MiterJoin));
 			cli.point(a+1, &x, &y);
 			p.drawLine(qRound(x), qRound(y), qRound(x), qRound(y));
 		}
 	}
 	if (ClRe != -1)
 	{
-		p.setPen(QPen(red, 8, SolidLine, RoundCap, MiterJoin));
+		if (once)
+			p.setPen(QPen(red, 8, SolidLine, RoundCap, MiterJoin));
+		else
+			p.setPen(QPen(cyan, 8, SolidLine, RoundCap, MiterJoin));
 		cli.point(ClRe, &x, &y);
 		p.drawLine(qRound(x), qRound(y), qRound(x), qRound(y));
 		QValueList<int>::Iterator itm;
@@ -5392,7 +5431,7 @@ void ScribusView::MirrorPolyH()
 		currItem->Tinput = true;
 		currItem->paintObj();
 		currItem->FrameOnly = false;
-		MarkClip(currItem);
+		MarkClip(currItem, currItem->ContourLine, true);
 		return;
 	}
 	ma.scale(-1, 1);
@@ -5404,7 +5443,7 @@ void ScribusView::MirrorPolyH()
 		currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
 	setRedrawBounding(currItem);
 	RefreshItem(currItem);
-	MarkClip(currItem);
+	MarkClip(currItem, currItem->PoLine, true);
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::FlipH, "", Um::IFlipH);
@@ -5439,7 +5478,7 @@ void ScribusView::MirrorPolyV()
 		currItem->Tinput = true;
 		currItem->paintObj();
 		currItem->FrameOnly = false;
-		MarkClip(currItem);
+		MarkClip(currItem, currItem->ContourLine, true);
 		return;
 	}
 	ma.scale(1, -1);
@@ -5451,7 +5490,7 @@ void ScribusView::MirrorPolyV()
 		currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
 	setRedrawBounding(currItem);
 	RefreshItem(currItem);
-	MarkClip(currItem);
+	MarkClip(currItem, currItem->PoLine, true);
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::FlipV, "", Um::IFlipV);
@@ -5506,7 +5545,7 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 		currItem->Tinput = true;
 		currItem->paintObj();
 		currItem->FrameOnly = false;
-		MarkClip(currItem);
+		MarkClip(currItem, currItem->ContourLine, true);
 		if (UndoManager::undoEnabled())
 		{
 			undoManager->setUndoEnabled(false);
@@ -5594,7 +5633,7 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 		UpdatePolyClip(currItem);
 	setRedrawBounding(currItem);
 	RefreshItem(currItem);
-	MarkClip(currItem);
+	MarkClip(currItem, currItem->PoLine, true);
 	currItem->FrameType = 3;
 	if (UndoManager::undoEnabled())
 	{
@@ -5635,7 +5674,12 @@ void ScribusView::Reset1Control()
 		currItem->PoLine.setPoint(ClRe, np);
 		AdjustItemSize(currItem);
 	}
-	MarkClip(currItem);
+	FPointArray cli;
+	if ((EditContour) && (currItem->ContourLine.size() != 0))
+		cli = currItem->ContourLine;
+	else
+		cli = currItem->PoLine;
+	MarkClip(currItem, cli, true);
 }
 
 void ScribusView::ResetControl()
@@ -5679,7 +5723,12 @@ void ScribusView::ResetControl()
 		currItem->paintObj();
 		currItem->FrameOnly = false;
 	}
-	MarkClip(currItem);
+	FPointArray cli;
+	if ((EditContour) && (currItem->ContourLine.size() != 0))
+		cli = currItem->ContourLine;
+	else
+		cli = currItem->PoLine;
+	MarkClip(currItem, cli, true);
 }
 
 void ScribusView::MoveClipPoint(PageItem *currItem, FPoint ip)
@@ -5689,9 +5738,9 @@ void ScribusView::MoveClipPoint(PageItem *currItem, FPoint ip)
 	currItem->ClipEdited = true;
 	FPointArray Clip;
 	if (EditContour)
-		Clip = currItem->ContourLine;
+		Clip = currItem->ContourLine.copy();
 	else
-		Clip = currItem->PoLine;
+		Clip = currItem->PoLine.copy();
 	currItem->FrameType = 3;
 	uint EndInd = Clip.size();
 	uint StartInd = 0;
@@ -5831,21 +5880,17 @@ void ScribusView::MoveClipPoint(PageItem *currItem, FPoint ip)
 			Clip.setPoint(kon, lk);
 		}
 		if (EditContour)
+		{
+			MarkClip(currItem, currItem->ContourLine);
 			currItem->ContourLine = Clip.copy();
-		else
-			currItem->PoLine = Clip.copy();
-		currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
-		if (!EditContour)
-			AdjustItemSize(currItem);
+		}
 		else
 		{
-			updateContents();
-			currItem->FrameOnly = true;
-			currItem->Tinput = true;
-			currItem->paintObj();
-			currItem->FrameOnly = false;
-			MarkClip(currItem);
+			MarkClip(currItem, currItem->PoLine);
+			currItem->PoLine = Clip.copy();
 		}
+		currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
+		MarkClip(currItem, Clip);
 	}
 }
 

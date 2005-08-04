@@ -6276,7 +6276,7 @@ void ScribusApp::ToggleFrameEdit()
 		if (view->SelItem.count() != 0)
 		{
 			PageItem *currItem = view->SelItem.at(0);
-			view->MarkClip(currItem);
+			view->MarkClip(currItem, currItem->PoLine, true);
 			nodePalette->EditCont->setEnabled(currItem->ContourLine.size() != 0);
 			nodePalette->ResetCont->setEnabled(false);
 			nodePalette->PolyStatus(currItem->itemType(), currItem->PoLine.size());
