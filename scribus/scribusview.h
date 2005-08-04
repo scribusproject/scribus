@@ -63,7 +63,7 @@ public:
 	Vruler *vertRuler;
 	QPushButton *zoomOutToolbarButton;
 	QPushButton *zoomInToolbarButton;
-	QPushButton *LY;
+	QToolButton *LY;
 	QToolButton *unitSwitcher;
   /** Dokument zu dem die Seite gehoert */
 	ScribusDoc *Doc;

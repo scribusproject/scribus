@@ -28,7 +28,7 @@ struct ScText
 	short cshade;
 	short cshade2;
 	short cstyle;
-/*	Meaning of the values in cstyle
+/**	Meaning of the values in cstyle
 	1			= Superscript
 	2 			= Subscript
 	4 			= Outline
@@ -67,6 +67,14 @@ struct ScText
 	QString ccolor;
 	QString cstroke;
 	QString ch;
+ /** Special Characters used:
+ 	QChar(24) =	Non breaking Hyphen
+ 	QChar(25) =	Marks an inline Object
+ 	QChar(26) =	Column Break
+ 	QChar(27) =	Frame Break
+ 	QChar(28) =	New Line, doesn't break Paragraph
+ 	QChar(29) =	Non breaking Space
+ 	QChar(30) =	Automatic Pagenumbering  */
 };
 
 struct CopyPasteBuffer

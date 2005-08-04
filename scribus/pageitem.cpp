@@ -842,8 +842,30 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 					Zli3.embedded = hl->cembedded;
 					if (!Doc->RePos)
 					{
+						double xcoZli = Zli3.xco;
 						desc = Zli3.ZFo->numDescender * (-Zli3.Siz / 10.0);
 						asce = Zli3.ZFo->numAscent * (Zli3.Siz / 10.0);
+						if ((((Zli3.Sele) && (Select)) || (((NextBox != 0) || (BackBox != 0)) && (Zli3.Sele))) && (Doc->appMode == modeEdit))
+						{
+							wide = Zli3.wide;
+							p->setFillMode(1);
+							p->setBrush(darkBlue);
+							p->setLineWidth(0);
+							if ((a > 0) && (Zli3.Zeich == QChar(9)))
+							{
+								xcoZli = itemText.at(a-1)->xp+Cwidth(Doc, itemText.at(a-1)->cfont, itemText.at(a-1)->ch, itemText.at(a-1)->csize);
+								wide = Zli3.xco - xcoZli + Zli3.wide;
+							}
+							if (!Doc->RePos)
+								p->drawRect(xcoZli, qRound(Zli3.yco-asce * (Zli3.scalev / 1000.0)), wide+1, qRound((asce+desc) * (Zli3.scalev / 1000.0)));
+							p->setBrush(white);
+						}
+						if (Zli3.Farb2 != "None")
+						{
+							QColor tmp;
+							SetFarbe(&tmp, Zli3.Farb2, Zli3.shade2);
+							p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
+						}
 						if (((chx == QChar(13)) || (chx == QChar(28))) && (Doc->guidesSettings.showControls))
 						{
 							if (e2.intersects(pf2.xForm(QRect(qRound(Zli3.xco+Zli3.wide),qRound(Zli3.yco-asce), qRound(Zli3.wide+1), qRound(asce+desc)))))

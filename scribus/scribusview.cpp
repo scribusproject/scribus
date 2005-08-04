@@ -118,11 +118,11 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc) : QScrollView(parent,
 	PGS = new PageSelector(this, 1);
 	PGS->setFont(fo);
 	PGS->setFocusPolicy(QWidget::ClickFocus);
-	LY = new QPushButton(this);
-	LY->setFont(fo);
 	Laymen = new QPopupMenu(this);
 	Laymen->setFont(fo);
-
+	LY = new QToolButton(this);
+	LY->setPopupDelay(0);
+	LY->setFont(fo);
 	LY->setPopup(Laymen);
 	LY->setFocusPolicy(QWidget::NoFocus);
 	horizRuler = new Hruler(this, Doc);
@@ -160,8 +160,8 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc) : QScrollView(parent,
 	GroupH = 0;
 	DrHY = -1;
 	DrVX = -1;
-	GyM = 0;
-	GxM = 0;
+	GxM = -1;
+	GyM = -1;
 	ClRe = -1;
 	ClRe2 = -1;
 	_groupTransactionStarted = false;
@@ -8834,15 +8834,6 @@ void ScribusView::setLayMenTxt(int l)
 			break;
 	}
 	lName=(*it).Name;
-	int len = lName.length();
-	while (LY->fontMetrics().width(lName) > LY->width()-25)
-	{
-		len--;
-		if (len == 0)
-			break;
-		lName.truncate(len);
-		lName += ".";
-	}
 	LY->setText(lName);
 	connect(Laymen, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
 }
