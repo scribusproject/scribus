@@ -115,6 +115,10 @@ If you have a 64-bit version of Qt, sometimes ./configure will not detect the
 64-bit version headers. Try : ./configure --enable-libsuffix=64 to test for 64-bit 
 versions of libraries.
 
+If you're on an AMD64 Linux distro and configure can't find Python, try using the argument:
+    --with-extra-libs=/usr/lib64
+to configure.
+
 TROUBLESHOOTING
 ===============
 
