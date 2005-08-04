@@ -26,6 +26,7 @@
 #include "undomanager.h"
 #include "undostate.h"
 #include "prefsmanager.h"
+#include "layers.h"
 
 extern ScribusApp* ScApp;
 
@@ -698,16 +699,16 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 				removeLayer(ss->getBool("DELETE"));
 			}
 		}
+		*/
 		else if (ss->contains("CHANGE_NAME"))
 		{
-			int col = ss->getInt("COL");
-			int row = ss->getInt("ROW");
 			QString name = ss->get("OLD_NAME");
 			if (!isUndo)
 				name = ss->get("NEW_NAME");
-			changeName(row, col, name);
+			changeLayerName(ss->getInt("ACTIVE"), name);
+			ScApp->changeLayer(ss->getInt("ACTIVE"));
+			ScApp->layerPalette->rebuildList();
 		}
-		*/
 	}
 }
 
@@ -1350,8 +1351,7 @@ const bool ScribusDoc::changeLayerName(const int layerNumber, const QString& new
 												  QString(Um::FromTo).arg(Layers[i].Name).arg(newName),
 												  Um::IDown);
 				ss->set("CHANGE_NAME", "change_name");
-				//ss->set("ROW", row);
-				//ss->set("COL", col);
+				ss->set("ACTIVE", ActiveLayer);
 				ss->set("NEW_NAME", newName);
 				ss->set("OLD_NAME", Layers[i].Name);
 				undoManager->action(this, ss, DocName, Um::ILayer);
