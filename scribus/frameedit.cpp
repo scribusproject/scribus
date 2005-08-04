@@ -524,6 +524,10 @@ void NodePalette::closeEvent(QCloseEvent *ce)
 	{
 		MoveN();
 		view->ClRe = -1;
+		view->ClRe2 = -1;
+		view->SegP1 = -1;
+		view->SegP2 = -1;
+		view->SelNode.clear();
 	}
 	PolySplit->setEnabled( false );
 	BezierClose->setEnabled( false );
@@ -536,6 +540,10 @@ void NodePalette::EndEdit()
 	{
 		MoveN();
 		view->ClRe = -1;
+		view->ClRe2 = -1;
+		view->SegP1 = -1;
+		view->SegP2 = -1;
+		view->SelNode.clear();
 		EditCont->setChecked(false);
 		ToggleConMode();
 	}
