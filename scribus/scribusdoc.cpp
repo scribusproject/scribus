@@ -612,6 +612,7 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 	SimpleState *ss = dynamic_cast<SimpleState*>(state);
 	if (ss)
 	{
+		bool layersUndo=false;
 		if (ss->contains("GUIDE_LOCK"))
 		{
 			if (isUndo)
@@ -619,32 +620,27 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 			else
 				GuideLock = ss->getBool("GUIDE_LOCK");	
 		}
-		/*
 		else if (ss->contains("UP_LAYER"))
 		{
-			ScApp->layerPalette->markActiveLayer(ss->getInt("ACTIVE"));
 			if (isUndo)
-				//downLayer();
 				lowerLayer(ss->getInt("ACTIVE"));
 			else
-				//upLayer();
 				raiseLayer(ss->getInt("ACTIVE"));
+			layersUndo=true;
 		}
 		else if (ss->contains("DOWN_LAYER"))
 		{
-			ScApp->layerPalette->markActiveLayer(ss->getInt("ACTIVE"));
 			if (isUndo)
-				//upLayer();
 				raiseLayer(ss->getInt("ACTIVE"));
 			else
-				//downLayer();
 				lowerLayer(ss->getInt("ACTIVE"));
+			layersUndo=true;
 		}
 		else if (ss->contains("PRINT_LAYER"))
 		{
 			bool print = ss->getBool("PRINT");
-			//printLayer(ss->getInt("ACTIVE"), isUndo ? !print : print);
 			setLayerPrintable(ss->getInt("ACTIVE"), isUndo ? !print : print);
+			layersUndo=true;
 		}
 		/*
 		else if (ss->contains("ADD_LAYER"))
@@ -706,6 +702,11 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 			if (!isUndo)
 				name = ss->get("NEW_NAME");
 			changeLayerName(ss->getInt("ACTIVE"), name);
+			layersUndo=true;
+		}
+		
+		if (layersUndo)
+		{
 			ScApp->changeLayer(ss->getInt("ACTIVE"));
 			ScApp->layerPalette->rebuildList();
 		}
@@ -1267,13 +1268,18 @@ const int ScribusDoc::layerNumberFromLevel(const int layerLevel)
 
 const bool ScribusDoc::lowerLayer(const int layerNumber)
 {
+	return lowerLayerByLevel(layerLevelFromNumber(layerNumber);
+}
+
+const bool ScribusDoc::lowerLayerByLevel(const int layerLevel)
+{
 	if (Layers.count() < 2)
 		return false;
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::LowerLayer, "", Um::IDown);
 		ss->set("DOWN_LAYER", "down_layer");
-		ss->set("ACTIVE", ActiveLayer);
+		ss->set("ACTIVE", layerLevel-1);
 		undoManager->action(this, ss, DocName, Um::ILayer);
 	}
 	
@@ -1281,14 +1287,14 @@ const bool ScribusDoc::lowerLayer(const int layerNumber)
 	QValueList<Layer>::iterator itend=Layers.end();
 	for (it = Layers.begin(); it != itend; ++it)
 	{
-		if ((*it).Level == layerNumber-1)
+		if ((*it).Level == layerLevel-1)
 			break;
 	}
 	QValueList<Layer>::iterator it2;
 	QValueList<Layer>::iterator it2end=Layers.end();
 	for (it2 = Layers.begin(); it2 != it2end; ++it2)
 	{
-		if ((*it2).Level == layerNumber)
+		if ((*it2).Level == layerLevel)
 			break;
 	}
 	(*it2).Level -= 1;
@@ -1298,13 +1304,18 @@ const bool ScribusDoc::lowerLayer(const int layerNumber)
 
 const bool ScribusDoc::raiseLayer(const int layerNumber)
 {
+	return raiseLayerByLevel(layerLevelFromNumber(layerNumber);
+}
+
+const bool ScribusDoc::raiseLayerByLevel(const int layerLevel)
+{
 	if (Layers.count() < 2)
 		return false;
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::RaiseLayer, "", Um::IUp);
 		ss->set("UP_LAYER", "up_layer");
-		ss->set("ACTIVE", ActiveLayer);
+		ss->set("ACTIVE", layerLevel+1);
 		undoManager->action(this, ss, DocName, Um::ILayer);
 	}
 	
@@ -1312,14 +1323,14 @@ const bool ScribusDoc::raiseLayer(const int layerNumber)
 	QValueList<Layer>::iterator itend=Layers.end();
 	for (it = Layers.begin(); it != itend; ++it)
 	{
-		if ((*it).Level == layerNumber+1)
+		if ((*it).Level == layerLevel+1)
 			break;
 	}
 	QValueList<Layer>::iterator it2;
 	QValueList<Layer>::iterator it2end=Layers.end();
 	for (it2 = Layers.begin(); it2 != it2end; ++it2)
 	{
-		if ((*it2).Level == layerNumber)
+		if ((*it2).Level == layerLevel)
 			break;
 	}
 	(*it2).Level += 1;

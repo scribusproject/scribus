@@ -242,8 +242,9 @@ void LayerPalette::upLayer()
 	int layerCount=ScApp->doc->layerCount();
 	if ((layerCount < 2) || (Table->currentRow() == 0))
 		return;
-	int num = layerCount-1-Table->currentRow();
-	ScApp->doc->raiseLayer(num);
+	int layerLevel = layerCount-1-Table->currentRow();
+	//int layerNumber=ScApp->doc->layerNumberFromLevel(layerLevel);
+	ScApp->doc->raiseLayer(layerLevel);
 	rebuildList();
 	markActiveLayer();
 	ScApp->changeLayer(ScApp->doc->activeLayer());
@@ -256,8 +257,9 @@ void LayerPalette::downLayer()
 	int layerCount=ScApp->doc->layerCount();
 	if ((layerCount < 2) || (Table->currentRow() == static_cast<int>(layerCount) - 1))
 		return;
-	int num = layerCount-1-Table->currentRow();
-	ScApp->doc->lowerLayer(num);
+	int layerLevel = layerCount-1-Table->currentRow();
+	//int layerNumber=ScApp->doc->layerNumberFromLevel(layerLevel);
+	ScApp->doc->lowerLayer(layerLevel);
 	rebuildList();
 	ScApp->changeLayer(ScApp->doc->activeLayer());
 	emit LayerChanged();

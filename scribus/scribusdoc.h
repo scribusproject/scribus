@@ -86,7 +86,9 @@ public:
 	const int layerNumberFromLevel(const int);
 	const int layerCount();
 	const bool lowerLayer(const int);
+	const bool lowerLayerByLevel(const int);
 	const bool raiseLayer(const int);
+	const bool raiseLayerByLevel(const int);
 	const QString &layerName(const int);
 	const bool changeLayerName(const int, const QString&);
 	const bool layerContainsItems(const int);
