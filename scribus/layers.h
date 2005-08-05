@@ -4,6 +4,7 @@
 #include <qtable.h>
 #include <qptrlist.h>
 #include <qvaluelist.h>
+#include <qcheckbox.h>
 
 #include "scrpalettebase.h"
 
@@ -11,7 +12,6 @@ class QPushButton;
 class QLayout;
 class QToolTip;
 class QPixmap;
-class QCheckBox;
 class QHeader;
 
 

@@ -33,6 +33,7 @@
 #include <qstringlist.h>
 #include <qtimer.h>
 
+#include "scribusstructs.h"
 #include "prefsstructs.h"
 #include "documentinformation.h"
 #include "undoobject.h"

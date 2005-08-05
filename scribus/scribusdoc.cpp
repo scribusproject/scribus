@@ -1111,7 +1111,7 @@ const QString& ScribusDoc::activeLayerName()
 const bool ScribusDoc::setActiveLayer(const int layerToActivate)
 {
 	bool found=false;
-	int layerCount=Layers.count();
+	uint layerCount=Layers.count();
 	for (uint i=0; i < layerCount; ++i)
 	{
 		if (Layers[i].LNr == layerToActivate)
@@ -1128,7 +1128,7 @@ const bool ScribusDoc::setActiveLayer(const int layerToActivate)
 const bool ScribusDoc::setActiveLayer(const QString& layerNameToActivate)
 {
 	bool found=false;
-	int layerCount=Layers.count();
+	uint layerCount=Layers.count();
 	uint i;
 	for (i=0; i < layerCount; ++i)
 	{
@@ -1214,7 +1214,7 @@ const bool ScribusDoc::layerVisible(const int layerNumber)
 
 const int ScribusDoc::layerLevelFromNumber(const int layerNumber)
 {
-	int layerCount=Layers.count();
+	uint layerCount=Layers.count();
 	for (uint i=0; i < layerCount; ++i)
 	{
 		if (Layers[i].LNr == layerNumber)
@@ -1230,7 +1230,7 @@ const int ScribusDoc::layerCount()
 
 const int ScribusDoc::layerNumberFromLevel(const int layerLevel)
 {
-	int layerCount=Layers.count();
+	uint layerCount=Layers.count();
 	for (uint i=0; i < layerCount; ++i)
 	{
 		if (Layers[i].Level == layerLevel)
@@ -1313,7 +1313,7 @@ const bool ScribusDoc::raiseLayerByLevel(const int layerLevel)
 
 const QString& ScribusDoc::layerName(const int layerNumber)
 {
-	int layerCount=Layers.count();
+	uint layerCount=Layers.count();
 	for (uint i=0; i < layerCount; ++i)
 	{
 		if (Layers[i].LNr == layerNumber)
@@ -1324,7 +1324,7 @@ const QString& ScribusDoc::layerName(const int layerNumber)
 
 const bool ScribusDoc::changeLayerName(const int layerNumber, const QString& newName)
 {
-	int layerCount=Layers.count();
+	uint layerCount=Layers.count();
 	bool found=false;
 	for (uint i=0; i < layerCount; ++i)
 	{
@@ -1355,13 +1355,13 @@ const bool ScribusDoc::layerContainsItems(const int layerNumber)
 		MasterPages = Pages;
 	else
 		DocPages = Pages;
-	int masterItemsCount=MasterItems.count();
+	uint masterItemsCount=MasterItems.count();
 	for (uint i = 0; i < masterItemsCount; ++i)
 	{
 		if (MasterItems.at(i)->LayerNr == layerNumber)
 			return true;
 	}
-	int docItemsCount=DocItems.count();
+	uint docItemsCount=DocItems.count();
 	for (uint i = 0; i < docItemsCount; ++i)
 	{
 		if (DocItems.at(i)->LayerNr == layerNumber)
@@ -1373,13 +1373,15 @@ const bool ScribusDoc::layerContainsItems(const int layerNumber)
 void ScribusDoc::orderedLayerList(QStringList* list)
 {
 	Q_ASSERT(list!=NULL);
-	if (Layers.count() != 0)
+	uint layerCount=Layers.count();
+	if (layerCount != 0)
 	{
-		for (int i=0; i < Layers.count(); ++i)
+		for (uint i=0; i < layerCount; ++i)
 		{
-			for (QValueList<Layer>::iterator it = Layers.begin(); it != Layers.end(); ++it)
+			QValueList<Layer>::iterator itend=Layers.end();
+			for (QValueList<Layer>::iterator it = Layers.begin(); it != itend; ++it)
 			{
-				if (Layers.count()-(*it).Level-1 == i)
+				if (layerCount-(*it).Level-1 == i)
 					list->append((*it).Name);
 			}
  		}
@@ -1388,18 +1390,22 @@ void ScribusDoc::orderedLayerList(QStringList* list)
 
 const bool ScribusDoc::renumberLayer(const int layerNumber, const int newLayerNumber)
 {
-	int layerCount=Layers.count();
-	int foundIndex=-1;
+	uint layerCount=Layers.count();
+	uint foundIndex;
+	bool found=false;
 	//Find layer to renumber, if found the new number, return as it exists already.
 	for (uint i=0; i < layerCount; ++i)
 	{
 		if (Layers[i].LNr == layerNumber)
+		{
 			foundIndex=i;
+			found=true;
+		}
 		else
 		if (Layers[i].LNr == newLayerNumber)
 			return false;
 	}
-	if (foundIndex==-1)
+	if (!found)
 		return false;
 	Layers[foundIndex].LNr=newLayerNumber;
 	return true;
