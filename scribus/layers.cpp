@@ -30,13 +30,6 @@ LayerTable::LayerTable(QWidget* parent) : QTable(parent)
 {
 }
 
-/*
-void LayerTable::keyPressEvent(QKeyEvent *k)
-{
-	QTable::keyPressEvent(k);
-}
-*/
-
 void LayerTable::endEdit ( int row, int col, bool accept, bool replace )
 {
 	QTable::EditMode ed = editMode();
@@ -114,19 +107,7 @@ LayerPalette::LayerPalette(QWidget* parent)
 	connect(Table, SIGNAL(updtName(int)), this, SLOT(updateName(int)));
 
 }
-/*
-void LayerPalette::closeEvent(QCloseEvent *ce)
-{
-	emit Schliessen();
-	ce->accept();
-}
 
-void LayerPalette::reject()
-{
-	emit Schliessen();
-	QDialog::reject();
-}
-*/
 void LayerPalette::updateName(int r)
 {
 	changeName(r, 0);
@@ -152,7 +133,7 @@ void LayerPalette::setLayers(QValueList<Layer> *layin, int act)
 	layers = layin;
 	rebuildList();
 	disconnect(Table, SIGNAL(currentChanged(int, int)), this, SLOT(setActiveLayer(int)));
-	markActiveLayer();
+	markActiveLayer(act);
 	newLayerButton->setEnabled(true);
 	deleteLayerButton->setEnabled(true);
 	raiseLayerButton->setEnabled(true);
@@ -220,15 +201,8 @@ void LayerPalette::removeLayer()
 			== QMessageBox::Yes)
 			delToo = true;
 	}
-	removeLayer(delToo);
-}
 
-void LayerPalette::removeLayer(bool deleteItems)
-{
-	int layerCount=ScApp->doc->layerCount();
-	int level = layerCount-1-Table->currentRow();
-	int layerNumber=ScApp->doc->layerNumberFromLevel(level);
-	if (!ScApp->doc->deleteLayer(layerNumber, deleteItems))
+	if (!ScApp->doc->deleteLayer(layerNumber, delToo))
 		return;
 	
 	rebuildList();
@@ -273,8 +247,8 @@ void LayerPalette::changeName(int row, int col)
 		int layerNumber=ScApp->doc->layerNumberFromLevel(layerLevel);
 		if (layerNumber!=-1)
 		{
-			ScApp->doc->changeLayerName(layerNumber, Table->text(row, col));
-			ScApp->slotDocCh();
+			if (ScApp->doc->changeLayerName(layerNumber, Table->text(row, col)))
+				ScApp->slotDocCh();
 		}
 	}
 }
@@ -305,23 +279,6 @@ void LayerPalette::printLayer()
 	{
 		ScApp->doc->setLayerPrintable(layerNumber,((QCheckBox*)(senderBox))->isChecked());
 		ScApp->slotDocCh();
-	}
-}
-
-//used for undo only.. TODO
-void LayerPalette::printLayer(int layerNr, bool isPrintable)
-{
-	ScApp->doc->setLayerPrintable(layerNr, isPrintable);
-	QValueList<Layer>::iterator it;
-	QPtrListIterator<QCheckBox> it2(flagsPrintable);
-	for (it = layers->begin(); it != layers->end(); ++it, ++it2)
-	{
-		if ((*it).LNr == layerNr)
-		{
-			(*it2)->setChecked(isPrintable);
-			ScApp->slotDocCh();
-			break;
-		}
 	}
 }
 

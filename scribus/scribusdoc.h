@@ -71,28 +71,140 @@ public:
 	bool deletePage(const int);
 	void movePage(const int, const int, const int, const int);
 	// Add, delete and move layers
+	/** 
+	 * @brief Add a layer to the current document
+	 * @param Name of layer
+	 * @param Mark the layer active
+	 * @return Number of the layer created
+	 */
 	const int addLayer(const QString&, const bool);
+	/** 
+	 * @brief Delete a layer from the current document
+	 * @param Number of layer
+	 * @param Delete the items on the layer too?
+	 * @return Success or failure
+	 */
 	const bool deleteLayer(const int, const bool);
-	void moveLayer();
+	/**
+	 * @brief Return the number of the current layer
+	 * @return Active layer number
+	 */
 	const int activeLayer();
+	
+	/**
+	 * @brief Return the name of the current layer
+	 * @return Name of the layer
+	 */
 	const QString& activeLayerName();
+	/**
+	 * @brief Set the active layer via the layer number
+	 * @param Number of the layer
+	 * @return Success or failure
+	 */
 	const bool setActiveLayer(const int);
+	/**
+	 * @brief Set the active layer via the layer name
+	 * @param Name of the layer
+	 * @return Success or failure
+	 */
 	const bool setActiveLayer(const QString &);
+	/**
+	 * @brief Set the layer printable via the layer number
+	 * @param Number of the layer
+	 * @param Printable bool
+	 * @return Success or failure
+	 */
 	const bool setLayerPrintable(const int, const bool);
+	/**
+	 * @brief Is the layer printable
+	 * @param Number of the layer
+	 * @return Printable or not
+	 */
 	const bool layerPrintable(const int);
+	/**
+	 * @brief Set the layer visible via the layer number
+	 * @param Number of the layer
+	 * @param Visible bool
+	 * @return Success or failure
+	 */
 	const bool setLayerVisible(const int, const bool);
+	/**
+	 * @brief Is the layer visible
+	 * @param Number of the layer
+	 * @return Visible or not
+	 */
 	const bool layerVisible(const int);
+	/**
+	 * @brief Return the level of the requested layer
+	 * @param Number of the layer
+	 * @return Level of the layer
+	 */
 	const int layerLevelFromNumber(const int);
+	/**
+	 * @brief Return the number of the layer at a certain level
+	 * @param Layer level
+	 * @return Layer number
+	 */
 	const int layerNumberFromLevel(const int);
+	/**
+	 * @brief Return the layer count
+	 * @return Number of layers in doc
+	 */
 	const int layerCount();
+	/**
+	 * @brief Lower a layer
+	 * @param Number of the layer
+	 * @return Success or failure
+	 */
 	const bool lowerLayer(const int);
+	/**
+	 * @brief Lower a layer using the level
+	 * @param Level of the layer
+	 * @return Success or failure
+	 */
 	const bool lowerLayerByLevel(const int);
+	/**
+	 * @brief Raise a layer
+	 * @param Number of the layer
+	 * @return Success or failure
+	 */
 	const bool raiseLayer(const int);
+	/**
+	 * @brief Raise a layer using the level
+	 * @param Level of the layer
+	 * @return Success or failure
+	 */
 	const bool raiseLayerByLevel(const int);
+	/**
+	 * @brief Return the layer name
+	 * @param Number of the layer
+	 * @return Name of the layer 
+	 */
 	const QString &layerName(const int);
+	/**
+	 * @brief Change the name of a layer
+	 * @param Number of the layer
+	 * @param New name of the layer
+	 * @return Success or failure
+	 */
 	const bool changeLayerName(const int, const QString&);
+	/**
+	 * @brief Does the layer have items on it?
+	 * @param Number of the layer
+	 * @return Layer contains items bool
+	 */
 	const bool layerContainsItems(const int);
+	/**
+	 * @brief Renumber a layer. Used in particular for reinsertion for undo/redo
+	 * @param Existing layer number
+	 * @param New layer number
+	 * @return Success or failure
+	 */
 	const bool renumberLayer(const int, const int);
+	/**
+	 * @brief Return a list of the layers in their order
+	 * @param QStringList to insert the layer names into
+	 */
 	void orderedLayerList(QStringList*);
 	//Items
 	const bool deleteTaggedItems();

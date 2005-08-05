@@ -1083,11 +1083,7 @@ const bool ScribusDoc::deleteLayer(const int layerNumber, const bool deleteItems
 		undoManager->commit();
 	}
 	setActiveLayer(layerNumberFromLevel(0));
-}
-
-//TODO: Move raise and lower here
-void ScribusDoc::moveLayer()
-{
+	return true;
 }
 
 const int ScribusDoc::activeLayer()
@@ -1329,6 +1325,7 @@ const QString& ScribusDoc::layerName(const int layerNumber)
 const bool ScribusDoc::changeLayerName(const int layerNumber, const QString& newName)
 {
 	int layerCount=Layers.count();
+	bool found=false;
 	for (uint i=0; i < layerCount; ++i)
 	{
 		if (Layers[i].LNr == layerNumber)
@@ -1345,8 +1342,11 @@ const bool ScribusDoc::changeLayerName(const int layerNumber, const QString& new
 				undoManager->action(this, ss, DocName, Um::ILayer);
 			}
 			Layers[i].Name = newName;
+			found=true;
+			break;
 		}
 	}
+	return found;
 }
 
 const bool ScribusDoc::layerContainsItems(const int layerNumber)

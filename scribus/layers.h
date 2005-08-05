@@ -22,14 +22,11 @@ class LayerTable : public QTable
 public:
 	LayerTable(QWidget* parent);
 	~LayerTable() {};
-	//void keyPressEvent(QKeyEvent *k);
 
 protected:
 	virtual void endEdit ( int row, int col, bool accept, bool replace );
 
 signals:
-	//void ToggleAllPalettes();
-	//void Schliessen();
 	void updtName(int);
 };
 
@@ -41,7 +38,6 @@ public:
 	LayerPalette(QWidget* parent);
 	~LayerPalette() {};
 
-	//void closeEvent(QCloseEvent *ce);
 	void setLayers(QValueList<Layer> *layin, int act);
 	void rebuildList();
 	
@@ -51,13 +47,11 @@ public slots:
 	void updateName(int r);
 	void addLayer();
 	void removeLayer();
-	void removeLayer(bool deleteItems);
 	void upLayer();
 	void downLayer();
 	void changeName(int row, int col);
 	void visibleLayer();
 	void printLayer();
-	void printLayer(int layerNr, bool isPrintable);
 	void setActiveLayer(int row);
 	void ClearInhalt();
 	void markActiveLayer(int layerNumber=-1);
@@ -66,7 +60,6 @@ public slots:
 signals:
 	void LayerChanged();
 	void LayerActivated(int);
-	//void Schliessen();
 
 protected:
 	QVBoxLayout* LayerPaletteLayout;
@@ -79,9 +72,6 @@ protected:
 	QPtrList<QCheckBox> flagsPrintable;
 	QPtrList<QCheckBox> flagsVisible;
 	QValueList<Layer> *layers;
-		
-protected slots:
-	//virtual void reject();
 };
 
 #endif // LAYERPALETTE_H
