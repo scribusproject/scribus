@@ -1268,7 +1268,7 @@ const int ScribusDoc::layerNumberFromLevel(const int layerLevel)
 
 const bool ScribusDoc::lowerLayer(const int layerNumber)
 {
-	return lowerLayerByLevel(layerLevelFromNumber(layerNumber);
+	return lowerLayerByLevel(layerLevelFromNumber(layerNumber));
 }
 
 const bool ScribusDoc::lowerLayerByLevel(const int layerLevel)
@@ -1304,7 +1304,7 @@ const bool ScribusDoc::lowerLayerByLevel(const int layerLevel)
 
 const bool ScribusDoc::raiseLayer(const int layerNumber)
 {
-	return raiseLayerByLevel(layerLevelFromNumber(layerNumber);
+	return raiseLayerByLevel(layerLevelFromNumber(layerNumber));
 }
 
 const bool ScribusDoc::raiseLayerByLevel(const int layerLevel)
