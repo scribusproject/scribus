@@ -259,6 +259,7 @@ void LayerPalette::upLayer()
 	rebuildList();
 	emit LayerChanged();
 	MarkActiveLayer(*Activ);
+	emit LayerActivated(*Activ);
 	ScApp->slotDocCh();
 }
 
@@ -285,6 +286,7 @@ void LayerPalette::downLayer()
 	rebuildList();
 	emit LayerChanged();
 	MarkActiveLayer(*Activ);
+	emit LayerActivated(*Activ);
 	ScApp->slotDocCh();
 }
 
