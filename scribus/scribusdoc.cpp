@@ -642,60 +642,41 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 			setLayerPrintable(ss->getInt("ACTIVE"), isUndo ? !print : print);
 			layersUndo=true;
 		}
-		/*
 		else if (ss->contains("ADD_LAYER"))
 		{
 			if (isUndo)
 			{
-				//markActiveLayer(ss->getInt("ACTIVE"));
-				removeLayer(false);
+				deleteLayer(ss->getInt("LAYER_NR"), false);
 			}
 			else
 			{
-				QValueList<Layer>::iterator it;
-				for (it = layers->begin(); it != layers->end(); ++it)
-				{
-					if ((*it).LNr == *Activ)
-					{
-						(*it).LNr = ss->getInt("LAYER_NR");
-						*Activ = (*it).LNr;
-						break;
-					}
-				}
-				addLayer();
+				int layerNumber=addLayer( ss->get("NAME"), false );
+				int newLayerNumber=ss->getInt("LAYER_NR");
+				bool renumberedOk=renumberLayer(layerNumber, newLayerNumber);
+				Q_ASSERT(renumberedOk);
 			}
+			layersUndo=true;
 		}
 		else if (ss->contains("REMOVE_LAYER"))
 		{
 			if (isUndo)
 			{
-				addLayer();
-				QValueList<Layer>::iterator it;
-				for (it = layers->begin(); it != layers->end(); ++it)
-				{
-					if ((*it).LNr == *Activ)
-					{
-						(*it).LNr = ss->getInt("LAYER_NR");
-						*Activ = (*it).LNr;
-						break;
-					}
-				}
+				int layerNumber=addLayer( ss->get("NAME"), false );
+				int newLayerNumber=ss->getInt("LAYER_NR");
+				bool renumberedOk=renumberLayer(layerNumber, newLayerNumber);
+				Q_ASSERT(renumberedOk);
+				layerNumber=newLayerNumber;
+				//Layer is at the top now, lower it until it reaches the old level
 				int level = ss->getInt("LEVEL");
-				int num = layers->count()-1-Table->currentRow();
-				while (num != level)
-				{
-					downLayer();
-					++level;
-				}
-				changeName(ss->getInt("LEVEL"), 2, ss->get("NAME"));
+				while (layerLevelFromNumber(layerNumber)!=level)
+					lowerLayer(layerNumber);
 			}
 			else
 			{
-				markActiveLayer(ss->getInt("LAYER_NR"));
-				removeLayer(ss->getBool("DELETE"));
+				deleteLayer(ss->getInt("LAYER_NR"), ss->getBool("DELETE"));
 			}
+			layersUndo=true;
 		}
-		*/
 		else if (ss->contains("CHANGE_NAME"))
 		{
 			QString name = ss->get("OLD_NAME");
@@ -987,7 +968,7 @@ void ScribusDoc::movePage(const int from, const int to, const int ziel, const in
 		DocPages = Pages;
 }
 
-void ScribusDoc::addLayer(const QString& layerName=QString::null, const bool activate=false)
+const int ScribusDoc::addLayer(const QString& layerName=QString::null, const bool activate=false)
 {
 	struct Layer ll;
 	ll.LNr = Layers.last().LNr + 1;
@@ -1010,19 +991,17 @@ void ScribusDoc::addLayer(const QString& layerName=QString::null, const bool act
 		SimpleState *ss = new SimpleState(Um::AddLayer, "", Um::ICreate);
 		ss->set("ADD_LAYER", "add_layer");
 		ss->set("ACTIVE", ActiveLayer);
+		ss->set("NAME", ll.Name);
 		ss->set("LAYER_NR", ll.LNr);
 		undoManager->action(this, ss, DocName, Um::ILayer);
 	}
+	return ll.LNr;
 }
 
 const bool ScribusDoc::deleteLayer(const int layerNumber, const bool deleteItems)
 {
 	if (Layers.count() < 2)
 		return false;
-		
-	if (UndoManager::undoEnabled())
-		undoManager->beginTransaction("Layer", Um::IDocument, Um::DeleteLayer, "", Um::IDelete);
-	
 	QValueList<Layer>::iterator it2;
 	QValueList<Layer>::iterator it2end=Layers.end();
 	bool found=false;
@@ -1038,7 +1017,9 @@ const bool ScribusDoc::deleteLayer(const int layerNumber, const bool deleteItems
 	}
 	if (!found)
 		return false;
-	
+	if (UndoManager::undoEnabled())
+		undoManager->beginTransaction("Layer", Um::IDocument, Um::DeleteLayer, "", Um::IDelete);
+
 	ScApp->LayerRemove(layerNumber, deleteItems);
 	/*
 	//Layer found, do we want to delete its items too?
@@ -1093,7 +1074,6 @@ const bool ScribusDoc::deleteLayer(const int layerNumber, const bool deleteItems
 		if ((*it).Level > layerLevel)
 			(*it).Level -= 1;
 	}
-	setActiveLayer(0); //TODO change to use layer below
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::DeleteLayer, "", Um::IDelete);
@@ -1106,6 +1086,7 @@ const bool ScribusDoc::deleteLayer(const int layerNumber, const bool deleteItems
 		undoManager->action(this, ss, DocName, Um::ILayer);
 		undoManager->commit();
 	}
+	setActiveLayer(layerNumberFromLevel(0));
 }
 
 //TODO: Move raise and lower here
@@ -1409,8 +1390,26 @@ void ScribusDoc::orderedLayerList(QStringList* list)
  	}
 }
 
-//Make the doc delete the items, not the view. TODO: Currently does nada, zilch, zero
+const bool ScribusDoc::renumberLayer(const int layerNumber, const int newLayerNumber)
+{
+	int layerCount=Layers.count();
+	int foundIndex=-1;
+	//Find layer to renumber, if found the new number, return as it exists already.
+	for (uint i=0; i < layerCount; ++i)
+	{
+		if (Layers[i].LNr == layerNumber)
+			foundIndex=i;
+		else
+		if (Layers[i].LNr == newLayerNumber)
+			return false;
+	}
+	if (foundIndex==-1)
+		return false;
+	Layers[foundIndex].LNr=newLayerNumber;
+	return true;
+}
 
+//Make the doc delete the items, not the view. TODO: Currently does nada, zilch, zero
 const bool ScribusDoc::deleteTaggedItems()
 {
 	QString tooltip = Um::ItemsInvolved + "\n";
@@ -1430,3 +1429,4 @@ const bool ScribusDoc::deleteTaggedItems()
 	}
 	return true;
 }
+

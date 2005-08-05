@@ -71,7 +71,7 @@ public:
 	bool deletePage(const int);
 	void movePage(const int, const int, const int, const int);
 	// Add, delete and move layers
-	void addLayer(const QString&, const bool);
+	const int addLayer(const QString&, const bool);
 	const bool deleteLayer(const int, const bool);
 	void moveLayer();
 	const int activeLayer();
@@ -92,6 +92,7 @@ public:
 	const QString &layerName(const int);
 	const bool changeLayerName(const int, const QString&);
 	const bool layerContainsItems(const int);
+	const bool renumberLayer(const int, const int);
 	void orderedLayerList(QStringList*);
 	//Items
 	const bool deleteTaggedItems();
