@@ -645,9 +645,7 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 		else if (ss->contains("ADD_LAYER"))
 		{
 			if (isUndo)
-			{
 				deleteLayer(ss->getInt("LAYER_NR"), false);
-			}
 			else
 			{
 				int layerNumber=addLayer( ss->get("NAME"), false );
@@ -672,9 +670,7 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 					lowerLayer(layerNumber);
 			}
 			else
-			{
 				deleteLayer(ss->getInt("LAYER_NR"), ss->getBool("DELETE"));
-			}
 			layersUndo=true;
 		}
 		else if (ss->contains("CHANGE_NAME"))
