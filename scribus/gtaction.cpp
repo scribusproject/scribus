@@ -46,6 +46,7 @@ gtAction::gtAction(bool append)
 
 gtAction::gtAction(bool append, PageItem* pageitem)
 {
+	prefsManager=PrefsManager::instance();
 	textFrame = pageitem;
 	it = textFrame;
 	lastParagraphStyle = -1;
