@@ -22,6 +22,7 @@
 #include "shadebutton.h"
 #include "story.h"
 #include "scribus.h"
+#include "commonstrings.h"
 
 extern ScribusApp* ScApp;
 extern QPixmap loadIcon(QString nam);
@@ -506,7 +507,7 @@ void SearchReplace::slotDoSearch()
 			ScApp->view->RefreshItem(Item);
 			DoReplace->setEnabled(false);
 			AllReplace->setEnabled(false);
-			QMessageBox::information(this, tr("Search/Replace"), tr("Search finished"), tr("&OK"));
+			QMessageBox::information(this, tr("Search/Replace"), tr("Search finished"), CommonStrings::tr_OK);
 			Item->CPos = 0;
 			NotFound = false;
 		}
@@ -633,7 +634,7 @@ void SearchReplace::slotDoSearch()
 				}
 				else
 				{
-					QMessageBox::information(this, tr("Search/Replace"), tr("Search finished"), tr("&OK"));
+					QMessageBox::information(this, tr("Search/Replace"), tr("Search finished"), CommonStrings::tr_OK);
 					NotFound = false;
 					ScApp->CurrStED->Editor->removeSelection();
 					ScApp->CurrStED->Editor->setCursorPosition(0, 0);

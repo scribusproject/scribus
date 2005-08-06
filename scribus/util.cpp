@@ -51,6 +51,7 @@
 #include "prefscontext.h"
 #include "prefstable.h"
 #include "prefsmanager.h"
+#include "commonstrings.h"
 
 extern "C"
 {
@@ -739,7 +740,7 @@ bool overwrite(QWidget *parent, QString filename)
 	{
 		int t = QMessageBox::warning(parent, QObject::tr("File exists"),
 		                             QObject::tr("A file named '%1' already exists.\nDo you want to replace it with the file you are saving?").arg(filename),
-		                             QObject::tr("&Cancel"), QObject::tr("&Replace"), "", 1, 0);
+		                             CommonStrings::tr_Cancel, QObject::tr("&Replace"), "", 1, 0);
 		if (t == 0)
 			retval = false;
 	}

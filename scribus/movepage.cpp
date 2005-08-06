@@ -7,6 +7,9 @@
 
 #include "movepage.h"
 #include "movepage.moc"
+
+#include "commonstrings.h"
+
 extern QPixmap loadIcon(QString nam);
 
 /*
@@ -60,10 +63,10 @@ MovePages::MovePages( QWidget* parent, int currentPage, int maxPages, bool movin
 	okCancelLayout->setMargin( 0 );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	okCancelLayout->addItem( spacer );
-	okButton = new QPushButton( tr( "&OK" ), this, "okButton" );
+	okButton = new QPushButton( CommonStrings::tr_OK, this, "okButton" );
 	okButton->setDefault( true );
 	okCancelLayout->addWidget(okButton);
-	cancelButton = new QPushButton( tr( "&Cancel" ), this, "cancelButton" );
+	cancelButton = new QPushButton( CommonStrings::tr_Cancel, this, "cancelButton" );
 	okCancelLayout->addWidget(cancelButton);
 	dialogLayout->addLayout( okCancelLayout );
 	setMaximumSize(sizeHint());

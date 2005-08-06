@@ -15,6 +15,7 @@
 #include "units.h"
 #include "mspinbox.h"
 #include "pagesize.h"
+#include "commonstrings.h"
 
 extern QPixmap loadIcon(QString nam);
 
@@ -89,10 +90,10 @@ MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent
 	okCancelLayout->setMargin( 0 );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	okCancelLayout->addItem( spacer );
-	okButton = new QPushButton( tr( "&OK" ), this, "okButton" );
+	okButton = new QPushButton( CommonStrings::tr_OK, this, "okButton" );
 	okButton->setDefault( true );
 	okCancelLayout->addWidget(okButton);
-	cancelButton = new QPushButton( tr( "&Cancel" ), this, "cancelButton" );
+	cancelButton = new QPushButton( CommonStrings::tr_Cancel, this, "cancelButton" );
 	cancelButton->setDefault( false );
 	okCancelLayout->addWidget(cancelButton);
 	dialogLayout->addLayout( okCancelLayout );

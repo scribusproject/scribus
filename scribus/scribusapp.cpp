@@ -32,6 +32,7 @@
 #include "prefsfile.h"
 #include "langmgr.h"
 #include "prefsmanager.h"
+#include "commonstrings.h"
 
 #define ARG_VERSION "--version"
 #define ARG_HELP "--help"

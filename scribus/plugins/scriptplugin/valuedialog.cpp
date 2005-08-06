@@ -8,6 +8,7 @@
 #include <qlayout.h>
 #include <qtooltip.h>
 #include <qwhatsthis.h>
+#include "commonstrings.h"
 
 ValueDialog::ValueDialog( QWidget* parent, const char* name, bool modal, WFlags fl )
 	: QDialog( parent, name, modal, fl )
@@ -63,7 +64,7 @@ void ValueDialog::languageChange()
 	setCaption( tr( "Insert value" ) );
 	dialogLabel->setText( tr( "Enter a value then press OK." ) );
 	QToolTip::add( valueEdit, tr( "Enter a value then press OK" ) );
-	okButton->setText( tr( "&OK" ) );
+	okButton->setText( CommonStrings::tr_OK );
 	okButton->setAccel( QKeySequence( tr( "Alt+O" ) ) );
 	QToolTip::add( okButton, tr( "Send your value to the script" ) );
 }

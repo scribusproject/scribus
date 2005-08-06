@@ -36,6 +36,7 @@ scribus_SOURCES = \
 	cmykfw.cpp	\
 	colorchart.cpp	\
 	colorm.cpp	\
+	commonstrings.cpp \
 	cpalette.cpp	\
 	cupsoptions.cpp	\
 	customfdialog.cpp	\

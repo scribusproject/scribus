@@ -4,6 +4,7 @@
 #include <qmessagebox.h>
 #include <qheader.h>
 
+#include "commonstrings.h"
 #include "scribusdoc.h"
 #include "customfdialog.h"
 #include "prefsmanager.h"
@@ -129,7 +130,7 @@ StilFormate::StilFormate( QWidget* parent, ScribusDoc *doc) : QDialog( parent, "
 	Layout15->setSpacing( 6 );
 	Layout15->setMargin( 0 );
 
-	LoadS = new QPushButton( tr( "&Append" ), this, "LoadF" );
+	LoadS = new QPushButton( tr( "&Import" ), this, "LoadF" );
 	Layout15->addWidget( LoadS );
 
 	NewB = new QPushButton( tr( "&New" ), this, "NewB" );
@@ -148,13 +149,13 @@ StilFormate::StilFormate( QWidget* parent, ScribusDoc *doc) : QDialog( parent, "
 	DeleteB->setEnabled(false);
 	Layout15->addWidget( DeleteB );
 
-	SaveB = new QPushButton( tr( "&Save" ), this, "SaveB" );
+	SaveB = new QPushButton( CommonStrings::tr_Save, this, "SaveB" );
 	Layout15->addWidget( SaveB );
 
-	ExitB = new QPushButton( tr( "&OK" ), this, "ExitB" );
+	ExitB = new QPushButton( CommonStrings::tr_OK, this, "ExitB" );
 	Layout15->addWidget( ExitB );
 
-	CancelB = new QPushButton( tr( "&Cancel" ), this, "CancelB" );
+	CancelB = new QPushButton( CommonStrings::tr_Cancel, this, "CancelB" );
 	Layout15->addWidget( CancelB );
 	QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	Layout15->addItem( spacer );

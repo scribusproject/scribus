@@ -28,6 +28,7 @@
 #include <qinputdialog.h> 
 
 
+#include "commonstrings.h"
 #include "menumanager.h"
 #include "scribus.h"
 #include "prefsmanager.h"
@@ -249,7 +250,7 @@ void KeyManager::keyPressEvent(QKeyEvent *k)
 					QMessageBox::information(this,
 											tr("Warning"),
 											tr("This Key Sequence is already in use"),
-											tr("&OK"), 0, 0, 0, QMessageBox::Ok);
+											CommonStrings::tr_OK, 0, 0, 0, QMessageBox::Ok);
 					keyTable->setText(currRow, 1, "");
 					keyDisplay->setText("");
 					if (currentKeyMapRow!=NULL)

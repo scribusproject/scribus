@@ -19,6 +19,7 @@
 #include "cupsoptions.moc"
 #include "prefsmanager.h"
 #include "prefsfile.h"
+#include "commonstrings.h"
 
 #include "scconfig.h"
 
@@ -192,10 +193,10 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent, "pr
 	Layout2->setMargin( 0 );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout2->addItem( spacer );
-	PushButton1 = new QPushButton( tr("&OK"), this, "PushButton1" );
+	PushButton1 = new QPushButton( CommonStrings::tr_OK, this, "PushButton1" );
 	PushButton1->setDefault( true );
 	Layout2->addWidget( PushButton1 );
-	PushButton2 = new QPushButton( tr("&Cancel"), this, "PushButton1_2" );
+	PushButton2 = new QPushButton( CommonStrings::tr_Cancel, this, "PushButton1_2" );
 	PushButton2->setDefault( false );
 	PushButton1->setFocus();
 	Layout2->addWidget( PushButton2 );

@@ -16,6 +16,7 @@
 #include <qpixmap.h>
 #include <qiconset.h>
 
+#include "commonstrings.h"
 #include "scribusdoc.h"
 #include "page.h"
 
@@ -64,9 +65,9 @@ DelColor::DelColor( QWidget* parent, ColorList colorList, QString colorName, boo
     okCancelLayout->setMargin( 0 );
     QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
     okCancelLayout->addItem( spacer );
-    okButton = new QPushButton( tr( "&OK" ), this, "okButton" );
+    okButton = new QPushButton( CommonStrings::tr_OK, this, "okButton" );
     okCancelLayout->addWidget( okButton );
-    cancelButton = new QPushButton( tr( "&Cancel" ), this, "PushButton13" );
+    cancelButton = new QPushButton( CommonStrings::tr_Cancel, this, "PushButton13" );
     cancelButton->setDefault( true );
     okCancelLayout->addWidget( cancelButton );
     dialogLayout->addLayout( okCancelLayout );

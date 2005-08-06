@@ -5,6 +5,7 @@ extern QPixmap loadIcon(QString nam);
 
 #include <qtooltip.h>
 #include "scribusdoc.h"
+#include "commonstrings.h"
 
 NewTm::NewTm( QWidget* parent, QString text, QString titel, ScribusDoc *doc)
 		: QDialog( parent, "newt", true, 0 )
@@ -42,10 +43,10 @@ NewTm::NewTm( QWidget* parent, QString text, QString titel, ScribusDoc *doc)
 	Layout1->setMargin( 0 );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout1->addItem( spacer );
-	PushButton1 = new QPushButton( tr( "&OK" ), this, "PushButton1" );
+	PushButton1 = new QPushButton( CommonStrings::tr_OK, this, "PushButton1" );
 	PushButton1->setDefault( true );
 	Layout1->addWidget( PushButton1 );
-	PushButton2 = new QPushButton( tr( "&Cancel" ), this, "PushButton2" );
+	PushButton2 = new QPushButton( CommonStrings::tr_Cancel, this, "PushButton2" );
 	Layout1->addWidget( PushButton2 );
 	QueryLayout->addLayout( Layout1 );
 	setMaximumSize(sizeHint());

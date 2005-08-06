@@ -5,6 +5,7 @@
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "pageitem.h"
+#include "commonstrings.h"
 
 extern QPixmap loadIcon(QString nam);
 
@@ -112,12 +113,12 @@ Align::Align( QWidget* parent, int anz, int ein, ScribusDoc* docc, ScribusView* 
 	Layout3->setMargin( 10 );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout3->addItem( spacer );
-	OKbutton = new QPushButton( tr( "&OK" ), this, "OKbutton" );
+	OKbutton = new QPushButton( CommonStrings::tr_OK, this, "OKbutton" );
 	OKbutton->setDefault( true );
 	Layout3->addWidget( OKbutton );
-	ButtonApply = new QPushButton( tr( "&Apply" ), this, "ButtonApply" );
+	ButtonApply = new QPushButton( CommonStrings::tr_Apply, this, "ButtonApply" );
 	Layout3->addWidget( ButtonApply );
-	CancelB = new QPushButton( tr( "&Cancel" ), this, "CancelB" );
+	CancelB = new QPushButton( CommonStrings::tr_Cancel, this, "CancelB" );
 	Layout3->addWidget( CancelB );
 	AlignLayout->addLayout( Layout3 );
 	setMinimumSize(sizeHint());

@@ -15,6 +15,7 @@
 
 #include "scfontmetrics.h"
 #include "prefsmanager.h"
+#include "commonstrings.h"
 
 extern QPixmap loadIcon(QString nam);
 
@@ -201,7 +202,7 @@ FontPreview::~FontPreview()
 void FontPreview::languageChange()
 {
 	setCaption(tr("Fonts Preview", "font preview"));
-	okButton->setText(tr("&OK", "font preview"));
+	okButton->setText(CommonStrings::tr_OK);
 	okButton->setAccel(QKeySequence(tr("Alt+O", "font preview")));
 	searchLabel->setText(tr("Quick Search: "));
 	searchButton->setText(tr("&Search"));

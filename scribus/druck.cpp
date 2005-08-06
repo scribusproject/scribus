@@ -11,6 +11,7 @@
 
 #include "scconfig.h"
 
+#include "commonstrings.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
 #include "customfdialog.h"
@@ -83,9 +84,9 @@ AdvOptions::AdvOptions(QWidget* parent, bool Hm, bool Vm, bool Ic, int ps, bool 
 	Layout2->setMargin( 0 );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout2->addItem( spacer );
-	PushButton1 = new QPushButton( tr( "&OK" ), this, "PushButton1" );
+	PushButton1 = new QPushButton( CommonStrings::tr_OK, this, "PushButton1" );
 	Layout2->addWidget( PushButton1 );
-	PushButton2 = new QPushButton( tr( "&Cancel" ), this, "PushButton1_2" );
+	PushButton2 = new QPushButton( CommonStrings::tr_Cancel, this, "PushButton1_2" );
 	PushButton2->setDefault( true );
 	PushButton2->setFocus();
 	Layout2->addWidget( PushButton2 );
@@ -370,7 +371,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool 
 	OKButton = new QPushButton( tr( "&Print" ), this, "OKButton" );
 	OKButton->setDefault( true );
 	Layout2->addWidget( OKButton );
-	OKButton_2 = new QPushButton( tr( "&Cancel" ), this, "OKButton_2" );
+	OKButton_2 = new QPushButton( CommonStrings::tr_Cancel, this, "OKButton_2" );
 	OKButton_2->setDefault( false );
 	Layout2->addWidget( OKButton_2 );
 

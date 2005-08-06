@@ -7,6 +7,8 @@
 #include <qfileinfo.h>
 #include <qdir.h>
 #include <cstdlib>
+
+#include "commonstrings.h"
 #include "scconfig.h"
 #include "scpaths.h"
 #ifdef HAVE_CMS
@@ -133,10 +135,10 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScColor orig, QString name, ColorList *
 	Layout21->setSpacing( 20 );
 	Layout21->setMargin( 10 );
 
-	Cancel_2 = new QPushButton( tr( "&OK" ), this, "Cancel_2" );
+	Cancel_2 = new QPushButton( CommonStrings::tr_OK, this, "Cancel_2" );
 	Cancel_2->setDefault( true );
 	Layout21->addWidget( Cancel_2 );
-	Cancel = new QPushButton( tr( "&Cancel" ), this, "Cancel" );
+	Cancel = new QPushButton( CommonStrings::tr_Cancel, this, "Cancel" );
 	Layout21->addWidget( Cancel );
 	Layout23->addLayout( Layout21 );
 	CMYKFarbenLayout->addLayout( Layout23 );
@@ -883,7 +885,7 @@ void CMYKChoose::Verlassen()
 	{
 		if (EColors->contains(Farbname->text()))
 		{
-			QMessageBox::information(this, tr("Warning"), tr("Name of the Color is not unique"), tr("&OK"), 0, 0, 0, QMessageBox::Ok);
+			QMessageBox::information(this, tr("Warning"), tr("Name of the Color is not unique"), CommonStrings::tr_OK, 0, 0, 0, QMessageBox::Ok);
 			Farbname->selectAll();
 			Farbname->setFocus();
 			return;

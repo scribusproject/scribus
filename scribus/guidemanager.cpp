@@ -25,6 +25,7 @@
 #include <qlayout.h>
 #include <qcursor.h>
 
+#include "commonstrings.h"
 
 extern ScribusApp *ScApp;
 extern QPixmap loadIcon(QString nam);
@@ -249,7 +250,7 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 	QSpacerItem* spacer = new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
 	Layout5->addItem(spacer);
 
-	okButton = new QPushButton( tr( "&OK" ), this, "okButton");
+	okButton = new QPushButton( CommonStrings::tr_OK, this, "okButton");
 	okButton->setAutoDefault(false);
 	cancelButton = new QPushButton( tr( "&Close" ), this, "cancelButton");
 	cancelButton->setAutoDefault(false);

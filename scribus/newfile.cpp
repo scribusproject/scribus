@@ -12,6 +12,7 @@
 #include "pluginmanager.h"
 #include "prefsmanager.h"
 #include "pagelayout.h"
+#include "commonstrings.h"
 // definitions for clear reading the code - pv
 #define PORTRAIT    0
 #define LANDSCAPE   1
@@ -61,10 +62,10 @@ NewDoc::NewDoc( QWidget* parent, bool startUp ) : QDialog( parent, "newDoc", tru
 	}
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout1->addItem( spacer );
-	OKButton = new QPushButton( tr( "&OK" ), this, "OKButton" );
+	OKButton = new QPushButton( CommonStrings::tr_OK, this, "OKButton" );
 	OKButton->setDefault( true );
 	Layout1->addWidget( OKButton );
-	CancelB = new QPushButton( tr( "&Cancel" ), this, "CancelB" );
+	CancelB = new QPushButton( CommonStrings::tr_Cancel, this, "CancelB" );
 	CancelB->setAutoDefault( false );
 	Layout1->addWidget( CancelB );
 	TabbedNewDocLayout->addLayout( Layout1 );

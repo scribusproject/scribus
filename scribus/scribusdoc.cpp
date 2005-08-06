@@ -15,9 +15,10 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "scribus.h"
+#include "scribusapp.h"
 #include "scribusdoc.h"
 #include "scribusXml.h"
-#include "scribus.h"
 
 #include <qfile.h>
 
@@ -29,6 +30,7 @@
 #include "layers.h"
 
 extern ScribusApp* ScApp;
+extern ScribusQApp* ScQApp;
 
 #ifdef HAVE_CMS
 extern cmsHPROFILE CMSoutputProf;
@@ -684,8 +686,11 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 		
 		if (layersUndo)
 		{
-			ScApp->changeLayer(ss->getInt("ACTIVE"));
-			ScApp->layerPalette->rebuildList();
+			if (ScQApp->usingGUI())
+			{
+				ScApp->changeLayer(ss->getInt("ACTIVE"));
+				ScApp->layerPalette->rebuildList();
+			}
 		}
 	}
 }
@@ -1016,7 +1021,8 @@ const bool ScribusDoc::deleteLayer(const int layerNumber, const bool deleteItems
 	if (UndoManager::undoEnabled())
 		undoManager->beginTransaction("Layer", Um::IDocument, Um::DeleteLayer, "", Um::IDelete);
 
-	ScApp->LayerRemove(layerNumber, deleteItems);
+	if (ScQApp->usingGUI())
+		ScApp->LayerRemove(layerNumber, deleteItems);
 	/*
 	//Layer found, do we want to delete its items too?
 	if (masterPageMode)

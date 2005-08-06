@@ -17,6 +17,8 @@ extern QPixmap loadIcon(QString nam);
 #include <qlineedit.h>
 #include <qpushbutton.h>
 
+#include "commonstrings.h"
+
 Query::Query( QWidget* parent,  const char* name, bool modal, WFlags fl, QString text, QString titel )
     : QDialog( parent, name, modal, fl )
 {
@@ -41,10 +43,10 @@ Query::Query( QWidget* parent,  const char* name, bool modal, WFlags fl, QString
     okCancelLayout->setMargin( 0 );
     QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
     okCancelLayout->addItem( spacer );
-    okButton = new QPushButton( tr( "&OK" ), this, "okButton" );
+    okButton = new QPushButton( CommonStrings::tr_OK, this, "okButton" );
     okButton->setDefault( true );
     okCancelLayout->addWidget( okButton );
-    cancelButton = new QPushButton( tr( "&Cancel"), this, "cancelButton" );
+    cancelButton = new QPushButton( CommonStrings::tr_Cancel, this, "cancelButton" );
     okCancelLayout->addWidget( cancelButton );
     queryLayout->addLayout( okCancelLayout );
     setMaximumSize(sizeHint());

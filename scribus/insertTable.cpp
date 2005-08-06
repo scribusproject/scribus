@@ -1,6 +1,8 @@
 #include "insertTable.h"
 #include "insertTable.moc"
 
+#include "commonstrings.h"
+
 extern QPixmap loadIcon(QString nam);
 
 InsertTable::InsertTable( QWidget* parent, int maxRow, int maxCol )
@@ -22,8 +24,8 @@ InsertTable::InsertTable( QWidget* parent, int maxRow, int maxCol )
 	layout2->addWidget( Rows, 0, 1 );
 	InsertTableLayout->addLayout( layout2 );
 	layout1 = new QHBoxLayout( 0, 0, 6, "layout1");
-	okButton = new QPushButton( tr( "&OK" ), this, "okButton" );
-	cancelButton = new QPushButton( tr( "&Cancel" ), this, "cancelButton" );
+	okButton = new QPushButton( CommonStrings::tr_OK, this, "okButton" );
+	cancelButton = new QPushButton( CommonStrings::tr_Cancel, this, "cancelButton" );
 	okButton->setDefault( true );
 	layout1->addWidget( okButton );
 	layout1->addWidget( cancelButton );

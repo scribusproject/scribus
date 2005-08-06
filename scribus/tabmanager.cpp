@@ -8,6 +8,8 @@
 #include "tabruler.h"
 #include "units.h"
 #include "scribusstructs.h"
+#include "commonstrings.h"
+
 extern QPixmap loadIcon(QString nam);
 
 TabManager::TabManager( QWidget* parent, int dEin, QValueList<PageItem::TabRecord> inTab, double) : QDialog( parent, "TabManager", true, 0 )
@@ -24,10 +26,10 @@ TabManager::TabManager( QWidget* parent, int dEin, QValueList<PageItem::TabRecor
 	layout10->setMargin( 0 );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout10->addItem( spacer );
-	OKButton = new QPushButton( tr( "&OK" ), this, "OKButton" );
+	OKButton = new QPushButton( CommonStrings::tr_OK, this, "OKButton" );
 	OKButton->setDefault( true );
 	layout10->addWidget( OKButton );
-	CancelButton = new QPushButton( tr( "&Cancel" ), this, "CancelB" );
+	CancelButton = new QPushButton( CommonStrings::tr_Cancel, this, "CancelB" );
 	layout10->addWidget( CancelButton );
 	TabManagerLayout->addLayout( layout10 );
 	resize( minimumSizeHint() );

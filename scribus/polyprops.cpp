@@ -1,6 +1,7 @@
 #include "polyprops.h"
 #include "polyprops.moc"
 #include "polygonwidget.h"
+#include "commonstrings.h"
 
 extern QPixmap loadIcon(QString nam);
 
@@ -15,11 +16,11 @@ PolygonProps::PolygonProps(QWidget* parent, int polyC, int polyFd, double polyF,
 	QSpacerItem* spacer_2 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout1->addItem( spacer_2 );
 	okButton = new QPushButton( this, "PushButton1" );
-	okButton->setText( tr( "&OK" ) );
+	okButton->setText( CommonStrings::tr_OK );
 	okButton->setDefault( true );
 	Layout1->addWidget( okButton );
 	cancelButton = new QPushButton( this, "PushButton2" );
-	cancelButton->setText( tr( "&Cancel" ) );
+	cancelButton->setText( CommonStrings::tr_Cancel );
 	Layout1->addWidget( cancelButton );
 	PolygonPropsLayout->addLayout( Layout1 );
 	// signals and slots connections

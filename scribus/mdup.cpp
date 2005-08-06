@@ -8,6 +8,7 @@
 #include <qvariant.h>
 #include <qtooltip.h>
 #include "units.h"
+#include "commonstrings.h"
 
 extern QPixmap loadIcon(QString nam);
 
@@ -48,10 +49,10 @@ Mdup::Mdup( QWidget* parent, double Dx, double Dy, int Ein )
 	Layout3->setMargin( 0 );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout3->addItem( spacer );
-	PushButton12 = new QPushButton( tr( "&OK" ), this, "PushButton12" );
+	PushButton12 = new QPushButton( CommonStrings::tr_OK, this, "PushButton12" );
 	PushButton12->setDefault( true );
 	Layout3->addWidget( PushButton12 );
-	PushButton13 = new QPushButton( tr( "&Cancel" ), this, "PushButton13" );
+	PushButton13 = new QPushButton( CommonStrings::tr_Cancel, this, "PushButton13" );
 	Layout3->addWidget( PushButton13 );
 	MdupLayout->addLayout( Layout3 );
 	QWidget::setTabOrder ( Ncopies, ShiftH );

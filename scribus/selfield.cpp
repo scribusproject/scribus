@@ -4,6 +4,8 @@
 #include "selfield.moc"
 #include <qstringlist.h>
 
+#include "commonstrings.h"
+
 extern QPixmap loadIcon(QString nam);
 
 SelectFields::SelectFields( QWidget* parent, QString Felder, QString Own, ScribusDoc *Doc, int Art )
@@ -74,10 +76,10 @@ SelectFields::SelectFields( QWidget* parent, QString Felder, QString Own, Scribu
 	Layout4 = new QHBoxLayout( 0, 0, 6, "Layout4");
 	QSpacerItem* spacer_3 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout4->addItem( spacer_3 );
-	OK = new QPushButton( tr("&OK"), this, "OK" );
+	OK = new QPushButton( CommonStrings::tr_OK, this, "OK" );
 	OK->setDefault( true );
 	Layout4->addWidget( OK );
-	Cancel = new QPushButton( tr( "&Cancel" ), this, "Cancel" );
+	Cancel = new QPushButton( CommonStrings::tr_Cancel, this, "Cancel" );
 	Layout4->addWidget( Cancel );
 	QSpacerItem* spacer_4 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout4->addItem( spacer_4 );

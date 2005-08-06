@@ -29,6 +29,7 @@
 #include "scpaths.h"
 #include "serializer.h"
 #include "prefsmanager.h"
+#include "commonstrings.h"
 
 extern ScribusApp *ScApp;
 
@@ -166,9 +167,9 @@ void LoremManager::languageChange()
 {
 	setCaption( tr( "Lorem Ipsum" ) );
 	paraLabel->setText( tr( "Paragraphs:" ) );
-	okButton->setText( tr( "&OK" ) );
+	okButton->setText( CommonStrings::tr_OK );
 	okButton->setAccel( QKeySequence( tr( "Alt+O" ) ) );
-	cancelButton->setText( tr( "&Cancel" ) );
+	cancelButton->setText( CommonStrings::tr_Cancel );
 	cancelButton->setAccel( QKeySequence( tr( "Alt+C" ) ) );
 }
 

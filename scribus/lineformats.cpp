@@ -9,6 +9,7 @@
 #include "prefsmanager.h"
 #include "prefsfile.h"
 #include "multiline.h"
+#include "commonstrings.h"
 
 extern QPixmap loadIcon(QString nam);
 
@@ -32,7 +33,7 @@ LineFormate::LineFormate( QWidget* parent, ScribusDoc *doc)
 	Layout15->setSpacing( 6 );
 	Layout15->setMargin( 0 );
 
-	LoadLS = new QPushButton( tr( "&Append" ), this, "LoadF" );
+	LoadLS = new QPushButton( tr( "&Import" ), this, "LoadF" );
 	Layout15->addWidget( LoadLS );
 
 	NewB = new QPushButton( tr( "&New" ), this, "NewB" );
@@ -54,10 +55,10 @@ LineFormate::LineFormate( QWidget* parent, ScribusDoc *doc)
 	SaveB = new QPushButton( tr( "&Save" ), this, "SaveB" );
 	Layout15->addWidget( SaveB );
 
-	ExitB = new QPushButton( tr( "&OK" ), this, "ExitB" );
+	ExitB = new QPushButton( CommonStrings::tr_OK, this, "ExitB" );
 	Layout15->addWidget( ExitB );
 
-	CancelB = new QPushButton( tr( "&Cancel" ), this, "CancelB" );
+	CancelB = new QPushButton( CommonStrings::tr_Cancel, this, "CancelB" );
 	Layout15->addWidget( CancelB );
 	QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	Layout15->addItem( spacer );

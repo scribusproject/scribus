@@ -6,13 +6,16 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
+ 
+#include <qstringlist.h>
+
 #include "scfonts.h"
 #include "annota.h"
 #include "annota.moc"
 #include "customfdialog.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
-#include <qstringlist.h>
+#include "commonstrings.h"
 
 extern QPixmap loadIcon(QString nam);
 
@@ -131,10 +134,10 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout1_2->addItem( spacer );
-	PushButton1 = new QPushButton( tr("&OK"), this, "PushButton1" );
+	PushButton1 = new QPushButton( CommonStrings::tr_OK, this, "PushButton1" );
 	PushButton1->setDefault( true );
 	Layout1_2->addWidget( PushButton1 );
-	PushButton2 = new QPushButton( tr("&Cancel"), this, "PushButton2" );
+	PushButton2 = new QPushButton( CommonStrings::tr_Cancel, this, "PushButton2" );
 	Layout1_2->addWidget( PushButton2 );
 	AnnotLayout->addLayout( Layout1_2 );
 

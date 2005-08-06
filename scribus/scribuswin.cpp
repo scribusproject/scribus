@@ -22,6 +22,7 @@
 #include "scribus.h"
 #include "story.h"
 #include "util.h"
+#include "commonstrings.h"
 
 extern ScribusApp* ScApp;
 
@@ -91,7 +92,7 @@ void ScribusWin::closeEvent(QCloseEvent *ce)
 		                                  tr("Warning"),
 		                                  tr("Document:")+" "+doc->DocName+"\n"+ tr("has been changed since the last save."),
 		                                  tr("&Save Now"),
-		                                  tr("&Cancel"),
+		                                  CommonStrings::tr_Cancel,
 		                                  CloseTxt,
 		                                  0, 1);
 		switch (exit)

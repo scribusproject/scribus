@@ -5,6 +5,8 @@
 
 #include <qmessagebox.h>
 #include <qtooltip.h>
+
+#include "commonstrings.h"
 #include "scribusdoc.h"
 #include "styleselect.h"
 #include "pageitem.h"
@@ -308,9 +310,9 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	Layout17->setMargin( 0 );
 	QSpacerItem* spacer2a = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout17->addItem( spacer2a );
-	OkButton = new QPushButton( tr( "&OK" ), this, "OkButton" );
+	OkButton = new QPushButton( CommonStrings::tr_OK, this, "OkButton" );
 	Layout17->addWidget( OkButton );
-	Cancel = new QPushButton( tr( "&Cancel" ), this, "Cancel" );
+	Cancel = new QPushButton( CommonStrings::tr_Cancel, this, "Cancel" );
 	OkButton->setDefault( true );
 	Layout17->addWidget( Cancel );
 	layoutPreview->addLayout(Layout17);
@@ -448,8 +450,7 @@ void EditStyle::Verlassen()
 		{
 			if (Name->text() == allV[x].Vname)
 			{
-				QMessageBox::information(this, tr("Warning"), tr("Name of the Style is not unique"), tr("&OK"),
-				                         0, 0, 0, QMessageBox::Ok);
+				QMessageBox::information(this, tr("Warning"), tr("Name of the Style is not unique"), CommonStrings::tr_OK,0, 0, 0, QMessageBox::Ok);
 				Name->selectAll();
 				Name->setFocus();
 				return;
@@ -464,7 +465,7 @@ void EditStyle::Verlassen()
 			{
 				if (Name->text() == allV[x].Vname)
 				{
-					QMessageBox::information(this, tr("Warning"), tr("Name of the Style is not unique"), tr("&OK"),0, 0, 0, QMessageBox::Ok);
+					QMessageBox::information(this, tr("Warning"), tr("Name of the Style is not unique"), CommonStrings::tr_OK,0, 0, 0, QMessageBox::Ok);
 					Name->selectAll();
 					Name->setFocus();
 					return;

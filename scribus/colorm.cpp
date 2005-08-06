@@ -13,6 +13,8 @@
 #include <qpixmap.h>
 #include <cstdlib>
 #include <qcolordialog.h>
+
+#include "commonstrings.h"
 #include "customfdialog.h"
 #include "dcolor.h"
 #include "scribusXml.h"
@@ -120,9 +122,9 @@ Farbmanager::Farbmanager( QWidget* parent, ColorList doco, bool HDoc, QString Dc
 		ColsSetGroupLayout->addWidget( SaveColSet );
 		layout3->addWidget( ColsSetGroup );
 	}
-	SaveF = new QPushButton( tr( "&OK" ), this, "SaveF" );
+	SaveF = new QPushButton( CommonStrings::tr_OK, this, "SaveF" );
 	layout3->addWidget( SaveF );
-	CancF = new QPushButton( tr( "&Cancel" ), this, "CancF" );
+	CancF = new QPushButton( CommonStrings::tr_Cancel, this, "CancF" );
 	CancF->setDefault( true );
 	layout3->addWidget( CancF );
 	layout5->addLayout( layout3 );

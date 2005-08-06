@@ -17,6 +17,8 @@
 #include "prefsmanager.h"
 #include <prefsfile.h>
 
+#include "commonstrings.h"
+
 /*
  *  Constructs a ExportForm as a child of 'parent', with the
  *  name 'name' and widget flags set to 'f'.
@@ -187,8 +189,8 @@ void ExportForm::languageChange()
 	OnePageRadio->setText( tr( "&Current page" ) );
 	AllPagesRadio->setText( tr( "&All pages" ) );
 	IntervalPagesRadio->setText( tr( "&Range" ) );
-	OkButton->setText( tr( "&OK" ) );
-	CancelButton->setText( tr( "&Cancel" ) );
+	OkButton->setText( CommonStrings::tr_OK );
+	CancelButton->setText( CommonStrings::tr_Cancel );
 	CancelButton->setAccel( QKeySequence( tr( "C" ) ) );
 	QToolTip::add( IntervalPagesRadio, tr( "Export a range of pages" ) );
 	QToolTip::add( RangeVal, tr( "Insert a comma separated list of tokens where\na token can be * for all the pages, 1-5 for\na range of pages or a single page number." ) );

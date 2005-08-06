@@ -15,6 +15,7 @@
 #include "units.h"
 #include "pdfoptions.h"
 #include "util.h"
+#include "commonstrings.h"
 
 #include "scconfig.h"
 
@@ -72,7 +73,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString docFileName, QMap<QString,QFont> D
 	OK->setAutoDefault( true );
 	OK->setDefault( true );
 	Layout7->addWidget( OK );
-	Cancel = new QPushButton( tr( "&Cancel" ), this, "Cancel" );
+	Cancel = new QPushButton( CommonStrings::tr_Cancel, this, "Cancel" );
 	Layout7->addWidget( Cancel );
 	PDFOptsLayout->addLayout( Layout7 );
 	resize(sizeHint());

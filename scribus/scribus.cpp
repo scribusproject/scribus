@@ -145,6 +145,7 @@
 #include "margindialog.h"
 #include "prefsmanager.h"
 #include "pagelayout.h"
+#include "commonstrings.h"
 
 using namespace std;
 
@@ -186,6 +187,7 @@ ScribusApp::ScribusApp()
  */
 int ScribusApp::initScribus(bool showSplash, bool showFontInfo, const QString newGuiLanguage)
 {
+	CommonStrings::languageChange();
 	noneString = tr("None");
 	int retVal=0;
 	ExternalApp = 0;
@@ -552,7 +554,7 @@ bool ScribusApp::warningVersion(QWidget *parent)
 	bool retval = false;
 	int t = QMessageBox::warning(parent, QObject::tr("Scribus Development Version"), "<qt>" +
 								 QObject::tr("You are running a development version of Scribus 1.3.x. The current document you are working with was originally created in Scribus 1.2.2 or lower. The process of saving will make this file unusable again in Scribus 1.2.2 unless you use File->Save As. Are you sure you wish to proceed with this operation?") + "</qt>",
-								 QObject::tr("&Cancel"), QObject::tr("&Proceed"), "", 1, 0);
+								 CommonStrings::tr_Cancel, QObject::tr("&Proceed"), "", 1, 0);
 	if (t == 1)
 		retval = true;
 	return retval;
@@ -4206,7 +4208,7 @@ bool ScribusApp::loadDoc(QString fileName)
 		{
 			delete fl;
 			qApp->setOverrideCursor(QCursor(arrowCursor), true);
-			QMessageBox::critical(this, tr("Fatal Error"), tr("File %1 \nis not in an acceptable format").arg(FName), tr("&OK"));
+			QMessageBox::critical(this, tr("Fatal Error"), tr("File %1 \nis not in an acceptable format").arg(FName), CommonStrings::tr_OK);
 			return false;
 		}
 		prefsManager->appPrefs.AvailFonts.AddScalableFonts(fi.dirPath(true)+"/", FName);
@@ -4778,7 +4780,7 @@ bool ScribusApp::slotFileSave()
 		QString fn = doc->DocName;
 		ret = DoFileSave(fn);
 		if (!ret)
-			QMessageBox::warning(this, tr("Warning"), tr("Cannot write the file: \n%1").arg(fn), tr("&OK"));
+			QMessageBox::warning(this, tr("Warning"), tr("Cannot write the file: \n%1").arg(fn), CommonStrings::tr_OK);
 	}
 	else
 		ret = slotFileSaveAs();
@@ -4836,7 +4838,7 @@ bool ScribusApp::slotFileSaveAs()
 		{
 			ret = DoFileSave(fna);
 			if (!ret)
-				QMessageBox::warning(this, tr("Warning"), tr("Cannot write the file: \n%1").arg(fn), tr("&OK"));
+				QMessageBox::warning(this, tr("Warning"), tr("Cannot write the file: \n%1").arg(fn), CommonStrings::tr_OK);
 			else
 				doc->PDF_Options.Datei = ""; // #1482 reset the pdf file name
 		}
@@ -5142,7 +5144,7 @@ void ScribusApp::slotReallyPrint()
 #endif
 		PrinterUsed = true;
 		if (!doPrint(&options))
-			QMessageBox::warning(this, tr("Warning"), tr("Printing failed!"), tr("&OK"));
+			QMessageBox::warning(this, tr("Warning"), tr("Printing failed!"), CommonStrings::tr_OK);
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	}
 	delete printer;
@@ -8174,7 +8176,7 @@ void ScribusApp::reallySaveAsEps()
 		if (overwrite(this, fn))
 		{
 			if (!DoSaveAsEps(fn))
-				QMessageBox::warning(this, tr("Warning"), tr("Cannot write the file: \n%1").arg(fn), tr("&OK"));
+				QMessageBox::warning(this, tr("Warning"), tr("Cannot write the file: \n%1").arg(fn), CommonStrings::tr_OK);
 		}
 	}
 }
@@ -8413,7 +8415,7 @@ void ScribusApp::doSaveAsPDF()
 		}
 		ReOrderText(doc, view);
 		if (!getPDFDriver(fn, nam, Components, pageNs, thumbs))
-			QMessageBox::warning(this, tr("Warning"), tr("Cannot write the file: \n%1").arg(fn), tr("&OK"));
+			QMessageBox::warning(this, tr("Warning"), tr("Cannot write the file: \n%1").arg(fn), CommonStrings::tr_OK);
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	}
 	delete dia;
@@ -8780,7 +8782,7 @@ void ScribusApp::GroupObj(bool showLockDia)
 				if (t == -1 && view->SelItem.at(a)->locked())
 					t = QMessageBox::warning(this, tr("Warning"),
 											 tr("Some Objects are locked."),
-											 tr("&Cancel"),
+											 CommonStrings::tr_Cancel,
 											 tr("&Lock All"),
 											 tr("&Unlock All"), 0, 0);
 				if (t != -1)
@@ -9801,7 +9803,7 @@ QString ScribusApp::Collect(bool compress, bool withFonts)
 				}
 				if (!DoFileSave(fn))
 				{
-					QMessageBox::warning(this, tr("Warning"), tr("Cannot write the file: \n%1").arg(fn), tr("&OK"));
+					QMessageBox::warning(this, tr("Warning"), tr("Cannot write the file: \n%1").arg(fn), CommonStrings::tr_OK);
 					retVal = "";
 				}
 				if (withFontsR)
@@ -10330,6 +10332,7 @@ void ScribusApp::languageChange()
 {
 	if (scribusInitialized)
 	{
+		CommonStrings::languageChange();
 		//Update actions
 		if (actionManager!=NULL)
 		{

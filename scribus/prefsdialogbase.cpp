@@ -7,6 +7,9 @@
 #include <qwhatsthis.h>
 #include <qlabel.h>
 #include <qfont.h>
+
+#include "commonstrings.h"
+
 extern QPixmap loadIcon(QString nam);
 
 PrefsDialogBase::PrefsDialogBase( QWidget* parent ) : QDialog( parent, "PrefsDialogBase", true, 0 )
@@ -112,8 +115,8 @@ void PrefsDialogBase::itemSelected(QIconViewItem* ic)
  */
 void PrefsDialogBase::languageChange()
 {
-    buttonOk->setText( tr( "&OK" ) );
-    buttonCancel->setText( tr( "&Cancel" ) );
+    buttonOk->setText( CommonStrings::tr_OK );
+    buttonCancel->setText( CommonStrings::tr_Cancel );
     backToDefaults->setText( tr( "&Defaults" ) );
 }
 

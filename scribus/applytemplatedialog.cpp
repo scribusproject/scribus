@@ -20,6 +20,8 @@
 #include <qlayout.h>
 #include <qtooltip.h>
 #include <qwhatsthis.h>
+
+#include "commonstrings.h"
 #include "scribusdoc.h"
 #include "page.h"
 
@@ -257,8 +259,8 @@ void ApplyMasterPageDialog::languageChange()
 	useRangeCheckBox->setAccel( QKeySequence( tr( "Alt+W" ) ) );
 	QToolTip::add( useRangeCheckBox, tr( "<qt>Apply the selected template to even, odd or all pages within the following range</qt>" ) );
 	toPageLabel->setText( tr( "to" ) );
-	okButton->setText( tr( "&OK" ) );
+	okButton->setText( CommonStrings::tr_OK );
 	okButton->setAccel( QKeySequence( tr( "Alt+O" ) ) );
-	cancelButton->setText( tr( "&Cancel" ) );
+	cancelButton->setText( CommonStrings::tr_Cancel );
 	cancelButton->setAccel( QKeySequence( tr( "Alt+C" ) ) );
 }

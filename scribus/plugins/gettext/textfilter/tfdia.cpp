@@ -10,6 +10,8 @@
 #include <prefstable.h>
 #include <qsizepolicy.h>
 
+#include "commonstrings.h"
+
 extern QPixmap loadIcon(QString nam);
 
 tfDia::tfDia() : QDialog()
@@ -93,9 +95,9 @@ void tfDia::createLayout()
 		prefs->set("save_hint", false);
 	}
 	layout2->addSpacing(20);
-	okButton = new QPushButton(tr("&OK"), this, "okButton");
+	okButton = new QPushButton(CommonStrings::tr_OK, this, "okButton");
 	layout2->addWidget(okButton, 0);
-	cancelButton = new QPushButton(tr("&Cancel"), this, "cancelButton");
+	cancelButton = new QPushButton(CommonStrings::tr_Cancel, this, "cancelButton");
 	layout2->addWidget(cancelButton, 0);
 	layout->addLayout(layout2);
 	

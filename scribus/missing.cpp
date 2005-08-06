@@ -11,6 +11,7 @@
 #include "scribusdoc.h"
 #include "page.h"
 #include "prefsmanager.h"
+#include "commonstrings.h"
 
 extern QPixmap loadIcon(QString nam);
 
@@ -326,7 +327,7 @@ MissingFont::MissingFont( QWidget* parent, QString fon, ScribusDoc* doc )
 	missingFontGridLayout->addWidget( replaceFontCombo, 1, 2 );
 	insteadLabel = new QLabel( tr( "instead" ), this, "insteadLabel" );
 	missingFontGridLayout->addWidget( insteadLabel, 1, 3 );
-	okButton = new QPushButton( tr( "&OK"), this, "okButton" );
+	okButton = new QPushButton( CommonStrings::tr_OK, this, "okButton" );
 	missingFontGridLayout->addWidget( okButton, 2, 2 );
 	missingFontLayout->addLayout( missingFontGridLayout );
 

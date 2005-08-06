@@ -10,7 +10,10 @@
 #include <qtooltip.h>
 #include <qwhatsthis.h>
 #include <qcombobox.h>
+
 #include "fontcombo.h"
+#include "commonstrings.h"
+
 extern QPixmap loadIcon(QString nam);
 
 FontReplaceDialog::FontReplaceDialog( QWidget* parent, QMap<QString, QString> *RList) : QDialog( parent, "FontReplaceDialog", true, 0 )
@@ -54,8 +57,7 @@ FontReplaceDialog::FontReplaceDialog( QWidget* parent, QMap<QString, QString> *R
 	layout1->addWidget( stickyReplacements );
 	spacer1 = new QSpacerItem( 71, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout1->addItem( spacer1 );
-	okButton = new QPushButton( this, "okButton" );
-	okButton->setText( tr( "&OK" ) );
+	okButton = new QPushButton( CommonStrings::tr_OK, this, "okButton" );
 	layout1->addWidget( okButton );
 	FontReplaceDialogLayout->addLayout( layout1 );
 	resize( QSize(474, 247).expandedTo(minimumSizeHint()) );

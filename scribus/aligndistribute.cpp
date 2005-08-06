@@ -35,6 +35,7 @@
 #include "undomanager.h"
 #include "mspinbox.h"
 #include "units.h"
+#include "commonstrings.h"
 
 extern QPixmap loadIcon(QString nam);
 
@@ -388,7 +389,7 @@ bool AlignDistributePalette::startAlign()
 	{
 		int t = QMessageBox::warning(ScApp, tr("Warning"),
 											tr("Some objects are locked."),
-											tr("&Cancel"),
+											CommonStrings::tr_Cancel,
 											tr("&Unlock All"), 0, 0);
 		if (t == 0)
 			return false;

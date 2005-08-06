@@ -33,6 +33,8 @@ or documentation
 #include <qinputdialog.h>
 #include <qprocess.h>
 
+#include "commonstrings.h"
+
 extern ScribusApp *ScApp;
 
 
@@ -147,8 +149,8 @@ void VlnaDialog::languageChange()
 	frameRadio->setText(tr("&Selected frames", "short words plugin"));
 	pageRadio->setText(tr("Active &page", "short words plugin"));
 	allRadio->setText(tr("&All items", "short words plugin"));
-	okButton->setText(tr("&OK", "short words plugin"));
-	cancelButton->setText(tr("&Cancel", "short words plugin"));
+	okButton->setText(CommonStrings::tr_OK);
+	cancelButton->setText(CommonStrings::tr_Cancel);
 	//infoButton->setText(tr("&Info and\nLanguages", "short words plugin"));
 	//statusLabel->setText(tr("Select action..."));
 	userCheckBox->setText(tr("Replace defaults by user config", "short words plugin"));

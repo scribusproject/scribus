@@ -6,6 +6,7 @@
 
 #include "scribusdoc.h"
 #include "page.h"
+#include "commonstrings.h"
 
 extern QPixmap loadIcon(QString nam);
 
@@ -113,12 +114,12 @@ MultiLine::MultiLine( QWidget* parent, ScribusDoc* doc, multiLine ml, QString na
 
 	layout3 = new QHBoxLayout( 0, 0, 6, "layout3");
 
-	OK = new QPushButton( tr( "&OK" ), this, "OK" );
+	OK = new QPushButton( CommonStrings::tr_OK, this, "OK" );
 	OK->setAutoDefault(false);
 	OK->setDefault(false);
 	layout3->addWidget( OK );
 
-	Cancel = new QPushButton( tr( "&Cancel" ), this, "Cancel" );
+	Cancel = new QPushButton( CommonStrings::tr_Cancel, this, "Cancel" );
 	Cancel->setAutoDefault(false);
 	Cancel->setDefault(false);
 	layout3->addWidget( Cancel );

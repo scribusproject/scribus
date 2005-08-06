@@ -4,6 +4,7 @@
 #include "nftdialog.h"
 #include "nftdialog.moc"
 #include "scconfig.h"
+#include "commonstrings.h"
 
 extern QPixmap loadIcon(QString nam);
 
@@ -31,10 +32,10 @@ nftdialog::nftdialog(QWidget* parent, QString lang, QString templateDir) : QDial
 // 	bottomlo->insertSpacing(0,5);
 // 	bottomlo->addWidget(settingsButton);
 	bottomlo->addStretch(10);
-	okButton = new QPushButton( tr("&OK"),bottom,"okButton");
+	okButton = new QPushButton( CommonStrings::tr_OK,bottom,"okButton");
 	okButton->setEnabled(false);
 	bottomlo->addWidget(okButton);
-	cancelButton = new QPushButton( tr("&Cancel"),bottom,"cancelButton");
+	cancelButton = new QPushButton( CommonStrings::tr_Cancel,bottom,"cancelButton");
 	bottomlo->addWidget(cancelButton);
 	bottomlo->insertSpacing(-1,5);
 	cancelButton->setDefault(true);

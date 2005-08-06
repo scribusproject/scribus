@@ -17,7 +17,7 @@
 #include "scribusXml.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
-
+#include "commonstrings.h"
 #include "scconfig.h"
 
 #include <qcursor.h>
@@ -86,7 +86,7 @@ MergeDoc::MergeDoc( QWidget* parent, bool importMasterPages, int targetDocPageCo
 	importButton = new QPushButton( tr( "&Import" ), this, "importButton" );
 	importButton->setEnabled(false);
 	importCancelLayout->addWidget( importButton );
-	cancelButton = new QPushButton( tr( "&Cancel" ), this, "cancelButton" );
+	cancelButton = new QPushButton( CommonStrings::tr_Cancel, this, "cancelButton" );
 	cancelButton->setDefault( true );
 	importCancelLayout->addWidget( cancelButton );
 	dialogLayout->addLayout( importCancelLayout );
