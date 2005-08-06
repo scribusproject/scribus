@@ -474,6 +474,7 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 		p.end();
 	}
 	evSpon = false;
+	forceRedraw = false;
 //	qDebug( "Time elapsed: %d ms", tim.elapsed() );
 }
 
@@ -492,7 +493,7 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 		if (page->FromMaster.count() != 0)
 		{
 			Lnr = 0;
-			int layerCount=Doc->layerCount();
+			uint layerCount=Doc->layerCount();
 			for (uint la = 0; la < layerCount; ++la)
 			{
 				Level2Layer(Doc, &ll, Lnr);
@@ -612,7 +613,7 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 	if (Doc->Items.count() != 0)
 	{
 		Lnr = 0;
-		int layerCount=Doc->layerCount();
+		uint layerCount=Doc->layerCount();
 		for (uint la2 = 0; la2 < layerCount; ++la2)
 		{
 			Level2Layer(Doc, &ll, Lnr);
@@ -642,6 +643,8 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 					{
 						if (evSpon)
 							currItem->Dirty = true;
+						if (forceRedraw)
+							currItem->Dirty = false;
 						if (!((Doc->EditClip) && (Mpressed)))
 							currItem->DrawObj(painter, clip);
 						currItem->Redrawn = true;
@@ -5324,31 +5327,71 @@ void ScribusView::MarkClip(PageItem *currItem, FPointArray cli, bool once)
 			continue;
 		if (EdPoints)
 		{
-			if (once)
-				p.setPen(QPen(magenta, 8, SolidLine, RoundCap, MiterJoin));
+			if (ClRe == static_cast<int>(a+1))
+			{
+				if (once)
+					p.setPen(QPen(red, 8, SolidLine, RoundCap, MiterJoin));
+				else
+					p.setPen(QPen(cyan, 8, SolidLine, RoundCap, MiterJoin));
+			}
 			else
-				p.setPen(QPen(green, 8, SolidLine, RoundCap, MiterJoin));
+			{
+				if (once)
+					p.setPen(QPen(magenta, 8, SolidLine, RoundCap, MiterJoin));
+				else
+					p.setPen(QPen(green, 8, SolidLine, RoundCap, MiterJoin));
+			}
 			cli.point(a+1, &x, &y);
 			p.drawLine(qRound(x), qRound(y), qRound(x), qRound(y));
-			if (once)
-				p.setPen(QPen(blue, 8, SolidLine, RoundCap, MiterJoin));
+			if (ClRe == static_cast<int>(a))
+			{
+				if (once)
+					p.setPen(QPen(red, 8, SolidLine, RoundCap, MiterJoin));
+				else
+					p.setPen(QPen(cyan, 8, SolidLine, RoundCap, MiterJoin));
+			}
 			else
-				p.setPen(QPen(yellow, 8, SolidLine, RoundCap, MiterJoin));
+			{
+				if (once)
+					p.setPen(QPen(blue, 8, SolidLine, RoundCap, MiterJoin));
+				else
+					p.setPen(QPen(yellow, 8, SolidLine, RoundCap, MiterJoin));
+			}
 			cli.point(a, &x, &y);
 			p.drawLine(qRound(x), qRound(y), qRound(x), qRound(y));
 		}
 		else
 		{
-			if (once)
-				p.setPen(QPen(blue, 8, SolidLine, RoundCap, MiterJoin));
+			if (ClRe == static_cast<int>(a))
+			{
+				if (once)
+					p.setPen(QPen(red, 8, SolidLine, RoundCap, MiterJoin));
+				else
+					p.setPen(QPen(cyan, 8, SolidLine, RoundCap, MiterJoin));
+			}
 			else
-				p.setPen(QPen(yellow, 8, SolidLine, RoundCap, MiterJoin));
+			{
+				if (once)
+					p.setPen(QPen(blue, 8, SolidLine, RoundCap, MiterJoin));
+				else
+					p.setPen(QPen(yellow, 8, SolidLine, RoundCap, MiterJoin));
+			}
 			cli.point(a, &x, &y);
 			p.drawLine(qRound(x), qRound(y), qRound(x), qRound(y));
-			if (once)
-				p.setPen(QPen(magenta, 8, SolidLine, RoundCap, MiterJoin));
+			if (ClRe == static_cast<int>(a+1))
+			{
+				if (once)
+					p.setPen(QPen(red, 8, SolidLine, RoundCap, MiterJoin));
+				else
+					p.setPen(QPen(cyan, 8, SolidLine, RoundCap, MiterJoin));
+			}
 			else
-				p.setPen(QPen(green, 8, SolidLine, RoundCap, MiterJoin));
+			{
+				if (once)
+					p.setPen(QPen(magenta, 8, SolidLine, RoundCap, MiterJoin));
+				else
+					p.setPen(QPen(green, 8, SolidLine, RoundCap, MiterJoin));
+			}
 			cli.point(a+1, &x, &y);
 			p.drawLine(qRound(x), qRound(y), qRound(x), qRound(y));
 		}
@@ -5356,16 +5399,18 @@ void ScribusView::MarkClip(PageItem *currItem, FPointArray cli, bool once)
 	if (ClRe != -1)
 	{
 		if (once)
-			p.setPen(QPen(red, 8, SolidLine, RoundCap, MiterJoin));
-		else
-			p.setPen(QPen(cyan, 8, SolidLine, RoundCap, MiterJoin));
-		cli.point(ClRe, &x, &y);
-		p.drawLine(qRound(x), qRound(y), qRound(x), qRound(y));
-		QValueList<int>::Iterator itm;
-		for (itm = SelNode.begin(); itm != SelNode.end(); ++itm)
 		{
-			cli.point((*itm), &x, &y);
+			p.setPen(QPen(red, 8, SolidLine, RoundCap, MiterJoin));
+//		else
+//			p.setPen(QPen(cyan, 8, SolidLine, RoundCap, MiterJoin));
+			cli.point(ClRe, &x, &y);
 			p.drawLine(qRound(x), qRound(y), qRound(x), qRound(y));
+			QValueList<int>::Iterator itm;
+			for (itm = SelNode.begin(); itm != SelNode.end(); ++itm)
+			{
+				cli.point((*itm), &x, &y);
+				p.drawLine(qRound(x), qRound(y), qRound(x), qRound(y));
+			}
 		}
 		emit HavePoint(true, MoveSym);
 	}
@@ -8820,6 +8865,7 @@ void ScribusView::DrawNew()
 	if (ScApp->ScriptRunning)
 		return;
 	evSpon = false;
+	forceRedraw = true;
 	updateContents();
 	setRulerPos(contentsX(), contentsY());
 	setMenTxt(Doc->currentPage->PageNr);

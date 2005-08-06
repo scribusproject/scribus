@@ -336,6 +336,7 @@ private: // Private attributes
 	bool _itemCreationTransactionStarted;
 	bool _isGlobalMode;
 	bool evSpon;
+	bool forceRedraw;
 	double Scale;
 
 private slots:

@@ -2182,10 +2182,15 @@ void ScribusApp::keyReleaseEvent(QKeyEvent *k)
 		case Key_Up:
 		case Key_Down:
 			_arrowKeyDown = false;
-			for (uint i = 0; i < view->SelItem.count(); ++i)
-				view->SelItem.at(i)->checkChanges(true);
-			if (view->SelItem.count() > 1 && view->groupTransactionStarted())
-				undoManager->commit();
+			if ((HaveDoc) && (!view->LE->hasFocus()) && (!view->PGS->PageCombo->hasFocus()))
+			{
+				if ((view->SelItem.count() != 0) && (doc->appMode == modeNormal) && (doc->EditClip) && (view->ClRe != -1))
+					view->updateContents();
+				for (uint i = 0; i < view->SelItem.count(); ++i)
+					view->SelItem.at(i)->checkChanges(true);
+				if (view->SelItem.count() > 1 && view->groupTransactionStarted())
+					undoManager->commit();
+			}
 	}
 }
 
@@ -9264,7 +9269,7 @@ void ScribusApp::PutScrap()
 	delete ss;
 }
 
-void ScribusApp::changeLayer(int l)
+void ScribusApp::changeLayer(int )
 {
 	view->Deselect(true);
 	rebuildLayersList();

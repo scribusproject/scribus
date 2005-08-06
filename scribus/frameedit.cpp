@@ -417,6 +417,8 @@ void NodePalette::ToggleAbsMode()
 
 void NodePalette::ToggleConMode()
 {
+	disconnect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
+	disconnect(YSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 	if (doc != 0)
 	{
 		view->EditContour = EditCont->isChecked();
@@ -438,6 +440,8 @@ void NodePalette::ToggleConMode()
 			YSpin->setMinValue(0);
 		}
 	}
+	connect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
+	connect(YSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 }
 
 void NodePalette::HaveNode(bool have, bool mov)
