@@ -585,7 +585,7 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 						for (d = 0; d < Item->MaxChars; d++)
 						{
 							hl = Item->itemText.at(d);
-							if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)) || (hl->ch == QChar(9)) || (hl->ch == QChar(28)))
+							if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)) || (hl->ch == QChar(9)) || (hl->ch == QChar(25)) || (hl->ch == QChar(28)))
 								continue;
 							if (hl->ch == QChar(29))
 								chx = " ";

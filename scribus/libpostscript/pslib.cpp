@@ -1298,9 +1298,9 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 		if (!embedded)
 		{
 			PS_translate(c->Xpos - a->Xoffset, a->Height - (c->Ypos - a->Yoffset));
-			if (c->Rot != 0)
-				PS_rotate(-c->Rot);
 		}
+		if (c->Rot != 0)
+			PS_rotate(-c->Rot);
 		switch (c->itemType())
 		{
 		case PageItem::ImageFrame:
@@ -2105,16 +2105,40 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 	}
 	if ((hl->ch == QChar(25)) && (hl->cembedded != 0))
 	{
-		PS_save();
-		PS_translate(hl->xp, (hl->yp - (hl->cembedded->Height * (hl->cscalev / 1000.0))) * -1);
-		if (hl->cbase != 0)
-			PS_translate(0, hl->cembedded->Height * (hl->cbase / 1000.0));
-		if (hl->cscale != 1000)
-			PS_scale(hl->cscale / 1000.0, 1);
-		if (hl->cscalev != 1000)
-			PS_scale(1, hl->cscalev / 1000.0);
-		ProcessItem(Doc, pg, hl->cembedded, a, sep, farb, ic, gcr, master, true);
-		PS_restore();
+		QPtrList<PageItem> emG;
+		emG.clear();
+		emG.append(hl->cembedded);
+		if (hl->cembedded->Groups.count() != 0)
+		{
+			for (uint ga=0; ga<Doc->FrameItems.count(); ++ga)
+			{
+				if (Doc->FrameItems.at(ga)->Groups.count() != 0)
+				{
+					if (Doc->FrameItems.at(ga)->Groups.top() == hl->cembedded->Groups.top())
+					{
+						if (Doc->FrameItems.at(ga)->ItemNr != hl->cembedded->ItemNr)
+						{
+							if (emG.find(Doc->FrameItems.at(ga)) == -1)
+								emG.append(Doc->FrameItems.at(ga));
+						}
+					}
+				}
+			}
+		}
+		for (uint em = 0; em < emG.count(); ++em)
+		{
+			PageItem* embedded = emG.at(em);
+			PS_save();
+			PS_translate(hl->xp + embedded->gXpos * (hl->cscale / 1000.0), (hl->yp - (embedded->gHeight * (hl->cscalev / 1000.0)) + embedded->gYpos * (hl->cscalev / 1000.0)) * -1);
+			if (hl->cbase != 0)
+				PS_translate(0, embedded->gHeight * (hl->cbase / 1000.0));
+			if (hl->cscale != 1000)
+				PS_scale(hl->cscale / 1000.0, 1);
+			if (hl->cscalev != 1000)
+				PS_scale(1, hl->cscalev / 1000.0);
+			ProcessItem(Doc, pg, embedded, a, sep, farb, ic, gcr, master, true);
+			PS_restore();
+		}
 		return;
 	}
 	if (hl->ch == QChar(29))

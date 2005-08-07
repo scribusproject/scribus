@@ -5525,22 +5525,59 @@ void ScribusApp::slotEditPaste()
 			{
 				bool savedAlignGrid = doc->useRaster;
 				bool savedAlignGuides = doc->SnapGuides;
+				uint ac = doc->Items.count();
+				bool isGroup = false;
+				double gx, gy, gh, gw;
+				FPoint minSize = doc->minCanvasCoordinate;
+				FPoint maxSize = doc->maxCanvasCoordinate;
 				doc->useRaster = false;
 				doc->SnapGuides = false;
 				slotElemRead(Buffer2, 0, 0, false, true, doc, view);
 				doc->useRaster = savedAlignGrid;
 				doc->SnapGuides = savedAlignGuides;
-				PageItem* currItem2 = doc->Items.at(doc->Items.count()-1);
-				currItem2->isEmbedded = true;
-				currItem2->isAnnotation = false;
-				currItem2->isBookmark = false;
-				currItem2->Rot = 0.0;
-				currItem2->ItemNr = doc->FrameItems.count();
-				doc->FrameItems.append(doc->Items.take(doc->Items.count()-1));
+				QPtrList<PageItem> bSel = view->SelItem;
+				view->SelItem.clear();
+				if (doc->Items.count() - ac > 1)
+					isGroup = true;
+				for (uint as = ac; as < doc->Items.count(); ++as)
+				{
+					view->SelItem.append(doc->Items.at(as));
+					if (isGroup)
+						doc->Items.at(as)->Groups.push(doc->GroupCounter);
+				}
+				if (isGroup)
+					doc->GroupCounter++;
+				view->setGroupRect();
+				view->getGroupRect(&gx, &gy, &gw, &gh);
+				PageItem* currItem3 = doc->Items.at(ac);
+				for (uint as = ac; as < doc->Items.count(); ++as)
+				{
+					PageItem* currItem2 = doc->Items.at(as);
+					currItem2->isEmbedded = true;
+					currItem2->isAnnotation = false;
+					currItem2->isBookmark = false;
+					currItem2->gXpos = currItem2->Xpos - gx;
+					currItem2->gYpos = currItem2->Ypos - gy;
+					currItem2->gWidth = gw;
+					currItem2->gHeight = gh;
+					currItem2->ItemNr = doc->FrameItems.count();
+					doc->FrameItems.append(currItem2);
+				}
+				uint acc = doc->Items.count();
+				for (uint as = ac; as < acc; ++as)
+				{
+					doc->Items.take(ac);
+				}
 				if (doc->masterPageMode)
 					doc->MasterItems = doc->Items;
 				else
 					doc->DocItems = doc->Items;
+				view->SelItem.clear();
+				view->SelItem = bSel;
+				view->resizeContents(qRound((maxSize.x() - minSize.x()) * view->getScale()), qRound((maxSize.y() - minSize.y()) * view->getScale()));
+				view->scrollBy(qRound((doc->minCanvasCoordinate.x() - minSize.x()) * view->getScale()), qRound((doc->minCanvasCoordinate.y() - minSize.y()) * view->getScale()));
+				doc->minCanvasCoordinate = minSize;
+				doc->maxCanvasCoordinate = maxSize;
 				outlinePalette->BuildTree(doc);
 				outlinePalette->reopenTree(doc->OpenNodes);
 				hg = new ScText;
@@ -5575,7 +5612,7 @@ void ScribusApp::slotEditPaste()
 				hg->PtransX = 0;
 				hg->PtransY = 0;
 				hg->cextra = 0;
-				hg->cembedded = currItem2;
+				hg->cembedded = currItem3;
 				currItem->itemText.insert(currItem->CPos, hg);
 				currItem->CPos += 1;
 			}

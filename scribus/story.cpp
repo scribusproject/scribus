@@ -863,6 +863,23 @@ void SEditor::saveItemText(PageItem *currItem)
 			{
 				hg->cembedded = chars->at(c)->cembedded;
 				currItem->Doc->FrameItems.append(hg->cembedded);
+				if (hg->cembedded->Groups.count() != 0)
+				{
+					for (uint ga=0; ga<FrameItems.count(); ++ga)
+					{
+						if (FrameItems.at(ga)->Groups.count() != 0)
+						{
+							if (FrameItems.at(ga)->Groups.top() == hg->cembedded->Groups.top())
+							{
+								if (FrameItems.at(ga)->ItemNr != hg->cembedded->ItemNr)
+								{
+									if (currItem->Doc->FrameItems.find(FrameItems.at(ga)) == -1)
+										currItem->Doc->FrameItems.append(FrameItems.at(ga));
+								}
+							}
+						}
+					}
+				}
 			}
 			else
 				hg->cembedded = 0;
@@ -977,6 +994,23 @@ void SEditor::loadItemText(PageItem *currItem)
 				{
 					hg->cembedded = nextItem->itemText.at(a)->cembedded;
 					FrameItems.append(hg->cembedded);
+					if (hg->cembedded->Groups.count() != 0)
+					{
+						for (uint ga=0; ga < doc->FrameItems.count(); ++ga)
+						{
+							if (doc->FrameItems.at(ga)->Groups.count() != 0)
+							{
+								if (doc->FrameItems.at(ga)->Groups.top() == hg->cembedded->Groups.top())
+								{
+									if (doc->FrameItems.at(ga)->ItemNr != hg->cembedded->ItemNr)
+									{
+										if (FrameItems.find(doc->FrameItems.at(ga)) == -1)
+											FrameItems.append(doc->FrameItems.at(ga));
+									}
+								}
+							}
+						}
+					}
 					setAlign(Ali);
 					setStyle(Csty);
 					insert(Text);
@@ -2983,7 +3017,32 @@ void StoryEditor::updateTextFrame()
 		for (ScText *it = nb2->itemText.first(); it != 0; it = nb2->itemText.next())
 		{
 			if ((it->ch == QChar(25)) && (it->cembedded != 0))
-				currDoc->FrameItems.remove(it->cembedded);
+			{
+				QPtrList<PageItem> emG;
+				emG.clear();
+				emG.append(it->cembedded);
+				if (it->cembedded->Groups.count() != 0)
+				{
+					for (uint ga=0; ga<Editor->FrameItems.count(); ++ga)
+					{
+						if (Editor->FrameItems.at(ga)->Groups.count() != 0)
+						{
+							if (Editor->FrameItems.at(ga)->Groups.top() == it->cembedded->Groups.top())
+							{
+								if (Editor->FrameItems.at(ga)->ItemNr != it->cembedded->ItemNr)
+								{
+									if (emG.find(Editor->FrameItems.at(ga)) == -1)
+										emG.append(Editor->FrameItems.at(ga));
+								}
+							}
+						}
+					}
+				}
+				for (uint em = 0; em < emG.count(); ++em)
+				{
+					currDoc->FrameItems.remove(emG.at(em));
+				}
+			}
 		}
 		nb2->itemText.clear();
 		nb2->CPos = 0;

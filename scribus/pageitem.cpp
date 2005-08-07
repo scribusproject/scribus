@@ -357,8 +357,9 @@ void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 	{
 		p->setZoomFactor(sc);
 		p->translate(Xpos*sc, Ypos*sc);
-		p->rotate(Rot);
+//		p->rotate(Rot);
 	}
+		p->rotate(Rot);
 	p->setLineWidth(Pwidth);
 	if (GrType != 0)
 	{
@@ -486,6 +487,8 @@ void PageItem::DrawObj_Post(ScPainter *p)
 
 void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, struct ZZ *hl)
 {
+	QPtrList<PageItem> emG;
+	emG.clear();
 	if (hl->embedded != 0)
 	{
 		if (!Doc->DoDrawing)
@@ -495,75 +498,97 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, struct ZZ *hl)
 			hl->embedded->FrameOnly = false;
 			return;
 		}
-		struct ParagraphStyle vg;
-		QValueList<ParagraphStyle> savedParagraphStyles;
-		for (int xxx=0; xxx<5; ++xxx)
+		emG.append(hl->embedded);
+		if (hl->embedded->Groups.count() != 0)
 		{
-			vg.LineSpaMode = Doc->docParagraphStyles[xxx].LineSpaMode;
-			vg.BaseAdj = Doc->docParagraphStyles[xxx].BaseAdj;
-			vg.LineSpa = Doc->docParagraphStyles[xxx].LineSpa;
-			vg.FontSize = Doc->docParagraphStyles[xxx].FontSize;
-			vg.Indent = Doc->docParagraphStyles[xxx].Indent;
-			vg.First = Doc->docParagraphStyles[xxx].First;
-			vg.gapBefore = Doc->docParagraphStyles[xxx].gapBefore;
-			vg.gapAfter = Doc->docParagraphStyles[xxx].gapAfter;
-			savedParagraphStyles.append(vg);
+			for (uint ga=0; ga<Doc->FrameItems.count(); ++ga)
+			{
+				if (Doc->FrameItems.at(ga)->Groups.count() != 0)
+				{
+					if (Doc->FrameItems.at(ga)->Groups.top() == hl->embedded->Groups.top())
+					{
+						if (Doc->FrameItems.at(ga)->ItemNr != hl->embedded->ItemNr)
+						{
+							if (emG.find(Doc->FrameItems.at(ga)) == -1)
+								emG.append(Doc->FrameItems.at(ga));
+						}
+					}
+				}
+			}
 		}
-		p->save();
-		hl->embedded->Xpos = Xpos + hl->xco;
-		hl->embedded->Ypos = Ypos + (hl->yco - (hl->embedded->Height * (hl->scalev / 1000.0)));
-		p->translate(hl->xco * p->zoomFactor(), (hl->yco - (hl->embedded->Height * (hl->scalev / 1000.0))) * p->zoomFactor());
-		if (hl->base != 0)
+		for (uint em = 0; em < emG.count(); ++em)
 		{
-			p->translate(0, -hl->embedded->Height * (hl->base / 1000.0) * p->zoomFactor());
-			hl->embedded->Ypos -= hl->embedded->Height * (hl->base / 1000.0);
+			PageItem* embedded = emG.at(em);
+			struct ParagraphStyle vg;
+			QValueList<ParagraphStyle> savedParagraphStyles;
+			for (int xxx=0; xxx<5; ++xxx)
+			{
+				vg.LineSpaMode = Doc->docParagraphStyles[xxx].LineSpaMode;
+				vg.BaseAdj = Doc->docParagraphStyles[xxx].BaseAdj;
+				vg.LineSpa = Doc->docParagraphStyles[xxx].LineSpa;
+				vg.FontSize = Doc->docParagraphStyles[xxx].FontSize;
+				vg.Indent = Doc->docParagraphStyles[xxx].Indent;
+				vg.First = Doc->docParagraphStyles[xxx].First;
+				vg.gapBefore = Doc->docParagraphStyles[xxx].gapBefore;
+				vg.gapAfter = Doc->docParagraphStyles[xxx].gapAfter;
+				savedParagraphStyles.append(vg);
+			}
+			p->save();
+			embedded->Xpos = Xpos + hl->xco + embedded->gXpos;
+			embedded->Ypos = Ypos + (hl->yco - (embedded->gHeight * (hl->scalev / 1000.0))) + embedded->gYpos;
+			p->translate((hl->xco + embedded->gXpos * (hl->scale / 1000.0)) * p->zoomFactor(), (hl->yco - (embedded->gHeight * (hl->scalev / 1000.0)) + embedded->gYpos * (hl->scalev / 1000.0)) * p->zoomFactor());
+			if (hl->base != 0)
+			{
+				p->translate(0, -embedded->gHeight * (hl->base / 1000.0) * p->zoomFactor());
+				embedded->Ypos -= embedded->gHeight * (hl->base / 1000.0);
+			}
+			p->scale(hl->scale / 1000.0, hl->scalev / 1000.0);
+			embedded->Dirty = Dirty;
+			double sc;
+			double pws = embedded->Pwidth;
+			embedded->DrawObj_Pre(p, sc);
+			switch(embedded->itemType())
+			{
+				case ImageFrame:
+					embedded->DrawObj_ImageFrame(p, sc);
+					break;
+				case TextFrame:
+					embedded->DrawObj_TextFrame(p, e, sc);
+					break;
+				case Line:
+					embedded->Pwidth = pws * QMIN(hl->scale / 1000.0, hl->scalev / 1000.0);
+					embedded->DrawObj_Line(p);
+					break;
+				case Polygon:
+					embedded->DrawObj_Polygon(p);
+					break;
+				case PolyLine:
+					embedded->Pwidth = pws * QMIN(hl->scale / 1000.0, hl->scalev / 1000.0);
+					embedded->DrawObj_PolyLine(p);
+					break;
+				case PathText:
+					embedded->DrawObj_PathText(p, sc);
+					break;
+				default:
+					break;
+			}
+			embedded->Pwidth = pws * QMIN(hl->scale / 1000.0, hl->scalev / 1000.0);
+			embedded->DrawObj_Post(p);
+			p->restore();
+			embedded->Pwidth = pws;
+			for (int xxx=0; xxx<5; ++xxx)
+			{
+				Doc->docParagraphStyles[xxx].LineSpaMode = savedParagraphStyles[xxx].LineSpaMode;
+				Doc->docParagraphStyles[xxx].BaseAdj = savedParagraphStyles[xxx].BaseAdj;
+				Doc->docParagraphStyles[xxx].LineSpa = savedParagraphStyles[xxx].LineSpa;
+				Doc->docParagraphStyles[xxx].FontSize = savedParagraphStyles[xxx].FontSize;
+				Doc->docParagraphStyles[xxx].Indent = savedParagraphStyles[xxx].Indent;
+				Doc->docParagraphStyles[xxx].First = savedParagraphStyles[xxx].First;
+				Doc->docParagraphStyles[xxx].gapBefore = savedParagraphStyles[xxx].gapBefore;
+				Doc->docParagraphStyles[xxx].gapAfter = savedParagraphStyles[xxx].gapAfter;
+			}
+			savedParagraphStyles.clear();
 		}
-		p->scale(hl->scale / 1000.0, hl->scalev / 1000.0);
-		hl->embedded->Dirty = Dirty;
-		double sc;
-		double pws = hl->embedded->Pwidth;
-		hl->embedded->DrawObj_Pre(p, sc);
-		switch(hl->embedded->itemType())
-		{
-			case ImageFrame:
-				hl->embedded->DrawObj_ImageFrame(p, sc);
-				break;
-			case TextFrame:
-				hl->embedded->DrawObj_TextFrame(p, e, sc);
-				break;
-			case Line:
-				hl->embedded->Pwidth = pws * QMIN(hl->scale / 1000.0, hl->scalev / 1000.0);
-				hl->embedded->DrawObj_Line(p);
-				break;
-			case Polygon:
-				hl->embedded->DrawObj_Polygon(p);
-				break;
-			case PolyLine:
-				hl->embedded->Pwidth = pws * QMIN(hl->scale / 1000.0, hl->scalev / 1000.0);
-				hl->embedded->DrawObj_PolyLine(p);
-				break;
-			case PathText:
-				hl->embedded->DrawObj_PathText(p, sc);
-				break;
-			default:
-				break;
-		}
-		hl->embedded->Pwidth = pws * QMIN(hl->scale / 1000.0, hl->scalev / 1000.0);
-		hl->embedded->DrawObj_Post(p);
-		p->restore();
-		hl->embedded->Pwidth = pws;
-		for (int xxx=0; xxx<5; ++xxx)
-		{
-			Doc->docParagraphStyles[xxx].LineSpaMode = savedParagraphStyles[xxx].LineSpaMode;
-			Doc->docParagraphStyles[xxx].BaseAdj = savedParagraphStyles[xxx].BaseAdj;
-			Doc->docParagraphStyles[xxx].LineSpa = savedParagraphStyles[xxx].LineSpa;
-			Doc->docParagraphStyles[xxx].FontSize = savedParagraphStyles[xxx].FontSize;
-			Doc->docParagraphStyles[xxx].Indent = savedParagraphStyles[xxx].Indent;
-			Doc->docParagraphStyles[xxx].First = savedParagraphStyles[xxx].First;
-			Doc->docParagraphStyles[xxx].gapBefore = savedParagraphStyles[xxx].gapBefore;
-			Doc->docParagraphStyles[xxx].gapAfter = savedParagraphStyles[xxx].gapAfter;
-		}
-		savedParagraphStyles.clear();
 	}
 }
 
@@ -822,7 +847,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 					Zli3.Style = hl->cstyle;
 					Zli3.ZFo = hl->cfont;
 					if ((hl->ch == QChar(25)) && (hl->cembedded != 0))
-						Zli3.wide = (hl->cembedded->Width + hl->cembedded->Pwidth) * (hl->cscale / 1000.0);
+						Zli3.wide = (hl->cembedded->gWidth + hl->cembedded->Pwidth) * (hl->cscale / 1000.0);
 					else
 						Zli3.wide = Cwidth(Doc, hl->cfont, chx, hl->csize) * (hl->cscale / 1000.0);
 					if (hl->cstyle & 16384)
@@ -1243,7 +1268,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 					else
 					{
 						if ((hl->ch == QChar(25)) && (hl->cembedded != 0))
-							chs = qRound((hl->cembedded->Height + hl->cembedded->Pwidth) * 10);
+							chs = qRound((hl->cembedded->gHeight + hl->cembedded->Pwidth) * 10);
 						else
 							chs = hl->csize;
 					}
@@ -1255,7 +1280,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 					else
 						chx2 = chx;
 					if ((hl->ch == QChar(25)) && (hl->cembedded != 0))
-						wide = hl->cembedded->Width + hl->cembedded->Pwidth;
+						wide = hl->cembedded->gWidth + hl->cembedded->Pwidth;
 					else
 					{
 						if (a < MaxText-1)
@@ -1275,7 +1300,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 					{
 						if ((hl->ch == QChar(25)) && (hl->cembedded != 0))
 						{
-							wide = hl->cembedded->Width + hl->cembedded->Pwidth;
+							wide = hl->cembedded->gWidth + hl->cembedded->Pwidth;
 							if (Doc->docParagraphStyles[hl->cab].BaseAdj)
 								asce = Doc->typographicSettings.valueBaseGrid * DropLines;
 							else
@@ -1285,7 +1310,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 								else
 									asce = RealFHeight(Doc, hl->cfont, Doc->docParagraphStyles[absa].FontSize) * DropLines;
 							}
-							hl->cscalev = qRound(asce / (hl->cembedded->Height + hl->cembedded->Pwidth) * 1000.0);
+							hl->cscalev = qRound(asce / (hl->cembedded->gHeight + hl->cembedded->Pwidth) * 1000.0);
 							hl->cscale = hl->cscalev;
 						}
 						else
@@ -1991,7 +2016,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 								if ((Zli2->Zeich == QChar(13)) || (Zli2->Zeich == QChar(28)))
 									currasce = Zli2->ZFo->numAscent * (Zli2->realSiz / 10.0);
 								else if ((Zli2->Zeich == QChar(25)) && (Zli2->embedded != 0))
-									currasce = QMAX(currasce, (Zli2->embedded->Height + Zli2->embedded->Pwidth) * (Zli2->scalev / 1000.0));
+									currasce = QMAX(currasce, (Zli2->embedded->gHeight + Zli2->embedded->Pwidth) * (Zli2->scalev / 1000.0));
 								else
 									currasce = RealCAscent(Doc, Zli2->ZFo, Zli2->Zeich, Zli2->realSiz);
 								for (uint zc = 0; zc < LiList.count(); ++zc)
@@ -2003,7 +2028,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 										|| (Zli2->Zeich == QChar(28)) || (Zli2->Zeich == QChar(29)))
 										continue;
 									if ((Zli2->Zeich == QChar(25)) && (Zli2->embedded != 0))
-										currasce = QMAX(currasce, (Zli2->embedded->Height + Zli2->embedded->Pwidth) * (Zli2->scalev / 1000.0));
+										currasce = QMAX(currasce, (Zli2->embedded->gHeight + Zli2->embedded->Pwidth) * (Zli2->scalev / 1000.0));
 									else
 										currasce = QMAX(currasce, RealCAscent(Doc, Zli2->ZFo, Zli2->Zeich, Zli2->realSiz));
 								}
@@ -2020,7 +2045,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 								double firstasce = Doc->docParagraphStyles[hl->cab].LineSpa;
 								double currasce;
 								if ((Zli2->Zeich == QChar(25)) && (Zli2->embedded != 0))
-									currasce = QMAX(currasce, (Zli2->embedded->Height + Zli2->embedded->Pwidth) * (Zli2->scalev / 1000.0));
+									currasce = QMAX(currasce, (Zli2->embedded->gHeight + Zli2->embedded->Pwidth) * (Zli2->scalev / 1000.0));
 								else
 									currasce = RealFHeight(Doc, Zli2->ZFo, Zli2->realSiz);
 								for (uint zc = 0; zc < LiList.count(); ++zc)
@@ -2032,7 +2057,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 										|| (Zli2->Zeich == QChar(28)) || (Zli2->Zeich == QChar(29)))
 										continue;
 									if ((Zli2->Zeich == QChar(25)) && (Zli2->embedded != 0))
-										currasce = QMAX(currasce, (Zli2->embedded->Height + Zli2->embedded->Pwidth) * (Zli2->scalev / 1000.0));
+										currasce = QMAX(currasce, (Zli2->embedded->gHeight + Zli2->embedded->Pwidth) * (Zli2->scalev / 1000.0));
 									else
 									currasce = QMAX(currasce, RealFHeight(Doc, Zli2->ZFo, Zli2->realSiz));
 								}
@@ -2272,7 +2297,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 						if ((Zli2->Zeich == QChar(13)) || (Zli2->Zeich == QChar(28)))
 							currasce = Zli2->ZFo->numAscent * (Zli2->realSiz / 10.0);
 						else if ((Zli2->Zeich == QChar(25)) && (Zli2->embedded != 0))
-							currasce = QMAX(currasce, (Zli2->embedded->Height + Zli2->embedded->Pwidth) * (Zli2->scalev / 1000.0));
+							currasce = QMAX(currasce, (Zli2->embedded->gHeight + Zli2->embedded->Pwidth) * (Zli2->scalev / 1000.0));
 						else
 							currasce = RealCAscent(Doc, Zli2->ZFo, Zli2->Zeich, Zli2->realSiz);
 						for (uint zc = 0; zc < LiList.count(); ++zc)
@@ -2284,7 +2309,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 								|| (Zli2->Zeich == QChar(28)) || (Zli2->Zeich == QChar(29)))
 								continue;
 							if ((Zli2->Zeich == QChar(25)) && (Zli2->embedded != 0))
-								currasce = QMAX(currasce, (Zli2->embedded->Height + Zli2->embedded->Pwidth) * (Zli2->scalev / 1000.0));
+								currasce = QMAX(currasce, (Zli2->embedded->gHeight + Zli2->embedded->Pwidth) * (Zli2->scalev / 1000.0));
 							else
 								currasce = QMAX(currasce, RealCAscent(Doc, Zli2->ZFo, Zli2->Zeich, Zli2->realSiz));
 						}
@@ -2301,7 +2326,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 						double firstasce = Doc->docParagraphStyles[hl->cab].LineSpa;
 						double currasce;
 						if ((Zli2->Zeich == QChar(25)) && (Zli2->embedded != 0))
-							currasce = QMAX(currasce, (Zli2->embedded->Height + Zli2->embedded->Pwidth) * (Zli2->scalev / 1000.0));
+							currasce = QMAX(currasce, (Zli2->embedded->gHeight + Zli2->embedded->Pwidth) * (Zli2->scalev / 1000.0));
 						else
 							currasce = RealFHeight(Doc, Zli2->ZFo, Zli2->realSiz);
 						for (uint zc = 0; zc < LiList.count(); ++zc)
@@ -2313,7 +2338,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 								|| (Zli2->Zeich == QChar(28)) || (Zli2->Zeich == QChar(29)))
 								continue;
 							if ((Zli2->Zeich == QChar(25)) && (Zli2->embedded != 0))
-								currasce = QMAX(currasce, (Zli2->embedded->Height + Zli2->embedded->Pwidth) * (Zli2->scalev / 1000.0));
+								currasce = QMAX(currasce, (Zli2->embedded->gHeight + Zli2->embedded->Pwidth) * (Zli2->scalev / 1000.0));
 							else
 								currasce = QMAX(currasce, RealFHeight(Doc, Zli2->ZFo, Zli2->realSiz));
 						}

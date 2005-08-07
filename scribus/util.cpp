@@ -604,7 +604,7 @@ void BezierPoints(QPointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4)
 
 void Level2Layer(ScribusDoc *currentDoc, struct Layer *ll, int Level)
 {
-	int layerCount=currentDoc->layerCount();
+	uint layerCount=currentDoc->layerCount();
 	for (uint la2 = 0; la2 < layerCount; ++la2)
 	{
 		if (currentDoc->Layers[la2].Level == Level)

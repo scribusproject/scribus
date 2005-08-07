@@ -2098,16 +2098,16 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, Page* pag, uint PNr, bool embedde
 	if (!embedded)
 	{
 		tmp += "1 0 0 1 "+FToStr(ite->Xpos - pag->Xoffset)+" "+FToStr(pag->Height - (ite->Ypos  - pag->Yoffset))+" cm\n";
-		if (ite->Rot != 0)
-		{
-			double sr = sin(-ite->Rot* M_PI / 180.0);
-			double cr = cos(-ite->Rot* M_PI / 180.0);
-			if ((cr * cr) < 0.000001)
-				cr = 0;
-			if ((sr * sr) < 0.000001)
-				sr = 0;
-			tmp += FToStr(cr)+" "+FToStr(sr)+" "+FToStr(-sr)+" "+FToStr(cr)+" 0 0 cm\n";
-		}
+	}
+	if (ite->Rot != 0)
+	{
+		double sr = sin(-ite->Rot* M_PI / 180.0);
+		double cr = cos(-ite->Rot* M_PI / 180.0);
+		if ((cr * cr) < 0.000001)
+			cr = 0;
+		if ((sr * sr) < 0.000001)
+			sr = 0;
+		tmp += FToStr(cr)+" "+FToStr(sr)+" "+FToStr(-sr)+" "+FToStr(cr)+" 0 0 cm\n";
 	}
 	switch (ite->itemType())
 	{
@@ -2727,10 +2727,34 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 	}
 	if ((hl->ch == QChar(25)) && (hl->cembedded != 0))
 	{
-		tmp2 += "q\n";
-		tmp2 +=  FToStr(hl->cscale / 1000.0)+" 0 0 "+FToStr(hl->cscalev / 1000.0)+" "+FToStr(hl->xp)+" "+FToStr(-hl->yp + (hl->cembedded->Height * (hl->cscalev / 1000.0))+hl->cembedded->Height * (hl->cbase / 1000.0))+" cm\n";
-		tmp2 += PDF_ProcessItem(hl->cembedded, pag, PNr, true);
-		tmp2 += "Q\n";
+		QPtrList<PageItem> emG;
+		emG.clear();
+		emG.append(hl->cembedded);
+		if (hl->cembedded->Groups.count() != 0)
+		{
+			for (uint ga=0; ga<doc->FrameItems.count(); ++ga)
+			{
+				if (doc->FrameItems.at(ga)->Groups.count() != 0)
+				{
+					if (doc->FrameItems.at(ga)->Groups.top() == hl->cembedded->Groups.top())
+					{
+						if (doc->FrameItems.at(ga)->ItemNr != hl->cembedded->ItemNr)
+						{
+							if (emG.find(doc->FrameItems.at(ga)) == -1)
+								emG.append(doc->FrameItems.at(ga));
+						}
+					}
+				}
+			}
+		}
+		for (uint em = 0; em < emG.count(); ++em)
+		{
+			PageItem* embedded = emG.at(em);
+			tmp2 += "q\n";
+			tmp2 +=  FToStr(hl->cscale / 1000.0)+" 0 0 "+FToStr(hl->cscalev / 1000.0)+" "+FToStr(hl->xp + embedded->gXpos * (hl->cscale / 1000.0))+" "+FToStr(-hl->yp + (embedded->gHeight * (hl->cscalev / 1000.0)) - embedded->gYpos * (hl->cscalev / 1000.0)+embedded->gHeight * (hl->cbase / 1000.0))+" cm\n";
+			tmp2 += PDF_ProcessItem(embedded, pag, PNr, true);
+			tmp2 += "Q\n";
+		}
 		return;
 	}
 	if (hl->ch == QChar(29))

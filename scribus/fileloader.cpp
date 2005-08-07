@@ -1072,6 +1072,13 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 					Neu->Language = app->GetLang(pg.attribute("LANGUAGE", doc->Language));
 					Neu->isAutoText = static_cast<bool>(QStoInt(pg.attribute("AUTOTEXT")));
 					Neu->isEmbedded = static_cast<bool>(QStoInt(pg.attribute("isInline","0")));
+					Neu->gXpos = QStodouble(pg.attribute("gXpos","0.0"));
+					Neu->gYpos = QStodouble(pg.attribute("gYpos","0.0"));
+					QString defaultVal;
+					defaultVal.setNum(Neu->Width);
+					Neu->gWidth = QStodouble(pg.attribute("gWidth",defaultVal));
+					defaultVal.setNum(Neu->Height);
+					Neu->gHeight = QStodouble(pg.attribute("gHeight",defaultVal));
 					if (Neu->LineSpMode == 3)
 					{
 						doc->docParagraphStyles[0].BaseAdj = true;

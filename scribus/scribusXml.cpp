@@ -922,7 +922,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 	int maxLayer = 0;
 	int maxLevel = 0;
 	layerTrans.clear();
-	int layerCount=doc->layerCount();
+	uint layerCount=doc->layerCount();
 	for (uint la2 = 0; la2 < layerCount; ++la2)
 	{
 		maxLayer = QMAX(doc->Layers[la2].LNr, maxLayer);
@@ -985,7 +985,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 				la.isViewable = QStoInt(pg.attribute("SICHTBAR"));
 				la.isPrintable = QStoInt(pg.attribute("DRUCKEN"));
 				bool laex = false;
-				int layerCount=doc->layerCount();
+				uint layerCount=doc->layerCount();
 				for (uint la2 = 0; la2 < layerCount; ++la2)
 				{
 					if (doc->Layers[la2].Name == la.Name)
@@ -2786,6 +2786,10 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 		ob.setAttribute("ImageClip", item->pixm.imgInfo.usedPath);
 		ob.setAttribute("ImageRes", item->pixm.imgInfo.lowResType);
 		ob.setAttribute("isInline", static_cast<int>(item->isEmbedded));
+		ob.setAttribute("gXpos", item->gXpos);
+		ob.setAttribute("gYpos", item->gYpos);
+		ob.setAttribute("gWidth", item->gWidth);
+		ob.setAttribute("gHeight", item->gHeight);
 		if (item->GrType != 0)
 		{
 			QPtrVector<VColorStop> cstops = item->fill_gradient.colorStops();
@@ -3311,7 +3315,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 			dc.appendChild(fo);
 		}
 	}
-	int layerCount=doc->layerCount();
+	uint layerCount=doc->layerCount();
 	for (uint lay = 0; lay < layerCount; ++lay)
 	{
 		QDomElement la = docu.createElement("LAYERS");

@@ -193,6 +193,10 @@ struct TabRecord
 	double Height;
 	/** @brief Stores the old height for undo action. Is used to detect resize actions. */
 	double oldHeight;
+	double gXpos;
+	double gYpos;
+	double gWidth;
+	double gHeight;
   /** Eckrundung von Rechtecken */
 	double RadRect;
   /** Winkel um den das Item gedreht wird */
