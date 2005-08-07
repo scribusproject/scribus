@@ -276,11 +276,11 @@ QString getGSDefaultExeName(void)
 
 	// Set gsName to its default value
 	gsName = "gswin32c.exe";
-	
+
 	// Search AFPL Ghostscript first as it has more chance to be up to date
 	if( RegOpenKey(HKEY_LOCAL_MACHINE, "SOFTWARE\\AFPL Ghostscript", &hKey) == ERROR_SUCCESS )
 		strcpy(regPath, "SOFTWARE\\AFPL Ghostscript");
-	else if( RegOpenKey(HKEY_LOCAL_MACHINE, "SOFTWARE\\GPL Ghostscript", &hKey) == ERROR_SUCCESS )  
+	else if( RegOpenKey(HKEY_LOCAL_MACHINE, "SOFTWARE\\GPL Ghostscript", &hKey) == ERROR_SUCCESS )
 		strcpy(regPath, "SOFTWARE\\GPL Ghostscript");
 	else
 		return gsName;
@@ -303,7 +303,7 @@ QString getGSDefaultExeName(void)
 	RegCloseKey(hKey);
 	if( retValue != ERROR_SUCCESS )
 		return gsName;
-	
+
 	// We now have GhostScript dll path, but we want gswin32c.exe
 	// Normally gswin32c.exe and gsdll.dll are in the same directory
 	gsName = gsPath;
@@ -1418,5 +1418,5 @@ QString getFileNameByPage(uint pageNo, QString extension)
 		QFileInfo fi(defaultName);
 		defaultName = fi.baseName(true);
 	}
-	return QString("%1-page%2.%3").arg(defaultName).arg(number).arg(extension);
+	return QString("%1-%2%3.%4").arg(defaultName).arg(QObject::tr("page", "page export")).arg(number).arg(extension);
 }
