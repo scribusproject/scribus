@@ -40,13 +40,13 @@ PythonConsole::PythonConsole( QWidget* parent)
 	QPopupMenu *fileMenu = new QPopupMenu(this);
 	fileMenu->insertItem(loadIcon("fileopen.png"), tr("&Open..."), this, SLOT(slot_open()), CTRL+Key_O);
 	fileMenu->insertItem(loadIcon("DateiSave16.png"), tr("&Save"), this, SLOT(slot_save()), CTRL+Key_S);
-	fileMenu->insertItem(tr("&Save As..."), this, SLOT(slot_saveAs()));
+	fileMenu->insertItem(tr("Save &As..."), this, SLOT(slot_saveAs()));
 	fileMenu->insertSeparator();
 	fileMenu->insertItem(loadIcon("exit.png"), tr("&Exit"), this, SLOT(slot_quit()));
 	menuBar->insertItem(tr("&File"), fileMenu);
 	QPopupMenu *scriptMenu = new QPopupMenu(this);
 	scriptMenu->insertItem(loadIcon("launch16.png"), tr("&Run"), this, SLOT(slot_runScript()), Key_F9);
-	scriptMenu->insertItem(tr("&Run As Console"), this, SLOT(slot_runScriptAsConsole()), Key_F5);
+	scriptMenu->insertItem(tr("Run As &Console"), this, SLOT(slot_runScriptAsConsole()), Key_F5);
 	scriptMenu->insertItem(tr("&Save Output..."), this, SLOT(slot_saveOutput()));
 	menuBar->insertItem(tr("&Script"), scriptMenu);
 
@@ -75,6 +75,18 @@ PythonConsole::PythonConsole( QWidget* parent)
 	languageChange();
 	resize( QSize(640, 480).expandedTo(minimumSizeHint()) );
 	clearWState( WState_Polished );
+
+	// welcome note
+	QString welcomeText("\"\"\"");
+	welcomeText += tr("Scribus Python Console");
+	welcomeText += "\n\n";
+	welcomeText += tr(
+			"This is derived from standard Python console "
+			"so it contains some limitations esp. in the "
+			"case of whitespaces. Please consult Scribus "
+			"manual for more informations.");
+	welcomeText += "\"\"\"";
+	commandEdit->setText(welcomeText);
 }
 
 /*
@@ -104,26 +116,32 @@ void PythonConsole::languageChange()
 void PythonConsole::slot_runScript()
 {
 	outputEdit->clear();
-	if (commandEdit->hasSelectedText())
-		command = commandEdit->selectedText();
-	else
-		command = commandEdit->text();
-	// prevent user's wrong selection
-	command += '\n';
+	parsePythonString();
 	emit runCommand();
 }
 
 void PythonConsole::slot_runScriptAsConsole()
 {
+	parsePythonString();
+	commandEdit->clear();
+	// content is destroyed. This is to prevent overwritting
+	filename = QString::null;
+	outputEdit->append("\n>>> " + command);
+	emit runCommand();
+}
+
+void PythonConsole::parsePythonString()
+{
 	if (commandEdit->hasSelectedText())
 		command = commandEdit->selectedText();
 	else
-		command = commandEdit->text();
+	{
+		commandEdit->selectAll(true);
+		command = commandEdit->selectedText();
+		commandEdit->selectAll(false);
+	}
 	// prevent user's wrong selection
 	command += '\n';
-	commandEdit->clear();
-	outputEdit->append("\n>>> " + command);
-	emit runCommand();
 }
 
 /*
@@ -131,12 +149,12 @@ void PythonConsole::slot_runScriptAsConsole()
  */
 void PythonConsole::slot_open()
 {
-	QString filename = QFileDialog::getOpenFileName(".",
+	filename = QFileDialog::getOpenFileName(".",
 			tr("Python Scripts (*.py)"),
 			this,
 			"ofdialog",
 			tr("Open File With Python Commands"));
-	if (filename == QString::null)
+	if (filename.isNull())
 		return;
 	QFile file(filename);
 	if (file.open(IO_ReadOnly))
@@ -149,7 +167,7 @@ void PythonConsole::slot_open()
 
 void PythonConsole::slot_save()
 {
-	if (filename == QString::null)
+	if (filename.isNull())
 	{
 		slot_saveAs();
 		return;
@@ -171,7 +189,7 @@ void PythonConsole::slot_saveAs()
 			this,
 			"sfdialog",
 			tr("Save the Python Commands in File"));
-	if (filename == QString::null)
+	if (filename.isNull())
 		return;
 	QFile f(filename);
 	if (f.exists())

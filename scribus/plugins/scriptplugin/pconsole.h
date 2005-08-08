@@ -66,6 +66,8 @@ class PythonConsole : public QWidget
 		void runCommand();
 
 	protected:
+		//! prepare Python "script" from GUI widget
+		void parsePythonString();
 		QGridLayout* gridLayout;
 		QVBoxLayout* editorsLayout;
 		QMenuBar* menuBar;

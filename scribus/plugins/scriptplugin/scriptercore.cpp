@@ -364,16 +364,16 @@ QString ScripterCore::slotRunScript(QString Script)
 	QString CurDir = QDir::currentDirPath();
 	QString cm(
 			"# -*- coding: utf8 -*- \n"
-			"try:\n"
+//			"try:\n"
 			);
 	if(PyThreadState_Get() != NULL)
 	{
 		initscribus(Carrier);
 		if (RetVal == 0)
 			cm += (
-				"\tscribus._bu = cStringIO.StringIO()\n"
-				"\tsys.stdout = scribus._bu\n"
-				"\tsys.stderr = scribus._bu\n"
+				"scribus._bu = cStringIO.StringIO()\n"
+				"sys.stdout = scribus._bu\n"
+				"sys.stderr = scribus._bu\n"
 				);
 		/* HACK: following loop handles all input line by line.
 		It *should* use I.C. because of docstrings etc. I.I. cannot
@@ -383,12 +383,12 @@ QString ScripterCore::slotRunScript(QString Script)
 		works fine in plain Python. Not here. WTF?
 		*/
 		cm += (
-				"\tfor i in scribus.getval().split('\\n'):\n"
-				"\t\tscribus._ia.push(i)\n"
-				"\tscribus.retval(scribus._bu.getvalue(), 0)\n"
-				"finally:\n"
-				"\tsys.stdout = sys.__stdout__\n"
-				"\tsys.stderr = sys.__stderr__\n"
+				"for i in scribus.getval().splitlines():\n"
+				"    scribus._ia.push(i)\n"
+				"scribus.retval(scribus._bu.getvalue(), 0)\n"
+//				"finally:\n"
+				"sys.stdout = sys.__stdout__\n"
+				"sys.stderr = sys.__stderr__\n"
 			  );
 	}
 	QCString cmd = cm.utf8();
@@ -411,9 +411,9 @@ QString ScripterCore::slotRunScript(QString Script)
 		{
 			PyErr_Print();
 			QMessageBox::warning(Carrier, tr("Script error"),
-					tr("There was an internal error while trying the "
+					"<qt>" + tr("There was an internal error while trying the "
 					   "command you entered. Details were printed to "
-					   "stderr. "));
+					   "stderr. ") + "</qt>");
 		}
 	}
 	Carrier->ScriptRunning = false;
