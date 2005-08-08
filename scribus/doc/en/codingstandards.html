@@ -322,6 +322,10 @@ ts &lt;&lt; someQString.utf8();
 
 <p>It is strongly recommended that you read <a href="http://doc.trolltech.com/3.3/i18n.html">http://doc.trolltech.com/3.3/i18n.html</a> for more coverage of this issue, especially the section "Support for Encodings".</p>
 
+<h4>Portability</h4>
+
+<p>Don't cast a pointer to an int, it causes portability issues where sizeof(int) != sizeof(void*). You might want to find another way to do what you're trying to achieve.</p>
+
 <h4>Submitting of patches</h4>
 
 <p>Code patches should be sent to Franz, Craig Bradney, or Paul. Documentation patches should be sent to Peter and Craig Bradney. This is subject to change. Scripting matters should be addressed to Petr and Craig Ringer.</p>
