@@ -101,7 +101,7 @@ FontPreview::FontPreview(ScribusApp *carrier, QWidget* parent, const char* name,
 
 	/* go through available fonts and check their properties */
 	reallyUsedFonts.clear();
-	carrier->GetUsedFonts(&reallyUsedFonts);
+	carrier->doc->getUsedFonts(&reallyUsedFonts);
 /* ui.cpp
 	QPixmap ttfFont = loadIcon("font_truetype16.png");
 	QPixmap otfFont = loadIcon("font_otf16.png");

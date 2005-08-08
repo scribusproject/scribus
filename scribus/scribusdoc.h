@@ -238,6 +238,15 @@ public:
 	 * @brief Returns a stringlist of the item attributes within the document
 	 */
 	QStringList getItemAttributeNames();
+	
+	/*!
+	 * @brief Returns a qmap of the fonts used within the document
+	 */
+	void getUsedFonts(QMap<QString,QFont> *Really);
+	/*!
+	 * @brief TODO: Reorganise the fonts.. how? Moved from scribus.cpp
+	 */
+	void reorganiseFonts();
 
 protected:
 	void addSymbols();

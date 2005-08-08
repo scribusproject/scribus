@@ -1438,3 +1438,171 @@ const bool ScribusDoc::deleteTaggedItems()
 	return true;
 }
 
+void ScribusDoc::getUsedFonts(QMap<QString,QFont> *Really)
+{
+	PageItem* it;
+	FPointArray gly;
+	QString chx;
+	uint counter = 0;
+	for (uint lc = 0; lc < 3; ++lc)
+	{
+		switch (lc)
+		{
+			case 0:
+				counter = MasterItems.count();
+				break;
+			case 1:
+				counter = DocItems.count();
+				break;
+			case 2:
+				counter = FrameItems.count();
+				break;
+		}
+		for (uint d = 0; d < counter; ++d)
+		{
+			switch (lc)
+			{
+				case 0:
+					it = MasterItems.at(d);
+					break;
+				case 1:
+					it = DocItems.at(d);
+					break;
+				case 2:
+					it = FrameItems.at(d);
+					break;
+			}
+			if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
+			{
+				for (uint e = 0; e < it->itemText.count(); ++e)
+				{
+					Really->insert(it->itemText.at(e)->cfont->SCName, UsedFonts[it->itemText.at(e)->cfont->SCName]);
+					uint chr = it->itemText.at(e)->ch[0].unicode();
+					if ((chr == 13) || (chr == 32) || (chr == 29))
+						continue;
+					if (chr == 9)
+					{
+						for (uint t1 = 0; t1 < docParagraphStyles[it->itemText.at(e)->cab].TabValues.count(); t1++)
+						{
+							if (docParagraphStyles[it->itemText.at(e)->cab].TabValues[t1].tabFillChar.isNull())
+								continue;
+							chx = QString(docParagraphStyles[it->itemText.at(e)->cab].TabValues[t1].tabFillChar);
+							if ((it->itemText.at(e)->cstyle & 64) || (it->itemText.at(e)->cstyle & 32))
+							{
+								if (chx.upper() != QString(docParagraphStyles[it->itemText.at(e)->cab].TabValues[t1].tabFillChar))
+									chx = chx.upper();
+							}
+							chr = chx[0].unicode();
+							gly = it->itemText.at(e)->cfont->GlyphArray[chr].Outlines.copy();
+							it->itemText.at(e)->cfont->RealGlyphs.insert(chr, gly);
+						}
+						for (uint t1 = 0; t1 < it->TabValues.count(); t1++)
+						{
+							if (it->TabValues[t1].tabFillChar.isNull())
+								continue;
+							chx = QString(it->TabValues[t1].tabFillChar);
+							if ((it->itemText.at(e)->cstyle & 64) || (it->itemText.at(e)->cstyle & 32))
+							{
+								if (chx.upper() != QString(it->TabValues[t1].tabFillChar))
+									chx = chx.upper();
+							}
+							chr = chx[0].unicode();
+							gly = it->itemText.at(e)->cfont->GlyphArray[chr].Outlines.copy();
+							it->itemText.at(e)->cfont->RealGlyphs.insert(chr, gly);
+						}
+						continue;
+					}
+					if (chr == 30)
+					{
+						for (uint numco = 0x30; numco < 0x3A; ++numco)
+						{
+							if (it->itemText.at(e)->cfont->CharWidth.contains(numco))
+							{
+								gly = it->itemText.at(e)->cfont->GlyphArray[numco].Outlines.copy();
+								it->itemText.at(e)->cfont->RealGlyphs.insert(numco, gly);
+							}
+						}
+						continue;
+					}
+					if ((it->itemText.at(e)->cstyle & 64) || (it->itemText.at(e)->cstyle & 32))
+					{
+						chx = it->itemText.at(e)->ch;
+						if (chx.upper() != it->itemText.at(e)->ch)
+							chx = chx.upper();
+						chr = chx[0].unicode();
+					}
+					if (it->itemText.at(e)->cfont->CharWidth.contains(chr))
+					{
+						gly = it->itemText.at(e)->cfont->GlyphArray[chr].Outlines.copy();
+						it->itemText.at(e)->cfont->RealGlyphs.insert(chr, gly);
+					}
+				}
+			}
+		}
+	}
+}
+
+void ScribusDoc::reorganiseFonts()
+{
+	QMap<QString,QFont> Really;
+	//QMap<QString,QFont> DocF;
+	//DocF = UsedFonts;
+	if (!masterPageMode)
+		DocPages = Pages;
+	uint counter = 0;
+	for (uint lc = 0; lc < 3; ++lc)
+	{
+		switch (lc)
+		{
+			case 0:
+				counter = MasterItems.count();
+				break;
+			case 1:
+				counter = DocItems.count();
+				break;
+			case 2:
+				counter = FrameItems.count();
+				break;
+		}
+		PageItem* it;
+		for (uint d = 0; d < counter; ++d)
+		{
+			switch (lc)
+			{
+				case 0:
+					it = MasterItems.at(d);
+					break;
+				case 1:
+					it = DocItems.at(d);
+					break;
+				case 2:
+					it = FrameItems.at(d);
+					break;
+			}
+			Really.insert(it->IFont, UsedFonts[it->IFont]);
+			if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
+			{
+				uint itemTextCount=it->itemText.count();
+				for (uint e = 0; e < itemTextCount; ++e)
+				{
+					Really.insert(it->itemText.at(e)->cfont->SCName, UsedFonts[it->itemText.at(e)->cfont->SCName]);
+				}
+			}
+		}
+	}
+	QMap<QString,QFont>::Iterator itfo, itnext;
+	for (itfo = UsedFonts.begin(); itfo != UsedFonts.end(); itfo = itnext)
+	{
+		itnext = itfo;
+		++itnext;
+		if (!Really.contains(itfo.key()))
+		{
+			FT_Done_Face(FFonts[itfo.key()]);
+			FFonts.remove(itfo.key());
+			UsedFonts.remove(itfo);
+		}
+	}
+	PrefsManager* prefsManager=PrefsManager::instance();
+	AddFont(prefsManager->appPrefs.toolSettings.defFont, prefsManager->appPrefs.AvailFonts[prefsManager->appPrefs.toolSettings.defFont]->Font);
+	AddFont(toolSettings.defFont, prefsManager->appPrefs.AvailFonts[toolSettings.defFont]->Font);
+}

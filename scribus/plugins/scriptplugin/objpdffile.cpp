@@ -2,6 +2,7 @@
 #include "cmdutil.h"
 #include "bookpalette.h"
 #include "prefsmanager.h"
+#include "scribusdoc.h"
 
 #include <structmember.h>
 #include <qfileinfo.h>
@@ -265,7 +266,7 @@ static int PDFfile_init(PDFfile *self, PyObject */*args*/, PyObject */*kwds*/)
 	// get all used fonts
 	QMap<QString,QFont> ReallyUsed;
 	ReallyUsed.clear();
-	Carrier->GetUsedFonts(&ReallyUsed);
+	Carrier->doc->getUsedFonts(&ReallyUsed);
 	// create list of all used fonts
 	QValueList<QString> tmpEm;
 	tmpEm = ReallyUsed.keys();

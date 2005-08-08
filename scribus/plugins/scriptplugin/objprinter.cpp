@@ -446,7 +446,7 @@ static PyObject *Printer_print(Printer *self)
 	printcomm = QString(PyString_AsString(self->cmd));
 	QMap<QString,QFont> ReallyUsed;
 	ReallyUsed.clear();
-	Carrier->GetUsedFonts(&ReallyUsed);
+	Carrier->doc->getUsedFonts(&ReallyUsed);
 	PSLib *dd = Carrier->getPSDriver(true, ReallyUsed, Carrier->doc->PageColors, false);
 	if (dd != NULL)
 	{

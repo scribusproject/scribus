@@ -33,6 +33,7 @@
 #include "prefstable.h"
 #include "util.h"
 #include "prefsmanager.h"
+#include "scribusdoc.h"
 
 ScribusApp* Carrier;
 QWidget* par;
@@ -424,7 +425,7 @@ int PPreview::RenderPreview(int Seite, int Res)
 			}
 		}
 		ReallyUsed.clear();
-		app->GetUsedFonts(&ReallyUsed);
+		app->doc->getUsedFonts(&ReallyUsed);
 		PSLib *dd = app->getPSDriver(true, ReallyUsed, app->doc->PageColors, false);
 		if (dd != NULL)
 		{

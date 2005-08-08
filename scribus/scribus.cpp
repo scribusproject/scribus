@@ -5166,7 +5166,7 @@ bool ScribusApp::doPrint(PrintOptions *options)
 	QMap<QString,QFont> ReallyUsed;
 	QString filename = options->filename;
 	ReallyUsed.clear();
-	GetUsedFonts(&ReallyUsed);
+	doc->getUsedFonts(&ReallyUsed);
 	fileWatcher->forceScan();
 	fileWatcher->stop();
 	PSLib *dd = getPSDriver(true, ReallyUsed, doc->PageColors, false);
@@ -8129,7 +8129,7 @@ bool ScribusApp::DoSaveAsEps(QString fn)
 	qApp->setOverrideCursor(QCursor(waitCursor), true);
 	QMap<QString,QFont> ReallyUsed;
 	ReallyUsed.clear();
-	GetUsedFonts(&ReallyUsed);
+	doc->getUsedFonts(&ReallyUsed);
 	fileWatcher->forceScan();
 	fileWatcher->stop();
 	PSLib *dd = getPSDriver(false, ReallyUsed, doc->PageColors, false);
@@ -8294,7 +8294,7 @@ void ScribusApp::doSaveAsPDF()
 		doc->PDF_Options.Bookmarks = false; */
 	QMap<QString,QFont> ReallyUsed;
 	ReallyUsed.clear();
-	GetUsedFonts(&ReallyUsed);
+	doc->getUsedFonts(&ReallyUsed);
 	if (doc->PDF_Options.EmbedList.count() != 0)
 	{
 		QValueList<QString> tmpEm;
@@ -9862,170 +9862,8 @@ QString ScribusApp::Collect(bool compress, bool withFonts)
 
 void ScribusApp::ReorgFonts()
 {
-	PageItem* it;
-	QMap<QString,QFont> Really;
-	QMap<QString,QFont> DocF;
-	DocF = doc->UsedFonts;
-	if (!doc->masterPageMode)
-		doc->DocPages = doc->Pages;
-	uint counter = 0;
-	for (uint lc = 0; lc < 3; ++lc)
-	{
-		switch (lc)
-		{
-			case 0:
-				counter = doc->MasterItems.count();
-				break;
-			case 1:
-				counter = doc->DocItems.count();
-				break;
-			case 2:
-				counter = doc->FrameItems.count();
-				break;
-		}
-		for (uint d = 0; d < counter; ++d)
-		{
-			switch (lc)
-			{
-				case 0:
-					it = doc->MasterItems.at(d);
-					break;
-				case 1:
-					it = doc->DocItems.at(d);
-					break;
-				case 2:
-					it = doc->FrameItems.at(d);
-					break;
-			}
-			Really.insert(it->IFont, doc->UsedFonts[it->IFont]);
-			if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
-			{
-				for (uint e = 0; e < it->itemText.count(); ++e)
-				{
-					Really.insert(it->itemText.at(e)->cfont->SCName, doc->UsedFonts[it->itemText.at(e)->cfont->SCName]);
-				}
-			}
-		}
-	}
-	QMap<QString,QFont>::Iterator itfo, itnext;
-	for (itfo = doc->UsedFonts.begin(); itfo != doc->UsedFonts.end(); itfo = itnext)
-	{
-		itnext = itfo;
-		++itnext;
-		if (!Really.contains(itfo.key()))
-		{
-			FT_Done_Face(doc->FFonts[itfo.key()]);
-			doc->FFonts.remove(itfo.key());
-			doc->UsedFonts.remove(itfo);
-		}
-	}
-	doc->AddFont(prefsManager->appPrefs.toolSettings.defFont, prefsManager->appPrefs.AvailFonts[prefsManager->appPrefs.toolSettings.defFont]->Font);
-	doc->AddFont(doc->toolSettings.defFont, prefsManager->appPrefs.AvailFonts[doc->toolSettings.defFont]->Font);
+	doc->reorganiseFonts();
 	buildFontMenu();
-}
-
-void ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)
-{
-	PageItem* it;
-	FPointArray gly;
-	QString chx;
-	uint counter = 0;
-	for (uint lc = 0; lc < 3; ++lc)
-	{
-		switch (lc)
-		{
-			case 0:
-				counter = doc->MasterItems.count();
-				break;
-			case 1:
-				counter = doc->DocItems.count();
-				break;
-			case 2:
-				counter = doc->FrameItems.count();
-				break;
-		}
-		for (uint d = 0; d < counter; ++d)
-		{
-			switch (lc)
-			{
-				case 0:
-					it = doc->MasterItems.at(d);
-					break;
-				case 1:
-					it = doc->DocItems.at(d);
-					break;
-				case 2:
-					it = doc->FrameItems.at(d);
-					break;
-			}
-			if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
-			{
-				for (uint e = 0; e < it->itemText.count(); ++e)
-				{
-					Really->insert(it->itemText.at(e)->cfont->SCName, doc->UsedFonts[it->itemText.at(e)->cfont->SCName]);
-					uint chr = it->itemText.at(e)->ch[0].unicode();
-					if ((chr == 13) || (chr == 32) || (chr == 29))
-						continue;
-					if (chr == 9)
-					{
-						for (uint t1 = 0; t1 < doc->docParagraphStyles[it->itemText.at(e)->cab].TabValues.count(); t1++)
-						{
-							if (doc->docParagraphStyles[it->itemText.at(e)->cab].TabValues[t1].tabFillChar.isNull())
-								continue;
-							chx = QString(doc->docParagraphStyles[it->itemText.at(e)->cab].TabValues[t1].tabFillChar);
-							if ((it->itemText.at(e)->cstyle & 64) || (it->itemText.at(e)->cstyle & 32))
-							{
-								if (chx.upper() != QString(doc->docParagraphStyles[it->itemText.at(e)->cab].TabValues[t1].tabFillChar))
-									chx = chx.upper();
-							}
-							chr = chx[0].unicode();
-							gly = it->itemText.at(e)->cfont->GlyphArray[chr].Outlines.copy();
-							it->itemText.at(e)->cfont->RealGlyphs.insert(chr, gly);
-						}
-						for (uint t1 = 0; t1 < it->TabValues.count(); t1++)
-						{
-							if (it->TabValues[t1].tabFillChar.isNull())
-								continue;
-							chx = QString(it->TabValues[t1].tabFillChar);
-							if ((it->itemText.at(e)->cstyle & 64) || (it->itemText.at(e)->cstyle & 32))
-							{
-								if (chx.upper() != QString(it->TabValues[t1].tabFillChar))
-									chx = chx.upper();
-							}
-							chr = chx[0].unicode();
-							gly = it->itemText.at(e)->cfont->GlyphArray[chr].Outlines.copy();
-							it->itemText.at(e)->cfont->RealGlyphs.insert(chr, gly);
-						}
-						continue;
-					}
-					if (chr == 30)
-					{
-						for (uint numco = 0x30; numco < 0x3A; ++numco)
-						{
-							if (it->itemText.at(e)->cfont->CharWidth.contains(numco))
-							{
-								gly = it->itemText.at(e)->cfont->GlyphArray[numco].Outlines.copy();
-								it->itemText.at(e)->cfont->RealGlyphs.insert(numco, gly);
-							}
-						}
-						continue;
-					}
-					if ((it->itemText.at(e)->cstyle & 64) || (it->itemText.at(e)->cstyle & 32))
-					{
-						chx = it->itemText.at(e)->ch;
-						if (chx.upper() != it->itemText.at(e)->ch)
-							chx = chx.upper();
-						chr = chx[0].unicode();
-					}
-					if (it->itemText.at(e)->cfont->CharWidth.contains(chr))
-					{
-						gly = it->itemText.at(e)->cfont->GlyphArray[chr].Outlines.copy();
-						it->itemText.at(e)->cfont->RealGlyphs.insert(chr, gly);
-					}
-				}
-			}
-		}
-	}
 }
 
 void ScribusApp::docCheckToggle(bool visible)

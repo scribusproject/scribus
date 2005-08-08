@@ -147,7 +147,6 @@ public:
 	void RestoreBookMarks();
 	void AdjustBM();
 	void ReorgFonts();
-	void GetUsedFonts(QMap<QString,QFont> *Really);
 
 	void emergencySave();
 	void parsePagesString(QString pages, std::vector<int>* pageNs, int sourcePageCount);
