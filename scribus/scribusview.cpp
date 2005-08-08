@@ -184,7 +184,7 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc) : QScrollView(parent,
 void ScribusView::languageChange()
 {
 	LE->setSuffix( tr( " %" ) );
-	LY->setText( tr("Layer")+" 0");	
+	LY->setText( tr("Layer")+" 0");
 	//CB TODO Convert to actions later
 	unitSwitcher->setText(unitGetStrFromIndex(Doc->docUnitIndex));
 	Unitmen->clear();
@@ -4451,10 +4451,16 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 								emit NewBMNr(Doc->Items.at(a)->BMnr, a);
 						}
 					}
+					updateContents();
+					emit DocChanged();
+					Doc->ElemToLink = bb;
 				}
-				updateContents();
-				emit DocChanged();
-				Doc->ElemToLink = bb;
+				else
+				{
+					QMessageBox::information(this,
+											 tr("Linking Text Frames"),
+											 "<qt>" + tr("There is a problem with text frames linking. You are trying to link filled frames or a frame to the same one itself") + "</qt>");
+				}
 			}
 			else
 				Doc->ElemToLink = NULL;
@@ -4821,7 +4827,7 @@ FPoint ScribusView::ApplyGridF(FPoint in)
 	int onp = OnPage(in.x(), in.y());
 	if ((Doc->useRaster) && (onp != -1))
 	{
-		
+
 		np.setX(qRound((in.x() - Doc->Pages.at(onp)->Xoffset) / Doc->guidesSettings.minorGrid) * Doc->guidesSettings.minorGrid + Doc->Pages.at(onp)->Xoffset);
 		np.setY(qRound((in.y() - Doc->Pages.at(onp)->Yoffset) / Doc->guidesSettings.minorGrid) * Doc->guidesSettings.minorGrid + Doc->Pages.at(onp)->Yoffset);
 	}
@@ -7893,9 +7899,9 @@ void ScribusView::ToggleBookmark()
 				}
 			}
 		}
-		
+
 		ScApp->actionManager->setPDFActions(this);
-		
+
 		emit DocChanged();
 	}
 }
@@ -7919,9 +7925,9 @@ void ScribusView::ToggleAnnotation()
 				}
 			}
 		}
-		
+
 		ScApp->actionManager->setPDFActions(this);
-		
+
 		emit DocChanged();
 	}
 }
@@ -8896,7 +8902,7 @@ void ScribusView::updateLayerMenu()
 	Laymen->clear();
 	QStringList newNames;
 	Doc->orderedLayerList(&newNames);
-	
+
 	for (QStringList::Iterator it=newNames.begin(); it!=newNames.end(); ++it)
         Laymen->insertItem(*it);
 
