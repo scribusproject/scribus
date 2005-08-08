@@ -2967,9 +2967,9 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 				tstp2 = item->itemText.at(k)->cstrikepos / 10.0;
 				tstw2 = item->itemText.at(k)->cstrikewidth / 10.0;
 				if ((item->itemText.at(k)->ch == QChar(25)) && (item->itemText.at(k)->cembedded != 0))
-					tobj = item->itemText.at(k)->cembedded->ItemNr;
+					tobj2 = item->itemText.at(k)->cembedded->ItemNr;
 				else
-					tobj = -1;
+					tobj2 = -1;
 			}
 			it.setAttribute("CH",text);
 			it.setAttribute("CSIZE",ts);
@@ -3442,9 +3442,9 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	}
 	WritePages(doc, &docu, &dc, dia2, 0, true);
 	WritePages(doc, &docu, &dc, dia2, doc->MasterPages.count(), false);
-	WriteObjects(doc, &docu, &dc, dia2, doc->MasterPages.count()+doc->DocPages.count(), 0);
-	WriteObjects(doc, &docu, &dc, dia2, doc->MasterPages.count()+doc->DocPages.count()+doc->MasterItems.count(), 1);
-	WriteObjects(doc, &docu, &dc, dia2, doc->MasterPages.count()+doc->DocPages.count()+doc->MasterItems.count()+doc->FrameItems.count(), 2);
+	WriteObjects(doc, &docu, &dc, dia2, doc->MasterPages.count()+doc->DocPages.count(), 2);
+	WriteObjects(doc, &docu, &dc, dia2, doc->MasterPages.count()+doc->DocPages.count()+doc->FrameItems.count(), 0);
+	WriteObjects(doc, &docu, &dc, dia2, doc->MasterPages.count()+doc->DocPages.count()+doc->MasterItems.count()+doc->FrameItems.count(), 1);
 	elem.appendChild(dc);
 /**
  * changed to enable saving

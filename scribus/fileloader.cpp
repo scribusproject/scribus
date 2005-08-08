@@ -209,7 +209,7 @@ bool FileLoader::LoadFile(ScribusApp* app)
 			ret = false;
 			break;
 	}
-	for (uint d = 0; d < app->doc->MasterItems.count(); ++d)
+/*	for (uint d = 0; d < app->doc->MasterItems.count(); ++d)
 	{
 		PageItem *it = app->doc->MasterItems.at(d);
 		if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
@@ -238,7 +238,7 @@ bool FileLoader::LoadFile(ScribusApp* app)
 					hl->cembedded = 0;
 			}
 		}
-	}
+	} */
 	if (ReplacedFonts.count() != 0)
 	{
 		if ((prefsManager->appPrefs.askBeforeSubstituite) || (newReplacement))
@@ -1284,7 +1284,10 @@ void FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj)
 		hg->PRot = 0;
 		hg->PtransX = 0;
 		hg->PtransY = 0;
-		hg->cembedded = (PageItem*)iobj;
+		if ((hg->ch == QChar(25)) && (iobj != -1))
+			hg->cembedded = doc->FrameItems.at(iobj);
+		else
+			hg->cembedded = 0;
 		obj->itemText.append(hg);
 	}
 	return;
