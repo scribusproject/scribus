@@ -186,11 +186,11 @@ void ScribusView::languageChange()
 	LE->setSuffix( tr( " %" ) );
 	LY->setText( tr("Layer")+" 0");
 	//CB TODO Convert to actions later
-	unitSwitcher->setText(unitGetStrFromIndex(Doc->docUnitIndex));
+	unitSwitcher->setText(unitGetStrFromIndex(Doc->unitIndex()));
 	Unitmen->clear();
 	for (int i=0;i<=unitGetMaxIndex();++i)
 		Unitmen->insertItem(unitGetStrFromIndex(i));
-	Unitmen->setItemChecked(Unitmen->idAt(Doc->docUnitIndex), true);
+	Unitmen->setItemChecked(Unitmen->idAt(Doc->unitIndex()), true);
 
 }
 
@@ -2900,9 +2900,10 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 		Mxp = newX;
 		Myp = newY;
 		RefreshItem(currItem);
-		ScApp->propertiesPalette->Cpal->setSpecialGradient(currItem->GrStartX * Doc->unitRatio, currItem->GrStartY * Doc->unitRatio,
-															currItem->GrEndX * Doc->unitRatio, currItem->GrEndY * Doc->unitRatio,
-															currItem->Width * Doc->unitRatio, currItem->Height * Doc->unitRatio);
+		double dur=Doc->unitRatio();
+		ScApp->propertiesPalette->Cpal->setSpecialGradient(currItem->GrStartX * dur, currItem->GrStartY * dur,
+															currItem->GrEndX * dur, currItem->GrEndY * dur,
+															currItem->Width * dur, currItem->Height * dur);
 		return;
 	}
 	if (Mpressed && (Doc->appMode == modeMeasurementTool))
@@ -2923,7 +2924,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 		double dyp = Dyp / sc - Doc->currentPage->Yoffset + Doc->minCanvasCoordinate.y();
 		double nxp = newX / sc - Doc->currentPage->Xoffset + Doc->minCanvasCoordinate.x();
 		double nyp = newY / sc - Doc->currentPage->Yoffset + Doc->minCanvasCoordinate.y();
-		emit MVals(dxp, dyp, nxp, nyp, -xy2Deg(newX/sc - Dxp*sc, newY/sc - Dyp/sc), sqrt(pow(newX/sc - Dxp/sc,2)+pow(newY/sc - Dyp/sc,2)), Doc->docUnitIndex);
+		emit MVals(dxp, dyp, nxp, nyp, -xy2Deg(newX/sc - Dxp*sc, newY/sc - Dyp/sc), sqrt(pow(newX/sc - Dxp/sc,2)+pow(newY/sc - Dyp/sc,2)), Doc->unitIndex());
 		return;
 	}
 	if (Mpressed && (Doc->appMode == modePanning))
@@ -7823,9 +7824,10 @@ void ScribusView::updateGradientVectors(PageItem *currItem)
 	currItem->GrEndY = QMIN(QMAX(currItem->GrEndY, 0), currItem->Height);
 	currItem->GrStartX = QMIN(QMAX(currItem->GrStartX, 0), currItem->Width);
 	currItem->GrStartY = QMIN(QMAX(currItem->GrStartY, 0), currItem->Height);
-	ScApp->propertiesPalette->Cpal->setSpecialGradient(currItem->GrStartX * Doc->unitRatio, currItem->GrStartY * Doc->unitRatio,
-														 currItem->GrEndX * Doc->unitRatio, currItem->GrEndY * Doc->unitRatio,
-														 currItem->Width * Doc->unitRatio, currItem->Height * Doc->unitRatio);
+	double dur=Doc->unitRatio();
+	ScApp->propertiesPalette->Cpal->setSpecialGradient(currItem->GrStartX * dur, currItem->GrStartY * dur,
+														 currItem->GrEndX * dur, currItem->GrEndY * dur,
+														 currItem->Width * dur, currItem->Height * dur);
 }
 
 void ScribusView::SetupDraw(int nr)
@@ -7868,9 +7870,10 @@ void ScribusView::EmitValues(PageItem *currItem)
 		emit ItemTextFont(currItem->IFont);
 		emit ItemTextSize(currItem->ISize);
 	}
-	ScApp->propertiesPalette->Cpal->setSpecialGradient(currItem->GrStartX * Doc->unitRatio, currItem->GrStartY * Doc->unitRatio,
-																 currItem->GrEndX * Doc->unitRatio, currItem->GrEndY * Doc->unitRatio,
-																 currItem->Width * Doc->unitRatio, currItem->Height * Doc->unitRatio);
+	double dur=Doc->unitRatio();
+	ScApp->propertiesPalette->Cpal->setSpecialGradient(currItem->GrStartX * dur, currItem->GrStartY * dur,
+																 currItem->GrEndX * dur, currItem->GrEndY * dur,
+																 currItem->Width * dur, currItem->Height * dur);
 }
 
 void ScribusView::ToggleBookmark()

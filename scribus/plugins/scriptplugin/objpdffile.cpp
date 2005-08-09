@@ -492,10 +492,10 @@ static int PDFfile_init(PDFfile *self, PyObject */*args*/, PyObject */*kwds*/)
 		PyErr_SetString(PyExc_SystemError, "Can not initialize 'info' attribute");
 		return -1;
 	}
-	self->bleedt = Carrier->doc->PDF_Options.BleedTop*Carrier->doc->unitRatio; // double -
-	self->bleedl = Carrier->doc->PDF_Options.BleedLeft*Carrier->doc->unitRatio; // double -
-	self->bleedr = Carrier->doc->PDF_Options.BleedRight*Carrier->doc->unitRatio; // double -
-	self->bleedb = Carrier->doc->PDF_Options.BleedBottom*Carrier->doc->unitRatio; // double -
+	self->bleedt = Carrier->doc->PDF_Options.BleedTop*Carrier->doc->unitRatio(); // double -
+	self->bleedl = Carrier->doc->PDF_Options.BleedLeft*Carrier->doc->unitRatio(); // double -
+	self->bleedr = Carrier->doc->PDF_Options.BleedRight*Carrier->doc->unitRatio(); // double -
+	self->bleedb = Carrier->doc->PDF_Options.BleedBottom*Carrier->doc->unitRatio(); // double -
 
 	return 0;
 }
@@ -1106,14 +1106,14 @@ static PyObject *PDFfile_save(PDFfile *self)
 					Components = 3;
 				cmsCloseProfile(hIn);
 				Carrier->doc->PDF_Options.Info = PyString_AsString(self->info);
-				self->bleedt = minmaxd(self->bleedt, 0, Carrier->view->Doc->pageHeight*Carrier->view->Doc->unitRatio);
-				Carrier->doc->PDF_Options.BleedTop = self->bleedt/Carrier->view->Doc->unitRatio;
-				self->bleedl = minmaxd(self->bleedl, 0, Carrier->view->Doc->pageWidth*Carrier->view->Doc->unitRatio);
-				Carrier->doc->PDF_Options.BleedLeft = self->bleedl/Carrier->view->Doc->unitRatio;
-				self->bleedr = minmaxd(self->bleedr, 0, Carrier->view->Doc->pageWidth*Carrier->view->Doc->unitRatio);
-				Carrier->doc->PDF_Options.BleedRight = self->bleedr/Carrier->view->Doc->unitRatio;
-				self->bleedb = minmaxd(self->bleedb, 0, Carrier->view->Doc->pageHeight*Carrier->view->Doc->unitRatio);
-				Carrier->doc->PDF_Options.BleedBottom = self->bleedb/Carrier->view->Doc->unitRatio;
+				self->bleedt = minmaxd(self->bleedt, 0, Carrier->view->Doc->pageHeight*Carrier->view->Doc->unitRatio());
+				Carrier->doc->PDF_Options.BleedTop = self->bleedt/Carrier->view->Doc->unitRatio();
+				self->bleedl = minmaxd(self->bleedl, 0, Carrier->view->Doc->pageWidth*Carrier->view->Doc->unitRatio());
+				Carrier->doc->PDF_Options.BleedLeft = self->bleedl/Carrier->view->Doc->unitRatio();
+				self->bleedr = minmaxd(self->bleedr, 0, Carrier->view->Doc->pageWidth*Carrier->view->Doc->unitRatio());
+				Carrier->doc->PDF_Options.BleedRight = self->bleedr/Carrier->view->Doc->unitRatio();
+				self->bleedb = minmaxd(self->bleedb, 0, Carrier->view->Doc->pageHeight*Carrier->view->Doc->unitRatio());
+				Carrier->doc->PDF_Options.BleedBottom = self->bleedb/Carrier->view->Doc->unitRatio();
 				Carrier->doc->PDF_Options.Encrypt = false;
 				Carrier->doc->PDF_Options.PresentMode = false;
 			}

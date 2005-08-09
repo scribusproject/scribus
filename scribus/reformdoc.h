@@ -41,7 +41,46 @@ class ReformDoc : public PrefsDialogBase
 public:
 	ReformDoc( QWidget* parent, ScribusDoc* doc );
 	~ReformDoc() {};
-	QWidget* tabPage;
+	
+	const int getSelectedUnit();
+	const bool imageResolutionChanged();
+	const bool colorManagementSettingsChanged();
+	void updateDocumentSettings();	
+
+	ScribusApp *ScApp;
+	ScribusDoc* currDoc;
+	int einheit;
+	int decimals;
+	double unitRatio;
+	double pageWidth;
+	double pageHeight;
+	int choosenLayout;
+	QColor colorPaper;
+	QString prefsPageSizeName;
+
+protected:
+	QVBoxLayout* reformDocLayout;
+	QHBoxLayout* dsGroupBox7Layout;
+	QHBoxLayout* groupBox7aLayout;
+	QHBoxLayout* groupScratchLayout;
+	QHBoxLayout* groupGapLayout;
+	QGridLayout* layout4sg;
+	QGridLayout* dsLayout4;
+	QHBoxLayout* dsLayout4p;
+	QVBoxLayout* dsLayout4pv;
+	QGridLayout* layout4;
+	QGridLayout* layout4a;
+	QGridLayout* layout4s;
+	QHBoxLayout* Layout3;
+	QVBoxLayout* tabViewLayout;
+	QVBoxLayout* buttonGroup1Layout;
+	QHBoxLayout* layout7;
+	QVBoxLayout* pageBackgroundLayout;
+	QHBoxLayout* layout10;
+	QHBoxLayout* groupAutoSaveLayout;
+	QStringList docAttributesList;
+	
+		QWidget* tabPage;
 	PageLayouts* docLayout;
 	MarginWidget* GroupRand;
 	QGroupBox* groupBox7a;
@@ -99,40 +138,8 @@ public:
 	QComboBox* unitCombo;
 	DocumentItemAttributes* tabDocItemAttributes;
 	TOCIndexPrefs* tabTOCIndexPrefs;
-
-	ScribusApp *ap;
-	ScribusDoc* currDoc;
-	int einheit;
-	int decimals;
-	double unitRatio;
-	double pageWidth;
-	double pageHeight;
-	int choosenLayout;
-	QColor colorPaper;
-	QString prefsPageSizeName;
-
-protected:
-	QVBoxLayout* reformDocLayout;
-	QHBoxLayout* dsGroupBox7Layout;
-	QHBoxLayout* groupBox7aLayout;
-	QHBoxLayout* groupScratchLayout;
-	QHBoxLayout* groupGapLayout;
-	QGridLayout* layout4sg;
-	QGridLayout* dsLayout4;
-	QHBoxLayout* dsLayout4p;
-	QVBoxLayout* dsLayout4pv;
-	QGridLayout* layout4;
-	QGridLayout* layout4a;
-	QGridLayout* layout4s;
-	QHBoxLayout* Layout3;
-	QVBoxLayout* tabViewLayout;
-	QVBoxLayout* buttonGroup1Layout;
-	QHBoxLayout* layout7;
-	QVBoxLayout* pageBackgroundLayout;
-	QHBoxLayout* layout10;
-	QHBoxLayout* groupAutoSaveLayout;
-
-	QStringList docAttributesList;
+	
+	bool viewToRecalcPictureRes;
 
 protected slots:
 	virtual void restoreDefaults();

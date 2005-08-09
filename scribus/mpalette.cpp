@@ -836,7 +836,7 @@ void Mpalette::SelTab(int t)
 void Mpalette::SetDoc(ScribusDoc *d)
 {
 	doc = d;
-	Umrech=doc->unitRatio;
+	Umrech=doc->unitRatio();
 	double maxXYWHVal= 30000 * Umrech;
 	double minXYVal= -30000 * Umrech;
 	HaveDoc = true;
@@ -1266,7 +1266,7 @@ void Mpalette::NewSel(int nr)
 void Mpalette::UnitChange()
 {
 	double oldRatio = Umrech;
-	Umrech = doc->unitRatio;
+	Umrech = doc->unitRatio();
 	bool tmp = HaveItem;
 	HaveItem = false;
 	double maxXYWHVal=30000 * Umrech;
@@ -1288,9 +1288,9 @@ void Mpalette::UnitChange()
 	double newRR = RoundRect->value() * ratioDivisor;
 	double newRM = RoundRect->maxValue() * ratioDivisor;
 
-	if (doc->docUnitIndex > unitGetMaxIndex())
-		doc->docUnitIndex = 0;
-	QString ein = unitGetSuffixFromIndex(doc->docUnitIndex);
+	if (doc->unitIndex() > unitGetMaxIndex())
+		doc->setUnitIndex(0);
+	QString ein = unitGetSuffixFromIndex(doc->unitIndex());
 
 	Xpos->setSuffix( ein );
 	Ypos->setSuffix( ein );
@@ -1305,7 +1305,7 @@ void Mpalette::UnitChange()
 	DRight->setSuffix( ein );
 	RoundRect->setSuffix( ein );
 
-	int decimals = unitGetDecimalsFromIndex(doc->docUnitIndex);
+	int decimals = unitGetDecimalsFromIndex(doc->unitIndex());
 
 	Xpos->setValues( minXYVal, maxXYWHVal, decimals, newX );
 	Ypos->setValues( minXYVal, maxXYWHVal, decimals, newY );
@@ -1344,7 +1344,7 @@ void Mpalette::UnitChange()
 	RoundRect->setMaxValue(newRM);
 	RoundRect->setValue(newRR);
 
-	Cpal->UnitChange(oldRatio, Umrech, doc->docUnitIndex);
+	Cpal->UnitChange(oldRatio, Umrech, doc->unitIndex());
 	HaveItem = tmp;
 }
 
@@ -3367,7 +3367,7 @@ void Mpalette::ManageTabs()
 			ColWidth = (CurItem->Width - (CurItem->ColGap * (CurItem->Cols - 1)) - CurItem->Extra - CurItem->RExtra - lineCorr) / CurItem->Cols;
 		else
 			ColWidth = CurItem->Width;
-		TabManager *dia = new TabManager(this, doc->docUnitIndex, CurItem->TabValues, ColWidth);
+		TabManager *dia = new TabManager(this, doc->unitIndex(), CurItem->TabValues, ColWidth);
 		if (dia->exec())
 		{
 			CurItem->TabValues = dia->tmpTab;
@@ -3546,7 +3546,7 @@ void Mpalette::languageChange()
 	LineSp->setSuffix(ptSuffix);
 	LSize->setSuffix(ptSuffix);
 
-	QString ein = (HaveDoc) ? unitGetSuffixFromIndex(doc->docUnitIndex) : ptSuffix;
+	QString ein = (HaveDoc) ? unitGetSuffixFromIndex(doc->unitIndex()) : ptSuffix;
 		
 	Xpos->setSuffix(ein);
 	Ypos->setSuffix(ein);

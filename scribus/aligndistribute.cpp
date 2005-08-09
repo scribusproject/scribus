@@ -348,9 +348,9 @@ void AlignDistributePalette::unitChange()
 	{
 		double oldValue=distributeDistMSpinBox->value();
 		double oldRatio=unitRatio;
-		distributeDistMSpinBox->setDecimals(unitGetDecimalsFromIndex(currDoc->docUnitIndex));
-		distributeDistMSpinBox->setSuffix(unitGetSuffixFromIndex(currDoc->docUnitIndex));
-		unitRatio=unitGetRatioFromIndex(currDoc->docUnitIndex);
+		distributeDistMSpinBox->setDecimals(unitGetDecimalsFromIndex(currDoc->unitIndex()));
+		distributeDistMSpinBox->setSuffix(unitGetSuffixFromIndex(currDoc->unitIndex()));
+		unitRatio=unitGetRatioFromIndex(currDoc->unitIndex());
 		double ratioDivisor =  unitRatio / oldRatio;
 		distributeDistMSpinBox->setValue(oldValue*ratioDivisor);
 		enableGuideButtons();
@@ -1237,7 +1237,7 @@ void AlignDistributePalette::distributeDistH()
 			separation=(totalSpace-totalWidth)/(insideObjectCount+1);
 		}
 		else
-			separation=value2pts(distributeDistMSpinBox->value(), currDoc->docUnitIndex);
+			separation=value2pts(distributeDistMSpinBox->value(), currDoc->unitIndex());
 		double currX=minX;
 		for ( QMap<double,uint>::Iterator it = X1sorted.begin(); it != X1sorted.end(); ++it )
 		{
@@ -1428,7 +1428,7 @@ void AlignDistributePalette::distributeDistV()
 			separation=(totalSpace-totalHeight)/(insideObjectCount+1);
 		}
 		else
-			separation=value2pts(distributeDistMSpinBox->value(), currDoc->docUnitIndex);
+			separation=value2pts(distributeDistMSpinBox->value(), currDoc->unitIndex());
 		double currY=minY;
 		for ( QMap<double,uint>::Iterator it = Y1sorted.begin(); it != Y1sorted.end(); ++it )
 		{
@@ -1475,9 +1475,9 @@ void AlignDistributePalette::enableGuideButtons()
 	int precision=1;
 	if (currDoc!=NULL)
 	{
-		suffix=unitGetSuffixFromIndex(currDoc->docUnitIndex);
-		unitRatio=unitGetRatioFromIndex(currDoc->docUnitIndex);
-		precision=unitGetPrecisionFromIndex(currDoc->docUnitIndex);
+		suffix=unitGetSuffixFromIndex(currDoc->unitIndex());
+		unitRatio=unitGetRatioFromIndex(currDoc->unitIndex());
+		precision=unitGetPrecisionFromIndex(currDoc->unitIndex());
 	}
 	bool setterH=true, setterV=true;
 	switch(guideDirection)

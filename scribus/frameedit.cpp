@@ -221,8 +221,8 @@ void NodePalette::setDoc(ScribusDoc *dc, ScribusView *vi)
 	view = vi;
 	disconnect(EditCont, SIGNAL(clicked()), this, SLOT(ToggleConMode()));
 	disconnect(AbsMode, SIGNAL(clicked()), this, SLOT(ToggleAbsMode()));
-	YSpin->setSuffix(unitGetSuffixFromIndex(doc->docUnitIndex));
-	XSpin->setSuffix(unitGetSuffixFromIndex(doc->docUnitIndex));
+	YSpin->setSuffix(unitGetSuffixFromIndex(doc->unitIndex()));
+	XSpin->setSuffix(unitGetSuffixFromIndex(doc->unitIndex()));
 	AbsMode->setChecked(false);
 	EditCont->setChecked(false);
 	connect(AbsMode, SIGNAL(clicked()), this, SLOT(ToggleAbsMode()));
@@ -368,7 +368,7 @@ void NodePalette::MovePoint()
 {
 	if (doc->EditClipMode == 0)
 	{
-		FPoint np = FPoint(XSpin->value()/doc->unitRatio, YSpin->value()/doc->unitRatio);
+		FPoint np = FPoint(XSpin->value()/doc->unitRatio(), YSpin->value()/doc->unitRatio());
 		FPoint zp = FPoint(view->SelItem.at(0)->Xpos, view->SelItem.at(0)->Ypos);
 		if (AbsMode->isChecked())
 			np -= zp;
@@ -393,8 +393,8 @@ void NodePalette::SetXY(double x, double y)
 	disconnect(YSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 	if (AbsMode->isChecked())
 		zp = FPoint(view->SelItem.at(0)->Xpos, view->SelItem.at(0)->Ypos);
-	XSpin->setValue((x + zp.x())*doc->unitRatio);
-	YSpin->setValue((y + zp.y())*doc->unitRatio);
+	XSpin->setValue((x + zp.x())*doc->unitRatio());
+	YSpin->setValue((y + zp.y())*doc->unitRatio());
 	connect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 	connect(YSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 }
@@ -404,13 +404,14 @@ void NodePalette::ToggleAbsMode()
 	FPoint zp = FPoint(view->SelItem.at(0)->Xpos, view->SelItem.at(0)->Ypos);
 	disconnect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 	disconnect(YSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
-	FPoint np = FPoint(XSpin->value()/doc->unitRatio, YSpin->value()/doc->unitRatio);
+	double unitRatio=doc->unitRatio();
+	FPoint np = FPoint(XSpin->value()/unitRatio, YSpin->value()/unitRatio);
 	if (AbsMode->isChecked())
 		np += zp;
 	else
 		np -= zp;
-	XSpin->setValue(np.x()*doc->unitRatio);
-	YSpin->setValue(np.y()*doc->unitRatio);
+	XSpin->setValue(np.x()*unitRatio);
+	YSpin->setValue(np.y()*unitRatio);
 	connect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 	connect(YSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 }

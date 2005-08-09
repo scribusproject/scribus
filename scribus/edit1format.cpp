@@ -382,9 +382,9 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	AboveV->setSuffix(ein);
 	BelowV->setSuffix(ein);
 	DropDist->setSuffix(ein);
-	BelowV->setValue(vor->gapAfter * parentDoc->unitRatio);
-	AboveV->setValue(vor->gapBefore * parentDoc->unitRatio);
-	DropDist->setValue(vor->DropDist * parentDoc->unitRatio);
+	BelowV->setValue(vor->gapAfter * parentDoc->unitRatio());
+	AboveV->setValue(vor->gapBefore * parentDoc->unitRatio());
+	DropDist->setValue(vor->DropDist * parentDoc->unitRatio());
 	ColorChange();
 	togglePreview();
 }
@@ -490,14 +490,14 @@ void EditStyle::Verlassen()
 	werte->LineSpa = LineSpVal->value();
 	werte->Indent = QMAX(TabList->getLeftIndent(), 0.0);
 	werte->First = TabList->getFirstLine();
-	werte->gapBefore = AboveV->value() / parentDoc->unitRatio;
-	werte->gapAfter = BelowV->value() / parentDoc->unitRatio;
+	werte->gapBefore = AboveV->value() / parentDoc->unitRatio();
+	werte->gapAfter = BelowV->value() / parentDoc->unitRatio();
 	werte->Vname = Name->text();
 	werte->Font = FontC->currentFont();
 	werte->FontSize = qRound(SizeC->value() * 10.0);
 	werte->Drop = DropCaps->isChecked();
 	werte->DropLin = DropLines->value();
-	werte->DropDist = DropDist->value() / parentDoc->unitRatio;
+	werte->DropDist = DropDist->value() / parentDoc->unitRatio();
 	werte->FColor = TxFill->currentText();
 	werte->FShade = PM2->getValue();
 	werte->SColor = TxStroke->currentText();
@@ -550,13 +550,13 @@ void EditStyle::updatePreview()
 	tmpStyle.LineSpa = LineSpVal->value();
 	tmpStyle.Indent = TabList->getLeftIndent();
 	tmpStyle.First = TabList->getFirstLine();
-	tmpStyle.gapBefore = AboveV->value() / parentDoc->unitRatio;
-	tmpStyle.gapAfter = BelowV->value() / parentDoc->unitRatio;
+	tmpStyle.gapBefore = AboveV->value() / parentDoc->unitRatio();
+	tmpStyle.gapAfter = BelowV->value() / parentDoc->unitRatio();
 	tmpStyle.Font = FontC->currentFont();
 	tmpStyle.FontSize = qRound(SizeC->value() * 10.0);
 	tmpStyle.Drop = DropCaps->isChecked();
 	tmpStyle.DropLin = DropLines->value();
-	tmpStyle.DropDist = DropDist->value() / parentDoc->unitRatio;
+	tmpStyle.DropDist = DropDist->value() / parentDoc->unitRatio();
 	tmpStyle.FColor = TxFill->currentText();
 	tmpStyle.FShade = PM2->getValue();
 	tmpStyle.SColor = TxStroke->currentText();

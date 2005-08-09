@@ -1,8 +1,11 @@
 #include "reformdoc.h"
 #include "reformdoc.moc"
-#include <qtooltip.h>
-#include <qspinbox.h>
+
 #include <qcolordialog.h>
+#include <qcursor.h>
+#include <qspinbox.h>
+#include <qtooltip.h>
+
 #include "tabtypography.h"
 #include "docinfo.h"
 #include "tabguides.h"
@@ -22,18 +25,40 @@
 #include "marginWidget.h"
 #include "prefsmanager.h"
 #include "pagelayout.h"
+#include "fontcombo.h"
+#include "linecombo.h"
+#include "arrowchooser.h"
+#include "polygonwidget.h"
 
 extern QPixmap loadIcon(QString nam);
 extern bool CMSavail;
 
+#ifdef HAVE_CMS
+extern cmsHPROFILE CMSoutputProf;
+extern cmsHPROFILE CMSprinterProf;
+extern cmsHTRANSFORM stdTransG;
+extern cmsHTRANSFORM stdProofG;
+extern cmsHTRANSFORM stdTransImgG;
+extern cmsHTRANSFORM stdProofImgG;
+extern cmsHTRANSFORM stdTransCMYKG;
+extern cmsHTRANSFORM stdProofCMYKG;
+extern cmsHTRANSFORM stdTransRGBG;
+extern bool BlackPoint;
+extern bool SoftProofing;
+extern bool Gamut;
+extern bool CMSuse;
+extern int IntentMonitor;
+extern int IntentPrinter;
+#endif
+
 ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( parent )
 {
-	einheit = doc->docUnitIndex;
+	einheit = doc->unitIndex();
 	currDoc = doc;
-	ap = (ScribusApp*)parent;
-	unitRatio = doc->unitRatio;
-	QString ein = unitGetSuffixFromIndex(doc->docUnitIndex);
-	decimals = unitGetDecimalsFromIndex(doc->docUnitIndex);
+	ScApp = (ScribusApp*)parent;
+	unitRatio = doc->unitRatio();
+	QString ein = unitGetSuffixFromIndex(einheit);
+	decimals = unitGetDecimalsFromIndex(einheit);
 	pageWidth = doc->pageWidth * unitRatio;
 	pageHeight = doc->pageHeight * unitRatio;
 	setCaption( tr( "Document Setup" ) );
@@ -115,7 +140,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	unitCombo = new QComboBox( true, dsGroupBox7, "unitCombo" );
 	unitCombo->insertStringList(unitGetTextUnitList());
 	unitCombo->setEditable(false);
-	unitCombo->setCurrentItem(doc->docUnitIndex);
+	unitCombo->setCurrentItem(doc->unitIndex());
 	unitQLabel = new QLabel(unitCombo, tr( "&Unit:" ), dsGroupBox7, "unitQLabel" );
 	dsLayout4->addWidget( unitQLabel, 2, 0 );
 	dsLayout4->addWidget( unitCombo, 2, 1 );
@@ -325,22 +350,22 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	tabTools = new TabTools(  prefsWidgets, &doc->toolSettings, einheit, doc);
 	addItem( tr("Tools"), loadIcon("tools.png"), tabTools);
 
-	tabHyphenator = new HySettings(prefsWidgets, &ap->LangTransl);
+	tabHyphenator = new HySettings(prefsWidgets, &ScApp->LangTransl);
 	tabHyphenator->verbose->setChecked(!doc->docHyphenator->Automatic);
 	tabHyphenator->input->setChecked(doc->docHyphenator->AutoCheck);
-	tabHyphenator->language->setCurrentText(ap->LangTransl[doc->docHyphenator->Language]);
+	tabHyphenator->language->setCurrentText(ScApp->LangTransl[doc->docHyphenator->Language]);
 	tabHyphenator->wordLen->setValue(doc->docHyphenator->MinWordLen);
 	tabHyphenator->maxCount->setValue(doc->docHyphenator->HyCount);
 	addItem( tr("Hyphenator"), loadIcon("hyphenate.png"), tabHyphenator);
 
-	tabFonts = new FontPrefs(  prefsWidgets, PrefsManager::instance()->appPrefs.AvailFonts, true, ap->PrefsPfad, doc);
+	tabFonts = new FontPrefs(  prefsWidgets, PrefsManager::instance()->appPrefs.AvailFonts, true, ScApp->PrefsPfad, doc);
 	addItem( tr("Fonts"), loadIcon("font.png"), tabFonts);
 
 	tabDocChecker = new TabCheckDoc(  prefsWidgets, doc->checkerProfiles, doc->curCheckProfile);
 	addItem( tr("Preflight Verifier"), loadIcon("checkdoc.png"), tabDocChecker);
 
 	tabPDF = new TabPDFOptions( prefsWidgets, &doc->PDF_Options, PrefsManager::instance()->appPrefs.AvailFonts,
-								&ap->PDFXProfiles, doc->UsedFonts, doc->PDF_Options.PresentVals,
+								&ScApp->PDFXProfiles, doc->UsedFonts, doc->PDF_Options.PresentVals,
 								einheit, doc->pageHeight, doc->pageWidth, 0 );
 	addItem( tr("PDF Export"), loadIcon("acroread.png"), tabPDF);
 
@@ -358,7 +383,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	int cmsTab = 0;
 	if (CMSavail)
 	{
-		tabColorManagement = new CMSPrefs(prefsWidgets, &doc->CMSSettings, &ap->InputProfiles, &ap->PrinterProfiles, &ap->MonitorProfiles);
+		tabColorManagement = new CMSPrefs(prefsWidgets, &doc->CMSSettings, &ScApp->InputProfiles, &ScApp->PrinterProfiles, &ScApp->MonitorProfiles);
 		cmsTab = addItem( tr("Color Management"), loadIcon("blend.png"), tabColorManagement);
 	}
 
@@ -401,7 +426,7 @@ void ReformDoc::restoreDefaults()
 	QWidget* current = prefsWidgets->visibleWidget();
 	if (current == tabPage)
 	{
-		unitCombo->setCurrentItem(currDoc->docUnitIndex);
+		unitCombo->setCurrentItem(currDoc->unitIndex());
 		unitChange();
 		autoSaveTime->setValue(currDoc->AutoSaveTime / 1000 / 60);
 		groupAutoSave->setChecked( currDoc->AutoSave );
@@ -440,7 +465,7 @@ void ReformDoc::restoreDefaults()
 	{
 		tabHyphenator->verbose->setChecked(!currDoc->docHyphenator->Automatic);
 		tabHyphenator->input->setChecked(currDoc->docHyphenator->AutoCheck);
-		tabHyphenator->language->setCurrentText(ap->LangTransl[currDoc->docHyphenator->Language]);
+		tabHyphenator->language->setCurrentText(ScApp->LangTransl[currDoc->docHyphenator->Language]);
 		tabHyphenator->wordLen->setValue(currDoc->docHyphenator->MinWordLen);
 		tabHyphenator->maxCount->setValue(currDoc->docHyphenator->HyCount);
 	}
@@ -646,4 +671,403 @@ void ReformDoc::setTOCIndexData(QWidget *widgetToShow)
 	//Update the attributes list in TOC setup
 	if (widgetToShow==tabTOCIndexPrefs)
 		tabTOCIndexPrefs->setupItemAttrs( tabDocItemAttributes->getDocAttributesNames() );
+}
+
+const int ReformDoc::getSelectedUnit()
+{
+	return unitCombo->currentItem();
+}
+
+const bool ReformDoc::colorManagementSettingsChanged()
+{
+	return tabColorManagement->changed;
+}
+
+const bool ReformDoc::imageResolutionChanged()
+{
+	return viewToRecalcPictureRes;
+}
+
+void ReformDoc::updateDocumentSettings()
+{
+	double tpr2, lr2, rr2, br2;
+	tpr2 = GroupRand->RandT;
+	br2 = GroupRand->RandB;
+	lr2 = GroupRand->RandL;
+	rr2 = GroupRand->RandR;
+	int fp = choosenLayout;
+	currDoc->FirstPageLeft = docLayout->firstPage->value()-1;
+	currDoc->FirstPnum = pageNumber->value();
+	currDoc->resetPage(tpr2, lr2, rr2, br2, fp);
+	currDoc->PageOri = orientationQComboBox->currentItem();
+	currDoc->PageSize = prefsPageSizeName;
+	currDoc->pageWidth = pageWidth;
+	currDoc->pageHeight = pageHeight;
+	for (uint p = 0; p < currDoc->Pages.count(); ++p)
+	{
+		Page *pp = currDoc->Pages.at(p);
+		if (sizeAllPages->isChecked())
+		{
+			pp->initialWidth = currDoc->pageWidth;
+			pp->initialHeight = currDoc->pageHeight;
+		}
+		if (marginsForAllPages->isChecked())
+		{
+			pp->initialMargins.Left = lr2;
+			pp->initialMargins.Right = rr2;
+			pp->initialMargins.Top = tpr2;
+			pp->initialMargins.Bottom = br2;
+		}
+	}
+	for (uint p = 0; p < currDoc->MasterPages.count(); ++p)
+	{
+		Page *pp = currDoc->MasterPages.at(p);
+		if (sizeAllPages->isChecked())
+		{
+			pp->initialWidth = currDoc->pageWidth;
+			pp->initialHeight = currDoc->pageHeight;
+		}
+		if (marginsForAllPages->isChecked())
+		{
+			pp->initialMargins.Left = lr2;
+			pp->initialMargins.Right = rr2;
+			pp->initialMargins.Top = tpr2;
+			pp->initialMargins.Bottom = br2;
+		}
+	}
+	currDoc->guidesSettings.before = tabGuides->inBackground->isChecked();
+	currDoc->marginColored = checkUnprintable->isChecked();
+	currDoc->papColor = colorPaper;
+	currDoc->guidesSettings.marginsShown = tabGuides->marginBox->isChecked();
+	currDoc->guidesSettings.framesShown = checkFrame->isChecked();
+	currDoc->guidesSettings.gridShown = tabGuides->checkGrid->isChecked();
+	currDoc->guidesSettings.guidesShown = tabGuides->guideBox->isChecked();
+	currDoc->guidesSettings.baseShown = tabGuides->baselineBox->isChecked();
+	currDoc->guidesSettings.showPic = checkPictures->isChecked();
+	currDoc->guidesSettings.linkShown = checkLink->isChecked();
+	currDoc->guidesSettings.showControls = checkControl->isChecked();
+	currDoc->guidesSettings.rulerMode = checkRuler->isChecked();
+	currDoc->guidesSettings.grabRad = tabGuides->grabDistance->value();
+	currDoc->guidesSettings.guideRad = tabGuides->snapDistance->value() / currDoc->unitRatio();
+	currDoc->guidesSettings.minorGrid = tabGuides->minorSpace->value() / currDoc->unitRatio();
+	currDoc->guidesSettings.majorGrid = tabGuides->majorSpace->value() / currDoc->unitRatio();
+	currDoc->guidesSettings.minorColor = tabGuides->colorMinorGrid;
+	currDoc->guidesSettings.majorColor = tabGuides->colorMajorGrid;
+	currDoc->guidesSettings.margColor = tabGuides->colorMargin;
+	currDoc->guidesSettings.guideColor = tabGuides->colorGuides;
+	currDoc->guidesSettings.baseColor = tabGuides->colorBaselineGrid;
+	currDoc->checkerProfiles = tabDocChecker->checkerProfile;
+	currDoc->curCheckProfile = tabDocChecker->curCheckProfile->currentText();
+	currDoc->typographicSettings.valueSuperScript = tabTypo->superDisplacement->value();
+	currDoc->typographicSettings.scalingSuperScript = tabTypo->superScaling->value();
+	currDoc->typographicSettings.valueSubScript = tabTypo->subDisplacement->value();
+	currDoc->typographicSettings.scalingSubScript = tabTypo->subScaling->value();
+	currDoc->typographicSettings.valueSmallCaps = tabTypo->capsScaling->value();
+	currDoc->typographicSettings.autoLineSpacing = tabTypo->autoLine->value();
+	currDoc->typographicSettings.valueBaseGrid = tabGuides->baseGrid->value() / currDoc->unitRatio();
+	currDoc->typographicSettings.offsetBaseGrid = tabGuides->baseOffset->value() / currDoc->unitRatio();
+	currDoc->typographicSettings.valueUnderlinePos = qRound(tabTypo->underlinePos->value() * 10);
+	currDoc->typographicSettings.valueUnderlineWidth = qRound(tabTypo->underlineWidth->value() * 10);
+	currDoc->typographicSettings.valueStrikeThruPos = qRound(tabTypo->strikethruPos->value() * 10);
+	currDoc->typographicSettings.valueStrikeThruWidth = qRound(tabTypo->strikethruWidth->value() * 10);
+	currDoc->toolSettings.defFont = tabTools->fontComboText->currentText();
+	currDoc->toolSettings.defSize = tabTools->sizeComboText->currentText().left(2).toInt() * 10;
+	currDoc->toolSettings.dStrokeText = tabTools->colorComboStrokeText->currentText();
+	switch (tabTools->tabFillCombo->currentItem())
+	{
+		case 0:
+			currDoc->toolSettings.tabFillChar = "";
+			break;
+		case 1:
+			currDoc->toolSettings.tabFillChar = ".";
+			break;
+		case 2:
+			currDoc->toolSettings.tabFillChar = "-";
+			break;
+		case 3:
+			currDoc->toolSettings.tabFillChar = "_";
+			break;
+		case 4:
+			currDoc->toolSettings.tabFillChar = tabTools->tabFillCombo->currentText().right(1);
+			break;
+	}
+	if (currDoc->toolSettings.dStrokeText == tr("None"))
+		currDoc->toolSettings.dStrokeText = "None";
+	currDoc->toolSettings.dPenText = tabTools->colorComboText->currentText();
+	if (currDoc->toolSettings.dPenText == tr("None"))
+		currDoc->toolSettings.dPenText = "None";
+	currDoc->toolSettings.dCols = tabTools->columnsText->value();
+	currDoc->toolSettings.dGap = tabTools->gapText->value() / currDoc->unitRatio();
+	currDoc->toolSettings.dTabWidth = tabTools->gapTab->value() / currDoc->unitRatio();
+	currDoc->toolSettings.dPen = tabTools->colorComboLineShape->currentText();
+	if (currDoc->toolSettings.dPen == tr("None"))
+		currDoc->toolSettings.dPen = "None";
+	currDoc->toolSettings.dBrush = tabTools->comboFillShape->currentText();
+	if (currDoc->toolSettings.dBrush == tr("None"))
+		currDoc->toolSettings.dBrush = "None";
+	currDoc->toolSettings.dShade = tabTools->shadingFillShape->value();
+	currDoc->toolSettings.dShade2 = tabTools->shadingLineShape->value();
+	switch (tabTools->comboStyleShape->currentItem())
+	{
+	case 0:
+		currDoc->toolSettings.dLineArt = SolidLine;
+		break;
+	case 1:
+		currDoc->toolSettings.dLineArt = DashLine;
+		break;
+	case 2:
+		currDoc->toolSettings.dLineArt = DotLine;
+		break;
+	case 3:
+		currDoc->toolSettings.dLineArt = DashDotLine;
+		break;
+	case 4:
+		currDoc->toolSettings.dLineArt = DashDotDotLine;
+		break;
+	}
+	currDoc->toolSettings.dWidth = tabTools->lineWidthShape->value();
+	currDoc->toolSettings.dStartArrow = tabTools->startArrow->currentItem();
+	currDoc->toolSettings.dEndArrow = tabTools->endArrow->currentItem();
+	currDoc->toolSettings.magMin = tabTools->minimumZoom->value();
+	currDoc->toolSettings.magMax = tabTools->maximumZoom->value();
+	currDoc->toolSettings.magStep = tabTools->zoomStep->value();
+	currDoc->toolSettings.dPenLine = tabTools->colorComboLine->currentText();
+	if (currDoc->toolSettings.dPenLine == tr("None"))
+		currDoc->toolSettings.dPenLine = "None";
+	currDoc->toolSettings.dShadeLine = tabTools->shadingLine->value();
+	switch (tabTools->comboStyleLine->currentItem())
+	{
+	case 0:
+		currDoc->toolSettings.dLstyleLine = SolidLine;
+		break;
+	case 1:
+		currDoc->toolSettings.dLstyleLine = DashLine;
+		break;
+	case 2:
+		currDoc->toolSettings.dLstyleLine = DotLine;
+		break;
+	case 3:
+		currDoc->toolSettings.dLstyleLine = DashDotLine;
+		break;
+	case 4:
+		currDoc->toolSettings.dLstyleLine = DashDotDotLine;
+		break;
+	}
+	currDoc->toolSettings.dWidthLine = tabTools->lineWidthLine->value();
+	currDoc->toolSettings.dBrushPict = tabTools->comboFillImage->currentText();
+	if (currDoc->toolSettings.dBrushPict == tr("None"))
+		currDoc->toolSettings.dBrushPict = "None";
+	currDoc->toolSettings.shadePict = tabTools->shadingFillImage->value();
+	currDoc->toolSettings.scaleX = static_cast<double>(tabTools->scalingHorizontal->value()) / 100.0;
+	currDoc->toolSettings.scaleY = static_cast<double>(tabTools->scalingVertical->value()) / 100.0;
+	currDoc->toolSettings.scaleType = tabTools->buttonGroup3->isChecked();
+	currDoc->toolSettings.aspectRatio = tabTools->checkRatioImage->isChecked();
+	currDoc->toolSettings.useEmbeddedPath = tabTools->embeddedPath->isChecked();
+	int haRes = 0;
+	if (tabTools->checkFullRes->isChecked())
+		haRes = 0;
+	if (tabTools->checkNormalRes->isChecked())
+		haRes = 1;
+	if (tabTools->checkHalfRes->isChecked())
+		haRes = 2;
+	if (currDoc->toolSettings.lowResType != haRes)
+	{
+		currDoc->toolSettings.lowResType = haRes;
+		viewToRecalcPictureRes=true;
+	}
+	else
+		viewToRecalcPictureRes=false;
+	tabTools->polyWidget->getValues(&currDoc->toolSettings.polyC, &currDoc->toolSettings.polyFd, &currDoc->toolSettings.polyF, &currDoc->toolSettings.polyS, &currDoc->toolSettings.polyR);
+	currDoc->ScratchBottom = bottomScratch->value() / currDoc->unitRatio();
+	currDoc->ScratchLeft = leftScratch->value() / currDoc->unitRatio();
+	currDoc->ScratchRight = rightScratch->value() / currDoc->unitRatio();
+	currDoc->ScratchTop = topScratch->value() / currDoc->unitRatio();
+	currDoc->PageGapHorizontal = gapHorizontal->value() / currDoc->unitRatio();
+	currDoc->PageGapVertical = gapVertical->value() / currDoc->unitRatio();
+	currDoc->AutoSave = groupAutoSave->isChecked();
+	currDoc->AutoSaveTime = autoSaveTime->value() * 60 * 1000;
+	if (currDoc->AutoSave)
+	{
+		currDoc->autoSaveTimer->stop();
+		currDoc->autoSaveTimer->start(currDoc->AutoSaveTime);
+	}
+	currDoc->docHyphenator->slotNewDict(tabHyphenator->language->currentText());
+	currDoc->docHyphenator->slotNewSettings(tabHyphenator->wordLen->value(),
+																!tabHyphenator->verbose->isChecked(),
+																tabHyphenator->input->isChecked(),
+																tabHyphenator->maxCount->value());
+	if (CMSavail)
+	{
+		tabColorManagement->setValues();
+		if (tabColorManagement->changed)
+		{
+			ScApp->mainWindowStatusLabel->setText( tr("Adjusting Colors"));
+			ScApp->mainWindowProgressBar->reset();
+			int cc = currDoc->PageColors.count() + ScApp->view->CountElements();
+			ScApp->mainWindowProgressBar->setTotalSteps(cc);
+#ifdef HAVE_CMS
+			currDoc->HasCMS = currDoc->CMSSettings.CMSinUse;
+			currDoc->SoftProofing = currDoc->CMSSettings.SoftProofOn;
+			currDoc->Gamut = currDoc->CMSSettings.GamutCheck;
+			currDoc->IntentPrinter = currDoc->CMSSettings.DefaultIntentPrinter;
+			currDoc->IntentMonitor = currDoc->CMSSettings.DefaultIntentMonitor;
+			CMSuse = currDoc->CMSSettings.CMSinUse;
+			SoftProofing = currDoc->CMSSettings.SoftProofOn;
+			Gamut = currDoc->CMSSettings.GamutCheck;
+			BlackPoint = currDoc->CMSSettings.BlackPoint;
+			IntentPrinter = currDoc->CMSSettings.DefaultIntentPrinter;
+			IntentMonitor = currDoc->CMSSettings.DefaultIntentMonitor;
+			qApp->setOverrideCursor(QCursor(waitCursor), true);
+			currDoc->CloseCMSProfiles();
+			currDoc->OpenCMSProfiles(ScApp->InputProfiles, ScApp->MonitorProfiles, ScApp->PrinterProfiles);
+			stdProofG = currDoc->stdProof;
+			stdTransG = currDoc->stdTrans;
+			stdProofImgG = currDoc->stdProofImg;
+			stdTransImgG = currDoc->stdTransImg;
+			stdProofCMYKG = currDoc->stdProofCMYK;
+			stdTransCMYKG = currDoc->stdTransCMYK;
+			stdTransRGBG = currDoc->stdTransRGB;
+			CMSoutputProf = currDoc->DocOutputProf;
+			CMSprinterProf = currDoc->DocPrinterProf;
+			if (static_cast<int>(cmsGetColorSpace(currDoc->DocInputProf)) == icSigRgbData)
+				currDoc->CMSSettings.ComponentsInput2 = 3;
+			if (static_cast<int>(cmsGetColorSpace(currDoc->DocInputProf)) == icSigCmykData)
+				currDoc->CMSSettings.ComponentsInput2 = 4;
+			if (static_cast<int>(cmsGetColorSpace(currDoc->DocInputProf)) == icSigCmyData)
+				currDoc->CMSSettings.ComponentsInput2 = 3;
+			if (static_cast<int>(cmsGetColorSpace(currDoc->DocPrinterProf)) == icSigRgbData)
+				currDoc->CMSSettings.ComponentsPrinter = 3;
+			if (static_cast<int>(cmsGetColorSpace(currDoc->DocPrinterProf)) == icSigCmykData)
+				currDoc->CMSSettings.ComponentsPrinter = 4;
+			if (static_cast<int>(cmsGetColorSpace(currDoc->DocPrinterProf)) == icSigCmyData)
+				currDoc->CMSSettings.ComponentsPrinter = 3;
+			currDoc->PDF_Options.SComp = currDoc->CMSSettings.ComponentsInput2;
+			currDoc->PDF_Options.SolidProf = currDoc->CMSSettings.DefaultInputProfile2;
+			currDoc->PDF_Options.ImageProf = currDoc->CMSSettings.DefaultInputProfile;
+			currDoc->PDF_Options.PrintProf = currDoc->CMSSettings.DefaultPrinterProfile;
+			currDoc->PDF_Options.Intent = currDoc->CMSSettings.DefaultIntentMonitor;
+			ScApp->RecalcColors(ScApp->mainWindowProgressBar);
+			ScApp->view->RecalcPictures(&ScApp->InputProfiles, ScApp->mainWindowProgressBar);
+#endif
+			ScApp->mainWindowProgressBar->setProgress(cc);
+			qApp->setOverrideCursor(QCursor(arrowCursor), true);
+			ScApp->mainWindowStatusLabel->setText("");
+			ScApp->mainWindowProgressBar->reset();
+		}
+	}
+	PrefsManager* prefsManager=PrefsManager::instance();
+	SCFontsIterator it(prefsManager->appPrefs.AvailFonts);
+	for ( ; it.current() ; ++it)
+	{
+		it.current()->EmbedPS = tabFonts->fontFlags[it.currentKey()].FlagPS;
+		it.current()->UseFont = tabFonts->fontFlags[it.currentKey()].FlagUse;
+		it.current()->Subset = tabFonts->fontFlags[it.currentKey()].FlagSub;
+	}
+	uint a = 0;
+	prefsManager->appPrefs.GFontSub.clear();
+	QMap<QString,QString>::Iterator itfsu;
+	QMap<QString,QString>::Iterator itfsuend=tabFonts->RList.end();
+	for (itfsu = tabFonts->RList.begin(); itfsu != itfsuend; ++itfsu)
+		prefsManager->appPrefs.GFontSub[itfsu.key()] = tabFonts->FlagsRepl.at(a++)->currentText();
+	QStringList uf = currDoc->UsedFonts.keys();
+	QMap<QString,QFont>::Iterator it3;
+	for (it3 = currDoc->UsedFonts.begin(); it3 != currDoc->UsedFonts.end(); ++it3)
+		FT_Done_Face(currDoc->FFonts[it3.key()]);
+	currDoc->UsedFonts.clear();
+	QStringList::Iterator it3a;
+	QStringList::Iterator it3aend=uf.end();
+	for (it3a = uf.begin(); it3a != it3aend; ++it3a)
+		currDoc->AddFont((*it3a), prefsManager->appPrefs.AvailFonts[(*it3a)]->Font);
+
+	currDoc->PDF_Options.Thumbnails = tabPDF->CheckBox1->isChecked();
+	currDoc->PDF_Options.Compress = tabPDF->Compression->isChecked();
+	currDoc->PDF_Options.CompressMethod = tabPDF->CMethod->currentItem();
+	currDoc->PDF_Options.Quality = tabPDF->CQuality->currentItem();
+	currDoc->PDF_Options.Resolution = tabPDF->Resolution->value();
+	currDoc->PDF_Options.RecalcPic = tabPDF->DSColor->isChecked();
+	currDoc->PDF_Options.PicRes = tabPDF->ValC->value();
+	currDoc->PDF_Options.Bookmarks = tabPDF->CheckBM->isChecked();
+	currDoc->PDF_Options.Binding = tabPDF->ComboBind->currentItem();
+	currDoc->PDF_Options.MirrorH = tabPDF->MirrorH->isOn();
+	currDoc->PDF_Options.MirrorV = tabPDF->MirrorV->isOn();
+	currDoc->PDF_Options.RotateDeg = tabPDF->RotateDeg->currentItem() * 90;
+	currDoc->PDF_Options.Articles = tabPDF->Article->isChecked();
+	currDoc->PDF_Options.Encrypt = tabPDF->Encry->isChecked();
+	currDoc->PDF_Options.UseLPI = tabPDF->UseLPI->isChecked();
+	currDoc->PDF_Options.useLayers = tabPDF->useLayers->isChecked();
+	currDoc->PDF_Options.BleedBottom = tabPDF->BleedBottom->value() / currDoc->unitRatio();
+	currDoc->PDF_Options.BleedTop = tabPDF->BleedTop->value() / currDoc->unitRatio();
+	currDoc->PDF_Options.BleedLeft = tabPDF->BleedLeft->value() / currDoc->unitRatio();
+	currDoc->PDF_Options.BleedRight = tabPDF->BleedRight->value() / currDoc->unitRatio();
+	if (tabPDF->Encry->isChecked())
+	{
+		int Perm = -64;
+		if (tabPDF->PDFVersionCombo->currentItem() == 1)
+			Perm &= ~0x00240000;
+		if (tabPDF->PrintSec->isChecked())
+			Perm += 4;
+		if (tabPDF->ModifySec->isChecked())
+			Perm += 8;
+		if (tabPDF->CopySec->isChecked())
+			Perm += 16;
+		if (tabPDF->AddSec->isChecked())
+			Perm += 32;
+		currDoc->PDF_Options.Permissions = Perm;
+		currDoc->PDF_Options.PassOwner = tabPDF->PassOwner->text();
+		currDoc->PDF_Options.PassUser = tabPDF->PassUser->text();
+	}
+	if (tabPDF->PDFVersionCombo->currentItem() == 0)
+		currDoc->PDF_Options.Version = PDFOptions::PDFVersion_13;
+	if (tabPDF->PDFVersionCombo->currentItem() == 1)
+		currDoc->PDF_Options.Version = PDFOptions::PDFVersion_14;
+	if (tabPDF->PDFVersionCombo->currentItem() == 2)
+		currDoc->PDF_Options.Version = PDFOptions::PDFVersion_15;
+	if (tabPDF->PDFVersionCombo->currentItem() == 3)
+		currDoc->PDF_Options.Version = PDFOptions::PDFVersion_X3;
+	if (tabPDF->OutCombo->currentItem() == 0)
+	{
+		currDoc->PDF_Options.isGrayscale = false;
+		currDoc->PDF_Options.UseRGB = true;
+		currDoc->PDF_Options.UseProfiles = false;
+		currDoc->PDF_Options.UseProfiles2 = false;
+	}
+	else
+	{
+		if (tabPDF->OutCombo->currentItem() == 3)
+		{
+			currDoc->PDF_Options.isGrayscale = true;
+			currDoc->PDF_Options.UseRGB = false;
+			currDoc->PDF_Options.UseProfiles = false;
+			currDoc->PDF_Options.UseProfiles2 = false;
+		}
+		else
+		{
+			currDoc->PDF_Options.isGrayscale = false;
+			currDoc->PDF_Options.UseRGB = false;
+#ifdef HAVE_CMS
+			if (CMSuse)
+			{
+				currDoc->PDF_Options.UseProfiles = tabPDF->EmbedProfs->isChecked();
+				currDoc->PDF_Options.UseProfiles2 = tabPDF->EmbedProfs2->isChecked();
+				currDoc->PDF_Options.Intent = tabPDF->IntendS->currentItem();
+				currDoc->PDF_Options.Intent2 = tabPDF->IntendI->currentItem();
+				currDoc->PDF_Options.EmbeddedI = tabPDF->NoEmbedded->isChecked();
+				currDoc->PDF_Options.SolidProf = tabPDF->SolidPr->currentText();
+				currDoc->PDF_Options.ImageProf = tabPDF->ImageP->currentText();
+				currDoc->PDF_Options.PrintProf = tabPDF->PrintProfC->currentText();
+			}
+#endif
+		}
+	}
+
+	currDoc->documentInfo = docInfos->getDocInfo();
+	currDoc->docItemAttributes = *(tabDocItemAttributes->getNewAttributes());
+	currDoc->docToCSetups = *(tabTOCIndexPrefs->getNewToCs());
+
+	uint itemCount=currDoc->Items.count();
+	for (uint b=0; b<itemCount; ++b)
+	{
+		if (currDoc->Items.at(b)->itemType() == PageItem::ImageFrame)
+			currDoc->Items.at(b)->PicArt = currDoc->guidesSettings.showPic;
+	}
 }

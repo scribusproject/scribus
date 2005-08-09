@@ -106,7 +106,7 @@ void Vruler::paintEvent(QPaintEvent *e)
 	{
 		p.drawLine(3, qRound(firstMark * sc), 16, qRound(firstMark * sc));
 		int textY = qRound(firstMark * sc)+10;
-		switch (currDoc->docUnitIndex)
+		switch (currDoc->unitIndex())
 		{
 			case 1:
 				tx = QString::number(markC * iter2 / (iter2 / 100) / cor);
@@ -175,25 +175,26 @@ void Vruler::unitChange()
 {
 	double sc = currView->getScale();
 	cor=1;
-	switch (currDoc->docUnitIndex)
+	int docUnitIndex=currDoc->unitIndex();
+	switch (docUnitIndex)
 	{
 		case 0:
 			if (sc > 1 && sc <= 4)
 				cor = 2;
 			if (sc > 4)
 				cor = 10;
-			iter = unitRulerGetIter1FromIndex(currDoc->docUnitIndex) / cor;
-	  		iter2 = unitRulerGetIter2FromIndex(currDoc->docUnitIndex) / cor;
+			iter = unitRulerGetIter1FromIndex(docUnitIndex) / cor;
+	  		iter2 = unitRulerGetIter2FromIndex(docUnitIndex) / cor;
 			break;
 		case 1:
 			if (sc > 1)
 				cor = 10;
-			iter = unitRulerGetIter1FromIndex(currDoc->docUnitIndex) / cor;
-  			iter2 = unitRulerGetIter2FromIndex(currDoc->docUnitIndex) / cor;
+			iter = unitRulerGetIter1FromIndex(docUnitIndex) / cor;
+  			iter2 = unitRulerGetIter2FromIndex(docUnitIndex) / cor;
 			break;
 		case 2:
-			iter = unitRulerGetIter1FromIndex(currDoc->docUnitIndex);
-			iter2 = unitRulerGetIter2FromIndex(currDoc->docUnitIndex);
+			iter = unitRulerGetIter1FromIndex(docUnitIndex);
+			iter2 = unitRulerGetIter2FromIndex(docUnitIndex);
 			if (sc > 1 && sc <= 4)
 			{
 				cor = 2;
@@ -208,8 +209,8 @@ void Vruler::unitChange()
 			}
 			break;
 		case 3:
-			iter = unitRulerGetIter1FromIndex(currDoc->docUnitIndex);
-			iter2 = unitRulerGetIter2FromIndex(currDoc->docUnitIndex);
+			iter = unitRulerGetIter1FromIndex(docUnitIndex);
+			iter2 = unitRulerGetIter2FromIndex(docUnitIndex);
 			if (sc > 1 && sc <= 4)
 			{
 				cor = 1;
@@ -228,12 +229,12 @@ void Vruler::unitChange()
 				cor = 1;
 			if (sc > 4)
 				cor = 10;
-			iter = unitRulerGetIter1FromIndex(currDoc->docUnitIndex) / cor;
-			iter2 = unitRulerGetIter2FromIndex(currDoc->docUnitIndex) / cor;
+			iter = unitRulerGetIter1FromIndex(docUnitIndex) / cor;
+			iter2 = unitRulerGetIter2FromIndex(docUnitIndex) / cor;
 			break;
 		case 5:
-			iter = unitRulerGetIter1FromIndex(currDoc->docUnitIndex);
-			iter2 = unitRulerGetIter2FromIndex(currDoc->docUnitIndex);
+			iter = unitRulerGetIter1FromIndex(docUnitIndex);
+			iter2 = unitRulerGetIter2FromIndex(docUnitIndex);
 			if (sc > 1 && sc <= 4)
 			{
 				cor = 1;

@@ -124,16 +124,16 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	orientationQComboBox->setCurrentItem(currentDoc->PageOri );
 	TextLabel2->setBuddy(orientationQComboBox);
 	dsGroupBox7Layout->addMultiCellWidget( orientationQComboBox, 1, 1, 2, 3 );
-	widthMSpinBox = new MSpinBox( 1, 100000, dsGroupBox7, unitGetDecimalsFromIndex(currentDoc->docUnitIndex) );
+	widthMSpinBox = new MSpinBox( 1, 100000, dsGroupBox7, unitGetDecimalsFromIndex(currentDoc->unitIndex()) );
 	widthQLabel = new QLabel( tr( "&Width:" ), dsGroupBox7, "widthLabel" );
-	widthMSpinBox->setSuffix(unitGetSuffixFromIndex(currentDoc->docUnitIndex));
-	widthMSpinBox->setValue(currentDoc->pageWidth * currentDoc->unitRatio);
+	widthMSpinBox->setSuffix(unitGetSuffixFromIndex(currentDoc->unitIndex()));
+	widthMSpinBox->setValue(currentDoc->pageWidth * currentDoc->unitRatio());
 	widthQLabel->setBuddy(widthMSpinBox);
 	dsGroupBox7Layout->addWidget( widthQLabel, 2, 0 );
 	dsGroupBox7Layout->addWidget( widthMSpinBox, 2, 1 );
-	heightMSpinBox = new MSpinBox( 1, 100000, dsGroupBox7, unitGetDecimalsFromIndex(currentDoc->docUnitIndex) );
-	heightMSpinBox->setSuffix(unitGetSuffixFromIndex(currentDoc->docUnitIndex));
-	heightMSpinBox->setValue(currentDoc->pageHeight * currentDoc->unitRatio);
+	heightMSpinBox = new MSpinBox( 1, 100000, dsGroupBox7, unitGetDecimalsFromIndex(currentDoc->unitIndex()) );
+	heightMSpinBox->setSuffix(unitGetSuffixFromIndex(currentDoc->unitIndex()));
+	heightMSpinBox->setValue(currentDoc->pageHeight * currentDoc->unitRatio());
 	heightQLabel = new QLabel(heightMSpinBox,  tr( "&Height:" ), dsGroupBox7, "heightLabel" );
 	dsGroupBox7Layout->addWidget( heightQLabel, 2, 2 );
 	dsGroupBox7Layout->addWidget( heightMSpinBox, 2, 3 );
@@ -168,7 +168,7 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	okCancelLayout->addWidget( cancelButton );
 	dialogLayout->addLayout( okCancelLayout );
 	setMaximumSize(sizeHint());
-	unitRatio = currentDoc->unitRatio;
+	unitRatio = currentDoc->unitRatio();
 
 	// signals and slots connections
 	connect( insWhereData, SIGNAL( activated(int) ), this, SLOT( insWherePageDataDisable(int) ) );

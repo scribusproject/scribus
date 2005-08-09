@@ -247,12 +247,20 @@ public:
 	 * @brief TODO: Reorganise the fonts.. how? Moved from scribus.cpp
 	 */
 	void reorganiseFonts();
-
+	/**
+	 * @brief Set and get the document's unit index
+	 */
+	void setUnitIndex(const int);
+	const int unitIndex();
+	const double unitRatio();
+	
 protected:
 	void addSymbols();
 	bool loading;
 	bool modified;
 	int ActiveLayer;
+	int docUnitIndex;
+	double docUnitRatio;
 	UndoManager *undoManager;
 
 public: // Public attributes
@@ -355,8 +363,6 @@ public: // Public attributes
 	PageItem *LastAuto;
   /** Erstes Element fuer AutoTextrahmen */
 	PageItem *FirstAuto;
-	int docUnitIndex;
-	double unitRatio;
 	bool DragP;
 	bool leaveDrag;
 	PageItem *DraggedElem;

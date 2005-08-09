@@ -61,7 +61,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString docFileName, QMap<QString,QFont> D
 	Layout5->addWidget( FileC );
 	PDFOptsLayout->addLayout( Layout5 );
 	Options = new TabPDFOptions( this, pdfOptions, AllFonts, PDFXProfiles, DocFonts,
-								Eff, currView->Doc->docUnitIndex, currView->Doc->pageHeight,
+								Eff, currView->Doc->unitIndex(), currView->Doc->pageHeight,
 								currView->Doc->pageWidth, currView );
 	PDFOptsLayout->addWidget( Options );
 	Layout7 = new QHBoxLayout;

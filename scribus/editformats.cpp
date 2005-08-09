@@ -249,7 +249,7 @@ void StilFormate::dupFormat()
 	TempVorl.append(sty);
 	sFnumber = TempVorl.count()-1;
 	EditStyle* dia2 = new EditStyle(this, &TempVorl[sFnumber], TempVorl, true, 
-	                                static_cast<double>(Docu->typographicSettings.autoLineSpacing), Docu->docUnitIndex, Docu);
+	                                static_cast<double>(Docu->typographicSettings.autoLineSpacing), Docu->unitIndex(), Docu);
 	if (!dia2->exec())
 		TempVorl.remove(TempVorl.fromLast());
 	delete dia2;
@@ -292,7 +292,7 @@ void StilFormate::neuesFormat()
 	sty.kernVal = 0;
 	TempVorl.append(sty);
 	sFnumber = TempVorl.count()-1;
-	EditStyle* dia2 = new EditStyle(this, &TempVorl[sFnumber], TempVorl, true,  static_cast<double>(Docu->typographicSettings.autoLineSpacing), Docu->docUnitIndex, Docu);
+	EditStyle* dia2 = new EditStyle(this, &TempVorl[sFnumber], TempVorl, true,  static_cast<double>(Docu->typographicSettings.autoLineSpacing), Docu->unitIndex(), Docu);
 	if (!dia2->exec())
 		TempVorl.remove(TempVorl.fromLast());
 	delete dia2;
@@ -302,7 +302,7 @@ void StilFormate::neuesFormat()
 void StilFormate::editFormat()
 {
 	EditStyle* dia = new EditStyle(this, &TempVorl[sFnumber], TempVorl, false, 
-	                               static_cast<double>(Docu->typographicSettings.autoLineSpacing), Docu->docUnitIndex, Docu);
+	                               static_cast<double>(Docu->typographicSettings.autoLineSpacing), Docu->unitIndex(), Docu);
 	dia->exec();
 	delete dia;
 	UpdateFList();

@@ -145,7 +145,7 @@ PyObject *scribus_getunit(PyObject* /* self */)
 {
 	if(!checkHaveDocument())
 		return NULL;
-	return PyInt_FromLong(static_cast<long>(Carrier->doc->docUnitIndex));
+	return PyInt_FromLong(static_cast<long>(Carrier->doc->unitIndex()));
 }
 
 PyObject *scribus_loadstylesfromfile(PyObject* /* self */, PyObject *args)

@@ -58,7 +58,7 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 	setIcon(loadIcon("AppIcon.png"));
 
 	/* Initialise the global variables */
-	docUnitIndex = ScApp->doc->docUnitIndex;
+	docUnitIndex = ScApp->doc->unitIndex();
 	docUnitRatio = unitGetRatioFromIndex(docUnitIndex);
 	int decimals = unitGetDecimalsFromIndex(docUnitIndex);
 

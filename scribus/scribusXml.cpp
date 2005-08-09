@@ -1326,7 +1326,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 		doc->PageAT=QStoInt(dc.attribute("AUTOTEXT"));
 		doc->PageSp=QStoInt(dc.attribute("AUTOSPALTEN"));
 		doc->PageSpa=QStodouble(dc.attribute("ABSTSPALTEN"));
-		doc->docUnitIndex = QStoInt(dc.attribute("UNITS","0"));
+		doc->setUnitIndex(QStoInt(dc.attribute("UNITS","0")));
 		doc->guidesSettings.gridShown = view->Prefs->guidesSettings.gridShown;
 		doc->guidesSettings.guidesShown = view->Prefs->guidesSettings.guidesShown;
 		doc->guidesSettings.framesShown = view->Prefs->guidesSettings.framesShown;
@@ -1898,7 +1898,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 			Its->NextBox = 0;
 		}
 	}
-	view->unitSwitcher->setText(unitGetStrFromIndex(doc->docUnitIndex));
+	view->unitSwitcher->setText(unitGetStrFromIndex(doc->unitIndex()));
 	dia2->setProgress(DOC.childNodes().count());
 	return true;
 }
@@ -3052,7 +3052,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 		dc.setAttribute("AUTOTEXT",1);
 	dc.setAttribute("AUTOSPALTEN",doc->PageSp);
 	dc.setAttribute("ABSTSPALTEN",doc->PageSpa);
-	dc.setAttribute("UNITS",doc->docUnitIndex);
+	dc.setAttribute("UNITS",doc->unitIndex());
 	dc.setAttribute("DFONT",doc->toolSettings.defFont);
 	dc.setAttribute("DSIZE",doc->toolSettings.defSize / 10.0);
 	dc.setAttribute("DCOL",doc->toolSettings.dCols);

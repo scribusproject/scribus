@@ -28,6 +28,7 @@
 #include "undostate.h"
 #include "prefsmanager.h"
 #include "layers.h"
+#include "units.h"
 
 extern ScribusApp* ScApp;
 extern ScribusQApp* ScQApp;
@@ -1605,4 +1606,20 @@ void ScribusDoc::reorganiseFonts()
 	PrefsManager* prefsManager=PrefsManager::instance();
 	AddFont(prefsManager->appPrefs.toolSettings.defFont, prefsManager->appPrefs.AvailFonts[prefsManager->appPrefs.toolSettings.defFont]->Font);
 	AddFont(toolSettings.defFont, prefsManager->appPrefs.AvailFonts[toolSettings.defFont]->Font);
+}
+
+void ScribusDoc::setUnitIndex(const int newIndex)
+{
+	docUnitIndex=newIndex;
+	docUnitRatio = unitGetRatioFromIndex( docUnitIndex );
+}
+
+const int ScribusDoc::unitIndex()
+{
+	return docUnitIndex;
+}
+
+const double ScribusDoc::unitRatio()
+{
+	return docUnitRatio;
 }

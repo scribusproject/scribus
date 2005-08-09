@@ -951,13 +951,13 @@ void ScribusApp::setMousePositionOnStatusBar(double xp, double yp)
 	}
 	xn -= doc->rulerXoffset;
 	yn -= doc->rulerYoffset;
-	QString suffix=unitGetSuffixFromIndex(doc->docUnitIndex);
-	int multiplier=unitGetDecimalsFromIndex(doc->docUnitIndex);
+	QString suffix=unitGetSuffixFromIndex(doc->unitIndex());
+	int multiplier=unitGetDecimalsFromIndex(doc->unitIndex());
 	double divisor=static_cast<double>(multiplier);
-	int precision=unitGetPrecisionFromIndex(doc->docUnitIndex);
+	int precision=unitGetPrecisionFromIndex(doc->unitIndex());
 	QString tmp;
-	mainWindowXPosDataLabel->setText(tmp.setNum(qRound(xn*doc->unitRatio * multiplier) / divisor, 'f', precision) + suffix);
-	mainWindowYPosDataLabel->setText(tmp.setNum(qRound(yn*doc->unitRatio * multiplier) / divisor, 'f', precision) + suffix);
+	mainWindowXPosDataLabel->setText(tmp.setNum(qRound(xn*doc->unitRatio() * multiplier) / divisor, 'f', precision) + suffix);
+	mainWindowYPosDataLabel->setText(tmp.setNum(qRound(yn*doc->unitRatio() * multiplier) / divisor, 'f', precision) + suffix);
 }
 
 void ScribusApp::deleteSelectedTextFromFrame(PageItem *currItem)
@@ -2679,390 +2679,16 @@ void ScribusApp::windowsMenuActivated( int id )
 
 bool ScribusApp::SetupDoc()
 {
-	int fp = doc->PageFP;
-	double tpr2, lr2, rr2, br2;
 	bool ret = false;
 	ReformDoc* dia = new ReformDoc(this, doc);
 	if (dia->exec())
 	{
-		slotChangeUnit(dia->unitCombo->currentItem(), false);
-		tpr2 = dia->GroupRand->RandT;
-		br2 = dia->GroupRand->RandB;
-		lr2 = dia->GroupRand->RandL;
-		rr2 = dia->GroupRand->RandR;
-		fp = dia->choosenLayout;
-		doc->FirstPageLeft = dia->docLayout->firstPage->value()-1;
-		doc->FirstPnum = dia->pageNumber->value();
-		doc->resetPage(tpr2, lr2, rr2, br2, fp);
-		doc->PageOri = dia->orientationQComboBox->currentItem();
-		doc->PageSize = dia->prefsPageSizeName;
-		doc->pageWidth = dia->pageWidth;
-		doc->pageHeight = dia->pageHeight;
-		for (uint p = 0; p < doc->Pages.count(); ++p)
-		{
-			Page *pp = doc->Pages.at(p);
-			if (dia->sizeAllPages->isChecked())
-			{
-				pp->initialWidth = doc->pageWidth;
-				pp->initialHeight = doc->pageHeight;
-			}
-			if (dia->marginsForAllPages->isChecked())
-			{
-				pp->initialMargins.Left = lr2;
-				pp->initialMargins.Right = rr2;
-				pp->initialMargins.Top = tpr2;
-				pp->initialMargins.Bottom = br2;
-			}
-		}
-		for (uint p = 0; p < doc->MasterPages.count(); ++p)
-		{
-			Page *pp = doc->MasterPages.at(p);
-			if (dia->sizeAllPages->isChecked())
-			{
-				pp->initialWidth = doc->pageWidth;
-				pp->initialHeight = doc->pageHeight;
-			}
-			if (dia->marginsForAllPages->isChecked())
-			{
-				pp->initialMargins.Left = lr2;
-				pp->initialMargins.Right = rr2;
-				pp->initialMargins.Top = tpr2;
-				pp->initialMargins.Bottom = br2;
-			}
-		}
-		doc->guidesSettings.before = dia->tabGuides->inBackground->isChecked();
-		doc->marginColored = dia->checkUnprintable->isChecked();
-		doc->papColor = dia->colorPaper;
-		doc->guidesSettings.marginsShown = dia->tabGuides->marginBox->isChecked();
-		doc->guidesSettings.framesShown = dia->checkFrame->isChecked();
-		doc->guidesSettings.gridShown = dia->tabGuides->checkGrid->isChecked();
-		doc->guidesSettings.guidesShown = dia->tabGuides->guideBox->isChecked();
-		doc->guidesSettings.baseShown = dia->tabGuides->baselineBox->isChecked();
-		doc->guidesSettings.showPic = dia->checkPictures->isChecked();
-		doc->guidesSettings.linkShown = dia->checkLink->isChecked();
-		doc->guidesSettings.showControls = dia->checkControl->isChecked();
-		doc->guidesSettings.rulerMode = dia->checkRuler->isChecked();
-		doc->guidesSettings.grabRad = dia->tabGuides->grabDistance->value();
-		doc->guidesSettings.guideRad = dia->tabGuides->snapDistance->value() / doc->unitRatio;
-		doc->guidesSettings.minorGrid = dia->tabGuides->minorSpace->value() / doc->unitRatio;
-		doc->guidesSettings.majorGrid = dia->tabGuides->majorSpace->value() / doc->unitRatio;
-		doc->guidesSettings.minorColor = dia->tabGuides->colorMinorGrid;
-		doc->guidesSettings.majorColor = dia->tabGuides->colorMajorGrid;
-		doc->guidesSettings.margColor = dia->tabGuides->colorMargin;
-		doc->guidesSettings.guideColor = dia->tabGuides->colorGuides;
-		doc->guidesSettings.baseColor = dia->tabGuides->colorBaselineGrid;
-		doc->checkerProfiles = dia->tabDocChecker->checkerProfile;
-		doc->curCheckProfile = dia->tabDocChecker->curCheckProfile->currentText();
-		doc->typographicSettings.valueSuperScript = dia->tabTypo->superDisplacement->value();
-		doc->typographicSettings.scalingSuperScript = dia->tabTypo->superScaling->value();
-		doc->typographicSettings.valueSubScript = dia->tabTypo->subDisplacement->value();
-		doc->typographicSettings.scalingSubScript = dia->tabTypo->subScaling->value();
-		doc->typographicSettings.valueSmallCaps = dia->tabTypo->capsScaling->value();
-		doc->typographicSettings.autoLineSpacing = dia->tabTypo->autoLine->value();
-		doc->typographicSettings.valueBaseGrid = dia->tabGuides->baseGrid->value() / doc->unitRatio;
-		doc->typographicSettings.offsetBaseGrid = dia->tabGuides->baseOffset->value() / doc->unitRatio;
-		doc->typographicSettings.valueUnderlinePos = qRound(dia->tabTypo->underlinePos->value() * 10);
-		doc->typographicSettings.valueUnderlineWidth = qRound(dia->tabTypo->underlineWidth->value() * 10);
-		doc->typographicSettings.valueStrikeThruPos = qRound(dia->tabTypo->strikethruPos->value() * 10);
-		doc->typographicSettings.valueStrikeThruWidth = qRound(dia->tabTypo->strikethruWidth->value() * 10);
-		doc->toolSettings.defFont = dia->tabTools->fontComboText->currentText();
-		doc->toolSettings.defSize = dia->tabTools->sizeComboText->currentText().left(2).toInt() * 10;
-		doc->toolSettings.dStrokeText = dia->tabTools->colorComboStrokeText->currentText();
-		switch (dia->tabTools->tabFillCombo->currentItem())
-		{
-			case 0:
-				doc->toolSettings.tabFillChar = "";
-				break;
-			case 1:
-				doc->toolSettings.tabFillChar = ".";
-				break;
-			case 2:
-				doc->toolSettings.tabFillChar = "-";
-				break;
-			case 3:
-				doc->toolSettings.tabFillChar = "_";
-				break;
-			case 4:
-				doc->toolSettings.tabFillChar = dia->tabTools->tabFillCombo->currentText().right(1);
-				break;
-		}
-		if (doc->toolSettings.dStrokeText == tr("None"))
-			doc->toolSettings.dStrokeText = "None";
-		doc->toolSettings.dPenText = dia->tabTools->colorComboText->currentText();
-		if (doc->toolSettings.dPenText == tr("None"))
-			doc->toolSettings.dPenText = "None";
-		doc->toolSettings.dCols = dia->tabTools->columnsText->value();
-		doc->toolSettings.dGap = dia->tabTools->gapText->value() / doc->unitRatio;
-		doc->toolSettings.dTabWidth = dia->tabTools->gapTab->value() / doc->unitRatio;
-		doc->toolSettings.dPen = dia->tabTools->colorComboLineShape->currentText();
-		if (doc->toolSettings.dPen == tr("None"))
-			doc->toolSettings.dPen = "None";
-		doc->toolSettings.dBrush = dia->tabTools->comboFillShape->currentText();
-		if (doc->toolSettings.dBrush == tr("None"))
-			doc->toolSettings.dBrush = "None";
-		doc->toolSettings.dShade = dia->tabTools->shadingFillShape->value();
-		doc->toolSettings.dShade2 = dia->tabTools->shadingLineShape->value();
-		switch (dia->tabTools->comboStyleShape->currentItem())
-		{
-		case 0:
-			doc->toolSettings.dLineArt = SolidLine;
-			break;
-		case 1:
-			doc->toolSettings.dLineArt = DashLine;
-			break;
-		case 2:
-			doc->toolSettings.dLineArt = DotLine;
-			break;
-		case 3:
-			doc->toolSettings.dLineArt = DashDotLine;
-			break;
-		case 4:
-			doc->toolSettings.dLineArt = DashDotDotLine;
-			break;
-		}
-		doc->toolSettings.dWidth = dia->tabTools->lineWidthShape->value();
-		doc->toolSettings.dStartArrow = dia->tabTools->startArrow->currentItem();
-		doc->toolSettings.dEndArrow = dia->tabTools->endArrow->currentItem();
-		doc->toolSettings.magMin = dia->tabTools->minimumZoom->value();
-		doc->toolSettings.magMax = dia->tabTools->maximumZoom->value();
-		doc->toolSettings.magStep = dia->tabTools->zoomStep->value();
-		doc->toolSettings.dPenLine = dia->tabTools->colorComboLine->currentText();
-		if (doc->toolSettings.dPenLine == tr("None"))
-			doc->toolSettings.dPenLine = "None";
-		doc->toolSettings.dShadeLine = dia->tabTools->shadingLine->value();
-		switch (dia->tabTools->comboStyleLine->currentItem())
-		{
-		case 0:
-			doc->toolSettings.dLstyleLine = SolidLine;
-			break;
-		case 1:
-			doc->toolSettings.dLstyleLine = DashLine;
-			break;
-		case 2:
-			doc->toolSettings.dLstyleLine = DotLine;
-			break;
-		case 3:
-			doc->toolSettings.dLstyleLine = DashDotLine;
-			break;
-		case 4:
-			doc->toolSettings.dLstyleLine = DashDotDotLine;
-			break;
-		}
-		doc->toolSettings.dWidthLine = dia->tabTools->lineWidthLine->value();
-		doc->toolSettings.dBrushPict = dia->tabTools->comboFillImage->currentText();
-		if (doc->toolSettings.dBrushPict == tr("None"))
-			doc->toolSettings.dBrushPict = "None";
-		doc->toolSettings.shadePict = dia->tabTools->shadingFillImage->value();
-		doc->toolSettings.scaleX = static_cast<double>(dia->tabTools->scalingHorizontal->value()) / 100.0;
-		doc->toolSettings.scaleY = static_cast<double>(dia->tabTools->scalingVertical->value()) / 100.0;
-		doc->toolSettings.scaleType = dia->tabTools->buttonGroup3->isChecked();
-		doc->toolSettings.aspectRatio = dia->tabTools->checkRatioImage->isChecked();
-		doc->toolSettings.useEmbeddedPath = dia->tabTools->embeddedPath->isChecked();
-		int haRes = 0;
-		if (dia->tabTools->checkFullRes->isChecked())
-			haRes = 0;
-		if (dia->tabTools->checkNormalRes->isChecked())
-			haRes = 1;
-		if (dia->tabTools->checkHalfRes->isChecked())
-			haRes = 2;
-		if (doc->toolSettings.lowResType != haRes)
-		{
-			doc->toolSettings.lowResType = haRes;
+		slotChangeUnit(dia->getSelectedUnit(), false);
+		dia->updateDocumentSettings();
+		if (dia->imageResolutionChanged())
 			view->RecalcPicturesRes();
-		}
-		dia->tabTools->polyWidget->getValues(&doc->toolSettings.polyC, &doc->toolSettings.polyFd, &doc->toolSettings.polyF, &doc->toolSettings.polyS, &doc->toolSettings.polyR);
-		doc->ScratchBottom = dia->bottomScratch->value() / doc->unitRatio;
-		doc->ScratchLeft = dia->leftScratch->value() / doc->unitRatio;
-		doc->ScratchRight = dia->rightScratch->value() / doc->unitRatio;
-		doc->ScratchTop = dia->topScratch->value() / doc->unitRatio;
-		doc->PageGapHorizontal = dia->gapHorizontal->value() / doc->unitRatio;
-		doc->PageGapVertical = dia->gapVertical->value() / doc->unitRatio;
-		doc->AutoSave = dia->groupAutoSave->isChecked();
-		doc->AutoSaveTime = dia->autoSaveTime->value() * 60 * 1000;
-		if (doc->AutoSave)
-		{
-			doc->autoSaveTimer->stop();
-			doc->autoSaveTimer->start(doc->AutoSaveTime);
-		}
-		doc->docHyphenator->slotNewDict(dia->tabHyphenator->language->currentText());
-		doc->docHyphenator->slotNewSettings(dia->tabHyphenator->wordLen->value(),
-																	!dia->tabHyphenator->verbose->isChecked(),
-																	dia->tabHyphenator->input->isChecked(),
-																	dia->tabHyphenator->maxCount->value());
-		if (CMSavail)
-		{
-			dia->tabColorManagement->setValues();
-			if (dia->tabColorManagement->changed)
-			{
-				mainWindowStatusLabel->setText( tr("Adjusting Colors"));
-				mainWindowProgressBar->reset();
-				int cc = doc->PageColors.count() + view->CountElements();
-				mainWindowProgressBar->setTotalSteps(cc);
-#ifdef HAVE_CMS
-				doc->HasCMS = doc->CMSSettings.CMSinUse;
-				doc->SoftProofing = doc->CMSSettings.SoftProofOn;
-				doc->Gamut = doc->CMSSettings.GamutCheck;
-				CMSuse = doc->CMSSettings.CMSinUse;
-				doc->IntentPrinter = doc->CMSSettings.DefaultIntentPrinter;
-				doc->IntentMonitor = doc->CMSSettings.DefaultIntentMonitor;
-				SoftProofing = doc->CMSSettings.SoftProofOn;
-				Gamut = doc->CMSSettings.GamutCheck;
-				BlackPoint = doc->CMSSettings.BlackPoint;
-				IntentPrinter = doc->CMSSettings.DefaultIntentPrinter;
-				IntentMonitor = doc->CMSSettings.DefaultIntentMonitor;
-				qApp->setOverrideCursor(QCursor(waitCursor), true);
-				doc->CloseCMSProfiles();
-				doc->OpenCMSProfiles(InputProfiles, MonitorProfiles, PrinterProfiles);
-				stdProofG = doc->stdProof;
-				stdTransG = doc->stdTrans;
-				stdProofImgG = doc->stdProofImg;
-				stdTransImgG = doc->stdTransImg;
-				stdProofCMYKG = doc->stdProofCMYK;
-				stdTransCMYKG = doc->stdTransCMYK;
-				stdTransRGBG = doc->stdTransRGB;
-				CMSoutputProf = doc->DocOutputProf;
-				CMSprinterProf = doc->DocPrinterProf;
-				if (static_cast<int>(cmsGetColorSpace(doc->DocInputProf)) == icSigRgbData)
-					doc->CMSSettings.ComponentsInput2 = 3;
-				if (static_cast<int>(cmsGetColorSpace(doc->DocInputProf)) == icSigCmykData)
-					doc->CMSSettings.ComponentsInput2 = 4;
-				if (static_cast<int>(cmsGetColorSpace(doc->DocInputProf)) == icSigCmyData)
-					doc->CMSSettings.ComponentsInput2 = 3;
-				if (static_cast<int>(cmsGetColorSpace(doc->DocPrinterProf)) == icSigRgbData)
-					doc->CMSSettings.ComponentsPrinter = 3;
-				if (static_cast<int>(cmsGetColorSpace(doc->DocPrinterProf)) == icSigCmykData)
-					doc->CMSSettings.ComponentsPrinter = 4;
-				if (static_cast<int>(cmsGetColorSpace(doc->DocPrinterProf)) == icSigCmyData)
-					doc->CMSSettings.ComponentsPrinter = 3;
-				doc->PDF_Options.SComp = doc->CMSSettings.ComponentsInput2;
-				doc->PDF_Options.SolidProf = doc->CMSSettings.DefaultInputProfile2;
-				doc->PDF_Options.ImageProf = doc->CMSSettings.DefaultInputProfile;
-				doc->PDF_Options.PrintProf = doc->CMSSettings.DefaultPrinterProfile;
-				doc->PDF_Options.Intent = doc->CMSSettings.DefaultIntentMonitor;
-				RecalcColors(mainWindowProgressBar);
-				view->RecalcPictures(&InputProfiles, mainWindowProgressBar);
-#endif
-				mainWindowProgressBar->setProgress(cc);
-				qApp->setOverrideCursor(QCursor(arrowCursor), true);
-				mainWindowStatusLabel->setText("");
-				mainWindowProgressBar->reset();
-			}
-		}
-		uint a = 0;
-		SCFontsIterator it(prefsManager->appPrefs.AvailFonts);
-		for ( ; it.current() ; ++it)
-		{
-			it.current()->EmbedPS = dia->tabFonts->fontFlags[it.currentKey()].FlagPS;
-			it.current()->UseFont = dia->tabFonts->fontFlags[it.currentKey()].FlagUse;
-			it.current()->Subset = dia->tabFonts->fontFlags[it.currentKey()].FlagSub;
-		}
-		a = 0;
-		QMap<QString,QString>::Iterator itfsu;
-		prefsManager->appPrefs.GFontSub.clear();
-		for (itfsu = dia->tabFonts->RList.begin(); itfsu != dia->tabFonts->RList.end(); ++itfsu)
-		{
-			prefsManager->appPrefs.GFontSub[itfsu.key()] = dia->tabFonts->FlagsRepl.at(a)->currentText();
-			a++;
-		}
-		QStringList uf = doc->UsedFonts.keys();
-		QMap<QString,QFont>::Iterator it3;
-		for (it3 = doc->UsedFonts.begin(); it3 != doc->UsedFonts.end(); ++it3)
-		{
-			FT_Done_Face(doc->FFonts[it3.key()]);
-		}
-		doc->UsedFonts.clear();
-		QStringList::Iterator it3a;
-		for (it3a = uf.begin(); it3a != uf.end(); ++it3a)
-		{
-			doc->AddFont((*it3a), prefsManager->appPrefs.AvailFonts[(*it3a)]->Font);
-		}
 		FontSub->RebuildList(doc);
 		propertiesPalette->Fonts->RebuildList(doc);
-		doc->PDF_Options.Thumbnails = dia->tabPDF->CheckBox1->isChecked();
-		doc->PDF_Options.Compress = dia->tabPDF->Compression->isChecked();
-		doc->PDF_Options.CompressMethod = dia->tabPDF->CMethod->currentItem();
-		doc->PDF_Options.Quality = dia->tabPDF->CQuality->currentItem();
-		doc->PDF_Options.Resolution = dia->tabPDF->Resolution->value();
-		doc->PDF_Options.RecalcPic = dia->tabPDF->DSColor->isChecked();
-		doc->PDF_Options.PicRes = dia->tabPDF->ValC->value();
-		doc->PDF_Options.Bookmarks = dia->tabPDF->CheckBM->isChecked();
-		doc->PDF_Options.Binding = dia->tabPDF->ComboBind->currentItem();
-		doc->PDF_Options.MirrorH = dia->tabPDF->MirrorH->isOn();
-		doc->PDF_Options.MirrorV = dia->tabPDF->MirrorV->isOn();
-		doc->PDF_Options.RotateDeg = dia->tabPDF->RotateDeg->currentItem() * 90;
-		doc->PDF_Options.Articles = dia->tabPDF->Article->isChecked();
-		doc->PDF_Options.Encrypt = dia->tabPDF->Encry->isChecked();
-		doc->PDF_Options.UseLPI = dia->tabPDF->UseLPI->isChecked();
-		doc->PDF_Options.useLayers = dia->tabPDF->useLayers->isChecked();
-		doc->PDF_Options.BleedBottom = dia->tabPDF->BleedBottom->value() / doc->unitRatio;
-		doc->PDF_Options.BleedTop = dia->tabPDF->BleedTop->value() / doc->unitRatio;
-		doc->PDF_Options.BleedLeft = dia->tabPDF->BleedLeft->value() / doc->unitRatio;
-		doc->PDF_Options.BleedRight = dia->tabPDF->BleedRight->value() / doc->unitRatio;
-		if (dia->tabPDF->Encry->isChecked())
-		{
-			int Perm = -64;
-			if (dia->tabPDF->PDFVersionCombo->currentItem() == 1)
-				Perm &= ~0x00240000;
-			if (dia->tabPDF->PrintSec->isChecked())
-				Perm += 4;
-			if (dia->tabPDF->ModifySec->isChecked())
-				Perm += 8;
-			if (dia->tabPDF->CopySec->isChecked())
-				Perm += 16;
-			if (dia->tabPDF->AddSec->isChecked())
-				Perm += 32;
-			doc->PDF_Options.Permissions = Perm;
-			doc->PDF_Options.PassOwner = dia->tabPDF->PassOwner->text();
-			doc->PDF_Options.PassUser = dia->tabPDF->PassUser->text();
-		}
-		if (dia->tabPDF->PDFVersionCombo->currentItem() == 0)
-			doc->PDF_Options.Version = PDFOptions::PDFVersion_13;
-		if (dia->tabPDF->PDFVersionCombo->currentItem() == 1)
-			doc->PDF_Options.Version = PDFOptions::PDFVersion_14;
-		if (dia->tabPDF->PDFVersionCombo->currentItem() == 2)
-			doc->PDF_Options.Version = PDFOptions::PDFVersion_15;
-		if (dia->tabPDF->PDFVersionCombo->currentItem() == 3)
-			doc->PDF_Options.Version = PDFOptions::PDFVersion_X3;
-		if (dia->tabPDF->OutCombo->currentItem() == 0)
-		{
-			doc->PDF_Options.isGrayscale = false;
-			doc->PDF_Options.UseRGB = true;
-			doc->PDF_Options.UseProfiles = false;
-			doc->PDF_Options.UseProfiles2 = false;
-		}
-		else
-		{
-			if (dia->tabPDF->OutCombo->currentItem() == 3)
-			{
-				doc->PDF_Options.isGrayscale = true;
-				doc->PDF_Options.UseRGB = false;
-				doc->PDF_Options.UseProfiles = false;
-				doc->PDF_Options.UseProfiles2 = false;
-			}
-			else
-			{
-				doc->PDF_Options.isGrayscale = false;
-				doc->PDF_Options.UseRGB = false;
-#ifdef HAVE_CMS
-				if (CMSuse)
-				{
-					doc->PDF_Options.UseProfiles = dia->tabPDF->EmbedProfs->isChecked();
-					doc->PDF_Options.UseProfiles2 = dia->tabPDF->EmbedProfs2->isChecked();
-					doc->PDF_Options.Intent = dia->tabPDF->IntendS->currentItem();
-					doc->PDF_Options.Intent2 = dia->tabPDF->IntendI->currentItem();
-					doc->PDF_Options.EmbeddedI = dia->tabPDF->NoEmbedded->isChecked();
-					doc->PDF_Options.SolidProf = dia->tabPDF->SolidPr->currentText();
-					doc->PDF_Options.ImageProf = dia->tabPDF->ImageP->currentText();
-					doc->PDF_Options.PrintProf = dia->tabPDF->PrintProfC->currentText();
-					}
-#endif
-				}
-		}
-
-		doc->documentInfo = dia->docInfos->getDocInfo();
-		doc->docItemAttributes = *(dia->tabDocItemAttributes->getNewAttributes());
-		doc->docToCSetups = *(dia->tabTOCIndexPrefs->getNewToCs());
-
 		scrActions["viewShowMargins"]->setOn(doc->guidesSettings.marginsShown);
 		scrActions["viewShowFrames"]->setOn(doc->guidesSettings.framesShown);
 		scrActions["viewShowGrid"]->setOn(doc->guidesSettings.gridShown);
@@ -3072,11 +2698,6 @@ bool ScribusApp::SetupDoc()
 		scrActions["viewShowTextChain"]->setOn(doc->guidesSettings.linkShown);
 		scrActions["viewShowTextControls"]->setOn(doc->guidesSettings.showControls);
 		scrActions["viewRulerMode"]->setOn(doc->guidesSettings.rulerMode);
-		for (uint b=0; b<doc->Items.count(); ++b)
-		{
-			if (doc->Items.at(b)->itemType() == PageItem::ImageFrame)
-				doc->Items.at(b)->PicArt = doc->guidesSettings.showPic;
-		}
 		view->reformPages();
 		view->GotoPage(doc->currentPage->PageNr);
 		view->DrawNew();
@@ -3145,7 +2766,7 @@ void ScribusApp::SwitchWin()
 	view->updateLayerMenu();
 	view->setLayerMenuText(doc->activeLayerName());
 	doc->currentParaStyle = 0;
-	slotChangeUnit(doc->docUnitIndex, false);
+	slotChangeUnit(doc->unitIndex(), false);
 	if (doc->EditClip)
 	{
 		doc->EditClip = !doc->EditClip;
@@ -3276,7 +2897,7 @@ void ScribusApp::HaveNewDoc()
 	view->updateLayerMenu();
 	view->setLayerMenuText(doc->activeLayerName());
 	doc->currentParaStyle = 0;
-	slotChangeUnit(doc->docUnitIndex);
+	slotChangeUnit(doc->unitIndex());
 	doc->docHyphenator = new Hyphenator(this, doc, this);
 	buildFontMenu();
 	connect(view, SIGNAL(changeUN(int)), this, SLOT(slotChangeUnit(int)));
@@ -5851,8 +5472,8 @@ void ScribusApp::slotNewPageM()
 		addNewPages(dia->getWherePage(),
 		            dia->getWhere(),
 		            dia->getCount(),
-					dia->heightMSpinBox->value() / doc->unitRatio,
-					dia->widthMSpinBox->value() / doc->unitRatio,
+					dia->heightMSpinBox->value() / doc->unitRatio(),
+					dia->widthMSpinBox->value() / doc->unitRatio(),
 					dia->orientationQComboBox->currentItem(),
 					dia->prefsPageSizeName,
 					dia->moveObjects->isChecked(),
@@ -6984,8 +6605,8 @@ void ScribusApp::changePageMargins()
 		doc->currentPage->initialMargins.Bottom = dia->GroupRand->RandB;
 		doc->currentPage->initialMargins.Left = dia->GroupRand->RandL;
 		doc->currentPage->initialMargins.Right = dia->GroupRand->RandR;
-		doc->currentPage->initialHeight = dia->heightMSpinBox->value() / doc->unitRatio;
-		doc->currentPage->initialWidth = dia->widthMSpinBox->value() / doc->unitRatio;
+		doc->currentPage->initialHeight = dia->heightMSpinBox->value() / doc->unitRatio();
+		doc->currentPage->initialWidth = dia->widthMSpinBox->value() / doc->unitRatio();
 		doc->currentPage->PageOri = dia->orientationQComboBox->currentItem();
 		doc->currentPage->PageSize = dia->prefsPageSizeName;
 		view->reformPages(dia->moveObjects->isChecked());
@@ -7889,7 +7510,7 @@ void ScribusApp::ObjektDupM()
 {
 	slotSelect();
 	NoFrameEdit();
-	Mdup *dia = new Mdup(this, DispX * doc->unitRatio, DispY * doc->unitRatio, doc->docUnitIndex);
+	Mdup *dia = new Mdup(this, DispX * doc->unitRatio(), DispY * doc->unitRatio(), doc->unitIndex());
 	if (dia->exec())
 	{
 		bool savedAlignGrid = doc->useRaster;
@@ -7897,8 +7518,8 @@ void ScribusApp::ObjektDupM()
 		doc->useRaster = false;
 		doc->SnapGuides = false;
 		int anz = dia->Ncopies->value();
-		double dH = dia->ShiftH->value() / doc->unitRatio;
-		double dV = dia->ShiftV->value() / doc->unitRatio;
+		double dH = dia->ShiftH->value() / doc->unitRatio();
+		double dV = dia->ShiftV->value() / doc->unitRatio();
 		double dH2 = dH;
 		double dV2 = dV;
 		int a;
@@ -8415,10 +8036,10 @@ void ScribusApp::doSaveAsPDF()
 							Components = 3;
 						cmsCloseProfile(hIn);
 						doc->PDF_Options.Info = dia->Options->InfoString->text();
-						doc->PDF_Options.BleedTop = dia->Options->BleedTop->value()/doc->unitRatio;
-						doc->PDF_Options.BleedLeft = dia->Options->BleedLeft->value()/doc->unitRatio;
-						doc->PDF_Options.BleedRight = dia->Options->BleedRight->value()/doc->unitRatio;
-						doc->PDF_Options.BleedBottom = dia->Options->BleedBottom->value()/doc->unitRatio;
+						doc->PDF_Options.BleedTop = dia->Options->BleedTop->value()/doc->unitRatio();
+						doc->PDF_Options.BleedLeft = dia->Options->BleedLeft->value()/doc->unitRatio();
+						doc->PDF_Options.BleedRight = dia->Options->BleedRight->value()/doc->unitRatio();
+						doc->PDF_Options.BleedBottom = dia->Options->BleedBottom->value()/doc->unitRatio();
 						doc->PDF_Options.Encrypt = false;
 						doc->PDF_Options.MirrorH = false;
 						doc->PDF_Options.MirrorV = false;
@@ -8591,11 +8212,10 @@ void ScribusApp::slotElemRead(QString Name, int x, int y, bool art, bool loca, S
 	delete ss;
 }
 
-void ScribusApp::slotChangeUnit(int art, bool draw)
+void ScribusApp::slotChangeUnit(int unitIndex, bool draw)
 {
-	doc->docUnitIndex = art;
-	doc->unitRatio = unitGetRatioFromIndex( doc->docUnitIndex );
-	view->unitSwitcher->setText( unitGetStrFromIndex( doc->docUnitIndex) );
+	doc->setUnitIndex(unitIndex);
+	view->unitSwitcher->setText(unitGetStrFromIndex(doc->unitIndex()));
 	propertiesPalette->UnitChange();
 	alignDistributePalette->unitChange();
 	if (draw)
@@ -9973,7 +9593,7 @@ void ScribusApp::EditTabs()
 		if (view->SelItem.count() != 0)
 		{
 			PageItem *currItem = view->SelItem.at(0);
-			TabManager *dia = new TabManager(this, doc->docUnitIndex, currItem->TabValues, currItem->Width);
+			TabManager *dia = new TabManager(this, doc->unitIndex(), currItem->TabValues, currItem->Width);
 			if (dia->exec())
 			{
 				currItem->TabValues = dia->tmpTab;

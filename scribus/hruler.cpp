@@ -411,7 +411,7 @@ void Hruler::paintEvent(QPaintEvent *e)
 	while (firstMark < cc)
 	{
 		p.drawLine(qRound(firstMark * sc), 3, qRound(firstMark * sc), 16);
-		switch (currDoc->docUnitIndex)
+		switch (currDoc->unitIndex())
 		{
 			case 1:
 				tx = QString::number(markC * iter2 / (iter2 / 100) / cor);
@@ -470,7 +470,7 @@ void Hruler::paintEvent(QPaintEvent *e)
 			for (xl = Pos; xl < EndPos; xl += iter2)
 			{
 				p.drawLine(qRound(xl*sc), 3, qRound(xl*sc), 16);
-				switch (currDoc->docUnitIndex)
+				switch (currDoc->unitIndex())
 				{
 					case 2:
 					{
@@ -697,25 +697,26 @@ void Hruler::unitChange()
 {
 	double sc = currView->getScale();
 	cor=1;
-	switch (currDoc->docUnitIndex)
+	int docUnitIndex=currDoc->unitIndex();
+	switch (docUnitIndex)
 	{
 		case 0:
 			if (sc > 1 && sc <= 4)
 				cor = 2;
 			if (sc > 4)
 				cor = 10;
-			iter = unitRulerGetIter1FromIndex(currDoc->docUnitIndex) / cor;
-	  		iter2 = unitRulerGetIter2FromIndex(currDoc->docUnitIndex) / cor;
+			iter = unitRulerGetIter1FromIndex(docUnitIndex) / cor;
+	  		iter2 = unitRulerGetIter2FromIndex(docUnitIndex) / cor;
 			break;
 		case 1:
 			if (sc > 1)
 				cor = 10;
-			iter = unitRulerGetIter1FromIndex(currDoc->docUnitIndex) / cor;
-  			iter2 = unitRulerGetIter2FromIndex(currDoc->docUnitIndex) / cor;
+			iter = unitRulerGetIter1FromIndex(docUnitIndex) / cor;
+  			iter2 = unitRulerGetIter2FromIndex(docUnitIndex) / cor;
 			break;
 		case 2:
-			iter = unitRulerGetIter1FromIndex(currDoc->docUnitIndex);
-			iter2 = unitRulerGetIter2FromIndex(currDoc->docUnitIndex);
+			iter = unitRulerGetIter1FromIndex(docUnitIndex);
+			iter2 = unitRulerGetIter2FromIndex(docUnitIndex);
 			if (sc > 1 && sc <= 4)
 			{
 				cor = 2;
@@ -730,8 +731,8 @@ void Hruler::unitChange()
 			}
 			break;
 		case 3:
-			iter = unitRulerGetIter1FromIndex(currDoc->docUnitIndex);
-			iter2 = unitRulerGetIter2FromIndex(currDoc->docUnitIndex);
+			iter = unitRulerGetIter1FromIndex(docUnitIndex);
+			iter2 = unitRulerGetIter2FromIndex(docUnitIndex);
 			if (sc > 1 && sc <= 4)
 			{
 				cor = 1;
@@ -750,12 +751,12 @@ void Hruler::unitChange()
 				cor = 1;
 			if (sc > 4)
 				cor = 10;
-			iter = unitRulerGetIter1FromIndex(currDoc->docUnitIndex) / cor;
-			iter2 = unitRulerGetIter2FromIndex(currDoc->docUnitIndex) / cor;
+			iter = unitRulerGetIter1FromIndex(docUnitIndex) / cor;
+			iter2 = unitRulerGetIter2FromIndex(docUnitIndex) / cor;
 			break;
 		case 5:
-			iter = unitRulerGetIter1FromIndex(currDoc->docUnitIndex);
-			iter2 = unitRulerGetIter2FromIndex(currDoc->docUnitIndex);
+			iter = unitRulerGetIter1FromIndex(docUnitIndex);
+			iter2 = unitRulerGetIter2FromIndex(docUnitIndex);
 			if (sc > 1 && sc <= 4)
 			{
 				cor = 1;

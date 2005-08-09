@@ -400,7 +400,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 		doc->PageAT=QStoInt(dc.attribute("AUTOTEXT"));
 		doc->PageSp=QStoInt(dc.attribute("AUTOSPALTEN"));
 		doc->PageSpa=QStodouble(dc.attribute("ABSTSPALTEN"));
-		doc->docUnitIndex = QStoInt(dc.attribute("UNITS","0"));
+		doc->setUnitIndex(QStoInt(dc.attribute("UNITS","0")));
 		doc->toolSettings.defSize=qRound(QStodouble(dc.attribute("DSIZE")) * 10);
 		Defont=dc.attribute("DFONT");
 		if ((!avail.find(Defont)) || (!avail[Defont]->UseFont))
@@ -1174,7 +1174,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 			Its->NextBox = 0;
 		}
 	}
-	view->unitSwitcher->setText(unitGetStrFromIndex(doc->docUnitIndex));
+	view->unitSwitcher->setText(unitGetStrFromIndex(doc->unitIndex()));
 	dia2->setProgress(DOC.childNodes().count());
 	return true;
 }
