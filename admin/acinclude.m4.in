@@ -1443,7 +1443,7 @@ ac_qt_includes="$qt_incdir"
 
 qt_libdirs=""
 for dir in $kde_qt_dirs; do
-   qt_libdirs="$qt_libdirs $dir/lib${kdelibsuff} $dir"
+   qt_libdirs="$qt_libdirs $dir/lib${kdelibsuff} $dir $dir/lib"
 done
 qt_libdirs="$QTLIB $qt_libdirs /usr/X11R6/lib /usr/lib /usr/local/qt/lib $x_libraries"
 if test ! "$ac_qt_libraries" = "NO"; then
@@ -4067,6 +4067,7 @@ fi
 
 AC_DEFUN([KDE_CHECK_PYTHON_DIR],
 [
+AC_REQUIRE([KDE_CHECK_LIB64])
 AC_MSG_CHECKING([for Python directory])
  
 AC_CACHE_VAL(kde_cv_pythondir,
