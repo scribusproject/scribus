@@ -17,3 +17,5 @@ subdirs
 cvs-log
 cvsstat.pl
 cvsstat.conf
+scribus.kdevses
+
