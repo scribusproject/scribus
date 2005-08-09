@@ -2680,6 +2680,10 @@ void ScribusApp::windowsMenuActivated( int id )
 bool ScribusApp::SetupDoc()
 {
 	bool ret = false;
+	if (doc->masterPageMode)
+		doc->MasterItems = doc->Items;
+	else
+		doc->DocItems = doc->Items;
 	ReformDoc* dia = new ReformDoc(this, doc);
 	if (dia->exec())
 	{
