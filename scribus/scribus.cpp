@@ -8215,7 +8215,7 @@ void ScribusApp::slotElemRead(QString Name, int x, int y, bool art, bool loca, S
 void ScribusApp::slotChangeUnit(int unitIndex, bool draw)
 {
 	doc->setUnitIndex(unitIndex);
-	view->unitSwitcher->setText(unitGetStrFromIndex(doc->unitIndex()));
+	view->unitSwitcher->setCurrentText(unitGetStrFromIndex(doc->unitIndex()));
 	propertiesPalette->UnitChange();
 	alignDistributePalette->unitChange();
 	if (draw)

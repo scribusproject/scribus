@@ -27,7 +27,7 @@
 #include <qpushbutton.h>
 #include <qpopupmenu.h>
 #include <qlabel.h>
-#include <qtoolbutton.h>
+#include <qcombobox.h>
 #include <qprogressdialog.h>
 #include <qspinbox.h>
 // application specific includes
@@ -63,8 +63,8 @@ public:
 	Vruler *vertRuler;
 	QPushButton *zoomOutToolbarButton;
 	QPushButton *zoomInToolbarButton;
-	QToolButton *LY;
-	QToolButton *unitSwitcher;
+	QComboBox *LY;
+	QComboBox *unitSwitcher;
   /** Dokument zu dem die Seite gehoert */
 	ScribusDoc *Doc;
 	ApplicationPrefs *Prefs;
@@ -325,8 +325,6 @@ public slots: // Public slots
 	void changePreview(int id);
 
 private: // Private attributes
-	QPopupMenu *Unitmen;
-	QPopupMenu *Laymen;
 	QPopupMenu *pmen3;
 	QPopupMenu *pmenResolution;
 	bool Ready;

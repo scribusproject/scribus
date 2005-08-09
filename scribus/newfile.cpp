@@ -294,6 +294,12 @@ void NewDoc::createOpenDocPage()
 	QPoint point = QPoint(0,0);
 	fileDialog->reparent(openDocFrame, point);
 	openDocLayout->addWidget(fileDialog);
+	connect(fileDialog, SIGNAL(fileSelected ( const QString & )), this, SLOT(openFile(const QString& )));
+}
+
+void NewDoc::openFile(const QString &)
+{
+	ExitOK();
 }
 
 void NewDoc::createRecentDocPage()

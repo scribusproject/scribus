@@ -98,17 +98,17 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc) : QScrollView(parent,
 	QFont fo = QFont(font());
 	int posi = fo.pointSize()-2;
 	fo.setPointSize(posi);
-	Unitmen = new QPopupMenu(this);
-	unitSwitcher = new QToolButton(this);
-	unitSwitcher->setPopup(Unitmen);
+	unitSwitcher = new QComboBox( true, this, "unitSwitcher" );
+	unitSwitcher->setEditable(false);
 	unitSwitcher->setFocusPolicy(QWidget::NoFocus);
-	unitSwitcher->setPopupDelay(0);
 	unitSwitcher->setFont(fo);
-	unitSwitcher->setMinimumSize(42,10);
+	for (int i=0;i<=unitGetMaxIndex();++i)
+		unitSwitcher->insertItem(unitGetStrFromIndex(i));
 	LE = new MSpinBox( 10, 3200, this, 2 );
 	LE->setFont(fo);
 	LE->setValue( 100 );
 	LE->setFocusPolicy(QWidget::ClickFocus);
+	LE->setSuffix( tr( " %" ) );
 	zoomOutToolbarButton = new QPushButton(this);
 	zoomOutToolbarButton->setPixmap(loadIcon("Klein.xpm"));
 	zoomOutToolbarButton->setFocusPolicy(QWidget::NoFocus);
@@ -118,12 +118,9 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc) : QScrollView(parent,
 	PGS = new PageSelector(this, 1);
 	PGS->setFont(fo);
 	PGS->setFocusPolicy(QWidget::ClickFocus);
-	Laymen = new QPopupMenu(this);
-	Laymen->setFont(fo);
-	LY = new QToolButton(this);
-	LY->setPopupDelay(0);
+	LY = new QComboBox( true, this, "LY" );
+	LY->setEditable(false);
 	LY->setFont(fo);
-	LY->setPopup(Laymen);
 	LY->setFocusPolicy(QWidget::NoFocus);
 	horizRuler = new Hruler(this, Doc);
 	vertRuler = new Vruler(this, Doc);
@@ -168,29 +165,31 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc) : QScrollView(parent,
 	_itemCreationTransactionStarted = false;
 	_isGlobalMode = true;
 	undoManager = UndoManager::instance();
-	languageChange();
+//	languageChange();
 	connect(zoomOutToolbarButton, SIGNAL(clicked()), this, SLOT(slotZoomOut()));
 	connect(zoomInToolbarButton, SIGNAL(clicked()), this, SLOT(slotZoomIn()));
 	connect(LE, SIGNAL(valueChanged(int)), this, SLOT(Zval()));
 	connect(PGS, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
-	connect(Laymen, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
-	connect(Unitmen, SIGNAL(activated(int)), this, SLOT(ChgUnit(int)));
+	connect(LY, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
+	connect(unitSwitcher, SIGNAL(activated(int)), this, SLOT(ChgUnit(int)));
 	connect(this, SIGNAL(contentsMoving(int, int)), this, SLOT(setRulerPos(int, int)));
 	connect(this, SIGNAL(HaveSel(int)), this, SLOT(selectionChanged()));
 	evSpon = false;
-//	setCornerWidget(new QSizeGrip(this));
 }
 
 void ScribusView::languageChange()
 {
+	disconnect(LY, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
+	disconnect(unitSwitcher, SIGNAL(activated(int)), this, SLOT(ChgUnit(int)));
 	LE->setSuffix( tr( " %" ) );
-	LY->setText( tr("Layer")+" 0");
+	LY->setCurrentText( tr("Layer")+" 0");
 	//CB TODO Convert to actions later
-	unitSwitcher->setText(unitGetStrFromIndex(Doc->unitIndex()));
-	Unitmen->clear();
+	unitSwitcher->clear();
 	for (int i=0;i<=unitGetMaxIndex();++i)
-		Unitmen->insertItem(unitGetStrFromIndex(i));
-	Unitmen->setItemChecked(Unitmen->idAt(Doc->unitIndex()), true);
+		unitSwitcher->insertItem(unitGetStrFromIndex(i));
+	unitSwitcher->setCurrentText(unitGetStrFromIndex(Doc->unitIndex()));
+	connect(LY, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
+	connect(unitSwitcher, SIGNAL(activated(int)), this, SLOT(ChgUnit(int)));
 
 }
 
@@ -1276,6 +1275,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			MoveGY = false;
 			qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 			updateContents();
+			GyM = -1;
 			return;
 		}
 		if (MoveGX)
@@ -1284,6 +1284,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			MoveGX = false;
 			qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 			updateContents();
+			GxM = -1;
 			return;
 		}
 	}
@@ -1563,8 +1564,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		ScApp->scrActions["viewShowTextChain"]->addTo(pmen);
 		ScApp->scrActions["viewRulerMode"]->addTo(pmen);
 		pmen->insertSeparator();
-		pmen->insertItem( tr("Unit"), Unitmen);
-		pmen->insertSeparator();
+//		pmen->insertItem( tr("Unit"), unitSwitcher);
+//		pmen->insertSeparator();
 		ScApp->scrActions["viewSnapToGrid"]->addTo(pmen);
 		ScApp->scrActions["viewSnapToGuides"]->addTo(pmen);
 		pmen->insertSeparator();
@@ -8901,37 +8902,32 @@ void ScribusView::SetCPo(int x, int y)
 
 void ScribusView::updateLayerMenu()
 {
-	disconnect(Laymen, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
-	Laymen->clear();
+	disconnect(LY, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
+	LY->clear();
 	QStringList newNames;
 	Doc->orderedLayerList(&newNames);
-
 	for (QStringList::Iterator it=newNames.begin(); it!=newNames.end(); ++it)
-        Laymen->insertItem(*it);
-
-	Laymen->setItemChecked(Laymen->idAt(Laymen->count()-1-Doc->layerLevelFromNumber(Doc->activeLayer())), true);
-	connect(Laymen, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
+        LY->insertItem(*it);
+	connect(LY, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
 }
 
 void ScribusView::setLayerMenuText(const QString &layerName)
 {
-	disconnect(Laymen, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
-	LY->setText(layerName);
-	connect(Laymen, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
+	disconnect(LY, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
+	if (LY->count() != 0)
+		LY->setCurrentText(layerName);
+	connect(LY, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
 }
 
 void ScribusView::GotoLa(int l)
 {
-	int level = Doc->layerCount()-Laymen->indexOf(l)-1;
+	int level = Doc->layerCount()-l-1;
 	int layerNumber=Doc->layerNumberFromLevel(level);
 	if (layerNumber==-1)
 		return;
 	Doc->setActiveLayer(layerNumber);
 	setLayerMenuText(Doc->activeLayerName());
 	emit changeLA(layerNumber);
-	for (uint al = 0; al < Laymen->count(); ++al)
-		Laymen->setItemChecked(Laymen->idAt(al), false);
-	Laymen->setItemChecked(l, true);
 }
 
 void ScribusView::GotoPa(int Seite)
@@ -8942,14 +8938,8 @@ void ScribusView::GotoPa(int Seite)
 
 void ScribusView::ChgUnit(int art)
 {
-	int d = Unitmen->indexOf(art);
-	emit changeUN(d);
+	emit changeUN(art);
 	unitChange();
-	for (uint al = 0; al < Unitmen->count(); ++al)
-	{
-		Unitmen->setItemChecked(Unitmen->idAt(al), false);
-	}
-	Unitmen->setItemChecked(art, true);
 	vertRuler->repaint();
 	horizRuler->repaint();
 }

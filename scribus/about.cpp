@@ -46,7 +46,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	tabLayout1->addWidget( pixmapLabel1 );
 	buildID = new QLabel( tab, "BB" );
 	buildID->setAlignment(Qt::AlignCenter);
-	QString bu = tr("%1 %2 %3 ").arg("8").arg("August").arg("2005 ");
+	QString bu = tr("%1 %2 %3 ").arg("9").arg("August").arg("2005 ");
 #ifdef HAVE_CMS
 	bu += "C";
 #else
@@ -109,7 +109,6 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td>Johannes Rüschel</td><td>jo.rueschel@gmx.de</td></tr>" +
 											"<tr><td>Jean-Jacques Sarton</td><td>jj.sarton@t-online.de</td></tr>" +
 											"<tr><td>Christian Töpp</td><td>mr-ct@gmx.de</td></tr>" +
-											"<tr><td>Andreas Vox</td><td>avox@arcor.de</td></tr>" +
 											"<tr><td></td><td></td></tr>" +
 
 											"<tr><td><b>" + tr("Mac OSX Aqua Port:").utf8()  + "</b></td><td> </td></tr>" +

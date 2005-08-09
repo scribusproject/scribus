@@ -94,6 +94,7 @@ public slots:
 	\author Petr Vanek <petr@yarpen.cz
 	*/
 	void recentDocList_doubleClicked(QListBoxItem * item);
+	void openFile(const QString &);
 
 protected:
 	QVBoxLayout* TabbedNewDocLayout;

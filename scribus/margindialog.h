@@ -35,6 +35,7 @@ public:
 	double unitRatio;
 	double pageWidth;
 	double pageHeight;
+	int oldOri;
 	QString prefsPageSizeName;
 
 public slots:

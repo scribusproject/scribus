@@ -58,6 +58,7 @@ MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent
 	orientationQComboBox->insertItem( tr( "Landscape" ) );
 	orientationQComboBox->setEditable(false);
 	orientationQComboBox->setCurrentItem(doc->currentPage->PageOri );
+	oldOri = doc->currentPage->PageOri;
 	TextLabel2->setBuddy(orientationQComboBox);
 	dsGroupBox7Layout->addMultiCellWidget( orientationQComboBox, 1, 1, 2, 3 );
 	widthMSpinBox = new MSpinBox( 1, 100000, dsGroupBox7, unitGetDecimalsFromIndex(doc->unitIndex()) );
@@ -175,21 +176,22 @@ void MarginDialog::setOrien(int ori)
 	setSize(sizeQComboBox->currentText());
 	disconnect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	disconnect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
-	if (ori == 0)
+	if ((sizeQComboBox->currentText() == tr("Custom")) && (ori != oldOri))
 	{
-		if (sizeQComboBox->currentText() == tr("Custom"))
+		br = widthMSpinBox->value();
+		widthMSpinBox->setValue(heightMSpinBox->value());
+		heightMSpinBox->setValue(br);
+	}
+	else
+	{
+		if (ori != 0)
 		{
 			br = widthMSpinBox->value();
 			widthMSpinBox->setValue(heightMSpinBox->value());
 			heightMSpinBox->setValue(br);
 		}
 	}
-	else
-	{
-		br = widthMSpinBox->value();
-		widthMSpinBox->setValue(heightMSpinBox->value());
-		heightMSpinBox->setValue(br);
-	}
+	oldOri = ori;
 	pageWidth = widthMSpinBox->value() / unitRatio;
 	pageHeight = heightMSpinBox->value() / unitRatio;
 	connect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
