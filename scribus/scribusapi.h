@@ -34,7 +34,13 @@
         #endif
     #endif
 #else
-    #define SCRIBUS_API
+    #ifdef HAVE_GCC_SYMBOL_VISIBILITY
+        #define SCRIBUS_API __attribute__ ((visibility("default")))
+        #define SCRIBUS_LOCAL __attribute__ ((visibility("hidden")))
+    #else
+        #define SCRIBUS_API
+        #define SCRIBUS_LOCAL
+    #endif
 #endif
 
 #endif
