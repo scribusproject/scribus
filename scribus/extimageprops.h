@@ -16,10 +16,12 @@ class QListBox;
 class QListBoxItem;
 class QCheckBox;
 class QPushButton;
+
+#include "scribusapi.h"
 #include "scribus.h"
 #include "scimage.h"
 
-class ExtImageProps : public QDialog
+class SCRIBUS_API ExtImageProps : public QDialog
 {
 	Q_OBJECT
 

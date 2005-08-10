@@ -2,8 +2,10 @@
 #define SCPATHS_H
 
 #include "qstring.h"
+#include "qstringlist.h"
+#include "scribusapi.h"
 
-class ScPaths
+class SCRIBUS_API ScPaths
 {
 public:
 	/**

@@ -22,6 +22,7 @@
 #define GTPARAGRAPHSTYLE_H
 
 #include <qvaluelist.h>
+#include "scribusapi.h"
 #include "gtstyle.h"
 #include "pageitem.h"
 
@@ -42,7 +43,7 @@ enum TabType {
 	CENTER_T
 };
 
-class gtParagraphStyle : public gtStyle
+class SCRIBUS_API gtParagraphStyle : public gtStyle
 {
 private:
 	void init();

@@ -10,13 +10,14 @@
 #include <qcheckbox.h>
 #include <qspinbox.h>
 
+#include "scribusapi.h"
 #include "scrpalettebase.h"
 #include "mspinbox.h"
 
 class ScribusDoc;
 class ScribusView;
 
-class NodePalette : public ScrPaletteBase
+class SCRIBUS_API NodePalette : public ScrPaletteBase
 {
 	Q_OBJECT
 

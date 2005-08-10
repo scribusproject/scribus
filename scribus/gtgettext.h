@@ -31,6 +31,7 @@
 #include <qstringlist.h>
 
 #include "scconfig.h"
+#include "scribusapi.h"
 #include "gtdialogs.h"
 #include "gtwriter.h"
 #include "scfonts.h"
@@ -45,7 +46,7 @@ struct ImporterData {
 /*
 	GetText handles the open file dialog and importer plugins loading and launching.
 */
-class gtGetText
+class SCRIBUS_API gtGetText
 {
 private:
 	std::vector<ImporterData> importers;

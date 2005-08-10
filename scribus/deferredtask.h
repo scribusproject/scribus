@@ -3,6 +3,7 @@
 
 #include "qobject.h"
 #include "qstring.h"
+#include "scribusapi.h"
 
 class QTimer;
 
@@ -27,7 +28,7 @@ class QTimer;
 // is deleted (and it hasn't yet been deleted). Otherwise, delete it when
 // you're done with it. You should not delete it without cancelling it first.
 //
-class DeferredTask : public QObject
+class SCRIBUS_API DeferredTask : public QObject
 {
 	Q_OBJECT
 

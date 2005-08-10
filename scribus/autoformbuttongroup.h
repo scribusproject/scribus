@@ -4,12 +4,13 @@
 #include <qwidget.h>
 #include <qbuttongroup.h>
 #include <qtoolbutton.h>
+#include "scribusapi.h"
 class QGridLayout;
 class QPopupMenu;
 class QPixmap;
 
 
-class AutoformButtonGroup : public QButtonGroup
+class SCRIBUS_API AutoformButtonGroup : public QButtonGroup
 {
     Q_OBJECT
 

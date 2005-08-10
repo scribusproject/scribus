@@ -21,13 +21,14 @@
 #include <qmemarray.h>
 #include <qwmatrix.h>
 #include <qpoint.h>
+#include "scribusapi.h"
 #include "fpoint.h"
 
 /**
   *@author Franz Schmid
   */
 
-class FPointArray : private QMemArray<FPoint>
+class SCRIBUS_API FPointArray : private QMemArray<FPoint>
 {
 public: 
 	FPointArray() : count(0), capacity(0) {};

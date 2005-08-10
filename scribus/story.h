@@ -34,6 +34,8 @@
 #include <qlayout.h>
 #include <qsplitter.h>
 #include <qcheckbox.h>
+
+#include "scribusapi.h"
 #include "pageitem.h"
 #include "mspinbox.h"
 #include "spalette.h"
@@ -67,7 +69,7 @@ struct PtiSmall {
 			PageItem* cembedded;
 		   };
 
-class SEditor : public QTextEdit
+class SCRIBUS_API SEditor : public QTextEdit
 {
 	Q_OBJECT
 
@@ -147,7 +149,7 @@ signals:
 	void PasteAvail();
 };
 
-class SideBar : public QLabel
+class SCRIBUS_API SideBar : public QLabel
 {
 	Q_OBJECT
 
@@ -179,7 +181,7 @@ public slots:
 	void editStyles();
 };
 
-class SToolBColorF : public QToolBar
+class SCRIBUS_API SToolBColorF : public QToolBar
 {
 	Q_OBJECT
 
@@ -201,7 +203,7 @@ signals:
 	void NewColor(int, int);
 };
 
-class SToolBColorS : public QToolBar
+class SCRIBUS_API SToolBColorS : public QToolBar
 {
 	Q_OBJECT
 
@@ -223,7 +225,7 @@ signals:
 	void NewColor(int, int);
 };
 
-class SToolBStyle : public QToolBar
+class SCRIBUS_API SToolBStyle : public QToolBar
 {
 	Q_OBJECT
 
@@ -257,7 +259,7 @@ signals:
 	void newStyle(int);
 };
 
-class SToolBAlign : public QToolBar
+class SCRIBUS_API SToolBAlign : public QToolBar
 {
 	Q_OBJECT
 
@@ -277,7 +279,7 @@ signals:
 	void newStyle(int);
 };
 
-class SToolBFont : public QToolBar
+class SCRIBUS_API SToolBFont : public QToolBar
 {
 	Q_OBJECT
 
@@ -306,7 +308,7 @@ signals:
 	void NewScaleV(int);
 };
 
-class StoryEditor : public QMainWindow
+class SCRIBUS_API StoryEditor : public QMainWindow
 {
 	Q_OBJECT
 

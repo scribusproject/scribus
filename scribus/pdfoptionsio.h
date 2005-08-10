@@ -1,6 +1,7 @@
 #ifndef PDFOPTIONSIO_H
 #define PDFOPTIONSIO_H
 
+#include "scribusapi.h"
 #include "pdfoptions.h"
 #include "qdom.h"
 
@@ -36,7 +37,7 @@
  *
  * @sa PDFOptions
  */
-class PDFOptionsIO
+class SCRIBUS_API PDFOptionsIO
 {
 public:
 	/**

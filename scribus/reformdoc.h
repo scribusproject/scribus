@@ -13,6 +13,7 @@
 #include <qtoolbutton.h>
 #include <qcolor.h>
 
+#include "scribusapi.h"
 #include "scribusstructs.h"
 #include "prefsdialogbase.h"
 
@@ -34,7 +35,7 @@ class TOCIndexPrefs;
 class MarginWidget;
 class PageLayouts;
 
-class ReformDoc : public PrefsDialogBase
+class SCRIBUS_API ReformDoc : public PrefsDialogBase
 {
 	Q_OBJECT
 

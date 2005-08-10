@@ -4,13 +4,15 @@
 #include <qlayout.h>
 #include <qgroupbox.h>
 #include <qlabel.h>
+
+#include "scribusapi.h"
 #include "scribusstructs.h"
 class MSpinBox;
 
 /*! Widget for Margins setting.
 Used e.g. in "New Doc Dialog" or "Preferences".
 */
-class MarginWidget : public QGroupBox
+class SCRIBUS_API MarginWidget : public QGroupBox
 {
 	Q_OBJECT
 

@@ -24,12 +24,14 @@
 #include <string>
 #include <qmap.h>
 #include <qstring.h>
+
+#include "scribusapi.h"
 #include "prefstable.h"
 
 typedef QMap<QString, QString> AttributeMap;
 typedef QMap<QString, PrefsTable*> TableMap;
 
-class PrefsContext
+class SCRIBUS_API PrefsContext
 {
 private:
 	QString name;

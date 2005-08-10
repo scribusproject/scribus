@@ -24,6 +24,7 @@
 #include <vector>
 
 #include <qstring.h>
+#include "scribusapi.h"
 
 enum FontEffect {
 	NORMAL,
@@ -81,7 +82,7 @@ enum FontWidth {
 	Font will do the font search in Scribus and in case a font
 	cannot be found it will launch the font substitution dialog.
 */
-class gtFont
+class SCRIBUS_API gtFont
 {
 private:
 	QString name;

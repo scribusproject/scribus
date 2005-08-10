@@ -15,6 +15,8 @@
 #include <qtabwidget.h>
 #include <qframe.h>
 #include <qlistbox.h>
+
+#include "scribusapi.h"
 #include "mspinbox.h"
 #include "customfdialog.h"
 
@@ -24,7 +26,7 @@ class PrefsManager;
 class MarginWidget;
 class PageLayouts;
 
-class NewDoc : public QDialog
+class SCRIBUS_API NewDoc : public QDialog
 {
 	Q_OBJECT
 

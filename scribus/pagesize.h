@@ -19,6 +19,7 @@
 #include <qmap.h>
 #include <qpair.h>
 #include <qstring.h>
+#include "scribusapi.h"
 
 struct PageSizeInfo
 {
@@ -30,7 +31,7 @@ struct PageSizeInfo
 
 typedef QMap<QString, PageSizeInfo > PageSizeInfoMap;
 
-class PageSize
+class SCRIBUS_API PageSize
 {
 public:
 	PageSize(const QString);

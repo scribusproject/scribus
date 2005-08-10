@@ -1,6 +1,8 @@
 #ifndef MARGINDIALOG_H
 #define MARGINDIALOG_H
 
+#include "scribusapi.h"
+
 class QDialog;
 class QLayout;
 class QGroupBox;
@@ -12,7 +14,7 @@ class MSpinBox;
 class MarginWidget;
 class ScribusDoc;
 
-class MarginDialog : public QDialog
+class SCRIBUS_API MarginDialog : public QDialog
 {
 	Q_OBJECT
 

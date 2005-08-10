@@ -9,6 +9,8 @@
 #ifndef INSPAGE_H
 #define INSPAGE_H
 
+#include "scribusapi.h"
+
 class QDialog;
 class QComboBox;
 class QLayout;
@@ -20,7 +22,7 @@ class QCheckBox;
 class MSpinBox;
 class ScribusDoc;
 
-class InsPage : public QDialog
+class SCRIBUS_API InsPage : public QDialog
 {
 	Q_OBJECT
 

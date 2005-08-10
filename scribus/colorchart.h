@@ -20,12 +20,13 @@
 
 #include <qlabel.h>
 #include <qpixmap.h>
+#include "scribusapi.h"
 
 /**
   *@author Franz Schmid
   */
 
-class ColorChart : public QLabel  {
+class SCRIBUS_API ColorChart : public QLabel  {
 
 Q_OBJECT
 

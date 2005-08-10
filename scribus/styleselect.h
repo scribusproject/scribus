@@ -8,7 +8,9 @@ class MSpinBox;
 class QLabel;
 class QPopupMenu;
 
-class StrikeValues : public QGroupBox
+#include "scribusapi.h"
+
+class SCRIBUS_API StrikeValues : public QGroupBox
 {
     Q_OBJECT
 
@@ -27,7 +29,7 @@ protected:
 	QGridLayout* group1Layout;
 };
 
-class UnderlineValues : public QGroupBox
+class SCRIBUS_API UnderlineValues : public QGroupBox
 {
     Q_OBJECT
 
@@ -46,7 +48,7 @@ protected:
 	QGridLayout* group1Layout;
 };
 
-class OutlineValues : public QGroupBox
+class SCRIBUS_API OutlineValues : public QGroupBox
 {
     Q_OBJECT
 
@@ -63,7 +65,7 @@ protected:
 	QGridLayout* group1Layout;
 };
 
-class ShadowValues : public QGroupBox
+class SCRIBUS_API ShadowValues : public QGroupBox
 {
     Q_OBJECT
 
@@ -82,7 +84,7 @@ protected:
 	QGridLayout* group1Layout;
 };
 
-class StyleSelect : public QWidget
+class SCRIBUS_API StyleSelect : public QWidget
 {
 
 	Q_OBJECT

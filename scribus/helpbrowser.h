@@ -27,6 +27,8 @@
 #include <qdialog.h>
 #include <qstring.h>
 
+#include "scribusapi.h"
+
 class QVBoxLayout;
 class QHBoxLayout;
 class QGridLayout;
@@ -53,7 +55,7 @@ struct histd {
 
 
 /*! \brief This is the Help dialog for Scribus. */
-class HelpBrowser : public QWidget
+class SCRIBUS_API HelpBrowser : public QWidget
 {
 	Q_OBJECT
 

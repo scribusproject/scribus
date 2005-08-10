@@ -26,6 +26,8 @@
 #include <qobject.h>
 #include <qpixmap.h>
 #include <qstring.h>
+
+#include "scribusapi.h"
 #include "undostate.h"
 #include "undoobject.h"
 
@@ -54,7 +56,7 @@ typedef QMap<QString, StackPair> StackMap;
  * @author Riku Leino tsoots@gmail.com
  * @date December 2004
  */
-class UndoManager : public QObject
+class SCRIBUS_API UndoManager : public QObject
 {
 	Q_OBJECT
 

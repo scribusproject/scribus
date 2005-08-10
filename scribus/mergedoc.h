@@ -2,6 +2,7 @@
 #define MERGEDOC_H
 
 #include <qdialog.h>
+#include "scribusapi.h"
 class QPushButton;
 class QLabel;
 class QLineEdit;
@@ -17,7 +18,7 @@ class QHBoxLayout;
 class QGridLayout;
 
 
-class MergeDoc : public QDialog
+class SCRIBUS_API MergeDoc : public QDialog
 {
 	Q_OBJECT
 

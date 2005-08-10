@@ -6,6 +6,7 @@
 #include <qvaluelist.h>
 #include <qcheckbox.h>
 
+#include "scribusapi.h"
 #include "scrpalettebase.h"
 
 class QPushButton;
@@ -15,7 +16,7 @@ class QPixmap;
 class QHeader;
 
 
-class LayerTable : public QTable
+class SCRIBUS_API LayerTable : public QTable
 {
 	Q_OBJECT
 
@@ -30,7 +31,7 @@ signals:
 	void updtName(int);
 };
 
-class LayerPalette : public ScrPaletteBase
+class SCRIBUS_API LayerPalette : public ScrPaletteBase
 {
 	Q_OBJECT
 

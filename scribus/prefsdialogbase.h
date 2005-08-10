@@ -8,6 +8,8 @@
 #include <qwidgetstack.h>
 #include <qwidget.h>
 
+#include "scribusapi.h"
+
 class QVBoxLayout;
 class QHBoxLayout;
 class QGridLayout;
@@ -15,7 +17,7 @@ class QSpacerItem;
 class QPushButton;
 class QLabel;
 
-class PrefsDialogBase : public QDialog
+class SCRIBUS_API PrefsDialogBase : public QDialog
 {
 	Q_OBJECT
 

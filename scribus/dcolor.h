@@ -15,7 +15,9 @@ class QLabel;
 class QPushbutton;
 class QCombobox;
 
-class DelColor : public QDialog
+#include "scribusapi.h"
+
+class SCRIBUS_API DelColor : public QDialog
 { 
     Q_OBJECT
 

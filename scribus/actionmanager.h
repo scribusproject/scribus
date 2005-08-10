@@ -21,6 +21,7 @@
 #include <qguardedptr.h>
 #include <qdict.h>
 
+#include "scribusapi.h"
 #include "scraction.h"
 
 class ScribusApp;
@@ -30,7 +31,7 @@ class UndoManager;
 /**
 @author Craig Bradney
 */
-class ActionManager : public QObject
+class SCRIBUS_API ActionManager : public QObject
 {
 	Q_OBJECT
 

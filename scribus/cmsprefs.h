@@ -8,9 +8,10 @@
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qtooltip.h>
+#include "scribusapi.h"
 #include "scribusstructs.h"
 
-class CMSPrefs : public QWidget
+class SCRIBUS_API CMSPrefs : public QWidget
 {
 	Q_OBJECT
 

@@ -22,10 +22,12 @@
 #include <qdragobject.h>
 #include <qevent.h>
 #include <qsplitter.h>
+
+#include "scribusapi.h"
 #include "scrpalettebase.h"
 #include "scribusview.h"
 
-class SeDrag : public QStoredDrag
+class SCRIBUS_API SeDrag : public QStoredDrag
 {
 public:
     SeDrag( QString s, QWidget * parent = 0, const char * name = 0 );
@@ -35,7 +37,7 @@ public:
     static bool decode( QDropEvent* e, QString& s );
 };
 
-class SeItem : public QTableItem
+class SCRIBUS_API SeItem : public QTableItem
 {
 public:
 	SeItem(QTable* parent, QString text, QPixmap Pix, bool ss);
@@ -44,7 +46,7 @@ public:
 	bool Side;
 };
 
-class SeList : public QListBox
+class SCRIBUS_API SeList : public QListBox
 {
     Q_OBJECT
 
@@ -68,7 +70,7 @@ protected:
 	void mouseMoveEvent(QMouseEvent* e);
 };
 
-class SeView : public QTable
+class SCRIBUS_API SeView : public QTable
 {
     Q_OBJECT
 
@@ -104,7 +106,7 @@ protected:
 	virtual void contentsMouseMoveEvent(QMouseEvent* e);
 };
 
-class TrashBin : public QLabel
+class SCRIBUS_API TrashBin : public QLabel
 {
     Q_OBJECT
 
@@ -122,7 +124,7 @@ signals:
 	void DelMaster(QString);
 };
 
-class SeitenPal : public ScrPaletteBase
+class SCRIBUS_API SeitenPal : public ScrPaletteBase
 { 
     Q_OBJECT
 

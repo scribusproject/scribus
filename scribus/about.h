@@ -9,7 +9,9 @@
 #include <qpushbutton.h>
 #include <qlayout.h>
 
-class About : public QDialog
+#include "scribusapi.h"
+
+class SCRIBUS_API About : public QDialog
 { 
     	Q_OBJECT
 

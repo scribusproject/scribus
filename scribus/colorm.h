@@ -18,10 +18,12 @@
 #include <qlabel.h>
 #include <qpopupmenu.h>
 #include <qcolor.h>
+
+#include "scribusapi.h"
 #include "scribusstructs.h"
 #include "query.h"
 
-class Farbmanager : public QDialog
+class SCRIBUS_API Farbmanager : public QDialog
 { 
 	Q_OBJECT
 

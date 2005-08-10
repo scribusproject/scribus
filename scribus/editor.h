@@ -8,10 +8,12 @@
 #include <qtooltip.h>
 #include <qpopupmenu.h>
 #include <qmenubar.h>
+
+#include "scribusapi.h"
 #include "scribusview.h"
 #include "prefscontext.h"
 
-class Editor : public QDialog
+class SCRIBUS_API Editor : public QDialog
 { 
     Q_OBJECT
 

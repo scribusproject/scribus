@@ -18,9 +18,10 @@
 #include <qapplication.h>
 #include <qstring.h>
 
+#include "scribusapi.h"
 class ScribusApp;
 
-class ScribusQApp : public QApplication
+class SCRIBUS_API ScribusQApp : public QApplication
 {
 	Q_OBJECT
 

@@ -19,12 +19,13 @@
 #define LINKBUTTON_H
 
 #include <qtoolbutton.h>
+#include "scribusapi.h"
 
 /**
   *@author Franz Schmid
   */
 
-class LinkButton : public QToolButton  
+class SCRIBUS_API LinkButton : public QToolButton  
 {
 public: 
 	LinkButton(QWidget *pa);

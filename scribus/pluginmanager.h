@@ -4,6 +4,8 @@
 #include <qobject.h>
 #include <qstring.h>
 #include <qmap.h>
+
+#include "scribusapi.h"
 #include "scribus.h"
 
 /**
@@ -16,7 +18,7 @@
  *
  */
 
-class PluginManager : public QObject
+class SCRIBUS_API PluginManager : public QObject
 {
 
 	Q_OBJECT

@@ -2,6 +2,7 @@
 #define CHARSELECT_H
 
 #include <qdialog.h>
+#include "scribusapi.h"
 
 class QTimer;
 class QLabel;
@@ -15,7 +16,7 @@ class QFont;
 class ScribusApp;
 class FontCombo;
 
-class Zoom : public QDialog
+class SCRIBUS_API Zoom : public QDialog
 {
 Q_OBJECT
 
@@ -29,7 +30,7 @@ public:
 
 class ChTable;
 
-class CharSelect : public QDialog
+class SCRIBUS_API CharSelect : public QDialog
 {
 	Q_OBJECT
 
@@ -101,7 +102,7 @@ protected:
 	QHBoxLayout* layout1;
 };
 
-class ChTable : public QTable
+class SCRIBUS_API ChTable : public QTable
 {
     Q_OBJECT
 

@@ -10,6 +10,8 @@
 #include <qtooltip.h>
 #include <qmap.h>
 #include <qvaluelist.h>
+
+#include "scribusapi.h"
 #include "tabpdfoptions.h"
 
 /**
@@ -25,7 +27,7 @@ class PDFOptions;
  * Most of the guts of the dialog actually come from TabPDFOptions, which
  * is also used by the preferences dialog.
  */
-class PDF_Opts : public QDialog
+class SCRIBUS_API PDF_Opts : public QDialog
 {
 	Q_OBJECT
 

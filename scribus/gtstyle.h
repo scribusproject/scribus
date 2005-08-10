@@ -22,9 +22,10 @@
 #define GTSTYLE_H
 
 #include <qstring.h>
+#include "scribusapi.h"
 #include "gtfont.h"
 
-class gtStyle 
+class SCRIBUS_API gtStyle 
 {
 protected:
 	QString name;

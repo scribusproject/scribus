@@ -23,11 +23,13 @@
 
 #include <qmap.h>
 #include <qtextstream.h>
+
+#include "scribusapi.h"
 #include "prefscontext.h"
 
 typedef QMap<QString, PrefsContext*> ContextMap;
 
-class PrefsFile
+class SCRIBUS_API PrefsFile
 {
 private:
 	QString prefsFilePath;

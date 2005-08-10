@@ -13,6 +13,7 @@
 #include <qvaluelist.h>
 #include <qpixmap.h>
 
+#include "scribusapi.h"
 #include "scrpalettebase.h"
 
 class QVBoxLayout;
@@ -24,7 +25,7 @@ class ScribusApp;
 class ScribusDoc;
 class PageItem;
 
-class Tree : public ScrPaletteBase
+class SCRIBUS_API Tree : public ScrPaletteBase
 {
 	Q_OBJECT
 

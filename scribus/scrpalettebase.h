@@ -23,9 +23,10 @@
 #include <qdialog.h>
 #include <qkeysequence.h>
 
+#include "scribusapi.h"
 class PrefsContext;
 
-class ScrPaletteBase : public QDialog
+class SCRIBUS_API ScrPaletteBase : public QDialog
 {
 	Q_OBJECT
 

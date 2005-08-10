@@ -1,6 +1,7 @@
 #ifndef MEASUREMENTS_H
 #define MEASUREMENTS_H
 
+#include "scribusapi.h"
 #include "scrpalettebase.h"
 
 class QVBoxLayout;
@@ -9,7 +10,7 @@ class QGridLayout;
 class QLabel;
 class QVariant;
 
-class Measurements : public ScrPaletteBase
+class SCRIBUS_API Measurements : public ScrPaletteBase
 {
 	Q_OBJECT
 

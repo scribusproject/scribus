@@ -23,11 +23,14 @@
 #include <qfont.h>
 #include <qstring.h>
 #include <qmenudata.h>
+
+#include "scribusapi.h"
+
 /**
   *@author Franz Schmid
   */
 
-class FmItem : public QCustomMenuItem 
+class SCRIBUS_API FmItem : public QCustomMenuItem 
 {
 public: 
 	FmItem(const QString& s, const QFont& f);

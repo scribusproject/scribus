@@ -9,13 +9,15 @@
 #ifndef DELPAGES_H
 #define DELPAGES_H
 
+#include "scribusapi.h"
+
 class QDialog;
 class QLabel;
 class QLayout;
 class QPushbutton;
 class QSpinbox;
 
-class DelPages : public QDialog
+class SCRIBUS_API DelPages : public QDialog
 { 
     Q_OBJECT
 

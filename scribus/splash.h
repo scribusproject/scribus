@@ -3,8 +3,9 @@
 
 #include <qpixmap.h>
 #include <qwidget.h>
+#include "scribusapi.h"
 
-class SplashScreen : public QWidget
+class SCRIBUS_API SplashScreen : public QWidget
 {
 public:
 	SplashScreen();

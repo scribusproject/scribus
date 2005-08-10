@@ -19,6 +19,8 @@
 #include <qvariant.h>
 #include <qpixmap.h>
 #include <qdialog.h>
+
+#include "scribusapi.h"
 #include "scribusstructs.h"
 #include "scribusview.h"
 #include "scrpalettebase.h"
@@ -38,7 +40,7 @@ class ScribusApp;
 class ScribusDoc;
 class UndoManager;
 
-class AlignDistributePalette : public ScrPaletteBase
+class SCRIBUS_API AlignDistributePalette : public ScrPaletteBase
 {
 	Q_OBJECT
 

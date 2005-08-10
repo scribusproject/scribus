@@ -8,7 +8,9 @@
 #include <qdatetime.h>
 #include <qvaluelist.h>
 
-class FileWatcher : public QObject
+#include "scribusapi.h"
+
+class SCRIBUS_API FileWatcher : public QObject
 {
 	Q_OBJECT
 

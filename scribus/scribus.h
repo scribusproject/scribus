@@ -51,6 +51,7 @@
 #include <qprocess.h>
 
 // application specific includes
+#include "scribusapi.h"
 #include "scribusview.h"
 #include "scribusdoc.h"
 #include "scribuswin.h"
@@ -96,7 +97,7 @@ class PrefsManager;
   * and statusbar. For the main view, an instance of class ScribusView is
   * created which creates your view.
   */
-class ScribusApp : public QMainWindow, public UndoObject
+class SCRIBUS_API ScribusApp : public QMainWindow, public UndoObject
 {
 	Q_OBJECT
 

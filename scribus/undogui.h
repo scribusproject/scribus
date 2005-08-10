@@ -21,6 +21,7 @@
 #ifndef UNDOGUI_H
 #define UNDOGUI_H
 
+#include "scribusapi.h"
 #include "undoobject.h"
 #include "undostate.h"
 #include <vector>
@@ -51,7 +52,7 @@ class PrefsContext;
  * @author Riku Leino  tsoots@gmail.com
  * @date December 2004
  */
-class UndoGui : public QWidget
+class SCRIBUS_API UndoGui : public QWidget
 {
 	Q_OBJECT
 
@@ -132,7 +133,7 @@ public slots:
  * @author Riku Leino tsoots@gmail.com
  * @date December 2004
  */
-class UndoWidget : public UndoGui
+class SCRIBUS_API UndoWidget : public UndoGui
 {
 	Q_OBJECT
 
@@ -238,7 +239,7 @@ signals:
  * @author Riku Leino tsoots@gmail.com
  * @date December 2004
  */
-class UndoPalette : public UndoGui
+class SCRIBUS_API UndoPalette : public UndoGui
 {
 	Q_OBJECT
 

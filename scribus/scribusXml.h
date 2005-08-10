@@ -9,6 +9,7 @@
 #ifndef _SCRIBUS_CONFIG_
 #define _SCRIBUS_CONFIG_
 
+#include "scribusapi.h"
 #include "scribusview.h"
 #include <qvaluelist.h>
 #include <qdom.h>
@@ -16,7 +17,7 @@
 
 class PrefsManager;
 
-class ScriXmlDoc : public QObject
+class SCRIBUS_API ScriXmlDoc : public QObject
 {
 Q_OBJECT
 public:

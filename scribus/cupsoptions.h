@@ -25,13 +25,15 @@
 #include <qcombobox.h>
 #include <qptrlist.h>
 #include <qmap.h>
+
+#include "scribusapi.h"
 #include "prefscontext.h"
 
 /**
   *@author Franz Schmid
   */
 
-class CupsOptions : public QDialog
+class SCRIBUS_API CupsOptions : public QDialog
 {
     Q_OBJECT
 

@@ -19,12 +19,13 @@
 #define MSPINBOX_H
 
 #include <qspinbox.h>
+#include "scribusapi.h"
 
 /**
   *@author Franz Schmid
   */
 
-class MSpinBox : public QSpinBox  
+class SCRIBUS_API MSpinBox : public QSpinBox  
 {
 	Q_OBJECT
 	

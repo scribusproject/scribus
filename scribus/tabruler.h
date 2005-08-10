@@ -4,6 +4,7 @@
 #include <qvariant.h>
 #include <qwidget.h>
 
+#include "scribusapi.h"
 #include "pageitem.h"
 
 class QVBoxLayout;
@@ -15,7 +16,7 @@ class QPushButton;
 class MSpinBox;
 class QToolButton;
 
-class RulerT : public QWidget
+class SCRIBUS_API RulerT : public QWidget
 {
 	Q_OBJECT
 
@@ -66,7 +67,7 @@ private:
 	double iter, iter2;
 };
 
-class Tabruler : public QWidget
+class SCRIBUS_API Tabruler : public QWidget
 {
 	Q_OBJECT
 

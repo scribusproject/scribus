@@ -28,6 +28,7 @@
 #include <qstring.h>
 class PageItem;
 class PrefsManager;
+#include "scribusapi.h"
 #include "gtfont.h"
 #include "gtframestyle.h"
 #include "gtparagraphstyle.h"
@@ -35,7 +36,7 @@ class PrefsManager;
 
 typedef QMap<QString, QString> FontFamilyMap;
 
-class gtAction
+class SCRIBUS_API gtAction
 {
 private:
 	PageItem *textFrame;

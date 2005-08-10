@@ -6,6 +6,8 @@
 #include <qdialog.h>
 #include <qvaluelist.h>
 #include <qmap.h>
+
+#include "scribusapi.h"
 #include "pageitem.h"
 class QVBoxLayout;
 class QHBoxLayout;
@@ -23,7 +25,7 @@ class QWidget;
 class QSlider;
 class MSpinBox;
 
-class EffectsDialog : public QDialog
+class SCRIBUS_API EffectsDialog : public QDialog
 {
 	Q_OBJECT
 

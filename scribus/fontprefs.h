@@ -12,12 +12,13 @@
 #include <qcombobox.h>
 #include <qlistbox.h>
 #include <qlistview.h>
+#include "scribusapi.h"
 #include "scribusstructs.h"
 #include "prefsmanager.h"
 
 class ScribusDoc;
 
-class FontPrefs : public QTabWidget
+class SCRIBUS_API FontPrefs : public QTabWidget
 {
 	Q_OBJECT
 

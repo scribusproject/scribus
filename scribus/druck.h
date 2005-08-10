@@ -9,6 +9,7 @@
 #ifndef DRUCK_H
 #define DRUCK_H
 
+#include "scribusapi.h"
 #include "prefscontext.h"
 #include <qdialog.h>
 #include <qbuttongroup.h>
@@ -24,7 +25,7 @@
 #include <qtooltip.h>
 #include <qcheckbox.h>
 
-class AdvOptions : public QDialog
+class SCRIBUS_API AdvOptions : public QDialog
 {
 	Q_OBJECT
 
@@ -49,7 +50,7 @@ protected:
 	QHBoxLayout* Layout2;
 };
 
-class Druck : public QDialog
+class SCRIBUS_API Druck : public QDialog
 {
 	Q_OBJECT
 

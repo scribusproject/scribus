@@ -24,6 +24,8 @@
 #include <qmap.h>
 #include <qpixmap.h>
 #include <qstring.h>
+
+#include "scribusapi.h"
 class PageItem;
 
 /**
@@ -41,7 +43,7 @@ class PageItem;
  * @author Riku Leino tsoots@gmail.com
  * @date December 2004
  */
-class UndoState
+class SCRIBUS_API UndoState
 {
 private:
 	/** @brief Name of the state (action) (f.e. Move object) */
@@ -110,7 +112,7 @@ public:
  * @author Riku Leino tsoots@gmail.com
  * @date December 2004
  */
-class SimpleState : public UndoState
+class SCRIBUS_API SimpleState : public UndoState
 {
 private:
 	/** @brief QMap to store key-value pairs */

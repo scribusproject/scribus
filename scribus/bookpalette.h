@@ -19,13 +19,14 @@
 #define BOOKPALETTE_H
 
 #include <qlayout.h>
+#include "scribusapi.h"
 #include "scrpalettebase.h"
 #include "bookmwin.h"
 /**
   *@author Franz Schmid
   */
 
-class BookPalette : public ScrPaletteBase
+class SCRIBUS_API BookPalette : public ScrPaletteBase
 {
 	Q_OBJECT
 

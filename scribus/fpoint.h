@@ -19,11 +19,12 @@
 #define FPOINT_H
 
 #include <qpoint.h>
+#include "scribusapi.h"
 /**
   *@author Franz Schmid
   */
 
-class FPoint
+class SCRIBUS_API FPoint
 {
 public: 
 	FPoint() {};

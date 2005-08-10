@@ -20,6 +20,8 @@
 
 #include <qwidget.h>
 #include <qpainter.h>
+
+#include "scribusapi.h"
 #include "pageitem.h"
 
 class ScribusView;
@@ -30,7 +32,7 @@ class PrefsManager;
 *@author Franz Schmid
 */
 
-class Hruler : public QWidget  
+class SCRIBUS_API Hruler : public QWidget  
 {
 	Q_OBJECT
 

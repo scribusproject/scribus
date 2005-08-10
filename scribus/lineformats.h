@@ -3,6 +3,7 @@
 
 #include <qdialog.h>
 
+#include "scribusapi.h"
 #include "multiline.h"
 #include "scribusstructs.h"
 
@@ -12,7 +13,7 @@ class QVBoxLayout;
 class QHBoxLayout;
 class ScribusDoc;
 
-class LineFormate : public QDialog
+class SCRIBUS_API LineFormate : public QDialog
 {
 	Q_OBJECT
 

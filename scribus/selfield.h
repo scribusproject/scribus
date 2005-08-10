@@ -7,10 +7,12 @@
 #include <qpushbutton.h>
 #include <qlayout.h>
 #include <qtooltip.h>
+
+#include "scribusapi.h"
 #include "pageitem.h"
 #include "scribusview.h"
 
-class SelectFields : public QDialog
+class SCRIBUS_API SelectFields : public QDialog
 {
 	Q_OBJECT
 

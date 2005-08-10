@@ -21,7 +21,9 @@
 class QPopupMenu;
 class ScrAction;
 
-class ScrPopupMenu : public QObject
+#include "scribusapi.h"
+
+class SCRIBUS_API ScrPopupMenu : public QObject
 {
 	Q_OBJECT
 	public:

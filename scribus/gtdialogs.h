@@ -37,9 +37,11 @@
 #include <qtextcodec.h>
 #include <qtoolbutton.h>
 #include <qtooltip.h>
+
+#include "scribusapi.h"
 #include "prefscontext.h"
 
-class gtFileDialog : public QFileDialog
+class SCRIBUS_API gtFileDialog : public QFileDialog
 {
 	Q_OBJECT
 private:
@@ -60,7 +62,7 @@ private slots:
 	void slotHome();
 };
 
-class gtImporterDialog : public QDialog
+class SCRIBUS_API gtImporterDialog : public QDialog
 {
 	Q_OBJECT
 private:
@@ -74,7 +76,7 @@ public:
 	QString getImporter();
 };
 
-class gtDialogs
+class SCRIBUS_API gtDialogs
 {
 private:
 	gtFileDialog* fdia;

@@ -26,12 +26,14 @@
 #include <qlistbox.h>
 #include <qradiobutton.h>
 #include <qbuttongroup.h>
+
+#include "scribusapi.h"
 #include "pageitem.h"
 #include "navigator.h"
 #include "scribusview.h"
 #include <prefscontext.h>
 
-class Annot : public QDialog
+class SCRIBUS_API Annot : public QDialog
 { 
     Q_OBJECT
 

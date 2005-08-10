@@ -3,8 +3,9 @@
 
 #include <qtoolbutton.h>
 #include <qpopupmenu.h>
+#include "scribusapi.h"
 
-class ShadeButton : public QToolButton
+class SCRIBUS_API ShadeButton : public QToolButton
 {
 
 Q_OBJECT

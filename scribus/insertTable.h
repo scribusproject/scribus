@@ -10,7 +10,9 @@
 #include <qtooltip.h>
 #include <qwhatsthis.h>
 
-class InsertTable : public QDialog
+#include "scribusapi.h"
+
+class SCRIBUS_API InsertTable : public QDialog
 {
 	Q_OBJECT
 

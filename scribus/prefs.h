@@ -22,6 +22,7 @@
 
 class QListView;
 
+#include "scribusapi.h"
 #include "scribusstructs.h"
 
 #include "mspinbox.h"
@@ -44,7 +45,7 @@ class PageLayouts;
 
 #include "langmgr.h"
 
-class Preferences : public PrefsDialogBase
+class SCRIBUS_API Preferences : public PrefsDialogBase
 {
     	Q_OBJECT
 

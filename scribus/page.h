@@ -22,6 +22,7 @@ class QString;
 #include "qvaluelist.h"
 #include "qptrlist.h"
 
+#include "scribusapi.h"
 #include "undoobject.h"
 #include "scribusstructs.h"
 #include "pageitem.h"
@@ -32,7 +33,7 @@ class UndoState;
 /**
   *@author Franz Schmid
   */
-class Page : public UndoObject
+class SCRIBUS_API Page : public UndoObject
 {
 public:
 	Page(double x, double y, double b, double h);

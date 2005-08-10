@@ -15,12 +15,13 @@
 #include <qlineedit.h>
 #include <qmultilineedit.h>
 
+#include "scribusapi.h"
 #include "documentinformation.h"
 
 /*! The DocInfos class is now part of the ReformDoc multi widgets storage.
 See reformdoc.h as reference. The return values are handled via. getDocInfo()
 method. It can be used as standalone widget. */
-class DocInfos : public QTabWidget
+class SCRIBUS_API DocInfos : public QTabWidget
 {
     Q_OBJECT
 

@@ -8,7 +8,9 @@ class QPushbutton;
 class QSpinBox;
 class QLayout;
 
-class MovePages : public QDialog
+#include "scribusapi.h"
+
+class SCRIBUS_API MovePages : public QDialog
 { 
     Q_OBJECT
 

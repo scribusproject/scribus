@@ -10,7 +10,9 @@
 #include <qtooltip.h>
 #include <qstringlist.h>
 
-class PicSearch : public QDialog
+#include "scribusapi.h"
+
+class SCRIBUS_API PicSearch : public QDialog
 { 
     Q_OBJECT
 

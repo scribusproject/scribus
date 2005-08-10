@@ -22,6 +22,8 @@
 #include <qtimer.h>
 #include <qtoolbox.h>
 #include <qpopupmenu.h>
+
+#include "scribusapi.h"
 #include "scrpalettebase.h"
 #include "mspinbox.h"
 #include "pageitem.h"
@@ -40,7 +42,7 @@ class ArrowChooser;
 class UserActionSniffer;
 extern bool CMSavail;
 
-class LabelButton : public QLabel
+class SCRIBUS_API LabelButton : public QLabel
 {
 	Q_OBJECT
 
@@ -65,7 +67,7 @@ protected:
 	virtual void mouseReleaseEvent(QMouseEvent *);
 };
 
-class NameWidget : public QLineEdit
+class SCRIBUS_API NameWidget : public QLineEdit
 {
 	Q_OBJECT
 
@@ -80,7 +82,7 @@ protected:
 	virtual void focusOutEvent(QFocusEvent *);
 };
 
-class Mpalette : public ScrPaletteBase
+class SCRIBUS_API Mpalette : public ScrPaletteBase
 {
 	Q_OBJECT
 
@@ -446,7 +448,7 @@ protected:
 	int idColorsItem;
 };
 
-class UserActionSniffer : public QObject
+class SCRIBUS_API UserActionSniffer : public QObject
 {
 	Q_OBJECT
 

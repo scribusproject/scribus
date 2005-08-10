@@ -4,6 +4,7 @@
 #include <qvariant.h>
 #include <qdialog.h>
 
+#include "scribusapi.h"
 #include "scribusstructs.h"
 class QVBoxLayout;
 class QHBoxLayout;
@@ -23,7 +24,7 @@ class QLabel;
 class ScribusDoc;
 class PageItem;
 
-class SearchReplace : public QDialog
+class SCRIBUS_API SearchReplace : public QDialog
 {
 	Q_OBJECT
 

@@ -5,6 +5,7 @@
 #include <qpixmap.h>
 #include <qdialog.h>
 
+#include "scribusapi.h"
 #include "scrpalettebase.h"
 
 class QVBoxLayout;
@@ -18,7 +19,7 @@ class QLabel;
 class QPushButton;
 class ScribusDoc;
 
-class CheckDocument : public ScrPaletteBase
+class SCRIBUS_API CheckDocument : public ScrPaletteBase
 {
 	Q_OBJECT
 

@@ -23,6 +23,8 @@
 #include <qevent.h>
 #include <qpoint.h>
 #include <qlayout.h>
+
+#include "scribusapi.h"
 #include "scribusview.h"
 #include "scribusdoc.h"
 #include "pageitem.h"
@@ -31,7 +33,7 @@
 *@author Franz Schmid
 */
 
-class BookMItem : public QListViewItem
+class SCRIBUS_API BookMItem : public QListViewItem
 {
 public:
 	BookMItem(QListViewItem* parent, struct ScribusDoc::BookMa *Bm);
@@ -56,7 +58,7 @@ public:
 	int Pare;
 };
 
-class BookMView : public QListView
+class SCRIBUS_API BookMView : public QListView
 {
 	Q_OBJECT
 

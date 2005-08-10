@@ -29,10 +29,13 @@
 #include <qtoolbutton.h>
 #include <qcombobox.h>
 #include <qstring.h>
+
+#include "scribusapi.h"
+
 /**
   *@author Franz Schmid
   */
-class ImIconProvider : public QFileIconProvider
+class SCRIBUS_API ImIconProvider : public QFileIconProvider
 {
     Q_OBJECT
     QStringList fmts;
@@ -51,7 +54,7 @@ public:
     const QPixmap * pixmap(const QFileInfo &fi);
 };
 
-class FDialogPreview : public QLabel, public QFilePreview
+class SCRIBUS_API FDialogPreview : public QLabel, public QFilePreview
 {
     Q_OBJECT
 public:
@@ -62,7 +65,7 @@ public:
 	virtual void previewUrl(const QUrl &url);
 };
 
-class CustomFDialog : public QFileDialog
+class SCRIBUS_API CustomFDialog : public QFileDialog
 {
     Q_OBJECT
 public: 

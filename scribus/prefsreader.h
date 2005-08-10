@@ -24,11 +24,13 @@
 #include <vector>
 #include <qstring.h>
 #include <qxml.h>
+
+#include "scribusapi.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefstable.h"
 
-class PrefsReader : public QXmlDefaultHandler
+class SCRIBUS_API PrefsReader : public QXmlDefaultHandler
 {
 private:
 	ContextMap* aContexts;

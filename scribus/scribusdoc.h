@@ -33,6 +33,7 @@
 #include <qstringlist.h>
 #include <qtimer.h>
 
+#include "scribusapi.h"
 #include "scribusstructs.h"
 #include "prefsstructs.h"
 #include "documentinformation.h"
@@ -54,7 +55,7 @@ class PDFOptions;
   * the Document Class
   */
 
-class ScribusDoc : public QObject, public UndoObject
+class SCRIBUS_API ScribusDoc : public QObject, public UndoObject
 {
 public:
 	ScribusDoc();

@@ -11,9 +11,8 @@
 #include "qstring.h"
 #include "qmap.h"
 #include "qvaluelist.h"
-
-struct LPIData;
-struct PDFPresentationData;
+#include "scribusapi.h"
+#include "scribusstructs.h"
 
 /**
  * @brief PDF Options struture. Capable of verifying its self, but otherwise largely
@@ -25,7 +24,7 @@ struct PDFPresentationData;
  *
  * @sa PDFOptionsIO
  */
-class PDFOptions
+class SCRIBUS_API PDFOptions
 {
 public:
 

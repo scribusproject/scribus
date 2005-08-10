@@ -6,7 +6,9 @@
 #include <qlayout.h>
 #include <qtooltip.h>
 
-class AlignSelect : public QButtonGroup
+#include "scribusapi.h"
+
+class SCRIBUS_API AlignSelect : public QButtonGroup
 {
 
 Q_OBJECT

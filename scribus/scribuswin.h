@@ -22,14 +22,15 @@
 #include <qmessagebox.h>
 #include <qlayout.h>
 #include <qframe.h>
-#include "scribusview.h"
+class ScribusView;
 class ScribusDoc;
+#include "scribusapi.h"
 #include "muster.h"
 /**
   *@author Franz Schmid
   */
 
-class ScribusWin : public QMainWindow
+class SCRIBUS_API ScribusWin : public QMainWindow
 {
 	Q_OBJECT
 

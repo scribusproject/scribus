@@ -19,12 +19,13 @@
 #define SERIALIZER_H
 
 #include <qstring.h>
+#include "scribusapi.h"
 #include "scribusview.h"
 /**
   *@author Franz Schmid
   */
 
-class Serializer {
+class SCRIBUS_API Serializer {
 public: 
 	Serializer(QString name);
 	~Serializer() {};

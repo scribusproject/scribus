@@ -3,6 +3,8 @@
 
 #include <qobject.h>
 #include <qtextcodec.h>
+
+#include "scribusapi.h"
 #include "hyphen.h"
 class ScribusDoc;
 class ScribusApp;
@@ -12,7 +14,7 @@ class PageItem;
 This class is the core of the Scribus hyphenation system.
 */
 
-class Hyphenator : public QObject
+class SCRIBUS_API Hyphenator : public QObject
 {
     Q_OBJECT
 

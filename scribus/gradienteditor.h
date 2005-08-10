@@ -23,9 +23,11 @@
 #include <qspinbox.h>
 #include <qlayout.h>
 #include <qtooltip.h>
+
+#include "scribusapi.h"
 #include "vgradient.h"
 
-class GradientPreview : public QLabel
+class SCRIBUS_API GradientPreview : public QLabel
 {
 	Q_OBJECT
 
@@ -56,7 +58,7 @@ signals:
 	void gradientChanged();
 };
 
-class GradientEditor : public QLabel
+class SCRIBUS_API GradientEditor : public QLabel
 {
 	Q_OBJECT
 

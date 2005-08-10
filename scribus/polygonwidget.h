@@ -10,7 +10,9 @@
 #include <qtooltip.h>
 #include <qpixmap.h>
 
-class PolygonWidget : public QWidget
+#include "scribusapi.h"
+
+class SCRIBUS_API PolygonWidget : public QWidget
 {
 	Q_OBJECT
 

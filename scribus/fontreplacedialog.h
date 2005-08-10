@@ -12,9 +12,10 @@ class QLabel;
 class QTable;
 class QCheckBox;
 class QPushButton;
+#include "scribusapi.h"
 #include "scribusstructs.h"
 
-class FontReplaceDialog : public QDialog
+class SCRIBUS_API FontReplaceDialog : public QDialog
 {
 	Q_OBJECT
 

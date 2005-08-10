@@ -4,6 +4,8 @@
 #include <qvariant.h>
 #include <qdialog.h>
 #include <qvaluelist.h>
+
+#include "scribusapi.h"
 #include "pageitem.h"
 
 class QVBoxLayout;
@@ -11,7 +13,7 @@ class QHBoxLayout;
 class QPushButton;
 class Tabruler;
 
-class TabManager : public QDialog
+class SCRIBUS_API TabManager : public QDialog
 {
 	Q_OBJECT
 

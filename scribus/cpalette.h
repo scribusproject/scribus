@@ -18,6 +18,7 @@
 #ifndef CPALETTE_H
 #define CPALETTE_H
 
+#include "scribusapi.h"
 #include "scribusstructs.h"
 #include "gradienteditor.h"
 
@@ -42,7 +43,7 @@ class QSpinBox;
   *@author Franz Schmid
   */
 
-class Cpalette : public QWidget
+class SCRIBUS_API Cpalette : public QWidget
 {
 	Q_OBJECT
 public:

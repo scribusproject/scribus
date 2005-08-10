@@ -16,6 +16,7 @@
 
 #include <qobject.h>
 
+#include "scribusapi.h"
 #include "prefsstructs.h"
 
 class PrefsFile;
@@ -28,7 +29,7 @@ class PrefsFile;
   * TODO Move prefsFile in here from scribus.cpp and stop passing it in for convert12Preferences
   * TODO Lots more :)
   */
-class PrefsManager : public QObject
+class SCRIBUS_API PrefsManager : public QObject
 {
 Q_OBJECT
 public:

@@ -29,6 +29,8 @@
 #include <qvaluestack.h>
 #include <qcolor.h>
 #include <qfont.h>
+
+#include "scribusapi.h"
 #include "fpoint.h"
 #include "fpointarray.h"
 #include "vgradient.h"
@@ -52,7 +54,7 @@ struct _ArtBpath;
 struct _ArtSVP;
 struct _ArtGradientStop;
 
-class ScPainter
+class SCRIBUS_API ScPainter
 {
 public:
 	ScPainter( QPaintDevice *target, unsigned int w = 0, unsigned int h = 0, unsigned int x = 0, unsigned int y = 0 );

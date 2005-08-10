@@ -3,6 +3,7 @@
 
 #include <qvariant.h>
 #include <qgroupbox.h>
+#include "scribusapi.h"
 
 class QVBoxLayout;
 class QHBoxLayout;
@@ -11,7 +12,7 @@ class QIconViewItem;
 class QLabel;
 class QSpinBox;
 
-class PageLayouts : public QGroupBox
+class SCRIBUS_API PageLayouts : public QGroupBox
 {
 	Q_OBJECT
 

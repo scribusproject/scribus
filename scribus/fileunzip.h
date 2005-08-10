@@ -22,6 +22,7 @@
 #define FILEUNZIP_H
 
 #include "scconfig.h"
+#include "scribusapi.h"
 
 #include <zlib.h>
 #include <qstring.h>
@@ -33,7 +34,7 @@
  * constructor FileUnzip(QString) takes a zip file as a parameter and method
  * getFile(QString) extracts the path to the extracted file.
  */
-class FileUnzip
+class SCRIBUS_API FileUnzip
 {
 private:
 	QString zipFile;

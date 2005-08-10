@@ -19,9 +19,11 @@
 #define RULERMOVER_H
 
 #include <qwidget.h>
+
+#include "scribusapi.h"
 class ScribusView;
 
-class RulerMover : public QWidget
+class SCRIBUS_API RulerMover : public QWidget
 {
 	Q_OBJECT
 

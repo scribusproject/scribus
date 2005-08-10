@@ -7,7 +7,9 @@
 #include <qlayout.h>
 #include <qtooltip.h>
 
-class WortEdit : public QLineEdit
+#include "scribusapi.h"
+
+class SCRIBUS_API WortEdit : public QLineEdit
 {
     Q_OBJECT
 public:
@@ -16,7 +18,7 @@ public:
 	void keyPressEvent(QKeyEvent *k);
 };
 
-class HyAsk : public QDialog
+class SCRIBUS_API HyAsk : public QDialog
 { 
     Q_OBJECT
 

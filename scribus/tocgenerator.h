@@ -17,13 +17,14 @@
 
 #include <qobject.h>
 
+#include "scribusapi.h"
 class ScribusDoc;
 class PageItem;
 
 /**
 @author Craig Bradney
 */
-class TOCGenerator : public QObject
+class SCRIBUS_API TOCGenerator : public QObject
 {
 	Q_OBJECT
 	public:

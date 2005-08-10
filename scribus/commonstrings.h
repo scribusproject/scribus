@@ -18,6 +18,7 @@
 
 #include <qobject.h>
 #include <qstring.h>
+#include "scribusapi.h"
 
 /*
  * A simple common strings class to reduce the string count and ease
@@ -34,7 +35,7 @@
  *    done initially.
  */
 
-class CommonStrings : public QObject
+class SCRIBUS_API CommonStrings : public QObject
 {
 	Q_OBJECT
 public:

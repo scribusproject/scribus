@@ -5,9 +5,11 @@
 #include <qpushbutton.h>
 #include <qlayout.h>
 #include <qpixmap.h>
+
+#include "scribusapi.h"
 class PolygonWidget;
 
-class PolygonProps : public QDialog
+class SCRIBUS_API PolygonProps : public QDialog
 {
 	Q_OBJECT
 

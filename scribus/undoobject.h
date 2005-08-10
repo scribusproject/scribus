@@ -23,6 +23,8 @@
 
 #include <qstring.h>
 #include <qpixmap.h>
+
+#include "scribusapi.h"
 #include "undostate.h"
 
 /**
@@ -46,7 +48,7 @@
  * @author Riku Leino tsoots@gmail.com
  * @date December 2004
  */
-class UndoObject
+class SCRIBUS_API UndoObject
 {
 private:
 	/** @brief id number to be used with the next UndoObject */
@@ -124,7 +126,7 @@ public:
 	virtual void restore(UndoState* state, bool isUndo) = 0;
 };
 
-class DummyUndoObject : public UndoObject
+class SCRIBUS_API DummyUndoObject : public UndoObject
 {
 public:
 	DummyUndoObject() {};

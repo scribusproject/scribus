@@ -20,6 +20,7 @@
 
 #include <qtoolbar.h>
 #include <qmainwindow.h>
+#include "scribusapi.h"
 class QToolButton;
 class QPopupMenu;
 class AutoformButtonGroup;
@@ -28,7 +29,7 @@ class AutoformButtonGroup;
   *@author Franz Schmid
   */
 
-class WerkToolB : public QToolBar
+class SCRIBUS_API WerkToolB : public QToolBar
 {
 	Q_OBJECT
 
@@ -58,7 +59,7 @@ signals:
 	void Schliessen();
 };
 
-class WerkToolBP : public QToolBar  
+class SCRIBUS_API WerkToolBP : public QToolBar  
 {
 	Q_OBJECT
 

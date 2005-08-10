@@ -21,6 +21,7 @@
 #ifndef GTWRITER_H
 #define GTWRITER_H
 
+#include "scribusapi.h"
 #include "gtaction.h"
 #include "gtfont.h"
 #include "gtframestyle.h"
@@ -32,7 +33,7 @@ class PageItem;
 /*
 	gtWriter handles the writing to the scribus text frame.
 */
-class gtWriter 
+class SCRIBUS_API gtWriter 
 {
 public:
 	gtWriter(bool append);

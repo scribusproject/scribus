@@ -1,5 +1,6 @@
 #ifndef TABPDF_OPTS_H
 #define TABPDF_OPTS_H
+
 #include <qtabwidget.h>
 #include <qwidget.h>
 #include <qlayout.h>
@@ -19,12 +20,14 @@
 #include <qtoolbutton.h>
 #include <qlineedit.h>
 #include <qlabel.h>
+
+#include "scribusapi.h"
 #include "bookmwin.h"
 #include "mspinbox.h"
 
 class PDFOptions;
 
-class TabPDFOptions : public QTabWidget
+class SCRIBUS_API TabPDFOptions : public QTabWidget
 {
 	Q_OBJECT
 

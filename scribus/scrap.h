@@ -17,10 +17,12 @@
 #include <qtooltip.h>
 #include <qpixmap.h>
 #include <qdragobject.h>
+
+#include "scribusapi.h"
 #include "scrpalettebase.h"
 #include "scribusstructs.h"
 
-class BibView : public QIconView
+class SCRIBUS_API BibView : public QIconView
 {
 	Q_OBJECT
 
@@ -49,7 +51,7 @@ protected:
 	virtual QDragObject *dragObject();
 };
 
-class Biblio : public ScrPaletteBase
+class SCRIBUS_API Biblio : public ScrPaletteBase
 {
 	Q_OBJECT
 

@@ -8,10 +8,11 @@ class QToolButton;
 class QHBoxLayout;
 class QVBoxLayout;
 
+#include "scribusapi.h"
 class ScribusDoc;
 class ScribusView;
 
-class MasterPagesPalette : public QDialog
+class SCRIBUS_API MasterPagesPalette : public QDialog
 {
 	Q_OBJECT
 

@@ -25,11 +25,12 @@
 #include <qlistbox.h>
 
 class CMYKcolor;
+#include "scribusapi.h"
 #include "colorchart.h"
 #include "mspinbox.h"
 #include "scribusstructs.h"
 
-class CMYKChoose : public QDialog
+class SCRIBUS_API CMYKChoose : public QDialog
 {
 	Q_OBJECT
 

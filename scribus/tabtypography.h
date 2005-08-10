@@ -3,13 +3,14 @@
 
 #include <qvariant.h>
 #include <qwidget.h>
+#include "scribusapi.h"
 class QGridLayout;
 class QGroupBox;
 class QLabel;
 class MSpinBox;
 class QSpinBox;
 
-class TabTypograpy : public QWidget
+class SCRIBUS_API TabTypograpy : public QWidget
 {
 	Q_OBJECT
 

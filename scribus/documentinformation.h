@@ -17,8 +17,9 @@
 #define DOCUMENTINFORMATION_H
 
 #include <qstring.h>
+#include "scribusapi.h"
 
-class DocumentInformation
+class SCRIBUS_API DocumentInformation
 {
 	public:
 		DocumentInformation();

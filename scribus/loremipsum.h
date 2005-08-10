@@ -13,6 +13,8 @@
 #include <qvariant.h>
 #include <qdialog.h>
 
+#include "scribusapi.h"
+
 class QVBoxLayout;
 class QHBoxLayout;
 class QGridLayout;
@@ -47,7 +49,7 @@ Files are in UTF encoding.
 This helper class reads one ile
 \author Petr Vanek <petr@yarpen.cz>
  */
-class LoremParser
+class SCRIBUS_API LoremParser
 {
 	public:
 		/*! parse a XML file with given name
@@ -72,7 +74,7 @@ class LoremParser
 };
 
 
-class LoremManager : public QDialog
+class SCRIBUS_API LoremManager : public QDialog
 {
 	Q_OBJECT
 

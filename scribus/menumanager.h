@@ -22,13 +22,14 @@
 
 class QPopupMenu;
 
+#include "scribusapi.h"
 class ScrAction;
 class ScrPopupMenu;
 
 /**
 @author Craig Bradney
 */
-class MenuManager : public QObject
+class SCRIBUS_API MenuManager : public QObject
 {
 	Q_OBJECT
 public:

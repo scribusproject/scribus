@@ -10,11 +10,13 @@
 #include <qheader.h>
 #include <qptrlist.h>
 #include <qvaluelist.h>
+
+#include "scribusapi.h"
 class ScribusDoc;
 class ScribusView;
 class FileSearch;
 
-class PicStatus : public QDialog
+class SCRIBUS_API PicStatus : public QDialog
 { 
     Q_OBJECT
 

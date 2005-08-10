@@ -22,11 +22,12 @@
 
 #include <qptrlist.h>
 #include <qptrvector.h>
+#include "scribusapi.h"
 #include "fpoint.h"
 #include <qcolor.h>
 #include <qwmatrix.h>
 
-class VColorStop
+class SCRIBUS_API VColorStop
 {
 public:
 	VColorStop( double r, double m, QColor c, double o, QString n, int s )
@@ -65,7 +66,7 @@ public:
 }
 ; // VColorStop
 
-class VGradient
+class SCRIBUS_API VGradient
 {
 	// friend class VGradientWidget;
 

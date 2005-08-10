@@ -23,9 +23,10 @@
 
 #include <qstring.h>
 
+#include "scribusapi.h"
 #include "units.h"
 
-class gtMeasure
+class SCRIBUS_API gtMeasure
 {
 private:
 	gtMeasure();

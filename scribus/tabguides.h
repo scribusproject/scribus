@@ -1,6 +1,8 @@
 #ifndef TABGUIDES_H
 #define TABGUIDES_H
 
+#include "scribusapi.h"
+
 #include <qvariant.h>
 #include <qwidget.h>
 class QGridLayout;
@@ -16,7 +18,7 @@ class QPushButton;
 class QCheckBox;
 class QColor;
 
-class TabGuides : public QWidget
+class SCRIBUS_API TabGuides : public QWidget
 {
 	Q_OBJECT
 

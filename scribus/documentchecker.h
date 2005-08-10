@@ -18,9 +18,10 @@
 #ifndef DOCUMENTCHECKER_H
 #define DOCUMENTCHECKER_H
 
+#include "scribusapi.h"
 class ScribusDoc;
 
-class DocumentChecker
+class SCRIBUS_API DocumentChecker
 {
 	public:
 		void checkDocument(ScribusDoc *currDoc);

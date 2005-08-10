@@ -1,6 +1,7 @@
 #ifndef SCPREVIEW_H
 #define SCPREVIEW_H
 
+#include "scribusapi.h"
 #include "scribusstructs.h"
 #include "scpainter.h"
 
@@ -8,7 +9,7 @@ class QString;
 class ScColor;
 class PrefsManager;
 
-class ScPreview
+class SCRIBUS_API ScPreview
 {
 public:
 	ScPreview();

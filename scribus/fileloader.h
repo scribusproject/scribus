@@ -3,6 +3,8 @@
 #include <qstring.h>
 #include <qvaluelist.h>
 #include <qmap.h>
+
+#include "scribusapi.h"
 #include "scribusstructs.h"
 
 class QDomElement;
@@ -13,7 +15,7 @@ class ScribusApp;
 class SCFonts;
 class PrefsManager;
 
-class FileLoader
+class SCRIBUS_API FileLoader
 {
 public:
 	FileLoader(QString fileName, ScribusApp* app);

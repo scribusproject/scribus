@@ -18,7 +18,9 @@ class QString;
 class QVBoxLayout;
 class QHBoxLayout;
 
-class Query : public QDialog
+#include "scribusapi.h"
+
+class SCRIBUS_API Query : public QDialog
 {
     Q_OBJECT
 

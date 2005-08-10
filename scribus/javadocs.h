@@ -7,10 +7,11 @@
 #include <qlayout.h>
 #include <qtooltip.h>
 
+#include "scribusapi.h"
 class ScribusDoc;
 class ScribusView;
 
-class JavaDocs : public QDialog
+class SCRIBUS_API JavaDocs : public QDialog
 { 
     Q_OBJECT
 

@@ -8,9 +8,10 @@ class QGridLayout;
 class QPushButton;
 class FontCombo;
 class ScribusDoc;
+#include "scribusapi.h"
 #include "scribusstructs.h"
 
-class MissingFont : public QDialog
+class SCRIBUS_API MissingFont : public QDialog
 {
     Q_OBJECT
 

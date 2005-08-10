@@ -17,12 +17,12 @@
 #define SCRACTION_H
 
 #include <qaction.h>
-
+#include "scribusapi.h"
 
 /**
 @author Craig Bradney
 */
-class ScrAction : public QAction
+class SCRIBUS_API ScrAction : public QAction
 {
 	Q_OBJECT
 

@@ -20,13 +20,15 @@
 
 #include <qlabel.h>
 #include <qpixmap.h>
+
+#include "scribusapi.h"
 class ScribusView;
 
 /**
   *@author Franz Schmid
   */
 
-class Navigator : public QLabel  
+class SCRIBUS_API Navigator : public QLabel  
 {
 	Q_OBJECT
 

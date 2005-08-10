@@ -12,6 +12,8 @@
 #include <qtooltip.h>
 #include <qcheckbox.h>
 #include <qcombobox.h>
+
+#include "scribusapi.h"
 #include "scribusstructs.h"
 #include "mspinbox.h"
 #include "fontcombo.h"
@@ -24,7 +26,7 @@ class Tabruler;
 class PageItem;
 
 
-class EditStyle : public QDialog
+class SCRIBUS_API EditStyle : public QDialog
 {
 	Q_OBJECT
 

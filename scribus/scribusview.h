@@ -31,6 +31,7 @@
 #include <qprogressdialog.h>
 #include <qspinbox.h>
 // application specific includes
+#include "scribusapi.h"
 #include "scribusdoc.h"
 #include "scribusstructs.h"
 #include "scpainter.h"
@@ -41,14 +42,13 @@ class UndoManager;
 class RulerMover;
 #include "mspinbox.h"
 #include "pageselector.h"
-
-extern QPixmap loadIcon(QString nam);
+#include "util.h"
 
 /**
  * This class provides an incomplete base for your application view.
  */
 
-class ScribusView : public QScrollView
+class SCRIBUS_API ScribusView : public QScrollView
 {
 	Q_OBJECT
 

@@ -9,9 +9,11 @@
 #include <qslider.h>
 #include <qlayout.h>
 #include <qtooltip.h>
+
+#include "scribusapi.h"
 #include "pageitem.h"
 
-class ButtonIcon : public QDialog
+class SCRIBUS_API ButtonIcon : public QDialog
 { 
     Q_OBJECT
 

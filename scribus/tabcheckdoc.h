@@ -4,6 +4,7 @@
 #include <qvariant.h>
 #include <qwidget.h>
 
+#include "scribusapi.h"
 #include "prefsstructs.h"
 class QVBoxLayout;
 class QHBoxLayout;
@@ -14,7 +15,7 @@ class QLabel;
 class QSpinBox;
 class QPushButton;
 
-class TabCheckDoc : public QWidget
+class SCRIBUS_API TabCheckDoc : public QWidget
 {
 	Q_OBJECT
 

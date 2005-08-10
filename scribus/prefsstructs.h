@@ -7,6 +7,7 @@
 
 #include <qcolor.h>
 #include "scribusstructs.h"
+#include "pdfoptions.h"
 #include "scfonts.h"
 
 struct checkerPrefs

@@ -2,6 +2,7 @@
 #define SCIMAGE_H
 
 #include "scconfig.h"
+#include "scribusapi.h"
 
 #include <setjmp.h>
 #include <cstdlib>
@@ -37,7 +38,7 @@ extern "C"
 	#include <tiffio.h>
 #endif
 
-class ScImage : public QImage
+class SCRIBUS_API ScImage : public QImage
 {
 public:
 	ScImage();

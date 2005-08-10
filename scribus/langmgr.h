@@ -18,8 +18,9 @@
 
 #include <qmap.h>
 #include <qstring.h>
+#include "scribusapi.h"
 
-class LanguageManager
+class SCRIBUS_API LanguageManager
 {
 public:
 	LanguageManager() {};

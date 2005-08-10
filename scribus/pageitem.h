@@ -25,6 +25,8 @@
 #include <qpixmap.h>
 #include <qvaluestack.h>
 #include <qvaluelist.h>
+
+#include "scribusapi.h"
 #include "scpainter.h"
 #include "undoobject.h"
 #include "scimage.h"
@@ -37,7 +39,7 @@ class Foi;
   *@author Franz Schmid
   */
 
-class PageItem : public QObject, public UndoObject
+class SCRIBUS_API PageItem : public QObject, public UndoObject
 {
 	Q_OBJECT
 

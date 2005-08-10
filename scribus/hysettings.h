@@ -9,7 +9,9 @@
 #include <qlayout.h>
 #include <qtooltip.h>
 
-class HySettings : public QWidget
+#include "scribusapi.h"
+
+class SCRIBUS_API HySettings : public QWidget
 { 
     Q_OBJECT
 

@@ -11,6 +11,8 @@
 #include <qcheckbox.h>
 #include <qradiobutton.h>
 #include <qwidgetstack.h>
+
+#include "scribusapi.h"
 #include "scfonts.h"
 class LinkButton;
 class QSpinBox;
@@ -21,7 +23,7 @@ class MSpinBox;
 class LineCombo;
 class ScribusDoc;
 
-class TabTools : public QWidget
+class SCRIBUS_API TabTools : public QWidget
 {
 	Q_OBJECT
 

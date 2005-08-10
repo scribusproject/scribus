@@ -20,11 +20,13 @@
 #include <qwidgetstack.h>
 #include <qlineedit.h>
 #include <qframe.h>
+
+#include "scribusapi.h"
 #include "pageitem.h"
 #include "navigator.h"
 #include "scribusview.h"
 
-class Annota : public QDialog
+class SCRIBUS_API Annota : public QDialog
 {
 	Q_OBJECT
 

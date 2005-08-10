@@ -27,9 +27,11 @@
 #include <qstring.h>
 #include <qstringlist.h>
 
+#include "scribusapi.h"
+
 typedef std::vector<QStringList*> Table;
 
-class PrefsTable
+class SCRIBUS_API PrefsTable
 {
 private:
  QString name;

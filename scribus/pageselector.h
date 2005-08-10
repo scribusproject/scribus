@@ -5,6 +5,7 @@
 #include <qpixmap.h>
 #include <qwidget.h>
 #include <qvalidator.h>
+#include "scribusapi.h"
 
 class QVBoxLayout;
 class QHBoxLayout;
@@ -13,7 +14,7 @@ class QComboBox;
 class QLabel;
 class QPushButton;
 
-class PageSelector : public QWidget
+class SCRIBUS_API PageSelector : public QWidget
 {
 	Q_OBJECT
 

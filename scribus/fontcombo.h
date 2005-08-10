@@ -23,6 +23,7 @@
 #include <qlayout.h>
 #include <qwidget.h>
 
+#include "scribusapi.h"
 #include "scribusstructs.h"
 class QListBoxItem;
 class QFont;
@@ -34,7 +35,7 @@ class PrefsManager;
   *@author Franz Schmid
   */
 
-class FontListItem : public QListBoxItem
+class SCRIBUS_API FontListItem : public QListBoxItem
 {
 public:
     FontListItem(QComboBox* parent, QString f, QFont fo);
@@ -51,7 +52,7 @@ private:
     QString fontName;
 };
 
-class FontCombo : public QComboBox  
+class SCRIBUS_API FontCombo : public QComboBox  
 {
 public:
 	FontCombo(QWidget* pa);
@@ -62,7 +63,7 @@ private:
 	PrefsManager* prefsManager;
 };
 
-class FontComboH : public QWidget
+class SCRIBUS_API FontComboH : public QWidget
 {
 
 	Q_OBJECT

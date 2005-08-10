@@ -16,7 +16,9 @@
 #include <iostream>
 #endif
 
-class FunctionParser
+#include "scribusapi.h"
+
+class SCRIBUS_API FunctionParser
 {
 public:
     enum ParseErrorType

@@ -1,6 +1,7 @@
 #ifndef KEYMANAGER_H
 #define KEYMANAGER_H
 
+#include "scribusapi.h"
 #include "scribusstructs.h"
 
 #include <qmap.h>
@@ -20,7 +21,7 @@ class QLabel;
 class QComboBox;
 class QEvent;
 
-class KeyManager : public QWidget
+class SCRIBUS_API KeyManager : public QWidget
 {
 	Q_OBJECT
 

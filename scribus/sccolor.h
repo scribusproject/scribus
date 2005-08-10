@@ -18,6 +18,7 @@
 #ifndef SCCOLOR_H
 #define SCCOLOR_H
 
+#include "scribusapi.h"
 
 #include <qcolor.h>
 class QString;
@@ -35,7 +36,7 @@ enum colorModel
 	colorModelCMYK
 };
 
-class ScColor 
+class SCRIBUS_API ScColor 
 {
 public:
 	ScColor();

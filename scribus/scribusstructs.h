@@ -18,7 +18,6 @@
 #include "vgradient.h"
 #include "pageitem.h"
 #include "scraction.h"
-#include "pdfoptions.h"
 
 /* Struktur fuer Pageitem Text */
 struct ScText

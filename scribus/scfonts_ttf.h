@@ -1,6 +1,7 @@
 #ifndef SCFONTS_TTF_H
 #define SCFONTS_TTF_H
 
+#include "scribusapi.h"
 #include "scfonts.h"
 
 /*
@@ -9,7 +10,7 @@
 	Implements: RealName() and EmbedFont().
 */
 
-class Foi_ttf : public Foi
+class SCRIBUS_API Foi_ttf : public Foi
 {
 	public:
 		Foi_ttf(QString scname, QString path, bool embedps) :

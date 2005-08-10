@@ -20,13 +20,14 @@
 
 #include <qcombobox.h>
 #include <qlayout.h>
+#include "scribusapi.h"
 class ScribusDoc;
 
 /**
   *@author Franz Schmid
   */
 
-class Spalette : public QComboBox  
+class SCRIBUS_API Spalette : public QComboBox  
 {
 	Q_OBJECT
 

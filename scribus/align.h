@@ -9,11 +9,13 @@
 #include <qlabel.h>
 #include <qpushbutton.h>
 #include <qradiobutton.h>
+
+#include "scribusapi.h"
 #include "mspinbox.h"
 class ScribusDoc;
 class ScribusView;
 
-class Align : public QDialog
+class SCRIBUS_API Align : public QDialog
 {
 	Q_OBJECT
 

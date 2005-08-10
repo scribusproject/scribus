@@ -12,6 +12,8 @@
 #include FT_OUTLINE_H
 #include FT_GLYPH_H
 // #include <qpixmap.h>
+
+#include "scribusapi.h"
 #include "fpointarray.h"
 #include "scconfig.h"
 
@@ -40,7 +42,7 @@
 		so there are no extra cleaning-up chores to take care of.
 */
 
-class Foi
+class SCRIBUS_API Foi
 {
 	public:
 		enum FontType { TYPE0, TYPE1, TYPE3, TTF, CFF, OTF, UNKNOWN_TYPE };
@@ -111,7 +113,7 @@ public:
    is not a major problem.
 */
 
-class SCFonts : public QDict<Foi>
+class SCRIBUS_API SCFonts : public QDict<Foi>
 {
 	public:
 		SCFonts() : QDict<Foi>(), FontPath(true)

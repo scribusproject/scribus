@@ -21,11 +21,13 @@
 #include <qcombobox.h>
 #include <qpixmap.h>
 
+#include "scribusapi.h"
+
 /**
   *@author Franz Schmid
   */
 
-class LineCombo : public QComboBox  
+class SCRIBUS_API LineCombo : public QComboBox  
 {
 public: 
 	LineCombo(QWidget* pa);

@@ -11,6 +11,7 @@
 #include <qtooltip.h>
 #include <qhbuttongroup.h>
 
+#include "scribusapi.h"
 #include "mspinbox.h"
 
 
@@ -23,7 +24,7 @@ and void Page::addYGuides(QValueList<double>& guides).
 \author Alessandro Rimoldi
 \author Franz Schmid
 */
-class GuideManager : public QDialog
+class SCRIBUS_API GuideManager : public QDialog
 {
     Q_OBJECT
 

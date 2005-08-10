@@ -15,6 +15,7 @@
 #include <qpixmap.h>
 #include <qlineedit.h>
 
+#include "scribusapi.h"
 #include "scribusstructs.h"
 
 #include "linecombo.h"
@@ -22,7 +23,7 @@
 
 class ScribusDoc;
 
-class MultiLine : public QDialog
+class SCRIBUS_API MultiLine : public QDialog
 {
 	Q_OBJECT
 

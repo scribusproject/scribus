@@ -21,9 +21,10 @@
 #ifndef GTFRAMESTYLE_H
 #define GTFRAMESTYLE_H
 
+#include "scribusapi.h"
 #include "gtparagraphstyle.h"
 
-class gtFrameStyle : public gtParagraphStyle
+class SCRIBUS_API gtFrameStyle : public gtParagraphStyle
 {
 private:
 	int     columns;

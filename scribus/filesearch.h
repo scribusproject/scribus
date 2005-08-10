@@ -1,6 +1,7 @@
 #ifndef _FILESEARCH_H
 #define _FILESEARCH_H
 
+#include "scribusapi.h"
 #include "deferredtask.h"
 #include <qstringlist.h>
 #include <qvaluestack.h>
@@ -13,7 +14,7 @@ class QTimer;
 // letting you get on with other things and take action when you're informed
 // that the search is complete.
 // A FileSearch is single use.
-class FileSearch : public DeferredTask
+class SCRIBUS_API FileSearch : public DeferredTask
 {
 	Q_OBJECT
 

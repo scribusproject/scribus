@@ -9,10 +9,11 @@
 #include <qtooltip.h>
 #include <qmap.h>
 
+#include "scribusapi.h"
 #include "scribusstructs.h"
 class ScribusDoc;
 
-class ChooseStyles : public QDialog
+class SCRIBUS_API ChooseStyles : public QDialog
 {
 	Q_OBJECT
 
@@ -31,7 +32,7 @@ protected:
 
 };
 
-class StilFormate : public QDialog
+class SCRIBUS_API StilFormate : public QDialog
 {
 	Q_OBJECT
 

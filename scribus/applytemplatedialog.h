@@ -11,6 +11,8 @@
 
 #include <qvariant.h>
 #include <qdialog.h>
+
+#include "scribusapi.h"
 #include "scribusdoc.h"
 #include "page.h"
 
@@ -26,7 +28,7 @@ class QCheckBox;
 class QSpinBox;
 class QPushButton;
 
-class ApplyMasterPageDialog : public QDialog
+class SCRIBUS_API ApplyMasterPageDialog : public QDialog
 {
 	Q_OBJECT
 
