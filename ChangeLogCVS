@@ -1,5 +1,9 @@
 Scribus - 1.2.3cvs
 ==================
+- 0002295: [Import / Export] set the scribus filename as the standard name for svg/eps export (subik)
+- 0002391: [User Interface] Layers menu is not updated when layers are reordered in the palette (cbradney)
+- 0002366: [General] Add profiles to make color management work easily (plinnell)
+- 0000887: [Documentation] Add "Scribus Friendly" Printers to the docs (plinnell)
 - 0002325: [Usability] Tooltip of Export to PDF / general / checkbox "Compress Text and Vector Graphic" (plinnell)
 - 0002232: [Import / Export] poor color export with png with RGBA and mostly black/grey colors (fschmid)
 - 0002217: [Translation] Update Danish Translation (cbradney)
