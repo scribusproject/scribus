@@ -85,7 +85,7 @@ public:
 	    repeat  = 2
 	};
 
-class VColorStopList : public QPtrList<VColorStop>
+class SCRIBUS_API VColorStopList : public QPtrList<VColorStop>
 	{
 	protected:
 		virtual int compareItems( QPtrCollection::Item item1, QPtrCollection::Item item2 );
