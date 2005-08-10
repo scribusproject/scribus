@@ -98,6 +98,8 @@ extern void CopyPageItem(struct CLBuf *Buffer, PageItem *b);
 extern void ReOrderText(ScribusDoc *doc, ScribusView *view);
 extern int copyFile(QString source, QString target);
 extern int moveFile(QString source, QString target);
+extern QString getFileNameByPage(uint pageNo, QString extension);
+
 
 using namespace std;
 
@@ -2080,14 +2082,14 @@ void ScribusApp::parsePagesString(QString pages, std::vector<int>* pageNs, int s
 		if (tmp.find(",") == -1)
 		{
 			token = tmp;
-			tmp = "";	
+			tmp = "";
 		}
 		else
 		{
 			token = tmp.left(tmp.find(","));
 			tmp = tmp.right(tmp.length() - tmp.find(",") - 1);
 		}
-		
+
 		token = token.stripWhiteSpace();
 		if (token == "*") // Import all source doc pages
 		{
@@ -3063,7 +3065,7 @@ void ScribusApp::UpdateRecent(QString fn)
 		recentMenu->insertItem(RecentDocs[m]);
 	}
 }
- 
+
 void ScribusApp::RemoveRecent(QString fn)
 {
 	recentMenu->clear();
@@ -3684,7 +3686,7 @@ void ScribusApp::slotFileOpen()
 /*!
  \fn void slotFileAppend()
  \author Franz Schmid
- \date  
+ \date
  \brief Appends a Textfile to the Text in the selected Textframe at the Cursorposition
  \param None
  \retval None
@@ -4593,8 +4595,8 @@ void ScribusApp::slotNewPageM()
 		else
 			based2 = tr("Normal");
 
-		addNewPages(dia->ActualPage->value(), 
-		            dia->Where->currentItem(), 
+		addNewPages(dia->ActualPage->value(),
+		            dia->Where->currentItem(),
 		            dia->NumPages->value(),
 		            dia->Based->currentText(),
 		            based2);
@@ -6823,9 +6825,9 @@ void ScribusApp::slotPrefsOrg()
 		Mpal->Cpal->UseTrans(Prefs.PDFTransparency);
 		Prefs.BaseShown = dia->RadioButton8->isChecked();
 //>>
-// Pre 1.2.2, within the if (false) statement, this code is wrong as we dont swap these when the 
+// Pre 1.2.2, within the if (false) statement, this code is wrong as we dont swap these when the
 // menu item is activated anyway. Not commenting the code out as it will change the strings
-if (false) 
+if (false)
 {
 //<<
 		if (Prefs.BaseShown)
@@ -7193,7 +7195,7 @@ void ScribusApp::ReadPrefs()
 	viewMenu->setItemChecked(Ras, Prefs.GridShown);
 	viewMenu->setItemChecked(Guide, Prefs.GuidesShown);
 	viewMenu->setItemChecked(Base, Prefs.BaseShown);
-	
+
 	//Continue with new Prefs Format
 	ReadPrefsXML();
 }
@@ -7297,19 +7299,20 @@ void ScribusApp::SaveAsEps()
 	if (!doc->DocName.startsWith( tr("Document")))
 	{
 		QFileInfo fi(doc->DocName);
-		fna = fi.dirPath()+"/"+fi.baseName()+".eps";
+		fna = fi.dirPath() + "/" + getFileNameByPage(doc->ActPage->PageNr, "eps");
 	}
 	else
 	{
 		QDir di = QDir();
-		fna = di.currentDirPath()+"/"+doc->DocName+".eps";
+		fna = di.currentDirPath() + "/" + getFileNameByPage(doc->ActPage->PageNr, "eps");
 	}
+	fna = QDir::convertSeparators(fna);
 	QString wdir = ".";
 	if (Prefs.DocDir != "")
 		wdir = dirs->get("eps", Prefs.DocDir);
 	else
 		wdir = dirs->get("eps", ".");
-	QString fn = CFileDialog( wdir, tr("Save as"), tr("EPS-Files (*.eps);;All Files (*)"), "", false, false);
+	QString fn = CFileDialog( wdir, tr("Save as"), tr("EPS-Files (*.eps);;All Files (*)"), fna, false, false);
 	if (!fn.isEmpty())
 	{
 		dirs->set("eps", fn.left(fn.findRev("/")));
@@ -7915,8 +7918,8 @@ void ScribusApp::StatusPic()
 	}
 }
 
-QString ScribusApp::CFileDialog(QString wDir, QString caption, QString filter, QString defNa, 
-                                bool Pre, bool mod, bool comp, bool cod, bool onlyDirs, 
+QString ScribusApp::CFileDialog(QString wDir, QString caption, QString filter, QString defNa,
+                                bool Pre, bool mod, bool comp, bool cod, bool onlyDirs,
                                 bool *docom, bool *doFont)
 {
 	QString retval = "";
@@ -9087,7 +9090,7 @@ QString ScribusApp::Collect(bool compress, bool withFonts)
 		wdir = dirs->get("collect", Prefs.DocDir);
 	else
 		wdir = dirs->get("collect", ".");
-	QString s = CFileDialog(wdir, tr("Choose a Directory"), "", "", false, false, 
+	QString s = CFileDialog(wdir, tr("Choose a Directory"), "", "", false, false,
 	                        false, false, true, &compressR, &withFontsR);
 	if (s != "")
 	{

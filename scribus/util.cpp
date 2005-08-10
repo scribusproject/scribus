@@ -2354,3 +2354,26 @@ QStringList sortQStringList(QStringList aList)
 		retList.append(sortList[i]);
 	return retList;
 }
+
+/*! Creates a common name for page exports (SVG, bitmap, EPS).
+Output format is: documentname-page01.extension
+\param pageNo number of the exported page (begins from 1)
+\param extension "svg" or e.g. "png" etc.
+\retval QString standardized filename
+\author Petr Vanek
+*/
+QString getFileNameByPage(uint pageNo, QString extension)
+{
+	QString number;
+	number = number.setNum(pageNo + ScApp->doc->FirstPnum);
+	QString defaultName = ScApp->doc->DocName;
+	if (defaultName.isNull())
+		defaultName = "export";
+	else
+	{
+		QFileInfo fi(defaultName);
+		defaultName = fi.baseName(true);
+	}
+	return QString("%1-%2%3.%4").arg(defaultName).arg(QObject::tr("page", "page export")).arg(number).arg(extension);
+}
+
