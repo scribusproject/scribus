@@ -143,6 +143,7 @@ scribus_SOURCES = \
 	scmenu.cpp	\
 	scpainter.cpp	\
 	scpaths.cpp	\
+	scplugin.cpp	\
 	scpreview.cpp	\
 	scraction.cpp	\
 	scrap.cpp	\
