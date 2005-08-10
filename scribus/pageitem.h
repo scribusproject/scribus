@@ -404,6 +404,8 @@ struct TabRecord
 	int startArrowIndex;
 	int endArrowIndex;
 	bool isEmbedded;
+	QColor fillQColor;
+	QColor strokeQColor;
 
 	/** @brief Manages undostack and is where all undo actions/states are sent. */
 	UndoManager *undoManager;

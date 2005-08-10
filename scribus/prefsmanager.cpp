@@ -270,14 +270,14 @@ void PrefsManager::initDefaults()
 	appPrefs.STEcolor = QColor(white);
 	appPrefs.DCMSset.DefaultMonitorProfile = "";
 	appPrefs.DCMSset.DefaultPrinterProfile = "";
-	appPrefs.DCMSset.DefaultInputProfile = "";
-	appPrefs.DCMSset.DefaultInputProfile2 = "";
+	appPrefs.DCMSset.DefaultImageRGBProfile = "";
+	appPrefs.DCMSset.DefaultSolidColorProfile = "";
 	appPrefs.DCMSset.CMSinUse = false;
 	appPrefs.DCMSset.SoftProofOn = false;
 	appPrefs.DCMSset.GamutCheck = false;
 	appPrefs.DCMSset.BlackPoint = true;
 	appPrefs.DCMSset.DefaultIntentMonitor = 1;
-	appPrefs.DCMSset.DefaultIntentMonitor2 = 1;
+	appPrefs.DCMSset.DefaultIntentImages = 1;
 	appPrefs.DCMSset.DefaultIntentPrinter = 0;
 	appPrefs.GFontSub.clear();
 	appPrefs.ScratchLeft = 100;
@@ -960,11 +960,12 @@ void PrefsManager::WritePref(QString ho)
 	dc81.setAttribute("DPbla", static_cast<int>(appPrefs.DCMSset.BlackPoint));
 	dc81.setAttribute("DPMo",appPrefs.DCMSset.DefaultMonitorProfile);
 	dc81.setAttribute("DPPr",appPrefs.DCMSset.DefaultPrinterProfile);
-	dc81.setAttribute("DPIn",appPrefs.DCMSset.DefaultInputProfile);
-	dc81.setAttribute("DPIn2",appPrefs.DCMSset.DefaultInputProfile2);
+	dc81.setAttribute("DPIn",appPrefs.DCMSset.DefaultImageRGBProfile);
+	dc81.setAttribute("DPInCMYK",appPrefs.DCMSset.DefaultImageCMYKProfile);
+	dc81.setAttribute("DPIn2",appPrefs.DCMSset.DefaultSolidColorProfile);
 	dc81.setAttribute("DIPr",appPrefs.DCMSset.DefaultIntentPrinter);
 	dc81.setAttribute("DIMo",appPrefs.DCMSset.DefaultIntentMonitor);
-	dc81.setAttribute("DIMo2",appPrefs.DCMSset.DefaultIntentMonitor2);
+	dc81.setAttribute("DIMo2",appPrefs.DCMSset.DefaultIntentImages);
 	elem.appendChild(dc81);
 	QDomElement dc82=docu.createElement("PRINTER");
 	dc82.setAttribute("NAME",appPrefs.PrinterName);
@@ -1331,11 +1332,12 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.DCMSset.BlackPoint = static_cast<bool>(QStoInt(dc.attribute("DPbla","1")));
 			appPrefs.DCMSset.DefaultMonitorProfile = dc.attribute("DPMo","");
 			appPrefs.DCMSset.DefaultPrinterProfile = dc.attribute("DPPr","");
-			appPrefs.DCMSset.DefaultInputProfile = dc.attribute("DPIn","");
-			appPrefs.DCMSset.DefaultInputProfile2 = dc.attribute("DPIn2","");
+			appPrefs.DCMSset.DefaultImageRGBProfile = dc.attribute("DPIn","");
+			appPrefs.DCMSset.DefaultImageCMYKProfile = dc.attribute("DPInCMYK","");
+			appPrefs.DCMSset.DefaultSolidColorProfile = dc.attribute("DPIn2","");
 			appPrefs.DCMSset.DefaultIntentPrinter = QStoInt(dc.attribute("DIPr","0"));
 			appPrefs.DCMSset.DefaultIntentMonitor = QStoInt(dc.attribute("DIMo","3"));
-			appPrefs.DCMSset.DefaultIntentMonitor2 = QStoInt(dc.attribute("DIMo2","3"));
+			appPrefs.DCMSset.DefaultIntentImages = QStoInt(dc.attribute("DIMo2","3"));
 		}
 		if (!importingFrom12 && dc.tagName()=="SHORTCUT")
 		{

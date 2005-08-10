@@ -452,11 +452,12 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 		doc->CMSSettings.BlackPoint = static_cast<bool>(QStoInt(dc.attribute("DPbla","1")));
 		doc->CMSSettings.DefaultMonitorProfile = dc.attribute("DPMo","");
 		doc->CMSSettings.DefaultPrinterProfile = dc.attribute("DPPr","");
-		doc->CMSSettings.DefaultInputProfile = dc.attribute("DPIn","");
-		doc->CMSSettings.DefaultInputProfile2 = dc.attribute("DPIn2","");
+		doc->CMSSettings.DefaultImageRGBProfile = dc.attribute("DPIn","");
+		doc->CMSSettings.DefaultImageCMYKProfile = dc.attribute("DPInCMYK","");
+		doc->CMSSettings.DefaultSolidColorProfile = dc.attribute("DPIn2","");
 		doc->CMSSettings.DefaultIntentPrinter = QStoInt(dc.attribute("DIPr","0"));
 		doc->CMSSettings.DefaultIntentMonitor = QStoInt(dc.attribute("DIMo","1"));
-		doc->CMSSettings.DefaultIntentMonitor2 = QStoInt(dc.attribute("DIMo2","1"));
+		doc->CMSSettings.DefaultIntentImages = QStoInt(dc.attribute("DIMo2","1"));
 		doc->setActiveLayer(QStoInt(dc.attribute("ALAYER","0")));
 		doc->Language = dc.attribute("LANGUAGE", "");
 		doc->MinWordLen = QStoInt(dc.attribute("MINWORDLEN", "3"));
@@ -1434,6 +1435,8 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc, ScribusView *
 	currItem->setLineColor(Pcolor2);
 	currItem->setFillShade(QStoInt(obj->attribute("SHADE")));
 	currItem->setLineShade(QStoInt(obj->attribute("SHADE2")));
+	currItem->fillQColor = doc->PageColors[currItem->fillColor()].getShadeColorProof(currItem->fillShade());
+	currItem->strokeQColor = doc->PageColors[currItem->lineColor()].getShadeColorProof(currItem->lineShade());
 	currItem->TxtStroke = obj->attribute("TXTSTROKE", "None");
 	currItem->TxtFill = obj->attribute("TXTFILL", "Black");
 	currItem->ShTxtStroke = QStoInt(obj->attribute("TXTSTRSH", "100"));

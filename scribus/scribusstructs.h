@@ -272,12 +272,13 @@ struct CMSData
 {
 	QString DefaultMonitorProfile;
 	QString DefaultPrinterProfile;
-	QString DefaultInputProfile;
-	QString DefaultInputProfile2;
+	QString DefaultImageRGBProfile;
+	QString DefaultImageCMYKProfile;
+	QString DefaultSolidColorProfile;
 	int ComponentsInput2;
 	int ComponentsPrinter;
 	int DefaultIntentMonitor;
-	int DefaultIntentMonitor2;
+	int DefaultIntentImages;
 	int DefaultIntentPrinter;
 	bool CMSinUse;
 	bool SoftProofOn;

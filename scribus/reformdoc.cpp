@@ -942,8 +942,8 @@ void ReformDoc::updateDocumentSettings()
 			if (static_cast<int>(cmsGetColorSpace(currDoc->DocPrinterProf)) == icSigCmyData)
 				currDoc->CMSSettings.ComponentsPrinter = 3;
 			currDoc->PDF_Options.SComp = currDoc->CMSSettings.ComponentsInput2;
-			currDoc->PDF_Options.SolidProf = currDoc->CMSSettings.DefaultInputProfile2;
-			currDoc->PDF_Options.ImageProf = currDoc->CMSSettings.DefaultInputProfile;
+			currDoc->PDF_Options.SolidProf = currDoc->CMSSettings.DefaultSolidColorProfile;
+			currDoc->PDF_Options.ImageProf = currDoc->CMSSettings.DefaultImageRGBProfile;
 			currDoc->PDF_Options.PrintProf = currDoc->CMSSettings.DefaultPrinterProfile;
 			currDoc->PDF_Options.Intent = currDoc->CMSSettings.DefaultIntentMonitor;
 			ScApp->RecalcColors(ScApp->mainWindowProgressBar);

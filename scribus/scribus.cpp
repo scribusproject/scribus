@@ -3940,13 +3940,13 @@ bool ScribusApp::loadDoc(QString fileName)
 		}
 		if (!doc->HasCMS)
 		{
-			doc->CMSSettings.DefaultInputProfile = prefsManager->appPrefs.DCMSset.DefaultInputProfile;
-			doc->CMSSettings.DefaultInputProfile2 = prefsManager->appPrefs.DCMSset.DefaultInputProfile2;
+			doc->CMSSettings.DefaultImageRGBProfile = prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile;
+			doc->CMSSettings.DefaultSolidColorProfile = prefsManager->appPrefs.DCMSset.DefaultSolidColorProfile;
 			doc->CMSSettings.DefaultMonitorProfile = prefsManager->appPrefs.DCMSset.DefaultMonitorProfile;
 			doc->CMSSettings.DefaultPrinterProfile = prefsManager->appPrefs.DCMSset.DefaultPrinterProfile;
 			doc->CMSSettings.DefaultIntentPrinter = prefsManager->appPrefs.DCMSset.DefaultIntentPrinter;
 			doc->CMSSettings.DefaultIntentMonitor = prefsManager->appPrefs.DCMSset.DefaultIntentMonitor;
-			doc->CMSSettings.DefaultIntentMonitor2 = prefsManager->appPrefs.DCMSset.DefaultIntentMonitor2;
+			doc->CMSSettings.DefaultIntentImages = prefsManager->appPrefs.DCMSset.DefaultIntentImages;
 			doc->CMSSettings.SoftProofOn = prefsManager->appPrefs.DCMSset.SoftProofOn;
 			doc->CMSSettings.GamutCheck = prefsManager->appPrefs.DCMSset.GamutCheck;
 			doc->CMSSettings.BlackPoint = prefsManager->appPrefs.DCMSset.BlackPoint;
@@ -3957,19 +3957,19 @@ bool ScribusApp::loadDoc(QString fileName)
 			bool cmsWarning = false;
 			QStringList missing;
 			QStringList replacement;
-			if (!InputProfiles.contains(doc->CMSSettings.DefaultInputProfile))
+			if (!InputProfiles.contains(doc->CMSSettings.DefaultImageRGBProfile))
 			{
 				cmsWarning = true;
-				missing.append(doc->CMSSettings.DefaultInputProfile);
-				replacement.append(prefsManager->appPrefs.DCMSset.DefaultInputProfile);
-				doc->CMSSettings.DefaultInputProfile = prefsManager->appPrefs.DCMSset.DefaultInputProfile;
+				missing.append(doc->CMSSettings.DefaultImageRGBProfile);
+				replacement.append(prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile);
+				doc->CMSSettings.DefaultImageRGBProfile = prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile;
 			}
-			if (!InputProfiles.contains(doc->CMSSettings.DefaultInputProfile2))
+			if (!InputProfiles.contains(doc->CMSSettings.DefaultSolidColorProfile))
 			{
 				cmsWarning = true;
-				missing.append(doc->CMSSettings.DefaultInputProfile2);
-				replacement.append(prefsManager->appPrefs.DCMSset.DefaultInputProfile2);
-				doc->CMSSettings.DefaultInputProfile2 = prefsManager->appPrefs.DCMSset.DefaultInputProfile2;
+				missing.append(doc->CMSSettings.DefaultSolidColorProfile);
+				replacement.append(prefsManager->appPrefs.DCMSset.DefaultSolidColorProfile);
+				doc->CMSSettings.DefaultSolidColorProfile = prefsManager->appPrefs.DCMSset.DefaultSolidColorProfile;
 			}
 			if (!MonitorProfiles.contains(doc->CMSSettings.DefaultMonitorProfile))
 			{
@@ -3996,15 +3996,15 @@ bool ScribusApp::loadDoc(QString fileName)
 			{
 				cmsWarning = true;
 				missing.append(doc->PDF_Options.ImageProf);
-				replacement.append(prefsManager->appPrefs.DCMSset.DefaultInputProfile);
-				doc->PDF_Options.ImageProf = doc->CMSSettings.DefaultInputProfile;
+				replacement.append(prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile);
+				doc->PDF_Options.ImageProf = doc->CMSSettings.DefaultImageRGBProfile;
 			}
 			if (!InputProfiles.contains(doc->PDF_Options.SolidProf))
 			{
 				cmsWarning = true;
 				missing.append(doc->PDF_Options.SolidProf);
-				replacement.append(prefsManager->appPrefs.DCMSset.DefaultInputProfile2);
-				doc->PDF_Options.SolidProf = doc->CMSSettings.DefaultInputProfile2;
+				replacement.append(prefsManager->appPrefs.DCMSset.DefaultSolidColorProfile);
+				doc->PDF_Options.SolidProf = doc->CMSSettings.DefaultSolidColorProfile;
 			}
 			if ((cmsWarning) && (doc->HasCMS))
 			{
@@ -4107,8 +4107,9 @@ bool ScribusApp::loadDoc(QString fileName)
 		for (uint azz=0; azz<doc->MasterItems.count(); ++azz)
 		{
 			PageItem *ite = doc->MasterItems.at(azz);
-			if (ite->Groups.count() != 0)
-				view->GroupOnPage(ite);
+			// TODO fix that for Groups on Masterpages
+//			if (ite->Groups.count() != 0)
+//				view->GroupOnPage(ite);
 			if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText))
 			{
 				if (ite->itemType() == PageItem::PathText)
@@ -4306,8 +4307,8 @@ void ScribusApp::slotFileOpen()
 				currItem->EmProfile = "";
 				currItem->pixm.imgInfo.isRequest = false;
 				currItem->UseEmbedded = true;
-				currItem->IProfile = doc->CMSSettings.DefaultInputProfile;
-				currItem->IRender = doc->CMSSettings.DefaultIntentMonitor2;
+				currItem->IProfile = doc->CMSSettings.DefaultImageRGBProfile;
+				currItem->IRender = doc->CMSSettings.DefaultIntentImages;
 				qApp->setOverrideCursor( QCursor(Qt::WaitCursor) );
 				qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
 				view->LoadPict(fileName, currItem->ItemNr);
@@ -6611,6 +6612,8 @@ void ScribusApp::changePageMargins()
 		doc->currentPage->initialMargins.Right = dia->GroupRand->RandR;
 		doc->currentPage->initialHeight = dia->heightMSpinBox->value() / doc->unitRatio();
 		doc->currentPage->initialWidth = dia->widthMSpinBox->value() / doc->unitRatio();
+		doc->currentPage->Height = dia->heightMSpinBox->value() / doc->unitRatio();
+		doc->currentPage->Width = dia->widthMSpinBox->value() / doc->unitRatio();
 		doc->currentPage->PageOri = dia->orientationQComboBox->currentItem();
 		doc->currentPage->PageSize = dia->prefsPageSizeName;
 		view->reformPages(dia->moveObjects->isChecked());
@@ -7298,9 +7301,15 @@ void ScribusApp::slotEditColors()
 							}
 						}
 						if (it.key() == ite->fillColor())
+						{
 							ite->setFillColor(it.data());
+							ite->fillQColor = doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
+						}
 						if (it.key() == ite->lineColor())
+						{
 							ite->setLineColor(it.data());
+							ite->strokeQColor = doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
+						}
 						QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 						for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 						{
@@ -7329,9 +7338,15 @@ void ScribusApp::slotEditColors()
 							}
 						}
 						if (it.key() == ite->fillColor())
+						{
 							ite->setFillColor(it.data());
+							ite->fillQColor = doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
+						}
 						if (it.key() == ite->lineColor())
+						{
 							ite->setLineColor(it.data());
+							ite->strokeQColor = doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
+						}
 						QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 						for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 						{
@@ -7360,9 +7375,15 @@ void ScribusApp::slotEditColors()
 							}
 						}
 						if (it.key() == ite->fillColor())
+						{
 							ite->setFillColor(it.data());
+							ite->fillQColor = doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
+						}
 						if (it.key() == ite->lineColor())
+						{
 							ite->setLineColor(it.data());
+							ite->strokeQColor = doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
+						}
 						QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 						for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 						{
@@ -7375,6 +7396,24 @@ void ScribusApp::slotEditColors()
 						}
 					}
 				}
+			}
+			for (c=0; c<doc->DocItems.count(); ++c)
+			{
+				ite = doc->DocItems.at(c);
+				ite->strokeQColor = doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
+				ite->fillQColor = doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
+			}
+			for (c=0; c<doc->MasterItems.count(); ++c)
+			{
+				ite = doc->MasterItems.at(c);
+				ite->strokeQColor = doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
+				ite->fillQColor = doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
+			}
+			for (c=0; c<doc->FrameItems.count(); ++c)
+			{
+				ite = doc->FrameItems.at(c);
+				ite->strokeQColor = doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
+				ite->fillQColor = doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
 			}
 			view->DrawNew();
 		}
@@ -8732,15 +8771,15 @@ void ScribusApp::initCMS()
 	if (CMSavail)
 	{
 		ProfilesL::Iterator ip;
-		if ((prefsManager->appPrefs.DCMSset.DefaultInputProfile.isEmpty()) || (!InputProfiles.contains(prefsManager->appPrefs.DCMSset.DefaultInputProfile)))
+		if ((prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile.isEmpty()) || (!InputProfiles.contains(prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile)))
 		{
 			ip = InputProfiles.begin();
-			prefsManager->appPrefs.DCMSset.DefaultInputProfile = ip.key();
+			prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile = ip.key();
 		}
-		if ((prefsManager->appPrefs.DCMSset.DefaultInputProfile2.isEmpty()) || (!InputProfiles.contains(prefsManager->appPrefs.DCMSset.DefaultInputProfile2)))
+		if ((prefsManager->appPrefs.DCMSset.DefaultSolidColorProfile.isEmpty()) || (!InputProfiles.contains(prefsManager->appPrefs.DCMSset.DefaultSolidColorProfile)))
 		{
 			ip = InputProfiles.begin();
-			prefsManager->appPrefs.DCMSset.DefaultInputProfile2 = ip.key();
+			prefsManager->appPrefs.DCMSset.DefaultSolidColorProfile = ip.key();
 		}
 		if ((prefsManager->appPrefs.DCMSset.DefaultMonitorProfile.isEmpty()) || (!MonitorProfiles.contains(prefsManager->appPrefs.DCMSset.DefaultMonitorProfile)))
 		{
@@ -8846,6 +8885,8 @@ void ScribusApp::RecalcColors(QProgressBar *dia)
 		for (uint c=0; c<doc->Items.count(); ++c)
 		{
 			PageItem *ite = doc->Items.at(c);
+			ite->fillQColor = doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
+			ite->strokeQColor = doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
 			QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 			{
@@ -8857,6 +8898,8 @@ void ScribusApp::RecalcColors(QProgressBar *dia)
 		for (uint c=0; c<doc->MasterItems.count(); ++c)
 		{
 			PageItem *ite = doc->MasterItems.at(c);
+			ite->fillQColor = doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
+			ite->strokeQColor = doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
 			QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 			{
@@ -8868,6 +8911,8 @@ void ScribusApp::RecalcColors(QProgressBar *dia)
 		for (uint c=0; c<doc->FrameItems.count(); ++c)
 		{
 			PageItem *ite = doc->FrameItems.at(c);
+			ite->fillQColor = doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
+			ite->strokeQColor = doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
 			QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 			{

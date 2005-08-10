@@ -631,9 +631,9 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	if (!ScApp->InputProfiles.contains(tp))
 	{
 		if (vie != 0)
-			tp = vie->Doc->CMSSettings.DefaultInputProfile2;
+			tp = vie->Doc->CMSSettings.DefaultSolidColorProfile;
 		else
-			tp = PrefsManager::instance()->appPrefs.DCMSset.DefaultInputProfile2;
+			tp = PrefsManager::instance()->appPrefs.DCMSset.DefaultSolidColorProfile;
 	}
 	ProfilesL::Iterator itp;
 	ProfilesL::Iterator itpend=ScApp->InputProfiles.end();
@@ -652,9 +652,9 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	if (!ScApp->InputProfiles.contains(tp1))
 	{
 		if (vie != 0)
-			tp1 = vie->Doc->CMSSettings.DefaultInputProfile2;
+			tp1 = vie->Doc->CMSSettings.DefaultSolidColorProfile;
 		else
-			tp1 = PrefsManager::instance()->appPrefs.DCMSset.DefaultInputProfile2;
+			tp1 = PrefsManager::instance()->appPrefs.DCMSset.DefaultSolidColorProfile;
 	}
 	ProfilesL::Iterator itp2;
 	ProfilesL::Iterator itp2end=ScApp->InputProfiles.end();
@@ -1033,9 +1033,9 @@ void TabPDFOptions::EnableLPI(int a)
 		if (!ScApp->InputProfiles.contains(tp))
 		{
 			if (view != 0)
-				tp = view->Doc->CMSSettings.DefaultInputProfile2;
+				tp = view->Doc->CMSSettings.DefaultSolidColorProfile;
 			else
-				tp = PrefsManager::instance()->appPrefs.DCMSset.DefaultInputProfile2;
+				tp = PrefsManager::instance()->appPrefs.DCMSset.DefaultSolidColorProfile;
 		}
 		SolidPr->clear();
 		ProfilesL::Iterator itp;
@@ -1055,9 +1055,9 @@ void TabPDFOptions::EnableLPI(int a)
 		if (!ScApp->InputProfiles.contains(tp1))
 		{
 			if (view != 0)
-				tp1 = view->Doc->CMSSettings.DefaultInputProfile2;
+				tp1 = view->Doc->CMSSettings.DefaultSolidColorProfile;
 			else
-				tp1 = PrefsManager::instance()->appPrefs.DCMSset.DefaultInputProfile2;
+				tp1 = PrefsManager::instance()->appPrefs.DCMSset.DefaultSolidColorProfile;
 		}
 		ImageP->clear();
 		ProfilesL::Iterator itp2;

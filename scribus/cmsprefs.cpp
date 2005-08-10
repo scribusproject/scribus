@@ -34,7 +34,7 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, Pro
 	for (it = InputProfiles->begin(); it != InputProfiles->end(); ++it)
 	{
 		inputP->insertItem(it.key());
-		if (it.key() == Vor->DefaultInputProfile)
+		if (it.key() == Vor->DefaultImageRGBProfile)
 			inputP->setCurrentItem(inputP->count()-1);
 	}
 	text1 = new QLabel( inputP, tr( "&Pictures:" ), sysProfiles, "Text1" );
@@ -47,7 +47,7 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, Pro
 	for (it = InputProfiles->begin(); it != InputProfiles->end(); ++it)
 	{
 		inputP2->insertItem(it.key());
-		if (it.key() == Vor->DefaultInputProfile2)
+		if (it.key() == Vor->DefaultSolidColorProfile)
 			inputP2->setCurrentItem(inputP2->count()-1);
 	}
 	text4 = new QLabel( inputP2, tr( "&Solid Colors:" ), sysProfiles, "Text4" );
@@ -163,8 +163,8 @@ void CMSPrefs::restoreDefaults()
 
 void CMSPrefs::setValues()
 {
-	if ((prefs->DefaultInputProfile != inputP->currentText()) ||
-		(prefs->DefaultInputProfile2 != inputP2->currentText()) ||
+	if ((prefs->DefaultImageRGBProfile != inputP->currentText()) ||
+		(prefs->DefaultSolidColorProfile != inputP2->currentText()) ||
 		(prefs->DefaultMonitorProfile != monitorP->currentText()) ||
 		(prefs->DefaultPrinterProfile != printerP->currentText()) ||
 		(prefs->DefaultIntentPrinter != printerI->currentItem()) ||
@@ -174,13 +174,13 @@ void CMSPrefs::setValues()
 		(prefs->BlackPoint != blackP->isChecked()) ||
 		(prefs->CMSinUse != checkBox1->isChecked()))
 			changed = true;
-	prefs->DefaultInputProfile = inputP->currentText();
-	prefs->DefaultInputProfile2 = inputP2->currentText();
+	prefs->DefaultImageRGBProfile = inputP->currentText();
+	prefs->DefaultSolidColorProfile = inputP2->currentText();
 	prefs->DefaultMonitorProfile = monitorP->currentText();
 	prefs->DefaultPrinterProfile = printerP->currentText();
 	prefs->DefaultIntentPrinter = printerI->currentItem();
 	prefs->DefaultIntentMonitor = monitorI->currentItem();
-	prefs->DefaultIntentMonitor2 = monitorI->currentItem();
+	prefs->DefaultIntentImages = monitorI->currentItem();
 	prefs->SoftProofOn = simulate->isChecked();
 	prefs->GamutCheck = gamutC->isChecked();
 	prefs->CMSinUse = checkBox1->isChecked();

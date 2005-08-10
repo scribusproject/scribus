@@ -363,22 +363,22 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 	PrefsManager *prefsManager=PrefsManager::instance();
 	PageColors = prefsManager->colorSet();
 	
-	CMSSettings.DefaultInputProfile = prefsManager->appPrefs.DCMSset.DefaultInputProfile;
-	CMSSettings.DefaultInputProfile2 = prefsManager->appPrefs.DCMSset.DefaultInputProfile2;
+	CMSSettings.DefaultImageRGBProfile = prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile;
+	CMSSettings.DefaultSolidColorProfile = prefsManager->appPrefs.DCMSset.DefaultSolidColorProfile;
 	CMSSettings.DefaultMonitorProfile = prefsManager->appPrefs.DCMSset.DefaultMonitorProfile;
 	CMSSettings.DefaultPrinterProfile = prefsManager->appPrefs.DCMSset.DefaultPrinterProfile;
 	CMSSettings.DefaultIntentPrinter = prefsManager->appPrefs.DCMSset.DefaultIntentPrinter;
 	CMSSettings.DefaultIntentMonitor = prefsManager->appPrefs.DCMSset.DefaultIntentMonitor;
-	CMSSettings.DefaultIntentMonitor2 = prefsManager->appPrefs.DCMSset.DefaultIntentMonitor2;
+	CMSSettings.DefaultIntentImages = prefsManager->appPrefs.DCMSset.DefaultIntentImages;
 	CMSSettings.SoftProofOn = prefsManager->appPrefs.DCMSset.SoftProofOn;
 	CMSSettings.GamutCheck = prefsManager->appPrefs.DCMSset.GamutCheck;
 	CMSSettings.BlackPoint = prefsManager->appPrefs.DCMSset.BlackPoint;
 	CMSSettings.CMSinUse = prefsManager->appPrefs.DCMSset.CMSinUse;
-	PDF_Options.SolidProf = CMSSettings.DefaultInputProfile2;
-	PDF_Options.ImageProf = CMSSettings.DefaultInputProfile;
+	PDF_Options.SolidProf = CMSSettings.DefaultSolidColorProfile;
+	PDF_Options.ImageProf = CMSSettings.DefaultImageRGBProfile;
 	PDF_Options.PrintProf = CMSSettings.DefaultPrinterProfile;
 	PDF_Options.Intent = CMSSettings.DefaultIntentMonitor;
-	PDF_Options.Intent2 = CMSSettings.DefaultIntentMonitor2;
+	PDF_Options.Intent2 = CMSSettings.DefaultIntentImages;
 	SoftProofing = CMSSettings.SoftProofOn;
 	Gamut = CMSSettings.GamutCheck;
 	IntentPrinter = CMSSettings.DefaultIntentPrinter;
@@ -444,7 +444,7 @@ void ScribusDoc::CloseCMSProfiles()
 void ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo)
 {
 #ifdef HAVE_CMS
-	DocInputProf = cmsOpenProfileFromFile(InPo[CMSSettings.DefaultInputProfile2], "r");
+	DocInputProf = cmsOpenProfileFromFile(InPo[CMSSettings.DefaultSolidColorProfile], "r");
 	DocOutputProf = cmsOpenProfileFromFile(MoPo[CMSSettings.DefaultMonitorProfile], "r");
 	DocPrinterProf = cmsOpenProfileFromFile(PrPo[CMSSettings.DefaultPrinterProfile], "r");
 	if ((DocInputProf == NULL) || (DocOutputProf == NULL) || (DocPrinterProf == NULL))

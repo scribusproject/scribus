@@ -1386,11 +1386,11 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 		doc->CMSSettings.BlackPoint = static_cast<bool>(QStoInt(dc.attribute("DPbla","1")));
 		doc->CMSSettings.DefaultMonitorProfile = dc.attribute("DPMo","");
 		doc->CMSSettings.DefaultPrinterProfile = dc.attribute("DPPr","");
-		doc->CMSSettings.DefaultInputProfile = dc.attribute("DPIn","");
-		doc->CMSSettings.DefaultInputProfile2 = dc.attribute("DPIn2","");
+		doc->CMSSettings.DefaultImageRGBProfile = dc.attribute("DPIn","");
+		doc->CMSSettings.DefaultSolidColorProfile = dc.attribute("DPIn2","");
 		doc->CMSSettings.DefaultIntentPrinter = QStoInt(dc.attribute("DIPr","0"));
 		doc->CMSSettings.DefaultIntentMonitor = QStoInt(dc.attribute("DIMo","1"));
-		doc->CMSSettings.DefaultIntentMonitor2 = QStoInt(dc.attribute("DIMo2","1"));
+		doc->CMSSettings.DefaultIntentImages = QStoInt(dc.attribute("DIMo2","1"));
 		doc->setActiveLayer(QStoInt(dc.attribute("ALAYER","0")));
 		doc->Language = dc.attribute("LANGUAGE", "");
 		doc->MinWordLen = QStoInt(dc.attribute("MINWORDLEN", "3"));
@@ -1745,7 +1745,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				}
 				else
 				{
-				  doc->Pages.at(a)->setPageName(PgNam);
+					doc->Pages.at(a)->setPageName(PgNam);
 					doc->MasterNames[PgNam] = a;
 					doc->MasterPages = doc->Pages;
 					doc->MasterItems = doc->Items;
@@ -3094,11 +3094,12 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	dc.setAttribute("DPbla", static_cast<int>(doc->CMSSettings.BlackPoint));
 	dc.setAttribute("DPMo",doc->CMSSettings.DefaultMonitorProfile);
 	dc.setAttribute("DPPr",doc->CMSSettings.DefaultPrinterProfile);
-	dc.setAttribute("DPIn",doc->CMSSettings.DefaultInputProfile);
-	dc.setAttribute("DPIn2",doc->CMSSettings.DefaultInputProfile2);
+	dc.setAttribute("DPIn",doc->CMSSettings.DefaultImageRGBProfile);
+	dc.setAttribute("DPInCMYK",doc->CMSSettings.DefaultImageCMYKProfile);
+	dc.setAttribute("DPIn2",doc->CMSSettings.DefaultSolidColorProfile);
 	dc.setAttribute("DIPr",doc->CMSSettings.DefaultIntentPrinter);
 	dc.setAttribute("DIMo",doc->CMSSettings.DefaultIntentMonitor);
-	dc.setAttribute("DIMo2",doc->CMSSettings.DefaultIntentMonitor2);
+	dc.setAttribute("DIMo2",doc->CMSSettings.DefaultIntentImages);
 	dc.setAttribute("ALAYER", doc->activeLayer());
 	dc.setAttribute("LANGUAGE", doc->Language);
 	dc.setAttribute("MINWORDLEN", doc->MinWordLen);

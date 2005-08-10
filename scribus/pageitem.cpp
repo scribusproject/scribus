@@ -391,9 +391,7 @@ void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 		p->fill_gradient = VGradient(VGradient::linear);
 		if (fillColor() != "None")
 		{
-			QColor tmp;
-			SetFarbe(&tmp, fillColor(), fillShade());
-			p->setBrush(tmp);
+			p->setBrush(fillQColor);
 			p->setFillMode(ScPainter::Solid);
 		}
 		else
@@ -401,13 +399,11 @@ void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 	}
 	if (lineColor() != "None")
 	{
-		QColor tmp;
-		SetFarbe(&tmp, lineColor(), lineShade());
 		if ((Pwidth == 0) && (itemType() != Line))
 			p->setLineWidth(0);
 		else
 		{
-			p->setPen(tmp, Pwidth, PLineArt, PLineEnd, PLineJoin);
+			p->setPen(strokeQColor, Pwidth, PLineArt, PLineEnd, PLineJoin);
 			if (DashValues.count() != 0)
 				p->setDash(DashValues, DashOffset);
 		}
@@ -427,9 +423,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 	{
 		if (lineColor() != "None")
 		{
-			QColor tmp;
-			SetFarbe(&tmp, lineColor(), lineShade());
-			p->setPen(tmp, Pwidth, PLineArt, PLineEnd, PLineJoin);
+			p->setPen(strokeQColor, Pwidth, PLineArt, PLineEnd, PLineJoin);
 			if (DashValues.count() != 0)
 				p->setDash(DashValues, DashOffset);
 		}

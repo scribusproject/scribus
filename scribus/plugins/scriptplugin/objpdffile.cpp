@@ -448,7 +448,7 @@ static int PDFfile_init(PDFfile *self, PyObject */*args*/, PyObject */*kwds*/)
 	self->intenti = Carrier->doc->PDF_Options.Intent2; // int - 0 - 3
 	QString tp = Carrier->doc->PDF_Options.SolidProf;
 	if (!Carrier->InputProfiles.contains(tp))
-		tp = Carrier->view->Doc->CMSSettings.DefaultInputProfile2;
+		tp = Carrier->view->Doc->CMSSettings.DefaultSolidColorProfile;
 	PyObject *solidpr = NULL;
 	solidpr = PyString_FromString(tp.ascii());
 	if (solidpr){
@@ -460,7 +460,7 @@ static int PDFfile_init(PDFfile *self, PyObject */*args*/, PyObject */*kwds*/)
 	}
 	QString tp2 = Carrier->doc->PDF_Options.ImageProf;
 	if (!Carrier->InputProfiles.contains(tp2))
-		tp2 = Carrier->view->Doc->CMSSettings.DefaultInputProfile2;
+		tp2 = Carrier->view->Doc->CMSSettings.DefaultSolidColorProfile;
 	PyObject *imagepr = NULL;
 	imagepr = PyString_FromString(tp2.ascii());
 	if (imagepr){
