@@ -14387,7 +14387,7 @@ eigenen Einstellungen ersetzen.</translation>
     </message>
     <message>
         <source>&amp;Insert</source>
-        <translation>EIn&amp;fügen</translation>
+        <translation>Ein&amp;fügen</translation>
     </message>
     <message>
         <source>C&amp;lear</source>
