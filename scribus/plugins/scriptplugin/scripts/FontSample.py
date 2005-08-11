@@ -36,7 +36,7 @@ to a value of 0. This will disable the new preview features.
 ******************************************************************************
 
 First release    : 30/12/2003
-This release     : v0.7.2tk (released 4th Jan 2005)
+This release     : v0.7.2.1tk (released 4th Jan 2005)
 Copyright        : (C) 2003 - 2005 Steve Callcott
 Latest releases
 and support      : www.firstwish.co.uk/sjc/scribus/index.php
@@ -45,6 +45,9 @@ Maintainer       : Steve Callcott 2003 - 2005
 For revision history see the ChangeLog file.
 Bugs and future plans are listed in the TODO file.
 See NEWS for new features since last version.
+WHATS NEW v0.7.2.1tk
+Fix a typo.
+Add more error messages for missing libs.
 
 WHATS NEW v0.7.2tk
 More cleanups in font preview code. If a font cannot be displayed
@@ -88,7 +91,7 @@ except ImportError,err:
     sys.exit(1)
 
 
-WINDOWTITLE = "Font Sampler v0.7.2tk - Steve Callcott"
+WINDOWTITLE = "Font Sampler v0.7.2.1tk - Steve Callcott"
 TEMPPATH = os.path.join(os.path.expanduser("~"), ".scribus")
 
 showPreviewPanel = 1  # change to 0 to permanently hide the preview
@@ -110,6 +113,7 @@ if showPreviewPanel:
     except ImportError,err:
         print "You need to install Python Imaging Library (PIL)."
         print "If using gentoo then you need to emerge /dev-python/imaging"
+	print "If using an RPM based linux distribution then you add python-imaging or similar."
         print "Script will continue without the font preview panel."
         showPreviewPanel = 0
 
@@ -118,7 +122,7 @@ if showPreviewPanel:
     try:
         import ImageTk
     except ImportError,err:
-        print "Module ImakeTk not found, font preview disabled"
+        print "Module ImageTk not found, font preview disabled"
         showPreviewPanel = 0
 
 
@@ -202,7 +206,7 @@ def setPropFont():
 
 def setPaperSize(paperSize):
     if paperSize == 1:              # A4 - 595 x 842 Points
-        paper.size = scribus.Paper_A4
+        paper.size = scribus.PAPER_A4
         paper.width = 595
         paper.height = 842
         paper.tmargin = 60
@@ -218,7 +222,7 @@ def setPaperSize(paperSize):
         paper.textheight = paper.height - paper.tmargin - paper.bmargin
         paper.margins = paper.lmargin, paper.rmargin, paper.tmargin, paper.bmargin
     if paperSize == 2:              # US Letter - 612 x 792 Points
-        paper.size = scribus.Paper_Letter
+        paper.size = scribus.PAPER_LETTER
         paper.width = 612
         paper.height = 792
         paper.tmargin = 27
@@ -399,7 +403,7 @@ def useSelection(fontList):
     tocList = []
     yPos = paper.tmargin + 1
     pageNum = 1
-    if scribus.newDoc(paper.size, paper.margins, scribus.Portrait, 1, scribus.Points, scribus.NoFacingPages, scribus.FirstPageRight):
+    if scribus.newDoc(paper.size, paper.margins, scribus.PORTRAIT, 1, scribus.UNIT_POINTS, scribus.NOFACINGPAGES, scribus.FIRSTPAGERIGHT):
         # We have a new page by default so set it up first...
         setOddEven(pageNum)
         if app.wantPageNum.get() == 1:
