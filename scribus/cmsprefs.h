@@ -16,7 +16,7 @@ class SCRIBUS_API CMSPrefs : public QWidget
 	Q_OBJECT
 
 public:
-	CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, ProfilesL *PrinterProfiles, ProfilesL *MonitorProfiles);
+	CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, ProfilesL *InputProfilesCMYK, ProfilesL *PrinterProfiles, ProfilesL *MonitorProfiles);
 	~CMSPrefs() {};
 	void restoreDefaults();
 
@@ -24,9 +24,11 @@ public:
 	QGroupBox* sysProfiles;
 	QLabel* text2;
 	QLabel* text1;
+	QLabel* text1CMYK;
 	QLabel* text3;
 	QLabel* text4;
 	QComboBox* inputP;
+	QComboBox* inputPCMYK;
 	QComboBox* inputP2;
 	QComboBox* monitorP;
 	QComboBox* printerP;

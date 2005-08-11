@@ -1323,6 +1323,8 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 			doc->FirstPageLeft = 0;
 		else
 			doc->FirstPageLeft = 1;
+		if (doc->PageFP == 0)
+			doc->FirstPageLeft = 0;
 		doc->PageAT=QStoInt(dc.attribute("AUTOTEXT"));
 		doc->PageSp=QStoInt(dc.attribute("AUTOSPALTEN"));
 		doc->PageSpa=QStodouble(dc.attribute("ABSTSPALTEN"));

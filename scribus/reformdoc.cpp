@@ -383,7 +383,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	int cmsTab = 0;
 	if (CMSavail)
 	{
-		tabColorManagement = new CMSPrefs(prefsWidgets, &doc->CMSSettings, &ScApp->InputProfiles, &ScApp->PrinterProfiles, &ScApp->MonitorProfiles);
+		tabColorManagement = new CMSPrefs(prefsWidgets, &doc->CMSSettings, &ScApp->InputProfiles, &ScApp->InputProfilesCMYK, &ScApp->PrinterProfiles, &ScApp->MonitorProfiles);
 		cmsTab = addItem( tr("Color Management"), loadIcon("blend.png"), tabColorManagement);
 	}
 

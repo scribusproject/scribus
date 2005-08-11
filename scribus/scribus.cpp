@@ -8751,6 +8751,7 @@ void ScribusApp::GetCMSProfiles()
 	MonitorProfiles.clear();
 	PrinterProfiles.clear();
 	InputProfiles.clear();
+	InputProfilesCMYK.clear();
 	QString pfad = ScPaths::instance().libDir();
 	pfad += "profiles/";
 	GetCMSProfilesDir(pfad);
@@ -8775,6 +8776,11 @@ void ScribusApp::initCMS()
 		{
 			ip = InputProfiles.begin();
 			prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile = ip.key();
+		}
+		if ((prefsManager->appPrefs.DCMSset.DefaultImageCMYKProfile.isEmpty()) || (!InputProfiles.contains(prefsManager->appPrefs.DCMSset.DefaultImageCMYKProfile)))
+		{
+			ip = InputProfilesCMYK.begin();
+			prefsManager->appPrefs.DCMSset.DefaultImageCMYKProfile = ip.key();
 		}
 		if ((prefsManager->appPrefs.DCMSset.DefaultSolidColorProfile.isEmpty()) || (!InputProfiles.contains(prefsManager->appPrefs.DCMSset.DefaultSolidColorProfile)))
 		{
@@ -8824,12 +8830,11 @@ void ScribusApp::GetCMSProfilesDir(QString pfad)
 				switch (static_cast<int>(cmsGetDeviceClass(hIn)))
 				{
 				case icSigInputClass:
-					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigRgbData)
-						InputProfiles[nam] = pfad + d[dc];
-					break;
 				case icSigColorSpaceClass:
 					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigRgbData)
 						InputProfiles[nam] = pfad + d[dc];
+					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigCmykData)
+						InputProfilesCMYK[nam] = pfad + d[dc];
 					break;
 				case icSigDisplayClass:
 					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigRgbData)

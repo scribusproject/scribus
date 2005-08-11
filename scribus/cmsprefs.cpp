@@ -1,7 +1,7 @@
 #include "cmsprefs.h"
 #include "cmsprefs.moc"
 
-CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, ProfilesL *PrinterProfiles, ProfilesL *MonitorProfiles)
+CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, ProfilesL *InputProfilesCMYK, ProfilesL *PrinterProfiles, ProfilesL *MonitorProfiles)
 	: QWidget( parent, "CMS" )
 {
 	prefs = Vor;
@@ -37,9 +37,22 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, Pro
 		if (it.key() == Vor->DefaultImageRGBProfile)
 			inputP->setCurrentItem(inputP->count()-1);
 	}
-	text1 = new QLabel( inputP, tr( "&Pictures:" ), sysProfiles, "Text1" );
+	text1 = new QLabel( inputP, tr( "&RGB Pictures:" ), sysProfiles, "Text1" );
 	sysProfilesLayout->addWidget( text1, 0, 0 );
 	sysProfilesLayout->addWidget( inputP, 0, 1 );
+
+	inputPCMYK = new QComboBox( true, sysProfiles, "inputPCMYK" );
+	inputPCMYK->setMinimumSize( QSize( 190, 22 ) );
+	inputPCMYK->setEditable(false);
+	for (it = InputProfilesCMYK->begin(); it != InputProfilesCMYK->end(); ++it)
+	{
+		inputPCMYK->insertItem(it.key());
+		if (it.key() == Vor->DefaultImageCMYKProfile)
+			inputPCMYK->setCurrentItem(inputPCMYK->count()-1);
+	}
+	text1CMYK = new QLabel( inputPCMYK, tr( "&CMYK Pictures:" ), sysProfiles, "text1cmyk" );
+	sysProfilesLayout->addWidget( text1CMYK, 1, 0 );
+	sysProfilesLayout->addWidget( inputPCMYK, 1, 1 );
 
 	inputP2 = new QComboBox( true, sysProfiles, "InputP2" );
 	inputP2->setMinimumSize( QSize( 190, 22 ) );
@@ -51,8 +64,8 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, Pro
 			inputP2->setCurrentItem(inputP2->count()-1);
 	}
 	text4 = new QLabel( inputP2, tr( "&Solid Colors:" ), sysProfiles, "Text4" );
-	sysProfilesLayout->addWidget( text4, 1, 0 );
-	sysProfilesLayout->addWidget( inputP2, 1, 1 );
+	sysProfilesLayout->addWidget( text4, 2, 0 );
+	sysProfilesLayout->addWidget( inputP2, 2, 1 );
 
 	monitorP = new QComboBox( true, sysProfiles, "MonitorP" );
 	monitorP->setMinimumSize( QSize( 190, 22 ) );
@@ -64,8 +77,8 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, Pro
 			monitorP->setCurrentItem(monitorP->count()-1);
 	}
 	text2 = new QLabel( monitorP, tr( "&Monitor:" ), sysProfiles, "Text2" );
-	sysProfilesLayout->addWidget( text2, 2, 0 );
-	sysProfilesLayout->addWidget( monitorP, 2, 1 );
+	sysProfilesLayout->addWidget( text2, 3, 0 );
+	sysProfilesLayout->addWidget( monitorP, 3, 1 );
 
 	printerP = new QComboBox( true, sysProfiles, "PrinterP" );
 	printerP->setMinimumSize( QSize( 190, 22 ) );
@@ -77,8 +90,8 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, Pro
 			printerP->setCurrentItem(printerP->count()-1);
 	}
 	text3 = new QLabel( printerP, tr( "P&rinter:" ), sysProfiles, "Text3" );
-	sysProfilesLayout->addWidget( text3, 3, 0 );
-	sysProfilesLayout->addWidget( printerP, 3, 1 );
+	sysProfilesLayout->addWidget( text3, 4, 0 );
+	sysProfilesLayout->addWidget( printerP, 4, 1 );
 	cmsPrefsLayout->addWidget( sysProfiles );
 
 	render = new QGroupBox( tr( "Rendering Intents" ), this, "Render" );
@@ -142,7 +155,8 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, Pro
 		blackP->setEnabled( false );
 	}
 
-	QToolTip::add( inputP, tr( "Default color profile for imported images" ) );
+	QToolTip::add( inputPCMYK, tr( "Default color profile for imported cmyk images" ) );
+	QToolTip::add( inputP, tr( "Default color profile for imported rgb images" ) );
 	QToolTip::add( inputP2, tr( "Default color profile for solid colors on the page" ) );
 	QToolTip::add( monitorP, tr( "Color profile that you have generated or received from the manufacturer.\nThis profile should be specific to your monitor and not a generic profile (i.e. sRGB)." ) );
 	QToolTip::add( printerP, tr( "Color profile for your printer model from the manufacturer.\nThis profile should be specific to your printer and not a generic profile (i.e. sRGB)." ) );
@@ -164,6 +178,7 @@ void CMSPrefs::restoreDefaults()
 void CMSPrefs::setValues()
 {
 	if ((prefs->DefaultImageRGBProfile != inputP->currentText()) ||
+		(prefs->DefaultImageCMYKProfile != inputPCMYK->currentText()) ||
 		(prefs->DefaultSolidColorProfile != inputP2->currentText()) ||
 		(prefs->DefaultMonitorProfile != monitorP->currentText()) ||
 		(prefs->DefaultPrinterProfile != printerP->currentText()) ||
@@ -175,6 +190,7 @@ void CMSPrefs::setValues()
 		(prefs->CMSinUse != checkBox1->isChecked()))
 			changed = true;
 	prefs->DefaultImageRGBProfile = inputP->currentText();
+	prefs->DefaultImageCMYKProfile = inputPCMYK->currentText();
 	prefs->DefaultSolidColorProfile = inputP2->currentText();
 	prefs->DefaultMonitorProfile = monitorP->currentText();
 	prefs->DefaultPrinterProfile = printerP->currentText();

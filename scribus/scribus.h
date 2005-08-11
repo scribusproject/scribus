@@ -171,6 +171,7 @@ public:
 	QString Buffer3;
 	bool BuFromApp;
 	ProfilesL InputProfiles;
+	ProfilesL InputProfilesCMYK;
 	ProfilesL MonitorProfiles;
 	ProfilesL PrinterProfiles;
 	ProfilesL PDFXProfiles;

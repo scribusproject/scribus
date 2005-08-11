@@ -118,7 +118,7 @@ if showPreviewPanel:
     try:
         import ImageTk
     except ImportError,err:
-        print "Module ImakeTk not found, font preview disabled"
+        print "Module ImageTk not found, font preview disabled"
         showPreviewPanel = 0
 
 

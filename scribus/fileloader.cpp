@@ -392,10 +392,15 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 			doc->FirstPageLeft = QStoInt(dc.attribute("StartPage", "0"));
 		else
 		{
-			if (QStoInt(dc.attribute("FIRSTLEFT","0")) == 1)
+			if (doc->PageFP == 0)
 				doc->FirstPageLeft = 0;
 			else
-				doc->FirstPageLeft = 1;
+			{
+				if (QStoInt(dc.attribute("FIRSTLEFT","0")) == 1)
+					doc->FirstPageLeft = 0;
+				else
+					doc->FirstPageLeft = 1;
+			}
 		}
 		doc->PageAT=QStoInt(dc.attribute("AUTOTEXT"));
 		doc->PageSp=QStoInt(dc.attribute("AUTOSPALTEN"));
