@@ -1,16 +1,17 @@
 #ifndef TEXTFILTER_H
 #define TEXTFILTER_H
 
+#include "pluginapi.h"
 #include <scribus.h>
 #include <prefscontext.h>
 #include <gtwriter.h>
 #include "tffilter.h"
 
-extern "C" void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer);
+extern "C" PLUGIN_API void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer);
 
-extern "C" QString FileFormatName();
+extern "C" PLUGIN_API QString FileFormatName();
 
-extern "C" QStringList FileExtensions();
+extern "C" PLUGIN_API QStringList FileExtensions();
 
 class TextFilter
 {

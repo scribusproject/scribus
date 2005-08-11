@@ -14,6 +14,7 @@ or documentation
 #include "version.h"
 #include "vlnadialog.h"
 #include "pluginmanager.h"
+#include "scpaths.h"
 #include "scribus.h"
 #include <qmessagebox.h>
 #include <qtextcodec.h>
@@ -23,7 +24,7 @@ or documentation
 #include <qdir.h>
 #include <qcheckbox.h>
 
-extern ScribusApp *ScApp;
+extern ScribusApp SCRIBUS_API *ScApp;
 
 
 QString name()

@@ -15,6 +15,7 @@ or documentation
 #include "scconfig.h"
 #include "configuration.h"
 #include "configuration.moc"
+#include "scpaths.h"
 #include "version.h"
 #include "shortwords.h"
 
@@ -24,7 +25,7 @@ or documentation
 #include <qdir.h>
 #include <qstringlist.h>
 
-extern ScribusApp *ScApp;
+extern ScribusApp SCRIBUS_API *ScApp;
 
 Config::Config()
 {

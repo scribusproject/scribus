@@ -1,6 +1,7 @@
 #ifndef CSVIM_H
 #define CSVIM_H
 
+#include "pluginapi.h"
 #include "csvdia.h"
 #include <gtwriter.h>
 #include <gtparagraphstyle.h>
@@ -11,11 +12,11 @@
 #include <qstringlist.h>
 #include <qtextcodec.h>
 
-extern "C" void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer);
+extern "C" PLUGIN_API void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer);
 
-extern "C" QString FileFormatName();
+extern "C" PLUGIN_API QString FileFormatName();
 
-extern "C" QStringList FileExtensions();
+extern "C" PLUGIN_API QStringList FileExtensions();
 
 class CsvIm 
 {

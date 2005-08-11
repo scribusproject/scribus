@@ -17,7 +17,7 @@
 #include "prefsfile.h"
 #include "mpalette.h"
 
-extern ScribusApp *ScApp;
+extern ScribusApp SCRIBUS_API *ScApp;
 
 ColorWheelDialog::ColorWheelDialog(QWidget* parent, const char* name, bool modal, WFlags fl)
 	: QDialog(parent, name, modal, fl)

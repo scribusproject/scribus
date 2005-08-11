@@ -24,12 +24,13 @@
 #include "gtwriter.h"
 
 #include "scconfig.h"
+#include "pluginapi.h"
 
-extern "C" void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer);
+extern "C" PLUGIN_API void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer);
 
-extern "C" QString FileFormatName();
+extern "C" PLUGIN_API QString FileFormatName();
 
-extern "C" QStringList FileExtensions();
+extern "C" PLUGIN_API QStringList FileExtensions();
 
 #ifdef HAVE_XML
 

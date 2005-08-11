@@ -23,6 +23,7 @@
 
 #ifdef HAVE_XML
 
+#include <scribusstructs.h>
 #include "prefsmanager.h"
 #include <prefsfile.h>
 #include <prefscontext.h>

@@ -19,6 +19,7 @@
  ***************************************************************************/
 
 #include "contentreader.h"
+#include <scribusstructs.h>
 
 #ifdef HAVE_XML
 

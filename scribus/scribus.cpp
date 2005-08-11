@@ -162,7 +162,7 @@ cmsHTRANSFORM stdTransRGBG;
 bool BlackPoint;
 bool SoftProofing;
 bool Gamut;
-bool CMSuse;
+bool SCRIBUS_API CMSuse;
 int IntentMonitor;
 int IntentPrinter;
 #endif

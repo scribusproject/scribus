@@ -3,6 +3,7 @@
 
 #include <qstring.h>
 #include <qfiledialog.h>
+#include "pluginapi.h"
 #include "scribus.h"
 #include "pluginmanager.h"
 
@@ -10,12 +11,12 @@ class ScrAction;
 
 /*! Calls the Plugin with the main Application window as parent
 	and the main Application Class as parameter */
-extern "C" void run(QWidget *d, ScribusApp *plug);
+extern "C" PLUGIN_API void run(QWidget *d, ScribusApp *plug);
 
 
 /*! Returns the Name of the Plugin.
 	This name appears in the relevant Menue-Entrys */
-extern "C" QString name();
+extern "C" PLUGIN_API QString name();
 
 
 /*! Returns the Type of the Plugin.
@@ -23,14 +24,14 @@ extern "C" QString name();
   \retval 2 = the Plugin is a Import Plugin, which appears in the Import Menue
   \retval 3 = the Plugin is a Export Plugin, which appears in the Export Menue
   \retval 4 = the Plugin is a resident Plugin	*/
-extern "C" PluginManager::PluginType type();
-extern "C" int ID();
+extern "C" PLUGIN_API PluginManager::PluginType type();
+extern "C" PLUGIN_API int ID();
 
-extern "C" QString actionName();
-extern "C" QString actionKeySequence();
-extern "C" QString actionMenu();
-extern "C" QString actionMenuAfterName();
-extern "C" bool actionEnabledOnStartup();
+extern "C" PLUGIN_API QString actionName();
+extern "C" PLUGIN_API QString actionKeySequence();
+extern "C" PLUGIN_API QString actionMenu();
+extern "C" PLUGIN_API QString actionMenuAfterName();
+extern "C" PLUGIN_API bool actionEnabledOnStartup();
 
 /*! Handles export. */
 class ExportBitmap: public QObject

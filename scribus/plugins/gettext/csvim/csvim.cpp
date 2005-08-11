@@ -1,4 +1,5 @@
 #include "csvim.h"
+#include "scribusstructs.h"
 
 QString FileFormatName()
 {

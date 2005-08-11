@@ -1,7 +1,9 @@
 #include "csvdia.h"
 #include "csvdia.moc"
 
-extern QPixmap loadIcon(QString nam);
+#include "scribusapi.h"
+
+extern QPixmap SCRIBUS_API loadIcon(QString nam);
 
 CsvDialog::CsvDialog() : QDialog(0, "csvdia", true, 0)
 {

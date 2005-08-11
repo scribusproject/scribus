@@ -1,13 +1,14 @@
 #ifndef TXTIM_H
 #define TXTIM_H
 
+#include "pluginapi.h"
 #include "gtwriter.h"
 
-extern "C" void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer);
+extern "C" PLUGIN_API void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer);
 
-extern "C" QString FileFormatName();
+extern "C" PLUGIN_API QString FileFormatName();
 
-extern "C" QStringList FileExtensions();
+extern "C" PLUGIN_API QStringList FileExtensions();
 
 class TxtIm 
 {

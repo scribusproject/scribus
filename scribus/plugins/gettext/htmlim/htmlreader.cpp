@@ -23,6 +23,7 @@
 
 #ifdef HAVE_XML
 
+#include "scribusstructs.h"
 #include "gtmeasure.h"
 
 HTMLReader* HTMLReader::hreader = NULL;

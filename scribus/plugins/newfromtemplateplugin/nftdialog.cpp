@@ -4,9 +4,10 @@
 #include "nftdialog.h"
 #include "nftdialog.moc"
 #include "scconfig.h"
+#include "scribusapi.h"
 #include "commonstrings.h"
 
-extern QPixmap loadIcon(QString nam);
+extern QPixmap SCRIBUS_API loadIcon(QString nam);
 
 nftdialog::nftdialog(QWidget* parent, QString lang, QString templateDir) : QDialog(parent, "nftdialog", true)
 {

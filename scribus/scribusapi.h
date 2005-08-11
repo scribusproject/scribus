@@ -35,7 +35,11 @@
     #endif
 #else
     #ifdef HAVE_GCC_SYMBOL_VISIBILITY
+        // Forces inclusion of a symbol in the symbol table, so
+        // software outside the current library / app can use it.
         #define SCRIBUS_API __attribute__ ((visibility("default")))
+        // Within a section exported with SCRIBUS_API, forces a symbol to be
+        // private to the library / app. Good for private members.
         #define SCRIBUS_LOCAL __attribute__ ((visibility("hidden")))
     #else
         #define SCRIBUS_API

@@ -2,10 +2,11 @@
 
 #ifdef HAVE_XML
 
+#include "scribusapi.h"
 #include "sxwdia.moc"
 #include <qtooltip.h>
 
-extern QPixmap loadIcon(QString nam);
+extern QPixmap SCRIBUS_API loadIcon(QString nam);
 
 SxwDialog::SxwDialog(bool update, bool prefix, bool pack) : QDialog(0, "sxwdia", true, 0)
 {

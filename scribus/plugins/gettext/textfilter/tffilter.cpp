@@ -3,12 +3,13 @@
 
 #include <qlayout.h>
 #include <qtooltip.h>
+#include <scribusapi.h>
 #include <scribus.h>
 #include "prefsmanager.h"
 #include <prefsfile.h>
 
-extern ScribusApp* ScApp;
-extern QPixmap loadIcon(QString nam);
+extern ScribusApp SCRIBUS_API *ScApp;
+extern QPixmap SCRIBUS_API loadIcon(QString nam);
 
 tfFilter::tfFilter(QWidget *parent, const char *name,
                    int action, QString regExp, QString replace, QString pstyleName,

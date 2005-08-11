@@ -35,8 +35,8 @@ int mainApp(int argc, char **argv);
 void initCrashHandler();
 static void defaultCrashHandler(int sig);
 
-ScribusApp* ScApp;
-ScribusQApp* ScQApp;
+ScribusApp SCRIBUS_API *ScApp;
+ScribusQApp SCRIBUS_API *ScQApp;
 bool emergencyActivated;
 
 int main(int argc, char *argv[])

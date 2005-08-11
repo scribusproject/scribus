@@ -25,6 +25,8 @@
 #ifndef _RC4_H_
 #  define _RC4_H_
 
+#include "scribusapi.h"
+
 #  ifdef __cplusplus
 extern "C" {
 #  endif /* __cplusplus */
@@ -45,9 +47,9 @@ typedef struct
  * Prototypes...
  */
 
-extern void	rc4_init(rc4_context_t *context, const unsigned char *key,
+extern void	SCRIBUS_API rc4_init(rc4_context_t *context, const unsigned char *key,
 			 unsigned keylen);
-extern void	rc4_encrypt(rc4_context_t *context, const unsigned char *input,
+extern void	SCRIBUS_API rc4_encrypt(rc4_context_t *context, const unsigned char *input,
 			    unsigned char *output, unsigned len);
 
 #  ifdef __cplusplus

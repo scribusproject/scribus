@@ -24,8 +24,9 @@
 
 #include "odtdia.moc"
 #include <qtooltip.h>
+#include "scribusapi.h"
 
-extern QPixmap loadIcon(QString nam);
+extern QPixmap SCRIBUS_API loadIcon(QString nam);
 
 OdtDialog::OdtDialog(bool update, bool prefix, bool pack) : QDialog(0, "sxwdia", true, 0)
 {

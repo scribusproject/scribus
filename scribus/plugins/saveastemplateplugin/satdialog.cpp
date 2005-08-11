@@ -3,10 +3,11 @@
  ***************************************************************************/
 #include "satdialog.h"
 #include "satdialog.moc"
+#include "scribusapi.h"
 #include "prefsmanager.h"
 #include <prefsfile.h>
 
-extern QPixmap loadIcon(QString nam);
+extern QPixmap SCRIBUS_API loadIcon(QString nam);
 
 satdialog::satdialog(QWidget* parent, QString tmplName, int pageW, int pageH) : QDialog(parent, "satdialog", true)
 {

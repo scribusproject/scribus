@@ -25,6 +25,7 @@
 
 #ifdef HAVE_XML
 
+#include "scribusstructs.h"
 #include "gtparagraphstyle.h" // Style for paragraph based formatting.
 #include "gtframestyle.h"
 

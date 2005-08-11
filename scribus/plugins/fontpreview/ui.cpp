@@ -17,7 +17,7 @@
 #include "prefsmanager.h"
 #include "commonstrings.h"
 
-extern QPixmap loadIcon(QString nam);
+extern QPixmap SCRIBUS_API loadIcon(QString nam);
 
 /*! Main window for "Font Preview" plugin. It's only gui.
  *

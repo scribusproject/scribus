@@ -13,7 +13,7 @@ or documentation
 #ifndef _SCRIBUS_SHORTVER_H_
 #define _SCRIBUS_SHORTVER_H_
 
-#define RC_PATH QDir::convertSeparators(QString(PLUGINDATA) + "/scribus-short-words.rc")
+#define RC_PATH QDir::convertSeparators( ScPaths::instance().pluginDir() + "/scribus-short-words.rc")
 #define RC_PATH_USR QDir::homeDirPath() + QDir::convertSeparators("/.scribus/scribus-short-words.rc")
 
 #define UNBREAKABLE_SPACE QString(QChar(29))

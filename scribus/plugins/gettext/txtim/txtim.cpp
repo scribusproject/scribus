@@ -7,6 +7,7 @@
 #include <qtextcodec.h> 
 
 #include "txtim.h"
+#include "scribusstructs.h"
 
 QString FileFormatName()
 {

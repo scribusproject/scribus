@@ -22,6 +22,8 @@
 
 #ifdef HAVE_XML
 
+#include <scribusstructs.h>
+
 ContentReader* ContentReader::creader = NULL;
 
 extern xmlSAXHandlerPtr cSAXHandler;

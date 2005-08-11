@@ -13,6 +13,7 @@ or documentation
 #define _SCRIBUS_SHORTWORDS_H_
 
 #include "scconfig.h"
+#include "pluginapi.h"
 #include "configuration.h"
 #include "parse.h"
 #include "vlnadialog.h"
@@ -22,30 +23,30 @@ or documentation
 /** Calls the Plugin with the main Application window as parent
 and the main Application Class as parameter. Loads translator too.
 */
-extern "C" void run(QWidget *d, ScribusApp *plug);
+extern "C" PLUGIN_API void run(QWidget *d, ScribusApp *plug);
 
 
 /** Returns the Name of the Plugin.
  This name appears in the relevant Menue-Entrys
  */
-extern "C" QString name();
+extern "C" PLUGIN_API QString name();
 
 
 /** Returns the Type of the Plugin.
   \retval 1 = the Plugin is a normal Plugin, which appears in the Extras Menue
   */
-extern "C" PluginManager::PluginType type();
+extern "C" PLUGIN_API PluginManager::PluginType type();
 
 /** Returns the Id of the Plugin.
   \retval 11 = id from the plugin registry
  */
-extern "C" int ID();
+extern "C" PLUGIN_API int ID();
 
-extern "C" QString actionName();
-extern "C" QString actionKeySequence();
-extern "C" QString actionMenu();
-extern "C" QString actionMenuAfterName();
-extern "C" bool actionEnabledOnStartup();
+extern "C" PLUGIN_API QString actionName();
+extern "C" PLUGIN_API QString actionKeySequence();
+extern "C" PLUGIN_API QString actionMenu();
+extern "C" PLUGIN_API QString actionMenuAfterName();
+extern "C" PLUGIN_API bool actionEnabledOnStartup();
 
 class Parse;
 

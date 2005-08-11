@@ -18,7 +18,7 @@ or documentation
 #include "scribus.h"
 #include <qregexp.h>
 
-extern ScribusApp *ScApp;
+extern ScribusApp SCRIBUS_API *ScApp;
 
 
 Parse::Parse()

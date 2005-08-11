@@ -13,6 +13,7 @@ or documentation
 #include "vlnadialog.h"
 #include "vlnadialog.moc"
 #include "scribus.h"
+#include "scpaths.h"
 #include "configuration.h"
 #include "helpbrowser.h"
 
@@ -35,7 +36,7 @@ or documentation
 
 #include "commonstrings.h"
 
-extern ScribusApp *ScApp;
+extern ScribusApp SCRIBUS_API *ScApp;
 
 
 /*!
