@@ -36,7 +36,7 @@ to a value of 0. This will disable the new preview features.
 ******************************************************************************
 
 First release    : 30/12/2003
-This release     : v0.7.2tk (released 4th Jan 2005)
+This release     : v0.7.2.1tk (released 4th Jan 2005)
 Copyright        : (C) 2003 - 2005 Steve Callcott
 Latest releases
 and support      : www.firstwish.co.uk/sjc/scribus/index.php
@@ -45,6 +45,9 @@ Maintainer       : Steve Callcott 2003 - 2005
 For revision history see the ChangeLog file.
 Bugs and future plans are listed in the TODO file.
 See NEWS for new features since last version.
+WHATS NEW v0.7.2.1tk
+Fix a typo.
+Add more error messages for missing libs.
 
 WHATS NEW v0.7.2tk
 More cleanups in font preview code. If a font cannot be displayed
@@ -88,7 +91,7 @@ except ImportError,err:
     sys.exit(1)
 
 
-WINDOWTITLE = "Font Sampler v0.7.2tk - Steve Callcott"
+WINDOWTITLE = "Font Sampler v0.7.2.1tk - Steve Callcott"
 TEMPPATH = os.path.join(os.path.expanduser("~"), ".scribus")
 
 showPreviewPanel = 1  # change to 0 to permanently hide the preview
@@ -110,6 +113,7 @@ if showPreviewPanel:
     except ImportError,err:
         print "You need to install Python Imaging Library (PIL)."
         print "If using gentoo then you need to emerge /dev-python/imaging"
+	print "If using an RPM based linux distribution then you add python-imaging or similar."
         print "Script will continue without the font preview panel."
         showPreviewPanel = 0
 
