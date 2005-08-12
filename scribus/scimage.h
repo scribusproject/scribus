@@ -84,7 +84,7 @@ public:
 	void createLowRes(double scale);
 	void scaleImage(int width, int height);
 	bool LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes, bool *realCMYK = 0);
-	QString getAlpha(QString fn, bool PDF, bool pdf14);
+	QString getAlpha(QString fn, bool PDF, bool pdf14, int gsRes = 72);
 
 	enum PSDColorMode
 	{

@@ -2384,7 +2384,7 @@ void ScImage::scaleImage(int nwidth, int nheight)
 	return;
 }
 
-QString ScImage::getAlpha(QString fn, bool PDF, bool pdf14)
+QString ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes)
 {
 	QString retS = "";
 	float xres, yres;
@@ -2396,11 +2396,126 @@ QString ScImage::getAlpha(QString fn, bool PDF, bool pdf14)
 	QFileInfo fi = QFileInfo(fn);
 	if (!fi.exists())
 		return retS;
+	QString tmp, BBox, tmp2;
 	QString ext = fi.extension(false).lower();
 	QString tmpFile = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/sc.png");
-	if ((ext == "pdf") || (ext == "eps") || (ext == "ps") || (ext == "jpg") || (ext == "jpeg"))
+	QString picFile = QDir::convertSeparators(fn);
+	if ((ext == "jpg") || (ext == "jpeg"))
 		return retS;
-	if ((ext == "tif") || (ext == "tiff"))
+	double x, y, b, h;
+	bool found = false;
+	int retg = -1;
+	QChar tc;
+	if (ext == "pdf")
+	{
+		QStringList args;
+		xres = gsRes;
+		yres = gsRes;
+		args.append("-r"+QString::number(gsRes));
+		args.append("-sOutputFile=\""+tmpFile + "\"");
+		args.append("-dFirstPage=1");
+		args.append("-dLastPage=1");
+		args.append("\""+picFile+"\"");
+		retg = callGS(args);
+		if (retg == 0)
+		{
+			load(tmpFile);
+			unlink(tmpFile);
+			setAlphaBuffer(true);
+			if (ScApp->HavePngAlpha != 0)
+			{
+				for( int yi=0; yi < height(); ++yi )
+				{
+					QRgb *s = (QRgb*)(scanLine( yi ));
+					for(int xi=0; xi < width(); ++xi )
+					{
+						if((*s) == 0xffffffff)
+							(*s) &= 0x00ffffff;
+						s++;
+					}
+				}
+			}
+		}
+	}
+	else if ((ext == "eps") || (ext == "ps"))
+	{
+		QFile f(fn);
+		if (f.open(IO_ReadOnly))
+		{
+			QTextStream ts(&f);
+			while (!ts.atEnd())
+			{
+				tc = ' ';
+				tmp = "";
+				while ((tc != '\n') && (tc != '\r'))
+				{
+					ts >> tc;
+					if ((tc != '\n') && (tc != '\r'))
+						tmp += tc;
+				}
+				if (tmp.startsWith("%%BoundingBox:"))
+				{
+					found = true;
+					BBox = tmp.remove("%%BoundingBox:");
+				}
+				if (!found)
+				{
+					if (tmp.startsWith("%%BoundingBox"))
+					{
+						found = true;
+						BBox = tmp.remove("%%BoundingBox");
+					}
+				}
+				if (tmp.startsWith("%%EndComments"))
+					break;
+			}
+		}
+		f.close();
+		if (found)
+		{
+			QTextStream ts2(&BBox, IO_ReadOnly);
+			ts2 >> x >> y >> b >> h;
+			x = x * gsRes / 72.0;
+			y = y * gsRes / 72.0;
+			b = b * gsRes / 72.0;
+			h = h * gsRes / 72.0;
+			QStringList args;
+			xres = gsRes;
+			yres = gsRes;
+			args.append("-r"+QString::number(gsRes));
+			args.append("-sOutputFile=\""+tmpFile+"\"");
+			args.append("-g"+tmp.setNum(qRound(b))+"x"+tmp2.setNum(qRound(h)));
+			args.append("\""+picFile+"\"");
+			retg = callGS(args);
+			if (retg == 0)
+			{
+				QImage image;
+				image.load(tmpFile);
+				image.setAlphaBuffer(true);
+				if (ScApp->HavePngAlpha != 0)
+				{
+					int wi = image.width();
+					int hi = image.height();
+					for( int yi=0; yi < hi; ++yi )
+					{
+						QRgb *s = (QRgb*)(image.scanLine( yi ));
+						QRgb alphaFF = qRgba(255,255,255,255);
+						QRgb alpha00 = qRgba(255,255,255,  0);
+						for(int xi=0; xi < wi; ++xi )
+						{
+							if((*s) == alphaFF)
+								(*s) &= alpha00;
+							s++;
+						}
+					}
+				}
+				*this = static_cast<ScImage>(image.copy(static_cast<int>(x), 0, static_cast<int>(b-x), static_cast<int>(h-y)));
+				setAlphaBuffer(true);
+				unlink(tmpFile);
+			}
+		}
+	}
+	else if ((ext == "tif") || (ext == "tiff"))
 	{
 #ifdef HAVE_TIFF
 		TIFF* tif = TIFFOpen(fn.local8Bit(), "r");
@@ -3246,9 +3361,15 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 		else
 		{
 			if (isCMYK)
-				inputProf = CMSprinterProf;
+			{
+				if (ScApp->InputProfilesCMYK.contains(Prof))
+					inputProf = cmsOpenProfileFromFile(ScApp->InputProfilesCMYK[Prof], "r");
+			}
 			else
-				inputProf = cmsOpenProfileFromFile(ScApp->InputProfiles[Prof], "r");
+			{
+				if (ScApp->InputProfiles.contains(Prof))
+					inputProf = cmsOpenProfileFromFile(ScApp->InputProfiles[Prof], "r");
+			}
 		}
 	}
 	if (CMSuse && useProf && inputProf)
@@ -3321,7 +3442,7 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 			}
 			cmsDeleteTransform (xform);
 		}
-		if (inputProf && inputProf != CMSprinterProf)
+		if (inputProf)
 			cmsCloseProfile(inputProf);
 	}
 	else

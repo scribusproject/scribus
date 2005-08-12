@@ -791,6 +791,7 @@ void ReformDoc::updateDocumentSettings()
 			currDoc->toolSettings.tabFillChar = tabTools->tabFillCombo->currentText().right(1);
 			break;
 	}
+	// TODO fix these tr("None") things
 	if (currDoc->toolSettings.dStrokeText == tr("None"))
 		currDoc->toolSettings.dStrokeText = "None";
 	currDoc->toolSettings.dPenText = tabTools->colorComboText->currentText();

@@ -4666,8 +4666,10 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				currItem->setFillColor(Doc->ElemToLink->fillColor());
 				currItem->setFillShade(Doc->ElemToLink->fillShade());
 				currItem->setFillTransparency(Doc->ElemToLink->fillTransparency());
-				currItem->fillQColor = Doc->PageColors[currItem->fillColor()].getShadeColorProof(currItem->fillShade());
-				currItem->strokeQColor = Doc->PageColors[currItem->lineColor()].getShadeColorProof(currItem->lineShade());
+				if (currItem->fillColor() != "None")
+					currItem->fillQColor = Doc->PageColors[currItem->fillColor()].getShadeColorProof(currItem->fillShade());
+				if (currItem->lineColor() != "None")
+					currItem->strokeQColor = Doc->PageColors[currItem->lineColor()].getShadeColorProof(currItem->lineShade());
 				Doc->ElemToLink = currItem;
 				emit DocChanged();
 				updateContents();
@@ -9433,8 +9435,10 @@ int ScribusView::PaintEllipse(double x, double y, double b, double h, double w, 
 	ite->PLineArt = PenStyle(Doc->toolSettings.dLineArt);
 	ite->setFillShade(Doc->toolSettings.dShade);
 	ite->setLineShade(Doc->toolSettings.dShade2);
-	ite->fillQColor = Doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
-	ite->strokeQColor = Doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
+	if (ite->fillColor() != "None")
+		ite->fillQColor = Doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
+	if (ite->lineColor() != "None")
+		ite->strokeQColor = Doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
 	ite->ItemNr = Doc->Items.count()-1;
 	SetOvalFrame(ite);
 	ite->ContourLine = ite->PoLine.copy();
@@ -9487,8 +9491,10 @@ int ScribusView::PaintPict(double x, double y, double b, double h)
 	ite->IProfile = Doc->CMSSettings.DefaultImageRGBProfile;
 	ite->IRender = Doc->CMSSettings.DefaultIntentImages;
 	ite->ItemNr = Doc->Items.count()-1;
-	ite->fillQColor = Doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
-	ite->strokeQColor = Doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
+	if (ite->fillColor() != "None")
+		ite->fillQColor = Doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
+	if (ite->lineColor() != "None")
+		ite->strokeQColor = Doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
 	SetRectFrame(ite);
 	ite->ContourLine = ite->PoLine.copy();
 	if (!Doc->isLoading())
@@ -9533,8 +9539,10 @@ int ScribusView::PaintRect(double x, double y, double b, double h, double w, QSt
 	ite->PLineArt = PenStyle(Doc->toolSettings.dLineArt);
 	ite->setFillShade(Doc->toolSettings.dShade);
 	ite->setLineShade(Doc->toolSettings.dShade2);
-	ite->fillQColor = Doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
-	ite->strokeQColor = Doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
+	if (ite->fillColor() != "None")
+		ite->fillQColor = Doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
+	if (ite->lineColor() != "None")
+		ite->strokeQColor = Doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
 	ite->ItemNr = Doc->Items.count()-1;
 	SetRectFrame(ite);
 	ite->ContourLine = ite->PoLine.copy();
@@ -9580,8 +9588,10 @@ int ScribusView::PaintPoly(double x, double y, double b, double h, double w, QSt
 	ite->PLineArt = PenStyle(Doc->toolSettings.dLineArt);
 	ite->setFillShade(Doc->toolSettings.dShade);
 	ite->setLineShade(Doc->toolSettings.dShade2);
-	ite->fillQColor = Doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
-	ite->strokeQColor = Doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
+	if (ite->fillColor() != "None")
+		ite->fillQColor = Doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
+	if (ite->lineColor() != "None")
+		ite->strokeQColor = Doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
 	ite->ItemNr =Doc-> Items.count()-1;
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
@@ -9627,8 +9637,10 @@ int ScribusView::PaintPolyLine(double x, double y, double b, double h, double w,
 	ite->PLineArt = PenStyle(Doc->toolSettings.dLineArt);
 	ite->setFillShade(Doc->toolSettings.dShade);
 	ite->setLineShade(Doc->toolSettings.dShade2);
-	ite->fillQColor = Doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
-	ite->strokeQColor = Doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
+	if (ite->fillColor() != "None")
+		ite->fillQColor = Doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
+	if (ite->lineColor() != "None")
+		ite->strokeQColor = Doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
 	ite->ItemNr = Doc->Items.count()-1;
 	ite->ClipEdited = true;
 	if (!Doc->isLoading())
@@ -9955,7 +9967,8 @@ void ScribusView::ItemPen(QString farbe)
 			if ((i->itemType() == PageItem::Line) && (farbe == "None"))
 				continue;
 			i->setLineColor(farbe);
-			i->strokeQColor = Doc->PageColors[farbe].getShadeColorProof(i->lineShade());
+			if (i->lineColor() != "None")
+				i->strokeQColor = Doc->PageColors[farbe].getShadeColorProof(i->lineShade());
 			RefreshItem(i);
 			emit ItemFarben(i->lineColor(), i->fillColor(), i->lineShade(), i->fillShade());
 		}
@@ -10349,7 +10362,8 @@ void ScribusView::ItemBrush(QString farbe)
 		{
 			currItem = SelItem.at(a);
 			currItem->setFillColor(farbe);
-			currItem->fillQColor = Doc->PageColors[farbe].getShadeColorProof(currItem->fillShade());
+			if (currItem->fillColor() != "None")
+				currItem->fillQColor = Doc->PageColors[farbe].getShadeColorProof(currItem->fillShade());
 			RefreshItem(currItem);
 			emit ItemFarben(currItem->lineColor(), currItem->fillColor(), currItem->lineShade(), currItem->fillShade());
 		}
@@ -10371,7 +10385,8 @@ void ScribusView::ItemBrushShade(int sha)
 		{
 			currItem = SelItem.at(a);
 			currItem->setFillShade(sha);
-			currItem->fillQColor = Doc->PageColors[currItem->fillColor()].getShadeColorProof(sha);
+			if (currItem->fillColor() != "None")
+				currItem->fillQColor = Doc->PageColors[currItem->fillColor()].getShadeColorProof(sha);
 			emit ItemFarben(currItem->lineColor(), currItem->fillColor(), currItem->lineShade(), currItem->fillShade());
 			RefreshItem(currItem);
 		}
@@ -10392,7 +10407,8 @@ void ScribusView::ItemPenShade(int sha)
 		{
 			currItem = SelItem.at(a);
 			currItem->setLineShade(sha);
-			currItem->strokeQColor = Doc->PageColors[currItem->lineColor()].getShadeColorProof(sha);
+			if (currItem->lineColor() != "None")
+				currItem->strokeQColor = Doc->PageColors[currItem->lineColor()].getShadeColorProof(sha);
 			emit ItemFarben(currItem->lineColor(), currItem->fillColor(), currItem->lineShade(), currItem->fillShade());
 			RefreshItem(currItem);
 		}
@@ -11444,8 +11460,10 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	currItem->setLineColor(Buffer->Pcolor2);
 	currItem->setFillShade(Buffer->Shade);
 	currItem->setLineShade(Buffer->Shade2);
-	currItem->fillQColor = Doc->PageColors[currItem->fillColor()].getShadeColorProof(currItem->fillShade());
-	currItem->strokeQColor = Doc->PageColors[currItem->lineColor()].getShadeColorProof(currItem->lineShade());
+	if (currItem->fillColor() != "None")
+		currItem->fillQColor = Doc->PageColors[currItem->fillColor()].getShadeColorProof(currItem->fillShade());
+	if (currItem->lineColor() != "None")
+		currItem->strokeQColor = Doc->PageColors[currItem->lineColor()].getShadeColorProof(currItem->lineShade());
 	currItem->TxtStroke = Buffer->TxtStroke;
 	currItem->TxtFill = Buffer->TxtFill;
 	currItem->ShTxtStroke = Buffer->ShTxtStroke;
@@ -11852,8 +11870,10 @@ void ScribusView::TextToPath()
 				bb->lineColor() = "None";
 				bb->setLineShade(100);
 			}
-			bb->fillQColor = Doc->PageColors[bb->fillColor()].getShadeColorProof(bb->fillShade());
-			bb->strokeQColor = Doc->PageColors[bb->lineColor()].getShadeColorProof(bb->lineShade());
+			if (bb->fillColor() != "None")
+				bb->fillQColor = Doc->PageColors[bb->fillColor()].getShadeColorProof(bb->fillShade());
+			if (bb->lineColor() != "None")
+				bb->strokeQColor = Doc->PageColors[bb->lineColor()].getShadeColorProof(bb->lineShade());
 			bb->Pwidth = chs * currItem->itemText.at(a)->coutline / 10000.0;
 			FPoint tp2 = getMinClipF(&bb->PoLine);
 			bb->PoLine.translate(-tp2.x(), -tp2.y());

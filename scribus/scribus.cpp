@@ -7303,12 +7303,14 @@ void ScribusApp::slotEditColors()
 						if (it.key() == ite->fillColor())
 						{
 							ite->setFillColor(it.data());
-							ite->fillQColor = doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
+							if (ite->fillColor() != "None")
+								ite->fillQColor = doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
 						}
 						if (it.key() == ite->lineColor())
 						{
 							ite->setLineColor(it.data());
-							ite->strokeQColor = doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
+							if (ite->lineColor() != "None")
+								ite->strokeQColor = doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
 						}
 						QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 						for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
@@ -7340,12 +7342,14 @@ void ScribusApp::slotEditColors()
 						if (it.key() == ite->fillColor())
 						{
 							ite->setFillColor(it.data());
-							ite->fillQColor = doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
+							if (ite->fillColor() != "None")
+								ite->fillQColor = doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
 						}
 						if (it.key() == ite->lineColor())
 						{
 							ite->setLineColor(it.data());
-							ite->strokeQColor = doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
+							if (ite->lineColor() != "None")
+								ite->strokeQColor = doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
 						}
 						QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 						for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
@@ -7377,12 +7381,14 @@ void ScribusApp::slotEditColors()
 						if (it.key() == ite->fillColor())
 						{
 							ite->setFillColor(it.data());
-							ite->fillQColor = doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
+							if (ite->fillColor() != "None")
+								ite->fillQColor = doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
 						}
 						if (it.key() == ite->lineColor())
 						{
 							ite->setLineColor(it.data());
-							ite->strokeQColor = doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
+							if (ite->lineColor() != "None")
+								ite->strokeQColor = doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
 						}
 						QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 						for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
@@ -7400,20 +7406,26 @@ void ScribusApp::slotEditColors()
 			for (c=0; c<doc->DocItems.count(); ++c)
 			{
 				ite = doc->DocItems.at(c);
-				ite->strokeQColor = doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
-				ite->fillQColor = doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
+				if (ite->lineColor() != "None")
+					ite->strokeQColor = doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
+				if (ite->fillColor() != "None")
+					ite->fillQColor = doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
 			}
 			for (c=0; c<doc->MasterItems.count(); ++c)
 			{
 				ite = doc->MasterItems.at(c);
-				ite->strokeQColor = doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
-				ite->fillQColor = doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
+				if (ite->lineColor() != "None")
+					ite->strokeQColor = doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
+				if (ite->fillColor() != "None")
+					ite->fillQColor = doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
 			}
 			for (c=0; c<doc->FrameItems.count(); ++c)
 			{
 				ite = doc->FrameItems.at(c);
-				ite->strokeQColor = doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
-				ite->fillQColor = doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
+				if (ite->lineColor() != "None")
+					ite->strokeQColor = doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
+				if (ite->fillColor() != "None")
+					ite->fillQColor = doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
 			}
 			view->DrawNew();
 		}
@@ -8890,8 +8902,10 @@ void ScribusApp::RecalcColors(QProgressBar *dia)
 		for (uint c=0; c<doc->Items.count(); ++c)
 		{
 			PageItem *ite = doc->Items.at(c);
-			ite->fillQColor = doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
-			ite->strokeQColor = doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
+			if (ite->fillColor() != "None")
+				ite->fillQColor = doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
+			if (ite->lineColor() != "None")
+				ite->strokeQColor = doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
 			QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 			{
@@ -8903,8 +8917,10 @@ void ScribusApp::RecalcColors(QProgressBar *dia)
 		for (uint c=0; c<doc->MasterItems.count(); ++c)
 		{
 			PageItem *ite = doc->MasterItems.at(c);
-			ite->fillQColor = doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
-			ite->strokeQColor = doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
+			if (ite->fillColor() != "None")
+				ite->fillQColor = doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
+			if (ite->lineColor() != "None")
+				ite->strokeQColor = doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
 			QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 			{
@@ -8916,8 +8932,10 @@ void ScribusApp::RecalcColors(QProgressBar *dia)
 		for (uint c=0; c<doc->FrameItems.count(); ++c)
 		{
 			PageItem *ite = doc->FrameItems.at(c);
-			ite->fillQColor = doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
-			ite->strokeQColor = doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
+			if (ite->fillColor() != "None")
+				ite->fillQColor = doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
+			if (ite->lineColor() != "None")
+				ite->strokeQColor = doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
 			QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 			{

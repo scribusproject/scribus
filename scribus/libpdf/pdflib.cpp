@@ -4303,9 +4303,9 @@ QString PDFlib::PDF_Image(PageItem* c, QString fn, double sx, double sy, double 
 		QString im2 = "";
 		ScImage img2;
 		if (Options->Version >= 14)
-			im2 = img2.getAlpha(fn, true, true);
+			im2 = img2.getAlpha(fn, true, true, afl);
 		else
-			im2 = img2.getAlpha(fn, true, false);
+			im2 = img2.getAlpha(fn, true, false, afl);
 		if (!im2.isEmpty())
 			alphaM = true;
 		bool imgE = false;

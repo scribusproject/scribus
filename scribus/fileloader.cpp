@@ -1440,8 +1440,10 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc, ScribusView *
 	currItem->setLineColor(Pcolor2);
 	currItem->setFillShade(QStoInt(obj->attribute("SHADE")));
 	currItem->setLineShade(QStoInt(obj->attribute("SHADE2")));
-	currItem->fillQColor = doc->PageColors[currItem->fillColor()].getShadeColorProof(currItem->fillShade());
-	currItem->strokeQColor = doc->PageColors[currItem->lineColor()].getShadeColorProof(currItem->lineShade());
+	if (currItem->fillColor() != "None")
+		currItem->fillQColor = doc->PageColors[currItem->fillColor()].getShadeColorProof(currItem->fillShade());
+	if (currItem->lineColor() != "None")
+		currItem->strokeQColor = doc->PageColors[currItem->lineColor()].getShadeColorProof(currItem->lineShade());
 	currItem->TxtStroke = obj->attribute("TXTSTROKE", "None");
 	currItem->TxtFill = obj->attribute("TXTFILL", "Black");
 	currItem->ShTxtStroke = QStoInt(obj->attribute("TXTSTRSH", "100"));

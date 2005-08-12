@@ -3034,6 +3034,29 @@ void Mpalette::updateCmsList()
 		}
 		disconnect(InputP, SIGNAL(activated(const QString&)), this, SLOT(ChProf(const QString&)));
 		InputP->clear();
+		if (CurItem->pixm.imgInfo.colorspace == 1)
+		{
+			ProfilesL::Iterator itP;
+			ProfilesL::Iterator itPend=ScApp->InputProfilesCMYK.end();
+			for (itP = ScApp->InputProfilesCMYK.begin(); itP != itPend; ++itP)
+			{
+				InputP->insertItem(itP.key());
+				if (itP.key() == CurItem->IProfile)
+					InputP->setCurrentItem(InputP->count()-1);
+			}
+			if (!ScApp->InputProfilesCMYK.contains(CurItem->IProfile))
+			{
+				InputP->insertItem(CurItem->IProfile);
+				InputP->setCurrentItem(InputP->count()-1);
+			}
+			else
+			{
+				if (!CurItem->EmProfile.isEmpty())
+					InputP->insertItem(CurItem->EmProfile);
+			}
+		}
+		else
+		{
 		ProfilesL::Iterator itP;
 		ProfilesL::Iterator itPend=ScApp->InputProfiles.end();
 		for (itP = ScApp->InputProfiles.begin(); itP != itPend; ++itP)
@@ -3051,6 +3074,7 @@ void Mpalette::updateCmsList()
 		{
 			if (!CurItem->EmProfile.isEmpty())
 				InputP->insertItem(CurItem->EmProfile);
+		}
 		}
 		MonitorI->setCurrentItem(CurItem->IRender);
 		connect(InputP, SIGNAL(activated(const QString&)), this, SLOT(ChProf(const QString&)));
