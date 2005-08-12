@@ -32,7 +32,7 @@
 			<submenuitem text="Basic Font Tests 2" file="fonts5.html"/>
 			</submenuitem>
 		<submenuitem text="Scribus Basics" file="about2.html"/>
-			<submenuitem text="Page Templates" file="pagetemplates1.html"/>
+			<submenuitem text="Page Templates" file="pagetemplate1.html"/>
 		</submenuitem>
 			<!-- <submenuitem text="Document Text" file="text.html" />
 			<submenuitem text="Doc. Info" file="docinfo.html" />
