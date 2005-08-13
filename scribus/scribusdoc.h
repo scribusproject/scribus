@@ -254,6 +254,14 @@ public:
 	void setUnitIndex(const int);
 	const int unitIndex();
 	const double unitRatio();
+	/**
+	 * @brief Apply a master page
+	 */
+	const bool applyMasterPage(const QString& in, const int);
+	/**
+	 * @brief Undo function for applying a master page
+	 */
+	void restoreMasterPageApplying(SimpleState *state, bool isUndo);
 	
 protected:
 	void addSymbols();

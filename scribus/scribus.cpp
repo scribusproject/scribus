@@ -8416,60 +8416,7 @@ void ScribusApp::ApplyMasterPage()
 
 void ScribusApp::Apply_MasterPage(QString in, int Snr, bool reb)
 {
-	if (UndoManager::undoEnabled())
-	{
-		if (doc->Pages.at(Snr)->MPageNam != in)
-		{
-		SimpleState *ss = new SimpleState(Um::ApplyMasterPage,
-						QString(Um::FromTo).arg(doc->Pages.at(Snr)->MPageNam).arg(in));
-			ss->set("PAGE_NUMBER", Snr);
-			ss->set("OLD_MASTERPAGE", doc->Pages.at(Snr)->MPageNam);
-			ss->set("NEW_MASTERPAGE", in);
-			undoManager->action(doc->Pages.at(Snr), ss);
-		}
-	}
-	PageItem *currItem;
-	QString mna = in;
-	if (mna == tr("Normal"))
-		mna = "Normal";
-	if (!doc->MasterNames.contains(mna))
-		mna = "Normal";
-	Page* Ap = doc->Pages.at(Snr);
-	Ap->MPageNam = mna;
-	int MpNr = doc->MasterNames[mna];
-	Page* Mp = doc->MasterPages.at(MpNr);
-	for (currItem = Ap->FromMaster.first(); currItem; currItem = Ap->FromMaster.next())
-	{
-		if (currItem->ChangedMasterItem)
-		{
-			Ap->FromMaster.remove(currItem);
-			delete currItem;
-		}
-	}
-	Ap->FromMaster.clear();
-	for (currItem = doc->MasterItems.first(); currItem; currItem = doc->MasterItems.next())
-	{
-		if (currItem->OwnPage == MpNr)
-			Ap->FromMaster.append(currItem);
-	}
-	if (Mp->YGuides.count() != 0)
-	{
-		for (uint y = 0; y < Mp->YGuides.count(); ++y)
-		{
-			if (Ap->YGuides.contains(Mp->YGuides[y]) == 0)
-				Ap->YGuides.append(Mp->YGuides[y]);
-		}
-		qHeapSort(Ap->YGuides);
-	}
-	if (Mp->XGuides.count() != 0)
-	{
-		for (uint x = 0; x < Mp->XGuides.count(); ++x)
-		{
-			if (Ap->XGuides.contains(Mp->XGuides[x]) == 0)
-				Ap->XGuides.append(Mp->XGuides[x]);
-		}
-		qHeapSort(Ap->XGuides);
-	}
+	doc->applyMasterPage(in, Snr);
 	if (reb)
 	{
 		view->DrawNew();
@@ -9648,10 +9595,9 @@ void ScribusApp::emergencySave()
 				delete ss;
 			}
 			view->close();
-			for (uint a = 0; a<doc->Pages.count(); ++a)
-			{
+			int numPages=doc->Pages.count();
+			for (uint a = 0; a<numPages; ++a)
 				delete doc->Pages.at(a);
-			}
 			delete doc;
 			ActWin->close();
 		}

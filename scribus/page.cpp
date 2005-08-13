@@ -259,8 +259,6 @@ void Page::restore(UndoState* state, bool isUndo)
 			restorePageItemCreation(dynamic_cast<ItemState<PageItem*>*>(ss), isUndo);
 		else if (ss->contains("DELETE_ITEM"))
 			restorePageItemDeletion(dynamic_cast<ItemState<PageItem*>*>(ss), isUndo);
-		else if (ss->contains("OLD_MASTERPAGE"))
-			restoreMasterPageApplying(ss, isUndo);
 	}
 }
 
@@ -308,15 +306,4 @@ void Page::restorePageItemDeletion(ItemState<PageItem*> *state, bool isUndo)
 		ScApp->view->DeleteItem();
 		ScApp->view->Deselect();
 	}
-}
-
-void Page::restoreMasterPageApplying(SimpleState *state, bool isUndo)
-{
-	int pageNumber = state->getInt("PAGE_NUMBER");
-	QString oldName = state->get("OLD_MASTERPAGE");
-	QString newName = state->get("NEW_MASTERPAGE");
-	if (isUndo)
-		ScApp->Apply_MasterPage(oldName, pageNumber, false);
-	else
-		ScApp->Apply_MasterPage(newName, pageNumber, false);
 }

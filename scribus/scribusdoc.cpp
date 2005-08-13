@@ -685,6 +685,8 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 			changeLayerName(ss->getInt("ACTIVE"), name);
 			layersUndo=true;
 		}
+		else if (ss->contains("OLD_MASTERPAGE"))
+			restoreMasterPageApplying(ss, isUndo);
 		
 		if (layersUndo)
 		{
@@ -1623,4 +1625,75 @@ const int ScribusDoc::unitIndex()
 const double ScribusDoc::unitRatio()
 {
 	return docUnitRatio;
+}
+
+const bool ScribusDoc::applyMasterPage(const QString& in, const int pageNumber)
+{
+	if (UndoManager::undoEnabled())
+	{
+		if (Pages.at(pageNumber)->MPageNam != in)
+		{
+			SimpleState *ss = new SimpleState(Um::ApplyMasterPage, QString(Um::FromTo).arg(Pages.at(pageNumber)->MPageNam).arg(in));
+			ss->set("PAGE_NUMBER", pageNumber);
+			ss->set("OLD_MASTERPAGE", Pages.at(pageNumber)->MPageNam);
+			ss->set("NEW_MASTERPAGE", in);
+			undoManager->action(this, ss);
+		}
+	}
+	
+	QString mna = in;
+	if (mna == tr("Normal"))
+		mna = "Normal";
+	if (!MasterNames.contains(mna))
+		mna = "Normal";
+	Page* Ap = Pages.at(pageNumber);
+	Ap->MPageNam = mna;
+	int MpNr = MasterNames[mna];
+	Page* Mp = MasterPages.at(MpNr);
+	PageItem *currItem;
+	for (currItem = Ap->FromMaster.first(); currItem; currItem = Ap->FromMaster.next())
+	{
+		if (currItem->ChangedMasterItem)
+		{
+			Ap->FromMaster.remove(currItem);
+			delete currItem;
+		}
+	}
+	Ap->FromMaster.clear();
+	for (currItem = MasterItems.first(); currItem; currItem = MasterItems.next())
+	{
+		if (currItem->OwnPage == MpNr)
+			Ap->FromMaster.append(currItem);
+	}
+	if (Mp->YGuides.count() != 0)
+	{
+		for (uint y = 0; y < Mp->YGuides.count(); ++y)
+		{
+			if (Ap->YGuides.contains(Mp->YGuides[y]) == 0)
+				Ap->YGuides.append(Mp->YGuides[y]);
+		}
+		qHeapSort(Ap->YGuides);
+	}
+	if (Mp->XGuides.count() != 0)
+	{
+		for (uint x = 0; x < Mp->XGuides.count(); ++x)
+		{
+			if (Ap->XGuides.contains(Mp->XGuides[x]) == 0)
+				Ap->XGuides.append(Mp->XGuides[x]);
+		}
+		qHeapSort(Ap->XGuides);
+	}
+	//TODO make a return false if not possible to apply the master page
+	return true;
+}
+
+void ScribusDoc::restoreMasterPageApplying(SimpleState *state, bool isUndo)
+{
+	int pageNumber = state->getInt("PAGE_NUMBER");
+	QString oldName = state->get("OLD_MASTERPAGE");
+	QString newName = state->get("NEW_MASTERPAGE");
+	if (isUndo)
+		applyMasterPage(oldName, pageNumber);
+	else
+		applyMasterPage(newName, pageNumber);
 }
