@@ -1,4 +1,4 @@
-EXTRA_DIST = acropass.png acroinfo.png acrosec.png acro1.png acro2.png acro3.png acroreader5.1.png cmsmodify1.png colormgmtscreen.png cups1.png cups2.png docheader1.png docheader2.png fonts2.png fonts3.png fonts4.png fontpref2.png fontpref3.png fontpref1.png fontsampler.png fontsampler2.png gammagrayscale.png gsadv1.png gsadv2.png gsadv3.png hyphen1.png hyphen2.png hyphen3.png inkscape.png kfontinstaller.png ksnapshot.png monprof1.png monprof2.png monprof3.png monprof4.png pdfxcolor.png pdfxintent.png pstoedit1.png pdfx3-1.png svg1.png gimpoptions1.png prefsguides.png printpreview.png  RDF.png batik1.png  gimpoptions2.png  prefspanel1.png  scribus2.png cmspanel.png  gimpoptions3.png  prefspanel2.png scribustru4.png colormanager2.png  hyphen1.png prefspanel3.png  Scripter_error_string.png fontprev.png hyphen2.png  prefspanel4.png prefspanel5.png Scripter.png fonts.png  hyphen3.png  xnview.png spinbox1.png scribuscms1.png printer1.png printer2.png printseps.png formularz_export_PDF.png formularz_js_skrypt.png formularz_js_sprawdzanie.png formularz_nowy.png formularz_pole_num.png siatka_jednostki_miar.png siatka_menu.png symbole.png ulica.png wlasciwosci_pola.png wyslij_formularz.png result.png prefsblgrid1.png swmenu.png swdialog.png after_short_words.png before_short_words.png
+EXTRA_DIST = acropass.png acroinfo.png acrosec.png acro1.png acro2.png acro3.png acroreader5.1.png cmsmodify1.png colormgmtscreen.png cups1.png cups2.png docheader1.png docheader2.png fonts2.png fonts3.png fonts4.png fontpref2.png fontpref3.png fontpref1.png fontsampler.png fontsampler2.png gammagrayscale.png gsadv1.png gsadv2.png gsadv3.png hyphen1.png hyphen2.png hyphen3.png inkscape.png kfontinstaller.png ksnapshot.png monprof1.png monprof2.png monprof3.png monprof4.png pagetemplate1.png pdfxcolor.png pdfxintent.png pstoedit1.png pdfx3-1.png svg1.png gimpoptions1.png pagetemplate1.png prefsguides.png printpreview.png  RDF.png batik1.png  gimpoptions2.png  prefspanel1.png  scribus2.png cmspanel.png  gimpoptions3.png  prefspanel2.png scribustru4.png colormanager2.png  hyphen1.png prefspanel3.png  Scripter_error_string.png fontprev.png hyphen2.png  prefspanel4.png prefspanel5.png Scripter.png fonts.png  hyphen3.png  xnview.png spinbox1.png scribuscms1.png printer1.png printer2.png printseps.png formularz_export_PDF.png formularz_js_skrypt.png formularz_js_sprawdzanie.png formularz_nowy.png formularz_pole_num.png siatka_jednostki_miar.png siatka_menu.png symbole.png ulica.png wlasciwosci_pola.png wyslij_formularz.png result.png prefsblgrid1.png swmenu.png swdialog.png after_short_words.png before_short_words.png
 
 install-data-local:
 
@@ -48,6 +48,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/monprof2.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/monprof2.png
 	$(INSTALL_DATA) $(srcdir)/monprof3.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/monprof3.png
 	$(INSTALL_DATA) $(srcdir)/monprof4.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/monprof4.png
+	$(INSTALL_DATA) $(srcdir)/pagetemplate1.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/pagetemplate1.png
 	$(INSTALL_DATA) $(srcdir)/pdfxcolor.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/pdfxcolor.png
 	$(INSTALL_DATA) $(srcdir)/pdfxintent.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/pdfxintent.png
 	$(INSTALL_DATA) $(srcdir)/pstoedit1.png $(DESTDIR)$(prefix)/share/scribus/doc/en/images/pstoedit1.png
@@ -137,6 +138,7 @@ uninstall-local:
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/monprof2.png
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/monprof3.png
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/monprof4.png
+	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/pagetemplate1.png
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/pdfxcolor.png
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/pdfxintent.png
 	-rm -f $(DESTDIR)$(prefix)/share/scribus/doc/en/images/prefsblgrid1.png
