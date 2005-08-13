@@ -36,18 +36,22 @@ to a value of 0. This will disable the new preview features.
 ******************************************************************************
 
 First release    : 30/12/2003
-This release     : v0.7.2.1tk (released 4th Jan 2005)
+This release     : v0.7.3tk (released 13th Aug 2005)
 Copyright        : (C) 2003 - 2005 Steve Callcott
 Latest releases
 and support      : www.firstwish.co.uk/sjc/scribus/index.php
 Maintainer       : Steve Callcott 2003 - 2005
+Email            : stotte@firstwish.co.uk
 
 For revision history see the ChangeLog file.
 Bugs and future plans are listed in the TODO file.
 See NEWS for new features since last version.
-WHATS NEW v0.7.2.1tk
-Fix a typo.
-Add more error messages for missing libs.
+
+WHATS NEW v0.7.3tk
+Fix typo in exception code.
+Modified case of some script variables to make compatible with changes
+in Scribus 1.3 scriptor.
+Removed the reduntant "self.master.maxsize(1, 1)" from the application class.
 
 WHATS NEW v0.7.2tk
 More cleanups in font preview code. If a font cannot be displayed
@@ -91,7 +95,7 @@ except ImportError,err:
     sys.exit(1)
 
 
-WINDOWTITLE = "Font Sampler v0.7.2.1tk - Steve Callcott"
+WINDOWTITLE = "Font Sampler v0.7.3tk - Steve Callcott"
 TEMPPATH = os.path.join(os.path.expanduser("~"), ".scribus")
 
 showPreviewPanel = 1  # change to 0 to permanently hide the preview
@@ -113,7 +117,7 @@ if showPreviewPanel:
     except ImportError,err:
         print "You need to install Python Imaging Library (PIL)."
         print "If using gentoo then you need to emerge /dev-python/imaging"
-	print "If using an RPM based linux distribution then you add python-imaging or similar."
+        print "If using an RPM based linux distribution then you add python-imaging or similar."
         print "Script will continue without the font preview panel."
         showPreviewPanel = 0
 
@@ -155,11 +159,11 @@ tocstyle.charsInRow = 75
 def setFixedFont():
     fixed = (
     "Luxi Mono Regular",
-    "Nimbus Mono L Regular"
-    "Courier 10 Pitch Regular"
-    "Courier New Regular"
-    "Courier Regular"
-    "Andale Mono Regular"
+    "Nimbus Mono L Regular",
+    "Courier 10 Pitch Regular",
+    "Courier New Regular",
+    "Courier Regular",
+    "Andale Mono Regular",
     "Larabiefont Regular"
     )
 
@@ -175,6 +179,7 @@ def setFixedFont():
                     found = 1
                     break
     if found == 0:
+        print "No suitable fixed width font found."
         print "Please install at least one of these fixed width fonts:"
         print fixed
 
@@ -200,6 +205,7 @@ def setPropFont():
                     found = 1
                     break
     if found == 0:
+        print "No suitable proportional font found."
         print "Please install at least one of these proportional fonts:"
         print proportional
 
@@ -471,9 +477,8 @@ class Application(Frame):
 
         self.grid()
 
-        # specifying anything above 0 for maxsize seems to stop window
-        # resizing, it also appears to remove the unwanted maximise button...
-        self.master.maxsize(1, 1)
+        # Remove maximise button and resize. Not good to allow resizable window
+        # because the listboxes are fixed width...
         self.master.resizable(0, 0)   
 
         # now start adding our widgets starting with the top frame...

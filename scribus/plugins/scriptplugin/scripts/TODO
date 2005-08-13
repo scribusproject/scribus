@@ -24,3 +24,8 @@ Continual holding of Up or Down keys causes preview to be redrawn rapidly. This 
 a number of problems.  Needs a timer to delay redraws when scrolling.
 
 Improve on the documentation of the functions.
+
+The script checks at startup for certain fonts needed for the Table of Contents, page
+numbers etc. If suitable fonts are not available the script will report back to the console
+with a list of possible fonts that will work. Unfortunately if Scribus is not started from a
+terminal then there will be no indication of a problem.
