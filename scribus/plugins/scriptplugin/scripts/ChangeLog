@@ -1,3 +1,9 @@
+20050813 v0.7.3tk
+    Fix typo in exception code.
+    Modified case of some script variables to make compatible with changes
+    in Scribus 1.3 scriptor.
+    Removed the reduntant "self.master.maxsize(1, 1)" from the application class.
+
 20050104 v0.7.2tk
     More cleanups in font preview code. If a font cannot be displayed
     then the preview panel is cleared. Removed many error messages returned
