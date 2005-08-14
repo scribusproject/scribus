@@ -1,3 +1,6 @@
+20050814 v0.7.4tk
+    Now updates the Scribus Progress Bar (one increment for each font drawn).
+
 20050813 v0.7.3tk
     Fix typo in exception code.
     Modified case of some script variables to make compatible with changes
