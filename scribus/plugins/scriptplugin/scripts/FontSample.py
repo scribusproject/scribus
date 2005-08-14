@@ -36,7 +36,7 @@ to a value of 0. This will disable the new preview features.
 ******************************************************************************
 
 First release    : 30/12/2003
-This release     : v0.7.3tk (released 13th Aug 2005)
+This release     : v0.7.4tk (released 14th Aug 2005)
 Copyright        : (C) 2003 - 2005 Steve Callcott
 Latest releases
 and support      : www.firstwish.co.uk/sjc/scribus/index.php
@@ -46,6 +46,9 @@ Email            : stotte@firstwish.co.uk
 For revision history see the ChangeLog file.
 Bugs and future plans are listed in the TODO file.
 See NEWS for new features since last version.
+
+WHATS NEW v0.7.4tk
+Now updates the Scribus Progress Bar (one increment for each font drawn).
 
 WHATS NEW v0.7.3tk
 Fix typo in exception code.
@@ -95,7 +98,7 @@ except ImportError,err:
     sys.exit(1)
 
 
-WINDOWTITLE = "Font Sampler v0.7.3tk - Steve Callcott"
+WINDOWTITLE = "Font Sampler v0.7.4tk - Steve Callcott"
 TEMPPATH = os.path.join(os.path.expanduser("~"), ".scribus")
 
 showPreviewPanel = 1  # change to 0 to permanently hide the preview
@@ -406,6 +409,10 @@ def addPageNum(pageNum):
 
 
 def useSelection(fontList):
+    """Draws the sample blocks onto the Scribus canvas. Also updates the Progress Bar."""
+    progress = 1
+    scribus.progressReset()
+    scribus.progressTotal(len(fontList))
     tocList = []
     yPos = paper.tmargin + 1
     pageNum = 1
@@ -431,6 +438,9 @@ def useSelection(fontList):
                 yPos = yPos + 5
             # Now place the actual sample block...
             blockHeight = drawSampleBlock(i, paper.leftSide, yPos, paper.textwidth, 0)
+            # and also increment the Scribus progress bar...
+            scribus.progressSet(progress)
+            progress = progress + 1
             yPos = yPos + blockHeight
             tocList.append([i, pageNum])    # Add to TOC
         if app.wantToc.get() == 1:
