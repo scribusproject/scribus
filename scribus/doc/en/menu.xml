@@ -30,14 +30,14 @@
 			<submenuitem text="Non-Latin Fonts" file="fonts3.html"/>
 			<submenuitem text="Basic Font Tests" file="fonts4.html"/>
 			<submenuitem text="Basic Font Tests 2" file="fonts5.html"/>
-			</submenuitem>
-		<submenuitem text="Scribus Basics" file="about2.html"/>
-			<submenuitem text="Page Templates" file="pagetemplate1.html"/>
 		</submenuitem>
+		<submenuitem text="Scribus Basics" file="about2.html">
+			<submenuitem text="Doc. Info" file="docinfo.html"/>
+			<submenuitem text="Page Templates" file="pagetemplate1.html"/>
+ 		</submenuitem>
 			<!-- <submenuitem text="Document Text" file="text.html" />
-			<submenuitem text="Doc. Info" file="docinfo.html" />
 			<submenuitem text="Short Words Plug-in" file="short-words.html" />
-	      </submenuitem> -->
+	      -->
 		<submenuitem text="Importing" file="importhints.html">
 			<submenuitem text="Importing (Advanced)" file="importhints2.html"/>
 			<submenuitem text="Importing SVGs" file="scribus-svg.html"/>
@@ -118,8 +118,8 @@
 	</area>
 	<area text="Other Information" file="otherinfo.html">
 		<submenuitem text="Community" file="resources.html"/>
-		<submenuitem text="Download" file="download.html"/>
 		<submenuitem text="Printers" file="scprinters.html"/>
+		<submenuitem text="Download" file="download.html"/>
 		<submenuitem text="Contributions" file="contributions.html"/>
 		<submenuitem text="Scribus Copyright" file="scribuscopyright.html"/>
 		<submenuitem text="Documentation Copyright" file="doccopyright.html"/>
