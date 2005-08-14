@@ -63,7 +63,10 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLangu
 	QString fileName;
 	mHistory.clear();
 	struct histd his;
+/* PL This Q-string change makes breaks the help browser as it seems it cannot find the file:
 	language = guiLanguage=="" ? QString("en") : guiLanguage.left(2);
+prior code is below */
+	language = guiLanguage=="" ? "en" : guiLanguage.left(2);
 	helpBrowsermainLayout = new QVBoxLayout( this);
 	buttonLayout = new QHBoxLayout;
 	buttonLayout->setSpacing( 6 );
