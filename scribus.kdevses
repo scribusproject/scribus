@@ -4,7 +4,9 @@
  <DocsAndViews NumberOfDocuments="0" />
  <pluginList>
   <kdevdebugger>
-   <breakpointList/>
+   <breakpointList>
+    <breakpoint0 location="/home/franz/Entwicklung/AnonCVS/Scribus13x/Scribus/scribus/mpalette.cpp:3114" type="1" condition="" enabled="1" />
+   </breakpointList>
   </kdevdebugger>
   <kdevbookmarks>
    <bookmarks>

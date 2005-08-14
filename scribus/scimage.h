@@ -141,6 +141,7 @@ struct ImageInfoRecord
 	bool valid;
 	bool isRequest;
 	bool progressive;
+	bool isEmbedded;
 	int lowResType; /* 0 = full Resolution, 1 = 72 dpi, 2 = 36 dpi */
 	double lowResScale;
 	QMap<QString, FPointArray> PDSpathData;

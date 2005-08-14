@@ -11010,10 +11010,16 @@ void ScribusView::loadPict(QString fn, PageItem *pageItem, bool reload)
 			Item->isRaster = false;
 		else
 			Item->isRaster = true;
-		if (!Item->pixm.imgInfo.profileName.isEmpty())
+		if (Item->pixm.imgInfo.isEmbedded)
 		{
 			Item->IProfile = "Embedded " + Item->pixm.imgInfo.profileName;
 			Item->EmProfile = "Embedded " + Item->pixm.imgInfo.profileName;
+			Item->UseEmbedded = true;
+		}
+		else
+		{
+			Item->IProfile = Item->pixm.imgInfo.profileName;
+			Item->UseEmbedded = false;
 		}
 	}
 	if (Item->PicAvail)

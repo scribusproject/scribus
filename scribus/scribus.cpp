@@ -3941,6 +3941,7 @@ bool ScribusApp::loadDoc(QString fileName)
 		if (!doc->HasCMS)
 		{
 			doc->CMSSettings.DefaultImageRGBProfile = prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile;
+			doc->CMSSettings.DefaultImageCMYKProfile = prefsManager->appPrefs.DCMSset.DefaultImageCMYKProfile;
 			doc->CMSSettings.DefaultSolidColorProfile = prefsManager->appPrefs.DCMSset.DefaultSolidColorProfile;
 			doc->CMSSettings.DefaultMonitorProfile = prefsManager->appPrefs.DCMSset.DefaultMonitorProfile;
 			doc->CMSSettings.DefaultPrinterProfile = prefsManager->appPrefs.DCMSset.DefaultPrinterProfile;
@@ -8801,6 +8802,8 @@ void ScribusApp::GetCMSProfilesDir(QString pfad)
 						MonitorProfiles[nam] = pfad + d[dc];
 						InputProfiles[nam] = pfad + d[dc];
 					}
+					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigCmykData)
+						InputProfilesCMYK[nam] = pfad + d[dc];
 					break;
 				case icSigOutputClass:
 					PrinterProfiles[nam] = pfad + d[dc];
@@ -9595,7 +9598,7 @@ void ScribusApp::emergencySave()
 				delete ss;
 			}
 			view->close();
-			int numPages=doc->Pages.count();
+			uint numPages=doc->Pages.count();
 			for (uint a = 0; a<numPages; ++a)
 				delete doc->Pages.at(a);
 			delete doc;

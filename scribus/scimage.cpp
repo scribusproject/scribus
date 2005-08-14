@@ -3040,10 +3040,13 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 				tiffProf = cmsOpenProfileFromMem(EmbedBuffer, EmbedLen);
 				Descriptor = cmsTakeProductDesc(tiffProf);
 				imgInfo.profileName = QString(Descriptor);
-				//				free(EmbedBuffer);
+				imgInfo.isEmbedded = true;
 			}
 			else
+			{
+				imgInfo.isEmbedded = false;
 				imgInfo.profileName = "";
+			}
 #endif // HAVE_CMS
 			unsigned int PhotoshopLen = 0;
 			unsigned char* PhotoshopBuffer;
@@ -3122,6 +3125,12 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 					const char *Descriptor;
 					Descriptor = cmsTakeProductDesc(tiffProf);
 					imgInfo.profileName = QString(Descriptor);
+					imgInfo.isEmbedded = true;
+				}
+				else
+				{
+					imgInfo.isEmbedded = false;
+					imgInfo.profileName = "";
 				}
 				free(iccbuf);
 			}
@@ -3180,10 +3189,14 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 			tiffProf = cmsOpenProfileFromMem(EmbedBuffer, EmbedLen);
 			Descriptor = cmsTakeProductDesc(tiffProf);
 			imgInfo.profileName = QString(Descriptor);
+			imgInfo.isEmbedded = true;
 			free(EmbedBuffer);
 		}
 		else
+		{
+			imgInfo.isEmbedded = false;
 			imgInfo.profileName = "";
+		}
 #endif // HAVE_CMS
 		unsigned int PhotoshopLen = 0;
 		unsigned char * PhotoshopBuffer;
@@ -3363,12 +3376,28 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 			if (isCMYK)
 			{
 				if (ScApp->InputProfilesCMYK.contains(Prof))
+				{
 					inputProf = cmsOpenProfileFromFile(ScApp->InputProfilesCMYK[Prof], "r");
+					imgInfo.profileName = Prof;
+				}
+				else
+				{
+					inputProf = cmsOpenProfileFromFile(ScApp->InputProfilesCMYK[ScApp->doc->CMSSettings.DefaultImageCMYKProfile], "r");
+					imgInfo.profileName = ScApp->doc->CMSSettings.DefaultImageCMYKProfile;
+				}
 			}
 			else
 			{
 				if (ScApp->InputProfiles.contains(Prof))
+				{
 					inputProf = cmsOpenProfileFromFile(ScApp->InputProfiles[Prof], "r");
+					imgInfo.profileName = Prof;
+				}
+				else
+				{
+					inputProf = cmsOpenProfileFromFile(ScApp->InputProfiles[ScApp->doc->CMSSettings.DefaultImageRGBProfile], "r");
+					imgInfo.profileName = ScApp->doc->CMSSettings.DefaultImageRGBProfile;
+				}
 			}
 		}
 	}
