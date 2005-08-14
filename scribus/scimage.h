@@ -83,6 +83,7 @@ public:
 	void swapRGBA();
 	void createLowRes(double scale);
 	void scaleImage(int width, int height);
+	void getEmbeddedProfile(QString fn, QString *profile, int *components);
 	bool LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes, bool *realCMYK = 0);
 	QString getAlpha(QString fn, bool PDF, bool pdf14, int gsRes = 72);
 

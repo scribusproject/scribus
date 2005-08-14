@@ -2792,6 +2792,128 @@ bool ScImage::read_jpeg_marker (UINT8 requestmarker, j_decompress_ptr cinfo, JOC
 	return true;
 }
 
+void ScImage::getEmbeddedProfile(QString fn, QString *profile, int *components)
+{
+#ifdef HAVE_CMS
+	cmsHPROFILE tiffProf = 0;
+	QFileInfo fi = QFileInfo(fn);
+	if (!fi.exists())
+		return;
+	QString ext = fi.extension(false).lower();
+	iccbuf = 0;
+	icclen = 0;
+	if (ext == "psd")
+	{
+		QFile f(fn);
+		if (f.open(IO_ReadOnly))
+		{
+			imgInfo.xres = 72;
+			imgInfo.yres = 72;
+			QDataStream s( &f );
+			s.setByteOrder( QDataStream::BigEndian );
+			PSDHeader header;
+			s >> header;
+			// Check image file format.
+			if( s.atEnd() || !IsValid( header ) )
+				return;
+			// Check if it's a supported format.
+			if( !IsSupported( header ) )
+				return;
+			if( !LoadPSD(s, header) )
+				return;
+			if (icclen > 0)
+			{
+				tiffProf = cmsOpenProfileFromMem(iccbuf, icclen);
+				if (tiffProf)
+				{
+					if (static_cast<int>(cmsGetColorSpace(tiffProf)) == icSigRgbData)
+						*components = 3;
+					if (static_cast<int>(cmsGetColorSpace(tiffProf)) == icSigCmykData)
+						*components = 4;
+					for (uint el = 0; el < icclen; ++el)
+						*profile += iccbuf[el];
+				}
+				cmsCloseProfile(tiffProf);
+				free(iccbuf);
+			}
+			f.close();
+		}
+		else
+			return;
+	}
+#ifdef HAVE_TIFF
+	else if ((ext == "tif") || (ext == "tiff"))
+	{
+		TIFF* tif = TIFFOpen(fn.local8Bit(), "r");
+		if(tif)
+		{
+			DWORD EmbedLen = 0;
+			LPBYTE EmbedBuffer;
+			if (TIFFGetField(tif, TIFFTAG_ICCPROFILE, &EmbedLen, &EmbedBuffer))
+			{
+				tiffProf = cmsOpenProfileFromMem(EmbedBuffer, EmbedLen);
+				if (tiffProf)
+				{
+					if (static_cast<int>(cmsGetColorSpace(tiffProf)) == icSigRgbData)
+						*components = 3;
+					if (static_cast<int>(cmsGetColorSpace(tiffProf)) == icSigCmykData)
+						*components = 4;
+					for (uint el = 0; el < EmbedLen; ++el)
+						*profile += EmbedBuffer[el];
+				}
+				cmsCloseProfile(tiffProf);
+			}
+			TIFFClose(tif);
+		}
+	}
+#endif // HAVE_TIFF
+	else if ((ext == "jpg") || (ext == "jpeg"))
+	{
+		struct jpeg_decompress_struct cinfo;
+		struct my_error_mgr         jerr;
+		FILE     *infile;
+		cinfo.err = jpeg_std_error (&jerr.pub);
+		jerr.pub.error_exit = my_error_exit;
+		infile = NULL;
+		if (setjmp (jerr.setjmp_buffer))
+		{
+			jpeg_destroy_decompress (&cinfo);
+			if (infile)
+				fclose (infile);
+			return;
+		}
+		jpeg_create_decompress (&cinfo);
+		if ((infile = fopen (fn.local8Bit(), "rb")) == NULL)
+			return;
+		jpeg_stdio_src(&cinfo, infile);
+		jpeg_save_markers(&cinfo, ICC_MARKER, 0xFFFF);
+		jpeg_read_header(&cinfo, true);
+		jpeg_start_decompress(&cinfo);
+		unsigned int EmbedLen = 0;
+		unsigned char* EmbedBuffer;
+		if (read_jpeg_marker(ICC_MARKER,&cinfo, &EmbedBuffer, &EmbedLen))
+		{
+			tiffProf = cmsOpenProfileFromMem(EmbedBuffer, EmbedLen);
+			if (tiffProf)
+			{
+				if (static_cast<int>(cmsGetColorSpace(tiffProf)) == icSigRgbData)
+					*components = 3;
+				if (static_cast<int>(cmsGetColorSpace(tiffProf)) == icSigCmykData)
+					*components = 4;
+				for (uint el = 0; el < EmbedLen; ++el)
+					*profile += EmbedBuffer[el];
+			}
+			cmsCloseProfile(tiffProf);
+			free(EmbedBuffer);
+		}
+		(void) jpeg_finish_decompress(&cinfo);
+		fclose (infile);
+		jpeg_destroy_decompress (&cinfo);
+	}
+	else
+		return;
+#endif // HAVE_CMS
+}
 
 bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes, bool *realCMYK)
 {

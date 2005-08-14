@@ -4068,66 +4068,6 @@ QString PDFlib::PDF_Image(PageItem* c, QString fn, double sx, double sy, double 
 	struct ShIm ImInfo;
 	if ((!SharedImages.contains(fn)) || (fromAN) || (c->effectsInUse.count() != 0))
 	{
-#ifdef HAVE_CMS
-		if ((CMSuse) && (Options->UseProfiles2))
-		{
-			if (!ICCProfiles.contains(Profil))
-			{
-				StartObj(ObjCounter);
-				ObjCounter++;
-				QString dataP = "";
-				struct ICCD dataD;
-				if ((Embedded) && (!Options->EmbeddedI))
-#ifdef HAVE_TIFF
-				{
-					if (ext == "tif")
-					{
-							DWORD EmbedLen = 0;
-							LPBYTE EmbedBuffer;
-						TIFF* tif = TIFFOpen(fn.local8Bit(), "r");
-						if(tif)
-						{
-							if (TIFFGetField(tif, TIFFTAG_ICCPROFILE, &EmbedLen, &EmbedBuffer))
-							{
-								for (uint el = 0; el < EmbedLen; ++el)
-									dataP += EmbedBuffer[el];
-							}
-							else
-								loadText(pdflibScApp->InputProfiles[Options->ImageProf], &dataP);
-						}
-						else
-							loadText(pdflibScApp->InputProfiles[Options->ImageProf], &dataP);
-						TIFFClose(tif);
-					}
-					else
-						loadText(pdflibScApp->InputProfiles[Options->ImageProf], &dataP);
-				}
-#else
-				loadText(pdflibScApp->InputProfiles[Options->ImageProf], &dataP);
-#endif
-				else
-					loadText((Embedded ? pdflibScApp->InputProfiles[Options->ImageProf] : pdflibScApp->InputProfiles[Profil]), &dataP);
-				PutDoc("<<\n");
-				if ((Options->CompressMethod != 3) && (CompAvail))
-				{
-					PutDoc("/Filter /FlateDecode\n");
-					dataP = CompressStr(&dataP);
-				}
-				PutDoc("/Length "+IToStr(dataP.length()+1)+"\n");
-				PutDoc("/N 3\n");
-				PutDoc(">>\nstream\n"+EncStream(&dataP, ObjCounter-1)+"\nendstream\nendobj\n");
-				StartObj(ObjCounter);
-				dataD.ResName = ResNam+IToStr(ResCount);
-				dataD.ICCArray = "[ /ICCBased "+IToStr(ObjCounter-1)+" 0 R ]";
-				dataD.ResNum = ObjCounter;
-				ICCProfiles[Profil] = dataD;
-				PutDoc("[ /ICCBased "+IToStr(ObjCounter-1)+" 0 R ]\n");
-				PutDoc("endobj\n");
-				ResCount++;
-				ObjCounter++;
-			}
-		}
-#endif
 /*		if ((ext == "pdf") && (Options->Version  >= 14))
 		{
 			StartObj(ObjCounter);
@@ -4300,6 +4240,68 @@ QString PDFlib::PDF_Image(PageItem* c, QString fn, double sx, double sy, double 
 			}
 			aufl = 1;
 		}
+#ifdef HAVE_CMS
+		if ((CMSuse) && (Options->UseProfiles2))
+		{
+			if (!ICCProfiles.contains(Profil))
+			{
+				ScImage img3;
+				int components = 0;
+				StartObj(ObjCounter);
+				ObjCounter++;
+				QString dataP = "";
+				struct ICCD dataD;
+				if ((Embedded) && (!Options->EmbeddedI))
+				{
+					img3.getEmbeddedProfile(fn, &dataP, &components);
+					if (dataP.isEmpty())
+					{
+						if (img.imgInfo.colorspace == 1)
+						{
+							loadText((Embedded ? pdflibScApp->InputProfilesCMYK[Options->ImageProf] : pdflibScApp->InputProfilesCMYK[Profil]), &dataP);
+							components = 4;
+						}
+						else
+						{
+							loadText((Embedded ? pdflibScApp->InputProfiles[Options->ImageProf] : pdflibScApp->InputProfiles[Profil]), &dataP);
+							components = 3;
+						}
+					}
+				}
+				else
+				{
+					if (img.imgInfo.colorspace == 1)
+					{
+						loadText((Embedded ? pdflibScApp->InputProfilesCMYK[Options->ImageProf] : pdflibScApp->InputProfilesCMYK[Profil]), &dataP);
+						components = 4;
+					}
+					else
+					{
+						loadText((Embedded ? pdflibScApp->InputProfiles[Options->ImageProf] : pdflibScApp->InputProfiles[Profil]), &dataP);
+						components = 3;
+					}
+				}
+				PutDoc("<<\n");
+				if ((Options->CompressMethod != 3) && (CompAvail))
+				{
+					PutDoc("/Filter /FlateDecode\n");
+					dataP = CompressStr(&dataP);
+				}
+				PutDoc("/Length "+IToStr(dataP.length()+1)+"\n");
+				PutDoc("/N "+IToStr(components)+"\n");
+				PutDoc(">>\nstream\n"+EncStream(&dataP, ObjCounter-1)+"\nendstream\nendobj\n");
+				StartObj(ObjCounter);
+				dataD.ResName = ResNam+IToStr(ResCount);
+				dataD.ICCArray = "[ /ICCBased "+IToStr(ObjCounter-1)+" 0 R ]";
+				dataD.ResNum = ObjCounter;
+				ICCProfiles[Profil] = dataD;
+				PutDoc("[ /ICCBased "+IToStr(ObjCounter-1)+" 0 R ]\n");
+				PutDoc("endobj\n");
+				ResCount++;
+				ObjCounter++;
+			}
+		}
+#endif
 		QString im2 = "";
 		ScImage img2;
 		if (Options->Version >= 14)
@@ -4380,7 +4382,7 @@ QString PDFlib::PDF_Image(PageItem* c, QString fn, double sx, double sy, double 
 		PutDoc("/Width "+IToStr(img.width())+"\n");
 		PutDoc("/Height "+IToStr(img.height())+"\n");
 #ifdef HAVE_CMS
-		if ((CMSuse) && (Options->UseProfiles2) && (!realCMYK))
+		if ((CMSuse) && (Options->UseProfiles2))
 		{
 			PutDoc("/ColorSpace "+ICCProfiles[Profil].ICCArray+"\n");
 			PutDoc("/Intent /");
