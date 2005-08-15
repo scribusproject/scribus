@@ -1,6 +1,7 @@
 #include "cmddialog.h"
 #include "cmdutil.h"
 #include "valuedialog.h"
+#include "editformats.h"
 
 #include <qmessagebox.h>
 #include <qcursor.h>
@@ -92,4 +93,24 @@ PyObject *scribus_valdialog(PyObject* /* self */, PyObject* args)
 	d->exec();
 	QApplication::restoreOverrideCursor();
 	return PyString_FromString(d->valueEdit->text().utf8());
+}
+
+PyObject *scribus_newstyledialog(PyObject*, PyObject* args)
+{
+	/* following code is an uglu HACK. Don't take it as example!
+	Paragrap styles handling will be rewritten in 1.3.x devel
+	series.
+	It simulates user mouse clicking in the style dialogs. Ugly.
+	Unpleasant. Etc. But working. */
+	uint styleCount = Carrier->doc->docParagraphStyles.count();
+	StilFormate *dia2 = new StilFormate(Carrier, Carrier->doc);
+	dia2->neuesFormat();
+	Carrier->saveStyles(dia2);
+	delete dia2;
+	if (styleCount == Carrier->doc->docParagraphStyles.count())
+	{
+		Py_INCREF(Py_None);
+		return Py_None;
+	}
+	return PyString_FromString(Carrier->doc->docParagraphStyles[Carrier->doc->docParagraphStyles.count() - 1].Vname.utf8());
 }

@@ -96,5 +96,14 @@ Example: valueDialog('title', 'text in the window', 'optional')\n\
 /* 09/24/2004 petr vanek */
 PyObject *scribus_valdialog(PyObject */*self*/, PyObject* args);
 
-#endif
 
+PyDoc_STRVAR(scribus_newstyledialog__doc__,
+QT_TR_NOOP("newStyleDialog() -> string\n\
+\n\
+Shows 'Create new paragraph style' dialog. Function returns real\n\
+style name or None when user cancels the dialog.\n\
+"));
+/* 09/24/2004 petr vanek */
+PyObject *scribus_newstyledialog(PyObject * /*self*/, PyObject* args);
+
+#endif
