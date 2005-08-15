@@ -29,6 +29,7 @@
 #include "prefsmanager.h"
 #include "layers.h"
 #include "units.h"
+#include "filewatcher.h"
 
 extern ScribusApp* ScApp;
 extern ScribusQApp* ScQApp;
@@ -1695,4 +1696,141 @@ void ScribusDoc::restoreMasterPageApplying(SimpleState *state, bool isUndo)
 		applyMasterPage(oldName, pageNumber);
 	else
 		applyMasterPage(newName, pageNumber);
+}
+
+// Scribus.cpp has already checked for directory writability etc. other callers should too, unless both are changed.
+const bool ScribusDoc::collectForOutput(const QString& fileName, const bool withFonts)
+{
+	QFileInfo fi(fileName);
+	QString newDirectory=fi.dirPath(true) + "/";
+	bool retVal=true;
+	if (masterPageMode)
+		MasterPages = Pages;
+	else
+		DocPages = Pages;
+	uint counter = 0;
+	for (uint lc = 0; lc < 3; ++lc)
+	{
+		PageItem* ite;
+		switch (lc)
+		{
+			case 0:
+				counter = MasterItems.count();
+				break;
+			case 1:
+				counter = DocItems.count();
+				break;
+			case 2:
+				counter = FrameItems.count();
+				break;
+		}
+		for (uint b = 0; b < counter; ++b)
+		{
+			switch (lc)
+			{
+				case 0:
+					ite = MasterItems.at(b);
+					break;
+				case 1:
+					ite = DocItems.at(b);
+					break;
+				case 2:
+					ite = FrameItems.at(b);
+					break;
+			}
+			if (ite->itemType() == PageItem::ImageFrame)
+			{
+				QFileInfo itf = QFileInfo(ite->Pfile);
+				if (itf.exists())
+				{
+					QString oldFile=ite->Pfile;
+					QString newFile=newDirectory + itf.fileName();
+					copyFile(oldFile, newFile);
+					ite->Pfile = newFile;
+					if (ScApp->fileWatcherActive())
+					{
+						ScApp->fileWatcher->removeFile(oldFile);
+						ScApp->fileWatcher->addFile(newFile);
+					}
+				}
+			}
+			if (ite->itemType() == PageItem::TextFrame)
+			{
+				if (ite->isAnnotation)
+				{
+					QFileInfo itf;
+					if (!ite->Pfile.isEmpty())
+					{
+						itf = QFileInfo(ite->Pfile);
+						if (itf.exists())
+						{
+							QString oldFile=ite->Pfile;
+							QString newFile=newDirectory + itf.fileName();
+							copyFile(oldFile, newFile);
+							ite->Pfile = newFile;
+							if (ScApp->fileWatcherActive())
+							{
+								ScApp->fileWatcher->removeFile(oldFile);
+								ScApp->fileWatcher->addFile(newFile);
+							}
+						}
+					}
+					if (!ite->Pfile2.isEmpty())
+					{
+						itf = QFileInfo(ite->Pfile2);
+						if (itf.exists())
+						{
+							copyFile(ite->Pfile2, newDirectory + itf.fileName());
+							ite->Pfile2 = newDirectory + itf.fileName();
+						}
+					}
+					if (!ite->Pfile3.isEmpty())
+					{
+						itf = QFileInfo(ite->Pfile3);
+						if (itf.exists())
+						{
+							copyFile(ite->Pfile3, newDirectory + itf.fileName());
+							ite->Pfile3 = newDirectory + itf.fileName();
+						}
+					}
+				}
+			}
+		}
+	}
+	if (withFonts)
+	{
+		PrefsManager *prefsManager=PrefsManager::instance();
+		QMap<QString,QFont>::Iterator it3;
+		QMap<QString,QFont>::Iterator it3end=UsedFonts.end();
+		for (it3 = UsedFonts.begin(); it3 != it3end; ++it3)
+		{
+			QFileInfo itf = QFileInfo(prefsManager->appPrefs.AvailFonts[it3.key()]->Datei);
+			copyFile(prefsManager->appPrefs.AvailFonts[it3.key()]->Datei, newDirectory + itf.fileName());
+		}
+	}
+	if (retVal!=false)
+		retVal=save(fileName);
+	return retVal;
+}
+
+const bool ScribusDoc::save(const QString& fileName)
+{
+	QFileInfo fi(fileName);
+	QDir::setCurrent(fi.dirPath(true));
+	QProgressBar* mainWindowProgressBar=NULL;
+	if (ScQApp->usingGUI())
+	{
+		mainWindowProgressBar=ScApp->mainWindowProgressBar;
+		mainWindowProgressBar->reset();
+	}
+	ScriXmlDoc *ss = new ScriXmlDoc();
+	bool ret = ss->WriteDoc(fileName, this, mainWindowProgressBar);
+	delete ss;
+	if (ret)
+	{
+		setModified(false);
+		setName(fileName);
+		hasName = true;
+	}
+	return ret;
 }

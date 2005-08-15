@@ -45,6 +45,7 @@
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
+
 class Page;
 class UndoManager;
 class UndoState;
@@ -262,6 +263,14 @@ public:
 	 * @brief Undo function for applying a master page
 	 */
 	void restoreMasterPageApplying(SimpleState *state, bool isUndo);
+	/**
+	 * @brief Perform the doc only collect for output functions
+	 */
+	const bool collectForOutput(const QString& newDirectory, const bool withFonts = false);
+	/**
+	 * @brief Save function
+	 */
+	const bool save(const QString&);
 	
 protected:
 	void addSymbols();

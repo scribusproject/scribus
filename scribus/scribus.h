@@ -119,6 +119,7 @@ public:
 	const bool pdfToolBarVisible();
 	const bool editToolBarVisible();
 	const bool fileToolBarVisible();
+	const bool fileWatcherActive();
 	
 	bool doFileNew(double width, double h, double tpr, double lr, double rr, double br, double ab, double sp,
 									bool atf, int fp, int einh, int firstleft, int Ori, int SNr, const QString&);
@@ -250,7 +251,7 @@ public slots:
 	void slotStoryEditor();
 	void slotCharSelect();
 	void ImageEffects();
-	QString Collect(bool compress = false, bool withFonts = false);
+	QString Collect(const bool compress = false, const bool withFonts = false, const QString& newDirectory=QString::null);
 	void ChBookmarks(int s, int e, int n);
 	void AddBookMark(PageItem *ite);
 	void DelBookMark(PageItem *ite);

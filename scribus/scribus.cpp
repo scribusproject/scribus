@@ -9349,23 +9349,24 @@ void ScribusApp::ImageEffects()
 	}
 }
 
-QString ScribusApp::Collect(bool compress, bool withFonts)
+QString ScribusApp::Collect(bool compress, bool withFonts, const QString& newDirectory)
 {
-	if (doc->masterPageMode)
-		doc->MasterPages = doc->Pages;
-	else
-		doc->DocPages = doc->Pages;
 	QString retVal = "";
 	QString CurDirP = QDir::currentDirPath();
 	bool compressR = compress;
 	bool withFontsR = withFonts;
-	QString wdir = ".";
-	QString prefsDocDir=prefsManager->documentDir();
-	if (!prefsDocDir.isEmpty())
-		wdir = dirs->get("collect", prefsDocDir);
-	else
-		wdir = dirs->get("collect", ".");
-	QString s = CFileDialog(wdir, tr("Choose a Directory"), "", "", false, false, false, false, true, &compressR, &withFontsR);
+	QString s(newDirectory);
+	if (s.isNull() && ScQApp->usingGUI())
+	{
+		QString wdir = ".";
+		QString prefsDocDir=prefsManager->documentDir();
+		if (!prefsDocDir.isEmpty())
+			wdir = dirs->get("collect", prefsDocDir);
+		else
+			wdir = dirs->get("collect", ".");
+		s = CFileDialog(wdir, tr("Choose a Directory"), "", "", false, false, false, false, true, &compressR, &withFontsR);
+	}
+	
 	if (!s.isEmpty())
 	{
 		fileWatcher->forceScan();
@@ -9374,18 +9375,18 @@ QString ScribusApp::Collect(bool compress, bool withFonts)
 			s += "/";
 		dirs->set("collect", s.left(s.findRev("/",-2)));
 		QFileInfo fi = QFileInfo(s);
+		QString fn(s);
 		if (fi.exists())
 		{
 			if (fi.isDir() && fi.isWritable())
 			{
-				QString fn;
 				if (doc->hasName)
 				{
 					QFileInfo fis(doc->DocName);
-					fn = s + fis.fileName();
+					fn += fis.fileName();
 				}
 				else
-					fn = s + doc->DocName+".sla";
+					fn += doc->DocName+".sla";
 				doc->hasName = true;
 				if (compressR)
 				{
@@ -9403,104 +9404,29 @@ QString ScribusApp::Collect(bool compress, bool withFonts)
 					return retVal;
 				}
 				retVal = s;
-				uint counter = 0;
-				for (uint lc = 0; lc < 3; ++lc)
+				mainWindowStatusLabel->setText( tr("Collecting..."));
+				if(!doc->collectForOutput(fn, withFontsR))
+				//if (!DoFileSave(fn))
 				{
-					PageItem* ite;
-					switch (lc)
-					{
-						case 0:
-							counter = doc->MasterItems.count();
-							break;
-						case 1:
-							counter = doc->DocItems.count();
-							break;
-						case 2:
-							counter = doc->FrameItems.count();
-							break;
-					}
-					for (uint b = 0; b < counter; ++b)
-					{
-						switch (lc)
-						{
-							case 0:
-								ite = doc->MasterItems.at(b);
-								break;
-							case 1:
-								ite = doc->DocItems.at(b);
-								break;
-							case 2:
-								ite = doc->FrameItems.at(b);
-								break;
-						}
-						if (ite->itemType() == PageItem::ImageFrame)
-						{
-							QFileInfo itf = QFileInfo(ite->Pfile);
-							if (itf.exists())
-							{
-								copyFile(ite->Pfile, s + itf.fileName());
-								fileWatcher->removeFile(ite->Pfile);
-								ite->Pfile = s + itf.fileName();
-								fileWatcher->addFile(s + itf.fileName());
-							}
-						}
-						if (ite->itemType() == PageItem::TextFrame)
-						{
-							if (ite->isAnnotation)
-							{
-								QFileInfo itf;
-								if (!ite->Pfile.isEmpty())
-								{
-									itf = QFileInfo(ite->Pfile);
-									if (itf.exists())
-									{
-										copyFile(ite->Pfile, s + itf.fileName());
-										fileWatcher->removeFile(ite->Pfile);
-										ite->Pfile = s + itf.fileName();
-										fileWatcher->addFile(s + itf.fileName());
-									}
-								}
-								if (!ite->Pfile2.isEmpty())
-								{
-									itf = QFileInfo(ite->Pfile2);
-									if (itf.exists())
-									{
-										copyFile(ite->Pfile2, s + itf.fileName());
-										ite->Pfile2 = s + itf.fileName();
-									}
-								}
-								if (!ite->Pfile3.isEmpty())
-								{
-									itf = QFileInfo(ite->Pfile3);
-									if (itf.exists())
-									{
-										copyFile(ite->Pfile3, s + itf.fileName());
-										ite->Pfile3 = s + itf.fileName();
-									}
-								}
-							}
-						}
-					}
-				}
-				if (!DoFileSave(fn))
-				{
-					QMessageBox::warning(this, tr("Warning"), tr("Cannot write the file: \n%1").arg(fn), CommonStrings::tr_OK);
+					//QMessageBox::warning(this, tr("Warning"), tr("Cannot write the file: \n%1").arg(fn), CommonStrings::tr_OK);
+					QMessageBox::warning(this, tr("Warning"), tr("Cannot collect all files for output for file:\n%1").arg(fn), CommonStrings::tr_OK);
 					retVal = "";
-				}
-				if (withFontsR)
-				{
-					QMap<QString,QFont>::Iterator it3;
-					for (it3 = doc->UsedFonts.begin(); it3 != doc->UsedFonts.end(); ++it3)
-					{
-						QFileInfo itf = QFileInfo(prefsManager->appPrefs.AvailFonts[it3.key()]->Datei);
-						copyFile(prefsManager->appPrefs.AvailFonts[it3.key()]->Datei, s + itf.fileName());
-					}
 				}
 			}
 		}
+		QDir::setCurrent(CurDirP);
+		if (!retVal.isEmpty())
+		{
+			ActWin->setCaption(fn);
+			undoManager->renameStack(fn);
+			scrActions["fileSave"]->setEnabled(false);
+			scrActions["fileRevert"]->setEnabled(false);
+			updateRecent(fn);
+		}
+		mainWindowStatusLabel->setText("");
+		mainWindowProgressBar->reset();
 		fileWatcher->start();
 	}
-	QDir::setCurrent(CurDirP);
 	return retVal;
 }
 
@@ -9935,4 +9861,11 @@ const bool ScribusApp::mainToolBarVisible()
 const bool ScribusApp::pdfToolBarVisible()
 {
 	return pdfToolBar->isVisible();
+}
+
+const bool ScribusApp::fileWatcherActive()
+{
+	if (fileWatcher!=NULL)
+		return fileWatcher->isActive();
+	return false;
 }
