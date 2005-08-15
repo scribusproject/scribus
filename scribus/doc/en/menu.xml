@@ -31,20 +31,19 @@
 			<submenuitem text="Basic Font Tests" file="fonts4.html"/>
 			<submenuitem text="Basic Font Tests 2" file="fonts5.html"/>
 		</submenuitem>
-		<submenuitem text="Scribus Basics" file="about2.html">
+			<submenuitem text="Scribus Basics" file="about2.html">
 			<submenuitem text="Doc. Info" file="docinfo.html"/>
 			<submenuitem text="Page Templates" file="pagetemplate1.html"/>
- 		</submenuitem>
-			<!-- <submenuitem text="Document Text" file="text.html" />
 			<submenuitem text="Short Words Plug-in" file="short-words.html" />
-	      -->
+ 		</submenuitem>
+			<!-- <submenuitem text="Document Text" file="text.html" />-->
 		<submenuitem text="Importing" file="importhints.html">
 			<submenuitem text="Importing (Advanced)" file="importhints2.html"/>
 			<submenuitem text="Importing SVGs" file="scribus-svg.html"/>
 		</submenuitem>
 		<submenuitem text="Exporting to PDF" file="pdfexport1.html">
 			<submenuitem text="Export Workflow" file="pdfexport2.html"/>
-<!--			<submenuitem text="PDF 1.3 and 1.4" file=".html"/>-->
+			<submenuitem text="PDF Flavors" file="pdflavor.html"/>
 			<submenuitem text="PDF/X-3" file="pdfx3.html"/>
 			<submenuitem text="PDF Forms" file="pdfexport3.html"/>
 			<submenuitem text="PDF Forms and PHP" file="pdf_form.html"/>
