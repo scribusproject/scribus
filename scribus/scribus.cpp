@@ -4478,28 +4478,20 @@ bool ScribusApp::slotFileSaveAs()
 
 bool ScribusApp::DoFileSave(QString fn)
 {
-	bool ret = true;
 	fileWatcher->forceScan();
 	fileWatcher->stop();
 	ReorgFonts();
 	mainWindowStatusLabel->setText( tr("Saving..."));
 	mainWindowProgressBar->reset();
-	QFileInfo fi(fn);
-	QDir::setCurrent(fi.dirPath(true));
-	ScriXmlDoc *ss = new ScriXmlDoc();
+	bool ret=doc->save(fn);
 	qApp->processEvents();
-	ret = ss->WriteDoc(fn, doc, mainWindowProgressBar);
-	delete ss;
 	if (ret)
 	{
-		doc->setModified(false);
 		ActWin->setCaption(fn);
-		doc->setName(fn);
 		undoManager->renameStack(fn);
 		scrActions["fileSave"]->setEnabled(false);
 		scrActions["fileRevert"]->setEnabled(false);
 		updateRecent(fn);
-		doc->hasName = true;
 	}
 	mainWindowStatusLabel->setText("");
 	mainWindowProgressBar->reset();
@@ -8810,7 +8802,10 @@ void ScribusApp::GetCMSProfilesDir(QString pfad)
 				case icSigOutputClass:
 					PrinterProfiles[nam] = pfad + d[dc];
 					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigCmykData)
+					{
 						PDFXProfiles[nam] = pfad + d[dc];
+						InputProfilesCMYK[nam] = pfad + d[dc];
+					}
 					break;
 				}
 				cmsCloseProfile(hIn);
@@ -9319,8 +9314,6 @@ void ScribusApp::setItemLineTransparency(double t)
 		{
 			PageItem *currItem = view->SelItem.at(0);
 			currItem->setLineTransparency(t);
-			view->DrawNew();
-			slotDocCh();
 		}
 		if (view->SelItem.count() != 0)
 		{
@@ -9406,9 +9399,7 @@ QString ScribusApp::Collect(bool compress, bool withFonts, const QString& newDir
 				retVal = s;
 				mainWindowStatusLabel->setText( tr("Collecting..."));
 				if(!doc->collectForOutput(fn, withFontsR))
-				//if (!DoFileSave(fn))
 				{
-					//QMessageBox::warning(this, tr("Warning"), tr("Cannot write the file: \n%1").arg(fn), CommonStrings::tr_OK);
 					QMessageBox::warning(this, tr("Warning"), tr("Cannot collect all files for output for file:\n%1").arg(fn), CommonStrings::tr_OK);
 					retVal = "";
 				}
