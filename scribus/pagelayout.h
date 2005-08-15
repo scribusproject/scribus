@@ -10,7 +10,7 @@ class QHBoxLayout;
 class QIconView;
 class QIconViewItem;
 class QLabel;
-class QSpinBox;
+class QComboBox;
 
 class SCRIBUS_API PageLayouts : public QGroupBox
 {
@@ -22,8 +22,12 @@ public:
 	void selectItem(uint nr);
 	QIconView* layoutsView;
 	QLabel* layoutLabel1;
-	QSpinBox* firstPage;
-	QLabel* layoutLabel2;
+	QComboBox* firstPage;
+	QString LeftPage;
+	QString Middle;
+	QString MiddleLeft;
+	QString MiddleRight;
+	QString Right;
 
 public slots:
 	void itemSelected(QIconViewItem* ic);
@@ -33,7 +37,6 @@ signals:
 
 protected:
 	QVBoxLayout* layoutGroupLayout;
-	QHBoxLayout* layout1;
 
 protected slots:
 	virtual void languageChange();

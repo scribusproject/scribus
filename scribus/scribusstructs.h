@@ -233,6 +233,17 @@ struct MarginStruct
 	double Bottom;
 };
 
+struct PageSet
+{
+	QString Name;
+	int FirstPage;
+	int Rows;
+	int Columns;
+	double GapHorizontal;
+	double GapVertical;
+	double GapBelow;
+};
+
 struct ParagraphStyle
 {
 	QString Vname;

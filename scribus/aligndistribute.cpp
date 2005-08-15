@@ -443,9 +443,9 @@ void AlignDistributePalette::alignLeftOut()
 				newX = currDoc->ScratchLeft;
 				if ((currDoc->PageFP == doublePage) && !currDoc->MasterP)
 				{
-					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->FirstPageLeft))
+					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->pageSets[currDoc->PageFP].FirstPage))
 						newX += currDoc->currentPage->Width;
-					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->FirstPageLeft))
+					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->pageSets[currDoc->PageFP].FirstPage))
 						newX += currDoc->currentPage->Width;
 				}
 				break;
@@ -453,9 +453,9 @@ void AlignDistributePalette::alignLeftOut()
 				newX = currDoc->ScratchLeft;
 				if ((currDoc->PageFP == doublePage) && !currDoc->MasterP)
 				{
-					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->FirstPageLeft))
+					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->pageSets[currDoc->PageFP].FirstPage))
 						newX += currDoc->currentPage->Width;
-					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->FirstPageLeft))
+					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->pageSets[currDoc->PageFP].FirstPage))
 						newX += currDoc->currentPage->Width;
 				}
 				newX += currDoc->currentPage->Margins.Left;
@@ -500,9 +500,9 @@ void AlignDistributePalette::alignLeftIn()
 				newX = currDoc->ScratchLeft;
 				if ((currDoc->PageFP == doublePage) && !currDoc->MasterP)
 				{
-					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->FirstPageLeft))
+					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->pageSets[currDoc->PageFP].FirstPage))
 						newX += currDoc->currentPage->Width;
-					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->FirstPageLeft))
+					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->pageSets[currDoc->PageFP].FirstPage))
 						newX += currDoc->currentPage->Width;
 				}
 				break;
@@ -510,9 +510,9 @@ void AlignDistributePalette::alignLeftIn()
 				newX = currDoc->ScratchLeft;
 				if ((currDoc->PageFP == doublePage ) && !currDoc->MasterP)
 				{
-					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->FirstPageLeft))
+					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->pageSets[currDoc->PageFP].FirstPage))
 						newX += currDoc->currentPage->Width;
-					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->FirstPageLeft))
+					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->pageSets[currDoc->PageFP].FirstPage))
 						newX += currDoc->currentPage->Width;
 				}
 				newX += currDoc->currentPage->Margins.Left;
@@ -560,9 +560,9 @@ void AlignDistributePalette::alignCenterHor()
 				newX = currDoc->ScratchLeft;
 				if ((currDoc->PageFP == doublePage) && !currDoc->MasterP)
 				{
-					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->FirstPageLeft))
+					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->pageSets[currDoc->PageFP].FirstPage))
 						newX += currDoc->currentPage->Width;
-					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->FirstPageLeft))
+					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->pageSets[currDoc->PageFP].FirstPage))
 						newX += currDoc->currentPage->Width;
 				}
 				newX += currDoc->currentPage->Width/2;
@@ -571,9 +571,9 @@ void AlignDistributePalette::alignCenterHor()
 				newX = currDoc->ScratchLeft;
 				if ((currDoc->PageFP == doublePage ) && !currDoc->MasterP)
 				{
-					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->FirstPageLeft))
+					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->pageSets[currDoc->PageFP].FirstPage))
 						newX += currDoc->currentPage->Width;
-					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->FirstPageLeft))
+					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->pageSets[currDoc->PageFP].FirstPage))
 						newX += currDoc->currentPage->Width;
 				}
 				newX += currDoc->currentPage->Margins.Left;
@@ -624,9 +624,9 @@ void AlignDistributePalette::alignRightIn()
 				newX = currDoc->ScratchLeft;
 				if ((currDoc->PageFP == doublePage ) && !currDoc->MasterP)
 				{
-					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->FirstPageLeft))
+					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->pageSets[currDoc->PageFP].FirstPage))
 						newX += currDoc->currentPage->Width;
-					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->FirstPageLeft))
+					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->pageSets[currDoc->PageFP].FirstPage))
 						newX += currDoc->currentPage->Width;
 				}
 				newX += currDoc->currentPage->Width;
@@ -635,9 +635,9 @@ void AlignDistributePalette::alignRightIn()
 				newX = currDoc->ScratchLeft;
 				if ((currDoc->PageFP == doublePage ) && !currDoc->MasterP)
 				{
-					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->FirstPageLeft))
+					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->pageSets[currDoc->PageFP].FirstPage))
 						newX += currDoc->currentPage->Width;
-					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->FirstPageLeft))
+					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->pageSets[currDoc->PageFP].FirstPage))
 						newX += currDoc->currentPage->Width;
 				}
 				newX += currDoc->currentPage->Width;
@@ -683,9 +683,9 @@ void AlignDistributePalette::alignRightOut()
 				newX = currDoc->ScratchLeft;
 				if ((currDoc->PageFP == doublePage ) && !currDoc->MasterP)
 				{
-					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->FirstPageLeft))
+					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->pageSets[currDoc->PageFP].FirstPage))
 						newX += currDoc->currentPage->Width;
-					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->FirstPageLeft))
+					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->pageSets[currDoc->PageFP].FirstPage))
 						newX += currDoc->currentPage->Width;
 				}
 				newX += currDoc->currentPage->Width;
@@ -694,9 +694,9 @@ void AlignDistributePalette::alignRightOut()
 				newX = currDoc->ScratchLeft;
 				if ((currDoc->PageFP == doublePage ) && !currDoc->MasterP)
 				{
-					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->FirstPageLeft))
+					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->pageSets[currDoc->PageFP].FirstPage))
 						newX += currDoc->currentPage->Width;
-					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->FirstPageLeft))
+					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->pageSets[currDoc->PageFP].FirstPage))
 						newX += currDoc->currentPage->Width;
 				}
 				newX += currDoc->currentPage->Width;
@@ -747,7 +747,7 @@ void AlignDistributePalette::alignTopOut()
 					else
 					{
 						multiplier=currDoc->currentPage->PageNr/2;
-						if (!currDoc->FirstPageLeft && currDoc->currentPage->PageNr % 2 == 1)
+						if (!currDoc->pageSets[currDoc->PageFP].FirstPage && currDoc->currentPage->PageNr % 2 == 1)
 							multiplier++;
 					}
 					newY += (currDoc->ScratchBottom + currDoc->ScratchTop + currDoc->currentPage->Height) * static_cast<double>(multiplier);
@@ -762,7 +762,7 @@ void AlignDistributePalette::alignTopOut()
 					else
 					{
 						multiplier=currDoc->currentPage->PageNr/2;
-						if (!currDoc->FirstPageLeft && currDoc->currentPage->PageNr % 2 == 1)
+						if (!currDoc->pageSets[currDoc->PageFP].FirstPage && currDoc->currentPage->PageNr % 2 == 1)
 							multiplier++;
 					}
 					newY += (currDoc->ScratchBottom + currDoc->ScratchTop + currDoc->currentPage->Height) * static_cast<double>(multiplier);
@@ -814,7 +814,7 @@ void AlignDistributePalette::alignTopIn()
 					else
 					{
 						multiplier=currDoc->currentPage->PageNr/2;
-						if (!currDoc->FirstPageLeft && currDoc->currentPage->PageNr % 2 == 1)
+						if (!currDoc->pageSets[currDoc->PageFP].FirstPage && currDoc->currentPage->PageNr % 2 == 1)
 							multiplier++;
 					}
 					newY += (currDoc->ScratchBottom + currDoc->ScratchTop + currDoc->currentPage->Height) * static_cast<double>(multiplier);
@@ -829,7 +829,7 @@ void AlignDistributePalette::alignTopIn()
 					else
 					{
 						multiplier=currDoc->currentPage->PageNr/2;
-						if (!currDoc->FirstPageLeft && currDoc->currentPage->PageNr % 2 == 1)
+						if (!currDoc->pageSets[currDoc->PageFP].FirstPage && currDoc->currentPage->PageNr % 2 == 1)
 							multiplier++;
 					}
 					newY += (currDoc->ScratchBottom + currDoc->ScratchTop + currDoc->currentPage->Height) * static_cast<double>(multiplier);
@@ -885,7 +885,7 @@ void AlignDistributePalette::alignCenterVer()
 					else
 					{
 						multiplier=currDoc->currentPage->PageNr/2;
-						if (!currDoc->FirstPageLeft && currDoc->currentPage->PageNr % 2 == 1)
+						if (!currDoc->pageSets[currDoc->PageFP].FirstPage && currDoc->currentPage->PageNr % 2 == 1)
 							multiplier++;
 					}
 					newY += (currDoc->ScratchBottom + currDoc->ScratchTop + currDoc->currentPage->Height) * static_cast<double>(multiplier);
@@ -901,7 +901,7 @@ void AlignDistributePalette::alignCenterVer()
 					else
 					{
 						multiplier=currDoc->currentPage->PageNr/2;
-						if (!currDoc->FirstPageLeft && currDoc->currentPage->PageNr % 2 == 1)
+						if (!currDoc->pageSets[currDoc->PageFP].FirstPage && currDoc->currentPage->PageNr % 2 == 1)
 							multiplier++;
 					}
 					newY += (currDoc->ScratchBottom + currDoc->ScratchTop + currDoc->currentPage->Height) * static_cast<double>(multiplier);
@@ -960,7 +960,7 @@ void AlignDistributePalette::alignBottomIn()
 					else
 					{
 						multiplier=currDoc->currentPage->PageNr/2;
-						if (!currDoc->FirstPageLeft && currDoc->currentPage->PageNr % 2 == 1)
+						if (!currDoc->pageSets[currDoc->PageFP].FirstPage && currDoc->currentPage->PageNr % 2 == 1)
 							multiplier++;
 					}
 					newY += (currDoc->ScratchBottom + currDoc->ScratchTop + currDoc->currentPage->Height) * static_cast<double>(multiplier);
@@ -976,7 +976,7 @@ void AlignDistributePalette::alignBottomIn()
 					else
 					{
 						multiplier=currDoc->currentPage->PageNr/2;
-						if (!currDoc->FirstPageLeft && currDoc->currentPage->PageNr % 2 == 1)
+						if (!currDoc->pageSets[currDoc->PageFP].FirstPage && currDoc->currentPage->PageNr % 2 == 1)
 							multiplier++;
 					}
 					newY += (currDoc->ScratchBottom + currDoc->ScratchTop + currDoc->currentPage->Height) * static_cast<double>(multiplier);
@@ -1029,7 +1029,7 @@ void AlignDistributePalette::alignBottomOut()
 					else
 					{
 						multiplier=currDoc->currentPage->PageNr/2;
-						if (!currDoc->FirstPageLeft && currDoc->currentPage->PageNr % 2 == 1)
+						if (!currDoc->pageSets[currDoc->PageFP].FirstPage && currDoc->currentPage->PageNr % 2 == 1)
 							multiplier++;
 					}
 					newY += (currDoc->ScratchBottom + currDoc->ScratchTop + currDoc->currentPage->Height) * static_cast<double>(multiplier);
@@ -1045,7 +1045,7 @@ void AlignDistributePalette::alignBottomOut()
 					else
 					{
 						multiplier=currDoc->currentPage->PageNr/2;
-						if (!currDoc->FirstPageLeft && currDoc->currentPage->PageNr % 2 == 1)
+						if (!currDoc->pageSets[currDoc->PageFP].FirstPage && currDoc->currentPage->PageNr % 2 == 1)
 							multiplier++;
 					}
 					newY += (currDoc->ScratchBottom + currDoc->ScratchTop + currDoc->currentPage->Height) * static_cast<double>(multiplier);

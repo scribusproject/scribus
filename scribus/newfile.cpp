@@ -106,7 +106,7 @@ void NewDoc::createNewDocPage()
 	NewDocLayout = new QHBoxLayout( newDocFrame, 10, 5, "NewDocLayout");
 	docLayout = new PageLayouts(newDocFrame);
 	docLayout->selectItem(prefsManager->appPrefs.FacingPages);
-	docLayout->firstPage->setValue(prefsManager->appPrefs.LeftPageFirst+1);
+	docLayout->firstPage->setCurrentItem(prefsManager->appPrefs.pageSets[prefsManager->appPrefs.FacingPages].FirstPage);
 	NewDocLayout->addWidget( docLayout );
 	Layout9 = new QVBoxLayout(0, 0, 5, "Layout9");
 	ButtonGroup1_2 = new QButtonGroup(newDocFrame, "ButtonGroup1_2" );
@@ -474,6 +474,7 @@ void NewDoc::setDS(int layout)
 {
 	GroupRand->setFacingPages(!(layout == singlePage));
 	choosenLayout = layout;
+	docLayout->firstPage->setCurrentItem(prefsManager->appPrefs.pageSets[choosenLayout].FirstPage);
 }
 
 void NewDoc::recentDocList_doubleClicked(QListBoxItem * /*item*/)

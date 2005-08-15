@@ -124,6 +124,7 @@ struct ApplicationPrefs
 {
 	SCFonts AvailFonts;
 	QValueList<ArrowDesc> arrowStyles;
+	QValueList<PageSet> pageSets;
 	ColorList DColors;
 	int Wheelval;
 	int AppFontSize;
@@ -163,7 +164,6 @@ struct ApplicationPrefs
 	double RandLinks;
 	double RandRechts;
 	int FacingPages;
-	int LeftPageFirst;
 	int MinWordLen;
 	int HyCount;
 	QString Language;
@@ -202,8 +202,6 @@ struct ApplicationPrefs
 	double ScratchRight;
 	double ScratchTop;
 	double ScratchBottom;
-	double PageGapVertical;
-	double PageGapHorizontal;
 	bool askBeforeSubstituite;
 	bool haveStylePreview;
 	// lorem ipsum

@@ -388,19 +388,27 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 		doc->PageOri = QStoInt(dc.attribute("ORIENTATION","0"));
 		doc->FirstPnum = QStoInt(dc.attribute("FIRSTNUM","1"));
 		doc->PageFP=QStoInt(dc.attribute("BOOK", "0"));
+		int fp;
 		if (dc.hasAttribute("StartPage"))
-			doc->FirstPageLeft = QStoInt(dc.attribute("StartPage", "0"));
+			fp = QStoInt(dc.attribute("StartPage", "0"));
 		else
 		{
 			if (doc->PageFP == 0)
-				doc->FirstPageLeft = 0;
+				fp = 0;
 			else
 			{
 				if (QStoInt(dc.attribute("FIRSTLEFT","0")) == 1)
-					doc->FirstPageLeft = 0;
+					fp = 0;
 				else
-					doc->FirstPageLeft = 1;
+					fp = 1;
 			}
+		}
+		if (DOC.namedItem("PageSets").isNull())
+		{
+			doc->pageSets[doc->PageFP].FirstPage = fp;
+			doc->pageSets[doc->PageFP].GapHorizontal = QStodouble(dc.attribute("GapHorizontal", "0"));
+			doc->pageSets[doc->PageFP].GapVertical = 0.0;
+			doc->pageSets[doc->PageFP].GapBelow = QStodouble(dc.attribute("GapVertical", "40"));
 		}
 		doc->PageAT=QStoInt(dc.attribute("AUTOTEXT"));
 		doc->PageSp=QStoInt(dc.attribute("AUTOSPALTEN"));
@@ -510,8 +518,6 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 			doc->ScratchLeft = QStodouble(dc.attribute("ScratchLeft", "100"));
 		doc->ScratchRight = QStodouble(dc.attribute("ScratchRight", "100"));
 		doc->ScratchTop = QStodouble(dc.attribute("ScratchTop", "20"));
-		doc->PageGapHorizontal = QStodouble(dc.attribute("GapHorizontal", "0"));
-		doc->PageGapVertical = QStodouble(dc.attribute("GapVertical", "40"));
 		doc->toolSettings.dStartArrow = QStoInt(dc.attribute("StartArrow", "0"));
 		doc->toolSettings.dEndArrow = QStoInt(dc.attribute("EndArrow", "0"));
 		doc->toolSettings.scaleX = QStodouble(dc.attribute("PICTSCX","1"));
@@ -574,6 +580,28 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 			ObCount++;
 			dia2->setProgress(ObCount);
 			QDomElement pg=PAGE.toElement();
+			if (pg.tagName()=="PageSets")
+			{
+				QDomNode PGS = PAGE.firstChild();
+				doc->pageSets.clear();
+				while(!PGS.isNull())
+				{
+					QDomElement PgsAttr = PGS.toElement();
+					if(PgsAttr.tagName() == "Set")
+					{
+						struct PageSet pageS;
+						pageS.Name = PgsAttr.attribute("Name");
+						pageS.FirstPage = QStoInt(PgsAttr.attribute("FirstPage","0"));
+						pageS.Rows = QStoInt(PgsAttr.attribute("Rows","1"));
+						pageS.Columns = QStoInt(PgsAttr.attribute("Columns","1"));
+						pageS.GapHorizontal = QStodouble(PgsAttr.attribute("GapHorizontal","0"));
+						pageS.GapVertical = QStodouble(PgsAttr.attribute("GapVertical","0"));
+						pageS.GapBelow = QStodouble(PgsAttr.attribute("GapBelow","0"));
+						doc->pageSets.append(pageS);
+					}
+					PGS = PGS.nextSibling();
+				}
+			}
 			if (pg.tagName()=="CheckProfile")
 			{
 				struct checkerPrefs checkerSettings;

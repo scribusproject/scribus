@@ -303,8 +303,7 @@ ScribusDoc::ScribusDoc() : UndoObject(QObject::tr("Document"))
 	ScratchRight = prefsData->ScratchRight;
 	ScratchTop = prefsData->ScratchTop;
 	ScratchBottom = prefsData->ScratchBottom;
-	PageGapVertical = prefsData->PageGapVertical;
-	PageGapHorizontal = prefsData->PageGapHorizontal;
+	pageSets = prefsData->pageSets;
 	minCanvasCoordinate = FPoint(0, 0);
 	maxCanvasCoordinate = FPoint(ScratchLeft + ScratchRight, ScratchTop + ScratchBottom);
 	arrowStyles = prefsData->arrowStyles;
@@ -338,7 +337,7 @@ ScribusDoc::~ScribusDoc()
 void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, const int orientation, const int firstPageNumber, const QString& defaultPageSize, const QString& documentName)
 {
 	docUnitIndex=unitIndex;
-	FirstPageLeft = firstLeft;
+	pageSets[fp].FirstPage = firstLeft;
 	PageOri = orientation;
 	PageSize = defaultPageSize;
 	FirstPnum = firstPageNumber;

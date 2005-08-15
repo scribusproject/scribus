@@ -168,7 +168,7 @@ PyObject *scribus_setdoctype(PyObject* /* self */, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	if (Carrier->doc->PageFP = fp)
-		Carrier->doc->FirstPageLeft = fsl;
+		Carrier->doc->pageSets[Carrier->doc->PageFP].FirstPage = fsl;
 	Carrier->view->reformPages();
 	Carrier->view->GotoPage(Carrier->doc->currentPage->PageNr); // is this needed?
 	Carrier->view->DrawNew();   // is this needed?

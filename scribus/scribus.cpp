@@ -2340,7 +2340,7 @@ void ScribusApp::startUpDialog()
 		if (dia->tabSelected == 0)
 		{
 			int facingPages = dia->choosenLayout;
-			int firstPage = dia->docLayout->firstPage->value()-1;
+			int firstPage = dia->docLayout->firstPage->currentItem();
 			double topMargin = dia->GroupRand->RandT;
 			double bottomMargin = dia->GroupRand->RandB;
 			double leftMargin = dia->GroupRand->RandL;
@@ -2355,6 +2355,7 @@ void ScribusApp::startUpDialog()
 			QString pagesize = ps2->getPageName();
 			doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->ComboBox3->currentItem(),
 							firstPage, orientation, dia->PgNr->value(), pagesize);
+			doc->pageSets[facingPages].FirstPage = firstPage;
 			if (dia->PgNum->value() > 1)
 			{
 				for (int pg = 1; pg < dia->PgNum->value(); pg++)
@@ -2401,7 +2402,7 @@ bool ScribusApp::slotFileNew()
 	if (dia->exec())
 	{
 		int facingPages = dia->choosenLayout;
-		int firstPage = dia->docLayout->firstPage->value()-1;
+		int firstPage = dia->docLayout->firstPage->currentItem();
 		double topMargin = dia->GroupRand->RandT;
 		double bottomMargin = dia->GroupRand->RandB;
 		double leftMargin = dia->GroupRand->RandL;
@@ -2416,6 +2417,7 @@ bool ScribusApp::slotFileNew()
 		QString pagesize = ps2->getPageName();
 		retVal = doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->ComboBox3->currentItem(),
 		                firstPage, orientation, dia->PgNr->value(), pagesize);
+		doc->pageSets[facingPages].FirstPage = firstPage;
 		if (dia->PgNum->value() > 1)
 		{
 			for (int pg = 1; pg < dia->PgNum->value(); pg++)
@@ -5524,13 +5526,13 @@ void ScribusApp::addNewPages(int wo, int where, int numPages, double height, dou
 			doc->currentPage->PageSize = siz;
 			if (doc->PageFP == doublePage)
 			{
-				if ((doc->currentPage->PageNr % 2 == 0) && (doc->FirstPageLeft))
+				if ((doc->currentPage->PageNr % 2 == 0) && (doc->pageSets[doc->PageFP].FirstPage))
 					applyNewMaster(based1);
-				if ((doc->currentPage->PageNr % 2 == 1) && (doc->FirstPageLeft))
+				if ((doc->currentPage->PageNr % 2 == 1) && (doc->pageSets[doc->PageFP].FirstPage))
 					applyNewMaster(based2);
-				if ((doc->currentPage->PageNr % 2 == 0) && (!doc->FirstPageLeft))
+				if ((doc->currentPage->PageNr % 2 == 0) && (!doc->pageSets[doc->PageFP].FirstPage))
 					applyNewMaster(based2);
-				if ((doc->currentPage->PageNr % 2 == 1) && (!doc->FirstPageLeft))
+				if ((doc->currentPage->PageNr % 2 == 1) && (!doc->pageSets[doc->PageFP].FirstPage))
 					applyNewMaster(based1);
 			}
 			else
@@ -5548,13 +5550,13 @@ void ScribusApp::addNewPages(int wo, int where, int numPages, double height, dou
 			doc->currentPage->PageSize = siz;
 			if (doc->PageFP == doublePage)
 			{
-				if ((doc->currentPage->PageNr % 2 == 0) && (doc->FirstPageLeft))
+				if ((doc->currentPage->PageNr % 2 == 0) && (doc->pageSets[doc->PageFP].FirstPage))
 					applyNewMaster(based1);
-				if ((doc->currentPage->PageNr % 2 == 1) && (doc->FirstPageLeft))
+				if ((doc->currentPage->PageNr % 2 == 1) && (doc->pageSets[doc->PageFP].FirstPage))
 					applyNewMaster(based2);
-				if ((doc->currentPage->PageNr % 2 == 0) && (!doc->FirstPageLeft))
+				if ((doc->currentPage->PageNr % 2 == 0) && (!doc->pageSets[doc->PageFP].FirstPage))
 					applyNewMaster(based2);
-				if ((doc->currentPage->PageNr % 2 == 1) && (!doc->FirstPageLeft))
+				if ((doc->currentPage->PageNr % 2 == 1) && (!doc->pageSets[doc->PageFP].FirstPage))
 					applyNewMaster(based1);
 			}
 			else
@@ -5572,13 +5574,13 @@ void ScribusApp::addNewPages(int wo, int where, int numPages, double height, dou
 			doc->currentPage->PageSize = siz;
 			if (doc->PageFP == doublePage)
 			{
-				if ((doc->currentPage->PageNr % 2 == 0) && (doc->FirstPageLeft))
+				if ((doc->currentPage->PageNr % 2 == 0) && (doc->pageSets[doc->PageFP].FirstPage))
 					applyNewMaster(based1);
-				if ((doc->currentPage->PageNr % 2 == 1) && (doc->FirstPageLeft))
+				if ((doc->currentPage->PageNr % 2 == 1) && (doc->pageSets[doc->PageFP].FirstPage))
 					applyNewMaster(based2);
-				if ((doc->currentPage->PageNr % 2 == 0) && (!doc->FirstPageLeft))
+				if ((doc->currentPage->PageNr % 2 == 0) && (!doc->pageSets[doc->PageFP].FirstPage))
 					applyNewMaster(based2);
-				if ((doc->currentPage->PageNr % 2 == 1) && (!doc->FirstPageLeft))
+				if ((doc->currentPage->PageNr % 2 == 1) && (!doc->pageSets[doc->PageFP].FirstPage))
 					applyNewMaster(based1);
 			}
 			else

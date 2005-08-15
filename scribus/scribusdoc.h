@@ -286,8 +286,6 @@ public: // Public attributes
 	double ScratchRight;
 	double ScratchTop;
 	double ScratchBottom;
-	double PageGapVertical;
-	double PageGapHorizontal;
 /** Minimum and Maximum Points of Document */
 	FPoint minCanvasCoordinate;
 	FPoint maxCanvasCoordinate;
@@ -314,6 +312,7 @@ public: // Public attributes
 	int pageCount;
   /** Margins */
 	MarginStruct pageMargins;
+	QValueList<PageSet> pageSets;
   /** Number of Columns */
 	double PageSp;
   /** Distance of Columns */
@@ -380,7 +379,6 @@ public: // Public attributes
 	QValueList<ParagraphStyle> docParagraphStyles;
 	QValueList<Layer> Layers;
 	bool MasterP;
-	int FirstPageLeft;
 	bool marginColored;
 	int GroupCounter;
 	CMSData CMSSettings;

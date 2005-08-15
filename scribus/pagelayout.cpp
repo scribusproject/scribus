@@ -9,6 +9,7 @@
 #include <qtooltip.h>
 #include <qwhatsthis.h>
 #include <qpixmap.h>
+#include <qcombobox.h>
 
 extern QPixmap loadIcon(QString nam);
 
@@ -32,19 +33,11 @@ PageLayouts::PageLayouts( QWidget* parent )  : QGroupBox( parent )
 	layoutsView->setSelectionMode(QIconView::Single);
 	layoutGroupLayout->addWidget( layoutsView );
 
-	layout1 = new QHBoxLayout( 0, 0, 5, "layout1");
-
 	layoutLabel1 = new QLabel( this, "layoutLabel1" );
-	layout1->addWidget( layoutLabel1 );
-
-	firstPage = new QSpinBox( this, "firstPage" );
-	firstPage->setMaxValue( 4 );
-	firstPage->setMinValue( 1 );
-	layout1->addWidget( firstPage );
-	layoutGroupLayout->addLayout( layout1 );
-
-	layoutLabel2 = new QLabel( this, "layoutLabel2" );
-	layoutGroupLayout->addWidget( layoutLabel2 );
+	layoutGroupLayout->addWidget( layoutLabel1 );
+	firstPage = new QComboBox( true, this, "LMode" );
+	firstPage->setEditable(false);
+	layoutGroupLayout->addWidget( firstPage );
 	languageChange();
 	clearWState( WState_Polished );
 	connect(layoutsView, SIGNAL(clicked(QIconViewItem *)), this, SLOT(itemSelected(QIconViewItem* )));
@@ -57,8 +50,26 @@ void PageLayouts::selectItem(uint nr)
 	{
 		if (cc == nr)
 		{
-			firstPage->setMaxValue( layoutsView->index(ic)+1 );
-			firstPage->setValue( 1 );
+			if (cc > 0)
+			{
+				firstPage->setEnabled(true);
+				firstPage->clear();
+				firstPage->insertItem(LeftPage);
+				if (cc == 2)
+					firstPage->insertItem(Middle);
+				if (cc == 3)
+				{
+					firstPage->insertItem(MiddleLeft);
+					firstPage->insertItem(MiddleRight);
+				}
+				firstPage->insertItem(Right);
+			}
+			else
+			{
+				firstPage->clear();
+				firstPage->insertItem(" ");
+				firstPage->setEnabled(false);
+			}
 			layoutsView->setSelected(ic, true);
 			layoutsView->ensureVisible(0, ic->y(), 5, 5);
 			break;
@@ -71,8 +82,27 @@ void PageLayouts::itemSelected(QIconViewItem* ic)
 {
 	if (ic == 0)
 		return;
-	firstPage->setMaxValue( layoutsView->index(ic)+1 );
-	firstPage->setValue( 1 );
+	int choosen = layoutsView->index(ic);
+	if (choosen > 0)
+	{
+		firstPage->setEnabled(true);
+		firstPage->clear();
+		firstPage->insertItem(LeftPage);
+		if (choosen == 2)
+			firstPage->insertItem(Middle);
+		if (choosen == 3)
+		{
+			firstPage->insertItem(MiddleLeft);
+			firstPage->insertItem(MiddleRight);
+		}
+		firstPage->insertItem(Right);
+	}
+	else
+	{
+		firstPage->clear();
+		firstPage->insertItem(" ");
+		firstPage->setEnabled(false);
+	}
 	layoutsView->setSelected(ic, true);
 	emit selectedLayout(layoutsView->index(ic));
 }
@@ -105,6 +135,10 @@ void PageLayouts::languageChange()
 		startY += ic->height()+5;
 		ic = ic->nextItem();
 	}
-	layoutLabel1->setText( tr( "Page #" ) );
-	layoutLabel2->setText( tr( "is the first Page." ) );
+	layoutLabel1->setText( tr( "First Page is:" ) );
+	LeftPage =  tr("Left Page");
+	Middle =  tr("Middle");
+	MiddleLeft = tr("Middle Left");
+	MiddleRight = tr("Middle Right");
+	Right =  tr("Right Page");
 }

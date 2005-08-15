@@ -660,7 +660,7 @@ void SeitenPal::handleFirstPageLeftChk()
 	double br = Vie->Doc->pageMargins.Bottom;
 	int fp2 = Vie->Doc->PageFP;
 	if (fp2 == doublePage)
-		Vie->Doc->FirstPageLeft = firstPageLeftChk->isChecked();
+		Vie->Doc->pageSets[Vie->Doc->PageFP].FirstPage = firstPageLeftChk->isChecked();
 	Vie->Doc->resetPage(tpr, lr, rr, br, fp2);
 	Vie->reformPages();
 	Vie->DrawNew();
@@ -706,7 +706,7 @@ void SeitenPal::RebuildPage()
 		return;
 	}
 	PageView->Doppel = Vie->Doc->PageFP == doublePage;
-	PageView->Links = Vie->Doc->FirstPageLeft;
+	PageView->Links = Vie->Doc->pageSets[Vie->Doc->PageFP].FirstPage;
 	facingPagesChk->setChecked(PageView->Doppel);
 	firstPageLeftChk->setChecked(PageView->Links);
 	if (PageView->Doppel)
@@ -726,7 +726,7 @@ void SeitenPal::RebuildPage()
 		PageView->setColumnWidth(1, val);
 		PageView->setColumnWidth(3, val);
 		cc = 1;
-		if (Vie->Doc->FirstPageLeft)
+		if (Vie->Doc->pageSets[Vie->Doc->PageFP].FirstPage)
 		{
 			PageView->setNumRows(((Vie->Doc->pageCount-1)/2 + 1) * 2 + 1);
 			cb = 1;

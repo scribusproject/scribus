@@ -1319,12 +1319,14 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 		doc->PageSize = dc.attribute("PAGESIZE");
 		doc->FirstPnum = QStoInt(dc.attribute("FIRSTNUM","1"));
 		doc->PageFP=QStoInt(dc.attribute("BOOK", "0"));
+		int fp;
 		if (QStoInt(dc.attribute("FIRSTLEFT","0")) == 1)
-			doc->FirstPageLeft = 0;
+			fp = 0;
 		else
-			doc->FirstPageLeft = 1;
+			fp = 1;
 		if (doc->PageFP == 0)
-			doc->FirstPageLeft = 0;
+			fp = 0;
+		doc->pageSets[doc->PageFP].FirstPage = fp;
 		doc->PageAT=QStoInt(dc.attribute("AUTOTEXT"));
 		doc->PageSp=QStoInt(dc.attribute("AUTOSPALTEN"));
 		doc->PageSpa=QStodouble(dc.attribute("ABSTSPALTEN"));
@@ -3049,7 +3051,6 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	dc.setAttribute("PAGESIZE",doc->PageSize);
 	dc.setAttribute("FIRSTNUM",doc->FirstPnum);
 	dc.setAttribute("BOOK", doc->PageFP);
-	dc.setAttribute("StartPage", doc->FirstPageLeft);
 	if(doc->PageAT)
 		dc.setAttribute("AUTOTEXT",1);
 	dc.setAttribute("AUTOSPALTEN",doc->PageSp);
@@ -3137,8 +3138,6 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	dc.setAttribute("ScratchLeft", doc->ScratchLeft);
 	dc.setAttribute("ScratchRight", doc->ScratchRight);
 	dc.setAttribute("ScratchTop", doc->ScratchTop);
-	dc.setAttribute("GapHorizontal", doc->PageGapHorizontal);
-	dc.setAttribute("GapVertical", doc->PageGapVertical);
 	dc.setAttribute("StartArrow", doc->toolSettings.dStartArrow);
 	dc.setAttribute("EndArrow", doc->toolSettings.dEndArrow);
 	dc.setAttribute("PEN",doc->toolSettings.dPen);
@@ -3438,6 +3437,21 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 		tocElem.appendChild(tocsetup);
 	}
 	dc.appendChild(tocElem);
+	QDomElement pageSetAttr = docu.createElement("PageSets");
+	QValueList<PageSet>::Iterator itpgset;
+	for(itpgset = doc->pageSets.begin(); itpgset != doc->pageSets.end(); ++itpgset )
+	{
+		QDomElement pgst = docu.createElement("Set");
+		pgst.setAttribute("Name", (*itpgset).Name);
+		pgst.setAttribute("FirstPage", (*itpgset).FirstPage);
+		pgst.setAttribute("Rows", (*itpgset).Rows);
+		pgst.setAttribute("Columns", (*itpgset).Columns);
+		pgst.setAttribute("GapHorizontal", (*itpgset).GapHorizontal);
+		pgst.setAttribute("GapVertical", (*itpgset).GapVertical);
+		pgst.setAttribute("GapBelow", (*itpgset).GapBelow);
+		pageSetAttr.appendChild(pgst);
+	}
+	dc.appendChild(pageSetAttr);
 	if (dia2 != 0)
 	{
 		dia2->setTotalSteps(doc->DocPages.count()+doc->MasterPages.count()+doc->DocItems.count()+doc->MasterItems.count()+doc->FrameItems.count());

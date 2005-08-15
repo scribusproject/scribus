@@ -450,7 +450,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 	if (doc->PageFP == doublePage)
 	{
 		PutDoc("/PageLayout ");
-		if (doc->FirstPageLeft)
+		if (doc->pageSets[doc->PageFP].FirstPage)
 			PutDoc("/TwoColumnLeft\n");
 		else
 			PutDoc("/TwoColumnRight\n");

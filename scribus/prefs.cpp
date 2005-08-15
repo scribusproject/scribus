@@ -194,7 +194,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	dsLayout4p->setAlignment( Qt::AlignLeft );
 	docLayout = new PageLayouts(tab_7);
 	docLayout->selectItem(prefsData->FacingPages);
-	docLayout->firstPage->setValue(prefsData->LeftPageFirst+1);
+	docLayout->firstPage->setCurrentItem(prefsData->pageSets[prefsData->FacingPages].FirstPage);
 	dsLayout4p->addWidget( docLayout );
 	dsLayout4pv = new QVBoxLayout;
 	dsLayout4pv->setSpacing( 5 );
@@ -539,7 +539,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	gapHorizontal->setSuffix( unitSuffix );
 	gapHorizontal->setDecimals( decimals );
 	gapHorizontal->setMaxValue(1000);
-	gapHorizontal->setValue(prefsData->PageGapHorizontal * unitRatio);
+	gapHorizontal->setValue(prefsData->pageSets[prefsData->FacingPages].GapHorizontal * unitRatio);
 	layout4sg->addWidget( gapHorizontal, 0, 1 );
 	TextLabel5sg = new QLabel(gapHorizontal, tr( "Horizontal:" ), groupGap, "TextLabel5" );
 	layout4sg->addWidget( TextLabel5sg, 0, 0 );
@@ -547,7 +547,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	gapVertical->setSuffix( unitSuffix );
 	gapVertical->setDecimals( decimals );
 	gapVertical->setMaxValue(1000);
-	gapVertical->setValue(prefsData->PageGapVertical * unitRatio);
+	gapVertical->setValue(prefsData->pageSets[prefsData->FacingPages].GapVertical * unitRatio);
 	layout4sg->addWidget( gapVertical, 0, 3 );
 	TextLabel7sg = new QLabel(gapVertical, tr( "Vertical:" ), groupGap, "Links" );
 	layout4sg->addWidget( TextLabel7sg, 0, 2 );
@@ -962,6 +962,9 @@ void Preferences::setDS(int layout)
 {
 	GroupRand->setFacingPages(!(layout == singlePage));
 	choosenLayout = layout;
+	docLayout->firstPage->setCurrentItem(prefsManager->appPrefs.pageSets[choosenLayout].FirstPage);
+	gapHorizontal->setValue(prefsManager->appPrefs.pageSets[choosenLayout].GapHorizontal * unitRatio);
+	gapVertical->setValue(prefsManager->appPrefs.pageSets[choosenLayout].GapVertical * unitRatio);
 }
 
 /*!
@@ -1360,8 +1363,11 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.RandUnten = GroupRand->RandB;
 	prefsManager->appPrefs.RandLinks = GroupRand->RandL;
 	prefsManager->appPrefs.RandRechts = GroupRand->RandR;
+	double prefsUnitRatio = unitGetRatioFromIndex(UnitCombo->currentItem());
 	prefsManager->appPrefs.FacingPages  = choosenLayout;
-	prefsManager->appPrefs.LeftPageFirst = docLayout->firstPage->value()-1;
+	prefsManager->appPrefs.pageSets[choosenLayout].FirstPage = docLayout->firstPage->currentItem();
+	prefsManager->appPrefs.pageSets[choosenLayout].GapHorizontal = gapHorizontal->value() / prefsUnitRatio;
+	prefsManager->appPrefs.pageSets[choosenLayout].GapVertical = gapVertical->value() / prefsUnitRatio;
 	prefsManager->setImageEditorExecutable(imageEditorLineEdit->text());
 	prefsManager->appPrefs.gs_AntiAliasGraphics = GSantiGraph->isChecked();
 	prefsManager->appPrefs.gs_AntiAliasText = GSantiText->isChecked();
@@ -1380,13 +1386,10 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.DisScale = DisScale;
 	
 	prefsManager->appPrefs.docUnitIndex = UnitCombo->currentItem();
-	double prefsUnitRatio = unitGetRatioFromIndex(UnitCombo->currentItem());
 	prefsManager->appPrefs.ScratchBottom = bottomScratch->value() / prefsUnitRatio;
 	prefsManager->appPrefs.ScratchLeft = leftScratch->value() / prefsUnitRatio;
 	prefsManager->appPrefs.ScratchRight = rightScratch->value() / prefsUnitRatio;
 	prefsManager->appPrefs.ScratchTop = topScratch->value() / prefsUnitRatio;
-	prefsManager->appPrefs.PageGapHorizontal = gapHorizontal->value() / prefsUnitRatio;
-	prefsManager->appPrefs.PageGapVertical = gapVertical->value() / prefsUnitRatio;
 	prefsManager->appPrefs.DpapColor = colorPaper;
 	prefsManager->appPrefs.toolSettings.defFont = tabTools->fontComboText->currentText();
 	prefsManager->appPrefs.toolSettings.defSize = tabTools->sizeComboText->currentText().left(2).toInt() * 10;

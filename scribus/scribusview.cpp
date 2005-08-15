@@ -812,12 +812,18 @@ void ScribusView::DrawPageMarks(ScPainter *p, Page *page, QRect)
 		if (page->XGuides.count() != 0)
 		{
 			for (uint xg = 0; xg < page->XGuides.count(); ++xg)
-				p->drawLine(FPoint(page->XGuides[xg], 0), FPoint(page->XGuides[xg], page->Height));
+			{
+				if ((page->XGuides[xg] >= 0) && (page->XGuides[xg] <= page->Width))
+					p->drawLine(FPoint(page->XGuides[xg], 0), FPoint(page->XGuides[xg], page->Height));
+			}
 		}
 		if (page->YGuides.count() != 0)
 		{
 			for (uint yg = 0; yg < page->YGuides.count(); ++yg)
-				p->drawLine(FPoint(0, page->YGuides[yg]), FPoint(page->Width, page->YGuides[yg]));
+			{
+				if ((page->YGuides[yg] >= 0) && (page->YGuides[yg] <= page->Height))
+					p->drawLine(FPoint(0, page->YGuides[yg]), FPoint(page->Width, page->YGuides[yg]));
+			}
 		}
 	}
 	p->restore();
@@ -8648,12 +8654,13 @@ void ScribusView::reformPages(bool moveObjects)
 	struct oldPageVar oldPg;
 	FPoint maxSize;
 	double maxYPos, maxXPos, currentXPos, currentYPos, lastYPos;
-	int counter = Doc->FirstPageLeft;
+	int counter = Doc->pageSets[Doc->PageFP].FirstPage;
+	int rowcounter = 0;
 	maxYPos = 0;
 	maxXPos = 0;
 	currentYPos = Doc->ScratchTop;
 	currentXPos = Doc->ScratchLeft;
-	currentXPos += (Doc->pageWidth+Doc->PageGapHorizontal) * counter;
+	currentXPos += (Doc->pageWidth+Doc->pageSets[Doc->PageFP].GapHorizontal) * counter;
 	lastYPos = Doc->Pages.at(0)->initialHeight;
 	for (uint a = 0; a < Doc->Pages.count(); ++a)
 	{
@@ -8684,9 +8691,9 @@ void ScribusView::reformPages(bool moveObjects)
 			Seite->Height = Seite->initialHeight;
 			Seite->Xoffset = currentXPos;
 			Seite->Yoffset = currentYPos;
-			if (counter < Doc->PageFP)
+			if (counter < Doc->pageSets[Doc->PageFP].Columns-1)
 			{
-				currentXPos += Seite->Width + Doc->PageGapHorizontal;
+				currentXPos += Seite->Width + Doc->pageSets[Doc->PageFP].GapHorizontal;
 				lastYPos = QMAX(lastYPos, Seite->Height);
 				if (counter == 0)
 				{
@@ -8702,14 +8709,22 @@ void ScribusView::reformPages(bool moveObjects)
 			else
 			{
 				currentXPos = Doc->ScratchLeft;
-				currentYPos += QMAX(lastYPos, Seite->Height)+Doc->PageGapVertical;
+				currentYPos += QMAX(lastYPos, Seite->Height)+Doc->pageSets[Doc->PageFP].GapVertical;
 				lastYPos = QMAX(lastYPos, Seite->Height);
 				Seite->Margins.Right = Seite->initialMargins.Right;
 				Seite->Margins.Left = Seite->initialMargins.Left;
 			}
 			counter++;
-			if (counter > Doc->PageFP)
+			if (counter > Doc->pageSets[Doc->PageFP].Columns-1)
+			{
 				counter = 0;
+				rowcounter++;
+				if (rowcounter > Doc->pageSets[Doc->PageFP].Rows-1)
+				{
+					currentYPos += Doc->pageSets[Doc->PageFP].GapBelow;
+					rowcounter = 0;
+				}
+			}
 		}
 		Seite->Margins.Top = Seite->initialMargins.Top;
 		Seite->Margins.Bottom = Seite->initialMargins.Bottom;

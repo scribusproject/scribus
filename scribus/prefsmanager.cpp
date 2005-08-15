@@ -234,8 +234,6 @@ void PrefsManager::initDefaults()
 	appPrefs.RandUnten = 40;
 	appPrefs.RandLinks = 40;
 	appPrefs.RandRechts = 40;
-	appPrefs.FacingPages = singlePage;
-	appPrefs.LeftPageFirst = 0;
 	appPrefs.toolSettings.scaleType = true;
 	appPrefs.toolSettings.aspectRatio = true;
 	appPrefs.toolSettings.lowResType = 1;
@@ -284,8 +282,28 @@ void PrefsManager::initDefaults()
 	appPrefs.ScratchRight = 100;
 	appPrefs.ScratchTop = 20;
 	appPrefs.ScratchBottom = 20;
-	appPrefs.PageGapVertical = 40;
-	appPrefs.PageGapHorizontal = 0;
+	struct PageSet pageS;
+	pageS.Name = tr( "Single Page" );
+	pageS.FirstPage = 0;
+	pageS.Rows = 1;
+	pageS.Columns = 1;
+	pageS.GapHorizontal = 0.0;
+	pageS.GapVertical = 0.0;
+	pageS.GapBelow = 40.0;
+	appPrefs.pageSets.append(pageS);
+	pageS.Name = tr( "Double sided" );
+	pageS.FirstPage = 1;
+	pageS.Columns = 2;
+	appPrefs.pageSets.append(pageS);
+	pageS.Name = tr( "3-Fold" );
+	pageS.FirstPage = 0;
+	pageS.Columns = 3;
+	appPrefs.pageSets.append(pageS);
+	pageS.Name = tr( "4-Fold" );
+	pageS.FirstPage = 0;
+	pageS.Columns = 4;
+	appPrefs.pageSets.append(pageS);
+	appPrefs.FacingPages = singlePage;
 	appPrefs.askBeforeSubstituite = true;
 	appPrefs.haveStylePreview = true;
 	// lorem ipsum defaults
@@ -812,8 +830,6 @@ void PrefsManager::WritePref(QString ho)
 	dc.setAttribute("ScratchLeft", appPrefs.ScratchLeft);
 	dc.setAttribute("ScratchRight", appPrefs.ScratchRight);
 	dc.setAttribute("ScratchTop", appPrefs.ScratchTop);
-	dc.setAttribute("GapHorizontal", appPrefs.PageGapHorizontal);
-	dc.setAttribute("GapVertical", appPrefs.PageGapVertical);
 	dc.setAttribute("STECOLOR", appPrefs.STEcolor.name());
 	dc.setAttribute("STEFONT", appPrefs.STEfont);
 	dc.setAttribute("STYLEPREVIEW", static_cast<int>(appPrefs.haveStylePreview));
@@ -931,10 +947,24 @@ void PrefsManager::WritePref(QString ho)
 	dc76.setAttribute("RANDL",appPrefs.RandLinks);
 	dc76.setAttribute("RANDR",appPrefs.RandRechts);
 	dc76.setAttribute("DOPPEL", appPrefs.FacingPages);
-	dc76.setAttribute("LINKS", appPrefs.LeftPageFirst);
 	dc76.setAttribute("AutoSave", static_cast<int>(appPrefs.AutoSave));
 	dc76.setAttribute("AutoSaveTime", appPrefs.AutoSaveTime);
 	elem.appendChild(dc76);
+	QDomElement pageSetAttr = docu.createElement("PageSets");
+	QValueList<PageSet>::Iterator itpgset;
+	for(itpgset = appPrefs.pageSets.begin(); itpgset != appPrefs.pageSets.end(); ++itpgset )
+	{
+		QDomElement pgst = docu.createElement("Set");
+		pgst.setAttribute("Name", (*itpgset).Name);
+		pgst.setAttribute("FirstPage", (*itpgset).FirstPage);
+		pgst.setAttribute("Rows", (*itpgset).Rows);
+		pgst.setAttribute("Columns", (*itpgset).Columns);
+		pgst.setAttribute("GapHorizontal", (*itpgset).GapHorizontal);
+		pgst.setAttribute("GapVertical", (*itpgset).GapVertical);
+		pgst.setAttribute("GapBelow", (*itpgset).GapBelow);
+		pageSetAttr.appendChild(pgst);
+	}
+	elem.appendChild(pageSetAttr);
 	QMap<QString, checkerPrefs>::Iterator itcp;
 	for (itcp = appPrefs.checkerProfiles.begin(); itcp != appPrefs.checkerProfiles.end(); ++itcp)
 	{
@@ -1195,8 +1225,6 @@ bool PrefsManager::ReadPref(QString ho)
 				appPrefs.ScratchLeft = QStodouble(dc.attribute("ScratchLeft", "100"));
 			appPrefs.ScratchRight = QStodouble(dc.attribute("ScratchRight", "100"));
 			appPrefs.ScratchTop = QStodouble(dc.attribute("ScratchTop", "20"));
-			appPrefs.PageGapHorizontal = QStodouble(dc.attribute("GapHorizontal", "0"));
-			appPrefs.PageGapVertical = QStodouble(dc.attribute("GapVertical", "40"));
 			if (dc.hasAttribute("STECOLOR"))
 				appPrefs.STEcolor = QColor(dc.attribute("STECOLOR"));
 			if (dc.hasAttribute("STEFONT"))
@@ -1320,9 +1348,30 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.RandLinks = QStodouble(dc.attribute("RANDL","9"));
 			appPrefs.RandRechts = QStodouble(dc.attribute("RANDR","9"));
 			appPrefs.FacingPages = QStoInt(dc.attribute("DOPPEL","0"));
-			appPrefs.LeftPageFirst = QStoInt(dc.attribute("LINKS","0"));
 			appPrefs.AutoSave = static_cast<bool>(QStoInt(dc.attribute("AutoSave","0")));
 			appPrefs.AutoSaveTime = QStoInt(dc.attribute("AutoSaveTime","600000"));
+		}
+		if (dc.tagName()=="PageSets")
+		{
+			QDomNode PGS = DOC.firstChild();
+			appPrefs.pageSets.clear();
+			while(!PGS.isNull())
+			{
+				QDomElement PgsAttr = PGS.toElement();
+				if(PgsAttr.tagName() == "Set")
+				{
+					struct PageSet pageS;
+					pageS.Name = PgsAttr.attribute("Name");
+					pageS.FirstPage = QStoInt(PgsAttr.attribute("FirstPage","0"));
+					pageS.Rows = QStoInt(PgsAttr.attribute("Rows","1"));
+					pageS.Columns = QStoInt(PgsAttr.attribute("Columns","1"));
+					pageS.GapHorizontal = QStodouble(PgsAttr.attribute("GapHorizontal","0"));
+					pageS.GapVertical = QStodouble(PgsAttr.attribute("GapVertical","0"));
+					pageS.GapBelow = QStodouble(PgsAttr.attribute("GapBelow","0"));
+					appPrefs.pageSets.append(pageS);
+				}
+				PGS = PGS.nextSibling();
+			}
 		}
 		if (dc.tagName()=="CMS")
 		{
