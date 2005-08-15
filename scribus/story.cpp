@@ -2297,12 +2297,6 @@ void StoryEditor::updateTextFrame()
 		nb2 = nb2->NextBox;
 	}
 	Editor->saveItemText(nb);
-	if (doc->Trenner->AutoCheck)
-	{
-		if (doc->Trenner->Language != nb->Language)
-			doc->Trenner->slotNewDict(nb->Language);
-		doc->Trenner->slotHyphenate(nb);
-	}
 	bool rep = doc->RePos;
 	doc->RePos = true;
 	QPixmap pgPix(1, 1);

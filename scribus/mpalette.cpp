@@ -3147,7 +3147,7 @@ void Mpalette::handlePathOffs()
 
 void Mpalette::NewName()
 {
-	if (ScApp->ScriptRunning)
+	if (ScApp->ScriptRunning || !HaveDoc || !HaveItem)
 		return;
 	QString NameOld = CurItem->AnName;
 	QString NameNew = NameEdit->text();
