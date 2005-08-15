@@ -3066,12 +3066,6 @@ void StoryEditor::updateTextFrame()
 	{
 		currDoc->FrameItems.at(a)->ItemNr = a;
 	}
-	if (currDoc->docHyphenator->AutoCheck)
-	{
-		if (currDoc->docHyphenator->Language != nextItem->Language)
-			currDoc->docHyphenator->slotNewDict(nextItem->Language);
-		currDoc->docHyphenator->slotHyphenate(nextItem);
-	}
 	bool rep = currDoc->RePos;
 	currDoc->RePos = true;
 	QPixmap pgPix(1, 1);
