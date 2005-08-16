@@ -244,6 +244,31 @@ if (b == true)
 <p>Any large scale changes should be approved of first. Sometimes a small change can have large side effects.</p>
 <p>Multiple separate lines containing calls to Qt methods are far less efficient than multiple calls contained in a for loop.</p>
 
+<h4>Initialization</h4>
+
+<p><code>QString fred = QString("bob")</code> is not the same as <code>QString fred("bob")</code>. The first one creates an additional temporary that's then thrown away. That's slow, and should generally be avoided.</p>
+
+<p>In constructors, it is somewhat faster to use:</p>
+
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+Fred::Fred() : ParentClass(),
+	argument1("initialValue"),
+	argument2(INITIAL_VALUE)
+{
+}
+</small></td></tr></table></blockquote>
+
+<p>than</p>
+
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+Fred::Fred() : ParentClass()
+{
+	argument1 = "initialvalue";
+	argument2 = INITIAL_VALUE;
+}
+</small></td></tr></table></blockquote>
+
+<p>for much the same reaons as outlined above. It's best to initialize the members in the same order that they're listed in the class declaration.</p>
 
 <h4>Memory checking</h4>
 
