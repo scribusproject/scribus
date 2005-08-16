@@ -1813,6 +1813,7 @@ const bool ScribusDoc::collectForOutput(const QString& fileName, const bool with
 	return retVal;
 }
 
+//TODO: Handle saving to versions of SLA, and other formats
 const bool ScribusDoc::save(const QString& fileName)
 {
 	QFileInfo fi(fileName);
@@ -1833,4 +1834,34 @@ const bool ScribusDoc::save(const QString& fileName)
 		hasName = true;
 	}
 	return ret;
+}
+
+const bool ScribusDoc::changePageMargins(const double initialTop, const double initialBottom, const double initialLeft, const double initialRight, const double initialHeight, const double initialWidth, const double height, const double width, const int orientation, const QString& pageSize, const int pageNumber)
+{
+	bool retVal=true;
+	if (pageNumber==-1)
+	{
+		//find page and set values
+		return false;
+	}
+	else
+	{
+		if (currentPage==NULL)
+			retVal=false;
+		else
+		{
+			//set the current page's values
+			currentPage->initialMargins.Top = initialTop;
+			currentPage->initialMargins.Bottom = initialBottom;
+			currentPage->initialMargins.Left = initialLeft;
+			currentPage->initialMargins.Right = initialRight;
+			currentPage->initialHeight = initialHeight;
+			currentPage->initialWidth = initialWidth;
+			currentPage->Height = height;
+			currentPage->Width = width;
+			currentPage->PageOri = orientation;
+			currentPage->PageSize = pageSize;
+		}
+	}
+	return retVal;
 }

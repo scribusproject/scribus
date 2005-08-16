@@ -271,6 +271,10 @@ public:
 	 * @brief Save function
 	 */
 	const bool save(const QString&);
+	/**
+	 * @brief Set the page margins. Current code uses current page only, also provide a (currently, TODO) option for this.
+	 */
+	const bool changePageMargins(const double initialTop, const double initialBottom, const double initialLeft, const double initialRight, const double initialHeight, const double initialWidth, const double Height, const double width, const int orientation, const QString& pageSize, const int pageNumber=-1);
 	
 protected:
 	void addSymbols();

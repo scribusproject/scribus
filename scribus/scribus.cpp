@@ -514,11 +514,11 @@ void ScribusApp::initPalettes()
 	connect(propertiesPalette->Cpal->gradEdit->Preview, SIGNAL(gradientChanged()), this, SLOT(updtGradFill()));
 	connect(propertiesPalette->Cpal, SIGNAL(gradientChanged()), this, SLOT(updtGradFill()));
 	connect(propertiesPalette->Cpal, SIGNAL(QueryItem()), this, SLOT(GetBrushPen()));
-	connect(docCheckerPalette, SIGNAL(selectElement(int, int)), this, SLOT(SelectFromOutl(int, int)));
-	connect(docCheckerPalette, SIGNAL(selectPage(int)), this, SLOT(SelectFromOutlS(int)));
+	connect(docCheckerPalette, SIGNAL(selectElement(int, int)), this, SLOT(selectItemsFromOutlines(int, int)));
+	connect(docCheckerPalette, SIGNAL(selectPage(int)), this, SLOT(selectPagesFromOutlines(int)));
 	connect(docCheckerPalette, SIGNAL(selectMasterPage(QString)), this, SLOT(manageMasterPages(QString)));
-	connect(outlinePalette, SIGNAL(selectElement(int, int, bool)), this, SLOT(SelectFromOutl(int, int, bool)));
-	connect(outlinePalette, SIGNAL(selectPage(int)), this, SLOT(SelectFromOutlS(int)));
+	connect(outlinePalette, SIGNAL(selectElement(int, int, bool)), this, SLOT(selectItemsFromOutlines(int, int, bool)));
+	connect(outlinePalette, SIGNAL(selectPage(int)), this, SLOT(selectPagesFromOutlines(int)));
 	connect(outlinePalette, SIGNAL(selectMasterPage(QString)), this, SLOT(manageMasterPages(QString)));
 	connect(propertiesPalette->Spal, SIGNAL(newStyle(int)), this, SLOT(setNewAbStyle(int)));
 	connect(propertiesPalette, SIGNAL(EditLSt()), this, SLOT(slotEditLineStyles()));
@@ -528,10 +528,10 @@ void ScribusApp::initPalettes()
 	connect(pagePalette->PageView, SIGNAL(UseTemp(QString, int)), this, SLOT(Apply_MasterPage(QString, int)));
 	connect(pagePalette->PageView, SIGNAL(NewPage(int, QString)), this, SLOT(slotNewPageP(int, QString)));
 	connect(pagePalette->Trash, SIGNAL(DelPage(int)), this, SLOT(DeletePage2(int)));
-	connect(pagePalette, SIGNAL(GotoSeite(int)), this, SLOT(SelectFromOutlS(int)));
+	connect(pagePalette, SIGNAL(GotoSeite(int)), this, SLOT(selectPagesFromOutlines(int)));
 	connect(bookmarkPalette->BView, SIGNAL(MarkMoved()), this, SLOT(StoreBookmarks()));
 	connect(bookmarkPalette->BView, SIGNAL(ChangeBMNr(int, int, int)), this, SLOT(ChBookmarks(int, int, int)));
-	connect(bookmarkPalette->BView, SIGNAL(SelectElement(int, int)), this, SLOT(SelectFromOutl(int, int)));
+	connect(bookmarkPalette->BView, SIGNAL(SelectElement(int, int)), this, SLOT(selectItemsFromOutlines(int, int)));
 }
 
 void ScribusApp::initScrapbook()
@@ -2823,7 +2823,6 @@ void ScribusApp::SwitchWin()
 
 void ScribusApp::HaveNewDoc()
 {
-	int a;
 	scrActions["filePrint"]->setEnabled(true);
 	scrActions["fileSave"]->setEnabled(false);
 	scrActions["fileClose"]->setEnabled(true);
@@ -2872,12 +2871,12 @@ void ScribusApp::HaveNewDoc()
 
 	ColorList::Iterator it;
 	QPixmap pm = QPixmap(15, 15);
-	a = 1;
 	disconnect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
 	ColorMenC->clear();
 	ColorMenC->insertItem( tr("None"));
 	if (doc->toolSettings.dBrush == tr("None"))
 		ColorMenC->setCurrentItem(0);
+	int a = 1;
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 	{
 		pm.fill(doc->PageColors[it.key()].getRGBColor());
@@ -4785,7 +4784,7 @@ bool ScribusApp::doPrint(PrintOptions *options)
 {
 	bool retw = false;
 	QMap<QString,QFont> ReallyUsed;
-	QString filename = options->filename;
+	QString filename(options->filename);
 	ReallyUsed.clear();
 	doc->getUsedFonts(&ReallyUsed);
 	fileWatcher->forceScan();
@@ -4793,14 +4792,9 @@ bool ScribusApp::doPrint(PrintOptions *options)
 	PSLib *dd = getPSDriver(true, ReallyUsed, doc->PageColors, false);
 	if (dd != NULL)
 	{
-		bool PSfile = false;
-		if (options->toFile)
-			PSfile = dd->PS_set_file(filename);
-		else
-		{
-			PSfile = dd->PS_set_file(PrefsPfad+"/tmp.ps");
+		if (!options->toFile)
 			filename = PrefsPfad+"/tmp.ps";
-		}
+		bool PSfile = dd->PS_set_file(filename);
 		filename = QDir::convertSeparators(filename);
 		if (PSfile)
 		{
@@ -5758,16 +5752,8 @@ void ScribusApp::ToggleTools()
 
 void ScribusApp::setPDFTools(bool visible)
 {
-	if (visible)
-	{
-		pdfToolBar->show();
-		pdfToolBar->Sichtbar = true;
-	}
-	else
-	{
-		pdfToolBar->hide();
-		pdfToolBar->Sichtbar = false;
-	}
+	pdfToolBar->setShown(visible);
+	pdfToolBar->Sichtbar = visible;
 	scrActions["toolsToolbarPDF"]->setOn(visible);
 }
 
@@ -5997,13 +5983,11 @@ void ScribusApp::slotSelect()
 {
 	pdfToolBar->PDFTool->setOn(false);
 	pdfToolBar->PDFaTool->setOn(false);
-	//scrActions["toolsMeasurements"]->setOn(false);
 	setAppMode(modeNormal);
 }
 
 void ScribusApp::setAppModeByToggle(bool isOn, int newMode)
 {
-	//qDebug(QString("::setAppModeByToggle(): %1 %2").arg(isOn).arg(newMode));
 	keyrep=false;
 	if (isOn)
 		setAppMode(newMode);
@@ -6036,7 +6020,6 @@ void ScribusApp::setAppMode(int mode)
 
 	PageItem *currItem;
 	setActiveWindow();
-	//qDebug(QString("::setAppMode(%1)").arg(mode));
 	if (HaveDoc)
 	{
 		if (view->SelItem.count() != 0)
@@ -6227,7 +6210,6 @@ void ScribusApp::setAppMode(int mode)
 			}
 		}
 	}
-
 	actionManager->connectModeActions();
 }
 
@@ -6601,16 +6583,8 @@ void ScribusApp::changePageMargins()
 	MarginDialog *dia = new MarginDialog(this, doc);
 	if (dia->exec())
 	{
-		doc->currentPage->initialMargins.Top = dia->GroupRand->RandT;
-		doc->currentPage->initialMargins.Bottom = dia->GroupRand->RandB;
-		doc->currentPage->initialMargins.Left = dia->GroupRand->RandL;
-		doc->currentPage->initialMargins.Right = dia->GroupRand->RandR;
-		doc->currentPage->initialHeight = dia->heightMSpinBox->value() / doc->unitRatio();
-		doc->currentPage->initialWidth = dia->widthMSpinBox->value() / doc->unitRatio();
-		doc->currentPage->Height = dia->heightMSpinBox->value() / doc->unitRatio();
-		doc->currentPage->Width = dia->widthMSpinBox->value() / doc->unitRatio();
-		doc->currentPage->PageOri = dia->orientationQComboBox->currentItem();
-		doc->currentPage->PageSize = dia->prefsPageSizeName;
+		double invDocUnitRatio=1/doc->unitRatio();
+		doc->changePageMargins(dia->GroupRand->RandT, dia->GroupRand->RandB, dia->GroupRand->RandL, dia->GroupRand->RandR, dia->heightMSpinBox->value() * invDocUnitRatio, dia->widthMSpinBox->value() * invDocUnitRatio, dia->heightMSpinBox->value() * invDocUnitRatio, dia->widthMSpinBox->value() * invDocUnitRatio, dia->orientationQComboBox->currentItem(), dia->prefsPageSizeName);
 		view->reformPages(dia->moveObjects->isChecked());
 		view->DrawNew();
 		slotDocCh();
@@ -7447,7 +7421,7 @@ void ScribusApp::setPenFarbe(QString farbe)
 
 void ScribusApp::setPenShade(int sh)
 {
-	setActiveWindow();
+	//setActiveWindow();
 	if (HaveDoc)
 	{
 		view->ItemPenShade(sh);
@@ -7466,7 +7440,7 @@ void ScribusApp::setBrushFarbe(QString farbe)
 
 void ScribusApp::setBrushShade(int sh)
 {
-	setActiveWindow();
+	//setActiveWindow();
 	if (HaveDoc)
 	{
 		view->ItemBrushShade(sh);
@@ -7601,7 +7575,7 @@ void ScribusApp::ObjektDupM()
 	delete dia;
 }
 
-void ScribusApp::SelectFromOutl(int Page, int Item, bool single)
+void ScribusApp::selectItemsFromOutlines(int Page, int Item, bool single)
 {
 	NoFrameEdit();
 	setActiveWindow();
@@ -7641,7 +7615,7 @@ void ScribusApp::SelectFromOutl(int Page, int Item, bool single)
 	}
 }
 
-void ScribusApp::SelectFromOutlS(int Page)
+void ScribusApp::selectPagesFromOutlines(int Page)
 {
 	NoFrameEdit();
 	setActiveWindow();
@@ -9042,6 +9016,7 @@ void ScribusApp::initHyphenator()
 	QStringList L_Spanish;
 	QStringList L_Swedish;
 	QStringList L_Ukrainian;
+	/* Commenting out.. QStringList should be created empty as per qt3 docs. 
 	L_Afrikaans.clear();
 	L_Bulgarian.clear();
 	L_Catalan.clear();
@@ -9067,6 +9042,7 @@ void ScribusApp::initHyphenator()
 	L_Spanish.clear();
 	L_Swedish.clear();
 	L_Ukrainian.clear();
+	*/
 	QDir d2(pfad, "*.*", QDir::Name, QDir::Files | QDir::NoSymLinks);
 	if ((d2.exists()) && (d2.count() != 0))
 	{
