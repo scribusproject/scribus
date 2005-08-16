@@ -3,8 +3,8 @@
 <h2>Scribus Coding Standards</h2>
 
 <p>
-Initial document: Paul F. Johnson, Feb 26th 2004, Version: 0.04<br/>
-Revised: Craig Ringer, Jul 9, 2005, Version: 0.05 (text encodings, exceptions, who to send patches to)
+Initial document: Paul F. Johnson, 26 Feb  2004, Version: 0.04<br/>
+Revised: Craig Ringer, 16 Aug, 2005, Version: 0.05 (text encodings, exceptions, who to send patches to)
 </p>
 
 <p>This document is intended as a guide to all Scribus developers and contributors. It is aimed to be simple to use as well as to keep the source code simple to understand and maintain.</p>
@@ -104,7 +104,7 @@ int foobar(bool m)
 }
 </pre>
 </small></td></tr></table></blockquote>
-<p>A lot simpler to see and will usually optimise far better.</p>
+<p>A lot simpler to see and will usually optimize far better.</p>
 
 <p>Ternary conditionals (?) should be used in preference to <code>if</code> / <code>else</code>. These are usually far quicker to process the code once compiled.</p>
 
@@ -138,7 +138,7 @@ size_t no = sizeof(number) / sizeof(*number);
 s = number(f);
 </pre>
 </small></td></tr></table></blockquote>
-<p>The switch has gone and the code generated runs far faster and as the conditions don't need to be created, will optimise far better. Note: when using the <code>QObject::tr()</code> function, this method of using char* may not always work properly. An alternative is to use <code>QString number[] = {"four", "eight", "twelve"};</code> etc.
+<p>The switch has gone and the code generated runs far faster and as the conditions don't need to be created, will optimize far better. Note: when using the <code>QObject::tr()</code> function, this method of using char* may not always work properly. An alternative is to use <code>QString number[] = {"four", "eight", "twelve"};</code> etc.
 
 <p>Obviously for more complex switch conditions, the above can't be used.</p>
 
@@ -236,14 +236,39 @@ if (b == true)
 	<li>In some places, a template will not be as efficient as a standalone call.</li>
 </ul>
 
-<h4>Optimisation</h4>
+<h4>Optimization</h4>
 
-<p>Unless you really know what you're doing and more over, what the code is doing, do not attempt to do any code optimisation. In a lot of respects, optimisation is a "black art".</p>
+<p>Unless you really know what you're doing and more over, what the code is doing, do not attempt to do any code optimization. In a lot of respects, optimization is a "black art".</p>
 <p>Code such as <code>a = b = c = 0;</code> is more efficient (through the compiler) than <code>a=0; b=0; c=0;</code></p>
-<p>Careful thought about how the code works is usually far more benificial than attempting any of the "tricks" currently employed.</p>
+<p>Careful thought about how the code works is usually far more beneficial than attempting any of the "tricks" currently employed.</p>
 <p>Any large scale changes should be approved of first. Sometimes a small change can have large side effects.</p>
 <p>Multiple separate lines containing calls to Qt methods are far less efficient than multiple calls contained in a for loop.</p>
 
+<h4>Initialization</h4>
+
+<p><code>QString fred = QString("bob")</code> is not the same as <code>QString fred("bob")</code>. The first one creates an additional temporary that's then thrown away. That's slow, and should generally be avoided.</p>
+
+<p>In constructors, it is somewhat faster to use:</p>
+
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+Fred::Fred() : ParentClass(),
+	argument1("initialValue"),
+	argument2(INITIAL_VALUE)
+{
+}
+</small></td></tr></table></blockquote>
+
+<p>than</p>
+
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+Fred::Fred() : ParentClass()
+{
+	argument1 = "initialvalue";
+	argument2 = INITIAL_VALUE;
+}
+</small></td></tr></table></blockquote>
+
+<p>for much the same reasons as outlined above. It's best to initialize the members in the same order that they're listed in the class declaration.</p>
 
 <h4>Memory checking</h4>
 
@@ -275,7 +300,7 @@ catch(bad_exception)
 </small></td></tr></table></blockquote>
 <p>As there are many calls in Scribus to new, these will have a wrapper around.</p>
 <p>For users of Qt who compile their own, they will need to include in the <code>./configure</code> script that they want to throw C++ exceptions. Failure to do so will result in the catches not catching and possibly Scribus failing to run.</p>
-<p>Currently (for v3.2 - v3.4), KDE recommend Qt is compiled without exceptions. This is a bad idea as it means trapping bad memory allocations cannot be caught using the prefered method. As most distros follow this recommendation, that means we (Scribus) can't expect to be able to rely on exceptions.</p>
+<p>Currently (for v3.2 - v3.4), KDE recommend Qt is compiled without exceptions. This is a bad idea as it means trapping bad memory allocations cannot be caught using the preferred method. As most distributions follow this recommendation, that means we (Scribus) can't expect to be able to rely on exceptions.</p>
 
 <h4>Text encodings</h4>
 
@@ -287,7 +312,7 @@ catch(bad_exception)
 
 <p>Always construct a <code>QString</code> from a byte string using one of the <code>QString::fromblah(...)</code> methods. You should never use <code>QString(char*)</code> or <code>QString(QCString)</code>. You need to determine what encoding the byte string you're working with is in and use the correct call, by examining the documentation for the system / library you are calling. There is generally no way to tell what encoding a string is in by examining the string - at best this is guesswork. <b>Do not</b> assume a string is utf-8 or latin-1, since even if it works for you, in some locales it will not. For data read from the OS or C libraries, you generally want <code>QString::fromLocal8Bit(...)</code>. If in doubt, ask somebody.</p>
 
-<p>Similarly, you should always use the appropriate <code>QString</code> conversion methods when converting <code>QString</code>s to byte strings (eg <code>QCString</code>, <code>QByteArray</code>, or <code>char*</code>). Note that such conversions may happen automatically, so watch out for implicit conversions. If sending data to system calls or C libraries you'll generally want <code>QString::local8Bit()</code> but you should check to confirm that's correct for the specific call you're making. Some win32 calls, for example, expect UCS-2 (wchar) data, and some C libraries will expect UTF-8 strings to be passed to some methods.</p>
+<p>Similarly, you should always use the appropriate <code>QString</code> conversion methods when converting <code>QString</code>s to byte strings (e.g. <code>QCString</code>, <code>QByteArray</code>, or <code>char*</code>). Note that such conversions may happen automatically, so watch out for implicit conversions. If sending data to system calls or C libraries you'll generally want <code>QString::local8Bit()</code> but you should check to confirm that's correct for the specific call you're making. Some win32 calls, for example, expect UCS-2 (wchar) data, and some C libraries will expect UTF-8 strings to be passed to some methods.</p>
 
 <p>You should absolutely never do this:</p>
 
@@ -310,7 +335,7 @@ QString blah = anotherQString.utf8();
 
 <blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
 QTextStream ts(&amp;file);
-// In this ase we know we want to write out UTF-8 to this file, not write in
+// In this case we know we want to write out UTF-8 to this file, not write in
 // the local 8-bit byte string encoding.
 ts.setEncoding(QTextStream::UnicodeUTF8);
 ts &lt;&lt; someQString.utf8();
@@ -321,6 +346,10 @@ ts &lt;&lt; someQString.utf8();
 <p>The best way to handle text encodings is to convert 8-bit byte strings to <code>QString</code> or another "safe" class as early as possible in input, and convert to 8-bit byte strings as late as possible on output. Above all else, do it only once and watch out for implicit conversions. You should think about encodings whenever passing text across any interface that wants byte-oriented strings rather than <code>QString</code>s. Remember to <b>read the documentation</b> of the APIs you're using to determine how they behave with text encodings, and if you're not sure, <i>ask somebody</i>.</p>
 
 <p>It is strongly recommended that you read <a href="http://doc.trolltech.com/3.3/i18n.html">http://doc.trolltech.com/3.3/i18n.html</a> for more coverage of this issue, especially the section "Support for Encodings".</p>
+
+<h4>Portability</h4>
+
+<p>Don't cast a pointer to an int, it causes portability issues where sizeof(int) != sizeof(void*). You might want to find another way to do what you're trying to achieve.</p>
 
 <h4>Submitting of patches</h4>
 
