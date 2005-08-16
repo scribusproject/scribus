@@ -13,8 +13,9 @@
 
 extern QPixmap loadIcon(QString nam);
 
-PageLayouts::PageLayouts( QWidget* parent )  : QGroupBox( parent )
+PageLayouts::PageLayouts( QWidget* parent, QValueList<PageSet> pSets )  : QGroupBox( parent )
 {
+	pageSets = pSets;
 	setColumnLayout(0, Qt::Vertical );
 	layout()->setSpacing( 5 );
 	layout()->setMargin( 10 );
@@ -54,15 +55,11 @@ void PageLayouts::selectItem(uint nr)
 			{
 				firstPage->setEnabled(true);
 				firstPage->clear();
-				firstPage->insertItem(LeftPage);
-				if (cc == 2)
-					firstPage->insertItem(Middle);
-				if (cc == 3)
+				QStringList::Iterator pNames;
+				for(pNames = pageSets[cc].pageNames.begin(); pNames != pageSets[cc].pageNames.end(); ++pNames )
 				{
-					firstPage->insertItem(MiddleLeft);
-					firstPage->insertItem(MiddleRight);
+					firstPage->insertItem((*pNames));
 				}
-				firstPage->insertItem(Right);
 			}
 			else
 			{
@@ -87,15 +84,11 @@ void PageLayouts::itemSelected(QIconViewItem* ic)
 	{
 		firstPage->setEnabled(true);
 		firstPage->clear();
-		firstPage->insertItem(LeftPage);
-		if (choosen == 2)
-			firstPage->insertItem(Middle);
-		if (choosen == 3)
+		QStringList::Iterator pNames;
+		for(pNames = pageSets[choosen].pageNames.begin(); pNames != pageSets[choosen].pageNames.end(); ++pNames )
 		{
-			firstPage->insertItem(MiddleLeft);
-			firstPage->insertItem(MiddleRight);
+			firstPage->insertItem((*pNames));
 		}
-		firstPage->insertItem(Right);
 	}
 	else
 	{
@@ -111,10 +104,19 @@ void PageLayouts::languageChange()
 {
 	setTitle( tr( "Page Layout" ) );
 	layoutsView->clear();
-	(void) new QIconViewItem( layoutsView, tr( "Single Page" ), loadIcon("pagesingle.png") );
-	(void) new QIconViewItem( layoutsView, tr( "Double sided" ), loadIcon("pagedouble.png") );
-	(void) new QIconViewItem( layoutsView, tr( "3-Fold" ), loadIcon("pagetriple.png") );
-	(void) new QIconViewItem( layoutsView, tr( "4-Fold" ), loadIcon("pagequadro.png") );
+	for (uint pg = 0; pg < pageSets.count(); ++pg)
+	{
+		if (pg == 0)
+			(void) new QIconViewItem( layoutsView, pageSets[pg].Name, loadIcon("pagesingle.png") );
+		else if (pg == 1)
+			(void) new QIconViewItem( layoutsView, pageSets[pg].Name, loadIcon("pagedouble.png") );
+		else if (pg == 2)
+			(void) new QIconViewItem( layoutsView, pageSets[pg].Name, loadIcon("pagetriple.png") );
+		else if (pg == 3)
+			(void) new QIconViewItem( layoutsView, pageSets[pg].Name, loadIcon("pagequadro.png") );
+		else
+			(void) new QIconViewItem( layoutsView, pageSets[pg].Name, loadIcon("page.png") );
+	}
 	int maxWidth = 0;
 	QIconViewItem* ic = layoutsView->firstItem();
 	int startY = 5;
@@ -136,9 +138,4 @@ void PageLayouts::languageChange()
 		ic = ic->nextItem();
 	}
 	layoutLabel1->setText( tr( "First Page is:" ) );
-	LeftPage =  tr("Left Page");
-	Middle =  tr("Middle");
-	MiddleLeft = tr("Middle Left");
-	MiddleRight = tr("Middle Right");
-	Right =  tr("Right Page");
 }

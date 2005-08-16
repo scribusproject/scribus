@@ -27,14 +27,15 @@
 
 extern QPixmap loadIcon(QString nam);
 
-InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int maxPages, bool facingPages)
+InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int maxPages)
 		: QDialog( parent, "InsPage", true, 0 )
 {
+	masterPageCombos.clear();
 	setCaption( tr( "Insert Page" ) );
 	setIcon(loadIcon("AppIcon.png"));
-	dialogLayout = new QVBoxLayout( this, 10, 5 );
+	dialogLayout = new QVBoxLayout( this, 5, 5 );
 	whereLayout = new QGridLayout;
-	whereLayout->setSpacing( 6 );
+	whereLayout->setSpacing( 5 );
 	whereLayout->setMargin( 5 );
 	insCountData = new QSpinBox( 1, 999, 1, this, "insCountData" );
 	insCountData->setValue( 1 );
@@ -59,36 +60,42 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 
 	whereLayout->addColSpacing(0, insCountLabel->fontMetrics().width( tr( "&Insert" )));
 	dialogLayout->addLayout( whereLayout );
-	masterPageLayout = new QHBoxLayout;
-	masterPageLayout->setSpacing( 6 );
-	masterPageLayout->setMargin( 0 );
-
-	masterPageData = new QComboBox(false, this, "masterPageData");
-	for (QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin(); it != currentDoc->MasterNames.end(); ++it)
-		masterPageData->insertItem(it.key() == "Normal" ? tr("Normal") : it.key());
-
-	masterPageLabel = new QLabel(masterPageData, (facingPages ? tr("Master Page (&Left Page):") : tr("&Master Page:")), this, "text");
-	QSpacerItem* spacer3 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	masterPageLayout->addWidget( masterPageLabel );
-	masterPageLayout->addItem( spacer3 );
-	masterPageLayout->addWidget(masterPageData);
-	dialogLayout->addLayout(masterPageLayout);
-
-	if (facingPages)
+	
+	masterPageGroup = new QGroupBox( this, "masterPageGroup" );
+	masterPageGroup->setTitle( tr( "Master Pages" ) );
+	masterPageGroup->setColumnLayout(0, Qt::Vertical );
+	masterPageGroup->layout()->setSpacing( 0 );
+	masterPageGroup->layout()->setMargin( 0 );
+	masterPageLayout = new QGridLayout( masterPageGroup->layout() );
+	masterPageLayout->setAlignment( Qt::AlignTop );
+	masterPageLayout->setSpacing( 5 );
+	masterPageLayout->setMargin( 5 );
+	if (currentDoc->PageFP == 0)
 	{
-		masterPage2Layout = new QHBoxLayout;
-		masterPage2Layout->setSpacing( 6 );
-		masterPage2Layout->setMargin( 0 );
-		masterPage2Data = new QComboBox(false, this, "masterPage2Data");
-		for (QMap<QString,int>::Iterator it2 = currentDoc->MasterNames.begin(); it2 != currentDoc->MasterNames.end(); ++it2)
-			masterPage2Data->insertItem(it2.key() == "Normal" ? tr("Normal") : it2.key());
-		masterPage2Label = new QLabel( masterPage2Data, tr("Master Page (&Right Page):"), this, "texta");
-		masterPage2Layout->addWidget( masterPage2Label );
-		QSpacerItem* spacer2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-		masterPage2Layout->addItem( spacer2 );
-		masterPage2Layout->addWidget(masterPage2Data);
-		dialogLayout->addLayout(masterPage2Layout);
+		QComboBox* pageData = new QComboBox(false, masterPageGroup, "masterPageData");
+		for (QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin(); it != currentDoc->MasterNames.end(); ++it)
+			pageData->insertItem(it.key() == "Normal" ? tr("Normal") : it.key());
+		masterPageLabel = new QLabel(pageData,  tr("&Master Page:"), masterPageGroup, "text");
+		masterPageLayout->addWidget( masterPageLabel, 0, 0 );
+		masterPageLayout->addWidget(pageData, 0, 1);
+		masterPageCombos.append(pageData);
 	}
+	else
+	{
+		int row = 0;
+		for (uint mp = 0; mp < currentDoc->pageSets[currentDoc->PageFP].pageNames.count(); ++mp)
+		{
+			QComboBox* pageData = new QComboBox(false, masterPageGroup, "pageData");
+			for (QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin(); it != currentDoc->MasterNames.end(); ++it)
+				pageData->insertItem(it.key() == "Normal" ? tr("Normal") : it.key());
+			QLabel* pageLabel = new QLabel(pageData,  currentDoc->pageSets[currentDoc->PageFP].pageNames[mp], masterPageGroup, "text");
+			masterPageLayout->addWidget(pageLabel, row, 0 );
+			masterPageLayout->addWidget(pageData, row, 1);
+			row++;
+			masterPageCombos.append(pageData);
+		}
+	}
+	dialogLayout->addWidget(masterPageGroup);
 
 	dsGroupBox7 = new QGroupBox( this, "GroupBox7" );
 	dsGroupBox7->setTitle( tr( "Page Size" ) );
@@ -98,7 +105,7 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	dsGroupBox7Layout = new QGridLayout( dsGroupBox7->layout() );
 	dsGroupBox7Layout->setAlignment( Qt::AlignTop );
 	dsGroupBox7Layout->setSpacing( 5 );
-	dsGroupBox7Layout->setMargin( 10 );
+	dsGroupBox7Layout->setMargin( 5 );
 	TextLabel1 = new QLabel( tr( "&Size:" ), dsGroupBox7, "TextLabel1" );
 	dsGroupBox7Layout->addMultiCellWidget( TextLabel1, 0, 0, 0, 1 );
 	PageSize *ps=new PageSize(currentDoc->PageSize);
@@ -155,7 +162,7 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	delete ps;
 
 	okCancelLayout = new QHBoxLayout;
-	okCancelLayout->setSpacing( 6 );
+	okCancelLayout->setSpacing( 5 );
 	okCancelLayout->setMargin( 5 );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	okCancelLayout->addItem( spacer );
@@ -218,14 +225,19 @@ void InsPage::setOrien(int ori)
 	}
 }
 
-const QString InsPage::getMasterPage()
+const QStringList InsPage::getMasterPages()
 {
-	return masterPageData->currentText();
+	QStringList ret;
+	for (uint n = 0; n < masterPageCombos.count(); ++n)
+	{
+		ret.append(masterPageCombos.at(n)->currentText());
+	}
+	return ret;
 }
 
-const QString InsPage::getMasterPage2()
+const QString InsPage::getMasterPageN(uint n)
 {
-	return masterPage2Data->currentText();
+	return masterPageCombos.at(n)->currentText();
 }
 
 const int InsPage::getWhere()

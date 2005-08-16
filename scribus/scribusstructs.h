@@ -242,6 +242,7 @@ struct PageSet
 	double GapHorizontal;
 	double GapVertical;
 	double GapBelow;
+	QStringList pageNames;
 };
 
 struct ParagraphStyle

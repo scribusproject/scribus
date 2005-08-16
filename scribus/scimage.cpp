@@ -3541,10 +3541,8 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 			if (Gamut)
 				cmsFlags |= cmsFLAGS_GAMUTCHECK;
 		}
-#ifdef cmsFLAGS_BLACKPOINTCOMPENSATION
 		if (BlackPoint)
 			cmsFlags |= cmsFLAGS_BLACKPOINTCOMPENSATION;
-#endif
 		switch (requestType)
 		{
 		case 0: // CMYK

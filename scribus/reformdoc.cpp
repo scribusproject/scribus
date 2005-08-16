@@ -70,7 +70,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	dsLayout4p = new QHBoxLayout;
 	dsLayout4p->setSpacing( 5 );
 	dsLayout4p->setMargin( 0 );
-	docLayout = new PageLayouts(tabPage);
+	docLayout = new PageLayouts(tabPage, doc->pageSets);
 	docLayout->selectItem(doc->PageFP);
 	docLayout->firstPage->setCurrentItem(doc->pageSets[doc->PageFP].FirstPage);
 	dsLayout4p->addWidget( docLayout );

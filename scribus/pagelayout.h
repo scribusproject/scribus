@@ -4,6 +4,7 @@
 #include <qvariant.h>
 #include <qgroupbox.h>
 #include "scribusapi.h"
+#include "scribusstructs.h"
 
 class QVBoxLayout;
 class QHBoxLayout;
@@ -17,17 +18,13 @@ class SCRIBUS_API PageLayouts : public QGroupBox
 	Q_OBJECT
 
 public:
-	PageLayouts( QWidget* parent );
+	PageLayouts( QWidget* parent, QValueList<PageSet> pSets );
 	~PageLayouts() {};
 	void selectItem(uint nr);
 	QIconView* layoutsView;
 	QLabel* layoutLabel1;
 	QComboBox* firstPage;
-	QString LeftPage;
-	QString Middle;
-	QString MiddleLeft;
-	QString MiddleRight;
-	QString Right;
+	QValueList<PageSet> pageSets;
 
 public slots:
 	void itemSelected(QIconViewItem* ic);

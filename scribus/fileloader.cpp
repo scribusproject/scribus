@@ -597,6 +597,15 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 						pageS.GapHorizontal = QStodouble(PgsAttr.attribute("GapHorizontal","0"));
 						pageS.GapVertical = QStodouble(PgsAttr.attribute("GapVertical","0"));
 						pageS.GapBelow = QStodouble(PgsAttr.attribute("GapBelow","0"));
+						pageS.pageNames.clear();
+						QDomNode PGSN = PGS.firstChild();
+						while(!PGSN.isNull())
+						{
+							QDomElement PgsAttrN = PGSN.toElement();
+							if(PgsAttrN.tagName() == "PageNames")
+								pageS.pageNames.append(PgsAttrN.attribute("Name"));
+							PGSN = PGSN.nextSibling();
+						}
 						doc->pageSets.append(pageS);
 					}
 					PGS = PGS.nextSibling();

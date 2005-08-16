@@ -5458,10 +5458,10 @@ void ScribusApp::slotNewPageM()
 {
 	NoFrameEdit();
 	view->Deselect(true);
-	InsPage *dia = new InsPage(this, doc, doc->currentPage->PageNr, doc->Pages.count(), doc->PageFP);
+	InsPage *dia = new InsPage(this, doc, doc->currentPage->PageNr, doc->Pages.count());
 	if (dia->exec())
 	{
-		QString MasterPage2 = (doc->PageFP == doublePage) ? dia->getMasterPage2() : tr("Normal");
+		QString MasterPage2 = (doc->PageFP == doublePage) ? dia->getMasterPageN(1) : tr("Normal");
 
 		addNewPages(dia->getWherePage(),
 		            dia->getWhere(),
@@ -5471,7 +5471,7 @@ void ScribusApp::slotNewPageM()
 					dia->orientationQComboBox->currentItem(),
 					dia->prefsPageSizeName,
 					dia->moveObjects->isChecked(),
-		            dia->getMasterPage(),
+		            dia->getMasterPageN(0),
 		            MasterPage2
 		            );
 	}

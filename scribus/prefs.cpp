@@ -192,7 +192,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	dsLayout4p->setSpacing( 5 );
 	dsLayout4p->setMargin( 0 );
 	dsLayout4p->setAlignment( Qt::AlignLeft );
-	docLayout = new PageLayouts(tab_7);
+	docLayout = new PageLayouts(tab_7, prefsData->pageSets);
 	docLayout->selectItem(prefsData->FacingPages);
 	docLayout->firstPage->setCurrentItem(prefsData->pageSets[prefsData->FacingPages].FirstPage);
 	dsLayout4p->addWidget( docLayout );

@@ -290,18 +290,31 @@ void PrefsManager::initDefaults()
 	pageS.GapHorizontal = 0.0;
 	pageS.GapVertical = 0.0;
 	pageS.GapBelow = 40.0;
+	pageS.pageNames.clear();
 	appPrefs.pageSets.append(pageS);
 	pageS.Name = tr( "Double sided" );
 	pageS.FirstPage = 1;
 	pageS.Columns = 2;
+	pageS.pageNames.clear();
+	pageS.pageNames.append( tr("Left Page"));
+	pageS.pageNames.append( tr("Right Page"));
 	appPrefs.pageSets.append(pageS);
 	pageS.Name = tr( "3-Fold" );
 	pageS.FirstPage = 0;
 	pageS.Columns = 3;
+	pageS.pageNames.clear();
+	pageS.pageNames.append( tr("Left Page"));
+	pageS.pageNames.append( tr("Middle"));
+	pageS.pageNames.append( tr("Right Page"));
 	appPrefs.pageSets.append(pageS);
 	pageS.Name = tr( "4-Fold" );
 	pageS.FirstPage = 0;
 	pageS.Columns = 4;
+	pageS.pageNames.clear();
+	pageS.pageNames.append( tr("Left Page"));
+	pageS.pageNames.append( tr("Middle Left"));
+	pageS.pageNames.append( tr("Middle Right"));
+	pageS.pageNames.append( tr("Right Page"));
 	appPrefs.pageSets.append(pageS);
 	appPrefs.FacingPages = singlePage;
 	appPrefs.askBeforeSubstituite = true;
@@ -962,6 +975,14 @@ void PrefsManager::WritePref(QString ho)
 		pgst.setAttribute("GapHorizontal", (*itpgset).GapHorizontal);
 		pgst.setAttribute("GapVertical", (*itpgset).GapVertical);
 		pgst.setAttribute("GapBelow", (*itpgset).GapBelow);
+		QStringList pNames = (*itpgset).pageNames;
+		QStringList::Iterator itpgsetN;
+		for(itpgsetN = pNames.begin(); itpgsetN != pNames.end(); ++itpgsetN )
+		{
+			QDomElement pgstN = docu.createElement("PageNames");
+			pgstN.setAttribute("Name", (*itpgsetN));
+			pgst.appendChild(pgstN);
+		}
 		pageSetAttr.appendChild(pgst);
 	}
 	elem.appendChild(pageSetAttr);
@@ -1354,23 +1375,35 @@ bool PrefsManager::ReadPref(QString ho)
 		if (dc.tagName()=="PageSets")
 		{
 			QDomNode PGS = DOC.firstChild();
-			appPrefs.pageSets.clear();
-			while(!PGS.isNull())
+			if  (!PGS.namedItem("PageNames").isNull())
 			{
-				QDomElement PgsAttr = PGS.toElement();
-				if(PgsAttr.tagName() == "Set")
+				appPrefs.pageSets.clear();
+				while(!PGS.isNull())
 				{
-					struct PageSet pageS;
-					pageS.Name = PgsAttr.attribute("Name");
-					pageS.FirstPage = QStoInt(PgsAttr.attribute("FirstPage","0"));
-					pageS.Rows = QStoInt(PgsAttr.attribute("Rows","1"));
-					pageS.Columns = QStoInt(PgsAttr.attribute("Columns","1"));
-					pageS.GapHorizontal = QStodouble(PgsAttr.attribute("GapHorizontal","0"));
-					pageS.GapVertical = QStodouble(PgsAttr.attribute("GapVertical","0"));
-					pageS.GapBelow = QStodouble(PgsAttr.attribute("GapBelow","0"));
-					appPrefs.pageSets.append(pageS);
+					QDomElement PgsAttr = PGS.toElement();
+					if(PgsAttr.tagName() == "Set")
+					{
+						struct PageSet pageS;
+						pageS.Name = PgsAttr.attribute("Name");
+						pageS.FirstPage = QStoInt(PgsAttr.attribute("FirstPage","0"));
+						pageS.Rows = QStoInt(PgsAttr.attribute("Rows","1"));
+						pageS.Columns = QStoInt(PgsAttr.attribute("Columns","1"));
+						pageS.GapHorizontal = QStodouble(PgsAttr.attribute("GapHorizontal","0"));
+						pageS.GapVertical = QStodouble(PgsAttr.attribute("GapVertical","0"));
+						pageS.GapBelow = QStodouble(PgsAttr.attribute("GapBelow","0"));
+						pageS.pageNames.clear();
+						QDomNode PGSN = PGS.firstChild();
+						while(!PGSN.isNull())
+						{
+							QDomElement PgsAttrN = PGSN.toElement();
+							if(PgsAttrN.tagName() == "PageNames")
+								pageS.pageNames.append(PgsAttrN.attribute("Name"));
+							PGSN = PGSN.nextSibling();
+						}
+						appPrefs.pageSets.append(pageS);
+					}
+					PGS = PGS.nextSibling();
 				}
-				PGS = PGS.nextSibling();
 			}
 		}
 		if (dc.tagName()=="CMS")

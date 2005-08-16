@@ -3449,6 +3449,14 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 		pgst.setAttribute("GapHorizontal", (*itpgset).GapHorizontal);
 		pgst.setAttribute("GapVertical", (*itpgset).GapVertical);
 		pgst.setAttribute("GapBelow", (*itpgset).GapBelow);
+		QStringList pNames = (*itpgset).pageNames;
+		QStringList::Iterator itpgsetN;
+		for(itpgsetN = pNames.begin(); itpgsetN != pNames.end(); ++itpgsetN )
+		{
+			QDomElement pgstN = docu.createElement("PageNames");
+			pgstN.setAttribute("Name", (*itpgsetN));
+			pgst.appendChild(pgstN);
+		}
 		pageSetAttr.appendChild(pgst);
 	}
 	dc.appendChild(pageSetAttr);

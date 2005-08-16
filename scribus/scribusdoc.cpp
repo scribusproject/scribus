@@ -459,13 +459,11 @@ void ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo)
 		dcmsFlags |= cmsFLAGS_GAMUTCHECK;
 	if (CMSSettings.SoftProofOn)
 		dcmsFlags |= cmsFLAGS_SOFTPROOFING;
-#ifdef cmsFLAGS_BLACKPOINTCOMPENSATION
 	if (CMSSettings.BlackPoint)
 	{
 		dcmsFlags2 |= cmsFLAGS_BLACKPOINTCOMPENSATION;
 		dcmsFlags |= cmsFLAGS_BLACKPOINTCOMPENSATION;
 	}
-#endif
 	// set Gamut alarm color to #00ff00
 	cmsSetAlarmCodes(0, 255, 0);
 	stdProof = cmsCreateProofingTransform(DocInputProf, TYPE_RGB_16,

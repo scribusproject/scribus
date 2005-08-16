@@ -104,7 +104,7 @@ void NewDoc::createNewDocPage()
 {
 	newDocFrame = new QFrame(this, "newDocFrame");
 	NewDocLayout = new QHBoxLayout( newDocFrame, 10, 5, "NewDocLayout");
-	docLayout = new PageLayouts(newDocFrame);
+	docLayout = new PageLayouts(newDocFrame, prefsManager->appPrefs.pageSets);
 	docLayout->selectItem(prefsManager->appPrefs.FacingPages);
 	docLayout->firstPage->setCurrentItem(prefsManager->appPrefs.pageSets[prefsManager->appPrefs.FacingPages].FirstPage);
 	NewDocLayout->addWidget( docLayout );

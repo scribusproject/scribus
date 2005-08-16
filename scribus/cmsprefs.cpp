@@ -140,12 +140,7 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, Pro
 	cmsPrefsLayout->addWidget( gamutC );
 
 	blackP = new QCheckBox( tr( "Use &Blackpoint Compensation" ), this, "Black" );
-#ifdef cmsFLAGS_BLACKPOINTCOMPENSATION
 	blackP->setChecked(Vor->BlackPoint);
-#else
-	blackP->setChecked(false);
-	blackP->hide();
-#endif
 	cmsPrefsLayout->addWidget( blackP );
 
 	if (!checkBox1->isChecked())

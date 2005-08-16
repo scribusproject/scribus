@@ -10,7 +10,8 @@
 #define INSPAGE_H
 
 #include "scribusapi.h"
-
+#include <qptrlist.h>
+#include <qstringlist.h>
 class QDialog;
 class QComboBox;
 class QLayout;
@@ -27,9 +28,10 @@ class SCRIBUS_API InsPage : public QDialog
 	Q_OBJECT
 
 public:
-	InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int maxPages, bool facingPages );
+	InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int maxPages );
 	~InsPage() {};
 	QGroupBox* dsGroupBox7;
+	QGroupBox* masterPageGroup;
 	MSpinBox* widthMSpinBox;
 	MSpinBox* heightMSpinBox;
 	QLabel*	widthQLabel;
@@ -41,9 +43,10 @@ public:
 	QCheckBox* moveObjects;
 	double unitRatio;
 	QString prefsPageSizeName;
+	QPtrList<QComboBox> masterPageCombos;
 
-	const QString getMasterPage();
-	const QString getMasterPage2();
+	const QStringList InsPage::getMasterPages();
+	const QString getMasterPageN(uint n);
 	const int getWhere();
 	const int getWherePage();
 	const int getCount();
@@ -51,19 +54,15 @@ public:
 private:
 	QLabel* insCountLabel;
 	QLabel* masterPageLabel;
-	QLabel* masterPage2Label;
 	QLabel* pagesLabel;
 	QPushButton* cancelButton;
 	QPushButton* okButton;
 	QComboBox* insWhereData;
-	QComboBox* masterPageData;
-	QComboBox* masterPage2Data;
 	QSpinBox* insWherePageData;
 	QSpinBox* insCountData;
 	QVBoxLayout* dialogLayout;
 	QGridLayout* whereLayout;
-	QHBoxLayout* masterPageLayout;
-	QHBoxLayout* masterPage2Layout;
+	QGridLayout* masterPageLayout;
 	QHBoxLayout* okCancelLayout;
 	QGridLayout* dsGroupBox7Layout;
 
