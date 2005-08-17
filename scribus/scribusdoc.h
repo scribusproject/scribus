@@ -332,10 +332,10 @@ public: // Public attributes
 	double PageSpa;
   /** Flag for automatic Textframes */
 	bool PageAT;
-  /** Flag for facing Pages */
-	int PageFP;
+ /** current Pagelayout */
+	int currentPageLayout;
 	/** Flag fuer Hoch- oder Querformat 0 = Hochformat */
-	int PageOri;	
+	int PageOri;
 	QString PageSize;
 	/** Erste Seitennummer im Dokument */
 	int FirstPnum;

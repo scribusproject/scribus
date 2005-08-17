@@ -448,10 +448,10 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 		PutDoc("/OCProperties 9 0 R\n");
 	if (Options->Version == 12)
 		PutDoc("/OutputIntents [ "+IToStr(ObjCounter-1)+" 0 R ]\n");
-	if (doc->PageFP == doublePage)
+	if (doc->currentPageLayout == doublePage)
 	{
 		PutDoc("/PageLayout ");
-		if (doc->pageSets[doc->PageFP].FirstPage)
+		if (doc->pageSets[doc->currentPageLayout].FirstPage)
 			PutDoc("/TwoColumnLeft\n");
 		else
 			PutDoc("/TwoColumnRight\n");

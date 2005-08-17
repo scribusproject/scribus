@@ -40,7 +40,7 @@ PyObject *scribus_setmargins(PyObject* /* self */, PyObject* args)
 	lr = ValueToPoint(lr);
 	rr = ValueToPoint(rr);
 	btr = ValueToPoint(btr);
-	Carrier->doc->resetPage(tpr, lr, rr, btr, Carrier->doc->PageFP);
+	Carrier->doc->resetPage(tpr, lr, rr, btr, Carrier->doc->currentPageLayout);
 	Carrier->view->reformPages();
 	Carrier->doc->setModified(true);
 	Carrier->view->GotoPage(Carrier->doc->currentPage->PageNr);
@@ -167,8 +167,8 @@ PyObject *scribus_setdoctype(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (Carrier->doc->PageFP = fp)
-		Carrier->doc->pageSets[Carrier->doc->PageFP].FirstPage = fsl;
+	if (Carrier->doc->currentPageLayout = fp)
+		Carrier->doc->pageSets[Carrier->doc->currentPageLayout].FirstPage = fsl;
 	Carrier->view->reformPages();
 	Carrier->view->GotoPage(Carrier->doc->currentPage->PageNr); // is this needed?
 	Carrier->view->DrawNew();   // is this needed?

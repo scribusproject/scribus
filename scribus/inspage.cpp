@@ -70,7 +70,7 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	masterPageLayout->setAlignment( Qt::AlignTop );
 	masterPageLayout->setSpacing( 5 );
 	masterPageLayout->setMargin( 5 );
-	if (currentDoc->PageFP == 0)
+	if (currentDoc->currentPageLayout == 0)
 	{
 		QComboBox* pageData = new QComboBox(false, masterPageGroup, "masterPageData");
 		for (QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin(); it != currentDoc->MasterNames.end(); ++it)
@@ -83,12 +83,12 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	else
 	{
 		int row = 0;
-		for (uint mp = 0; mp < currentDoc->pageSets[currentDoc->PageFP].pageNames.count(); ++mp)
+		for (uint mp = 0; mp < currentDoc->pageSets[currentDoc->currentPageLayout].pageNames.count(); ++mp)
 		{
 			QComboBox* pageData = new QComboBox(false, masterPageGroup, "pageData");
 			for (QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin(); it != currentDoc->MasterNames.end(); ++it)
 				pageData->insertItem(it.key() == "Normal" ? tr("Normal") : it.key());
-			QLabel* pageLabel = new QLabel(pageData,  currentDoc->pageSets[currentDoc->PageFP].pageNames[mp], masterPageGroup, "text");
+			QLabel* pageLabel = new QLabel(pageData,  currentDoc->pageSets[currentDoc->currentPageLayout].pageNames[mp], masterPageGroup, "text");
 			masterPageLayout->addWidget(pageLabel, row, 0 );
 			masterPageLayout->addWidget(pageData, row, 1);
 			row++;

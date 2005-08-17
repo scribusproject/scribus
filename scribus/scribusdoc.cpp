@@ -342,7 +342,7 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 	PageOri = orientation;
 	PageSize = defaultPageSize;
 	FirstPnum = firstPageNumber;
-	PageFP = fp;
+	currentPageLayout = fp;
 	setName(documentName);
 	HasCMS = true;
 	
@@ -728,7 +728,7 @@ void ScribusDoc::setPage(double b, double h, double t, double l, double r, doubl
 	pageMargins.Bottom = bo;
 	PageSp = sp;
 	PageSpa = ab;
-	PageFP = fp;
+	currentPageLayout = fp;
 	PageAT = atf;
 }
 
@@ -738,7 +738,7 @@ void ScribusDoc::resetPage(double t, double l, double r, double bo, int fp)
 	pageMargins.Left = l;
 	pageMargins.Right = r;
 	pageMargins.Bottom = bo;
-	PageFP = fp;
+	currentPageLayout = fp;
 }
 
 bool ScribusDoc::AddFont(QString name, QFont fo)

@@ -71,8 +71,8 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	dsLayout4p->setSpacing( 5 );
 	dsLayout4p->setMargin( 0 );
 	docLayout = new PageLayouts(tabPage, doc->pageSets);
-	docLayout->selectItem(doc->PageFP);
-	docLayout->firstPage->setCurrentItem(doc->pageSets[doc->PageFP].FirstPage);
+	docLayout->selectItem(doc->currentPageLayout);
+	docLayout->firstPage->setCurrentItem(doc->pageSets[doc->currentPageLayout].FirstPage);
 	dsLayout4p->addWidget( docLayout );
 
 	dsLayout4pv = new QVBoxLayout;
@@ -327,7 +327,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	gapHorizontal->setSuffix( ein );
 	gapHorizontal->setDecimals( decimals );
 	gapHorizontal->setMaxValue(1000);
-	gapHorizontal->setValue(doc->pageSets[doc->PageFP].GapHorizontal * unitRatio);
+	gapHorizontal->setValue(doc->pageSets[doc->currentPageLayout].GapHorizontal * unitRatio);
 	layout4sg->addWidget( gapHorizontal, 0, 1 );
 	TextLabel5sg = new QLabel(gapHorizontal, tr( "Horizontal:" ), groupGap, "TextLabel5" );
 	layout4sg->addWidget( TextLabel5sg, 0, 0 );
@@ -335,7 +335,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	gapVertical->setSuffix( ein );
 	gapVertical->setDecimals( decimals );
 	gapVertical->setMaxValue(1000);
-	gapVertical->setValue(doc->pageSets[doc->PageFP].GapVertical * unitRatio);
+	gapVertical->setValue(doc->pageSets[doc->currentPageLayout].GapVertical * unitRatio);
 	layout4sg->addWidget( gapVertical, 0, 3 );
 	TextLabel7sg = new QLabel(gapVertical, tr( "Vertical:" ), groupGap, "Links" );
 	layout4sg->addWidget( TextLabel7sg, 0, 2 );
@@ -386,7 +386,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 		cmsTab = addItem( tr("Color Management"), loadIcon("blend.png"), tabColorManagement);
 	}
 
-	setDS(doc->PageFP);
+	setDS(doc->currentPageLayout);
 	pageWidth = widthMSpinBox->value() / unitRatio;
 	pageHeight = heightMSpinBox->value() / unitRatio;
 	//tooltips
@@ -431,9 +431,9 @@ void ReformDoc::restoreDefaults()
 		autoSaveTime->setValue(currDoc->AutoSaveTime / 1000 / 60);
 		groupAutoSave->setChecked( currDoc->AutoSave );
 		pageNumber->setValue(currDoc->FirstPnum);
-		docLayout->selectItem(currDoc->PageFP);
-		setDS(currDoc->PageFP);
-		docLayout->firstPage->setCurrentItem(currDoc->pageSets[currDoc->PageFP].FirstPage);
+		docLayout->selectItem(currDoc->currentPageLayout);
+		setDS(currDoc->currentPageLayout);
+		docLayout->firstPage->setCurrentItem(currDoc->pageSets[currDoc->currentPageLayout].FirstPage);
 		GroupRand->rightR->setValue(currDoc->pageMargins.Right * unitRatio);
 		GroupRand->bottomR->setValue(currDoc->pageMargins.Bottom * unitRatio);
 		GroupRand->leftR->setValue(currDoc->pageMargins.Left * unitRatio);
@@ -458,8 +458,8 @@ void ReformDoc::restoreDefaults()
 		leftScratch->setValue(currDoc->ScratchLeft * unitRatio);
 		bottomScratch->setValue(currDoc->ScratchBottom * unitRatio);
 		rightScratch->setValue(currDoc->ScratchRight * unitRatio);
-		gapHorizontal->setValue(currDoc->pageSets[currDoc->PageFP].GapHorizontal * unitRatio);
-		gapVertical->setValue(currDoc->pageSets[currDoc->PageFP].GapVertical * unitRatio);
+		gapHorizontal->setValue(currDoc->pageSets[currDoc->currentPageLayout].GapHorizontal * unitRatio);
+		gapVertical->setValue(currDoc->pageSets[currDoc->currentPageLayout].GapVertical * unitRatio);
 	}
 	else if (current == tabHyphenator)
 	{

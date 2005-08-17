@@ -8654,13 +8654,13 @@ void ScribusView::reformPages(bool moveObjects)
 	struct oldPageVar oldPg;
 	FPoint maxSize;
 	double maxYPos, maxXPos, currentXPos, currentYPos, lastYPos;
-	int counter = Doc->pageSets[Doc->PageFP].FirstPage;
+	int counter = Doc->pageSets[Doc->currentPageLayout].FirstPage;
 	int rowcounter = 0;
 	maxYPos = 0;
 	maxXPos = 0;
 	currentYPos = Doc->ScratchTop;
 	currentXPos = Doc->ScratchLeft;
-	currentXPos += (Doc->pageWidth+Doc->pageSets[Doc->PageFP].GapHorizontal) * counter;
+	currentXPos += (Doc->pageWidth+Doc->pageSets[Doc->currentPageLayout].GapHorizontal) * counter;
 	lastYPos = Doc->Pages.at(0)->initialHeight;
 	for (uint a = 0; a < Doc->Pages.count(); ++a)
 	{
@@ -8691,9 +8691,9 @@ void ScribusView::reformPages(bool moveObjects)
 			Seite->Height = Seite->initialHeight;
 			Seite->Xoffset = currentXPos;
 			Seite->Yoffset = currentYPos;
-			if (counter < Doc->pageSets[Doc->PageFP].Columns-1)
+			if (counter < Doc->pageSets[Doc->currentPageLayout].Columns-1)
 			{
-				currentXPos += Seite->Width + Doc->pageSets[Doc->PageFP].GapHorizontal;
+				currentXPos += Seite->Width + Doc->pageSets[Doc->currentPageLayout].GapHorizontal;
 				lastYPos = QMAX(lastYPos, Seite->Height);
 				if (counter == 0)
 				{
@@ -8709,19 +8709,19 @@ void ScribusView::reformPages(bool moveObjects)
 			else
 			{
 				currentXPos = Doc->ScratchLeft;
-				currentYPos += QMAX(lastYPos, Seite->Height)+Doc->pageSets[Doc->PageFP].GapVertical;
+				currentYPos += QMAX(lastYPos, Seite->Height)+Doc->pageSets[Doc->currentPageLayout].GapVertical;
 				lastYPos = QMAX(lastYPos, Seite->Height);
 				Seite->Margins.Right = Seite->initialMargins.Right;
 				Seite->Margins.Left = Seite->initialMargins.Left;
 			}
 			counter++;
-			if (counter > Doc->pageSets[Doc->PageFP].Columns-1)
+			if (counter > Doc->pageSets[Doc->currentPageLayout].Columns-1)
 			{
 				counter = 0;
 				rowcounter++;
-				if (rowcounter > Doc->pageSets[Doc->PageFP].Rows-1)
+				if (rowcounter > Doc->pageSets[Doc->currentPageLayout].Rows-1)
 				{
-					currentYPos += Doc->pageSets[Doc->PageFP].GapBelow;
+					currentYPos += Doc->pageSets[Doc->currentPageLayout].GapBelow;
 					rowcounter = 0;
 				}
 			}

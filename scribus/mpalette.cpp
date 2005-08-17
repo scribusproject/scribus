@@ -3033,50 +3033,55 @@ void Mpalette::updateCmsList()
 			return;
 		}
 		disconnect(InputP, SIGNAL(activated(const QString&)), this, SLOT(ChProf(const QString&)));
+		disconnect(MonitorI, SIGNAL(activated(int)), this, SLOT(ChIntent()));
 		InputP->clear();
-		if (CurItem->pixm.imgInfo.colorspace == 1)
+		if (HaveItem)
 		{
-			ProfilesL::Iterator itP;
-			ProfilesL::Iterator itPend=ScApp->InputProfilesCMYK.end();
-			for (itP = ScApp->InputProfilesCMYK.begin(); itP != itPend; ++itP)
+			if (CurItem->pixm.imgInfo.colorspace == 1)
 			{
-				InputP->insertItem(itP.key());
-				if (itP.key() == CurItem->IProfile)
+				ProfilesL::Iterator itP;
+				ProfilesL::Iterator itPend=ScApp->InputProfilesCMYK.end();
+				for (itP = ScApp->InputProfilesCMYK.begin(); itP != itPend; ++itP)
+				{
+					InputP->insertItem(itP.key());
+					if (itP.key() == CurItem->IProfile)
+						InputP->setCurrentItem(InputP->count()-1);
+				}
+				if (!ScApp->InputProfilesCMYK.contains(CurItem->IProfile))
+				{
+					InputP->insertItem(CurItem->IProfile);
 					InputP->setCurrentItem(InputP->count()-1);
-			}
-			if (!ScApp->InputProfilesCMYK.contains(CurItem->IProfile))
-			{
-				InputP->insertItem(CurItem->IProfile);
-				InputP->setCurrentItem(InputP->count()-1);
+				}
+				else
+				{
+					if (!CurItem->EmProfile.isEmpty())
+						InputP->insertItem(CurItem->EmProfile);
+				}
 			}
 			else
 			{
-				if (!CurItem->EmProfile.isEmpty())
-					InputP->insertItem(CurItem->EmProfile);
+				ProfilesL::Iterator itP;
+				ProfilesL::Iterator itPend=ScApp->InputProfiles.end();
+				for (itP = ScApp->InputProfiles.begin(); itP != itPend; ++itP)
+				{
+					InputP->insertItem(itP.key());
+					if (itP.key() == CurItem->IProfile)
+						InputP->setCurrentItem(InputP->count()-1);
+				}
+				if (!ScApp->InputProfiles.contains(CurItem->IProfile))
+				{
+					InputP->insertItem(CurItem->IProfile);
+					InputP->setCurrentItem(InputP->count()-1);
+				}
+				else
+				{
+					if (!CurItem->EmProfile.isEmpty())
+						InputP->insertItem(CurItem->EmProfile);
+				}
 			}
+			MonitorI->setCurrentItem(CurItem->IRender);
 		}
-		else
-		{
-		ProfilesL::Iterator itP;
-		ProfilesL::Iterator itPend=ScApp->InputProfiles.end();
-		for (itP = ScApp->InputProfiles.begin(); itP != itPend; ++itP)
-		{
-			InputP->insertItem(itP.key());
-			if (itP.key() == CurItem->IProfile)
-				InputP->setCurrentItem(InputP->count()-1);
-		}
-		if (!ScApp->InputProfiles.contains(CurItem->IProfile))
-		{
-			InputP->insertItem(CurItem->IProfile);
-			InputP->setCurrentItem(InputP->count()-1);
-		}
-		else
-		{
-			if (!CurItem->EmProfile.isEmpty())
-				InputP->insertItem(CurItem->EmProfile);
-		}
-		}
-		MonitorI->setCurrentItem(CurItem->IRender);
+		connect(MonitorI, SIGNAL(activated(int)), this, SLOT(ChIntent()));
 		connect(InputP, SIGNAL(activated(const QString&)), this, SLOT(ChProf(const QString&)));
 	}
 }
@@ -3114,11 +3119,7 @@ void Mpalette::ShowCMS()
 	if (ScApp->ScriptRunning)
 		return;
 	if (HaveItem)
-	{
-		HaveItem = false;
 		updateCmsList();
-		HaveItem = true;
-	}
 	else
 	{
 		if ((CMSavail) && (doc->CMSSettings.CMSinUse))

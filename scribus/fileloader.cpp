@@ -387,13 +387,13 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 		doc->PageSize = dc.attribute("PAGESIZE");
 		doc->PageOri = QStoInt(dc.attribute("ORIENTATION","0"));
 		doc->FirstPnum = QStoInt(dc.attribute("FIRSTNUM","1"));
-		doc->PageFP=QStoInt(dc.attribute("BOOK", "0"));
+		doc->currentPageLayout=QStoInt(dc.attribute("BOOK", "0"));
 		int fp;
 		if (dc.hasAttribute("StartPage"))
 			fp = QStoInt(dc.attribute("StartPage", "0"));
 		else
 		{
-			if (doc->PageFP == 0)
+			if (doc->currentPageLayout == 0)
 				fp = 0;
 			else
 			{
@@ -405,10 +405,10 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 		}
 		if (DOC.namedItem("PageSets").isNull())
 		{
-			doc->pageSets[doc->PageFP].FirstPage = fp;
-			doc->pageSets[doc->PageFP].GapHorizontal = QStodouble(dc.attribute("GapHorizontal", "0"));
-			doc->pageSets[doc->PageFP].GapVertical = 0.0;
-			doc->pageSets[doc->PageFP].GapBelow = QStodouble(dc.attribute("GapVertical", "40"));
+			doc->pageSets[doc->currentPageLayout].FirstPage = fp;
+			doc->pageSets[doc->currentPageLayout].GapHorizontal = QStodouble(dc.attribute("GapHorizontal", "0"));
+			doc->pageSets[doc->currentPageLayout].GapVertical = 0.0;
+			doc->pageSets[doc->currentPageLayout].GapBelow = QStodouble(dc.attribute("GapVertical", "40"));
 		}
 		doc->PageAT=QStoInt(dc.attribute("AUTOTEXT"));
 		doc->PageSp=QStoInt(dc.attribute("AUTOSPALTEN"));

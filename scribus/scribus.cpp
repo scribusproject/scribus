@@ -5458,11 +5458,11 @@ void ScribusApp::slotNewPageM()
 {
 	NoFrameEdit();
 	view->Deselect(true);
+	QStringList base;
 	InsPage *dia = new InsPage(this, doc, doc->currentPage->PageNr, doc->Pages.count());
 	if (dia->exec())
 	{
-		QString MasterPage2 = (doc->PageFP == doublePage) ? dia->getMasterPageN(1) : tr("Normal");
-
+		base = dia->getMasterPages();
 		addNewPages(dia->getWherePage(),
 		            dia->getWhere(),
 		            dia->getCount(),
@@ -5471,14 +5471,13 @@ void ScribusApp::slotNewPageM()
 					dia->orientationQComboBox->currentItem(),
 					dia->prefsPageSizeName,
 					dia->moveObjects->isChecked(),
-		            dia->getMasterPageN(0),
-		            MasterPage2
+		            &base
 		            );
 	}
 	delete dia;
 }
 
-void ScribusApp::addNewPages(int wo, int where, int numPages, double height, double width, int orient, QString siz, bool mov, QString based1, QString based2)
+void ScribusApp::addNewPages(int wo, int where, int numPages, double height, double width, int orient, QString siz, bool mov, QStringList* basedOn)
 {
 	if (UndoManager::undoEnabled())
 	{
@@ -5488,8 +5487,10 @@ void ScribusApp::addNewPages(int wo, int where, int numPages, double height, dou
 		ss->set("PAGE", wo);
 		ss->set("WHERE", where);
 		ss->set("COUNT", numPages);
-		ss->set("BASED1", based1);
-		ss->set("BASED2", based2);
+		if (basedOn != NULL)
+			ss->set("BASED", basedOn->join("|"));
+		else
+			ss->set("BASED", tr("Normal"));
 		ss->set("HEIGHT", height);
 		ss->set("WIDTH", width);
 		ss->set("ORIENT", orient);
@@ -5497,6 +5498,14 @@ void ScribusApp::addNewPages(int wo, int where, int numPages, double height, dou
 		ss->set("MOVED", mov);
 		undoManager->action(this, ss);
 	}
+	QStringList base;
+	if (basedOn == NULL)
+	{
+		for (int b = 0; b < doc->currentPageLayout; ++b)
+			base.append(tr("Normal"));
+	}
+	else
+		base = *basedOn;
 	int cc;
 	int wot = wo;
 	switch (where)
@@ -5510,19 +5519,7 @@ void ScribusApp::addNewPages(int wo, int where, int numPages, double height, dou
 			doc->currentPage->initialWidth = width;
 			doc->currentPage->PageOri = orient;
 			doc->currentPage->PageSize = siz;
-			if (doc->PageFP == doublePage)
-			{
-				if ((doc->currentPage->PageNr % 2 == 0) && (doc->pageSets[doc->PageFP].FirstPage))
-					applyNewMaster(based1);
-				if ((doc->currentPage->PageNr % 2 == 1) && (doc->pageSets[doc->PageFP].FirstPage))
-					applyNewMaster(based2);
-				if ((doc->currentPage->PageNr % 2 == 0) && (!doc->pageSets[doc->PageFP].FirstPage))
-					applyNewMaster(based2);
-				if ((doc->currentPage->PageNr % 2 == 1) && (!doc->pageSets[doc->PageFP].FirstPage))
-					applyNewMaster(based1);
-			}
-			else
-				applyNewMaster(based1);
+			applyNewMaster(base[(doc->currentPage->PageNr+doc->pageSets[doc->currentPageLayout].FirstPage) % doc->pageSets[doc->currentPageLayout].Columns]);
 			wot ++;
 		}
 		break;
@@ -5534,19 +5531,7 @@ void ScribusApp::addNewPages(int wo, int where, int numPages, double height, dou
 			doc->currentPage->initialWidth = width;
 			doc->currentPage->PageOri = orient;
 			doc->currentPage->PageSize = siz;
-			if (doc->PageFP == doublePage)
-			{
-				if ((doc->currentPage->PageNr % 2 == 0) && (doc->pageSets[doc->PageFP].FirstPage))
-					applyNewMaster(based1);
-				if ((doc->currentPage->PageNr % 2 == 1) && (doc->pageSets[doc->PageFP].FirstPage))
-					applyNewMaster(based2);
-				if ((doc->currentPage->PageNr % 2 == 0) && (!doc->pageSets[doc->PageFP].FirstPage))
-					applyNewMaster(based2);
-				if ((doc->currentPage->PageNr % 2 == 1) && (!doc->pageSets[doc->PageFP].FirstPage))
-					applyNewMaster(based1);
-			}
-			else
-				applyNewMaster(based1);
+			applyNewMaster(base[(doc->currentPage->PageNr+doc->pageSets[doc->currentPageLayout].FirstPage) % doc->pageSets[doc->currentPageLayout].Columns]);
 			wot ++;
 		}
 		break;
@@ -5558,19 +5543,7 @@ void ScribusApp::addNewPages(int wo, int where, int numPages, double height, dou
 			doc->currentPage->initialWidth = width;
 			doc->currentPage->PageOri = orient;
 			doc->currentPage->PageSize = siz;
-			if (doc->PageFP == doublePage)
-			{
-				if ((doc->currentPage->PageNr % 2 == 0) && (doc->pageSets[doc->PageFP].FirstPage))
-					applyNewMaster(based1);
-				if ((doc->currentPage->PageNr % 2 == 1) && (doc->pageSets[doc->PageFP].FirstPage))
-					applyNewMaster(based2);
-				if ((doc->currentPage->PageNr % 2 == 0) && (!doc->pageSets[doc->PageFP].FirstPage))
-					applyNewMaster(based2);
-				if ((doc->currentPage->PageNr % 2 == 1) && (!doc->pageSets[doc->PageFP].FirstPage))
-					applyNewMaster(based1);
-			}
-			else
-				applyNewMaster(based1);
+			applyNewMaster(base[(doc->currentPage->PageNr+doc->pageSets[doc->currentPageLayout].FirstPage) % doc->pageSets[doc->currentPageLayout].Columns]);
 		}
 		break;
 	}
@@ -8509,7 +8482,7 @@ void ScribusApp::restore(UndoState* state, bool isUndo)
 void ScribusApp::restoreDeletePage(SimpleState *state, bool isUndo)
 {
 	uint pagenr   = state->getUInt("PAGENR");
-	QString tmpl = state->get("MASTERPAGE");
+	QStringList tmpl = state->get("MASTERPAGE");
 	int where, wo;
 	if (pagenr == 1)
 	{
@@ -8528,7 +8501,7 @@ void ScribusApp::restoreDeletePage(SimpleState *state, bool isUndo)
 	}
 	if (isUndo)
 	{
-		addNewPages(wo, where, 1, doc->pageHeight, doc->pageWidth, doc->PageOri, doc->PageSize, true, tmpl, tmpl);
+		addNewPages(wo, where, 1, doc->pageHeight, doc->pageWidth, doc->PageOri, doc->PageSize, true, &tmpl);
 		UndoObject *tmp =
 			undoManager->replaceObject(state->getUInt("DUMMY_ID"), doc->Pages.at(pagenr - 1));
 		delete tmp;
@@ -8548,8 +8521,7 @@ void ScribusApp::restoreAddPage(SimpleState *state, bool isUndo)
 	int wo         = state->getInt("PAGE");
 	int where      = state->getInt("WHERE");
 	int count      = state->getInt("COUNT");
-	QString based1 = state->get("BASED1");
-	QString based2 = state->get("BASED2");
+	QStringList based = QStringList::split("|", state->get("BASED"));
 	double height = state->getDouble("HEIGHT");
 	double width = state->getDouble("WIDTH");
 	int orient = state->getInt("ORIENT");
@@ -8592,7 +8564,7 @@ void ScribusApp::restoreAddPage(SimpleState *state, bool isUndo)
 	}
 	else
 	{
-		addNewPages(wo, where, count, height, width, orient, siz, mov, based1, based2);
+		addNewPages(wo, where, count, height, width, orient, siz, mov, &based);
 		for (int i = delFrom - 1; i < delTo; ++i)
 		{
 			UndoObject *tmp = undoManager->replaceObject(
