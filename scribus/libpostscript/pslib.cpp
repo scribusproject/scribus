@@ -24,6 +24,7 @@
 #include <qregexp.h>
 
 #include "scconfig.h"
+#include "pluginapi.h"
 
 #include "pslib.h"
 #include "scribusdoc.h"
@@ -33,7 +34,7 @@
 #include "util.h"
 #include "scfontmetrics.h"
 
-extern "C" void* Run(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, ColorList DocColors, bool pdf);
+extern "C" PLUGIN_API void* Run(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, ColorList DocColors, bool pdf);
 
 void* Run(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, ColorList DocColors, bool pdf)
 {

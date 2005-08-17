@@ -1063,7 +1063,8 @@ QString ScImage::MaskToTxt(bool PDF)
 		for( int xi=0; xi < w2; ++xi )
 		{
 			u = *(s+xi);
-			ImgStr[i++] = (PDF ? ~u : u);
+			if(PDF) u = ~u;
+			ImgStr[i++] = u;
 		}
 	}
 	return ImgStr;
@@ -2636,7 +2637,8 @@ QString ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes)
 			for( int xi=0; xi < w2; ++xi )
 			{
 				u = *(s+xi);
-				retS[i++] = (PDF ? ~u : u);
+				if(PDF) u = ~u;
+				retS[i++] = u;
 			}
 		}
 	}

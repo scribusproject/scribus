@@ -19,6 +19,7 @@
 #include "pdflib.moc"
 
 #include "scconfig.h"
+#include "pluginapi.h"
 
 #include <qstring.h>
 #include <qrect.h>
@@ -48,7 +49,7 @@
 using namespace std;
 
 #ifdef HAVE_CMS
-extern bool CMSuse;
+extern bool SCRIBUS_API CMSuse;
 #endif
 #ifdef HAVE_TIFF
 	#include <tiffio.h>
@@ -56,7 +57,7 @@ extern bool CMSuse;
 
 ScribusApp *pdflibScApp;
 
-extern "C" bool Run(ScribusApp *plug, QString fn, QString nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs, QProgressBar *dia2);
+extern "C" PLUGIN_API bool Run(ScribusApp *plug, QString fn, QString nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs, QProgressBar *dia2);
 
 bool Run(ScribusApp *plug, QString fn, QString nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs, QProgressBar *dia2)
 {
@@ -175,7 +176,7 @@ QString PDFlib::IToStr(int c)
 void PDFlib::PutDoc(QString in)
 {
 	QTextStream t(&Spool);
-	t.writeRawBytes(in, in.length());
+	t.writeRawBytes(in.latin1(), in.length());
 	Spool.flush();
 	Dokument += in.length();
 }
@@ -238,7 +239,7 @@ QString PDFlib::EncStream(QString *in, int ObjNum)
  		rc4_encrypt(&rc4, reinterpret_cast<uchar*>(us.data()), reinterpret_cast<uchar*>(ou.data()), tmp.length());
 		QString uk = "";
 		for (uint cl = 0; cl < tmp.length(); ++cl)
-			uk += ou[cl];
+			uk += QChar(ou[cl]);
 		tmp = uk;
 	}
 	else
@@ -279,7 +280,7 @@ QString PDFlib::EncString(QString in, int ObjNum)
   		rc4_encrypt(&rc4, reinterpret_cast<uchar*>(us.data()), reinterpret_cast<uchar*>(ou.data()), tmp.length());
 		QString uk = "";
 		for (uint cl = 0; cl < tmp.length(); ++cl)
-			uk += ou[cl];
+			uk += QChar(ou[cl]);
 		tmp = "<"+String2Hex(&uk, false)+">";
 	}
 	else
@@ -294,7 +295,7 @@ QString PDFlib::FitKey(QString pass)
 	{
 		uint l = pw.length();
 		for (uint a = 0; a < 32 - l; ++a)
-			pw.append(KeyGen[a]);
+			pw += QChar(KeyGen[a]);
 	}
 	else
 		pw = pw.left(32);
@@ -356,11 +357,11 @@ void PDFlib::CalcUserKey(QString User, int Permission)
 	perm[2] = perm_value >> 16;
 	perm[3] = perm_value >> 24;
 	for (uint a = 0; a < 32; ++a)
-		pw += OwnerKey[a];
+		pw += QChar(OwnerKey[a]);
 	for (uint a1 = 0; a1 < 4; ++a1)
-		pw += perm[a1];
+		pw += QChar(perm[a1]);
 	for (uint a3 = 0; a3 < 16; ++a3)
-		pw += FileID[a3];
+		pw += QChar(FileID[a3]);
 	step1 = ComputeMD5(pw);
 	if (KeyLen > 5)
 	{
@@ -374,9 +375,9 @@ void PDFlib::CalcUserKey(QString User, int Permission)
 	{
 		QString pr2 = "";
 		for (int kl3 = 0; kl3 < 32; ++kl3)
-			pr2 += KeyGen[kl3];
+			pr2 += QChar(KeyGen[kl3]);
 		for (uint a4 = 0; a4 < 16; ++a4)
-			pr2 += FileID[a4];
+			pr2 += QChar(FileID[a4]);
 		step1 = ComputeMD5(pr2);
 		QByteArray enk(16);
 		for (uint a3 = 0; a3 < 16; ++a3)
@@ -479,18 +480,18 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 		CalcOwnerKey(Options->PassOwner, Options->PassUser);
 		CalcUserKey(Options->PassUser, Options->Permissions);
 		for (uint cl2 = 0; cl2 < 32; ++cl2)
-			ok += OwnerKey[cl2];
+			ok += QChar(OwnerKey[cl2]);
 		if (KeyLen > 5)
 		{
 			for (uint cl3 = 0; cl3 < 16; ++cl3)
-				uk += UserKey[cl3];
+				uk += QChar(UserKey[cl3]);
 			for (uint cl3r = 0; cl3r < 16; ++cl3r)
-				uk += KeyGen[cl3r];
+				uk += QChar(KeyGen[cl3r]);
 		}
 		else
 		{
 			for (uint cl = 0; cl < 32; ++cl)
-				uk += UserKey[cl];
+				uk += QChar(UserKey[cl]);
 		}
 	}
 	QDate d = QDate::currentDate();
@@ -637,7 +638,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 				{
 					if ((bb[posi] == static_cast<char>(0x80)) && (static_cast<int>(bb[posi+1]) == 2))
 						break;
-					fon += bb[posi];
+					fon += QChar(bb[posi]);
 				}
 				int len1 = fon.length();
 				uint ulen;
@@ -649,7 +650,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 					ulen = bb.size()-7;
 				posi += 6;
 				for (uint j = 0; j < ulen; ++j)
-					fon += bb[posi++];
+					fon += QChar(bb[posi++]);
 				posi += 6;
 				int len2 = fon.length()-len1;
 				for (uint j = posi; j < bb.size(); ++j)
@@ -659,7 +660,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 					if (bb[j] == '\r')
 						fon += "\n";
 					else
-						fon += bb[j];
+						fon += QChar(bb[j]);
 				}
 				int len3 = fon.length()-len2-len1;
 				if ((Options->Compress) && (CompAvail))
@@ -719,7 +720,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 				AllFonts[it.key()]->RawData(bb);
 				//AV: += and append() dont't work because they stop at '\0' :-(
 				for (unsigned int i=0; i < bb.size(); i++)
-					fon += bb[i];
+					fon += QChar(bb[i]);
 				int len = fon.length();
 				if ((Options->Compress) && (CompAvail))
 					fon = CompressStr(&fon);
@@ -4142,7 +4143,7 @@ QString PDFlib::PDF_Image(PageItem* c, QString fn, double sx, double sy, double 
 						{
 							ts >> tc;
 							if ((tc != '\n') && (tc != '\r'))
-								tmp += tc;
+								tmp += QChar(tc);
 						}
 						if (tmp.startsWith("%%BoundingBox:"))
 						{
@@ -4879,7 +4880,7 @@ void PDFlib::PDF_End_Doc(QString PrintPr, QString Name, int Components)
 	PutDoc("trailer\n<<\n/Size "+IToStr(XRef.count()+1)+"\n");
 	QString IDs ="";
 	for (uint cl = 0; cl < 16; ++cl)
-		IDs += FileID[cl];
+		IDs += QChar(FileID[cl]);
 	IDs = String2Hex(&IDs);
 	PutDoc("/Root 1 0 R\n/Info 2 0 R\n/ID [<"+IDs+"><"+IDs+">]\n");
 	if (Options->Encrypt)

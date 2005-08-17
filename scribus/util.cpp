@@ -494,7 +494,7 @@ bool loadText(QString filename, QString *Buffer)
 		f.readBlock(bb.data(), f.size());
 		f.close();
 		for (uint posi = 0; posi < bb.size(); ++posi)
-			*Buffer += bb[posi];
+			*Buffer += QChar(bb[posi]);
 		ret = true;
 	}
 	else
