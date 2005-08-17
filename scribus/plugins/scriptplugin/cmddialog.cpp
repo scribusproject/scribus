@@ -104,7 +104,9 @@ PyObject *scribus_newstyledialog(PyObject*, PyObject* args)
 	Unpleasant. Etc. But working. */
 	uint styleCount = Carrier->doc->docParagraphStyles.count();
 	StilFormate *dia2 = new StilFormate(Carrier, Carrier->doc);
+	QApplication::setOverrideCursor(QCursor(Qt::ArrowCursor));
 	dia2->neuesFormat();
+	QApplication::restoreOverrideCursor();
 	Carrier->saveStyles(dia2);
 	delete dia2;
 	if (styleCount == Carrier->doc->docParagraphStyles.count())
