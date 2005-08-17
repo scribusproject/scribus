@@ -31,6 +31,7 @@
 #include "scpaths.h"
 #include "page.h"
 #include "scribus.h"
+#include "scribusstructs.h"
 #include "scribusdoc.h"
 #include "undomanager.h"
 #include "undostate.h"
@@ -4951,3 +4952,195 @@ void PageItem::setTagged(bool tag)
 	tagged=tag;
 }
 
+void PageItem::copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer)
+{
+	uint a;
+	Buffer->PType = itemType();
+	Buffer->Xpos = Xpos;
+	Buffer->Ypos = Ypos;
+	Buffer->Width = Width;
+	Buffer->Height = Height;
+	Buffer->RadRect = RadRect;
+	Buffer->FrameType = FrameType;
+	Buffer->ClipEdited = ClipEdited;
+	Buffer->Pwidth = Pwidth;
+	Buffer->Pcolor = fillColor();
+	Buffer->Pcolor2 = lineColor();
+	Buffer->Shade = fillShade();
+	Buffer->Shade2 = lineShade();
+	Buffer->GrColor = "";
+	Buffer->GrColor2 = "";
+	Buffer->GrShade = 100;
+	Buffer->GrShade2 = 100;
+	Buffer->fill_gradient = fill_gradient;
+	Buffer->GrType = GrType;
+	Buffer->GrStartX = GrStartX;
+	Buffer->GrStartY = GrStartY;
+	Buffer->GrEndX = GrEndX;
+	Buffer->GrEndY = GrEndY;
+	Buffer->TxtStroke = TxtStroke;
+	Buffer->TxtFill = TxtFill;
+	Buffer->ShTxtStroke = ShTxtStroke;
+	Buffer->ShTxtFill = ShTxtFill;
+	Buffer->TxtScale = TxtScale;
+	Buffer->TxtScaleV = TxtScaleV;
+	Buffer->TxTBase = TxtBase;
+	Buffer->TxTStyle = TxTStyle;
+	Buffer->TxtShadowX = TxtShadowX;
+	Buffer->TxtShadowY = TxtShadowY;
+	Buffer->TxtOutline = TxtOutline;
+	Buffer->TxtUnderPos = TxtUnderPos;
+	Buffer->TxtUnderWidth = TxtUnderWidth;
+	Buffer->TxtStrikePos = TxtStrikePos;
+	Buffer->TxtStrikeWidth = TxtStrikeWidth;
+	Buffer->Rot = Rot;
+	Buffer->PLineArt = PLineArt;
+	Buffer->PLineEnd = PLineEnd;
+	Buffer->PLineJoin = PLineJoin;
+	Buffer->LineSp = LineSp;
+	Buffer->LocalScX = LocalScX;
+	Buffer->LocalScY = LocalScY;
+	Buffer->LocalX = LocalX;
+	Buffer->LocalY = LocalY;
+	Buffer->PicArt = PicArt;
+	Buffer->flippedH = imageFlippedH();
+	Buffer->flippedV = imageFlippedV();
+	Buffer->BBoxX = BBoxX;
+	Buffer->BBoxH = BBoxH;
+	Buffer->isPrintable = printable();
+	Buffer->isBookmark = isBookmark;
+	Buffer->BMnr = BMnr;
+	Buffer->isAnnotation = isAnnotation;
+	Buffer->AnType = AnType;
+	Buffer->AnAction = AnAction;
+	Buffer->An_E_act = An_E_act;
+	Buffer->An_X_act = An_X_act;
+	Buffer->An_D_act = An_D_act;
+	Buffer->An_Fo_act = An_Fo_act;
+	Buffer->An_Bl_act = An_Bl_act;
+	Buffer->An_K_act = An_K_act;
+	Buffer->An_F_act = An_F_act;
+	Buffer->An_V_act = An_V_act;
+	Buffer->An_C_act = An_C_act;
+	Buffer->An_Extern = An_Extern;
+	Buffer->AnZiel = AnZiel;
+	Buffer->AnName = itemName();
+	Buffer->AnActType = AnActType;
+	Buffer->AnToolTip = AnToolTip;
+	Buffer->AnBwid = AnBwid;
+	Buffer->AnBsty = AnBsty;
+	Buffer->AnFeed = AnFeed;
+	Buffer->AnFlag = AnFlag;
+	Buffer->AnFont = AnFont;
+	Buffer->AnRollOver = AnRollOver;
+	Buffer->AnDown = AnDown;
+	Buffer->AnFormat = AnFormat;
+	Buffer->AnVis = AnVis;
+	Buffer->AnMaxChar = AnMaxChar;
+	Buffer->AnChkStil = AnChkStil;
+	Buffer->AnIsChk = AnIsChk;
+	Buffer->AnAAact = AnAAact;
+	Buffer->AnBColor = AnBColor;
+	Buffer->AnHTML = AnHTML;
+	Buffer->AnUseIcons = AnUseIcons;
+	Buffer->AnIPlace = AnIPlace;
+	Buffer->AnScaleW = AnScaleW;
+	Buffer->Extra = Extra;
+	Buffer->TExtra = TExtra;
+	Buffer->BExtra = BExtra;
+	Buffer->RExtra = RExtra;
+	Buffer->Pfile = Pfile;
+	Buffer->Pfile2 = Pfile2;
+	Buffer->Pfile3 = Pfile3;
+	QString Text = "";
+	if (itemText.count() != 0)
+	{
+		for (a=0; a<itemText.count(); ++a)
+		{
+			if( (itemText.at(a)->ch == "\n") || (itemText.at(a)->ch == "\r"))
+				Text += QString(QChar(5))+"\t";
+			else if(itemText.at(a)->ch == "\t")
+				Text += QString(QChar(4))+"\t";
+			else
+				Text += itemText.at(a)->ch+"\t";
+			Text += itemText.at(a)->cfont->SCName+"\t";
+			Text += QString::number(itemText.at(a)->csize / 10.0)+"\t";
+			Text += itemText.at(a)->ccolor+"\t";
+			Text += QString::number(itemText.at(a)->cextra)+"\t";
+			Text += QString::number(itemText.at(a)->cshade)+'\t';
+			Text += QString::number(itemText.at(a)->cstyle)+'\t';
+			Text += QString::number(itemText.at(a)->cab)+'\t';
+			Text += itemText.at(a)->cstroke+"\t";
+			Text += QString::number(itemText.at(a)->cshade2)+'\t';
+			Text += QString::number(itemText.at(a)->cscale)+'\t';
+			Text += QString::number(itemText.at(a)->cscalev)+'\t';
+			Text += QString::number(itemText.at(a)->cbase)+'\t';
+			Text += QString::number(itemText.at(a)->cshadowx)+'\t';
+			Text += QString::number(itemText.at(a)->cshadowy)+'\t';
+			Text += QString::number(itemText.at(a)->coutline)+'\t';
+			Text += QString::number(itemText.at(a)->cunderpos)+'\t';
+			Text += QString::number(itemText.at(a)->cunderwidth)+'\t';
+			Text += QString::number(itemText.at(a)->cstrikepos)+'\t';
+			Text += QString::number(itemText.at(a)->cstrikewidth)+'\n';
+		}
+	}
+	Buffer->itemText = Text;
+	Buffer->Clip = Clip.copy();
+	Buffer->PoLine = PoLine.copy();
+	Buffer->ContourLine = ContourLine.copy();
+	Buffer->UseContour = textFlowUsesContourLine();
+	Buffer->TabValues = TabValues;
+	Buffer->DashValues = DashValues;
+	Buffer->DashOffset = DashOffset;
+	Buffer->PoShow = PoShow;
+	Buffer->BaseOffs = BaseOffs;
+	Buffer->Textflow = textFlowsAroundFrame();
+	Buffer->Textflow2 = textFlowUsesBoundingBox();
+	Buffer->textAlignment = textAlignment;
+	Buffer->IFont = IFont;
+	Buffer->ISize = ISize;
+	Buffer->ExtraV = ExtraV;
+	Buffer->Groups = Groups;
+	Buffer->IProfile = IProfile;
+	Buffer->IRender = IRender;
+	Buffer->UseEmbedded = UseEmbedded;
+	Buffer->EmProfile = EmProfile;
+	Buffer->LayerNr = LayerNr;
+	Buffer->ScaleType = ScaleType;
+	Buffer->AspectRatio = AspectRatio;
+	Buffer->Locked = locked();
+	Buffer->LockRes = sizeLocked();
+	Buffer->Transparency = fillTransparency();
+	Buffer->TranspStroke = lineTransparency();
+	Buffer->Reverse = Reverse;
+	Buffer->NamedLStyle = NamedLStyle;
+	Buffer->Language = Language;
+	Buffer->Cols = Cols;
+	Buffer->ColGap = ColGap;
+	Buffer->isTableItem = isTableItem;
+	Buffer->TopLine = TopLine;
+	Buffer->LeftLine = LeftLine;
+	Buffer->RightLine = RightLine;
+	Buffer->BottomLine = BottomLine;
+	if (isTableItem)
+	{
+		if (TopLink != 0)
+			Buffer->TopLinkID = TopLink->ItemNr;
+		else
+			Buffer->TopLinkID = -1;
+		if (LeftLink != 0)
+			Buffer->LeftLinkID = LeftLink->ItemNr;
+		else
+			Buffer->LeftLinkID = -1;
+		if (RightLink != 0)
+			Buffer->RightLinkID = RightLink->ItemNr;
+		else
+			Buffer->RightLinkID = -1;
+		if (BottomLink != 0)
+			Buffer->BottomLinkID = BottomLink->ItemNr;
+		else
+			Buffer->BottomLinkID = -1;
+	}
+	Buffer->startArrowIndex = startArrowIndex;
+	Buffer->endArrowIndex = endArrowIndex;
+}

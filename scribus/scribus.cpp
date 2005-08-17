@@ -6510,7 +6510,8 @@ void ScribusApp::CopyPage()
 		{
 			if (doc->Items.at(ite)->OwnPage == static_cast<int>(from->PageNr))
 			{
-				CopyPageItem(&Buffer, doc->Items.at(ite));
+				//CopyPageItem(&Buffer, doc->Items.at(ite));
+				doc->Items.at(ite)->copyToCopyPasteBuffer(&Buffer);
 				Buffer.Xpos = Buffer.Xpos - from->Xoffset + Ziel->Xoffset;
 				Buffer.Ypos = Buffer.Ypos - from->Yoffset + Ziel->Yoffset;
 				view->PasteItem(&Buffer, true, true);

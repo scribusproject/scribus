@@ -29,7 +29,6 @@ void SCRIBUS_API GetItemProps(bool newVersion, QDomElement *obj, struct CopyPast
 QStringList SCRIBUS_API sortQStringList(QStringList aList);
 void SCRIBUS_API ReOrderText(ScribusDoc *currentDoc, ScribusView *view);
 void SCRIBUS_API WordAndPara(PageItem *currItem, int *w, int *p, int *c, int *wN, int *pN, int *cN);
-void SCRIBUS_API CopyPageItem(struct CopyPasteBuffer *Buffer, PageItem *currItem);
 bool SCRIBUS_API overwrite(QWidget *parent, QString filename);
 FPoint SCRIBUS_API getMaxClipF(FPointArray* Clip);
 FPoint SCRIBUS_API getMinClipF(FPointArray* Clip);

@@ -35,6 +35,7 @@ class ScribusDoc;
 class UndoManager;
 class UndoState;
 class Foi;
+struct CopyPasteBuffer;
 /**
   *@author Franz Schmid
   */
@@ -172,7 +173,7 @@ struct TabRecord
 	void DrawObj_PolyLine(ScPainter *p);
 	void DrawObj_PathText(ScPainter *p, double sc);
 	void DrawObj_Embedded(ScPainter *p, QRect e, struct ZZ *hl);
-
+	void copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer);
 	double SetZeichAttr(struct ScText *hl, int *chs, QString *chx);
 	void SetFarbe(QColor *tmp, QString farbe, int shad);
 	void DrawZeichenS(ScPainter *p, struct ZZ *hl);
