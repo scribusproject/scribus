@@ -75,7 +75,7 @@ void TOCGenerator::generateDefault()
 			tocMap.clear();
 			uint *pageCounter =  new uint[currDoc->pageCount];
 			uint pageNumberWidth=QString("%1").arg(currDoc->pageCount).length();
-			for (int i=0;i<=currDoc->pageCount;++i)
+			for (int i=0;i<currDoc->pageCount;++i)
 				pageCounter[i]=0;
 			unsigned int maxDataWidth=0;
 			for (uint d = 0; d < currDoc->DocItems.count(); ++d)
