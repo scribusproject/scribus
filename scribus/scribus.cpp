@@ -3823,6 +3823,13 @@ bool ScribusApp::loadDoc(QString fileName)
 		QString FName = fi.absFilePath();
 		QDir::setCurrent(fi.dirPath(true));
 		FileLoader *fl = new FileLoader(FName, this);
+		if (fl->TestFile() == -1)
+		{
+			delete fl;
+			qApp->setOverrideCursor(QCursor(arrowCursor), true);
+			QMessageBox::critical(this, tr("Fatal Error"), tr("File %1 \nis not in an acceptable format").arg(FName), CommonStrings::tr_OK);
+			return false;
+		}		
 		bool is12doc=false;
 		if (fl->TestFile() == 0)
 		{
@@ -3830,13 +3837,7 @@ bool ScribusApp::loadDoc(QString fileName)
 			//Scribus 1.3.x warning, remove at a later stage
 			is12doc=true;
 		}
-		if (fl->TestFile() == -1)
-		{
-			delete fl;
-			qApp->setOverrideCursor(QCursor(arrowCursor), true);
-			QMessageBox::critical(this, tr("Fatal Error"), tr("File %1 \nis not in an acceptable format").arg(FName), CommonStrings::tr_OK);
-			return false;
-		}
+
 		prefsManager->appPrefs.AvailFonts.AddScalableFonts(fi.dirPath(true)+"/", FName);
 		prefsManager->appPrefs.AvailFonts.updateFontMap();
 		doc=new ScribusDoc();
@@ -3891,26 +3892,7 @@ bool ScribusApp::loadDoc(QString fileName)
 		HaveDoc++;
 		if (doc->checkerProfiles.count() == 0)
 		{
-			struct checkerPrefs checkerSettings;
-			checkerSettings.ignoreErrors = false;
-			checkerSettings.autoCheck = true;
-			checkerSettings.checkGlyphs = true;
-			checkerSettings.checkOrphans = true;
-			checkerSettings.checkOverflow = true;
-			checkerSettings.checkPictures = true;
-			checkerSettings.checkResolution = true;
-			checkerSettings.checkTransparency = true;
-			checkerSettings.checkAnnotations = false;
-			checkerSettings.checkRasterPDF = true;
-			checkerSettings.minResolution = 72.0;
-			doc->checkerProfiles.insert( tr("Postscript"), checkerSettings);
-			doc->checkerProfiles.insert( tr("PDF 1.3"), checkerSettings);
-			checkerSettings.checkTransparency = false;
-			doc->checkerProfiles.insert( tr("PDF 1.4"), checkerSettings);
-			checkerSettings.checkTransparency = true;
-			checkerSettings.checkAnnotations = true;
-			checkerSettings.minResolution = 144.0;
-			doc->checkerProfiles.insert( tr("PDF/X-3"), checkerSettings);
+			doc->checkerProfiles.initDefaults();
 			doc->curCheckProfile = tr("Postscript");
 		}
 		if (doc->PDF_Options.LPISettings.count() == 0)
@@ -6483,7 +6465,6 @@ void ScribusApp::CopyPage()
 		{
 			if (doc->Items.at(ite)->OwnPage == static_cast<int>(from->PageNr))
 			{
-				//CopyPageItem(&Buffer, doc->Items.at(ite));
 				doc->Items.at(ite)->copyToCopyPasteBuffer(&Buffer);
 				Buffer.Xpos = Buffer.Xpos - from->Xoffset + Ziel->Xoffset;
 				Buffer.Ypos = Buffer.Ypos - from->Yoffset + Ziel->Yoffset;

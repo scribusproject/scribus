@@ -323,26 +323,7 @@ void PrefsManager::initDefaults()
 	appPrefs.useStandardLI = false;
 	appPrefs.paragraphsLI = 10;
 	appPrefs.showStartupDialog = true;
-	struct checkerPrefs checkerSettings;
-	checkerSettings.ignoreErrors = false;
-	checkerSettings.autoCheck = true;
-	checkerSettings.checkGlyphs = true;
-	checkerSettings.checkOrphans = true;
-	checkerSettings.checkOverflow = true;
-	checkerSettings.checkPictures = true;
-	checkerSettings.checkResolution = true;
-	checkerSettings.checkTransparency = true;
-	checkerSettings.checkAnnotations = false;
-	checkerSettings.checkRasterPDF = true;
-	checkerSettings.minResolution = 72.0;
-	appPrefs.checkerProfiles.insert( tr("Postscript"), checkerSettings);
-	appPrefs.checkerProfiles.insert( tr("PDF 1.3"), checkerSettings);
-	checkerSettings.checkTransparency = false;
-	appPrefs.checkerProfiles.insert( tr("PDF 1.4"), checkerSettings);
-	checkerSettings.checkTransparency = true;
-	checkerSettings.checkAnnotations = true;
-	checkerSettings.minResolution = 144.0;
-	appPrefs.checkerProfiles.insert( tr("PDF/X-3"), checkerSettings);
+	appPrefs.checkerProfiles.initDefaults();
 	appPrefs.curCheckProfile = tr("Postscript");
 	appPrefs.PDF_Options.Thumbnails = false;
 	appPrefs.PDF_Options.Articles = false;
@@ -626,26 +607,7 @@ void PrefsManager::ReadPrefs()
 	ReadPrefsXML();
 	if (appPrefs.checkerProfiles.count() == 0)
 	{
-		struct checkerPrefs checkerSettings;
-		checkerSettings.ignoreErrors = false;
-		checkerSettings.autoCheck = true;
-		checkerSettings.checkGlyphs = true;
-		checkerSettings.checkOrphans = true;
-		checkerSettings.checkOverflow = true;
-		checkerSettings.checkPictures = true;
-		checkerSettings.checkResolution = true;
-		checkerSettings.checkTransparency = true;
-		checkerSettings.checkAnnotations = false;
-		checkerSettings.checkRasterPDF = true;
-		checkerSettings.minResolution = 72.0;
-		appPrefs.checkerProfiles.insert( tr("Postscript"), checkerSettings);
-		appPrefs.checkerProfiles.insert( tr("PDF 1.3"), checkerSettings);
-		checkerSettings.checkTransparency = false;
-		appPrefs.checkerProfiles.insert( tr("PDF 1.4"), checkerSettings);
-		checkerSettings.checkTransparency = true;
-		checkerSettings.checkAnnotations = true;
-		checkerSettings.minResolution = 144.0;
-		appPrefs.checkerProfiles.insert( tr("PDF/X-3"), checkerSettings);
+		appPrefs.checkerProfiles.initDefaults();
 		appPrefs.curCheckProfile = tr("Postscript");
 	}
 }
@@ -986,8 +948,9 @@ void PrefsManager::WritePref(QString ho)
 		pageSetAttr.appendChild(pgst);
 	}
 	elem.appendChild(pageSetAttr);
-	QMap<QString, checkerPrefs>::Iterator itcp;
-	for (itcp = appPrefs.checkerProfiles.begin(); itcp != appPrefs.checkerProfiles.end(); ++itcp)
+	CheckerPrefsList::Iterator itcp;
+	CheckerPrefsList::Iterator itcpend=appPrefs.checkerProfiles.end();
+	for (itcp = appPrefs.checkerProfiles.begin(); itcp != itcpend; ++itcp)
 	{
 		QDomElement dc79a=docu.createElement("CheckProfile");
 		dc79a.setAttribute("Name",itcp.key());

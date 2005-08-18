@@ -6,6 +6,7 @@
 #endif
 
 #include <qcolor.h>
+#include <qstring.h>
 #include "scribusstructs.h"
 #include "pdfoptions.h"
 #include "scfonts.h"
@@ -23,6 +24,36 @@ struct checkerPrefs
 	bool checkTransparency;
 	bool checkAnnotations;
 	bool checkRasterPDF;
+};
+
+//TODO Move to its own file
+class CheckerPrefsList : public QMap<QString, checkerPrefs>
+{
+	public:
+	void initDefaults()
+	{
+		struct checkerPrefs checkerSettings;
+		checkerSettings.ignoreErrors = false;
+		checkerSettings.autoCheck = true;
+		checkerSettings.checkGlyphs = true;
+		checkerSettings.checkOrphans = true;
+		checkerSettings.checkOverflow = true;
+		checkerSettings.checkPictures = true;
+		checkerSettings.checkResolution = true;
+		checkerSettings.checkTransparency = true;
+		checkerSettings.checkAnnotations = false;
+		checkerSettings.checkRasterPDF = true;
+		checkerSettings.minResolution = 72.0;
+		//TODO Stop translating these into settings!!!!!!!!!
+		insert( QT_TR_NOOP("Postscript"), checkerSettings);
+		insert( QT_TR_NOOP("PDF 1.3"), checkerSettings);
+		checkerSettings.checkTransparency = false;
+		insert( QT_TR_NOOP("PDF 1.4"), checkerSettings);
+		checkerSettings.checkTransparency = true;
+		checkerSettings.checkAnnotations = true;
+		checkerSettings.minResolution = 144.0;
+		insert( QT_TR_NOOP("PDF/X-3"), checkerSettings);
+	}
 };
 
 struct typoPrefs
@@ -133,7 +164,7 @@ struct ApplicationPrefs
 	guidesPrefs guidesSettings;
 	typoPrefs typographicSettings;
 	toolPrefs toolSettings;
-	QMap<QString, checkerPrefs> checkerProfiles;
+	CheckerPrefsList checkerProfiles;
 	QString curCheckProfile;
 	int docUnitIndex;
 	windowPrefs mainToolBarSettings;

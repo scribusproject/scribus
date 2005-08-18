@@ -20,7 +20,7 @@ class SCRIBUS_API TabCheckDoc : public QWidget
 	Q_OBJECT
 
 public:
-	TabCheckDoc( QWidget* parent, QMap<QString, checkerPrefs> prefsData, QString prefProfile );
+	TabCheckDoc( QWidget* parent, CheckerPrefsList prefsData, QString prefProfile );
 	~TabCheckDoc() {};
 	void restoreDefaults();
 
@@ -39,7 +39,7 @@ public:
 	QSpinBox* resolutionValue;
 	QPushButton* addProfile;
 	QPushButton* removeProfile;
-	QMap<QString, checkerPrefs> checkerProfile;
+	CheckerPrefsList checkerProfile;
 	QString currentProfile;
 	void updateProfile(const QString& name);
 

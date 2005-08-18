@@ -3173,8 +3173,9 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	dc.setAttribute("MARGC",doc->guidesSettings.margColor.name());
 	dc.setAttribute("RANDF", static_cast<int>(doc->marginColored));
 	dc.setAttribute("currentProfile", doc->curCheckProfile);
-	QMap<QString, checkerPrefs>::Iterator itcp;
-	for (itcp = doc->checkerProfiles.begin(); itcp != doc->checkerProfiles.end(); ++itcp)
+	CheckerPrefsList::Iterator itcp;
+	CheckerPrefsList::Iterator itcpend=doc->checkerProfiles.end();
+	for (itcp = doc->checkerProfiles.begin(); itcp != itcpend; ++itcp)
 	{
 		QDomElement dc79a=docu.createElement("CheckProfile");
 		dc79a.setAttribute("Name",itcp.key());

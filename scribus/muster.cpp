@@ -168,7 +168,6 @@ void MasterPagesPalette::duplicateMasterPage()
 		{
 			if (currentDoc->Items.at(a)->OwnPage == inde)
 			{
-				//CopyPageItem(&Buffer, currentDoc->Items.at(a));
 				currentDoc->Items.at(a)->copyToCopyPasteBuffer(&Buffer);
 				currentView->PasteItem(&Buffer, true, true);
 				PageItem* Neu = currentDoc->Items.at(currentDoc->Items.count()-1);

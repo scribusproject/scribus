@@ -13,7 +13,7 @@
 
 #include "prefsstructs.h"
 
-TabCheckDoc::TabCheckDoc( QWidget* parent, QMap<QString, checkerPrefs> prefsData, QString prefProfile ) : QWidget( parent, "tabcheckDoc", 0 )
+TabCheckDoc::TabCheckDoc( QWidget* parent, CheckerPrefsList prefsData, QString prefProfile ) : QWidget( parent, "tabcheckDoc", 0 )
 {
 	checkerProfile = prefsData;
 	TabCheckDocLayout = new QVBoxLayout( this, 0, 5, "TabCheckDocLayout");
@@ -21,7 +21,7 @@ TabCheckDoc::TabCheckDoc( QWidget* parent, QMap<QString, checkerPrefs> prefsData
 	curCheckProfile = new QComboBox( true, this, "Profiles" );
 	curCheckProfile->setEditable(true);
 	curCheckProfile->setDuplicatesEnabled(false);
-	QMap<QString, checkerPrefs>::Iterator it;
+	CheckerPrefsList::Iterator it;
 	for (it = checkerProfile.begin(); it != checkerProfile.end(); ++it)
 	{
 		curCheckProfile->insertItem(it.key());
@@ -214,12 +214,11 @@ void TabCheckDoc::delProf()
 	disconnect(curCheckProfile, SIGNAL(textChanged(const QString&)), this, SLOT(setProfile(const QString&)));
 	checkerProfile.remove(currentProfile);
 	updateProfile(checkerProfile.begin().key());
-	QMap<QString, checkerPrefs>::Iterator it;
 	curCheckProfile->clear();
-	for (it = checkerProfile.begin(); it != checkerProfile.end(); ++it)
-	{
+	CheckerPrefsList::Iterator it;
+	CheckerPrefsList::Iterator itend=checkerProfile.end();
+	for (it = checkerProfile.begin(); it != itend; ++it)
 		curCheckProfile->insertItem(it.key());
-	}
 	curCheckProfile->setCurrentText(currentProfile);
 	connect(curCheckProfile, SIGNAL(activated(const QString&)), this, SLOT(setProfile(const QString&)));
 	connect(curCheckProfile, SIGNAL(textChanged(const QString&)), this, SLOT(setProfile(const QString&)));

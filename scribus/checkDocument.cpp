@@ -225,11 +225,10 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 	document = doc;
 	disconnect(curCheckProfile, SIGNAL(activated(const QString&)), this, SLOT(newScan(const QString&)));
 	curCheckProfile->clear();
-	QMap<QString, checkerPrefs>::Iterator it;
-	for (it = doc->checkerProfiles.begin(); it != doc->checkerProfiles.end(); ++it)
-	{
+	CheckerPrefsList::Iterator it;
+	CheckerPrefsList::Iterator itend=doc->checkerProfiles.end();
+	for (it = doc->checkerProfiles.begin(); it != itend ; ++it)
 		curCheckProfile->insertItem(it.key());
-	}
 	curCheckProfile->setCurrentText(doc->curCheckProfile);
 	connect(curCheckProfile, SIGNAL(activated(const QString&)), this, SLOT(newScan(const QString&)));
 	QString missingGlyph = tr("Glyphs missing");
