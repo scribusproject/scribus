@@ -36,7 +36,7 @@ PageLayouts::PageLayouts( QWidget* parent, QValueList<PageSet> pSets )  : QGroup
 
 	layoutLabel1 = new QLabel( this, "layoutLabel1" );
 	layoutGroupLayout->addWidget( layoutLabel1 );
-	firstPage = new QComboBox( true, this, "LMode" );
+	firstPage = new QComboBox( true, this, "firstPage" );
 	firstPage->setEditable(false);
 	layoutGroupLayout->addWidget( firstPage );
 	languageChange();

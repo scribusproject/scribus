@@ -389,19 +389,14 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 		doc->FirstPnum = QStoInt(dc.attribute("FIRSTNUM","1"));
 		doc->currentPageLayout=QStoInt(dc.attribute("BOOK", "0"));
 		int fp;
-		if (dc.hasAttribute("StartPage"))
-			fp = QStoInt(dc.attribute("StartPage", "0"));
+		if (doc->currentPageLayout == 0)
+			fp = 0;
 		else
 		{
-			if (doc->currentPageLayout == 0)
+			if (QStoInt(dc.attribute("FIRSTLEFT","0")) == 1)
 				fp = 0;
 			else
-			{
-				if (QStoInt(dc.attribute("FIRSTLEFT","0")) == 1)
-					fp = 0;
-				else
-					fp = 1;
-			}
+				fp = 1;
 		}
 		if (DOC.namedItem("PageSets").isNull())
 		{

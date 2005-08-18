@@ -2729,7 +2729,7 @@ void ScriXmlDoc::WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc
 		pg.setAttribute("MNAM",page->MPageNam);
 		pg.setAttribute("Size", page->PageSize);
 		pg.setAttribute("Orientation", page->PageOri);
-		pg.setAttribute("LEFT", page->LeftPg ? 1 : 0);
+		pg.setAttribute("LEFT", page->LeftPg);
 		pg.setAttribute("NumVGuides", static_cast<int>(page->YGuides.count()));
 		QString Vgui = "";
 		for (uint vgu = 0; vgu < page->YGuides.count(); ++vgu)

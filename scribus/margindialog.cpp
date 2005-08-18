@@ -78,6 +78,25 @@ MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent
 	moveObjects->setText( tr( "Move Objects with their Page" ) );
 	moveObjects->setChecked( true );
 	dsGroupBox7Layout->addMultiCellWidget( moveObjects, 3, 3, 0, 3 );
+	if ((doc->currentPageLayout != singlePage) && (doc->masterPageMode))
+	{
+		TextLabel3 = new QLabel( tr( "Type:" ), dsGroupBox7, "TextLabel3" );
+		dsGroupBox7Layout->addMultiCellWidget( TextLabel3, 4, 4, 0, 1 );
+		Links = new QComboBox( true, dsGroupBox7, "links" );
+		QStringList::Iterator pNames;
+		for(pNames = doc->pageSets[doc->currentPageLayout].pageNames.begin(); pNames != doc->pageSets[doc->currentPageLayout].pageNames.end(); ++pNames )
+		{
+			Links->insertItem((*pNames));
+		}
+		Links->setEditable(false);
+		dsGroupBox7Layout->addMultiCellWidget( Links, 4, 4, 2, 3 );
+		if (doc->currentPage->LeftPg == 0)
+			Links->setCurrentItem(Links->count()-1);
+		else if (doc->currentPage->LeftPg == 1)
+			Links->setCurrentItem(0);
+		else
+			Links->setCurrentItem(doc->currentPage->LeftPg-1);
+	}
 	dialogLayout->addWidget( dsGroupBox7 );
 	
 	GroupRand = new MarginWidget(this,  tr( "Margin Guides" ), &doc->currentPage->initialMargins, unitGetDecimalsFromIndex(doc->unitIndex()), doc->unitRatio(), unitGetSuffixFromIndex(doc->unitIndex()));

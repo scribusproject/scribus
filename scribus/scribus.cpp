@@ -6505,8 +6505,7 @@ void ScribusApp::changePageMargins()
 	MarginDialog *dia = new MarginDialog(this, doc);
 	if (dia->exec())
 	{
-		double invDocUnitRatio=1/doc->unitRatio();
-		doc->changePageMargins(dia->GroupRand->RandT, dia->GroupRand->RandB, dia->GroupRand->RandL, dia->GroupRand->RandR, dia->heightMSpinBox->value() * invDocUnitRatio, dia->widthMSpinBox->value() * invDocUnitRatio, dia->heightMSpinBox->value() * invDocUnitRatio, dia->widthMSpinBox->value() * invDocUnitRatio, dia->orientationQComboBox->currentItem(), dia->prefsPageSizeName);
+		doc->changePageMargins(dia->GroupRand->RandT, dia->GroupRand->RandB, dia->GroupRand->RandL, dia->GroupRand->RandR, dia->pageHeight, dia->pageWidth, dia->pageHeight, dia->pageWidth, dia->orientationQComboBox->currentItem(), dia->prefsPageSizeName, doc->currentPage->PageNr);
 		view->reformPages(dia->moveObjects->isChecked());
 		view->DrawNew();
 		slotDocCh();

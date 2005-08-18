@@ -48,7 +48,7 @@ public:
 	MarginStruct initialMargins;
   /** Nummer der Seite */
 	uint PageNr;
-	bool LeftPg;
+	int LeftPg;
 	QString MPageNam;
 	QString PageNam;
 	QString PageSize;

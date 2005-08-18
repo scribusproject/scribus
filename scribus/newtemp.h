@@ -13,23 +13,23 @@ class ScribusDoc;
 
 class SCRIBUS_API NewTm : public QDialog
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    NewTm( QWidget* parent, QString text, QString titel, ScribusDoc *doc );
-    ~NewTm() {};
+	NewTm( QWidget* parent, QString text, QString titel, ScribusDoc *doc );
+	~NewTm() {};
 
-    QPushButton* PushButton1;
-    QPushButton* PushButton2;
-    QLineEdit* Answer;
-    QLabel* Frage;
-    QComboBox* Links;
+	QPushButton* PushButton1;
+	QPushButton* PushButton2;
+	QLineEdit* Answer;
+	QLabel* Frage;
+	QComboBox* Links;
 
 protected:
-    QVBoxLayout* QueryLayout;
-    QHBoxLayout* Layout3;
-    QHBoxLayout* Layout2;
-    QHBoxLayout* Layout1;
+	QVBoxLayout* QueryLayout;
+	QHBoxLayout* Layout3;
+	QHBoxLayout* Layout2;
+	QHBoxLayout* Layout1;
 };
 
 #endif // QUERY_H

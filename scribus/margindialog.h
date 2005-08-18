@@ -30,6 +30,8 @@ public:
 	QLabel* TextLabel2;
 	QComboBox* sizeQComboBox;
 	QComboBox* orientationQComboBox;
+	QComboBox* Links;
+	QLabel* TextLabel3;
 	QCheckBox* moveObjects;
 	MarginWidget* GroupRand;
 	QPushButton* cancelButton;

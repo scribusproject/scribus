@@ -139,8 +139,17 @@ void MasterPagesPalette::duplicateMasterPage()
 		currentDoc->PageAT = false;
 		emit createNew(nr);
 		currentDoc->setLoading(true);
-		if (currentDoc->currentPageLayout == doublePage)
-			currentDoc->Pages.at(nr)->LeftPg = dia->Links->currentItem() == 0 ? true : false;
+		if (currentDoc->currentPageLayout != singlePage)
+		{
+			int lp = dia->Links->currentItem();
+			if (lp == 0)
+				lp = 1;
+			else if (lp == static_cast<int>(dia->Links->count()-1))
+				lp = 0;
+			else
+				lp++;
+			currentDoc->Pages.at(nr)->LeftPg = lp;
+		}
 		int inde = currentDoc->MasterNames[sMuster];
 		QMap<int,int> TableID;
 		QPtrList<PageItem> TableItems;
@@ -241,13 +250,23 @@ void MasterPagesPalette::newMasterPage()
 		atf = currentDoc->PageAT;
 		currentDoc->PageAT = false;
 		emit createNew(nr);
-		if (currentDoc->currentPageLayout == doublePage)
-			currentDoc->Pages.at(nr)->LeftPg = dia->Links->currentItem() == 0 ? true : false;
+		if (currentDoc->currentPageLayout != singlePage)
+		{
+			int lp = dia->Links->currentItem();
+			if (lp == 0)
+				lp = 1;
+			else if (lp == static_cast<int>(dia->Links->count()-1))
+				lp = 0;
+			else
+				lp++;
+			currentDoc->Pages.at(nr)->LeftPg = lp;
+		}
 		currentDoc->Pages.at(nr)->setPageName(MasterPageName);
 		currentDoc->Pages.at(nr)->MPageNam = "";
 		updateMasterPageList(MasterPageName);
 		currentDoc->PageAT = atf;
 		currentView->showMasterPage(currentDoc->MasterNames[MasterPageName]);
+		currentView->reformPages();
 		currentDoc->MasterPages = currentDoc->Pages;
 		emit docAltered(currentDoc);
 	}

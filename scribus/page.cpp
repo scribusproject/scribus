@@ -39,7 +39,7 @@ Page::Page(double x, double y, double b, double h) : UndoObject(QObject::tr("Pag
 	initialMargins.Left = 40;
 	initialMargins.Right = 40;
 	initialMargins.Bottom = 40;
-	LeftPg = false;
+	LeftPg = 0;
 	PageNam = "";
 	XGuides.clear();
 	YGuides.clear();

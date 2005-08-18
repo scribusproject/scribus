@@ -8674,15 +8674,20 @@ void ScribusView::reformPages(bool moveObjects)
 		{
 			Seite->Xoffset = Doc->ScratchLeft;
 			Seite->Yoffset = Doc->ScratchTop;
-			if (Seite->LeftPg)
+			if (Seite->LeftPg == 0)
 			{
-				Seite->Margins.Left = Seite->initialMargins.Right;
+				Seite->Margins.Right = Seite->initialMargins.Right;
+				Seite->Margins.Left = Seite->initialMargins.Left;
+			}
+			else if ((Seite->LeftPg > 1) && (Seite->LeftPg < Doc->pageSets[Doc->currentPageLayout].Columns))
+			{
+				Seite->Margins.Left = Seite->initialMargins.Left;
 				Seite->Margins.Right = Seite->initialMargins.Left;
 			}
 			else
 			{
-				Seite->Margins.Right = Seite->initialMargins.Right;
-				Seite->Margins.Left = Seite->initialMargins.Left;
+				Seite->Margins.Left = Seite->initialMargins.Right;
+				Seite->Margins.Right = Seite->initialMargins.Left;
 			}
 		}
 		else
