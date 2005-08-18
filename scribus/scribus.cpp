@@ -391,9 +391,9 @@ void ScribusApp::initDefaultValues()
 	view = NULL;
 	doc = NULL;
 	Buffer2 = "";
-	UniCinp = false;
-	UniCinC = 0;
-	UniCinS = "";
+	unicodeTextEditMode = false;
+	unicodeInputCount = 0;
+	unicodeInputString = "";
 	DispX = 10;
 	DispY = 10;
 	DocNr = 1;
@@ -1568,36 +1568,36 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 					/* ISO 14755
 					if ((buttonState & ControlButton) && (buttonState & ShiftButton))
 					{
-						if (!UniCinp)
+						if (!unicodeTextEditMode)
 						{
-							UniCinp=true;
-							UniCinC = 0;
-							UniCinS = "";
+							unicodeTextEditMode=true;
+							unicodeInputCount = 0;
+							unicodeInputString = "";
 							keyrep = false;
 						}
 						qDebug(QString("%1 %2 %3 %4 %5").arg("uni").arg("c+s").arg(uc).arg(kk).arg(as));
 					}
 					*/
-					if (UniCinp)
+					if (unicodeTextEditMode)
 					{
 						int conv = 0;
 						bool ok = false;
-						UniCinS += uc;
-						conv = UniCinS.toInt(&ok, 16);
+						unicodeInputString += uc;
+						conv = unicodeInputString.toInt(&ok, 16);
 						if (!ok)
 						{
-							UniCinp = false;
-							UniCinC = 0;
-							UniCinS = "";
+							unicodeTextEditMode = false;
+							unicodeInputCount = 0;
+							unicodeInputString = "";
 							keyrep = false;
 							return;
 						}
-						UniCinC++;
-						if (UniCinC == 4)
+						unicodeInputCount++;
+						if (unicodeInputCount == 4)
 						{
-							UniCinp = false;
-							UniCinC = 0;
-							UniCinS = "";
+							unicodeTextEditMode = false;
+							unicodeInputCount = 0;
+							unicodeInputString = "";
 							if (ok)
 							{
 								if (currItem->HasSel)
@@ -1655,9 +1655,9 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 					switch (kk)
 					{
 					case Key_F12:
-						UniCinp = true;
-						UniCinC = 0;
-						UniCinS = "";
+						unicodeTextEditMode = true;
+						unicodeInputCount = 0;
+						unicodeInputString = "";
 						keyrep = false;
 						return;
 						break;
@@ -1686,24 +1686,24 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 								}
 							}
 							while (  pos > 0 && currItem->itemText.at(pos-1)->yp == alty )
-								pos--;
+								--pos;
 							if ( currItem->itemText.at(pos)->ch.at(0).latin1() == 13 )
-								pos++;
+								++pos;
 						}
 						else
 						{
 							// paragraph begin
 							if ( pos < len &&
 							        currItem->itemText.at(pos)->ch.at(0).latin1() == 13 )
-								pos--;
+								--pos;
 							while(pos > 0 )
 								if ( currItem->itemText.at(pos)->ch.at(0).latin1() == 13 )
 								{
-									pos++;
+									++pos;
 									break;
 								}
 								else
-									pos--;
+									--pos;
 						}
 						currItem->CPos = pos;
 						if ( buttonState & ShiftButton )
@@ -1758,7 +1758,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 								if ( currItem->itemText.at(pos)->ch.at(0).latin1() == 13 )
 									break;
 								else
-									pos++;
+									++pos;
 							}
 							currItem->CPos = pos;
 						}
@@ -1822,14 +1822,14 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 						if (currItem->CPos > 0)
 						{
 							if (currItem->CPos == static_cast<int>(currItem->itemText.count()))
-								currItem->CPos -= 1;
+								--currItem->CPos;
 							alty = currItem->itemText.at(currItem->CPos)->yp;
 							altx = currItem->itemText.at(currItem->CPos)->xp;
 							if (currItem->CPos > 0)
 							{
 								do
 								{
-									currItem->CPos -= 1;
+									--currItem->CPos;
 									if (currItem->CPos == 0)
 										break;
 									if  ( currItem->itemText.at(currItem->CPos)->ch.at(0).latin1() == 13 )
@@ -1896,7 +1896,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 						}
 						else if ( buttonState & ShiftButton )
 						{
-							currItem->CPos--;
+							--currItem->CPos;
 							if ( currItem->CPos < 0 )
 								currItem->CPos = 0;
 							else
@@ -1904,7 +1904,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 						}
 						else
 						{
-							currItem->CPos -= 1;
+							--currItem->CPos;
 							if (currItem->CPos < 0)
 							{
 								currItem->CPos = 0;
@@ -1921,10 +1921,10 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 						{
 							if (currItem->itemText.at(currItem->CPos-1)->cstyle & 4096)
 							{
-								currItem->CPos -= 1;
+								--currItem->CPos;
 								while ((currItem->CPos > 0) && (currItem->itemText.at(currItem->CPos)->cstyle & 4096))
 								{
-									currItem->CPos--;
+									--currItem->CPos;
 									if (currItem->CPos == 0)
 										break;
 								}
@@ -1934,7 +1934,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 						{
 							while ((currItem->CPos > 0) && (currItem->itemText.at(currItem->CPos)->cstyle & 4096))
 							{
-								currItem->CPos--;
+								--currItem->CPos;
 								if (currItem->CPos == 0)
 									break;
 							}
@@ -1952,18 +1952,18 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 						}
 						else if ( buttonState & ShiftButton )
 						{
-							currItem->CPos++;
+							++currItem->CPos;
 							if ( currItem->CPos > static_cast<int>(currItem->itemText.count()) )
-								currItem->CPos--;
+								--currItem->CPos;
 							else
 								view->ExpandSel(currItem, 1, oldPos);
 						}
 						else
 						{
-							currItem->CPos += 1; // new position within text ?
+							++currItem->CPos; // new position within text ?
 							if (currItem->CPos > static_cast<int>(currItem->itemText.count()))
 							{
-								currItem->CPos -= 1;
+								--currItem->CPos;
 								if (currItem->NextBox != 0)
 								{
 									if (currItem->NextBox->itemText.count() != 0)
@@ -2026,7 +2026,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 						cr = currItem->itemText.at(QMAX(currItem->CPos-1,0))->ch;
 						if (!currItem->HasSel)
 						{
-							currItem->CPos -= 1;
+							--currItem->CPos;
 							currItem->itemText.at(currItem->CPos)->cselect = true;
 						}
 						deleteSelectedTextFromFrame(currItem);
@@ -2718,24 +2718,7 @@ bool ScribusApp::SetupDoc()
 
 void ScribusApp::SwitchWin()
 {
-	int a;
-	ColorList::Iterator it;
-	a = 1;
-	disconnect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
-	ColorMenC->clear();
-	ColorMenC->insertItem( tr("None"));
-	if (doc->toolSettings.dBrush == tr("None"))
-		ColorMenC->setCurrentItem(0);
-	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-	{
-		QColor rgb = doc->PageColors[it.key()].getRGBColor();
-		QPixmap * pm = getSmallPixmap(rgb);
-		ColorMenC->insertItem(*pm, it.key());
-		if (it.key() == doc->toolSettings.dBrush)
-			ColorMenC->setCurrentItem(a);
-		a++;
-	}
-	connect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
+	updateColorMenu();
 	buildFontMenu();
 #ifdef HAVE_CMS
 	SoftProofing = doc->SoftProofing;
@@ -2869,23 +2852,7 @@ void ScribusApp::HaveNewDoc()
 	scrActions["pageDelete"]->setEnabled(setter);
 	scrActions["pageMove"]->setEnabled(setter);
 
-	ColorList::Iterator it;
-	QPixmap pm = QPixmap(15, 15);
-	disconnect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
-	ColorMenC->clear();
-	ColorMenC->insertItem( tr("None"));
-	if (doc->toolSettings.dBrush == tr("None"))
-		ColorMenC->setCurrentItem(0);
-	int a = 1;
-	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-	{
-		pm.fill(doc->PageColors[it.key()].getRGBColor());
-		ColorMenC->insertItem(pm, it.key());
-		if (it.key() == doc->toolSettings.dBrush)
-			ColorMenC->setCurrentItem(a);
-		a++;
-	}
-	connect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
+	updateColorMenu();
 	propertiesPalette->Cpal->SetColors(doc->PageColors);
 	propertiesPalette->Cpal->ChooseGrad(0);
 	ActWin->setCaption(doc->DocName);
@@ -7117,21 +7084,7 @@ void ScribusApp::saveStyles(StilFormate *dia)
 	propertiesPalette->updateCList();
 	disconnect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
 	ColorList::Iterator it;
-	ColorMenC->clear();
-	QPixmap pm = QPixmap(15, 15);
-	int ac = 1;
-	ColorMenC->insertItem( tr("None"));
-	if (doc->toolSettings.dBrush == tr("None"))
-		ColorMenC->setCurrentItem(0);
-	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-	{
-		pm.fill(doc->PageColors[it.key()].getRGBColor());
-		ColorMenC->insertItem(pm, it.key());
-		if (it.key() == doc->toolSettings.dBrush)
-			ColorMenC->setCurrentItem(ac);
-		ac++;
-	}
-	connect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
+	updateColorMenu();
 	view->DrawNew();
 	slotDocCh();
 }
@@ -7165,12 +7118,7 @@ void ScribusApp::setAbsValue(int a)
 
 void ScribusApp::slotEditColors()
 {
-	int a;
-	uint c, d;
 	ColorList edc;
-	QMap<QString,QString> ers;
-	PageItem *ite;
-	QColor tmpc;
 	if (HaveDoc)
 		edc = doc->PageColors;
 	else
@@ -7180,27 +7128,15 @@ void ScribusApp::slotEditColors()
 	{
 		if (HaveDoc)
 		{
+			uint c, d;
+			QMap<QString,QString> ers;
+			PageItem *ite;
+			QColor tmpc;
 			slotDocCh();
 			doc->PageColors = dia->EditColors;
 			propertiesPalette->Cpal->SetColors(doc->PageColors);
 			propertiesPalette->updateCList();
-			disconnect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
-			ColorList::Iterator it;
-			ColorMenC->clear();
-			QPixmap pm = QPixmap(15, 15);
-			a = 1;
-			ColorMenC->insertItem( tr("None"));
-			if (doc->toolSettings.dBrush == tr("None"))
-				ColorMenC->setCurrentItem(0);
-			for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-			{
-				pm.fill(doc->PageColors[it.key()].getRGBColor());
-				ColorMenC->insertItem(pm, it.key());
-				if (it.key() == doc->toolSettings.dBrush)
-					ColorMenC->setCurrentItem(a);
-				a++;
-			}
-			connect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
+			updateColorMenu();
 			ers = dia->Ersatzliste;
 			if (!ers.isEmpty())
 			{
@@ -8751,29 +8687,7 @@ void ScribusApp::RecalcColors(QProgressBar *dia)
 			doc->MasterPages = doc->Pages;
 		else
 			doc->DocPages = doc->Pages;
-		disconnect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
-		ColorMenC->clear();
-		QPixmap pm = QPixmap(15, 15);
-		int a = 1;
-		ColorMenC->insertItem( tr("None"));
-		if (doc->toolSettings.dBrush == tr("None"))
-			ColorMenC->setCurrentItem(0);
-		ScColor tmp;
-//		tmp.fromQColor(doc->papColor);
-//		tmp.RecalcRGB();
-//		doc->papColor = tmp.getRGBColor();
-		for (ColorList::Iterator it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-		{
-			doc->PageColors[it.key()].RecalcRGB();
-			pm.fill(doc->PageColors[it.key()].getRGBColor());
-			ColorMenC->insertItem(pm, it.key());
-			if (it.key() == doc->toolSettings.dBrush)
-				ColorMenC->setCurrentItem(a);
-			a++;
-			if (dia != NULL)
-				dia->setProgress(a);
-		}
-		connect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
+		updateColorMenu(dia);
 		for (uint c=0; c<doc->Items.count(); ++c)
 		{
 			PageItem *ite = doc->Items.at(c);
@@ -9789,4 +9703,31 @@ const bool ScribusApp::fileWatcherActive()
 	if (fileWatcher!=NULL)
 		return fileWatcher->isActive();
 	return false;
+}
+
+void ScribusApp::updateColorMenu(QProgressBar* progressBar)
+{
+	disconnect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
+	ColorMenC->clear();
+	ColorMenC->insertItem( tr("None"));
+	if (HaveDoc)
+	{
+		if (doc->toolSettings.dBrush == tr("None"))
+			ColorMenC->setCurrentItem(0);
+		int a = 1;
+		ColorList::Iterator itend=doc->PageColors.end();
+		for (ColorList::Iterator it = doc->PageColors.begin(); it != itend; ++it)
+		{
+			QColor rgb = doc->PageColors[it.key()].getRGBColor();
+			QPixmap *pm = getSmallPixmap(rgb);
+			ColorMenC->insertItem(*pm, it.key());
+			if (it.key() == doc->toolSettings.dBrush)
+				ColorMenC->setCurrentItem(a);
+			a++;
+			if (progressBar != NULL)
+				progressBar->setProgress(a);
+
+		}
+	}
+	connect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
 }

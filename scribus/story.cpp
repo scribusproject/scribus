@@ -171,7 +171,7 @@ SEditor::SEditor(QWidget* parent, ScribusDoc *docc) : QTextEdit(parent)
 	setTextFormat(Qt::PlainText);
 	viewport()->setAcceptDrops(false);
 	ClipData = 0;
-	UniCinp = false;
+	unicodeTextEditMode = false;
 	connect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(ClipChange()));
 	connect(QApplication::clipboard(), SIGNAL(selectionChanged()), this, SLOT(SelClipChange()));
 }
@@ -318,25 +318,25 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 		case NoButton:
 		case Keypad:
 		case ShiftButton:
-			if (UniCinp)
+			if (unicodeTextEditMode)
 			{
 				int conv = 0;
 				bool ok = false;
-				UniCinS += k->text();
-				conv = UniCinS.toInt(&ok, 16);
+				unicodeInputString += k->text();
+				conv = unicodeInputString.toInt(&ok, 16);
 				if (!ok)
 				{
-					UniCinp = false;
-					UniCinC = 0;
-					UniCinS = "";
+					unicodeTextEditMode = false;
+					unicodeInputCount = 0;
+					unicodeInputString = "";
 					return;
 				}
-				UniCinC++;
-				if (UniCinC == 4)
+				unicodeInputCount++;
+				if (unicodeInputCount == 4)
 				{
-					UniCinp = false;
-					UniCinC = 0;
-					UniCinS = "";
+					unicodeTextEditMode = false;
+					unicodeInputCount = 0;
+					unicodeInputString = "";
 					if (ok)
 					{
 						if (conv < 31)
@@ -367,9 +367,9 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 					wasMod = true;
 					break;
 				case Key_F12:
-					UniCinp = true;
-					UniCinC = 0;
-					UniCinS = "";
+					unicodeTextEditMode = true;
+					unicodeInputCount = 0;
+					unicodeInputString = "";
 					return;
 					break;
 				case Key_Delete:

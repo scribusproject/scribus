@@ -96,10 +96,10 @@ public:
 	QPtrList<PageItem> FrameItems;
 	QValueList<int> ParagStyles;
 	ScribusDoc* doc;
-	bool UniCinp;
+	bool unicodeTextEditMode;
 	bool wasMod;
 	bool ready;
-	int UniCinC;
+	int unicodeInputCount;
 	int CurrentStyle;
 	int currentParaStyle;
 	int CurrFontSize;
@@ -119,7 +119,7 @@ public:
 	QString CurrTextStroke;
 	QString CurrTextFill;
 	QString CurrFont;
-	QString UniCinS;
+	QString unicodeInputString;
 	QString tBuffer;
 	ChList cBuffer;
 	int ClipData;

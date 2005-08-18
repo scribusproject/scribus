@@ -223,9 +223,9 @@ public:
 	Autoforms* SCustom;
 	WerkToolB* mainToolBar;
 	int HavePngAlpha;
-	bool UniCinp;
-	int UniCinC;
-	QString UniCinS;
+	bool unicodeTextEditMode;
+	int unicodeInputCount;
+	QString unicodeInputString;
 
 	QMap<QString, QStringList> InstLang;
 	QMap<QString,QString> LangTransl;
@@ -504,6 +504,7 @@ private:
 	void initPalettes();
 	void initScrapbook();
 	void initCMS();
+	void updateColorMenu(QProgressBar* progressBar=NULL);
 
 	QString guiLanguage;
 	QString recentFileMenuName;

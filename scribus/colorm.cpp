@@ -58,7 +58,7 @@ Farbmanager::Farbmanager( QWidget* parent, ColorList doco, bool HDoc, QString Dc
 	ColorsGroup->layout()->setMargin( 11 );
 	Layout1 = new QVBoxLayout( ColorsGroup->layout() );
 	Layout1->setAlignment( Qt::AlignTop );
-	LoadF = new QPushButton( tr( "&Append" ), ColorsGroup, "LoadF" );
+	LoadF = new QPushButton( tr( "&Import" ), ColorsGroup, "LoadF" );
 	Layout1->addWidget( LoadF );
 	NewF = new QPushButton( tr( "&New" ), ColorsGroup, "NewF" );
 	Layout1->addWidget( NewF );
@@ -145,7 +145,7 @@ Farbmanager::Farbmanager( QWidget* parent, ColorList doco, bool HDoc, QString Dc
 		connect(DelU, SIGNAL( clicked() ), this, SLOT( delUnused() ) );
 		QToolTip::add( DelU, tr( "Remove unused colors from current document's color set" ) );
 	}
-	QToolTip::add( LoadF, tr( "Append colors to the current set from an existing document" ) );
+	QToolTip::add( LoadF, tr( "Import colors to the current set from an existing document" ) );
 	QToolTip::add( NewF, tr( "Create a new color within the current set" ) );
 	QToolTip::add( EditF, tr( "Edit the currently selected color" ) );
 	QToolTip::add( DupF, tr( "Make a copy of the currently selected color" ) );
