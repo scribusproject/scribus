@@ -3807,6 +3807,10 @@ ne morem shraniti. Napaka je bila:
         <source>Select the source file to load</source>
         <translation>Izberite datoteko s kodo</translation>
     </message>
+    <message>
+        <source>Python source files *(.py)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditStyle</name>
@@ -6751,7 +6755,7 @@ in nikoli več ne zahtevam potrditve</translation>
     </message>
     <message>
         <source>Enabling this will overwrite existing stlyes in the current Scribus document</source>
-        <translation>Če to vključite boste prepisali sloge trenutnega dokumenta v Scribusu</translation>
+        <translation type="obsolete">Če to vključite boste prepisali sloge trenutnega dokumenta v Scribusu</translation>
     </message>
     <message>
         <source>Merge Paragraph Styles</source>
@@ -6768,6 +6772,10 @@ in nikoli več ne zahtevam potrditve</translation>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
         <translation>Naj bodo te nastavitve privzete in ne sprašuj več ob uvažanju OASIS OpenDocument.</translation>
+    </message>
+    <message>
+        <source>Enabling this will overwrite existing styles in the current Scribus document</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6932,7 +6940,7 @@ Automatic allows Scribus to choose the best method.
 ZIP is good for images with solid colors.
 JPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).
 Leave it set to automatic, unless you have a need for special compression options.</source>
-        <translation>Vrsta stiskanja slik.
+        <translation type="obsolete">Vrsta stiskanja slik.
 Samodejno dovoli Scribusu, da sam izbere najboljši način.
 ZIP je uporabna za slike z barvnimi ploskvami.
 JPEG je boljši pri ustvarjanju majhnih PDFjev z mnogo slikami.
@@ -6949,7 +6957,7 @@ JPEG je boljši pri ustvarjanju majhnih PDFjev z mnogo slikami.
     <message>
         <source>Downsample your bitmap images to the selected DPI.
 Leaving this unchecked will render them at their native resolution.</source>
-        <translation>Pretvori slike na izbrano DPI resolucijo.
+        <translation type="obsolete">Pretvori slike na izbrano DPI resolucijo.
 Če tega ne izberete, bodo slike risane pri izvirni resoluciji.</translation>
     </message>
     <message>
@@ -7073,7 +7081,7 @@ Izberite Tiskalnik, za tiskanje s CMYK tiskalniki.</translation>
     <message>
         <source>Compression of text and graphics.
 Unless you have a reason, leave this checked. This reduces PDF size.</source>
-        <translation>Stiskanje besedila in slik.
+        <translation type="obsolete">Stiskanje besedila in slik.
 Če nimate dobrega razloga, raje pustite to vključeno, ker zmanjša velikost PDFja.</translation>
     </message>
     <message>
@@ -7158,7 +7166,7 @@ Nekateri pregledovalniki jih lahko uporabijo za pregledovanje.</translation>
         <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.
 Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.
 PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management.</source>
-        <translation>Določi združljivost PDF. Privzeta je naširše združljiva oblika Acrobat 4.
+        <translation type="obsolete">Določi združljivost PDF. Privzeta je naširše združljiva oblika Acrobat 4.
 Izberite Acrobat 5, če vaš dokument uproablja zmožnosti PDF-1.4, kot na
 primer prosojnosti, ali če potrebujete enkripcijo.
 PDF/X-3 se uporablja za pošiljanje v tiskarno, in je omogočeno le, če 
@@ -7525,6 +7533,25 @@ If un-checked, editing annotations and fields is prevented.</source>
     <message>
         <source>&lt;qt&gt;PDF security can not be used with PDF/X-3. If you want to turn on security, change your PDF version (compatibility level) to something other than PDF/X-3.&lt;/qt&gt;</source>
         <translation>&lt;qt&gt;Varnostne nastavitve niso mogoče z različico PDF/X-3. Če jih želite uporabiti, izberite kako druge različico PDF.&lt;/qt&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparencyor you require 128 bit encryption.PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activatedcolor management.Note: PDF/X-3 will convert all CMYK images to ICC based RGB colors.Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> Lossless compression of text and graphics.
+Unless you have a reason, leave this checked. This reduces PDF size.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Re-sample your bitmap images to the selected DPI.
+Leaving this unchecked will render them at their native resolution.
+This can increase memory usage and slow down export.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10510,6 +10537,15 @@ function&apos;s documentation.</source>
         <comment>python error</comment>
         <translation>Neznana barva</translation>
     </message>
+    <message>
+        <source>Normal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>page</source>
+        <comment>page export</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -12967,7 +13003,7 @@ in nikoli več ne zahtevam potrditve</translation>
     </message>
     <message>
         <source>Enabling this will overwrite existing stlyes in the current Scribus document</source>
-        <translation>Če to vključite boste prepisali sloge trenutnega dokumenta v Scribusu</translation>
+        <translation type="obsolete">Če to vključite boste prepisali sloge trenutnega dokumenta v Scribusu</translation>
     </message>
     <message>
         <source>Merge Paragraph Styles</source>
@@ -12984,6 +13020,10 @@ in nikoli več ne zahtevam potrditve</translation>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
         <translation>Naj bodo te nastavitve privzete in ne sprašuj več ob uvažanju dokumentov OpenOffice.org 1.x.</translation>
+    </message>
+    <message>
+        <source>Enabling this will overwrite existing styles in the current Scribus document</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -4598,6 +4598,10 @@ Fehler:
         <source>Select the source file to load</source>
         <translation>Wählen Sie den Quelltext aus</translation>
     </message>
+    <message>
+        <source>Python source files *(.py)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditStyle</name>
@@ -7876,7 +7880,7 @@ in der exportierten Datei aktiviert</translation>
         <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.
 Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.
 PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management.</source>
-        <translation>Legt die PDF-Kompatiblität fest. Standard ist Acrobat 4.0, weil das die größte Kompatiblität ermöglicht.
+        <translation type="obsolete">Legt die PDF-Kompatiblität fest. Standard ist Acrobat 4.0, weil das die größte Kompatiblität ermöglicht.
 Wählen Sie Acrobat 5.0, wenn Sie PDF 1.4-Funktionen wie Transparenz oder 128 bit-Verschlüsselung benötigen.
 PDF/X-3 ist gedacht für gewerbliche Druckereien und nur möglich, wenn Sie das Farb-Management aktiviert haben.</translation>
     </message>
@@ -7911,7 +7915,7 @@ Das beeinflusst nicht die Auflösung der Bitmap-Grafiken.</translation>
     <message>
         <source>Compression of text and graphics.
 Unless you have a reason, leave this checked. This reduces PDF size.</source>
-        <translation>Kompression von Text und Grafiken reduziert die Dateigröße.
+        <translation type="obsolete">Kompression von Text und Grafiken reduziert die Dateigröße.
 Nicht ohne Grund deaktivieren.
 </translation>
     </message>
@@ -7921,7 +7925,7 @@ Automatic allows Scribus to choose the best method.
 ZIP is good for images with solid colors.
 JPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).
 Leave it set to automatic, unless you have a need for special compression options.</source>
-        <translation>Kompressions-Methode für Bitmap-Bilder.
+        <translation type="obsolete">Kompressions-Methode für Bitmap-Bilder.
 Automatisch - Scribus wählt die beste Methode.
 ZIP - Gut für Bilder mit Farbflächen.
 JPEG - erzeugt kleinere PDF&apos;s bei Dokumenten mit viel Bildern ohne große Kompressionsverluste.
@@ -7930,7 +7934,7 @@ Braucht normalerweise nicht geändert werden.</translation>
     <message>
         <source>Downsample your bitmap images to the selected DPI.
 Leaving this unchecked will render them at their native resolution.</source>
-        <translation>Bitmap-Bilder neu mit gewählten DPI rendern.
+        <translation type="obsolete">Bitmap-Bilder neu mit gewählten DPI rendern.
 Ist die Option deaktiviert, wird die natürliche Auflösung der Bilder übernommen.</translation>
     </message>
     <message>
@@ -8323,6 +8327,25 @@ Wenn nicht aktiviert, können Sie Anmerkungen und Felder nicht bearbeiten.</tran
     <message>
         <source>&lt;qt&gt;PDF security can not be used with PDF/X-3. If you want to turn on security, change your PDF version (compatibility level) to something other than PDF/X-3.&lt;/qt&gt;</source>
         <translation>&lt;qt&gt;PDF/X-3 unterstützt keine Sicherheitsfunktionen. Sie müssen PDF/X-3 deaktiveren, wenn Sie Sicherheitsfunktionen nutzen wollen.&lt;/qt&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparencyor you require 128 bit encryption.PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activatedcolor management.Note: PDF/X-3 will convert all CMYK images to ICC based RGB colors.Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> Lossless compression of text and graphics.
+Unless you have a reason, leave this checked. This reduces PDF size.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Re-sample your bitmap images to the selected DPI.
+Leaving this unchecked will render them at their native resolution.
+This can increase memory usage and slow down export.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11495,6 +11518,15 @@ Details zu den Fehlern der einzelnen Funktionen finden Sie in der Funktionsbesch
     <message>
         <source>Croatian</source>
         <translation>Kroatisch</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation type="unfinished">Normal</translation>
+    </message>
+    <message>
+        <source>page</source>
+        <comment>page export</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
