@@ -66,7 +66,7 @@ About::About( QWidget* parent )
 	tabLayout1->addWidget( PixmapLabel1 );
 	BuildID = new QLabel( tab, "BB" );
 	BuildID->setAlignment(Qt::AlignCenter);
-	QString bu = tr("%1 %2 %3 ").arg("15").arg("August").arg("2005");
+	QString bu = tr("%1 %2 %3 ").arg("19").arg("August").arg("2005");
 #ifdef HAVE_CMS
 	bu += "C";
 #else
@@ -112,7 +112,7 @@ About::About( QWidget* parent )
 										"<tr><td>Maciej Hański</td><td>m.hanski@gmx.at</td></tr>" +
 										"<tr><td>Oleksandr Moskalenko</td><td>malex@tagancha.org</td></tr>" +
 										"<tr><td>Marti Maria</td><td></td></tr>" +
-										"<tr><td>Alexandre Prokoudine</td><td>techwriter@land.ru</td></tr>"
+										"<tr><td>Alexandre Prokoudine</td><td>alexandre.prokoudine@gmail.com</td></tr>"
 										"<tr><td>Alessandro Rimoldi</td><td>http://ideale.ch/contact</td></tr>" +
 										"<tr><td>Alastair Robinson</td><td>blackfive@fakenhamweb.co.uk</td></tr>" +
 										"<tr><td>Johannes Rüschel</td><td>jo.rueschel@gmx.de</td></tr>" +
@@ -197,7 +197,7 @@ About::About( QWidget* parent )
                                           "<tr><td>Frederico Gon&#231;alves</td><td></td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +	
 	                                      "<tr><td><b>" + tr("Russian:").utf8()  + "</b></td><td></td></tr>" +
-	                                      "<tr><td>Alexandre Prokoudine</td><td>techwriter@land.ru</td></tr>" +
+	                                      "<tr><td>Alexandre Prokoudine</td><td>alexandre.prokoudine@gmail.com</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +
 	                                      "<tr><td><b>" + tr("Serbian:").utf8()  + "</b></td><td></td></tr>" +
 	                                      "<tr><td>Bojan Božovi&#263;</td><td>bole89@infosky.net</td></tr>" +
