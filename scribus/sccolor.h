@@ -97,6 +97,7 @@ public:
  * or #RRGGBB */
 	void setNamedColor(QString nam);
 	void RecalcRGB();
+	bool isOutOfGamut();
 
 private:
 /** Cyan-Component of Color */
@@ -128,6 +129,9 @@ private:
 
 /** Color model of the current color */
 	colorModel Model;
+
+/** Flag, true if out of Gamut */
+	bool outOfGamutFlag;
 };
 
 #endif

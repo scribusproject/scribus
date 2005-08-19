@@ -24,7 +24,7 @@
 #include <qwidgetstack.h>
 #include <qlistbox.h>
 
-class CMYKcolor;
+class ScColor;
 #include "scribusapi.h"
 #include "colorchart.h"
 #include "mspinbox.h"
@@ -75,6 +75,7 @@ public:
 	MSpinBox* BlackSp;
 	QPixmap imageA;
 	QPixmap imageN;
+	QPixmap alertIcon;
 	ScColor Farbe;
 	bool CMYKmode;
 	bool Wsave;

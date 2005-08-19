@@ -47,6 +47,7 @@ QPointArray SCRIBUS_API RegularPolygon(double w, double h, uint c, bool star, do
 FPointArray SCRIBUS_API RegularPolygonF(double w, double h, uint c, bool star, double factor, double rota);
 QPixmap SCRIBUS_API *getSmallPixmap(QColor rgb);
 QPixmap SCRIBUS_API *getWidePixmap(QColor rgb);
+void SCRIBUS_API paintAlert(QPixmap &toPaint, QPixmap &target);
 QPixmap SCRIBUS_API loadIcon(QString nam);
 uint SCRIBUS_API getDouble(QString in, bool raw);
 bool SCRIBUS_API loadText(QString nam, QString *Buffer);

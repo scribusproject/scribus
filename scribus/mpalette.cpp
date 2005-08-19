@@ -3010,7 +3010,10 @@ void Mpalette::updateCList()
 	TxStroke->insertItem( tr("None"));
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 	{
-		QColor rgb = doc->PageColors[it.key()].getRGBColor();
+		int r, g, b;
+		doc->PageColors[it.key()].getRGB(&r, &g, &b);
+		QColor rgb = QColor(r, g, b);
+//		QColor rgb = doc->PageColors[it.key()].getRGBColor();
 		QPixmap * pm = getSmallPixmap(rgb);
 		TxFill->insertItem(*pm, it.key());
 		TxStroke->insertItem(*pm, it.key());

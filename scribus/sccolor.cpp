@@ -39,18 +39,21 @@ ScColor::ScColor()
 {
 	setColor(0, 0, 0, 0);
 	Spot = false;
+	outOfGamutFlag = false;
 }
 
 ScColor::ScColor(int c, int m, int y, int k)
 {
 	setColor(c, m, y, k);
 	Spot = false;
+	outOfGamutFlag = false;
 }
  
 ScColor::ScColor(int r, int g, int b)
 {
 	setColorRGB(r, g, b);
 	Spot = false;
+	outOfGamutFlag = false;
 }
 
 void ScColor::setColor(int c, int m, int y, int k)
@@ -265,8 +268,14 @@ void ScColor::setNamedColor(QString name)
 	}
 }
 
+bool ScColor::isOutOfGamut()
+{
+	return outOfGamutFlag;
+}
+
 void ScColor::RecalcRGB()
 {
+	outOfGamutFlag = false;
 #ifdef HAVE_CMS
 	WORD inC[4];
 	WORD outC[4];
@@ -332,6 +341,7 @@ void ScColor::RecalcRGB()
 #ifdef HAVE_CMS
 	if (CMSuse && CMSavail && SoftProofing)
 	{
+		bool alert = true;
 		cmsHTRANSFORM xformProof;
 		if (Model == colorModelRGB)
 		{
@@ -339,6 +349,8 @@ void ScColor::RecalcRGB()
 			inC[1] = G*257;
 			inC[2] = B*257;
 			xformProof = stdProofG;
+			if ((R == 0) && (B == 0) && (G == 255))
+				alert = false;
 		}
 		else
 		{
@@ -347,9 +359,15 @@ void ScColor::RecalcRGB()
 			inC[2] = Y*257;
 			inC[3] = K*257;
 			xformProof = stdProofCMYKG;
+			if ((M == 0) && (K == 0) && (C == 255) && (C == 255))
+				alert = false;
 		}
 		cmsDoTransform(xformProof, inC, outC, 1);
 		RGB = QColor(outC[0]/257, outC[1]/257, outC[2]/257);
+		int r, g, b;
+		RGB.getRgb(&r, &g, &b);
+		if ((alert) && ((r == 0) && (g == 255) & (b == 0)))
+			outOfGamutFlag = true;
 	}
 	else
 #endif

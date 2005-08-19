@@ -1145,6 +1145,14 @@ QPixmap * getWidePixmap(QColor rgb)
 	return pm;
 }
 
+void paintAlert(QPixmap &toPaint, QPixmap &target)
+{
+	QPainter p;
+	p.begin(&target);
+	p.drawPixmap(0, 0, toPaint);
+	p.end();
+}
+
 FPoint getMaxClipF(FPointArray* Clip)
 {
 	FPoint np, rp;

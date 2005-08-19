@@ -392,7 +392,7 @@ void PPreview::ToggleCMYK_Colour()
 int PPreview::RenderPreview(int Seite, int Res)
 {
 	bool ret = -1;
-	QString cmd1, cmd2;
+	QString cmd1, cmd2, cmd3;
 	QMap<QString,QFont> ReallyUsed;
 	// Recreate Postscript-File only when the actual Page has changed
 	if ((Seite != APage)  || (EnableGCR->isChecked() != GMode))
@@ -472,9 +472,10 @@ int PPreview::RenderPreview(int Seite, int Res)
 		cmd1 += QString(";\"%1\"").arg(extraFonts->get(i,0));
 #endif
 	// then add any final args and call gs
-	cmd1 += " -sOutputFile="+app->PrefsPfad+"/sc.png ";
-	cmd2 = " -c showpage -c quit";
-	ret = system(cmd1 + app->PrefsPfad+"/tmp.ps" + cmd2);
+	cmd1 += " -sOutputFile=\"" + QDir::convertSeparators(app->PrefsPfad+"/sc.png") + "\" ";
+	cmd2 = "\"" + QDir::convertSeparators(app->PrefsPfad+"/tmp.ps") + "\"";
+	cmd3 = " -c showpage -c quit";
+	ret = system(cmd1 + cmd2 + cmd3);
 	return ret;
 }
 

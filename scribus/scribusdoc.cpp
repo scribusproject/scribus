@@ -466,6 +466,7 @@ void ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo)
 	}
 	// set Gamut alarm color to #00ff00
 	cmsSetAlarmCodes(0, 255, 0);
+	cmsErrorAction(LCMS_ERROR_SHOW);
 	stdProof = cmsCreateProofingTransform(DocInputProf, TYPE_RGB_16,
 	                                      DocOutputProf, TYPE_RGB_16,
 	                                      DocPrinterProf,

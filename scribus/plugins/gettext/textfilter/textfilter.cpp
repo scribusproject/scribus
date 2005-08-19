@@ -66,7 +66,7 @@ void TextFilter::loadText()
 		f.readBlock(bb.data(), f.size());
 		f.close();
 		for (posi = 0; posi < bb.size(); ++posi)
-			text += bb[posi];
+			text += QChar(bb[posi]);
 	}
 }
 

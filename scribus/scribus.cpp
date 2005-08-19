@@ -8686,6 +8686,11 @@ void ScribusApp::RecalcColors(QProgressBar *dia)
 			doc->MasterPages = doc->Pages;
 		else
 			doc->DocPages = doc->Pages;
+		ColorList::Iterator it;
+		for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
+		{
+			doc->PageColors[it.key()].RecalcRGB();
+		}
 		updateColorMenu(dia);
 		for (uint c=0; c<doc->Items.count(); ++c)
 		{
@@ -9717,7 +9722,10 @@ void ScribusApp::updateColorMenu(QProgressBar* progressBar)
 		ColorList::Iterator itend=doc->PageColors.end();
 		for (ColorList::Iterator it = doc->PageColors.begin(); it != itend; ++it)
 		{
-			QColor rgb = doc->PageColors[it.key()].getRGBColor();
+			int r, g, b;
+			doc->PageColors[it.key()].getRGB(&r, &g, &b);
+			QColor rgb = QColor(r, g, b);
+//			QColor rgb = doc->PageColors[it.key()].getRGBColor();
 			QPixmap *pm = getSmallPixmap(rgb);
 			ColorMenC->insertItem(*pm, it.key());
 			if (it.key() == doc->toolSettings.dBrush)
