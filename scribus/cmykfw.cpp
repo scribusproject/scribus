@@ -16,8 +16,7 @@ extern bool SoftProofing;
 extern bool Gamut;
 extern bool CMSuse;
 #endif
-extern QPixmap loadIcon(QString nam);
-extern void paintAlert(QPixmap &toPaint, QPixmap &target, int x = 0, int y = 0);
+#include "util.h"
 
 CMYKChoose::CMYKChoose( QWidget* parent, ScColor orig, QString name, ColorList *Colors, QStringList Cust  )
 		: QDialog( parent, "fw", true, 0 )

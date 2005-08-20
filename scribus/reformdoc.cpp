@@ -904,6 +904,7 @@ void ReformDoc::updateDocumentSettings()
 																tabHyphenator->maxCount->value());
 	if (CMSavail)
 	{
+		bool oldCM = currDoc->CMSSettings.CMSinUse;
 		tabColorManagement->setValues();
 		if (tabColorManagement->changed)
 		{
@@ -924,7 +925,10 @@ void ReformDoc::updateDocumentSettings()
 			IntentPrinter = currDoc->CMSSettings.DefaultIntentPrinter;
 			IntentMonitor = currDoc->CMSSettings.DefaultIntentMonitor;
 			qApp->setOverrideCursor(QCursor(waitCursor), true);
+			bool newCM = currDoc->CMSSettings.CMSinUse;
+			currDoc->CMSSettings.CMSinUse = oldCM;
 			currDoc->CloseCMSProfiles();
+			currDoc->CMSSettings.CMSinUse = newCM;
 			currDoc->OpenCMSProfiles(ScApp->InputProfiles, ScApp->MonitorProfiles, ScApp->PrinterProfiles);
 			stdProofG = currDoc->stdProof;
 			stdTransG = currDoc->stdTrans;

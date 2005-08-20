@@ -629,6 +629,10 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 					lf.setNamedColor(pg.attribute("CMYK"));
 				else
 					lf.fromQColor(QColor(pg.attribute("RGB")));
+				if (pg.hasAttribute("Spot"))
+					lf.setSpotColor(static_cast<bool>(pg.attribute("Spot")));
+				else
+					lf.setSpotColor(false);
 			  doc->PageColors[pg.attribute("NAME")] = lf;
 			}
 			if(pg.tagName()=="STYLE")

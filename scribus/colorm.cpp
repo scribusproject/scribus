@@ -26,8 +26,8 @@
 #include "scpaths.h"
 
 #include "scconfig.h"
+#include "util.h"
 
-extern QPixmap loadIcon(QString nam);
 extern ScribusApp* ScApp;
 
 Farbmanager::Farbmanager( QWidget* parent, ColorList doco, bool HDoc, QString DcolSet, QStringList Cust )
@@ -493,6 +493,7 @@ void Farbmanager::selEditFarbe(QListBoxItem *c)
 
 void Farbmanager::updateCList()
 {
+	QPixmap alertIcon = loadIcon("alert.png");
 	ListBox1->clear();
 	ColorList::Iterator it;
 	QPixmap pm = QPixmap(30, 15);
@@ -502,6 +503,9 @@ void Farbmanager::updateCList()
 		if (it.key() != "None" && it.key() != tr("None"))
 		{
 			pm.fill(EditColors[it.key()].getRawRGBColor());
+			EditColors[it.key()].checkGamut();
+			if (EditColors[it.key()].isOutOfGamut())
+				paintAlert(alertIcon, pm, 0, 0);
 			ListBox1->insertItem(pm, it.key());
 		}
 	}

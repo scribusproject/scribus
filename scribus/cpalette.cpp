@@ -36,10 +36,7 @@
 #include "gradienteditor.h"
 #include "units.h"
 #include "page.h"
-
-
-extern QPixmap loadIcon(QString nam);
-extern QPixmap * getWidePixmap(QColor rgb);
+#include "util.h"
 
 Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 {
@@ -222,6 +219,7 @@ void Cpalette::SetColors(ColorList newColorList)
 
 void Cpalette::updateCList()
 {
+	QPixmap alertIcon = loadIcon("alert.png");
 	disconnect(colorListQLBox, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));
 	disconnect(colorListQLBox, SIGNAL(selected(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));
 	colorListQLBox->clear();
@@ -231,6 +229,9 @@ void Cpalette::updateCList()
 	for (it = colorList.begin(); it != colorList.end(); ++it)
 	{
 		QPixmap * pm = getWidePixmap(colorList[it.key()].getRawRGBColor());
+		colorList[it.key()].checkGamut();
+		if (colorList[it.key()].isOutOfGamut())
+			paintAlert(alertIcon, *pm, 0, 0);
 		colorListQLBox->insertItem(*pm, it.key());
 	}
 	colorListQLBox->setSelected(colorListQLBox->currentItem(), false);

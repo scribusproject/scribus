@@ -306,7 +306,7 @@ void ScColor::checkGamut()
 			inC[2] = Y*257;
 			inC[3] = K*257;
 			xformProof = stdProofCMYKGCG;
-			if ((M == 0) && (K == 0) && (C == 255) && (C == 255))
+			if ((M == 0) && (K == 0) && (C == 255) && (Y == 255))
 				alert = false;
 		}
 		cmsDoTransform(xformProof, inC, outC, 1);
@@ -402,7 +402,7 @@ void ScColor::RecalcRGB()
 			inC[2] = Y*257;
 			inC[3] = K*257;
 			xformProof = stdProofCMYKG;
-			if ((M == 0) && (K == 0) && (C == 255) && (C == 255))
+			if ((M == 0) && (K == 0) && (C == 255) && (Y == 255))
 				alert = false;
 		}
 		cmsDoTransform(xformProof, inC, outC, 1);
@@ -417,4 +417,14 @@ void ScColor::RecalcRGB()
 	{
 		RGB = QColor(R, G, B);
 	}
+}
+
+bool ScColor::isSpotColor()
+{
+	return Spot;
+}
+
+void ScColor::setSpotColor(bool s)
+{
+	Spot = s;
 }

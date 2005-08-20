@@ -2473,19 +2473,8 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 	connect(view, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
 
 	//	connect(w, SIGNAL(SaveAndClose()), this, SLOT(DoSaveClose()));
-	if (CMSavail)
-	{
-#ifdef HAVE_CMS
-		CMSuse = prefsManager->appPrefs.DCMSset.CMSinUse;
-		SoftProofing = prefsManager->appPrefs.DCMSset.SoftProofOn;
-		Gamut = prefsManager->appPrefs.DCMSset.GamutCheck;
-		BlackPoint = prefsManager->appPrefs.DCMSset.BlackPoint;
-		IntentPrinter = prefsManager->appPrefs.DCMSset.DefaultIntentPrinter;
-		IntentMonitor = prefsManager->appPrefs.DCMSset.DefaultIntentMonitor;
-#endif
-		if (prefsManager->appPrefs.DCMSset.CMSinUse)
-			RecalcColors();
-	}
+	if ((CMSavail) && (doc->CMSSettings.CMSinUse))
+		RecalcColors();
 	doc->setPage(width, h, tpr, lr, rr, br, sp, ab, atf, fp);
 	doc->setLoading(false);
 	slotNewPage(0);
@@ -9728,18 +9717,13 @@ void ScribusApp::updateColorMenu(QProgressBar* progressBar)
 		ColorList::Iterator itend=doc->PageColors.end();
 		for (ColorList::Iterator it = doc->PageColors.begin(); it != itend; ++it)
 		{
-			int r, g, b;
-			doc->PageColors[it.key()].getRGB(&r, &g, &b);
-			QColor rgb = QColor(r, g, b);
-//			QColor rgb = doc->PageColors[it.key()].getRGBColor();
-			QPixmap *pm = getSmallPixmap(rgb);
+			QPixmap *pm = getSmallPixmap(doc->PageColors[it.key()].getRawRGBColor());
 			ColorMenC->insertItem(*pm, it.key());
 			if (it.key() == doc->toolSettings.dBrush)
 				ColorMenC->setCurrentItem(a);
 			a++;
 			if (progressBar != NULL)
 				progressBar->setProgress(a);
-
 		}
 	}
 	connect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));

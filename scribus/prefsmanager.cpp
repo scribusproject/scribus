@@ -1020,6 +1020,7 @@ void PrefsManager::WritePref(QString ho)
 		co.setAttribute("NAME",itc.key());
 		co.setAttribute("RGB",appPrefs.DColors[itc.key()].getRGBColor().name());
 		co.setAttribute("CMYK",appPrefs.DColors[itc.key()].name());
+		co.setAttribute("Spot",static_cast<int>(appPrefs.DColors[itc.key()].isSpotColor()));
 		elem.appendChild(co);
 	}
 	for ( SCFontsIterator itf(appPrefs.AvailFonts); itf.current(); ++itf)
@@ -1492,6 +1493,10 @@ bool PrefsManager::ReadPref(QString ho)
 				lf.setNamedColor(dc.attribute("CMYK"));
 			else
 				lf.fromQColor(QColor(dc.attribute("RGB")));
+			if (dc.hasAttribute("Spot"))
+				lf.setSpotColor(static_cast<bool>(dc.attribute("Spot")));
+			else
+				lf.setSpotColor(false);
 		  appPrefs.DColors[dc.attribute("NAME")] = lf;
 		}
 		if (dc.tagName()=="Substitute")

@@ -100,6 +100,8 @@ public:
 	void RecalcRGB();
 	bool isOutOfGamut();
 	void checkGamut();
+	bool isSpotColor();
+	void setSpotColor(bool s);
 
 private:
 /** Cyan-Component of Color */

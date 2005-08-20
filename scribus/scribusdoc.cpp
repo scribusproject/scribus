@@ -388,7 +388,7 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 	IntentMonitor = CMSSettings.DefaultIntentMonitor;
 	BlackPoint = CMSSettings.BlackPoint;
 	
-	if (CMSavail)
+	if ((CMSavail) && (CMSSettings.CMSinUse))
 	{
 #ifdef HAVE_CMS
 		OpenCMSProfiles(ScApp->InputProfiles, ScApp->MonitorProfiles, ScApp->PrinterProfiles);
@@ -433,18 +433,21 @@ const bool ScribusDoc::isLoading()
 void ScribusDoc::CloseCMSProfiles()
 {
 #ifdef HAVE_CMS
-	cmsCloseProfile(DocInputProf);
-	cmsCloseProfile(DocOutputProf);
-	cmsCloseProfile(DocPrinterProf);
-	cmsDeleteTransform(stdTrans);
-	cmsDeleteTransform(stdProof);
-	cmsDeleteTransform(stdTransImg);
-	cmsDeleteTransform(stdProofImg);
-	cmsDeleteTransform(stdTransCMYK);
-	cmsDeleteTransform(stdProofCMYK);
-	cmsDeleteTransform(stdTransRGB);
-	cmsDeleteTransform(stdProofCMYKGC);
-	cmsDeleteTransform(stdProofGC);
+	if ((CMSavail) && (CMSSettings.CMSinUse))
+	{
+		cmsCloseProfile(DocInputProf);
+		cmsCloseProfile(DocOutputProf);
+		cmsCloseProfile(DocPrinterProf);
+		cmsDeleteTransform(stdTrans);
+		cmsDeleteTransform(stdProof);
+		cmsDeleteTransform(stdTransImg);
+		cmsDeleteTransform(stdProofImg);
+		cmsDeleteTransform(stdTransCMYK);
+		cmsDeleteTransform(stdProofCMYK);
+		cmsDeleteTransform(stdTransRGB);
+		cmsDeleteTransform(stdProofCMYKGC);
+		cmsDeleteTransform(stdProofGC);
+	}
 #endif
 }
 
