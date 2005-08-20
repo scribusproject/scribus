@@ -27,6 +27,7 @@
 			<submenuitem text="Hyphenation" file="hyphenator.html"/>
 			<submenuitem text="Font Setup" file="fonts1.html"/>
 			<submenuitem text="Fonts in Depth" file="fonts2.html"/>
+			<submenuitem text="GS Fonts" file="gsfont.html"/>
 			<submenuitem text="Non-Latin Fonts" file="fonts3.html"/>
 			<submenuitem text="Basic Font Tests" file="fonts4.html"/>
 			<submenuitem text="Basic Font Tests 2" file="fonts5.html"/>
@@ -70,7 +71,6 @@
 			<submenuitem text="Ghostscript" file="toolbox5.html"/>
 			<submenuitem text="GSview" file="toolbox6.html"/>
 			<submenuitem text="Advanced Ghostscript &amp; GSView" file="toolbox7.html"/>
-			<submenuitem text="GS Fonts" file="gsfont.html"/>
 			<submenuitem text="Imagemagick" file="toolbox8.html"/>
 			<submenuitem text="Inkscape" file="toolbox9.html"/>
 			<submenuitem text="KSnapshot" file="toolbox10.html"/>
