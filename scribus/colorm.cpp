@@ -501,9 +501,7 @@ void Farbmanager::updateCList()
 		// if condition 10/21/2004 pv #1191
 		if (it.key() != "None" && it.key() != tr("None"))
 		{
-			int r, g, b;
-			EditColors[it.key()].getRGB(&r, &g, &b);
-			pm.fill(QColor(r, g, b));
+			pm.fill(EditColors[it.key()].getRawRGBColor());
 			ListBox1->insertItem(pm, it.key());
 		}
 	}

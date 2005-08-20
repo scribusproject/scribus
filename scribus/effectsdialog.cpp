@@ -73,7 +73,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	QPixmap pm = QPixmap(15, 15);
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 	{
-		pm.fill(doc->PageColors[it.key()].getRGBColor());
+		pm.fill(doc->PageColors[it.key()].getRawRGBColor());
 		colData->insertItem(pm, it.key());
 	}
 	layout17->addWidget( colData );

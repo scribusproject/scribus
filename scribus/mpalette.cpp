@@ -2947,16 +2947,16 @@ void Mpalette::SetLineFormats(ScribusDoc *dd)
 			multiLine ml = it.data();
 			for (int its = ml.size()-1; its > -1; its--)
 			{
-				dd->PageColors[ml[its].Color].getRGBColor().rgb(&h, &s, &v);
+				dd->PageColors[ml[its].Color].getRawRGBColor().rgb(&h, &s, &v);
 				if ((h == s) && (s == v))
 				{
-					dd->PageColors[ml[its].Color].getRGBColor().hsv(&h, &s, &v);
+					dd->PageColors[ml[its].Color].getRawRGBColor().hsv(&h, &s, &v);
 					sneu = 255 - ((255 - v) * ml[its].Shade / 100);
 					tmpf.setHsv(h, s, sneu);
 				}
 				else
 				{
-					dd->PageColors[ml[its].Color].getRGBColor().hsv(&h, &s, &v);
+					dd->PageColors[ml[its].Color].getRawRGBColor().hsv(&h, &s, &v);
 					sneu = s * ml[its].Shade / 100;
 					tmpf.setHsv(h, sneu, v);
 				}
@@ -3009,11 +3009,7 @@ void Mpalette::updateCList()
 	TxStroke->insertItem( tr("None"));
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 	{
-		int r, g, b;
-		doc->PageColors[it.key()].getRGB(&r, &g, &b);
-		QColor rgb = QColor(r, g, b);
-//		QColor rgb = doc->PageColors[it.key()].getRGBColor();
-		QPixmap * pm = getSmallPixmap(rgb);
+		QPixmap * pm = getSmallPixmap(doc->PageColors[it.key()].getRawRGBColor());
 		TxFill->insertItem(*pm, it.key());
 		TxStroke->insertItem(*pm, it.key());
 	}

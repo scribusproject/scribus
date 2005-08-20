@@ -159,6 +159,8 @@ cmsHTRANSFORM stdProofImgG;
 cmsHTRANSFORM stdTransCMYKG;
 cmsHTRANSFORM stdProofCMYKG;
 cmsHTRANSFORM stdTransRGBG;
+cmsHTRANSFORM stdProofGCG;
+cmsHTRANSFORM stdProofCMYKGCG;
 bool BlackPoint;
 bool SoftProofing;
 bool Gamut;
@@ -2732,6 +2734,8 @@ void ScribusApp::SwitchWin()
 	stdProofCMYKG = doc->stdProofCMYK;
 	stdTransCMYKG = doc->stdTransCMYK;
 	stdTransRGBG = doc->stdTransRGB;
+	stdProofGCG = doc->stdProofGC;
+	stdProofCMYKGCG = doc->stdProofCMYKGC;
 	CMSoutputProf = doc->DocOutputProf;
 	CMSprinterProf = doc->DocPrinterProf;
 	CMSuse = doc->CMSSettings.CMSinUse;
@@ -3986,6 +3990,8 @@ bool ScribusApp::loadDoc(QString fileName)
 			stdProofCMYKG = doc->stdProofCMYK;
 			stdTransCMYKG = doc->stdTransCMYK;
 			stdTransRGBG = doc->stdTransRGB;
+			stdProofGCG = doc->stdProofGC;
+			stdProofCMYKGCG = doc->stdProofCMYKGC;
 			CMSoutputProf = doc->DocOutputProf;
 			CMSprinterProf = doc->DocPrinterProf;
 			if (static_cast<int>(cmsGetColorSpace(doc->DocInputProf)) == icSigRgbData)

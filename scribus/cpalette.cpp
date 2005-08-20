@@ -230,11 +230,7 @@ void Cpalette::updateCList()
 		colorListQLBox->insertItem( tr("None"));
 	for (it = colorList.begin(); it != colorList.end(); ++it)
 	{
-		int r, g, b;
-		colorList[it.key()].getRGB(&r, &g, &b);
-		QColor rgb = QColor(r, g, b);
-//		QColor rgb = colorList[it.key()].getRGBColor();
-		QPixmap * pm = getWidePixmap(rgb);
+		QPixmap * pm = getWidePixmap(colorList[it.key()].getRawRGBColor());
 		colorListQLBox->insertItem(*pm, it.key());
 	}
 	colorListQLBox->setSelected(colorListQLBox->currentItem(), false);

@@ -1145,11 +1145,11 @@ QPixmap * getWidePixmap(QColor rgb)
 	return pm;
 }
 
-void paintAlert(QPixmap &toPaint, QPixmap &target)
+void paintAlert(QPixmap &toPaint, QPixmap &target, int x, int y)
 {
 	QPainter p;
 	p.begin(&target);
-	p.drawPixmap(0, 0, toPaint);
+	p.drawPixmap(x, y, toPaint);
 	p.end();
 }
 

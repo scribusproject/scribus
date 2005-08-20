@@ -52,7 +52,7 @@ DelColor::DelColor( QWidget* parent, ColorList colorList, QString colorName, boo
 		replacementColData->insertItem( tr("None")); /* 10/26/2004 pv - user can replace deleted color with "None"  */
 		for (it = colorList.begin(); it != colorList.end(); ++it)
 		{
-			pm.fill(colorList[it.key()].getRGBColor());
+			pm.fill(colorList[it.key()].getRawRGBColor());
 			replacementColData->insertItem(pm, it.key());
 		}
     	delColorLayout->addWidget( replacementColData, 1, 1 );

@@ -44,6 +44,8 @@ extern cmsHTRANSFORM stdProofImgG;
 extern cmsHTRANSFORM stdTransCMYKG;
 extern cmsHTRANSFORM stdProofCMYKG;
 extern cmsHTRANSFORM stdTransRGBG;
+extern cmsHTRANSFORM stdProofGCG;
+extern cmsHTRANSFORM stdProofCMYKGCG;
 extern bool BlackPoint;
 extern bool SoftProofing;
 extern bool Gamut;
@@ -397,6 +399,8 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 		stdProofCMYKG = stdProofCMYK;
 		stdTransCMYKG = stdTransCMYK;
 		stdTransRGBG = stdTransRGB;
+		stdProofGCG = stdProofGC;
+		stdProofCMYKGCG = stdProofCMYKGC;
 		CMSoutputProf = DocOutputProf;
 		CMSprinterProf = DocPrinterProf;
 		if (static_cast<int>(cmsGetColorSpace(DocInputProf)) == icSigRgbData)
@@ -439,6 +443,8 @@ void ScribusDoc::CloseCMSProfiles()
 	cmsDeleteTransform(stdTransCMYK);
 	cmsDeleteTransform(stdProofCMYK);
 	cmsDeleteTransform(stdTransRGB);
+	cmsDeleteTransform(stdProofCMYKGC);
+	cmsDeleteTransform(stdProofGC);
 #endif
 }
 
@@ -454,11 +460,12 @@ void ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo)
 		return;
 	}
 	int dcmsFlags = 0;
-	int dcmsFlags2 = cmsFLAGS_NOTPRECALC;
+	int dcmsFlags2 = 0;
+	dcmsFlags |= cmsFLAGS_LOWRESPRECALC;
+	dcmsFlags2 |= cmsFLAGS_LOWRESPRECALC;
+//	int dcmsFlags2 = cmsFLAGS_NOTPRECALC;
 	if (CMSSettings.GamutCheck)
 		dcmsFlags |= cmsFLAGS_GAMUTCHECK;
-	if (CMSSettings.SoftProofOn)
-		dcmsFlags |= cmsFLAGS_SOFTPROOFING;
 	if (CMSSettings.BlackPoint)
 	{
 		dcmsFlags2 |= cmsFLAGS_BLACKPOINTCOMPENSATION;
@@ -471,7 +478,12 @@ void ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo)
 	                                      DocOutputProf, TYPE_RGB_16,
 	                                      DocPrinterProf,
 	                                      IntentPrinter,
-	                                      IntentMonitor, dcmsFlags);
+	                                      IntentMonitor, dcmsFlags | cmsFLAGS_SOFTPROOFING);
+	stdProofGC = cmsCreateProofingTransform(DocInputProf, TYPE_RGB_16,
+	                                      DocOutputProf, TYPE_RGB_16,
+	                                      DocPrinterProf,
+	                                      IntentPrinter,
+	                                      IntentMonitor, dcmsFlags | cmsFLAGS_SOFTPROOFING | cmsFLAGS_GAMUTCHECK);
 	stdTrans = cmsCreateTransform(DocInputProf, TYPE_RGB_16,
 	                              DocOutputProf, TYPE_RGB_16,
 	                              IntentMonitor,
@@ -480,7 +492,7 @@ void ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo)
 	              DocOutputProf, TYPE_RGBA_8,
 	              DocPrinterProf,
 	              IntentPrinter,
-	              IntentMonitor, dcmsFlags);
+	              IntentMonitor, dcmsFlags | cmsFLAGS_SOFTPROOFING);
 	stdTransImg = cmsCreateTransform(DocInputProf, TYPE_RGBA_8,
 	                                DocOutputProf, TYPE_RGBA_8,
 	                                 IntentMonitor,
@@ -491,7 +503,12 @@ void ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo)
 							DocOutputProf, TYPE_RGB_16,
 							DocPrinterProf,
 							IntentPrinter,
-							IntentMonitor, dcmsFlags);
+							IntentMonitor, dcmsFlags | cmsFLAGS_SOFTPROOFING);
+		stdProofCMYKGC = cmsCreateProofingTransform(DocPrinterProf, TYPE_CMYK_16,
+							DocOutputProf, TYPE_RGB_16,
+							DocPrinterProf,
+							IntentPrinter,
+							IntentMonitor, dcmsFlags | cmsFLAGS_SOFTPROOFING | cmsFLAGS_GAMUTCHECK);
 		stdTransCMYK = cmsCreateTransform(DocInputProf, TYPE_RGB_16,
 						DocPrinterProf, TYPE_CMYK_16,
 						IntentPrinter,
@@ -507,7 +524,12 @@ void ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo)
 							DocOutputProf, TYPE_RGB_16,
 							DocPrinterProf,
 							IntentPrinter,
-							IntentMonitor, dcmsFlags);
+							IntentMonitor, dcmsFlags | cmsFLAGS_SOFTPROOFING);
+		stdProofCMYKGC = cmsCreateProofingTransform(DocPrinterProf, TYPE_RGB_16,
+							DocOutputProf, TYPE_RGB_16,
+							DocPrinterProf,
+							IntentPrinter,
+							IntentMonitor, dcmsFlags | cmsFLAGS_SOFTPROOFING | cmsFLAGS_GAMUTCHECK);
 		stdTransCMYK = cmsCreateTransform(DocInputProf, TYPE_RGB_16,
 						DocPrinterProf, TYPE_RGB_16,
 						IntentPrinter,

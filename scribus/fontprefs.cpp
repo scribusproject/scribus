@@ -280,7 +280,7 @@ void FontPrefs::writePaths()
 	PrefsContext *fontPrefsContext = PrefsManager::instance()->prefsFile->getContext("Fonts");
 	PrefsTable *fontPathTable = fontPrefsContext->getTable("ExtraFontDirs");
 	fontPathTable->clear();
-	for (int i = 0; i < PathList->count(); ++i)
+	for (uint i = 0; i < PathList->count(); ++i)
 		fontPathTable->set(i, 0, PathList->text(i));
 }
 

@@ -110,7 +110,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	{
 		for (itc = doc->PageColors.begin(); itc != doc->PageColors.end(); ++itc)
 		{
-			QPixmap * pm = getSmallPixmap(doc->PageColors[itc.key()].getRGBColor());
+			QPixmap * pm = getSmallPixmap(doc->PageColors[itc.key()].getRawRGBColor());
 			colorComboText->insertItem( *pm, itc.key());
 			if (itc.key() == prefsData->dPenText)
 				colorComboText->setCurrentItem(colorComboText->count()-1);
@@ -122,7 +122,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 		ColorList::Iterator endOfColorList=colorList->end();
 		for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 		{
-			QPixmap * pm = getSmallPixmap((*colorList)[itc.key()].getRGBColor());
+			QPixmap * pm = getSmallPixmap((*colorList)[itc.key()].getRawRGBColor());
 			colorComboText->insertItem( *pm, itc.key());
 			if (itc.key() == prefsData->dPenText)
 				colorComboText->setCurrentItem(colorComboText->count()-1);
@@ -140,7 +140,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	{
 		for (itc = doc->PageColors.begin(); itc != doc->PageColors.end(); ++itc)
 		{
-			QPixmap * pm = getSmallPixmap(doc->PageColors[itc.key()].getRGBColor());
+			QPixmap * pm = getSmallPixmap(doc->PageColors[itc.key()].getRawRGBColor());
 			colorComboStrokeText->insertItem( *pm, itc.key());
 			if (itc.key() == prefsData->dStrokeText)
 				colorComboStrokeText->setCurrentItem(colorComboStrokeText->count()-1);
@@ -152,7 +152,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 		ColorList::Iterator endOfColorList=colorList->end();
 		for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 		{
-			QPixmap * pm = getSmallPixmap((*colorList)[itc.key()].getRGBColor());
+			QPixmap * pm = getSmallPixmap((*colorList)[itc.key()].getRawRGBColor());
 			colorComboStrokeText->insertItem( *pm, itc.key());
 			if (itc.key() == prefsData->dStrokeText)
 				colorComboStrokeText->setCurrentItem(colorComboStrokeText->count()-1);
@@ -234,7 +234,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	{
 		for (itc = doc->PageColors.begin(); itc != doc->PageColors.end(); ++itc)
 		{
-			QPixmap * pm = getSmallPixmap(doc->PageColors[itc.key()].getRGBColor());
+			QPixmap * pm = getSmallPixmap(doc->PageColors[itc.key()].getRawRGBColor());
 			colorComboLineShape->insertItem(*pm, itc.key());
 			if (itc.key() == prefsData->dPen)
 				colorComboLineShape->setCurrentItem(colorComboLineShape->count()-1);
@@ -246,7 +246,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 		ColorList::Iterator endOfColorList=colorList->end();
 		for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 		{
-			QPixmap * pm = getSmallPixmap((*colorList)[itc.key()].getRGBColor());
+			QPixmap * pm = getSmallPixmap((*colorList)[itc.key()].getRawRGBColor());
 			colorComboLineShape->insertItem( *pm, itc.key());
 			if (itc.key() == prefsData->dPen)
 				colorComboLineShape->setCurrentItem(colorComboLineShape->count()-1);
@@ -272,7 +272,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	{
 		for (itc = doc->PageColors.begin(); itc != doc->PageColors.end(); ++itc)
 		{
-			QPixmap * pm = getSmallPixmap(doc->PageColors[itc.key()].getRGBColor());
+			QPixmap * pm = getSmallPixmap(doc->PageColors[itc.key()].getRawRGBColor());
 			comboFillShape->insertItem( *pm, itc.key());
 			if (itc.key() == prefsData->dBrush)
 				comboFillShape->setCurrentItem(comboFillShape->count()-1);
@@ -284,7 +284,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 		ColorList::Iterator endOfColorList=colorList->end();
 		for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 		{
-			QPixmap * pm = getSmallPixmap((*colorList)[itc.key()].getRGBColor());
+			QPixmap * pm = getSmallPixmap((*colorList)[itc.key()].getRawRGBColor());
 			comboFillShape->insertItem( *pm, itc.key());
 			if (itc.key() == prefsData->dBrush)
 				comboFillShape->setCurrentItem(comboFillShape->count()-1);
@@ -347,7 +347,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	{
 		for (itc = doc->PageColors.begin(); itc != doc->PageColors.end(); ++itc)
 		{
-			QPixmap * pm = getSmallPixmap(doc->PageColors[itc.key()].getRGBColor());
+			QPixmap * pm = getSmallPixmap(doc->PageColors[itc.key()].getRawRGBColor());
 			colorComboLine->insertItem( *pm, itc.key());
 			if (itc.key() == prefsData->dPenLine)
 				colorComboLine->setCurrentItem(colorComboLine->count()-1);
@@ -359,7 +359,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 		ColorList::Iterator endOfColorList=colorList->end();
 		for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 		{
-			QPixmap * pm = getSmallPixmap((*colorList)[itc.key()].getRGBColor());
+			QPixmap * pm = getSmallPixmap((*colorList)[itc.key()].getRawRGBColor());
 			colorComboLine->insertItem( *pm, itc.key());
 			if (itc.key() == prefsData->dPenLine)
 				colorComboLine->setCurrentItem(colorComboLine->count()-1);
@@ -487,7 +487,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	{
 		for (itc = doc->PageColors.begin(); itc != doc->PageColors.end(); ++itc)
 		{
-			QPixmap * pm = getSmallPixmap(doc->PageColors[itc.key()].getRGBColor());
+			QPixmap * pm = getSmallPixmap(doc->PageColors[itc.key()].getRawRGBColor());
 			comboFillImage->insertItem( *pm, itc.key());
 			if (itc.key() == prefsData->dBrushPict)
 				comboFillImage->setCurrentItem(comboFillImage->count()-1);
@@ -499,7 +499,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 		ColorList::Iterator endOfColorList=colorList->end();
 		for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 		{
-			QPixmap * pm = getSmallPixmap((*colorList)[itc.key()].getRGBColor());
+			QPixmap * pm = getSmallPixmap((*colorList)[itc.key()].getRawRGBColor());
 			comboFillImage->insertItem( *pm, itc.key());
 			if (itc.key() == prefsData->dBrushPict)
 				comboFillImage->setCurrentItem(comboFillImage->count()-1);

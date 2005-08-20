@@ -154,7 +154,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	pm = QPixmap(15, 15);
 	for (cit = Farben.begin(); cit != Farben.end(); ++cit)
 	{
-		pm.fill(Farben[cit.key()].getRGBColor());
+		pm.fill(Farben[cit.key()].getRawRGBColor());
 		BorderC->insertItem(pm, cit.key());
 		if (cit.key() == item->AnBColor)
 			BorderC->setCurrentItem(BorderC->count()-1);

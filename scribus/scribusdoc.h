@@ -406,6 +406,8 @@ public: // Public attributes
 	cmsHTRANSFORM stdTransCMYK;
 	cmsHTRANSFORM stdProofCMYK;
 	cmsHTRANSFORM stdTransRGB;
+	cmsHTRANSFORM stdProofGC;
+	cmsHTRANSFORM stdProofCMYKGC;
 	bool SoftProofing;
 	bool Gamut;
 	int IntentMonitor;

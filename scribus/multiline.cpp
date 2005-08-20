@@ -99,7 +99,7 @@ MultiLine::MultiLine( QWidget* parent, ScribusDoc* doc, multiLine ml, QString na
 	QPixmap pm = QPixmap(30, 15);
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 	{
-		pm.fill(doc->PageColors[it.key()].getRGBColor());
+		pm.fill(doc->PageColors[it.key()].getRawRGBColor());
 		Color->insertItem(pm, it.key());
 	}
 	Color->setEditable(false);

@@ -216,16 +216,16 @@ void LineFormate::UpdateFList()
 		multiLine ml = it.data();
 		for (int its = ml.size()-1; its > -1; its--)
 		{
-			Docu->PageColors[ml[its].Color].getRGBColor().rgb(&h, &s, &v);
+			Docu->PageColors[ml[its].Color].getRawRGBColor().rgb(&h, &s, &v);
 			if ((h == s) && (s == v))
 			{
-				Docu->PageColors[ml[its].Color].getRGBColor().hsv(&h, &s, &v);
+				Docu->PageColors[ml[its].Color].getRawRGBColor().hsv(&h, &s, &v);
 				sneu = 255 - ((255 - v) * ml[its].Shade / 100);
 				tmpf.setHsv(h, s, sneu);
 			}
 			else
 			{
-				Docu->PageColors[ml[its].Color].getRGBColor().hsv(&h, &s, &v);
+				Docu->PageColors[ml[its].Color].getRawRGBColor().hsv(&h, &s, &v);
 				sneu = s * ml[its].Shade / 100;
 				tmpf.setHsv(h, sneu, v);
 			}

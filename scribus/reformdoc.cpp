@@ -43,6 +43,8 @@ extern cmsHTRANSFORM stdProofImgG;
 extern cmsHTRANSFORM stdTransCMYKG;
 extern cmsHTRANSFORM stdProofCMYKG;
 extern cmsHTRANSFORM stdTransRGBG;
+extern cmsHTRANSFORM stdProofCMYKGCG;
+extern cmsHTRANSFORM stdProofGCG;
 extern bool BlackPoint;
 extern bool SoftProofing;
 extern bool Gamut;
@@ -930,6 +932,8 @@ void ReformDoc::updateDocumentSettings()
 			stdTransImgG = currDoc->stdTransImg;
 			stdProofCMYKG = currDoc->stdProofCMYK;
 			stdTransCMYKG = currDoc->stdTransCMYK;
+			stdProofGCG = currDoc->stdProofGC;
+			stdProofCMYKGCG = currDoc->stdProofCMYKGC;
 			stdTransRGBG = currDoc->stdTransRGB;
 			CMSoutputProf = currDoc->DocOutputProf;
 			CMSprinterProf = currDoc->DocPrinterProf;

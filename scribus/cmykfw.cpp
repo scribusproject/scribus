@@ -17,7 +17,7 @@ extern bool Gamut;
 extern bool CMSuse;
 #endif
 extern QPixmap loadIcon(QString nam);
-extern void paintAlert(QPixmap &toPaint, QPixmap &target);
+extern void paintAlert(QPixmap &toPaint, QPixmap &target, int x = 0, int y = 0);
 
 CMYKChoose::CMYKChoose( QWidget* parent, ScColor orig, QString name, ColorList *Colors, QStringList Cust  )
 		: QDialog( parent, "fw", true, 0 )
@@ -30,15 +30,16 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScColor orig, QString name, ColorList *
 	Wsave = false;
 	EColors = Colors;
 	CurrSwatch.clear();
+	orig.checkGamut();
 	alertIcon = loadIcon("alert.png");
 	imageA = QPixmap(50,50);
-	imageA.fill(orig.getRGBColor());
+	imageA.fill(orig.getRawRGBColor());
 	if (orig.isOutOfGamut())
-		paintAlert(alertIcon,imageA);
+		paintAlert(alertIcon,imageA, 2, 2);
 	imageN = QPixmap(50,50);
-	imageN.fill(orig.getRGBColor());
+	imageN.fill(orig.getRawRGBColor());
 	if (orig.isOutOfGamut())
-		paintAlert(alertIcon, imageN);
+		paintAlert(alertIcon, imageN, 2, 2);
 	Farbe = orig;
 	QPixmap image0 = SliderPix(180);
 	QPixmap image1 = SliderPix(300);
@@ -790,9 +791,10 @@ void CMYKChoose::setColor()
 			YellowP->setPixmap(SliderPix(240));
 		}
 	}
-	imageN.fill(tmp.getRGBColor());
+	imageN.fill(tmp.getRawRGBColor());
+	tmp.checkGamut();
 	if (tmp.isOutOfGamut())
-		paintAlert(alertIcon, imageN);
+		paintAlert(alertIcon, imageN, 2, 2);
 	tmp.getRGBColor().hsv(&h, &s, &v);
 	NewC->setPixmap( imageN );
 	Farbe = tmp;
@@ -809,9 +811,10 @@ void CMYKChoose::setColor2(int h, int s, bool ende)
 	tmp.fromQColor(tm);
 	if (CMYKmode)
 		tmp.setColorModel(colorModelCMYK);
-	imageN.fill(tmp.getRGBColor());
+	tmp.checkGamut();
+	imageN.fill(tmp.getRawRGBColor());
 	if (tmp.isOutOfGamut())
-		paintAlert(alertIcon, imageN);
+		paintAlert(alertIcon, imageN, 2, 2);
 	NewC->setPixmap( imageN );
 	Farbe = tmp;
 	if (ende)
@@ -823,9 +826,10 @@ void CMYKChoose::SelFromSwatch(int c)
 	ScColor tmp = CurrSwatch[ColorSwatch->text(c)];
 	if (CMYKmode)
 		tmp.setColorModel(colorModelCMYK);
-	imageN.fill(tmp.getRGBColor());
+	tmp.checkGamut();
+	imageN.fill(tmp.getRawRGBColor());
 	if (tmp.isOutOfGamut())
-		paintAlert(alertIcon, imageN);
+		paintAlert(alertIcon, imageN, 2, 2);
 	NewC->setPixmap( imageN );
 	Farbe = tmp;
 	setValues();

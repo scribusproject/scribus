@@ -29,6 +29,8 @@
 	extern cmsHTRANSFORM stdTransCMYKG;
 	extern cmsHTRANSFORM stdProofCMYKG;
 	extern cmsHTRANSFORM stdTransRGBG;
+	extern cmsHTRANSFORM stdProofGCG;
+	extern cmsHTRANSFORM stdProofCMYKGCG;
 	extern bool SoftProofing;
 	extern bool CMSuse;
 #endif
@@ -175,6 +177,11 @@ void ScColor::getRawRGBColor(int *r, int *g, int *b)
 	*b = 255-QMIN(255, Y+K);
 }
 
+QColor ScColor::getRawRGBColor()
+{
+	return QColor(255-QMIN(255, C+K), 255-QMIN(255, M+K), 255-QMIN(255, Y+K));
+}
+
 void ScColor::getRGB(int *r, int *g, int *b)
 {
 	*r = R;
@@ -271,6 +278,42 @@ void ScColor::setNamedColor(QString name)
 bool ScColor::isOutOfGamut()
 {
 	return outOfGamutFlag;
+}
+
+void ScColor::checkGamut()
+{
+	outOfGamutFlag = false;
+#ifdef HAVE_CMS
+	WORD inC[4];
+	WORD outC[4];
+	if (CMSuse && CMSavail)
+	{
+		bool alert = true;
+		cmsHTRANSFORM xformProof;
+		if (Model == colorModelRGB)
+		{
+			inC[0] = R*257;
+			inC[1] = G*257;
+			inC[2] = B*257;
+			xformProof = stdProofGCG;
+			if ((R == 0) && (B == 0) && (G == 255))
+				alert = false;
+		}
+		else
+		{
+			inC[0] = C*257;
+			inC[1] = M*257;
+			inC[2] = Y*257;
+			inC[3] = K*257;
+			xformProof = stdProofCMYKGCG;
+			if ((M == 0) && (K == 0) && (C == 255) && (C == 255))
+				alert = false;
+		}
+		cmsDoTransform(xformProof, inC, outC, 1);
+		if ((alert) && ((outC[0]/257 == 0) && (outC[1]/257 == 255) & (outC[2]/257 == 0)))
+			outOfGamutFlag = true;
+	}
+#endif
 }
 
 void ScColor::RecalcRGB()

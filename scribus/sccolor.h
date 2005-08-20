@@ -70,6 +70,7 @@ public:
 /** Returns the transformed/proofed RGB color  */
 	QColor getRGBColor();
 	void getRawRGBColor(int *r, int *g, int *b);
+	QColor getRawRGBColor();
 
 /** Returns the 4 Values that form an ScColor */
 	void getCMYK(int *c, int *m, int *y, int *k);
@@ -98,6 +99,7 @@ public:
 	void setNamedColor(QString nam);
 	void RecalcRGB();
 	bool isOutOfGamut();
+	void checkGamut();
 
 private:
 /** Cyan-Component of Color */

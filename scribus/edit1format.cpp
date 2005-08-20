@@ -152,7 +152,7 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	TxStroke->insertItem( tr("None"));
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 	{
-		pm.fill(doc->PageColors[it.key()].getRGBColor());
+		pm.fill(doc->PageColors[it.key()].getRawRGBColor());
 		TxFill->insertItem(pm, it.key());
 		TxStroke->insertItem(pm, it.key());
 	}
