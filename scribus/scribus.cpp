@@ -8594,7 +8594,7 @@ void ScribusApp::initCMS()
 			ip = InputProfiles.begin();
 			prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile = ip.key();
 		}
-		if ((prefsManager->appPrefs.DCMSset.DefaultImageCMYKProfile.isEmpty()) || (!InputProfiles.contains(prefsManager->appPrefs.DCMSset.DefaultImageCMYKProfile)))
+		if ((prefsManager->appPrefs.DCMSset.DefaultImageCMYKProfile.isEmpty()) || (!InputProfilesCMYK.contains(prefsManager->appPrefs.DCMSset.DefaultImageCMYKProfile)))
 		{
 			ip = InputProfilesCMYK.begin();
 			prefsManager->appPrefs.DCMSset.DefaultImageCMYKProfile = ip.key();

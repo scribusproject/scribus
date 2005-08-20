@@ -5,7 +5,7 @@
  <pluginList>
   <kdevdebugger>
    <breakpointList>
-    <breakpoint0 location="/home/franz/Entwicklung/AnonCVS/Scribus13x/Scribus/scribus/mpalette.cpp:3121" type="1" condition="" enabled="1" />
+    <breakpoint0 location="/home/franz/Entwicklung/AnonCVS/Scribus13x/Scribus/scribus/mpalette.cpp:3120" type="1" condition="" enabled="1" />
    </breakpointList>
   </kdevdebugger>
   <kdevbookmarks>

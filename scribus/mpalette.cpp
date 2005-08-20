@@ -1040,7 +1040,7 @@ void Mpalette::SetCurItem(PageItem *i)
 		heightLabel->setText( tr( "&Height:" ) );
 		Rot->setEnabled(true);
 	}
-
+	HaveItem = true;
 	if (i->itemType() == PageItem::Line)
 	{
 		keepFrameWHRatioButton->setEnabled(false);
@@ -1074,7 +1074,6 @@ void Mpalette::SetCurItem(PageItem *i)
 			imgDpiY->setEnabled(setter);
 		}
 	}
-	HaveItem = true;
 	setXY(i->Xpos, i->Ypos);
 }
 
