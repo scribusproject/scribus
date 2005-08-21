@@ -40,6 +40,7 @@ public:
 	Hruler(ScribusView *pa, ScribusDoc *doc);
 	~Hruler() {};
 	void paintEvent(QPaintEvent *e);
+	void drawNumber(QString num, int startx, int starty, QPainter & p);
 	void mousePressEvent(QMouseEvent *m);
 	void mouseReleaseEvent(QMouseEvent *);
 	void mouseMoveEvent(QMouseEvent *m);

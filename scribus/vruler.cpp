@@ -148,8 +148,33 @@ void Vruler::drawNumber(QString num, int starty, QPainter *p)
 	int textY = starty;
 	for (uint a = 0; a < num.length(); ++a)
 	{
-		QString c = num.mid(a, 1);
-		p->drawText(1, textY, c);
+		QString txt = num.mid(a, 1);
+#ifndef QT_MAC
+		p->drawText(1, textY, txt);
+#else
+		static const int SCALE = 16;
+		QFontMetrics fm = p->fontMetrics();
+		QRect bbox = fm.boundingRect(txt);
+		static QPixmap pix;
+		if (pix.width() < bbox.width()*SCALE || pix.height() < bbox.height()*SCALE)
+			pix.resize(bbox.width()*SCALE, bbox.height()*SCALE);
+		QFont fnt = p->font();
+		QPainter p2;
+		pix.fill();
+		p2.begin( &pix );
+		if (fnt.pointSize() > 0)
+			fnt.setPointSize(SCALE*fnt.pointSize()-SCALE/2);
+		else if (fnt.pixelSize() > 0)
+			fnt.setPixelSize(SCALE*fnt.pixelSize()-SCALE/2);
+		else
+			fnt.setPixelSize(SCALE);
+		p2.setFont(fnt);
+		p2.drawText(-bbox.x()*SCALE, -bbox.y()*SCALE, txt);
+		p2.end();
+		p->scale(1.0/SCALE,1.0/SCALE);
+		p->drawPixmap(1*SCALE, (textY+bbox.top())*SCALE, pix, 0, 0, bbox.width()*SCALE, bbox.height()*SCALE);
+		p->scale(SCALE,SCALE);
+#endif
 		textY += 11;
 	}
 }
@@ -157,17 +182,60 @@ void Vruler::drawNumber(QString num, int starty, QPainter *p)
 /** Zeichnet den Pfeil */
 void Vruler::Draw(int wo)
 {
+	// erase old marker
 	int currentCoor = wo - currView->contentsY();
 	repaint(0, oldMark-3, 17, 6);
 	QPointArray cr;
 	QPainter p;
+#ifdef QT_MAC
+	// draw new marker to pixmap
+	static const int SCALE = 16;
+	static const QColor BACKGROUND(255, 255, 255);
+	static QPixmap pix( 16*SCALE, 4*SCALE );
+	static bool initpix = true;
+	if (initpix) {
+		initpix = false;
+		p.begin( &pix );
+		p.setBrush( BACKGROUND );
+		p.drawRect( 0, 0, 16*SCALE, 4*SCALE );
+		
+		p.setPen(red);
+		p.setBrush(red);
+		cr.setPoints(3, 16*SCALE, 2*SCALE, 0, 4*SCALE, 0, 0);
+		p.drawPolygon(cr);
+		p.end();
+	}
+	// draw pixmap
+	p.begin(this);
+	p.translate(0, -currView->contentsY());
+	p.scale(1.0/(SCALE+1), 1.0/SCALE);
+	p.drawPixmap(0, (wo-2)*SCALE, pix);
+	p.end();
+	// restore marks
+	p.begin(this);
+	p.setBrush(black);
+	p.setPen(black);
+	p.setFont(font());
+	double sc = currView->getScale();
+	double cc = height() / sc;
+	double firstMark = ceil(offs / iter) * iter - offs;
+	while (firstMark < cc)
+	{
+		p.drawLine(10, qRound(firstMark * sc), 16, qRound(firstMark * sc));
+		firstMark += iter;
+	}
+	p.end();
+#else
+	// draw slim marker
 	p.begin(this);
 	p.translate(0, -currView->contentsY());
 	p.setPen(red);
 	p.setBrush(red);
-	cr.setPoints(3, 16, wo, 0, wo+2, 0, wo-2);
+	cr.setPoints(5,  5, wo, 16, wo, 5, wo, 0, wo+2, 0, wo-2);
 	p.drawPolygon(cr);
 	p.end();
+#endif
+	
 	oldMark = currentCoor;
 }
 
