@@ -18,13 +18,19 @@
 #ifndef SCRIBUSVIEW_H
 #define SCRIBUSVIEW_H
 
+#include "styleoptions.h"
+
 #include <vector>
 // include files for QT
 #include <qscrollview.h>
 #include <qptrlist.h>
 #include <qlineedit.h>
 #include <qscrollbar.h>
-#include <qpushbutton.h>
+#if OPTION_USE_QTOOLBUTTON
+    #include <qtoolbutton.h>
+#else
+    #include <qpushbutton.h>
+#endif
 #include <qpopupmenu.h>
 #include <qlabel.h>
 #include <qcombobox.h>
@@ -36,13 +42,15 @@
 #include "scribusstructs.h"
 #include "scpainter.h"
 #include "page.h"
+#include "mspinbox.h"
+#include "util.h"
 class Hruler;
 class Vruler;
 class UndoManager;
 class RulerMover;
-#include "mspinbox.h"
-#include "pageselector.h"
-#include "util.h"
+//#include "pageselector.h"
+class PageSelector;
+
 
 /**
  * This class provides an incomplete base for your application view.
@@ -61,8 +69,13 @@ public:
 	RulerMover *UN;
 	Hruler *horizRuler;
 	Vruler *vertRuler;
+#if OPTION_USE_QTOOLBUTTON
+	QToolButton *zoomOutToolbarButton;
+	QToolButton *zoomInToolbarButton;
+#else
 	QPushButton *zoomOutToolbarButton;
 	QPushButton *zoomInToolbarButton;
+#endif
 	QComboBox *LY;
 	QComboBox *unitSwitcher;
   /** Dokument zu dem die Seite gehoert */
