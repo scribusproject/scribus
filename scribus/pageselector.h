@@ -1,6 +1,9 @@
 #ifndef PAGESELECTOR_H
 #define PAGESELECTOR_H
 
+
+#include "styleoptions.h"
+
 #include <qvariant.h>
 #include <qpixmap.h>
 #include <qwidget.h>
@@ -12,7 +15,10 @@ class QHBoxLayout;
 class QGridLayout;
 class QComboBox;
 class QLabel;
+class QLineEdit;
+class QPopupMenu;
 class QPushButton;
+class QToolButton;
 
 class SCRIBUS_API PageSelector : public QWidget
 {
@@ -21,14 +27,34 @@ class SCRIBUS_API PageSelector : public QWidget
 public:
 	PageSelector( QWidget* parent, int maxPg );
 	~PageSelector() {};
+	bool focused();
+	void focusPolicy(QWidget::FocusPolicy policy);
 
+#if OPTION_USE_QTOOLBUTTON
+	QToolButton* Start;
+	QToolButton* Back;
+	QToolButton* Forward;
+	QToolButton* Last;
+#else
 	QPushButton* Start;
 	QPushButton* Back;
+	QPushButton* Forward;
+	QPushButton* Last;
+#endif
+	
+#if OLD_PAGESEL
 	QLabel* Label1;
 	QComboBox* PageCombo;
 	QLabel* Label2;
-	QPushButton* Forward;
-	QPushButton* Last;
+#else
+	QLineEdit * pageEdit;
+#if OPTION_USE_QTOOLBUTTON
+	QToolButton * pageList;
+#else
+	QPushButton * pageList;
+#endif
+	QPopupMenu * pageMenu;
+#endif
 	QIntValidator *v;
 	int LastPG;
 	int APage;
@@ -40,6 +66,7 @@ public slots:
 
 private slots:
 	virtual void GotoPgE(int);
+	virtual void GotoPage();
 	virtual void ToStart();
 	virtual void ToEnd();
 	virtual void goBk();

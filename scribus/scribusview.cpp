@@ -64,6 +64,7 @@
 #include "units.h"
 #include "extimageprops.h"
 #include "pageitemattributes.h"
+#include "pageselector.h"
 #include "scpaths.h"
 #include "actionmanager.h"
 #ifdef HAVE_TIFF
@@ -109,11 +110,24 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc) : QScrollView(parent,
 	LE->setValue( 100 );
 	LE->setFocusPolicy(QWidget::ClickFocus);
 	LE->setSuffix( tr( " %" ) );
+#if OPTION_USE_QTOOLBUTTON
+	zoomOutToolbarButton = new QToolButton(this);
+	zoomInToolbarButton = new QToolButton(this);
+	zoomOutToolbarButton->setAutoRaise(OPTION_FLAT_BUTTON);
+	zoomInToolbarButton->setAutoRaise(OPTION_FLAT_BUTTON);
+#else
 	zoomOutToolbarButton = new QPushButton(this);
-	zoomOutToolbarButton->setPixmap(loadIcon("Klein.xpm"));
 	zoomOutToolbarButton->setFocusPolicy(QWidget::NoFocus);
 	zoomInToolbarButton = new QPushButton(this);
 	zoomInToolbarButton->setFocusPolicy(QWidget::NoFocus);
+	zoomOutToolbarButton->setDefault( false );
+	zoomOutToolbarButton->setAutoDefault( false );
+	zoomOutToolbarButton->setFlat(OPTION_FLAT_BUTTON);
+	zoomInToolbarButton->setDefault( false );
+	zoomInToolbarButton->setAutoDefault( false );
+	zoomInToolbarButton->setFlat(OPTION_FLAT_BUTTON);
+#endif
+	zoomOutToolbarButton->setPixmap(loadIcon("Klein.xpm"));
 	zoomInToolbarButton->setPixmap(loadIcon("Gross.xpm"));
 	PGS = new PageSelector(this, 1);
 	PGS->setFont(fo);
