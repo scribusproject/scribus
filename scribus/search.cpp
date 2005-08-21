@@ -2,6 +2,7 @@
 #include "search.moc"
 
 #include <qvariant.h>
+#include <qregexp.h>
 #include <qcheckbox.h>
 #include <qcombobox.h>
 #include <qgroupbox.h>

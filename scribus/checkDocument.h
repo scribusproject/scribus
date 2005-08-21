@@ -3,6 +3,7 @@
 
 #include <qvariant.h>
 #include <qpixmap.h>
+#include <qpushbutton.h>
 #include <qdialog.h>
 
 #include "scribusapi.h"

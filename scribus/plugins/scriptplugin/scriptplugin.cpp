@@ -54,6 +54,7 @@
 #include <qmessagebox.h>
 #include <qtextcodec.h>
 #include <qdom.h>
+#include <qregexp.h>
 #include <qtextstream.h>
 #include <cstdlib>
 

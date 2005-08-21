@@ -17,6 +17,7 @@
 #include <qfileinfo.h>
 #include <qdir.h>
 #include "scribuswin.h"
+#include "pageselector.h"
 #include "scribuswin.moc"
 #include "scribusXml.h"
 #include "scribus.h"

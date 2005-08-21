@@ -1,9 +1,10 @@
-#include "qpainter.h"
-#include "qcolor.h"
-#include "qwmatrix.h"
-#include "qpixmap.h"
-#include "qstringlist.h"
-#include "qmap.h"
+#include <qpainter.h>
+#include <qcolor.h>
+#include <qwmatrix.h>
+#include <qpixmap.h>
+#include <qstringlist.h>
+#include <qmap.h>
+#include <qregexp.h>
 
 #include "scribusdoc.h"
 #include "scfontmetrics.h"

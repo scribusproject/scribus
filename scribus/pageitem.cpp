@@ -25,6 +25,7 @@
 #include <qfileinfo.h>
 #include <qdrawutil.h>
 #include <qbitmap.h>
+#include <qregexp.h>
 #include <qmessagebox.h>
 #include <cmath>
 #include <cassert>
