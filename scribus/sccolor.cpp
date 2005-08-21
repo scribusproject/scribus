@@ -42,6 +42,7 @@ ScColor::ScColor()
 	setColor(0, 0, 0, 0);
 	Spot = false;
 	outOfGamutFlag = false;
+	Regist = false;
 }
 
 ScColor::ScColor(int c, int m, int y, int k)
@@ -49,6 +50,7 @@ ScColor::ScColor(int c, int m, int y, int k)
 	setColor(c, m, y, k);
 	Spot = false;
 	outOfGamutFlag = false;
+	Regist = false;
 }
  
 ScColor::ScColor(int r, int g, int b)
@@ -56,6 +58,7 @@ ScColor::ScColor(int r, int g, int b)
 	setColorRGB(r, g, b);
 	Spot = false;
 	outOfGamutFlag = false;
+	Regist = false;
 }
 
 void ScColor::setColor(int c, int m, int y, int k)
@@ -437,6 +440,16 @@ void ScColor::RecalcRGB()
 	{
 		RGB = QColor(R, G, B);
 	}
+}
+
+bool ScColor::isRegistrationColor()
+{
+	return Regist;
+}
+
+void ScColor::setRegistrationColor(bool s)
+{
+	Regist = s;
 }
 
 bool ScColor::isSpotColor()

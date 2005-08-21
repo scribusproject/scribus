@@ -37,6 +37,7 @@ Farbmanager::Farbmanager( QWidget* parent, ColorList doco, bool HDoc, QString Dc
 	cmykIcon = loadIcon("cmyk.png");
 	rgbIcon = loadIcon("rgb.png");
 	spotIcon = loadIcon("spot.png");
+	regIcon = loadIcon("register.png");
 	setName( "Farbmanager" );
 	HaveDoc = HDoc;
 	CColSet = Cust;
@@ -481,6 +482,15 @@ void Farbmanager::neueFarbe()
 	{
 		dia->Farbe.setSpotColor(dia->Separations->isChecked());
 		EditColors.insert(dia->Farbname->text(), dia->Farbe);
+		if (dia->Regist->isChecked())
+		{
+			ColorList::Iterator it;
+			for (it = EditColors.begin(); it != EditColors.end(); ++it)
+			{
+				EditColors[it.key()].setRegistrationColor(false);
+			}
+		}
+		EditColors[dia->Farbname->text()].setRegistrationColor(dia->Regist->isChecked());
 		updateCList();
 	}
 	delete dia;
@@ -494,6 +504,15 @@ void Farbmanager::editFarbe()
 	{
 		dia->Farbe.setSpotColor(dia->Separations->isChecked());
 		EditColors[dia->Farbname->text()] = dia->Farbe;
+		if (dia->Regist->isChecked())
+		{
+			ColorList::Iterator it;
+			for (it = EditColors.begin(); it != EditColors.end(); ++it)
+			{
+				EditColors[it.key()].setRegistrationColor(false);
+			}
+		}
+		EditColors[dia->Farbname->text()].setRegistrationColor(dia->Regist->isChecked());
 		if (sFarbe != dia->Farbname->text())
 		{
 			Ersatzliste.insert(sFarbe, dia->Farbname->text());
@@ -556,6 +575,8 @@ void Farbmanager::updateCList()
 				paintAlert(rgbIcon, pa, 30, 0);
 			if (col.isSpotColor())
 				paintAlert(spotIcon, pa, 45, 0);
+			if (col.isRegistrationColor())
+				paintAlert(regIcon, pa, 45, 0);
 			ListBox1->insertItem(pa, it.key());
 		}
 	}

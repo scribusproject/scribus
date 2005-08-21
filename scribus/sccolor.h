@@ -102,6 +102,8 @@ public:
 	void checkGamut();
 	bool isSpotColor();
 	void setSpotColor(bool s);
+	bool isRegistrationColor();
+	void setRegistrationColor(bool s);
 
 private:
 /** Cyan-Component of Color */
@@ -130,6 +132,9 @@ private:
 
 /** Flag, true if the Color is a Spotcolor */
 	bool Spot;
+
+/** Flag, true if the Color is a Registration color */
+	bool Regist;
 
 /** Color model of the current color */
 	colorModel Model;

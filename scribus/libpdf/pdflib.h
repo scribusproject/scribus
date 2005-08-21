@@ -162,6 +162,11 @@ private:
 		bool visible;
 		QString Name;
 	};
+	struct SpotC
+	{
+		int ResNum;
+		QString ResName;
+	};
 	QMap<QString,ShIm> SharedImages;
 	QValueList<uint> XRef;
 	QValueList<Dest> NamedDest;
@@ -191,7 +196,9 @@ private:
 	QString HTName;
 	bool BookMinUse;
 	ColorList colorsToUse;
-	QMap<QString, int> spotMap;
+	QMap<QString, SpotC> spotMap;
+	QString spotNam;
+	int spotCount;
 };
 
 #endif

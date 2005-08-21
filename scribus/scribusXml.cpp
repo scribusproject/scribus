@@ -853,6 +853,10 @@ bool ScriXmlDoc::ReadColors(QString fileName)
 					lf.setSpotColor(static_cast<bool>(QStoInt(pg.attribute("Spot"))));
 				else
 					lf.setSpotColor(false);
+				if (pg.hasAttribute("Register"))
+					lf.setRegistrationColor(static_cast<bool>(QStoInt(pg.attribute("Register"))));
+				else
+					lf.setRegistrationColor(false);
 				Farben[pg.attribute("NAME")] = lf;
 			}
 			PAGE=PAGE.nextSibling();
@@ -2271,6 +2275,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 		co.setAttribute("RGB",doc->PageColors[itc.key()].getRGBColor().name());
 		co.setAttribute("CMYK",doc->PageColors[itc.key()].name());
 		co.setAttribute("Spot",static_cast<int>(doc->PageColors[itc.key()].isSpotColor()));
+		co.setAttribute("Register",static_cast<int>(doc->PageColors[itc.key()].isRegistrationColor()));
 		elem.appendChild(co);
 	}
 	QMap<int, ParagraphStyle> UsedStyles;
@@ -3274,6 +3279,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 		co.setAttribute("RGB",doc->PageColors[itc.key()].getRGBColor().name());
 		co.setAttribute("CMYK",doc->PageColors[itc.key()].name());
 		co.setAttribute("Spot",static_cast<int>(doc->PageColors[itc.key()].isSpotColor()));
+		co.setAttribute("Register",static_cast<int>(doc->PageColors[itc.key()].isRegistrationColor()));
 		dc.appendChild(co);
 	}
 	if (doc->docParagraphStyles.count() > 5)

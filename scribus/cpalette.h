@@ -125,6 +125,7 @@ protected:
 	QPixmap cmykIcon;
 	QPixmap rgbIcon;
 	QPixmap spotIcon;
+	QPixmap regIcon;
 };
 
 #endif

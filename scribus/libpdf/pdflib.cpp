@@ -147,6 +147,10 @@ PDFlib::PDFlib()
 	SharedImages.clear();
 	ResNam = "RE";
 	ResCount = 0;
+	colorsToUse.clear();
+	spotMap.clear();
+	spotNam = "Spot";
+	spotCount = 0;
 #ifdef HAVE_LIBZ
 	CompAvail = true;
 #else
@@ -537,7 +541,6 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 		PutDoc("/U <"+String2Hex(&uk)+">\n");
 		PutDoc("/P "+IToStr(Options->Permissions)+"\n>>\nendobj\n");
 	}
-	doc->getUsedColors(colorsToUse);
 	RealFonts = DocFonts;
 	QMap<QString,QFont> ReallyUsed;
 	ReallyUsed.clear();
@@ -939,6 +942,43 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 		ObjCounter++;
 	}
 #endif
+	if ((Options->isGrayscale == false) && (Options->UseRGB == false))
+	{
+		doc->getUsedColors(colorsToUse);
+		ColorList::Iterator itf;
+		for (itf = colorsToUse.begin(); itf != colorsToUse.end(); ++itf)
+		{
+			if ((colorsToUse[itf.key()].isSpotColor()) || (colorsToUse[itf.key()].isRegistrationColor()))
+			{
+				int cc, cm, cy, ck;
+				struct SpotC spotD;
+				colorsToUse[itf.key()].getCMYK(&cc, &cm, &cy, &ck);
+				QString colorDesc = "{\ndup "+FToStr(static_cast<double>(cc) / 255)+"\nmul exch dup ";
+				colorDesc += FToStr(static_cast<double>(cm) / 255)+"\nmul exch dup ";
+				colorDesc += FToStr(static_cast<double>(cy) / 255)+"\nmul exch ";
+				colorDesc += FToStr(static_cast<double>(ck) / 255)+" mul }";
+				StartObj(ObjCounter);
+				ObjCounter++;
+				PutDoc("<<\n/FunctionType 4\n");
+				PutDoc("/Domain [0.0 1.0]\n");
+				PutDoc("/Range [0.0 1.0 0.0 1.0 0.0 1.0 0.0 1.0]\n");
+				PutDoc("/Length "+IToStr(colorDesc.length()+1)+"\n");
+				PutDoc(">>\nstream\n"+EncStream(&colorDesc, ObjCounter-1)+"\nendstream\nendobj\n");
+				StartObj(ObjCounter);
+				PutDoc("[ /Separation /");
+				if (colorsToUse[itf.key()].isRegistrationColor())
+					PutDoc("All");
+				else
+					PutDoc(itf.key().simplifyWhiteSpace().replace( QRegExp("\\s"), "" ).replace("#", ""));
+				PutDoc(" /DeviceCMYK "+IToStr(ObjCounter-1)+" 0 R ]\nendobj\n");
+				spotD.ResName = spotNam+IToStr(spotCount);
+				spotD.ResNum = ObjCounter;
+				spotMap.insert(itf.key(), spotD);
+				spotCount++;
+				ObjCounter++;
+			}
+		}
+	}
 	if ((Options->Version == 15) && (Options->useLayers))
 	{
 		struct Layer ll;
@@ -1424,12 +1464,21 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 						PutDoc("/"+it3t.key()+" "+IToStr(it3t.data())+" 0 R\n");
 					PutDoc(">>\n");
 				}
-				if (ICCProfiles.count() != 0)
+				if ((ICCProfiles.count() != 0) || (spotMap.count() != 0))
 				{
 					PutDoc("/ColorSpace << \n");
 					QMap<QString,ICCD>::Iterator it3c;
-					for (it3c = ICCProfiles.begin(); it3c != ICCProfiles.end(); ++it3c)
-						PutDoc("/"+it3c.data().ResName+" "+IToStr(it3c.data().ResNum)+" 0 R\n");
+					if (ICCProfiles.count() != 0)
+					{
+						for (it3c = ICCProfiles.begin(); it3c != ICCProfiles.end(); ++it3c)
+							PutDoc("/"+it3c.data().ResName+" "+IToStr(it3c.data().ResNum)+" 0 R\n");
+					}
+					QMap<QString,SpotC>::Iterator it3sc;
+					if (spotMap.count() != 0)
+					{
+					for (it3sc = spotMap.begin(); it3sc != spotMap.end(); ++it3sc)
+						PutDoc("/"+it3sc.data().ResName+" "+IToStr(it3sc.data().ResNum)+" 0 R\n");
+					}
 					PutDoc(">>\n");
 				}
 				PutDoc(">>\n");
@@ -2455,6 +2504,25 @@ QString PDFlib::putColor(QString color, int shade, bool fill)
 {
 	QString tmp = "";
 	QString colString = SetFarbe(color, shade);
+	ScColor tmpC;
+	tmpC = doc->PageColors[color];
+	if (((tmpC.isSpotColor()) || (tmpC.isRegistrationColor())) && ((Options->isGrayscale == false) && (Options->UseRGB == false)))
+	{
+		if (color != "None")
+		{
+			if (fill)
+			{
+				tmp += "/"+spotMap[color].ResName+" cs\n";
+				tmp += FToStr(shade / 100.0)+" scn\n";
+			}
+			else
+			{
+				tmp += "/"+spotMap[color].ResName+" CS\n";
+				tmp += FToStr(shade / 100.0)+" SCN\n";
+			}
+		}
+		return tmp;
+	}
 	if (Options->isGrayscale)
 	{
 		if (color != "None")
@@ -4646,12 +4714,21 @@ void PDFlib::PDF_End_Doc(QString PrintPr, QString Name, int Components)
 			PutDoc("/"+it3t.key()+" "+IToStr(it3t.data())+" 0 R\n");
 		PutDoc(">>\n");
 	}
-	if (ICCProfiles.count() != 0)
+	if ((ICCProfiles.count() != 0) || (spotMap.count() != 0))
 	{
 		PutDoc("/ColorSpace << \n");
 		QMap<QString,ICCD>::Iterator it3c;
-		for (it3c = ICCProfiles.begin(); it3c != ICCProfiles.end(); ++it3c)
-			PutDoc("/"+it3c.data().ResName+" "+IToStr(it3c.data().ResNum)+" 0 R\n");
+		if (ICCProfiles.count() != 0)
+		{
+			for (it3c = ICCProfiles.begin(); it3c != ICCProfiles.end(); ++it3c)
+				PutDoc("/"+it3c.data().ResName+" "+IToStr(it3c.data().ResNum)+" 0 R\n");
+		}
+		QMap<QString,SpotC>::Iterator it3sc;
+		if (spotMap.count() != 0)
+		{
+			for (it3sc = spotMap.begin(); it3sc != spotMap.end(); ++it3sc)
+				PutDoc("/"+it3sc.data().ResName+" "+IToStr(it3sc.data().ResNum)+" 0 R\n");
+		}
 		PutDoc(">>\n");
 	}
 	if ((Options->Version == 15) && (Options->useLayers))

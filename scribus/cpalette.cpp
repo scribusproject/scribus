@@ -44,6 +44,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	cmykIcon = loadIcon("cmyk.png");
 	rgbIcon = loadIcon("rgb.png");
 	spotIcon = loadIcon("spot.png");
+	regIcon = loadIcon("register.png");
 	Color = "";
 	Color3 = "";
 	Shade = 100;
@@ -245,6 +246,8 @@ void Cpalette::updateCList()
 			paintAlert(rgbIcon, pa, 30, 0);
 		if (col.isSpotColor())
 			paintAlert(spotIcon, pa, 45, 0);
+		if (col.isRegistrationColor())
+			paintAlert(regIcon, pa, 45, 0);
 		colorListQLBox->insertItem(pa, it.key());
 	}
 	colorListQLBox->setSelected(colorListQLBox->currentItem(), false);

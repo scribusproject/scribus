@@ -97,7 +97,12 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScColor orig, QString name, ColorList *
 	Separations->setChecked(orig.isSpotColor());
 	Layout23->addWidget( Separations );
 
-	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Minimum, QSizePolicy::Expanding );
+	Regist = new QCheckBox( this, "Regist" );
+	Regist->setText( tr( "Is Registration-Color" ) );
+	Regist->setChecked(orig.isRegistrationColor());
+	Layout23->addWidget( Regist );
+
+	QSpacerItem* spacer = new QSpacerItem( 1, 1, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	Layout23->addItem( spacer );
 
 	Layout2 = new QGridLayout;
@@ -368,6 +373,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScColor orig, QString name, ColorList *
 	connect( Swatches, SIGNAL(activated(int)), this, SLOT(SelSwatch(int)));
 	connect(ColorSwatch, SIGNAL(highlighted(int)), this, SLOT(SelFromSwatch(int)));
 	connect(Separations, SIGNAL(clicked()), this, SLOT(setSpot()));
+	connect(Regist, SIGNAL(clicked()), this, SLOT(setRegist()));
 	if (!CMYKmode)
 		SelModel ( tr( "RGB" ));
 }
@@ -618,12 +624,25 @@ void CMYKChoose::SelSwatch(int n)
 	}
 }
 
+void CMYKChoose::setRegist()
+{
+	disconnect( ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(SelModel(const QString&)));
+	if (Regist->isChecked())
+	{
+		ComboBox1->setCurrentItem( 0 );
+		Separations->setChecked(false);
+		SelModel( tr("CMYK"));
+	}
+	connect( ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(SelModel(const QString&)));
+}
+
 void CMYKChoose::setSpot()
 {
 	disconnect( ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(SelModel(const QString&)));
 	if (Separations->isChecked())
 	{
 		ComboBox1->setCurrentItem( 0 );
+		Regist->setChecked(false);
 		SelModel( tr("CMYK"));
 	}
 	connect( ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(SelModel(const QString&)));

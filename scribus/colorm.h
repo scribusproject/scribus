@@ -59,6 +59,7 @@ private:
 	QPixmap cmykIcon;
 	QPixmap rgbIcon;
 	QPixmap spotIcon;
+	QPixmap regIcon;
 
 private slots:
 	void saveDefaults();
