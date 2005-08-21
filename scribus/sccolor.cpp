@@ -298,6 +298,8 @@ void ScColor::checkGamut()
 			xformProof = stdProofGCG;
 			if ((R == 0) && (B == 0) && (G == 255))
 				alert = false;
+			if ((R == G && G == B))
+				alert = false;
 		}
 		else
 		{
@@ -308,10 +310,17 @@ void ScColor::checkGamut()
 			xformProof = stdProofCMYKGCG;
 			if ((M == 0) && (K == 0) && (C == 255) && (Y == 255))
 				alert = false;
+			if ((M == 0) && (C == 0) && (Y == 0))
+				alert = false;
+			if ((M == C) && (C == Y) && (Y == K))
+				alert = false;
 		}
-		cmsDoTransform(xformProof, inC, outC, 1);
-		if ((alert) && ((outC[0]/257 == 0) && (outC[1]/257 == 255) & (outC[2]/257 == 0)))
-			outOfGamutFlag = true;
+		if (alert)
+		{
+			cmsDoTransform(xformProof, inC, outC, 1);
+			if ((alert) && ((outC[0]/257 == 0) && (outC[1]/257 == 255) & (outC[2]/257 == 0)))
+				outOfGamutFlag = true;
+		}
 	}
 #endif
 }
@@ -394,6 +403,8 @@ void ScColor::RecalcRGB()
 			xformProof = stdProofG;
 			if ((R == 0) && (B == 0) && (G == 255))
 				alert = false;
+			if ((R == G && G == B))
+				alert = false;
 		}
 		else
 		{
@@ -404,13 +415,20 @@ void ScColor::RecalcRGB()
 			xformProof = stdProofCMYKG;
 			if ((M == 0) && (K == 0) && (C == 255) && (Y == 255))
 				alert = false;
+			if ((M == 0) && (C == 0) && (Y == 0))
+				alert = false;
+			if ((M == C) && (C == Y) && (Y == K))
+				alert = false;
 		}
-		cmsDoTransform(xformProof, inC, outC, 1);
-		RGB = QColor(outC[0]/257, outC[1]/257, outC[2]/257);
-		int r, g, b;
-		RGB.getRgb(&r, &g, &b);
-		if ((alert) && ((r == 0) && (g == 255) & (b == 0)))
-			outOfGamutFlag = true;
+		if (alert)
+		{
+			cmsDoTransform(xformProof, inC, outC, 1);
+			RGB = QColor(outC[0]/257, outC[1]/257, outC[2]/257);
+			int r, g, b;
+			RGB.getRgb(&r, &g, &b);
+			if ((alert) && ((r == 0) && (g == 255) & (b == 0)))
+				outOfGamutFlag = true;
+		}
 	}
 	else
 #endif

@@ -8573,49 +8573,14 @@ void ScribusApp::GetCMSProfiles()
 			prefsManager->appPrefs.ProfileDir += "/";
 		GetCMSProfilesDir(prefsManager->appPrefs.ProfileDir);
 	}
+#if defined(Q_WS_X11)
+	GetCMSProfilesDir("/usr/share/color/icc/");
+	GetCMSProfilesDir(QDir::convertSeparators(QDir::homeDirPath()+"/.color/icc/"));
+#endif
 	if ((!PrinterProfiles.isEmpty()) && (!InputProfiles.isEmpty()) && (!MonitorProfiles.isEmpty()))
 		CMSavail = true;
 	else
 		CMSavail = false;
-}
-
-void ScribusApp::initCMS()
-{
-	if (CMSavail)
-	{
-		ProfilesL::Iterator ip;
-		if ((prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile.isEmpty()) || (!InputProfiles.contains(prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile)))
-		{
-			ip = InputProfiles.begin();
-			prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile = ip.key();
-		}
-		if ((prefsManager->appPrefs.DCMSset.DefaultImageCMYKProfile.isEmpty()) || (!InputProfilesCMYK.contains(prefsManager->appPrefs.DCMSset.DefaultImageCMYKProfile)))
-		{
-			ip = InputProfilesCMYK.begin();
-			prefsManager->appPrefs.DCMSset.DefaultImageCMYKProfile = ip.key();
-		}
-		if ((prefsManager->appPrefs.DCMSset.DefaultSolidColorProfile.isEmpty()) || (!InputProfiles.contains(prefsManager->appPrefs.DCMSset.DefaultSolidColorProfile)))
-		{
-			ip = InputProfiles.begin();
-			prefsManager->appPrefs.DCMSset.DefaultSolidColorProfile = ip.key();
-		}
-		if ((prefsManager->appPrefs.DCMSset.DefaultMonitorProfile.isEmpty()) || (!MonitorProfiles.contains(prefsManager->appPrefs.DCMSset.DefaultMonitorProfile)))
-		{
-			ip = MonitorProfiles.begin();
-			prefsManager->appPrefs.DCMSset.DefaultMonitorProfile = ip.key();
-		}
-		if ((prefsManager->appPrefs.DCMSset.DefaultPrinterProfile.isEmpty()) || (!PrinterProfiles.contains(prefsManager->appPrefs.DCMSset.DefaultPrinterProfile)))
-		{
-			ip = PrinterProfiles.begin();
-			prefsManager->appPrefs.DCMSset.DefaultPrinterProfile = ip.key();
-		}
-#ifdef HAVE_CMS
-		SoftProofing = prefsManager->appPrefs.DCMSset.SoftProofOn;
-		CMSuse = false;
-		IntentPrinter = prefsManager->appPrefs.DCMSset.DefaultIntentPrinter;
-		IntentMonitor = prefsManager->appPrefs.DCMSset.DefaultIntentMonitor;
-#endif
-	}
 }
 
 void ScribusApp::GetCMSProfilesDir(QString pfad)
@@ -8671,6 +8636,45 @@ void ScribusApp::GetCMSProfilesDir(QString pfad)
 		}
 	}
 #endif
+}
+
+void ScribusApp::initCMS()
+{
+	if (CMSavail)
+	{
+		ProfilesL::Iterator ip;
+		if ((prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile.isEmpty()) || (!InputProfiles.contains(prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile)))
+		{
+			ip = InputProfiles.begin();
+			prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile = ip.key();
+		}
+		if ((prefsManager->appPrefs.DCMSset.DefaultImageCMYKProfile.isEmpty()) || (!InputProfilesCMYK.contains(prefsManager->appPrefs.DCMSset.DefaultImageCMYKProfile)))
+		{
+			ip = InputProfilesCMYK.begin();
+			prefsManager->appPrefs.DCMSset.DefaultImageCMYKProfile = ip.key();
+		}
+		if ((prefsManager->appPrefs.DCMSset.DefaultSolidColorProfile.isEmpty()) || (!InputProfiles.contains(prefsManager->appPrefs.DCMSset.DefaultSolidColorProfile)))
+		{
+			ip = InputProfiles.begin();
+			prefsManager->appPrefs.DCMSset.DefaultSolidColorProfile = ip.key();
+		}
+		if ((prefsManager->appPrefs.DCMSset.DefaultMonitorProfile.isEmpty()) || (!MonitorProfiles.contains(prefsManager->appPrefs.DCMSset.DefaultMonitorProfile)))
+		{
+			ip = MonitorProfiles.begin();
+			prefsManager->appPrefs.DCMSset.DefaultMonitorProfile = ip.key();
+		}
+		if ((prefsManager->appPrefs.DCMSset.DefaultPrinterProfile.isEmpty()) || (!PrinterProfiles.contains(prefsManager->appPrefs.DCMSset.DefaultPrinterProfile)))
+		{
+			ip = PrinterProfiles.begin();
+			prefsManager->appPrefs.DCMSset.DefaultPrinterProfile = ip.key();
+		}
+#ifdef HAVE_CMS
+		SoftProofing = prefsManager->appPrefs.DCMSset.SoftProofOn;
+		CMSuse = false;
+		IntentPrinter = prefsManager->appPrefs.DCMSset.DefaultIntentPrinter;
+		IntentMonitor = prefsManager->appPrefs.DCMSset.DefaultIntentMonitor;
+#endif
+	}
 }
 
 void ScribusApp::RecalcColors(QProgressBar *dia)
