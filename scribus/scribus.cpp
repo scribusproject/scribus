@@ -7852,15 +7852,14 @@ void ScribusApp::doSaveAsPDF()
 	PDF_Opts *dia = new PDF_Opts(this, doc->DocName, ReallyUsed, view, &doc->PDF_Options, doc->PDF_Options.PresentVals, &PDFXProfiles, prefsManager->appPrefs.AvailFonts, doc->unitRatio(), &ScApp->PrinterProfiles);
 	if (dia->exec())
 	{
-		std::vector<int> pageNs;
 		qApp->setOverrideCursor(QCursor(waitCursor), true);
 		dia->updateDocOptions();
-		if (dia->Options->AllPages->isChecked())
-			parsePagesString("*", &pageNs, doc->pageCount);
-		else
-			parsePagesString(dia->Options->PageNr->text(), &pageNs, doc->pageCount);
+		QString pageString(dia->getPagesString());
+		std::vector<int> pageNs;
+		parsePagesString(pageString, &pageNs, doc->pageCount);
 		QMap<int,QPixmap> thumbs;
-		for (uint ap = 0; ap < pageNs.size(); ++ap)
+		uint pageNumbersSize=pageNs.size();
+		for (uint ap = 0; ap < pageNumbersSize; ++ap)
 		{
 			QPixmap pm(10,10);
 			if (doc->PDF_Options.Thumbnails)
@@ -8409,7 +8408,7 @@ void ScribusApp::StatusPic()
 	if (HaveDoc)
 	{
 		PicStatus *dia = new PicStatus(this, doc, view);
-		connect(dia, SIGNAL(selectPage(int)), this, SLOT(SelectFromOutlS(int)));
+		connect(dia, SIGNAL(selectPage(int)), this, SLOT(selectPagesFromOutlines(int)));
 		connect(dia, SIGNAL(selectMasterPage(QString)), this, SLOT(manageMasterPages(QString)));
 		dia->exec();
 		delete dia;

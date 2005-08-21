@@ -40,14 +40,7 @@ public:
 	void updateDocOptions();
 	const QString cmsDescriptor();
 	const int colorSpaceComponents();
-	QLabel* Name;
-	TabPDFOptions* Options;
-	QToolButton* FileC;
-	QPushButton* OK;
-	QPushButton* Cancel;
-	QLineEdit* fileNameLineEdit;
-	QValueList<PDFPresentationData> EffVal;
-	PDFOptions *Opts;
+	const QString getPagesString();
 
 protected slots:
 	void DoExport();
@@ -58,7 +51,15 @@ protected:
 	QVBoxLayout* PDFOptsLayout;
 	QHBoxLayout* Layout5;
 	QHBoxLayout* Layout7;
+	QLabel* Name;
+	TabPDFOptions* Options;
+	QToolButton* FileC;
+	QPushButton* OK;
+	QPushButton* Cancel;
+	QLineEdit* fileNameLineEdit;
+	QValueList<PDFPresentationData> EffVal;
 	
+	PDFOptions *Opts;
 	double docUnitRatio;
 	QString cmsDescriptorName;
 	int components;

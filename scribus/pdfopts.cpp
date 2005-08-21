@@ -262,3 +262,10 @@ const int PDF_Opts::colorSpaceComponents()
 {
 	return components;
 }
+
+const QString PDF_Opts::getPagesString()
+{
+	if (Options->AllPages->isChecked())
+		return "*";
+	return Options->PageNr->text();
+}
