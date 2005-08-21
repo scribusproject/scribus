@@ -537,10 +537,22 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 		PutDoc("/U <"+String2Hex(&uk)+">\n");
 		PutDoc("/P "+IToStr(Options->Permissions)+"\n>>\nendobj\n");
 	}
+	doc->getUsedColors(colorsToUse);
 	RealFonts = DocFonts;
 	QMap<QString,QFont> ReallyUsed;
 	ReallyUsed.clear();
 	PageItem* pgit;
+	for (uint c = 0; c < doc->FrameItems.count(); ++c)
+	{
+		pgit = doc->FrameItems.at(c);
+		if ((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText))
+		{
+			for (uint e = 0; e < pgit->itemText.count(); ++e)
+			{
+				ReallyUsed.insert(pgit->itemText.at(e)->cfont->SCName, DocFonts[pgit->itemText.at(e)->cfont->SCName]);
+			}
+		}
+	}
 	for (uint c = 0; c < doc->MasterItems.count(); ++c)
 	{
 		pgit = doc->MasterItems.at(c);

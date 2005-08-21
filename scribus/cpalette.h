@@ -121,6 +121,10 @@ protected:
 	QGridLayout* Layout1;
 	QVBoxLayout* GradLayout;
 	QGridLayout* freeGradientLayout;
+	QPixmap alertIcon;
+	QPixmap cmykIcon;
+	QPixmap rgbIcon;
+	QPixmap spotIcon;
 };
 
 #endif

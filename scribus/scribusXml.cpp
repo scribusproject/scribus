@@ -849,6 +849,10 @@ bool ScriXmlDoc::ReadColors(QString fileName)
 					lf.setNamedColor(pg.attribute("CMYK"));
 				else
 					lf.fromQColor(QColor(pg.attribute("RGB")));
+				if (pg.hasAttribute("Spot"))
+					lf.setSpotColor(static_cast<bool>(QStoInt(pg.attribute("Spot"))));
+				else
+					lf.setSpotColor(false);
 				Farben[pg.attribute("NAME")] = lf;
 			}
 			PAGE=PAGE.nextSibling();

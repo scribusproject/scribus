@@ -91,12 +91,14 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScColor orig, QString name, ColorList *
 		ComboBox1->setCurrentItem( 1 );
 	TextLabel3->setBuddy( ComboBox1 );
 	Layout23->addWidget( ComboBox1 );
+
+	Separations = new QCheckBox( this, "Separations" );
+	Separations->setText( tr( "Is Spot-Color" ) );
+	Separations->setChecked(orig.isSpotColor());
+	Layout23->addWidget( Separations );
+
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	Layout23->addItem( spacer );
-
-	/*    Separations = new QCheckBox( this, "Separations" );
-	    Separations->setText( tr( "Is Spot-Color" ) );
-	    Layout23->addWidget( Separations );    */
 
 	Layout2 = new QGridLayout;
 	Layout2->setSpacing( 6 );
@@ -365,6 +367,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScColor orig, QString name, ColorList *
 	connect( ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(SelModel(const QString&)));
 	connect( Swatches, SIGNAL(activated(int)), this, SLOT(SelSwatch(int)));
 	connect(ColorSwatch, SIGNAL(highlighted(int)), this, SLOT(SelFromSwatch(int)));
+	connect(Separations, SIGNAL(clicked()), this, SLOT(setSpot()));
 	if (!CMYKmode)
 		SelModel ( tr( "RGB" ));
 }
@@ -613,6 +616,17 @@ void CMYKChoose::SelSwatch(int n)
 		ColorSwatch->setSelected(ColorSwatch->currentItem(), false);
 		TabStack->raiseWidget(1);
 	}
+}
+
+void CMYKChoose::setSpot()
+{
+	disconnect( ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(SelModel(const QString&)));
+	if (Separations->isChecked())
+	{
+		ComboBox1->setCurrentItem( 0 );
+		SelModel( tr("CMYK"));
+	}
+	connect( ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(SelModel(const QString&)));
 }
 
 void CMYKChoose::SelModel(const QString& mod)

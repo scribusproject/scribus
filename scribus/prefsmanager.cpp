@@ -1494,7 +1494,7 @@ bool PrefsManager::ReadPref(QString ho)
 			else
 				lf.fromQColor(QColor(dc.attribute("RGB")));
 			if (dc.hasAttribute("Spot"))
-				lf.setSpotColor(static_cast<bool>(dc.attribute("Spot")));
+				lf.setSpotColor(static_cast<bool>(QStoInt(dc.attribute("Spot"))));
 			else
 				lf.setSpotColor(false);
 		  appPrefs.DColors[dc.attribute("NAME")] = lf;

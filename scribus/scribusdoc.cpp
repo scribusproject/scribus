@@ -1466,6 +1466,124 @@ const bool ScribusDoc::deleteTaggedItems()
 	return true;
 }
 
+void ScribusDoc::getUsedColors(ColorList &colorsToUse)
+{
+	PageItem* ite;
+	bool found;
+	colorsToUse.clear();
+	ColorList::Iterator it;
+	for (it = PageColors.begin(); it != PageColors.end(); ++it)
+	{
+		found = false;
+		if ((it.key() == toolSettings.dBrush) || (it.key() == toolSettings.dPen) || (it.key() == toolSettings.dBrushPict)
+		        || (it.key() == toolSettings.dPenLine) || (it.key() == toolSettings.dPenText))
+		{
+			colorsToUse.insert(it.key(), it.data());
+			continue;
+		}
+		for (uint c = 0; c < MasterItems.count(); ++c)
+		{
+			ite = MasterItems.at(c);
+			QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
+			{
+				if (it.key() == cstops.at(cst)->name)
+					found = true;
+				if (found)
+					break;
+			}
+			if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText))
+			{
+				for (uint d=0; d<ite->itemText.count(); ++d)
+				{
+					if (it.key() == ite->itemText.at(d)->ccolor)
+						found = true;
+					if (it.key() == ite->itemText.at(d)->cstroke)
+						found = true;
+					if (found)
+						break;
+				}
+			}
+			/* PFJ - 29.02.04 - merged if's to one line */
+			if ((it.key() == ite->fillColor()) || (it.key() == ite->lineColor()))
+				found = true;
+			if (found)
+				break;
+		}
+		if (found)
+		{
+			colorsToUse.insert(it.key(), it.data());
+			continue;
+		}
+		for (uint c = 0; c < DocItems.count(); ++c)
+		{
+			ite = DocItems.at(c);
+			QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
+			{
+				if (it.key() == cstops.at(cst)->name)
+					found = true;
+				if (found)
+					break;
+			}
+			if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText))
+			{
+				for (uint d=0; d<ite->itemText.count(); ++d)
+				{
+					/* PFJ - 29.02.04 - Merged if's */
+					if ((it.key() == ite->itemText.at(d)->ccolor) || (it.key() == ite->itemText.at(d)->cstroke))
+						found = true;
+					if (found)
+						break;
+				}
+			}
+			/* PFJ - 29.02.04 - Merged if's */
+			if ((it.key() == ite->fillColor()) || (it.key() == ite->lineColor()))
+				found = true;
+			if (found)
+				break;
+		}
+		if (found)
+		{
+			colorsToUse.insert(it.key(), it.data());
+			continue;
+		}
+		for (uint c = 0; c < FrameItems.count(); ++c)
+		{
+			ite = FrameItems.at(c);
+			QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
+			{
+				if (it.key() == cstops.at(cst)->name)
+					found = true;
+				if (found)
+					break;
+			}
+			if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText))
+			{
+				for (uint d=0; d<ite->itemText.count(); ++d)
+				{
+					/* PFJ - 29.02.04 - Merged if's */
+					if ((it.key() == ite->itemText.at(d)->ccolor) || (it.key() == ite->itemText.at(d)->cstroke))
+						found = true;
+					if (found)
+						break;
+				}
+			}
+			/* PFJ - 29.02.04 - Merged if's */
+			if ((it.key() == ite->fillColor()) || (it.key() == ite->lineColor()))
+				found = true;
+			if (found)
+				break;
+		}
+		if (found)
+		{
+			colorsToUse.insert(it.key(), it.data());
+			continue;
+		}
+	}
+}
+
 void ScribusDoc::getUsedFonts(QMap<QString,QFont> *Really)
 {
 	PageItem* it;

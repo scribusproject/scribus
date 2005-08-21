@@ -33,6 +33,10 @@ extern ScribusApp* ScApp;
 Farbmanager::Farbmanager( QWidget* parent, ColorList doco, bool HDoc, QString DcolSet, QStringList Cust )
 		: QDialog( parent, "dd", true, 0 )
 {
+	alertIcon = loadIcon("alert.png");
+	cmykIcon = loadIcon("cmyk.png");
+	rgbIcon = loadIcon("rgb.png");
+	spotIcon = loadIcon("spot.png");
 	setName( "Farbmanager" );
 	HaveDoc = HDoc;
 	CColSet = Cust;
@@ -378,6 +382,40 @@ void Farbmanager::delUnused()
 			UsedC.insert(it.key(), it.data());
 			continue;
 		}
+		for (uint c = 0; c < ScApp->doc->FrameItems.count(); ++c)
+		{
+			ite = ScApp->doc->FrameItems.at(c);
+			QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
+			{
+				if (it.key() == cstops.at(cst)->name)
+					found = true;
+				if (found)
+					break;
+			}
+			if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText))
+			{
+				for (uint d=0; d<ite->itemText.count(); ++d)
+				{
+					if (it.key() == ite->itemText.at(d)->ccolor)
+						found = true;
+					if (it.key() == ite->itemText.at(d)->cstroke)
+						found = true;
+					if (found)
+						break;
+				}
+			}
+			/* PFJ - 29.02.04 - merged if's to one line */
+			if ((it.key() == ite->fillColor()) || (it.key() == ite->lineColor()))
+				found = true;
+			if (found)
+				break;
+		}
+		if (found)
+		{
+			UsedC.insert(it.key(), it.data());
+			continue;
+		}
 		for (uint c = 0; c < ScApp->doc->DocItems.count(); ++c)
 		{
 			ite = ScApp->doc->DocItems.at(c);
@@ -430,6 +468,8 @@ void Farbmanager::duplFarbe()
 {
 	QString nam = tr("Copy of %1").arg(sFarbe);
 	EditColors.insert(nam, EditColors[sFarbe]);
+	sFarbe = nam;
+	editFarbe();
 	updateCList();
 }
 
@@ -439,6 +479,7 @@ void Farbmanager::neueFarbe()
 	CMYKChoose* dia = new CMYKChoose(this, tmpFarbe, tr("New Color"), &EditColors, CColSet);
 	if (dia->exec())
 	{
+		dia->Farbe.setSpotColor(dia->Separations->isChecked());
 		EditColors.insert(dia->Farbname->text(), dia->Farbe);
 		updateCList();
 	}
@@ -451,6 +492,7 @@ void Farbmanager::editFarbe()
 	CMYKChoose* dia = new CMYKChoose(this, tmpFarbe, sFarbe, &EditColors, CColSet);
 	if (dia->exec())
 	{
+		dia->Farbe.setSpotColor(dia->Separations->isChecked());
 		EditColors[dia->Farbname->text()] = dia->Farbe;
 		if (sFarbe != dia->Farbname->text())
 		{
@@ -493,20 +535,28 @@ void Farbmanager::selEditFarbe(QListBoxItem *c)
 
 void Farbmanager::updateCList()
 {
-	QPixmap alertIcon = loadIcon("alert.png");
 	ListBox1->clear();
 	ColorList::Iterator it;
-	QPixmap pm = QPixmap(30, 15);
+	QPixmap pa = QPixmap(60, 15);
 	for (it = EditColors.begin(); it != EditColors.end(); ++it)
 	{
 		// if condition 10/21/2004 pv #1191
 		if (it.key() != "None" && it.key() != tr("None"))
 		{
-			pm.fill(EditColors[it.key()].getRawRGBColor());
-			EditColors[it.key()].checkGamut();
-			if (EditColors[it.key()].isOutOfGamut())
-				paintAlert(alertIcon, pm, 0, 0);
-			ListBox1->insertItem(pm, it.key());
+			ScColor col = EditColors[it.key()];
+			QPixmap * pm = getSmallPixmap(col.getRawRGBColor());
+			pa.fill(white);
+			paintAlert(*pm, pa, 0, 0);
+			col.checkGamut();
+			if (col.isOutOfGamut())
+				paintAlert(alertIcon, pa, 15, 0);
+			if ((col.getColorModel() == colorModelCMYK) || (col.isSpotColor()))
+				paintAlert(cmykIcon, pa, 30, 0);
+			else
+				paintAlert(rgbIcon, pa, 30, 0);
+			if (col.isSpotColor())
+				paintAlert(spotIcon, pa, 45, 0);
+			ListBox1->insertItem(pa, it.key());
 		}
 	}
 	DelF->setEnabled(EditColors.count() == 1 ? false : true);

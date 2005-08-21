@@ -190,6 +190,8 @@ private:
 	int KeyLen;
 	QString HTName;
 	bool BookMinUse;
+	ColorList colorsToUse;
+	QMap<QString, int> spotMap;
 };
 
 #endif

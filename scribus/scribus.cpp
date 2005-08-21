@@ -3897,7 +3897,7 @@ bool ScribusApp::loadDoc(QString fileName)
 			doc->CMSSettings.BlackPoint = prefsManager->appPrefs.DCMSset.BlackPoint;
 			doc->CMSSettings.CMSinUse = false;
 		}
-		if (CMSavail)
+		if ((CMSavail) && (doc->CMSSettings.CMSinUse))
 		{
 			bool cmsWarning = false;
 			QStringList missing;
@@ -4732,9 +4732,11 @@ bool ScribusApp::doPrint(PrintOptions *options)
 	QString filename(options->filename);
 	ReallyUsed.clear();
 	doc->getUsedFonts(&ReallyUsed);
+	ColorList usedColors;
+	doc->getUsedColors(usedColors);
 	fileWatcher->forceScan();
 	fileWatcher->stop();
-	PSLib *dd = getPSDriver(true, ReallyUsed, doc->PageColors, false);
+	PSLib *dd = getPSDriver(true, ReallyUsed, usedColors, false);
 	if (dd != NULL)
 	{
 		if (!options->toFile)
@@ -7661,9 +7663,11 @@ bool ScribusApp::DoSaveAsEps(QString fn)
 	QMap<QString,QFont> ReallyUsed;
 	ReallyUsed.clear();
 	doc->getUsedFonts(&ReallyUsed);
+	ColorList usedColors;
+	doc->getUsedColors(usedColors);
 	fileWatcher->forceScan();
 	fileWatcher->stop();
-	PSLib *dd = getPSDriver(false, ReallyUsed, doc->PageColors, false);
+	PSLib *dd = getPSDriver(false, ReallyUsed, usedColors, false);
 	if (dd != NULL)
 	{
 		if (dd->PS_set_file(fn))

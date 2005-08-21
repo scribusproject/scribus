@@ -92,6 +92,7 @@ public slots:
 	QPixmap SliderPix(int farbe);
 	QPixmap SliderBlack();
 	void SelSwatch(int n);
+	void setSpot();
 	void SelModel(const QString& mod);
 	void setColor();
 	void setColor2(int h, int s, bool ende);

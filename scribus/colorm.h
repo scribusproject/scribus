@@ -55,6 +55,10 @@ private:
 	QColor tmpFarbe;
 	QStringList DontChange;
 	bool HaveDoc;
+	QPixmap alertIcon;
+	QPixmap cmykIcon;
+	QPixmap rgbIcon;
+	QPixmap spotIcon;
 
 private slots:
 	void saveDefaults();

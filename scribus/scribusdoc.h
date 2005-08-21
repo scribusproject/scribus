@@ -246,6 +246,10 @@ public:
 	 */
 	void getUsedFonts(QMap<QString,QFont> *Really);
 	/*!
+	* @brief Builds a qmap of the colours used within the document
+	*/
+	void getUsedColors(ColorList &colorsToUse);
+	/*!
 	 * @brief TODO: Reorganise the fonts.. how? Moved from scribus.cpp
 	 */
 	void reorganiseFonts();

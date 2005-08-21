@@ -630,7 +630,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 				else
 					lf.fromQColor(QColor(pg.attribute("RGB")));
 				if (pg.hasAttribute("Spot"))
-					lf.setSpotColor(static_cast<bool>(pg.attribute("Spot")));
+					lf.setSpotColor(static_cast<bool>(QStoInt(pg.attribute("Spot"))));
 				else
 					lf.setSpotColor(false);
 			  doc->PageColors[pg.attribute("NAME")] = lf;

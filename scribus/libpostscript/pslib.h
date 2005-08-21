@@ -59,7 +59,9 @@ public:
 	virtual void PS_setdash(Qt::PenStyle st, double offset, QValueList<double> dash);
 	virtual void PS_selectfont(QString f, double s);
 	virtual void PS_fill();
+	virtual void PS_fillspot(QString color, int shade);
 	virtual void PS_stroke();
+	virtual void PS_strokespot(QString color, int shade);
 	virtual void PS_fill_stroke();
 	virtual void PS_newpath();
 	virtual void PS_MultiRadGradient(double w, double h, double x, double y, QValueList<double> Stops, QStringList Colors);
@@ -68,7 +70,7 @@ public:
 	virtual void PS_showSub(uint chr, QString font, double size, bool stroke);
 	virtual void PS_show_xyG(QString font, QString ch, double x, double y);
 	virtual void PS_image(PageItem *c, double x, double y, QString fn, double scalex, double scaley, QString Prof, bool UseEmbedded, bool UseProf, QString Name = "");
-	virtual void PS_plate(int nr);
+	virtual void PS_plate(int nr, QString name = "");
 	virtual void PS_setGray();
 	virtual void PDF_Bookmark(QString text, uint Seite);
 	virtual void PDF_Annotation(QString text, double x, double y, double b, double h);
@@ -82,8 +84,8 @@ public:
 	virtual void ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool sep, bool farb, bool ic, bool gcr, bool master, bool embedded = false);
 	virtual void ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, bool sep = false, bool farb = true, bool ic = false, bool gcr = true);
 	virtual void SetClipPath(FPointArray *c, bool poly = true);
-	virtual void HandleGradient(ScribusDoc* Doc, PageItem *c, double w, double h, bool gcr);
-	virtual void SetFarbe(ScribusDoc* Doc, QString farb, int shade, int *h, int *s, int *v, int *k, bool gcr);
+	virtual void HandleGradient(PageItem *c, double w, double h, bool gcr);
+	virtual void SetFarbe(QString farb, int shade, int *h, int *s, int *v, int *k, bool gcr);
 	virtual void setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, Page* pg, bool sep, bool farb, bool ic, bool master);
 	virtual void setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, struct ScText *hl, Page* pg, bool sep, bool farb, bool ic, bool master);
 	bool Art;
@@ -121,6 +123,9 @@ private:
 	bool CompAvail;
 	int Plate;
 	bool DoSep;
+	ColorList colorsToUse;
+	QString colorDesc;
+	QMap<QString, QString> spotMap;
 };
 
 #endif

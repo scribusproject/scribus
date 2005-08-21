@@ -283,6 +283,8 @@ bool ScColor::isOutOfGamut()
 void ScColor::checkGamut()
 {
 	outOfGamutFlag = false;
+	if (Spot)
+		return;
 #ifdef HAVE_CMS
 	WORD inC[4];
 	WORD outC[4];
@@ -343,7 +345,7 @@ void ScColor::RecalcRGB()
 		else
 		{
 #ifdef HAVE_CMS
-			if (CMSuse && CMSavail)
+			if ((CMSuse && CMSavail) && (!Spot))
 			{
 				inC[0] = R * 257;
 				inC[1] = G * 257;
@@ -371,7 +373,7 @@ void ScColor::RecalcRGB()
 	else if (Model == colorModelCMYK)
  	{
 #ifdef HAVE_CMS
-		if (CMSuse && CMSavail)
+		if ((CMSuse && CMSavail) && (!Spot))
 		{
 			inC[0] = C * 257;
 			inC[1] = M * 257;
@@ -391,7 +393,7 @@ void ScColor::RecalcRGB()
 		}
 	}
 #ifdef HAVE_CMS
-	if (CMSuse && CMSavail && SoftProofing)
+	if ((CMSuse && CMSavail && SoftProofing) && (!Spot))
 	{
 		bool alert = true;
 		cmsHTRANSFORM xformProof;

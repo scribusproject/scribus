@@ -40,6 +40,10 @@
 
 Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 {
+	alertIcon = loadIcon("alert.png");
+	cmykIcon = loadIcon("cmyk.png");
+	rgbIcon = loadIcon("rgb.png");
+	spotIcon = loadIcon("spot.png");
 	Color = "";
 	Color3 = "";
 	Shade = 100;
@@ -219,20 +223,29 @@ void Cpalette::SetColors(ColorList newColorList)
 
 void Cpalette::updateCList()
 {
-	QPixmap alertIcon = loadIcon("alert.png");
 	disconnect(colorListQLBox, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));
 	disconnect(colorListQLBox, SIGNAL(selected(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));
 	colorListQLBox->clear();
 	ColorList::Iterator it;
+	QPixmap pa = QPixmap(60, 15);
 	if ((!GradientMode) || (Mode == 1))
 		colorListQLBox->insertItem( tr("None"));
 	for (it = colorList.begin(); it != colorList.end(); ++it)
 	{
-		QPixmap * pm = getWidePixmap(colorList[it.key()].getRawRGBColor());
-		colorList[it.key()].checkGamut();
-		if (colorList[it.key()].isOutOfGamut())
-			paintAlert(alertIcon, *pm, 0, 0);
-		colorListQLBox->insertItem(*pm, it.key());
+		ScColor col = colorList[it.key()];
+		QPixmap * pm = getSmallPixmap(col.getRawRGBColor());
+		pa.fill(white);
+		paintAlert(*pm, pa, 0, 0);
+		col.checkGamut();
+		if (col.isOutOfGamut())
+			paintAlert(alertIcon, pa, 15, 0);
+		if ((col.getColorModel() == colorModelCMYK) || (col.isSpotColor()))
+			paintAlert(cmykIcon, pa, 30, 0);
+		else
+			paintAlert(rgbIcon, pa, 30, 0);
+		if (col.isSpotColor())
+			paintAlert(spotIcon, pa, 45, 0);
+		colorListQLBox->insertItem(pa, it.key());
 	}
 	colorListQLBox->setSelected(colorListQLBox->currentItem(), false);
 	connect(colorListQLBox, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));
