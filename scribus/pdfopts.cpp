@@ -16,7 +16,6 @@
 #include "pdfoptions.h"
 #include "util.h"
 #include "commonstrings.h"
-
 #include "scconfig.h"
 
 #ifdef HAVE_CMS
@@ -24,13 +23,17 @@ extern bool CMSuse;
 #endif
 extern bool CMSavail;
 
-PDF_Opts::PDF_Opts( QWidget* parent,  QString docFileName, QMap<QString,QFont> DocFonts, ScribusView *currView, PDFOptions *pdfOptions, QValueList<PDFPresentationData> Eff, ProfilesL *PDFXProfiles, SCFonts &AllFonts)
+PDF_Opts::PDF_Opts( QWidget* parent,  QString docFileName, QMap<QString,QFont> DocFonts, ScribusView *currView, PDFOptions *pdfOptions, QValueList<PDFPresentationData> Eff, ProfilesL *PDFXProfiles, SCFonts &AllFonts, double unitRatio, ProfilesL *printerProfiles)
 		: QDialog( parent, "pdf", true, 0 )
 {
 	setCaption( tr( "Save as PDF" ) );
 	setIcon(loadIcon("AppIcon.png"));
 	EffVal = Eff;
 	Opts = pdfOptions;
+	docUnitRatio=unitRatio;
+	cmsDescriptorName="";
+	components=3;
+	appPrinterProfiles=printerProfiles;
 	PDFOptsLayout = new QVBoxLayout( this );
 	PDFOptsLayout->setSpacing( 5 );
 	PDFOptsLayout->setMargin( 11 );
@@ -130,4 +133,132 @@ void PDF_Opts::ChangeFile()
 void PDF_Opts::fileNameChanged()
 {
 	fileNameLineEdit->setText(checkFileExtension(fileNameLineEdit->text(),"pdf"));
+}
+
+void PDF_Opts::updateDocOptions()
+{
+	Opts->Datei = fileNameLineEdit->text();
+	Opts->Thumbnails = Options->CheckBox1->isChecked();
+	Opts->Compress = Options->Compression->isChecked();
+	Opts->CompressMethod = Options->CMethod->currentItem();
+	Opts->Quality = Options->CQuality->currentItem();
+	Opts->Resolution = Options->Resolution->value();
+	Opts->EmbedList = Options->FontsToEmbed;
+	Opts->SubsetList = Options->FontsToSubset;
+	Opts->RecalcPic = Options->DSColor->isChecked();
+	Opts->PicRes = Options->ValC->value();
+	Opts->Bookmarks = Options->CheckBM->isChecked();
+	Opts->Binding = Options->ComboBind->currentItem();
+	Opts->MirrorH = Options->MirrorH->isOn();
+	Opts->MirrorV = Options->MirrorV->isOn();
+	Opts->RotateDeg = Options->RotateDeg->currentItem() * 90;
+	Opts->PresentMode = Options->CheckBox10->isChecked();
+	Opts->PresentVals = EffVal;
+	Opts->Articles = Options->Article->isChecked();
+	Opts->Encrypt = Options->Encry->isChecked();
+	Opts->UseLPI = Options->UseLPI->isChecked();
+	Opts->useLayers = Options->useLayers->isChecked();
+	if (Options->Encry->isChecked())
+	{
+		int Perm = -64;
+		if (Options->PDFVersionCombo->currentItem() == 1)
+			Perm &= ~0x00240000;
+		if (Options->PrintSec->isChecked())
+			Perm += 4;
+		if (Options->ModifySec->isChecked())
+			Perm += 8;
+		if (Options->CopySec->isChecked())
+			Perm += 16;
+		if (Options->AddSec->isChecked())
+			Perm += 32;
+		Opts->Permissions = Perm;
+		Opts->PassOwner = Options->PassOwner->text();
+		Opts->PassUser = Options->PassUser->text();
+	}
+	if (Options->PDFVersionCombo->currentItem() == 0)
+		Opts->Version = PDFOptions::PDFVersion_13;
+	if (Options->PDFVersionCombo->currentItem() == 1)
+		Opts->Version = PDFOptions::PDFVersion_14;
+	if (Options->PDFVersionCombo->currentItem() == 2)
+		Opts->Version = PDFOptions::PDFVersion_15;
+	if (Options->PDFVersionCombo->currentItem() == 3)
+		Opts->Version = PDFOptions::PDFVersion_X3;
+	if (Options->OutCombo->currentItem() == 0)
+	{
+		Opts->UseRGB = true;
+		Opts->isGrayscale = false;
+		Opts->UseProfiles = false;
+		Opts->UseProfiles2 = false;
+	}
+	else
+	{
+		if (Options->OutCombo->currentItem() == 2)
+		{
+			Opts->isGrayscale = true;
+			Opts->UseRGB = false;
+			Opts->UseProfiles = false;
+			Opts->UseProfiles2 = false;
+		}
+		else
+		{
+			Opts->isGrayscale = false;
+			Opts->UseRGB = false;
+#ifdef HAVE_CMS
+			if (CMSuse)
+			{
+				Opts->UseProfiles = Options->EmbedProfs->isChecked();
+				Opts->UseProfiles2 = Options->EmbedProfs2->isChecked();
+				Opts->Intent = Options->IntendS->currentItem();
+				Opts->Intent2 = Options->IntendI->currentItem();
+				Opts->EmbeddedI = Options->NoEmbedded->isChecked();
+				Opts->SolidProf = Options->SolidPr->currentText();
+				Opts->ImageProf = Options->ImageP->currentText();
+				Opts->PrintProf = Options->PrintProfC->currentText();
+				if (Opts->Version == PDFOptions::PDFVersion_X3)
+				{
+					cmsHPROFILE hIn;
+					hIn = cmsOpenProfileFromFile((*appPrinterProfiles)[Opts->PrintProf], "r");
+					const char *Descriptor = cmsTakeProductDesc(hIn);
+					cmsDescriptorName = QString(Descriptor);
+					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigRgbData)
+						components = 3;
+					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigCmykData)
+						components = 4;
+					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigCmyData)
+						components = 3;
+					cmsCloseProfile(hIn);
+					Opts->Info = Options->InfoString->text();
+					Opts->BleedTop = Options->BleedTop->value()/docUnitRatio;
+					Opts->BleedLeft = Options->BleedLeft->value()/docUnitRatio;
+					Opts->BleedRight = Options->BleedRight->value()/docUnitRatio;
+					Opts->BleedBottom = Options->BleedBottom->value()/docUnitRatio;
+					Opts->Encrypt = false;
+					Opts->MirrorH = false;
+					Opts->MirrorV = false;
+					Opts->RotateDeg = 0;
+					Opts->PresentMode = false;
+					Opts->Encrypt = false;
+				}
+			}
+			else
+			{
+				Opts->UseProfiles = false;
+				Opts->UseProfiles2 = false;
+			}
+#else
+			Opts->UseProfiles = false;
+			Opts->UseProfiles2 = false;
+#endif
+		}
+	}
+}
+
+const QString PDF_Opts::cmsDescriptor()
+{
+	return cmsDescriptorName;
+}
+
+const int PDF_Opts::colorSpaceComponents()
+{
+	return components;
 }

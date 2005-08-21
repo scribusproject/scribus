@@ -12,6 +12,7 @@
 #include <qvaluelist.h>
 
 #include "scribusapi.h"
+#include "scribusstructs.h"
 #include "tabpdfoptions.h"
 
 /**
@@ -33,9 +34,12 @@ class SCRIBUS_API PDF_Opts : public QDialog
 
 public:
 	PDF_Opts( QWidget* parent, QString docFileName, QMap<QString,QFont> DocFonts, ScribusView *currView, PDFOptions *pdfOptions,
-				QValueList<PDFPresentationData> Eff, ProfilesL *PDFXProfiles, SCFonts &AllFonts );
+				QValueList<PDFPresentationData> Eff, ProfilesL *PDFXProfiles, SCFonts &AllFonts, double unitRatio, ProfilesL *printerProfiles);
 	~PDF_Opts() {};
 
+	void updateDocOptions();
+	const QString cmsDescriptor();
+	const int colorSpaceComponents();
 	QLabel* Name;
 	TabPDFOptions* Options;
 	QToolButton* FileC;
@@ -45,7 +49,7 @@ public:
 	QValueList<PDFPresentationData> EffVal;
 	PDFOptions *Opts;
 
-public slots:
+protected slots:
 	void DoExport();
 	void ChangeFile();
 	void fileNameChanged();
@@ -55,6 +59,10 @@ protected:
 	QHBoxLayout* Layout5;
 	QHBoxLayout* Layout7;
 	
+	double docUnitRatio;
+	QString cmsDescriptorName;
+	int components;
+	ProfilesL *appPrinterProfiles;
 };
 
 #endif // PDF_OPTS_H

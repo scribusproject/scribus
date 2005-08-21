@@ -7822,9 +7822,6 @@ void ScribusApp::doSaveAsPDF()
 		scrActions["toolsPreflightVerifier"]->setOn(false);
 		disconnect(docCheckerPalette, SIGNAL(ignoreAllErrors()), this, SLOT(doSaveAsPDF()));
 	}
-	QString fn;
-	int Components = 3;
-	QString nam = "";
 /*	if (bookmarkPalette->BView->childCount() == 0)
 		doc->PDF_Options.Bookmarks = false; */
 	QMap<QString,QFont> ReallyUsed;
@@ -7852,127 +7849,12 @@ void ScribusApp::doSaveAsPDF()
 		}
 		doc->PDF_Options.SubsetList = tmpEm;
 	}
-	PDF_Opts *dia = new PDF_Opts(this, doc->DocName, ReallyUsed, view, &doc->PDF_Options, doc->PDF_Options.PresentVals, &PDFXProfiles, prefsManager->appPrefs.AvailFonts);
+	PDF_Opts *dia = new PDF_Opts(this, doc->DocName, ReallyUsed, view, &doc->PDF_Options, doc->PDF_Options.PresentVals, &PDFXProfiles, prefsManager->appPrefs.AvailFonts, doc->unitRatio(), &ScApp->PrinterProfiles);
 	if (dia->exec())
 	{
 		std::vector<int> pageNs;
 		qApp->setOverrideCursor(QCursor(waitCursor), true);
-		fn = dia->fileNameLineEdit->text();
-		doc->PDF_Options.Datei = fn;
-		doc->PDF_Options.Thumbnails = dia->Options->CheckBox1->isChecked();
-		doc->PDF_Options.Compress = dia->Options->Compression->isChecked();
-		doc->PDF_Options.CompressMethod = dia->Options->CMethod->currentItem();
-		doc->PDF_Options.Quality = dia->Options->CQuality->currentItem();
-		doc->PDF_Options.Resolution = dia->Options->Resolution->value();
-		doc->PDF_Options.EmbedList = dia->Options->FontsToEmbed;
-		doc->PDF_Options.SubsetList = dia->Options->FontsToSubset;
-		doc->PDF_Options.RecalcPic = dia->Options->DSColor->isChecked();
-		doc->PDF_Options.PicRes = dia->Options->ValC->value();
-		doc->PDF_Options.Bookmarks = dia->Options->CheckBM->isChecked();
-		doc->PDF_Options.Binding = dia->Options->ComboBind->currentItem();
-		doc->PDF_Options.MirrorH = dia->Options->MirrorH->isOn();
-		doc->PDF_Options.MirrorV = dia->Options->MirrorV->isOn();
-		doc->PDF_Options.RotateDeg = dia->Options->RotateDeg->currentItem() * 90;
-		doc->PDF_Options.PresentMode = dia->Options->CheckBox10->isChecked();
-		doc->PDF_Options.PresentVals = dia->EffVal;
-		doc->PDF_Options.Articles = dia->Options->Article->isChecked();
-		doc->PDF_Options.Encrypt = dia->Options->Encry->isChecked();
-		doc->PDF_Options.UseLPI = dia->Options->UseLPI->isChecked();
-		doc->PDF_Options.useLayers = dia->Options->useLayers->isChecked();
-		if (dia->Options->Encry->isChecked())
-		{
-			int Perm = -64;
-			if (dia->Options->PDFVersionCombo->currentItem() == 1)
-				Perm &= ~0x00240000;
-			if (dia->Options->PrintSec->isChecked())
-				Perm += 4;
-			if (dia->Options->ModifySec->isChecked())
-				Perm += 8;
-			if (dia->Options->CopySec->isChecked())
-				Perm += 16;
-			if (dia->Options->AddSec->isChecked())
-				Perm += 32;
-			doc->PDF_Options.Permissions = Perm;
-			doc->PDF_Options.PassOwner = dia->Options->PassOwner->text();
-			doc->PDF_Options.PassUser = dia->Options->PassUser->text();
-		}
-		if (dia->Options->PDFVersionCombo->currentItem() == 0)
-			doc->PDF_Options.Version = PDFOptions::PDFVersion_13;
-		if (dia->Options->PDFVersionCombo->currentItem() == 1)
-			doc->PDF_Options.Version = PDFOptions::PDFVersion_14;
-		if (dia->Options->PDFVersionCombo->currentItem() == 2)
-			doc->PDF_Options.Version = PDFOptions::PDFVersion_15;
-		if (dia->Options->PDFVersionCombo->currentItem() == 3)
-			doc->PDF_Options.Version = PDFOptions::PDFVersion_X3;
-		if (dia->Options->OutCombo->currentItem() == 0)
-		{
-			doc->PDF_Options.UseRGB = true;
-			doc->PDF_Options.isGrayscale = false;
-			doc->PDF_Options.UseProfiles = false;
-			doc->PDF_Options.UseProfiles2 = false;
-		}
-		else
-		{
-			if (dia->Options->OutCombo->currentItem() == 2)
-			{
-				doc->PDF_Options.isGrayscale = true;
-				doc->PDF_Options.UseRGB = false;
-				doc->PDF_Options.UseProfiles = false;
-				doc->PDF_Options.UseProfiles2 = false;
-			}
-			else
-			{
-				doc->PDF_Options.isGrayscale = false;
-				doc->PDF_Options.UseRGB = false;
-#ifdef HAVE_CMS
-				if (CMSuse)
-				{
-					doc->PDF_Options.UseProfiles = dia->Options->EmbedProfs->isChecked();
-					doc->PDF_Options.UseProfiles2 = dia->Options->EmbedProfs2->isChecked();
-					doc->PDF_Options.Intent = dia->Options->IntendS->currentItem();
-					doc->PDF_Options.Intent2 = dia->Options->IntendI->currentItem();
-					doc->PDF_Options.EmbeddedI = dia->Options->NoEmbedded->isChecked();
-					doc->PDF_Options.SolidProf = dia->Options->SolidPr->currentText();
-					doc->PDF_Options.ImageProf = dia->Options->ImageP->currentText();
-					doc->PDF_Options.PrintProf = dia->Options->PrintProfC->currentText();
-					if (doc->PDF_Options.Version == PDFOptions::PDFVersion_X3)
-					{
-						const char *Descriptor;
-						cmsHPROFILE hIn;
-						hIn = cmsOpenProfileFromFile(PrinterProfiles[doc->PDF_Options.PrintProf], "r");
-						Descriptor = cmsTakeProductDesc(hIn);
-						nam = QString(Descriptor);
-						if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigRgbData)
-							Components = 3;
-						if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigCmykData)
-							Components = 4;
-						if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigCmyData)
-							Components = 3;
-						cmsCloseProfile(hIn);
-						doc->PDF_Options.Info = dia->Options->InfoString->text();
-						doc->PDF_Options.BleedTop = dia->Options->BleedTop->value()/doc->unitRatio();
-						doc->PDF_Options.BleedLeft = dia->Options->BleedLeft->value()/doc->unitRatio();
-						doc->PDF_Options.BleedRight = dia->Options->BleedRight->value()/doc->unitRatio();
-						doc->PDF_Options.BleedBottom = dia->Options->BleedBottom->value()/doc->unitRatio();
-						doc->PDF_Options.Encrypt = false;
-						doc->PDF_Options.MirrorH = false;
-						doc->PDF_Options.MirrorV = false;
-						doc->PDF_Options.RotateDeg = 0;
-						doc->PDF_Options.PresentMode = false;
-						doc->PDF_Options.Encrypt = false;
-					}
-				}
-				else
-				{
-					doc->PDF_Options.UseProfiles = false;
-					doc->PDF_Options.UseProfiles2 = false;
-				}
-#else
-				doc->PDF_Options.UseProfiles = false;
-				doc->PDF_Options.UseProfiles2 = false;
-#endif
-			}
-		}
+		dia->updateDocOptions();
 		if (dia->Options->AllPages->isChecked())
 			parsePagesString("*", &pageNs, doc->pageCount);
 		else
@@ -7986,8 +7868,10 @@ void ScribusApp::doSaveAsPDF()
 			thumbs.insert(pageNs[ap], pm);
 		}
 		ReOrderText(doc, view);
-		if (!getPDFDriver(fn, nam, Components, pageNs, thumbs))
-			QMessageBox::warning(this, tr("Warning"), tr("Cannot write the file: \n%1").arg(fn), CommonStrings::tr_OK);
+		int components=dia->colorSpaceComponents();
+		QString nam(dia->cmsDescriptor());
+		if (!getPDFDriver(doc->PDF_Options.Datei, nam, components, pageNs, thumbs))
+			QMessageBox::warning(this, tr("Warning"), tr("Cannot write the file: \n%1").arg(doc->PDF_Options.Datei), CommonStrings::tr_OK);
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	}
 	delete dia;

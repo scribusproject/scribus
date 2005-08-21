@@ -329,12 +329,12 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/prefstable.h                  $(prefix)/include/scribus/prefstable.h
 	$(INSTALL_DATA) $(srcdir)/query.h                       $(prefix)/include/scribus/query.h
 	$(INSTALL_DATA) $(srcdir)/rc4.h                         $(prefix)/include/scribus/rc4.h
-	$(INSTALL_DATA) $(srcdir)/rulermover.h                      $(prefix)/include/scribus/rulermover.h
+	$(INSTALL_DATA) $(srcdir)/rulermover.h                  $(prefix)/include/scribus/rulermover.h
 	$(INSTALL_DATA) $(srcdir)/reformdoc.h                   $(prefix)/include/scribus/reformdoc.h
-	$(INSTALL_DATA) $(srcdir)/sccolor.h                   $(prefix)/include/scribus/sccolor.h
+	$(INSTALL_DATA) $(srcdir)/sccolor.h                     $(prefix)/include/scribus/sccolor.h
 	$(INSTALL_DATA) $(srcdir)/scfonts.h                     $(prefix)/include/scribus/scfonts.h
 	$(INSTALL_DATA) $(srcdir)/scfonts_ttf.h                 $(prefix)/include/scribus/scfonts_ttf.h
-	$(INSTALL_DATA) $(srcdir)/scfontmetrics.h              $(prefix)/include/scribus/scfontmetrics.h
+	$(INSTALL_DATA) $(srcdir)/scfontmetrics.h               $(prefix)/include/scribus/scfontmetrics.h
 	$(INSTALL_DATA) $(srcdir)/scmenu.h                      $(prefix)/include/scribus/scmenu.h
 	$(INSTALL_DATA) $(srcdir)/scpainter.h                   $(prefix)/include/scribus/scpainter.h
 	$(INSTALL_DATA) $(srcdir)/scpaths.h                     $(prefix)/include/scribus/scpaths.h
