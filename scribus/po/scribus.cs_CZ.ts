@@ -4546,7 +4546,7 @@ Chyba byla:
     </message>
     <message>
         <source>Python source files (*.py)</source>
-        <translation type="unfinished"></translation>
+        <translation>Python zdrojové kódy (*.py)</translation>
     </message>
 </context>
 <context>
@@ -8306,7 +8306,7 @@ Se zapnutou volbou může dojít ke zpomalení exportu a zvýšení paměťovýv
     </message>
     <message>
         <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility. Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Note: PDF/X-3 will convert all CMYK images to ICC based RGB colors. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Určuje kompatibilitu PDF. Implicitní je Acrobat 4.0. Jestliže ve vašem dokumentu používáte vlastnosti PDF 1.4, jako je například průhlednost nebo 128 bitové šifrování, zvolte Acrobat 5.0. Jestliže máte aktivovanou správu barev a chcete RGB barvy pro komerční tisk, zvolte PDF/X-3. Pozn.: PDF/X-3 převede všechny CMYK obrázky do RGB s daným ICC. Použijte to, jestliže vás o to žádá tiskárna (v některých případech tisku na čtyřbarevné laserové tiskárně).</translation>
     </message>
 </context>
 <context>
