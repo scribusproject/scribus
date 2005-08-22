@@ -2450,6 +2450,14 @@ useful to call this procedure when you&apos;re changing the document, because Sc
 won&apos;t automatically notice when you change the document using a script.
 </translation>
     </message>
+    <message>
+        <source>newStyleDialog() -&gt; string
+
+Shows &apos;Create new paragraph style&apos; dialog. Function returns real
+style name or None when user cancels the dialog.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -3404,79 +3412,79 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     <name>Align</name>
     <message>
         <source>Distribute/Align</source>
-        <translation>Distribute/Align</translation>
+        <translation type="obsolete">Distribute/Align</translation>
     </message>
     <message>
         <source>Align</source>
-        <translation>Align</translation>
+        <translation type="obsolete">Align</translation>
     </message>
     <message>
         <source>Horizontal</source>
-        <translation>Horizontal</translation>
+        <translation type="obsolete">Horizontal</translation>
     </message>
     <message>
         <source>Left Sides</source>
-        <translation>Left Sides</translation>
+        <translation type="obsolete">Left Sides</translation>
     </message>
     <message>
         <source>Middles</source>
-        <translation>Middles</translation>
+        <translation type="obsolete">Middles</translation>
     </message>
     <message>
         <source>Right Sides</source>
-        <translation>Right Sides</translation>
+        <translation type="obsolete">Right Sides</translation>
     </message>
     <message>
         <source>Vertical</source>
-        <translation>Vertical</translation>
+        <translation type="obsolete">Vertical</translation>
     </message>
     <message>
         <source>Top Sides</source>
-        <translation>Top Sides</translation>
+        <translation type="obsolete">Top Sides</translation>
     </message>
     <message>
         <source>Bottom Sides</source>
-        <translation>Bottom Sides</translation>
+        <translation type="obsolete">Bottom Sides</translation>
     </message>
     <message>
         <source>&amp;Between:</source>
-        <translation>&amp;Between:</translation>
+        <translation type="obsolete">&amp;Between:</translation>
     </message>
     <message>
         <source>A&amp;lign</source>
-        <translation>A&amp;lign</translation>
+        <translation type="obsolete">A&amp;lign</translation>
     </message>
     <message>
         <source>Di&amp;splacement</source>
-        <translation>Di&amp;splacement</translation>
+        <translation type="obsolete">Di&amp;splacement</translation>
     </message>
     <message>
         <source>Distribute &amp;Evenly</source>
-        <translation>Distribute &amp;Evenly</translation>
+        <translation type="obsolete">Distribute &amp;Evenly</translation>
     </message>
     <message>
         <source>Bet&amp;ween:</source>
-        <translation>Bet&amp;ween:</translation>
+        <translation type="obsolete">Bet&amp;ween:</translation>
     </message>
     <message>
         <source>Do &amp;Not Change</source>
-        <translation>Do &amp;Not Change</translation>
+        <translation type="obsolete">Do &amp;Not Change</translation>
     </message>
     <message>
         <source>Al&amp;ign</source>
-        <translation>Al&amp;ign</translation>
+        <translation type="obsolete">Al&amp;ign</translation>
     </message>
     <message>
         <source>Dis&amp;placement</source>
-        <translation>Dis&amp;placement</translation>
+        <translation type="obsolete">Dis&amp;placement</translation>
     </message>
     <message>
         <source>Distribute E&amp;venly</source>
-        <translation>Distribute E&amp;venly</translation>
+        <translation type="obsolete">Distribute E&amp;venly</translation>
     </message>
     <message>
         <source>&amp;Do Not Change</source>
-        <translation>&amp;Do Not Change</translation>
+        <translation type="obsolete">&amp;Do Not Change</translation>
     </message>
 </context>
 <context>
@@ -4559,7 +4567,7 @@ Please choose another.</translation>
     </message>
     <message>
         <source>Default color profile for imported images</source>
-        <translation>Default colour profile for imported images</translation>
+        <translation type="obsolete">Default colour profile for imported images</translation>
     </message>
     <message>
         <source>Default color profile for solid colors on the page</source>
@@ -4613,7 +4621,7 @@ This requires very accurate profiles and serves only as a warning.</translation>
     </message>
     <message>
         <source>&amp;Pictures:</source>
-        <translation>&amp;Pictures:</translation>
+        <translation type="obsolete">&amp;Pictures:</translation>
     </message>
     <message>
         <source>&amp;Solid Colors:</source>
@@ -4646,6 +4654,22 @@ This requires very accurate profiles and serves only as a warning.</translation>
     <message>
         <source>Use &amp;Blackpoint Compensation</source>
         <translation>Use &amp;Blackpoint Compensation</translation>
+    </message>
+    <message>
+        <source>&amp;RGB Pictures:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;CMYK Pictures:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default color profile for imported cmyk images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default color profile for imported rgb images</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4743,6 +4767,14 @@ This requires very accurate profiles and serves only as a warning.</translation>
 It&apos;s a reserved name for transparent color</source>
         <translation>You cannot create a colour named &quot;%1&quot;.
 It&apos;s a reserved name for transparent colour</translation>
+    </message>
+    <message>
+        <source>Is Spot-Color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Is Registration-Color</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4984,6 +5016,25 @@ and the Delete key removes the last inserted one</translation>
     <message>
         <source>&amp;Ignore Errors</source>
         <translation>&amp;Ignore Errors</translation>
+    </message>
+</context>
+<context>
+    <name>CheckerPrefsList</name>
+    <message>
+        <source>Postscript</source>
+        <translation type="unfinished">Postscript</translation>
+    </message>
+    <message>
+        <source>PDF 1.3</source>
+        <translation type="unfinished">PDF 1.3</translation>
+    </message>
+    <message>
+        <source>PDF 1.4</source>
+        <translation type="unfinished">PDF 1.4</translation>
+    </message>
+    <message>
+        <source>PDF/X-3</source>
+        <translation type="unfinished">PDF/X-3</translation>
     </message>
 </context>
 <context>
@@ -6497,7 +6548,7 @@ Use 72 dpi for Images intended for the Screen</translation>
     </message>
     <message>
         <source>Append colors to the current set from an existing document</source>
-        <translation>Append colours to the current set from an existing document</translation>
+        <translation type="obsolete">Append colours to the current set from an existing document</translation>
     </message>
     <message>
         <source>Create a new color within the current set</source>
@@ -6521,7 +6572,7 @@ Use 72 dpi for Images intended for the Screen</translation>
     </message>
     <message>
         <source>&amp;Append</source>
-        <translation>&amp;Append</translation>
+        <translation type="obsolete">&amp;Append</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -6554,6 +6605,14 @@ Use 72 dpi for Images intended for the Screen</translation>
     <message>
         <source>None</source>
         <translation>None</translation>
+    </message>
+    <message>
+        <source>&amp;Import</source>
+        <translation type="unfinished">&amp;Import</translation>
+    </message>
+    <message>
+        <source>Import colors to the current set from an existing document</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7046,7 +7105,7 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <source>Master Page (&amp;Left Page):</source>
-        <translation>Master Page (&amp;Left Page):</translation>
+        <translation type="obsolete">Master Page (&amp;Left Page):</translation>
     </message>
     <message>
         <source>&amp;Master Page:</source>
@@ -7054,7 +7113,7 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <source>Master Page (&amp;Right Page):</source>
-        <translation>Master Page (&amp;Right Page):</translation>
+        <translation type="obsolete">Master Page (&amp;Right Page):</translation>
     </message>
     <message>
         <source>Page Size</source>
@@ -7091,6 +7150,10 @@ A value of 0 means unlimited hyphenations.</translation>
     <message>
         <source>Move Objects with their Page</source>
         <translation>Move Objects with their Page</translation>
+    </message>
+    <message>
+        <source>Master Pages</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7444,6 +7507,10 @@ A value of 0 means unlimited hyphenations.</translation>
     <message>
         <source>Move Objects with their Page</source>
         <translation>Move Objects with their Page</translation>
+    </message>
+    <message>
+        <source>Type:</source>
+        <translation type="unfinished">Type:</translation>
     </message>
 </context>
 <context>
@@ -8590,11 +8657,11 @@ Please choose another.</translation>
     <name>NewTm</name>
     <message>
         <source>Left Page</source>
-        <translation>Left Page</translation>
+        <translation type="obsolete">Left Page</translation>
     </message>
     <message>
         <source>Right Page</source>
-        <translation>Right Page</translation>
+        <translation type="obsolete">Right Page</translation>
     </message>
 </context>
 <context>
@@ -9054,27 +9121,31 @@ Consider using the Preflight Checker to correct them</translation>
     </message>
     <message>
         <source>Single Page</source>
-        <translation>Single Page</translation>
+        <translation type="obsolete">Single Page</translation>
     </message>
     <message>
         <source>Double sided</source>
-        <translation>Double sided</translation>
+        <translation type="obsolete">Double sided</translation>
     </message>
     <message>
         <source>3-Fold</source>
-        <translation>3-Fold</translation>
+        <translation type="obsolete">3-Fold</translation>
     </message>
     <message>
         <source>4-Fold</source>
-        <translation>4-Fold</translation>
+        <translation type="obsolete">4-Fold</translation>
     </message>
     <message>
         <source>Page #</source>
-        <translation>Page #</translation>
+        <translation type="obsolete">Page #</translation>
     </message>
     <message>
         <source>is the first Page.</source>
-        <translation>is the first Page.</translation>
+        <translation type="obsolete">is the first Page.</translation>
+    </message>
+    <message>
+        <source>First Page is:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9086,6 +9157,10 @@ Consider using the Preflight Checker to correct them</translation>
     <message>
         <source> of %1</source>
         <translation> of %1</translation>
+    </message>
+    <message>
+        <source>%1 of %2</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9973,15 +10048,15 @@ If set to 0 infinite amount of actions will be stored.</translation>
     </message>
     <message>
         <source>PDF 1.3</source>
-        <translation>PDF 1.3</translation>
+        <translation type="obsolete">PDF 1.3</translation>
     </message>
     <message>
         <source>PDF 1.4</source>
-        <translation>PDF 1.4</translation>
+        <translation type="obsolete">PDF 1.4</translation>
     </message>
     <message>
         <source>PDF/X-3</source>
-        <translation>PDF/X-3</translation>
+        <translation type="obsolete">PDF/X-3</translation>
     </message>
     <message>
         <source>Migrate Old Scribus Settings?</source>
@@ -9992,6 +10067,42 @@ If set to 0 infinite amount of actions will be stored.</translation>
 Do you want to migrate them to the new Scribus version?</source>
         <translation>Scribus has detected existing Scribus 1.2 preferences files.
 Do you want to migrate them to the new Scribus version?</translation>
+    </message>
+    <message>
+        <source>Single Page</source>
+        <translation type="unfinished">Single Page</translation>
+    </message>
+    <message>
+        <source>Double sided</source>
+        <translation type="unfinished">Double sided</translation>
+    </message>
+    <message>
+        <source>Left Page</source>
+        <translation type="unfinished">Left Page</translation>
+    </message>
+    <message>
+        <source>Right Page</source>
+        <translation type="unfinished">Right Page</translation>
+    </message>
+    <message>
+        <source>3-Fold</source>
+        <translation type="unfinished">3-Fold</translation>
+    </message>
+    <message>
+        <source>Middle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>4-Fold</source>
+        <translation type="unfinished">4-Fold</translation>
+    </message>
+    <message>
+        <source>Middle Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Middle Right</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10062,11 +10173,27 @@ Do you want to migrate them to the new Scribus version?</translation>
     </message>
     <message>
         <source>&amp;Save As...</source>
-        <translation>&amp;Save As...</translation>
+        <translation type="obsolete">&amp;Save As...</translation>
     </message>
     <message>
         <source>&amp;Run As Console</source>
-        <translation>&amp;Run As Console</translation>
+        <translation type="obsolete">&amp;Run As Console</translation>
+    </message>
+    <message>
+        <source>Save &amp;As...</source>
+        <translation type="unfinished">Save &amp;As...</translation>
+    </message>
+    <message>
+        <source>Run As &amp;Console</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus Python Console</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This is derived from standard Python console so it contains some limitations esp. in the case of whitespaces. Please consult Scribus manual for more informations.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11901,11 +12028,16 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Normal</source>
-        <translation>Normal</translation>
+        <translation type="obsolete">Normal</translation>
     </message>
     <message>
         <source>Wiki:           http://wiki.scribus.net</source>
         <translation>Wiki:           http://wiki.scribus.net</translation>
+    </message>
+    <message>
+        <source>page</source>
+        <comment>page export</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12243,6 +12375,14 @@ is not exhaustive due to exceptions from called functions.
         <source>Vertical:</source>
         <translation>Vertical:</translation>
     </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">None</translation>
+    </message>
+    <message>
+        <source>Adjusting Colors</source>
+        <translation type="unfinished">Adjusting Colours</translation>
+    </message>
 </context>
 <context>
     <name>RunScriptDialog</name>
@@ -12349,6 +12489,19 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source> %</source>
         <translation> %</translation>
+    </message>
+</context>
+<context>
+    <name>ScImportExportPlugin</name>
+    <message>
+        <source>Could not find target file %1: %2</source>
+        <comment>plugins</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Could not open target file %1: %2</source>
+        <comment>plugins</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12486,7 +12639,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Adjusting Colors</source>
-        <translation>Adjusting Colours</translation>
+        <translation type="obsolete">Adjusting Colours</translation>
     </message>
     <message>
         <source>English</source>
@@ -12746,15 +12899,15 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>PDF 1.3</source>
-        <translation>PDF 1.3</translation>
+        <translation type="obsolete">PDF 1.3</translation>
     </message>
     <message>
         <source>PDF 1.4</source>
-        <translation>PDF 1.4</translation>
+        <translation type="obsolete">PDF 1.4</translation>
     </message>
     <message>
         <source>PDF/X-3</source>
-        <translation>PDF/X-3</translation>
+        <translation type="obsolete">PDF/X-3</translation>
     </message>
     <message>
         <source>&amp;Level</source>
@@ -12936,12 +13089,37 @@ Consider using the Preflight Verifier to correct them</translation>
         <source>OpenOffice.org Draw (*.sxd);;</source>
         <translation>OpenOffice.org Draw (*.sxd);;</translation>
     </message>
+    <message>
+        <source>Preview Settings</source>
+        <translation type="unfinished">Preview Settings</translation>
+    </message>
+    <message>
+        <source>Level</source>
+        <translation type="unfinished">Level</translation>
+    </message>
+    <message>
+        <source>Send to La&amp;yer</source>
+        <translation type="unfinished">Send to La&amp;yer</translation>
+    </message>
+    <message>
+        <source>Collecting...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot collect all files for output for file:
+%1</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusDoc</name>
     <message>
         <source>New Layer</source>
         <translation>New Layer</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation type="unfinished">Normal</translation>
     </message>
 </context>
 <context>
@@ -13068,7 +13246,15 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
     <message>
         <source>Unit</source>
-        <translation>Unit</translation>
+        <translation type="obsolete">Unit</translation>
+    </message>
+    <message>
+        <source>Linking Text Frames</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>There is a problem with text frames linking. You are trying to link filled frames or a frame to the same one itself</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

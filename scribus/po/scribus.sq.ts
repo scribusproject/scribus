@@ -61,7 +61,7 @@ is not in points, make sure to account for this.
 example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
                 FACINGPAGES, FIRSTPAGERIGHT)
 </source>
-        <translation>newDoc(size, margins, orientation, firstPageNumber,
+        <translation type="obsolete">newDoc(size, margins, orientation, firstPageNumber,
                    unit, facingPages, firstSideLeft) -&gt; bool
 
 Krijon një dokument të ri dhe përgjigjet me një &quot;true&quot; nëse ka sukses. Parametrat kanë 
@@ -171,7 +171,7 @@ template page for the new page.
 
 May raise IndexError if the page number is out of range
 </source>
-        <translation>newPage(ku [,&quot;stampë&quot;])
+        <translation type="obsolete">newPage(ku [,&quot;stampë&quot;])
 
 Krijon një faqe të re. Nëse &quot;ku&quot; është -1 faqja e re shtohet te dokumenti, 
 përndryshe faqja e re futet përpara &quot;ku&quot;. Numrat e faqeve numërohen
@@ -225,7 +225,7 @@ __call__ method with no arguments. There is no problem with registering
 a callable more than once, nor with registering multiple bound methods
 of a single instance.
 </source>
-        <translation>register_macro_callable(emër, callable, përshpejt=&apos;&apos;)
+        <translation type="obsolete">register_macro_callable(emër, callable, përshpejt=&apos;&apos;)
 
 Krijon një makro të quajtur &quot;emër&quot; me objekt të thirrshëm ekzistues &quot;callable&quot;.
 I thirrshmi që jepet duhet të mos kërkojë ndonjë argument kur thirret (mund 
@@ -249,6 +249,63 @@ must be UTF8 encoded or &apos;unicode&apos; string(recommended).
 Shkruan &quot;vargun&quot; te shtyllë mesazhesh të Scribus-it (rresht gjendjeje). Teksti
 duhet të jetë i koduar si UTF8 ose varg &apos;unicode&apos; (e këshillueshme).
 </translation>
+    </message>
+    <message>
+        <source>newDoc(size, margins, orientation, firstPageNumber,
+                   unit, facingPages, firstSideLeft) -&gt; bool
+
+Creates a new document and returns true if successful. The parameters have the
+following meaning:
+
+    size = A tuple (width, height) describing the size of the document. You can
+    use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
+
+    margins = A tuple (left, right, top, bottom) describing the document
+    margins
+
+    orientation = the page orientation - constants PORTRAIT, LANDSCAPE
+
+    firstPageNumer = is the number of the first page in the document used for
+    pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
+    numbers if you&apos;re creating a document in several parts.
+
+    unit: this value sets the measurement units used by the document. Use a
+    predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
+    UNIT_PICAS, UNIT_POINTS.
+
+    facingPages = FACINGPAGES, NOFACINGPAGES
+
+    firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT
+
+The values for width, height and the margins are expressed in the given unit
+for the document. PAPER_* constants are expressed in points. If your document
+is not in points, make sure to account for this.
+
+example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
+                FACINGPAGES, FIRSTPAGERIGHT)
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>newPage(where [,&quot;masterpage&quot;])
+
+Creates a new page. If &quot;where&quot; is -1 the new Page is appended to the
+document, otherwise the new page is inserted before &quot;where&quot;. Page numbers are
+counted from 1 upwards, no matter what the displayed first page number of your
+document is. The optional parameter &quot;masterpage&quot; specifies the name of the
+master page for the new page.
+
+May raise IndexError if the page number is out of range
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>importSVG(&quot;string&quot;)
+
+The &quot;string&quot; must be a valid filename for a SVG image. The text
+must be UTF8 encoded or &apos;unicode&apos; string(recommended).
+</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6873,7 +6930,7 @@ the range from 0 to 255.
 
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation>defineColor(&quot;emër&quot;, c, m, y, k)
+        <translation type="obsolete">defineColor(&quot;emër&quot;, c, m, y, k)
 
 Përcakton një ngjyrë të re &quot;emër&quot;. Vlera e ngjyrës përcaktohet nga katër përbërës:
 c = Cyan, m = Magenta, y = Yellow and k = Black. Përbërësit e ngjyrës do të duhej 
@@ -6940,7 +6997,7 @@ Refer to the Qt-Documentation for QFileDialog for details on filters.
 Example: fileDialog(&apos;Open input&apos;, &apos;CSV files (*.csv)&apos;)
 Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;, issave=True)
 </source>
-        <translation>fileDialog(&quot;caption&quot;, [&quot;filter&quot;, &quot;defaultname&quot; ,haspreview, issave]) -&gt; varg me emër kartele
+        <translation type="obsolete">fileDialog(&quot;caption&quot;, [&quot;filter&quot;, &quot;defaultname&quot; ,haspreview, issave]) -&gt; varg me emër kartele
 
 Shfaq një kuti dialogu Hap Kartelë me caption &quot;caption&quot;. Kartelat filtrohen me
 vargun e filtrit &quot;filtër&quot;. Mund të jepet edhe një emër kartele ose shteg kartele,
@@ -7288,7 +7345,7 @@ Returns the corner radius of the object &quot;name&quot;. The radius is
 expressed in points. If &quot;name&quot; is not given the currently
 selected item is used.
 </source>
-        <translation>getCornerRadius([&quot;emër&quot;]) -&gt; integer
+        <translation type="obsolete">getCornerRadius([&quot;emër&quot;]) -&gt; integer
 
 Përgjigjet me rrezen e kulmit për objektin &quot;emër&quot;. Rrezja shprehet
 në pikë. Nëse nuk jepet &quot;emër&quot; përdoret objekti i përzgjedhur për çastin.</translation>
@@ -7324,7 +7381,7 @@ If &quot;name&quot; is not given the currently selected item is used.
 The position is expressed in the actual measurement unit of the document
 - see UNIT_&lt;type&gt; for reference.
 </source>
-        <translation>getPosition([&quot;emër&quot;]) -&gt; (x,y)
+        <translation type="obsolete">getPosition([&quot;emër&quot;]) -&gt; (x,y)
 
 Përgjigjet me një çift (x, y) për pozicionin e objektit &quot;emër&quot;.
 Nëse nuk tregohet &quot;emër&quot; përdoret ai i objektit të përzgjedhur për çastin.
@@ -7411,7 +7468,7 @@ Sets the rotation of the object &quot;name&quot; to &quot;rot&quot;. Positive va
 mean counter clockwise rotation. If &quot;name&quot; is not given the currently
 selected item is used.
 </source>
-        <translation>rotateObjectAbs(rot [, &quot;emër&quot;])
+        <translation type="obsolete">rotateObjectAbs(rot [, &quot;emër&quot;])
 
 Cakton rrotullimin e objektit &quot;emër&quot; sa &quot;rot&quot;. Vlerat pozitive
 nënkuptojnë rrotullim në kah antiorar. Nëse nuk jepet &quot;emër&quot; përdoret
@@ -7628,7 +7685,7 @@ Image is saved into &quot;filename&quot;. Returns true when success.
 May raise NotFoundError if the specified font can&apos;t be found.
 May raise ValueError if an empty sample or filename is passed.
 </source>
-        <translation>rendeFont(&quot;name&quot;, &quot;emër kartele&quot;, &quot;shembull&quot;, madhësi) -&gt; bool
+        <translation type="obsolete">rendeFont(&quot;name&quot;, &quot;emër kartele&quot;, &quot;shembull&quot;, madhësi) -&gt; bool
 
 Krijon një paraparje pamjeje të gërmave &quot;emër&quot; me tekstin e dhënë &quot;shembull&quot; dhe madhësinë.
 Pamjet ruhen te &quot;emër kartele&quot;. Përgjigjet me &quot;true&quot; në rast suksesi.
@@ -7737,7 +7794,7 @@ that the layer &quot;layer&quot; is visible, a value of False means that the lay
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation>isLayerPrintable(&quot;shtresë&quot;) -&gt; bool
+        <translation type="obsolete">isLayerPrintable(&quot;shtresë&quot;) -&gt; bool
 
 Përgjigjet nëse Shtresa &quot;shtresë&quot; është e dukshme ose jo, vlera True do të thotë 
 që shtresa &quot;shtresë&quot; është e dukshme, vlera False do të thotë 
@@ -7757,7 +7814,7 @@ the layer &quot;layer&quot; is disabled.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation>isLayerPrintable(&quot;shtresë&quot;) -&gt; bool
+        <translation type="obsolete">isLayerPrintable(&quot;shtresë&quot;) -&gt; bool
 
 Përgjigjet nëse Shtresa &quot;shtresë&quot; është e shtypshme ose jo, vlera True do të thotë 
 që shtresa &quot;shtresë&quot; është e shtypshme, vlera False do të thotë që shtypja e
@@ -8252,7 +8309,7 @@ i pari në faqen...
 Returns the page margins as a (left, right, top, bottom) tuple in the current
 units. See UNIT_&lt;type&gt; constants and getPageSize().
 </source>
-        <translation>getPageMargins()
+        <translation type="obsolete">getPageMargins()
 
 Përgjigjet me mënjanat e faqes (majtas, djathtas, sipër, krye) në njësitë e çastit.
 Shihni konstantet UNIT_&lt;tip&gt; dhe getPageSize().
@@ -8538,7 +8595,7 @@ used.
 
 May throw IndexError for an insertion out of bounds.
 </source>
-        <translation>insertText(&quot;tekst&quot;, pos, [&quot;emër&quot;])
+        <translation type="obsolete">insertText(&quot;tekst&quot;, pos, [&quot;emër&quot;])
 
 Fut tekstin &quot;tekst&quot; te pozicioni &quot;pos&quot; brenda kornizës së tekstit. Teksti
 duhet të jetë i koduar në UTF (për referencë shihni setText()) Gërma e parë ka
@@ -8664,7 +8721,7 @@ be selected. If &quot;name&quot; is not given the currently selected item is use
 
 May throw IndexError if the selection is outside the bounds of the text.
 </source>
-        <translation>selectText(fillim, numërim, [&quot;emër&quot;])
+        <translation type="obsolete">selectText(fillim, numërim, [&quot;emër&quot;])
 
 Përzgjedh shenja &quot;numërimi&quot; të tekstit në kornizën e tekstit &quot;emër&quot; duke filluar 
 prej shenjës &quot;fillim&quot;. Numërimi i shenjave nis nga 0. Nëse &quot;numërimi&quot; është zero, 
@@ -8784,7 +8841,7 @@ Create a macro named &quot;name&quot; by evaluating the the source code &quot;so
 If provided, the string &quot;accel&quot; will be used to set a keyboard shortcut
 for the macro.
 </source>
-        <translation>register_macro_code(name, sourcetext, accel=&apos;&apos;)
+        <translation type="obsolete">register_macro_code(name, sourcetext, accel=&apos;&apos;)
 
 Krijo një makro të quajtur &quot;emër&quot; duke çmuar kodin burim &quot;sourcetext&quot;.
 &quot;sourcetext&quot; duhet të pajtohet me të njëjtët rregulla si makrot e krijuara në GUI.
@@ -8863,6 +8920,252 @@ Aktivizon/çaktivizon ikonë ruajtjesh te shtyllë ikonash të Scribus-it dhe pj
 nuk do të vërë re automatikisht ndryshimin e dokumentit përmes përdorimit të një programthi.
 </translation>
     </message>
+    <message>
+        <source>getColorAsRGB(&quot;name&quot;) -&gt; tuple
+
+Returns a tuple (R,G,B) containing the three color components of the
+color &quot;name&quot; from the current document, converted to the RGB color
+space. If no document is open, returns the value of the named color
+from the default document colors.
+
+May raise NotFoundError if the named color wasn&apos;t found.
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>defineColor(&quot;name&quot;, c, m, y, k)
+
+Defines a new color &quot;name&quot;. The color Value is defined via four components:
+c = Cyan, m = Magenta, y = Yello and k = Black. Color components should be in
+the range from 0 to 255.
+
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>fileDialog(&quot;caption&quot;, [&quot;filter&quot;, &quot;defaultname&quot;, haspreview, issave, isdir]) -&gt; string with filename
+
+Shows a File Open dialog box with the caption &quot;caption&quot;. Files are filtered
+with the filter string &quot;filter&quot;. A default filename or file path can also
+supplied, leave this string empty when you don&apos;t want to use it.  A value of
+True for haspreview enables a small preview widget in the FileSelect box.  When
+the issave parameter is set to True the dialog acts like a &quot;Save As&quot; dialog
+otherwise it acts like a &quot;File Open Dialog&quot;. When the isdir parameter is True
+the dialog shows and returns only directories. The default for all of the
+opional parameters is False.
+
+The filter, if specified, takes the form &apos;comment (*.type *.type2 ...)&apos;.
+For example &apos;Images (*.png *.xpm *.jpg)&apos;.
+
+Refer to the Qt-Documentation for QFileDialog for details on filters.
+
+Example: fileDialog(&apos;Open input&apos;, &apos;CSV files (*.csv)&apos;)
+Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;, issave=True)
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>newStyleDialog() -&gt; string
+
+Shows &apos;Create new paragraph style&apos; dialog. Function returns real
+style name or None when user cancels the dialog.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getCornerRadius([&quot;name&quot;]) -&gt; integer
+
+Returns the corner radius of the object &quot;name&quot;. The radius isexpressed in points. If &quot;name&quot; is not given the currentlyselected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getPosition([&quot;name&quot;]) -&gt; (x,y)
+
+Returns a (x, y) tuple with the position of the object &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.The position is expressed in the actual measurement unit of the document
+- see UNIT_&lt;type&gt; for reference.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getPropertyCType(object, property, includesuper=True)
+
+Returns the name of the C type of `property&apos; of `object&apos;. See getProperty()
+for details of arguments.
+
+If `includesuper&apos; is true, search inherited properties too.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getPropertyNames(object, includesuper=True)
+
+Return a list of property names supported by `object&apos;.
+If `includesuper&apos; is true, return properties supported
+by parent classes as well.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getProperty(object, property)
+
+Return the value of the property `property&apos; of the passed `object&apos;.
+
+The `object&apos; argument may be a string, in which case the named PageItem
+is searched for. It may also be a PyCObject, which may point to any
+C++ QObject instance.
+
+The `property&apos; argument must be a string, and is the name of the property
+to look up on `object&apos;.
+
+The return value varies depending on the type of the property.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setProperty(object, property, value)
+
+Set `property&apos; of `object&apos; to `value&apos;. If `value&apos; cannot be converted to a type
+compatible with the type of `property&apos;, an exception is raised. An exception may
+also be raised if the underlying setter fails.
+
+See getProperty() for more information.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getChildren(object, ofclass=None, ofname=None, regexpmatch=False, recursive=True)
+
+Return a list of children of `object&apos;, possibly restricted to children
+of class named `ofclass&apos; or children named `ofname&apos;. If `recursive&apos; is true,
+search recursively through children, grandchildren, etc.
+
+See QObject::children() in the Qt docs for more information.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getChild(object, childname, ofclass=None, recursive=True)
+
+Return the first child of `object&apos; named `childname&apos;, possibly restricting
+the search to children of type name `ofclass&apos;. If `recursive&apos; is true,
+search recursively through children, grandchildren, etc.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>rotateObjectAbs(rot [, &quot;name&quot;])
+
+Sets the rotation of the object &quot;name&quot; to &quot;rot&quot;. Positve values
+mean counter clockwise rotation. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>renderFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size, format=&quot;PPM&quot;) -&gt; bool
+
+Creates an image preview of font &quot;name&quot; with given text &quot;sample&quot; and size.
+If &quot;filename&quot; is not &quot;&quot;, image is saved into &quot;filename&quot;. Otherwise
+image data is returned as a string. The optional &quot;format&quot; argument
+specifies the image format to generate, and supports any format allowed
+by QPixmap.save(). Common formats are PPM, JPEG, PNG and XPM.
+
+May raise NotFoundError if the specified font can&apos;t be found.
+May raise ValueError if an empty sample or filename is passed.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
+
+Returns whether the layer &quot;layer&quot; is visible or not, a value of True means
+that the layer &quot;layer&quot; is visible, a value of False means that the layer
+&quot;layer&quot; is invisible.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
+
+Returns whether the layer &quot;layer&quot; is printable or not, a value of True means
+that the layer &quot;layer&quot; can be printed, a value of False means that printing
+the layer &quot;layer&quot; is disabled.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getPageMargins()
+
+Returns the page margins as a (top, left, right, bottom) tuple in the current
+units. See UNIT_&lt;type&gt; constants and getPageSize().
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
+
+Inserts the text &quot;text&quot; at the position &quot;pos&quot; into the text frame &quot;name&quot;.
+Text must be UTF encoded (see setText() as reference) The first character has an
+index of 0. Inserting at position -1 appends text to the frame. If &quot;name&quot; is
+not given the currently selected Item is used.
+
+May throw IndexError for an insertion out of bounds.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>selectText(start, count, [&quot;name&quot;])
+
+Selects &quot;count&quot; characters of text in the text frame &quot;name&quot; starting from the
+character &quot;start&quot;. Character counting starts at 0. If &quot;count&quot; is zero, any
+text selection will be cleared.  If &quot;name&quot; is not given the currently
+selected item is used.
+
+May throw IndexError if the selection is outside the bounds of the text.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>textOverflows([&quot;name&quot;, nolinks]) -&gt; integer
+
+Returns the actual number of overflowing characters in text frame &quot;name&quot;.
+If is nolinks set to non zero value it takes only one frame - it doesn&apos;t
+use text frame linking. Without this parameter it search all linking chain.
+
+May raise WrongFrameTypeError if the target frame is not an text frame
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setPDFBookmark(&quot;toggle&quot;, [&quot;name&quot;])
+
+Sets wether (toggle = 1) the text frame &quot;name&quot; is a bookmark nor not.
+If &quot;name&quot; is not given the currently selected item is used.
+
+May raise WrongFrameTypeError if the target frame is not a text frame
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>isPDFBookmark([&quot;name&quot;]) -&gt; bool
+
+Returns true if the text frame &quot;name&quot; is a PDF bookmark.
+If &quot;name&quot; is not given the currently selected item is used.
+
+May raise WrongFrameTypeError if the target frame is not a text frame
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -8872,12 +9175,12 @@ nuk do të vërë re automatikisht ndryshimin e dokumentit përmes përdorimit t
     </message>
     <message>
         <source>%1. %2 %3 </source>
-        <translation>%1. %2 %3 </translation>
+        <translation type="obsolete">%1. %2 %3 </translation>
     </message>
     <message>
         <source>Scribus Version %1
 %2 %3</source>
-        <translation>Version Scribus %1
+        <translation type="obsolete">Version Scribus %1
 %2 %3</translation>
     </message>
     <message>
@@ -8898,7 +9201,7 @@ nuk do të vërë re automatikisht ndryshimin e dokumentit përmes përdorimit t
     </message>
     <message>
         <source>Windows port:</source>
-        <translation>Portë Windows:</translation>
+        <translation type="obsolete">Portë Windows:</translation>
     </message>
     <message>
         <source>Documentation:</source>
@@ -8910,11 +9213,11 @@ nuk do të vërë re automatikisht ndryshimin e dokumentit përmes përdorimit t
     </message>
     <message>
         <source>German:</source>
-        <translation>Gjermane:</translation>
+        <translation type="obsolete">Gjermane:</translation>
     </message>
     <message>
         <source>French:</source>
-        <translation>Frënge:</translation>
+        <translation type="obsolete">Frënge:</translation>
     </message>
     <message>
         <source>Spanish and Catalan:</source>
@@ -8922,51 +9225,51 @@ nuk do të vërë re automatikisht ndryshimin e dokumentit përmes përdorimit t
     </message>
     <message>
         <source>Italian:</source>
-        <translation>Italiane:</translation>
+        <translation type="obsolete">Italiane:</translation>
     </message>
     <message>
         <source>Hungarian:</source>
-        <translation>Hungareze:</translation>
+        <translation type="obsolete">Hungareze:</translation>
     </message>
     <message>
         <source>Ukrainian:</source>
-        <translation>Ukrainase:</translation>
+        <translation type="obsolete">Ukrainase:</translation>
     </message>
     <message>
         <source>Bulgarian:</source>
-        <translation>Bullgare:</translation>
+        <translation type="obsolete">Bullgare:</translation>
     </message>
     <message>
         <source>Galician:</source>
-        <translation>Galike:</translation>
+        <translation type="obsolete">Galike:</translation>
     </message>
     <message>
         <source>Turkish:</source>
-        <translation>Turke:</translation>
+        <translation type="obsolete">Turke:</translation>
     </message>
     <message>
         <source>Lithuanian:</source>
-        <translation>Lituaneze:</translation>
+        <translation type="obsolete">Lituaneze:</translation>
     </message>
     <message>
         <source>Polish:</source>
-        <translation>Polake:</translation>
+        <translation type="obsolete">Polake:</translation>
     </message>
     <message>
         <source>Czech:</source>
-        <translation>Çeke:</translation>
+        <translation type="obsolete">Çeke:</translation>
     </message>
     <message>
         <source>Slovak:</source>
-        <translation>Slovake:</translation>
+        <translation type="obsolete">Slovake:</translation>
     </message>
     <message>
         <source>Danish:</source>
-        <translation>Daneze:</translation>
+        <translation type="obsolete">Daneze:</translation>
     </message>
     <message>
         <source>Norwegian:</source>
-        <translation>Norvegjeze:</translation>
+        <translation type="obsolete">Norvegjeze:</translation>
     </message>
     <message>
         <source>English:</source>
@@ -8974,27 +9277,27 @@ nuk do të vërë re automatikisht ndryshimin e dokumentit përmes përdorimit t
     </message>
     <message>
         <source>Welsh:</source>
-        <translation>Welsh:</translation>
+        <translation type="obsolete">Welsh:</translation>
     </message>
     <message>
         <source>Russian:</source>
-        <translation>Ruse:</translation>
+        <translation type="obsolete">Ruse:</translation>
     </message>
     <message>
         <source>Brazilian:</source>
-        <translation>Braziliane:</translation>
+        <translation type="obsolete">Braziliane:</translation>
     </message>
     <message>
         <source>Finnish:</source>
-        <translation>Finlandeze:</translation>
+        <translation type="obsolete">Finlandeze:</translation>
     </message>
     <message>
         <source>Slovenian:</source>
-        <translation>Slovene:</translation>
+        <translation type="obsolete">Slovene:</translation>
     </message>
     <message>
         <source>Basque:</source>
-        <translation>Baske:</translation>
+        <translation type="obsolete">Baske:</translation>
     </message>
     <message>
         <source>&amp;Translations</source>
@@ -9052,31 +9355,31 @@ Librari suport që mungojnë tregohen me a *</translation>
     </message>
     <message>
         <source>Catalan:</source>
-        <translation>Katalane:</translation>
+        <translation type="obsolete">Katalane:</translation>
     </message>
     <message>
         <source>English (British):</source>
-        <translation>Anglishte (Britanike):</translation>
+        <translation type="obsolete">Anglishte (Britanike):</translation>
     </message>
     <message>
         <source>Esperanto:</source>
-        <translation>Esperanto:</translation>
+        <translation type="obsolete">Esperanto:</translation>
     </message>
     <message>
         <source>Korean:</source>
-        <translation>Koreane:</translation>
+        <translation type="obsolete">Koreane:</translation>
     </message>
     <message>
         <source>Serbian:</source>
-        <translation>Serbe:</translation>
+        <translation type="obsolete">Serbe:</translation>
     </message>
     <message>
         <source>Spanish:</source>
-        <translation>Spanjolle:</translation>
+        <translation type="obsolete">Spanjolle:</translation>
     </message>
     <message>
         <source>Swedish:</source>
-        <translation>Suedeze:</translation>
+        <translation type="obsolete">Suedeze:</translation>
     </message>
     <message>
         <source>Previous Translation Contributors:</source>
@@ -9103,10 +9406,818 @@ Librari suport që mungojnë tregohen me a *</translation>
  compiled in library support in Scribus
 The C-C-T equates to C=littlecms C=CUPS T=TIFF support.
 Missing library support is indicated by a *</source>
-        <translation>Ky panel tregon versionin, datën e krijimit dhe
+        <translation type="obsolete">Ky panel tregon versionin, datën e krijimit dhe
  suport librarish përpiluar në Scribus
 C-C-T është e barazvlefshme me suport C=littlecms C=CUPS T=TIFF.
 Mungesë suporti librarish tregohet me një *</translation>
+    </message>
+    <message>
+        <source>%1 %2 %3 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Using GhostScript version %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No GS version available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus Version %1
+%2 %3 (%4)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mac OSX Aqua Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Windows Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wiki</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Missing library support is indicated by a * This also indicates the version of Ghostscript which Scribus has detected.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ActionManager</name>
+    <message>
+        <source>&amp;New</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Open...</source>
+        <translation type="unfinished">&amp;Hap...</translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished">&amp;Mbyll</translation>
+    </message>
+    <message>
+        <source>&amp;Save</source>
+        <translation type="unfinished">&amp;Ruaj</translation>
+    </message>
+    <message>
+        <source>Save &amp;As...</source>
+        <translation type="unfinished">Ruaj &amp;Si...</translation>
+    </message>
+    <message>
+        <source>Re&amp;vert to Saved</source>
+        <translation type="unfinished">Ri&amp;kthehu tek i Ruajtur</translation>
+    </message>
+    <message>
+        <source>Collect for O&amp;utput...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Get Text...</source>
+        <translation type="unfinished">Merr Tekst...</translation>
+    </message>
+    <message>
+        <source>Append &amp;Text...</source>
+        <translation type="unfinished">Vini &amp;Tekst...</translation>
+    </message>
+    <message>
+        <source>Get Image...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save &amp;Text...</source>
+        <translation type="unfinished">Ruaj &amp;Tekst...</translation>
+    </message>
+    <message>
+        <source>Save Page as &amp;EPS...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save as P&amp;DF...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document &amp;Setup...</source>
+        <translation type="unfinished">&amp;Rregullim Dokumenti...</translation>
+    </message>
+    <message>
+        <source>&amp;Print...</source>
+        <translation type="unfinished">&amp;Shtyp...</translation>
+    </message>
+    <message>
+        <source>&amp;Quit</source>
+        <translation type="unfinished">&amp;Lër</translation>
+    </message>
+    <message>
+        <source>&amp;Undo</source>
+        <translation type="unfinished">&amp;Zhbëj</translation>
+    </message>
+    <message>
+        <source>&amp;Redo</source>
+        <translation type="unfinished">&amp;Ribëj</translation>
+    </message>
+    <message>
+        <source>&amp;Item Action Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cu&amp;t</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Copy</source>
+        <translation type="unfinished">&amp;Kopjo</translation>
+    </message>
+    <message>
+        <source>&amp;Paste</source>
+        <translation type="unfinished">&amp;Ngjit</translation>
+    </message>
+    <message>
+        <source>C&amp;lear Contents</source>
+        <translation type="unfinished">Pa&amp;stro Përmbajtje</translation>
+    </message>
+    <message>
+        <source>Select &amp;All</source>
+        <translation type="unfinished">Përzgjidhni &amp;Tërë</translation>
+    </message>
+    <message>
+        <source>&amp;Deselect All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Search/Replace...</source>
+        <translation type="unfinished">&amp;Kërko/Zëvendëso...</translation>
+    </message>
+    <message>
+        <source>Edit Image...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;olors...</source>
+        <translation type="unfinished">Ngj&amp;yra...</translation>
+    </message>
+    <message>
+        <source>&amp;Paragraph Styles...</source>
+        <translation type="unfinished">Stile &amp;Paragrafi...</translation>
+    </message>
+    <message>
+        <source>&amp;Line Styles...</source>
+        <translation type="unfinished">Stile &amp;Vije...</translation>
+    </message>
+    <message>
+        <source>&amp;Master Pages...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Javascripts...</source>
+        <translation type="unfinished">&amp;Javascripts...</translation>
+    </message>
+    <message>
+        <source>P&amp;references...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 pt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Other...</source>
+        <translation type="unfinished">&amp;Tjetër...</translation>
+    </message>
+    <message>
+        <source>&amp;Left</source>
+        <translation type="unfinished">&amp;Majtas</translation>
+    </message>
+    <message>
+        <source>&amp;Center</source>
+        <translation type="unfinished">&amp;Qendër</translation>
+    </message>
+    <message>
+        <source>&amp;Right</source>
+        <translation type="unfinished">&amp;Djathtas</translation>
+    </message>
+    <message>
+        <source>&amp;Block</source>
+        <translation type="unfinished">&amp;Blloko</translation>
+    </message>
+    <message>
+        <source>&amp;Forced</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;%1 %</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Normal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Underline</source>
+        <translation type="unfinished">&amp;Nënvijë</translation>
+    </message>
+    <message>
+        <source>Underline &amp;Words</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Strike Through</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;All Caps</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Small &amp;Caps</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Su&amp;perscript</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Su&amp;bscript</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Outline</source>
+        <translation type="unfinished">&amp;Jashtëvijëzo</translation>
+    </message>
+    <message>
+        <source>S&amp;hadow</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Image Effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Tabulators...</source>
+        <translation type="unfinished">&amp;Tabelëzuesa...</translation>
+    </message>
+    <message>
+        <source>D&amp;uplicate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Multiple Duplicate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Ungroup</source>
+        <translation type="unfinished">&amp;Çgrupo</translation>
+    </message>
+    <message>
+        <source>Is &amp;Locked</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Si&amp;ze is Locked</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lower to &amp;Bottom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Raise to &amp;Top</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Lower</source>
+        <translation type="unfinished">&amp;Ul</translation>
+    </message>
+    <message>
+        <source>&amp;Raise</source>
+        <translation type="unfinished">&amp;Ngri</translation>
+    </message>
+    <message>
+        <source>Send to S&amp;crapbook</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Attributes...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>I&amp;mage Visible</source>
+        <translation type="unfinished">Pa&amp;mje e Dukshme</translation>
+    </message>
+    <message>
+        <source>&amp;Update Image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Adjust Frame to Image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Extended Image Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Low Resolution</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Normal Resolution</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Full Resolution</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Is PDF &amp;Bookmark</source>
+        <translation type="unfinished">Është &amp;Faqerojtës PDF</translation>
+    </message>
+    <message>
+        <source>Is PDF A&amp;nnotation</source>
+        <translation type="unfinished">Është Sh&amp;ënim PDF</translation>
+    </message>
+    <message>
+        <source>Annotation P&amp;roperties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Field P&amp;roperties</source>
+        <translation type="unfinished">&amp;Veti Fushe</translation>
+    </message>
+    <message>
+        <source>&amp;Edit Shape...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Attach Text to Path</source>
+        <translation type="unfinished">&amp;Bashkangjit Tekst tek Shteg</translation>
+    </message>
+    <message>
+        <source>&amp;Detach Text from Path</source>
+        <translation type="unfinished">&amp;Shqit Tekst prej Shtegu</translation>
+    </message>
+    <message>
+        <source>&amp;Combine Polygons</source>
+        <translation type="unfinished">&amp;Ndërthur Shumëkëndësha</translation>
+    </message>
+    <message>
+        <source>Split &amp;Polygons</source>
+        <translation type="unfinished">Ndaj &amp;Shumëkëndësha</translation>
+    </message>
+    <message>
+        <source>&amp;Bezier Curve</source>
+        <translation type="unfinished">Kurbë &amp;Bezier</translation>
+    </message>
+    <message>
+        <source>&amp;Image Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Outlines</source>
+        <translation type="unfinished">&amp;Jashtëvija</translation>
+    </message>
+    <message>
+        <source>&amp;Polygon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Text Frame</source>
+        <translation type="unfinished">Kornizë &amp;Teksti</translation>
+    </message>
+    <message>
+        <source>&amp;Glyph...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sample Text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Insert...</source>
+        <translation type="unfinished">&amp;Fut...</translation>
+    </message>
+    <message>
+        <source>Im&amp;port...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Delete...</source>
+        <translation type="unfinished">&amp;Fshij...</translation>
+    </message>
+    <message>
+        <source>&amp;Copy...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Move...</source>
+        <translation type="unfinished">&amp;Zhvendos...</translation>
+    </message>
+    <message>
+        <source>&amp;Apply Master Page...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manage &amp;Guides...</source>
+        <translation type="unfinished">Administro &amp;Udhëzuesa...</translation>
+    </message>
+    <message>
+        <source>Manage Page Properties...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Fit in window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;50%</source>
+        <translation type="unfinished">&amp;50%</translation>
+    </message>
+    <message>
+        <source>&amp;75%</source>
+        <translation type="unfinished">&amp;75%</translation>
+    </message>
+    <message>
+        <source>&amp;100%</source>
+        <translation type="unfinished">&amp;100%</translation>
+    </message>
+    <message>
+        <source>&amp;200%</source>
+        <translation type="unfinished">&amp;200%</translation>
+    </message>
+    <message>
+        <source>&amp;Thumbnails</source>
+        <translation type="unfinished">Fi&amp;gurëza</translation>
+    </message>
+    <message>
+        <source>Show &amp;Margins</source>
+        <translation type="unfinished">Shfaq &amp;Mënjana</translation>
+    </message>
+    <message>
+        <source>Show &amp;Frames</source>
+        <translation type="unfinished">Shfaq &amp;Korniza</translation>
+    </message>
+    <message>
+        <source>Show &amp;Images</source>
+        <translation type="unfinished">Shfaq &amp;Pamje</translation>
+    </message>
+    <message>
+        <source>Show &amp;Grid</source>
+        <translation type="unfinished">Shfaq &amp;Rrjetë</translation>
+    </message>
+    <message>
+        <source>Show G&amp;uides</source>
+        <translation type="unfinished">Shfaq &amp;Udhëzuesa</translation>
+    </message>
+    <message>
+        <source>Show &amp;Baseline Grid</source>
+        <translation type="unfinished">Pamjet në korniza pamjesh ripërmasohen sa madhësia e kornizës</translation>
+    </message>
+    <message>
+        <source>Show &amp;Text Chain</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Control Characters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rulers relative to Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sn&amp;ap to Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sna&amp;p to Guides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Properties</source>
+        <translation type="unfinished">&amp;Veti</translation>
+    </message>
+    <message>
+        <source>&amp;Scrapbook</source>
+        <translation type="unfinished">&amp;E papastër</translation>
+    </message>
+    <message>
+        <source>&amp;Layers</source>
+        <translation type="unfinished">&amp;Shtresa</translation>
+    </message>
+    <message>
+        <source>&amp;Arrange Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Bookmarks</source>
+        <translation type="unfinished">&amp;Faqerojtësa</translation>
+    </message>
+    <message>
+        <source>&amp;Measurements</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Action &amp;History</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preflight &amp;Verifier</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Align and Distribute</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Tools</source>
+        <translation type="unfinished">&amp;Mjete</translation>
+    </message>
+    <message>
+        <source>P&amp;DF Tools</source>
+        <translation type="unfinished">Mjete P&amp;DF</translation>
+    </message>
+    <message>
+        <source>Select Item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>T&amp;able</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Shape</source>
+        <translation type="unfinished">&amp;Formë</translation>
+    </message>
+    <message>
+        <source>&amp;Line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Freehand Line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rotate Item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zoom in or out</source>
+        <translation type="unfinished">Zmadho ose zvogëlo</translation>
+    </message>
+    <message>
+        <source>Zoom in</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zoom out</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit Contents of Frame</source>
+        <translation type="unfinished">Përpunoni Përmbajtje Kornize</translation>
+    </message>
+    <message>
+        <source>Edit Text...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Link Text Frames</source>
+        <translation type="unfinished">Lidh Korniza Tekstesh</translation>
+    </message>
+    <message>
+        <source>Unlink Text Frames</source>
+        <translation type="unfinished">Zgidh Korniza Tekstesh</translation>
+    </message>
+    <message>
+        <source>&amp;Eye Dropper</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy Item Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit the text with the Story Editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert Text Frame</source>
+        <translation type="unfinished">Fut Kornizë Teksti</translation>
+    </message>
+    <message>
+        <source>Insert Image Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert Table</source>
+        <translation type="unfinished">Fut Tabelë</translation>
+    </message>
+    <message>
+        <source>Insert Shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert Polygon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert Line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert Bezier Curve</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert Freehand Line</source>
+        <translation type="unfinished">Fut Vijë me Dorë të Lirë</translation>
+    </message>
+    <message>
+        <source>&amp;Manage Pictures</source>
+        <translation type="unfinished">&amp;Administro Pamje</translation>
+    </message>
+    <message>
+        <source>&amp;Hyphenate Text</source>
+        <translation type="unfinished">&amp;Vijëzo Tekst</translation>
+    </message>
+    <message>
+        <source>Dehyphenate Text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Generate Table Of Contents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;About Scribus</source>
+        <translation type="unfinished">&amp;Rreth Scribus-it</translation>
+    </message>
+    <message>
+        <source>About &amp;Qt</source>
+        <translation type="unfinished">Rreth &amp;Qt-s</translation>
+    </message>
+    <message>
+        <source>Toolti&amp;ps</source>
+        <translation type="unfinished">Ndih&amp;mëza</translation>
+    </message>
+    <message>
+        <source>Scribus &amp;Manual...</source>
+        <translation type="unfinished">&amp;Doracak për Scribus...</translation>
+    </message>
+    <message>
+        <source>Smart &amp;Hyphen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Non Breaking Dash</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Non Breaking &amp;Space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page &amp;Number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Frame Break</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Column Break</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copyright</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Registered Trademark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Trademark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bullet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Em Dash</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>En Dash</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Figure Dash</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Quotation Dash</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apostrophe</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Straight Double</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Single Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Single Right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Double Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Double Right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Single Reversed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Double Reversed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Single Left Guillemet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Single Right Guillemet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Double Left Guillemet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Double Right Guillemet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Low Single Comma</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Low Double Comma</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Double Turned Comma</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CJK Single Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CJK Single Right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CJK Double Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CJK Double Right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Toggle Palettes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Toggle Guides</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9145,11 +10256,11 @@ Mungesë suporti librarish tregohet me një *</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>&amp;Anulo</translation>
+        <translation type="obsolete">&amp;Anulo</translation>
     </message>
     <message>
         <source>Creates PostScript Level 3</source>
@@ -9181,112 +10292,275 @@ të cilët janë afër të zezës. Përdorimi i kësaj mund të përmirësojë d
 dhe lipsen ca eksperimente dhe prova për çdo herë.
 UCR zvogëlon mundësinë e mbingopjes me bojëra CMY.</translation>
     </message>
+    <message>
+        <source>Set Media Size</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Align</name>
     <message>
         <source>Distribute/Align</source>
-        <translation>Shpërnda/Drejto</translation>
+        <translation type="obsolete">Shpërnda/Drejto</translation>
     </message>
     <message>
         <source>Align</source>
-        <translation>Drejto</translation>
+        <translation type="obsolete">Drejto</translation>
     </message>
     <message>
         <source>Horizontal</source>
-        <translation>Horizontalisht</translation>
+        <translation type="obsolete">Horizontalisht</translation>
     </message>
     <message>
         <source>Left Sides</source>
-        <translation>Anët Majtas</translation>
+        <translation type="obsolete">Anët Majtas</translation>
     </message>
     <message>
         <source>Middles</source>
-        <translation>Të mesit</translation>
+        <translation type="obsolete">Të mesit</translation>
     </message>
     <message>
         <source>Right Sides</source>
-        <translation>Anët Djathtas</translation>
+        <translation type="obsolete">Anët Djathtas</translation>
     </message>
     <message>
         <source>&amp;Between:</source>
-        <translation>&amp;Ndërmjet:</translation>
+        <translation type="obsolete">&amp;Ndërmjet:</translation>
     </message>
     <message>
         <source>&amp;Do Not Change</source>
-        <translation>&amp;Mos Ndrysho</translation>
+        <translation type="obsolete">&amp;Mos Ndrysho</translation>
     </message>
     <message>
         <source>A&amp;lign</source>
-        <translation>&amp;Drejto</translation>
+        <translation type="obsolete">&amp;Drejto</translation>
     </message>
     <message>
         <source>Di&amp;splacement</source>
-        <translation>Z&amp;hvendoje</translation>
+        <translation type="obsolete">Z&amp;hvendoje</translation>
     </message>
     <message>
         <source>Distribute &amp;Evenly</source>
-        <translation>Shpërnda &amp;Njësoj</translation>
+        <translation type="obsolete">Shpërnda &amp;Njësoj</translation>
     </message>
     <message>
         <source>Vertical</source>
-        <translation>Vertikalisht</translation>
+        <translation type="obsolete">Vertikalisht</translation>
     </message>
     <message>
         <source>Top Sides</source>
-        <translation>Anë të Sipërme</translation>
+        <translation type="obsolete">Anë të Sipërme</translation>
     </message>
     <message>
         <source>Bottom Sides</source>
-        <translation>Anë të Poshtme</translation>
+        <translation type="obsolete">Anë të Poshtme</translation>
     </message>
     <message>
         <source>Bet&amp;ween:</source>
-        <translation>Ndë&amp;rmjet:</translation>
+        <translation type="obsolete">Ndë&amp;rmjet:</translation>
     </message>
     <message>
         <source>Do &amp;Not Change</source>
-        <translation>Mos Ndr&amp;ysho</translation>
+        <translation type="obsolete">Mos Ndr&amp;ysho</translation>
     </message>
     <message>
         <source>Al&amp;ign</source>
-        <translation>Dr&amp;ejto</translation>
+        <translation type="obsolete">Dr&amp;ejto</translation>
     </message>
     <message>
         <source>Dis&amp;placement</source>
-        <translation>Zh&amp;vendosje</translation>
+        <translation type="obsolete">Zh&amp;vendosje</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation>pt</translation>
+        <translation type="obsolete">pt</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation>mm</translation>
+        <translation type="obsolete">mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation>inç</translation>
+        <translation type="obsolete">inç</translation>
     </message>
     <message>
         <source> p</source>
-        <translation>p</translation>
+        <translation type="obsolete">p</translation>
     </message>
     <message>
         <source>Distribute E&amp;venly</source>
-        <translation>Shpërnda Një&amp;soj</translation>
+        <translation type="obsolete">Shpërnda Një&amp;soj</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Apply</source>
-        <translation>&amp;Zbato</translation>
+        <translation type="obsolete">&amp;Zbato</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>&amp;Anulo</translation>
+        <translation type="obsolete">&amp;Anulo</translation>
+    </message>
+</context>
+<context>
+    <name>AlignDistributePalette</name>
+    <message>
+        <source>Align and Distribute</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Align</source>
+        <translation type="unfinished">Drejto</translation>
+    </message>
+    <message>
+        <source>&amp;Relative to:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>First Selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Last Selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page</source>
+        <translation type="unfinished">Faqe</translation>
+    </message>
+    <message>
+        <source>Margins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Guide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Selection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Align right sides of objects to left side of anchor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Align left sides of objects to right side of anchor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Align bottoms</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Align right sides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Align tops of objects to bottom of anchor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Center on vertical axis</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Align left sides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Center on horizontal axis</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Align bottoms of objects to top of anchor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Align tops</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Selected Guide:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distribute</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make horizontal gaps between objects equal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make horizontal gaps between objects equal to the value specified</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distribute right sides equidistantly</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distribute bottoms equidistantly</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distribute centers equidistantly horizontally</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make vertical gaps between objects equal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make vertical gaps between objects equal to the value specified</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distribute left sides equidistantly</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distribute centers equidistantly vertically</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distribute tops equidistantly</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Distance:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distribute the items with the distance specified</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>None Selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation type="unfinished">Kujdes</translation>
+    </message>
+    <message>
+        <source>Some objects are locked.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Unlock All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Y: %1%2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>X: %1%2</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9935,54 +11209,136 @@ UCR zvogëlon mundësinë e mbingopjes me bojëra CMY.</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>&amp;Anulo</translation>
+        <translation type="obsolete">&amp;Anulo</translation>
+    </message>
+</context>
+<context>
+    <name>ApplyMasterPageDialog</name>
+    <message>
+        <source>Normal</source>
+        <translation type="unfinished">Normale</translation>
+    </message>
+    <message>
+        <source>Apply Master Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Master Page:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply To</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current &amp;page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+P</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Even pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+E</source>
+        <translation type="unfinished">Alt+E</translation>
+    </message>
+    <message>
+        <source>O&amp;dd pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+D</source>
+        <translation type="unfinished">Alt+D</translation>
+    </message>
+    <message>
+        <source>&amp;All pages</source>
+        <translation type="unfinished">&amp;Tërë faqet</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation type="unfinished">Alt+A</translation>
+    </message>
+    <message>
+        <source>&amp;Within range</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+W</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;Apply the selected template to even, odd or all pages within the following range&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>to</source>
+        <translation type="unfinished">te</translation>
+    </message>
+    <message>
+        <source>Alt+O</source>
+        <translation type="unfinished">Alt+O</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation type="unfinished">Alt+C</translation>
     </message>
 </context>
 <context>
     <name>ApplyT</name>
     <message>
         <source>Apply Template</source>
-        <translation>Zbato Stampë</translation>
+        <translation type="obsolete">Zbato Stampë</translation>
     </message>
     <message>
         <source>&amp;Template:</source>
-        <translation>&amp;Stampë:</translation>
+        <translation type="obsolete">&amp;Stampë:</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation>Normale</translation>
+        <translation type="obsolete">Normale</translation>
     </message>
     <message>
         <source>Apply to &amp;Current Page</source>
-        <translation>Zbato te Faqe e Ça&amp;stit</translation>
+        <translation type="obsolete">Zbato te Faqe e Ça&amp;stit</translation>
     </message>
     <message>
         <source>Apply to all &amp;even Pages</source>
-        <translation>Zbato te tërë Faqet &amp;çifte</translation>
+        <translation type="obsolete">Zbato te tërë Faqet &amp;çifte</translation>
     </message>
     <message>
         <source>Apply to all &amp;odd Pages</source>
-        <translation>Zbato te tërë Faqet &amp;teke</translation>
+        <translation type="obsolete">Zbato te tërë Faqet &amp;teke</translation>
     </message>
     <message>
         <source>Apply from &amp;Page:</source>
-        <translation>Zbato prej &amp;Faqeje:</translation>
+        <translation type="obsolete">Zbato prej &amp;Faqeje:</translation>
     </message>
     <message>
         <source>To:</source>
-        <translation>Për:</translation>
+        <translation type="obsolete">Për:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>&amp;Anulo</translation>
+        <translation type="obsolete">&amp;Anulo</translation>
+    </message>
+</context>
+<context>
+    <name>ArrowChooser</name>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Asnjë</translation>
     </message>
 </context>
 <context>
@@ -10055,7 +11411,7 @@ Ju lutem zgjidhni një tjetër.</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Object</source>
@@ -10187,7 +11543,7 @@ Ju lutem zgjidhni një tjetër.</translation>
     <name>CMSPrefs</name>
     <message>
         <source>Color Management Settings</source>
-        <translation>Rregullime Administrimi Ngjyrash</translation>
+        <translation type="obsolete">Rregullime Administrimi Ngjyrash</translation>
     </message>
     <message>
         <source>&amp;Activate Color Management</source>
@@ -10199,7 +11555,7 @@ Ju lutem zgjidhni një tjetër.</translation>
     </message>
     <message>
         <source>&amp;Pictures:</source>
-        <translation>&amp;Pamje:</translation>
+        <translation type="obsolete">&amp;Pamje:</translation>
     </message>
     <message>
         <source>&amp;Solid Colors:</source>
@@ -10255,15 +11611,15 @@ Ju lutem zgjidhni një tjetër.</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>&amp;Anulo</translation>
+        <translation type="obsolete">&amp;Anulo</translation>
     </message>
     <message>
         <source>Default color profile for imported images</source>
-        <translation>Profil parazgjedhje ngjyrash për pamje të importuara</translation>
+        <translation type="obsolete">Profil parazgjedhje ngjyrash për pamje të importuara</translation>
     </message>
     <message>
         <source>Default color profile for solid colors on the page</source>
@@ -10309,6 +11665,22 @@ It is recommended that you enable this if you have photos in your document.</sou
         <translation>Kompensim Pikash të Zeza është një metodë për përmirësimin e kontrastit në foto.(new line)
 Këshillohet ta aktivizoni këtë nëse keni foto në dokumentin tuaj.</translation>
     </message>
+    <message>
+        <source>&amp;RGB Pictures:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;CMYK Pictures:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default color profile for imported cmyk images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default color profile for imported rgb images</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CMYKChoose</name>
@@ -10346,11 +11718,11 @@ Këshillohet ta aktivizoni këtë nëse keni foto në dokumentin tuaj.</translat
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>&amp;Anulo</translation>
+        <translation type="obsolete">&amp;Anulo</translation>
     </message>
     <message>
         <source>HSV-Colormap</source>
@@ -10406,7 +11778,7 @@ Këshillohet ta aktivizoni këtë nëse keni foto në dokumentin tuaj.</translat
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>None</source>
@@ -10417,6 +11789,518 @@ Këshillohet ta aktivizoni këtë nëse keni foto në dokumentin tuaj.</translat
 It&apos;s a reserved name for transparent color</source>
         <translation>Nuk mund të krijoni një ngjyrë të quajtur &quot;%1&quot;.(new line)
 Është emër i ruajtur për ngjyrë të tejdukshme</translation>
+    </message>
+    <message>
+        <source>Is Spot-Color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Is Registration-Color</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ChTable</name>
+    <message>
+        <source>You can see a thumbnail if you press
+and hold down the right mouse button
+
+The Insert key inserts a Glyph into the Selection below
+and the Delete key removes the last inserted one</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>CharSelect</name>
+    <message>
+        <source>Select Character:</source>
+        <translation type="unfinished">Përzgjidhni Gërma:</translation>
+    </message>
+    <message>
+        <source>Font:</source>
+        <translation type="unfinished">Gërma:</translation>
+    </message>
+    <message>
+        <source>Character Class:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Insert</source>
+        <translation type="unfinished">&amp;Fut</translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished">&amp;Mbyll</translation>
+    </message>
+    <message>
+        <source>Insert the characters at the cursor in the text</source>
+        <translation type="unfinished">Fut gërma në tekst atje ku gjendet kursori</translation>
+    </message>
+    <message>
+        <source>Delete the current selection(s).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close this dialog and return to text editing.</source>
+        <translation type="unfinished">Mbyll këtë dialog dhe kthehu te përpunimi i tekstit.</translation>
+    </message>
+    <message>
+        <source>Full Character Set</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Basic Latin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Latin-1 Supplement</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Latin Extended-A</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Latin Extended-B</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>General Punctuation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Super- and Subscripts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Currency Symbols</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Letterlike Symbols</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number Forms</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Arrows</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mathematical Operators</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Box Drawing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Block Elements</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Geometric Shapes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Miscellaneous Symbols</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dingbats</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Small Form Variants</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ligatures</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Specials</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Greek</source>
+        <translation type="unfinished">Greke</translation>
+    </message>
+    <message>
+        <source>Greek Extended</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cyrillic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cyrillic Supplement</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Arabic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Arabic Extended A</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Arabic Extended B</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hebrew</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>CheckDocument</name>
+    <message>
+        <source>Glyphs missing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text overflow</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Object is not on a Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Missing Image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image has a DPI-Value less than %1 DPI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Object has transparency</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Object is a PDF Annotation or Field</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Object is a placed PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document</source>
+        <translation type="unfinished">Dokument</translation>
+    </message>
+    <message>
+        <source>No Problems found</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page </source>
+        <translation type="unfinished">Faqe</translation>
+    </message>
+    <message>
+        <source>Free Objects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Problems found</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preflight Verifier</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Items</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Problems</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current Profile:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Ignore Errors</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>CheckerPrefsList</name>
+    <message>
+        <source>Postscript</source>
+        <translation type="unfinished">Postscript</translation>
+    </message>
+    <message>
+        <source>PDF 1.3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF 1.4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF/X-3</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ChooseStyles</name>
+    <message>
+        <source>Choose Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Available Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Anulo</translation>
+    </message>
+</context>
+<context>
+    <name>ColorWheel</name>
+    <message>
+        <source>Monochromatic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Analogous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Complementary</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Split Complementary</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Triadic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tetradic (Double Complementary)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Base Color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Monochromatic Light</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Monochromatic Dark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>1st. Analogous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>2nd. Analogous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>1st. Split</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>2nd. Split</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>3rd. Split</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>4th. Split</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>1st. Triadic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>2nd. Triadic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>1st. Tetradic (base opposite)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>2nd. Tetradic (angle)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>3rd. Tetradic (angle opposite)</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ColorWheelDialog</name>
+    <message>
+        <source>Normal Vision</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Protanopy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Deuteranopy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Full Color Blindness</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Vision Defect:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color Wheel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation type="unfinished">Ngjyrë</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished">Emër</translation>
+    </message>
+    <message>
+        <source>C</source>
+        <translation type="unfinished">C</translation>
+    </message>
+    <message>
+        <source>M</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Y</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>K</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select Method:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Angle (0 - 90 degrees):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Merge Colors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Replace Colors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Anulo</translation>
+    </message>
+    <message>
+        <source>Merge created colors into the document colors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Replace created colors in the document colors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Leave colors untouched</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Difference between selected value and counted ones. See documentation for more info</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click the wheel to get base color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Here you have the sample color schema</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select one of the method to create color schema. See documentation for more info</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Here you have the color of your chosen color schema</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You can simulate common vision defects here. Just select type of the defect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Merging colors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Now opening the color manager.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color Merging</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>CommonStrings</name>
+    <message>
+        <source>&amp;Apply</source>
+        <translation type="unfinished">&amp;Zbato</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Anulo</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Asnjë</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Save</source>
+        <translation type="unfinished">&amp;Ruaj</translation>
     </message>
 </context>
 <context>
@@ -10515,15 +12399,23 @@ It&apos;s a reserved name for transparent color</source>
     </message>
     <message>
         <source> mm</source>
-        <translation>mm</translation>
+        <translation type="obsolete">mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation>inç</translation>
+        <translation type="obsolete">inç</translation>
     </message>
     <message>
         <source> p</source>
-        <translation>p</translation>
+        <translation type="obsolete">p</translation>
+    </message>
+    <message>
+        <source>Move Vector</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Move the start of the gradient vector with the left mouse button pressed and move the end of the gradient vector with the right mouse button pressed</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10629,11 +12521,11 @@ It&apos;s a reserved name for transparent color</source>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>&amp;Anulo</translation>
+        <translation type="obsolete">&amp;Anulo</translation>
     </message>
     <message>
         <source>This panel displays various CUPS options when printing. 
@@ -10670,6 +12562,13 @@ Kjo mund të rregullohet te Parapëlqimet.</translation>
     </message>
 </context>
 <context>
+    <name>DeferredTask</name>
+    <message>
+        <source>Cancelled by user</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>DelColor</name>
     <message>
         <source>Delete Color</source>
@@ -10677,15 +12576,15 @@ Kjo mund të rregullohet te Parapëlqimet.</translation>
     </message>
     <message>
         <source>Delete color:</source>
-        <translation>Fshij ngjyrë:</translation>
+        <translation type="obsolete">Fshij ngjyrë:</translation>
     </message>
     <message>
         <source>?</source>
-        <translation>?</translation>
+        <translation type="obsolete">?</translation>
     </message>
     <message>
         <source>Replace it with:</source>
-        <translation>Zëvendësoje me:</translation>
+        <translation type="obsolete">Zëvendësoje me:</translation>
     </message>
     <message>
         <source>OK</source>
@@ -10701,11 +12600,19 @@ Kjo mund të rregullohet te Parapëlqimet.</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>&amp;Anulo</translation>
+        <translation type="obsolete">&amp;Anulo</translation>
+    </message>
+    <message>
+        <source>Delete Color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Replace With:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10716,7 +12623,7 @@ Kjo mund të rregullohet te Parapëlqimet.</translation>
     </message>
     <message>
         <source>Delete from:</source>
-        <translation>Fshij prej:</translation>
+        <translation type="obsolete">Fshij prej:</translation>
     </message>
     <message>
         <source>to:</source>
@@ -10724,34 +12631,38 @@ Kjo mund të rregullohet te Parapëlqimet.</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>&amp;Anulo</translation>
+        <translation type="obsolete">&amp;Anulo</translation>
+    </message>
+    <message>
+        <source>Delete From:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>DmF</name>
     <message>
         <source>Missing Font</source>
-        <translation>Gërma që Mungojnë</translation>
+        <translation type="obsolete">Gërma që Mungojnë</translation>
     </message>
     <message>
         <source>The Font %1 is not installed.</source>
-        <translation>Gërmat %1 nuk janë instaluar.</translation>
+        <translation type="obsolete">Gërmat %1 nuk janë instaluar.</translation>
     </message>
     <message>
         <source>Use</source>
-        <translation>Përdor</translation>
+        <translation type="obsolete">Përdor</translation>
     </message>
     <message>
         <source>instead</source>
-        <translation>më mirë</translation>
+        <translation type="obsolete">më mirë</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
 </context>
 <context>
@@ -10822,7 +12733,7 @@ Kjo mund të rregullohet te Parapëlqimet.</translation>
     </message>
     <message>
         <source>&amp;Document</source>
-        <translation>&amp;Dokument</translation>
+        <translation type="obsolete">&amp;Dokument</translation>
     </message>
     <message>
         <source>Further &amp;Information</source>
@@ -10831,25 +12742,25 @@ Kjo mund të rregullohet te Parapëlqimet.</translation>
     <message>
         <source>The person or organisation primarily responsible for making the content of the document.
 This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation>Personi apo organizmi përgjegjës para të gjithësh për hartimin e përmbajtjes së dokumentit.(new line)
+        <translation type="obsolete">Personi apo organizmi përgjegjës para të gjithësh për hartimin e përmbajtjes së dokumentit.(new line)
 Kjo fushë mund të trupëzohet në dokumente Scribus për referencë, si dhe në metadatat e një PDF-je</translation>
     </message>
     <message>
         <source>A name given to the document.
 This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation>Emër dhënë dokumentit.(new line)
+        <translation type="obsolete">Emër dhënë dokumentit.(new line)
 Kjo fushë mund të trupëzohet në dokumente Scribus për referencë, dhe edhe në metadatën e një PDF-je</translation>
     </message>
     <message>
         <source>An account of the content of the document.
 This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
-        <translation>Një përshkrim i përmbajtjes së dokumentit.(new line)
+        <translation type="obsolete">Një përshkrim i përmbajtjes së dokumentit.(new line)
 Roli i kësaj fushe është një përshkrim të shkurtër ose abstrakt i dokumentit. Gjatë eksportimit trupëzohet në PDF-në</translation>
     </message>
     <message>
         <source>The topic of the content of the document.
 This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
-        <translation>Tema e përmbajtjes së dokumentit.(new line)
+        <translation type="obsolete">Tema e përmbajtjes së dokumentit.(new line)
 Kjo fushë është për fjalëkyça dokumenti që doni të trupëzohen në një PDF, për të ndihmuar kërkime dhe indexim kartelash PDF</translation>
     </message>
     <message>
@@ -10871,7 +12782,7 @@ Kjo fushë është për fjalëkyça dokumenti që doni të trupëzohen në një 
     <message>
         <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting.
 RFC2045,RFC2046 for MIME types are also useful here</source>
-        <translation>Paraqitja fizike ose numerike e dokumentit. Do të ishte me leverdi përmendja e tipit të medias dhe përmasat.(new line)
+        <translation type="obsolete">Paraqitja fizike ose numerike e dokumentit. Do të ishte me leverdi përmendja e tipit të medias dhe përmasat.(new line)
 Gjithashtu të dobishme janë RFC2045, RFC2046 për tipe MIME</translation>
     </message>
     <message>
@@ -10885,7 +12796,7 @@ Gjithashtu të dobishme janë RFC2045, RFC2046 për tipe MIME</translation>
     <message>
         <source>The language in which the content of the document is written, usually a ISO-639 language code
 optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH</source>
-        <translation>Gjuha në të cilën përmbajtja e dokumentit është shkruajtur, zakonisht kod ISO-639 gjuhe(new line)
+        <translation type="obsolete">Gjuha në të cilën përmbajtja e dokumentit është shkruajtur, zakonisht kod ISO-639 gjuhe(new line)
 mundet edhe ndarë me vizë nga prapashtesë kodi ISO-3166 vendi, p.sh. en-GB, fr-CH</translation>
     </message>
     <message>
@@ -10902,11 +12813,142 @@ mundet edhe ndarë me vizë nga prapashtesë kodi ISO-3166 vendi, p.sh. en-GB, f
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>&amp;Anulo</translation>
+        <translation type="obsolete">&amp;Anulo</translation>
+    </message>
+    <message>
+        <source>Documen&amp;t</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The topic of the content of the document. This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting. RFC2045,RFC2046 for MIME types are also useful here</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The language in which the content of the document is written, usually a ISO-639 language code optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>DocumentItemAttributes</name>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Asnjë</translation>
+    </message>
+    <message>
+        <source>Relates To</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Is Parent Of</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Is Child Of</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text Frames</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image Frames</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Boolean</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Integer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>String</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document Item Attributes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished">Emër</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation type="unfinished">Tip</translation>
+    </message>
+    <message>
+        <source>Value</source>
+        <translation type="unfinished">Vlerë</translation>
+    </message>
+    <message>
+        <source>Parameter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Relationship</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Relationship To</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Auto Add To</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Add</source>
+        <translation type="unfinished">&amp;Shto</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation type="unfinished">Alt+A</translation>
+    </message>
+    <message>
+        <source>&amp;Copy</source>
+        <translation type="unfinished">&amp;Kopjo</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation type="unfinished">Alt+C</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+D</source>
+        <translation type="unfinished">Alt+D</translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+L</source>
+        <translation type="unfinished">Alt+L</translation>
     </message>
 </context>
 <context>
@@ -11027,7 +13069,7 @@ një interval faqesh ose një numër faqeje të vetme.</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>&amp;Anulo</translation>
+        <translation type="obsolete">&amp;Anulo</translation>
     </message>
     <message>
         <source>Save as</source>
@@ -11035,7 +13077,11 @@ një interval faqesh ose një numër faqeje të vetme.</translation>
     </message>
     <message>
         <source>Postscript-Files (*.ps);;All Files (*)</source>
-        <translation>Kartela Postscript (*.ps);;Tërë Kartelat (*)</translation>
+        <translation type="obsolete">Kartela Postscript (*.ps);;Tërë Kartelat (*)</translation>
+    </message>
+    <message>
+        <source>Postscript Files (*.ps);;All Files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11057,17 +13103,17 @@ dështoi!</translation>
     <name>EditMacroDialog</name>
     <message>
         <source>Editing Macro: &lt;b&gt;</source>
-        <translation>Po përpunoj Makro: &lt;b&gt;</translation>
+        <translation type="obsolete">Po përpunoj Makro: &lt;b&gt;</translation>
     </message>
     <message>
         <source>Scribus - Macro Manager</source>
-        <translation>Scribus - Përgjegjës Makrosh</translation>
+        <translation type="obsolete">Scribus - Përgjegjës Makrosh</translation>
     </message>
     <message>
         <source>The file &apos;%1&apos; already exists.
 Are you sure you want to overwrite it?
 </source>
-        <translation>Ka një kartelë &apos;%1&apos; tashmë.
+        <translation type="obsolete">Ka një kartelë &apos;%1&apos; tashmë.
 Jeni të sigurtë se doni të mbishkruhet?
 </translation>
     </message>
@@ -11075,7 +13121,7 @@ Jeni të sigurtë se doni të mbishkruhet?
         <source>You have already edited this macro.
 Are you sure you want to discard all your changes?
 </source>
-        <translation>E keni përpunuar tashmë këtë makro.
+        <translation type="obsolete">E keni përpunuar tashmë këtë makro.
 Jeni të sigurtë se doni të hidhni tej tërë ndryshimet tuaj?
 </translation>
     </message>
@@ -11084,7 +13130,7 @@ Jeni të sigurtë se doni të hidhni tej tërë ndryshimet tuaj?
 
 %1
 </source>
-        <translation>Vijon një gjurmim i plotë:
+        <translation type="obsolete">Vijon një gjurmim i plotë:
 
 %1
 </translation>
@@ -11094,102 +13140,102 @@ Jeni të sigurtë se doni të hidhni tej tërë ndryshimet tuaj?
 be saved in its current form. The error was:
 %1
 </source>
-        <translation>Dështoi përpunimi i makros, ndaj nuk mund 
+        <translation type="obsolete">Dështoi përpunimi i makros, ndaj nuk mund 
 të ruhet në formën e tanishme. Gabimi qe:
 %1
 </translation>
     </message>
     <message>
         <source>Scribus - New Macro</source>
-        <translation>Scribus - Makro e Re</translation>
+        <translation type="obsolete">Scribus - Makro e Re</translation>
     </message>
     <message>
         <source>&lt;qt&gt;This is the Edit Macro / New Macro dialog box. Here you can change the source code to macros. Edit the source code to the macro in the text editing area below the &quot;Source Code&quot; label and click OK to save your changes to the macro.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Kjo është kutia e dialogut Përpunoni Makro / Makro e Re. Këtu mund të ndryshoni kodin burim për makrot. Përpunoni kodin burim për makron te zona për përpunim teksti nën etiketën &quot;Kod Burim&quot; dhe klikoni OK për të ruajtur ndryshimet te makroja.&lt;/qt&gt;</translation>
+        <translation type="obsolete">&lt;qt&gt;Kjo është kutia e dialogut Përpunoni Makro / Makro e Re. Këtu mund të ndryshoni kodin burim për makrot. Përpunoni kodin burim për makron te zona për përpunim teksti nën etiketën &quot;Kod Burim&quot; dhe klikoni OK për të ruajtur ndryshimet te makroja.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Source Code:</source>
-        <translation>Kod Burim:</translation>
+        <translation type="obsolete">Kod Burim:</translation>
     </message>
     <message>
         <source>Editing Macro:</source>
-        <translation>Po përpunoj Makro:</translation>
+        <translation type="obsolete">Po përpunoj Makro:</translation>
     </message>
     <message>
         <source>The name of the macro being edited.</source>
-        <translation>Emri i makros që po përpunohet.</translation>
+        <translation type="obsolete">Emri i makros që po përpunohet.</translation>
     </message>
     <message>
         <source>&lt;/qt&gt;This item displays the name of the macro you are currently editing.&lt;qt&gt;</source>
-        <translation>&lt;/qt&gt;Ky përbërës shfaq emrin e makros që jeni duke përpunuar për çastin.&lt;qt&gt;</translation>
+        <translation type="obsolete">&lt;/qt&gt;Ky përbërës shfaq emrin e makros që jeni duke përpunuar për çastin.&lt;qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>&amp;Anulo</translation>
+        <translation type="obsolete">&amp;Anulo</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation>Alt+C</translation>
+        <translation type="obsolete">Alt+C</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Discard all changes and exit.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Hidh tej tërë ndryshimetDiscard all changes dhe dil.&lt;/qt&gt;</translation>
+        <translation type="obsolete">&lt;qt&gt;Hidh tej tërë ndryshimetDiscard all changes dhe dil.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Exit the editing dialog, discarding all changes you have made. If you want to exit without saving the macro but don&apos;t want to lose your changes, save your changes with &quot;Save Source As...&quot;.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Dilni nga dialogu i përpunimit, duke hedhur tej tërë ndryshimet që bëtë. Nëse doni të dilni pa ruajtur makron por nuk doni të humbni ndryshimet tuaj, ruajini ndryshimet me &quot;Ruaj Burim Si...&quot;.&lt;/qt&gt;</translation>
+        <translation type="obsolete">&lt;qt&gt;Dilni nga dialogu i përpunimit, duke hedhur tej tërë ndryshimet që bëtë. Nëse doni të dilni pa ruajtur makron por nuk doni të humbni ndryshimet tuaj, ruajini ndryshimet me &quot;Ruaj Burim Si...&quot;.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Ok</source>
-        <translation>&amp;Ok</translation>
+        <translation type="obsolete">&amp;Ok</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation>Alt+O</translation>
+        <translation type="obsolete">Alt+O</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Save changes and exit.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Ruaj ndryshimet dhe dil.&lt;/qt&gt;</translation>
+        <translation type="obsolete">&lt;qt&gt;Ruaj ndryshimet dhe dil.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Save changes to the macro and exit. If there is a problem with the macro, a message will be displayed and the editing dialog will not close.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Ruaj ndryshimet te makroja dhe dil. Nëse ka ndonjë problem me makron, do të shfaqet një mesazh dhe dialogu i përpunimit nuk do të mbyllet.&lt;/qt&gt;</translation>
+        <translation type="obsolete">&lt;qt&gt;Ruaj ndryshimet te makroja dhe dil. Nëse ka ndonjë problem me makron, do të shfaqet një mesazh dhe dialogu i përpunimit nuk do të mbyllet.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;This text area contains the source code of the macro. If you&apos;re creating a new macro there won&apos;t be anything in it, and if you&apos;re editing an existing macro the source code the macro was defined with will be shown here.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Kjo zonë teksti përmban kodin burim të makros. Nëse po krijoni një makro të re nuk do të ketë gjë brenda saj, dhe nëse po përpunoni një makro ekzistuese, këtu do të tregohet kodi burim që përcaktonte makron.&lt;/qt&gt;</translation>
+        <translation type="obsolete">&lt;qt&gt;Kjo zonë teksti përmban kodin burim të makros. Nëse po krijoni një makro të re nuk do të ketë gjë brenda saj, dhe nëse po përpunoni një makro ekzistuese, këtu do të tregohet kodi burim që përcaktonte makron.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Load Source ...</source>
-        <translation>&amp;Ngarko Burim ...</translation>
+        <translation type="obsolete">&amp;Ngarko Burim ...</translation>
     </message>
     <message>
         <source>Alt+L</source>
-        <translation>Alt+L</translation>
+        <translation type="obsolete">Alt+L</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Replace the current source code with code from a file.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Zëvendëso kodin e çastit me kod prej një kartele.&lt;/qt&gt;</translation>
+        <translation type="obsolete">&lt;qt&gt;Zëvendëso kodin e çastit me kod prej një kartele.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Load new source code into the editing area from &quot;file&quot;. Any source code in the editing area is replaced. The loaded source must be a Scribus macro function. If you load any other script, you&apos;ll need to edit it so that it&apos;ll work as a scripter macro before saving it.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Ngarko prej një &quot;kartele&quot; kod të ri burim te zona e përpunimit . Çfarëdo kod burim në zonën e përpunimit zëvendësohet. Burimi i ngarkuar duhet të jetë një funksion makroje Scribus. Nëse ngarkoni një tjetër programth, do t&apos;ju duhet ta përpunoni para ruajtjes së tij që të mund të funksionojë si një programues makro.&lt;/qt&gt;</translation>
+        <translation type="obsolete">&lt;qt&gt;Ngarko prej një &quot;kartele&quot; kod të ri burim te zona e përpunimit . Çfarëdo kod burim në zonën e përpunimit zëvendësohet. Burimi i ngarkuar duhet të jetë një funksion makroje Scribus. Nëse ngarkoni një tjetër programth, do t&apos;ju duhet ta përpunoni para ruajtjes së tij që të mund të funksionojë si një programues makro.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Save Source As...</source>
-        <translation>&amp;Ruaj Burim Si...</translation>
+        <translation type="obsolete">&amp;Ruaj Burim Si...</translation>
     </message>
     <message>
         <source>Alt+S</source>
-        <translation>Alt+S</translation>
+        <translation type="obsolete">Alt+S</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Save the source code being edited to a file.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Ruaj te një kartelë kodin burim që po përpunohet.&lt;/qt&gt;</translation>
+        <translation type="obsolete">&lt;qt&gt;Ruaj te një kartelë kodin burim që po përpunohet.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Save the source code - the text - of the macro to a file. You can edit the saved source and load it again with &quot;Load Source...&quot;.</source>
-        <translation>Ruaj në një kartelë kodin burim - tekstin - e makros. Mund ta përpunoni kodin e ruajtur dhe ta ngarkoni sërish me &quot;Ngarko Burim...&quot;.</translation>
+        <translation type="obsolete">Ruaj në një kartelë kodin burim - tekstin - e makros. Mund ta përpunoni kodin e ruajtur dhe ta ngarkoni sërish me &quot;Ngarko Burim...&quot;.</translation>
     </message>
 </context>
 <context>
@@ -11208,7 +13254,7 @@ të ruhet në formën e tanishme. Gabimi qe:
     </message>
     <message>
         <source>&amp;Font:</source>
-        <translation>&amp;Gërma:</translation>
+        <translation type="obsolete">&amp;Gërma:</translation>
     </message>
     <message>
         <source> pt</source>
@@ -11216,19 +13262,19 @@ të ruhet në formën e tanishme. Gabimi qe:
     </message>
     <message>
         <source>Si&amp;ze:</source>
-        <translation>Madhë&amp;si:</translation>
+        <translation type="obsolete">Madhë&amp;si:</translation>
     </message>
     <message>
         <source>Effect:</source>
-        <translation>Efekt:</translation>
+        <translation type="obsolete">Efekt:</translation>
     </message>
     <message>
         <source>&amp;Alignment:</source>
-        <translation>&amp;Drejtim:</translation>
+        <translation type="obsolete">&amp;Drejtim:</translation>
     </message>
     <message>
         <source>&amp;Drop Caps</source>
-        <translation type="unfinished">Shkronja Fillimisht</translation>
+        <translation type="obsolete">Shkronja Fillimisht</translation>
     </message>
     <message>
         <source>&amp;Lines:</source>
@@ -11236,11 +13282,11 @@ të ruhet në formën e tanishme. Gabimi qe:
     </message>
     <message>
         <source>F&amp;ill Color:</source>
-        <translation>Ngjyrë M&amp;bushje:</translation>
+        <translation type="obsolete">Ngjyrë M&amp;bushje:</translation>
     </message>
     <message>
         <source>St&amp;roke Color:</source>
-        <translation type="unfinished">Ndërro Ngjyrën e Sfondit</translation>
+        <translation type="obsolete">Ndërro Ngjyrën e Sfondit</translation>
     </message>
     <message>
         <source>None</source>
@@ -11248,23 +13294,19 @@ të ruhet në formën e tanishme. Gabimi qe:
     </message>
     <message>
         <source>Vertical Spaces</source>
-        <translation>Hapësira Vertikale</translation>
-    </message>
-    <message>
-        <source>Adjust to Baseline &amp;Grid</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Hapësira Vertikale</translation>
     </message>
     <message>
         <source>Line &amp;Spacing:</source>
-        <translation>Ndër&amp;vijë:</translation>
+        <translation type="obsolete">Ndër&amp;vijë:</translation>
     </message>
     <message>
         <source>Abo&amp;ve:</source>
-        <translation>Si&amp;për:</translation>
+        <translation type="obsolete">Si&amp;për:</translation>
     </message>
     <message>
         <source>&amp;Below:</source>
-        <translation>P&amp;oshtë:</translation>
+        <translation type="obsolete">P&amp;oshtë:</translation>
     </message>
     <message>
         <source>Tabulators and Indentation</source>
@@ -11272,11 +13314,11 @@ të ruhet në formën e tanishme. Gabimi qe:
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>&amp;Anulo</translation>
+        <translation type="obsolete">&amp;Anulo</translation>
     </message>
     <message>
         <source>Name of your paragraph style</source>
@@ -11300,14 +13342,10 @@ të ruhet në formën e tanishme. Gabimi qe:
     </message>
     <message>
         <source>Provides an oversized first letter for a paragraph. Used for stylistic effect</source>
-        <translation>Mundëson një gërmë të stërmadhe për gërmën e parë të një paragrafi. E përdorur për efekte stilistikë</translation>
+        <translation type="obsolete">Mundëson një gërmë të stërmadhe për gërmën e parë të një paragrafi. E përdorur për efekte stilistikë</translation>
     </message>
     <message>
         <source>Determines the overall height, in line numbers, of the Drop Caps</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Align text to baseline grid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -11324,15 +13362,15 @@ të ruhet në formën e tanishme. Gabimi qe:
     </message>
     <message>
         <source> mm</source>
-        <translation>mm</translation>
+        <translation type="obsolete">mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation>inç</translation>
+        <translation type="obsolete">inç</translation>
     </message>
     <message>
         <source> p</source>
-        <translation>p</translation>
+        <translation type="obsolete">p</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -11344,7 +13382,47 @@ të ruhet në formën e tanishme. Gabimi qe:
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation type="unfinished"> %</translation>
+    </message>
+    <message>
+        <source>Distances</source>
+        <translation type="unfinished">Largësira</translation>
+    </message>
+    <message>
+        <source>Fixed Linespacing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatic Linespacing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Align to Baseline Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Drop Caps</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance from Text:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preview of the Paragraph Style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Determines the gap between the DropCaps and the Text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Toggles sample text of this paragraph style</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11415,6 +13493,101 @@ të ruhet në formën e tanishme. Gabimi qe:
     </message>
 </context>
 <context>
+    <name>EffectsDialog</name>
+    <message>
+        <source>Image Effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Options:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color:</source>
+        <translation type="unfinished">Ngjyrë:</translation>
+    </message>
+    <message>
+        <source>Shade:</source>
+        <translation type="unfinished">Hije:</translation>
+    </message>
+    <message>
+        <source>Brightness:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Contrast:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Radius:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Value:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Posterize:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Available Effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Blur</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Brightness</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Colorize</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Contrast</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grayscale</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invert</source>
+        <translation type="unfinished">Përmbys</translation>
+    </message>
+    <message>
+        <source>Posterize</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sharpen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&gt;&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;&lt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Effects in use</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Anulo</translation>
+    </message>
+</context>
+<context>
     <name>ExportForm</name>
     <message>
         <source>Choose a Export Directory</source>
@@ -11474,11 +13647,11 @@ të ruhet në formën e tanishme. Gabimi qe:
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>&amp;Anulo</translation>
+        <translation type="obsolete">&amp;Anulo</translation>
     </message>
     <message>
         <source>C</source>
@@ -11538,6 +13711,117 @@ Emri i kartelës eksport do të jetë &apos;emërdokumenti-numërfaqeje.tipkarte
     </message>
 </context>
 <context>
+    <name>ExtImageProps</name>
+    <message>
+        <source>Extended Image Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation type="unfinished">Normale</translation>
+    </message>
+    <message>
+        <source>Darken</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lighten</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Saturation</source>
+        <translation type="unfinished">Ngopje</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation type="unfinished">Ngjyrë</translation>
+    </message>
+    <message>
+        <source>Luminosity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Multiply</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Screen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dissolve</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Overlay</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hard Light</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Soft Light</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Difference</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exclusion</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color Dodge</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color Burn</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exlusion</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Blend Mode:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Opacity:</source>
+        <translation type="unfinished">Patejdukshmëri:</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation type="unfinished"> %</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished">Emër</translation>
+    </message>
+    <message>
+        <source>Background</source>
+        <translation type="unfinished">Sfond</translation>
+    </message>
+    <message>
+        <source>Layers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Don&apos;t use any Path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Paths</source>
+        <translation type="unfinished">Shtigje</translation>
+    </message>
+</context>
+<context>
     <name>FDialogPreview</name>
     <message>
         <source>Size:</source>
@@ -11563,6 +13847,30 @@ Emri i kartelës eksport do të jetë &apos;emërdokumenti-numërfaqeje.tipkarte
         <source>Scribus Document</source>
         <translation>Dokument Scribus</translation>
     </message>
+    <message>
+        <source>Resolution:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DPI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RGB</source>
+        <translation type="unfinished">RGB</translation>
+    </message>
+    <message>
+        <source>CMYK</source>
+        <translation type="unfinished">CMYK</translation>
+    </message>
+    <message>
+        <source>Grayscale</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Colorspace:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Farbmanager</name>
@@ -11572,7 +13880,7 @@ Emri i kartelës eksport do të jetë &apos;emërdokumenti-numërfaqeje.tipkarte
     </message>
     <message>
         <source>&amp;Append</source>
-        <translation>&amp;Vini</translation>
+        <translation type="obsolete">&amp;Vini</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -11608,11 +13916,11 @@ Emri i kartelës eksport do të jetë &apos;emërdokumenti-numërfaqeje.tipkarte
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>&amp;Anulo</translation>
+        <translation type="obsolete">&amp;Anulo</translation>
     </message>
     <message>
         <source>Choose a color set to load</source>
@@ -11628,7 +13936,7 @@ Emri i kartelës eksport do të jetë &apos;emërdokumenti-numërfaqeje.tipkarte
     </message>
     <message>
         <source>Append colors to the current set from an existing document</source>
-        <translation>Vini te seti i çastit ngjyra prej një dokumenti ekzistues</translation>
+        <translation type="obsolete">Vini te seti i çastit ngjyra prej një dokumenti ekzistues</translation>
     </message>
     <message>
         <source>Create a new color within the current set</source>
@@ -11682,12 +13990,20 @@ Emri i kartelës eksport do të jetë &apos;emërdokumenti-numërfaqeje.tipkarte
         <source>None</source>
         <translation>Asnjë</translation>
     </message>
+    <message>
+        <source>&amp;Import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import colors to the current set from an existing document</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>FontPrefs</name>
     <message>
         <source>Global Font Settings</source>
-        <translation>Rregullime të Përgjithshme Gërmash</translation>
+        <translation type="obsolete">Rregullime të Përgjithshme Gërmash</translation>
     </message>
     <message>
         <source>Available Fonts</source>
@@ -11707,7 +14023,7 @@ Emri i kartelës eksport do të jetë &apos;emërdokumenti-numërfaqeje.tipkarte
     </message>
     <message>
         <source>Yes</source>
-        <translation>Po</translation>
+        <translation type="obsolete">Po</translation>
     </message>
     <message>
         <source>Font Name</source>
@@ -11715,23 +14031,23 @@ Emri i kartelës eksport do të jetë &apos;emërdokumenti-numërfaqeje.tipkarte
     </message>
     <message>
         <source>Use Font</source>
-        <translation>Përdor Gërma </translation>
+        <translation type="obsolete">Përdor Gërma </translation>
     </message>
     <message>
         <source>Embed in:</source>
-        <translation>Trupëzo në:</translation>
+        <translation type="obsolete">Trupëzo në:</translation>
     </message>
     <message>
         <source>Subset</source>
-        <translation>Nënset</translation>
+        <translation type="obsolete">Nënset</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation>Tip</translation>
+        <translation type="obsolete">Tip</translation>
     </message>
     <message>
         <source>Path to Font File</source>
-        <translation>Shteg për te Kartelë Gërmash</translation>
+        <translation type="obsolete">Shteg për te Kartelë Gërmash</translation>
     </message>
     <message>
         <source>&amp;Available Fonts</source>
@@ -11767,50 +14083,197 @@ Emri i kartelës eksport do të jetë &apos;emërdokumenti-numërfaqeje.tipkarte
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>&amp;Anulo</translation>
+        <translation type="obsolete">&amp;Anulo</translation>
     </message>
     <message>
         <source>Choose a Directory</source>
         <translation>Zgjidhni një Drejtori</translation>
+    </message>
+    <message>
+        <source>Font Name</source>
+        <comment>font preview</comment>
+        <translation type="unfinished">Emër Gërmash</translation>
+    </message>
+    <message>
+        <source>Use Font</source>
+        <comment>font preview</comment>
+        <translation type="unfinished">Përdor Gërma </translation>
+    </message>
+    <message>
+        <source>Embed in:</source>
+        <comment>font preview</comment>
+        <translation type="unfinished">Trupëzo në:</translation>
+    </message>
+    <message>
+        <source>Subset</source>
+        <comment>font preview</comment>
+        <translation type="unfinished">Nënset</translation>
+    </message>
+    <message>
+        <source>Path to Font File</source>
+        <comment>font preview</comment>
+        <translation type="unfinished">Shteg për te Kartelë Gërmash</translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>FontPreview</name>
     <message>
         <source>Fonts Preview</source>
-        <translation>Paraparje Gërmash</translation>
+        <translation type="obsolete">Paraparje Gërmash</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation>Alt+O</translation>
+        <translation type="obsolete">Alt+O</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>&amp;Anulo</translation>
+        <translation type="obsolete">&amp;Anulo</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation>Alt+C</translation>
+        <translation type="obsolete">Alt+C</translation>
     </message>
     <message>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
-        <translation>W-ja është një shkronjë që i mungon Shqipes </translation>
+        <translation type="obsolete">W-ja është një shkronjë që i mungon Shqipes </translation>
     </message>
     <message>
         <source>Append selected font into Style, Font menu</source>
-        <translation>Vër gërma të përzgjedhura te Stil, menu Gërmash</translation>
+        <translation type="obsolete">Vër gërma të përzgjedhura te Stil, menu Gërmash</translation>
     </message>
     <message>
         <source>Leave preview</source>
-        <translation>Lër paraparje</translation>
+        <translation type="obsolete">Lër paraparje</translation>
+    </message>
+    <message>
+        <source>Font Name</source>
+        <comment>font preview</comment>
+        <translation type="unfinished">Emër Gërmash</translation>
+    </message>
+    <message>
+        <source>Doc</source>
+        <comment>font preview</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <comment>font preview</comment>
+        <translation type="unfinished">Tip</translation>
+    </message>
+    <message>
+        <source>Subset</source>
+        <comment>font preview</comment>
+        <translation type="unfinished">Nënset</translation>
+    </message>
+    <message>
+        <source>Access</source>
+        <comment>font preview</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font Size:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fonts Preview</source>
+        <comment>font preview</comment>
+        <translation type="unfinished">Paraparje Gërmash</translation>
+    </message>
+    <message>
+        <source>Alt+O</source>
+        <comment>font preview</comment>
+        <translation type="unfinished">Alt+O</translation>
+    </message>
+    <message>
+        <source>Quick Search: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Search</source>
+        <translation type="unfinished">&amp;Kërko</translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <comment>font preview</comment>
+        <translation type="unfinished">&amp;Mbyll</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <comment>font preview</comment>
+        <translation type="unfinished">Alt+C</translation>
+    </message>
+    <message>
+        <source>Append selected font into Style, Font menu</source>
+        <comment>font preview</comment>
+        <translation type="unfinished">Vër gërma të përzgjedhura te Stil, menu Gërmash</translation>
+    </message>
+    <message>
+        <source>Leave preview</source>
+        <comment>font preview</comment>
+        <translation type="unfinished">Lër paraparje</translation>
+    </message>
+    <message>
+        <source>Typing the text here provides quick searching in the font names. E.g. &apos;bold&apos; shows all fonts with Bold in name. Searching is case insensitive.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start searching</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Size of the selected font</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Woven silk pyjamas exchanged for blue quartz</source>
+        <comment>font preview</comment>
+        <translation type="unfinished">W-ja është një shkronjë që i mungon Shqipes </translation>
+    </message>
+    <message>
+        <source>User</source>
+        <comment>font preview</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>System</source>
+        <comment>font preview</comment>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>FontReplaceDialog</name>
+    <message>
+        <source>Font Substitution</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This document contains some fonts that are not installed on your system,
+please choose a suitable replacement for them.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Original Font</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Substitution Font</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make these substitutions permanent</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11836,19 +14299,19 @@ Emri i kartelës eksport do të jetë &apos;emërdokumenti-numërfaqeje.tipkarte
     </message>
     <message>
         <source> pt</source>
-        <translation>pt</translation>
+        <translation type="obsolete">pt</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation>mm</translation>
+        <translation type="obsolete">mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation>inç</translation>
+        <translation type="obsolete">inç</translation>
     </message>
     <message>
         <source> p</source>
-        <translation>p</translation>
+        <translation type="obsolete">p</translation>
     </message>
     <message>
         <source>Horizontal Guides</source>
@@ -11888,11 +14351,60 @@ Emri i kartelës eksport do të jetë &apos;emërdokumenti-numërfaqeje.tipkarte
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>&amp;Anulo</translation>
+        <translation type="obsolete">&amp;Anulo</translation>
+    </message>
+    <message>
+        <source>Rows and Columns - Automatic Guides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Rows:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;olumns:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Row &amp;Gap</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Colum&amp;n Gap</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Refer to:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Page</source>
+        <translation type="unfinished">&amp;Faqe</translation>
+    </message>
+    <message>
+        <source>&amp;Margins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Selection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished">&amp;Mbyll</translation>
+    </message>
+    <message>
+        <source>&amp;Update</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set the guides in document. Guide manager is still opened but the changes are persistant</source>
+        <comment>guide manager</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11919,6 +14431,66 @@ and www.scribus.net for downloads.</source>
         <translation>Më ndjeni, nuk ka doracak të passhëm! Ju lutem shihni: http://docs.scribus.net për(new line)
 dokumente të përditësuar dhe www.scribus.net për shkarkime.</translation>
     </message>
+    <message>
+        <source>&amp;Contents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Search</source>
+        <translation type="unfinished">&amp;Kërko</translation>
+    </message>
+    <message>
+        <source>Se&amp;arch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;New</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>De&amp;lete All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Book&amp;marks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Print...</source>
+        <translation type="unfinished">&amp;Shtyp...</translation>
+    </message>
+    <message>
+        <source>E&amp;xit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Searching is case unsensitive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Find</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search Term:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Bookmark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Bookmark&apos;s Title:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>HyAsk</name>
@@ -11943,7 +14515,7 @@ dokumente të përditësuar dhe www.scribus.net për shkarkime.</translation>
     <name>HySettings</name>
     <message>
         <source>Hyphenator Settings</source>
-        <translation>Rregullime Ndarësi</translation>
+        <translation type="obsolete">Rregullime Ndarësi</translation>
     </message>
     <message>
         <source>&amp;Fully Automatic</source>
@@ -11967,11 +14539,11 @@ dokumente të përditësuar dhe www.scribus.net për shkarkime.</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>&amp;Anulo</translation>
+        <translation type="obsolete">&amp;Anulo</translation>
     </message>
     <message>
         <source>If you uncheck this you will get a dialog
@@ -12022,7 +14594,7 @@ Një vlerë 0 do të thotë ndarje me vizë të pakufizuara.</translation>
     </message>
     <message>
         <source>&amp;Inserting</source>
-        <translation>&amp;Po fus</translation>
+        <translation type="obsolete">&amp;Po fus</translation>
     </message>
     <message>
         <source>Page(s)</source>
@@ -12042,15 +14614,15 @@ Një vlerë 0 do të thotë ndarje me vizë të pakufizuara.</translation>
     </message>
     <message>
         <source>Inserting</source>
-        <translation>Po fus</translation>
+        <translation type="obsolete">Po fus</translation>
     </message>
     <message>
         <source>&amp;Template (Left Page):</source>
-        <translation>&amp;Stampë (Faqe Majtas):</translation>
+        <translation type="obsolete">&amp;Stampë (Faqe Majtas):</translation>
     </message>
     <message>
         <source>&amp;Template:</source>
-        <translation>&amp;Stampë:</translation>
+        <translation type="obsolete">&amp;Stampë:</translation>
     </message>
     <message>
         <source>Normal</source>
@@ -12058,15 +14630,63 @@ Një vlerë 0 do të thotë ndarje me vizë të pakufizuara.</translation>
     </message>
     <message>
         <source>Template (Right Page):</source>
-        <translation>Stampë (Faqe Djathtas):</translation>
+        <translation type="obsolete">Stampë (Faqe Djathtas):</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>&amp;Anulo</translation>
+        <translation type="obsolete">&amp;Anulo</translation>
+    </message>
+    <message>
+        <source>&amp;Insert</source>
+        <translation type="unfinished">&amp;Fut</translation>
+    </message>
+    <message>
+        <source>Master Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Master Page:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page Size</source>
+        <translation type="unfinished">Madhësi Faqeje</translation>
+    </message>
+    <message>
+        <source>&amp;Size:</source>
+        <translation type="unfinished">&amp;Madhësi:</translation>
+    </message>
+    <message>
+        <source>Custom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Orie&amp;ntation:</source>
+        <translation type="unfinished">Orie&amp;ntim:</translation>
+    </message>
+    <message>
+        <source>Portrait</source>
+        <translation type="unfinished">Portret</translation>
+    </message>
+    <message>
+        <source>Landscape</source>
+        <translation type="unfinished">Së gjeri</translation>
+    </message>
+    <message>
+        <source>&amp;Width:</source>
+        <translation type="unfinished">&amp;Gjerësi:</translation>
+    </message>
+    <message>
+        <source>&amp;Height:</source>
+        <translation type="unfinished">&amp;Lartësi:</translation>
+    </message>
+    <message>
+        <source>Move Objects with their Page</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12077,19 +14697,27 @@ Një vlerë 0 do të thotë ndarje me vizë të pakufizuara.</translation>
     </message>
     <message>
         <source>Number of Rows:</source>
-        <translation>Numri i Rreshtave:</translation>
+        <translation type="obsolete">Numri i Rreshtave:</translation>
     </message>
     <message>
         <source>Number of Columns:</source>
-        <translation>Numri i Shtyllave:</translation>
+        <translation type="obsolete">Numri i Shtyllave:</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anulo</translation>
+        <translation type="obsolete">Anulo</translation>
+    </message>
+    <message>
+        <source>Number of rows:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number of columns:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12147,7 +14775,7 @@ Një vlerë 0 do të thotë ndarje me vizë të pakufizuara.</translation>
     <name>KeyManager</name>
     <message>
         <source>Manage Keyboard Shortcuts</source>
-        <translation>Administro Shkurtprerje Tastiere</translation>
+        <translation type="obsolete">Administro Shkurtprerje Tastiere</translation>
     </message>
     <message>
         <source>Action</source>
@@ -12179,11 +14807,11 @@ Një vlerë 0 do të thotë ndarje me vizë të pakufizuara.</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>&amp;Anulo</translation>
+        <translation type="obsolete">&amp;Anulo</translation>
     </message>
     <message>
         <source>Alt</source>
@@ -12217,6 +14845,50 @@ Një vlerë 0 do të thotë ndarje me vizë të pakufizuara.</translation>
         <source>This Key Sequence is already in use</source>
         <translation>Kjo Radhë Tastesh është në përdorim</translation>
     </message>
+    <message>
+        <source>Loadable Shortcut Sets</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Load</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Import...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Export...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Reset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Keyboard shortcut sets available to load</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Load the selected shortcut set</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import a shortcut set into the current configuration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export the current shortcuts into an importable file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reload the default Scribus shortcuts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Key Set XML Files (*.ksxml)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>LayerPalette</name>
@@ -12226,7 +14898,7 @@ Një vlerë 0 do të thotë ndarje me vizë të pakufizuara.</translation>
     </message>
     <message>
         <source>Add a new Layer</source>
-        <translation>Shto Shtresë të re</translation>
+        <translation type="obsolete">Shto Shtresë të re</translation>
     </message>
     <message>
         <source>Delete Layer</source>
@@ -12234,19 +14906,43 @@ Një vlerë 0 do të thotë ndarje me vizë të pakufizuara.</translation>
     </message>
     <message>
         <source>Raise Layer</source>
-        <translation>Ngri Shtresë</translation>
+        <translation type="obsolete">Ngri Shtresë</translation>
     </message>
     <message>
         <source>Lower Layer</source>
-        <translation>Ul Shtresë</translation>
+        <translation type="obsolete">Ul Shtresë</translation>
     </message>
     <message>
         <source>New Layer</source>
-        <translation>Shtresë e Re</translation>
+        <translation type="obsolete">Shtresë e Re</translation>
     </message>
     <message>
         <source>Do you want to delete all Objects on this Layer too?</source>
-        <translation>Doni të fshini tërë Objektet edhe në këtë Shtresë?</translation>
+        <translation type="obsolete">Doni të fshini tërë Objektet edhe në këtë Shtresë?</translation>
+    </message>
+    <message>
+        <source>Do you want to delete all objects on this layer too?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished">Emër</translation>
+    </message>
+    <message>
+        <source>Add a new layer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete layer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Raise layer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lower layer</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12257,7 +14953,7 @@ Një vlerë 0 do të thotë ndarje me vizë të pakufizuara.</translation>
     </message>
     <message>
         <source>&amp;Append</source>
-        <translation>&amp;Vini</translation>
+        <translation type="obsolete">&amp;Vini</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -12281,11 +14977,11 @@ Një vlerë 0 do të thotë ndarje me vizë të pakufizuara.</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>&amp;Anulo</translation>
+        <translation type="obsolete">&amp;Anulo</translation>
     </message>
     <message>
         <source>Copy of %1</source>
@@ -12327,40 +15023,79 @@ Një vlerë 0 do të thotë ndarje me vizë të pakufizuara.</translation>
         <source>Do you really want to delete this Style?</source>
         <translation>Doni vërtet të fshini këtë Stil?</translation>
     </message>
+    <message>
+        <source>&amp;Import</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>LoremManager</name>
+    <message>
+        <source>Select Lorem Ipsum</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Author:</source>
+        <translation type="unfinished">Autor:</translation>
+    </message>
+    <message>
+        <source>Get More:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>XML File:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lorem Ipsum</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Paragraphs:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+O</source>
+        <translation type="unfinished">Alt+O</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation type="unfinished">Alt+C</translation>
+    </message>
 </context>
 <context>
     <name>MSpinBox</name>
     <message>
         <source> pt</source>
-        <translation>pt</translation>
+        <translation type="obsolete">pt</translation>
     </message>
     <message>
         <source>pt</source>
-        <translation>pt</translation>
+        <translation type="obsolete">pt</translation>
     </message>
     <message>
         <source>mm</source>
-        <translation>mm</translation>
+        <translation type="obsolete">mm</translation>
     </message>
     <message>
         <source>in</source>
-        <translation>inç</translation>
+        <translation type="obsolete">inç</translation>
     </message>
     <message>
         <source>p</source>
-        <translation>p</translation>
+        <translation type="obsolete">p</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation>mm</translation>
+        <translation type="obsolete">mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation>inç</translation>
+        <translation type="obsolete">inç</translation>
     </message>
     <message>
         <source> p</source>
-        <translation>p</translation>
+        <translation type="obsolete">p</translation>
     </message>
 </context>
 <context>
@@ -12368,46 +15103,46 @@ Një vlerë 0 do të thotë ndarje me vizë të pakufizuara.</translation>
     <message>
         <source>Passed object is not callable</source>
         <comment>python error</comment>
-        <translation>Objekti i dhënë nuk mund të thirret</translation>
+        <translation type="obsolete">Objekti i dhënë nuk mund të thirret</translation>
     </message>
 </context>
 <context>
     <name>MacroManager</name>
     <message>
         <source>Manage Macros</source>
-        <translation>Administro Makro</translation>
+        <translation type="obsolete">Administro Makro</translation>
     </message>
     <message>
         <source>Brings up a graphical window for creating, deleting, editing, saving and loading macros.</source>
-        <translation>Bie një dritare grafike për krijim, fshirje, përpunim, ruajtje dhe ngarkim makrosh.</translation>
+        <translation type="obsolete">Bie një dritare grafike për krijim, fshirje, përpunim, ruajtje dhe ngarkim makrosh.</translation>
     </message>
     <message>
         <source>Create, edit and delete macros</source>
-        <translation>Krijoni, përpunoni dhe fshini makro</translation>
+        <translation type="obsolete">Krijoni, përpunoni dhe fshini makro</translation>
     </message>
     <message>
         <source>&amp;Macro</source>
-        <translation>&amp;Makro</translation>
+        <translation type="obsolete">&amp;Makro</translation>
     </message>
     <message>
         <source>Scribus - Macro Manager</source>
-        <translation>Scribus - Përgjegjës Makrosh</translation>
+        <translation type="obsolete">Scribus - Përgjegjës Makrosh</translation>
     </message>
     <message>
         <source>Unable to open the requested file: %1</source>
-        <translation>I pazoti të hap kartelën e kërkuar: %1</translation>
+        <translation type="obsolete">I pazoti të hap kartelën e kërkuar: %1</translation>
     </message>
     <message>
         <source>Scribus - Edit Macro</source>
-        <translation>Scribus - Përpunoni Makro</translation>
+        <translation type="obsolete">Scribus - Përpunoni Makro</translation>
     </message>
     <message>
         <source>&lt;qt&gt;The macro name you requested is already taken  by another macro.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Emri i makros që kërkuat është zënë tashmë nga një tjetër makro.&lt;/qt&gt;</translation>
+        <translation type="obsolete">&lt;qt&gt;Emri i makros që kërkuat është zënë tashmë nga një tjetër makro.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Macro creation failed. The macro manager was unable to set up the macro.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Krijimi i makros dështoi. Përgjegjësi i makros nuk qe në gjendje të rregullojë makron.&lt;/qt&gt;</translation>
+        <translation type="obsolete">&lt;qt&gt;Krijimi i makros dështoi. Përgjegjësi i makros nuk qe në gjendje të rregullojë makron.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>The macro &apos;%1&apos; has reported a minor error.
@@ -12416,7 +15151,7 @@ A full traceback follows:
 
 %3
 </source>
-        <translation>Makroja &apos;%1&apos; ka raportuar një gabim të vockël.
+        <translation type="obsolete">Makroja &apos;%1&apos; ka raportuar një gabim të vockël.
 Gabimi është: %2
 Vijon një gjurmues i plotë:
 
@@ -12430,7 +15165,7 @@ A full traceback follows:
 
 %3
 </source>
-        <translation>Makroja &apos;%1&apos; nuk arriti të ekzekutohet saktë.
+        <translation type="obsolete">Makroja &apos;%1&apos; nuk arriti të ekzekutohet saktë.
 Gabimi është: %2
 Vijon një gjurmues i plotë:
 
@@ -12442,71 +15177,71 @@ Vijon një gjurmues i plotë:
     <name>ManageMacrosDialog</name>
     <message>
         <source>Scribus - Macro Manager</source>
-        <translation>Scribus - Përgjegjës Makrosh</translation>
+        <translation type="obsolete">Scribus - Përgjegjës Makrosh</translation>
     </message>
     <message>
         <source>Renaming the macro failed because the name is already in use.</source>
-        <translation>Riemërtimi i makros dështoi sepse emri është tashmë në përdorim.</translation>
+        <translation type="obsolete">Riemërtimi i makros dështoi sepse emri është tashmë në përdorim.</translation>
     </message>
     <message>
         <source>Scribus - Manage Macros</source>
-        <translation>Scribus - Administroni Makro</translation>
+        <translation type="obsolete">Scribus - Administroni Makro</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;This window is the Scribus Macro Manager. Here you can create macros, edit macros, etc. All changes are made using the buttons on the right hand side of the window.&lt;/p&gt;
 &lt;p&gt;All changes made in this dialog take effect instantly - you cannot cancel the actions you make here.
 The table in the center of the dialog lists what macros are currently loaded and some information about them. Use &quot;What&apos;s this&quot; on the table for more information.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;&lt;p&gt;Kjo dritare përfaqëson Përgjegjësin e Makrove të Scribus-it. Këtu mund të krijoni makro, përpunoni makro, etj. Tërë ndryshimet bëhen duke përdorur butonat në anën e djathtë të dritares.&lt;/p&gt;
+        <translation type="obsolete">&lt;qt&gt;&lt;p&gt;Kjo dritare përfaqëson Përgjegjësin e Makrove të Scribus-it. Këtu mund të krijoni makro, përpunoni makro, etj. Tërë ndryshimet bëhen duke përdorur butonat në anën e djathtë të dritares.&lt;/p&gt;
 &lt;p&gt;Tërë ndryshimet e bërë në këtë dialog hyjnë në fuqi në çast - nuk mund të anuloni veprimet që bëni këtu.
 Tabela në qendër të dialogut liston cilat makro janë për çastin të ngarkuara dhe disa të dhëna rreth tyre. Përdorni &quot;Ç&apos;është kjo&quot; prej tabele për më tepër të dhëna.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation>E &amp;re</translation>
+        <translation type="obsolete">E &amp;re</translation>
     </message>
     <message>
         <source>Alt+N</source>
-        <translation>Alt+N</translation>
+        <translation type="obsolete">Alt+N</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Create a new macro.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Krijoni një makro të re.&lt;/qt&gt;</translation>
+        <translation type="obsolete">&lt;qt&gt;Krijoni një makro të re.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Create a new macro by prompting for the macro name then bringing up the edit macro dialog box.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Krijoni një makro të re duke filluar nga emri i makros mandej me hapjen e kutizës së dialogut të përpunimit të makrove.&lt;/qt&gt;</translation>
+        <translation type="obsolete">&lt;qt&gt;Krijoni një makro të re duke filluar nga emri i makros mandej me hapjen e kutizës së dialogut të përpunimit të makrove.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Ok</source>
-        <translation>&amp;Ok</translation>
+        <translation type="obsolete">&amp;Ok</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation>Alt+O</translation>
+        <translation type="obsolete">Alt+O</translation>
     </message>
     <message>
         <source>Close this dialog.</source>
-        <translation>Mbyll këtë dialog.</translation>
+        <translation type="obsolete">Mbyll këtë dialog.</translation>
     </message>
     <message>
         <source>Return to Scribus.</source>
-        <translation>Kthehu te Scribus.</translation>
+        <translation type="obsolete">Kthehu te Scribus.</translation>
     </message>
     <message>
         <source>Macro</source>
-        <translation>Makro</translation>
+        <translation type="obsolete">Makro</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation>Përpunoni</translation>
+        <translation type="obsolete">Përpunoni</translation>
     </message>
     <message>
         <source>Accel</source>
-        <translation>Përshpejt</translation>
+        <translation type="obsolete">Përshpejt</translation>
     </message>
     <message>
         <source>Description</source>
-        <translation>Përshkrim</translation>
+        <translation type="obsolete">Përshkrim</translation>
     </message>
     <message>
         <source>&lt;p&gt;This table lists the macros that are currently defined.&lt;/p&gt;
@@ -12515,7 +15250,7 @@ Tabela në qendër të dialogut liston cilat makro janë për çastin të ngarku
 &lt;p&gt;&lt;b&gt;Edit:&lt;/b&gt; If the macro can be edited, &quot;Yes&quot; appears in this column. Usually if a macro cannot be edited it was created using the register_macro command in a script.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Accel:&lt;/b&gt; The menu shortcut key sequence, if any, associated with the macro. For example, CTRL-F8 means that you can press Control-F8 when in Scribus to run the macro.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Description:&lt;/b&gt; If the macro contains a &quot;docstring&quot;, a special string at the start of its definition that describes it, that is shown here. If the docstring is long, only the beginning is shown - use &quot;What&apos;s This&quot; on the macro&apos;s entry in the Macro menu to see the full description.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Kjo tabelë liston makrot që janë për çastin të përcaktuara.&lt;/p&gt;
+        <translation type="obsolete">&lt;p&gt;Kjo tabelë liston makrot që janë për çastin të përcaktuara.&lt;/p&gt;
 
 &lt;p&gt;&lt;b&gt;Emër:&lt;/b&gt; Emri i makros, si tregohet në shtyllën e menusë dhe në vende të tjerë nëpër Scribus.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Përpunoni:&lt;/b&gt; Nëse makroja mund të përpunohet, në këtë shtyllë shfaqet &quot;Po&quot;. Zakonisht nëse një makro nuk mund të përpunohet ka pas qenë krijuar duke përdorur urdhrin register_macro në një programth.&lt;/p&gt;
@@ -12524,121 +15259,284 @@ Tabela në qendër të dialogut liston cilat makro janë për çastin të ngarku
     </message>
     <message>
         <source>Rena&amp;me</source>
-        <translation>Ri&amp;emërto</translation>
+        <translation type="obsolete">Ri&amp;emërto</translation>
     </message>
     <message>
         <source>Alt+M</source>
-        <translation>Alt+M</translation>
+        <translation type="obsolete">Alt+M</translation>
     </message>
     <message>
         <source>Rename the selected macro.</source>
-        <translation>Riemërtoni makron e përzgjedhur.</translation>
+        <translation type="obsolete">Riemërtoni makron e përzgjedhur.</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Rename the selected macro. You will be prompted for the new name.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Riemërtoni makron e përzgjedhur. Do t&apos;ju kërkohet emri i ri.&lt;/qt&gt;</translation>
+        <translation type="obsolete">&lt;qt&gt;Riemërtoni makron e përzgjedhur. Do t&apos;ju kërkohet emri i ri.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Edit...</source>
-        <translation>&amp;Përpuno...</translation>
+        <translation type="obsolete">&amp;Përpuno...</translation>
     </message>
     <message>
         <source>Alt+E</source>
-        <translation>Alt+E</translation>
+        <translation type="obsolete">Alt+E</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Edit the source of the selected macro, if the source is availible.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Përpunoni burimin e makros së përzgjedhur, nëse burimi është i mundshëm.&lt;/qt&gt;</translation>
+        <translation type="obsolete">&lt;qt&gt;Përpunoni burimin e makros së përzgjedhur, nëse burimi është i mundshëm.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;p&gt;Edit the selected macro. &lt;/p&gt;
 &lt;p&gt;If this button is greyed out, either there is no selected macro or the macro manager does not have the source code for the macro you have selected (in which case &lt;tt&gt;No&lt;/tt&gt; will be shown in the &lt;tt&gt;Edit &lt;/tt&gt;column of the macro).&lt;/p&gt;
 &lt;p&gt;If scribus doesn&apos;t have the source, the macro was probably created by a script.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Përpunoni makron e përzgjedhur. &lt;/p&gt;
+        <translation type="obsolete">&lt;p&gt;Përpunoni makron e përzgjedhur. &lt;/p&gt;
 &lt;p&gt;Nëse ky buton është gri, ose nuk është përzgjedhur makro, ose përgjegjësi i makrove nuk e ka kodin burim për makron që keni përzgjedhur (e në këtë rast do të shfaqet një &lt;tt&gt;Jo&lt;/tt&gt; te shtylla &lt;tt&gt;Përpunoni &lt;/tt&gt;e makros).&lt;/p&gt;
 &lt;p&gt;Nëse Scribus-i nuk nuk e ka kodin burim, makroja mbase qe krijuar nga një programth.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation>&amp;Fshi</translation>
+        <translation type="obsolete">&amp;Fshi</translation>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation>Alt+D</translation>
+        <translation type="obsolete">Alt+D</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Delete the currently selected macro.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Fshi makron e përzgjedhur për çastin.&lt;/qt&gt;</translation>
+        <translation type="obsolete">&lt;qt&gt;Fshi makron e përzgjedhur për çastin.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;p&gt;Delete the selected macro. This is instant, and there is no way to recover the macro once deleted. If the macro is created by a start-up script, it will reappear next time you load Scribus.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Fshi makron e përzgjedhur. Kjo është e menjëhershme, dhe nuk ka rrugëdalje nëse fshihet një herë makroja. Nëse makroja është krijuar nga një programth që niset gjatë nisjes së kompjuterit, do të rishfaqet herës pasuese që ngarkoni ngarkoni Scribus-in.&lt;/p&gt;</translation>
+        <translation type="obsolete">&lt;p&gt;Fshi makron e përzgjedhur. Kjo është e menjëhershme, dhe nuk ka rrugëdalje nëse fshihet një herë makroja. Nëse makroja është krijuar nga një programth që niset gjatë nisjes së kompjuterit, do të rishfaqet herës pasuese që ngarkoni ngarkoni Scribus-in.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>&amp;Set Accel</source>
-        <translation>&amp;Cakto Accel</translation>
+        <translation type="obsolete">&amp;Cakto Accel</translation>
     </message>
     <message>
         <source>Alt+S</source>
-        <translation>Alt+S</translation>
+        <translation type="obsolete">Alt+S</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Set the keyboard shortcut for the selected macro.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Rregulloni shkurtprerje tastiere për makron e përzgjedhur.&lt;/qt&gt;</translation>
+        <translation type="obsolete">&lt;qt&gt;Rregulloni shkurtprerje tastiere për makron e përzgjedhur.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;p&gt;Set the keyboard shortcut (accelerator) key of the selected macro. You will be prompted for the new shortcut in a dialog box.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Caktoni tast shkurtprejrjeje tastiere (përshpejtues) për makron e përzgjedhur. Do t&apos;ju kërkohet shkurtprerja e re te kutia e dialogut.&lt;/p&gt;</translation>
+        <translation type="obsolete">&lt;p&gt;Caktoni tast shkurtprejrjeje tastiere (përshpejtues) për makron e përzgjedhur. Do t&apos;ju kërkohet shkurtprerja e re te kutia e dialogut.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>E&amp;xport</source>
-        <translation>&amp;Eksportoni</translation>
+        <translation type="obsolete">&amp;Eksportoni</translation>
     </message>
     <message>
         <source>Alt+X</source>
-        <translation>Alt+X</translation>
+        <translation type="obsolete">Alt+X</translation>
     </message>
     <message>
         <source>Export macros to a file.</source>
-        <translation>Eksporto makro si një kartelë.</translation>
+        <translation type="obsolete">Eksporto makro si një kartelë.</translation>
     </message>
     <message>
         <source>&lt;p&gt;Export macros to an external file. The file will be a Python script containing the scripter commands to re-create the macros. It can be run using &lt;tt&gt;Load extension script&lt;/tt&gt; from the &lt;tt&gt;Script&lt;/tt&gt; menu, or the import button in the macro manager.&lt;/p&gt;
 &lt;p&gt;If you want a nice, human readable version of your macros, select the macro you want, press the &lt;tt&gt;Edit&lt;/tt&gt;  button, and use the &lt;tt&gt;Save source&lt;/tt&gt; button in the &lt;tt&gt;Edit Macro&lt;/tt&gt; dialog. You won&apos;t be able to load that version with &lt;tt&gt;Load extension script&lt;/tt&gt; - instead, create a new macro with the&lt;tt&gt; New&lt;/tt&gt; button and use &lt;tt&gt;Load source&lt;/tt&gt;.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Eksporto makro në një kartelë të jashtme. Kartela do të jetë një programth Python që përmban urdhra programuesi për të rikrijuar makron. Mund të xhirohet përmes &lt;tt&gt;Ngarko programth zgjerimi&lt;/tt&gt; prej menusë &lt;tt&gt;Programthe&lt;/tt&gt;, ose prej butonit import te përgjegjësi i makrove.&lt;/p&gt;
+        <translation type="obsolete">&lt;p&gt;Eksporto makro në një kartelë të jashtme. Kartela do të jetë një programth Python që përmban urdhra programuesi për të rikrijuar makron. Mund të xhirohet përmes &lt;tt&gt;Ngarko programth zgjerimi&lt;/tt&gt; prej menusë &lt;tt&gt;Programthe&lt;/tt&gt;, ose prej butonit import te përgjegjësi i makrove.&lt;/p&gt;
 &lt;p&gt;Nëse doni një version të këndshëm, të lexueshëm nga syri i njeriut për makrot tuaja, përzgjidhni makron që doni, shtypni butonin &lt;tt&gt;Përpunoni&lt;/tt&gt;, dhe përdorni butonin &lt;tt&gt;Ruaj burim&lt;/tt&gt; te dialogu &lt;tt&gt;Përpunoni Makro&lt;/tt&gt;. Nuk do të jeni në gjendje të ngarkoni atë version me &lt;tt&gt;Ngarko programth zgjerimi&lt;/tt&gt; - në vend të kësaj, krijoni një makro të re me butonin &lt;tt&gt; E re&lt;/tt&gt; dhe përdorni &lt;tt&gt;Ngarko burim&lt;/tt&gt;.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Delete &amp;All</source>
-        <translation>Fshi &amp;Tërë</translation>
+        <translation type="obsolete">Fshi &amp;Tërë</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation>Alt+A</translation>
+        <translation type="obsolete">Alt+A</translation>
     </message>
     <message>
         <source>Delete all macros.</source>
-        <translation>Fshi tërë makrot.</translation>
+        <translation type="obsolete">Fshi tërë makrot.</translation>
     </message>
     <message>
         <source>&lt;p&gt;Delete all registered macros. This is instant, and there is no way to recover the deleted macros. Any macros created by your start-up script will reappear next time you load Scribus.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Fshi tërë makrot e regjistruara. Kjo është e menjëhershme, dhe nuk ka rrugë për të ripasur makrot e fshira. Çfarëdo makro e krijuar nga programthi i fillimit do të rishfaqet herës pasuese që ngarkoni Scribus-in.&lt;/p&gt;</translation>
+        <translation type="obsolete">&lt;p&gt;Fshi tërë makrot e regjistruara. Kjo është e menjëhershme, dhe nuk ka rrugë për të ripasur makrot e fshira. Çfarëdo makro e krijuar nga programthi i fillimit do të rishfaqet herës pasuese që ngarkoni Scribus-in.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation>&amp;Importo</translation>
+        <translation type="obsolete">&amp;Importo</translation>
     </message>
     <message>
         <source>Alt+I</source>
-        <translation>Alt+I</translation>
+        <translation type="obsolete">Alt+I</translation>
     </message>
     <message>
         <source>Import macros from a file.</source>
-        <translation>Importo makro prej një kartele.</translation>
+        <translation type="obsolete">Importo makro prej një kartele.</translation>
     </message>
     <message>
         <source>&lt;p&gt;Loads macros from an external file.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Ngarkon makro prej një kartele të jashtmee.&lt;/p&gt;</translation>
+        <translation type="obsolete">&lt;p&gt;Ngarkon makro prej një kartele të jashtmee.&lt;/p&gt;</translation>
+    </message>
+</context>
+<context>
+    <name>MarginDialog</name>
+    <message>
+        <source>Manage Page Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page Size</source>
+        <translation type="unfinished">Madhësi Faqeje</translation>
+    </message>
+    <message>
+        <source>&amp;Size:</source>
+        <translation type="unfinished">&amp;Madhësi:</translation>
+    </message>
+    <message>
+        <source>Custom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Orie&amp;ntation:</source>
+        <translation type="unfinished">Orie&amp;ntim:</translation>
+    </message>
+    <message>
+        <source>Portrait</source>
+        <translation type="unfinished">Portret</translation>
+    </message>
+    <message>
+        <source>Landscape</source>
+        <translation type="unfinished">Së gjeri</translation>
+    </message>
+    <message>
+        <source>&amp;Width:</source>
+        <translation type="unfinished">&amp;Gjerësi:</translation>
+    </message>
+    <message>
+        <source>&amp;Height:</source>
+        <translation type="unfinished">&amp;Lartësi:</translation>
+    </message>
+    <message>
+        <source>Move Objects with their Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type:</source>
+        <translation type="unfinished">Tip:</translation>
+    </message>
+    <message>
+        <source>Margin Guides</source>
+        <translation type="unfinished">Udhëzuesa Mënjanash</translation>
+    </message>
+</context>
+<context>
+    <name>MarginWidget</name>
+    <message>
+        <source>&amp;Bottom:</source>
+        <translation type="unfinished">&amp;Poshtë:</translation>
+    </message>
+    <message>
+        <source>&amp;Top:</source>
+        <translation type="unfinished">&amp;Krye:</translation>
+    </message>
+    <message>
+        <source>&amp;Right:</source>
+        <translation type="unfinished">&amp;Djathtas:</translation>
+    </message>
+    <message>
+        <source>&amp;Left:</source>
+        <translation type="unfinished">&amp;Majtas:</translation>
+    </message>
+    <message>
+        <source>Distance between the top margin guide and the edge of the page</source>
+        <translation type="unfinished">Largësi ndërmjet udhëzuesit të mënjanës së sipërme dhe skajit të faqes</translation>
+    </message>
+    <message>
+        <source>Distance between the bottom margin guide and the edge of the page</source>
+        <translation type="unfinished">Largësi ndërmjet udhëzuesit të mënjanës së poshtme dhe skajit të faqes</translation>
+    </message>
+    <message>
+        <source>Distance between the left margin guide and the edge of the page.
+If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the right margin guide and the edge of the page.
+If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Inside:</source>
+        <translation type="unfinished">&amp;Brenda:</translation>
+    </message>
+    <message>
+        <source>O&amp;utside:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>MasterPagesPalette</name>
+    <message>
+        <source>Edit Master Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Duplicates the selected master page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Deletes the selected master page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Adds a new master page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports master pages from another document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation type="unfinished">Kujdes</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this master page?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;No</source>
+        <translation type="unfinished">&amp;Jo</translation>
+    </message>
+    <message>
+        <source>&amp;Yes</source>
+        <translation type="unfinished">&amp;Po</translation>
+    </message>
+    <message>
+        <source>&amp;Name:</source>
+        <translation type="unfinished">&amp;Emër:</translation>
+    </message>
+    <message>
+        <source>New Master Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy of %1</source>
+        <translation type="unfinished">Kopje e %1</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation type="unfinished">Emër:</translation>
+    </message>
+    <message>
+        <source>New MasterPage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy #%1 of </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation type="unfinished">Normale</translation>
     </message>
 </context>
 <context>
@@ -12649,19 +15547,19 @@ Tabela në qendër të dialogut liston cilat makro janë për çastin të ngarku
     </message>
     <message>
         <source> pt</source>
-        <translation>pt</translation>
+        <translation type="obsolete">pt</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation>mm</translation>
+        <translation type="obsolete">mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation>inç</translation>
+        <translation type="obsolete">inç</translation>
     </message>
     <message>
         <source> p</source>
-        <translation>p</translation>
+        <translation type="obsolete">p</translation>
     </message>
     <message>
         <source>&amp;Number of Copies:</source>
@@ -12677,11 +15575,11 @@ Tabela në qendër të dialogut liston cilat makro janë për çastin të ngarku
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>&amp;Anulo</translation>
+        <translation type="obsolete">&amp;Anulo</translation>
     </message>
 </context>
 <context>
@@ -12724,46 +15622,50 @@ Tabela në qendër të dialogut liston cilat makro janë për çastin të ngarku
     </message>
     <message>
         <source> pt</source>
-        <translation>pt</translation>
+        <translation type="obsolete">pt</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation>mm</translation>
+        <translation type="obsolete">mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation>inç</translation>
+        <translation type="obsolete">inç</translation>
     </message>
     <message>
         <source> p</source>
-        <translation>p</translation>
+        <translation type="obsolete">p</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation type="unfinished">pt</translation>
     </message>
 </context>
 <context>
     <name>MenuTest</name>
     <message>
         <source>Script error</source>
-        <translation>Gabim programthi</translation>
+        <translation type="obsolete">Gabim programthi</translation>
     </message>
     <message>
         <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
-        <translation>Nëse po xhironit një programth zyrtar ju lutemi raportojeni te &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
+        <translation type="obsolete">Nëse po xhironit një programth zyrtar ju lutemi raportojeni te &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
     </message>
     <message>
         <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
-        <translation>Këtë mesazh e keni edhe në clipboard. Përdorni Ctrl+V për ta hedhur te gjurmues bug-esh.</translation>
+        <translation type="obsolete">Këtë mesazh e keni edhe në clipboard. Përdorni Ctrl+V për ta hedhur te gjurmues bug-esh.</translation>
     </message>
     <message>
         <source>Show &amp;Console</source>
-        <translation>Shfaq &amp;Konsol</translation>
+        <translation type="obsolete">Shfaq &amp;Konsol</translation>
     </message>
     <message>
         <source>Hide &amp;Console</source>
-        <translation>Fshih &amp;Konsol</translation>
+        <translation type="obsolete">Fshih &amp;Konsol</translation>
     </message>
     <message>
         <source>Scribus - Script Plugin</source>
-        <translation>Scribus - Shtojcë Programthesh</translation>
+        <translation type="obsolete">Scribus - Shtojcë Programthesh</translation>
     </message>
     <message>
         <source>The &apos;Load Script&apos; function of the script plugin is currently disabled.
@@ -12776,7 +15678,7 @@ scripter extensions there.
 
 Please read the documentation on extension scripts first.
 </source>
-        <translation>Funksioni &apos;Ngarko Programth&apos; për shtojcën e programtheve është e çaktivizuar për çastin.
+        <translation type="obsolete">Funksioni &apos;Ngarko Programth&apos; për shtojcën e programtheve është e çaktivizuar për çastin.
 Nëse doni thjesht të xhironi një programth normal, mbase doni të përdorni programin
 &apos;Ekzekuto Programth...&apos; më mirë.
 
@@ -12792,7 +15694,7 @@ Ju lutem së pari lexoni dokumentimin mbi programthe zgjerimi.
     <name>MergeDoc</name>
     <message>
         <source>Import Template</source>
-        <translation>Importoni Stampë</translation>
+        <translation type="obsolete">Importoni Stampë</translation>
     </message>
     <message>
         <source>Import Page(s)</source>
@@ -12800,21 +15702,21 @@ Ju lutem së pari lexoni dokumentimin mbi programthe zgjerimi.
     </message>
     <message>
         <source>From Document:</source>
-        <translation>Prej Dokumenti:</translation>
+        <translation type="obsolete">Prej Dokumenti:</translation>
     </message>
     <message>
         <source>Change...</source>
-        <translation>Ndërro...</translation>
+        <translation type="obsolete">Ndërro...</translation>
     </message>
     <message>
         <source>Import Page(s):</source>
-        <translation>Importoni Faqe(t):</translation>
+        <translation type="obsolete">Importoni Faqe(t):</translation>
     </message>
     <message>
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
-        <translation>Jepni një listë objektesh të ndarë me presje ku(new line)
+        <translation type="obsolete">Jepni një listë objektesh të ndarë me presje ku(new line)
 objekti mund të jetë * për tërë faqet, 1-5 për(new line)
 një interval faqesh ose një numër faqeje të vetme.</translation>
     </message>
@@ -12828,23 +15730,23 @@ një interval faqesh ose një numër faqeje të vetme.</translation>
     </message>
     <message>
         <source>before Page</source>
-        <translation>para Faqes</translation>
+        <translation type="obsolete">para Faqes</translation>
     </message>
     <message>
         <source>after Page</source>
-        <translation>pas Faqes</translation>
+        <translation type="obsolete">pas Faqes</translation>
     </message>
     <message>
         <source>at End</source>
-        <translation>në Fund</translation>
+        <translation type="obsolete">në Fund</translation>
     </message>
     <message>
         <source>Import</source>
-        <translation>Importo</translation>
+        <translation type="obsolete">Importo</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anulo</translation>
+        <translation type="obsolete">Anulo</translation>
     </message>
     <message>
         <source>Open</source>
@@ -12861,6 +15763,65 @@ një interval faqesh ose një numër faqeje të vetme.</translation>
     <message>
         <source> from %1</source>
         <translation>nga %1</translation>
+    </message>
+    <message>
+        <source>Import Master Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;From Document:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Chan&amp;ge...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Import Page(s):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Import Master Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens import where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Before Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>After Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>At End</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Import</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>MissingFont</name>
+    <message>
+        <source>Missing Font</source>
+        <translation type="unfinished">Gërma që Mungojnë</translation>
+    </message>
+    <message>
+        <source>The Font %1 is not installed.</source>
+        <translation type="unfinished">Gërmat %1 nuk janë instaluar.</translation>
+    </message>
+    <message>
+        <source>Use</source>
+        <translation type="unfinished">Përdor</translation>
+    </message>
+    <message>
+        <source>instead</source>
+        <translation type="unfinished">më mirë</translation>
     </message>
 </context>
 <context>
@@ -12883,23 +15844,39 @@ një interval faqesh ose një numër faqeje të vetme.</translation>
     </message>
     <message>
         <source>before Page</source>
-        <translation>para Faqes</translation>
+        <translation type="obsolete">para Faqes</translation>
     </message>
     <message>
         <source>after Page</source>
-        <translation>pas Faqes</translation>
+        <translation type="obsolete">pas Faqes</translation>
     </message>
     <message>
         <source>at End</source>
-        <translation>në Fund</translation>
+        <translation type="obsolete">në Fund</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>&amp;Anulo</translation>
+        <translation type="obsolete">&amp;Anulo</translation>
+    </message>
+    <message>
+        <source>Move Page(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Before Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>After Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>At End</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13048,7 +16025,7 @@ të Rrumbullakët:</translation>
     </message>
     <message>
         <source>&amp;Font Size:</source>
-        <translation>&amp;Madhësi Gërmash:</translation>
+        <translation type="obsolete">&amp;Madhësi Gërmash:</translation>
     </message>
     <message>
         <source> %</source>
@@ -13056,19 +16033,15 @@ të Rrumbullakët:</translation>
     </message>
     <message>
         <source>Shade:</source>
-        <translation>Hije:</translation>
+        <translation type="obsolete">Hije:</translation>
     </message>
     <message>
         <source>Custom Spacing</source>
-        <translation>Ndërvijë Vetjake</translation>
-    </message>
-    <message>
-        <source>&amp;Kerning:</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Ndërvijë Vetjake</translation>
     </message>
     <message>
         <source>L&amp;ine Spacing:</source>
-        <translation>N&amp;dërvijë:</translation>
+        <translation type="obsolete">N&amp;dërvijë:</translation>
     </message>
     <message>
         <source>St&amp;yle:</source>
@@ -13331,10 +16304,6 @@ të Rrumbullakët:</translation>
         <translation type="obsolete">Shkrim Së Prapthi</translation>
     </message>
     <message>
-        <source>Manual Kerning</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Line Spacing</source>
         <translation>Ndërvijë</translation>
     </message>
@@ -13476,15 +16445,15 @@ të Rrumbullakët:</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation>mm</translation>
+        <translation type="obsolete">mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation>inç</translation>
+        <translation type="obsolete">inç</translation>
     </message>
     <message>
         <source> p</source>
-        <translation>p</translation>
+        <translation type="obsolete">p</translation>
     </message>
     <message>
         <source>Column width</source>
@@ -13506,11 +16475,51 @@ Ju lutem zgjidhni një tjetër.</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Right to Left Writing</source>
         <translation>Shkrim nga e Majt në të Djathtë</translation>
+    </message>
+    <message>
+        <source>Fixed Linespacing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatic Linespacing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Align to Baseline Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Actual X-DPI:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Actual Y-DPI:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start Arrow:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>End Arrow:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Offset to baseline of characters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scaling height of characters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manual Tracking</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13557,11 +16566,11 @@ Ju lutem zgjidhni një tjetër.</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>&amp;Anulo</translation>
+        <translation type="obsolete">&amp;Anulo</translation>
     </message>
     <message>
         <source> pt </source>
@@ -13606,31 +16615,31 @@ Ju lutem zgjidhni një tjetër.</translation>
     <name>MusterSeiten</name>
     <message>
         <source>Edit Templates</source>
-        <translation>Përpunoni Stampa</translation>
+        <translation type="obsolete">Përpunoni Stampa</translation>
     </message>
     <message>
         <source>&amp;Append</source>
-        <translation>&amp;Vini</translation>
+        <translation type="obsolete">&amp;Vini</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation>&amp;I ri</translation>
+        <translation type="obsolete">&amp;I ri</translation>
     </message>
     <message>
         <source>D&amp;uplicate</source>
-        <translation>&amp;Dyfisho</translation>
+        <translation type="obsolete">&amp;Dyfisho</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation>&amp;Fshij</translation>
+        <translation type="obsolete">&amp;Fshij</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation>&amp;Mbyll</translation>
+        <translation type="obsolete">&amp;Mbyll</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Kujdes</translation>
+        <translation type="obsolete">Kujdes</translation>
     </message>
     <message>
         <source>Do you really want do delete this Template?</source>
@@ -13638,58 +16647,58 @@ Ju lutem zgjidhni një tjetër.</translation>
     </message>
     <message>
         <source>&amp;No</source>
-        <translation>&amp;Jo</translation>
+        <translation type="obsolete">&amp;Jo</translation>
     </message>
     <message>
         <source>&amp;Yes</source>
-        <translation>&amp;Po</translation>
+        <translation type="obsolete">&amp;Po</translation>
     </message>
     <message>
         <source>&amp;Name:</source>
-        <translation>&amp;Emër:</translation>
+        <translation type="obsolete">&amp;Emër:</translation>
     </message>
     <message>
         <source>New Template</source>
-        <translation>Stampë e Re</translation>
+        <translation type="obsolete">Stampë e Re</translation>
     </message>
     <message>
         <source>Copy of %1</source>
-        <translation>Kopje e %1</translation>
+        <translation type="obsolete">Kopje e %1</translation>
     </message>
     <message>
         <source>Name:</source>
-        <translation>Emër:</translation>
+        <translation type="obsolete">Emër:</translation>
     </message>
     <message>
         <source>Copy #%1 of </source>
-        <translation>Kopjo #%1 nga</translation>
+        <translation type="obsolete">Kopjo #%1 nga</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation>Normale</translation>
+        <translation type="obsolete">Normale</translation>
     </message>
     <message>
         <source>Do you really want to delete this Template?</source>
-        <translation>Doni vërtet të fshini këtë Stampë?</translation>
+        <translation type="obsolete">Doni vërtet të fshini këtë Stampë?</translation>
     </message>
 </context>
 <context>
     <name>NewDoc</name>
     <message>
         <source> pt</source>
-        <translation>pt</translation>
+        <translation type="obsolete">pt</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation>mm</translation>
+        <translation type="obsolete">mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation>inç</translation>
+        <translation type="obsolete">inç</translation>
     </message>
     <message>
         <source> p</source>
-        <translation>p</translation>
+        <translation type="obsolete">p</translation>
     </message>
     <message>
         <source>New Document</source>
@@ -13705,19 +16714,19 @@ Ju lutem zgjidhni një tjetër.</translation>
     </message>
     <message>
         <source>Legal</source>
-        <translation>Legal</translation>
+        <translation type="obsolete">Legal</translation>
     </message>
     <message>
         <source>Letter</source>
-        <translation>Letër</translation>
+        <translation type="obsolete">Letër</translation>
     </message>
     <message>
         <source>Tabloid</source>
-        <translation>Tabloid</translation>
+        <translation type="obsolete">Tabloid</translation>
     </message>
     <message>
         <source>Custom</source>
-        <translation>Vetjake</translation>
+        <translation type="obsolete">Vetjake</translation>
     </message>
     <message>
         <source>Orie&amp;ntation:</source>
@@ -13741,11 +16750,11 @@ Ju lutem zgjidhni një tjetër.</translation>
     </message>
     <message>
         <source>&amp;Facing Pages</source>
-        <translation>Faqe &amp;Përkarshi</translation>
+        <translation type="obsolete">Faqe &amp;Përkarshi</translation>
     </message>
     <message>
         <source>Left &amp;Page First</source>
-        <translation>&amp;Faqe Majtas Fillimisht</translation>
+        <translation type="obsolete">&amp;Faqe Majtas Fillimisht</translation>
     </message>
     <message>
         <source>Margin Guides</source>
@@ -13753,19 +16762,19 @@ Ju lutem zgjidhni një tjetër.</translation>
     </message>
     <message>
         <source>&amp;Left:</source>
-        <translation>&amp;Majtas:</translation>
+        <translation type="obsolete">&amp;Majtas:</translation>
     </message>
     <message>
         <source>&amp;Right:</source>
-        <translation>&amp;Djathtas:</translation>
+        <translation type="obsolete">&amp;Djathtas:</translation>
     </message>
     <message>
         <source>&amp;Top:</source>
-        <translation>&amp;Krye:</translation>
+        <translation type="obsolete">&amp;Krye:</translation>
     </message>
     <message>
         <source>&amp;Bottom:</source>
-        <translation>&amp;Poshtë:</translation>
+        <translation type="obsolete">&amp;Poshtë:</translation>
     </message>
     <message>
         <source>Options</source>
@@ -13781,19 +16790,19 @@ Ju lutem zgjidhni një tjetër.</translation>
     </message>
     <message>
         <source>Points (pts)</source>
-        <translation>Pikë (pts)</translation>
+        <translation type="obsolete">Pikë (pts)</translation>
     </message>
     <message>
         <source>Millimetres (mm)</source>
-        <translation>Milimetra (mm)</translation>
+        <translation type="obsolete">Milimetra (mm)</translation>
     </message>
     <message>
         <source>Inches (in)</source>
-        <translation>Inç (inç)</translation>
+        <translation type="obsolete">Inç (inç)</translation>
     </message>
     <message>
         <source>Picas (p)</source>
-        <translation>Pikas (p)</translation>
+        <translation type="obsolete">Pikas (p)</translation>
     </message>
     <message>
         <source>&amp;Automatic Text Frames</source>
@@ -13801,7 +16810,7 @@ Ju lutem zgjidhni një tjetër.</translation>
     </message>
     <message>
         <source>Column Guides</source>
-        <translation>Udhëzuesa Shtylle</translation>
+        <translation type="obsolete">Udhëzuesa Shtylle</translation>
     </message>
     <message>
         <source>&amp;Gap:</source>
@@ -13813,11 +16822,11 @@ Ju lutem zgjidhni një tjetër.</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>&amp;Anulo</translation>
+        <translation type="obsolete">&amp;Anulo</translation>
     </message>
     <message>
         <source>Document page size, either a standard size or a custom size</source>
@@ -13836,31 +16845,27 @@ Ju lutem zgjidhni një tjetër.</translation>
         <translation>Lartësi faqesh dokumenti, e përpunueshme nëse keni zgjedhur madhësi vetjake faqeje</translation>
     </message>
     <message>
-        <source>Enable single or spread based layout</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Make the first page the left page of the document</source>
-        <translation>Bëj faqe të parë faqen majtas të një dokumenti</translation>
+        <translation type="obsolete">Bëj faqe të parë faqen majtas të një dokumenti</translation>
     </message>
     <message>
         <source>Distance between the top margin guide and the edge of the page</source>
-        <translation>Largësi ndërmjet udhëzuesit të mënjanës së sipërme dhe skajit të faqes</translation>
+        <translation type="obsolete">Largësi ndërmjet udhëzuesit të mënjanës së sipërme dhe skajit të faqes</translation>
     </message>
     <message>
         <source>Distance between the bottom margin guide and the edge of the page</source>
-        <translation>Largësi ndërmjet udhëzuesit të mënjanës së poshtme dhe skajit të faqes</translation>
+        <translation type="obsolete">Largësi ndërmjet udhëzuesit të mënjanës së poshtme dhe skajit të faqes</translation>
     </message>
     <message>
         <source>Distance between the left margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Largësi ndërmjet udhëzuesit të mënjanës majtas dhe skajit të faqes.(new line)
+        <translation type="obsolete">Largësi ndërmjet udhëzuesit të mënjanës majtas dhe skajit të faqes.(new line)
 Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të përdoret për të pasur mënjana të sakta për libërlidhje</translation>
     </message>
     <message>
         <source>Distance between the right margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Largësi ndërmjet udhëzuesit të mënjanës djathtas dhe skajit të faqes.(new line)
+        <translation type="obsolete">Largësi ndërmjet udhëzuesit të mënjanës djathtas dhe skajit të faqes.(new line)
 Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të përdoret për të pasur mënjana të sakta për libërlidhje</translation>
     </message>
     <message>
@@ -13885,42 +16890,94 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
     <message>
         <source>&amp;Inside:</source>
-        <translation>&amp;Brenda:</translation>
+        <translation type="obsolete">&amp;Brenda:</translation>
     </message>
     <message>
         <source>O&amp;utside:</source>
-        <translation>&amp;Jashtë:</translation>
+        <translation type="obsolete">&amp;Jashtë:</translation>
     </message>
     <message>
         <source>Executive</source>
-        <translation>Executive</translation>
+        <translation type="obsolete">Executive</translation>
     </message>
     <message>
         <source>Folio</source>
-        <translation>Folio</translation>
+        <translation type="obsolete">Folio</translation>
     </message>
     <message>
         <source>Ledger</source>
-        <translation>Ledger</translation>
+        <translation type="obsolete">Ledger</translation>
+    </message>
+    <message>
+        <source>Open Document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Recent Documents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do not show this dialog again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Initial number of pages of the document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>N&amp;umber of Pages:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.scd);;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Postscript Files (*.eps *.EPS *.ps *.PS);;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SVG Images (*.svg *.svgz);;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SVG Images (*.svg);;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Draw (*.sxd);;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Files (*)</source>
+        <translation type="unfinished">Tërë kartelat (*)</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation type="unfinished">Hap</translation>
     </message>
 </context>
 <context>
     <name>NewTm</name>
     <message>
         <source>Left Page</source>
-        <translation>Faqe Majtas</translation>
+        <translation type="obsolete">Faqe Majtas</translation>
     </message>
     <message>
         <source>Right Page</source>
-        <translation>Faqe Djathtas</translation>
+        <translation type="obsolete">Faqe Djathtas</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>&amp;Anulo</translation>
+        <translation type="obsolete">&amp;Anulo</translation>
     </message>
 </context>
 <context>
@@ -14052,22 +17109,84 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     <message>
         <source>When checked use Coordinates relative to the Page,
 otherwise Coordinates are relative to the Object.</source>
-        <translation>Kur zgjidhet përdoren Koordinata relative te Faqja,(new line)
+        <translation type="obsolete">Kur zgjidhet përdoren Koordinata relative te Faqja,(new line)
 përndryshe Koordinatat janë relative te Objekti.</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation type="unfinished"> %</translation>
+    </message>
+    <message>
+        <source>When checked use coordinates relative to the page, otherwise coordinates are relative to the Object.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>OdtDialog</name>
+    <message>
+        <source>OpenDocument Importer Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Overwrite Paragraph Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enabling this will overwrite existing styles in the current Scribus document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Merge Paragraph Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document&apos;s styles are named differently.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use document name as a prefix for paragraph styles</source>
+        <translation type="unfinished">Përdor emra dokumentesh si parashtesë për stile paragrafësh </translation>
+    </message>
+    <message>
+        <source>Prepend the document name to the paragraph style name in Scribus.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do not ask again</source>
+        <translation type="unfinished">Mos pyet sërish</translation>
+    </message>
+    <message>
+        <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
+    </message>
+</context>
+<context>
+    <name>OutlineValues</name>
+    <message>
+        <source> %</source>
+        <translation type="unfinished"> %</translation>
+    </message>
+    <message>
+        <source>Linewidth</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>PConsole</name>
     <message>
         <source>Script Console</source>
-        <translation>Konsol Programthesh</translation>
+        <translation type="obsolete">Konsol Programthesh</translation>
     </message>
 </context>
 <context>
     <name>PDF_Opts</name>
     <message>
         <source>Create PDF File</source>
-        <translation>Kroji Kartelë PDF</translation>
+        <translation type="obsolete">Kroji Kartelë PDF</translation>
     </message>
     <message>
         <source>O&amp;utput to File:</source>
@@ -14079,55 +17198,51 @@ përndryshe Koordinatat janë relative te Objekti.</translation>
     </message>
     <message>
         <source>Export Range</source>
-        <translation>Eksporto Interval</translation>
+        <translation type="obsolete">Eksporto Interval</translation>
     </message>
     <message>
         <source>&amp;All Pages</source>
-        <translation>&amp;Tërë Faqet</translation>
+        <translation type="obsolete">&amp;Tërë Faqet</translation>
     </message>
     <message>
         <source>C&amp;hoose Pages</source>
-        <translation>&amp;Zgjidhni Faqe</translation>
+        <translation type="obsolete">&amp;Zgjidhni Faqe</translation>
     </message>
     <message>
         <source>File Options</source>
-        <translation>Mundësi Kartele</translation>
+        <translation type="obsolete">Mundësi Kartele</translation>
     </message>
     <message>
         <source>Compatibilit&amp;y:</source>
-        <translation>Përp&amp;uthshmëri:</translation>
-    </message>
-    <message>
-        <source>&amp;Binding:</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Përp&amp;uthshmëri:</translation>
     </message>
     <message>
         <source>Left Margin</source>
-        <translation>Mënjanë Majtas</translation>
+        <translation type="obsolete">Mënjanë Majtas</translation>
     </message>
     <message>
         <source>Right Margin</source>
-        <translation>Mënjanë Djathtas</translation>
+        <translation type="obsolete">Mënjanë Djathtas</translation>
     </message>
     <message>
         <source>Generate &amp;Thumbnails</source>
-        <translation>Prodho &amp;Figurëza</translation>
+        <translation type="obsolete">Prodho &amp;Figurëza</translation>
     </message>
     <message>
         <source>Save &amp;Linked Text Frames as PDF Articles</source>
-        <translation>Ruaj Korniza të &amp;Lidhura Tekstesh si Artikuj PDF</translation>
+        <translation type="obsolete">Ruaj Korniza të &amp;Lidhura Tekstesh si Artikuj PDF</translation>
     </message>
     <message>
         <source>&amp;Include Bookmarks</source>
-        <translation>&amp;Përfshi Faqerojtësa</translation>
+        <translation type="obsolete">&amp;Përfshi Faqerojtësa</translation>
     </message>
     <message>
         <source> dpi</source>
-        <translation> dpi</translation>
+        <translation type="obsolete"> dpi</translation>
     </message>
     <message>
         <source>&amp;Resolution:</source>
-        <translation>&amp;Qartësi:</translation>
+        <translation type="obsolete">&amp;Qartësi:</translation>
     </message>
     <message>
         <source>Com&amp;press Text and Vector Graphics</source>
@@ -14135,87 +17250,87 @@ përndryshe Koordinatat janë relative te Objekti.</translation>
     </message>
     <message>
         <source>Image Settings</source>
-        <translation>Rregullime Pamjeje</translation>
+        <translation type="obsolete">Rregullime Pamjeje</translation>
     </message>
     <message>
         <source>Automatic</source>
-        <translation>Automatike</translation>
+        <translation type="obsolete">Automatike</translation>
     </message>
     <message>
         <source>JPEG</source>
-        <translation>JPEG</translation>
+        <translation type="obsolete">JPEG</translation>
     </message>
     <message>
         <source>Zip</source>
-        <translation>Zip</translation>
+        <translation type="obsolete">Zip</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>Asnjë</translation>
+        <translation type="obsolete">Asnjë</translation>
     </message>
     <message>
         <source>&amp;Method:</source>
-        <translation>&amp;Metodë:</translation>
+        <translation type="obsolete">&amp;Metodë:</translation>
     </message>
     <message>
         <source>&amp;Quality:</source>
-        <translation>&amp;Cilësi:</translation>
+        <translation type="obsolete">&amp;Cilësi:</translation>
     </message>
     <message>
         <source>Maximum</source>
-        <translation>Më i madhi</translation>
+        <translation type="obsolete">Më i madhi</translation>
     </message>
     <message>
         <source>High</source>
-        <translation>Lartë</translation>
+        <translation type="obsolete">Lartë</translation>
     </message>
     <message>
         <source>Medium</source>
-        <translation>Mesatare</translation>
+        <translation type="obsolete">Mesatare</translation>
     </message>
     <message>
         <source>Low</source>
-        <translation>Ulët</translation>
+        <translation type="obsolete">Ulët</translation>
     </message>
     <message>
         <source>Minimum</source>
-        <translation>Më i vogli</translation>
+        <translation type="obsolete">Më i vogli</translation>
     </message>
     <message>
         <source>&amp;Downsample Images to:</source>
-        <translation>&amp;thjeshto Pamje në:</translation>
+        <translation type="obsolete">&amp;thjeshto Pamje në:</translation>
     </message>
     <message>
         <source>&amp;General</source>
-        <translation>&amp;Të përgjithshme</translation>
+        <translation type="obsolete">&amp;Të përgjithshme</translation>
     </message>
     <message>
         <source>&amp;Embed all Fonts</source>
-        <translation>&amp;Trupëzo tërë Gërmat</translation>
+        <translation type="obsolete">&amp;Trupëzo tërë Gërmat</translation>
     </message>
     <message>
         <source>Embedding</source>
-        <translation>Po trupëzoj</translation>
+        <translation type="obsolete">Po trupëzoj</translation>
     </message>
     <message>
         <source>Available Fonts:</source>
-        <translation>Gërma të Mundshme:</translation>
+        <translation type="obsolete">Gërma të Mundshme:</translation>
     </message>
     <message>
         <source>&amp;&gt;&gt;</source>
-        <translation>&amp;&gt;&gt;</translation>
+        <translation type="obsolete">&amp;&gt;&gt;</translation>
     </message>
     <message>
         <source>&amp;&lt;&lt;</source>
-        <translation>&amp;&lt;&lt;</translation>
+        <translation type="obsolete">&amp;&lt;&lt;</translation>
     </message>
     <message>
         <source>Fonts to embed:</source>
-        <translation>Gërma për trupëzim:</translation>
+        <translation type="obsolete">Gërma për trupëzim:</translation>
     </message>
     <message>
         <source>&amp;Fonts</source>
-        <translation>&amp;Gërma</translation>
+        <translation type="obsolete">&amp;Gërma</translation>
     </message>
     <message>
         <source>Enable &amp;Presentation Effects</source>
@@ -14223,111 +17338,95 @@ përndryshe Koordinatat janë relative te Objekti.</translation>
     </message>
     <message>
         <source>Page</source>
-        <translation>Faqe</translation>
+        <translation type="obsolete">Faqe</translation>
     </message>
     <message>
         <source>Show Page Pre&amp;views</source>
-        <translation>Shfaq P&amp;araparje Faqesh</translation>
+        <translation type="obsolete">Shfaq P&amp;araparje Faqesh</translation>
     </message>
     <message>
         <source>Effects</source>
-        <translation>Efekte</translation>
+        <translation type="obsolete">Efekte</translation>
     </message>
     <message>
         <source>&amp;Display Duration:</source>
-        <translation>&amp;Shfaq Kohëzgjatje:</translation>
+        <translation type="obsolete">&amp;Shfaq Kohëzgjatje:</translation>
     </message>
     <message>
         <source>Effec&amp;t Duration:</source>
-        <translation>Kohëzgjatje Efek&amp;ti:</translation>
+        <translation type="obsolete">Kohëzgjatje Efek&amp;ti:</translation>
     </message>
     <message>
         <source>Effect T&amp;ype:</source>
-        <translation>T&amp;ip Efekti:</translation>
+        <translation type="obsolete">T&amp;ip Efekti:</translation>
     </message>
     <message>
         <source>&amp;Moving Lines:</source>
-        <translation>Po zh&amp;vendos Rreshta:</translation>
+        <translation type="obsolete">Po zh&amp;vendos Rreshta:</translation>
     </message>
     <message>
         <source>F&amp;rom the:</source>
-        <translation>P&amp;rej:</translation>
+        <translation type="obsolete">P&amp;rej:</translation>
     </message>
     <message>
         <source>D&amp;irection:</source>
-        <translation>Drejt&amp;im:</translation>
+        <translation type="obsolete">Drejt&amp;im:</translation>
     </message>
     <message>
         <source> sec</source>
-        <translation>sek</translation>
+        <translation type="obsolete">sek</translation>
     </message>
     <message>
         <source>No Effect</source>
-        <translation>Pa Efekt</translation>
-    </message>
-    <message>
-        <source>Blinds</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Pa Efekt</translation>
     </message>
     <message>
         <source>Box</source>
-        <translation>Kuti</translation>
-    </message>
-    <message>
-        <source>Dissolve</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Glitter</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Kuti</translation>
     </message>
     <message>
         <source>Split</source>
-        <translation>Ndaj</translation>
-    </message>
-    <message>
-        <source>Wipe</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Ndaj</translation>
     </message>
     <message>
         <source>Horizontal</source>
-        <translation>Horizontalisht</translation>
+        <translation type="obsolete">Horizontalisht</translation>
     </message>
     <message>
         <source>Vertical</source>
-        <translation>Vertikalisht</translation>
+        <translation type="obsolete">Vertikalisht</translation>
     </message>
     <message>
         <source>Inside</source>
-        <translation>Brenda</translation>
+        <translation type="obsolete">Brenda</translation>
     </message>
     <message>
         <source>Outside</source>
-        <translation>Jashtë</translation>
+        <translation type="obsolete">Jashtë</translation>
     </message>
     <message>
         <source>Left to Right</source>
-        <translation>Nga e Majta në të Djathtë</translation>
+        <translation type="obsolete">Nga e Majta në të Djathtë</translation>
     </message>
     <message>
         <source>Top to Bottom</source>
-        <translation>Nga Sipër Poshtë</translation>
+        <translation type="obsolete">Nga Sipër Poshtë</translation>
     </message>
     <message>
         <source>Bottom to Top</source>
-        <translation>Nga Poshtë Sipër</translation>
+        <translation type="obsolete">Nga Poshtë Sipër</translation>
     </message>
     <message>
         <source>Right to Left</source>
-        <translation>Nga e Djathta në të Majtë</translation>
+        <translation type="obsolete">Nga e Djathta në të Majtë</translation>
     </message>
     <message>
         <source>Top-left to Bottom-Right</source>
-        <translation>Nga Sipër-majtas Poshtë-djathtas</translation>
+        <translation type="obsolete">Nga Sipër-majtas Poshtë-djathtas</translation>
     </message>
     <message>
         <source>&amp;Apply Effect on all Pages</source>
-        <translation>&amp;Zbato Efekt te tërë Faqet</translation>
+        <translation type="obsolete">&amp;Zbato Efekt te tërë Faqet</translation>
     </message>
     <message>
         <source>E&amp;xtras</source>
@@ -14335,175 +17434,167 @@ përndryshe Koordinatat janë relative te Objekti.</translation>
     </message>
     <message>
         <source>&amp;Use Encryption</source>
-        <translation>&amp;Përdor Kodim</translation>
+        <translation type="obsolete">&amp;Përdor Kodim</translation>
     </message>
     <message>
         <source>Passwords</source>
-        <translation>Fjalëkalime</translation>
+        <translation type="obsolete">Fjalëkalime</translation>
     </message>
     <message>
         <source>&amp;User:</source>
-        <translation>&amp;Përdorues:</translation>
+        <translation type="obsolete">&amp;Përdorues:</translation>
     </message>
     <message>
         <source>&amp;Owner:</source>
-        <translation>Pr&amp;onar:</translation>
+        <translation type="obsolete">Pr&amp;onar:</translation>
     </message>
     <message>
         <source>Settings</source>
-        <translation>Rregullime</translation>
+        <translation type="obsolete">Rregullime</translation>
     </message>
     <message>
         <source>Allow &amp;Printing the Document</source>
-        <translation>Lejo &amp;Shtypjen e Dokumentit</translation>
+        <translation type="obsolete">Lejo &amp;Shtypjen e Dokumentit</translation>
     </message>
     <message>
         <source>Allow &amp;Changing the Document</source>
-        <translation>Lejo &amp;Ndryshimin e Dokumentit</translation>
+        <translation type="obsolete">Lejo &amp;Ndryshimin e Dokumentit</translation>
     </message>
     <message>
         <source>Allow Cop&amp;ying Text and Graphics</source>
-        <translation>Lejo Kop&amp;jim Tekstesh dhe Grafikash</translation>
+        <translation type="obsolete">Lejo Kop&amp;jim Tekstesh dhe Grafikash</translation>
     </message>
     <message>
         <source>Allow Adding &amp;Annotations and Fields</source>
-        <translation>Lejo Shtim Shëni&amp;mesh dhe Fushash</translation>
+        <translation type="obsolete">Lejo Shtim Shëni&amp;mesh dhe Fushash</translation>
     </message>
     <message>
         <source>S&amp;ecurity</source>
-        <translation>S&amp;iguri</translation>
+        <translation type="obsolete">S&amp;iguri</translation>
     </message>
     <message>
         <source>General</source>
-        <translation>Të përgjithshme</translation>
+        <translation type="obsolete">Të përgjithshme</translation>
     </message>
     <message>
         <source>Output &amp;Intended For:</source>
-        <translation>Përfundim i Para&amp;menduar Për:</translation>
+        <translation type="obsolete">Përfundim i Para&amp;menduar Për:</translation>
     </message>
     <message>
         <source>Screen / Web</source>
-        <translation>Ekran / Web</translation>
+        <translation type="obsolete">Ekran / Web</translation>
     </message>
     <message>
         <source>Printer</source>
-        <translation>Shtypës</translation>
+        <translation type="obsolete">Shtypës</translation>
     </message>
     <message>
         <source>&amp;Use Custom Rendering Settings</source>
-        <translation>Për&amp;dor Rregullime Vetjake Vizatimi</translation>
+        <translation type="obsolete">Për&amp;dor Rregullime Vetjake Vizatimi</translation>
     </message>
     <message>
         <source>Rendering Settings</source>
-        <translation>Rregullime Vizatimi</translation>
+        <translation type="obsolete">Rregullime Vizatimi</translation>
     </message>
     <message>
         <source>Fre&amp;quency:</source>
-        <translation>Shpe&amp;shti:</translation>
+        <translation type="obsolete">Shpe&amp;shti:</translation>
     </message>
     <message>
         <source>&amp;Angle:</source>
-        <translation>&amp;Kënd:</translation>
-    </message>
-    <message>
-        <source>S&amp;pot Function:</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">&amp;Kënd:</translation>
     </message>
     <message>
         <source>Simple Dot</source>
-        <translation>Pikë e Thjeshtë</translation>
+        <translation type="obsolete">Pikë e Thjeshtë</translation>
     </message>
     <message>
         <source>Line</source>
-        <translation>Vijë</translation>
+        <translation type="obsolete">Vijë</translation>
     </message>
     <message>
         <source>Round</source>
-        <translation>Rreth</translation>
+        <translation type="obsolete">Rreth</translation>
     </message>
     <message>
         <source>Ellipse</source>
-        <translation>Elips</translation>
+        <translation type="obsolete">Elips</translation>
     </message>
     <message>
         <source>Solid Colors:</source>
-        <translation>Ngjyra të Plota:</translation>
+        <translation type="obsolete">Ngjyra të Plota:</translation>
     </message>
     <message>
         <source>Use ICC Profile</source>
-        <translation>Përdor Profil ICC</translation>
+        <translation type="obsolete">Përdor Profil ICC</translation>
     </message>
     <message>
         <source>Profile:</source>
-        <translation>Profil:</translation>
-    </message>
-    <message>
-        <source>Rendering-Intent:</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Profil:</translation>
     </message>
     <message>
         <source>Perceptual</source>
-        <translation>Perceptual</translation>
+        <translation type="obsolete">Perceptual</translation>
     </message>
     <message>
         <source>Relative Colorimetric</source>
-        <translation>Kolorimetrik Relativ</translation>
+        <translation type="obsolete">Kolorimetrik Relativ</translation>
     </message>
     <message>
         <source>Saturation</source>
-        <translation>Ngopje</translation>
+        <translation type="obsolete">Ngopje</translation>
     </message>
     <message>
         <source>Absolute Colorimetric</source>
-        <translation>Kolorimetrik Absolut</translation>
+        <translation type="obsolete">Kolorimetrik Absolut</translation>
     </message>
     <message>
         <source>Images:</source>
-        <translation>Pamje:</translation>
+        <translation type="obsolete">Pamje:</translation>
     </message>
     <message>
         <source>Don&apos;t use embedded ICC profiles</source>
-        <translation>Mos përdor profile ICC të trupëzuar</translation>
+        <translation type="obsolete">Mos përdor profile ICC të trupëzuar</translation>
     </message>
     <message>
         <source>C&amp;olor</source>
-        <translation>Ngj&amp;yrë</translation>
+        <translation type="obsolete">Ngj&amp;yrë</translation>
     </message>
     <message>
         <source>PDF/X-3 Output Intent</source>
-        <translation type="unfinished">Ruajtje përfundimesh e suksesshme</translation>
+        <translation type="obsolete">Ruajtje përfundimesh e suksesshme</translation>
     </message>
     <message>
         <source>&amp;Info String:</source>
-        <translation>Të &amp;dhëna Vargu:</translation>
+        <translation type="obsolete">Të &amp;dhëna Vargu:</translation>
     </message>
     <message>
         <source>Output &amp;Profile:</source>
-        <translation>Profil Për&amp;fundimesh:</translation>
+        <translation type="obsolete">Profil Për&amp;fundimesh:</translation>
     </message>
     <message>
         <source>Trim Box</source>
-        <translation type="unfinished">Listë Kuti</translation>
+        <translation type="obsolete">Listë Kuti</translation>
     </message>
     <message>
         <source>PDF/X-&amp;3</source>
-        <translation>PDF/X-&amp;3</translation>
+        <translation type="obsolete">PDF/X-&amp;3</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation>pt</translation>
+        <translation type="obsolete">pt</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation>mm</translation>
+        <translation type="obsolete">mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation>inç</translation>
+        <translation type="obsolete">inç</translation>
     </message>
     <message>
         <source> p</source>
-        <translation>p</translation>
+        <translation type="obsolete">p</translation>
     </message>
     <message>
         <source>&amp;Save</source>
@@ -14511,21 +17602,21 @@ përndryshe Koordinatat janë relative te Objekti.</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>&amp;Anulo</translation>
+        <translation type="obsolete">&amp;Anulo</translation>
     </message>
     <message>
         <source>Export all pages to PDF</source>
-        <translation>Eksporto tërë faqet si PDF</translation>
+        <translation type="obsolete">Eksporto tërë faqet si PDF</translation>
     </message>
     <message>
         <source>Export a range of pages to PDF</source>
-        <translation>Eksporto interval faqesh si PDF</translation>
+        <translation type="obsolete">Eksporto interval faqesh si PDF</translation>
     </message>
     <message>
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
-        <translation>Jepni një listë objektesh të ndarë me presje ku(new line)
+        <translation type="obsolete">Jepni një listë objektesh të ndarë me presje ku(new line)
 objekti mund të jetë * për tërë faqet, 1-5 për(new line)
 një interval faqesh ose një numër faqeje të vetme.</translation>
     </message>
@@ -14533,42 +17624,42 @@ një interval faqesh ose një numër faqeje të vetme.</translation>
         <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.
 Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.
 PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management.</source>
-        <translation>Përcakton përputhshmërinë me. Parazgjedhja është Acrobat 4.0 çka ju jep përputhshmërinë më të madhe.(new line)
+        <translation type="obsolete">Përcakton përputhshmërinë me. Parazgjedhja është Acrobat 4.0 çka ju jep përputhshmërinë më të madhe.(new line)
 Zgjidhni Acrobat 5.0 nese kartela juaj ka karakteristika PDF 1.4 si p.sh. tejdukshmëri ose nëse keni nevojë për kodim 128 bit.(new line)
 PDF/X-3 vlen për eksportim PDF-sh për shtypje komerciale dhe është i përzgjedhshëm kur keni veprues administrim ngjyrash.</translation>
     </message>
     <message>
         <source>Determines the binding of pages in the PDF. Unless you know
 you need to change it leave the default choice - Left.</source>
-        <translation>Përcakton lidhjen e faqeve te PDF-ja. Lini parazgjedhjen - Majtas,(new line)
+        <translation type="obsolete">Përcakton lidhjen e faqeve te PDF-ja. Lini parazgjedhjen - Majtas,(new line)
 veç në e ditshi që keni nevojë ta ndryshoni.</translation>
     </message>
     <message>
         <source>Generates thumbnails of each page in the PDF.
 Some viewers can use the thumbnails for navigation.</source>
-        <translation>Prodhon figurëza për çdo faqe të PDF-së.(new line)
+        <translation type="obsolete">Prodhon figurëza për çdo faqe të PDF-së.(new line)
 Disa parësa mund të përdorin figurëza për lundrim.</translation>
     </message>
     <message>
         <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
-        <translation>Prodho Artikuj PDF, çka është e dobishme për lundrim artikujsh në një PDF.</translation>
+        <translation type="obsolete">Prodho Artikuj PDF, çka është e dobishme për lundrim artikujsh në një PDF.</translation>
     </message>
     <message>
         <source>Embed the bookmarks you created in your document.
 These are useful for navigating long PDF documents.</source>
-        <translation>Trupëzo në dokumetin tuaj faqerojtësit e krijuar.(new line)
+        <translation type="obsolete">Trupëzo në dokumetin tuaj faqerojtësit e krijuar.(new line)
 Këta janë të dobishëm për të udhëtuar në dokumente të gjatë PDF.</translation>
     </message>
     <message>
         <source>Export resolution of text and vector graphics.
 This does not affect the resolution of bitmap images like photos.</source>
-        <translation>Eksporto qartësi teksti dhe grafikësh vektorialë.(new line)
+        <translation type="obsolete">Eksporto qartësi teksti dhe grafikësh vektorialë.(new line)
 Kjo nuk prek qartësinë e pamjeve bitmap, si fotot p.sh.</translation>
     </message>
     <message>
         <source>Compression of text and graphics.
 Unless you have a reason, leave this checked. This reduces PDF size.</source>
-        <translation>Ngjeshje teksti dhe grafike.(new line)
+        <translation type="obsolete">Ngjeshje teksti dhe grafike.(new line)
 Nëse nuk keni arsye, lëreni të shenjuar. Kjo zvogëlon madhësinë PDF.</translation>
     </message>
     <message>
@@ -14577,7 +17668,7 @@ Automatic allows Scribus to choose the best method.
 ZIP is good for images with solid colors.
 JPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).
 Leave it set to automatic, unless you have a need for special compression options.</source>
-        <translation>Version ngjeshjeje për pamje.(new line)
+        <translation type="obsolete">Version ngjeshjeje për pamje.(new line)
 Automatikja i lejon Scribus-it të zgjedhë metodën më të mirë.(new line)
 ZIP është i mirë për pamje me ngjyra të plota.(new line)
 JPEG është më i mirë pëër krijim kartelash PDF më të vogla të cilat mund të kenë plot foto (me pakëz humbje në pamje, si mundësi).(new line)
@@ -14585,68 +17676,56 @@ Lëreni të caktuar te automatike, veç në paçi nevojë për mundësira specia
     </message>
     <message>
         <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
-        <translation>Shkallë ngjeshjeje: Më e ulta (25%), E ulët (50%), E mesme (75%), E lartë (85%), Më e larta (95%)</translation>
+        <translation type="obsolete">Shkallë ngjeshjeje: Më e ulta (25%), E ulët (50%), E mesme (75%), E lartë (85%), Më e larta (95%)</translation>
     </message>
     <message>
         <source>Downsample your bitmap images to the selected DPI.
 Leaving this unchecked will render them at their native resolution.</source>
-        <translation>Thjeshtoni pamjet tuaja bitmap deri te vlera DPI e përzgjedhur.(new line)
+        <translation type="obsolete">Thjeshtoni pamjet tuaja bitmap deri te vlera DPI e përzgjedhur.(new line)
 Po e latë të pashenjuar dotë vizatohen me qartësinë origjinale.</translation>
     </message>
     <message>
         <source>DPI (Dots Per Inch) for image export.</source>
-        <translation>DPI (Pika për Inç) për eksport pamjesh.</translation>
+        <translation type="obsolete">DPI (Pika për Inç) për eksport pamjesh.</translation>
     </message>
     <message>
         <source>Embed fonts into the PDF. Embedding the fonts
 will preserve the layout and appearance of your document.</source>
-        <translation>Trupëzo gërma te PDF-ja. Trupëzimi i gërmave(new line)
+        <translation type="obsolete">Trupëzo gërma te PDF-ja. Trupëzimi i gërmave(new line)
 do të ruajë skemën dhe dukjen e dokumentit tuaj.</translation>
     </message>
     <message>
         <source>Enables presentation effects when using Acrobat Reader in full screen mode.</source>
-        <translation>Mundëson efekte paraqitjeje kur Acrobat Reader-i përdoret në mënyrën tërë ekrani. </translation>
+        <translation type="obsolete">Mundëson efekte paraqitjeje kur Acrobat Reader-i përdoret në mënyrën tërë ekrani. </translation>
     </message>
     <message>
         <source>Show page previews of each page listed above.</source>
-        <translation>Shfaq paraparje faqeje për secilën nga faqet e listuara më sipër. </translation>
+        <translation type="obsolete">Shfaq paraparje faqeje për secilën nga faqet e listuara më sipër. </translation>
     </message>
     <message>
         <source>Length of time the page is shown before the presentation starts on the selected page.</source>
-        <translation>Koha gjatë së cilës tregohet faqja para se të nisë paraqitja në faqen e përzgjedhur.</translation>
+        <translation type="obsolete">Koha gjatë së cilës tregohet faqja para se të nisë paraqitja në faqen e përzgjedhur.</translation>
     </message>
     <message>
         <source>Length of time the effect runs.
 A shorter time will speed up the effect, a longer one will slow it down.</source>
-        <translation>Kohëzgjatja e xhirimit të efektit.(new line)
+        <translation type="obsolete">Kohëzgjatja e xhirimit të efektit.(new line)
 Një kohë më e shkurtër do ta përshpejtojë efektin, një më e gjatë do ta ngadalësojë.</translation>
     </message>
     <message>
         <source>Type of the display effect.</source>
-        <translation>Tip i efektit në ekran.</translation>
-    </message>
-    <message>
-        <source>Direction of the effect of moving lines for the split and blind effects.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Starting position for the box and split effects.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Direction of the glitter or wipe effects.</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Tip i efektit në ekran.</translation>
     </message>
     <message>
         <source>Apply the selected effect to all pages.</source>
-        <translation>Zbato efektin e përzgjedhur te të tëra faqet.</translation>
+        <translation type="obsolete">Zbato efektin e përzgjedhur te të tëra faqet.</translation>
     </message>
     <message>
         <source>Enable the security features in your exported PDF.
 If you selected Acrobat 4.0, the PDF will be protected by 40 bit encryption.
 If you selected Acrobat 5.0, the PDF will be protected by 128 bit encryption.
 Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
-        <translation>Aktivizoni veçori sigurie për PDF tuajat të eksportuara.(new line)
+        <translation type="obsolete">Aktivizoni veçori sigurie për PDF tuajat të eksportuara.(new line)
 Nëse përzgjodhët Acrobat 4.0, PDF-ja do të mbrohet me kodim 40 bitësh.(new line)
 Nëse përzgjodhët Acrobat 5.0, PDF-ja do të mbrohet me kodim 128 bitësh.(new line)
 Kujdes: Kodimi PDF nuk është aq i besueshëm sa kodimi GPG ose PGP dhe ka ca kufizime.</translation>
@@ -14654,38 +17733,38 @@ Kujdes: Kodimi PDF nuk është aq i besueshëm sa kodimi GPG ose PGP dhe ka ca k
     <message>
         <source>Choose a master password which enables or disables all the
 security features in your exported PDF</source>
-        <translation>Zgjidhni fjalëkalim të përgjithshëm i cili aktivizon ose çaktivizon tërë(new line)
+        <translation type="obsolete">Zgjidhni fjalëkalim të përgjithshëm i cili aktivizon ose çaktivizon tërë(new line)
 veçoritë e sigurisë për PDF tuajat të eksportuara</translation>
     </message>
     <message>
         <source>Choose a password for users to be able to read your PDF.</source>
-        <translation>Zgjidhni një fjalëkalim i cili t&apos;u lejojë përdoruesve të lexojnë PDF-të tuaja.</translation>
+        <translation type="obsolete">Zgjidhni një fjalëkalim i cili t&apos;u lejojë përdoruesve të lexojnë PDF-të tuaja.</translation>
     </message>
     <message>
         <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
-        <translation>Lejo shtypjen e PDF-së. Nëse nuk shenjohet, parandalohet shtypja.</translation>
+        <translation type="obsolete">Lejo shtypjen e PDF-së. Nëse nuk shenjohet, parandalohet shtypja.</translation>
     </message>
     <message>
         <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
-        <translation>Lejo ndryshimin e PDF-së. Nëse nuk shenjohet, parandalohet ndryshimi i PDF-së.</translation>
+        <translation type="obsolete">Lejo ndryshimin e PDF-së. Nëse nuk shenjohet, parandalohet ndryshimi i PDF-së.</translation>
     </message>
     <message>
         <source>Allow copying of text or graphics from the PDF. 
 If un-checked, text and graphics cannot be copied.</source>
-        <translation>Lejo kopjim teksti apo grafike prej PDF-së. (new line)
+        <translation type="obsolete">Lejo kopjim teksti apo grafike prej PDF-së. (new line)
 Nëse nuk shenjohet, nuk mund të kopjohet tekst apo grafikë.</translation>
     </message>
     <message>
         <source>Allow adding annotations and fields to the PDF. 
 If un-checked, editing annotations and fileds is prevented.</source>
-        <translation>Lejo shtim shënimesh dhe fushash te PDF-ja. (new line)
+        <translation type="obsolete">Lejo shtim shënimesh dhe fushash te PDF-ja. (new line)
 Nëse nuk shenjohet, parandalohet përpunimi i shënimeve dhe fushave.</translation>
     </message>
     <message>
         <source>Color model for the output of your PDF.
 Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets.
 Choose Printer when printing to a true 4 color CMYK printer.</source>
-        <translation>Model ngjyre për përfundimin e PDF-së tuaj.(new line)
+        <translation type="obsolete">Model ngjyre për përfundimin e PDF-së tuaj.(new line)
 Zgjidhni Ekran/Web për PDF që përdoren për shfaqje në ekran dhe për shtypje në shtypësa inkjet të zakonshëm.(new line)
 Zgjidhni Shtypës kur shtypet vërtet me një shtypës 4 ngjyrësh CMYK.</translation>
     </message>
@@ -14693,63 +17772,43 @@ Zgjidhni Shtypës kur shtypet vërtet me një shtypës 4 ngjyrësh CMYK.</transl
         <source>This is an advanced setting which is not enabled by default. This should only be enabled
 when specifically requested by your printer and they have given you the exact details needed.
 Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
-        <translation>Ky është një rregullim i cili si parazgjedhje nuk është veprues. Do të duhej të aktivizohej(new line)
+        <translation type="obsolete">Ky është një rregullim i cili si parazgjedhje nuk është veprues. Do të duhej të aktivizohej(new line)
 kur kërkohet veçanërisht nga shtypësi juaj dhe ju kanë dhënë saktë hollësitë e nevojshme.(new line)
 Përndryshe, PDF-ja që eksportuat mund të mos shtypet si duhet dhe as të jetë vërtet i kalueshëm nëpër sisteme.</translation>
     </message>
     <message>
         <source>Embed a color profile for solid colors</source>
-        <translation>Trupëzo një profil ngjyre për ngjyra të plota</translation>
+        <translation type="obsolete">Trupëzo një profil ngjyre për ngjyra të plota</translation>
     </message>
     <message>
         <source>Color profile for solid colors</source>
-        <translation>Profil ngjyrash për ngjyra të plota</translation>
-    </message>
-    <message>
-        <source>Rendering intent for solid colors</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Profil ngjyrash për ngjyra të plota</translation>
     </message>
     <message>
         <source>Embed a color profile for images</source>
-        <translation>Trupëzo profil ngjyrash për pamjet</translation>
+        <translation type="obsolete">Trupëzo profil ngjyrash për pamjet</translation>
     </message>
     <message>
         <source>Do not use color profiles that are embedded in source images</source>
-        <translation>Mos përdor profile ngjyrash që genden të trupëzuar në burimin e pamjes</translation>
+        <translation type="obsolete">Mos përdor profile ngjyrash që genden të trupëzuar në burimin e pamjes</translation>
     </message>
     <message>
         <source>Color profile for images</source>
-        <translation>Profil ngjyrash për pamjet</translation>
+        <translation type="obsolete">Profil ngjyrash për pamjet</translation>
     </message>
     <message>
         <source>Rendering intent for images</source>
-        <translation type="unfinished">Profil ngjyrash për pamjet</translation>
+        <translation type="obsolete">Profil ngjyrash për pamjet</translation>
     </message>
     <message>
         <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
-        <translation>Profil përfundimesh për shtypjen. Nëse mundet, merrni ca udhëzime prej shtypësit tuaj rreth përzgjedhjes së profilit.</translation>
+        <translation type="obsolete">Profil përfundimesh për shtypjen. Nëse mundet, merrni ca udhëzime prej shtypësit tuaj rreth përzgjedhjes së profilit.</translation>
     </message>
     <message>
         <source>Mandatory string for PDF/X-3 or the PDF will fail
 PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation>Vargu i detyrueshëm për PDF/X-3 ose PDF do të dalë jo në(new line)
+        <translation type="obsolete">Vargu i detyrueshëm për PDF/X-3 ose PDF do të dalë jo në(new line)
 përputhje me PDF/X-3. Ju këshillojmë të përdorni titullin e dokumentit.</translation>
-    </message>
-    <message>
-        <source>Distance for bleed from the top of the physical page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Distance for bleed from the bottom of the physical page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Distance for bleed from the left of the physical page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Distance for bleed from the right of the physical page</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Save as</source>
@@ -14761,35 +17820,31 @@ përputhje me PDF/X-3. Ju këshillojmë të përdorni titullin e dokumentit.</tr
     </message>
     <message>
         <source>&amp;Rotation:</source>
-        <translation>&amp;Rrotullim:</translation>
+        <translation type="obsolete">&amp;Rrotullim:</translation>
     </message>
     <message>
         <source>Compress Text and &amp;Vector Graphics</source>
-        <translation>Ngjesh Tekst dhe Grafikë &amp;Vektorialë</translation>
-    </message>
-    <message>
-        <source>&amp;Subset all Fonts</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Fonts to subset:</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Ngjesh Tekst dhe Grafikë &amp;Vektorialë</translation>
     </message>
     <message>
         <source>En&amp;able Presentation Effects</source>
-        <translation>&amp;Mundëso Efekte Paraqitjeje</translation>
+        <translation type="obsolete">&amp;Mundëso Efekte Paraqitjeje</translation>
     </message>
     <message>
         <source>&amp;Presentation</source>
-        <translation>&amp;Paraqitje</translation>
+        <translation type="obsolete">&amp;Paraqitje</translation>
     </message>
     <message>
         <source>Mirror Page(s) horizontally</source>
-        <translation>Pasqyro Faqe(t) horizontalisht</translation>
+        <translation type="obsolete">Pasqyro Faqe(t) horizontalisht</translation>
     </message>
     <message>
         <source>Mirror Page(s) vertically</source>
-        <translation>Pasqyro Faqe(t) vertikalisht</translation>
+        <translation type="obsolete">Pasqyro Faqe(t) vertikalisht</translation>
+    </message>
+    <message>
+        <source>Save as PDF</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14908,296 +17963,305 @@ të cilët janë afër të zezës. Përdorimi i kësaj mund të përmirësojë d
 dhe lipsen ca eksperimente dhe prova për çdo herë.(new line)
 UCR zvogëlon mundësinë e mbingopjes me bojëra CMY.</translation>
     </message>
+    <message>
+        <source>Warning</source>
+        <translation type="unfinished">Kujdes</translation>
+    </message>
+    <message>
+        <source>Detected some Errors.
+Consider using the Preflight Checker to correct them</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Abort</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ignore</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Page</name>
     <message>
         <source>Copy Here</source>
-        <translation>Kopjo Këtu</translation>
+        <translation type="obsolete">Kopjo Këtu</translation>
     </message>
     <message>
         <source>Move Here</source>
-        <translation>Zhvendos Këtu</translation>
+        <translation type="obsolete">Zhvendos Këtu</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anulo</translation>
+        <translation type="obsolete">Anulo</translation>
     </message>
     <message>
         <source>&amp;Paste</source>
-        <translation>&amp;Ngjit</translation>
+        <translation type="obsolete">&amp;Ngjit</translation>
     </message>
     <message>
         <source>Show &amp;Margins</source>
-        <translation>Shfaq &amp;Mënjana</translation>
+        <translation type="obsolete">Shfaq &amp;Mënjana</translation>
     </message>
     <message>
         <source>Show &amp;Frames</source>
-        <translation>Shfaq &amp;Korniza</translation>
+        <translation type="obsolete">Shfaq &amp;Korniza</translation>
     </message>
     <message>
         <source>Show &amp;Images</source>
-        <translation>Shfaq &amp;Pamje</translation>
+        <translation type="obsolete">Shfaq &amp;Pamje</translation>
     </message>
     <message>
         <source>Show &amp;Grid</source>
-        <translation>Shfaq &amp;Rrjetë</translation>
+        <translation type="obsolete">Shfaq &amp;Rrjetë</translation>
     </message>
     <message>
         <source>Show G&amp;uides</source>
-        <translation>Shfaq &amp;Udhëzuesa</translation>
+        <translation type="obsolete">Shfaq &amp;Udhëzuesa</translation>
     </message>
     <message>
         <source>Show &amp;Baseline Grid</source>
-        <translation type="unfinished">Pamjet në korniza pamjesh ripërmasohen sa madhësia e kornizës</translation>
-    </message>
-    <message>
-        <source>Sn&amp;ap to Grid</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Sna&amp;p to Guides</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Pamjet në korniza pamjesh ripërmasohen sa madhësia e kornizës</translation>
     </message>
     <message>
         <source>Picture</source>
-        <translation>Pamje</translation>
+        <translation type="obsolete">Pamje</translation>
     </message>
     <message>
         <source>File: </source>
-        <translation>Kartelë:</translation>
+        <translation type="obsolete">Kartelë:</translation>
     </message>
     <message>
         <source>Original PPI: </source>
-        <translation>PPI Fillestar: </translation>
+        <translation type="obsolete">PPI Fillestar: </translation>
     </message>
     <message>
         <source>Actual PPI: </source>
-        <translation>PPI i Tanishëm: </translation>
+        <translation type="obsolete">PPI i Tanishëm: </translation>
     </message>
     <message>
         <source>Linked Text</source>
-        <translation>Tekst i Lidhur</translation>
+        <translation type="obsolete">Tekst i Lidhur</translation>
     </message>
     <message>
         <source>Text Frame</source>
-        <translation>Kornizë Teksti</translation>
+        <translation type="obsolete">Kornizë Teksti</translation>
     </message>
     <message>
         <source>Text on a Path</source>
-        <translation>Tekst sipas një Shtegu</translation>
+        <translation type="obsolete">Tekst sipas një Shtegu</translation>
     </message>
     <message>
         <source>Paragraphs: </source>
-        <translation>Paragrafë:</translation>
+        <translation type="obsolete">Paragrafë:</translation>
     </message>
     <message>
         <source>Words: </source>
-        <translation>Fjalë:</translation>
+        <translation type="obsolete">Fjalë:</translation>
     </message>
     <message>
         <source>Chars: </source>
-        <translation>Gërma:</translation>
+        <translation type="obsolete">Gërma:</translation>
     </message>
     <message>
         <source>Print: </source>
-        <translation>Shtyp:</translation>
+        <translation type="obsolete">Shtyp:</translation>
     </message>
     <message>
         <source>Enabled</source>
-        <translation>Veprues</translation>
+        <translation type="obsolete">Veprues</translation>
     </message>
     <message>
         <source>Disabled</source>
-        <translation>Çaktivizuar</translation>
+        <translation type="obsolete">Çaktivizuar</translation>
     </message>
     <message>
         <source>In&amp;fo</source>
-        <translation>Të dhë&amp;na</translation>
+        <translation type="obsolete">Të dhë&amp;na</translation>
     </message>
     <message>
         <source>&amp;Get Picture...</source>
-        <translation>&amp;Merr Pamje...</translation>
+        <translation type="obsolete">&amp;Merr Pamje...</translation>
     </message>
     <message>
         <source>I&amp;mage Visible</source>
-        <translation>Pa&amp;mje e Dukshme</translation>
+        <translation type="obsolete">Pa&amp;mje e Dukshme</translation>
     </message>
     <message>
         <source>&amp;Update Picture</source>
-        <translation>&amp;Përditëso Pamje</translation>
+        <translation type="obsolete">&amp;Përditëso Pamje</translation>
     </message>
     <message>
         <source>&amp;Edit Picture</source>
-        <translation>&amp;Përpunoni Pamje</translation>
+        <translation type="obsolete">&amp;Përpunoni Pamje</translation>
     </message>
     <message>
         <source>&amp;Adjust Frame to Picture</source>
-        <translation>&amp;Përshtatja Kornizën Pamjes</translation>
+        <translation type="obsolete">&amp;Përshtatja Kornizën Pamjes</translation>
     </message>
     <message>
         <source>&amp;Get Text...</source>
-        <translation>&amp;Merr Tekst...</translation>
+        <translation type="obsolete">&amp;Merr Tekst...</translation>
     </message>
     <message>
         <source>&amp;Append Text...</source>
-        <translation>&amp;Vini Tekst...</translation>
+        <translation type="obsolete">&amp;Vini Tekst...</translation>
     </message>
     <message>
         <source>&amp;Edit Text...</source>
-        <translation>&amp;Përpunoni Tekst...</translation>
+        <translation type="obsolete">&amp;Përpunoni Tekst...</translation>
     </message>
     <message>
         <source>Is PDF &amp;Bookmark</source>
-        <translation>Është &amp;Faqerojtës PDF</translation>
+        <translation type="obsolete">Është &amp;Faqerojtës PDF</translation>
     </message>
     <message>
         <source>Is PDF A&amp;nnotation</source>
-        <translation>Është Sh&amp;ënim PDF</translation>
+        <translation type="obsolete">Është Sh&amp;ënim PDF</translation>
     </message>
     <message>
         <source>Annotation P&amp;roperties</source>
-        <translation>V&amp;eti Shënimesh</translation>
+        <translation type="obsolete">V&amp;eti Shënimesh</translation>
     </message>
     <message>
         <source>Field P&amp;roperties</source>
-        <translation>&amp;Veti Fushe</translation>
+        <translation type="obsolete">&amp;Veti Fushe</translation>
     </message>
     <message>
         <source>&amp;PDF Options</source>
-        <translation>Mundësi &amp;PDF</translation>
+        <translation type="obsolete">Mundësi &amp;PDF</translation>
     </message>
     <message>
         <source>Edit Text...</source>
-        <translation>Përpunoni Tekst...</translation>
+        <translation type="obsolete">Përpunoni Tekst...</translation>
     </message>
     <message>
         <source>&amp;Lock</source>
-        <translation>&amp;Blloko</translation>
+        <translation type="obsolete">&amp;Blloko</translation>
     </message>
     <message>
         <source>Un&amp;lock</source>
-        <translation>&amp;Çblloko </translation>
+        <translation type="obsolete">&amp;Çblloko </translation>
     </message>
     <message>
         <source>Lock Object &amp;Size</source>
-        <translation>Kyç &amp;Madhësi Objekti</translation>
+        <translation type="obsolete">Kyç &amp;Madhësi Objekti</translation>
     </message>
     <message>
         <source>Unlock Object &amp;Size</source>
-        <translation>Çkyç &amp;Madhësi Objekti</translation>
+        <translation type="obsolete">Çkyç &amp;Madhësi Objekti</translation>
     </message>
     <message>
         <source>Send to S&amp;crapbook</source>
-        <translation>Dërgoje në të Pa&amp;pastër</translation>
+        <translation type="obsolete">Dërgoje në të Pa&amp;pastër</translation>
     </message>
     <message>
         <source>Send to La&amp;yer</source>
-        <translation>Dërgo te Sh&amp;tresë</translation>
+        <translation type="obsolete">Dërgo te Sh&amp;tresë</translation>
     </message>
     <message>
         <source>&amp;Insert Sample Text</source>
-        <translation>&amp;Fut Shembull Teksti</translation>
+        <translation type="obsolete">&amp;Fut Shembull Teksti</translation>
     </message>
     <message>
         <source>&amp;Group</source>
-        <translation>&amp;Grupo</translation>
+        <translation type="obsolete">&amp;Grupo</translation>
     </message>
     <message>
         <source>Un&amp;group</source>
-        <translation>Ç&amp;grupo</translation>
+        <translation type="obsolete">Ç&amp;grupo</translation>
     </message>
     <message>
         <source>Le&amp;vel</source>
-        <translation>Ni&amp;vel</translation>
+        <translation type="obsolete">Ni&amp;vel</translation>
     </message>
     <message>
         <source>Send to &amp;Back</source>
-        <translation>Shpjere &amp;Prapa</translation>
+        <translation type="obsolete">Shpjere &amp;Prapa</translation>
     </message>
     <message>
         <source>Bring to &amp;Front</source>
-        <translation>Bjere &amp;Përpara</translation>
+        <translation type="obsolete">Bjere &amp;Përpara</translation>
     </message>
     <message>
         <source>&amp;Lower</source>
-        <translation>&amp;Ul</translation>
+        <translation type="obsolete">&amp;Ul</translation>
     </message>
     <message>
         <source>&amp;Raise</source>
-        <translation>&amp;Ngri</translation>
+        <translation type="obsolete">&amp;Ngri</translation>
     </message>
     <message>
         <source>&amp;Picture Frame</source>
-        <translation>Kornizë &amp;Pamjeje</translation>
+        <translation type="obsolete">Kornizë &amp;Pamjeje</translation>
     </message>
     <message>
         <source>Pol&amp;ygon</source>
-        <translation>Shumë&amp;këndësh</translation>
+        <translation type="obsolete">Shumë&amp;këndësh</translation>
     </message>
     <message>
         <source>&amp;Outlines</source>
-        <translation>&amp;Jashtëvija</translation>
+        <translation type="obsolete">&amp;Jashtëvija</translation>
     </message>
     <message>
         <source>&amp;Text Frame</source>
-        <translation>Kornizë &amp;Teksti</translation>
+        <translation type="obsolete">Kornizë &amp;Teksti</translation>
     </message>
     <message>
         <source>&amp;Bezier Curve</source>
-        <translation>Kurbë &amp;Bezier</translation>
+        <translation type="obsolete">Kurbë &amp;Bezier</translation>
     </message>
     <message>
         <source>Conve&amp;rt to</source>
-        <translation>Shn&amp;dërro si </translation>
+        <translation type="obsolete">Shn&amp;dërro si </translation>
     </message>
     <message>
         <source>Cu&amp;t</source>
-        <translation>P&amp;ri</translation>
+        <translation type="obsolete">P&amp;ri</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation>&amp;Kopjo</translation>
+        <translation type="obsolete">&amp;Kopjo</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation>&amp;Fshi</translation>
+        <translation type="obsolete">&amp;Fshi</translation>
     </message>
     <message>
         <source>C&amp;lear Contents</source>
-        <translation>Pa&amp;stro Përmbajtje</translation>
+        <translation type="obsolete">Pa&amp;stro Përmbajtje</translation>
     </message>
     <message>
         <source>Show P&amp;roperties...</source>
-        <translation>Shfaq &amp;Veti...</translation>
+        <translation type="obsolete">Shfaq &amp;Veti...</translation>
     </message>
     <message>
         <source>Hide P&amp;roperties...</source>
-        <translation>Fshih &amp;Veti...</translation>
+        <translation type="obsolete">Fshih &amp;Veti...</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>Asnjë</translation>
+        <translation type="obsolete">Asnjë</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Kujdes</translation>
+        <translation type="obsolete">Kujdes</translation>
     </message>
     <message>
         <source>Do you really want to clear all your Text?</source>
-        <translation>Doni vërtet të pastroni tërë Tekstin tuaj?</translation>
+        <translation type="obsolete">Doni vërtet të pastroni tërë Tekstin tuaj?</translation>
     </message>
     <message>
         <source>The Program</source>
-        <translation>Programi</translation>
+        <translation type="obsolete">Programi</translation>
     </message>
     <message>
         <source>is missing!</source>
-        <translation>mungon!</translation>
+        <translation type="obsolete">mungon!</translation>
     </message>
     <message>
         <source>Copy of</source>
-        <translation>Kopje e</translation>
+        <translation type="obsolete">Kopje e</translation>
     </message>
 </context>
 <context>
@@ -15226,6 +18290,108 @@ UCR zvogëlon mundësinë e mbingopjes me bojëra CMY.</translation>
         <source>PathText</source>
         <translation>Tekst Shtegu</translation>
     </message>
+    <message>
+        <source>Copy of</source>
+        <translation type="unfinished">Kopje e</translation>
+    </message>
+</context>
+<context>
+    <name>PageItemAttributes</name>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Asnjë</translation>
+    </message>
+    <message>
+        <source>Relates To</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Is Parent Of</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Is Child Of</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page Item Attributes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished">Emër</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation type="unfinished">Tip</translation>
+    </message>
+    <message>
+        <source>Value</source>
+        <translation type="unfinished">Vlerë</translation>
+    </message>
+    <message>
+        <source>Parameter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Relationship</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Relationship To</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Add</source>
+        <translation type="unfinished">&amp;Shto</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation type="unfinished">Alt+A</translation>
+    </message>
+    <message>
+        <source>&amp;Copy</source>
+        <translation type="unfinished">&amp;Kopjo</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation type="unfinished">Alt+C</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+D</source>
+        <translation type="unfinished">Alt+D</translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+L</source>
+        <translation type="unfinished">Alt+L</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Anulo</translation>
+    </message>
+</context>
+<context>
+    <name>PageLayouts</name>
+    <message>
+        <source>Page Layout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>First Page is:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PageSelector</name>
@@ -15236,6 +18402,101 @@ UCR zvogëlon mundësinë e mbingopjes me bojëra CMY.</translation>
     <message>
         <source> of %1</source>
         <translation> e %1</translation>
+    </message>
+    <message>
+        <source>%1 of %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PageSize</name>
+    <message>
+        <source>Quarto</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Foolscap</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Letter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Government Letter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Legal</source>
+        <translation type="unfinished">Legal</translation>
+    </message>
+    <message>
+        <source>Ledger</source>
+        <translation type="unfinished">Ledger</translation>
+    </message>
+    <message>
+        <source>Executive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Post</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Crown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Large Post</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Demy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Medium</source>
+        <translation type="unfinished">Mesatare</translation>
+    </message>
+    <message>
+        <source>Royal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Elephant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Double Demy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Quad Demy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>STMT</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>B</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C</source>
+        <translation type="unfinished">C</translation>
+    </message>
+    <message>
+        <source>D</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>E</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15265,7 +18526,7 @@ UCR zvogëlon mundësinë e mbingopjes me bojëra CMY.</translation>
     <name>PicStatus</name>
     <message>
         <source>Pictures</source>
-        <translation>Grafikë</translation>
+        <translation type="obsolete">Grafikë</translation>
     </message>
     <message>
         <source>Name</source>
@@ -15309,7 +18570,65 @@ UCR zvogëlon mundësinë e mbingopjes me bojëra CMY.</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
+    </message>
+    <message>
+        <source>Cancel Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manage Pictures</source>
+        <translation type="unfinished">Administro Pamje</translation>
+    </message>
+    <message>
+        <source>Scribus - Image Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The search failed: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No images named &quot;%1&quot; were found.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PluginManager</name>
+    <message>
+        <source>Cannot find plugin</source>
+        <comment>plugin manager</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>unknown error</source>
+        <comment>plugin manager</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot find symbol (%1)</source>
+        <comment>plugin manager</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Persistent</source>
+        <comment>plugin manager</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import</source>
+        <comment>plugin manager</comment>
+        <translation type="unfinished">Importo</translation>
+    </message>
+    <message>
+        <source>Standard</source>
+        <comment>plugin manager</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <comment>plugin manager</comment>
+        <translation type="unfinished">E panjohur</translation>
     </message>
 </context>
 <context>
@@ -15320,11 +18639,11 @@ UCR zvogëlon mundësinë e mbingopjes me bojëra CMY.</translation>
     </message>
     <message>
         <source>Corn&amp;ers:</source>
-        <translation>&amp;Kulme:</translation>
+        <translation type="obsolete">&amp;Kulme:</translation>
     </message>
     <message>
         <source>&amp;Rotation:</source>
-        <translation>&amp;Rrotullim:</translation>
+        <translation type="obsolete">&amp;Rrotullim:</translation>
     </message>
     <message>
         <source>Conve&amp;x Polygon</source>
@@ -15332,27 +18651,27 @@ UCR zvogëlon mundësinë e mbingopjes me bojëra CMY.</translation>
     </message>
     <message>
         <source> %</source>
-        <translation> %</translation>
+        <translation type="obsolete"> %</translation>
     </message>
     <message>
         <source>&amp;Factor:</source>
-        <translation>&amp;Faktor:</translation>
+        <translation type="obsolete">&amp;Faktor:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>&amp;Anulo</translation>
+        <translation type="obsolete">&amp;Anulo</translation>
     </message>
     <message>
         <source>Number of corners for polygons</source>
-        <translation>Numër kulmesh për shumëkëndëshat</translation>
+        <translation type="obsolete">Numër kulmesh për shumëkëndëshat</translation>
     </message>
     <message>
         <source>Degrees of rotation for polygons</source>
-        <translation>Gradë rrotullimi për shumëkëndëshat</translation>
+        <translation type="obsolete">Gradë rrotullimi për shumëkëndëshat</translation>
     </message>
     <message>
         <source>Polygons will be convex rather than concave</source>
@@ -15360,7 +18679,7 @@ UCR zvogëlon mundësinë e mbingopjes me bojëra CMY.</translation>
     </message>
     <message>
         <source>Sample Polygon</source>
-        <translation>Shembull Shumëkëndëshi</translation>
+        <translation type="obsolete">Shembull Shumëkëndëshi</translation>
     </message>
     <message>
         <source>Change the angles at which lines of the polygon join</source>
@@ -15368,16 +18687,61 @@ UCR zvogëlon mundësinë e mbingopjes me bojëra CMY.</translation>
     </message>
     <message>
         <source>Apply &amp;Factor</source>
-        <translation>Zbato &amp;Faktor</translation>
+        <translation type="obsolete">Zbato &amp;Faktor</translation>
     </message>
     <message>
         <source>Apply Convex/Concave Factor to change shape of Polygons</source>
-        <translation>Zbato Faktor I lugët/I mysët për të ndryshuar formën e Shumëkëndëshave</translation>
+        <translation type="obsolete">Zbato Faktor I lugët/I mysët për të ndryshuar formën e Shumëkëndëshave</translation>
     </message>
     <message>
         <source>A negative value will make the polygon concave (or star shaped),
  a positive value will make it convex</source>
-        <translation>Një vlerë negative do ta bëjë shumëkëndëshin të lugët (ose si yll),
+        <translation type="obsolete">Një vlerë negative do ta bëjë shumëkëndëshin të lugët (ose si yll),
+një vlerë pozitive do ta bëjë at të mysët</translation>
+    </message>
+</context>
+<context>
+    <name>PolygonWidget</name>
+    <message>
+        <source>Corn&amp;ers:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Rotation:</source>
+        <translation type="unfinished">&amp;Rrotullim:</translation>
+    </message>
+    <message>
+        <source>Apply &amp;Factor</source>
+        <translation type="unfinished">Zbato &amp;Faktor</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation type="unfinished"> %</translation>
+    </message>
+    <message>
+        <source>&amp;Factor:</source>
+        <translation type="unfinished">&amp;Faktor:</translation>
+    </message>
+    <message>
+        <source>Number of corners for polygons</source>
+        <translation type="unfinished">Numër kulmesh për shumëkëndëshat</translation>
+    </message>
+    <message>
+        <source>Degrees of rotation for polygons</source>
+        <translation type="unfinished">Gradë rrotullimi për shumëkëndëshat</translation>
+    </message>
+    <message>
+        <source>Apply Convex/Concave Factor to change shape of Polygons</source>
+        <translation type="unfinished">Zbato Faktor I lugët/I mysët për të ndryshuar formën e Shumëkëndëshave</translation>
+    </message>
+    <message>
+        <source>Sample Polygon</source>
+        <translation type="unfinished">Shembull Shumëkëndëshi</translation>
+    </message>
+    <message>
+        <source>A negative value will make the polygon concave (or star shaped),
+ a positive value will make it convex</source>
+        <translation type="unfinished">Një vlerë negative do ta bëjë shumëkëndëshin të lugët (ose si yll),
 një vlerë pozitive do ta bëjë at të mysët</translation>
     </message>
 </context>
@@ -15421,7 +18785,7 @@ një vlerë pozitive do ta bëjë at të mysët</translation>
     </message>
     <message>
         <source>Misc.</source>
-        <translation>Të ndrysh.</translation>
+        <translation type="obsolete">Të ndrysh.</translation>
     </message>
     <message>
         <source>GUI</source>
@@ -15441,27 +18805,27 @@ një vlerë pozitive do ta bëjë at të mysët</translation>
     </message>
     <message>
         <source>Units</source>
-        <translation>Njësi</translation>
+        <translation type="obsolete">Njësi</translation>
     </message>
     <message>
         <source>Points (pt)</source>
-        <translation>Pikë (pt)</translation>
+        <translation type="obsolete">Pikë (pt)</translation>
     </message>
     <message>
         <source>Millimetres (mm)</source>
-        <translation>Milimetra (mm)</translation>
+        <translation type="obsolete">Milimetra (mm)</translation>
     </message>
     <message>
         <source>Inches (in)</source>
-        <translation>Inç (inç)</translation>
+        <translation type="obsolete">Inç (inç)</translation>
     </message>
     <message>
         <source>Picas (p)</source>
-        <translation>Pikas (p)</translation>
+        <translation type="obsolete">Pikas (p)</translation>
     </message>
     <message>
         <source>Mouse Settings</source>
-        <translation>Rregullime Miu</translation>
+        <translation type="obsolete">Rregullime Miu</translation>
     </message>
     <message>
         <source>&amp;Wheel Jump:</source>
@@ -15469,15 +18833,15 @@ një vlerë pozitive do ta bëjë at të mysët</translation>
     </message>
     <message>
         <source> px</source>
-        <translation>px</translation>
+        <translation type="obsolete">px</translation>
     </message>
     <message>
         <source>&amp;Grab Radius:</source>
-        <translation>&amp;Merr Rreze:</translation>
+        <translation type="obsolete">&amp;Merr Rreze:</translation>
     </message>
     <message>
         <source>Menus</source>
-        <translation>Menu</translation>
+        <translation type="obsolete">Menu</translation>
     </message>
     <message>
         <source>&amp;Recent Documents:</source>
@@ -15545,11 +18909,11 @@ një vlerë pozitive do ta bëjë at të mysët</translation>
     </message>
     <message>
         <source>&amp;Facing Pages</source>
-        <translation>Faqe &amp;Përkarshi</translation>
+        <translation type="obsolete">Faqe &amp;Përkarshi</translation>
     </message>
     <message>
         <source>Left &amp;Page First</source>
-        <translation>&amp;Faqe Majtas fillimisht</translation>
+        <translation type="obsolete">&amp;Faqe Majtas fillimisht</translation>
     </message>
     <message>
         <source>Margin Guides</source>
@@ -15589,211 +18953,211 @@ një vlerë pozitive do ta bëjë at të mysët</translation>
     </message>
     <message>
         <source>Grid Layout</source>
-        <translation>Skemë Rrjete</translation>
+        <translation type="obsolete">Skemë Rrjete</translation>
     </message>
     <message>
         <source>M&amp;inor Grid Spacing:</source>
-        <translation>Hapje për Rrjetën e &amp;Vogël:</translation>
+        <translation type="obsolete">Hapje për Rrjetën e &amp;Vogël:</translation>
     </message>
     <message>
         <source>Ma&amp;jor Grid Spacing:</source>
-        <translation>Hapje për Rrjetën e &amp;Madhe:</translation>
+        <translation type="obsolete">Hapje për Rrjetën e &amp;Madhe:</translation>
     </message>
     <message>
         <source>Guide &amp;Snap Distance:</source>
-        <translation type="unfinished">Largësi ndërmjet shtyllash</translation>
+        <translation type="obsolete">Largësi ndërmjet shtyllash</translation>
     </message>
     <message>
         <source>Grid Colors</source>
-        <translation>Ngjyra Rrjete</translation>
+        <translation type="obsolete">Ngjyra Rrjete</translation>
     </message>
     <message>
         <source>Min&amp;or Grid Color:</source>
-        <translation>Ngjyrë për Rrjetën e &amp;Vogël:</translation>
+        <translation type="obsolete">Ngjyrë për Rrjetën e &amp;Vogël:</translation>
     </message>
     <message>
         <source>Majo&amp;r Grid Color:</source>
-        <translation>Ngjyrë për Rrjetën e &amp;Madhe:</translation>
+        <translation type="obsolete">Ngjyrë për Rrjetën e &amp;Madhe:</translation>
     </message>
     <message>
         <source>&amp;User Guides Color:</source>
-        <translation>Ngjyrë Udhëzuesash &amp;Përdoruesi:</translation>
+        <translation type="obsolete">Ngjyrë Udhëzuesash &amp;Përdoruesi:</translation>
     </message>
     <message>
         <source>Base&amp;line Grid Color:</source>
-        <translation type="unfinished">&amp;Ripërmaso Pamje sa Madhësia e Kornizës</translation>
+        <translation type="obsolete">&amp;Ripërmaso Pamje sa Madhësia e Kornizës</translation>
     </message>
     <message>
         <source>Placing</source>
-        <translation>Vendosje</translation>
+        <translation type="obsolete">Vendosje</translation>
     </message>
     <message>
         <source>In the &amp;Background</source>
-        <translation>Në &amp;Sfond</translation>
+        <translation type="obsolete">Në &amp;Sfond</translation>
     </message>
     <message>
         <source>In the Fore&amp;ground</source>
-        <translation>Në &amp;Ballë</translation>
+        <translation type="obsolete">Në &amp;Ballë</translation>
     </message>
     <message>
         <source>Baseline Grid</source>
-        <translation type="unfinished">Shfaq &amp;Rrjetë</translation>
+        <translation type="obsolete">Shfaq &amp;Rrjetë</translation>
     </message>
     <message>
         <source>O&amp;n</source>
-        <translation>O&amp;n</translation>
+        <translation type="obsolete">O&amp;n</translation>
     </message>
     <message>
         <source>O&amp;ff</source>
-        <translation>O&amp;ff</translation>
+        <translation type="obsolete">O&amp;ff</translation>
     </message>
     <message>
         <source>Subscript</source>
-        <translation>Poshtëshkrim</translation>
+        <translation type="obsolete">Poshtëshkrim</translation>
     </message>
     <message>
         <source> %</source>
-        <translation> %</translation>
+        <translation type="obsolete"> %</translation>
     </message>
     <message>
         <source>&amp;Displacement:</source>
-        <translation>&amp;Zhvendosje:</translation>
+        <translation type="obsolete">&amp;Zhvendosje:</translation>
     </message>
     <message>
         <source>&amp;Scaling:</source>
-        <translation>&amp;Ripërmasim:</translation>
+        <translation type="obsolete">&amp;Ripërmasim:</translation>
     </message>
     <message>
         <source>Superscript</source>
-        <translation>Sipërshkrim</translation>
+        <translation type="obsolete">Sipërshkrim</translation>
     </message>
     <message>
         <source>D&amp;isplacement:</source>
-        <translation>Zh&amp;vendosje:</translation>
+        <translation type="obsolete">Zh&amp;vendosje:</translation>
     </message>
     <message>
         <source>S&amp;caling:</source>
-        <translation>Ri&amp;përmasim:</translation>
+        <translation type="obsolete">Ri&amp;përmasim:</translation>
     </message>
     <message>
         <source>Small Caps</source>
-        <translation>Të vogla të Mëdha</translation>
+        <translation type="obsolete">Të vogla të Mëdha</translation>
     </message>
     <message>
         <source>Sc&amp;aling:</source>
-        <translation>Ripërm&amp;asim:</translation>
+        <translation type="obsolete">Ripërm&amp;asim:</translation>
     </message>
     <message>
         <source>Other</source>
-        <translation>Tjetër</translation>
+        <translation type="obsolete">Tjetër</translation>
     </message>
     <message>
         <source>Baseline &amp;Grid:</source>
-        <translation type="unfinished">Shfaq &amp;Rrjetë</translation>
+        <translation type="obsolete">Shfaq &amp;Rrjetë</translation>
     </message>
     <message>
         <source>Baseline &amp;Offset:</source>
-        <translation type="unfinished">Degëzim Vertical</translation>
+        <translation type="obsolete">Degëzim Vertical</translation>
     </message>
     <message>
         <source>Automatic &amp;Line Spacing:</source>
-        <translation>Ndër&amp;vijë Automatike:</translation>
+        <translation type="obsolete">Ndër&amp;vijë Automatike:</translation>
     </message>
     <message>
         <source>Default &amp;Font:</source>
-        <translation>&amp;Gërma Parazgjedhje:</translation>
+        <translation type="obsolete">&amp;Gërma Parazgjedhje:</translation>
     </message>
     <message>
         <source>Default &amp;Size:</source>
-        <translation>&amp;Madhësi Parazgjedhje:</translation>
+        <translation type="obsolete">&amp;Madhësi Parazgjedhje:</translation>
     </message>
     <message>
         <source>&amp;Text Color:</source>
-        <translation>Ngjyrë &amp;Teksti:</translation>
+        <translation type="obsolete">Ngjyrë &amp;Teksti:</translation>
     </message>
     <message>
         <source>Colu&amp;mns:</source>
-        <translation>Sht&amp;ylla:</translation>
+        <translation type="obsolete">Sht&amp;ylla:</translation>
     </message>
     <message>
         <source>&amp;Gap:</source>
-        <translation>&amp;Boshllëk:</translation>
+        <translation type="obsolete">&amp;Boshllëk:</translation>
     </message>
     <message>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
-        <translation>W-ja është një shkronjë që i mungon Shqipes </translation>
+        <translation type="obsolete">W-ja është një shkronjë që i mungon Shqipes </translation>
     </message>
     <message>
         <source>None</source>
-        <translation>Asnjë</translation>
+        <translation type="obsolete">Asnjë</translation>
     </message>
     <message>
         <source>&amp;Line Color:</source>
-        <translation>Ngjyrë &amp;Vije:</translation>
+        <translation type="obsolete">Ngjyrë &amp;Vije:</translation>
     </message>
     <message>
         <source>&amp;Shading:</source>
-        <translation>&amp;Hije:</translation>
+        <translation type="obsolete">&amp;Hije:</translation>
     </message>
     <message>
         <source>&amp;Fill Color:</source>
-        <translation>Ngjyrë &amp;Mbushjeje:</translation>
+        <translation type="obsolete">Ngjyrë &amp;Mbushjeje:</translation>
     </message>
     <message>
         <source>S&amp;hading:</source>
-        <translation>H&amp;ije:</translation>
+        <translation type="obsolete">H&amp;ije:</translation>
     </message>
     <message>
         <source>&amp;Type of Line:</source>
-        <translation>&amp;Tip Vije:</translation>
+        <translation type="obsolete">&amp;Tip Vije:</translation>
     </message>
     <message>
         <source>Line &amp;Width:</source>
-        <translation>&amp;Gjerësi Vije:</translation>
+        <translation type="obsolete">&amp;Gjerësi Vije:</translation>
     </message>
     <message>
         <source>Mi&amp;nimum:</source>
-        <translation>Mi&amp;nimum:</translation>
+        <translation type="obsolete">Mi&amp;nimum:</translation>
     </message>
     <message>
         <source>Ma&amp;ximum:</source>
-        <translation>Ma&amp;ksimum:</translation>
+        <translation type="obsolete">Ma&amp;ksimum:</translation>
     </message>
     <message>
         <source>&amp;Stepping:</source>
-        <translation>&amp;Hapje:</translation>
+        <translation type="obsolete">&amp;Hapje:</translation>
     </message>
     <message>
         <source>&amp;Free Scaling</source>
-        <translation>Ripërmasim i &amp;Lirë</translation>
+        <translation type="obsolete">Ripërmasim i &amp;Lirë</translation>
     </message>
     <message>
         <source>&amp;Horizontal Scaling:</source>
-        <translation>Ripërmasim &amp;Horizontal:</translation>
+        <translation type="obsolete">Ripërmasim &amp;Horizontal:</translation>
     </message>
     <message>
         <source>&amp;Vertical Scaling:</source>
-        <translation>Rpërmasim &amp;Vertical:</translation>
+        <translation type="obsolete">Rpërmasim &amp;Vertical:</translation>
     </message>
     <message>
         <source>&amp;Scale Picture to Frame Size</source>
-        <translation>&amp;Ripërmaso Pamje sa Madhësia e Kornizës</translation>
+        <translation type="obsolete">&amp;Ripërmaso Pamje sa Madhësia e Kornizës</translation>
     </message>
     <message>
         <source>Keep Aspect &amp;Ratio</source>
-        <translation>Ruaj &amp;Përpjestim</translation>
+        <translation type="obsolete">Ruaj &amp;Përpjestim</translation>
     </message>
     <message>
         <source>F&amp;ill Color:</source>
-        <translation>Ngjyrë M&amp;bushje:</translation>
+        <translation type="obsolete">Ngjyrë M&amp;bushje:</translation>
     </message>
     <message>
         <source>Corn&amp;ers:</source>
-        <translation>K&amp;ulme:</translation>
+        <translation type="obsolete">K&amp;ulme:</translation>
     </message>
     <message>
         <source>&amp;Rotation:</source>
-        <translation>&amp;Rrotullim:</translation>
+        <translation type="obsolete">&amp;Rrotullim:</translation>
     </message>
     <message>
         <source>Conve&amp;x Polygon</source>
@@ -15801,7 +19165,7 @@ një vlerë pozitive do ta bëjë at të mysët</translation>
     </message>
     <message>
         <source>&amp;Factor:</source>
-        <translation>&amp;Faktor:</translation>
+        <translation type="obsolete">&amp;Faktor:</translation>
     </message>
     <message>
         <source>Other Options</source>
@@ -15829,19 +19193,19 @@ një vlerë pozitive do ta bëjë at të mysët</translation>
     </message>
     <message>
         <source>Display Pages &amp;Side by Side</source>
-        <translation>Shfaq Faqet &amp;Krah Njëra Tjetrës</translation>
+        <translation type="obsolete">Shfaq Faqet &amp;Krah Njëra Tjetrës</translation>
     </message>
     <message>
         <source>Page Colors</source>
-        <translation>Ngjyra Faqeje</translation>
+        <translation type="obsolete">Ngjyra Faqeje</translation>
     </message>
     <message>
         <source>&amp;Background:</source>
-        <translation>&amp;Sfond:</translation>
+        <translation type="obsolete">&amp;Sfond:</translation>
     </message>
     <message>
         <source>&amp;Margins:</source>
-        <translation>&amp;Mënjana:</translation>
+        <translation type="obsolete">&amp;Mënjana:</translation>
     </message>
     <message>
         <source>Display &amp;Unprintable Area in Margin Color</source>
@@ -15849,7 +19213,7 @@ një vlerë pozitive do ta bëjë at të mysët</translation>
     </message>
     <message>
         <source>Use PDF 1.4 &amp;Transparency Features</source>
-        <translation>Përdor Karakteristika &amp;Tejdukshmërie PDF 1.4 </translation>
+        <translation type="obsolete">Përdor Karakteristika &amp;Tejdukshmërie PDF 1.4 </translation>
     </message>
     <message>
         <source>&amp;Adjust Display Size</source>
@@ -15857,7 +19221,7 @@ një vlerë pozitive do ta bëjë at të mysët</translation>
     </message>
     <message>
         <source>To adjust the display drag the ruler below with the Slider.</source>
-        <translation>Për të përshtatur ekranin tërhiqni vizoren nën Rrëshqitësin.</translation>
+        <translation type="obsolete">Për të përshtatur ekranin tërhiqni vizoren nën Rrëshqitësin.</translation>
     </message>
     <message>
         <source>Postscript Interpreter</source>
@@ -15897,11 +19261,11 @@ një vlerë pozitive do ta bëjë at të mysët</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>&amp;Anulo</translation>
+        <translation type="obsolete">&amp;Anulo</translation>
     </message>
     <message>
         <source>Choose the default window decoration and looks.
@@ -15923,7 +19287,7 @@ Scribus-i bën të vetën cilëndo temë të mundshme KDE apo Q</translation>
     </message>
     <message>
         <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
-        <translation>Rrezja e zonës ku Scribus-i do t&apos;ju lejojë të mbërtheni veshët e një objekti</translation>
+        <translation type="obsolete">Rrezja e zonës ku Scribus-i do t&apos;ju lejojë të mbërtheni veshët e një objekti</translation>
     </message>
     <message>
         <source>Number of recently edited documents to show in the File menu</source>
@@ -15935,7 +19299,7 @@ Scribus-i bën të vetën cilëndo temë të mundshme KDE apo Q</translation>
     </message>
     <message>
         <source>Default ICC profiles directory</source>
-        <translation>Drejtori profilesh ICC parazgjedhje</translation>
+        <translation type="obsolete">Drejtori profilesh ICC parazgjedhje</translation>
     </message>
     <message>
         <source>Default Scripter scripts directory</source>
@@ -15958,31 +19322,27 @@ Scribus-i bën të vetën cilëndo temë të mundshme KDE apo Q</translation>
         <translation>Lartësi faqesh dokumenti, e përpunueshme nëse keni zgjedhur madhësi vetjake faqeje</translation>
     </message>
     <message>
-        <source>Enable single or spread based layout</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Make the first page the left page of a document</source>
-        <translation>Bëj faqe të parë faqen majtas të një dokumenti</translation>
+        <translation type="obsolete">Bëj faqe të parë faqen majtas të një dokumenti</translation>
     </message>
     <message>
         <source>Distance between the top margin guide and the edge of the page</source>
-        <translation>Largësi ndërmjet udhëzuesit të mënjanës së sipërme dhe skajit të faqes</translation>
+        <translation type="obsolete">Largësi ndërmjet udhëzuesit të mënjanës së sipërme dhe skajit të faqes</translation>
     </message>
     <message>
         <source>Distance between the bottom margin guide and the edge of the page</source>
-        <translation>Largësi ndërmjet udhëzuesit të mënjanës së poshtme dhe skajit të faqes</translation>
+        <translation type="obsolete">Largësi ndërmjet udhëzuesit të mënjanës së poshtme dhe skajit të faqes</translation>
     </message>
     <message>
         <source>Distance between the left margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Largësi ndërmjet udhëzuesit të mënjanës majtas dhe skajit të faqes.(new line)
+        <translation type="obsolete">Largësi ndërmjet udhëzuesit të mënjanës majtas dhe skajit të faqes.(new line)
 Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të përdoret për të pasur mënjana të sakta për libërlidhje</translation>
     </message>
     <message>
         <source>Distance between the right margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Largësi ndërmjet udhëzuesit të mënjanës djathtas dhe skajit të faqes.(new line)
+        <translation type="obsolete">Largësi ndërmjet udhëzuesit të mënjanës djathtas dhe skajit të faqes.(new line)
 Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të përdoret për të pasur mënjana të sakta për libërlidhje</translation>
     </message>
     <message>
@@ -15997,203 +19357,187 @@ each time the time period elapses</source>
     </message>
     <message>
         <source>Distance between the minor grid lines</source>
-        <translation>Hapësirë midis vijash rrjete të vogël</translation>
+        <translation type="obsolete">Hapësirë midis vijash rrjete të vogël</translation>
     </message>
     <message>
         <source>Distance between the major grid lines</source>
-        <translation>Hapësirë midis vijash rrjete të madhevogël</translation>
-    </message>
-    <message>
-        <source>Distance within which an object will snap to your placed guides</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Hapësirë midis vijash rrjete të madhevogël</translation>
     </message>
     <message>
         <source>Color of the minor grid lines</source>
-        <translation>Ngjyrë për vija rrjete të vogël</translation>
+        <translation type="obsolete">Ngjyrë për vija rrjete të vogël</translation>
     </message>
     <message>
         <source>Color of the major grid lines</source>
-        <translation>Ngjyrë për vija rrjete të madhe</translation>
+        <translation type="obsolete">Ngjyrë për vija rrjete të madhe</translation>
     </message>
     <message>
         <source>Color of the guide lines you insert</source>
-        <translation>Ngjyrë e vijave udhëzuese që fusni</translation>
+        <translation type="obsolete">Ngjyrë e vijave udhëzuese që fusni</translation>
     </message>
     <message>
         <source>Place the grid behind your page objects</source>
-        <translation>Vendos rrjetën pas objekteve të faqes</translation>
+        <translation type="obsolete">Vendos rrjetën pas objekteve të faqes</translation>
     </message>
     <message>
         <source>Place the grid in front of your page objects</source>
-        <translation>Vendos rrjetën para objekteve të faqes</translation>
+        <translation type="obsolete">Vendos rrjetën para objekteve të faqes</translation>
     </message>
     <message>
         <source>Turns on the basegrid</source>
-        <translation type="unfinished">Kopjo fluturimthi</translation>
+        <translation type="obsolete">Kopjo fluturimthi</translation>
     </message>
     <message>
         <source>Turns off the basegrid</source>
-        <translation type="unfinished">/Mënyrë Vizualizimi/Pa</translation>
-    </message>
-    <message>
-        <source>Displacement above the baseline of the font on a line</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">/Mënyrë Vizualizimi/Pa</translation>
     </message>
     <message>
         <source>Relative size of the superscript compared to the normal font</source>
-        <translation>Madhësi relative e mbishkrimit krahasuar me gërmat normale</translation>
-    </message>
-    <message>
-        <source>Displacement below the baseline of the normal font on a line</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Madhësi relative e mbishkrimit krahasuar me gërmat normale</translation>
     </message>
     <message>
         <source>Relative size of the subscript compared to the normal font</source>
-        <translation>Madhësi relative e poshtëshkrimit krahasuar me gërmat normale</translation>
+        <translation type="obsolete">Madhësi relative e poshtëshkrimit krahasuar me gërmat normale</translation>
     </message>
     <message>
         <source>Relative size of the small caps font compared to the normal font</source>
-        <translation>Madhësi relative e gërmave të vogla krahasuar me gërmat normale</translation>
-    </message>
-    <message>
-        <source>Percentage increase over the font size for the line spacing</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Madhësi relative e gërmave të vogla krahasuar me gërmat normale</translation>
     </message>
     <message>
         <source>Text Frame Properties</source>
-        <translation>Veti Kornize Teksti</translation>
+        <translation type="obsolete">Veti Kornize Teksti</translation>
     </message>
     <message>
         <source>Picture Frame Properties</source>
-        <translation>Veti Kornize Pamjeje</translation>
+        <translation type="obsolete">Veti Kornize Pamjeje</translation>
     </message>
     <message>
         <source>Shape Drawing Properties</source>
-        <translation>Veti Vizatimi Formash</translation>
+        <translation type="obsolete">Veti Vizatimi Formash</translation>
     </message>
     <message>
         <source>Magnification Level Defaults</source>
-        <translation>Parazgjedhje Shkalle Zmadhimi</translation>
+        <translation type="obsolete">Parazgjedhje Shkalle Zmadhimi</translation>
     </message>
     <message>
         <source>Line Drawing Properties</source>
-        <translation>Veti Vizatimi Vijash</translation>
+        <translation type="obsolete">Veti Vizatimi Vijash</translation>
     </message>
     <message>
         <source>Polygon Drawing Properties</source>
-        <translation>Veti Vizatimi Shumëkëndëshash</translation>
+        <translation type="obsolete">Veti Vizatimi Shumëkëndëshash</translation>
     </message>
     <message>
         <source>Font for new text frames</source>
-        <translation>Gërma për korniza të reja tekstesh</translation>
+        <translation type="obsolete">Gërma për korniza të reja tekstesh</translation>
     </message>
     <message>
         <source>Size of font for new text frames</source>
-        <translation>Madhësi gërmash për korniza të reja teksti</translation>
+        <translation type="obsolete">Madhësi gërmash për korniza të reja teksti</translation>
     </message>
     <message>
         <source>Color of font</source>
-        <translation>Ngjyrë gërmash</translation>
+        <translation type="obsolete">Ngjyrë gërmash</translation>
     </message>
     <message>
         <source>Number of columns in a text frame</source>
-        <translation>Numër shtyllash në një kornizë teksti</translation>
+        <translation type="obsolete">Numër shtyllash në një kornizë teksti</translation>
     </message>
     <message>
         <source>Gap between text frame columns</source>
-        <translation>Hapësirë midis shtyllash kornize teksti</translation>
+        <translation type="obsolete">Hapësirë midis shtyllash kornize teksti</translation>
     </message>
     <message>
         <source>Sample of your font</source>
-        <translation>Shembull i gërmave tuaja</translation>
+        <translation type="obsolete">Shembull i gërmave tuaja</translation>
     </message>
     <message>
         <source>Picture frames allow pictures to scale to any size</source>
-        <translation>Korniza pamjesh lejojnë pamjet të ripërmasohen në çfarëdo madhësi</translation>
+        <translation type="obsolete">Korniza pamjesh lejojnë pamjet të ripërmasohen në çfarëdo madhësi</translation>
     </message>
     <message>
         <source>Horizontal scaling of images</source>
-        <translation>Ripërmasim horizontal i pamjeve</translation>
+        <translation type="obsolete">Ripërmasim horizontal i pamjeve</translation>
     </message>
     <message>
         <source>Vertical scaling of images</source>
-        <translation>Ripërmasim vertikal i pamjeve</translation>
+        <translation type="obsolete">Ripërmasim vertikal i pamjeve</translation>
     </message>
     <message>
         <source>Keep horizontal and vertical scaling the same</source>
-        <translation>Mbaj ripërmasim horizontal dhe vertikal njësoj</translation>
+        <translation type="obsolete">Mbaj ripërmasim horizontal dhe vertikal njësoj</translation>
     </message>
     <message>
         <source>Pictures in picture frames are scaled to the size of the frame</source>
-        <translation>Pamjet në korniza pamjesh ripërmasohen sa madhësia e kornizës</translation>
+        <translation type="obsolete">Pamjet në korniza pamjesh ripërmasohen sa madhësia e kornizës</translation>
     </message>
     <message>
         <source>Automatically scaled pictures keep their original proportions</source>
-        <translation>Pamjet e ripërmasuara vetvetiu ruajnë përpjestimet e veta fillestare</translation>
+        <translation type="obsolete">Pamjet e ripërmasuara vetvetiu ruajnë përpjestimet e veta fillestare</translation>
     </message>
     <message>
         <source>Fill color of picture frames</source>
-        <translation>Ngjyrë mbushjeje për korniza pamjesh</translation>
+        <translation type="obsolete">Ngjyrë mbushjeje për korniza pamjesh</translation>
     </message>
     <message>
         <source>Saturation of color of fill</source>
-        <translation>Ngopje e ngjyrës së mbushjes</translation>
+        <translation type="obsolete">Ngopje e ngjyrës së mbushjes</translation>
     </message>
     <message>
         <source>Line color of shapes</source>
-        <translation>Ngjyrë vije formash</translation>
+        <translation type="obsolete">Ngjyrë vije formash</translation>
     </message>
     <message>
         <source>Saturation of color of lines</source>
-        <translation>Ngopje për ngjyrë vijash</translation>
+        <translation type="obsolete">Ngopje për ngjyrë vijash</translation>
     </message>
     <message>
         <source>Fill color of shapes</source>
-        <translation>Ngjyrë mbushjeje për forma</translation>
+        <translation type="obsolete">Ngjyrë mbushjeje për forma</translation>
     </message>
     <message>
         <source>Line style of shapes</source>
-        <translation>Stil vije formash</translation>
+        <translation type="obsolete">Stil vije formash</translation>
     </message>
     <message>
         <source>Line width of shapes</source>
-        <translation>Gjerësi vije formash</translation>
+        <translation type="obsolete">Gjerësi vije formash</translation>
     </message>
     <message>
         <source>Minimum magnification allowed</source>
-        <translation>Zmadhimi më i vogël i lejuar</translation>
+        <translation type="obsolete">Zmadhimi më i vogël i lejuar</translation>
     </message>
     <message>
         <source>Maximum magnification allowed</source>
-        <translation>Zmadhimi më i madh i lejuar</translation>
+        <translation type="obsolete">Zmadhimi më i madh i lejuar</translation>
     </message>
     <message>
         <source>Change in magnification for each zoom operation</source>
-        <translation>Ndryshimi në zmadhim për çdo veprim &quot;zoom&quot;</translation>
+        <translation type="obsolete">Ndryshimi në zmadhim për çdo veprim &quot;zoom&quot;</translation>
     </message>
     <message>
         <source>Color of lines</source>
-        <translation>Ngjyrë vijash</translation>
+        <translation type="obsolete">Ngjyrë vijash</translation>
     </message>
     <message>
         <source>Saturation of color</source>
-        <translation>Ngopje ngjyre</translation>
+        <translation type="obsolete">Ngopje ngjyre</translation>
     </message>
     <message>
         <source>Style of lines</source>
-        <translation>Stil vijash</translation>
+        <translation type="obsolete">Stil vijash</translation>
     </message>
     <message>
         <source>Width of lines</source>
-        <translation>Gjerësi vijash</translation>
+        <translation type="obsolete">Gjerësi vijash</translation>
     </message>
     <message>
         <source>Number of corners for polygons</source>
-        <translation>Numër kulmesh për shumëkëndëshat</translation>
+        <translation type="obsolete">Numër kulmesh për shumëkëndëshat</translation>
     </message>
     <message>
         <source>Degrees of rotation for polygons</source>
-        <translation>Gradë rrotullimi për shumëkëndëshat</translation>
+        <translation type="obsolete">Gradë rrotullimi për shumëkëndëshat</translation>
     </message>
     <message>
         <source>Polygons will be convex rather than concave</source>
@@ -16201,7 +19545,7 @@ each time the time period elapses</source>
     </message>
     <message>
         <source>Sample Polygon</source>
-        <translation>Shembull Shumëkëndëshi</translation>
+        <translation type="obsolete">Shembull Shumëkëndëshi</translation>
     </message>
     <message>
         <source>Change the angles at which lines of the polygon join</source>
@@ -16217,7 +19561,7 @@ each time the time period elapses</source>
     </message>
     <message>
         <source>When using facing pages, show the two pages side by side</source>
-        <translation>Kur përdoren faqe përkarshi, shfaqi dy faqet krah njëra tjetrëa</translation>
+        <translation type="obsolete">Kur përdoren faqe përkarshi, shfaqi dy faqet krah njëra tjetrëa</translation>
     </message>
     <message>
         <source>Color for paper</source>
@@ -16225,7 +19569,7 @@ each time the time period elapses</source>
     </message>
     <message>
         <source>Color for the margin lines</source>
-        <translation>Ngjyrë për vija mënjanash</translation>
+        <translation type="obsolete">Ngjyrë për vija mënjanash</translation>
     </message>
     <message>
         <source>Mask the area outside the margins in the margin color</source>
@@ -16233,7 +19577,7 @@ each time the time period elapses</source>
     </message>
     <message>
         <source>Enable transparency features within PDF 1.4 export</source>
-        <translation>Aktivizo karakteristika tejdukshmërie brenda eksportimi PDF 1.4</translation>
+        <translation type="obsolete">Aktivizo karakteristika tejdukshmërie brenda eksportimi PDF 1.4</translation>
     </message>
     <message>
         <source>Set the default zoom level</source>
@@ -16253,7 +19597,7 @@ each time the time period elapses</source>
     </message>
     <message>
         <source>Filesystem location for graphics editor</source>
-        <translation>Vend sistemi kartelash për përpunues grafikash</translation>
+        <translation type="obsolete">Vend sistemi kartelash për përpunues grafikash</translation>
     </message>
     <message>
         <source>Do not show objects outside the margins on the printed page or exported file</source>
@@ -16265,27 +19609,27 @@ each time the time period elapses</source>
     </message>
     <message>
         <source>&amp;Inside:</source>
-        <translation>&amp;Brenda:</translation>
+        <translation type="obsolete">&amp;Brenda:</translation>
     </message>
     <message>
         <source>O&amp;utside:</source>
-        <translation>J&amp;ashtë:</translation>
+        <translation type="obsolete">J&amp;ashtë:</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation>mm</translation>
+        <translation type="obsolete">mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation>inç</translation>
+        <translation type="obsolete">inç</translation>
     </message>
     <message>
         <source> p</source>
-        <translation>p</translation>
+        <translation type="obsolete">p</translation>
     </message>
     <message>
         <source>T&amp;emplates:</source>
-        <translation>&amp;Stampa:</translation>
+        <translation type="obsolete">&amp;Stampa:</translation>
     </message>
     <message>
         <source>Cha&amp;nge...</source>
@@ -16293,44 +19637,44 @@ each time the time period elapses</source>
     </message>
     <message>
         <source>Executive</source>
-        <translation>Ekzekutive</translation>
+        <translation type="obsolete">Ekzekutive</translation>
     </message>
     <message>
         <source>Folio</source>
-        <translation>Folio</translation>
+        <translation type="obsolete">Folio</translation>
     </message>
     <message>
         <source>Ledger</source>
-        <translation>Ledger</translation>
+        <translation type="obsolete">Ledger</translation>
     </message>
     <message>
         <source>Legal</source>
-        <translation>Legal</translation>
+        <translation type="obsolete">Legal</translation>
     </message>
     <message>
         <source>Letter</source>
-        <translation>Letter</translation>
+        <translation type="obsolete">Letter</translation>
     </message>
     <message>
         <source>Tabloid</source>
-        <translation>Tabloid</translation>
+        <translation type="obsolete">Tabloid</translation>
     </message>
     <message>
         <source>Apply &amp;Factor</source>
-        <translation>Zbato &amp;Faktor</translation>
+        <translation type="obsolete">Zbato &amp;Faktor</translation>
     </message>
     <message>
         <source>Additional Directory for Document Templates</source>
-        <translation>Drejtori Shtesë për Stampa Dokumentesh</translation>
+        <translation type="obsolete">Drejtori Shtesë për Stampa Dokumentesh</translation>
     </message>
     <message>
         <source>Apply Convex/Concave Factor to change shape of Polygons</source>
-        <translation>Zbato Faktor I lugët/I mysët për të ndryshuar formën e Shumëkëndëshave</translation>
+        <translation type="obsolete">Zbato Faktor I lugët/I mysët për të ndryshuar formën e Shumëkëndëshave</translation>
     </message>
     <message>
         <source>A negative value will make the polygon concave (or star shaped),
  a positive value will make it convex</source>
-        <translation>Një vlerë negative do ta bëjë shumëkëndëshin të lugët (ose si yll),
+        <translation type="obsolete">Një vlerë negative do ta bëjë shumëkëndëshin të lugët (ose si yll),
 një vlerë pozitive do ta bëjë at të mysët</translation>
     </message>
     <message>
@@ -16346,6 +19690,403 @@ pjesët e pamjeve të cilat janë asnjanëse dhe/ose tone të errët që janë
 afër grisë. Përdorimi i kësaj mund të përmirësojë shtypjen e disa pamjeve
 dhe lyp ca eksperimente dhe prova hap pas hapi. UCR zvogëlon mundësi
 tejngopjeje me bojëra CMY.</translation>
+    </message>
+    <message>
+        <source>&amp;Language:</source>
+        <translation type="unfinished">&amp;Gjuhë:</translation>
+    </message>
+    <message>
+        <source>Document T&amp;emplates:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Units:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Undo/Redo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Action history length</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hyphenator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fonts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preflight Verifier</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color Management</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF Export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document Item Attributes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Table of Contents and Indexes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Keyboard Shortcuts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page Display</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color:</source>
+        <translation type="unfinished">Ngjyrë:</translation>
+    </message>
+    <message>
+        <source>Alt+U</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Pictures</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Text Chains</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Text Control Characters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Frames</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rulers relative to Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scratch Space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Gaps between Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Horizontal:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Vertical:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To adjust the display drag the ruler below with the slider.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>dpi</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Resolution:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Always ask before fonts are replaced when loading a document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preview of current Paragraph Style visible when editing Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Startup Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lorem Ipsum</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Always use standard Lorem Ipsum</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Count of the Paragraphs:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Miscellaneous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Plugin Manager</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>How to run</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation type="unfinished">Tip</translation>
+    </message>
+    <message>
+        <source>Load it?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Plugin ID</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File</source>
+        <translation type="unfinished">Kartelë</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation type="unfinished">Po</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation type="unfinished">Jo</translation>
+    </message>
+    <message>
+        <source>You need to restart the application to apply the changes.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Plugins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of linked frames on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display non-printing characters such as paragraph markers in text frames</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of frames on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of pictures on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select your default language for Scribus to run with.
+Leave this blank to choose based on environment variables.
+You can still override this by passing a command line option when starting Scribus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default ICC profiles directory. This cannot
+be changed with a document open.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Additional directory for document templates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set the length of the action history in steps.
+If set to 0 infinite amount of actions will be stored.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Place a ruler against your screen and drag the slider to set the zoom level so Scribus will display your pages and objects on them at the correct size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File system location for graphics editor. If you use gimp
+and your distro includes it, we recommend &apos;gimp-remote&apos;,
+as it allows you to edit the image in an already running
+instance of gimp.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Defines amount of space left of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Defines amount of space right of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Defines amount of space above the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Defines amount of space below the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Locate Ghostscript</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Locate your image editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PrefsDialogBase</name>
+    <message>
+        <source>&amp;Defaults</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PrefsManager</name>
+    <message>
+        <source>Single Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Double sided</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left Page</source>
+        <translation type="unfinished">Faqe Majtas</translation>
+    </message>
+    <message>
+        <source>Right Page</source>
+        <translation type="unfinished">Faqe Djathtas</translation>
+    </message>
+    <message>
+        <source>3-Fold</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Middle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>4-Fold</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Middle Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Middle Right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Postscript</source>
+        <translation type="unfinished">Postscript</translation>
+    </message>
+    <message>
+        <source>Migrate Old Scribus Settings?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus has detected existing Scribus 1.2 preferences files.
+Do you want to migrate them to the new Scribus version?</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PythonConsole</name>
+    <message>
+        <source>&amp;Open...</source>
+        <translation type="unfinished">&amp;Hap...</translation>
+    </message>
+    <message>
+        <source>&amp;Save</source>
+        <translation type="unfinished">&amp;Ruaj</translation>
+    </message>
+    <message>
+        <source>Save &amp;As...</source>
+        <translation type="unfinished">Ruaj &amp;Si...</translation>
+    </message>
+    <message>
+        <source>&amp;Exit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;File</source>
+        <translation type="unfinished">&amp;Kartelë</translation>
+    </message>
+    <message>
+        <source>&amp;Run</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Run As &amp;Console</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Save Output...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Script</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus Python Console</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This is derived from standard Python console so it contains some limitations esp. in the case of whitespaces. Please consult Scribus manual for more informations.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Script Console</source>
+        <translation type="unfinished">Konsol Programthesh</translation>
+    </message>
+    <message>
+        <source>Write your commands here. A selection is processed as script</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Output of your script</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Python Scripts (*.py)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open File With Python Commands</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save the Python Commands in File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation type="unfinished">Kujdes</translation>
+    </message>
+    <message>
+        <source>Text Files (*.txt)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save Current Output</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16756,7 +20497,7 @@ Kontrolloni shteg dhe emër kartele.</translation>
     <name>QMainWindow</name>
     <message>
         <source>Line up</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ngjitu</translation>
     </message>
     <message>
         <source>Customize...</source>
@@ -16816,11 +20557,11 @@ Kontrolloni shteg dhe emër kartele.</translation>
     </message>
     <message>
         <source>&amp;Fonts Preview</source>
-        <translation>&amp;Paraparje Gërmash</translation>
+        <translation type="obsolete">&amp;Paraparje Gërmash</translation>
     </message>
     <message>
         <source>&amp;Insert Special</source>
-        <translation>&amp;Fut Special</translation>
+        <translation type="obsolete">&amp;Fut Special</translation>
     </message>
     <message>
         <source>New &amp;from Template...</source>
@@ -16928,7 +20669,7 @@ Kontrolloni shteg dhe emër kartele.</translation>
     </message>
     <message>
         <source>Error writting the output file(s).</source>
-        <translation>Gabim në shkrim kartele(ash) përfundim.</translation>
+        <translation type="obsolete">Gabim në shkrim kartele(ash) përfundim.</translation>
     </message>
     <message>
         <source>Error writing the output file(s).</source>
@@ -16960,7 +20701,7 @@ Kontrolloni shteg dhe emër kartele.</translation>
     </message>
     <message>
         <source>Print Preview</source>
-        <translation>Paraparje Shtypjeje</translation>
+        <translation type="obsolete">Paraparje Shtypjeje</translation>
     </message>
     <message>
         <source>&amp;Print...</source>
@@ -17032,7 +20773,7 @@ Kontrolloni shteg dhe emër kartele.</translation>
     </message>
     <message>
         <source>S&amp;cript</source>
-        <translation>P&amp;rogramth</translation>
+        <translation type="obsolete">P&amp;rogramth</translation>
     </message>
     <message>
         <source>Online Reference</source>
@@ -17040,7 +20781,7 @@ Kontrolloni shteg dhe emër kartele.</translation>
     </message>
     <message>
         <source>Python Scripts (*.py);; All Files (*)</source>
-        <translation>Programthe Python (*.py);; Tërë Kartelat (*)</translation>
+        <translation type="obsolete">Programthe Python (*.py);; Tërë Kartelat (*)</translation>
     </message>
     <message>
         <source>Save Page as &amp;SVG...</source>
@@ -17172,7 +20913,7 @@ Kontrolloni shteg dhe emër kartele.</translation>
     </message>
     <message>
         <source>Portugese (Brazilian)</source>
-        <translation>Portugeze (Braziliane)</translation>
+        <translation type="obsolete">Portugeze (Braziliane)</translation>
     </message>
     <message>
         <source>Russian</source>
@@ -17220,7 +20961,7 @@ Kontrolloni shteg dhe emër kartele.</translation>
     </message>
     <message>
         <source>Template: </source>
-        <translation>Stampë:</translation>
+        <translation type="obsolete">Stampë:</translation>
     </message>
     <message>
         <source>Media Cases</source>
@@ -17234,7 +20975,7 @@ Kontrolloni shteg dhe emër kartele.</translation>
     <message>
         <source>Color not found</source>
         <comment>python error</comment>
-        <translation>Ngjyrë që s&apos;gjendet</translation>
+        <translation type="obsolete">Ngjyrë që s&apos;gjendet</translation>
     </message>
     <message>
         <source>Cannot change a color with an empty name.</source>
@@ -17244,12 +20985,12 @@ Kontrolloni shteg dhe emër kartele.</translation>
     <message>
         <source>Color not found in document</source>
         <comment>python error</comment>
-        <translation>Ngjyrë që s&apos;gjendet në dokument</translation>
+        <translation type="obsolete">Ngjyrë që s&apos;gjendet në dokument</translation>
     </message>
     <message>
         <source>Color not found in default colors</source>
         <comment>python error</comment>
-        <translation>Ngjyrë që s&apos;gjendet në ngjyrat parazgjedhje</translation>
+        <translation type="obsolete">Ngjyrë që s&apos;gjendet në ngjyrat parazgjedhje</translation>
     </message>
     <message>
         <source>Cannot create a color with an empty name.</source>
@@ -17269,12 +21010,12 @@ Kontrolloni shteg dhe emër kartele.</translation>
     <message>
         <source>Failed to open document</source>
         <comment>python error</comment>
-        <translation>Dështova në hapjen e dokumentit</translation>
+        <translation type="obsolete">Dështova në hapjen e dokumentit</translation>
     </message>
     <message>
         <source>Failed to save document</source>
         <comment>python error</comment>
-        <translation>Dështova në ruajtjen e dokumentit</translation>
+        <translation type="obsolete">Dështova në ruajtjen e dokumentit</translation>
     </message>
     <message>
         <source>Unit out of range. Use one of the scribus.UNIT_* constants.</source>
@@ -17294,127 +21035,117 @@ Kontrolloni shteg dhe emër kartele.</translation>
     <message>
         <source>Can&apos;t scale by 0%</source>
         <comment>python error</comment>
-        <translation>S&apos;mund të ripërmasoj dot me 0%</translation>
+        <translation type="obsolete">S&apos;mund të ripërmasoj dot me 0%</translation>
     </message>
     <message>
         <source>Specified item not an image frame</source>
         <comment>python error</comment>
-        <translation>Objekti i treguar jo një kornizë pamje</translation>
+        <translation type="obsolete">Objekti i treguar jo një kornizë pamje</translation>
     </message>
     <message>
         <source>Font not found</source>
         <comment>python error</comment>
-        <translation>Gërma që s&apos;gjenden</translation>
+        <translation type="obsolete">Gërma që s&apos;gjenden</translation>
     </message>
     <message>
         <source>Can&apos;t render an empty sample</source>
         <comment>python error</comment>
-        <translation>S&apos;vizatoj dot një shembull bosh</translation>
+        <translation type="obsolete">S&apos;vizatoj dot një shembull bosh</translation>
     </message>
     <message>
         <source>Can&apos;t save to a blank filename</source>
         <comment>python error</comment>
-        <translation>S&apos;ruaj dot te një kartelë bosh</translation>
+        <translation type="obsolete">S&apos;ruaj dot te një kartelë bosh</translation>
     </message>
     <message>
         <source>Can&apos;t have an empty layer name</source>
         <comment>python error</comment>
-        <translation>S&apos;mund të pranoj një emër bosh shtrese</translation>
+        <translation type="obsolete">S&apos;mund të pranoj një emër bosh shtrese</translation>
     </message>
     <message>
         <source>Layer not found</source>
         <comment>python error</comment>
-        <translation>Shtresë që s&apos;gjenden</translation>
+        <translation type="obsolete">Shtresë që s&apos;gjenden</translation>
     </message>
     <message>
         <source>Can&apos;t remove the last layer</source>
         <comment>python error</comment>
-        <translation>S&apos;heq dot shtresën e fundit</translation>
+        <translation type="obsolete">S&apos;heq dot shtresën e fundit</translation>
     </message>
     <message>
         <source>Can&apos;t create layer without a name</source>
         <comment>python error</comment>
-        <translation>S&apos;krijoj dot shtresë pa emër</translation>
+        <translation type="obsolete">S&apos;krijoj dot shtresë pa emër</translation>
     </message>
     <message>
         <source>An object with the requested name already exists</source>
         <comment>python error</comment>
-        <translation>Ka tashmë një objekt e emrin e kërkuar</translation>
+        <translation type="obsolete">Ka tashmë një objekt e emrin e kërkuar</translation>
     </message>
     <message>
         <source>Point list must contain at least two points (four values)</source>
         <comment>python error</comment>
-        <translation>Lista e pikave duhet të përmbajë të paktën dy pika (katër vlera)</translation>
+        <translation type="obsolete">Lista e pikave duhet të përmbajë të paktën dy pika (katër vlera)</translation>
     </message>
     <message>
         <source>Point list must contain an even number of values</source>
         <comment>python error</comment>
-        <translation>Lista e pikave duhet të përmbajë një numër çift vlerash</translation>
+        <translation type="obsolete">Lista e pikave duhet të përmbajë një numër çift vlerash</translation>
     </message>
     <message>
         <source>Point list must contain at least three points (six values)</source>
         <comment>python error</comment>
-        <translation>Lista e pikave duhet të përmbajë të paktën tri pika (gjashtë vlera)</translation>
+        <translation type="obsolete">Lista e pikave duhet të përmbajë të paktën tri pika (gjashtë vlera)</translation>
     </message>
     <message>
         <source>Point list must contain at least four points (eight values)</source>
         <comment>python error</comment>
-        <translation>Lista e pikave duhet të përmbajë të paktën katër pika (tetë vlera)</translation>
+        <translation type="obsolete">Lista e pikave duhet të përmbajë të paktën katër pika (tetë vlera)</translation>
     </message>
     <message>
         <source>Point list must have a multiple of six values</source>
         <comment>python error</comment>
-        <translation>Lista e pikave duhet të jetë një shumëfish gjashtë vlerash</translation>
+        <translation type="obsolete">Lista e pikave duhet të jetë një shumëfish gjashtë vlerash</translation>
     </message>
     <message>
         <source>Object not found</source>
         <comment>python error</comment>
-        <translation>Objekt që s&apos;gjendet</translation>
+        <translation type="obsolete">Objekt që s&apos;gjendet</translation>
     </message>
     <message>
         <source>Style not found</source>
         <comment>python error</comment>
-        <translation>Stil që s&apos;gjendet</translation>
+        <translation type="obsolete">Stil që s&apos;gjendet</translation>
     </message>
     <message>
         <source>Can&apos;t set style on a non-text frame</source>
         <comment>python error</comment>
-        <translation>S&apos;caktoj dot stil në një kornizë jo tekst</translation>
+        <translation type="obsolete">S&apos;caktoj dot stil në një kornizë jo tekst</translation>
     </message>
     <message>
         <source>Failed to save EPS</source>
         <comment>python error</comment>
-        <translation>Dështova në ruajtjen e EPS</translation>
+        <translation type="obsolete">Dështova në ruajtjen e EPS</translation>
     </message>
     <message>
         <source>Page number out of range</source>
         <comment>python error</comment>
-        <translation>Numër faqesh jashtë intervali</translation>
-    </message>
-    <message>
-        <source>argument is not list: must be list of float values</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>argument contains non-numeric values: must be list of float values</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Numër faqesh jashtë intervali</translation>
     </message>
     <message>
         <source>Line width out of bounds, must be 0 &lt;= line_width &lt;= 12</source>
         <comment>python error</comment>
-        <translation>Gjerësi vije jashtë kufijsh, duhet të jetë 0 &lt;= line_width &lt;= 12</translation>
+        <translation type="obsolete">Gjerësi vije jashtë kufijsh, duhet të jetë 0 &lt;= line_width &lt;= 12</translation>
     </message>
     <message>
         <source>Line shade out of bounds, must be 0 &lt;= shade &lt;= 100</source>
         <comment>python error</comment>
-        <translation>Hije vije jashtë kufijsh, duhet të jetë 0 &lt;= shade &lt;= 100</translation>
+        <translation type="obsolete">Hije vije jashtë kufijsh, duhet të jetë 0 &lt;= shade &lt;= 100</translation>
     </message>
     <message>
         <source>Fill shade out of bounds, must be 0 &lt;= shade &lt;= 100</source>
         <comment>python error</comment>
-        <translation>Hije mbushjeje jashtë kufijsh, duhet të jetë 0 &lt;= shade &lt;= 100</translation>
+        <translation type="obsolete">Hije mbushjeje jashtë kufijsh, duhet të jetë 0 &lt;= shade &lt;= 100</translation>
     </message>
     <message>
         <source>Corner radius must be a positive number.</source>
@@ -17424,7 +21155,7 @@ Kontrolloni shteg dhe emër kartele.</translation>
     <message>
         <source>Line style not found</source>
         <comment>python error</comment>
-        <translation>Stil vije që s&apos;gjendet</translation>
+        <translation type="obsolete">Stil vije që s&apos;gjendet</translation>
     </message>
     <message>
         <source>Cannot get font size of non-text frame.</source>
@@ -17472,11 +21203,6 @@ Kontrolloni shteg dhe emër kartele.</translation>
         <translation>S&apos;mund të fus tekst në një kornizë jo tekst.</translation>
     </message>
     <message>
-        <source>Insert index out of bounds</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Alignment out of range. Use one of the scribus.ALIGN* constants.</source>
         <comment>python error</comment>
         <translation>Vendosje jashtë intervali. Përdorni një nga konstantet scribus.ALIGN* .</translation>
@@ -17484,52 +21210,52 @@ Kontrolloni shteg dhe emër kartele.</translation>
     <message>
         <source>Can&apos;t set text alignment on a non-text frame</source>
         <comment>python error</comment>
-        <translation>S&apos;caktoj dot drejtim teksti në një kornizë jo tekst</translation>
+        <translation type="obsolete">S&apos;caktoj dot drejtim teksti në një kornizë jo tekst</translation>
     </message>
     <message>
         <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512</source>
         <comment>python error</comment>
-        <translation>Madhësi gërmash jashtë kufijsh - duhet të jetë 1 &lt;= size &lt;=512</translation>
+        <translation type="obsolete">Madhësi gërmash jashtë kufijsh - duhet të jetë 1 &lt;= size &lt;=512</translation>
     </message>
     <message>
         <source>Can&apos;t set font size on a non-text frame</source>
         <comment>python error</comment>
-        <translation>S&apos;caktoj dot madhësi teksti në një kornizë jo tekst</translation>
+        <translation type="obsolete">S&apos;caktoj dot madhësi teksti në një kornizë jo tekst</translation>
     </message>
     <message>
         <source>Can&apos;t set font on a non-text frame</source>
         <comment>python error</comment>
-        <translation>S&apos;caktoj dot tekst në një kornizë jo tekst</translation>
+        <translation type="obsolete">S&apos;caktoj dot tekst në një kornizë jo tekst</translation>
     </message>
     <message>
         <source>Line space out of bounds, must be &gt;= 0.1</source>
         <comment>python error</comment>
-        <translation>Hapësirë vije jashtë kufijsh, duhet të jetë &gt;= 0.1</translation>
+        <translation type="obsolete">Hapësirë vije jashtë kufijsh, duhet të jetë &gt;= 0.1</translation>
     </message>
     <message>
         <source>Can&apos;t line spacing on a non-text frame</source>
         <comment>python error</comment>
-        <translation>S&apos;mund të fus ndërvijë në një kornizë jo tekst</translation>
+        <translation type="obsolete">S&apos;mund të fus ndërvijë në një kornizë jo tekst</translation>
     </message>
     <message>
         <source>Column gap out of bounds, must be positive</source>
         <comment>python error</comment>
-        <translation>Hapësirë shtylle jashtë kufijsh, duhet të jetë pozitive</translation>
+        <translation type="obsolete">Hapësirë shtylle jashtë kufijsh, duhet të jetë pozitive</translation>
     </message>
     <message>
         <source>Can&apos;t column gap on a non-text frame</source>
         <comment>python error</comment>
-        <translation>S&apos;mund të vendos hapësirë shtyllash në një kornizë jo tekst</translation>
+        <translation type="obsolete">S&apos;mund të vendos hapësirë shtyllash në një kornizë jo tekst</translation>
     </message>
     <message>
         <source>Column count out of bounds, must be &gt; 1</source>
         <comment>python error</comment>
-        <translation>Numër shtylle jashtë kufijsh, duhet të jetë &gt;1</translation>
+        <translation type="obsolete">Numër shtylle jashtë kufijsh, duhet të jetë &gt;1</translation>
     </message>
     <message>
         <source>Can&apos;t number of columns on a non-text frame</source>
         <comment>python error</comment>
-        <translation>S&apos;mund të kem numër shtyllash në një kornizë jo tekst</translation>
+        <translation type="obsolete">S&apos;mund të kem numër shtyllash në një kornizë jo tekst</translation>
     </message>
     <message>
         <source>Selection index out of bounds</source>
@@ -17539,57 +21265,52 @@ Kontrolloni shteg dhe emër kartele.</translation>
     <message>
         <source>Can&apos;t select text in a non-text frame</source>
         <comment>python error</comment>
-        <translation>S&apos;përzgjedh dot tekst në një kornizë jo tekst</translation>
+        <translation type="obsolete">S&apos;përzgjedh dot tekst në një kornizë jo tekst</translation>
     </message>
     <message>
         <source>Can&apos;t delete text from a non-text frame</source>
         <comment>python error</comment>
-        <translation>S&apos;fshij dot tekst prej një kornize jo tekst</translation>
+        <translation type="obsolete">S&apos;fshij dot tekst prej një kornize jo tekst</translation>
     </message>
     <message>
         <source>Can&apos;t set text fill on a non-text frame</source>
         <comment>python error</comment>
-        <translation>S&apos;caktoj dot mbushje teksti në një kornizë jo tekst</translation>
-    </message>
-    <message>
-        <source>Can&apos;t set text stroke on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">S&apos;caktoj dot mbushje teksti në një kornizë jo tekst</translation>
     </message>
     <message>
         <source>Can&apos;t set text shade on a non-text frame</source>
         <comment>python error</comment>
-        <translation>S&apos;caktoj dot hije teksti në një kornizë jo tekst</translation>
+        <translation type="obsolete">S&apos;caktoj dot hije teksti në një kornizë jo tekst</translation>
     </message>
     <message>
         <source>Can only link text frames</source>
         <comment>python error</comment>
-        <translation>Mund të lidh vetëm korniza teksti</translation>
+        <translation type="obsolete">Mund të lidh vetëm korniza teksti</translation>
     </message>
     <message>
         <source>Target frame must be empty</source>
         <comment>python error</comment>
-        <translation>Korniza objektiv duhet të jetë bosh</translation>
+        <translation type="obsolete">Korniza objektiv duhet të jetë bosh</translation>
     </message>
     <message>
         <source>Target frame links to another frame</source>
         <comment>python error</comment>
-        <translation>Korniza objektiv lidhet te një tjetër kornizë</translation>
+        <translation type="obsolete">Korniza objektiv lidhet te një tjetër kornizë</translation>
     </message>
     <message>
         <source>Target frame is linked to by another frame</source>
         <comment>python error</comment>
-        <translation>Korniza objektiv është lidhur te një tjetër kornizë</translation>
+        <translation type="obsolete">Korniza objektiv është lidhur te një tjetër kornizë</translation>
     </message>
     <message>
         <source>Source and target are the same object</source>
         <comment>python error</comment>
-        <translation>Pikënisja dhe objektivi janë i njëjti objekt</translation>
+        <translation type="obsolete">Pikënisja dhe objektivi janë i njëjti objekt</translation>
     </message>
     <message>
         <source>Can&apos;t unlink a non-text frame</source>
         <comment>python error</comment>
-        <translation>S&apos;mund të heq lidhje në një kornizë jo tekst</translation>
+        <translation type="obsolete">S&apos;mund të heq lidhje në një kornizë jo tekst</translation>
     </message>
     <message>
         <source>Object is not a linked text frame, can&apos;t unlink.</source>
@@ -17604,11 +21325,11 @@ Kontrolloni shteg dhe emër kartele.</translation>
     <message>
         <source>Can&apos;t convert a non-text frame to outlines</source>
         <comment>python error</comment>
-        <translation>S&apos;mund të shndërroj një kornizë jo tekst në jashtëvija</translation>
+        <translation type="obsolete">S&apos;mund të shndërroj një kornizë jo tekst në jashtëvija</translation>
     </message>
     <message>
         <source>Tried to set progress &gt; maximum progress</source>
-        <translation>Provova të caktoj përparim &gt; përparimi më i madh</translation>
+        <translation type="obsolete">Provova të caktoj përparim &gt; përparimi më i madh</translation>
     </message>
     <message>
         <source>The filename must be a string.</source>
@@ -17638,21 +21359,21 @@ Kontrolloni shteg dhe emër kartele.</translation>
     <message>
         <source>Run a Python script from a file.</source>
         <comment>scripter</comment>
-        <translation>Xhiro një programth Python prej një kartele.</translation>
+        <translation type="obsolete">Xhiro një programth Python prej një kartele.</translation>
     </message>
     <message>
         <source>&amp;Load Extension Script...</source>
-        <translation>&amp;Ngarko Programth Zgjerimi...</translation>
+        <translation type="obsolete">&amp;Ngarko Programth Zgjerimi...</translation>
     </message>
     <message>
         <source>Load a Python script as an extension. Used for loading macros and for advanced Python scripts that extend the Scribus user interface.</source>
         <comment>scripter</comment>
-        <translation>Ngarko një programth Python si një zgjerim. Ipërdorur për ngarkim makrosh dhe për programthe të përparuar Python që zgjerojnë ndërfaqen e Scribus-it.</translation>
+        <translation type="obsolete">Ngarko një programth Python si një zgjerim. Ipërdorur për ngarkim makrosh dhe për programthe të përparuar Python që zgjerojnë ndërfaqen e Scribus-it.</translation>
     </message>
     <message>
         <source>Display an interactive Python console where you can write and run Python programs that use the Scripter tools.</source>
         <comment>scripter</comment>
-        <translation>Shfaq një konsol ndërvepruese Python ku ju mund të shkruani dhe xhironi programe Python që përdorin mjetet Scripter.</translation>
+        <translation type="obsolete">Shfaq një konsol ndërvepruese Python ku ju mund të shkruani dhe xhironi programe Python që përdorin mjetet Scripter.</translation>
     </message>
     <message>
         <source>&amp;About Script...</source>
@@ -17661,7 +21382,7 @@ Kontrolloni shteg dhe emër kartele.</translation>
     <message>
         <source>Scripter &amp;Settings</source>
         <comment>script menu</comment>
-        <translation>&amp;Rregullimet Scripter-i</translation>
+        <translation type="obsolete">&amp;Rregullimet Scripter-i</translation>
     </message>
     <message>
         <source>About Script</source>
@@ -17693,7 +21414,7 @@ any function as provided here and in its docstring is incomplete.
 
 Details of what exceptions each function may throw are provided on the
 function&apos;s documentation.</source>
-        <translation>Modul ndërfaqeje Python për Scribus-in
+        <translation type="obsolete">Modul ndërfaqeje Python për Scribus-in
 
 Ky modul është ndërfaqja Python për Scribus-in. Ofron funksione
 për të kontrolluar Scribus-in dhe për të manipuluar objekte te kanavaca. Çdo
@@ -17795,6 +21516,793 @@ Lidhje të Jashtme
         <source>Text Files</source>
         <translation>Kartela Teksti</translation>
     </message>
+    <message>
+        <source>Croatian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Portuguese</source>
+        <translation type="unfinished">Portugeze</translation>
+    </message>
+    <message>
+        <source>Portuguese (BR)</source>
+        <translation type="unfinished">Portugeze (BR)</translation>
+    </message>
+    <message>
+        <source>Scribus Crash</source>
+        <translation type="unfinished">Vithisje Scribus-i</translation>
+    </message>
+    <message>
+        <source>Scribus crashes due to Signal #%1</source>
+        <translation type="unfinished">Scribus-i vithiset për shkak të Sinjalit #%1</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>Custom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page</source>
+        <translation type="unfinished">Faqe</translation>
+    </message>
+    <message>
+        <source>Master Page </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>4A0</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>2A0</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Comm10E</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DLE</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Could not open output file %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Output stream not writeable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Verification of settings failed: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Could not open input file %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to read settings XML:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 (line %2 col %3)</source>
+        <comment>Load PDF settings</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to read settings XML: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>null root node</source>
+        <comment>Load PDF settings</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;pdfVersion&gt; invalid</source>
+        <comment>Load PDF settings</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>found %1 &lt;%2&gt; nodes, need 1.</source>
+        <comment>Load PDF settings</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>unexpected null &lt;%2&gt; node</source>
+        <comment>Load PDF settings</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>node &lt;%1&gt; not an element</source>
+        <comment>Load PDF settings</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>element &lt;%1&gt; lacks `value&apos; attribute</source>
+        <comment>Load PDF settings</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>element &lt;%1&gt; value must be `true&apos; or `false&apos;</source>
+        <comment>Load PDF settings</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>element &lt;lpiSettingsEntry&gt; lacks `name&apos; attribute</source>
+        <comment>Load PDF settings</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Freetype2 library not available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font %1 is broken, no embedding</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font %1 is broken (read stream), no embedding</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font %1 is broken (FreeType2), discarding it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font %1 is broken (no Face), discarding it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font %1 has broken glyph %2 (charcode %3)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font %1 is broken and will be discarded</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font %1 cannot be read, no embedding</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to load font %1 - font type unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font %1 loaded from %2(%3)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font %1(%2) is duplicate of %3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Loading font %1 (found using fontconfig)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font %1 (found using fontconfig) is broken, discarding it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to load a font - freetype2 couldn&apos;t find the font file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font %1 is broken (FreeType), discarding it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font %1  has invalid glyph %2 (charcode %3), discarding it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>extracting face %1 from font %2 (offset=%3, nTables=%4)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>memcpy header: %1 %2 %3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>table &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>memcpy table: %1 %2 %3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>memcpy offset: %1 %2 %3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus Development Version</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are running a development version of Scribus 1.3.x. The current document you are working with was originally created in Scribus 1.2.2 or lower. The process of saving will make this file unusable again in Scribus 1.2.2 unless you use File-&gt;Save As. Are you sure you wish to proceed with this operation?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Proceed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid argument: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File %1 does not exist, aborting.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Usage: scribus [option ... ] [file]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Options:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Print help (this message) and exit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Uses xx as shortcut for a language</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List the currently installed interface languages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show information on the console when fonts are being loaded</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do not show the splashscreen on startup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Output version information and exit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Installed interface languages for Scribus are as follows:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To override the default language choice:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>scribus -l xx or scribus --lang xx, where xx is the language of choice.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus Version </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus, Open Source Desktop Publishing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>---------------------------------------</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Homepage:       http://www.scribus.net </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Documentation:  http://docs.scribus.net</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wiki:           http://wiki.scribus.net</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Issues:         http://bugs.scribus.net</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation type="unfinished">pt</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation type="unfinished">mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation type="unfinished">inç</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation type="unfinished">p</translation>
+    </message>
+    <message>
+        <source> cm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> c</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation type="unfinished">pt</translation>
+    </message>
+    <message>
+        <source>mm</source>
+        <translation type="unfinished">mm</translation>
+    </message>
+    <message>
+        <source>in</source>
+        <translation type="unfinished">inç</translation>
+    </message>
+    <message>
+        <source>p</source>
+        <translation type="unfinished">p</translation>
+    </message>
+    <message>
+        <source>cm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>c</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Points (pt)</source>
+        <translation type="unfinished">Pikë (pt)</translation>
+    </message>
+    <message>
+        <source>Millimeters (mm)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Inches (in)</source>
+        <translation type="unfinished">Inç (inç)</translation>
+    </message>
+    <message>
+        <source>Picas (p)</source>
+        <translation type="unfinished">Pikas (p)</translation>
+    </message>
+    <message>
+        <source>Centimeters (cm)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cicero (c)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File exists</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A file named &apos;%1&apos; already exists.
+Do you want to replace it with the file you are saving?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Replace</source>
+        <translation type="unfinished">&amp;Zëvendëso</translation>
+    </message>
+    <message>
+        <source>page</source>
+        <comment>page export</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All</source>
+        <translation type="unfinished">Tërë</translation>
+    </message>
+    <message>
+        <source>&amp;Color Wheel...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Fonts Preview...</source>
+        <translation type="unfinished">&amp;Paraparje Gërmash...</translation>
+    </message>
+    <message>
+        <source>Document Template: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color not found.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color not found in document.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color not found in default colors.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to open document.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to save document.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Argument must be page item name, or PyCObject instance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Property not found</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Child not found</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Couldn&apos;t convert result type &apos;%1&apos;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Property type &apos;%1&apos; not supported</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Couldn&apos;t convert &apos;%1&apos; to property type &apos;%2&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Types matched, but setting property failed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Specified item not an image frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot group less than two items</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can&apos;t group less than two items</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Need selection or argument list of items to group</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot scale by 0%.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font not found.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot render an empty sample.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to save pixmap</source>
+        <comment>scripter error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot have an empty layer name.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Layer not found.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot remove the last layer.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot create layer without a name.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An object with the requested name already exists.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Point list must contain at least two points (four values).</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Point list must contain an even number of values.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Point list must contain at least three points (six values).</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Point list must contain at least four points (eight values).</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Point list must have a multiple of six values.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Object not found.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Style not found.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set style on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to save EPS.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page number out of range.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>argument is not list: must be list of float values.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>argument contains non-numeric values: must be list of float values.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>argument contains no-numeric values: must be list of float values.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line width out of bounds, must be 0 &lt;= line_width &lt;= 12.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line shade out of bounds, must be 0 &lt;= shade &lt;= 100.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill shade out of bounds, must be 0 &lt;= shade &lt;= 100.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line style not found.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert index out of bounds.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set text alignment on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set font size on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set font on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line space out of bounds, must be &gt;= 0.1.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set line spacing on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Column gap out of bounds, must be positive.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set column gap on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Column count out of bounds, must be &gt; 1.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set number of columns on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot select text in a non-text frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot delete text from a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set text fill on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set text stroke on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set text shade on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can only link text frames.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Target frame must be empty.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Target frame links to another frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Target frame is linked to by another frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Source and target are the same object.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot unlink a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot convert a non-text frame to outlines.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Only text frames can be checked for overflowing</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can&apos;t set bookmark on a non-text frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can&apos;t get info from a non-text frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The filename should not be empty string.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Script</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus Python interface module
+
+This module is the Python interface for Scribus. It provides functions
+to control scribus and to manipulate objects on the canvas. Each
+function is documented individually below.
+
+A few things are common across most of the interface.
+
+Most functions operate on frames. Frames are identified by their name,
+a string - they are not real Python objects. Many functions take an
+optional (non-keyword) parameter, a frame name.
+Many exceptions are also common across most functions. These are
+not currently documented in the docstring for each function.
+- Many functions will raise a NoDocOpenError if you try to use them
+without a document to operate on.
+- If you do not pass a frame name to a function that requires one,
+the function will use the currently selected frame, if any, or
+raise a NoValidObjectError if it can&apos;t find anything to operate
+on.
+- Many functions will raise WrongFrameTypeError if you try to use them
+on a frame type that they do not make sense with. For example, setting
+the text color on a graphics frame doesn&apos;t make sense, and will result
+in this exception being raised.
+- Errors resulting from calls to the underlying Python API will be
+passed through unaltered. As such, the list of exceptions thrown by
+any function as provided here and in its docstring is incomplete.
+
+Details of what exceptions each function may throw are provided on the
+function&apos;s documentation, though as with most Python code this list
+is not exhaustive due to exceptions from called functions.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Short Words Manual</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OpenDocument Text Documents</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -17894,7 +22402,7 @@ Lidhje të Jashtme
     </message>
     <message>
         <source>Restore Down</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ul Volumin</translation>
     </message>
     <message>
         <source>Close</source>
@@ -17917,30 +22425,30 @@ Lidhje të Jashtme
     <name>Query</name>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>&amp;Anulo</translation>
+        <translation type="obsolete">&amp;Anulo</translation>
     </message>
 </context>
 <context>
     <name>ReformDoc</name>
     <message>
         <source> pt</source>
-        <translation>pt</translation>
+        <translation type="obsolete">pt</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation>mm</translation>
+        <translation type="obsolete">mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation>inç</translation>
+        <translation type="obsolete">inç</translation>
     </message>
     <message>
         <source> p</source>
-        <translation>p</translation>
+        <translation type="obsolete">p</translation>
     </message>
     <message>
         <source>Document Setup</source>
@@ -17968,55 +22476,51 @@ Lidhje të Jashtme
     </message>
     <message>
         <source>&amp;Facing Pages</source>
-        <translation>Faqe &amp;Përkarshi</translation>
+        <translation type="obsolete">Faqe &amp;Përkarshi</translation>
     </message>
     <message>
         <source>Left &amp;Page First</source>
-        <translation>&amp;Faqe Majtas fillimisht</translation>
+        <translation type="obsolete">&amp;Faqe Majtas fillimisht</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>&amp;Anulo</translation>
-    </message>
-    <message>
-        <source>Enable single or spread based layout</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">&amp;Anulo</translation>
     </message>
     <message>
         <source>Make the first page the left page of the document</source>
-        <translation>Bëj faqe të parë faqen majtas të një dokumenti</translation>
+        <translation type="obsolete">Bëj faqe të parë faqen majtas të një dokumenti</translation>
     </message>
     <message>
         <source>Distance between the top margin guide and the edge of the page</source>
-        <translation>Largësi ndërmjet udhëzuesit të mënjanës së sipërme dhe skajit të faqes</translation>
+        <translation type="obsolete">Largësi ndërmjet udhëzuesit të mënjanës së sipërme dhe skajit të faqes</translation>
     </message>
     <message>
         <source>Distance between the bottom margin guide and the edge of the page</source>
-        <translation>Largësi ndërmjet udhëzuesit të mënjanës së poshtme dhe skajit të faqes</translation>
+        <translation type="obsolete">Largësi ndërmjet udhëzuesit të mënjanës së poshtme dhe skajit të faqes</translation>
     </message>
     <message>
         <source>Distance between the left margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Largësi ndërmjet udhëzuesit të mënjanës majtas dhe skajit të faqes.(new line)
+        <translation type="obsolete">Largësi ndërmjet udhëzuesit të mënjanës majtas dhe skajit të faqes.(new line)
 Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të përdoret për të pasur mënjana të sakta për libërlidhje</translation>
     </message>
     <message>
         <source>Distance between the right margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Largësi ndërmjet udhëzuesit të mënjanës djathtas dhe skajit të faqes.(new line)
+        <translation type="obsolete">Largësi ndërmjet udhëzuesit të mënjanës djathtas dhe skajit të faqes.(new line)
 Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të përdoret për të pasur mënjana të sakta për libërlidhje</translation>
     </message>
     <message>
         <source>&amp;Inside:</source>
-        <translation>&amp;Brenda:</translation>
+        <translation type="obsolete">&amp;Brenda:</translation>
     </message>
     <message>
         <source>&amp;Outside:</source>
-        <translation>&amp;Jashtë:</translation>
+        <translation type="obsolete">&amp;Jashtë:</translation>
     </message>
     <message>
         <source>Page Size</source>
@@ -18024,7 +22528,7 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
     <message>
         <source>Size:</source>
-        <translation>Madhësi:</translation>
+        <translation type="obsolete">Madhësi:</translation>
     </message>
     <message>
         <source>Custom</source>
@@ -18032,7 +22536,7 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
     <message>
         <source>Orientation:</source>
-        <translation>Orientim:</translation>
+        <translation type="obsolete">Orientim:</translation>
     </message>
     <message>
         <source>Portrait</source>
@@ -18044,15 +22548,207 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
     <message>
         <source>Width:</source>
-        <translation>Gjerësi:</translation>
+        <translation type="obsolete">Gjerësi:</translation>
     </message>
     <message>
         <source>Height:</source>
-        <translation>Lartësi:</translation>
+        <translation type="obsolete">Lartësi:</translation>
     </message>
     <message>
         <source>F&amp;irst Page Number:</source>
         <translation>Numër i Faqes së &amp;Parë:</translation>
+    </message>
+    <message>
+        <source>&amp;Size:</source>
+        <translation type="unfinished">&amp;Madhësi:</translation>
+    </message>
+    <message>
+        <source>Orie&amp;ntation:</source>
+        <translation type="unfinished">Orie&amp;ntim:</translation>
+    </message>
+    <message>
+        <source>&amp;Width:</source>
+        <translation type="unfinished">&amp;Gjerësi:</translation>
+    </message>
+    <message>
+        <source>&amp;Height:</source>
+        <translation type="unfinished">&amp;Lartësi:</translation>
+    </message>
+    <message>
+        <source>&amp;Unit:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Options</source>
+        <translation type="unfinished">Mundësi</translation>
+    </message>
+    <message>
+        <source>Apply size settings to all Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply margin settings to all Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Autosave</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>min</source>
+        <translation type="unfinished">min</translation>
+    </message>
+    <message>
+        <source>&amp;Interval:</source>
+        <translation type="unfinished">&amp;Interval:</translation>
+    </message>
+    <message>
+        <source>Document</source>
+        <translation type="unfinished">Dokument</translation>
+    </message>
+    <message>
+        <source>Document Information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Guides</source>
+        <translation type="unfinished">Udhëzuesa</translation>
+    </message>
+    <message>
+        <source>Page Display</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color:</source>
+        <translation type="unfinished">Ngjyrë:</translation>
+    </message>
+    <message>
+        <source>Display &amp;Unprintable Area in Margin Color</source>
+        <translation type="unfinished">Paraqit Zonë të &amp;Pashtypshme në Ngjyrë Mënjanash</translation>
+    </message>
+    <message>
+        <source>Alt+U</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Pictures</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Text Chains</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Text Control Characters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Frames</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rulers relative to Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Minimum Scratch Space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Gaps between Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Horizontal:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Vertical:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display</source>
+        <translation type="unfinished">Shfaq</translation>
+    </message>
+    <message>
+        <source>Typography</source>
+        <translation type="unfinished">Tipografi</translation>
+    </message>
+    <message>
+        <source>Tools</source>
+        <translation type="unfinished">Mjete</translation>
+    </message>
+    <message>
+        <source>Hyphenator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fonts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preflight Verifier</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF Export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document Item Attributes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Table of Contents and Indexes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color Management</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the of linked frames on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display non-printing characters such as paragraph markers in text frames</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of frames on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of pictures on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color for paper</source>
+        <translation type="unfinished">Ngjyrë për letrën</translation>
+    </message>
+    <message>
+        <source>Mask the area outside the margins in the margin color</source>
+        <translation type="unfinished">Masko zonën jashtë mënjanash me ngjyrën e mënjanave</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Asnjë</translation>
+    </message>
+    <message>
+        <source>Adjusting Colors</source>
+        <translation type="unfinished">Po ujdis Ngjyra</translation>
+    </message>
+</context>
+<context>
+    <name>RunScriptDialog</name>
+    <message>
+        <source>Python Scripts (*.py);; All Files (*)</source>
+        <translation type="unfinished">Programthe Python (*.py);; Tërë Kartelat (*)</translation>
+    </message>
+    <message>
+        <source>Run as Extension Script</source>
+        <comment>run script dialog</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -18130,6 +22826,10 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
         <source>Scaling width of characters</source>
         <translation>Gjerësi ripërmasimi e gërmave</translation>
     </message>
+    <message>
+        <source>Scaling height of characters</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SToolBStyle</name>
@@ -18138,15 +22838,28 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
         <translation>Rregullimet Shenjash</translation>
     </message>
     <message>
-        <source>Kerning:</source>
+        <source> pt</source>
+        <translation type="obsolete">pt</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation type="unfinished"> %</translation>
+    </message>
+    <message>
+        <source>Manual Tracking</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ScImportExportPlugin</name>
+    <message>
+        <source>Could not find target file %1: %2</source>
+        <comment>plugins</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source> pt</source>
-        <translation>pt</translation>
-    </message>
-    <message>
-        <source>Manual Kerning</source>
+        <source>Could not open target file %1: %2</source>
+        <comment>plugins</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -18169,27 +22882,27 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
     <message>
         <source>Create a new Document</source>
-        <translation>Krijo një Dokument të ri</translation>
+        <translation type="obsolete">Krijo një Dokument të ri</translation>
     </message>
     <message>
         <source>Open a Document</source>
-        <translation>Hap një Dokument</translation>
+        <translation type="obsolete">Hap një Dokument</translation>
     </message>
     <message>
         <source>Save the current Document</source>
-        <translation>Ruaj Dokumentin e çastit</translation>
+        <translation type="obsolete">Ruaj Dokumentin e çastit</translation>
     </message>
     <message>
         <source>Close the current Document</source>
-        <translation>Mbyll Dokumentin e çastit</translation>
+        <translation type="obsolete">Mbyll Dokumentin e çastit</translation>
     </message>
     <message>
         <source>Print the current Document</source>
-        <translation>Shtyp Dokumentin e çastit</translation>
+        <translation type="obsolete">Shtyp Dokumentin e çastit</translation>
     </message>
     <message>
         <source>Save the current Document as PDF</source>
-        <translation>Ruaj Dokumentin e çastit si PDF</translation>
+        <translation type="obsolete">Ruaj Dokumentin e çastit si PDF</translation>
     </message>
     <message>
         <source>Searching for Fonts</source>
@@ -18197,11 +22910,11 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
     <message>
         <source>There are no Postscript-Fonts on your System</source>
-        <translation>Nuk ka Gërma Postscript në Sistemin tuaj</translation>
+        <translation type="obsolete">Nuk ka Gërma Postscript në Sistemin tuaj</translation>
     </message>
     <message>
         <source>Exiting now</source>
-        <translation>Po dal tani</translation>
+        <translation type="obsolete">Po dal tani</translation>
     </message>
     <message>
         <source>Fatal Error</source>
@@ -18209,51 +22922,51 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
     <message>
         <source>Smart Hyphen</source>
-        <translation>Vijë e Mençur</translation>
+        <translation type="obsolete">Vijë e Mençur</translation>
     </message>
     <message>
         <source>Align Left</source>
-        <translation>Vendos Majtas</translation>
+        <translation type="obsolete">Vendos Majtas</translation>
     </message>
     <message>
         <source>Align Right</source>
-        <translation>Vendos Djathtas</translation>
+        <translation type="obsolete">Vendos Djathtas</translation>
     </message>
     <message>
         <source>Align Center</source>
-        <translation>Vendos në Qendër</translation>
+        <translation type="obsolete">Vendos në Qendër</translation>
     </message>
     <message>
         <source>Insert Page Number</source>
-        <translation>Fut Numër Faqeje</translation>
+        <translation type="obsolete">Fut Numër Faqeje</translation>
     </message>
     <message>
         <source>Attach Text to Path</source>
-        <translation>bashkangjit Tekst te Shtegu</translation>
+        <translation type="obsolete">bashkangjit Tekst te Shtegu</translation>
     </message>
     <message>
         <source>Show Layers</source>
-        <translation>Shfaq Shtresa</translation>
+        <translation type="obsolete">Shfaq Shtresa</translation>
     </message>
     <message>
         <source>Javascripts...</source>
-        <translation>Javascripts...</translation>
+        <translation type="obsolete">Javascripts...</translation>
     </message>
     <message>
         <source>Undo</source>
-        <translation>Zhbëj</translation>
+        <translation type="obsolete">Zhbëj</translation>
     </message>
     <message>
         <source>Show Page Palette</source>
-        <translation>Shfaq Paletë Faqesh</translation>
+        <translation type="obsolete">Shfaq Paletë Faqesh</translation>
     </message>
     <message>
         <source>Lock/Unlock</source>
-        <translation>Blloko/Çblloko</translation>
+        <translation type="obsolete">Blloko/Çblloko</translation>
     </message>
     <message>
         <source>Non Breaking Space</source>
-        <translation type="unfinished">Hapësirë pas Shtylle</translation>
+        <translation type="obsolete">Hapësirë pas Shtylle</translation>
     </message>
     <message>
         <source>Reading Preferences</source>
@@ -18261,11 +22974,7 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
     <message>
         <source>Getting ICC Profiles</source>
-        <translation>Po marr Profile ICC</translation>
-    </message>
-    <message>
-        <source>Init Hyphenator</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Po marr Profile ICC</translation>
     </message>
     <message>
         <source>Setting up Shortcuts</source>
@@ -18273,7 +22982,7 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
     <message>
         <source>&amp;Color Management...</source>
-        <translation>Administrimi &amp;Ngjyrash...</translation>
+        <translation type="obsolete">Administrimi &amp;Ngjyrash...</translation>
     </message>
     <message>
         <source>Reading Scrapbook</source>
@@ -18285,11 +22994,11 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
     <message>
         <source>&amp;New</source>
-        <translation>&amp;I ri</translation>
+        <translation type="obsolete">&amp;I ri</translation>
     </message>
     <message>
         <source>&amp;Open...</source>
-        <translation>&amp;Hap...</translation>
+        <translation type="obsolete">&amp;Hap...</translation>
     </message>
     <message>
         <source>Open &amp;Recent</source>
@@ -18297,55 +23006,55 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
     <message>
         <source>New</source>
-        <translation>E re</translation>
+        <translation type="obsolete">E re</translation>
     </message>
     <message>
         <source>Open...</source>
-        <translation>Hap...</translation>
+        <translation type="obsolete">Hap...</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation>&amp;Mbyll</translation>
+        <translation type="obsolete">&amp;Mbyll</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation>Mbyll</translation>
+        <translation type="obsolete">Mbyll</translation>
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation>&amp;Ruaj</translation>
+        <translation type="obsolete">&amp;Ruaj</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation>Ruaj</translation>
+        <translation type="obsolete">Ruaj</translation>
     </message>
     <message>
         <source>Save &amp;As...</source>
-        <translation>Ruaj &amp;Si...</translation>
+        <translation type="obsolete">Ruaj &amp;Si...</translation>
     </message>
     <message>
         <source>Save as...</source>
-        <translation>Ruaj  si...</translation>
+        <translation type="obsolete">Ruaj  si...</translation>
     </message>
     <message>
         <source>Re&amp;vert to Saved</source>
-        <translation>Ri&amp;kthehu tek i Ruajtur</translation>
+        <translation type="obsolete">Ri&amp;kthehu tek i Ruajtur</translation>
     </message>
     <message>
         <source>Collect for O&amp;utput...</source>
-        <translation>&amp;Kërko për Ndihmë...</translation>
+        <translation type="obsolete">&amp;Kërko për Ndihmë...</translation>
     </message>
     <message>
         <source>&amp;Get Text/Picture...</source>
-        <translation>&amp;Merr Tekst/Pamje...</translation>
+        <translation type="obsolete">&amp;Merr Tekst/Pamje...</translation>
     </message>
     <message>
         <source>Append &amp;Text...</source>
-        <translation>Vini &amp;Tekst...</translation>
+        <translation type="obsolete">Vini &amp;Tekst...</translation>
     </message>
     <message>
         <source>Import &amp;Page(s)...</source>
-        <translation>Importo &amp;Faqe(t)...</translation>
+        <translation type="obsolete">Importo &amp;Faqe(t)...</translation>
     </message>
     <message>
         <source>&amp;Import</source>
@@ -18353,15 +23062,15 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
     <message>
         <source>Save &amp;Text...</source>
-        <translation>Ruaj &amp;Tekst...</translation>
+        <translation type="obsolete">Ruaj &amp;Tekst...</translation>
     </message>
     <message>
         <source>Save Page as &amp;EPS...</source>
-        <translation>Ruaj Faqe si &amp;EPS...</translation>
+        <translation type="obsolete">Ruaj Faqe si &amp;EPS...</translation>
     </message>
     <message>
         <source>Save as P&amp;DF...</source>
-        <translation>Ruaj si &amp;PDF...</translation>
+        <translation type="obsolete">Ruaj si &amp;PDF...</translation>
     </message>
     <message>
         <source>&amp;Export</source>
@@ -18369,207 +23078,207 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
     <message>
         <source>Document &amp;Information...</source>
-        <translation>Të &amp;dhëna Dokumenti...</translation>
+        <translation type="obsolete">Të &amp;dhëna Dokumenti...</translation>
     </message>
     <message>
         <source>Document Info...</source>
-        <translation>Të dhëna Dokumenti...</translation>
+        <translation type="obsolete">Të dhëna Dokumenti...</translation>
     </message>
     <message>
         <source>Document &amp;Setup...</source>
-        <translation>&amp;Rregullim Dokumenti...</translation>
+        <translation type="obsolete">&amp;Rregullim Dokumenti...</translation>
     </message>
     <message>
         <source>Document Setup...</source>
-        <translation>Rregullim Dokumenti...</translation>
+        <translation type="obsolete">Rregullim Dokumenti...</translation>
     </message>
     <message>
         <source>&amp;Print...</source>
-        <translation>&amp;Shtyp...</translation>
+        <translation type="obsolete">&amp;Shtyp...</translation>
     </message>
     <message>
         <source>Print...</source>
-        <translation>Shtyp...</translation>
+        <translation type="obsolete">Shtyp...</translation>
     </message>
     <message>
         <source>&amp;Quit</source>
-        <translation>&amp;Lër</translation>
+        <translation type="obsolete">&amp;Lër</translation>
     </message>
     <message>
         <source>Quit</source>
-        <translation>Lër</translation>
+        <translation type="obsolete">Lër</translation>
     </message>
     <message>
         <source>&amp;Undo</source>
-        <translation>&amp;Zhbëj</translation>
+        <translation type="obsolete">&amp;Zhbëj</translation>
     </message>
     <message>
         <source>Cu&amp;t</source>
-        <translation>P&amp;ri</translation>
+        <translation type="obsolete">P&amp;ri</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation>&amp;Kopjo</translation>
+        <translation type="obsolete">&amp;Kopjo</translation>
     </message>
     <message>
         <source>&amp;Paste</source>
-        <translation>&amp;Ngjit</translation>
+        <translation type="obsolete">&amp;Ngjit</translation>
     </message>
     <message>
         <source>C&amp;lear</source>
-        <translation>P&amp;astro</translation>
+        <translation type="obsolete">P&amp;astro</translation>
     </message>
     <message>
         <source>Select &amp;All</source>
-        <translation>Përzgjidhni &amp;Tërë</translation>
+        <translation type="obsolete">Përzgjidhni &amp;Tërë</translation>
     </message>
     <message>
         <source>Cut</source>
-        <translation>Pri</translation>
+        <translation type="obsolete">Pri</translation>
     </message>
     <message>
         <source>Copy</source>
-        <translation>Kopjo</translation>
+        <translation type="obsolete">Kopjo</translation>
     </message>
     <message>
         <source>Paste</source>
-        <translation>Ngjit</translation>
+        <translation type="obsolete">Ngjit</translation>
     </message>
     <message>
         <source>Clear</source>
-        <translation>Fshi</translation>
+        <translation type="obsolete">Fshi</translation>
     </message>
     <message>
         <source>Select all</source>
-        <translation>Përzgjidhni tërë</translation>
+        <translation type="obsolete">Përzgjidhni tërë</translation>
     </message>
     <message>
         <source>&amp;Search/Replace...</source>
-        <translation>&amp;Kërko/Zëvendëso...</translation>
+        <translation type="obsolete">&amp;Kërko/Zëvendëso...</translation>
     </message>
     <message>
         <source>C&amp;olors...</source>
-        <translation>Ngj&amp;yra...</translation>
+        <translation type="obsolete">Ngj&amp;yra...</translation>
     </message>
     <message>
         <source>Colors...</source>
-        <translation>Ngjyra...</translation>
+        <translation type="obsolete">Ngjyra...</translation>
     </message>
     <message>
         <source>&amp;Paragraph Styles...</source>
-        <translation>Stile &amp;Paragrafi...</translation>
+        <translation type="obsolete">Stile &amp;Paragrafi...</translation>
     </message>
     <message>
         <source>&amp;Line Styles...</source>
-        <translation>Stile &amp;Vije...</translation>
+        <translation type="obsolete">Stile &amp;Vije...</translation>
     </message>
     <message>
         <source>Styles...</source>
-        <translation>Stile...</translation>
+        <translation type="obsolete">Stile...</translation>
     </message>
     <message>
         <source>&amp;Templates...</source>
-        <translation>&amp;Stampa...</translation>
+        <translation type="obsolete">&amp;Stampa...</translation>
     </message>
     <message>
         <source>Templates...</source>
-        <translation>Stampa...</translation>
+        <translation type="obsolete">Stampa...</translation>
     </message>
     <message>
         <source>&amp;Javascripts...</source>
-        <translation>&amp;Javascripts...</translation>
+        <translation type="obsolete">&amp;Javascripts...</translation>
     </message>
     <message>
         <source>Select New Font</source>
-        <translation>Përzgjidhni Gërma të Reja</translation>
+        <translation type="obsolete">Përzgjidhni Gërma të Reja</translation>
     </message>
     <message>
         <source>D&amp;uplicate</source>
-        <translation>Dy&amp;fisho</translation>
+        <translation type="obsolete">Dy&amp;fisho</translation>
     </message>
     <message>
         <source>Duplicate</source>
-        <translation>Dyfisho</translation>
+        <translation type="obsolete">Dyfisho</translation>
     </message>
     <message>
         <source>&amp;Multiple Duplicate</source>
-        <translation>Kopje të &amp;Shumëfishta</translation>
+        <translation type="obsolete">Kopje të &amp;Shumëfishta</translation>
     </message>
     <message>
         <source>Multiple Duplicate</source>
-        <translation>Kopje të Shumëfishta</translation>
+        <translation type="obsolete">Kopje të Shumëfishta</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation>&amp;Fshi</translation>
+        <translation type="obsolete">&amp;Fshi</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Fshi</translation>
+        <translation type="obsolete">Fshi</translation>
     </message>
     <message>
         <source>&amp;Group</source>
-        <translation>&amp;Grupo</translation>
+        <translation type="obsolete">&amp;Grupo</translation>
     </message>
     <message>
         <source>Group</source>
-        <translation>Grupo</translation>
+        <translation type="obsolete">Grupo</translation>
     </message>
     <message>
         <source>&amp;Ungroup</source>
-        <translation>&amp;Çgrupo</translation>
+        <translation type="obsolete">&amp;Çgrupo</translation>
     </message>
     <message>
         <source>Un-group</source>
-        <translation>Çgrupo</translation>
+        <translation type="obsolete">Çgrupo</translation>
     </message>
     <message>
         <source>&amp;Lock</source>
-        <translation>&amp;Blloko</translation>
+        <translation type="obsolete">&amp;Blloko</translation>
     </message>
     <message>
         <source>Send to &amp;Back</source>
-        <translation>Shpjere &amp;Prapa</translation>
+        <translation type="obsolete">Shpjere &amp;Prapa</translation>
     </message>
     <message>
         <source>Send to Back</source>
-        <translation>Shpjere Prapa</translation>
+        <translation type="obsolete">Shpjere Prapa</translation>
     </message>
     <message>
         <source>Bring to &amp;Front</source>
-        <translation>Bjer &amp;Përpara</translation>
+        <translation type="obsolete">Bjer &amp;Përpara</translation>
     </message>
     <message>
         <source>Bring to Front</source>
-        <translation>Bjere Përpara</translation>
+        <translation type="obsolete">Bjere Përpara</translation>
     </message>
     <message>
         <source>&amp;Lower</source>
-        <translation>&amp;Ul</translation>
+        <translation type="obsolete">&amp;Ul</translation>
     </message>
     <message>
         <source>Lower</source>
-        <translation>Ul</translation>
+        <translation type="obsolete">Ul</translation>
     </message>
     <message>
         <source>&amp;Raise</source>
-        <translation>&amp;Ngri</translation>
+        <translation type="obsolete">&amp;Ngri</translation>
     </message>
     <message>
         <source>Raise</source>
-        <translation>Ngri</translation>
+        <translation type="obsolete">Ngri</translation>
     </message>
     <message>
         <source>Distribute/&amp;Align...</source>
-        <translation>Shpërnda/&amp;Drejto...</translation>
+        <translation type="obsolete">Shpërnda/&amp;Drejto...</translation>
     </message>
     <message>
         <source>Distribute/Align...</source>
-        <translation>Shpërnda/Drejto...</translation>
+        <translation type="obsolete">Shpërnda/Drejto...</translation>
     </message>
     <message>
         <source>&amp;Edit Shape</source>
-        <translation>&amp;Përpunoni Formë</translation>
+        <translation type="obsolete">&amp;Përpunoni Formë</translation>
     </message>
     <message>
         <source>&amp;Shape</source>
@@ -18577,207 +23286,199 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
     <message>
         <source>&amp;Attach Text to Path</source>
-        <translation>&amp;Bashkangjit Tekst tek Shteg</translation>
+        <translation type="obsolete">&amp;Bashkangjit Tekst tek Shteg</translation>
     </message>
     <message>
         <source>&amp;Detach Text from Path</source>
-        <translation>&amp;Shqit Tekst prej Shtegu</translation>
+        <translation type="obsolete">&amp;Shqit Tekst prej Shtegu</translation>
     </message>
     <message>
         <source>&amp;Combine Polygons</source>
-        <translation>&amp;Ndërthur Shumëkëndësha</translation>
+        <translation type="obsolete">&amp;Ndërthur Shumëkëndësha</translation>
     </message>
     <message>
         <source>Split &amp;Polygons</source>
-        <translation>Ndaj &amp;Shumëkëndësha</translation>
+        <translation type="obsolete">Ndaj &amp;Shumëkëndësha</translation>
     </message>
     <message>
         <source>C&amp;onvert to Outlines</source>
-        <translation>Sh&amp;ndërro në Jashtëvija</translation>
+        <translation type="obsolete">Sh&amp;ndërro në Jashtëvija</translation>
     </message>
     <message>
         <source>&amp;Insert...</source>
-        <translation>&amp;Fut...</translation>
+        <translation type="obsolete">&amp;Fut...</translation>
     </message>
     <message>
         <source>Insert...</source>
-        <translation>Fut...</translation>
+        <translation type="obsolete">Fut...</translation>
     </message>
     <message>
         <source>&amp;Delete...</source>
-        <translation>&amp;Fshij...</translation>
+        <translation type="obsolete">&amp;Fshij...</translation>
     </message>
     <message>
         <source>Delete...</source>
-        <translation>Fshij...</translation>
+        <translation type="obsolete">Fshij...</translation>
     </message>
     <message>
         <source>&amp;Move...</source>
-        <translation>&amp;Zhvendos...</translation>
+        <translation type="obsolete">&amp;Zhvendos...</translation>
     </message>
     <message>
         <source>Move...</source>
-        <translation>Zhvendos...</translation>
+        <translation type="obsolete">Zhvendos...</translation>
     </message>
     <message>
         <source>&amp;Apply Template...</source>
-        <translation>&amp;Zbato Stampë...</translation>
+        <translation type="obsolete">&amp;Zbato Stampë...</translation>
     </message>
     <message>
         <source>Apply Template...</source>
-        <translation>Zbato Stampë...</translation>
+        <translation type="obsolete">Zbato Stampë...</translation>
     </message>
     <message>
         <source>Manage &amp;Guides...</source>
-        <translation>Administro &amp;Udhëzuesa...</translation>
+        <translation type="obsolete">Administro &amp;Udhëzuesa...</translation>
     </message>
     <message>
         <source>Manage Guides...</source>
-        <translation>Administro Udhëzuesa...</translation>
+        <translation type="obsolete">Administro Udhëzuesa...</translation>
     </message>
     <message>
         <source>&amp;Fit in Window</source>
-        <translation>&amp;Sa Dritarja</translation>
+        <translation type="obsolete">&amp;Sa Dritarja</translation>
     </message>
     <message>
         <source>Fit in Window</source>
-        <translation>Sa Dritarja</translation>
+        <translation type="obsolete">Sa Dritarja</translation>
     </message>
     <message>
         <source>50%</source>
-        <translation>50%</translation>
+        <translation type="obsolete">50%</translation>
     </message>
     <message>
         <source>75%</source>
-        <translation>75%</translation>
+        <translation type="obsolete">75%</translation>
     </message>
     <message>
         <source>&amp;100%</source>
-        <translation>&amp;100%</translation>
+        <translation type="obsolete">&amp;100%</translation>
     </message>
     <message>
         <source>100%</source>
-        <translation>100%</translation>
+        <translation type="obsolete">100%</translation>
     </message>
     <message>
         <source>200%</source>
-        <translation>200%</translation>
+        <translation type="obsolete">200%</translation>
     </message>
     <message>
         <source>&amp;Thumbnails</source>
-        <translation>Fi&amp;gurëza</translation>
+        <translation type="obsolete">Fi&amp;gurëza</translation>
     </message>
     <message>
         <source>Thumbnails</source>
-        <translation>Figurëza</translation>
+        <translation type="obsolete">Figurëza</translation>
     </message>
     <message>
         <source>Show &amp;Margins</source>
-        <translation>Shfaq &amp;Mënjana</translation>
+        <translation type="obsolete">Shfaq &amp;Mënjana</translation>
     </message>
     <message>
         <source>Hide Margins</source>
-        <translation>Fshih Mënjana</translation>
+        <translation type="obsolete">Fshih Mënjana</translation>
     </message>
     <message>
         <source>Show &amp;Frames</source>
-        <translation>Shfaq &amp;Korniza</translation>
+        <translation type="obsolete">Shfaq &amp;Korniza</translation>
     </message>
     <message>
         <source>Hide Frames</source>
-        <translation>Fshih Korniza</translation>
+        <translation type="obsolete">Fshih Korniza</translation>
     </message>
     <message>
         <source>Show &amp;Images</source>
-        <translation>Shfaq &amp;Pamje</translation>
+        <translation type="obsolete">Shfaq &amp;Pamje</translation>
     </message>
     <message>
         <source>Hide Images</source>
-        <translation>Fshih Pamje</translation>
+        <translation type="obsolete">Fshih Pamje</translation>
     </message>
     <message>
         <source>Show &amp;Grid</source>
-        <translation>Shfaq &amp;Rrjetë</translation>
+        <translation type="obsolete">Shfaq &amp;Rrjetë</translation>
     </message>
     <message>
         <source>Show Grid</source>
-        <translation>Shfaq Rrjetë</translation>
+        <translation type="obsolete">Shfaq Rrjetë</translation>
     </message>
     <message>
         <source>Show G&amp;uides</source>
-        <translation>Shfaq &amp;Udhëzuesa</translation>
+        <translation type="obsolete">Shfaq &amp;Udhëzuesa</translation>
     </message>
     <message>
         <source>Show &amp;Baseline Grid</source>
-        <translation type="unfinished">Pamjet në korniza pamjesh ripërmasohen sa madhësia e kornizës</translation>
-    </message>
-    <message>
-        <source>Sn&amp;ap to Grid</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Pamjet në korniza pamjesh ripërmasohen sa madhësia e kornizës</translation>
     </message>
     <message>
         <source>Snap to Grid</source>
-        <translation type="unfinished">Tekst për tu vizatuar</translation>
-    </message>
-    <message>
-        <source>Sna&amp;p to Guides</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Tekst për tu vizatuar</translation>
     </message>
     <message>
         <source>&amp;Properties</source>
-        <translation>&amp;Veti</translation>
+        <translation type="obsolete">&amp;Veti</translation>
     </message>
     <message>
         <source>Properties</source>
-        <translation>Veti</translation>
+        <translation type="obsolete">Veti</translation>
     </message>
     <message>
         <source>&amp;Outline</source>
-        <translation>&amp;Jashtëvijëzo</translation>
+        <translation type="obsolete">&amp;Jashtëvijëzo</translation>
     </message>
     <message>
         <source>Outline</source>
-        <translation>Jashtëvijëzo</translation>
+        <translation type="obsolete">Jashtëvijëzo</translation>
     </message>
     <message>
         <source>&amp;Scrapbook</source>
-        <translation>&amp;E papastër</translation>
+        <translation type="obsolete">&amp;E papastër</translation>
     </message>
     <message>
         <source>Scrapbook</source>
-        <translation>E papastër</translation>
+        <translation type="obsolete">E papastër</translation>
     </message>
     <message>
         <source>&amp;Layers</source>
-        <translation>&amp;Shtresa</translation>
+        <translation type="obsolete">&amp;Shtresa</translation>
     </message>
     <message>
         <source>P&amp;age Palette</source>
-        <translation>Paletë Fa&amp;qeje</translation>
+        <translation type="obsolete">Paletë Fa&amp;qeje</translation>
     </message>
     <message>
         <source>&amp;Bookmarks</source>
-        <translation>&amp;Faqerojtësa</translation>
+        <translation type="obsolete">&amp;Faqerojtësa</translation>
     </message>
     <message>
         <source>&amp;Manage Pictures</source>
-        <translation>&amp;Administro Pamje</translation>
+        <translation type="obsolete">&amp;Administro Pamje</translation>
     </message>
     <message>
         <source>Manage Pictures</source>
-        <translation>Administro Pamje</translation>
+        <translation type="obsolete">Administro Pamje</translation>
     </message>
     <message>
         <source>&amp;Hyphenate Text</source>
-        <translation>&amp;Vijëzo Tekst</translation>
+        <translation type="obsolete">&amp;Vijëzo Tekst</translation>
     </message>
     <message>
         <source>Hyphenate Text</source>
-        <translation>Vijëzo Tekst</translation>
+        <translation type="obsolete">Vijëzo Tekst</translation>
     </message>
     <message>
         <source>Toolti&amp;ps</source>
-        <translation>Ndih&amp;mëza</translation>
+        <translation type="obsolete">Ndih&amp;mëza</translation>
     </message>
     <message>
         <source>&amp;Tools</source>
@@ -18785,47 +23486,43 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
     <message>
         <source>P&amp;DF Tools</source>
-        <translation>Mjete P&amp;DF</translation>
+        <translation type="obsolete">Mjete P&amp;DF</translation>
     </message>
     <message>
         <source>Tools</source>
-        <translation>Mjete</translation>
+        <translation type="obsolete">Mjete</translation>
     </message>
     <message>
         <source>Tooltips</source>
-        <translation>Ndihmëza</translation>
+        <translation type="obsolete">Ndihmëza</translation>
     </message>
     <message>
         <source>P&amp;references...</source>
-        <translation>Pa&amp;rapëlqime...</translation>
+        <translation type="obsolete">Pa&amp;rapëlqime...</translation>
     </message>
     <message>
         <source>&amp;Fonts...</source>
-        <translation>&amp;Gërma...</translation>
+        <translation type="obsolete">&amp;Gërma...</translation>
     </message>
     <message>
         <source>Fonts...</source>
-        <translation>Gërma...</translation>
-    </message>
-    <message>
-        <source>&amp;Hyphenator...</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Gërma...</translation>
     </message>
     <message>
         <source>&amp;Keyboard Shortcuts...</source>
-        <translation>Shkurtprerje &amp;Tastiere...</translation>
+        <translation type="obsolete">Shkurtprerje &amp;Tastiere...</translation>
     </message>
     <message>
         <source>&amp;About Scribus</source>
-        <translation>&amp;Rreth Scribus-it</translation>
+        <translation type="obsolete">&amp;Rreth Scribus-it</translation>
     </message>
     <message>
         <source>About Scribus</source>
-        <translation>Rreth Scribus-it</translation>
+        <translation type="obsolete">Rreth Scribus-it</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
-        <translation>Rreth &amp;Qt-s</translation>
+        <translation type="obsolete">Rreth &amp;Qt-s</translation>
     </message>
     <message>
         <source>About Qt</source>
@@ -18833,11 +23530,11 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
     <message>
         <source>Scribus &amp;Manual...</source>
-        <translation>&amp;Doracak për Scribus...</translation>
+        <translation type="obsolete">&amp;Doracak për Scribus...</translation>
     </message>
     <message>
         <source>Online-Help...</source>
-        <translation>Ndihmë Online...</translation>
+        <translation type="obsolete">Ndihmë Online...</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -18869,7 +23566,7 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
     <message>
         <source>&amp;Settings</source>
-        <translation>&amp;Rregullime</translation>
+        <translation type="obsolete">&amp;Rregullime</translation>
     </message>
     <message>
         <source>&amp;Windows</source>
@@ -18881,31 +23578,27 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
     <message>
         <source>&amp;Left</source>
-        <translation>&amp;Majtas</translation>
+        <translation type="obsolete">&amp;Majtas</translation>
     </message>
     <message>
         <source>&amp;Center</source>
-        <translation>&amp;Qendër</translation>
+        <translation type="obsolete">&amp;Qendër</translation>
     </message>
     <message>
         <source>&amp;Right</source>
-        <translation>&amp;Djathtas</translation>
+        <translation type="obsolete">&amp;Djathtas</translation>
     </message>
     <message>
         <source>&amp;Block</source>
-        <translation>&amp;Blloko</translation>
-    </message>
-    <message>
-        <source>&amp;Forced</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">&amp;Blloko</translation>
     </message>
     <message>
         <source>&amp;Other...</source>
-        <translation>&amp;Tjetër...</translation>
+        <translation type="obsolete">&amp;Tjetër...</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation>pt</translation>
+        <translation type="obsolete">pt</translation>
     </message>
     <message>
         <source>Normal</source>
@@ -18913,27 +23606,23 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
     <message>
         <source>Underline</source>
-        <translation>Nënvijë</translation>
+        <translation type="obsolete">Nënvijë</translation>
     </message>
     <message>
         <source>Strikethru</source>
-        <translation>Hequrvije</translation>
+        <translation type="obsolete">Hequrvije</translation>
     </message>
     <message>
         <source>Small Caps</source>
-        <translation>Të vogla të Mëdha</translation>
+        <translation type="obsolete">Të vogla të Mëdha</translation>
     </message>
     <message>
         <source>Superscript</source>
-        <translation>Sipërshkrim</translation>
+        <translation type="obsolete">Sipërshkrim</translation>
     </message>
     <message>
         <source>Subscript</source>
-        <translation>Poshtëshkrim</translation>
-    </message>
-    <message>
-        <source>Outlined</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Poshtëshkrim</translation>
     </message>
     <message>
         <source>X-Pos:</source>
@@ -18945,15 +23634,15 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
     <message>
         <source> mm</source>
-        <translation>mm</translation>
+        <translation type="obsolete">mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation>inç</translation>
+        <translation type="obsolete">inç</translation>
     </message>
     <message>
         <source> p</source>
-        <translation>p</translation>
+        <translation type="obsolete">p</translation>
     </message>
     <message>
         <source>Ready</source>
@@ -18973,11 +23662,11 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
     <message>
         <source>Get Text/Picture...</source>
-        <translation>Merr Tekst/Pamje...</translation>
+        <translation type="obsolete">Merr Tekst/Pamje...</translation>
     </message>
     <message>
         <source>Get Picture...</source>
-        <translation>Merr Pamje...</translation>
+        <translation type="obsolete">Merr Pamje...</translation>
     </message>
     <message>
         <source>&amp;Color</source>
@@ -18985,11 +23674,11 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
     <message>
         <source>&amp;Invert</source>
-        <translation>&amp;Përmbys</translation>
+        <translation type="obsolete">&amp;Përmbys</translation>
     </message>
     <message>
         <source>&amp;Get Text...</source>
-        <translation>&amp;Merr Tekst...</translation>
+        <translation type="obsolete">&amp;Merr Tekst...</translation>
     </message>
     <message>
         <source>&amp;Font</source>
@@ -19013,15 +23702,15 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
     <message>
         <source>&amp;Tabulators...</source>
-        <translation>&amp;Tabelëzuesa...</translation>
+        <translation type="obsolete">&amp;Tabelëzuesa...</translation>
     </message>
     <message>
         <source>Get Text...</source>
-        <translation>Merr Tekst...</translation>
+        <translation type="obsolete">Merr Tekst...</translation>
     </message>
     <message>
         <source>Font</source>
-        <translation>Gërma</translation>
+        <translation type="obsolete">Gërma</translation>
     </message>
     <message>
         <source>Size</source>
@@ -19029,11 +23718,11 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
     <message>
         <source>Style</source>
-        <translation>Stil</translation>
+        <translation type="obsolete">Stil</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation>Ngjyrë</translation>
+        <translation type="obsolete">Ngjyrë</translation>
     </message>
     <message>
         <source>Shade</source>
@@ -19041,7 +23730,7 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
     <message>
         <source>Un&amp;lock</source>
-        <translation>&amp;Çblloko </translation>
+        <translation type="obsolete">&amp;Çblloko </translation>
     </message>
     <message>
         <source>Open</source>
@@ -19049,7 +23738,7 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
-        <translation>Dokumenta (*.sla *.sla.gz *.scd *.scd.gz);;Tërë Kartelat (*)</translation>
+        <translation type="obsolete">Dokumenta (*.sla *.sla.gz *.scd *.scd.gz);;Tërë Kartelat (*)</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
@@ -19102,12 +23791,12 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     <message>
         <source>Can&apos;t write the File: 
 %1</source>
-        <translation>S&apos;shkruaj dot Kartelën: 
+        <translation type="obsolete">S&apos;shkruaj dot Kartelën: 
 %1</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Save as</source>
@@ -19151,19 +23840,19 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
     <message>
         <source>Hide Baseline Grid</source>
-        <translation type="unfinished">Pamjet në korniza pamjesh ripërmasohen sa madhësia e kornizës</translation>
+        <translation type="obsolete">Pamjet në korniza pamjesh ripërmasohen sa madhësia e kornizës</translation>
     </message>
     <message>
         <source>Show Baseline Grid</source>
-        <translation type="unfinished">Pamjet në korniza pamjesh ripërmasohen sa madhësia e kornizës</translation>
+        <translation type="obsolete">Pamjet në korniza pamjesh ripërmasohen sa madhësia e kornizës</translation>
     </message>
     <message>
         <source>The following Programs are missing:</source>
-        <translation>Programet vijues mungojnë:</translation>
+        <translation type="obsolete">Programet vijues mungojnë:</translation>
     </message>
     <message>
         <source>Ghostscript : You cannot use EPS Images</source>
-        <translation>Ghostscript: Nuk mund të përdorni Pamje EPS</translation>
+        <translation type="obsolete">Ghostscript: Nuk mund të përdorni Pamje EPS</translation>
     </message>
     <message>
         <source>All</source>
@@ -19171,23 +23860,23 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
     <message>
         <source>EPS-Files (*.eps);;All Files (*)</source>
-        <translation>Kartela EPS (*.eps);;Tërë Kartelat (*)</translation>
+        <translation type="obsolete">Kartela EPS (*.eps);;Tërë Kartelat (*)</translation>
     </message>
     <message>
         <source>pt</source>
-        <translation>pt</translation>
+        <translation type="obsolete">pt</translation>
     </message>
     <message>
         <source>mm</source>
-        <translation>mm</translation>
+        <translation type="obsolete">mm</translation>
     </message>
     <message>
         <source>in</source>
-        <translation>inç</translation>
+        <translation type="obsolete">inç</translation>
     </message>
     <message>
         <source>p</source>
-        <translation>p</translation>
+        <translation type="obsolete">p</translation>
     </message>
     <message>
         <source>Some Objects are locked.</source>
@@ -19195,43 +23884,43 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anulo</translation>
+        <translation type="obsolete">Anulo</translation>
     </message>
     <message>
         <source>Lock all</source>
-        <translation>Kyç tërë</translation>
+        <translation type="obsolete">Kyç tërë</translation>
     </message>
     <message>
         <source>Unlock all</source>
-        <translation>Çkyç tërë</translation>
+        <translation type="obsolete">Çkyç tërë</translation>
     </message>
     <message>
         <source>Unlock</source>
-        <translation>Çkyç</translation>
+        <translation type="obsolete">Çkyç</translation>
     </message>
     <message>
         <source>Lock</source>
-        <translation>Kyç</translation>
+        <translation type="obsolete">Kyç</translation>
     </message>
     <message>
         <source>Loading:</source>
-        <translation>Po ngarkoj:</translation>
+        <translation type="obsolete">Po ngarkoj:</translation>
     </message>
     <message>
         <source>Adjusting Colors</source>
-        <translation>Po ujdis Ngjyra</translation>
+        <translation type="obsolete">Po ujdis Ngjyra</translation>
     </message>
     <message>
         <source>&amp;Undo Delete Object</source>
-        <translation>&amp;Zhbëj Fshirje Objekti</translation>
+        <translation type="obsolete">&amp;Zhbëj Fshirje Objekti</translation>
     </message>
     <message>
         <source>&amp;Undo Object Move</source>
-        <translation>&amp;Zhbëj Zhvendosje Objekti</translation>
+        <translation type="obsolete">&amp;Zhbëj Zhvendosje Objekti</translation>
     </message>
     <message>
         <source>&amp;Undo Object Change</source>
-        <translation>&amp;Zhbëj Ndryshim Objekti</translation>
+        <translation type="obsolete">&amp;Zhbëj Ndryshim Objekti</translation>
     </message>
     <message>
         <source>English</source>
@@ -19323,15 +24012,15 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
     <message>
         <source>Invert</source>
-        <translation>Përmbys</translation>
+        <translation type="obsolete">Përmbys</translation>
     </message>
     <message>
         <source>Scribus Crash</source>
-        <translation>Vithisje Scribus-i</translation>
+        <translation type="obsolete">Vithisje Scribus-i</translation>
     </message>
     <message>
         <source>Scribus crashes due to Signal #%1</source>
-        <translation>Scribus-i vithiset për shkak të Sinjalit #%1</translation>
+        <translation type="obsolete">Scribus-i vithiset për shkak të Sinjalit #%1</translation>
     </message>
     <message>
         <source>Font System Initialized</source>
@@ -19339,7 +24028,7 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
     <message>
         <source>File %1 is not in Scribus format</source>
-        <translation>Kartela %1 nuk është në format Scribus</translation>
+        <translation type="obsolete">Kartela %1 nuk është në format Scribus</translation>
     </message>
     <message>
         <source>Afrikaans</source>
@@ -19348,6 +24037,242 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     <message>
         <source>Portuguese (BR)</source>
         <translation>Portugeze (BR)</translation>
+    </message>
+    <message>
+        <source>Initializing Keyboard Shortcuts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Initializing Story Editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reading ICC Profiles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Initializing Hyphenator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit</source>
+        <translation type="unfinished">Përpunoni</translation>
+    </message>
+    <message>
+        <source>There are no fonts found on your system.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exiting now.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preview Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Level</source>
+        <translation type="unfinished">Nivel</translation>
+    </message>
+    <message>
+        <source>Send to La&amp;yer</source>
+        <translation type="unfinished">Dërgo te Sh&amp;tresë</translation>
+    </message>
+    <message>
+        <source>&amp;PDF Options</source>
+        <translation type="unfinished">Mundësi &amp;PDF</translation>
+    </message>
+    <message>
+        <source>C&amp;onvert To</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>I&amp;nsert</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Character</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Quote</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.scd);;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Postscript Files (*.eps *.EPS *.ps *.PS);;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SVG Images (*.svg *.svgz);;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SVG Images (*.svg);;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Draw (*.sxd);;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File %1 
+is not in an acceptable format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Postscript</source>
+        <translation type="unfinished">Postscript</translation>
+    </message>
+    <message>
+        <source>Some fonts used by this document have been substituted:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> was replaced by: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Some ICC profiles used by this document are not installed:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(converted)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot write the file: 
+%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save As</source>
+        <translation type="unfinished">Ruaj Si</translation>
+    </message>
+    <message>
+        <source>Detected some Errors.
+Consider using the Preflight Checker to correct them</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Abort</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ignore</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot Cut In-Use Item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The following programs are missing:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ghostscript : You cannot use EPS images or Print Preview</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>EPS Files (*.eps);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Detected some Errors.
+Consider using the Preflight Verifier to correct them</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Lock All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Unlock All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Croatian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bulgarian</source>
+        <translation type="unfinished">Bullgare</translation>
+    </message>
+    <message>
+        <source>Collecting...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot collect all files for output for file:
+%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The program</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>is already running!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <translation type="unfinished">Të dhëna</translation>
+    </message>
+    <message>
+        <source>is missing!</source>
+        <translation type="unfinished">mungon!</translation>
+    </message>
+    <message>
+        <source>The selected color does not exist in the document&apos;s color set. Please enter a name for this new color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color Not Found</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The name you have selected already exists. Please enter a different name for this new color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Level</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send to Layer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Previe&amp;w Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ScribusDoc</name>
+    <message>
+        <source>New Layer</source>
+        <translation type="unfinished">Shtresë e Re</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation type="unfinished">Normale</translation>
     </message>
 </context>
 <context>
@@ -19362,23 +24287,143 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
     <message>
         <source>pt</source>
-        <translation>pt</translation>
+        <translation type="obsolete">pt</translation>
     </message>
     <message>
         <source>mm</source>
-        <translation>mm</translation>
+        <translation type="obsolete">mm</translation>
     </message>
     <message>
         <source>in</source>
-        <translation>inç</translation>
+        <translation type="obsolete">inç</translation>
     </message>
     <message>
         <source>p</source>
-        <translation>p</translation>
+        <translation type="obsolete">p</translation>
     </message>
     <message>
         <source>All</source>
-        <translation>Tërë</translation>
+        <translation type="obsolete">Tërë</translation>
+    </message>
+    <message>
+        <source>Copy Here</source>
+        <translation type="unfinished">Kopjo Këtu</translation>
+    </message>
+    <message>
+        <source>Move Here</source>
+        <translation type="unfinished">Zhvendos Këtu</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Anulo</translation>
+    </message>
+    <message>
+        <source>&amp;Paste</source>
+        <translation type="unfinished">&amp;Ngjit</translation>
+    </message>
+    <message>
+        <source>Picture</source>
+        <translation type="unfinished">Pamje</translation>
+    </message>
+    <message>
+        <source>File: </source>
+        <translation type="unfinished">Kartelë:</translation>
+    </message>
+    <message>
+        <source>Original PPI: </source>
+        <translation type="unfinished">PPI Fillestar: </translation>
+    </message>
+    <message>
+        <source>Actual PPI: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Linked Text</source>
+        <translation type="unfinished">Tekst i Lidhur</translation>
+    </message>
+    <message>
+        <source>Text Frame</source>
+        <translation type="unfinished">Kornizë Teksti</translation>
+    </message>
+    <message>
+        <source>Text on a Path</source>
+        <translation type="unfinished">Tekst sipas një Shtegu</translation>
+    </message>
+    <message>
+        <source>Paragraphs: </source>
+        <translation type="unfinished">Paragrafë:</translation>
+    </message>
+    <message>
+        <source>Words: </source>
+        <translation type="unfinished">Fjalë:</translation>
+    </message>
+    <message>
+        <source>Chars: </source>
+        <translation type="unfinished">Gërma:</translation>
+    </message>
+    <message>
+        <source>Print: </source>
+        <translation type="unfinished">Shtyp:</translation>
+    </message>
+    <message>
+        <source>Enabled</source>
+        <translation type="unfinished">Veprues</translation>
+    </message>
+    <message>
+        <source>Disabled</source>
+        <translation type="unfinished">Çaktivizuar</translation>
+    </message>
+    <message>
+        <source>In&amp;fo</source>
+        <translation type="unfinished">Të dhë&amp;na</translation>
+    </message>
+    <message>
+        <source>Preview Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;PDF Options</source>
+        <translation type="unfinished">Mundësi &amp;PDF</translation>
+    </message>
+    <message>
+        <source>Send to La&amp;yer</source>
+        <translation type="unfinished">Dërgo te Sh&amp;tresë</translation>
+    </message>
+    <message>
+        <source>Le&amp;vel</source>
+        <translation type="unfinished">Ni&amp;vel</translation>
+    </message>
+    <message>
+        <source>Conve&amp;rt to</source>
+        <translation type="unfinished">Shn&amp;dërro si </translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Linking Text Frames</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>There is a problem with text frames linking. You are trying to link filled frames or a frame to the same one itself</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation type="unfinished">Kujdes</translation>
+    </message>
+    <message>
+        <source>Do you really want to clear all your Text?</source>
+        <translation type="unfinished">Doni vërtet të pastroni tërë Tekstin tuaj?</translation>
+    </message>
+    <message>
+        <source>Cannot Delete In-Use Item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -19409,140 +24454,171 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>&amp;Anulo</translation>
+        <translation type="obsolete">&amp;Anulo</translation>
+    </message>
+</context>
+<context>
+    <name>ScripterCore</name>
+    <message>
+        <source>Script error</source>
+        <translation type="unfinished">Gabim programthi</translation>
+    </message>
+    <message>
+        <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
+        <translation type="unfinished">Nëse po xhironit një programth zyrtar ju lutemi raportojeni te &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
+    </message>
+    <message>
+        <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
+        <translation type="unfinished">Këtë mesazh e keni edhe në clipboard. Përdorni Ctrl+V për ta hedhur te gjurmues bug-esh.</translation>
+    </message>
+    <message>
+        <source>There was an internal error while trying the command you entered. Details were printed to stderr. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Examine Script</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Python Scripts (*.py)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Setting up the Python plugin failed. Error details were printed to stderr. </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ScripterPreferences</name>
     <message>
         <source>Scribus - Scripter Preferences</source>
-        <translation>Scribus - Parapëlqime Scripter-i</translation>
+        <translation type="obsolete">Scribus - Parapëlqime Scripter-i</translation>
     </message>
     <message>
         <source>Enable Scripter Extensions</source>
-        <translation>Aktivizo Zgjerime Scripter-i</translation>
+        <translation type="obsolete">Aktivizo Zgjerime Scripter-i</translation>
     </message>
     <message>
         <source>Turn on extension scripts and macros</source>
-        <translation>Vëri në punëprogramthet dhe makrot</translation>
+        <translation type="obsolete">Vëri në punëprogramthet dhe makrot</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;Enabling scripter extensions turns on additional scripter functionality including Python macros and the option of loading a Python script at start-up. Turning on this option unlocks the &lt;tt&gt;Load Extension Script&lt;/tt&gt; item in the Script menu.&lt;/p&gt;
 &lt;p&gt;
 Only scripts written to be run as extension scripts should be used with &lt;tt&gt;Load Extension Script&lt;/tt&gt; or as start-up scripts. See the scripter documentation for more details.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;&lt;p&gt;Aktivizimi i zgjerime të programuesit vë në punë funksione shtesë programuesi përfshi makro Python dhe mundësinë e ngarkimit të një programthi Python gjatë fillimit. Duke e bërë veprues këtë mundësi zhbllokohet përbërësi &lt;tt&gt;Ngarko Programth të Jashtëm&lt;/tt&gt; te menuja Programth.&lt;/p&gt;
+        <translation type="obsolete">&lt;qt&gt;&lt;p&gt;Aktivizimi i zgjerime të programuesit vë në punë funksione shtesë programuesi përfshi makro Python dhe mundësinë e ngarkimit të një programthi Python gjatë fillimit. Duke e bërë veprues këtë mundësi zhbllokohet përbërësi &lt;tt&gt;Ngarko Programth të Jashtëm&lt;/tt&gt; te menuja Programth.&lt;/p&gt;
 &lt;p&gt;
 Me &lt;tt&gt;Ngarko Programth të Jashtëm&lt;/tt&gt; ose si programthe fillimi do të duhej të përdoreshin vetëm programthet e shkruajtur të xhirojnë si programthe zgjerim. Shihni dokumentimin e programuesit për më tepër hollësi.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Use a Startup Script</source>
-        <translation>Përdor një Programth Nisjeje</translation>
+        <translation type="obsolete">Përdor një Programth Nisjeje</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;If &lt;tt&gt;Use a Startup Script&lt;/tt&gt; is checked, Scribus will load the script file specified here as an extension script at start-up. It is important that the script be written as an extension script, as if not written carefully it can potentially cause problems.&lt;/p&gt;
 &lt;p&gt;&lt;tt&gt;Use a Startup Script&lt;/tt&gt; will be disabled if scripter extensions are off, as extension scripts cannot be loaded without scripter extensions enabled.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;&lt;p&gt;Nëse &lt;tt&gt;Përdor një Program Nisjeje&lt;/tt&gt; është e zgjedhur, Scribus-i do të ngarkojë kartelën e programthit të treguar këtu si një programth zgjerimi gjatë nisjes. Është e rëndësishme që programthi të jetë shkruajtur si një programth zgjerimi, ngaqë nëse nuk është shkruajtur me kujdes mundet të shkaktojë probleme.&lt;/p&gt;
+        <translation type="obsolete">&lt;qt&gt;&lt;p&gt;Nëse &lt;tt&gt;Përdor një Program Nisjeje&lt;/tt&gt; është e zgjedhur, Scribus-i do të ngarkojë kartelën e programthit të treguar këtu si një programth zgjerimi gjatë nisjes. Është e rëndësishme që programthi të jetë shkruajtur si një programth zgjerimi, ngaqë nëse nuk është shkruajtur me kujdes mundet të shkaktojë probleme.&lt;/p&gt;
 &lt;p&gt;&lt;tt&gt;Përdor një Program Nisjeje&lt;/tt&gt; do të çaktivizohet nëse çaktivizohen zgjerimet e programuesit, ngaqë programthe zgjerimi nuk mund të ngarkohen pa zgjerime programuesi zgjerimesh të aktivizuara.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Browse...</source>
-        <translation>Shfleto...</translation>
+        <translation type="obsolete">Shfleto...</translation>
     </message>
     <message>
         <source>Browse for a new script file</source>
-        <translation>Shfleto për një kartelë programthi të ri</translation>
+        <translation type="obsolete">Shfleto për një kartelë programthi të ri</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Browse for a new script file&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Shfleto për një kartelë programthi të ri&lt;/qt&gt;</translation>
+        <translation type="obsolete">&lt;qt&gt;Shfleto për një kartelë programthi të ri&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>What script file to load at start-up</source>
-        <translation>Cilën kartelë programthi të ngarkoj në nisje</translation>
+        <translation type="obsolete">Cilën kartelë programthi të ngarkoj në nisje</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;The file containing the Python script to run as an extension script at start-up.&lt;/p&gt;
 &lt;p&gt;Note that when this script is run, Scribus has not completely started up and the workspace does not yet exist.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;&lt;p&gt;Kartela përmban një programth Python që duhet xhiruar gjatë nisjes si një programth zgjerimi.&lt;/p&gt;
+        <translation type="obsolete">&lt;qt&gt;&lt;p&gt;Kartela përmban një programth Python që duhet xhiruar gjatë nisjes si një programth zgjerimi.&lt;/p&gt;
 &lt;p&gt;Mbani shënim që kur ky programth xhirohet, Scribus-i nuk ka përfunduar ende nisjen dhe hapësira e punës nuk ekziston ende.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Script File:</source>
-        <translation>Kartelë Programthi:</translation>
+        <translation type="obsolete">Kartelë Programthi:</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>&amp;Anulo</translation>
+        <translation type="obsolete">&amp;Anulo</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation>Alt+C</translation>
+        <translation type="obsolete">Alt+C</translation>
     </message>
     <message>
         <source>Close without saving changes</source>
-        <translation>Mbyll pa ruajtur ndryshime</translation>
+        <translation type="obsolete">Mbyll pa ruajtur ndryshime</translation>
     </message>
     <message>
         <source>&amp;Ok</source>
-        <translation>&amp;Ok</translation>
+        <translation type="obsolete">&amp;Ok</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation>Alt+O</translation>
+        <translation type="obsolete">Alt+O</translation>
     </message>
     <message>
         <source>Save changes and close</source>
-        <translation>Ruaj ndryshime dhe mbyll</translation>
+        <translation type="obsolete">Ruaj ndryshime dhe mbyll</translation>
     </message>
     <message>
         <source>Advanced Options</source>
-        <translation>Mundësi të Mëtejshme</translation>
+        <translation type="obsolete">Mundësi të Mëtejshme</translation>
     </message>
     <message>
         <source>Import All Names at Startup</source>
-        <translation>Importo Tërë Emrat gjatë Nisjes</translation>
+        <translation type="obsolete">Importo Tërë Emrat gjatë Nisjes</translation>
     </message>
     <message>
         <source>Run &apos;from scribus import *&apos; in the script console at start-up</source>
-        <translation>Xhiro  gjatë nisjes &apos;from scribus import *&apos; te konsol programthesh</translation>
+        <translation type="obsolete">Xhiro  gjatë nisjes &apos;from scribus import *&apos; te konsol programthesh</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Import All Names at Startup&lt;/tt&gt; is an advanced option. You should probably leave it checked unless you have read the documentation and know what you are doing.&lt;/p&gt;
 &lt;p&gt;Unchecking this option will prevent the scripter from running its usual &lt;tt&gt;from scribus import *&lt;/tt&gt; command when it initializes the main interpreter (used for the script console and extension scripts) at start-up.&lt;/p&gt;
 &lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Importo Tërë Emrat gjatë Nisjes&lt;/tt&gt; është një mundësi e përparuar. Mbase do të duhej ta lini të shenjuar nëse nuk keni lexuar dokumentimin dhe dini se çfarë po bëni.&lt;/p&gt;
+        <translation type="obsolete">&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Importo Tërë Emrat gjatë Nisjes&lt;/tt&gt; është një mundësi e përparuar. Mbase do të duhej ta lini të shenjuar nëse nuk keni lexuar dokumentimin dhe dini se çfarë po bëni.&lt;/p&gt;
 &lt;p&gt;Çshenjimi i kësaj mundësie do të pengojë programuesin të xhirojë urdhrin e vet të zakonshëm &lt;tt&gt;from scribus import *&lt;/tt&gt; kur përgatit interpretuesin kryesor (e përdorur për konsol programthesh dhe programthe zgjerimei) gjatë nisjes.&lt;/p&gt;
 &lt;p&gt;Kjo mundësi nuk ka veprim para se të riniset Scribus-i.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Enable Legacy Name Aliases</source>
-        <translation>Aktivizo Aliase të Dikurshëm Emrash</translation>
+        <translation type="obsolete">Aktivizo Aliase të Dikurshëm Emrash</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Enable the use of OldStyle function names&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Aktivizo përdorimin e emravë të funksioneve OldStyle&lt;/qt&gt;</translation>
+        <translation type="obsolete">&lt;qt&gt;Aktivizo përdorimin e emravë të funksioneve OldStyle&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Enable Legacy Aliases&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
 &lt;p&gt;If checked, this option will cause the scripter to create a large number of function and constant name aliases for 1.2.0 script compatibility. It defaults to checked.&lt;/p&gt;
 &lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Aktivizo Aliase të Dikurshëm Emrash&lt;/tt&gt; është një mundësi e mëtejshme. Mbase do të duhej ta lini siç është.&lt;/p&gt;
+        <translation type="obsolete">&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Aktivizo Aliase të Dikurshëm Emrash&lt;/tt&gt; është një mundësi e mëtejshme. Mbase do të duhej ta lini siç është.&lt;/p&gt;
 &lt;p&gt;Në qoftë e shenjuar, kjo mundësi do të bëjë që programuesi të krijojë një numër të madh aliasesh emrash funksionesh dhe konstantesh për përputhshmëri me programthe 1.2.0. Parazgjedhja është shenjimi.&lt;/p&gt;
 &lt;p&gt;Kjo mundësi nuk ka veprim para se të rinisset Scribus-i.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Use Fake Stdin</source>
-        <translation>Përdor Stdin të Rremë</translation>
+        <translation type="obsolete">Përdor Stdin të Rremë</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Replace sys.stdin with a fake file to prevent Scribus hanging when a script tries to read from stdin.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Zëvendëso sys.stdin me një kartelë të rreme për të parandaluar ngecjen e Scribus-it kur një programth përpiqet të lexojë prej stdin.&lt;/qt&gt;</translation>
+        <translation type="obsolete">&lt;qt&gt;Zëvendëso sys.stdin me një kartelë të rreme për të parandaluar ngecjen e Scribus-it kur një programth përpiqet të lexojë prej stdin.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Use Fake Stdin&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
 &lt;p&gt;Normally, scribus will provide Python with a fake file object for &lt;tt&gt;sys.stdin&lt;/tt&gt;, so that reads from stdin always return an empty string. If the real &lt;tt&gt;sys.stdin&lt;/tt&gt; is left in place, scripts that try to read from it will block - and in turn block scribus&apos;s execution, making the app appear to hang - until input arrives on stdin. It&apos;s unusual for GUI apps to expect anything on stdin, so mostly users will think scribus has crashed.&lt;/p&gt;
 &lt;p&gt;You can disable this option if you want to accept input on stdin. Generally you should use &lt;tt&gt;os.popen&lt;/tt&gt; to make a pipe instead, or use some other input mechanism, but this option is here just in case.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Përdor Stdin të Rremë&lt;/tt&gt; është një mundësi e mëtejshme. Mbaset duhet ta lini siç është.&lt;/p&gt;
+        <translation type="obsolete">&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Përdor Stdin të Rremë&lt;/tt&gt; është një mundësi e mëtejshme. Mbaset duhet ta lini siç është.&lt;/p&gt;
 &lt;p&gt;Normalisht, Scribus-i do t&apos;i ofrojë Python-it një objekt të rremë kartele për &lt;tt&gt;sys.stdin&lt;/tt&gt;, që leximet prej stdin të kthejnë përherë një varg bosh. Nëse lihet &lt;tt&gt;sys.stdin&lt;/tt&gt; i vërtetë, programthet që përpiqen të lexojnë prej tij do të bllokohen - e kështu do të bllokojnë edhe punën e Scribus-it, duke bërë që zbatimi i tërë të duket sikur ngeci - deri sa të ketë futje në stdin. Është e pazakontë për zbatime GUI të presin diçka në stdin, kështu që shumica e përdoruesve do të mendojnë se Scribus-i u vithis.&lt;/p&gt;
 &lt;p&gt;Mund ta çaktivizoni këtë mundësi nëse doni të pranohen futje prej stdin. Përgjithësisht më mirë do të duhej të përdornit &lt;tt&gt;os.popen&lt;/tt&gt; për të pasur një kanal lidhës, ose përdorni ndonjë mekanizëm tjetër futjesh, por kjo mundësi mbetet këtu për çdo rast.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
@@ -19558,7 +24634,11 @@ Me &lt;tt&gt;Ngarko Programth të Jashtëm&lt;/tt&gt; ose si programthe fillimi 
     <name>SeView</name>
     <message>
         <source>Show Template Names</source>
-        <translation>Shfaq Emra Stampe</translation>
+        <translation type="obsolete">Shfaq Emra Stampe</translation>
+    </message>
+    <message>
+        <source>Show Master Page Names</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -19601,11 +24681,11 @@ Me &lt;tt&gt;Ngarko Programth të Jashtëm&lt;/tt&gt; ose si programthe fillimi 
     </message>
     <message>
         <source>Stroke Color</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ngjyrë sfondi:</translation>
     </message>
     <message>
         <source>Stroke Shade</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tejdukshmëri me nuancë (hije)</translation>
     </message>
     <message>
         <source>Left</source>
@@ -19669,7 +24749,7 @@ Me &lt;tt&gt;Ngarko Programth të Jashtëm&lt;/tt&gt; ose si programthe fillimi 
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>C&amp;lear</source>
@@ -19684,7 +24764,7 @@ Me &lt;tt&gt;Ngarko Programth të Jashtëm&lt;/tt&gt; ose si programthe fillimi 
     </message>
     <message>
         <source>Available Templates:</source>
-        <translation>Stampa të Mundshme:</translation>
+        <translation type="obsolete">Stampa të Mundshme:</translation>
     </message>
     <message>
         <source>Document Pages:</source>
@@ -19696,25 +24776,45 @@ Me &lt;tt&gt;Ngarko Programth të Jashtëm&lt;/tt&gt; ose si programthe fillimi 
     </message>
     <message>
         <source>Left Page first</source>
-        <translation>Faqja Majtas e Para</translation>
+        <translation type="obsolete">Faqja Majtas e Para</translation>
     </message>
     <message>
         <source>Drag Pages or Template Pages onto the Trashbin to delete them.</source>
-        <translation>Hiqni Faqe apo Stampa Faqesh zvarrë te koshi i Hedhurinave për t&apos;i fshirë.</translation>
+        <translation type="obsolete">Hiqni Faqe apo Stampa Faqesh zvarrë te koshi i Hedhurinave për t&apos;i fshirë.</translation>
     </message>
     <message>
         <source>Previews all the pages of your document.</source>
-        <translation>Parasheh tërë faqet e dokumentit tuaj.</translation>
+        <translation type="obsolete">Parasheh tërë faqet e dokumentit tuaj.</translation>
     </message>
     <message>
         <source>Here are all your Templates, to create a new Page
 drag a Template to the Pageview below.</source>
-        <translation>Këtu keni tërë Stampat tuaja, për të krijuar Faqe të re(new line)
+        <translation type="obsolete">Këtu keni tërë Stampat tuaja, për të krijuar Faqe të re(new line)
 tërhiqni një Stampë te parja e Faqes më poshtë.</translation>
     </message>
     <message>
         <source>Normal</source>
         <translation>Normale</translation>
+    </message>
+    <message>
+        <source>Drag pages or master pages onto the trashbin to delete them</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Previews all the pages of your document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Here are all your master pages. To create a new page, drag a master page to the page view below</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Available Master Pages:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left Page First</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -19741,11 +24841,11 @@ tërhiqni një Stampë te parja e Faqes më poshtë.</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>&amp;Anulo</translation>
+        <translation type="obsolete">&amp;Anulo</translation>
     </message>
 </context>
 <context>
@@ -19764,10 +24864,29 @@ tërhiqni një Stampë te parja e Faqes më poshtë.</translation>
     </message>
 </context>
 <context>
+    <name>ShadowValues</name>
+    <message>
+        <source> %</source>
+        <translation type="unfinished"> %</translation>
+    </message>
+    <message>
+        <source>X-Offset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Y-Offset</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SideBar</name>
     <message>
         <source>No Style</source>
         <translation>Pa Stil</translation>
+    </message>
+    <message>
+        <source>Edit Styles...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -19785,7 +24904,7 @@ tërhiqni një Stampë te parja e Faqes më poshtë.</translation>
     </message>
     <message>
         <source>&amp;Append</source>
-        <translation>&amp;Vini</translation>
+        <translation type="obsolete">&amp;Vini</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -19805,15 +24924,15 @@ tërhiqni një Stampë te parja e Faqes më poshtë.</translation>
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation>&amp;Ruaj</translation>
+        <translation type="obsolete">&amp;Ruaj</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>&amp;Anulo</translation>
+        <translation type="obsolete">&amp;Anulo</translation>
     </message>
     <message>
         <source>Copy of %1</source>
@@ -19854,6 +24973,10 @@ tërhiqni një Stampë te parja e Faqes më poshtë.</translation>
     <message>
         <source>Do you really want to delete this Style?</source>
         <translation>Doni vërtet të fshini këtë Stil?</translation>
+    </message>
+    <message>
+        <source>&amp;Import</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -19916,7 +25039,7 @@ tërhiqni një Stampë te parja e Faqes më poshtë.</translation>
     </message>
     <message>
         <source>&amp;Insert Special...</source>
-        <translation>&amp;Fut Special...</translation>
+        <translation type="obsolete">&amp;Fut Special...</translation>
     </message>
     <message>
         <source>&amp;Edit Styles...</source>
@@ -19956,7 +25079,7 @@ tërhiqni një Stampë te parja e Faqes më poshtë.</translation>
     </message>
     <message>
         <source>Clear all Text</source>
-        <translation>Pastro tërë Tekstet</translation>
+        <translation type="obsolete">Pastro tërë Tekstet</translation>
     </message>
     <message>
         <source>Load Text from File</source>
@@ -20024,11 +25147,11 @@ tërhiqni një Stampë te parja e Faqes më poshtë.</translation>
     </message>
     <message>
         <source>Do you really want to lose all your Changes?</source>
-        <translation>Doni vërtet të humbasin tërë Ndryshimet tuaj?</translation>
+        <translation type="obsolete">Doni vërtet të humbasin tërë Ndryshimet tuaj?</translation>
     </message>
     <message>
         <source>Do you really want to clear all your Text?</source>
-        <translation>Doni vërtet të pastroni tërë Tekstin tuaj?</translation>
+        <translation type="obsolete">Doni vërtet të pastroni tërë Tekstin tuaj?</translation>
     </message>
     <message>
         <source>Open</source>
@@ -20045,6 +25168,45 @@ tërhiqni një Stampë te parja e Faqes më poshtë.</translation>
     <message>
         <source>&amp;Smart text selection</source>
         <translation>Përzgjedhje e &amp;mençur teksti</translation>
+    </message>
+    <message>
+        <source>&amp;Insert Glyph...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clear All Text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Story Editor - %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do you really want to lose all your changes?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do you really want to clear all your text?</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>StrikeValues</name>
+    <message>
+        <source>Auto</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation type="unfinished"> %</translation>
+    </message>
+    <message>
+        <source>Displacement</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Linewidth</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -20071,7 +25233,23 @@ tërhiqni një Stampë te parja e Faqes më poshtë.</translation>
     </message>
     <message>
         <source>Outline Text</source>
-        <translation>Jashtëvijëzo Tekst</translation>
+        <translation type="obsolete">Jashtëvijëzo Tekst</translation>
+    </message>
+    <message>
+        <source>Underline Words Only</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Caps</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outline</source>
+        <translation type="unfinished">Jashtëvijëzo</translation>
+    </message>
+    <message>
+        <source>Shadow</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -20082,26 +25260,26 @@ tërhiqni një Stampë te parja e Faqes më poshtë.</translation>
     </message>
     <message>
         <source>Update paragraph styles</source>
-        <translation>Përditëso stile paragrafësh</translation>
+        <translation type="obsolete">Përditëso stile paragrafësh</translation>
     </message>
     <message>
         <source>If a paragraph style already exists with the same name as the current
 OpenOffice.org document&apos;s paragraph, should the style in Scribus be
 edited to match the one being imported, or left untouched</source>
-        <translation>Nëse një stil paragrafi me të njëjtin numër si paragrafi i dokumentit OpenOffice.org
+        <translation type="obsolete">Nëse një stil paragrafi me të njëjtin numër si paragrafi i dokumentit OpenOffice.org
 ekziston tashmë, stili në Scribus do të duhej të të përpunohej për përputhje me
 atë të importuar, ose të lihet i paprekur</translation>
     </message>
     <message>
         <source>Pack paragraph styles</source>
-        <translation>Paketo stile pargrafësh</translation>
+        <translation type="obsolete">Paketo stile pargrafësh</translation>
     </message>
     <message>
         <source>Group paragraph styles by attributes.
 Less paragraph styles but controlling them may be hard.
 Should be used if it is known that text must not be edited
 after importing.</source>
-        <translation>Grupo stile paragrafesh sipas atributesh.
+        <translation type="obsolete">Grupo stile paragrafesh sipas atributesh.
 Më pak stile paragrafesh por kontrolli i tyre mund të jetë i vështirë.
 Do të duhej të përdorej nëse dihet që teksti nuk duhet përpunuar
 pas përpunimi.</translation>
@@ -20113,7 +25291,7 @@ pas përpunimi.</translation>
     <message>
         <source>Should importer add the name of the document
 on front of the paragraph style name in Scribus</source>
-        <translation>Nëse do të duhej që importuesi të shtonte emrin e dokumentit
+        <translation type="obsolete">Nëse do të duhej që importuesi të shtonte emrin e dokumentit
 në ballë të emrit të stilit të paragrafit në Scribus</translation>
     </message>
     <message>
@@ -20124,13 +25302,330 @@ në ballë të emrit të stilit të paragrafit në Scribus</translation>
         <source>Should the importer always use currently
 set value when importing OpenOffice.org document and
 never ask your confirmation again</source>
-        <translation>Nëse do të duhej që importuesi të përdorë përherë vlerën
+        <translation type="obsolete">Nëse do të duhej që importuesi të përdorë përherë vlerën
 e vendosur për çastin kur importon dokument OpenOffice.org dhe
 të mos kërkojë ripohimin tuaj sërish</translation>
     </message>
     <message>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+    <message>
+        <source>Overwrite Paragraph Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enabling this will overwrite existing styles in the current Scribus document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Merge Paragraph Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document&apos;s styles are named differently.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Prepend the document name to the paragraph style name in Scribus.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TOCIndexPrefs</name>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Asnjë</translation>
+    </message>
+    <message>
+        <source>At the beginning</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>At the end</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Not Shown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Table of Contents and Indexes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Table Of Contents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Add</source>
+        <translation type="unfinished">&amp;Shto</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation type="unfinished">Alt+A</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+D</source>
+        <translation type="unfinished">Alt+D</translation>
+    </message>
+    <message>
+        <source>The frame the table of contents will be placed into</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page Numbers Placed:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Item Attribute Name:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The Item Attribute that will be set on frames used as a basis for creation of the entries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Place page numbers of the entries at the beginning or the end of the line, or not at all</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List Non-Printing Entries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Include frames that are set to not print as well</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The paragraph style used for the entry lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Paragraph Style:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Destination Frame:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Inde&amp;x</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TabCheckDoc</name>
+    <message>
+        <source>Ignore all errors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatic check before printing or exporting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Check for missing glyphs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Check for objects not on a page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Check for overflow in text frames</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Check for transparencies used</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Check for missing images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Check image resolution</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lowest allowed resolution</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> dpi</source>
+        <translation type="unfinished"> dpi</translation>
+    </message>
+    <message>
+        <source>Check for placed PDF Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Check for PDF Annotations and Fields</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add Profile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove Profile</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TabGuides</name>
+    <message>
+        <source>Common Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Placing in Documents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>In the Background</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>In the Foreground</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Snapping</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Snap Distance:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grab Radius:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> px</source>
+        <translation type="unfinished">px</translation>
+    </message>
+    <message>
+        <source>Show Guides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color:</source>
+        <translation type="unfinished">Ngjyrë:</translation>
+    </message>
+    <message>
+        <source>Show Margins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Page Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Major Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spacing:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Minor Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Baseline Grid</source>
+        <translation type="unfinished">Pamjet në korniza pamjesh ripërmasohen sa madhësia e kornizës</translation>
+    </message>
+    <message>
+        <source>Baseline Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Baseline &amp;Grid:</source>
+        <translation type="unfinished">Shfaq &amp;Rrjetë</translation>
+    </message>
+    <message>
+        <source>Baseline &amp;Offset:</source>
+        <translation type="unfinished">Degëzim Vertical</translation>
+    </message>
+    <message>
+        <source>Guides are not visible through objects on the page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Guides are visible above all objects on the page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the minor grid lines</source>
+        <translation type="unfinished">Hapësirë midis vijash rrjete të vogël</translation>
+    </message>
+    <message>
+        <source>Distance between the major grid lines</source>
+        <translation type="unfinished">Hapësirë midis vijash rrjete të madhevogël</translation>
+    </message>
+    <message>
+        <source>Distance within which an object will snap to your placed guides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
+        <translation type="unfinished">Rrezja e zonës ku Scribus-i do t&apos;ju lejojë të mbërtheni veshët e një objekti</translation>
+    </message>
+    <message>
+        <source>Color of the minor grid lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of the major grid lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of the guide lines you insert</source>
+        <translation type="unfinished">Ngjyrë e vijave udhëzuese që fusni</translation>
+    </message>
+    <message>
+        <source>Color for the margin lines</source>
+        <translation type="unfinished">Ngjyrë për vija mënjanash</translation>
+    </message>
+    <message>
+        <source>Color for the baseline grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the basegrid on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the lines of the baseline grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance from the top of the page for the first baseline</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the gridlines on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the guides on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the margins on or off</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -20141,11 +25636,1061 @@ të mos kërkojë ripohimin tuaj sërish</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>&amp;Anulo</translation>
+        <translation type="obsolete">&amp;Anulo</translation>
+    </message>
+</context>
+<context>
+    <name>TabPDFOptions</name>
+    <message>
+        <source>Export Range</source>
+        <translation type="unfinished">Eksporto Interval</translation>
+    </message>
+    <message>
+        <source>&amp;All Pages</source>
+        <translation type="unfinished">&amp;Tërë Faqet</translation>
+    </message>
+    <message>
+        <source>C&amp;hoose Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Rotation:</source>
+        <translation type="unfinished">&amp;Rrotullim:</translation>
+    </message>
+    <message>
+        <source>File Options</source>
+        <translation type="unfinished">Mundësi Kartele</translation>
+    </message>
+    <message>
+        <source>Compatibilit&amp;y:</source>
+        <translation type="unfinished">Përp&amp;uthshmëri:</translation>
+    </message>
+    <message>
+        <source>&amp;Binding:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left Margin</source>
+        <translation type="unfinished">Mënjanë Majtas</translation>
+    </message>
+    <message>
+        <source>Right Margin</source>
+        <translation type="unfinished">Mënjanë Djathtas</translation>
+    </message>
+    <message>
+        <source>Generate &amp;Thumbnails</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save &amp;Linked Text Frames as PDF Articles</source>
+        <translation type="unfinished">Ruaj Korniza të &amp;Lidhura Tekstesh si Artikuj PDF</translation>
+    </message>
+    <message>
+        <source>&amp;Include Bookmarks</source>
+        <translation type="unfinished">&amp;Përfshi Faqerojtësa</translation>
+    </message>
+    <message>
+        <source>Include Layers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> dpi</source>
+        <translation type="unfinished"> dpi</translation>
+    </message>
+    <message>
+        <source>&amp;Resolution for EPS Graphics:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Com&amp;press Text and Vector Graphics</source>
+        <translation type="unfinished">N&amp;gjesh Tekst dhe Grafikë Vektorialë</translation>
+    </message>
+    <message>
+        <source>Image Settings</source>
+        <translation type="unfinished">Rregullime Pamjeje</translation>
+    </message>
+    <message>
+        <source>Automatic</source>
+        <translation type="unfinished">Automatike</translation>
+    </message>
+    <message>
+        <source>JPEG</source>
+        <translation type="unfinished">JPEG</translation>
+    </message>
+    <message>
+        <source>Zip</source>
+        <translation type="unfinished">Zip</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Asnjë</translation>
+    </message>
+    <message>
+        <source>&amp;Method:</source>
+        <translation type="unfinished">&amp;Metodë:</translation>
+    </message>
+    <message>
+        <source>&amp;Quality:</source>
+        <translation type="unfinished">&amp;Cilësi:</translation>
+    </message>
+    <message>
+        <source>Maximum</source>
+        <translation type="unfinished">Më i madhi</translation>
+    </message>
+    <message>
+        <source>High</source>
+        <translation type="unfinished">Lartë</translation>
+    </message>
+    <message>
+        <source>Medium</source>
+        <translation type="unfinished">Mesatare</translation>
+    </message>
+    <message>
+        <source>Low</source>
+        <translation type="unfinished">Ulët</translation>
+    </message>
+    <message>
+        <source>Minimum</source>
+        <translation type="unfinished">Më i vogli</translation>
+    </message>
+    <message>
+        <source>Resample Images to:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;General</source>
+        <translation type="unfinished">&amp;Të përgjithshme</translation>
+    </message>
+    <message>
+        <source>&amp;Embed all Fonts</source>
+        <translation type="unfinished">&amp;Trupëzo tërë Gërmat</translation>
+    </message>
+    <message>
+        <source>&amp;Subset all Fonts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Embedding</source>
+        <translation type="unfinished">Po trupëzoj</translation>
+    </message>
+    <message>
+        <source>Available Fonts:</source>
+        <translation type="unfinished">Gërma të Mundshme:</translation>
+    </message>
+    <message>
+        <source>&amp;&gt;&gt;</source>
+        <translation type="unfinished">&amp;&gt;&gt;</translation>
+    </message>
+    <message>
+        <source>&amp;&lt;&lt;</source>
+        <translation type="unfinished">&amp;&lt;&lt;</translation>
+    </message>
+    <message>
+        <source>Fonts to embed:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fonts to subset:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Fonts</source>
+        <translation type="unfinished">&amp;Gërma</translation>
+    </message>
+    <message>
+        <source>Enable &amp;Presentation Effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page</source>
+        <translation type="unfinished">Faqe</translation>
+    </message>
+    <message>
+        <source>Show Page Pre&amp;views</source>
+        <translation type="unfinished">Shfaq P&amp;araparje Faqesh</translation>
+    </message>
+    <message>
+        <source>Effects</source>
+        <translation type="unfinished">Efekte</translation>
+    </message>
+    <message>
+        <source>&amp;Display Duration:</source>
+        <translation type="unfinished">&amp;Shfaq Kohëzgjatje:</translation>
+    </message>
+    <message>
+        <source>Effec&amp;t Duration:</source>
+        <translation type="unfinished">Kohëzgjatje Efek&amp;ti:</translation>
+    </message>
+    <message>
+        <source>Effect T&amp;ype:</source>
+        <translation type="unfinished">T&amp;ip Efekti:</translation>
+    </message>
+    <message>
+        <source>&amp;Moving Lines:</source>
+        <translation type="unfinished">Po zh&amp;vendos Rreshta:</translation>
+    </message>
+    <message>
+        <source>F&amp;rom the:</source>
+        <translation type="unfinished">P&amp;rej:</translation>
+    </message>
+    <message>
+        <source>D&amp;irection:</source>
+        <translation type="unfinished">Drejt&amp;im:</translation>
+    </message>
+    <message>
+        <source> sec</source>
+        <translation type="unfinished">sek</translation>
+    </message>
+    <message>
+        <source>No Effect</source>
+        <translation type="unfinished">Pa Efekt</translation>
+    </message>
+    <message>
+        <source>Blinds</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Box</source>
+        <translation type="unfinished">Kuti</translation>
+    </message>
+    <message>
+        <source>Dissolve</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Glitter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Split</source>
+        <translation type="unfinished">Ndaj</translation>
+    </message>
+    <message>
+        <source>Wipe</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Horizontal</source>
+        <translation type="unfinished">Horizontalisht</translation>
+    </message>
+    <message>
+        <source>Vertical</source>
+        <translation type="unfinished">Vertikalisht</translation>
+    </message>
+    <message>
+        <source>Inside</source>
+        <translation type="unfinished">Brenda</translation>
+    </message>
+    <message>
+        <source>Outside</source>
+        <translation type="unfinished">Jashtë</translation>
+    </message>
+    <message>
+        <source>Left to Right</source>
+        <translation type="unfinished">Nga e Majta në të Djathtë</translation>
+    </message>
+    <message>
+        <source>Top to Bottom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bottom to Top</source>
+        <translation type="unfinished">Nga Poshtë Sipër</translation>
+    </message>
+    <message>
+        <source>Right to Left</source>
+        <translation type="unfinished">Nga e Djathta në të Majtë</translation>
+    </message>
+    <message>
+        <source>Top-left to Bottom-Right</source>
+        <translation type="unfinished">Nga Sipër-majtas Poshtë-djathtas</translation>
+    </message>
+    <message>
+        <source>&amp;Apply Effect on all Pages</source>
+        <translation type="unfinished">&amp;Zbato Efekt te tërë Faqet</translation>
+    </message>
+    <message>
+        <source>E&amp;xtras</source>
+        <translation type="unfinished">E&amp;kstra</translation>
+    </message>
+    <message>
+        <source>&amp;Use Encryption</source>
+        <translation type="unfinished">&amp;Përdor Kodim</translation>
+    </message>
+    <message>
+        <source>Passwords</source>
+        <translation type="unfinished">Fjalëkalime</translation>
+    </message>
+    <message>
+        <source>&amp;User:</source>
+        <translation type="unfinished">&amp;Përdorues:</translation>
+    </message>
+    <message>
+        <source>&amp;Owner:</source>
+        <translation type="unfinished">Pr&amp;onar:</translation>
+    </message>
+    <message>
+        <source>Settings</source>
+        <translation type="unfinished">Rregullime</translation>
+    </message>
+    <message>
+        <source>Allow &amp;Printing the Document</source>
+        <translation type="unfinished">Lejo &amp;Shtypjen e Dokumentit</translation>
+    </message>
+    <message>
+        <source>Allow &amp;Changing the Document</source>
+        <translation type="unfinished">Lejo &amp;Ndryshimin e Dokumentit</translation>
+    </message>
+    <message>
+        <source>Allow Cop&amp;ying Text and Graphics</source>
+        <translation type="unfinished">Lejo Kop&amp;jim Tekstesh dhe Grafikash</translation>
+    </message>
+    <message>
+        <source>Allow Adding &amp;Annotations and Fields</source>
+        <translation type="unfinished">Lejo Shtim Shëni&amp;mesh dhe Fushash</translation>
+    </message>
+    <message>
+        <source>S&amp;ecurity</source>
+        <translation type="unfinished">S&amp;iguri</translation>
+    </message>
+    <message>
+        <source>General</source>
+        <translation type="unfinished">Të përgjithshme</translation>
+    </message>
+    <message>
+        <source>Output &amp;Intended For:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Screen / Web</source>
+        <translation type="unfinished">Ekran / Web</translation>
+    </message>
+    <message>
+        <source>Printer</source>
+        <translation type="unfinished">Shtypës</translation>
+    </message>
+    <message>
+        <source>Grayscale</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Use Custom Rendering Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rendering Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fre&amp;quency:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Angle:</source>
+        <translation type="unfinished">&amp;Kënd:</translation>
+    </message>
+    <message>
+        <source>S&amp;pot Function:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Simple Dot</source>
+        <translation type="unfinished">Pikë e Thjeshtë</translation>
+    </message>
+    <message>
+        <source>Line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Round</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ellipse</source>
+        <translation type="unfinished">Elips</translation>
+    </message>
+    <message>
+        <source>Solid Colors:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use ICC Profile</source>
+        <translation type="unfinished">Përdor Profil ICC</translation>
+    </message>
+    <message>
+        <source>Profile:</source>
+        <translation type="unfinished">Profil:</translation>
+    </message>
+    <message>
+        <source>Rendering-Intent:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Perceptual</source>
+        <translation type="unfinished">Perceptual</translation>
+    </message>
+    <message>
+        <source>Relative Colorimetric</source>
+        <translation type="unfinished">Kolorimetrik Relativ</translation>
+    </message>
+    <message>
+        <source>Saturation</source>
+        <translation type="unfinished">Ngopje</translation>
+    </message>
+    <message>
+        <source>Absolute Colorimetric</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images:</source>
+        <translation type="unfinished">Pamje:</translation>
+    </message>
+    <message>
+        <source>Don&apos;t use embedded ICC profiles</source>
+        <translation type="unfinished">Mos përdor profile ICC të trupëzuar</translation>
+    </message>
+    <message>
+        <source>C&amp;olor</source>
+        <translation type="unfinished">Ngj&amp;yrë</translation>
+    </message>
+    <message>
+        <source>PDF/X-3 Output Intent</source>
+        <translation type="unfinished">Ruajtje përfundimesh e suksesshme</translation>
+    </message>
+    <message>
+        <source>&amp;Info String:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Output &amp;Profile:</source>
+        <translation type="unfinished">Profil Për&amp;fundimesh:</translation>
+    </message>
+    <message>
+        <source>Trim Box</source>
+        <translation type="unfinished">Listë Kuti</translation>
+    </message>
+    <message>
+        <source>PDF/X-&amp;3</source>
+        <translation type="unfinished">PDF/X-&amp;3</translation>
+    </message>
+    <message>
+        <source>Embed fonts into the PDF. Embedding the fonts
+will preserve the layout and appearance of your document.</source>
+        <translation type="unfinished">Trupëzo gërma te PDF-ja. Trupëzimi i gërmave(new line)
+do të ruajë skemën dhe dukjen e dokumentit tuaj.</translation>
+    </message>
+    <message>
+        <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; in full screen mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show page previews of each page listed above.</source>
+        <translation type="unfinished">Shfaq paraparje faqeje për secilën nga faqet e listuara më sipër. </translation>
+    </message>
+    <message>
+        <source>Length of time the page is shown before the presentation starts on the selected page.</source>
+        <translation type="unfinished">Koha gjatë së cilës tregohet faqja para se të nisë paraqitja në faqen e përzgjedhur.</translation>
+    </message>
+    <message>
+        <source>Length of time the effect runs.
+A shorter time will speed up the effect, a longer one will slow it down.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type of the display effect.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Direction of the effect of moving lines for the split and blind effects.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Starting position for the box and split effects.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Direction of the glitter or wipe effects.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply the selected effect to all pages.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export all pages to PDF</source>
+        <translation type="unfinished">Eksporto tërë faqet si PDF</translation>
+    </message>
+    <message>
+        <source>Export a range of pages to PDF</source>
+        <translation type="unfinished">Eksporto interval faqesh si PDF</translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where
+a token can be * for all the pages, 1-5 for
+a range of pages or a single page number.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Determines the PDF compatibility.
+The default is PDF 1.3 which gives the widest compatibility.
+Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption.
+PDF/X-3 is for exporting the PDF, when you want color managed RGB for commercial printing
+ and is selectable when you have activated color management. 
+Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Determines the binding of pages in the PDF. Unless you know
+you need to change it leave the default choice - Left.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generates thumbnails of each page in the PDF.
+Some viewers can use the thumbnails for navigation.</source>
+        <translation type="unfinished">Prodhon figurëza për çdo faqe të PDF-së.(new line)
+Disa parësa mund të përdorin figurëza për lundrim.</translation>
+    </message>
+    <message>
+        <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
+        <translation type="unfinished">Prodho Artikuj PDF, çka është e dobishme për lundrim artikujsh në një PDF.</translation>
+    </message>
+    <message>
+        <source>Layers in your document are exported to the PDF
+Only available if PDF 1.5 is choosen.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Embed the bookmarks you created in your document.
+These are useful for navigating long PDF documents.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export resolution of text and vector graphics.
+This does not affect the resolution of bitmap images like photos.</source>
+        <translation type="unfinished">Eksporto qartësi teksti dhe grafikësh vektorialë.(new line)
+Kjo nuk prek qartësinë e pamjeve bitmap, si fotot p.sh.</translation>
+    </message>
+    <message>
+        <source>Enable lossless compression of text and graphics.
+Unless you have a reason, leave this checked. This reduces PDF size.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
+        <translation type="unfinished">Shkallë ngjeshjeje: Më e ulta (25%), E ulët (50%), E mesme (75%), E lartë (85%), Më e larta (95%)</translation>
+    </message>
+    <message>
+        <source>Re-sample your bitmap images to the selected DPI.
+Leaving this unchecked will render them at their native resolution.
+This can increase memory usage and slow down export.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DPI (Dots Per Inch) for image export.</source>
+        <translation type="unfinished">DPI (Pika për Inç) për eksport pamjesh.</translation>
+    </message>
+    <message>
+        <source>Enable the security features in your exported PDF.
+If you selected PDF 1.3, the PDF will be protected by 40 bit encryption.
+If you selected PDF 1.4, the PDF will be protected by 128 bit encryption.
+Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose a master password which enables or disables all the
+security features in your exported PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose a password for users to be able to read your PDF.</source>
+        <translation type="unfinished">Zgjidhni një fjalëkalim i cili t&apos;u lejojë përdoruesve të lexojnë PDF-të tuaja.</translation>
+    </message>
+    <message>
+        <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
+        <translation type="unfinished">Lejo shtypjen e PDF-së. Nëse nuk shenjohet, parandalohet shtypja.</translation>
+    </message>
+    <message>
+        <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
+        <translation type="unfinished">Lejo ndryshimin e PDF-së. Nëse nuk shenjohet, parandalohet ndryshimi i PDF-së.</translation>
+    </message>
+    <message>
+        <source>Allow copying of text or graphics from the PDF. 
+If un-checked, text and graphics cannot be copied.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow adding annotations and fields to the PDF. 
+If un-checked, editing annotations and fileds is prevented.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color model for the output of your PDF.
+Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets.
+Choose Printer when printing to a true 4 color CMYK printer.</source>
+        <translation type="unfinished">Model ngjyre për përfundimin e PDF-së tuaj.(new line)
+Zgjidhni Ekran/Web për PDF që përdoren për shfaqje në ekran dhe për shtypje në shtypësa inkjet të zakonshëm.(new line)
+Zgjidhni Shtypës kur shtypet vërtet me një shtypës 4 ngjyrësh CMYK.</translation>
+    </message>
+    <message>
+        <source>This is an advanced setting which is not enabled by default. This should only be enabled
+when specifically requested by your printer and they have given you the exact details needed.
+Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Embed a color profile for solid colors</source>
+        <translation type="unfinished">Trupëzo një profil ngjyre për ngjyra të plota</translation>
+    </message>
+    <message>
+        <source>Color profile for solid colors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rendering intent for solid colors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Embed a color profile for images</source>
+        <translation type="unfinished">Trupëzo profil ngjyrash për pamjet</translation>
+    </message>
+    <message>
+        <source>Do not use color profiles that are embedded in source images</source>
+        <translation type="unfinished">Mos përdor profile ngjyrash që genden të trupëzuar në burimin e pamjes</translation>
+    </message>
+    <message>
+        <source>Color profile for images</source>
+        <translation type="unfinished">Profil ngjyrash për pamjet</translation>
+    </message>
+    <message>
+        <source>Rendering intent for images</source>
+        <translation type="unfinished">Profil ngjyrash për pamjet</translation>
+    </message>
+    <message>
+        <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
+        <translation type="unfinished">Profil përfundimesh për shtypjen. Nëse mundet, merrni ca udhëzime prej shtypësit tuaj rreth përzgjedhjes së profilit.</translation>
+    </message>
+    <message>
+        <source>Mandatory string for PDF/X-3 or the PDF will fail
+PDF/X-3 conformance. We recommend you use the title of the document.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the top of the physical page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the bottom of the physical page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the left of the physical page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the right of the physical page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) horizontally</source>
+        <translation type="unfinished">Pasqyro Faqe(t) horizontalisht</translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) vertically</source>
+        <translation type="unfinished">Pasqyro Faqe(t) vertikalisht</translation>
+    </message>
+</context>
+<context>
+    <name>TabTools</name>
+    <message>
+        <source>Font:</source>
+        <translation type="unfinished">Gërma:</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation type="unfinished">pt</translation>
+    </message>
+    <message>
+        <source>Size:</source>
+        <translation type="unfinished">Madhësi:</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Asnjë</translation>
+    </message>
+    <message>
+        <source>Fill Color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stroke Color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tab Fill Character:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tab Width:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Colu&amp;mns:</source>
+        <translation type="unfinished">Sht&amp;ylla:</translation>
+    </message>
+    <message>
+        <source>&amp;Gap:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Woven silk pyjamas exchanged for blue quartz</source>
+        <translation type="unfinished">W-ja është një shkronjë që i mungon Shqipes </translation>
+    </message>
+    <message>
+        <source>&amp;Line Color:</source>
+        <translation type="unfinished">Ngjyrë &amp;Vije:</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation type="unfinished"> %</translation>
+    </message>
+    <message>
+        <source>&amp;Shading:</source>
+        <translation type="unfinished">&amp;Hije:</translation>
+    </message>
+    <message>
+        <source>&amp;Fill Color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>S&amp;hading:</source>
+        <translation type="unfinished">H&amp;ije:</translation>
+    </message>
+    <message>
+        <source>Line Style:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line &amp;Width:</source>
+        <translation type="unfinished">&amp;Gjerësi Vije:</translation>
+    </message>
+    <message>
+        <source>Line S&amp;tyle:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Arrows:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>End:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Free Scaling</source>
+        <translation type="unfinished">Ripërmasim i &amp;Lirë</translation>
+    </message>
+    <message>
+        <source>&amp;Horizontal Scaling:</source>
+        <translation type="unfinished">Ripërmasim &amp;Horizontal:</translation>
+    </message>
+    <message>
+        <source>&amp;Vertical Scaling:</source>
+        <translation type="unfinished">Rpërmasim &amp;Vertical:</translation>
+    </message>
+    <message>
+        <source>&amp;Scale Picture to Frame Size</source>
+        <translation type="unfinished">&amp;Ripërmaso Pamje sa Madhësia e Kornizës</translation>
+    </message>
+    <message>
+        <source>Keep Aspect &amp;Ratio</source>
+        <translation type="unfinished">Ruaj &amp;Përpjestim</translation>
+    </message>
+    <message>
+        <source>F&amp;ill Color:</source>
+        <translation type="unfinished">Ngjyrë M&amp;bushje:</translation>
+    </message>
+    <message>
+        <source>Use embedded Clipping Path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>On Screen Preview</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Full Resolution Preview</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal Resolution Preview</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Low Resolution Preview</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mi&amp;nimum:</source>
+        <translation type="unfinished">Mi&amp;nimum:</translation>
+    </message>
+    <message>
+        <source>Ma&amp;ximum:</source>
+        <translation type="unfinished">Ma&amp;ksimum:</translation>
+    </message>
+    <message>
+        <source>&amp;Stepping:</source>
+        <translation type="unfinished">&amp;Hapje:</translation>
+    </message>
+    <message>
+        <source>Text Frame Properties</source>
+        <translation type="unfinished">Veti Kornize Teksti</translation>
+    </message>
+    <message>
+        <source>Picture Frame Properties</source>
+        <translation type="unfinished">Veti Kornize Pamjeje</translation>
+    </message>
+    <message>
+        <source>Shape Drawing Properties</source>
+        <translation type="unfinished">Veti Vizatimi Formash</translation>
+    </message>
+    <message>
+        <source>Magnification Level Defaults</source>
+        <translation type="unfinished">Parazgjedhje Shkalle Zmadhimi</translation>
+    </message>
+    <message>
+        <source>Line Drawing Properties</source>
+        <translation type="unfinished">Veti Vizatimi Vijash</translation>
+    </message>
+    <message>
+        <source>Polygon Drawing Properties</source>
+        <translation type="unfinished">Veti Vizatimi Shumëkëndëshash</translation>
+    </message>
+    <message>
+        <source>Font for new text frames</source>
+        <translation type="unfinished">Gërma për korniza të reja tekstesh</translation>
+    </message>
+    <message>
+        <source>Size of font for new text frames</source>
+        <translation type="unfinished">Madhësi gërmash për korniza të reja teksti</translation>
+    </message>
+    <message>
+        <source>Color of font</source>
+        <translation type="unfinished">Ngjyrë gërmash</translation>
+    </message>
+    <message>
+        <source>Number of columns in a text frame</source>
+        <translation type="unfinished">Numër shtyllash në një kornizë teksti</translation>
+    </message>
+    <message>
+        <source>Gap between text frame columns</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sample of your font</source>
+        <translation type="unfinished">Shembull i gërmave tuaja</translation>
+    </message>
+    <message>
+        <source>Picture frames allow pictures to scale to any size</source>
+        <translation type="unfinished">Korniza pamjesh lejojnë pamjet të ripërmasohen në çfarëdo madhësi</translation>
+    </message>
+    <message>
+        <source>Horizontal scaling of images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Vertical scaling of images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Keep horizontal and vertical scaling the same</source>
+        <translation type="unfinished">Mbaj ripërmasim horizontal dhe vertikal njësoj</translation>
+    </message>
+    <message>
+        <source>Pictures in picture frames are scaled to the size of the frame</source>
+        <translation type="unfinished">Pamjet në korniza pamjesh ripërmasohen sa madhësia e kornizës</translation>
+    </message>
+    <message>
+        <source>Automatically scaled pictures keep their original proportions</source>
+        <translation type="unfinished">Pamjet e ripërmasuara vetvetiu ruajnë përpjestimet e veta fillestare</translation>
+    </message>
+    <message>
+        <source>Fill color of picture frames</source>
+        <translation type="unfinished">Ngjyrë mbushjeje për korniza pamjesh</translation>
+    </message>
+    <message>
+        <source>Saturation of color of fill</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line color of shapes</source>
+        <translation type="unfinished">Ngjyrë vije formash</translation>
+    </message>
+    <message>
+        <source>Saturation of color of lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill color of shapes</source>
+        <translation type="unfinished">Ngjyrë mbushjeje për forma</translation>
+    </message>
+    <message>
+        <source>Line style of shapes</source>
+        <translation type="unfinished">Stil vije formash</translation>
+    </message>
+    <message>
+        <source>Line width of shapes</source>
+        <translation type="unfinished">Gjerësi vije formash</translation>
+    </message>
+    <message>
+        <source>Minimum magnification allowed</source>
+        <translation type="unfinished">Zmadhimi më i vogël i lejuar</translation>
+    </message>
+    <message>
+        <source>Maximum magnification allowed</source>
+        <translation type="unfinished">Zmadhimi më i madh i lejuar</translation>
+    </message>
+    <message>
+        <source>Change in magnification for each zoom operation</source>
+        <translation type="unfinished">Ndryshimi në zmadhim për çdo veprim &quot;zoom&quot;</translation>
+    </message>
+    <message>
+        <source>Color of lines</source>
+        <translation type="unfinished">Ngjyrë vijash</translation>
+    </message>
+    <message>
+        <source>Saturation of color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Style of lines</source>
+        <translation type="unfinished">Stil vijash</translation>
+    </message>
+    <message>
+        <source>Width of lines</source>
+        <translation type="unfinished">Gjerësi vijash</translation>
+    </message>
+    <message>
+        <source>Custom:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Custom: </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TabTypograpy</name>
+    <message>
+        <source>Subscript</source>
+        <translation type="unfinished">Poshtëshkrim</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation type="unfinished"> %</translation>
+    </message>
+    <message>
+        <source>&amp;Displacement:</source>
+        <translation type="unfinished">&amp;Zhvendosje:</translation>
+    </message>
+    <message>
+        <source>&amp;Scaling:</source>
+        <translation type="unfinished">&amp;Ripërmasim:</translation>
+    </message>
+    <message>
+        <source>Superscript</source>
+        <translation type="unfinished">Sipërshkrim</translation>
+    </message>
+    <message>
+        <source>D&amp;isplacement:</source>
+        <translation type="unfinished">Zh&amp;vendosje:</translation>
+    </message>
+    <message>
+        <source>S&amp;caling:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Underline</source>
+        <translation type="unfinished">Nënvijë</translation>
+    </message>
+    <message>
+        <source>Displacement:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Auto</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line Width:</source>
+        <translation type="unfinished">Gjerësi Vije:</translation>
+    </message>
+    <message>
+        <source>Strikethru</source>
+        <translation type="unfinished">Hequrvije</translation>
+    </message>
+    <message>
+        <source>Small Caps</source>
+        <translation type="unfinished">Të vogla të Mëdha</translation>
+    </message>
+    <message>
+        <source>Sc&amp;aling:</source>
+        <translation type="unfinished">Ripërm&amp;asim:</translation>
+    </message>
+    <message>
+        <source>Automatic &amp;Line Spacing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line Spacing:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Displacement above the baseline of the font on a line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Relative size of the superscript compared to the normal font</source>
+        <translation type="unfinished">Madhësi relative e mbishkrimit krahasuar me gërmat normale</translation>
+    </message>
+    <message>
+        <source>Displacement below the baseline of the normal font on a line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Relative size of the subscript compared to the normal font</source>
+        <translation type="unfinished">Madhësi relative e poshtëshkrimit krahasuar me gërmat normale</translation>
+    </message>
+    <message>
+        <source>Relative size of the small caps font compared to the normal font</source>
+        <translation type="unfinished">Madhësi relative e gërmave të vogla krahasuar me gërmat normale</translation>
+    </message>
+    <message>
+        <source>Percentage increase over the font size for the line spacing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Displacement below the baseline of the normal font expressed as a percentage of the fonts descender</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line width expressed as a percentage of the font size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Displacement above the baseline of the normal font expressed as a percentage of the fonts ascender</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -20176,7 +26721,7 @@ të mos kërkojë ripohimin tuaj sërish</translation>
     </message>
     <message>
         <source>First &amp;Line:</source>
-        <translation>R&amp;reshti i Parë:</translation>
+        <translation type="obsolete">R&amp;reshti i Parë:</translation>
     </message>
     <message>
         <source>Delete All</source>
@@ -20196,23 +26741,55 @@ të mos kërkojë ripohimin tuaj sërish</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation>pt</translation>
+        <translation type="obsolete">pt</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation>mm</translation>
+        <translation type="obsolete">mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation>inç</translation>
+        <translation type="obsolete">inç</translation>
     </message>
     <message>
         <source> p</source>
-        <translation>p</translation>
+        <translation type="obsolete">p</translation>
     </message>
     <message>
         <source>Left Ind&amp;ent:</source>
-        <translation>Krye&amp;radhë Majtas:</translation>
+        <translation type="obsolete">Krye&amp;radhë Majtas:</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Asnjë</translation>
+    </message>
+    <message>
+        <source>Dot</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hyphen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Underscore</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Custom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill Char:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Custom:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Custom: </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -20227,37 +26804,37 @@ të mos kërkojë ripohimin tuaj sërish</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation>Tip</translation>
+        <translation type="obsolete">Tip</translation>
     </message>
     <message>
         <source>Information</source>
-        <translation>Të dhëna</translation>
+        <translation type="obsolete">Të dhëna</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Kujdes</translation>
+        <translation type="obsolete">Kujdes</translation>
     </message>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.
 Please choose another.</source>
-        <translation>Emri &quot;%1&quot; s&apos;është unik.
+        <translation type="obsolete">Emri &quot;%1&quot; s&apos;është unik.
 Ju lutem zgjidhni një tjetër.</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>X:</source>
-        <translation>X:</translation>
+        <translation type="obsolete">X:</translation>
     </message>
     <message>
         <source>Y:</source>
-        <translation>Y:</translation>
+        <translation type="obsolete">Y:</translation>
     </message>
     <message>
         <source>Font:</source>
-        <translation>Gërma:</translation>
+        <translation type="obsolete">Gërma:</translation>
     </message>
     <message>
         <source>Group </source>
@@ -20265,31 +26842,516 @@ Ju lutem zgjidhni një tjetër.</translation>
     </message>
     <message>
         <source>Image</source>
-        <translation>Pamje</translation>
+        <translation type="obsolete">Pamje</translation>
     </message>
     <message>
         <source>Text</source>
-        <translation>Tekst</translation>
+        <translation type="obsolete">Tekst</translation>
     </message>
     <message>
         <source>Line</source>
-        <translation>Rresht</translation>
+        <translation type="obsolete">Rresht</translation>
     </message>
     <message>
         <source>Polygon</source>
-        <translation>Shumëkëndësh</translation>
+        <translation type="obsolete">Shumëkëndësh</translation>
     </message>
     <message>
         <source>Polyline</source>
-        <translation>Shumëvijë</translation>
+        <translation type="obsolete">Shumëvijë</translation>
     </message>
     <message>
         <source>PathText</source>
-        <translation>Tekst Shtegu</translation>
+        <translation type="obsolete">Tekst Shtegu</translation>
     </message>
     <message>
         <source>Page</source>
-        <translation>Faqe</translation>
+        <translation type="obsolete">Faqe</translation>
+    </message>
+    <message>
+        <source>Free Objects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page </source>
+        <translation type="unfinished">Faqe</translation>
+    </message>
+</context>
+<context>
+    <name>UnderlineValues</name>
+    <message>
+        <source>Auto</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation type="unfinished"> %</translation>
+    </message>
+    <message>
+        <source>Displacement</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Linewidth</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>UndoManager</name>
+    <message>
+        <source>Add vertical guide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add horizontal guide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove vertical guide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove horizontal guide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Move vertical guide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Move horizontal guide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lock guides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unlock guides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Move</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Resize</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rotate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>X1: %1, Y1: %2, %3
+X2: %4, Y2: %5, %6</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>W1: %1, H1: %2
+W2: %3, H2: %4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Selection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Selection/Group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create</source>
+        <translation type="unfinished">Krijo</translation>
+    </message>
+    <message>
+        <source>X: %1, Y: %2
+W: %3, H: %4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Align/Distribute</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Items involved</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Anulo</translation>
+    </message>
+    <message>
+        <source>Set fill color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color1: %1, Color2: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set fill color shade</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set line color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set line color shade</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Flip horizontally</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Flip vertically</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lock</source>
+        <translation type="unfinished">Kyç</translation>
+    </message>
+    <message>
+        <source>Unlock</source>
+        <translation type="unfinished">Çkyç</translation>
+    </message>
+    <message>
+        <source>Lock size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unlock size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ungroup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rename</source>
+        <translation type="unfinished">Riemërto</translation>
+    </message>
+    <message>
+        <source>From %1
+to %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply Master Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Paste</source>
+        <translation type="unfinished">Ngjit</translation>
+    </message>
+    <message>
+        <source>Cut</source>
+        <translation type="unfinished">Pri</translation>
+    </message>
+    <message>
+        <source>Set fill color transparency</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set line color transparency</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set line style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set the style of line end</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set the style of line join</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set line width</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set custom line style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do not use custom line style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set start arrow</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set end arrow</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create table</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rows: %1, Cols: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set font</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set font size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set font width</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set font height</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set font fill color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set font stroke color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set font fill color shade</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set font stroke color shade</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set kerning</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set line spacing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set paragraph style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set language</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Align text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set font effect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Polygon</source>
+        <translation type="unfinished">Shumëkëndësh</translation>
+    </message>
+    <message>
+        <source>Bezier curve</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Polyline</source>
+        <translation type="unfinished">Shumëvijë</translation>
+    </message>
+    <message>
+        <source>Convert to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import SVG image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import EPS image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import OpenOffice.org Draw image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scratch space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text flows around the frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text flows around bounding box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text flows around contour line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No text flow</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No bounding box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No contour line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set image scaling</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Frame size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Free scaling</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Keep aspect ratio</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Break aspect ratio</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit contour line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset contour line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add layer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete layer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rename layer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Raise layer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lower layer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send to layer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable printing of layer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disable printing of layer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change name of the layer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Get image</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>UndoPalette</name>
+    <message>
+        <source>Initial State</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Action History</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show selected object only</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Undo</source>
+        <translation type="unfinished">&amp;Zhbëj</translation>
+    </message>
+    <message>
+        <source>&amp;Redo</source>
+        <translation type="unfinished">&amp;Ribëj</translation>
+    </message>
+</context>
+<context>
+    <name>UndoWidget</name>
+    <message>
+        <source>%1: %2</source>
+        <comment>undo target: action (f.e. Text frame: Resize)</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -20308,7 +27370,7 @@ Ju lutem zgjidhni një tjetër.</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>Alt+O</source>
@@ -20349,18 +27411,18 @@ Ju lutem zgjidhni një tjetër.</translation>
     <message>
         <source>&amp;OK</source>
         <comment>short words plugin</comment>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
         <comment>short words plugin</comment>
-        <translation>&amp;Anulo</translation>
+        <translation type="obsolete">&amp;Anulo</translation>
     </message>
     <message>
         <source>&amp;Info and
 Languages</source>
         <comment>short words plugin</comment>
-        <translation>&amp;Të dhëna dhe 
+        <translation type="obsolete">&amp;Të dhëna dhe 
 Gjuhë</translation>
     </message>
     <message>
@@ -20415,6 +27477,51 @@ duke vënë shenjë te butoni.</translation>
         <comment>short words plugin</comment>
         <translation>Rreth Fjalësh të Shkurtra</translation>
     </message>
+    <message>
+        <source>Edit &amp;system configuration...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit &amp;user configuration...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>S&amp;etup editor...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation type="unfinished">&amp;Përpunoni</translation>
+    </message>
+    <message>
+        <source>&amp;Info and Languages...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Help</source>
+        <translation type="unfinished">&amp;Ndihmë</translation>
+    </message>
+    <message>
+        <source>Short Words</source>
+        <translation type="unfinished">Fjalë të Shkurtra</translation>
+    </message>
+    <message>
+        <source>You are starting to edit read-only file.
+%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Application &apos;%1&apos; error. Cannot be started.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Short Words setup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter name of the plain text editor executable:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>WerkToolB</name>
@@ -20424,19 +27531,19 @@ duke vënë shenjë te butoni.</translation>
     </message>
     <message>
         <source>Select Items</source>
-        <translation>Përzgjidhni Elementë</translation>
+        <translation type="obsolete">Përzgjidhni Elementë</translation>
     </message>
     <message>
         <source>Insert Text Frame</source>
-        <translation>Fut Kornizë Teksti</translation>
+        <translation type="obsolete">Fut Kornizë Teksti</translation>
     </message>
     <message>
         <source>Insert Picture</source>
-        <translation>Fut Pamje</translation>
+        <translation type="obsolete">Fut Pamje</translation>
     </message>
     <message>
         <source>Insert Table</source>
-        <translation>Fut Tabelë</translation>
+        <translation type="obsolete">Fut Tabelë</translation>
     </message>
     <message>
         <source>Properties...</source>
@@ -20444,51 +27551,51 @@ duke vënë shenjë te butoni.</translation>
     </message>
     <message>
         <source>Insert Polygons</source>
-        <translation>Fut Shumëkëndësha</translation>
+        <translation type="obsolete">Fut Shumëkëndësha</translation>
     </message>
     <message>
         <source>Insert Lines</source>
-        <translation>Fut Vija</translation>
+        <translation type="obsolete">Fut Vija</translation>
     </message>
     <message>
         <source>Insert Bezier Curves</source>
-        <translation>Fut Kurba Bezier</translation>
+        <translation type="obsolete">Fut Kurba Bezier</translation>
     </message>
     <message>
         <source>Insert Freehand Line</source>
-        <translation>Fut Vijë me Dorë të Lirë</translation>
+        <translation type="obsolete">Fut Vijë me Dorë të Lirë</translation>
     </message>
     <message>
         <source>Rotate Item</source>
-        <translation>Rrotullo Element</translation>
+        <translation type="obsolete">Rrotullo Element</translation>
     </message>
     <message>
         <source>Zoom in or out</source>
-        <translation>Zmadho ose zvogëlo</translation>
+        <translation type="obsolete">Zmadho ose zvogëlo</translation>
     </message>
     <message>
         <source>Edit Contents of Frame</source>
-        <translation>Përpunoni Përmbajtje Kornize</translation>
+        <translation type="obsolete">Përpunoni Përmbajtje Kornize</translation>
     </message>
     <message>
         <source>Edit the text with the Story Editor</source>
-        <translation>Përpunoni tekstin me Përpunues Historie</translation>
+        <translation type="obsolete">Përpunoni tekstin me Përpunues Historie</translation>
     </message>
     <message>
         <source>Link Text Frames</source>
-        <translation>Lidh Korniza Tekstesh</translation>
+        <translation type="obsolete">Lidh Korniza Tekstesh</translation>
     </message>
     <message>
         <source>Unlink Text Frames</source>
-        <translation>Zgidh Korniza Tekstesh</translation>
+        <translation type="obsolete">Zgidh Korniza Tekstesh</translation>
     </message>
     <message>
         <source>Do measurements</source>
-        <translation>Kryej matje</translation>
+        <translation type="obsolete">Kryej matje</translation>
     </message>
     <message>
         <source>Draw various Shapes</source>
-        <translation>Vizatoni Forma të ndryshme</translation>
+        <translation type="obsolete">Vizatoni Forma të ndryshme</translation>
     </message>
 </context>
 <context>
@@ -20538,31 +27645,31 @@ duke vënë shenjë te butoni.</translation>
     <name>ZAuswahl</name>
     <message>
         <source>Select Character:</source>
-        <translation>Përzgjidhni Gërma:</translation>
+        <translation type="obsolete">Përzgjidhni Gërma:</translation>
     </message>
     <message>
         <source>&amp;Insert</source>
-        <translation>&amp;Fut</translation>
+        <translation type="obsolete">&amp;Fut</translation>
     </message>
     <message>
         <source>C&amp;lear</source>
-        <translation>&amp;Pastro</translation>
+        <translation type="obsolete">&amp;Pastro</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation>&amp;Mbyll</translation>
+        <translation type="obsolete">&amp;Mbyll</translation>
     </message>
     <message>
         <source>Insert the characters at the cursor in the text</source>
-        <translation>Fut gërma në tekst atje ku gjendet kursori</translation>
+        <translation type="obsolete">Fut gërma në tekst atje ku gjendet kursori</translation>
     </message>
     <message>
         <source>Delete the current selection(s).</source>
-        <translation>Fshi përzgjedhjen(t) e çastit.</translation>
+        <translation type="obsolete">Fshi përzgjedhjen(t) e çastit.</translation>
     </message>
     <message>
         <source>Close this dialog and return to text editing.</source>
-        <translation>Mbyll këtë dialog dhe kthehu te përpunimi i tekstit.</translation>
+        <translation type="obsolete">Mbyll këtë dialog dhe kthehu te përpunimi i tekstit.</translation>
     </message>
 </context>
 <context>
@@ -20577,7 +27684,7 @@ duke vënë shenjë te butoni.</translation>
     </message>
     <message>
         <source>Get text only</source>
-        <translation>Merr vetëm tekst</translation>
+        <translation type="obsolete">Merr vetëm tekst</translation>
     </message>
     <message>
         <source>Import text without any formatting</source>
@@ -20590,6 +27697,10 @@ duke vënë shenjë te butoni.</translation>
     <message>
         <source>Encoding:</source>
         <translation>Kodim:</translation>
+    </message>
+    <message>
+        <source>Import Text Only</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -20606,13 +27717,17 @@ duke vënë shenjë te butoni.</translation>
         <source>Remember the file extension - importer association
 and do not ask again to select an importer for
 files of this type.</source>
-        <translation>Mbaj mend shoqërimin importues-prapashtesë kartele
+        <translation type="obsolete">Mbaj mend shoqërimin importues-prapashtesë kartele
 dhe mos pyet sërish për të përzgjedhur një importues për
 kartela të këtij tipi.</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
+    </message>
+    <message>
+        <source>Remember the file extension - importer association and do not ask again to select an importer for files of this type.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -20623,11 +27738,11 @@ kartela të këtij tipi.</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>&amp;Anulo</translation>
+        <translation type="obsolete">&amp;Anulo</translation>
     </message>
     <message>
         <source>&amp;Remove</source>
@@ -20822,11 +27937,11 @@ template.xml.</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>&amp;Anulo</translation>
+        <translation type="obsolete">&amp;Anulo</translation>
     </message>
 </context>
 <context>
