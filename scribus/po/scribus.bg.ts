@@ -3721,10 +3721,6 @@ be saved in its current form. The error was:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Python source files (.py)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Save File Dialog</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3741,7 +3737,7 @@ be saved in its current form. The error was:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Python source files *(.py)</source>
+        <source>Python source files (*.py)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7316,10 +7312,6 @@ If un-checked, editing annotations and fields is prevented.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;qt&gt;Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparencyor you require 128 bit encryption.PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activatedcolor management.Note: PDF/X-3 will convert all CMYK images to ICC based RGB colors.Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source> Lossless compression of text and graphics.
 Unless you have a reason, leave this checked. This reduces PDF size.</source>
         <translation type="unfinished"></translation>
@@ -7332,6 +7324,10 @@ Unless you have a reason, leave this checked. This reduces PDF size.</source>
         <source>Re-sample your bitmap images to the selected DPI.
 Leaving this unchecked will render them at their native resolution.
 This can increase memory usage and slow down export.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility. Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Note: PDF/X-3 will convert all CMYK images to ICC based RGB colors. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

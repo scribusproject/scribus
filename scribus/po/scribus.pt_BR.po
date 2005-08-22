@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-19 23:55+0200\n"
+"POT-Creation-Date: 2005-08-22 02:20+0200\n"
 "PO-Revision-Date: 2005-05-08 22:12-0300\n"
 "Last-Translator: \n"
 "Language-Team:  <pt@li.org>\n"
@@ -1243,14 +1243,14 @@ msgstr ""
 
 #, fuzzy
 msgid ""
-"<qt>Determines the PDF compatibility. The default is Acrobat 4.0 which gives "
-"the widest compatibility.Choose Acrobat 5.0 if your file has PDF 1.4 "
-"features such as transparencyor you require 128 bit encryption.PDF/X-3 is "
-"for exporting the PDF when you want color managed RGB for commercial "
-"printing and is selectable when you have activatedcolor management.Note: PDF/"
-"X-3 will convert all CMYK images to ICC based RGB colors.Use only when "
-"advised by your printer or in some cases printing to a 4 color digital color "
-"laser printer.</qt>"
+"Determines the PDF compatibility. The default is Acrobat 4.0 which gives the "
+"widest compatibility. Choose Acrobat 5.0 if your file has PDF 1.4 features "
+"such as transparency or you require 128 bit encryption. PDF/X-3 is for "
+"exporting the PDF when you want color managed RGB for commercial printing "
+"and is selectable when you have activated color management. Note: PDF/X-3 "
+"will convert all CMYK images to ICC based RGB colors. Use only when advised "
+"by your printer or in some cases printing to a 4 color digital color laser "
+"printer."
 msgstr ""
 "Determina a compatibilidade do PDF. O padrão é Acrobat 4.0, que oferece a "
 "compatibilidade mais ampla.\n"
@@ -6710,7 +6710,8 @@ msgid "Editing Macro: <b>"
 msgstr "Edição de macro: <b>"
 
 # #Revisão
-msgid "Python source files (.py)"
+#, fuzzy
+msgid "Python source files (*.py)"
 msgstr "Arquivo de código-fonte do Python (.py)"
 
 # #Revisão
@@ -6730,11 +6731,6 @@ msgid ""
 msgstr ""
 "O arquivo %1 já existe.\n"
 "Deseja realmente sobrescrevê-lo?\n"
-
-# #Revisão
-#, fuzzy
-msgid "Python source files *(.py)"
-msgstr "Arquivo de código-fonte do Python (.py)"
 
 # #Revisão
 msgid "Open File Dialog"
@@ -7406,3 +7402,8 @@ msgid ""
 "%1\n"
 "failed!"
 msgstr "Não foi possível importar o arquivo:%1!"
+
+# #Revisão
+#, fuzzy
+#~ msgid "Python source files *(.py)"
+#~ msgstr "Arquivo de código-fonte do Python (.py)"
