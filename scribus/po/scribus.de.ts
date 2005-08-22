@@ -2141,14 +2141,6 @@ May raise WrongFrameTypeError if the target frame is not an text frame
 </source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>newStyleDialog() -&gt; string
-
-Shows &apos;Create new paragraph style&apos; dialog. Function returns real
-style name or None when user cancels the dialog.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>About</name>
@@ -2731,7 +2723,7 @@ style name or None when user cancels the dialog.
     </message>
     <message>
         <source>Preflight &amp;Verifier</source>
-        <translation>&amp;Druckvorstufen-Check</translation>
+        <translation>&amp;Druckvorstufen-Überprüfung</translation>
     </message>
     <message>
         <source>&amp;Align and Distribute</source>
@@ -2887,7 +2879,7 @@ style name or None when user cancels the dialog.
     </message>
     <message>
         <source>New Line</source>
-        <translation>Neue Zeile</translation>
+        <translation>Zeilenumbruch</translation>
     </message>
     <message>
         <source>Frame Break</source>
@@ -2915,19 +2907,19 @@ style name or None when user cancels the dialog.
     </message>
     <message>
         <source>Em Dash</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Geviertstrich</translation>
     </message>
     <message>
         <source>En Dash</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Halbgeviertstrich</translation>
     </message>
     <message>
         <source>Figure Dash</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zahlenstrich</translation>
     </message>
     <message>
         <source>Quotation Dash</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zitatstrich</translation>
     </message>
     <message>
         <source>Apostrophe</source>
@@ -2935,59 +2927,59 @@ style name or None when user cancels the dialog.
     </message>
     <message>
         <source>Straight Double</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zollzeichen</translation>
     </message>
     <message>
         <source>Single Left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Anführungszeichen links (Englisch)</translation>
     </message>
     <message>
         <source>Single Right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Anführungszeichen rechts (Englisch)</translation>
     </message>
     <message>
         <source>Double Left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Anführungszeichen links (Amerikanisch)</translation>
     </message>
     <message>
         <source>Double Right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Anführungszeichen rechts (Amerikanisch)</translation>
     </message>
     <message>
         <source>Single Reversed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Anführungszeichen links (Englisch) umgekehrt</translation>
     </message>
     <message>
         <source>Double Reversed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Anführungszeichen links (Amerikanisch) umgekehrt</translation>
     </message>
     <message>
         <source>Single Left Guillemet</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Guillemet links einfach</translation>
     </message>
     <message>
         <source>Single Right Guillemet</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Guillemet rechts einfach</translation>
     </message>
     <message>
         <source>Double Left Guillemet</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Guillemet links doppelt</translation>
     </message>
     <message>
         <source>Double Right Guillemet</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Guillemet rechts doppelt</translation>
     </message>
     <message>
         <source>Low Single Comma</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Anführungszeichen links einfach (Deutsch)</translation>
     </message>
     <message>
         <source>Low Double Comma</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Anführungszeichen links doppelt (Deutsch)</translation>
     </message>
     <message>
         <source>Double Turned Comma</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Anführungszeichen rechts doppelt (Deutsch)</translation>
     </message>
     <message>
         <source>CJK Single Left</source>
@@ -3112,39 +3104,39 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     <name>Align</name>
     <message>
         <source>Distribute/Align</source>
-        <translation type="obsolete">Abstand/Ausrichtung</translation>
+        <translation>Abstand/Ausrichtung</translation>
     </message>
     <message>
         <source>Align</source>
-        <translation type="obsolete">Ausrichten</translation>
+        <translation>Ausrichten</translation>
     </message>
     <message>
         <source>Horizontal</source>
-        <translation type="obsolete">Waagrecht</translation>
+        <translation>Waagrecht</translation>
     </message>
     <message>
         <source>Left Sides</source>
-        <translation type="obsolete">Linken Kanten</translation>
+        <translation>Linken Kanten</translation>
     </message>
     <message>
         <source>Middles</source>
-        <translation type="obsolete">Mitten</translation>
+        <translation>Mitten</translation>
     </message>
     <message>
         <source>Right Sides</source>
-        <translation type="obsolete">Rechten Kanten</translation>
+        <translation>Rechten Kanten</translation>
     </message>
     <message>
         <source>Vertical</source>
-        <translation type="obsolete">Vertikal</translation>
+        <translation>Vertikal</translation>
     </message>
     <message>
         <source>Top Sides</source>
-        <translation type="obsolete">Oberen Kanten</translation>
+        <translation>Oberen Kanten</translation>
     </message>
     <message>
         <source>Bottom Sides</source>
-        <translation type="obsolete">Unteren Kanten</translation>
+        <translation>Unteren Kanten</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -3160,43 +3152,43 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>&amp;Between:</source>
-        <translation type="obsolete">&amp;zwischen:</translation>
+        <translation>&amp;zwischen:</translation>
     </message>
     <message>
         <source>A&amp;lign</source>
-        <translation type="obsolete">&amp;Ausrichten</translation>
+        <translation>&amp;Ausrichten</translation>
     </message>
     <message>
         <source>Di&amp;splacement</source>
-        <translation type="obsolete">&amp;Versatz</translation>
+        <translation>&amp;Versatz</translation>
     </message>
     <message>
         <source>Distribute &amp;Evenly</source>
-        <translation type="obsolete">&amp;Gleichmäßig verteilen</translation>
+        <translation>&amp;Gleichmäßig verteilen</translation>
     </message>
     <message>
         <source>Bet&amp;ween:</source>
-        <translation type="obsolete">zwi&amp;schen:</translation>
+        <translation>zwi&amp;schen:</translation>
     </message>
     <message>
         <source>Do &amp;Not Change</source>
-        <translation type="obsolete">&amp;Nicht verändern</translation>
+        <translation>&amp;Nicht verändern</translation>
     </message>
     <message>
         <source>Al&amp;ign</source>
-        <translation type="obsolete">A&amp;usrichten</translation>
+        <translation>A&amp;usrichten</translation>
     </message>
     <message>
         <source>Dis&amp;placement</source>
-        <translation type="obsolete">Ve&amp;rsatz</translation>
+        <translation>Ve&amp;rsatz</translation>
     </message>
     <message>
         <source>Distribute E&amp;venly</source>
-        <translation type="obsolete">Gleich&amp;mäßig verteilen</translation>
+        <translation>Gleich&amp;mäßig verteilen</translation>
     </message>
     <message>
         <source>&amp;Do Not Change</source>
-        <translation type="obsolete">N&amp;icht verändern</translation>
+        <translation>N&amp;icht verändern</translation>
     </message>
 </context>
 <context>
@@ -4303,7 +4295,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Default color profile for imported images</source>
-        <translation type="obsolete">Farbprofil für Bilder</translation>
+        <translation>Farbprofil für Bilder</translation>
     </message>
     <message>
         <source>Default color profile for solid colors on the page</source>
@@ -4356,7 +4348,7 @@ Das erfordert sehr genaue Profile und dient nur als Anhaltspunkt.</translation>
     </message>
     <message>
         <source>&amp;Pictures:</source>
-        <translation type="obsolete">&amp;Bilder:</translation>
+        <translation>&amp;Bilder:</translation>
     </message>
     <message>
         <source>&amp;Solid Colors:</source>
@@ -4389,22 +4381,6 @@ Das erfordert sehr genaue Profile und dient nur als Anhaltspunkt.</translation>
     <message>
         <source>Use &amp;Blackpoint Compensation</source>
         <translation>&amp;Tiefenkompensierung benutzen</translation>
-    </message>
-    <message>
-        <source>&amp;RGB Pictures:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;CMYK Pictures:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Default color profile for imported cmyk images</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Default color profile for imported rgb images</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4510,14 +4486,6 @@ Das erfordert sehr genaue Profile und dient nur als Anhaltspunkt.</translation>
 It&apos;s a reserved name for transparent color</source>
         <translation>Sie können keine Farbe mit dem Namen &quot;%1&quot;.
 Dieser Name ist für die transparente Farbe reserviert</translation>
-    </message>
-    <message>
-        <source>Is Spot-Color</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Is Registration-Color</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4762,25 +4730,6 @@ und die Taste Löschen entfernt das letzte Zeichen wieder</translation>
     </message>
 </context>
 <context>
-    <name>CheckerPrefsList</name>
-    <message>
-        <source>Postscript</source>
-        <translation type="unfinished">Postscript</translation>
-    </message>
-    <message>
-        <source>PDF 1.3</source>
-        <translation type="unfinished">PDF 1.3</translation>
-    </message>
-    <message>
-        <source>PDF 1.4</source>
-        <translation type="unfinished">PDF 1.4</translation>
-    </message>
-    <message>
-        <source>PDF/X-3</source>
-        <translation type="unfinished">PDF/X-3</translation>
-    </message>
-</context>
-<context>
     <name>ChooseStyles</name>
     <message>
         <source>Choose Styles</source>
@@ -5003,29 +4952,6 @@ und die Taste Löschen entfernt das letzte Zeichen wieder</translation>
     <message>
         <source>You can simulate common vision defects here. Just select type of the defect</source>
         <translation>Sie können hier bekannte Sehschwächen simulieren. Wählen Sie einfach die Krankheit aus</translation>
-    </message>
-</context>
-<context>
-    <name>CommonStrings</name>
-    <message>
-        <source>&amp;Apply</source>
-        <translation type="unfinished">An&amp;wenden</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="unfinished">A&amp;bbrechen</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Save</source>
-        <translation type="unfinished">&amp;Speichern</translation>
     </message>
 </context>
 <context>
@@ -5272,13 +5198,6 @@ Wird in den Voreinstellungen eingestellt.</translation>
     <message>
         <source>&amp;Include Fonts</source>
         <translation>Schriftarten ein&amp;betten</translation>
-    </message>
-</context>
-<context>
-    <name>DeferredTask</name>
-    <message>
-        <source>Cancelled by user</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5975,7 +5894,7 @@ der Datei
     </message>
     <message>
         <source>Sharpen</source>
-        <translation>Scharf zeichnen</translation>
+        <translation>Schärfen</translation>
     </message>
     <message>
         <source>&gt;&gt;</source>
@@ -6336,7 +6255,7 @@ Bildschirm betrachten wollen</translation>
     </message>
     <message>
         <source>Append colors to the current set from an existing document</source>
-        <translation type="obsolete">Farben aus anderem Dokument nachladen</translation>
+        <translation>Farben aus anderem Dokument nachladen</translation>
     </message>
     <message>
         <source>Create a new color within the current set</source>
@@ -6360,7 +6279,7 @@ Bildschirm betrachten wollen</translation>
     </message>
     <message>
         <source>&amp;Append</source>
-        <translation type="obsolete">An&amp;fügen</translation>
+        <translation>An&amp;fügen</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -6408,14 +6327,6 @@ des Dokuments, siehe UNIT-Konstanten.
 Beispiel:
 setHGuides(getHGuides() + [200.0, 210.0] # fügt eine neue Hilfslinie hinzu
 setHGuides([90,250]) # ersetzt alle vorhandenen Hilfslinien</translation>
-    </message>
-    <message>
-        <source>&amp;Import</source>
-        <translation type="unfinished">&amp;Importieren</translation>
-    </message>
-    <message>
-        <source>Import colors to the current set from an existing document</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6935,7 +6846,7 @@ Null bedeutet unbegrenzt.</translation>
     </message>
     <message>
         <source>Master Page (&amp;Left Page):</source>
-        <translation type="obsolete">Musterseite (&amp;Linke Seite):</translation>
+        <translation>Musterseite (&amp;Linke Seite):</translation>
     </message>
     <message>
         <source>&amp;Master Page:</source>
@@ -6943,7 +6854,7 @@ Null bedeutet unbegrenzt.</translation>
     </message>
     <message>
         <source>Master Page (&amp;Right Page):</source>
-        <translation type="obsolete">Musterseite (&amp;Rechte Seite):</translation>
+        <translation>Musterseite (&amp;Rechte Seite):</translation>
     </message>
     <message>
         <source>Page Size</source>
@@ -6979,10 +6890,6 @@ Null bedeutet unbegrenzt.</translation>
     </message>
     <message>
         <source>Move Objects with their Page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Master Pages</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7380,7 +7287,7 @@ Null bedeutet unbegrenzt.</translation>
     </message>
     <message>
         <source>Move Objects with their Page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Objekte zusammen mit der Seite verschieben</translation>
     </message>
     <message>
         <source>Margin Guides</source>
@@ -7393,10 +7300,6 @@ Null bedeutet unbegrenzt.</translation>
     <message>
         <source>&amp;Cancel</source>
         <translation type="obsolete">A&amp;bbrechen</translation>
-    </message>
-    <message>
-        <source>Type:</source>
-        <translation type="unfinished">Typ:</translation>
     </message>
 </context>
 <context>
@@ -8601,11 +8504,11 @@ Bitte wählen Sie einen anderen.</translation>
     <name>NewTm</name>
     <message>
         <source>Left Page</source>
-        <translation type="obsolete">Linke Seite</translation>
+        <translation>Linke Seite</translation>
     </message>
     <message>
         <source>Right Page</source>
-        <translation type="obsolete">Rechte Seite</translation>
+        <translation>Rechte Seite</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -9076,31 +8979,27 @@ Benutzen Sie den Druckvorstufen-Check, um die Fehler zu beheben</translation>
     </message>
     <message>
         <source>Single Page</source>
-        <translation type="obsolete">Einzelne Seite</translation>
+        <translation>Einzelne Seite</translation>
     </message>
     <message>
         <source>Double sided</source>
-        <translation type="obsolete">Doppelseiten</translation>
+        <translation>Doppelseiten</translation>
     </message>
     <message>
         <source>3-Fold</source>
-        <translation type="obsolete">3-fach gefalten</translation>
+        <translation>3-fach gefaltet</translation>
     </message>
     <message>
         <source>4-Fold</source>
-        <translation type="obsolete">4-fach gefalten</translation>
+        <translation>4-fach gefaltet</translation>
     </message>
     <message>
         <source>Page #</source>
-        <translation type="obsolete">Seite #</translation>
+        <translation>Seite #</translation>
     </message>
     <message>
         <source>is the first Page.</source>
-        <translation type="obsolete">ist die erste Seite.</translation>
-    </message>
-    <message>
-        <source>First Page is:</source>
-        <translation type="unfinished"></translation>
+        <translation>ist die erste Seite.</translation>
     </message>
 </context>
 <context>
@@ -9112,10 +9011,6 @@ Benutzen Sie den Druckvorstufen-Check, um die Fehler zu beheben</translation>
     <message>
         <source> of %1</source>
         <translation> von %1</translation>
-    </message>
-    <message>
-        <source>%1 of %2</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10042,15 +9937,15 @@ Prüfer</translation>
     </message>
     <message>
         <source>PDF 1.3</source>
-        <translation type="obsolete">PDF 1.3</translation>
+        <translation>PDF 1.3</translation>
     </message>
     <message>
         <source>PDF 1.4</source>
-        <translation type="obsolete">PDF 1.4</translation>
+        <translation>PDF 1.4</translation>
     </message>
     <message>
         <source>PDF/X-3</source>
-        <translation type="obsolete">PDF/X-3</translation>
+        <translation>PDF/X-3</translation>
     </message>
     <message>
         <source>Migrate Old Scribus Settings?</source>
@@ -10059,42 +9954,6 @@ Prüfer</translation>
     <message>
         <source>Scribus has detected existing Scribus 1.2 preferences files.
 Do you want to migrate them to the new Scribus version?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Single Page</source>
-        <translation type="unfinished">Einzelne Seite</translation>
-    </message>
-    <message>
-        <source>Double sided</source>
-        <translation type="unfinished">Doppelseiten</translation>
-    </message>
-    <message>
-        <source>Left Page</source>
-        <translation type="unfinished">Linke Seite</translation>
-    </message>
-    <message>
-        <source>Right Page</source>
-        <translation type="unfinished">Rechte Seite</translation>
-    </message>
-    <message>
-        <source>3-Fold</source>
-        <translation type="unfinished">3-fach gefalten</translation>
-    </message>
-    <message>
-        <source>Middle</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>4-Fold</source>
-        <translation type="unfinished">4-fach gefalten</translation>
-    </message>
-    <message>
-        <source>Middle Left</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Middle Right</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -11979,7 +11838,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Normal</source>
-        <translation type="obsolete">Normal</translation>
+        <translation>Normal</translation>
     </message>
     <message>
         <source> c</source>
@@ -12144,7 +12003,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Margin Guides</source>
-        <translation>Ränder</translation>
+        <translation>Stege</translation>
     </message>
     <message>
         <source>Enable single or spread based layout</source>
@@ -12156,7 +12015,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>&amp;Top:</source>
-        <translation>&amp;Oben:</translation>
+        <translation type="unfinished">&amp;Oben:</translation>
     </message>
     <message>
         <source>&amp;Left:</source>
@@ -12374,14 +12233,6 @@ is not exhaustive due to exceptions from called functions.
         <source>Options</source>
         <translation>Optionen</translation>
     </message>
-    <message>
-        <source>None</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Adjusting Colors</source>
-        <translation type="unfinished">Passe Farben an</translation>
-    </message>
 </context>
 <context>
     <name>RunScriptDialog</name>
@@ -12483,24 +12334,11 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Manual Tracking</source>
-        <translation>Manueller Buchstabenabstand</translation>
+        <translation>Manueller Wortabstand</translation>
     </message>
     <message>
         <source> %</source>
         <translation> %</translation>
-    </message>
-</context>
-<context>
-    <name>ScImportExportPlugin</name>
-    <message>
-        <source>Could not find target file %1: %2</source>
-        <comment>plugins</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Could not open target file %1: %2</source>
-        <comment>plugins</comment>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12638,7 +12476,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Adjusting Colors</source>
-        <translation type="obsolete">Passe Farben an</translation>
+        <translation>Passe Farben an</translation>
     </message>
     <message>
         <source>English</source>
@@ -12906,15 +12744,15 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>PDF 1.3</source>
-        <translation type="obsolete">PDF 1.3</translation>
+        <translation>PDF 1.3</translation>
     </message>
     <message>
         <source>PDF 1.4</source>
-        <translation type="obsolete">PDF 1.4</translation>
+        <translation>PDF 1.4</translation>
     </message>
     <message>
         <source>PDF/X-3</source>
-        <translation type="obsolete">PDF/X-3</translation>
+        <translation>PDF/X-3</translation>
     </message>
     <message>
         <source>&amp;PDF Options</source>
@@ -13111,25 +12949,12 @@ Benutzen Sie den Druckvorstufen-Check, um die Fehler zu beheben</translation>
         <source>Send to La&amp;yer</source>
         <translation>Auf andere &amp;Ebene schieben</translation>
     </message>
-    <message>
-        <source>Collecting...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot collect all files for output for file:
-%1</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>ScribusDoc</name>
     <message>
         <source>New Layer</source>
         <translation>Neue Ebene</translation>
-    </message>
-    <message>
-        <source>Normal</source>
-        <translation type="unfinished">Normal</translation>
     </message>
 </context>
 <context>
@@ -13260,7 +13085,7 @@ Benutzen Sie den Druckvorstufen-Check, um die Fehler zu beheben</translation>
     </message>
     <message>
         <source>Unit</source>
-        <translation type="obsolete">Einheit</translation>
+        <translation>Einheit</translation>
     </message>
     <message>
         <source>Linking Text Frames</source>
@@ -14042,7 +13867,7 @@ Benutzen Sie den Druckvorstufen-Check, um die Fehler zu beheben</translation>
     </message>
     <message>
         <source>Automatic check before printing or exporting</source>
-        <translation>Dokument automatisch vor Druck oder Export checken</translation>
+        <translation>Dokument automatisch vor Druck oder Export prüfen</translation>
     </message>
     <message>
         <source>Check for missing glyphs</source>
@@ -14121,7 +13946,7 @@ Benutzen Sie den Druckvorstufen-Check, um die Fehler zu beheben</translation>
     </message>
     <message>
         <source>Grab Radius:</source>
-        <translation>Grab-Radius:</translation>
+        <translation>Fangradius:</translation>
     </message>
     <message>
         <source> px</source>
@@ -14137,7 +13962,7 @@ Benutzen Sie den Druckvorstufen-Check, um die Fehler zu beheben</translation>
     </message>
     <message>
         <source>Show Margins</source>
-        <translation>Ränder zeigen</translation>
+        <translation>Seitenränder zeigen</translation>
     </message>
     <message>
         <source>Show Page Grid</source>
@@ -15403,7 +15228,7 @@ Unless you have a reason, leave this checked. This reduces PDF size.</source>
     </message>
     <message>
         <source>Hyphen</source>
-        <translation>Bindestrich</translation>
+        <translation>Trennstrich</translation>
     </message>
     <message>
         <source>Underscore</source>
