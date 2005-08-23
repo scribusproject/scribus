@@ -13,10 +13,7 @@
 #include "prefsmanager.h"
 #include "pagelayout.h"
 #include "commonstrings.h"
-// definitions for clear reading the code - pv
-#define PORTRAIT    0
-#define LANDSCAPE   1
-#define USERFORMAT 30
+
 
 extern QPixmap loadIcon(QString nam);
 extern ScribusApp* ScApp;
@@ -350,7 +347,7 @@ void NewDoc::setUnit(int newUnitIndex)
 	unitIndex = newUnitIndex;
 	unitRatio = unitGetRatioFromIndex(newUnitIndex);
 	decimals = unitGetDecimalsFromIndex(newUnitIndex);
-	if (ComboBox2->currentItem() == PORTRAIT)
+	if (ComboBox2->currentItem() == portraitPage)
 	{
 		Breite->setValues(oldB * unitRatio, oldBM * unitRatio, decimals, Pagebr * unitRatio);
 		Hoehe->setValues(oldH * unitRatio, oldHM * unitRatio, decimals, Pageho * unitRatio);
@@ -396,13 +393,13 @@ void NewDoc::setOrien(int ori)
 		Hoehe->setValue(br);
 	}
 	// #869 pv - defined constants added + code repeat (check w/h)
-	(ori == PORTRAIT) ? Orient = PORTRAIT : Orient = LANDSCAPE;
+	(ori == portraitPage) ? Orient = portraitPage : Orient = landscapePage;
 	if (ComboBox1->currentText() == customTextTR)
 	{
 		if (Breite->value() > Hoehe->value())
-			ComboBox2->setCurrentItem(LANDSCAPE);
+			ComboBox2->setCurrentItem(landscapePage);
 		else
-			ComboBox2->setCurrentItem(PORTRAIT);
+			ComboBox2->setCurrentItem(portraitPage);
 	}
 	// end of #869
 	GroupRand->setPageHeight(Pageho);
@@ -449,7 +446,7 @@ void NewDoc::setSize(QString gr)
 	{
 		PageSize *ps2=new PageSize(gr);
 		// pv - correct handling of the disabled spins
-		if (ComboBox2->currentItem() == PORTRAIT)
+		if (ComboBox2->currentItem() == portraitPage)
 		{
 			//Pagebr = page_x[gr];
 			//Pageho = page_y[gr];

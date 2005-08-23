@@ -26,6 +26,7 @@ class PrefsManager;
 class MarginWidget;
 class PageLayouts;
 
+
 class SCRIBUS_API NewDoc : public QDialog
 {
 	Q_OBJECT

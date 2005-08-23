@@ -433,4 +433,12 @@ struct AlignObjs
 	QPtrList<PageItem> Objects;
 };
 
+/*! Human readable orientations */
+enum PageOrientation
+{
+	portraitPage = 0,
+	landscapePage = 1,
+	customPage = 30
+};
+
 #endif
