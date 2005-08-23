@@ -1,5 +1,9 @@
 Scribus - 1.2.3cvs
 ==================
+- 0002448: [General] fix for contacts info (plinnell)
+- 0002369: [Internal] Crash due to invalid pointer access in Mpalette::NewName() (fschmid)
+- 0002433: [Story Editor / Text Frames] Manual soft hyphenation lost after using text-editor (fschmid)
+- 0002419: [Translation] Germant ts update. one minor error corrected. (plinnell)
 - 0002295: [Import / Export] set the scribus filename as the standard name for svg/eps export (subik)
 - 0002391: [User Interface] Layers menu is not updated when layers are reordered in the palette (cbradney)
 - 0002366: [General] Add profiles to make color management work easily (plinnell)
