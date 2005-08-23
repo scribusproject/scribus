@@ -574,7 +574,7 @@ void Farbmanager::updateCList()
 			else
 				paintAlert(rgbIcon, pa, 30, 0);
 			if (col.isSpotColor())
-				paintAlert(spotIcon, pa, 45, 0);
+				paintAlert(spotIcon, pa, 46, 2);
 			if (col.isRegistrationColor())
 				paintAlert(regIcon, pa, 45, 0);
 			ListBox1->insertItem(pa, it.key());

@@ -511,6 +511,10 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	ColorGroupLayout->addWidget( OutCombo );
 	tabColorLayout->addWidget( ColorGroup );
 
+	useSpot = new QCheckBox( tr( "Convert Spot Colors to Process Colors" ), tabColor, "useSpot" );
+	useSpot->setChecked(!Optionen->UseSpotColors);
+	tabColorLayout->addWidget( useSpot );
+
 	UseLPI = new QCheckBox( tr( "&Use Custom Rendering Settings" ), tabColor, "UseLPI" );
 	UseLPI->setChecked(Optionen->UseLPI);
 	tabColorLayout->addWidget( UseLPI );
@@ -1079,11 +1083,13 @@ void TabPDFOptions::EnableLPI(int a)
 			GroupBox9->show();
 			ProfsGroup->show();
 			UseLPI->hide();
+			useSpot->hide();
 		}
 		else
 		{
 			GroupBox9->hide();
 			ProfsGroup->hide();
+			useSpot->show();
 			UseLPI->show();
 			if (UseLPI->isChecked())
 				LPIgroup->show();
@@ -1093,6 +1099,7 @@ void TabPDFOptions::EnableLPI(int a)
 	}
 	else
 	{
+		useSpot->hide();
 		UseLPI->hide();
 		LPIgroup->hide();
 	}

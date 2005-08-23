@@ -2481,7 +2481,7 @@ void PSLib::putColor(QString color, int shade, bool fill)
 				PS_fillspot(color, shade);
 			else
 			{
-				if (color == currentSpot)
+				if ((color == currentSpot) || (colorsToUse[color].isRegistrationColor()))
 					PutSeite("0 0 0 "+ToStr(shade / 100.0)+" cmyk eofill\n");
 			}
 		}
@@ -2504,7 +2504,7 @@ void PSLib::putColor(QString color, int shade, bool fill)
 				PS_strokespot(color, shade);
 			else
 			{
-				if (color == currentSpot)
+				if ((color == currentSpot) || (colorsToUse[color].isRegistrationColor()))
 					PutSeite("0 0 0 "+ToStr(shade / 100.0)+" cmyk st\n");
 			}
 		}

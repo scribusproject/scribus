@@ -1820,6 +1820,8 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				doc->PDF_Options.Encrypt = static_cast<bool>(QStoInt(pg.attribute("Encrypt","0")));
 				doc->PDF_Options.useLayers = static_cast<bool>(QStoInt(pg.attribute("UseLayers","0")));
 				doc->PDF_Options.UseLPI = static_cast<bool>(QStoInt(pg.attribute("UseLpi","0")));
+				doc->PDF_Options.UseSpotColors = true;
+				doc->PDF_Options.doMultiFile = false;
 				QDomNode PFO = PAGE.firstChild();
 				while(!PFO.isNull())
 				{
@@ -3382,6 +3384,8 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	pdf.setAttribute("Encrypt", static_cast<int>(doc->PDF_Options.Encrypt));
 	pdf.setAttribute("UseLayers", static_cast<int>(doc->PDF_Options.useLayers));
 	pdf.setAttribute("UseLpi", static_cast<int>(doc->PDF_Options.UseLPI));
+	pdf.setAttribute("UseSpotColors", static_cast<int>(doc->PDF_Options.UseSpotColors));
+	pdf.setAttribute("doMultiFile", static_cast<int>(doc->PDF_Options.doMultiFile));
 	for (uint pdoF = 0; pdoF < doc->PDF_Options.EmbedList.count(); ++pdoF)
 	{
 		QDomElement pdf2 = docu.createElement("Fonts");

@@ -6,7 +6,6 @@
 #include <qimage.h>
 #include <math.h>
 
-
 ColorWheel::ColorWheel(QWidget * parent, const char * name) : QLabel(parent, name, 0)
 {
 	mousePressed = false;
@@ -44,6 +43,13 @@ void ColorWheel::mousePressEvent(QMouseEvent *e)
 	actualPoint = e->pos();
 	actualRgb = getPointColor(actualPoint);
 	paintCenterSample();
+	QPainter p;
+	p.begin(this);
+	p.setPen(QPen(Qt::black, 1));
+	p.setBrush(Qt::NoBrush);
+	p.drawEllipse(actualPoint.x()-3, actualPoint.y()-3, 6, 6);
+	p.end();
+	oldPoint = actualPoint;
 }
 
 void ColorWheel::mouseMoveEvent(QMouseEvent *e)
@@ -53,6 +59,15 @@ void ColorWheel::mouseMoveEvent(QMouseEvent *e)
 	actualPoint = e->pos();
 	actualRgb = getPointColor(actualPoint);
 	paintCenterSample();
+	QPainter p;
+	p.begin(this);
+	p.setPen(QPen(Qt::white, 1));
+	p.setBrush(Qt::NoBrush);
+	p.setRasterOp(XorROP);
+	p.drawEllipse(oldPoint.x()-3, oldPoint.y()-3, 6, 6);
+	p.drawEllipse(actualPoint.x()-3, actualPoint.y()-3, 6, 6);
+	p.end();
+	oldPoint = actualPoint;
 }
 
 void ColorWheel::mouseReleaseEvent(QMouseEvent *e)
@@ -69,13 +84,14 @@ void ColorWheel::mouseReleaseEvent(QMouseEvent *e)
 
 void ColorWheel::paintCenterSample()
 {
-	QPixmap *pm = pixmap();
-	QPainter *p = new QPainter(pm);
-	p->setPen(QPen(Qt::black, 2));
-	p->setBrush(QColor(actualRgb));
-	p->drawEllipse(width()/2 - 10, height()/2 - 10, 20, 20);
-	delete(p);
-	setPixmap(*pm);
+//	QPixmap *pm = pixmap();
+	QPainter p;
+	p.begin(this);
+	p.setPen(QPen(Qt::black, 2));
+	p.setBrush(QColor(actualRgb));
+	p.drawEllipse(width()/2 - 10, height()/2 - 10, 20, 20);
+	p.end();
+//	setPixmap(*pm);
 }
 
 void ColorWheel::paintWheel(QValueVector<QPoint> selectedPoints)
@@ -108,6 +124,9 @@ void ColorWheel::paintWheel(QValueVector<QPoint> selectedPoints)
 	QWMatrix matrix;
 	matrix.translate(0, 0);
 	p->setWorldMatrix(matrix);
+	p->setPen(QPen(Qt::black, 2));
+	p->setBrush(QColor(actualRgb));
+	p->drawEllipse(width()/2 - 10, height()/2 - 10, 20, 20);
 	if (!selectedPoints.isEmpty())
 	{
 		p->setPen(Qt::black);
@@ -121,7 +140,7 @@ void ColorWheel::paintWheel(QValueVector<QPoint> selectedPoints)
 	delete(p);
 	clear();
 	setPixmap(pm);
-	paintCenterSample();
+//	paintCenterSample();
 }
 
 QString ColorWheel::getTypeDescription(MethodType aType)
@@ -180,23 +199,26 @@ void ColorWheel::sampleByAngle(double angle, QString name)
 ScColor ColorWheel::cmykColor(QRgb rgb)
 {
 	ScColor c = ScColor();
+/* Dirty Hack to avoid Color Managed RGB -> CMYK conversion */
+	c.setSpotColor(true);
 	c.fromQColor(QColor(rgb));
 	c.setColorModel(colorModelCMYK);
+	c.setSpotColor(false);
 	return c;
 }
 
 void ColorWheel::baseColor()
 {
 	colorList.clear();
-	colorList[tr("Base Color")] = cmykColor(actualRgb);
+	colorList[ tr("Base Color")] = cmykColor(actualRgb);
 }
 
 void ColorWheel::makeMonochromatic()
 {
 	baseColor();
 	QColor c = QColor(actualRgb);
-	colorList[tr("Monochromatic Light")] = cmykColor(c.light().rgb());
-	colorList[tr("Monochromatic Dark")] = cmykColor(c.dark().rgb());
+	colorList[ tr("Monochromatic Light")] = cmykColor(c.light().rgb());
+	colorList[ tr("Monochromatic Dark")] = cmykColor(c.dark().rgb());
 }
 
 void ColorWheel::makeAnalogous()

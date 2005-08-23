@@ -146,6 +146,7 @@ public:
 	QCheckBox* UseLPI;
 	QSpinBox* LPIfreq;
 	QSpinBox* LPIangle;
+	QCheckBox* useSpot;
 	QLabel* textLPI1;
 	QLabel* textLPI2;
 	QLabel* textLPI3;

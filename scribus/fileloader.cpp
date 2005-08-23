@@ -842,6 +842,8 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 				doc->PDF_Options.Encrypt = static_cast<bool>(QStoInt(pg.attribute("Encrypt","0")));
 				doc->PDF_Options.useLayers = static_cast<bool>(QStoInt(pg.attribute("UseLayers","0")));
 				doc->PDF_Options.UseLPI = static_cast<bool>(QStoInt(pg.attribute("UseLpi","0")));
+				doc->PDF_Options.UseSpotColors = static_cast<bool>(QStoInt(dc.attribute("UseSpotColors","1")));
+				doc->PDF_Options.doMultiFile = static_cast<bool>(QStoInt(dc.attribute("doMultiFile","0")));
 				QDomNode PFO = PAGE.firstChild();
 				while(!PFO.isNull())
 				{

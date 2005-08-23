@@ -124,6 +124,8 @@ void PDFOptionsIO::buildSettings()
 	addElem(m_root, "useProfiles", m_opts->UseProfiles);
 	addElem(m_root, "useProfiles2", m_opts->UseProfiles2);
 	addElem(m_root, "useLPI", m_opts->UseLPI);
+	addElem(m_root, "useSpotColors", m_opts->UseSpotColors);
+	addElem(m_root, "doMultiFile", m_opts->doMultiFile);
 	addLPISettings();
 	addElem(m_root, "solidProf", m_opts->SolidProf);
 	addElem(m_root, "sComp", m_opts->SComp);
@@ -351,6 +353,10 @@ bool PDFOptionsIO::readSettings()
 	if (!readElem(m_root, "useProfiles2", &m_opts->UseProfiles2))
 		return false;
 	if (!readElem(m_root, "useLPI", &m_opts->UseLPI))
+		return false;
+	if (!readElem(m_root, "useSpotColors", &m_opts->UseSpotColors))
+		return false;
+	if (!readElem(m_root, "doMultiFile", &m_opts->doMultiFile))
 		return false;
 	if (!readLPISettings())
 		return false;

@@ -158,6 +158,7 @@ void PDF_Opts::updateDocOptions()
 	Opts->Encrypt = Options->Encry->isChecked();
 	Opts->UseLPI = Options->UseLPI->isChecked();
 	Opts->useLayers = Options->useLayers->isChecked();
+	Opts->UseSpotColors = !Options->useSpot->isChecked();
 	if (Options->Encry->isChecked())
 	{
 		int Perm = -64;

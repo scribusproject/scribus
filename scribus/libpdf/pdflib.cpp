@@ -942,7 +942,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 		ObjCounter++;
 	}
 #endif
-	if ((Options->isGrayscale == false) && (Options->UseRGB == false))
+	if (((Options->isGrayscale == false) && (Options->UseRGB == false)) && (Options->UseSpotColors))
 	{
 		doc->getUsedColors(colorsToUse);
 		ColorList::Iterator itf;
@@ -2506,7 +2506,7 @@ QString PDFlib::putColor(QString color, int shade, bool fill)
 	QString colString = SetFarbe(color, shade);
 	ScColor tmpC;
 	tmpC = doc->PageColors[color];
-	if (((tmpC.isSpotColor()) || (tmpC.isRegistrationColor())) && ((Options->isGrayscale == false) && (Options->UseRGB == false)))
+	if (((tmpC.isSpotColor()) || (tmpC.isRegistrationColor())) && ((Options->isGrayscale == false) && (Options->UseRGB == false))  && (Options->UseSpotColors))
 	{
 		if (color != "None")
 		{

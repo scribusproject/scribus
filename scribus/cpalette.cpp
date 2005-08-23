@@ -245,7 +245,7 @@ void Cpalette::updateCList()
 		else
 			paintAlert(rgbIcon, pa, 30, 0);
 		if (col.isSpotColor())
-			paintAlert(spotIcon, pa, 45, 0);
+			paintAlert(spotIcon, pa, 46, 2);
 		if (col.isRegistrationColor())
 			paintAlert(regIcon, pa, 45, 0);
 		colorListQLBox->insertItem(pa, it.key());

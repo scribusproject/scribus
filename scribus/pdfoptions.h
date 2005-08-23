@@ -92,6 +92,8 @@ public:
 	bool UseProfiles;
 	bool UseProfiles2;
 	bool UseLPI;
+	bool UseSpotColors;
+	bool doMultiFile;
 	QMap<QString,LPIData> LPISettings;
 	QString SolidProf;
 	int SComp;

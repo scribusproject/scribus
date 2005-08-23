@@ -1007,6 +1007,8 @@ void ReformDoc::updateDocumentSettings()
 	currDoc->PDF_Options.Encrypt = tabPDF->Encry->isChecked();
 	currDoc->PDF_Options.UseLPI = tabPDF->UseLPI->isChecked();
 	currDoc->PDF_Options.useLayers = tabPDF->useLayers->isChecked();
+	currDoc->PDF_Options.UseSpotColors = !tabPDF->useSpot->isChecked();
+	currDoc->PDF_Options.doMultiFile = false;
 	currDoc->PDF_Options.BleedBottom = tabPDF->BleedBottom->value() / currDoc->unitRatio();
 	currDoc->PDF_Options.BleedTop = tabPDF->BleedTop->value() / currDoc->unitRatio();
 	currDoc->PDF_Options.BleedLeft = tabPDF->BleedLeft->value() / currDoc->unitRatio();

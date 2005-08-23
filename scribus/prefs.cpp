@@ -1561,6 +1561,8 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.PDF_Options.Articles = tabPDF->Article->isChecked();
 	prefsManager->appPrefs.PDF_Options.Encrypt = tabPDF->Encry->isChecked();
 	prefsManager->appPrefs.PDF_Options.UseLPI = tabPDF->UseLPI->isChecked();
+	prefsManager->appPrefs.PDF_Options.UseSpotColors = !tabPDF->useSpot->isChecked();
+	prefsManager->appPrefs.PDF_Options.doMultiFile = false;
 	prefsManager->appPrefs.PDF_Options.BleedBottom = tabPDF->BleedBottom->value() / prefsUnitRatio;
 	prefsManager->appPrefs.PDF_Options.BleedTop = tabPDF->BleedTop->value() / prefsUnitRatio;
 	prefsManager->appPrefs.PDF_Options.BleedLeft = tabPDF->BleedLeft->value() / prefsUnitRatio;

@@ -1124,9 +1124,17 @@ QPixmap * getSmallPixmap(QColor rgb)
 	static QMap<QRgb, QPixmap*> pxCache;
 
 	QPixmap * pm = pxCache[rgb.rgb()];
-	if (!pm) {
+	if (!pm)
+	{
 		pm = new QPixmap(15, 15);
 		pm->fill(rgb);
+		QPainter p;
+		p.begin(pm);
+		p.setBrush(Qt::NoBrush);
+		QPen b(Qt::black, 1);
+		p.setPen(b);
+		p.drawRect(0, 0, 15, 15);
+		p.end();
 		pxCache[rgb.rgb()] = pm;
 	}
 	return pm;

@@ -41,7 +41,7 @@ class ColorWheel : public QLabel
 
 		/** Coordinates of the leading point. */
 		QPoint actualPoint;
-
+		QPoint oldPoint;
 		/** RGB interpretation of the leading point. */
 		QRgb actualRgb;
 

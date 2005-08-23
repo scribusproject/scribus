@@ -367,6 +367,8 @@ void PrefsManager::initDefaults()
 	appPrefs.PDF_Options.Permissions = -4;
 	appPrefs.PDF_Options.UseLPI = false;
 	appPrefs.PDF_Options.LPISettings.clear();
+	appPrefs.PDF_Options.UseSpotColors = true;
+	appPrefs.PDF_Options.doMultiFile = false;
 
 	//Attribute setup
 	appPrefs.defaultItemAttributes.clear();
@@ -1100,6 +1102,8 @@ void PrefsManager::WritePref(QString ho)
 	pdf.setAttribute("Encrypt", static_cast<int>(appPrefs.PDF_Options.Encrypt));
 	pdf.setAttribute("UseLayers", static_cast<int>(appPrefs.PDF_Options.useLayers));
 	pdf.setAttribute("UseLpi", static_cast<int>(appPrefs.PDF_Options.UseLPI));
+	pdf.setAttribute("UseSpotColors", static_cast<int>(appPrefs.PDF_Options.UseSpotColors));
+	pdf.setAttribute("doMultiFile", static_cast<int>(appPrefs.PDF_Options.doMultiFile));
 	QMap<QString,LPIData>::Iterator itlp;
 	for (itlp = appPrefs.PDF_Options.LPISettings.begin(); itlp != appPrefs.PDF_Options.LPISettings.end(); ++itlp)
 	{
@@ -1549,6 +1553,8 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.PDF_Options.Encrypt = static_cast<bool>(QStoInt(dc.attribute("Encrypt","0")));
 			appPrefs.PDF_Options.useLayers = static_cast<bool>(QStoInt(dc.attribute("UseLayers","0")));
 			appPrefs.PDF_Options.UseLPI = static_cast<bool>(QStoInt(dc.attribute("UseLpi","0")));
+			appPrefs.PDF_Options.UseSpotColors = static_cast<bool>(QStoInt(dc.attribute("UseSpotColors","1")));
+			appPrefs.PDF_Options.doMultiFile = static_cast<bool>(QStoInt(dc.attribute("doMultiFile","0")));
 			QDomNode PFO = DOC.firstChild();
 			while(!PFO.isNull())
 			{

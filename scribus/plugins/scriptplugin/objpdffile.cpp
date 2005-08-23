@@ -55,6 +55,8 @@ typedef struct
 	int article; // bool -
 	int encrypt; // bool -
 	int uselpi; // bool -
+	int usespot;
+	int domulti;
 	PyObject *lpival; // list of elements which has structure [siii]
 	PyObject *owner; // string - owner's password
 	PyObject *user; // string - user's password
@@ -167,6 +169,8 @@ static PyObject * PDFfile_new(PyTypeObject *type, PyObject */*args*/, PyObject *
 		self->encrypt = 0;
 // set uselpi attribute
 		self->uselpi = 0;
+		self->usespot = 1;
+		self->domulti = 0;
 // set lpival attribute
 		self->lpival = PyList_New(0);
 		if (!self->lpival){
@@ -387,6 +391,8 @@ static int PDFfile_init(PDFfile *self, PyObject */*args*/, PyObject */*kwds*/)
 	self->encrypt = Carrier->doc->PDF_Options.Encrypt;
 // do not Use Custom Rendering Settings
 	self->uselpi = Carrier->doc->PDF_Options.UseLPI;
+	self->usespot = Carrier->doc->PDF_Options.UseSpotColors;
+	self->domulti = Carrier->doc->PDF_Options.doMultiFile;
 // get default values for lpival
 	int n = Carrier->doc->PDF_Options.LPISettings.size();
 	PyObject *lpival=PyList_New(n);
@@ -511,6 +517,8 @@ static PyMemberDef PDFfile_members[] = {
 	{const_cast<char*>("article"), T_INT, offsetof(PDFfile, article), 0, const_cast<char*>("Save Linked Text Frames as PDF Articles\n\tBool value")},
 	{const_cast<char*>("encrypt"), T_INT, offsetof(PDFfile, encrypt), 0, const_cast<char*>("Use Encription. Bool value")},
 	{const_cast<char*>("uselpi"), T_INT, offsetof(PDFfile, uselpi), 0, const_cast<char*>("Use Custom Rendering Settings. Bool value")},
+	{const_cast<char*>("usespot"), T_INT, offsetof(PDFfile, usespot), 0, const_cast<char*>("Use Spot Colors. Bool value")},
+	{const_cast<char*>("domulti"), T_INT, offsetof(PDFfile, domulti), 0, const_cast<char*>("Produce a PDF File for every Page. Bool value")},
 	{const_cast<char*>("aprint"), T_INT, offsetof(PDFfile, aprint), 0, const_cast<char*>("Allow Printing the Document. Bool value")},
 	{const_cast<char*>("achange"), T_INT, offsetof(PDFfile, achange), 0, const_cast<char*>("Allow Changing the Document. Bool value")},
 	{const_cast<char*>("acopy"), T_INT, offsetof(PDFfile, acopy), 0, const_cast<char*>("Allow Copying Text and Graphics. Bool value")},
@@ -1048,6 +1056,8 @@ static PyObject *PDFfile_save(PDFfile *self)
 	Carrier->doc->PDF_Options.Articles = self->article;
 	Carrier->doc->PDF_Options.Encrypt = self->encrypt;
 	Carrier->doc->PDF_Options.UseLPI = self->uselpi;
+	Carrier->doc->PDF_Options.UseSpotColors = self->usespot;
+	Carrier->doc->PDF_Options.doMultiFile = self->domulti;
 	self->version = minmaxi(self->version, 12, 14);
 	// FIXME: Sanity check version
 	Carrier->doc->PDF_Options.Version = (PDFOptions::PDFVersion)self->version;
