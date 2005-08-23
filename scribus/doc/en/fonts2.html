@@ -2,14 +2,23 @@
 <title>Fonts in Depth</title>
 <h2>Fonts in Depth</h2>
 
-<p>Fonts are often where the trouble starts and often ends in DTP. They are in my experience one of the leading troubles in DTP in general and one of the sources of constant questions on the mailing list and IRC. A rough guess is 50% of the bug reports which are font related are problems with the fonts themselves.</p>
+<p>Fonts are often where the trouble starts and often ends in DTP. They are in my experience one of the leading troubles in DTP in general and one of the sources of constant questions on the mailing list and IRC. A rough guess is 50% of the bug reports which are font related are problems with the fonts themselves. A typical question or complaint on IRC is:  "Scribus won't use font X, but application blah and blahblah use it just fine. Why is this?"</p>
 
-<p>Scribus uses the freetype2 libraries for accessing font features. Scribus also does some error checking upon loading to verify the quality of the fonts. Not all fonts are up to the task for use in DTP. Why ?</p>
+<p>Fundamentally, Scribus is <strong>really really</strong> fussy about fonts. This is a feature and not a bug. Certainly, on Linux no other application is less tolerant of fonts with defects than any other. This is a Good Thing &#8482;! Preventing the use of possibly defective fonts is without question essential for reliable output. This has caused some minor annoyance or confusion for end users. Rest assured, this avoids many potential problems down the road. Like a PDF which crashes when you are printing 200,000 magazine covers because the imagesetting machine crashes or refuses to output a file. That, in the real world can cost thousands or millions in your local currency.</p>
 
-<p>High quality fonts are essential for reliable output, no matter which platform. Call me a font snob, but I <b>never ever</b> use freely downloaded shareware fonts. These are the fonts I use and trust are the following (in no particular order) :</p>
+<p>Scribus uses the freetype2 libraries for accessing font internals. Scribus also does some error checking upon loading to verify the quality of the fonts. Not all fonts are up to the task for use in DTP. Why ?</p>
+<p>High quality fonts are essential for reliable output, no matter which platform. Call me a font snob, but I <b>never ever</b> use freely downloaded shareware fonts. Experience has shown us some freeware fonts do not follow normal font specifications for things like having a proper encoding, missing Postscript name, broken curves in individual glyphs and other defects. </p>
 
+<p>
+Scribus does an initial "self-defense" test when starting to see if the available fonts have usable encodings, is scalable and has a correctly embedded Postscript name. Then, loading a document, Scribus uses freetype2 to do a more extensive check of the requested fonts to ensure freetype2 can access all the glyphs within the font. If freetype2 cannot read the glyphs correctly, then usage of that particular font is disabled by Scribus.</p>
+
+
+
+<h3>Trustworthy Fonts</h3>
+
+<p>These are the fonts I use and trust are the following (in no particular order) :</p>
 <ul>
-	<li>The latest Ghostscript fonts. You can get an alternative set of these in TrueType form, from the Artifex site. These alternatives also come with some extra font families and are good usable fonts.  </li>
+	<li>The latest Ghostscript fonts. Preferably, if you have no need for non-Latin, You can get an alternative set of these in TrueType form, from the Artifex site. These alternatives also come with some extra font families and are good usable fonts.  </li>
 	<li>Any of the Adobe or Bitstream fonts from Xfree86 or X.org: Charter, Luxi and Utopia are excellent fonts from this package. The PDF version of this doc is set using Utopia for the main body text.</li>
 	<li>Any of the Lucida fonts from the Sun Java Packages.</li>
 	<li>MS Web fonts - the exception is Wingdings can causes problems in DTP, not just for Scribus (fixed in 1.2.2).</li>
@@ -20,15 +29,15 @@
 	<li>Any Adobe font. Adobe fonts are some of the best and if you have them, the new OpenType fonts are terrific. Scribus is one of the rare applications to support them well, including making them work well with PDF so they print properly from PDF.</li>
 	<li>Any of the fonts packaged with StarOffice 6.0+. These are replacements for the default Windows fonts in some cases and include other font faces. These are all high quality fonts licensed from Agfa Monotype and should work fine in Scribus.</li>
 </ul>
-<p>You can find links for all the downloadable fonts noted above on the Scribus web and docs site. </p>
+<p>You can find links for all the downloadable fonts noted above on the Scribus web site under Web Links > Fonts. </p>
 
-<p>Some distros package some freefonts and shareware fonts under various package names. I avoid them and have removed them from some installs without missing them. </p>
+<p>Some Linux distributions package some free fonts and shareware fonts under various package names. I avoid them and have removed them from some installs without missing them. </p>
 
 <p>Do not be surprised when shareware or clone TrueType fonts downloaded from the Internet disappoint when printed. Sometimes shareware TrueType fonts do not follow proper the proper encoding specs, so they are unreliable in a Postscript environment. Making good reliable fonts in the Postscript sense is not easy and requires extensive QA testing. An example: Verdana from the MS web font collection took almost a year to create.</p>
 
-<p>Also, do not be put off by the lack of a great screen preview with the URW fonts - they are excellent printer fonts. Font faces like Palladio and Utopia for example, are not really attractive on screen, but they are excellent fonts for easy to read documents. There is a reason service bureaus and printers spend literally thousands of dollars for high quality font libraries. </p>
+<p>Also, do not be put off by the lack of a great screen preview with the URW fonts - they are excellent printer fonts. Font faces like Palladio and Utopia for example, are not really attractive on screen, but they are excellent fonts for easy to read printed documents. There is a reason service bureaus and printers spend literally thousands of dollars for high quality font libraries. </p>
 
-<p>As for installation, if you use <code>$home/.fonts</code> directory for adding fonts, Scribus should find them just fine. For those leery of messing around with the command line tools for font installation, KDE 3.2+ includes an improved version of Keith Drummond's kfontinstaller program. The one in KDE 3.3+ works superbly and you can even preview fonts within Konqueror. In my opinion it is one of the most user friendly font installers I have seen on any platform. Recommended. </p>
+<p>On Linux, installation, if you use <code>$home/.fonts</code> directory for adding fonts, Scribus should find them just fine. For those leery of messing around with the command line tools for font installation, KDE 3.2+ includes an improved version of Keith Drummond's kfontinstaller program. The one in KDE 3.3+ works superbly and you can even preview fonts within Konqueror. In my opinion it is one of the most user friendly font installers I have seen on any platform. Recommended. </p>
 
-<p>Scribus also makes it easy to add additional font paths. Simply, close all documents, then select Settings > Fonts > Additional Paths. Select the new path and click OK. If fonts, still do not show up, you may need to add these to either your <code>$home/.fonts.conf</code> file or other method depending on your distro. If some still fail to show up, it is possibly Scribus's font checking mechanism has disabled them. You can make some basic checks by following the hints in: <a href="fonts4.html">Basic Font Tests</a> </p>
+<p>Scribus also makes it easy to add additional font paths. Simply, close all documents, then select Settings > Fonts > Additional Paths. Select the new path and click OK. If fonts, still do not show up, you may need to add these to either your <code>$home/.fonts.conf</code> file or other method depending on your distribution. If some still fail to show up, it is possibly Scribus's font checking mechanism has disabled them. You can make some basic checks by following the hints in: <a href="fonts4.html">Basic Font Tests</a> </p>
 </qt>
