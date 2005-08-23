@@ -30,13 +30,14 @@ class SCRIBUS_API AdvOptions : public QDialog
 	Q_OBJECT
 
 public:
-	AdvOptions(QWidget* parent, bool Hm, bool Vm, bool Ic, int ps, bool DoGcr, bool doDev);
+	AdvOptions(QWidget* parent, bool Hm, bool Vm, bool Ic, int ps, bool DoGcr, bool doDev, bool doSpot);
 	~AdvOptions() {};
 	QCheckBox* MirrorH;
 	QCheckBox* MirrorV;
 	QCheckBox* UseICC;
 	QCheckBox* GcR;
 	QCheckBox* devPar;
+	QCheckBox* spotColors;
 	QButtonGroup* ButtonGroupP;
 	QRadioButton* PS3;
 	QRadioButton* PS2;
@@ -55,7 +56,7 @@ class SCRIBUS_API Druck : public QDialog
 	Q_OBJECT
 
 public:
-	Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool gcr );
+	Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool gcr, QStringList spots);
 	~Druck() {};
 	QString printerName();
 	QString outputFileName();
@@ -69,6 +70,7 @@ public:
 	int numCopies();
 	bool outputSeparations();
 	QString separationName();
+	QStringList allSeparations();
 	QString PrinterOpts;
 	bool color();
 	bool MirrorH;
@@ -76,6 +78,7 @@ public:
 	bool ICCinUse;
 	bool DoGCR;
 	bool doDev;
+	bool doSpot;
 	int PSLevel;
 
 public slots:

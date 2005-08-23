@@ -248,7 +248,7 @@ public:
 	/*!
 	* @brief Builds a qmap of the colours used within the document
 	*/
-	void getUsedColors(ColorList &colorsToUse);
+	void getUsedColors(ColorList &colorsToUse, bool spot = false);
 	/*!
 	 * @brief TODO: Reorganise the fonts.. how? Moved from scribus.cpp
 	 */

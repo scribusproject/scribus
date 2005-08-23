@@ -34,11 +34,11 @@ class ScribusView;
 
 class PSLib {
 public:
-	PSLib(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, ColorList DocColors, bool pdf = false);
+	PSLib(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, ColorList DocColors, bool pdf = false, bool spot = true);
 	virtual ~PSLib() {};
 	virtual bool PS_set_file(QString fn);
 	virtual void PS_set_Info(QString art, QString was);
-	virtual void PS_begin_doc(int Ori, double x, double y, double breite, double hoehe, int numpage, bool doDev);
+	virtual void PS_begin_doc(int Ori, double x, double y, double breite, double hoehe, int numpage, bool doDev, bool sep);
 	virtual void PS_begin_page(double breite, double hoehe, struct MarginStruct* Ma, bool Clipping);
 	virtual void PS_end_page();
 	virtual void PS_curve(double x1, double y1, double x2, double y2, double x3, double y3);
@@ -76,13 +76,14 @@ public:
 	virtual void PDF_Annotation(QString text, double x, double y, double b, double h);
 	virtual void PS_close();
 	virtual void PS_insert(QString i);
-	virtual void PS_TemplateStart(QString Name, double breite, double hoehe);
+	virtual void PS_TemplateStart(QString Name);
 	virtual void PS_TemplateEnd();
 	virtual void PS_UseTemplate(QString Name);
 	virtual void PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bool UseEmbedded, bool UseProf);
-	virtual void CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageNs, bool sep, QString SepNam, bool farb, bool Hm, bool Vm, bool Ic, bool gcr, bool doDev);
+	virtual void CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageNs, bool sep, QString SepNam, QStringList spots, bool farb, bool Hm, bool Vm, bool Ic, bool gcr, bool doDev);
 	virtual void ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool sep, bool farb, bool ic, bool gcr, bool master, bool embedded = false);
 	virtual void ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, bool sep = false, bool farb = true, bool ic = false, bool gcr = true);
+	virtual void putColor(QString color, int shade, bool fill);
 	virtual void SetClipPath(FPointArray *c, bool poly = true);
 	virtual void HandleGradient(PageItem *c, double w, double h, bool gcr);
 	virtual void SetFarbe(QString farb, int shade, int *h, int *s, int *v, int *k, bool gcr);
@@ -123,6 +124,8 @@ private:
 	bool CompAvail;
 	int Plate;
 	bool DoSep;
+	bool useSpotColors;
+	QString currentSpot;
 	ColorList colorsToUse;
 	QString colorDesc;
 	QMap<QString, QString> spotMap;

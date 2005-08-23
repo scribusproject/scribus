@@ -364,6 +364,8 @@ struct PrintOptions
 	int PSLevel;
 	bool outputSeparations;
 	QString separationName;
+	QStringList allSeparations;
+	bool useSpotColors;
 	bool useColor;
 	bool mirrorH;
 	bool mirrorV;

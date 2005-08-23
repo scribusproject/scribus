@@ -29,7 +29,7 @@ extern bool CMSuse;
 #endif
 #include <util.h>
 
-AdvOptions::AdvOptions(QWidget* parent, bool Hm, bool Vm, bool Ic, int ps, bool DoGcr, bool doDev) : QDialog( parent, "prin", true, 0 )
+AdvOptions::AdvOptions(QWidget* parent, bool Hm, bool Vm, bool Ic, int ps, bool DoGcr, bool doDev, bool doSpot) : QDialog( parent, "prin", true, 0 )
 {
 	setCaption( tr( "Advanced Options" ) );
 	setIcon(loadIcon("AppIcon.png"));
@@ -45,6 +45,9 @@ AdvOptions::AdvOptions(QWidget* parent, bool Hm, bool Vm, bool Ic, int ps, bool 
 	GcR = new QCheckBox( tr("Apply Under Color &Removal"), this, "GCR");
 	GcR->setChecked(DoGcr);
 	AdvOptionsLayout->addWidget( GcR );
+	spotColors = new QCheckBox( tr("Convert Spot Colors to Process Colors"), this, "spotColors");
+	spotColors->setChecked(!doSpot);
+	AdvOptionsLayout->addWidget( spotColors );
 	devPar = new QCheckBox( tr("Set Media Size"), this, "devPar");
 	devPar->setChecked(doDev);
 	AdvOptionsLayout->addWidget( devPar );
@@ -106,7 +109,7 @@ AdvOptions::AdvOptions(QWidget* parent, bool Hm, bool Vm, bool Ic, int ps, bool 
 	connect( PushButton1, SIGNAL( clicked() ), this, SLOT( accept() ) );
 }
 
-Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool gcr)
+Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool gcr, QStringList spots)
 		: QDialog( parent, "Dr", true, 0)
 {
 	prefs = PrefsManager::instance()->prefsFile->getContext("print_options");
@@ -132,7 +135,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool 
 	Layout1x->setMargin( 0 );
 	PrintDest = new QComboBox( true, Drucker, "PrintDest" );
 	PrintDest->setMinimumSize( QSize( 250, 22 ) );
-	PrintDest->setMaximumSize( QSize( 260, 22 ) );
+	PrintDest->setMaximumSize( QSize( 260, 30 ) );
 	PrintDest->setEditable(false);
 	QString Pcap;
 	QString tmp;
@@ -316,7 +319,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool 
 	PrintSep->setFocusPolicy( QRadioButton::TabFocus );
 	ButtonGroup3Layout->addWidget( PrintSep );
 	ToSeparation = false;
-
+	doSpot = true;
 	SepArt = new QComboBox( true, ButtonGroup3, "SepArt" );
 	/* PFJ - 29.02.04 - Altered to QString, size_t, for */
 	QString sep[] =
@@ -327,6 +330,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool 
 	size_t sepArray = sizeof(sep) / sizeof(*sep);
 	for (uint prop = 0; prop < sepArray; ++prop)
 		SepArt->insertItem(sep[prop]);
+	SepArt->insertStringList(spots);
 	SepArt->setEnabled( false );
 	SepArt->setEditable( false );
 	ButtonGroup3Layout->addWidget( SepArt );
@@ -427,13 +431,14 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool 
 
 void Druck::SetAdvOptions()
 {
-	AdvOptions* dia = new AdvOptions(this, MirrorH, MirrorV, ICCinUse, PSLevel, DoGCR, doDev);
+	AdvOptions* dia = new AdvOptions(this, MirrorH, MirrorV, ICCinUse, PSLevel, DoGCR, doDev, doSpot);
 	if (dia->exec())
 	{
 		MirrorH = dia->MirrorH->isChecked();
 		MirrorV = dia->MirrorV->isChecked();
 		DoGCR = dia->GcR->isChecked();
 		doDev = dia->devPar->isChecked();
+		doSpot = !dia->spotColors->isChecked();
 #ifdef HAVE_CMS
 		if (CMSuse)
 		{
@@ -667,6 +672,15 @@ QString Druck::separationName()
 	return SepArt->currentText();
 }
 
+QStringList Druck::allSeparations()
+{
+	QStringList ret;
+	for (int a = 1; a < SepArt->count(); ++a)
+	{
+		ret.append(SepArt->text(a));
+	}
+	return ret;
+}
 bool Druck::color()
 {
 	return PrintGray->isChecked();

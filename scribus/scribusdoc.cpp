@@ -1466,7 +1466,7 @@ const bool ScribusDoc::deleteTaggedItems()
 	return true;
 }
 
-void ScribusDoc::getUsedColors(ColorList &colorsToUse)
+void ScribusDoc::getUsedColors(ColorList &colorsToUse, bool spot)
 {
 	PageItem* ite;
 	bool found;
@@ -1478,7 +1478,13 @@ void ScribusDoc::getUsedColors(ColorList &colorsToUse)
 		if ((it.key() == toolSettings.dBrush) || (it.key() == toolSettings.dPen) || (it.key() == toolSettings.dBrushPict)
 		        || (it.key() == toolSettings.dPenLine) || (it.key() == toolSettings.dPenText))
 		{
-			colorsToUse.insert(it.key(), it.data());
+			if (spot)
+			{
+				if (it.data().isSpotColor())
+					colorsToUse.insert(it.key(), it.data());
+			}
+			else
+				colorsToUse.insert(it.key(), it.data());
 			continue;
 		}
 		for (uint c = 0; c < MasterItems.count(); ++c)
@@ -1512,7 +1518,13 @@ void ScribusDoc::getUsedColors(ColorList &colorsToUse)
 		}
 		if (found)
 		{
-			colorsToUse.insert(it.key(), it.data());
+			if (spot)
+			{
+				if (it.data().isSpotColor())
+					colorsToUse.insert(it.key(), it.data());
+			}
+			else
+				colorsToUse.insert(it.key(), it.data());
 			continue;
 		}
 		for (uint c = 0; c < DocItems.count(); ++c)
@@ -1545,7 +1557,13 @@ void ScribusDoc::getUsedColors(ColorList &colorsToUse)
 		}
 		if (found)
 		{
-			colorsToUse.insert(it.key(), it.data());
+			if (spot)
+			{
+				if (it.data().isSpotColor())
+					colorsToUse.insert(it.key(), it.data());
+			}
+			else
+				colorsToUse.insert(it.key(), it.data());
 			continue;
 		}
 		for (uint c = 0; c < FrameItems.count(); ++c)
@@ -1578,7 +1596,13 @@ void ScribusDoc::getUsedColors(ColorList &colorsToUse)
 		}
 		if (found)
 		{
-			colorsToUse.insert(it.key(), it.data());
+			if (spot)
+			{
+				if (it.data().isSpotColor())
+					colorsToUse.insert(it.key(), it.data());
+			}
+			else
+				colorsToUse.insert(it.key(), it.data());
 			continue;
 		}
 	}

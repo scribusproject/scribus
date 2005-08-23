@@ -4661,7 +4661,10 @@ void ScribusApp::slotReallyPrint()
 		}
 	}
 	options.copies = 1;
-	Druck *printer = new Druck(this, options.filename, options.printer, PDef.Command, prefsManager->appPrefs.GCRMode);
+	ColorList usedSpots;
+	doc->getUsedColors(usedSpots, true);
+	QStringList spots = usedSpots.keys();
+	Druck *printer = new Druck(this, options.filename, options.printer, PDef.Command, prefsManager->appPrefs.GCRMode, spots);
 	printer->setMinMax(1, doc->Pages.count(), doc->currentPage->PageNr+1);
 	if (printer->exec())
 	{
@@ -4682,6 +4685,11 @@ void ScribusApp::slotReallyPrint()
 		options.copies = printer->numCopies();
 		options.outputSeparations = printer->outputSeparations();
 		options.separationName = printer->separationName();
+		options.allSeparations = printer->allSeparations();
+		if (options.outputSeparations)
+			options.useSpotColors = true;
+		else
+			options.useSpotColors = printer->doSpot;
 		options.useColor = printer->color();
 		options.mirrorH = printer->MirrorH;
 		options.mirrorV = printer->MirrorV;
@@ -4736,7 +4744,7 @@ bool ScribusApp::doPrint(PrintOptions *options)
 	doc->getUsedColors(usedColors);
 	fileWatcher->forceScan();
 	fileWatcher->stop();
-	PSLib *dd = getPSDriver(true, ReallyUsed, usedColors, false);
+	PSLib *dd = getPSDriver(true, ReallyUsed, usedColors, false, options->useSpotColors);
 	if (dd != NULL)
 	{
 		if (!options->toFile)
@@ -4747,7 +4755,7 @@ bool ScribusApp::doPrint(PrintOptions *options)
 		{
 			// Write the PS to a file
 			ScColor::UseProf = options->useICC;
-			dd->CreatePS(doc, view, options->pageNumbers, options->outputSeparations, options->separationName,
+			dd->CreatePS(doc, view, options->pageNumbers, options->outputSeparations, options->separationName, options->allSeparations,
 			               options->useColor, options->mirrorH, options->mirrorV, options->useICC, options->doGCR, options->setDevParam);
 			ScColor::UseProf = true;
 			if (options->PSLevel != 3)
@@ -7625,10 +7633,10 @@ void ScribusApp::ShowSubs()
 	raise();
 }
 
-PSLib* ScribusApp::getPSDriver(bool psart, QMap<QString,QFont> DocFonts, ColorList DocColors, bool pdf)
+PSLib* ScribusApp::getPSDriver(bool psart, QMap<QString,QFont> DocFonts, ColorList DocColors, bool pdf, bool spot)
 {
 	SCFonts* AllFonts=&(prefsManager->appPrefs.AvailFonts);
-	typedef PSLib* (*sdem)(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, ColorList DocColors, bool pdf);
+	typedef PSLib* (*sdem)(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, ColorList DocColors, bool pdf, bool spot);
 	sdem demo;
 	QString pfad = QString("%1/libs/libpostscript.%3").arg(ScPaths::instance().libDir()).arg(PluginManager::platformDllExtension());
 	PSDriver = PluginManager::loadDLL(pfad);
@@ -7644,7 +7652,7 @@ PSLib* ScribusApp::getPSDriver(bool psart, QMap<QString,QFont> DocFonts, ColorLi
 		PluginManager::unloadDLL(PSDriver);
 		return NULL;
 	}
-	PSLib *dia = (*demo)(psart, *AllFonts, DocFonts, DocColors, pdf);
+	PSLib *dia = (*demo)(psart, *AllFonts, DocFonts, DocColors, pdf, spot);
 	return dia;
 }
 
@@ -7655,6 +7663,7 @@ void ScribusApp::closePSDriver()
 
 bool ScribusApp::DoSaveAsEps(QString fn)
 {
+	QStringList spots;
 	bool return_value = true;
 	std::vector<int> pageNs;
 	pageNs.push_back(doc->currentPage->PageNr+1);
@@ -7671,7 +7680,7 @@ bool ScribusApp::DoSaveAsEps(QString fn)
 	if (dd != NULL)
 	{
 		if (dd->PS_set_file(fn))
-			dd->CreatePS(doc, view, pageNs, false, tr("All"), true, false, false, true, prefsManager->appPrefs.GCRMode, false);
+			dd->CreatePS(doc, view, pageNs, false, tr("All"), spots, true, false, false, true, prefsManager->appPrefs.GCRMode, false);
 		else
 			return_value = false;
 		delete dd;
