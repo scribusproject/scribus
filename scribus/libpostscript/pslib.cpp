@@ -989,7 +989,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 	{
 		view->setGroupRect();
 		view->getGroupRect(&gx, &gy, &gw, &gh);
-		int pgNum = pageNs[0];
+		int pgNum = pageNs[0]-1;
 		gx -= Doc->Pages.at(pgNum)->Xoffset;
 		gy -= Doc->Pages.at(pgNum)->Yoffset;
 		PS_begin_doc(Doc->PageOri, gx, Doc->pageHeight - (gy+gh), gx + gw, Doc->pageHeight - gy, 1*pagemult, false, sep);
