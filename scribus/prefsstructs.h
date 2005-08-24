@@ -29,6 +29,7 @@ struct checkerPrefs
 //TODO Move to its own file
 class CheckerPrefsList : public QMap<QString, checkerPrefs>
 {
+
 	public:
 	void initDefaults()
 	{

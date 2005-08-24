@@ -58,6 +58,8 @@ class PDFOptions;
 
 class SCRIBUS_API ScribusDoc : public QObject, public UndoObject
 {
+	Q_OBJECT
+
 public:
 	ScribusDoc();
 	~ScribusDoc();

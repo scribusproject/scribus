@@ -10,6 +10,8 @@
 #include <qtooltip.h>
 #include <qmap.h>
 #include <qvaluelist.h>
+#include <qgroupbox.h>
+#include <qcheckbox.h>
 
 #include "scribusapi.h"
 #include "scribusstructs.h"
@@ -49,9 +51,10 @@ protected slots:
 
 protected:
 	QVBoxLayout* PDFOptsLayout;
-	QHBoxLayout* Layout5;
+	QGridLayout* NameLayout;
 	QHBoxLayout* Layout7;
-	QLabel* Name;
+	QGroupBox* Name;
+	QCheckBox* multiFile;
 	TabPDFOptions* Options;
 	QToolButton* FileC;
 	QPushButton* OK;

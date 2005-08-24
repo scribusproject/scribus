@@ -36,14 +36,15 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString docFileName, QMap<QString,QFont> D
 	appPrinterProfiles=printerProfiles;
 	PDFOptsLayout = new QVBoxLayout( this );
 	PDFOptsLayout->setSpacing( 5 );
-	PDFOptsLayout->setMargin( 11 );
-	Name = new QLabel( tr( "O&utput to File:" ), this, "Name" );
-	Name->setFrameShape( QLabel::NoFrame );
-	PDFOptsLayout->addWidget( Name );
-	Layout5 = new QHBoxLayout;
-	Layout5->setSpacing( 5 );
-	Layout5->setMargin( 0 );
-	fileNameLineEdit = new QLineEdit( this, "fileNameLineEdit" );
+	PDFOptsLayout->setMargin( 10 );
+	Name = new QGroupBox( this, "GroupBox" );
+	Name->setTitle( tr( "O&utput to File:" ) );
+	Name->setColumnLayout(0, Qt::Vertical );
+	Name->layout()->setSpacing( 5 );
+	Name->layout()->setMargin( 10 );
+	NameLayout = new QGridLayout( Name->layout() );
+	NameLayout->setAlignment( Qt::AlignTop );
+	fileNameLineEdit = new QLineEdit( Name, "fileNameLineEdit" );
 	fileNameLineEdit->setMinimumSize( QSize( 268, 22 ) );
 	if (!pdfOptions->Datei.isEmpty())
 		fileNameLineEdit->setText(pdfOptions->Datei);
@@ -56,13 +57,15 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString docFileName, QMap<QString,QFont> D
 			pdfdir += "/";
 		fileNameLineEdit->setText(pdfdir+fi.baseName()+".pdf");
 	}
-	Name->setBuddy(fileNameLineEdit);
-	Layout5->addWidget( fileNameLineEdit );
-	FileC = new QToolButton( this, "FileC" );
+	NameLayout->addWidget( fileNameLineEdit, 0, 0 );
+	FileC = new QToolButton( Name, "FileC" );
 	FileC->setText( tr( "Cha&nge..." ) );
 	FileC->setMinimumSize( QSize( 88, 24 ) );
-	Layout5->addWidget( FileC );
-	PDFOptsLayout->addLayout( Layout5 );
+	NameLayout->addWidget( FileC, 0, 1 );
+	multiFile = new QCheckBox( tr( "Output one File for every Page" ), Name, "multiFile" );
+	multiFile->setChecked(pdfOptions->doMultiFile);
+	NameLayout->addWidget( multiFile, 1, 0 );
+	PDFOptsLayout->addWidget( Name );
 	Options = new TabPDFOptions( this, pdfOptions, AllFonts, PDFXProfiles, DocFonts,
 								Eff, currView->Doc->unitIndex(), currView->Doc->pageHeight,
 								currView->Doc->pageWidth, currView );
@@ -138,6 +141,7 @@ void PDF_Opts::fileNameChanged()
 void PDF_Opts::updateDocOptions()
 {
 	Opts->Datei = fileNameLineEdit->text();
+	Opts->doMultiFile = multiFile->isChecked();
 	Opts->Thumbnails = Options->CheckBox1->isChecked();
 	Opts->Compress = Options->Compression->isChecked();
 	Opts->CompressMethod = Options->CMethod->currentItem();

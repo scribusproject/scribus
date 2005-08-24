@@ -7863,23 +7863,61 @@ void ScribusApp::doSaveAsPDF()
 	{
 		qApp->setOverrideCursor(QCursor(waitCursor), true);
 		dia->updateDocOptions();
+		ReOrderText(doc, view);
 		QString pageString(dia->getPagesString());
 		std::vector<int> pageNs;
-		parsePagesString(pageString, &pageNs, doc->pageCount);
+		uint pageNumbersSize;
 		QMap<int,QPixmap> thumbs;
-		uint pageNumbersSize=pageNs.size();
-		for (uint ap = 0; ap < pageNumbersSize; ++ap)
-		{
-			QPixmap pm(10,10);
-			if (doc->PDF_Options.Thumbnails)
-				pm.convertFromImage(view->PageToPixmap(pageNs[ap]-1, 100));
-			thumbs.insert(pageNs[ap], pm);
-		}
-		ReOrderText(doc, view);
 		int components=dia->colorSpaceComponents();
 		QString nam(dia->cmsDescriptor());
-		if (!getPDFDriver(doc->PDF_Options.Datei, nam, components, pageNs, thumbs))
-			QMessageBox::warning(this, tr("Warning"), tr("Cannot write the file: \n%1").arg(doc->PDF_Options.Datei), CommonStrings::tr_OK);
+		bool ret = false;
+		QString fileName = doc->PDF_Options.Datei;
+		parsePagesString(pageString, &pageNs, doc->pageCount);
+		if (doc->PDF_Options.doMultiFile)
+		{
+			QFileInfo fi(fileName);
+			QString ext = fi.extension( false );
+			QString path = fi.dirPath( true );
+			QString name = fi.baseName( true );
+			uint aa = 0;
+			while (aa < pageNs.size())
+			{
+				thumbs.clear();
+				std::vector<int> pageNs2;
+				pageNs2.clear();
+				pageNs2.push_back(pageNs[aa]);
+				pageNumbersSize = pageNs2.size();
+				QPixmap pm(10,10);
+				if (doc->PDF_Options.Thumbnails)
+					pm.convertFromImage(view->PageToPixmap(pageNs[aa]-1, 100));
+				thumbs.insert(1, pm);
+				QString realName = QDir::convertSeparators(path+"/"+name+ tr("-Page%1").arg(pageNs[aa])+"."+ext);
+				if (!getPDFDriver(realName, nam, components, pageNs2, thumbs))
+				{
+					qApp->setOverrideCursor(QCursor(arrowCursor), true);
+					QMessageBox::warning(this, tr("Warning"), tr("Cannot write the file: \n%1").arg(doc->PDF_Options.Datei), CommonStrings::tr_OK);
+					delete dia;
+					return;
+				}
+				aa++;
+			}
+		}
+		else
+		{
+			pageNumbersSize = pageNs.size();
+			for (uint ap = 0; ap < pageNumbersSize; ++ap)
+			{
+				QPixmap pm(10,10);
+				if (doc->PDF_Options.Thumbnails)
+					pm.convertFromImage(view->PageToPixmap(pageNs[ap]-1, 100));
+				thumbs.insert(pageNs[ap], pm);
+			}
+			if (!getPDFDriver(fileName, nam, components, pageNs, thumbs))
+			{
+				qApp->setOverrideCursor(QCursor(arrowCursor), true);
+				QMessageBox::warning(this, tr("Warning"), tr("Cannot write the file: \n%1").arg(doc->PDF_Options.Datei), CommonStrings::tr_OK);
+			}
+		}
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	}
 	delete dia;
