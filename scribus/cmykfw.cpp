@@ -93,12 +93,12 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScColor orig, QString name, ColorList *
 	Layout23->addWidget( ComboBox1 );
 
 	Separations = new QCheckBox( this, "Separations" );
-	Separations->setText( tr( "Is Spot-Color" ) );
+	Separations->setText( tr( "Is Spot Color" ) );
 	Separations->setChecked(orig.isSpotColor());
 	Layout23->addWidget( Separations );
 
 	Regist = new QCheckBox( this, "Regist" );
-	Regist->setText( tr( "Is Registration-Color" ) );
+	Regist->setText( tr( "Is Registration Color" ) );
 	Regist->setChecked(orig.isRegistrationColor());
 	Layout23->addWidget( Regist );
 
