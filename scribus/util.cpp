@@ -218,6 +218,21 @@ int callGS(const QString& args_in, const QString device)
 //	qDebug("Calling gs as: %s", cmd1.ascii());
 	return system(cmd1.local8Bit());
 }
+ 
+int  convertPS2PS(QString in, QString out, const QString& opts, int level)
+{
+	PrefsManager* prefsManager=PrefsManager::instance();
+	QString cmd1 = getShortPathName(prefsManager->ghostscriptExecutable());
+	cmd1 += " -q -dNOPAUSE -dSAFER -dBATCH";
+	cmd1 += " -sDEVICE=pswrite";
+	if(level <= 3)
+		cmd1 += QString(" -dLanguageLevel=%1").arg(level);
+	cmd1 += " " + opts + " ";
+	cmd1 += " -sOutputFile=\"" + QDir::convertSeparators(out) + "\"";
+	cmd1 += " \"" + QDir::convertSeparators(in) + "\"";
+	int ret = system(cmd1.local8Bit());
+	return ret;
+}
 
 // Return the GhostScript version string, or QString::null if it couldn't be retrived.
 QString getGSVersion()

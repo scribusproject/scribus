@@ -4766,10 +4766,7 @@ bool ScribusApp::doPrint(PrintOptions *options)
 				opts += tmp.setNum(doc->pageWidth);
 				opts += " -dDEVICEHEIGHTPOINTS=";
 				opts += tmp.setNum(doc->pageHeight);
-				if (options->PSLevel == 1)
-					system("ps2ps -dLanguageLevel=1 "+opts+" \""+filename+"\" \""+filename+".tmp\"");
-				else
-					system("ps2ps "+opts+" \""+filename+"\" \""+filename+".tmp\"");
+				convertPS2PS(filename, filename + ".tmp", opts, options->PSLevel);
 			#ifndef _WIN32
 				system("mv \""+filename+".tmp\" \""+filename+"\"");
 			#else
