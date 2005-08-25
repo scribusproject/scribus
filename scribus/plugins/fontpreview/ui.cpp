@@ -102,52 +102,6 @@ FontPreview::FontPreview(ScribusApp *carrier, QWidget* parent, const char* name,
 	/* go through available fonts and check their properties */
 	reallyUsedFonts.clear();
 	carrier->doc->getUsedFonts(&reallyUsedFonts);
-/* ui.cpp
-	QPixmap ttfFont = loadIcon("font_truetype16.png");
-	QPixmap otfFont = loadIcon("font_otf16.png");
-	QPixmap psFont = loadIcon("font_type1_16.png");
-	QPixmap okIcon = loadIcon("ok.png");
-
-	for (SCFontsIterator fontIter(carrier->Prefs.AvailFonts); fontIter.current(); ++fontIter)
-	{
-		if (fontIter.current()->UseFont)
-		{
-			QListViewItem *row = new QListViewItem(fontList);
-			Foi::FontType type = fontIter.current()->typeCode;
-			row->setText(0, fontIter.current()->SCName);
-			if (reallyUsedFonts.contains(fontIter.current()->SCName))
-				row->setPixmap(1, okIcon);
-
-			if (type == Foi::OTF)
-			{
-				row->setPixmap(2, otfFont);
-				row->setText(2, "OpenType");
-			}
-			else
-				if (fontIter.current()->Subset)
-					row->setPixmap(3, okIcon);
-
-			if (type == Foi::TYPE1) 
-			{
-				row->setPixmap(2, psFont);
-				row->setText(2, "Type1");
-			}
-
-			if (type == Foi::TTF)
-			{
-				row->setPixmap(2, ttfFont);
-				row->setText(2, "TrueType");
-			}
-
-			if (fontIter.current()->fontPath().contains(QDir::homeDirPath())) 
-				row->setText(4, tr("User", "font preview"));
-			else
-				row->setText(4, tr("System", "font preview"));
-
-			fontList->insertItem(row);
-		}
-	} // for fontIter
-*/
 	ttfFont = loadIcon("font_truetype16.png");
 	otfFont = loadIcon("font_otf16.png");
 	psFont = loadIcon("font_type1_16.png");
@@ -202,7 +156,7 @@ FontPreview::~FontPreview()
 void FontPreview::languageChange()
 {
 	setCaption(tr("Fonts Preview", "font preview"));
-	okButton->setText(CommonStrings::tr_OK);
+	okButton->setText(tr("&Append"));
 	okButton->setAccel(QKeySequence(tr("Alt+O", "font preview")));
 	searchLabel->setText(tr("Quick Search: "));
 	searchButton->setText(tr("&Search"));
