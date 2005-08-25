@@ -4655,10 +4655,6 @@ tekst redigerings området under &quot;Kildekode&quot; mærkaten og klik OK for 
         <translation>Gem makroens kildekode - tekst - til en fil. Du kan redigere den gemte kilde og indlæse den igen med &quot;Indlæs kilde...&quot;. </translation>
     </message>
     <message>
-        <source>Python source files (.py)</source>
-        <translation type="obsolete">Python kildetekst filer (.py)</translation>
-    </message>
-    <message>
         <source>Save File Dialog</source>
         <translation>Gem fil dialogvindue</translation>
     </message>
@@ -4675,12 +4671,8 @@ tekst redigerings området under &quot;Kildekode&quot; mærkaten og klik OK for 
         <translation>Vælg kildetekst filen, der skal indlæses</translation>
     </message>
     <message>
-        <source>Python source files *(.py)</source>
-        <translation type="obsolete">Python kildetekst filer *(.py)</translation>
-    </message>
-    <message>
         <source>Python source files (*.py)</source>
-        <translation type="unfinished"></translation>
+        <translation>Python kildetekst filer (*.py)</translation>
     </message>
 </context>
 <context>
@@ -7838,14 +7830,6 @@ ellers er coordinaterne vist i forhold til objektet</translation>
         <translation>Eksportér nogle af siderne til PDF</translation>
     </message>
     <message>
-        <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.
-Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.
-PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management.</source>
-        <translation type="obsolete">Bestemmer PDF kompatibiliteten. Standarden er Acrobat 4.0, som giver den største kompatibilitet.
-Vælg Acrobat 5.0, hvis filen har PDF 1.4 egenskaber, som f.eks. transparens eller hvis du ønsker 128 bit kryptering.
-PDF/X-3 bruges til eksport til PDF for kommerciel udskrivning og kan vælges, når farvestyring er aktiveret.</translation>
-    </message>
-    <message>
         <source>Determines the binding of pages in the PDF. Unless you know
 you need to change it leave the default choice - Left.</source>
         <translation>Bestemmer sidernes indbinding i PDF. Behold standardværdien - venstre, 
@@ -7872,30 +7856,6 @@ Disse er anvendelig for navigering i lange PDF dokumenter.</translation>
 This does not affect the resolution of bitmap images like photos.</source>
         <translation>Opløsning af eksporteret tekst og vektorgrafik.
 Dette påvirker ikke opløsningen af bitmap billeder som fotografier.</translation>
-    </message>
-    <message>
-        <source>Compression of text and graphics.
-Unless you have a reason, leave this checked. This reduces PDF size.</source>
-        <translation type="obsolete">Komprimering af tekst og grafik.
-Medmindre du har grund til andet, så lade dette være aktiveret, Det reducerer størrelsen af PDF-filen.</translation>
-    </message>
-    <message>
-        <source>Version of compression for images.
-Automatic allows Scribus to choose the best method.
-ZIP is good for images with solid colors.
-JPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).
-Leave it set to automatic, unless you have a need for special compression options.</source>
-        <translation type="obsolete">Komprimerings-metode for billeder.
-Automatisk tillader Scribus at vælge den bedste metode.
-ZIP er god til billeder med masive farver.
-JPEG er bedre til at lave PDF-filerne mindre, når der er mange fotografier (evt. med et lille tab af billedkvalitet).
-Vælg automatisk, medmindre du har brug for specielle komprimerings-indstillinger.</translation>
-    </message>
-    <message>
-        <source>Downsample your bitmap images to the selected DPI.
-Leaving this unchecked will render them at their native resolution.</source>
-        <translation type="obsolete">Ændrer bitmap-billedet til valgte DPI.
-Hvis dette ikke vælges, så bruges billedets oprindelige opløsning.</translation>
     </message>
     <message>
         <source>DPI (Dots Per Inch) for image export.</source>
@@ -8357,32 +8317,26 @@ Redigering af kommentarer og felter er ikke muligt uden afkryds.</translation>
         <translation>&lt;qt&gt;PDF sikkerhed kan ikke bruges sammen med PDF/X-3. Hvis du ønsker at aktivere sikkerhed, så vælg en anden PDF version (kompatibilitets niveau) end PDF/X-3.&lt;/qt&gt;</translation>
     </message>
     <message>
-        <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.
-Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.
-PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management. Note: PDF/X-3 will convert all CMYK images to ICC based RGB colors.</source>
-        <translation type="obsolete">Bestemmer PDF kompatibiliteten. Standarden er Acrobat 4.0, som giver den største kompatibilitet.
-Vælg Acrobat 5.0, hvis filen har PDF 1.4 egenskaber, som f.eks. transparens eller hvis du ønsker 128 bit kryptering.
-PDF/X-3 bruges til eksport til PDF for kommerciel udskrivning og kan vælges, når farvestyring er aktiveret. Note: PDF/X-3 vil konvertere
-alle CMYK billeder til ICC baserede RGB farver.</translation>
-    </message>
-    <message>
         <source> Lossless compression of text and graphics.
 Unless you have a reason, leave this checked. This reduces PDF size.</source>
-        <translation type="unfinished"></translation>
+        <translation> Tabsfri komprimering af tekst og grafik.
+Medmindre du har grund til andet, så lad dette være aktiveret, Det reducerer størrelsen af PDF-filen.</translation>
     </message>
     <message>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options.</source>
-        <translation type="unfinished"></translation>
+        <translation>Komprimerings-metode for billeder. Automatisk tillader Scribus at vælge den bedste metode. ZIP er god til billeder med masive farver. JPEG er bedre til at lave PDF-filerne mindre, når der er mange fotografier (med et lille tab af billedkvalitet). Lad indstillingen blive ved automatisk, medmindre du har brug for specielle komprimerings-indstillinger.</translation>
     </message>
     <message>
         <source>Re-sample your bitmap images to the selected DPI.
 Leaving this unchecked will render them at their native resolution.
 This can increase memory usage and slow down export.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ændrer bitmap-billederne til valgte DPI.
+Hvis dette ikke vælges, så bruges billedets oprindelige opløsning.
+Dette kan give øget brug af hukommelse og forlænge eksport-tiden.</translation>
     </message>
     <message>
         <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility. Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Note: PDF/X-3 will convert all CMYK images to ICC based RGB colors. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bestemmer PDF kompatibiliteten. Standarden er Acrobat 4.0, som giver den største kompatibilitet. Vælg Acrobat 5.0, hvis filen har PDF 1.4 egenskaber, som f.eks. transparens eller hvis du ønsker 128 bit kryptering. PDF/X-3 bruges til eksport til PDF, når du ønsker farvestyring af RGB for kommerciel udskrivning og kan vælges, når farvestyring er aktiveret. Note: PDF/X-3 vil konvertere alle CMYK billeder til ICC baserede RGB farver. Bruges kun når dit trykkeri ønsker det, eller i nogle tilfælde, når der udskrives til en 4 farve digital farve laserprinter.</translation>
     </message>
 </context>
 <context>
@@ -11287,7 +11241,7 @@ funktionens dokumentation. </translation>
     <message>
         <source>page</source>
         <comment>page export</comment>
-        <translation type="unfinished"></translation>
+        <translation>side</translation>
     </message>
 </context>
 <context>
