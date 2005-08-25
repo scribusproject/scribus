@@ -715,12 +715,30 @@ QByteArray ComputeMD5Sum(QByteArray *in)
 QString Path2Relative(QString Path)
 {
 	QString	Ndir = "";
-	QStringList Pdir = QStringList::split("/", QDir::currentDirPath());
+	QStringList Pdir;
 	QFileInfo Bfi = QFileInfo(Path);
-	QStringList Bdir = QStringList::split("/", Bfi.dirPath(true));
+	QStringList Bdir;
 	bool end = true;
 	uint dcoun = 0;
 	uint dcoun2 = 0;
+
+#ifndef _WIN32
+	Pdir = QStringList::split("/", QDir::currentDirPath());
+	Bdir = QStringList::split("/", Bfi.dirPath(true));
+#else
+	// On win32, file systems are case insensitive
+	Pdir = QStringList::split("/", QDir::currentDirPath().lower());
+	Bdir = QStringList::split("/", Bfi.dirPath(true).lower());
+	// We must check that both path are located on same drive
+	if( Pdir.size() > 0 && Bdir.size() > 0 )
+	{
+		QString drive = Bdir.front();
+		QString currentDrive = Pdir.front();
+		if( drive != currentDrive ) 
+			return Path;
+	}
+#endif
+
 	while (end)
 	{
 		if (Pdir[dcoun] == Bdir[dcoun])
@@ -731,6 +749,11 @@ QString Path2Relative(QString Path)
 			break;
 	}
 	dcoun2 = dcoun;
+
+#ifdef _WIN32
+	Bdir = QStringList::split("/", Bfi.dirPath(true));
+#endif
+
 	for (uint ddx2 = dcoun; ddx2 < Pdir.count(); ddx2++)
 		Ndir += "../";
 	for (uint ddx = dcoun2; ddx < Bdir.count(); ddx++)
