@@ -4717,7 +4717,10 @@ void ScribusApp::slotReallyPrint()
 #endif
 		PrinterUsed = true;
 		if (!doPrint(&options))
+		{
+			qApp->setOverrideCursor(QCursor(arrowCursor), true);
 			QMessageBox::warning(this, tr("Warning"), tr("Printing failed!"), CommonStrings::tr_OK);
+		}
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	}
 	delete printer;
@@ -4749,6 +4752,18 @@ bool ScribusApp::doPrint(PrintOptions *options)
 	{
 		if (!options->toFile)
 			filename = PrefsPfad+"/tmp.ps";
+		else
+		{
+			qApp->setOverrideCursor(QCursor(arrowCursor), true);
+			if (!overwrite(this, filename))
+			{
+				delete dd;
+				closePSDriver();
+				fileWatcher->start();
+				return true;
+			}
+			qApp->setOverrideCursor(QCursor(waitCursor), true);
+		}
 		bool PSfile = dd->PS_set_file(filename);
 		filename = QDir::convertSeparators(filename);
 		if (PSfile)
@@ -7867,7 +7882,6 @@ void ScribusApp::doSaveAsPDF()
 		QMap<int,QPixmap> thumbs;
 		int components=dia->colorSpaceComponents();
 		QString nam(dia->cmsDescriptor());
-		bool ret = false;
 		QString fileName = doc->PDF_Options.Datei;
 		parsePagesString(pageString, &pageNs, doc->pageCount);
 		if (doc->PDF_Options.doMultiFile)
