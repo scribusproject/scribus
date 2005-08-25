@@ -3161,6 +3161,12 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	dc.setAttribute("PENLINE",doc->toolSettings.dPenLine);
 	dc.setAttribute("PENTEXT",doc->toolSettings.dPenText);
 	dc.setAttribute("StrokeText",doc->toolSettings.dStrokeText);
+	dc.setAttribute("TextBackGround", doc->toolSettings.dTextBackGround);
+	dc.setAttribute("TextLineColor", doc->toolSettings.dTextLineColor);
+	dc.setAttribute("TextBackGroundShade", doc->toolSettings.dTextBackGroundShade);
+	dc.setAttribute("TextLineShade", doc->toolSettings.dTextLineShade);
+	dc.setAttribute("TextPenShade", doc->toolSettings.dTextPenShade);
+	dc.setAttribute("TextStrokeShade", doc->toolSettings.dTextStrokeShade);
 	dc.setAttribute("STIL",doc->toolSettings.dLineArt);
 	dc.setAttribute("STILLINE",doc->toolSettings.dLstyleLine);
 	dc.setAttribute("WIDTH",doc->toolSettings.dWidth);

@@ -9719,6 +9719,16 @@ int ScribusView::PaintText(double x, double y, double b, double h, double w, QSt
 	ite->ItemNr = Doc->Items.count()-1;
 	SetRectFrame(ite);
 	ite->ContourLine = ite->PoLine.copy();
+	ite->setFontFillShade(Doc->toolSettings.dTextPenShade);
+	ite->setFontStrokeShade(Doc->toolSettings.dTextStrokeShade);
+	ite->setFillColor(Doc->toolSettings.dTextBackGround);
+	ite->setFillShade(Doc->toolSettings.dTextBackGroundShade);
+	ite->setLineColor(Doc->toolSettings.dTextLineColor);
+	ite->setLineShade(Doc->toolSettings.dTextLineShade);
+	if (ite->fillColor() != "None")
+		ite->fillQColor = Doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
+	if (ite->lineColor() != "None")
+		ite->strokeQColor = Doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
 	if (!Doc->isLoading())
 	{
 		ite->paintObj();

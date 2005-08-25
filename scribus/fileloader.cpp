@@ -531,6 +531,12 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 			doc->toolSettings.dPenText = dc.attribute("PENTEXT");
 		if (dc.hasAttribute("StrokeText"))
 			doc->toolSettings.dStrokeText = dc.attribute("StrokeText");
+		doc->toolSettings.dTextBackGround = dc.attribute("TextBackGround", "None");
+		doc->toolSettings.dTextLineColor = dc.attribute("TextLineColor", "None");
+		doc->toolSettings.dTextBackGroundShade = QStoInt(dc.attribute("TextBackGroundShade", "100"));
+		doc->toolSettings.dTextLineShade = QStoInt(dc.attribute("TextLineShade", "100"));
+		doc->toolSettings.dTextPenShade = QStoInt(dc.attribute("TextPenShade", "100"));
+		doc->toolSettings.dTextStrokeShade = QStoInt(dc.attribute("TextStrokeShade", "100"));
 		doc->toolSettings.dLineArt = static_cast<Qt::PenStyle>(QStoInt(dc.attribute("STIL")));
 		doc->toolSettings.dLstyleLine = static_cast<Qt::PenStyle>(QStoInt(dc.attribute("STILLINE")));
 		doc->toolSettings.dWidth = QStodouble(dc.attribute("WIDTH", "1"));

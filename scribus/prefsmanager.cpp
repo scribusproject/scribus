@@ -192,6 +192,12 @@ void PrefsManager::initDefaults()
 	appPrefs.toolSettings.dPenLine = "Black";
 	appPrefs.toolSettings.dPenText = "Black";
 	appPrefs.toolSettings.dStrokeText = "Black";
+	appPrefs.toolSettings.dTextBackGround = "None";
+	appPrefs.toolSettings.dTextLineColor = "None";
+	appPrefs.toolSettings.dTextBackGroundShade = 100;
+	appPrefs.toolSettings.dTextLineShade = 100;
+	appPrefs.toolSettings.dTextPenShade = 100;
+	appPrefs.toolSettings.dTextStrokeShade = 100;
 	appPrefs.toolSettings.tabFillChar = "";
 	appPrefs.toolSettings.dTabWidth = 36.0;
 	appPrefs.DpapColor = QColor(white);
@@ -866,6 +872,12 @@ void PrefsManager::WritePref(QString ho)
 	dc9.setAttribute("PENLINE",appPrefs.toolSettings.dPenLine);
 	dc9.setAttribute("PENTEXT",appPrefs.toolSettings.dPenText);
 	dc9.setAttribute("StrokeText",appPrefs.toolSettings.dStrokeText);
+	dc9.setAttribute("TextBackGround", appPrefs.toolSettings.dTextBackGround);
+	dc9.setAttribute("TextLineColor", appPrefs.toolSettings.dTextLineColor);
+	dc9.setAttribute("TextBackGroundShade", appPrefs.toolSettings.dTextBackGroundShade);
+	dc9.setAttribute("TextLineShade", appPrefs.toolSettings.dTextLineShade);
+	dc9.setAttribute("TextPenShade", appPrefs.toolSettings.dTextPenShade);
+	dc9.setAttribute("TextStrokeShade", appPrefs.toolSettings.dTextStrokeShade);
 	dc9.setAttribute("TEXTCOL",appPrefs.toolSettings.dCols);
 	dc9.setAttribute("TEXTGAP",appPrefs.toolSettings.dGap);
 	dc9.setAttribute("TabWidth",appPrefs.toolSettings.dTabWidth);
@@ -1280,6 +1292,12 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.toolSettings.dPenLine = dc.attribute("PENLINE");
 			appPrefs.toolSettings.dPenText = dc.attribute("PENTEXT");
 			appPrefs.toolSettings.dStrokeText = dc.attribute("StrokeText", appPrefs.toolSettings.dPenText);
+			appPrefs.toolSettings.dTextBackGround = dc.attribute("TextBackGround", "None");
+			appPrefs.toolSettings.dTextLineColor = dc.attribute("TextLineColor", "None");
+			appPrefs.toolSettings.dTextBackGroundShade = QStoInt(dc.attribute("TextBackGroundShade", "100"));
+			appPrefs.toolSettings.dTextLineShade = QStoInt(dc.attribute("TextLineShade", "100"));
+			appPrefs.toolSettings.dTextPenShade = QStoInt(dc.attribute("TextPenShade", "100"));
+			appPrefs.toolSettings.dTextStrokeShade = QStoInt(dc.attribute("TextStrokeShade", "100"));
 			appPrefs.toolSettings.dCols = QStoInt(dc.attribute("TEXTCOL", "1"));
 			appPrefs.toolSettings.dGap = QStodouble(dc.attribute("TEXTGAP", "0.0"));
 			appPrefs.toolSettings.tabFillChar = dc.attribute("TabFill", "");

@@ -100,6 +100,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	subTabTextLayout->addMultiCellWidget( sizeComboText, 1, 1, 1, 3, Qt::AlignLeft );
 	textLabel2b = new QLabel(sizeComboText, tr( "Size:" ), subTabText, "textLabel2b" );
 	subTabTextLayout->addWidget( textLabel2b, 1, 0 );
+
 	colorComboText = new QComboBox( true, subTabText, "colorComboText" );
 	colorComboText->setEditable(false);
 	ColorList::Iterator itc;
@@ -128,9 +129,18 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 				colorComboText->setCurrentItem(colorComboText->count()-1);
 		}
 	}
-	subTabTextLayout->addMultiCellWidget( colorComboText, 2, 2, 1, 3, Qt::AlignLeft );
-	textLabel3b = new QLabel(colorComboText, tr( "Fill Color:" ), subTabText, "textLabel3b" );
+	subTabTextLayout->addWidget( colorComboText, 2, 1 );
+	textLabel3b = new QLabel(colorComboText, tr( "Text Color:" ), subTabText, "textLabel3b" );
 	subTabTextLayout->addWidget( textLabel3b, 2, 0 );
+	shadingText = new QSpinBox( subTabText, "shadingText" );
+	shadingText->setMaxValue( 100 );
+	shadingText->setSuffix( tr( " %" ) );
+	shadingText->setMinValue( 0 );
+	shadingText->setValue(prefsData->dTextPenShade);
+	subTabTextLayout->addWidget( shadingText, 2, 3, Qt::AlignLeft );
+	textLabelTS = new QLabel( shadingText, tr( "Shading:" ), subTabText, "textLabelTS" );
+	subTabTextLayout->addWidget( textLabelTS, 2, 2 );
+
 	colorComboStrokeText = new QComboBox( true, subTabText, "colorComboStrokeText" );
 	colorComboStrokeText->setEditable(false);
 	colorComboStrokeText->insertItem( tr("None"));
@@ -158,9 +168,96 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 				colorComboStrokeText->setCurrentItem(colorComboStrokeText->count()-1);
 		}
 	}
-	subTabTextLayout->addMultiCellWidget( colorComboStrokeText, 3, 3, 1, 3, Qt::AlignLeft );
-	textLabel3b2 = new QLabel(colorComboStrokeText, tr( "Stroke Color:" ), subTabText, "textLabel3b2" );
+	subTabTextLayout->addWidget( colorComboStrokeText, 3, 1 );
+	textLabel3b2 = new QLabel(colorComboStrokeText, tr( "Text Stroke:" ), subTabText, "textLabel3b2" );
 	subTabTextLayout->addWidget( textLabel3b2, 3, 0 );
+	shadingTextStroke = new QSpinBox( subTabText, "shadingTextStroke" );
+	shadingTextStroke->setMaxValue( 100 );
+	shadingTextStroke->setSuffix( tr( " %" ) );
+	shadingTextStroke->setMinValue( 0 );
+	shadingTextStroke->setValue(prefsData->dTextStrokeShade);
+	subTabTextLayout->addWidget( shadingTextStroke, 3, 3, Qt::AlignLeft );
+	textLabelTSS = new QLabel( shadingTextStroke, tr( "Shading:" ), subTabText, "textLabelTS" );
+	subTabTextLayout->addWidget( textLabelTSS, 3, 2 );
+
+	colorComboTextBackground = new QComboBox( true, subTabText, "colorComboTextBackground" );
+	colorComboTextBackground->setEditable(false);
+	colorComboTextBackground->insertItem( tr("None"));
+	if (prefsData->dTextBackGround == "None")
+		colorComboTextBackground->setCurrentItem(colorComboTextBackground->count()-1);
+	if (doc != 0)
+	{
+		for (itc = doc->PageColors.begin(); itc != doc->PageColors.end(); ++itc)
+		{
+			QPixmap * pm = getSmallPixmap(doc->PageColors[itc.key()].getRawRGBColor());
+			colorComboTextBackground->insertItem( *pm, itc.key());
+			if (itc.key() == prefsData->dTextBackGround)
+				colorComboTextBackground->setCurrentItem(colorComboTextBackground->count()-1);
+		}
+	}
+	else
+	{
+		ColorList* colorList=prefsManager->colorSetPtr();
+		ColorList::Iterator endOfColorList=colorList->end();
+		for (itc = colorList->begin(); itc != endOfColorList; ++itc)
+		{
+			QPixmap * pm = getSmallPixmap((*colorList)[itc.key()].getRawRGBColor());
+			colorComboTextBackground->insertItem( *pm, itc.key());
+			if (itc.key() == prefsData->dTextBackGround)
+				colorComboTextBackground->setCurrentItem(colorComboTextBackground->count()-1);
+		}
+	}
+	subTabTextLayout->addWidget( colorComboTextBackground, 4, 1 );
+	textLabel3bT = new QLabel(colorComboTextBackground, tr( "Fill Color:" ), subTabText, "textLabel3b" );
+	subTabTextLayout->addWidget( textLabel3bT, 4, 0 );
+	shadingTextBack = new QSpinBox( subTabText, "shadingTextBack" );
+	shadingTextBack->setMaxValue( 100 );
+	shadingTextBack->setSuffix( tr( " %" ) );
+	shadingTextBack->setMinValue( 0 );
+	shadingTextBack->setValue(prefsData->dTextBackGroundShade);
+	subTabTextLayout->addWidget( shadingTextBack, 4, 3, Qt::AlignLeft );
+	textLabelTSB = new QLabel( shadingTextBack, tr( "Shading:" ), subTabText, "textLabelTSS" );
+	subTabTextLayout->addWidget( textLabelTSB, 4, 2 );
+
+	colorComboTextLine = new QComboBox( true, subTabText, "colorComboTextLine" );
+	colorComboTextLine->setEditable(false);
+	colorComboTextLine->insertItem( tr("None"));
+	if (prefsData->dTextLineColor == "None")
+		colorComboTextLine->setCurrentItem(colorComboTextLine->count()-1);
+	if (doc != 0)
+	{
+		for (itc = doc->PageColors.begin(); itc != doc->PageColors.end(); ++itc)
+		{
+			QPixmap * pm = getSmallPixmap(doc->PageColors[itc.key()].getRawRGBColor());
+			colorComboTextLine->insertItem( *pm, itc.key());
+			if (itc.key() == prefsData->dTextLineColor)
+				colorComboTextLine->setCurrentItem(colorComboTextLine->count()-1);
+		}
+	}
+	else
+	{
+		ColorList* colorList=prefsManager->colorSetPtr();
+		ColorList::Iterator endOfColorList=colorList->end();
+		for (itc = colorList->begin(); itc != endOfColorList; ++itc)
+		{
+			QPixmap * pm = getSmallPixmap((*colorList)[itc.key()].getRawRGBColor());
+			colorComboTextLine->insertItem( *pm, itc.key());
+			if (itc.key() == prefsData->dTextLineColor)
+				colorComboTextLine->setCurrentItem(colorComboTextLine->count()-1);
+		}
+	}
+	subTabTextLayout->addWidget( colorComboTextLine, 5, 1 );
+	textLabel3bTL = new QLabel(colorComboTextLine, tr( "Stroke Color:" ), subTabText, "textLabel3b2" );
+	subTabTextLayout->addWidget( textLabel3bTL, 5, 0 );
+	shadingTextLine = new QSpinBox( subTabText, "shadingTextStroke" );
+	shadingTextLine->setMaxValue( 100 );
+	shadingTextLine->setSuffix( tr( " %" ) );
+	shadingTextLine->setMinValue( 0 );
+	shadingTextLine->setValue(prefsData->dTextLineShade);
+	subTabTextLayout->addWidget( shadingTextLine, 5, 3, Qt::AlignLeft );
+	textLabelTSL = new QLabel( shadingTextLine, tr( "Shading:" ), subTabText, "textLabelTSL" );
+	subTabTextLayout->addWidget( textLabelTSL, 5, 2 );
+
 	tabFillCombo = new QComboBox( true, subTabText, "tabFillCombo" );
 	tabFillCombo->setEditable(false);
 	tabFillCombo->insertItem( tr("None"));
@@ -194,32 +291,32 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 		tabFillCombo->setEditable(true);
 		tabFillCombo->setEditText( tr("Custom: "+prefsData->tabFillChar));
 	}
-	subTabTextLayout->addWidget( tabFillCombo, 4, 1, Qt::AlignLeft );
+	subTabTextLayout->addWidget( tabFillCombo, 6, 1, Qt::AlignLeft );
 	textLabel3b2t = new QLabel(tabFillCombo, tr( "Tab Fill Character:" ), subTabText, "textLabel3b2t" );
-	subTabTextLayout->addWidget( textLabel3b2t, 4, 0 );
+	subTabTextLayout->addWidget( textLabel3b2t, 6, 0 );
 	gapTab = new MSpinBox( 1, 200, subTabText, precision );
 	gapTab->setSuffix( unit );
 	gapTab->setValue(prefsData->dTabWidth * unitRatio);
-	subTabTextLayout->addWidget( gapTab, 4, 3, Qt::AlignLeft );
+	subTabTextLayout->addWidget( gapTab, 6, 3, Qt::AlignLeft );
 	textLabel3b2t2 = new QLabel(gapTab, tr( "Tab Width:" ), subTabText, "textLabel3b2t2" );
-	subTabTextLayout->addWidget( textLabel3b2t2, 4, 2 );
+	subTabTextLayout->addWidget( textLabel3b2t2, 6, 2 );
 	columnsText = new QSpinBox( subTabText, "columnsText" );
 	columnsText->setMinValue( 1 );
 	columnsText->setMaxValue(100);
 	columnsText->setValue(prefsData->dCols);
-	subTabTextLayout->addWidget( columnsText, 5, 1, Qt::AlignLeft );
+	subTabTextLayout->addWidget( columnsText, 7, 1, Qt::AlignLeft );
 	textLabel4b = new QLabel(columnsText, tr("Colu&mns:"), subTabText, "TextCol");
-	subTabTextLayout->addWidget( textLabel4b, 5, 0 );
+	subTabTextLayout->addWidget( textLabel4b, 7, 0 );
 	gapText = new MSpinBox( 0, 200, subTabText, precision );
 	gapText->setSuffix( unit );
 	gapText->setValue(prefsData->dGap * unitRatio);
-	subTabTextLayout->addWidget( gapText, 5, 3, Qt::AlignLeft );
+	subTabTextLayout->addWidget( gapText, 7, 3, Qt::AlignLeft );
 	textLabel5b = new QLabel(gapText, tr("&Gap:"), subTabText, "TextCol");
-	subTabTextLayout->addWidget( textLabel5b, 5, 2 );
+	subTabTextLayout->addWidget( textLabel5b, 7, 2 );
 	previewText = new QLabel( tr( "Woven silk pyjamas exchanged for blue quartz" ), subTabText, "previewText" );
 	previewText->setMinimumSize( QSize( 280, 70 ) );
 	previewText->setAlignment( static_cast<int>( QLabel::AlignVCenter | QLabel::AlignLeft ) );
-	subTabTextLayout->addMultiCellWidget( previewText, 6, 6, 0, 3 );
+	subTabTextLayout->addMultiCellWidget( previewText, 8, 8, 0, 3 );
 	subStackTools->addWidget( subTabText, 0 );
 
 	subTabShape = new QWidget( subStackTools, "subTabShape" );

@@ -804,6 +804,16 @@ void ReformDoc::updateDocumentSettings()
 	currDoc->toolSettings.dPenText = tabTools->colorComboText->currentText();
 	if (currDoc->toolSettings.dPenText == tr("None"))
 		currDoc->toolSettings.dPenText = "None";
+	currDoc->toolSettings.dTextBackGround = tabTools->colorComboTextBackground->currentText();
+	if (currDoc->toolSettings.dTextBackGround == tr("None"))
+		currDoc->toolSettings.dTextBackGround = "None";
+	currDoc->toolSettings.dTextLineColor = tabTools->colorComboTextLine->currentText();
+	if (currDoc->toolSettings.dTextLineColor == tr("None"))
+		currDoc->toolSettings.dTextLineColor = "None";
+	currDoc->toolSettings.dTextBackGroundShade = tabTools->shadingTextBack->value();
+	currDoc->toolSettings.dTextLineShade = tabTools->shadingTextLine->value();
+	currDoc->toolSettings.dTextPenShade = tabTools->shadingText->value();
+	currDoc->toolSettings.dTextStrokeShade = tabTools->shadingTextStroke->value();
 	currDoc->toolSettings.dCols = tabTools->columnsText->value();
 	currDoc->toolSettings.dGap = tabTools->gapText->value() / currDoc->unitRatio();
 	currDoc->toolSettings.dTabWidth = tabTools->gapTab->value() / currDoc->unitRatio();

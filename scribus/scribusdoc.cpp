@@ -116,6 +116,16 @@ ScribusDoc::ScribusDoc() : UndoObject(QObject::tr("Document"))
 	if (prefsData->toolSettings.dBrushPict != "None")
 		PageColors.insert(prefsData->toolSettings.dBrushPict, prefsData->DColors[prefsData->toolSettings.dBrushPict]);
 	toolSettings.dBrushPict = prefsData->toolSettings.dBrushPict;
+	if (prefsData->toolSettings.dTextBackGround != "None")
+		PageColors.insert(prefsData->toolSettings.dTextBackGround, prefsData->DColors[prefsData->toolSettings.dTextBackGround]);
+	toolSettings.dTextBackGround = prefsData->toolSettings.dTextBackGround;
+	if (prefsData->toolSettings.dTextLineColor != "None")
+		PageColors.insert(prefsData->toolSettings.dTextLineColor, prefsData->DColors[prefsData->toolSettings.dTextLineColor]);
+	toolSettings.dTextLineColor = prefsData->toolSettings.dTextLineColor;
+	toolSettings.dTextBackGroundShade = prefsData->toolSettings.dTextBackGroundShade;
+	toolSettings.dTextLineShade = prefsData->toolSettings.dTextLineShade;
+	toolSettings.dTextPenShade = prefsData->toolSettings.dTextPenShade;
+	toolSettings.dTextStrokeShade = prefsData->toolSettings.dTextStrokeShade;
 	typographicSettings.valueSuperScript = prefsData->typographicSettings.valueSuperScript;
 	typographicSettings.scalingSuperScript = prefsData->typographicSettings.scalingSuperScript;
 	typographicSettings.valueSubScript = prefsData->typographicSettings.valueSubScript;

@@ -45,6 +45,8 @@ public:
 	QLabel* textLabel3b2;
 	QLabel* textLabel3b2t;
 	QLabel* textLabel3b2t2;
+	QLabel* textLabel3bT;
+	QLabel* textLabel3bTL;
 	QLabel* textLabel1b;
 	QLabel* textLabel2b;
 	QLabel* textLabel4b;
@@ -54,6 +56,16 @@ public:
 	QComboBox* sizeComboText;
 	QComboBox* colorComboText;
 	QComboBox* colorComboStrokeText;
+	QComboBox* colorComboTextBackground;
+	QComboBox* colorComboTextLine;
+	QSpinBox* shadingText;
+	QSpinBox* shadingTextStroke;
+	QSpinBox* shadingTextBack;
+	QSpinBox* shadingTextLine;
+	QLabel* textLabelTS;
+	QLabel* textLabelTSS;
+	QLabel* textLabelTSB;
+	QLabel* textLabelTSL;
 	QComboBox* tabFillCombo;
 	QLabel* textLabel5b;
 	MSpinBox* gapText;

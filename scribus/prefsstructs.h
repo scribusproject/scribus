@@ -112,7 +112,13 @@ struct toolPrefs
 	QString defFont;
 	int defSize;
 	QString dPenText;
+	int dTextPenShade;
 	QString dStrokeText;
+	int dTextStrokeShade;
+	QString dTextBackGround;
+	QString dTextLineColor;
+	int dTextBackGroundShade;
+	int dTextLineShade;
 	int dCols;
 	double dGap;
 	QString tabFillChar;

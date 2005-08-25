@@ -1425,6 +1425,16 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.typographicSettings.valueUnderlineWidth = qRound(tabTypo->underlineWidth->value() * 10);
 	prefsManager->appPrefs.typographicSettings.valueStrikeThruPos = qRound(tabTypo->strikethruPos->value() * 10);
 	prefsManager->appPrefs.typographicSettings.valueStrikeThruWidth = qRound(tabTypo->strikethruWidth->value() * 10);
+	prefsManager->appPrefs.toolSettings.dTextBackGround = tabTools->colorComboTextBackground->currentText();
+	if (prefsManager->appPrefs.toolSettings.dTextBackGround == ScApp->noneString)
+		prefsManager->appPrefs.toolSettings.dTextBackGround = "None";
+	prefsManager->appPrefs.toolSettings.dTextLineColor = tabTools->colorComboTextLine->currentText();
+	if (prefsManager->appPrefs.toolSettings.dTextLineColor == ScApp->noneString)
+		prefsManager->appPrefs.toolSettings.dTextLineColor = "None";
+	prefsManager->appPrefs.toolSettings.dTextBackGroundShade = tabTools->shadingTextBack->value();
+	prefsManager->appPrefs.toolSettings.dTextLineShade = tabTools->shadingTextLine->value();
+	prefsManager->appPrefs.toolSettings.dTextPenShade = tabTools->shadingText->value();
+	prefsManager->appPrefs.toolSettings.dTextStrokeShade = tabTools->shadingTextStroke->value();
 	prefsManager->appPrefs.toolSettings.dPen = tabTools->colorComboLineShape->currentText();
 	if (prefsManager->appPrefs.toolSettings.dPen == ScApp->noneString)
 		prefsManager->appPrefs.toolSettings.dPen = "None";
