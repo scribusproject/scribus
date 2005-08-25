@@ -177,18 +177,20 @@ MarginStruct PresetLayout::getMargins(int index, double pageWidth, double pageHe
 	switch (index)
 	{
 		case PresetLayout::magazine:
-				ret.Top = ret.Bottom = ret.Left = ret.Right = leftMargin;
-				break;
+			ret.Top = ret.Bottom = ret.Left = ret.Right = leftMargin;
+			break;
 		case PresetLayout::book:
+			{
 				double ratio = pageHeight / pageWidth;
 				ret.Left = leftMargin;
 				ret.Top = leftMargin * ratio;
 				ret.Right = leftMargin * 2.0;
 				ret.Bottom = ret.Right * ratio;
-				break;
+			}
+			break;
 		default:
-				// HACK!
-				ret.Top = ret.Bottom = ret.Left = ret.Right = -1.0;
+			// HACK!
+			ret.Top = ret.Bottom = ret.Left = ret.Right = -1.0;
 	}
 	return ret;
 }
