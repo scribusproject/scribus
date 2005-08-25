@@ -14,46 +14,61 @@ MarginWidget::MarginWidget( QWidget* parent, QString title, MarginStruct* margs,
 	RandR = margs->Right;
 	RandL = margs->Left;
 	unitRatio = unit;
-	GroupLayout = new QGridLayout( this->layout() );
-	GroupLayout->setAlignment( Qt::AlignTop );
+
+	presetCombo = new PresetLayout(this, "presetCombo");
+	presetLabel = new QLabel(presetCombo, tr("Preset Layouts:"), this, "presetLabel");
+
 	topR = new MSpinBox( 0, 1000, this, decimals );
 	topR->setSuffix( einh );
 	topR->setValue(RandT * unitRatio);
-	GroupLayout->addWidget( topR, 0, 1 );
+
 	bottomR = new MSpinBox( 0, 1000, this, decimals );
 	bottomR->setSuffix( einh );
 	bottomR->setValue(RandB * unitRatio);
-	GroupLayout->addWidget( bottomR, 1, 1 );
+
 	leftR = new MSpinBox( 0, 1000, this, decimals );
 	leftR->setSuffix( einh );
 	leftR->setValue(RandL * unitRatio);
-	GroupLayout->addWidget( leftR, 3, 1 );
+
 	rightR = new MSpinBox( 0, 1000, this, decimals );
 	rightR->setSuffix( einh );
 	rightR->setValue(RandR * unitRatio);
-	GroupLayout->addWidget( rightR, 2, 1 );
+
 	GRText2 = new QLabel( bottomR, tr( "&Bottom:" ), this, "GRText2" );
-	GroupLayout->addWidget( GRText2, 1, 0 );
 	GRText1 = new QLabel( topR, tr( "&Top:" ), this, "GRText1" );
-	GroupLayout->addWidget( GRText1, 0, 0 );
 	GRText4 = new QLabel( rightR, tr( "&Right:" ), this, "GRText4" );
-	GroupLayout->addWidget( GRText4, 2, 0 );
 	GRText3 = new QLabel( leftR, tr( "&Left:" ), this, "GRText3" );
-	GroupLayout->addWidget( GRText3, 3, 0 );
-	QToolTip::add( topR, tr( "Distance between the top margin guide and the edge of the page" ) );
-	QToolTip::add( bottomR, tr( "Distance between the bottom margin guide and the edge of the page" ) );
-	QToolTip::add( leftR, tr( "Distance between the left margin guide and the edge of the page.\nIf Facing Pages is selected, this margin space can be used to achieve the correct margins for binding" ) );
-	QToolTip::add( rightR, tr( "Distance between the right margin guide and the edge of the page.\nIf Facing Pages is selected, this margin space can be used to achieve the correct margins for binding" ) );
+	// layout
+	GroupLayout = new QGridLayout( this->layout() );
+	GroupLayout->setAlignment( Qt::AlignTop );
+	GroupLayout->addWidget(presetLabel, 0, 0);
+	GroupLayout->addWidget(presetCombo, 0, 1);
+	GroupLayout->addWidget( topR, 1, 1 );
+	GroupLayout->addWidget( bottomR, 2, 1 );
+	GroupLayout->addWidget( leftR, 4, 1 );
+	GroupLayout->addWidget( rightR, 3, 1 );
+	GroupLayout->addWidget( GRText2, 2, 0 );
+	GroupLayout->addWidget( GRText1, 1, 0 );
+	GroupLayout->addWidget( GRText4, 3, 0 );
+	GroupLayout->addWidget( GRText3, 4, 0 );
+	// hints
+	QToolTip::add( topR, "<qt>" + tr( "Distance between the top margin guide and the edge of the page" ) + "</qt>");
+	QToolTip::add( bottomR, "<qt>" + tr( "Distance between the bottom margin guide and the edge of the page" ) + "</qt>");
+	QToolTip::add( leftR, "<qt>" + tr( "Distance between the left margin guide and the edge of the page.\nIf Facing Pages is selected, this margin space can be used to achieve the correct margins for binding") + "</qt>");
+	QToolTip::add( rightR, "<qt>" +tr( "Distance between the right margin guide and the edge of the page.\nIf Facing Pages is selected, this margin space can be used to achieve the correct margins for binding") + "</qt>");
+	// signals&slots
 	connect(topR, SIGNAL(valueChanged(int)), this, SLOT(setTop()));
 	connect(bottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom()));
 	connect(leftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft()));
 	connect(rightR, SIGNAL(valueChanged(int)), this, SLOT(setRight()));
+	connect(presetCombo, SIGNAL(activated(int)), this, SLOT(setPreset()));
 }
 
 void MarginWidget::setFacingPages(bool facing)
 {
 	GRText3->setText(facing == true ? tr( "&Inside:" ) : tr( "&Left:" ));
 	GRText4->setText(facing == true ? tr( "O&utside:" ) : tr( "&Right:" ));
+	setPreset();
 }
 
 void MarginWidget::setPageWidth(double width)
@@ -61,6 +76,7 @@ void MarginWidget::setPageWidth(double width)
 	rightR->setMaxValue(width * unitRatio - leftR->value());
 	leftR->setMaxValue(width * unitRatio - rightR->value());
 	pageWidth = width;
+	setPreset();
 }
 
 void MarginWidget::setPageHeight(double height)
@@ -68,30 +84,35 @@ void MarginWidget::setPageHeight(double height)
 	topR->setMaxValue(height * unitRatio - bottomR->value());
 	bottomR->setMaxValue(height * unitRatio - topR->value());
 	pageHeight = height;
+	setPreset();
 }
 
 void MarginWidget::setTop()
 {
 	RandT = topR->value() / unitRatio;
 	bottomR->setMaxValue(pageHeight * unitRatio - topR->value());
+	setPreset();
 }
 
 void MarginWidget::setBottom()
 {
 	RandB = bottomR->value() / unitRatio;
 	topR->setMaxValue(pageHeight * unitRatio - bottomR->value());
+	setPreset();
 }
 
 void MarginWidget::setLeft()
 {
 	RandL = leftR->value() / unitRatio;
 	rightR->setMaxValue(pageWidth * unitRatio - leftR->value());
+	setPreset();
 }
 
 void MarginWidget::setRight()
 {
 	RandR = rightR->value() / unitRatio;
 	leftR->setMaxValue(pageWidth * unitRatio - rightR->value());
+	setPreset();
 }
 
 void MarginWidget::unitChange(double newUnit, int newDecimals, QString newSuffix)
@@ -121,4 +142,53 @@ void MarginWidget::unitChange(double newUnit, int newDecimals, QString newSuffix
 	connect(bottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom()));
 	connect(leftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft()));
 	connect(rightR, SIGNAL(valueChanged(int)), this, SLOT(setRight()));
+}
+
+void MarginWidget::setPreset()
+{
+	int item = presetCombo->currentItem();
+	MarginStruct marg = presets->getMargins(item, pageWidth, pageHeight, leftR->value());
+	if (marg.Left == -1.0)
+		return;
+	leftR->setValue(marg.Left);
+	rightR->setValue(marg.Right);
+	topR->setValue(marg.Top);
+	bottomR->setValue(marg.Bottom);
+}
+
+/*
+ * presets
+ */
+
+PresetLayout::PresetLayout(QWidget *parent, const char * name) : QComboBox(parent, name)
+{
+	insertItem(tr("None"), PresetLayout::none);
+	insertItem(tr("Book"), PresetLayout::book);
+	insertItem(tr("Magazine"), PresetLayout::magazine);
+	setCurrentItem(PresetLayout::none);
+
+	QToolTip::add(this, "<qt>" +tr("You can select predefined page layout here. 'None' leave margins as is, 'Book' sets margins classically (Gutenberg). 'Book' is proposed for two-sided documents. 'Magazine' sets all margins for same value. Leading is Left/Inside value.") + "</qt>");
+}
+
+MarginStruct PresetLayout::getMargins(int index, double pageWidth, double pageHeight, double leftMargin)
+{
+	MarginStruct ret;
+
+	switch (index)
+	{
+		case PresetLayout::magazine:
+				ret.Top = ret.Bottom = ret.Left = ret.Right = leftMargin;
+				break;
+		case PresetLayout::book:
+				double ratio = pageHeight / pageWidth;
+				ret.Left = leftMargin;
+				ret.Top = leftMargin * ratio;
+				ret.Right = leftMargin * 2.0;
+				ret.Bottom = ret.Right * ratio;
+				break;
+		default:
+				// HACK!
+				ret.Top = ret.Bottom = ret.Left = ret.Right = -1.0;
+	}
+	return ret;
 }

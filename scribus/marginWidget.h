@@ -4,10 +4,44 @@
 #include <qlayout.h>
 #include <qgroupbox.h>
 #include <qlabel.h>
+#include <qcombobox.h>
 
 #include "scribusapi.h"
 #include "scribusstructs.h"
+
 class MSpinBox;
+
+
+/*! This is inherited QComboBox widget used in MarginWidget as "Preset List".
+It contains functionality for margins setting in various ways.
+\author Petr Vanek, <petr@yarpen.cz>
+*/
+class SCRIBUS_API PresetLayout: public QComboBox
+{
+	Q_OBJECT
+
+public:
+	/*! QComboBox like constructor. Values/names are set here. Tooltip etc. too. */
+	PresetLayout(QWidget *parent = 0, const char * name = 0);
+	~PresetLayout(){};
+
+	/*! Compute the margins here.
+	\param index selected item
+	\param pageWidth width of the page. Taken from NewDoc dialog.
+	\param pageHeight height of the page. Taken from NewDoc dialog.
+	\param leftMargin leadin margin value. The others margins are set in various ratios related to this one.
+	*/
+	MarginStruct getMargins(int index, double pageWidth, double pageHeight, double leftMargin);
+
+	/*! Integerized indexes for tr() strings*/
+	enum presetID
+	{
+		none = 0,
+		book = 1,
+		magazine = 2
+	};
+};
+
 
 /*! Widget for Margins setting.
 Used e.g. in "New Doc Dialog" or "Preferences".
@@ -40,11 +74,13 @@ public:
 	MSpinBox* bottomR;
 	MSpinBox* rightR;
 	MSpinBox* leftR;
+	QComboBox* presetCombo;
 	/*! Labels */
 	QLabel* GRText1;
 	QLabel* GRText2;
 	QLabel* GRText3;
 	QLabel* GRText4;
+	QLabel* presetLabel;
 	/*! Top margin value converted by unitRatio */
 	double RandT;
 	/*! Bottom margin value converted by unitRatio */
@@ -68,8 +104,11 @@ public slots:
 	void setBottom();
 	void setLeft();
 	void setRight();
+	/*! Recompute margins in PresetLayout combobox */
+	void setPreset();
 
 protected:
+	PresetLayout *presets;
 	QGridLayout* GroupLayout;
 };
 
