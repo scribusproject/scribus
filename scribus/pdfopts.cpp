@@ -62,7 +62,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString docFileName, QMap<QString,QFont> D
 	FileC->setText( tr( "Cha&nge..." ) );
 	FileC->setMinimumSize( QSize( 88, 24 ) );
 	NameLayout->addWidget( FileC, 0, 1 );
-	multiFile = new QCheckBox( tr( "Output one File for every Page" ), Name, "multiFile" );
+	multiFile = new QCheckBox( tr( "Output one file for eac&h page" ), Name, "multiFile" );
 	multiFile->setChecked(pdfOptions->doMultiFile);
 	NameLayout->addWidget( multiFile, 1, 0 );
 	PDFOptsLayout->addWidget( Name );
@@ -84,8 +84,8 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString docFileName, QMap<QString,QFont> D
 	PDFOptsLayout->addLayout( Layout7 );
 	resize(sizeHint());
 //	setMaximumSize( sizeHint() );
-
-
+//tooltips
+	QToolTip::add( multiFile, "<qt>" + tr( "This enables exporting one indivdidually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commerical printing.") + "</qt>" );
 	// signals and slots connections
 	connect( FileC, SIGNAL( clicked() ), this, SLOT( ChangeFile() ) );
 	connect( OK, SIGNAL( clicked() ), this, SLOT( DoExport() ) );

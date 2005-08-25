@@ -4608,8 +4608,8 @@ void ScribusApp::slotFilePrint()
 			if (doc->checkerProfiles[doc->curCheckProfile].ignoreErrors)
 			{
 				int t = QMessageBox::warning(this, tr("Warning"),
-											tr("Detected some Errors.\nConsider using the Preflight Checker to correct them"),
-											tr("Abort"), tr("Ignore"), 0, 0, 0);
+											tr("Scribus has detected some errors.\nConsider using the Pre-flight Checker to correct them"),
+											"<qt>"+tr("&Abort"), tr("&Ignore"), 0, 0, 0);
 				if (t == 0)
 					return;
 			}
@@ -7698,8 +7698,8 @@ void ScribusApp::SaveAsEps()
 			if (doc->checkerProfiles[doc->curCheckProfile].ignoreErrors)
 			{
 				int t = QMessageBox::warning(this, tr("Warning"),
-											tr("Detected some Errors.\nConsider using the Preflight Checker to correct them"),
-											tr("Abort"), tr("Ignore"), 0, 0, 0);
+											tr("Scribus detected some errors.\nConsider using the Preflight Verifier  to correct them."),
+											tr("&Abort"), tr("&Ignore"), 0, 0, 0);
 				if (t == 0)
 					return;
 			}
@@ -7797,8 +7797,8 @@ void ScribusApp::SaveAsPDF()
 			if (doc->checkerProfiles[doc->curCheckProfile].ignoreErrors)
 			{
 				int t = QMessageBox::warning(this, tr("Warning"),
-											tr("Detected some Errors.\nConsider using the Preflight Verifier to correct them"),
-											tr("Abort"), tr("Ignore"), 0, 0, 0);
+											tr("Detected some errors.\nConsider using the Preflight Verifier to correct them"),
+											tr("&Abort"), tr("&Ignore"), 0, 0, 0);
 				if (t == 0)
 					return;
 			}
@@ -8226,7 +8226,7 @@ void ScribusApp::GroupObj(bool showLockDia)
 			{
 				if (t == -1 && view->SelItem.at(a)->locked())
 					t = QMessageBox::warning(this, tr("Warning"),
-											 tr("Some Objects are locked."),
+											 tr("Some objects are locked."),
 											 CommonStrings::tr_Cancel,
 											 tr("&Lock All"),
 											 tr("&Unlock All"), 0, 0);
