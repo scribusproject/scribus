@@ -828,6 +828,9 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["pageApplyMasterPage"], "Page");
 	scrMenuMgr->addMenuItem(scrActions["pageManageGuides"], "Page");
 	scrMenuMgr->addMenuItem(scrActions["pageManageMargins"], "Page");
+	scrMenuMgr->addMenuSeparator("Page");
+	scrMenuMgr->addMenuItem(scrActions["viewSnapToGrid"], "Page");
+	scrMenuMgr->addMenuItem(scrActions["viewSnapToGuides"], "Page");
 	scrActions["pageDelete"]->setEnabled(false);
 	scrActions["pageMove"]->setEnabled(false);
 
@@ -849,9 +852,8 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["viewShowTextChain"], "View");
 	scrMenuMgr->addMenuItem(scrActions["viewShowTextControls"], "View");
 	scrMenuMgr->addMenuItem(scrActions["viewRulerMode"], "View");
-	scrMenuMgr->addMenuSeparator("View");
-	scrMenuMgr->addMenuItem(scrActions["viewSnapToGrid"], "View");
-	scrMenuMgr->addMenuItem(scrActions["viewSnapToGuides"], "View");
+
+	//CB If this is viewNewView imeplemented, it should be on the windows menu
 //	scrMenuMgr->addMenuItem(scrActions["viewNewView"], "View");
 
 	//Tool menu
