@@ -753,11 +753,11 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	QWidget::setTabOrder( DocumentTemplateDir, FileC4 );
 	QWidget::setTabOrder( PreviewSize, SaveAtQuit );
 
-	QToolTip::add( checkLink, tr("Turns the display of linked frames on or off"));
+	QToolTip::add( checkLink, tr("Enable or disable  the display of linked frames."));
 	QToolTip::add( checkControl, "<qt>" + tr("Display non-printing characters such as paragraph markers in text frames") + "</qt>");
 	QToolTip::add( checkFrame, tr("Turns the display of frames on or off"));
 	QToolTip::add( checkPictures, tr("Turns the display of pictures on or off"));
-	QToolTip::add( guiLangCombo, tr( "Select your default language for Scribus to run with.\nLeave this blank to choose based on environment variables.\nYou can still override this by passing a command line option when starting Scribus" ) );
+	QToolTip::add( guiLangCombo, "<qt>" + tr( "Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus" )+"</qt>" );
 	QToolTip::add( GUICombo, tr( "Choose the default window decoration and looks.\nScribus inherits any available KDE or Qt themes" ) );
 	QToolTip::add( GFsize, tr( "Default font size for the menus and windows" ) );
 	QToolTip::add( UnitCombo, tr( "Default unit of measurement for document editing" ) );

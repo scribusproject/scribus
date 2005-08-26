@@ -392,7 +392,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	pageWidth = widthMSpinBox->value() / unitRatio;
 	pageHeight = heightMSpinBox->value() / unitRatio;
 	//tooltips
-	QToolTip::add( checkLink, "<qt>" + tr("Turns the of linked frames on or off") + "</qt>");
+	QToolTip::add( checkLink, "<qt>" + tr("Enable or disable the display of linked text frames.") + "</qt>");
 	QToolTip::add( checkControl, "<qt>" + tr("Display non-printing characters such as paragraph markers in text frames") + "</qt>");
 	QToolTip::add( checkFrame, "<qt>" + tr("Turns the display of frames on or off") + "</qt>");
 	QToolTip::add( checkPictures, "<qt>" + tr("Turns the display of pictures on or off") + "</qt>");
