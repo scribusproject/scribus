@@ -38,11 +38,19 @@ public:
 	/** @brief Return path to the Scribus share directory */
 	const QString& shareDir() const;
 
+	/** @brief Return paths to system font directories*/
+	static QStringList getSystemFontDirs(void);
+	/** @brief Return paths to system icc profiles directories*/
+	static QStringList getSystemProfilesDirs(void);
+
 protected:
 	/** @brief Constructor. Use ScPaths::instance() instead. */
 	ScPaths();
 	/** @brief Destructor. Use ScPaths::destroy() instead. */
 	~ScPaths();
+
+	/** @brief Return path to a special directory, should be used only on Windows*/
+	static QString getSpecialDir(int folder);
 
 	/** @brief Pointer to existing instance of ScPaths, if any. */
 	static ScPaths* m_instance;

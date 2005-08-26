@@ -1,13 +1,18 @@
 #include "scpaths.h"
 #include <qapplication.h>
+#include <qdir.h>
 
 #include "scconfig.h"
-
 
 // On Qt/Mac we need CoreFoundation to discover the location
 // of the app bundle.
 #ifdef BUILD_MAC_BUNDLE
 #include <CoreFoundation/CoreFoundation.h>
+#endif
+
+#ifdef _WIN32
+#include <windows.h>
+#include <shlobj.h>
 #endif
 
 // Init the singleton's "self" address to NULL
@@ -90,7 +95,17 @@ ScPaths::ScPaths() :
 	qDebug(QString("scpaths: plugin dir=%1").arg(m_pluginDir));
 	qDebug(QString("scpaths: qtplugins=%1").arg(QApplication::libraryPaths().join(":")));
 */
-#endif // defined(BUILD_MAC_BUNDLE)
+#elif defined(_WIN32)
+	QString appPath = qApp->applicationDirPath();
+	m_shareDir = strdup(QString("%1/share/").arg(appPath));
+	m_docDir = strdup(QString("%1/share/doc/").arg(appPath));
+	m_iconDir = strdup(QString("%1/share/icons/").arg(appPath));
+	m_sampleScriptDir = strdup(QString("%1/share/samples/").arg(appPath));
+	m_scriptDir = strdup(QString("%1/share/scripts/").arg(appPath));
+	m_templateDir = strdup(QString("%1/share/templates/").arg(appPath));
+	m_libDir = strdup(QString("%1/libs/").arg(appPath));
+	m_pluginDir = strdup(QString("%1/plugins/").arg(appPath));
+#endif
 }
 
 ScPaths::~ScPaths() {};
@@ -133,4 +148,68 @@ const QString&  ScPaths::templateDir() const
 const QString&  ScPaths::shareDir() const
 {
 	return m_shareDir;
+}
+
+QStringList ScPaths::getSystemFontDirs(void)
+{
+	QStringList fontDirs;
+#ifdef BUILD_MAC_BUNDLE
+	fontDirs.append(QDir::homeDirPath() + "/Library/Fonts/");
+	fontDirs.append("/Library/Fonts/");
+	fontDirs.append("/Network/Library/Fonts/");
+	fontDirs.append("/System/Library/Fonts/");
+#elif defined(_WIN32)
+	fontDirs.append( getSpecialDir(CSIDL_FONTS) );
+#endif
+	return fontDirs;
+}
+
+QStringList ScPaths::getSystemProfilesDirs(void)
+{
+	QStringList iccProfDirs;
+#ifdef BUILD_MAC_BUNDLE
+	iccProfDirs.append(QDir::homeDirPath()+"/Library/ColorSync/Profiles/");
+	iccProfDirs.append("/System/Library/ColorSync/Profiles/");
+	iccProfDirs.append("/Library/ColorSync/Profiles/");
+#elif defined(Q_WS_X11)
+	iccProfDirs.append(QDir::homeDirPath()+"/color/icc/");
+	iccProfDirs.append(QDir::homeDirPath()+"/.color/icc/");
+	iccProfDirs.append("/usr/share/color/icc/");
+#elif defined(_WIN32)
+	// On Windows it's more complicated, profiles location depends on OS version
+	char sysDir[MAX_PATH + 1];
+	OSVERSIONINFO osVersion;
+	ZeroMemory( &osVersion, sizeof(OSVERSIONINFO));
+	osVersion.dwOSVersionInfoSize = sizeof(OSVERSIONINFO); // Necessary for GetVersionEx to succeed
+	GetVersionEx(&osVersion);  // Get Windows version infos
+	GetSystemDirectory( sysDir, MAX_PATH ); // getSpecialDir(CSIDL_SYSTEM) fails on Win9x
+	QString winSysDir = QString(sysDir).replace('\\','/');
+	if( osVersion.dwPlatformId == VER_PLATFORM_WIN32_NT	) // Windows NT/2k/XP
+	{
+		if( osVersion.dwMajorVersion >= 5 ) // for 2k and XP dwMajorVersion == 5 
+			iccProfDirs.append( winSysDir + "/Spool/Drivers/Color/");
+	}
+	else if( osVersion.dwPlatformId == VER_PLATFORM_WIN32_WINDOWS ) // Windows 9x/Me 
+	{
+		if( osVersion.dwMajorVersion >= 4 && osVersion.dwMinorVersion >= 10) // Win98 or WinMe
+			iccProfDirs.append( winSysDir + "/Color/");
+	}
+#endif
+	return iccProfDirs;
+}
+
+QString ScPaths::getSpecialDir(int folder)
+{
+	QString qstr;
+#if defined(_WIN32)
+	char dir[256];
+	SHGetSpecialFolderPath(NULL, dir, folder , false);
+	qstr = dir;
+	if( !qstr.endsWith("\\") )
+		qstr += "\\";
+	qstr.replace( '\\', '/' );
+#else
+	Q_ASSERT(false);
+#endif
+	return qstr;
 }
