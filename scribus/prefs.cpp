@@ -39,7 +39,6 @@
 #include "linecombo.h"
 #include "arrowchooser.h"
 #include "pagelayout.h"
-
 using namespace std;
 
 extern QPixmap loadIcon(QString nam);

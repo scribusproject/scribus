@@ -329,7 +329,7 @@ void PrefsManager::initDefaults()
 	appPrefs.useStandardLI = false;
 	appPrefs.paragraphsLI = 10;
 	appPrefs.showStartupDialog = true;
-	appPrefs.checkerProfiles.initDefaults();
+	initDefaultCheckerPrefs(&appPrefs.checkerProfiles);	
 	appPrefs.curCheckProfile = tr("Postscript");
 	appPrefs.PDF_Options.Thumbnails = false;
 	appPrefs.PDF_Options.Articles = false;
@@ -615,7 +615,7 @@ void PrefsManager::ReadPrefs()
 	ReadPrefsXML();
 	if (appPrefs.checkerProfiles.count() == 0)
 	{
-		appPrefs.checkerProfiles.initDefaults();
+		initDefaultCheckerPrefs(&appPrefs.checkerProfiles);	
 		appPrefs.curCheckProfile = tr("Postscript");
 	}
 }
@@ -1651,4 +1651,32 @@ bool PrefsManager::ReadPref(QString ho)
 	apf.setPointSize(appPrefs.AppFontSize);
 	qApp->setFont(apf,true);
 	return true;
+}
+
+void PrefsManager::initDefaultCheckerPrefs(CheckerPrefsList* cp)
+{
+	if (cp!=NULL)
+	{
+		struct checkerPrefs checkerSettings;
+		checkerSettings.ignoreErrors = false;
+		checkerSettings.autoCheck = true;
+		checkerSettings.checkGlyphs = true;
+		checkerSettings.checkOrphans = true;
+		checkerSettings.checkOverflow = true;
+		checkerSettings.checkPictures = true;
+		checkerSettings.checkResolution = true;
+		checkerSettings.checkTransparency = true;
+		checkerSettings.checkAnnotations = false;
+		checkerSettings.checkRasterPDF = true;
+		checkerSettings.minResolution = 72.0;
+		//TODO Stop translating these into settings!!!!!!!!!
+		cp->insert( QT_TR_NOOP("Postscript"), checkerSettings);
+		cp->insert( QT_TR_NOOP("PDF 1.3"), checkerSettings);
+		checkerSettings.checkTransparency = false;
+		cp->insert( QT_TR_NOOP("PDF 1.4"), checkerSettings);
+		checkerSettings.checkTransparency = true;
+		checkerSettings.checkAnnotations = true;
+		checkerSettings.minResolution = 144.0;
+		cp->insert( QT_TR_NOOP("PDF/X-3"), checkerSettings);
+	}
 }

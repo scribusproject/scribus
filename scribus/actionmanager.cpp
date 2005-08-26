@@ -507,6 +507,8 @@ void ActionManager::initExtrasMenuActions()
 
 void ActionManager::initWindowsMenuActions()
 {
+	scrActions->insert("windowsCascade", new ScrAction( ScApp, "windowsCascade"));
+	scrActions->insert("windowsTile", new ScrAction( ScApp, "windowstile"));
 }
 
 void ActionManager::initScriptMenuActions()
@@ -967,6 +969,10 @@ void ActionManager::languageChange()
 	(*scrActions)["extrasHyphenateText"]->setTexts( tr("&Hyphenate Text"));
 	(*scrActions)["extrasDeHyphenateText"]->setTexts( tr("Dehyphenate Text"));
 	(*scrActions)["extrasGenerateTableOfContents"]->setTexts( tr("&Generate Table Of Contents"));
+
+	//Windows Menu
+	(*scrActions)["windowsCascade"]->setMenuText( tr("&Cascade"));
+	(*scrActions)["windowsTile"]->setMenuText( tr("&Tile"));
 
 	//Help Menu
 	(*scrActions)["helpAboutScribus"]->setTexts( tr("&About Scribus"));

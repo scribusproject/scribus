@@ -495,6 +495,7 @@ private:
 	void initSplash(bool showSplash);
 	void setSplashStatus(const QString&);
 	void initMenuBar(); // initMenuBar creates the menu_bar and inserts the menuitems
+	void addDefaultWindowMenuItems(); // addDefaultWindowMenuItems adds the basic Windows menu items, excluding the actual list of windows
 	void initStatusBar(); // setup the statusbar
 	void initToolBars(); // setup the toolbars
 	const bool initFonts(const bool showFontInfo);

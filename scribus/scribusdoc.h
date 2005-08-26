@@ -384,7 +384,7 @@ public: // Public attributes
 	typoPrefs typographicSettings;
 	guidesPrefs guidesSettings;
 	toolPrefs toolSettings;
-	CheckerPrefsList checkerProfiles;
+	QMap<QString, checkerPrefs> checkerProfiles;
 	QString curCheckProfile;
   /** Letztes Element fuer AutoTextrahmen */
 	PageItem *LastAuto;

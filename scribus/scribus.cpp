@@ -243,6 +243,9 @@ int ScribusApp::initScribus(bool showSplash, bool showFontInfo, const QString ne
 		wsp = new QWorkspace( vb );
 		setCentralWidget( vb );
 		connect(wsp, SIGNAL(windowActivated(QWidget *)), this, SLOT(newActWin(QWidget *)));
+		//Connect windows cascade and tile actions to the workspace after its created. Only depends on wsp created.
+		connect( scrActions["windowsCascade"], SIGNAL(activated()) , wsp, SLOT(cascade()) );
+		connect( scrActions["windowsTile"], SIGNAL(activated()) , wsp, SLOT(tile()) );
 
 		initPalettes();
 
@@ -852,6 +855,7 @@ void ScribusApp::initMenuBar()
 //	scrMenuMgr->addMenuItem(scrActions["viewNewView"], "View");
 
 	//Tool menu
+	/*
 	scrMenuMgr->createMenu("Tools", tr("&Tools"));
 	scrMenuMgr->addMenuItem(scrActions["toolsProperties"], "Tools");
 	scrMenuMgr->addMenuItem(scrActions["toolsOutline"], "Tools");
@@ -866,7 +870,7 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuSeparator("Tools");
 	scrMenuMgr->addMenuItem(scrActions["toolsToolbarTools"], "Tools");
 	scrMenuMgr->addMenuItem(scrActions["toolsToolbarPDF"], "Tools");
-	//scrActions["toolsPreflightVerifier"]->setEnabled(false);
+	//scrActions["toolsPreflightVerifier"]->setEnabled(false);*/
 
 	//Extra menu
 	scrMenuMgr->createMenu("Extras", tr("E&xtras"));
@@ -882,7 +886,8 @@ void ScribusApp::initMenuBar()
 	//Window menu
 	scrMenuMgr->createMenu("Windows", tr("&Windows"));
 	connect(scrMenuMgr->getLocalPopupMenu("Windows"), SIGNAL(aboutToShow()), this, SLOT(windowsMenuAboutToShow()));
-
+	addDefaultWindowMenuItems();
+	
 	//Help menu
 	scrMenuMgr->createMenu("Help", tr("&Help"));
 	scrMenuMgr->addMenuItem(scrActions["helpAboutScribus"], "Help");
@@ -903,11 +908,11 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->setMenuEnabled("Page", false);
 	scrMenuMgr->addMenuToMenuBar("View");
 	scrMenuMgr->setMenuEnabled("View", false);
-	scrMenuMgr->addMenuToMenuBar("Tools");
+	//scrMenuMgr->addMenuToMenuBar("Tools");
 	scrMenuMgr->addMenuToMenuBar("Extras");
 	scrMenuMgr->setMenuEnabled("Extras", false);
 	scrMenuMgr->addMenuToMenuBar("Windows");
-	scrMenuMgr->setMenuEnabled("Windows", false);
+	//scrMenuMgr->setMenuEnabled("Windows", false);
 	menuBar()->insertSeparator();
 	scrMenuMgr->addMenuToMenuBar("Help");
 
@@ -922,6 +927,29 @@ void ScribusApp::initMenuBar()
 	connect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
 	connect(FontMenu, SIGNAL(activated(int)), this, SLOT(setItemFont(int)));
 }
+
+void ScribusApp::addDefaultWindowMenuItems()
+{
+	scrMenuMgr->clearMenu("Windows");
+	scrMenuMgr->addMenuItem(scrActions["windowsCascade"], "Windows");
+	scrMenuMgr->addMenuItem(scrActions["windowsTile"], "Windows");
+	scrMenuMgr->addMenuSeparator("Windows");
+
+	scrMenuMgr->addMenuItem(scrActions["toolsProperties"], "Windows");
+	scrMenuMgr->addMenuItem(scrActions["toolsOutline"], "Windows");
+	scrMenuMgr->addMenuItem(scrActions["toolsScrapbook"], "Windows");
+	scrMenuMgr->addMenuItem(scrActions["toolsLayers"], "Windows");
+	scrMenuMgr->addMenuItem(scrActions["toolsPages"], "Windows");
+	scrMenuMgr->addMenuItem(scrActions["toolsBookmarks"], "Windows");
+	scrMenuMgr->addMenuItem(scrActions["toolsMeasurements"], "Windows");
+	scrMenuMgr->addMenuItem(scrActions["toolsActionHistory"], "Windows");
+	scrMenuMgr->addMenuItem(scrActions["toolsPreflightVerifier"], "Windows");
+	scrMenuMgr->addMenuItem(scrActions["toolsAlignDistribute"], "Windows");
+	scrMenuMgr->addMenuSeparator("Windows");
+	scrMenuMgr->addMenuItem(scrActions["toolsToolbarTools"], "Windows");
+	scrMenuMgr->addMenuItem(scrActions["toolsToolbarPDF"], "Windows");
+}
+
 
 void ScribusApp::initStatusBar()
 {
@@ -2548,32 +2576,27 @@ void ScribusApp::windowsMenuAboutToShow()
 	for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = scrWindowsActions.begin(); it!=scrWindowsActions.end(); ++it )
 		scrMenuMgr->removeMenuItem((*it), "Windows");
 	scrWindowsActions.clear();
-	scrMenuMgr->clearMenu("Windows");
-
-	scrWindowsActions.insert("windowsCascade", new ScrAction( tr("&Cascade"), QKeySequence(), this, "windowsCascade"));
-	scrWindowsActions.insert("windowsTile", new ScrAction( tr("&Tile"), QKeySequence(), this, "windowstile"));
-	connect( scrWindowsActions["windowsCascade"], SIGNAL(activated()) , wsp, SLOT(cascade()) );
-	connect( scrWindowsActions["windowsTile"], SIGNAL(activated()) , wsp, SLOT(tile()) );
-
-	scrMenuMgr->addMenuItem(scrWindowsActions["windowsCascade"], "Windows");
-	scrMenuMgr->addMenuItem(scrWindowsActions["windowsTile"], "Windows");
-	scrMenuMgr->addMenuSeparator("Windows");
-
-	if ( wsp->windowList().isEmpty() )
-	{
-		scrWindowsActions["windowsCascade"]->setEnabled(false);
-		scrWindowsActions["windowsTile"]->setEnabled(false);
-	}
-
+	addDefaultWindowMenuItems();
 	QWidgetList windows = wsp->windowList();
-	for ( int i = 0; i < static_cast<int>(windows.count()); ++i )
+	if ( windows.isEmpty() )
 	{
-		QString docInWindow=windows.at(i)->caption();
-		scrWindowsActions.insert(docInWindow, new ScrAction( ScrAction::Window, QIconSet(), docInWindow, QKeySequence(), this, docInWindow, i));
-		scrWindowsActions[docInWindow]->setToggleAction(true);
-		connect( scrWindowsActions[docInWindow], SIGNAL(activatedData(int)), this, SLOT(windowsMenuActivated(int)) );
-		scrMenuMgr->addMenuItem(scrWindowsActions[docInWindow], "Windows");
-		scrWindowsActions[docInWindow]->setOn(wsp->activeWindow() == windows.at(i));
+		scrActions["windowsCascade"]->setEnabled(false);
+		scrActions["windowsTile"]->setEnabled(false);
+	}
+	else
+	{
+		scrMenuMgr->addMenuSeparator("Windows");
+		
+		int windowCount=static_cast<int>(windows.count());
+		for ( int i = 0; i < windowCount; ++i )
+		{
+			QString docInWindow=windows.at(i)->caption();
+			scrWindowsActions.insert(docInWindow, new ScrAction( ScrAction::Window, QIconSet(), docInWindow, QKeySequence(), this, docInWindow, i));
+			scrWindowsActions[docInWindow]->setToggleAction(true);
+			connect( scrWindowsActions[docInWindow], SIGNAL(activatedData(int)), this, SLOT(windowsMenuActivated(int)) );
+			scrMenuMgr->addMenuItem(scrWindowsActions[docInWindow], "Windows");
+			scrWindowsActions[docInWindow]->setOn(wsp->activeWindow() == windows.at(i));
+		}
 	}
 }
 
@@ -2835,7 +2858,7 @@ void ScribusApp::HaveNewDoc()
 	scrActions["viewSnapToGuides"]->setOn(doc->SnapGuides);
 
 	scrMenuMgr->setMenuEnabled("Insert", true);
-	scrMenuMgr->setMenuEnabled("Windows", true);
+	//scrMenuMgr->setMenuEnabled("Windows", true);
 	scrMenuMgr->setMenuEnabled("Page", true);
 	scrMenuMgr->setMenuEnabled("Extras", true);
 
@@ -3853,7 +3876,7 @@ bool ScribusApp::loadDoc(QString fileName)
 		HaveDoc++;
 		if (doc->checkerProfiles.count() == 0)
 		{
-			doc->checkerProfiles.initDefaults();
+			prefsManager->initDefaultCheckerPrefs(&doc->checkerProfiles);
 			doc->curCheckProfile = tr("Postscript");
 		}
 		if (doc->PDF_Options.LPISettings.count() == 0)
@@ -4558,7 +4581,7 @@ bool ScribusApp::DoFileClose()
 		scrActions["extrasHyphenateText"]->setEnabled(false);
 		scrActions["extrasDeHyphenateText"]->setEnabled(false);
 		scrMenuMgr->setMenuEnabled("View", false);
-		scrMenuMgr->setMenuEnabled("Windows", false);
+		//scrMenuMgr->setMenuEnabled("Windows", false);
 		scrActions["viewSnapToGuides"]->setOn(false);
 		scrActions["viewSnapToGrid"]->setOn(false);
 

@@ -54,6 +54,7 @@ public:
 	*/
 	void initDefaults();
 	void initDefaultGUIFont(const QFont&);
+	void initDefaultCheckerPrefs(CheckerPrefsList* cp);
 	void initArrowStyles();
 	///Locate our preferences
 	QString setupPreferencesLocation();
