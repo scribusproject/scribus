@@ -2580,12 +2580,10 @@ void ScribusApp::windowsMenuAboutToShow()
 	scrWindowsActions.clear();
 	addDefaultWindowMenuItems();
 	QWidgetList windows = wsp->windowList();
-	if ( windows.isEmpty() )
-	{
-		scrActions["windowsCascade"]->setEnabled(false);
-		scrActions["windowsTile"]->setEnabled(false);
-	}
-	else
+	bool windowsListEmpty=windows.isEmpty();
+	scrActions["windowsCascade"]->setEnabled(!windowsListEmpty);
+	scrActions["windowsTile"]->setEnabled(!windowsListEmpty);
+	if ( !windowsListEmpty )
 	{
 		scrMenuMgr->addMenuSeparator("Windows");
 		
