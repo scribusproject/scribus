@@ -40,6 +40,13 @@ public:
 		book = 1,
 		magazine = 2
 	};
+
+	/*! returns updateMargins value */
+	bool needUpdate();
+
+private:
+	/*! Flag if is needed to recompute values and disable widgets */
+	bool updateMargins;
 };
 
 
@@ -74,12 +81,12 @@ public:
 	MSpinBox* bottomR;
 	MSpinBox* rightR;
 	MSpinBox* leftR;
-	QComboBox* presetCombo;
+	PresetLayout* presetCombo;
 	/*! Labels */
-	QLabel* GRText1;
-	QLabel* GRText2;
-	QLabel* GRText3;
-	QLabel* GRText4;
+	QLabel* lText;
+	QLabel* rText;
+	QLabel* tText;
+	QLabel* bText;
 	QLabel* presetLabel;
 	/*! Top margin value converted by unitRatio */
 	double RandT;
@@ -104,11 +111,10 @@ public slots:
 	void setBottom();
 	void setLeft();
 	void setRight();
-	/*! Recompute margins in PresetLayout combobox */
+	/*! Recompute margins in PresetLayout combobox and disable/enable widgets. */
 	void setPreset();
 
 protected:
-	PresetLayout *presets;
 	QGridLayout* GroupLayout;
 };
 

@@ -34,23 +34,24 @@ MarginWidget::MarginWidget( QWidget* parent, QString title, MarginStruct* margs,
 	rightR->setSuffix( einh );
 	rightR->setValue(RandR * unitRatio);
 
-	GRText2 = new QLabel( bottomR, tr( "&Bottom:" ), this, "GRText2" );
-	GRText1 = new QLabel( topR, tr( "&Top:" ), this, "GRText1" );
-	GRText4 = new QLabel( rightR, tr( "&Right:" ), this, "GRText4" );
-	GRText3 = new QLabel( leftR, tr( "&Left:" ), this, "GRText3" );
+	bText = new QLabel( bottomR, tr( "&Bottom:" ), this, "bText" );
+	tText = new QLabel( topR, tr( "&Top:" ), this, "tText" );
+	rText = new QLabel( rightR, tr( "&Right:" ), this, "rText" );
+	lText = new QLabel( leftR, tr( "&Left:" ), this, "lText" );
 	// layout
 	GroupLayout = new QGridLayout( this->layout() );
 	GroupLayout->setAlignment( Qt::AlignTop );
 	GroupLayout->addWidget(presetLabel, 0, 0);
 	GroupLayout->addWidget(presetCombo, 0, 1);
-	GroupLayout->addWidget( topR, 1, 1 );
-	GroupLayout->addWidget( bottomR, 2, 1 );
-	GroupLayout->addWidget( leftR, 4, 1 );
-	GroupLayout->addWidget( rightR, 3, 1 );
-	GroupLayout->addWidget( GRText2, 2, 0 );
-	GroupLayout->addWidget( GRText1, 1, 0 );
-	GroupLayout->addWidget( GRText4, 3, 0 );
-	GroupLayout->addWidget( GRText3, 4, 0 );
+	GroupLayout->addWidget( leftR, 1, 1 );
+	GroupLayout->addWidget( rightR, 2, 1 );
+	GroupLayout->addWidget( topR, 3, 1 );
+	GroupLayout->addWidget( bottomR, 4, 1 );
+	GroupLayout->addWidget( lText, 1, 0 );
+	GroupLayout->addWidget( rText, 2, 0 );
+	GroupLayout->addWidget( tText, 3, 0 );
+	GroupLayout->addWidget( bText, 4, 0 );
+
 	// hints
 	QToolTip::add( topR, "<qt>" + tr( "Distance between the top margin guide and the edge of the page" ) + "</qt>");
 	QToolTip::add( bottomR, "<qt>" + tr( "Distance between the bottom margin guide and the edge of the page" ) + "</qt>");
@@ -66,8 +67,8 @@ MarginWidget::MarginWidget( QWidget* parent, QString title, MarginStruct* margs,
 
 void MarginWidget::setFacingPages(bool facing)
 {
-	GRText3->setText(facing == true ? tr( "&Inside:" ) : tr( "&Left:" ));
-	GRText4->setText(facing == true ? tr( "O&utside:" ) : tr( "&Right:" ));
+	lText->setText(facing == true ? tr( "&Inside:" ) : tr( "&Left:" ));
+	rText->setText(facing == true ? tr( "O&utside:" ) : tr( "&Right:" ));
 	setPreset();
 }
 
@@ -147,19 +148,26 @@ void MarginWidget::unitChange(double newUnit, int newDecimals, QString newSuffix
 void MarginWidget::setPreset()
 {
 	int item = presetCombo->currentItem();
-	MarginStruct marg = presets->getMargins(item, pageWidth, pageHeight, leftR->value());
-	if (marg.Left == -1.0)
+	MarginStruct marg = presetCombo->getMargins(item, pageWidth, pageHeight, leftR->value());
+	if (!presetCombo->needUpdate())
+	{
+		rightR->setEnabled(true);
+		topR->setEnabled(true);
+		bottomR->setEnabled(true);
 		return;
+	}
 	leftR->setValue(marg.Left);
 	rightR->setValue(marg.Right);
 	topR->setValue(marg.Top);
 	bottomR->setValue(marg.Bottom);
+	rightR->setEnabled(false);
+	topR->setEnabled(false);
+	bottomR->setEnabled(false);
 }
 
 /*
  * presets
  */
-
 PresetLayout::PresetLayout(QWidget *parent, const char * name) : QComboBox(parent, name)
 {
 	insertItem(tr("None"), PresetLayout::none);
@@ -173,6 +181,8 @@ PresetLayout::PresetLayout(QWidget *parent, const char * name) : QComboBox(paren
 MarginStruct PresetLayout::getMargins(int index, double pageWidth, double pageHeight, double leftMargin)
 {
 	MarginStruct ret;
+
+	updateMargins = true;
 
 	switch (index)
 	{
@@ -189,8 +199,13 @@ MarginStruct PresetLayout::getMargins(int index, double pageWidth, double pageHe
 			}
 			break;
 		default:
-			// HACK!
+			updateMargins = false;
 			ret.Top = ret.Bottom = ret.Left = ret.Right = -1.0;
 	}
 	return ret;
+}
+
+bool PresetLayout::needUpdate()
+{
+	return updateMargins;
 }
