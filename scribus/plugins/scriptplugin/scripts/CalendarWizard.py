@@ -9,9 +9,9 @@ rewritten Calender.py from Scribus examples. Enjoy.
 
 DESCRIPTION & USAGE:
 This script needs Tkinter. It will create a GUI with available options
-for easy calendar page creation. You'll get new pages with calendar 
-tables into a new document you are asked for. Position of the 
-objects in page is calculated with the "golden-ratio" aspect from the 
+for easy calendar page creation. You'll get new pages with calendar
+tables into a new document you are asked for. Position of the
+objects in page is calculated with the "golden-ratio" aspect from the
 page margins.
 
 Steps to create:
@@ -21,7 +21,7 @@ Steps to create:
        in calendar text frames. It could be changed later.
 
 There are 2 types of calender supported:
-    1) Classic calendar with one month matrix per page. I suggest 
+    1) Classic calendar with one month matrix per page. I suggest
        here PORTRAIT orientation.
     2) Event calendar with one week per page with huge place for
        human inputs. There should be LANDSCAPE imho.
@@ -32,7 +32,7 @@ AUTHOR:
     Petr Vanek <petr@yarpen.cz>
 
 LICENSE:
-This program is free software; you can redistribute it and/or modify 
+This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 2 of the License, or
 (at your option) any later version.
@@ -72,28 +72,28 @@ except ImportError:
 
 
 localization = {
-'default' : 
+'default' :
     [['January', 'February', 'March', 'April', 'May',
       'June', 'July', 'August', 'September', 'October',
       'November', 'December'],
      ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']],
 # alphabetically ordered
-'Czech' : 
+'Czech' :
     [['Leden', 'Únor', 'Březen', 'Duben', 'Květen',
         'Červen', 'Červenec', 'Srpen', 'Září',
         'Říjen', 'Listopad', 'Prosinec'],
      ['Pondělí','Úterý','Středa','Čtvrtek','Pátek','Sobota', 'Neděle']],
-'English' : 
+'English' :
     [['January', 'February', 'March', 'April',
       'May', 'June', 'July', 'August', 'September',
       'October', 'November', 'December'],
      ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday', 'Sunday']],
-'French': 
+'French':
     [['Janvier', u'F\xe9vrier', 'Mars', 'Avril',
       'Mai', 'Juin', 'Juillet', u'Ao\xfbt', 'Septembre',
       'Octobre', 'Novembre', u'D\xe9cembre'],
      ['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche']],
-'German' : 
+'German' :
     [['Januar', 'Februar', u'M\xe4rz', 'April',
       'Mai', 'Juni', 'Juli', 'August', 'September',
       'Oktober', 'November', 'Dezember'],
@@ -449,8 +449,10 @@ class TkCalendar(Frame):
             cal = ScClassicCalendar(year, months, dayList, self.weekVar.get(), draw)
         else:
             cal = ScEventCalendar(year, months, dayList, self.weekVar.get(), draw)
+        self.master.withdraw()
         err = cal.createCalendar()
         if err != None:
+            self.master.deiconify()
             self.statusVar.set(err)
         else:
             self.quit()
