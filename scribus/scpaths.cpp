@@ -153,7 +153,7 @@ const QString&  ScPaths::shareDir() const
 QStringList ScPaths::getSystemFontDirs(void)
 {
 	QStringList fontDirs;
-#ifdef BUILD_MAC_BUNDLE
+#ifdef Q_OS_MAC
 	fontDirs.append(QDir::homeDirPath() + "/Library/Fonts/");
 	fontDirs.append("/Library/Fonts/");
 	fontDirs.append("/Network/Library/Fonts/");
@@ -167,7 +167,7 @@ QStringList ScPaths::getSystemFontDirs(void)
 QStringList ScPaths::getSystemProfilesDirs(void)
 {
 	QStringList iccProfDirs;
-#ifdef BUILD_MAC_BUNDLE
+#ifdef Q_OS_MAC
 	iccProfDirs.append(QDir::homeDirPath()+"/Library/ColorSync/Profiles/");
 	iccProfDirs.append("/System/Library/ColorSync/Profiles/");
 	iccProfDirs.append("/Library/ColorSync/Profiles/");
