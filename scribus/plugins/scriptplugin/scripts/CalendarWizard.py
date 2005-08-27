@@ -4,14 +4,14 @@
 UNFINISHED!
 
 
-This is simple 'Calendar creation wizard' for Scribus. It's fully
+This is a simple 'Calendar creation wizard' for Scribus. It's a fully
 rewritten Calender.py from Scribus examples. Enjoy.
 
 DESCRIPTION & USAGE:
 This script needs Tkinter. It will create a GUI with available options
-for easy calendar sheets creating. You'll get new pages with calendar 
+for easy calendar page creation. You'll get new pages with calendar 
 tables into a new document you are asked for. Position of the 
-objects in page is calculated with golden-ratio aspect related to the 
+objects in page is calculated with the "golden-ratio" aspect from the 
 page margins.
 
 Steps to create:
@@ -26,7 +26,7 @@ There are 2 types of calender supported:
     2) Event calendar with one week per page with huge place for
        human inputs. There should be LANDSCAPE imho.
 
-But everything works with both orinetations well of course too.
+But everything works with both orientations well of course too.
 
 AUTHOR:
     Petr Vanek <petr@yarpen.cz>
@@ -158,11 +158,11 @@ class ScCalendar:
     def createCalendar(self):
         """ Walk throudh months dict and calls monthly sheet """
         if not newDocDialog():
-            return 'Create a document first, please'
+            return 'Create a new document first, please'
         self.pStyle = newStyleDialog()
         if  self.pStyle == None:
             closeDoc()
-            return 'Create a common paragraph style, please'
+            return 'Create a default paragraph style, please'
         originalUnit = getUnit()
         setUnit(UNIT_POINTS)
         self.setupDocVariables()
@@ -313,7 +313,7 @@ class TkCalendar(Frame):
         #define widgets
         self.statusVar = StringVar()
         self.statusLabel = Label(self, textvariable=self.statusVar)
-        self.statusVar.set('Fill requested values, please.')
+        self.statusVar.set('Select Options and Values')
         # langs
         self.langLabel = Label(self, text='Select language:')
         self.langListbox = Listbox(self, selectmode=SINGLE, height=10)
@@ -326,7 +326,7 @@ class TkCalendar(Frame):
         self.typeClRadio = Radiobutton(self, text='Classic', variable=self.typeVar, value=0)
         self.typeEvRadio = Radiobutton(self, text='Event', variable=self.typeVar, value=1)
         # start of week
-        self.weekStartsLabel = Label(self, text='Week stars with:')
+        self.weekStartsLabel = Label(self, text='Week begins with:')
         self.weekVar = IntVar()
         self.weekMondayRadio = Radiobutton(self, text='Mon', variable=self.weekVar, value=calendar.MONDAY)
         self.weekSundayRadio = Radiobutton(self, text='Sun', variable=self.weekVar, value=calendar.SUNDAY)
@@ -341,7 +341,7 @@ class TkCalendar(Frame):
         self.monthLabel = Label(self, text='Months:')
         self.monthListbox = Listbox(self, selectmode=MULTIPLE, height=12)
         # layout stuff
-        self.imageLabel = Label(self, text='Draw addictions:')
+        self.imageLabel = Label(self, text='Draw Image Frame:')
         self.imageVar = IntVar()
         self.imageCheck = Checkbutton(self, variable=self.imageVar)
         # closing/running
@@ -393,7 +393,7 @@ class TkCalendar(Frame):
             call real re-filling. """
         ix = self.langListbox.curselection()
         if len(ix)==0:
-            self.statusVar.set('Select one language, please')
+            self.statusVar.set('Select a language, please')
             return
         self.realLangChange(lang=self.langListbox.get(ix[0]))
 
