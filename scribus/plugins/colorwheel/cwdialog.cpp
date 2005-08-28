@@ -16,6 +16,8 @@
 #include "prefsmanager.h"
 #include "prefsfile.h"
 #include "mpalette.h"
+#include "colorblind.h"
+
 
 extern ScribusApp SCRIBUS_API *ScApp;
 
@@ -98,8 +100,9 @@ ColorWheelDialog::ColorWheelDialog(QWidget* parent, const char* name, bool modal
 	typeCombo->insertItem(colorWheel->getTypeDescription(colorWheel->Tetradic), colorWheel->Tetradic);
 	// defects
 	defectCombo->insertItem(tr("Normal Vision"));
-	defectCombo->insertItem(tr("Protanopy"));
-	defectCombo->insertItem(tr("Deuteranopy"));
+	defectCombo->insertItem(tr("Protanopia (red)"));
+	defectCombo->insertItem(tr("Deuteranopia (green)"));
+	defectCombo->insertItem(tr("Tritanopia (blue)"));
 	defectCombo->insertItem(tr("Full Color Blindness"));
 
 	// preferences
@@ -331,59 +334,13 @@ void ColorWheelDialog::setPreview()
 
 QColor ColorWheelDialog::computeDefect(QColor c)
 {
-	int g;
-	if (defectCombo->currentItem() == normalVision)
+	if (defectCombo->currentItem() == VisionDefectColor::normalVision)
 		return c;
-	double l, m, s;
-	getLMSfromRGB(c, &l, &m, &s);
-	switch (defectCombo->currentItem())
-	{
-		case (protanopeVision):
-			l = getProtanopesLMS(m, s);
-			break;
-		case (deuteranopeVision):
-			m = getDeuteranopesLMS(l, s);
-			break;
-		case (colorBlindnessVision):
-			// into gray
-			g = QMIN(qRound(0.3*c.red() + 0.59*c.green() + 0.11*c.blue()), 255);
-			return QColor(g, g, g);
-		default:
-			return c;
-			break;
-	}
-	return getRGBfromLMS(l, m, s);
+	VisionDefectColor *defect = new VisionDefectColor(c);
+	defect->deficiency = defectCombo->currentItem();
+	defect->convertDefect();
+	QColor nc = defect->getColor();
+	delete defect;
+	return nc;
 }
 
-void ColorWheelDialog::getLMSfromRGB(QColor rgb, double *l, double *m, double *s)
-{
-	/* It's common matrix multiplication. I'm doing it this
-		way not to use more library dependencies (petr) */
-	double r = (double)rgb.red();
-	double g = (double)rgb.green();
-	double b = (double)rgb.blue();
-	*l = 17.88240*r + 43.5161*g + 4.11935*b;
-	*m = 3.45525*r + 27.1554*g + 3.86714*b;
-	*s = 0.0299566*r + 0.184309*g + 1.46709*b;
-}
-
-QColor ColorWheelDialog::getRGBfromLMS(double l, double m, double s)
-{
-	/* inverse matrix to the getLMSfromRGB */
-	double r = 0.080944*l -0.130504*m + 0.116721*s;
-	double g = -0.010249*l + 0.054019*m -0.113615*s;
-	double b = -0.000365*l  -0.004122*m + 0.693511*s;
-	return QColor((int)r, (int)g, (int)b);
-}
-
-/* M and S components without change */
-double ColorWheelDialog::getProtanopesLMS(double m, double s)
-{
-	return 2.02344*m - 2.52581*s;
-}
-
-/* L and S components without change */
-double ColorWheelDialog::getDeuteranopesLMS(double l, double s)
-{
-	return 0.494207*l + 1.24827*s;
-}
