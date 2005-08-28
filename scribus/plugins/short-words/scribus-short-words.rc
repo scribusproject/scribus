@@ -10,6 +10,7 @@
 # 2005/02/07 Brazilian Portguese by Ludi Maciel & Frederico Guimarães
 # 2005/05/17 Claudio Beccari <claudio.beccari@polito.it> notices about
 #            ISO regulations in the case of the physics
+# 2005/08/28 german by Christoph Schäfer <christoph-schaefer@gmx.de>
 #
 # Use UTF8 as coding of this file!
 # Character "#" begins a comment line, empty lines ignored too.
@@ -88,6 +89,15 @@ pt_BR= µm, nm, mm, cm, dm, m, dam, hm, km, mg, cg, dg, g, dag, hg, kg, pt, pol,
 ## outros
 pt_BR=R$ ,€ ,$ ,US$ ,£ , %, ltda., LTDA., S.A., s.a.,nº ,Nº ,apto. ,APTO. ,
 # Brazilian Portguese - FIM
+
+
+#  German short words START here
+de=Dr. ,Prof. ,Hr. ,Hrn. ,Fr. ,Frl. ,Dr. jur. ,Dr. med. ,Dr. med. dent. ,Dr. med. vet. ,Dr. phil. ,Dr. rer. nat. ,Dr. rer. pol.,Dr. theol. ,Dr. rer. soc. ,habil. ,Frhr. ,
+## physics and math
+de= t, kg, g, mg, km, m, cm, mm, qm, ha, l, L, hl, HL, cl, dl, min, Min., h, s, Hz, kHz, KHz, MHz, kW, m/s, km/h, MEZ, Mrd., Mio, PS, rm, U/min, v. H., v.H., %,
+## Misc
+de=d. h. ,d.h. , a. a. O., a.a.O.,à ,& ,§ ,§§ , EUR, USD, DM, A. D. , A.D., a. D., a.D.,Abb. ,Best.-Nr. ,Nr. ,No. , d. Ä.,d.Ä. , d. Gr., d.Gr., d. J., d.J., d. M., d.M., n. M., n.M., n. J., n.J., dgl., et al.,gegr. ,i. J. , i. R., Jh., o. ä., o.ä.,rd. , jun., sen., u. d. M., u.d.M., ü. d. M., ü.d.M., v. Chr., v.Chr., v. J., v.J., v. M., v.M.,
+#  German short words - THE END
 
 
 # end of the config file
