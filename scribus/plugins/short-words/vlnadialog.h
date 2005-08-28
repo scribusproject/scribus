@@ -28,7 +28,7 @@ class QMenuBar;
 
 class Config;
 
-/** GUI dialog for user to make decision.
+/** \brief GUI dialog for user to make decision.
  Generated from Qt designer UI file. Later changes by my hands :) */
 class VlnaDialog : public QDialog
 {

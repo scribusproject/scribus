@@ -3,7 +3,7 @@
 This code is based on the Scribus-Vlna plug in rewritten for
 international use.
 
-2004 Petr Vanek <petr@yarpen.cz>
+\author Petr Vanek <petr@yarpen.cz>
 
 This program is free software - see LICENSE file in the distribution
 or documentation
@@ -50,7 +50,8 @@ extern "C" PLUGIN_API bool actionEnabledOnStartup();
 
 class Parse;
 
-/** Base class of this plugin */
+/** \brief This is Short Words plugin main class.
+It contains main logic. */
 class ShortWords : public QObject
 {
 	Q_OBJECT

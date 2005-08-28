@@ -1,17 +1,3 @@
-/*! This is the Scribus Short Words configuratin specification.
-There will be interface for the future Scribus central plugin
-config center. maybe :)
-
-This code is based on the Scribus-Vlna plug in rewritten for
-international use.
-
-2004 Petr Vanek <petr@yarpen.cz>
-with contributions by good people listed in AUTHORS file
-
-This program is free software - see LICENSE file in the distribution
-or documentation
-*/
-
 #ifndef _SCRIBUS_SHORTCFG_H_
 #define _SCRIBUS_SHORTCFG_H_
 
@@ -22,6 +8,19 @@ or documentation
 class QString;
 class QStringList;
 
+/*! \brief This is the Scribus Short Words configuratin specification.
+There will be interface for the future Scribus central plugin
+config center. maybe :)
+
+This code is based on the Scribus-Vlna plug in rewritten for
+international use.
+
+\author Petr Vanek <petr@yarpen.cz>
+with contributions by good people listed in AUTHORS file
+
+This program is free software - see LICENSE file in the distribution
+or documentation
+ */
 class Config : public QObject
 {
 	Q_OBJECT

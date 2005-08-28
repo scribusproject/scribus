@@ -5,9 +5,11 @@
 #include <qcolor.h>
 #include <qobject.h>
 
-/*! This code is an implementation of an algorithm described by Hans Brettel,
+/* $Id$ */
+
+/*! \brief This code is an implementation of an algorithm described by Hans Brettel,
 Francoise Vienot and John Mollon in the Journal of the Optical Society of
-America V14(10), pg 2647. (See http://vischeck.com/ for more info.)
+America V14(10), pg 2647. (See http://vischeck.com/ for more info.).
 
 Based on the GIMP's cdisplay_colorblind.c
 by Michael Natterer <mitch@gimp.org>, Sven Neumann <sven@gimp.org>,

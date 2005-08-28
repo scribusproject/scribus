@@ -1,15 +1,3 @@
-/*! This is the Scribus Short Words plugin main mechanism.
-
-This code is based on the Scribus-Vlna plug in rewritten for
-international use.
-
-2004 Petr Vanek <petr@yarpen.cz>
-with contributions by good people listed in AUTHORS file
-
-This program is free software - see LICENSE file in the distribution
-or documentation
-*/
-
 #ifndef _SCRIBUS_SHORTPARSE_H_
 #define _SCRIBUS_SHORTPARSE_H_
 
@@ -18,6 +6,18 @@ or documentation
 #include "scribus.h"
 #include <qobject.h>
 
+/*! \brief This is the Scribus Short Words plugin main mechanism.
+
+It walks trough the user specified objects and apply the spaces.
+This code is based on the Scribus-Vlna plug in rewritten for
+international use.
+
+\author Petr Vanek <petr@yarpen.cz>
+with contributions by good people listed in AUTHORS file
+
+This program is free software - see LICENSE file in the distribution
+or documentation
+ */
 class Parse : public QObject
 {
 	Q_OBJECT
