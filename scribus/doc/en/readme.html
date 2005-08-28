@@ -1,65 +1,47 @@
-<h3>Scribus Version 1.2.2 Readme
+<h3>Scribus Version 1.2.3 Readme
 </h3>
 <h4>What's New ?</h4>
-<p>The Scribus 1.2.x versions feature a complete rewrite of the rendering engine.
-All rendering is done via libart and freetype2.
-This requires that libart_lgpl and freetype2 are installed.</p>
-
-<p>Version 1.2.2 now includes the Short Words plug-in, which was previously
+<p>Scribus now includes the Short Words plug-in, which was previously
 installed as a separate plug-in. To prevent upgrade problems, you might want to
 uninstall if it was installed via a package or RPM. This was also shipped as the
 scribus-vlna package in both source and rpm format. See PACKAGING for more details.</p>
 
-<p>Scribus 1.2.2 also has a new OpenOffice.org Writer and Draw importer. This
+<p>Scribus also has a new OpenOffice.org Writer and Draw importer. This
 requires libxml2, preferably version 2.6.x+. The OpenOffice.org Writer importer
 will import styles from the OpenOffice.org doc and will create similar styles
 within your Scribus document. Version 1.2.1 supported Open Office 1.1.x and Star Office 6/7 file formats.
-Version 1.2.2 supports Open Office 2.x/Star Office 8.x (OASIS) as well.
+Version 1.2.2+ supports Open Office 2.x/Star Office 8.x (OASIS) as well.
 </p>
 
-<p>Additionally Scribus uses now a different way to find fonts, sadly this gives
-some changes in the font names Scribus uses. To convert old documents follow
-the procedure below:</p>
+<p>Scribus 1.2.3 also includes 2 icc color profiles to make sure color management is working immediately after install. Note that these are basic generic profiles not sufficient to ensure good color management. See the help files for details under <a href="cms.html">color management</a>. Grey scale icc profiles in images are not supported in this release.</p>
 
-<ul>
-<li>Create a document with the old Version of Scribus containing all your Fonts.</li>
-<li>Open the new Scribus and go to the Font Substitution List.
-</li>Clear out all current substitutions.
-<li>Open the Document created in 1) and substitute all the fonts with the
-correct new fonts.</li>
-<li>When you now open old documents Scribus will convert all Font Names
-automatically.</li>
-</ul>
+<p>Scribus 1.2.3 also supports the proposed OpenIcc standard icc profile locations: $home/color/icc and /usr/share/color/icc/ under linux.</p>
+
 <p>For detailed changes please see the ChangeLog.</p>
 
 <p>To use Scribus in your native language be sure that the environment variable
 LC_ALL, LC_MESSAGES, LANG, Qt locale, OR the command line option
 of -l/--lang <lang> is set correctly.</p>
 	
-<p>The new EPS/PS import feature in 1.2.x uses advanced features of Ghostscript.
-	We recommend ALL users update to the newest version of Ghostscript available
-	for your distro. There are detailed hints on docs.scribus.net for installing
-	GS 8.x in parallel to the GS installed by your distro.</p>
+<p>The EPS/PS import feature in 1.2.x uses advanced features of Ghostscript.We recommend ALL users update to the newest version of Ghostscript available	for your distro. There are detailed hints on docs.scribus.net for installing GS 8.x in parallel to the GS installed by your distro.</p>
 	
-<p>Activating Color Management *requires* installation of CMYK and RGB ICC
-	profiles. Please see the included help files and http://docs.scribus.net for
-	details. Grey scale icc profiles in images are not supported in this release.</p>
+ 
 	<p>
 	If you have a 64-bit version of Qt, sometimes ./configure will not detect the
 	64-bit version headers. Try : <pre>./configure --enable-libsuffix=64</pre> to test for 64-bit
 	versions of libraries.</p>
 	
 	
-	<p>Other notes/known issues at the time of release:</p>
+	<p><strong>Other notes/known issues at the time of release:</strong></p>
 	
 <p>There is a bug in font outline handling for some fonts in the freetype
 	libraries. It's being worked on upstream. Don't file a bug report. Instead
 	change the font used if you need the outlines. This is not a Scribus bug.
-	Some testing has shown that this bug is not present in freetype 2.1.9, but
+	Some testing has shown that this bug is not present in freetype 2.1.9+, but
 	we counsel caution trying to upgrade freetype2. Upgrading freetype2 on some
 	distros can be quite difficult.</p>
 	
-<p>	Issue with gradients:</p>
+<p>	<strong>Issues with gradients:</strong></p>
 	
 <p>If you have gradient (e.g. with black color) with 50% shade in both beginning
 	and end of gradient, you end up with darker center than edges. One expects the
@@ -105,5 +87,5 @@ of -l/--lang <lang> is set correctly.</p>
 	
 <p>Franz Schmid<br />
 	Peter Linnell<br />
-	in June 2005<br />
+	in August 2005<br />
 </p>
