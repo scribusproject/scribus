@@ -11,6 +11,7 @@ or documentation
 */
 
 #include "shortwords.h"
+#include "parse.h"
 #include "parse.moc"
 #include "version.h"
 #include "configuration.h"
@@ -63,6 +64,7 @@ void Parse::parseItem(PageItem *aFrame)
 	for (uint i=0; i<aFrame->MaxChars; ++i)
 		content += aFrame->itemText.at(i)->ch;
 	changes = content.contains(UNBREAKABLE_SPACE);
+	// replace it
 	for (QStringList::Iterator it = shorts.begin(); it != shorts.end(); ++it)
 	{
 		unbreak = (*it);
@@ -78,7 +80,6 @@ void Parse::parseItem(PageItem *aFrame)
 			pos = rx.search(content, pos);
 			if ( pos >= 0 )
 			{
-				QString s;
 				//replace + keep word boundaries
 				content.replace(rx, rx.cap(1) + unbreak + rx.cap(2));
 				pos  += rx.matchedLength();

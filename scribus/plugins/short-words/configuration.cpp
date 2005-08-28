@@ -59,7 +59,10 @@ QStringList Config::getShortWordsFromFile(QString lang, QString filename)
 
 	f.setName(filename);
 	if (!f.exists())
+	{
+		qDebug("Short Words config file not found");
 		return QStringList();
+	}
 	if (f.open(IO_ReadOnly))
 	{
 		QTextStream t(&f);
