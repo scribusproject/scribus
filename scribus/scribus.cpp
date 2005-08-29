@@ -7803,7 +7803,7 @@ bool ScribusApp::getPDFDriver(QString fn, QString nam, int Components, std::vect
 	void *PDFDriver;
 	typedef bool (*sdem)(ScribusApp *plug, QString fn, QString nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs, QProgressBar *dia2);
 	sdem demo;
-	QString pfad = QString("%1/libs/libpdf.%3").arg(ScPaths::instance().libDir()).arg(PluginManager::platformDllExtension());
+	QString pfad = QString("%1/libs/libpdf.%2").arg(ScPaths::instance().libDir()).arg(PluginManager::platformDllExtension());
 	PDFDriver = PluginManager::loadDLL(pfad);
 	if (!PDFDriver)
 	{
