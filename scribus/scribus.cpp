@@ -2505,7 +2505,7 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 
 	//	connect(w, SIGNAL(SaveAndClose()), this, SLOT(DoSaveClose()));
 	if ((CMSavail) && (doc->CMSSettings.CMSinUse))
-		RecalcColors();
+		recalcColors();
 	doc->setPage(width, h, tpr, lr, rr, br, sp, ab, atf, fp);
 	doc->setLoading(false);
 	slotNewPage(0);
@@ -2580,10 +2580,10 @@ void ScribusApp::windowsMenuAboutToShow()
 	scrWindowsActions.clear();
 	addDefaultWindowMenuItems();
 	QWidgetList windows = wsp->windowList();
-	bool windowsListEmpty=windows.isEmpty();
-	scrActions["windowsCascade"]->setEnabled(!windowsListEmpty);
-	scrActions["windowsTile"]->setEnabled(!windowsListEmpty);
-	if ( !windowsListEmpty )
+	bool windowsListNotEmpty=!windows.isEmpty();
+	scrActions["windowsCascade"]->setEnabled(windowsListNotEmpty);
+	scrActions["windowsTile"]->setEnabled(windowsListNotEmpty);
+	if (windowsListNotEmpty)
 	{
 		scrMenuMgr->addMenuSeparator("Windows");
 		
@@ -3736,7 +3736,7 @@ bool ScribusApp::loadPage(QString fileName, int Nr, bool Mpa)
 		{
 			if (doc->CMSSettings.CMSinUse)
 			{
-				RecalcColors();
+				recalcColors();
 				view->RecalcPictures(&InputProfiles);
 			}
 		}
@@ -4023,7 +4023,7 @@ bool ScribusApp::loadDoc(QString fileName)
 #endif
 			if (doc->CMSSettings.CMSinUse)
 			{
-				RecalcColors();
+				recalcColors();
 				view->RecalcPictures(&InputProfiles);
 			}
 		}
@@ -8650,65 +8650,12 @@ void ScribusApp::initCMS()
 	}
 }
 
-void ScribusApp::RecalcColors(QProgressBar *dia)
+void ScribusApp::recalcColors(QProgressBar *dia)
 {
 	if (HaveDoc)
 	{
-		if (doc->masterPageMode)
-			doc->MasterPages = doc->Pages;
-		else
-			doc->DocPages = doc->Pages;
-		ColorList::Iterator it;
-		for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-		{
-			doc->PageColors[it.key()].RecalcRGB();
-		}
+		doc->recalculateColors();
 		updateColorMenu(dia);
-		for (uint c=0; c<doc->Items.count(); ++c)
-		{
-			PageItem *ite = doc->Items.at(c);
-			if (ite->fillColor() != "None")
-				ite->fillQColor = doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
-			if (ite->lineColor() != "None")
-				ite->strokeQColor = doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
-			QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
-			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
-			{
-				QColor tmpc = doc->PageColors[cstops.at(cst)->name].getRGBColor();
-				ite->SetFarbe(&tmpc, cstops.at(cst)->name, cstops.at(cst)->shade);
-				cstops.at(cst)->color = tmpc;
-			}
-		}
-		for (uint c=0; c<doc->MasterItems.count(); ++c)
-		{
-			PageItem *ite = doc->MasterItems.at(c);
-			if (ite->fillColor() != "None")
-				ite->fillQColor = doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
-			if (ite->lineColor() != "None")
-				ite->strokeQColor = doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
-			QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
-			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
-			{
-				QColor tmpc = doc->PageColors[cstops.at(cst)->name].getRGBColor();
-				ite->SetFarbe(&tmpc, cstops.at(cst)->name, cstops.at(cst)->shade);
-				cstops.at(cst)->color = tmpc;
-			}
-		}
-		for (uint c=0; c<doc->FrameItems.count(); ++c)
-		{
-			PageItem *ite = doc->FrameItems.at(c);
-			if (ite->fillColor() != "None")
-				ite->fillQColor = doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
-			if (ite->lineColor() != "None")
-				ite->strokeQColor = doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
-			QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
-			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
-			{
-				QColor tmpc = doc->PageColors[cstops.at(cst)->name].getRGBColor();
-				ite->SetFarbe(&tmpc, cstops.at(cst)->name, cstops.at(cst)->shade);
-				cstops.at(cst)->color = tmpc;
-			}
-		}
 		propertiesPalette->Cpal->SetColors(doc->PageColors);
 		propertiesPalette->updateCList();
 	}

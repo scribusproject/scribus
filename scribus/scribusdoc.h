@@ -281,6 +281,10 @@ public:
 	 * @brief Set the page margins. Current code uses current page only, also provide a (currently, TODO) option for this.
 	 */
 	const bool changePageMargins(const double initialTop, const double initialBottom, const double initialLeft, const double initialRight, const double initialHeight, const double initialWidth, const double Height, const double width, const int orientation, const QString& pageSize, const int pageNumber=-1);
+	/**
+	 * @brief Recalculate the colors after CMS settings change. Update the items in the doc accordingly.
+	 */
+	 void recalculateColors();
 	
 protected:
 	void addSymbols();

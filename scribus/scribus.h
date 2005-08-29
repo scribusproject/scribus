@@ -144,7 +144,8 @@ public:
 						bool onlyDirs = false, bool *docom = 0, bool *doFont = 0);
 	void GetCMSProfiles();
 	void GetCMSProfilesDir(QString pfad);
-	void RecalcColors(QProgressBar *dia = 0);
+	//Recalculate the colors after changing CMS settings. Call the appropriate document function and then update the GUI elements.
+	void recalcColors(QProgressBar *dia = 0);
 	void SwitchWin();
 	void RestoreBookMarks();
 	void AdjustBM();

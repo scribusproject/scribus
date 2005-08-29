@@ -2041,3 +2041,65 @@ const bool ScribusDoc::changePageMargins(const double initialTop, const double i
 	}
 	return retVal;
 }
+
+void ScribusDoc::recalculateColors()
+{
+	if (masterPageMode)
+		MasterPages = Pages;
+	else
+		DocPages = Pages;
+	//Recalculate the RGB or CMYK calues to new CMS settings
+	ColorList::Iterator it;
+	ColorList::Iterator itend=PageColors.end();
+	for (it = PageColors.begin(); it != itend; ++it)
+		PageColors[it.key()].RecalcRGB();
+	//Adjust Items of the 3 types to the colors
+	uint itemsCount=Items.count();
+	for (uint c=0; c<itemsCount; ++c)
+	{
+		PageItem *ite = Items.at(c);
+		if (ite->fillColor() != "None")
+			ite->fillQColor = PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
+		if (ite->lineColor() != "None")
+			ite->strokeQColor = PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
+		QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+		for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
+		{
+			QColor tmpc = PageColors[cstops.at(cst)->name].getRGBColor();
+			ite->SetFarbe(&tmpc, cstops.at(cst)->name, cstops.at(cst)->shade);
+			cstops.at(cst)->color = tmpc;
+		}
+	}
+	uint masterItemsCount=MasterItems.count();
+	for (uint c=0; c<masterItemsCount; ++c)
+	{
+		PageItem *ite = MasterItems.at(c);
+		if (ite->fillColor() != "None")
+			ite->fillQColor = PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
+		if (ite->lineColor() != "None")
+			ite->strokeQColor = PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
+		QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+		for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
+		{
+			QColor tmpc = PageColors[cstops.at(cst)->name].getRGBColor();
+			ite->SetFarbe(&tmpc, cstops.at(cst)->name, cstops.at(cst)->shade);
+			cstops.at(cst)->color = tmpc;
+		}
+	}
+	uint frameItemsCount=FrameItems.count();
+	for (uint c=0; c<frameItemsCount; ++c)
+	{
+		PageItem *ite = FrameItems.at(c);
+		if (ite->fillColor() != "None")
+			ite->fillQColor = PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
+		if (ite->lineColor() != "None")
+			ite->strokeQColor = PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
+		QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+		for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
+		{
+			QColor tmpc = PageColors[cstops.at(cst)->name].getRGBColor();
+			ite->SetFarbe(&tmpc, cstops.at(cst)->name, cstops.at(cst)->shade);
+			cstops.at(cst)->color = tmpc;
+		}
+	}
+}
