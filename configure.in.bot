@@ -92,6 +92,12 @@ if test "$COMPILE_DEBUG" = yes; then
 else
 	echo "No"
 fi
+printf "${FORMAT}" "cairo enabled: "
+if test "$hacairo" = yes; then
+	echo "Yes"
+else
+	echo "No"
+fi
 
 echo "Other details:"
 

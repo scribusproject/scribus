@@ -46,7 +46,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	tabLayout1->addWidget( pixmapLabel1 );
 	buildID = new QLabel( tab, "BB" );
 	buildID->setAlignment(Qt::AlignCenter);
-	QString bu = tr("%1 %2 %3 ").arg("26").arg("August").arg("2005 ");
+	QString bu = tr("%1 %2 %3 ").arg("28").arg("August").arg("2005 ");
 #ifdef HAVE_CMS
 	bu += "C";
 #else
@@ -69,6 +69,12 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	bu += "F";
 #else
 	bu += "*";
+#endif
+	bu += "-";
+#ifdef HAVE_CAIRO
+	bu += "C";
+#else
+	bu += "A";
 #endif
 
 	QString gsver(getGSVersion());
@@ -296,7 +302,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	setMaximumSize(sizeHint());
 
 //tooltips
-	QToolTip::add( buildID, "<qt>" + tr( "This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Missing library support is indicated by a * This also indicates the version of Ghostscript which Scribus has detected." ) + "</qt>" );
+	QToolTip::add( buildID, "<qt>" + tr( "This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart Missing library support is indicated by a * This also indicates the version of Ghostscript which Scribus has detected." ) + "</qt>" );
 	// signals and slots connections
 	connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
 }

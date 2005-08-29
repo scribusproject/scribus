@@ -29,8 +29,9 @@
 #include <qvaluestack.h>
 #include <qcolor.h>
 #include <qfont.h>
-
+#include <qpixmap.h>
 #include "scribusapi.h"
+#include "scconfig.h"
 #include "fpoint.h"
 #include "fpointarray.h"
 #include "vgradient.h"
@@ -48,11 +49,16 @@
 #define SC_USE_GDI
 #endif
 
+
 class QPainter;
+#ifdef HAVE_CAIRO
+typedef struct _cairo cairo_t;
+#else
 struct _ArtVpath;
 struct _ArtBpath;
 struct _ArtSVP;
 struct _ArtGradientStop;
+#endif
 
 class SCRIBUS_API ScPainter
 {
@@ -61,7 +67,6 @@ public:
 	ScPainter( QImage *target, unsigned int w = 0, unsigned int h = 0, unsigned int x = 0, unsigned int y = 0 );
 	virtual ~ScPainter();
 	enum FillMode { None, Solid, Gradient };
-	virtual void resize( unsigned int w, unsigned int h );
 	virtual void begin();
 	virtual void end();
 	void clear();
@@ -69,7 +74,7 @@ public:
 
 	// matrix manipulation
 	virtual void setWorldMatrix( const QWMatrix & );
-	virtual const QWMatrix worldMatrix() { return m_matrix; }
+	virtual const QWMatrix worldMatrix();
 	virtual void setZoomFactor( double );
 	virtual double zoomFactor() { return m_zoomFactor; }
 	virtual void translate( double, double );
@@ -127,20 +132,26 @@ public:
 	VGradient stroke_gradient;
 
 private:
+#ifdef HAVE_CAIRO
+	void drawVPath( int mode );
+#else
 	void drawVPath( struct _ArtVpath *vec, int mode, bool preCal = false );
 	void applyGradient( _ArtSVP *, bool );
-//	void applyPattern( _ArtSVP *, bool );
+	virtual void resize( unsigned int w, unsigned int h );
 	_ArtGradientStop *buildStopArray( VGradient &gradient, int & );
 	void clampToViewport( const _ArtSVP &, int &, int &, int &, int & );
 	void clampToViewport( int &, int &, int &, int & );
 	void ensureSpace( unsigned int );
 	struct _ArtBpath *m_path;
 	struct _ArtBpath *m_path2;
+	struct _ArtSVP *m_clipPath;
+#endif
 	unsigned int m_index;
 	unsigned int m_alloccount;
 	unsigned char *m_buffer;
 	QPaintDevice *m_target;
 	QImage *m_image;
+	QPixmap pixm;
 	unsigned int m_width;
 	unsigned int m_height;
 	unsigned int m_x;
@@ -173,10 +184,13 @@ private:
 	QValueStack<QWMatrix> MStack;
 /* Zoom Factor of the Painter */
 	double m_zoomFactor;
-	struct _ArtSVP *m_clipPath;
 	bool imageMode;
 #if defined(Q_WS_X11) && defined(SC_USE_PIXBUF)
+#ifdef HAVE_CAIRO
+	cairo_t *m_cr;
+#else
 	GC gc;
+#endif
 #elif defined(_WIN32) && defined(SC_USE_GDI)
 	HDC dc;
 #endif

@@ -419,7 +419,7 @@ void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 void PageItem::DrawObj_Post(ScPainter *p)
 {
 	bool doStroke=true;
-	if ((itemType()==PathText && !PoShow) || itemType()==PolyLine || itemType()==Line)
+	if (itemType()==PathText || itemType()==PolyLine || itemType()==Line)
 		doStroke=false;
 	if ((doStroke) && (!Doc->RePos))
 	{
@@ -2761,6 +2761,11 @@ void PageItem::DrawObj_PathText(ScPainter *p, double sc)
 	double segLen = 0;
 	double distCurX;
 	CurX = Extra;
+	if (lineColor() != "None" && PoShow)
+	{
+		p->setupPolygon(&PoLine, false);
+		p->strokePath();
+	}
 	if (itemText.count() != 0)
 		CurX += itemText.at(0)->csize * itemText.at(0)->cextra / 10000.0;
 	segLen = PoLine.lenPathSeg(seg);
