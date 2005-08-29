@@ -88,7 +88,7 @@ extern ProfilesL InputProfiles;
 extern ScribusApp* ScApp;
 
 using namespace std;
-
+QStringList getSystemProfilesDirs(void);
 void ReOrderText(ScribusDoc *doc, ScribusView *view);
 void WordAndPara(PageItem* b, int *w, int *p, int *c, int *wN, int *pN, int *cN);
 void CopyPageItem(struct CLBuf *Buffer, PageItem *b);
@@ -2375,5 +2375,39 @@ QString getFileNameByPage(uint pageNo, QString extension)
 		defaultName = fi.baseName(true);
 	}
 	return QString("%1-%2%3.%4").arg(defaultName).arg(QObject::tr("page", "page export")).arg(number).arg(extension);
+}
+
+QStringList getSystemProfilesDirs(void)
+{
+	QStringList iccProfDirs;
+#ifdef Q_OS_MAC
+	iccProfDirs.append(QDir::homeDirPath()+"/Library/ColorSync/Profiles/");
+	iccProfDirs.append("/System/Library/ColorSync/Profiles/");
+	iccProfDirs.append("/Library/ColorSync/Profiles/");
+#elif defined(Q_WS_X11)
+	iccProfDirs.append(QDir::homeDirPath()+"/color/icc/");
+	iccProfDirs.append(QDir::homeDirPath()+"/.color/icc/");
+	iccProfDirs.append("/usr/share/color/icc/");
+#elif defined(_WIN32)
+	// On Windows it's more complicated, profiles location depends on OS version
+	char sysDir[MAX_PATH + 1];
+	OSVERSIONINFO osVersion;
+	ZeroMemory( &osVersion, sizeof(OSVERSIONINFO));
+	osVersion.dwOSVersionInfoSize = sizeof(OSVERSIONINFO); // Necessary for GetVersionEx to succeed
+	GetVersionEx(&osVersion);  // Get Windows version infos
+	GetSystemDirectory( sysDir, MAX_PATH ); // getSpecialDir(CSIDL_SYSTEM) fails on Win9x
+	QString winSysDir = QString(sysDir).replace('\\','/');
+	if( osVersion.dwPlatformId == VER_PLATFORM_WIN32_NT	) // Windows NT/2k/XP
+	{
+		if( osVersion.dwMajorVersion >= 5 ) // for 2k and XP dwMajorVersion == 5 
+			iccProfDirs.append( winSysDir + "/Spool/Drivers/Color/");
+	}
+	else if( osVersion.dwPlatformId == VER_PLATFORM_WIN32_WINDOWS ) // Windows 9x/Me 
+	{
+		if( osVersion.dwMajorVersion >= 4 && osVersion.dwMinorVersion >= 10) // Win98 or WinMe
+			iccProfDirs.append( winSysDir + "/Color/");
+	}
+#endif
+	return iccProfDirs;
 }
 

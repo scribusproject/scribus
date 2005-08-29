@@ -99,6 +99,7 @@ extern void ReOrderText(ScribusDoc *doc, ScribusView *view);
 extern int copyFile(QString source, QString target);
 extern int moveFile(QString source, QString target);
 extern QString getFileNameByPage(uint pageNo, QString extension);
+extern QStringList getSystemProfilesDirs(void);
 
 
 using namespace std;
@@ -4035,12 +4036,22 @@ bool ScribusApp::doPrint(PrintOptions *options)
 	if (dd != NULL)
 	{
 		bool PSfile = false;
-		if (options->toFile)
-			PSfile = dd->PS_set_file(filename);
-		else
+		if (!options->toFile)
 		{
 			PSfile = dd->PS_set_file(PrefsPfad+"/tmp.ps");
 			filename = PrefsPfad+"/tmp.ps";
+		}
+		else
+		{
+			qApp->setOverrideCursor(QCursor(arrowCursor), true);
+			if (!overwrite(this, filename))
+			{
+				delete dd;
+				closePSDriver();
+				return true;
+			}
+			qApp->setOverrideCursor(QCursor(waitCursor), true);
+			PSfile = dd->PS_set_file(filename);
 		}
 		if (PSfile)
 		{
@@ -8180,14 +8191,22 @@ void ScribusApp::GetCMSProfiles()
 	MonitorProfiles.clear();
 	PrinterProfiles.clear();
 	InputProfiles.clear();
+	QString profDir;
+	QStringList profDirs;
 	QString pfad = LIBDIR;
 	pfad += "profiles/";
-	GetCMSProfilesDir(pfad);
-	if (Prefs.ProfileDir != "")
+	profDirs = getSystemProfilesDirs();
+	profDirs.prepend( Prefs.ProfileDir );
+	profDirs.prepend( pfad );
+	for(unsigned int i = 0; i < profDirs.count(); i++)
 	{
-		if(Prefs.ProfileDir.right(1) != "/")
-			Prefs.ProfileDir += "/";
-		GetCMSProfilesDir(Prefs.ProfileDir);
+		profDir = profDirs[i];
+		if(!profDir.isEmpty())
+		{
+			if(profDir.right(1) != "/")
+				profDir += "/";
+			GetCMSProfilesDir(profDir);
+		}
 	}
 	if ((!PrinterProfiles.isEmpty()) && (!InputProfiles.isEmpty()) && (!MonitorProfiles.isEmpty()))
 		CMSavail = true;
