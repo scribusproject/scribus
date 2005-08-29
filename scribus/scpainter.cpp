@@ -106,7 +106,9 @@ ScPainter::ScPainter( QPaintDevice *target, unsigned int w, unsigned int h, unsi
 	clear();
 	cairo_save( m_cr );
 	cairo_set_fill_rule (m_cr, CAIRO_FILL_RULE_EVEN_ODD);
-	cairo_set_tolerance( m_cr, 0.2 );
+/*	Setting to 0.5 here gives a good tradeoff between speed and precision
+	the former setting of 0.2 is just too precise, and setting it to 0.9 or greater will give bad rendering */
+	cairo_set_tolerance( m_cr, 0.5 );
 #else
 	resize( m_width, m_height );
 	clear();

@@ -22,7 +22,7 @@
 #include <qwmatrix.h>
 
 #include "prefsmanager.h"
-
+#include "prefsmanager.moc"
 #include "filewatcher.h"
 #include "missing.h"
 #include "pagesize.h"

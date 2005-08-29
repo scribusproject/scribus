@@ -14,7 +14,7 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-
+#include "scribusdoc.moc"
 #include "scribus.h"
 #include "scribusapp.h"
 #include "scribusdoc.h"

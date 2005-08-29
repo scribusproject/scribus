@@ -1,4 +1,5 @@
 #include "scplugin.h"
+#include "scplugin.moc"
 #include "qwidget.h"
 #include "deferredtask.h"
 #include "scribus.h"

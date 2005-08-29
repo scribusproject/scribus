@@ -342,14 +342,15 @@ EPSPlug::EPSPlug( ScribusApp *plug, QString fName )
  */
 bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 {
-	QString cmd1, cmd2, tmp, tmp2, tmp3, tmp4;
-	QString tmpFile = Prog->PrefsPfad+"/ps.out";
+	QString cmd1, cmd2, cmd3, tmp, tmp2, tmp3, tmp4;
+	// import.prolog do not cope with filenames containing blank spaces
+	// so take care that output filename does not (win32 compatibility)
+	QString tmpFile = getShortPathName(Prog->PrefsPfad)+ "/ps.out";
 	QString pfad = ScPaths::instance().libDir();
-	QString pfad2;
+	QString pfad2 = QDir::convertSeparators(pfad + "import.prolog");
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.extension(false).lower();
 	cmd1 = getShortPathName(PrefsManager::instance()->ghostscriptExecutable());
-	pfad2 = QDir::convertSeparators(pfad + "import.prolog");
 	cmd1 += " -q -dNOPAUSE -dNODISPLAY";
 	cmd1 += " -dBATCH -g"+tmp2.setNum(qRound(b-x))+"x"+tmp3.setNum(qRound(h-y))+" -c "+tmp4.setNum(-x)+" "+tmp.setNum(-y)+" translate";
 	// Add any extra font paths being used by Scribus to gs's font search
@@ -369,9 +370,11 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 		cmd1 += QString(";\"%1\"").arg(extraFonts->get(i,0));
 #endif
 	// then finish building the command and call gs
-	cmd1 += " -sOutputFile="+tmpFile+" "+pfad2+" ";
-	cmd2 = " -c flush cfile closefile quit";
-	QCString finalCmd = QString(cmd1 + "\""+fn+"\"" + cmd2).local8Bit();
+	cmd1 += " -sOutputFile=\"" + QDir::convertSeparators(tmpFile) + "\"";
+	cmd1 += " \"" + pfad2 + "\"";
+	cmd2 = " \"" + QDir::convertSeparators(fn) + "\"";
+	cmd3 = " -c flush cfile closefile quit";
+	QCString finalCmd = QString(cmd1 + cmd2 + cmd3).local8Bit();
 	bool ret = system(finalCmd);
 	if (ret != 0)
 	{

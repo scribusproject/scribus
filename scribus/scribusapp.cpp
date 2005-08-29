@@ -27,6 +27,7 @@
 #include <qtextcodec.h>
 
 #include "scribusapp.h"
+#include "scribusapp.moc"
 #include "scribus.h"
 #include "scpaths.h"
 #include "prefsfile.h"

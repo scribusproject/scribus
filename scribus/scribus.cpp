@@ -8529,23 +8529,27 @@ QString ScribusApp::CFileDialog(QString wDir, QString caption, QString filter, Q
 
 void ScribusApp::GetCMSProfiles()
 {
+	QString profDir;
+	QStringList profDirs;
 	MonitorProfiles.clear();
 	PrinterProfiles.clear();
 	InputProfiles.clear();
 	InputProfilesCMYK.clear();
 	QString pfad = ScPaths::instance().libDir();
 	pfad += "profiles/";
-	GetCMSProfilesDir(pfad);
-	if (!prefsManager->appPrefs.ProfileDir.isEmpty())
+	profDirs = ScPaths::getSystemProfilesDirs();
+	profDirs.prepend( prefsManager->appPrefs.ProfileDir );
+	profDirs.prepend( pfad );
+	for(unsigned int i = 0; i < profDirs.count(); i++)
 	{
-		if(prefsManager->appPrefs.ProfileDir.right(1) != "/")
-			prefsManager->appPrefs.ProfileDir += "/";
-		GetCMSProfilesDir(prefsManager->appPrefs.ProfileDir);
+		profDir = profDirs[i];
+		if(!profDir.isEmpty())
+		{
+			if(profDir.right(1) != "/")
+				profDir += "/";
+			GetCMSProfilesDir(profDir);
+		}
 	}
-#if defined(Q_WS_X11)
-	GetCMSProfilesDir("/usr/share/color/icc/");
-	GetCMSProfilesDir(QDir::convertSeparators(QDir::homeDirPath()+"/.color/icc/"));
-#endif
 	if ((!PrinterProfiles.isEmpty()) && (!InputProfiles.isEmpty()) && (!MonitorProfiles.isEmpty()))
 		CMSavail = true;
 	else
