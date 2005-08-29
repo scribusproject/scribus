@@ -136,7 +136,7 @@ void PluginManager::initPlugs()
 			{
 				pda.actMenuText=pda.name;
 				if (ScApp->splashScreen != NULL)
-					ScApp->splashScreen->setStatus( tr(QString("Loading: %1").arg(pda.name), "plugin manager"));
+					ScApp->splashScreen->setStatus( tr("Loading: %1", "plugin manager").arg(pda.name));
 				if (pda.loadPlugin)
 				{
 					if (pda.type == Persistent || pda.type == Standard || pda.type == Import)
