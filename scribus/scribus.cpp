@@ -7673,7 +7673,7 @@ PSLib* ScribusApp::getPSDriver(bool psart, QMap<QString,QFont> DocFonts, ColorLi
 	SCFonts* AllFonts=&(prefsManager->appPrefs.AvailFonts);
 	typedef PSLib* (*sdem)(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, ColorList DocColors, bool pdf, bool spot);
 	sdem demo;
-	QString pfad = QString("%1/libs/libpostscript.%3").arg(ScPaths::instance().libDir()).arg(PluginManager::platformDllExtension());
+	QString pfad = QString("%1/libs/libpostscript.%2").arg(ScPaths::instance().libDir()).arg(PluginManager::platformDllExtension());
 	PSDriver = PluginManager::loadDLL(pfad);
 	if (!PSDriver)
 	{
