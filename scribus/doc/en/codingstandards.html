@@ -345,7 +345,7 @@ ts &lt;&lt; someQString.utf8();
 
 <p>The best way to handle text encodings is to convert 8-bit byte strings to <code>QString</code> or another "safe" class as early as possible in input, and convert to 8-bit byte strings as late as possible on output. Above all else, do it only once and watch out for implicit conversions. You should think about encodings whenever passing text across any interface that wants byte-oriented strings rather than <code>QString</code>s. Remember to <b>read the documentation</b> of the APIs you're using to determine how they behave with text encodings, and if you're not sure, <i>ask somebody</i>.</p>
 
-<p>It is strongly recommended that you read <a href="http://doc.trolltech.com/3.3/i18n.html">http://doc.trolltech.com/3.3/i18n.html</a> for more coverage of this issue, especially the section "Support for Encodings".</p>
+<p>It is strongly recommended that you read <a href="http://doc.trolltech.com/3.3/i18n.html">http://doc.trolltech.com/3.3/i18n.html</a> for more coverage of this issue, especially the section "Support for Encodings". You should also read <a href="http://doc.trolltech.com/qq/qq05-achtung.html">Achtung! Binary and Character data</a>.</p>
 
 <h4>Portability</h4>
 
