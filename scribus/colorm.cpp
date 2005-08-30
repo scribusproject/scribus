@@ -9,10 +9,8 @@
 #include "colorm.h"
 #include "colorm.moc"
 #include <qvariant.h>
-#include <qtooltip.h>
 #include <qpixmap.h>
 #include <cstdlib>
-#include <qcolordialog.h>
 
 #include "commonstrings.h"
 #include "customfdialog.h"
@@ -29,6 +27,37 @@
 #include "util.h"
 
 extern ScribusApp* ScApp;
+
+DynamicTip2::DynamicTip2( QListBox* parent, Farbmanager* pale ) : QToolTip( parent )
+{
+	pal = pale;
+	listB = parent;
+}
+
+void DynamicTip2::maybeTip( const QPoint &pos )
+{
+	QListBoxItem* it = listB->itemAt(pos);
+	if (it != 0)
+	{
+		if (!pal->EditColors.contains(it->text()))
+			return;
+		QString tipText = "";
+		ScColor col = pal->EditColors[it->text()];
+		if (col.getColorModel() == colorModelCMYK)
+		{
+			int c, m, y, k;
+			col.getCMYK(&c, &m, &y, &k);
+			tipText = QString("C = %1% M = %2% Y = %3% K = %4%").arg(qRound(c / 2.55)).arg(qRound(m / 2.55)).arg(qRound(y / 2.55)).arg(qRound(k / 2.55));
+		}
+		else
+		{
+			int r, g, b;
+			col.getRawRGBColor(&r, &g, &b);
+			tipText = QString("R = %1 G = %2 B = %3").arg(r).arg(g).arg(b);
+		}
+		tip(listB->itemRect(it), tipText);
+	}
+}
 
 Farbmanager::Farbmanager( QWidget* parent, ColorList doco, bool HDoc, QString DcolSet, QStringList Cust )
 		: QDialog( parent, "dd", true, 0 )
@@ -136,6 +165,7 @@ Farbmanager::Farbmanager( QWidget* parent, ColorList doco, bool HDoc, QString Dc
 	Layout2->addLayout( layout5 );
 	Ersatzliste.clear();
 	EditColors = doco;
+	dynTip = new DynamicTip2(ListBox1, this);
 	updateCList();
 	// signals and slots connections
 	if (!HaveDoc)

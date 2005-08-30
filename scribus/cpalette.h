@@ -18,6 +18,7 @@
 #ifndef CPALETTE_H
 #define CPALETTE_H
 
+#include <qtooltip.h>
 #include "scribusapi.h"
 #include "scribusstructs.h"
 #include "gradienteditor.h"
@@ -34,10 +35,9 @@ class QButtonGroup;
 class QComboBox;
 class QLabel;
 class QSpinBox;
+class DynamicTip;
 #include "shadebutton.h"
 #include "mspinbox.h"
-
-
 
 /**
   *@author Franz Schmid
@@ -126,6 +126,17 @@ protected:
 	QPixmap rgbIcon;
 	QPixmap spotIcon;
 	QPixmap regIcon;
+	DynamicTip* dynTip;
+};
+
+class SCRIBUS_API DynamicTip : public QToolTip
+{
+public:
+	DynamicTip( QListBox* parent, Cpalette* pale );
+	Cpalette* pal;
+	QListBox* listB;
+protected:
+	void maybeTip( const QPoint & );
 };
 
 #endif

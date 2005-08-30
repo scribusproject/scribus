@@ -18,10 +18,13 @@
 #include <qlabel.h>
 #include <qpopupmenu.h>
 #include <qcolor.h>
+#include <qtooltip.h>
 
 #include "scribusapi.h"
 #include "scribusstructs.h"
 #include "query.h"
+
+class DynamicTip2;
 
 class SCRIBUS_API Farbmanager : public QDialog
 { 
@@ -60,6 +63,7 @@ private:
 	QPixmap rgbIcon;
 	QPixmap spotIcon;
 	QPixmap regIcon;
+	DynamicTip2* dynTip;
 
 private slots:
 	void saveDefaults();
@@ -80,6 +84,16 @@ protected:
 	QVBoxLayout* layout3;
 	QVBoxLayout* ColsSetGroupLayout;
 	QVBoxLayout* Layout1;
+};
+
+class SCRIBUS_API DynamicTip2 : public QToolTip
+{
+public:
+	DynamicTip2( QListBox* parent, Farbmanager* pale );
+	Farbmanager* pal;
+	QListBox* listB;
+protected:
+	void maybeTip( const QPoint & );
 };
 
 #endif // FARBMANAGER_H

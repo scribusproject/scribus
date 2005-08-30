@@ -38,6 +38,37 @@
 #include "page.h"
 #include "util.h"
 
+DynamicTip::DynamicTip( QListBox* parent, Cpalette* pale ) : QToolTip( parent )
+{
+	pal = pale;
+	listB = parent;
+}
+
+void DynamicTip::maybeTip( const QPoint &pos )
+{
+	QListBoxItem* it = listB->itemAt(pos);
+	if (it != 0)
+	{
+		if (!pal->colorList.contains(it->text()))
+			return;
+		QString tipText = "";
+		ScColor col = pal->colorList[it->text()];
+		if (col.getColorModel() == colorModelCMYK)
+		{
+			int c, m, y, k;
+			col.getCMYK(&c, &m, &y, &k);
+			tipText = QString("C = %1% M = %2% Y = %3% K = %4%").arg(qRound(c / 2.55)).arg(qRound(m / 2.55)).arg(qRound(y / 2.55)).arg(qRound(k / 2.55));
+		}
+		else
+		{
+			int r, g, b;
+			col.getRawRGBColor(&r, &g, &b);
+			tipText = QString("R = %1 G = %2 B = %3").arg(r).arg(g).arg(b);
+		}
+		tip(listB->itemRect(it), tipText);
+	}
+}
+
 Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 {
 	alertIcon = loadIcon("alert.png");
@@ -136,6 +167,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	colorListQLBox->setMinimumSize( QSize( 150, 30 ) );
 	colorListQLBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
 	Form1Layout->addWidget(colorListQLBox);
+	dynTip = new DynamicTip(colorListQLBox, this);
 	Inhalt->setOn(true);
 	InnenButton();
 	GradientMode = false;
@@ -596,6 +628,5 @@ void Cpalette::languageChange()
 	QToolTip::add( PM1, tr( "Saturation of color" ) );
 	QToolTip::add( gradientQCombo, tr( "Normal or gradient fill method" ) );
 	QToolTip::add( TransSpin, tr( "Set the transparency for the color selected" ) );
-	QToolTip::add( colorListQLBox, tr( "Color of selected object" ) );
 	QToolTip::add( gradEditButton, "<qt>" + tr( "Move the start of the gradient vector with the left mouse button pressed and move the end of the gradient vector with the right mouse button pressed" ) + "</qt>");
 }

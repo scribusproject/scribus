@@ -86,7 +86,6 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScColor orig, QString name, ColorList *
 	ComboBox1->insertItem( tr( "CMYK" ) );
 	ComboBox1->insertItem( tr( "RGB" ) );
 	ComboBox1->insertItem( tr( "Web Safe RGB" ) );
-	ComboBox1->setMinimumSize( QSize( 200, 22 ) );
 	if (!CMYKmode)
 		ComboBox1->setCurrentItem( 1 );
 	TextLabel3->setBuddy( ComboBox1 );
@@ -698,6 +697,7 @@ void CMYKChoose::SelModel(const QString& mod)
 		BlackSL->show();
 		BlackSp->show();
 		BlackT->show();
+		Farbe.setColorModel(colorModelCMYK);
 		setValues();
 	}
 	else
@@ -749,6 +749,7 @@ void CMYKChoose::SelModel(const QString& mod)
 			MagentaSp->setLineStep(51);
 			YellowSp->setLineStep(51);
 		}
+		Farbe.setColorModel(colorModelRGB);
 		setValues();
 	}
 	connect( CyanSp, SIGNAL( valueChanged(int) ), CyanSL, SLOT( setValue(int) ) );
