@@ -4,29 +4,28 @@ The Scribus 1.2.x versions feature a complete rewrite of the rendering engine.
 All rendering is done via libart and freetype2. 
 This requires that libart_lgpl and freetype2 are installed.
 
-Version 1.2.2 now includes the Short Words plug-in, which was previously 
+Scribus now includes the Short Words plug-in, which was previously 
 installed as a separate plug-in. To prevent upgrade problems, you might want to 
 uninstall if it was installed via a package or RPM. This was also shipped as the 
 scribus-vlna package in both source and rpm format. See PACKAGING for more details.
 
-Scribus 1.2.2 also has a new OpenOffice.org Writer and Draw importer. This 
+Scribus  also has a new OpenOffice.org Writer and Draw importer. This 
 requires libxml2, preferably version 2.6.x+. The OpenOffice.org Writer importer
 will import styles from the OpenOffice.org doc and will create similar styles
 within your Scribus document.
 
 Version 1.2.1 supported Open Office 1.1.x and Star Office 6/7 file formats. 
-Version 1.2.2 supports Open Office 2.x/Star Office 8.x (OASIS) as well.
+Version 1.2.2+ supports Open Office 2.x/Star Office 8.x (OASIS) as well.
 
+Scribus 1.2.3 also includes 2 icc color profiles to make sure color management
+is working immediately after install. Note that these are basic generic profiles
+not sufficient to ensure good color management. See the help files for details 
+under color management. Grey scale icc profiles in images are not supported in this release.
 
-Additionally Scribus uses now a different way to find fonts, sadly this gives
-some changes in the font names Scribus uses. To convert old documents follow
-the procedure below:
-
-1) Create a document with the old Version of Scribus containing all your Fonts.
-2) Open the new Scribus and go to the Font Substitution List.
-3) Clear out all current substitutions.
-4) Open the Document created in 1) and substitute all the fonts with the 
-   correct new fonts.
+Scribus 1.2.3 also supports the proposed OpenIcc standard icc profile 
+locations: $home/color/icc and /usr/share/color/icc/ under linux. Scribus
+will automatically detect them in these locations. Some distro neutral rpms
+for installing profiles are available on www.scribus.net.
 
 When you now open old documents Scribus will convert all Font Names
 automatically.
@@ -42,9 +41,6 @@ We recommend ALL users update to the newest version of Ghostscript available
 for your distro. There are detailed hints on docs.scribus.net for installing
 GS 8.x in parallel to the GS installed by your distro.
 
-Activating Color Management *requires* installation of CMYK and RGB ICC 
-profiles. Please see the included help files and http://docs.scribus.net for 
-details. Grey scale icc profiles in images are not supported in this release.
 
 If you have a 64-bit version of Qt, sometimes ./configure will not detect the 
 64-bit version headers. Try : ./configure --enable-libsuffix=64 to test for 64-bit 
@@ -106,4 +102,4 @@ For the Scribus Team,
 
 Franz Schmid
 Peter Linnell
-in June 2005
+in August 2005

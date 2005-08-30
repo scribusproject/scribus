@@ -1,5 +1,7 @@
 Scribus - 1.2.3cvs
 ==================
+- 0002487: [Printing] No Warning on over writing when printing a PS file (fschmid)
+- 0002040: [General] Have Scribus look for icc profiles in /usr/share/color/icc/ (fschmid)
 - 0002448: [General] fix for contacts info (plinnell)
 - 0002369: [Internal] Crash due to invalid pointer access in Mpalette::NewName() (fschmid)
 - 0002433: [Story Editor / Text Frames] Manual soft hyphenation lost after using text-editor (fschmid)
