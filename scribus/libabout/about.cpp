@@ -176,6 +176,8 @@ About::About( QWidget* parent )
 	                                      "<tr><td>Louis Desjardins</td><td>louis_desjardins@mardigrafe.com</td></tr>" +
 	                                      "<tr><td>Frédéric Dubuy</td><td>effediwhy@gmail.com</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +
+					      "<tr><td><b>" + tr("Galician:").utf8()  + "</b></td><td> </td></tr>" +
+	                                      "<tr><td>Xose Calvo</td><td>scribus@galizaweb.net</td></tr>" +
 	                                      "<tr><td><b>" + tr("German:").utf8()  + "</b></td><td> </td></tr>" +
 	                                      "<tr><td>Johannes Rüschel</td><td>jo.rueschel@gmx.de</td></tr>" +
 	                                      "<tr><td>Franz Schmid</td><td>Franz.Schmid@altmuehlnet.de</td></tr>" +
@@ -241,7 +243,6 @@ About::About( QWidget* parent )
 	                                      "<tr><td>Yves Ceccone</td><td>yves@yeccoe.org</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +
 	                                      "<tr><td><b>" + tr("Galician:").utf8()  + "</b></td><td> </td></tr>" +
-	                                      "<tr><td>Xose Calvo</td><td>xosecalvo@galizaweb.net</td></tr>" +
 	                                      "<tr><td>Manuel Anxo Rei</td><td>manxopar@avogaciagalega.org</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +                                      
 	                                      "<tr><td><b>" + tr("Hungarian:").utf8()  + "</b></td><td> </td></tr>" +
