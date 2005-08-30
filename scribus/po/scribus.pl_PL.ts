@@ -4497,7 +4497,7 @@ zapisane w aktualnej formie. Wystąpił następujący błąd:
     </message>
     <message>
         <source>Python source files (*.py)</source>
-        <translation type="unfinished"></translation>
+        <translation>Pliki źródłowe Pythona (*.py)</translation>
     </message>
 </context>
 <context>
@@ -8158,21 +8158,27 @@ Jeśli opcja nie zostanie zakreślona, edycja adnotacji i pól będzie zabronion
     <message>
         <source> Lossless compression of text and graphics.
 Unless you have a reason, leave this checked. This reduces PDF size.</source>
-        <translation type="unfinished"></translation>
+        <translation> Kompresja bezstratna tekstu i grafiki.
+Jeśli nie masz szczególnego powodu, aby to zmieniać, 
+zostaw tę opcję zakreśloną. Spowoduje to zmniejszenie
+rozmiaru pliku PDF.</translation>
     </message>
     <message>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options.</source>
-        <translation type="unfinished"></translation>
+        <translation>Metoda kompresji dla obrazków. &quot;Automatyczna&quot; pozwoli Scribusowi na wybór najlepszej metody. &quot;ZIP&quot; jest bezstratny i dobry w przypadku obrazków o jednolitych kolorach. &quot;JPEG&quot; jest lepszy w tworzeniu mniejszych plików PDF zawierających wiele zdjęć (z możliwą nieznaczną utratą jakości zdjęć). Zostaw metodę automatyczną, chyba że masz powód, aby wybrać inną z opcji.</translation>
     </message>
     <message>
         <source>Re-sample your bitmap images to the selected DPI.
 Leaving this unchecked will render them at their native resolution.
 This can increase memory usage and slow down export.</source>
-        <translation type="unfinished"></translation>
+        <translation>Konwersja grafik bitmapowych do wybranej DPI.
+Pozostawienie tej opcji niezakreślonej spowoduje, że grafiki
+będą renderowane z ich wyjściową rozdzielczością.
+Może to spowodować zwiększone zużycie pamięci i spowolnienie eksportu.</translation>
     </message>
     <message>
         <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility. Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Note: PDF/X-3 will convert all CMYK images to ICC based RGB colors. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Określa kompatybilność z PDF. Domyślnym wyborem jest &quot;Acrobat 4.0&quot;, zapewniający największą kompatybilność. Wybierz &quot;Acrobat 5.0&quot;, jeśli używasz możliwości zawartych w PDF 1.4 takich jak przezroczystość lub potrzebujesz szyfrowania 128 bitowego. &quot;PDF/X-3&quot; przeznaczony jest dla eksportu do PDF, jeśli chcesz użyć zarządzania kolorami w profesjonalnym druku -- opcja ta jest dostępna po włączeniu zarządzania kolorami. Uwaga: PDF/X-3 przekonwertuje wszystkie grafiki w CMYK na kolory RGB bazujące na profilach ICC. Użyj tej opcji tylko wtedy, kiedy zaleci tak twoja drukarnia oraz w niektórych przypadkach dla drukowania na czterokolorowej drukarce laserowej.</translation>
     </message>
 </context>
 <context>
@@ -11070,12 +11076,12 @@ Szczegóły na temat wyjątków zwracanych przez każdą funkcję zawarte są w 
     </message>
     <message>
         <source>Normal</source>
-        <translation type="unfinished">Normalny</translation>
+        <translation>Normalny</translation>
     </message>
     <message>
         <source>page</source>
         <comment>page export</comment>
-        <translation type="unfinished"></translation>
+        <translation>strona</translation>
     </message>
 </context>
 <context>
