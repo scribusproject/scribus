@@ -968,7 +968,7 @@ void ReformDoc::updateDocumentSettings()
 			currDoc->PDF_Options.ImageProf = currDoc->CMSSettings.DefaultImageRGBProfile;
 			currDoc->PDF_Options.PrintProf = currDoc->CMSSettings.DefaultPrinterProfile;
 			currDoc->PDF_Options.Intent = currDoc->CMSSettings.DefaultIntentMonitor;
-			ScApp->RecalcColors(ScApp->mainWindowProgressBar);
+			ScApp->recalcColors(ScApp->mainWindowProgressBar);
 			ScApp->view->RecalcPictures(&ScApp->InputProfiles, ScApp->mainWindowProgressBar);
 #endif
 			ScApp->mainWindowProgressBar->setProgress(cc);
