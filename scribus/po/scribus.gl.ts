@@ -2314,7 +2314,14 @@ that the layer &quot;layer&quot; is visible, a value of False means that the lay
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>isLayerVisible(&quot;capa&quot;) -&gt; booleano
+
+Devolve se a capa &quot;capa&quot; é visíbel ou non; un valor de Verdadeiro significa
+que a capa &quot;capa&quot; é visíbel; un valor de Falso significa que a capa
+&quot;capa&quot; é invisíbel.
+
+Pode provocar un NotFoundError se non se dá atopada a capa.
+Pode provocar un ValueError se o nome da capa non é aceptábel.</translation>
     </message>
     <message>
         <source>getPageMargins()
@@ -2322,7 +2329,10 @@ May raise ValueError if the layer name isn&apos;t acceptable.
 Returns the page margins as a (top, left, right, bottom) tuple in the current
 units. See UNIT_&lt;type&gt; constants and getPageSize().
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getPageMargins()
+
+Devolve as marxes da páxina como un conxunto de catro valores (arriba, esquerda, direita, abaixo)
+nas unidades actuais. Ver as constantes UNIT_&lt;type&gt; e getPageSize().</translation>
     </message>
     <message>
         <source>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
@@ -2334,7 +2344,14 @@ is not given the currently selected Item is used.
 
 May throw IndexError for an insertion out of bounds.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>insertText(&quot;texto&quot;, pos.[&quot;nome&quot;])
+
+Insire o texto &quot;texto&quot; na posición &quot;pos&quot; na moldura de texto &quot;nome&quot;.
+O texto debe estar codificado en UTF (ver setText() como referencia). O primeiro
+carácter ten un índice de O. Se se insire na posición -1 adiciónase o texto á moldura.
+Se non se fornece un &quot;nome&quot;, utilízase o elemento seleccionado nese momento.
+
+Pove provocar un IndexError se se fai unha inserción fora dos limites.</translation>
     </message>
 </context>
 <context>
@@ -2587,15 +2604,15 @@ A ausencia de apoio a librarías indícase cun *</translation>
     </message>
     <message>
         <source>%1 %2 %3 </source>
-        <translation type="unfinished"></translation>
+        <translation>%1 %2 %3(sp)</translation>
     </message>
     <message>
         <source>Afrikaans:</source>
-        <translation type="unfinished"></translation>
+        <translation>Afrikaner:</translation>
     </message>
     <message>
         <source>Portuguese (Brazilian):</source>
-        <translation type="unfinished"></translation>
+        <translation>Portugués do Brasil:</translation>
     </message>
 </context>
 <context>
@@ -2646,7 +2663,7 @@ pódense crear ficheiros enormes</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;Dacordo</translation>
+        <translation>&amp;De acordo</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -2672,14 +2689,22 @@ O UCR reduce a posibilidade dun exceso de saturación coas tintas CMY.</translat
     </message>
     <message>
         <source>Set Media Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Asignarun Tamaño ao Medio</translation>
     </message>
     <message>
         <source>This enables you to explicitely set,
 the media size of the postscript file.
 Not recommended unless
  requested by your printer.</source>
-        <translation type="unfinished"></translation>
+        <translation>insertText(&quot;texto&quot;, pos.[&quot;nome&quot;])
+
+Insire o texto &quot;texto&quot; na posición &quot;pos&quot; na moldura de texto &quot;nome&quot;.
+O texto debe estar codificado en UTF (ver setText() como referencia). O primeiro
+carácter ten un índice de O. Se se insire na posición -1 adiciónase o texto á moldura.
+Se non se fornece un &quot;nome&quot;, utilízase o elemento seleccionado nese momento.
+
+Pove provocar un IndexError se se fai unha inserción fora dos limites.
+</translation>
     </message>
 </context>
 <context>
@@ -2734,7 +2759,7 @@ Not recommended unless
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;Dacordo</translation>
+        <translation>&amp;De acordo</translation>
     </message>
     <message>
         <source>&amp;Apply</source>
@@ -3304,7 +3329,7 @@ Not recommended unless
     </message>
     <message>
         <source>OK</source>
-        <translation>Dacordo</translation>
+        <translation>De acordo</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -3435,7 +3460,7 @@ Not recommended unless
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;Dacordo</translation>
+        <translation>&amp;De acordo</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -3470,7 +3495,7 @@ Not recommended unless
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;Dacordo</translation>
+        <translation>&amp;De acordo</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -3523,7 +3548,7 @@ Escolla outro.</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>Dacordo</translation>
+        <translation>De acordo</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -3668,7 +3693,7 @@ Escolla outro.</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>Dacordo</translation>
+        <translation>De acordo</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -3805,7 +3830,7 @@ Isto require perfís moi exactos e só serve como advertencia.</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;Dacordo</translation>
+        <translation>&amp;De acordo</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -3840,7 +3865,7 @@ Isto require perfís moi exactos e só serve como advertencia.</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>Dacordo</translation>
+        <translation>De acordo</translation>
     </message>
     <message>
         <source>C:</source>
@@ -3904,7 +3929,7 @@ Isto require perfís moi exactos e só serve como advertencia.</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;Dacordo</translation>
+        <translation>&amp;De acordo</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -3925,19 +3950,19 @@ It&apos;s a reserved name for transparent color</source>
     <name>ChooseStyles</name>
     <message>
         <source>Choose Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Escolla Estilos</translation>
     </message>
     <message>
         <source>Available Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Estilos Disponíbeis</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation>De acordo</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Cancelar</translation>
+        <translation>Cancelar</translation>
     </message>
 </context>
 <context>
@@ -4071,7 +4096,7 @@ It&apos;s a reserved name for transparent color</source>
     </message>
     <message>
         <source>OK</source>
-        <translation>Dacordo</translation>
+        <translation>De acordo</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -4162,7 +4187,7 @@ A ausencia de soporte para unha libraría indícase cun *</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;Dacordo</translation>
+        <translation>&amp;De acordo</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -4222,7 +4247,7 @@ Pódese definir nas Preferencias.</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;Dacordo</translation>
+        <translation>&amp;De acordo</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -4245,7 +4270,7 @@ Pódese definir nas Preferencias.</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;Dacordo</translation>
+        <translation>&amp;De acordo</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -4272,7 +4297,7 @@ Pódese definir nas Preferencias.</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>Dacordo</translation>
+        <translation>De acordo</translation>
     </message>
 </context>
 <context>
@@ -4423,7 +4448,7 @@ co sufixo opcional dun hífen e un código de país ISO-3166 como, por exemplo e
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;Dacordo</translation>
+        <translation>&amp;De acordo</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -4711,23 +4736,23 @@ O erro foi:
     </message>
     <message>
         <source>Save File Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Diálogo de Salvar Ficheiros</translation>
     </message>
     <message>
         <source>Save macro source</source>
-        <translation type="unfinished"></translation>
+        <translation>Salvar a fonte da macro</translation>
     </message>
     <message>
         <source>Open File Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Diálogo de Abrir Ficheiros</translation>
     </message>
     <message>
         <source>Select the source file to load</source>
-        <translation type="unfinished"></translation>
+        <translation>Escolla o ficheiro fonte a carregar</translation>
     </message>
     <message>
         <source>Python source files (*.py)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ficheiros fonte en Python (*.py)</translation>
     </message>
 </context>
 <context>
@@ -4762,7 +4787,7 @@ O erro foi:
     </message>
     <message>
         <source>OK</source>
-        <translation>Dacordo</translation>
+        <translation>De acordo</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -4878,7 +4903,7 @@ O erro foi:
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;Dacordo</translation>
+        <translation>&amp;De acordo</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -4960,7 +4985,7 @@ O erro foi:
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;Dacordo</translation>
+        <translation>&amp;De acordo</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -5206,7 +5231,7 @@ Use 72 dpi (puntos por pulgada) para Imaxes intendadas para a Pantalla</translat
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;Dacordo</translation>
+        <translation>&amp;De acordo</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -5309,7 +5334,7 @@ Use 72 dpi (puntos por pulgada) para Imaxes intendadas para a Pantalla</translat
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;Dacordo</translation>
+        <translation>&amp;De acordo</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -5320,7 +5345,7 @@ Use 72 dpi (puntos por pulgada) para Imaxes intendadas para a Pantalla</translat
     <name>FontPreview</name>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;Dacordo</translation>
+        <translation>&amp;De acordo</translation>
     </message>
     <message>
         <source>Alt+O</source>
@@ -5352,7 +5377,7 @@ Use 72 dpi (puntos por pulgada) para Imaxes intendadas para a Pantalla</translat
     </message>
     <message>
         <source>Size of the Font</source>
-        <translation type="unfinished"></translation>
+        <translation>Tamaño da Fonte</translation>
     </message>
 </context>
 <context>
@@ -5430,7 +5455,7 @@ Use 72 dpi (puntos por pulgada) para Imaxes intendadas para a Pantalla</translat
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;Dacordo</translation>
+        <translation>&amp;De acordo</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -5445,7 +5470,7 @@ Use 72 dpi (puntos por pulgada) para Imaxes intendadas para a Pantalla</translat
     </message>
     <message>
         <source>Contents</source>
-        <translation>Contido</translation>
+        <translation>Índice</translation>
     </message>
     <message>
         <source>Link</source>
@@ -5464,35 +5489,35 @@ e www.scribus.net para descargas.</translation>
     </message>
     <message>
         <source>&amp;Contents</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Índice</translation>
     </message>
     <message>
         <source>&amp;Search</source>
-        <translation type="unfinished">&amp;Procurar</translation>
+        <translation>&amp;Procurar</translation>
     </message>
     <message>
         <source>S&amp;earch</source>
-        <translation type="unfinished"></translation>
+        <translation>P&amp;rocurar</translation>
     </message>
     <message>
         <source>Ctrl+F</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+F</translation>
     </message>
     <message>
         <source>F3</source>
-        <translation type="unfinished"></translation>
+        <translation>F3</translation>
     </message>
     <message>
         <source>unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Descoñecido</translation>
     </message>
     <message>
         <source>Find</source>
-        <translation type="unfinished"></translation>
+        <translation>Pesquisar</translation>
     </message>
     <message>
         <source>Search Term:</source>
-        <translation type="unfinished"></translation>
+        <translation>Termo a Procurar:</translation>
     </message>
 </context>
 <context>
@@ -5562,7 +5587,7 @@ O valor 0 significa que non se contabilizan.</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;Dacordo</translation>
+        <translation>&amp;De acordo</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -5637,7 +5662,7 @@ O valor 0 significa que non se contabilizan.</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;Dacordo</translation>
+        <translation>&amp;De acordo</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -5660,7 +5685,7 @@ O valor 0 significa que non se contabilizan.</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>Dacordo</translation>
+        <translation>De acordo</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -5782,7 +5807,7 @@ O valor 0 significa que non se contabilizan.</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;Dacordo</translation>
+        <translation>&amp;De acordo</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -5884,7 +5909,7 @@ O valor 0 significa que non se contabilizan.</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;Dacordo</translation>
+        <translation>&amp;De acordo</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -6014,11 +6039,11 @@ A seguir, o rexistro completo:
     </message>
     <message>
         <source>Scribus - New Macro</source>
-        <translation type="unfinished">Scribus - Macro Nova</translation>
+        <translation>Scribus - Macro Nova</translation>
     </message>
     <message>
         <source>Enter name for new macro: </source>
-        <translation type="unfinished"></translation>
+        <translation>Introduza o nome para a nova macro:</translation>
     </message>
 </context>
 <context>
@@ -6060,7 +6085,7 @@ The table in the center of the dialog lists what macros are currently loaded and
     </message>
     <message>
         <source>&amp;Ok</source>
-        <translation>&amp;Dacordo</translation>
+        <translation>&amp;De acordo</translation>
     </message>
     <message>
         <source>Alt+O</source>
@@ -6224,47 +6249,47 @@ The table in the center of the dialog lists what macros are currently loaded and
     </message>
     <message>
         <source>Scribus Macro Files (*.pymacro)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ficheiros de Macro do Scribus (*.pymacro)</translation>
     </message>
     <message>
         <source>Open File Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Diálogo de Abrir Ficheiros</translation>
     </message>
     <message>
         <source>Select the macro file to load.</source>
-        <translation type="unfinished"></translation>
+        <translation>Escolla o ficheiro coa macro que carregar.</translation>
     </message>
     <message>
         <source>Save File Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Diálogo de Salvar Ficheiros</translation>
     </message>
     <message>
         <source>Save all macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Salvar todas as macros</translation>
     </message>
     <message>
         <source>Scribus - Rename Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Mudarlle o nome á Macro</translation>
     </message>
     <message>
         <source>Enter new name: </source>
-        <translation type="unfinished"></translation>
+        <translation>Introduza o novo nome:</translation>
     </message>
     <message>
         <source>Scribus - Set Macro Shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Asignarlle un Atallo á Macro</translation>
     </message>
     <message>
         <source>Enter new shortcut: </source>
-        <translation type="unfinished"></translation>
+        <translation>Introduza o novo atallo:</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished">Si</translation>
+        <translation>Si</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished">Non</translation>
+        <translation>Non</translation>
     </message>
 </context>
 <context>
@@ -6303,7 +6328,7 @@ The table in the center of the dialog lists what macros are currently loaded and
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;Dacordo</translation>
+        <translation>&amp;De acordo</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -6495,7 +6520,7 @@ un rango de páxinas ou unha única páxina.</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;Dacordo</translation>
+        <translation>&amp;De acordo</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -6648,7 +6673,7 @@ Escolla outro.</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>Dacordo</translation>
+        <translation>De acordo</translation>
     </message>
     <message>
         <source>Shade:</source>
@@ -7114,11 +7139,11 @@ R&amp;edondeadas:</translation>
     </message>
     <message>
         <source>Trac&amp;king:</source>
-        <translation type="unfinished"></translation>
+        <translation>Trac&amp;king:</translation>
     </message>
     <message>
         <source>Manual Tracking</source>
-        <translation type="unfinished"></translation>
+        <translation>Tracking Manual</translation>
     </message>
 </context>
 <context>
@@ -7165,7 +7190,7 @@ R&amp;edondeadas:</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>Dacordo</translation>
+        <translation>De acordo</translation>
     </message>
     <message>
         <source> pt </source>
@@ -7203,7 +7228,7 @@ Escolla outro.</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;Dacordo</translation>
+        <translation>&amp;De acordo</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -7485,7 +7510,7 @@ Se se seleccionaron Páxinas Enfrentadas, este espazo de marxe pódese usar para
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;Dacordo</translation>
+        <translation>&amp;De acordo</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -7524,7 +7549,7 @@ Se se seleccionaron Páxinas Enfrentadas, este espazo de marxe pódese usar para
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;Dacordo</translation>
+        <translation>&amp;De acordo</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -7698,7 +7723,7 @@ após importalo.</translation>
     </message>
     <message>
         <source>Use document name as a prefix for paragraph styles</source>
-        <translation type="unfinished">Usar o nome do documento como prefixo dos estilos de parágrafo</translation>
+        <translation>Usar o nome do documento como prefixo dos estilos de parágrafo</translation>
     </message>
     <message>
         <source>Should importer add the name of the document
@@ -7708,7 +7733,7 @@ por diante do nome do estilo de parágrafo en Scribus</translation>
     </message>
     <message>
         <source>Do not ask again</source>
-        <translation type="unfinished">Non perguntar máis</translation>
+        <translation>Non perguntar máis</translation>
     </message>
     <message>
         <source>Should the importer always use currently
@@ -7720,35 +7745,35 @@ e non pedir máis a súa configuración</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation>De acordo</translation>
     </message>
     <message>
         <source>OpenDocument Importer Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Opcións do Importador de OpenDocument</translation>
     </message>
     <message>
         <source>Update paragraph Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Actualizar os Estilos de parágrafo</translation>
     </message>
     <message>
         <source>Enabling this will overwrite existing styles in the current Scribus document</source>
-        <translation type="unfinished"></translation>
+        <translation>Se o permite sobreescribiránse os estilos do documento actual de Scribus</translation>
     </message>
     <message>
         <source>Merge Paragraph Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Integrar os Estilos de Parágrafo</translation>
     </message>
     <message>
         <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document&apos;s styles are named differently.</source>
-        <translation type="unfinished"></translation>
+        <translation>Integrar os estilos de parágrafo polos seus atributos. Isto resultará nun menor número de estilos de parágrafo semellantes e reterá os atributos de estilo, mesmo se os estilos do documento orixinal teñen un nome diferente.</translation>
     </message>
     <message>
         <source>Prepend the document name to the paragraph style name in Scribus.</source>
-        <translation type="unfinished"></translation>
+        <translation>Antepor o nome do documento ao nome do estilo de parágrafo en Scribus.</translation>
     </message>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
-        <translation type="unfinished"></translation>
+        <translation>Configurar isto como predeterminado e non perguntar máis cando se importe un documento OpenDocument OASIS.</translation>
     </message>
 </context>
 <context>
@@ -8488,55 +8513,59 @@ De non facelo así, o seu PDF exportado pode non imprimirse correctamente e con 
     </message>
     <message>
         <source>Save as PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>Salvar como PDF</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Color management must be enabled to use PDF/X-3. You can enable color management from the Settings menu.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Debe estar habilitada a xestión da cor para poder usar PDF/X-3. Pódea habilitar desde o menú de Configuración.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;PDF/X-3 is supported and enabled, but can not be used for the selected PDF version. If you want to use PDF/X-3, you need to set PDF/X-3 as your PDF version (compatibility level).&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Recoñécese PDF/X-3 e está habilitado, pero non se pode usar para a versión de PDF seleccionada. Se quer usar PDF/X-3 terá que designar PDF/X-3 como a versión de PDF (nível de compatibilidade).&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;PDF/X-3 is not supported by this Scribus build (CMS support not present).&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Non se recoñece PDF/X-3 nesta edición de Scribus (non está presente CMS).&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Allow adding annotations and fields to the PDF. 
 If un-checked, editing annotations and fields is prevented.</source>
-        <translation type="unfinished"></translation>
+        <translation>Permite engadir anotacións e campos no PDF.
+Se non se selecciona, impídese modificar as anotacións e os campos.</translation>
     </message>
     <message>
         <source>PDF security settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Configuración de seguranza de PDF</translation>
     </message>
     <message>
         <source>PDF/X-3 settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Configuración de PDF/X-3</translation>
     </message>
     <message>
         <source>&lt;qt&gt;PDF security can not be used with PDF/X-3. If you want to turn on security, change your PDF version (compatibility level) to something other than PDF/X-3.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Non se pode usar seguranza PDF con PDF/X-3. Se quer activar a seguranza, mude de versión de PDF (nível de compatibilidade) para algo distinto de PDF/X-3.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source> Lossless compression of text and graphics.
 Unless you have a reason, leave this checked. This reduces PDF size.</source>
-        <translation type="unfinished"></translation>
+        <translation> Compresión sen perdas de texto e gráficos.
+A non ser que teña unha razón, non o seleccione. Isto reduce o tamaño do PDF.</translation>
     </message>
     <message>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options.</source>
-        <translation type="unfinished"></translation>
+        <translation>Método de compresión a usar polas imaxes. Automático permite que Scribus escolla o mellor método. ZIP non provoca perdas e é bon para imaxes con cores sólidas. JPEG é mellor en crear ficheiros PDF máis pequenos con moitas fotos (cunha posíbel lixeira perda de calidade). Déixeo en Automático, a non ser que teña unha razón para escoller unha compresión especial.</translation>
     </message>
     <message>
         <source>Re-sample your bitmap images to the selected DPI.
 Leaving this unchecked will render them at their native resolution.
 This can increase memory usage and slow down export.</source>
-        <translation type="unfinished"></translation>
+        <translation>Reexaminar as imaxes bitmap para os ppp seleccionados.
+Se non se selecciona mostraranse na súa resolución orixinal.
+Isto pode incrementar o uso da memoria e enlentecer a exportación.</translation>
     </message>
     <message>
         <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility. Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Note: PDF/X-3 will convert all CMYK images to ICC based RGB colors. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Determina a compatibilidade de PDF. Por omisión é Acrobat 4.0, que proporciona a maior compatibilidade. Escolla Acrobat 5.0 se o seu ficheiro ten funcionalidades de PDF 1.4 como a transparencia ou se require de encriptación de 128 bits. PDF/X-3 é para exportar o PDF cando quer cor RGB xestionada para a impresión comercial e selecciónase canto ten activada a xestión da cor. Nota: PDF/X-3 convertirá todas as imaxes CMYK a cores RGB baseadas en ICC. Úseo só cando llo recomenden na imprenta ou nalgúns casos en que teña que imprimir nunha impresora laser cor dixital.</translation>
     </message>
 </context>
 <context>
@@ -9024,7 +9053,7 @@ O UCR reduce a posibilidade dun exceso de saturación coas tintas CMY.</translat
     </message>
     <message>
         <source>OK</source>
-        <translation>Dacordo</translation>
+        <translation>De acordo</translation>
     </message>
     <message>
         <source>Missing</source>
@@ -9056,7 +9085,7 @@ O UCR reduce a posibilidade dun exceso de saturación coas tintas CMY.</translat
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;Dacordo</translation>
+        <translation>&amp;De acordo</translation>
     </message>
 </context>
 <context>
@@ -9087,7 +9116,7 @@ O UCR reduce a posibilidade dun exceso de saturación coas tintas CMY.</translat
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;Dacordo</translation>
+        <translation>&amp;De acordo</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -10012,7 +10041,7 @@ cada vez que transcorre o período de tempo</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;Dacordo</translation>
+        <translation>&amp;De acordo</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -10097,26 +10126,30 @@ O UCR reduce a posibilidade dun exceso de saturación coas tintas CMY.</translat
     <message>
         <source>Default ICC profiles directory. This cannot
 be changed with documents open.</source>
-        <translation type="unfinished"></translation>
+        <translation>Directorio por omisión dos perfís ICC.
+Non se pode mudar con documentos abertos.</translation>
     </message>
     <message>
         <source>Turns on the base grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Activa a grella base</translation>
     </message>
     <message>
         <source>Turns off the base grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Desactiva a grella base</translation>
     </message>
     <message>
         <source>File system location for the Ghostscript interpreter</source>
-        <translation type="unfinished"></translation>
+        <translation>Localización do intérprete de Ghostscript no sistema de ficheiros</translation>
     </message>
     <message>
         <source>File system location for graphics editor. If you use gimp
 and your distro includes it, we recommend &apos;gimp-remote&apos;,
 as it allows you to edit the image in an already running
 instance of gimp.</source>
-        <translation type="unfinished"></translation>
+        <translation>Situación do editor de gráficos no sistema de ficheiros.
+Se usa o Gimp e ven incluído coa súa distribución, recoméndase
+&quot;gimp-remote&quot;, xa que permite modificar a imaxe nunha
+instancia do Gimp que xa se estexa a executar.</translation>
     </message>
 </context>
 <context>
@@ -10163,7 +10196,7 @@ instance of gimp.</source>
     </message>
     <message>
         <source>OK</source>
-        <translation>Dacordo</translation>
+        <translation>De acordo</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -10234,7 +10267,7 @@ instance of gimp.</source>
     </message>
     <message>
         <source>OK</source>
-        <translation>Dacordo</translation>
+        <translation>De acordo</translation>
     </message>
     <message>
         <source>Look &amp;in:</source>
@@ -10473,7 +10506,7 @@ Comprobe o camiño e o nome do ficheiro.</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>Dacordo</translation>
+        <translation>De acordo</translation>
     </message>
     <message>
         <source>Apply</source>
@@ -11019,7 +11052,7 @@ erro de python.</translation>
     <message>
         <source>Color not found</source>
         <comment>python error</comment>
-        <translation type="unfinished">Non se atopou a cor</translation>
+        <translation>Non se atopou a cor</translation>
     </message>
     <message>
         <source>Cannot change a color with an empty name.</source>
@@ -12036,24 +12069,26 @@ erro de python</translation>
     </message>
     <message>
         <source>Portuguese (Brazilian)</source>
-        <translation type="unfinished"></translation>
+        <translation>Portugués do Brasil</translation>
     </message>
     <message>
         <source>OpenDocument Text Documents</source>
-        <translation type="unfinished"></translation>
+        <translation>Documentos de Texto OpenDocument</translation>
     </message>
     <message>
         <source>Croatian</source>
-        <translation type="unfinished"></translation>
+        <translation>Croata</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation type="unfinished">Normal</translation>
+        <translation>Normal</translation>
     </message>
     <message>
         <source>page</source>
         <comment>page export</comment>
-        <translation type="unfinished"></translation>
+        <translation>páxina
+
+exportación de páxina</translation>
     </message>
 </context>
 <context>
@@ -12177,7 +12212,7 @@ erro de python</translation>
     <name>Query</name>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;Dacordo</translation>
+        <translation>&amp;De acordo</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -12264,7 +12299,7 @@ Se se seleccionan Páxinas Enfrentadas, pódese usar este espazo de marxe para a
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;Dacordo</translation>
+        <translation>&amp;De acordo</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -12411,11 +12446,11 @@ Se se seleccionan Páxinas Enfrentadas, pódese usar este espazo de marxe para a
     </message>
     <message>
         <source>Tracking:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tracking:</translation>
     </message>
     <message>
         <source>Manual Tracking</source>
-        <translation type="unfinished"></translation>
+        <translation>Tracking Manual</translation>
     </message>
 </context>
 <context>
@@ -13619,19 +13654,19 @@ Se se seleccionan Páxinas Enfrentadas, pódese usar este espazo de marxe para a
     </message>
     <message>
         <source>There are no suitable Fonts on your System</source>
-        <translation type="unfinished"></translation>
+        <translation>Non hai Fontes adecuadas no seu Sistema</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Color management is supported but can not currently be enabled. Make sure you have ICC color profiles installed and that the profile path in the preferences points to where they&apos;re installed.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;A xestión da cor é posíbel pero non está habilitada agora mesmo. Asegúrese de ter instalados os perfís de cor ICC e de que a rota aos perfís nas Preferencias apunta para onde están instalados.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Color management is not supported by this Scribus build (not compiled in).&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;A xestión da cor non é posíbel nesta edición do Scribus (non se compilou con ela).&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Croatian</source>
-        <translation type="unfinished"></translation>
+        <translation>Croata</translation>
     </message>
 </context>
 <context>
@@ -13666,7 +13701,7 @@ Se se seleccionan Páxinas Enfrentadas, pódese usar este espazo de marxe para a
     </message>
     <message>
         <source>Copy of</source>
-        <translation type="unfinished">Copiar de</translation>
+        <translation>Copiar de</translation>
     </message>
 </context>
 <context>
@@ -13882,7 +13917,7 @@ Só se deben usar con &lt;tt&gt;Carregar un Guión de Extensión&lt;/tt&gt; ou c
     </message>
     <message>
         <source>&amp;Ok</source>
-        <translation>&amp;Dacordo</translation>
+        <translation>&amp;De acordo</translation>
     </message>
     <message>
         <source>Alt+O</source>
@@ -14043,7 +14078,7 @@ Só se deben usar con &lt;tt&gt;Carregar un Guión de Extensión&lt;/tt&gt; ou c
     </message>
     <message>
         <source>OK</source>
-        <translation>Dacordo</translation>
+        <translation>De acordo</translation>
     </message>
     <message>
         <source>&amp;Whole Word</source>
@@ -14139,7 +14174,7 @@ arrastre un Modelo para a Vista de Páxina de embaixo.</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;Dacordo</translation>
+        <translation>&amp;De acordo</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -14243,7 +14278,7 @@ arrastre un Modelo para a Vista de Páxina de embaixo.</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;Dacordo</translation>
+        <translation>&amp;De acordo</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -14514,7 +14549,7 @@ e non pedir máis a súa configuración</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>Dacordo</translation>
+        <translation>De acordo</translation>
     </message>
     <message>
         <source>Pack paragraph styles</source>
@@ -14532,27 +14567,27 @@ após importalo.</translation>
     </message>
     <message>
         <source>Update Paragraph Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Actualizar os Estilos de Parágrafo</translation>
     </message>
     <message>
         <source>Enabling this will overwrite existing styles in the current Scribus document</source>
-        <translation type="unfinished"></translation>
+        <translation>Se o permite sobreescribiránse os estilos do documento actual de Scribus</translation>
     </message>
     <message>
         <source>Merge Paragraph Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Integrar os Estilos de Parágrafo</translation>
     </message>
     <message>
         <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document&apos;s styles are named differently.</source>
-        <translation type="unfinished"></translation>
+        <translation>Integrar os estilos de parágrafo polos seus atributos. Isto resultará nun menor número de estilos de parágrafo semellantes e reterá os atributos de estilo, mesmo se os estilos do documento orixinal teñen un nome diferente.</translation>
     </message>
     <message>
         <source>Prepend the document name to the paragraph style name in Scribus.</source>
-        <translation type="unfinished"></translation>
+        <translation>Antepor o nome do documento ao nome do estilo de parágrafo en Scribus.</translation>
     </message>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Configurar isto como predeterminado e non perguntar máis cando se importe un documento OpenDocument OASIS.</translation>
     </message>
 </context>
 <context>
@@ -14563,7 +14598,7 @@ após importalo.</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;Dacordo</translation>
+        <translation>&amp;De acordo</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -14711,7 +14746,7 @@ Póñalle outro.</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>Dacordo</translation>
+        <translation>De acordo</translation>
     </message>
     <message>
         <source>Group </source>
@@ -14726,15 +14761,15 @@ Póñalle outro.</translation>
     </message>
     <message>
         <source>Enter a value then press OK.</source>
-        <translation>Introduza un valor e despóis prema sobre Dacordo.</translation>
+        <translation>Introduza un valor e despóis prema sobre De acordo.</translation>
     </message>
     <message>
         <source>Enter a value then press OK</source>
-        <translation>Introduza un valor e despóis prema sobre Dacordo</translation>
+        <translation>Introduza un valor e despóis prema sobre D acordo</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;Dacordo</translation>
+        <translation>&amp;De acordo</translation>
     </message>
     <message>
         <source>Alt+O</source>
@@ -14785,7 +14820,7 @@ extensión de abreviacións</translation>
     <message>
         <source>&amp;OK</source>
         <comment>short words plugin</comment>
-        <translation>&amp;Dacordo</translation>
+        <translation>&amp;De acordo</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -15043,7 +15078,7 @@ extensión de abreviacións</translation>
     </message>
     <message>
         <source>Import Text Only</source>
-        <translation type="unfinished"></translation>
+        <translation>Importar Só o Texto</translation>
     </message>
 </context>
 <context>
@@ -15066,7 +15101,7 @@ para ficheiros deste tipo.</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>Dacordo</translation>
+        <translation>De acordo</translation>
     </message>
 </context>
 <context>
@@ -15117,7 +15152,7 @@ para ficheiros deste tipo.</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;Dacordo</translation>
+        <translation>&amp;De acordo</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -15216,7 +15251,7 @@ para ficheiros deste tipo.</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>Dacordo</translation>
+        <translation>De acordo</translation>
     </message>
     <message>
         <source>Less Details</source>
@@ -15275,7 +15310,7 @@ para ficheiros deste tipo.</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;Dacordo</translation>
+        <translation>&amp;De acordo</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
