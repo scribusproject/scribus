@@ -27,8 +27,8 @@
 #include <qfontdialog.h>
 #include <qcursor.h>
 #include <qtextcodec.h>
-#include "serializer.h"
 #include "customfdialog.h"
+#include "editformats.h"
 #include "search.h"
 #include "scribus.h"
 #include "prefscontext.h"
@@ -36,6 +36,7 @@
 #include "charselect.h"
 #include "pluginmanager.h"
 #include "pageitem.h"
+#include "serializer.h"
 
 extern QPixmap loadIcon(QString nam);
 extern ScribusApp* ScApp;
@@ -107,21 +108,13 @@ void SideBar::paintEvent(QPaintEvent *e)
 				if ((pa < static_cast<int>(editor->StyledText.count())) && (editor->StyledText.count() != 0))
 				{
 					if (editor->StyledText.at(pa)->count() > 0)
-					{
 						st = editor->StyledText.at(pa)->at(0)->cab;
-						if (st < 5)
-							p.drawText(re, Qt::AlignLeft | Qt::AlignTop, tr("No Style"));
-						else
-							p.drawText(re, Qt::AlignLeft | Qt::AlignTop, editor->doc->docParagraphStyles[st].Vname);
-					}
 					else
-					{
 						st = editor->ParagStyles[pa];
-						if (st < 5)
-							p.drawText(re, Qt::AlignLeft | Qt::AlignTop, tr("No Style"));
-						else
-							p.drawText(re, Qt::AlignLeft | Qt::AlignTop, editor->doc->docParagraphStyles[st].Vname);
-					}
+					if (st < 5)
+						p.drawText(re, Qt::AlignLeft | Qt::AlignTop, tr("No Style"));
+					else
+						p.drawText(re, Qt::AlignLeft | Qt::AlignTop, editor->doc->docParagraphStyles[st].Vname);
 				}
 				else
 				{
@@ -3112,7 +3105,15 @@ void StoryEditor::slotEditStyles()
 	disconnect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
 	disconnect(AlignTools, SIGNAL(newStyle(int)), this, SLOT(newAlign(int)));
 	disconnect(AlignTools, SIGNAL(NewAlign(int)), this, SLOT(newAlign(int)));
-	emit EditSt();
+	//emit EditSt();
+	
+	StilFormate *dia = new StilFormate(this, currDoc);
+	connect(dia, SIGNAL(saveStyle(StilFormate *)), ScApp, SLOT(saveStyles(StilFormate *)));
+	if (dia->exec())
+		ScApp->saveStyles(dia);
+	disconnect(dia, SIGNAL(saveStyle(StilFormate *)), ScApp, SLOT(saveStyles(StilFormate *)));
+	delete dia;
+	
 	AlignTools->Spal->setFormats(currDoc);
 	AlignTools->SetAlign(Editor->currentParaStyle);
 	connect(AlignTools, SIGNAL(newStyle(int)), this, SLOT(newAlign(int)));

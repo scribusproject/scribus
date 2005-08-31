@@ -506,10 +506,9 @@ void ScribusApp::initPalettes()
 
 	connect(propertiesPalette, SIGNAL(DocChanged()), this, SLOT(slotDocCh()));
 	connect(propertiesPalette, SIGNAL(NewAbStyle(int)), this, SLOT(setNewAbStyle(int)));
-	connect(propertiesPalette, SIGNAL(BackHome()), this, SLOT(Aktiv()));
 	connect(propertiesPalette, SIGNAL(Stellung(int)), this, SLOT(setItemHoch(int)));
 	connect(propertiesPalette, SIGNAL(EditCL()), this, SLOT(ToggleFrameEdit()));
-	connect(propertiesPalette, SIGNAL(NewTF(QString)), this, SLOT(SetNewFont(QString)));
+	connect(propertiesPalette, SIGNAL(NewTF(const QString&)), this, SLOT(SetNewFont(const QString&)));
 	connect(propertiesPalette, SIGNAL(UpdtGui(int)), this, SLOT(HaveNewSel(int)));
 	connect(propertiesPalette->Cpal, SIGNAL(NewPen(QString)), this, SLOT(setPenFarbe(QString)));
 	connect(propertiesPalette->Cpal, SIGNAL(NewBrush(QString)), this, SLOT(setBrushFarbe(QString)));
@@ -6177,7 +6176,7 @@ void ScribusApp::setAppMode(int mode)
 	actionManager->connectModeActions();
 }
 
-void ScribusApp::Aktiv()
+void ScribusApp::setMainWindowActive()
 {
 	setActiveWindow();
 	raise();
@@ -6257,7 +6256,7 @@ void ScribusApp::setItemHoch(int h)
 {
 	if (view->SelItem.count() != 0)
 	{
-		setActiveWindow();
+		//setActiveWindow();
 		doc->CurrentStyle = h;
 		setStilvalue(doc->CurrentStyle);
 		view->chTyStyle(h);
@@ -6575,16 +6574,15 @@ void ScribusApp::setItemFont(int id)
 	connect(FontMenu, SIGNAL(activated(int)), this, SLOT(setItemFont(int)));
 }
 
-void ScribusApp::SetNewFont(QString nf)
+void ScribusApp::SetNewFont(const QString& nf)
 {
-	Aktiv();
-	int a;
-	QString nf2 = nf;
+	setMainWindowActive();
+	QString nf2(nf);
 	if (!doc->UsedFonts.contains(nf))
 	{
 		if (doc->AddFont(nf, prefsManager->appPrefs.AvailFonts[nf]->Font))
 		{
-			a = FontMenu->insertItem(new FmItem(nf, prefsManager->appPrefs.AvailFonts[nf]->Font));
+			int a = FontMenu->insertItem(new FmItem(nf, prefsManager->appPrefs.AvailFonts[nf]->Font));
 			FontID.insert(a, prefsManager->appPrefs.AvailFonts[nf]->SCName);
 		}
 		else

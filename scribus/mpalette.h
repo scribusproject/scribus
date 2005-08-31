@@ -396,7 +396,7 @@ signals:
 	void Stellung(int);
 	void EditCL();
 	void EditLSt();
-	void NewTF(QString);
+	void NewTF(const QString&);
 	void UpdtGui(int);
 
 protected:

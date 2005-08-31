@@ -38,7 +38,7 @@ class SCRIBUS_API StilFormate : public QDialog
 
 public:
 	StilFormate( QWidget* parent, ScribusDoc *doc);
-	~StilFormate() {};
+	//~StilFormate() {};
 
 	QListBox* ListBox1;
 	QPushButton* LoadS;

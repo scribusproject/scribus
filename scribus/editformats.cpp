@@ -99,11 +99,9 @@ ChooseStyles::ChooseStyles( QWidget* parent, QValueList<ParagraphStyle> *styleLi
 	layout2 = new QHBoxLayout( 0, 0, 5, "layout2");
 	QSpacerItem* spacer1 = new QSpacerItem( 71, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout2->addItem( spacer1 );
-	OkButton = new QPushButton( this, "OkButton" );
-	OkButton->setText( tr( "OK" ) );
+	OkButton = new QPushButton( CommonStrings::tr_OK, this, "OkButton" );
 	layout2->addWidget( OkButton );
-	CancelButton = new QPushButton( this, "CancelButton" );
-	CancelButton->setText( tr( "Cancel" ) );
+	CancelButton = new QPushButton( CommonStrings::tr_Cancel, this, "CancelButton" );
 	layout2->addWidget( CancelButton );
 	ChooseStylesLayout->addLayout( layout2 );
 	resize(230, 280);
@@ -171,7 +169,7 @@ StilFormate::StilFormate( QWidget* parent, ScribusDoc *doc) : QDialog( parent, "
 	connect(DublicateB, SIGNAL(clicked()), this, SLOT(dupFormat()));
 	connect(DeleteB, SIGNAL(clicked()), this, SLOT(deleteFormat()));
 	connect(ListBox1, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selFormat(QListBoxItem*)));
-	connect( ListBox1, SIGNAL( selected(QListBoxItem*) ), this, SLOT( selEditFormat(QListBoxItem*) ) );
+	connect(ListBox1, SIGNAL(selected(QListBoxItem*)), this, SLOT(selEditFormat(QListBoxItem*)));
 	TempVorl = doc->docParagraphStyles;
 	UpdateFList();
 }
@@ -312,7 +310,7 @@ void StilFormate::deleteFormat()
 {
 	int exit=QMessageBox::warning(this,
 	                              tr("Warning"),
-	                              tr("Do you really want to delete this Style?"),
+	                              tr("Do you really want to delete this style?"),
 	                              tr("No"),
 	                              tr("Yes"),
 	                              0, 0, 0);

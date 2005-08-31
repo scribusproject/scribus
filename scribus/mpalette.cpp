@@ -2548,7 +2548,6 @@ void Mpalette::setTypeStyle(int s)
 	if (ScApp->ScriptRunning)
 		return;
 	emit Stellung(s);
-	emit BackHome();
 }
 
 void Mpalette::newShadowOffs()

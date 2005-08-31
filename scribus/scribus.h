@@ -398,7 +398,7 @@ public slots:
 	void setItemFont2(int id);
 	/** Korrigiert das FontMenu */
 	void AdjustFontMenu(QString nf);
-	void SetNewFont(QString nf);
+	void SetNewFont(const QString& nf);
 	/** Setz die Zeichensatzgroesse */
 	void setItemFSize(int id);
 	void setFSizeMenu(int size);
@@ -443,7 +443,7 @@ public slots:
 	void reallySaveAsEps();
 	void SaveAsPDF();
 	void doSaveAsPDF();
-	void Aktiv();
+	void setMainWindowActive();
 	void setItemHoch(int h);
 	void setStilvalue(int s);
 	void setItemTypeStyle(int id);
