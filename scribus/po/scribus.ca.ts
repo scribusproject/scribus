@@ -4840,7 +4840,7 @@ es pot desar amb aquest formulari. L&apos;error és:
     </message>
     <message>
         <source>Python source files (*.py)</source>
-        <translation type="unfinished"></translation>
+        <translation>Codi font de Python (*.py)</translation>
     </message>
 </context>
 <context>
@@ -8585,21 +8585,24 @@ Si està desmarcat, la edició d&apos;anotacions i camps no es permet.</translat
     <message>
         <source> Lossless compression of text and graphics.
 Unless you have a reason, leave this checked. This reduces PDF size.</source>
-        <translation type="unfinished"></translation>
+        <translation> Compressió sense pèrdua de text i gràfics.
+A menys que tinguis una bona raó, deixà això marcat. Redueix la mida dels PDF.</translation>
     </message>
     <message>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mètode de compressió per fer servir en imatges. Automàtic permet a l&apos;Scribus triar el millor. ZIP és sense pèrdua de qualitat i bo per imatges amb colors sòlids. JPEG és millor quan es creen PDF petits que tenen moltes fotos (amb una lleugera pèrdua de qualitat). Deixa&apos;l marcat com Automàtic, a menys que tinguis una especial necessitat de compressió.</translation>
     </message>
     <message>
         <source>Re-sample your bitmap images to the selected DPI.
 Leaving this unchecked will render them at their native resolution.
 This can increase memory usage and slow down export.</source>
-        <translation type="unfinished"></translation>
+        <translation>Converteix les imatges bitmap a la resolució seleccionada.
+Deixar això desmarcat les deixarà a la seva resolució nativa.
+Això pot incrementar l&apos;ús de memòria i ralentir la exportació.</translation>
     </message>
     <message>
         <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility. Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Note: PDF/X-3 will convert all CMYK images to ICC based RGB colors. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Determina la compatibilitat del PDF. Per defecte Acrobat 4.0 és el que dóna la millor compatibilitat. Tria Acrobat 5.0 si el PDF tindrà característiques com transparència o necessita encriptació de 128 bits. PDF/X-3 és per exportar el PDF quan es vol color gestionat RGB per impressió comercial i es pot triar quan s&apos;hagi activat la gestió del color. Nota: PDF/X-3 convertirà totes les imatges CMYK a imatges RGB basades en ICC. Fes-ho servir només quan t&apos;ho hagi demanat el teu impressor o en alguns casos imprimint en una impressora laser digital de 4 colors.</translation>
     </message>
 </context>
 <context>
@@ -11790,12 +11793,12 @@ la documentació de la funció.
     </message>
     <message>
         <source>Normal</source>
-        <translation type="unfinished">Normal</translation>
+        <translation>Normal</translation>
     </message>
     <message>
         <source>page</source>
         <comment>page export</comment>
-        <translation type="unfinished"></translation>
+        <translation>pàgina</translation>
     </message>
 </context>
 <context>
