@@ -13,7 +13,7 @@
 #include <qdom.h>
 
 #include "scribusapi.h"
-#include <libpdf/pdflib.h>
+#include "pdflib.h"
 
 class ScribusDoc;
 class QDomElement;

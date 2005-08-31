@@ -65,6 +65,7 @@
 #include "prefs.h"
 #include "prefstable.h"
 #include "pdfopts.h"
+#include "pdflib.h"
 #include "inspage.h"
 #include "delpages.h"
 #include "movepage.h"
@@ -165,7 +166,7 @@ cmsHTRANSFORM stdProofCMYKGCG;
 bool BlackPoint;
 bool SoftProofing;
 bool Gamut;
-bool SCRIBUS_API CMSuse;
+bool CMSuse;
 int IntentMonitor;
 int IntentPrinter;
 #endif
@@ -7800,28 +7801,12 @@ void ScribusApp::reallySaveAsEps()
 bool ScribusApp::getPDFDriver(QString fn, QString nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs)
 {
 	bool ret = false;
-	void *PDFDriver;
-	typedef bool (*sdem)(ScribusApp *plug, QString fn, QString nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs, QProgressBar *dia2);
-	sdem demo;
-	QString pfad = QString("%1/libs/libpdf.%2").arg(ScPaths::instance().libDir()).arg(PluginManager::platformDllExtension());
-	PDFDriver = PluginManager::loadDLL(pfad);
-	if (!PDFDriver)
-	{
-		std::cout << "Cannot find the Scribus PDF plugin" << endl;
-		return false;
-	}
-	demo = (sdem) PluginManager::resolveSym(PDFDriver, "Run");
-	if( !demo )
-	{
-		std::cout << "Cannot find symbol" << endl;
-		PluginManager::unloadDLL(PDFDriver);
-		return false;
-	}
+	PDFlib *dia = new PDFlib();
 	fileWatcher->forceScan();
 	fileWatcher->stop();
-	ret = (*demo)(this, fn, nam, Components, pageNs, thumbs, mainWindowProgressBar);
-	PluginManager::unloadDLL(PDFDriver);
+	ret = dia->doExport(fn, nam, Components, pageNs, thumbs, mainWindowProgressBar);
 	fileWatcher->start();
+	delete dia;
 	return ret;
 }
 

@@ -10,7 +10,7 @@
 #include "scribusapi.h"
 #include "fpoint.h"
 #include "fpointarray.h"
-#include "libpdf/pdflib.h"
+#include "pdflib.h"
 
 class Foi;
 class Scribusdoc;

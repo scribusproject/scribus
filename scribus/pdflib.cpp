@@ -19,7 +19,6 @@
 #include "pdflib.moc"
 
 #include "scconfig.h"
-#include "pluginapi.h"
 
 #include <qstring.h>
 #include <qrect.h>
@@ -28,6 +27,7 @@
 #include <qdatetime.h>
 #include <qfileinfo.h>
 #include <qtextstream.h>
+#include <qprogressbar.h>
 #include <qdir.h>
 #include <cstdlib>
 #include <cmath>
@@ -37,7 +37,6 @@
 #include "rc4.h"
 
 #include "pageitem.h"
-#include "scribusview.h"
 #include "bookmwin.h"
 #include "scribus.h"
 
@@ -45,71 +44,17 @@
 #include "scfontmetrics.h"
 #include "util.h"
 #include "prefsmanager.h"
+#include "pdfoptions.h"
 
 using namespace std;
 
 #ifdef HAVE_CMS
-extern bool SCRIBUS_API CMSuse;
+extern bool CMSuse;
 #endif
 #ifdef HAVE_TIFF
 	#include <tiffio.h>
 #endif
-
-ScribusApp *pdflibScApp;
-
-extern "C" PLUGIN_API bool Run(ScribusApp *plug, QString fn, QString nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs, QProgressBar *dia2);
-
-bool Run(ScribusApp *plug, QString fn, QString nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs, QProgressBar *dia2)
-{
-	pdflibScApp=plug;
-	QPixmap pm;
-	bool ret = false;
-	int progresscount=0;
-	PDFlib *dia = new PDFlib();
-	if (dia->PDF_Begin_Doc(fn, plug->doc, plug->view, &plug->doc->PDF_Options, PrefsManager::instance()->appPrefs.AvailFonts,
-				 plug->doc->UsedFonts, plug->bookmarkPalette->BView))
-	{
-		QMap<int, int> pageNsMpa;
-		for (uint a = 0; a < pageNs.size(); ++a)
-		{
-			pageNsMpa.insert(plug->doc->MasterNames[plug->doc->Pages.at(pageNs[a]-1)->MPageNam], 0);
-		}
-		dia2->reset();
-		dia2->setTotalSteps(pageNsMpa.count()+pageNs.size());
-		dia2->setProgress(0);
-		for (uint ap = 0; ap < plug->doc->MasterPages.count(); ++ap)
-		{
-			if (plug->doc->MasterItems.count() != 0)
-			{
-				if (pageNsMpa.contains(ap))
-				{
-					dia->PDF_TemplatePage(plug->doc->MasterPages.at(ap));
-					progresscount++;
-				}
-			}
-			dia2->setProgress(progresscount);
-		}
-		for (uint a = 0; a < pageNs.size(); ++a)
-		{
-			if (plug->doc->PDF_Options.Thumbnails)
-				pm = thumbs[pageNs[a]];
-			dia->PDF_Begin_Page(plug->doc->Pages.at(pageNs[a]-1), pm);
-			dia->PDF_ProcessPage(plug->doc->Pages.at(pageNs[a]-1), pageNs[a]-1);
-			dia->PDF_End_Page();
-			progresscount++;
-			dia2->setProgress(progresscount);
-		}
-		if (plug->doc->PDF_Options.Version == PDFOptions::PDFVersion_X3)
-			dia->PDF_End_Doc(plug->PrinterProfiles[plug->doc->PDF_Options.PrintProf], nam, Components);
-		else
-			dia->PDF_End_Doc();
-		ret = true;
-		dia2->reset();
-	}
-	if (dia!=NULL)
-		delete dia;
-	return ret;
-}
+extern ScribusApp* ScApp;
 
 PDFlib::PDFlib()
 {
@@ -164,6 +109,52 @@ PDFlib::PDFlib()
 		KeyGen[a] = kg_array[a];
 }
 
+bool PDFlib::doExport(QString fn, QString nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs, QProgressBar *dia2)
+{
+	QPixmap pm;
+	bool ret = false;
+	int progresscount=0;
+	if (PDF_Begin_Doc(fn, doc, &doc->PDF_Options, PrefsManager::instance()->appPrefs.AvailFonts, doc->UsedFonts, ScApp->bookmarkPalette->BView))
+	{
+		QMap<int, int> pageNsMpa;
+		for (uint a = 0; a < pageNs.size(); ++a)
+		{
+			pageNsMpa.insert(doc->MasterNames[doc->Pages.at(pageNs[a]-1)->MPageNam], 0);
+		}
+		dia2->reset();
+		dia2->setTotalSteps(pageNsMpa.count()+pageNs.size());
+		dia2->setProgress(0);
+		for (uint ap = 0; ap < doc->MasterPages.count(); ++ap)
+		{
+			if (doc->MasterItems.count() != 0)
+			{
+				if (pageNsMpa.contains(ap))
+				{
+					PDF_TemplatePage(doc->MasterPages.at(ap));
+					progresscount++;
+				}
+			}
+			dia2->setProgress(progresscount);
+		}
+		for (uint a = 0; a < pageNs.size(); ++a)
+		{
+			if (doc->PDF_Options.Thumbnails)
+				pm = thumbs[pageNs[a]];
+			PDF_Begin_Page(doc->Pages.at(pageNs[a]-1), pm);
+			PDF_ProcessPage(doc->Pages.at(pageNs[a]-1), pageNs[a]-1);
+			PDF_End_Page();
+			progresscount++;
+			dia2->setProgress(progresscount);
+		}
+		if (doc->PDF_Options.Version == PDFOptions::PDFVersion_X3)
+			PDF_End_Doc(ScApp->PrinterProfiles[doc->PDF_Options.PrintProf], nam, Components);
+		else
+			PDF_End_Doc();
+		ret = true;
+		dia2->reset();
+	}
+	return ret;
+}
 
 QString PDFlib::FToStr(double c)
 {
@@ -409,7 +400,7 @@ QByteArray PDFlib::ComputeMD5(QString in)
 	return ComputeMD5Sum(&TBytes);
 }
 
-bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOptions *opts, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, BookMView* vi)
+bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, PDFOptions *opts, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, BookMView* vi)
 {
   	Spool.setName(fn);
 	if (!Spool.open(IO_WriteOnly))
@@ -421,7 +412,6 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 	QString fext;
 	int a;
 	doc = docu;
-	view = vie;
 	Bvie = vi;
 	Options = opts;
 	BookMinUse = false;
@@ -921,7 +911,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 		ObjCounter++;
 		QString dataP;
 		struct ICCD dataD;
-		loadText(pdflibScApp->InputProfiles[Options->SolidProf], &dataP);
+		loadText(ScApp->InputProfiles[Options->SolidProf], &dataP);
 		PutDoc("<<\n");
 		if ((Options->Compress) && (CompAvail))
 		{
@@ -4339,12 +4329,12 @@ QString PDFlib::PDF_Image(PageItem* c, QString fn, double sx, double sy, double 
 					{
 						if (img.imgInfo.colorspace == 1)
 						{
-							loadText((Embedded ? pdflibScApp->InputProfilesCMYK[Options->ImageProf] : pdflibScApp->InputProfilesCMYK[Profil]), &dataP);
+							loadText((Embedded ? ScApp->InputProfilesCMYK[Options->ImageProf] : ScApp->InputProfilesCMYK[Profil]), &dataP);
 							components = 4;
 						}
 						else
 						{
-							loadText((Embedded ? pdflibScApp->InputProfiles[Options->ImageProf] : pdflibScApp->InputProfiles[Profil]), &dataP);
+							loadText((Embedded ? ScApp->InputProfiles[Options->ImageProf] : ScApp->InputProfiles[Profil]), &dataP);
 							components = 3;
 						}
 					}
@@ -4353,12 +4343,12 @@ QString PDFlib::PDF_Image(PageItem* c, QString fn, double sx, double sy, double 
 				{
 					if (img.imgInfo.colorspace == 1)
 					{
-						loadText((Embedded ? pdflibScApp->InputProfilesCMYK[Options->ImageProf] : pdflibScApp->InputProfilesCMYK[Profil]), &dataP);
+						loadText((Embedded ? ScApp->InputProfilesCMYK[Options->ImageProf] : ScApp->InputProfilesCMYK[Profil]), &dataP);
 						components = 4;
 					}
 					else
 					{
-						loadText((Embedded ? pdflibScApp->InputProfiles[Options->ImageProf] : pdflibScApp->InputProfiles[Profil]), &dataP);
+						loadText((Embedded ? ScApp->InputProfiles[Options->ImageProf] : ScApp->InputProfiles[Profil]), &dataP);
 						components = 3;
 					}
 				}
