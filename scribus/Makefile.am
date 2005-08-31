@@ -132,6 +132,7 @@ scribus_SOURCES = \
 	prefsmanager.cpp	\
 	prefsreader.cpp	\
 	prefstable.cpp	\
+	pslib.cpp	\
 	query.cpp	\
 	rc4.c	\
 	reformdoc.cpp	\
@@ -189,7 +190,7 @@ scribus_SOURCES = \
 INTERFACES =
 TRANSLATIONS =
 
-SUBDIRS = $(pixbuf_subdirs) dicts doc icons keysets libpostscript manpages plugins po profiles qm templates dtd loremipsum
+SUBDIRS = $(pixbuf_subdirs) dicts doc icons keysets manpages plugins po profiles qm templates dtd loremipsum
 
 #     NOTE: `EXTRA_DIST' is *NOT* required. The build system includes all
 #     loose files by default. You only need to use `EXTRA_DIST' when using

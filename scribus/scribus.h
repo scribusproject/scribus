@@ -135,8 +135,6 @@ public:
 	void applyNewMaster(QString name);
 	void updateRecent(QString fn);
 	QString GetLang(QString inLang);
-	PSLib* getPSDriver(bool psart, QMap<QString,QFont> DocFonts, ColorList DocColors, bool pdf, bool spot = true);
-	void closePSDriver();
 	bool getPDFDriver(QString fn, QString nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs);
 	bool DoSaveAsEps(QString fn);
 	QString CFileDialog(QString wDir = ".", QString caption = "", QString filter = "", QString defNa = "",

@@ -34,14 +34,6 @@
 #include "util.h"
 #include "scfontmetrics.h"
 
-extern "C" PLUGIN_API void* Run(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, ColorList DocColors, bool pdf, bool spot);
-
-void* Run(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, ColorList DocColors, bool pdf, bool spot)
-{
-	PSLib *dia = new PSLib(psart, AllFonts, DocFonts, DocColors, pdf, spot);
-	return dia;
-}
-
 PSLib::PSLib(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, ColorList DocColors, bool pdf, bool spot)
 {
 	QString tmp, tmp2, tmp3, tmp4, CHset;

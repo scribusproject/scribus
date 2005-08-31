@@ -6,7 +6,7 @@
 #include <qfileinfo.h>
 #include <qdir.h>
 #include <vector>
-#include "libpostscript/pslib.h"
+#include "pslib.h"
 
 #ifdef HAVE_CUPS
 #include <cups/cups.h>
@@ -447,7 +447,8 @@ static PyObject *Printer_print(Printer *self)
 	QMap<QString,QFont> ReallyUsed;
 	ReallyUsed.clear();
 	Carrier->doc->getUsedFonts(&ReallyUsed);
-	PSLib *dd = Carrier->getPSDriver(true, ReallyUsed, Carrier->doc->PageColors, false);
+	PrefsManager *prefsManager=PrefsManager::instance();
+	PSLib *dd = new PSLib(true, prefsManager->appPrefs.AvailFonts, ReallyUsed, Carrier->doc->PageColors, false, true);
 	if (dd != NULL)
 	{
 		if (!fil)
@@ -497,12 +498,10 @@ static PyObject *Printer_print(Printer *self)
 		}
 		else {
 			delete dd;
-			Carrier->closePSDriver();
 			PyErr_SetString(PyExc_SystemError, "Printing failed");
 			return NULL;
 		}
 		delete dd;
-		Carrier->closePSDriver();
 	}
 	Py_INCREF(Py_None);
 	return Py_None;

@@ -72,7 +72,7 @@
 #include "helpbrowser.h"
 #include "scribusXml.h"
 #include "about.h"
-#include "libpostscript/pslib.h"
+#include "pslib.h"
 #include "druck.h"
 #include "editformats.h"
 #include "muster.h"
@@ -4770,7 +4770,7 @@ bool ScribusApp::doPrint(PrintOptions *options)
 	doc->getUsedColors(usedColors);
 	fileWatcher->forceScan();
 	fileWatcher->stop();
-	PSLib *dd = getPSDriver(true, ReallyUsed, usedColors, false, options->useSpotColors);
+	PSLib *dd = new PSLib(true, prefsManager->appPrefs.AvailFonts, ReallyUsed, usedColors, false, options->useSpotColors);
 	if (dd != NULL)
 	{
 		if (!options->toFile)
@@ -4781,7 +4781,6 @@ bool ScribusApp::doPrint(PrintOptions *options)
 			if (!overwrite(this, filename))
 			{
 				delete dd;
-				closePSDriver();
 				fileWatcher->start();
 				return true;
 			}
@@ -4837,7 +4836,6 @@ bool ScribusApp::doPrint(PrintOptions *options)
 		else
 			retw = false;
 		delete dd;
-		closePSDriver();
 	}
 	fileWatcher->start();
 	return retw;
@@ -7667,34 +7665,6 @@ void ScribusApp::ShowSubs()
 	raise();
 }
 
-PSLib* ScribusApp::getPSDriver(bool psart, QMap<QString,QFont> DocFonts, ColorList DocColors, bool pdf, bool spot)
-{
-	SCFonts* AllFonts=&(prefsManager->appPrefs.AvailFonts);
-	typedef PSLib* (*sdem)(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, ColorList DocColors, bool pdf, bool spot);
-	sdem demo;
-	QString pfad = QString("%1/libs/libpostscript.%2").arg(ScPaths::instance().libDir()).arg(PluginManager::platformDllExtension());
-	PSDriver = PluginManager::loadDLL(pfad);
-	if (!PSDriver)
-	{
-		std::cout << "Cannot find the Scribus PostScript library plugin" << endl;
-		return NULL;
-	}
-	demo = (sdem) PluginManager::resolveSym(PSDriver, "Run");
-	if ( !demo )
-	{
-		std::cout << "Cannot find symbol" << endl;
-		PluginManager::unloadDLL(PSDriver);
-		return NULL;
-	}
-	PSLib *dia = (*demo)(psart, *AllFonts, DocFonts, DocColors, pdf, spot);
-	return dia;
-}
-
-void ScribusApp::closePSDriver()
-{
-	PluginManager::unloadDLL(PSDriver);
-}
-
 bool ScribusApp::DoSaveAsEps(QString fn)
 {
 	QStringList spots;
@@ -7710,7 +7680,7 @@ bool ScribusApp::DoSaveAsEps(QString fn)
 	doc->getUsedColors(usedColors);
 	fileWatcher->forceScan();
 	fileWatcher->stop();
-	PSLib *dd = getPSDriver(false, ReallyUsed, usedColors, false);
+	PSLib *dd = new PSLib(false, prefsManager->appPrefs.AvailFonts, ReallyUsed, usedColors, false, true);
 	if (dd != NULL)
 	{
 		if (dd->PS_set_file(fn))
@@ -7718,7 +7688,6 @@ bool ScribusApp::DoSaveAsEps(QString fn)
 		else
 			return_value = false;
 		delete dd;
-		closePSDriver();
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	}
 	fileWatcher->start();

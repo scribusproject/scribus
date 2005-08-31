@@ -23,7 +23,7 @@
 #include <qcolor.h>
 #include <qtooltip.h>
 #include <qfile.h>
-#include "libpostscript/pslib.h"
+#include "pslib.h"
 #include "scraction.h"
 #include "menumanager.h"
 #include "checkDocument.h"
@@ -93,20 +93,7 @@ bool actionEnabledOnStartup()
 {
 	return false;
 }
-/*
-void InitPlug(QWidget *d, ScribusApp *plug)
-{
-	Carrier = plug;
-	par = d;
-	Tes = new MenuPreview(d);
-	int id = plug->fileMenu->insertItem(QObject::tr("Print Previe&w"), -1, plug->fileMenu->indexOf(plug->M_FilePrint)+1);
-	plug->fileMenu->setAccel(Qt::CTRL+Qt::SHIFT+Qt::Key_P, id);
-	plug->fileMenu->connectItem(id, Tes, SLOT(RunPreview()));
-	plug->fileMenu->setItemEnabled(id, 0);
-	plug->MenuItemsFile.append(id);
-	plug->SetKeyEntry(18, QObject::tr("Print Preview"), id, Qt::CTRL+Qt::SHIFT+Qt::Key_P);
-}
-*/
+
 void cleanUpPlug()
 {}
 
@@ -426,7 +413,7 @@ int PPreview::RenderPreview(int Seite, int Res)
 		}
 		ReallyUsed.clear();
 		app->doc->getUsedFonts(&ReallyUsed);
-		PSLib *dd = app->getPSDriver(true, ReallyUsed, app->doc->PageColors, false);
+		PSLib *dd = new PSLib(true, prefsManager->appPrefs.AvailFonts, ReallyUsed, app->doc->PageColors, false, true);
 		if (dd != NULL)
 		{
 			dd->PS_set_file(app->PrefsPfad+"/tmp.ps");
@@ -435,7 +422,6 @@ int PPreview::RenderPreview(int Seite, int Res)
 			QStringList spots;
 			dd->CreatePS(app->doc, app->view, pageNs, false, tr("All"), spots, true, false, false, false, EnableGCR->isChecked(), false);
 			delete dd;
-			app->closePSDriver();
 		}
 		else
 			return ret;
