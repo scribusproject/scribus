@@ -56,8 +56,9 @@ extern bool CMSuse;
 #endif
 extern ScribusApp* ScApp;
 
-PDFlib::PDFlib()
+PDFlib::PDFlib(ScribusDoc *docu)
 {
+	doc = docu;
 	OwnerKey = QByteArray(32);
 	UserKey = QByteArray(32);
 	FileID = QByteArray(16);
@@ -114,7 +115,7 @@ bool PDFlib::doExport(QString fn, QString nam, int Components, std::vector<int> 
 	QPixmap pm;
 	bool ret = false;
 	int progresscount=0;
-	if (PDF_Begin_Doc(fn, doc, &doc->PDF_Options, PrefsManager::instance()->appPrefs.AvailFonts, doc->UsedFonts, ScApp->bookmarkPalette->BView))
+	if (PDF_Begin_Doc(fn, &doc->PDF_Options, PrefsManager::instance()->appPrefs.AvailFonts, doc->UsedFonts, ScApp->bookmarkPalette->BView))
 	{
 		QMap<int, int> pageNsMpa;
 		for (uint a = 0; a < pageNs.size(); ++a)
@@ -400,7 +401,7 @@ QByteArray PDFlib::ComputeMD5(QString in)
 	return ComputeMD5Sum(&TBytes);
 }
 
-bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, PDFOptions *opts, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, BookMView* vi)
+bool PDFlib::PDF_Begin_Doc(QString fn, PDFOptions *opts, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, BookMView* vi)
 {
   	Spool.setName(fn);
 	if (!Spool.open(IO_WriteOnly))
@@ -411,7 +412,6 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, PDFOptions *opts, SCFon
 	QFileInfo fd;
 	QString fext;
 	int a;
-	doc = docu;
 	Bvie = vi;
 	Options = opts;
 	BookMinUse = false;

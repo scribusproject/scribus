@@ -7768,7 +7768,7 @@ void ScribusApp::reallySaveAsEps()
 bool ScribusApp::getPDFDriver(QString fn, QString nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs)
 {
 	bool ret = false;
-	PDFlib *dia = new PDFlib();
+	PDFlib *dia = new PDFlib(doc);
 	fileWatcher->forceScan();
 	fileWatcher->stop();
 	ret = dia->doExport(fn, nam, Components, pageNs, thumbs, mainWindowProgressBar);

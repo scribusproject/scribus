@@ -48,6 +48,7 @@ scribus_SOURCES = \
 	documentchecker.cpp	\
 	documentinformation.cpp	\
 	druck.cpp	\
+	dynamictip.cpp	\
 	edit1format.cpp	\
 	editformats.cpp	\
 	editor.cpp	\
@@ -247,6 +248,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/documentchecker.h             $(prefix)/include/scribus/documentchecker.h
 	$(INSTALL_DATA) $(srcdir)/documentinformation.h         $(prefix)/include/scribus/documentinformation.h
 	$(INSTALL_DATA) $(srcdir)/druck.h                       $(prefix)/include/scribus/druck.h
+	$(INSTALL_DATA) $(srcdir)/dynamictip.h                  $(prefix)/include/scribus/dynamictip.h
 	$(INSTALL_DATA) $(srcdir)/edit1format.h                 $(prefix)/include/scribus/edit1format.h
 	$(INSTALL_DATA) $(srcdir)/editformats.h                 $(prefix)/include/scribus/editformats.h
 	$(INSTALL_DATA) $(srcdir)/editor.h                      $(prefix)/include/scribus/editor.h
@@ -424,6 +426,7 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/documentchecker.h
 	-rm -f $(prefix)/include/scribus/documentinformation.h
 	-rm -f $(prefix)/include/scribus/druck.h
+	-rm -f $(prefix)/include/scribus/dynamictip.h
 	-rm -f $(prefix)/include/scribus/edit1format.h
 	-rm -f $(prefix)/include/scribus/editformats.h
 	-rm -f $(prefix)/include/scribus/editor.h

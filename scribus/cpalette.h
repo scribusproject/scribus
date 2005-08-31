@@ -129,14 +129,4 @@ protected:
 	DynamicTip* dynTip;
 };
 
-class SCRIBUS_API DynamicTip : public QToolTip
-{
-public:
-	DynamicTip( QListBox* parent, Cpalette* pale );
-	Cpalette* pal;
-	QListBox* listB;
-protected:
-	void maybeTip( const QPoint & );
-};
-
 #endif
