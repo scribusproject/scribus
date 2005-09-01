@@ -277,7 +277,7 @@ void Page::restorePageItemCreation(ItemState<PageItem*> *state, bool isUndo)
 	else
 	{
 		ScApp->doc->Items.append(ite);
-		if (ScApp->doc->MasterP)
+		if (ScApp->doc->masterPageMode)
 			ScApp->doc->MasterItems = ScApp->doc->Items;
 		else
 			ScApp->doc->DocItems = ScApp->doc->Items;
@@ -293,7 +293,7 @@ void Page::restorePageItemDeletion(ItemState<PageItem*> *state, bool isUndo)
 	if (isUndo)
 	{
 		ScApp->doc->Items.append(ite);
-		if (ScApp->doc->MasterP)
+		if (ScApp->doc->masterPageMode)
 			ScApp->doc->MasterItems = ScApp->doc->Items;
 		else
 			ScApp->doc->DocItems = ScApp->doc->Items;

@@ -947,14 +947,14 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 					doc->pageCount = Pgc;
 					doc->Pages = doc->DocPages;
 					doc->PageAT = AtFl;
-					doc->MasterP = false;
+					doc->masterPageMode = false;
 				}
 				else
 				{
 					doc->pageCount = 0;
 					doc->PageAT = false;
 					doc->Pages = doc->MasterPages;
-					doc->MasterP = true;
+					doc->masterPageMode = true;
 				}
 				app->slotNewPage(a);
 				Apage = doc->Pages.at(a);
@@ -974,7 +974,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 				Apage->LeftPg=QStoInt(pg.attribute("LEFT","0"));
 				QString Mus = "";
 				Mus = pg.attribute("MNAM","Normal");
-				if (!doc->MasterP)
+				if (!doc->masterPageMode)
 					Apage->MPageNam = Mus;
 				else
 					Apage->MPageNam = "";
@@ -997,7 +997,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 				Apage->initialMargins.Right = QStodouble(pg.attribute("BORDERRIGHT"));
 				Apage->Margins.Top = Apage->initialMargins.Top;
 				Apage->Margins.Bottom = Apage->initialMargins.Bottom;
-				doc->MasterP = false;
+				doc->masterPageMode = false;
 				if ((pg.hasAttribute("NumVGuides")) && (QStoInt(pg.attribute("NumVGuides","0")) != 0))
 				{
 					tmp = pg.attribute("VerticalGuides");
@@ -1035,13 +1035,13 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 					{
 						doc->Items = doc->DocItems;
 						doc->Pages = doc->DocPages;
-						doc->MasterP = false;
+						doc->masterPageMode = false;
 					}
 					else
 					{
 						doc->Items = doc->MasterItems;
 						doc->Pages = doc->MasterPages;
-						doc->MasterP = true;
+						doc->masterPageMode = true;
 					}
 					if ((!pg.attribute("OnMasterPage").isEmpty()) && (pg.tagName()=="MASTEROBJECT"))
 						doc->currentPage = doc->MasterPages.at(doc->MasterNames[pg.attribute("OnMasterPage")]);
@@ -1161,7 +1161,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 						doc->MasterItems = doc->Items;
 						doc->MasterPages = doc->Pages;
 					}
-					doc->MasterP = false;
+					doc->masterPageMode = false;
 					counter++;
 				}
 			PAGE=PAGE.nextSibling();
@@ -1194,7 +1194,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 	doc->Pages = doc->DocPages;
 	doc->pageCount = doc->Pages.count();
 	doc->Items = doc->DocItems;
-	doc->MasterP = false;
+	doc->masterPageMode = false;
 	view->reformPages();
 	if (doc->Layers.count() == 0)
 	{

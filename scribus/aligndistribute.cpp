@@ -441,7 +441,7 @@ void AlignDistributePalette::alignLeftOut()
 				break;
 			case Page:
 				newX = currDoc->ScratchLeft;
-				if ((currDoc->currentPageLayout == doublePage) && !currDoc->MasterP)
+				if ((currDoc->currentPageLayout == doublePage) && !currDoc->masterPageMode)
 				{
 					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->pageSets[currDoc->currentPageLayout].FirstPage))
 						newX += currDoc->currentPage->Width;
@@ -451,7 +451,7 @@ void AlignDistributePalette::alignLeftOut()
 				break;
 			case Margins:
 				newX = currDoc->ScratchLeft;
-				if ((currDoc->currentPageLayout == doublePage) && !currDoc->MasterP)
+				if ((currDoc->currentPageLayout == doublePage) && !currDoc->masterPageMode)
 				{
 					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->pageSets[currDoc->currentPageLayout].FirstPage))
 						newX += currDoc->currentPage->Width;
@@ -498,7 +498,7 @@ void AlignDistributePalette::alignLeftIn()
 				break;
 			case Page:
 				newX = currDoc->ScratchLeft;
-				if ((currDoc->currentPageLayout == doublePage) && !currDoc->MasterP)
+				if ((currDoc->currentPageLayout == doublePage) && !currDoc->masterPageMode)
 				{
 					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->pageSets[currDoc->currentPageLayout].FirstPage))
 						newX += currDoc->currentPage->Width;
@@ -508,7 +508,7 @@ void AlignDistributePalette::alignLeftIn()
 				break;
 			case Margins:
 				newX = currDoc->ScratchLeft;
-				if ((currDoc->currentPageLayout == doublePage ) && !currDoc->MasterP)
+				if ((currDoc->currentPageLayout == doublePage ) && !currDoc->masterPageMode)
 				{
 					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->pageSets[currDoc->currentPageLayout].FirstPage))
 						newX += currDoc->currentPage->Width;
@@ -558,7 +558,7 @@ void AlignDistributePalette::alignCenterHor()
 				break;
 			case Page:
 				newX = currDoc->ScratchLeft;
-				if ((currDoc->currentPageLayout == doublePage) && !currDoc->MasterP)
+				if ((currDoc->currentPageLayout == doublePage) && !currDoc->masterPageMode)
 				{
 					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->pageSets[currDoc->currentPageLayout].FirstPage))
 						newX += currDoc->currentPage->Width;
@@ -569,7 +569,7 @@ void AlignDistributePalette::alignCenterHor()
 				break;
 			case Margins:
 				newX = currDoc->ScratchLeft;
-				if ((currDoc->currentPageLayout == doublePage ) && !currDoc->MasterP)
+				if ((currDoc->currentPageLayout == doublePage ) && !currDoc->masterPageMode)
 				{
 					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->pageSets[currDoc->currentPageLayout].FirstPage))
 						newX += currDoc->currentPage->Width;
@@ -622,7 +622,7 @@ void AlignDistributePalette::alignRightIn()
 				break;
 			case Page:
 				newX = currDoc->ScratchLeft;
-				if ((currDoc->currentPageLayout == doublePage ) && !currDoc->MasterP)
+				if ((currDoc->currentPageLayout == doublePage ) && !currDoc->masterPageMode)
 				{
 					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->pageSets[currDoc->currentPageLayout].FirstPage))
 						newX += currDoc->currentPage->Width;
@@ -633,7 +633,7 @@ void AlignDistributePalette::alignRightIn()
 				break;
 			case Margins:
 				newX = currDoc->ScratchLeft;
-				if ((currDoc->currentPageLayout == doublePage ) && !currDoc->MasterP)
+				if ((currDoc->currentPageLayout == doublePage ) && !currDoc->masterPageMode)
 				{
 					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->pageSets[currDoc->currentPageLayout].FirstPage))
 						newX += currDoc->currentPage->Width;
@@ -681,7 +681,7 @@ void AlignDistributePalette::alignRightOut()
 				break;
 			case Page:
 				newX = currDoc->ScratchLeft;
-				if ((currDoc->currentPageLayout == doublePage ) && !currDoc->MasterP)
+				if ((currDoc->currentPageLayout == doublePage ) && !currDoc->masterPageMode)
 				{
 					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->pageSets[currDoc->currentPageLayout].FirstPage))
 						newX += currDoc->currentPage->Width;
@@ -692,7 +692,7 @@ void AlignDistributePalette::alignRightOut()
 				break;
 			case Margins:
 				newX = currDoc->ScratchLeft;
-				if ((currDoc->currentPageLayout == doublePage ) && !currDoc->MasterP)
+				if ((currDoc->currentPageLayout == doublePage ) && !currDoc->masterPageMode)
 				{
 					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->pageSets[currDoc->currentPageLayout].FirstPage))
 						newX += currDoc->currentPage->Width;
@@ -740,7 +740,7 @@ void AlignDistributePalette::alignTopOut()
 				break;
 			case Page:
 				newY = currDoc->ScratchTop;
-				if (!currDoc->MasterP)
+				if (!currDoc->masterPageMode)
 				{
 					if (!(currDoc->currentPageLayout == doublePage ))
 						multiplier=currDoc->currentPage->PageNr;
@@ -755,7 +755,7 @@ void AlignDistributePalette::alignTopOut()
 				break;
 			case Margins:
 				newY = currDoc->ScratchTop;
-				if (!currDoc->MasterP)
+				if (!currDoc->masterPageMode)
 				{
 					if (!(currDoc->currentPageLayout == doublePage ))
 						multiplier=currDoc->currentPage->PageNr;
@@ -807,7 +807,7 @@ void AlignDistributePalette::alignTopIn()
 				break;
 			case Page:
 				newY = currDoc->ScratchTop;
-				if (!currDoc->MasterP)
+				if (!currDoc->masterPageMode)
 				{
 					if (!(currDoc->currentPageLayout == doublePage ))
 						multiplier=currDoc->currentPage->PageNr;
@@ -822,7 +822,7 @@ void AlignDistributePalette::alignTopIn()
 				break;
 			case Margins:
 				newY = currDoc->ScratchTop;
-				if (!currDoc->MasterP)
+				if (!currDoc->masterPageMode)
 				{
 					if (!(currDoc->currentPageLayout == doublePage ))
 						multiplier=currDoc->currentPage->PageNr;
@@ -878,7 +878,7 @@ void AlignDistributePalette::alignCenterVer()
 				break;
 			case Page:
 				newY = currDoc->ScratchTop;
-				if (!currDoc->MasterP)
+				if (!currDoc->masterPageMode)
 				{
 					if (!(currDoc->currentPageLayout == doublePage ))
 						multiplier=currDoc->currentPage->PageNr;
@@ -894,7 +894,7 @@ void AlignDistributePalette::alignCenterVer()
 				break;
 			case Margins:
 				newY = currDoc->ScratchTop;
-				if (!currDoc->MasterP)
+				if (!currDoc->masterPageMode)
 				{
 					if (!(currDoc->currentPageLayout == doublePage ))
 						multiplier=currDoc->currentPage->PageNr;
@@ -953,7 +953,7 @@ void AlignDistributePalette::alignBottomIn()
 				break;
 			case Page:
 				newY = currDoc->ScratchTop;
-				if (!currDoc->MasterP)
+				if (!currDoc->masterPageMode)
 				{
 					if (!(currDoc->currentPageLayout == doublePage ))
 						multiplier=currDoc->currentPage->PageNr;
@@ -969,7 +969,7 @@ void AlignDistributePalette::alignBottomIn()
 				break;
 			case Margins:
 				newY = currDoc->ScratchTop;
-				if (!currDoc->MasterP)
+				if (!currDoc->masterPageMode)
 				{
 					if (!(currDoc->currentPageLayout == doublePage ))
 						multiplier=currDoc->currentPage->PageNr;
@@ -1022,7 +1022,7 @@ void AlignDistributePalette::alignBottomOut()
 				break;
 			case Page:
 				newY = currDoc->ScratchTop;
-				if (!currDoc->MasterP)
+				if (!currDoc->masterPageMode)
 				{
 					if (!(currDoc->currentPageLayout == doublePage ))
 						multiplier=currDoc->currentPage->PageNr;
@@ -1038,7 +1038,7 @@ void AlignDistributePalette::alignBottomOut()
 				break;
 			case Margins:
 				newY = currDoc->ScratchTop;
-				if (!currDoc->MasterP)
+				if (!currDoc->masterPageMode)
 				{
 					if (!(currDoc->currentPageLayout == doublePage ))
 						multiplier=currDoc->currentPage->PageNr;

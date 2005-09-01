@@ -2185,7 +2185,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 		chx = " ";
 	if (hl->ch == QChar(30))
 	{
-		if (Doc->MasterP)
+		if (Doc->masterPageMode)
 			chx = "#";
 		else
 		{

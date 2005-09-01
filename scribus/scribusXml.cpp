@@ -1568,7 +1568,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 					doc->pageCount = Pgc;
 					doc->Pages = doc->DocPages;
 					doc->PageAT = AtFl;
-					doc->MasterP = false;
+					doc->masterPageMode = false;
 					doc->Items = doc->DocItems;
 				}
 				else
@@ -1576,14 +1576,14 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 					doc->pageCount = 0;
 					doc->PageAT = false;
 					doc->Pages = doc->MasterPages;
-					doc->MasterP = true;
+					doc->masterPageMode = true;
 					doc->Items = doc->MasterItems;
 				}
 				emit NewPage(a);
 				doc->Pages.at(a)->LeftPg=QStoInt(pg.attribute("LEFT","0"));
 				QString Mus = "";
 				Mus = pg.attribute("MNAM","Normal");
-				if (!doc->MasterP)
+				if (!doc->masterPageMode)
 					doc->Pages.at(a)->MPageNam = Mus;
 				else
 					doc->Pages.at(a)->MPageNam = "";
@@ -1762,7 +1762,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 					doc->MasterPages = doc->Pages;
 					doc->MasterItems = doc->Items;
 				}
-				doc->MasterP = false;
+				doc->masterPageMode = false;
 				doc->pageCount = Pgc+1;
 				doc->PageAT = AtFl;
 			}
@@ -1865,7 +1865,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 	doc->Pages = doc->DocPages;
 	doc->pageCount = doc->Pages.count();
 	doc->Items = doc->DocItems;
-	doc->MasterP = false;
+	doc->masterPageMode = false;
 	view->reformPages();
 	if (doc->layerCount() == 0)
 	{

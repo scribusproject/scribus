@@ -235,7 +235,7 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 //		painter->translate(0.5, 0.5);
 		painter->setZoomFactor(1.0);
 /* Draw Page Outlines */
-		if (!Doc->MasterP)
+		if (!Doc->masterPageMode)
 		{
 			for (uint a = 0; a < Doc->Pages.count(); ++a)
 			{
@@ -643,9 +643,9 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 						continue;
 					if ((previewMode) && (!currItem->printable()))
 						continue;
-					if ((Doc->MasterP) && ((currItem->OwnPage != -1) && (currItem->OwnPage != static_cast<int>(Doc->currentPage->PageNr))))
+					if ((Doc->masterPageMode) && ((currItem->OwnPage != -1) && (currItem->OwnPage != static_cast<int>(Doc->currentPage->PageNr))))
 						continue;
-					if ((!Doc->MasterP) && (!currItem->OnMasterPage.isEmpty()))
+					if ((!Doc->masterPageMode) && (!currItem->OnMasterPage.isEmpty()))
 					{
 						if (currItem->OnMasterPage != Doc->currentPage->PageNam)
 							continue;
@@ -2629,7 +2629,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					QRegion apr = QRegion(p.xForm(docItem->Clip));
 					QRect apr2 = getRedrawBounding(docItem);
 					p.end();
-					if ((Doc->MasterP) && (docItem->OnMasterPage != Doc->currentPage->PageNam))
+					if ((Doc->masterPageMode) && (docItem->OnMasterPage != Doc->currentPage->PageNam))
 						continue;
 					if (((Sele.contains(apr.boundingRect())) || (Sele.contains(apr2))) && (docItem->LayerNr == Doc->activeLayer()))
 						SelectItemNr(a, false);
@@ -7089,7 +7089,7 @@ void ScribusView::HandleCurs(QPainter *p, PageItem *currItem, QRect mpo)
 int ScribusView::OnPage(double x2, double  y2)
 {
 	int retw = -1;
-	if (Doc->MasterP)
+	if (Doc->masterPageMode)
 	{
 		int x = static_cast<int>(Doc->currentPage->Xoffset);
 		int y = static_cast<int>(Doc->currentPage->Yoffset);
@@ -7119,7 +7119,7 @@ int ScribusView::OnPage(double x2, double  y2)
 int ScribusView::OnPage(PageItem *currItem)
 {
 	int retw = -1;
-	if (Doc->MasterP)
+	if (Doc->masterPageMode)
 	{
 		int x = static_cast<int>(Doc->currentPage->Xoffset);
 		int y = static_cast<int>(Doc->currentPage->Yoffset);
@@ -7299,7 +7299,7 @@ void ScribusView::selectPage(QMouseEvent *m)
 	mpo.moveBy(qRound(Doc->minCanvasCoordinate.x() * Scale), qRound(Doc->minCanvasCoordinate.y() * Scale));
 	ClRe = -1;
 	Deselect(false);
-	if (!Doc->MasterP)
+	if (!Doc->masterPageMode)
 	{
 		for (uint a = 0; a < Doc->Pages.count(); ++a)
 		{
@@ -7340,7 +7340,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 		currItem = SelItem.at(0);
 	else
 		currItem = Doc->Items.last();
-	if (!Doc->MasterP)
+	if (!Doc->masterPageMode)
 	{
 		for (a = 0; a < Doc->Pages.count(); ++a)
 		{
@@ -7364,7 +7364,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 	if (m->state() == (ControlButton | AltButton))
 		Deselect(false);
 
-	if ((m->state() == (ShiftButton | AltButton)) && (!Doc->MasterP) && (Doc->currentPage->FromMaster.count() != 0))
+	if ((m->state() == (ShiftButton | AltButton)) && (!Doc->masterPageMode) && (Doc->currentPage->FromMaster.count() != 0))
 	{
 		Page* Mp = Doc->MasterPages.at(Doc->MasterNames[Doc->currentPage->MPageNam]);
 		currItem = Doc->currentPage->FromMaster.last();
@@ -7511,7 +7511,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 			SelItem.clear();
 			return false;
 		}
-		if ((Doc->MasterP)  && (!((currItem->OwnPage == -1) || (currItem->OwnPage == static_cast<int>(Doc->currentPage->PageNr)))))
+		if ((Doc->masterPageMode)  && (!((currItem->OwnPage == -1) || (currItem->OwnPage == static_cast<int>(Doc->currentPage->PageNr)))))
 		{
 			currItem = Doc->Items.prev();
 			continue;
@@ -8624,7 +8624,7 @@ Page* ScribusView::addPage(int nr, bool mov)
 			Doc->RePos = savre;
 		}
 	}
-	if ((!ScApp->ScriptRunning) && (!Doc->isLoading()) && (!Doc->MasterP))
+	if ((!ScApp->ScriptRunning) && (!Doc->isLoading()) && (!Doc->masterPageMode))
 		PGS->GotoPg(nr);
 	Mpressed = false;
 	Doc->DragP = false;
@@ -8681,7 +8681,7 @@ void ScribusView::reformPages(bool moveObjects)
 		oldPg.newPg = a;
 		pageTable.insert(Seite->PageNr, oldPg);
 		Seite->setPageNr(a);
-		if (Doc->MasterP)
+		if (Doc->masterPageMode)
 		{
 			Seite->Xoffset = Doc->ScratchLeft;
 			Seite->Yoffset = Doc->ScratchTop;
@@ -8819,7 +8819,7 @@ void ScribusView::setMenTxt(int Seite)
 		return;
 	disconnect(PGS, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
 	PGS->setMaxValue(Doc->pageCount);
-	if ((!Doc->isLoading()) && (!Doc->MasterP))
+	if ((!Doc->isLoading()) && (!Doc->masterPageMode))
 		PGS->GotoPg(Seite);
 	connect(PGS, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
 }
@@ -8989,7 +8989,7 @@ void ScribusView::GotoPage(int Seite)
 		return;
 	SetCPo(qRound(Doc->currentPage->Xoffset-10), qRound(Doc->currentPage->Yoffset-10));
 	PGS->setMaxValue(Doc->pageCount);
-	if ((!Doc->isLoading()) && (!Doc->MasterP))
+	if ((!Doc->isLoading()) && (!Doc->masterPageMode))
 		PGS->GotoPg(Seite);
 }
 
@@ -8997,7 +8997,7 @@ void ScribusView::showMasterPage(int nr)
 {
 	Deselect(false);
 	OldScale = Scale;
-	if (!Doc->MasterP)
+	if (!Doc->masterPageMode)
 	{
 		Doc->DocPages = Doc->Pages;
 		Doc->Pages = Doc->MasterPages;
@@ -9005,7 +9005,7 @@ void ScribusView::showMasterPage(int nr)
 		Doc->Items = Doc->MasterItems;
 	}
 	Doc->pageCount = 1;
-	Doc->MasterP = true;
+	Doc->masterPageMode = true;
 	Doc->currentPage = Doc->Pages.at(nr);
 	PGS->setEnabled(false);
 	updateOn = false;
@@ -9026,7 +9026,7 @@ void ScribusView::hideMasterPage()
 	Doc->MasterPages = Doc->Pages;
 	Doc->pageCount = Doc->DocPages.count();
 	Doc->Pages = Doc->DocPages;
-	Doc->MasterP = false;
+	Doc->masterPageMode = false;
 	Doc->currentPage = Doc->Pages.at(0);
 	PGS->setEnabled(true);
 	setScale(OldScale);
@@ -9088,7 +9088,7 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr)
 	{
 		double sca = Scale;
 		bool frs = Doc->guidesSettings.framesShown;
-		bool mas = Doc->MasterP;
+		bool mas = Doc->masterPageMode;
 		Page* act = Doc->currentPage;
 		Doc->currentPage = Doc->MasterPages.at(Nr);
 		if (!mas)
@@ -9115,7 +9115,7 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr)
 			Doc->MasterItems = Doc->Items;
 			Doc->Items = Doc->DocItems;
 		}
-		Doc->MasterP = mas;
+		Doc->masterPageMode = mas;
 		painter->end();
 		double sx = im.width() / static_cast<double>(maxGr);
 		double sy = im.height() / static_cast<double>(maxGr);
@@ -9459,7 +9459,7 @@ int ScribusView::PaintEllipse(double x, double y, double b, double h, double w, 
 	}
 	PageItem* ite = new PageItem(Doc, PageItem::Polygon, x, y, b, h, w, fill, outline);
 	Doc->Items.append(ite);
-	if (Doc->MasterP)
+	if (Doc->masterPageMode)
 		Doc->MasterItems = Doc->Items;
 	else
 		Doc->DocItems = Doc->Items;
@@ -9510,7 +9510,7 @@ int ScribusView::PaintPict(double x, double y, double b, double h)
 	}
 	PageItem* ite = new PageItem(Doc, PageItem::ImageFrame, x, y, b, h, 1, Doc->toolSettings.dBrushPict, "None");
 	Doc->Items.append(ite);
-	if (Doc->MasterP)
+	if (Doc->masterPageMode)
 		Doc->MasterItems = Doc->Items;
 	else
 		Doc->DocItems = Doc->Items;
@@ -9563,7 +9563,7 @@ int ScribusView::PaintRect(double x, double y, double b, double h, double w, QSt
 	}
 	PageItem* ite = new PageItem(Doc, PageItem::Polygon, x, y, b, h, w, fill, outline);
 	Doc->Items.append(ite);
-	if (Doc->MasterP)
+	if (Doc->masterPageMode)
 		Doc->MasterItems = Doc->Items;
 	else
 		Doc->DocItems = Doc->Items;
@@ -9612,7 +9612,7 @@ int ScribusView::PaintPoly(double x, double y, double b, double h, double w, QSt
 	}
 	PageItem* ite = new PageItem(Doc, PageItem::Polygon, x, y, b, h, w, fill, outline);
 	Doc->Items.append(ite);
-	if (Doc->MasterP)
+	if (Doc->masterPageMode)
 		Doc->MasterItems = Doc->Items;
 	else
 		Doc->DocItems = Doc->Items;
@@ -9661,7 +9661,7 @@ int ScribusView::PaintPolyLine(double x, double y, double b, double h, double w,
 	}
 	PageItem* ite = new PageItem(Doc, PageItem::PolyLine, x, y, b, h, w, fill, outline);
 	Doc->Items.append(ite);
-	if (Doc->MasterP)
+	if (Doc->masterPageMode)
 		Doc->MasterItems = Doc->Items;
 	else
 		Doc->DocItems = Doc->Items;
@@ -9709,7 +9709,7 @@ int ScribusView::PaintText(double x, double y, double b, double h, double w, QSt
 	}
 	PageItem* ite = new PageItem(Doc, PageItem::TextFrame, x, y, b, h, w, "None", outline);
 	Doc->Items.append(ite);
-	if (Doc->MasterP)
+	if (Doc->masterPageMode)
 		Doc->MasterItems = Doc->Items;
 	else
 		Doc->DocItems = Doc->Items;
@@ -9763,7 +9763,7 @@ int ScribusView::PaintLine(double x, double y, double b, double h, double w, QSt
 	}
 	PageItem* ite = new PageItem(Doc, PageItem::Line, x, y, b, h, w, "None", outline);
 	Doc->Items.append(ite);
-	if (Doc->MasterP)
+	if (Doc->masterPageMode)
 		Doc->MasterItems = Doc->Items;
 	else
 		Doc->DocItems = Doc->Items;

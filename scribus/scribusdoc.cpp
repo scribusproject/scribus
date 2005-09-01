@@ -61,7 +61,7 @@ ScribusDoc::ScribusDoc() : UndoObject(QObject::tr("Document"))
 {
 	ApplicationPrefs* prefsData=&(PrefsManager::instance()->appPrefs);
 	modified = false;
-	MasterP = false;
+	masterPageMode = false;
 	NrItems = 0;
 	First = 1;
 	Last = 0;
@@ -941,6 +941,10 @@ Page* ScribusDoc::addPage(const int pageNumber)
 	addedPage->PageSize = PageSize;
 	addedPage->PageOri = PageOri;
 	Pages.insert(pageNumber, addedPage);
+	if (masterPageMode)
+		MasterPages = Pages;
+	else
+		DocPages = Pages;
 	currentPage = addedPage;
 	pageCount++;
 	return addedPage;

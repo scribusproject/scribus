@@ -401,7 +401,6 @@ public: // Public attributes
 	QValueList<uint> DragElements;
 	QValueList<ParagraphStyle> docParagraphStyles;
 	QValueList<Layer> Layers;
-	bool MasterP;
 	bool marginColored;
 	int GroupCounter;
 	CMSData CMSSettings;

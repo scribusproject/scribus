@@ -2516,7 +2516,7 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 	doc->pageCount = doc->MasterPages.count();
 	bool atfb = doc->PageAT;
 	doc->PageAT = false;
-	doc->MasterP = true;
+	doc->masterPageMode = true;
 	slotNewPage(0);
 	doc->PageAT = atfb;
 	doc->MasterNames["Normal"] = 0;
@@ -2524,7 +2524,7 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 	doc->MasterPages = doc->Pages;
 	doc->pageCount = doc->DocPages.count();
 	doc->Pages = doc->DocPages;
-	doc->MasterP = false;
+	doc->masterPageMode = false;
 	doc->Pages.at(0)->MPageNam = "Normal";
 	doc->setModified(false);
 	doc->setLoading(false);
@@ -3122,7 +3122,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			scrActions["toolsEditContents"]->setEnabled(true);
 		if (currItem->NextBox == 0)
 			scrActions["toolsLinkTextFrame"]->setEnabled(true);
-		if (doc->MasterP)
+		if (doc->masterPageMode)
 			scrActions["toolsLinkTextFrame"]->setEnabled(false);
 		if (doc->appMode == modeEdit)
 		{
@@ -4044,7 +4044,7 @@ bool ScribusApp::loadDoc(QString fileName)
 		}
 		else
 			doc->setName(FName);
-		doc->MasterP = false;
+		doc->masterPageMode = false;
 		doc->Language = GetLang(doc->Language);
 		HaveNewDoc();
 		propertiesPalette->updateCList();
@@ -4063,7 +4063,7 @@ bool ScribusApp::loadDoc(QString fileName)
 			doc->MasterPages = doc->Pages;
 			doc->pageCount = doc->DocPages.count();
 			doc->Pages = doc->DocPages;
-			doc->MasterP = false;
+			doc->masterPageMode = false;
 		}
 		doc->setLoading(false);
 		doc->DocItems = doc->Items;
@@ -4072,7 +4072,7 @@ bool ScribusApp::loadDoc(QString fileName)
 		QRect rd = QRect(0,0,9,9);
 		ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
 		doc->Pages = doc->MasterPages;
-		doc->MasterP = true;
+		doc->masterPageMode = true;
 		doc->Items = doc->MasterItems;
 		for (uint azz=0; azz<doc->MasterItems.count(); ++azz)
 		{
@@ -4110,7 +4110,7 @@ bool ScribusApp::loadDoc(QString fileName)
 		}
 //		RestoreBookMarks();
 		doc->Pages = doc->DocPages;
-		doc->MasterP = false;
+		doc->masterPageMode = false;
 		doc->Items = doc->DocItems;
 		for (uint azz=0; azz<doc->Items.count(); ++azz)
 		{
@@ -6455,7 +6455,6 @@ void ScribusApp::CopyPage()
 		Ziel->initialMargins.Bottom = from->Margins.Bottom;
 		Ziel->initialMargins.Left = from->Margins.Left;
 		Ziel->initialMargins.Right = from->Margins.Right;
-		view->reformPages();
 		QMap<int,int> TableID;
 		QPtrList<PageItem> TableItems;
 		TableID.clear();
@@ -6470,6 +6469,7 @@ void ScribusApp::CopyPage()
 				Buffer.Ypos = Buffer.Ypos - from->Yoffset + Ziel->Yoffset;
 				view->PasteItem(&Buffer, true, true);
 				PageItem* Neu = doc->Items.at(doc->Items.count()-1);
+				Neu->OnMasterPage = "";
 				if (doc->Items.at(ite)->isBookmark)
 					AddBookMark(Neu);
 				if (Neu->isTableItem)
@@ -6523,6 +6523,7 @@ void ScribusApp::CopyPage()
 		}
 		view->Deselect(true);
 		doc->setLoading(false);
+		view->reformPages();
 		view->DrawNew();
 		slotDocCh();
 		pagePalette->RebuildPage();

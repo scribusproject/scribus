@@ -3050,7 +3050,7 @@ QString PageItem::ExpandToken(uint base)
 	uint zae = 0;
 	uint za2 = base;
 	QString chx = "#";
-	if ((!Doc->MasterP) && (OwnPage != -1))
+	if ((!Doc->masterPageMode) && (OwnPage != -1))
 	{
 		do
 		{
