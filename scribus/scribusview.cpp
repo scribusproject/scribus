@@ -11857,8 +11857,9 @@ void ScribusView::TextToPath()
 			}
 			if (currItem==ScApp->storyEditor->currentItem() && Doc==ScApp->storyEditor->currentDocument())
 			{
-				QMessageBox::critical(ScApp, tr("Cannot Convert In-Use Item"), tr("The item %1 is currently being edited by Story Editor. The convert to outlines operation will be cancelled").arg(currItem->itemName()), QMessageBox::Ok, QMessageBox::NoButton, QMessageBox::NoButton);
-				return;
+				QMessageBox::critical(ScApp, tr("Cannot Convert In-Use Item"), tr("The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped").arg(currItem->itemName()), QMessageBox::Ok, QMessageBox::NoButton, QMessageBox::NoButton);
+				++offset;
+				continue;
 			}
 			//Deselect();
 			if (currItem->itemText.count() == 0)
