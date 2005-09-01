@@ -24,6 +24,7 @@
 #include <vector>
 class ScribusDoc;
 class ScribusView;
+#include "scribusapi.h"
 #include "page.h"
 #include "pageitem.h"
 
@@ -32,7 +33,7 @@ class ScribusView;
   * Diese Klasse erzeugt Postscript-Dateien
   */
 
-class PSLib {
+class SCRIBUS_API PSLib {
 public:
 	PSLib(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, ColorList DocColors, bool pdf = false, bool spot = true);
 	virtual ~PSLib() {};
