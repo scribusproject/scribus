@@ -49,7 +49,7 @@
 			<submenuitem text="PDF/X-3" file="pdfx3.html"/>
 			<submenuitem text="PDF Forms" file="pdfexport3.html"/>
 			<submenuitem text="PDF Forms and PHP" file="pdf_form.html"/>
-			<submenuitem text="PDF and Javascript" file="javascriptpdf.html"/>
+			<submenuitem text="PDF and JavaScript" file="javascriptpdf.html"/>
 			<submenuitem text="PDF Presentations" file="pdfexport4.html"/>
 		</submenuitem>
 		<submenuitem text="Printing" file="print1.html">
