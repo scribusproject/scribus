@@ -6152,15 +6152,9 @@ void ScribusApp::setAppMode(int mode)
 			slotSelect();
 		}
 		if (mode == modeEyeDropper)
-		{
 			grabMouse();
-			//grabKeyboard();
-		}
 		else
-		{
 			releaseMouse();
-			//releaseKeyboard();
-		}
 		if (mode == modeCopyProperties)
 		{
 			if (view->SelItem.count() != 0)
@@ -8118,17 +8112,15 @@ void ScribusApp::manageMasterPagesEnd()
 	scrActions["fileRevert"]->setEnabled(true);
 	scrActions["fileDocSetup"]->setEnabled(true);
 	scrActions["filePrint"]->setEnabled(true);
-
 	scrActions["pageInsert"]->setEnabled(true);
 	scrActions["pageCopy"]->setEnabled(true);
 	scrActions["pageApplyMasterPage"]->setEnabled(true);
 	bool setter = doc->Pages.count() > 1 ? true : false;
 	scrActions["pageDelete"]->setEnabled(setter);
 	scrActions["pageMove"]->setEnabled(setter);
-	for (uint c=0; c<doc->Pages.count(); ++c)
-	{
+	uint pageCount=doc->Pages.count();
+	for (uint c=0; c<pageCount; ++c)
 		Apply_MasterPage(doc->Pages.at(c)->MPageNam, c, false);
-	}
 	doc->masterPageMode = false;
 	pagePalette->EnablePal();
 	pagePalette->RebuildTemp();
@@ -8209,9 +8201,10 @@ void ScribusApp::GroupObj(bool showLockDia)
 		double x, y, w, h;
 		int t = -1; // show locked dialog only once
 		QString tooltip = Um::ItemsInvolved + "\n";
+		uint selectedItemCount=view->SelItem.count();
 		if (showLockDia)
 		{
-			for (uint a=0; a<view->SelItem.count(); ++a)
+			for (uint a=0; a<selectedItemCount; ++a)
 			{
 				if (t == -1 && view->SelItem.at(a)->locked())
 					t = QMessageBox::warning(this, tr("Warning"),
@@ -8225,12 +8218,12 @@ void ScribusApp::GroupObj(bool showLockDia)
 			if (t == 0)
 				return; // user chose cancel -> do not group but return
 
-			for (uint a=0; a<view->SelItem.count(); ++a)
+			for (uint a=0; a<selectedItemCount; ++a)
 			{
 				currItem = view->SelItem.at(a);
 				if (currItem->locked())
 				{
-					for (uint c=0; c<view->SelItem.count(); ++c)
+					for (uint c=0; c<selectedItemCount; ++c)
 					{
 						bb = view->SelItem.at(c);
 						bool t1=(t==1);
@@ -8244,15 +8237,13 @@ void ScribusApp::GroupObj(bool showLockDia)
 
 		SimpleState *ss = new SimpleState(Um::Group, tooltip);
 		ss->set("GROUP", "group");
-		ss->set("itemcount", view->SelItem.count());
+		ss->set("itemcount", selectedItemCount);
 
-
-		for (uint a=0; a<view->SelItem.count(); ++a)
+		for (uint a=0; a<selectedItemCount; ++a)
 		{
 			currItem = view->SelItem.at(a);
 			currItem->Groups.push(doc->GroupCounter);
 			ss->set(QString("item%1").arg(a), currItem->ItemNr);
-
 		}
 		doc->GroupCounter++;
 		view->getGroupRect(&x, &y, &w, &h);
@@ -8972,12 +8963,16 @@ void ScribusApp::doHyphenate()
 {
 	if (HaveDoc)
 	{
-		if (view->SelItem.count() != 0)
+		uint selectedItemCount=view->SelItem.count();
+		if (selectedItemCount != 0)
 		{
-			PageItem *currItem = view->SelItem.at(0);
-			if (doc->docHyphenator->Language != currItem->Language)
-				doc->docHyphenator->slotNewDict(currItem->Language);
-			doc->docHyphenator->slotHyphenate(currItem);
+			for (uint i = 0; i < selectedItemCount; ++i)
+			{
+				PageItem *currItem = view->SelItem.at(i);
+				if (doc->docHyphenator->Language != currItem->Language)
+					doc->docHyphenator->slotNewDict(currItem->Language);
+				doc->docHyphenator->slotHyphenate(currItem);
+			}
 			view->DrawNew();
 			slotDocCh();
 		}
@@ -8988,10 +8983,14 @@ void ScribusApp::doDeHyphenate()
 {
 	if (HaveDoc)
 	{
-		if (view->SelItem.count() != 0)
+		uint selectedItemCount=view->SelItem.count();
+		if (selectedItemCount > 0)
 		{
-			PageItem *currItem = view->SelItem.at(0);
-			doc->docHyphenator->slotDeHyphenate(currItem);
+			for (uint i = 0; i < selectedItemCount; ++i)
+			{
+				PageItem *currItem = view->SelItem.at(i);
+				doc->docHyphenator->slotDeHyphenate(currItem);
+			}
 			view->DrawNew();
 			slotDocCh();
 		}
@@ -9012,13 +9011,14 @@ void ScribusApp::setItemFillTransparency(double t)
 {
 	if (HaveDoc)
 	{
-		for (uint i = 0; i < view->SelItem.count(); ++i)
+		uint selectedItemCount=view->SelItem.count();
+		if (selectedItemCount != 0)
 		{
-			PageItem *currItem = view->SelItem.at(i);
-			currItem->setFillTransparency(t);
-		}
-		if (view->SelItem.count() != 0)
-		{
+			for (uint i = 0; i < selectedItemCount; ++i)
+			{
+				PageItem *currItem = view->SelItem.at(i);
+				currItem->setFillTransparency(t);
+			}
 			view->DrawNew();
 			slotDocCh();
 		}
@@ -9029,13 +9029,14 @@ void ScribusApp::setItemLineTransparency(double t)
 {
 	if (HaveDoc)
 	{
-		for (uint i = 0; i < view->SelItem.count(); ++i)
+		uint selectedItemCount=view->SelItem.count();
+		if (selectedItemCount != 0)
 		{
-			PageItem *currItem = view->SelItem.at(0);
-			currItem->setLineTransparency(t);
-		}
-		if (view->SelItem.count() != 0)
-		{
+			for (uint i = 0; i < selectedItemCount; ++i)
+			{
+				PageItem *currItem = view->SelItem.at(i);
+				currItem->setLineTransparency(t);
+			}
 			view->DrawNew();
 			slotDocCh();
 		}
@@ -9063,14 +9064,14 @@ void ScribusApp::ImageEffects()
 
 QString ScribusApp::Collect(bool compress, bool withFonts, const QString& newDirectory)
 {
-	QString retVal = "";
-	QString CurDirP = QDir::currentDirPath();
+	QString retVal("");
+	QString CurDirP(QDir::currentDirPath());
 	bool compressR = compress;
 	bool withFontsR = withFonts;
 	QString s(newDirectory);
 	if (s.isNull() && ScQApp->usingGUI())
 	{
-		QString wdir = ".";
+		QString wdir(".");
 		QString prefsDocDir=prefsManager->documentDir();
 		if (!prefsDocDir.isEmpty())
 			wdir = dirs->get("collect", prefsDocDir);
@@ -9086,7 +9087,7 @@ QString ScribusApp::Collect(bool compress, bool withFonts, const QString& newDir
 		if(s.right(1) != "/")
 			s += "/";
 		dirs->set("collect", s.left(s.findRev("/",-2)));
-		QFileInfo fi = QFileInfo(s);
+		QFileInfo fi(s);
 		QString fn(s);
 		if (fi.exists())
 		{
@@ -9220,7 +9221,8 @@ void ScribusApp::emergencySave()
 	QWidgetList windows = wsp->windowList();
 	if (!windows.isEmpty())
 	{
-		for ( int i = 0; i < static_cast<int>(windows.count()); ++i )
+		uint windowCount=windows.count();
+		for (uint i=0; i<windowCount ; ++i)
 		{
 			ActWin = (ScribusWin*)windows.at(i);
 			doc = ActWin->doc;
@@ -9237,7 +9239,7 @@ void ScribusApp::emergencySave()
 			}
 			view->close();
 			uint numPages=doc->Pages.count();
-			for (uint a = 0; a<numPages; ++a)
+			for (uint a=0; a<numPages; ++a)
 				delete doc->Pages.at(a);
 			delete doc;
 			ActWin->close();
@@ -9286,38 +9288,33 @@ void ScribusApp::imageEditorExited()
 	{
 		ex = ExternalApp->exitStatus();
 		delete ExternalApp;
+		ExternalApp = 0;
 	}
-	ExternalApp = 0;
 }
 
 /* call gimp and wait uppon completion */
 void ScribusApp::callImageEditor()
 {
-	QStringList cmd;
 	if (view->SelItem.count() != 0)
 	{
 		QString imageEditorExecutable=prefsManager->imageEditorExecutable();
 		if (ExternalApp != 0)
 		{
-			QString mess = tr("The program")+" "+imageEditorExecutable;
-			mess += "\n" + tr("is already running!");
-			QMessageBox::information(this, tr("Information"), mess, 1, 0, 0);
+			QMessageBox::information(this, tr("Information"), "<qt>" + tr("The program %1 is already running!").arg(imageEditorExecutable) + "</qt>", 1, 0, 0);
 			return;
 		}
 		PageItem *currItem = view->SelItem.at(0);
 		if (currItem->PicAvail)
 		{
 			ExternalApp = new QProcess(NULL);
-            cmd = QStringList::split(" ", imageEditorExecutable);
+			QStringList cmd = QStringList::split(" ", imageEditorExecutable);
 			cmd.append(currItem->Pfile);
 			ExternalApp->setArguments(cmd);
 			if ( !ExternalApp->start() )
 			{
 				delete ExternalApp;
 				ExternalApp = 0;
-				QString mess = tr("The program")+" "+imageEditorExecutable;
-				mess += "\n" + tr("is missing!");
-				QMessageBox::critical(this, tr("Warning"), mess, 1, 0, 0);
+				QMessageBox::critical(this, tr("Warning"), "<qt>" + tr("The program %1 is missing!").arg(imageEditorExecutable) + "</qt>", 1, 0, 0);
 				return;
 			}
 			connect(ExternalApp, SIGNAL(processExited()), this, SLOT(imageEditorExited()));
@@ -9400,12 +9397,10 @@ void ScribusApp::mouseReleaseEvent(QMouseEvent *m)
 		if (doc->appMode == modeEyeDropper)
 		{
 			releaseMouse();
-			//releaseKeyboard();
 			sendToSuper=false;
 			QPixmap pm = QPixmap::grabWindow( QApplication::desktop()->winId(), m->globalPos().x(), m->globalPos().y(), 1, 1);
 			QImage i = pm.convertToImage();
 			QColor selectedColor=i.pixel(0, 0);
-			//qDebug(QString("red: %1 green: %2 blue: %3").arg(selectedColor.red()).arg(selectedColor.green()).arg(selectedColor.blue()));
 			bool found=false;
 			ColorList::Iterator it;
 			for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
