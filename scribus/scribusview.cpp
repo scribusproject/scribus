@@ -4478,11 +4478,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 					Doc->ElemToLink = bb;
 				}
 				else
-				{
-					QMessageBox::information(this,
-											 tr("Linking Text Frames"),
-											 "<qt>" + tr("There is a problem with text frames linking. You are trying to link filled frames or a frame to the same one itself") + "</qt>");
-				}
+					QMessageBox::warning(this, tr("Linking Text Frames"),
+											 "<qt>" + tr("You are trying to link to a filled frame, or a frame to itself.") + "</qt>");
 			}
 			else
 				Doc->ElemToLink = NULL;

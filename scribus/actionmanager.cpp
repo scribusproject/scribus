@@ -810,7 +810,7 @@ void ActionManager::languageChange()
 	(*scrActions)["editParaStyles"]->setTexts( tr("&Paragraph Styles..."));
 	(*scrActions)["editLineStyles"]->setTexts( tr("&Line Styles..."));
 	(*scrActions)["editMasterPages"]->setTexts( tr("&Master Pages..."));
-	(*scrActions)["editJavascripts"]->setTexts( tr("&Javascripts..."));
+	(*scrActions)["editJavascripts"]->setTexts( tr("&JavaScripts..."));
 	(*scrActions)["editPreferences"]->setTexts( tr("P&references..."));
 
 	int font_sizes[] = {7, 9, 10, 11, 12, 14, 18, 24, 36, 48, 60, 72};

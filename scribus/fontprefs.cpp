@@ -58,7 +58,7 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, QString PPath
 			foS.FlagUse = false;
 			row->setPixmap(1, empty);
 		}
-		row->setText(2, tr("Postscript"));
+		row->setText(2, tr("PostScript"));
 		if (it.current()->EmbedPS)
 		{
 			foS.FlagPS = true;
@@ -388,7 +388,7 @@ void FontPrefs::RebuildDialog()
 			foS.FlagUse = false;
 			row->setPixmap(1, empty);
 		}
-		row->setText(2, tr("Postscript"));
+		row->setText(2, tr("PostScript"));
 		if (it.current()->EmbedPS)
 		{
 			foS.FlagPS = true;

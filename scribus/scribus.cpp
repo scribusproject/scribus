@@ -3596,7 +3596,7 @@ bool ScribusApp::slotDocOpen()
 	formats += tr("Documents (*.sla *.scd);;");
 #endif
 	if (pluginManager->DLLexists(6))
-		formats += tr("Postscript Files (*.eps *.EPS *.ps *.PS);;");
+		formats += tr("PostScript Files (*.eps *.EPS *.ps *.PS);;");
 	if (pluginManager->DLLexists(10))
 #ifdef HAVE_LIBZ
 		formats += tr("SVG Images (*.svg *.svgz);;");
@@ -3877,7 +3877,7 @@ bool ScribusApp::loadDoc(QString fileName)
 		if (doc->checkerProfiles.count() == 0)
 		{
 			prefsManager->initDefaultCheckerPrefs(&doc->checkerProfiles);
-			doc->curCheckProfile = tr("Postscript");
+			doc->curCheckProfile = tr("PostScript");
 		}
 		if (doc->PDF_Options.LPISettings.count() == 0)
 		{
@@ -8948,9 +8948,11 @@ void ScribusApp::initHyphenator()
 
 QString ScribusApp::GetLang(QString inLang)
 {
- 	for (QMap<QString, QStringList>::Iterator itl = InstLang.begin(); itl != InstLang.end(); ++itl)
+	QMap<QString, QStringList>::Iterator itlend=InstLang.end();
+ 	for (QMap<QString, QStringList>::Iterator itl = InstLang.begin(); itl != itlend; ++itl)
 	{
-		for (QStringList::Iterator itlr = itl.data().begin(); itlr != itl.data().end(); ++itlr)
+		QStringList::Iterator itlrend=itl.data().end();
+		for (QStringList::Iterator itlr = itl.data().begin(); itlr != itlrend; ++itlr)
 		{
 			if ((*itlr) == inLang)
 				return itl.key();
@@ -8984,7 +8986,7 @@ void ScribusApp::doDeHyphenate()
 	if (HaveDoc)
 	{
 		uint selectedItemCount=view->SelItem.count();
-		if (selectedItemCount > 0)
+		if (selectedItemCount != 0)
 		{
 			for (uint i = 0; i < selectedItemCount; ++i)
 			{

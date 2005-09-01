@@ -330,7 +330,7 @@ void PrefsManager::initDefaults()
 	appPrefs.paragraphsLI = 10;
 	appPrefs.showStartupDialog = true;
 	initDefaultCheckerPrefs(&appPrefs.checkerProfiles);	
-	appPrefs.curCheckProfile = tr("Postscript");
+	appPrefs.curCheckProfile = tr("PostScript");
 	appPrefs.PDF_Options.Thumbnails = false;
 	appPrefs.PDF_Options.Articles = false;
 	appPrefs.PDF_Options.useLayers = false;
@@ -592,9 +592,7 @@ void PrefsManager::convert12Preferences()
 
 void PrefsManager::ReadPrefs()
 {
-	//ScriXmlDoc *ss = new ScriXmlDoc();
 	bool erg = ReadPref(prefsLocation+"/scribus13.rc");
-	//delete ss;
 	if (!erg)
 		return;
 	ScApp->setDefaultPrinter(appPrefs.PrinterName, appPrefs.PrinterFile, appPrefs.PrinterCommand);
@@ -616,7 +614,7 @@ void PrefsManager::ReadPrefs()
 	if (appPrefs.checkerProfiles.count() == 0)
 	{
 		initDefaultCheckerPrefs(&appPrefs.checkerProfiles);	
-		appPrefs.curCheckProfile = tr("Postscript");
+		appPrefs.curCheckProfile = tr("PostScript");
 	}
 }
 
@@ -655,10 +653,7 @@ void PrefsManager::SavePrefs()
 	}
 	ScApp->getDefaultPrinter(&appPrefs.PrinterName, &appPrefs.PrinterFile, &appPrefs.PrinterCommand);
 
-	//ScriXmlDoc *ss = new ScriXmlDoc();
 	WritePref(prefsLocation+"/scribus13.rc");
-	//delete ss;
-
     SavePrefsXML();
 }
 
@@ -1219,12 +1214,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.haveStylePreview = static_cast<bool>(QStoInt(dc.attribute("STYLEPREVIEW","1")));
 			appPrefs.showStartupDialog = static_cast<bool>(QStoInt(dc.attribute("StartUp","1")));
 			appPrefs.ScratchBottom = QStodouble(dc.attribute("ScratchBottom", "20"));
-			// FIXME A typo in early 1.3cvs (MAR 05) means we must support loading of
-			// FIXME 'ScatchLeft' for a while too. This can be removed in a few months.
-			if (dc.hasAttribute("ScatchLeft"))
-				appPrefs.ScratchLeft = QStodouble(dc.attribute("ScatchLeft", "100"));
-			else
-				appPrefs.ScratchLeft = QStodouble(dc.attribute("ScratchLeft", "100"));
+			appPrefs.ScratchLeft = QStodouble(dc.attribute("ScratchLeft", "100"));
 			appPrefs.ScratchRight = QStodouble(dc.attribute("ScratchRight", "100"));
 			appPrefs.ScratchTop = QStodouble(dc.attribute("ScratchTop", "20"));
 			if (dc.hasAttribute("STECOLOR"))
@@ -1420,7 +1410,11 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.RecentDocs.append(dc.attribute("NAME"));
 		if (dc.tagName()=="Checker")
 		{
-			appPrefs.curCheckProfile = dc.attribute("currentProfile", tr("Postscript"));
+			appPrefs.curCheckProfile = dc.attribute("currentProfile", tr("PostScript"));
+			//#2516 work around old values until people wont have them anymore, not that these
+			//translated strings should be going into prefs anyway!
+			if (appPrefs.curCheckProfile == tr("Postscript"))
+				appPrefs.curCheckProfile == tr("PostScript");
 		}
 
 		if (dc.tagName()=="CheckProfile")
@@ -1467,7 +1461,6 @@ bool PrefsManager::ReadPref(QString ho)
 		if (dc.tagName()=="EXTERNAL")
 		{
 			setGhostscriptExecutable(dc.attribute("GS", "gs"));
-			//appPrefs.gs_exe = dc.attribute("GS", "gs");
 			appPrefs.gs_AntiAliasText = static_cast<bool>(QStoInt(dc.attribute("AlphaText", "0")));
 			appPrefs.gs_AntiAliasGraphics = static_cast<bool>(QStoInt(dc.attribute("AlphaGraphics", "0")));
 			appPrefs.gs_Resolution = QStoInt(dc.attribute("Resolution", "72"));
@@ -1670,7 +1663,7 @@ void PrefsManager::initDefaultCheckerPrefs(CheckerPrefsList* cp)
 		checkerSettings.checkRasterPDF = true;
 		checkerSettings.minResolution = 72.0;
 		//TODO Stop translating these into settings!!!!!!!!!
-		cp->insert( QT_TR_NOOP("Postscript"), checkerSettings);
+		cp->insert( QT_TR_NOOP("PostScript"), checkerSettings);
 		cp->insert( QT_TR_NOOP("PDF 1.3"), checkerSettings);
 		checkerSettings.checkTransparency = false;
 		cp->insert( QT_TR_NOOP("PDF 1.4"), checkerSettings);

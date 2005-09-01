@@ -491,7 +491,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	Layout20->addWidget( TextLabel70 );
 
 	ActionCombo = new QComboBox( true, tab_2, "ActTyp" );
-	QString tmp_actcom[] = {tr("None"), tr("Java Script"), tr("Go To"),
+	QString tmp_actcom[] = {tr("None"), tr("JavaScript"), tr("Go To"),
 	                        tr("Submit Form"), tr("Reset Form"), tr("Import Data")};
 	size_t array_act = sizeof(tmp_actcom) / sizeof(*tmp_actcom);
 	/* PFJ - 28/02/04 - Altered from uint to int and var name */
@@ -1195,7 +1195,7 @@ void Annot::GetNIcon()
 	QString fileName;
 	QString wdir = dirs->get("icon", ".");
 	CustomFDialog dia(this, wdir, tr("Open"),
-	                  tr("Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)"), "", true);
+	                  tr("Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)"), "", true);
 	if (dia.exec() == QDialog::Accepted)
 		fileName = dia.selectedFile();
 	else
@@ -1229,7 +1229,7 @@ void Annot::GetPIcon()
 	QString fileName;
 	QString wdir = dirs->get("icon", ".");
 	CustomFDialog dia(this, wdir, tr("Open"),
-	                  tr("Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)"), "", true);
+	                  tr("Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)"), "", true);
 	if (dia.exec() == QDialog::Accepted)
 		fileName = dia.selectedFile();
 	else
@@ -1252,7 +1252,7 @@ void Annot::GetRIcon()
 	QString fileName;
 	QString wdir = dirs->get("icon", ".");
 	CustomFDialog dia(this, wdir, tr("Open"),
-	                  tr("Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)"), "", true);
+	                  tr("Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)"), "", true);
 	if (dia.exec() == QDialog::Accepted)
 		fileName = dia.selectedFile();
 	else
@@ -1955,7 +1955,7 @@ void Annot::SetZiel(int it)
 			NoExport->setEnabled(false);
 			NoExport->setChecked(false);
 			ActionCombo->clear();
-			QString tmp_actcom[] = {tr("None"), tr("Java Script"), tr("Go To"),
+			QString tmp_actcom[] = {tr("None"), tr("JavaScript"), tr("Go To"),
 			                        tr("Submit Form"), tr("Reset Form"), tr("Import Data")};
 			size_t array_act = sizeof(tmp_actcom) / sizeof(*tmp_actcom);
 			/* PFJ - 28/02/04 - Altered from uint to int and varname */
@@ -1993,7 +1993,7 @@ void Annot::SetZiel(int it)
 		sela > 5 ? FramOp->raiseWidget(5) : FramOp->raiseWidget(sela);
 		ActionCombo->clear();
 		ActionCombo->insertItem( tr( "None" ) );
-		ActionCombo->insertItem( tr( "Java Script" ) );
+		ActionCombo->insertItem( tr( "JavaScript" ) );
 		ActionCombo->setCurrentItem(QMIN(tmpac, 1));
 		SetActTyp(tmpac);
 		break;

@@ -581,7 +581,7 @@ void Druck::SelFile()
 {
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("druck", ".");
-	CustomFDialog dia(this, wdir, tr("Save as"), tr("Postscript Files (*.ps);;All Files (*)"), false, false);
+	CustomFDialog dia(this, wdir, tr("Save as"), tr("PostScript Files (*.ps);;All Files (*)"), false, false);
 	if (!LineEdit1->text().isEmpty())
 		dia.setSelection(LineEdit1->text());
 	if (dia.exec() == QDialog::Accepted)

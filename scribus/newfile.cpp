@@ -264,7 +264,7 @@ void NewDoc::createOpenDocPage()
 	formats += tr("Documents (*.sla *.scd);;");
 #endif
 	if (ScApp->pluginManager->DLLexists(6))
-		formats += tr("Postscript Files (*.eps *.EPS *.ps *.PS);;");
+		formats += tr("PostScript Files (*.eps *.EPS *.ps *.PS);;");
 	if (ScApp->pluginManager->DLLexists(10))
 #ifdef HAVE_LIBZ
 		formats += tr("SVG Images (*.svg *.svgz);;");

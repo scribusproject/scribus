@@ -588,7 +588,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	ExtTool = new QWidget( prefsWidgets, "ExtTool" );
 	ExtToolLayout = new QVBoxLayout( ExtTool, 0, 5, "ExtToolLayout");
 	ExtToolLayout->setAlignment( Qt::AlignTop );
-	ghostscriptGroup = new QGroupBox( tr( "Postscript Interpreter" ), ExtTool, "ghostscriptGroup" );
+	ghostscriptGroup = new QGroupBox( tr( "PostScript Interpreter" ), ExtTool, "ghostscriptGroup" );
 	ghostscriptGroup->setColumnLayout(0, Qt::Vertical );
 	ghostscriptGroup->layout()->setSpacing( 6 );
 	ghostscriptGroup->layout()->setMargin( 10 );
