@@ -11842,124 +11842,148 @@ void ScribusView::FromPathText()
 void ScribusView::TextToPath()
 {
 	ScApp->NoFrameEdit();
-	if (SelItem.count() > 0)
+	uint selectedItemCount=SelItem.count();
+	if (selectedItemCount != 0)
 	{
-		PageItem *bb;
-		FPointArray pts;
-		double x, y;
-		QString chx, ccounter;
-		PageItem *currItem = SelItem.at(0);
-		Deselect();
-		if (currItem->itemText.count() == 0)
-			return;
-		for (uint a = 0; a < currItem->MaxChars; ++a)
+		QPtrList<PageItem> delItems,newGroupedItems;
+		uint offset=0;
+		for(uint i=0; i<selectedItemCount; ++i)
 		{
-			pts.resize(0);
-			x = 0.0;
-			y = 0.0;
-			chx = currItem->itemText.at(a)->ch;
-			if ((chx == QChar(13)) || (chx == QChar(32)) || (chx == QChar(29)))
+			PageItem *currItem = SelItem.at(offset);
+			if ((currItem->itemType()!=PageItem::TextFrame) || (currItem->isTableItem && currItem->isSingleSel) || (currItem->locked()))
+			{
+				++offset;
 				continue;
-			if (chx == QChar(30))
-			{
-				chx = currItem->ExpandToken(a);
-				if (chx == QChar(32))
-					continue;
 			}
-			int chs = currItem->itemText.at(a)->csize;
-			if (currItem->itemText.at(a)->cstyle & 64)
+			if (currItem==ScApp->storyEditor->currentItem() && Doc==ScApp->storyEditor->currentDocument())
 			{
-				if (chx.upper() != chx)
+				QMessageBox::critical(ScApp, tr("Cannot Convert In-Use Item"), tr("The item %1 is currently being edited by Story Editor. The convert to outlines operation will be cancelled").arg(currItem->itemName()), QMessageBox::Ok, QMessageBox::NoButton, QMessageBox::NoButton);
+				return;
+			}
+			//Deselect();
+			if (currItem->itemText.count() == 0)
+				continue;
+			newGroupedItems.clear();
+			FPointArray pts;
+			double x, y;
+			QString chx, ccounter;
+			PageItem* bb;
+			for (uint a = 0; a < currItem->MaxChars; ++a)
+			{
+				pts.resize(0);
+				x = 0.0;
+				y = 0.0;
+				chx = currItem->itemText.at(a)->ch;
+				if ((chx == QChar(13)) || (chx == QChar(32)) || (chx == QChar(29)))
+					continue;
+				if (chx == QChar(30))
 				{
-					chs = QMAX(static_cast<int>(currItem->itemText.at(a)->csize * Doc->typographicSettings.valueSmallCaps / 100), 1);
-					chx = chx.upper();
+					chx = currItem->ExpandToken(a);
+					if (chx == QChar(32))
+						continue;
+				}
+				int chs = currItem->itemText.at(a)->csize;
+				if (currItem->itemText.at(a)->cstyle & 64)
+				{
+					if (chx.upper() != chx)
+					{
+						chs = QMAX(static_cast<int>(currItem->itemText.at(a)->csize * Doc->typographicSettings.valueSmallCaps / 100), 1);
+						chx = chx.upper();
+					}
+				}
+				double csi = static_cast<double>(chs) / 100.0;
+				uint chr = chx[0].unicode();
+				QWMatrix chma;
+				chma.scale(csi, csi);
+				pts = currItem->itemText.at(a)->cfont->GlyphArray[chr].Outlines.copy();
+				if (pts.size() < 4)
+					continue;
+				x = currItem->itemText.at(a)->cfont->GlyphArray[chr].x * csi;
+				y = currItem->itemText.at(a)->cfont->GlyphArray[chr].y * csi;
+				pts.map(chma);
+				chma = QWMatrix();
+				chma.scale(currItem->itemText.at(a)->cscale / 1000.0, currItem->itemText.at(a)->cscalev / 1000.0);
+				pts.map(chma);
+				chma = QWMatrix();
+				if (currItem->imageFlippedH() && (!currItem->Reverse))
+					chma.scale(-1, 1);
+				if (currItem->imageFlippedV())
+					chma.scale(1, -1);
+				pts.map(chma);
+				uint z = PaintPoly(currItem->Xpos, currItem->Ypos, currItem->Width, currItem->Height, currItem->Pwidth, currItem->lineColor(), currItem->fillColor());
+				bb = Doc->Items.at(z);
+				bb->setTextFlowsAroundFrame(currItem->textFlowsAroundFrame());
+				bb->setTextFlowUsesBoundingBox(currItem->textFlowUsesBoundingBox());
+				bb->setSizeLocked(currItem->sizeLocked());
+				bb->setLocked(currItem->locked());
+				bb->NamedLStyle = currItem->NamedLStyle;
+				bb->setItemName(currItem->itemName()+"+"+ccounter.setNum(a));
+				bb->AutoName = false;
+				bb->PoLine = pts.copy();
+				bb->Rot = currItem->Rot;
+				bb->setFillColor(currItem->itemText.at(a)->ccolor);
+				bb->setFillShade(currItem->itemText.at(a)->cshade);
+				if (currItem->itemText.at(a)->cstyle & 4)
+				{
+					bb->lineColor() = currItem->itemText.at(a)->cstroke;
+					bb->setLineShade(currItem->itemText.at(a)->cshade2);
+				}
+				else
+				{
+					bb->lineColor() = "None";
+					bb->setLineShade(100);
+				}
+				if (bb->fillColor() != "None")
+					bb->fillQColor = Doc->PageColors[bb->fillColor()].getShadeColorProof(bb->fillShade());
+				if (bb->lineColor() != "None")
+					bb->strokeQColor = Doc->PageColors[bb->lineColor()].getShadeColorProof(bb->lineShade());
+				bb->Pwidth = chs * currItem->itemText.at(a)->coutline / 10000.0;
+				FPoint tp2 = getMinClipF(&bb->PoLine);
+				bb->PoLine.translate(-tp2.x(), -tp2.y());
+				FPoint tp = getMaxClipF(&bb->PoLine);
+				bb->Width = tp.x();
+				bb->Height = tp.y();
+				bb->Clip = FlattenPath(bb->PoLine, bb->Segments);
+				FPoint npo;
+				double textX = currItem->itemText.at(a)->xp;
+				double textY = currItem->itemText.at(a)->yp;
+				double wide;
+				if (a < currItem->itemText.count()-1)
+					wide = Cwidth(Doc, currItem->itemText.at(a)->cfont, chx, currItem->itemText.at(a)->csize, currItem->itemText.at(a+1)->ch);
+				else
+					wide = Cwidth(Doc, currItem->itemText.at(a)->cfont, chx, currItem->itemText.at(a)->csize);
+				if (currItem->imageFlippedH())
+					textX = currItem->Width - textX - wide;
+				if (currItem->imageFlippedV())
+					textY = currItem->Height - textY+ y - (bb->Height - y);
+				npo = transformPoint(FPoint(textX+x, textY-y), 0.0, 0.0, currItem->Rot, 1.0, 1.0);
+				bb->Xpos = currItem->Xpos+npo.x();
+				bb->Ypos = currItem->Ypos+npo.y();
+				bb->ContourLine = bb->PoLine.copy();
+				bb->ClipEdited = true;
+				setRedrawBounding(bb);
+				newGroupedItems.append(bb);
+			}
+			if (newGroupedItems.count() > 1)
+			{
+				for (uint ag = 0; ag < newGroupedItems.count(); ++ag)
+				{
+					bb = newGroupedItems.at(ag);
+					bb->Groups.push(Doc->GroupCounter);
 				}
 			}
-			double csi = static_cast<double>(chs) / 100.0;
-			uint chr = chx[0].unicode();
-			QWMatrix chma;
-			chma.scale(csi, csi);
-			pts = currItem->itemText.at(a)->cfont->GlyphArray[chr].Outlines.copy();
-			if (pts.size() < 4)
-				continue;
-			x = currItem->itemText.at(a)->cfont->GlyphArray[chr].x * csi;
-			y = currItem->itemText.at(a)->cfont->GlyphArray[chr].y * csi;
-			pts.map(chma);
-			chma = QWMatrix();
-			chma.scale(currItem->itemText.at(a)->cscale / 1000.0, currItem->itemText.at(a)->cscalev / 1000.0);
-			pts.map(chma);
-			chma = QWMatrix();
-			if (currItem->imageFlippedH() && (!currItem->Reverse))
-				chma.scale(-1, 1);
-			if (currItem->imageFlippedV())
-				chma.scale(1, -1);
-			pts.map(chma);
-			uint z = PaintPoly(currItem->Xpos, currItem->Ypos, currItem->Width, currItem->Height, currItem->Pwidth, currItem->lineColor(), currItem->fillColor());
-			bb = Doc->Items.at(z);
-			bb->setTextFlowsAroundFrame(currItem->textFlowsAroundFrame());
-			bb->setTextFlowUsesBoundingBox(currItem->textFlowUsesBoundingBox());
-			bb->setSizeLocked(currItem->sizeLocked());
-			bb->setLocked(currItem->locked());
-			bb->NamedLStyle = currItem->NamedLStyle;
-			bb->setItemName(currItem->itemName()+"+"+ccounter.setNum(a));
-			bb->AutoName = false;
-			bb->PoLine = pts.copy();
-			bb->Rot = currItem->Rot;
-			bb->setFillColor(currItem->itemText.at(a)->ccolor);
-			bb->setFillShade(currItem->itemText.at(a)->cshade);
-			if (currItem->itemText.at(a)->cstyle & 4)
-			{
-				bb->lineColor() = currItem->itemText.at(a)->cstroke;
-				bb->setLineShade(currItem->itemText.at(a)->cshade2);
-			}
-			else
-			{
-				bb->lineColor() = "None";
-				bb->setLineShade(100);
-			}
-			if (bb->fillColor() != "None")
-				bb->fillQColor = Doc->PageColors[bb->fillColor()].getShadeColorProof(bb->fillShade());
-			if (bb->lineColor() != "None")
-				bb->strokeQColor = Doc->PageColors[bb->lineColor()].getShadeColorProof(bb->lineShade());
-			bb->Pwidth = chs * currItem->itemText.at(a)->coutline / 10000.0;
-			FPoint tp2 = getMinClipF(&bb->PoLine);
-			bb->PoLine.translate(-tp2.x(), -tp2.y());
-			FPoint tp = getMaxClipF(&bb->PoLine);
-			bb->Width = tp.x();
-			bb->Height = tp.y();
-			bb->Clip = FlattenPath(bb->PoLine, bb->Segments);
-			FPoint npo;
-			double textX = currItem->itemText.at(a)->xp;
-			double textY = currItem->itemText.at(a)->yp;
-			double wide;
-			if (a < currItem->itemText.count()-1)
-				wide = Cwidth(Doc, currItem->itemText.at(a)->cfont, chx, currItem->itemText.at(a)->csize, currItem->itemText.at(a+1)->ch);
-			else
-				wide = Cwidth(Doc, currItem->itemText.at(a)->cfont, chx, currItem->itemText.at(a)->csize);
-			if (currItem->imageFlippedH())
-				textX = currItem->Width - textX - wide;
-			if (currItem->imageFlippedV())
-				textY = currItem->Height - textY+ y - (bb->Height - y);
-			npo = transformPoint(FPoint(textX+x, textY-y), 0.0, 0.0, currItem->Rot, 1.0, 1.0);
-			bb->Xpos = currItem->Xpos+npo.x();
-			bb->Ypos = currItem->Ypos+npo.y();
-			bb->ContourLine = bb->PoLine.copy();
-			bb->ClipEdited = true;
-			setRedrawBounding(bb);
-			SelItem.append(bb);
+			Doc->GroupCounter++;
+			delItems.append(SelItem.take(offset));
 		}
-		if (SelItem.count() > 1)
+		
+		uint toDeleteItemCount=delItems.count();
+		if (toDeleteItemCount != 0)
 		{
-			for (uint ag = 0; ag < SelItem.count(); ++ag)
-			{
-				bb = SelItem.at(ag);
-				bb->Groups.push(Doc->GroupCounter);
-			}
+			SelItem.clear();
+			for(uint i=0; i<toDeleteItemCount; ++i)
+				SelItem.append(delItems.take(0)); //yes, 0, remove the first
+			DeleteItem();
 		}
-		Doc->GroupCounter++;
-		SelItem.clear();
-		SelItem.append(currItem);
-		DeleteItem();
 	}
 }
 
