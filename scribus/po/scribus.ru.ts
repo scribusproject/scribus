@@ -1492,10 +1492,6 @@ May throw IndexError for an insertion out of bounds.
 <context>
     <name>About</name>
     <message>
-        <source>%1. %2 %3 </source>
-        <translation type="obsolete">%1. %2 %3 </translation>
-    </message>
-    <message>
         <source>Scribus Version %1
 %2 %3</source>
         <translation>Scribus v%1
@@ -3727,8 +3723,8 @@ Are you sure you want to discard all your changes?
 be saved in its current form. The error was:
 %1
 </source>
-        <translation>Сборка макроса не удалась, так что онне может быть
-сожранён в текущем виде. Вот ошибка:
+        <translation>Сборка макроса не удалась, так что он не может быть
+сохранён в текущем виде. Вот ошибка:
 %1
 </translation>
     </message>
@@ -3782,7 +3778,7 @@ be saved in its current form. The error was:
     </message>
     <message>
         <source>&lt;qt&gt;Save changes and exit.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Сохранить изменений и выйти.&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;Сохранить изменения и выйти.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Save changes to the macro and exit. If there is a problem with the macro, a message will be displayed and the editing dialog will not close.&lt;/qt&gt;</source>
@@ -3825,10 +3821,6 @@ be saved in its current form. The error was:
         <translation>Сохранить исходный код - текст макроса во внешний файл. Сохранённый файл можно изменить извне и повторно загрузить.</translation>
     </message>
     <message>
-        <source>Python source files (.py)</source>
-        <translation type="obsolete">Файлы с исходным кодом на Python (.py)</translation>
-    </message>
-    <message>
         <source>Save File Dialog</source>
         <translation>Диалог сохранения файлов</translation>
     </message>
@@ -3846,7 +3838,9 @@ be saved in its current form. The error was:
     </message>
     <message>
         <source>Python source files (*.py)</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;Через этот диалог управляются макросы Scribus. Здесь вы можете создать макрос, изменить его и т.д. Все изменения производятся кнопками в правой части диалога.&lt;/p&gt;
+&lt;p&gt;Все восимые изменения необратимы - изменив что-то однажды, вы не сможете нажать кнопку &quot;Отменить&quot; и вернуть всё в исходное состояние.
+В таблице содержится список макросов, статус их загрузки и сводка по каждому из них. Подробности можно получить при помощи кнопки &quot;Что это&quot; в заголовке окна.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
 </context>
 <context>
@@ -5129,7 +5123,9 @@ A full traceback follows:
         <source>&lt;qt&gt;&lt;p&gt;This window is the Scribus Macro Manager. Here you can create macros, edit macros, etc. All changes are made using the buttons on the right hand side of the window.&lt;/p&gt;
 &lt;p&gt;All changes made in this dialog take effect instantly - you cannot cancel the actions you make here.
 The table in the center of the dialog lists what macros are currently loaded and some information about them. Use &quot;What&apos;s this&quot; on the table for more information.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;Через этот диалог управляются макросы Scribus. Здесь вы можете создать макрос, изменить его и т.д. Все изменения производятся кнопками в правой части диалога.&lt;/p&gt;
+&lt;p&gt;Все восимые изменения необратимы - изменив что-то однажды, вы не сможете нажать кнопку &quot;Отменить&quot; и вернуть всё в исходное состояние.
+В таблице содержится список макросов, статус их загрузки и сводка по каждому из них. Подробности о каждом макросе можно получить при помощи кнопки &quot;Что это&quot; on the table for more information.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -5145,7 +5141,7 @@ The table in the center of the dialog lists what macros are currently loaded and
     </message>
     <message>
         <source>&lt;qt&gt;Create a new macro by prompting for the macro name then bringing up the edit macro dialog box.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Создать новый макрос, задав его имя и внеся его код в открываемый затем диалог с редактором кода.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Ok</source>
@@ -5161,7 +5157,7 @@ The table in the center of the dialog lists what macros are currently loaded and
     </message>
     <message>
         <source>Edit</source>
-        <translation>Изменить</translation>
+        <translation>Правка</translation>
     </message>
     <message>
         <source>Accel</source>
@@ -5178,7 +5174,12 @@ The table in the center of the dialog lists what macros are currently loaded and
 &lt;p&gt;&lt;b&gt;Edit:&lt;/b&gt; If the macro can be edited, &quot;Yes&quot; appears in this column. Usually if a macro cannot be edited it was created using the register_macro command in a script.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Accel:&lt;/b&gt; The menu shortcut key sequence, if any, associated with the macro. For example, CTRL-F8 means that you can press Control-F8 when in Scribus to run the macro.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Description:&lt;/b&gt; If the macro contains a &quot;docstring&quot;, a special string at the start of its definition that describes it, that is shown here. If the docstring is long, only the beginning is shown - use &quot;What&apos;s This&quot; on the macro&apos;s entry in the Macro menu to see the full description.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;В этой таблице перечисляются доступные в данный момент макросы.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Имя:&lt;/b&gt; Имя макроса, каким оно представлено в меню и прочих частях интерфейса Scribus.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Правка:&lt;/b&gt; Если макрос можно изменить, в этом столбце указывается &quot;Да&quot;. Обычно если макрос изменить нельзя, то скорее всего он был создан командой register_macro из сценария.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Сочетание:&lt;/b&gt; Горячие клавишы для исполнения макроса, если таковые назначены. К примеру,нажатие, скажем, CTRL-F8 в Scribus приведёт к исполнению того или иного макроса.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Описание:&lt;/b&gt; Если в макросе содержится &quot;docstring&quot;, специальная строка в начале описания, то она отображается в этом столбце. Слишком длинное описание при отображении укорачивается - щёлкните знаком вопроса с кнопки &quot;Что это&quot; по строке для просмотра полного описания.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Rena&amp;me</source>
@@ -5222,7 +5223,7 @@ The table in the center of the dialog lists what macros are currently loaded and
     </message>
     <message>
         <source>&lt;p&gt;Delete the selected macro. This is instant, and there is no way to recover the macro once deleted. If the macro is created by a start-up script, it will reappear next time you load Scribus.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Удалить выбранный макрос. Эта операция необратима. Если же макрос был создан сценарием, запускающимся при загрузке, то он появится при следующем запуске Scribus.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>&amp;Set Accel</source>
@@ -5255,7 +5256,8 @@ The table in the center of the dialog lists what macros are currently loaded and
     <message>
         <source>&lt;p&gt;Export macros to an external file. The file will be a Python script containing the scripter commands to re-create the macros. It can be run using &lt;tt&gt;Load extension script&lt;/tt&gt; from the &lt;tt&gt;Script&lt;/tt&gt; menu, or the import button in the macro manager.&lt;/p&gt;
 &lt;p&gt;If you want a nice, human readable version of your macros, select the macro you want, press the &lt;tt&gt;Edit&lt;/tt&gt;  button, and use the &lt;tt&gt;Save source&lt;/tt&gt; button in the &lt;tt&gt;Edit Macro&lt;/tt&gt; dialog. You won&apos;t be able to load that version with &lt;tt&gt;Load extension script&lt;/tt&gt; - instead, create a new macro with the&lt;tt&gt; New&lt;/tt&gt; button and use &lt;tt&gt;Load source&lt;/tt&gt;.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Экспортировать макрос во внешний файл. Этот файл будет сценарием на Python, содержащим команды сценариста для воссоздания  макроса. Он может быть в дальнейшем запущен командой  &lt;tt&gt;Загрузить сценарий расширения&lt;/tt&gt; из меню &lt;tt&gt;Сценарии&lt;/tt&gt;, либо нажатием кнопки &quot;Импортировать&quot; в диалоге управления макросами.&lt;/p&gt;
+&lt;p&gt;Если вам нужна красивая, читабельная версия макроса, вызовите диалог правки макроса и сохраните его код во внешний файл. Помните, что вы не сможете затем загрузить этот код через функцию &lt;tt&gt;Загрузить сценарий расширения&lt;/tt&gt;. Вместо этого вам придётся создать новый макрос и загрузить в него этот исходный код.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Delete &amp;All</source>
@@ -5301,7 +5303,9 @@ The table in the center of the dialog lists what macros are currently loaded and
         <source>&lt;p&gt;Edit the selected macro. &lt;/p&gt;
 &lt;p&gt;If this button is greyed out, either there is no selected macro or the macro manager does not have the source code for the macro you have selected (in which case &lt;tt&gt;No&lt;/tt&gt; will be shown in the &lt;tt&gt;Edit &lt;/tt&gt;column of the macro).&lt;/p&gt;
 &lt;p&gt;If Scribus doesn&apos;t have the source, the macro was probably created by a script.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Изменить выбранный макрос. &lt;/p&gt;
+&lt;p&gt;Если кнопка недоступна и надпись на ней серого цвета, значит либо не выбран макрос, либо для макроса нет исходного кода, в случае чего в столбце &lt;tt&gt;Правка&lt;/tt&gt; будет стоять значение &lt;tt&gt;Нет&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;Если для макроса нет исходного кода, то, вероятно, этот макрос был создан сценарием.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Scribus Macro Files (*.pymacro)</source>
@@ -5444,31 +5448,6 @@ The table in the center of the dialog lists what macros are currently loaded and
     <message>
         <source> p</source>
         <translation>p</translation>
-    </message>
-</context>
-<context>
-    <name>MenuTest</name>
-    <message>
-        <source>Script error</source>
-        <translation type="obsolete">Ошибка сценария</translation>
-    </message>
-    <message>
-        <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
-        <translation type="obsolete">Если вы пытались выполнить сценарий из стандартной поставки Scribus, 
-сообщите об ошибке на &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;, пожалуйста.</translation>
-    </message>
-    <message>
-        <source>Show &amp;Console</source>
-        <translation type="obsolete">&amp;Показать консоль</translation>
-    </message>
-    <message>
-        <source>Hide &amp;Console</source>
-        <translation type="obsolete">Спрятать &amp;консоль</translation>
-    </message>
-    <message>
-        <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
-        <translation type="obsolete">Это сообщение скопировано в буфер обмена.
-Нажмите Ctrl+V, чтобы вставить его в жалобную книгу.</translation>
     </message>
 </context>
 <context>
@@ -5699,10 +5678,6 @@ a range of pages or a single page number.</source>
     <message>
         <source>Line Spacing</source>
         <translation>Межстрочное расстояние</translation>
-    </message>
-    <message>
-        <source>Manual Kerning</source>
-        <translation type="obsolete">Задаваемый кернинг</translation>
     </message>
     <message>
         <source>None</source>
@@ -6096,7 +6071,7 @@ Corners:</source>
     </message>
     <message>
         <source>Use &amp;Bounding Box</source>
-        <translation>Использовать &amp;площадку</translation>
+        <translation>Использовать &amp;площадку (BB)</translation>
     </message>
     <message>
         <source>&amp;Use Contour Line</source>
@@ -6105,10 +6080,6 @@ Corners:</source>
     <message>
         <source>&amp;Font Size:</source>
         <translation>&amp;Кегль шрифта:</translation>
-    </message>
-    <message>
-        <source>&amp;Kerning:</source>
-        <translation type="obsolete">&amp;Кернинг:</translation>
     </message>
     <message>
         <source>L&amp;ine Spacing:</source>
@@ -6765,59 +6736,12 @@ otherwise Coordinates are relative to the Object.</source>
 <context>
     <name>OdtDialog</name>
     <message>
-        <source>OpenOffice.org Writer Importer Options</source>
-        <translation type="obsolete">Параметры импорта из OpenOffice.org Writer</translation>
-    </message>
-    <message>
-        <source>Update paragraph styles</source>
-        <translation type="obsolete">Обновить абзацные стили</translation>
-    </message>
-    <message>
-        <source>If a paragraph style already exists with the same name as the current
-OpenOffice.org document&apos;s paragraph, should the style in Scribus be
-edited to match the one being imported, or left untouched</source>
-        <translation type="obsolete">Если в документе Scribus существует стиль, имя которого 
-сопадает со стилем импортируемого документа OO.o Writer, 
-то этот стиль может быть обновлён до совпадения с 
-одноимённым стилем из импортируемого документа</translation>
-    </message>
-    <message>
-        <source>Pack paragraph styles</source>
-        <translation type="obsolete">Сжать абзацные стили</translation>
-    </message>
-    <message>
-        <source>Group paragraph styles by attributes.
-Less paragraph styles but controlling them may be hard.
-Should be used if it is known that text must not be edited
-after importing.</source>
-        <translation type="obsolete">Сгруппировать абзацные стили по атрибутам.
-В результате количество стилей уменьшается, 
-но управлять стилевой разметкой становится сложнее.
-Рекомендуется использовать этот параметр только 
-при отсутствии необходимости ручной правки текста.</translation>
-    </message>
-    <message>
         <source>Use document name as a prefix for paragraph styles</source>
         <translation>Добавить название документа в начало абзацного стиля</translation>
     </message>
     <message>
-        <source>Should importer add the name of the document
-on front of the paragraph style name in Scribus</source>
-        <translation type="obsolete">При импорте документа можно добавлять название
-импортируемого документа в начало нового 
-абзацного стиля Scribus</translation>
-    </message>
-    <message>
         <source>Do not ask again</source>
         <translation>Больше не спрашивать</translation>
-    </message>
-    <message>
-        <source>Should the importer always use currently
-set value when importing OpenOffice.org document and
-never ask your confirmation again</source>
-        <translation type="obsolete">Использовать ли эти настройки в дальнейшем
-и больше не запрашивать подтверждение при
-импорте документов OO.o Writer</translation>
     </message>
     <message>
         <source>OK</source>
@@ -7159,18 +7083,6 @@ security features in your exported PDF</source>
         <translation>&amp;Шрифты</translation>
     </message>
     <message>
-        <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.
-Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.
-PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management.</source>
-        <translation type="obsolete">Здесь определяется совместимость с PDF разных версий.
-Выберите Acrobat 4.0, если вам нужна максимальная совместимость.
-Выберите Acrobat 5.0, если в документе используются особенности 
-PDF 1.4 (например, полупрозрачность) или 128-битное шифрование.
-Выберите PDF/X-3, если предполагается профессиональная 
-высококачественная полиграфия. Этот вариант доступен при включённой 
-системе управления цветом (CMS).</translation>
-    </message>
-    <message>
         <source>Determines the binding of pages in the PDF. Unless you know
 you need to change it leave the default choice - Left.</source>
         <translation>Здесь определяется брошюровка страниц в PDF. Если вы не знаете, 
@@ -7200,35 +7112,6 @@ This does not affect the resolution of bitmap images like photos.</source>
         <translation>Экспортировать разрешение текста и векторной 
 графики. На растровые изображения, подобные 
 фотографиям, это не распространяется.</translation>
-    </message>
-    <message>
-        <source>Compression of text and graphics.
-Unless you have a reason, leave this checked. This reduces PDF size.</source>
-        <translation type="obsolete">Сжимать текст и графику. Без особой причины 
-отключать этот параметр не стоит. Это помогает 
-уменьшить размер получаемого PDF-файла.</translation>
-    </message>
-    <message>
-        <source>Version of compression for images.
-Automatic allows Scribus to choose the best method.
-ZIP is good for images with solid colors.
-JPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).
-Leave it set to automatic, unless you have a need for special compression options.</source>
-        <translation type="obsolete">Способ сжатия изображения
-Автоматический - Scribus сам выбирает подходящий способ.
-ZIP - подходит для изображений со сплошными тонами.
-JPEG - больше подходит для создания PDF файлов меньшего 
-размера с большим количеством фотографий (и по 
-возможности небольшой потерей в качестве).
-Для типичных задач рекомендуется оставить 
-автоматический выбор типа сжатия.</translation>
-    </message>
-    <message>
-        <source>Downsample your bitmap images to the selected DPI.
-Leaving this unchecked will render them at their native resolution.</source>
-        <translation type="obsolete">Изменить разрешение растровых изображений до указанного.
-Если флажок не выставлен, будут использованы исходные 
-значения количества точек на дюйм.</translation>
     </message>
     <message>
         <source>DPI (Dots Per Inch) for image export.</source>
@@ -7347,13 +7230,6 @@ If un-checked, text and graphics cannot be copied.</source>
 текст и графику в PDF будет невозможно.</translation>
     </message>
     <message>
-        <source>Allow adding annotations and fields to the PDF. 
-If un-checked, editing annotations and fileds is prevented.</source>
-        <translation type="obsolete">Разрешить добавление аннотаций и полей в PDF.
-При невыставленном флажке редактировать 
-аннотации и поля в PDF будет невозможно.</translation>
-    </message>
-    <message>
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
@@ -7361,10 +7237,6 @@ a range of pages or a single page number.</source>
 маркёров, где каждый маркёр может быть * для 
 всех страниц, 1-5 для диапазона страниц или 
 номером одиночной страницы.</translation>
-    </message>
-    <message>
-        <source>Create PDF File</source>
-        <translation type="obsolete">Создание PDF-файла</translation>
     </message>
     <message>
         <source>O&amp;utput to File:</source>
@@ -7651,21 +7523,27 @@ If un-checked, editing annotations and fields is prevented.</source>
     <message>
         <source> Lossless compression of text and graphics.
 Unless you have a reason, leave this checked. This reduces PDF size.</source>
-        <translation type="unfinished"></translation>
+        <translation>Сжатие текста и графики без потерь.
+При включённой опции размер PDF снижает.
+не стоит отключать её без особых причин.</translation>
     </message>
     <message>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options.</source>
-        <translation type="unfinished"></translation>
+        <translation>Способ сжатия изображений. Автоматический - Scribus сам выбирает подходящий способ. ZIP - подходит для изображений со сплошными тонами. JPEG - больше подходит для создания PDF-файлов меньшего размера с большим количеством фотографий (и по возможности небольшой потерей в качестве). Для типичных задач рекомендуется оставить автоматический выбор типа сжатия.</translation>
     </message>
     <message>
         <source>Re-sample your bitmap images to the selected DPI.
 Leaving this unchecked will render them at their native resolution.
 This can increase memory usage and slow down export.</source>
-        <translation type="unfinished"></translation>
+        <translation>Изменить разрешение растровых изображений до указанного.
+Если флажок не выставлен, будут использованы исходные 
+значения количества точек на дюйм, из-за чего может вырасти 
+потребление памяти и замедлиться скорость экспорта.</translation>
     </message>
     <message>
         <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility. Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Note: PDF/X-3 will convert all CMYK images to ICC based RGB colors. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Здесь определяется совместимость с PDF разных версий. Выберите Acrobat 4.0, если вам нужна максимальная совместимость. Выберите Acrobat 5.0, если в документе используются особенности PDF 1.4 (например, полупрозрачность) или 128-битное шифрование. Выберите PDF/X-3 для серьёзных коммерческих заказов, требующих управления цветом (этот вариант доступен при включённой 
+системе управления цветом).</translation>
     </message>
 </context>
 <context>
@@ -7845,10 +7723,6 @@ EPS, PDF и векторной графики при просмотре цено
     <message>
         <source>Warning</source>
         <translation>Предупреждение</translation>
-    </message>
-    <message>
-        <source>Copy of</source>
-        <translation type="obsolete">Копия</translation>
     </message>
     <message>
         <source>&amp;Paste</source>
@@ -8454,10 +8328,6 @@ Scribus inherits any available KDE or Qt themes</source>
         <translation>Стандартный каталог для документов</translation>
     </message>
     <message>
-        <source>Default ICC profiles directory</source>
-        <translation type="obsolete">Стандартный каталог для ICC-профилей</translation>
-    </message>
-    <message>
         <source>Default Scripter scripts directory</source>
         <translation>Стандартный каталог для сценариев</translation>
     </message>
@@ -8739,10 +8609,6 @@ each time the time period elapses</source>
         <translation>Указать стандартный масштаб вида страницы</translation>
     </message>
     <message>
-        <source>Filesystem location for the Ghostscript interpreter</source>
-        <translation type="obsolete">Путь к интерпретатору Ghostscript в системе</translation>
-    </message>
-    <message>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
         <translation>Сглаживать текст для EPS и PDF при отображении на экране</translation>
     </message>
@@ -8767,20 +8633,8 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Сохранять содержимое запасника при каждом его изменении</translation>
     </message>
     <message>
-        <source>Filesystem location for graphics editor</source>
-        <translation type="obsolete">Путь к графическому редактору</translation>
-    </message>
-    <message>
         <source>Baseline Grid</source>
         <translation>Сетка линии шрифта</translation>
-    </message>
-    <message>
-        <source>Turns on the basegrid</source>
-        <translation type="obsolete">Включить опорную сетку</translation>
-    </message>
-    <message>
-        <source>Turns off the basegrid</source>
-        <translation type="obsolete">Выключить опорную сетку</translation>
     </message>
     <message>
         <source> px</source>
@@ -9674,10 +9528,6 @@ Check path and filename.</source>
         <translation>Открыть</translation>
     </message>
     <message>
-        <source>Python Scripts (*.py);; All Files (*)</source>
-        <translation type="obsolete">Сценарии на Python (*.py);; Все файлы (*)</translation>
-    </message>
-    <message>
         <source>Save as</source>
         <translation>Сохранить как</translation>
     </message>
@@ -9712,10 +9562,6 @@ Check path and filename.</source>
     <message>
         <source>Print Preview</source>
         <translation>Просмотреть вид печати</translation>
-    </message>
-    <message>
-        <source>S&amp;cript</source>
-        <translation type="obsolete">С&amp;ценарии</translation>
     </message>
     <message>
         <source>Error writing the output file(s).</source>
@@ -9864,22 +9710,6 @@ Check path and filename.</source>
     <message>
         <source>S&amp;cripter Manual...</source>
         <translation>&amp;Руководство по сценариям</translation>
-    </message>
-    <message>
-        <source>&amp;Scribus Scripts</source>
-        <translation type="obsolete">&amp;Сценарии</translation>
-    </message>
-    <message>
-        <source>&amp;Execute Script...</source>
-        <translation type="obsolete">&amp;Выполнить сненарий...</translation>
-    </message>
-    <message>
-        <source>&amp;Recent Scripts</source>
-        <translation type="obsolete">&amp;Недавние сценарии</translation>
-    </message>
-    <message>
-        <source>Show &amp;Console</source>
-        <translation type="obsolete">Показать &amp;консоль</translation>
     </message>
     <message>
         <source>Save Page as &amp;SVG...</source>
@@ -10090,14 +9920,6 @@ External Links
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;About Script...</source>
-        <translation type="obsolete">О сц&amp;енарии...</translation>
-    </message>
-    <message>
-        <source>About Script</source>
-        <translation type="obsolete">О сценарии</translation>
-    </message>
-    <message>
         <source>Cannot get a color with an empty name.</source>
         <comment>python error</comment>
         <translation>Невозможно получить цвет с пустым именем.</translation>
@@ -10111,16 +9933,6 @@ External Links
         <source>Cannot change a color with an empty name.</source>
         <comment>python error</comment>
         <translation>Невозможно изменить цвет с пустым именем.</translation>
-    </message>
-    <message>
-        <source>Color not found in document</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Цвет не найден в документе</translation>
-    </message>
-    <message>
-        <source>Color not found in default colors</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Цвет не найден среди стандартных цветов</translation>
     </message>
     <message>
         <source>Cannot create a color with an empty name.</source>
@@ -10156,46 +9968,6 @@ External Links
         <source>Target is not an image frame.</source>
         <comment>python error</comment>
         <translation>Цель не является рамкой изображения.</translation>
-    </message>
-    <message>
-        <source>Can&apos;t scale by 0%</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Масштабирование на 0% невозможно</translation>
-    </message>
-    <message>
-        <source>Font not found</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Шрифт не найден</translation>
-    </message>
-    <message>
-        <source>Can&apos;t render an empty sample</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Невозможно обработать пустой пример</translation>
-    </message>
-    <message>
-        <source>Can&apos;t save to a blank filename</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Невозможно сохранить в файл с пустым именем</translation>
-    </message>
-    <message>
-        <source>Can&apos;t have an empty layer name</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Не может быть слоя без имени</translation>
-    </message>
-    <message>
-        <source>Layer not found</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Слой не найден</translation>
-    </message>
-    <message>
-        <source>Can&apos;t remove the last layer</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Невозможно удалить последний слой</translation>
-    </message>
-    <message>
-        <source>Can&apos;t create layer without a name</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Невозможно создать слой без имени</translation>
     </message>
     <message>
         <source>An object with the requested name already exists</source>
@@ -10336,21 +10108,6 @@ External Links
         <source>Alignment out of range. Use one of the scribus.ALIGN* constants.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Can&apos;t set text alignment on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Невозможно установить выключку текста для нетекстовой рамки</translation>
-    </message>
-    <message>
-        <source>Can&apos;t set font size on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Невозможно установить кегль для нетекстовой рамки</translation>
-    </message>
-    <message>
-        <source>Can&apos;t set font on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Невозможно установить шрифт для нетекстовой рамки</translation>
     </message>
     <message>
         <source>Selection index out of bounds</source>
@@ -10651,17 +10408,12 @@ function&apos;s documentation.</source>
     </message>
     <message>
         <source>Portuguese (Brazilian)</source>
-        <translation>Португальский (Бразилия)</translation>
+        <translation>На бразильский португальский</translation>
     </message>
     <message>
         <source>Cannot get a colour with an empty name.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Colour not found</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Цвет не найден</translation>
     </message>
     <message>
         <source>Unable to save pixmap.</source>
@@ -10693,7 +10445,7 @@ function&apos;s documentation.</source>
     <message>
         <source>page</source>
         <comment>page export</comment>
-        <translation type="unfinished"></translation>
+        <translation>страница</translation>
     </message>
 </context>
 <context>
@@ -11040,16 +10792,8 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Настройки символа</translation>
     </message>
     <message>
-        <source>Kerning:</source>
-        <translation type="obsolete">Кернинг:</translation>
-    </message>
-    <message>
         <source> pt</source>
         <translation>pt</translation>
-    </message>
-    <message>
-        <source>Manual Kerning</source>
-        <translation type="obsolete">Задаваемый кернинг</translation>
     </message>
     <message>
         <source>Tracking:</source>
@@ -11080,10 +10824,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Searching for Fonts</source>
         <translation>Идёт поиск шрифтов</translation>
-    </message>
-    <message>
-        <source>There are no Postscript-Fonts on your System</source>
-        <translation type="obsolete">В вашей системе нет PostScript-шрифтов</translation>
     </message>
     <message>
         <source>Exiting now</source>
@@ -12549,7 +12289,9 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Import All Names at Startup&lt;/tt&gt; is an advanced option. You should probably leave it checked unless you have read the documentation and know what you are doing.&lt;/p&gt;
 &lt;p&gt;Unchecking this option will prevent the scripter from running its usual &lt;tt&gt;from scribus import *&lt;/tt&gt; command when it initializes the main interpreter (used for the script console and extension scripts) at start-up.&lt;/p&gt;
 &lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Импортировать все имена при запуске&lt;/tt&gt; - расширенная функция. Если вы не знаете, зачем она, не отключайте её, либо сначала прочитайте документацию.&lt;/p&gt;
+&lt;p&gt;Отключение этой функции запретить сценаристу запускать его обычную команду &lt;tt&gt;from scribus import *&lt;/tt&gt; при инициализации основного интерпретатора  (используемого для консоли сценариев и сценариев расширения) во время запуска программы.&lt;/p&gt;
+&lt;p&gt;Включение и отключение этой функции учитывается только при повторном запуске Scribus.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Enable Legacy Name Aliases</source>
@@ -12563,11 +12305,13 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Enable Legacy Aliases&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
 &lt;p&gt;If checked, this option will cause the scripter to create a large number of function and constant name aliases for 1.2.0 script compatibility. It defaults to checked.&lt;/p&gt;
 &lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Использовать унаследованные имена функций&lt;/tt&gt; - это расширенная функция. Лучше оставить её включённой.&lt;/p&gt;
+&lt;p&gt;Пока она включена, сценарист будет создавать много функций и постоянных псевдонимов имён для совместимости со сценариями Scribus 1.2.0. По умолчанию функция включена.&lt;/p&gt;
+&lt;p&gt;Включение и отключение этой функции учитывается только при повторном запуске Scribus.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Use Fake Stdin</source>
-        <translation>Использовать псевдоинтерфейс Stdin</translation>
+        <translation>Эмулировать Stdin</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Replace sys.stdin with a fake file to prevent Scribus hanging when a script tries to read from stdin.&lt;/qt&gt;</source>
@@ -12577,7 +12321,9 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Use Fake Stdin&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
 &lt;p&gt;Normally, scribus will provide Python with a fake file object for &lt;tt&gt;sys.stdin&lt;/tt&gt;, so that reads from stdin always return an empty string. If the real &lt;tt&gt;sys.stdin&lt;/tt&gt; is left in place, scripts that try to read from it will block - and in turn block scribus&apos;s execution, making the app appear to hang - until input arrives on stdin. It&apos;s unusual for GUI apps to expect anything on stdin, so mostly users will think scribus has crashed.&lt;/p&gt;
 &lt;p&gt;You can disable this option if you want to accept input on stdin. Generally you should use &lt;tt&gt;os.popen&lt;/tt&gt; to make a pipe instead, or use some other input mechanism, but this option is here just in case.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Эмулировать Stdin&lt;/tt&gt; - это расширенная функция. Лучше оставить её включённой.&lt;/p&gt;
+&lt;p&gt;Обычно Scribus передаёт Python ложный файловый объект для &lt;tt&gt;sys.stdin&lt;/tt&gt;, так что при чтении из stdin всегда возвращается пустая строка.Если настоящий &lt;tt&gt;sys.stdin&lt;/tt&gt; на месте,сценарии, пытающиеся читать из него, блокируются, что приводит к блокированию и зависанию Scribus до тех пор, пока на stdin что-нибудь не попадёт. Для программ с графическим интерфейсом весьма необычно получать что-либо с stdin, поэтому большинство пользователей подумает, что Scribus завис намертво.&lt;/p&gt;
+&lt;p&gt;Эту функцию можно отключить, чтобы передавать что-то на stdin. Обычно вместо этого настоятельно рекомендуется использовать &lt;tt&gt;os.popen&lt;/tt&gt; для создания pipe, либо иной механизм ввода, но в реальности эта опция сделана на всякий &quot;пожарный&quot; случай.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
 </context>
 <context>
@@ -13100,10 +12846,6 @@ drag a Template to the Pageview below.</source>
 <context>
     <name>SxwDialog</name>
     <message>
-        <source>Update paragraph styles</source>
-        <translation type="obsolete">Обновить абзацные стили</translation>
-    </message>
-    <message>
         <source>Use document name as a prefix for paragraph styles</source>
         <translation>Добавить название документа в начало абзацного стиля</translation>
     </message>
@@ -13116,47 +12858,8 @@ drag a Template to the Pageview below.</source>
         <translation>ОК</translation>
     </message>
     <message>
-        <source>Should importer add the name of the document
-on front of the paragraph style name in Scribus</source>
-        <translation type="obsolete">При импорте документа можно добавлять название
-импортируемого документа в начало нового 
-абзацного стиля Scribus</translation>
-    </message>
-    <message>
-        <source>If a paragraph style already exists with the same name as the current
-OpenOffice.org document&apos;s paragraph, should the style in Scribus be
-edited to match the one being imported, or left untouched</source>
-        <translation type="obsolete">Если в документе Scribus существует стиль, имя которого 
-сопадает со стилем импортируемого документа OO.o Writer, 
-то этот стиль может быть обновлён до совпадения с 
-одноимённым стилем из импортируемого документа</translation>
-    </message>
-    <message>
         <source>OpenOffice.org Writer Importer Options</source>
         <translation>Параметры импорта из OpenOffice.org Writer</translation>
-    </message>
-    <message>
-        <source>Should the importer always use currently
-set value when importing OpenOffice.org document and
-never ask your confirmation again</source>
-        <translation type="obsolete">Использовать ли эти настройки в дальнейшем
-и больше не запрашивать подтверждение при
-импорте документов OO.o Writer</translation>
-    </message>
-    <message>
-        <source>Pack paragraph styles</source>
-        <translation type="obsolete">Сжать абзацные стили</translation>
-    </message>
-    <message>
-        <source>Group paragraph styles by attributes.
-Less paragraph styles but controlling them may be hard.
-Should be used if it is known that text must not be edited
-after importing.</source>
-        <translation type="obsolete">Сгруппировать абзацные стили по атрибутам.
-В результате количество стилей уменьшается, 
-но управлять стилевой разметкой становится сложнее.
-Рекомендуется использовать этот параметр только 
-при отсутствии необходимости ручной правки текста.</translation>
     </message>
     <message>
         <source>Update Paragraph Styles</source>
@@ -13623,10 +13326,6 @@ with checked button too.</source>
     <message>
         <source>Automatic</source>
         <translation>Автоматически</translation>
-    </message>
-    <message>
-        <source>Get text only</source>
-        <translation type="obsolete">Только текст</translation>
     </message>
     <message>
         <source>Import text without any formatting</source>
