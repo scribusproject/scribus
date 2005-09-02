@@ -1,10 +1,6 @@
 # -*- coding: utf-8 -*-
-"""
 
-UNFINISHED!
-
-
-This is a simple 'Calendar creation wizard' for Scribus. It's a fully
+""" This is a simple 'Calendar creation wizard' for Scribus. It's a fully
 rewritten Calender.py from Scribus examples. Enjoy.
 
 DESCRIPTION & USAGE:
@@ -155,6 +151,11 @@ class ScCalendar:
         """ Taken from samples/golden-mean.py."""
         return aSize * ((sqrt(5) - 1)/2)
 
+    def applyTextToFrame(self, aText, aFrame):
+        """ Insert the text with style. """
+        setText(aText, aFrame)
+        setStyle(self.pStyle, aFrame)
+
     def createCalendar(self):
         """ Walk throudh months dict and calls monthly sheet """
         if not newDocDialog():
@@ -166,7 +167,6 @@ class ScCalendar:
         originalUnit = getUnit()
         setUnit(UNIT_POINTS)
         self.setupDocVariables()
-        #setRedraw(False)
         if self.drawSauce:
             createLayer(self.layerImg)
         createLayer(self.layerCal)
@@ -223,16 +223,14 @@ class ScEventCalendar(ScCalendar):
                 cel = createText(self.gmean + self.marginl,
                                  self.margint + rowCnt * self.rowSize,
                                  self.width - self.gmean, self.rowSize)
-                setStyle(self.pStyle, cel)
                 rowCnt += 1
                 if j != 0:
-                    setText(str(j), cel)
+                    self.applyTextToFrame(str(j), cel)
 
     def createHeader(self, monthName):
         cel = createText(self.gmean + self.marginl, self.margint,
                             self.width - self.gmean, self.rowSize)
-        setStyle(self.pStyle, cel)
-        setText(monthName, cel)
+        self.applyTextToFrame(monthName, cel)
 
     def createImage(self):
         """ Wrapper for everytime-the-same image frame. """
@@ -272,23 +270,21 @@ class ScClassicCalendar(ScCalendar):
                 cel = createText(self.marginl + colCnt * self.colSize,
                                  self.calHeight + rowCnt * self.rowSize,
                                  self.colSize, self.rowSize)
-                setStyle(self.pStyle, cel)
                 colCnt += 1
                 if j != 0:
-                    setText(str(j), cel)
+                    self.applyTextToFrame(str(j), cel)
             rowCnt += 1
 
     def createHeader(self, monthName):
         """ Draw calendar header. Month name and days of the week """
         header = createText(self.marginl, self.calHeight, self.width, self.rowSize)
-        setText(monthName, header)
+        self.applyTextToFrame(monthName, header)
         colCnt = 0
         for i in self.dayOrder:
             cel = createText(self.marginl + colCnt * self.colSize,
                              self.calHeight + self.rowSize,
                              self.colSize, self.rowSize)
-            setStyle(self.pStyle, cel)
-            setText(i, cel)
+            self.applyTextToFrame(i, cel)
             colCnt += 1
 
     def createImage(self):
@@ -471,7 +467,6 @@ def main():
         root.mainloop()
     finally:
         if haveDoc():
-            setRedraw(True)
             redrawAll()
         statusMessage('Done.')
         progressReset()
