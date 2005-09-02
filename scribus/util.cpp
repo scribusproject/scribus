@@ -496,6 +496,11 @@ uint getDouble(QString in, bool raw)
 	return ret;
 }
 
+// Legacy implementation of LoadText with incorrect
+// handling of unicode data. This should be retired.
+// Use loadRawText instead.
+// FIXME XXX
+//
 bool loadText(QString filename, QString *Buffer)
 {
 	QFile f(filename);
@@ -514,6 +519,33 @@ bool loadText(QString filename, QString *Buffer)
 	}
 	else
 		ret = false;
+	return ret;
+}
+
+// Replacement version of loadText that returns a QByteArray as an out
+// parameter. The QByteArray, usually actually a QCString, is filled with the
+// contents of the specified file. The return byte string is of unknown
+// encoding; the caller must handle encoding issues. There is no need to
+// preallocate the buffer, and the new data replaces any old contents.
+bool loadRawText(QString filename, QByteArray & buf)
+{
+	bool ret = false;
+	QFile f(filename);
+	QFileInfo fi(f);
+	if (fi.exists())
+	{
+		bool ret;
+		QCString tempBuf(f.size());
+		if (f.open(IO_ReadOnly))
+		{
+			Q_ULONG bytesRead = f.readBlock(tempBuf.data(), f.size());
+			ret = bytesRead == f.size();
+			if (ret)
+				buf = tempBuf; // sharing makes this efficient
+		}
+	}
+	if (f.isOpen())
+		f.close();
 	return ret;
 }
 
@@ -656,8 +688,9 @@ QString CompressStr(QString *in)
 	uLong exlen = uint(bb.size() * 0.001 + 16) + bb.size();
 	QByteArray bc(exlen);
 	int errcode = compress2((Byte *)bc.data(), &exlen, (Byte *)bb.data(), uLong(bb.size()), 9);
-	if (errcode != Z_OK) {
-		qDebug(QString("compress2 failed with code %1").arg(errcode));
+	if (errcode != Z_OK)
+	{
+		qDebug("compress2 failed with code %i", errcode);
 		out = *in;
 	}
 	else {
