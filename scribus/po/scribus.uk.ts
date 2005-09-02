@@ -4879,7 +4879,7 @@ be saved in its current form. The error was:
     </message>
     <message>
         <source>Python source files (*.py)</source>
-        <translation type="unfinished"></translation>
+        <translation>Файли програм на Пітоні  (*.py)</translation>
     </message>
 </context>
 <context>
@@ -8641,21 +8641,27 @@ If un-checked, editing annotations and fields is prevented.</source>
     <message>
         <source> Lossless compression of text and graphics.
 Unless you have a reason, leave this checked. This reduces PDF size.</source>
-        <translation type="unfinished"></translation>
+        <translation>Компресія тексту та зображень без втрати інформації.
+Залиште цю установку ввімкненою, якщо у Вас немає
+приводу до її відміни. Вона приводить до зменшення
+розміру файла PDF.</translation>
     </message>
     <message>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options.</source>
-        <translation type="unfinished"></translation>
+        <translation>Метод компресії зображень. Автоматичний дозволить Scribus вибрати найкращий метод. ZIP працює без втрати інформації і тому добре підходить для зображень з однотонними кольорами. JPEG приводить до зменшення розміру PDF файлів, які містять багато зображень (можлива деяка втрата якості зображення). Залиште установку в режимі Автоматичний, якщо у Вас немає потреби в особливих режимах компресії зображень.</translation>
     </message>
     <message>
         <source>Re-sample your bitmap images to the selected DPI.
 Leaving this unchecked will render them at their native resolution.
 This can increase memory usage and slow down export.</source>
-        <translation type="unfinished"></translation>
+        <translation>Перерахувати растрові зображення до вибраного розрішення в DPI (ТНД).
+Якщо Ви залишите цю установку вимкненою, то зображення залишаться
+в вихідному розрішенні, що може привести до збільшення потреби в пам&quot;яті
+сповільнити процес експорту.</translation>
     </message>
     <message>
         <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility. Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Note: PDF/X-3 will convert all CMYK images to ICC based RGB colors. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Визначає рівень сумісності PDF. Стандартний рівень дорівнює Acrobat 4.0, який має найширшу сумісність. Виберіть Acrobat 5.0, якщо у Вашому файлі присутні характеристики PDF 1.4, такі як прозорість, або Вам потрібно використовувати 128-бітне шифрування. PDF/X-3 використовується для експорту PDF при використанні кольорових профілів RGB для комерційного друку. Цей режим може бути вибрано лише при активованому керуванні кольорами. Замітка: PDF/X-3 переконвертує всі CMYK кольори в RGB кольори основані на ICC профілях. Використовуйти лише якщо Вам порадив це зробити ваш комерційний друкар, або, в деяких випадках, при друці на 4-х колірних лазерних прінтерах.</translation>
     </message>
 </context>
 <context>
@@ -11903,12 +11909,12 @@ NoValidObjectError, якщо не зможе знайти жодного об&ap
     </message>
     <message>
         <source>Normal</source>
-        <translation type="unfinished"></translation>
+        <translation>Звичайна</translation>
     </message>
     <message>
         <source>page</source>
         <comment>page export</comment>
-        <translation type="unfinished"></translation>
+        <translation>сторінка</translation>
     </message>
 </context>
 <context>
