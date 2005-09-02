@@ -3190,7 +3190,8 @@ void ScriXmlDoc::WritePref(preV *Vor, QString ho)
 	if(!f.open(IO_WriteOnly))
 		return;
 	QTextStream s(&f);
-	s<<docu.toCString();
+	s.setEncoding(QTextStream::UnicodeUTF8);
+	s<<docu.toString();
 	f.close();
 }
 
@@ -3200,8 +3201,13 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho, SplashScreen *splash)
 	QFile f(ho);
 	if(!f.open(IO_ReadOnly))
 		return false;
-	if(!docu.setContent(&f))
+	QTextStream ts(&f);
+	ts.setEncoding(QTextStream::UnicodeUTF8);
+	QString errorMsg;
+	int errorLine = 0, errorColumn = 0;
+	if( !docu.setContent(ts.read(), &errorMsg, &errorLine, &errorColumn) )
 	{
+		qDebug("Failed to read prefs XML: %s at line %i, col %i", errorMsg.local8Bit().data(), errorLine, errorColumn);
 		f.close();
 		return false;
 	}
@@ -3469,7 +3475,7 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho, SplashScreen *splash)
 				lf.setNamedColor(dc.attribute("CMYK"));
 			else
 				lf.fromQColor(QColor(dc.attribute("RGB")));
-		  Vorein->DColors[dc.attribute("NAME")] = lf;
+			Vorein->DColors[dc.attribute("NAME")] = lf;
 		}
 		if (dc.tagName()=="Substitute")
 		  Vorein->GFontSub[dc.attribute("Name")] = dc.attribute("Replace");
