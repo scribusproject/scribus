@@ -1,6 +1,6 @@
 #include "polygonwidget.h"
 #include "polygonwidget.moc"
-#include "scribusapi.h"
+#include "scconfig.h"
 #include <qpointarray.h>
 #include <qpainter.h>
 #include <qrect.h>
