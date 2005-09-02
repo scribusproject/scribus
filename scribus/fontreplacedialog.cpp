@@ -59,10 +59,14 @@ FontReplaceDialog::FontReplaceDialog( QWidget* parent, QMap<QString, QString> *R
 	layout1->addItem( spacer1 );
 	okButton = new QPushButton( CommonStrings::tr_OK, this, "okButton" );
 	layout1->addWidget( okButton );
+	cancelButton = new QPushButton( CommonStrings::tr_Cancel, this, "cancelButton" );
+	layout1->addWidget( cancelButton );
 	FontReplaceDialogLayout->addLayout( layout1 );
 	resize( QSize(474, 247).expandedTo(minimumSizeHint()) );
 	clearWState( WState_Polished );
-	connect(okButton, SIGNAL(clicked()), this, SLOT(close()));
+	QToolTip::add( cancelButton, "<qt>" + tr( "Cancels this Dialog and also loading of the Document") + "</qt>" );
+	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
+	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 }
 
 void FontReplaceDialog::closeEvent(QCloseEvent *closeEvent)

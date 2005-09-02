@@ -27,6 +27,7 @@ public:
 	QTable* replacementTable;
 	QCheckBox* stickyReplacements;
 	QPushButton* okButton;
+	QPushButton* cancelButton;
 	QMap<QString, QString> *ReplaceList;
 
 protected:

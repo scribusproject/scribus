@@ -245,14 +245,21 @@ bool FileLoader::LoadFile(ScribusApp* app)
 		{
 			qApp->setOverrideCursor(QCursor(Qt::arrowCursor), true);
 			FontReplaceDialog *dia = new FontReplaceDialog(0, &ReplacedFonts);
-			dia->exec();
-			QMap<QString,QString>::Iterator itfsu;
-			for (itfsu = ReplacedFonts.begin(); itfsu != ReplacedFonts.end(); ++itfsu)
+			if (dia->exec())
 			{
-				if (dia->stickyReplacements->isChecked())
-					prefsManager->appPrefs.GFontSub[itfsu.key()] = itfsu.data();
+				QMap<QString,QString>::Iterator itfsu;
+				for (itfsu = ReplacedFonts.begin(); itfsu != ReplacedFonts.end(); ++itfsu)
+				{
+					if (dia->stickyReplacements->isChecked())
+						prefsManager->appPrefs.GFontSub[itfsu.key()] = itfsu.data();
+				}
+				delete dia;
 			}
-			delete dia;
+			else
+			{
+				delete dia;
+				return false;
+			}
 		}
 		for (uint d = 0; d < app->doc->MasterItems.count(); ++d)
 		{
