@@ -333,113 +333,95 @@ void ScColor::checkGamut()
 void ScColor::RecalcRGB()
 {
 	outOfGamutFlag = false;
+	bool alert = true;
 #ifdef HAVE_CMS
 	WORD inC[4];
 	WORD outC[4];
-#endif
-	if (Model == colorModelRGB)
+	if ((CMSuse && CMSavail) && (!Spot))
 	{
-		// allow RGB greys to go got to CMYK greys without transform
-		if (R == G && G == B)
+		if (Model == colorModelRGB)
 		{
-			C = M = Y = 0;
-			K = 255 - R;
-		}
-		else
-		{
-#ifdef HAVE_CMS
-			if ((CMSuse && CMSavail) && (!Spot))
+			// allow RGB greys to go got to CMYK greys without transform
+			if (R == G && G == B)
+			{
+				C = M = Y = 0;
+				K = 255 - R;
+			}
+			else
 			{
 				inC[0] = R * 257;
 				inC[1] = G * 257;
 				inC[2] = B * 257;
-				cmsDoTransform(stdTransCMYKG, inC, outC, 1);
-				C = outC[0] / 257;
-				M = outC[1] / 257;
-				Y = outC[2] / 257;
-				K = outC[3] / 257;
-			}
-			else
-#endif
-			{
-				int c = 255 - R;
-				int m = 255 - G;
-				int y = 255 - B;
-				int k = QMIN(QMIN(c, m), y);
-				C = c - k;
-				M = m - k;
-				Y = y - k;
-				K = k;
+				if (SoftProofing)
+				{
+					if ((R == 0) && (B == 0) && (G == 255))
+						alert = false;
+					cmsDoTransform(stdProofG, inC, outC, 1);
+					R = outC[0] / 257;
+					G = outC[1] / 257;
+					B = outC[2] / 257;
+					if ((alert) && (R == 0) && (B == 0) && (G == 255))
+						outOfGamutFlag = true;
+					K = QMIN(QMIN(255 - R, 255 - G), 255 - B);
+					C = 255 - R - K;
+					M = 255 - G - K;
+					Y = 255 - B - K;
+				}
+				else
+				{
+					cmsDoTransform(stdTransCMYKG, inC, outC, 1);
+					C = outC[0] / 257;
+					M = outC[1] / 257;
+					Y = outC[2] / 257;
+					K = outC[3] / 257;
+				}
 			}
 		}
-	}
-	else if (Model == colorModelCMYK)
- 	{
-#ifdef HAVE_CMS
-		if ((CMSuse && CMSavail) && (!Spot))
+		else
 		{
 			inC[0] = C * 257;
 			inC[1] = M * 257;
 			inC[2] = Y * 257;
 			inC[3] = K * 257;
-			cmsDoTransform(stdTransRGBG, inC, outC, 1);
+			if (SoftProofing)
+			{
+				if ((M == 0) && (K == 0) && (C == 255) && (Y == 255))
+					alert = false;
+				if ((M == 0) && (C == 0) && (Y == 0))
+					alert = false;
+				if ((M == C) && (C == Y) && (Y == K))
+					alert = false;
+				cmsDoTransform(stdProofCMYKG, inC, outC, 1);
+				if ((alert) && (R == 0) && (B == 0) && (G == 255))
+					outOfGamutFlag = true;
+			}
+			else
+				cmsDoTransform(stdTransRGBG, inC, outC, 1);
 			R = outC[0] / 257;
 			G = outC[1] / 257;
 			B = outC[2] / 257;
 		}
-		else
+	}
+	else
+	{
 #endif
+		if (Model == colorModelRGB)
+		{
+			K = QMIN(QMIN(255 - R, 255 - G), 255 - B);
+			C = 255 - R - K;
+			M = 255 - G - K;
+			Y = 255 - B - K;
+		}
+		else
 		{
 			R = 255 - QMIN(255, C + K);
 			G = 255 - QMIN(255, M + K);
 			B = 255 - QMIN(255, Y + K);
 		}
-	}
 #ifdef HAVE_CMS
-	if ((CMSuse && CMSavail && SoftProofing) && (!Spot))
-	{
-		bool alert = true;
-		cmsHTRANSFORM xformProof;
-		if (Model == colorModelRGB)
-		{
-			inC[0] = R*257;
-			inC[1] = G*257;
-			inC[2] = B*257;
-			xformProof = stdProofG;
-			if ((R == 0) && (B == 0) && (G == 255))
-				alert = false;
-			if ((R == G && G == B))
-				alert = false;
-		}
-		else
-		{
-			inC[0] = C*257;
-			inC[1] = M*257;
-			inC[2] = Y*257;
-			inC[3] = K*257;
-			xformProof = stdProofCMYKG;
-			if ((M == 0) && (K == 0) && (C == 255) && (Y == 255))
-				alert = false;
-			if ((M == 0) && (C == 0) && (Y == 0))
-				alert = false;
-			if ((M == C) && (C == Y) && (Y == K))
-				alert = false;
-		}
-		if (alert)
-		{
-			cmsDoTransform(xformProof, inC, outC, 1);
-			RGB = QColor(outC[0]/257, outC[1]/257, outC[2]/257);
-			int r, g, b;
-			RGB.getRgb(&r, &g, &b);
-			if ((alert) && ((r == 0) && (g == 255) & (b == 0)))
-				outOfGamutFlag = true;
-		}
 	}
-	else
 #endif
-	{
-		RGB = QColor(R, G, B);
-	}
+	RGB = QColor(R, G, B);
 }
 
 bool ScColor::isRegistrationColor()
