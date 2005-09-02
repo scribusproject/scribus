@@ -437,6 +437,8 @@ public slots:
 	void setAbsValue(int a);
 	void selectItemsFromOutlines(int Page, int Item, bool single = false);
 	void selectPagesFromOutlines(int Page);
+	void doPrintPreview();
+	void printPreview();
 	void SaveAsEps();
 	void reallySaveAsEps();
 	void SaveAsPDF();

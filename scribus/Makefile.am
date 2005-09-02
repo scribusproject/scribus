@@ -133,6 +133,7 @@ scribus_SOURCES = \
 	prefsmanager.cpp	\
 	prefsreader.cpp	\
 	prefstable.cpp	\
+	preview.cpp	\
 	pslib.cpp	\
 	query.cpp	\
 	rc4.c	\
@@ -331,6 +332,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/prefsmanager.h                $(prefix)/include/scribus/prefsmanager.h
 	$(INSTALL_DATA) $(srcdir)/prefsreader.h                 $(prefix)/include/scribus/prefsreader.h
 	$(INSTALL_DATA) $(srcdir)/prefstable.h                  $(prefix)/include/scribus/prefstable.h
+	$(INSTALL_DATA) $(srcdir)/preview.h                  $(prefix)/include/scribus/preview.h
 	$(INSTALL_DATA) $(srcdir)/query.h                       $(prefix)/include/scribus/query.h
 	$(INSTALL_DATA) $(srcdir)/rc4.h                         $(prefix)/include/scribus/rc4.h
 	$(INSTALL_DATA) $(srcdir)/rulermover.h                  $(prefix)/include/scribus/rulermover.h
@@ -509,6 +511,7 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/prefsmanager.h
 	-rm -f $(prefix)/include/scribus/prefsreader.h
 	-rm -f $(prefix)/include/scribus/prefstable.h
+	-rm -f $(prefix)/include/scribus/preview.h
 	-rm -f $(prefix)/include/scribus/query.h
 	-rm -f $(prefix)/include/scribus/rc4.h
 	-rm -f $(prefix)/include/scribus/rulermover.h

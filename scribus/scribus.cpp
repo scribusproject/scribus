@@ -148,6 +148,7 @@
 #include "prefsmanager.h"
 #include "pagelayout.h"
 #include "commonstrings.h"
+#include "preview.h"
 
 using namespace std;
 
@@ -594,6 +595,7 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuSeparator("File");
 	scrMenuMgr->addMenuItem(scrActions["fileDocSetup"], "File");
 	scrMenuMgr->addMenuItem(scrActions["filePrint"], "File");
+	scrMenuMgr->addMenuItem(scrActions["PrintPreview"], "File");
 	scrMenuMgr->addMenuSeparator("File");
 	scrMenuMgr->addMenuItem(scrActions["fileQuit"], "File");
 
@@ -612,6 +614,7 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->setMenuEnabled("FileExport", false);
 	scrActions["fileDocSetup"]->setEnabled(false);
 	scrActions["filePrint"]->setEnabled(false);
+	scrActions["PrintPreview"]->setEnabled(false);
 
 	scrMenuMgr->createMenu("Edit", tr("&Edit"));
 	scrMenuMgr->addMenuItem(scrActions["editUndoAction"], "Edit");
@@ -2838,7 +2841,7 @@ void ScribusApp::HaveNewDoc()
 	scrActions["pageImport"]->setEnabled(false);
 	//scrActions["toolsPreflightVerifier"]->setEnabled(true);
 
-	if (HaveGS==0 && scrActions["PrintPreview"])
+	if (HaveGS==0)
 		scrActions["PrintPreview"]->setEnabled(true);
 	if (scrActions["SaveAsDocumentTemplate"])
 		scrActions["SaveAsDocumentTemplate"]->setEnabled(true);
@@ -4549,8 +4552,7 @@ bool ScribusApp::DoFileClose()
 		scrActions["fileRevert"]->setEnabled(false);
 		scrActions["fileCollect"]->setEnabled(false);
 		scrActions["fileClose"]->setEnabled(false);
-		if (scrActions["PrintPreview"])
-			scrActions["PrintPreview"]->setEnabled(false);
+		scrActions["PrintPreview"]->setEnabled(false);
 		if (scrActions["SaveAsDocumentTemplate"])
 			scrActions["SaveAsDocumentTemplate"]->setEnabled(false);
 		scrMenuMgr->setMenuEnabled("FileExport", false);
@@ -7660,6 +7662,67 @@ void ScribusApp::ShowSubs()
 	raise();
 }
 
+void ScribusApp::doPrintPreview()
+{
+	if (!docCheckerPalette->noButton)
+	{
+		docCheckerPalette->hide();
+		docCheckerPalette->checkMode = 0;
+		docCheckerPalette->noButton = true;
+		docCheckerPalette->ignoreErrors->hide();
+		scrActions["toolsPreflightVerifier"]->setOn(false);
+		disconnect(docCheckerPalette, SIGNAL(ignoreAllErrors()), this, SLOT(doPrintPreview()));
+	}
+	if (HaveDoc)
+	{
+		PPreview *dia = new PPreview(this, this);
+		dia->exec();
+		PrefsManager *prefsManager=PrefsManager::instance();
+		prefsManager->appPrefs.PrPr_Mode = dia->EnableCMYK->isChecked();
+		prefsManager->appPrefs.PrPr_AlphaText = dia->AliasText->isChecked();
+		prefsManager->appPrefs.PrPr_AlphaGraphics = dia->AliasGr->isChecked();
+		prefsManager->appPrefs.PrPr_Transparency = dia->AliasTr->isChecked();
+		prefsManager->appPrefs.PrPr_C = dia->EnableCMYK_C->isChecked();
+		prefsManager->appPrefs.PrPr_M = dia->EnableCMYK_M->isChecked();
+		prefsManager->appPrefs.PrPr_Y = dia->EnableCMYK_Y->isChecked();
+		prefsManager->appPrefs.PrPr_K = dia->EnableCMYK_K->isChecked();
+		prefsManager->appPrefs.Gcr_Mode = dia->EnableGCR->isChecked();
+		delete dia;
+		QFile::remove(PrefsPfad+"/tmp.ps");
+		QFile::remove(PrefsPfad+"/sc.png");
+	}
+}
+
+void ScribusApp::printPreview()
+{
+	if (doc->checkerProfiles[doc->curCheckProfile].autoCheck)
+	{
+		scanDocument();
+		if ((doc->docItemErrors.count() != 0) || (doc->masterItemErrors.count() != 0))
+		{
+			if (doc->checkerProfiles[doc->curCheckProfile].ignoreErrors)
+			{
+				int t = QMessageBox::warning(this, tr("Warning"),
+											tr("Scribus detected some errors.\nConsider using the Preflight Verifier  to correct them."),
+											tr("&Abort"), tr("&Ignore"), 0, 0, 0);
+				if (t == 0)
+					return;
+			}
+			else
+			{
+				connect(docCheckerPalette, SIGNAL(ignoreAllErrors()), this, SLOT(doPrintPreview()));
+				docCheckerPalette->noButton = false;
+				docCheckerPalette->checkMode = 2;
+				docCheckerPalette->buildErrorList(doc);
+				docCheckerPalette->show();
+				scrActions["toolsPreflightVerifier"]->setOn(true);
+				return;
+			}
+		}
+	}
+	doPrintPreview();
+}
+
 bool ScribusApp::DoSaveAsEps(QString fn)
 {
 	QStringList spots;
@@ -8093,6 +8156,7 @@ void ScribusApp::manageMasterPages(QString temp)
 			scrActions["fileRevert"]->setEnabled(false);
 			scrActions["fileDocSetup"]->setEnabled(false);
 			scrActions["filePrint"]->setEnabled(false);
+			scrActions["PrintPreview"]->setEnabled(false);
 			pagePalette->DisablePal();
 			dia->show();
 			ActWin->muster = dia;
@@ -8113,6 +8177,7 @@ void ScribusApp::manageMasterPagesEnd()
 	scrActions["fileRevert"]->setEnabled(true);
 	scrActions["fileDocSetup"]->setEnabled(true);
 	scrActions["filePrint"]->setEnabled(true);
+	scrActions["PrintPreview"]->setEnabled(true);
 	scrActions["pageInsert"]->setEnabled(true);
 	scrActions["pageCopy"]->setEnabled(true);
 	scrActions["pageApplyMasterPage"]->setEnabled(true);

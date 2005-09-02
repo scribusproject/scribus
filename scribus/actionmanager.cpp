@@ -73,6 +73,7 @@ void ActionManager::initFileMenuActions()
 	//Rest of File Menu
 	scrActions->insert("fileDocSetup", new ScrAction(QPixmap(loadIcon("documentinfo.png")), "", 0, ScApp, "fileDocSetup"));
 	scrActions->insert("filePrint", new ScrAction(QIconSet(loadIcon("DateiPrint16.png"), loadIcon("DateiPrint.xpm")), "", CTRL+Key_P, ScApp, "filePrint"));
+	scrActions->insert("PrintPreview", new ScrAction("", CTRL+ALT+Key_P, ScApp, "PrintPreview"));
 	scrActions->insert("fileQuit", new ScrAction(QPixmap(loadIcon("exit.png")), "", CTRL+Key_Q, ScApp, "fileQuit"));
 
 	//Connect our signals and slots
@@ -81,6 +82,7 @@ void ActionManager::initFileMenuActions()
 	connect( (*scrActions)["fileOpen"], SIGNAL(activated()), ScApp, SLOT(slotDocOpen()) );
 	connect( (*scrActions)["fileClose"], SIGNAL(activated()), ScApp, SLOT(slotFileClose()) );
 	connect( (*scrActions)["filePrint"], SIGNAL(activated()), ScApp, SLOT(slotFilePrint()) );
+	connect( (*scrActions)["PrintPreview"], SIGNAL(activated()), ScApp, SLOT(printPreview()) );
 	connect( (*scrActions)["fileSave"], SIGNAL(activated()), ScApp, SLOT(slotFileSave()) );
 	connect( (*scrActions)["fileSaveAs"], SIGNAL(activated()), ScApp, SLOT(slotFileSaveAs()) );
 	connect( (*scrActions)["fileDocSetup"], SIGNAL(activated()), ScApp, SLOT(SetupDoc()) );
@@ -793,6 +795,7 @@ void ActionManager::languageChange()
 	(*scrActions)["fileExportAsPDF"]->setTexts( tr("Save as P&DF..."));
 	(*scrActions)["fileDocSetup"]->setTexts( tr("Document &Setup..."));
 	(*scrActions)["filePrint"]->setTexts( tr("&Print..."));
+	(*scrActions)["PrintPreview"]->setTexts( tr("Print Previe&w"));
 	(*scrActions)["fileQuit"]->setTexts( tr("&Quit"));
 	//Edit Menu
 	(*scrActions)["editUndoAction"]->setTexts( tr("&Undo"));

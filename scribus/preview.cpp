@@ -24,125 +24,12 @@
 #include <qtooltip.h>
 #include <qfile.h>
 #include "pslib.h"
-#include "scraction.h"
-#include "menumanager.h"
 #include "checkDocument.h"
-#include "pluginmanager.h"
 #include "prefsfile.h"
 #include "prefscontext.h"
 #include "prefstable.h"
 #include "util.h"
-#include "prefsmanager.h"
-#include "scribusdoc.h"
-
-ScribusApp* Carrier;
-QWidget* par;
-
-/*!
- \fn QString Name()
- \author Franz Schmid
- \date
- \brief Returns name of plugin
- \param None
- \retval QString containing name of plugin: Print Preview
- */
-QString name()
-{
-	return QObject::tr("Print Previe&w");
-}
-
-/*!
- \fn int Type()
- \author Franz Schmid
- \date
- \brief Returns type of plugin
- \param None
- \retval int containing type of plugin (1: Extra, 2: Import, 3: Export, 4: )
- */
-PluginManager::PluginType type()
-{
-	return PluginManager::Standard;
-}
-
-int ID()
-{
-	return 5;
-}
-
-QString actionName()
-{
-	return "PrintPreview";
-}
-
-QString actionKeySequence()
-{
-	return "Ctrl+Alt+P"; // KDE/X swallows Ctrl+Shift+P ???
-}
-
-QString actionMenu()
-{
-	return "File";
-}
-
-QString actionMenuAfterName()
-{
-	return "Print";
-}
-
-bool actionEnabledOnStartup()
-{
-	return false;
-}
-
-void cleanUpPlug()
-{}
-
-/*!
- \fn void Run(QWidget *d, ScribusApp *plug)
- \author Franz Schmid
- \date
- \brief Run the print preview
- \param d QWidget *
- \param plug ScribusApp *
- \retval None
- */
-
-void run(QWidget *d, ScribusApp *plug)
-{
-	Carrier = plug;
-	par = d;
-	Tes = new MenuPreview(d);
-	Tes->RunPreview();
-}
-
-void MenuPreview::RunPreview()
-{
-	if (Carrier->HaveDoc)
-	{
-		Carrier->pluginManager->dllReturn = "";
-		PPreview *dia = new PPreview(par, Carrier);
-		if (!Carrier->pluginManager->dllReturn.isEmpty())
-		{
-			delete dia;
-			return;
-		}
-		dia->exec();
-		Carrier->pluginManager->dllReturn = "";
-		PrefsManager *prefsManager=PrefsManager::instance();
-		prefsManager->appPrefs.PrPr_Mode = dia->EnableCMYK->isChecked();
-		prefsManager->appPrefs.PrPr_AlphaText = dia->AliasText->isChecked();
-		prefsManager->appPrefs.PrPr_AlphaGraphics = dia->AliasGr->isChecked();
-		prefsManager->appPrefs.PrPr_Transparency = dia->AliasTr->isChecked();
-		prefsManager->appPrefs.PrPr_C = dia->EnableCMYK_C->isChecked();
-		prefsManager->appPrefs.PrPr_M = dia->EnableCMYK_M->isChecked();
-		prefsManager->appPrefs.PrPr_Y = dia->EnableCMYK_Y->isChecked();
-		prefsManager->appPrefs.PrPr_K = dia->EnableCMYK_K->isChecked();
-		prefsManager->appPrefs.Gcr_Mode = dia->EnableGCR->isChecked();
-		delete dia;
-		QFile::remove(Carrier->PrefsPfad+"/tmp.ps");
-		QFile::remove(Carrier->PrefsPfad+"/sc.png");
-	}
-}
+#include "scribus.h"
 
 /*!
  \fn PPreview::PPreview( QWidget* parent, ScribusApp *pl)
@@ -384,33 +271,6 @@ int PPreview::RenderPreview(int Seite, int Res)
 	// Recreate Postscript-File only when the actual Page has changed
 	if ((Seite != APage)  || (EnableGCR->isChecked() != GMode))
 	{
-		if (app->doc->checkerProfiles[app->doc->curCheckProfile].autoCheck)
-		{
-			app->scanDocument();
-			if ((app->doc->docItemErrors.count() != 0) || (app->doc->masterItemErrors.count() != 0))
-			{
-				if (app->doc->checkerProfiles[app->doc->curCheckProfile].ignoreErrors)
-				{
-					qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-					int t = QMessageBox::warning(this, tr("Warning"),
-												tr("Detected some Errors.\nConsider using the Preflight Checker to correct them"),
-												tr("Abort"), tr("Ignore"), 0, 0, 0);
-					if (t == 0)
-					{
-						app->pluginManager->dllReturn = "Failed";
-						return ret;
-					}
-				}
-				else
-				{
-					app->docCheckerPalette->buildErrorList(app->doc);
-					app->docCheckerPalette->show();
-					app->scrActions["toolsPreflightVerifier"]->setOn(true);
-					app->pluginManager->dllReturn = "Failed";
-					return ret;
-				}
-			}
-		}
 		ReallyUsed.clear();
 		app->doc->getUsedFonts(&ReallyUsed);
 		PSLib *dd = new PSLib(true, prefsManager->appPrefs.AvailFonts, ReallyUsed, app->doc->PageColors, false, true);
