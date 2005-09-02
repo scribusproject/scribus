@@ -541,7 +541,7 @@ bool PrefsManager::copy12Preferences()
 	newPR[3]=QDir::convertSeparators(prefsLocation+"/scripter13.rc");
 
 	bool existsOldPR[4], existsNewPR[4];
-	for (uint i=1;i<4;++i)
+	for (uint i=0;i<4;++i)
 	{
 		existsOldPR[i]=QFile::exists(oldPR[i]);
 		existsNewPR[i]=QFile::exists(newPR[i]);
