@@ -8177,7 +8177,8 @@ void ScribusApp::manageMasterPagesEnd()
 	scrActions["fileRevert"]->setEnabled(true);
 	scrActions["fileDocSetup"]->setEnabled(true);
 	scrActions["filePrint"]->setEnabled(true);
-	scrActions["PrintPreview"]->setEnabled(true);
+	if (HaveGS==0)
+		scrActions["PrintPreview"]->setEnabled(true);
 	scrActions["pageInsert"]->setEnabled(true);
 	scrActions["pageCopy"]->setEnabled(true);
 	scrActions["pageApplyMasterPage"]->setEnabled(true);
