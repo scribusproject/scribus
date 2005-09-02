@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# -*- coding: latin-1 -*-
+# -*- coding: utf-8 -*-
 
 """ Counts the words in the whole document or in a textframe """
 
@@ -16,7 +16,7 @@ import re
 TITLE = "Word count"
 
 def wordsplit(text):
-    word_pattern = "([A-Za-z���]+)"
+    word_pattern = "([A-Za-zäöüÄÖÜß]+)"
     words = []
     for x in re.split(word_pattern, text):
         if re.match(word_pattern, x):
@@ -33,15 +33,15 @@ def main():
         for i in range(sel_count):
             try:
                 text = getText(getSelectedObject(i))
+                words += len(wordsplit(text))
             except WrongFrameTypeError:
                 if sel_count == 1:
                     # If there's only one object selected, display a message
-                    messageBox(TITLE, "Cannot count words in a non-text frame", ICON_INFORMATION);
+                    messageBox(TITLE, "Can't count words in a non-text frame", ICON_INFORMATION);
                     sys.exit(1)
                 else:
                     # otherwise ignore
                     pass
-            words += len(wordsplit(text))
     else:
         source = "whole document"
         for page in range(1,pageCount() + 1):
@@ -49,9 +49,9 @@ def main():
             for obj in getAllObjects():
                 try:
                     text = getText(obj)
+                    words += len(wordsplit(text))
                 except WrongFrameTypeError:
                     pass # ignore the error, it just wasn't a frame we can count
-                words += len(wordsplit(text))
 
     if words == 0: words = "No"
     messageBox(TITLE, "%s words counted in %s" % (words, source),
