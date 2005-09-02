@@ -525,7 +525,13 @@ bool PrefsManager::copy12Preferences()
 {
 	//Now make copies for 1.3 use and leave the old ones alone for <1.3.0 usage
 	QString oldPR[4], newPR[4];
-	oldPR[0]=QDir::convertSeparators(prefsLocation+"/scribus.rc");
+
+	// Special case for scribus.rc - if found, use scribus123.rc,
+	// otherwise fall back to the possibly mis-encoded scribus.rc .
+	oldPR[0]=QDir::convertSeparators(prefsLocation+"/scribus123.rc");
+	if (!QFile::exists(oldPR[0]))
+		oldPR[0] = prefsLocation+"/scribus.rc";
+
 	oldPR[1]=QDir::convertSeparators(prefsLocation+"/scrap.scs");
 	oldPR[2]=QDir::convertSeparators(prefsLocation+"/prefs.xml");
 	oldPR[3]=QDir::convertSeparators(prefsLocation+"/scripter.rc");
@@ -535,7 +541,7 @@ bool PrefsManager::copy12Preferences()
 	newPR[3]=QDir::convertSeparators(prefsLocation+"/scripter13.rc");
 
 	bool existsOldPR[4], existsNewPR[4];
-	for (uint i=0;i<4;++i)
+	for (uint i=1;i<4;++i)
 	{
 		existsOldPR[i]=QFile::exists(oldPR[i]);
 		existsNewPR[i]=QFile::exists(newPR[i]);
