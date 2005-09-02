@@ -543,7 +543,7 @@ bool PrefsManager::copy12Preferences()
 
 	bool retVal=false;
 	//Only check for these two as they will be autocreated if they dont exist.
-	if( (existsOldPR[0] && !existsNewPR[0]) || (existsOldPR[3] && !existsNewPR[3]) )
+	if( (existsOldPR[0] && !existsNewPR[0]) || (existsOldPR[2] && !existsNewPR[2]) )
 	{
 		retVal=true; // converting from 1.2 prefs
 		if (ScQApp->usingGUI())
