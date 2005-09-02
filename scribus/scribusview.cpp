@@ -11850,20 +11850,20 @@ void ScribusView::TextToPath()
 		for(uint i=0; i<selectedItemCount; ++i)
 		{
 			PageItem *currItem = SelItem.at(offset);
-			if ((currItem->itemType()!=PageItem::TextFrame) || (currItem->isTableItem && currItem->isSingleSel) || (currItem->locked()))
-			{
-				++offset;
-				continue;
-			}
+			bool cont=false;
+			if ((currItem->itemType()!=PageItem::TextFrame) || (currItem->isTableItem && currItem->isSingleSel) || (currItem->locked()) || currItem->itemText.count() == 0)
+				cont=true;
 			if (currItem==ScApp->storyEditor->currentItem() && Doc==ScApp->storyEditor->currentDocument())
 			{
-				QMessageBox::critical(ScApp, tr("Cannot Convert In-Use Item"), tr("The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped").arg(currItem->itemName()), QMessageBox::Ok, QMessageBox::NoButton, QMessageBox::NoButton);
-				++offset;
-				continue;
+				QMessageBox::information(ScApp, tr("Cannot Convert In-Use Item"), "<qt>" + tr("The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped").arg(currItem->itemName()) + "</qt>", QMessageBox::Ok, QMessageBox::NoButton, QMessageBox::NoButton);
+				cont=true;
 			}
 			//Deselect();
-			if (currItem->itemText.count() == 0)
+			if (cont)
+			{
+				++offset;
 				continue;
+			}				
 			newGroupedItems.clear();
 			FPointArray pts;
 			double x, y;
