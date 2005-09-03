@@ -598,9 +598,12 @@ void PrefsManager::convert12Preferences()
 
 void PrefsManager::ReadPrefs()
 {
-	bool erg = ReadPref(prefsLocation+"/scribus13.rc");
-	if (!erg)
-		return;
+	if (QFile::exists(prefsLocation+"/scribus13.rc"))
+		if (!ReadPref(prefsLocation+"/scribus13.rc"))
+		{
+			alertLoadPrefsFailed();
+			return;
+		}
 	ScApp->setDefaultPrinter(appPrefs.PrinterName, appPrefs.PrinterFile, appPrefs.PrinterCommand);
 
 	uint max = QMIN(appPrefs.RecentDCount, appPrefs.RecentDocs.count());
@@ -626,7 +629,7 @@ void PrefsManager::ReadPrefs()
 
 void PrefsManager::ReadPrefsXML()
 {
-    if (prefsFile) 
+    if (prefsFile)
     {
         PrefsContext* userprefsContext = prefsFile->getContext("user_preferences");
         if (userprefsContext) {
@@ -1187,19 +1190,26 @@ bool PrefsManager::WritePref(QString ho)
 	return result;
 }
 
+// Returns false on error. It's the caller's job to make sure the prefs file
+// actually exists.
 bool PrefsManager::ReadPref(QString ho)
 {
 	QDomDocument docu("scridoc");
 	QFile f(ho);
 	if(!f.open(IO_ReadOnly))
+	{
+		m_lastError = tr("Failed to open prefs file \"%1\": %2")
+			.arg(ho).arg( qApp->translate("QFile",f.errorString()) );
 		return false;
+	}
 	QTextStream ts(&f);
 	ts.setEncoding(QTextStream::UnicodeUTF8);
 	QString errorMsg;
 	int errorLine = 0, errorColumn = 0;
 	if( !docu.setContent(ts.read(), &errorMsg, &errorLine, &errorColumn) )
 	{
-		qDebug("Failed to read prefs XML: %s at line %i, col %i", errorMsg.local8Bit().data(), errorLine, errorColumn);
+		m_lastError = tr("Failed to read prefs XML from \"%1\": %2 at line %3, col %4")
+			.arg(ho).arg(errorMsg).arg(errorLine).arg(errorColumn);
 		f.close();
 		return false;
 	}
@@ -1716,4 +1726,23 @@ void PrefsManager::alertSavePrefsFailed() const
 			+ "</qt>",
 			QMessageBox::Ok|QMessageBox::Default|QMessageBox::Escape,
 			QMessageBox::NoButton);
+}
+
+// It's hard to say whether this should be here and called from ReadPrefs, or
+// triggered by a signal sent from here and displayed by ScribusApp.
+void PrefsManager::alertLoadPrefsFailed() const
+{
+	bool splashShowing = ScApp->splashShowing();
+	if (splashShowing)
+		ScApp->showSplash(false);
+	QMessageBox::critical(ScApp, tr("Error Loading Preferences"),
+			"<qt>" +
+			tr("Scribus was not able to load its preferences:<br>"
+			   "%1<br>"
+			   "Default settings will be loaded.")
+			   .arg(lastError())
+			+ "</qt>",
+			QMessageBox::Ok|QMessageBox::Default|QMessageBox::Escape,
+			QMessageBox::NoButton);
+	ScApp->showSplash(splashShowing);
 }

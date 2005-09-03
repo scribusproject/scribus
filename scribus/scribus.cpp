@@ -332,6 +332,12 @@ void ScribusApp::showSplash(bool shown)
 		splashScreen->setShown(shown);
 }
 
+bool ScribusApp::splashShowing() const
+{
+	if (splashScreen != NULL)
+		return splashScreen->isShown();
+}
+
 void ScribusApp::closeSplash()
 {
 	if (splashScreen!=NULL)

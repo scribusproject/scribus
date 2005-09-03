@@ -101,6 +101,7 @@ public:
 	// This might want to move to another class later, perhaps being triggered
 	// by a signal emitted here.
 	void alertSavePrefsFailed() const;
+	void alertLoadPrefsFailed() const;
 	
 	//Temporarily public while this class takes shape so progress can happen and cvs can build
 	struct ApplicationPrefs appPrefs;

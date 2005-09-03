@@ -108,6 +108,7 @@ public:
 	~ScribusApp() {};
 	int initScribus(bool showSplash, bool showFontInfo, const QString newGuiLanguage);
 	void showSplash(bool);
+	bool splashShowing() const;
 	void closeSplash();
 	const QString getGuiLanguage();
 	bool warningVersion(QWidget *parent);
