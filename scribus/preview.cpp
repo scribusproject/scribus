@@ -23,6 +23,7 @@
 #include <qcolor.h>
 #include <qtooltip.h>
 #include <qfile.h>
+#include <qspinbox.h>
 #include "pslib.h"
 #include "checkDocument.h"
 #include "prefsfile.h"
@@ -59,6 +60,8 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	GrAl = false;
 	Trans = false;
 	GMode = true;
+	scaleFactor = 1.0;
+
 	setIcon(loadIcon("AppIcon.png"));
 	PLayout = new QVBoxLayout(this, 0, 0, "PLayout");
 
@@ -135,9 +138,20 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	Layout6->setMargin(0);
 	printButton = new QPushButton( tr("Print..."), this, "printButton" );
 	Layout6->addWidget( printButton );
+	/* scaling */
+	scaleLabel = new QLabel(tr("Scaling:"), this, "scaleLabel");
+	// min, max, step, parent, name
+	scaleBox = new QSpinBox(50, 200, 1, this, "scaleBox");
+	scaleBox->setSuffix("%");
+	scaleBox->setValue(100);
+	QSpacerItem* scaleSpacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	Layout6->addItem(scaleSpacer);
+	Layout6->addWidget(scaleLabel);
+	Layout6->addWidget(scaleBox);
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout6->addItem( spacer );
 	PLayout->addLayout(Layout6);
+
 	int w = Anz->width() + 20;
 	resize(QMIN(QApplication::desktop()->width(),w), 500);
 	if (!PrefsManager::instance()->appPrefs.PrPr_Mode)
@@ -147,23 +161,17 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 		EnableCMYK_Y->setEnabled(false);
 		EnableCMYK_K->setEnabled(false);
 	}
-	//tooltips
-	QToolTip::add( AliasText, tr( "Provides a more pleasant view of text items in the viewer, at the expense\n"
-                                              "of a slight slowdown in previewing. This only affects Type 1 fonts" ) );
-	QToolTip::add( AliasGr, tr( "Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and\n"
-	                                       "vector graphics in the preview, at the expense of a slight slowdown in previewing" ) );
-	QToolTip::add( AliasTr, tr( "Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later" ) );
-	QToolTip::add( EnableCMYK, tr( "Gives a print preview using simulations of generic CMYK inks, instead of RGB colors" ) );
+	// tooltips
+	QToolTip::add( AliasText, "<qt>" + tr( "Provides a more pleasant view of text items in the viewer, at the expense of a slight slowdown in previewing. This only affects Type 1 fonts" ) + "</qt>" );
+	QToolTip::add( AliasGr, "<qt>" + tr( "Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing" ) + "</qt>" );
+	QToolTip::add( AliasTr, "<qt>" + tr( "Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later" ) + "</qt>");
+	QToolTip::add( EnableCMYK, "<qt>" + tr( "Gives a print preview using simulations of generic CMYK inks, instead of RGB colors" ) + "</qt>");
 	QToolTip::add( EnableCMYK_C, tr( "Enable/disable the C (Cyan) ink plate" ) );
 	QToolTip::add( EnableCMYK_M, tr( "Enable/disable the M (Magenta) ink plate" ) );
 	QToolTip::add( EnableCMYK_Y, tr( "Enable/disable the Y (Yellow) ink plate" ) );
 	QToolTip::add( EnableCMYK_K, tr( "Enable/disable the K (Black) ink plate" ) );
-	QToolTip::add( EnableGCR, tr( "A way of switching off some of the gray shades which are composed\n"
-	                                             "of cyan, yellow and magenta and using black instead.\n"
-                                                 "UCR most affects parts of images which are neutral and/or dark tones\n"
-                                                 "which are close to the gray. Use of this may improve printing some images\n"
-                                                 "and some experimentation and testing is need on a case by case basis.\n"
-                                                 "UCR reduces the possibility of over saturation with CMY inks." ) );
+	QToolTip::add( EnableGCR, "<qt>" + tr( "A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks." ) + "</qt>" );
+	QToolTip::add(scaleBox, "<qt>" + tr("Resize the scale of the page. Remember that it's designed for screen preview with 72dpi - it's only informational output") + "</qt>");
 	//signals and slots
 	connect(AliasText, SIGNAL(clicked()), this, SLOT(ToggleTextAA()));
 	connect(AliasGr, SIGNAL(clicked()), this, SLOT(ToggleGr()));
@@ -176,6 +184,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	connect(EnableCMYK_K, SIGNAL(clicked()), this, SLOT(ToggleCMYK_Colour()));
 	connect(PGSel, SIGNAL(GotoPage(int)), this, SLOT(ToSeite(int)));
 	connect(printButton, SIGNAL(clicked()), this, SIGNAL(doPrint()));
+	connect(scaleBox, SIGNAL(valueChanged(int)), this, SLOT(scaleBox_valueChanged(int)));
 }
 
 /*!
@@ -267,6 +276,19 @@ void PPreview::ToggleCMYK_Colour()
 {
 	if (EnableCMYK->isChecked())
 		Anz->setPixmap(CreatePreview(APage, 72));
+}
+
+/*!
+\fn void PPreview::scaleBox_valueChanged(int value)
+\author Petr Vanek
+\date 09/03/2005
+\brief Recompute scaling factor of the preview image
+\param value spinbox value from signal
+ */
+void PPreview::scaleBox_valueChanged(int value)
+{
+	scaleFactor = (double)value / 100.0;
+	Anz->setPixmap(CreatePreview(APage, 72));
 }
 
 /*!
@@ -484,6 +506,10 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 		}
 	}
 	image.setAlphaBuffer(true);
+	/* ok, I know it should be somewhere in RenderPreview, but it will be
+	too slow in gs... imho user will be satisfied with resized image.
+	I hope so. (pv) */
+	image = image.smoothScale(qRound((double)image.width() * scaleFactor), qRound((double)image.height() * scaleFactor));
 	if (AliasTr->isChecked())
 	{
 		Bild = QPixmap(image.width(), image.height());

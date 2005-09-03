@@ -16,6 +16,8 @@
 
 class ScribusDoc;
 class ScribusView;
+class QSpinBox;
+
 
 class SCRIBUS_API PPreview : public QDialog
 {
@@ -39,6 +41,9 @@ public:
 	QScrollView* Anzeige;
 	QLabel* Anz;
 	QPushButton *printButton;
+	/*! scaling GUI */
+	QLabel* scaleLabel;
+	QSpinBox* scaleBox;
 	ScribusView *view;
 	ScribusDoc *doc;
 	int HavePngAlpha;
@@ -59,11 +64,14 @@ public slots:
 	void ToggleCMYK();
 	void ToggleGCR();
 	void ToggleCMYK_Colour();
+	void scaleBox_valueChanged(int);
 
 signals:
 	void doPrint();
 
 protected:
+	/*! Percentage value of the scaling widget */
+	double scaleFactor;
 	QVBoxLayout* PLayout;
 	QHBoxLayout* Layout1;
 	QVBoxLayout* Layout2;

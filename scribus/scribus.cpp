@@ -336,6 +336,7 @@ bool ScribusApp::splashShowing() const
 {
 	if (splashScreen != NULL)
 		return splashScreen->isShown();
+	return false;
 }
 
 void ScribusApp::closeSplash()
@@ -900,7 +901,7 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->createMenu("Windows", tr("&Windows"));
 	connect(scrMenuMgr->getLocalPopupMenu("Windows"), SIGNAL(aboutToShow()), this, SLOT(windowsMenuAboutToShow()));
 	addDefaultWindowMenuItems();
-	
+
 	//Help menu
 	scrMenuMgr->createMenu("Help", tr("&Help"));
 	scrMenuMgr->addMenuItem(scrActions["helpAboutScribus"], "Help");
@@ -2585,7 +2586,7 @@ void ScribusApp::windowsMenuAboutToShow()
 	if (windowsListNotEmpty)
 	{
 		scrMenuMgr->addMenuSeparator("Windows");
-		
+
 		int windowCount=static_cast<int>(windows.count());
 		for ( int i = 0; i < windowCount; ++i )
 		{
@@ -3812,7 +3813,7 @@ bool ScribusApp::loadDoc(QString fileName)
 			qApp->setOverrideCursor(QCursor(arrowCursor), true);
 			QMessageBox::critical(this, tr("Fatal Error"), tr("File %1 \nis not in an acceptable format").arg(FName), CommonStrings::tr_OK);
 			return false;
-		}		
+		}
 		bool is12doc=false;
 		if (fl->TestFile() == 0)
 		{
@@ -9123,7 +9124,7 @@ QString ScribusApp::Collect(bool compress, bool withFonts, const QString& newDir
 			wdir = dirs->get("collect", ".");
 		s = CFileDialog(wdir, tr("Choose a Directory"), "", "", false, false, false, false, true, &compressR, &withFontsR);
 	}
-	
+
 	if (!s.isEmpty())
 	{
 		fileWatcher->forceScan();
