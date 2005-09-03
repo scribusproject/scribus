@@ -2261,20 +2261,6 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 		pagePalette->hide();
 		measurementPalette->hide();
 		docCheckerPalette->hide();
-		// Shut down plugins before saving prefs to ensure
-		// plugins can use prefs mgr from their cleanup routines.
-		pluginManager->finalizePlugs();
-		prefsManager->SavePrefs();
-		UndoManager::deleteInstance();
-		if ((prefsManager->appPrefs.SaveAtQ) && (scrapbookPalette->changed()))
-		{
-			if (scrapbookPalette->getScrapbookFileName().isEmpty())
-				scrapbookPalette->setScrapbookFileName(PrefsPfad+"/scrap13.scs");
-			scrapbookPalette->Save();
-		}
-		if (scrapbookPalette->objectCount() == 0)
-			unlink(PrefsPfad+"/scrap13.scs");
-		exit(0);
 	}
 	else
 	{
@@ -2286,20 +2272,22 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 		pagePalette->hide();
 		measurementPalette->hide();
 		docCheckerPalette->hide();
-		prefsManager->SavePrefs();
-		UndoManager::deleteInstance();
-		if ((prefsManager->appPrefs.SaveAtQ) && (scrapbookPalette->changed()))
-		{
-			if (scrapbookPalette->getScrapbookFileName().isEmpty())
-				scrapbookPalette->setScrapbookFileName(PrefsPfad+"/scrap13.scs");
-			scrapbookPalette->Save();
-		}
-		if (scrapbookPalette->objectCount() == 0)
-			unlink(PrefsPfad+"/scrap13.scs");
-		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-		pluginManager->finalizePlugs();
-		exit(0);
 	}
+
+	if (!emergencyActivated)
+		prefsManager->SavePrefs();
+	UndoManager::deleteInstance();
+	if ((prefsManager->appPrefs.SaveAtQ) && (scrapbookPalette->changed()))
+	{
+		if (scrapbookPalette->getScrapbookFileName().isEmpty())
+			scrapbookPalette->setScrapbookFileName(PrefsPfad+"/scrap13.scs");
+		scrapbookPalette->Save();
+	}
+	if (scrapbookPalette->objectCount() == 0)
+		unlink(PrefsPfad+"/scrap13.scs");
+	qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+	pluginManager->finalizePlugs();
+	exit(0);
 }
 
 /////////////////////////////////////////////////////////////////////

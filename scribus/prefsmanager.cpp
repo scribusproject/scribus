@@ -642,8 +642,9 @@ void PrefsManager::SavePrefs()
 {
 	// If closing because of a crash don't save prefs as we can
 	// accidentally nuke the settings if the crash is before prefs are loaded
-	if (emergencyActivated)
-		return;
+	// The caller is responsible for ensuring we aren't called under those
+	// conditions.
+	Q_ASSERT(!emergencyActivated);
 	appPrefs.mainWinSettings.xPosition = abs(ScApp->pos().x());
 	appPrefs.mainWinSettings.yPosition = abs(ScApp->pos().y());
 	appPrefs.mainWinSettings.width = ScApp->size().width();
@@ -659,13 +660,14 @@ void PrefsManager::SavePrefs()
 	}
 	ScApp->getDefaultPrinter(&appPrefs.PrinterName, &appPrefs.PrinterFile, &appPrefs.PrinterCommand);
 
-	WritePref(prefsLocation+"/scribus13.rc");
-    SavePrefsXML();
+	SavePrefsXML();
+	if (!WritePref(prefsLocation+"/scribus13.rc"))
+		alertSavePrefsFailed();
 }
 
 void PrefsManager::SavePrefsXML()
 {
-    if (prefsFile) 
+    if (prefsFile)
     {
         PrefsContext* userprefsContext = prefsFile->getContext("user_preferences");
         if (userprefsContext) {
@@ -785,7 +787,7 @@ const int& PrefsManager::guiFontSize()
 	return appPrefs.AppFontSize;
 }
 
-void PrefsManager::WritePref(QString ho)
+bool PrefsManager::WritePref(QString ho)
 {
 	QDomDocument docu("scribusrc");
 	QString st="<SCRIBUSRC></SCRIBUSRC>";
@@ -1161,13 +1163,28 @@ void PrefsManager::WritePref(QString ho)
 	liElem.setAttribute("paragraphsLI", appPrefs.paragraphsLI);
 	elem.appendChild(liElem);
 	// write file
+	bool result = false;
 	QFile f(ho);
 	if(!f.open(IO_WriteOnly))
-		return;
-	QTextStream s(&f);
-	s.setEncoding(QTextStream::UnicodeUTF8);
-	s<<docu.toString();
-	f.close();
+	{
+		m_lastError = tr("Could not open preferences file \"%1\" for writing: %2")
+			.arg(ho).arg(qApp->translate("QFile",f.errorString()));
+	}
+	else
+	{
+		QTextStream s(&f);
+		s.setEncoding(QTextStream::UnicodeUTF8);
+		s<<docu.toString();
+		if (f.status() == IO_Ok)
+			result = true;
+		else
+			m_lastError = tr("Writing to preferences file \"%1\" failed: "
+				             "QIODevice status code %2")
+				.arg(ho).arg(f.status());
+	}
+	if (f.isOpen())
+		f.close();
+	return result;
 }
 
 bool PrefsManager::ReadPref(QString ho)
@@ -1678,4 +1695,25 @@ void PrefsManager::initDefaultCheckerPrefs(CheckerPrefsList* cp)
 		checkerSettings.minResolution = 144.0;
 		cp->insert( QT_TR_NOOP("PDF/X-3"), checkerSettings);
 	}
+}
+
+const QString & PrefsManager::lastError() const
+{
+	return m_lastError;
+}
+
+// It's hard to say whether this should be here and called from SavePrefs, or
+// triggered by a signal sent from here and displayed by ScribusApp.
+void PrefsManager::alertSavePrefsFailed() const
+{
+	QMessageBox::critical(ScApp, tr("Error Writing Preferences"),
+			"<qt>" +
+			tr("Scribus was not able to save its preferences:<br>"
+			   "%1<br>"
+			   "Please check file and directory permissions and "
+			   "available disk space.", "scribus app error")
+			   .arg(lastError())
+			+ "</qt>",
+			QMessageBox::Ok|QMessageBox::Default|QMessageBox::Escape,
+			QMessageBox::NoButton);
 }
