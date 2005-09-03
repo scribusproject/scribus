@@ -29,7 +29,8 @@
 #include "prefscontext.h"
 #include "prefstable.h"
 #include "util.h"
-#include "scribus.h"
+#include "scribusview.h"
+#include "scribusdoc.h"
 
 /*!
  \fn PPreview::PPreview( QWidget* parent, ScribusApp *pl)
@@ -37,17 +38,21 @@
  \date
  \brief Create the Print Preview window
  \param parent QWidget *
- \param pl ScribusApp *
+ \param vin ScribusView *
+ \param docu ScribusDoc *
+ \param pngAlpha int
  \retval PPreview window
  */
-PPreview::PPreview( QWidget* parent, ScribusApp *pl) : QDialog( parent, "Preview", true, 0 )
+PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int pngAlpha) : QDialog( parent, "Preview", true, 0 )
 {
 	prefsManager=PrefsManager::instance();
 	QString tmp;
 	setCaption( tr("Print Preview"));
-	app = pl;
+	doc = docu;
+	view = vin;
+	HavePngAlpha = pngAlpha;
 	APage = -1;
-	MPage = app->doc->pageCount;
+	MPage = doc->pageCount;
 	CMode = false;
 	TxtAl = false;
 	GrAl = false;
@@ -60,7 +65,7 @@ PPreview::PPreview( QWidget* parent, ScribusApp *pl) : QDialog( parent, "Preview
 	Layout1->setSpacing(5);
 	Layout1->setMargin(5);
 	PGSel = new PageSelector(this, MPage);
-	Layout1->addWidget(PGSel);
+	Layout1->addWidget(PGSel, Qt::AlignTop);
 
 	Layout2 = new QVBoxLayout();
 	Layout2->setSpacing(0);
@@ -272,30 +277,30 @@ int PPreview::RenderPreview(int Seite, int Res)
 	if ((Seite != APage)  || (EnableGCR->isChecked() != GMode))
 	{
 		ReallyUsed.clear();
-		app->doc->getUsedFonts(&ReallyUsed);
-		PSLib *dd = new PSLib(true, prefsManager->appPrefs.AvailFonts, ReallyUsed, app->doc->PageColors, false, true);
+		doc->getUsedFonts(&ReallyUsed);
+		PSLib *dd = new PSLib(true, prefsManager->appPrefs.AvailFonts, ReallyUsed, doc->PageColors, false, true);
 		if (dd != NULL)
 		{
-			dd->PS_set_file(app->PrefsPfad+"/tmp.ps");
+			dd->PS_set_file(prefsManager->preferencesLocation()+"/tmp.ps");
 			std::vector<int> pageNs;
 			pageNs.push_back(Seite+1);
 			QStringList spots;
-			dd->CreatePS(app->doc, app->view, pageNs, false, tr("All"), spots, true, false, false, false, EnableGCR->isChecked(), false);
+			dd->CreatePS(doc, view, pageNs, false, tr("All"), spots, true, false, false, false, EnableGCR->isChecked(), false);
 			delete dd;
 		}
 		else
 			return ret;
 	}
 	QString tmp, tmp2, tmp3;
-	double b = app->doc->Pages.at(Seite)->Width * Res / 72;
-	double h = app->doc->Pages.at(Seite)->Height * Res / 72;
+	double b = doc->Pages.at(Seite)->Width * Res / 72;
+	double h = doc->Pages.at(Seite)->Height * Res / 72;
 	cmd1 = getShortPathName(prefsManager->ghostscriptExecutable());
 	cmd1 += " -q -dNOPAUSE -r"+tmp.setNum(Res)+" -g"+tmp2.setNum(qRound(b))+"x"+tmp3.setNum(qRound(h));
 	if (EnableCMYK->isChecked())
 		cmd1 += " -sDEVICE=bitcmyk -dGrayValues=256";
 	else
 	{
-		if ((!AliasTr->isChecked()) || (app->HavePngAlpha != 0))
+		if ((!AliasTr->isChecked()) || (HavePngAlpha != 0))
 			cmd1 += " -sDEVICE=png16m";
 		else
 			cmd1 += " -sDEVICE=pngalpha";
@@ -319,8 +324,8 @@ int PPreview::RenderPreview(int Seite, int Res)
 		cmd1 += QString(";\"%1\"").arg(extraFonts->get(i,0));
 #endif
 	// then add any final args and call gs
-	cmd1 += " -sOutputFile=\"" + QDir::convertSeparators(app->PrefsPfad+"/sc.png") + "\" ";
-	cmd2 = "\"" + QDir::convertSeparators(app->PrefsPfad+"/tmp.ps") + "\"";
+	cmd1 += " -sOutputFile=\"" + QDir::convertSeparators(prefsManager->preferencesLocation()+"/sc.png") + "\" ";
+	cmd2 = "\"" + QDir::convertSeparators(prefsManager->preferencesLocation()+"/tmp.ps") + "\"";
 	cmd3 = " -c showpage -c quit";
 	ret = system(cmd1 + cmd2 + cmd3);
 	return ret;
@@ -339,8 +344,8 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 {
 	int ret = -1;
 	QPixmap Bild;
-	double b = app->doc->Pages.at(Seite)->Width * Res / 72;
-	double h = app->doc->Pages.at(Seite)->Height * Res / 72;
+	double b = doc->Pages.at(Seite)->Width * Res / 72;
+	double h = doc->Pages.at(Seite)->Height * Res / 72;
 	qApp->setOverrideCursor(QCursor(waitCursor), true);
 	if ((Seite != APage) || (EnableCMYK->isChecked() != CMode)
 	        || (AliasText->isChecked() != TxtAl) || (AliasGr->isChecked() != GrAl) || (EnableGCR->isChecked() != GMode)
@@ -370,7 +375,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 		uint *p;
 		QByteArray imgc(w2);
 		image = QImage(w, h2, 32);
-		QFile f(app->PrefsPfad+"/sc.png");
+		QFile f(prefsManager->preferencesLocation()+"/sc.png");
 		if (f.open(IO_ReadOnly))
 		{
 			for (int y=0; y < h2; ++y )
@@ -404,9 +409,9 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 	}
 	else
 	{
-		image.load(app->PrefsPfad+"/sc.png");
+		image.load(prefsManager->preferencesLocation()+"/sc.png");
 		image = image.convertDepth(32);
-		if ((AliasTr->isChecked()) && (app->HavePngAlpha == 0))
+		if ((AliasTr->isChecked()) && (HavePngAlpha == 0))
 		{
 			int wi = image.width();
 			int hi = image.height();

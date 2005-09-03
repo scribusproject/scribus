@@ -7675,7 +7675,7 @@ void ScribusApp::doPrintPreview()
 	}
 	if (HaveDoc)
 	{
-		PPreview *dia = new PPreview(this, this);
+		PPreview *dia = new PPreview(this, view, doc, HavePngAlpha);
 		dia->exec();
 		PrefsManager *prefsManager=PrefsManager::instance();
 		prefsManager->appPrefs.PrPr_Mode = dia->EnableCMYK->isChecked();

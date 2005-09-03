@@ -13,14 +13,15 @@
 #include "pageselector.h"
 #include "prefsmanager.h"
 
-class ScribusApp;
+class ScribusDoc;
+class ScribusView;
 
 class SCRIBUS_API PPreview : public QDialog
 {
 	Q_OBJECT
 
 public:
-	PPreview( QWidget* parent, ScribusApp *plug );
+	PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int pngAlpha );
 	~PPreview() {};
 	int RenderPreview(int Seite, int Res);
 	QPixmap CreatePreview(int Seite, int Res);
@@ -36,7 +37,9 @@ public:
 	QCheckBox* EnableGCR;
 	QScrollView* Anzeige;
 	QLabel* Anz;
-	ScribusApp *app;
+	ScribusView *view;
+	ScribusDoc *doc;
+	int HavePngAlpha;
 	int APage;
 	int MPage;
 	bool CMode;

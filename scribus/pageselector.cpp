@@ -114,7 +114,8 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, "pgs
 	PageSelectorLayout->addWidget( Label2 );
 #else
 	v = new PageValidator(1, LastPG, this);
-	pageEdit = new QLineEdit("1", QString::null, this);     
+	pageEdit = new QLineEdit("1", QString::null, this);
+	pageEdit->setMinimumSize(fontMetrics().width( "999 of 999" ), 20);
 //      pageEdit->setValidator(v);
 	pageEdit->setAlignment(Qt::AlignHCenter);
 	pageEdit->setFocusPolicy(QWidget::ClickFocus);
@@ -273,7 +274,7 @@ void PageSelector::setMaxValue(int a)
 	{
 		pageMenu->insertItem(tmp.setNum(b+1), b);
 	}
-	pageEdit->setText(tr( "%1 of %2").arg(APage).arg(LastPG));
+	pageEdit->setText( tr( "%1 of %2").arg(APage).arg(LastPG));
 	connect( pageEdit, SIGNAL( returnPressed() ), this, SLOT( GotoPage() ) );
 	connect( pageEdit, SIGNAL( lostFocus() ), this, SLOT( GotoPage() ) );
 	connect( pageMenu, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
