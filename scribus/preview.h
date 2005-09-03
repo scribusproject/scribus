@@ -9,6 +9,7 @@
 #include <qtoolbutton.h>
 #include <qcombobox.h>
 #include <qcheckbox.h>
+#include <qpushbutton.h>
 #include "scribusapi.h"
 #include "pageselector.h"
 #include "prefsmanager.h"
@@ -37,6 +38,7 @@ public:
 	QCheckBox* EnableGCR;
 	QScrollView* Anzeige;
 	QLabel* Anz;
+	QPushButton *printButton;
 	ScribusView *view;
 	ScribusDoc *doc;
 	int HavePngAlpha;
@@ -57,6 +59,9 @@ public slots:
 	void ToggleGCR();
 	void ToggleCMYK_Colour();
 
+signals:
+	void doPrint();
+
 protected:
 	QVBoxLayout* PLayout;
 	QHBoxLayout* Layout1;
@@ -64,6 +69,7 @@ protected:
 	QVBoxLayout* Layout3;
 	QVBoxLayout* Layout4;
 	QHBoxLayout* Layout5;
+	QHBoxLayout* Layout6;
 	PrefsManager *prefsManager;
 };
 #endif // QUERY_H

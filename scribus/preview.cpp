@@ -129,6 +129,14 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	Anz->setPixmap(CreatePreview(0, 72));
 	Anzeige->addChild(Anz, 0, 0);
 	PLayout->addWidget(Anzeige);
+	Layout6 = new QHBoxLayout();
+	Layout6->setSpacing(0);
+	Layout6->setMargin(0);
+	printButton = new QPushButton( tr("Print..."), this, "printButton" );
+	Layout6->addWidget( printButton );
+	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	Layout6->addItem( spacer );
+	PLayout->addLayout(Layout6);
 	int w = Anz->width() + 20;
 	resize(QMIN(QApplication::desktop()->width(),w), 500);
 	if (!PrefsManager::instance()->appPrefs.PrPr_Mode)
@@ -166,6 +174,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	connect(EnableCMYK_Y, SIGNAL(clicked()), this, SLOT(ToggleCMYK_Colour()));
 	connect(EnableCMYK_K, SIGNAL(clicked()), this, SLOT(ToggleCMYK_Colour()));
 	connect(PGSel, SIGNAL(GotoPage(int)), this, SLOT(ToSeite(int)));
+	connect(printButton, SIGNAL(clicked()), this, SIGNAL(doPrint()));
 }
 
 /*!

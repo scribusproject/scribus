@@ -4621,10 +4621,6 @@ bool ScribusApp::DoFileClose()
 
 void ScribusApp::slotFilePrint()
 {
-	//QString fna, prn, cmd, scmd, cc, data, SepNam;
-	//int Nr;
-	//bool fil, sep, farbe, PSfile, mirrorH, mirrorV, useICC, DoGCR;
-	//PSfile = false;
 	if (doc->checkerProfiles[doc->curCheckProfile].autoCheck)
 	{
 		scanDocument();
@@ -7676,6 +7672,7 @@ void ScribusApp::doPrintPreview()
 	if (HaveDoc)
 	{
 		PPreview *dia = new PPreview(this, view, doc, HavePngAlpha);
+		connect(dia, SIGNAL(doPrint()), this, SLOT(slotReallyPrint()));
 		dia->exec();
 		PrefsManager *prefsManager=PrefsManager::instance();
 		prefsManager->appPrefs.PrPr_Mode = dia->EnableCMYK->isChecked();
@@ -7687,6 +7684,7 @@ void ScribusApp::doPrintPreview()
 		prefsManager->appPrefs.PrPr_Y = dia->EnableCMYK_Y->isChecked();
 		prefsManager->appPrefs.PrPr_K = dia->EnableCMYK_K->isChecked();
 		prefsManager->appPrefs.Gcr_Mode = dia->EnableGCR->isChecked();
+		disconnect(dia, SIGNAL(doPrint()), this, SLOT(slotReallyPrint()));
 		delete dia;
 		QFile::remove(PrefsPfad+"/tmp.ps");
 		QFile::remove(PrefsPfad+"/sc.png");
