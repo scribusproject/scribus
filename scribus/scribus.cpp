@@ -265,9 +265,11 @@ int ScribusApp::initScribus(bool showSplash, bool showFontInfo, const QString ne
 #ifndef _WIN32
 		HaveGS = system(prefsManager->ghostscriptExecutable()+" -h > /dev/null 2>&1");
 		HavePngAlpha = system(prefsManager->ghostscriptExecutable()+" -sDEVICE=pngalpha -c quit > /dev/null 2>&1");
+		HaveTiffSep = system(prefsManager->ghostscriptExecutable()+" -sDEVICE=tiffsep -c quit > /dev/null 2>&1");
 #else
 		HaveGS = system(getShortPathName(prefsManager->ghostscriptExecutable())+" -h >NUL");
 		HavePngAlpha = system(getShortPathName(prefsManager->ghostscriptExecutable())+" -sDEVICE=pngalpha -c quit >NUL");
+		HaveTiffSep = system(getShortPathName(prefsManager->ghostscriptExecutable())+" -sDEVICE=tiffsep -c quit >NUL");
 #endif
 		DocDir = prefsManager->documentDir();
 
@@ -7671,7 +7673,7 @@ void ScribusApp::doPrintPreview()
 	}
 	if (HaveDoc)
 	{
-		PPreview *dia = new PPreview(this, view, doc, HavePngAlpha);
+		PPreview *dia = new PPreview(this, view, doc, HavePngAlpha, HaveTiffSep);
 		connect(dia, SIGNAL(doPrint()), this, SLOT(slotReallyPrint()));
 		dia->exec();
 		PrefsManager *prefsManager=PrefsManager::instance();
@@ -7688,6 +7690,14 @@ void ScribusApp::doPrintPreview()
 		delete dia;
 		QFile::remove(PrefsPfad+"/tmp.ps");
 		QFile::remove(PrefsPfad+"/sc.png");
+		QDir d(PrefsPfad+"/", "sc.tif*", QDir::Name, QDir::Files | QDir::NoSymLinks);
+		if ((d.exists()) && (d.count() != 0))
+		{
+			for (uint dc = 0; dc < d.count(); dc++)
+			{
+				QFile::remove(PrefsPfad +"/" + d[dc]);
+			}
+		}
 	}
 }
 
@@ -8815,33 +8825,6 @@ void ScribusApp::initHyphenator()
 	QStringList L_Spanish;
 	QStringList L_Swedish;
 	QStringList L_Ukrainian;
-	/* Commenting out.. QStringList should be created empty as per qt3 docs. 
-	L_Afrikaans.clear();
-	L_Bulgarian.clear();
-	L_Catalan.clear();
-	L_Croatian.clear();
-	L_Czech.clear();
-	L_Danish.clear();
-	L_Dutch.clear();
-	L_English.clear();
-	L_Finnish.clear();
-	L_French.clear();
-	L_German.clear();
-	L_Greek.clear();
-	L_Hungarian.clear();
-	L_Irish.clear();
-	L_Italian.clear();
-	L_Lithuanian.clear();
-	L_Polish.clear();
-	L_Portuguese.clear();
-	L_Portuguese_BR.clear();
-	L_Russian.clear();
-	L_Slovak.clear();
-	L_Slovenian.clear();
-	L_Spanish.clear();
-	L_Swedish.clear();
-	L_Ukrainian.clear();
-	*/
 	QDir d2(pfad, "*.*", QDir::Name, QDir::Files | QDir::NoSymLinks);
 	if ((d2.exists()) && (d2.count() != 0))
 	{

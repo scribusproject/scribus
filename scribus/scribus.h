@@ -222,6 +222,7 @@ public:
 	Autoforms* SCustom;
 	WerkToolB* mainToolBar;
 	int HavePngAlpha;
+	int HaveTiffSep;
 	bool unicodeTextEditMode;
 	int unicodeInputCount;
 	QString unicodeInputString;

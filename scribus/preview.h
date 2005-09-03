@@ -22,7 +22,7 @@ class SCRIBUS_API PPreview : public QDialog
 	Q_OBJECT
 
 public:
-	PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int pngAlpha );
+	PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int pngAlpha, int tiffSep );
 	~PPreview() {};
 	int RenderPreview(int Seite, int Res);
 	QPixmap CreatePreview(int Seite, int Res);
@@ -42,6 +42,7 @@ public:
 	ScribusView *view;
 	ScribusDoc *doc;
 	int HavePngAlpha;
+	int HaveTiffSep;
 	int APage;
 	int MPage;
 	bool CMode;

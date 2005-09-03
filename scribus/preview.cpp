@@ -43,7 +43,7 @@
  \param pngAlpha int
  \retval PPreview window
  */
-PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int pngAlpha) : QDialog( parent, "Preview", true, 0 )
+PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int pngAlpha, int tiffSep) : QDialog( parent, "Preview", true, 0 )
 {
 	prefsManager=PrefsManager::instance();
 	QString tmp;
@@ -51,6 +51,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	doc = docu;
 	view = vin;
 	HavePngAlpha = pngAlpha;
+	HaveTiffSep = tiffSep;
 	APage = -1;
 	MPage = doc->pageCount;
 	CMode = false;
@@ -306,7 +307,12 @@ int PPreview::RenderPreview(int Seite, int Res)
 	cmd1 = getShortPathName(prefsManager->ghostscriptExecutable());
 	cmd1 += " -q -dNOPAUSE -r"+tmp.setNum(Res)+" -g"+tmp2.setNum(qRound(b))+"x"+tmp3.setNum(qRound(h));
 	if (EnableCMYK->isChecked())
-		cmd1 += " -sDEVICE=bitcmyk -dGrayValues=256";
+	{
+		if (HaveTiffSep == 0)
+			cmd1 += " -sDEVICE=tiffsep";
+		else
+			cmd1 += " -sDEVICE=bitcmyk -dGrayValues=256";
+	}
 	else
 	{
 		if ((!AliasTr->isChecked()) || (HavePngAlpha != 0))
@@ -333,7 +339,10 @@ int PPreview::RenderPreview(int Seite, int Res)
 		cmd1 += QString(";\"%1\"").arg(extraFonts->get(i,0));
 #endif
 	// then add any final args and call gs
-	cmd1 += " -sOutputFile=\"" + QDir::convertSeparators(prefsManager->preferencesLocation()+"/sc.png") + "\" ";
+	if ((EnableCMYK->isChecked()) && (HaveTiffSep == 0))
+		cmd1 += " -sOutputFile=\"" + QDir::convertSeparators(prefsManager->preferencesLocation()+"/sc.tif") + "\" ";
+	else
+		cmd1 += " -sOutputFile=\"" + QDir::convertSeparators(prefsManager->preferencesLocation()+"/sc.png") + "\" ";
 	cmd2 = "\"" + QDir::convertSeparators(prefsManager->preferencesLocation()+"/tmp.ps") + "\"";
 	cmd3 = " -c showpage -c quit";
 	ret = system(cmd1 + cmd2 + cmd3);
@@ -382,38 +391,76 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 		int h2 = qRound(h);
 		int cyan, magenta, yellow, black, alpha;
 		uint *p;
-		QByteArray imgc(w2);
 		image = QImage(w, h2, 32);
-		QFile f(prefsManager->preferencesLocation()+"/sc.png");
-		if (f.open(IO_ReadOnly))
+		if (HaveTiffSep == 0)
 		{
-			for (int y=0; y < h2; ++y )
+			ScImage im;
+			bool mode;
+			if (im.LoadPicture(prefsManager->preferencesLocation()+"/sc.tif", "", 0, false, false, 3, 72, &mode))
 			{
-				p = (uint *)image.scanLine( y );
-				f.readBlock(imgc.data(), w2);
-				for (int x=0; x < w2; x += 4 )
+				for (int y=0; y < h2; ++y )
 				{
-					cyan = uchar(imgc[x]);
-					magenta = uchar(imgc[x + 1]);
-					yellow = uchar(imgc[x + 2]);
-					black = uchar(imgc[x + 3]);
-					if (!EnableCMYK_C->isChecked())
-						cyan = 0;
-					if (!EnableCMYK_M->isChecked())
-						magenta = 0;
-					if (!EnableCMYK_Y->isChecked())
-						yellow = 0;
-					if (!EnableCMYK_K->isChecked())
-						black = 0;
-					if (AliasTr->isChecked() && ((cyan == 0) && (magenta == 0) && (yellow == 0 ) && (black == 0)))
-						alpha = 0;
-					else
-						alpha = 255;
-					*p = qRgba(255-QMIN(255, cyan+black), 255-QMIN(255,magenta+black), 255-QMIN(255,yellow+black), alpha);
-					p++;
+					p = (uint *)image.scanLine( y );
+					QRgb *pq = (QRgb *)im.scanLine( y );
+					for (int x=0; x < w2; x += 4 )
+					{
+						cyan = qRed(*pq);
+						magenta = qGreen(*pq);
+						yellow =  qBlue(*pq);
+						black =  qAlpha(*pq);
+						if (!EnableCMYK_C->isChecked())
+							cyan = 0;
+						if (!EnableCMYK_M->isChecked())
+							magenta = 0;
+						if (!EnableCMYK_Y->isChecked())
+							yellow = 0;
+						if (!EnableCMYK_K->isChecked())
+							black = 0;
+						if (AliasTr->isChecked() && ((cyan == 0) && (magenta == 0) && (yellow == 0 ) && (black == 0)))
+							alpha = 0;
+						else
+							alpha = 255;
+						*p = qRgba(255-QMIN(255, cyan+black), 255-QMIN(255,magenta+black), 255-QMIN(255,yellow+black), alpha);
+						p++;
+						pq++;
+					}
 				}
 			}
-			f.close();
+		}
+		else
+		{
+			QByteArray imgc(w2);
+			QFile f(prefsManager->preferencesLocation()+"/sc.png");
+			if (f.open(IO_ReadOnly))
+			{
+				for (int y=0; y < h2; ++y )
+				{
+					p = (uint *)image.scanLine( y );
+					f.readBlock(imgc.data(), w2);
+					for (int x=0; x < w2; x += 4 )
+					{
+						cyan = uchar(imgc[x]);
+						magenta = uchar(imgc[x + 1]);
+						yellow = uchar(imgc[x + 2]);
+						black = uchar(imgc[x + 3]);
+						if (!EnableCMYK_C->isChecked())
+							cyan = 0;
+						if (!EnableCMYK_M->isChecked())
+							magenta = 0;
+						if (!EnableCMYK_Y->isChecked())
+							yellow = 0;
+						if (!EnableCMYK_K->isChecked())
+							black = 0;
+						if (AliasTr->isChecked() && ((cyan == 0) && (magenta == 0) && (yellow == 0 ) && (black == 0)))
+							alpha = 0;
+						else
+							alpha = 255;
+						*p = qRgba(255-QMIN(255, cyan+black), 255-QMIN(255,magenta+black), 255-QMIN(255,yellow+black), alpha);
+						p++;
+					}
+				}
+				f.close();
+			}
 		}
 	}
 	else
