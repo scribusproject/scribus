@@ -61,6 +61,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	Trans = false;
 	GMode = true;
 	scaleFactor = 1.0;
+	SMode = 1;
 
 	setIcon(loadIcon("AppIcon.png"));
 	PLayout = new QVBoxLayout(this, 0, 0, "PLayout");
@@ -129,9 +130,6 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	PLayout->addLayout(Layout1);
 
 	Anzeige = new QScrollView(this);
-	Anz = new QLabel(Anzeige->viewport());
-	Anz->setPixmap(CreatePreview(0, 72));
-	Anzeige->addChild(Anz, 0, 0);
 	PLayout->addWidget(Anzeige);
 	Layout6 = new QHBoxLayout();
 	Layout6->setSpacing(0);
@@ -140,10 +138,14 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	Layout6->addWidget( printButton );
 	/* scaling */
 	scaleLabel = new QLabel(tr("Scaling:"), this, "scaleLabel");
-	// min, max, step, parent, name
-	scaleBox = new QSpinBox(50, 200, 1, this, "scaleBox");
-	scaleBox->setSuffix("%");
-	scaleBox->setValue(100);
+	scaleBox = new QComboBox( true, this, "unitSwitcher" );
+	scaleBox->setEditable(false);
+	scaleBox->setFocusPolicy(QWidget::NoFocus);
+	scaleBox->insertItem("50%");
+	scaleBox->insertItem("100%");
+	scaleBox->insertItem("150%");
+	scaleBox->insertItem("200%");
+	scaleBox->setCurrentItem(1);
 	QSpacerItem* scaleSpacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout6->addItem(scaleSpacer);
 	Layout6->addWidget(scaleLabel);
@@ -151,6 +153,9 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout6->addItem( spacer );
 	PLayout->addLayout(Layout6);
+	Anz = new QLabel(Anzeige->viewport());
+	Anz->setPixmap(CreatePreview(0, 72));
+	Anzeige->addChild(Anz, 0, 0);
 
 	int w = Anz->width() + 20;
 	resize(QMIN(QApplication::desktop()->width(),w), 500);
@@ -171,7 +176,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	QToolTip::add( EnableCMYK_Y, tr( "Enable/disable the Y (Yellow) ink plate" ) );
 	QToolTip::add( EnableCMYK_K, tr( "Enable/disable the K (Black) ink plate" ) );
 	QToolTip::add( EnableGCR, "<qt>" + tr( "A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks." ) + "</qt>" );
-	QToolTip::add(scaleBox, "<qt>" + tr("Resize the scale of the page. Remember that it's designed for screen preview with 72dpi - it's only informational output") + "</qt>");
+	QToolTip::add(scaleBox, "<qt>" + tr("Resize the scale of the page.") + "</qt>");
 	//signals and slots
 	connect(AliasText, SIGNAL(clicked()), this, SLOT(ToggleTextAA()));
 	connect(AliasGr, SIGNAL(clicked()), this, SLOT(ToggleGr()));
@@ -184,7 +189,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	connect(EnableCMYK_K, SIGNAL(clicked()), this, SLOT(ToggleCMYK_Colour()));
 	connect(PGSel, SIGNAL(GotoPage(int)), this, SLOT(ToSeite(int)));
 	connect(printButton, SIGNAL(clicked()), this, SIGNAL(doPrint()));
-	connect(scaleBox, SIGNAL(valueChanged(int)), this, SLOT(scaleBox_valueChanged(int)));
+	connect(scaleBox, SIGNAL(activated(int)), this, SLOT(scaleBox_valueChanged(int)));
 }
 
 /*!
@@ -200,7 +205,7 @@ void PPreview::ToSeite(int num)
 	int n = num-1;
 	if (n == APage)
 		return;
-	Anz->setPixmap(CreatePreview(n, 72));
+	Anz->setPixmap(CreatePreview(n, qRound(72 * scaleFactor)));
 }
 
 /*!
@@ -213,7 +218,7 @@ void PPreview::ToSeite(int num)
  */
 void PPreview::ToggleTextAA()
 {
-	Anz->setPixmap(CreatePreview(APage, 72));
+	Anz->setPixmap(CreatePreview(APage, qRound(72 * scaleFactor)));
 }
 
 /*!
@@ -226,7 +231,7 @@ void PPreview::ToggleTextAA()
  */
 void PPreview::ToggleGr()
 {
-	Anz->setPixmap(CreatePreview(APage, 72));
+	Anz->setPixmap(CreatePreview(APage, qRound(72 * scaleFactor)));
 }
 
 /*!
@@ -239,7 +244,7 @@ void PPreview::ToggleGr()
  */
 void PPreview::ToggleTr()
 {
-	Anz->setPixmap(CreatePreview(APage, 72));
+	Anz->setPixmap(CreatePreview(APage, qRound(72 * scaleFactor)));
 }
 
 /*!
@@ -257,12 +262,12 @@ void PPreview::ToggleCMYK()
 	EnableCMYK_M->setEnabled(c);
 	EnableCMYK_Y->setEnabled(c);
 	EnableCMYK_K->setEnabled(c);
-	Anz->setPixmap(CreatePreview(APage, 72));
+	Anz->setPixmap(CreatePreview(APage, qRound(72 * scaleFactor)));
 }
 
 void PPreview::ToggleGCR()
 {
-	Anz->setPixmap(CreatePreview(APage, 72));
+	Anz->setPixmap(CreatePreview(APage, qRound(72 * scaleFactor)));
 }
 /*!
  \fn void PPreview::ToggleCMYK_Colour()
@@ -275,7 +280,7 @@ void PPreview::ToggleGCR()
 void PPreview::ToggleCMYK_Colour()
 {
 	if (EnableCMYK->isChecked())
-		Anz->setPixmap(CreatePreview(APage, 72));
+		Anz->setPixmap(CreatePreview(APage, qRound(72 * scaleFactor)));
 }
 
 /*!
@@ -287,8 +292,25 @@ void PPreview::ToggleCMYK_Colour()
  */
 void PPreview::scaleBox_valueChanged(int value)
 {
-	scaleFactor = (double)value / 100.0;
-	Anz->setPixmap(CreatePreview(APage, 72));
+	switch (value)
+	{
+		case 0:
+			scaleFactor = 0.5;
+			break;
+		case 1:
+			scaleFactor = 1.0;
+			break;
+		case 2:
+			scaleFactor = 1.5;
+			break;
+		case 3:
+			scaleFactor = 2.0;
+			break;
+		default:
+			scaleFactor = 1.0;
+			break;
+	}
+	Anz->setPixmap(CreatePreview(APage, qRound(72 * scaleFactor)));
 }
 
 /*!
@@ -324,10 +346,10 @@ int PPreview::RenderPreview(int Seite, int Res)
 			return ret;
 	}
 	QString tmp, tmp2, tmp3;
-	double b = doc->Pages.at(Seite)->Width * Res / 72;
-	double h = doc->Pages.at(Seite)->Height * Res / 72;
+	double b = doc->Pages.at(Seite)->Width * Res / 72.0;
+	double h = doc->Pages.at(Seite)->Height * Res / 72.0;
 	cmd1 = getShortPathName(prefsManager->ghostscriptExecutable());
-	cmd1 += " -q -dNOPAUSE -r"+tmp.setNum(Res)+" -g"+tmp2.setNum(qRound(b))+"x"+tmp3.setNum(qRound(h));
+	cmd1 += " -q -dNOPAUSE -r"+tmp.setNum(qRound(Res))+" -g"+tmp2.setNum(qRound(b))+"x"+tmp3.setNum(qRound(h));
 	if (EnableCMYK->isChecked())
 	{
 		if (HaveTiffSep == 0)
@@ -384,10 +406,10 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 {
 	int ret = -1;
 	QPixmap Bild;
-	double b = doc->Pages.at(Seite)->Width * Res / 72;
-	double h = doc->Pages.at(Seite)->Height * Res / 72;
+	double b = doc->Pages.at(Seite)->Width * Res / 72.0;
+	double h = doc->Pages.at(Seite)->Height * Res / 72.0;
 	qApp->setOverrideCursor(QCursor(waitCursor), true);
-	if ((Seite != APage) || (EnableCMYK->isChecked() != CMode)
+	if ((Seite != APage) || (EnableCMYK->isChecked() != CMode) || (SMode != scaleBox->currentItem())
 	        || (AliasText->isChecked() != TxtAl) || (AliasGr->isChecked() != GrAl) || (EnableGCR->isChecked() != GMode)
 	        || ((AliasTr->isChecked() != Trans) && (!EnableCMYK->isChecked())))
 	{
@@ -405,21 +427,22 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 	GrAl = AliasGr->isChecked();
 	Trans = AliasTr->isChecked();
 	GMode = EnableGCR->isChecked();
+	SMode = scaleBox->currentItem();
 	QImage image;
 	if (EnableCMYK->isChecked())
 	{
-		int w = qRound(b);
-		int w2 = 4*w;
-		int h2 = qRound(h);
 		int cyan, magenta, yellow, black, alpha;
 		uint *p;
-		image = QImage(w, h2, 32);
 		if (HaveTiffSep == 0)
 		{
 			ScImage im;
 			bool mode;
 			if (im.LoadPicture(prefsManager->preferencesLocation()+"/sc.tif", "", 0, false, false, 3, 72, &mode))
 			{
+				int w = im.width();
+				int w2 = 4*w;
+				int h2 = im.height();
+				image = QImage(w, h2, 32);
 				for (int y=0; y < h2; ++y )
 				{
 					p = (uint *)image.scanLine( y );
@@ -451,6 +474,10 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 		}
 		else
 		{
+			int w = qRound(b);
+			int w2 = 4*w;
+			int h2 = qRound(h);
+			image = QImage(w, h2, 32);
 			QByteArray imgc(w2);
 			QFile f(prefsManager->preferencesLocation()+"/sc.png");
 			if (f.open(IO_ReadOnly))
@@ -506,10 +533,6 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 		}
 	}
 	image.setAlphaBuffer(true);
-	/* ok, I know it should be somewhere in RenderPreview, but it will be
-	too slow in gs... imho user will be satisfied with resized image.
-	I hope so. (pv) */
-	image = image.smoothScale(qRound((double)image.width() * scaleFactor), qRound((double)image.height() * scaleFactor));
 	if (AliasTr->isChecked())
 	{
 		Bild = QPixmap(image.width(), image.height());

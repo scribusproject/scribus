@@ -43,13 +43,14 @@ public:
 	QPushButton *printButton;
 	/*! scaling GUI */
 	QLabel* scaleLabel;
-	QSpinBox* scaleBox;
+	QComboBox* scaleBox;
 	ScribusView *view;
 	ScribusDoc *doc;
 	int HavePngAlpha;
 	int HaveTiffSep;
 	int APage;
 	int MPage;
+	int SMode;
 	bool CMode;
 	bool TxtAl;
 	bool GrAl;

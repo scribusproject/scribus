@@ -57,7 +57,7 @@ extern int IntentPrinter;
 extern bool CMSavail;
 extern QPixmap loadIcon(QString nam);
 
-ScribusDoc::ScribusDoc() : UndoObject(QObject::tr("Document"))
+ScribusDoc::ScribusDoc() : UndoObject( tr("Document"))
 {
 	ApplicationPrefs* prefsData=&(PrefsManager::instance()->appPrefs);
 	modified = false;
@@ -180,7 +180,7 @@ ScribusDoc::ScribusDoc() : UndoObject(QObject::tr("Document"))
 	EditClip = false;
 	EditClipMode = 0;
 	loading = false;
-	DocName = QObject::tr("Document")+"-";
+	DocName = tr("Document")+"-";
 	CurrentSel = -1;
 	pageCount = 0;
 	LastAuto = 0;
@@ -239,7 +239,7 @@ ScribusDoc::ScribusDoc() : UndoObject(QObject::tr("Document"))
 	struct Layer ll;
 	ll.LNr = 0;
 	ll.Level = 0;
-	ll.Name = QObject::tr("Background");
+	ll.Name = tr("Background");
 	ll.isViewable = true;
 	ll.isPrintable = true;
 	Layers.append(ll);

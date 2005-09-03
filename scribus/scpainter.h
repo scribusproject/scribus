@@ -124,7 +124,7 @@ public:
 	virtual void restore();
 
 	//
-	virtual void setRasterOp( Qt::RasterOp );
+	virtual void setRasterOp( int op );
 
 	virtual QPaintDevice *device() { return m_target; }
 	unsigned char *buffer() { return m_buffer; }
