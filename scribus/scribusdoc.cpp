@@ -2107,3 +2107,32 @@ void ScribusDoc::recalculateColors()
 		}
 	}
 }
+
+void ScribusDoc::setScTextDefaultsFromDoc(ScText *sctextdata)
+{
+	if (sctextdata==NULL)
+		return;
+	sctextdata->cfont = (*AllFonts)[CurrFont];
+	sctextdata->csize = CurrFontSize;
+	sctextdata->ccolor = CurrTextFill;
+	sctextdata->cshade = CurrTextFillSh;
+	sctextdata->cstroke = CurrTextStroke;
+	sctextdata->cshade2 = CurrTextStrokeSh;
+	sctextdata->cscale = CurrTextScale;
+	sctextdata->cscalev = CurrTextScaleV;
+	sctextdata->cbase = CurrTextBase;
+	sctextdata->cshadowx = CurrTextShadowX;
+	sctextdata->cshadowy = CurrTextShadowY;
+	sctextdata->coutline = CurrTextOutline;
+	sctextdata->cunderpos = CurrTextUnderPos;
+	sctextdata->cunderwidth = CurrTextUnderWidth;
+	sctextdata->cstrikepos = CurrTextStrikePos;
+	sctextdata->cstrikewidth = CurrTextStrikeWidth;
+	sctextdata->cstyle = CurrentStyle;
+	sctextdata->cab = currentParaStyle;
+	if (!docParagraphStyles[currentParaStyle].Font.isEmpty())
+	{
+		sctextdata->cfont = (*AllFonts)[docParagraphStyles[currentParaStyle].Font];
+		sctextdata->csize = docParagraphStyles[currentParaStyle].FontSize;
+	}
+}

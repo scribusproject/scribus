@@ -1125,30 +1125,8 @@ void ScribusApp::specialActionKeyEvent(QString actionName, int unicodevalue)
 				if (unicodevalue!=-1)
 				{
 					hg->ch = QString(QChar(unicodevalue));
-					hg->cfont = (*doc->AllFonts)[doc->CurrFont];
-					hg->csize = doc->CurrFontSize;
-					hg->ccolor = doc->CurrTextFill;
-					hg->cshade = doc->CurrTextFillSh;
-					hg->cstroke = doc->CurrTextStroke;
-					hg->cshade2 = doc->CurrTextStrokeSh;
-					hg->cscale = doc->CurrTextScale;
-					hg->cscalev = doc->CurrTextScaleV;
-					hg->cbase = doc->CurrTextBase;
-					hg->cshadowx = doc->CurrTextShadowX;
-					hg->cshadowy = doc->CurrTextShadowY;
-					hg->coutline = doc->CurrTextOutline;
-					hg->cunderpos = doc->CurrTextUnderPos;
-					hg->cunderwidth = doc->CurrTextUnderWidth;
-					hg->cstrikepos = doc->CurrTextStrikePos;
-					hg->cstrikewidth = doc->CurrTextStrikeWidth;
+					doc->setScTextDefaultsFromDoc(hg);
 					hg->cselect = false;
-					hg->cstyle = doc->CurrentStyle;
-					hg->cab = doc->currentParaStyle;
-					if (!doc->docParagraphStyles[doc->currentParaStyle].Font.isEmpty())
-					{
-						hg->cfont = (*doc->AllFonts)[doc->docParagraphStyles[doc->currentParaStyle].Font];
-						hg->csize = doc->docParagraphStyles[doc->currentParaStyle].FontSize;
-					}
 					hg->cextra = 0;
 					hg->xp = 0;
 					hg->yp = 0;
@@ -1651,30 +1629,8 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 									conv = 32;
 								hg = new ScText;
 								hg->ch = QString(QChar(conv));
-								hg->cfont = (*doc->AllFonts)[doc->CurrFont];
-								hg->csize = doc->CurrFontSize;
-								hg->ccolor = doc->CurrTextFill;
-								hg->cshade = doc->CurrTextFillSh;
-								hg->cstroke = doc->CurrTextStroke;
-								hg->cshade2 = doc->CurrTextStrokeSh;
-								hg->cscale = doc->CurrTextScale;
-								hg->cscalev = doc->CurrTextScaleV;
-								hg->cbase = doc->CurrTextBase;
-								hg->cshadowx = doc->CurrTextShadowX;
-								hg->cshadowy = doc->CurrTextShadowY;
-								hg->coutline = doc->CurrTextOutline;
-								hg->cunderpos = doc->CurrTextUnderPos;
-								hg->cunderwidth = doc->CurrTextUnderWidth;
-								hg->cstrikepos = doc->CurrTextStrikePos;
-								hg->cstrikewidth = doc->CurrTextStrikeWidth;
+								doc->setScTextDefaultsFromDoc(hg);
 								hg->cselect = false;
-								hg->cstyle = doc->CurrentStyle;
-								hg->cab = doc->currentParaStyle;
-								if (!doc->docParagraphStyles[doc->currentParaStyle].Font.isEmpty())
-								{
-									hg->cfont = (*doc->AllFonts)[doc->docParagraphStyles[doc->currentParaStyle].Font];
-									hg->csize = doc->docParagraphStyles[doc->currentParaStyle].FontSize;
-								}
 								hg->cextra = 0;
 								hg->xp = 0;
 								hg->yp = 0;
@@ -2095,30 +2051,8 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 //								hg->ch = QString(QChar(28));
 							if (kk == Key_Tab)
 								hg->ch = QString(QChar(9));
-							hg->cfont = (*doc->AllFonts)[doc->CurrFont];
-							hg->csize = doc->CurrFontSize;
-							hg->ccolor = doc->CurrTextFill;
-							hg->cshade = doc->CurrTextFillSh;
-							hg->cstroke = doc->CurrTextStroke;
-							hg->cshade2 = doc->CurrTextStrokeSh;
-							hg->cscale = doc->CurrTextScale;
-							hg->cscalev = doc->CurrTextScaleV;
-							hg->cbase = doc->CurrTextBase;
-							hg->cshadowx = doc->CurrTextShadowX;
-							hg->cshadowy = doc->CurrTextShadowY;
-							hg->coutline = doc->CurrTextOutline;
-							hg->cunderpos = doc->CurrTextUnderPos;
-							hg->cunderwidth = doc->CurrTextUnderWidth;
-							hg->cstrikepos = doc->CurrTextStrikePos;
-							hg->cstrikewidth = doc->CurrTextStrikeWidth;
+							doc->setScTextDefaultsFromDoc(hg);
 							hg->cselect = false;
-							hg->cstyle = doc->CurrentStyle;
-							hg->cab = doc->currentParaStyle;
-							if (!doc->docParagraphStyles[doc->currentParaStyle].Font.isEmpty())
-							{
-								hg->cfont = (*doc->AllFonts)[doc->docParagraphStyles[doc->currentParaStyle].Font];
-								hg->csize = doc->docParagraphStyles[doc->currentParaStyle].FontSize;
-							}
 							hg->cextra = 0;
 							hg->xp = 0;
 							hg->yp = 0;
@@ -2136,31 +2070,9 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 						{
 							hg = new ScText;
 							hg->ch = uc;
-							hg->cfont = (*doc->AllFonts)[doc->CurrFont];
-							hg->ccolor = doc->CurrTextFill;
-							hg->cshade = doc->CurrTextFillSh;
-							hg->cstroke = doc->CurrTextStroke;
-							hg->cshade2 = doc->CurrTextStrokeSh;
-							hg->cscale = doc->CurrTextScale;
-							hg->cscalev = doc->CurrTextScaleV;
-							hg->csize = doc->CurrFontSize;
-							hg->cbase = doc->CurrTextBase;
-							hg->cshadowx = doc->CurrTextShadowX;
-							hg->cshadowy = doc->CurrTextShadowY;
-							hg->coutline = doc->CurrTextOutline;
-							hg->cunderpos = doc->CurrTextUnderPos;
-							hg->cunderwidth = doc->CurrTextUnderWidth;
-							hg->cstrikepos = doc->CurrTextStrikePos;
-							hg->cstrikewidth = doc->CurrTextStrikeWidth;
+							doc->setScTextDefaultsFromDoc(hg);
 							hg->cextra = 0;
 							hg->cselect = false;
-							hg->cstyle = doc->CurrentStyle;
-							hg->cab = doc->currentParaStyle;
-							if (!doc->docParagraphStyles[doc->currentParaStyle].Font.isEmpty())
-							{
-								hg->cfont = (*doc->AllFonts)[doc->docParagraphStyles[doc->currentParaStyle].Font];
-								hg->csize = doc->docParagraphStyles[doc->currentParaStyle].FontSize;
-							}
 							hg->xp = 0;
 							hg->yp = 0;
 							hg->PRot = 0;
@@ -2260,27 +2172,16 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 				return;
 			}
 		}
-		propertiesPalette->hide();
-		outlinePalette->hide();
-		scrapbookPalette->hide();
-		bookmarkPalette->hide();
-		layerPalette->hide();
-		pagePalette->hide();
-		measurementPalette->hide();
-		docCheckerPalette->hide();
 	}
-	else
-	{
-		propertiesPalette->hide();
-		outlinePalette->hide();
-		scrapbookPalette->hide();
-		bookmarkPalette->hide();
-		layerPalette->hide();
-		pagePalette->hide();
-		measurementPalette->hide();
-		docCheckerPalette->hide();
-	}
-
+	propertiesPalette->hide();
+	outlinePalette->hide();
+	scrapbookPalette->hide();
+	bookmarkPalette->hide();
+	layerPalette->hide();
+	pagePalette->hide();
+	measurementPalette->hide();
+	docCheckerPalette->hide();
+	
 	if (!emergencyActivated)
 		prefsManager->SavePrefs();
 	UndoManager::deleteInstance();
@@ -2365,7 +2266,7 @@ bool ScribusApp::arrowKeyDown()
 
 void ScribusApp::startUpDialog()
 {
-	QString fileName = "";
+	QString fileName("");
 	PrefsContext* docContext = prefsManager->prefsFile->getContext("docdirs", false);
 	NewDoc* dia = new NewDoc(this, true);
 	if (dia->exec())
@@ -5170,30 +5071,8 @@ void ScribusApp::slotEditPaste()
 				outlinePalette->reopenTree(doc->OpenNodes);
 				hg = new ScText;
 				hg->ch = QChar(25);
-				hg->cfont = (*doc->AllFonts)[doc->CurrFont];
-				hg->csize = doc->CurrFontSize;
-				hg->ccolor = doc->CurrTextFill;
-				hg->cshade = doc->CurrTextFillSh;
-				hg->cstroke = doc->CurrTextStroke;
-				hg->cshade2 = doc->CurrTextStrokeSh;
-				hg->cscale = doc->CurrTextScale;
-				hg->cscalev = doc->CurrTextScaleV;
-				hg->cbase = doc->CurrTextBase;
-				hg->cshadowx = doc->CurrTextShadowX;
-				hg->cshadowy = doc->CurrTextShadowY;
-				hg->coutline = doc->CurrTextOutline;
-				hg->cunderpos = doc->CurrTextUnderPos;
-				hg->cunderwidth = doc->CurrTextUnderWidth;
-				hg->cstrikepos = doc->CurrTextStrikePos;
-				hg->cstrikewidth = doc->CurrTextStrikeWidth;
+				doc->setScTextDefaultsFromDoc(hg);
 				hg->cselect = false;
-				hg->cstyle = doc->CurrentStyle;
-				hg->cab = doc->currentParaStyle;
-				if (!doc->docParagraphStyles[doc->currentParaStyle].Font.isEmpty())
-				{
-					hg->cfont = (*doc->AllFonts)[doc->docParagraphStyles[doc->currentParaStyle].Font];
-					hg->csize = doc->docParagraphStyles[doc->currentParaStyle].FontSize;
-				}
 				hg->xp = 0;
 				hg->yp = 0;
 				hg->PRot = 0;

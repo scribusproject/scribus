@@ -39,6 +39,7 @@
 #include "documentinformation.h"
 #include "undoobject.h"
 #include "hyphenator.h"
+
 #ifdef HAVE_CMS
 	#include CMS_INC
 #endif
@@ -285,6 +286,10 @@ public:
 	 * @brief Recalculate the colors after CMS settings change. Update the items in the doc accordingly.
 	 */
 	 void recalculateColors();
+	/**
+	 * @brief Sets up the ScText defaults from the document
+	 */
+	void setScTextDefaultsFromDoc(ScText *);
 	
 protected:
 	void addSymbols();
