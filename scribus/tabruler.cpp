@@ -24,6 +24,7 @@ RulerT::RulerT(QWidget *pa, int ein, QValueList<PageItem::TabRecord> Tabs, bool 
 	iter2=unitRulerGetIter2FromIndex(unitIndex);
 	tabValues = Tabs;
 	haveInd = ind;
+	offsetIncrement = 5;
 	offset = 0;
 	firstLine = 0;
 	leftIndent = 0;
@@ -362,9 +363,17 @@ void RulerT::updateTabList()
 	}
 }
 
+void RulerT::resetOffsetInc()
+{
+	offsetIncrement = 5;
+}
+
 void RulerT::increaseOffset()
 {
-	offset += 5;
+	offset += offsetIncrement;
+	offsetIncrement++;
+	if (offsetIncrement > 30)
+		offsetIncrement = 30;
 	if (offset + width() > static_cast<int>(Width))
 		offset -= 5;
 	repaint();
@@ -372,7 +381,10 @@ void RulerT::increaseOffset()
 
 void RulerT::decreaseOffset()
 {
-	offset -= 5;
+	offset -= offsetIncrement;
+	offsetIncrement++;
+	if (offsetIncrement > 30)
+		offsetIncrement = 30;
 	if (offset < 0)
 		offset = 0;
 	repaint();
@@ -504,6 +516,8 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QValueList<PageIt
 	resize( minimumSizeHint() );
 	connect(rulerScrollL, SIGNAL(clicked()), ruler, SLOT(decreaseOffset()));
 	connect(rulerScrollR, SIGNAL(clicked()), ruler, SLOT(increaseOffset()));
+	connect(rulerScrollL, SIGNAL(released()), this, SLOT(resetOFfL()));
+	connect(rulerScrollR, SIGNAL(released()), this, SLOT(resetOFfR()));
 	connect(ruler, SIGNAL(typeChanged(int)) , this, SLOT(setTabType(int)));
 	connect(ruler, SIGNAL(fillCharChanged(QChar)) , this, SLOT(setTabFillChar(QChar)));
 	connect(TypeCombo, SIGNAL(activated(int)), this, SLOT(setType()));
@@ -543,6 +557,18 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QValueList<PageIt
 	}
 	tabData->setSuffix(ein);
 	haveF = haveFirst;
+}
+
+void Tabruler::resetOFfL()
+{
+	if (!rulerScrollL->isDown())
+		ruler->resetOffsetInc();
+}
+
+void Tabruler::resetOFfR()
+{
+	if (!rulerScrollR->isDown())
+		ruler->resetOffsetInc();
 }
 
 void Tabruler::clearAll()

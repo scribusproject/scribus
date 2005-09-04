@@ -35,8 +35,10 @@ public:
 	double Width;
 	int rulerCode;
 	int mouseX;
+	int offsetIncrement;
 
 public slots:
+	void resetOffsetInc();
 	void decreaseOffset();
 	void increaseOffset();
 	void changeTab(int t);
@@ -80,6 +82,8 @@ public:
 	double getLeftIndent();
 
 public slots:
+	void resetOFfL();
+	void resetOFfR();
 	void clearAll();
 	void tabAdded();
 	void lastTabRemoved();
