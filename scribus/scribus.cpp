@@ -342,6 +342,7 @@ void ScribusApp::initScribus()
 		Prefs.SCpalv = false;
 		Prefs.Lpalv = false;
 		Prefs.Bopalv = false;
+		Prefs.Sepalv = false;
 		Prefs.Mpalx = 0;
 		Prefs.Mpaly = 0;
 		Prefs.Mapalx = 0;
