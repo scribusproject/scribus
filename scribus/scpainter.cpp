@@ -120,6 +120,9 @@ ScPainter::ScPainter( QPaintDevice *target, unsigned int w, unsigned int h, unsi
 	resize( m_width, m_height );
 	clear();
 	dc = CreateCompatibleDC( target->handle() );
+#else
+	resize( m_width, m_height );
+	clear();
 #endif
 }
 
