@@ -416,7 +416,7 @@ void KeyManager::importKeySet(QString filename)
 		int ecol;
 		if ( !doc.setContent( ts.read(), &errorMsg, &eline, &ecol )) 
 		{
-			qDebug(QString("Could not open key set file: %1\nError:%2 at line: %3, row: %4").arg(filename).arg(errorMsg).arg(eline).arg(ecol));
+			qDebug("%s", QString("Could not open key set file: %1\nError:%2 at line: %3, row: %4").arg(filename).arg(errorMsg).arg(eline).arg(ecol).ascii());
 			file.close();
 			return;
 		}
@@ -534,7 +534,7 @@ QStringList KeyManager::scanForSets()
 			
 			if ( !doc.setContent( &file, &errorMsg, &eline, &ecol )) 
 			{
-				qDebug(QString("Could not open key set file: %1\nError:%2 at line: %3, row: 4").arg(keySetsDir[fileCounter]).arg(errorMsg).arg(eline).arg(ecol));
+				qDebug("%s", QString("Could not open key set file: %1\nError:%2 at line: %3, row: 4").arg(keySetsDir[fileCounter]).arg(errorMsg).arg(eline).arg(ecol).ascii());
 				file.close();
 				continue;
 			}

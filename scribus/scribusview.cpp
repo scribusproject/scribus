@@ -8302,7 +8302,7 @@ void ScribusView::ClearItem()
 					if ((currItem->itemText.count() != 0) && ((currItem->NextBox == 0) || (currItem->BackBox == 0)))
 					{
 						int t = QMessageBox::warning(this, tr("Warning"),
-											tr("Do you really want to clear all your Text?"),
+											tr("Do you really want to clear all your text?"),
 											QMessageBox::No, QMessageBox::Yes, QMessageBox::NoButton);
 						if (t == QMessageBox::No)
 							return;

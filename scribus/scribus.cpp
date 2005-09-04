@@ -3501,17 +3501,13 @@ void ScribusApp::rebuildLayersList()
 		for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it0 = scrLayersActions.begin(); it0 != scrLayersActions.end(); ++it0 )
 			scrMenuMgr->removeMenuItem((*it0), layerMenuName);
 		scrLayersActions.clear();
-		uint a;
 		QValueList<Layer>::iterator it;
-		if (doc->Layers.count() != 0)
+		if (doc->Layers.count()!= 0)
 		{
-			for (a=0; a < doc->Layers.count(); a++)
+			for (it = doc->Layers.begin(); it != doc->Layers.end(); ++it)
 			{
-				for (it = doc->Layers.begin(); it != doc->Layers.end(); ++it)
-				{
-					scrLayersActions.insert(QString("%1").arg((*it).LNr), new ScrAction( ScrAction::Layer, QIconSet(), (*it).Name, QKeySequence(), this, (*it).Name, (*it).LNr));
-					scrLayersActions[QString("%1").arg((*it).LNr)]->setToggleAction(true);
-				}
+				scrLayersActions.insert(QString("%1").arg((*it).LNr), new ScrAction( ScrAction::Layer, QIconSet(), (*it).Name, QKeySequence(), this, (*it).Name, (*it).LNr));
+				scrLayersActions[QString("%1").arg((*it).LNr)]->setToggleAction(true);
 			}
 		}
 		int currActiveLayer=doc->activeLayer();
@@ -3539,14 +3535,15 @@ void ScribusApp::updateItemLayerList()
 {
 	if (HaveDoc)
 	{
-		for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=scrLayersActions.end(); ++it )
+		QMap<QString, QGuardedPtr<ScrAction> >::Iterator itend=scrLayersActions.end();
+		for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=itend; ++it )
 		{
 			disconnect( (*it), SIGNAL(activatedData(int)), 0, 0 );
 			(*it)->setOn(false);
 		}
 		if (view->SelItem.count()>0 && view->SelItem.at(0))
 			scrLayersActions[QString("%1").arg(view->SelItem.at(0)->LayerNr)]->setOn(true);
-		for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=scrLayersActions.end(); ++it )
+		for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=itend; ++it )
 			connect( (*it), SIGNAL(activatedData(int)), this, SLOT(sendToLayer(int)) );
 	}
 }
@@ -3630,9 +3627,7 @@ bool ScribusApp::slotPageImport()
 		if (doc->masterPageMode)
 		{
 			if (pageNs.size() > 1)
-			{
 				loadPage(dia->getFromDoc(), pageNs[0] - 1, false);
-			}
 			doIt = false;
 		}
 		else if (dia->getCreatePageChecked())
@@ -3724,7 +3719,7 @@ bool ScribusApp::loadPage(QString fileName, int Nr, bool Mpa)
 			doc->OpenNodes = outlinePalette->buildReopenVals();
 		doc->setLoading(true);
 		ScriXmlDoc *ss = new ScriXmlDoc();
-		uint cc = doc->Items.count();
+		uint oldItemsCount = doc->Items.count();
 		if(!ss->ReadPage(fileName, prefsManager->appPrefs.AvailFonts, doc, view, Nr, Mpa))
 		{
 			delete ss;
@@ -3732,17 +3727,15 @@ bool ScribusApp::loadPage(QString fileName, int Nr, bool Mpa)
 			return false;
 		}
 		delete ss;
-		if (CMSavail)
+		if (CMSavail && doc->CMSSettings.CMSinUse)
 		{
-			if (doc->CMSSettings.CMSinUse)
-			{
-				recalcColors();
-				view->RecalcPictures(&InputProfiles);
-			}
+			recalcColors();
+			view->RecalcPictures(&InputProfiles);
 		}
-		for (uint azz = cc; azz < doc->Items.count(); ++azz)
+		uint docItemsCount=doc->Items.count();
+		for (uint i = oldItemsCount; i < docItemsCount; ++i)
 		{
-			PageItem *ite = doc->Items.at(azz);
+			PageItem *ite = doc->Items.at(i);
 			if ((ite->itemType() == PageItem::TextFrame) && (ite->isBookmark))
 				bookmarkPalette->BView->AddPageItem(ite);
 		}
@@ -3787,8 +3780,9 @@ bool ScribusApp::loadDoc(QString fileName)
 	if (windows.count() != 0)
 		ActWinOld = ActWin;
 	bool found = false;
-	int id = 0;
-	for ( int i = 0; i < static_cast<int>(windows.count()); ++i )
+	uint id = 0;
+	uint windowCount=windows.count();
+	for ( uint i = 0; i < windowCount; ++i )
 	{
 		if (windows.at(i)->caption() == fileName)
 		{
@@ -3811,7 +3805,7 @@ bool ScribusApp::loadDoc(QString fileName)
 		{
 			delete fl;
 			qApp->setOverrideCursor(QCursor(arrowCursor), true);
-			QMessageBox::critical(this, tr("Fatal Error"), tr("File %1 \nis not in an acceptable format").arg(FName), CommonStrings::tr_OK);
+			QMessageBox::critical(this, tr("Fatal Error"), "<qt>"+tr("File %1 is not in an acceptable format").arg(FName)+"</qt>", CommonStrings::tr_OK);
 			return false;
 		}
 		bool is12doc=false;
@@ -4086,7 +4080,6 @@ bool ScribusApp::loadDoc(QString fileName)
 				{
 					ite->Frame = false;
 					view->UpdatePolyClip(ite);
-					ite->DrawObj(painter, rd);
 				}
 				else
 				{
@@ -4101,11 +4094,9 @@ bool ScribusApp::loadDoc(QString fileName)
 								break;
 						}
 						ite = nextItem;
-						ite->DrawObj(painter, rd);
 					}
-					else
-						ite->DrawObj(painter, rd);
 				}
+				ite->DrawObj(painter, rd);
 			}
 		}
 //		RestoreBookMarks();
@@ -4342,7 +4333,7 @@ void ScribusApp::slotFileRevert()
 {
 	if ((doc->hasName) && (doc->isModified()) && (!doc->masterPageMode))
 	{
-		QString fn = doc->DocName;
+		QString fn(doc->DocName);
 		QFileInfo fi(fn);
 		QDir::setCurrent(fi.dirPath(true));
 		doc->setModified(false);
@@ -4369,8 +4360,7 @@ bool ScribusApp::slotFileSave()
 	if (doc->hasName)
 	{
 		//Scribus 1.3.x warning, remove at a later stage
-		if (doc->is12doc)
-			if (!warningVersion(this))
+		if (doc->is12doc && !warningVersion(this))
 				return false;
 
 		QString fn = doc->DocName;
@@ -5282,7 +5272,8 @@ void ScribusApp::SelectAll()
 	{
 		PageItem *currItem;
 		view->Deselect();
-		for (uint a = 0; a < doc->Items.count(); ++a)
+		uint docItemsCount=doc->Items.count();
+		for (uint a = 0; a < docItemsCount; ++a)
 		{
 			currItem = doc->Items.at(a);
 			if (currItem->LayerNr == doc->activeLayer())
@@ -5337,18 +5328,8 @@ void ScribusApp::ClipChange()
 		if (!BuFromApp)
 			Buffer2 = cc;
 		BuFromApp = false;
-		if (HaveDoc)
-		{
-			if (cc.startsWith("<SCRIBUSELEM"))
-			{
-				scrActions["editPaste"]->setEnabled(true);
-			}
-			else
-			{
-				if (doc->appMode == modeEdit)
-					scrActions["editPaste"]->setEnabled(true);
-			}
-		}
+		if (HaveDoc && (cc.startsWith("<SCRIBUSELEM") || doc->appMode == modeEdit))
+			scrActions["editPaste"]->setEnabled(true);
 	}
 }
 
@@ -5582,15 +5563,11 @@ void ScribusApp::slotZoom(double zoomFactor)
 	{
 		double dx = (view->width()-50) / (doc->pageWidth+30);
 		double dy = (view->height()-70) / (doc->pageHeight+30);
-		if (dx > dy)
-			finalZoomFactor=dy;
-		else
-			finalZoomFactor=dx;
+		finalZoomFactor = (dx > dy) ? dy : dx;
 	}
 	//Zoom to %
 	else
 		finalZoomFactor = zoomFactor*prefsManager->displayScale()/100.0;
-
 	view->setScale(finalZoomFactor);
 	view->slotDoZoom();
 }

@@ -55,7 +55,7 @@ bool MenuManager::addMenuToMenu(const QString &child, const QString &parent)
 	bool retVal=false;
 	if (child==parent)
 	{
-		qDebug(QString("Cannot add %1 menu to %2 menu (itself)").arg(child, parent));
+		qDebug("%s", QString("Cannot add %1 menu to %2 menu (itself)").arg(child, parent).ascii());
 		return false;	
 	}
 	if ((menuList.contains(child) && menuList[child]!=NULL) &&
