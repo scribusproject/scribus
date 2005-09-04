@@ -1,5 +1,16 @@
 Scribus - 1.2.3cvs
 ==================
+- 0002233: [User Interface] stop the default launch to have the page palette steal focus (cbradney)
+- 0002433: [Story Editor / Text Frames] Manual soft hyphenation lost after using text-editor (fschmid)
+- 0002528: [Translation] Translation Update - pt_BR (plinnell)
+- 0002503: [Scripter] wordcount.py in 1.2.3cvs source fails (subik)
+- 0002520: [Translation] Ukrainian translation update for the upcoming 1.2.3 release (cbradney)
+- 0002518: [Internal] Prefs corruption in 1.2.x (ringerc)
+- 0002513: [Translation] update of russian translation for upcoming v1.2.3 (plinnell)
+- 0002511: [Translation] Catalan translation update (plinnell)
+- 0002508: [Translation] Spanish Translation Update (plinnell)
+- 0002506: [Translation] Polish Translation Update for 1.2.3 (plinnell)
+- 0002507: [Translation] Updated Galician (plinnell)
 - 0002487: [Printing] No Warning on over writing when printing a PS file (fschmid)
 - 0002040: [General] Have Scribus look for icc profiles in /usr/share/color/icc/ (fschmid)
 - 0002448: [General] fix for contacts info (plinnell)
