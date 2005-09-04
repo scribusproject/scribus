@@ -9037,7 +9037,7 @@ void ScribusView::hideMasterPage()
 	oldY = qRound(Doc->currentPage->Yoffset - 10);
 	SetCPo(oldX, oldY);
 	updateOn = true;
-	DrawNew();
+//	DrawNew();
 }
 
 int ScribusView::CountElements()

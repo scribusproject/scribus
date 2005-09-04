@@ -1820,7 +1820,7 @@ const bool ScribusDoc::applyMasterPage(const QString& in, const int pageNumber)
 			undoManager->action(this, ss);
 		}
 	}
-	
+
 	QString mna = in;
 	if (mna == tr("Normal"))
 		mna = "Normal";
