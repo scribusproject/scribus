@@ -333,6 +333,7 @@ public slots:
 	void slotNewPageM();
 	void slotNewMasterPage(int w);
 	void slotNewPage(int w, bool mov = true);
+	void duplicateToMasterPage();
 	/** Loescht die aktuelle Seite */
 	void DeletePage();
 	/**

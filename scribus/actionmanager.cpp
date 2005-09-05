@@ -336,6 +336,7 @@ void ActionManager::initPageMenuActions()
 	scrActions->insert("pageCopy", new ScrAction(ScApp, "pageCopy"));
 	scrActions->insert("pageMove", new ScrAction(ScApp, "pageMove"));
 	scrActions->insert("pageApplyMasterPage", new ScrAction(ScApp, "pageApplyMasterPage"));
+	scrActions->insert("pageCopyToMasterPage", new ScrAction(ScApp, "pageCopyToMasterPage"));
 	scrActions->insert("pageManageGuides", new ScrAction(ScApp, "pageManageGuides"));
 	scrActions->insert("pageManageMargins", new ScrAction(ScApp, "pageManageMargins"));
 
@@ -345,6 +346,7 @@ void ActionManager::initPageMenuActions()
 	connect( (*scrActions)["pageCopy"], SIGNAL(activated()), ScApp, SLOT(CopyPage()) );
 	connect( (*scrActions)["pageMove"], SIGNAL(activated()), ScApp, SLOT(MovePage()) );
 	connect( (*scrActions)["pageApplyMasterPage"], SIGNAL(activated()), ScApp, SLOT(ApplyMasterPage()) );
+	connect( (*scrActions)["pageCopyToMasterPage"], SIGNAL(activated()), ScApp, SLOT(duplicateToMasterPage()) );
 	connect( (*scrActions)["pageManageGuides"], SIGNAL(activated()), ScApp, SLOT(ManageGuides()) );
 	connect( (*scrActions)["pageManageMargins"], SIGNAL(activated()), ScApp, SLOT(changePageMargins()) );
 }
@@ -898,6 +900,7 @@ void ActionManager::languageChange()
 	(*scrActions)["pageCopy"]->setTexts( tr("&Copy..."));
 	(*scrActions)["pageMove"]->setTexts( tr("&Move..."));
 	(*scrActions)["pageApplyMasterPage"]->setTexts( tr("&Apply Master Page..."));
+	(*scrActions)["pageCopyToMasterPage"]->setTexts( tr("Convert to Master Page..."));
 	(*scrActions)["pageManageGuides"]->setTexts( tr("Manage &Guides..."));
 	(*scrActions)["pageManageMargins"]->setTexts( tr("Manage Page Properties..."));
 

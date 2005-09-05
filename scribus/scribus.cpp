@@ -76,6 +76,7 @@
 #include "druck.h"
 #include "editformats.h"
 #include "muster.h"
+#include "newtemp.h"
 #include "applytemplatedialog.h"
 #include "picstatus.h"
 #include "customfdialog.h"
@@ -838,6 +839,7 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["pageCopy"], "Page");
 	scrMenuMgr->addMenuItem(scrActions["pageMove"], "Page");
 	scrMenuMgr->addMenuItem(scrActions["pageApplyMasterPage"], "Page");
+	scrMenuMgr->addMenuItem(scrActions["pageCopyToMasterPage"], "Page");
 	scrMenuMgr->addMenuItem(scrActions["pageManageGuides"], "Page");
 	scrMenuMgr->addMenuItem(scrActions["pageManageMargins"], "Page");
 	scrMenuMgr->addMenuSeparator("Page");
@@ -2687,6 +2689,7 @@ void ScribusApp::SwitchWin()
 		scrActions["pageCopy"]->setEnabled(false);
 		scrActions["pageMove"]->setEnabled(false);
 		scrActions["pageApplyMasterPage"]->setEnabled(false);
+		scrActions["pageCopyToMasterPage"]->setEnabled(false);
 		scrActions["editMasterPages"]->setEnabled(false);
 		scrActions["fileNew"]->setEnabled(false);
 		scrActions["fileSave"]->setEnabled(doc->isModified());
@@ -5427,6 +5430,127 @@ void ScribusApp::slotNewPage(int w, bool mov)
 	slotDocCh(!doc->loading); */
 }
 
+void ScribusApp::duplicateToMasterPage()
+{
+	QString MasterPageName;
+	int nr;
+	bool atf;
+	struct CopyPasteBuffer BufferT;
+	view->Deselect(true);
+	Page* Source = doc->currentPage;
+	NewTm *dia = new NewTm(this, tr("Name:"), tr("New MasterPage"), doc);
+	dia->Answer->setText( tr("New Master Page"));
+	dia->Answer->selectAll();
+	if (dia->exec())
+	{
+		MasterPageName = dia->Answer->text();
+		while (doc->MasterNames.contains(MasterPageName) || (MasterPageName == "Normal"))
+		{
+			if (!dia->exec())
+			{
+				delete dia;
+				return;
+			}
+			MasterPageName = dia->Answer->text();
+		}
+		doc->DocPages = doc->Pages;
+		doc->Pages = doc->MasterPages;
+		doc->DocItems = doc->Items;
+		doc->Items = doc->MasterItems;
+		doc->masterPageMode = true;
+		nr = doc->Pages.count();
+		doc->MasterNames.insert(MasterPageName, nr);
+		doc->pageCount = 0;
+		atf = doc->PageAT;
+		doc->PageAT = false;
+		slotNewPage(nr);
+		doc->setLoading(true);
+		if (doc->currentPageLayout != singlePage)
+		{
+			int lp = dia->Links->currentItem();
+			if (lp == 0)
+				lp = 1;
+			else if (lp == static_cast<int>(dia->Links->count()-1))
+				lp = 0;
+			else
+				lp++;
+			doc->Pages.at(nr)->LeftPg = lp;
+		}
+		Page* Target = doc->Pages.at(nr);
+		QMap<int,int> TableID;
+		QPtrList<PageItem> TableItems;
+		TableID.clear();
+		TableItems.clear();
+		if (Source->YGuides.count() != 0)
+		{
+			Target->YGuides.clear();
+			for (uint y = 0; y < Source->YGuides.count(); ++y)
+			{
+				Target->YGuides.append(Source->YGuides[y]);
+			}
+			qHeapSort(Target->YGuides);
+		}
+		if (Source->XGuides.count() != 0)
+		{
+			Target->XGuides.clear();
+			for (uint x = 0; x < Source->XGuides.count(); ++x)
+			{
+				Target->XGuides.append(Source->XGuides[x]);
+			}
+			qHeapSort(Target->XGuides);
+		}
+		uint end = doc->DocItems.count();
+		for (uint a = 0; a < end; ++a)
+		{
+			if (doc->DocItems.at(a)->OwnPage == static_cast<int>(Source->PageNr))
+			{
+				doc->DocItems.at(a)->copyToCopyPasteBuffer(&BufferT);
+				view->PasteItem(&BufferT, true, true);
+				PageItem* Neu = doc->Items.at(doc->Items.count()-1);
+				if (Neu->isTableItem)
+				{
+					TableItems.append(Neu);
+					TableID.insert(a, Neu->ItemNr);
+				}
+			}
+		}
+		if (TableItems.count() != 0)
+		{
+			for (uint ttc = 0; ttc < TableItems.count(); ++ttc)
+			{
+				PageItem* ta = TableItems.at(ttc);
+				if (ta->TopLinkID != -1)
+					ta->TopLink = doc->Items.at(TableID[ta->TopLinkID]);
+				else
+					ta->TopLink = 0;
+				if (ta->LeftLinkID != -1)
+					ta->LeftLink = doc->Items.at(TableID[ta->LeftLinkID]);
+				else
+					ta->LeftLink = 0;
+				if (ta->RightLinkID != -1)
+					ta->RightLink = doc->Items.at(TableID[ta->RightLinkID]);
+				else
+					ta->RightLink = 0;
+				if (ta->BottomLinkID != -1)
+					ta->BottomLink = doc->Items.at(TableID[ta->BottomLinkID]);
+				else
+					ta->BottomLink = 0;
+			}
+		}
+		doc->MasterPages = doc->Pages;
+		doc->pageCount = doc->DocPages.count();
+		doc->Pages = doc->DocPages;
+		doc->MasterItems = doc->Items;
+		doc->Items = doc->DocItems;
+		doc->masterPageMode = false;
+		Target->setPageName(MasterPageName);
+		Target->MPageNam = "";
+		doc->PageAT = atf;
+		doc->setLoading(false);
+	}
+	delete dia;
+}
+
 /*!
 	\fn void ScribusApp::slotZoom(double zoomFactor)
 	\author Craig Bradney
@@ -8002,6 +8126,7 @@ void ScribusApp::manageMasterPages(QString temp)
 			scrActions["pageCopy"]->setEnabled(false);
 			scrActions["pageMove"]->setEnabled(false);
 			scrActions["pageApplyMasterPage"]->setEnabled(false);
+			scrActions["pageCopyToMasterPage"]->setEnabled(false);
 			scrActions["editMasterPages"]->setEnabled(false);
 			ActWin->MenuStat[0] = scrActions["fileSave"]->isEnabled();
 			ActWin->MenuStat[1] = scrActions["fileRevert"]->isEnabled();
@@ -8040,6 +8165,7 @@ void ScribusApp::manageMasterPagesEnd()
 	scrActions["pageInsert"]->setEnabled(true);
 	scrActions["pageCopy"]->setEnabled(true);
 	scrActions["pageApplyMasterPage"]->setEnabled(true);
+	scrActions["pageCopyToMasterPage"]->setEnabled(true);
 	bool setter = doc->Pages.count() > 1 ? true : false;
 	scrActions["pageDelete"]->setEnabled(setter);
 	scrActions["pageMove"]->setEnabled(setter);

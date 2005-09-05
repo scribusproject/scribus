@@ -337,7 +337,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	gapVertical->setSuffix( ein );
 	gapVertical->setDecimals( decimals );
 	gapVertical->setMaxValue(1000);
-	gapVertical->setValue(doc->pageSets[doc->currentPageLayout].GapVertical * unitRatio);
+	gapVertical->setValue(doc->pageSets[doc->currentPageLayout].GapBelow * unitRatio);
 	layout4sg->addWidget( gapVertical, 0, 3 );
 	TextLabel7sg = new QLabel(gapVertical, tr( "Vertical:" ), groupGap, "Links" );
 	layout4sg->addWidget( TextLabel7sg, 0, 2 );
@@ -461,7 +461,7 @@ void ReformDoc::restoreDefaults()
 		bottomScratch->setValue(currDoc->ScratchBottom * unitRatio);
 		rightScratch->setValue(currDoc->ScratchRight * unitRatio);
 		gapHorizontal->setValue(currDoc->pageSets[currDoc->currentPageLayout].GapHorizontal * unitRatio);
-		gapVertical->setValue(currDoc->pageSets[currDoc->currentPageLayout].GapVertical * unitRatio);
+		gapVertical->setValue(currDoc->pageSets[currDoc->currentPageLayout].GapBelow * unitRatio);
 	}
 	else if (current == tabHyphenator)
 	{
@@ -590,7 +590,7 @@ void ReformDoc::setDS(int layout)
 	choosenLayout = layout;
 	docLayout->firstPage->setCurrentItem(currDoc->pageSets[choosenLayout].FirstPage);
 	gapHorizontal->setValue(currDoc->pageSets[choosenLayout].GapHorizontal * unitRatio);
-	gapVertical->setValue(currDoc->pageSets[choosenLayout].GapVertical * unitRatio);
+	gapVertical->setValue(currDoc->pageSets[choosenLayout].GapBelow * unitRatio);
 }
 
 void ReformDoc::setPageWidth(int)
@@ -703,7 +703,7 @@ void ReformDoc::updateDocumentSettings()
 	int fp = choosenLayout;
 	currDoc->pageSets[fp].FirstPage = docLayout->firstPage->currentItem();
 	currDoc->pageSets[fp].GapHorizontal = gapHorizontal->value() / currDoc->unitRatio();
-	currDoc->pageSets[fp].GapVertical = gapVertical->value() / currDoc->unitRatio();
+	currDoc->pageSets[fp].GapBelow = gapVertical->value() / currDoc->unitRatio();
 	currDoc->FirstPnum = pageNumber->value();
 	currDoc->resetPage(tpr2, lr2, rr2, br2, fp);
 	currDoc->PageOri = orientationQComboBox->currentItem();

@@ -1,5 +1,5 @@
-#ifndef QUERY_H
-#define QUERY_H
+#ifndef QUERY2_H
+#define QUERY2_H
 
 #include <qdialog.h>
 #include <qlayout.h>

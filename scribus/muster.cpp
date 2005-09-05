@@ -166,6 +166,7 @@ void MasterPagesPalette::duplicateMasterPage()
 		}
 		if (currentDoc->Pages.at(inde)->XGuides.count() != 0)
 		{
+			currentDoc->currentPage->XGuides.clear();
 			for (uint x = 0; x < currentDoc->Pages.at(inde)->XGuides.count(); ++x)
 			{
 				currentDoc->currentPage->XGuides.append(currentDoc->Pages.at(inde)->XGuides[x]);
