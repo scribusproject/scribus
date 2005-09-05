@@ -968,6 +968,9 @@ bool PrefsManager::WritePref(QString ho)
 		pageSetAttr.appendChild(pgst);
 	}
 	elem.appendChild(pageSetAttr);
+	QDomElement dc79ac=docu.createElement("Checker");
+	dc79ac.setAttribute("currentProfile", appPrefs.curCheckProfile);
+	elem.appendChild(dc79ac);
 	CheckerPrefsList::Iterator itcp;
 	CheckerPrefsList::Iterator itcpend=appPrefs.checkerProfiles.end();
 	for (itcp = appPrefs.checkerProfiles.begin(); itcp != itcpend; ++itcp)
@@ -1219,8 +1222,9 @@ bool PrefsManager::ReadPref(QString ho)
 		return false;
 	appPrefs.DColors.clear();
 	ScColor lf = ScColor();
-	appPrefs.checkerProfiles.clear();
 	QDomNode DOC=elem.firstChild();
+	if (!DOC.namedItem("CheckProfile").isNull())
+		appPrefs.checkerProfiles.clear();
 	while(!DOC.isNull())
 	{
 		QDomElement dc=DOC.toElement();
@@ -1449,27 +1453,22 @@ bool PrefsManager::ReadPref(QString ho)
 			if (appPrefs.curCheckProfile == tr("Postscript"))
 				appPrefs.curCheckProfile == tr("PostScript");
 		}
-
 		if (dc.tagName()=="CheckProfile")
 		{
 			QString name=dc.attribute("Name");
-			if(appPrefs.checkerProfiles.contains(name))
-			{
-				struct checkerPrefs checkerSettings;
-				checkerSettings.ignoreErrors = static_cast<bool>(QStoInt(dc.attribute("ignoreErrors", "0")));
-				checkerSettings.autoCheck = static_cast<bool>(QStoInt(dc.attribute("autoCheck", "1")));
-				checkerSettings.checkGlyphs = static_cast<bool>(QStoInt(dc.attribute("checkGlyphs", "1")));
-				checkerSettings.checkOrphans = static_cast<bool>(QStoInt(dc.attribute("checkOrphans", "1")));
-				checkerSettings.checkOverflow = static_cast<bool>(QStoInt(dc.attribute("checkOverflow", "1")));
-				checkerSettings.checkPictures = static_cast<bool>(QStoInt(dc.attribute("checkPictures", "1")));
-				checkerSettings.checkResolution = static_cast<bool>(QStoInt(dc.attribute("checkResolution", "1")));
-				checkerSettings.checkTransparency = static_cast<bool>(QStoInt(dc.attribute("checkTransparency", "1")));
-				checkerSettings.minResolution = QStodouble(dc.attribute("minResolution","72"));
-				checkerSettings.checkAnnotations = static_cast<bool>(QStoInt(dc.attribute("checkAnnotations", "0")));
-				checkerSettings.checkRasterPDF = static_cast<bool>(QStoInt(dc.attribute("checkRasterPDF", "1")));
-				appPrefs.checkerProfiles[name] = checkerSettings;
-			}
-
+			struct checkerPrefs checkerSettings;
+			checkerSettings.ignoreErrors = static_cast<bool>(QStoInt(dc.attribute("ignoreErrors", "0")));
+			checkerSettings.autoCheck = static_cast<bool>(QStoInt(dc.attribute("autoCheck", "1")));
+			checkerSettings.checkGlyphs = static_cast<bool>(QStoInt(dc.attribute("checkGlyphs", "1")));
+			checkerSettings.checkOrphans = static_cast<bool>(QStoInt(dc.attribute("checkOrphans", "1")));
+			checkerSettings.checkOverflow = static_cast<bool>(QStoInt(dc.attribute("checkOverflow", "1")));
+			checkerSettings.checkPictures = static_cast<bool>(QStoInt(dc.attribute("checkPictures", "1")));
+			checkerSettings.checkResolution = static_cast<bool>(QStoInt(dc.attribute("checkResolution", "1")));
+			checkerSettings.checkTransparency = static_cast<bool>(QStoInt(dc.attribute("checkTransparency", "1")));
+			checkerSettings.minResolution = QStodouble(dc.attribute("minResolution","72"));
+			checkerSettings.checkAnnotations = static_cast<bool>(QStoInt(dc.attribute("checkAnnotations", "0")));
+			checkerSettings.checkRasterPDF = static_cast<bool>(QStoInt(dc.attribute("checkRasterPDF", "1")));
+			appPrefs.checkerProfiles[name] = checkerSettings;
 		}
 		if (dc.tagName()=="PRINTER")
 		{
