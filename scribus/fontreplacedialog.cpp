@@ -25,7 +25,7 @@ FontReplaceDialog::FontReplaceDialog( QWidget* parent, QMap<QString, QString> *R
 
 	textLabel1 = new QLabel( this, "textLabel1" );
 	textLabel1->setAlignment( int( QLabel::AlignVCenter ) );
-	textLabel1->setText( tr( "This document contains some fonts that are not installed on your system,\nplease choose a suitable replacement for them.\nYou can also cancel the doc from loading then install the needed fonts also." ) );
+	textLabel1->setText( tr( "This document contains some fonts that are not installed on your system,\nplease choose a suitable replacement for them.\nCancel will stop the document from loading." ) );
 	FontReplaceDialogLayout->addWidget( textLabel1 );
 
 	replacementTable = new QTable( this, "replacementTable" );
