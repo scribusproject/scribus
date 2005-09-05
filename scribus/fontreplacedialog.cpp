@@ -25,7 +25,7 @@ FontReplaceDialog::FontReplaceDialog( QWidget* parent, QMap<QString, QString> *R
 
 	textLabel1 = new QLabel( this, "textLabel1" );
 	textLabel1->setAlignment( int( QLabel::AlignVCenter ) );
-	textLabel1->setText( tr( "This document contains some fonts that are not installed on your system,\nplease choose a suitable replacement for them." ) );
+	textLabel1->setText( tr( "This document contains some fonts that are not installed on your system,\nplease choose a suitable replacement for them.\nYou can also cancel the doc from loading then install the needed fonts also." ) );
 	FontReplaceDialogLayout->addWidget( textLabel1 );
 
 	replacementTable = new QTable( this, "replacementTable" );
@@ -64,7 +64,9 @@ FontReplaceDialog::FontReplaceDialog( QWidget* parent, QMap<QString, QString> *R
 	FontReplaceDialogLayout->addLayout( layout1 );
 	resize( QSize(474, 247).expandedTo(minimumSizeHint()) );
 	clearWState( WState_Polished );
-	QToolTip::add( cancelButton, "<qt>" + tr( "Cancels this Dialog and also loading of the Document") + "</qt>" );
+	QToolTip::add( cancelButton, "<qt>" + tr( "Cancels these font substitutions and stops loading the document.") + "</qt>" );
+	QToolTip::add ( stickyReplacements, "<qt>" + tr( "Enabling this tells Scribus to use these replacements for missing 						fonts permanently in all future layouts. This can be reverted or changed 						in Edit > Preferences > Fonts.") + "</qt>" );
+	QToolTip::add( okButton, "<qt>" + tr( "If you select OK, then save, these substitutions are made permanent in the 						document.") + "</qt>" );
 	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 }
