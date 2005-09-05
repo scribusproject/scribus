@@ -441,27 +441,16 @@ void AlignDistributePalette::alignLeftOut()
 				break;
 			case Page:
 				newX = currDoc->ScratchLeft;
-				if ((currDoc->currentPageLayout == doublePage) && !currDoc->masterPageMode)
-				{
-					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->pageSets[currDoc->currentPageLayout].FirstPage))
-						newX += currDoc->currentPage->Width;
-					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->pageSets[currDoc->currentPageLayout].FirstPage))
-						newX += currDoc->currentPage->Width;
-				}
+				newX += widthForPageLocation();
 				break;
 			case Margins:
 				newX = currDoc->ScratchLeft;
-				if ((currDoc->currentPageLayout == doublePage) && !currDoc->masterPageMode)
-				{
-					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->pageSets[currDoc->currentPageLayout].FirstPage))
-						newX += currDoc->currentPage->Width;
-					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->pageSets[currDoc->currentPageLayout].FirstPage))
-						newX += currDoc->currentPage->Width;
-				}
+				newX += widthForPageLocation();
 				newX += currDoc->currentPage->Margins.Left;
 				break;
 			case Guide:
 				newX=currDoc->ScratchLeft + guidePosition;
+				newX += widthForPageLocation();
 				break;
 			case Selection:
 				for (uint a = 0; a < alignObjectsCount; ++a)
@@ -497,28 +486,17 @@ void AlignDistributePalette::alignLeftIn()
 				loopEnd=alignObjectsCount-2;
 				break;
 			case Page:
-				newX = currDoc->ScratchLeft;
-				if ((currDoc->currentPageLayout == doublePage) && !currDoc->masterPageMode)
-				{
-					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->pageSets[currDoc->currentPageLayout].FirstPage))
-						newX += currDoc->currentPage->Width;
-					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->pageSets[currDoc->currentPageLayout].FirstPage))
-						newX += currDoc->currentPage->Width;
-				}
+				newX = currDoc->ScratchLeft; //singlePage
+				newX += widthForPageLocation();
 				break;
 			case Margins:
 				newX = currDoc->ScratchLeft;
-				if ((currDoc->currentPageLayout == doublePage ) && !currDoc->masterPageMode)
-				{
-					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->pageSets[currDoc->currentPageLayout].FirstPage))
-						newX += currDoc->currentPage->Width;
-					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->pageSets[currDoc->currentPageLayout].FirstPage))
-						newX += currDoc->currentPage->Width;
-				}
+				newX += widthForPageLocation();
 				newX += currDoc->currentPage->Margins.Left;
 				break;
 			case Guide:
 				newX=currDoc->ScratchLeft + guidePosition;
+				newX += widthForPageLocation();
 				break;
 			case Selection:
 				for (uint a = 0; a < alignObjectsCount; ++a)
@@ -558,29 +536,18 @@ void AlignDistributePalette::alignCenterHor()
 				break;
 			case Page:
 				newX = currDoc->ScratchLeft;
-				if ((currDoc->currentPageLayout == doublePage) && !currDoc->masterPageMode)
-				{
-					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->pageSets[currDoc->currentPageLayout].FirstPage))
-						newX += currDoc->currentPage->Width;
-					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->pageSets[currDoc->currentPageLayout].FirstPage))
-						newX += currDoc->currentPage->Width;
-				}
+				newX += widthForPageLocation();
 				newX += currDoc->currentPage->Width/2;
 				break;
 			case Margins:
 				newX = currDoc->ScratchLeft;
-				if ((currDoc->currentPageLayout == doublePage ) && !currDoc->masterPageMode)
-				{
-					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->pageSets[currDoc->currentPageLayout].FirstPage))
-						newX += currDoc->currentPage->Width;
-					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->pageSets[currDoc->currentPageLayout].FirstPage))
-						newX += currDoc->currentPage->Width;
-				}
+				newX += widthForPageLocation();
 				newX += currDoc->currentPage->Margins.Left;
 				newX += (currDoc->currentPage->Width - currDoc->currentPage->Margins.Right - currDoc->currentPage->Margins.Left)/2;
 				break;
 			case Guide:
 				newX=currDoc->ScratchLeft + guidePosition;
+				newX += widthForPageLocation();
 				break;
 			case Selection:
 				double minX=99999.9, maxX=-99999.9;
@@ -622,29 +589,18 @@ void AlignDistributePalette::alignRightIn()
 				break;
 			case Page:
 				newX = currDoc->ScratchLeft;
-				if ((currDoc->currentPageLayout == doublePage ) && !currDoc->masterPageMode)
-				{
-					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->pageSets[currDoc->currentPageLayout].FirstPage))
-						newX += currDoc->currentPage->Width;
-					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->pageSets[currDoc->currentPageLayout].FirstPage))
-						newX += currDoc->currentPage->Width;
-				}
+				newX += widthForPageLocation();
 				newX += currDoc->currentPage->Width;
 				break;
 			case Margins:
 				newX = currDoc->ScratchLeft;
-				if ((currDoc->currentPageLayout == doublePage ) && !currDoc->masterPageMode)
-				{
-					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->pageSets[currDoc->currentPageLayout].FirstPage))
-						newX += currDoc->currentPage->Width;
-					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->pageSets[currDoc->currentPageLayout].FirstPage))
-						newX += currDoc->currentPage->Width;
-				}
+				newX += widthForPageLocation();
 				newX += currDoc->currentPage->Width;
 				newX -= currDoc->currentPage->Margins.Right;
 				break;
 			case Guide:
 				newX=currDoc->ScratchLeft + guidePosition;
+				newX += widthForPageLocation();
 				break;
 			case Selection:
 				for (uint a = 0; a < alignObjectsCount; ++a)
@@ -681,29 +637,18 @@ void AlignDistributePalette::alignRightOut()
 				break;
 			case Page:
 				newX = currDoc->ScratchLeft;
-				if ((currDoc->currentPageLayout == doublePage ) && !currDoc->masterPageMode)
-				{
-					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->pageSets[currDoc->currentPageLayout].FirstPage))
-						newX += currDoc->currentPage->Width;
-					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->pageSets[currDoc->currentPageLayout].FirstPage))
-						newX += currDoc->currentPage->Width;
-				}
+				newX += widthForPageLocation();
 				newX += currDoc->currentPage->Width;
 				break;
 			case Margins:
 				newX = currDoc->ScratchLeft;
-				if ((currDoc->currentPageLayout == doublePage ) && !currDoc->masterPageMode)
-				{
-					if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->pageSets[currDoc->currentPageLayout].FirstPage))
-						newX += currDoc->currentPage->Width;
-					if ((currDoc->currentPage->PageNr % 2 == 0) && (!currDoc->pageSets[currDoc->currentPageLayout].FirstPage))
-						newX += currDoc->currentPage->Width;
-				}
+				newX += widthForPageLocation();
 				newX += currDoc->currentPage->Width;
 				newX -= currDoc->currentPage->Margins.Right;
 				break;
 			case Guide:
 				newX=currDoc->ScratchLeft + guidePosition;
+				newX += widthForPageLocation();
 				break;
 			case Selection:
 				for (uint a = 0; a < alignObjectsCount; ++a)
@@ -1521,4 +1466,20 @@ void AlignDistributePalette::enableGuideButtons()
 	alignCenterVerToolButton->setEnabled(setterH);
 	
 	alignGuideLineEdit->setText(guideInfoText);
+}
+
+double AlignDistributePalette::widthForPageLocation()
+{
+	double retVal;
+	if ((currDoc->currentPageLayout == doublePage) && !currDoc->masterPageMode)
+	{
+		if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->pageSets[currDoc->currentPageLayout].FirstPage==0) ||
+			(currDoc->currentPage->PageNr % 2 == 0) && (currDoc->pageSets[currDoc->currentPageLayout].FirstPage==1))
+		{
+			retVal = currDoc->currentPage->Width;
+			retVal += currDoc->pageSets[currDoc->currentPageLayout].GapHorizontal;
+		}
+		
+	}
+	return retVal;
 }

@@ -151,6 +151,7 @@ private:
 	double guidePosition;
 	QString guideInfoText, guideInfoTextNone;
 	void enableGuideButtons();
+	double widthForPageLocation();
 	
 signals:
 	void documentChanged();

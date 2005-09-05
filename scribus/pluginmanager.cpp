@@ -151,7 +151,7 @@ void PluginManager::initPlugs()
 							//Connect DLL Action's activated signal with ID to Scribus DLL loader
 							connect( ScApp->scrActions[pda.actName], SIGNAL(activatedData(int)) , ScApp->pluginManager, SLOT(callDLLBySlot(int)) );
 							//Get the menu manager to add the DLL's menu item to the right menu, after the chosen existing item
-							if (QString(pda.actMenuAfterName).length()==0)
+							if (pda.actMenuAfterName.isEmpty())
 								ScApp->scrMenuMgr->addMenuItem(ScApp->scrActions[pda.actName], pda.actMenu);
 							else
 								ScApp->scrMenuMgr->addMenuItemAfter(ScApp->scrActions[pda.actName], pda.actMenu, pda.actMenuAfterName);
