@@ -9153,6 +9153,9 @@ QString ScribusApp::Collect(bool compress, bool withFonts)
 					return retVal;
 				}
 				retVal = s;
+				/* helper variable used when is filename duplicated
+				It's ugly and totally rewritten in 1.3.x series. */
+				uint imgIx = 0;
 				for (uint a = 0; a < view->MasterPages.count(); ++a)
 				{
 					for (uint b = 0; b < view->MasterPages.at(a)->Items.count(); ++b)
@@ -9163,8 +9166,19 @@ QString ScribusApp::Collect(bool compress, bool withFonts)
 							QFileInfo itf = QFileInfo(ite->Pfile);
 							if (itf.exists())
 							{
-								copyFile(ite->Pfile, s + itf.fileName());
-								ite->Pfile = s + itf.fileName();
+								QFileInfo imgF(s + itf.fileName());
+								if (imgF.exists())
+								{
+									QString newName = QString("%1_%2.%3").arg(itf.baseName()).arg(imgIx).arg(itf.extension());
+									copyFile(ite->Pfile, s + newName);
+									ite->Pfile = s + newName;
+									++imgIx;
+								}
+								else
+								{
+									copyFile(ite->Pfile, s + itf.fileName());
+									ite->Pfile = s + itf.fileName();
+								}
 							}
 						}
 						if (ite->PType == 4)
@@ -9213,8 +9227,19 @@ QString ScribusApp::Collect(bool compress, bool withFonts)
 							QFileInfo itf = QFileInfo(ite->Pfile);
 							if (itf.exists())
 							{
-								copyFile(ite->Pfile, s + itf.fileName());
-								ite->Pfile = s + itf.fileName();
+								QFileInfo imgF(s + itf.fileName());
+								if (imgF.exists())
+								{
+									QString newName = QString("%1_%2.%3").arg(itf.baseName()).arg(imgIx).arg(itf.extension());
+									copyFile(ite->Pfile, s + newName);
+									ite->Pfile = s + newName;
+									++imgIx;
+								}
+								else
+								{
+									copyFile(ite->Pfile, s + itf.fileName());
+									ite->Pfile = s + itf.fileName();
+								}
 							}
 						}
 						if (ite->PType == 4)
