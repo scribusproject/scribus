@@ -3809,7 +3809,7 @@ ne morem shraniti. Napaka je bila:
     </message>
     <message>
         <source>Python source files (*.py)</source>
-        <translation type="unfinished"></translation>
+        <translation>Izvorna koda Python (*.py)</translation>
     </message>
 </context>
 <context>
@@ -6775,7 +6775,7 @@ in nikoli več ne zahtevam potrditve</translation>
     </message>
     <message>
         <source>Enabling this will overwrite existing styles in the current Scribus document</source>
-        <translation type="unfinished"></translation>
+        <translation>S tem boste prepisali obstoječe sloge v dokumentu</translation>
     </message>
 </context>
 <context>
@@ -7537,21 +7537,24 @@ If un-checked, editing annotations and fields is prevented.</source>
     <message>
         <source> Lossless compression of text and graphics.
 Unless you have a reason, leave this checked. This reduces PDF size.</source>
-        <translation type="unfinished"></translation>
+        <translation>(sp)Stiskanje besedil in slik brez izgube kakovosti.
+Če nimate posebnega razloga pustite to vključeno, ker zmanjša velikost PDF datoteke.</translation>
     </message>
     <message>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options.</source>
-        <translation type="unfinished"></translation>
+        <translation>Metoda stiskanja slik. Samodejno določi, da naj Scribus izbere najboljšo metodo. ZIP je stiskanje brez izgub, priporočeno za slike s čistimi barvami. JPEG pripravi manjše PDF datoteke, ki vsebujejo mnogo slik (z možnim rahlim poslabšanjem kvalitete). Razen če imate posebne zahteve, pustite nastavitev na Samodejno.</translation>
     </message>
     <message>
         <source>Re-sample your bitmap images to the selected DPI.
 Leaving this unchecked will render them at their native resolution.
 This can increase memory usage and slow down export.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ponovno upodobi rasterske slike z izrano ločljivostjo.
+Če to ni obkljukano, se bo slike vključilo v izvorni ločljivosti.
+To lahko poveča porabo pomnilnika in upočasni izvoz.</translation>
     </message>
     <message>
         <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility. Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Note: PDF/X-3 will convert all CMYK images to ICC based RGB colors. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Določi PDF združljivost. Privzeta je Acrobat 4.0, ki je najširše uporabljana. Izberite Acrobat 5.0, če potrebujete napredne zmožnosti PDF 1.4, kot so prosojnosti ali 128 bitna enkripcija. PDF/X-3 je namenjen RGB datotekam s podporo za upravljanje barv. Pozor: PDF/X-3 bo vse CMYK slike pretvoril v RGB z ICC osnovo. To uporabite le, če to zahteva tiskarna, ali izjemoma pri tisku na 4 barvni laserski tiskalnik.</translation>
     </message>
 </context>
 <context>
@@ -10539,12 +10542,12 @@ function&apos;s documentation.</source>
     </message>
     <message>
         <source>Normal</source>
-        <translation type="unfinished"></translation>
+        <translation>Običajno</translation>
     </message>
     <message>
         <source>page</source>
         <comment>page export</comment>
-        <translation type="unfinished"></translation>
+        <translation>stran</translation>
     </message>
 </context>
 <context>
@@ -12312,7 +12315,9 @@ Prosimo, preberite najprej dokumentacijo o raziširitvenih skriptah.</translatio
         <source>&lt;qt&gt;&lt;p&gt;Enabling scripter extensions turns on additional scripter functionality including Python macros and the option of loading a Python script at start-up. Turning on this option unlocks the &lt;tt&gt;Load Extension Script&lt;/tt&gt; item in the Script menu.&lt;/p&gt;
 &lt;p&gt;
 Only scripts written to be run as extension scripts should be used with &lt;tt&gt;Load Extension Script&lt;/tt&gt; or as start-up scripts. See the scripter documentation for more details.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;qt&gt;&lt;p&gt;Enabling scripter extensions turns on additional scripter functionality including Python macros and the option of loading a Python script at start-up. Turning on this option unlocks the &lt;tt&gt;Load Extension Script&lt;/tt&gt; item in the Script menu.&lt;/p&gt;
+&lt;p&gt;
+Only scripts written to be run as extension scripts should be used with &lt;tt&gt;Load Extension Script&lt;/tt&gt; or as start-up scripts. See the scripter documentation for more details.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Use a Startup Script</source>
@@ -12392,11 +12397,11 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
     </message>
     <message>
         <source>Enable Legacy Name Aliases</source>
-        <translation type="unfinished"></translation>
+        <translation>Vključi zastarele sinonime imen</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Enable the use of OldStyle function names&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Omogoči OldStyle poimenovanje funkcij&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Enable Legacy Aliases&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
@@ -12410,7 +12415,7 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
     </message>
     <message>
         <source>&lt;qt&gt;Replace sys.stdin with a fake file to prevent Scribus hanging when a script tries to read from stdin.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Zamenja sys.stdin z nadomestno datoteko prepreči, da bi se Scribus obesil, ko skripta poskuša brati s standardnega vhoda.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Use Fake Stdin&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
@@ -13023,7 +13028,7 @@ in nikoli več ne zahtevam potrditve</translation>
     </message>
     <message>
         <source>Enabling this will overwrite existing styles in the current Scribus document</source>
-        <translation type="unfinished"></translation>
+        <translation>S tem boste prepisali obstoječe sloge v dokumentu</translation>
     </message>
 </context>
 <context>
