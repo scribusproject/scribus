@@ -5,6 +5,7 @@
 #include "qstring.h"
 #include "qpixmap.h"
 #include "qdatetime.h"
+#include "qiconset.h"
 #include "scribusapi.h"
 
 class QWidget;
@@ -42,6 +43,9 @@ class DeferredTask;
  * void pluginname_freePlugin(ScPlugin* plugin);
  *    Free the scplugin instance returned earlier.
  *
+ * TODO: define "standard" plug-ins better
+ * TODO: better discovery of what plug-ins can import / export what formats, file exts, names, etc.
+ *
  */
 
 class SCRIBUS_API ScPlugin : public QObject
@@ -60,7 +64,6 @@ class SCRIBUS_API ScPlugin : public QObject
 	public:
 
 		/** \brief Human readable enumertion of the plugin types */
-		// FIXME: duplicated in pluginmanager, but different there.
 		enum PluginType {
 			PluginType_Persistent = 4,
 			PluginType_Import = 7,
@@ -93,18 +96,15 @@ class SCRIBUS_API ScPlugin : public QObject
 		/**
 		 * @brief ctor, returns a new ScPlugin instance
 		 *
-		 * @param int id          Unique plugin ID, usually a static
+		 * @param id              Unique plugin ID, usually a static
 		 *                        const int defined in the plugin.
-		 * @param QString name    Name of the plugin as shown in the
-		 *                        Start-up dialog and plugin mgr. This is
-		 *                        the "friendly" human-readable name.
-		 *                        PluginManager should already know the
-		 *                        internal name.
+		 * @param pluginType      plugin type enum, used by plugin
+		 *                        manager to identify plugin.
 		 *
 		 * Only the actual plugin implmementation should call this, from
 		 * its setup function.
 		 */
-		ScPlugin(int id, QString& name, PluginType pluginType);
+		ScPlugin(int id, PluginType pluginType);
 
 		/** @brief Pure virtual destructor - this is an abstract class */
 		virtual ~ScPlugin() = 0;
@@ -117,8 +117,8 @@ class SCRIBUS_API ScPlugin : public QObject
 		const int id;
 
 		// Plug-in's human-readable, translated name. Please don't use this for
-		// anything except display to the user. Set up by ctor.
-		const QString fullTrName;
+		// anything except display to the user.
+		virtual const QString fullTrName() = 0;
 
 		// Methods to create and destroy the UI pane for the plugin
 		// A plugin MUST reimplment destroyPrefsPanelWidget if it
@@ -146,6 +146,14 @@ class SCRIBUS_API ScPlugin : public QObject
 		// DECISIONS IN PROGRAM CODE.
 		const QString & lastError() const;
 
+		// Updates the text on all widgets on the plug-in to reflect the new
+		// language. You should generally use this method to set all the widget
+		// text during construction.
+		virtual void languageChange() = 0;
+
+		/// Returns human readable plugin type from plug-in's pluginType
+		const QString pluginTypeName() const;
+
 	protected:
 		// Human readable, translated version of last error to occur.
 		QString m_lastError;
@@ -171,10 +179,25 @@ class SCRIBUS_API ScImportExportPlugin : public ScPlugin
 		 *
 		 * @sa ScPlugin::ScPlugin()
 		 */
-		ScImportExportPlugin(int id, QString& name, PluginType pluginType);
+		ScImportExportPlugin(int id, PluginType pluginType);
 		// Pure virtual dtor - abstract class
 		virtual ~ScImportExportPlugin() = 0;
 
+		// Information about actions, to be returned by actionInfo()
+		struct ActionInfo {
+			QString name;  // name of action
+			QString text;  // text to display to user
+			QString keySequence;
+			QString menu;
+			QString menuAfterName;
+			QIconSet iconSet;
+			bool enabledOnStartup;
+		};
+
+		// Return an ActionInfo instance to the caller
+		virtual const ActionInfo & actionInfo() const = 0;
+
+	public slots:
 		/**
 		 * @brief Run the plug-in's main action.
 		 *
@@ -196,13 +219,12 @@ class SCRIBUS_API ScImportExportPlugin : public ScPlugin
 		 * Plug-in authors might want to consider implementing this using the
 		 * DeferredTask subclass used in runAsync, if the plug-in supports it.
 		 *
-		 * @param QWidget& parent Parent widget to this plugin. Usually the
-		 * main window.  @param ScribusApp& mainWindow The main application
-		 * window.  @param QString target Optional target to operate on (see
-		 * above) @returns bool True for success.
+		 * @param QString target Optional target to operate on (see
+		 *                above)
+		 * @returns bool True for success.
 		 *
 		 */
-		virtual bool run(QWidget* parent, ScribusApp* mainWindow, QString target = QString::null);
+		virtual bool run(QString target = QString::null);
 
 		/**
 		 * @brief Run the plugin on a QIODevice
@@ -219,7 +241,7 @@ class SCRIBUS_API ScImportExportPlugin : public ScPlugin
 		 * Remember that not all QIODevice*s are seekable, and try to write
 		 * your code to handle a non-seekable stream.
 		 */
-		virtual bool run(QWidget* parent, ScribusApp* mainWindow, QIODevice* target);
+		virtual bool run(QIODevice* target);
 
 		/**
 		 * @brief Run the plugin asynchronously
@@ -262,7 +284,7 @@ class SCRIBUS_API ScImportExportPlugin : public ScPlugin
 		 * If this method is used, the plugin must not be unloaded until all
 		 * DeferredTask instances have been deleted.
 		 */
-		virtual DeferredTask* runAsync(QWidget* parent, ScribusApp* mainWindow, QString target = QString::null);
+		virtual DeferredTask* runAsync(QString target = QString::null);
 
 		/**
 		 * @brief Run the plugin asynchronously
@@ -271,25 +293,19 @@ class SCRIBUS_API ScImportExportPlugin : public ScPlugin
 		 * the target. Please see the documentation for run(..., QIODevice*
 		 * target) and runAsync(..., QString target) for details.
 		 */
-		virtual DeferredTask* runAsync(QWidget* parent, ScribusApp* mainWindow, QIODevice* target);
+		virtual DeferredTask* runAsync(QIODevice* target);
 
-		// Information about actions, to be returned by actionInfo()
-		struct ActionInfo {
-			QString actionName;
-			QString actionKeySequence;
-			QString actionMenu;
-			QString actionMenuAfterName;
-			bool actionEnabledOnStartup;
-		};
-
-		// Return an ActionInfo instance to the caller
-		virtual const ActionInfo & actionInfo() const;
+		// Compat kludge ... we store a QString result from any successful
+		// run(...) call in m_runResult and let callers retrive it here.
+		// DO NOT USE THIS INTERFACE FOR NEW PLUG-INS; you should
+		// dynamic_cast<> to the plugin type then call a plug-in specific
+		// method instead.
+		const QString & runResult() const;
 
 	protected:
 		ActionInfo m_actionInfo;
+		QString m_runResult;
 };
-
-
 
 class SCRIBUS_API ScPersistentPlugin : public ScPlugin
 {
@@ -311,7 +327,7 @@ class SCRIBUS_API ScPersistentPlugin : public ScPlugin
 		 *
 		 * @sa ScPlugin::ScPlugin()
 		 */
-		ScPersistentPlugin(int id, QString& name);
+		ScPersistentPlugin(int id);
 
 		// Pure virtual dtor for abstract class
 		virtual ~ScPersistentPlugin() = 0;
@@ -333,12 +349,12 @@ class SCRIBUS_API ScPersistentPlugin : public ScPlugin
 		 * class back to the core app. This function is where any time-consuming or
 		 * memory expensive init should be done.
 		 *
-		 * @param QWidget& parent Parent widget to this plugin.
-		 *                        Usually the main window.
-		 * @param ScribusApp& mainWindow The main application window.
+		 * If this method returns failure, the plugin will be treated as dead and
+		 * cleanupPlug() will not be called.
+		 *
 		 * @returns bool True for success.
 		 */
-		virtual bool initPlug(QWidget& parent, ScribusApp& mainWindow) = 0;
+		virtual bool initPlugin() = 0;
 
 		/**
 		 * @brief Cleans up the plugin so it can be safely unloaded.

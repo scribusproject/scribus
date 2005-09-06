@@ -10,11 +10,10 @@
 //                        ScPlugin                     //
 //=====================================================//
 
-ScPlugin::ScPlugin(int id, QString& name, PluginType pluginType)
+ScPlugin::ScPlugin(int id, PluginType pluginType)
 	: QObject(0),
 	pluginType(pluginType),
-	id(id),
-	fullTrName(name)
+	id(id)
 {
 }
 
@@ -45,18 +44,37 @@ const QString & ScPlugin::lastError() const
 	return m_lastError;
 }
 
+const QString ScPlugin::pluginTypeName() const
+{
+	switch(pluginType)
+	{
+		case PluginType_Persistent:
+			return tr("Persistent", "plugin manager");
+			break;
+		case PluginType_Import:
+			return tr("Import", "plugin manager");
+			break;
+		case PluginType_Export:
+			// FIXME
+			return tr("Standard", "plugin manager");
+			break;
+		default:
+			return tr("Unknown", "plugin manager");
+	}
+}
+
 //=====================================================//
 //                   ScImportExportPlugin              //
 //=====================================================//
 
-ScImportExportPlugin::ScImportExportPlugin(int id, QString& name, PluginType pluginType)
-	: ScPlugin(id, name, pluginType)
+ScImportExportPlugin::ScImportExportPlugin(int id, PluginType pluginType)
+	: ScPlugin(id, pluginType)
 {
 }
 
 // Stub for plugins that don't implement this method to inherit
 // Just calls the QIODevice version, assuming target is a file.
-bool ScImportExportPlugin::run(QWidget* parent, ScribusApp* mainWindow, QString target)
+bool ScImportExportPlugin::run(QString target)
 {
 	int flag = id == PluginType_Import ? IO_ReadOnly : IO_WriteOnly;
 	QFile f(target);
@@ -75,41 +93,37 @@ bool ScImportExportPlugin::run(QWidget* parent, ScribusApp* mainWindow, QString 
 		return false;
 	}
 	// Call the QIODevice* based implementation
-	bool result = run(parent, mainWindow, &f);
+	bool result = run(&f);
 	if (f.isOpen())
 		f.close();
 	return result;
 }
 
 // Stub for plugins that don't implement this method to inherit
-bool ScImportExportPlugin::run(
-		QWidget* /* parent */,
-		ScribusApp* /* mainWindow */,
-		QIODevice* /* target */)
+bool ScImportExportPlugin::run(QIODevice* /* target */)
 {
 	return false;
 }
 
 
 // Stub for plugins that don't implement this method to inherit
-DeferredTask* ScImportExportPlugin::runAsync(
-		QWidget* /* parent */,
-		ScribusApp* /* mainWindow */,
-		QString /* target */)
+DeferredTask* ScImportExportPlugin::runAsync(QString /* target */)
 {
 	return 0;
 }
 
 
 // Stub for plugins that don't implement this method to inherit
-DeferredTask* ScImportExportPlugin::runAsync(
-		QWidget* /* parent */,
-		ScribusApp* /* mainWindow */,
-		QIODevice* /* target */)
+DeferredTask* ScImportExportPlugin::runAsync(QIODevice* /* target */)
 {
 	return 0;
 }
 
+// Legacy code support; avoid relying on in new code.
+const QString & ScImportExportPlugin::runResult() const
+{
+	return m_runResult;
+}
 
 const ScImportExportPlugin::ActionInfo & ScImportExportPlugin::actionInfo() const
 {
@@ -120,7 +134,7 @@ const ScImportExportPlugin::ActionInfo & ScImportExportPlugin::actionInfo() cons
 //                   ScImportExportPlugin              //
 //=====================================================//
 
-ScPersistentPlugin::ScPersistentPlugin(int id, QString& name)
-	: ScPlugin(id, name, ScPlugin::PluginType_Persistent)
+ScPersistentPlugin::ScPersistentPlugin(int id)
+	: ScPlugin(id, ScPlugin::PluginType_Persistent)
 {
 }
