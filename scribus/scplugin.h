@@ -104,7 +104,7 @@ class SCRIBUS_API ScPlugin : public QObject
 		 * Only the actual plugin implmementation should call this, from
 		 * its setup function.
 		 */
-		ScPlugin(int id, QString& name);
+		ScPlugin(int id, QString& name, PluginType pluginType);
 
 		/** @brief Pure virtual destructor - this is an abstract class */
 		virtual ~ScPlugin() = 0;
@@ -120,28 +120,26 @@ class SCRIBUS_API ScPlugin : public QObject
 		// anything except display to the user. Set up by ctor.
 		const QString fullTrName;
 
-		// Information for prefs dialog, to be set up by ctor.
-		const bool hasPrefsUI;
-		const QPixmap prefsPanelIcon;
-		const QString prefsPanelName();
-
 		// Methods to create and destroy the UI pane for the plugin
-		// A plugin MUST implment destroyPrefsPanelWidget if it 
+		// A plugin MUST reimplment destroyPrefsPanelWidget if it
 		// reimplements newPrefsPanelWidget .
+		// By default, returns 0 to indicate no prefs UI.
 		virtual QWidget* newPrefsPanelWidget();
-		virtual void destroyPrefsPanelWidget(QWidget* prefsPanelWidget) = 0;
+		virtual void destroyPrefsPanelWidget(QWidget* prefsPanelWidget);
+
+		// Return icon and caption to use for preferences panel in the prefs
+		// dialog. Unless overridden, returns QString::null and an empty pixmap.
+		virtual const QPixmap prefsPanelIcon() const;
+		virtual const QString prefsPanelName() const;
 
 		// Returns a structure containing descriptive information about the
 		// plug-in. This information is used in places like the Help->About
 		// Plug-ins menu item. The stucture MUST be deleted using
 		// deleteAboutData(AboutData* about) when finished with.
 		//
-		// Note: About data isn't stored as const members because (a) it can
-		// be big, and (b) it isn't needed much.
-		//
 		// Every plug-in must re-implment these.
-		virtual AboutData* getAboutData() = 0;
-		virtual void deleteAboutData(AboutData* about) = 0;
+		virtual const AboutData* getAboutData() const = 0;
+		virtual void deleteAboutData(const AboutData* about) const = 0;
 
 		// Return human readable, translated text of last error to be
 		// encountered. DO NOT ATTEMPT TO USE THIS VALUE TO MAKE
@@ -173,7 +171,7 @@ class SCRIBUS_API ScImportExportPlugin : public ScPlugin
 		 *
 		 * @sa ScPlugin::ScPlugin()
 		 */
-		ScImportExportPlugin(int id, QString& name);
+		ScImportExportPlugin(int id, QString& name, PluginType pluginType);
 		// Pure virtual dtor - abstract class
 		virtual ~ScImportExportPlugin() = 0;
 
@@ -275,14 +273,20 @@ class SCRIBUS_API ScImportExportPlugin : public ScPlugin
 		 */
 		virtual DeferredTask* runAsync(QWidget* parent, ScribusApp* mainWindow, QIODevice* target);
 
-		// const members defining information about actions, to be
-		// populated by the ctor.
-		const QString m_actionName;
-		const QString m_actionKeySequence;
-		const QString m_actionMenu;
-		const QString m_actionMenuAfterName;
-		const bool m_actionEnabledOnStartup;
+		// Information about actions, to be returned by actionInfo()
+		struct ActionInfo {
+			QString actionName;
+			QString actionKeySequence;
+			QString actionMenu;
+			QString actionMenuAfterName;
+			bool actionEnabledOnStartup;
+		};
 
+		// Return an ActionInfo instance to the caller
+		virtual const ActionInfo & actionInfo() const;
+
+	protected:
+		ActionInfo m_actionInfo;
 };
 
 

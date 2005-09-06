@@ -1,5 +1,4 @@
 #include "scplugin.h"
-#include "scplugin.moc"
 #include "qwidget.h"
 #include "deferredtask.h"
 #include "scribus.h"
@@ -9,9 +8,34 @@
 //                        ScPlugin                     //
 //=====================================================//
 
+ScPlugin::ScPlugin(int id, QString& name, PluginType pluginType)
+	: QObject(0),
+	pluginType(pluginType),
+	id(id),
+	fullTrName(name)
+{
+}
+
 QWidget* ScPlugin::newPrefsPanelWidget()
 {
 	return 0;
+}
+
+// Don't call this method; it must be overridden if the plug-in
+// returns a prefs widget.
+void ScPlugin::destroyPrefsPanelWidget(QWidget* /*prefsPanelWidget*/)
+{
+	Q_ASSERT(false);
+}
+
+const QPixmap ScPlugin::prefsPanelIcon() const
+{
+	return QPixmap();
+}
+
+const QString ScPlugin::prefsPanelName() const
+{
+	return QString::null;
 }
 
 const QString & ScPlugin::lastError() const
@@ -23,6 +47,10 @@ const QString & ScPlugin::lastError() const
 //                   ScImportExportPlugin              //
 //=====================================================//
 
+ScImportExportPlugin::ScImportExportPlugin(int id, QString& name, PluginType pluginType)
+	: ScPlugin(id, name, pluginType)
+{
+}
 
 // Stub for plugins that don't implement this method to inherit
 // Just calls the QIODevice version, assuming target is a file.
@@ -78,4 +106,14 @@ DeferredTask* ScImportExportPlugin::runAsync(
 		QIODevice* /* target */)
 {
 	return 0;
+}
+
+
+//=====================================================//
+//                   ScImportExportPlugin              //
+//=====================================================//
+
+ScPersistentPlugin::ScPersistentPlugin(int id, QString& name)
+	: ScPlugin(id, name, ScPlugin::PluginType_Persistent)
+{
 }
