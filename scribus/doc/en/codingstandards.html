@@ -3,11 +3,11 @@
 <h2>Scribus Coding Standards</h2>
 
 <p>
-Initial document: Paul F. Johnson, 26 Feb  2004, Version: 0.04<br/>
-Revised: Craig Ringer, 16 Aug, 2005, Version: 0.05 (text encodings, exceptions, who to send patches to)
-</p>
+Initial document: Paul F. Johnson, 26 Feb.  2004, Version: 0.04<br/>
+Revised: Craig Ringer, 16 Aug. 2005, Version: 0.05 (text encodings, exceptions, who to send patches to)<br />
+Revised: Peter Linnell, 06 Sept. 2005, Version: 0.06 (more text encodings stuff from recent discussions)</p>
 
-<p>This document is intended as a guide to all Scribus developers and contributors. It is aimed to be simple to use as well as to keep the source code simple to understand and maintain.</p>
+<p>This document is intended as a guide to all Scribus developers and contributors. It is aimed to be simple to use, as well as to keep the source code simple to understand and maintain.</p>
 
 <h3>Code Documentation</h3>
 
@@ -346,6 +346,68 @@ ts &lt;&lt; someQString.utf8();
 <p>The best way to handle text encodings is to convert 8-bit byte strings to <code>QString</code> or another "safe" class as early as possible in input, and convert to 8-bit byte strings as late as possible on output. Above all else, do it only once and watch out for implicit conversions. You should think about encodings whenever passing text across any interface that wants byte-oriented strings rather than <code>QString</code>s. Remember to <b>read the documentation</b> of the APIs you're using to determine how they behave with text encodings, and if you're not sure, <i>ask somebody</i>.</p>
 
 <p>It is strongly recommended that you read <a href="http://doc.trolltech.com/3.3/i18n.html">http://doc.trolltech.com/3.3/i18n.html</a> for more coverage of this issue, especially the section "Support for Encodings". You should also read <a href="http://doc.trolltech.com/qq/qq05-achtung.html">Achtung! Binary and Character data</a>.</p>
+
+<h4>Translation Hints - Encoding Issues</h4>
+<p>Please use:</p> 
+<pre> "&#060;qt&#062;" + tr("text for translation") + "&#060;/qt&#062;"</pre>
+<p>not this:</p>
+<pre> tr("&#060;qt&#062;text for translation&#060;/qt&#062;")</pre>
+<p>it's really annoying to translators.</p>
+
+<p>If you are writting class which is not inherited from QObject or any Qt
+class, you cannot use inherited tr() method. If you are using something like:</p>
+<pre> QObject::tr("text for translation")</pre>
+<p>replace it with:</p>
+ <pre>QObject::tr("text for translation", "describe what is it related")</pre>
+<p>An example from the scripter:</p>
+ <pre>QObject::tr("Item is not text frame", "scripter error")</pre>
+<p>It helps translators with context and it tells them what they are
+translating too, though in some cases strings are generic in nature.</p>
+
+
+<p>There's another issue related to translations, though it's more for
+encoding correctness etc: Please don't use:</p>
+
+<pre>tr( QString("blah %1").arg(something) )</pre>
+
+or otherwise use a QString inside a tr(...) . Doing so causes an
+implicit conversion to `const char*', in which the QString converts to a
+latin-1 byte string. If some characters cannot be represented in latin-1
+they're replaced with `?' . The correct usage is:
+
+<pre>tr("blah %1","context").arg("something")</pre>
+
+<p>... exploiting the fact that tr(...) returns a QString and that you can
+chain calls to QString::arg. That avoids any implicit conversions, and
+will avoid a whole class of weird encoding bugs.</p>
+
+<p>If you really have to translate text that can't be represented in
+latin-1, you need to use <strong>QObject::trUtf8(...).</strong> If you want to translate
+a string with "Δ" (uppercase delta) in it, for example, we could try:</p>
+
+      <p> tr("Δ is %1", "context")</p>
+
+<p>but that's wrong, not portable, may not compile, or worse might have
+different results on different systems. <strong>We must use escaped byte strings
+rather than including a unicode or extended latin-1 char directly in
+source. </strong>The UTF-8 byte sequence for that character is \xce\x94, so we
+could try:</p>
+
+       <pre>tr("\xce\x94 is %1", "context")</pre>
+
+<p>but that's also wrong, as that unicode byte sequence will be interpreted
+as latin-1 and you'll get a mangled result. You must instead use:</p>
+
+     <pre> trUtf8("\xce\x94 is %1", "context")</pre>
+
+<p>Similarly, if you wanted to include the &#169; (copyright) symbol, which
+exists in latin-1 as well, you could use either:</p>
+
+       <pre>tr("something \xa9 someone", "context")</pre>
+
+<p>or</p>
+
+       <pre>trUtf8("something \xc2\xa9 someone", "context")</pre>
 
 <h4>Portability</h4>
 
