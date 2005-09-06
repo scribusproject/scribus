@@ -4,6 +4,8 @@
 #include "scribus.h"
 #include "scribusapp.h"
 
+#include "scplugin.moc"
+
 //=====================================================//
 //                        ScPlugin                     //
 //=====================================================//
@@ -108,6 +110,11 @@ DeferredTask* ScImportExportPlugin::runAsync(
 	return 0;
 }
 
+
+const ScImportExportPlugin::ActionInfo & ScImportExportPlugin::actionInfo() const
+{
+	return m_actionInfo;
+}
 
 //=====================================================//
 //                   ScImportExportPlugin              //
