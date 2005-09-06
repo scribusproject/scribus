@@ -26,14 +26,28 @@ QPixmap ColorWheel::sample(QColor c)
 	return pmap;
 }
 
+QPoint ColorWheel::checkBounds(QPoint p)
+{
+	// ugly hack to be sure that it won't be out of bounds
+	int x = width() - 5;
+	int y = height() - 5;
+	if (p.x() > x)
+		p.setX(x);
+	if (p.x() < 5)
+		p.setX(5);
+	if (p.y() > y)
+		p.setY(y);
+	if (p.y() < 5)
+		p.setY(5);
+	return p;
+}
+
 QRgb ColorWheel::getPointColor(QPoint p)
 {
 	QImage image;
 	const QPixmap *pm = pixmap();
 	image = pm->convertToImage();
-	// ugly hack to be sure that it won't be out of bounds
-	if (p.x() > width() || p.x() < 0 || p.y() > height() || p.y() < 0)
-		return QColor().rgb();
+	p = checkBounds(p);
 	return image.pixel(p.x(), p.y());
 }
 

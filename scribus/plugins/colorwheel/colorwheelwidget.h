@@ -122,13 +122,19 @@ class ColorWheel : public QLabel
 		\param QPoint coordinates of the point. */
 		double pointAngle(QPoint);
 
-		/** Appends the base color into color list. */
+		/** \brief Appends the base color into color list. */
 		void baseColor();
 
-		/** Creates a Scribus ScColor from rgb value.
+		/** \brief Creates a Scribus ScColor from rgb value.
 		\param QRgb a rgb value of the color. */
 		ScColor cmykColor(QRgb rgb);
 
+		/** \brief Quick and dirty border checking.
+		It prevents crashes when user moves mouse out of bounds
+		\param p current point
+		\retval QPoint point surely in widget
+		*/
+		QPoint checkBounds(QPoint p);
 };
 
 #endif
