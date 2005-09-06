@@ -2737,9 +2737,7 @@ void ScribusApp::HaveNewDoc()
 	scrMenuMgr->setMenuEnabled("FileExport", true);
 	scrActions["fileExportAsEPS"]->setEnabled(true);
 	scrActions["fileExportAsPDF"]->setEnabled(true);
-/* Disabled this for 1.3.0 as it doesn't work yet */
-/*	scrActions["pageImport"]->setEnabled(true); */
-	scrActions["pageImport"]->setEnabled(false);
+	scrActions["pageImport"]->setEnabled(true);
 	//scrActions["toolsPreflightVerifier"]->setEnabled(true);
 
 	if (HaveGS==0)
@@ -3621,16 +3619,21 @@ bool ScribusApp::loadPage(QString fileName, int Nr, bool Mpa)
 	{
 		if (!Mpa)
 			doc->OpenNodes = outlinePalette->buildReopenVals();
-		doc->setLoading(true);
-		ScriXmlDoc *ss = new ScriXmlDoc();
-		uint oldItemsCount = doc->Items.count();
-		if(!ss->ReadPage(fileName, prefsManager->appPrefs.AvailFonts, doc, view, Nr, Mpa))
+		FileLoader *fl = new FileLoader(fileName, this);
+		if (fl->TestFile() == -1)
 		{
-			delete ss;
+			delete fl;
+			return false;
+		}
+		doc->setLoading(true);
+		uint oldItemsCount = doc->Items.count();
+		if(!fl->LoadPage(this, Nr, Mpa))
+		{
+			delete fl;
 			doc->setLoading(false);
 			return false;
 		}
-		delete ss;
+		delete fl;
 		if (CMSavail && doc->CMSSettings.CMSinUse)
 		{
 			recalcColors();
@@ -3665,6 +3668,7 @@ bool ScribusApp::loadPage(QString fileName, int Nr, bool Mpa)
 	}
 	if (!Mpa)
 		pagePalette->Rebuild();
+	view->reformPages();
 	view->DrawNew();
 	return ret;
 }
@@ -8122,6 +8126,7 @@ void ScribusApp::manageMasterPages(QString temp)
 			connect(dia, SIGNAL(docAltered(ScribusDoc* )), outlinePalette, SLOT(BuildTree(ScribusDoc* )));
 			connect(dia, SIGNAL(docAltered(ScribusDoc*)), SLOT(slotDocCh()));
 			scrActions["pageInsert"]->setEnabled(false);
+			scrActions["pageImport"]->setEnabled(false);
 			scrActions["pageDelete"]->setEnabled(false);
 			scrActions["pageCopy"]->setEnabled(false);
 			scrActions["pageMove"]->setEnabled(false);
@@ -8164,6 +8169,7 @@ void ScribusApp::manageMasterPagesEnd()
 		scrActions["PrintPreview"]->setEnabled(true);
 	scrActions["pageInsert"]->setEnabled(true);
 	scrActions["pageCopy"]->setEnabled(true);
+	scrActions["pageImport"]->setEnabled(true);
 	scrActions["pageApplyMasterPage"]->setEnabled(true);
 	scrActions["pageCopyToMasterPage"]->setEnabled(true);
 	bool setter = doc->Pages.count() > 1 ? true : false;

@@ -23,10 +23,13 @@ public:
 	int TestFile();
 	int CheckScribus();
 	QString ReadDatei(QString fileName);
+	bool LoadPage(ScribusApp* app, int PageToLoad, bool Mpage);
 	bool LoadFile(ScribusApp* app);
+	bool ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, ScribusView *view, int PageToLoad, bool Mpage);
 	bool ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, ScribusDoc *doc, ScribusView *view, QProgressBar *dia2);
-	void GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj);
+	void GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, bool impo=false, bool VorLFound=false);
 	PageItem* PasteItem(QDomElement *obj, ScribusDoc *doc, ScribusView *view);
+	void GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl);
 	QString FileName;
 	int FileType;
 	bool havePS;
@@ -36,6 +39,7 @@ public:
 	QValueList<int> LFrames;
 	QMap<QString,QString> ReplacedFonts;
 	QMap<uint,QString> DoVorl;
+	uint VorlC;
 	QPtrList<Foi> dummyFois;
 	
 private:

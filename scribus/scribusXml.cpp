@@ -97,156 +97,64 @@ QString ScriXmlDoc::ReadDatei(QString fileName)
 /** end changes */
 }
 
-QString ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, bool impo, bool docreading, PageItem* obj)
+void ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, bool impo, PageItem* obj)
 {
-	QString tmp2, tmf, tmpf, tmp3, tmp;
-	tmp = "";
+	QString tmp2, tmf, tmpf, tmp3;
 	tmp2 = it->attribute("CH");
 	tmp2.replace(QRegExp("\r"), QChar(5));
 	tmp2.replace(QRegExp("\n"), QChar(5));
 	tmp2.replace(QRegExp("\t"), QChar(4));
 	tmpf = it->attribute("CFONT", doc->toolSettings.defFont);
-	if (docreading)
+	bool unknown = false;
+	struct ScText *hg;
+	Foi* dummy;
+	if ((!prefsManager->appPrefs.AvailFonts.find(tmpf)) || (!prefsManager->appPrefs.AvailFonts[tmpf]->UseFont))
 	{
-		bool unknown = false;
-		struct ScText *hg;
-		Foi* dummy;
-		if ((!prefsManager->appPrefs.AvailFonts.find(tmpf)) || (!prefsManager->appPrefs.AvailFonts[tmpf]->UseFont))
+		bool isThere = false;
+		for (uint dl = 0; dl < dummyFois.count(); ++dl)
 		{
-			bool isThere = false;
-			for (uint dl = 0; dl < dummyFois.count(); ++dl)
+			if (dummyFois.at(dl)->SCName == tmpf)
 			{
-				if (dummyFois.at(dl)->SCName == tmpf)
-				{
-					isThere = true;
-					dummy = dummyFois.at(dl);
-					break;
-				}
+				isThere = true;
+				dummy = dummyFois.at(dl);
+				break;
 			}
-			if (!isThere)
-			{
-				dummy = new Foi(tmpf, "", false);
-				dummyFois.append(dummy);
-			}
-			unknown = true;
-			if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!prefsManager->appPrefs.AvailFonts[prefsManager->appPrefs.GFontSub[tmpf]]->UseFont))
-			{
-				newReplacement = true;
-				ReplacedFonts.insert(tmpf, prefsManager->appPrefs.toolSettings.defFont);
-			}
-			else
-				ReplacedFonts.insert(tmpf, prefsManager->appPrefs.GFontSub[tmpf]);
+		}
+		if (!isThere)
+		{
+			dummy = new Foi(tmpf, "", false);
+			dummyFois.append(dummy);
+		}
+		unknown = true;
+		if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!prefsManager->appPrefs.AvailFonts[prefsManager->appPrefs.GFontSub[tmpf]]->UseFont))
+		{
+			newReplacement = true;
+			ReplacedFonts.insert(tmpf, prefsManager->appPrefs.toolSettings.defFont);
 		}
 		else
-		{
-			if (!doc->UsedFonts.contains(tmpf))
-			{
-				QFont fo = prefsManager->appPrefs.AvailFonts[tmpf]->Font;
-				fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
-				doc->AddFont(tmpf, fo);
-			}
-		}
-		int size = qRound(QStodouble(it->attribute("CSIZE")) * 10);
-		QString fcolor = it->attribute("CCOLOR");
-		int extra;
-		if (it->hasAttribute("CEXTRA"))
-			extra = qRound(QStodouble(it->attribute("CEXTRA")) / QStodouble(it->attribute("CSIZE")) * 1000.0);
-		else
-			extra = QStoInt(it->attribute("CKERN"));
-		int shade = QStoInt(it->attribute("CSHADE"));
-		int style = QStoInt(it->attribute("CSTYLE")) & 255;
-		int ab = QStoInt(it->attribute("CAB","0"));
-		QString stroke = it->attribute("CSTROKE","None");
-		int shade2 = QStoInt(it->attribute("CSHADE2","100"));
-		int scale = qRound(QStodouble(it->attribute("CSCALE","100")) * 10);
-		int scalev = qRound(QStodouble(it->attribute("CSCALEV","100")) * 10);
-		int base = qRound(QStodouble(it->attribute("CBASE","0")) * 10);
-		int shX = qRound(QStodouble(it->attribute("CSHX","5")) * 10);
-		int shY = qRound(QStodouble(it->attribute("CSHY","-5")) * 10);
-		int outL = qRound(QStodouble(it->attribute("COUT","1")) * 10);
-		int ulp = qRound(QStodouble(it->attribute("CULP","-0.1")) * 10);
-		int ulw = qRound(QStodouble(it->attribute("CULW","-0.1")) * 10);
-		int stp = qRound(QStodouble(it->attribute("CSTP","-0.1")) * 10);
-		int stw = qRound(QStodouble(it->attribute("CSTW","-0.1")) * 10);
-		for (uint cxx=0; cxx<tmp2.length(); ++cxx)
-		{
-			hg = new ScText;
-			hg->ch = tmp2.at(cxx);
-			if (hg->ch == QChar(5))
-				hg->ch = QChar(13);
-			if (hg->ch == QChar(4))
-				hg->ch = QChar(9);
-			if (unknown)
-				hg->cfont = dummy;
-			else
-				hg->cfont = (*doc->AllFonts)[tmpf];
-			hg->csize = size;
-			hg->ccolor = fcolor;
-			hg->cextra = extra;
-			hg->cshade = shade;
-			hg->cselect = false;
-			hg->cstyle = style;
-			hg->cab = ab;
-			hg->cstroke = stroke;
-			hg->cshade2 = shade2;
-			hg->cscale = QMIN(QMAX(scale, 100), 4000);
-			hg->cscalev = QMIN(QMAX(scalev, 100), 4000);
-			hg->cbase = base;
-			hg->cshadowx = shX;
-			hg->cshadowy = shY;
-			hg->coutline = outL;
-			hg->cunderpos = ulp;
-			hg->cunderwidth = ulw;
-			hg->cstrikepos = stp;
-			hg->cstrikewidth = stw;
-			hg->xp = 0;
-			hg->yp = 0;
-			hg->PRot = 0;
-			hg->PtransX = 0;
-			hg->PtransY = 0;
-			hg->cembedded = 0;
-			obj->itemText.append(hg);
-		}
-		return "";
+			ReplacedFonts.insert(tmpf, prefsManager->appPrefs.GFontSub[tmpf]);
 	}
 	else
 	{
-		if (tmpf.isEmpty())
-			tmpf = doc->toolSettings.defFont;
-		tmf = tmpf;
-		if (!DoFonts.contains(tmpf))
-			tmpf = AskForFont(prefsManager->appPrefs.AvailFonts, tmpf, doc);
-		else
-			tmpf = DoFonts[tmf];
+		if (!doc->UsedFonts.contains(tmpf))
+		{
+			QFont fo = prefsManager->appPrefs.AvailFonts[tmpf]->Font;
+			fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
+			doc->AddFont(tmpf, fo);
+		}
 	}
-	QString tmp4;
-	tmp3 = "\t" + tmpf + "\t";
-	tmp3 += it->attribute("CSIZE") + "\t";
-	tmp3 += it->attribute("CCOLOR") + "\t";
+	int size = qRound(QStodouble(it->attribute("CSIZE")) * 10);
+	QString fcolor = it->attribute("CCOLOR");
 	int extra;
 	if (it->hasAttribute("CEXTRA"))
 		extra = qRound(QStodouble(it->attribute("CEXTRA")) / QStodouble(it->attribute("CSIZE")) * 1000.0);
 	else
 		extra = QStoInt(it->attribute("CKERN"));
-	tmp3 += tmp4.setNum(extra) + "\t";
-	tmp3 += it->attribute("CSHADE") + "\t";
-	tmp3 += tmp4.setNum(QStoInt(it->attribute("CSTYLE")) & 255) + "\t";
-	if (impo)
-	{
-		if (VorLFound)
-			tmp3 += DoVorl[it->attribute("CAB","0").toUInt()] + "\t";
-		else
-		{
-			if (it->attribute("CAB","0").toUInt() < 5)
-				tmp3 += it->attribute("CAB","0")+"\t";
-			else
-				tmp3 += "0\t";
-		}
-	}
-	else
-		tmp3 += it->attribute("CAB","0") + "\t";
-	tmp3 += it->attribute("CSTROKE","None") + "\t";
-	tmp3 += it->attribute("CSHADE2","100") + "\t";
+	int shade = QStoInt(it->attribute("CSHADE"));
+	int style = QStoInt(it->attribute("CSTYLE")) & 255;
+	int ab = QStoInt(it->attribute("CAB","0"));
+	QString stroke = it->attribute("CSTROKE","None");
+	int shade2 = QStoInt(it->attribute("CSHADE2","100"));
 	int scale = qRound(QStodouble(it->attribute("CSCALE","100")) * 10);
 	int scalev = qRound(QStodouble(it->attribute("CSCALEV","100")) * 10);
 	int base = qRound(QStodouble(it->attribute("CBASE","0")) * 10);
@@ -257,19 +165,59 @@ QString ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound
 	int ulw = qRound(QStodouble(it->attribute("CULW","-0.1")) * 10);
 	int stp = qRound(QStodouble(it->attribute("CSTP","-0.1")) * 10);
 	int stw = qRound(QStodouble(it->attribute("CSTW","-0.1")) * 10);
-	tmp3 += tmp4.setNum(scale) + "\t";
-	tmp3 += tmp4.setNum(scalev) + "\t";
-	tmp3 += tmp4.setNum(base) + "\t";
-	tmp3 += tmp4.setNum(shX) + "\t";
-	tmp3 += tmp4.setNum(shY) + "\t";
-	tmp3 += tmp4.setNum(outL) + "\t";
-	tmp3 += tmp4.setNum(ulp) + "\t";
-	tmp3 += tmp4.setNum(ulw) + "\t";
-	tmp3 += tmp4.setNum(stp) + "\t";
-	tmp3 += tmp4.setNum(stw) + "\n";
 	for (uint cxx=0; cxx<tmp2.length(); ++cxx)
-		tmp += tmp2.at(cxx)+tmp3;
-	return tmp;
+	{
+		hg = new ScText;
+		hg->ch = tmp2.at(cxx);
+		if (hg->ch == QChar(5))
+			hg->ch = QChar(13);
+		if (hg->ch == QChar(4))
+			hg->ch = QChar(9);
+		if (unknown)
+			hg->cfont = dummy;
+		else
+			hg->cfont = (*doc->AllFonts)[tmpf];
+		hg->csize = size;
+		hg->ccolor = fcolor;
+		hg->cextra = extra;
+		hg->cshade = shade;
+		hg->cselect = false;
+		hg->cstyle = style;
+		if (impo)
+		{
+			if (VorLFound)
+				hg->cab = DoVorl[ab].toUInt();
+			else
+			{
+				if (ab < 5)
+					hg->cab = ab;
+				else
+					hg->cab = 0;
+			}
+		}
+		else
+			hg->cab = ab;
+		hg->cstroke = stroke;
+		hg->cshade2 = shade2;
+		hg->cscale = QMIN(QMAX(scale, 100), 4000);
+		hg->cscalev = QMIN(QMAX(scalev, 100), 4000);
+		hg->cbase = base;
+		hg->cshadowx = shX;
+		hg->cshadowy = shY;
+		hg->coutline = outL;
+		hg->cunderpos = ulp;
+		hg->cunderwidth = ulw;
+		hg->cstrikepos = stp;
+		hg->cstrikewidth = stw;
+		hg->xp = 0;
+		hg->yp = 0;
+		hg->PRot = 0;
+		hg->PtransX = 0;
+		hg->PtransY = 0;
+		hg->cembedded = 0;
+		obj->itemText.append(hg);
+	}
+	return;
 }
 
 QString ScriXmlDoc::AskForFont(SCFonts &avail, QString fStr, ScribusDoc *doc)
@@ -785,7 +733,6 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 			VorlC++;
 		}
 	}
-
 }
 
 bool ScriXmlDoc::ReadStyles(QString fileName, ScribusDoc* doc)
@@ -880,7 +827,7 @@ bool ScriXmlDoc::ReadPageCount(QString fileName, int *num1, int *num2)
 	if(!docu.setContent(f))
 		return false;
 	QDomElement elem=docu.documentElement();
-	if ((elem.tagName() != "SCRIBUS") && (elem.tagName() != "SCRIBUSUTF8"))
+	if ((elem.tagName() != "SCRIBUS") && (elem.tagName() != "SCRIBUSUTF8") && (elem.tagName() != "SCRIBUSUTF8NEW"))
 		return false;
 	QDomNode DOC=elem.firstChild();
 	while(!DOC.isNull())
@@ -889,20 +836,34 @@ bool ScriXmlDoc::ReadPageCount(QString fileName, int *num1, int *num2)
 		while(!PAGE.isNull())
 		{
 			QDomElement pg=PAGE.toElement();
-			if(pg.tagName()=="PAGE")
+			if (elem.tagName() == "SCRIBUSUTF8NEW")
 			{
 				PgNam = pg.attribute("NAM", "");
-				if (PgNam.isEmpty())
+				if(pg.tagName()=="PAGE")
 					counter++;
-				else
+				if(pg.tagName()=="MASTERPAGE")
 				{
 					counter2++;
 					MNames.append(PgNam);
 				}
 			}
-		PAGE=PAGE.nextSibling();
+			else
+			{
+				if(pg.tagName()=="PAGE")
+				{
+					PgNam = pg.attribute("NAM", "");
+					if (PgNam.isEmpty())
+						counter++;
+					else
+					{
+						counter2++;
+						MNames.append(PgNam);
+					}
+				}
+			}
+			PAGE=PAGE.nextSibling();
 		}
-	DOC=DOC.nextSibling();
+		DOC=DOC.nextSibling();
 	}
 	*num1 = counter;
 	*num2 = counter2;
@@ -1111,8 +1072,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 				/*
 				* Attribute von OBJECT auslesen
 				*/
-					if ((QStoInt(obj.attribute("NEXTITEM")) != -1) &&
-							(QStoInt(obj.attribute("NEXTPAGE")) == PageToLoad))
+					if ((QStoInt(obj.attribute("NEXTITEM")) != -1) && (QStoInt(obj.attribute("NEXTPAGE")) == PageToLoad))
 					{
 						if (QStoInt(obj.attribute("BACKITEM")) == -1)
 						{
@@ -1172,18 +1132,26 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 						OB.GrColor = "";
 						OB.GrColor2 = "";
 					}
-					if (it.tagName()=="ITEXT")
-						tmp += GetItemText(&it, doc, view->Prefs, VorLFound, true, false);
 					IT=IT.nextSibling();
 					}
-					OB.itemText = tmp;
+					OB.itemText = "";
 					view->PasteItem(&OB, true);
 					Neu = doc->Items.at(counter);
+					IT=OBJ.firstChild();
+					while(!IT.isNull())
+					{
+						QDomElement it=IT.toElement();
+						if (it.tagName()=="ITEXT")
+							GetItemText(&it, doc, VorLFound, true, Neu);
+						IT=IT.nextSibling();
+					}
 					if (QStoInt(obj.attribute("NEXTPAGE")) == PageToLoad)
 					{
 						Neu->NextIt = baseobj + QStoInt(obj.attribute("NEXTITEM"));
 						Neu->NextPg = a; // QStoInt(obj.attribute("NEXTPAGE"));
 					}
+					else
+						Neu->NextIt = -1;
 					if (Neu->isTableItem)
 					{
 						TableItems.append(Neu);
@@ -1711,7 +1679,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 					{
 						QDomElement it=IT.toElement();
 						if (it.tagName()=="ITEXT")
-							GetItemText(&it, doc, false, false, true, Neu);
+							GetItemText(&it, doc, false, false, Neu);
 						IT=IT.nextSibling();
 					}
 					Neu->isAutoText=static_cast<bool>(QStoInt(obj.attribute("AUTOTEXT")));
@@ -2192,7 +2160,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 			{
 				QDomElement it=IT.toElement();
 				if (it.tagName()=="ITEXT")
-					GetItemText(&it, doc, VorLFound, true, true, Neu);
+					GetItemText(&it, doc, VorLFound, true, Neu);
 				IT=IT.nextSibling();
 			}
 			if (Neu->isTableItem)

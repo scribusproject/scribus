@@ -26,7 +26,7 @@ public:
 	bool IsScribus(QString fileName);
 	QString ReadDatei(QString fileName);
 	QString AskForFont(SCFonts &avail, QString fStr, ScribusDoc *doc);
-	QString GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, bool impo, bool docreading, PageItem* obj = 0);
+	void GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, bool impo, PageItem* obj = 0);
 	void SetItemProps(QDomElement *ob, PageItem* item, bool newFormat);
 	bool ReadLStyles(QString fileName, QMap<QString,multiLine> *Sty);
 	void GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl);
