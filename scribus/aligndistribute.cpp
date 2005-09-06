@@ -1471,15 +1471,45 @@ void AlignDistributePalette::enableGuideButtons()
 double AlignDistributePalette::widthForPageLocation()
 {
 	double retVal;
-	if ((currDoc->currentPageLayout == doublePage) && !currDoc->masterPageMode)
+	if (!currDoc->masterPageMode)
 	{
-		if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->pageSets[currDoc->currentPageLayout].FirstPage==0) ||
-			(currDoc->currentPage->PageNr % 2 == 0) && (currDoc->pageSets[currDoc->currentPageLayout].FirstPage==1))
+		//TODO fix for orientation changes... 
+		if (currDoc->currentPageLayout == doublePage)
 		{
-			retVal = currDoc->currentPage->Width;
-			retVal += currDoc->pageSets[currDoc->currentPageLayout].GapHorizontal;
+			if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->pageSets[currDoc->currentPageLayout].FirstPage==0) ||
+				(currDoc->currentPage->PageNr % 2 == 0) && (currDoc->pageSets[currDoc->currentPageLayout].FirstPage==1))
+			{
+				retVal = currDoc->currentPage->Width;
+				retVal += currDoc->pageSets[currDoc->currentPageLayout].GapHorizontal;
+			}
+			
 		}
-		
+		//TODO all
+		/*
+		if (currDoc->currentPageLayout == triplePage)
+		{
+			if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->pageSets[currDoc->currentPageLayout].FirstPage==0) ||
+				(currDoc->currentPage->PageNr % 2 == 0) && (currDoc->pageSets[currDoc->currentPageLayout].FirstPage==1))
+			{
+				retVal = currDoc->currentPage->Width;
+				retVal += currDoc->pageSets[currDoc->currentPageLayout].GapHorizontal;
+			}
+			
+		}
+		*/
+		//TODO all
+		/*
+		if (currDoc->currentPageLayout == quadroPage)
+		{
+			if ((currDoc->currentPage->PageNr % 2 == 1) && (currDoc->pageSets[currDoc->currentPageLayout].FirstPage==0) ||
+				(currDoc->currentPage->PageNr % 2 == 0) && (currDoc->pageSets[currDoc->currentPageLayout].FirstPage==1))
+			{
+				retVal = currDoc->currentPage->Width;
+				retVal += currDoc->pageSets[currDoc->currentPageLayout].GapHorizontal;
+			}
+			
+		}
+		*/
 	}
 	return retVal;
 }
