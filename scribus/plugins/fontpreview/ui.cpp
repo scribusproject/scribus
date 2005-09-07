@@ -1,5 +1,5 @@
 #include "ui.h"
-#include "ui.moc"
+#include "scribus.h"
 #include "pluginmanager.h"
 #include <qvariant.h>
 #include <qpushbutton.h>
@@ -27,12 +27,9 @@ extern QPixmap SCRIBUS_API loadIcon(QString nam);
  *  The dialog will by default be modeless, unless you set 'modal' to
  *  true to construct a modal dialog.
  */
-FontPreview::FontPreview(ScribusApp *carrier, QWidget* parent, const char* name, bool modal, WFlags fl)
-	: QDialog(parent, name, modal, fl)
+FontPreview::FontPreview(QString fontName)
+	: QDialog(ScApp, "FontPreview")
 {
-	this->carrier = carrier;
-	if (!name)
-		setName( "FontPreview" );
 	setIcon(loadIcon("AppIcon.png"));
 	// scribus config
 	prefs = PrefsManager::instance()->prefsFile->getPluginContext("fontpreview");
@@ -101,7 +98,7 @@ FontPreview::FontPreview(ScribusApp *carrier, QWidget* parent, const char* name,
 
 	/* go through available fonts and check their properties */
 	reallyUsedFonts.clear();
-	carrier->doc->getUsedFonts(&reallyUsedFonts);
+	ScApp->doc->getUsedFonts(&reallyUsedFonts);
 	ttfFont = loadIcon("font_truetype16.png");
 	otfFont = loadIcon("font_otf16.png");
 	psFont = loadIcon("font_type1_16.png");
@@ -113,12 +110,12 @@ FontPreview::FontPreview(ScribusApp *carrier, QWidget* parent, const char* name,
 
 	// set initial listitem
 	QListViewItem *item;
-	if (!carrier->pluginManager->dllInput.isEmpty())
-		item = fontList->findItem(carrier->pluginManager->dllInput, 0);
+	if (!fontName.isEmpty())
+		item = fontList->findItem(fontName, 0);
 	else
 	{
-		if (carrier->view->SelItem.count() != 0)
-			item = fontList->findItem(carrier->doc->CurrFont, 0);
+		if (ScApp->view->SelItem.count() != 0)
+			item = fontList->findItem(ScApp->doc->CurrFont, 0);
 		else
 			item = fontList->findItem(PrefsManager::instance()->appPrefs.toolSettings.defFont, 0);
 	}
@@ -242,3 +239,5 @@ void FontPreview::searchButton_clicked()
 {
 	updateFontList(searchEdit->text());
 }
+
+#include "ui.moc"

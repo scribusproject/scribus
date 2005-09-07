@@ -24,7 +24,7 @@ PyObject *scribus_newdoc(PyObject* /* self */, PyObject* args)
 	lr = value2pts(lr, unit);
 	rr = value2pts(rr, unit);
 	btr = value2pts(btr, unit);
-	bool ret = Carrier->doFileNew(b, h, tpr, lr, rr, btr, 0, 1, false, ds, unit, fsl, ori, fNr, "Custom");
+	bool ret = ScApp->doFileNew(b, h, tpr, lr, rr, btr, 0, 1, false, ds, unit, fsl, ori, fNr, "Custom");
 	//	qApp->processEvents();
 	return PyInt_FromLong(static_cast<long>(ret));
 }
@@ -40,11 +40,11 @@ PyObject *scribus_setmargins(PyObject* /* self */, PyObject* args)
 	lr = ValueToPoint(lr);
 	rr = ValueToPoint(rr);
 	btr = ValueToPoint(btr);
-	Carrier->doc->resetPage(tpr, lr, rr, btr, Carrier->doc->currentPageLayout);
-	Carrier->view->reformPages();
-	Carrier->doc->setModified(true);
-	Carrier->view->GotoPage(Carrier->doc->currentPage->pageNr());
-	Carrier->view->DrawNew();
+	ScApp->doc->resetPage(tpr, lr, rr, btr, ScApp->doc->currentPageLayout);
+	ScApp->view->reformPages();
+	ScApp->doc->setModified(true);
+	ScApp->view->GotoPage(ScApp->doc->currentPage->pageNr());
+	ScApp->view->DrawNew();
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -53,15 +53,15 @@ PyObject *scribus_closedoc(PyObject* /* self */)
 {
 	if(!checkHaveDocument())
 		return NULL;
-	Carrier->doc->setModified(false);
-	bool ret = Carrier->slotFileClose();
+	ScApp->doc->setModified(false);
+	bool ret = ScApp->slotFileClose();
 	qApp->processEvents();
 	return PyInt_FromLong(static_cast<long>(ret));
 }
 
 PyObject *scribus_havedoc(PyObject* /* self */)
 {
-	return PyInt_FromLong(static_cast<long>(Carrier->HaveDoc));
+	return PyInt_FromLong(static_cast<long>(ScApp->HaveDoc));
 }
 
 PyObject *scribus_opendoc(PyObject* /* self */, PyObject* args)
@@ -69,7 +69,7 @@ PyObject *scribus_opendoc(PyObject* /* self */, PyObject* args)
 	char *Name;
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
 		return NULL;
-	bool ret = Carrier->loadDoc(QString::fromUtf8(Name));
+	bool ret = ScApp->loadDoc(QString::fromUtf8(Name));
 	if (!ret)
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Failed to open document.","python error"));
@@ -83,7 +83,7 @@ PyObject *scribus_savedoc(PyObject* /* self */)
 {
 	if(!checkHaveDocument())
 		return NULL;
-	Carrier->slotFileSave();
+	ScApp->slotFileSave();
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -95,7 +95,7 @@ PyObject *scribus_savedocas(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	bool ret = Carrier->DoFileSave(QString::fromUtf8(Name));
+	bool ret = ScApp->DoFileSave(QString::fromUtf8(Name));
 	if (!ret)
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Failed to save document.","python error"));
@@ -116,10 +116,10 @@ PyObject *scribus_setinfo(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	Carrier->doc->documentInfo.setAuthor(QString::fromUtf8(Author));
-	Carrier->doc->documentInfo.setTitle(QString::fromUtf8(Title));
-	Carrier->doc->documentInfo.setComments(QString::fromUtf8(Desc));
-	Carrier->slotDocCh();
+	ScApp->doc->documentInfo.setAuthor(QString::fromUtf8(Author));
+	ScApp->doc->documentInfo.setTitle(QString::fromUtf8(Title));
+	ScApp->doc->documentInfo.setComments(QString::fromUtf8(Desc));
+	ScApp->slotDocCh();
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -136,7 +136,7 @@ PyObject *scribus_setunit(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Unit out of range. Use one of the scribus.UNIT_* constants.","python error"));
 		return NULL;
 	}
-	Carrier->slotChangeUnit(e);
+	ScApp->slotChangeUnit(e);
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -145,7 +145,7 @@ PyObject *scribus_getunit(PyObject* /* self */)
 {
 	if(!checkHaveDocument())
 		return NULL;
-	return PyInt_FromLong(static_cast<long>(Carrier->doc->unitIndex()));
+	return PyInt_FromLong(static_cast<long>(ScApp->doc->unitIndex()));
 }
 
 PyObject *scribus_loadstylesfromfile(PyObject* /* self */, PyObject *args)
@@ -155,7 +155,7 @@ PyObject *scribus_loadstylesfromfile(PyObject* /* self */, PyObject *args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	Carrier->doc->loadStylesFromFile(QString::fromUtf8(fileName));
+	ScApp->doc->loadStylesFromFile(QString::fromUtf8(fileName));
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -167,13 +167,13 @@ PyObject *scribus_setdoctype(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (Carrier->doc->currentPageLayout = fp)
-		Carrier->doc->pageSets[Carrier->doc->currentPageLayout].FirstPage = fsl;
-	Carrier->view->reformPages();
-	Carrier->view->GotoPage(Carrier->doc->currentPage->pageNr()); // is this needed?
-	Carrier->view->DrawNew();   // is this needed?
-	//CB TODO Carrier->pagePalette->RebuildPage(); // is this needed?
-	Carrier->slotDocCh();
+	if (ScApp->doc->currentPageLayout = fp)
+		ScApp->doc->pageSets[ScApp->doc->currentPageLayout].FirstPage = fsl;
+	ScApp->view->reformPages();
+	ScApp->view->GotoPage(ScApp->doc->currentPage->pageNr()); // is this needed?
+	ScApp->view->DrawNew();   // is this needed?
+	//CB TODO ScApp->pagePalette->RebuildPage(); // is this needed?
+	ScApp->slotDocCh();
 	Py_INCREF(Py_None);
 	return Py_None;
 }

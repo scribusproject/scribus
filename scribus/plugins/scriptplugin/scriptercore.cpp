@@ -30,7 +30,7 @@
 ScripterCore::ScripterCore(QWidget* parent)
 {
 	pcon = new PythonConsole(parent);
-	menuMgr = Carrier->scrMenuMgr;
+	menuMgr = ScApp->scrMenuMgr;
 	scrScripterActions.clear();
 	scrRecentScriptActions.clear();
 
@@ -130,35 +130,35 @@ void ScripterCore::buildRecentScriptsMenu()
 
 void ScripterCore::FinishScriptRun()
 {
-	if (Carrier->HaveDoc)
+	if (ScApp->HaveDoc)
 	{
-		Carrier->propertiesPalette->SetDoc(Carrier->doc);
-		Carrier->propertiesPalette->updateCList();
-		Carrier->propertiesPalette->Spal->setFormats(Carrier->doc);
-		Carrier->propertiesPalette->SetLineFormats(Carrier->doc);
-		Carrier->propertiesPalette->Cpal->SetColors(Carrier->doc->PageColors);
-		Carrier->layerPalette->setLayers(&Carrier->doc->Layers, Carrier->doc->activeLayer());
-		Carrier->outlinePalette->BuildTree(Carrier->doc);
-		Carrier->pagePalette->SetView(Carrier->view);
-		Carrier->pagePalette->Rebuild();
-		Carrier->doc->RePos = true;
+		ScApp->propertiesPalette->SetDoc(ScApp->doc);
+		ScApp->propertiesPalette->updateCList();
+		ScApp->propertiesPalette->Spal->setFormats(ScApp->doc);
+		ScApp->propertiesPalette->SetLineFormats(ScApp->doc);
+		ScApp->propertiesPalette->Cpal->SetColors(ScApp->doc->PageColors);
+		ScApp->layerPalette->setLayers(&ScApp->doc->Layers, ScApp->doc->activeLayer());
+		ScApp->outlinePalette->BuildTree(ScApp->doc);
+		ScApp->pagePalette->SetView(ScApp->view);
+		ScApp->pagePalette->Rebuild();
+		ScApp->doc->RePos = true;
 		QPixmap pgPix(10, 10);
 		QRect rd = QRect(0,0,9,9);
 		ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
-		for (uint azz=0; azz<Carrier->doc->Items.count(); ++azz)
+		for (uint azz=0; azz<ScApp->doc->Items.count(); ++azz)
 		{
-			PageItem *ite = Carrier->doc->Items.at(azz);
+			PageItem *ite = ScApp->doc->Items.at(azz);
 			if (ite->Groups.count() != 0)
-				Carrier->view->GroupOnPage(ite);
+				ScApp->view->GroupOnPage(ite);
 			else
-				ite->OwnPage = Carrier->view->OnPage(ite);
-			Carrier->view->setRedrawBounding(ite);
+				ite->OwnPage = ScApp->view->OnPage(ite);
+			ScApp->view->setRedrawBounding(ite);
 			if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText) && (!ite->Redrawn))
 			{
 				if (ite->itemType() == PageItem::PathText)
 				{
 					ite->Frame = false;
-					Carrier->view->UpdatePolyClip(ite);
+					ScApp->view->UpdatePolyClip(ite);
 					ite->DrawObj(painter, rd);
 				}
 				else
@@ -182,15 +182,15 @@ void ScripterCore::FinishScriptRun()
 			}
 		}
 		delete painter;
-		Carrier->doc->RePos = false;
-		if (Carrier->view->SelItem.count() != 0)
+		ScApp->doc->RePos = false;
+		if (ScApp->view->SelItem.count() != 0)
 		{
-			Carrier->view->EmitValues(Carrier->view->SelItem.at(0));
-			Carrier->HaveNewSel(Carrier->view->SelItem.at(0)->itemType());
+			ScApp->view->EmitValues(ScApp->view->SelItem.at(0));
+			ScApp->HaveNewSel(ScApp->view->SelItem.at(0)->itemType());
 		}
 		else
-			Carrier->HaveNewSel(-1);
-		Carrier->view->DrawNew();
+			ScApp->HaveNewSel(-1);
+		ScApp->view->DrawNew();
 	}
 }
 
@@ -198,7 +198,7 @@ void ScripterCore::runScriptDialog()
 {
 	QString fileName;
 	QString curDirPath = QDir::currentDirPath();
-	RunScriptDialog dia( Carrier, enableExtPython );
+	RunScriptDialog dia( ScApp, enableExtPython );
 	if (dia.exec())
 	{
 		fileName = dia.selectedFile();
@@ -253,7 +253,7 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 	// Set up a sub-interpreter if needed:
 	if (!inMainInterpreter)
 	{
-		Carrier->ScriptRunning = true;
+		ScApp->ScriptRunning = true;
 		qApp->setOverrideCursor(QCursor(waitCursor), false);
 		// Create the sub-interpreter
 		// FIXME: This calls abort() in a Python debug build. We're doing something wrong.
@@ -262,7 +262,7 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 		// Chdir to the dir the script is in
 		QDir::setCurrent(fi.dirPath(true));
 		// Init the scripter module in the sub-interpreter
-		initscribus(Carrier);
+		initscribus(ScApp);
 	}
 	// Make sure sys.argv[0] is the path to the script
 	char* comm[1];
@@ -337,7 +337,7 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 				// Display a dialog to the user with the exception
 				QClipboard *cp = QApplication::clipboard();
 				cp->setText(errorMsg);
-				QMessageBox::warning(Carrier,
+				QMessageBox::warning(ScApp,
 									tr("Script error"),
 									tr("If you are running an official script report it at <a href=\"http://bugs.scribus.net\">bugs.scribus.net</a> please.")
 									+ "<pre>" +errorMsg + "</pre>"
@@ -353,12 +353,12 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 		PyEval_RestoreThread(stateo);
 		qApp->restoreOverrideCursor();
 	}
-	Carrier->ScriptRunning = false;
+	ScApp->ScriptRunning = false;
 }
 
 QString ScripterCore::slotRunScript(QString Script)
 {
-	Carrier->ScriptRunning = true;
+	ScApp->ScriptRunning = true;
 	qApp->setOverrideCursor(QCursor(waitCursor), false);
 	InValue = Script;
 	QString CurDir = QDir::currentDirPath();
@@ -368,7 +368,7 @@ QString ScripterCore::slotRunScript(QString Script)
 			);
 	if(PyThreadState_Get() != NULL)
 	{
-		initscribus(Carrier);
+		initscribus(ScApp);
 		if (RetVal == 0)
 			cm += (
 				"scribus._bu = cStringIO.StringIO()\n"
@@ -410,13 +410,13 @@ QString ScripterCore::slotRunScript(QString Script)
 		if (result == NULL)
 		{
 			PyErr_Print();
-			QMessageBox::warning(Carrier, tr("Script error"),
+			QMessageBox::warning(ScApp, tr("Script error"),
 					"<qt>" + tr("There was an internal error while trying the "
 					   "command you entered. Details were printed to "
 					   "stderr. ") + "</qt>");
 		}
 	}
-	Carrier->ScriptRunning = false;
+	ScApp->ScriptRunning = false;
 	qApp->restoreOverrideCursor();
 	return RetString;
 }
@@ -490,7 +490,7 @@ void ScripterCore::SavePlugPrefs()
  */
 void ScripterCore::aboutScript()
 {
-	QString fname = Carrier->CFileDialog(".", tr("Examine Script"), tr("Python Scripts (*.py)"), "", 0, 0, 0, 0);
+	QString fname = ScApp->CFileDialog(".", tr("Examine Script"), tr("Python Scripts (*.py)"), "", 0, 0, 0, 0);
 	if (fname == QString::null)
 		return;
 	QFileInfo fi = QFileInfo(fname);
@@ -571,7 +571,7 @@ bool ScripterCore::setupMainInterpreter()
 	if (PyRun_SimpleString(cmd.data()))
 	{
 		PyErr_Print();
-		QMessageBox::warning(Carrier, tr("Script error"),
+		QMessageBox::warning(ScApp, tr("Script error"),
 				tr("Setting up the Python plugin failed. "
 				   "Error details were printed to stderr. "));
 		return false;

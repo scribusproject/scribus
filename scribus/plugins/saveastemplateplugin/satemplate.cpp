@@ -3,73 +3,79 @@
  ***************************************************************************/
 #include "satemplate.h"
 #include "satemplate.moc"
+#include "satdialog.h"
+#include "scribus.h"
 #include "prefsfile.h"
 #include "pluginmanager.h"
 #include "prefsmanager.h"
 
-ScribusApp* Carrier;
-QWidget* par;
-
-QString name()
+int saveastemplateplugin_getPluginAPIVersion()
 {
-    return QObject::tr("Save as &Template...");
+	return PLUGIN_API_VERSION;
 }
 
-PluginManager::PluginType type()
+ScPlugin* saveastemplateplugin_getPlugin()
 {
-	return PluginManager::Standard;
+	SaveAsTemplatePlugin* plug = new SaveAsTemplatePlugin();
+	Q_CHECK_PTR(plug);
+	return plug;
 }
 
-int ID()
+void saveastemplateplugin_freePlugin(ScPlugin* plugin)
 {
-	return 7;
+	SaveAsTemplatePlugin* plug = dynamic_cast<SaveAsTemplatePlugin*>(plugin);
+	Q_ASSERT(plug);
+	delete plug;
 }
 
-QString actionName()
+SaveAsTemplatePlugin::SaveAsTemplatePlugin() :
+	ScActionPlugin(ScPlugin::PluginType_Action)
 {
-	return "SaveAsDocumentTemplate";
+	// Set action info in languageChange, so we only have to do
+	// it in one place.
+	languageChange();
 }
 
-QString actionKeySequence()
+SaveAsTemplatePlugin::~SaveAsTemplatePlugin() {};
+
+void SaveAsTemplatePlugin::languageChange()
 {
-	return "Ctrl+Alt+S";
+	// Note that we leave the unused members unset. They'll be initialised
+	// with their default ctors during construction.
+	// Action name
+	m_actionInfo.name = "SaveAsDocumentTemplate";
+	// Action text for menu, including accel
+	m_actionInfo.text = tr("Save as &Template...");
+	// Shortcut
+	m_actionInfo.keySequence = "Ctrl+Alt+S";
+	// Menu
+	m_actionInfo.menu = "File";
+	m_actionInfo.menuAfterName = "SaveAs";
+	m_actionInfo.enabledOnStartup = true;
 }
 
-QString actionMenu()
+const QString SaveAsTemplatePlugin::fullTrName() const
 {
-	return "File";
+	return QObject::tr("Save As Template");
 }
 
-QString actionMenuAfterName()
+const ScActionPlugin::AboutData* SaveAsTemplatePlugin::getAboutData() const
 {
-	return "SaveAs";
+	return 0;
 }
 
-bool actionEnabledOnStartup()
+void SaveAsTemplatePlugin::deleteAboutData(const AboutData* about) const
 {
-	return false;
 }
-/*
-void InitPlug(QWidget *d, ScribusApp *plug)
-{
-	Carrier = plug;
-	par = d;
-	satm = new MenuSAT(d);
-	int id = plug->fileMenu->insertItem(QObject::tr("Save as &Template..."), -1, plug->fileMenu->indexOf(plug->M_FileSaveAs)+1);
-	plug->fileMenu->connectItem(id, satm, SLOT(RunSATPlug()));
-	plug->fileMenu->setItemEnabled(id, 0);
-	plug->MenuItemsFile.append(id);
-}
-*/
-void cleanUpPlug()
-{}
 
-void run(QWidget *d, ScribusApp *plug)
+bool SaveAsTemplatePlugin::run(QString target)
 {
-	Carrier = plug;
-	par = d;
-	Sat = new MenuSAT(d);
+	Q_ASSERT(target.isEmpty());
+	Sat = new MenuSAT();
 	Sat->RunSATPlug();
+	delete Sat;
+	Sat = 0;
+	return true;
 }
 
 void MenuSAT::RunSATPlug()
@@ -80,9 +86,9 @@ void MenuSAT::RunSATPlug()
 		templates.mkdir("templates");
 	}
 	QString currentDirPath = QDir::currentDirPath();
-	QString currentFile = Carrier->doc->DocName;
-	bool hasName = Carrier->doc->hasName;
-	bool isModified = Carrier->doc->isModified();
+	QString currentFile = ScApp->doc->DocName;
+	bool hasName = ScApp->doc->hasName;
+	bool isModified = ScApp->doc->isModified();
 	QString userTemplatesDir = PrefsManager::instance()->appPrefs.documentTemplatesDir;
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString oldCollect = dirs->get("collect", ".");
@@ -96,36 +102,36 @@ void MenuSAT::RunSATPlug()
 		templatesDir = userTemplatesDir;
 	}
 	dirs->set("collect", templatesDir);
-	if (Carrier->Collect().isEmpty())
+	if (ScApp->Collect().isEmpty())
 		return;
 	if (oldCollect != ".")
 		dirs->set("collect", oldCollect);
-	QString docPath = Carrier->doc->DocName;
+	QString docPath = ScApp->doc->DocName;
 	QString docDir = docPath.left(docPath.findRev('/'));
 	QString docName = docPath.right(docPath.length() - docPath.findRev('/') - 1);
 	docName = docName.left(docName.findRev(".s"));
 
-	if (currentFile !=  Carrier->doc->DocName)
+	if (currentFile !=  ScApp->doc->DocName)
 	{
-		satdialog* satdia = new satdialog(par,docName,
-                                          static_cast<int>(Carrier->doc->pageWidth + 0.5),
-                                          static_cast<int>(Carrier->doc->pageHeight + 0.5));
+		satdialog* satdia = new satdialog(ScApp,docName,
+                                          static_cast<int>(ScApp->doc->pageWidth + 0.5),
+                                          static_cast<int>(ScApp->doc->pageHeight + 0.5));
 		if (satdia->exec())
 		{
-			sat* s = new sat(Carrier, satdia, docPath.right(docPath.length() - docPath.findRev('/') - 1),docDir);
+			sat* s = new sat(ScApp, satdia, docPath.right(docPath.length() - docPath.findRev('/') - 1),docDir);
 			s->createImages();
 			s->createTmplXml();
 			delete s;
 		}
-		// Restore the state that was before Carrier->Collect()
-		Carrier->doc->DocName = currentFile;
-		Carrier->doc->hasName = hasName;
-		Carrier->doc->setModified(isModified);
+		// Restore the state that was before ScApp->Collect()
+		ScApp->doc->DocName = currentFile;
+		ScApp->doc->hasName = hasName;
+		ScApp->doc->setModified(isModified);
 		if (isModified)
-			Carrier->ActWin->setCaption(currentFile+"*");
+			ScApp->ActWin->setCaption(currentFile+"*");
 		else
-			Carrier->ActWin->setCaption(currentFile);
-		Carrier->removeRecent(docPath);
+			ScApp->ActWin->setCaption(currentFile);
+		ScApp->removeRecent(docPath);
 		QDir::setCurrent(currentDirPath);
 		delete satdia;
 	}

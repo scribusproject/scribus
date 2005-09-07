@@ -10,16 +10,19 @@
 //                        ScPlugin                     //
 //=====================================================//
 
-ScPlugin::ScPlugin(int id, PluginType pluginType)
+ScPlugin::ScPlugin(PluginType pluginType)
 	: QObject(0),
-	pluginType(pluginType),
-	id(id)
+	pluginType(pluginType)
 {
 }
 
 QWidget* ScPlugin::newPrefsPanelWidget()
 {
 	return 0;
+}
+
+ScPlugin::~ScPlugin()
+{
 }
 
 // Don't call this method; it must be overridden if the plug-in
@@ -49,34 +52,38 @@ const QString ScPlugin::pluginTypeName() const
 	switch(pluginType)
 	{
 		case PluginType_Persistent:
-			return tr("Persistent", "plugin manager");
+			return tr("Persistent", "plugin manager plugin type");
 			break;
 		case PluginType_Import:
-			return tr("Import", "plugin manager");
+			return tr("Import", "plugin manager plugin type");
 			break;
 		case PluginType_Export:
-			// FIXME
-			return tr("Standard", "plugin manager");
+			return tr("Export", "plugin manager plugin type");
 			break;
-		default:
-			return tr("Unknown", "plugin manager");
+		case PluginType_Action:
+			return tr("Action", "plugin manager plugin type");
+			break;
 	}
 }
 
 //=====================================================//
-//                   ScImportExportPlugin              //
+//                   ScActionPlugin              //
 //=====================================================//
 
-ScImportExportPlugin::ScImportExportPlugin(int id, PluginType pluginType)
-	: ScPlugin(id, pluginType)
+ScActionPlugin::ScActionPlugin(PluginType pluginType)
+	: ScPlugin(pluginType)
+{
+}
+
+ScActionPlugin::~ScActionPlugin()
 {
 }
 
 // Stub for plugins that don't implement this method to inherit
 // Just calls the QIODevice version, assuming target is a file.
-bool ScImportExportPlugin::run(QString target)
+bool ScActionPlugin::run(QString target)
 {
-	int flag = id == PluginType_Import ? IO_ReadOnly : IO_WriteOnly;
+	int flag = (pluginType == PluginType_Export) ? IO_WriteOnly : IO_ReadOnly;
 	QFile f(target);
 	if (!f.exists())
 	{
@@ -100,41 +107,46 @@ bool ScImportExportPlugin::run(QString target)
 }
 
 // Stub for plugins that don't implement this method to inherit
-bool ScImportExportPlugin::run(QIODevice* /* target */)
+bool ScActionPlugin::run(QIODevice* /* target */)
 {
 	return false;
 }
 
 
 // Stub for plugins that don't implement this method to inherit
-DeferredTask* ScImportExportPlugin::runAsync(QString /* target */)
+DeferredTask* ScActionPlugin::runAsync(QString /* target */)
 {
 	return 0;
 }
 
 
 // Stub for plugins that don't implement this method to inherit
-DeferredTask* ScImportExportPlugin::runAsync(QIODevice* /* target */)
+DeferredTask* ScActionPlugin::runAsync(QIODevice* /* target */)
 {
 	return 0;
 }
 
 // Legacy code support; avoid relying on in new code.
-const QString & ScImportExportPlugin::runResult() const
+const QString & ScActionPlugin::runResult() const
 {
 	return m_runResult;
 }
 
-const ScImportExportPlugin::ActionInfo & ScImportExportPlugin::actionInfo() const
+const ScActionPlugin::ActionInfo & ScActionPlugin::actionInfo() const
 {
+	Q_ASSERT(!m_actionInfo.text.isNull());
 	return m_actionInfo;
 }
 
 //=====================================================//
-//                   ScImportExportPlugin              //
+//                   ScActionPlugin              //
 //=====================================================//
 
-ScPersistentPlugin::ScPersistentPlugin(int id)
-	: ScPlugin(id, ScPlugin::PluginType_Persistent)
+ScPersistentPlugin::ScPersistentPlugin()
+	: ScPlugin(ScPlugin::PluginType_Persistent)
+{
+}
+
+ScPersistentPlugin::~ScPersistentPlugin()
 {
 }

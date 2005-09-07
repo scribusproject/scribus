@@ -28,6 +28,21 @@ class satdialog : public QDialog
 {
 	Q_OBJECT
 
+public:
+	satdialog(QWidget* parent, QString tmplName = "", int pageW = 0, int pageH = 0);
+	~satdialog();
+
+	std::vector<Pair*> cats;
+	QLineEdit* nameEdit;
+	QComboBox* catsCombo;
+	QLineEdit* psizeEdit;
+	QLineEdit* colorsEdit;
+	QTextEdit* descrEdit;
+	QTextEdit* usageEdit;
+	QLineEdit* authorEdit;
+	QLineEdit* emailEdit;
+private slots:
+	void detailClicked();
 private:
 	PrefsContext* prefs;
 	QLabel* nameLabel;
@@ -51,20 +66,6 @@ private:
 	void writePrefs();
 	void setupCategories();
 	void setupPageSize(int w, int h);
-public:
-	std::vector<Pair*> cats;
-	QLineEdit* nameEdit;
-	QComboBox* catsCombo;
-	QLineEdit* psizeEdit;
-	QLineEdit* colorsEdit;
-	QTextEdit* descrEdit;
-	QTextEdit* usageEdit;
-	QLineEdit* authorEdit;
-	QLineEdit* emailEdit;
-	satdialog(QWidget* parent, QString tmplName = "", int pageW = 0, int pageH = 0);
-	~satdialog();
-private slots:
-	void detailClicked();
 };
 
 #endif

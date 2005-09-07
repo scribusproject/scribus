@@ -7,7 +7,7 @@ PyObject *scribus_colornames(PyObject* /* self */)
 	ColorList edc;
 	PyObject *l;
 	int cc = 0;
-	edc = Carrier->HaveDoc ? Carrier->doc->PageColors : PrefsManager::instance()->colorSet();
+	edc = ScApp->HaveDoc ? ScApp->doc->PageColors : PrefsManager::instance()->colorSet();
 	ColorList::Iterator it;
 	l = PyList_New(edc.count());
 	for (it = edc.begin(); it != edc.end(); ++it)
@@ -30,7 +30,7 @@ PyObject *scribus_getcolor(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot get a color with an empty name.","python error"));
 		return NULL;
 	}
-	edc = Carrier->HaveDoc ? Carrier->doc->PageColors : PrefsManager::instance()->colorSet();
+	edc = ScApp->HaveDoc ? ScApp->doc->PageColors : PrefsManager::instance()->colorSet();
 	QString col = QString::fromUtf8(Name);
 	if (!edc.contains(col))
 	{
@@ -52,7 +52,7 @@ PyObject *scribus_getcolorasrgb(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot get a color with an empty name.","python error"));
 		return NULL;
 	}
-	edc = Carrier->HaveDoc ? Carrier->doc->PageColors : PrefsManager::instance()->colorSet();
+	edc = ScApp->HaveDoc ? ScApp->doc->PageColors : PrefsManager::instance()->colorSet();
 	QString col = QString::fromUtf8(Name);
 	if (!edc.contains(col))
 	{
@@ -75,14 +75,14 @@ PyObject *scribus_setcolor(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	QString col = QString::fromUtf8(Name);
-	if (Carrier->HaveDoc)
+	if (ScApp->HaveDoc)
 	{
-		if (!Carrier->doc->PageColors.contains(col))
+		if (!ScApp->doc->PageColors.contains(col))
 		{
 			PyErr_SetString(NotFoundError, QObject::tr("Color not found in document.","python error"));
 			return NULL;
 		}
-		Carrier->doc->PageColors[col].setColor(c, m, y, k);
+		ScApp->doc->PageColors[col].setColor(c, m, y, k);
 	}
 	else
 	{
@@ -110,14 +110,14 @@ PyObject *scribus_newcolor(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	QString col = QString::fromUtf8(Name);
-	if (Carrier->HaveDoc)
+	if (ScApp->HaveDoc)
 		{
-			if (!Carrier->doc->PageColors.contains(col))
-				Carrier->doc->PageColors.insert(col, ScColor(c, m, y, k));
+			if (!ScApp->doc->PageColors.contains(col))
+				ScApp->doc->PageColors.insert(col, ScColor(c, m, y, k));
 			else
 				// FIXME: Given that we have a changeColour function, should we really be
 				// silently changing colours in newColour?
-				Carrier->doc->PageColors[col].setColor(c, m, y, k);
+				ScApp->doc->PageColors[col].setColor(c, m, y, k);
 		}
 	else
 		{
@@ -146,11 +146,11 @@ PyObject *scribus_delcolor(PyObject* /* self */, PyObject* args)
 	}
 	QString col = QString::fromUtf8(Name);
 	QString rep = QString::fromUtf8(Repl);
-	if (Carrier->HaveDoc)
+	if (ScApp->HaveDoc)
 	{
-		if (Carrier->doc->PageColors.contains(col) && (Carrier->doc->PageColors.contains(rep) || (rep == "None")))
+		if (ScApp->doc->PageColors.contains(col) && (ScApp->doc->PageColors.contains(rep) || (rep == "None")))
 			{
-				Carrier->doc->PageColors.remove(col);
+				ScApp->doc->PageColors.remove(col);
 				ReplaceColor(col, rep);
 			}
 		else
@@ -190,7 +190,7 @@ PyObject *scribus_replcolor(PyObject* /* self */, PyObject* args)
 	}
 	QString col = QString::fromUtf8(Name);
 	QString rep = QString::fromUtf8(Repl);
-	if (Carrier->doc->PageColors.contains(col) && (Carrier->doc->PageColors.contains(rep) || (rep == "None")))
+	if (ScApp->doc->PageColors.contains(col) && (ScApp->doc->PageColors.contains(rep) || (rep == "None")))
 		ReplaceColor(col, rep);
 	else
 	{

@@ -125,6 +125,7 @@ scribus_SOURCES = \
 	picsearch.cpp	\
 	picstatus.cpp	\
 	pluginmanager.cpp	\
+	pluginmanagerprefsgui.cpp	\
 	polygonwidget.cpp	\
 	polyprops.cpp	\
 	prefscontext.cpp	\

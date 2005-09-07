@@ -260,7 +260,7 @@ PyObject *scribus_setboxtext(PyObject* /* self */, PyObject* args)
 			{
 				if ((itx->ch == QChar(25)) && (itx->cembedded != 0))
 				{
-					Carrier->doc->FrameItems.remove(itx->cembedded);
+					ScApp->doc->FrameItems.remove(itx->cembedded);
 					delete itx->cembedded;
 				}
 			}
@@ -273,15 +273,15 @@ PyObject *scribus_setboxtext(PyObject* /* self */, PyObject* args)
 	{
 		if ((itx->ch == QChar(25)) && (itx->cembedded != 0))
 		{
-			Carrier->doc->FrameItems.remove(itx->cembedded);
+			ScApp->doc->FrameItems.remove(itx->cembedded);
 			delete itx->cembedded;
 		}
 	}
 	currItem->itemText.clear();
 	currItem->CPos = 0;
-	for (uint a = 0; a < Carrier->doc->FrameItems.count(); ++a)
+	for (uint a = 0; a < ScApp->doc->FrameItems.count(); ++a)
 	{
-		Carrier->doc->FrameItems.at(a)->ItemNr = a;
+		ScApp->doc->FrameItems.at(a)->ItemNr = a;
 	}
 	for (uint a = 0; a < Daten.length(); ++a)
 	{
@@ -289,7 +289,7 @@ PyObject *scribus_setboxtext(PyObject* /* self */, PyObject* args)
 		hg->ch = Daten.at(a);
 		if (hg->ch == QChar(10))
 			hg->ch = QChar(13);
-		hg->cfont = (*Carrier->doc->AllFonts)[currItem->IFont];
+		hg->cfont = (*ScApp->doc->AllFonts)[currItem->IFont];
 		hg->csize = currItem->ISize;
 		hg->ccolor = currItem->TxtFill;
 		hg->cshade = currItem->ShTxtFill;
@@ -308,7 +308,7 @@ PyObject *scribus_setboxtext(PyObject* /* self */, PyObject* args)
 		hg->cextra = 0;
 		hg->cselect = false;
 		hg->cstyle = 0;
-		hg->cab = Carrier->doc->currentParaStyle;
+		hg->cab = ScApp->doc->currentParaStyle;
 		hg->xp = 0;
 		hg->yp = 0;
 		hg->PRot = 0;
@@ -354,7 +354,7 @@ PyObject *scribus_inserttext(PyObject* /* self */, PyObject* args)
 		hg->ch = Daten.at(Daten.length()-1-a);
 		if (hg->ch == QChar(10))
 			hg->ch = QChar(13);
-		hg->cfont = (*Carrier->doc->AllFonts)[it->IFont];
+		hg->cfont = (*ScApp->doc->AllFonts)[it->IFont];
 		hg->csize = it->ISize;
 		hg->ccolor = it->TxtFill;
 		hg->cshade = it->ShTxtFill;
@@ -373,7 +373,7 @@ PyObject *scribus_inserttext(PyObject* /* self */, PyObject* args)
 		hg->cextra = 0;
 		hg->cselect = false;
 		hg->cstyle = 0;
-		hg->cab = Carrier->doc->currentParaStyle;
+		hg->cab = ScApp->doc->currentParaStyle;
 		hg->xp = 0;
 		hg->yp = 0;
 		hg->PRot = 0;
@@ -410,14 +410,14 @@ PyObject *scribus_setalign(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set text alignment on a non-text frame.","python error"));
 		return NULL;
 	}
-	int Apm = Carrier->doc->appMode;
-	Carrier->view->SelItem.clear();
-	Carrier->view->SelItem.append(i);
+	int Apm = ScApp->doc->appMode;
+	ScApp->view->SelItem.clear();
+	ScApp->view->SelItem.append(i);
 	if (i->HasSel)
-		Carrier->doc->appMode = modeEdit;
-	Carrier->setNewAbStyle(alignment);
-	Carrier->doc->appMode = Apm;
-	Carrier->view->Deselect();
+		ScApp->doc->appMode = modeEdit;
+	ScApp->setNewAbStyle(alignment);
+	ScApp->doc->appMode = Apm;
+	ScApp->view->Deselect();
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -444,14 +444,14 @@ PyObject *scribus_setfontsize(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set font size on a non-text frame.","python error"));
 		return NULL;
 	}
-	int Apm = Carrier->doc->appMode;
-	Carrier->view->SelItem.clear();
-	Carrier->view->SelItem.append(i);
+	int Apm = ScApp->doc->appMode;
+	ScApp->view->SelItem.clear();
+	ScApp->view->SelItem.append(i);
 	if (i->HasSel)
-		Carrier->doc->appMode = modeEdit;
-	Carrier->view->chFSize(qRound(size * 10.0));
-	Carrier->doc->appMode = Apm;
-	Carrier->view->Deselect();
+		ScApp->doc->appMode = modeEdit;
+	ScApp->view->chFSize(qRound(size * 10.0));
+	ScApp->doc->appMode = Apm;
+	ScApp->view->Deselect();
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -474,14 +474,14 @@ PyObject *scribus_setfont(PyObject* /* self */, PyObject* args)
 	}
 	if (PrefsManager::instance()->appPrefs.AvailFonts.find(QString::fromUtf8(Font)))
 	{
-		int Apm = Carrier->doc->appMode;
-		Carrier->view->SelItem.clear();
-		Carrier->view->SelItem.append(i);
+		int Apm = ScApp->doc->appMode;
+		ScApp->view->SelItem.clear();
+		ScApp->view->SelItem.append(i);
 		if (i->HasSel)
-			Carrier->doc->appMode = modeEdit;
-		Carrier->SetNewFont(QString::fromUtf8(Font));
-		Carrier->doc->appMode = Apm;
-		Carrier->view->Deselect();
+			ScApp->doc->appMode = modeEdit;
+		ScApp->SetNewFont(QString::fromUtf8(Font));
+		ScApp->doc->appMode = Apm;
+		ScApp->view->Deselect();
 	}
 	else
 	{
@@ -638,22 +638,22 @@ PyObject *scribus_deletetext(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	if (it->HasSel)
-		Carrier->deleteSelectedTextFromFrame(it);
+		ScApp->deleteSelectedTextFromFrame(it);
 	else
 	{
 		for (ScText *itx = it->itemText.first(); itx != 0; itx = it->itemText.next())
 		{
 			if ((itx->ch == QChar(25)) && (itx->cembedded != 0))
 			{
-				Carrier->doc->FrameItems.remove(itx->cembedded);
+				ScApp->doc->FrameItems.remove(itx->cembedded);
 				delete itx->cembedded;
 			}
 		}
 		it->itemText.clear();
 		it->CPos = 0;
-		for (uint a = 0; a < Carrier->doc->FrameItems.count(); ++a)
+		for (uint a = 0; a < ScApp->doc->FrameItems.count(); ++a)
 		{
-			Carrier->doc->FrameItems.at(a)->ItemNr = a;
+			ScApp->doc->FrameItems.at(a)->ItemNr = a;
 		}
 	}
 	Py_INCREF(Py_None);
@@ -810,9 +810,9 @@ PyObject *scribus_linktextframes(PyObject* /* self */, PyObject* args)
 	// references to the others boxes
 	fromitem->NextBox = toitem;
 	toitem->BackBox = fromitem;
-	Carrier->view->DrawNew();
+	ScApp->view->DrawNew();
 	// enable 'save icon' stuff
-	Carrier->slotDocCh();
+	ScApp->slotDocCh();
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -857,8 +857,8 @@ PyObject *scribus_unlinktextframes(PyObject* /* self */, PyObject* args)
 	item->BackBox->NextBox = 0;
 	item->BackBox = 0;
 	// enable 'save icon' stuff
-	Carrier->slotDocCh();
-	Carrier->view->DrawNew();
+	ScApp->slotDocCh();
+	ScApp->view->DrawNew();
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -884,9 +884,9 @@ PyObject *scribus_tracetext(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot convert a non-text frame to outlines.","python error"));
 		return NULL;
 	}
-	Carrier->view->Deselect(true);
-	Carrier->view->SelectItemNr(item->ItemNr);
-	Carrier->view->TextToPath();
+	ScApp->view->Deselect(true);
+	ScApp->view->SelectItemNr(item->ItemNr);
+	ScApp->view->TextToPath();
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -956,10 +956,10 @@ PyObject *scribus_setpdfbookmark(PyObject* /* self */, PyObject* args)
 	if (toggle)
 	{
 		i->isAnnotation = false;
-		Carrier->AddBookMark(i);
+		ScApp->AddBookMark(i);
 	}
 	else
-		Carrier->DelBookMark(i);
+		ScApp->DelBookMark(i);
 	i->isBookmark = toggle;
 	Py_INCREF(Py_None);
 	return Py_None;

@@ -13,6 +13,8 @@ or documentation
 #include "shortwords.moc"
 #include "version.h"
 #include "vlnadialog.h"
+#include "configuration.h"
+#include "parse.h"
 #include "pluginmanager.h"
 #include "scpaths.h"
 #include "scribus.h"
@@ -24,54 +26,69 @@ or documentation
 #include <qdir.h>
 #include <qcheckbox.h>
 
-extern ScribusApp SCRIBUS_API *ScApp;
-
-
-QString name()
+int scribusshortwords_getPluginAPIVersion()
 {
-	return QObject::tr("Short &Words...", "short words plugin");
+	return PLUGIN_API_VERSION;
 }
 
-PluginManager::PluginType type()
+ScPlugin* scribusshortwords_getPlugin()
 {
-	return PluginManager::Standard;
+	ShortWordsPlugin* plug = new ShortWordsPlugin();
+	Q_CHECK_PTR(plug);
+	return plug;
 }
 
-int ID()
+void scribusshortwords_freePlugin(ScPlugin* plugin)
 {
-	return 11;
+	ShortWordsPlugin* plug = dynamic_cast<ShortWordsPlugin*>(plugin);
+	Q_ASSERT(plug);
+	delete plug;
 }
 
-QString actionName()
+ShortWordsPlugin::ShortWordsPlugin() :
+	ScActionPlugin(ScPlugin::PluginType_Action)
 {
-	return "ShortWords";
+	// Set action info in languageChange, so we only have to do
+	// it in one place.
+	languageChange();
 }
 
-QString actionKeySequence()
+ShortWordsPlugin::~ShortWordsPlugin() {};
+
+void ShortWordsPlugin::languageChange()
 {
-	return "";
+	// Note that we leave the unused members unset. They'll be initialised
+	// with their default ctors during construction.
+	// Action name
+	m_actionInfo.name = "ShortWords";
+	// Action text for menu, including accel
+	m_actionInfo.text = tr("Short &Words...", "short words plugin");
+	// Menu
+	m_actionInfo.menu = "Extras";
+	m_actionInfo.enabledOnStartup = true;
 }
 
-QString actionMenu()
+const QString ShortWordsPlugin::fullTrName() const
 {
-	return "Extras";
+	return QObject::tr("Short Words");
 }
 
-QString actionMenuAfterName()
+const ScActionPlugin::AboutData* ShortWordsPlugin::getAboutData() const
 {
-	return "";
+	return 0;
 }
 
-bool actionEnabledOnStartup()
+void ShortWordsPlugin::deleteAboutData(const AboutData* about) const
 {
-	return true;
 }
 
-void run(QWidget */*d*/, ScribusApp */*plug*/)
+bool ShortWordsPlugin::run(QString target)
 {
+	Q_ASSERT(target.isEmpty());
 	ShortWords *sw = new ShortWords();
 	/*delete sw;
 	delete trans;*/
+	return true;
 }
 
 ShortWords::ShortWords()

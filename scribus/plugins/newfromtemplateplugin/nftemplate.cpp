@@ -6,6 +6,7 @@
 #include <qdir.h>
 #include <qwidget.h>
 
+#include "scribus.h"
 #include "nftemplate.h"
 #include "nftemplate.moc"
 #include "nftdialog.h"
@@ -15,85 +16,88 @@
 #include "undomanager.h"
 #include "prefsmanager.h"
 
-ScribusApp* Carrier;
-QWidget* par;
-
-QString name()
+int newfromtemplateplugin_getPluginAPIVersion()
 {
-    return QObject::tr("New &from Template...");
+	return PLUGIN_API_VERSION;
 }
 
-PluginManager::PluginType type()
+ScPlugin* newfromtemplateplugin_getPlugin()
 {
-	return PluginManager::Standard;
+	NewFromTemplatePlugin* plug = new NewFromTemplatePlugin();
+	Q_CHECK_PTR(plug);
+	return plug;
 }
 
-int ID()
+void newfromtemplateplugin_freePlugin(ScPlugin* plugin)
 {
-	return 3;
+	NewFromTemplatePlugin* plug = dynamic_cast<NewFromTemplatePlugin*>(plugin);
+	Q_ASSERT(plug);
+	delete plug;
 }
 
-QString actionName()
+NewFromTemplatePlugin::NewFromTemplatePlugin() :
+	ScActionPlugin(ScPlugin::PluginType_Action)
 {
-	return "NewFromDocumentTemplate";
+	// Set action info in languageChange, so we only have to do
+	// it in one place.
+	languageChange();
 }
 
-QString actionKeySequence()
+NewFromTemplatePlugin::~NewFromTemplatePlugin() {};
+
+void NewFromTemplatePlugin::languageChange()
 {
-	return "Ctrl+Alt+N";
+	// Note that we leave the unused members unset. They'll be initialised
+	// with their default ctors during construction.
+	// Action name
+	m_actionInfo.name = "NewFromDocumentTemplate";
+	// Action text for menu, including accel
+	m_actionInfo.text = tr("New &from Template...");
+	// Shortcut
+	m_actionInfo.keySequence = "Ctrl+Alt+N";
+	// Menu
+	m_actionInfo.menu = "File";
+	m_actionInfo.menuAfterName = "New";
+	m_actionInfo.enabledOnStartup = true;
 }
 
-QString actionMenu()
+const QString NewFromTemplatePlugin::fullTrName() const
 {
-	return "File";
+	return QObject::tr("New From Template");
 }
 
-QString actionMenuAfterName()
+const ScActionPlugin::AboutData* NewFromTemplatePlugin::getAboutData() const
 {
-	return "New";
+	return 0;
 }
 
-bool actionEnabledOnStartup()
-{
-	return true;
-}
-/*
-void InitPlug(QWidget *d, ScribusApp *plug)
-{
-	Carrier = plug;
-	par = d;
-	Nft = new MenuNFT(d);
-	int id = plug->fileMenu->insertItem(QObject::tr("New &from Document Template..."), -1, plug->fileMenu->indexOf(plug->scrActions["fileNew"]->getMenuIndex())+1);
-	plug->fileMenu->connectItem(id, Nft, SLOT(RunNFTPlug()));
-	plug->fileMenu->setItemEnabled(id, 1);
-}
-*/
-void cleanUpPlug()
+void NewFromTemplatePlugin::deleteAboutData(const AboutData* about) const
 {
 }
 
-void run(QWidget *d, ScribusApp *plug)
+bool NewFromTemplatePlugin::run(QString target)
 {
-	Carrier = plug;
-	par = d;
-	Nft = new MenuNFT(d);
+	Q_ASSERT(target.isNull());
+	Nft = new MenuNFT(ScApp);
+	Q_CHECK_PTR(Nft);
 	Nft->RunNFTPlug();
+	return true;
 }
 
 
 void MenuNFT::RunNFTPlug()
 {
-	nftdialog* nftdia = new nftdialog(par, Carrier->getGuiLanguage(), PrefsManager::instance()->appPrefs.documentTemplatesDir);
+	nftdialog* nftdia = new nftdialog(ScApp, ScApp->getGuiLanguage(), PrefsManager::instance()->appPrefs.documentTemplatesDir);
 	if (nftdia->exec())
 	{
 		qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
-		Carrier->loadDoc(QDir::cleanDirPath(nftdia->currentDocumentTemplate->file));
-		Carrier->doc->hasName = false;
+		ScApp->loadDoc(QDir::cleanDirPath(nftdia->currentDocumentTemplate->file));
+		ScApp->doc->hasName = false;
 		UndoManager::instance()->renameStack(nftdia->currentDocumentTemplate->name);
-		Carrier->doc->DocName = nftdia->currentDocumentTemplate->name;
-		Carrier->ActWin->setCaption(QObject::tr("Document Template: ") + nftdia->currentDocumentTemplate->name);
+		ScApp->doc->DocName = nftdia->currentDocumentTemplate->name;
+		ScApp->ActWin->setCaption(QObject::tr("Document Template: ") + nftdia->currentDocumentTemplate->name);
 		QDir::setCurrent(PrefsManager::instance()->documentDir());
-		Carrier->removeRecent(QDir::cleanDirPath(nftdia->currentDocumentTemplate->file));
+		ScApp->removeRecent(QDir::cleanDirPath(nftdia->currentDocumentTemplate->file));
 		qApp->restoreOverrideCursor();
 	}
 	delete nftdia;

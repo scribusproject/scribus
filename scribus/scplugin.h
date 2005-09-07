@@ -29,7 +29,7 @@ class DeferredTask;
  * the following "extern C" functions, where 'pluginname' is the base name
  * of the plug-in:
  *
- * int pluginname_pluginAPIVersion();
+ * int pluginname_getPluginAPIVersion();
  *    Return an integer indicating the plug-in API version implemented.
  *    If the version does not exactly match the running plugin API version,
  *    the plugin will not be initialised.
@@ -63,11 +63,35 @@ class SCRIBUS_API ScPlugin : public QObject
 	 */
 	public:
 
-		/** \brief Human readable enumertion of the plugin types */
+		/** \brief Human readable enumertion of the plugin types
+		 *
+		 * This might get replaced with checking inheritance
+		 * with QObject.
+		 *
+		 * PluginType_Persistent:
+		 *    The plug-in is loaded and initialised on app startup. No
+		 *    automatic connection to the GUI is made, and the plugin
+		 *    essentially becomes part of the application, maintaining
+		 *    its state as long as it's loaded.
+		 * 
+		 * PluginType_Import:
+		 *    The plug-in provides the facility to import file type(s).
+		 *    It keeps no state.
+		 *
+		 * PluginType_Export:
+		 *    The plugin provides a facility to export file type(s).
+		 *    It keeps no state.
+		 *
+		 * PluginType_Action:
+		 *    The plugin has a single specific action it can take that
+		 *    is not import or export. It's automatically hooked into
+		 *    the GUI and keeps no state.
+		 */
 		enum PluginType {
 			PluginType_Persistent = 4,
 			PluginType_Import = 7,
 			PluginType_Export = 8,
+			PluginType_Action = 9
 		};
 
 		// A struct providing the information returned by getAboutData(), for
@@ -96,15 +120,13 @@ class SCRIBUS_API ScPlugin : public QObject
 		/**
 		 * @brief ctor, returns a new ScPlugin instance
 		 *
-		 * @param id              Unique plugin ID, usually a static
-		 *                        const int defined in the plugin.
 		 * @param pluginType      plugin type enum, used by plugin
 		 *                        manager to identify plugin.
 		 *
 		 * Only the actual plugin implmementation should call this, from
 		 * its setup function.
 		 */
-		ScPlugin(int id, PluginType pluginType);
+		ScPlugin(PluginType pluginType);
 
 		/** @brief Pure virtual destructor - this is an abstract class */
 		virtual ~ScPlugin() = 0;
@@ -112,13 +134,9 @@ class SCRIBUS_API ScPlugin : public QObject
 		// Plug-in type, inited by ctor.
 		const PluginType pluginType;
 
-		// Plug-in ID, inited by ctor. This must be unique across all
-		// plug-ins.
-		const int id;
-
 		// Plug-in's human-readable, translated name. Please don't use this for
 		// anything except display to the user.
-		virtual const QString fullTrName() = 0;
+		virtual const QString fullTrName() const = 0;
 
 		// Methods to create and destroy the UI pane for the plugin
 		// A plugin MUST reimplment destroyPrefsPanelWidget if it
@@ -160,14 +178,14 @@ class SCRIBUS_API ScPlugin : public QObject
 };
 
 
-class SCRIBUS_API ScImportExportPlugin : public ScPlugin
+class SCRIBUS_API ScActionPlugin : public ScPlugin
 {
 	Q_OBJECT
 
 	/*
 	 * @brief A plug-in that's loaded for data import/export duties
 	 *
-	 * ScImportExportPlugin describes a plug-in that is loaded on demand
+	 * ScActionPlugin describes a plug-in that is loaded on demand
 	 * to perform a data import/export task such as importing an SVG
 	 * image or exporting a page to EPS format. It'll generally by unloaded
 	 * after being queried, then loaded on demand when it needs to run.
@@ -179,9 +197,10 @@ class SCRIBUS_API ScImportExportPlugin : public ScPlugin
 		 *
 		 * @sa ScPlugin::ScPlugin()
 		 */
-		ScImportExportPlugin(int id, PluginType pluginType);
+		ScActionPlugin(PluginType pluginType);
+
 		// Pure virtual dtor - abstract class
-		virtual ~ScImportExportPlugin() = 0;
+		virtual ~ScActionPlugin() = 0;
 
 		// Information about actions, to be returned by actionInfo()
 		struct ActionInfo {
@@ -195,7 +214,7 @@ class SCRIBUS_API ScImportExportPlugin : public ScPlugin
 		};
 
 		// Return an ActionInfo instance to the caller
-		virtual const ActionInfo & actionInfo() const = 0;
+		const ActionInfo & actionInfo() const;
 
 	public slots:
 		/**
@@ -303,6 +322,7 @@ class SCRIBUS_API ScImportExportPlugin : public ScPlugin
 		const QString & runResult() const;
 
 	protected:
+		// Action info. To be set up by ctor.
 		ActionInfo m_actionInfo;
 		QString m_runResult;
 };
@@ -327,7 +347,7 @@ class SCRIBUS_API ScPersistentPlugin : public ScPlugin
 		 *
 		 * @sa ScPlugin::ScPlugin()
 		 */
-		ScPersistentPlugin(int id);
+		ScPersistentPlugin();
 
 		// Pure virtual dtor for abstract class
 		virtual ~ScPersistentPlugin() = 0;
@@ -367,7 +387,7 @@ class SCRIBUS_API ScPersistentPlugin : public ScPlugin
 		 *
 		 * @returns bool True for success.
 		 */
-		virtual bool cleanupPlug() = 0;
+		virtual bool cleanupPlugin() = 0;
 };
 
 #endif

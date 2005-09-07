@@ -9,7 +9,7 @@
 PyObject *scribus_newdocdia(PyObject* /* self */)
 {
 	QApplication::setOverrideCursor(QCursor(Qt::ArrowCursor));
-	bool ret = Carrier->slotFileNew();
+	bool ret = ScApp->slotFileNew();
 	QApplication::restoreOverrideCursor();
 	return PyInt_FromLong(static_cast<long>(ret));
 }
@@ -40,7 +40,7 @@ PyObject *scribus_filedia(PyObject* /* self */, PyObject* args, PyObject* kw)
 	Due the 'isdir' parameter. CFileDialog needs the last 2 pointers
 	initialized. */
 	bool nobool = false;
-	QString fName = Carrier->CFileDialog(".",
+	QString fName = ScApp->CFileDialog(".",
 										 QString::fromUtf8(caption),
 										 QString::fromUtf8(filter),
 										 QString::fromUtf8(defName),
@@ -72,7 +72,7 @@ PyObject *scribus_messdia(PyObject* /* self */, PyObject* args, PyObject* kw)
 	if (!PyArg_ParseTupleAndKeywords(args, kw, "eses|iiii", kwargs, "utf-8", &caption, "utf-8", &message, &ico, &butt1, &butt2, &butt3))
 		return NULL;
 	QApplication::setOverrideCursor(QCursor(Qt::ArrowCursor));
-	QMessageBox mb(QString::fromUtf8(caption), QString::fromUtf8(message), ico, butt1, butt2, butt3, Carrier);
+	QMessageBox mb(QString::fromUtf8(caption), QString::fromUtf8(message), ico, butt1, butt2, butt3, ScApp);
 	result = mb.exec();
 	QApplication::restoreOverrideCursor();
 	return PyInt_FromLong(static_cast<long>(result));
@@ -86,7 +86,7 @@ PyObject *scribus_valdialog(PyObject* /* self */, PyObject* args)
 	if (!PyArg_ParseTuple(args, "eses|es", "utf-8", &caption, "utf-8", &message, "utf-8", &value))
 		return NULL;
 	QApplication::setOverrideCursor(QCursor(Qt::ArrowCursor));
-	ValueDialog *d = new ValueDialog(Carrier, "d", true, 0);
+	ValueDialog *d = new ValueDialog(ScApp, "d", true, 0);
 	d->dialogLabel->setText(QString::fromUtf8(message));
 	d->valueEdit->setText(QString::fromUtf8(value));
 	d->setCaption(QString::fromUtf8(caption));
@@ -102,17 +102,17 @@ PyObject *scribus_newstyledialog(PyObject*, PyObject* args)
 	series.
 	It simulates user mouse clicking in the style dialogs. Ugly.
 	Unpleasant. Etc. But working. */
-	uint styleCount = Carrier->doc->docParagraphStyles.count();
-	StilFormate *dia2 = new StilFormate(Carrier, Carrier->doc);
+	uint styleCount = ScApp->doc->docParagraphStyles.count();
+	StilFormate *dia2 = new StilFormate(ScApp, ScApp->doc);
 	QApplication::setOverrideCursor(QCursor(Qt::ArrowCursor));
 	dia2->neuesFormat();
 	QApplication::restoreOverrideCursor();
-	Carrier->saveStyles(dia2);
+	ScApp->saveStyles(dia2);
 	delete dia2;
-	if (styleCount == Carrier->doc->docParagraphStyles.count())
+	if (styleCount == ScApp->doc->docParagraphStyles.count())
 	{
 		Py_INCREF(Py_None);
 		return Py_None;
 	}
-	return PyString_FromString(Carrier->doc->docParagraphStyles[Carrier->doc->docParagraphStyles.count() - 1].Vname.utf8());
+	return PyString_FromString(ScApp->doc->docParagraphStyles[ScApp->doc->docParagraphStyles.count() - 1].Vname.utf8());
 }

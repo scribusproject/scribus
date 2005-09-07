@@ -9,14 +9,14 @@ PyObject *scribus_messagebartext(PyObject* /* self */, PyObject* args)
 	char *aText;
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &aText))
 		return NULL;
-	Carrier->mainWindowStatusLabel->setText(QString::fromUtf8(aText));
+	ScApp->mainWindowStatusLabel->setText(QString::fromUtf8(aText));
 	Py_INCREF(Py_None);
 	return Py_None;
 }
 
 PyObject *scribus_progressreset(PyObject* /* self */)
 {
-	Carrier->mainWindowProgressBar->reset();
+	ScApp->mainWindowProgressBar->reset();
 	qApp->processEvents();
 	Py_INCREF(Py_None);
 	return Py_None;
@@ -27,8 +27,8 @@ PyObject *scribus_progresssettotalsteps(PyObject* /* self */, PyObject* args)
 	int steps;
 	if (!PyArg_ParseTuple(args, "i", &steps))
 		return NULL;
-	Carrier->mainWindowProgressBar->setTotalSteps(steps);
-	Carrier->mainWindowProgressBar->setProgress(0);
+	ScApp->mainWindowProgressBar->setTotalSteps(steps);
+	ScApp->mainWindowProgressBar->setProgress(0);
 	qApp->processEvents();
 	Py_INCREF(Py_None);
 	return Py_None;
@@ -39,12 +39,12 @@ PyObject *scribus_progresssetprogress(PyObject* /* self */, PyObject* args)
 	int position;
 	if (!PyArg_ParseTuple(args, "i", &position))
 		return NULL;
-	if (position > Carrier->mainWindowProgressBar->totalSteps())
+	if (position > ScApp->mainWindowProgressBar->totalSteps())
 	{
 		PyErr_SetString(PyExc_ValueError, QString("Tried to set progress > maximum progress"));
 		return NULL;
 	}
-	Carrier->mainWindowProgressBar->setProgress(position);
+	ScApp->mainWindowProgressBar->setProgress(position);
 	qApp->processEvents();
 	Py_INCREF(Py_None);
 	return Py_None;
@@ -72,12 +72,12 @@ PyObject *scribus_docchanged(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	Carrier->slotDocCh(static_cast<bool>(aValue));
+	ScApp->slotDocCh(static_cast<bool>(aValue));
 	/*
 	if (aValue>0)
-		Carrier->slotDocCh(true);
+		ScApp->slotDocCh(true);
 	else
-		Carrier->slotDocCh(false);*/
+		ScApp->slotDocCh(false);*/
 	Py_INCREF(Py_None);
 	return Py_None;
 }

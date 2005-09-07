@@ -16,7 +16,6 @@
 #include "charselect.h"
 #include "charselect.moc"
 #include "scpainter.h"
-#include "pluginmanager.h"
 
 #include "scconfig.h"
 
@@ -175,15 +174,30 @@ void ChTable::showAlternate()
 	} */
 }
 
-CharSelect::CharSelect( QWidget* parent, PageItem *item, ScribusApp *pl) : QDialog( parent, "CharSelect", true, 0 )
+CharSelect::CharSelect( QWidget* parent, PageItem *item) : QDialog( parent, "CharSelect", true, 0 )
 {
-	QString font;
-	if (!pl->pluginManager->dllInput.isEmpty())
-		font = pl->pluginManager->dllInput;
-	else
-		font = pl->doc->CurrFont;
+	fontInUse = ScApp->doc->CurrFont;
+	needReturn = false;
+	run(parent, item, ScApp);
+}
+
+CharSelect::CharSelect( QWidget* parent, PageItem *item, QString font) : QDialog( parent, "CharSelect", true, 0 )
+{
 	fontInUse = font;
-	setCaption( tr( "Select Character:" )+" "+font );
+	needReturn = true;
+	run(parent, item, ScApp);
+}
+
+
+const QString & CharSelect::getCharacters()
+{
+	return m_characters;
+}
+
+
+void CharSelect::run( QWidget* /*parent*/, PageItem *item, ScribusApp *pl)
+{
+	setCaption( tr( "Select Character:" )+" "+fontInUse );
 	ite = item;
 	ap = pl;
 	setIcon(loadIcon("AppIcon.png"));
@@ -201,7 +215,7 @@ CharSelect::CharSelect( QWidget* parent, PageItem *item, ScribusApp *pl) : QDial
 	fontSelector->setMaximumSize(190, 30);
 	fontSelector->setCurrentText(fontInUse);
 	selectionsLayout->addWidget( fontSelector );
-	if ((ap->doc->currentParaStyle > 4) ||  (!ap->pluginManager->dllInput.isEmpty()))
+	if ((ap->doc->currentParaStyle > 4) || needReturn)
 		fontSelector->setEnabled(false);
 	rangeLabel = new QLabel( this, "fontLabel" );
 	rangeLabel->setText( tr( "Character Class:" ) );
@@ -682,9 +696,9 @@ void CharSelect::delEdit()
 
 void CharSelect::insChar()
 {
-	if (!ap->pluginManager->dllInput.isEmpty())
+	if (needReturn)
 	{
-		ap->pluginManager->dllReturn += chToIns;
+		m_characters = chToIns;
 		delEdit();
 		return;
 	}

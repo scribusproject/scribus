@@ -2815,37 +2815,33 @@ void StoryEditor::updateStatus()
 void StoryEditor::Do_insSp()
 {
 	blockUpdate = true;
-	ScApp->pluginManager->dllInput = Editor->CurrFont;
-	ScApp->pluginManager->dllReturn = "";
-	CharSelect *dia = new CharSelect(this, currItem, ScApp);
+	CharSelect *dia = new CharSelect(this, currItem, Editor->CurrFont);
 	dia->exec();
-	delete dia;
-	if (!ScApp->pluginManager->dllReturn.isEmpty())
+	if (!dia->getCharacters().isEmpty())
 	{
-		Editor->insChars(ScApp->pluginManager->dllReturn);
-		Editor->insert(ScApp->pluginManager->dllReturn);
+		Editor->insChars(dia->getCharacters());
+		Editor->insert(dia->getCharacters());
 	}
-	ScApp->pluginManager->dllInput = "";
-	ScApp->pluginManager->dllReturn = "";
+	delete dia;
 	blockUpdate = false;
 }
 
 void StoryEditor::Do_fontPrev()
 {
 	blockUpdate = true;
-	ScApp->pluginManager->dllInput = Editor->CurrFont;
-	ScApp->pluginManager->dllReturn = "";
-	if (ScApp->pluginManager->DLLexists(2))
+	QString retval;
+	if (ScApp->pluginManager->DLLexists("fontpreview"))
 	{
-		ScApp->pluginManager->callDLL( 2 );
-		if (!ScApp->pluginManager->dllReturn.isEmpty())
+		bool result = ScApp->pluginManager->callImportExportPlugin("fontpreview", Editor->CurrFont, retval);
+		if (result && !retval.isEmpty())
 		{
-			newTxFont(ScApp->pluginManager->dllReturn);
-			FontTools->SetFont(ScApp->pluginManager->dllReturn);
+			qDebug("Got retval");
+			newTxFont(retval);
+			FontTools->SetFont(retval);
 		}
+		else
+			qDebug("No retval");
 	}
-	ScApp->pluginManager->dllInput = "";
-	ScApp->pluginManager->dllReturn = "";
 	blockUpdate = false;
 }
 

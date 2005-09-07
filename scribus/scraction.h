@@ -34,7 +34,7 @@ public:
 		\author Craig Bradney
 		\date Jan 2005
 		\brief Constructor from QAction, sets menuType to Normal
-		\param parent Parent object of this action
+		\param parent Parent object of this action.
 		\param name Name of the action
 		\retval None
 	*/

@@ -5,51 +5,73 @@
 #include <qcursor.h>
 #include <qlistview.h>
 
-QString name()
+int colorwheel_getPluginAPIVersion()
 {
-	return QObject::tr("&Color Wheel...");
+	return PLUGIN_API_VERSION;
 }
 
-PluginManager::PluginType type()
+ScPlugin* colorwheel_getPlugin()
 {
-	return PluginManager::Standard;
+	ColorWheelPlugin* plug = new ColorWheelPlugin();
+	Q_CHECK_PTR(plug);
+	return plug;
 }
 
-int ID()
+void colorwheel_freePlugin(ScPlugin* plugin)
 {
-	return 13;
+	ColorWheelPlugin* plug = dynamic_cast<ColorWheelPlugin*>(plugin);
+	Q_ASSERT(plug);
+	delete plug;
 }
 
-
-QString actionName()
+ColorWheelPlugin::ColorWheelPlugin() :
+	ScActionPlugin(ScPlugin::PluginType_Action)
 {
-	return "ColorWheel";
+	// Set action info in languageChange, so we only have to do
+	// it in one place.
+	languageChange();
 }
 
-QString actionKeySequence()
+ColorWheelPlugin::~ColorWheelPlugin() {};
+
+void ColorWheelPlugin::languageChange()
 {
-	return "";
+	// Note that we leave the unused members unset. They'll be initialised
+	// with their default ctors during construction.
+	// Action name
+	m_actionInfo.name = "ColorWheel";
+	// Action text for menu, including accel
+	m_actionInfo.text = tr("&Color Wheel...");
+	// Menu
+	m_actionInfo.menu = "Extras";
+	m_actionInfo.enabledOnStartup = true;
 }
 
-QString actionMenu()
+const QString ColorWheelPlugin::fullTrName() const
 {
-	return "Extras";
+	return QObject::tr("Color Wheel");
 }
 
-QString actionMenuAfterName()
+const ScActionPlugin::AboutData* ColorWheelPlugin::getAboutData() const
 {
-	return "";
+	return 0;
 }
 
-bool actionEnabledOnStartup()
+void ColorWheelPlugin::deleteAboutData(const AboutData* about) const
 {
-	return true;
 }
 
 /** Create dialog. Everything else is handled in separated classes. */
-void run(QWidget *d, ScribusApp */*plug*/)
+bool ColorWheelPlugin::run(QString target)
 {
-	ColorWheelDialog *dlg = new ColorWheelDialog(d, "dlg", true, 0);
-	dlg->exec();
-	delete dlg;
+	Q_ASSERT(target.isNull());
+	ColorWheelDialog *dlg = new ColorWheelDialog(ScApp, "dlg", true, 0);
+	if (dlg)
+	{
+		dlg->exec();
+		delete dlg;
+		return true;
+	}
+	else
+		return false;
 }

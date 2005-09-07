@@ -39,9 +39,9 @@ FileLoader::FileLoader(QString fileName, ScribusApp* app)
 	prefsManager=PrefsManager::instance();
 	FileName = fileName;
 	FileType = -1;
-	havePS = app->pluginManager->DLLexists(6);
-	haveSVG = app->pluginManager->DLLexists(10);
-	haveSXD = app->pluginManager->DLLexists(12);
+	havePS = app->pluginManager->DLLexists("importps");
+	haveSVG = app->pluginManager->DLLexists("svgimplugin");
+	haveSXD = app->pluginManager->DLLexists("oodrawimp");
 }
 
 /*!
@@ -306,19 +306,13 @@ bool FileLoader::LoadFile(ScribusApp* app)
 			ret = ReadDoc(app, FileName, prefsManager->appPrefs.AvailFonts, app->doc, app->view, app->mainWindowProgressBar);
 			break;
 		case 2:
-			app->pluginManager->dllInput = FileName;
-			app->pluginManager->callDLL( 6 );
-			ret = true;
+			ret = app->pluginManager->callImportExportPlugin("importps", FileName);
 			break;
 		case 3:
-			app->pluginManager->dllInput = FileName;
-			app->pluginManager->callDLL( 10 );
-			ret = true;
+			ret = app->pluginManager->callImportExportPlugin("svgimplugin", FileName);
 			break;
 		case 5:
-			app->pluginManager->dllInput = FileName;
-			app->pluginManager->callDLL( 12 );
-			ret = true;
+			ret = app->pluginManager->callImportExportPlugin("oodrawimp", FileName);
 			break;
 		default:
 			ret = false;
@@ -456,7 +450,6 @@ bool FileLoader::LoadFile(ScribusApp* app)
 			ReplacedFonts.clear();
 		dummyFois.clear();
 	}
-	app->pluginManager->dllInput = "";
 	return ret;
 }
 

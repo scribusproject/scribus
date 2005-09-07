@@ -6,62 +6,80 @@
 #include <qdir.h>
 #include <qcursor.h>
 
+#include "scribus.h"
 #include "scraction.h"
 #include "menumanager.h"
 #include "pluginmanager.h"
 #include "util.h"
 
-
-QString name()
+int scribusexportpixmap_getPluginAPIVersion()
 {
-	return QObject::tr("Save as &Image...");
+	return PLUGIN_API_VERSION;
 }
 
-
-PluginManager::PluginType type()
+ScPlugin* scribusexportpixmap_getPlugin()
 {
-	return PluginManager::Standard;
+	PixmapExportPlugin* plug = new PixmapExportPlugin();
+	Q_CHECK_PTR(plug);
+	return plug;
 }
 
-int ID()
+void scribusexportpixmap_freePlugin(ScPlugin* plugin)
 {
-	return 4;
+	PixmapExportPlugin* plug = dynamic_cast<PixmapExportPlugin*>(plugin);
+	Q_ASSERT(plug);
+	delete plug;
 }
 
-QString actionName()
+PixmapExportPlugin::PixmapExportPlugin() :
+	ScActionPlugin(ScPlugin::PluginType_Export)
 {
-	return "ExportAsImage";
+	// Set action info in languageChange, so we only have to do
+	// it in one place.
+	languageChange();
 }
 
-QString actionKeySequence()
+PixmapExportPlugin::~PixmapExportPlugin() {};
+
+void PixmapExportPlugin::languageChange()
 {
-	return "CTRL+SHIFT+E";
+	// Note that we leave the unused members unset. They'll be initialised
+	// with their default ctors during construction.
+	// Action name
+	m_actionInfo.name = "ExportAsImage";
+	// Action text for menu, including accel
+	m_actionInfo.text = tr("Save as &Image...");
+	// Keyboard shortcut
+	m_actionInfo.keySequence = "CTRL+SHIFT+E";
+	// Menu
+	m_actionInfo.menu = "FileExport";
+	m_actionInfo.enabledOnStartup = true;
 }
 
-QString actionMenu()
+const QString PixmapExportPlugin::fullTrName() const
 {
-	return "FileExport";
+	return QObject::tr("Export As Image");
 }
 
-QString actionMenuAfterName()
+const ScActionPlugin::AboutData* PixmapExportPlugin::getAboutData() const
 {
-	return "";
+	return 0;
 }
 
-bool actionEnabledOnStartup()
+void PixmapExportPlugin::deleteAboutData(const AboutData* about) const
 {
-	return true;
 }
 
-void run(QWidget *d, ScribusApp *plug)
+bool PixmapExportPlugin::run(QString target)
 {
+	Q_ASSERT(target.isEmpty());
 	bool res;
-	ExportBitmap *ex = new ExportBitmap(plug);
-	ExportForm *dia = new ExportForm(d, ex->pageDPI, ex->quality, ex->bitmapType);
+	ExportBitmap *ex = new ExportBitmap();
+	ExportForm *dia = new ExportForm(ScApp, ex->pageDPI, ex->quality, ex->bitmapType);
 
 	// interval widgets handling
 	QString tmp;
-	dia->RangeVal->setText(tmp.setNum(plug->doc->currentPage->pageNr()+1));
+	dia->RangeVal->setText(tmp.setNum(ScApp->doc->currentPage->pageNr()+1));
 	// main "loop"
 	if (dia->exec()==QDialog::Accepted)
 	{
@@ -72,38 +90,38 @@ void run(QWidget *d, ScribusApp *plug)
 		ex->quality = dia->QualityBox->value();
 		ex->exportDir = dia->OutputDirectory->text();
 		ex->bitmapType = dia->bitmapType;
-		plug->mainWindowProgressBar->reset();
+		ScApp->mainWindowProgressBar->reset();
 		if (dia->OnePageRadio->isChecked())
 			res = ex->exportActual();
 		else
 		{
 			if (dia->AllPagesRadio->isChecked())
-				plug->parsePagesString("*", &pageNs, plug->doc->pageCount);
+				ScApp->parsePagesString("*", &pageNs, ScApp->doc->pageCount);
 			else
-				plug->parsePagesString(dia->RangeVal->text(), &pageNs, plug->doc->pageCount);
+				ScApp->parsePagesString(dia->RangeVal->text(), &pageNs, ScApp->doc->pageCount);
 			res = ex->exportInterval(pageNs);
 		}
-		plug->mainWindowProgressBar->reset();
+		ScApp->mainWindowProgressBar->reset();
 		QApplication::restoreOverrideCursor();
 		if (!res)
 		{
-			QMessageBox::warning(plug, QObject::tr("Save as Image"), QObject::tr("Error writing the output file(s)."));
-			plug->mainWindowStatusLabel->setText(QObject::tr("Error writing the output file(s)."));
+			QMessageBox::warning(ScApp, QObject::tr("Save as Image"), QObject::tr("Error writing the output file(s)."));
+			ScApp->mainWindowStatusLabel->setText(QObject::tr("Error writing the output file(s)."));
 		}
 		else
 		{
-			plug->mainWindowStatusLabel->setText(QObject::tr("Export successful."));
+			ScApp->mainWindowStatusLabel->setText(QObject::tr("Export successful."));
 		}
 	} // if accepted
 	// clean the trash
 	delete ex;
 	delete dia;
+	return true;
 }
 
 
-ExportBitmap::ExportBitmap(ScribusApp *plug)
+ExportBitmap::ExportBitmap()
 {
-	carrier = plug;
 	pageDPI = 72;
 	quality = 100;
 	enlargement = 100;
@@ -126,7 +144,7 @@ bool ExportBitmap::exportPage(uint pageNr, bool single = true)
 	uint over = 0;
 	QString fileName = getFileName(pageNr);
 
-	if (!carrier->doc->Pages.at(pageNr))
+	if (!ScApp->doc->Pages.at(pageNr))
 		return false;
 
 	/* a little magic here - I need to compute the "maxGr" value...
@@ -134,10 +152,10 @@ bool ExportBitmap::exportPage(uint pageNr, bool single = true)
 	* portrait and user defined sizes.
 	*/
 	double pixmapSize;
-	(carrier->doc->pageHeight > carrier->doc->pageWidth)
-			? pixmapSize = carrier->doc->pageHeight
-			: pixmapSize = carrier->doc->pageWidth;
-	QImage im = carrier->view->PageToPixmap(pageNr, qRound(pixmapSize * enlargement * (pageDPI / 72.0) / 100.0));
+	(ScApp->doc->pageHeight > ScApp->doc->pageWidth)
+			? pixmapSize = ScApp->doc->pageHeight
+			: pixmapSize = ScApp->doc->pageWidth;
+	QImage im = ScApp->view->PageToPixmap(pageNr, qRound(pixmapSize * enlargement * (pageDPI / 72.0) / 100.0));
 	int dpm = qRound(100.0 / 2.54 * pageDPI);
 	im.setDotsPerMeterY(dpm);
 	im.setDotsPerMeterX(dpm);
@@ -147,7 +165,7 @@ bool ExportBitmap::exportPage(uint pageNr, bool single = true)
 /* Changed the following Code from the original QMessageBox::question to QMessageBox::warning
 	 to keep the Code compatible to Qt-3.1.x
 	 f.s 12.05.2004 */
-		over = QMessageBox::warning(carrier,
+		over = QMessageBox::warning(ScApp,
 				QObject::tr("File exists. Overwrite?"),
 				fileName +"\n"+ QObject::tr("exists already. Overwrite?"),
 				QObject::tr("No"),
@@ -166,16 +184,16 @@ bool ExportBitmap::exportPage(uint pageNr, bool single = true)
 
 bool ExportBitmap::exportActual()
 {
-	return exportPage(carrier->doc->currentPage->pageNr(), true);
+	return exportPage(ScApp->doc->currentPage->pageNr(), true);
 }
 
 bool ExportBitmap::exportInterval(std::vector<int> &pageNs)
 {
 	bool res;
-	carrier->mainWindowProgressBar->setTotalSteps(pageNs.size());
+	ScApp->mainWindowProgressBar->setTotalSteps(pageNs.size());
 	for (uint a = 0; a < pageNs.size(); ++a)
 	{
-		carrier->mainWindowProgressBar->setProgress(a);
+		ScApp->mainWindowProgressBar->setProgress(a);
 		res = exportPage(pageNs[a]-1, false);
 		if (!res)
 			return false;

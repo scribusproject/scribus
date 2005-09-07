@@ -19,7 +19,6 @@
 #include <qtextstream.h>
 
 #include "svgexplugin.h"
-#include "svgexplugin.moc"
 
 #include "scconfig.h"
 
@@ -34,60 +33,60 @@
 #include "pluginmanager.h"
 #include "util.h"
 
-/*!
- \fn QString Name()
- \author Franz Schmid
- \date
- \brief Returns name of plugin
- \param None
- \retval QString containing name of plugin: Save Page as SVG...
- */
-QString name()
+int svgexplugin_getPluginAPIVersion()
 {
-  return QObject::tr("Save Page as &SVG...");
+	return PLUGIN_API_VERSION;
 }
 
-/*!
- \fn int Type()
- \author Franz Schmid
- \date
- \brief Returns type of plugin
- \param None
- \retval int containing type of plugin (1: Extra, 2: Import, 3: Export, 4: )
- */
-PluginManager::PluginType type()
+ScPlugin* svgexplugin_getPlugin()
 {
-	return PluginManager::Standard;
+	SVGExportPlugin* plug = new SVGExportPlugin();
+	Q_CHECK_PTR(plug);
+	return plug;
 }
 
-int ID()
+void svgexplugin_freePlugin(ScPlugin* plugin)
 {
-	return 9;
+	SVGExportPlugin* plug = dynamic_cast<SVGExportPlugin*>(plugin);
+	Q_ASSERT(plug);
+	delete plug;
 }
 
-QString actionName()
+SVGExportPlugin::SVGExportPlugin() :
+	ScActionPlugin(ScPlugin::PluginType_Export)
 {
-	return "ExportAsSVG";
+	// Set action info in languageChange, so we only have to do
+	// it in one place.
+	languageChange();
 }
 
-QString actionKeySequence()
+SVGExportPlugin::~SVGExportPlugin() {};
+
+void SVGExportPlugin::languageChange()
 {
-	return "";
+	// Note that we leave the unused members unset. They'll be initialised
+	// with their default ctors during construction.
+	// Action name
+	m_actionInfo.name = "ExportAsSVG";
+	// Action text for menu, including accel
+	m_actionInfo.text = tr("Save Page as &SVG...");
+	// Menu
+	m_actionInfo.menu = "FileExport";
+	m_actionInfo.enabledOnStartup = true;
 }
 
-QString actionMenu()
+const QString SVGExportPlugin::fullTrName() const
 {
-	return "FileExport";
+	return QObject::tr("SVG Export");
 }
 
-QString actionMenuAfterName()
+const ScActionPlugin::AboutData* SVGExportPlugin::getAboutData() const
 {
-	return "";
+	return 0;
 }
 
-bool actionEnabledOnStartup()
+void SVGExportPlugin::deleteAboutData(const AboutData* about) const
 {
-	return true;
 }
 
 /*!
@@ -99,17 +98,18 @@ bool actionEnabledOnStartup()
  \param plug ScribusApp *
  \retval None
  */
-void run(QWidget *d, ScribusApp *plug)
+bool SVGExportPlugin::run(QString filename)
 {
-	if (plug->HaveDoc)
+	Q_ASSERT(filename.isEmpty());
+	if (ScApp->HaveDoc)
 	{
 		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("svgex");
 		QString wdir = prefs->get("wdir", ".");
-		QString defaultName = getFileNameByPage(plug->doc->currentPage->pageNr(), "svg");
+		QString defaultName = getFileNameByPage(ScApp->doc->currentPage->pageNr(), "svg");
 #ifdef HAVE_LIBZ
-		QString fileName = plug->CFileDialog(wdir, QObject::tr("Save as"), QObject::tr("SVG-Images (*.svg *.svgz);;All Files (*)"), defaultName, false, false, true);
+		QString fileName = ScApp->CFileDialog(wdir, QObject::tr("Save as"), QObject::tr("SVG-Images (*.svg *.svgz);;All Files (*)"), defaultName, false, false, true);
 #else
-		QString fileName = plug->CFileDialog(wdir, QObject::tr("Save as"), QObject::tr("SVG-Images (*.svg);;All Files (*)"), defaultName, false, false);
+		QString fileName = ScApp->CFileDialog(wdir, QObject::tr("Save as"), QObject::tr("SVG-Images (*.svg);;All Files (*)"), defaultName, false, false);
 #endif
 		if (!fileName.isEmpty())
 		{
@@ -117,20 +117,21 @@ void run(QWidget *d, ScribusApp *plug)
 			QFile f(fileName);
 			if (f.exists())
 			{
-				int exit=QMessageBox::warning(d, QObject::tr("Warning"),
+				int exit=QMessageBox::warning(ScApp, QObject::tr("Warning"),
 					QObject::tr("Do you really want to overwrite the File:\n%1 ?").arg(fileName),
 					QObject::tr("Yes"),
 					QObject::tr("No"),
 					0, 0, 1);
 				if (exit != 0)
-					return;
+					return true;
 			}
-			SVGExPlug *dia = new SVGExPlug(plug, fileName);
+			SVGExPlug *dia = new SVGExPlug(fileName);
 			delete dia;
 		}
 		else
-			return;
+			return true;
 	}
+	return true;
 }
 
 /*!
@@ -143,24 +144,24 @@ void run(QWidget *d, ScribusApp *plug)
  \param fName QString
  \retval SVGExPlug plugin
  */
-SVGExPlug::SVGExPlug( ScribusApp *plug, QString fName )
+SVGExPlug::SVGExPlug( QString fName )
 {
 	QDomDocument docu("svgdoc");
 	QString vo = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 	QString st = "<svg></svg>";
 	docu.setContent(st);
 	QDomElement elem = docu.documentElement();
-	elem.setAttribute("width", FToStr(plug->doc->pageWidth)+"pt");
-	elem.setAttribute("height", FToStr(plug->doc->pageHeight)+"pt");
+	elem.setAttribute("width", FToStr(ScApp->doc->pageWidth)+"pt");
+	elem.setAttribute("height", FToStr(ScApp->doc->pageHeight)+"pt");
 	elem.setAttribute("xmlns", "http://www.w3.org/2000/svg");
 	elem.setAttribute("xmlns:xlink","http://www.w3.org/1999/xlink");
 	Page *Seite;
 	GradCount = 0;
 	ClipCount = 0;
-	Seite = plug->doc->MasterPages.at(plug->doc->MasterNames[plug->doc->currentPage->MPageNam]);
-	ProcessPage(plug, Seite, &docu, &elem);
-	Seite = plug->doc->currentPage;
-	ProcessPage(plug, Seite, &docu, &elem);
+	Seite = ScApp->doc->MasterPages.at(ScApp->doc->MasterNames[ScApp->doc->currentPage->MPageNam]);
+	ProcessPage(Seite, &docu, &elem);
+	Seite = ScApp->doc->currentPage;
+	ProcessPage(Seite, &docu, &elem);
 #ifdef HAVE_LIBZ
 	if(fName.right(2) == "gz")
 		{
@@ -206,7 +207,7 @@ SVGExPlug::SVGExPlug( ScribusApp *plug, QString fName )
  \param elem QDomElement *
  \retval None
  */
-void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, QDomElement *elem)
+void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 {
 	QString tmp, trans, fill, stroke, strokeW, strokeLC, strokeLJ, strokeDA, gradi, Clipi, chx;
 	uint d;
@@ -221,15 +222,15 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 	gradi = "Grad";
 	Clipi = "Clip";
 	QPtrList<PageItem> Items;
-	Page* SavedAct = plug->doc->currentPage;
-	plug->doc->currentPage = Seite;
+	Page* SavedAct = ScApp->doc->currentPage;
+	ScApp->doc->currentPage = Seite;
 	if (Seite->PageNam.isEmpty())
-		Items = plug->doc->DocItems;
+		Items = ScApp->doc->DocItems;
 	else
-		Items = plug->doc->MasterItems;
-	for (uint la = 0; la < plug->doc->Layers.count(); la++)
+		Items = ScApp->doc->MasterItems;
+	for (uint la = 0; la < ScApp->doc->Layers.count(); la++)
 		{
-		Level2Layer(plug->doc, &ll, Lnr);
+		Level2Layer(ScApp->doc, &ll, Lnr);
 		if (ll.isPrintable)
 			{
 			for(uint j = 0; j < Items.count(); ++j)
@@ -249,7 +250,7 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 					continue;
 				if ((Item->fillColor() != "None") || (Item->GrType != 0))
 				{
-					fill = "fill:"+SetFarbe(Item->fillColor(), Item->fillShade(), plug)+";";
+					fill = "fill:"+SetFarbe(Item->fillColor(), Item->fillShade())+";";
 					if (Item->GrType != 0)
 					{
 						defi = docu->createElement("defs");
@@ -308,7 +309,7 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 							QDomElement itcl = docu->createElement("stop");
 							itcl.setAttribute("offset", FToStr(cstops.at(cst)->rampPoint*100)+"%");
 							itcl.setAttribute("stop-opacity", FToStr(cstops.at(cst)->opacity));
-							itcl.setAttribute("stop-color", SetFarbe(cstops.at(cst)->name, cstops.at(cst)->shade, plug));
+							itcl.setAttribute("stop-color", SetFarbe(cstops.at(cst)->name, cstops.at(cst)->shade));
 							grad.appendChild(itcl);
 						}
 						defi.appendChild(grad);
@@ -323,7 +324,7 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 					fill = "fill:none;";
 				if (Item->lineColor() != "None")
 				{
-					stroke = "stroke:"+SetFarbe(Item->lineColor(), Item->lineShade(), plug)+";";
+					stroke = "stroke:"+SetFarbe(Item->lineColor(), Item->lineShade())+";";
 					if (Item->lineTransparency() != 0)
 						stroke += " stroke-opacity:"+FToStr(1.0 - Item->lineTransparency())+";";
 				}
@@ -431,12 +432,12 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 							ob.setAttribute("d", SetClipPath(Item)+"Z");
 							ob.setAttribute("style", fill);
 							gr.appendChild(ob);
-							multiLine ml = plug->doc->MLineStyles[Item->NamedLStyle];
+							multiLine ml = ScApp->doc->MLineStyles[Item->NamedLStyle];
 							for (int it = ml.size()-1; it > -1; it--)
 							{
 								ob = docu->createElement("path");
 								ob.setAttribute("d", SetClipPath(Item)+"Z");
-								ob.setAttribute("style", GetMultiStroke(plug, &ml[it], Item));
+								ob.setAttribute("style", GetMultiStroke(&ml[it], Item));
 								gr.appendChild(ob);
 							}
 						}
@@ -485,12 +486,12 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 						}
 						else
 						{
-							multiLine ml = plug->doc->MLineStyles[Item->NamedLStyle];
+							multiLine ml = ScApp->doc->MLineStyles[Item->NamedLStyle];
 							for (int it = ml.size()-1; it > -1; it--)
 							{
 								ob = docu->createElement("path");
 								ob.setAttribute("d", SetClipPath(Item)+"Z");
-								ob.setAttribute("style", "fill:none; "+GetMultiStroke(plug, &ml[it], Item));
+								ob.setAttribute("style", "fill:none; "+GetMultiStroke(&ml[it], Item));
 								gr.appendChild(ob);
 							}
 						}
@@ -503,12 +504,12 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 						}
 						else
 						{
-							multiLine ml = plug->doc->MLineStyles[Item->NamedLStyle];
+							multiLine ml = ScApp->doc->MLineStyles[Item->NamedLStyle];
 							for (int it = ml.size()-1; it > -1; it--)
 							{
 								ob = docu->createElement("path");
 								ob.setAttribute("d", SetClipPath(Item));
-								ob.setAttribute("style", GetMultiStroke(plug, &ml[it], Item));
+								ob.setAttribute("style", GetMultiStroke(&ml[it], Item));
 								gr.appendChild(ob);
 							}
 						}
@@ -536,7 +537,7 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 							tp = docu->createElement("tspan");
 							tp.setAttribute("x", FToStr(hl->xp)+"pt");
 							tp.setAttribute("y", FToStr(hl->yp)+"pt");
-							SetTextProps(&tp, hl, plug);
+							SetTextProps(&tp, hl);
 							tp1 = docu->createTextNode(chx);
 							tp.appendChild(tp1);
 							ob.appendChild(tp);
@@ -550,12 +551,12 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 						}
 						else
 						{
-							multiLine ml = plug->doc->MLineStyles[Item->NamedLStyle];
+							multiLine ml = ScApp->doc->MLineStyles[Item->NamedLStyle];
 							for (int it = ml.size()-1; it > -1; it--)
 							{
 								ob = docu->createElement("path");
 								ob.setAttribute("d", "M 0 0 L "+FToStr(Item->Width)+" 0");
-								ob.setAttribute("style", GetMultiStroke(plug, &ml[it], Item));
+								ob.setAttribute("style", GetMultiStroke(&ml[it], Item));
 								gr.appendChild(ob);
 							}
 						}
@@ -571,12 +572,12 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 							}
 							else
 							{
-								multiLine ml = plug->doc->MLineStyles[Item->NamedLStyle];
+								multiLine ml = ScApp->doc->MLineStyles[Item->NamedLStyle];
 								for (int it = ml.size()-1; it > -1; it--)
 								{
 									ob = docu->createElement("path");
 									ob.setAttribute("d", SetClipPath(Item));
-									ob.setAttribute("style", GetMultiStroke(plug, &ml[it], Item));
+									ob.setAttribute("style", GetMultiStroke(&ml[it], Item));
 									gr.appendChild(ob);
 								}
 							}
@@ -598,7 +599,7 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 							tp2 = docu->createElement("tspan");
 							tp2.setAttribute("dx", FToStr(hl->xp)+"pt");
 							tp2.setAttribute("dy", FToStr(hl->yp)+"pt");
-							SetTextProps(&tp2, hl, plug);
+							SetTextProps(&tp2, hl);
 							tp1 = docu->createTextNode(chx);
 							tp2.appendChild(tp1);
 							tp.appendChild(tp2);
@@ -616,7 +617,7 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 		}
 		Lnr++;
 	}
-	plug->doc->currentPage = SavedAct;
+	ScApp->doc->currentPage = SavedAct;
 }
 
 /*!
@@ -729,22 +730,22 @@ QString SVGExPlug::IToStr(int c)
  \param plug ScribusApp *
  \retval None
  */
-void SVGExPlug::SetTextProps(QDomElement *tp, struct ScText *hl, ScribusApp *plug)
+void SVGExPlug::SetTextProps(QDomElement *tp, struct ScText *hl)
 {
 	int chst = hl->cstyle & 127;
 	if (hl->ccolor != "None")
-		tp->setAttribute("fill", SetFarbe(hl->ccolor, hl->cshade, plug));
+		tp->setAttribute("fill", SetFarbe(hl->ccolor, hl->cshade));
 	else
 		tp->setAttribute("fill", "none");
 	if ((hl->cstroke != "None") && (chst & 4))
 		{
-		tp->setAttribute("stroke", SetFarbe(hl->cstroke, hl->cshade2, plug));
-		tp->setAttribute("stroke-width", FToStr((*plug->doc->AllFonts)[hl->cfont->SCName]->strokeWidth * (hl->csize / 10.0))+"pt");
+		tp->setAttribute("stroke", SetFarbe(hl->cstroke, hl->cshade2));
+		tp->setAttribute("stroke-width", FToStr((*ScApp->doc->AllFonts)[hl->cfont->SCName]->strokeWidth * (hl->csize / 10.0))+"pt");
 		}
 	else
 		tp->setAttribute("stroke", "none");
 	tp->setAttribute("font-size", (hl->csize / 10.0));
-	tp->setAttribute("font-family", (*plug->doc->AllFonts)[hl->cfont->SCName]->Family);
+	tp->setAttribute("font-family", (*ScApp->doc->AllFonts)[hl->cfont->SCName]->Family);
 	if (chst != 0)
 		{
 		if (chst & 64)
@@ -768,9 +769,9 @@ void SVGExPlug::SetTextProps(QDomElement *tp, struct ScText *hl, ScribusApp *plu
  \param plug ScribusApp *
  \retval QString Colour settings
  */
-QString SVGExPlug::SetFarbe(QString farbe, int shad, ScribusApp *plug)
+QString SVGExPlug::SetFarbe(QString farbe, int shad)
 {
-	return plug->doc->PageColors[farbe].getShadeColorProof(shad).name();
+	return ScApp->doc->PageColors[farbe].getShadeColorProof(shad).name();
 }
 
 /*!
@@ -783,10 +784,10 @@ QString SVGExPlug::SetFarbe(QString farbe, int shad, ScribusApp *plug)
  \param Item PageItem *
  \retval QString Stroke settings
  */
-QString SVGExPlug::GetMultiStroke(ScribusApp *plug, struct SingleLine *sl, PageItem *Item)
+QString SVGExPlug::GetMultiStroke(struct SingleLine *sl, PageItem *Item)
 {
 	QString tmp = "fill:none; ";
-	tmp += "stroke:"+SetFarbe(sl->Color, sl->Shade, plug)+"; ";
+	tmp += "stroke:"+SetFarbe(sl->Color, sl->Shade)+"; ";
 	if (Item->fillTransparency() != 0)
 		tmp += " stroke-opacity:"+FToStr(1.0 - Item->fillTransparency())+"; ";
 	tmp += "stroke-width:"+FToStr(sl->Width)+"pt; ";
@@ -860,3 +861,5 @@ QString SVGExPlug::GetMultiStroke(ScribusApp *plug, struct SingleLine *sl, PageI
 SVGExPlug::~SVGExPlug()
 {
 }
+
+#include "svgexplugin.moc"

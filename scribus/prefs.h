@@ -184,11 +184,6 @@ public:
 	QCheckBox* useStandardLI;
 	QSpinBox* paragraphsLI;
 	QLabel* paraLabelLI;
-	//! plugin manager
-	QWidget* pluginManagerWidget;
-	QGroupBox* plugGroupBox;
-	QListView* pluginsList;
-	QLabel* pluginWarning;
 
 	double unitRatio;
 	double PFactor;
@@ -257,10 +252,6 @@ protected:
 	QGridLayout* Layout4s;
 	QHBoxLayout* groupGapLayout;
 	QGridLayout* layout4sg;
-	// plugin manager
-	QVBoxLayout* plugLayout1;
-	QVBoxLayout* pluginMainLayout;
-	QGridLayout* plugGroupBoxLayout;
 	QHBoxLayout* dsLayout4p;
 	QVBoxLayout* dsLayout4pv;
 
@@ -272,7 +263,6 @@ protected slots:
 private slots:
 	void setSelectedGUILang( const QString &newLang );
 	void setActionHistoryLength();
-	void changePluginLoad(QListViewItem *, const QPoint &, int);
 
 private:
 	LanguageManager langMgr;

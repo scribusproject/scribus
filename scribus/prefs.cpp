@@ -28,7 +28,6 @@
 #include "tabpdfoptions.h"
 #include "fontprefs.h"
 #include "units.h"
-#include "pluginmanager.h"
 #include "pagesize.h"
 #include "docitemattrprefs.h"
 #include "tocindexprefs.h"
@@ -39,6 +38,7 @@
 #include "linecombo.h"
 #include "arrowchooser.h"
 #include "pagelayout.h"
+#include "pluginmanagerprefsgui.h"
 using namespace std;
 
 extern QPixmap loadIcon(QString nam);
@@ -692,50 +692,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	addItem(  tr("Miscellaneous"), loadIcon("misc.png"), Misc);
 
 	// plugin manager. pv.
-	pluginManagerWidget = new QWidget(prefsWidgets, "pluginManagerWidget");
-	pluginMainLayout = new QVBoxLayout( pluginManagerWidget, 0, 5, "pluginMainLayout");
-	pluginMainLayout->setAlignment( Qt::AlignTop );
-	plugGroupBox = new QGroupBox( tr("Plugin Manager"), pluginManagerWidget, "plugGroupBox");
-	plugGroupBox->setColumnLayout(0, Qt::Vertical);
-	plugGroupBox->layout()->setSpacing(6);
-	plugGroupBox->layout()->setMargin(11);
-	plugGroupBoxLayout = new QGridLayout( plugGroupBox->layout() );
-	plugGroupBoxLayout->setAlignment(Qt::AlignTop);
-	plugLayout1 = new QVBoxLayout( 0, 0, 6, "plugLayout1");
-	pluginsList = new QListView(plugGroupBox, "pluginsList");
-	pluginsList->setAllColumnsShowFocus(true);
-	pluginsList->setShowSortIndicator(true);
-	pluginsList->addColumn( tr("Plugin"));
-	pluginsList->setColumnWidthMode(0, QListView::Maximum);
-	pluginsList->addColumn( tr("How to run"));
-	pluginsList->setColumnWidthMode(1, QListView::Maximum);
-	pluginsList->addColumn( tr("Type"));
-	pluginsList->setColumnWidthMode(2, QListView::Maximum);
-	pluginsList->addColumn( tr("Load it?"));
-	pluginsList->setColumnWidthMode(3, QListView::Maximum);
-	pluginsList->addColumn( tr("Plugin ID"));
-	pluginsList->setColumnWidthMode(4, QListView::Maximum);
-	pluginsList->addColumn( tr("File"));
-	pluginsList->setColumnWidthMode(5, QListView::Maximum);
-	for (QMap<int,PluginManager::PluginData>::Iterator it = ap->pluginManager->pluginMap.begin(); it != ap->pluginManager->pluginMap.end(); ++it)
-	{
-		QListViewItem *plugItem = new QListViewItem(pluginsList);
-		plugItem->setText(0, (*it).name.replace('&', "").replace("...", "")); // name
-		plugItem->setText(1, QString("%1 %2").arg((*it).actMenu).arg((*it).actMenuAfterName)); // menu path
-		plugItem->setText(2, ap->pluginManager->getPluginType((*it).type)); // type
-		// load at start?
-		plugItem->setPixmap(3, (*it).loadPlugin ? loadIcon("ok.png") : loadIcon("DateiClos16.png"));
-		plugItem->setText(3, (*it).loadPlugin ? tr("Yes") : tr("No"));
-		plugItem->setText(4, QString("%1").arg(it.key())); // id for developers
-		plugItem->setText(5, (*it).pluginFile); // file for developers
-	}
-	plugLayout1->addWidget(pluginsList);
-	pluginWarning = new QLabel(plugGroupBox);
-	pluginWarning->setText("<qt>" + tr("You need to restart the application to apply the changes.") + "</qt>");
-	plugLayout1->addWidget(pluginWarning);
-	plugGroupBoxLayout->addLayout(plugLayout1, 0, 0);
-	pluginMainLayout->addWidget(plugGroupBox);
-	addItem( tr("Plugins"), loadIcon("plugins.png"), pluginManagerWidget);
+	addItem( tr("Plugins"), loadIcon("plugins.png"), new PluginManagerPrefsGui(prefsWidgets) );
 
 	setDS(prefsData->FacingPages);
 	//tab order
@@ -824,8 +781,6 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	connect(imageEditorChangeButton, SIGNAL(clicked()), this, SLOT(changeImageEditor()));
 	connect(CaliSlider, SIGNAL(valueChanged(int)), this, SLOT(setDisScale()));
 	connect(buttonOk, SIGNAL(clicked()), this, SLOT(setActionHistoryLength()));
-	connect(pluginsList, SIGNAL(clicked(QListViewItem *, const QPoint &, int)),
-			this, SLOT(changePluginLoad(QListViewItem *, const QPoint &, int)));
 	if (CMSavail)
 		connect(tabColorManagement, SIGNAL(cmsOn(bool )), this, SLOT(switchCMS(bool )));
 
@@ -1299,27 +1254,6 @@ void Preferences::setActionHistoryLength()
 void Preferences::switchCMS(bool enable)
 {
 	tabPDF->enableCMS(enable);
-}
-
-/*! Set selected item(=plugin) un/loadable
-\author Petr Vanek
-*/
-void Preferences::changePluginLoad(QListViewItem *item, const QPoint &, int column)
-{
-	if (column != 3)
-		return;
-	if (item->text(3) == tr("Yes"))
-	{
-		item->setPixmap(3, loadIcon("DateiClos16.png"));
-		item->setText(3, tr("No"));
-		ap->pluginManager->pluginMap[item->text(4).toInt()].loadPlugin = false;
-	}
-	else
-	{
-		item->setPixmap(3, loadIcon("ok.png"));
-		item->setText(3, tr("Yes"));
-		ap->pluginManager->pluginMap[item->text(4).toInt()].loadPlugin = true;
-	}
 }
 
 void Preferences::setTOCIndexData(QWidget *widgetToShow)

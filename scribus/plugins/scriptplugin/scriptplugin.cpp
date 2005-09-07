@@ -58,6 +58,7 @@
 #include <qregexp.h>
 #include <qtextstream.h>
 #include <cstdlib>
+#include "pluginmanager.h"
 
 #include <iostream>
 
@@ -80,53 +81,55 @@ QString RetString;
 QString InValue;
 int RetVal;
 
-QString name()
+int scriptplugin_getPluginAPIVersion()
 {
-	return QObject::tr("S&cripter Manual...");
+	return PLUGIN_API_VERSION;
 }
 
-PluginManager::PluginType type()
+ScPlugin* scriptplugin_getPlugin()
 {
-	return PluginManager::Persistent;
+	ScriptPlugin* plug = new ScriptPlugin();
+	Q_CHECK_PTR(plug);
+	return plug;
 }
 
-int ID()
+void scriptplugin_freePlugin(ScPlugin* plugin)
 {
-	return 8;
+	ScriptPlugin* plug = dynamic_cast<ScriptPlugin*>(plugin);
+	Q_ASSERT(plug);
+	delete plug;
 }
 
-QString actionName()
+ScriptPlugin::ScriptPlugin() : ScPersistentPlugin()
 {
-	return "Scripter";
+	// Set action info in languageChange, so we only have to do
+	// it in one place.
+	languageChange();
 }
 
-QString actionKeySequence()
-{
-	return "";
-}
+ScriptPlugin::~ScriptPlugin() {};
 
-QString actionMenu()
-{
-	return "Help";
-}
-
-QString actionMenuAfterName()
-{
-	return "Manual";
-}
-
-bool actionEnabledOnStartup()
-{
-	return true;
-}
-
-void languageChange()
+void ScriptPlugin::languageChange()
 {
 	if (scripterCore)
 		scripterCore->languageChange();
 }
 
-void initPlug(QWidget *d, ScribusApp *plug)
+const QString ScriptPlugin::fullTrName() const
+{
+	return QObject::tr("Scripter");
+}
+
+const ScActionPlugin::AboutData* ScriptPlugin::getAboutData() const
+{
+	return 0;
+}
+
+void ScriptPlugin::deleteAboutData(const AboutData* about) const
+{
+}
+
+bool ScriptPlugin::initPlugin()
 {
 	QString cm;
 	Py_Initialize();
@@ -135,31 +138,35 @@ void initPlug(QWidget *d, ScribusApp *plug)
 		qDebug("Failed to set default encoding to utf-8.\n");
 		PyErr_Clear();
 	}
-	Carrier = plug;
 	RetVal = 0;
 
-	scripterCore = new ScripterCore(d);
-	initscribus(Carrier);
+	scripterCore = new ScripterCore(ScApp);
+	Q_CHECK_PTR(scripterCore);
+	initscribus(ScApp);
 	scripterCore->setupMainInterpreter();
 	scripterCore->initExtensionScripts();
 	scripterCore->runStartupScript();
+	return true;
 }
 
-void cleanUpPlug()
+bool ScriptPlugin::cleanupPlugin()
 {
 	if (scripterCore)
 		delete scripterCore;
 	Py_Finalize();
+	return true;
 }
 
-void run(QWidget* /*d*/, ScribusApp* /*plug*/)
+/*  TEMPORARILY DISABLED
+void run()
 {
 	QString pfad = ScPaths::instance().docDir();
 	QString pfad2;
 	pfad2 = QDir::convertSeparators(pfad + "en/Scripter/index.html");
-	HelpBrowser *dia = new HelpBrowser(0, QObject::tr("Online Reference"), Carrier->getGuiLanguage(), "scripter");
+	HelpBrowser *dia = new HelpBrowser(0, QObject::tr("Online Reference"), ScApp->getGuiLanguage(), "scripter");
 	dia->show();
 }
+*/
 
 
 /****************************************************************************************/
@@ -579,7 +586,7 @@ void initscribus(ScribusApp *pl)
 	else
 		qDebug("Couldn't parse version string '%s' in scripter", VERSION);
 
-	Carrier = pl;
+	ScApp = pl;
 	// Function aliases for compatibility
 	// We need to import the __builtins__, warnings and exceptions modules to be able to run
 	// the generated Python functions from inside the `scribus' module's context.
@@ -673,10 +680,10 @@ is not exhaustive due to exceptions from called functions.\n\
 	Py_DECREF(wrappedQApp);
 	wrappedQApp = NULL;
 
-	wrappedMainWindow = wrapQObject(Carrier);
+	wrappedMainWindow = wrapQObject(ScApp);
 	if (!wrappedMainWindow)
 	{
-		qDebug("Failed to wrap up Carrier");
+		qDebug("Failed to wrap up ScApp");
 		PyErr_Print();
 	}
 	// Push it into the module dict, stealing a ref in the process

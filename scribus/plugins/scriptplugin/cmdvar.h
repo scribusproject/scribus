@@ -11,9 +11,6 @@
 
 class ScripterCore;
 
-/* Static global Variables */
-extern ScribusApp* Carrier;
-
 // Globals for testing Qt properties and probably other more intresting future
 // uses.
 /** @brief A PyCObject containing a pointer to qApp */

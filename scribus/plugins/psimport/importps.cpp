@@ -2,6 +2,7 @@
 #include "importps.moc"
 
 #include "scconfig.h"
+#include "scribus.h"
 
 #include "customfdialog.h"
 #include "mpalette.h"
@@ -22,6 +23,48 @@
 #include "util.h"
 #include "prefsmanager.h"
 
+int importps_getPluginAPIVersion()
+{
+	return PLUGIN_API_VERSION;
+}
+
+ScPlugin* importps_getPlugin()
+{
+	ImportPSPlugin* plug = new ImportPSPlugin();
+	Q_CHECK_PTR(plug);
+	return plug;
+}
+
+void importps_freePlugin(ScPlugin* plugin)
+{
+	ImportPSPlugin* plug = dynamic_cast<ImportPSPlugin*>(plugin);
+	Q_ASSERT(plug);
+	delete plug;
+}
+
+ImportPSPlugin::ImportPSPlugin() :
+	ScActionPlugin(ScPlugin::PluginType_Import)
+{
+	// Set action info in languageChange, so we only have to do
+	// it in one place.
+	languageChange();
+}
+
+void ImportPSPlugin::languageChange()
+{
+	// Note that we leave the unused members unset. They'll be initialised
+	// with their default ctors during construction.
+	// Action name
+	m_actionInfo.name = "ImportPS";
+	// Action text for menu, including accel
+	m_actionInfo.text = tr("Import &EPS/PS...");
+	// Menu
+	m_actionInfo.menu = "FileImport";
+	m_actionInfo.enabledOnStartup = true;
+}
+
+ImportPSPlugin::~ImportPSPlugin() {};
+
 /*!
  \fn QString Name()
  \author Franz Schmid
@@ -30,53 +73,19 @@
  \param None
  \retval QString containing name of plugin: Import EPS/PDF/PS...
  */
-QString name()
+const QString ImportPSPlugin::fullTrName() const
 {
-	return QObject::tr("Import &EPS/PS...");
-}
-
-/*!
- \fn int Type()
- \author Franz Schmid
- \date
- \brief Returns type of plugin
- \param None
- \retval int containing type of plugin (1: Extra, 2: Import, 3: Export, 4: Resident Plugin)
- */
-PluginManager::PluginType type()
-{
-	return PluginManager::Import;
-}
-
-int ID()
-{
-	return 6;
+	return QObject::tr("PS/EPS Importer");
 }
 
 
-QString actionName()
+const ScActionPlugin::AboutData* ImportPSPlugin::getAboutData() const
 {
-	return "ImportPS";
+	return 0;
 }
 
-QString actionKeySequence()
+void ImportPSPlugin::deleteAboutData(const AboutData* about) const
 {
-	return "";
-}
-
-QString actionMenu()
-{
-	return "FileImport";
-}
-
-QString actionMenuAfterName()
-{
-	return "";
-}
-
-bool actionEnabledOnStartup()
-{
-	return true;
 }
 
 /*!
@@ -84,45 +93,43 @@ bool actionEnabledOnStartup()
  \author Franz Schmid
  \date
  \brief Run the EPS import
- \param d QWidget *
- \param plug ScribusApp *
+ \param fileNAme input filename, or QString::null to prompt.
  \retval None
  */
-void run(QWidget *d, ScribusApp *plug)
+bool ImportPSPlugin::run(QString fileName)
 {
-	QString fileName;
-	if (!plug->pluginManager->dllInput.isEmpty())
-	{
-		fileName = plug->pluginManager->dllInput;
+	bool interactive = fileName.isEmpty();
+	if (!interactive)
 		UndoManager::instance()->setUndoEnabled(false);
-	}
 	else
 	{
 		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("importps");
 		QString wdir = prefs->get("wdir", ".");
 		QString formats = QObject::tr("All Supported Formats (*.eps *.EPS *.ps *.PS);;");
 		formats += "EPS (*.eps *.EPS);;PS (*.ps *.PS);;" + QObject::tr("All Files (*)");
-		CustomFDialog diaf(d, wdir, QObject::tr("Open"), formats);
+		CustomFDialog diaf(ScApp, wdir, QObject::tr("Open"), formats);
 		if (diaf.exec())
 		{
 			fileName = diaf.selectedFile();
 			prefs->set("wdir", fileName.left(fileName.findRev("/")));
 		}
 		else
-			return;
+			return true;
 	}
-	if (UndoManager::undoEnabled() && plug->HaveDoc)
+	if (UndoManager::undoEnabled() && ScApp->HaveDoc)
 	{
-		UndoManager::instance()->beginTransaction(plug->doc->currentPage->getUName(),Um::IImageFrame,Um::ImportEPS, fileName, Um::IEPS);
+		UndoManager::instance()->beginTransaction(ScApp->doc->currentPage->getUName(),Um::IImageFrame,Um::ImportEPS, fileName, Um::IEPS);
 	}
-	else if (UndoManager::undoEnabled() && !plug->HaveDoc)
+	else if (UndoManager::undoEnabled() && !ScApp->HaveDoc)
 		UndoManager::instance()->setUndoEnabled(false);
-	EPSPlug *dia = new EPSPlug(plug, fileName);
+	EPSPlug *dia = new EPSPlug(fileName, interactive);
+	Q_CHECK_PTR(dia);
 	if (UndoManager::undoEnabled())
 		UndoManager::instance()->commit();
 	else
 		UndoManager::instance()->setUndoEnabled(true);
 	delete dia;
+	return true;
 }
 
 /*!
@@ -135,8 +142,9 @@ void run(QWidget *d, ScribusApp *plug)
  \param fName QString
  \retval EPSPlug plugin
  */
-EPSPlug::EPSPlug( ScribusApp *plug, QString fName )
+EPSPlug::EPSPlug(QString fName, bool isInteractive)
 {
+	interactive = isInteractive;
 	double x, y, b, h, c, m, k;
 	bool ret = false;
 	bool found = false;
@@ -229,29 +237,29 @@ EPSPlug::EPSPlug( ScribusApp *plug, QString fName )
 			}
 		}
 	}
-	Prog = plug;
-	if (!plug->pluginManager->dllInput.isEmpty())
+	Prog = ScApp;
+	if (!interactive)
 	{
-		Prog->doc->setPage(b-x, h-y, 0, 0, 0, 0, 0, 0, false, false);
-		Prog->view->addPage(0);
+		ScApp->doc->setPage(b-x, h-y, 0, 0, 0, 0, 0, 0, false, false);
+		ScApp->view->addPage(0);
 	}
 	else
 	{
-		if (!Prog->HaveDoc)
+		if (!ScApp->HaveDoc)
 		{
-			Prog->doFileNew(b-x, h-y, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom");
+			ScApp->doFileNew(b-x, h-y, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom");
 			ret = true;
 		}
 	}
-	if ((ret) || (!Prog->pluginManager->dllInput.isEmpty()))
+	if ((ret) || (!interactive))
 	{
 		if (b-x > h-y)
-			Prog->doc->PageOri = 1;
+			ScApp->doc->PageOri = 1;
 		else
-			Prog->doc->PageOri = 0;
-		Prog->doc->PageSize = "Custom";
+			ScApp->doc->PageOri = 0;
+		ScApp->doc->PageSize = "Custom";
 	}
-	Doku = plug->doc;
+	Doku = ScApp->doc;
 	ColorList::Iterator it;
 	for (it = CustColors.begin(); it != CustColors.end(); ++it)
 	{
@@ -263,16 +271,16 @@ EPSPlug::EPSPlug( ScribusApp *plug, QString fName )
 	FPoint maxSize = Doku->maxCanvasCoordinate;
 	Doku->setLoading(true);
 	Doku->DoDrawing = false;
-	Prog->view->setUpdatesEnabled(false);
-	Prog->ScriptRunning = true;
+	ScApp->view->setUpdatesEnabled(false);
+	ScApp->ScriptRunning = true;
 	qApp->setOverrideCursor(QCursor(waitCursor), true);
 	QString CurDirP = QDir::currentDirPath();
 	QDir::setCurrent(fi.dirPath());
 	if (convert(fName, x, y, b, h))
 	{
-		Prog->view->SelItem.clear();
+		ScApp->view->SelItem.clear();
 		QDir::setCurrent(CurDirP);
-		if ((Elements.count() > 1) && (plug->pluginManager->dllInput.isEmpty()))
+		if ((Elements.count() > 1) && (interactive))
 		{
 			for (uint a = 0; a < Elements.count(); ++a)
 			{
@@ -281,11 +289,11 @@ EPSPlug::EPSPlug( ScribusApp *plug, QString fName )
 			Doku->GroupCounter++;
 		}
 		Doku->DoDrawing = true;
-		Prog->view->setUpdatesEnabled(true);
-		Prog->ScriptRunning = false;
+		ScApp->view->setUpdatesEnabled(true);
+		ScApp->ScriptRunning = false;
 		Doku->setLoading(false);
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
-		if ((Elements.count() > 0) && (!ret) && (plug->pluginManager->dllInput.isEmpty()))
+		if ((Elements.count() > 0) && (!ret) && (interactive))
 		{
 			Doku->DragP = true;
 			Doku->DraggedElem = 0;
@@ -293,17 +301,17 @@ EPSPlug::EPSPlug( ScribusApp *plug, QString fName )
 			for (uint dre=0; dre<Elements.count(); ++dre)
 			{
 				Doku->DragElements.append(Elements.at(dre)->ItemNr);
-				Prog->view->SelItem.append(Elements.at(dre));
+				ScApp->view->SelItem.append(Elements.at(dre));
 			}
 			ScriXmlDoc *ss = new ScriXmlDoc();
-			Prog->view->setGroupRect();
-			QDragObject *dr = new QTextDrag(ss->WriteElem(&Prog->view->SelItem, Doku, Prog->view), Prog->view->viewport());
-			Prog->view->DeleteItem();
-			Prog->view->resizeContents(qRound((maxSize.x() - minSize.x()) * Prog->view->getScale()), qRound((maxSize.y() - minSize.y()) * Prog->view->getScale()));
-			Prog->view->scrollBy(qRound((Doku->minCanvasCoordinate.x() - minSize.x()) * Prog->view->getScale()), qRound((Doku->minCanvasCoordinate.y() - minSize.y()) * Prog->view->getScale()));
+			ScApp->view->setGroupRect();
+			QDragObject *dr = new QTextDrag(ss->WriteElem(&ScApp->view->SelItem, Doku, ScApp->view), ScApp->view->viewport());
+			ScApp->view->DeleteItem();
+			ScApp->view->resizeContents(qRound((maxSize.x() - minSize.x()) * ScApp->view->getScale()), qRound((maxSize.y() - minSize.y()) * ScApp->view->getScale()));
+			ScApp->view->scrollBy(qRound((Doku->minCanvasCoordinate.x() - minSize.x()) * ScApp->view->getScale()), qRound((Doku->minCanvasCoordinate.y() - minSize.y()) * ScApp->view->getScale()));
 			Doku->minCanvasCoordinate = minSize;
 			Doku->maxCanvasCoordinate = maxSize;
-			Prog->view->updateContents();
+			ScApp->view->updateContents();
 			dr->setPixmap(loadIcon("DragPix.xpm"));
 			dr->drag();
 			delete ss;
@@ -314,20 +322,19 @@ EPSPlug::EPSPlug( ScribusApp *plug, QString fName )
 		else
 		{
 			Doku->setModified(false);
-			Prog->slotDocCh();
+			ScApp->slotDocCh();
 		}
 	}
 	else
 	{
 		QDir::setCurrent(CurDirP);
 		Doku->DoDrawing = true;
-		Prog->view->setUpdatesEnabled(true);
-		Prog->ScriptRunning = false;
+		ScApp->view->setUpdatesEnabled(true);
+		ScApp->ScriptRunning = false;
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	}
-	if (plug->pluginManager->dllInput.isEmpty())
+	if (interactive)
 		Doku->setLoading(false);
-	plug->pluginManager->dllInput = "";
 }
 
 /*!
@@ -345,7 +352,7 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	QString cmd1, cmd2, cmd3, tmp, tmp2, tmp3, tmp4;
 	// import.prolog do not cope with filenames containing blank spaces
 	// so take care that output filename does not (win32 compatibility)
-	QString tmpFile = getShortPathName(Prog->PrefsPfad)+ "/ps.out";
+	QString tmpFile = getShortPathName(ScApp->PrefsPfad)+ "/ps.out";
 	QString pfad = ScPaths::instance().libDir();
 	QString pfad2 = QDir::convertSeparators(pfad + "import.prolog");
 	QFileInfo fi = QFileInfo(fn);
@@ -426,9 +433,9 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 			QTextStream Code(&tmp, IO_ReadOnly);
 			Code >> token;
 			params = Code.read();
-			if ((lasttoken == "sp") && (!Prog->pluginManager->dllInput.isEmpty()) && (!eps))
+			if ((lasttoken == "sp") && (!interactive) && (!eps))
 			{
-				Prog->view->addPage(pagecount);
+				ScApp->view->addPage(pagecount);
 				pagecount++;
 			}
 			if (token == "n")
@@ -463,9 +470,9 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 					else
 					{
 						if (ClosedPath)
-							z = Prog->view->PaintPoly(0, 0, 10, 10, LineW, CurrColor, "None");
+							z = ScApp->view->PaintPoly(0, 0, 10, 10, LineW, CurrColor, "None");
 						else
-							z = Prog->view->PaintPolyLine(0, 0, 10, 10, LineW, CurrColor, "None");
+							z = ScApp->view->PaintPolyLine(0, 0, 10, 10, LineW, CurrColor, "None");
 						ite = Doku->Items.at(z);
 						ite->PoLine = Coords.copy();
 						ite->PoLine.translate(Doku->currentPage->xOffset(), Doku->currentPage->yOffset());
@@ -476,7 +483,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						ite->Height = wh.y();
 						ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 						ite->setFillTransparency(1.0 - Opacity);
-						Prog->view->AdjustItemSize(ite);
+						ScApp->view->AdjustItemSize(ite);
 						Elements.append(ite);
 					}
 					lastPath = currPath;
@@ -502,9 +509,9 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 					else
 					{
 						if (ClosedPath)
-							z = Prog->view->PaintPoly(0, 0, 10, 10, LineW, "None", CurrColor);
+							z = ScApp->view->PaintPoly(0, 0, 10, 10, LineW, "None", CurrColor);
 						else
-							z = Prog->view->PaintPolyLine(0, 0, 10, 10, LineW, "None", CurrColor);
+							z = ScApp->view->PaintPolyLine(0, 0, 10, 10, LineW, "None", CurrColor);
 						ite = Doku->Items.at(z);
 						ite->PoLine = Coords.copy();
 						ite->PoLine.translate(Doku->currentPage->xOffset(), Doku->currentPage->yOffset());
@@ -519,7 +526,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						ite->Height = wh.y();
 						ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 						ite->setLineTransparency(1.0 - Opacity);
-						Prog->view->AdjustItemSize(ite);
+						ScApp->view->AdjustItemSize(ite);
 						Elements.append(ite);
 					}
 					lastPath = currPath;
@@ -742,7 +749,7 @@ QString EPSPlug::parseColor(QString vals, colorModel model)
 	if (!found)
 	{
 		Doku->PageColors.insert("FromEPS"+tmp.name(), tmp);
-		Prog->propertiesPalette->Cpal->SetColors(Doku->PageColors);
+		ScApp->propertiesPalette->Cpal->SetColors(Doku->PageColors);
 		ret = "FromEPS"+tmp.name();
 	}
 	return ret;

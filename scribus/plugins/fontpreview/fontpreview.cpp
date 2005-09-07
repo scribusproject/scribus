@@ -4,63 +4,79 @@
 #include <qcursor.h>
 #include <qlistview.h>
 
-QString name()
+int fontpreview_getPluginAPIVersion()
 {
-	return QObject::tr("&Fonts Preview...");
+	return PLUGIN_API_VERSION;
 }
 
-PluginManager::PluginType type()
+ScPlugin* fontpreview_getPlugin()
 {
-	return PluginManager::Standard;
+	FontPreviewPlugin* plug = new FontPreviewPlugin();
+	Q_CHECK_PTR(plug);
+	return plug;
 }
 
-int ID()
+void fontpreview_freePlugin(ScPlugin* plugin)
 {
-	return 2;
+	FontPreviewPlugin* plug = dynamic_cast<FontPreviewPlugin*>(plugin);
+	Q_ASSERT(plug);
+	delete plug;
 }
 
-
-QString actionName()
+FontPreviewPlugin::FontPreviewPlugin() :
+	ScActionPlugin(ScPlugin::PluginType_Action)
 {
-	return "FontsPreview";
+	// Set action info in languageChange, so we only have to do
+	// it in one place.
+	languageChange();
 }
 
-QString actionKeySequence()
+FontPreviewPlugin::~FontPreviewPlugin() {};
+
+void FontPreviewPlugin::languageChange()
 {
-	return "";
+	// Note that we leave the unused members unset. They'll be initialised
+	// with their default ctors during construction.
+	// Action name
+	m_actionInfo.name = "FontPreview";
+	// Action text for menu, including accel
+	m_actionInfo.text = tr("&Font Preview...");
+	// Menu
+	m_actionInfo.menu = "Extras";
+	m_actionInfo.enabledOnStartup = true;
 }
 
-QString actionMenu()
+const QString FontPreviewPlugin::fullTrName() const
 {
-	return "Extras";
+	return QObject::tr("Font Preview");
 }
 
-QString actionMenuAfterName()
+const ScActionPlugin::AboutData* FontPreviewPlugin::getAboutData() const
 {
-	return "";
+	return 0;
 }
 
-bool actionEnabledOnStartup()
+void FontPreviewPlugin::deleteAboutData(const AboutData* about) const
 {
-	return true;
 }
 
 /**
 Create dialog and insert font into Style menu when user accepts.
 */
-void run(QWidget *d, ScribusApp *plug)
+bool FontPreviewPlugin::run(QString target)
 {
 	// I don't know how many fonts user has...
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
-	FontPreview *dlg = new FontPreview(plug, d, "dlg", true, 0);
+	FontPreview *dlg = new FontPreview(target);
 	qApp->restoreOverrideCursor();
 	// run it and wait for user's reaction
 	if (dlg->exec() == QDialog::Accepted)
 	{
-		if  (plug->pluginManager->dllInput.isEmpty())
-			plug->SetNewFont(dlg->fontList->currentItem()->text(0));
+		if  (target.isEmpty())
+			ScApp->SetNewFont(dlg->fontList->currentItem()->text(0));
 		else
-			plug->pluginManager->dllReturn = dlg->fontList->currentItem()->text(0);
+			m_runResult = dlg->fontList->currentItem()->text(0);
 	}
 	delete dlg;
+	return true;
 }

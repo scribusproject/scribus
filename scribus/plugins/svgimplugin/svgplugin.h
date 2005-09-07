@@ -4,30 +4,34 @@
 #include <qdom.h>
 #include <qptrstack.h>
 #include "pluginapi.h"
-#include "scribus.h"
+#include "scplugin.h"
 #include "vgradient.h"
-#include "pluginmanager.h"
 
 class PrefsManager;
 
-/** Calls the Plugin with the main Application window as parent
-  * and the main Application Class as parameter */
-extern "C" PLUGIN_API void run(QWidget *d, ScribusApp *plug);
-/** Returns the Name of the Plugin.
-  * This name appears in the relevant Menue-Entrys */
-extern "C" PLUGIN_API QString name();
-/** Returns the Type of the Plugin.
-  * 1 = the Plugin is a normal Plugin, which appears in the Extras Menue
-  * 2 = the Plugins is a import Plugin, which appears in the Import Menue
-  * 3 = the Plugins is a export Plugin, which appears in the Export Menue */
-extern "C" PLUGIN_API PluginManager::PluginType type();
-extern "C" PLUGIN_API int ID();
+class PLUGIN_API SVGImportPlugin : public ScActionPlugin
+{
+	Q_OBJECT
 
-extern "C" PLUGIN_API QString actionName();
-extern "C" PLUGIN_API QString actionKeySequence();
-extern "C" PLUGIN_API QString actionMenu();
-extern "C" PLUGIN_API QString actionMenuAfterName();
-extern "C" PLUGIN_API bool actionEnabledOnStartup();
+	public:
+		// Standard plugin implementation
+		SVGImportPlugin();
+		virtual ~SVGImportPlugin();
+		virtual bool run(QString target = QString::null);
+		virtual const QString fullTrName() const;
+		virtual const AboutData* getAboutData() const;
+		virtual void deleteAboutData(const AboutData* about) const;
+		virtual void languageChange();
+
+		// Special features (none)
+};
+
+extern "C" PLUGIN_API int svgimplugin_getPluginAPIVersion();
+extern "C" PLUGIN_API ScPlugin* svgimplugin_getPlugin();
+extern "C" PLUGIN_API void svgimplugin_freePlugin(ScPlugin* plugin);
+
+class PageItem;
+class ScribusDoc;
 
 class GradientHelper
 {
@@ -134,7 +138,7 @@ class SVGPlug : public QObject
 	Q_OBJECT
 
 public:
-	SVGPlug( ScribusApp *plug, QString fName );
+	SVGPlug(QString fname, bool isInteractive);
 	~SVGPlug();
 	void convert();
 	void addGraphicContext();
@@ -161,7 +165,6 @@ public:
 	QPtrList<PageItem> parseText(double x, double y, const QDomElement &e);
 
 	ScribusDoc* Doku;
-	ScribusApp* Prog;
 	QDomDocument inpdoc;
 	double CurrX, CurrY, StartX, StartY, Conversion;
 	int PathLen;
@@ -174,6 +177,7 @@ public:
 	double viewScaleX;
 	double viewScaleY;
 	bool haveViewBox;
+	bool interactive;
 };
 
 #endif

@@ -7,26 +7,26 @@ ScribusDoc* doc;
 /// Convert a value in points to a value in the current document units
 double PointToValue(double Val)
 {
-	return pts2value(Val, Carrier->doc->unitIndex());
+	return pts2value(Val, ScApp->doc->unitIndex());
 }
 
 /// Convert a value in the current document units to a value in points
 double ValueToPoint(double Val)
 {
-	return value2pts(Val, Carrier->doc->unitIndex());
+	return value2pts(Val, ScApp->doc->unitIndex());
 }
 
 /// Convert an X co-ordinate part in page units to a document co-ordinate
 /// in system units.
 double pageUnitXToDocX(double pageUnitX)
 {
-	return ValueToPoint(pageUnitX) + Carrier->doc->currentPage->xOffset();
+	return ValueToPoint(pageUnitX) + ScApp->doc->currentPage->xOffset();
 }
 
 // Convert doc units to page units
 double docUnitXToPageX(double pageUnitX)
 {
-	return PointToValue(pageUnitX - Carrier->doc->currentPage->xOffset());
+	return PointToValue(pageUnitX - ScApp->doc->currentPage->xOffset());
 }
 
 /// Convert a Y co-ordinate part in page units to a document co-ordinate
@@ -35,28 +35,28 @@ double docUnitXToPageX(double pageUnitX)
 /// origin on the top left of the current page.
 double pageUnitYToDocY(double pageUnitY)
 {
-	return ValueToPoint(pageUnitY) + Carrier->doc->currentPage->yOffset();
+	return ValueToPoint(pageUnitY) + ScApp->doc->currentPage->yOffset();
 }
 
 double docUnitYToPageY(double pageUnitY)
 {
-	return PointToValue(pageUnitY - Carrier->doc->currentPage->yOffset());
+	return PointToValue(pageUnitY - ScApp->doc->currentPage->yOffset());
 }
 
 int GetItem(QString Name)
 {
 	if (!Name.isEmpty())
 	{
-		for (uint a = 0; a < Carrier->doc->Items.count(); a++)
+		for (uint a = 0; a < ScApp->doc->Items.count(); a++)
 		{
-			if (Carrier->doc->Items.at(a)->itemName() == Name)
+			if (ScApp->doc->Items.at(a)->itemName() == Name)
 				return static_cast<int>(a);
 		}
 	}
 	else
 	{
-		if (Carrier->view->SelItem.count() != 0)
-			return Carrier->view->SelItem.at(0)->ItemNr;
+		if (ScApp->view->SelItem.count() != 0)
+			return ScApp->view->SelItem.at(0)->ItemNr;
 	}
 	return -1;
 }
@@ -64,9 +64,9 @@ int GetItem(QString Name)
 void ReplaceColor(QString col, QString rep)
 {
 	QColor tmpc;
-	for (uint c = 0; c < Carrier->doc->Items.count(); c++)
+	for (uint c = 0; c < ScApp->doc->Items.count(); c++)
 	{
-		PageItem *ite = Carrier->doc->Items.at(c);
+		PageItem *ite = ScApp->doc->Items.at(c);
 		if (ite->itemType() == PageItem::TextFrame)
 		{
 			for (uint d = 0; d < ite->itemText.count(); d++)
@@ -92,9 +92,9 @@ void ReplaceColor(QString col, QString rep)
 			}
 		}
 	}
-	for (uint c = 0; c < Carrier->doc->MasterItems.count(); c++)
+	for (uint c = 0; c < ScApp->doc->MasterItems.count(); c++)
 	{
-		PageItem *ite = Carrier->doc->MasterItems.at(c);
+		PageItem *ite = ScApp->doc->MasterItems.at(c);
 		if (ite->itemType() == PageItem::TextFrame)
 		{
 			for (uint d = 0; d < ite->itemText.count(); d++)
@@ -126,8 +126,8 @@ void ReplaceColor(QString col, QString rep)
 PageItem* GetUniqueItem(QString name)
 {
 	if (name.length()==0)
-		if (Carrier->view->SelItem.count() != 0)
-			return Carrier->view->SelItem.at(0);
+		if (ScApp->view->SelItem.count() != 0)
+			return ScApp->view->SelItem.at(0);
 		else
 		{
 			PyErr_SetString(NoValidObjectError, QString("Cannot use empty string for object name when there is no selection"));
@@ -144,10 +144,10 @@ PageItem* getPageItemByName(QString name)
 		PyErr_SetString(PyExc_ValueError, QString("Cannot accept empty name for pageitem"));
 		return NULL;
 	}
-	for (uint j = 0; j<Carrier->doc->Items.count(); j++)
+	for (uint j = 0; j<ScApp->doc->Items.count(); j++)
 	{
-		if (name==Carrier->doc->Items.at(j)->itemName())
-			return Carrier->doc->Items.at(j);
+		if (name==ScApp->doc->Items.at(j)->itemName())
+			return ScApp->doc->Items.at(j);
 	} // for items
 	PyErr_SetString(NoValidObjectError, QString("Object not found"));
 	return NULL;
@@ -163,9 +163,9 @@ bool ItemExists(QString name)
 {
 	if (name.length() == 0)
 		return false;
-	for (uint j = 0; j<Carrier->doc->Items.count(); j++)
+	for (uint j = 0; j<ScApp->doc->Items.count(); j++)
 	{
-		if (name==Carrier->doc->Items.at(j)->itemName())
+		if (name==ScApp->doc->Items.at(j)->itemName())
 			return true;
 	} // for items
 	return false;
@@ -180,7 +180,7 @@ bool ItemExists(QString name)
  */
 bool checkHaveDocument()
 {
-    if (Carrier->HaveDoc)
+    if (ScApp->HaveDoc)
         return true;
     // Caller is required to check for false return from this function
     // and return NULL.
@@ -191,7 +191,7 @@ bool checkHaveDocument()
 QStringList getSelectedItemsByName()
 {
 	QStringList names;
-	QPtrListIterator<PageItem> it(Carrier->view->SelItem);
+	QPtrListIterator<PageItem> it(ScApp->view->SelItem);
 	for ( ; it.current() != 0 ; ++it)
 		names.append(it.current()->itemName());
 	return names;
@@ -199,19 +199,19 @@ QStringList getSelectedItemsByName()
 
 bool setSelectedItemsByName(QStringList& itemNames)
 {
-	Carrier->view->Deselect();
+	ScApp->view->Deselect();
 	// For each named item
 	for (QStringList::Iterator it = itemNames.begin() ; it != itemNames.end() ; it++)
 	{
 		// Search for the named item
 		PageItem* item = 0;
-		for (uint j = 0; j < Carrier->doc->Items.count(); j++)
-			if (*it == Carrier->doc->Items.at(j)->itemName())
-				item = Carrier->doc->Items.at(j);
+		for (uint j = 0; j < ScApp->doc->Items.count(); j++)
+			if (*it == ScApp->doc->Items.at(j)->itemName())
+				item = ScApp->doc->Items.at(j);
 		if (!item)
 			return false;
 		// and select it
-		Carrier->view->SelectItemNr(item->ItemNr);
+		ScApp->view->SelectItemNr(item->ItemNr);
 	}
 	return true;
 }

@@ -198,28 +198,28 @@ PyObject *scribus_getallobj(PyObject* /* self */, PyObject* args)
 	// have doc already
 	if (typ != -1)
 	{
-		for (uint lam2 = 0; lam2 < Carrier->doc->Items.count(); ++lam2)
+		for (uint lam2 = 0; lam2 < ScApp->doc->Items.count(); ++lam2)
 		{
-			if (Carrier->doc->Items.at(lam2)->itemType() == typ)
+			if (ScApp->doc->Items.at(lam2)->itemType() == typ)
 				counter++;
 		}
 	}
 	else
-		counter = Carrier->doc->Items.count();
+		counter = ScApp->doc->Items.count();
 
 	l = PyList_New(counter);
-	for (uint lam=0; lam < Carrier->doc->Items.count(); ++lam)
+	for (uint lam=0; lam < ScApp->doc->Items.count(); ++lam)
 	{
 		if (typ != -1)
 		{
-			if (Carrier->doc->Items.at(lam)->itemType() == typ)
+			if (ScApp->doc->Items.at(lam)->itemType() == typ)
 			{
-				PyList_SetItem(l, counter2, PyString_FromString(Carrier->doc->Items.at(lam)->itemName().utf8()));
+				PyList_SetItem(l, counter2, PyString_FromString(ScApp->doc->Items.at(lam)->itemName().utf8()));
 				counter2++;
 			}
 		}
 		else
-			PyList_SetItem(l, lam, PyString_FromString(Carrier->doc->Items.at(lam)->itemName().utf8()));
+			PyList_SetItem(l, lam, PyString_FromString(ScApp->doc->Items.at(lam)->itemName().utf8()));
 	}
 	return l;
 }

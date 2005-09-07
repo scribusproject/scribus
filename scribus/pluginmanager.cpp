@@ -1,5 +1,6 @@
 #include "pluginmanager.h"
 #include "pluginmanager.moc"
+#include "scplugin.h"
 
 #include <qdir.h>
 
@@ -27,12 +28,10 @@
 
 extern ScribusQApp *ScQApp;
 
-
-PluginManager::PluginManager()
+PluginManager::PluginManager() :
+	QObject(0),
+	prefs(PrefsManager::instance()->prefsFile->getPluginContext("pluginmanager"))
 {
-	dllInput = "";
-	dllReturn = "";
-	prefs = PrefsManager::instance()->prefsFile->getPluginContext("pluginmanager");
 }
 
 PluginManager::~PluginManager()
@@ -106,16 +105,37 @@ void  PluginManager::unloadDLL( void* plugin )
 void PluginManager::savePreferences()
 {
 	// write configuration
-	for (QMap<int, PluginData>::Iterator it = pluginMap.begin(); it != pluginMap.end(); ++it)
-		prefs->set(it.data().pluginFile, it.data().loadPlugin);
+	for (PluginMap::Iterator it = pluginMap.begin(); it != pluginMap.end(); ++it)
+		prefs->set(it.data().pluginName, it.data().enableOnStartup);
+}
+
+QCString PluginManager::getPluginName(QString fileName)
+{
+	// Must return plug-in name. Note that this may be platform dependent;
+	// it's likely to need some adjustment for platform naming schemes.
+	// It currently handles:
+	//    (lib)?pluginname(\.pluginext)?
+	QFileInfo fi(fileName);
+	QString baseName(fi.baseName());
+	if (baseName.startsWith("lib"))
+		baseName = baseName.remove(0,3);
+	if (baseName.endsWith(platformDllExtension()))
+		baseName = baseName.left(baseName.length() - 1 - platformDllExtension().length());
+	// check name
+	for (int i = 0; i < (int)baseName.length(); i++)
+		if (! baseName[i].isLetterOrNumber() && baseName[i] != '_' )
+		{
+			qDebug("Invalid character in plugin name for %s; skipping",
+					fileName.local8Bit().data());
+			return QCString();
+		}
+	return baseName.latin1();
 }
 
 void PluginManager::initPlugs()
 {
-	QString name = "";
-	int id = 0;
-	struct PluginData pda;
-	QString libPattern = QString("*.%1*").arg(PluginManager::platformDllExtension());
+	Q_ASSERT(!pluginMap.count());
+	QString libPattern = QString("*.%1*").arg(platformDllExtension());
 
 	QDir dirList(ScPaths::instance().pluginDir(),
 				 libPattern, QDir::Name,
@@ -126,318 +146,203 @@ void PluginManager::initPlugs()
 		ScApp->scrMenuMgr->addMenuSeparator("Extras");
 		for (uint dc = 0; dc < dirList.count(); ++dc)
 		{
-			pda.index = 0;
-			pda.pluginFile = "";
-			pda.menuID = 0;
-			pda.pluginFile = dirList[dc];
-			pda.loadPlugin = prefs->getBool(dirList[dc], true);
-
-			if (DLLname(dirList[dc], &pda.name, &pda.type, &pda.index, &id, &pda.actName, &pda.actKeySequence, &pda.actMenu, &pda.actMenuAfterName, &pda.actEnabledOnStartup, pda.loadPlugin))
+			PluginData pda;
+			pda.pluginFile = QString("%1/%2").arg(ScPaths::instance().pluginDir()).arg(dirList[dc]);
+			pda.pluginName = getPluginName(pda.pluginFile);
+			if (pda.pluginName.isNull())
+				// Couldn't determine plugname from filename. We've already complained, so
+				// move on to the next one.
+				continue;
+			pda.plugin = 0;
+			pda.pluginDLL = 0;
+			pda.enabled = false;
+			pda.enableOnStartup = prefs->getBool(pda.pluginName, true);
+			if (ScApp->splashScreen != NULL)
+				ScApp->splashScreen->setStatus(
+						tr("Plugin: loading %1", "plugin manager").arg(pda.pluginName));
+			if (loadPlugin(pda))
 			{
-				pda.actMenuText=pda.name;
-				if (ScApp->splashScreen != NULL)
-					ScApp->splashScreen->setStatus( tr("Loading: %1", "plugin manager").arg(pda.name));
-				if (pda.loadPlugin)
+				if (pda.enableOnStartup)
+					enablePlugin(pda);
+				pluginMap.insert(pda.pluginName, pda);
+			}
+		}
+	}
+}
+
+// After a plug-in has been initialized, this method calls its setup
+// routines and connects it to the application.
+void PluginManager::enablePlugin(PluginData & pda)
+{
+	Q_ASSERT(pda.enabled == false);
+	QString failReason;
+	if (pda.plugin->inherits("ScActionPlugin"))
+	{
+		ScActionPlugin* plugin = dynamic_cast<ScActionPlugin*>(pda.plugin);
+		Q_ASSERT(plugin);
+		pda.enabled = setupPluginActions(plugin);
+		if (!pda.enabled)
+			failReason = tr("init failed", "plugin load error");
+	}
+	else if (pda.plugin->inherits("ScPersistentPlugin"))
+	{
+		ScPersistentPlugin* plugin = dynamic_cast<ScPersistentPlugin*>(pda.plugin);
+		Q_ASSERT(plugin);
+		pda.enabled = plugin->initPlugin();
+		if (!pda.enabled)
+			failReason = tr("init failed", "plugin load error");
+	}
+	else
+		failReason = tr("unknown plugin type", "plugin load error");
+	if (ScApp->splashScreen != NULL)
+	{
+		if (pda.enabled)
+			ScApp->splashScreen->setStatus(
+					tr("Plugin: %1 loaded", "plugin manager")
+					.arg(pda.plugin->fullTrName()));
+		else
+			ScApp->splashScreen->setStatus(
+					tr("Plugin: %1 failed to load: %2", "plugin manager")
+					.arg(pda.plugin->fullTrName()).arg(failReason));
+	}
+}
+
+bool PluginManager::setupPluginActions(ScActionPlugin* plugin)
+{
+	bool result = true;
+	//Add in ScrAction based plugin linkage
+	//Insert DLL Action into Dictionary with values from plugin interface
+	ScActionPlugin::ActionInfo ai(plugin->actionInfo());
+	ScrAction* action = new ScrAction(
+			ScrAction::DLL, ai.iconSet, ai.text, QKeySequence(ai.keySequence),
+			ScApp, ai.name);
+	Q_CHECK_PTR(action);
+	ScApp->scrActions.insert(ai.name, action);
+
+	// then enable and connect up the action
+	ScApp->scrActions[ai.name]->setEnabled(ai.enabledOnStartup);
+	// Connect action's activated signal with the plugin's run method
+	result = connect( ScApp->scrActions[ai.name], SIGNAL(activated()),
+					  plugin, SLOT(run()) );
+	//Get the menu manager to add the DLL's menu item to the right menu, after the chosen existing item
+	if ( ai.menuAfterName.isEmpty() )
+		ScApp->scrMenuMgr->addMenuItem(ScApp->scrActions[ai.name], ai.menu);
+	else
+		ScApp->scrMenuMgr->addMenuItemAfter(ScApp->scrActions[ai.name], ai.menu, ai.menuAfterName);
+
+	return result;
+}
+
+bool PluginManager::DLLexists(QCString name, bool includeDisabled) const
+{
+	// the plugin name must be known
+	if (pluginMap.contains(name))
+		// the plugin must be loaded
+		if (pluginMap[name].plugin)
+			// and the plugin must be enabled
+			if (pluginMap[name].enabled || includeDisabled)
+				return true;
+	return false;
+}
+
+bool PluginManager::loadPlugin(PluginData & pda)
+{
+	typedef int (*getPluginAPIVersionPtr)();
+	typedef ScPlugin* (*getPluginPtr)();
+	getPluginAPIVersionPtr getPluginAPIVersion;
+	getPluginPtr getPlugin;
+
+	Q_ASSERT(pda.plugin == 0);
+	Q_ASSERT(pda.pluginDLL == 0);
+	Q_ASSERT(!pda.enabled);
+	pda.plugin = 0;
+
+	pda.pluginDLL = loadDLL(pda.pluginFile);
+	if (!pda.pluginDLL)
+		return false;
+
+	getPluginAPIVersion = (getPluginAPIVersionPtr)
+		resolveSym(pda.pluginDLL, pda.pluginName + "_getPluginAPIVersion");
+	if (getPluginAPIVersion)
+	{
+		int gotVersion = (*getPluginAPIVersion)();
+		if ( gotVersion != PLUGIN_API_VERSION )
+		{
+			qDebug("API version mismatch when loading %s: Got %i, expected %i",
+					pda.pluginFile.local8Bit().data(), gotVersion, PLUGIN_API_VERSION);
+		}
+		else
+		{
+			getPlugin = (getPluginPtr)
+				resolveSym(pda.pluginDLL, pda.pluginName + "_getPlugin");
+			if (getPlugin)
+			{
+				pda.plugin = (*getPlugin)();
+				if (!pda.plugin)
 				{
-					if (pda.type == Persistent || pda.type == Standard || pda.type == Import)
-					{
-						//Add in ScrAction based plugin linkage
-						//Insert DLL Action into Dictionary with values from plugin interface
-						ScApp->scrActions.insert(pda.actName, new ScrAction(ScrAction::DLL, QIconSet(), pda.name, QKeySequence(pda.actKeySequence), ScApp, pda.actName, id));
-
-						if (ScApp->scrActions[pda.actName])
-						{
-							ScApp->scrActions[pda.actName]->setEnabled(pda.actEnabledOnStartup);
-							//Connect DLL Action's activated signal with ID to Scribus DLL loader
-							connect( ScApp->scrActions[pda.actName], SIGNAL(activatedData(int)) , ScApp->pluginManager, SLOT(callDLLBySlot(int)) );
-							//Get the menu manager to add the DLL's menu item to the right menu, after the chosen existing item
-							if (pda.actMenuAfterName.isEmpty())
-								ScApp->scrMenuMgr->addMenuItem(ScApp->scrActions[pda.actName], pda.actMenu);
-							else
-								ScApp->scrMenuMgr->addMenuItemAfter(ScApp->scrActions[pda.actName], pda.actMenu, pda.actMenuAfterName);
-						}
-					}
-					else
-						qDebug( tr(QString("Old type plugins are not supported anymore")), "plugin manager");
-					pda.loaded = true;
-				} // load
+					qDebug("Unable to get ScPlugin when loading %s",
+							pda.pluginFile.local8Bit().data());
+				}
 				else
-					pda.loaded = false;
-				pluginMap.insert(id, pda);
+					return true;
 			}
 		}
 	}
+	unloadDLL(pda.pluginDLL);
+	pda.pluginDLL = 0;
+	Q_ASSERT(!pda.plugin);
+	return false;
 }
 
-void PluginManager::callDLLBySlot(int pluginID)
+void PluginManager::cleanupPlugins()
 {
-	//Run old type 2 Import pre call code
-	if (pluginMap[pluginID].type == 7)
+	for (PluginMap::Iterator it = pluginMap.begin(); it != pluginMap.end(); ++it)
+		if (it.data().enabled == true)
+			finalizePlug(it.data());
+}
+
+void PluginManager::finalizePlug(PluginData & pda)
+{
+	typedef void (*freePluginPtr)(ScPlugin* plugin);
+	if (pda.plugin)
 	{
-		if (ScApp->HaveDoc)
-			ScApp->doc->OpenNodes = ScApp->outlinePalette->buildReopenVals();
+		if (pda.enabled)
+			disablePlugin(pda);
+		Q_ASSERT(!pda.enabled);
+		freePluginPtr freePlugin =
+			(freePluginPtr) resolveSym(pda.pluginDLL, pda.pluginName + "_freePlugin");
+		if ( freePlugin )
+			(*freePlugin)( pda.plugin );
+		pda.plugin = 0;
 	}
-
-	callDLL(pluginID);
-
-	//Run old type 2 Import post call code
-	if (pluginMap[pluginID].type == 7)
+	Q_ASSERT(!pda.enabled);
+	if (pda.pluginDLL)
 	{
-		if (ScApp->HaveDoc)
-		{
-			ScApp->outlinePalette->BuildTree(ScApp->doc);
-			ScApp->outlinePalette->reopenTree(ScApp->doc->OpenNodes);
-			ScApp->propertiesPalette->updateCList();
-		}
+		unloadDLL(pda.pluginDLL);
+		pda.pluginDLL = 0;
 	}
 }
 
-void PluginManager::callDLL(int pluginID)
+void PluginManager::disablePlugin(PluginData & pda)
 {
-	void *mo;
-	struct PluginData pda;
-	pda = pluginMap[pluginID];
-	typedef void (*sdem)(QWidget *d, ScribusApp *plug);
-	sdem demo;
-	QString plugDir = ScPaths::instance().pluginDir();
-	if (pda.type != 4 && pda.type !=5)
+	Q_ASSERT(pda.enabled);
+	Q_ASSERT(pda.plugin);
+	if (pda.plugin->inherits("ScActionPlugin"))
 	{
-		plugDir += pda.pluginFile;
-		mo = loadDLL(plugDir);
-		if (!mo) return;
+		ScActionPlugin* plugin = dynamic_cast<ScActionPlugin*>(pda.plugin);
+		Q_ASSERT(plugin);
+		// FIXME: Correct way to delete action?
+		delete ScApp->scrActions[plugin->actionInfo().name];
+	}
+	else if (pda.plugin->inherits("ScPersistentPlugin"))
+	{
+		ScPersistentPlugin* plugin = dynamic_cast<ScPersistentPlugin*>(pda.plugin);
+		Q_ASSERT(plugin);
+		plugin->cleanupPlugin();
 	}
 	else
-		mo = pda.index;
-
-	demo = (sdem) resolveSym(mo, "run");
-	if ( !demo )
-	{
-		unloadDLL(mo);
-		return;
-	}
-	(*demo)(ScApp, ScApp);
-	// FIXME: how is the menu organized? (*demo)(ScApp->scrActions[pluginMap[pluginID].actName], ScApp);
-	if (pda.type != 4 && pda.type != 5)
-		unloadDLL(mo);
-	if (ScApp->HaveDoc)
-		ScApp->view->DrawNew();
-}
-
-QString PluginManager::callDLLForNewLanguage(int pluginID)
-{
-	void *mo;
-	bool unload = false;
-	struct PluginData pda;
-	pda = pluginMap[pluginID];
-	typedef QString (*sdem)();
-	typedef void (*sdem0)();
-	sdem demo;
-	sdem0 demo0;
-	QString plugDir = ScPaths::instance().pluginDir();
-	if (pda.type != 4 && pda.type !=5)
-	{
-		plugDir += pda.pluginFile;
-		mo = loadDLL(plugDir);
-		if (!mo)
-			return QString::null;
-		unload = true;
-	}
-	else
-		mo = pda.index;
-
-	// Grab the menu string from the plugin again
-	demo = (sdem) resolveSym(mo, "name");
-	if ( !demo )
-	{
-		if(unload) unloadDLL(mo);
-		return QString::null;
-	}
-	QString retVal= (*demo)();	
-	//If scripter, get it to update its scrActions.
-	if (pluginID==8)
-	{
-		demo0 = (sdem0) resolveSym(mo, "languageChange");
-		if ( !demo0 )
-		{
-			if(unload) unloadDLL(mo);
-			return QString::null;
-		}
-		(*demo0)();
-	}
-
-	if (pda.type != 4 && pda.type != 5)
-		unloadDLL(mo);
-	return retVal;
-}
-
-bool PluginManager::DLLexists(int pluginID)
-{
-	return pluginMap.contains(pluginID);
-}
-
-// used anywhere?
-void PluginManager::callDLLbyMenu(int pluginID)
-{
-	QMap<int, PluginData>::Iterator it;
-	struct PluginData pda;
-	for (it = pluginMap.begin(); it != pluginMap.end(); ++it)
-	{
-		if (it.data().menuID == pluginID)
-		{
-			callDLL(it.key());
-			break;
-		}
-	}
-}
-
-bool PluginManager::DLLname(QString name, QString *pluginName, PluginType *type, void **index, int *idNr, QString *actName, QString *actKeySequence, QString *actMenu, QString *actMenuAfterName, bool *actEnabledOnStartup, bool loadPlugin)
-{
-	void *mo;
-	typedef QString (*sdem0)();
-	typedef PluginType (*sdem1)();
-	typedef void (*sdem2)(QWidget *d, ScribusApp *plug);
-	typedef bool (*sdem3)();
-	typedef int (*sdemID)();
-	sdem0 demo;
-	sdem1 demo1;
-	sdem2 demo2;
-	sdem3 demo3;
-	sdemID plugID;
-	QString plugName = ScPaths::instance().pluginDir();
-	plugName += name;
-
-	mo = loadDLL(plugName);
-	if (!mo)
-	{
-		return false;
-	}
-
-	demo = (sdem0) resolveSym(mo, "name");
-	if ( !demo )
-	{
-		unloadDLL(mo);
-		return false;
-	}
-	*pluginName = (*demo)();
-	demo1 = (sdem1) resolveSym(mo, "type");
-	if ( !demo1 )
-	{
-		unloadDLL(mo);
-		return false;
-	}
-	*type = (*demo1)();
-	*index = mo;
-	plugID = (sdemID) resolveSym(mo, "ID");
-	if ( !plugID)
-	{
-		unloadDLL(mo);
-		return false;
-	}
-	*idNr = (*plugID)();
-	//ScrAction based plugins
-	if (*type == Persistent || *type == Standard || *type == Import)
-	{
-		demo = (sdem0) resolveSym(mo, "actionName");
-		if ( !demo )
-		{
-			unloadDLL(mo);
-			return false;
-		}
-		*actName = (*demo)();
-		demo = (sdem0) resolveSym(mo, "actionKeySequence");
-		if ( !demo )
-		{
-			unloadDLL(mo);
-			return false;
-		}
-		*actKeySequence = (*demo)();
-		demo = (sdem0) resolveSym(mo, "actionMenu");
-		if ( !demo )
-		{
-			unloadDLL(mo);
-			return false;
-		}
-		*actMenu = (*demo)();
-		demo = (sdem0) resolveSym(mo, "actionMenuAfterName");
-		if ( !demo )
-		{
-			unloadDLL(mo);
-			return false;
-		}
-		*actMenuAfterName = (*demo)();
-		demo3 = (sdem3) resolveSym(mo, "actionEnabledOnStartup");
-		if ( !demo3 )
-		{
-			unloadDLL(mo);
-			return false;
-		}
-		*actEnabledOnStartup = (*demo3)();
-	}
-	else
-	{
-		*actName = QString::null;
-		*actKeySequence = QString::null;
-		*actMenu = QString::null;
-		*actMenuAfterName = QString::null;
-		*actEnabledOnStartup = false;
-	}
-	if (*type != Persistent && *type!= Type5)
-		unloadDLL(mo);
-	else
-	{
-		if (loadPlugin)
-		{
-			demo2 = (sdem2) resolveSym(mo, "initPlug");
-			if ( !demo2)
-			{
-				unloadDLL(mo);
-				return false;
-			}
-			(*demo2)(ScApp, ScApp);
-		}
-	}
-
-	return true;
-}
-
-void PluginManager::finalizePlugs()
-{
-	for (QMap<int, PluginData>::Iterator it = pluginMap.begin(); it != pluginMap.end(); ++it)
-		if (it.data().loaded == true)
-			finalizePlug(it.key());
-}
-
-void PluginManager::finalizePlug(int pluginID)
-{
-	struct PluginData pda;
-	typedef void (*sdem2)();
-	sdem2 demo2;
-	PluginData plug = pluginMap[pluginID];
-	if (plug.type == Persistent || plug.type == Type5)
-	{
-		demo2 = (sdem2) resolveSym(plug.index, "cleanUpPlug");
-		if ( demo2 )
-			(*demo2)();
-		unloadDLL(plug.index);
-	}
-}
-
-QString PluginManager::getPluginType(PluginType aType)
-{
-	switch(aType)
-	{
-		case Persistent:
-			return tr("Persistent", "plugin manager");
-			break;
-		case Import:
-			return tr("Import", "plugin manager");
-			break;
-		case Standard:
-			return tr("Standard", "plugin manager");
-			break;
-		default:
-			return tr("Unknown", "plugin manager");
-	}
+		Q_ASSERT(false); // We shouldn't ever have enabled an unknown plugin type.
+	pda.enabled = false;
 }
 
 QCString PluginManager::platformDllExtension()
@@ -465,13 +370,99 @@ QCString PluginManager::platformDllExtension()
 
 void PluginManager::languageChange()
 {
-	for (QMap<int, PluginData>::Iterator it = pluginMap.begin(); it != pluginMap.end(); ++it)
+	for (PluginMap::Iterator it = pluginMap.begin(); it != pluginMap.end(); ++it)
 	{
-		QString fromTranslator=callDLLForNewLanguage(it.key());
-		ScrAction* pluginAction=ScApp->scrActions[(*it).actName];
-		if (!fromTranslator.isNull())
-			(*it).name=fromTranslator;
-		if (pluginAction!=NULL)
-			pluginAction->setMenuText(fromTranslator);
+		ScPlugin* plugin = it.data().plugin;
+		if (plugin)
+		{
+			plugin->languageChange();
+			ScActionPlugin* ixplug = dynamic_cast<ScActionPlugin*>(plugin);
+			if (ixplug)
+			{
+				ScActionPlugin::ActionInfo ai(ixplug->actionInfo());
+				ScrAction* pluginAction = ScApp->scrActions[ai.name];
+				if (pluginAction != 0)
+					pluginAction->setMenuText( ai.text );
+			}
+		}
 	}
+}
+
+ScPlugin* PluginManager::getPlugin(const QCString pluginName, bool includeDisabled) const
+{
+	if (DLLexists(pluginName, includeDisabled))
+		return pluginMap[pluginName].plugin;
+	return 0;
+}
+
+// Compatability kludge
+bool PluginManager::callImportExportPlugin(const QCString pluginName, const QString & arg, QString & retval)
+{
+	if (callImportExportPlugin(pluginName, arg))
+	{
+		retval = dynamic_cast<ScActionPlugin*>(pluginMap[pluginName].plugin)->runResult();
+		return true;
+	}
+	return false;
+}
+
+bool PluginManager::callImportExportPlugin(const QCString pluginName, const QString & arg)
+{
+	bool result = false;
+	if (DLLexists(pluginName))
+	{
+		ScActionPlugin* plugin =
+			dynamic_cast<ScActionPlugin*>(pluginMap[pluginName].plugin);
+		if (plugin)
+			result = plugin->run(arg);
+	}
+	return result;
+}
+
+PluginManager & PluginManager::instance()
+{
+	return (*ScApp->pluginManager);
+}
+
+const QString & PluginManager::getPluginPath(const QCString pluginName) const
+{
+	// It is not legal to call this function without a valid
+	// plug in name.
+	Q_ASSERT(pluginMap.contains(pluginName));
+	return pluginMap[pluginName].pluginFile;
+}
+
+bool & PluginManager::enableOnStartup(const QCString pluginName)
+{
+	// It is not legal to call this function without a valid
+	// plug in name.
+	Q_ASSERT(pluginMap.contains(pluginName));
+	return pluginMap[pluginName].enableOnStartup;
+}
+
+QValueList<QCString> PluginManager::pluginNames(bool includeNotLoaded) const
+{
+	QValueList<QCString> names;
+	for (PluginMap::ConstIterator it = pluginMap.constBegin(); it != pluginMap.constEnd(); ++it)
+		if (includeNotLoaded || it.data().plugin != 0)
+			names.append(it.data().pluginName);
+	return names;
+}
+
+// FIXME: Temporary hack ... need a better mechanism to look up plug-ins that
+// support various formats.
+const QString PluginManager::getImportFilterString() const
+{
+	QString formats;
+	if (ScApp->pluginManager->DLLexists("importps"))
+		formats += tr("PostScript Files (*.eps *.EPS *.ps *.PS);;");
+	if (ScApp->pluginManager->DLLexists("svgimplugin"))
+#ifdef HAVE_LIBZ
+		formats += tr("SVG Images (*.svg *.svgz);;");
+#else
+		formats += tr("SVG Images (*.svg);;");
+#endif
+	if (ScApp->pluginManager->DLLexists("oodrawimp"))
+		formats += tr("OpenOffice.org Draw (*.sxd);;");
+	return formats;
 }

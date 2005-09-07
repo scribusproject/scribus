@@ -2196,7 +2196,7 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 	if (scrapbookPalette->objectCount() == 0)
 		unlink(PrefsPfad+"/scrap13.scs");
 	qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-	pluginManager->finalizePlugs();
+	pluginManager->cleanupPlugins();
 	exit(0);
 }
 
@@ -3494,16 +3494,7 @@ bool ScribusApp::slotDocOpen()
 #else
 	formats += tr("Documents (*.sla *.scd);;");
 #endif
-	if (pluginManager->DLLexists(6))
-		formats += tr("PostScript Files (*.eps *.EPS *.ps *.PS);;");
-	if (pluginManager->DLLexists(10))
-#ifdef HAVE_LIBZ
-		formats += tr("SVG Images (*.svg *.svgz);;");
-#else
-		formats += tr("SVG Images (*.svg);;");
-#endif
-	if (pluginManager->DLLexists(12))
-		formats += tr("OpenOffice.org Draw (*.sxd);;");
+	formats += pluginManager->getImportFilterString();
 	formats += tr("All Files (*)");
 	QString fileName = CFileDialog( docDir, tr("Open"), formats);
 	if (fileName.isEmpty())
@@ -9327,7 +9318,7 @@ void ScribusApp::slotCharSelect()
 		PageItem *currItem = view->SelItem.at(0);
 		if ((currItem->itemType() == PageItem::TextFrame) && (doc->appMode == modeEdit))
 		{
-			CharSelect *dia = new CharSelect(this, currItem, this);
+			CharSelect *dia = new CharSelect(this, currItem);
 			dia->exec();
 			delete dia;
 		}

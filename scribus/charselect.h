@@ -35,8 +35,14 @@ class SCRIBUS_API CharSelect : public QDialog
 	Q_OBJECT
 
 public:
-	CharSelect( QWidget* parent, PageItem *item, ScribusApp *plug );
+	CharSelect(QWidget* parent, PageItem *item);
+	CharSelect(QWidget* parent, PageItem *item, QString font);
 	~CharSelect() {};
+
+	const QString & getCharacters();
+
+	bool needReturn;
+	QString m_characters;
 	void scanFont();
 	void setupRangeCombo();
 	void generatePreview(int charClass);
@@ -97,6 +103,8 @@ public slots:
 	void insChar();
 
 protected:
+	void run(QWidget* parent, PageItem* item, ScribusApp* pl);
+	
 	QVBoxLayout* zAuswahlLayout;
 	QHBoxLayout* selectionsLayout;
 	QHBoxLayout* layout1;
@@ -131,4 +139,5 @@ protected:
 	virtual void contentsMouseReleaseEvent(QMouseEvent *m);
 	virtual void contentsMousePressEvent(QMouseEvent* e);
 };
+
 #endif // QUERY_H

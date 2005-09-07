@@ -263,16 +263,7 @@ void NewDoc::createOpenDocPage()
 #else
 	formats += tr("Documents (*.sla *.scd);;");
 #endif
-	if (ScApp->pluginManager->DLLexists(6))
-		formats += tr("PostScript Files (*.eps *.EPS *.ps *.PS);;");
-	if (ScApp->pluginManager->DLLexists(10))
-#ifdef HAVE_LIBZ
-		formats += tr("SVG Images (*.svg *.svgz);;");
-#else
-		formats += tr("SVG Images (*.svg);;");
-#endif
-	if (ScApp->pluginManager->DLLexists(12))
-		formats += tr("OpenOffice.org Draw (*.sxd);;");
+	formats += ScApp->pluginManager->getImportFilterString();
 	formats += tr("All Files (*)");
 	openDocFrame = new QFrame(this, "openDocFrame");
 	QVBoxLayout* openDocLayout = new QVBoxLayout(openDocFrame, 5,5, "openDocLayout");

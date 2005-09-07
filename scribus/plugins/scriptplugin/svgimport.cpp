@@ -9,18 +9,17 @@
 PyObject *scribus_importsvg(PyObject* /* self */, PyObject* args)
 {
 	char *aText;
-	if (!PyArg_ParseTuple(args, "es", "utf-8", &aText))
+	if (!PyArg_ParseTuple(args, const_cast<char*>("es"), const_cast<char*>("utf-8"), &aText))
 		return NULL;
 
 	if(!checkHaveDocument())
 		return NULL;
 
-	if (!Carrier->pluginManager->DLLexists(10))
+	if (!ScApp->pluginManager->DLLexists("svgimplugin"))
 		return NULL;
 
-	Carrier->pluginManager->dllInput = QString::fromUtf8(aText);
-	Carrier->pluginManager->callDLL(10);
-	Carrier->doc->setLoading(false);
+	ScApp->pluginManager->callImportExportPlugin("svgimplugin", QString::fromUtf8(aText));
+	ScApp->doc->setLoading(false);
 
 	Py_INCREF(Py_None);
 	return Py_None;

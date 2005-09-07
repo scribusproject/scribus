@@ -16,15 +16,15 @@ PyObject *scribus_newrect(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
 		return NULL;
 	}
-	int i = Carrier->view->PaintRect(pageUnitXToDocX(x), pageUnitYToDocY(y),
+	int i = ScApp->view->PaintRect(pageUnitXToDocX(x), pageUnitYToDocY(y),
 									 ValueToPoint(b), ValueToPoint(h),
-									 Carrier->doc->toolSettings.dWidth,
-									 Carrier->doc->toolSettings.dBrush,
-									 Carrier->doc->toolSettings.dPen);
-	Carrier->view->SetRectFrame(Carrier->doc->Items.at(i));
+									 ScApp->doc->toolSettings.dWidth,
+									 ScApp->doc->toolSettings.dBrush,
+									 ScApp->doc->toolSettings.dPen);
+	ScApp->view->SetRectFrame(ScApp->doc->Items.at(i));
 	if (Name != "")
-		Carrier->doc->Items.at(i)->setItemName(QString::fromUtf8(Name));
-	return PyString_FromString(Carrier->doc->Items.at(i)->itemName().utf8());
+		ScApp->doc->Items.at(i)->setItemName(QString::fromUtf8(Name));
+	return PyString_FromString(ScApp->doc->Items.at(i)->itemName().utf8());
 }
 
 
@@ -36,19 +36,19 @@ PyObject *scribus_newellipse(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	int i = Carrier->view->PaintEllipse(pageUnitXToDocX(x), pageUnitYToDocY(y), b, h,
-										Carrier->doc->toolSettings.dWidth,
-										Carrier->doc->toolSettings.dBrush,
-										Carrier->doc->toolSettings.dPen);
+	int i = ScApp->view->PaintEllipse(pageUnitXToDocX(x), pageUnitYToDocY(y), b, h,
+										ScApp->doc->toolSettings.dWidth,
+										ScApp->doc->toolSettings.dBrush,
+										ScApp->doc->toolSettings.dPen);
 	if (ItemExists(QString::fromUtf8(Name)))
 	{
 		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
 		return NULL;
 	}
-	Carrier->view->SetOvalFrame(Carrier->doc->Items.at(i));
+	ScApp->view->SetOvalFrame(ScApp->doc->Items.at(i));
 	if (Name != "")
-		Carrier->doc->Items.at(i)->setItemName(QString::fromUtf8(Name));
-	return PyString_FromString(Carrier->doc->Items.at(i)->itemName().utf8());
+		ScApp->doc->Items.at(i)->setItemName(QString::fromUtf8(Name));
+	return PyString_FromString(ScApp->doc->Items.at(i)->itemName().utf8());
 }
 
 
@@ -60,16 +60,16 @@ PyObject *scribus_newimage(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	int i = Carrier->view->PaintPict(pageUnitXToDocX(x), pageUnitYToDocY(y), b, h);
+	int i = ScApp->view->PaintPict(pageUnitXToDocX(x), pageUnitYToDocY(y), b, h);
 	if (ItemExists(QString::fromUtf8(Name)))
 	{
 		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
 		return NULL;
 	}
-	Carrier->view->SetRectFrame(Carrier->doc->Items.at(i));
+	ScApp->view->SetRectFrame(ScApp->doc->Items.at(i));
 	if (Name != "")
-		Carrier->doc->Items.at(i)->setItemName(QString::fromUtf8(Name));
-	return PyString_FromString(Carrier->doc->Items.at(i)->itemName().utf8());
+		ScApp->doc->Items.at(i)->setItemName(QString::fromUtf8(Name));
+	return PyString_FromString(ScApp->doc->Items.at(i)->itemName().utf8());
 }
 
 
@@ -81,18 +81,18 @@ PyObject *scribus_newtext(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	int i = Carrier->view->PaintText(pageUnitXToDocX(x), pageUnitYToDocY(y), b, h,
-									 Carrier->doc->toolSettings.dWidth,
-									 Carrier->doc->toolSettings.dPenText);
+	int i = ScApp->view->PaintText(pageUnitXToDocX(x), pageUnitYToDocY(y), b, h,
+									 ScApp->doc->toolSettings.dWidth,
+									 ScApp->doc->toolSettings.dPenText);
 	if (ItemExists(QString::fromUtf8(Name)))
 	{
 		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
 		return NULL;
 	}
-	Carrier->view->SetRectFrame(Carrier->doc->Items.at(i));
+	ScApp->view->SetRectFrame(ScApp->doc->Items.at(i));
 	if (Name != "")
-		Carrier->doc->Items.at(i)->setItemName(QString::fromUtf8(Name));
-	return PyString_FromString(Carrier->doc->Items.at(i)->itemName().utf8());
+		ScApp->doc->Items.at(i)->setItemName(QString::fromUtf8(Name));
+	return PyString_FromString(ScApp->doc->Items.at(i)->itemName().utf8());
 }
 
 
@@ -113,8 +113,8 @@ PyObject *scribus_newline(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
 		return NULL;
 	}
-	int i = Carrier->view->PaintPolyLine(x, y, 1, 1,	Carrier->doc->toolSettings.dWidth, Carrier->doc->toolSettings.dBrush, Carrier->doc->toolSettings.dPen);
-	PageItem *it = Carrier->doc->Items.at(i);
+	int i = ScApp->view->PaintPolyLine(x, y, 1, 1,	ScApp->doc->toolSettings.dWidth, ScApp->doc->toolSettings.dBrush, ScApp->doc->toolSettings.dPen);
+	PageItem *it = ScApp->doc->Items.at(i);
 	it->PoLine.resize(4);
 	it->PoLine.setPoint(0, 0, 0);
 	it->PoLine.setPoint(1, 0, 0);
@@ -124,15 +124,15 @@ PyObject *scribus_newline(PyObject* /* self */, PyObject* args)
 	if (np2.x() < 0)
 	{
 		it->PoLine.translate(-np2.x(), 0);
-		Carrier->view->MoveItem(np2.x(), 0, it);
+		ScApp->view->MoveItem(np2.x(), 0, it);
 	}
 	if (np2.y() < 0)
 	{
 		it->PoLine.translate(0, -np2.y());
-		Carrier->view->MoveItem(0, np2.y(), it);
+		ScApp->view->MoveItem(0, np2.y(), it);
 	}
-	Carrier->view->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), i, false, false);
-	Carrier->view->AdjustItemSize(it);
+	ScApp->view->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), i, false, false);
+	ScApp->view->AdjustItemSize(it);
 	if (Name != "")
 		it->setItemName(QString::fromUtf8(Name));
 	return PyString_FromString(it->itemName().utf8());
@@ -170,8 +170,8 @@ PyObject *scribus_polyline(PyObject* /* self */, PyObject* args)
 	i++;
 	y = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
 	i++;
-	int ic = Carrier->view->PaintPolyLine(x, y, 1, 1,	Carrier->doc->toolSettings.dWidth, Carrier->doc->toolSettings.dBrush, Carrier->doc->toolSettings.dPen);
-	PageItem *it = Carrier->doc->Items.at(ic);
+	int ic = ScApp->view->PaintPolyLine(x, y, 1, 1,	ScApp->doc->toolSettings.dWidth, ScApp->doc->toolSettings.dBrush, ScApp->doc->toolSettings.dPen);
+	PageItem *it = ScApp->doc->Items.at(ic);
 	it->PoLine.resize(2);
 	it->PoLine.setPoint(0, 0, 0);
 	it->PoLine.setPoint(1, 0, 0);
@@ -197,15 +197,15 @@ PyObject *scribus_polyline(PyObject* /* self */, PyObject* args)
 	if (np2.x() < 0)
 	{
 		it->PoLine.translate(-np2.x(), 0);
-		Carrier->view->MoveItem(np2.x(), 0, it);
+		ScApp->view->MoveItem(np2.x(), 0, it);
 	}
 	if (np2.y() < 0)
 	{
 		it->PoLine.translate(0, -np2.y());
-		Carrier->view->MoveItem(0, np2.y(), it);
+		ScApp->view->MoveItem(0, np2.y(), it);
 	}
-	Carrier->view->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false);
-	Carrier->view->AdjustItemSize(it);
+	ScApp->view->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false);
+	ScApp->view->AdjustItemSize(it);
 	if (Name != "")
 	{
 		it->setItemName(QString::fromUtf8(Name));
@@ -245,8 +245,8 @@ PyObject *scribus_polygon(PyObject* /* self */, PyObject* args)
 	i++;
 	y = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
 	i++;
-	int ic = Carrier->view->PaintPoly(x, y, 1, 1,	Carrier->doc->toolSettings.dWidth, Carrier->doc->toolSettings.dBrush, Carrier->doc->toolSettings.dPen);
-	PageItem *it = Carrier->doc->Items.at(ic);
+	int ic = ScApp->view->PaintPoly(x, y, 1, 1,	ScApp->doc->toolSettings.dWidth, ScApp->doc->toolSettings.dBrush, ScApp->doc->toolSettings.dPen);
+	PageItem *it = ScApp->doc->Items.at(ic);
 	it->PoLine.resize(2);
 	it->PoLine.setPoint(0, 0, 0);
 	it->PoLine.setPoint(1, 0, 0);
@@ -277,15 +277,15 @@ PyObject *scribus_polygon(PyObject* /* self */, PyObject* args)
 	if (np2.x() < 0)
 	{
 		it->PoLine.translate(-np2.x(), 0);
-		Carrier->view->MoveItem(np2.x(), 0, it);
+		ScApp->view->MoveItem(np2.x(), 0, it);
 	}
 	if (np2.y() < 0)
 	{
 		it->PoLine.translate(0, -np2.y());
-		Carrier->view->MoveItem(0, np2.y(), it);
+		ScApp->view->MoveItem(0, np2.y(), it);
 	}
-	Carrier->view->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false);
-	Carrier->view->AdjustItemSize(it);
+	ScApp->view->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false);
+	ScApp->view->AdjustItemSize(it);
 	if (Name != "")
 		it->setItemName(QString::fromUtf8(Name));
 	return PyString_FromString(it->itemName().utf8());
@@ -330,8 +330,8 @@ PyObject *scribus_bezierline(PyObject* /* self */, PyObject* args)
 	i++;
 	ky2 = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
 	i++;
-	int ic = Carrier->view->PaintPolyLine(x, y, 1, 1,	Carrier->doc->toolSettings.dWidth, Carrier->doc->toolSettings.dBrush, Carrier->doc->toolSettings.dPen);
-	PageItem *it = Carrier->doc->Items.at(ic);
+	int ic = ScApp->view->PaintPolyLine(x, y, 1, 1,	ScApp->doc->toolSettings.dWidth, ScApp->doc->toolSettings.dBrush, ScApp->doc->toolSettings.dPen);
+	PageItem *it = ScApp->doc->Items.at(ic);
 	it->PoLine.resize(2);
 	it->PoLine.setPoint(0, 0, 0);
 	it->PoLine.setPoint(1, kx-x, ky-y);
@@ -363,15 +363,15 @@ PyObject *scribus_bezierline(PyObject* /* self */, PyObject* args)
 	if (np2.x() < 0)
 	{
 		it->PoLine.translate(-np2.x(), 0);
-		Carrier->view->MoveItem(np2.x(), 0, it);
+		ScApp->view->MoveItem(np2.x(), 0, it);
 	}
 	if (np2.y() < 0)
 	{
 		it->PoLine.translate(0, -np2.y());
-		Carrier->view->MoveItem(0, np2.y(), it);
+		ScApp->view->MoveItem(0, np2.y(), it);
 	}
-	Carrier->view->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false);
-	Carrier->view->AdjustItemSize(it);
+	ScApp->view->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false);
+	ScApp->view->AdjustItemSize(it);
 	if (Name != "")
 		it->setItemName(QString::fromUtf8(Name));
 	return PyString_FromString(it->itemName().utf8());
@@ -404,12 +404,12 @@ PyObject *scribus_pathtext(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(NotFoundError, QObject::tr("Object not found.","python error"));
 		return NULL;
 	}
-	Carrier->view->SelItem.clear();
-	Carrier->view->SelItem.append(Carrier->doc->Items.at(i));
-	Carrier->view->SelItem.append(Carrier->doc->Items.at(ii));
-	PageItem *it = Carrier->doc->Items.at(i);
-	Carrier->view->ToPathText();
-	Carrier->view->MoveItem(pageUnitXToDocX(x) - it->Xpos, pageUnitYToDocY(y) - it->Ypos, it);
+	ScApp->view->SelItem.clear();
+	ScApp->view->SelItem.append(ScApp->doc->Items.at(i));
+	ScApp->view->SelItem.append(ScApp->doc->Items.at(ii));
+	PageItem *it = ScApp->doc->Items.at(i);
+	ScApp->view->ToPathText();
+	ScApp->view->MoveItem(pageUnitXToDocX(x) - it->Xpos, pageUnitYToDocY(y) - it->Ypos, it);
 	if (Name != "")
 		it->setItemName(QString::fromUtf8(Name));
 	return PyString_FromString(it->itemName().utf8());
@@ -428,9 +428,9 @@ PyObject *scribus_deleteobj(PyObject* /* self */, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
 	if (i == NULL)
 		return NULL;
-	Carrier->view->SelItem.clear();
-	Carrier->view->SelItem.append(i);
-	Carrier->view->DeleteItem();
+	ScApp->view->SelItem.clear();
+	ScApp->view->SelItem.append(i);
+	ScApp->view->DeleteItem();
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -454,8 +454,8 @@ PyObject *scribus_textflow(PyObject* /* self */, PyObject* args)
 		i->setTextFlowsAroundFrame(!i->textFlowsAroundFrame());
 	else
 		i->setTextFlowsAroundFrame( state ? true : false);
-	Carrier->view->DrawNew();
-	Carrier->slotDocCh(true);
+	ScApp->view->DrawNew();
+	ScApp->slotDocCh(true);
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -500,9 +500,9 @@ PyObject *scribus_setstyle(PyObject* /* self */, PyObject* args)
 		bool found = false;
 		uint styleid = 0;
 		// We start at zero here because it's OK to match an internal name
-		for (uint i=0; i < Carrier->doc->docParagraphStyles.count(); ++i)
+		for (uint i=0; i < ScApp->doc->docParagraphStyles.count(); ++i)
 		{
-			if (Carrier->doc->docParagraphStyles[i].Vname == QString::fromUtf8(style)) {
+			if (ScApp->doc->docParagraphStyles[i].Vname == QString::fromUtf8(style)) {
 				found = true;
 				styleid = i;
 				break;
@@ -514,10 +514,10 @@ PyObject *scribus_setstyle(PyObject* /* self */, PyObject* args)
 			return NULL;
 		}
 		// quick hack to always apply on the right frame - pv
-		Carrier->view->Deselect(true);
-		Carrier->view->SelectItemNr(item->ItemNr);
+		ScApp->view->Deselect(true);
+		ScApp->view->SelectItemNr(item->ItemNr);
 		// Now apply the style.
-		Carrier->setNewAbStyle(styleid);
+		ScApp->setNewAbStyle(styleid);
 	}
 	else
 	{
@@ -543,9 +543,9 @@ PyObject *scribus_getstylenames(PyObject* /* self */)
 	pv - changet to get all (with system) objects
 	FIXME: this should be a constant defined by the scribus core
 	*/
-	for (uint i=0; i < Carrier->doc->docParagraphStyles.count(); ++i)
+	for (uint i=0; i < ScApp->doc->docParagraphStyles.count(); ++i)
 	{
-		if (PyList_Append(styleList, PyString_FromString(Carrier->doc->docParagraphStyles[i].Vname.utf8())))
+		if (PyList_Append(styleList, PyString_FromString(ScApp->doc->docParagraphStyles[i].Vname.utf8())))
 		{
 			// An exception will have already been set by PyList_Append apparently.
 			return NULL;

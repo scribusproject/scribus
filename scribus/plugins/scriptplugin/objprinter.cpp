@@ -53,7 +53,7 @@ static void Printer_dealloc(Printer* self)
 static PyObject * Printer_new(PyTypeObject *type, PyObject */*args*/, PyObject */*kwds*/)
 {
 // do not create new object if there is no opened document
-	if (!Carrier->HaveDoc) {
+	if (!ScApp->HaveDoc) {
 		PyErr_SetString(PyExc_SystemError, "Need to open document first");
 		return NULL;
 	}
@@ -174,9 +174,9 @@ static int Printer_init(Printer *self, PyObject */*args*/, PyObject */*kwds*/)
 		self->printer = printer;
 	}
 // set defaul name of file to print into
-	QString tf = Carrier->doc->PDF_Options.Datei;
+	QString tf = ScApp->doc->PDF_Options.Datei;
 	if (tf.isEmpty()) {
-		QFileInfo fi = QFileInfo(Carrier->doc->DocName);
+		QFileInfo fi = QFileInfo(ScApp->doc->DocName);
 		tf = fi.dirPath()+"/"+fi.baseName()+".pdf";
 	}
 	PyObject *file = NULL;
@@ -199,10 +199,10 @@ static int Printer_init(Printer *self, PyObject */*args*/, PyObject */*kwds*/)
 // set to print all pages
 	PyObject *pages = NULL;
 	int num = 0;
-	if (Carrier->HaveDoc)
+	if (ScApp->HaveDoc)
 		// which one should I use ???
-		// new = Carrier->view->Pages.count()
-		num = Carrier->doc->pageCount;
+		// new = ScApp->view->Pages.count()
+		num = ScApp->doc->pageCount;
 	pages = PyList_New(num);
 	if (pages){
 		Py_DECREF(self->pages);
@@ -361,7 +361,7 @@ static int Printer_setpages(Printer *self, PyObject *value, void */*closure*/)
 			PyErr_SetString(PyExc_TypeError, "'pages' attribute must be list containing only integers.");
 			return -1;
 		}
-		if (PyInt_AsLong(tmp) > Carrier->doc->pageCount || PyInt_AsLong(tmp) < 1) {
+		if (PyInt_AsLong(tmp) > ScApp->doc->pageCount || PyInt_AsLong(tmp) < 1) {
 			PyErr_SetString(PyExc_ValueError, "'pages' value out of range.");
 			return -1;
 		}
@@ -408,7 +408,7 @@ static PyGetSetDef Printer_getseters [] = {
 // Here we actually print
 static PyObject *Printer_print(Printer *self)
 {
-	if (!Carrier->HaveDoc) {
+	if (!ScApp->HaveDoc) {
 		PyErr_SetString(PyExc_SystemError, "Need to open documetnt first");
 		return NULL;
 	}
@@ -419,7 +419,7 @@ static PyObject *Printer_print(Printer *self)
 	bool fil, sep, color, PSfile, mirrorH, mirrorV, useICC, DoGCR;
 	PSfile = false;
 
-//    ReOrderText(Carrier->doc, Carrier->view);
+//    ReOrderText(ScApp->doc, ScApp->view);
 	prn = QString(PyString_AsString(self->printer));
 	fna = QString(PyString_AsString(self->file));
 	fil = (QString(PyString_AsString(self->printer)) == QString("File")) ? true : false;
@@ -446,26 +446,26 @@ static PyObject *Printer_print(Printer *self)
 	printcomm = QString(PyString_AsString(self->cmd));
 	QMap<QString,QFont> ReallyUsed;
 	ReallyUsed.clear();
-	Carrier->doc->getUsedFonts(&ReallyUsed);
+	ScApp->doc->getUsedFonts(&ReallyUsed);
 	PrefsManager *prefsManager=PrefsManager::instance();
-	PSLib *dd = new PSLib(true, prefsManager->appPrefs.AvailFonts, ReallyUsed, Carrier->doc->PageColors, false, true);
+	PSLib *dd = new PSLib(true, prefsManager->appPrefs.AvailFonts, ReallyUsed, ScApp->doc->PageColors, false, true);
 	if (dd != NULL)
 	{
 		if (!fil)
-			fna = Carrier->PrefsPfad+"/tmp.ps";
+			fna = ScApp->PrefsPfad+"/tmp.ps";
 		PSfile = dd->PS_set_file(fna);
 		fna = QDir::convertSeparators(fna);
 		if (PSfile)
 		{
 			QStringList spots;
-			dd->CreatePS(Carrier->doc, Carrier->view, pageNs, sep, SepName, spots, color, mirrorH, mirrorV, useICC, DoGCR, false);
+			dd->CreatePS(ScApp->doc, ScApp->view, pageNs, sep, SepName, spots, color, mirrorH, mirrorV, useICC, DoGCR, false);
 			if (PSLevel != 3)
 			{
 				QString tmp;
 				QString opts = "-dDEVICEWIDTHPOINTS=";
-				opts += tmp.setNum(Carrier->doc->pageWidth);
+				opts += tmp.setNum(ScApp->doc->pageWidth);
 				opts += " -dDEVICEHEIGHTPOINTS=";
-				opts += tmp.setNum(Carrier->doc->pageHeight);
+				opts += tmp.setNum(ScApp->doc->pageHeight);
 				if (PSLevel == 1)
 					system("ps2ps -dLanguageLevel=1 "+opts+" \""+fna+"\" \""+fna+".tmp\"");
 				else

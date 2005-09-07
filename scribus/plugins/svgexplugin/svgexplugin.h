@@ -4,49 +4,51 @@
 #include <qobject.h>
 #include <qdom.h>
 #include "pluginapi.h"
-#include "pluginmanager.h"
+#include "scplugin.h"
 
 class QString;
 class ScribusApp;
 class PageItem;
 class Page;
 
-/** Calls the Plugin with the main Application window as parent
-  * and the main Application Class as parameter */
-extern "C" PLUGIN_API void run(QWidget *d, ScribusApp *plug);
-/** Returns the Name of the Plugin.
-  * This name appears in the relevant Menue-Entrys */
-extern "C" PLUGIN_API QString name();
-/** Returns the Type of the Plugin.
-  * 1 = the Plugin is a normal Plugin, which appears in the Extras Menue
-  * 2 = the Plugins is a import Plugin, which appears in the Import Menue
-  * 3 = the Plugins is a export Plugin, which appears in the Export Menue */
-extern "C" PLUGIN_API PluginManager::PluginType type();
-extern "C" PLUGIN_API int ID();
+class PLUGIN_API SVGExportPlugin : public ScActionPlugin
+{
+	Q_OBJECT
 
-extern "C" PLUGIN_API QString actionName();
-extern "C" PLUGIN_API QString actionKeySequence();
-extern "C" PLUGIN_API QString actionMenu();
-extern "C" PLUGIN_API QString actionMenuAfterName();
-extern "C" PLUGIN_API bool actionEnabledOnStartup();
+	public:
+		// Standard plugin implementation
+		SVGExportPlugin();
+		virtual ~SVGExportPlugin();
+		virtual bool run(QString target = QString::null);
+		virtual const QString fullTrName() const;
+		virtual const AboutData* getAboutData() const;
+		virtual void deleteAboutData(const AboutData* about) const;
+		virtual void languageChange();
+
+		// Special features (none)
+};
+
+extern "C" PLUGIN_API int svgexplugin_getPluginAPIVersion();
+extern "C" PLUGIN_API ScPlugin* svgexplugin_getPlugin();
+extern "C" PLUGIN_API void svgexplugin_freePlugin(ScPlugin* plugin);
 
 class SVGExPlug : public QObject
 {
     Q_OBJECT
 
 public:
-    SVGExPlug( ScribusApp *plug, QString fName );
+    SVGExPlug( QString fName );
     ~SVGExPlug();
 
 private:
-		void ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, QDomElement *elem);
+		void ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem);
 		QString SetClipPathImage(PageItem *ite);
 		QString SetClipPath(PageItem *ite);
 		QString FToStr(double c);
 		QString IToStr(int c);
-		void SetTextProps(QDomElement *tp, struct ScText *hl, ScribusApp *plug);
-		QString SetFarbe(QString farbe, int shad, ScribusApp *plug);
-		QString GetMultiStroke(ScribusApp *plug, struct SingleLine *sl, PageItem *Item);
+		void SetTextProps(QDomElement *tp, struct ScText *hl);
+		QString SetFarbe(QString farbe, int shad);
+		QString GetMultiStroke(struct SingleLine *sl, PageItem *Item);
 		int GradCount;
 		int ClipCount;
 };

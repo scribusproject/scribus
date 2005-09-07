@@ -95,6 +95,10 @@ class ScribusApp;
 
 extern ScribusApp* ScApp;
 
+class ScribusApp;
+
+extern ScribusApp* SCRIBUS_API ScApp;
+
 /**
   * This Class is the base class for your application. It sets up the main
   * window and providing a menubar, toolbar
@@ -571,5 +575,6 @@ private:
 				} PDef ;
 	TOCGenerator *tocGenerator;
 };
+
 #endif
 

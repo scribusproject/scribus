@@ -18,6 +18,22 @@
  *
  */
 
+class ScPlugin;
+class ScActionPlugin;
+class ScPersistentPlugin;
+
+// Plug-in API version used to check if we can load the plug-in. This
+// does *NOT* ensure that the plug-in will be compatible with the internal
+// Scribus APIs, only that the ScPlugin class and its standard subclasses
+// will be compatible with what we expect, and that "extern C" functions
+// we need will be present and work as expected. It's a preprocessor directive
+// to make sure that it's compiled into each plugin rather than referenced
+// from the main code.
+//
+// The API version is currently simply incremented with each incompatible
+// change. Future versions may introduce a minor/major scheme if necessary.
+#define PLUGIN_API_VERSION 0x00000001
+
 class SCRIBUS_API PluginManager : public QObject
 {
 
@@ -25,113 +41,159 @@ class SCRIBUS_API PluginManager : public QObject
 
 public:
 
-	/** \brief Human readable enumertion of the plugin types */
-	// FIXME: what the hell is type5?
-	enum PluginType {
-		Persistent = 4,
-		Import = 7,
-		Standard = 6,
-		Type5 = 5
-	};
-
 	/**
-	 * \brief PluginData is structure for plugin related informations.
 	 * \param pluginFile path to the share library (with name).
-	 * \param name a string which will be shown at menu
-	 * \param index black magic? FIXME
-	 * \param type PluginType element
-	 * \param menuID id for menu system
-	 * \param actName name of the action for this plugin
-	 * \param actKeySequence menu GUI key combination
-	 * \param actMenu first level menu
-	 * \param actMenuAfterName 2nd level menu
-	 * \param actEnabledOnStartup run it at start FIXME
-	 * \param loadPlugin enable or disable plugin for user
-	 * \param loaded is the plug really loaded?
+	 * \brief pluginName internal name of plug-in, used for prefix to dlsym() names
+	 * \param pluginDLL reference to plug-in data for dynamic loading
+	 * \brief PluginData is structure for plugin related informations.
+	 * \param plugin is the pointer to the plugin instance
+	 * \param setupEnable enable or disable plugin for user
+	 * \param enabled has the plug-in been set up and activated?
+	 *
+	 * Note that there are some constraints on this structure.
+	 * enabled == true depends on:
+	 *     plugin != 0 which depends on:
+	 *         pluginDLL != 0
+	 *
+	 * In other words, a plugin cannot be enabled unless we have an ScPlugin
+	 * instance for it. We can't have an ScPlugin instance for a plugin unless
+	 * it's linked.
 	 */
 
 	struct PluginData
 	{
-		QString pluginFile;// Datei;
-		QString name;
-		void *index; //Zeiger;
-		PluginType type;
-		int menuID;
-		QString actName;
-		QString actMenuText;
-		QString actKeySequence;
-		QString actMenu;
-		QString actMenuAfterName;
-		bool actEnabledOnStartup;
-		bool loadPlugin;
-		bool loaded;
+		QString pluginFile; // Datei;
+		QCString pluginName;
+		void* pluginDLL;
+		ScPlugin* plugin;
+		bool enableOnStartup;
+		bool enabled;
 	};
+
+	// Mapping of plugin names to plugin info structures.
+	typedef QMap<QCString,PluginData> PluginMap;
 
 	PluginManager();
 	~PluginManager();
 
 	// Static methods for loading, unloading plugins and resolving symbols
-	// These methods are plateform independent but implemented in a plateform dependent way
+	// These methods are platform independent, but each platform uses a different
+	// implementation.
 	static void* loadDLL( QString plugin );
 	static void* resolveSym( void* plugin, const char* sym );
 	static void  unloadDLL( void* plugin );
 
-	/*! \brief Ininitalization of all plugins. It's called at scribus start. */
+	/*! \brief Ininitalization of all plugins. It's called at scribus start.
+	 * 
+	 * This method loadDLL(...)'s each plug-in, creates a Plugin instance for
+	 * them, stores a PluginData for the plugin, sets up the plug-in's
+	 * actions, and connects them to any required signals.
+	 * It doesn't ask plug-ins to do any time-consuming setup.
+	 */
 	void initPlugs();
 
-	/*! \brief Run plugin by its id from pluginMap */
-	void callDLL(int pluginID);
+	// Return a list of import filters, in the form used by a QFileDialog
+	// or similar, for all supported plug-in imported formats.
+	const QString getImportFilterString() const;
 
-	/*! \brief Runs plugin's languageChange() method, and returns main menu item text if one exists */	
-	QString callDLLForNewLanguage(int pluginID);
-
-	/*! \brief Checks if is the plug in plugin map.
+	/*! \brief Checks if is the plugin is in the plugin map, is loaded, and is enabled.
+	 *
+	 * \param pluginName name of plugin to get
+	 * \param includeDisabled return true if a plugin is loaded but not enabled
 	 * \return bool
 	 */
-	bool DLLexists(int pluginID);
+	bool DLLexists(QCString pluginName, bool includeDisabled = false) const;
 
-	/*! unused/obsolete */
-	void callDLLbyMenu(int pluginID);
+	/*! \brief Returns a pointer to the requested plugin, or
+	 *         0 if not found. */
+	ScPlugin* getPlugin(QCString pluginName, bool includeDisabled) const;
 
 	/*! \brief Reads available info and fills PluginData structure */
-	bool DLLname(QString name, QString *pluginName, PluginType *type, void **index, int *idNr, QString *actName, QString *actKeySequence, QString *actMenu, QString *actMenuAfterName, bool *actEnabledOnStartup, bool loadPlugin);
+	bool loadPlugin(PluginData & pluginData);
 
 	/*! \brief Shutdowns all plugins. Called at scribus quit */
-	void finalizePlugs();
+	void cleanupPlugins();
 
-	/*! \brief Shutdowns one plugin.
-	 * \param pluginID key from the pluginMap. Plugin identifier
-	 */
-
-	void finalizePlug(int pluginID);
-	/** \brief Returns human readable plugin type */
-	QString getPluginType(PluginType aType);
-	/** \brief Saves plugin preferences */
+	/** \brief Saves pluginManager preferences */
 	void savePreferences();
-
-	/*! \brief Input variable to the plug. */
-	QString dllInput;
-	/*! \brief Returning variable from the plug. */
-	QString dllReturn;
-
-	/*! \brief Plugin mapping.
-	 * Each plugin has its record key() -> PluginData */
-	QMap<int, PluginData> pluginMap;
 
 	/*! \brief Return file extension used for shared libs on this platform */
 	static QCString platformDllExtension();
 
+	/*! \brief Call the named plugin with "arg" and return true for success.
+	 *
+	 * Note that failure might be caused by the plug-in being unknown,
+	 * the plug-in not being loaded, the plug-in not being enabled, or
+	 * by by failure of the call its self.
+	 *
+	 * This is a bit of a compatability kludge.
+	 */
+	bool callImportExportPlugin(const QCString pluginName, const QString & arg);
+
+	/*! \brief  Call the named plugin with "arg" and return true for success, storing the return string in retval
+	 *
+	 * This is a lot of a compatibility kludge. Avoid using it in new code, you should probably
+	 * prefer to dynamic_cast<> to the plugin class and call a plugin specific method.
+	 */
+	bool callImportExportPlugin(const QCString pluginName, const QString & arg, QString & retval);
+
+	/// Return a pointer to this instance.
+	//
+	// Note: for now, returns a reference to (*ScApp->pluginManager); should
+	// probably be turned into a singleton later.
+	static PluginManager & instance();
+
+	// Return the path to the file for the named plugin. An invalid
+	// plugin name is an error.
+	const QString & getPluginPath(const QCString pluginName) const;
+
+	// Whether the given plug-in will be enabled on start-up.
+	// Usable as an lvalue. An invalid plugin name is an error.
+	bool & enableOnStartup(const QCString pluginName);
+
+	// Return a list of plugin names currently known. If includeNotLoaded
+	// is true, names are returned for plug-ins that are not loaded
+	// (ie we have no ScPlugin instance for them).
+	QValueList<QCString> pluginNames(bool includeNotLoaded = false) const;
+
 public slots:
 
-	/*! not at all obsolete! */
-	void callDLLBySlot(int pluginID);
 	void languageChange();
 
-private:
+protected:
+
+	// Determines the plugin name from the file name and returns it.
+	static QCString getPluginName(QString fileName);
+
+	// Called by loadPlugin to hook the loaded plugin into the GUI,
+	// call its setup routine, etc. Not responsible for creating
+	// the ScPlugin instance or loading the plugin.
+	void enablePlugin(PluginData &);
+
+	// Called by finalizePlug when shutting down a plug-in. Unhooks
+	// the plug-in from the GUI, calls its cleanup routine, etc.
+	// DOES NOT destroy the ScPlugin instance or unload the plugin.
+	void disablePlugin(PluginData & pda);
+
+	// Called by enablePlugin to hook the loaded plugin into the GUI.
+	bool setupPluginActions(ScActionPlugin*);
+
+	/*! \brief Runs plugin's languageChange() method, and returns main menu item text if one exists */	
+	QString callDLLForNewLanguage(const PluginData & pluginData);
+
+	/*! \brief Shuts down one plug-in. The DLL may not be unloaded, but
+	 *         it is cleaned up and its ScPlugin instance is destroyed.
+	 *         The plug-in is marked unloaded in the map.
+	 *  \param pluginID key from the pluginMap. Plugin identifier
+	 */
+	void finalizePlug(PluginData & pda);
 
 	/** \brief Configuration structure */
 	PrefsContext* prefs;
 
+	/*! \brief Plugin mapping.
+	 * Each plugin has its record key() -> PluginData */
+	PluginMap pluginMap;
 };
 
 #endif
