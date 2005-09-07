@@ -577,7 +577,7 @@ void SeitenPal::DelMPage(QString tmp)
 	for (uint aa=0; aa < Vie->Doc->MasterPages.count(); ++aa)
 	{
 		Seite = Vie->Doc->MasterPages.at(aa);
-		Seite->PageNr = aa;
+		Seite->setPageNr(aa);
 		if (Vie->Doc->currentPageLayout == doublePage)
 		{
 			Seite->Margins.Left = Seite->LeftPg ? Vie->Doc->pageMargins.Right : Vie->Doc->pageMargins.Left;
@@ -646,7 +646,7 @@ void SeitenPal::handleFacingPagesChk()
 	Vie->Doc->resetPage(tpr, lr, rr, br, fp);
 	Vie->reformPages();
 	Vie->DrawNew();
-	Vie->GotoPage(Vie->Doc->currentPage->PageNr);
+	Vie->GotoPage(Vie->Doc->currentPage->pageNr());
 	RebuildPage();
 	Vie->Doc->setModified(true);
 	firstPageLeftChk->setEnabled(fp ? true : false);
@@ -664,7 +664,7 @@ void SeitenPal::handleFirstPageLeftChk()
 	Vie->Doc->resetPage(tpr, lr, rr, br, fp2);
 	Vie->reformPages();
 	Vie->DrawNew();
-	Vie->GotoPage(Vie->Doc->currentPage->PageNr);
+	Vie->GotoPage(Vie->Doc->currentPage->pageNr());
 	RebuildPage();
 	Vie->Doc->setModified(true);
 }

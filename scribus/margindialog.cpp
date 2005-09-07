@@ -64,13 +64,13 @@ MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent
 	widthMSpinBox = new MSpinBox( 1, 100000, dsGroupBox7, unitGetDecimalsFromIndex(doc->unitIndex()) );
 	widthQLabel = new QLabel( tr( "&Width:" ), dsGroupBox7, "widthLabel" );
 	widthMSpinBox->setSuffix(unitGetSuffixFromIndex(doc->unitIndex()));
-	widthMSpinBox->setValue(doc->currentPage->Width * doc->unitRatio());
+	widthMSpinBox->setValue(doc->currentPage->width() * doc->unitRatio());
 	widthQLabel->setBuddy(widthMSpinBox);
 	dsGroupBox7Layout->addWidget( widthQLabel, 2, 0 );
 	dsGroupBox7Layout->addWidget( widthMSpinBox, 2, 1 );
 	heightMSpinBox = new MSpinBox( 1, 100000, dsGroupBox7, unitGetDecimalsFromIndex(doc->unitIndex()) );
 	heightMSpinBox->setSuffix(unitGetSuffixFromIndex(doc->unitIndex()));
-	heightMSpinBox->setValue(doc->currentPage->Height * doc->unitRatio());
+	heightMSpinBox->setValue(doc->currentPage->height() * doc->unitRatio());
 	heightQLabel = new QLabel(heightMSpinBox,  tr( "&Height:" ), dsGroupBox7, "heightLabel" );
 	dsGroupBox7Layout->addWidget( heightQLabel, 2, 2 );
 	dsGroupBox7Layout->addWidget( heightMSpinBox, 2, 3 );
@@ -100,8 +100,8 @@ MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent
 	dialogLayout->addWidget( dsGroupBox7 );
 	
 	GroupRand = new MarginWidget(this,  tr( "Margin Guides" ), &doc->currentPage->initialMargins, unitGetDecimalsFromIndex(doc->unitIndex()), doc->unitRatio(), unitGetSuffixFromIndex(doc->unitIndex()));
-	GroupRand->setPageHeight(doc->currentPage->Height * doc->unitRatio());
-	GroupRand->setPageWidth(doc->currentPage->Width * doc->unitRatio());
+	GroupRand->setPageHeight(doc->currentPage->height() * doc->unitRatio());
+	GroupRand->setPageWidth(doc->currentPage->width() * doc->unitRatio());
 	GroupRand->setFacingPages(!(doc->currentPageLayout == singlePage));
 	dialogLayout->addWidget( GroupRand );
 

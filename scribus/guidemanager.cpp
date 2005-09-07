@@ -64,8 +64,8 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 
 	horizontalGuides = ScApp->doc->currentPage->YGuides; // in page XGuides and YGuides are inverted
 	verticalGuides = ScApp->doc->currentPage->XGuides;
-	LocPageWidth = ScApp->doc->currentPage->Width;
-	LocPageHeight = ScApp->doc->currentPage->Height;
+	LocPageWidth = ScApp->doc->currentPage->width();
+	LocPageHeight = ScApp->doc->currentPage->height();
 	lockedGuides = ScApp->doc->GuideLock;
 
 	LocLeft = MarginTopLeft.x();

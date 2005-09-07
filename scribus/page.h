@@ -36,18 +36,23 @@ class UndoState;
 class SCRIBUS_API Page : public UndoObject
 {
 public:
-	Page(double x, double y, double b, double h);
+	Page(const double x, const double y, const double b, const double h);
 	~Page() {};
-	double Xoffset;
-	double Yoffset;
-	double Width;
-	double Height;
-	double initialWidth;
-	double initialHeight;
+	const double xOffset();
+	const double yOffset();
+	const double width();
+	const double height();
+	const double initialWidth();
+	const double initialHeight();
+	void setXOffset(const double);
+	void setYOffset(const double);
+	void setWidth(const double);
+	void setHeight(const double);
+	void setInitialWidth(const double);
+	void setInitialHeight(const double);
 	MarginStruct Margins;
 	MarginStruct initialMargins;
   /** Nummer der Seite */
-	uint PageNr;
 	int LeftPg;
 	QString MPageNam;
 	QString PageNam;
@@ -56,8 +61,8 @@ public:
 	QValueList<double> XGuides;
 	QValueList<double> YGuides;
 	QPtrList<PageItem> FromMaster;
-	void setPageNr(int pageNr);
-	uint getPageNr();
+	void setPageNr(const int pageNr);
+	uint pageNr();
 	void addXGuide(double position);
 	void addYGuide(double position);
 	void addXGuides(QValueList<double>& guides);
@@ -75,6 +80,14 @@ private:
 	UndoManager* undoManager;
 	void restorePageItemCreation(ItemState<PageItem*> *state, bool isUndo);
 	void restorePageItemDeletion(ItemState<PageItem*> *state, bool isUndo);
+	
+	double m_xOffset;
+	double m_yOffset;
+	double m_width;
+	double m_height;
+	double m_initialWidth;
+	double m_initialHeight;
+	uint m_pageNr;
 };
 
 #endif

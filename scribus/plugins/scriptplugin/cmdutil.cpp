@@ -20,13 +20,13 @@ double ValueToPoint(double Val)
 /// in system units.
 double pageUnitXToDocX(double pageUnitX)
 {
-	return ValueToPoint(pageUnitX) + Carrier->doc->currentPage->Xoffset;
+	return ValueToPoint(pageUnitX) + Carrier->doc->currentPage->xOffset();
 }
 
 // Convert doc units to page units
 double docUnitXToPageX(double pageUnitX)
 {
-	return PointToValue(pageUnitX - Carrier->doc->currentPage->Xoffset);
+	return PointToValue(pageUnitX - Carrier->doc->currentPage->xOffset());
 }
 
 /// Convert a Y co-ordinate part in page units to a document co-ordinate
@@ -35,12 +35,12 @@ double docUnitXToPageX(double pageUnitX)
 /// origin on the top left of the current page.
 double pageUnitYToDocY(double pageUnitY)
 {
-	return ValueToPoint(pageUnitY) + Carrier->doc->currentPage->Yoffset;
+	return ValueToPoint(pageUnitY) + Carrier->doc->currentPage->yOffset();
 }
 
 double docUnitYToPageY(double pageUnitY)
 {
-	return PointToValue(pageUnitY - Carrier->doc->currentPage->Yoffset);
+	return PointToValue(pageUnitY - Carrier->doc->currentPage->yOffset());
 }
 
 int GetItem(QString Name)

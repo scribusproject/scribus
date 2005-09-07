@@ -290,6 +290,10 @@ public:
 	 * @brief Sets up the ScText defaults from the document
 	 */
 	void setScTextDefaultsFromDoc(ScText *);
+	/**
+	 * @brief Copies a normal page to be a master pages
+	 */
+	const bool copyPageToMasterPage(const int, const int, const QString&);
 	
 protected:
 	void addSymbols();

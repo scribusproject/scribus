@@ -715,8 +715,8 @@ void ReformDoc::updateDocumentSettings()
 		Page *pp = currDoc->Pages.at(p);
 		if (sizeAllPages->isChecked())
 		{
-			pp->initialWidth = currDoc->pageWidth;
-			pp->initialHeight = currDoc->pageHeight;
+			pp->setInitialWidth(currDoc->pageWidth);
+			pp->setInitialHeight(currDoc->pageHeight);
 		}
 		if (marginsForAllPages->isChecked())
 		{
@@ -731,8 +731,8 @@ void ReformDoc::updateDocumentSettings()
 		Page *pp = currDoc->MasterPages.at(p);
 		if (sizeAllPages->isChecked())
 		{
-			pp->initialWidth = currDoc->pageWidth;
-			pp->initialHeight = currDoc->pageHeight;
+			pp->setInitialWidth(currDoc->pageWidth);
+			pp->setInitialHeight(currDoc->pageHeight);
 		}
 		if (marginsForAllPages->isChecked())
 		{

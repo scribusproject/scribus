@@ -52,7 +52,7 @@ NewTm::NewTm( QWidget* parent, QString text, QString titel, ScribusDoc *doc)
 	PushButton2 = new QPushButton( CommonStrings::tr_Cancel, this, "PushButton2" );
 	Layout1->addWidget( PushButton2 );
 	QueryLayout->addLayout( Layout1 );
-	setMaximumSize(sizeHint());
+	setMinimumSize(sizeHint());
 	Answer->setFocus();
 
 	// signals and slots connections

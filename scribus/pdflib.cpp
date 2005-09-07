@@ -1023,10 +1023,10 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 				ite =PItems.at(a);
 				if (ite->LayerNr != ll.LNr)
 					continue;
-				int x = static_cast<int>(pag->Xoffset);
-				int y = static_cast<int>(pag->Yoffset);
-				int w = static_cast<int>(pag->Width);
-				int h1 = static_cast<int>(pag->Height);
+				int x = static_cast<int>(pag->xOffset());
+				int y = static_cast<int>(pag->yOffset());
+				int w = static_cast<int>(pag->width());
+				int h1 = static_cast<int>(pag->height());
 				int x2 = static_cast<int>(ite->BoundingX - ite->Pwidth / 2.0);
 				int y2 = static_cast<int>(ite->BoundingY - ite->Pwidth / 2.0);
 				int w2 = static_cast<int>(ite->BoundingW + ite->Pwidth);
@@ -1035,13 +1035,13 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 					continue;
 				if (ite->ChangedMasterItem)
 					continue;
-				if ((!pag->PageNam.isEmpty()) && (ite->OwnPage != static_cast<int>(pag->PageNr)) && (ite->OwnPage != -1))
+				if ((!pag->PageNam.isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
 					continue;
 				PutPage("q\n");
 				if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options->Version >= 14))
 					PutPage(PDF_Transparenz(ite));
 				if ((ite->isBookmark) && (Options->Bookmarks))
-					PDF_Bookmark(ite->BMnr, pag->Height - (ite->Ypos - pag->Yoffset));
+					PDF_Bookmark(ite->BMnr, pag->height() - (ite->Ypos - pag->yOffset()));
 				if (!ite->printable() || ((ite->itemType() == PageItem::TextFrame) && (!pag->PageNam.isEmpty())))
 				{
 					PutPage("Q\n");
@@ -1120,7 +1120,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 						PutPage("0 j\n");
 						break;
 				}
-				PutPage("1 0 0 1 "+FToStr(ite->Xpos - pag->Xoffset)+" "+FToStr(pag->Height - (ite->Ypos  - pag->Yoffset))+" cm\n");
+				PutPage("1 0 0 1 "+FToStr(ite->Xpos - pag->xOffset())+" "+FToStr(pag->height() - (ite->Ypos  - pag->yOffset()))+" cm\n");
 				if (ite->Rot != 0)
 				{
 					double sr = sin(-ite->Rot* M_PI / 180.0);
@@ -1413,14 +1413,14 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 								PutPage("Q\n");
 							}
 						}
-						PutPage(setTextSt(ite, pag->PageNr, pag));
+						PutPage(setTextSt(ite, pag->pageNr(), pag));
 						break;
 					}
 				PutPage("Q\n");
 				StartObj(ObjCounter);
 				ObjCounter++;
 				PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1\n");
-				PutDoc("/BBox [ 0 0 "+FToStr(ActPageP->Width)+" "+FToStr(ActPageP->Height)+" ]\n");
+				PutDoc("/BBox [ 0 0 "+FToStr(ActPageP->width())+" "+FToStr(ActPageP->height())+" ]\n");
 				PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
 				if (Seite.ImgObjects.count() != 0)
 				{
@@ -1515,14 +1515,14 @@ void PDFlib::PDF_Begin_Page(Page* pag, QPixmap pm)
 
 void PDFlib::PDF_End_Page()
 {
-	uint PgNr =  ActPageP->PageNr;
+	uint PgNr =  ActPageP->pageNr();
 	Seite.ObjNum = ObjCounter;
 	WritePDFStream(&Inhalt);
 	StartObj(ObjCounter);
 	PutDoc("<<\n/Type /Page\n/Parent 4 0 R\n");
-	PutDoc("/MediaBox [0 0 "+FToStr(ActPageP->Width)+" "+FToStr(ActPageP->Height)+"]\n");
+	PutDoc("/MediaBox [0 0 "+FToStr(ActPageP->width())+" "+FToStr(ActPageP->height())+"]\n");
 	PutDoc("/TrimBox ["+FToStr(Options->BleedLeft)+" "+FToStr(Options->BleedBottom)+
-		" "+FToStr(ActPageP->Width-Options->BleedRight)+" "+FToStr(ActPageP->Height-Options->BleedTop)+"]\n");
+		" "+FToStr(ActPageP->width()-Options->BleedRight)+" "+FToStr(ActPageP->height()-Options->BleedTop)+"]\n");
 	PutDoc("/Rotate "+IToStr(Options->RotateDeg)+"\n");
 	PutDoc("/Contents "+IToStr(Seite.ObjNum)+" 0 R\n");
 	if (Options->Thumbnails)
@@ -1625,18 +1625,18 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 	if (Options->UseLPI)
 		PutPage("/"+HTName+" gs\n");
 	if ( (Options->MirrorH) && (!pag->MPageNam.isEmpty()) )
-		PutPage("-1 0 0 1 "+FToStr(ActPageP->Width)+" 0 cm\n");
+		PutPage("-1 0 0 1 "+FToStr(ActPageP->width())+" 0 cm\n");
 	if ( (Options->MirrorV) && (!pag->MPageNam.isEmpty()) )
-		PutPage("1 0 0 -1 0 "+FToStr(ActPageP->Height)+" cm\n");
+		PutPage("1 0 0 -1 0 "+FToStr(ActPageP->height())+" cm\n");
 	if (clip)
 	{
 		PutPage(FToStr(pag->Margins.Left) + " " + FToStr(pag->Margins.Bottom) + " m\n");
-		PutPage(FToStr(ActPageP->Width - pag->Margins.Right) + " " + FToStr(pag->Margins.Bottom) + " l\n");
-		PutPage(FToStr(ActPageP->Width - pag->Margins.Right) + " " + FToStr(ActPageP->Height - pag->Margins.Top) + " l\n");
-		PutPage(FToStr(pag->Margins.Left) + " " + FToStr(ActPageP->Height - pag->Margins.Top) + " l h W n\n");
+		PutPage(FToStr(ActPageP->width() - pag->Margins.Right) + " " + FToStr(pag->Margins.Bottom) + " l\n");
+		PutPage(FToStr(ActPageP->width() - pag->Margins.Right) + " " + FToStr(ActPageP->height() - pag->Margins.Top) + " l\n");
+		PutPage(FToStr(pag->Margins.Left) + " " + FToStr(ActPageP->height() - pag->Margins.Top) + " l h W n\n");
 	}
 	else
-		PutPage("0 0 "+FToStr(ActPageP->Width)+" "+FToStr(ActPageP->Height)+" re W n\n");
+		PutPage("0 0 "+FToStr(ActPageP->width())+" "+FToStr(ActPageP->height())+" re W n\n");
 	if (!pag->MPageNam.isEmpty())
 	{
 		Page* mPage = doc->MasterPages.at(doc->MasterNames[doc->Pages.at(PNr)->MPageNam]);
@@ -1657,7 +1657,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 						ite = pag->FromMaster.at(am);
 						if ((ite->LayerNr != ll.LNr) || (!ite->printable()))
 							continue;
-						if ((!pag->PageNam.isEmpty()) && (ite->OwnPage != static_cast<int>(pag->PageNr)) && (ite->OwnPage != -1))
+						if ((!pag->PageNam.isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
 							continue;
 						QString name = "/"+pag->MPageNam.simplifyWhiteSpace().replace( QRegExp("\\s"), "" ) + IToStr(ite->ItemNr);
 						if (ite->itemType() != PageItem::TextFrame)
@@ -1726,7 +1726,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 									PutPage("0 j\n");
 									break;
 							}
-							PutPage("1 0 0 1 "+FToStr(ite->Xpos - mPage->Xoffset)+" "+FToStr(mPage->Height - (ite->Ypos  - mPage->Yoffset))+" cm\n");
+							PutPage("1 0 0 1 "+FToStr(ite->Xpos - mPage->xOffset())+" "+FToStr(mPage->height() - (ite->Ypos  - mPage->yOffset()))+" cm\n");
 							if (ite->Rot != 0)
 							{
 								double sr = sin(-ite->Rot* M_PI / 180.0);
@@ -1782,7 +1782,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 							continue;
 						if (ite->ChangedMasterItem)
 							continue;
-						if ((!pag->PageNam.isEmpty()) && (ite->OwnPage != static_cast<int>(pag->PageNr)) && (ite->OwnPage != -1))
+						if ((!pag->PageNam.isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
 							continue;
 						if (!ite->isTableItem)
 							continue;
@@ -1848,7 +1848,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 								PutPage("0 j\n");
 								break;
 						}
-						PutPage("1 0 0 1 "+FToStr(ite->Xpos - mPage->Xoffset)+" "+FToStr(mPage->Height - (ite->Ypos  - mPage->Yoffset))+" cm\n");
+						PutPage("1 0 0 1 "+FToStr(ite->Xpos - mPage->xOffset())+" "+FToStr(mPage->height() - (ite->Ypos  - mPage->yOffset()))+" cm\n");
 						if (ite->Rot != 0)
 						{
 							double sr = sin(-ite->Rot* M_PI / 180.0);
@@ -1919,10 +1919,10 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 						continue;
 					if (!ite->isTableItem)
 						continue;
-					int x = static_cast<int>(pag->Xoffset);
-					int y = static_cast<int>(pag->Yoffset);
-					int w = static_cast<int>(pag->Width);
-					int h1 = static_cast<int>(pag->Height);
+					int x = static_cast<int>(pag->xOffset());
+					int y = static_cast<int>(pag->yOffset());
+					int w = static_cast<int>(pag->width());
+					int h1 = static_cast<int>(pag->height());
 					int x2 = static_cast<int>(ite->BoundingX - ite->Pwidth / 2.0);
 					int y2 = static_cast<int>(ite->BoundingY - ite->Pwidth / 2.0);
 					int w2 = static_cast<int>(ite->BoundingW + ite->Pwidth);
@@ -1931,7 +1931,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 						continue;
 					if (ite->ChangedMasterItem)
 						continue;
-					if ((!pag->PageNam.isEmpty()) && (ite->OwnPage != static_cast<int>(pag->PageNr)) && (ite->OwnPage != -1))
+					if ((!pag->PageNam.isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
 						continue;
 					PutPage("q\n");
 					if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options->Version >= 14))
@@ -2000,7 +2000,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 							PutPage("0 j\n");
 							break;
 					}
-					PutPage("1 0 0 1 "+FToStr(ite->Xpos - pag->Xoffset)+" "+FToStr(pag->Height - (ite->Ypos  - pag->Yoffset))+" cm\n");
+					PutPage("1 0 0 1 "+FToStr(ite->Xpos - pag->xOffset())+" "+FToStr(pag->height() - (ite->Ypos  - pag->yOffset()))+" cm\n");
 					if (ite->Rot != 0)
 					{
 						double sr = sin(-ite->Rot* M_PI / 180.0);
@@ -2050,10 +2050,10 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 QString PDFlib::PDF_ProcessItem(PageItem* ite, Page* pag, uint PNr, bool embedded)
 {
 	QString tmp = "";
-	int x = static_cast<int>(pag->Xoffset);
-	int y = static_cast<int>(pag->Yoffset);
-	int w = static_cast<int>(pag->Width);
-	int h1 = static_cast<int>(pag->Height);
+	int x = static_cast<int>(pag->xOffset());
+	int y = static_cast<int>(pag->yOffset());
+	int w = static_cast<int>(pag->width());
+	int h1 = static_cast<int>(pag->height());
 	int x2 = static_cast<int>(ite->BoundingX - ite->Pwidth / 2.0);
 	int y2 = static_cast<int>(ite->BoundingY - ite->Pwidth / 2.0);
 	int w2 = static_cast<int>(ite->BoundingW + ite->Pwidth);
@@ -2062,13 +2062,13 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, Page* pag, uint PNr, bool embedde
 		return tmp;
 	if (ite->ChangedMasterItem)
 		return tmp;
-	if ((!pag->PageNam.isEmpty()) && (ite->OwnPage != static_cast<int>(pag->PageNr)) && (ite->OwnPage != -1))
+	if ((!pag->PageNam.isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
 		return tmp;
 	tmp += "q\n";
 	if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options->Version >= 14))
 		tmp += PDF_Transparenz(ite);
 	if ((ite->isBookmark) && (Options->Bookmarks))
-		PDF_Bookmark(ite->BMnr, pag->Height - (ite->Ypos - pag->Yoffset));
+		PDF_Bookmark(ite->BMnr, pag->height() - (ite->Ypos - pag->yOffset()));
 	if (!ite->printable() || ((ite->itemType() == PageItem::TextFrame) && (!pag->PageNam.isEmpty())))
 	{
 		tmp += "Q\n";
@@ -2149,7 +2149,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, Page* pag, uint PNr, bool embedde
 	}
 	if (!embedded)
 	{
-		tmp += "1 0 0 1 "+FToStr(ite->Xpos - pag->Xoffset)+" "+FToStr(pag->Height - (ite->Ypos  - pag->Yoffset))+" cm\n";
+		tmp += "1 0 0 1 "+FToStr(ite->Xpos - pag->xOffset())+" "+FToStr(pag->height() - (ite->Ypos  - pag->yOffset()))+" cm\n";
 	}
 	if (ite->Rot != 0)
 	{
@@ -3587,8 +3587,8 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 	size_t ar = sizeof(tmp) / sizeof(*tmp);
 	for (uint a = 0; a < ar; ++a)
 		ind2PDFabr[a] = tmp[a];
-	double x = ite->Xpos - ActPageP->Xoffset;
-	double y = ActPageP->Height - (ite->Ypos  - ActPageP->Yoffset);
+	double x = ite->Xpos - ActPageP->xOffset();
+	double y = ActPageP->height() - (ite->Ypos  - ActPageP->yOffset());
 	double x2 = x+ite->Width;
 	double y2 = y-ite->Height;
 	for (uint d = 0; d < ite->itemText.count(); ++d)
@@ -3869,22 +3869,22 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		case 0:
 			break;
 		case 90:
-			x = ite->Xpos - ActPageP->Xoffset;
-			y2 = ActPageP->Height - (ite->Ypos  - ActPageP->Yoffset);
+			x = ite->Xpos - ActPageP->xOffset();
+			y2 = ActPageP->height() - (ite->Ypos  - ActPageP->yOffset());
 			x2 = x + ite->Height;
 			y = y2 + ite->Width;
 			break;
 		case 180:
-			x = ite->Xpos - ActPageP->Xoffset - ite->Width;
-			y2 = ActPageP->Height - (ite->Ypos  - ActPageP->Yoffset);
-			x2 = ite->Xpos - ActPageP->Xoffset;
+			x = ite->Xpos - ActPageP->xOffset() - ite->Width;
+			y2 = ActPageP->height() - (ite->Ypos  - ActPageP->yOffset());
+			x2 = ite->Xpos - ActPageP->xOffset();
 			y = y2 + ite->Height;
 			break;
 		case 270:
-			x = ite->Xpos - ActPageP->Xoffset - ite->Height;
-			y2 = ActPageP->Height - (ite->Ypos  - ActPageP->Yoffset) - ite->Width;
-			x2 = ite->Xpos - ActPageP->Xoffset;
-			y = ActPageP->Height - (ite->Ypos  - ActPageP->Yoffset);
+			x = ite->Xpos - ActPageP->xOffset() - ite->Height;
+			y2 = ActPageP->height() - (ite->Ypos  - ActPageP->yOffset()) - ite->Width;
+			x2 = ite->Xpos - ActPageP->xOffset();
+			y = ActPageP->height() - (ite->Ypos  - ActPageP->yOffset());
 			break;
 	}
 	PutDoc("/Rect [ "+FToStr(x)+" "+FToStr(y2)+" "+FToStr(x2)+" "+FToStr(y)+" ]\n");
@@ -4846,8 +4846,8 @@ void PDFlib::PDF_End_Doc(QString PrintPr, QString Name, int Components)
 						bd.Prev = ccb - 1;
 						ccb++;
 						bd.Page = PageTree.Kids[tel->OwnPage];
-						bd.Recht = QRect(static_cast<int>(tel->Xpos - doc->Pages.at(tel->OwnPage)->Xoffset),
-									static_cast<int>(doc->Pages.at(tel->OwnPage)->Height - (tel->Ypos  - doc->Pages.at(tel->OwnPage)->Yoffset)),
+						bd.Recht = QRect(static_cast<int>(tel->Xpos - doc->Pages.at(tel->OwnPage)->xOffset()),
+									static_cast<int>(doc->Pages.at(tel->OwnPage)->height() - (tel->Ypos  - doc->Pages.at(tel->OwnPage)->yOffset())),
 									static_cast<int>(tel->Width),
 									static_cast<int>(tel->Height));
 						Beads.append(bd);
@@ -4860,8 +4860,8 @@ void PDFlib::PDF_End_Doc(QString PrintPr, QString Name, int Components)
 				if (tel->OwnPage != -1)
 				{
 					bd.Page = PageTree.Kids[tel->OwnPage];
-					bd.Recht = QRect(static_cast<int>(tel->Xpos - doc->Pages.at(tel->OwnPage)->Xoffset), 
-								static_cast<int>(doc->Pages.at(tel->OwnPage)->Height - (tel->Ypos  - doc->Pages.at(tel->OwnPage)->Yoffset)),
+					bd.Recht = QRect(static_cast<int>(tel->Xpos - doc->Pages.at(tel->OwnPage)->xOffset()), 
+								static_cast<int>(doc->Pages.at(tel->OwnPage)->height() - (tel->Ypos  - doc->Pages.at(tel->OwnPage)->yOffset())),
 								static_cast<int>(tel->Width),
 								static_cast<int>(tel->Height));
 					Beads.append(bd);

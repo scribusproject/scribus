@@ -103,7 +103,8 @@ QImage ProofImage(QImage *Image)
 	QImage out = Image->copy();
 	if ((CMSuse) && (SoftProofing))
 	{
-		for (int i=0; i < out.height(); ++i)
+		int outheight=out.height();
+		for (int i=0; i < outheight; ++i)
 		{
 			LPBYTE ptr = out.scanLine(i);
 			cmsDoTransform(stdProofImgG, ptr, ptr, out.width());
@@ -113,7 +114,8 @@ QImage ProofImage(QImage *Image)
 	{
 		if (CMSuse)
 		{
-			for (int i=0; i < out.height(); ++i)
+			int outheight=out.height();
+			for (int i=0; i < outheight; ++i)
 			{
 				LPBYTE ptr = out.scanLine(i);
 				cmsDoTransform(stdTransImgG, ptr, ptr, out.width());

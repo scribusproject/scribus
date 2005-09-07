@@ -993,8 +993,8 @@ void ScribusApp::setMousePositionOnStatusBar(double xp, double yp)
 	double yn = yp;
 	if (doc->guidesSettings.rulerMode)
 	{
-		xn -= doc->currentPage->Xoffset;
-		yn -= doc->currentPage->Yoffset;
+		xn -= doc->currentPage->xOffset();
+		yn -= doc->currentPage->yOffset();
 	}
 	xn -= doc->rulerXoffset;
 	yn -= doc->rulerYoffset;
@@ -2623,7 +2623,7 @@ bool ScribusApp::SetupDoc()
 		scrActions["viewShowTextControls"]->setOn(doc->guidesSettings.showControls);
 		scrActions["viewRulerMode"]->setOn(doc->guidesSettings.rulerMode);
 		view->reformPages();
-		view->GotoPage(doc->currentPage->PageNr);
+		view->GotoPage(doc->currentPage->pageNr());
 		view->DrawNew();
 		propertiesPalette->ShowCMS();
 		pagePalette->RebuildPage();
@@ -2941,7 +2941,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["toolsRotate"]->setEnabled(false);
 		scrActions["toolsCopyProperties"]->setEnabled(false);
 		propertiesPalette->Cpal->gradientQCombo->setCurrentItem(0);
-		outlinePalette->slotShowSelect(doc->currentPage->PageNr, -1);
+		outlinePalette->slotShowSelect(doc->currentPage->pageNr(), -1);
 		break;
 	case PageItem::ImageFrame: //Image Frame
 		scrActions["fileImportAppendText"]->setEnabled(false);
@@ -3517,7 +3517,7 @@ bool ScribusApp::slotDocOpen()
 bool ScribusApp::slotPageImport()
 {
 	bool ret = false;
-	MergeDoc *dia = new MergeDoc(this, false, doc->pageCount, doc->currentPage->PageNr + 1);
+	MergeDoc *dia = new MergeDoc(this, false, doc->pageCount, doc->currentPage->pageNr() + 1);
 	if (dia->exec())
 	{
 		mainWindowStatusLabel->setText( tr("Importing Pages..."));
@@ -3546,9 +3546,9 @@ bool ScribusApp::slotPageImport()
 		}
 		else
 		{
-			startPage = doc->currentPage->PageNr + 1;
+			startPage = doc->currentPage->pageNr() + 1;
 			nrToImport = pageNs.size();
-			if (pageNs.size() > (doc->pageCount - doc->currentPage->PageNr))
+			if (pageNs.size() > (doc->pageCount - doc->currentPage->pageNr()))
 			{
 				qApp->setOverrideCursor(QCursor(arrowCursor), true);
 				QMessageBox mb( tr("Import Page(s)"),
@@ -3568,10 +3568,10 @@ bool ScribusApp::slotPageImport()
 				switch( mb.exec() ) {
 					case QMessageBox::Yes:
 						nrToImport = pageNs.size();
-						addNewPages(doc->pageCount, 2, pageNs.size() - (doc->pageCount - doc->currentPage->PageNr), doc->pageHeight, doc->pageWidth, doc->PageOri, doc->PageSize, true);
+						addNewPages(doc->pageCount, 2, pageNs.size() - (doc->pageCount - doc->currentPage->pageNr()), doc->pageHeight, doc->pageWidth, doc->PageOri, doc->PageSize, true);
 					break;
 					case QMessageBox::No:
-						nrToImport = doc->pageCount - doc->currentPage->PageNr;
+						nrToImport = doc->pageCount - doc->currentPage->pageNr();
 					break;
 					case QMessageBox::Cancel:
 						doIt = false;
@@ -4581,7 +4581,7 @@ void ScribusApp::slotReallyPrint()
 	doc->getUsedColors(usedSpots, true);
 	QStringList spots = usedSpots.keys();
 	Druck *printer = new Druck(this, options.filename, options.printer, PDef.Command, prefsManager->appPrefs.GCRMode, spots);
-	printer->setMinMax(1, doc->Pages.count(), doc->currentPage->PageNr+1);
+	printer->setMinMax(1, doc->Pages.count(), doc->currentPage->pageNr()+1);
 	if (printer->exec())
 	{
 		ReOrderText(doc, view);
@@ -4590,7 +4590,7 @@ void ScribusApp::slotReallyPrint()
 		options.filename = printer->outputFileName();
 		options.toFile = printer->outputToFile();
 		if (printer->CurrentPage->isChecked())
-			options.pageNumbers.push_back(doc->currentPage->PageNr+1);
+			options.pageNumbers.push_back(doc->currentPage->pageNr()+1);
 		else
 		{
 			if (printer->RadioButton1->isChecked())
@@ -5283,7 +5283,7 @@ void ScribusApp::SaveText()
 
 void ScribusApp::applyNewMaster(QString name)
 {
-	Apply_MasterPage(name, doc->currentPage->PageNr);
+	Apply_MasterPage(name, doc->currentPage->pageNr());
 	view->DrawNew();
 	slotDocCh();
 	pagePalette->Rebuild();
@@ -5309,7 +5309,7 @@ void ScribusApp::slotNewPageM()
 	NoFrameEdit();
 	view->Deselect(true);
 	QStringList base;
-	InsPage *dia = new InsPage(this, doc, doc->currentPage->PageNr, doc->Pages.count());
+	InsPage *dia = new InsPage(this, doc, doc->currentPage->pageNr(), doc->Pages.count());
 	if (dia->exec())
 	{
 		base = dia->getMasterPages();
@@ -5365,11 +5365,11 @@ void ScribusApp::addNewPages(int wo, int where, int numPages, double height, dou
 		for (cc = 0; cc < numPages; ++cc)
 		{
 			slotNewPage(wot, mov);
-			doc->currentPage->initialHeight = height;
-			doc->currentPage->initialWidth = width;
+			doc->currentPage->setInitialHeight(height);
+			doc->currentPage->setInitialWidth(width);
 			doc->currentPage->PageOri = orient;
 			doc->currentPage->PageSize = siz;
-			applyNewMaster(base[(doc->currentPage->PageNr+doc->pageSets[doc->currentPageLayout].FirstPage) % doc->pageSets[doc->currentPageLayout].Columns]);
+			applyNewMaster(base[(doc->currentPage->pageNr()+doc->pageSets[doc->currentPageLayout].FirstPage) % doc->pageSets[doc->currentPageLayout].Columns]);
 			wot ++;
 		}
 		break;
@@ -5377,11 +5377,11 @@ void ScribusApp::addNewPages(int wo, int where, int numPages, double height, dou
 		for (cc = 0; cc < numPages; ++cc)
 		{
 			slotNewPage(wot, mov);
-			doc->currentPage->initialHeight = height;
-			doc->currentPage->initialWidth = width;
+			doc->currentPage->setInitialHeight(height);
+			doc->currentPage->setInitialWidth(width);
 			doc->currentPage->PageOri = orient;
 			doc->currentPage->PageSize = siz;
-			applyNewMaster(base[(doc->currentPage->PageNr+doc->pageSets[doc->currentPageLayout].FirstPage) % doc->pageSets[doc->currentPageLayout].Columns]);
+			applyNewMaster(base[(doc->currentPage->pageNr()+doc->pageSets[doc->currentPageLayout].FirstPage) % doc->pageSets[doc->currentPageLayout].Columns]);
 			wot ++;
 		}
 		break;
@@ -5389,11 +5389,11 @@ void ScribusApp::addNewPages(int wo, int where, int numPages, double height, dou
 		for (cc = 0; cc < numPages; ++cc)
 		{
 			slotNewPage(doc->Pages.count(), mov);
-			doc->currentPage->initialHeight = height;
-			doc->currentPage->initialWidth = width;
+			doc->currentPage->setInitialHeight(height);
+			doc->currentPage->setInitialWidth(width);
 			doc->currentPage->PageOri = orient;
 			doc->currentPage->PageSize = siz;
-			applyNewMaster(base[(doc->currentPage->PageNr+doc->pageSets[doc->currentPageLayout].FirstPage) % doc->pageSets[doc->currentPageLayout].Columns]);
+			applyNewMaster(base[(doc->currentPage->pageNr()+doc->pageSets[doc->currentPageLayout].FirstPage) % doc->pageSets[doc->currentPageLayout].Columns]);
 		}
 		break;
 	}
@@ -5433,6 +5433,43 @@ void ScribusApp::slotNewPage(int w, bool mov)
 	}
 	slotDocCh(!doc->loading); */
 }
+
+/*
+void ScribusApp::duplicateToMasterPage()
+{
+	NewTm *dia = new NewTm(this, tr("Name:"), tr("Convert Page to Master Page"), doc);
+	dia->Answer->setText( tr("New Master Page"));
+	dia->Answer->selectAll();
+	if (dia->exec())
+	{
+		view->Deselect(true);
+		QString masterPageName = dia->Answer->text();
+		while (doc->MasterNames.contains(masterPageName) || (masterPageName == "Normal"))
+		{
+			if (!dia->exec())
+			{
+				delete dia;
+				return;
+			}
+			masterPageName = dia->Answer->text();
+		}
+		//Grab the left page setting for the current document layout from the dialog, and increment, singlePage==1 remember.
+		int lp;
+		if (doc->currentPageLayout != singlePage)
+		{
+			lp = dia->Links->currentItem();
+			if (lp == static_cast<int>(dia->Links->count()-1))
+				lp = 0;
+			else
+				++lp;
+		}
+		int currentPageNumber=doc->currentPage->pageNr();
+		bool ok=doc->copyPageToMasterPage(currentPageNumber, lp, masterPageName);
+		Q_ASSERT(ok); //TODO get a return value in case the copy was not possible
+	}
+	delete dia;
+}
+*/
 
 void ScribusApp::duplicateToMasterPage()
 {
@@ -5503,10 +5540,10 @@ void ScribusApp::duplicateToMasterPage()
 			}
 			qHeapSort(Target->XGuides);
 		}
-		uint end = doc->DocItems.count();
-		for (uint a = 0; a < end; ++a)
+		uint docItemsCount = doc->DocItems.count();
+		for (uint a = 0; a < docItemsCount; ++a)
 		{
-			if (doc->DocItems.at(a)->OwnPage == static_cast<int>(Source->PageNr))
+			if (doc->DocItems.at(a)->OwnPage == static_cast<int>(Source->pageNr()))
 			{
 				doc->DocItems.at(a)->copyToCopyPasteBuffer(&BufferT);
 				view->PasteItem(&BufferT, true, true);
@@ -6317,7 +6354,7 @@ void ScribusApp::DeletePage()
 {
 	NoFrameEdit();
 	view->Deselect(true);
-	DelPages *dia = new DelPages(this, doc->currentPage->PageNr+1, doc->Pages.count());
+	DelPages *dia = new DelPages(this, doc->currentPage->pageNr()+1, doc->Pages.count());
 	if (dia->exec())
 		DeletePage(dia->getFromPage(), dia->getToPage());
 	delete dia;
@@ -6384,7 +6421,7 @@ void ScribusApp::DeletePage(int from, int to)
 void ScribusApp::MovePage()
 {
 	NoFrameEdit();
-	MovePages *dia = new MovePages(this, doc->currentPage->PageNr+1, doc->Pages.count(), true);
+	MovePages *dia = new MovePages(this, doc->currentPage->pageNr()+1, doc->Pages.count(), true);
 	if (dia->exec())
 	{
 //		doc->OpenNodes = outlinePalette->buildReopenVals();
@@ -6407,7 +6444,7 @@ void ScribusApp::MovePage()
 void ScribusApp::CopyPage()
 {
 	NoFrameEdit();
-	MovePages *dia = new MovePages(this, doc->currentPage->PageNr+1, doc->Pages.count(), false);
+	MovePages *dia = new MovePages(this, doc->currentPage->pageNr()+1, doc->Pages.count(), false);
 	if (dia->exec())
 	{
 		doc->setLoading(true);
@@ -6426,8 +6463,8 @@ void ScribusApp::CopyPage()
 			break;
 		}
 		Page* Ziel = doc->currentPage;
-		Ziel->initialHeight = from->Height;
-		Ziel->initialWidth = from->Width;
+		Ziel->setInitialHeight(from->height());
+		Ziel->setInitialWidth(from->width());
 		Ziel->PageOri = from->PageOri;
 		Ziel->PageSize = from->PageSize;
 		Ziel->initialMargins.Top = from->Margins.Top;
@@ -6441,11 +6478,11 @@ void ScribusApp::CopyPage()
 		uint oldItems = doc->Items.count();
 		for (uint ite = 0; ite < oldItems; ++ite)
 		{
-			if (doc->Items.at(ite)->OwnPage == static_cast<int>(from->PageNr))
+			if (doc->Items.at(ite)->OwnPage == static_cast<int>(from->pageNr()))
 			{
 				doc->Items.at(ite)->copyToCopyPasteBuffer(&Buffer);
-				Buffer.Xpos = Buffer.Xpos - from->Xoffset + Ziel->Xoffset;
-				Buffer.Ypos = Buffer.Ypos - from->Yoffset + Ziel->Yoffset;
+				Buffer.Xpos = Buffer.Xpos - from->xOffset() + Ziel->xOffset();
+				Buffer.Ypos = Buffer.Ypos - from->yOffset() + Ziel->yOffset();
 				view->PasteItem(&Buffer, true, true);
 				PageItem* Neu = doc->Items.at(doc->Items.count()-1);
 				Neu->OnMasterPage = "";
@@ -6481,7 +6518,7 @@ void ScribusApp::CopyPage()
 					ta->BottomLink = 0;
 			}
 		}
-		Apply_MasterPage(from->MPageNam, Ziel->PageNr, false);
+		Apply_MasterPage(from->MPageNam, Ziel->pageNr(), false);
 		if (from->YGuides.count() != 0)
 		{
 			for (uint y = 0; y < from->YGuides.count(); ++y)
@@ -6518,7 +6555,7 @@ void ScribusApp::changePageMargins()
 	MarginDialog *dia = new MarginDialog(this, doc);
 	if (dia->exec())
 	{
-		doc->changePageMargins(dia->GroupRand->RandT, dia->GroupRand->RandB, dia->GroupRand->RandL, dia->GroupRand->RandR, dia->pageHeight, dia->pageWidth, dia->pageHeight, dia->pageWidth, dia->orientationQComboBox->currentItem(), dia->prefsPageSizeName, doc->currentPage->PageNr);
+		doc->changePageMargins(dia->GroupRand->RandT, dia->GroupRand->RandB, dia->GroupRand->RandL, dia->GroupRand->RandR, dia->pageHeight, dia->pageWidth, dia->pageHeight, dia->pageWidth, dia->orientationQComboBox->currentItem(), dia->prefsPageSizeName, doc->currentPage->pageNr());
 		view->reformPages(dia->moveObjects->isChecked());
 		view->DrawNew();
 		slotDocCh();
@@ -7482,7 +7519,7 @@ void ScribusApp::selectItemsFromOutlines(int Page, int Item, bool single)
 	NoFrameEdit();
 	setActiveWindow();
 	view->Deselect(true);
-	if ((Page != -1) && (Page != static_cast<int>(doc->currentPage->PageNr)))
+	if ((Page != -1) && (Page != static_cast<int>(doc->currentPage->pageNr())))
 		view->GotoPage(Page);
 	view->SelectItemNr(Item, true, single);
 	if (view->SelItem.count() != 0)
@@ -7715,7 +7752,7 @@ bool ScribusApp::DoSaveAsEps(QString fn)
 	QStringList spots;
 	bool return_value = true;
 	std::vector<int> pageNs;
-	pageNs.push_back(doc->currentPage->PageNr+1);
+	pageNs.push_back(doc->currentPage->pageNr()+1);
 	ReOrderText(doc, view);
 	qApp->setOverrideCursor(QCursor(waitCursor), true);
 	QMap<QString,QFont> ReallyUsed;
@@ -7784,12 +7821,12 @@ void ScribusApp::reallySaveAsEps()
 	if (!doc->DocName.startsWith(tr("Document")))
 	{
 		QFileInfo fi(doc->DocName);
-		fna = fi.dirPath() + "/" + getFileNameByPage(doc->currentPage->PageNr, "eps");
+		fna = fi.dirPath() + "/" + getFileNameByPage(doc->currentPage->pageNr(), "eps");
 	}
 	else
 	{
 		QDir di = QDir();
-		fna = di.currentDirPath() + "/" + getFileNameByPage(doc->currentPage->PageNr, "eps");
+		fna = di.currentDirPath() + "/" + getFileNameByPage(doc->currentPage->pageNr(), "eps");
 	}
 	fna = QDir::convertSeparators(fna);
 	QString wdir = ".";
@@ -8202,7 +8239,7 @@ void ScribusApp::ApplyMasterPage()
 		QString masterPageName = dia->getMasterPageName();
 		int pageSelection = dia->getPageSelection(); //0=current, 1=even, 2=odd, 3=all
 		if (pageSelection==0) //current page only
-			Apply_MasterPage(masterPageName, doc->currentPage->PageNr, false);
+			Apply_MasterPage(masterPageName, doc->currentPage->pageNr(), false);
 		else
 		{
 			int startPage, endPage;

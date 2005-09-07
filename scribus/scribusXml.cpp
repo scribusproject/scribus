@@ -1017,7 +1017,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 			}
 			if ((pg.tagName()=="PAGE") && (QStoInt(pg.attribute("NUM")) == PageToLoad))
 			{
-				a = doc->currentPage->PageNr;
+				a = doc->currentPage->pageNr();
 				if (!(pg.attribute("NAM", "").isEmpty()) && (Mpage))
 				{
 					PAGE=PAGE.nextSibling();
@@ -1082,8 +1082,8 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 						}
 					}
 					GetItemProps(newVersion, &obj, &OB);
-					OB.Xpos = QStodouble(obj.attribute("XPOS"))+doc->Pages.at(a)->Xoffset;
-					OB.Ypos=QStodouble(obj.attribute("YPOS"))+doc->Pages.at(a)->Yoffset;
+					OB.Xpos = QStodouble(obj.attribute("XPOS"))+doc->Pages.at(a)->xOffset();
+					OB.Ypos=QStodouble(obj.attribute("YPOS"))+doc->Pages.at(a)->yOffset();
 					OB.NamedLStyle = obj.attribute("NAMEDLST", "");
 					if (!doc->MLineStyles.contains(OB.NamedLStyle))
 						OB.NamedLStyle = "";
@@ -1602,8 +1602,8 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 						}
 					}
 					GetItemProps(newVersion, &obj, &OB);
-					OB.Xpos = QStodouble(obj.attribute("XPOS"))+doc->Pages.at(a)->Xoffset;
-					OB.Ypos=QStodouble(obj.attribute("YPOS"))+doc->Pages.at(a)->Yoffset;
+					OB.Xpos = QStodouble(obj.attribute("XPOS"))+doc->Pages.at(a)->xOffset();
+					OB.Ypos=QStodouble(obj.attribute("YPOS"))+doc->Pages.at(a)->yOffset();
 					OB.NamedLStyle = obj.attribute("NAMEDLST", "");
 					OB.isBookmark=QStoInt(obj.attribute("BOOKMARK"));
 					if ((OB.isBookmark) && (doc->BookMarks.count() == 0))
@@ -2700,15 +2700,15 @@ void ScriXmlDoc::WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc
 			pg = docu->createElement("PAGE");
 			page = doc->DocPages.at(i);
 		}
-		pg.setAttribute("PAGEXPOS",page->Xoffset);
-		pg.setAttribute("PAGEYPOS",page->Yoffset);
-		pg.setAttribute("PAGEWIDTH",page->Width);
-		pg.setAttribute("PAGEHEIGHT",page->Height);
+		pg.setAttribute("PAGEXPOS",page->xOffset());
+		pg.setAttribute("PAGEYPOS",page->yOffset());
+		pg.setAttribute("PAGEWIDTH",page->width());
+		pg.setAttribute("PAGEHEIGHT",page->height());
 		pg.setAttribute("BORDERLEFT",page->initialMargins.Left);
 		pg.setAttribute("BORDERRIGHT",page->initialMargins.Right);
 		pg.setAttribute("BORDERTOP",page->initialMargins.Top);
 		pg.setAttribute("BORDERBOTTOM",page->initialMargins.Bottom);
-		pg.setAttribute("NUM",page->PageNr);
+		pg.setAttribute("NUM",page->pageNr());
 		pg.setAttribute("NAM",page->PageNam);
 		pg.setAttribute("MNAM",page->MPageNam);
 		pg.setAttribute("Size", page->PageSize);

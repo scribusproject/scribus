@@ -468,7 +468,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 							z = Prog->view->PaintPolyLine(0, 0, 10, 10, LineW, CurrColor, "None");
 						ite = Doku->Items.at(z);
 						ite->PoLine = Coords.copy();
-						ite->PoLine.translate(Doku->currentPage->Xoffset, Doku->currentPage->Yoffset);
+						ite->PoLine.translate(Doku->currentPage->xOffset(), Doku->currentPage->yOffset());
 						ite->ClipEdited = true;
 						ite->FrameType = 3;
 						FPoint wh = getMaxClipF(&ite->PoLine);
@@ -507,7 +507,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 							z = Prog->view->PaintPolyLine(0, 0, 10, 10, LineW, "None", CurrColor);
 						ite = Doku->Items.at(z);
 						ite->PoLine = Coords.copy();
-						ite->PoLine.translate(Doku->currentPage->Xoffset, Doku->currentPage->Yoffset);
+						ite->PoLine.translate(Doku->currentPage->xOffset(), Doku->currentPage->yOffset());
 						ite->ClipEdited = true;
 						ite->FrameType = 3;
 						ite->PLineEnd = CapStyle;

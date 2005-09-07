@@ -105,7 +105,7 @@ void run(QWidget *d, ScribusApp *plug)
 	{
 		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("svgex");
 		QString wdir = prefs->get("wdir", ".");
-		QString defaultName = getFileNameByPage(plug->doc->currentPage->PageNr, "svg");
+		QString defaultName = getFileNameByPage(plug->doc->currentPage->pageNr(), "svg");
 #ifdef HAVE_LIBZ
 		QString fileName = plug->CFileDialog(wdir, QObject::tr("Save as"), QObject::tr("SVG-Images (*.svg *.svgz);;All Files (*)"), defaultName, false, false, true);
 #else
@@ -237,10 +237,10 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 				Item = Items.at(j);
 				if (Item->LayerNr != ll.LNr)
 					continue;
-				int x = static_cast<int>(Seite->Xoffset);
-				int y = static_cast<int>(Seite->Yoffset);
-				int w = static_cast<int>(Seite->Width);
-				int h = static_cast<int>(Seite->Height);
+				int x = static_cast<int>(Seite->xOffset());
+				int y = static_cast<int>(Seite->yOffset());
+				int w = static_cast<int>(Seite->width());
+				int h = static_cast<int>(Seite->height());
 				int x2 = static_cast<int>(Item->BoundingX);
 				int y2 = static_cast<int>(Item->BoundingY);
 				int w2 = static_cast<int>(Item->BoundingW);
@@ -329,7 +329,7 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 				}
 				else
 					stroke = "stroke:none;";
-				trans = "translate("+FToStr(Item->Xpos-Seite->Xoffset)+", "+FToStr(Item->Ypos-Seite->Yoffset)+")";
+				trans = "translate("+FToStr(Item->Xpos-Seite->xOffset())+", "+FToStr(Item->Ypos-Seite->yOffset())+")";
 				if (Item->Rot != 0)
 					trans += " rotate("+FToStr(Item->Rot)+")";
 				strokeW = "stroke-width:"+FToStr(Item->Pwidth)+"pt;";

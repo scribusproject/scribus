@@ -171,7 +171,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	Segments.clear();
 	PoShow = false;
 	BaseOffs = 0;
-	OwnPage = Doc->currentPage->PageNr;
+	OwnPage = Doc->currentPage->pageNr();
 	oldOwnPage = OwnPage;
 	savedOwnPage = OwnPage;
 	PicArt = true;
@@ -1006,7 +1006,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 								if (docItem->textFlowsAroundFrame())
 								{
 									pp.begin(ScApp->view->viewport());
-									pp.translate(docItem->Xpos - Mp->Xoffset + Dp->Xoffset, docItem->Ypos - Mp->Yoffset + Dp->Yoffset);
+									pp.translate(docItem->Xpos - Mp->xOffset() + Dp->xOffset(), docItem->Ypos - Mp->yOffset() + Dp->yOffset());
 									pp.rotate(docItem->Rot);
 									if (docItem->textFlowUsesBoundingBox())
 									{
@@ -1365,7 +1365,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 							{
 								double by = Ypos;
 								if (OwnPage != -1)
-									by = Ypos - Doc->Pages.at(OwnPage)->Yoffset;
+									by = Ypos - Doc->Pages.at(OwnPage)->yOffset();
 								int ol1 = qRound((by + CurY - Doc->typographicSettings.offsetBaseGrid) * 10000.0);
 								int ol2 = static_cast<int>(ol1 / Doc->typographicSettings.valueBaseGrid);
 								CurY = ceil(  ol2 / 10000.0 ) * Doc->typographicSettings.valueBaseGrid + Doc->typographicSettings.offsetBaseGrid - by;
@@ -1393,7 +1393,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 						{
 							double by = Ypos;
 							if (OwnPage != -1)
-								by = Ypos - Doc->Pages.at(OwnPage)->Yoffset;
+								by = Ypos - Doc->Pages.at(OwnPage)->yOffset();
 							int ol1 = qRound((by + CurY - Doc->typographicSettings.offsetBaseGrid) * 10000.0);
 							int ol2 = static_cast<int>(ol1 / Doc->typographicSettings.valueBaseGrid);
 							CurY = ceil(  ol2 / 10000.0 ) * Doc->typographicSettings.valueBaseGrid + Doc->typographicSettings.offsetBaseGrid - by;
@@ -1423,7 +1423,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 								{
 									double by = Ypos;
 									if (OwnPage != -1)
-										by = Ypos - Doc->Pages.at(OwnPage)->Yoffset;
+										by = Ypos - Doc->Pages.at(OwnPage)->yOffset();
 									int ol1 = qRound((by + CurY - Doc->typographicSettings.offsetBaseGrid) * 10000.0);
 									int ol2 = static_cast<int>(ol1 / Doc->typographicSettings.valueBaseGrid);
 									CurY = ceil(  ol2 / 10000.0 ) * Doc->typographicSettings.valueBaseGrid + Doc->typographicSettings.offsetBaseGrid - by;
@@ -1460,7 +1460,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 										{
 											double by = Ypos;
 											if (OwnPage != -1)
-												by = Ypos - Doc->Pages.at(OwnPage)->Yoffset;
+												by = Ypos - Doc->Pages.at(OwnPage)->yOffset();
 											int ol1 = qRound((by + CurY - Doc->typographicSettings.offsetBaseGrid) * 10000.0);
 											int ol2 = static_cast<int>(ol1 / Doc->typographicSettings.valueBaseGrid);
 											CurY = ceil(  ol2 / 10000.0 ) * Doc->typographicSettings.valueBaseGrid + Doc->typographicSettings.offsetBaseGrid - by;
@@ -1713,7 +1713,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 							CurY -= Doc->typographicSettings.valueBaseGrid * (DropLines-1);
 							double by = Ypos;
 							if (OwnPage != -1)
-								by = Ypos - Doc->Pages.at(OwnPage)->Yoffset;
+								by = Ypos - Doc->Pages.at(OwnPage)->yOffset();
 							int ol1 = qRound((by + CurY - Doc->typographicSettings.offsetBaseGrid) * 10000.0);
 							int ol2 = static_cast<int>(ol1 / Doc->typographicSettings.valueBaseGrid);
 							CurY = ceil(  ol2 / 10000.0 ) * Doc->typographicSettings.valueBaseGrid + Doc->typographicSettings.offsetBaseGrid - by;

@@ -97,7 +97,7 @@ void MasterPagesPalette::deleteMasterPage()
 		emit removePage(currentDoc->MasterNames[sMuster]);
 		currentDoc->MasterNames.clear();
 		for (uint a = 0; a < currentDoc->Pages.count(); ++a)
-			currentDoc->MasterNames[currentDoc->Pages.at(a)->PageNam] = currentDoc->Pages.at(a)->PageNr;
+			currentDoc->MasterNames[currentDoc->Pages.at(a)->PageNam] = currentDoc->Pages.at(a)->pageNr();
 		for (uint b = 0; b < currentDoc->DocPages.count(); ++b)
 		{
 			if (currentDoc->DocPages.at(b)->MPageNam == sMuster)

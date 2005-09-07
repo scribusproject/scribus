@@ -2035,10 +2035,10 @@ const bool ScribusDoc::changePageMargins(const double initialTop, const double i
 			currentPage->initialMargins.Bottom = initialBottom;
 			currentPage->initialMargins.Left = initialLeft;
 			currentPage->initialMargins.Right = initialRight;
-			currentPage->initialHeight = initialHeight;
-			currentPage->initialWidth = initialWidth;
-			currentPage->Height = height;
-			currentPage->Width = width;
+			currentPage->setInitialHeight(initialHeight);
+			currentPage->setInitialWidth(initialWidth);
+			currentPage->setHeight(height);
+			currentPage->setWidth(width);
 			currentPage->PageOri = orientation;
 			currentPage->PageSize = pageSize;
 		}
@@ -2135,4 +2135,91 @@ void ScribusDoc::setScTextDefaultsFromDoc(ScText *sctextdata)
 		sctextdata->cfont = (*AllFonts)[docParagraphStyles[currentParaStyle].Font];
 		sctextdata->csize = docParagraphStyles[currentParaStyle].FontSize;
 	}
+}
+
+const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, const QString& masterPageName)
+{
+	Page* sourcePage = Pages.at(pageNumber);
+	int nr = Pages.count();
+	DocPages = Pages;
+	Pages = MasterPages;
+	DocItems = Items;
+	Items = MasterItems;
+	masterPageMode = true;
+	MasterNames.insert(masterPageName, nr);
+	pageCount = 0;
+	bool atf = PageAT;
+	PageAT = false;
+	ScApp->slotNewPage(nr);
+	setLoading(true);
+	if (currentPageLayout != singlePage)
+		Pages.at(nr)->LeftPg = leftPage;
+	QMap<int,int> TableID;
+	QPtrList<PageItem> TableItems;
+	Page* targetPage = Pages.at(nr);
+	if (sourcePage->YGuides.count() != 0)
+	{
+		targetPage->YGuides.clear();
+		for (uint y = 0; y < sourcePage->YGuides.count(); ++y)
+			targetPage->YGuides.append(sourcePage->YGuides[y]);
+		qHeapSort(targetPage->YGuides);
+	}
+	if (sourcePage->XGuides.count() != 0)
+	{
+		targetPage->XGuides.clear();
+		for (uint x = 0; x < sourcePage->XGuides.count(); ++x)
+			targetPage->XGuides.append(sourcePage->XGuides[x]);
+		qHeapSort(targetPage->XGuides);
+	}
+	struct CopyPasteBuffer BufferT;
+	uint end = DocItems.count();
+	for (uint a = 0; a < end; ++a)
+	{
+		if (DocItems.at(a)->OwnPage == static_cast<int>(sourcePage->pageNr()))
+		{
+			DocItems.at(a)->copyToCopyPasteBuffer(&BufferT);
+			ScApp->view->PasteItem(&BufferT, true, true);
+			PageItem* Neu = Items.at(Items.count()-1);
+			if (Neu->isTableItem)
+			{
+				TableItems.append(Neu);
+				TableID.insert(a, Neu->ItemNr);
+			}
+		}
+	}
+	uint tableItemsCount = TableItems.count();
+	if (tableItemsCount != 0)
+	{
+		for (uint ttc = 0; ttc < tableItemsCount; ++ttc)
+		{
+			PageItem* ta = TableItems.at(ttc);
+			if (ta->TopLinkID != -1)
+				ta->TopLink = Items.at(TableID[ta->TopLinkID]);
+			else
+				ta->TopLink = 0;
+			if (ta->LeftLinkID != -1)
+				ta->LeftLink = Items.at(TableID[ta->LeftLinkID]);
+			else
+				ta->LeftLink = 0;
+			if (ta->RightLinkID != -1)
+				ta->RightLink = Items.at(TableID[ta->RightLinkID]);
+			else
+				ta->RightLink = 0;
+			if (ta->BottomLinkID != -1)
+				ta->BottomLink = Items.at(TableID[ta->BottomLinkID]);
+			else
+				ta->BottomLink = 0;
+		}
+	}
+	MasterPages = Pages;
+	pageCount = DocPages.count();
+	Pages = DocPages;
+	MasterItems = Items;
+	Items = DocItems;
+	masterPageMode = false;
+	targetPage->setPageName(masterPageName);
+	targetPage->MPageNam = "";
+	PageAT = atf;
+	setLoading(false);
+	return true;
 }

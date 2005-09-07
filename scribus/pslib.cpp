@@ -982,8 +982,8 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 		view->setGroupRect();
 		view->getGroupRect(&gx, &gy, &gw, &gh);
 		int pgNum = pageNs[0]-1;
-		gx -= Doc->Pages.at(pgNum)->Xoffset;
-		gy -= Doc->Pages.at(pgNum)->Yoffset;
+		gx -= Doc->Pages.at(pgNum)->xOffset();
+		gy -= Doc->Pages.at(pgNum)->yOffset();
 		PS_begin_doc(Doc->PageOri, gx, Doc->pageHeight - (gy+gh), gx + gw, Doc->pageHeight - gy, 1*pagemult, false, sep);
 	}
 	else
@@ -1007,17 +1007,17 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 						PageItem *it = Doc->MasterItems.at(api);
 						if ((it->LayerNr != ll.LNr) || (!it->printable()))
 							continue;
-						int x = static_cast<int>(Doc->MasterPages.at(ap)->Xoffset);
-						int y = static_cast<int>(Doc->MasterPages.at(ap)->Yoffset);
-						int w = static_cast<int>(Doc->MasterPages.at(ap)->Width);
-						int h = static_cast<int>(Doc->MasterPages.at(ap)->Height);
+						int x = static_cast<int>(Doc->MasterPages.at(ap)->xOffset());
+						int y = static_cast<int>(Doc->MasterPages.at(ap)->yOffset());
+						int w = static_cast<int>(Doc->MasterPages.at(ap)->width());
+						int h = static_cast<int>(Doc->MasterPages.at(ap)->height());
 						int x2 = static_cast<int>(it->BoundingX - it->Pwidth / 2.0);
 						int y2 = static_cast<int>(it->BoundingY - it->Pwidth / 2.0);
 						int w2 = static_cast<int>(it->BoundingW + it->Pwidth);
 						int h2 = static_cast<int>(it->BoundingH + it->Pwidth);
 						if (!QRect(x, y, w, h).intersects(QRect(x2, y2, w2, h2)))
 							continue;
-						if ((it->OwnPage != static_cast<int>(Doc->MasterPages.at(ap)->PageNr)) && (it->OwnPage != -1))
+						if ((it->OwnPage != static_cast<int>(Doc->MasterPages.at(ap)->pageNr())) && (it->OwnPage != -1))
 							continue;
 						if ((it->itemType() == PageItem::ImageFrame) && (it->PicAvail) && (!it->Pfile.isEmpty()) && (it->printable()) && (!sep) && (farb))
 							PS_ImageData(it, it->Pfile, it->itemName(), it->IProfile, it->UseEmbedded, Ic);
@@ -1040,20 +1040,20 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 			struct MarginStruct Ma;
 			Ma.Left = gx;
 			Ma.Top = gy;
-			Ma.Bottom = Doc->Pages.at(a)->Height - (gy + gh);
-			Ma.Right = Doc->Pages.at(a)->Width - (gx + gw);
-			PS_begin_page(Doc->Pages.at(a)->Width, Doc->Pages.at(a)->Height, &Ma, true);
+			Ma.Bottom = Doc->Pages.at(a)->height() - (gy + gh);
+			Ma.Right = Doc->Pages.at(a)->width() - (gx + gw);
+			PS_begin_page(Doc->Pages.at(a)->width(), Doc->Pages.at(a)->height(), &Ma, true);
 		}
 		else
-			PS_begin_page(Doc->Pages.at(a)->Width, Doc->Pages.at(a)->Height, &Doc->Pages.at(a)->Margins, view->Prefs->ClipMargin);
+			PS_begin_page(Doc->Pages.at(a)->width(), Doc->Pages.at(a)->height(), &Doc->Pages.at(a)->Margins, view->Prefs->ClipMargin);
 		if (Hm)
 		{
-			PS_translate(Doc->Pages.at(a)->Width, 0);
+			PS_translate(Doc->Pages.at(a)->width(), 0);
 			PS_scale(-1, 1);
 		}
 		if (Vm)
 		{
-			PS_translate(0, Doc->Pages.at(a)->Height);
+			PS_translate(0, Doc->Pages.at(a)->height());
 			PS_scale(1, -1);
 		}
 		if (sep)
@@ -1099,7 +1099,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 							else if (ite->itemType() == PageItem::ImageFrame)
 							{
 								PS_save();
-								PS_translate(ite->Xpos - mPage->Xoffset, mPage->Height -(ite->Ypos) - mPage->Yoffset);
+								PS_translate(ite->Xpos - mPage->xOffset(), mPage->height() -(ite->Ypos) - mPage->yOffset());
 								if (ite->Rot != 0)
 									PS_rotate(-ite->Rot);
 								if (ite->fillColor() != "None")
@@ -1177,7 +1177,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 									SetFarbe(ite->fillColor(), ite->fillShade(), &h, &s, &v, &k, gcr);
 									PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 								}
-								PS_translate(ite->Xpos - mPage->Xoffset, mPage->Height - (ite->Ypos - mPage->Yoffset));
+								PS_translate(ite->Xpos - mPage->xOffset(), mPage->height() - (ite->Ypos - mPage->yOffset()));
 								if (ite->Rot != 0)
 									PS_rotate(-ite->Rot);
 								if ((ite->fillColor() != "None") || (ite->GrType != 0))
@@ -1246,7 +1246,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 							PS_setlinewidth(ite->Pwidth);
 							PS_setcapjoin(ite->PLineEnd, ite->PLineJoin);
 							PS_setdash(ite->PLineArt, ite->DashOffset, ite->DashValues);
-							PS_translate(ite->Xpos - mPage->Xoffset, mPage->Height - (ite->Ypos - mPage->Yoffset));
+							PS_translate(ite->Xpos - mPage->xOffset(), mPage->height() - (ite->Ypos - mPage->yOffset()));
 							if (ite->Rot != 0)
 								PS_rotate(-ite->Rot);
 							if ((ite->TopLine) || (ite->RightLine) || (ite->BottomLine) || (ite->LeftLine))
@@ -1329,7 +1329,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 		PS_setdash(c->PLineArt, c->DashOffset, c->DashValues);
 		if (!embedded)
 		{
-			PS_translate(c->Xpos - a->Xoffset, a->Height - (c->Ypos - a->Yoffset));
+			PS_translate(c->Xpos - a->xOffset(), a->height() - (c->Ypos - a->yOffset()));
 		}
 		if (c->Rot != 0)
 			PS_rotate(-c->Rot);
@@ -1417,7 +1417,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 						break;
 					bm += "\\"+cc.setNum(QMAX(c->itemText.at(d)->ch.at(0).unicode(), 32), 8);
 				}
-				PDF_Bookmark(bm, a->PageNr+1);
+				PDF_Bookmark(bm, a->pageNr()+1);
 			}
 			if (c->isAnnotation)
 			{
@@ -1795,10 +1795,10 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, b
 					continue;
 				if ((!Art) && (view->SelItem.count() != 0) && (!c->Select))
 					continue;
-				int x = static_cast<int>(a->Xoffset);
-				int y = static_cast<int>(a->Yoffset);
-				int w = static_cast<int>(a->Width);
-				int h1 = static_cast<int>(a->Height);
+				int x = static_cast<int>(a->xOffset());
+				int y = static_cast<int>(a->yOffset());
+				int w = static_cast<int>(a->width());
+				int h1 = static_cast<int>(a->height());
 				int x2 = static_cast<int>(c->BoundingX - c->Pwidth / 2.0);
 				int y2 = static_cast<int>(c->BoundingY - c->Pwidth / 2.0);
 				int w2 = static_cast<int>(c->BoundingW + c->Pwidth);
@@ -1807,7 +1807,7 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, b
 					continue;
 				if (c->ChangedMasterItem)
 					continue;
-				if ((!a->PageNam.isEmpty()) && (c->OwnPage != static_cast<int>(a->PageNr)) && (c->OwnPage != -1))
+				if ((!a->PageNam.isEmpty()) && (c->OwnPage != static_cast<int>(a->pageNr())) && (c->OwnPage != -1))
 					continue;
 				ProcessItem(Doc, a, c, PNr, sep, farb, ic, gcr, false);
 			}
@@ -1821,10 +1821,10 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, b
 				continue;
 			if ((!a->PageNam.isEmpty()) && (c->itemType() == PageItem::ImageFrame) && ((sep) || (!farb)))
 				continue;
-			int x = static_cast<int>(a->Xoffset);
-			int y = static_cast<int>(a->Yoffset);
-			int w = static_cast<int>(a->Width);
-			int h1 = static_cast<int>(a->Height);
+			int x = static_cast<int>(a->xOffset());
+			int y = static_cast<int>(a->yOffset());
+			int w = static_cast<int>(a->width());
+			int h1 = static_cast<int>(a->height());
 			int x2 = static_cast<int>(c->BoundingX - c->Pwidth / 2.0);
 			int y2 = static_cast<int>(c->BoundingY - c->Pwidth / 2.0);
 			int w2 = static_cast<int>(c->BoundingW + c->Pwidth);
@@ -1835,7 +1835,7 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, b
 				continue;
 			if (!c->isTableItem)
 				continue;
-			if ((!a->PageNam.isEmpty()) && (c->OwnPage != static_cast<int>(a->PageNr)) && (c->OwnPage != -1))
+			if ((!a->PageNam.isEmpty()) && (c->OwnPage != static_cast<int>(a->pageNr())) && (c->OwnPage != -1))
 				continue;
 			if (c->printable())
 			{
@@ -1848,7 +1848,7 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, b
 				PS_setlinewidth(c->Pwidth);
 				PS_setcapjoin(c->PLineEnd, c->PLineJoin);
 				PS_setdash(c->PLineArt, c->DashOffset, c->DashValues);
-				PS_translate(c->Xpos - a->Xoffset, a->Height - (c->Ypos - a->Yoffset));
+				PS_translate(c->Xpos - a->xOffset(), a->height() - (c->Ypos - a->yOffset()));
 				if (c->Rot != 0)
 					PS_rotate(-c->Rot);
 				if ((c->TopLine) || (c->RightLine) || (c->BottomLine) || (c->LeftLine))

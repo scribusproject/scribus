@@ -335,8 +335,8 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 	QPtrList<PageItem> GElements;
 	FPointArray ImgClip;
 	ImgClip.resize(0);
-	double BaseX = Doku->currentPage->Xoffset;
-	double BaseY = Doku->currentPage->Yoffset;
+	double BaseX = Doku->currentPage->xOffset();
+	double BaseY = Doku->currentPage->yOffset();
 	for( QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling() )
 	{
 		int z = -1;

@@ -1404,8 +1404,8 @@ void Mpalette::setXY(double x, double y)
 		inY -= doc->rulerYoffset;
 		if (doc->guidesSettings.rulerMode)
 		{
-			inX -= doc->currentPage->Xoffset;
-			inY -= doc->currentPage->Yoffset;
+			inX -= doc->currentPage->xOffset();
+			inY -= doc->currentPage->yOffset();
 		}
 	}
 	Xpos->setValue(inX*Umrech);
@@ -1806,8 +1806,8 @@ void Mpalette::NewX()
 		y += doc->rulerYoffset;
 		if (doc->guidesSettings.rulerMode)
 		{
-			x += doc->currentPage->Xoffset;
-			y += doc->currentPage->Yoffset;
+			x += doc->currentPage->xOffset();
+			y += doc->currentPage->yOffset();
 		}
 		if (ScApp->view->GroupSel)
 		{
@@ -1868,8 +1868,8 @@ void Mpalette::NewY()
 		y += doc->rulerYoffset;
 		if (doc->guidesSettings.rulerMode)
 		{
-			x += doc->currentPage->Xoffset;
-			y += doc->currentPage->Yoffset;
+			x += doc->currentPage->xOffset();
+			y += doc->currentPage->yOffset();
 		}
 		if (ScApp->view->GroupSel)
 		{

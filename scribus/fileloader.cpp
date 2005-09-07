@@ -626,7 +626,7 @@ bool FileLoader::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 			}
 			if (((pg.tagName()=="PAGE") || (pg.tagName()=="MASTERPAGE")) && (QStoInt(pg.attribute("NUM")) == PageToLoad))
 			{
-				a = doc->currentPage->PageNr;
+				a = doc->currentPage->pageNr();
 				Apage = doc->Pages.at(a);
 				if ((pg.tagName()!="MASTERPAGE") && (Mpage))
 				{
@@ -643,12 +643,12 @@ bool FileLoader::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 				if (pg.hasAttribute("Orientation"))
 					Apage->PageOri = QStoInt(pg.attribute("Orientation"));
 				if (pg.hasAttribute("PAGEWIDTH"))
-					Apage->Width=QStodouble(pg.attribute("PAGEWIDTH"));
+					Apage->setWidth(QStodouble(pg.attribute("PAGEWIDTH")));
 				else
-					Apage->Width=QStodouble(pg.attribute("PAGEWITH"));
-				Apage->Height = QStodouble(pg.attribute("PAGEHEIGHT"));
-				Apage->initialHeight = Apage->Height;
-				Apage->initialWidth = Apage->Width;
+					Apage->setWidth(QStodouble(pg.attribute("PAGEWITH")));
+				Apage->setHeight(QStodouble(pg.attribute("PAGEHEIGHT")));
+				Apage->setInitialHeight(Apage->height());
+				Apage->setInitialWidth(Apage->width());
 				Apage->initialMargins.Top = QStodouble(pg.attribute("BORDERTOP"));
 				Apage->initialMargins.Bottom = QStodouble(pg.attribute("BORDERBOTTOM"));
 				Apage->initialMargins.Left = QStodouble(pg.attribute("BORDERLEFT"));
@@ -701,8 +701,8 @@ bool FileLoader::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 					int docGc = doc->GroupCounter;
 					doc->GroupCounter = 0;
 					Neu = PasteItem(&pg, doc, view);
-					Neu->Xpos = Neu->Xpos - pageX + Apage->Xoffset;
-					Neu->Ypos = Neu->Ypos - pageY + Apage->Yoffset;
+					Neu->Xpos = Neu->Xpos - pageX + Apage->xOffset();
+					Neu->Ypos = Neu->Ypos - pageY + Apage->yOffset();
 					view->setRedrawBounding(Neu);
 					Neu->OwnPage = view->OnPage(Neu);
 					if (pg.tagName()=="PAGEOBJECT")
@@ -1505,15 +1505,15 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 					Apage->PageSize = pg.attribute("Size");
 				if (pg.hasAttribute("Orientation"))
 					Apage->PageOri = QStoInt(pg.attribute("Orientation"));
-				Apage->Xoffset = QStodouble(pg.attribute("PAGEXPOS"));
-				Apage->Yoffset = QStodouble(pg.attribute("PAGEYPOS"));
+				Apage->setXOffset(QStodouble(pg.attribute("PAGEXPOS")));
+				Apage->setYOffset(QStodouble(pg.attribute("PAGEYPOS")));
 				if (pg.hasAttribute("PAGEWIDTH"))
-					Apage->Width=QStodouble(pg.attribute("PAGEWIDTH"));
+					Apage->setWidth(QStodouble(pg.attribute("PAGEWIDTH")));
 				else
-					Apage->Width=QStodouble(pg.attribute("PAGEWITH"));
-				Apage->Height = QStodouble(pg.attribute("PAGEHEIGHT"));
-				Apage->initialHeight = Apage->Height;
-				Apage->initialWidth = Apage->Width;
+					Apage->setWidth(QStodouble(pg.attribute("PAGEWITH")));
+				Apage->setHeight(QStodouble(pg.attribute("PAGEHEIGHT")));
+				Apage->setInitialHeight(Apage->height());
+				Apage->setInitialWidth(Apage->width());
 				Apage->initialMargins.Top = QStodouble(pg.attribute("BORDERTOP"));
 				Apage->initialMargins.Bottom = QStodouble(pg.attribute("BORDERBOTTOM"));
 				Apage->initialMargins.Left = QStodouble(pg.attribute("BORDERLEFT"));

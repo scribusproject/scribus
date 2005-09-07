@@ -323,8 +323,8 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 	double yGoff= 0;
 	bool HaveGradient = false;
 	int GradientType = 0;
-	double BaseX = Doku->currentPage->Xoffset;
-	double BaseY = Doku->currentPage->Yoffset;
+	double BaseX = Doku->currentPage->xOffset();
+	double BaseY = Doku->currentPage->yOffset();
 	double lwidth = 0;
 	double x, y, w, h;
 	double FillTrans = 0;

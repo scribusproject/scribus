@@ -23,14 +23,14 @@
 extern QPixmap loadIcon(QString nam);
 extern ScribusApp *ScApp;
 
-Page::Page(double x, double y, double b, double h) : UndoObject(QObject::tr("Page"))
+Page::Page(const double x, const double y, const double b, const double h) : UndoObject(QObject::tr("Page"))
 {
-	Xoffset = x;
-	Yoffset = y;
-	Width = b;
-	Height = h;
-	initialWidth = b;
-	initialHeight = h;
+	m_xOffset = x;
+	m_yOffset = y;
+	m_width = b;
+	m_height = h;
+	m_initialWidth = b;
+	m_initialHeight = h;
 	Margins.Top = 40;
 	Margins.Left = 40;
 	Margins.Right = 40;
@@ -47,18 +47,18 @@ Page::Page(double x, double y, double b, double h) : UndoObject(QObject::tr("Pag
 	undoManager = UndoManager::instance();
 }
 
-void Page::setPageNr(int pageNr)
+void Page::setPageNr(const int pageNr)
 {
-	PageNr = pageNr;
+	m_pageNr = pageNr;
 	if (PageNam.isEmpty())
-		setUName(QString(QObject::tr("Page") + " %1").arg(ScApp->doc->FirstPnum + PageNr));
+		setUName(QString(QObject::tr("Page") + " %1").arg(ScApp->doc->FirstPnum + m_pageNr));
 	else
 		setUName(PageNam);
 }
 
-uint Page::getPageNr()
+uint Page::pageNr()
 {
-	return PageNr;
+	return m_pageNr;
 }
 
 void Page::addXGuide(double position)
@@ -306,4 +306,64 @@ void Page::restorePageItemDeletion(ItemState<PageItem*> *state, bool isUndo)
 		ScApp->view->DeleteItem();
 		ScApp->view->Deselect();
 	}
+}
+
+const double Page::xOffset()
+{
+	return m_xOffset;
+}
+
+const double Page::yOffset()
+{
+	return m_yOffset;
+}
+
+const double Page::width()
+{
+	return m_width;
+}
+
+const double Page::height()
+{
+	return m_height;
+}
+
+const double Page::initialWidth()
+{
+	return m_initialWidth;
+}
+
+const double Page::initialHeight()
+{
+	return m_initialHeight;
+}
+
+void Page::setXOffset(const double newCanvasXOffset)
+{
+	m_xOffset = newCanvasXOffset;
+}
+
+void Page::setYOffset(const double newCanvasYOffset)
+{
+	m_yOffset = newCanvasYOffset;
+}
+
+void Page::setWidth(const double newWidth)
+{
+	m_width = newWidth;
+}
+
+void Page::setHeight(const double newHeight)
+{
+	m_height = newHeight;
+}
+
+void Page::setInitialWidth(const double newInitialWidth)
+{
+	m_initialWidth = newInitialWidth;
+}
+
+void Page::setInitialHeight(const double newInitialHeight)
+{
+	m_initialHeight = newInitialHeight;
 }

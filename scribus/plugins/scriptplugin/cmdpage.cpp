@@ -5,7 +5,7 @@ PyObject *scribus_actualpage(PyObject* /* self */)
 {
 	if(!checkHaveDocument())
 		return NULL;
-	return PyInt_FromLong(static_cast<long>(Carrier->doc->currentPage->PageNr + 1));
+	return PyInt_FromLong(static_cast<long>(Carrier->doc->currentPage->pageNr() + 1));
 }
 
 PyObject *scribus_redraw(PyObject* /* self */)

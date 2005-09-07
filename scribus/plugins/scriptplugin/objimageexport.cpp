@@ -139,7 +139,7 @@ static PyObject *ImageExport_save(ImageExport *self)
 	(Carrier->doc->pageHeight > Carrier->doc->pageWidth)
 			? pixmapSize = Carrier->doc->pageHeight
 			: pixmapSize = Carrier->doc->pageWidth;
-	QPixmap pixmap = Carrier->view->PageToPixmap(Carrier->doc->currentPage->PageNr, qRound(pixmapSize * self->scale * (self->dpi / 72.0) / 100.0));
+	QPixmap pixmap = Carrier->view->PageToPixmap(Carrier->doc->currentPage->pageNr(), qRound(pixmapSize * self->scale * (self->dpi / 72.0) / 100.0));
 	QImage im = pixmap.convertToImage();
 	int dpi = qRound(100.0 / 2.54 * self->dpi);
 	im.setDotsPerMeterY(dpi);
@@ -169,7 +169,7 @@ static PyObject *ImageExport_saveAs(ImageExport *self, PyObject *args)
 	(Carrier->doc->pageHeight > Carrier->doc->pageWidth)
 			? pixmapSize = Carrier->doc->pageHeight
 			: pixmapSize = Carrier->doc->pageWidth;
-	QPixmap pixmap = Carrier->view->PageToPixmap(Carrier->doc->currentPage->PageNr, qRound(pixmapSize * self->scale * (self->dpi / 72.0) / 100.0));
+	QPixmap pixmap = Carrier->view->PageToPixmap(Carrier->doc->currentPage->pageNr(), qRound(pixmapSize * self->scale * (self->dpi / 72.0) / 100.0));
 	QImage im = pixmap.convertToImage();
 	int dpi = qRound(100.0 / 2.54 * self->dpi);
 	im.setDotsPerMeterY(dpi);

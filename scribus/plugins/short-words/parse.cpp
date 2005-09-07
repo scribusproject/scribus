@@ -110,7 +110,7 @@ void Parse::parseSelection()
 
 void Parse::parsePage()
 {
-	parsePage(ScApp->doc->currentPage->PageNr);
+	parsePage(ScApp->doc->currentPage->pageNr());
 }
 
 void Parse::parsePage(int page)

@@ -43,7 +43,7 @@ PyObject *scribus_setmargins(PyObject* /* self */, PyObject* args)
 	Carrier->doc->resetPage(tpr, lr, rr, btr, Carrier->doc->currentPageLayout);
 	Carrier->view->reformPages();
 	Carrier->doc->setModified(true);
-	Carrier->view->GotoPage(Carrier->doc->currentPage->PageNr);
+	Carrier->view->GotoPage(Carrier->doc->currentPage->pageNr());
 	Carrier->view->DrawNew();
 	Py_INCREF(Py_None);
 	return Py_None;
@@ -170,7 +170,7 @@ PyObject *scribus_setdoctype(PyObject* /* self */, PyObject* args)
 	if (Carrier->doc->currentPageLayout = fp)
 		Carrier->doc->pageSets[Carrier->doc->currentPageLayout].FirstPage = fsl;
 	Carrier->view->reformPages();
-	Carrier->view->GotoPage(Carrier->doc->currentPage->PageNr); // is this needed?
+	Carrier->view->GotoPage(Carrier->doc->currentPage->pageNr()); // is this needed?
 	Carrier->view->DrawNew();   // is this needed?
 	//CB TODO Carrier->pagePalette->RebuildPage(); // is this needed?
 	Carrier->slotDocCh();
