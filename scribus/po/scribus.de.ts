@@ -92,7 +92,7 @@ If &quot;name&quot; is not given the currently selected item is used.
         <translation>getFillColor([&quot;name&quot;]) -&gt; string
 
 Gibt den Wert der Füllfarbe des Objekts &quot;name&quot; zurück.
-Wenn &quot;name&quot; nicht angegeben ist, wird das aktuell ausgewählt Objekt verwendet.</translation>
+Wenn &quot;name&quot; nicht angegeben ist, wird das aktuell ausgewählte Objekt verwendet.</translation>
     </message>
     <message>
         <source>moveObject(dx, dy [, &quot;name&quot;])
@@ -120,8 +120,8 @@ setRedraw(True) in a finally: clause at the top level of your script.
         <translation>setRedraw(bool)
 
 Wenn bool=False, dann wird die Seite nicht neu neu aufgebaut (redraw ist deaktiviert).
-Standard ist bool=True. Diese Einstellung bleibt bestehen, auch wenn das Skript beendet ist.
-Stellen Sie also sicher, dass setRedraw(True) aufgerufen wird, bevor das Skript beendet wird.</translation>
+Standard ist bool=True. Diese Einstellung bleibt bestehen, auch wenn das Script beendet ist.
+Stellen Sie also sicher, dass setRedraw(True) aufgerufen wird, bevor das Script beendet wird.</translation>
     </message>
     <message>
         <source>createRect(x, y, width, height, [&quot;name&quot;]) -&gt; string
@@ -154,14 +154,14 @@ template page for the new page.
 
 May raise IndexError if the page number is out of range
 </source>
-        <translation>newPage(where [,&quot;template&quot;])
+        <translation type="unfinished">newPage(where [,&quot;template&quot;])
 
 Erstellt eine neue Seite. Wenn &quot;where&quot; den Wert -1 hat, wird die Seite hinten angefügt, ansonsten
 vor der Seite &quot;where&quot;. Seitenzahlen werden von 1 aufwärts gezählt, egal, welche Seitenzahl
 auf der Seite angezeigt wird. Das optionale Argument &quot;template&quot; gibt den Namen der Vorlage für
 die neue Seite an.
 
-Wenn die Seitenzahl außerhalb des gültigen Bereichs ist, tritt der Fehler IndexError auf</translation>
+Wenn die Seitenzahl außerhalb des gültigen Bereichs ist, tritt der Fehler IndexError auf.</translation>
     </message>
     <message>
         <source>setGradientFill(type, &quot;color1&quot;, shade1, &quot;color2&quot;, shade2, [&quot;name&quot;])
@@ -1279,7 +1279,7 @@ the number of values passed don&apos;t group into points without leftovers.
 </source>
         <translation>createBezierLine(list, [&quot;name&quot;]) -&gt; string
 
-Erzeugt eine Bezierkurve und gibt ihren Namen zurück. Die Punkte werden in
+Erzeugt eine Bézierkurve und gibt ihren Namen zurück. Die Punkte werden in
 der folgenden Reihenfolge gespeichert: 
 [x1, y1, kx1, ky1, x2, y2, kx2, ky2...xn. yn, kxn. kyn]. 
 x und y steht dabei für die X- und Y-Koordinaten und kx und ky steht für den
@@ -2285,7 +2285,7 @@ Der Fehler IndexError tritt auf, wenn eine ungültige Position angegeben wird.</
     <message>
         <source>Scribus Version %1
 %2 %3</source>
-        <translation>Scribus Version %1
+        <translation>Scribus-Version %1
 %2 %3</translation>
     </message>
     <message>
@@ -2416,7 +2416,7 @@ Fehlende Unterstützung wird duch ein Sternchen angezeigt</translation>
     </message>
     <message>
         <source>Development Team:</source>
-        <translation>Entwickler-Team:</translation>
+        <translation>Entwicklerteam:</translation>
     </message>
     <message>
         <source>Official Documentation:</source>
@@ -2509,18 +2509,18 @@ C-C-T steht dabei für C=littlecms, C=CUPS und T=TIFF.
     </message>
     <message>
         <source>Creates PostScript Level 3</source>
-        <translation>Erstellt eine PostScript-Level 3 Datei</translation>
+        <translation>Erstellt eine Postscript Level 3-Datei</translation>
     </message>
     <message>
         <source>Creates PostScript Level 2 only, beware,
 this can create huge files</source>
-        <translation>Erstellt eine PostScript-Level 2 Datei. Vorsicht:
+        <translation>Erstellt eine Postscript Level 2-Datei. Vorsicht:
 hierbei können sehr große Dateien entstehen</translation>
     </message>
     <message>
         <source>Creates PostScript Level 1 only, beware,
 this can create huge files</source>
-        <translation>Erstellt eine PostScript-Level 1 Datei. Vorsicht:
+        <translation>Erstellt eine Postscript Level 1-Datei. Vorsicht:
 hierbei können sehr große Dateien entstehen</translation>
     </message>
     <message>
@@ -2537,15 +2537,15 @@ hierbei können sehr große Dateien entstehen</translation>
     </message>
     <message>
         <source>PostScript Level &amp;1</source>
-        <translation>PostScript-Level &amp;1</translation>
+        <translation>Postscript Level &amp;1</translation>
     </message>
     <message>
         <source>PostScript Level &amp;2</source>
-        <translation>PostScript-Level &amp;2</translation>
+        <translation>Postscript Level &amp;2</translation>
     </message>
     <message>
         <source>PostScript Level &amp;3</source>
-        <translation>PostScript-Level &amp;3</translation>
+        <translation>Postscript Level &amp;3</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -2557,7 +2557,7 @@ hierbei können sehr große Dateien entstehen</translation>
     </message>
     <message>
         <source>Apply Under Color &amp;Removal</source>
-        <translation>Unterfarben&amp;reduktion durchführen</translation>
+        <translation>Unterfarben&amp;reduktion anwenden</translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed
@@ -2566,13 +2566,11 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>Mit dieser Option werden ein paar Grautöne, die entstehen,
-wenn Black aus Cyan, Magenta und Yellow gemischt wird, durch Schwarz ersetzt.
-Hauptsächlich werden davon neutrale und dunkle Farbtöne beeinflusst,
-die Grau sehr nahe stehen. Diese Option kann zu besseren Bildern führen,
-allerdings müssen Sie von Fall zu Fall entscheiden, wie Sie bessere Ergebnisse
-bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
-</translation>
+        <translation type="unfinished">Mit dieser Option werden Grautöne, die aus Cyan, Magenta und Gelb gemischt würden, 
+durch reine Abstufungen von Schwarz ersetzt. Hauptsächlich werden davon neutrale 
+und dunkle Farbtöne beeinflusst, die Grau sehr ähnlich sind. Diese Option kann zu 
+besseren Bildern führen. Sie müssen jedoch von Fall zu Fall entscheiden, ob Sie bessere 
+Ergebnisse erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     </message>
     <message>
         <source>Set Media Size</source>
@@ -2604,15 +2602,15 @@ nur, wenn es Ihre Druckerei fordert.</translation>
     </message>
     <message>
         <source>Left Sides</source>
-        <translation>Linken Kanten</translation>
+        <translation>Linkem Rand</translation>
     </message>
     <message>
         <source>Middles</source>
-        <translation>Mitten</translation>
+        <translation>Mittig</translation>
     </message>
     <message>
         <source>Right Sides</source>
-        <translation>Rechten Kanten</translation>
+        <translation>Rechtem Rand</translation>
     </message>
     <message>
         <source>Vertical</source>
@@ -2620,11 +2618,11 @@ nur, wenn es Ihre Druckerei fordert.</translation>
     </message>
     <message>
         <source>Top Sides</source>
-        <translation>Oberen Kanten</translation>
+        <translation>Oberem Rand</translation>
     </message>
     <message>
         <source>Bottom Sides</source>
-        <translation>Unteren Kanten</translation>
+        <translation>Unterem Rand</translation>
     </message>
     <message>
         <source> mm</source>
@@ -2738,7 +2736,7 @@ nur, wenn es Ihre Druckerei fordert.</translation>
     </message>
     <message>
         <source>Tool-Tip:</source>
-        <translation>Hilfstext:</translation>
+        <translation>Direkthilfe:</translation>
     </message>
     <message>
         <source>Text</source>
@@ -2826,11 +2824,11 @@ nur, wenn es Ihre Druckerei fordert.</translation>
     </message>
     <message>
         <source>No Print</source>
-        <translation>Nicht Drucken</translation>
+        <translation>Nicht drucken</translation>
     </message>
     <message>
         <source>No View</source>
-        <translation>Nicht Sichtbar</translation>
+        <translation>Nicht sichtbar</translation>
     </message>
     <message>
         <source>Appearance</source>
@@ -3006,15 +3004,15 @@ nur, wenn es Ihre Druckerei fordert.</translation>
     </message>
     <message>
         <source>Percent Format</source>
-        <translation>Prozent-Format</translation>
+        <translation>Prozentformat</translation>
     </message>
     <message>
         <source>Date Format</source>
-        <translation>Datums-Format</translation>
+        <translation>Datumsformat</translation>
     </message>
     <message>
         <source>Time Format</source>
-        <translation>Zeit-Format</translation>
+        <translation>Zeitformat</translation>
     </message>
     <message>
         <source>Custom Scripts</source>
@@ -3090,7 +3088,7 @@ nur, wenn es Ihre Druckerei fordert.</translation>
     </message>
     <message>
         <source>Custom calculation script:</source>
-        <translation>Eigenes Berechnungs-Script:</translation>
+        <translation>Eigenes Berechnungsscript:</translation>
     </message>
     <message>
         <source>Calculate</source>
@@ -3106,7 +3104,7 @@ nur, wenn es Ihre Druckerei fordert.</translation>
     </message>
     <message>
         <source>Enter a comma separated list of fields here</source>
-        <translation>Hier eine komma-separierte Liste der Felder eintragen</translation>
+        <translation>Hier eine kommaseparierte Liste der Felder eintragen</translation>
     </message>
     <message>
         <source>You need at least the Icon for Normal to use Icons for Buttons</source>
@@ -3565,7 +3563,7 @@ Bitte wählen Sie einen anderen.</translation>
     <name>CMSPrefs</name>
     <message>
         <source>Color Management Settings</source>
-        <translation>Farbmanagement Einstellungen</translation>
+        <translation>Farbmanagement-Einstellungen</translation>
     </message>
     <message>
         <source>System Profiles</source>
@@ -3573,7 +3571,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Rendering Intents</source>
-        <translation>Render-Prioritäten</translation>
+        <translation>Renderprioritäten</translation>
     </message>
     <message>
         <source>Perceptual</source>
@@ -3581,7 +3579,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Relative Colorimetric</source>
-        <translation>Relativ Farbmetrisch</translation>
+        <translation>Relativ farbmetrisch</translation>
     </message>
     <message>
         <source>Saturation</source>
@@ -3602,47 +3600,57 @@ Bitte wählen Sie einen anderen.</translation>
     <message>
         <source>Color profile that you have generated or received from the manufacturer.
 This profile should be specific to your monitor and not a generic profile (i.e. sRGB).</source>
-        <translation>Farbprofil für den Monitor.</translation>
+        <translation type="unfinished">Das Farbprofil für Ihren Monitor, das Sie entweder selbst erstellt oder vom 
+Hersteller erhalten haben. Dieses Farbprofil sollte die Eigenschaften Ihres 
+Monitors berücksichtigen und kein generisches Profil (z. B. sRGB) sein.</translation>
     </message>
     <message>
         <source>Color profile for your printer model from the manufacturer.
 This profile should be specific to your printer and not a generic profile (i.e. sRGB).</source>
-        <translation>Farbprofil für den Drucker.</translation>
+        <translation type="unfinished">Das Farbprofil für Ihren Drucker, das Sie vom Hersteller erhalten haben. 
+Dieses Farbprofil sollte die Eigenschaften Ihres Druckers berücksichtigen 
+und kein generisches Profil (z. B. sRGB) sein.</translation>
     </message>
     <message>
         <source>Black Point Compensation is a method of improving contrast in photos.
 It is recommended that you enable this if you have photos in your document.</source>
-        <translation>Tiefenkompensierung ist eine Methode zur Verbesserung des Kontrasts.
-Diese Option sollte aktiviert sein, wenn Sie Fotos im Dokument haben.</translation>
+        <translation>Tiefenkompensierung ist eine Methode zur Verbesserung des Kontrasts in Fotos.
+Diese Option sollte aktiviert sein, wenn Sie Fotos im Dokument haben..</translation>
     </message>
     <message>
         <source>Default rendering intent for your monitor. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation>Standard-Rendering Methode für Ihren Monitor. Ohne einen Grund zur Veränderung
-sollte entweder relativ farbmetrisch oder Wahrnehmung aktiviert sein.</translation>
+        <translation type="unfinished">Standard-Rendermethode für Ihren Monitor. 
+Falls keine besonderen Gründe vorliegen, sollte 
+entweder relativ farbmetrisch oder Wahrnehmung 
+gewählt werden.</translation>
     </message>
     <message>
         <source>Default rendering intent for your printer. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation>Standard-Rendering Methode für den Drucker. Ohne einen Grund zur Veränderung
-sollte entweder relativ farbmetrisch oder Wahrnehmung aktiviert sein.</translation>
+        <translation type="unfinished">Standard-Rendermethode für den Drucker. 
+Falls keine besonderen Gründe vorliegen,
+sollte entweder relativ farbmetrisch oder 
+Wahrnehmung gewählt werden.</translation>
     </message>
     <message>
         <source>Enable &apos;soft proofing&apos; of how your document colors will print,
 based on the chosen printer profile.</source>
-        <translation>Aktiviert die Darstellung der Farben basierend auf dem 
-gewählten Druckerprofil.
+        <translation type="unfinished">Aktiviert die Druckvorschau unter Verwendung des
+gewählten Druckerprofils.
 </translation>
     </message>
     <message>
         <source>Method of showing colors on the screen which may not print properly.
 This requires very accurate profiles and serves only as a warning.</source>
-        <translation>Aktiviert die Darstellung der Farben, die mit dem aktuellen Profil ungenau wiedergegeben werden.
-Das erfordert sehr genaue Profile und dient nur als Anhaltspunkt.</translation>
+        <translation type="unfinished">Aktiviert die Gamut-Warnung, d. h. die Anzeige von Farben, welche 
+auf Grund der Eigenschaften des gewählten Ausgabegerätes für den 
+Druck nicht korrekt wiedergegeben werden können. Bitte beachten Sie, 
+dass dies sehr genaue Geräteprofile erfordert.</translation>
     </message>
     <message>
         <source>&amp;Activate Color Management</source>
-        <translation>Farb-Management &amp;aktivieren</translation>
+        <translation>Farbmanagement &amp;aktivieren</translation>
     </message>
     <message>
         <source>&amp;Pictures:</source>
@@ -3705,7 +3713,7 @@ Das erfordert sehr genaue Profile und dient nur als Anhaltspunkt.</translation>
     </message>
     <message>
         <source>Web Safe RGB</source>
-        <translation>Web Farben</translation>
+        <translation>Webfarben</translation>
     </message>
     <message>
         <source>New</source>
@@ -3794,7 +3802,7 @@ Das erfordert sehr genaue Profile und dient nur als Anhaltspunkt.</translation>
     <message>
         <source>You cannot create a color named &quot;%1&quot;.
 It&apos;s a reserved name for transparent color</source>
-        <translation>Sie können keine Farbe mit dem Namen &quot;%1&quot;.
+        <translation>Sie können keine Farbe mit dem Namen &quot;%1&quot; erstellen.
 Dieser Name ist für die transparente Farbe reserviert</translation>
     </message>
 </context>
@@ -3837,7 +3845,7 @@ Dieser Name ist für die transparente Farbe reserviert</translation>
     </message>
     <message>
         <source>Cross Diagonal Gradient</source>
-        <translation>Umgekehrt Diagonaler Verlauf</translation>
+        <translation>Umgekehrt diagonaler Verlauf</translation>
     </message>
     <message>
         <source>Radial Gradient</source>
@@ -4033,7 +4041,7 @@ Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support.
 Missing library support is indicated by a *</source>
         <translation>Dieser Dialog zeigt verschiedene CUPS-Optionen zum Drucken an.
 Die verfügbaren Einstellungen sind von Ihrem Drucker anhängig.
-Hlife -&gt; Über zeigt Ihnen den CUPS-Support an.
+Hilfe -&gt; Über Scribus zeigt Ihnen die CUPS-Unterstützung an.
 Dabei stehen die Zeichen für C=CUPS, C-LittleCMS und T=TIFF.
 Fehlende Bibliotheken werden durch ein Sternchen angezeigt</translation>
     </message>
@@ -4055,7 +4063,7 @@ Fehlende Bibliotheken werden durch ein Sternchen angezeigt</translation>
     <message>
         <source>Moves to your Document Directory.
 This can be set in the Preferences.</source>
-        <translation>Geht zum Dokumenten Verzeichnis.
+        <translation>Führt zum Dokumentenverzeichnis.
 Wird in den Voreinstellungen eingestellt.</translation>
     </message>
     <message>
@@ -4160,7 +4168,7 @@ Wird in den Voreinstellungen eingestellt.</translation>
     </message>
     <message>
         <source>&amp;Keywords:</source>
-        <translation>&amp;Stichworte:</translation>
+        <translation>&amp;Stichwörter:</translation>
     </message>
     <message>
         <source>Descri&amp;ption:</source>
@@ -4221,26 +4229,31 @@ Wird in den Voreinstellungen eingestellt.</translation>
     <message>
         <source>The person or organisation primarily responsible for making the content of the document.
 This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation>Die Person oder Organisation, die vorrangig verantwortlich für den Inhalt des Dokuments ist.
-Diese Feld kann sowohl in das Scribus-Dokument als auch in die Meta-Daten einer PDF-Datei eingebettet werden</translation>
+        <translation>Die Person oder Organisation, die vorrangig verantwortlich 
+für den Inhalt des Dokuments ist. Dieses Feld kann sowohl 
+in das Scribus-Dokument als auch in die Meta-Daten einer 
+PDF-Datei eingebettet werden</translation>
     </message>
     <message>
         <source>A name given to the document.
 This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation>Ein Name für das Dokment
-Diese Feld kann sowohl in das Scribus-Dokument als auch in die Meta-Daten einer PDF-Datei eingebettet werden</translation>
+        <translation>Der Titel oder die Bezeichnung des Dokuments. 
+Dieses Feld kann sowohl in das Scribus-Dokument als auch 
+in die Meta-Daten einer PDF-Datei eingebettet werden</translation>
     </message>
     <message>
         <source>An account of the content of the document.
 This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
         <translation>Ein Abriss des Inhalts.
-Hier kann eine kurze Beschreibung oder Zusammenfassung stehen. Sie wird in die PDF-Datei exportiert</translation>
+Hier kann eine kurze Beschreibung oder Zusammenfassung stehen. 
+Sie wird in die PDF-Datei exportiert</translation>
     </message>
     <message>
         <source>The topic of the content of the document.
 This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
-        <translation>Worte, die den Inhalt des Dokuments beschreiben.
-Der Inhalt dieses Feldes wird in die PDF-Datei exportiert und hilft Ihnen, PDF-Dateien zu indizieren und und wiederzufinden</translation>
+        <translation>Kurze Beschreibung des Inhalts.
+Der Inhalt dieses Feldes wird in der PDF-Datei gespeichert und hilft Ihnen, 
+PDF-Dateien zu indizieren und wiederzufinden</translation>
     </message>
     <message>
         <source>A person or organisation responsible for making the document available</source>
@@ -4248,21 +4261,23 @@ Der Inhalt dieses Feldes wird in die PDF-Datei exportiert und hilft Ihnen, PDF-D
     </message>
     <message>
         <source>A person or organisation responsible for making contributions to the content of the document</source>
-        <translation>Eine Person oder Organisation, die bei dem Dokument mitgearbeitet hat</translation>
+        <translation>Eine Person oder Organisation, die an dem Dokument mitgearbeitet hat</translation>
     </message>
     <message>
         <source>A date associated with an event in the life cycle of the document, in YYYY-MM-DD format, as per ISO 8601</source>
-        <translation>Ein Datum, das mit der Entstehung des Dokuments verbunden ist, nach ISO 8601 im Format YYYY-MM-DD </translation>
+        <translation>Ein Datum, das mit der Entstehung des Dokuments verbunden ist, 
+nach ISO 8601 im Format YYYY-MM-DD </translation>
     </message>
     <message>
         <source>The nature or genre of the content of the document, eg. categories, functions, genres, etc</source>
-        <translation>Die Gattung oder der Typ des Dokuments, z.B. Kategorien, Funktionen, Arten usw</translation>
+        <translation type="unfinished">Die Gattung oder der Typ des Dokuments, z. B. Kategorie, Funktion, Genre etc.</translation>
     </message>
     <message>
         <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting.
 RFC2045,RFC2046 for MIME types are also useful here</source>
-        <translation>Die physische oder digitale Veröffentlichungsform des Dokuments. Abmessung und Medien-Typ können hier notiert werden.
-Für MIME-Typen sind auch RFC2045 und RFC2046 gebräuchlich</translation>
+        <translation type="unfinished">Die physische oder digitale Veröffentlichungsform des Dokuments. 
+Abmessung und Medientyp können hier notiert werden.
+Die Verwendung der RFCs 2045 und 2046 für MIME-Typen kann hier nützlich sein.</translation>
     </message>
     <message>
         <source>An unambiguous reference to the document within a given context such as ISBN or URI</source>
@@ -4271,24 +4286,27 @@ Für MIME-Typen sind auch RFC2045 und RFC2046 gebräuchlich</translation>
     <message>
         <source>The language in which the content of the document is written, usually a ISO-639 language code
 optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH</source>
-        <translation>Die Sprache , in der der Inhalt des Dokuments geschrieben ist, normalerweise ein ISO-639 Sprachcode,
-optional ergänzt durch ein Bindestrich und den ISO-3166 Ländercode, wie z.B. en-GB oder fr-CH</translation>
+        <translation>Die Sprache, in welcher der Inhalt des Dokuments geschrieben ist, 
+normalerweise ein ISO-639-Sprachcode, optional ergänzt durch 
+einen Bindestrich und den ISO-3166 Ländercode, wie z. B. en-GB oder fr-CH</translation>
     </message>
     <message>
         <source>A reference to a related document, possibly using a formal identifier such as a ISBN or URI</source>
-        <translation>Eine Referenz zu einem ähnlichen Dokument, wenn möglich eine formale Identifikation wie ISBN oder URI benutzen</translation>
+        <translation type="unfinished">Eine Referenz zu einem ähnlichen Dokument. Hier kann eine formale 
+Identifikation wie ISBN oder ein URI verwendet werden</translation>
     </message>
     <message>
         <source>The extent or scope of the content of the document, possibly including location, time and jurisdiction ranges</source>
-        <translation>Der Ausbreitungsbereich des Dokuments, wenn möglich mit Ort, Zeit und Gerichtsbarkeit</translation>
+        <translation>Der Geltungsbereich des Dokuments, wenn möglich mit Ort, Zeit und Gerichtsbarkeit</translation>
     </message>
     <message>
         <source>Information about rights held in and over the document, eg. copyright, patent or trademark</source>
-        <translation>Informationen über Rechte in dem oder über das Dokument, z.B. Copyright, Patente oder Handelsmarken</translation>
+        <translation type="unfinished">Informationen über rechtliche Aspekte des Dokumenteninhalts, 
+etwa Urheberrechte, Patente oder Warenzeichen.</translation>
     </message>
     <message>
         <source>A reference to a document from which the present document is derived, eg. ISBN or URI</source>
-        <translation>Eine Referenz zu einem Dokument, von dem sich das aktuelle Dokument ableitet, z.B. ISBN oder URI</translation>
+        <translation type="unfinished">Ein Verweis auf eine Quelle, auf die sich das Dokument bezieht (ISBN oder URI)</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -4345,13 +4363,13 @@ optional ergänzt durch ein Bindestrich und den ISO-3166 Ländercode, wie z.B. e
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
-        <translation>Geben sie durch Kommata getrennt ein, welche
+        <translation type="unfinished">Geben Sie mit Hilfe von Kommata oder Bindestrichen ein, welche
 Seiten importiert werden sollen, zum Beispiel
 1-5 oder 3,4. * steht  für alle Seiten.</translation>
     </message>
     <message>
         <source>Print Destination</source>
-        <translation>Druckerwahl</translation>
+        <translation>Druckerauswahl</translation>
     </message>
     <message>
         <source>&amp;Options...</source>
@@ -4424,7 +4442,7 @@ Seiten importiert werden sollen, zum Beispiel
     <message>
         <source>Use an alternative print manager, such as kprinter or gtklp,
 to utilize additional printing options</source>
-        <translation>Einen anderen Druckmanager benutzen, zum Beispiel kprinter oder gtklp,
+        <translation>Einen anderen Druckermanager benutzen, zum Beispiel kprinter oder gtklp,
 um zusätzliche Optionen einstellen zu können</translation>
     </message>
 </context>
@@ -4481,7 +4499,7 @@ Wollen Sie die Änderungen ignorieren?</translation>
 be saved in its current form. The error was:
 %1
 </source>
-        <translation>Das Makro konnte nicht erstellt werden, deshalb kann 
+        <translation>Das Makro konnte nicht erstellt werden. Deshalb kann 
 es in der jetzigen Form nicht gespeichert werden. 
 Fehler:
 %1</translation>
@@ -4492,7 +4510,7 @@ Fehler:
     </message>
     <message>
         <source>&lt;qt&gt;This is the Edit Macro / New Macro dialog box. Here you can change the source code to macros. Edit the source code to the macro in the text editing area below the &quot;Source Code&quot; label and click OK to save your changes to the macro.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Das ist der Makro bearbeiten / Neues Makro - Dialog. Hier können Sie den Quellcode der Makros bearbeiten. Verändern Sie dazu den Code in dem Bereich &quot;Quellcode&quot; und klicken Sie auf OK, um die Änderungen zu übernehmen.&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;Das ist der Makro bearbeiten / Neues Makro - Dialog. Hier können Sie den Quellcode der Makros bearbeiten. Verändern Sie dazu den Code im Bereich &quot;Quellcode&quot; und klicken Sie auf OK, um die Änderungen zu übernehmen.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Source Code:</source>
@@ -4544,7 +4562,7 @@ Fehler:
     </message>
     <message>
         <source>&lt;qt&gt;This text area contains the source code of the macro. If you&apos;re creating a new macro there won&apos;t be anything in it, and if you&apos;re editing an existing macro the source code the macro was defined with will be shown here.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;In diesem Textfeld befindet sich der Quelltext des Makros. Wenn Sie ein neues Makro erstellen, sehen Sie eine leere Fläche vor sich und wenn Sie ein vorhandenes Makro bearbeiten, sehen Sie dessen Quelltext.&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;In diesem Textfeld befindet sich der Quelltext des Makros. Wenn Sie ein neues Makro erstellen, sehen Sie eine leere Fläche vor sich, und wenn Sie ein vorhandenes Makro bearbeiten, sehen Sie dessen Quelltext.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Load Source ...</source>
@@ -4560,7 +4578,7 @@ Fehler:
     </message>
     <message>
         <source>&lt;qt&gt;Load new source code into the editing area from &quot;file&quot;. Any source code in the editing area is replaced. The loaded source must be a Scribus macro function. If you load any other script, you&apos;ll need to edit it so that it&apos;ll work as a scripter macro before saving it.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Neuen Quelltext in das Bearbeitungsfenster von Datei laden. Vorhandener Befehle werden dabei gelöscht. Der Quelltext muss ein Makro für Scribus sein. Wenn Sie eine anderes Script laden, müssen Sie es noch bearbeiten, bevor Sie es speichern, damit es als Scripter Makro funktioniert.&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;Neuen Quelltext in das Bearbeitungsfenster von Datei laden. Vorhandene Befehle werden dabei gelöscht. Der Quelltext muss ein Makro für Scribus sein. Wenn Sie ein anderes Script laden, müssen Sie es noch bearbeiten, bevor Sie es speichern, damit es als Scripter-Makro funktioniert.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Save Source As...</source>
@@ -4600,7 +4618,7 @@ Fehler:
     </message>
     <message>
         <source>Python source files (*.py)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Python-Dateien (*.py)</translation>
     </message>
 </context>
 <context>
@@ -4647,7 +4665,7 @@ Fehler:
     </message>
     <message>
         <source>Name of your paragraph style</source>
-        <translation>Name des Absatz-Stils</translation>
+        <translation>Name des Absatzstils</translation>
     </message>
     <message>
         <source>Font of selected text or object</source>
@@ -4671,7 +4689,7 @@ Fehler:
     </message>
     <message>
         <source>Determines the overall height, in line numbers, of the Drop Caps</source>
-        <translation>Legt die gesamte Höhe des Initials in Zeilennummern fest</translation>
+        <translation>Legt die gesamte Höhe der Initiale in Zeilennummern fest</translation>
     </message>
     <message>
         <source>Align text to baseline grid</source>
@@ -4719,7 +4737,7 @@ Fehler:
     </message>
     <message>
         <source>&amp;Drop Caps</source>
-        <translation>&amp;Initialien</translation>
+        <translation>&amp;Initialen</translation>
     </message>
     <message>
         <source>&amp;Lines:</source>
@@ -4766,7 +4784,7 @@ Fehler:
     </message>
     <message>
         <source>Javascripts (*.js);;All Files (*)</source>
-        <translation>Javascripte (*.js);;Alle Dateien (*)</translation>
+        <translation>Javascripts (*.js);;Alle Dateien (*)</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -4845,17 +4863,17 @@ Fehler:
     </message>
     <message>
         <source>Available export formats</source>
-        <translation>Verfügbare Export-Formate</translation>
+        <translation>Verfügbare Exportformate</translation>
     </message>
     <message>
         <source>Choose a Export Directory</source>
-        <translation>Wählen Sie ein Ausgabe-Verzeichnis</translation>
+        <translation>Wählen Sie ein Ausgabeverzeichnis</translation>
     </message>
     <message>
         <source>The output directory - the place to store your images.
 Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</source>
         <translation>Das Ausgabeverzeichnis - dort werden Ihre Bilder gespeichert.
-Dateinamen der Bilder haben das Format &apos;NamedesDokuments-Seite.Dateiformat</translation>
+Dateinamen der Bilder haben das Format &apos;NamedesDokuments-Seite.Dateiformat&apos;</translation>
     </message>
     <message>
         <source>Export only the current page</source>
@@ -4919,13 +4937,13 @@ Dateinamen der Bilder haben das Format &apos;NamedesDokuments-Seite.Dateiformat<
     </message>
     <message>
         <source>Export a range of pages</source>
-        <translation>Eine Seitenbereich exportieren</translation>
+        <translation>Einen Seitenbereich exportieren</translation>
     </message>
     <message>
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
-        <translation>Geben sie durch Kommata getrennt ein, welche
+        <translation>Geben Sie mit Hilfe von Kommata oder Bindestrichen ein, welche
 Seiten importiert werden sollen, zum Beispiel
 1-5 oder 3,4. * steht  für alle Seiten.</translation>
     </message>
@@ -4942,7 +4960,7 @@ Bildschirm betrachten wollen</translation>
     </message>
     <message>
         <source>The quality of your images - 100% is the best, 1% the lowest quality</source>
-        <translation>Gibt die Qualität der Bilder an - 100% beste Qualität...1% schlechteste Qualität</translation>
+        <translation>Gibt die Qualität der Bilder an: 100% beste Qualität ... 1% schlechteste Qualität</translation>
     </message>
     <message>
         <source>Size of the images. 100% for no changes, 200% for two times larger etc.</source>
@@ -5032,7 +5050,7 @@ Bildschirm betrachten wollen</translation>
     </message>
     <message>
         <source>Create a new color within the current set</source>
-        <translation>Neue Farbe anlegen</translation>
+        <translation>Neue Farbe erstellen</translation>
     </message>
     <message>
         <source>Edit the currently selected color</source>
@@ -5076,7 +5094,7 @@ Bildschirm betrachten wollen</translation>
     </message>
     <message>
         <source>&amp;Save Color Set</source>
-        <translation>Farbset &amp;speichern</translation>
+        <translation>Farbpalette &amp;speichern</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -5114,7 +5132,7 @@ setHGuides([90,250]) # ersetzt alle vorhandenen Hilfslinien</translation>
     </message>
     <message>
         <source>Font Substitutions</source>
-        <translation>Schrift Ersetzungen</translation>
+        <translation>Schriftersetzungen</translation>
     </message>
     <message>
         <source>Additional Paths</source>
@@ -5130,7 +5148,7 @@ setHGuides([90,250]) # ersetzt alle vorhandenen Hilfslinien</translation>
     </message>
     <message>
         <source>Font Name</source>
-        <translation>Schrift Name</translation>
+        <translation>Schriftname</translation>
     </message>
     <message>
         <source>Replacement</source>
@@ -5166,7 +5184,7 @@ setHGuides([90,250]) # ersetzt alle vorhandenen Hilfslinien</translation>
     </message>
     <message>
         <source>Font &amp;Substitutions</source>
-        <translation>Schriftarten-&amp;Ersetzung</translation>
+        <translation>Schriftarten&amp;ersetzung</translation>
     </message>
     <message>
         <source>Additional &amp;Paths</source>
@@ -5323,7 +5341,7 @@ setHGuides([90,250]) # ersetzt alle vorhandenen Hilfslinien</translation>
     <message>
         <source>Sorry, no manual available! Please see: http://docs.scribus.net for updated docs
 and www.scribus.net for downloads.</source>
-        <translation>Leider ist kein Handbuch verfügbar! Auf http://docs.scribus.net finden Sie aktualisierte Handbücher und auf http://www.scribus.net finden Sie weitere Downloads.</translation>
+        <translation>Leider ist kein Handbuch verfügbar! Auf http://docs.scribus.net finden Sie aktualisierte Handbücher und auf http://www.scribus.net weitere Downloads.</translation>
     </message>
     <message>
         <source>Contents</source>
@@ -5393,7 +5411,7 @@ and www.scribus.net for downloads.</source>
     <name>HySettings</name>
     <message>
         <source>Hyphenator Settings</source>
-        <translation>Einstellungen</translation>
+        <translation>Einstellungen für die Worttrennung</translation>
     </message>
     <message>
         <source>Length of the smallest word to be hyphenated.</source>
@@ -5423,7 +5441,7 @@ Null bedeutet unbegrenzt.</translation>
     </message>
     <message>
         <source>&amp;Hyphenation Suggestions</source>
-        <translation>Trenn-&amp;Vorschläge</translation>
+        <translation>Trenn&amp;vorschläge</translation>
     </message>
     <message>
         <source>Hyphenate Text Automatically &amp;During Typing</source>
@@ -5431,11 +5449,12 @@ Null bedeutet unbegrenzt.</translation>
     </message>
     <message>
         <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</source>
-        <translation>Wenn Sie die Funktion Extras - Text trennen benutzen, können Sie aus einer Dialogbox aus allen möglichen Trennungen für jedes Wort wählen.</translation>
+        <translation>Wenn Sie die Funktion Extras -&gt; Text trennen benutzen, können Sie 
+in einer Dialogbox aus allen möglichen Trennungen für jedes Wort wählen.</translation>
     </message>
     <message>
         <source>Enables automatic hyphenation of your text while typing.</source>
-        <translation>Aktiviert automatische Trennung während Ihrer Eingabe.</translation>
+        <translation>Aktiviert die automatische Trennung während der Eingabe.</translation>
     </message>
     <message>
         <source>Consecutive Hyphenations &amp;Allowed:</source>
@@ -5799,7 +5818,7 @@ Null bedeutet unbegrenzt.</translation>
     </message>
     <message>
         <source>Brings up a graphical window for creating, deleting, editing, saving and loading macros.</source>
-        <translation>Öffnet ein Dialog, mit dem Sie Makros erstellen, löschen, bearbeiten, speichern und laden können.</translation>
+        <translation>Öffnet einen Dialog, mit dem Sie Makros erstellen, löschen, bearbeiten, speichern und laden können.</translation>
     </message>
     <message>
         <source>Create, edit and delete macros</source>
@@ -5811,7 +5830,7 @@ Null bedeutet unbegrenzt.</translation>
     </message>
     <message>
         <source>Scribus - Macro Manager</source>
-        <translation>Scribus - Makromanager</translation>
+        <translation>Scribus-Makromanager</translation>
     </message>
     <message>
         <source>Unable to open the requested file: %1</source>
@@ -5819,7 +5838,7 @@ Null bedeutet unbegrenzt.</translation>
     </message>
     <message>
         <source>Scribus - Edit Macro</source>
-        <translation>Scribus - Makro bearbeiten</translation>
+        <translation>Scribus-Makro bearbeiten</translation>
     </message>
     <message>
         <source>&lt;qt&gt;The macro name you requested is already taken  by another macro.&lt;/qt&gt;</source>
@@ -5868,7 +5887,7 @@ Eine komplette Rückverfolgung finden Sie hier:
     <name>ManageMacrosDialog</name>
     <message>
         <source>Scribus - Macro Manager</source>
-        <translation>Scribus - Makromanager</translation>
+        <translation>Scribus-Makromanager</translation>
     </message>
     <message>
         <source>Renaming the macro failed because the name is already in use.</source>
@@ -5876,15 +5895,15 @@ Eine komplette Rückverfolgung finden Sie hier:
     </message>
     <message>
         <source>Scribus - Manage Macros</source>
-        <translation>Scribus - Makros verwalten</translation>
+        <translation>Scribus-Makros verwalten</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;This window is the Scribus Macro Manager. Here you can create macros, edit macros, etc. All changes are made using the buttons on the right hand side of the window.&lt;/p&gt;
 &lt;p&gt;All changes made in this dialog take effect instantly - you cannot cancel the actions you make here.
 The table in the center of the dialog lists what macros are currently loaded and some information about them. Use &quot;What&apos;s this&quot; on the table for more information.&lt;/p&gt;&lt;/qt&gt;</source>
         <translation>&lt;qt&gt;&lt;p&gt;Dieses Fenster ist die Makroverwaltung von Scribus. Hier können Sie Makros erstellen, löschen, bearbeiten usw. Alle Änderungen können Sie mit den Buttons auf der rechten Fensterseite vornehmen.&lt;/p&gt;
-&lt;p&gt;Alle Änderungen werden sofort übernommen - Sie können Ihre Änderungen nicht zurücknehmen.
-Die Übersicht in diesem Dialog zeigt Ihnen, welche Makros bereits geladen sind und einige zusätzliche Infos. Benutzen Sie &quot;What&apos;s this&quot;, um mehr zu erfahren.&lt;/p&gt;&lt;/qt&gt;</translation>
+&lt;p&gt;Alle Änderungen werden sofort übernommen, und Sie können Ihre Änderungen nicht zurücknehmen.
+Die Übersicht in diesem Dialog zeigt Ihnen, welche Makros bereits geladen sind und einige zusätzliche Informationen. Benutzen Sie &quot;What&apos;s this&quot;, um mehr zu erfahren.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -6014,8 +6033,8 @@ Die Übersicht in diesem Dialog zeigt Ihnen, welche Makros bereits geladen sind 
     <message>
         <source>&lt;p&gt;Export macros to an external file. The file will be a Python script containing the scripter commands to re-create the macros. It can be run using &lt;tt&gt;Load extension script&lt;/tt&gt; from the &lt;tt&gt;Script&lt;/tt&gt; menu, or the import button in the macro manager.&lt;/p&gt;
 &lt;p&gt;If you want a nice, human readable version of your macros, select the macro you want, press the &lt;tt&gt;Edit&lt;/tt&gt;  button, and use the &lt;tt&gt;Save source&lt;/tt&gt; button in the &lt;tt&gt;Edit Macro&lt;/tt&gt; dialog. You won&apos;t be able to load that version with &lt;tt&gt;Load extension script&lt;/tt&gt; - instead, create a new macro with the&lt;tt&gt; New&lt;/tt&gt; button and use &lt;tt&gt;Load source&lt;/tt&gt;.&lt;/p&gt;</source>
-        <translation>&lt;qt&gt;Speichert das Makro in eine externe Datei. Diese Datei ist ein Pythonscript und enthält Befehle, um das Makro neu zu erstellen. Sie können ein so gespeichertes Makro wieder öffnen mit dem Befehl &lt;tt&gt;Erweiterungsscript laden&lt;/tt&gt; im &lt;tt&gt;Script&lt;/tt&gt;-Menü, oder mit dem Button Importieren im Makromanager.&lt;/p&gt;
-&lt;p&gt;Wenn Sie eine menschenlesbare Version von Ihrem Makro erhalten wollen, wählen Sie lieber &lt;tt&gt;Bearbeiten&lt;/tt&gt; und nutzen Sie den Befehl &lt;tt&gt;Quelltext speichern&lt;/tt&gt; im Menü &lt;tt&gt;Bearbeiten&lt;/tt&gt;. Diese Version können Sie wieder aufrufen, indem Sie ein neues Makro erstellen und dann den Befehl &lt;tt&gt;Neu&lt;/tt&gt; und &lt;tt&gt;Quelltext laden&lt;/tt&gt; aufrufen.&lt;/p&gt;</translation>
+        <translation>&lt;qt&gt;Speichert das Makro in eine externe Datei. Diese Datei ist ein Python-Script und enthält Befehle, um das Makro neu zu erstellen. Sie können ein so gespeichertes Makro mit dem Befehl &lt;tt&gt;Erweiterungsscript laden&lt;/tt&gt; im &lt;tt&gt;Script&lt;/tt&gt;-Menü, oder mit dem Button Importieren im Makromanager wieder öffnen.&lt;/p&gt;
+&lt;p&gt;Wenn Sie eine menschenlesbare Version von Ihrem Makro erhalten möchten, wählen Sie lieber &lt;tt&gt;Bearbeiten&lt;/tt&gt; und nutzen Sie den Befehl &lt;tt&gt;Quelltext speichern&lt;/tt&gt; im Menü &lt;tt&gt;Bearbeiten&lt;/tt&gt;. Diese Version können Sie wieder aufrufen, indem Sie ein neues Makro erstellen und dann den Befehl &lt;tt&gt;Neu&lt;/tt&gt; und &lt;tt&gt;Quelltext laden&lt;/tt&gt; aufrufen.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Delete &amp;All</source>
@@ -6062,7 +6081,7 @@ Die Übersicht in diesem Dialog zeigt Ihnen, welche Makros bereits geladen sind 
 &lt;p&gt;If this button is greyed out, either there is no selected macro or the macro manager does not have the source code for the macro you have selected (in which case &lt;tt&gt;No&lt;/tt&gt; will be shown in the &lt;tt&gt;Edit &lt;/tt&gt;column of the macro).&lt;/p&gt;
 &lt;p&gt;If Scribus doesn&apos;t have the source, the macro was probably created by a script.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Gewähltes Makro bearbeiten.&lt;/p&gt;
-&lt;p&gt;Wenn dieser Button grau ist, ist entweder kein Makro ausgewählt oder der Quelltext ist für dieses Makro nicht verfügbar - dann steht in der Spalten Bearbeiten das Wort Nein.&lt;/p&gt;
+&lt;p&gt;Wenn dieser Button grau ist, ist entweder kein Makro ausgewählt oder der Quelltext ist für dieses Makro nicht verfügbar - dann steht in der Spalte Bearbeiten das Wort Nein.&lt;/p&gt;
 &lt;p&gt;Ist der Quellcode nicht verfügbar, könnte das Makro von einem Script erzeugt worden sein.&lt;/p&gt;</translation>
     </message>
     <message>
@@ -6087,15 +6106,15 @@ Die Übersicht in diesem Dialog zeigt Ihnen, welche Makros bereits geladen sind 
     </message>
     <message>
         <source>Scribus - Rename Macro</source>
-        <translation>Scribus - Makro umbenennen</translation>
+        <translation>Scribus-Makro umbenennen</translation>
     </message>
     <message>
         <source>Enter new name: </source>
-        <translation>Geben Sie bitte einen neuen Name ein:</translation>
+        <translation>Geben Sie bitte einen neuen Namen ein:</translation>
     </message>
     <message>
         <source>Scribus - Set Macro Shortcut</source>
-        <translation>Scribus - Tastenkürzel festlegen</translation>
+        <translation>Scribus-Tastenkürzel festlegen</translation>
     </message>
     <message>
         <source>Enter new shortcut: </source>
@@ -6114,7 +6133,7 @@ Die Übersicht in diesem Dialog zeigt Ihnen, welche Makros bereits geladen sind 
     <name>Mdup</name>
     <message>
         <source>Multiple Duplicate</source>
-        <translation>Mehrfach Duplizieren</translation>
+        <translation>Mehrfach duplizieren</translation>
     </message>
     <message>
         <source> pt</source>
@@ -6277,7 +6296,7 @@ Die Übersicht in diesem Dialog zeigt Ihnen, welche Makros bereits geladen sind 
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
-        <translation>Geben sie durch Kommata getrennt ein, welche
+        <translation>Geben Sie mit Hilfe von Kommata oder Bindestrichen ein, welche
 Seiten importiert werden sollen, zum Beispiel
 1-5 oder 3,4. * steht  für alle Seiten.</translation>
     </message>
@@ -6405,7 +6424,7 @@ Seiten importiert werden sollen, zum Beispiel
     </message>
     <message>
         <source>Rendering Intent:</source>
-        <translation>Render Priorität:</translation>
+        <translation>Renderpriorität:</translation>
     </message>
     <message>
         <source>Perceptual</source>
@@ -6413,7 +6432,7 @@ Seiten importiert werden sollen, zum Beispiel
     </message>
     <message>
         <source>Relative Colorimetric</source>
-        <translation>Relativ Farbmetrisch</translation>
+        <translation>Relativ farbmetrisch</translation>
     </message>
     <message>
         <source>Saturation</source>
@@ -6437,7 +6456,7 @@ Seiten importiert werden sollen, zum Beispiel
     </message>
     <message>
         <source>Bevel Join</source>
-        <translation>Gefast</translation>
+        <translation>Gefasst</translation>
     </message>
     <message>
         <source>Round Join</source>
@@ -6523,19 +6542,19 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Select top left for basepoint</source>
-        <translation>Links-Oben als Ursprung setzen</translation>
+        <translation>Links oben als Ursprung setzen</translation>
     </message>
     <message>
         <source>Select top right for basepoint</source>
-        <translation>Rechts-Oben als Ursprung setzen</translation>
+        <translation>Rechts oben als Ursprung setzen</translation>
     </message>
     <message>
         <source>Select bottom left for basepoint</source>
-        <translation>Links-Unten als Ursprung setzen</translation>
+        <translation>Links unten als Ursprung setzen</translation>
     </message>
     <message>
         <source>Select bottom right for basepoint</source>
-        <translation>Rechts-Unten als Ursprung setzen</translation>
+        <translation>Rechts unten als Ursprung setzen</translation>
     </message>
     <message>
         <source>Select center for basepoint</source>
@@ -6607,11 +6626,11 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Change settings for left or end points</source>
-        <translation>Ändert die Einstellungen für die linken und End-Punkte</translation>
+        <translation>Ändert die Einstellungen für die linken und die Endpunkte</translation>
     </message>
     <message>
         <source>Pattern of line</source>
-        <translation>Muster der Line</translation>
+        <translation>Muster der Linie</translation>
     </message>
     <message>
         <source>Thickness of line</source>
@@ -6671,7 +6690,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Allow the image to be a different size to the frame</source>
-        <translation>Erlaube verschiedene Größen für Bild und Rahmen</translation>
+        <translation>Verschiedene Größen für Bild und Rahmen erlauben</translation>
     </message>
     <message>
         <source>Horizontal offset of image within frame</source>
@@ -6743,7 +6762,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Rendering intent for the image</source>
-        <translation>Render-Methode für das Bild</translation>
+        <translation>Rendermethode für das Bild</translation>
     </message>
     <message>
         <source>Switches between Gap or Column width</source>
@@ -6763,7 +6782,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
-        <translation>Zeigt an, auf welchem Level sich das Objekt befindet. 0 bedeutet im Vordergrund</translation>
+        <translation>Zeigt an, auf welcher Ebene sich das Objekt befindet. 0 bedeutet im Vordergrund</translation>
     </message>
     <message>
         <source>X, Y, &amp;Z</source>
@@ -6941,11 +6960,11 @@ ab&amp;runden:</translation>
     </message>
     <message>
         <source>Use a second line originally based on the frame&apos;s shape for text flow</source>
-        <translation>Für den Textfluss wird eine zweite Linie benutzt, die auf der originalen Form basiert</translation>
+        <translation>Für den Textfluss wird eine zweite Linie benutzt, die auf der ursprünglichen Form basiert</translation>
     </message>
     <message>
         <source>Hyphenation language of frame</source>
-        <translation>Spracheinstellung für die Silbentrennung</translation>
+        <translation>Spracheinstellung für die Worttrennung</translation>
     </message>
     <message>
         <source>Right to Left Writing</source>
@@ -6957,7 +6976,7 @@ ab&amp;runden:</translation>
     </message>
     <message>
         <source>Manual Tracking</source>
-        <translation>Manueller Buchstabenabstand</translation>
+        <translation>Manuelle Laufweite</translation>
     </message>
 </context>
 <context>
@@ -6984,7 +7003,7 @@ ab&amp;runden:</translation>
     </message>
     <message>
         <source>Bevel Join</source>
-        <translation>Gefast</translation>
+        <translation>Gefasst</translation>
     </message>
     <message>
         <source>Round Join</source>
@@ -7024,7 +7043,7 @@ ab&amp;runden:</translation>
     </message>
     <message>
         <source>Dash Dot Line</source>
-        <translation>Strich-Punkt</translation>
+        <translation>Strich-Punkt-Strich</translation>
     </message>
     <message>
         <source>Dash Dot Dot Line</source>
@@ -7188,7 +7207,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Orientation of the document&apos;s pages</source>
-        <translation>Ausrichtung der Dokument-Seite</translation>
+        <translation>Ausrichtung der Seiten des Dokuments</translation>
     </message>
     <message>
         <source>Width of the document&apos;s pages, editable if you have chosen a custom page size</source>
@@ -7196,7 +7215,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Height of the document&apos;s pages, editable if you have chosen a custom page size</source>
-        <translation>Höhe der Seite , veränderbar, wenn &quot;Benutzerdefiniert&quot; ausgewählt ist</translation>
+        <translation>Höhe der Seite; veränderbar, wenn &quot;Benutzerdefiniert&quot; ausgewählt ist</translation>
     </message>
     <message>
         <source>Enable single or spread based layout</source>
@@ -7204,31 +7223,33 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Make the first page the left page of the document</source>
-        <translation>Macht die erste Seite zu der linken Seite des Dokuments</translation>
+        <translation>Macht eine linke Seite zur ersten Seite des Dokuments</translation>
     </message>
     <message>
         <source>Distance between the top margin guide and the edge of the page</source>
-        <translation>Abstand zwischen dem oberen Seitenrand und der Papierkante</translation>
+        <translation>Abstand zwischen dem oberen Rand des Satzspiegels und dem Seitenrand (Kopfsteg)</translation>
     </message>
     <message>
         <source>Distance between the bottom margin guide and the edge of the page</source>
-        <translation>Abstand zwischen dem unteren Seitenrand und der Papierkante</translation>
+        <translation>Abstand zwischen dem unteren Rand des Satzspiegels und dem Seitenrand (Fußsteg)</translation>
     </message>
     <message>
         <source>Distance between the left margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Abstand zwischen dem linken Seitenrand und der Papierkante.
-Wenn Doppelseiten aktiviert sind, kann hier der Abstand gewählt werden, um eine genaue Bindung zu ermöglichen</translation>
+        <translation type="unfinished">Abstand zwischen dem linken Rand des Satzspiegels und dem Seitenrand.
+Wenn Doppelseiten aktiviert sind, kann hier der für die Bindung notwendige 
+Abstand (Bundsteg) eingestellt werden.</translation>
     </message>
     <message>
         <source>Distance between the right margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Abstand zwischen dem rechten Seitenrand und der Papierkante.
-Wenn Doppelseiten aktiviert sind, kann hier der Abstand gewählt werden, um eine genaue Bindung zu ermöglichen</translation>
+        <translation type="unfinished">Abstand zwischen dem rechten Rand des Satzspiegels und dem Seitenrand. 
+Wenn Doppelseiten aktiviert sind, kann hier der für die Bindung notwendige 
+Abstand eingestellt werden.</translation>
     </message>
     <message>
         <source>First page number of the document</source>
-        <translation>Erste Seitennummer im Dokument</translation>
+        <translation>Nummer der ersten Seite im Dokument</translation>
     </message>
     <message>
         <source>Default unit of measurement for document editing</source>
@@ -7436,11 +7457,11 @@ andernfalls relativ zum Objekt.</translation>
     </message>
     <message>
         <source>Open a Polygon or Cuts a Bezier Curve</source>
-        <translation>Bezierkurve oder Polygon öffnen</translation>
+        <translation>Bézierkurve oder Polygon öffnen</translation>
     </message>
     <message>
         <source>Close this Bezier Curve</source>
-        <translation>Bezierkurve schließen</translation>
+        <translation>Bézierkurve schließen</translation>
     </message>
     <message>
         <source>Mirror the Path Horizontally</source>
@@ -7492,7 +7513,7 @@ andernfalls relativ zum Objekt.</translation>
     </message>
     <message>
         <source>Reset the Contour Line to the Original Shape of the Frame</source>
-        <translation>Kontur auf die originale Form zurücksetzen</translation>
+        <translation>Kontur auf die ursprüngliche Form zurücksetzen</translation>
     </message>
     <message>
         <source>Shear the Path Horizontally to the Right</source>
@@ -7519,7 +7540,7 @@ oder unverändert gelassen</translation>
     </message>
     <message>
         <source>Use document name as a prefix for paragraph styles</source>
-        <translation>Name der Datei vor jeden Absatzstil anfügen</translation>
+        <translation>Namen der Datei vor jeden Absatzstil anfügen</translation>
     </message>
     <message>
         <source>Should importer add the name of the document
@@ -7561,22 +7582,22 @@ Sie werden dann nicht mehr um Bestätigung gebeten</translation>
     </message>
     <message>
         <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document&apos;s styles are named differently.</source>
-        <translation>Absatzstile nach Attributen zusammenfügen. Das verringert die Anzahl der Absatzstile, selbst wenn die im Originaldokument anders benannt sind.</translation>
+        <translation>Absatzstile nach Attributen zusammenfügen. Das verringert die Anzahl der Absatzstile, selbst wenn diese im Originaldokument anders benannt sind.</translation>
     </message>
     <message>
         <source>Prepend the document name to the paragraph style name in Scribus.</source>
-        <translation>Name des Dokuments an den Absatzstil in Scribus anhängen.</translation>
+        <translation>Namen des Dokuments an den Absatzstil in Scribus anhängen.</translation>
     </message>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
-        <translation>Diese Einstellungen zum Standard machen und nicht nochmal nachfragen beim Import von OASIS-Dateien.</translation>
+        <translation type="unfinished">Diese Einstellungen zum Standard machen und beim Import von OpenDocument-Dateien nicht nochmals nachfragen.</translation>
     </message>
 </context>
 <context>
     <name>PConsole</name>
     <message>
         <source>Script Console</source>
-        <translation>Script Konsole</translation>
+        <translation>Script-Konsole</translation>
     </message>
 </context>
 <context>
@@ -7587,7 +7608,7 @@ Sie werden dann nicht mehr um Bestätigung gebeten</translation>
     </message>
     <message>
         <source>File Options</source>
-        <translation>Datei Optionen</translation>
+        <translation>Dateioptionen</translation>
     </message>
     <message>
         <source>Left Margin</source>
@@ -7655,7 +7676,7 @@ Sie werden dann nicht mehr um Bestätigung gebeten</translation>
     </message>
     <message>
         <source>Screen / Web</source>
-        <translation>Monitor / Internet</translation>
+        <translation>Monitor/Internet</translation>
     </message>
     <message>
         <source>Printer</source>
@@ -7671,7 +7692,7 @@ Sie werden dann nicht mehr um Bestätigung gebeten</translation>
     </message>
     <message>
         <source>Rendering-Intent:</source>
-        <translation>Render-Priorität:</translation>
+        <translation>Renderpriorität:</translation>
     </message>
     <message>
         <source>Images:</source>
@@ -7683,7 +7704,7 @@ Sie werden dann nicht mehr um Bestätigung gebeten</translation>
     </message>
     <message>
         <source>PDF/X-3 Output Intent</source>
-        <translation>PDF/X-3 Ausgabebedingung</translation>
+        <translation>PDF/X-3-Ausgabebedingung</translation>
     </message>
     <message>
         <source>Trim Box</source>
@@ -7699,7 +7720,7 @@ Sie werden dann nicht mehr um Bestätigung gebeten</translation>
     </message>
     <message>
         <source>Blinds</source>
-        <translation>Jalusie</translation>
+        <translation>Jalousie</translation>
     </message>
     <message>
         <source>Box</source>
@@ -7723,23 +7744,23 @@ Sie werden dann nicht mehr um Bestätigung gebeten</translation>
     </message>
     <message>
         <source>Left to Right</source>
-        <translation>Links nach Rechts</translation>
+        <translation>Von links nach rechts</translation>
     </message>
     <message>
         <source>Top to Bottom</source>
-        <translation>Oben nach Unten</translation>
+        <translation>Von oben nach unten</translation>
     </message>
     <message>
         <source>Bottom to Top</source>
-        <translation>Unten nach Oben</translation>
+        <translation>Von unten nach oben</translation>
     </message>
     <message>
         <source>Right to Left</source>
-        <translation>Rechts nach Links</translation>
+        <translation>Von rechts nach links</translation>
     </message>
     <message>
         <source>Top-left to Bottom-Right</source>
-        <translation>Schräg von Links Oben</translation>
+        <translation>Schräg von links oben</translation>
     </message>
     <message>
         <source>Perceptual</source>
@@ -7747,7 +7768,7 @@ Sie werden dann nicht mehr um Bestätigung gebeten</translation>
     </message>
     <message>
         <source>Relative Colorimetric</source>
-        <translation>Relativ Farbmetrisch</translation>
+        <translation>Relativ farbmetrisch</translation>
     </message>
     <message>
         <source>Saturation</source>
@@ -7803,11 +7824,11 @@ Sie werden dann nicht mehr um Bestätigung gebeten</translation>
     </message>
     <message>
         <source>Export a range of pages to PDF</source>
-        <translation>Eine Seitenbereich als PDF exportieren</translation>
+        <translation>Ausgewählte Seiten als PDF exportieren</translation>
     </message>
     <message>
         <source>Length of time the page is shown before the presentation starts on the selected page.</source>
-        <translation>Zeit bis die nächste Seite angezeigt wird.</translation>
+        <translation type="unfinished">Anzeigedauer bis zum Wechsel der Seite.</translation>
     </message>
     <message>
         <source>Length of time the effect runs.
@@ -7821,12 +7842,12 @@ A shorter time will speed up the effect, a longer one will slow it down.</source
     <message>
         <source>Choose a master password which enables or disables all the
 security features in your exported PDF</source>
-        <translation>Wählen Sie ein Masterpasswort, dass alle Sicherheitsfunktionen
-in der exportierten Datei aktiviert</translation>
+        <translation>Wählen Sie ein Masterpasswort, das alle Sicherheitsfunktionen
+in der exportierten Datei aktiviert oder deaktiviert</translation>
     </message>
     <message>
         <source>Embed a color profile for solid colors</source>
-        <translation>Farbprofil für Dokumentfarben einbetten</translation>
+        <translation>Farbprofil für Füllfarben einbetten</translation>
     </message>
     <message>
         <source>Embed a color profile for images</source>
@@ -7834,23 +7855,23 @@ in der exportierten Datei aktiviert</translation>
     </message>
     <message>
         <source>Do not use color profiles that are embedded in source images</source>
-        <translation>Farbprofile der Quell-Bilder nicht benutzen</translation>
+        <translation>In Bilder eingebettete Farbprofile nicht verwenden</translation>
     </message>
     <message>
         <source>Distance for bleed from the top of the physical page</source>
-        <translation>Abzug für Beschnitt oben</translation>
+        <translation>Abzug für Anschnitt oben</translation>
     </message>
     <message>
         <source>Distance for bleed from the bottom of the physical page</source>
-        <translation>Abzug für Beschnitt unten</translation>
+        <translation>Abzug für Anschnitt unten</translation>
     </message>
     <message>
         <source>Distance for bleed from the left of the physical page</source>
-        <translation>Abzug für Beschnitt links</translation>
+        <translation>Abzug für Anschnitt links</translation>
     </message>
     <message>
         <source>Distance for bleed from the right of the physical page</source>
-        <translation>Abzug für Beschnitt rechts</translation>
+        <translation>Abzug für Anschnitt rechts</translation>
     </message>
     <message>
         <source>&amp;General</source>
@@ -7887,13 +7908,14 @@ PDF/X-3 ist gedacht für gewerbliche Druckereien und nur möglich, wenn Sie das 
     <message>
         <source>Determines the binding of pages in the PDF. Unless you know
 you need to change it leave the default choice - Left.</source>
-        <translation>Legt die Art des Bundes in der PDF-Datei fest. Lassen die Standard-
-Einstellung (Links), wenn Sie das nicht verändern müssen.</translation>
+        <translation>Legt die Art des Bundes in der PDF-Datei fest. Verwenden Sie die 
+Standardeinstellung (links), solange Sie nicht genau wissen, dass 
+Sie diese ändern müssen.</translation>
     </message>
     <message>
         <source>Generates thumbnails of each page in the PDF.
 Some viewers can use the thumbnails for navigation.</source>
-        <translation>Erzeugt Vorschau-Bilder für jede Seite der PDF-Datei.
+        <translation>Erzeugt Vorschaubilder für jede Seite der PDF-Datei.
 Einige Programme nutzen diese Bilder zur Navigation.</translation>
     </message>
     <message>
@@ -7909,8 +7931,8 @@ Nützlich zur Navigation in langen PDF-Dateien.</translation>
     <message>
         <source>Export resolution of text and vector graphics.
 This does not affect the resolution of bitmap images like photos.</source>
-        <translation>Ausgabe-Auflösung für Text und Vektor-Grafiken.
-Das beeinflusst nicht die Auflösung der Bitmap-Grafiken.</translation>
+        <translation>Auflösung für Text und Vektorgrafiken.
+Dies beeinflusst nicht die Auflösung von Bitmap-Grafiken.</translation>
     </message>
     <message>
         <source>Compression of text and graphics.
@@ -7944,8 +7966,8 @@ Ist die Option deaktiviert, wird die natürliche Auflösung der Bilder übernomm
     <message>
         <source>Embed fonts into the PDF. Embedding the fonts
 will preserve the layout and appearance of your document.</source>
-        <translation>Schriftarten in PDF&apos;s einbetten. Das schützt das
-Layout und Erscheinungsbild des Dokuments vor Veränderungen.</translation>
+        <translation>Schriftarten in PDFs einbetten. Diese Einstellung stellt sicher, 
+dass Layout und Erscheiungsbild bewahrt bleiben.</translation>
     </message>
     <message>
         <source>Enables presentation effects when using Acrobat Reader in full screen mode.</source>
@@ -7957,7 +7979,7 @@ Layout und Erscheinungsbild des Dokuments vor Veränderungen.</translation>
     </message>
     <message>
         <source>Type of the display effect.</source>
-        <translation>Auswahl des Effekts.</translation>
+        <translation type="unfinished">Art des Effekts</translation>
     </message>
     <message>
         <source>Direction of the effect of moving lines for the split and blind effects.</source>
@@ -7965,37 +7987,39 @@ Layout und Erscheinungsbild des Dokuments vor Veränderungen.</translation>
     </message>
     <message>
         <source>Starting position for the box and split effects.</source>
-        <translation>Start-Position für die Effekte Einblenden und Teilen.</translation>
+        <translation>Startposition für die Effekte Einblenden und Teilen.</translation>
     </message>
     <message>
         <source>Direction of the glitter or wipe effects.</source>
-        <translation>Richtung für die Effekte Jalusie und Teilen.</translation>
+        <translation>Richtung für die Effekte Jalousie und Teilen.</translation>
     </message>
     <message>
         <source>Enable the security features in your exported PDF.
 If you selected Acrobat 4.0, the PDF will be protected by 40 bit encryption.
 If you selected Acrobat 5.0, the PDF will be protected by 128 bit encryption.
 Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
-        <translation>Aktiviert die Sicherheits-Funktionen in der exportierten PDF-Datei.
-Wenn Acrobat 4.0 ausgewählt ist, wird die PDF-Datei mit 40 bit verschlüsselt.
-Wenn Acrobat 5.0 ausgewählt ist, wird die PDF-Datei mit 128 bit verschlüsselt.
-Hinweis: Die Verschlüsselung ist nicht so zuverlässig wie GPG oder PGP und hat einige Begrenzungen.</translation>
+        <translation type="unfinished">Aktiviert die Sicherheitsfunktionen in der exportierten PDF-Datei.
+Wenn Acrobat 4.0 ausgewählt ist, wird die PDF-Datei mit 40 Bit verschlüsselt.
+Wenn Acrobat 5.0 ausgewählt ist, wird die PDF-Datei mit 128 Bit verschlüsselt.
+Hinweis: Die Verschlüsselung ist nicht so zuverlässig wie GPG oder PGP und besitzt 
+einige Einschränkungen.</translation>
     </message>
     <message>
         <source>Color model for the output of your PDF.
 Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets.
 Choose Printer when printing to a true 4 color CMYK printer.</source>
         <translation>Farbmodell für die Ausgabe der PDF-Datei.
-Wählen Sie Monitor/Internet für PDF-Dateien, die auf dem Monitor angezeigt oder mit herkömmlichen Druckern gedruckt werden sollen.
+Wählen Sie Monitor/Internet für PDF-Dateien, die auf dem Monitor 
+angezeigt oder mit herkömmlichen Druckern gedruckt werden sollen.
 Wählen Sie Drucker, um die PDF-Datei auf einem CMYK-Drucker auszugeben.</translation>
     </message>
     <message>
         <source>Color profile for solid colors</source>
-        <translation>Farbprofil für Farben</translation>
+        <translation>Farbprofil für Füllfarben</translation>
     </message>
     <message>
         <source>Rendering intent for solid colors</source>
-        <translation>Render-Methode für Farben</translation>
+        <translation>Rendermethode für Füllfarben</translation>
     </message>
     <message>
         <source>Color profile for images</source>
@@ -8003,24 +8027,24 @@ Wählen Sie Drucker, um die PDF-Datei auf einem CMYK-Drucker auszugeben.</transl
     </message>
     <message>
         <source>Rendering intent for images</source>
-        <translation>Render-Methode für Bilder</translation>
+        <translation>Rendermethode für Bilder</translation>
     </message>
     <message>
         <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
-        <translation>Ausgabe-Profil zum Drucken. Wenn möglich, benutzen Sie das Profil Ihres Druckers.</translation>
+        <translation>Ausgabeprofil zum Drucken. Wenn möglich, benutzen Sie das Profil Ihres Druckers.</translation>
     </message>
     <message>
         <source>Mandatory string for PDF/X-3 or the PDF will fail
 PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation>Erforderliche Eingabe für PDF/X-3, ohne die das Dokument nicht PDF/X-3-konform ist. Benutzen Sie z.B. den Titel des Dokuments.</translation>
+        <translation>Erforderliche Eingabe für PDF/X-3, ohne die das Dokument nicht PDF/X-3-konform ist. Benutzen Sie z. B. den Titel des Dokuments.</translation>
     </message>
     <message>
         <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
-        <translation>Kompressionsstärke: Minimal (25%), Niedrig (50%), Mittel (75%), Hoch (80%), Maximal (95%)</translation>
+        <translation>Kompressionsgrad: Minimal (25 %), Niedrig (50 %), Mittel (75 %), Hoch (80 %), Maximal (95 %)</translation>
     </message>
     <message>
         <source>Choose a password for users to be able to read your PDF.</source>
-        <translation>Wählen Sie ein Password für Benutzer, um die PDF-Datei ansehen zu können.</translation>
+        <translation type="unfinished">Wählen Sie ein Passwort, das es Benutzern erlaubt, die PDF-Datei anzusehen.</translation>
     </message>
     <message>
         <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
@@ -8028,7 +8052,7 @@ PDF/X-3 conformance. We recommend you use the title of the document.</source>
     </message>
     <message>
         <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
-        <translation>Veränderung der PDF-Datei gestatten. Wenn nicht ausgewählt, wird die Veränderung verhindert.</translation>
+        <translation>Bearbeitung der PDF-Datei gestatten. Wenn nicht ausgewählt, wird die Bearbeitung verhindert.</translation>
     </message>
     <message>
         <source>Allow copying of text or graphics from the PDF. 
@@ -8046,7 +8070,7 @@ Wenn nicht ausgewählt, wird das Hinzufügen von Anmerkungen verhindert.</transl
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
-        <translation>Geben sie durch Kommata getrennt ein, welche
+        <translation>Geben Sie mit Hilfe von Kommata oder Bindestrichen ein, welche
 Seiten importiert werden sollen, zum Beispiel
 1-5 oder 3,4. * steht  für alle Seiten.</translation>
     </message>
@@ -8068,7 +8092,7 @@ Seiten importiert werden sollen, zum Beispiel
     </message>
     <message>
         <source>C&amp;hoose Pages</source>
-        <translation>Seiten &amp;wählen</translation>
+        <translation>Seiten aus&amp;wählen</translation>
     </message>
     <message>
         <source>Compatibilit&amp;y:</source>
@@ -8188,11 +8212,11 @@ Seiten importiert werden sollen, zum Beispiel
     </message>
     <message>
         <source>&amp;Use Custom Rendering Settings</source>
-        <translation>&amp;Benutzerdefinierte Rendering-Einstellungen benutzen</translation>
+        <translation>&amp;Benutzerdefinierte Render-Einstellungen benutzen</translation>
     </message>
     <message>
         <source>Rendering Settings</source>
-        <translation>Rendering-Einstellungen</translation>
+        <translation>Rendereinstellungen</translation>
     </message>
     <message>
         <source>Fre&amp;quency:</source>
@@ -8258,9 +8282,9 @@ Seiten importiert werden sollen, zum Beispiel
         <source>This is an advanced setting which is not enabled by default. This should only be enabled
 when specifically requested by your printer and they have given you the exact details needed.
 Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
-        <translation>Diese erweiterte Optio ist normalerweise deaktiviert und sollte nur aktiviert werden,
-wenn Ihre Druckerei es fordert und sie die notwendigen Informationen haben.
-Andernfalls könnte ihre PDF-Datei fehlerhaft gedruckt werden und sie kann nicht plattformübergreifend verwendet werden.</translation>
+        <translation>Diese erweiterte Option ist normalerweise deaktiviert und sollte nur aktiviert werden,
+wenn Ihre Druckerei es verlangt und sie die notwendigen Informationen haben.
+Andernfalls könnte ihre PDF-Datei fehlerhaft gedruckt und nicht plattformübergreifend verwendet werden.</translation>
     </message>
     <message>
         <source>&amp;Rotation:</source>
@@ -8300,7 +8324,7 @@ Andernfalls könnte ihre PDF-Datei fehlerhaft gedruckt werden und sie kann nicht
     </message>
     <message>
         <source>&lt;qt&gt;Color management must be enabled to use PDF/X-3. You can enable color management from the Settings menu.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Farbmanagement muss aktiviert sein, um PDF/X-3 zu nutzen. Sie können das mit Einstellungen -&gt; Farbmanagement aktivieren.&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;Farbmanagement muss aktiviert sein, um PDF/X-3 zu nutzen. Dies ist unter Einstellungen -&gt; Farbmanagement möglich.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;PDF/X-3 is supported and enabled, but can not be used for the selected PDF version. If you want to use PDF/X-3, you need to set PDF/X-3 as your PDF version (compatibility level).&lt;/qt&gt;</source>
@@ -8331,21 +8355,34 @@ Wenn nicht aktiviert, können Sie Anmerkungen und Felder nicht bearbeiten.</tran
     <message>
         <source> Lossless compression of text and graphics.
 Unless you have a reason, leave this checked. This reduces PDF size.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Verlustfreie Kompression von Text und Grafiken. 
+Ohne guten Grund sollten Sie diese Option nicht deaktivieren. 
+Sie reduziert die Dateigröße</translation>
     </message>
     <message>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kompressionsmethode für Bilddateien. Automatisch überlässt Scribus die Wahl der besten Methode. ZIP ist verlustfrei und sinnvoll für Bilder mit Füllfarben. JPEG ist besser geeignet zur Erstellung kleinerer PDF-Dateien, die viele Fotos enthalten, auch wenn damit unter Umständen ein geringer Qualitätsverlust einhergeht. Belassen Sie die Einstellung bei Automatisch, solange Sie keine spezielle Kompressionsmethode benötigen.</translation>
     </message>
     <message>
         <source>Re-sample your bitmap images to the selected DPI.
 Leaving this unchecked will render them at their native resolution.
 This can increase memory usage and slow down export.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Berechnet die Auflösung von Bitmap-Grafiken in der gewünschten Höhe neu. 
+Ansonsten wird die ursprüngliche Auflösung verwendet. Die Aktivierung dieser 
+Option kann den Speicherbedarf erhöhen und die Ausgabe verlangsamen.</translation>
     </message>
     <message>
         <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility. Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Note: PDF/X-3 will convert all CMYK images to ICC based RGB colors. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Legt die PDF-Kompatiblität fest. 
+Standard ist Acrobat 4.0, weil das die größte Kompatiblität ermöglicht.
+Wählen Sie Acrobat 5.0, wenn Sie PDF 1.4-Funktionen wie Transparenz 
+oder 128 bit-Verschlüsselung benötigen.
+PDF/X-3 ist gedacht für die Ausgabe im RGB-Farbraum für gewerbliche 
+Druckereien und nur möglich, wenn Sie das Farbmanagement aktiviert haben. 
+Bitte beachten Sie, dass PDF/X-3 alle CMYK-Bilder in den RGB-Farbraum 
+umwandelt, basierend auf einem ICC-Profil. Verwenden Sie es nur, wenn 
+Ihr Drucker dies erwartet oder Sie die die Datei auf bestimmten digitalen 
+Vierfarb-Laserdruckern ausgeben möchten.</translation>
     </message>
 </context>
 <context>
@@ -8361,7 +8398,7 @@ This can increase memory usage and slow down export.</source>
     <message>
         <source>Provides a more pleasant view of text items in the viewer, at the expense
 of a slight slowdown in previewing. This only affects Type 1 fonts</source>
-        <translation>Stellt den Text auf Kosten der Render-Geschwindigkeit glatter dar.
+        <translation>Stellt den Text auf Kosten der Rendergeschwindigkeit glatter dar.
 Funktioniert nur mit Type-1-Schriftarten</translation>
     </message>
     <message>
@@ -8431,17 +8468,18 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>Unterfarbenreduktion ersetzt einige Grautöne, die beim Mischen von Cyan, Magenta und
-Yellow entstehen, durch Schwarz. Dadurch kann sich die Qualität von Bilder, die vor allem
-neutrale Farbtöne oder Grautöne enthalten, verbessern. Allerdings sollte Sie da immer ein
-bisschen experimentieren, wie Sie die besten Ergebnisse erhalten.
-UFR reduziert auch die Gefahr einer Übersättigung durch die CMY-Farben.</translation>
+        <translation type="unfinished">Mit dieser Option werden Grautöne, die aus Cyan, Magenta und Gelb gemischt würden, 
+durch reine Abstufungen von Schwarz ersetzt.
+Hauptsächlich werden davon neutrale und dunkle Farbtöne beeinflusst,
+die Grau sehr ähnlich sind. Diese Option kann zu besseren Bildern führen.
+Sie müssen jedoch von Fall zu Fall entscheiden, ob Sie bessere Ergebnisse
+erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     </message>
     <message>
         <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and
 vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation>Schriftarten (TrueType &amp;&amp; OpenType), EPS, PDF und Vektorgrafiken werden schöner dargestellt,
-dafür erhöht sich benötigte Renderingzeit gerinfügig</translation>
+        <translation>Schriftarten (TrueType &amp;&amp; OpenType), EPS, PDF und Vektorgrafiken werden schöner dargestellt.
+Dafür erhöht sich benötigte Renderzeit gerinfügig</translation>
     </message>
 </context>
 <context>
@@ -8552,7 +8590,7 @@ dafür erhöht sich benötigte Renderingzeit gerinfügig</translation>
     </message>
     <message>
         <source>Show &amp;Baseline Grid</source>
-        <translation>&amp;Grundlinien-Raster anzeigen</translation>
+        <translation>&amp;Grundlinienraster anzeigen</translation>
     </message>
     <message>
         <source>Sn&amp;ap to Grid</source>
@@ -8700,7 +8738,7 @@ dafür erhöht sich benötigte Renderingzeit gerinfügig</translation>
     </message>
     <message>
         <source>&amp;Bezier Curve</source>
-        <translation>&amp;Bezierkurve</translation>
+        <translation>&amp;Bézierkurve</translation>
     </message>
     <message>
         <source>Conve&amp;rt to</source>
@@ -8901,7 +8939,7 @@ dafür erhöht sich benötigte Renderingzeit gerinfügig</translation>
         <source>A negative value will make the polygon concave (or star shaped),
  a positive value will make it convex</source>
         <translation>Ein negativer Wert steht für eine konkave (sternförmige) Figur,
-ein positiver Wert für eine konkave Form</translation>
+ein positiver Wert für eine konvexe Form</translation>
     </message>
 </context>
 <context>
@@ -8976,7 +9014,7 @@ ein positiver Wert für eine konkave Form</translation>
     </message>
     <message>
         <source>Autosave</source>
-        <translation>Autom. Speichern</translation>
+        <translation>Automatisch speichern</translation>
     </message>
     <message>
         <source>min</source>
@@ -8984,7 +9022,7 @@ ein positiver Wert für eine konkave Form</translation>
     </message>
     <message>
         <source>Grid Layout</source>
-        <translation>Hilfslinien Einrichtung</translation>
+        <translation>Hilfslinieneinrichtung</translation>
     </message>
     <message>
         <source>Grid Colors</source>
@@ -9084,11 +9122,11 @@ ein positiver Wert für eine konkave Form</translation>
     </message>
     <message>
         <source>Misc.</source>
-        <translation>Versch.</translation>
+        <translation type="unfinished">Sonstiges</translation>
     </message>
     <message>
         <source>Postscript Interpreter</source>
-        <translation>Postscript Interpreter</translation>
+        <translation>Postscript-Interpreter</translation>
     </message>
     <message>
         <source>Image Processing Tool</source>
@@ -9101,8 +9139,8 @@ ein positiver Wert für eine konkave Form</translation>
     <message>
         <source>Choose the default window decoration and looks.
 Scribus inherits any available KDE or Qt themes</source>
-        <translation>Auswahl der Standard-Fenster-Dekoration.
-Scribus stellt alle verfügbaren KDE und QT-Themen zur Verfügung</translation>
+        <translation>Auswahl der Standard-Fensterdekoration.
+Scribus stellt alle verfügbaren KDE- und QT-Themen zur Verfügung</translation>
     </message>
     <message>
         <source>Default font size for the menus and windows</source>
@@ -9118,15 +9156,16 @@ Scribus stellt alle verfügbaren KDE und QT-Themen zur Verfügung</translation>
     </message>
     <message>
         <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
-        <translation>Radius des Bereichs, in dem es möglich ist, die Objektbegrenzungen zu aktivieren</translation>
+        <translation>Radius des Bereichs, innerhalb dessen es möglich ist, 
+die Objektbegrenzungen zu aktivieren</translation>
     </message>
     <message>
         <source>Number of recently edited documents to show in the File menu</source>
-        <translation>Anzahl der zuletzt geöffneten Dokumenten im Datei-Menü</translation>
+        <translation>Anzahl der zuletzt geöffneten Dokumente im Dateimenü</translation>
     </message>
     <message>
         <source>Default documents directory</source>
-        <translation>Standard-Verzeichnis für Dokumente</translation>
+        <translation>Standardverzeichnis für Dokumente</translation>
     </message>
     <message>
         <source>Default ICC profiles directory</source>
@@ -9134,23 +9173,23 @@ Scribus stellt alle verfügbaren KDE und QT-Themen zur Verfügung</translation>
     </message>
     <message>
         <source>Default Scripter scripts directory</source>
-        <translation>Standard-Verzeichnis für Scripte</translation>
+        <translation>Standardverzeichnis für Scripte</translation>
     </message>
     <message>
         <source>Default page size, either a standard size or a custom size</source>
-        <translation>Standard-Größe der Seite</translation>
+        <translation>Standardgröße der Seite</translation>
     </message>
     <message>
         <source>Default orientation of document pages</source>
-        <translation>Standard-Ausrichtung der Seite in neuen Dokumente</translation>
+        <translation>Standardausrichtung der Seite in neuen Dokumenten</translation>
     </message>
     <message>
         <source>Width of document pages, editable if you have chosen a custom page size</source>
-        <translation>Breite der Seite, veränderbar, wenn Benutzerdefiniert ausgewählt ist</translation>
+        <translation>Breite der Seite; veränderbar, wenn Benutzerdefiniert ausgewählt ist</translation>
     </message>
     <message>
         <source>Height of document pages, editable if you have chosen a custom page size</source>
-        <translation>Höhe der Seite, veränderbar, wenn Benutzerdefiniert ausgewählt ist</translation>
+        <translation>Höhe der Seite; veränderbar, wenn Benutzerdefiniert ausgewählt ist</translation>
     </message>
     <message>
         <source>Enable single or spread based layout</source>
@@ -9162,33 +9201,35 @@ Scribus stellt alle verfügbaren KDE und QT-Themen zur Verfügung</translation>
     </message>
     <message>
         <source>Distance between the top margin guide and the edge of the page</source>
-        <translation>Abstand zwischen dem oberen Seitenrand und der Papierkante</translation>
+        <translation>Abstand zwischen dem oberen Rand des Satzspiegels und dem Seitenrand (Kopfsteg)</translation>
     </message>
     <message>
         <source>Distance between the bottom margin guide and the edge of the page</source>
-        <translation>Abstand zwischen dem unteren Seitenrand und der Papierkante</translation>
+        <translation>Abstand zwischen dem unteren Rand des Satzspiegels und dem Seitenrand (Fußsteg)</translation>
     </message>
     <message>
         <source>Distance between the left margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Abstand zwischen dem linken Seitenrand und der Papierkante.
-Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetragen werden</translation>
+        <translation type="unfinished">Abstand zwischen dem linken Rand des Satzspiegels und dem Seitenrand.
+Wenn Doppelseiten aktiviert sind, kann hier der für die Bindung notwendige 
+Abstand eingestellt werden (Bundsteg).</translation>
     </message>
     <message>
         <source>Distance between the right margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Abstand zwischen dem rechten Seitenrand und der Papierkante.
-Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetragen werden</translation>
+        <translation type="unfinished">Abstand zwischen dem rechten Rand des Satzspiegels und dem Seitenrand. 
+Wenn Doppelseiten aktiviert sind, kann hier der für die Bindung notwendige 
+Abstand eingestellt werden.</translation>
     </message>
     <message>
         <source>When enabled, Scribus saves a backup copy of your file with the .bak extension
 each time the time period elapses</source>
-        <translation>Scribus speichert im gegebenen Intervall selbstständig eine Backup-Kopie 
+        <translation>Scribus speichert im gegebenen Intervall selbständig eine Sicherungskopie 
 des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>Time period between saving automatically</source>
-        <translation>Abstand zwischen zwei automatischen Sicherungen</translation>
+        <translation>Intervall zwischen zwei automatischen Speicherungen</translation>
     </message>
     <message>
         <source>Distance between the minor grid lines</source>
@@ -9248,11 +9289,11 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>Text Frame Properties</source>
-        <translation>Eigenschaften der Text-Rahmen</translation>
+        <translation>Eigenschaften der Textrahmen</translation>
     </message>
     <message>
         <source>Picture Frame Properties</source>
-        <translation>Eigenschaften der Bilder-Rahmen</translation>
+        <translation>Eigenschaften der Bildrahmen</translation>
     </message>
     <message>
         <source>Shape Drawing Properties</source>
@@ -9260,11 +9301,11 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>Magnification Level Defaults</source>
-        <translation>Eigenschaften der Zoom-Level</translation>
+        <translation>Eigenschaften der Vergrößerungsstufen</translation>
     </message>
     <message>
         <source>Line Drawing Properties</source>
-        <translation>Eigenschaften des Linien-Werkzeuges</translation>
+        <translation>Eigenschaften des Linienwerkzeuges</translation>
     </message>
     <message>
         <source>Polygon Drawing Properties</source>
@@ -9272,7 +9313,7 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>Font for new text frames</source>
-        <translation>Schriftart für einen neuen Text-Rahmen</translation>
+        <translation>Schriftart für einen neuen Textrahmen</translation>
     </message>
     <message>
         <source>Size of font for new text frames</source>
@@ -9284,7 +9325,7 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>Number of columns in a text frame</source>
-        <translation>Anzahl der Spalten in einem neuen Text-Rahmen</translation>
+        <translation>Anzahl der Spalten in einem neuen Textrahmen</translation>
     </message>
     <message>
         <source>Gap between text frame columns</source>
@@ -9296,7 +9337,7 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>Picture frames allow pictures to scale to any size</source>
-        <translation>Bild-Rahmen ermöglicht das Skalieren auf eine beliebige Größe</translation>
+        <translation>Bildrahmen ermöglicht das Skalieren auf eine beliebige Größe</translation>
     </message>
     <message>
         <source>Horizontal scaling of images</source>
@@ -9316,11 +9357,11 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>Automatically scaled pictures keep their original proportions</source>
-        <translation>Bilder behalten automatisch ihre originalen Seitenverhältnisse</translation>
+        <translation>Bilder behalten automatisch ihre usprünglichen Seitenverhältnisse</translation>
     </message>
     <message>
         <source>Fill color of picture frames</source>
-        <translation>Füllfarbe für Bild-Rahmen</translation>
+        <translation>Füllfarbe für Bildrahmen</translation>
     </message>
     <message>
         <source>Saturation of color of fill</source>
@@ -9340,11 +9381,11 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>Line style of shapes</source>
-        <translation>Linien-Stil der Form</translation>
+        <translation>Linienstil der Form</translation>
     </message>
     <message>
         <source>Line width of shapes</source>
-        <translation>Linien-Breite der Form</translation>
+        <translation>Linienbreite der Form</translation>
     </message>
     <message>
         <source>Minimum magnification allowed</source>
@@ -9356,7 +9397,7 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>Change in magnification for each zoom operation</source>
-        <translation>Abstand zwischen zwei Zoom-Stufen</translation>
+        <translation>Vergrößerungsschritte</translation>
     </message>
     <message>
         <source>Color of lines</source>
@@ -9368,7 +9409,7 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>Style of lines</source>
-        <translation>Linien-Stil</translation>
+        <translation>Linienstil</translation>
     </message>
     <message>
         <source>Width of lines</source>
@@ -9388,7 +9429,7 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>Choose the size of the preview in the scrapbook palette</source>
-        <translation>Ändert die Größe der Vorschau im Bibliotheks-Fenster</translation>
+        <translation>Ändert die Größe der Vorschau im Bibliotheksfenster</translation>
     </message>
     <message>
         <source>When using facing pages, show the two pages side by side</source>
@@ -9396,23 +9437,23 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>Color for paper</source>
-        <translation>Farbe des Seiten-Hintergrundes</translation>
+        <translation>Farbe des Seitenhintergrundes</translation>
     </message>
     <message>
         <source>Color for the margin lines</source>
-        <translation>Farbe für die Seiten-Ränder</translation>
+        <translation>Farbe der Seitenränder</translation>
     </message>
     <message>
         <source>Mask the area outside the margins in the margin color</source>
-        <translation>Zeigt den nicht-druckbaren Bereich in der Farbe des Seiten-Randes</translation>
+        <translation>Zeigt den nicht druckbaren Bereich in der Farbe des Seitenrandes</translation>
     </message>
     <message>
         <source>Enable transparency features within PDF 1.4 export</source>
-        <translation>Aktiviert die Transparenz-Funktion mit dem PDF 1.4-Export</translation>
+        <translation>Aktiviert die Transparenzfunktion beim PDF 1.4-Export</translation>
     </message>
     <message>
         <source>Set the default zoom level</source>
-        <translation>Legt das Standard-Zoom-Einstellung fest</translation>
+        <translation>Legt die Standard-Vergrößerungseinstellung fest</translation>
     </message>
     <message>
         <source>Filesystem location for the Ghostscript interpreter</source>
@@ -9424,11 +9465,11 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>Antialias graphics for EPS and PDF onscreen rendering</source>
-        <translation>Grafiken ebi EPS- und PDF-Anzeige weichzeichnen</translation>
+        <translation>Grafiken bei EPS- und PDF-Anzeige weichzeichnen</translation>
     </message>
     <message>
         <source>Do not show objects outside the margins on the printed page or exported file</source>
-        <translation>Objekte außerhalb der Seitenränder auf den gedruckten oder exportierten Seiten nicht zeigen</translation>
+        <translation>Objekte außerhalb des Satzspiegels auf den gedruckten oder exportierten Seiten nicht zeigen</translation>
     </message>
     <message>
         <source>Save the scrapbook contents everytime after a change</source>
@@ -9440,7 +9481,7 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>Baseline Grid</source>
-        <translation>Grundlinien-Raster</translation>
+        <translation>Grundlinienraster</translation>
     </message>
     <message>
         <source>Turns on the basegrid</source>
@@ -9468,7 +9509,7 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>&amp;Wheel Jump:</source>
-        <translation>&amp;Rad-Vorschub:</translation>
+        <translation>&amp;Radvorschub:</translation>
     </message>
     <message>
         <source>&amp;Grab Radius:</source>
@@ -9496,7 +9537,7 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>&amp;Scripts:</source>
-        <translation>&amp;Skripte:</translation>
+        <translation>&amp;Skrips:</translation>
     </message>
     <message>
         <source>Ch&amp;ange...</source>
@@ -9620,7 +9661,7 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>Baseline &amp;Offset:</source>
-        <translation>Grundlinien-&amp;Versatz:</translation>
+        <translation>Grundlinien&amp;versatz:</translation>
     </message>
     <message>
         <source>Automatic &amp;Line Spacing:</source>
@@ -9748,7 +9789,7 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>Use PDF 1.4 &amp;Transparency Features</source>
-        <translation>PDF 1.4 &amp;Transparenzen aktivieren</translation>
+        <translation>PDF 1.4-&amp;Transparenzen aktivieren</translation>
     </message>
     <message>
         <source>&amp;Adjust Display Size</source>
@@ -9804,7 +9845,7 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>Additional Directory for Document Templates</source>
-        <translation>Zusätzliches Verzeichnis für Dokument-Vorlagen</translation>
+        <translation>Zusätzliches Verzeichnis für Dokumentvorlagen</translation>
     </message>
     <message>
         <source>Apply &amp;Factor</source>
@@ -9818,7 +9859,7 @@ des Dokuments mit der Erweiterung .bak</translation>
         <source>A negative value will make the polygon concave (or star shaped),
  a positive value will make it convex</source>
         <translation>Ein negativer Wert steht für eine konkave (sternförmige) Figur,
-ein positiver Wert für eine konkave Form</translation>
+ein positiver Wert für eine konvexe Form</translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed
@@ -9827,12 +9868,12 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>Mit dieser Option werden ein paar Grautöne, die entstehen,
-wenn Black aus Cyan, Magenta und Yellow gemischt wird, durch Schwarz ersetzt.
+        <translation type="unfinished">Mit dieser Option werden Grautöne, die aus Cyan, Magenta und Gelb gemischt würden, 
+durch reine Abstufungen von Schwarz ersetzt.
 Hauptsächlich werden davon neutrale und dunkle Farbtöne beeinflusst,
-die Grau sehr nahe stehen. Diese Option kann zu besseren Bildern führen,
-allerdings müssen Sie von Fall zu Fall entscheiden, wie Sie bessere Ergebnisse
-bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY-Farben.</translation>
+die Grau sehr ähnlich sind. Diese Option kann zu besseren Bildern führen.
+Sie müssen jedoch von Fall zu Fall entscheiden, ob Sie bessere Ergebnisse
+erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     </message>
     <message>
         <source>Executive</source>
@@ -9881,9 +9922,9 @@ kann nicht geändert werden, wenn Dokumente geöffnet sind.</translation>
 and your distro includes it, we recommend &apos;gimp-remote&apos;,
 as it allows you to edit the image in an already running
 instance of gimp.</source>
-        <translation>Pfad zum Bildbearbeitungsprogramm. Wenn Sie gimp benutzen möchten
-und es in Ihrer Distro enthalten ist, ist der Befehl gimp-remote empfehlenswert,
-weil Sie Bilder in bereits laufenden Instanzen von gimp bearbeiten können.</translation>
+        <translation>Pfad zum Bildbearbeitungsprogramm. Wenn Sie The Gimp benutzen möchten
+und es in Ihrer Distribution enthalten ist, ist der Befehl gimp-remote empfehlenswert,
+weil Sie Bilder in bereits laufenden Instanzen von Gimp bearbeiten können.</translation>
     </message>
 </context>
 <context>
@@ -10025,11 +10066,11 @@ weil Sie Bilder in bereits laufenden Instanzen von gimp bearbeiten können.</tra
     </message>
     <message>
         <source>Preview File Info</source>
-        <translation>Voransicht der Datei-Info</translation>
+        <translation>Voransicht der Dateiinformation</translation>
     </message>
     <message>
         <source>Preview File Contents</source>
-        <translation>Voransicht des Datei-Inhalts</translation>
+        <translation>Voransicht des Dateiinhalts</translation>
     </message>
     <message>
         <source>Read-write</source>
@@ -10305,7 +10346,7 @@ Datei wurde nicht gefunden.
     <name>QMessageBox</name>
     <message>
         <source>&lt;h3&gt;About Qt&lt;/h3&gt;&lt;p&gt;This program uses Qt version %1.&lt;/p&gt;&lt;p&gt;Qt is a C++ toolkit for multiplatform GUI &amp;amp; application development.&lt;/p&gt;&lt;p&gt;Qt provides single-source portability across MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, and all major commercial Unix variants.&lt;br&gt;Qt is also available for embedded devices.&lt;/p&gt;&lt;p&gt;Qt is a Trolltech product. See &lt;tt&gt;http://www.trolltech.com/qt/&lt;/tt&gt; for more information.&lt;/p&gt;</source>
-        <translation>&lt;h3&gt;Über Qt&lt;/h3&gt;&lt;p&gt;Dieses Programm verwendet Qt Version %1&lt;/p&gt;&lt;p&gt;Qt ist ein multi-platform Framework zum Erstellen von GUI-Programmen in C++.&lt;/p&gt;&lt;p&gt;Qt bietet Portierungsmöglichkeiten mit nur einer Quellcode-Basis auf MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux und allen anderen großen kommerziellen Unix-Versionen.&lt;br&gt;Qt ist auch für eingebettete Systeme erhältlich.&lt;/p&gt;&lt;p&gt;Qt ist ein Produkt von Trolltech. Weitere Informationen finden Sie unter &lt;tt&gt;http://www.trolltech.com/qt/&lt;/tt&gt;.&lt;/p&gt;</translation>
+        <translation>&lt;h3&gt;Über Qt&lt;/h3&gt;&lt;p&gt;Dieses Programm verwendet Qt Version %1&lt;/p&gt;&lt;p&gt;Qt ist eine platformübergreifende Entwicklungsumgebung zum Erstellen von GUI-Programmen in C++.&lt;/p&gt;&lt;p&gt;Qt bietet Portierungsmöglichkeiten mit nur einer Quellcode-Basis auf MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux und allen anderen großen kommerziellen Unix-Versionen.&lt;br&gt;Qt ist auch für eingebettete Systeme erhältlich.&lt;/p&gt;&lt;p&gt;Qt ist ein Produkt von Trolltech. Weitere Informationen finden Sie unter &lt;tt&gt;http://www.trolltech.com/qt/&lt;/tt&gt;.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -10339,7 +10380,7 @@ wirklich überschreiben?</translation>
     </message>
     <message>
         <source>Online Reference</source>
-        <translation>Onlinereferenz</translation>
+        <translation>Online-Referenz</translation>
     </message>
     <message>
         <source>Open</source>
@@ -10598,7 +10639,7 @@ externe Links</translation>
     </message>
     <message>
         <source>Font %1 is broken, discarding it</source>
-        <translation>Die Schriftart %1 ist defekt und wird ab sofort ignoriert</translation>
+        <translation>Die Schriftart %1 ist defekt und wird ignoriert</translation>
     </message>
     <message>
         <source>Text Filters</source>
@@ -10642,7 +10683,7 @@ externe Links</translation>
     </message>
     <message>
         <source>Dutch</source>
-        <translation>Holländisch</translation>
+        <translation>Niederländisch</translation>
     </message>
     <message>
         <source>English</source>
@@ -10755,7 +10796,7 @@ externe Links</translation>
     <message>
         <source>Cannot get a color with an empty name.</source>
         <comment>python error</comment>
-        <translation>keine Farbbezeichnung angegeben.</translation>
+        <translation>Keine Farbbezeichnung angegeben.</translation>
     </message>
     <message>
         <source>Color not found</source>
@@ -10805,7 +10846,7 @@ externe Links</translation>
     <message>
         <source>Unit out of range. Use one of the scribus.UNIT_* constants.</source>
         <comment>python error</comment>
-        <translation>Einheit außerhalb des Bereichs. Benutzen Sie eine der UNIT*-Konstanten.</translation>
+        <translation>Einheit außerhalb des Bereichs. Benutzen Sie eine der UNIT_*-Konstanten.</translation>
     </message>
     <message>
         <source>Target is not an image frame.</source>
@@ -11177,15 +11218,15 @@ können, finden Sie in der Funktionsreferenz.</translation>
     </message>
     <message>
         <source>Import &amp;OpenOffice.org Draw...</source>
-        <translation>&amp;OpenOffice.org Zeichnung importieren...</translation>
+        <translation>&amp;OpenOffice.org-Zeichnung importieren...</translation>
     </message>
     <message>
         <source>OpenOffice.org Draw (*.sxd);;All Files (*)</source>
-        <translation>OpenOffice Zeichnung (*.sxd);;Alle Dateien (*)</translation>
+        <translation>OpenOffice.org-Zeichnung (*.sxd);;Alle Dateien (*)</translation>
     </message>
     <message>
         <source>OpenOffice.org Writer Documents</source>
-        <translation>Dokumente von OpenOffice Textverarbeitung </translation>
+        <translation type="unfinished">OpenOffice.org Writer-Dokumente</translation>
     </message>
     <message>
         <source>Color not found - python error</source>
@@ -11218,7 +11259,7 @@ any function as provided here and in its docstring is incomplete.
 
 Details of what exceptions each function may throw are provided on the
 function&apos;s documentation.</source>
-        <translation>Scribus Python Interface
+        <translation>Scribus-Python-Interface
 
 Dieses Modul ist das Python-Interface für Scribus. Es stellt Funktionen bereit, um Scribus
 zu steuern und Objekte auf der Arbeitsfläche zu manipulieren. Jede Funktion ist im Detail 
@@ -11259,12 +11300,12 @@ Details zu den Fehlern der einzelnen Funktionen finden Sie in der Funktionsbesch
     <message>
         <source>Short Words processing. Wait please...</source>
         <comment>short words plugin</comment>
-        <translation>Short Words untersucht den Text. Bitte haben Sie einen Moment Geduld...</translation>
+        <translation>Abkürzungsassistent untersucht den Text. Bitte haben Sie einen Moment Geduld...</translation>
     </message>
     <message>
         <source>Short Words processing. Done.</source>
         <comment>short words plugin</comment>
-        <translation>Short Words ist fertig.</translation>
+        <translation>Abkürzungsassistent ist fertig.</translation>
     </message>
     <message>
         <source>Afrikaans</source>
@@ -11390,7 +11431,7 @@ Details zu den Fehlern der einzelnen Funktionen finden Sie in der Funktionsbesch
     <message>
         <source>Line space out of bounds, must be &gt;= 0.1.</source>
         <comment>python error</comment>
-        <translation>Zeilenabstand ist muss größer gleich 0,1 sein.</translation>
+        <translation>Zeilenabstand ist muss größer oder gleich 0,1 sein.</translation>
     </message>
     <message>
         <source>Cannot set line spacing on a non-text frame.</source>
@@ -11410,7 +11451,7 @@ Details zu den Fehlern der einzelnen Funktionen finden Sie in der Funktionsbesch
     <message>
         <source>Column count out of bounds, must be &gt; 1.</source>
         <comment>python error</comment>
-        <translation>Spaltenanzahl muss größer gleich 1 sein.</translation>
+        <translation>Spaltenanzahl muss größer oder gleich 1 sein.</translation>
     </message>
     <message>
         <source>Cannot set number of columns on a non-text frame.</source>
@@ -11513,7 +11554,7 @@ Details zu den Fehlern der einzelnen Funktionen finden Sie in der Funktionsbesch
     </message>
     <message>
         <source>OpenDocument Text Documents</source>
-        <translation>OpenDocument Textdateien</translation>
+        <translation>OpenDocument-Textdateien</translation>
     </message>
     <message>
         <source>Croatian</source>
@@ -11526,7 +11567,7 @@ Details zu den Fehlern der einzelnen Funktionen finden Sie in der Funktionsbesch
     <message>
         <source>page</source>
         <comment>page export</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Seite</translation>
     </message>
 </context>
 <context>
@@ -11665,7 +11706,7 @@ Details zu den Fehlern der einzelnen Funktionen finden Sie in der Funktionsbesch
     </message>
     <message>
         <source>Margin Guides</source>
-        <translation>Ränder</translation>
+        <translation>Randlinien</translation>
     </message>
     <message>
         <source>Enable single or spread based layout</source>
@@ -11677,23 +11718,25 @@ Details zu den Fehlern der einzelnen Funktionen finden Sie in der Funktionsbesch
     </message>
     <message>
         <source>Distance between the top margin guide and the edge of the page</source>
-        <translation>Abstand zwischen dem oberen Seitenrand und der Papierkante</translation>
+        <translation>Abstand zwischen dem oberen Rand des Satzspiegels und dem Seitenrand (Kopfsteg)</translation>
     </message>
     <message>
         <source>Distance between the bottom margin guide and the edge of the page</source>
-        <translation>Abstand zwischen dem unteren Seitenrand und der Papierkante</translation>
+        <translation>Abstand zwischen dem unteren Rand des Satzspiegels und dem Seitenrand (Fußsteg)</translation>
     </message>
     <message>
         <source>Distance between the left margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Abstand zwischen dem linken Seitenrand und der Papierkante.
-Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetragen werden</translation>
+        <translation type="unfinished">Abstand zwischen dem linken Rand des Satzspiegels und dem Seitenrand.
+Wenn Doppelseiten aktiviert sind, kann hier der für die Bindung notwendige 
+Abstand eingestellt werden (Bundsteg).</translation>
     </message>
     <message>
         <source>Distance between the right margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Abstand zwischen dem rechten Seitenrand und der Papierkante.
-Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetragen werden</translation>
+        <translation type="unfinished">Abstand zwischen dem rechten Rand des Satzspiegels und dem Seitenrand. 
+Wenn Doppelseiten aktiviert sind, kann hier der für die Bindung notwendige 
+Abstand eingestellt werden.</translation>
     </message>
     <message>
         <source> pt</source>
@@ -11884,11 +11927,11 @@ Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetrage
     </message>
     <message>
         <source>Tracking:</source>
-        <translation>Buchstabenabstand:</translation>
+        <translation type="unfinished">Laufweite:</translation>
     </message>
     <message>
         <source>Manual Tracking</source>
-        <translation>Manueller Buchstabenabstand</translation>
+        <translation>Manuelle Laufweite</translation>
     </message>
 </context>
 <context>
@@ -12078,7 +12121,7 @@ Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetrage
     </message>
     <message>
         <source>Multiple Duplicate</source>
-        <translation>Mehrfach Duplizieren</translation>
+        <translation>Mehrfach duplizieren</translation>
     </message>
     <message>
         <source>Delete</source>
@@ -12186,7 +12229,7 @@ Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetrage
     </message>
     <message>
         <source>Outline</source>
-        <translation>Übersicht</translation>
+        <translation type="unfinished">Dokumenten&amp;struktur</translation>
     </message>
     <message>
         <source>Scrapbook</source>
@@ -12198,7 +12241,7 @@ Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetrage
     </message>
     <message>
         <source>Hyphenate Text</source>
-        <translation>Silbentrennung</translation>
+        <translation>Worttrennung</translation>
     </message>
     <message>
         <source>About Scribus</source>
@@ -12357,7 +12400,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>Scribus Manual</source>
-        <translation>Scribus Handbuch</translation>
+        <translation>Scribus-Handbuch</translation>
     </message>
     <message>
         <source>The following Programs are missing:</source>
@@ -12421,7 +12464,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>Dutch</source>
-        <translation>Holländisch</translation>
+        <translation>Niederländisch</translation>
     </message>
     <message>
         <source>Portuguese</source>
@@ -12701,7 +12744,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>&amp;Search/Replace...</source>
-        <translation>&amp;Suchen &amp;&amp; Ersetzen...</translation>
+        <translation>&amp;Suchen und Ersetzen...</translation>
     </message>
     <message>
         <source>C&amp;olors...</source>
@@ -12713,7 +12756,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>&amp;Line Styles...</source>
-        <translation>&amp;Linien-Stile...</translation>
+        <translation>&amp;Linienstile...</translation>
     </message>
     <message>
         <source>&amp;Templates...</source>
@@ -12721,7 +12764,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>&amp;Javascripts...</source>
-        <translation>&amp;Javascripts...</translation>
+        <translation>&amp;JavaScripts...</translation>
     </message>
     <message>
         <source>D&amp;uplicate</source>
@@ -12729,7 +12772,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>&amp;Multiple Duplicate</source>
-        <translation>&amp;Mehrfach Duplizieren</translation>
+        <translation>&amp;Mehrfach duplizieren</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
@@ -12765,7 +12808,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>Distribute/&amp;Align...</source>
-        <translation>Verteilen &amp;&amp; &amp;Ausrichten...</translation>
+        <translation>Verteilen und &amp;Ausrichten...</translation>
     </message>
     <message>
         <source>&amp;Shape</source>
@@ -12829,7 +12872,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>Show &amp;Baseline Grid</source>
-        <translation>&amp;Grundlinien-Raster anzeigen</translation>
+        <translation>&amp;Grundlinienraster anzeigen</translation>
     </message>
     <message>
         <source>&amp;Properties</source>
@@ -12837,7 +12880,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>&amp;Outline</source>
-        <translation>Über&amp;sicht</translation>
+        <translation type="unfinished">Dokument&amp;struktur</translation>
     </message>
     <message>
         <source>&amp;Scrapbook</source>
@@ -12861,7 +12904,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>&amp;Hyphenate Text</source>
-        <translation>&amp;Silbentrennung anwenden</translation>
+        <translation type="unfinished">&amp;Silbentrennung anwenden</translation>
     </message>
     <message>
         <source>Toolti&amp;ps</source>
@@ -12873,7 +12916,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>Tooltips</source>
-        <translation>Tooltipps</translation>
+        <translation>Direkthilfe</translation>
     </message>
     <message>
         <source>&amp;Fonts...</source>
@@ -12897,7 +12940,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>Scribus &amp;Manual...</source>
-        <translation>Scri&amp;bus Handbuch...</translation>
+        <translation>Scri&amp;bus-Handbuch...</translation>
     </message>
     <message>
         <source>St&amp;yle</source>
@@ -13009,7 +13052,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;</source>
-        <translation>&lt;p&gt;Sie versuchen, mehr Seiten zu importieren als im aktiven Dokument vorhanden sind.&lt;/p&gt;Wählen Sie bitte aus:&lt;br&gt;&lt;ul&gt;&lt;li&gt;fehlende Seiten &lt;b&gt;erstellen&lt;/b&gt;&lt;/li&gt;&lt;li&gt;Bis zur letzten vorhandenen Seite &lt;b&gt;einfügen&lt;/b&gt;&lt;/li&gt;&lt;li&gt;&lt;b&gt;Abbrechen&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;</translation>
+        <translation>&lt;p&gt;Sie versuchen, mehr Seiten zu importieren, als im aktiven Dokument vorhanden sind.&lt;/p&gt;Wählen Sie bitte aus:&lt;br&gt;&lt;ul&gt;&lt;li&gt;fehlende Seiten &lt;b&gt;erstellen&lt;/b&gt;&lt;/li&gt;&lt;li&gt;Bis zur letzten vorhandenen Seite &lt;b&gt;einfügen&lt;/b&gt;&lt;/li&gt;&lt;li&gt;&lt;b&gt;Abbrechen&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;</translation>
     </message>
     <message>
         <source>Create</source>
@@ -13097,11 +13140,11 @@ nicht speichern</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Color management is supported but can not currently be enabled. Make sure you have ICC color profiles installed and that the profile path in the preferences points to where they&apos;re installed.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Farbmanagement wird unterstützt, ist aber zur Zeit nicht aktiviert. Sie müssen ICC-Profile installiert und den korrekten Profilpfad angegeben haben, um Farbmanagement aktivieren zu können.&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;Farbmanagement wird unterstützt, ist aber zur Zeit nicht aktiviert. Sie müssen ICC-Profile installiert und den korrekten Profilpfad angegeben haben, um das Farbmanagement aktivieren zu können.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Color management is not supported by this Scribus build (not compiled in).&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Farbmanagement wird von dieser Version von Scribus nicht unterstützt (nicht kompiliert).&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;Farbmanagement wird von dieser Scribus-Version nicht unterstützt (nicht kompiliert).&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Croatian</source>
@@ -13209,7 +13252,7 @@ nicht speichern</translation>
     <message>
         <source>Display an interactive Python console where you can write and run Python programs that use the Scripter tools.</source>
         <comment>scripter</comment>
-        <translation>Interaktive Python-Konsole anzeigen, in der Sie Python-Programme schreiben und ausführen können, die die Scripter Tools benutzen.</translation>
+        <translation>Interaktive Python-Konsole anzeigen, in der Sie Python-Programme schreiben und ausführen können, welche die Scripter-Tools benutzen.</translation>
     </message>
     <message>
         <source>&amp;About Script...</source>
@@ -13230,7 +13273,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>Python Scripts (*.py);; All Files (*)</source>
-        <translation>Python Scripte (*.py);; Alle Dateien (*)</translation>
+        <translation>Python-Scripte (*.py);; Alle Dateien (*)</translation>
     </message>
     <message>
         <source>Script error</source>
@@ -13238,7 +13281,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
-        <translation>Falls das Script ein offizelles Scribus-Script ist, den Fehler bitte auf &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; melden.</translation>
+        <translation type="unfinished">Falls das Script ein offizelles Scribus-Script ist, melden Sie den Fehler bitte auf &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
     </message>
     <message>
         <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
@@ -13282,7 +13325,7 @@ Bitte lesen Sie die Dokumentation, bevor Sie diese Einstellung aktivieren.</tran
     <name>ScripterPreferences</name>
     <message>
         <source>Scribus - Scripter Preferences</source>
-        <translation>Scribus - Einstellungen für Script-Erweiterungen</translation>
+        <translation>Scribus-Einstellungen für Script-Erweiterungen</translation>
     </message>
     <message>
         <source>Enable Scripter Extensions</source>
@@ -13296,7 +13339,7 @@ Bitte lesen Sie die Dokumentation, bevor Sie diese Einstellung aktivieren.</tran
         <source>&lt;qt&gt;&lt;p&gt;Enabling scripter extensions turns on additional scripter functionality including Python macros and the option of loading a Python script at start-up. Turning on this option unlocks the &lt;tt&gt;Load Extension Script&lt;/tt&gt; item in the Script menu.&lt;/p&gt;
 &lt;p&gt;
 Only scripts written to be run as extension scripts should be used with &lt;tt&gt;Load Extension Script&lt;/tt&gt; or as start-up scripts. See the scripter documentation for more details.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;&lt;p&gt;Die Script-Erweiterungen aktivieren zusätzliche Funktionen inklusive Python-Makros und Startup-Script. Außerdem können Sie so auf die Funktion &lt;tt&gt;Erweiterungsscript laden&lt;/tt&gt; im Script-Menü zugreifen.&lt;/p&gt;
+        <translation>&lt;qt&gt;&lt;p&gt;Die Script-Erweiterungen aktivieren zusätzliche Funktionen, inklusive Python-Makros und Startup-Script. Außerdem können Sie so auf die Funktion &lt;tt&gt;Erweiterungsscript laden&lt;/tt&gt; im Script-Menü zugreifen.&lt;/p&gt;
 &lt;p&gt;
 Nur Scripts, die für die Verwendung als Erweiterung vorgesehen sind, sollten über den Befehl &lt;tt&gt;Erweiterungsscript laden&lt;/tt&gt; oder als Startup-Scripts geöffnet werden. In der Scripter-Dokumentation finden Sie dazu weitere Informationen.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
@@ -13307,7 +13350,7 @@ Nur Scripts, die für die Verwendung als Erweiterung vorgesehen sind, sollten ü
     <message>
         <source>&lt;qt&gt;&lt;p&gt;If &lt;tt&gt;Use a Startup Script&lt;/tt&gt; is checked, Scribus will load the script file specified here as an extension script at start-up. It is important that the script be written as an extension script, as if not written carefully it can potentially cause problems.&lt;/p&gt;
 &lt;p&gt;&lt;tt&gt;Use a Startup Script&lt;/tt&gt; will be disabled if scripter extensions are off, as extension scripts cannot be loaded without scripter extensions enabled.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;&lt;p&gt;&apos;Startup-Script verwenden&apos; ist aktiviert. Das bedeutet, dass Scribus die gewählte Erweiterung bei jedem Start von Scribus ausführt. Stellen Sie sicher, dass das Script wirklich als Erweiterung geschrieben ist, andernfalls verursacht es möglicherweise Probleme.&lt;/p&gt;
+        <translation>&lt;qt&gt;&lt;p&gt;&apos;Startup-Script verwenden&apos; ist aktiviert. Das bedeutet, dass Scribus die gewählte Erweiterung bei jedem Start von Scribus ausführt. Stellen Sie sicher, dass das Script wirklich als Erweiterung geschrieben ist. Andernfalls verursacht es möglicherweise Probleme.&lt;/p&gt;
 &lt;p&gt;&lt;tt&gt;&apos;Startup-Script verwenden&apos; wird deaktiviert, wenn Sie die Script-Erweiterungen ausschalten, weil Erweiterungsscripte nicht ohne die zusätzlichen Funktionen für den Scripter aktiviert werden können.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
@@ -13324,17 +13367,17 @@ Nur Scripts, die für die Verwendung als Erweiterung vorgesehen sind, sollten ü
     </message>
     <message>
         <source>What script file to load at start-up</source>
-        <translation>Datei, die beim Start von Scribus geladen wird</translation>
+        <translation>Scriptdatei, die beim Start von Scribus geladen wird</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;The file containing the Python script to run as an extension script at start-up.&lt;/p&gt;
 &lt;p&gt;Note that when this script is run, Scribus has not completely started up and the workspace does not yet exist.&lt;/p&gt;&lt;/qt&gt;</source>
         <translation>&lt;qt&gt;&lt;p&gt;Die Datei mit dem Python-Script, die beim Start geladen werden soll.&lt;/p&gt;
-&lt;p&gt;Beachten Sie dabei, dass zur Zeit der Ausführung Scribus noch nicht komplett geladen ist und zum Beispiel der Arbeitsbereich noch nicht zur Verfügung steht.&lt;/p&gt;&lt;/qt&gt;</translation>
+&lt;p&gt;Beachten Sie dabei, dass zur Zeit der Ausführung Scribus noch nicht komplett geladen ist und beispielsweise der Arbeitsbereich noch nicht zur Verfügung steht.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Script File:</source>
-        <translation>Script:</translation>
+        <translation>Script-Datei:</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -13376,13 +13419,13 @@ Nur Scripts, die für die Verwendung als Erweiterung vorgesehen sind, sollten ü
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Import All Names at Startup&lt;/tt&gt; is an advanced option. You should probably leave it checked unless you have read the documentation and know what you are doing.&lt;/p&gt;
 &lt;p&gt;Unchecking this option will prevent the scripter from running its usual &lt;tt&gt;from scribus import *&lt;/tt&gt; command when it initializes the main interpreter (used for the script console and extension scripts) at start-up.&lt;/p&gt;
 &lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;&lt;p&gt;Alle Namen beim Start importieren&lt;/tt&gt; ist eine Experteneinstellung. Sie sollten Sie aktiviert lassen, wenn Sie nicht genau wissen was Sie tun oder die Dokumentation nicht gelesen haben.&lt;/p&gt;
+        <translation>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Alle Namen beim Start importieren&lt;/tt&gt; ist eine Experteneinstellung. Sie sollten Sie aktiviert lassen, wenn Sie nicht genau wissen was Sie tun oder die Dokumentation nicht gelesen haben.&lt;/p&gt;
 &lt;p&gt;Wenn Sie diese Option ausschalten, wird der Scripter nicht wie gewöhnlich &lt;tt&gt;from scribus import *&lt;tt&gt; ausführen, wenn er den Interpreter (für Scripts und Erweiterungen) beim Start initialisiert.&lt;/p&gt;
-&lt;p&gt;Diese Änderung tritt erst in Kraft, wenn Sie Scribus neu starten.&lt;/p&gt;&lt;/qt&gt;</translation>
+&lt;p&gt;Diese Änderung wird erst wirksam, wenn Sie Scribus neu starten.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Enable Legacy Name Aliases</source>
-        <translation>Alte Aliase für Namen aktivieren</translation>
+        <translation>Alte Aliasse für Namen aktivieren</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Enable the use of OldStyle function names&lt;/qt&gt;</source>
@@ -13392,10 +13435,10 @@ Nur Scripts, die für die Verwendung als Erweiterung vorgesehen sind, sollten ü
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Enable Legacy Aliases&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
 &lt;p&gt;If checked, this option will cause the scripter to create a large number of function and constant name aliases for 1.2.0 script compatibility. It defaults to checked.&lt;/p&gt;
 &lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Alte Aliase für Namen verwenden&lt;/tt&gt; ist eine Expertenoption. Sie sollten die Voreinstellung nicht verändern.&lt;/p&gt;
+        <translation>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Alte Aliasse für Namen verwenden&lt;/tt&gt; ist eine Expertenoption. Sie sollten die Voreinstellung nicht verändern.&lt;/p&gt;
 &lt;p&gt;Wenn aktiviert, erstellt der Scripter eine große Zahl an Funktionen und Konstanten, die kompatibel mit der Script-Version 1.2.0 sind. Die Option ist
 standardmäßig aktiviert.&lt;/p&gt;
-&lt;p&gt;Diese Änderung tritt erst in Kraft, wenn Sie Scribus neu starten.&lt;/p&gt;&lt;/qt&gt;</translation>
+&lt;p&gt;Diese Änderung wird erst wirksam, wenn Sie Scribus neu starten.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Use Fake Stdin</source>
@@ -13410,7 +13453,7 @@ standardmäßig aktiviert.&lt;/p&gt;
 &lt;p&gt;Normally, scribus will provide Python with a fake file object for &lt;tt&gt;sys.stdin&lt;/tt&gt;, so that reads from stdin always return an empty string. If the real &lt;tt&gt;sys.stdin&lt;/tt&gt; is left in place, scripts that try to read from it will block - and in turn block scribus&apos;s execution, making the app appear to hang - until input arrives on stdin. It&apos;s unusual for GUI apps to expect anything on stdin, so mostly users will think scribus has crashed.&lt;/p&gt;
 &lt;p&gt;You can disable this option if you want to accept input on stdin. Generally you should use &lt;tt&gt;os.popen&lt;/tt&gt; to make a pipe instead, or use some other input mechanism, but this option is here just in case.&lt;/p&gt;&lt;/qt&gt;</source>
         <translation>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Fake stdin benutzen&lt;/tt&gt; ist eine Expertenoption. Sie sollten die Voreinstellung nicht verändern.&lt;/p&gt;
-&lt;p&gt;Normalerweise stellt Scribus eine Fake-Datei für Python bereit, damit Lesezugriffe auf stdin immer einen leeren String zurückgeben. Wenn das wirkliche &lt;tt&gt;sys.stdin&lt;/tt&gt; an Stelle dieser Datei wäre, würden Scripts, die davon versuchen zu lesen, die gesamte Scribus-Anwendung blockieren, bis auf stdin Daten ankommen. Für GUIs ist es ungewöhnlich, von stdin auf Input zu warten, deswegen würden die meisten User denken, Scribus wäre abgestürzt.&lt;/p&gt;
+&lt;p&gt;Normalerweise stellt Scribus eine Fake-Datei für Python bereit, damit Lesezugriffe auf stdin immer einen leeren String zurückgeben. Wenn das wirkliche &lt;tt&gt;sys.stdin&lt;/tt&gt; an Stelle dieser Datei wäre, würden Scripts, die davon versuchen zu lesen, die gesamte Scribus-Anwendung blockieren, bis auf stdin Daten ankommen. Für GUIs ist es ungewöhnlich, von stdin auf Input zu warten, deswegen würden die meisten User denken, Scribus sei abgestürzt.&lt;/p&gt;
 &lt;p&gt;Wenn Sie Input auf stdin akzeptieren wollen, können Sie diese Option deaktiveren. Normalerweise sollten Sie &lt;tt&gt;os.popen&lt;/tt&gt; oder eine andere Funktion nutzen, um eine Verbindung herzustellen.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
 </context>
@@ -13425,14 +13468,14 @@ standardmäßig aktiviert.&lt;/p&gt;
     <name>SeView</name>
     <message>
         <source>Show Template Names</source>
-        <translation>Bezeichnungen der Vorlagen anzeigen</translation>
+        <translation>Zeigt die Namen der Vorlagen an</translation>
     </message>
 </context>
 <context>
     <name>SearchReplace</name>
     <message>
         <source>Search/Replace</source>
-        <translation>Suchen &amp;&amp;Ersetzen</translation>
+        <translation type="unfinished">Suchen und Ersetzen</translation>
     </message>
     <message>
         <source>Search for:</source>
@@ -13512,7 +13555,7 @@ standardmäßig aktiviert.&lt;/p&gt;
     </message>
     <message>
         <source>Forced</source>
-        <translation>Erzw. Blocksatz</translation>
+        <translation>Erzwungener Blocksatz</translation>
     </message>
     <message>
         <source>&amp;Whole Word</source>
@@ -13572,8 +13615,8 @@ standardmäßig aktiviert.&lt;/p&gt;
     <message>
         <source>Here are all your Templates, to create a new Page
 drag a Template to the Pageview below.</source>
-        <translation>Hier sind Ihre Vorlagen, um eine neue Seite zu erzeugen
-ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
+        <translation>Hier sind Ihre Vorlagen, um eine neue Seite zu erzeugen.
+Ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     </message>
     <message>
         <source>Normal</source>
@@ -13795,7 +13838,7 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     </message>
     <message>
         <source>&amp;Reload Text from Frame</source>
-        <translation>&amp;Text neu vom Text-Rahmen</translation>
+        <translation>&amp;Text neu vom Textrahmen</translation>
     </message>
     <message>
         <source>&amp;Save to File...</source>
@@ -13867,7 +13910,7 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     </message>
     <message>
         <source>&amp;Search/Replace...</source>
-        <translation>&amp;Suchen &amp;&amp; Ersetzen...</translation>
+        <translation>&amp;Suchen und Ersetzen...</translation>
     </message>
     <message>
         <source>&amp;Edit Styles...</source>
@@ -13875,7 +13918,7 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     </message>
     <message>
         <source>&amp;Fonts Preview...</source>
-        <translation>Schriftarten&amp;vorschau...</translation>
+        <translation type="unfinished">Schriftartenv&amp;orschau...</translation>
     </message>
     <message>
         <source>&amp;Background...</source>
@@ -13937,7 +13980,7 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     </message>
     <message>
         <source>Use document name as a prefix for paragraph styles</source>
-        <translation>Name der Datei vor jeden Absatzstil anfügen</translation>
+        <translation>Namen der Datei vor jeden Absatzstil anfügen</translation>
     </message>
     <message>
         <source>Do not ask again</source>
@@ -13963,7 +14006,7 @@ Absatzstile anhängen</translation>
     </message>
     <message>
         <source>OpenOffice.org Writer Importer Options</source>
-        <translation>Optionen für OpenOffice Textverarbeitung</translation>
+        <translation>Optionen für OpenOffice.org-Textverarbeitung</translation>
     </message>
     <message>
         <source>Should the importer always use currently
@@ -13991,11 +14034,11 @@ Sie werden dann nicht mehr um Bestätigung gebeten</translation>
     </message>
     <message>
         <source>Prepend the document name to the paragraph style name in Scribus.</source>
-        <translation>Name des Dokuments an Absatzstile anhängen.</translation>
+        <translation>Namen des Dokuments an Absatzstile anhängen.</translation>
     </message>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
-        <translation>Diese Einstellungen zum Standard machen und nicht nochmal nachfragen beim Import von Dateien, die mit OpenOffice 1.x erstellt wurden.</translation>
+        <translation>Diese Einstellungen zum Standard machen und beim Import von Dateien, die mit OpenOffice.org 1.x erstellt wurden, nicht nochmals nachfragen.</translation>
     </message>
 </context>
 <context>
@@ -14084,7 +14127,7 @@ Sie werden dann nicht mehr um Bestätigung gebeten</translation>
     <name>Tree</name>
     <message>
         <source>Outline</source>
-        <translation>Übersicht</translation>
+        <translation>Dokumentstruktur</translation>
     </message>
     <message>
         <source>Element</source>
@@ -14181,7 +14224,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Send your value to the script</source>
-        <translation>Wert an das Script senden</translation>
+        <translation>Wert an das Script übergeben</translation>
     </message>
 </context>
 <context>
@@ -14189,7 +14232,7 @@ Bitte wählen Sie einen anderen.</translation>
     <message>
         <source>Short Words</source>
         <comment>short words plugin</comment>
-        <translation>Short Words</translation>
+        <translation>Abkürzungsassistent</translation>
     </message>
     <message>
         <source>Apply unbreakable space on:</source>
@@ -14204,7 +14247,7 @@ Bitte wählen Sie einen anderen.</translation>
     <message>
         <source>Active &amp;page</source>
         <comment>short words plugin</comment>
-        <translation>Aktive &amp;Seite</translation>
+        <translation>Aktuelle &amp;Seite</translation>
     </message>
     <message>
         <source>&amp;All items</source>
@@ -14253,32 +14296,32 @@ eigenen Einstellungen ersetzen.</translation>
     <message>
         <source>Only selected frames processed.</source>
         <comment>short words plugin</comment>
-        <translation>Die markierten Rahmen wurden verarbeitet.</translation>
+        <translation>Die markierten Rahmen wurden bearbeitet.</translation>
     </message>
     <message>
         <source>Only actual page processed.</source>
         <comment>short words plugin</comment>
-        <translation>Aktuelle Seite wurde verarbeitet.</translation>
+        <translation>Aktuelle Seite wurde bearbeitet.</translation>
     </message>
     <message>
         <source>All items in document processed.</source>
         <comment>short words plugin</comment>
-        <translation>Alle Objekte wurden verarbeitet.</translation>
+        <translation>Alle Objekte wurden bearbeitet.</translation>
     </message>
     <message>
         <source>Short Words for Scribus</source>
         <comment>short words plugin</comment>
-        <translation>Short Words für Scribus</translation>
+        <translation>Abkürzungsassistent für Scribus</translation>
     </message>
     <message>
         <source>Available in the following languages</source>
         <comment>short words plugin</comment>
-        <translation>In folgenden Sprachen verfügbar</translation>
+        <translation type="unfinished">In folgenden Sprachen verfügbar:</translation>
     </message>
     <message>
         <source>About Short Words</source>
         <comment>short words plugin</comment>
-        <translation>Über Short Words</translation>
+        <translation>Über den Abkürzungsassistenten</translation>
     </message>
 </context>
 <context>
@@ -14313,11 +14356,11 @@ eigenen Einstellungen ersetzen.</translation>
     </message>
     <message>
         <source>Insert Bezier Curves</source>
-        <translation>Bezierlinien einfügen</translation>
+        <translation>Bézierlinien einfügen</translation>
     </message>
     <message>
         <source>Insert Freehand Line</source>
-        <translation>Freihand Linie einfügen</translation>
+        <translation>Freihandlinie einfügen</translation>
     </message>
     <message>
         <source>Rotate Item</source>
@@ -14341,7 +14384,7 @@ eigenen Einstellungen ersetzen.</translation>
     </message>
     <message>
         <source>Edit the text with the Story Editor</source>
-        <translation>Text mit dem Story Editor bearbeiten</translation>
+        <translation>Text mit dem Story-Editor bearbeiten</translation>
     </message>
     <message>
         <source>Draw various Shapes</source>
@@ -14396,7 +14439,7 @@ eigenen Einstellungen ersetzen.</translation>
     </message>
     <message>
         <source>Insert PDF Annotations</source>
-        <translation>PDF Anmerkungen einfügen</translation>
+        <translation>PDF-Anmerkungen einfügen</translation>
     </message>
 </context>
 <context>
@@ -14576,15 +14619,15 @@ für diesen Dateityp gefragt.</translation>
     </message>
     <message>
         <source>The template creator should also make sure that the Installing Templates section above applies to their templates as well. This means a user should be able to download a template package and be able to extract them to the template directory and start using them.</source>
-        <translation>Wenn Sie Vorlagen erstellen, sollten Sie darauf achten, dass Sie die Informationen in dem Abschnitt &quot;Vorlagen installieren&quot; beachten. Das bedeutet, der Benutzer sollte in der Lage sein, die Vorlage einfach in das entsprechende Verzeichnis zu kopieren und zu benutzen.</translation>
+        <translation>Wenn Sie Vorlagen erstellen, sollten Sie darauf achten, dass Sie die Informationen in dem Abschnitt &quot;Vorlagen installieren&quot; beachten. Das bedeutet, Benutzer sollten in der Lage sein, die Vorlage einfach in das entsprechende Verzeichnis zu kopieren und zu benutzen.</translation>
     </message>
     <message>
         <source>Removing a template from the New From Template dialog will only remove the entry from the template.xml, it will not delete the document files. A popup menu with remove is only shown if you have write access to the template.xml file.</source>
-        <translation>Wenn Sie eine Vorlage von dieser Liste entfernen, wird nur der entsprechende Eintrag in der template.xml gelöscht, nicht die Vorlage selber. Sie können Vorlagen nur löschen, wenn Sie Schreibrechte auf template.xml besitzen.</translation>
+        <translation>Wenn Sie eine Vorlage von dieser Liste entfernen, wird nur der entsprechende Eintrag in der template.xml gelöscht, nicht die Vorlage selbst. Sie können Vorlagen nur löschen, wenn Sie Schreibrechte für template.xml besitzen.</translation>
     </message>
     <message>
         <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that is present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. The copy must be located in the same directory as the original template.xml so Scribus can load it.</source>
-        <translation>Kopieren Sie die existierende template.xml nach template.lang_COUNTRY.xml (selber Ländercode wie bei den qm-Dateien), zum Beispiel template.fi.xml für Finnisch. Diese Kopie muss sich im selben Verzeichnis wie template.xml befinden.</translation>
+        <translation>Kopieren Sie die existierende template.xml nach template.lang_COUNTRY.xml (derselbe Ländercode wie bei den qm-Dateien), zum Beispiel template.fi.xml für Finnisch. Diese Kopie muss sich im selben Verzeichnis wie template.xml befinden.</translation>
     </message>
 </context>
 <context>
