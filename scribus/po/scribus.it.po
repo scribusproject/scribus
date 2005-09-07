@@ -1,3 +1,10 @@
+# translation of scribus.po to 
+# translation of scribus.po to
+# translation of scribus.po to
+# translation of scribus.po to
+# translation of scribus.po to
+# translation of scribus.po to
+# translation of scribus.po to
 # translation of scribus.nuovo.po to Italiano
 # translation of scribus.po to Italiano
 # translation of scribus.it.po to italiano
@@ -12,10 +19,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-22 02:20+0200\n"
-"PO-Revision-Date: 2005-01-08 12:50+0100\n"
+"POT-Creation-Date: 2005-08-29 23:12+0200\n"
+"PO-Revision-Date: 2005-09-07 10:22+0200\n"
 "Last-Translator: Pier Luigi Cinquantini <plcinquantini@katamail.com>\n"
-"Language-Team: Italiano <it@li.org>\n"
+"Language-Team:  <it@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -152,7 +159,7 @@ msgid ""
 "Please choose another."
 msgstr ""
 "Il nome \" %1\" già esiste.\n"
-"Scegline un altro."
+"Sceglierne un altro."
 
 msgid "OK"
 msgstr "OK"
@@ -281,28 +288,28 @@ msgid "Reset this Control Point"
 msgstr "Azzera questo punto di controllo"
 
 msgid "Open a Polygon or Cuts a Bezier Curve"
-msgstr "Apre poligono o interrompe curva di Bezier"
+msgstr "Apri poligono o interrompi curva di Bezier"
 
 msgid "Close this Bezier Curve"
-msgstr "Chiude questa curva di Bezier"
+msgstr "Chiudi questa curva di Bezier"
 
 msgid "Mirror the Path Horizontally"
-msgstr "Riflette il tracciato"
+msgstr "Rifletti il tracciato"
 
 msgid "Mirror the Path Vertically"
 msgstr "Ribalta il tracciato"
 
 msgid "Shear the Path Horizontally to the Right"
-msgstr "Distorce il tracciato orizzontalmente verso destra"
+msgstr "Distorci il tracciato orizzontalmente verso destra"
 
 msgid "Shear the Path Horizontally to the Left"
-msgstr "Distorce il tracciato orizzontalmente verso sinistra"
+msgstr "Distorci il tracciato orizzontalmente verso sinistra"
 
 msgid "Shear the Path Vertically Up"
-msgstr "Distorce il tracciato verticalmente verso l'alto"
+msgstr "Distorci il tracciato verticalmente verso l'alto"
 
 msgid "Shear the Path Vertically Down"
-msgstr "Distorce il tracciato verticalmente verso il basso"
+msgstr "Distorci il tracciato verticalmente verso il basso"
 
 msgid "Rotate the Path Counter-Clockwise"
 msgstr "Ruota il tracciato in senso antiorario"
@@ -311,7 +318,7 @@ msgid "Rotate the Path Clockwise"
 msgstr "Ruota il tracciato in senso orario"
 
 msgid "Reduce the Size of the Path by shown %"
-msgstr "Riduce la dimensione del tracciato della percentuale mostrata"
+msgstr "Riduci la dimensione del tracciato della percentuale mostrata"
 
 msgid "Enlarge the Size of the Path by shown %"
 msgstr "Aumenta la dimensione del tracciato della percentuale mostrata"
@@ -763,9 +770,8 @@ msgstr "Scegli il programma da usare per le importazioni"
 msgid "Automatic"
 msgstr "Automatico"
 
-#, fuzzy
 msgid "Import Text Only"
-msgstr "Importazione testo"
+msgstr "Importa solo testo"
 
 msgid "Import text without any formatting"
 msgstr "Importa il testo senza formattazione"
@@ -891,11 +897,10 @@ msgid "New Layer"
 msgstr "Nuovo livello"
 
 msgid "Do you want to delete all Objects on this Layer too?"
-msgstr "Vuoi eliminare tutti anche tutti gli oggetti su questo livello?"
+msgstr "Vuoi eliminare anche tutti gli oggetti su questo livello?"
 
-#, fuzzy
 msgid "Save as PDF"
-msgstr "Salva in P&DF..."
+msgstr "Salva come PDF"
 
 msgid "O&utput to File:"
 msgstr "Spedisci l'o&utput sul file:"
@@ -1156,7 +1161,7 @@ msgid "Ellipse"
 msgstr "Ellissi"
 
 msgid "Solid Colors:"
-msgstr "Colori pieni:"
+msgstr "Tinte unite:"
 
 msgid "Use ICC Profile"
 msgstr "Utilizza profilo ICC"
@@ -1208,17 +1213,25 @@ msgid ""
 "<qt>Color management must be enabled to use PDF/X-3. You can enable color "
 "management from the Settings menu.</qt>"
 msgstr ""
+"<qt>Per usare PDF/X-3 deve essere abilitata la gestione Colore. Si può "
+"abilitarla dal menù Impostazioni.</qt>"
 
+#, fuzzy
 msgid ""
 "<qt>PDF/X-3 is supported and enabled, but can not be used for the selected "
 "PDF version. If you want to use PDF/X-3, you need to set PDF/X-3 as your PDF "
 "version (compatibility level).</qt>"
 msgstr ""
+"<qt>PDF/X-3 è supportato e abilitato, ma non può essere utilizzato con la "
+"versione PDF selezionata. Per utilizzarlo è necessario impostarlo come la "
+"versione PDF installata(livello compatibilità).</qt>"
 
 msgid ""
 "<qt>PDF/X-3 is not supported by this Scribus build (CMS support not present)."
 "</qt>"
 msgstr ""
+"<qt>PDF/X-3 non è supportata da questa versione di Scribus (non è presente "
+"il supporto CMS ).</qt>"
 
 msgid "&Save"
 msgstr "&Salva"
@@ -1238,7 +1251,6 @@ msgstr ""
 "un simbolo può essere * per tutte le pagine, 1-5 per\n"
 "un intervallo di pagine o un numero di una singola pagina."
 
-#, fuzzy
 msgid ""
 "Determines the PDF compatibility. The default is Acrobat 4.0 which gives the "
 "widest compatibility. Choose Acrobat 5.0 if your file has PDF 1.4 features "
@@ -1250,11 +1262,7 @@ msgid ""
 "printer."
 msgstr ""
 "Determina la compatibilità PDF. La predefinita è per Acrobat 4.0 che dà la "
-"più ampia compatibilità.\n"
-"Scegli Acrobat 5.0 se il file ha caratteristiche come la trasparenza oppure "
-"si ha bisogno di una cifratura a 128 bit.\n"
-"PDF/X-3 è per l'esportazione in PDF per una stampa commerciale ed è "
-"selezionabile quando si attiva la gestione colori."
+"più ampia compatibilità. Scegli Acrobat 5.0 se il file ha caratteristiche come la trasparenza oppure si ha bisogno di una cifratura a 128 bit. PDF/X-3 è per l'esportazione in PDF quando è necessario un colore RGB per una stampa commerciale ed è selezionabile quando si attiva la gestione colori. Nota: PDF/X-3 convertirà tutte le immagini CMYK in colori RGB basati su ICC. Usare solo quando la stampante lo richiede o in alcuni casi durante una stampa con una stampante digitale laser a 4 colori."
 
 msgid ""
 "Determines the binding of pages in the PDF. Unless you know\n"
@@ -1299,7 +1307,6 @@ msgstr ""
 "Compressione del testo e degli elementi grafici.\n"
 "Se non si hanno motivi, lasciare selezionato. Riduce la dimensione PDF."
 
-#, fuzzy
 msgid ""
 "Method of compression to use for images. Automatic allows Scribus to choose "
 "the best method. ZIP is lossless and good for images with solid colors. JPEG "
@@ -1307,15 +1314,14 @@ msgid ""
 "image quality loss possible). Leave it set to Automatic, unless you have a "
 "need for special compression options."
 msgstr ""
-"Versione della compressione per le immagini.\n"
+"Metodo di compressione da usare per le immagini.\n"
 "Automatica permette a Scribus di scegliere il metodo migliore.\n"
-"ZIP è adatto per le immagini con colori pieni.\n"
+"ZIP è senza perdite di informazioni e adatto per le immagini con tinte unite.\n"
 "JPEG è migliore per creare file PDF più piccoli che hanno molte foto (con "
 "possibilità di perdita di qualità minima).\n"
 "Lasciare su Automatica se non si ha bisogno di opzioni speciali di "
 "compressione."
 
-#, fuzzy
 msgid ""
 "Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), "
 "Maximum (95%)"
@@ -1323,14 +1329,14 @@ msgstr ""
 "Livelli di compressione: Minima (25%), Bassa (50%), Media (75%), Alta (85%), "
 "Massima (95%)"
 
-#, fuzzy
 msgid ""
 "Re-sample your bitmap images to the selected DPI.\n"
 "Leaving this unchecked will render them at their native resolution.\n"
 "This can increase memory usage and slow down export."
 msgstr ""
 "Ridimensiona le immagini bitmap alla risoluzione (DPI) scelta.\n"
-"Se non si seleziona, le immagini resteranno con la risoluzione originaria."
+"Se non si seleziona, le immagini resteranno con la risoluzione originaria.\n"
+"Il suo uso potrebbe aumentare l'uso della memoria e rallentare l'esportazione."
 
 msgid "DPI (Dots Per Inch) for image export."
 msgstr "DPI (Dots Per Inch) per l'esportazione dell'immagine."
@@ -1342,8 +1348,7 @@ msgstr ""
 "Incorpora i font nel file PDF. Incorporandoli\n"
 "si conserverà l'impaginazione e l'aspetto del documento."
 
-msgid ""
-"Enables presentation effects when using Acrobat Reader in full screen mode."
+msgid "Enables presentation effects when using Acrobat Reader in full screen mode."
 msgstr ""
 "Permette gli effetti di presentazione quando si usa Acrobat Reader in "
 "modalità \"a tutto schermo\"."
@@ -1363,13 +1368,12 @@ msgid ""
 "A shorter time will speed up the effect, a longer one will slow it down."
 msgstr ""
 "Il tempo di durata dell'effetto.\n"
-"U tempo minore accelererà l'effetto, uno minore lo rallenterà."
+"Un tempo minore accelererà l'effetto, uno maggiore lo rallenterà."
 
 msgid "Type of the display effect."
 msgstr "Tipo dell'effetto di visualizzazione."
 
-msgid ""
-"Direction of the effect of moving lines for the split and blind effects."
+msgid "Direction of the effect of moving lines for the split and blind effects."
 msgstr "Direzione delle linee mobili per gli effetti offusca e dividi."
 
 msgid "Starting position for the box and split effects."
@@ -1406,16 +1410,14 @@ msgstr ""
 "le caratteristiche di sicurezza esportate nel file PDF"
 
 msgid "Choose a password for users to be able to read your PDF."
-msgstr ""
-"Sceglie una password per utenti che dà la possibilità di leggere il file PDF."
+msgstr "Sceglie una password per utenti che dà la possibilità di leggere il file PDF."
 
 msgid "Allow printing of the PDF. If un-checked, printing is prevented. "
 msgstr ""
 "Consente la stampa del file PDF. Se non è selezionata, la stampa non è "
 "possibile. "
 
-msgid ""
-"Allow modifying of the PDF. If un-checked, modifying the PDF is prevented."
+msgid "Allow modifying of the PDF. If un-checked, modifying the PDF is prevented."
 msgstr ""
 "Consente la modifica del file PDF. Se non è selezionata, la modifica non è "
 "possibile."
@@ -1428,7 +1430,6 @@ msgstr ""
 "Se non è selezionata, non è possibile copiare il testo e gli elementi "
 "grafici."
 
-#, fuzzy
 msgid ""
 "Allow adding annotations and fields to the PDF. \n"
 "If un-checked, editing annotations and fields is prevented."
@@ -1463,20 +1464,19 @@ msgstr ""
 "Altrimenti il file PDF esportato potrebbe non essere stampato propriamente ."
 
 msgid "Embed a color profile for solid colors"
-msgstr "Incorpora un profilo per colori pieni"
+msgstr "Incorpora un profilo per tinte unite"
 
 msgid "Color profile for solid colors"
-msgstr "Profilo per colori pieni"
+msgstr "Profilo per tinte unite"
 
 msgid "Rendering intent for solid colors"
-msgstr "Intento rendering per colori pieni"
+msgstr "Intento rendering per tinte unite"
 
 msgid "Embed a color profile for images"
 msgstr "Incorpora un profilo di colore per immagini"
 
 msgid "Do not use color profiles that are embedded in source images"
-msgstr ""
-"Non usare profili di colore che sono incorporati nelle immagini originali"
+msgstr "Non usare profili di colore che sono incorporati nelle immagini originali"
 
 msgid "Color profile for images"
 msgstr "Profilo di colore per immagini"
@@ -1495,24 +1495,20 @@ msgid ""
 "Mandatory string for PDF/X-3 or the PDF will fail\n"
 "PDF/X-3 conformance. We recommend you use the title of the document."
 msgstr ""
-"Stringa obbligatoria per PDF/X3 oppure il file PDF con sarà\n"
+"Stringa obbligatoria per PDF/X3 oppure il file PDF non sarà\n"
 "conforme al PDF/X. Si raccomanda di usare il titolo del documento."
 
 msgid "Distance for bleed from the top of the physical page"
-msgstr ""
-"Distanza dal margine superiore della pagina fisica per scritte fuori pagina"
+msgstr "Distanza dal margine superiore della pagina fisica per scritte fuori pagina"
 
 msgid "Distance for bleed from the bottom of the physical page"
-msgstr ""
-"Distanza dal margine inferiore della pagina fisica per scritte fuori pagina"
+msgstr "Distanza dal margine inferiore della pagina fisica per scritte fuori pagina"
 
 msgid "Distance for bleed from the left of the physical page"
-msgstr ""
-"Distanza dal margine sinistro della pagina fisica per scritte fuori pagina"
+msgstr "Distanza dal margine sinistro della pagina fisica per scritte fuori pagina"
 
 msgid "Distance for bleed from the right of the physical page"
-msgstr ""
-"Distanza dal margine destro della pagina fisica per scritte fuori pagina "
+msgstr "Distanza dal margine destro della pagina fisica per scritte fuori pagina "
 
 msgid "Mirror Page(s) horizontally"
 msgstr "Rifletti pagina/e"
@@ -1520,19 +1516,20 @@ msgstr "Rifletti pagina/e"
 msgid "Mirror Page(s) vertically"
 msgstr "Ribalta pagina/e"
 
-#, fuzzy
 msgid "PDF security settings"
-msgstr "Effetti di presentazione PDF"
+msgstr "Impostazioni di sicurezza PDF"
 
-#, fuzzy
 msgid "PDF/X-3 settings"
-msgstr "Effetti di presentazione PDF"
+msgstr "Impostazioni PDF/X-3"
 
 msgid ""
 "<qt>PDF security can not be used with PDF/X-3. If you want to turn on "
 "security, change your PDF version (compatibility level) to something other "
 "than PDF/X-3.</qt>"
 msgstr ""
+"<qt>Non è possibile utilizzare le impostazioni di sicurezza PDF con PDF/X-3. "
+"Se si vuole attivare tali impostazioni, è necessario cambiare la versione "
+"PDF (livello di compatibilità) in un'altra diversa da PDF/X-3.</qt>"
 
 msgid "Save as"
 msgstr "Salva con nome"
@@ -1841,8 +1838,7 @@ msgstr "Dimensione pagina documento, standard o personalizzata"
 msgid "Orientation of the document's pages"
 msgstr "Orientamento delle pagine del documento"
 
-msgid ""
-"Width of the document's pages, editable if you have chosen a custom page size"
+msgid "Width of the document's pages, editable if you have chosen a custom page size"
 msgstr ""
 "Larghezza pagine del documento, modificabile se si è scelto dimensione "
 "personalizzata"
@@ -1891,12 +1887,10 @@ msgid "Default unit of measurement for document editing"
 msgstr "Unità di misura predefinita per la redazione del documento"
 
 msgid "Create text frames automatically when new pages are added"
-msgstr ""
-"Crea cornici di testo automaticamente quando vengono aggiunte nuove pagine"
+msgstr "Crea cornici di testo automaticamente quando vengono aggiunte nuove pagine"
 
 msgid "Number of columns to create in automatically created text frames"
-msgstr ""
-"Numero di colonne da creare nelle cornici di testo create automaticamente"
+msgstr "Numero di colonne da creare nelle cornici di testo create automaticamente"
 
 msgid "Distance between automatically created columns"
 msgstr "Distanza tra le colonne create automaticamente"
@@ -2364,8 +2358,7 @@ msgid "Open"
 msgstr "Apri"
 
 msgid "Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)"
-msgstr ""
-"Immagini (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Tutti i file (*)"
+msgstr "Immagini (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Tutti i file (*)"
 
 msgid "Example:"
 msgstr "Esempio:"
@@ -2406,9 +2399,8 @@ msgstr "Catalano"
 msgid "Chinese"
 msgstr "Cinese"
 
-#, fuzzy
 msgid "Croatian"
-msgstr "Catalano"
+msgstr "Croato"
 
 msgid "Czech"
 msgstr "Ceco"
@@ -2470,9 +2462,8 @@ msgstr "Norvegese"
 msgid "Polish"
 msgstr "Polacco"
 
-#, fuzzy
 msgid "Portuguese (Brazilian)"
-msgstr "Portoghese"
+msgstr "Portoghese (Brasiliano)"
 
 msgid "Russian"
 msgstr "Russo"
@@ -2495,17 +2486,14 @@ msgstr "Sloveno"
 msgid "Serbian"
 msgstr "Serbo"
 
-#, fuzzy
 msgid "Turkish"
-msgstr "Turco:"
+msgstr "Turco"
 
-#, fuzzy
 msgid "Ukranian"
 msgstr "Ucraino"
 
-#, fuzzy
 msgid "Welsh"
-msgstr "Gallese:"
+msgstr "Gallese"
 
 msgid "Document Information"
 msgstr "Informazioni documento"
@@ -2567,8 +2555,8 @@ msgid ""
 "This field can be embedded in the Scribus document for reference, as well as "
 "in the metadata of a PDF"
 msgstr ""
-"La persona o l'organizzazione principalmente responsabile per la creazione "
-"del contenuto del documento.\n"
+"La persona o l'organizzazione principalmente responsabile del contenuto del "
+"documento.\n"
 "Questo campo può essere incorporato nel documento di Scribus per referenza, "
 "ed anche come metadata di un file PDF"
 
@@ -2577,7 +2565,7 @@ msgid ""
 "This field can be embedded in the Scribus document for reference, as well as "
 "in the metadata of a PDF"
 msgstr ""
-"Un nome dato al documento.\n"
+"Nome dato al documento.\n"
 "Questo campo può essere incorporato nel documento di Scribus per referenza, "
 "ed anche come metadata di un file PDF"
 
@@ -2586,8 +2574,8 @@ msgid ""
 "This field is for a brief description or abstract of the document. It is "
 "embedded in the PDF on export"
 msgstr ""
-"Un resoconto del contenuto del documento.\n"
-"Questo campo è riservato ad una  breve descrizione o un riassunto del "
+"Resoconto del contenuto del documento.\n"
+"Questo campo è riservato ad una breve descrizione o a un riassunto del "
 "documento. Viene incorporato nel file PDF all'esportazione"
 
 msgid ""
@@ -2600,14 +2588,12 @@ msgstr ""
 "in un file PDF, per aiutare le ricerche e l'indicizzazione dei file PDF"
 
 msgid "A person or organisation responsible for making the document available"
-msgstr ""
-"Una persona o un'organizzazione responsabile della diffusione del documento"
+msgstr "Una persona o un'organizzazione responsabile della diffusione del documento"
 
 msgid ""
 "A person or organisation responsible for making contributions to the content "
 "of the document"
-msgstr ""
-"Una persona o un'organizzazione che ha contribuito al contenuto del documento"
+msgstr "Una persona o un'organizzazione che ha contribuito al contenuto del documento"
 
 msgid ""
 "A date associated with an event in the life cycle of the document, in YYYY-"
@@ -2636,7 +2622,8 @@ msgid ""
 "An unambiguous reference to the document within a given context such as ISBN "
 "or URI"
 msgstr ""
-"Una referenza univoca al documento entro un contesto dato come l'ISBN o l'URI"
+"Una referenza univoca al documento entro un contesto dato, come l'ISBN o "
+"l'URI"
 
 msgid ""
 "A reference to a document from which the present document is derived, eg. "
@@ -2668,13 +2655,12 @@ msgid ""
 "location, time and jurisdiction ranges"
 msgstr ""
 "L'amplessità o l'ambito del contenuto del documento, includendo "
-"possibilimente la posizione, l'ora e i campi di giurisdizione"
+"possibilimente la locazione geografica, l'ora e i campi di giurisdizione"
 
 msgid ""
 "Information about rights held in and over the document, eg. copyright, "
 "patent or trademark"
-msgstr ""
-"Informazioni sui diritti del documento, es. copyright, brevetto o marchio"
+msgstr "Informazioni sui diritti del documento, es. copyright, brevetto o marchio"
 
 msgid "Edit Color"
 msgstr "Modifica colore"
@@ -2732,7 +2718,7 @@ msgstr ""
 "È un nome riservato per un colore trasparente"
 
 msgid "Name of the Color is not unique"
-msgstr "Il nome del colore non è univoco"
+msgstr "Il nome del colore esiste già"
 
 msgid "Colors"
 msgstr "Colori"
@@ -2747,7 +2733,7 @@ msgid "Color Sets"
 msgstr "Raccolta colori"
 
 msgid "Current Color Set:"
-msgstr "Attuale raccolta colori:"
+msgstr "Raccolta colori attuale:"
 
 msgid "&Save Color Set"
 msgstr "&Salva raccolta colore"
@@ -2765,10 +2751,10 @@ msgid "Append colors to the current set from an existing document"
 msgstr "Aggiungi colori all'attuale raccolta da un documento esistente"
 
 msgid "Create a new color within the current set"
-msgstr "Crea un nuovo colore dall' attuale raccolta"
+msgstr "Crea un nuovo colore dall'attuale raccolta"
 
 msgid "Edit the currently selected color"
-msgstr "Modifica il colore selezionato attualmente"
+msgstr "Modifica il colore attualmente selezionato"
 
 msgid "Make a copy of the currently selected color"
 msgstr "Fai una copia del colore attualmente selezionato"
@@ -2795,8 +2781,7 @@ msgid "Position:"
 msgstr "Posizione:"
 
 msgid "Here you can add, change or remove Color-Stops."
-msgstr ""
-"Qui è possibile aggiungere, modificare o rimuovere i limiti dei colori."
+msgstr "Qui è possibile aggiungere, modificare o rimuovere i limiti dei colori."
 
 msgid "Initializing..."
 msgstr "Inizializzazione..."
@@ -2814,10 +2799,10 @@ msgid "Open a Document"
 msgstr "Apre un documento"
 
 msgid "Save the current Document"
-msgstr "Salva l'attuale documento"
+msgstr "Salva questo documento"
 
 msgid "Close the current Document"
-msgstr "Chiude l'attuale documento"
+msgstr "Chiude questo documento"
 
 msgid "Print the current Document"
 msgstr "Stampa questo documento"
@@ -2828,9 +2813,8 @@ msgstr "Salva il documento attuale in PDF"
 msgid "Searching for Fonts"
 msgstr "Ricerca dei font"
 
-#, fuzzy
 msgid "There are no suitable Fonts on your System"
-msgstr "Non ci sono font Postscript sul tuo sistema"
+msgstr "Non ci sono font adatti sul tuo sistema"
 
 msgid "Exiting now"
 msgstr "Esci ora"
@@ -2941,7 +2925,7 @@ msgid "Save Page as &EPS..."
 msgstr "Salva pagina in &EPS..."
 
 msgid "Save as P&DF..."
-msgstr "Salva in P&DF..."
+msgstr "Salva come P&DF..."
 
 msgid "&Export"
 msgstr "&Esporta"
@@ -3446,11 +3430,16 @@ msgid ""
 "sure you have ICC color profiles installed and that the profile path in the "
 "preferences points to where they're installed.</qt>"
 msgstr ""
+"<qt>La gestione colori è supportata ma attualmente non è abilitata. "
+"Assicurarsi di avere i profili di colore ICC installati e che il percorso "
+"del profilo punti proprio dove sono stati installati.</qt>"
 
 msgid ""
 "<qt>Color management is not supported by this Scribus build (not compiled "
 "in).</qt>"
 msgstr ""
+"<qt>La gestione colori non è supportata da questa versione (build) di "
+"Scribus (non è stata compilata).</qt>"
 
 msgid "Adjusting Colors"
 msgstr "Regolazione colori"
@@ -3467,9 +3456,8 @@ msgstr "Ann&ulla modifica oggetto"
 msgid "Portuguese"
 msgstr "Portoghese"
 
-#, fuzzy
 msgid "Portuguese (BR)"
-msgstr "Portoghese"
+msgstr "Portoghese (BR)"
 
 msgid "Ukrainian"
 msgstr "Ucraino"
@@ -3501,8 +3489,9 @@ msgstr "Ri&balta pagina/e"
 msgid "Apply Under Color &Removal"
 msgstr "Applica &Rimozione Colori Sottostanti (UCR)"
 
+#, fuzzy
 msgid "Set Media Size"
-msgstr ""
+msgstr "Imposta formato supporto"
 
 msgid "Apply &ICC Profiles"
 msgstr "Applica profili &ICC"
@@ -3524,21 +3513,26 @@ msgid ""
 "this can create huge files"
 msgstr ""
 "Crea solo livello postscript 2, attenzione,\n"
-"questo può generare file molto grandi"
+"può generare file molto grandi"
 
 msgid ""
 "Creates PostScript Level 1 only, beware,\n"
 "this can create huge files"
 msgstr ""
 "Crea solo livello postscript 1, attenzione,\n"
-"questo può generare file molto grandi"
+"può generare file molto grandi"
 
+#, fuzzy
 msgid ""
 "This enables you to explicitely set,\n"
 "the media size of the postscript file.\n"
 "Not recommended unless\n"
 " requested by your printer."
 msgstr ""
+"Qui è possibile definire il formato del supporto\n"
+"sul quale il file postscript stamperà.\n"
+"Si sconsiglia, a meno che\n"
+"non sia richiesto dalla stampante."
 
 msgid ""
 "A way of switching off some of the gray shades which are composed\n"
@@ -3550,12 +3544,12 @@ msgid ""
 msgstr ""
 "Una maniera di spegnere alcune tonalità di grigio che sono composte di\n"
 "ciano, giallo e magenta e di usare il nero al suo posto.\n"
-"UCR interessa maggiormente le parti delle immagini che sono neutre e/o di "
+"L'UCR interessa maggiormente le parti delle immagini che sono neutre e/o di "
 "toni scuri\n"
 "vicini al grigio. L'uso di questa opzione può migliorare con la stampa di "
 "alcune immagini\n"
 "e con un po' di sperimentazione, e testando caso per caso.\n"
-"UCR riduce la possibilità di sovrassaturazione con inchiostri CMY."
+"L'UCR riduce la possibilità di sovrassaturazione con inchiostri CMY."
 
 msgid "Setup Printer"
 msgstr "Imposta stampante"
@@ -3570,7 +3564,7 @@ msgid "&File:"
 msgstr "&File:"
 
 msgid "A&lternative Printer Command"
-msgstr "Comando di stampante a&lternativa"
+msgstr "Comando di stampante a&lternativo"
 
 msgid ""
 "Use an alternative print manager, such as kprinter or gtklp,\n"
@@ -3860,7 +3854,7 @@ msgid "Stay on &Top"
 msgstr "Sempre in &primo piano"
 
 msgid "Restore Down"
-msgstr "Ripristina"
+msgstr "Riduci"
 
 msgid "Sh&ade"
 msgstr "Tonal&ità"
@@ -4001,9 +3995,8 @@ msgstr "Dim&ensione carattere:"
 msgid "Custom Spacing"
 msgstr "Spaziatura personalizzata"
 
-#, fuzzy
 msgid "Trac&king:"
-msgstr "Sca&la:"
+msgstr "&Crenatura:"
 
 msgid "L&ine Spacing:"
 msgstr "Int&erlinea:"
@@ -4128,8 +4121,7 @@ msgstr "In primo piano"
 msgid "Move to back"
 msgstr "In fondo"
 
-msgid ""
-"Indicates the level the object is on, 0 means the object is at the bottom"
+msgid "Indicates the level the object is on, 0 means the object is at the bottom"
 msgstr "Indica il livello dell'oggetto; 0 significa che è in fondo"
 
 msgid "Lock or unlock the object"
@@ -4142,8 +4134,7 @@ msgid "Enable or disable printing of the object"
 msgstr "Consente o impedisce la stampa dell'oggetto"
 
 msgid "Make text in lower frames flow around the object shape"
-msgstr ""
-"Fa fluire il testo delle caselle inferiori intorno alla forma dell'oggetto"
+msgstr "Fa fluire il testo delle caselle inferiori intorno alla forma dell'oggetto"
 
 msgid "Use a surrounding box instead of the frame's shape for text flow"
 msgstr ""
@@ -4179,7 +4170,6 @@ msgstr "Intensità colore del riempimento del testo"
 msgid "Right to Left Writing"
 msgstr "Scrittura da destra a sinistra"
 
-#, fuzzy
 msgid "Manual Tracking"
 msgstr "Crenatura manuale"
 
@@ -4390,8 +4380,7 @@ msgstr "Tabulazioni e rientri"
 msgid "Name of your paragraph style"
 msgstr "Nome dello stile del paragrafo"
 
-msgid ""
-"Provides an oversized first letter for a paragraph. Used for stylistic effect"
+msgid "Provides an oversized first letter for a paragraph. Used for stylistic effect"
 msgstr ""
 "Fornisce la prima lettera del paragrafo ingrandita (capolettera). Usata per "
 "effetto stilistico"
@@ -4647,9 +4636,8 @@ msgstr "Impostazioni colore contorno"
 msgid "Character Settings"
 msgstr "Impostazioni caratteri"
 
-#, fuzzy
 msgid "Tracking:"
-msgstr "Disposizione"
+msgstr "Crenatura:"
 
 msgid "Style Settings"
 msgstr "Impostazioni stile"
@@ -4701,7 +4689,7 @@ msgstr "&Font visualizzato..."
 
 #, fuzzy
 msgid "&Smart text selection"
-msgstr "&Selezione testo intelligente"
+msgstr "&Selezione rapida"
 
 msgid "Clear all Text"
 msgstr "Cancella tutto il testo"
@@ -4757,19 +4745,17 @@ msgstr "Sposta segnalibro"
 msgid "Insert Bookmark"
 msgstr "Inserisci segnalibro"
 
-#, fuzzy
 msgid "Choose Styles"
-msgstr "Controlla stile:"
+msgstr "Scegli stili"
 
-#, fuzzy
 msgid "Available Styles"
-msgstr "Caratteri disponibili"
+msgstr "Stili disponibili"
 
 msgid "Edit Styles"
 msgstr "Modifica stili"
 
 msgid "Color Management Settings"
-msgstr "Configurazione della gestione del colore"
+msgstr "Configurazione della gestione dei colori"
 
 msgid "&Activate Color Management"
 msgstr "Atti&va la gestione dei colori"
@@ -4781,7 +4767,7 @@ msgid "&Pictures:"
 msgstr "I&mmagini:"
 
 msgid "&Solid Colors:"
-msgstr "Color&i pieni:"
+msgstr "T&inte unite:"
 
 msgid "&Monitor:"
 msgstr "&Schermo:"
@@ -4811,16 +4797,16 @@ msgid "Default color profile for imported images"
 msgstr "Profilo di colore predefinito per immagini importate"
 
 msgid "Default color profile for solid colors on the page"
-msgstr "Profilo di colore predefinito per i colori pieni della pagina"
+msgstr "Profilo di colore predefinito per tinte unite nella pagina"
 
 msgid ""
 "Color profile that you have generated or received from the manufacturer.\n"
 "This profile should be specific to your monitor and not a generic profile (i."
 "e. sRGB)."
 msgstr ""
-"Profilo di colore  generato da te o ricevuto dal produttore.\n"
-"Questo profilo dovrebbe essere specifico per il tuo schermo e non un profilo "
-"generico (es. sRGB)."
+"Profilo di colore generato dall'utente o ricevuto dal produttore.\n"
+"Questo profilo dovrebbe essere specifico per lo schermo in uso e non un "
+"profilo generico (es. sRGB)."
 
 msgid ""
 "Color profile for your printer model from the manufacturer.\n"
@@ -4876,20 +4862,17 @@ msgstr ""
 msgid "Contents"
 msgstr "Contenuto"
 
-#, fuzzy
 msgid "&Contents"
-msgstr "Contenuto"
+msgstr "&Contenuto"
 
-#, fuzzy
 msgid "S&earch"
-msgstr "Cerca"
+msgstr "C&erca"
 
-#, fuzzy
 msgid "Ctrl+F"
-msgstr "Ctrl+"
+msgstr "Ctrl+F"
 
 msgid "F3"
-msgstr ""
+msgstr "F3"
 
 msgid "Scribus Online Help"
 msgstr "Aiuto in Linea per Scribus"
@@ -4902,20 +4885,17 @@ msgstr ""
 "Spiacente, manuale non disponibile! Controllare http://docs.scribus.net\n"
 "per documenti aggiornati. e www.scribus.net per i download."
 
-#, fuzzy
 msgid "unknown"
-msgstr "Sconosciuto"
+msgstr "sconosciuto"
 
-#, fuzzy
 msgid "Find"
-msgstr "in"
+msgstr "Trova"
 
-#, fuzzy
 msgid "Search Term:"
-msgstr "Cerca:"
+msgstr "Cerca termine:"
 
 msgid "Edit JavaScripts"
-msgstr "Java Script"
+msgstr "Modifica Java Script"
 
 msgid "&Edit..."
 msgstr "Mod&ifica..."
@@ -4984,16 +4964,14 @@ msgstr ""
 "Vuoi veramente sovrascrivere il file:\n"
 "%1 ?"
 
-#, fuzzy
 msgid "page"
-msgstr "Pagina"
+msgstr "pagina"
 
 msgid "About Scribus %1"
 msgstr "Informazioni su Scribus%1"
 
-#, fuzzy
 msgid "%1 %2 %3 "
-msgstr "%1. %2 %3 "
+msgstr "%1 %2 %3 "
 
 msgid ""
 "Scribus Version %1\n"
@@ -5027,11 +5005,10 @@ msgid "A&uthors"
 msgstr "A&utori"
 
 msgid "Official Translations and Translators:"
-msgstr "Traduzioni ufficiale e traduttori:"
+msgstr "Traduzioni ufficiali e traduttori:"
 
-#, fuzzy
 msgid "Afrikaans:"
-msgstr "Afrikaans"
+msgstr "Afrikaans:"
 
 msgid "Catalan:"
 msgstr "Catalano:"
@@ -5049,7 +5026,7 @@ msgid "Esperanto:"
 msgstr "Esperanto:"
 
 msgid "Finnish:"
-msgstr "FInlandese:"
+msgstr "Finlandese:"
 
 msgid "French:"
 msgstr "Francese:"
@@ -5069,9 +5046,8 @@ msgstr "Norvegese:"
 msgid "Polish:"
 msgstr "Polacco:"
 
-#, fuzzy
 msgid "Portuguese (Brazilian):"
-msgstr "Portoghese"
+msgstr "Portoghese (Brasiliano):"
 
 msgid "Russian:"
 msgstr "Russo:"
@@ -5148,7 +5124,7 @@ msgstr ""
 "Questo pannello mostra la versione, la data della build e della\n"
 "compilazione nel supporto delle librerie in Scribus.\n"
 "C-C-T equivale a C=CUPS C=littlecms T=TIFF support.\n"
-"Il supporto per le librerie mancanti è indicato da a *"
+"Il supporto per le librerie mancanti è indicato da un asterisco (*)"
 
 msgid "Preferences"
 msgstr "Preferenze"
@@ -5382,8 +5358,7 @@ msgid "&Adjust Display Size"
 msgstr "Modifica mis&ura pagina visualizzata"
 
 msgid "To adjust the display drag the ruler below with the Slider."
-msgstr ""
-"Per modificare la pagina visualizzata trascina la maniglia sotto il righello."
+msgstr "Per modificare la pagina visualizzata trascina la maniglia sotto il righello."
 
 msgid "Postscript Interpreter"
 msgstr "Interprete postscript"
@@ -5406,7 +5381,6 @@ msgstr "Nome dell'&eseguibile:"
 msgid "Printing"
 msgstr "Stampa"
 
-#, fuzzy
 msgid "Clip to Page &Margins"
 msgstr "Entro &margini pagina"
 
@@ -5426,8 +5400,7 @@ msgstr "Dimensione carattere predefinito per i menù e le finestre"
 msgid "Number of lines Scribus will scroll for each move of the mouse wheel"
 msgstr "Numero di linee che Scribus scorrerà per ogni scatto della rotellina"
 
-msgid ""
-"Radius of the area where Scribus will allow you to grab an objects handles"
+msgid "Radius of the area where Scribus will allow you to grab an objects handles"
 msgstr ""
 "Raggio dell'area nel quale Scribus permetterà l'aggancio delle maniglie di "
 "un oggetto"
@@ -5442,6 +5415,8 @@ msgid ""
 "Default ICC profiles directory. This cannot\n"
 "be changed with documents open."
 msgstr ""
+"Directory predefinita per profili ICC. Non può\n"
+"essere cambiata con un documento aperto."
 
 msgid "Default Scripter scripts directory"
 msgstr "Directory predefinita per gli script dello Scripter"
@@ -5460,8 +5435,7 @@ msgstr ""
 "Larghezza delle pagine del documento, modificabile se si è scelto dimensione "
 "della pagina personalizzata"
 
-msgid ""
-"Height of document pages, editable if you have chosen a custom page size"
+msgid "Height of document pages, editable if you have chosen a custom page size"
 msgstr ""
 "Altezza delle pagine del documento, modificabile se si è scelto dimensione "
 "della pagina personalizzata"
@@ -5476,7 +5450,7 @@ msgid ""
 msgstr ""
 "Quando è abilitato, Scribus salva una copia di backup del file con "
 "l'estensione .bak\n"
-"ogni volta che passa il periodo di tempo scelto"
+"ogni intervallo di tempo scelto"
 
 msgid "Time period between saving automatically"
 msgstr "Periodo di tempo dopo il quale salva automaticamente"
@@ -5503,13 +5477,11 @@ msgid "Place the grid behind your page objects"
 msgstr "Colloca la griglia dietro gli oggetti della pagina"
 
 msgid "Place the grid in front of your page objects"
-msgstr "Colloca la griglia davanti gli oggetti della pagina"
+msgstr "Colloca la griglia davanti agli oggetti della pagina"
 
-#, fuzzy
 msgid "Turns on the base grid"
 msgstr "Attiva la griglia di base"
 
-#, fuzzy
 msgid "Turns off the base grid"
 msgstr "Disattiva la griglia di base"
 
@@ -5526,8 +5498,7 @@ msgid "Relative size of the subscript compared to the normal font"
 msgstr "Dimensione relativa del pedice comparata con il carattere normale"
 
 msgid "Relative size of the small caps font compared to the normal font"
-msgstr ""
-"Dimensione relativa del maiuscoletto comparata con il carattere normale"
+msgstr "Dimensione relativa del maiuscoletto comparata con il carattere normale"
 
 msgid "Percentage increase over the font size for the line spacing"
 msgstr "Aumento percentuale oltre la dimensione del carattere per l'interlinea"
@@ -5632,8 +5603,7 @@ msgid "Save the scrapbook contents everytime after a change"
 msgstr "Salva sempre il contenuto della biblioteca dopo le modifiche"
 
 msgid "When using facing pages, show the two pages side by side"
-msgstr ""
-"Quando si usa l'opzione Pagine Affiancate, mostra le pagine fianco a fianco"
+msgstr "Quando si usa l'opzione Pagine Affiancate, mostra le pagine fianco a fianco"
 
 msgid "Color for paper"
 msgstr "Colore per la carta"
@@ -5645,8 +5615,7 @@ msgid "Mask the area outside the margins in the margin color"
 msgstr "Colora l'area fuori dei margini con lo stesso colore del margine"
 
 msgid "Enable transparency features within PDF 1.4 export"
-msgstr ""
-"Abilita le caratteristiche di trasparenza per l'esportazione in PDF 1.4"
+msgstr "Abilita le caratteristiche di trasparenza per l'esportazione in PDF 1.4"
 
 msgid "Set the default zoom level"
 msgstr "Configura il livello di zoom predefinito"
@@ -5667,9 +5636,12 @@ msgid ""
 "as it allows you to edit the image in an already running\n"
 "instance of gimp."
 msgstr ""
+"Indirizzo nel file system per l'editor grafico. Se si usa gimp\n"
+"e la distribuzione lo include, si raccomanda 'gimp-remote',\n"
+"così da permettere di modificare l'immagine in una sessione\n"
+"già aperta di gimp."
 
-msgid ""
-"Do not show objects outside the margins on the printed page or exported file"
+msgid "Do not show objects outside the margins on the printed page or exported file"
 msgstr ""
 "Non mostrare gli oggetti fuori dei margini nella pagina stampata o nel file "
 "esportato"
@@ -5771,7 +5743,6 @@ msgstr "Brossure"
 msgid "Catalogs"
 msgstr "Cataloghi"
 
-#, fuzzy
 msgid "Flyers"
 msgstr "Volantini"
 
@@ -5820,7 +5791,6 @@ msgstr "Annunci"
 msgid "Text Documents"
 msgstr "Documenti di testo"
 
-#, fuzzy
 msgid "Folds"
 msgstr "Pieghevoli"
 
@@ -5838,47 +5808,47 @@ msgstr "Modello: "
 
 #, fuzzy
 msgid "Short &Words..."
-msgstr "Mostra p&roprietà..."
+msgstr "Abbre&viazioni..."
 
 msgid "Short Words processing. Wait please..."
-msgstr ""
+msgstr "Elaborazione abbreviazioni. Attendere prego..."
 
 msgid "Short Words processing. Done."
-msgstr ""
+msgstr "Elaborazione abbreviazioni. Fatto."
 
 msgid "Custom (optional) configuration: "
-msgstr ""
+msgstr "Configurazione personalizzata (opzionale): "
 
 msgid "Standard configuration: "
-msgstr ""
+msgstr "Configurazione standard: "
 
-#, fuzzy
 msgid "Short Words"
-msgstr "&Parola intera"
-
-msgid "Apply unbreakable space on:"
-msgstr ""
+msgstr "Abbreviazioni"
 
 #, fuzzy
+msgid "Apply unbreakable space on:"
+msgstr "Applica un spazio indivisibile su:"
+
 msgid "&Selected frames"
-msgstr "Campi selezionati"
+msgstr "Cornici &selezionate"
 
 msgid "Active &page"
-msgstr ""
+msgstr "&Pagina attiva"
 
-#, fuzzy
 msgid "&All items"
-msgstr "&Tutte le pagine"
+msgstr "&Tutti gli elementi"
 
-#, fuzzy
 msgid ""
 "&Info and\n"
 "Languages"
-msgstr "&Lingua:"
+msgstr ""
+"&Informazioni\n"
+"e lingue"
 
 msgid "Replace defaults by user config"
-msgstr ""
+msgstr "Sostituisci la configurazione predefinita con quella personalizzata"
 
+#, fuzzy
 msgid ""
 "When the user config file exists \n"
 "(%1)\n"
@@ -5888,25 +5858,31 @@ msgid ""
 "You can replace predefined values by yours\n"
 "with checked button too."
 msgstr ""
+"Quando il file di configurazione personalizzato esiste\n"
+"(%1)\n"
+"è possibile scegliere se si vuole aggiungere la propria\n"
+"configurazione a quella globale smarcando il bottone.\n"
+"\n"
+"È anche possibile sostituire i valori predefiniti con i propri\n"
+"con il bottone attivato."
 
 msgid "Only selected frames processed."
-msgstr ""
+msgstr "Sono state elaborate solo le cornici selezionate."
 
 msgid "Only actual page processed."
-msgstr ""
+msgstr "È stata elaborata solo la pagina attuale."
 
 msgid "All items in document processed."
-msgstr ""
+msgstr "Sono stati elaborati tutti gli elementi del documento."
 
 msgid "Short Words for Scribus"
-msgstr ""
+msgstr "Abbreviazioni per Scribus"
 
 msgid "Available in the following languages"
-msgstr ""
+msgstr "Disponibile nelle seguenti lingue"
 
-#, fuzzy
 msgid "About Short Words"
-msgstr "Informazioni sugli Script"
+msgstr "Informazioni sulle Abbreviazioni"
 
 msgid "&Insert Special"
 msgstr "&Carattere speciale"
@@ -5963,7 +5939,7 @@ msgid "&Fonts Preview"
 msgstr "Anteprima &font"
 
 msgid "Fonts Preview"
-msgstr "Anteprima caratteri"
+msgstr "Anteprima font"
 
 msgid "Alt+O"
 msgstr "Alt+O"
@@ -5978,7 +5954,7 @@ msgid "Leave preview"
 msgstr "Chiudi anteprima"
 
 msgid "Size of the Font"
-msgstr ""
+msgstr "Dimensioni del Carattere"
 
 msgid "Text Filters"
 msgstr "Filtri di testo"
@@ -6031,7 +6007,6 @@ msgstr "con"
 msgid "paragraph style"
 msgstr "stile paragrafo"
 
-#, fuzzy
 msgid "all instances of"
 msgstr "tutti gli esempi di"
 
@@ -6047,7 +6022,6 @@ msgstr "i paragrafi con meno di"
 msgid "paragraphs with more than"
 msgstr "i paragrafi con più di"
 
-#, fuzzy
 msgid "CSV Importer Options"
 msgstr "Opzioni importatore CSV"
 
@@ -6072,40 +6046,40 @@ msgstr "Dati CSV"
 msgid "CSV_header"
 msgstr "Intestazioni CSV"
 
-#, fuzzy
 msgid "OpenDocument Text Documents"
-msgstr "Documenti di testo"
+msgstr "Documenti di testo OpenDocument"
 
-#, fuzzy
 msgid "OpenDocument Importer Options"
-msgstr "Opzioni Importatore OpenOffice.org Writer"
+msgstr "Opzioni Importatore OpenDocument"
 
-#, fuzzy
 msgid "Update paragraph Styles"
 msgstr "Aggiorna stil paragrafo"
 
-msgid ""
-"Enabling this will overwrite existing styles in the current Scribus document"
-msgstr ""
-
 #, fuzzy
+msgid "Enabling this will overwrite existing styles in the current Scribus document"
+msgstr ""
+"Se si abilita, si sovrascriveranno gli stili esistenti nell'attuale "
+"documento di Scribus"
+
 msgid "Merge Paragraph Styles"
-msgstr "Stile paragrafo"
+msgstr "Unisci gli stili paragrafo"
 
 msgid ""
 "Merge paragraph styles by attributes. This will result in fewer similar "
 "paragraph styles, will retain style attributes, even if the original "
 "document's styles are named differently."
 msgstr ""
+"Unisci gli stili paragrafo con gli attributi. Il risultato sarà di avere "
+"meno stili di paragrafo simili, conservando però gli attributi di stile, "
+"anche se i nomi originali degli stili del documento saranno differenti."
 
 msgid "Use document name as a prefix for paragraph styles"
 msgstr "Usa il nome del documento con prefisso per gli stili paragrafo"
 
-#, fuzzy
 msgid "Prepend the document name to the paragraph style name in Scribus."
 msgstr ""
-"L'importatore dovrebbe aggiungere il nome del documento\n"
-"davanti al nome dello stile paragrafo in Scribus"
+"Aggiungi il nome del documento davanti al nome dello stile paragrafo in "
+"Scribus."
 
 msgid "Do not ask again"
 msgstr "Non chiedere più"
@@ -6114,6 +6088,8 @@ msgid ""
 "Make these settings the default and do not prompt again when importing an "
 "OASIS OpenDocument."
 msgstr ""
+"Rendi queste impostazioni predefinite e non chiedere più durante "
+"l'importazione di un OpenDocument OASIS."
 
 msgid "OpenOffice.org Writer Documents"
 msgstr "Documenti OpenOffice.org Writer"
@@ -6121,7 +6097,6 @@ msgstr "Documenti OpenOffice.org Writer"
 msgid "OpenOffice.org Writer Importer Options"
 msgstr "Opzioni Importatore OpenOffice.org Writer"
 
-#, fuzzy
 msgid "Update Paragraph Styles"
 msgstr "Aggiorna stil paragrafo"
 
@@ -6129,6 +6104,8 @@ msgid ""
 "Make these settings the default and do not prompt again when importing an "
 "OpenOffice.org 1.x document."
 msgstr ""
+"Rendi queste impostazioni predefinite e non chiedere più durante "
+"l'importazione di un documento OpenOffice.org 1.x."
 
 msgid "Text Files"
 msgstr "File di testo"
@@ -6235,11 +6212,10 @@ msgstr "Unità fuori intervallo. Usa una delle costanti di scribus.UNIT_*."
 
 #, fuzzy
 msgid "Passed object is not callable"
-msgstr "Valore non calcolato"
+msgstr "L'oggetto non può essere chiamato"
 
-#, fuzzy
 msgid "Scribus - New Macro"
-msgstr "Manuale di Scribus"
+msgstr "Scribus - Nuova macro"
 
 msgid ""
 "<qt>This is the Edit Macro / New Macro dialog box. Here you can change the "
@@ -6247,60 +6223,67 @@ msgid ""
 "area below the \"Source Code\" label and click OK to save your changes to "
 "the macro.</qt>"
 msgstr ""
+"<qt>Questa è la casella di dialogo Modifica macro  / Nuova macro. Qui si può "
+"cambiare il codice sorgente alle macro. Modifica il codice sorgente alla "
+"macro nell'area di modifica del testo, sotto l'etichetta \"Codice Sorgente"
+"\"e premi OK per salvare i cambiamenti alla macro.</qt>"
 
-#, fuzzy
 msgid "Source Code:"
-msgstr "Fo&nti:"
+msgstr "Codice Sorgente:"
 
-#, fuzzy
 msgid "Editing Macro:"
-msgstr "Esci ora"
+msgstr "Modifica macro:"
 
 msgid "The name of the macro being edited."
-msgstr ""
+msgstr "Nome della macro da modificare."
 
-msgid ""
-"</qt>This item displays the name of the macro you are currently editing.<qt>"
-msgstr ""
+msgid "</qt>This item displays the name of the macro you are currently editing.<qt>"
+msgstr "<qt>Indica il nome della macro in corso di modifica.</qt>"
 
 msgid "<qt>Discard all changes and exit.</qt>"
-msgstr ""
+msgstr "<qt>Annulla tutte le modifiche ed esci.</qt>"
 
 msgid ""
 "<qt>Exit the editing dialog, discarding all changes you have made. If you "
 "want to exit without saving the macro but don't want to lose your changes, "
 "save your changes with \"Save Source As...\".</qt>"
 msgstr ""
+"<qt>Esci dalla finestra di modifica abbandonando tutti i cambiamenti fatti. Se "
+"si vuole uscire senza salvare la macro, ma conservando le modifiche, salvare "
+"i cambiamenti con  \"Salva sorgente con nome...\".</qt>"
 
-#, fuzzy
 msgid "&Ok"
 msgstr "&OK"
 
 msgid "<qt>Save changes and exit.</qt>"
-msgstr ""
+msgstr "<qt>Salva modifiche ed esci.</qt>"
 
 msgid ""
 "<qt>Save changes to the macro and exit. If there is a problem with the "
 "macro, a message will be displayed and the editing dialog will not close.</"
 "qt>"
 msgstr ""
+"<qt>Salva le modifiche alla macro ed esci. In caso di problemi con la macro "
+"apparirà un messaggio e la finestra di dialogo non si chiuderà.</qt>"
 
 msgid ""
 "<qt>This text area contains the source code of the macro. If you're creating "
 "a new macro there won't be anything in it, and if you're editing an existing "
 "macro the source code the macro was defined with will be shown here.</qt>"
 msgstr ""
+"<qt>L'area del testo contiene il codice sorgente della macro. Se si sta "
+"creando una nuova macro l'interno dell'area sarà vuoto, se invece si sta "
+"modificando una macro esistente, nell'area vi sarà il codice sorgente con la "
+"quale è stata definita la macro.</qt>"
 
-#, fuzzy
 msgid "&Load Source ..."
-msgstr "&Carica..."
+msgstr "&Carica sorgente..."
 
-#, fuzzy
 msgid "Alt+L"
-msgstr "Alt+"
+msgstr "Alt+L"
 
 msgid "<qt>Replace the current source code with code from a file.</qt>"
-msgstr ""
+msgstr "<qt>Sostituisci l'attuale codice sorgente con il codice di un file.</qt>"
 
 msgid ""
 "<qt>Load new source code into the editing area from \"file\". Any source "
@@ -6308,37 +6291,40 @@ msgid ""
 "macro function. If you load any other script, you'll need to edit it so that "
 "it'll work as a scripter macro before saving it.</qt>"
 msgstr ""
+"<qt>Carica un nuovo codice sorgente, nell'area di modifica, dal \"file\". Il "
+"codice sorgente nell'area sarà sostituito. Il sorgente deve essere una "
+"funzione macro di Scribus. Se si carica un altro tipo di script, prima di "
+"salvarlo, sarà necessario modificarlo affinché funzioni come uno scripter "
+"per macro.</qt>"
 
-#, fuzzy
 msgid "&Save Source As..."
-msgstr "Salva con &nome..."
+msgstr "&Salva sorgente con nome..."
 
-#, fuzzy
 msgid "Alt+S"
-msgstr "Alt+"
+msgstr "Alt+S"
 
 msgid "<qt>Save the source code being edited to a file.</qt>"
-msgstr ""
+msgstr "<qt>Salva il codice sorgente, in corso di modifica, in un file.</qt>"
 
 msgid ""
 "Save the source code - the text - of the macro to a file. You can edit the "
 "saved source and load it again with \"Load Source...\"."
 msgstr ""
+"Salva il codice sorgente - testo - della macro come file. Il sorgente "
+"salvato potrà essere modificato e caricato di nuovo con \"Carica sorgente..."
+"\"."
 
 msgid "Macro"
-msgstr ""
+msgstr "Macro"
 
-#, fuzzy
 msgid "Edit"
-msgstr "&Modifica"
+msgstr "Modifica"
 
-#, fuzzy
 msgid "Accel"
-msgstr "Accetta"
+msgstr "Scorciatoia"
 
-#, fuzzy
 msgid "Scribus - Manage Macros"
-msgstr "Manuale di Scribus"
+msgstr "Scribus - Gestione macro"
 
 msgid ""
 "<qt><p>This window is the Scribus Macro Manager. Here you can create macros, "
@@ -6350,27 +6336,34 @@ msgid ""
 "and some information about them. Use \"What's this\" on the table for more "
 "information.</p></qt>"
 msgstr ""
+"<qt><p>Questa è la finestra per la Gestione delle Macro per Scribus. Qui è "
+"possibile creare macro, modificarle, ecc. Tutti i cambiamenti sono "
+"effettuati usando i bottoni nella parte destra della finestra di dialogo.</"
+"p>\n"
+"<p>Tutti le modifiche fatte in questa finestra di dialogo avranno effetto "
+"istantaneo - non sarà possibile annullare le azioni qui eseguite.\n"
+"La tabella nel centro della finestra di dialogo elenca quali macro sono "
+"attualmente caricate ed alcune informazioni su di esse. Usare \"Che cos'è\" "
+"sulla tabella per ulteriori informazioni.</p></qt>"
 
-#, fuzzy
 msgid "Alt+N"
-msgstr "Alt+"
+msgstr "Alt+N"
 
-#, fuzzy
 msgid "<qt>Create a new macro.</qt>"
-msgstr "Crea nuovo documento"
+msgstr "<qt>Crea una nuova macro.</qt>"
 
 msgid ""
 "<qt>Create a new macro by prompting for the macro name then bringing up the "
 "edit macro dialog box.</qt>"
 msgstr ""
+"<qt>Crea una nuova macro. Nella finestra di dialogo di modifica macro verrà "
+"richiesto il nome.</qt>"
 
-#, fuzzy
 msgid "Close this dialog"
-msgstr "Chiude questa curva di Bezier"
+msgstr "Chiudi la finestra"
 
-#, fuzzy
 msgid "Return to Scribus"
-msgstr "Informazioni su Scribus"
+msgstr "Ritorna a Scribus"
 
 msgid ""
 "<p>This table lists the macros that are currently defined.</p>\n"
@@ -6388,30 +6381,43 @@ msgid ""
 "If the docstring is long, only the beginning is shown - use \"What's This\" "
 "on the macro's entry in the Macro menu to see the full description.</p>"
 msgstr ""
+"<p>Questa tabella elenca le macro che sono attualmente definite.</p>\n"
+"\n"
+"<p><b>Nome:</b> Nome della macro, come mostrato nella barra menù e da altre "
+"parti in Scribus.</p>\n"
+"<p><b>Modifica:</b>Se la macro può essere modificata, \"Sì\" appare in "
+"questa colonna. Di solito se una macro non può essere modificata, è stata "
+"creata usando il comando registra_macro in uno script.</p>\n"
+"<p><b>Scorciatoia:</b> La sequenza di tasti di scelta rapida, se presente, "
+"associata con la macro. Per esempio, CTRL-F8 significa che per eseguire la "
+"macro in Scribus si può premere Control-F8.</p>\n"
+"<p><b>Descrizione:</b> Se la macro contiene una \"docstring\", una stringa "
+"speciale all'inizio della sua definizione che la descrive, viene mostrata "
+"qui. Se la docstring è lunga, sarà mostrato solo l'inizio - usare \"Che "
+"cos'è questo\" nella voce \"macro\", nel menù delle macro per vedere la "
+"descrizione completa.</p>"
 
-#, fuzzy
 msgid "Rena&me"
-msgstr "Rinomina"
+msgstr "Rino&mina"
 
-#, fuzzy
 msgid "Alt+M"
-msgstr "Alt+"
+msgstr "Alt+M"
 
-#, fuzzy
 msgid "Rename the selected macro."
-msgstr "Nome dell'oggetto selezionato"
+msgstr "Rinomina la macro selezionata."
 
-msgid ""
-"<qt>Rename the selected macro. You will be prompted for the new name.</qt>"
+msgid "<qt>Rename the selected macro. You will be prompted for the new name.</qt>"
 msgstr ""
+"<qt>Rinomina la macro selezionata. Verrà richiesto d'inserire il nuovo nome."
+"</qt>"
 
-#, fuzzy
 msgid "Alt+E"
-msgstr "Alt+"
+msgstr "Alt+E"
 
-msgid ""
-"<qt>Edit the source of the selected macro, if the source is availible.</qt>"
+msgid "<qt>Edit the source of the selected macro, if the source is availible.</qt>"
 msgstr ""
+"<qt>Modifica il sorgente della macro selezionata, se il sorgente è "
+"disponibile.</qt>"
 
 msgid ""
 "<p>Edit the selected macro. </p>\n"
@@ -6422,43 +6428,52 @@ msgid ""
 "<p>If Scribus doesn't have the source, the macro was probably created by a "
 "script.</p>"
 msgstr ""
+"<p>Modifica la macro selezionata. </p>\n"
+"<p>Se questo bottone non è attivo significa che, o non è selezionata la "
+"macro, o il gestore macro non possiede il codice sorgente per la macro "
+"selezionata (nel qual caso nella colonna <tt>Modifica</tt>, della macro, "
+"verrà mostrato <tt>No</tt>).</p>\n"
+"<p>Se Scribus non possiede il sorgente, la macro probabilmente è stata "
+"creata da uno script.</p>"
 
-#, fuzzy
 msgid "Alt+D"
-msgstr "Alt+"
+msgstr "Alt+D"
 
-#, fuzzy
 msgid "<qt>Delete the currently selected macro.</qt>"
-msgstr "Elimina il colore attualmente selezionato"
+msgstr "<qt>Elimina la macro selezionata attualmente.</qt>"
 
 msgid ""
 "<p>Delete the selected macro. This is instant, and there is no way to "
 "recover the macro once deleted. If the macro is created by a start-up "
 "script, it will reappear next time you load Scribus.</p>"
 msgstr ""
+"<p>Elimina la macro selezionata. L'operazione è istantanea e non ci sarà "
+"possibilità di recuperare la macro una volta eliminata. Se la macro è creata "
+"da uno script d'avvio, riapparirà la prossima volta che verrà aperto Scribus."
+"</p>"
 
-#, fuzzy
 msgid "&Set Accel"
-msgstr "Seleziona tutto"
+msgstr "Impo&sta scorciatoia"
 
 msgid "<qt>Set the keyboard shortcut for the selected macro.</qt>"
-msgstr ""
+msgstr "<qt>Imposta il tasto di selezione rapida per la macro selezionata.</qt>"
 
 msgid ""
 "<p>Set the keyboard shortcut (accelerator) key of the selected macro. You "
 "will be prompted for the new shortcut in a dialog box.</p>"
 msgstr ""
+"<p>Imposta i tasti di scelta rapida (scorciatoia) della macro selezionata. "
+"Verrà richiesto di inserire la nuova scorciatoia in una casella di dialogo.</"
+"p>"
 
-#, fuzzy
 msgid "E&xport"
-msgstr "&Esporta"
+msgstr "Es&porta"
 
-#, fuzzy
 msgid "Alt+X"
-msgstr "Alt+"
+msgstr "Alt+X"
 
 msgid "Export macros to a file."
-msgstr ""
+msgstr "Esporta le macro in un file."
 
 msgid ""
 "<p>Export macros to an external file. The file will be a Python script "
@@ -6471,40 +6486,48 @@ msgid ""
 "load that version with <tt>Load extension script</tt> - instead, create a "
 "new macro with the<tt> New</tt> button and use <tt>Load source</tt>.</p>"
 msgstr ""
+"<p>Esporta le macro in un file esterno. Il file sarà uno script Python "
+"contenente i comandi dello scripter per ricreare le macro. Può essere "
+"eseguito usando <tt>Carica estensione script</tt> dal menù <tt>Script</tt>, "
+"o con il bottone per l'importazione nel gestore macro.</p>\n"
+"<p>Se si desidera una versione delle proprie macro carina e comprensibile "
+"anche agli umani, selezionare la macro desiderata, premere il bottone "
+"<tt>Modifica</tt>, ed usare il bottone<tt> Salva sorgente</tt> nella "
+"finestra <tt>Modifica macro</tt>. Non sarà possibile caricare tale versione "
+"con <tt>Carica estensione script</tt> - ma si potrà creare una nuova macro "
+"con il bottone <tt>Nuovo</tt> e usare <tt>Carica sorgente</tt>.</p>"
 
-#, fuzzy
 msgid "Delete &All"
-msgstr "Elimina tutte"
+msgstr "Elimina &tutte"
 
-#, fuzzy
 msgid "Alt+A"
-msgstr "Alt+"
+msgstr "Alt+A"
 
-#, fuzzy
 msgid "Delete all macros."
-msgstr "Elimina tutte le tabulazioni"
+msgstr "Elimina tutte le macro."
 
 msgid ""
 "<p>Delete all registered macros. This is instant, and there is no way to "
 "recover the deleted macros. Any macros created by your start-up script will "
 "reappear next time you load Scribus.</p>"
 msgstr ""
+"<p>Elimina tutte le macro registrate. L'operazione è istantanea  e non ci "
+"sarà possibilità di recuperare la macro una volta eliminata. Tutte le macro "
+"create da uno script d'avvio, riappariranno la prossima volta che verrà "
+"aperto Scribus..</p>"
 
-#, fuzzy
 msgid "Alt+I"
-msgstr "Alt+"
+msgstr "Alt+I"
 
-#, fuzzy
 msgid "Import macros from a file."
-msgstr "Importa dati da:"
+msgstr "Importa macro da un file."
 
 msgid "<p>Loads macros from an external file.</p>"
-msgstr ""
+msgstr "<p>Carica macro da un file esterno.</p>"
 
 msgid "S&cripter Manual..."
 msgstr "Manuale dello S&cripter..."
 
-#, fuzzy
 msgid ""
 "Scribus Python interface module\n"
 "\n"
@@ -6536,58 +6559,57 @@ msgid ""
 "function's documentation."
 msgstr ""
 "Modulo di interfaccia Python per Scribus\n"
-"\t\t\n"
-"\t\tQuesto modulo è l'interfaccia Python per Scribus. Fornisce funzioni\n"
-"\t\tper controllare scribus e per manipolare oggetti nel canvas. Ogni\n"
-"\t\tfunzione è documentata individualmente più sotto.\n"
-"\t\t\n"
-"\t\tAlcune cose sono comuni nella maggior parte dell'interfaccia.\n"
-"\t\t\n"
-"\t\tLa maggior parte delle funzioni opera su cornici. Le cornici sono "
+"\n"
+"Questo modulo è l'interfaccia Python per Scribus. Fornisce funzioni\n"
+"per controllare Scribus e per manipolare oggetti nel canvas. Ogni\n"
+"funzione è documentata individualmente più sotto.\n"
+"\n"
+"Alcune cose sono comuni nella maggior parte dell'interfaccia.\n"
+"\n"
+"La maggior parte delle funzioni opera su cornici. Le cornici sono "
 "identificati dal loro nome,\n"
-"\t\tuna stringa - non sono realmente oggetti Python. Molte funzioni hanno un "
+"una stringa - non sono realmente oggetti Python. Molte funzioni hanno un "
 "parametro\n"
-"\t\topzionale (non-keyword), un nome di cornice.\n"
-"\t\tAnche molte eccezioni sono comuni nella maggior parte delle funzioni. "
+"opzionale (non-keyword), un nome di cornice.\n"
+"Anche molte eccezioni sono comuni nella maggior parte delle funzioni. "
 "Esse non sono attualmente\n"
-"\t\tdocumentate nelle stringhe di documentazione per ogni funzione.\n"
-"\t\t\n"
-"\t\t    - Molte funzioni daranno il messaggio NoDocOpenError se si prova ad "
+"documentate nelle stringhe di documentazione per ogni funzione.\n"
+"\n"
+"- Molte funzioni daranno il messaggio NoDocOpenError se si prova ad "
 "usarle\n"
-"\t\t      senza un documento su cui operarci.\n"
-"\t\t\n"
-"\t\t    - Se non si passa il nome di una cornice ad una funzione che lo "
+"senza un documento su cui operarci.\n"
+"\n"
+"- Se non si passa il nome di una cornice ad una funzione che lo "
 "richiede\n"
-"\t\t      la funzione utilizzerà la cornice selezionata, se esiste, oppure\n"
-"\t\t      darà il messaggio NoValidObjectError se non è possibile trovare "
+"la funzione utilizzerà la cornice selezionata, se esiste, oppure\n"
+"darà il messaggio NoValidObjectError se non è possibile trovare "
 "qualcosa su cui operare.\n"
-"\t\t\n"
-"\t\t\n"
-"\t\t    - Molte funzioni daranno il messaggio WrongFrameTypeError se si "
+"\n"
+"\n"
+"- Molte funzioni daranno il messaggio WrongFrameTypeError se si "
 "prova ad usarle\n"
-"\t\t      su un tipo di cornice su cui non ha senso usarle. Per esempio, "
+"su un tipo di cornice su cui non ha senso usarle. Per esempio, "
 "impostare\n"
-"\t\t      il colore testo su una cornice grafica non ha senso, ed allora nel "
+"il colore testo su una cornice grafica non ha senso, ed allora nel "
 "caso di questa eccezione\n"
-"\t\t      apparirà il messaggio di errore.\n"
-"\t\t\n"
-"\t\t    - Gli errori risultanti dalle chiamate alle sottostanti API di "
+"apparirà il messaggio di errore.\n"
+"\n"
+"- Gli errori risultanti dalle chiamate alle sottostanti API di "
 "Python saranno\n"
-"\t\t      passati inalterati. Come tale, la lista delle eccezioni, rifiutate "
+"passati inalterati. Come tale, la lista delle eccezioni, rifiutate "
 "da qualunque\n"
-"\t\t      funzione, come fornite qui e nelle loro stringhe di "
+"funzione, come fornite qui e nelle loro stringhe di "
 "documentazione, è incompleta.\n"
-"\t\t\n"
-"\t\tI dettagli di che cosa possa rifiutare ogni funzione delle eccezioni "
+"\n"
+"I dettagli di che cosa possa rifiutare ogni funzione delle eccezioni "
 "sono forniti nella\n"
-"\t\tdocumentazione delle funzioni.\n"
-"\t\t"
+"documentazione delle funzioni."
 
 msgid "Script Console"
 msgstr "Console per gli script"
 
 msgid "Tried to set progress > maximum progress"
-msgstr "Provato a impostare la progressione > massima progressione"
+msgstr "Tentativo di impostare la progressione > massima progressione"
 
 msgid "Failed to save EPS"
 msgstr "Salvataggio EPS fallito"
@@ -6610,16 +6632,18 @@ msgid "&Execute Script..."
 msgstr "&Esegui script..."
 
 msgid "Run a Python script from a file."
-msgstr ""
+msgstr "Esegui uno script Python da un file."
 
 #, fuzzy
 msgid "&Load Extension Script..."
-msgstr "&Esegui script..."
+msgstr "&Carica estensione script..."
 
 msgid ""
 "Load a Python script as an extension. Used for loading macros and for "
 "advanced Python scripts that extend the Scribus user interface."
 msgstr ""
+"Carica uno script Python come un'estensione. Utilizzato per caricare macro e "
+"per script Python avanzati che estendono le funzionalità di Scribus."
 
 msgid "&Recent Scripts"
 msgstr "Script &recenti"
@@ -6631,6 +6655,8 @@ msgid ""
 "Display an interactive Python console where you can write and run Python "
 "programs that use the Scripter tools."
 msgstr ""
+"Mostra una console interattiva Python, nella quale è possibile scrivere ed "
+"eseguire programmi Python che utilizzano strumenti Scripter."
 
 msgid "&About Script..."
 msgstr "&Informazioni sugli script..."
@@ -6638,9 +6664,8 @@ msgstr "&Informazioni sugli script..."
 msgid "S&cript"
 msgstr "S&cript"
 
-#, fuzzy
 msgid "Scripter &Settings"
-msgstr "Impostazioni stile"
+msgstr "Impostazioni &scripter"
 
 msgid "Python Scripts (*.py);; All Files (*)"
 msgstr "Script Python (*.py);; Tutti i file (*)"
@@ -6662,9 +6687,8 @@ msgstr ""
 "Questo messaggio è anche negli Appunti. Usa Ctrl+V per incollarlo nel "
 "segnalatore di bug."
 
-#, fuzzy
 msgid "Scribus - Script Plugin"
-msgstr "Script &Scribus"
+msgstr "Scribus - Plugin script"
 
 msgid ""
 "The 'Load Script' function of the script plugin is currently disabled.\n"
@@ -6677,6 +6701,16 @@ msgid ""
 "\n"
 "Please read the documentation on extension scripts first.\n"
 msgstr ""
+"La funzione \"Carica script\" del plugin script attualmente è disabilitata.\n"
+"Se si desidera eseguire uno script normale, probabilmente si intende usare\n"
+"'Esegui script...'.\n"
+"\n"
+"Se si desidera caricare un'estensione Python - script o macro -, \n"
+"è necessario andare nelle 'Impostazioni scripter', nel menù Script, ed "
+"abilitare\n"
+"le estensioni dello scripter.\n"
+"\n"
+"Si prega di leggere prima la documentazione sugli script.\n"
 
 msgid "Hide &Console"
 msgstr "Nascondi &console"
@@ -6685,57 +6719,67 @@ msgid "About Script"
 msgstr "Informazioni sugli Script"
 
 msgid "Editing Macro: <b>"
-msgstr ""
-
-msgid "Python source files (*.py)"
-msgstr ""
-
-msgid "Save File Dialog"
-msgstr ""
-
-msgid "Save macro source"
-msgstr ""
+msgstr "Modifica Macro: <b>"
 
 #, fuzzy
+msgid "Python source files (*.py)"
+msgstr "File sorgenti Python (.py)"
+
+#, fuzzy
+msgid "Save File Dialog"
+msgstr "Finestra salvataggio file"
+
+msgid "Save macro source"
+msgstr "Salva sorgente macro"
+
 msgid "Scribus - Macro Manager"
-msgstr "Manuale di Scribus"
+msgstr "Scribus - Gestore macro"
 
 msgid ""
 "The file '%1' already exists.\n"
 "Are you sure you want to overwrite it?\n"
 msgstr ""
+"Il file '%1' esiste già.\n"
+"Vuoi sovrascriverlo?\n"
 
+#, fuzzy
 msgid "Open File Dialog"
-msgstr ""
+msgstr "Finestra apertura file"
 
 msgid "Select the source file to load"
-msgstr ""
+msgstr "Seleziona il file sorgente da caricare"
 
 msgid ""
 "You have already edited this macro.\n"
 "Are you sure you want to discard all your changes?\n"
 msgstr ""
+"La macro è stata già modificata.\n"
+"Sei sicuro di voler abbandonare tutte le modifiche?\n"
 
 msgid ""
 "A full traceback follows:\n"
 "\n"
 "%1\n"
 msgstr ""
+"Segue la traccia completa:\n"
+"\n"
+"%1\n"
 
 msgid ""
 "Compilation of the macro failed, so it can not \n"
 "be saved in its current form. The error was:\n"
 "%1\n"
 msgstr ""
+"È fallita la compilazione della macro, e non è stato \n"
+"possibile salvarla nel modulo corrente. Ecco l'errore:\n"
+"%1\n"
 
 msgid "An object with the requested name already exists"
-msgstr "Un oggetto con il nome richiesto già esiste"
+msgstr "Un oggetto con il nome richiesto è già esistente"
 
-#, fuzzy
 msgid "Point list must contain at least two points (four values)"
 msgstr "Una lista di punti deve contenere almeno due punti (quattro valori)"
 
-#, fuzzy
 msgid "Point list must contain an even number of values"
 msgstr "Una lista di punti deve contenere un numero pari di valori"
 
@@ -6755,7 +6799,7 @@ msgid "Style not found"
 msgstr "Stile non trovato"
 
 msgid "Can't set style on a non-text frame"
-msgstr "Non può impostare lo stile su una cornice non di testo"
+msgstr "Non è possibile impostare lo stile su una cornice non di testo"
 
 msgid "Line width out of bounds, must be 0 <= line_width <= 12"
 msgstr "Larghezza linea fuori limite, deve essere 0<= larghezza_linea <= 12"
@@ -6764,8 +6808,7 @@ msgid "Line shade out of bounds, must be 0 <= shade <= 100"
 msgstr "Intensità della linea fuori limite, deve essere 0 <= intensità <= 100"
 
 msgid "Fill shade out of bounds, must be 0 <= shade <= 100"
-msgstr ""
-"Intensità del riempimento fuori limite, deve essere 0 <= intensità <= 100"
+msgstr "Intensità del riempimento fuori limite, deve essere 0 <= intensità <= 100"
 
 msgid "Corner radius must be a positive number."
 msgstr "Il raggio dell'angolo deve essere un numero positivo."
@@ -6776,35 +6819,29 @@ msgstr "Stile linee non trovato"
 msgid "Target is not an image frame."
 msgstr "L'oggetto non è una cornice immagine."
 
-#, fuzzy
 msgid "Cannot scale by 0%."
-msgstr "Non può scalare del 0%"
+msgstr "Non può riscalare dello 0%."
 
-#, fuzzy
 msgid "Specified item not an image frame."
 msgstr "L'oggetto non è una cornice immagine."
 
 msgid "Cannot get font size of non-text frame."
-msgstr ""
-"Non è possibile ottenere la dimensione carattere di una cornice non di testo."
+msgstr "Non è possibile ottenere la dimensione carattere di una cornice non di testo."
 
 msgid "Cannot get font of non-text frame."
 msgstr "Non è possibile ottenere il carattere di una cornice non di testo."
 
 msgid "Cannot get text size of non-text frame."
-msgstr ""
-"Non è possibile ottenere la dimensione del testo di una cornice non di testo."
+msgstr "Non è possibile ottenere la dimensione del testo di una cornice non di testo."
 
 msgid "Cannot get column count of non-text frame."
-msgstr ""
-"Non è possibile ottenere il numero di colonne di una cornice non di testo."
+msgstr "Non è possibile ottenere il numero di colonne di una cornice non di testo."
 
 msgid "Cannot get line space of non-text frame."
 msgstr "Non è possibile ottenere l'interlinea di una cornice non di testo."
 
 msgid "Cannot get column gap of non-text frame."
-msgstr ""
-"Non è possibile ottenere la distanza colone di una cornice non di testo."
+msgstr "Non è possibile ottenere la distanza colone di una cornice non di testo."
 
 msgid "Cannot get text of non-text frame."
 msgstr "Non è possibile ottenere il testo di una cornice non di testo."
@@ -6817,120 +6854,91 @@ msgstr "Non è possibile inserire testo in una cornice non di testo."
 
 #, fuzzy
 msgid "Insert index out of bounds."
-msgstr "Indice di inserimento fuori limite"
+msgstr "Indice di inserimento fuori limite."
 
 msgid "Alignment out of range. Use one of the scribus.ALIGN* constants."
-msgstr ""
-"Allineamento fuori intervallo. Usa una delle costanti di scribus.ALIGN*."
+msgstr "Allineamento fuori intervallo. Usa una delle costanti di scribus.ALIGN*."
 
-#, fuzzy
 msgid "Cannot set text alignment on a non-text frame."
-msgstr ""
-"Non è possibile impostare l'allineamento testo su una cornice non di testo"
+msgstr "Non è possibile impostare l'allineamento testo su una cornice non di testo."
 
-#, fuzzy
 msgid "Font size out of bounds - must be 1 <= size <= 512."
-msgstr "Dimensione carattere fuori limite - deve essere 1 <= dimensione <= 512"
+msgstr "Dimensione carattere fuori limite - deve essere 1 <= dimensione <= 512."
 
-#, fuzzy
 msgid "Cannot set font size on a non-text frame."
 msgstr ""
-"Non è possibile impostare la dimensione carattere su una cornice non di testo"
+"Non è possibile impostare la dimensione carattere su una cornice non di "
+"testo."
 
-#, fuzzy
 msgid "Cannot set font on a non-text frame."
-msgstr "Non è possibile impostare il font su una cornice non di testo"
+msgstr "Non è possibile impostare il font su una cornice non di testo."
 
-#, fuzzy
 msgid "Font not found."
-msgstr "Font non trovato"
+msgstr "Font non trovato."
 
-#, fuzzy
 msgid "Line space out of bounds, must be >= 0.1."
-msgstr "Interlinea fuori limite, deve essere >= 0.1"
+msgstr "Interlinea fuori limite, deve essere >= 0.1."
 
-#, fuzzy
 msgid "Cannot set line spacing on a non-text frame."
-msgstr "Non è possibile impostare l'interlinea su una cornice non di testo"
+msgstr "Non è possibile impostare l'interlinea su una cornice non di testo."
 
-#, fuzzy
 msgid "Column gap out of bounds, must be positive."
-msgstr "Distanza colonne fuori limite, deve essere positiva"
+msgstr "Distanza colonne fuori limite, deve essere positiva."
 
-#, fuzzy
 msgid "Cannot set column gap on a non-text frame."
-msgstr ""
-"Non è possibile ottenere la distanza colone di una cornice non di testo."
+msgstr "Non è possibile impostare la distanza colonne in una cornice non di testo."
 
-#, fuzzy
 msgid "Column count out of bounds, must be > 1."
-msgstr "Numero di colonne fuori limite, deve essere > 1"
+msgstr "Numero di colonne fuori limite, deve essere > 1."
 
-#, fuzzy
 msgid "Cannot set number of columns on a non-text frame."
-msgstr ""
-"Non è possibile impostare il numero di colonne su una cornice non di testo"
+msgstr "Non è possibile impostare il numero di colonne in una cornice non di testo."
 
-#, fuzzy
 msgid "Selection index out of bounds"
 msgstr "Indice di selezione fuori limite"
 
-#, fuzzy
 msgid "Cannot select text in a non-text frame"
 msgstr "Non è possibile selezionare il testo in una cornice non di testo"
 
-#, fuzzy
 msgid "Cannot delete text from a non-text frame."
-msgstr "Non è possibile cancellare il testo da una cornice non di testo"
+msgstr "Non è possibile cancellare il testo da una cornice non di testo."
 
-#, fuzzy
 msgid "Cannot set text fill on a non-text frame."
 msgstr ""
-"Non è possibile impostare il colore riempimento testo su una cornice non di "
-"testo"
+"Non è possibile impostare il colore riempimento testo in una cornice non di "
+"testo."
 
-#, fuzzy
 msgid "Cannot set text stroke on a non-text frame."
 msgstr ""
-"Non è possibile impostare il colore contorno testo su una cornice non di "
-"testo"
+"Non è possibile impostare il colore contorno testo in una cornice non di "
+"testo."
 
-#, fuzzy
 msgid "Cannot set text shade on a non-text frame."
 msgstr ""
-"Non è possibile impostare l'intensità colore testo su una cornice non di "
-"testo"
+"Non è possibile impostare l'intensità colore testo in una cornice non di "
+"testo."
 
-#, fuzzy
 msgid "Can only link text frames."
-msgstr "È possibile collegare solo cornici di testo"
+msgstr "È possibile collegare solo cornici di testo."
 
-#, fuzzy
 msgid "Target frame must be empty."
-msgstr "La cornice selezionata deve essere vuota"
+msgstr "La cornice selezionata deve essere vuota."
 
-#, fuzzy
 msgid "Target frame links to another frame."
-msgstr "La cornice selezionata è collegata ad un'altra cornice"
+msgstr "La cornice selezionata è collegata ad un'altra cornice."
 
-#, fuzzy
 msgid "Target frame is linked to by another frame."
-msgstr "Alla cornice selezionata è collegata un'altra cornice"
+msgstr "Alla cornice selezionata è collegata un'altra cornice."
 
-#, fuzzy
 msgid "Source and target are the same object."
-msgstr "L'origine e la destinazione sono lo stesso oggetto"
+msgstr "L'origine e la destinazione sono lo stesso oggetto."
 
-#, fuzzy
 msgid "Cannot unlink a non-text frame."
-msgstr "Non è possibile scollegare una cornice non di testo"
+msgstr "Non è possibile scollegare una cornice non di testo."
 
-#, fuzzy
 msgid "Object is not a linked text frame, cannot unlink."
-msgstr ""
-"L'oggetto non è una cornice di testo collegata, non è possibile scollegarla."
+msgstr "L'oggetto non è una cornice di testo collegata, non è possibile scollegarla."
 
-#, fuzzy
 msgid ""
 "Object the last frame in a series, cannot unlink. Unlink the previous frame "
 "instead."
@@ -6938,17 +6946,14 @@ msgstr ""
 "L'oggetto è l'ultima cornice di una serie, non è possibile scollegarla. "
 "Scollega prima la cornice precedente."
 
-#, fuzzy
 msgid "Cannot convert a non-text frame to outlines."
-msgstr "Non è possibile convertire una cornice non di testo in controni"
+msgstr "Non è possibile convertire una cornice non di testo in contorni."
 
-#, fuzzy
 msgid "Can't set bookmark on a non-text frame"
-msgstr "Non è possibile impostare il font su una cornice non di testo"
+msgstr "Non è possibile aggiungere un segnalibri in una cornice non di testo"
 
-#, fuzzy
 msgid "Can't get info from a non-text frame"
-msgstr "Non è possibile impostare il font su una cornice non di testo"
+msgstr "Non è possibile ottenere informazioni da una cornice non di testo"
 
 msgid "Insert value"
 msgstr "Inserisci valore"
@@ -6963,39 +6968,38 @@ msgid "Send your value to the script"
 msgstr "Invia il valore allo script"
 
 msgid "Scribus Macro Files (*.pymacro)"
-msgstr ""
+msgstr "Macro di Scribus (*.pymacro)"
 
 msgid "Select the macro file to load."
-msgstr ""
+msgstr "Seleziona la macro da caricare."
 
-#, fuzzy
 msgid "Save all macros"
-msgstr "Salva come immagine"
+msgstr "Salva tutte le macro"
 
 msgid "Scribus - Rename Macro"
-msgstr ""
+msgstr "Scribus - Rinomina macro"
 
 msgid "Enter new name: "
-msgstr ""
+msgstr "Nuovo nome: "
 
 msgid "Scribus - Set Macro Shortcut"
-msgstr ""
+msgstr "Scribus - Imposta scorciatoia macro"
 
 msgid "Enter new shortcut: "
-msgstr ""
+msgstr "Nuova scorciatoia: "
 
 msgid "Renaming the macro failed because the name is already in use."
-msgstr ""
+msgstr "Non è stato possibile rinominare la macro perché il nome è già in uso."
 
-#, fuzzy
 msgid "Scribus - Scripter Preferences"
-msgstr "Script &Scribus"
+msgstr "Scribus - Preferenze Scripter"
 
 msgid "Enable Scripter Extensions"
-msgstr ""
+msgstr "Abilita estensioni scripter"
 
+#, fuzzy
 msgid "Turn on extension scripts and macros"
-msgstr ""
+msgstr "Abilita gli script d'estensione e le macro"
 
 msgid ""
 "<qt><p>Enabling scripter extensions turns on additional scripter "
@@ -7007,9 +7011,18 @@ msgid ""
 "<tt>Load Extension Script</tt> or as start-up scripts. See the scripter "
 "documentation for more details.</p></qt>"
 msgstr ""
+"<qt><p>L'abilitazione delle estensioni dello scripter attiva un ulteriore "
+"funzionalità dello scripter che include macro Python e l'opzione di caricare "
+"uno script Python all'avvio. L'attivazione di questa opzione sblocca "
+"l'elemento <tt>Carica script d'estensione</tt> nel menù Script.</p>\n"
+"<p>\n"
+"Solo script scritti per essere eseguiti come script d'estensione dovrebbero "
+"essere usati con <tt>Carica script d'estensione</tt> o come come script "
+"d'inizializzazione. Vedere la documentazione dello scripter per ulteriori "
+"dettagli.</p></qt>"
 
 msgid "Use a Startup Script"
-msgstr ""
+msgstr "Utilizza uno script d'avvio"
 
 msgid ""
 "<qt><p>If <tt>Use a Startup Script</tt> is checked, Scribus will load the "
@@ -7020,19 +7033,25 @@ msgid ""
 "off, as extension scripts cannot be loaded without scripter extensions "
 "enabled.</p></qt>"
 msgstr ""
+"<qt><p>Se <tt>Utilizza uno script d'avvio</tt> è marcato, Scribus caricherà "
+"qui il file script specificato come uno script d'estensione all'avvio. È "
+"importante che lo script sia scritto come uno script d'estensione, "
+"altrimenti potrebbe causare problemi.</p>\n"
+"<p><tt>Utilizza uno script d'avvio</tt> sarà disabilitato se le estensioni "
+"scripter non sono attivate, poiché gli script d'estensione non possono "
+"essere caricati se non sono attivate le estensioni dello scripter.</p></qt>"
 
-#, fuzzy
 msgid "Browse..."
-msgstr "Sposta..."
+msgstr "Sfoglia..."
 
 msgid "Browse for a new script file"
-msgstr ""
+msgstr "Sfoglia per un nuovo file script"
 
 msgid "<qt>Browse for a new script file</qt>"
-msgstr ""
+msgstr "<qt>Sfoglia per un nuovo file script</qt>"
 
 msgid "What script file to load at start-up"
-msgstr ""
+msgstr "Il file script che sarà caricato all'avvio"
 
 msgid ""
 "<qt><p>The file containing the Python script to run as an extension script "
@@ -7040,23 +7059,25 @@ msgid ""
 "<p>Note that when this script is run, Scribus has not completely started up "
 "and the workspace does not yet exist.</p></qt>"
 msgstr ""
+"<qt><p>Il file contenente lo script Python da eseguire come uno script "
+"d'estensione all'avvio.</p>\n"
+"<p>Notare che quando questo script viene eseguito, Scribus non è ancora del "
+"tutto avviato e l'area di lavoro ancora non esiste.</p></qt>"
 
-#, fuzzy
 msgid "Script File:"
-msgstr "Script:"
+msgstr "File Script:"
 
 msgid "Close without saving changes"
-msgstr ""
+msgstr "Chiudi senza salvare le modifiche"
 
-#, fuzzy
 msgid "Save changes and close"
-msgstr "Salva attuale raccolta colore"
+msgstr "Salva le modifiche e chiudi"
 
 msgid "Import All Names at Startup"
-msgstr ""
+msgstr "Importa tutti i nomi all'avvio"
 
 msgid "Run 'from scribus import *' in the script console at start-up"
-msgstr ""
+msgstr "Esegui 'Importa * da Scribus' nella console degli script all'avvio"
 
 msgid ""
 "<qt><p><tt>Import All Names at Startup</tt> is an advanced option. You "
@@ -7068,12 +7089,22 @@ msgid ""
 "</p>\n"
 "<p>This option does not take effect until Scribus is restarted.</p></qt>"
 msgstr ""
+"<qt><p><tt>Importa tutti i nomi all'avvio</tt> è un'opzione avanzata. "
+"Sarebbe meglio lasciarla marcata se non si è letto la documentazione o non "
+"si sa esattamente cosa si sta facendo.</p>\n"
+"<p>Smarcando questa opzione si impedirà allo scripter di eseguire l'abituale "
+"comando<tt>'Importa * da Scribus'</tt> quando inizializza l'interprete "
+"principale (usato per la console degli script e gli script d'estensione) "
+"all'avvio.</p>\n"
+"<p>Questa opzione non avrà effetto fino a che Scribus non è riavviato.</p></"
+"qt>"
 
+#, fuzzy
 msgid "Enable Legacy Name Aliases"
-msgstr ""
+msgstr "Abilita alias vecchi"
 
 msgid "<qt>Enable the use of OldStyle function names</qt>"
-msgstr ""
+msgstr "<qt>Attiva l'uso dei nomi funzione degli OldStyle</qt>"
 
 msgid ""
 "<qt><p><tt>Enable Legacy Aliases</tt> is an advanced option. You should "
@@ -7083,15 +7114,26 @@ msgid ""
 "defaults to checked.</p>\n"
 "<p>This option does not take effect until Scribus is restarted.</p></qt>"
 msgstr ""
+"<qt><p><tt>Abilita alias vecchi</tt> è un'opzione avanzata. Sarebbe meglio "
+"lasciarla com'è.</p>\n"
+"<p>Se marcata, quest'opzione farà creare allo scripter un grande numero di "
+"alias di funzioni e costanti per la compatibilità con script 1.2.0. "
+"Predefinitivamente è marcata.</p>\n"
+"<p>Questa opzione non avrà effetto fino a che Scribus non è riavviato.</p></"
+"qt>"
 
 msgid "Use Fake Stdin"
-msgstr ""
+msgstr "Usa falsa stdin"
 
+#, fuzzy
 msgid ""
 "<qt>Replace sys.stdin with a fake file to prevent Scribus hanging when a "
 "script tries to read from stdin.</qt>"
 msgstr ""
+"<qt>Sostituisce sys.stdin con un falso file per impedire a Scribus di "
+"bloccarsi quando uno script cerca di leggere dalla stdin.</qt>"
 
+#, fuzzy
 msgid ""
 "<qt><p><tt>Use Fake Stdin</tt> is an advanced option. You should probably "
 "leave it how it is.</p>\n"
@@ -7105,44 +7147,48 @@ msgid ""
 "Generally you should use <tt>os.popen</tt> to make a pipe instead, or use "
 "some other input mechanism, but this option is here just in case.</p></qt>"
 msgstr ""
+"<qt><p><tt>Usa falsa stdin</tt> è un'opzione avanzata. Sarebbe meglio "
+"lasciarla com'è.</p>\n"
+"<p>Normalmente, Scribus mette a disposizione Python con un falso file "
+"oggetto per <tt>sys.stdin</tt>, così che la lettura di stdin restituisca "
+"sempre una stringa vuota. Se la <tt>sys.stdin</tt> è lasciata al suo posto, "
+"gli scripts che proveranno a leggere da essa saranno bloccati - e di "
+"conseguenza anche l'esecuzione di Scribus - fino a che ci sarà un accesso "
+"sulla stdin. Non è usuale per le applicazioni GUI aspettare qualcosa dalla "
+"stdin, così la maggior parte degli utenti penseranno che Scribus si è "
+"bloccato.</p>\n"
+"<p>È possibile disabilitare questa opzione se si vuole accettare l'accesso "
+"sulla stdin. Di solito si dovrebbe usare <tt>os.popen</tt> per creare un "
+"canale (pipe), o usare qualche altro meccanismo di accesso, ma questa "
+"opzione è qui proprio nel caso in cui.</p></qt>"
 
-#, fuzzy
 msgid "Cannot render an empty sample."
-msgstr "Non è possibile mostrare un esempio vuoto"
+msgstr "Non è possibile mostrare un esempio vuoto."
 
-#, fuzzy
 msgid "Unable to save pixmap."
-msgstr "Salvataggio EPS fallito"
+msgstr "Impossibile salvare pixmap."
 
-#, fuzzy
 msgid "Cannot have an empty layer name."
-msgstr "Non è possibile avere un nome di livello vuoto"
+msgstr "Non è possibile avere un nome di livello vuoto."
 
-#, fuzzy
 msgid "Layer not found."
-msgstr "Livello non trovato"
+msgstr "Livello non trovato."
 
-#, fuzzy
 msgid "Cannot remove the last layer."
-msgstr "Non è possibile eliminare l'ultimo livello"
+msgstr "Non è possibile eliminare l'ultimo livello."
 
-#, fuzzy
 msgid "Cannot create layer without a name."
-msgstr "Non è possibile creare un livello senza un nome"
+msgstr "Non è possibile creare un livello senza un nome."
 
-#, fuzzy
 msgid "Color not found - python error"
-msgstr "Colore non trovato nei colori predefiniti"
+msgstr "Colore non trovato - errore python"
 
-#, fuzzy
 msgid "Cannot get a color with an empty name."
 msgstr "Non è possibile acquisire un colore con un nome vuoto."
 
-#, fuzzy
 msgid "Color not found."
-msgstr "Colore non trovato"
+msgstr "Colore non trovato."
 
-#, fuzzy
 msgid "Cannot get a colour with an empty name."
 msgstr "Non è possibile acquisire un colore con un nome vuoto."
 
@@ -7152,13 +7198,11 @@ msgstr "Colore non trovato"
 msgid "Cannot change a color with an empty name."
 msgstr "Non è possibile cambiare un colore con un nome vuoto."
 
-#, fuzzy
 msgid "Color not found in document."
-msgstr "Colore non trovato in questo documento"
+msgstr "Colore non trovato in questo documento."
 
-#, fuzzy
 msgid "Color not found in default colors."
-msgstr "Colore non trovato nei colori predefiniti"
+msgstr "Colore non trovato nei colori predefiniti."
 
 msgid "Cannot create a color with an empty name."
 msgstr "Non è possibile creare un colore con un nome vuoto."
@@ -7169,55 +7213,55 @@ msgstr "Non è possibile eliminare un colore con un nome vuoto."
 msgid "Cannot replace a color with an empty name."
 msgstr "Non è possibile sostituire un colore con un nome vuoto."
 
-#, fuzzy
 msgid "The filename must be a string."
-msgstr "La cornice selezionata deve essere vuota"
+msgstr "Il nome del file deve essere una stringa."
 
 msgid "Cannot delete image type settings."
-msgstr ""
+msgstr "Non è possibile eliminare le impostazione del tipo di immagine."
 
 msgid "The image type must be a string."
-msgstr ""
+msgstr "Il tipo di immagine deve essere una stringa."
 
 msgid "'allTypes' attribute is READ-ONLY"
-msgstr ""
+msgstr "L'attributo 'allTypes'  è di SOLO-LETTURA"
 
-#, fuzzy
 msgid "Failed to export image"
-msgstr "Apertura documento fallita"
+msgstr "Esportazione immagine fallita"
 
-#, fuzzy
 msgid "Manage Macros"
-msgstr "Gestione immagini"
+msgstr "Gestione macro"
 
 msgid ""
 "Brings up a graphical window for creating, deleting, editing, saving and "
 "loading macros."
 msgstr ""
+"Apre una finestra grafica per creare, eliminare, modificare, salvare e "
+"caricare macro."
 
 msgid "Create, edit and delete macros"
-msgstr ""
+msgstr "Crea, modifica ed elimina macro"
 
 msgid "&Macro"
-msgstr ""
+msgstr "&Macro"
 
 msgid "Unable to open the requested file: %1"
-msgstr ""
+msgstr "Impossibile aprire il file richiesto: %1"
 
 msgid "Scribus - Edit Macro"
-msgstr ""
+msgstr "Scribus - Modifica Macro"
 
 msgid "Enter name for new macro: "
-msgstr ""
+msgstr "Nome per la nuova macro: "
 
-msgid ""
-"<qt>The macro name you requested is already taken  by another macro.</qt>"
-msgstr ""
+msgid "<qt>The macro name you requested is already taken  by another macro.</qt>"
+msgstr "<qt>Il nome macro che hai scelto appartiene già ad un'altra macro.</qt>"
 
 msgid ""
 "<qt>Macro creation failed. The macro manager was unable to set up the macro."
 "</qt>"
 msgstr ""
+"<qt>La creazione della macro è fallita. Il gestore macro non ha potuto "
+"impostare la macro.</qt>"
 
 msgid ""
 "The macro '%1' has reported a minor error.\n"
@@ -7226,6 +7270,11 @@ msgid ""
 "\n"
 "%3\n"
 msgstr ""
+"La macro '%1' ha riportato un piccolo errore.\n"
+"L'errore è: %2\n"
+"Segue la traccia completa:\n"
+"\n"
+"%3\n"
 
 msgid ""
 "The macro '%1' failed to execute correctly.\n"
@@ -7234,6 +7283,11 @@ msgid ""
 "\n"
 "%3\n"
 msgstr ""
+"La macro '%1' non è stata eseguita correttamente.\n"
+"L'errore è: %2\n"
+"Segue la traccia completa:\n"
+"\n"
+"%3\n"
 
 msgid "Import &SVG..."
 msgstr "Importa &SVG..."
@@ -7292,7 +7346,7 @@ msgstr ""
 
 #, fuzzy, c-format
 msgid "The quality of your images - 100% is the best, 1% the lowest quality"
-msgstr "La qualità delle immagini: 100% è la migliore, 1% è la minore qualità"
+msgstr "La qualità delle immagini - 100% è la migliore, 1% è la minore qualità"
 
 msgid "Available export formats"
 msgstr "Formati di esportazione disponibili"
@@ -7320,7 +7374,7 @@ msgid "Error writing the output file(s)."
 msgstr "Errore di scrittura del file di output."
 
 msgid "Export successful."
-msgstr "Esportazione terminata con successo."
+msgstr "Esportazione riuscita."
 
 msgid "File exists. Overwrite?"
 msgstr "Il file esiste. Sovrascriverlo?"
@@ -7349,48 +7403,3 @@ msgstr ""
 "%1\n"
 "fallita!"
 
-#~ msgid "Get text only"
-#~ msgstr "Acquisisci solo testo"
-
-#~ msgid "Create PDF File"
-#~ msgstr "Crea file PDF"
-
-#~ msgid "&Kerning:"
-#~ msgstr "C&renatura:"
-
-#~ msgid "Kerning:"
-#~ msgstr "Crenatura:"
-
-#~ msgid "Default ICC profiles directory"
-#~ msgstr "Directory predefinita per i profili ICC"
-
-#~ msgid "Filesystem location for graphics editor"
-#~ msgstr "Indirizzo nel filesystem per l'editor grafico"
-
-#~ msgid ""
-#~ "If a paragraph style already exists with the same name as the current\n"
-#~ "OpenOffice.org document's paragraph, should the style in Scribus be\n"
-#~ "edited to match the one being imported, or left untouched"
-#~ msgstr ""
-#~ "Se uno stile paragrafo già esiste con lo stesso nome dell'attuale\n"
-#~ "paragrafo del documento OpenOffice.org, dovrebbe essere modificato lo "
-#~ "stile\n"
-#~ "in Scribus che corrisponde a quello da importare, oppure lasciato "
-#~ "invariato"
-
-#~ msgid ""
-#~ "Should the importer always use currently\n"
-#~ "set value when importing OpenOffice.org document and\n"
-#~ "never ask your confirmation again"
-#~ msgstr ""
-#~ "L'importatore dovrebbe sempre usare l'insieme\n"
-#~ "di valori corrente durante l'importazione di un documento\n"
-#~ "OpenOffice.org senza chiedere mai più conferma"
-
-#~ msgid "Can't column gap on a non-text frame"
-#~ msgstr ""
-#~ "Non è possibile impostare la distanza colonne su una cornice non di testo"
-
-#, fuzzy
-#~ msgid "Can't save to a blank filename"
-#~ msgstr "Non è possibile salvare con un nome di file vuoto"
