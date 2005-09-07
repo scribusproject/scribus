@@ -292,10 +292,10 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document"))
 	PDF_Options.UseLPI = prefsData->PDF_Options.UseLPI;
 	PDF_Options.LPISettings = prefsData->PDF_Options.LPISettings;
 	PDF_Options.useLayers = prefsData->PDF_Options.useLayers;
-	
+
 	docItemAttributes = prefsData->defaultItemAttributes;
 	docToCSetups = prefsData->defaultToCSetups;
-	
+
 	RePos = false;
 	BookMarks.clear();
 	OldBM = false;
@@ -357,7 +357,7 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 	currentPageLayout = fp;
 	setName(documentName);
 	HasCMS = true;
-	
+
 	struct LPIData lpo;
 	lpo.Frequency = 75;
 	lpo.SpotFunc = 2;
@@ -370,11 +370,11 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 	lpo.Angle = 45;
 	PDF_Options.LPISettings.insert("Black", lpo);
 	ActiveLayer = 0;
-	
+
 	appMode = modeNormal;
 	PrefsManager *prefsManager=PrefsManager::instance();
 	PageColors = prefsManager->colorSet();
-	
+
 	CMSSettings.DefaultImageRGBProfile = prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile;
 	CMSSettings.DefaultImageCMYKProfile = prefsManager->appPrefs.DCMSset.DefaultImageCMYKProfile;
 	CMSSettings.DefaultSolidColorProfile = prefsManager->appPrefs.DCMSset.DefaultSolidColorProfile;
@@ -397,7 +397,7 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 	IntentPrinter = CMSSettings.DefaultIntentPrinter;
 	IntentMonitor = CMSSettings.DefaultIntentMonitor;
 	BlackPoint = CMSSettings.BlackPoint;
-	
+
 	if ((CMSavail) && (CMSSettings.CMSinUse))
 	{
 #ifdef HAVE_CMS
@@ -656,7 +656,7 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 			if (isUndo)
 				GuideLock = !ss->getBool("GUIDE_LOCK");
 			else
-				GuideLock = ss->getBool("GUIDE_LOCK");	
+				GuideLock = ss->getBool("GUIDE_LOCK");
 		}
 		else if (ss->contains("UP_LAYER"))
 		{
@@ -721,7 +721,7 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 		}
 		else if (ss->contains("OLD_MASTERPAGE"))
 			restoreMasterPageApplying(ss, isUndo);
-		
+
 		if (layersUndo)
 		{
 			if (ScQApp->usingGUI())
@@ -783,8 +783,8 @@ bool ScribusDoc::AddFont(QString name, QFont fo)
 	bool error;
 	FT_Face      face;
 
-	if (UsedFonts.contains(name)) 
-		return true; 
+	if (UsedFonts.contains(name))
+		return true;
 
 	error = FT_New_Face( library, (*AllFonts)[name]->Datei, (*AllFonts)[name]->faceIndex, &face );
 	if (error)
@@ -818,7 +818,7 @@ bool ScribusDoc::AddFont(QString name, QFont fo)
 QStringList ScribusDoc::getItemAttributeNames()
 {
 	QStringList nameList;
-	
+
 	for(ObjAttrVector::Iterator it = docItemAttributes.begin(); it!= docItemAttributes.end(); ++it)
 		nameList.append((*it).name);
 	return nameList;
@@ -1028,7 +1028,7 @@ const int ScribusDoc::addLayer(const QString& layerName=QString::null, const boo
 	Layers.append(ll);
 	if (activate)
 		setActiveLayer(ll.LNr);
-		
+
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::AddLayer, "", Um::ICreate);
@@ -1105,10 +1105,10 @@ const bool ScribusDoc::deleteLayer(const int layerNumber, const bool deleteItems
 
 	bool deletedOk=deleteTaggedItems();
 	Q_ASSERT(deletedOk);
-	
+
 	*/
 	//Now delete the layer
-		
+
 	QString name = (*it2).Name;
 	Layers.remove(it2);
 	QValueList<Layer>::iterator it;
@@ -1202,7 +1202,7 @@ const bool ScribusDoc::setLayerPrintable(const int layerNumber, const bool isPri
 		{
 			bool oldPrintable = (*it).isPrintable;
 			(*it).isPrintable = isPrintable;
-			
+
 			if (oldPrintable!=isPrintable && UndoManager::undoEnabled())
 			{
 				SimpleState *ss = new SimpleState(isPrintable ? Um::PrintLayer : Um::DoNotPrintLayer,
@@ -1303,7 +1303,7 @@ const bool ScribusDoc::lowerLayerByLevel(const int layerLevel)
 		ss->set("ACTIVE", layerLevel-1);
 		undoManager->action(this, ss, DocName, Um::ILayer);
 	}
-	
+
 	QValueList<Layer>::iterator it;
 	QValueList<Layer>::iterator itend=Layers.end();
 	for (it = Layers.begin(); it != itend; ++it)
@@ -1339,7 +1339,7 @@ const bool ScribusDoc::raiseLayerByLevel(const int layerLevel)
 		ss->set("ACTIVE", layerLevel+1);
 		undoManager->action(this, ss, DocName, Um::ILayer);
 	}
-	
+
 	QValueList<Layer>::iterator it;
 	QValueList<Layer>::iterator itend=Layers.end();
 	for (it = Layers.begin(); it != itend; ++it)
@@ -1876,121 +1876,6 @@ void ScribusDoc::restoreMasterPageApplying(SimpleState *state, bool isUndo)
 		applyMasterPage(oldName, pageNumber);
 	else
 		applyMasterPage(newName, pageNumber);
-}
-
-// Scribus.cpp has already checked for directory writability etc. other callers should too, unless both are changed.
-const bool ScribusDoc::collectForOutput(const QString& fileName, const bool withFonts)
-{
-	QFileInfo fi(fileName);
-	QString newDirectory=fi.dirPath(true) + "/";
-	bool retVal=true;
-	if (masterPageMode)
-		MasterPages = Pages;
-	else
-		DocPages = Pages;
-	uint counter = 0;
-	for (uint lc = 0; lc < 3; ++lc)
-	{
-		PageItem* ite;
-		switch (lc)
-		{
-			case 0:
-				counter = MasterItems.count();
-				break;
-			case 1:
-				counter = DocItems.count();
-				break;
-			case 2:
-				counter = FrameItems.count();
-				break;
-		}
-		for (uint b = 0; b < counter; ++b)
-		{
-			switch (lc)
-			{
-				case 0:
-					ite = MasterItems.at(b);
-					break;
-				case 1:
-					ite = DocItems.at(b);
-					break;
-				case 2:
-					ite = FrameItems.at(b);
-					break;
-			}
-			if (ite->itemType() == PageItem::ImageFrame)
-			{
-				QFileInfo itf = QFileInfo(ite->Pfile);
-				if (itf.exists())
-				{
-					QString oldFile=ite->Pfile;
-					QString newFile=newDirectory + itf.fileName();
-					copyFile(oldFile, newFile);
-					ite->Pfile = newFile;
-					if (ScApp->fileWatcherActive())
-					{
-						ScApp->fileWatcher->removeFile(oldFile);
-						ScApp->fileWatcher->addFile(newFile);
-					}
-				}
-			}
-			if (ite->itemType() == PageItem::TextFrame)
-			{
-				if (ite->isAnnotation)
-				{
-					QFileInfo itf;
-					if (!ite->Pfile.isEmpty())
-					{
-						itf = QFileInfo(ite->Pfile);
-						if (itf.exists())
-						{
-							QString oldFile=ite->Pfile;
-							QString newFile=newDirectory + itf.fileName();
-							copyFile(oldFile, newFile);
-							ite->Pfile = newFile;
-							if (ScApp->fileWatcherActive())
-							{
-								ScApp->fileWatcher->removeFile(oldFile);
-								ScApp->fileWatcher->addFile(newFile);
-							}
-						}
-					}
-					if (!ite->Pfile2.isEmpty())
-					{
-						itf = QFileInfo(ite->Pfile2);
-						if (itf.exists())
-						{
-							copyFile(ite->Pfile2, newDirectory + itf.fileName());
-							ite->Pfile2 = newDirectory + itf.fileName();
-						}
-					}
-					if (!ite->Pfile3.isEmpty())
-					{
-						itf = QFileInfo(ite->Pfile3);
-						if (itf.exists())
-						{
-							copyFile(ite->Pfile3, newDirectory + itf.fileName());
-							ite->Pfile3 = newDirectory + itf.fileName();
-						}
-					}
-				}
-			}
-		}
-	}
-	if (withFonts)
-	{
-		PrefsManager *prefsManager=PrefsManager::instance();
-		QMap<QString,QFont>::Iterator it3;
-		QMap<QString,QFont>::Iterator it3end=UsedFonts.end();
-		for (it3 = UsedFonts.begin(); it3 != it3end; ++it3)
-		{
-			QFileInfo itf = QFileInfo(prefsManager->appPrefs.AvailFonts[it3.key()]->Datei);
-			copyFile(prefsManager->appPrefs.AvailFonts[it3.key()]->Datei, newDirectory + itf.fileName());
-		}
-	}
-	if (retVal!=false)
-		retVal=save(fileName);
-	return retVal;
 }
 
 //TODO: Handle saving to versions of SLA, and other formats

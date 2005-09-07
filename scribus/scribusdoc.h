@@ -77,14 +77,14 @@ public:
 	bool deletePage(const int);
 	void movePage(const int, const int, const int, const int);
 	// Add, delete and move layers
-	/** 
+	/**
 	 * @brief Add a layer to the current document
 	 * @param Name of layer
 	 * @param Mark the layer active
 	 * @return Number of the layer created
 	 */
 	const int addLayer(const QString&, const bool);
-	/** 
+	/**
 	 * @brief Delete a layer from the current document
 	 * @param Number of layer
 	 * @param Delete the items on the layer too?
@@ -96,7 +96,7 @@ public:
 	 * @return Active layer number
 	 */
 	const int activeLayer();
-	
+
 	/**
 	 * @brief Return the name of the current layer
 	 * @return Name of the layer
@@ -184,7 +184,7 @@ public:
 	/**
 	 * @brief Return the layer name
 	 * @param Number of the layer
-	 * @return Name of the layer 
+	 * @return Name of the layer
 	 */
 	const QString &layerName(const int);
 	/**
@@ -214,12 +214,12 @@ public:
 	void orderedLayerList(QStringList*);
 	//Items
 	const bool deleteTaggedItems();
-	
+
 	bool AddFont(QString name, QFont fo);
 	void OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo);
 	void CloseCMSProfiles();
 	void loadStylesFromFile(QString fileName, QValueList<ParagraphStyle> *tempStyles = NULL);
-	/** 
+	/**
 	 * @brief Should guides be locked or not
 	 * @param isLocked If true guides on pages cannot be moved if false they
 	 * can be dragged to new positions.
@@ -243,7 +243,7 @@ public:
 	 * @brief Returns a stringlist of the item attributes within the document
 	 */
 	QStringList getItemAttributeNames();
-	
+
 	/*!
 	 * @brief Returns a qmap of the fonts used within the document
 	 */
@@ -271,10 +271,6 @@ public:
 	 */
 	void restoreMasterPageApplying(SimpleState *state, bool isUndo);
 	/**
-	 * @brief Perform the doc only collect for output functions
-	 */
-	const bool collectForOutput(const QString& newDirectory, const bool withFonts = false);
-	/**
 	 * @brief Save function
 	 */
 	const bool save(const QString&);
@@ -294,7 +290,7 @@ public:
 	 * @brief Copies a normal page to be a master pages
 	 */
 	const bool copyPageToMasterPage(const int, const int, const QString&);
-	
+
 protected:
 	void addSymbols();
 	bool loading;
@@ -443,7 +439,7 @@ public: // Public attributes
 	bool masterPageMode;
 	PDFOptions PDF_Options;
 	bool RePos;
-	struct BookMa { 
+	struct BookMa {
 					QString Title;
 					QString Text;
 					QString Aktion;

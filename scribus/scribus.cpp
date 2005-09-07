@@ -108,7 +108,7 @@
 #include "pageitemattributes.h"
 #include "tocindexprefs.h"
 #include "tocgenerator.h"
-
+#include "collect4output.h"
 #include "fpoint.h"
 #include "fpointarray.h"
 #include "hysettings.h"
@@ -2183,7 +2183,7 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 	pagePalette->hide();
 	measurementPalette->hide();
 	docCheckerPalette->hide();
-	
+
 	if (!emergencyActivated)
 		prefsManager->SavePrefs();
 	UndoManager::deleteInstance();
@@ -9133,81 +9133,10 @@ void ScribusApp::ImageEffects()
 
 QString ScribusApp::Collect(bool compress, bool withFonts, const QString& newDirectory)
 {
-	QString retVal("");
-	QString CurDirP(QDir::currentDirPath());
-	bool compressR = compress;
-	bool withFontsR = withFonts;
-	QString s(newDirectory);
-	if (s.isNull() && ScQApp->usingGUI())
-	{
-		QString wdir(".");
-		QString prefsDocDir=prefsManager->documentDir();
-		if (!prefsDocDir.isEmpty())
-			wdir = dirs->get("collect", prefsDocDir);
-		else
-			wdir = dirs->get("collect", ".");
-		s = CFileDialog(wdir, tr("Choose a Directory"), "", "", false, false, false, false, true, &compressR, &withFontsR);
-	}
-
-	if (!s.isEmpty())
-	{
-		fileWatcher->forceScan();
-		fileWatcher->stop();
-		if(s.right(1) != "/")
-			s += "/";
-		dirs->set("collect", s.left(s.findRev("/",-2)));
-		QFileInfo fi(s);
-		QString fn(s);
-		if (fi.exists())
-		{
-			if (fi.isDir() && fi.isWritable())
-			{
-				if (doc->hasName)
-				{
-					QFileInfo fis(doc->DocName);
-					fn += fis.fileName();
-				}
-				else
-					fn += doc->DocName+".sla";
-				doc->hasName = true;
-				if (compressR)
-				{
-					if (!fn.endsWith(".gz"))
-						fn += ".gz";
-				}
-				else
-				{
-					if (fn.endsWith(".gz"))
-						fn = fn.remove(".gz");
-				}
-				if (!overwrite(this, fn))
-				{
-					retVal = "";
-					return retVal;
-				}
-				retVal = s;
-				mainWindowStatusLabel->setText( tr("Collecting..."));
-				if(!doc->collectForOutput(fn, withFontsR))
-				{
-					QMessageBox::warning(this, tr("Warning"), tr("Cannot collect all files for output for file:\n%1").arg(fn), CommonStrings::tr_OK);
-					retVal = "";
-				}
-			}
-		}
-		QDir::setCurrent(CurDirP);
-		if (!retVal.isEmpty())
-		{
-			ActWin->setCaption(fn);
-			undoManager->renameStack(fn);
-			scrActions["fileSave"]->setEnabled(false);
-			scrActions["fileRevert"]->setEnabled(false);
-			updateRecent(fn);
-		}
-		mainWindowStatusLabel->setText("");
-		mainWindowProgressBar->reset();
-		fileWatcher->start();
-	}
-	return retVal;
+	CollectForOutput *c = new CollectForOutput(withFonts, compress);
+	QString ret = c->collect();
+	delete c;
+	return ret;
 }
 
 void ScribusApp::ReorgFonts()
