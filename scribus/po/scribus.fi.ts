@@ -4559,10 +4559,6 @@ Virhe oli:
         <translation>Tallenna makron lähdekoodi tiedostoon. Voit muokata tallennettua koodia lataamalla sen uudestaan käyttäen valikon kohtaa &quot;Lataa koodi...&quot;.</translation>
     </message>
     <message>
-        <source>Python source files (.py)</source>
-        <translation type="obsolete">Python-tiedostot (*.py)</translation>
-    </message>
-    <message>
         <source>Save File Dialog</source>
         <translation>Tallenna tiedosto</translation>
     </message>
@@ -4580,7 +4576,7 @@ Virhe oli:
     </message>
     <message>
         <source>Python source files (*.py)</source>
-        <translation type="unfinished"></translation>
+        <translation>Python-tiedostot (*.py)</translation>
     </message>
 </context>
 <context>
@@ -7782,14 +7778,6 @@ turvallisuusominaisuudet tehdyssä PDF:ssa</translation>
         <translation>Etäisyys bleed:lle sivun todellisesta oikeasta reunasta</translation>
     </message>
     <message>
-        <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.
-Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.
-PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management.</source>
-        <translation type="obsolete">PDF-yhteensopivuus. Oletuksena on Acrobat 4.0, joka antaa laajimman yhteensopivuuden.
-Valitse Acrobat 5.0, jos asiakirjasi sisältää PDF 1.4:n ominaisuuksia kuten läpinäkyvyys tai jos tarvitset 128 bittistä salausta.
-PDF/X-3 on tarkoitettu ammattimaiseen tulostamiseen. Se voidaan valita, kun värien hallinta on aktivoitu.</translation>
-    </message>
-    <message>
         <source>Determines the binding of pages in the PDF. Unless you know
 you need to change it leave the default choice - Left.</source>
         <translation>Määrittää sivujen sidonnan PDF:ään.
@@ -7816,30 +7804,6 @@ Ne helpottavat navigointia pitkässä PDF-dokumentissa.</translation>
 This does not affect the resolution of bitmap images like photos.</source>
         <translation>Vietävän tekstin ja vektorigrafiikan resoluutio.
 Tämä ei vaikuta bitmap-kuvien kuten valokuvien resoluutioon.</translation>
-    </message>
-    <message>
-        <source>Compression of text and graphics.
-Unless you have a reason, leave this checked. This reduces PDF size.</source>
-        <translation type="obsolete">Tekstin ja grafiikan pakkaus. 
-Valitse tämä ellet tiedä mitä teet. Valinta pienentää PDF:n kokoa.</translation>
-    </message>
-    <message>
-        <source>Version of compression for images.
-Automatic allows Scribus to choose the best method.
-ZIP is good for images with solid colors.
-JPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).
-Leave it set to automatic, unless you have a need for special compression options.</source>
-        <translation type="obsolete">Kuvien pakkausmenetelmä.
-Automaattinen valitsee parhaan keinon.
-ZIP on hyvä kuville joissa on tasaisia värejä.
-JPEG on hyvä keino luoda pienempiä PDF-tiedostoja, joissa on paljon kuvia (kuvat saattavat heikentyä).
-Valitse automaattinen ellet tarvitse mitään erityistä pakkausmenetelmää.</translation>
-    </message>
-    <message>
-        <source>Downsample your bitmap images to the selected DPI.
-Leaving this unchecked will render them at their native resolution.</source>
-        <translation type="obsolete">Heikennä bitmap-kuvat halutulle DPI-arvolle (pistettä tuumalla).
-Jos ominaisuutta ei valitse, kuvat säilyttävät resoluutionsa.</translation>
     </message>
     <message>
         <source>DPI (Dots Per Inch) for image export.</source>
@@ -8232,23 +8196,26 @@ Jos kohtaa ei valita, kenttien ja huomautusten muokkaus on estetty.</translation
         <translation>Tallenna PDF-tiedostoon</translation>
     </message>
     <message>
+        <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility. Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Note: PDF/X-3 will convert all CMYK images to ICC based RGB colors. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
+        <translation>Määrittelee PDF-yhteensopivuuden. Oletusarvo on Acrobat 4.0, joka antaa laajimman yhteensopivuuden. Valitse Acrobat 5.0, jos tiedostossasi on PDF 1.4:n ominaisuuksia kuten läpinäkyvyyttä tai tarvitset 128 bittistä salausta. PDF/X-3 mahdollistaa RGB-värienhallinnan sisällyttämisen PDF-tiedostoon. Se on valittavana, jos värienhallinta on käytössä. PDF/X-3 muuttaa kaikki CMYK-kuvat ICC-pohjaisiin RGB-väreihin. PDF/X-3:a tulee käyttää ainoastaan, jos paino on sitä pyytänyt tai joissain tapauksissa, kun tulostetaan nelivärilasertulostimilla.</translation>
+    </message>
+    <message>
         <source> Lossless compression of text and graphics.
 Unless you have a reason, leave this checked. This reduces PDF size.</source>
-        <translation type="unfinished"></translation>
+        <translation>Häviötön pakkaus tekstille ja grafiikalle.
+Ota pois käytöstä ainoastaan, jos tiedät mitä teet. Valittuna pienentää PDF-tiedoston kokoa.</translation>
     </message>
     <message>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pakkausmenetelmä kuville. Automaattinen antaa Scribuksen valita parhaan mahdollisimman menetelmän. ZIP on häviötön ja hyvä pakkaus kuville, joissa on tasaisia värejä. JPEG on hyvä keino luoda pienempikokoisia PDF-tiedostoja, jos asiakirja sisältää paljon kuvia (kuvien laatu saattaa kärsiä hieman). Jos erityistä tarvetta jollekin pakkaustyypille ei ole, käytä Automaattista.</translation>
     </message>
     <message>
         <source>Re-sample your bitmap images to the selected DPI.
 Leaving this unchecked will render them at their native resolution.
 This can increase memory usage and slow down export.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility. Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Note: PDF/X-3 will convert all CMYK images to ICC based RGB colors. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Muokkaa kuvien resoluutio haluttuun DPI-arvoon.
+Jos kohtaa ei valita, kuvat sisällytetään niiden alkuperäisillä resoluutioilla.
+Saattaa kasvattaa muistin käyttöä ja hidastaa PDF-tiedoston tekoa.</translation>
     </message>
 </context>
 <context>
@@ -11139,12 +11106,12 @@ function&apos;s documentation.</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation type="unfinished"></translation>
+        <translation>Normal</translation>
     </message>
     <message>
         <source>page</source>
         <comment>page export</comment>
-        <translation type="unfinished"></translation>
+        <translation>sivu</translation>
     </message>
 </context>
 <context>
