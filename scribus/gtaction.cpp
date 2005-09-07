@@ -27,7 +27,7 @@
 #include "color.h"
 #include "prefsmanager.h"
 
-extern ScribusApp* ScApp;
+
 
 gtAction::gtAction(bool append)
 {

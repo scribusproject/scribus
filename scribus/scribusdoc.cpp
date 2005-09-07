@@ -31,7 +31,7 @@
 #include "units.h"
 #include "filewatcher.h"
 
-extern ScribusApp* ScApp;
+
 extern ScribusQApp* ScQApp;
 
 #ifdef HAVE_CMS

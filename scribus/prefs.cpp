@@ -44,7 +44,7 @@ using namespace std;
 extern QPixmap loadIcon(QString nam);
 extern bool CMSavail;
 extern bool CMSuse;
-extern ScribusApp *ScApp;
+
 
 /*!
  \fn Preferences::Preferences( QWidget* parent)

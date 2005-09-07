@@ -21,7 +21,7 @@
 #include "scmenu.h"
 #include "scraction.h"
 
-extern ScribusApp* ScApp;
+
 
 MenuManager::MenuManager(QMenuBar *scrMenuBar, QObject *parent, const char *name) : QObject(parent, name)
 {

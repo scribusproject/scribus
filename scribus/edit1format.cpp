@@ -18,7 +18,7 @@
 #include "loremipsum.h"
 #include "prefsmanager.h"
 
-extern ScribusApp* ScApp;
+
 
 
 EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<ParagraphStyle> v, bool neu, double au, int dEin, ScribusDoc *doc)

@@ -26,7 +26,7 @@
 #include "menumanager.h"
 
 extern QPixmap loadIcon(QString nam);
-extern ScribusApp* ScApp;
+
 
 WerkToolB::WerkToolB(QMainWindow* parent) : QToolBar( tr("Tools"), parent)
 {

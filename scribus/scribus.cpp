@@ -175,7 +175,7 @@ int IntentPrinter;
 bool CMSavail;
 
 QString DocDir;
-extern ScribusApp* ScApp;
+
 extern ScribusQApp* ScQApp;
 extern bool emergencyActivated;
 

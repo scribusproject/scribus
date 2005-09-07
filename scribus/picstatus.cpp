@@ -31,7 +31,7 @@
 #include "filesearch.h"
 #include "scribus.h"
 extern QPixmap loadIcon(QString nam);
-extern ScribusApp* ScApp;
+
 
 const unsigned short PicStatus::COL_FILENAME = 0;
 const unsigned short PicStatus::COL_PATH = 1;

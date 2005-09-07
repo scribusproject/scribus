@@ -21,7 +21,7 @@ extern bool CMSuse;
 #endif
 extern bool CMSavail;
 #include "scribus.h"
-extern ScribusApp* ScApp;
+
 
 
 

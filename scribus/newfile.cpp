@@ -16,7 +16,7 @@
 
 
 extern QPixmap loadIcon(QString nam);
-extern ScribusApp* ScApp;
+
 
 NewDoc::NewDoc( QWidget* parent, bool startUp ) : QDialog( parent, "newDoc", true, 0 )
 {

@@ -54,7 +54,7 @@ extern bool CMSuse;
 #ifdef HAVE_TIFF
 	#include <tiffio.h>
 #endif
-extern ScribusApp* ScApp;
+
 
 PDFlib::PDFlib(ScribusDoc *docu)
 {

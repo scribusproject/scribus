@@ -82,7 +82,7 @@
 
 using namespace std;
 
-extern ScribusApp* ScApp;
+
 
 ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc) : QScrollView(parent, "s", WRepaintNoErase | WNorthWestGravity)
 {

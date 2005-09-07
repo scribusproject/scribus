@@ -33,7 +33,7 @@
 	#define SPLITVC SplitVCursor
 #endif
 
-extern ScribusApp* ScApp;
+
 
 Vruler::Vruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa)
 {

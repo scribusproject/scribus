@@ -37,7 +37,7 @@
 #include "scpaths.h"
 
 extern bool overwrite(QWidget *parent, QString filename);
-extern ScribusApp* ScApp;
+
 
 KeyManager::KeyManager(QWidget* parent, QMap<QString,Keys> oldKeyMap): QWidget( parent, "key" )
 {

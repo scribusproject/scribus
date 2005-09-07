@@ -18,7 +18,7 @@
 #include <qdir.h>
 
 extern ScribusQApp* ScQApp;
-extern ScribusApp* ScApp;
+
 
 
 CollectForOutput::CollectForOutput(bool withFonts, bool compressDoc)

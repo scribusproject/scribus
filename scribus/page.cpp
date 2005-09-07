@@ -21,7 +21,7 @@
 #include "undostate.h"
 
 extern QPixmap loadIcon(QString nam);
-extern ScribusApp *ScApp;
+
 
 Page::Page(const double x, const double y, const double b, const double h) : UndoObject(QObject::tr("Page"))
 {

@@ -23,7 +23,7 @@
 #include "layers.moc"
 
 extern QPixmap loadIcon(QString nam);
-extern ScribusApp* ScApp;
+
 
 
 LayerTable::LayerTable(QWidget* parent) : QTable(parent)

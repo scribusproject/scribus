@@ -24,7 +24,7 @@ the Free Software Foundation; either version 2 of the License, or
 #include "prefsmanager.h"
 
 extern QPixmap loadIcon(QString nam);
-extern ScribusApp *ScApp;
+
 
 
 PythonConsole::PythonConsole( QWidget* parent)

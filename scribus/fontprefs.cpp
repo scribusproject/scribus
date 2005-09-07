@@ -13,7 +13,7 @@
 #include "scconfig.h"
 
 extern QPixmap loadIcon(QString nam);
-extern ScribusApp *ScApp;
+
 
 FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, QString PPath, ScribusDoc* doc ) : QTabWidget( parent, "fpre" )
 {

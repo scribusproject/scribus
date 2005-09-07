@@ -3,7 +3,7 @@
 #include <qcursor.h>
 #include "scribus.h"
 extern QPixmap loadIcon(QString nam);
-extern ScribusApp* ScApp;
+
 
 /* Code fuer DragObjekt */
 SeDrag::SeDrag(QString secret, QWidget * parent, const char * name): QStoredDrag("page/magic", parent, name)

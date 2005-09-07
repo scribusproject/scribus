@@ -36,7 +36,7 @@
 #include "util.h"
 #include "werktoolb.h"
 
-extern ScribusApp* ScApp;
+
 extern ScribusQApp* ScQApp;
 extern bool emergencyActivated;
 

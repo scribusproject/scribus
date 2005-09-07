@@ -56,7 +56,7 @@
 // Qt wants -display not --display or -d
 #define ARG_DISPLAY_QT "-display"
 
-extern ScribusApp* ScApp;
+
 extern ScribusQApp* ScQApp;
 
 bool ScribusQApp::useGUI=false;

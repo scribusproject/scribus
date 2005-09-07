@@ -19,7 +19,7 @@ extern int IntentPrinter;
 #endif
 #include "util.h"
 
-extern ScribusApp* ScApp;
+
 
 
 typedef struct my_error_mgr

@@ -16,7 +16,7 @@
 #include "prefsmanager.h"
 
 
-extern ScribusApp* ScApp;
+
 
 TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex, ScribusDoc* doc) : QWidget( parent, "tabtools", 0 )
 {

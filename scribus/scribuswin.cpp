@@ -25,7 +25,7 @@
 #include "util.h"
 #include "commonstrings.h"
 
-extern ScribusApp* ScApp;
+
 
 ScribusWin::ScribusWin(QWidget* parent, ScribusDoc* ddoc) : QMainWindow(parent, "", WDestructiveClose)
 {

@@ -20,7 +20,7 @@
 
 using namespace std;
 
-extern ScribusApp* ScApp;
+
 
 ScPreview::ScPreview()
 {

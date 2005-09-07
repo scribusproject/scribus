@@ -31,7 +31,7 @@
 #include "prefsmanager.h"
 #include "commonstrings.h"
 
-extern ScribusApp *ScApp;
+
 
 QString getLoremLocation(QString fname)
 {

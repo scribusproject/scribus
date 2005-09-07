@@ -22,7 +22,7 @@
 
 using namespace std;
 
-extern ScribusApp* ScApp;
+
 
 LabelButton::LabelButton(QWidget* parent, QString text1, QString text2) : QLabel(parent)
 {

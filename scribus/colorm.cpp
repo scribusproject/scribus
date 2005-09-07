@@ -27,7 +27,7 @@
 #include "util.h"
 #include "dynamictip.h"
 
-extern ScribusApp* ScApp;
+
 
 Farbmanager::Farbmanager( QWidget* parent, ColorList doco, bool HDoc, QString DcolSet, QStringList Cust )
 		: QDialog( parent, "dd", true, 0 )

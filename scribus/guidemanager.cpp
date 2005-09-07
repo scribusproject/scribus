@@ -27,7 +27,7 @@
 
 #include "commonstrings.h"
 
-extern ScribusApp *ScApp;
+
 extern QPixmap loadIcon(QString nam);
 
 GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", true, 0)

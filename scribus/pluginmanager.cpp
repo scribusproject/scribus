@@ -24,7 +24,7 @@
 #include <qlibrary.h>
 #endif
 
-extern ScribusApp *ScApp;
+
 extern ScribusQApp *ScQApp;
 
 

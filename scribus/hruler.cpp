@@ -35,7 +35,7 @@
 #endif
 
 extern QPixmap loadIcon(QString nam);
-extern ScribusApp* ScApp;
+
 
 #ifdef QT_MAC
     #define topline 1

@@ -19,7 +19,7 @@
 #include "documentchecker.h"
 
 extern QPixmap loadIcon(QString nam);
-extern ScribusApp* ScApp;
+
 
 static const unsigned char image0_data[] =
     {

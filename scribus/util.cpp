@@ -93,7 +93,7 @@ extern bool CMSuse;
 extern int IntentMonitor;
 extern int IntentPrinter;
 #endif
-extern ScribusApp* ScApp;
+
 
 using namespace std;
 

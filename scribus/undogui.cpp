@@ -37,7 +37,7 @@
 #include "menumanager.h"
 
 extern QPixmap loadIcon(QString nam);
-extern ScribusApp *ScApp;
+
 
 UndoGui::UndoGui(QWidget* parent, const char* name, WFlags f) : QWidget(parent, name, f)
 {

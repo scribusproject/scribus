@@ -25,7 +25,7 @@
 #include "scribus.h"
 #include "commonstrings.h"
 
-extern ScribusApp* ScApp;
+
 extern QPixmap loadIcon(QString nam);
 
 SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, bool mode )

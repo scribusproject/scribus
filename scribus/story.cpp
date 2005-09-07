@@ -39,7 +39,7 @@
 #include "serializer.h"
 
 extern QPixmap loadIcon(QString nam);
-extern ScribusApp* ScApp;
+
 
 SideBar::SideBar(QWidget *pa) : QLabel(pa)
 {
