@@ -236,7 +236,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/checkDocument.h               $(prefix)/include/scribus/checkDocument.h
 	$(INSTALL_DATA) $(srcdir)/cmsprefs.h                    $(prefix)/include/scribus/cmsprefs.h
 	$(INSTALL_DATA) $(srcdir)/cmykfw.h                      $(prefix)/include/scribus/cmykfw.h
-	$(INSTALL_DATA) $(scrdir)/collect4output.h		$(prefix)/include/scribus/collect4output.h
+	$(INSTALL_DATA) $(srcdir)/collect4output.h              $(prefix)/include/scribus/collect4output.h
 	$(INSTALL_DATA) $(srcdir)/color.h                       $(prefix)/include/scribus/color.h
 	$(INSTALL_DATA) $(srcdir)/colorchart.h                  $(prefix)/include/scribus/colorchart.h
 	$(INSTALL_DATA) $(srcdir)/colorm.h                      $(prefix)/include/scribus/colorm.h
