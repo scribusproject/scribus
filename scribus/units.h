@@ -16,6 +16,7 @@
 #ifndef UNITS_H
 #define UNITS_H
 
+#include "scribusapi.h"
 #include <qstring.h>
 #include <qstringlist.h>
 
@@ -36,31 +37,31 @@ enum Unit {
 	SC_C           = 5
 };
 
-const double unitGetRatioFromIndex(const int index);
-const QString unitGetStrFromIndex(const int index);
-const QString unitGetSuffixFromIndex(const int index);
-const int unitGetDecimalsFromIndex(const int index);
-const int unitGetPrecisionFromIndex(const int index);
-const double unitValueFromString(const QString& value);
-const Unit unitIndexFromString(const QString& value);
-const QStringList unitGetTextUnitList();
-const int unitGetMaxIndex();
-const double mm2pts(double mm);
-const double in2pts(double in);
-const double p2pts(double p);
-const double cm2pts(double cm);
-const double c2pts(double c);
-const double pts2mm(double pts);
-const double pts2in(double pts);
-const double pts2p(double pts);
-const double pts2cm(double pts);
-const double pts2c(double pts);
-double pts2value(double Val, int unit);
-double value2pts(double unitValue, int unit);
-double value2value(double unitValue, int primaryUnit, int secondaryUnit);
+const double SCRIBUS_API unitGetRatioFromIndex(const int index);
+const QString SCRIBUS_API unitGetStrFromIndex(const int index);
+const QString SCRIBUS_API unitGetSuffixFromIndex(const int index);
+const int SCRIBUS_API unitGetDecimalsFromIndex(const int index);
+const int SCRIBUS_API unitGetPrecisionFromIndex(const int index);
+const double SCRIBUS_API unitValueFromString(const QString& value);
+const Unit SCRIBUS_API unitIndexFromString(const QString& value);
+const QStringList SCRIBUS_API unitGetTextUnitList();
+const int SCRIBUS_API unitGetMaxIndex();
+const double SCRIBUS_API mm2pts(double mm);
+const double SCRIBUS_API in2pts(double in);
+const double SCRIBUS_API p2pts(double p);
+const double SCRIBUS_API cm2pts(double cm);
+const double SCRIBUS_API c2pts(double c);
+const double SCRIBUS_API pts2mm(double pts);
+const double SCRIBUS_API pts2in(double pts);
+const double SCRIBUS_API pts2p(double pts);
+const double SCRIBUS_API pts2cm(double pts);
+const double SCRIBUS_API pts2c(double pts);
+double SCRIBUS_API pts2value(double Val, int unit);
+double SCRIBUS_API value2pts(double unitValue, int unit);
+double SCRIBUS_API value2value(double unitValue, int primaryUnit, int secondaryUnit);
 //Ruler specific functions
-double unitRulerGetIter1FromIndex(const int index);
-double unitRulerGetIter2FromIndex(const int index);
+double SCRIBUS_API unitRulerGetIter1FromIndex(const int index);
+double SCRIBUS_API unitRulerGetIter2FromIndex(const int index);
 
 
 #endif // UNITS_H
