@@ -506,6 +506,8 @@ void ScribusApp::initScribus()
 				Prefs.DCMSset.DefaultPrinterProfile = ip.key();
 			}
 #ifdef HAVE_CMS
+			cmsSetAlarmCodes(0, 255, 0);
+			cmsErrorAction(LCMS_ERROR_SHOW);
 			SoftProofing = Prefs.DCMSset.SoftProofOn;
 			CMSuse = false;
 			IntentPrinter = Prefs.DCMSset.DefaultIntentPrinter;
