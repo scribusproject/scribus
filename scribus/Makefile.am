@@ -590,5 +590,7 @@ AM_CPPFLAGS = \
     -DTEMPLATEDIR=\"$(datadir)/scribus/templates/\" \
     -DLIBDIR=\"$(libdir)/scribus/\" \
     -DPLUGINDIR=\"$(libdir)/scribus/plugins/\" \
-    -DSHAREDIR=\"$(datadir)/scribus/\"
+    -DSHAREDIR=\"$(datadir)/scribus/\" \
+    $(GCC4_VISIBILITY_FLAGS)
+
 noinst_HEADERS = marginWidget.h

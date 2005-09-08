@@ -569,12 +569,16 @@ AC_PATH_QT
 dnl Use gcc symbol visibility?
 AC_ARG_ENABLE(gcc_symbol_visibility,
 			  [  --enable-gcc-symbol-visibility   Limit visibility of exported symbols.],
-			  [gcc_symbol_visibility="yes"])
-if test "$gcc_symbol_visibilty" = "yes"; then
-	AC_DEFINE_UNQUOTED(HAVE_GCC_SYMBOL_VISIBILITY, 1, [Enable declaration of export symbols])
-	CFLAGS="$CFLAGS -fvisibility=hidden"
-	CXXFLAGS="$CXXFLAGS -fvisibility=hidden"
+			  [use_gcc_symbol_visibility="yes"])
+AC_MSG_CHECKING([whether to use -fvisibility=hidden...])
+if test "$use_gcc_symbol_visibility" = "yes"; then
+	GCC4_VISIBILITY_FLAGS="$CXXFLAGS -fvisibility=hidden -DHAVE_GCC_SYMBOL_VISIBILITY=1"
+	AC_MSG_RESULT([yes])
+else
+	GCC4_VISIBILITY_FLAGS=""
+	AC_MSG_RESULT([no])
 fi
+AC_SUBST(GCC4_VISIBILITY_FLAGS)
 
 dnl We have to do our Qt version check only after KDE's magic has found Qt
 AC_MSG_CHECKING([if we're trying to compile against Qt 4])

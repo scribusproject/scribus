@@ -121,6 +121,7 @@ bool OODrawImportPlugin::run(QString fileName)
 	else
 		UndoManager::instance()->setUndoEnabled(true);
 	delete dia;
+	return true;
 }
 
 OODPlug::OODPlug(QString fileName, bool isInteractive )
@@ -589,7 +590,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 		}
 		else
 		{
-			qDebug(QString("Not supported yet: "+STag));
+			qDebug("Not supported yet: %s", STag.local8Bit().data());
 			continue;
 		}
 		if (z != -1)
