@@ -48,8 +48,9 @@
 #include "scpaths.h"
 #include "units.h"
 #include "scribusstructs.h"
-
 #include "scconfig.h"
+#include "scripterprefsgui.h"
+#include "pluginmanager.h"
 
 #include <qapplication.h>
 #include <qmessagebox.h>
@@ -57,10 +58,13 @@
 #include <qdom.h>
 #include <qregexp.h>
 #include <qtextstream.h>
+#include <qpixmap.h>
+#include <qwidget.h>
+#include <qstring.h>
 #include <cstdlib>
-#include "pluginmanager.h"
-
 #include <iostream>
+
+extern QPixmap loadIcon(QString nam);
 
 // Exceptions; visible from cmdvar.h, set up in initscribus()
 PyObject* ScribusException;
@@ -154,6 +158,18 @@ bool ScriptPlugin::cleanupPlugin()
 	if (scripterCore)
 		delete scripterCore;
 	Py_Finalize();
+	return true;
+}
+
+bool ScriptPlugin::newPrefsPanelWidget(QWidget* parent,
+									   PrefsPanel*& panel,
+									   QString& caption,
+									   QPixmap& icon)
+{
+	panel = new ScripterPrefsGui(parent);
+	Q_CHECK_PTR(panel);
+	caption = tr("Scripter");
+	icon = loadIcon("python.png");
 	return true;
 }
 

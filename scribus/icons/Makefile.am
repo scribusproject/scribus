@@ -173,6 +173,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/PolyCut.png $(prefix)/share/scribus/icons/PolyCut.png
 	$(INSTALL_DATA) $(srcdir)/postscript.png $(prefix)/share/scribus/icons/postscript.png
 	$(INSTALL_DATA) $(srcdir)/pushbutton.png $(prefix)/share/scribus/icons/pushbutton.png
+	$(INSTALL_DATA) $(srcdir)/python.png $(prefix)/share/scribus/icons/python.png
 	$(INSTALL_DATA) $(srcdir)/raise-to-top.png $(prefix)/share/scribus/icons/raise-to-top.png
 	$(INSTALL_DATA) $(srcdir)/raise.png $(prefix)/share/scribus/icons/raise.png
 	$(INSTALL_DATA) $(srcdir)/Raiselayer.png $(prefix)/share/scribus/icons/Raiselayer.png

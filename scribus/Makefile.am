@@ -333,6 +333,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/prefsdialogbase.h             $(prefix)/include/scribus/prefsdialogbase.h
 	$(INSTALL_DATA) $(srcdir)/prefsfile.h                   $(prefix)/include/scribus/prefsfile.h
 	$(INSTALL_DATA) $(srcdir)/prefsmanager.h                $(prefix)/include/scribus/prefsmanager.h
+	$(INSTALL_DATA) $(srcdir)/prefspanel.h                  $(prefix)/include/scribus/prefspanel.h
 	$(INSTALL_DATA) $(srcdir)/prefsreader.h                 $(prefix)/include/scribus/prefsreader.h
 	$(INSTALL_DATA) $(srcdir)/prefstable.h                  $(prefix)/include/scribus/prefstable.h
 	$(INSTALL_DATA) $(srcdir)/preview.h                  $(prefix)/include/scribus/preview.h
@@ -347,6 +348,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/scmenu.h                      $(prefix)/include/scribus/scmenu.h
 	$(INSTALL_DATA) $(srcdir)/scpainter.h                   $(prefix)/include/scribus/scpainter.h
 	$(INSTALL_DATA) $(srcdir)/scpaths.h                     $(prefix)/include/scribus/scpaths.h
+	$(INSTALL_DATA) $(srcdir)/scplugin.h                    $(prefix)/include/scribus/scplugin.h
 	$(INSTALL_DATA) $(srcdir)/scpreview.h                   $(prefix)/include/scribus/scpreview.h
 	$(INSTALL_DATA) $(srcdir)/scraction.h                   $(prefix)/include/scribus/scraction.h
 	$(INSTALL_DATA) $(srcdir)/scrap.h                       $(prefix)/include/scribus/scrap.h

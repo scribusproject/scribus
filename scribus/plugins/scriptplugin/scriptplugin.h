@@ -5,6 +5,11 @@
 #include "scplugin.h"
 #include "pluginapi.h"
 
+class QString;
+class QPixmap;
+class QWidget;
+class PrefsPanel;
+
 class PLUGIN_API ScriptPlugin : public ScPersistentPlugin
 {
 	Q_OBJECT
@@ -19,6 +24,8 @@ class PLUGIN_API ScriptPlugin : public ScPersistentPlugin
 		virtual const AboutData* getAboutData() const;
 		virtual void deleteAboutData(const AboutData* about) const;
 		virtual void languageChange();
+		virtual bool newPrefsPanelWidget(QWidget* parent, PrefsPanel*& panel,
+										 QString& caption, QPixmap& icon);
 
 		// Special features (none)
 };

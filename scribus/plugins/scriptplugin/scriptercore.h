@@ -38,6 +38,11 @@ public slots:
 	void runStartupScript();
 	void languageChange();
 
+	const QString & startupScript() const;
+	bool extensionsEnabled() const;
+	void setStartupScript(const QString& newScript);
+	void setExtensionsEnabled(bool enable);
+
 protected:
 	// Private helper functions
 	void FinishScriptRun();
@@ -61,11 +66,11 @@ protected:
 
 	// Preferences
 	/** pref: Enable access to main interpreter and 'extension scripts' */
-	bool enableExtPython;
+	bool m_enableExtPython;
 	/** pref: Run 'from scribus import *' at scripter startup */
-	bool importAllNames;
+	bool m_importAllNames;
 	/** pref: Load this script on startup */
-	QString startupScript;
+	QString m_startupScript;
 };
 
 #endif

@@ -198,7 +198,7 @@ void ScripterCore::runScriptDialog()
 {
 	QString fileName;
 	QString curDirPath = QDir::currentDirPath();
-	RunScriptDialog dia( ScApp, enableExtPython );
+	RunScriptDialog dia( ScApp, m_enableExtPython );
 	if (dia.exec())
 	{
 		fileName = dia.selectedFile();
@@ -457,9 +457,9 @@ void ScripterCore::ReadPlugPrefs()
 	for (int i = 0; i < prefRecentScripts->getRowCount(); i++)
 		SavedRecentScripts.append(prefRecentScripts->get(i,0));
 	// then get more general preferences
-	enableExtPython = prefs->getBool("extensionscripts",false);
-	importAllNames = prefs->getBool("importall",true);
-	startupScript = prefs->get("startupscript", QString::null);
+	m_enableExtPython = prefs->getBool("extensionscripts",false);
+	m_importAllNames = prefs->getBool("importall",true);
+	m_startupScript = prefs->get("startupscript", QString::null);
 }
 
 void ScripterCore::SavePlugPrefs()
@@ -479,9 +479,9 @@ void ScripterCore::SavePlugPrefs()
 	for (uint i = 0; i < RecentScripts.count(); i++)
 		prefRecentScripts->set(i, 0, RecentScripts[i]);
 	// then save more general preferences
-	prefs->set("extensionscripts", enableExtPython);
-	prefs->set("importall", importAllNames);
-	prefs->set("startupscript", startupScript);
+	prefs->set("extensionscripts", m_enableExtPython);
+	prefs->set("importall", m_importAllNames);
+	prefs->set("startupscript", m_startupScript);
 }
 
 /* 11/1/2004 pv - Show docstring of the script to the user.
@@ -529,16 +529,16 @@ void ScripterCore::initExtensionScripts()
 
 void ScripterCore::runStartupScript()
 {
-	if ((enableExtPython) && (startupScript))
+	if ((m_enableExtPython) && (m_startupScript))
 	{
-		if (QFile::exists(this->startupScript))
+		if (QFile::exists(this->m_startupScript))
 		{
 			// run the script in the main interpreter. The user will be informed
 			// with a dialog if something has gone wrong.
-			this->slotRunScriptFile(this->startupScript, true);
+			this->slotRunScriptFile(this->m_startupScript, true);
 		}
 		else
-			qDebug("Startup script enabled, but couln't find script %s.", startupScript.ascii());
+			qDebug("Startup script enabled, but couln't find script %s.", m_startupScript.ascii());
 	}
 }
 
@@ -565,7 +565,7 @@ bool ScripterCore::setupMainInterpreter()
 		"import code\n"
 		"scribus._ia = code.InteractiveConsole(globals())\n"
 		).arg(ScPaths::instance().scriptDir());
-	if (importAllNames)
+	if (m_importAllNames)
 		cm += "from scribus import *\n";
 	QCString cmd = cm.utf8();
 	if (PyRun_SimpleString(cmd.data()))
@@ -578,4 +578,24 @@ bool ScripterCore::setupMainInterpreter()
 	}
 	else
 		return true;
+}
+
+void ScripterCore::setStartupScript(const QString& newScript)
+{
+	m_startupScript = newScript;
+}
+
+void ScripterCore::setExtensionsEnabled(bool enable)
+{
+	m_enableExtPython = enable;
+}
+
+const QString & ScripterCore::startupScript() const
+{
+	return m_startupScript;
+}
+
+bool ScripterCore::extensionsEnabled() const
+{
+	return m_enableExtPython;
 }
