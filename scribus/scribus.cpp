@@ -3944,6 +3944,7 @@ bool ScribusApp::loadDoc(QString fileName)
 		doc->hasName = true;
 		if (doc->MasterPages.count() == 0)
 		{
+			doc->masterPageMode = true;
 			doc->DocPages = doc->Pages;
 			doc->Pages = doc->MasterPages;
 			doc->pageCount = doc->MasterPages.count();
