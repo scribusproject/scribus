@@ -831,21 +831,30 @@ void Preferences::addPlugins()
 	QValueList<QCString>::Iterator itEnd(pluginNames.end());
 	for (QValueList<QCString>::Iterator it(pluginNames.begin()); it != itEnd ; ++it )
 	{
-		// Ask the plugin for its prefs widget (skipping disabled plugins),
+		// Ask the plugin manager for a plugin (skipping disabled plugins).
 		ScPlugin* plugin = pluginManager.getPlugin(*it, false);
-		PrefsPanel* panel = plugin->newPrefsPanelWidget(this);
-		if (panel)
+		// If we got a plugin (which we know is enabled):
+		if (plugin)
 		{
-			// Get a caption and icon for it,
-			QPixmap panelIcon(plugin->prefsPanelIcon());
-			Q_ASSERT(!panelIcon.isNull());
-			QString panelCaption(plugin->prefsPanelName());
-			Q_ASSERT(!panelCaption.isNull());
-			// plug it in to the dialog,
-			addItem(panelCaption, panelIcon, panel);
-			// and connect a signal to tell it to save its
-			// settings.
-			connect(this, SIGNAL(accepted()), panel, SLOT(apply()));
+			// Ask the plugin for a prefs widget
+			PrefsPanel* panel;
+			QString panelCaption;
+			QPixmap panelIcon;
+			bool wantPanel = plugin->newPrefsPanelWidget(
+					prefsWidgets, panel, panelCaption, panelIcon);
+			// If it gave us one...
+			if (wantPanel)
+			{
+				// Ensure that we got sane return values
+				Q_ASSERT(panel);
+				Q_ASSERT(!panelIcon.isNull());
+				Q_ASSERT(!panelCaption.isNull());
+				// plug it in to the dialog,
+				addItem(panelCaption, panelIcon, panel);
+				// and connect a signal to tell it to save its
+				// settings.
+				connect(this, SIGNAL(accepted()), panel, SLOT(apply()));
+			}
 		}
 	}
 }

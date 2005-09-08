@@ -72,8 +72,12 @@ public:
 	 */
 	bool DLLexists(QCString pluginName, bool includeDisabled = false) const;
 
-	/*! \brief Returns a pointer to the requested plugin, or
-	 *         0 if not found. */
+	/*! \brief Returns a pointer to the requested plugin, or 0 if not found.
+	 *
+	 * If includeDisabled is true, plugins that are loaded but not enabled
+	 * are returned. If it is false, 0 is returned if the requested plugin
+	 * is loaded but not enabled.
+	 */
 	ScPlugin* getPlugin(QCString pluginName, bool includeDisabled) const;
 
 	/*! \brief Shutdowns all plugins. Called at scribus quit */
@@ -116,9 +120,13 @@ public:
 	// Usable as an lvalue. An invalid plugin name is an error.
 	bool & enableOnStartup(const QCString pluginName);
 
-	// Return a list of plugin names currently known. If includeNotLoaded
-	// is true, names are returned for plug-ins that are not loaded
-	// (ie we have no ScPlugin instance for them).
+	/** \brief Return a list of plugin names currently known.
+	 *
+	 * If includeNotLoaded is true, names are returned for plug-ins that are
+	 * not loaded (ie we have no ScPlugin instance for them).
+	 *
+	 * Disabled plugins are always returned.
+	 */
 	QValueList<QCString> pluginNames(bool includeNotLoaded = false) const;
 
 public slots:

@@ -2,6 +2,7 @@
 #define _SCPLUGIN_H
 
 #include "qobject.h"
+#include "qwidget.h"
 #include "qstring.h"
 #include "qpixmap.h"
 #include "qdatetime.h"
@@ -13,22 +14,29 @@ class ScribusApp;
 class DeferredTask;
 class PrefsPanel;
 
-/*
- * The idea here is that a ScPlugin is an information class stored by the
- * plug-in and returned to callers. It is a singleton that is always owned
- * by the plugin implementation.
+/**
+ * \brief Abstract super class for all Scribus plug-ins
  *
- * Note that the implementation below really creates two quite different
- * kinds of plugins. One for import/export of data which is generally
- * loaded, run, and unloaded. A second for persistent plugins that are loaded
- * (generally when the app starts) and remain resident.
+ * ScPlugin is a class that provides information about a plug-in, and a gateway
+ * into any plugin-specific functionality.  It should not generally be
+ * inherited directly by plugins - use one of the provided base classes
+ * instead.
+ *
+ * Plugins create and return an ScPlugin instance when asked for it by the
+ * plugin manager. The plugin manager is responsible for tracking these
+ * instances.
+ *
+ * Note that the implementation below really creates two quite different kinds
+ * of plugins. One for import/export of data which is generally loaded, run,
+ * and unloaded. A second for persistent plugins that are loaded (generally
+ * when the app starts) and remain resident.
  *
  * More plugin classes - such as plugins for text import and document import
  * - may be added in future.
  *
  * In addition to the API described here, a plugin is expected to implement
  * the following "extern C" functions, where 'pluginname' is the base name
- * of the plug-in:
+ * of the plug-in (where the filename is libpluginname.so on UNIX):
  *
  * int pluginname_getPluginAPIVersion();
  *    Return an integer indicating the plug-in API version implemented.
@@ -44,7 +52,6 @@ class PrefsPanel;
  * void pluginname_freePlugin(ScPlugin* plugin);
  *    Free the scplugin instance returned earlier.
  *
- * TODO: define "standard" plug-ins better
  * TODO: better discovery of what plug-ins can import / export what formats, file exts, names, etc.
  *
  */
@@ -57,10 +64,6 @@ class SCRIBUS_API ScPlugin : public QObject
 	 * @brief ScPlugin provides an interface to ask plugins for information
 	 * about themselves.
 	 *
-	 * Plugins return a pointer to their ScPlugin instance when
-	 * asked for it by the plugin manager. This class provides general
-	 * information about the plugin. It should not generally be inherited
-	 * directly by plugins - use one of the provided base classes instead.
 	 */
 	public:
 
@@ -139,19 +142,33 @@ class SCRIBUS_API ScPlugin : public QObject
 		// anything except display to the user.
 		virtual const QString fullTrName() const = 0;
 
-		// Methods to create and destroy the UI pane for the plugin
-		// A plugin MUST reimplment destroyPrefsPanelWidget if it
-		// reimplements newPrefsPanelWidget .
-		// parent should be set to the dialog it's being added to.
-		//
-		// The plugin prefs dialog must listen to one signal from
-		// the parent widget, accepted(). If accepted() is recieved,
-		// the panel widget must save any changed settings. Settings
-		// must never be saved at any other time.
-		//
-		// By default, returns 0 to indicate no prefs UI.
-		virtual PrefsPanel* newPrefsPanelWidget(QWidget* parent);
-		virtual void destroyPrefsPanelWidget(PrefsPanel* prefsPanelWidget);
+		/**
+		 * \brief Create and return a prefs UI panel for the plugin.
+		 *
+		 * Override this method if you want to provide a panel for the
+		 * preferences dialog.
+		 *
+		 * The caller takes ownership of the panel. Qt is responsible for
+		 * deleting it when it's parent is deleted. Parent must be the dialog
+		 * the widget will be added to or a child of it, otherwise the panel
+		 * won't be deleted correctly when the dialog is.
+		 *
+		 * See prefspanel.h for info on implementing the panel.
+		 *
+		 * This method must return false (the default) if the plugin does
+		 * not provide a prefs panel. If true is returned, caption, panel,
+		 * and icon MUST have been assigned.
+		 *
+		 * \param parent Parent widget, to be passed to panel ctor
+		 * \param panel (out) the panel created
+		 * \param caption (out) caption for icon in panel list
+		 * \param icon (out) icon for use in panel list
+		 * \return true if panel was created, false if not.
+		 *
+		 * By default, returns 0 to indicate no prefs UI.
+		*/
+		virtual bool newPrefsPanelWidget(QWidget* parent, PrefsPanel*& panel,
+										 QString& caption, QPixmap& icon);
 
 		// Return icon and caption to use for preferences panel in the prefs
 		// dialog. Unless overridden, returns QString::null and an empty pixmap.

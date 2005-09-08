@@ -21,16 +21,12 @@ ScPlugin::~ScPlugin()
 {
 }
 
-PrefsPanel* ScPlugin::newPrefsPanelWidget(QWidget* parent)
+bool ScPlugin::newPrefsPanelWidget( QWidget* /* parent */,
+									PrefsPanel*& /* panel */,
+									QString& /* caption */,
+									QPixmap& /* icon */)
 {
-	return 0;
-}
-
-// Don't call this method; it must be overridden if the plug-in
-// returns a prefs widget.
-void ScPlugin::destroyPrefsPanelWidget(PrefsPanel* /*prefsPanelWidget*/)
-{
-	Q_ASSERT(false);
+	return false;
 }
 
 const QPixmap ScPlugin::prefsPanelIcon() const
