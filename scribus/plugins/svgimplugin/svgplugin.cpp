@@ -25,6 +25,7 @@
 #include "prefsmanager.h"
 #include "pageitem.h"
 #include "scribusdoc.h"
+#include "fpointarray.h"
 
 using namespace std;
 

@@ -7,8 +7,6 @@
 #include "scplugin.h"
 #include "vgradient.h"
 
-class PrefsManager;
-
 class PLUGIN_API SVGImportPlugin : public ScActionPlugin
 {
 	Q_OBJECT
@@ -32,6 +30,8 @@ extern "C" PLUGIN_API void svgimplugin_freePlugin(ScPlugin* plugin);
 
 class PageItem;
 class ScribusDoc;
+class PrefsManager;
+class FPointArray;
 
 class GradientHelper
 {
