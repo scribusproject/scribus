@@ -2803,6 +2803,8 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 					z = PaintText(Tx + offX, Ty + offY, deltaX, deltaY, doku->Dwidth, doku->DpenText);
 					b = Items.at(z);
 					b->isTableItem = true;
+					b->Textflow = true;
+					b->Textflow2 = true;
 					SelItem.append(b);
 					offX += deltaX;
 				}
