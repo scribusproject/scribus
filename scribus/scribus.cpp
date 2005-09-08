@@ -280,7 +280,10 @@ int ScribusApp::initScribus(bool showSplash, bool showFontInfo, const QString ne
 		initCMS();
 
 		setSplashStatus( tr("Initializing Hyphenator") );
+		QString preLang = prefsManager->appPrefs.Language;
 		initHyphenator();
+		if (Sprachen.contains(preLang))
+			prefsManager->appPrefs.Language = preLang;
 		setSplashStatus( tr("Reading Scrapbook") );
 		initScrapbook();
 		setSplashStatus( tr("Setting up Shortcuts") );

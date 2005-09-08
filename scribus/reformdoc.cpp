@@ -907,7 +907,7 @@ void ReformDoc::updateDocumentSettings()
 		currDoc->autoSaveTimer->stop();
 		currDoc->autoSaveTimer->start(currDoc->AutoSaveTime);
 	}
-	currDoc->docHyphenator->slotNewDict(tabHyphenator->language->currentText());
+	currDoc->docHyphenator->slotNewDict(ScApp->GetLang(tabHyphenator->language->currentText()));
 	currDoc->docHyphenator->slotNewSettings(tabHyphenator->wordLen->value(),
 																!tabHyphenator->verbose->isChecked(),
 																tabHyphenator->input->isChecked(),

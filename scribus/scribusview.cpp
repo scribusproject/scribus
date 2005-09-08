@@ -1397,6 +1397,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					z = PaintText(Tx + offX, Ty + offY, deltaX, deltaY, Doc->toolSettings.dWidth, Doc->toolSettings.dPenText);
 					currItem = Doc->Items.at(z);
 					currItem->isTableItem = true;
+					currItem->setTextFlowsAroundFrame(true);
+					currItem->setTextFlowUsesBoundingBox(true);
 					SelItem.append(currItem);
 					offX += deltaX;
 				}

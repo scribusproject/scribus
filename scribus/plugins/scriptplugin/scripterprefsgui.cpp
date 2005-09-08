@@ -15,12 +15,12 @@
 ScripterPrefsGui::ScripterPrefsGui( QWidget* parent  )
 	: PrefsPanel( parent, "ScripterPrefsGui" )
 {
-	ScripterPrefsGuiBaseLayout = new QGridLayout( this, 1, 1, 11, 6, "ScripterPrefsGuiBaseLayout"); 
+	ScripterPrefsGuiBaseLayout = new QGridLayout( this, 1, 1, 10, 5, "ScripterPrefsGuiBaseLayout"); 
 
 	extGroup = new QGroupBox( this, "extGroup" );
 	extGroup->setColumnLayout(0, Qt::Vertical );
-	extGroup->layout()->setSpacing( 6 );
-	extGroup->layout()->setMargin( 11 );
+	extGroup->layout()->setSpacing( 5 );
+	extGroup->layout()->setMargin( 10 );
 	extGroupLayout = new QVBoxLayout( extGroup->layout() );
 	extGroupLayout->setAlignment( Qt::AlignTop );
 
@@ -30,7 +30,7 @@ ScripterPrefsGui::ScripterPrefsGui( QWidget* parent  )
 	startupScriptFrame = new QFrame( extGroup, "startupScriptFrame" );
 	startupScriptFrame->setFrameShape( QFrame::StyledPanel );
 	startupScriptFrame->setFrameShadow( QFrame::Raised );
-	startupScriptFrameLayout = new QHBoxLayout( startupScriptFrame, 11, 6, "startupScriptFrameLayout"); 
+	startupScriptFrameLayout = new QHBoxLayout( startupScriptFrame, 10, 5, "startupScriptFrameLayout"); 
 
 	startupScriptEditLabel = new QLabel( startupScriptFrame, "startupScriptEditLabel" );
 	startupScriptFrameLayout->addWidget( startupScriptEditLabel );
@@ -38,12 +38,12 @@ ScripterPrefsGui::ScripterPrefsGui( QWidget* parent  )
 	startupScriptEdit = new QLineEdit( startupScriptFrame, "startupScriptEdit" );
 	startupScriptFrameLayout->addWidget( startupScriptEdit );
 	extGroupLayout->addWidget( startupScriptFrame );
-	extScriptSpacer = new QSpacerItem( 20, 111, QSizePolicy::Minimum, QSizePolicy::Expanding );
+	extScriptSpacer = new QSpacerItem( 10, 10, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	extGroupLayout->addItem( extScriptSpacer );
 
 	ScripterPrefsGuiBaseLayout->addWidget( extGroup, 0, 0 );
 	languageChange();
-	resize( QSize(423, 176).expandedTo(minimumSizeHint()) );
+	resize( minimumSizeHint() );
 	clearWState( WState_Polished );
 
 	// Set the state of the ext script enable checkbox
