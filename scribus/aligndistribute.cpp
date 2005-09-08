@@ -894,22 +894,17 @@ void AlignDistributePalette::distributeLeft()
 		for (uint a = 0; a < alignObjectsCount; ++a)
 			Xsorted.insert((*alignObjects)[a].x1, a, false);
 			
-		double minX;
-		double maxX;
-		for ( QMap<double,uint>::Iterator it = Xsorted.begin(); it != Xsorted.end(); ++it )
+		QMap<double,uint>::Iterator it = Xsorted.begin();
+		QMap<double,uint>::Iterator itend = Xsorted.end();
+		double minX=it.key();
+		double maxX=it.key();
+		while ( it != itend)
 		{
-			if (it == Xsorted.begin())
-			{
+			if (minX>it.key())
 				minX=it.key();
+			if (maxX<it.key())
 				maxX=it.key();
-			}
-			else
-			{
-				if (minX>it.key())
-					minX=it.key();
-				if (maxX<it.key())
-					maxX=it.key();
-			}
+			++it;
 		}
 			
 		double separation=(maxX-minX)/static_cast<double>(alignObjectsCount-1);
@@ -937,22 +932,17 @@ void AlignDistributePalette::distributeCenterH()
 		for (uint a = 0; a < alignObjectsCount; ++a)
 			Xsorted.insert((*alignObjects)[a].x1+((*alignObjects)[a].width)/2, a, false);
 			
-		double minX;
-		double maxX;
-		for ( QMap<double,uint>::Iterator it = Xsorted.begin(); it != Xsorted.end(); ++it )
+		QMap<double,uint>::Iterator it = Xsorted.begin();
+		QMap<double,uint>::Iterator itend = Xsorted.end();
+		double minX=it.key();
+		double maxX=it.key();
+		while ( it != itend)
 		{
-			if (it == Xsorted.begin())
-			{
+			if (minX>it.key())
 				minX=it.key();
+			if (maxX<it.key())
 				maxX=it.key();
-			}
-			else
-			{
-				if (minX>it.key())
-					minX=it.key();
-				if (maxX<it.key())
-					maxX=it.key();
-			}
+			++it;
 		}
 			
 		double separation=(maxX-minX)/static_cast<double>(alignObjectsCount-1);
@@ -980,24 +970,19 @@ void AlignDistributePalette::distributeRight()
 		for (uint a = 0; a < alignObjectsCount; ++a)
 			Xsorted.insert((*alignObjects)[a].x2, a, false);
 			
-		double minX;
-		double maxX;
-		for ( QMap<double,uint>::Iterator it = Xsorted.begin(); it != Xsorted.end(); ++it )
+		QMap<double,uint>::Iterator it = Xsorted.begin();
+		QMap<double,uint>::Iterator itend = Xsorted.end();
+		double minX=it.key();
+		double maxX=it.key();
+		while ( it != itend)
 		{
-			if (it == Xsorted.begin())
-			{
+			if (minX>it.key())
 				minX=it.key();
+			if (maxX<it.key())
 				maxX=it.key();
-			}
-			else
-			{
-				if (minX>it.key())
-					minX=it.key();
-				if (maxX<it.key())
-					maxX=it.key();
-			}
+			++it;
 		}
-			
+		
 		double separation=(maxX-minX)/static_cast<double>(alignObjectsCount-1);
 		int i=0;
 		for ( QMap<double,uint>::Iterator it = Xsorted.begin(); it != Xsorted.end(); ++it )
@@ -1085,22 +1070,17 @@ void AlignDistributePalette::distributeBottom()
 		for (uint a = 0; a < alignObjectsCount; ++a)
 			Ysorted.insert((*alignObjects)[a].y2, a, false);
 			
-		double minY;
-		double maxY;
-		for ( QMap<double,uint>::Iterator it = Ysorted.begin(); it != Ysorted.end(); ++it )
+		QMap<double,uint>::Iterator it = Ysorted.begin();
+		QMap<double,uint>::Iterator itend = Ysorted.end();
+		double minY=it.key();
+		double maxY=it.key();
+		while ( it != itend)
 		{
-			if (it == Ysorted.begin())
-			{
+			if (minY>it.key())
 				minY=it.key();
+			if (maxY<it.key())
 				maxY=it.key();
-			}
-			else
-			{
-				if (minY>it.key())
-					minY=it.key();
-				if (maxY<it.key())
-					maxY=it.key();
-			}
+			++it;
 		}
 			
 		double separation=(maxY-minY)/static_cast<double>(alignObjectsCount-1);
@@ -1128,22 +1108,17 @@ void AlignDistributePalette::distributeCenterV()
 		for (uint a = 0; a < alignObjectsCount; ++a)
 			Ysorted.insert((*alignObjects)[a].y1+((*alignObjects)[a].height)/2, a, false);
 			
-		double minY;
-		double maxY;
-		for ( QMap<double,uint>::Iterator it = Ysorted.begin(); it != Ysorted.end(); ++it )
+		QMap<double,uint>::Iterator it = Ysorted.begin();
+		QMap<double,uint>::Iterator itend = Ysorted.end();
+		double minY=it.key();
+		double maxY=it.key();
+		while ( it != itend)
 		{
-			if (it == Ysorted.begin())
-			{
+			if (minY>it.key())
 				minY=it.key();
+			if (maxY<it.key())
 				maxY=it.key();
-			}
-			else
-			{
-				if (minY>it.key())
-					minY=it.key();
-				if (maxY<it.key())
-					maxY=it.key();
-			}
+			++it;
 		}
 			
 		double separation=(maxY-minY)/static_cast<double>(alignObjectsCount-1);
@@ -1171,22 +1146,17 @@ void AlignDistributePalette::distributeTop()
 		for (uint a = 0; a < alignObjectsCount; ++a)
 			Ysorted.insert((*alignObjects)[a].y1, a, false);
 			
-		double minY;
-		double maxY;
-		for ( QMap<double,uint>::Iterator it = Ysorted.begin(); it != Ysorted.end(); ++it )
+		QMap<double,uint>::Iterator it = Ysorted.begin();
+		QMap<double,uint>::Iterator itend = Ysorted.end();
+		double minY=it.key();
+		double maxY=it.key();
+		while ( it != itend)
 		{
-			if (it == Ysorted.begin())
-			{
+			if (minY>it.key())
 				minY=it.key();
+			if (maxY<it.key())
 				maxY=it.key();
-			}
-			else
-			{
-				if (minY>it.key())
-					minY=it.key();
-				if (maxY<it.key())
-					maxY=it.key();
-			}
+			++it;
 		}
 			
 		double separation=(maxY-minY)/static_cast<double>(alignObjectsCount-1);
