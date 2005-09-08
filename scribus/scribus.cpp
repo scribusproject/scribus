@@ -474,7 +474,10 @@ void ScribusApp::initScribus()
 		GetCMSProfiles();
 		splash->setStatus( tr("Init Hyphenator"));
 		qApp->processEvents();
+		QString preLang = Prefs.Language;
 		InitHyphenator();
+		if (Sprachen.contains(preLang))
+			Prefs.Language = preLang;
 		Mpal->Cpal->UseTrans(Prefs.PDFTransparency);
 		Mpal->Fonts->RebuildList(&Prefs);
 		DocDir = Prefs.DocDir;
@@ -8986,7 +8989,7 @@ void ScribusApp::configHyphenator()
 	{
 		if (HaveDoc)
 		{
-			doc->Trenner->slotNewDict(dia->Language->currentText());
+			doc->Trenner->slotNewDict(GetLang(dia->Language->currentText()));
 			doc->Trenner->slotNewSettings(dia->WordLen->value(), !dia->Verbose->isChecked(), dia->Input->isChecked(),dia->MaxCount->value());
 		}
 		else
