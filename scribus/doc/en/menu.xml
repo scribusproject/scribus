@@ -113,6 +113,7 @@
   </area>
   <area file="otherinfo.html" text="Other Information" >
     <submenuitem file="resources.html" text="Community" />
+    <submenuitem file="irc.html" text="IRC" />
     <submenuitem file="scprinters.html" text="Printers" />
     <submenuitem file="download.html" text="Download" />
     <submenuitem file="contributions.html" text="Contributions" />
