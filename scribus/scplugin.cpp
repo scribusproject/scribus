@@ -3,6 +3,7 @@
 #include "deferredtask.h"
 #include "scribus.h"
 #include "scribusapp.h"
+#include "prefspanel.h"
 
 #include "scplugin.moc"
 
@@ -16,18 +17,18 @@ ScPlugin::ScPlugin(PluginType pluginType)
 {
 }
 
-QWidget* ScPlugin::newPrefsPanelWidget()
-{
-	return 0;
-}
-
 ScPlugin::~ScPlugin()
 {
 }
 
+PrefsPanel* ScPlugin::newPrefsPanelWidget(QWidget* parent)
+{
+	return 0;
+}
+
 // Don't call this method; it must be overridden if the plug-in
 // returns a prefs widget.
-void ScPlugin::destroyPrefsPanelWidget(QWidget* /*prefsPanelWidget*/)
+void ScPlugin::destroyPrefsPanelWidget(PrefsPanel* /*prefsPanelWidget*/)
 {
 	Q_ASSERT(false);
 }
@@ -64,6 +65,8 @@ const QString ScPlugin::pluginTypeName() const
 			return tr("Action", "plugin manager plugin type");
 			break;
 	}
+	Q_ASSERT(false);
+	return QString();
 }
 
 //=====================================================//

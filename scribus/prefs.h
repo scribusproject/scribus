@@ -195,8 +195,14 @@ public:
 	ScribusApp *ap;
 	QColor colorPaper;
 
+signals:
+	/// Panels listen to this and save their changes when they get it.
+	void accepted();
 
 public slots:
+	/// Overridden to emit accepted(), which plugin panels use
+	void accept();
+
 	void changeDocs();
 	void changeProfs();
 	void changeScripts();
@@ -215,8 +221,11 @@ public slots:
 	void setDisScale();
 	void switchCMS(bool enable);
 
-
 protected:
+
+	// Scans plugins for those that want to add a prefs widget and
+	// hooks them up to the dialog.
+	void addPlugins();
 	
 	QHBoxLayout* groupImageEditorLayout;
 	QVBoxLayout* groupGhostScriptLayout;
@@ -257,16 +266,13 @@ protected:
 
 	QStringList defaultAttributesList;
 
-protected slots:
-	virtual void setTOCIndexData(QWidget *widgetToShow);
-
-private slots:
-	void setSelectedGUILang( const QString &newLang );
-	void setActionHistoryLength();
-
-private:
 	LanguageManager langMgr;
 	PrefsManager* prefsManager;
+
+protected slots:
+	virtual void setTOCIndexData(QWidget *widgetToShow);
+	void setSelectedGUILang( const QString &newLang );
+	void setActionHistoryLength();
 };
 
 #endif // PREFS_H

@@ -38,7 +38,10 @@
 #include "linecombo.h"
 #include "arrowchooser.h"
 #include "pagelayout.h"
+#include "pluginmanager.h"
 #include "pluginmanagerprefsgui.h"
+#include "scplugin.h"
+
 using namespace std;
 
 extern QPixmap loadIcon(QString nam);
@@ -692,7 +695,11 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	addItem(  tr("Miscellaneous"), loadIcon("misc.png"), Misc);
 
 	// plugin manager. pv.
-	addItem( tr("Plugins"), loadIcon("plugins.png"), new PluginManagerPrefsGui(prefsWidgets) );
+	PluginManagerPrefsGui* pluginManagerPrefsGui = new PluginManagerPrefsGui(prefsWidgets);
+	addItem( tr("Plugins"), loadIcon("plugins.png"), pluginManagerPrefsGui );
+	connect(this, SIGNAL(accepted()), pluginManagerPrefsGui, SLOT(apply()));
+
+	addPlugins();
 
 	setDS(prefsData->FacingPages);
 	//tab order
@@ -813,6 +820,41 @@ Preferences::~Preferences()
 	// no need to delete child widgets, Qt does it all for us
 }
 
+
+void Preferences::addPlugins()
+{
+	// Scan for plugins that provide a prefs widget, and add it to the
+	// prefs dialog.
+	// For each plugin that's loaded:
+	PluginManager& pluginManager = PluginManager::instance();
+	QValueList<QCString> pluginNames(pluginManager.pluginNames());
+	QValueList<QCString>::Iterator itEnd(pluginNames.end());
+	for (QValueList<QCString>::Iterator it(pluginNames.begin()); it != itEnd ; ++it )
+	{
+		// Ask the plugin for its prefs widget (skipping disabled plugins),
+		ScPlugin* plugin = pluginManager.getPlugin(*it, false);
+		PrefsPanel* panel = plugin->newPrefsPanelWidget(this);
+		if (panel)
+		{
+			// Get a caption and icon for it,
+			QPixmap panelIcon(plugin->prefsPanelIcon());
+			Q_ASSERT(!panelIcon.isNull());
+			QString panelCaption(plugin->prefsPanelName());
+			Q_ASSERT(!panelCaption.isNull());
+			// plug it in to the dialog,
+			addItem(panelCaption, panelIcon, panel);
+			// and connect a signal to tell it to save its
+			// settings.
+			connect(this, SIGNAL(accepted()), panel, SLOT(apply()));
+		}
+	}
+}
+
+void Preferences::accept()
+{
+	emit accepted();
+	return PrefsDialogBase::accept();
+}
 
 /*!
  \fn void Preferences::ChangeDocs()

@@ -11,6 +11,7 @@
 class QWidget;
 class ScribusApp;
 class DeferredTask;
+class PrefsPanel;
 
 /*
  * The idea here is that a ScPlugin is an information class stored by the
@@ -141,9 +142,16 @@ class SCRIBUS_API ScPlugin : public QObject
 		// Methods to create and destroy the UI pane for the plugin
 		// A plugin MUST reimplment destroyPrefsPanelWidget if it
 		// reimplements newPrefsPanelWidget .
+		// parent should be set to the dialog it's being added to.
+		//
+		// The plugin prefs dialog must listen to one signal from
+		// the parent widget, accepted(). If accepted() is recieved,
+		// the panel widget must save any changed settings. Settings
+		// must never be saved at any other time.
+		//
 		// By default, returns 0 to indicate no prefs UI.
-		virtual QWidget* newPrefsPanelWidget();
-		virtual void destroyPrefsPanelWidget(QWidget* prefsPanelWidget);
+		virtual PrefsPanel* newPrefsPanelWidget(QWidget* parent);
+		virtual void destroyPrefsPanelWidget(PrefsPanel* prefsPanelWidget);
 
 		// Return icon and caption to use for preferences panel in the prefs
 		// dialog. Unless overridden, returns QString::null and an empty pixmap.

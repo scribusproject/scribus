@@ -8,7 +8,7 @@
 #include "qlabel.h"
 
 PluginManagerPrefsGui::PluginManagerPrefsGui(QWidget * parent)
-	: QWidget(parent, "pluginManagerWidget", 0)
+	: PrefsPanel(parent, "pluginManagerPrefsWidget")
 {
 	PluginManager& pluginManager(PluginManager::instance());
 	pluginMainLayout = new QVBoxLayout( this, 0, 5, "pluginMainLayout");
@@ -64,6 +64,8 @@ PluginManagerPrefsGui::PluginManagerPrefsGui(QWidget * parent)
 		plugItem->setText(3, onstart ? tr("Yes") : tr("No"));
 		plugItem->setText(4, QString("%1").arg(*it)); // plugname for developers
 		plugItem->setText(5, pluginManager.getPluginPath(*it)); // file path for developers
+		// Populate the working settings info for the plug-in
+		pluginSettings[*it].enableOnStartup = onstart;
 	}
 	plugLayout1->addWidget(pluginsList);
 	pluginWarning = new QLabel(plugGroupBox);
@@ -72,7 +74,7 @@ PluginManagerPrefsGui::PluginManagerPrefsGui(QWidget * parent)
 	plugGroupBoxLayout->addLayout(plugLayout1, 0, 0);
 	pluginMainLayout->addWidget(plugGroupBox);
 	connect(pluginsList, SIGNAL(clicked(QListViewItem *, const QPoint &, int)),
-			this, SLOT(changePluginLoad(QListViewItem *, const QPoint &, int)));
+			this, SLOT(updateSettings(QListViewItem *, const QPoint &, int)));
 }
 
 PluginManagerPrefsGui::~PluginManagerPrefsGui()
@@ -82,22 +84,39 @@ PluginManagerPrefsGui::~PluginManagerPrefsGui()
 /*! Set selected item(=plugin) un/loadable
 \author Petr Vanek
 */
-void PluginManagerPrefsGui::changePluginLoad(QListViewItem *item, const QPoint &, int column)
+void PluginManagerPrefsGui::updateSettings(QListViewItem *item, const QPoint &, int column)
 {
-	PluginManager& pluginManager(PluginManager::instance());
 	if (column != 3)
+		// Only the plugin enable/disabled checkbox is editable
 		return;
+	PluginSettings& settings = pluginSettings[item->text(4).latin1()];
+	bool onstartup;
 	if (item->text(3) == tr("Yes"))
 	{
 		item->setPixmap(3, loadIcon("DateiClos16.png"));
 		item->setText(3, tr("No"));
-		pluginManager.enableOnStartup(item->text(4).latin1()) = false;
+		// Update our stored settings with the new flag
+		onstartup = false;
 	}
 	else
 	{
 		item->setPixmap(3, loadIcon("ok.png"));
 		item->setText(3, tr("Yes"));
-		pluginManager.enableOnStartup(item->text(4).latin1()) = true;
+		onstartup = true;
+	}
+	// Store changed setting(s) into working setting info
+	settings.enableOnStartup = onstartup;
+}
+
+void PluginManagerPrefsGui::apply()
+{
+	PluginManager& pluginManager(PluginManager::instance());
+	// For each plugin:
+	QMap<QCString,PluginSettings>::Iterator itEnd(pluginSettings.end());
+	for ( QMap<QCString,PluginSettings>::Iterator it(pluginSettings.begin()) ; it != itEnd ; ++it )
+	{
+		// Save any changes from our working info to the plugin manager
+		pluginManager.enableOnStartup(it.key()) = it.data().enableOnStartup;
 	}
 }
 

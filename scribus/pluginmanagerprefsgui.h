@@ -2,7 +2,8 @@
 #define PLUGINMANAGERPREFS_H
 
 #include "qwidget.h"
-#include "pluginmanager.h"
+#include "qmap.h"
+#include "prefspanel.h"
 
 class QVBoxLayout;
 class QGroupBox;
@@ -11,7 +12,7 @@ class QListView;
 class QLabel;
 class QListViewItem;
 
-class PluginManagerPrefsGui : public QWidget
+class PluginManagerPrefsGui : public PrefsPanel
 {
 	Q_OBJECT
 
@@ -20,7 +21,10 @@ class PluginManagerPrefsGui : public QWidget
 		~PluginManagerPrefsGui();
 
 	public slots:
-		void changePluginLoad(QListViewItem *item, const QPoint &, int column);
+		void updateSettings(QListViewItem *item, const QPoint &, int column);
+
+		/// Apply changes to each plugin's PluginSettings
+		void apply();
 
 	protected:
 		QVBoxLayout* pluginMainLayout;
@@ -30,9 +34,16 @@ class PluginManagerPrefsGui : public QWidget
 		QListView* pluginsList;
 		QLabel* pluginWarning;
 
-		// Friend of PluginManager that lets us poke in the protected
-		// PluginManager::pluginMap directly.
-		PluginManager::PluginMap & getPluginMap();
+		/* \brief Stores current settings for each plugin
+		 * \param enableOnStartup - Load the plug-in on startup?
+		 */
+		struct PluginSettings
+		{
+			bool enableOnStartup;
+		};
+
+		/// Store current settings about each plug-in
+		QMap<QCString,PluginSettings> pluginSettings;
 };
 
 #endif

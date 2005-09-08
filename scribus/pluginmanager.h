@@ -41,38 +41,6 @@ class SCRIBUS_API PluginManager : public QObject
 
 public:
 
-	/**
-	 * \param pluginFile path to the share library (with name).
-	 * \brief pluginName internal name of plug-in, used for prefix to dlsym() names
-	 * \param pluginDLL reference to plug-in data for dynamic loading
-	 * \brief PluginData is structure for plugin related informations.
-	 * \param plugin is the pointer to the plugin instance
-	 * \param setupEnable enable or disable plugin for user
-	 * \param enabled has the plug-in been set up and activated?
-	 *
-	 * Note that there are some constraints on this structure.
-	 * enabled == true depends on:
-	 *     plugin != 0 which depends on:
-	 *         pluginDLL != 0
-	 *
-	 * In other words, a plugin cannot be enabled unless we have an ScPlugin
-	 * instance for it. We can't have an ScPlugin instance for a plugin unless
-	 * it's linked.
-	 */
-
-	struct PluginData
-	{
-		QString pluginFile; // Datei;
-		QCString pluginName;
-		void* pluginDLL;
-		ScPlugin* plugin;
-		bool enableOnStartup;
-		bool enabled;
-	};
-
-	// Mapping of plugin names to plugin info structures.
-	typedef QMap<QCString,PluginData> PluginMap;
-
 	PluginManager();
 	~PluginManager();
 
@@ -107,9 +75,6 @@ public:
 	/*! \brief Returns a pointer to the requested plugin, or
 	 *         0 if not found. */
 	ScPlugin* getPlugin(QCString pluginName, bool includeDisabled) const;
-
-	/*! \brief Reads available info and fills PluginData structure */
-	bool loadPlugin(PluginData & pluginData);
 
 	/*! \brief Shutdowns all plugins. Called at scribus quit */
 	void cleanupPlugins();
@@ -162,6 +127,38 @@ public slots:
 
 protected:
 
+	/**
+	 * \brief PluginData is structure for plugin related informations.
+	 * \param pluginFile path to the share library (with name).
+	 * \param pluginName internal name of plug-in, used for prefix to dlsym() names
+	 * \param pluginDLL reference to plug-in data for dynamic loading
+	 * \param plugin is the pointer to the plugin instance
+	 * \param enableOnStartup enable or disable plugin at app start-up
+	 * \param enabled has the plug-in been set up and activated (gui connected, setup called, etc)?
+	 *
+	 * Note that there are some constraints on this structure.
+	 * enabled == true depends on:
+	 *     plugin != 0 which depends on:
+	 *         pluginDLL != 0
+	 *
+	 * In other words, a plugin cannot be enabled unless we have an ScPlugin
+	 * instance for it. We can't have an ScPlugin instance for a plugin unless
+	 * it's linked.
+	 */
+
+	struct PluginData
+	{
+		QString pluginFile; // Datei;
+		QCString pluginName;
+		void* pluginDLL;
+		ScPlugin* plugin;
+		bool enableOnStartup;
+		bool enabled;
+	};
+
+	/*! \brief Reads available info and fills PluginData structure */
+	bool loadPlugin(PluginData & pluginData);
+
 	// Determines the plugin name from the file name and returns it.
 	static QCString getPluginName(QString fileName);
 
@@ -191,8 +188,12 @@ protected:
 	/** \brief Configuration structure */
 	PrefsContext* prefs;
 
+	// Mapping of plugin names to plugin info structures.
+	typedef QMap<QCString,PluginData> PluginMap;
+
 	/*! \brief Plugin mapping.
-	 * Each plugin has its record key() -> PluginData */
+	 * Each plugin has its record key() -> PluginData
+	 */
 	PluginMap pluginMap;
 };
 
