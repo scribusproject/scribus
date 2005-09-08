@@ -1,3 +1,6 @@
+#ifndef PREFSPANEL_H
+#define PREFSPANEL_H
+
 #include <qwidget.h>
 #include <scribusapi.h>
 
@@ -29,3 +32,5 @@ class SCRIBUS_API PrefsPanel : public QWidget
 		 */
 		virtual void apply() = 0;
 };
+
+#endif
