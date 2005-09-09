@@ -11346,7 +11346,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	switch (Buffer->PType)
 	{
 	// OBSOLETE CR 2005-02-06
-	case PageItem::FrameType1:
+	case PageItem::ItemType1:
 		z = PaintEllipse(x, y, w, h, pw, Buffer->Pcolor, Buffer->Pcolor2);
 		break;
 	//
@@ -11373,7 +11373,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		Doc->Items.at(z)->Pwidth = Buffer->Pwidth;
 		break;
 	// OBSOLETE CR 2005-02-06
-	case PageItem::FrameType3:
+	case PageItem::ItemType3:
 		z = PaintRect(x, y, w, h, pw, Buffer->Pcolor, Buffer->Pcolor2);
 		break;
 	//
@@ -11626,7 +11626,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	if (currItem->itemType() != PageItem::Line)
 	{
 		// OBSOLETE CR 2005-02-06
-		if ((currItem->PoLine.size() == 0) && (currItem->itemType() != PageItem::FrameType1))
+		if ((currItem->PoLine.size() == 0) && (currItem->itemType() != PageItem::ItemType1))
 			ConvertClip(currItem);
 		else
 			//
@@ -11643,10 +11643,10 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		currItem->Height = 1;
 	}
 	// OBSOLETE CR 2005-02-06
-	if (currItem->itemType() == PageItem::FrameType1)
+	if (currItem->itemType() == PageItem::ItemType1)
 		SetOvalFrame(currItem);
 	// OBSOLETE CR 2005-02-06
-	if (currItem->itemType() == PageItem::FrameType3)
+	if (currItem->itemType() == PageItem::ItemType3)
 	{
 		if (currItem->RadRect != 0)
 			SetFrameRound(currItem);

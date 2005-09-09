@@ -90,7 +90,7 @@ class SCRIBUS_API PageItem : public QObject, public UndoObject
 	// when testing out the pageitem refactoring work.  Setting it is unlikely
 	// to currently have the desired effect.
 	/**
-	 * @brief Frame type.
+	 * @brief Item type.
 	 * @warning Do not set this property except for testing and debug purposes.
 	 */
 	Q_ENUMS(ItemType)
@@ -99,21 +99,30 @@ class SCRIBUS_API PageItem : public QObject, public UndoObject
 public:
 	// Enumerator definitions
 
-	/** @brief Frame Type
+	/** @brief Item Type
 	 *
-	 * Later, frame type will probably go away in favour of using
+	 * Later, item type will probably go away in favour of using
 	 * subclasses and checking types using more conventional methods
 	 * and using Qt's MetaObject introspection.
 	 */
 	enum ItemType {
-		FrameType1  = 1,
+		ItemType1	= 1,
 		ImageFrame	= 2,
-		FrameType3  = 3,
+		ItemType3	= 3,
 		TextFrame	= 4,
 		Line		= 5,
 		Polygon		= 6,
 		PolyLine	= 7,
 		PathText	= 8
+	};
+	/** @brief Frame Type
+	 *
+	 * 
+	 */
+	enum FrameType {
+		FrameType0	= 0,
+		Ellipse		= 1,
+		FrameType2	= 2
 	};
 
 struct TabRecord

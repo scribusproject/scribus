@@ -1248,8 +1248,8 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 							PutPage("h\nf*\n");
 						}
 						break;
-					case PageItem::FrameType1:
-					case PageItem::FrameType3:
+					case PageItem::ItemType1:
+					case PageItem::ItemType3:
 					case PageItem::Polygon:
 						if (ite->GrType != 0)
 							PutPage(PDF_Gradient(ite));
@@ -2318,8 +2318,8 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, Page* pag, uint PNr, bool embedde
 				tmp += "h\nf*\n";
 			}
 			break;
-		case PageItem::FrameType1:
-		case PageItem::FrameType3:
+		case PageItem::ItemType1:
+		case PageItem::ItemType3:
 		case PageItem::Polygon:
 			if (ite->GrType != 0)
 				tmp += PDF_Gradient(ite);

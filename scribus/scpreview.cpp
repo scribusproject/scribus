@@ -650,8 +650,8 @@ QPixmap ScPreview::createPreview(QString data)
 			case 1:
 			case 3:
 			*/
-			case PageItem::FrameType1:
-			case PageItem::FrameType3:
+			case PageItem::ItemType1:
+			case PageItem::ItemType3:
 			case PageItem::Polygon:
 				pS->setupPolygon(&OB.PoLine);
 				pS->drawPolygon();

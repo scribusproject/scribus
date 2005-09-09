@@ -1899,7 +1899,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc, ScribusView *
 	switch (pt)
 	{
 	// OBSOLETE CR 2005-02-06
-	case PageItem::FrameType1:
+	case PageItem::ItemType1:
 		z = view->PaintEllipse(x, y, w, h, pw, Pcolor, Pcolor2);
 		currItem = doc->Items.at(z);
 		break;
@@ -1952,7 +1952,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc, ScribusView *
 		currItem->Pwidth = pw;
 		break;
 	// OBSOLETE CR 2005-02-06
-	case PageItem::FrameType3:
+	case PageItem::ItemType3:
 		z = view->PaintRect(x, y, w, h, pw, Pcolor, Pcolor2);
 		currItem = doc->Items.at(z);
 		break;
