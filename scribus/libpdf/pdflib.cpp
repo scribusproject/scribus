@@ -4051,7 +4051,7 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 		int cm = Options->CompressMethod;
 		if (((ext == "jpg") || (ext == "jpeg")) && (cm != 3))
 		{
-			if ((Options->UseRGB || Options->UseProfiles2) && (!Options->RecalcPic) && (!isProgressive(fn)))
+			if ((Options->UseRGB || Options->UseProfiles2) && (!Options->RecalcPic) && (!isProgressive(fn)) && (!inver))
 			{
 				im = "";
 				loadText(fn, &im);
