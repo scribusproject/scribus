@@ -119,10 +119,12 @@ public:
 	 *
 	 * 
 	 */
-	enum FrameType {
-		FrameType0	= 0,
+	enum ItemFrameType {
+		Unspecified =-1,
+		Rectangle	= 0,
 		Ellipse		= 1,
-		FrameType2	= 2
+		Round		= 2,
+		Other		= 3
 	};
 
 struct TabRecord
