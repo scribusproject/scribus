@@ -1,0 +1,19 @@
+pluginsdir = $(libdir)/scribus/plugins
+
+plugins_LTLIBRARIES = libmyplugin.la
+
+INCLUDES = $(LIBFREETYPE_CFLAGS) $(all_includes)
+
+libmyplugin_la_LDFLAGS = -version-info 0:0:0
+libmyplugin_la_METASOURCES = AUTO
+libmyplugin_la_SOURCES = myplugin.cpp mypluginimpl.cpp
+
+EXTRA_DIST = myplugin.h mypluginimpl.h
+
+KDE_OPTIONS = qtonly
+
+AM_LDFLAGS = $(LIBFREETYPE_LIBS) $(MODULE_LINK_FLAGS)
+
+AM_CPPFLAGS = \
+    -I$(top_builddir)/scribus \
+    $(GCC4_VISIBILITY_FLAGS)
