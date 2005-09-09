@@ -292,6 +292,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document"))
 	PDF_Options.UseLPI = prefsData->PDF_Options.UseLPI;
 	PDF_Options.LPISettings = prefsData->PDF_Options.LPISettings;
 	PDF_Options.useLayers = prefsData->PDF_Options.useLayers;
+	PDF_Options.doMultiFile = prefsData->PDF_Options.doMultiFile;
 
 	docItemAttributes = prefsData->defaultItemAttributes;
 	docToCSetups = prefsData->defaultToCSetups;
