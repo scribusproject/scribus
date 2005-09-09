@@ -134,8 +134,6 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	Layout6 = new QHBoxLayout();
 	Layout6->setSpacing(0);
 	Layout6->setMargin(0);
-	printButton = new QPushButton( tr("Print..."), this, "printButton" );
-	Layout6->addWidget( printButton );
 	/* scaling */
 	scaleLabel = new QLabel(tr("Scaling:"), this, "scaleLabel");
 	scaleBox = new QComboBox( true, this, "unitSwitcher" );
@@ -146,12 +144,12 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	scaleBox->insertItem("150%");
 	scaleBox->insertItem("200%");
 	scaleBox->setCurrentItem(1);
-	QSpacerItem* scaleSpacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout6->addItem(scaleSpacer);
 	Layout6->addWidget(scaleLabel);
 	Layout6->addWidget(scaleBox);
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout6->addItem( spacer );
+	printButton = new QPushButton( tr("Print..."), this, "printButton" );
+	Layout6->addWidget( printButton );
 	PLayout->addLayout(Layout6);
 	Anz = new QLabel(Anzeige->viewport());
 	Anz->setPixmap(CreatePreview(0, 72));

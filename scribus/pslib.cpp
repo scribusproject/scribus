@@ -969,7 +969,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 	if ((sep) && (SepNam == QObject::tr("All")))
 		pagemult = spots.count();
 	else
-		pagemult = 0;
+		pagemult = 1;
 	QValueList<double> dum;
 	double gx, gy, gw, gh;
 	dum.clear();
