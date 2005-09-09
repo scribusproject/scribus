@@ -754,35 +754,37 @@ void ScribusView::DrawPageMarks(ScPainter *p, Page *page, QRect)
 	p->setZoomFactor(Scale);
 	p->translate(page->xOffset() * Scale, page->yOffset() * Scale);
 	p->setLineWidth(lw);
+	double pageHeight=page->height();
+	double pageWidth=page->width();
 	if (Doc->guidesSettings.marginsShown)
 	{
 		p->setPen(Doc->guidesSettings.margColor);
 		if (Doc->marginColored)
 		{
 			p->setBrush(Doc->guidesSettings.margColor);
-			p->drawRect(0, 0, page->width(), page->Margins.Top);
-			p->drawRect(0, page->Margins.Top, page->Margins.Left, page->height() - page->Margins.Top);
-			p->drawRect(page->Margins.Left, page->height() - page->Margins.Bottom, page->width() - page->Margins.Right - page->Margins.Left, page->Margins.Bottom);
-			p->drawRect(page->width() - page->Margins.Right, page->Margins.Top, page->Margins.Right, page->height()-page->Margins.Top);
+			p->drawRect(0, 0, pageWidth, page->Margins.Top);
+			p->drawRect(0, page->Margins.Top, page->Margins.Left, pageHeight - page->Margins.Top);
+			p->drawRect(page->Margins.Left, pageHeight - page->Margins.Bottom, pageWidth - page->Margins.Right - page->Margins.Left, page->Margins.Bottom);
+			p->drawRect(pageWidth - page->Margins.Right, page->Margins.Top, page->Margins.Right, pageHeight-page->Margins.Top);
 		}
 		p->setPen(Doc->guidesSettings.margColor);
-		p->drawLine(FPoint(0, page->Margins.Top), FPoint(page->width(), page->Margins.Top));
-		p->drawLine(FPoint(0, page->height() - page->Margins.Bottom), FPoint(page->width(), page->height() - page->Margins.Bottom));
-		p->drawLine(FPoint(page->Margins.Left, 0), FPoint(page->Margins.Left, page->height()));
-		p->drawLine(FPoint(page->width() - page->Margins.Right, 0), FPoint(page->width() - page->Margins.Right, page->height()));
+		p->drawLine(FPoint(0, page->Margins.Top), FPoint(pageWidth, page->Margins.Top));
+		p->drawLine(FPoint(0, pageHeight - page->Margins.Bottom), FPoint(pageWidth, pageHeight - page->Margins.Bottom));
+		p->drawLine(FPoint(page->Margins.Left, 0), FPoint(page->Margins.Left, pageHeight));
+		p->drawLine(FPoint(pageWidth - page->Margins.Right, 0), FPoint(pageWidth - page->Margins.Right, pageHeight));
 	}
 	if (Doc->guidesSettings.baseShown)
 	{
 		p->setPen(Doc->guidesSettings.baseColor, lw, SolidLine, FlatCap, MiterJoin);
-		for (double yg = Doc->typographicSettings.offsetBaseGrid; yg < page->height(); yg += Doc->typographicSettings.valueBaseGrid)
-			p->drawLine(FPoint(0, yg), FPoint(page->width(), yg));
+		for (double yg = Doc->typographicSettings.offsetBaseGrid; yg < pageHeight; yg += Doc->typographicSettings.valueBaseGrid)
+			p->drawLine(FPoint(0, yg), FPoint(pageWidth, yg));
 	}
 	if (Doc->guidesSettings.gridShown)
 	{
 		double stx = 0;
-		double endx = page->width();
+		double endx = pageWidth;
 		double sty = 0;
-		double endy = page->height();
+		double endy = pageHeight;
 /*		double stx = QMAX((clip.x() - page->Xoffset) / Scale, 0);
 		double endx = QMIN(stx + clip.width() / Scale, page->width());
 		double sty = QMAX((clip.y() - page->Yoffset) / Scale, 0);
@@ -795,29 +797,21 @@ void ScribusView::DrawPageMarks(ScPainter *p, Page *page, QRect)
 			start=floor(sty/i);
 			start*=i;
 			for (double b = start; b < endy; b+=i)
-			{
-				p->drawLine(FPoint(0, b), FPoint(page->width(), b));
-			}
+				p->drawLine(FPoint(0, b), FPoint(pageWidth, b));
 			start=floor(stx/i);
 			start*=i;
 			for (double b = start; b <= endx; b+=i)
-			{
-				p->drawLine(FPoint(b, 0), FPoint(b, page->height()));
-			}
+				p->drawLine(FPoint(b, 0), FPoint(b, pageHeight));
 			i = Doc->guidesSettings.minorGrid;
 			p->setPen(Doc->guidesSettings.minorColor, lw, DotLine, FlatCap, MiterJoin);
 			start=floor(sty/i);
 			start*=i;
 			for (double b = start; b < endy; b+=i)
-			{
-				p->drawLine(FPoint(0, b), FPoint(page->width(), b));
-			}
+				p->drawLine(FPoint(0, b), FPoint(pageWidth, b));
 			start=floor(stx/i);
 			start*=i;
 			for (double b = start; b <= endx; b+=i)
-			{
-				p->drawLine(FPoint(b, 0), FPoint(b, page->height()));
-			}
+				p->drawLine(FPoint(b, 0), FPoint(b, pageHeight));
 		}
 	}
 	if (Doc->guidesSettings.guidesShown)
@@ -828,14 +822,14 @@ void ScribusView::DrawPageMarks(ScPainter *p, Page *page, QRect)
 			for (uint xg = 0; xg < page->XGuides.count(); ++xg)
 			{
 				if ((page->XGuides[xg] >= 0) && (page->XGuides[xg] <= page->width()))
-					p->drawLine(FPoint(page->XGuides[xg], 0), FPoint(page->XGuides[xg], page->height()));
+					p->drawLine(FPoint(page->XGuides[xg], 0), FPoint(page->XGuides[xg], pageHeight));
 			}
 		}
 		if (page->YGuides.count() != 0)
 		{
 			for (uint yg = 0; yg < page->YGuides.count(); ++yg)
 			{
-				if ((page->YGuides[yg] >= 0) && (page->YGuides[yg] <= page->height()))
+				if ((page->YGuides[yg] >= 0) && (page->YGuides[yg] <= pageHeight))
 					p->drawLine(FPoint(0, page->YGuides[yg]), FPoint(page->width(), page->YGuides[yg]));
 			}
 		}
@@ -9485,11 +9479,9 @@ int ScribusView::PaintEllipse(double x, double y, double b, double h, double w, 
 		ItemState<PageItem*> *is = new ItemState<PageItem*>("Create PageItem");
 		is->set("CREATE_ITEM", "create_item");
 		is->setItem(ite);
-		UndoObject *target;
+		UndoObject *target = Doc->Pages.at(0);
 		if (ite->OwnPage > -1)
 			target = Doc->Pages.at(ite->OwnPage);
-		else
-			target = Doc->Pages.at(0);
 		undoManager->action(target, is);
 		if (!Mpressed) // commit the creation transaction if the item
 		{              // is not created by dragging with a mouse
@@ -9542,7 +9534,7 @@ int ScribusView::PaintPict(double x, double y, double b, double h)
 		is->setItem(ite);
 		UndoObject *target = Doc->Pages.at(0);
 		if (ite->OwnPage > -1)
-			target = target = Doc->Pages.at(ite->OwnPage);
+			target = Doc->Pages.at(ite->OwnPage);
 		undoManager->action(target, is);
 		if (!Mpressed)
 		{
@@ -9591,7 +9583,7 @@ int ScribusView::PaintRect(double x, double y, double b, double h, double w, QSt
 		is->setItem(ite);
 		UndoObject *target = Doc->Pages.at(0);
 		if (ite->OwnPage > -1)
-			target = target = Doc->Pages.at(ite->OwnPage);
+			target = Doc->Pages.at(ite->OwnPage);
 		undoManager->action(target, is);
 		if (!Mpressed)
 		{
@@ -9640,7 +9632,7 @@ int ScribusView::PaintPoly(double x, double y, double b, double h, double w, QSt
 		is->setItem(ite);
 		UndoObject *target = Doc->Pages.at(0);
 		if (ite->OwnPage > -1)
-			target = target = Doc->Pages.at(ite->OwnPage);
+			target = Doc->Pages.at(ite->OwnPage);
 		undoManager->action(target, is);
 		if (!Mpressed)
 		{
@@ -9688,7 +9680,7 @@ int ScribusView::PaintPolyLine(double x, double y, double b, double h, double w,
 		is->setItem(ite);
 		UndoObject *target = Doc->Pages.at(0);
 		if (ite->OwnPage > -1)
-			target = target = Doc->Pages.at(ite->OwnPage);
+			target = Doc->Pages.at(ite->OwnPage);
 		undoManager->action(target, is);
 		if (!Mpressed)
 		{
@@ -9740,7 +9732,7 @@ int ScribusView::PaintText(double x, double y, double b, double h, double w, QSt
 		is->setItem(ite);
 		UndoObject *target = Doc->Pages.at(0);
 		if (ite->OwnPage > -1)
-			target = target = Doc->Pages.at(ite->OwnPage);
+			target = Doc->Pages.at(ite->OwnPage);
 		undoManager->action(target, is);
 		if (!Mpressed)
 		{
@@ -9784,7 +9776,7 @@ int ScribusView::PaintLine(double x, double y, double b, double h, double w, QSt
 		is->setItem(ite);
 		UndoObject *target = Doc->Pages.at(0);
 		if (ite->OwnPage > -1)
-			target = target = Doc->Pages.at(ite->OwnPage);
+			target = Doc->Pages.at(ite->OwnPage);
 		undoManager->action(target, is);
 		if (!Mpressed)
 		{
