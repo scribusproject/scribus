@@ -24,32 +24,8 @@
 #include <qlayout.h>
 #include <qtooltip.h>
 #include <qcheckbox.h>
-
-class SCRIBUS_API AdvOptions : public QDialog
-{
-	Q_OBJECT
-
-public:
-	AdvOptions(QWidget* parent, bool Hm, bool Vm, bool Ic, int ps, bool DoGcr, bool doDev, bool doSpot);
-	~AdvOptions() {};
-	QCheckBox* MirrorH;
-	QCheckBox* MirrorV;
-	QCheckBox* UseICC;
-	QCheckBox* GcR;
-	QCheckBox* devPar;
-	QCheckBox* spotColors;
-	QButtonGroup* ButtonGroupP;
-	QRadioButton* PS3;
-	QRadioButton* PS2;
-	QRadioButton* PS1;
-	QPushButton* PushButton1;
-	QPushButton* PushButton2;
-
-protected:
-	QVBoxLayout* AdvOptionsLayout;
-	QVBoxLayout* ButtonGroupPLayout;
-	QHBoxLayout* Layout2;
-};
+#include <qtabwidget.h>
+#include <qwidget.h>
 
 class SCRIBUS_API Druck : public QDialog
 {
@@ -73,37 +49,38 @@ public:
 	QStringList allSeparations();
 	QString PrinterOpts;
 	bool color();
-	bool MirrorH;
-	bool MirrorV;
-	bool ICCinUse;
-	bool DoGCR;
-	bool doDev;
-	bool doSpot;
-	int PSLevel;
+	bool mirrorHorizontal();
+	bool mirrorVertical();
+	bool doGCR();
+	int PSLevel();
+	bool doDev();
+	bool doSpot();
+	bool ICCinUse();
 
 public slots:
 	void setMinMax(int min, int max, int cur);
+
+signals:
+	void doPreview();
 
 protected:
 	QVBoxLayout* DruckLayout;
 	QGridLayout* DruckerLayout;
 	QHBoxLayout* Layout1x;
 	QHBoxLayout* Layout1;
-	QHBoxLayout* UmfangLayout;
-	QGridLayout* ButtonGroup5Layout;
-	QGridLayout* ButtonGroup4Layout;
-	QVBoxLayout* ButtonGroup3Layout;
-	QVBoxLayout* ButtonGroup3_2Layout;
-	QGridLayout* OptionenLayout;
+	QGridLayout* rangeGroupLayout;
 	QHBoxLayout* Layout2;
 	QHBoxLayout* LayoutCC;
+	QGridLayout* tabLayout;
+	QHBoxLayout* tabLayout_2;
+	QVBoxLayout* pageOptsLayout;
+	QVBoxLayout* colorOptsLayout;
 
 private slots:
-	void SetAdvOptions();
 	void SetOptions();
 	void SelPrinter(const QString& prn);
 	void SelRange(bool e);
-	void SelMode(bool e);
+	void SelMode(int e);
 	void SelFile();
 	void SelComm();
 	void okButtonClicked();
@@ -114,29 +91,34 @@ private:
 	QLabel* DateiT;
 	QLineEdit* LineEdit1;
 	QToolButton* ToolButton1;
-	QButtonGroup* Umfang;
-	QButtonGroup* ButtonGroup5;
+	QButtonGroup* rangeGroup;
 	QRadioButton* RadioButton2;
-	QButtonGroup* ButtonGroup4;
 	QLabel* TextLabel3;
 	QSpinBox* Copies;
-	QButtonGroup* Optionen;
-	QButtonGroup* ButtonGroup3;
-	QButtonGroup* ButtonGroup3_2;
-	QRadioButton* NormalP;
-	QRadioButton* PrintSep;
-	QRadioButton* PrintGray;
-	QRadioButton* PrintGray2;
+	QTabWidget* printOptions;
+	QWidget* tab;
+	QComboBox* PrintSep;
+	QComboBox* colorType;
 	QComboBox* SepArt;
+	QComboBox* psLevel;
+	QWidget* tab_2;
+	QGroupBox* pageOpts;
+	QCheckBox* MirrorHor;
+	QCheckBox* MirrorVert;
+	QCheckBox* devPar;
+	QButtonGroup* colorOpts;
+	QCheckBox* GcR;
+	QCheckBox* spotColors;
+	QCheckBox* UseICC;
 	QPushButton* OKButton_2;
 	QPushButton* OKButton;
+	QPushButton* previewButton;
 	QPushButton* OptButton;
-	QPushButton* AdvOptButton;
 	QString Geraet;
 	bool ToFile;
 	bool ToSeparation;
 	PrefsContext* prefs;
-	void setStoredValues();
+	void setStoredValues(bool gcr);
 };
 
 #endif // DRUCK_H

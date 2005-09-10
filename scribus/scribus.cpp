@@ -173,6 +173,8 @@ int IntentMonitor;
 int IntentPrinter;
 #endif
 bool CMSavail;
+bool previewDinUse;
+bool printDinUse;
 
 QString DocDir;
 
@@ -197,6 +199,8 @@ int ScribusApp::initScribus(bool showSplash, bool showFontInfo, const QString ne
 	noneString = tr("None");
 	int retVal=0;
 	ExternalApp = 0;
+	previewDinUse = false;
+	printDinUse = false;
 	guiLanguage = newGuiLanguage;
 	initSplash(showSplash);
 	setUsesBigPixmaps(true);
@@ -4577,6 +4581,8 @@ void ScribusApp::slotReallyPrint()
 	QStringList spots = usedSpots.keys();
 	Druck *printer = new Druck(this, options.filename, options.printer, PDef.Command, prefsManager->appPrefs.GCRMode, spots);
 	printer->setMinMax(1, doc->Pages.count(), doc->currentPage->pageNr()+1);
+	printDinUse = true;
+	connect(printer, SIGNAL(doPreview()), this, SLOT(doPrintPreview()));
 	if (printer->exec())
 	{
 		ReOrderText(doc, view);
@@ -4600,14 +4606,14 @@ void ScribusApp::slotReallyPrint()
 		if (options.outputSeparations)
 			options.useSpotColors = true;
 		else
-			options.useSpotColors = printer->doSpot;
+			options.useSpotColors = printer->doSpot();
 		options.useColor = printer->color();
-		options.mirrorH = printer->MirrorH;
-		options.mirrorV = printer->MirrorV;
-		options.useICC = printer->ICCinUse;
-		options.doGCR = printer->DoGCR;
-		options.PSLevel = printer->PSLevel;
-		options.setDevParam = printer->doDev;
+		options.mirrorH = printer->mirrorHorizontal();
+		options.mirrorV = printer->mirrorVertical();
+		options.useICC = printer->ICCinUse();
+		options.doGCR = printer->doGCR();
+		options.PSLevel = printer->PSLevel();
+		options.setDevParam = printer->doDev();
 		PDef.Pname = options.printer;
 		PDef.Dname = options.filename;
 		if (printer->OtherCom->isChecked())
@@ -4634,6 +4640,8 @@ void ScribusApp::slotReallyPrint()
 		}
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	}
+	printDinUse = false;
+	disconnect(printer, SIGNAL(doPreview()), this, SLOT(doPrintPreview()));
 	delete printer;
 	mainWindowStatusLabel->setText( tr("Ready"));
 }
@@ -7685,6 +7693,7 @@ void ScribusApp::doPrintPreview()
 	if (HaveDoc)
 	{
 		PPreview *dia = new PPreview(this, view, doc, HavePngAlpha, HaveTiffSep);
+		previewDinUse = true;
 		connect(dia, SIGNAL(doPrint()), this, SLOT(slotReallyPrint()));
 		dia->exec();
 		PrefsManager *prefsManager=PrefsManager::instance();
@@ -7698,6 +7707,7 @@ void ScribusApp::doPrintPreview()
 		prefsManager->appPrefs.PrPr_K = dia->EnableCMYK_K->isChecked();
 		prefsManager->appPrefs.Gcr_Mode = dia->EnableGCR->isChecked();
 		disconnect(dia, SIGNAL(doPrint()), this, SLOT(slotReallyPrint()));
+		previewDinUse = false;
 		delete dia;
 		QFile::remove(PrefsPfad+"/tmp.ps");
 		QFile::remove(PrefsPfad+"/sc.png");

@@ -33,6 +33,8 @@
 #include "scribusview.h"
 #include "scribusdoc.h"
 
+extern bool printDinUse;
+
 /*!
  \fn PPreview::PPreview( QWidget* parent, ScribusApp *pl)
  \author Franz Schmid
@@ -149,6 +151,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout6->addItem( spacer );
 	printButton = new QPushButton( tr("Print..."), this, "printButton" );
+	printButton->setEnabled(!printDinUse);
 	Layout6->addWidget( printButton );
 	PLayout->addLayout(Layout6);
 	Anz = new QLabel(Anzeige->viewport());

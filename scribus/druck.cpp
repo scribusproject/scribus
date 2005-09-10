@@ -28,96 +28,18 @@
 extern bool CMSuse;
 #endif
 #include <util.h>
-
-AdvOptions::AdvOptions(QWidget* parent, bool Hm, bool Vm, bool Ic, int ps, bool DoGcr, bool doDev, bool doSpot) : QDialog( parent, "prin", true, 0 )
-{
-	setCaption( tr( "Advanced Options" ) );
-	setIcon(loadIcon("AppIcon.png"));
-	AdvOptionsLayout = new QVBoxLayout( this );
-	AdvOptionsLayout->setSpacing( 5 );
-	AdvOptionsLayout->setMargin( 10 );
-	MirrorH = new QCheckBox( tr("Mirror Page(s) &Horizontal"), this, "MirrorH");
-	MirrorH->setChecked(Hm);
-	AdvOptionsLayout->addWidget( MirrorH );
-	MirrorV = new QCheckBox( tr("Mirror Page(s) &Vertical"), this, "MirrorV");
-	MirrorV->setChecked(Vm);
-	AdvOptionsLayout->addWidget( MirrorV );
-	GcR = new QCheckBox( tr("Apply Under Color &Removal"), this, "GCR");
-	GcR->setChecked(DoGcr);
-	AdvOptionsLayout->addWidget( GcR );
-	spotColors = new QCheckBox( tr("Convert Spot Colors to Process Colors"), this, "spotColors");
-	spotColors->setChecked(!doSpot);
-	AdvOptionsLayout->addWidget( spotColors );
-	devPar = new QCheckBox( tr("Set Media Size"), this, "devPar");
-	devPar->setChecked(doDev);
-	AdvOptionsLayout->addWidget( devPar );
-#ifdef HAVE_CMS
-	if (CMSuse)
-	{
-		UseICC = new QCheckBox( tr("Apply &ICC Profiles"), this, "ICC");
-		UseICC->setChecked(Ic);
-		AdvOptionsLayout->addWidget( UseICC );
-	}
-#endif
-	ButtonGroupP = new QButtonGroup( "", this, "ButtonGroup5" );
-	ButtonGroupP->setFrameShape( QButtonGroup::NoFrame );
-	ButtonGroupP->setColumnLayout(0, Qt::Vertical );
-	ButtonGroupP->layout()->setSpacing( 0 );
-	ButtonGroupP->layout()->setMargin( 0 );
-	ButtonGroupPLayout = new QVBoxLayout( ButtonGroupP->layout() );
-	ButtonGroupPLayout->setSpacing( 6 );
-	ButtonGroupPLayout->setMargin( 0 );
-	PS1 = new QRadioButton( tr( "PostScript Level &1" ), ButtonGroupP, "RadioButton1" );
-	PS2 = new QRadioButton( tr( "PostScript Level &2" ), ButtonGroupP, "RadioButton1" );
-	PS3 = new QRadioButton( tr( "PostScript Level &3" ), ButtonGroupP, "RadioButton1" );
-	PS3->setChecked( true );
-	if (ps == 3)
-		PS3->setChecked( true );
-	if (ps == 2)
-		PS2->setChecked( true );
-	if (ps == 1)
-		PS1->setChecked( true );
-	ButtonGroupPLayout->addWidget( PS1 );
-	ButtonGroupPLayout->addWidget( PS2 );
-	ButtonGroupPLayout->addWidget( PS3 );
-	AdvOptionsLayout->addWidget( ButtonGroupP );
-
-	Layout2 = new QHBoxLayout;
-	Layout2->setSpacing( 6 );
-	Layout2->setMargin( 0 );
-	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout2->addItem( spacer );
-	PushButton1 = new QPushButton( CommonStrings::tr_OK, this, "PushButton1" );
-	Layout2->addWidget( PushButton1 );
-	PushButton2 = new QPushButton( CommonStrings::tr_Cancel, this, "PushButton1_2" );
-	PushButton2->setDefault( true );
-	PushButton2->setFocus();
-	Layout2->addWidget( PushButton2 );
-	AdvOptionsLayout->addLayout( Layout2 );
-	setMinimumSize( sizeHint() );
-	QToolTip::add( PS3, tr( "Creates PostScript Level 3" ) );
-	QToolTip::add( PS2, tr( "Creates PostScript Level 2 only, beware,\nthis can create huge files" ) );
-	QToolTip::add( PS1, tr( "Creates PostScript Level 1 only, beware,\nthis can create huge files" ) );
-	QToolTip::add( GcR, tr( "A way of switching off some of the gray shades which are composed\n"
-	                                   "of cyan, yellow and magenta and using black instead.\n"
-									   "UCR most affects parts of images which are neutral and/or dark tones\n"
-									   "which are close to the gray. Use of this may improve printing some images\n"
-									   "and some experimentation and testing is need on a case by case basis.\n"
-									   "UCR reduces the possibility of over saturation with CMY inks." ) );
-
-	connect( PushButton2, SIGNAL( clicked() ), this, SLOT( reject() ) );
-	connect( PushButton1, SIGNAL( clicked() ), this, SLOT( accept() ) );
-}
+extern bool previewDinUse;
 
 Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool gcr, QStringList spots)
 		: QDialog( parent, "Dr", true, 0)
 {
 	prefs = PrefsManager::instance()->prefsFile->getContext("print_options");
+	ToSeparation = false;
 	PrinterOpts = "";
 	setCaption( tr( "Setup Printer" ) );
 	setIcon(loadIcon("AppIcon.png"));
 	DruckLayout = new QVBoxLayout( this );
-	DruckLayout->setSpacing( 6 );
+	DruckLayout->setSpacing( 5 );
 	DruckLayout->setMargin( 10 );
 
 	Drucker = new QGroupBox( this, "Drucker" );
@@ -127,11 +49,11 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool 
 	Drucker->layout()->setMargin( 0 );
 	DruckerLayout = new QGridLayout( Drucker->layout() );
 	DruckerLayout->setAlignment( Qt::AlignTop );
-	DruckerLayout->setSpacing( 6 );
+	DruckerLayout->setSpacing( 5 );
 	DruckerLayout->setMargin( 10 );
 
 	Layout1x = new QHBoxLayout;
-	Layout1x->setSpacing( 6 );
+	Layout1x->setSpacing( 5 );
 	Layout1x->setMargin( 0 );
 	PrintDest = new QComboBox( true, Drucker, "PrintDest" );
 	PrintDest->setMinimumSize( QSize( 250, 22 ) );
@@ -197,7 +119,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool 
 	Layout1x->addItem( spacerDR );
 	DruckerLayout->addLayout( Layout1x, 0, 0);
 	Layout1 = new QHBoxLayout;
-	Layout1->setSpacing( 6 );
+	Layout1->setSpacing( 5 );
 	Layout1->setMargin( 0 );
 	LineEdit1 = new QLineEdit( PDatei, Drucker, "LineEdit1" );
 	LineEdit1->setMinimumSize( QSize( 240, 22 ) );
@@ -216,10 +138,9 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool 
 
 	OtherCom = new QCheckBox( tr("A&lternative Printer Command"), Drucker, "Dc");
 	OtherCom->setChecked(false);
-	QToolTip::add( OtherCom, tr( "Use an alternative print manager, such as kprinter or gtklp,\nto utilize additional printing options") );
 	DruckerLayout->addWidget( OtherCom, 2, 0, Qt::AlignLeft);
 	LayoutCC = new QHBoxLayout;
-	LayoutCC->setSpacing( 6 );
+	LayoutCC->setSpacing( 5 );
 	LayoutCC->setMargin( 0 );
 	Command = new QLineEdit( PCom, Drucker, "LineEdit12" );
 	Command->setMinimumSize( QSize( 240, 22 ) );
@@ -231,97 +152,47 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool 
 	DruckerLayout->addLayout( LayoutCC, 3, 0 );
 	DruckLayout->addWidget( Drucker );
 
-
-	Umfang = new QButtonGroup( tr( "Range" ), this, "Umfang" );
-	Umfang->setColumnLayout(0, Qt::Vertical );
-	Umfang->layout()->setSpacing( 0 );
-	Umfang->layout()->setMargin( 0 );
-	UmfangLayout = new QHBoxLayout( Umfang->layout() );
-	UmfangLayout->setAlignment( Qt::AlignTop );
-	UmfangLayout->setSpacing( 6 );
-	UmfangLayout->setMargin( 5 );
-
-	ButtonGroup5 = new QButtonGroup( "", Umfang, "ButtonGroup5" );
-	ButtonGroup5->setFrameShape( QButtonGroup::NoFrame );
-	ButtonGroup5->setColumnLayout(0, Qt::Vertical );
-	ButtonGroup5->layout()->setSpacing( 0 );
-	ButtonGroup5->layout()->setMargin( 0 );
-	ButtonGroup5Layout = new QGridLayout( ButtonGroup5->layout() );
-	ButtonGroup5Layout->setAlignment( Qt::AlignTop );
-	ButtonGroup5Layout->setSpacing( 6 );
-	ButtonGroup5Layout->setMargin( 5 );
-	RadioButton1 = new QRadioButton( tr( "Print &All" ), ButtonGroup5, "RadioButton1" );
-	RadioButton1->setChecked( true );
-	ButtonGroup5Layout->addMultiCellWidget( RadioButton1, 0, 0, 0, 1 );
-	CurrentPage = new QRadioButton( tr( "Print Current Pa&ge" ), ButtonGroup5, "RadioButton2" );
-	ButtonGroup5Layout->addMultiCellWidget( CurrentPage, 1, 1, 0, 1 );
-	RadioButton2 = new QRadioButton( tr( "Print &Range" ), ButtonGroup5, "RadioButton2" );
-	ButtonGroup5Layout->addMultiCellWidget( RadioButton2, 2, 2, 0, 1 );
-	PageNr = new QLineEdit( ButtonGroup5, "PageNr" );
+	rangeGroup = new QButtonGroup( tr( "Range" ), this, "rangeGroup" );
+	rangeGroup->setColumnLayout(0, Qt::Vertical );
+	rangeGroup->layout()->setSpacing( 5 );
+	rangeGroup->layout()->setMargin( 10 );
+	rangeGroupLayout = new QGridLayout( rangeGroup->layout() );
+	rangeGroupLayout->setAlignment( Qt::AlignTop );
+	RadioButton1 = new QRadioButton( tr( "Print &All" ), rangeGroup, "RadioButton1" );
+	rangeGroupLayout->addMultiCellWidget( RadioButton1, 0, 0, 0, 1 );
+	CurrentPage = new QRadioButton( tr( "Print Current Pa&ge" ), rangeGroup, "CurrentPage" );
+	rangeGroupLayout->addMultiCellWidget( CurrentPage, 1, 1, 0, 1 );
+	RadioButton2 = new QRadioButton( tr( "Print &Range" ), rangeGroup, "RadioButton2" );
+	rangeGroupLayout->addWidget( RadioButton2, 2, 0 );
+	PageNr = new QLineEdit( rangeGroup, "PageNr" );
+	rangeGroupLayout->addWidget( PageNr, 2, 1 );
 	PageNr->setEnabled(false);
-	QToolTip::add( PageNr, tr( "Insert a comma separated list of tokens where\n"
-		                           "a token can be * for all the pages, 1-5 for\n"
-		                           "a range of pages or a single page number.") );
-	ButtonGroup5Layout->addWidget( PageNr, 3, 1 );
-	UmfangLayout->addWidget( ButtonGroup5 );
-
-	ButtonGroup4 = new QButtonGroup( Umfang, "ButtonGroup4" );
-	ButtonGroup4->setFrameShape( QButtonGroup::NoFrame );
-	ButtonGroup4->setTitle( "" );
-	ButtonGroup4->setColumnLayout(0, Qt::Vertical );
-	ButtonGroup4->layout()->setSpacing( 0 );
-	ButtonGroup4->layout()->setMargin( 0 );
-	ButtonGroup4Layout = new QGridLayout( ButtonGroup4->layout() );
-	ButtonGroup4Layout->setAlignment( Qt::AlignTop );
-	ButtonGroup4Layout->setSpacing( 6 );
-	ButtonGroup4Layout->setMargin( 5 );
-
-
-	Copies = new QSpinBox( ButtonGroup4, "Copies" );
+	Copies = new QSpinBox( rangeGroup, "Copies" );
 	Copies->setEnabled( true );
 	Copies->setMinimumSize( QSize( 70, 22 ) );
 	Copies->setMinValue( 1 );
 	Copies->setMaxValue(1000);
 	Copies->setValue(1);
-	TextLabel3 = new QLabel( Copies, tr( "N&umber of Copies:" ), ButtonGroup4, "TextLabel3" );
-	ButtonGroup4Layout->addWidget( TextLabel3, 0, 0 );
-	ButtonGroup4Layout->addWidget( Copies, 0, 1 );
-	UmfangLayout->addWidget( ButtonGroup4 );
-	DruckLayout->addWidget( Umfang );
+	rangeGroupLayout->addWidget( Copies, 0, 3 );
+	TextLabel3 = new QLabel( Copies, tr( "N&umber of Copies:" ), rangeGroup, "TextLabel3" );
+	rangeGroupLayout->addWidget( TextLabel3, 0, 2 );
+	DruckLayout->addWidget( rangeGroup );
 
-	Optionen = new QButtonGroup( this, "Optionen" );
-	Optionen->setTitle( tr( "Options" ) );
-	Optionen->setColumnLayout(0, Qt::Vertical );
-	Optionen->layout()->setSpacing( 0 );
-	Optionen->layout()->setMargin( 0 );
-	OptionenLayout = new QGridLayout( Optionen->layout() );
-	OptionenLayout->setAlignment( Qt::AlignTop );
-	OptionenLayout->setSpacing( 5 );
-	OptionenLayout->setMargin( 5 );
-
-	ButtonGroup3 = new QButtonGroup( Optionen, "ButtonGroup3" );
-	ButtonGroup3->setGeometry( QRect( 11, 19, 138, 95 ) );
-	ButtonGroup3->setFrameShape( QButtonGroup::NoFrame );
-	ButtonGroup3->setTitle( "" );
-	ButtonGroup3->setColumnLayout(0, Qt::Vertical );
-	ButtonGroup3->layout()->setSpacing( 0 );
-	ButtonGroup3->layout()->setMargin( 0 );
-	ButtonGroup3Layout = new QVBoxLayout( ButtonGroup3->layout() );
-	ButtonGroup3Layout->setAlignment( Qt::AlignTop );
-	ButtonGroup3Layout->setSpacing( 5 );
-	ButtonGroup3Layout->setMargin( 5 );
-
-	NormalP = new QRadioButton( tr( "Print &Normal" ), ButtonGroup3, "NormalP" );
-	NormalP->setChecked( true );
-	ButtonGroup3Layout->addWidget( NormalP );
-
-	PrintSep = new QRadioButton( tr( "Print &Separations" ), ButtonGroup3, "PrintSep" );
-	PrintSep->setFocusPolicy( QRadioButton::TabFocus );
-	ButtonGroup3Layout->addWidget( PrintSep );
-	ToSeparation = false;
-	doSpot = true;
-	SepArt = new QComboBox( true, ButtonGroup3, "SepArt" );
-	/* PFJ - 29.02.04 - Altered to QString, size_t, for */
+	printOptions = new QTabWidget( this, "printOptions" );
+	tab = new QWidget( printOptions, "tab" );
+	tabLayout = new QGridLayout( tab, 1, 1, 10, 5, "tabLayout");
+	PrintSep = new QComboBox( true, tab, "PrintSep" );
+	PrintSep->setEditable(false);
+	PrintSep->insertItem( tr( "Print Normal" ) );
+	PrintSep->insertItem( tr( "Print Separations" ) );
+	tabLayout->addWidget( PrintSep, 0, 0 );
+	colorType = new QComboBox( true, tab, "colorType" );
+	colorType->setEditable(false);
+	colorType->insertItem( tr( "Print in Color if Available" ) );
+	colorType->insertItem( tr( "Print in Grayscale" ) );
+	colorType->setCurrentItem(0);
+	tabLayout->addWidget( colorType, 0, 1 );
+	SepArt = new QComboBox( true, tab, "SepArt" );
 	QString sep[] =
 	    {
 	        tr("All"), tr("Cyan"), tr("Magenta"), tr("Yellow"),
@@ -333,44 +204,68 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool 
 	SepArt->insertStringList(spots);
 	SepArt->setEnabled( false );
 	SepArt->setEditable( false );
-	ButtonGroup3Layout->addWidget( SepArt );
-	OptionenLayout->addWidget( ButtonGroup3, 0, 0, Qt::AlignLeft );
-
-	ButtonGroup3_2 = new QButtonGroup( Optionen, "ButtonGroup3_2" );
-	ButtonGroup3_2->setFrameShape( QButtonGroup::NoFrame );
-	ButtonGroup3_2->setTitle( "" );
-	ButtonGroup3_2->setColumnLayout(0, Qt::Vertical );
-	ButtonGroup3_2->layout()->setSpacing( 0 );
-	ButtonGroup3_2->layout()->setMargin( 0 );
-	ButtonGroup3_2Layout = new QVBoxLayout( ButtonGroup3_2->layout() );
-	ButtonGroup3_2Layout->setAlignment( Qt::AlignTop );
-	ButtonGroup3_2Layout->setSpacing( 5 );
-	ButtonGroup3_2Layout->setMargin( 5 );
-
-	PrintGray = new QRadioButton( tr( "Pr&int In Color If Available" ), ButtonGroup3_2, "PrintGray" );
-	PrintGray->setChecked( true );
-	PrintGray->setFocusPolicy( QRadioButton::TabFocus );
-	ButtonGroup3_2Layout->addWidget( PrintGray );
-
-	PrintGray2 = new QRadioButton( tr( "Print In Gra&yscale" ), ButtonGroup3_2, "PrintGray2" );
-	ButtonGroup3_2Layout->addWidget( PrintGray2 );
-	MirrorH = prefs->getBool("MirrorH", false);
-	MirrorV = prefs->getBool("MirrorV", false);
-	ICCinUse = prefs->getBool("ICCinUse", false);
-	DoGCR = prefs->getBool("DoGCR", gcr);
-	doDev = prefs->getBool("doDev", false);
-	PSLevel = prefs->getInt("PSLevel", 3);
-	AdvOptButton = new QPushButton( tr("Ad&vanced Options..."), ButtonGroup3_2, "Adv");
-	ButtonGroup3_2Layout->addWidget( AdvOptButton );
-
-	OptionenLayout->addWidget( ButtonGroup3_2, 0, 1 );
-	DruckLayout->addWidget( Optionen );
+	tabLayout->addWidget( SepArt, 1, 0 );
+	psLevel = new QComboBox( true, tab, "psLevel" );
+	psLevel->insertItem( tr( "PostScript Level 1" ) );
+	psLevel->insertItem( tr( "PostScript Level 2" ) );
+	psLevel->insertItem( tr( "PostScript Level 3" ) );
+	psLevel->setEditable( false );
+	tabLayout->addWidget( psLevel, 1, 1 );
+	printOptions->insertTab( tab, tr( "Options" ) );
+	tab_2 = new QWidget( printOptions, "tab_2" );
+	tabLayout_2 = new QHBoxLayout( tab_2, 10, 5, "tabLayout_2");
+	pageOpts = new QGroupBox( tab_2, "pageOpts" );
+	pageOpts->setTitle( tr( "Page" ) );
+	pageOpts->setColumnLayout(0, Qt::Vertical );
+	pageOpts->layout()->setSpacing( 5 );
+	pageOpts->layout()->setMargin( 10 );
+	pageOptsLayout = new QVBoxLayout( pageOpts->layout() );
+	pageOptsLayout->setAlignment( Qt::AlignTop );
+	MirrorHor = new QCheckBox( pageOpts, "MirrorH" );
+	MirrorHor->setText( tr( "Mirror Page(s) Horizontal" ) );
+	pageOptsLayout->addWidget( MirrorHor );
+	MirrorVert = new QCheckBox( pageOpts, "MirrorV" );
+	MirrorVert->setText( tr( "Mirror Page(s) Vertical" ) );
+	pageOptsLayout->addWidget( MirrorVert );
+	devPar = new QCheckBox( pageOpts, "devPar" );
+	devPar->setText( tr( "Set Media Size" ) );
+	pageOptsLayout->addWidget( devPar );
+	tabLayout_2->addWidget( pageOpts );
+	colorOpts = new QButtonGroup( tab_2, "colorOpts" );
+	colorOpts->setTitle( tr( "Color" ) );
+	colorOpts->setColumnLayout(0, Qt::Vertical );
+	colorOpts->layout()->setSpacing( 5 );
+	colorOpts->layout()->setMargin( 10 );
+	colorOptsLayout = new QVBoxLayout( colorOpts->layout() );
+	colorOptsLayout->setAlignment( Qt::AlignTop );
+	GcR = new QCheckBox( colorOpts, "GcR" );
+	GcR->setText( tr( "Apply Under Color Removal" ) );
+	colorOptsLayout->addWidget( GcR );
+	spotColors = new QCheckBox( colorOpts, "spotColors" );
+	spotColors->setText( tr( "Convert Spot Colors to Process Colors" ) );
+	colorOptsLayout->addWidget( spotColors );
+#ifdef HAVE_CMS
+	if (CMSuse)
+	{
+		UseICC = new QCheckBox( colorOpts, "UseICC" );
+		UseICC->setText( tr( "Apply ICC Profiles" ) );
+		colorOptsLayout->addWidget( UseICC );
+	}
+#endif
+	tabLayout_2->addWidget( colorOpts );
+	printOptions->insertTab( tab_2, tr( "Advanced Options" ) );
+	DruckLayout->addWidget( printOptions );
 
 	Layout2 = new QHBoxLayout;
-	Layout2->setSpacing( 24 );
+	Layout2->setSpacing( 5 );
 	Layout2->setMargin( 0 );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout2->addItem( spacer );
+	
+	previewButton = new QPushButton( tr( "Preview..." ), this, "previewButton" );
+	previewButton->setDefault( false );
+	previewButton->setEnabled(!previewDinUse);
+	Layout2->addWidget( previewButton );
 
 	OKButton = new QPushButton( tr( "&Print" ), this, "OKButton" );
 	OKButton->setDefault( true );
@@ -389,75 +284,32 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool 
 		ToFile = true;
 	}
 	setMaximumSize(sizeHint());
-	//tab order
-#ifdef HAVE_CUPS
-	setTabOrder( PrintDest, OptButton );
-	setTabOrder( OptButton, LineEdit1);
-#else
-	setTabOrder( PrintDest, LineEdit1 );
-#endif
-	setTabOrder( LineEdit1,ToolButton1);
-	setTabOrder( ToolButton1,OtherCom);
-	setTabOrder( OtherCom, Command );
-	setTabOrder( Command, RadioButton1 );
-	setTabOrder( RadioButton1, CurrentPage );
-	setTabOrder( CurrentPage, RadioButton2 );
-	setTabOrder( RadioButton2, Copies );
-	setTabOrder( Copies, NormalP );
-	setTabOrder( NormalP, PrintSep );
-	setTabOrder( PrintSep, SepArt );
-	setTabOrder( SepArt, PrintGray );
-	setTabOrder( PrintGray, PrintGray2 );
-	setTabOrder( PrintGray2, AdvOptButton );
-	setTabOrder( AdvOptButton, OKButton );
-	setTabOrder( OKButton, OKButton_2 );
-//	setTabOrder( OKButton_2, PrintDest );
 	PrintDest->setFocus();
+	QToolTip::add( PageNr, tr( "Insert a comma separated list of tokens where\n"
+		                           "a token can be * for all the pages, 1-5 for\n"
+		                           "a range of pages or a single page number.") );
+	QToolTip::add( OtherCom, tr( "Use an alternative print manager, such as kprinter or gtklp,\nto utilize additional printing options") );
+	QToolTip::add( psLevel, tr( "Sets the PostScript Level.\n Setting to Level 1 or 2 can create huge files" ) );
+	QToolTip::add( GcR, tr( "A way of switching off some of the gray shades which are composed\n"
+		                        "of cyan, yellow and magenta and using black instead.\n"
+		                        "UCR most affects parts of images which are neutral and/or dark tones\n"
+		                        "which are close to the gray. Use of this may improve printing some images\n"
+		                        "and some experimentation and testing is need on a case by case basis.\n"
+		                        "UCR reduces the possibility of over saturation with CMY inks." ) );
 	// signals and slots connections
 	connect( OKButton, SIGNAL( clicked() ), this, SLOT( okButtonClicked() ) );
 	connect( OKButton_2, SIGNAL( clicked() ), this, SLOT( reject() ) );
 	connect( PrintDest, SIGNAL(activated(const QString&)), this, SLOT(SelPrinter(const QString&)));
 	connect( RadioButton1, SIGNAL(toggled(bool)), this, SLOT(SelRange(bool)));
 	connect( CurrentPage, SIGNAL(toggled(bool)), this, SLOT(SelRange(bool)));
-	connect( NormalP, SIGNAL(toggled(bool)), this, SLOT(SelMode(bool)));
+	connect( PrintSep, SIGNAL(activated(int)), this, SLOT(SelMode(int)));
 	connect( ToolButton1, SIGNAL(clicked()), this, SLOT(SelFile()));
 	connect( OtherCom, SIGNAL(clicked()), this, SLOT(SelComm()));
-	connect( AdvOptButton, SIGNAL( clicked() ), this, SLOT( SetAdvOptions() ) );
+	connect( previewButton, SIGNAL(clicked()), this, SIGNAL(doPreview()));
 #ifdef HAVE_CUPS
 	connect( OptButton, SIGNAL( clicked() ), this, SLOT( SetOptions() ) );
 #endif
-	setStoredValues();
-}
-
-void Druck::SetAdvOptions()
-{
-	AdvOptions* dia = new AdvOptions(this, MirrorH, MirrorV, ICCinUse, PSLevel, DoGCR, doDev, doSpot);
-	if (dia->exec())
-	{
-		MirrorH = dia->MirrorH->isChecked();
-		MirrorV = dia->MirrorV->isChecked();
-		DoGCR = dia->GcR->isChecked();
-		doDev = dia->devPar->isChecked();
-		doSpot = !dia->spotColors->isChecked();
-#ifdef HAVE_CMS
-		if (CMSuse)
-		{
-			ICCinUse = dia->UseICC->isChecked();
-			prefs->set("ICCinUse", ICCinUse);
-		}
-#endif
-		if (dia->PS1->isChecked())
-			PSLevel = 1;
-		if (dia->PS2->isChecked())
-			PSLevel = 2;
-		if (dia->PS3->isChecked())
-			PSLevel = 3;
-		prefs->set("MirrorH", MirrorH);
-		prefs->set("MirrorV", MirrorV);
-		prefs->set("DoGCR", DoGCR);
-		prefs->set("PSLevel", PSLevel);
-	}
-	delete dia;
+	setStoredValues(gcr);
 }
 
 void Druck::SetOptions()
@@ -571,10 +423,18 @@ void Druck::SelRange(bool e)
 	PageNr->setEnabled(!e);
 }
 
-void Druck::SelMode(bool e)
+void Druck::SelMode(int e)
 {
-	SepArt->setEnabled( !e );
-	ToSeparation = !e;
+	if (e == 0)
+	{
+		SepArt->setEnabled( false );
+		ToSeparation = false;
+	}
+	else
+	{
+		SepArt->setEnabled( true );
+		ToSeparation = true;
+	}
 }
 
 void Druck::SelFile()
@@ -608,15 +468,23 @@ void Druck::okButtonClicked()
 	prefs->set("PrintRange", RadioButton2->isChecked());
 	prefs->set("PageNr", PageNr->text());
 	prefs->set("Copies", Copies->value());
-	prefs->set("NormalP", NormalP->isChecked());
-	prefs->set("PrintSep", PrintSep->isChecked());
-	prefs->set("PrintGray", PrintGray->isChecked());
-	prefs->set("PrintGray2", PrintGray2->isChecked());
+	prefs->set("Separations", PrintSep->currentItem());
+	prefs->set("PrintColor", colorType->currentItem());
 	prefs->set("SepArt", SepArt->currentItem());
-	accept();	
+	prefs->set("MirrorH", MirrorHor->isChecked());
+	prefs->set("MirrorV", MirrorVert->isChecked());
+	prefs->set("DoGCR", GcR->isChecked());
+	prefs->set("PSLevel", psLevel->currentItem() + 1);
+	prefs->set("doDev", devPar->isChecked());
+	prefs->set("doSpot", !spotColors->isChecked());
+#ifdef HAVE_CMS
+	if (CMSuse)
+		prefs->set("ICCinUse", UseICC->isChecked());
+#endif
+	accept();
 }
 
-void Druck::setStoredValues()
+void Druck::setStoredValues(bool gcr)
 {
 	int selectedDest = prefs->getInt("PrintDest", 0);
 	if ((selectedDest > -1) && (selectedDest < PrintDest->count()))
@@ -633,13 +501,23 @@ void Druck::setStoredValues()
 	RadioButton2->setChecked(prefs->getBool("PrintRange", false));
 	PageNr->setText(prefs->get("PageNr", "1-1"));
 	Copies->setValue(prefs->getInt("Copies", 1));
-	NormalP->setChecked(prefs->getBool("NormalP", true));
-	PrintSep->setChecked(prefs->getBool("PrintSep", false));
-	PrintGray->setChecked(prefs->getBool("PrintGray", true));
-	PrintGray2->setChecked(prefs->getBool("PrintGray2", false));
+	PrintSep->setCurrentItem(prefs->getInt("Separations", 0));
+	colorType->setCurrentItem(prefs->getInt("PrintColor", 0));
 	int selectedSep = prefs->getInt("SepArt", 0);
 	if ((selectedSep > -1) && (selectedSep < 5))
 		SepArt->setCurrentItem(selectedSep);
+	if (PrintSep->currentItem() == 1)
+		SepArt->setEnabled(true);
+	psLevel->setCurrentItem(prefs->getInt("PSLevel", 3)-1);
+	MirrorHor->setChecked(prefs->getBool("MirrorH", false));
+	MirrorHor->setChecked(prefs->getBool("MirrorV", false));
+	devPar->setChecked(prefs->getBool("doDev", false));
+	GcR->setChecked(prefs->getBool("DoGCR", gcr));
+	spotColors->setChecked(!prefs->getBool("doSpot", true));
+#ifdef HAVE_CMS
+	if (CMSuse)
+		UseICC->setChecked(prefs->getBool("ICCinUse", false));
+#endif
 }
 
 QString Druck::printerName()
@@ -681,7 +559,53 @@ QStringList Druck::allSeparations()
 	}
 	return ret;
 }
+
 bool Druck::color()
 {
-	return PrintGray->isChecked();
+	if (colorType->currentItem() == 0)
+		return true;
+	else
+		return false;
+}
+
+bool Druck::mirrorHorizontal()
+{
+	return MirrorHor->isChecked();
+}
+
+bool Druck::mirrorVertical()
+{
+	return MirrorVert->isChecked();
+}
+
+bool Druck::doGCR()
+{
+	return GcR->isChecked();
+}
+
+int Druck::PSLevel()
+{
+	return psLevel->currentItem() + 1;
+}
+
+bool Druck::doDev()
+{
+	return devPar->isChecked();
+}
+
+bool Druck::doSpot()
+{
+	return !spotColors->isChecked();
+}
+
+bool Druck::ICCinUse()
+{
+#ifdef HAVE_CMS
+	if (CMSuse)
+		return UseICC->isChecked();
+	else
+		return false;
+#else
+	return false;
+#endif
 }
