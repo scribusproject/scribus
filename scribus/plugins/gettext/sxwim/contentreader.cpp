@@ -140,7 +140,7 @@ bool ContentReader::startElement(const QString&, const QString&, const QString &
 		{
 			if (attrs.localName(i) == "style:name")
 				sname = attrs.value(i);
-			else if ((attrs.localName(i) == "style:family") && (attrs.value(i) == "text"));
+			else if ((attrs.localName(i) == "style:family") && (attrs.value(i) == "text"))
 				isTextStyle = true;
 		}
 		if (isTextStyle)
