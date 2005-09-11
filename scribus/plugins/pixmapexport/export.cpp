@@ -9,7 +9,6 @@
 #include "scribus.h"
 #include "scraction.h"
 #include "menumanager.h"
-#include "pluginmanager.h"
 #include "util.h"
 
 int scribusexportpixmap_getPluginAPIVersion()

@@ -19,7 +19,6 @@
 #include <zlib.h>
 #endif
 #include "undomanager.h"
-#include "pluginmanager.h"
 #include "util.h"
 #include "scfontmetrics.h"
 #include "prefsmanager.h"

@@ -12,7 +12,6 @@
 #include "nftdialog.h"
 #include "scraction.h"
 #include "menumanager.h"
-#include "pluginmanager.h"
 #include "undomanager.h"
 #include "prefsmanager.h"
 

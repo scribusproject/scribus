@@ -1,6 +1,5 @@
 #include "fontpreview.h"
 #include "ui.h"
-#include "pluginmanager.h"
 #include "scribus.h"
 #include <qcursor.h>
 #include <qlistview.h>

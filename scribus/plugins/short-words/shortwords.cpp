@@ -15,7 +15,6 @@ or documentation
 #include "vlnadialog.h"
 #include "configuration.h"
 #include "parse.h"
-#include "pluginmanager.h"
 #include "scpaths.h"
 #include "scribus.h"
 #include <qmessagebox.h>

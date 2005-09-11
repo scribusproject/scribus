@@ -17,7 +17,6 @@
 #include <cmath>
 #include <cstdlib>
 #include "undomanager.h"
-#include "pluginmanager.h"
 #include "scpaths.h"
 #include "scfontmetrics.h"
 #include "util.h"

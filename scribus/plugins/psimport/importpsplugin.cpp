@@ -1,7 +1,6 @@
 #include "importpsplugin.h"
 #include "importps.h"
 #include "scribus.h"
-#include "pluginmanager.h"
 #include "prefsmanager.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
@@ -120,3 +119,5 @@ bool ImportPSPlugin::run(QString fileName)
 	delete dia;
 	return true;
 }
+
+#include "importpsplugin.moc"

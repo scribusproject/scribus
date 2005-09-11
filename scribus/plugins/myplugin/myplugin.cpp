@@ -1,6 +1,5 @@
 #include "myplugin.h"
 #include "mypluginimpl.h"
-#include "pluginmanager.h"
 
 // See scplugin.h and pluginmanager.{cpp,h} for detail on what these methods
 // do. That documentatation is not duplicated here.

@@ -415,4 +415,17 @@ class SCRIBUS_API ScPersistentPlugin : public ScPlugin
 		virtual bool cleanupPlugin() = 0;
 };
 
+// Plug-in API version used to check if we can load the plug-in. This
+// does *NOT* ensure that the plug-in will be compatible with the internal
+// Scribus APIs, only that the ScPlugin class and its standard subclasses
+// will be compatible with what we expect, and that "extern C" functions
+// we need will be present and work as expected. It's a preprocessor directive
+// to make sure that it's compiled into each plugin rather than referenced
+// from the main code.
+//
+// The API version is currently simply incremented with each incompatible
+// change. Future versions may introduce a minor/major scheme if necessary.
+#define PLUGIN_API_VERSION 0x00000002
+
+
 #endif

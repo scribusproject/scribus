@@ -6,7 +6,6 @@
 #include "satdialog.h"
 #include "scribus.h"
 #include "prefsfile.h"
-#include "pluginmanager.h"
 #include "prefsmanager.h"
 
 int saveastemplateplugin_getPluginAPIVersion()

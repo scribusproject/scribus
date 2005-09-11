@@ -50,7 +50,6 @@
 #include "scribusstructs.h"
 #include "scconfig.h"
 #include "scripterprefsgui.h"
-#include "pluginmanager.h"
 
 #include <qapplication.h>
 #include <qmessagebox.h>

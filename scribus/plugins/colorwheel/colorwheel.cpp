@@ -1,7 +1,6 @@
 /* $Id$ */
 #include "colorwheel.h"
 #include "cwdialog.h"
-#include "pluginmanager.h"
 #include <qcursor.h>
 #include <qlistview.h>
 #include "scribus.h"

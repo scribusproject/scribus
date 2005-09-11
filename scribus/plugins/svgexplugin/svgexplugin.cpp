@@ -30,7 +30,6 @@
 #include "prefsmanager.h"
 #include <prefsfile.h>
 #include <prefscontext.h>
-#include "pluginmanager.h"
 #include "util.h"
 
 int svgexplugin_getPluginAPIVersion()

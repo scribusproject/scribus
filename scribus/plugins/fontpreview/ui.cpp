@@ -1,6 +1,5 @@
 #include "ui.h"
 #include "scribus.h"
-#include "pluginmanager.h"
 #include <qvariant.h>
 #include <qpushbutton.h>
 #include <qlistview.h>

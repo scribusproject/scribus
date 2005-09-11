@@ -1,8 +1,8 @@
 #include "svgimport.h"
 #include "cmdvar.h"
 #include "cmdutil.h"
-
 #include "pluginmanager.h"
+
 #include <qstring.h>
 
 
