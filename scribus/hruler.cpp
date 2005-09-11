@@ -695,7 +695,7 @@ void Hruler::Draw(int wo)
 	repaint(oldMark-3, 0, 7, 17);
 	QPointArray cr;
 	QPainter p;
-#ifdef QT_MAC
+#ifdef OPTION_SMOOTH_MARKERS
 	// draw new marker to pixmap
 	static const int SCALE = 16;
 	static const QColor BACKGROUND(255, 255, 255);
