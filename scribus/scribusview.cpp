@@ -4855,7 +4855,7 @@ FPoint ScribusView::ApplyGridF(FPoint in)
 		np = in;
 	return np;
 }
-/*
+/* CB: Moved to FPoint, left in commented out for now
 FPoint ScribusView::transformPointI(FPoint in, double dx, double dy, double rot, double sx, double sy)
 {
 	QWMatrix ma;
@@ -4879,7 +4879,7 @@ FPoint ScribusView::transformPoint(FPoint in, double dx, double dy, double rot, 
 	return FPoint(x, y);
 }
 */
-/*
+/* CB: Moved to PageItem, left in commented out for now
 void ScribusView::getBoundingRect(PageItem *currItem, double *x1, double *y1, double *x2, double *y2)
 {
 	double minx = 99999.9;
@@ -9336,7 +9336,7 @@ void ScribusView::TransformM(PageItem *currItem, QPainter *p)
 	}
 }
 
-/*
+/* CB: Moved to PageItem, left in commented out for now
 void ScribusView::SetFrameShape(PageItem *currItem, int count, double *vals)
 {
 	currItem->PoLine.resize(0);
