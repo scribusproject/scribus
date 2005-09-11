@@ -50,12 +50,7 @@ FPointArray & FPointArray::operator=( const FPointArray &a )
 bool FPointArray::resize(uint newCount)
 {
 	if (newCount <= capacity) {
-		if (newCount < 0) {
-			sDebug(QString("resize(): newcount=%1 this=%2").arg(newCount).arg(reinterpret_cast<long>(this), 0, 16));
-			count = 0;
-		}
-		else			
-			count = newCount;
+		count = newCount;
 		return true;
 	}
 	else if (newCount <= 2*capacity && QMemArray<FPoint>::resize(2*capacity)) {
@@ -69,7 +64,7 @@ bool FPointArray::resize(uint newCount)
 		return true;
 	}
 	else {
-		sDebug(QString("failed resize(): count=%1 capacity=%2 newCount=%3").arg(count).arg(capacity).arg(newCount));
+		qDebug(QString("failed resize(): count=%1 capacity=%2 newCount=%3").arg(count).arg(capacity).arg(newCount));
 		return false;
 	}
 }
@@ -78,7 +73,7 @@ bool FPointArray::resize(uint newCount)
 bool FPointArray::setPoints( int nPoints, double firstx, double firsty, ... )
 {
 	va_list ap;
-	if ( !FPointArray::resize(nPoints) )
+	if ( nPoints < 0 || !FPointArray::resize(nPoints) )
 		return false;
 	setPoint( 0, firstx, firsty );
 	int i = 1;
