@@ -30,6 +30,7 @@
 #include "layers.h"
 #include "units.h"
 #include "filewatcher.h"
+#include "hyphenator.h"
 
 
 extern ScribusQApp* ScQApp;

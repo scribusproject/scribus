@@ -18,6 +18,7 @@
 #include "cupsoptions.h"
 #include "cupsoptions.moc"
 #include "prefsmanager.h"
+#include "prefscontext.h"
 #include "prefsfile.h"
 #include "commonstrings.h"
 

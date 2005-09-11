@@ -37,13 +37,14 @@
 
 #include "scribusapi.h"
 #include "pageitem.h"
-#include "mspinbox.h"
-#include "spalette.h"
-#include "fontcombo.h"
-#include "styleselect.h"
-#include "alignselect.h"
-#include "shadebutton.h"
-#include "prefsmanager.h"
+
+class MSpinBox;
+class Spalette;
+class StyleSelect;
+class AlignSelect;
+class FontCombo;
+class ShadeButton;
+class PrefsManager;
 
 struct PtiSmall {
 		    int csize;

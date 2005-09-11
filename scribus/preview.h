@@ -11,12 +11,12 @@
 #include <qcheckbox.h>
 #include <qpushbutton.h>
 #include "scribusapi.h"
-#include "pageselector.h"
-#include "prefsmanager.h"
 
+class PageSelector;
 class ScribusDoc;
 class ScribusView;
 class QSpinBox;
+class PrefsManager;
 
 
 class SCRIBUS_API PPreview : public QDialog

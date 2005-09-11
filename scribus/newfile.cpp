@@ -13,6 +13,8 @@
 #include "prefsmanager.h"
 #include "pagelayout.h"
 #include "commonstrings.h"
+#include "mspinbox.h"
+#include "customfdialog.h"
 
 
 extern QPixmap loadIcon(QString nam);

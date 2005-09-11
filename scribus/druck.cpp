@@ -13,6 +13,7 @@
 
 #include "commonstrings.h"
 #include "prefsmanager.h"
+#include "prefscontext.h"
 #include "prefsfile.h"
 #include "customfdialog.h"
 #include "cupsoptions.h"

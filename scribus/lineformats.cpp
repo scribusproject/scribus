@@ -10,6 +10,7 @@
 #include "prefsfile.h"
 #include "multiline.h"
 #include "commonstrings.h"
+#include "scribusdoc.h"
 
 extern QPixmap loadIcon(QString nam);
 

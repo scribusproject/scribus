@@ -31,7 +31,7 @@ class BookMView;
 class ScribusDoc;
 class Page;
 class PDFOptions;
-#include "prefscontext.h"
+class PrefsContext;
 #include "scribusstructs.h"
 #include <vector>
 

@@ -30,6 +30,7 @@
 #include "serializer.h"
 #include "prefsmanager.h"
 #include "commonstrings.h"
+#include "hyphenator.h"
 
 
 

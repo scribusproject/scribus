@@ -3,7 +3,6 @@
 
 #include "scribusapi.h"
 #include "scribusstructs.h"
-#include "scpainter.h"
 
 class QString;
 class ScColor;

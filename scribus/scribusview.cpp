@@ -79,6 +79,7 @@
 #include "story.h"
 #include "prefsmanager.h"
 #include "rulermover.h"
+#include "hyphenator.h"
 
 using namespace std;
 

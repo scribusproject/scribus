@@ -21,6 +21,7 @@
 #include "gtdialogs.h"
 #include "gtdialogs.moc"
 #include "prefsmanager.h"
+#include "prefscontext.h"
 #include "prefsfile.h"
 #include <qlabel.h>
 #include "commonstrings.h"

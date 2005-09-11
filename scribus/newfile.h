@@ -17,14 +17,15 @@
 #include <qlistbox.h>
 
 #include "scribusapi.h"
-#include "mspinbox.h"
+#include "scribusstructs.h"
+
 #include "customfdialog.h"
 
-
-#include "scribusstructs.h"
 class PrefsManager;
 class MarginWidget;
 class PageLayouts;
+class MSpinBox;
+class CustomFDialog;
 
 
 class SCRIBUS_API NewDoc : public QDialog

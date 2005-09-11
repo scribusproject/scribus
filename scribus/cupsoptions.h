@@ -27,11 +27,12 @@
 #include <qmap.h>
 
 #include "scribusapi.h"
-#include "prefscontext.h"
 
 /**
   *@author Franz Schmid
   */
+
+class PrefsContext;
 
 class SCRIBUS_API CupsOptions : public QDialog
 {

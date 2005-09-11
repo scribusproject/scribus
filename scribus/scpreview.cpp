@@ -17,6 +17,7 @@
 #include "splash.h"
 #include "util.h"
 #include "prefsmanager.h"
+#include "scpainter.h"
 
 using namespace std;
 

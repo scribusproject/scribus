@@ -10,8 +10,9 @@
 #include <qmenubar.h>
 
 #include "scribusapi.h"
-#include "scribusview.h"
-#include "prefscontext.h"
+
+class ScribusView;
+class PrefsContext;
 
 class SCRIBUS_API Editor : public QDialog
 { 

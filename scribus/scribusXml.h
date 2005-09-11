@@ -10,12 +10,18 @@
 #define _SCRIBUS_CONFIG_
 
 #include "scribusapi.h"
-#include "scribusview.h"
 #include <qvaluelist.h>
 #include <qdom.h>
 #include <qprogressbar.h>
 
+#include "pageitem.h"
+#include "multiline.h"
+#include "scfonts.h"
+
 class PrefsManager;
+class ScribusView;
+class SCFonts;
+class ScribusDoc;
 
 class SCRIBUS_API ScriXmlDoc : public QObject
 {

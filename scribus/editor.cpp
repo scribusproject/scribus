@@ -3,6 +3,9 @@
 #include "selfield.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
+#include "prefscontext.h"
+#include "scribusview.h"
+
 #include <qfile.h>
 #include <qtextstream.h>
 #include <qfiledialog.h>

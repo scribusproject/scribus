@@ -152,6 +152,8 @@
 #include "pagelayout.h"
 #include "commonstrings.h"
 #include "preview.h"
+#include "scribuswin.h"
+#include "hyphenator.h"
 
 using namespace std;
 

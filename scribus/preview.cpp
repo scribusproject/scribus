@@ -28,10 +28,12 @@
 #include "checkDocument.h"
 #include "prefsfile.h"
 #include "prefscontext.h"
+#include "prefsmanager.h"
 #include "prefstable.h"
 #include "util.h"
 #include "scribusview.h"
 #include "scribusdoc.h"
+#include "pageselector.h"
 
 extern bool printDinUse;
 

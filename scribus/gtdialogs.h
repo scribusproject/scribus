@@ -39,7 +39,8 @@
 #include <qtooltip.h>
 
 #include "scribusapi.h"
-#include "prefscontext.h"
+
+class PrefsContext;
 
 class SCRIBUS_API gtFileDialog : public QFileDialog
 {

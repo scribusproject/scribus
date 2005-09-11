@@ -29,6 +29,7 @@
 #include "linecombo.h"
 #include "arrowchooser.h"
 #include "polygonwidget.h"
+#include "hyphenator.h"
 
 extern QPixmap loadIcon(QString nam);
 extern bool CMSavail;

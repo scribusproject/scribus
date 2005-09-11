@@ -13,7 +13,6 @@
 #include <qwidgetstack.h>
 
 #include "scribusapi.h"
-#include "scfonts.h"
 class LinkButton;
 class QSpinBox;
 class FontCombo;

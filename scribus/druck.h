@@ -10,7 +10,7 @@
 #define DRUCK_H
 
 #include "scribusapi.h"
-#include "prefscontext.h"
+
 #include <qdialog.h>
 #include <qbuttongroup.h>
 #include <qcombobox.h>
@@ -26,6 +26,8 @@
 #include <qcheckbox.h>
 #include <qtabwidget.h>
 #include <qwidget.h>
+
+class PrefsContext;
 
 class SCRIBUS_API Druck : public QDialog
 {

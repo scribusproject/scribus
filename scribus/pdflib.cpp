@@ -44,6 +44,7 @@
 #include "scfontmetrics.h"
 #include "util.h"
 #include "prefsmanager.h"
+#include "prefscontext.h"
 #include "pdfoptions.h"
 
 using namespace std;

@@ -26,6 +26,7 @@
 #include <qstringlist.h>
 #include "color.h"
 #include "prefsmanager.h"
+#include "hyphenator.h"
 
 
 

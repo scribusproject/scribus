@@ -22,6 +22,7 @@
 #include "pageitem.h"
 #include "units.h"
 #include "prefsmanager.h"
+#include "scribusview.h"
 
 #include <iostream>
 

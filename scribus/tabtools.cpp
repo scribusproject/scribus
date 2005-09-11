@@ -14,6 +14,7 @@
 #include "scfontmetrics.h"
 #include "util.h"
 #include "prefsmanager.h"
+#include "scfonts.h"
 
 
 

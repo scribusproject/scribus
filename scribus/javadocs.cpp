@@ -3,6 +3,7 @@
 #include "query.h"
 #include "editor.h"
 #include <qmessagebox.h>
+#include "scribusdoc.h"
 
 extern QPixmap loadIcon(QString nam);
 

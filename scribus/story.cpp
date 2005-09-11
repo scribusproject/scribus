@@ -32,12 +32,19 @@
 #include "search.h"
 #include "scribus.h"
 #include "prefscontext.h"
+#include "prefsmanager.h"
 #include "prefsfile.h"
 #include "charselect.h"
 #include "pluginmanager.h"
 #include "pageitem.h"
 #include "serializer.h"
 #include "scraction.h"
+#include "mspinbox.h"
+#include "spalette.h"
+#include "styleselect.h"
+#include "alignselect.h"
+#include "fontcombo.h"
+#include "shadebutton.h"
 
 extern QPixmap loadIcon(QString nam);
 

@@ -38,7 +38,6 @@
 #include "prefsstructs.h"
 #include "documentinformation.h"
 #include "undoobject.h"
-#include "hyphenator.h"
 
 #ifdef HAVE_CMS
 	#include CMS_INC
@@ -51,6 +50,7 @@ class Page;
 class UndoManager;
 class UndoState;
 class PDFOptions;
+class Hyphenator;
 
 
 /**
