@@ -177,7 +177,7 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc) : QScrollView(parent,
 	ClRe = -1;
 	ClRe2 = -1;
 	_groupTransactionStarted = false;
-	_itemCreationTransactionStarted = false;
+	//CB TODO _itemCreationTransactionStarted = false;
 	_isGlobalMode = true;
 	undoManager = UndoManager::instance();
 //	languageChange();
@@ -2819,6 +2819,14 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 
 	for (uint i = 0; i < SelItem.count(); ++i)
 		SelItem.at(i)->checkChanges();
+	//Commit drag created items to undo manager. View needs to emit this AddObj() for the outline palette (for now)
+	if (SelItem.at(0)!=NULL)
+	{
+		bool emitToOutline = Doc->itemAddCommit(SelItem.at(0)->ItemNr);
+		if (emitToOutline)
+			emit AddObj(SelItem.at(0));
+	}
+	/*CB Commented out, left in for now
 	if (_itemCreationTransactionStarted && Doc->appMode !=  modeDrawBezierLine)
 	{
 		PageItem *ite = SelItem.at(0);
@@ -2835,6 +2843,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				emit AddObj(ite);
 		}
 	}
+	*/
 }
 
 void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
@@ -9466,6 +9475,8 @@ void ScribusView::SetFrameOval()
 /** Zeichnet eine Ellipse */
 int ScribusView::PaintEllipse(double x, double y, double b, double h, double w, QString fill, QString outline)
 {
+	return Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, x, y, b, h, w, fill, outline, !Mpressed);
+	/* CB: Moved to ScribusDoc, left in commented out for now
 	if (UndoManager::undoEnabled() && !_itemCreationTransactionStarted)
 	{
 		_itemCreationTransactionStarted = true;
@@ -9511,11 +9522,14 @@ int ScribusView::PaintEllipse(double x, double y, double b, double h, double w, 
 		}
 	}
 	return ite->ItemNr;
+	*/
 }
 
 /** Zeichnet einen Bildrahmen */
 int ScribusView::PaintPict(double x, double y, double b, double h)
 {
+	return Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, x, y, b, h, 1, Doc->toolSettings.dBrushPict, "None", !Mpressed);
+	/* CB: Moved to ScribusDoc, left in commented out for now
 	if (UndoManager::undoEnabled() && !_itemCreationTransactionStarted)
 	{
 		_itemCreationTransactionStarted = true;
@@ -9565,11 +9579,14 @@ int ScribusView::PaintPict(double x, double y, double b, double h)
 		}
 	}
 	return ite->ItemNr;
+	*/
 }
 
 /** Zeichnet ein Rechteck */
 int ScribusView::PaintRect(double x, double y, double b, double h, double w, QString fill, QString outline)
 {
+	return Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, x, y, b, h, w, fill, outline, !Mpressed);
+	/* CB: Moved to ScribusDoc, left in commented out for now
 	if (UndoManager::undoEnabled() && !_itemCreationTransactionStarted)
 	{
 		_itemCreationTransactionStarted = true;
@@ -9615,11 +9632,14 @@ int ScribusView::PaintRect(double x, double y, double b, double h, double w, QSt
 		}
 	}
 	return ite->ItemNr;
+	*/
 }
 
 /** Zeichnet ein Polygon */
 int ScribusView::PaintPoly(double x, double y, double b, double h, double w, QString fill, QString outline)
 {
+	return Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, x, y, b, h, w, fill, outline, !Mpressed);
+	/* CB: Moved to ScribusDoc, left in commented out for now
 	if (UndoManager::undoEnabled() && !_itemCreationTransactionStarted)
 	{
 		_itemCreationTransactionStarted = true;
@@ -9664,11 +9684,14 @@ int ScribusView::PaintPoly(double x, double y, double b, double h, double w, QSt
 		}
 	}
 	return ite->ItemNr;
+	*/
 }
 
 /** Zeichnet eine Polyline */
 int ScribusView::PaintPolyLine(double x, double y, double b, double h, double w, QString fill, QString outline)
 {
+	return Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, x, y, b, h, w, fill, outline, !Mpressed);
+	/* CB: Moved to ScribusDoc, left in commented out for now
 	if (UndoManager::undoEnabled() && !_itemCreationTransactionStarted)
 	{
 		_itemCreationTransactionStarted = true;
@@ -9712,11 +9735,14 @@ int ScribusView::PaintPolyLine(double x, double y, double b, double h, double w,
 		}
 	}
 	return ite->ItemNr;
+	*/
 }
 
 /** Zeichnet einen Textrahmen */
 int ScribusView::PaintText(double x, double y, double b, double h, double w, QString outline)
 {
+	return Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y, b, h, w, "None", outline, !Mpressed);
+	/* CB: Moved to ScribusDoc, left in commented out for now
 	if (UndoManager::undoEnabled() && !_itemCreationTransactionStarted)
 	{
 		_itemCreationTransactionStarted = true;
@@ -9765,11 +9791,14 @@ int ScribusView::PaintText(double x, double y, double b, double h, double w, QSt
 		}
 	}
 	return ite->ItemNr;
+	*/
 }
 
 /** Zeichnet eine Linie */
 int ScribusView::PaintLine(double x, double y, double b, double h, double w, QString outline)
 {
+	return Doc->itemAdd(PageItem::Line, PageItem::Unspecified, x, y, b, h, w, "None", outline, !Mpressed);
+	/* CB: Moved to ScribusDoc, left in commented out for now
 	if (w == 0)
 		w = 1;
 	if (UndoManager::undoEnabled() && !_itemCreationTransactionStarted)
@@ -9809,6 +9838,7 @@ int ScribusView::PaintLine(double x, double y, double b, double h, double w, QSt
 		}
 	}
 	return ite->ItemNr;
+	*/
 }
 
 void ScribusView::insertColor(QString nam, double c, double m, double y, double k)

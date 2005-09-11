@@ -38,6 +38,7 @@
 #include "prefsstructs.h"
 #include "documentinformation.h"
 #include "undoobject.h"
+#include "pageitem.h"
 
 #ifdef HAVE_CMS
 	#include CMS_INC
@@ -290,6 +291,40 @@ public:
 	 * @brief Copies a normal page to be a master pages
 	 */
 	const bool copyPageToMasterPage(const int, const int, const QString&);
+	/**
+	 * @brief Paste an item to the document.
+	 * The bulk of a paste item process runs here for want of a better place, but its a better place
+	 * than the view where it used to be. 
+	 * TODO Once the pageitem restructure is done, this is probably unnecessary but it removes the 
+	 * unnecessary part from the view for now which is overloaded with non ScrollView code.
+	 */
+	//TODO: void PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool drag = false);
+	
+	/**
+	 * @brief Add an Item to the document.
+	 * A simple function to create an item of a defined type and add it to the document
+	 * Will need extensive rewriting once we have various classes of PageItems, at a guess.
+	 *
+	 * @param itemFinalised Used to handle item creation for undo while the user is still dragging.
+	 * @return Number of created item, -1 on failure.
+	 */
+	int itemAdd(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, const double x, const double y, const double b, const double h, const double w, const QString& fill, const QString& outline, const bool itemFinalised);
+	
+	/**
+	 * @brief Commit item creation when a user has click-drag created an item
+	 * Only called from ScribusView. Note the undo target is the page, so the undo code remains their for now.
+	 * @return If an item was committed and the view must emit its signal, which needs removing from here, TODO.
+	 */
+	bool itemAddCommit(const int itemNumber);
+	
+	/**
+	 * @brief Finalise item creation. Simply split off code from itemAdd
+	 * Only to be called from itemAdd()
+	 */
+	void itemAddDetails(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, const int itemNumber);
+	
+	//itemDelete
+	//itemBlah...
 
 protected:
 	void addSymbols();
@@ -478,6 +513,9 @@ public: // Public attributes
 	FPointArray symNonBreak;
 	FPointArray symNewCol;
 	FPointArray symNewFrame;
+	
+private:
+	bool _itemCreationTransactionStarted;
 };
 
 #endif

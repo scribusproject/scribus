@@ -63,6 +63,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document"))
 	ApplicationPrefs* prefsData=&(PrefsManager::instance()->appPrefs);
 	modified = false;
 	masterPageMode = false;
+	_itemCreationTransactionStarted=false;
 	NrItems = 0;
 	First = 1;
 	Last = 0;
@@ -2026,6 +2027,7 @@ void ScribusDoc::setScTextDefaultsFromDoc(ScText *sctextdata)
 
 const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, const QString& masterPageName)
 {
+	//TODO Add Undo here
 	Page* sourcePage = Pages.at(pageNumber);
 	int nr = Pages.count();
 	DocPages = Pages;
@@ -2037,13 +2039,14 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 	pageCount = 0;
 	bool atf = PageAT;
 	PageAT = false;
-	ScApp->slotNewPage(nr);
+	//ScApp->slotNewPage(nr);
+	Page* targetPage=addPage(nr);
 	setLoading(true);
 	if (currentPageLayout != singlePage)
 		Pages.at(nr)->LeftPg = leftPage;
 	QMap<int,int> TableID;
 	QPtrList<PageItem> TableItems;
-	Page* targetPage = Pages.at(nr);
+	//Page* targetPage = Pages.at(nr);
 	if (sourcePage->YGuides.count() != 0)
 	{
 		targetPage->YGuides.clear();
@@ -2109,4 +2112,172 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 	PageAT = atf;
 	setLoading(false);
 	return true;
+}
+
+int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, const double x, const double y, const double b, const double h, const double w, const QString& fill, const QString& outline, const bool itemFinalised)
+{
+	if (UndoManager::undoEnabled() && !_itemCreationTransactionStarted)
+	{
+		_itemCreationTransactionStarted = true;
+		undoManager->beginTransaction();
+	}
+	PageItem* newItem=NULL;
+	switch( itemType )
+	{
+		case PageItem::ImageFrame:
+			newItem = new PageItem(this, PageItem::ImageFrame, x, y, b, h, 1, toolSettings.dBrushPict, "None");
+			break;
+		case PageItem::TextFrame:
+			newItem = new PageItem(this, PageItem::TextFrame, x, y, b, h, w, "None", outline);
+			break;
+		case PageItem::Line:
+			{
+				double lineWidth = w == 0.0 ? 1.0 : w;
+				newItem = new PageItem(this, PageItem::Line, x, y, b, h, lineWidth, "None", outline);
+			}
+			break;
+		case PageItem::Polygon:
+			newItem = new PageItem(this, PageItem::Polygon, x, y, b, h, w, fill, outline);
+			break;
+		case PageItem::PolyLine:
+			newItem = new PageItem(this, PageItem::PolyLine, x, y, b, h, w, fill, outline);
+			break;
+		case PageItem::PathText:
+		//At this point, we cannot create a PathText item like this, only by conversion
+			break;
+		default:
+			break;
+	}
+	Q_CHECK_PTR(newItem);	
+	if (newItem==NULL)
+		return -1;
+	Items.append(newItem);
+	newItem->ItemNr = Items.count()-1;	
+	if (masterPageMode)
+		MasterItems = Items;
+	else
+		DocItems = Items;
+	//Add in item default values based on itemType and frameType
+	itemAddDetails(itemType, frameType, newItem->ItemNr);
+
+	if (UndoManager::undoEnabled())
+	{
+		ItemState<PageItem*> *is = new ItemState<PageItem*>("Create PageItem");
+		is->set("CREATE_ITEM", "create_item");
+		is->setItem(newItem);
+		//Undo target rests with the Page for object specific undo
+		UndoObject *target = Pages.at(0);
+		if (newItem->OwnPage > -1)
+			target = Pages.at(newItem->OwnPage);
+		undoManager->action(target, is);
+		//If the item is created "complete" (ie, not being created by drag/resize, commit to undomanager)
+		if (itemFinalised)
+		{
+			//dont think we need this now ... newItem->checkChanges(true);
+			undoManager->commit(Pages.at(newItem->OwnPage)->getUName(), newItem->getUPixmap(),
+								Um::Create + " " + newItem->getUName(),  "", Um::ICreate);
+			_itemCreationTransactionStarted = false;
+		}
+	}
+	return newItem->ItemNr;
+}
+
+void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, const int itemNumber)
+{
+	PageItem* newItem=Items.at(itemNumber);
+	Q_ASSERT(newItem->itemType()==itemType);
+	switch( itemType )
+	{
+		case PageItem::ImageFrame:
+			newItem->setFillShade(toolSettings.shadePict);
+			newItem->LocalScX = toolSettings.scaleX;
+			newItem->LocalScY = toolSettings.scaleY;
+			newItem->ScaleType = toolSettings.scaleType;
+			newItem->AspectRatio = toolSettings.aspectRatio;
+			newItem->IProfile = CMSSettings.DefaultImageRGBProfile;
+			newItem->IRender = CMSSettings.DefaultIntentImages;
+			break;
+		case PageItem::TextFrame:
+			newItem->setFontFillShade(toolSettings.dTextPenShade);
+			newItem->setFontStrokeShade(toolSettings.dTextStrokeShade);
+			newItem->setFillColor(toolSettings.dTextBackGround);
+			newItem->setFillShade(toolSettings.dTextBackGroundShade);
+			newItem->setLineColor(toolSettings.dTextLineColor);
+			newItem->setLineShade(toolSettings.dTextLineShade);
+			break;
+		case PageItem::Line:
+			newItem->PLineArt = PenStyle(toolSettings.dLstyleLine);
+			newItem->setLineShade(toolSettings.dShadeLine);
+			break;
+		case PageItem::Polygon:
+			if(frameType!=PageItem::Rectangle && frameType!=PageItem::Ellipse)
+			{
+				newItem->ClipEdited = true;
+				newItem->FrameType = 3;
+			}
+			break;
+		case PageItem::PolyLine:
+			newItem->ClipEdited = true;
+			break;
+		case PageItem::PathText:
+		//At this point, we cannot create a PathText item like this, only by conversion, do nothing
+			break;
+		default:
+			break;
+	}
+	
+	if (frameType==PageItem::Rectangle || itemType==PageItem::TextFrame || itemType==PageItem::ImageFrame)
+	{
+		newItem->SetRectFrame();
+		//TODO one day hopefully, if(ScQApp->usingGUI())
+		ScApp->view->setRedrawBounding(newItem);
+		newItem->ContourLine = newItem->PoLine.copy();
+	}
+	
+	if (frameType==PageItem::Ellipse)
+	{
+		newItem->SetOvalFrame();
+		//TODO one day hopefully, if(ScQApp->usingGUI())
+		ScApp->view->setRedrawBounding(newItem);
+		newItem->ContourLine = newItem->PoLine.copy();
+	}
+	
+	//ItemType Polygon
+	if (itemType==PageItem::Polygon || itemType==PageItem::PolyLine)
+	{
+		newItem->PLineArt = PenStyle(toolSettings.dLineArt);
+		newItem->setFillShade(toolSettings.dShade);
+		newItem->setLineShade(toolSettings.dShade2);
+	}
+	//ItemType::image,text,polygon,polyline
+	if (itemType==PageItem::ImageFrame || itemType==PageItem::TextFrame || itemType==PageItem::Polygon || itemType==PageItem::PolyLine)
+	{
+		if (newItem->fillColor() != "None")
+			newItem->fillQColor = PageColors[newItem->fillColor()].getShadeColorProof(newItem->fillShade());
+		if (newItem->lineColor() != "None")
+			newItem->strokeQColor = PageColors[newItem->lineColor()].getShadeColorProof(newItem->lineShade());
+	}
+}
+
+
+bool ScribusDoc::itemAddCommit(const int /*itemNumber*/)
+{
+	//TODO use the parameter
+	if (_itemCreationTransactionStarted && appMode !=  modeDrawBezierLine)
+	{
+		PageItem *createdItem=ScApp->view->SelItem.at(0);
+		if (createdItem!=NULL)
+		{
+			createdItem->checkChanges(true);
+			QString targetName = Um::ScratchSpace;
+			if (createdItem->OwnPage > -1)
+				targetName = Pages.at(createdItem->OwnPage)->getUName();
+			undoManager->commit(targetName, createdItem->getUPixmap(),
+								Um::Create + " " + createdItem->getUName(),  "", Um::ICreate);
+			_itemCreationTransactionStarted = false;
+			if (!isLoading())
+				return true;
+		}
+	}
+	return false;
 }

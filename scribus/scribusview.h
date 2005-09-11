@@ -346,7 +346,7 @@ private: // Private attributes
 	int    oldX;
 	int    oldY;
 	bool _groupTransactionStarted;
-	bool _itemCreationTransactionStarted;
+	//CB Moved to ScribusDoc, bool _itemCreationTransactionStarted;
 	bool _isGlobalMode;
 	bool evSpon;
 	bool forceRedraw;
