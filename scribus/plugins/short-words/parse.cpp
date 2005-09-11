@@ -17,6 +17,7 @@ or documentation
 #include "configuration.h"
 
 #include "scribus.h"
+#include "pageitem.h"
 #include <qregexp.h>
 
 extern ScribusApp SCRIBUS_API *ScApp;

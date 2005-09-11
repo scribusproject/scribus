@@ -8,9 +8,9 @@ INCLUDES = $(LIBFREETYPE_CFLAGS) $(all_includes)
 
 libimportps_la_LDFLAGS = -version-info 0:0:0
 libimportps_la_METASOURCES = AUTO
-libimportps_la_SOURCES = importps.cpp
+libimportps_la_SOURCES = importps.cpp importpsplugin.cpp
 
-EXTRA_DIST = import.prolog importps.cpp importps.h
+EXTRA_DIST = import.prolog importps.h importpsplugin.h
 
 install-data-local:
 	$(mkinstalldirs) $(libdir)/scribus/

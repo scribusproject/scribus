@@ -21,6 +21,7 @@ or documentation
 
 #include "scribus.h"
 #include "prefsmanager.h"
+#include "prefscontext.h"
 #include "prefsfile.h"
 #include <qdir.h>
 #include <qstringlist.h>

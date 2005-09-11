@@ -4,7 +4,6 @@
 #include <qvariant.h>
 #include <qdialog.h>
 #include <qradiobutton.h>
-#include <prefscontext.h>
 
 class QVBoxLayout;
 class QHBoxLayout;
@@ -16,6 +15,7 @@ class QLabel;
 class QLineEdit;
 class QPushButton;
 class QSpinBox;
+class PrefsContext;
 
 class ExportForm : public QDialog
 {

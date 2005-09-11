@@ -1,12 +1,11 @@
 #ifndef _SCRIBUS_SHORTCFG_H_
 #define _SCRIBUS_SHORTCFG_H_
 
-#include <qstring.h>
-#include <qstringlist.h>
-#include "scribus.h"
+#include <qobject.h>
 
 class QString;
 class QStringList;
+class PrefsContext;
 
 /*! \brief This is the Scribus Short Words configuratin specification.
 There will be interface for the future Scribus central plugin

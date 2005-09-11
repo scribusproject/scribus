@@ -3,8 +3,9 @@
 
 #include "shortwords.h"
 
-#include "scribus.h"
 #include <qobject.h>
+
+class PageItem;
 
 /*! \brief This is the Scribus Short Words plugin main mechanism.
 

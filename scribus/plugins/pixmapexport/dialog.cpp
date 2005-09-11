@@ -16,6 +16,7 @@
 #include <qfiledialog.h>
 #include "prefsmanager.h"
 #include <prefsfile.h>
+#include <prefscontext.h>
 
 #include "commonstrings.h"
 
