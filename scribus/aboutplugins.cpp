@@ -9,6 +9,11 @@
 #include <qtextedit.h>
 #include <qfileinfo.h>
 
+// This class implements only the non-GUI parts of the
+// About Plug-ins dialog. Please use Qt Designer on
+// ui/aboutpluginsbase.ui if you need to modify the layout,
+// widget properties, etc.
+
 AboutPlugins::AboutPlugins( QWidget* parent )
 	: AboutPluginsBase( parent, "AboutPlugins" ),
 	pluginNames(PluginManager::instance().pluginNames())
