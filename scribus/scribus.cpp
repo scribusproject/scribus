@@ -7716,10 +7716,20 @@ void ScribusApp::doPrintPreview()
 		prefsManager->appPrefs.PrPr_AlphaText = dia->AliasText->isChecked();
 		prefsManager->appPrefs.PrPr_AlphaGraphics = dia->AliasGr->isChecked();
 		prefsManager->appPrefs.PrPr_Transparency = dia->AliasTr->isChecked();
-		prefsManager->appPrefs.PrPr_C = dia->EnableCMYK_C->isChecked();
-		prefsManager->appPrefs.PrPr_M = dia->EnableCMYK_M->isChecked();
-		prefsManager->appPrefs.PrPr_Y = dia->EnableCMYK_Y->isChecked();
-		prefsManager->appPrefs.PrPr_K = dia->EnableCMYK_K->isChecked();
+		if (HaveTiffSep != 0)
+		{
+			prefsManager->appPrefs.PrPr_C = dia->EnableCMYK_C->isChecked();
+			prefsManager->appPrefs.PrPr_M = dia->EnableCMYK_M->isChecked();
+			prefsManager->appPrefs.PrPr_Y = dia->EnableCMYK_Y->isChecked();
+			prefsManager->appPrefs.PrPr_K = dia->EnableCMYK_K->isChecked();
+		}
+		else
+		{
+			prefsManager->appPrefs.PrPr_C = dia->flagsVisible["Cyan"]->isChecked();
+			prefsManager->appPrefs.PrPr_M = dia->flagsVisible["Magenta"]->isChecked();
+			prefsManager->appPrefs.PrPr_Y = dia->flagsVisible["Yellow"]->isChecked();
+			prefsManager->appPrefs.PrPr_K = dia->flagsVisible["Black"]->isChecked();
+		}
 		prefsManager->appPrefs.Gcr_Mode = dia->EnableGCR->isChecked();
 		disconnect(dia, SIGNAL(doPrint()), this, SLOT(slotReallyPrint()));
 		previewDinUse = false;

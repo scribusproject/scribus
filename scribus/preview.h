@@ -15,9 +15,12 @@
 class PageSelector;
 class ScribusDoc;
 class ScribusView;
+class ScImage;
 class QSpinBox;
 class PrefsManager;
 
+class QImage;
+class QTable;
 
 class SCRIBUS_API PPreview : public QDialog
 {
@@ -27,6 +30,9 @@ public:
 	PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int pngAlpha, int tiffSep );
 	~PPreview() {};
 	int RenderPreview(int Seite, int Res);
+	int RenderPreviewSep(int Seite, int Res);
+	void blendImages(QImage &target, ScImage &source, ScColor col);
+	void blendImages2(ScImage &target, ScImage &source, ScColor col);
 	QPixmap CreatePreview(int Seite, int Res);
 	PageSelector *PGSel;
 	QCheckBox* AliasText;
@@ -56,6 +62,9 @@ public:
 	bool GrAl;
 	bool Trans;
 	bool GMode;
+	QMap<QString, int> sepsToFileNum;
+	QMap<QString, QCheckBox*> flagsVisible;
+	QTable* Table;
 
 public slots:
 	void ToSeite(int num);
