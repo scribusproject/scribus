@@ -64,7 +64,7 @@ bool FPointArray::resize(uint newCount)
 		return true;
 	}
 	else {
-		qDebug(QString("failed resize(): count=%1 capacity=%2 newCount=%3").arg(count).arg(capacity).arg(newCount));
+		sDebug(QString("Failed resize(): count=%1 capacity=%2 newCount=%3").arg(count).arg(capacity).arg(newCount));
 		return false;
 	}
 }

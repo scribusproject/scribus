@@ -16,6 +16,7 @@ class PageSelector;
 class ScribusDoc;
 class ScribusView;
 class ScImage;
+class ScColor;
 class QSpinBox;
 class PrefsManager;
 

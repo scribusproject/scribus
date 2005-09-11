@@ -32,6 +32,7 @@
 #include "prefsmanager.h"
 #include "prefstable.h"
 #include "util.h"
+#include "sccolor.h"
 #include "scribusview.h"
 #include "scribusdoc.h"
 #include "pageselector.h"
