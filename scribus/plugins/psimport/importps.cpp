@@ -84,7 +84,7 @@ const ScActionPlugin::AboutData* ImportPSPlugin::getAboutData() const
 	return 0;
 }
 
-void ImportPSPlugin::deleteAboutData(const AboutData* about) const
+void ImportPSPlugin::deleteAboutData(const AboutData* ) const
 {
 }
 

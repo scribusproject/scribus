@@ -57,7 +57,7 @@
 #include <qxml.h>
 
 #include "scpaths.h"
-
+#include "util.h"
 #include "scconfig.h"
 
 extern QPixmap loadIcon(QString nam);
@@ -465,7 +465,7 @@ void HelpBrowser::loadMenu()
 		toLoad = QDir::convertSeparators(pfad + "en/menu.xml");
 		language="en";
 		fi = QFileInfo(toLoad);
-		qDebug("Scribus help in your selected language does not exist, trying English. Otherwise, please visit http://docs.scribus.net.");
+		sDebug("Scribus help in your selected language does not exist, trying English. Otherwise, please visit http://docs.scribus.net.");
 	}
 
 	if (fi.exists())

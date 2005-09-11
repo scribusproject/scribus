@@ -88,7 +88,7 @@ const ScActionPlugin::AboutData* OODrawImportPlugin::getAboutData() const
 	return 0;
 }
 
-void OODrawImportPlugin::deleteAboutData(const AboutData* about) const
+void OODrawImportPlugin::deleteAboutData(const AboutData* ) const
 {
 }
 

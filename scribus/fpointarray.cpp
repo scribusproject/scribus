@@ -18,6 +18,7 @@
 #include "fpointarray.h"
 #include <cstdarg>
 #include <math.h>
+#include "util.h"
 
 using namespace std;
 
@@ -50,7 +51,7 @@ bool FPointArray::resize(uint newCount)
 {
 	if (newCount <= capacity) {
 		if (newCount < 0) {
-			qDebug(QString("resize(): newcount=%1 this=%2").arg(newCount).arg(reinterpret_cast<long>(this), 0, 16));
+			sDebug(QString("resize(): newcount=%1 this=%2").arg(newCount).arg(reinterpret_cast<long>(this), 0, 16));
 			count = 0;
 		}
 		else			
@@ -68,7 +69,7 @@ bool FPointArray::resize(uint newCount)
 		return true;
 	}
 	else {
-		qDebug(QString("failed resize(): count=%1 capacity=%2 newCount=%3").arg(count).arg(capacity).arg(newCount));
+		sDebug(QString("failed resize(): count=%1 capacity=%2 newCount=%3").arg(count).arg(capacity).arg(newCount));
 		return false;
 	}
 }

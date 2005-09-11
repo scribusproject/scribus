@@ -85,7 +85,7 @@ const ScActionPlugin::AboutData* SVGExportPlugin::getAboutData() const
 	return 0;
 }
 
-void SVGExportPlugin::deleteAboutData(const AboutData* about) const
+void SVGExportPlugin::deleteAboutData(const AboutData* ) const
 {
 }
 

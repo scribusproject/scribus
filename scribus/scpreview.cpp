@@ -223,7 +223,7 @@ QPixmap ScPreview::createPreview(QString data)
 			OB.PLineEnd = Qt::PenCapStyle(QStoInt(pg.attribute("PLINEEND","0")));
 			OB.PLineJoin = Qt::PenJoinStyle(QStoInt(pg.attribute("PLINEJOIN","0")));
 			OB.LineSp = QStodouble(pg.attribute("LINESP"));
-			OB.ExtraV = QStodouble(pg.attribute("EXTRAV","0"));
+			OB.ExtraV = static_cast<int>(QStodouble(pg.attribute("EXTRAV","0"))); // temporary compiler silencing
 			OB.LocalScX = QStodouble(pg.attribute("LOCALSCX"));
 			OB.LocalScY = QStodouble(pg.attribute("LOCALSCY"));
 			OB.LocalX = QStodouble(pg.attribute("LOCALX"));

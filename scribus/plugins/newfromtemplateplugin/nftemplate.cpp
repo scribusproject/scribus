@@ -71,7 +71,7 @@ const ScActionPlugin::AboutData* NewFromTemplatePlugin::getAboutData() const
 	return 0;
 }
 
-void NewFromTemplatePlugin::deleteAboutData(const AboutData* about) const
+void NewFromTemplatePlugin::deleteAboutData(const AboutData* ) const
 {
 }
 

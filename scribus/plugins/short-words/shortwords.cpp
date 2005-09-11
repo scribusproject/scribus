@@ -78,7 +78,7 @@ const ScActionPlugin::AboutData* ShortWordsPlugin::getAboutData() const
 	return 0;
 }
 
-void ShortWordsPlugin::deleteAboutData(const AboutData* about) const
+void ShortWordsPlugin::deleteAboutData(const AboutData* ) const
 {
 }
 

@@ -575,13 +575,13 @@ void UndoManager::doTransactionRedo(TransactionState *tstate)
 	}
 }
 
-bool UndoManager::hasUndoActions(int uid)
+bool UndoManager::hasUndoActions(int )
 {
 	// TODO Needs to fixed for object specific mode
 	return stacks[currentDoc].first < stacks[currentDoc].second.end();
 }
 
-bool UndoManager::hasRedoActions(int uid)
+bool UndoManager::hasRedoActions(int )
 {
 	// TODO Needs to be fixed for object specific mode
 	return stacks[currentDoc].first > stacks[currentDoc].second.begin();

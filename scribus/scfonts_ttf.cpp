@@ -7,7 +7,7 @@
 
 #include "scfonts_ttf.h"
 #include "scfontmetrics.h"
-
+#include "util.h"
 #include "scconfig.h"
 
 #include <ft2build.h>
@@ -50,14 +50,14 @@ bool Foi_ttf::ReadMetrics()
 	if (error)
 	{
 		UseFont = false;
-		qDebug(QObject::tr("Font %1 is broken (FreeType), discarding it").arg(Datei));
+		sDebug(QObject::tr("Font %1 is broken (FreeType), discarding it").arg(Datei));
 		return false;
 	}
 	error = FT_New_Face( library, Datei, faceIndex, &face );
 	if (error)
 	{
 		UseFont = false;
-		qDebug(QObject::tr("Font %1 is broken (no Face), discarding it").arg(Datei));
+		sDebug(QObject::tr("Font %1 is broken (no Face), discarding it").arg(Datei));
 		return false;
 	}
 	uniEM = static_cast<double>(face->units_per_EM);
@@ -86,7 +86,7 @@ bool Foi_ttf::ReadMetrics()
 		if (error)
 		{
 			++invalidGlyphs;
-			qDebug(QObject::tr("Font %1  has invalid glyph %2 (charcode %3), discarding it").arg(Datei).arg(gindex).arg(charcode));
+			sDebug(QObject::tr("Font %1  has invalid glyph %2 (charcode %3), discarding it").arg(Datei).arg(gindex).arg(charcode));
 			charcode = FT_Get_Next_Char( face, charcode, &gindex );
 			continue;
 		}
@@ -162,7 +162,7 @@ void Foi_ttf::RawData(QByteArray & bb) {
 		QByteArray coll;
 		Foi::RawData(coll);
 		// access table for faceIndex
-		if (faceIndex >= word(coll, 8))
+		if (faceIndex >= static_cast<int>(word(coll, 8)))
 		{
 			bb.resize(0);
 			return;
@@ -171,7 +171,7 @@ void Foi_ttf::RawData(QByteArray & bb) {
 		static const uint   TDIR_ENTRY_LEN = 16;
 		uint faceOffset = word(coll, 12 + 4 * faceIndex);
 		uint nTables    = word16(coll, faceOffset + 4);
-		qDebug(QObject::tr("extracting face %1 from font %2 (offset=%3, nTables=%4)").arg(faceIndex).arg(Datei).arg(faceOffset).arg(nTables));
+		sDebug(QObject::tr("extracting face %1 from font %2 (offset=%3, nTables=%4)").arg(faceIndex).arg(Datei).arg(faceOffset).arg(nTables));
 		uint headerLength = OFFSET_TABLE_LEN + TDIR_ENTRY_LEN * nTables;   
 		uint tableLengths = 0;
 		// sum table lengths incl padding
@@ -184,7 +184,7 @@ void Foi_ttf::RawData(QByteArray & bb) {
 		if (! bb.data())
 			return;
 		// write header
-		qDebug(QObject::tr("memcpy header: %1 %2 %3").arg(0).arg(faceOffset).arg(headerLength));
+		sDebug(QObject::tr("memcpy header: %1 %2 %3").arg(0).arg(faceOffset).arg(headerLength));
 		if (!copy(bb, 0, coll, faceOffset, headerLength))
 			return;
 
@@ -193,11 +193,11 @@ void Foi_ttf::RawData(QByteArray & bb) {
 		{
 			uint tableSize  = word(coll, faceOffset + OFFSET_TABLE_LEN + TDIR_ENTRY_LEN * i + 12);
 			uint tableStart = word(coll, faceOffset + OFFSET_TABLE_LEN + TDIR_ENTRY_LEN * i + 8);
-			qDebug(QObject::tr("table '%1'").arg(tag(coll, tableStart)));
-			qDebug(QObject::tr("memcpy table: %1 %2 %3").arg(pos).arg(tableStart).arg(tableSize));
+			sDebug(QObject::tr("table '%1'").arg(tag(coll, tableStart)));
+			sDebug(QObject::tr("memcpy table: %1 %2 %3").arg(pos).arg(tableStart).arg(tableSize));
 			if (!copy(bb, pos, coll, tableStart, tableSize)) break;
 			// write new offset to table entry
-			qDebug(QObject::tr("memcpy offset: %1 %2 %3").arg(OFFSET_TABLE_LEN + TDIR_ENTRY_LEN*i + 8).arg(pos).arg(4));
+			sDebug(QObject::tr("memcpy offset: %1 %2 %3").arg(OFFSET_TABLE_LEN + TDIR_ENTRY_LEN*i + 8).arg(pos).arg(4));
 			memcpy(bb.data() + OFFSET_TABLE_LEN + TDIR_ENTRY_LEN * i + 8, &pos, 4);
 			pos += tableSize;
 			// pad
@@ -286,7 +286,7 @@ bool Foi_ttf::EmbedFont(QString &str)
 			str += "00\n>";
 		}
 		else {
-			qDebug(QObject::tr("Font %1 is broken (read stream), no embedding").arg(Datei).arg(gindex));
+			sDebug(QObject::tr("Font %1 is broken (read stream), no embedding").arg(Datei).arg(gindex));
 			str += "\n] def\n";
 			return false;
 		}

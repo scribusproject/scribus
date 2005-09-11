@@ -97,6 +97,11 @@ extern int IntentPrinter;
 
 using namespace std;
 
+void sDebug(QString message)
+{
+	qDebug("%s", message.ascii());
+}
+
 QImage ProofImage(QImage *Image)
 {
 #ifdef HAVE_CMS

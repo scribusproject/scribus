@@ -56,7 +56,7 @@ const ScActionPlugin::AboutData* FontPreviewPlugin::getAboutData() const
 	return 0;
 }
 
-void FontPreviewPlugin::deleteAboutData(const AboutData* about) const
+void FontPreviewPlugin::deleteAboutData(const AboutData* ) const
 {
 }
 

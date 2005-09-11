@@ -72,7 +72,7 @@ Tree::Tree( QWidget* parent, ScribusApp* scApp ) : ScrPaletteBase( parent, "Tree
 	QDialog::keyPressEvent(k);
 }
 */
-void Tree::slotRightClick(QListViewItem* ite, const QPoint &, int)
+void Tree::slotRightClick(QListViewItem* , const QPoint &, int)
 {
 /*	if (ite == NULL)
 		return;
@@ -92,7 +92,7 @@ void Tree::slotRightClick(QListViewItem* ite, const QPoint &, int)
 	} */
 }
 
-void Tree::slotDoRename(QListViewItem* ite, int col)
+void Tree::slotDoRename(QListViewItem* , int )
 {
 /*	if (ScApp->ScriptRunning)
 		return;
@@ -207,7 +207,7 @@ void Tree::slotShowSelect(uint SNr, int Nr)
 	connect(reportDisplay, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
 }
 
-void Tree::slotRemoveElement(uint SNr, uint Nr)
+void Tree::slotRemoveElement(uint , uint )
 {
 /*	if (ScApp->ScriptRunning)
 		return;
@@ -234,7 +234,6 @@ void Tree::slotUpdateElement(uint SNr, uint Nr)
 		return;
 	}
 	PageItem* pgItem;
-	int itemType;
 	if (document->masterPageMode)
 		pgItem = document->MasterItems.at(Nr);
 	else
@@ -363,7 +362,7 @@ void Tree::slotAddElement(PageItem *item)
 	connect(reportDisplay, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
 }
 
-void Tree::slotMoveElement(uint SNr, uint NrOld, uint NrNew)
+void Tree::slotMoveElement(uint , uint , uint )
 {
 /*	if (ScApp->ScriptRunning)
 		return;
@@ -373,7 +372,7 @@ void Tree::slotMoveElement(uint SNr, uint NrOld, uint NrNew)
 	PageObj.at(SNr)->Elemente.insert(NrNew, tmp); */
 }
 
-void Tree::slotAddPage(uint Nr)
+void Tree::slotAddPage(uint )
 {
 /*	if (ScApp->ScriptRunning)
 		return;
@@ -386,7 +385,7 @@ void Tree::slotAddPage(uint Nr)
 	rebuildPageD(); */
 }
 
-void Tree::slotDelPage(uint Nr)
+void Tree::slotDelPage(uint )
 {
 /*	if (ScApp->ScriptRunning)
 		return;
@@ -418,7 +417,7 @@ void Tree::rebuildPageD()
 	} */
 }
 
-void Tree::reopenTree(QValueList<int> op)
+void Tree::reopenTree(QValueList<int> )
 {
 /*	if (ScApp->ScriptRunning)
 		return;

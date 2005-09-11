@@ -2178,7 +2178,7 @@ void StoryEditor::buildGUI()
 	emenu->setItemEnabled(Mupdt, 0);
 	resize( QSize(660, 500).expandedTo(minimumSizeHint()) );
 	if (prefsManager==NULL)
-		qDebug(QString("%1").arg("prefsmgr null"));
+		sDebug(QString("%1").arg("prefsmgr null"));
 	
 	Editor->setPaper(prefsManager->appPrefs.STEcolor);
 	QFont fo;
@@ -2835,12 +2835,12 @@ void StoryEditor::Do_fontPrev()
 		bool result = ScApp->pluginManager->callImportExportPlugin("fontpreview", Editor->CurrFont, retval);
 		if (result && !retval.isEmpty())
 		{
-			qDebug("Got retval");
+			sDebug("Got retval");
 			newTxFont(retval);
 			FontTools->SetFont(retval);
 		}
 		else
-			qDebug("No retval");
+			sDebug("No retval");
 	}
 	blockUpdate = false;
 }

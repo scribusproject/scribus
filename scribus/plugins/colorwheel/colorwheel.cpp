@@ -57,7 +57,7 @@ const ScActionPlugin::AboutData* ColorWheelPlugin::getAboutData() const
 	return 0;
 }
 
-void ColorWheelPlugin::deleteAboutData(const AboutData* about) const
+void ColorWheelPlugin::deleteAboutData(const AboutData* ) const
 {
 }
 

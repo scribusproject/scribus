@@ -9136,7 +9136,7 @@ void ScribusApp::ImageEffects()
 	}
 }
 
-QString ScribusApp::Collect(bool compress, bool withFonts, const QString& newDirectory)
+QString ScribusApp::Collect(bool compress, bool withFonts, const QString& )
 {
 	CollectForOutput *c = new CollectForOutput(withFonts, compress);
 	QString ret = c->collect();

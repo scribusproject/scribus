@@ -838,7 +838,7 @@ bool FileLoader::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 			Its->BackBox = 0;
 			while (Its->NextIt != -1)
 			{
-				if (Its->NextIt < doc->Items.count())
+				if (Its->NextIt < static_cast<int>(doc->Items.count()))
 				{
 					Itn = doc->Items.at(Its->NextIt);
 					Its->NextBox = Itn;

@@ -89,17 +89,11 @@ void Foi::RawData(QByteArray & bb)
 	
 	error = FT_Init_FreeType( &library );
 	if (error)
-	{
-		qDebug(QObject::tr("Freetype2 library not available"));
-	}
+		sDebug(QObject::tr("Freetype2 library not available"));
 	else
-	{
 		error = FT_New_Face( library, Datei, faceIndex, &face );
-	}
 	if (error)
-	{
-		qDebug(QObject::tr("Font %1 is broken, no embedding").arg(Datei));
-	}
+		sDebug(QObject::tr("Font %1 is broken, no embedding").arg(Datei));
 	else 
 	{
 		FT_Stream fts = face->stream;
@@ -109,7 +103,7 @@ void Foi::RawData(QByteArray & bb)
 			error = FT_Stream_Read(fts, reinterpret_cast<FT_Byte *>(bb.data()), fts->size);
 		if (error) 
 		{
-			qDebug(QObject::tr("Font %1 is broken (read stream), no embedding").arg(Datei));
+			sDebug(QObject::tr("Font %1 is broken (read stream), no embedding").arg(Datei));
 			bb.resize(0);
 		}
 		/*
@@ -231,14 +225,14 @@ class Foi_postscript : public Foi
 			if (error)
 			{
 				UseFont = false;
-				qDebug(QObject::tr("Font %1 is broken (FreeType2), discarding it").arg(Datei));
+				sDebug(QObject::tr("Font %1 is broken (FreeType2), discarding it").arg(Datei));
 				return false;
 			}
 			error = FT_New_Face( library, Datei, faceIndex, &face );
 			if (error)
 			{
 				UseFont = false;
-				qDebug(QObject::tr("Font %1 is broken (no Face), discarding it").arg(Datei));
+				sDebug(QObject::tr("Font %1 is broken (no Face), discarding it").arg(Datei));
 				FT_Done_FreeType( library );
 				return false;
 			}
@@ -278,7 +272,7 @@ class Foi_postscript : public Foi
 				if (error)
 				{
 					++invalidGlyph;
-					qDebug(QObject::tr("Font %1 has broken glyph %2 (charcode %3)").arg(Datei).arg(gindex).arg(charcode));
+					sDebug(QObject::tr("Font %1 has broken glyph %2 (charcode %3)").arg(Datei).arg(gindex).arg(charcode));
 					charcode = FT_Get_Next_Char( face, charcode, &gindex );
 					continue;
 				}
@@ -308,8 +302,8 @@ class Foi_postscript : public Foi
 			FT_Done_FreeType( library );
 			if (invalidGlyph > 0) {
 				UseFont = false;
-				qDebug(QObject::tr("Font %1 is broken and will be discarded").arg(Datei));
-			}				
+				sDebug(QObject::tr("Font %1 is broken and will be discarded").arg(Datei));
+			}
 			HasMetrics=UseFont;
 			metricsread=UseFont;
 			return(HasMetrics);
@@ -399,7 +393,7 @@ class Foi_pfb : public Foi_postscript
 			}
 			else 
 			{
-				qDebug(QObject::tr("Font %1 cannot be read, no embedding").arg(Datei));
+				sDebug(QObject::tr("Font %1 cannot be read, no embedding").arg(Datei));
 				return false;
 			}
 		}
@@ -526,7 +520,7 @@ void SCFonts::AddScalableFonts(const QString &path, QString DocName)
 			{
 				error = AddScalableFont(pathfile, library, DocName);
 				if (error)
-					qDebug(QObject::tr("Font %1 is broken, discarding it").arg(pathfile));
+					sDebug(QObject::tr("Font %1 is broken, discarding it").arg(pathfile));
 			}
 #ifdef FT_MACINTOSH
 			else if (ext.isEmpty() && DocName.isEmpty())
@@ -535,7 +529,7 @@ void SCFonts::AddScalableFonts(const QString &path, QString DocName)
 				if (error)
 					error = AddScalableFont(pathfile + "/rsrc",library, DocName);
 				if (error)
-					qDebug(QObject::tr("Font %1 is broken, discarding it").arg(pathfile));
+					sDebug(QObject::tr("Font %1 is broken, discarding it").arg(pathfile));
 			}
 #endif				
 		}
@@ -652,7 +646,7 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 	
 	if (format == Foi::UNKNOWN_FORMAT) 
 	{
-		qDebug(QObject::tr("Failed to load font %1 - font type unknown").arg(filename));
+		sDebug(QObject::tr("Failed to load font %1 - font type unknown").arg(filename));
 		error = true;
 	}
 		
@@ -741,7 +735,7 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 					t->FontEnc = QString();
 			}
 			if (showFontInformation)
-				qDebug(QObject::tr("Font %1 loaded from %2(%3)").arg(t->cached_RealName).arg(filename).arg(faceindex+1));
+				sDebug(QObject::tr("Font %1 loaded from %2(%3)").arg(t->cached_RealName).arg(filename).arg(faceindex+1));
 
 /*
 //debug
@@ -761,7 +755,7 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 		else 
 		{
 			if (showFontInformation)
-				qDebug(QObject::tr("Font %1(%2) is duplicate of %3").arg(filename).arg(faceindex+1).arg(t->fontPath()));
+				sDebug(QObject::tr("Font %1(%2) is duplicate of %3").arg(filename).arg(faceindex+1).arg(t->fontPath()));
 			// this is needed since eg. AppleSymbols will happily return a face for *any* face_index
 			error = true;
 		}
@@ -811,14 +805,14 @@ void SCFonts::AddFontconfigFonts()
 		if (FcPatternGetString (fs->fonts[i], FC_FILE, 0, &file) == FcResultMatch)
 		{
 			if (showFontInformation)
-				qDebug(QObject::tr("Loading font %1 (found using fontconfig)").arg(QString((char*)file)));
+				sDebug(QObject::tr("Loading font %1 (found using fontconfig)").arg(QString((char*)file)));
 			error = AddScalableFont(QString((char*)file), library, "");
 			if (error)
-				qDebug(QObject::tr("Font %1 (found using fontconfig) is broken, discarding it").arg(QString((char*)file)));
+				sDebug(QObject::tr("Font %1 (found using fontconfig) is broken, discarding it").arg(QString((char*)file)));
 		}
 		else
 			if (showFontInformation)
-				qDebug(QObject::tr("Failed to load a font - freetype2 couldn't find the font file"));
+				sDebug(QObject::tr("Failed to load a font - freetype2 couldn't find the font file"));
 	}
 	FT_Done_FreeType( library );
 }
@@ -896,7 +890,7 @@ void SCFonts::AddXFontServerPath()
  * allowing a user to have extra fonts installed
  * only for this user. Can also be used also as an emergency
  * fallback if no suitable fonts are found elsewere */
-void SCFonts::AddUserPath(QString pf)
+void SCFonts::AddUserPath(QString )
 {
 	PrefsContext *pc = PrefsManager::instance()->prefsFile->getContext("Fonts");
 	PrefsTable *extraDirs = pc->getTable("ExtraFontDirs");

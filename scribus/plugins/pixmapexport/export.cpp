@@ -66,7 +66,7 @@ const ScActionPlugin::AboutData* PixmapExportPlugin::getAboutData() const
 	return 0;
 }
 
-void PixmapExportPlugin::deleteAboutData(const AboutData* about) const
+void PixmapExportPlugin::deleteAboutData(const AboutData* ) const
 {
 }
 

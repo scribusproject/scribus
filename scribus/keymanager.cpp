@@ -534,7 +534,7 @@ QStringList KeyManager::scanForSets()
 			
 			if ( !doc.setContent( &file, &errorMsg, &eline, &ecol )) 
 			{
-				qDebug("%s", QString("Could not open key set file: %1\nError:%2 at line: %3, row: 4").arg(keySetsDir[fileCounter]).arg(errorMsg).arg(eline).arg(ecol).ascii());
+				qDebug("%s", QString("Could not open key set file: %1\nError:%2 at line: %3, row: %4").arg(keySetsDir[fileCounter]).arg(errorMsg).arg(eline).arg(ecol).ascii());
 				file.close();
 				continue;
 			}

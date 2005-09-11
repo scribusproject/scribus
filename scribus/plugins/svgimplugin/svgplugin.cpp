@@ -81,7 +81,7 @@ const ScActionPlugin::AboutData* SVGImportPlugin::getAboutData() const
 	return 0;
 }
 
-void SVGImportPlugin::deleteAboutData(const AboutData* about) const
+void SVGImportPlugin::deleteAboutData(const AboutData* ) const
 {
 }
 

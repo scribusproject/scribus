@@ -608,7 +608,7 @@ void ScPainter::restore()
 #endif
 }
 
-void ScPainter::setRasterOp( int op  )
+void ScPainter::setRasterOp( int   )
 {
 }
 
