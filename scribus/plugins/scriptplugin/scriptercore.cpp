@@ -18,6 +18,7 @@
 #include "layers.h"
 #include "tree.h"
 #include "menumanager.h"
+#include "pconsole.h"
 #include "scraction.h"
 #include "scpaths.h"
 #include "prefsfile.h"

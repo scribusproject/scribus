@@ -6,12 +6,9 @@
 #include "qmap.h"
 #include "qguardedptr.h"
 
-#include "menumanager.h"
-#include "pconsole.h"
-
 class ScrAction;
 class MenuManager;
-
+class PythonConsole;
 
 class ScripterCore : public QObject
 {
