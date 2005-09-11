@@ -54,11 +54,15 @@ const QString ColorWheelPlugin::fullTrName() const
 
 const ScActionPlugin::AboutData* ColorWheelPlugin::getAboutData() const
 {
-	return 0;
+	AboutData* about = new AboutData;
+	Q_CHECK_PTR(about);
+	return about;
 }
 
-void ColorWheelPlugin::deleteAboutData(const AboutData* ) const
+void ColorWheelPlugin::deleteAboutData(const AboutData* about) const
 {
+	Q_ASSERT(about);
+	delete about;
 }
 
 /** Create dialog. Everything else is handled in separated classes. */

@@ -126,11 +126,25 @@ const QString ScriptPlugin::fullTrName() const
 
 const ScActionPlugin::AboutData* ScriptPlugin::getAboutData() const
 {
-	return 0;
+	AboutData* about = new AboutData;
+	Q_CHECK_PTR(about);
+	about->authors = QString::fromUtf8(
+			"Petr Van\xc4\x9bk <petr@scribus.info>, "
+			"Franz Schmid <franz@scribus.info>, "
+			"Craig Ringer <craig@scribus.info>");
+	about->shortDescription = tr("Embedded Python scripting support.");
+	// about->description = tr("Write me!")
+	// about->version 
+	// about->releaseDate
+	// about->copyright
+	// about->license
+	return about;
 }
 
 void ScriptPlugin::deleteAboutData(const AboutData* about) const
 {
+	Q_ASSERT(about);
+	delete about;
 }
 
 bool ScriptPlugin::initPlugin()

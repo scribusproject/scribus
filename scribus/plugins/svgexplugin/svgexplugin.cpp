@@ -82,11 +82,15 @@ const QString SVGExportPlugin::fullTrName() const
 
 const ScActionPlugin::AboutData* SVGExportPlugin::getAboutData() const
 {
-	return 0;
+	AboutData* about = new AboutData;
+	Q_CHECK_PTR(about);
+	return about;
 }
 
-void SVGExportPlugin::deleteAboutData(const AboutData* ) const
+void SVGExportPlugin::deleteAboutData(const AboutData* about) const
 {
+	Q_ASSERT(about);
+	delete about;
 }
 
 /*!

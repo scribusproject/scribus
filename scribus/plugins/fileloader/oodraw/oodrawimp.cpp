@@ -85,11 +85,15 @@ const QString OODrawImportPlugin::fullTrName() const
 
 const ScActionPlugin::AboutData* OODrawImportPlugin::getAboutData() const
 {
-	return 0;
+	AboutData* about = new AboutData;
+	Q_CHECK_PTR(about);
+	return about;
 }
 
-void OODrawImportPlugin::deleteAboutData(const AboutData* ) const
+void OODrawImportPlugin::deleteAboutData(const AboutData* about) const
 {
+	Q_ASSERT(about);
+	delete about;
 }
 
 bool OODrawImportPlugin::run(QString fileName)

@@ -78,11 +78,15 @@ const QString SVGImportPlugin::fullTrName() const
 
 const ScActionPlugin::AboutData* SVGImportPlugin::getAboutData() const
 {
-	return 0;
+	AboutData* about = new AboutData;
+	Q_CHECK_PTR(about);
+	return about;
 }
 
-void SVGImportPlugin::deleteAboutData(const AboutData* ) const
+void SVGImportPlugin::deleteAboutData(const AboutData* about) const
 {
+	Q_ASSERT(about);
+	delete about;
 }
 
 /*!

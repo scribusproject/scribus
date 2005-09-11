@@ -81,11 +81,15 @@ const QString ImportPSPlugin::fullTrName() const
 
 const ScActionPlugin::AboutData* ImportPSPlugin::getAboutData() const
 {
-	return 0;
+	AboutData* about = new AboutData;
+	Q_CHECK_PTR(about);
+	return about;
 }
 
-void ImportPSPlugin::deleteAboutData(const AboutData* ) const
+void ImportPSPlugin::deleteAboutData(const AboutData* about) const
 {
+	Q_ASSERT(about);
+	delete about;
 }
 
 /*!

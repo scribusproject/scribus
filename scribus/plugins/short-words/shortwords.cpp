@@ -75,11 +75,15 @@ const QString ShortWordsPlugin::fullTrName() const
 
 const ScActionPlugin::AboutData* ShortWordsPlugin::getAboutData() const
 {
-	return 0;
+	AboutData* about = new AboutData;
+	Q_CHECK_PTR(about);
+	return about;
 }
 
-void ShortWordsPlugin::deleteAboutData(const AboutData* ) const
+void ShortWordsPlugin::deleteAboutData(const AboutData* about) const
 {
+	Q_ASSERT(about);
+	delete about;
 }
 
 bool ShortWordsPlugin::run(QString target)

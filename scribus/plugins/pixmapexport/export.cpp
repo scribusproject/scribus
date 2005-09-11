@@ -63,11 +63,15 @@ const QString PixmapExportPlugin::fullTrName() const
 
 const ScActionPlugin::AboutData* PixmapExportPlugin::getAboutData() const
 {
-	return 0;
+	AboutData* about = new AboutData;
+	Q_CHECK_PTR(about);
+	return about;
 }
 
-void PixmapExportPlugin::deleteAboutData(const AboutData* ) const
+void PixmapExportPlugin::deleteAboutData(const AboutData* about) const
 {
+	Q_ASSERT(about);
+	delete about;
 }
 
 bool PixmapExportPlugin::run(QString target)

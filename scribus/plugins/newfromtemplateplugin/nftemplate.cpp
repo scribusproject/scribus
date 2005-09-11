@@ -68,11 +68,15 @@ const QString NewFromTemplatePlugin::fullTrName() const
 
 const ScActionPlugin::AboutData* NewFromTemplatePlugin::getAboutData() const
 {
-	return 0;
+	AboutData* about = new AboutData;
+	Q_CHECK_PTR(about);
+	return about;
 }
 
-void NewFromTemplatePlugin::deleteAboutData(const AboutData* ) const
+void NewFromTemplatePlugin::deleteAboutData(const AboutData* about) const
 {
+	Q_ASSERT(about);
+	delete about;
 }
 
 bool NewFromTemplatePlugin::run(QString target)
