@@ -34,16 +34,16 @@ public:
 	//Creates a transformed point, replaces ScribusView::transformPoint()
 	FPoint(const double x, const double y, const double dx, const double dy, const double rot, const double sx, const double sy, const bool invert=false);
 //  ~FPoint() {};
-	FPoint &  operator=(const FPoint & rhs)  { xp = rhs.xp; yp = rhs.yp; return *this; };
-	double x() const { return xp; };
-	double y() const { return yp; };
-	void setX(double x) { xp = x; };
-	void setY(double y) { yp = y; };
-	void setXY(double x, double y) { xp = x; yp = y; };
+	FPoint &  operator=(const FPoint & rhs);
+	double x() const;
+	double y() const;
+	void setX(double x);
+	void setY(double y);
+	void setXY(double x, double y);
 	bool operator==(const FPoint &rhs) const;
 	bool operator!=(const FPoint &rhs) const;
-	FPoint &operator+=( const FPoint &p ) { xp += p.xp; yp += p.yp; return *this; };
-	FPoint &operator-=( const FPoint &p ) { xp -= p.xp; yp -= p.yp; return *this; };
+	FPoint &operator+=( const FPoint &p );
+	FPoint &operator-=( const FPoint &p );
 	friend inline const FPoint operator+( const FPoint &, const FPoint & );
 	friend inline const FPoint operator-( const FPoint &, const FPoint & );
 	friend inline const FPoint operator*( const FPoint &, const double & );
@@ -60,19 +60,64 @@ private:
 	double yp;
 };
 
-inline const FPoint operator+( const FPoint &p1, const FPoint &p2 )
-{ return FPoint(p1.xp+p2.xp, p1.yp+p2.yp); }
 
-inline const FPoint operator-( const FPoint &p1, const FPoint &p2 )
-{ return FPoint(p1.xp-p2.xp, p1.yp-p2.yp); }
+inline const FPoint operator+( const FPoint &p1, const FPoint &p2 ) { 
+	return FPoint(p1.xp+p2.xp, p1.yp+p2.yp); 
+}
 
-inline const FPoint operator*( const FPoint &p, const double &c )
-{ return FPoint(p.xp*c, p.yp*c); }
+inline const FPoint operator-( const FPoint &p1, const FPoint &p2 ) { 
+	return FPoint(p1.xp-p2.xp, p1.yp-p2.yp); 
+}
 
-inline const FPoint operator*( const double &c, const FPoint &p )
-{ return FPoint(p.xp*c, p.yp*c); }
+inline const FPoint operator*( const FPoint &p, const double &c ) { 
+	return FPoint(p.xp*c, p.yp*c); 
+}
 
-inline const double operator*( const FPoint &a, const FPoint &b )
-{ return a.xp * b.xp + a.yp * b.yp; }
+inline const FPoint operator*( const double &c, const FPoint &p ) { 
+	return FPoint(p.xp*c, p.yp*c); 
+}
+
+inline const double operator*( const FPoint &a, const FPoint &b ) {
+	return a.xp * b.xp + a.yp * b.yp; 
+}
+
+inline FPoint &  FPoint::operator=(const FPoint & rhs)  { 
+	xp = rhs.xp; 
+	yp = rhs.yp; 
+	return *this; 
+}
+
+inline double FPoint::x() const { 
+	return xp; 
+}
+
+inline double FPoint::y() const { 
+	return yp; 
+}
+
+inline void FPoint::setX(double x) { 
+	xp = x; 
+}
+
+inline void FPoint::setY(double y) { 
+	yp = y; 
+}
+
+inline void FPoint::setXY(double x, double y) { 
+	xp = x;
+	yp = y; 
+}
+ 
+inline FPoint & FPoint::operator+=( const FPoint &p ) { 
+	xp += p.xp; 
+	yp += p.yp; 
+	return *this; 
+}
+
+inline FPoint & FPoint::operator-=( const FPoint &p ) { 
+	xp -= p.xp; 
+	yp -= p.yp; 
+	return *this; 
+}
 
 #endif
