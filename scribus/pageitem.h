@@ -184,7 +184,16 @@ struct TabRecord
 	void DrawObj_PolyLine(ScPainter *p);
 	void DrawObj_PathText(ScPainter *p, double sc);
 	void DrawObj_Embedded(ScPainter *p, QRect e, struct ZZ *hl);
+	
+	void SetFrameShape(int count, double *vals);
+	void SetRectFrame();
+	void SetOvalFrame();
+	void SetFrameRound();
+	//QRect getRedrawBounding(const double);
+	//void setRedrawBounding();
+	void getBoundingRect(double *x1, double *y1, double *x2, double *y2);
 	void copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer);
+	
 	double SetZeichAttr(struct ScText *hl, int *chs, QString *chx);
 	void SetFarbe(QColor *tmp, QString farbe, int shad);
 	void DrawZeichenS(ScPainter *p, struct ZZ *hl);

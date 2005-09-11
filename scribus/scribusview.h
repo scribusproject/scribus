@@ -164,9 +164,11 @@ public:
 	void SnapToGuides(PageItem *currItem);
 	QPoint ApplyGrid(QPoint in);
 	FPoint ApplyGridF(FPoint in);
+	/*
 	FPoint transformPointI(FPoint in, double dx, double dy, double rot, double sx, double sy);
 	FPoint transformPoint(FPoint in, double dx, double dy, double rot, double sx, double sy);
-	void getBoundingRect(PageItem *currItem, double *x1, double *y1, double *x2, double *y2);
+	*/
+	//void getBoundingRect(PageItem *currItem, double *x1, double *y1, double *x2, double *y2);
 	QRect getRedrawBounding(PageItem *currItem);
 	void setRedrawBounding(PageItem *currItem);
 	void setGroupRect();
@@ -222,10 +224,10 @@ public:
 	void EmitValues(PageItem *currItem);
 	void Transform(PageItem *currItem, QPainter *p);
 	void TransformM(PageItem *currItem, QPainter *p);
-	void SetFrameShape(PageItem *currItem, int count, double *vals);
-	void SetRectFrame(PageItem *currItem);
-	void SetOvalFrame(PageItem *currItem);
-	void SetFrameRound(PageItem *currItem);
+	//void SetFrameShape(PageItem *currItem, int count, double *vals);
+	//void SetRectFrame(PageItem *currItem);
+	//void SetOvalFrame(PageItem *currItem);
+	//void SetFrameRound(PageItem *currItem);
 	void SetFrameRect();
 	void SetFrameRounded();
 	void SetFrameOval();

@@ -338,15 +338,15 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 
 							if (nextItem->Rot!=0.000)
 							{
-								FPoint tempPoint = transformPoint(FPoint(0,0), x11, y11, nextItem->Rot, 1, 1);
+								FPoint tempPoint(0,0, x11, y11, nextItem->Rot, 1, 1);
 								x11=tempPoint.x();
 								y11=tempPoint.y();
-								tempPoint = transformPoint(FPoint(0,0), x12, y12, nextItem->Rot, 1, 1);
-								x12=tempPoint.x();
-								y12=tempPoint.y();
-								tempPoint = transformPoint(FPoint(0,0), x1mid, y1mid, nextItem->Rot, 1, 1);
-								x1mid=tempPoint.x();
-								y1mid=tempPoint.y();
+								FPoint tempPoint2(0,0, x12, y12, nextItem->Rot, 1, 1);
+								x12=tempPoint2.x();
+								y12=tempPoint2.y();
+								FPoint tempPoint3(0,0, x1mid, y1mid, nextItem->Rot, 1, 1);
+								x1mid=tempPoint3.x();
+								y1mid=tempPoint3.y();
 							}
 
 
@@ -365,15 +365,15 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 
 								if (nextItem->NextBox->Rot!=0.000)
 								{
-									FPoint tempPoint = transformPoint(FPoint(0,0), x21, y21, nextItem->NextBox->Rot, 1, 1);
+									FPoint tempPoint(0,0, x21, y21, nextItem->NextBox->Rot, 1, 1);
 									x21=tempPoint.x();
 									y21=tempPoint.y();
-									tempPoint = transformPoint(FPoint(0,0), x22, y22, nextItem->NextBox->Rot, 1, 1);
-									x22=tempPoint.x();
-									y22=tempPoint.y();
-									tempPoint = transformPoint(FPoint(0,0), x2mid, y2mid, nextItem->NextBox->Rot, 1, 1);
-									x2mid=tempPoint.x();
-									y2mid=tempPoint.y();
+									FPoint tempPoint2(0,0, x22, y22, nextItem->NextBox->Rot, 1, 1);
+									x22=tempPoint2.x();
+									y22=tempPoint2.y();
+									FPoint tempPoint3(0,0, x2mid, y2mid, nextItem->NextBox->Rot, 1, 1);
+									x2mid=tempPoint3.x();
+									y2mid=tempPoint3.y();
 								}
 
 								if (x22<x11) { a1 = x11; a2 = x22; }
@@ -389,12 +389,12 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 
 							}
 
-							FPoint Start = transformPoint(FPoint(a1-nextItem->Xpos, b1-nextItem->Ypos), nextItem->Xpos, nextItem->Ypos, nextItem->Rot, 1, 1);
+							FPoint Start(a1-nextItem->Xpos, b1-nextItem->Ypos, nextItem->Xpos, nextItem->Ypos, nextItem->Rot, 1, 1);
 							//FPoint Start = transformPoint(FPoint(nextItem->Width/2, nextItem->Height), nextItem->Xpos, nextItem->Ypos, nextItem->Rot, 1, 1);
 							nextItem = nextItem->NextBox;
 							if (nextItem != NULL)
 							{
-								FPoint End = transformPoint(FPoint(a2-nextItem->Xpos, b2-nextItem->Ypos), nextItem->Xpos, nextItem->Ypos, nextItem->Rot, 1, 1);
+								FPoint End(a2-nextItem->Xpos, b2-nextItem->Ypos, nextItem->Xpos, nextItem->Ypos, nextItem->Rot, 1, 1);
 								//FPoint End = transformPoint(FPoint(nextItem->Width/2, 0), nextItem->Xpos, nextItem->Ypos, nextItem->Rot, 1, 1);
 								painter->setPen(black, 5.0 / Scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 								painter->setPenOpacity(0.3);
@@ -432,11 +432,11 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 					}
 					while (nextItem != 0)
 					{
-						FPoint Start = transformPoint(FPoint(nextItem->Width/2, nextItem->Height), nextItem->Xpos, nextItem->Ypos, nextItem->Rot, 1, 1);
+						FPoint Start(nextItem->Width/2, nextItem->Height, nextItem->Xpos, nextItem->Ypos, nextItem->Rot, 1, 1);
 						nextItem = nextItem->NextBox;
 						if (nextItem != 0)
 						{
-							FPoint End = transformPoint(FPoint(nextItem->Width/2, 0), nextItem->Xpos, nextItem->Ypos, nextItem->Rot, 1, 1);
+							FPoint End(nextItem->Width/2, 0, nextItem->Xpos, nextItem->Ypos, nextItem->Rot, 1, 1);
 							painter->setPen(black, 5.0 / Scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 							painter->setPenOpacity(0.3);
 							painter->drawLine(Start, End);
@@ -1539,7 +1539,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				nx = npg.x();
 				ny = npg.y();
 			}
-			FPoint np = transformPointI(FPoint(nx, ny), currItem->Xpos, currItem->Ypos, currItem->Rot, 1, 1);
+			FPoint np(nx, ny, currItem->Xpos, currItem->Ypos, currItem->Rot, 1, 1, true);
 			MoveClipPoint(currItem, np);
 		}
 		AdjustItemSize(currItem);
@@ -2009,10 +2009,10 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					if (Doc->SnapGuides)
 					{
 						ApplyGuides(&nx, &ny);
-						npx = transformPointI(FPoint(nx, ny), currItem->Xpos, currItem->Ypos, currItem->Rot, 1, 1);
+						npx = FPoint(nx, ny, currItem->Xpos, currItem->Ypos, currItem->Rot, 1, 1, true);
 					}
 					else
-						npx = ApplyGridF(transformPointI(FPoint(nx, ny), currItem->Xpos, currItem->Ypos, currItem->Rot, 1, 1));
+						npx = ApplyGridF(FPoint(nx, ny, currItem->Xpos, currItem->Ypos, currItem->Rot, 1, 1, true));
 					if ((HowTo == 1) && (currItem->itemType() != PageItem::Line) && (Doc->SnapGuides))
 						SizeItem(npx.x(), npx.y(), currItem->ItemNr);
 					bool sav = Doc->SnapGuides;
@@ -4252,7 +4252,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				break;
 			default:
 				z = PaintPoly(Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen);
-				SetFrameShape(Doc->Items.at(z), Doc->ValCount, Doc->ShapeValues);
+				Doc->Items.at(z)->SetFrameShape(Doc->ValCount, Doc->ShapeValues);
+				setRedrawBounding(Doc->Items.at(z));
 				Doc->Items.at(z)->FrameType = Doc->SubMode+2;
 				SetupDraw(z);
 				break;
@@ -4418,7 +4419,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 					p.begin(viewport());
 					Transform(currItem, &p);
 					Doc->RotMode = 2;
-					RCenter = transformPointI(FPoint(currItem->Xpos+currItem->Width/2, currItem->Ypos+currItem->Height/2), 0, 0, currItem->Rot, 1, 1);
+					RCenter = FPoint(currItem->Xpos+currItem->Width/2, currItem->Ypos+currItem->Height/2, 0, 0, currItem->Rot, 1, 1, true);
 					if (QRegion(p.xForm(QPointArray(QRect(0, 0, static_cast<int>(currItem->Width), static_cast<int>(currItem->Height))))).contains(mpo))
 					{
 						if (p.xForm(QRect(static_cast<int>(currItem->Width)-6, static_cast<int>(currItem->Height)-6, 6, 6)).intersects(mpo))
@@ -4428,17 +4429,17 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 						}
 						if (p.xForm(QRect(0, 0, 6, 6)).intersects(mpo))
 						{
-							RCenter = transformPointI(FPoint(currItem->Xpos+currItem->Width, currItem->Ypos+currItem->Height), 0, 0, currItem->Rot, 1, 1);
+							RCenter = FPoint(currItem->Xpos+currItem->Width, currItem->Ypos+currItem->Height, 0, 0, currItem->Rot, 1, 1, true);
 							Doc->RotMode = 4;
 						}
 						if (p.xForm(QRect(0, static_cast<int>(currItem->Height)-6, 6, 6)).intersects(mpo))
 						{
-							RCenter = transformPointI(FPoint(currItem->Xpos+currItem->Width, currItem->Ypos), 0, 0, currItem->Rot, 1, 1);
+							RCenter = FPoint(currItem->Xpos+currItem->Width, currItem->Ypos, 0, 0, currItem->Rot, 1, 1, true);
 							Doc->RotMode = 1;
 						}
 						if (p.xForm(QRect(static_cast<int>(currItem->Width)-6, 0, 6, 6)).intersects(mpo))
 						{
-							RCenter = transformPointI(FPoint(currItem->Xpos, currItem->Ypos+currItem->Height), 0, 0, currItem->Rot, 1, 1);
+							RCenter = FPoint(currItem->Xpos, currItem->Ypos+currItem->Height, 0, 0, currItem->Rot, 1, 1, true);
 							Doc->RotMode = 3;
 						}
 						oldW = xy2Deg(m->x()/Scale - RCenter.x(), m->y()/Scale - RCenter.y());
@@ -4854,7 +4855,7 @@ FPoint ScribusView::ApplyGridF(FPoint in)
 		np = in;
 	return np;
 }
-
+/*
 FPoint ScribusView::transformPointI(FPoint in, double dx, double dy, double rot, double sx, double sy)
 {
 	QWMatrix ma;
@@ -4877,7 +4878,8 @@ FPoint ScribusView::transformPoint(FPoint in, double dx, double dy, double rot, 
 	double y = ma.m22() * in.y() + ma.m12() * in.x() + ma.dy();
 	return FPoint(x, y);
 }
-
+*/
+/*
 void ScribusView::getBoundingRect(PageItem *currItem, double *x1, double *y1, double *x2, double *y2)
 {
 	double minx = 99999.9;
@@ -4887,15 +4889,14 @@ void ScribusView::getBoundingRect(PageItem *currItem, double *x1, double *y1, do
 	if (currItem->Rot != 0)
 	{
 		FPointArray pb;
-		FPoint p1;
 		pb.resize(0);
 		pb.addPoint(FPoint(currItem->Xpos, currItem->Ypos));
-		p1 = transformPoint(FPoint(currItem->Width, 0.0), currItem->Xpos, currItem->Ypos, currItem->Rot, 1.0, 1.0);
+		FPoint p1(currItem->Width, 0.0, currItem->Xpos, currItem->Ypos, currItem->Rot, 1.0, 1.0);
 		pb.addPoint(p1);
-		p1 = transformPoint(FPoint(currItem->Width, currItem->Height), currItem->Xpos, currItem->Ypos, currItem->Rot, 1.0, 1.0);
-		pb.addPoint(p1);
-		p1 = transformPoint(FPoint(0.0, currItem->Height), currItem->Xpos, currItem->Ypos, currItem->Rot, 1.0, 1.0);
-		pb.addPoint(p1);
+		FPoint p2(currItem->Width, currItem->Height, currItem->Xpos, currItem->Ypos, currItem->Rot, 1.0, 1.0);
+		pb.addPoint(p2);
+		FPoint p3(0.0, currItem->Height, currItem->Xpos, currItem->Ypos, currItem->Rot, 1.0, 1.0);
+		pb.addPoint(p3);
 		for (uint pc = 0; pc < 4; ++pc)
 		{
 			minx = QMIN(minx, pb.point(pc).x());
@@ -4916,7 +4917,7 @@ void ScribusView::getBoundingRect(PageItem *currItem, double *x1, double *y1, do
 		*y2 = currItem->Ypos + currItem->Height;
 	}
 }
-
+*/
 QRect ScribusView::getRedrawBounding(PageItem *currItem)
 {
 	int x = qRound(floor(currItem->BoundingX - currItem->OldPwidth / 2.0 - 5) * Scale);
@@ -4931,7 +4932,7 @@ QRect ScribusView::getRedrawBounding(PageItem *currItem)
 void ScribusView::setRedrawBounding(PageItem *currItem)
 {
 	double bw, bh;
-	getBoundingRect(currItem, &currItem->BoundingX, &currItem->BoundingY, &bw, &bh);
+	currItem->getBoundingRect(&currItem->BoundingX, &currItem->BoundingY, &bw, &bh);
 	currItem->BoundingW = bw - currItem->BoundingX;
 	currItem->BoundingH = bh - currItem->BoundingY;
 	if (currItem->itemType() == PageItem::Line)
@@ -4952,15 +4953,14 @@ void ScribusView::setGroupRect()
 		if (currItem->Rot != 0)
 		{
 			FPointArray pb;
-			FPoint p1;
 			pb.resize(0);
 			pb.addPoint(FPoint(currItem->Xpos, currItem->Ypos));
-			p1 = transformPoint(FPoint(currItem->Width, 0.0), currItem->Xpos, currItem->Ypos, currItem->Rot, 1.0, 1.0);
+			FPoint p1(currItem->Width, 0.0, currItem->Xpos, currItem->Ypos, currItem->Rot, 1.0, 1.0);
 			pb.addPoint(p1);
-			p1 = transformPoint(FPoint(currItem->Width, currItem->Height), currItem->Xpos, currItem->Ypos, currItem->Rot, 1.0, 1.0);
-			pb.addPoint(p1);
-			p1 = transformPoint(FPoint(0.0, currItem->Height), currItem->Xpos, currItem->Ypos, currItem->Rot, 1.0, 1.0);
-			pb.addPoint(p1);
+			FPoint p2(currItem->Width, currItem->Height, currItem->Xpos, currItem->Ypos, currItem->Rot, 1.0, 1.0);
+			pb.addPoint(p2);
+			FPoint p3(0.0, currItem->Height, currItem->Xpos, currItem->Ypos, currItem->Rot, 1.0, 1.0);
+			pb.addPoint(p3);
 			for (uint pc = 0; pc < 4; ++pc)
 			{
 				minx = QMIN(minx, pb.point(pc).x());
@@ -5143,7 +5143,10 @@ void ScribusView::ConvertClip(PageItem *currItem)
 		currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
 	}
 	else
-		SetRectFrame(currItem);
+	{
+		currItem->SetRectFrame();
+		setRedrawBounding(currItem);
+	}
 }
 
 void ScribusView::UpdateClip(PageItem* currItem)
@@ -5164,13 +5167,18 @@ void ScribusView::UpdateClip(PageItem* currItem)
 			switch (currItem->FrameType)
 			{
 			case 0:
-				SetRectFrame(currItem);
+				currItem->SetRectFrame();
+				setRedrawBounding(currItem);
 				break;
 			case 1:
-				SetOvalFrame(currItem);
+				currItem->SetOvalFrame();
+				setRedrawBounding(currItem);
 				break;
 			case 2:
-				SetFrameRound(currItem);
+				ClRe = -1;
+				currItem->SetFrameRound();
+				setRedrawBounding(currItem);
+				emit ItemRadius(currItem->RadRect);
 				break;
 			default:
 				break;
@@ -5211,13 +5219,16 @@ void ScribusView::UpdateClip(PageItem* currItem)
 				switch (Doc->SubMode)
 				{
 				case 0:
-					SetRectFrame(currItem);
+					currItem->SetRectFrame();
+					setRedrawBounding(currItem);
 					break;
 				case 1:
-					SetOvalFrame(currItem);
+					currItem->SetOvalFrame();
+					setRedrawBounding(currItem);
 					break;
 				default:
-					SetFrameShape(currItem, Doc->ValCount, Doc->ShapeValues);
+					currItem->SetFrameShape(Doc->ValCount, Doc->ShapeValues);
+					setRedrawBounding(currItem);
 					break;
 				}
 				currItem->OldB2 = currItem->Width;
@@ -6294,7 +6305,6 @@ void ScribusView::scaleGroup(double scx, double scy)
 		bb->OldB2 = bb->Width;
 		bb->OldH2 = bb->Height;
 		bb->Sizing = false;
-		FPoint b, b1, t, t1, h, h1, g, tes, tes2;
 		double oldRot, oldLocalX, oldLocalY;
 		oldRot = bb->Rot;
 		oldLocalX = bb->LocalX;
@@ -6302,16 +6312,16 @@ void ScribusView::scaleGroup(double scx, double scy)
 		FPointArray gr;
 		gr.addPoint(bb->GrStartX, bb->GrStartY);
 		gr.addPoint(bb->GrEndX, bb->GrEndY);
-		g = FPoint(gx, gy);
-		b = transformPoint(FPoint(0, 0), bb->Xpos, bb->Ypos, bb->Rot, 1, 1);
+		FPoint g(gx, gy);
+		FPoint b(0, 0, bb->Xpos, bb->Ypos, bb->Rot, 1, 1);
 		b -= g;
-		b1 = transformPoint(b, 0, 0, 0, scx, scy);
-		t = transformPoint(FPoint(bb->Width, 0), bb->Xpos, bb->Ypos, bb->Rot, 1, 1);
+		FPoint b1(b.x(), b.y(), 0, 0, 0, scx, scy);
+		FPoint t(bb->Width, 0, bb->Xpos, bb->Ypos, bb->Rot, 1, 1);
 		t -= g;
-		t1 = transformPoint(t, 0, 0, 0, scx, scy);
-		h = transformPoint(FPoint(0, bb->Height), bb->Xpos, bb->Ypos, bb->Rot, 1, 1);
+		FPoint t1(t.x(), t.y(), 0, 0, 0, scx, scy);
+		FPoint h(0, bb->Height, bb->Xpos, bb->Ypos, bb->Rot, 1, 1);
 		h -= g;
-		h1 = transformPoint(h, 0, 0, 0, scx, scy);
+		FPoint h1(h.x(), h.y(), 0, 0, 0, scx, scy);
 		bb->Pwidth = QMAX(bb->Pwidth*((scx+scy)/2), 0.01);
 		if (bb->itemType() == PageItem::Line)
 		{
@@ -6322,7 +6332,7 @@ void ScribusView::scaleGroup(double scx, double scy)
 		}
 		else
 		{
-			FPoint oldPos = FPoint(bb->Xpos, bb->Ypos);
+			FPoint oldPos(bb->Xpos, bb->Ypos);
 			QWMatrix ma;
 			ma.rotate(bb->Rot);
 			bb->PoLine.map(ma);
@@ -7682,47 +7692,46 @@ void ScribusView::HandleSizer(QPainter *p, PageItem *currItem, QRect mpo, QMouse
 		return;
 	QRect ne = QRect();
 	PaintSizeRect(p, ne);
-	FPoint n1;
 	double d1;
 	QMap<double,int> distance;
-	n1 = transformPoint( FPoint(currItem->Width, currItem->Height), currItem->Xpos, currItem->Ypos, currItem->Rot, 1, 1);
+	FPoint n1(currItem->Width, currItem->Height, currItem->Xpos, currItem->Ypos, currItem->Rot, 1, 1);
 	n1 -= QPoint(qRound(Doc->minCanvasCoordinate.x()), qRound(Doc->minCanvasCoordinate.y()));
 	d1 = sqrt(pow(n1.x() * Scale - m->x(),2)+pow(n1.y() * Scale - m->y(),2));
 	if (d1 < Doc->guidesSettings.grabRad)
 		distance.insert(d1, 1);
-	n1 = transformPoint( FPoint(0, 0), currItem->Xpos, currItem->Ypos, currItem->Rot, 1, 1);
+	n1 = FPoint(0, 0, currItem->Xpos, currItem->Ypos, currItem->Rot, 1, 1);
 	n1 -= QPoint(qRound(Doc->minCanvasCoordinate.x()), qRound(Doc->minCanvasCoordinate.y()));
 	d1 = sqrt(pow(n1.x() * Scale - m->x(),2)+pow(n1.y() * Scale - m->y(),2));
 	if (d1 < Doc->guidesSettings.grabRad)
 		distance.insert(d1, 2);
 	if (currItem->itemType() != PageItem::Line)
 	{
-		n1 = transformPoint( FPoint(currItem->Width, 0), currItem->Xpos, currItem->Ypos, currItem->Rot, 1, 1);
+		n1 = FPoint(currItem->Width, 0, currItem->Xpos, currItem->Ypos, currItem->Rot, 1, 1);
 		n1 -= QPoint(qRound(Doc->minCanvasCoordinate.x()), qRound(Doc->minCanvasCoordinate.y()));
 		d1 = sqrt(pow(n1.x() * Scale - m->x(),2)+pow(n1.y() * Scale - m->y(),2));
 		if (d1 < Doc->guidesSettings.grabRad)
 			distance.insert(d1, 3);
-		n1 = transformPoint( FPoint(0, currItem->Height), currItem->Xpos, currItem->Ypos, currItem->Rot, 1, 1);
+		n1 = FPoint(0, currItem->Height, currItem->Xpos, currItem->Ypos, currItem->Rot, 1, 1);
 		n1 -= QPoint(qRound(Doc->minCanvasCoordinate.x()), qRound(Doc->minCanvasCoordinate.y()));
 		d1 = sqrt(pow(n1.x() * Scale - m->x(),2)+pow(n1.y() * Scale - m->y(),2));
 		if (d1 < Doc->guidesSettings.grabRad)
 			distance.insert(d1, 4);
-		n1 = transformPoint( FPoint(currItem->Width/2, currItem->Height), currItem->Xpos, currItem->Ypos, currItem->Rot, 1, 1);
+		n1 = FPoint(currItem->Width/2, currItem->Height, currItem->Xpos, currItem->Ypos, currItem->Rot, 1, 1);
 		n1 -= QPoint(qRound(Doc->minCanvasCoordinate.x()), qRound(Doc->minCanvasCoordinate.y()));
 		d1 = sqrt(pow(n1.x() * Scale - m->x(),2)+pow(n1.y() * Scale - m->y(),2));
 		if (d1 < Doc->guidesSettings.grabRad)
 			distance.insert(d1, 5);
-		n1 = transformPoint( FPoint(currItem->Width, currItem->Height/2), currItem->Xpos, currItem->Ypos, currItem->Rot, 1, 1);
+		n1 = FPoint(currItem->Width, currItem->Height/2, currItem->Xpos, currItem->Ypos, currItem->Rot, 1, 1);
 		n1 -= QPoint(qRound(Doc->minCanvasCoordinate.x()), qRound(Doc->minCanvasCoordinate.y()));
 		d1 = sqrt(pow(n1.x() * Scale - m->x(),2)+pow(n1.y() * Scale - m->y(),2));
 		if (d1 < Doc->guidesSettings.grabRad)
 			distance.insert(d1, 6);
-		n1 = transformPoint( FPoint(0, currItem->Height/2), currItem->Xpos, currItem->Ypos, currItem->Rot, 1, 1);
+		n1 = FPoint(0, currItem->Height/2, currItem->Xpos, currItem->Ypos, currItem->Rot, 1, 1);
 		n1 -= QPoint(qRound(Doc->minCanvasCoordinate.x()), qRound(Doc->minCanvasCoordinate.y()));
 		d1 = sqrt(pow(n1.x() * Scale - m->x(),2)+pow(n1.y() * Scale - m->y(),2));
 		if (d1 < Doc->guidesSettings.grabRad)
 			distance.insert(d1, 7);
-		n1 = transformPoint( FPoint(currItem->Width/2, 0), currItem->Xpos, currItem->Ypos, currItem->Rot, 1, 1);
+		n1 = FPoint(currItem->Width/2, 0, currItem->Xpos, currItem->Ypos, currItem->Rot, 1, 1);
 		n1 -= QPoint(qRound(Doc->minCanvasCoordinate.x()), qRound(Doc->minCanvasCoordinate.y()));
 		d1 = sqrt(pow(n1.x() * Scale - m->x(),2)+pow(n1.y() * Scale - m->y(),2));
 		if (d1 < Doc->guidesSettings.grabRad)
@@ -8606,7 +8615,8 @@ Page* ScribusView::addPage(int nr, bool mov)
 		else
 			Doc->FirstAuto = Doc->Items.at(z);
 		Doc->LastAuto = Doc->Items.at(z);
-		SetRectFrame(Doc->Items.at(z));
+		Doc->Items.at(z)->SetRectFrame();
+		setRedrawBounding(Doc->Items.at(z));
 		if (nr > 0)
 		{
 			bool savre = Doc->RePos;
@@ -9326,6 +9336,7 @@ void ScribusView::TransformM(PageItem *currItem, QPainter *p)
 	}
 }
 
+/*
 void ScribusView::SetFrameShape(PageItem *currItem, int count, double *vals)
 {
 	currItem->PoLine.resize(0);
@@ -9345,7 +9356,6 @@ void ScribusView::SetFrameShape(PageItem *currItem, int count, double *vals)
 	}
 	currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
 	currItem->ClipEdited = true;
-	setRedrawBounding(currItem);
 }
 
 void ScribusView::SetRectFrame(PageItem *currItem)
@@ -9380,7 +9390,6 @@ void ScribusView::SetOvalFrame(PageItem *currItem)
 
 void ScribusView::SetFrameRound(PageItem* currItem)
 {
-	ClRe = -1;
 	currItem->RadRect = QMIN(currItem->RadRect, QMIN(currItem->Width,currItem->Height)/2);
 	currItem->PoLine.resize(0);
 	double rr = fabs(currItem->RadRect);
@@ -9409,17 +9418,16 @@ void ScribusView::SetFrameRound(PageItem* currItem)
 	currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
 	currItem->ClipEdited = false;
 	currItem->FrameType = 2;
-	setRedrawBounding(currItem);
-	emit ItemRadius(currItem->RadRect);
 }
-
+*/
 void ScribusView::SetFrameRect()
 {
 	ClRe = -1;
 	PageItem *currItem;
 	if (GetItem(&currItem))
 	{
-		SetRectFrame(currItem);
+		currItem->SetRectFrame();
+		setRedrawBounding(currItem);
 		updateContents(getRedrawBounding(currItem));
 	}
 }
@@ -9435,7 +9443,9 @@ void ScribusView::SetFrameRounded()
 			SetFrameRect();
 			return;
 		}
-		SetFrameRound(currItem);
+		currItem->SetFrameRound();
+		setRedrawBounding(currItem);
+		emit ItemRadius(currItem->RadRect);
 		updateContents(getRedrawBounding(currItem));
 	}
 }
@@ -9446,7 +9456,8 @@ void ScribusView::SetFrameOval()
 	PageItem *currItem;
 	if (GetItem(&currItem))
 	{
-		SetOvalFrame(currItem);
+		currItem->SetOvalFrame();
+		setRedrawBounding(currItem);
 		updateContents(getRedrawBounding(currItem));
 	}
 }
@@ -9473,7 +9484,8 @@ int ScribusView::PaintEllipse(double x, double y, double b, double h, double w, 
 	if (ite->lineColor() != "None")
 		ite->strokeQColor = Doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
 	ite->ItemNr = Doc->Items.count()-1;
-	SetOvalFrame(ite);
+	ite->SetOvalFrame();
+	setRedrawBounding(ite);
 	ite->ContourLine = ite->PoLine.copy();
 	if (!Doc->isLoading())
 	{
@@ -9526,7 +9538,8 @@ int ScribusView::PaintPict(double x, double y, double b, double h)
 		ite->fillQColor = Doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
 	if (ite->lineColor() != "None")
 		ite->strokeQColor = Doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
-	SetRectFrame(ite);
+	ite->SetRectFrame();
+	setRedrawBounding(ite);
 	ite->ContourLine = ite->PoLine.copy();
 	if (!Doc->isLoading())
 	{
@@ -9575,7 +9588,8 @@ int ScribusView::PaintRect(double x, double y, double b, double h, double w, QSt
 	if (ite->lineColor() != "None")
 		ite->strokeQColor = Doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
 	ite->ItemNr = Doc->Items.count()-1;
-	SetRectFrame(ite);
+	ite->SetRectFrame();
+	setRedrawBounding(ite);
 	ite->ContourLine = ite->PoLine.copy();
 	if (!Doc->isLoading())
 	{
@@ -9714,7 +9728,8 @@ int ScribusView::PaintText(double x, double y, double b, double h, double w, QSt
 	else
 		Doc->DocItems = Doc->Items;
 	ite->ItemNr = Doc->Items.count()-1;
-	SetRectFrame(ite);
+	ite->SetRectFrame();
+	setRedrawBounding(ite);
 	ite->ContourLine = ite->PoLine.copy();
 	ite->setFontFillShade(Doc->toolSettings.dTextPenShade);
 	ite->setFontStrokeShade(Doc->toolSettings.dTextStrokeShade);
@@ -11650,14 +11665,25 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	}
 	// OBSOLETE CR 2005-02-06
 	if (currItem->itemType() == PageItem::ItemType1)
-		SetOvalFrame(currItem);
+	{
+		currItem->SetOvalFrame();
+		setRedrawBounding(currItem);
+	}
 	// OBSOLETE CR 2005-02-06
 	if (currItem->itemType() == PageItem::ItemType3)
 	{
 		if (currItem->RadRect != 0)
-			SetFrameRound(currItem);
+		{
+			ClRe = -1;
+			currItem->SetFrameRound();
+			setRedrawBounding(currItem);
+			emit ItemRadius(currItem->RadRect);
+		}
 		else
-			SetRectFrame(currItem);
+		{
+			currItem->SetRectFrame();
+			setRedrawBounding(currItem);
+		}
 		currItem->ClipEdited = true;
 	}
 	if (currItem->itemType() == PageItem::ImageFrame)
@@ -11723,7 +11749,7 @@ void ScribusView::BuildAObj()
 	{
 		currItem = SelItem.at(a);
 		Object.Objects.clear();
-		getBoundingRect(currItem, &Object.x1, &Object.y1, &Object.x2, &Object.y2);
+		currItem->getBoundingRect(&Object.x1, &Object.y1, &Object.x2, &Object.y2);
 		if (currItem->Groups.count() > 0)
 		{
 			ObjGroup = currItem->Groups.top();
@@ -11831,7 +11857,8 @@ void ScribusView::FromPathText()
 		currItem->convertTo(PageItem::TextFrame);
 		currItem->setLineColor("None");
 		currItem->Frame = true;
-		SetRectFrame(currItem);
+		currItem->SetRectFrame();
+		setRedrawBounding(currItem);
 		SelectItemNr(currItem->ItemNr);
 		ToFront();
 		Deselect(true);
@@ -11945,7 +11972,6 @@ void ScribusView::TextToPath()
 				bb->Width = tp.x();
 				bb->Height = tp.y();
 				bb->Clip = FlattenPath(bb->PoLine, bb->Segments);
-				FPoint npo;
 				double textX = currItem->itemText.at(a)->xp;
 				double textY = currItem->itemText.at(a)->yp;
 				double wide;
@@ -11957,7 +11983,7 @@ void ScribusView::TextToPath()
 					textX = currItem->Width - textX - wide;
 				if (currItem->imageFlippedV())
 					textY = currItem->Height - textY+ y - (bb->Height - y);
-				npo = transformPoint(FPoint(textX+x, textY-y), 0.0, 0.0, currItem->Rot, 1.0, 1.0);
+				FPoint npo(textX+x, textY-y, 0.0, 0.0, currItem->Rot, 1.0, 1.0);
 				bb->Xpos = currItem->Xpos+npo.x();
 				bb->Ypos = currItem->Ypos+npo.y();
 				bb->ContourLine = bb->PoLine.copy();

@@ -7429,13 +7429,16 @@ void ScribusApp::MakeFrame(int f, int c, double *vals)
 	switch (f)
 	{
 	case 0:
-		view->SetRectFrame(currItem);
+		currItem->SetRectFrame();
+		view->setRedrawBounding(currItem);
 		break;
 	case 1:
-		view->SetOvalFrame(currItem);
+		currItem->SetOvalFrame();
+		view->setRedrawBounding(currItem);
 		break;
 	default:
-		view->SetFrameShape(currItem, c, vals);
+		currItem->SetFrameShape(c, vals);
+		view->setRedrawBounding(currItem);
 		currItem->FrameType = f+2;
 		break;
 	}

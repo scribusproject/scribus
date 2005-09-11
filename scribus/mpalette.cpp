@@ -2812,13 +2812,16 @@ void Mpalette::MakeIrre(int f, int c, double *vals)
 		switch (f)
 		{
 		case 0:
-			ScApp->view->SetRectFrame(CurItem);
+			CurItem->SetRectFrame();
+			ScApp->view->setRedrawBounding(CurItem);
 			break;
 		case 1:
-			ScApp->view->SetOvalFrame(CurItem);
+			CurItem->SetOvalFrame();
+			ScApp->view->setRedrawBounding(CurItem);
 			break;
 		default:
-			ScApp->view->SetFrameShape(CurItem, c, vals);
+			CurItem->SetFrameShape(c, vals);
+			ScApp->view->setRedrawBounding(CurItem);
 			CurItem->FrameType = f+2;
 			break;
 		}

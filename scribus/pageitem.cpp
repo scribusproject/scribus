@@ -5150,3 +5150,151 @@ void PageItem::copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer)
 	Buffer->startArrowIndex = startArrowIndex;
 	Buffer->endArrowIndex = endArrowIndex;
 }
+
+
+//Moved from View
+void PageItem::SetFrameShape(int count, double *vals)
+{
+	PoLine.resize(0);
+	for (int a = 0; a < count-3; a += 4)
+	{
+		if (vals[a] < 0)
+		{
+			PoLine.setMarker();
+			continue;
+		}
+		double x1 = Width * vals[a] / 100.0;
+		double y1 = Height * vals[a+1] / 100.0;
+		double x2 = Width * vals[a+2] / 100.0;
+		double y2 = Height * vals[a+3] / 100.0;
+		PoLine.addPoint(x1, y1);
+		PoLine.addPoint(x2, y2);
+	}
+	Clip = FlattenPath(PoLine, Segments);
+	ClipEdited = true;
+}
+
+void PageItem::SetRectFrame()
+{
+	double rect[] = {   0.0,   0.0,   0.0,   0.0,
+					  100.0,   0.0, 100.0,   0.0,
+					  100.0,   0.0, 100.0,   0.0,
+					  100.0, 100.0, 100.0, 100.0,
+					  100.0, 100.0, 100.0, 100.0,
+					    0.0, 100.0,   0.0, 100.0,
+					    0.0, 100.0,   0.0, 100.0,
+					    0.0,   0.0,   0.0,   0.0};
+	SetFrameShape(32, rect);
+	ClipEdited = false;
+	FrameType = 0;
+}
+
+void PageItem::SetOvalFrame()
+{
+	double rect[] = { 100.0,  50.0, 100.0,       77.615235,
+					   50.0, 100.0,  77.615235, 100.0,
+					   50.0, 100.0,  22.385765, 100.0,
+					    0.0,  50.0,   0.0,       77.615235,
+					    0.0,  50.0,   0.0,       22.385765,
+					   50.0,   0.0,  22.385765,   0.0,
+					   50.0,   0.0,  77.615235,   0.0,
+					  100.0,  50.0, 100.0,       22.385765};
+	SetFrameShape(32, rect);
+	FrameType = 1;
+	ClipEdited = false;
+}
+
+void PageItem::SetFrameRound()
+{
+	RadRect = QMIN(RadRect, QMIN(Width,Height)/2);
+	PoLine.resize(0);
+	double rr = fabs(RadRect);
+	double bezierFactor=0.552284749; //Bezier Control Point Factor: 8/3*(sin(45)-0.5)
+	double rrxBezierFactor=rr*bezierFactor;
+	double Width_rr=Width-rr;
+	double Height_rr=Height-rr;
+	if (RadRect > 0)
+	{
+		PoLine.addQuadPoint(rr, 0, rr, 0, Width_rr, 0, Width_rr, 0);
+		PoLine.addQuadPoint(Width_rr, 0, Width_rr+rrxBezierFactor, 0, Width, rr, Width, rrxBezierFactor);
+		PoLine.addQuadPoint(Width, rr, Width, rr, Width, Height_rr, Width, Height_rr);
+		PoLine.addQuadPoint(Width, Height_rr, Width, Height_rr+rrxBezierFactor, Width_rr, Height, Width_rr+rrxBezierFactor, Height);
+		PoLine.addQuadPoint(Width_rr, Height, Width_rr, Height, rr, Height, rr, Height);
+		PoLine.addQuadPoint(rr, Height, rrxBezierFactor, Height, 0, Height_rr, 0, Height_rr+rrxBezierFactor);
+		PoLine.addQuadPoint(0, Height_rr, 0, Height_rr, 0, rr, 0, rr);
+		PoLine.addQuadPoint(0, rr, 0, rrxBezierFactor, rr, 0, rr*bezierFactor, 0);
+	}
+	else
+	{
+		PoLine.addQuadPoint(rr, 0, rr, 0, Width_rr, 0, Width_rr, 0);
+		PoLine.addQuadPoint(Width_rr, 0, Width_rr, rrxBezierFactor, Width, rr, Width_rr*bezierFactor, rr);
+		PoLine.addQuadPoint(Width, rr, Width, rr, Width, Height_rr, Width, Height_rr);
+		PoLine.addQuadPoint(Width, Height_rr, Width_rr*bezierFactor, Height_rr, Width_rr, Height, Width_rr, Height_rr*bezierFactor);
+		PoLine.addQuadPoint(Width_rr, Height, Width_rr, Height, rr, Height, rr, Height);
+		PoLine.addQuadPoint(rr, Height, rr, Height_rr*bezierFactor, 0, Height_rr, rrxBezierFactor, Height_rr);
+		PoLine.addQuadPoint(0, Height_rr, 0, Height_rr, 0, rr, 0, rr);
+		PoLine.addQuadPoint(0, rr, rrxBezierFactor, rr, rr, 0, rr, rr*bezierFactor);
+	}
+	Clip = FlattenPath(PoLine, Segments);
+	ClipEdited = false;
+	FrameType = 2;
+}
+
+void PageItem::getBoundingRect(double *x1, double *y1, double *x2, double *y2)
+{
+	double minx = 99999.9;
+	double miny = 99999.9;
+	double maxx = -99999.9;
+	double maxy = -99999.9;
+	if (Rot != 0)
+	{
+		FPointArray pb;
+		pb.resize(0);
+		pb.addPoint(FPoint(Xpos, Ypos));
+		pb.addPoint(FPoint(Width,    0.0, Xpos, Ypos, Rot, 1.0, 1.0));
+		pb.addPoint(FPoint(Width, Height, Xpos, Ypos, Rot, 1.0, 1.0));
+		pb.addPoint(FPoint(  0.0, Height, Xpos, Ypos, Rot, 1.0, 1.0));
+		for (uint pc = 0; pc < 4; ++pc)
+		{
+			minx = QMIN(minx, pb.point(pc).x());
+			miny = QMIN(miny, pb.point(pc).y());
+			maxx = QMAX(maxx, pb.point(pc).x());
+			maxy = QMAX(maxy, pb.point(pc).y());
+		}
+		*x1 = minx;
+		*y1 = miny;
+		*x2 = maxx;
+		*y2 = maxy;
+	}
+	else
+	{
+		*x1 = Xpos;
+		*y1 = Ypos;
+		*x2 = Xpos + Width;
+		*y2 = Ypos + Height;
+	}
+}
+
+/* TODO
+void PageItem::setRedrawBounding()
+{
+	double bw, bh;
+	getBoundingRect(&BoundingX, &BoundingY, &bw, &bh);
+	BoundingW = bw - BoundingX;
+	BoundingH = bh - BoundingY;
+	if (itemType() == PageItem::Line)
+		BoundingH = QMAX(BoundingH, 1);
+	//TODO adjustCanvas(FPoint(BoundingX, BoundingY), FPoint(bw, bh));
+}
+
+QRect PageItem::getRedrawBounding(const double viewScale)
+{
+	int x = qRound(floor(BoundingX - OldPwidth / 2.0 - 5) * viewScale);
+	int y = qRound(floor(BoundingY - OldPwidth / 2.0 - 5) * viewScale);
+	int w = qRound(ceil(BoundingW + OldPwidth + 10) * viewScale);
+	int h = qRound(ceil(BoundingH + OldPwidth + 10) * viewScale);
+	QRect ret = QRect(x, y, w, h);
+	ret.moveBy(qRound(-Doc->minCanvasCoordinate.x() * viewScale), qRound(-Doc->minCanvasCoordinate.y() * viewScale));
+	return ret;
+}
+*/

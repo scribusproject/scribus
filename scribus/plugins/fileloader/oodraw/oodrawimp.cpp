@@ -475,7 +475,8 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			if (corner != 0)
 			{
 				ite->RadRect = corner;
-				ScApp->view->SetFrameRound(ite);
+				ite->SetFrameRound();
+				ScApp->view->setRedrawBounding(ite);
 			}
 		}
 		else if( STag == "draw:circle" || STag == "draw:ellipse" )

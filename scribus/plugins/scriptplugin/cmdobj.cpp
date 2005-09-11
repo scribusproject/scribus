@@ -21,7 +21,8 @@ PyObject *scribus_newrect(PyObject* /* self */, PyObject* args)
 									 ScApp->doc->toolSettings.dWidth,
 									 ScApp->doc->toolSettings.dBrush,
 									 ScApp->doc->toolSettings.dPen);
-	ScApp->view->SetRectFrame(ScApp->doc->Items.at(i));
+	ScApp->doc->Items.at(i)->SetRectFrame();
+	ScApp->view->setRedrawBounding(ScApp->doc->Items.at(i));
 	if (Name != "")
 		ScApp->doc->Items.at(i)->setItemName(QString::fromUtf8(Name));
 	return PyString_FromString(ScApp->doc->Items.at(i)->itemName().utf8());
@@ -45,7 +46,8 @@ PyObject *scribus_newellipse(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
 		return NULL;
 	}
-	ScApp->view->SetOvalFrame(ScApp->doc->Items.at(i));
+	ScApp->doc->Items.at(i)->SetOvalFrame();
+	ScApp->view->setRedrawBounding(ScApp->doc->Items.at(i));
 	if (Name != "")
 		ScApp->doc->Items.at(i)->setItemName(QString::fromUtf8(Name));
 	return PyString_FromString(ScApp->doc->Items.at(i)->itemName().utf8());
@@ -66,7 +68,8 @@ PyObject *scribus_newimage(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
 		return NULL;
 	}
-	ScApp->view->SetRectFrame(ScApp->doc->Items.at(i));
+	ScApp->doc->Items.at(i)->SetRectFrame();
+	ScApp->view->setRedrawBounding(ScApp->doc->Items.at(i));
 	if (Name != "")
 		ScApp->doc->Items.at(i)->setItemName(QString::fromUtf8(Name));
 	return PyString_FromString(ScApp->doc->Items.at(i)->itemName().utf8());
@@ -89,7 +92,8 @@ PyObject *scribus_newtext(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
 		return NULL;
 	}
-	ScApp->view->SetRectFrame(ScApp->doc->Items.at(i));
+	ScApp->doc->Items.at(i)->SetRectFrame();
+	ScApp->view->setRedrawBounding(ScApp->doc->Items.at(i));
 	if (Name != "")
 		ScApp->doc->Items.at(i)->setItemName(QString::fromUtf8(Name));
 	return PyString_FromString(ScApp->doc->Items.at(i)->itemName().utf8());

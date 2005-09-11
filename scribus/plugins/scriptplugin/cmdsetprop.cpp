@@ -201,10 +201,16 @@ PyObject *scribus_setcornerrad(PyObject* /* self */, PyObject* args)
 	{
 		currItem->RadRect = w;
 		if (w > 0)
-			ScApp->view->SetFrameRound(currItem);
+		{
+			currItem->SetFrameRound();
+			ScApp->view->setRedrawBounding(currItem);
+		}
 	}
 	else
-			ScApp->view->SetRectFrame(currItem);
+	{
+		currItem->SetRectFrame();
+		ScApp->view->setRedrawBounding(currItem);
+	}
 	Py_INCREF(Py_None);
 	return Py_None;
 }
