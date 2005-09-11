@@ -31,6 +31,8 @@ public:
 	FPoint(double x, double y) : xp(x), yp(y) {};
 	FPoint(const QPoint & p) : xp(p.x()), yp(p.y()) {};
 	FPoint(const FPoint & p) : xp(p.xp), yp(p.yp) {};
+	//Creates a transformed point, replaces ScribusView::transformPoint()
+	FPoint(const double x, const double y, const double dx, const double dy, const double rot, const double sx, const double sy, const bool invert=false);
 //  ~FPoint() {};
 	FPoint &  operator=(const FPoint & rhs)  { xp = rhs.xp; yp = rhs.yp; return *this; };
 	double x() const { return xp; };
@@ -47,6 +49,10 @@ public:
 	friend inline const FPoint operator*( const FPoint &, const double & );
 	friend inline const FPoint operator*( const double &, const FPoint & );
 	friend inline const double  operator*( const FPoint &a, const FPoint &b );
+	//Transform an existing point
+	void transform(const double dx, const double dy, const double rot, const double sx, const double sy, const bool invert);
+	//Transform an existing point, return a new one
+	FPoint transformPoint(const double dx, const double dy, const double rot, const double sx, const double sy, const bool invert);
 	friend class FPointArray;
 
 private:
