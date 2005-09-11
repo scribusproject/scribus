@@ -6,7 +6,6 @@
 #include <qmap.h>
 
 #include "scribusapi.h"
-#include "scribus.h"
 
 /**
  * \brief PluginManager handles plugin loading, unloading, and running.
@@ -21,6 +20,7 @@
 class ScPlugin;
 class ScActionPlugin;
 class ScPersistentPlugin;
+class PrefsContext;
 
 // Plug-in API version used to check if we can load the plug-in. This
 // does *NOT* ensure that the plug-in will be compatible with the internal
@@ -78,7 +78,7 @@ public:
 	 * are returned. If it is false, 0 is returned if the requested plugin
 	 * is loaded but not enabled.
 	 */
-	ScPlugin* getPlugin(QCString pluginName, bool includeDisabled) const;
+	ScPlugin* getPlugin(const QCString & pluginName, bool includeDisabled) const;
 
 	/*! \brief Shutdowns all plugins. Called at scribus quit */
 	void cleanupPlugins();
@@ -119,6 +119,9 @@ public:
 	// Whether the given plug-in will be enabled on start-up.
 	// Usable as an lvalue. An invalid plugin name is an error.
 	bool & enableOnStartup(const QCString pluginName);
+	
+	// Whether the given plugin is currently enabled
+	bool enabled(const QCString pluginName);
 
 	/** \brief Return a list of plugin names currently known.
 	 *

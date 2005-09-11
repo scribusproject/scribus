@@ -388,7 +388,7 @@ void PluginManager::languageChange()
 	}
 }
 
-ScPlugin* PluginManager::getPlugin(const QCString pluginName, bool includeDisabled) const
+ScPlugin* PluginManager::getPlugin(const QCString & pluginName, bool includeDisabled) const
 {
 	if (DLLexists(pluginName, includeDisabled))
 		return pluginMap[pluginName].plugin;
@@ -438,6 +438,14 @@ bool & PluginManager::enableOnStartup(const QCString pluginName)
 	// plug in name.
 	Q_ASSERT(pluginMap.contains(pluginName));
 	return pluginMap[pluginName].enableOnStartup;
+}
+
+bool PluginManager::enabled(const QCString pluginName)
+{
+	// It is not legal to call this function without a valid
+	// plug in name.
+	Q_ASSERT(pluginMap.contains(pluginName));
+	return pluginMap[pluginName].enabled;
 }
 
 QValueList<QCString> PluginManager::pluginNames(bool includeNotLoaded) const

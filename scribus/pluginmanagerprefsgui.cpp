@@ -7,6 +7,8 @@
 #include "qgroupbox.h"
 #include "qlabel.h"
 
+extern QPixmap loadIcon(QString nam);
+
 PluginManagerPrefsGui::PluginManagerPrefsGui(QWidget * parent)
 	: PrefsPanel(parent, "pluginManagerPrefsWidget")
 {
