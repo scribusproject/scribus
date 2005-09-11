@@ -9,7 +9,6 @@
 
 #define OPTION_USE_QTOOLBUTTON 1
 #define OPTION_FLAT_BUTTON 1
-#define OLD_PAGESEL 0
 #ifdef QT_MAC
 #define AQUA_EXTRA 20
 #else

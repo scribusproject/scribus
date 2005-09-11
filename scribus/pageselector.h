@@ -14,7 +14,6 @@ class QVBoxLayout;
 class QHBoxLayout;
 class QGridLayout;
 class QComboBox;
-class QLabel;
 class QLineEdit;
 class QPopupMenu;
 class QPushButton;
@@ -42,20 +41,8 @@ public:
 	QPushButton* Last;
 #endif
 	
-#if OLD_PAGESEL
-	QLabel* Label1;
 	QComboBox* PageCombo;
-	QLabel* Label2;
-#else
-	QLineEdit * pageEdit;
-#if OPTION_USE_QTOOLBUTTON
-	QToolButton * pageList;
-#else
-	QPushButton * pageList;
-#endif
-	QPopupMenu * pageMenu;
-#endif
-	QIntValidator *v;
+	QValidator *v;
 	int LastPG;
 	int APage;
 

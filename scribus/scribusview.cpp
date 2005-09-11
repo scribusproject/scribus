@@ -8587,6 +8587,7 @@ void ScribusView::Zval()
 Page* ScribusView::addPage(int nr, bool mov)
 {
 	Page* fe=Doc->addPage(nr);
+	disconnect(PGS, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
 	PGS->setMaxValue(Doc->pageCount);
 	reformPages(mov);
 	if ((Doc->PageAT) && (!Doc->isLoading()))
@@ -8622,6 +8623,7 @@ Page* ScribusView::addPage(int nr, bool mov)
 	}
 	if ((!ScApp->ScriptRunning) && (!Doc->isLoading()) && (!Doc->masterPageMode))
 		PGS->GotoPg(nr);
+	connect(PGS, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
 	Mpressed = false;
 	Doc->DragP = false;
 	Doc->leaveDrag = false;
@@ -8644,8 +8646,10 @@ void ScribusView::delPage(int Nr)
 {
 	if (!Doc->deletePage(Nr))
 		return;
+	disconnect(PGS, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
 	PGS->setMaxValue(Doc->pageCount);
 	PGS->GotoPg(0);
+	connect(PGS, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
 }
 
 void ScribusView::movePage(int from, int to, int ziel, int art)
@@ -8983,10 +8987,12 @@ void ScribusView::GotoPage(int Seite)
 	Doc->currentPage = Doc->Pages.at(Seite);
 	if (ScApp->ScriptRunning)
 		return;
+	disconnect(PGS, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
 	SetCPo(qRound(Doc->currentPage->xOffset()-10), qRound(Doc->currentPage->yOffset()-10));
 	PGS->setMaxValue(Doc->pageCount);
 	if ((!Doc->isLoading()) && (!Doc->masterPageMode))
 		PGS->GotoPg(Seite);
+	connect(PGS, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
 }
 
 void ScribusView::showMasterPage(int nr)
