@@ -1,5 +1,18 @@
 Scribus - 1.2.3cvs
 ==================
+- 0002548: [Translation] Updated German translation for 1.2.3cvs (fschmid)
+- 0002532: [Story Editor / Text Frames] Text doesn't flow around tables (fschmid)
+- 0002501: [General] Have Scribus look for icc profiles in system directories (fschmid)
+- 0002023: [General] Scribus doesn't remember language settings for hyphenation (fschmid)
+- 0002201: [Picture Frames] No jpg export into pdf (fschmid)
+- 0002535: [General] Inverted pictures are only shown in print preview (fschmid)
+- 0002533: [-] Choose another colour for Gamut warnings (fschmid)
+- 0002247: [Build System] Python not detected on AMD64 (ringerc)
+- 0002518: [Internal] Prefs corruption in 1.2.x (ringerc)
+- 0002539: [Translation] Finnish translation update for 1.2.3 (Tsoots)
+- 0002540: [Releases] Updated German translation (cbradney)
+- 0002544: [Translation] Updated Italian translation (cbradney)
+- 0002538: [Translation] updated slovenian translation (plinnell)
 - 0002233: [User Interface] stop the default launch to have the page palette steal focus (cbradney)
 - 0002433: [Story Editor / Text Frames] Manual soft hyphenation lost after using text-editor (fschmid)
 - 0002528: [Translation] Translation Update - pt_BR (plinnell)

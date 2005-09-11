@@ -1,5 +1,7 @@
 Packagers notes:
 
+* 64-bit building notes are in the README file.
+
 * All final release source tarballs are gpg signed to ensure their integrity. 
 You can verify them with:
 
@@ -46,10 +48,10 @@ for Linux.
 
 While the goals of the program are for ease of use and simple easy to
 understand tools, Scribus offers support for professional publishing
-features, such as CMYK color, easy PDF creation, Encapsulated Postscript
+features, such as CMYK colors, easy PDF creation, Encapsulated Postscript
 import/export and creation of color separations.
 
-Recommended Spec File Summary: Scribus - Open Source Desktop Publishing 
+Recommended Spec File Summary: Scribus - Open Source Page Layout 
 
 Please remove all references to proprietary applications.
 
@@ -89,4 +91,4 @@ http://nashi.altmuehlnet.de/mailman/listinfo/scribus
 
 For the Scribus Team,
 Peter Linnell
-in June 2005
+in Sept. 2005
