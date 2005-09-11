@@ -4,7 +4,6 @@
 
 #include <qlabel.h>
 #include <qvaluevector.h>
-#include <sccolor.h>
 #include <scribusstructs.h>
 
 /**

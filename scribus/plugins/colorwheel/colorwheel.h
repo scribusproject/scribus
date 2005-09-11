@@ -5,8 +5,6 @@
 #include "pluginapi.h"
 #include "scplugin.h"
 
-#include "scribus.h"
-
 /** \brief This is a simple "Color Theory" plugin for Scribus 1.3 and later.
 Harmonious colors are colors that work well together, that produce a color
 scheme that looks attractive; the color wheel can be used as a valuable

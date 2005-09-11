@@ -4,6 +4,7 @@
 #include "pluginmanager.h"
 #include <qcursor.h>
 #include <qlistview.h>
+#include "scribus.h"
 
 int colorwheel_getPluginAPIVersion()
 {

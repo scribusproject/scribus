@@ -6,6 +6,8 @@
 #include <qimage.h>
 #include <math.h>
 
+#include "sccolor.h"
+
 ColorWheel::ColorWheel(QWidget * parent, const char * name) : QLabel(parent, name, 0)
 {
 	mousePressed = false;
