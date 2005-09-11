@@ -72,6 +72,7 @@
 #include "helpbrowser.h"
 #include "scribusXml.h"
 #include "about.h"
+#include "aboutplugins.h"
 #include "pslib.h"
 #include "druck.h"
 #include "editformats.h"
@@ -914,6 +915,7 @@ void ScribusApp::initMenuBar()
 	//Help menu
 	scrMenuMgr->createMenu("Help", tr("&Help"));
 	scrMenuMgr->addMenuItem(scrActions["helpAboutScribus"], "Help");
+	scrMenuMgr->addMenuItem(scrActions["helpAboutPlugins"], "Help");
 	scrMenuMgr->addMenuItem(scrActions["helpAboutQt"], "Help");
 	scrMenuMgr->addMenuSeparator("Help");
 	scrMenuMgr->addMenuItem(scrActions["helpTooltips"], "Help");
@@ -5244,6 +5246,13 @@ void ScribusApp::DisableTxEdit()
 void ScribusApp::slotHelpAbout()
 {
 	About* dia = new About(this);
+	dia->exec();
+	delete dia;
+}
+
+void ScribusApp::slotHelpAboutPlugins()
+{
+	AboutPlugins* dia = new AboutPlugins(this);
 	dia->exec();
 	delete dia;
 }

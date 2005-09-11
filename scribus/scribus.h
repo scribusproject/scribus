@@ -333,6 +333,7 @@ public slots:
 	void clearContents();
 	/** shows an about dlg*/
 	void slotHelpAbout();
+	void slotHelpAboutPlugins();
     void slotHelpAboutQt();
 	void slotOnlineHelp();
 	void ToggleTips();

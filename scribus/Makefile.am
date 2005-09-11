@@ -11,6 +11,8 @@ endif
 
 scribus_SOURCES = \
 	about.cpp		\
+	ui/aboutpluginsbase.ui \
+	aboutplugins.cpp	\
 	actionmanager.cpp	\
 	aligndistribute.cpp	\
 	alignselect.cpp	\

@@ -522,6 +522,7 @@ void ActionManager::initScriptMenuActions()
 void ActionManager::initHelpMenuActions()
 {
 	scrActions->insert("helpAboutScribus", new ScrAction(ScApp, "helpAboutScribus"));
+	scrActions->insert("helpAboutPlugins", new ScrAction(ScApp, "helpAboutPlugins"));
 	scrActions->insert("helpAboutQt", new ScrAction(ScApp, "helpAboutQt"));
 	scrActions->insert("helpTooltips", new ScrAction(ScApp, "helpTooltips"));
 	scrActions->insert("helpManual", new ScrAction("", Key_F1, ScApp, "helpManual"));
@@ -530,6 +531,7 @@ void ActionManager::initHelpMenuActions()
 	(*scrActions)["helpTooltips"]->setOn(true);
 
 	connect( (*scrActions)["helpAboutScribus"], SIGNAL(activated()), ScApp, SLOT(slotHelpAbout()) );
+	connect( (*scrActions)["helpAboutPlugins"], SIGNAL(activated()), ScApp, SLOT(slotHelpAboutPlugins()) );
 	connect( (*scrActions)["helpAboutQt"], SIGNAL(activated()), ScApp, SLOT(slotHelpAboutQt()) );
 	connect( (*scrActions)["helpTooltips"], SIGNAL(activated()), ScApp, SLOT(ToggleTips()) );
 	connect( (*scrActions)["helpManual"], SIGNAL(activated()), ScApp, SLOT(slotOnlineHelp()) );
@@ -982,6 +984,7 @@ void ActionManager::languageChange()
 
 	//Help Menu
 	(*scrActions)["helpAboutScribus"]->setTexts( tr("&About Scribus"));
+	(*scrActions)["helpAboutPlugins"]->setTexts( tr("&About Plug-ins"));
 	(*scrActions)["helpAboutQt"]->setTexts( tr("About &Qt"));
 	(*scrActions)["helpTooltips"]->setTexts( tr("Toolti&ps"));
 	(*scrActions)["helpManual"]->setTexts( tr("Scribus &Manual..."));
