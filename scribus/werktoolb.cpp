@@ -24,6 +24,7 @@
 #include "autoformbuttongroup.h"
 #include "scribus.h"
 #include "menumanager.h"
+#include "scraction.h"
 
 extern QPixmap loadIcon(QString nam);
 

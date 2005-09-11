@@ -22,9 +22,10 @@
 #include <qframe.h>
 
 #include "scribusapi.h"
-#include "pageitem.h"
-#include "navigator.h"
-#include "scribusview.h"
+
+class PageItem;
+class Navigator;
+class ScribusView;
 
 class SCRIBUS_API Annota : public QDialog
 {

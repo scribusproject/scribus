@@ -27,11 +27,14 @@
 #include <qradiobutton.h>
 #include <qbuttongroup.h>
 
+
 #include "scribusapi.h"
-#include "pageitem.h"
-#include "navigator.h"
-#include "scribusview.h"
-#include <prefscontext.h>
+#include "sccolor.h"
+
+class PageItem;
+class Navigator;
+class ScribusView;
+class PrefsContext;
 
 class SCRIBUS_API Annot : public QDialog
 { 

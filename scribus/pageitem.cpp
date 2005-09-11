@@ -48,8 +48,6 @@
 
 using namespace std;
 
-
-
 PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double w, double h, double w2, QString fill, QString outline)
 	// Initialize superclasses
 	: QObject(pa),

@@ -13,11 +13,9 @@
 #include <vector>
 
 #include "scfonts.h"
-#include "sccolor.h"
 #include "fpointarray.h"
 #include "vgradient.h"
 #include "pageitem.h"
-#include "scraction.h"
 
 /* Struktur fuer Pageitem Text */
 struct ScText
@@ -348,11 +346,6 @@ struct Keys
 	QString keySequence;
 	int tableRow;
 };
-
-/** Definition der Farbenlisten */
-typedef QMap<QString,ScColor> ColorList;
-
-
 
 struct PrintOptions
 {

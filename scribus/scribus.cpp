@@ -63,6 +63,7 @@
 #include "fmitem.h"
 #include "fontprefs.h"
 #include "prefs.h"
+#include "prefscontext.h"
 #include "prefstable.h"
 #include "pdfopts.h"
 #include "pdflib.h"

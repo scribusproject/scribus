@@ -62,7 +62,6 @@ class SeitenPal;
 class BookPalette;
 class SplashScreen;
 
-#include "prefscontext.h"
 #include "scribusstructs.h"
 
 class Autoforms;
@@ -90,6 +89,7 @@ class ActionManager;
 class AlignDistributePalette;
 class TOCGenerator;
 class PrefsManager;
+class PrefsContext;
 
 class ScribusApp;
 

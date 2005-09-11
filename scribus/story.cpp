@@ -37,6 +37,7 @@
 #include "pluginmanager.h"
 #include "pageitem.h"
 #include "serializer.h"
+#include "scraction.h"
 
 extern QPixmap loadIcon(QString nam);
 

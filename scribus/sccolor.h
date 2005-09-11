@@ -18,10 +18,12 @@
 #ifndef SCCOLOR_H
 #define SCCOLOR_H
 
+#include "qstring.h"
+#include <qcolor.h>
+#include "qmap.h"
+
 #include "scribusapi.h"
 
-#include <qcolor.h>
-class QString;
 
 /**
   *@author Franz Schmid
@@ -142,5 +144,8 @@ private:
 /** Flag, true if out of Gamut */
 	bool outOfGamutFlag;
 };
+
+/** Definition der Farbenlisten */
+typedef QMap<QString,ScColor> ColorList;
 
 #endif

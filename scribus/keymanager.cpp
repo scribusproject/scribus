@@ -35,6 +35,7 @@
 #include "prefsfile.h"
 #include "prefscontext.h"
 #include "scpaths.h"
+#include "scraction.h"
 
 extern bool overwrite(QWidget *parent, QString filename);
 

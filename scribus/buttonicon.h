@@ -11,7 +11,8 @@
 #include <qtooltip.h>
 
 #include "scribusapi.h"
-#include "pageitem.h"
+
+class PageItem;
 
 class SCRIBUS_API ButtonIcon : public QDialog
 { 

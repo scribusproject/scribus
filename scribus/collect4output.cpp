@@ -11,6 +11,7 @@
 #include "undomanager.h"
 #include "filewatcher.h"
 #include "pageitem.h"
+#include "scraction.h"
 
 #include <qmessagebox.h>
 #include <qstring.h>

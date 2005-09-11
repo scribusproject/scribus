@@ -20,6 +20,11 @@
 #include "prefsmanager.h"
 #include "prefsfile.h"
 #include "scimage.h"
+#include "pageitem.h"
+#include "navigator.h"
+#include "scribusview.h"
+#include <prefscontext.h>
+#include <scribusstructs.h>
 
 extern QPixmap loadIcon(QString nam);
 
