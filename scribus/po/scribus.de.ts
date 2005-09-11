@@ -154,7 +154,7 @@ template page for the new page.
 
 May raise IndexError if the page number is out of range
 </source>
-        <translation type="unfinished">newPage(where [,&quot;template&quot;])
+        <translation>newPage(where [,&quot;template&quot;])
 
 Erstellt eine neue Seite. Wenn &quot;where&quot; den Wert -1 hat, wird die Seite hinten angefügt, ansonsten
 vor der Seite &quot;where&quot;. Seitenzahlen werden von 1 aufwärts gezählt, egal, welche Seitenzahl
@@ -2566,7 +2566,7 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished">Mit dieser Option werden Grautöne, die aus Cyan, Magenta und Gelb gemischt würden, 
+        <translation>Mit dieser Option werden Grautöne, die aus Cyan, Magenta und Gelb gemischt würden, 
 durch reine Abstufungen von Schwarz ersetzt. Hauptsächlich werden davon neutrale 
 und dunkle Farbtöne beeinflusst, die Grau sehr ähnlich sind. Diese Option kann zu 
 besseren Bildern führen. Sie müssen jedoch von Fall zu Fall entscheiden, ob Sie bessere 
@@ -3600,14 +3600,14 @@ Bitte wählen Sie einen anderen.</translation>
     <message>
         <source>Color profile that you have generated or received from the manufacturer.
 This profile should be specific to your monitor and not a generic profile (i.e. sRGB).</source>
-        <translation type="unfinished">Das Farbprofil für Ihren Monitor, das Sie entweder selbst erstellt oder vom 
+        <translation>Das Farbprofil für Ihren Monitor, das Sie entweder selbst erstellt oder vom 
 Hersteller erhalten haben. Dieses Farbprofil sollte die Eigenschaften Ihres 
 Monitors berücksichtigen und kein generisches Profil (z. B. sRGB) sein.</translation>
     </message>
     <message>
         <source>Color profile for your printer model from the manufacturer.
 This profile should be specific to your printer and not a generic profile (i.e. sRGB).</source>
-        <translation type="unfinished">Das Farbprofil für Ihren Drucker, das Sie vom Hersteller erhalten haben. 
+        <translation>Das Farbprofil für Ihren Drucker, das Sie vom Hersteller erhalten haben. 
 Dieses Farbprofil sollte die Eigenschaften Ihres Druckers berücksichtigen 
 und kein generisches Profil (z. B. sRGB) sein.</translation>
     </message>
@@ -3620,7 +3620,7 @@ Diese Option sollte aktiviert sein, wenn Sie Fotos im Dokument haben..</translat
     <message>
         <source>Default rendering intent for your monitor. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation type="unfinished">Standard-Rendermethode für Ihren Monitor. 
+        <translation>Standard-Rendermethode für Ihren Monitor. 
 Falls keine besonderen Gründe vorliegen, sollte 
 entweder relativ farbmetrisch oder Wahrnehmung 
 gewählt werden.</translation>
@@ -3628,7 +3628,7 @@ gewählt werden.</translation>
     <message>
         <source>Default rendering intent for your printer. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation type="unfinished">Standard-Rendermethode für den Drucker. 
+        <translation>Standard-Rendermethode für den Drucker. 
 Falls keine besonderen Gründe vorliegen,
 sollte entweder relativ farbmetrisch oder 
 Wahrnehmung gewählt werden.</translation>
@@ -3636,14 +3636,14 @@ Wahrnehmung gewählt werden.</translation>
     <message>
         <source>Enable &apos;soft proofing&apos; of how your document colors will print,
 based on the chosen printer profile.</source>
-        <translation type="unfinished">Aktiviert die Druckvorschau unter Verwendung des
+        <translation>Aktiviert die Druckvorschau unter Verwendung des
 gewählten Druckerprofils.
 </translation>
     </message>
     <message>
         <source>Method of showing colors on the screen which may not print properly.
 This requires very accurate profiles and serves only as a warning.</source>
-        <translation type="unfinished">Aktiviert die Gamut-Warnung, d. h. die Anzeige von Farben, welche 
+        <translation>Aktiviert die Gamut-Warnung, d. h. die Anzeige von Farben, welche 
 auf Grund der Eigenschaften des gewählten Ausgabegerätes für den 
 Druck nicht korrekt wiedergegeben werden können. Bitte beachten Sie, 
 dass dies sehr genaue Geräteprofile erfordert.</translation>
@@ -4270,12 +4270,12 @@ nach ISO 8601 im Format YYYY-MM-DD </translation>
     </message>
     <message>
         <source>The nature or genre of the content of the document, eg. categories, functions, genres, etc</source>
-        <translation type="unfinished">Die Gattung oder der Typ des Dokuments, z. B. Kategorie, Funktion, Genre etc.</translation>
+        <translation>Die Gattung oder der Typ des Dokuments, z. B. Kategorie, Funktion, Genre etc.</translation>
     </message>
     <message>
         <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting.
 RFC2045,RFC2046 for MIME types are also useful here</source>
-        <translation type="unfinished">Die physische oder digitale Veröffentlichungsform des Dokuments. 
+        <translation>Die physische oder digitale Veröffentlichungsform des Dokuments. 
 Abmessung und Medientyp können hier notiert werden.
 Die Verwendung der RFCs 2045 und 2046 für MIME-Typen kann hier nützlich sein.</translation>
     </message>
@@ -4292,7 +4292,7 @@ einen Bindestrich und den ISO-3166 Ländercode, wie z. B. en-GB oder fr-CH</tran
     </message>
     <message>
         <source>A reference to a related document, possibly using a formal identifier such as a ISBN or URI</source>
-        <translation type="unfinished">Eine Referenz zu einem ähnlichen Dokument. Hier kann eine formale 
+        <translation>Eine Referenz zu einem ähnlichen Dokument. Hier kann eine formale 
 Identifikation wie ISBN oder ein URI verwendet werden</translation>
     </message>
     <message>
@@ -4301,12 +4301,12 @@ Identifikation wie ISBN oder ein URI verwendet werden</translation>
     </message>
     <message>
         <source>Information about rights held in and over the document, eg. copyright, patent or trademark</source>
-        <translation type="unfinished">Informationen über rechtliche Aspekte des Dokumenteninhalts, 
+        <translation>Informationen über rechtliche Aspekte des Dokumenteninhalts, 
 etwa Urheberrechte, Patente oder Warenzeichen.</translation>
     </message>
     <message>
         <source>A reference to a document from which the present document is derived, eg. ISBN or URI</source>
-        <translation type="unfinished">Ein Verweis auf eine Quelle, auf die sich das Dokument bezieht (ISBN oder URI)</translation>
+        <translation>Ein Verweis auf eine Quelle, auf die sich das Dokument bezieht (ISBN oder URI)</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -4363,7 +4363,7 @@ etwa Urheberrechte, Patente oder Warenzeichen.</translation>
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
-        <translation type="unfinished">Geben Sie mit Hilfe von Kommata oder Bindestrichen ein, welche
+        <translation>Geben Sie mit Hilfe von Kommata oder Bindestrichen ein, welche
 Seiten importiert werden sollen, zum Beispiel
 1-5 oder 3,4. * steht  für alle Seiten.</translation>
     </message>
@@ -4618,7 +4618,7 @@ Fehler:
     </message>
     <message>
         <source>Python source files (*.py)</source>
-        <translation type="unfinished">Python-Dateien (*.py)</translation>
+        <translation>Python-Dateien (*.py)</translation>
     </message>
 </context>
 <context>
@@ -5235,7 +5235,8 @@ setHGuides([90,250]) # ersetzt alle vorhandenen Hilfslinien</translation>
     </message>
     <message>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
-        <translation>The quick brown fox jumps over the lazy dog</translation>
+        <translation>Quintus spränge öfter über große Zysten, wenn Xaver 
+endlich mit Power querjagen könnte!</translation>
     </message>
     <message>
         <source>Fonts Preview</source>
@@ -7236,14 +7237,14 @@ Bitte wählen Sie einen anderen.</translation>
     <message>
         <source>Distance between the left margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="unfinished">Abstand zwischen dem linken Rand des Satzspiegels und dem Seitenrand.
+        <translation>Abstand zwischen dem linken Rand des Satzspiegels und dem Seitenrand.
 Wenn Doppelseiten aktiviert sind, kann hier der für die Bindung notwendige 
 Abstand (Bundsteg) eingestellt werden.</translation>
     </message>
     <message>
         <source>Distance between the right margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="unfinished">Abstand zwischen dem rechten Rand des Satzspiegels und dem Seitenrand. 
+        <translation>Abstand zwischen dem rechten Rand des Satzspiegels und dem Seitenrand. 
 Wenn Doppelseiten aktiviert sind, kann hier der für die Bindung notwendige 
 Abstand eingestellt werden.</translation>
     </message>
@@ -7445,7 +7446,7 @@ andernfalls relativ zum Objekt.</translation>
     </message>
     <message>
         <source>&amp;End Editing</source>
-        <translation>Beabeitung &amp;beenden</translation>
+        <translation>Bearbeitung &amp;beenden</translation>
     </message>
     <message>
         <source>Move Control Points Independently</source>
@@ -7590,7 +7591,7 @@ Sie werden dann nicht mehr um Bestätigung gebeten</translation>
     </message>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
-        <translation type="unfinished">Diese Einstellungen zum Standard machen und beim Import von OpenDocument-Dateien nicht nochmals nachfragen.</translation>
+        <translation>Diese Einstellungen zum Standard machen und beim Import von OpenDocument-Dateien nicht nochmals nachfragen.</translation>
     </message>
 </context>
 <context>
@@ -7828,7 +7829,7 @@ Sie werden dann nicht mehr um Bestätigung gebeten</translation>
     </message>
     <message>
         <source>Length of time the page is shown before the presentation starts on the selected page.</source>
-        <translation type="unfinished">Anzeigedauer bis zum Wechsel der Seite.</translation>
+        <translation>Anzeigedauer bis zum Wechsel der Seite.</translation>
     </message>
     <message>
         <source>Length of time the effect runs.
@@ -7979,7 +7980,7 @@ dass Layout und Erscheiungsbild bewahrt bleiben.</translation>
     </message>
     <message>
         <source>Type of the display effect.</source>
-        <translation type="unfinished">Art des Effekts</translation>
+        <translation>Art des Effekts</translation>
     </message>
     <message>
         <source>Direction of the effect of moving lines for the split and blind effects.</source>
@@ -7998,7 +7999,7 @@ dass Layout und Erscheiungsbild bewahrt bleiben.</translation>
 If you selected Acrobat 4.0, the PDF will be protected by 40 bit encryption.
 If you selected Acrobat 5.0, the PDF will be protected by 128 bit encryption.
 Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
-        <translation type="unfinished">Aktiviert die Sicherheitsfunktionen in der exportierten PDF-Datei.
+        <translation>Aktiviert die Sicherheitsfunktionen in der exportierten PDF-Datei.
 Wenn Acrobat 4.0 ausgewählt ist, wird die PDF-Datei mit 40 Bit verschlüsselt.
 Wenn Acrobat 5.0 ausgewählt ist, wird die PDF-Datei mit 128 Bit verschlüsselt.
 Hinweis: Die Verschlüsselung ist nicht so zuverlässig wie GPG oder PGP und besitzt 
@@ -8044,7 +8045,7 @@ PDF/X-3 conformance. We recommend you use the title of the document.</source>
     </message>
     <message>
         <source>Choose a password for users to be able to read your PDF.</source>
-        <translation type="unfinished">Wählen Sie ein Passwort, das es Benutzern erlaubt, die PDF-Datei anzusehen.</translation>
+        <translation>Wählen Sie ein Passwort, das es Benutzern erlaubt, die PDF-Datei anzusehen.</translation>
     </message>
     <message>
         <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
@@ -8355,25 +8356,25 @@ Wenn nicht aktiviert, können Sie Anmerkungen und Felder nicht bearbeiten.</tran
     <message>
         <source> Lossless compression of text and graphics.
 Unless you have a reason, leave this checked. This reduces PDF size.</source>
-        <translation type="unfinished">Verlustfreie Kompression von Text und Grafiken. 
+        <translation>Verlustfreie Kompression von Text und Grafiken. 
 Ohne guten Grund sollten Sie diese Option nicht deaktivieren. 
 Sie reduziert die Dateigröße</translation>
     </message>
     <message>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options.</source>
-        <translation type="unfinished">Kompressionsmethode für Bilddateien. Automatisch überlässt Scribus die Wahl der besten Methode. ZIP ist verlustfrei und sinnvoll für Bilder mit Füllfarben. JPEG ist besser geeignet zur Erstellung kleinerer PDF-Dateien, die viele Fotos enthalten, auch wenn damit unter Umständen ein geringer Qualitätsverlust einhergeht. Belassen Sie die Einstellung bei Automatisch, solange Sie keine spezielle Kompressionsmethode benötigen.</translation>
+        <translation>Kompressionsmethode für Bilddateien. Automatisch überlässt Scribus die Wahl der besten Methode. ZIP ist verlustfrei und sinnvoll für Bilder mit Füllfarben. JPEG ist besser geeignet zur Erstellung kleinerer PDF-Dateien, die viele Fotos enthalten, auch wenn damit unter Umständen ein geringer Qualitätsverlust einhergeht. Belassen Sie die Einstellung bei Automatisch, solange Sie keine spezielle Kompressionsmethode benötigen.</translation>
     </message>
     <message>
         <source>Re-sample your bitmap images to the selected DPI.
 Leaving this unchecked will render them at their native resolution.
 This can increase memory usage and slow down export.</source>
-        <translation type="unfinished">Berechnet die Auflösung von Bitmap-Grafiken in der gewünschten Höhe neu. 
+        <translation>Berechnet die Auflösung von Bitmap-Grafiken in der gewünschten Höhe neu. 
 Ansonsten wird die ursprüngliche Auflösung verwendet. Die Aktivierung dieser 
 Option kann den Speicherbedarf erhöhen und die Ausgabe verlangsamen.</translation>
     </message>
     <message>
         <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility. Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Note: PDF/X-3 will convert all CMYK images to ICC based RGB colors. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
-        <translation type="unfinished">Legt die PDF-Kompatiblität fest. 
+        <translation>Legt die PDF-Kompatiblität fest. 
 Standard ist Acrobat 4.0, weil das die größte Kompatiblität ermöglicht.
 Wählen Sie Acrobat 5.0, wenn Sie PDF 1.4-Funktionen wie Transparenz 
 oder 128 bit-Verschlüsselung benötigen.
@@ -8468,7 +8469,7 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished">Mit dieser Option werden Grautöne, die aus Cyan, Magenta und Gelb gemischt würden, 
+        <translation>Mit dieser Option werden Grautöne, die aus Cyan, Magenta und Gelb gemischt würden, 
 durch reine Abstufungen von Schwarz ersetzt.
 Hauptsächlich werden davon neutrale und dunkle Farbtöne beeinflusst,
 die Grau sehr ähnlich sind. Diese Option kann zu besseren Bildern führen.
@@ -9058,7 +9059,8 @@ ein positiver Wert für eine konvexe Form</translation>
     </message>
     <message>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
-        <translation>The quick brown fox jumps over the lazy dog</translation>
+        <translation>Quintus spränge öfter über große Zysten, wenn Xaver 
+endlich mit Power querjagen könnte!</translation>
     </message>
     <message>
         <source>None</source>
@@ -9110,7 +9112,7 @@ ein positiver Wert für eine konvexe Form</translation>
     </message>
     <message>
         <source>Typography</source>
-        <translation>Typografie</translation>
+        <translation>Typographie</translation>
     </message>
     <message>
         <source>Display</source>
@@ -9122,7 +9124,7 @@ ein positiver Wert für eine konvexe Form</translation>
     </message>
     <message>
         <source>Misc.</source>
-        <translation type="unfinished">Sonstiges</translation>
+        <translation>Sonstiges</translation>
     </message>
     <message>
         <source>Postscript Interpreter</source>
@@ -9210,14 +9212,14 @@ die Objektbegrenzungen zu aktivieren</translation>
     <message>
         <source>Distance between the left margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="unfinished">Abstand zwischen dem linken Rand des Satzspiegels und dem Seitenrand.
+        <translation>Abstand zwischen dem linken Rand des Satzspiegels und dem Seitenrand.
 Wenn Doppelseiten aktiviert sind, kann hier der für die Bindung notwendige 
 Abstand eingestellt werden (Bundsteg).</translation>
     </message>
     <message>
         <source>Distance between the right margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="unfinished">Abstand zwischen dem rechten Rand des Satzspiegels und dem Seitenrand. 
+        <translation>Abstand zwischen dem rechten Rand des Satzspiegels und dem Seitenrand. 
 Wenn Doppelseiten aktiviert sind, kann hier der für die Bindung notwendige 
 Abstand eingestellt werden.</translation>
     </message>
@@ -9761,7 +9763,7 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>Sa&amp;ve Contents on Changes</source>
-        <translation>Veränderungen beim &amp;Verlassen speichern</translation>
+        <translation>Änderungen beim &amp;Verlassen speichern</translation>
     </message>
     <message>
         <source>Large</source>
@@ -9868,7 +9870,7 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished">Mit dieser Option werden Grautöne, die aus Cyan, Magenta und Gelb gemischt würden, 
+        <translation>Mit dieser Option werden Grautöne, die aus Cyan, Magenta und Gelb gemischt würden, 
 durch reine Abstufungen von Schwarz ersetzt.
 Hauptsächlich werden davon neutrale und dunkle Farbtöne beeinflusst,
 die Grau sehr ähnlich sind. Diese Option kann zu besseren Bildern führen.
@@ -11226,7 +11228,7 @@ können, finden Sie in der Funktionsreferenz.</translation>
     </message>
     <message>
         <source>OpenOffice.org Writer Documents</source>
-        <translation type="unfinished">OpenOffice.org Writer-Dokumente</translation>
+        <translation>OpenOffice.org Writer-Dokumente</translation>
     </message>
     <message>
         <source>Color not found - python error</source>
@@ -11295,17 +11297,17 @@ Details zu den Fehlern der einzelnen Funktionen finden Sie in der Funktionsbesch
     <message>
         <source>Short &amp;Words...</source>
         <comment>short words plugin</comment>
-        <translation>Short &amp;Words...</translation>
+        <translation>Umbruchkontrolle für &amp;Abkürzungen...</translation>
     </message>
     <message>
         <source>Short Words processing. Wait please...</source>
         <comment>short words plugin</comment>
-        <translation>Abkürzungsassistent untersucht den Text. Bitte haben Sie einen Moment Geduld...</translation>
+        <translation>Umbruchkontrolle untersucht den Text. Bitte haben Sie einen Moment Geduld...</translation>
     </message>
     <message>
         <source>Short Words processing. Done.</source>
         <comment>short words plugin</comment>
-        <translation>Abkürzungsassistent ist fertig.</translation>
+        <translation>Umbruchkontrolle ist fertig.</translation>
     </message>
     <message>
         <source>Afrikaans</source>
@@ -11562,12 +11564,12 @@ Details zu den Fehlern der einzelnen Funktionen finden Sie in der Funktionsbesch
     </message>
     <message>
         <source>Normal</source>
-        <translation type="unfinished">Normal</translation>
+        <translation>Normal</translation>
     </message>
     <message>
         <source>page</source>
         <comment>page export</comment>
-        <translation type="unfinished">Seite</translation>
+        <translation>Seite</translation>
     </message>
 </context>
 <context>
@@ -11727,14 +11729,14 @@ Details zu den Fehlern der einzelnen Funktionen finden Sie in der Funktionsbesch
     <message>
         <source>Distance between the left margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="unfinished">Abstand zwischen dem linken Rand des Satzspiegels und dem Seitenrand.
+        <translation>Abstand zwischen dem linken Rand des Satzspiegels und dem Seitenrand.
 Wenn Doppelseiten aktiviert sind, kann hier der für die Bindung notwendige 
 Abstand eingestellt werden (Bundsteg).</translation>
     </message>
     <message>
         <source>Distance between the right margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="unfinished">Abstand zwischen dem rechten Rand des Satzspiegels und dem Seitenrand. 
+        <translation>Abstand zwischen dem rechten Rand des Satzspiegels und dem Seitenrand. 
 Wenn Doppelseiten aktiviert sind, kann hier der für die Bindung notwendige 
 Abstand eingestellt werden.</translation>
     </message>
@@ -11927,7 +11929,7 @@ Abstand eingestellt werden.</translation>
     </message>
     <message>
         <source>Tracking:</source>
-        <translation type="unfinished">Laufweite:</translation>
+        <translation>Laufweite:</translation>
     </message>
     <message>
         <source>Manual Tracking</source>
@@ -12229,7 +12231,7 @@ Abstand eingestellt werden.</translation>
     </message>
     <message>
         <source>Outline</source>
-        <translation type="unfinished">Dokumenten&amp;struktur</translation>
+        <translation>Dokumenten&amp;struktur</translation>
     </message>
     <message>
         <source>Scrapbook</source>
@@ -12880,7 +12882,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>&amp;Outline</source>
-        <translation type="unfinished">Dokument&amp;struktur</translation>
+        <translation>Dokument&amp;struktur</translation>
     </message>
     <message>
         <source>&amp;Scrapbook</source>
@@ -12900,11 +12902,11 @@ nicht speichern</translation>
     </message>
     <message>
         <source>&amp;Manage Pictures</source>
-        <translation>Bilder &amp;verwalten</translation>
+        <translation>&amp;Bilder verwalten</translation>
     </message>
     <message>
         <source>&amp;Hyphenate Text</source>
-        <translation type="unfinished">&amp;Silbentrennung anwenden</translation>
+        <translation>&amp;Silbentrennung anwenden</translation>
     </message>
     <message>
         <source>Toolti&amp;ps</source>
@@ -13281,7 +13283,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
-        <translation type="unfinished">Falls das Script ein offizelles Scribus-Script ist, melden Sie den Fehler bitte auf &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
+        <translation>Falls das Script ein offizelles Scribus-Script ist, melden Sie den Fehler bitte auf &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
     </message>
     <message>
         <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
@@ -13475,7 +13477,7 @@ standardmäßig aktiviert.&lt;/p&gt;
     <name>SearchReplace</name>
     <message>
         <source>Search/Replace</source>
-        <translation type="unfinished">Suchen und Ersetzen</translation>
+        <translation>Suchen und Ersetzen</translation>
     </message>
     <message>
         <source>Search for:</source>
@@ -13918,7 +13920,7 @@ Ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     </message>
     <message>
         <source>&amp;Fonts Preview...</source>
-        <translation type="unfinished">Schriftartenv&amp;orschau...</translation>
+        <translation>Schriftartenv&amp;orschau...</translation>
     </message>
     <message>
         <source>&amp;Background...</source>
@@ -14232,7 +14234,7 @@ Bitte wählen Sie einen anderen.</translation>
     <message>
         <source>Short Words</source>
         <comment>short words plugin</comment>
-        <translation>Abkürzungsassistent</translation>
+        <translation>Umbruchkontrolle für Abkürzungen</translation>
     </message>
     <message>
         <source>Apply unbreakable space on:</source>
@@ -14311,17 +14313,17 @@ eigenen Einstellungen ersetzen.</translation>
     <message>
         <source>Short Words for Scribus</source>
         <comment>short words plugin</comment>
-        <translation>Abkürzungsassistent für Scribus</translation>
+        <translation>Umbruchkontrolle für Abkürzungen</translation>
     </message>
     <message>
         <source>Available in the following languages</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished">In folgenden Sprachen verfügbar:</translation>
+        <translation>In folgenden Sprachen verfügbar:</translation>
     </message>
     <message>
         <source>About Short Words</source>
         <comment>short words plugin</comment>
-        <translation>Über den Abkürzungsassistenten</translation>
+        <translation>Über die Umbruchkontrolle</translation>
     </message>
 </context>
 <context>
