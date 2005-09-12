@@ -590,43 +590,6 @@ void PPreview::blendImages(QImage &target, ScImage &source, ScColor col)
 {
 	int h = target.height();
 	int w = target.width();
-	int cyan, r, g , b, hv, s, v, snew;
-	col.getRawRGBColor(&r, &g, &b);
-	QColor tmpR(r, g, b);
-	tmpR.hsv(&hv, &s, &v);
-	QColor tmp2;
-	for (int y=0; y < h; ++y )
-	{
-		QRgb *p = (QRgb *)target.scanLine( y );
-		QRgb *pq = (QRgb *)source.scanLine( y );
-		for (int x=0; x < w; ++x )
-		{
-			cyan = 255 - qRed(*pq);
-			if (cyan != 0)
-			{
-				if (r == g && g == b)
-				{
-					snew = 255 - ((255 - v) * cyan / 255);
-					tmp2.setHsv(hv, s, snew);
-				}
-				else
-				{
-					snew = s * cyan / 255;
-					tmp2.setHsv(hv, snew, v);
-				}
-				tmp2.getRgb(&r, &g, &b);
-				*p = qRgba(r, g, b, 255);
-			}
-			p++;
-			pq++;
-		}
-	}
-}
-
-void PPreview::blendImages2(ScImage &target, ScImage &source, ScColor col)
-{
-	int h = target.height();
-	int w = target.width();
 	int cyan, c, m, yc, k, cc, mm, yy, kk;
 	col.getCMYK(&c, &m, &yc, &k);
 	for (int y=0; y < h; ++y )
@@ -638,10 +601,10 @@ void PPreview::blendImages2(ScImage &target, ScImage &source, ScColor col)
 			cyan = 255 - qRed(*pq);
 			if (cyan != 0)
 			{
-				(c == 0) ? cc = qRed(*p) : cc = c * cyan / 255;
-				(m == 0) ? mm = qGreen(*p) : mm = m * cyan / 255;
-				(yc == 0) ? yy = qBlue(*p) : yy = yc * cyan / 255;
-				(k == 0) ? kk = qAlpha(*p) : kk = k * cyan / 255;
+				(c == 0) ? cc = qRed(*p) : cc = QMIN(c * cyan / 255 + qRed(*p), 255);
+				(m == 0) ? mm = qGreen(*p) : mm = QMIN(m * cyan / 255 + qGreen(*p), 255);
+				(yc == 0) ? yy = qBlue(*p) : yy = QMIN(yc * cyan / 255 + qBlue(*p), 255);
+				(k == 0) ? kk = qAlpha(*p) : kk = QMIN(k * cyan / 255 + qAlpha(*p), 255);
 				*p = qRgba(cc, mm, yy, kk);
 			}
 			p++;
@@ -699,19 +662,20 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			int w = qRound(b);
 			int h2 = qRound(h);
 			image = QImage(w, h2, 32);
-			if (!AliasTr->isChecked())
+			if (flagsVisible["Cyan"]->isChecked())
 			{
-				int wi = image.width();
-				int hi = image.height();
-				for( int yi=0; yi < hi; ++yi )
-				{
-					QRgb *s = (QRgb*)(image.scanLine( yi ));
-					for(int xi=0; xi < wi; ++xi )
-					{
-						*s = qRgba(255, 255, 255, 255);
-						s++;
-					}
-				}
+				im.LoadPicture(prefsManager->preferencesLocation()+"/sc.tif.Cyan.tif", "", 0, false, false, 1, 72, &mode);
+				blendImages(image, im, ScColor(255, 0, 0, 0));
+			}
+			if (flagsVisible["Magenta"]->isChecked())
+			{
+				im.LoadPicture(prefsManager->preferencesLocation()+"/sc.tif.Magenta.tif", "", 0, false, false, 1, 72, &mode);
+				blendImages(image, im, ScColor(0, 255, 0, 0));
+			}
+			if (flagsVisible["Yellow"]->isChecked())
+			{
+				im.LoadPicture(prefsManager->preferencesLocation()+"/sc.tif.Yellow.tif", "", 0, false, false, 1, 72, &mode);
+				blendImages(image, im, ScColor(0, 0, 255, 0));
 			}
 			QMap<QString, int>::Iterator sepit;
 			for (sepit = sepsToFileNum.begin(); sepit != sepsToFileNum.end(); ++sepit)
@@ -723,42 +687,27 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 					blendImages(image, im, doc->PageColors[sepit.key()]);
 				}
 			}
-			ScImage image2 = ScImage(w, h2);
-			if (flagsVisible["Cyan"]->isChecked())
-			{
-				im.LoadPicture(prefsManager->preferencesLocation()+"/sc.tif.Cyan.tif", "", 0, false, false, 1, 72, &mode);
-				blendImages2(image2, im, ScColor(255, 0, 0, 0));
-			}
-			if (flagsVisible["Magenta"]->isChecked())
-			{
-				im.LoadPicture(prefsManager->preferencesLocation()+"/sc.tif.Magenta.tif", "", 0, false, false, 1, 72, &mode);
-				blendImages2(image2, im, ScColor(0, 255, 0, 0));
-			}
-			if (flagsVisible["Yellow"]->isChecked())
-			{
-				im.LoadPicture(prefsManager->preferencesLocation()+"/sc.tif.Yellow.tif", "", 0, false, false, 1, 72, &mode);
-				blendImages2(image2, im, ScColor(0, 0, 255, 0));
-			}
 			if (flagsVisible["Black"]->isChecked())
 			{
 				im.LoadPicture(prefsManager->preferencesLocation()+"/sc.tif.Black.tif", "", 0, false, false, 1, 72, &mode);
-				blendImages2(image2, im, ScColor(0, 0, 0, 255));
+				blendImages(image, im, ScColor(0, 0, 0, 255));
 			}
-			int wi = image.width();
-			int hi = image.height();
-			for( int yi=0; yi < hi; ++yi )
+			for( int yi=0; yi < h2; ++yi )
 			{
-				QRgb *s = (QRgb*)(image.scanLine( yi ));
-				QRgb *q = (QRgb*)(image2.scanLine( yi ));
-				for(int xi=0; xi < wi; ++xi )
+				QRgb *q = (QRgb*)(image.scanLine( yi ));
+				for(int xi=0; xi < w; ++xi )
 				{
 					cyan = qRed(*q);
 					magenta = qGreen(*q);
 					yellow = qBlue(*q);
 					black = qAlpha(*q);
 					if ((cyan != 0) || (magenta != 0) || (yellow != 0 ) || (black != 0))
-						*s = qRgba(255-QMIN(255, cyan+black), 255-QMIN(255,magenta+black), 255-QMIN(255,yellow+black), 255);
-					s++;
+						*q = qRgba(255-QMIN(255, cyan+black), 255-QMIN(255,magenta+black), 255-QMIN(255,yellow+black), 255);
+					else
+					{
+						if (!AliasTr->isChecked())
+							*q = qRgba(255, 255, 255, 255);
+					}
 					q++;
 				}
 			}

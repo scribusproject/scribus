@@ -33,7 +33,6 @@ public:
 	int RenderPreview(int Seite, int Res);
 	int RenderPreviewSep(int Seite, int Res);
 	void blendImages(QImage &target, ScImage &source, ScColor col);
-	void blendImages2(ScImage &target, ScImage &source, ScColor col);
 	QPixmap CreatePreview(int Seite, int Res);
 	PageSelector *PGSel;
 	QCheckBox* AliasText;

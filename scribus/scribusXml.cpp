@@ -1019,7 +1019,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 			if ((pg.tagName()=="PAGE") && (QStoInt(pg.attribute("NUM")) == PageToLoad))
 			{
 				a = doc->currentPage->pageNr();
-				if (!(pg.attribute("NAM", "").isEmpty()) && (Mpage))
+				if ((pg.attribute("NAM", "").isEmpty()) && (Mpage))
 				{
 					PAGE=PAGE.nextSibling();
 					continue;
