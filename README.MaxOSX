@@ -1,0 +1,22 @@
+Some preliminary notes:
+
+
+The file configure.MacOSX contains the call to ./configure that *I* use to create
+a MacOSX application bundle for Scribus.
+
+Scribus.app contains some files for the OSX application bundle infrastructure:
+
+Contents/Info.plist	application properties
+Contents/Resources	application icons
+Contents/MacOS		application binary
+
+Currently you have to copy the Info.plist and the icon files to the install location yourself
+and create a sysmlink in MacOS:
+
+bash$ cd Contents/MacOS
+bash$ ln -s ../bin/scribus Scribus
+
+Hopefully ringerc will help me to include this into the general automagic soon. :-)
+
+
+avox

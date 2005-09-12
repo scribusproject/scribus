@@ -1,0 +1,13 @@
+# configuration for OSX using fink libraries
+
+BUNDLE_LOCATION=/Applications/
+
+PKG_CONFIG_PATH=/sw/lib/pkgconfig
+export PKG_CONFIG_PATH
+QTDIR=/sw/lib/qt3mac
+export QTDIR
+CPPFLAGS=-I/sw/include
+LDFLAGS=-L/sw/lib
+export CPATH LDFLAGS CPPFLAGS
+./configure --enable-debug --enable-mac --enable-bundle --prefix=$BUNDLE_LOCATION/Scribus.app/Contents/ --with-extra-includes=/sw/include/ $EXTRACONF
+#--with-extra-libs=/sw/lib/

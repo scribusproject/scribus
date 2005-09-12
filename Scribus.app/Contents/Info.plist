@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleExecutable</key>
+	<string>Scribus</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>en</string>
+		<string>af</string>
+		<string>bg</string>
+		<string>bg_BG</string>
+		<string>ca</string>
+		<string>cs_CZ</string>
+		<string>cy</string>
+		<string>da_DK</string>
+		<string>de</string>
+		<string>eo</string>
+		<string>es_ES</string>
+		<string>es_LA</string>
+		<string>eu</string>
+		<string>fi</string>
+		<string>fr</string>
+		<string>gl</string>
+		<string>hu</string>
+		<string>id</string>
+		<string>it</string>
+		<string>ko</string>
+		<string>lt_LT</string>
+		<string>nb_NO</string>
+		<string>nl</string>
+		<string>pl_PL</string>
+		<string>pt_BR</string>
+		<string>ru</string>
+		<string>se</string>
+		<string>sk_SK</string>
+		<string>sl</string>
+		<string>sq</string>
+		<string>sr</string>
+		<string>tr</string>
+		<string>uk</string>
+		<string>zh_CN</string>
+	</array>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>sla</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>Scribus-doc.icns</string>
+			<key>CFBundleTypeName</key>
+			<string>DocumentType</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+		</dict>
+	</array>
+	<key>CFBundleGetInfoString</key>
+	<string>Scribus/Aqua (c) 2005 Andreas Vox</string>
+	<key>CFBundleIconFile</key>
+	<string>Scribus.icns</string>
+	<key>CFBundleIdentifier</key>
+	<string>net.scribus</string>
+	<key>CFBundleName</key>
+	<string>Scribus</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.3cvs</string>
+	<key>CFBundleSignature</key>
+	<string>OSCR</string>
+</dict>
+</plist>
