@@ -13,7 +13,7 @@
         </rect>
     </property>
     <property name="caption">
-        <string>Form1</string>
+        <string>Scribus: About Plug-ins</string>
     </property>
     <grid>
         <property name="name">
