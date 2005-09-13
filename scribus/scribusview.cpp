@@ -113,23 +113,31 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc) : QScrollView(parent,
 	LE->setSuffix( tr( " %" ) );
 #if OPTION_USE_QTOOLBUTTON
 	zoomOutToolbarButton = new QToolButton(this);
+	zoomDefaultToolbarButton = new QToolButton(this);
 	zoomInToolbarButton = new QToolButton(this);
+	zoomDefaultToolbarButton->setAutoRaise(OPTION_FLAT_BUTTON);
 	zoomOutToolbarButton->setAutoRaise(OPTION_FLAT_BUTTON);
 	zoomInToolbarButton->setAutoRaise(OPTION_FLAT_BUTTON);
 #else
+	zoomDefaultToolbarButton = new QPushButton(this);
+	zoomDefaultToolbarButton->setFocusPolicy(QWidget::NoFocus);
+	zoomDefaultToolbarButton->setDefault( false );
+	zoomDefaultToolbarButton->setAutoDefault( false );
+	zoomDefaultToolbarButton->setFlat(OPTION_FLAT_BUTTON);
 	zoomOutToolbarButton = new QPushButton(this);
 	zoomOutToolbarButton->setFocusPolicy(QWidget::NoFocus);
-	zoomInToolbarButton = new QPushButton(this);
-	zoomInToolbarButton->setFocusPolicy(QWidget::NoFocus);
 	zoomOutToolbarButton->setDefault( false );
 	zoomOutToolbarButton->setAutoDefault( false );
 	zoomOutToolbarButton->setFlat(OPTION_FLAT_BUTTON);
+	zoomInToolbarButton = new QPushButton(this);
+	zoomInToolbarButton->setFocusPolicy(QWidget::NoFocus);
 	zoomInToolbarButton->setDefault( false );
 	zoomInToolbarButton->setAutoDefault( false );
 	zoomInToolbarButton->setFlat(OPTION_FLAT_BUTTON);
 #endif
-	zoomOutToolbarButton->setPixmap(loadIcon("Klein.xpm"));
-	zoomInToolbarButton->setPixmap(loadIcon("Gross.xpm"));
+	zoomDefaultToolbarButton->setPixmap(loadIcon("viewmag1.png"));
+	zoomOutToolbarButton->setPixmap(loadIcon("viewmagout.png"));
+	zoomInToolbarButton->setPixmap(loadIcon("viewmagin.png"));
 	PGS = new PageSelector(this, 1);
 	PGS->setFont(fo);
 	PGS->setFocusPolicy(QWidget::ClickFocus);
@@ -183,6 +191,7 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc) : QScrollView(parent,
 //	languageChange();
 	connect(zoomOutToolbarButton, SIGNAL(clicked()), this, SLOT(slotZoomOut()));
 	connect(zoomInToolbarButton, SIGNAL(clicked()), this, SLOT(slotZoomIn()));
+	connect(zoomDefaultToolbarButton, SIGNAL(clicked()), this, SLOT(slotZoom100()));
 	connect(LE, SIGNAL(valueChanged(int)), this, SLOT(Zval()));
 	connect(PGS, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
 	connect(LY, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
@@ -8865,6 +8874,17 @@ void ScribusView::slotDoZoom()
 	updateOn = true;
 	DrawNew();
 	undoManager->setUndoEnabled(true);
+}
+
+void ScribusView::slotZoom100()
+{
+	int x = qRound(QMAX(contentsX() / Scale, Doc->minCanvasCoordinate.x()));
+	int y = qRound(QMAX(contentsY() / Scale, Doc->minCanvasCoordinate.y()));
+	int w = qRound(QMIN(visibleWidth() / Scale, Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()));
+	int h = qRound(QMIN(visibleHeight() / Scale, Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()));
+	rememberPreviousSettings(w / 2 + x,h / 2 + y);
+	setScale(Prefs->DisScale);
+	slotDoZoom();
 }
 
 void ScribusView::slotZoomIn(int mx,int my)

@@ -70,9 +70,11 @@ public:
 	Hruler *horizRuler;
 	Vruler *vertRuler;
 #if OPTION_USE_QTOOLBUTTON
+	QToolButton *zoomDefaultToolbarButton;
 	QToolButton *zoomOutToolbarButton;
 	QToolButton *zoomInToolbarButton;
 #else
+	QPushButton *zoomDefaultToolbarButton;
 	QPushButton *zoomOutToolbarButton;
 	QPushButton *zoomInToolbarButton;
 #endif
@@ -288,15 +290,13 @@ public:
 public slots: // Public slots
 	void languageChange();
 	void unitChange();
-  /** Fhrt die Vergr�erung/Verkleinerung aus; */
+  /** Zooms in or out */
 	void slotDoZoom();
-  /** Vergr�ert die Ansicht */
+	void slotZoom100();
+  /** Zooms in */
 	void slotZoomIn(int mx=0,int my=0);
-  /** Verkleinert die Ansicht */
-	void slotZoomOut(int mx=0,int my=0);
-  /** Vergr�ert die Ansicht */
 	void slotZoomIn2(int mx=0,int my=0);
-  /** Verkleinert die Ansicht */
+	void slotZoomOut(int mx=0,int my=0);
 	void slotZoomOut2(int mx=0,int my=0);
   /** Redraws everything */
 	void DrawNew();

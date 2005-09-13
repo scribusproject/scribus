@@ -46,12 +46,14 @@ void ScribusWin::setView(ScribusView* dview)
 	view->unitSwitcher->reparent(statusFrame, point);
 	view->LE->reparent(statusFrame, point);
 	view->zoomOutToolbarButton->reparent(statusFrame, point);
+	view->zoomDefaultToolbarButton->reparent(statusFrame, point);
 	view->zoomInToolbarButton->reparent(statusFrame, point);
 	view->PGS->reparent(statusFrame, point);
 	view->LY->reparent(statusFrame, point);
 	statusFrameLayout->addWidget(view->unitSwitcher);
 	statusFrameLayout->addWidget(view->LE);
 	statusFrameLayout->addWidget(view->zoomOutToolbarButton);
+	statusFrameLayout->addWidget(view->zoomDefaultToolbarButton);
 	statusFrameLayout->addWidget(view->zoomInToolbarButton);
 	statusFrameLayout->addWidget(view->PGS);
 	statusFrameLayout->addWidget(view->LY);
