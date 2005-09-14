@@ -1,2 +1,5 @@
 Scribus - 1.2.4cvs
 ==================
+
+- 0002555: [User Interface] Different order of tab keys in "New Document" and in "Document Setup" (cbradney)
+- 0002516: [Translation] Minor errors in English scribus versions (cbradney)
