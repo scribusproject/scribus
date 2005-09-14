@@ -17,6 +17,7 @@ SplashScreen::SplashScreen()
 	: QWidget( 0, 0, WStyle_Customize | WStyle_NoBorder | WStyle_StaysOnTop | WStyle_Tool | WX11BypassWM )
 {
 	pix = loadIcon("Splash.png");
+	Q_ASSERT(!pix.isNull());
 	setErasePixmap( pix );
 	resize( pix.size() );
 	QRect scr = QApplication::desktop()->screenGeometry();
