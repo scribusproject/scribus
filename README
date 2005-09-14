@@ -1,10 +1,10 @@
-This is Scribus Version 1.3.0, the first release of the 1.3.x development
+This is Scribus Version 1.3.1cvs, the second release of the 1.3.x development
 series.
 
 CHANGES 1.2.x to 1.3.x
 ======================
 
-Imporant notes on the differences between 1.2.x and 1.3.x:
+Important notes on the differences between 1.2.x and 1.3.x:
 
 1) Because of the new file format features, Scribus documents saved in 1.3.x
    are *not* backwardly compatible.
@@ -43,13 +43,17 @@ of -l/--lang <lang> is set correctly. This is also can be changed in the prefere
 
 The EPS/PS import feature in 1.3.x uses advanced features of Ghostscript.  We
 recommend ALL users update to the newest version of Ghostscript available for
-your distribution. In addtion, if you still have GS 7.0x, there are detailed hints on
+your distribution. In addition, if you still have GS 7.0x, there are detailed hints on
 docs.scribus.net for installing GS 8.x in parallel to the GS installed by your
 distribution.
 
 Activating Color Management *requires* installation of CMYK and RGB ICC
 profiles. Please see the included help files, FAQ's on www.scribus.net and
-http://docs.scribus.net for details.
+http://docs.scribus.net for details. Current versions of Scribus 1.3.1 ships with
+2 icc profiles, which are installed only to enable color management functionality.
+The profiles do not provide meaningful color management for printing. Additional
+profiles are downloadable from www.scribus,net and depend on your hardware and
+printing environment.
 
 Other notes/known issues at the time of release:
 
@@ -60,6 +64,12 @@ Some testing has shown that this bug is not present in freetype 2.1.9, but
 we counsel caution trying to upgrade freetype2. Upgrading freetype2 on some
 distributions can be quite difficult.
 
+PSD/CMYK TIFF Support
+
+1.3.1cvs now has support for CMYK PSD and 8-bit CMYK TIFF support. RGB PSD and
+16-bit TIFF support is being developed. PSD and TIFF support includes layers, ICC 
+profiles and embedding clipping paths. 
+
 Issue with gradients:
 
 If you have gradient (e.g. with black color) with 50% shade in both beginning 
@@ -68,7 +78,10 @@ gradient to be with equal shade from beginning to end, especially if there is
 no other Color-Stops in-between them.
 
 This we believe is a libart issue and not fixable by us. The gradient will export
-and print properly.
+and print properly. Our experimental Cairo build does not have these issues. 
+We encourage those willing to test the Cairo backend builds and report issues
+to the mailing list and/IRC. We *know* the Cairo enabled build is slower, but
+are encouraged by the on-going development by the Cairo team.
 
 BUILDING AND INSTALLING FROM SOURCE
 ===================================
@@ -79,32 +92,32 @@ install Scribus, library requirements, etc.
 GHOSTSCRIPT
 ===========
 
-One of the more crucial tools Scribus depends on is GhostScript. While it is
+One of the more crucial tools Scribus depends on is Ghostscript. While it is
 not required for compilation, Scribus must be able to find a recent version of
-GhostScript at runtime for all features to be present and fully working. In
+Ghostscript at runtime for all features to be present and fully working. In
 particular, printing, print preview, and PDF/EPS import will not be fully
-functional without GhostScript. GhostScript 8.x is STRONGLY recommended.
+functional without Ghostscript. Ghostscript 8.x is STRONGLY recommended.
 Support for versions older than 7.07 is untested and Scribus may not operate
 reliably using such an old version of gs.
 
-You can get a new version of GhostScript from http://www.ghostscript.com/ .
-There is documentation on how to install a new version of GhostScript on the
+You can get a new version of Ghostscript from http://www.ghostscript.com/ .
+There is documentation on how to install a new version of Ghostscript on the
 Scribus website:
     http://docs.scribus.net/index.php?lang=en&sm=dtptoolbox&page=toolbox7
 or you can just download it and install it in /usr/local, then set your PATH.
 
 If you're compiling Scribus yourself, it will whine at you during configure if
-it notices an older version of GhostScript, or can't find it at all. If you
+it notices an older version of Ghostscript, or can't find it at all. If you
 know you have a newer version installed, run `gs --version' and (on bash)
 `which gs' to check what version is being used and where it's installed. You
 may need to tweak your PATH environment variable to find the newer version
-instead. Note that you can set which version of GhostScript Scribus uses, and
+instead. Note that you can set which version of Ghostscript Scribus uses, and
 where to find it, in the Scribus preferences.
 
-Debian users who haven't installed their own newer version of GhostScript may
+Debian users who haven't installed their own newer version of Ghostscript may
 want to install gs-afpl then use:
     `update-alternatives --config gs'
-as root to select gs-afpl as the default version of GhostScript to use.
+as root to select gs-afpl as the default version of Ghostscript to use.
 
 DISTRIBUTION AND OS SPECIFIC NOTES
 =====================
@@ -113,7 +126,7 @@ Debian
 ======
 
 If Scribus does not start while complaining about the absence of
-PostScript fonts please install either xfonts-scalable or gsfonts-x11.
+Postscript fonts please install either xfonts-scalable or gsfonts-x11.
 They are in the "Recommends" and will be installed by all sensible apt
 front-ends.
 
@@ -143,7 +156,7 @@ quality and have been created with close cooperation from Fedora maintainers
 and the Scribus Team. We recommend them for most users as they will ensure
 correct integration with the menuing system and mime types.
 
-There are no packages for LittleCMS or a recent GhostScript in Fedora Core 3,
+There are no packages for LittleCMS or a recent Ghostscript in Fedora Core 3,
 though LittleCMS (lcms) is in Fedora Extras. Please see the included help files
 and http://docs.scribus.net for details.
 Grey scale icc profiles in images are not supported in this release..
@@ -173,11 +186,11 @@ on http://aqua.scribus.net/ .
 Microsoft Windows
 =================
 
-Some information on building Scribus for Cygwin under Windows is available on
-the Scribus Wiki: http://wiki.scribus.net/ .
-
 A native win32 port is in the early stages of development. There is no ETA.
-More information will be announced on the mailing list as progess continues.
+More information will be announced on the mailing list as progress continues.
+Some information on building Scribus for Cygwin under Windows is available on
+the Scribus Wiki: http://wiki.scribus.net/  This NOT supported officially and 
+no effort will be made to integrate Cygwin in the build system.
 
 
 Additional information
@@ -194,7 +207,6 @@ Thanks to the many translators, testers, packagers and contributors who make
 the Scribus community so special.
 
 For the Scribus Team,
-
-Franz Schmid
+Craig Ringer
 Peter Linnell
-in July 2005
+in September 2005
