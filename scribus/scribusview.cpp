@@ -135,7 +135,8 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc) : QScrollView(parent,
 	zoomInToolbarButton->setAutoDefault( false );
 	zoomInToolbarButton->setFlat(OPTION_FLAT_BUTTON);
 #endif
-	zoomDefaultToolbarButton->setPixmap(loadIcon("viewmag1.png"));
+	zoomDefaultToolbarButton->setText("1:1");
+//	zoomDefaultToolbarButton->setPixmap(loadIcon("viewmag1.png"));
 	zoomOutToolbarButton->setPixmap(loadIcon("viewmagout.png"));
 	zoomInToolbarButton->setPixmap(loadIcon("viewmagin.png"));
 	PGS = new PageSelector(this, 1);
@@ -8610,6 +8611,26 @@ void ScribusView::setRulerPos(int x, int y)
 	horizRuler->repaint();
 	vertRuler->repaint();
 	evSpon = true;
+	if ((verticalScrollBar()->draggingSlider()) || (horizontalScrollBar()->draggingSlider()))
+	{
+		QValueList<int> pag;
+		pag.clear();
+		for (uint a = 0; a < Doc->Pages.count(); ++a)
+		{
+			int xs = static_cast<int>(Doc->Pages.at(a)->xOffset() * Scale);
+			int ys = static_cast<int>(Doc->Pages.at(a)->yOffset() * Scale);
+			int ws = static_cast<int>(Doc->Pages.at(a)->width() * Scale);
+			int hs = static_cast<int>(Doc->Pages.at(a)->height() * Scale);
+			QRect drawRect = QRect(x, y, visibleWidth(), visibleHeight());
+			drawRect.moveBy(qRound(-Doc->minCanvasCoordinate.x() * Scale), qRound(-Doc->minCanvasCoordinate.y() * Scale));
+			if (drawRect.intersects(QRect(xs, ys, ws, hs)))
+				pag.append(a+1);
+		}
+		if (!pag.isEmpty())
+			ScApp->mainWindowStatusLabel->setText( tr("Page %1 to %2").arg(pag.first()).arg(pag.last()));
+	}
+	else
+		ScApp->mainWindowStatusLabel->setText("");
 }
 
 void ScribusView::Zval()

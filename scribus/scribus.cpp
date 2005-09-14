@@ -2307,6 +2307,7 @@ void ScribusApp::startUpDialog()
 			doc->pageSets[facingPages].FirstPage = firstPage;
 			if (dia->PgNum->value() > 1)
 			{
+				view->hide();
 				for (int pg = 1; pg < dia->PgNum->value(); pg++)
 				{
 					slotNewPage(pg);
@@ -2315,6 +2316,7 @@ void ScribusApp::startUpDialog()
 				}
 				outlinePalette->BuildTree(doc);
 				pagePalette->RebuildPage();
+				view->show();
 				view->GotoPage(0);
 			}
 			delete ps2;
@@ -2369,6 +2371,7 @@ bool ScribusApp::slotFileNew()
 		doc->pageSets[facingPages].FirstPage = firstPage;
 		if (dia->PgNum->value() > 1)
 		{
+			view->hide();
 			for (int pg = 1; pg < dia->PgNum->value(); pg++)
 			{
 				slotNewPage(pg);
@@ -2377,6 +2380,7 @@ bool ScribusApp::slotFileNew()
 			}
 			outlinePalette->BuildTree(doc);
 			pagePalette->RebuildPage();
+			view->show();
 			view->GotoPage(0);
 		}
 		mainWindowStatusLabel->setText( tr("Ready"));
