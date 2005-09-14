@@ -359,9 +359,11 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 					else
 					{
 						if (ClosedPath)
-							z = ScApp->view->PaintPoly(0, 0, 10, 10, LineW, CurrColor, "None");
+							//z = ScApp->view->PaintPoly(0, 0, 10, 10, LineW, CurrColor, "None");
+							ScApp->doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, 0, 0, 10, 10, LineW, CurrColor, "None", !ScApp->view->Mpressed);
 						else
-							z = ScApp->view->PaintPolyLine(0, 0, 10, 10, LineW, CurrColor, "None");
+							//z = ScApp->view->PaintPolyLine(0, 0, 10, 10, LineW, CurrColor, "None");
+							z = ScApp->doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, 0, 0, 10, 10, LineW, CurrColor, "None", !ScApp->view->Mpressed);
 						ite = ScApp->doc->Items.at(z);
 						ite->PoLine = Coords.copy();
 						ite->PoLine.translate(ScApp->doc->currentPage->xOffset(), ScApp->doc->currentPage->yOffset());
@@ -397,11 +399,13 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 					}
 					else
 					{
-						if (ClosedPath)
-							z = ScApp->view->PaintPoly(0, 0, 10, 10, LineW, "None", CurrColor);
-						else
-							z = ScApp->view->PaintPolyLine(0, 0, 10, 10, LineW, "None", CurrColor);
 						ScribusDoc* Doku = ScApp->doc;
+						if (ClosedPath)
+							//z = ScApp->view->PaintPoly(0, 0, 10, 10, LineW, "None", CurrColor);
+							z = Doku->itemAdd(PageItem::Polygon, PageItem::Unspecified, 0, 0, 10, 10, LineW, "None", CurrColor, !ScApp->view->Mpressed);
+						else
+							//z = ScApp->view->PaintPolyLine(0, 0, 10, 10, LineW, "None", CurrColor);
+							z = Doku->itemAdd(PageItem::PolyLine, PageItem::Unspecified, 0, 0, 10, 10, LineW, "None", CurrColor, !ScApp->view->Mpressed);
 						ite = Doku->Items.at(z);
 						ite->PoLine = Coords.copy();
 						ite->PoLine.translate(Doku->currentPage->xOffset(), Doku->currentPage->yOffset());

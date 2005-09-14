@@ -470,7 +470,8 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			w = parseUnit(b.attribute("svg:width"));
 			h = parseUnit(b.attribute("svg:height"));
 			double corner = parseUnit(b.attribute("draw:corner-radius"));
-			z = ScApp->view->PaintRect(BaseX+x, BaseY+y, w, h, lwidth, FillColor, StrokeColor);
+			//z = ScApp->view->PaintRect(BaseX+x, BaseY+y, w, h, lwidth, FillColor, StrokeColor);
+			Doku->itemAdd(PageItem::Polygon, PageItem::Rectangle, BaseX+x, BaseY+y, w, h, lwidth, FillColor, StrokeColor, !ScApp->view->Mpressed);
 			PageItem* ite = Doku->Items.at(z);
 			if (corner != 0)
 			{
@@ -485,7 +486,8 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			y = parseUnit(b.attribute("svg:y")) ;
 			w = parseUnit(b.attribute("svg:width"));
 			h = parseUnit(b.attribute("svg:height"));
-			z = ScApp->view->PaintEllipse(BaseX+x, BaseY+y, w, h, lwidth, FillColor, StrokeColor);
+			//z = ScApp->view->PaintEllipse(BaseX+x, BaseY+y, w, h, lwidth, FillColor, StrokeColor);
+			z = Doku->itemAdd(PageItem::Polygon, PageItem::Ellipse, BaseX+x, BaseY+y, w, h, lwidth, FillColor, StrokeColor, !ScApp->view->Mpressed);
 		}
 		else if( STag == "draw:line" ) // line
 		{
@@ -493,7 +495,8 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			double y1 = b.attribute( "svg:y1" ).isEmpty() ? 0.0 : parseUnit( b.attribute( "svg:y1" ) );
 			double x2 = b.attribute( "svg:x2" ).isEmpty() ? 0.0 : parseUnit( b.attribute( "svg:x2" ) );
 			double y2 = b.attribute( "svg:y2" ).isEmpty() ? 0.0 : parseUnit( b.attribute( "svg:y2" ) );
-			z = ScApp->view->PaintPoly(BaseX, BaseY, 10, 10, lwidth, "None", StrokeColor);
+			//z = ScApp->view->PaintPoly(BaseX, BaseY, 10, 10, lwidth, "None", StrokeColor);
+			z = Doku->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lwidth, "None", StrokeColor, !ScApp->view->Mpressed);
 			PageItem* ite = Doku->Items.at(z);
 			ite->PoLine.resize(4);
 			ite->PoLine.setPoint(0, FPoint(x1, y1));
@@ -513,7 +516,8 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 		}
 		else if ( STag == "draw:polygon" )
 		{
-			z = ScApp->view->PaintPoly(BaseX, BaseY, 10, 10, lwidth, FillColor, StrokeColor);
+			//z = ScApp->view->PaintPoly(BaseX, BaseY, 10, 10, lwidth, FillColor, StrokeColor);
+			z = Doku->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lwidth, FillColor, StrokeColor, !ScApp->view->Mpressed);
 			PageItem* ite = Doku->Items.at(z);
 			ite->PoLine.resize(0);
 			appendPoints(&ite->PoLine, b);
@@ -530,7 +534,8 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 		}
 		else if( STag == "draw:polyline" )
 		{
-			z = ScApp->view->PaintPolyLine(BaseX, BaseY, 10, 10, lwidth, "None", StrokeColor);
+			//z = ScApp->view->PaintPolyLine(BaseX, BaseY, 10, 10, lwidth, "None", StrokeColor);
+			z = Doku->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, lwidth, "None", StrokeColor, !ScApp->view->Mpressed);
 			PageItem* ite = Doku->Items.at(z);
 			ite->PoLine.resize(0);
 			appendPoints(&ite->PoLine, b);
@@ -547,7 +552,8 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 		}
 		else if( STag == "draw:path" )
 		{
-			z = ScApp->view->PaintPoly(BaseX, BaseY, 10, 10, lwidth, FillColor, StrokeColor);
+			//z = ScApp->view->PaintPoly(BaseX, BaseY, 10, 10, lwidth, FillColor, StrokeColor);
+			z = Doku->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lwidth, FillColor, StrokeColor, !ScApp->view->Mpressed);
 			PageItem* ite = Doku->Items.at(z);
 			ite->PoLine.resize(0);
 			if (parseSVG( b.attribute( "svg:d" ), &ite->PoLine ))
@@ -591,7 +597,8 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			y = parseUnit(b.attribute("svg:y")) ;
 			w = parseUnit(b.attribute("svg:width"));
 			h = parseUnit(b.attribute("svg:height"));
-			z = ScApp->view->PaintText(BaseX+x, BaseY+y, w, h+(h*0.1), lwidth, StrokeColor);
+			//z = ScApp->view->PaintText(BaseX+x, BaseY+y, w, h+(h*0.1), lwidth, StrokeColor);
+			z = Doku->itemAdd(PageItem::TextFrame, PageItem::Unspecified, BaseX+x, BaseY+y, w, h+(h*0.1), lwidth, "None", StrokeColor, !ScApp->view->Mpressed);
 		}
 		else
 		{

@@ -2124,23 +2124,30 @@ int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemF
 	PageItem* newItem=NULL;
 	switch( itemType )
 	{
+		//Q_ASSERTs here will warn on creation issues when a coder specifies the frameType incorrectly
+		//for items that do not have/need a frameType for creation.
 		case PageItem::ImageFrame:
 			newItem = new PageItem(this, PageItem::ImageFrame, x, y, b, h, 1, toolSettings.dBrushPict, "None");
+			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Unspecified);
 			break;
 		case PageItem::TextFrame:
 			newItem = new PageItem(this, PageItem::TextFrame, x, y, b, h, w, "None", outline);
+			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Unspecified);
 			break;
 		case PageItem::Line:
 			{
 				double lineWidth = w == 0.0 ? 1.0 : w;
 				newItem = new PageItem(this, PageItem::Line, x, y, b, h, lineWidth, "None", outline);
+				Q_ASSERT(frameType==PageItem::Unspecified);
 			}
 			break;
 		case PageItem::Polygon:
 			newItem = new PageItem(this, PageItem::Polygon, x, y, b, h, w, fill, outline);
+			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Ellipse || frameType==PageItem::Unspecified);
 			break;
 		case PageItem::PolyLine:
 			newItem = new PageItem(this, PageItem::PolyLine, x, y, b, h, w, fill, outline);
+			Q_ASSERT(frameType==PageItem::Unspecified);
 			break;
 		case PageItem::PathText:
 		//At this point, we cannot create a PathText item like this, only by conversion

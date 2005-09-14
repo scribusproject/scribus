@@ -16,11 +16,14 @@ PyObject *scribus_newrect(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
 		return NULL;
 	}
-	int i = ScApp->view->PaintRect(pageUnitXToDocX(x), pageUnitYToDocY(y),
-									 ValueToPoint(b), ValueToPoint(h),
-									 ScApp->doc->toolSettings.dWidth,
-									 ScApp->doc->toolSettings.dBrush,
-									 ScApp->doc->toolSettings.dPen);
+	//int i = ScApp->view->PaintRect(pageUnitXToDocX(x), pageUnitYToDocY(y),
+	//								 ValueToPoint(b), ValueToPoint(h),
+	//								 ScApp->doc->toolSettings.dWidth,
+	//								 ScApp->doc->toolSettings.dBrush,
+	//								 ScApp->doc->toolSettings.dPen);
+	int i = ScApp->doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, pageUnitXToDocX(x), pageUnitYToDocY(y),
+									 ValueToPoint(b), ValueToPoint(h), ScApp->doc->toolSettings.dWidth,
+									 ScApp->doc->toolSettings.dBrush, ScApp->doc->toolSettings.dPen, !ScApp->view->Mpressed);
 	ScApp->doc->Items.at(i)->SetRectFrame();
 	ScApp->view->setRedrawBounding(ScApp->doc->Items.at(i));
 	if (Name != "")
@@ -37,10 +40,16 @@ PyObject *scribus_newellipse(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	int i = ScApp->view->PaintEllipse(pageUnitXToDocX(x), pageUnitYToDocY(y), b, h,
+	//int i = ScApp->view->PaintEllipse(pageUnitXToDocX(x), pageUnitYToDocY(y), b, h,
+	//									ScApp->doc->toolSettings.dWidth,
+	//									ScApp->doc->toolSettings.dBrush,
+	//									ScApp->doc->toolSettings.dPen);
+	int i = ScApp->doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, pageUnitXToDocX(x),
+										pageUnitYToDocY(y), b, h,
 										ScApp->doc->toolSettings.dWidth,
 										ScApp->doc->toolSettings.dBrush,
-										ScApp->doc->toolSettings.dPen);
+										ScApp->doc->toolSettings.dPen, 
+										!ScApp->view->Mpressed);
 	if (ItemExists(QString::fromUtf8(Name)))
 	{
 		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
@@ -56,13 +65,14 @@ PyObject *scribus_newellipse(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_newimage(PyObject* /* self */, PyObject* args)
 {
-	double x, y, b, h;
+	double x, y, w, h;
 	char *Name = const_cast<char*>("");
-	if (!PyArg_ParseTuple(args, "dddd|es", &x, &y, &b, &h, "utf-8", &Name))
+	if (!PyArg_ParseTuple(args, "dddd|es", &x, &y, &w, &h, "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	int i = ScApp->view->PaintPict(pageUnitXToDocX(x), pageUnitYToDocY(y), b, h);
+	//int i = ScApp->view->PaintPict(pageUnitXToDocX(x), pageUnitYToDocY(y), w, h);
+	int i = ScApp->doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, pageUnitXToDocX(x), pageUnitYToDocY(y), w, h, 1, ScApp->doc->toolSettings.dBrushPict, "None", !ScApp->view->Mpressed);
 	if (ItemExists(QString::fromUtf8(Name)))
 	{
 		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
@@ -84,9 +94,10 @@ PyObject *scribus_newtext(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	int i = ScApp->view->PaintText(pageUnitXToDocX(x), pageUnitYToDocY(y), b, h,
-									 ScApp->doc->toolSettings.dWidth,
-									 ScApp->doc->toolSettings.dPenText);
+	//int i = ScApp->view->PaintText(pageUnitXToDocX(x), pageUnitYToDocY(y), b, h,
+	//								 ScApp->doc->toolSettings.dWidth,
+	//								 ScApp->doc->toolSettings.dPenText);
+	int i = ScApp->doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, pageUnitXToDocX(x), pageUnitYToDocY(y), b, h, ScApp->doc->toolSettings.dWidth, "None", ScApp->doc->toolSettings.dPenText, !ScApp->view->Mpressed);
 	if (ItemExists(QString::fromUtf8(Name)))
 	{
 		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
@@ -117,7 +128,8 @@ PyObject *scribus_newline(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
 		return NULL;
 	}
-	int i = ScApp->view->PaintPolyLine(x, y, 1, 1,	ScApp->doc->toolSettings.dWidth, ScApp->doc->toolSettings.dBrush, ScApp->doc->toolSettings.dPen);
+	//int i = ScApp->view->PaintPolyLine(x, y, 1, 1,	ScApp->doc->toolSettings.dWidth, ScApp->doc->toolSettings.dBrush, ScApp->doc->toolSettings.dPen);
+	int i = ScApp->doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, x, y, 1, 1, ScApp->doc->toolSettings.dWidth, ScApp->doc->toolSettings.dBrush, ScApp->doc->toolSettings.dPen, !ScApp->view->Mpressed);
 	PageItem *it = ScApp->doc->Items.at(i);
 	it->PoLine.resize(4);
 	it->PoLine.setPoint(0, 0, 0);
@@ -174,7 +186,8 @@ PyObject *scribus_polyline(PyObject* /* self */, PyObject* args)
 	i++;
 	y = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
 	i++;
-	int ic = ScApp->view->PaintPolyLine(x, y, 1, 1,	ScApp->doc->toolSettings.dWidth, ScApp->doc->toolSettings.dBrush, ScApp->doc->toolSettings.dPen);
+	//int ic = ScApp->view->PaintPolyLine(x, y, 1, 1,	ScApp->doc->toolSettings.dWidth, ScApp->doc->toolSettings.dBrush, ScApp->doc->toolSettings.dPen);
+	int ic = ScApp->doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, x, y, 1, 1,	ScApp->doc->toolSettings.dWidth, ScApp->doc->toolSettings.dBrush, ScApp->doc->toolSettings.dPen, !ScApp->view->Mpressed);
 	PageItem *it = ScApp->doc->Items.at(ic);
 	it->PoLine.resize(2);
 	it->PoLine.setPoint(0, 0, 0);
@@ -249,7 +262,8 @@ PyObject *scribus_polygon(PyObject* /* self */, PyObject* args)
 	i++;
 	y = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
 	i++;
-	int ic = ScApp->view->PaintPoly(x, y, 1, 1,	ScApp->doc->toolSettings.dWidth, ScApp->doc->toolSettings.dBrush, ScApp->doc->toolSettings.dPen);
+	//int ic = ScApp->view->PaintPoly(x, y, 1, 1,	ScApp->doc->toolSettings.dWidth, ScApp->doc->toolSettings.dBrush, ScApp->doc->toolSettings.dPen);
+	int ic = ScApp->doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, x, y, 1, 1,	ScApp->doc->toolSettings.dWidth, ScApp->doc->toolSettings.dBrush, ScApp->doc->toolSettings.dPen, !ScApp->view->Mpressed);
 	PageItem *it = ScApp->doc->Items.at(ic);
 	it->PoLine.resize(2);
 	it->PoLine.setPoint(0, 0, 0);
@@ -334,7 +348,8 @@ PyObject *scribus_bezierline(PyObject* /* self */, PyObject* args)
 	i++;
 	ky2 = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
 	i++;
-	int ic = ScApp->view->PaintPolyLine(x, y, 1, 1,	ScApp->doc->toolSettings.dWidth, ScApp->doc->toolSettings.dBrush, ScApp->doc->toolSettings.dPen);
+	//int ic = ScApp->view->PaintPolyLine(x, y, 1, 1,	ScApp->doc->toolSettings.dWidth, ScApp->doc->toolSettings.dBrush, ScApp->doc->toolSettings.dPen);
+	int ic = ScApp->doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, x, y, 1, 1,	ScApp->doc->toolSettings.dWidth, ScApp->doc->toolSettings.dBrush, ScApp->doc->toolSettings.dPen, !ScApp->view->Mpressed);
 	PageItem *it = ScApp->doc->Items.at(ic);
 	it->PoLine.resize(2);
 	it->PoLine.setPoint(0, 0, 0);

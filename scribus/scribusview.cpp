@@ -1398,7 +1398,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			{
 				for (int cc = 0; cc < Cols; ++cc)
 				{
-					z = PaintText(Tx + offX, Ty + offY, deltaX, deltaY, Doc->toolSettings.dWidth, Doc->toolSettings.dPenText);
+					//z = PaintText(Tx + offX, Ty + offY, deltaX, deltaY, Doc->toolSettings.dWidth, Doc->toolSettings.dPenText);
+					z = Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Tx + offX, Ty + offY, deltaX, deltaY, Doc->toolSettings.dWidth, "None", Doc->toolSettings.dPenText, !Mpressed);
 					currItem = Doc->Items.at(z);
 					currItem->isTableItem = true;
 					currItem->setTextFlowsAroundFrame(true);
@@ -1447,7 +1448,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		Doc->appMode = modeNormal;
 		if (RecordP.size() > 1)
 		{
-			uint z = PaintPolyLine(0, 0, 1, 1, Doc->toolSettings.dWidth, "None", Doc->toolSettings.dPenLine);
+			//uint z = PaintPolyLine(0, 0, 1, 1, Doc->toolSettings.dWidth, "None", Doc->toolSettings.dPenLine);
+			uint z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, 0, 0, 1, 1, Doc->toolSettings.dWidth, "None", Doc->toolSettings.dPenLine, !Mpressed);
 			currItem = Doc->Items.at(z);
 			currItem->PoLine.resize(0);
 			currItem->PoLine.addPoint(RecordP.point(0));
@@ -3955,7 +3957,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 								else
 								{
 									cli.putPoints(0, EndInd-StartInd, Clip, StartInd);
-									z = PaintPoly(currItem->Xpos, currItem->Ypos, currItem->Width, currItem->Height, currItem->Pwidth, currItem->fillColor(), currItem->lineColor());
+									//z = PaintPoly(currItem->Xpos, currItem->Ypos, currItem->Width, currItem->Height, currItem->Pwidth, currItem->fillColor(), currItem->lineColor());
+									z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, currItem->Xpos, currItem->Ypos, currItem->Width, currItem->Height, currItem->Pwidth, currItem->fillColor(), currItem->lineColor(), !Mpressed);
 									bb = Doc->Items.at(z);
 									if (EditContour)
 										bb->ContourLine.resize(0);
@@ -4009,7 +4012,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 							{
 								if ((ClRe > 1) && (ClRe < static_cast<int>(Clip.size()-2)))
 								{
-									z = PaintPolyLine(currItem->Xpos, currItem->Ypos, currItem->Width, currItem->Height, currItem->Pwidth, currItem->fillColor(), currItem->lineColor());
+									//z = PaintPolyLine(currItem->Xpos, currItem->Ypos, currItem->Width, currItem->Height, currItem->Pwidth, currItem->fillColor(), currItem->lineColor());
+									z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->Xpos, currItem->Ypos, currItem->Width, currItem->Height, currItem->Pwidth, currItem->fillColor(), currItem->lineColor(), !Mpressed);
 									bb = Doc->Items.at(z);
 									if (EditContour)
 										bb->ContourLine.putPoints(0, Clip.size()-(ClRe+2), Clip, ClRe+2);
@@ -4262,15 +4266,18 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			switch (Doc->SubMode)
 			{
 			case 0:
-				z = PaintRect(Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen);
+				//z = PaintRect(Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen);
+				z = Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen, !Mpressed);
 				SetupDraw(z);
 				break;
 			case 1:
-				z = PaintEllipse(Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen);
+				//z = PaintEllipse(Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen);
+				z = Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen, !Mpressed);
 				SetupDraw(z);
 				break;
 			default:
-				z = PaintPoly(Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen);
+				//z = PaintPoly(Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen);
+				z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen, !Mpressed);
 				Doc->Items.at(z)->SetFrameShape(Doc->ValCount, Doc->ShapeValues);
 				setRedrawBounding(Doc->Items.at(z));
 				Doc->Items.at(z)->FrameType = Doc->SubMode+2;
@@ -4281,13 +4288,15 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			break;
 		case modeDrawPicture:
 			selectPage(m);
-			z = PaintPict(Rxp, Ryp, 1+Rxpd, 1+Rypd);
+			//z = PaintPict(Rxp, Ryp, 1+Rxpd, 1+Rypd);
+			z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, 1, Doc->toolSettings.dBrushPict, "None", !Mpressed);
 			SetupDraw(z);
 			emit HaveSel(PageItem::ImageFrame);
 			break;
 		case modeDrawText:
 			selectPage(m);
-			z = PaintText(Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dPenText);
+			//z = PaintText(Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dPenText);
+			z = Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, "None", Doc->toolSettings.dPenText, Mpressed);
 			SetupDraw(z);
 			emit HaveSel(PageItem::TextFrame);
 			break;
@@ -4395,7 +4404,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			break;
 		case modeDrawLine:
 			selectPage(m);
-			z = PaintLine(Rxp, Ryp, 1+Rxpd, Rypd, Doc->toolSettings.dWidthLine, Doc->toolSettings.dPenLine);
+			//z = PaintLine(Rxp, Ryp, 1+Rxpd, Rypd, Doc->toolSettings.dWidthLine, Doc->toolSettings.dPenLine);
+			z = Doc->itemAdd(PageItem::Line, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, Rypd, Doc->toolSettings.dWidthLine, "None", Doc->toolSettings.dPenLine, !Mpressed);
 			currItem = Doc->Items.at(z);
 			currItem->Select = true;
 			qApp->setOverrideCursor(QCursor(SizeFDiagCursor), true);
@@ -4538,7 +4548,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 		case modeDrawRegularPolygon:
 			{
 				selectPage(m);
-				z = PaintPoly(Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen);
+				//z = PaintPoly(Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen);
+				z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen, !Mpressed);
 				currItem = Doc->Items.at(z);
 				FPointArray cli = RegularPolygonF(currItem->Width, currItem->Height, Doc->toolSettings.polyC, Doc->toolSettings.polyS, Doc->toolSettings.polyF, Doc->toolSettings.polyR);
 				FPoint np = FPoint(cli.point(0));
@@ -4574,7 +4585,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			if (FirstPoly)
 			{
 				selectPage(m);
-				z = PaintPolyLine(Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, "None", Doc->toolSettings.dPenLine);
+				//z = PaintPolyLine(Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, "None", Doc->toolSettings.dPenLine);
+				z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, "None", Doc->toolSettings.dPenLine, !Mpressed);
 				currItem = Doc->Items.at(z);
 				SelItem.clear();
 				SelItem.append(currItem);
@@ -4619,7 +4631,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 		case modeInsertPDFTextAnnotation:
 		case modeInsertPDFLinkAnnotation:
 			selectPage(m);
-			z = PaintText(Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dPenText);
+			//z = PaintText(Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dPenText);
+			z = Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, "None", Doc->toolSettings.dPenText, !Mpressed);
 			currItem = Doc->Items.at(z);
 			currItem->isAnnotation = true;
 			switch (Doc->appMode)
@@ -8620,11 +8633,16 @@ Page* ScribusView::addPage(int nr, bool mov)
 	reformPages(mov);
 	if ((Doc->PageAT) && (!Doc->isLoading()))
 	{
-		int z = PaintText(fe->Margins.Left+fe->xOffset(),
-		                  fe->Margins.Top+fe->yOffset(),
-		                  Doc->pageWidth-fe->Margins.Right-fe->Margins.Left,
-		                  Doc->pageHeight-fe->Margins.Bottom-fe->Margins.Top,
-		                  1, Doc->toolSettings.dPen);
+		//int z = PaintText(fe->Margins.Left+fe->xOffset(),
+		//                  fe->Margins.Top+fe->yOffset(),
+		//                  Doc->pageWidth-fe->Margins.Right-fe->Margins.Left,
+		//                  Doc->pageHeight-fe->Margins.Bottom-fe->Margins.Top,
+		//                  1, Doc->toolSettings.dPen);
+		int z = Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, 
+		                     fe->Margins.Left+fe->xOffset(),
+		                     fe->Margins.Top+fe->yOffset(), Doc->pageWidth-fe->Margins.Right-fe->Margins.Left,
+		                     Doc->pageHeight-fe->Margins.Bottom-fe->Margins.Top,
+		                     1, "None", Doc->toolSettings.dPen, !Mpressed);
 		Doc->Items.at(z)->isAutoText = true;
 		Doc->Items.at(z)->BackBox = Doc->LastAuto;
 		Doc->Items.at(z)->Cols = qRound(Doc->PageSp);
@@ -9493,10 +9511,11 @@ void ScribusView::SetFrameOval()
 }
 
 /** Zeichnet eine Ellipse */
+/* CB: Moved to ScribusDoc, left in commented out for now
 int ScribusView::PaintEllipse(double x, double y, double b, double h, double w, QString fill, QString outline)
 {
 	return Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, x, y, b, h, w, fill, outline, !Mpressed);
-	/* CB: Moved to ScribusDoc, left in commented out for now
+	
 	if (UndoManager::undoEnabled() && !_itemCreationTransactionStarted)
 	{
 		_itemCreationTransactionStarted = true;
@@ -9542,14 +9561,13 @@ int ScribusView::PaintEllipse(double x, double y, double b, double h, double w, 
 		}
 	}
 	return ite->ItemNr;
-	*/
-}
+}*/
 
 /** Zeichnet einen Bildrahmen */
+/* CB: Moved to ScribusDoc, left in commented out for now
 int ScribusView::PaintPict(double x, double y, double b, double h)
 {
 	return Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, x, y, b, h, 1, Doc->toolSettings.dBrushPict, "None", !Mpressed);
-	/* CB: Moved to ScribusDoc, left in commented out for now
 	if (UndoManager::undoEnabled() && !_itemCreationTransactionStarted)
 	{
 		_itemCreationTransactionStarted = true;
@@ -9599,14 +9617,13 @@ int ScribusView::PaintPict(double x, double y, double b, double h)
 		}
 	}
 	return ite->ItemNr;
-	*/
-}
+}*/
 
 /** Zeichnet ein Rechteck */
+/* CB: Moved to ScribusDoc, left in commented out for now
 int ScribusView::PaintRect(double x, double y, double b, double h, double w, QString fill, QString outline)
 {
 	return Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, x, y, b, h, w, fill, outline, !Mpressed);
-	/* CB: Moved to ScribusDoc, left in commented out for now
 	if (UndoManager::undoEnabled() && !_itemCreationTransactionStarted)
 	{
 		_itemCreationTransactionStarted = true;
@@ -9652,14 +9669,14 @@ int ScribusView::PaintRect(double x, double y, double b, double h, double w, QSt
 		}
 	}
 	return ite->ItemNr;
-	*/
 }
-
+*/
+	
 /** Zeichnet ein Polygon */
+/* CB: Moved to ScribusDoc, left in commented out for now
 int ScribusView::PaintPoly(double x, double y, double b, double h, double w, QString fill, QString outline)
 {
 	return Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, x, y, b, h, w, fill, outline, !Mpressed);
-	/* CB: Moved to ScribusDoc, left in commented out for now
 	if (UndoManager::undoEnabled() && !_itemCreationTransactionStarted)
 	{
 		_itemCreationTransactionStarted = true;
@@ -9704,14 +9721,14 @@ int ScribusView::PaintPoly(double x, double y, double b, double h, double w, QSt
 		}
 	}
 	return ite->ItemNr;
-	*/
 }
+*/
 
 /** Zeichnet eine Polyline */
+/* CB: Moved to ScribusDoc, left in commented out for now
 int ScribusView::PaintPolyLine(double x, double y, double b, double h, double w, QString fill, QString outline)
 {
 	return Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, x, y, b, h, w, fill, outline, !Mpressed);
-	/* CB: Moved to ScribusDoc, left in commented out for now
 	if (UndoManager::undoEnabled() && !_itemCreationTransactionStarted)
 	{
 		_itemCreationTransactionStarted = true;
@@ -9755,14 +9772,14 @@ int ScribusView::PaintPolyLine(double x, double y, double b, double h, double w,
 		}
 	}
 	return ite->ItemNr;
-	*/
 }
+*/
 
 /** Zeichnet einen Textrahmen */
+/* CB: Moved to ScribusDoc, left in commented out for now
 int ScribusView::PaintText(double x, double y, double b, double h, double w, QString outline)
 {
 	return Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y, b, h, w, "None", outline, !Mpressed);
-	/* CB: Moved to ScribusDoc, left in commented out for now
 	if (UndoManager::undoEnabled() && !_itemCreationTransactionStarted)
 	{
 		_itemCreationTransactionStarted = true;
@@ -9811,14 +9828,14 @@ int ScribusView::PaintText(double x, double y, double b, double h, double w, QSt
 		}
 	}
 	return ite->ItemNr;
-	*/
 }
+*/
 
 /** Zeichnet eine Linie */
+/* CB: Moved to ScribusDoc, left in commented out for now
 int ScribusView::PaintLine(double x, double y, double b, double h, double w, QString outline)
 {
 	return Doc->itemAdd(PageItem::Line, PageItem::Unspecified, x, y, b, h, w, "None", outline, !Mpressed);
-	/* CB: Moved to ScribusDoc, left in commented out for now
 	if (w == 0)
 		w = 1;
 	if (UndoManager::undoEnabled() && !_itemCreationTransactionStarted)
@@ -9858,8 +9875,8 @@ int ScribusView::PaintLine(double x, double y, double b, double h, double w, QSt
 		}
 	}
 	return ite->ItemNr;
-	*/
 }
+*/
 
 void ScribusView::insertColor(QString nam, double c, double m, double y, double k)
 {
@@ -11419,11 +11436,13 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	{
 	// OBSOLETE CR 2005-02-06
 	case PageItem::ItemType1:
-		z = PaintEllipse(x, y, w, h, pw, Buffer->Pcolor, Buffer->Pcolor2);
+		//z = PaintEllipse(x, y, w, h, pw, Buffer->Pcolor, Buffer->Pcolor2);
+		z = Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, x, y, w, h, pw, Buffer->Pcolor, Buffer->Pcolor2, !Mpressed);
 		break;
 	//
 	case PageItem::ImageFrame:
-		z = PaintPict(x, y, w, h);
+		//z = PaintPict(x, y, w, h);
+		z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, x, y, w, h, 1, Doc->toolSettings.dBrushPict, "None", !Mpressed);
 		Doc->Items.at(z)->LocalScX = Buffer->LocalScX;
 		Doc->Items.at(z)->LocalScY = Buffer->LocalScY;
 		Doc->Items.at(z)->LocalX = Buffer->LocalX;
@@ -11446,12 +11465,14 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		break;
 	// OBSOLETE CR 2005-02-06
 	case PageItem::ItemType3:
-		z = PaintRect(x, y, w, h, pw, Buffer->Pcolor, Buffer->Pcolor2);
+		//z = PaintRect(x, y, w, h, pw, Buffer->Pcolor, Buffer->Pcolor2);
+		z = Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, x, y, w, h, pw, Buffer->Pcolor, Buffer->Pcolor2, !Mpressed);
 		break;
 	//
 	case PageItem::PathText:
 	case PageItem::TextFrame:
-		z = PaintText(x, y, w, h, pw, Buffer->Pcolor);
+		//z = PaintText(x, y, w, h, pw, Buffer->Pcolor);
+		z = Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y, w, h, pw, "None", Buffer->Pcolor, !Mpressed);
 		if ((Buffer->isAnnotation) && (Buffer->AnUseIcons))
 		{
 			Doc->Items.at(z)->LocalScX = Buffer->LocalScX;
@@ -11548,13 +11569,16 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		Doc->Items.at(z)->convertTo(Buffer->PType);
 		break;
 	case PageItem::Line:
-		z = PaintLine(x, y, w, 0, pw, Buffer->Pcolor2);
+		//z = PaintLine(x, y, w, 0, pw, Buffer->Pcolor2);
+		z = Doc->itemAdd(PageItem::Line, PageItem::Unspecified, x, y, w ,0, pw, "None", Buffer->Pcolor2, !Mpressed);
 		break;
 	case PageItem::Polygon:
-		z = PaintPoly(x, y, w, h, pw, Buffer->Pcolor, Buffer->Pcolor2);
+		//z = PaintPoly(x, y, w, h, pw, Buffer->Pcolor, Buffer->Pcolor2);
+		z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, x, y, w, h, pw, Buffer->Pcolor, Buffer->Pcolor2, !Mpressed);
 		break;
 	case PageItem::PolyLine:
-		z = PaintPolyLine(x, y, w, h, pw, Buffer->Pcolor, Buffer->Pcolor2);
+		//z = PaintPolyLine(x, y, w, h, pw, Buffer->Pcolor, Buffer->Pcolor2);
+		z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, x, y, w, h, pw, Buffer->Pcolor, Buffer->Pcolor2, !Mpressed);
 		break;
 	}
 	PageItem *currItem = Doc->Items.at(z);
@@ -11897,7 +11921,8 @@ void ScribusView::FromPathText()
 	PageItem *currItem;
 	if (GetItem(&currItem))
 	{
-		uint z = PaintPolyLine(currItem->Xpos, currItem->Ypos, currItem->Width, currItem->Height, currItem->Pwidth, "None", currItem->lineColor());
+		//uint z = PaintPolyLine(currItem->Xpos, currItem->Ypos, currItem->Width, currItem->Height, currItem->Pwidth, "None", currItem->lineColor());
+		uint z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->Xpos, currItem->Ypos, currItem->Width, currItem->Height, currItem->Pwidth, "None", currItem->lineColor(), !Mpressed);
 		PageItem *bb = Doc->Items.at(z);
 		bb->PoLine = currItem->PoLine.copy();
 		bb->ClipEdited = true;
@@ -11989,7 +12014,8 @@ void ScribusView::TextToPath()
 				if (currItem->imageFlippedV())
 					chma.scale(1, -1);
 				pts.map(chma);
-				uint z = PaintPoly(currItem->Xpos, currItem->Ypos, currItem->Width, currItem->Height, currItem->Pwidth, currItem->lineColor(), currItem->fillColor());
+				//uint z = PaintPoly(currItem->Xpos, currItem->Ypos, currItem->Width, currItem->Height, currItem->Pwidth, currItem->lineColor(), currItem->fillColor());
+				uint z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, currItem->Xpos, currItem->Ypos, currItem->Width, currItem->Height, currItem->Pwidth, currItem->lineColor(), currItem->fillColor(), !Mpressed);
 				bb = Doc->Items.at(z);
 				bb->setTextFlowsAroundFrame(currItem->textFlowsAroundFrame());
 				bb->setTextFlowUsesBoundingBox(currItem->textFlowUsesBoundingBox());
@@ -12112,12 +12138,13 @@ void ScribusView::SplitObj()
 	uint z;
 	PageItem *currItem = SelItem.at(0);
 	uint EndInd = currItem->PoLine.size();
-	for (uint a = currItem->PoLine.size()-1; a > 0; a--)
+	for (uint a = EndInd-1; a > 0; --a)
 	{
 		if (currItem->PoLine.point(a).x() > 900000)
 		{
 			StartInd = a + 1;
-			z = PaintPoly(currItem->Xpos, currItem->Ypos, currItem->Width, currItem->Height, currItem->Pwidth, currItem->fillColor(), currItem->lineColor());
+			//z = PaintPoly(currItem->Xpos, currItem->Ypos, currItem->Width, currItem->Height, currItem->Pwidth, currItem->fillColor(), currItem->lineColor());
+			z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, currItem->Xpos, currItem->Ypos, currItem->Width, currItem->Height, currItem->Pwidth, currItem->fillColor(), currItem->lineColor(), !Mpressed);
 			bb = Doc->Items.at(z);
 			bb->PoLine.resize(0);
 			bb->PoLine.putPoints(0, EndInd - StartInd, currItem->PoLine, StartInd);

@@ -164,7 +164,7 @@ public:
 	FPoint GetMinClipO(FPointArray Clip);
 	QPtrList<PageItem> parseText(double x, double y, const QDomElement &e);
 
-	ScribusDoc* Doku;
+	ScribusDoc* currDoc;
 	QDomDocument inpdoc;
 	double CurrX, CurrY, StartX, StartY, Conversion;
 	int PathLen;
