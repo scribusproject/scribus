@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus.sk_SK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-22 02:29+0200\n"
+"POT-Creation-Date: 2005-09-14 09:28+0200\n"
 "PO-Revision-Date: 2004-12-19 22:54+0100\n"
 "Last-Translator: Zdenko Podobný <zdpo@mailbox.sk>\n"
 "Language-Team: Slovak <<sk-i18n@lists.linux.sk>>\n"
@@ -134,7 +134,8 @@ msgstr "Podmnožina"
 msgid "Path to Font File"
 msgstr "Cesta k súborom písma"
 
-msgid "Postscript"
+#, fuzzy
+msgid "PostScript"
 msgstr "Postscript"
 
 msgid "&Available Fonts"
@@ -288,6 +289,18 @@ msgstr " pt"
 
 msgid "Size:"
 msgstr "Veľkosť:"
+
+#, fuzzy
+msgid "Text Color:"
+msgstr "Odstrániť farbu"
+
+#, fuzzy
+msgid "Shading:"
+msgstr "Tie&ňovanie:"
+
+#, fuzzy
+msgid "Text Stroke:"
+msgstr "Stlačenie klávesy:"
 
 #, fuzzy
 msgid "Fill Color:"
@@ -595,6 +608,41 @@ msgstr "Odsadenie zľava pre celý odsek"
 msgid "Delete all Tabulators"
 msgstr "Odstrániť všetky tabulátory"
 
+#, fuzzy
+msgid "Plugin Manager"
+msgstr "Tlačiť &rozsah"
+
+#, fuzzy
+msgid "Plugin"
+msgstr "Obyčajný"
+
+#, fuzzy
+msgid "How to run"
+msgstr "Presunúť dopredu"
+
+msgid "Type"
+msgstr "Typ"
+
+#, fuzzy
+msgid "Load it?"
+msgstr "Načítavanie:"
+
+#, fuzzy
+msgid "Plugin ID"
+msgstr "Obyčajný"
+
+msgid "File"
+msgstr "Súbor"
+
+msgid "Yes"
+msgstr "Áno"
+
+msgid "No"
+msgstr "Nie"
+
+msgid "You need to restart the application to apply the changes."
+msgstr ""
+
 msgid "Document"
 msgstr "Dokument"
 
@@ -709,11 +757,11 @@ msgstr ""
 "Keď je označené, súradnice sú relatívne vzhľadom k strane,\n"
 "v opačnom prípade sú relatívne k objektu."
 
+msgid "Copy #%1 of "
+msgstr "Kópia  #%1 z "
+
 msgid "Name"
 msgstr "Názov"
-
-msgid "Type"
-msgstr "Typ"
 
 msgid "Value"
 msgstr "Hodnota"
@@ -799,12 +847,6 @@ msgstr "Iba nepárne strany"
 
 msgid "Mirror"
 msgstr "Zrkadlo"
-
-msgid "No"
-msgstr "Nie"
-
-msgid "Yes"
-msgstr "Áno"
 
 msgid "Orientation"
 msgstr "Orientácia"
@@ -1295,6 +1337,18 @@ msgstr "Na stred"
 msgid "String"
 msgstr "Nastavenia"
 
+#, fuzzy
+msgid "Collecting..."
+msgstr "Načítavam..."
+
+msgid "Warning"
+msgstr "Varovanie"
+
+msgid ""
+"Cannot collect all files for output for file:\n"
+"%1"
+msgstr ""
+
 msgid "Manage Tabulators"
 msgstr "Správa tabulátorov"
 
@@ -1372,15 +1426,11 @@ msgstr "Konve&rzia na"
 msgid "Linking Text Frames"
 msgstr "Prepojiť textové rámy"
 
-msgid ""
-"There is a problem with text frames linking. You are trying to link filled "
-"frames or a frame to the same one itself"
+msgid "You are trying to link to a filled frame, or a frame to itself."
 msgstr ""
 
-msgid "Warning"
-msgstr "Varovanie"
-
-msgid "Do you really want to clear all your Text?"
+#, fuzzy
+msgid "Do you really want to clear all your text?"
 msgstr "Skutočne chcete odstrániť celý text?"
 
 msgid "Cannot Delete In-Use Item"
@@ -1389,6 +1439,14 @@ msgstr ""
 msgid ""
 "The item %1 is currently being edited by Story Editor. The delete operation "
 "will be cancelled"
+msgstr ""
+
+msgid "Cannot Convert In-Use Item"
+msgstr ""
+
+msgid ""
+"The item %1 is currently being edited by Story Editor. The convert to "
+"outlines operation for this item will be skipped"
 msgstr ""
 
 #, fuzzy
@@ -1457,25 +1515,45 @@ msgid "Cannot find symbol (%1)"
 msgstr ""
 
 #, fuzzy
-msgid "Persistent"
-msgstr "Tlač"
-
-msgid "Import"
-msgstr "Import"
+msgid "Plugin: loading %1"
+msgstr "Tlačiť &rozsah"
 
 #, fuzzy
-msgid "Standard"
-msgstr "Hviezda"
+msgid "init failed"
+msgstr "Tlač sa nepodarila!"
 
-msgid "Unknown"
-msgstr "Neznámy"
+msgid "unknown plugin type"
+msgstr ""
+
+msgid "Plugin: %1 loaded"
+msgstr ""
+
+msgid "Plugin: %1 failed to load: %2"
+msgstr ""
+
+#, fuzzy
+msgid "PostScript Files (*.eps *.EPS *.ps *.PS);;"
+msgstr "Všetky podporované formáty (*.eps *.EPS *.ps *.PS);;"
+
+#, fuzzy
+msgid "SVG Images (*.svg *.svgz);;"
+msgstr "SVG obrázky (*.svg *.svgz);; Všetky súbory (*)"
+
+#, fuzzy
+msgid "SVG Images (*.svg);;"
+msgstr "SVG obrázky (*.svg);; Všetky súbory (*)"
+
+#, fuzzy
+msgid "OpenOffice.org Draw (*.sxd);;"
+msgstr "OpenOffice.org Draw (*.sxd);;Všetky súbory (*)"
+
+#, fuzzy
+msgid "%1 of %1"
+msgstr "%1 - [%2]"
 
 #, fuzzy
 msgid "%1 of %2"
 msgstr "%1 - [%2]"
-
-msgid " of %1"
-msgstr " z %1"
 
 msgid "Icon Placement"
 msgstr "Umiestnenie ikony"
@@ -1909,7 +1987,8 @@ msgstr "Obrazovku si prispôsobíte pomocou jazdca na dolnom pravítku."
 msgid "Display"
 msgstr "Zobraziť"
 
-msgid "Postscript Interpreter"
+#, fuzzy
+msgid "PostScript Interpreter"
 msgstr "Interpret postscriptu"
 
 msgid "&Name of Executable:"
@@ -1971,37 +2050,11 @@ msgid "Miscellaneous"
 msgstr ""
 
 #, fuzzy
-msgid "Plugin Manager"
-msgstr "Tlačiť &rozsah"
-
-#, fuzzy
-msgid "Plugin"
-msgstr "Obyčajný"
-
-#, fuzzy
-msgid "How to run"
-msgstr "Presunúť dopredu"
-
-#, fuzzy
-msgid "Load it?"
-msgstr "Načítavanie:"
-
-#, fuzzy
-msgid "Plugin ID"
-msgstr "Obyčajný"
-
-msgid "File"
-msgstr "Súbor"
-
-msgid "You need to restart the application to apply the changes."
-msgstr ""
-
-#, fuzzy
 msgid "Plugins"
 msgstr "Obyčajný"
 
 #, fuzzy
-msgid "Turns the display of linked frames on or off"
+msgid "Enable or disable  the display of linked frames."
 msgstr "Zapnúť základnú mriežku"
 
 msgid ""
@@ -2015,10 +2068,9 @@ msgid "Turns the display of pictures on or off"
 msgstr ""
 
 msgid ""
-"Select your default language for Scribus to run with.\n"
-"Leave this blank to choose based on environment variables.\n"
-"You can still override this by passing a command line option when starting "
-"Scribus"
+"Select your default language for Scribus to run with. Leave this blank to "
+"choose based on environment variables. You can still override this by "
+"passing a command line option when starting Scribus"
 msgstr ""
 
 msgid ""
@@ -2230,9 +2282,6 @@ msgstr ""
 msgid "element <lpiSettingsEntry> lacks `name' attribute"
 msgstr ""
 
-msgid "Copy #%1 of "
-msgstr "Kópia  #%1 z "
-
 msgid "Delete Pages"
 msgstr "Odstrániť strany"
 
@@ -2390,8 +2439,17 @@ msgstr "Uložiť ako P&DF..."
 msgid "O&utput to File:"
 msgstr "Výst&up do súboru:"
 
+msgid "Output one file for eac&h page"
+msgstr ""
+
 msgid "&Save"
 msgstr "&Uložiť"
+
+msgid ""
+"This enables exporting one individually named PDF file for each page in the "
+"document. Page numbers are added automatically. This is most useful for "
+"imposing PDF for commerical printing."
+msgstr ""
 
 msgid "Save as"
 msgstr "Uložiť ako"
@@ -2536,6 +2594,124 @@ msgstr ""
 msgid "memcpy offset: %1 %2 %3"
 msgstr ""
 
+msgid "Print Preview"
+msgstr "Ukážka pred tlačou"
+
+msgid "Anti-alias &Text"
+msgstr "Vyhladiť &text"
+
+msgid "Anti-alias &Graphics"
+msgstr "Vyhladiť &grafiku"
+
+msgid "Display Trans&parency"
+msgstr "Zobraziť priesvitnosť"
+
+msgid "&Under Color Removal"
+msgstr "&Under Color Removal"
+
+msgid "&Display CMYK"
+msgstr "Zobraziť CMYK"
+
+msgid "&C"
+msgstr "&C"
+
+msgid "&M"
+msgstr "&M"
+
+msgid "&Y"
+msgstr "&Y"
+
+msgid "&K"
+msgstr "&K"
+
+#, fuzzy
+msgid "Separation Name"
+msgstr "Sýtosť"
+
+msgid "Cyan"
+msgstr "Azúrová"
+
+msgid "Magenta"
+msgstr "Purpurová"
+
+msgid "Yellow"
+msgstr "Žltá"
+
+msgid "Black"
+msgstr "Čierna"
+
+#, fuzzy
+msgid "Scaling:"
+msgstr "Zmen&a veľkosti:"
+
+msgid "Print..."
+msgstr "Tlač..."
+
+#, fuzzy
+msgid ""
+"Provides a more pleasant view of text items in the viewer, at the expense of "
+"a slight slowdown in previewing. This only affects Type 1 fonts"
+msgstr ""
+"Poskytuje krajší pohľad na textové položky v prehliadači, za čo zaplatíte\n"
+"miernym spomalením prezerania. Toto sa týka iba Type 1 písma"
+
+#, fuzzy
+msgid ""
+"Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF "
+"and vector graphics in the preview, at the expense of a slight slowdown in "
+"previewing"
+msgstr ""
+"Poskytuje krajší pohľad na písma True Type, Open Type, EPS, PDF\n"
+"a vektorovej grafiky v náhľade, na úkor mierneho spomalenia prezerania"
+
+msgid ""
+"Shows transparency and transparent items in your document. Requires "
+"Ghostscript 7.07 or later"
+msgstr ""
+"Zobrazuje transparentnosť a transparentné položky vo vašom dokumente."
+"Vyžaduje Ghostscript 7.07 alebo vyšší"
+
+msgid ""
+"Gives a print preview using simulations of generic CMYK inks, instead of RGB "
+"colors"
+msgstr "Vytvorí náhľad tlače simuláciou CMYK atramentov namiesto RGB farieb"
+
+#, fuzzy
+msgid ""
+"A way of switching off some of the gray shades which are composed of cyan, "
+"yellow and magenta and using black instead. UCR most affects parts of images "
+"which are neutral and/or dark tones which are close to the gray. Use of this "
+"may improve printing some images and some experimentation and testing is "
+"need on a case by case basis. UCR reduces the possibility of over saturation "
+"with CMY inks."
+msgstr ""
+"Spôsob prepínania niektorých šedých tieňov, ktoré sú zložené\n"
+"z azúrovej, fialovej a žltej farby namiesto použitia čiernej.\n"
+"UCR naviac ovplyvňuje časti obrázkov, ktoré sú neutrálne a/alebo\n"
+"v tmavých tónoch, ktoré sú blízko šedej. Použitie tohoto postupu môže "
+"zlepšiť\n"
+"tlač niektorých obrázkov - je však potrebné testovať jednotlivé prípady.\n"
+"UCR znižuje možnosť presýtenosti s CMY atramentmi."
+
+#, fuzzy
+msgid "Resize the scale of the page."
+msgstr "Upraviť tvar rámu..."
+
+msgid "Enable/disable the C (Cyan) ink plate"
+msgstr "Povolí/zakáže C (azúrovú) zložku"
+
+msgid "Enable/disable the M (Magenta) ink plate"
+msgstr "Povolí/zakáže M (fialovú) zložku"
+
+msgid "Enable/disable the Y (Yellow) ink plate"
+msgstr "Povolí/zakáže Y (žltú) zložku"
+
+msgid "Enable/disable the K (Black) ink plate"
+msgstr "Povolí/zakáže K (čiernu) zložku"
+
+msgid "All"
+msgstr "Všetky"
+
 #, fuzzy
 msgid "Select Lorem Ipsum"
 msgstr "Vybrať položky"
@@ -2559,6 +2735,9 @@ msgstr "Alt+O"
 
 msgid "DPI"
 msgstr ""
+
+msgid "Unknown"
+msgstr "Neznámy"
 
 msgid "RGB"
 msgstr "RGB"
@@ -3076,6 +3255,9 @@ msgstr "Obrazovka/Web"
 msgid "Printer"
 msgstr "Tlačiareň"
 
+msgid "Convert Spot Colors to Process Colors"
+msgstr ""
+
 msgid "&Use Custom Rendering Settings"
 msgstr "Po&užiť vlastné nastavenia generovania"
 
@@ -3471,6 +3653,39 @@ msgid ""
 "Do you want to migrate them to the new Scribus version?"
 msgstr ""
 
+msgid "Could not open preferences file \"%1\" for writing: %2"
+msgstr ""
+
+msgid "Writing to preferences file \"%1\" failed: QIODevice status code %2"
+msgstr ""
+
+msgid "Failed to open prefs file \"%1\": %2"
+msgstr ""
+
+msgid "Failed to read prefs XML from \"%1\": %2 at line %3, col %4"
+msgstr ""
+
+msgid "Postscript"
+msgstr "Postscript"
+
+#, fuzzy
+msgid "Error Writing Preferences"
+msgstr "Načítavanie nastavení"
+
+msgid ""
+"Scribus was not able to save its preferences:<br>%1<br>Please check file and "
+"directory permissions and available disk space."
+msgstr ""
+
+#, fuzzy
+msgid "Error Loading Preferences"
+msgstr "Načítavanie nastavení"
+
+msgid ""
+"Scribus was not able to load its preferences:<br>%1<br>Default settings will "
+"be loaded."
+msgstr ""
+
 msgid "New Document"
 msgstr "Nový dokument"
 
@@ -3543,22 +3758,6 @@ msgstr "Dokumenty (*.sla *sla.gz *.scd *scd.gz);; Všetky súbory (*)"
 msgid "Documents (*.sla *.scd);;"
 msgstr "Dokumenty (*.sla *.scd);; Všetky súbory (*)"
 
-#, fuzzy
-msgid "Postscript Files (*.eps *.EPS *.ps *.PS);;"
-msgstr "Všetky podporované formáty (*.eps *.EPS *.ps *.PS);;"
-
-#, fuzzy
-msgid "SVG Images (*.svg *.svgz);;"
-msgstr "SVG obrázky (*.svg *.svgz);; Všetky súbory (*)"
-
-#, fuzzy
-msgid "SVG Images (*.svg);;"
-msgstr "SVG obrázky (*.svg);; Všetky súbory (*)"
-
-#, fuzzy
-msgid "OpenOffice.org Draw (*.sxd);;"
-msgstr "OpenOffice.org Draw (*.sxd);;Všetky súbory (*)"
-
 msgid "Open"
 msgstr "Otvoriť"
 
@@ -3599,9 +3798,6 @@ msgstr "Bežná metóda vyplnenia alebo prechod"
 msgid "Set the transparency for the color selected"
 msgstr "Nastaviť priesvitnosť pre zvolenú farbu"
 
-msgid "Color of selected object"
-msgstr "Farba zvoleného objektu"
-
 msgid ""
 "Move the start of the gradient vector with the left mouse button pressed and "
 "move the end of the gradient vector with the right mouse button pressed"
@@ -3629,8 +3825,9 @@ msgstr "Informácie o dokumente"
 msgid "Minimum Scratch Space"
 msgstr "Vertikálne medzery"
 
-msgid "Turns the of linked frames on or off"
-msgstr ""
+#, fuzzy
+msgid "Enable or disable the display of linked text frames."
+msgstr "Zapnúť základnú mriežku"
 
 msgid "Adjusting Colors"
 msgstr "Prispôsobenie farieb"
@@ -3782,7 +3979,8 @@ msgstr "Štandardne je označené"
 msgid "Editable"
 msgstr "Upraviteľné"
 
-msgid "Java Script"
+#, fuzzy
+msgid "JavaScript"
 msgstr "Java skript"
 
 msgid "Go To"
@@ -3971,7 +4169,8 @@ msgstr ""
 "Potrebujete najmenej ikonu pre Normal, aby ste mohli použiť ikony pre "
 "tlačítka"
 
-msgid "Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)"
+#, fuzzy
+msgid "Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)"
 msgstr ""
 "Obrázky (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Všetky súbory (*)"
 
@@ -4030,6 +4229,9 @@ msgstr "Na&stavenie dokumentu..."
 msgid "&Print..."
 msgstr "&Tlačiť..."
 
+msgid "Print Previe&w"
+msgstr "&Ukážka pred tlačou"
+
 msgid "&Quit"
 msgstr "&Koniec"
 
@@ -4069,7 +4271,8 @@ msgstr "Štý&ly čiar..."
 msgid "&Master Pages..."
 msgstr "za stranu"
 
-msgid "&Javascripts..."
+#, fuzzy
+msgid "&JavaScripts..."
 msgstr "&Java skript"
 
 msgid "P&references..."
@@ -4282,6 +4485,10 @@ msgstr "&Presunúť..."
 msgid "&Apply Master Page..."
 msgstr "Použiť š&ablónu..."
 
+#, fuzzy
+msgid "Convert to Master Page..."
+msgstr "Importovať dáta"
+
 msgid "Manage &Guides..."
 msgstr "O&vládanie vodítok..."
 
@@ -4475,8 +4682,18 @@ msgstr "Delenie slov v texte"
 msgid "&Generate Table Of Contents"
 msgstr ""
 
+msgid "&Cascade"
+msgstr "&Kaskáda"
+
+msgid "&Tile"
+msgstr "&Dláždenie"
+
 msgid "&About Scribus"
 msgstr "&O Scribuse"
+
+#, fuzzy
+msgid "&About Plug-ins"
+msgstr "Obyčajný"
 
 msgid "About &Qt"
 msgstr "Informácie o &Qt"
@@ -4770,6 +4987,10 @@ msgstr ""
 "Informácie o právach držby dokumentu, napr. copyright, patent alebo obchodná "
 "značka"
 
+#, fuzzy
+msgid "Preset Layouts:"
+msgstr "Rozloženie:"
+
 msgid "Distance between the top margin guide and the edge of the page"
 msgstr "Vzdialenosť medzi horným vodítkom okraja a hranou strany"
 
@@ -4799,6 +5020,21 @@ msgstr "&Vnútorný:"
 
 msgid "O&utside:"
 msgstr "V&onkajší:"
+
+#, fuzzy
+msgid "Book"
+msgstr "Do bloku"
+
+#, fuzzy
+msgid "Magazine"
+msgstr "Časopisy"
+
+msgid ""
+"You can select predefined page layout here. 'None' leave margins as is, "
+"'Book' sets margins classically (Gutenberg). 'Book' is proposed for two-"
+"sided documents. 'Magazine' sets all margins for same value. Leading is Left/"
+"Inside value."
+msgstr ""
 
 msgid ""
 "You can see a thumbnail if you press\n"
@@ -4928,11 +5164,13 @@ msgstr "Farebný &model"
 msgid "Web Safe RGB"
 msgstr "Uložiť pre web RGB"
 
-msgid "Is Spot-Color"
-msgstr ""
+#, fuzzy
+msgid "Is Spot Color"
+msgstr "Farba obrysu"
 
-msgid "Is Registration-Color"
-msgstr ""
+#, fuzzy
+msgid "Is Registration Color"
+msgstr "Sýtosť farby"
 
 msgid "New"
 msgstr "Nový"
@@ -5185,12 +5423,6 @@ msgstr "&Zarovnanie"
 msgid "Ready"
 msgstr "Pripravený"
 
-msgid "&Cascade"
-msgstr "&Kaskáda"
-
-msgid "&Tile"
-msgstr "&Dláždenie"
-
 msgid "Importing Pages..."
 msgstr "Importovanie strán..."
 
@@ -5208,6 +5440,9 @@ msgstr ""
 "<br><ul><li><b>Vytvoriť</b> chýbajúce strany</li><li><b>Importovať</b> "
 "strany až po poslednú stranu</li><li><b>Zrušiť</b></li></ul><br>"
 
+msgid "Import"
+msgstr "Import"
+
 msgid "Import done"
 msgstr "Import je dokončený"
 
@@ -5215,9 +5450,7 @@ msgid "Found nothing to import"
 msgstr "Nebolo nájdené nič na importovanie"
 
 #, fuzzy
-msgid ""
-"File %1 \n"
-"is not in an acceptable format"
+msgid "File %1 is not in an acceptable format"
 msgstr "Súbor %1 nie je vo formáte Scribus"
 
 msgid "Loading..."
@@ -5253,16 +5486,16 @@ msgid "Saving..."
 msgstr "Ukladám..."
 
 msgid ""
-"Detected some Errors.\n"
-"Consider using the Preflight Checker to correct them"
+"Scribus has detected some errors.\n"
+"Consider using the Pre-flight Checker to correct them"
 msgstr ""
 
 #, fuzzy
-msgid "Abort"
+msgid "&Abort"
 msgstr "&Informácie"
 
 #, fuzzy
-msgid "Ignore"
+msgid "&Ignore"
 msgstr "&Ignorovať veľkosť písma"
 
 msgid "Printing..."
@@ -5299,46 +5532,37 @@ msgstr "Tieto programy chýbajú:"
 msgid "Ghostscript : You cannot use EPS images or Print Preview"
 msgstr "Ghostscript : Nemôžete používať EPS obrázky"
 
-msgid "All"
-msgstr "Všetky"
+msgid ""
+"Scribus detected some errors.\n"
+"Consider using the Preflight Verifier  to correct them."
+msgstr ""
 
 #, fuzzy
 msgid "EPS Files (*.eps);;All Files (*)"
 msgstr "EPS obrázky (*.eps);;Všetky súbory (*)"
 
 msgid ""
-"Detected some Errors.\n"
+"Detected some errors.\n"
 "Consider using the Preflight Verifier to correct them"
 msgstr ""
 
-msgid "Some Objects are locked."
-msgstr "Niektoré objekty sú uzamknuté."
+#, fuzzy
+msgid "-Page%1"
+msgstr "Strana "
 
 #, fuzzy
 msgid "&Lock All"
 msgstr "Uzamknúť všetko"
 
-#, fuzzy
-msgid "Collecting..."
-msgstr "Načítavam..."
-
-msgid ""
-"Cannot collect all files for output for file:\n"
-"%1"
-msgstr ""
-
-#, fuzzy
-msgid "The program"
-msgstr "Program"
-
-msgid "is already running!"
-msgstr ""
-
 msgid "Information"
 msgstr "Informácie"
 
-msgid "is missing!"
-msgstr "chýba!"
+msgid "The program %1 is already running!"
+msgstr ""
+
+#, fuzzy
+msgid "The program %1 is missing!"
+msgstr "Tieto programy chýbajú:"
 
 msgid ""
 "The selected color does not exist in the document's color set. Please enter "
@@ -5395,50 +5619,6 @@ msgstr "Prečiarknuté"
 msgid "Shadow"
 msgstr "Tieň"
 
-msgid "Advanced Options"
-msgstr "Pokročilé nastavenia"
-
-msgid "Mirror Page(s) &Horizontal"
-msgstr "&Horizontálne zrkadlenie strán"
-
-msgid "Mirror Page(s) &Vertical"
-msgstr "&Vertikálne zrkadlenie strán"
-
-msgid "Apply Under Color &Removal"
-msgstr "Aplikovať  Under Color &Removal"
-
-msgid "Set Media Size"
-msgstr ""
-
-msgid "Apply &ICC Profiles"
-msgstr "Použiť &ICC-profily"
-
-msgid "PostScript Level &1"
-msgstr "PostScript Level &1"
-
-msgid "PostScript Level &2"
-msgstr "PostScript Level &2"
-
-msgid "PostScript Level &3"
-msgstr "PostScript Level &3"
-
-msgid "Creates PostScript Level 3"
-msgstr "Vytvorí PostScript Level 3"
-
-msgid ""
-"Creates PostScript Level 2 only, beware,\n"
-"this can create huge files"
-msgstr ""
-"Vytvorí iba  PostScript Level 2.\n"
-"Pozor! Môže vytvoriť veľké súbory"
-
-msgid ""
-"Creates PostScript Level 1 only, beware,\n"
-"this can create huge files"
-msgstr ""
-"Vytvorí iba  PostScript Level 1.\n"
-"Pozor! Môže vytvoriť veľké súbory"
-
 msgid "Setup Printer"
 msgstr "Nastaviť tlačiareň"
 
@@ -5453,13 +5633,6 @@ msgstr "&Súbor:"
 
 msgid "A&lternative Printer Command"
 msgstr "A&lternatívny príkaz tlače"
-
-msgid ""
-"Use an alternative print manager, such as kprinter or gtklp,\n"
-"to utilize additional printing options"
-msgstr ""
-"Použiť alternatívneho správcu tlače ako je kprinter alebo gtklp,\n"
-"na spracovanie prídavných nastavení tlače"
 
 msgid "Co&mmand:"
 msgstr "&Príkaz:"
@@ -5479,38 +5652,80 @@ msgstr "Tlačiť &rozsah"
 msgid "N&umber of Copies:"
 msgstr "P&očet kópií:"
 
-msgid "Print &Normal"
+#, fuzzy
+msgid "Print Normal"
 msgstr "&Normálna tlač"
 
-msgid "Print &Separations"
+#, fuzzy
+msgid "Print Separations"
 msgstr "Oddelená tlač &farebných zložiek"
 
-msgid "Cyan"
-msgstr "Azúrová"
-
-msgid "Magenta"
-msgstr "Purpurová"
-
-msgid "Yellow"
-msgstr "Žltá"
-
-msgid "Black"
-msgstr "Čierna"
-
-msgid "Pr&int In Color If Available"
+#, fuzzy
+msgid "Print in Color if Available"
 msgstr "Tlač&iť farebne, ak je to možné"
 
-msgid "Print In Gra&yscale"
+#, fuzzy
+msgid "Print in Grayscale"
 msgstr "T&lačiť v odtieňoch šedej"
 
-msgid "Ad&vanced Options..."
-msgstr "&Pokročilé možnosti..."
+#, fuzzy
+msgid "PostScript Level 1"
+msgstr "PostScript Level &1"
+
+#, fuzzy
+msgid "PostScript Level 2"
+msgstr "PostScript Level &2"
+
+#, fuzzy
+msgid "PostScript Level 3"
+msgstr "PostScript Level &3"
+
+#, fuzzy
+msgid "Mirror Page(s) Horizontal"
+msgstr "&Horizontálne zrkadlenie strán"
+
+#, fuzzy
+msgid "Mirror Page(s) Vertical"
+msgstr "&Vertikálne zrkadlenie strán"
+
+msgid "Set Media Size"
+msgstr ""
+
+#, fuzzy
+msgid "Apply Under Color Removal"
+msgstr "Aplikovať  Under Color &Removal"
+
+#, fuzzy
+msgid "Apply ICC Profiles"
+msgstr "Použiť &ICC-profily"
+
+msgid "Advanced Options"
+msgstr "Pokročilé nastavenia"
+
+#, fuzzy
+msgid "Preview..."
+msgstr "Náhľad"
 
 msgid "&Print"
 msgstr "&Tlač"
 
+msgid ""
+"Use an alternative print manager, such as kprinter or gtklp,\n"
+"to utilize additional printing options"
+msgstr ""
+"Použiť alternatívneho správcu tlače ako je kprinter alebo gtklp,\n"
+"na spracovanie prídavných nastavení tlače"
+
 #, fuzzy
-msgid "Postscript Files (*.ps);;All Files (*)"
+msgid ""
+"Sets the PostScript Level.\n"
+" Setting to Level 1 or 2 can create huge files"
+msgstr ""
+"Vytvorí iba  PostScript Level 2.\n"
+"Pozor! Môže vytvoriť veľké súbory"
+
+#, fuzzy
+msgid "PostScript Files (*.ps);;All Files (*)"
 msgstr "Postscript súbory(*.ps);;Všetky súbory (*)"
 
 msgid "Insert Page"
@@ -5892,8 +6107,9 @@ msgstr "&On-line"
 msgid ""
 "This panel shows the version, build date and compiled in library support in "
 "Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support "
-"F=Fontconfig support. Missing library support is indicated by a * This also "
-"indicates the version of Ghostscript which Scribus has detected."
+"F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart "
+"Missing library support is indicated by a * This also indicates the version "
+"of Ghostscript which Scribus has detected."
 msgstr ""
 "Tento panel zobrazuje verziu, dátum kompilácie\n"
 "a podporu knižníc v Scribuse.\n"
@@ -6697,6 +6913,14 @@ msgstr "bol od posledného uloženia zmenený."
 msgid "&Save Now"
 msgstr "&Uložiť"
 
+#, fuzzy
+msgid "Persistent"
+msgstr "Tlač"
+
+#, fuzzy
+msgid "Export"
+msgstr "&Export"
+
 msgid "Could not find target file %1: %2"
 msgstr ""
 
@@ -6716,8 +6940,9 @@ msgid "Font Substitution"
 msgstr "Substitúcia písem"
 
 msgid ""
-"This document contains some fonts that are not installed on your system,\n"
-"please choose a suitable replacement for them."
+"This document contains some fonts that are not installed on your system, "
+"please choose a suitable replacement for them. Cancel will stop the document "
+"from loading."
 msgstr ""
 
 #, fuzzy
@@ -6729,6 +6954,20 @@ msgid "Substitution Font"
 msgstr "Substitúcia písem"
 
 msgid "Make these substitutions permanent"
+msgstr ""
+
+msgid "Cancels these font substitutions and stops loading the document."
+msgstr ""
+
+msgid ""
+"Enabling this tells Scribus to use these replacements for missing \t\t\t\t\t"
+"\tfonts permanently in all future layouts. This can be reverted or changed \t"
+"\t\t\t\t\tin Edit > Preferences > Fonts."
+msgstr ""
+
+msgid ""
+"If you select OK, then save, these substitutions are made permanent in the \t"
+"\t\t\t\t\tdocument."
 msgstr ""
 
 msgid "Show Page Previews"
@@ -6879,10 +7118,6 @@ msgid "Do you really want to lose all your changes?"
 msgstr "Skutočne chcete stratiť všetky zmeny?"
 
 #, fuzzy
-msgid "Do you really want to clear all your text?"
-msgstr "Skutočne chcete odstrániť celý text?"
-
-#, fuzzy
 msgid "Glyphs missing"
 msgstr "chýba!"
 
@@ -6946,7 +7181,8 @@ msgstr "U&končiť bez uloženia"
 msgid "&Get Field Names"
 msgstr "&Získať názvy polí"
 
-msgid "Javascripts (*.js);;All Files (*)"
+#, fuzzy
+msgid "JavaScripts (*.js);;All Files (*)"
 msgstr "Java skripty (*.js);;Všetky súbory (*)"
 
 msgid "Move Bookmark"
@@ -6965,6 +7201,10 @@ msgstr "Dostupné písma"
 
 msgid "Edit Styles"
 msgstr "Upraviť štýly"
+
+#, fuzzy
+msgid "Do you really want to delete this style?"
+msgstr "Skutočne chcete zmazať tento štýl?"
 
 #, fuzzy
 msgid "Common Settings"
@@ -7174,11 +7414,11 @@ msgid "Use &Blackpoint Compensation"
 msgstr "P&oužiť mapovanie čiernej z dvoch profilov"
 
 #, fuzzy
-msgid "Default color profile for imported cmyk images"
+msgid "Default color profile for imported CMYK images"
 msgstr "Štandardný farebný profil pre importované obrázky"
 
 #, fuzzy
-msgid "Default color profile for imported rgb images"
+msgid "Default color profile for imported RGB images"
 msgstr "Štandardný farebný profil pre importované obrázky"
 
 msgid "Default color profile for solid colors on the page"
@@ -7497,6 +7737,42 @@ msgstr ""
 msgid "page"
 msgstr "Strana"
 
+#, fuzzy
+msgid "Scribus: About Plug-ins"
+msgstr "&Scribus skripty"
+
+#, fuzzy
+msgid "File Name:"
+msgstr "&Názov súboru:"
+
+#, fuzzy
+msgid "Version:"
+msgstr "&Rozlíšenie:"
+
+#, fuzzy
+msgid "Enabled:"
+msgstr "Povolené"
+
+#, fuzzy
+msgid "Release Date:"
+msgstr "Nahradiť s:"
+
+#, fuzzy
+msgid "Copyright:"
+msgstr "Kopírovať"
+
+#, fuzzy
+msgid "Author(s):"
+msgstr "Autor:"
+
+#, fuzzy
+msgid "Description:"
+msgstr "&Popis:"
+
+#, fuzzy
+msgid "License:"
+msgstr "Č&iary:"
+
 msgid "New From Template"
 msgstr "Nový podľa šablóny"
 
@@ -7665,6 +7941,10 @@ msgstr "Strany dokumentu:"
 msgid "Short &Words..."
 msgstr "Zob&raziť vlastnosti..."
 
+#, fuzzy
+msgid "Short Words"
+msgstr "&Celé slovo:"
+
 msgid "Short Words processing. Wait please..."
 msgstr ""
 
@@ -7690,10 +7970,6 @@ msgstr "V&ložiť obrázok..."
 #, fuzzy
 msgid "&Info and Languages..."
 msgstr "&Jazyk:"
-
-#, fuzzy
-msgid "Short Words"
-msgstr "&Celé slovo:"
 
 msgid "Apply unbreakable space on:"
 msgstr ""
@@ -7763,6 +8039,10 @@ msgstr "&Celé slovo:"
 msgid "Save as &Template..."
 msgstr "Uložiť ako ša&blónu..."
 
+#, fuzzy
+msgid "Save As Template"
+msgstr "Uložiť ako šablónu"
+
 msgid "Save as Template"
 msgstr "Uložiť ako šablónu"
 
@@ -7799,8 +8079,20 @@ msgstr "vlastné"
 msgid "Import &OpenOffice.org Draw..."
 msgstr "Import OpenOffice.org Draw..."
 
+#, fuzzy
+msgid "OpenOffice.org Draw Importer"
+msgstr "Nastavenia importu OpenOffice.org Writer dokumentu"
+
 msgid "OpenOffice.org Draw (*.sxd);;All Files (*)"
 msgstr "OpenOffice.org Draw (*.sxd);;Všetky súbory (*)"
+
+#, fuzzy
+msgid "&Font Preview..."
+msgstr "Náhľad na písmo..."
+
+#, fuzzy
+msgid "Font Preview"
+msgstr "Náhľad na súbory"
 
 msgid "Doc"
 msgstr ""
@@ -7815,6 +8107,9 @@ msgstr "V&eľkosť písma:"
 
 msgid "Fonts Preview"
 msgstr "Náhľad na súbory"
+
+msgid "&Append"
+msgstr "Prid&ať"
 
 #, fuzzy
 msgid "Quick Search: "
@@ -8004,79 +8299,6 @@ msgstr "HTML súbory"
 msgid "html"
 msgstr "html"
 
-msgid "Print Previe&w"
-msgstr "&Ukážka pred tlačou"
-
-msgid "Print Preview"
-msgstr "Ukážka pred tlačou"
-
-msgid "Anti-alias &Text"
-msgstr "Vyhladiť &text"
-
-msgid "Anti-alias &Graphics"
-msgstr "Vyhladiť &grafiku"
-
-msgid "Display Trans&parency"
-msgstr "Zobraziť priesvitnosť"
-
-msgid "&Under Color Removal"
-msgstr "&Under Color Removal"
-
-msgid "&Display CMYK"
-msgstr "Zobraziť CMYK"
-
-msgid "&C"
-msgstr "&C"
-
-msgid "&M"
-msgstr "&M"
-
-msgid "&Y"
-msgstr "&Y"
-
-msgid "&K"
-msgstr "&K"
-
-msgid ""
-"Provides a more pleasant view of text items in the viewer, at the expense\n"
-"of a slight slowdown in previewing. This only affects Type 1 fonts"
-msgstr ""
-"Poskytuje krajší pohľad na textové položky v prehliadači, za čo zaplatíte\n"
-"miernym spomalením prezerania. Toto sa týka iba Type 1 písma"
-
-msgid ""
-"Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF "
-"and\n"
-"vector graphics in the preview, at the expense of a slight slowdown in "
-"previewing"
-msgstr ""
-"Poskytuje krajší pohľad na písma True Type, Open Type, EPS, PDF\n"
-"a vektorovej grafiky v náhľade, na úkor mierneho spomalenia prezerania"
-
-msgid ""
-"Shows transparency and transparent items in your document. Requires "
-"Ghostscript 7.07 or later"
-msgstr ""
-"Zobrazuje transparentnosť a transparentné položky vo vašom dokumente."
-"Vyžaduje Ghostscript 7.07 alebo vyšší"
-
-msgid ""
-"Gives a print preview using simulations of generic CMYK inks, instead of RGB "
-"colors"
-msgstr "Vytvorí náhľad tlače simuláciou CMYK atramentov namiesto RGB farieb"
-
-msgid "Enable/disable the C (Cyan) ink plate"
-msgstr "Povolí/zakáže C (azúrovú) zložku"
-
-msgid "Enable/disable the M (Magenta) ink plate"
-msgstr "Povolí/zakáže M (fialovú) zložku"
-
-msgid "Enable/disable the Y (Yellow) ink plate"
-msgstr "Povolí/zakáže Y (žltú) zložku"
-
-msgid "Enable/disable the K (Black) ink plate"
-msgstr "Povolí/zakáže K (čiernu) zložku"
-
 #, fuzzy
 msgid "Failed to open document."
 msgstr "Nepodarilo sa otvoriť dokument"
@@ -8087,6 +8309,22 @@ msgstr "Nepodarilo sa uložiť dokument"
 
 msgid "Unit out of range. Use one of the scribus.UNIT_* constants."
 msgstr "Jednotka je mimo rozsahu. Použiť jednu z scribus.UNIT_* konštánt."
+
+#, fuzzy
+msgid "Scripter Preferences"
+msgstr "&Scribus skripty"
+
+#, fuzzy
+msgid "Extension Scripts"
+msgstr "&Spustiť skript..."
+
+#, fuzzy
+msgid "Enable Extension Scripts"
+msgstr "&Spustiť skript..."
+
+#, fuzzy
+msgid "Startup Script"
+msgstr "&Scribus skripty"
 
 msgid "Argument must be page item name, or PyCObject instance"
 msgstr ""
@@ -8111,8 +8349,12 @@ msgstr ""
 msgid "Types matched, but setting property failed."
 msgstr ""
 
-msgid "S&cripter Manual..."
-msgstr "S&cripter manuál..."
+#, fuzzy
+msgid "Scripter"
+msgstr "Skript:"
+
+msgid "Embedded Python scripting support."
+msgstr ""
 
 msgid ""
 "Scribus Python interface module\n"
@@ -8601,6 +8843,10 @@ msgstr "&Spustiť skript..."
 msgid "Import &SVG..."
 msgstr "Import &SVG..."
 
+#, fuzzy
+msgid "SVG Import"
+msgstr "Import"
+
 msgid "SVG-Images (*.svg *.svgz);;All Files (*)"
 msgstr "SVG obrázky (*.svg *.svgz);; Všetky súbory (*)"
 
@@ -8611,10 +8857,13 @@ msgstr "SVG obrázky (*.svg);; Všetky súbory (*)"
 msgid "Normal Vision"
 msgstr "Normalizovať"
 
-msgid "Protanopy"
+msgid "Protanopia (red)"
 msgstr ""
 
-msgid "Deuteranopy"
+msgid "Deuteranopia (green)"
+msgstr ""
+
+msgid "Tritanopia (blue)"
 msgstr ""
 
 #, fuzzy
@@ -8839,6 +9088,10 @@ msgstr "Zmeniť výstupný priečinok"
 msgid "Save as &Image..."
 msgstr "Uložiť ako &obrázok..."
 
+#, fuzzy
+msgid "Export As Image"
+msgstr "Exportovať ako obrázok"
+
 msgid "Save as Image"
 msgstr "Uložiť ako obrázok"
 
@@ -8860,6 +9113,10 @@ msgstr "Áno všetko"
 msgid "Save Page as &SVG..."
 msgstr "Uložiť stranu ako &SVG..."
 
+#, fuzzy
+msgid "SVG Export"
+msgstr "&Export"
+
 msgid ""
 "Do you really want to overwrite the File:\n"
 "%1 ?"
@@ -8869,6 +9126,10 @@ msgstr ""
 
 msgid "Import &EPS/PS..."
 msgstr "Import &EPS/PS..."
+
+#, fuzzy
+msgid "PS/EPS Importer"
+msgstr "Importér:"
 
 msgid "All Supported Formats (*.eps *.EPS *.ps *.PS);;"
 msgstr "Všetky podporované formáty (*.eps *.EPS *.ps *.PS);;"
@@ -8881,6 +9142,64 @@ msgstr ""
 "Importovanie súboru:\n"
 "%1\n"
 "zlyhalo!"
+
+#, fuzzy
+msgid "Scribus - My Plugin"
+msgstr "&Scribus skripty"
+
+msgid "The plugin worked!"
+msgstr ""
+
+#, fuzzy
+msgid "My &Plugin"
+msgstr "Obyčajný"
+
+#, fuzzy
+msgid "My Plugin"
+msgstr "Obyčajný"
+
+#, fuzzy
+#~ msgid "Default color profile for imported cmyk images"
+#~ msgstr "Štandardný farebný profil pre importované obrázky"
+
+#~ msgid "Do you really want to clear all your Text?"
+#~ msgstr "Skutočne chcete odstrániť celý text?"
+
+#, fuzzy
+#~ msgid "Standard"
+#~ msgstr "Hviezda"
+
+#~ msgid " of %1"
+#~ msgstr " z %1"
+
+#~ msgid "Color of selected object"
+#~ msgstr "Farba zvoleného objektu"
+
+#~ msgid "Some Objects are locked."
+#~ msgstr "Niektoré objekty sú uzamknuté."
+
+#, fuzzy
+#~ msgid "The program"
+#~ msgstr "Program"
+
+#~ msgid "is missing!"
+#~ msgstr "chýba!"
+
+#~ msgid "Creates PostScript Level 3"
+#~ msgstr "Vytvorí PostScript Level 3"
+
+#~ msgid ""
+#~ "Creates PostScript Level 1 only, beware,\n"
+#~ "this can create huge files"
+#~ msgstr ""
+#~ "Vytvorí iba  PostScript Level 1.\n"
+#~ "Pozor! Môže vytvoriť veľké súbory"
+
+#~ msgid "Ad&vanced Options..."
+#~ msgstr "&Pokročilé možnosti..."
+
+#~ msgid "S&cripter Manual..."
+#~ msgstr "S&cripter manuál..."
 
 #~ msgid "First &Line:"
 #~ msgstr "Prvý r&iadok:"
@@ -9024,9 +9343,6 @@ msgstr ""
 
 #~ msgid "&Document"
 #~ msgstr "&Dokument"
-
-#~ msgid "&Append"
-#~ msgstr "Prid&ať"
 
 #, fuzzy
 #~ msgid "PDF-1.3"
@@ -9390,9 +9706,6 @@ msgstr ""
 #~ msgid "Document Setup..."
 #~ msgstr "Nastavenie dokumentu..."
 
-#~ msgid "Print..."
-#~ msgstr "Tlač..."
-
 #~ msgid "Select all"
 #~ msgstr "Vybrať všetko"
 
@@ -9663,20 +9976,12 @@ msgstr ""
 #~ msgid "S&cript"
 #~ msgstr "Skr&ipt"
 
-#, fuzzy
-#~ msgid "Scribus - Script Plugin"
-#~ msgstr "&Scribus skripty"
-
 #~ msgid "Hide &Console"
 #~ msgstr "Skryť &konzolu"
 
 #, fuzzy
 #~ msgid "Scribus - Macro Manager"
 #~ msgstr "Scribus manuál"
-
-#, fuzzy
-#~ msgid "Scribus - Scripter Preferences"
-#~ msgstr "&Scribus skripty"
 
 #, fuzzy
 #~ msgid "Browse..."

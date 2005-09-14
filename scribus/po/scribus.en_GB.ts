@@ -2456,7 +2456,11 @@ won&apos;t automatically notice when you change the document using a script.
 Shows &apos;Create new paragraph style&apos; dialog. Function returns real
 style name or None when user cancels the dialog.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>newStyleDialog() -&gt; string
+
+Shows &apos;Create new paragraph style&apos; dialog. Function returns real
+style name or None when user cancels the dialog.
+</translation>
     </message>
 </context>
 <context>
@@ -2560,8 +2564,66 @@ style name or None when user cancels the dialog.
 %2 %3 (%4)</translation>
     </message>
     <message>
-        <source>This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Missing library support is indicated by a * This also indicates the version of Ghostscript which Scribus has detected.</source>
-        <translation>This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Missing library support is indicated by a * This also indicates the version of Ghostscript which Scribus has detected.</translation>
+        <source>This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart Missing library support is indicated by a * This also indicates the version of Ghostscript which Scribus has detected.</source>
+        <translation>This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart Missing library support is indicated by a * This also indicates the version of Ghostscript which Scribus has detected.</translation>
+    </message>
+</context>
+<context>
+    <name>AboutPlugins</name>
+    <message>
+        <source>Yes</source>
+        <translation>Yes</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation>No</translation>
+    </message>
+</context>
+<context>
+    <name>AboutPluginsBase</name>
+    <message>
+        <source>Scribus: About Plug-ins</source>
+        <translation>Scribus: About Plug-ins</translation>
+    </message>
+    <message>
+        <source>File Name:</source>
+        <translation>File Name:</translation>
+    </message>
+    <message>
+        <source>Version:</source>
+        <translation>Version:</translation>
+    </message>
+    <message>
+        <source>Enabled:</source>
+        <translation>Enabled:</translation>
+    </message>
+    <message>
+        <source>Release Date:</source>
+        <translation>Release Date:</translation>
+    </message>
+    <message>
+        <source>Copyright:</source>
+        <translation>Copyright:</translation>
+    </message>
+    <message>
+        <source>Author(s):</source>
+        <translation>Author(s):</translation>
+    </message>
+    <message>
+        <source>Description:</source>
+        <translation>Description:</translation>
+    </message>
+    <message>
+        <source>License:</source>
+        <translation>License:</translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation>&amp;Close</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation>Alt+C</translation>
     </message>
 </context>
 <context>
@@ -2693,10 +2755,6 @@ style name or None when user cancels the dialog.
     <message>
         <source>&amp;Master Pages...</source>
         <translation>&amp;Master Pages...</translation>
-    </message>
-    <message>
-        <source>&amp;Javascripts...</source>
-        <translation>&amp;Javascripts...</translation>
     </message>
     <message>
         <source>P&amp;references...</source>
@@ -3338,153 +3396,29 @@ style name or None when user cancels the dialog.
         <source>Rulers relative to Page</source>
         <translation>Rulers relative to Page</translation>
     </message>
-</context>
-<context>
-    <name>AdvOptions</name>
     <message>
-        <source>Advanced Options</source>
-        <translation>Advanced Options</translation>
+        <source>Print Previe&amp;w</source>
+        <translation>Print Previe&amp;w</translation>
     </message>
     <message>
-        <source>Creates PostScript Level 3</source>
-        <translation>Creates PostScript Level 3</translation>
+        <source>&amp;JavaScripts...</source>
+        <translation>&amp;JavaScripts...</translation>
     </message>
     <message>
-        <source>Creates PostScript Level 2 only, beware,
-this can create huge files</source>
-        <translation>Creates PostScript Level 2 only, beware,
-this can create huge files</translation>
+        <source>Convert to Master Page...</source>
+        <translation>Convert to Master Page...</translation>
     </message>
     <message>
-        <source>Creates PostScript Level 1 only, beware,
-this can create huge files</source>
-        <translation>Creates PostScript Level 1 only, beware,
-this can create huge files</translation>
+        <source>&amp;Cascade</source>
+        <translation>&amp;Cascade</translation>
     </message>
     <message>
-        <source>Mirror Page(s) &amp;Horizontal</source>
-        <translation>Mirror Page(s) &amp;Horizontal</translation>
+        <source>&amp;Tile</source>
+        <translation>&amp;Tile</translation>
     </message>
     <message>
-        <source>Mirror Page(s) &amp;Vertical</source>
-        <translation>Mirror Page(s) &amp;Vertical</translation>
-    </message>
-    <message>
-        <source>Apply &amp;ICC Profiles</source>
-        <translation>Apply &amp;ICC Profiles</translation>
-    </message>
-    <message>
-        <source>PostScript Level &amp;1</source>
-        <translation>PostScript Level &amp;1</translation>
-    </message>
-    <message>
-        <source>PostScript Level &amp;2</source>
-        <translation>PostScript Level &amp;2</translation>
-    </message>
-    <message>
-        <source>PostScript Level &amp;3</source>
-        <translation>PostScript Level &amp;3</translation>
-    </message>
-    <message>
-        <source>Apply Under Color &amp;Removal</source>
-        <translation>Apply Under Colour &amp;Removal</translation>
-    </message>
-    <message>
-        <source>A way of switching off some of the gray shades which are composed
-of cyan, yellow and magenta and using black instead.
-UCR most affects parts of images which are neutral and/or dark tones
-which are close to the gray. Use of this may improve printing some images
-and some experimentation and testing is need on a case by case basis.
-UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>A way of switching off some of the grey shades which are composed
-of cyan, yellow and magenta and using black instead.
-UCR most affects parts of images which are neutral and/or dark tones
-which are close to the grey. Use of this may improve printing some images
-and some experimentation and testing is need on a case by case basis.
-UCR reduces the possibility of over saturation with CMY inks.</translation>
-    </message>
-    <message>
-        <source>Set Media Size</source>
-        <translation>Set Media Size</translation>
-    </message>
-</context>
-<context>
-    <name>Align</name>
-    <message>
-        <source>Distribute/Align</source>
-        <translation type="obsolete">Distribute/Align</translation>
-    </message>
-    <message>
-        <source>Align</source>
-        <translation type="obsolete">Align</translation>
-    </message>
-    <message>
-        <source>Horizontal</source>
-        <translation type="obsolete">Horizontal</translation>
-    </message>
-    <message>
-        <source>Left Sides</source>
-        <translation type="obsolete">Left Sides</translation>
-    </message>
-    <message>
-        <source>Middles</source>
-        <translation type="obsolete">Middles</translation>
-    </message>
-    <message>
-        <source>Right Sides</source>
-        <translation type="obsolete">Right Sides</translation>
-    </message>
-    <message>
-        <source>Vertical</source>
-        <translation type="obsolete">Vertical</translation>
-    </message>
-    <message>
-        <source>Top Sides</source>
-        <translation type="obsolete">Top Sides</translation>
-    </message>
-    <message>
-        <source>Bottom Sides</source>
-        <translation type="obsolete">Bottom Sides</translation>
-    </message>
-    <message>
-        <source>&amp;Between:</source>
-        <translation type="obsolete">&amp;Between:</translation>
-    </message>
-    <message>
-        <source>A&amp;lign</source>
-        <translation type="obsolete">A&amp;lign</translation>
-    </message>
-    <message>
-        <source>Di&amp;splacement</source>
-        <translation type="obsolete">Di&amp;splacement</translation>
-    </message>
-    <message>
-        <source>Distribute &amp;Evenly</source>
-        <translation type="obsolete">Distribute &amp;Evenly</translation>
-    </message>
-    <message>
-        <source>Bet&amp;ween:</source>
-        <translation type="obsolete">Bet&amp;ween:</translation>
-    </message>
-    <message>
-        <source>Do &amp;Not Change</source>
-        <translation type="obsolete">Do &amp;Not Change</translation>
-    </message>
-    <message>
-        <source>Al&amp;ign</source>
-        <translation type="obsolete">Al&amp;ign</translation>
-    </message>
-    <message>
-        <source>Dis&amp;placement</source>
-        <translation type="obsolete">Dis&amp;placement</translation>
-    </message>
-    <message>
-        <source>Distribute E&amp;venly</source>
-        <translation type="obsolete">Distribute E&amp;venly</translation>
-    </message>
-    <message>
-        <source>&amp;Do Not Change</source>
-        <translation type="obsolete">&amp;Do Not Change</translation>
+        <source>&amp;About Plug-ins</source>
+        <translation>&amp;About Plug-ins</translation>
     </message>
 </context>
 <context>
@@ -3920,10 +3854,6 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
         <translation>Options</translation>
     </message>
     <message>
-        <source>Java Script</source>
-        <translation>Java Script</translation>
-    </message>
-    <message>
         <source>Go To</source>
         <translation>Go To</translation>
     </message>
@@ -4180,10 +4110,6 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
         <translation>Open</translation>
     </message>
     <message>
-        <source>Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)</source>
-        <translation>Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)</translation>
-    </message>
-    <message>
         <source>Example:</source>
         <translation>Example:</translation>
     </message>
@@ -4202,6 +4128,14 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     <message>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>PDF Files (*.pdf);;All Files (*)</translation>
+    </message>
+    <message>
+        <source>JavaScript</source>
+        <translation>JavaScript</translation>
+    </message>
+    <message>
+        <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)</source>
+        <translation>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)</translation>
     </message>
 </context>
 <context>
@@ -4566,10 +4500,6 @@ Please choose another.</translation>
         <translation>Absolute Colourimetric</translation>
     </message>
     <message>
-        <source>Default color profile for imported images</source>
-        <translation type="obsolete">Default colour profile for imported images</translation>
-    </message>
-    <message>
         <source>Default color profile for solid colors on the page</source>
         <translation>Default colour profile for solid colours on the page</translation>
     </message>
@@ -4620,10 +4550,6 @@ This requires very accurate profiles and serves only as a warning.</translation>
         <translation>&amp;Activate Colour Management</translation>
     </message>
     <message>
-        <source>&amp;Pictures:</source>
-        <translation type="obsolete">&amp;Pictures:</translation>
-    </message>
-    <message>
         <source>&amp;Solid Colors:</source>
         <translation>&amp;Solid Colours:</translation>
     </message>
@@ -4657,19 +4583,19 @@ This requires very accurate profiles and serves only as a warning.</translation>
     </message>
     <message>
         <source>&amp;RGB Pictures:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;RGB Pictures:</translation>
     </message>
     <message>
         <source>&amp;CMYK Pictures:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;CMYK Pictures:</translation>
     </message>
     <message>
-        <source>Default color profile for imported cmyk images</source>
-        <translation type="unfinished"></translation>
+        <source>Default color profile for imported CMYK images</source>
+        <translation>Default colour profile for imported CMYK images</translation>
     </message>
     <message>
-        <source>Default color profile for imported rgb images</source>
-        <translation type="unfinished"></translation>
+        <source>Default color profile for imported RGB images</source>
+        <translation>Default colour profile for imported RGB images</translation>
     </message>
 </context>
 <context>
@@ -4769,12 +4695,12 @@ It&apos;s a reserved name for transparent color</source>
 It&apos;s a reserved name for transparent colour</translation>
     </message>
     <message>
-        <source>Is Spot-Color</source>
-        <translation type="unfinished"></translation>
+        <source>Is Spot Color</source>
+        <translation>Is Spot Colour</translation>
     </message>
     <message>
-        <source>Is Registration-Color</source>
-        <translation type="unfinished"></translation>
+        <source>Is Registration Color</source>
+        <translation>Is Registration Colour</translation>
     </message>
 </context>
 <context>
@@ -5019,25 +4945,6 @@ and the Delete key removes the last inserted one</translation>
     </message>
 </context>
 <context>
-    <name>CheckerPrefsList</name>
-    <message>
-        <source>Postscript</source>
-        <translation type="unfinished">Postscript</translation>
-    </message>
-    <message>
-        <source>PDF 1.3</source>
-        <translation type="unfinished">PDF 1.3</translation>
-    </message>
-    <message>
-        <source>PDF 1.4</source>
-        <translation type="unfinished">PDF 1.4</translation>
-    </message>
-    <message>
-        <source>PDF/X-3</source>
-        <translation type="unfinished">PDF/X-3</translation>
-    </message>
-</context>
-<context>
     <name>ChooseStyles</name>
     <message>
         <source>Choose Styles</source>
@@ -5047,13 +4954,26 @@ and the Delete key removes the last inserted one</translation>
         <source>Available Styles</source>
         <translation>Available Styles</translation>
     </message>
+</context>
+<context>
+    <name>CollectForOutput</name>
     <message>
-        <source>OK</source>
-        <translation>OK</translation>
+        <source>Choose a Directory</source>
+        <translation>Choose a Directory</translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation>Cancel</translation>
+        <source>Collecting...</source>
+        <translation>Collecting...</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Warning</translation>
+    </message>
+    <message>
+        <source>Cannot collect all files for output for file:
+%1</source>
+        <translation>Cannot collect all files for output for file:
+%1</translation>
     </message>
 </context>
 <context>
@@ -5242,14 +5162,6 @@ and the Delete key removes the last inserted one</translation>
         <translation>Normal Vision</translation>
     </message>
     <message>
-        <source>Protanopy</source>
-        <translation>Protanopy</translation>
-    </message>
-    <message>
-        <source>Deuteranopy</source>
-        <translation>Deuteranopy</translation>
-    </message>
-    <message>
         <source>Full Color Blindness</source>
         <translation>Full Colour Blindness</translation>
     </message>
@@ -5260,6 +5172,25 @@ and the Delete key removes the last inserted one</translation>
     <message>
         <source>You can simulate common vision defects here. Just select type of the defect</source>
         <translation>You can simulate common vision defects here. Just select type of the defect</translation>
+    </message>
+    <message>
+        <source>Protanopia (red)</source>
+        <translation>Protanopia (red)</translation>
+    </message>
+    <message>
+        <source>Deuteranopia (green)</source>
+        <translation>Deuteranopia (green)</translation>
+    </message>
+    <message>
+        <source>Tritanopia (blue)</source>
+        <translation>Tritanopia (blue)</translation>
+    </message>
+</context>
+<context>
+    <name>ColorWheelPlugin</name>
+    <message>
+        <source>&amp;Color Wheel...</source>
+        <translation>&amp;Colour Wheel...</translation>
     </message>
 </context>
 <context>
@@ -5346,10 +5277,6 @@ and the Delete key removes the last inserted one</translation>
     <message>
         <source>Set the transparency for the color selected</source>
         <translation>Set the transparency for the colour selected</translation>
-    </message>
-    <message>
-        <source>Color of selected object</source>
-        <translation>Colour of selected object</translation>
     </message>
     <message>
         <source>Free linear Gradient</source>
@@ -5893,26 +5820,6 @@ a range of pages or a single page number.</translation>
         <translation>N&amp;umber of Copies:</translation>
     </message>
     <message>
-        <source>Print &amp;Normal</source>
-        <translation>Print &amp;Normal</translation>
-    </message>
-    <message>
-        <source>Print &amp;Separations</source>
-        <translation>Print &amp;Separations</translation>
-    </message>
-    <message>
-        <source>Pr&amp;int In Color If Available</source>
-        <translation>Pr&amp;int In Colour If Available</translation>
-    </message>
-    <message>
-        <source>Print In Gra&amp;yscale</source>
-        <translation>Print In Gre&amp;yscale</translation>
-    </message>
-    <message>
-        <source>Ad&amp;vanced Options...</source>
-        <translation>Ad&amp;vanced Options...</translation>
-    </message>
-    <message>
         <source>&amp;Print</source>
         <translation>&amp;Print</translation>
     </message>
@@ -5923,8 +5830,96 @@ to utilize additional printing options</source>
 to utilise additional printing options</translation>
     </message>
     <message>
-        <source>Postscript Files (*.ps);;All Files (*)</source>
-        <translation>Postscript Files (*.ps);;All Files (*)</translation>
+        <source>Print Normal</source>
+        <translation>Print Normal</translation>
+    </message>
+    <message>
+        <source>Print Separations</source>
+        <translation>Print Separations</translation>
+    </message>
+    <message>
+        <source>Print in Color if Available</source>
+        <translation>Print in Colour if Available</translation>
+    </message>
+    <message>
+        <source>Print in Grayscale</source>
+        <translation>Print in Greyscale</translation>
+    </message>
+    <message>
+        <source>PostScript Level 1</source>
+        <translation>PostScript Level 1</translation>
+    </message>
+    <message>
+        <source>PostScript Level 2</source>
+        <translation>PostScript Level 2</translation>
+    </message>
+    <message>
+        <source>PostScript Level 3</source>
+        <translation>PostScript Level 3</translation>
+    </message>
+    <message>
+        <source>Page</source>
+        <translation>Page</translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) Horizontal</source>
+        <translation>Mirror Page(s) Horizontal</translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) Vertical</source>
+        <translation>Mirror Page(s) Vertical</translation>
+    </message>
+    <message>
+        <source>Set Media Size</source>
+        <translation>Set Media Size</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation>Colour</translation>
+    </message>
+    <message>
+        <source>Apply Under Color Removal</source>
+        <translation>Apply Under Colour Removal</translation>
+    </message>
+    <message>
+        <source>Convert Spot Colors to Process Colors</source>
+        <translation>Convert Spot Colours to Process Colours</translation>
+    </message>
+    <message>
+        <source>Apply ICC Profiles</source>
+        <translation>Apply ICC Profiles</translation>
+    </message>
+    <message>
+        <source>Advanced Options</source>
+        <translation>Advanced Options</translation>
+    </message>
+    <message>
+        <source>Preview...</source>
+        <translation>Preview...</translation>
+    </message>
+    <message>
+        <source>Sets the PostScript Level.
+ Setting to Level 1 or 2 can create huge files</source>
+        <translation>Sets the PostScript Level.
+ Setting to Level 1 or 2 can create huge files</translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed
+of cyan, yellow and magenta and using black instead.
+UCR most affects parts of images which are neutral and/or dark tones
+which are close to the gray. Use of this may improve printing some images
+and some experimentation and testing is need on a case by case basis.
+UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation>A way of switching off some of the grey shades which are composed
+of cyan, yellow and magenta and using black instead.
+UCR most affects parts of images which are neutral and/or dark tones
+which are close to the grey. Use of this may improve printing some images
+and some experimentation and testing is need on a case by case basis.
+UCR reduces the possibility of over saturation with CMY inks.</translation>
+    </message>
+    <message>
+        <source>PostScript Files (*.ps);;All Files (*)</source>
+        <translation>PostScript Files (*.ps);;All Files (*)</translation>
     </message>
 </context>
 <context>
@@ -6064,10 +6059,6 @@ failed!</translation>
         <translation>Editor</translation>
     </message>
     <message>
-        <source>Javascripts (*.js);;All Files (*)</source>
-        <translation>Javascripts (*.js);;All Files (*)</translation>
-    </message>
-    <message>
         <source>&amp;New</source>
         <translation>&amp;New</translation>
     </message>
@@ -6122,6 +6113,10 @@ failed!</translation>
     <message>
         <source>&amp;Edit</source>
         <translation>&amp;Edit</translation>
+    </message>
+    <message>
+        <source>JavaScripts (*.js);;All Files (*)</source>
+        <translation>JavaScripts (*.js);;All Files (*)</translation>
     </message>
 </context>
 <context>
@@ -6547,10 +6542,6 @@ Use 72 dpi for Images intended for the Screen</translation>
         <translation>Remove unused colours from current document&apos;s colour set</translation>
     </message>
     <message>
-        <source>Append colors to the current set from an existing document</source>
-        <translation type="obsolete">Append colours to the current set from an existing document</translation>
-    </message>
-    <message>
         <source>Create a new color within the current set</source>
         <translation>Create a new colour within the current set</translation>
     </message>
@@ -6569,10 +6560,6 @@ Use 72 dpi for Images intended for the Screen</translation>
     <message>
         <source>Make the current colorset the default color set</source>
         <translation>Make the current colourset the default colour set</translation>
-    </message>
-    <message>
-        <source>&amp;Append</source>
-        <translation type="obsolete">&amp;Append</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -6608,11 +6595,11 @@ Use 72 dpi for Images intended for the Screen</translation>
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation type="unfinished">&amp;Import</translation>
+        <translation>&amp;Import</translation>
     </message>
     <message>
         <source>Import colors to the current set from an existing document</source>
-        <translation type="unfinished"></translation>
+        <translation>Import colours to the current set from an existing document</translation>
     </message>
 </context>
 <context>
@@ -6628,10 +6615,6 @@ Use 72 dpi for Images intended for the Screen</translation>
     <message>
         <source>Additional Paths</source>
         <translation>Additional Paths</translation>
-    </message>
-    <message>
-        <source>Postscript</source>
-        <translation>Postscript</translation>
     </message>
     <message>
         <source>Font Name</source>
@@ -6701,6 +6684,10 @@ Use 72 dpi for Images intended for the Screen</translation>
     <message>
         <source>&lt;qt&gt;Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.&lt;/qt&gt;</source>
         <translation>&lt;qt&gt;Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.&lt;/qt&gt;</translation>
+    </message>
+    <message>
+        <source>PostScript</source>
+        <translation>PostScript</translation>
     </message>
 </context>
 <context>
@@ -6799,6 +6786,17 @@ Use 72 dpi for Images intended for the Screen</translation>
         <comment>font preview</comment>
         <translation>System</translation>
     </message>
+    <message>
+        <source>&amp;Append</source>
+        <translation>&amp;Append</translation>
+    </message>
+</context>
+<context>
+    <name>FontPreviewPlugin</name>
+    <message>
+        <source>&amp;Font Preview...</source>
+        <translation>&amp;Font Preview...</translation>
+    </message>
 </context>
 <context>
     <name>FontReplaceDialog</name>
@@ -6819,10 +6817,20 @@ Use 72 dpi for Images intended for the Screen</translation>
         <translation>Make these substitutions permanent</translation>
     </message>
     <message>
-        <source>This document contains some fonts that are not installed on your system,
-please choose a suitable replacement for them.</source>
-        <translation>This document contains some fonts that are not installed on your system,
-please choose a suitable replacement for them.</translation>
+        <source>This document contains some fonts that are not installed on your system, please choose a suitable replacement for them. Cancel will stop the document from loading.</source>
+        <translation>This document contains some fonts that are not installed on your system, please choose a suitable replacement for them. Cancel will stop the document from loading.</translation>
+    </message>
+    <message>
+        <source>Cancels these font substitutions and stops loading the document.</source>
+        <translation>Cancels these font substitutions and stops loading the document.</translation>
+    </message>
+    <message>
+        <source>Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in Edit &gt; Preferences &gt; Fonts.</source>
+        <translation>Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in Edit &gt; Preferences &gt; Fonts.</translation>
+    </message>
+    <message>
+        <source>If you select OK, then save, these substitutions are made permanent in the document.</source>
+        <translation>If you select OK, then save, these substitutions are made permanent in the document.</translation>
     </message>
 </context>
 <context>
@@ -7074,6 +7082,13 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
 </context>
 <context>
+    <name>ImportPSPlugin</name>
+    <message>
+        <source>Import &amp;EPS/PS...</source>
+        <translation>Import &amp;EPS/PS...</translation>
+    </message>
+</context>
+<context>
     <name>InsPage</name>
     <message>
         <source>Insert Page</source>
@@ -7104,16 +7119,8 @@ A value of 0 means unlimited hyphenations.</translation>
         <translation>&amp;Insert</translation>
     </message>
     <message>
-        <source>Master Page (&amp;Left Page):</source>
-        <translation type="obsolete">Master Page (&amp;Left Page):</translation>
-    </message>
-    <message>
         <source>&amp;Master Page:</source>
         <translation>&amp;Master Page:</translation>
-    </message>
-    <message>
-        <source>Master Page (&amp;Right Page):</source>
-        <translation type="obsolete">Master Page (&amp;Right Page):</translation>
     </message>
     <message>
         <source>Page Size</source>
@@ -7153,7 +7160,7 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <source>Master Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Master Pages</translation>
     </message>
 </context>
 <context>
@@ -7510,7 +7517,7 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <source>Type:</source>
-        <translation type="unfinished">Type:</translation>
+        <translation>Type:</translation>
     </message>
 </context>
 <context>
@@ -7558,6 +7565,10 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>O&amp;utside:</source>
         <translation>O&amp;utside:</translation>
+    </message>
+    <message>
+        <source>Preset Layouts:</source>
+        <translation>Preset Layouts:</translation>
     </message>
 </context>
 <context>
@@ -8503,6 +8514,24 @@ Please choose another.</translation>
     </message>
 </context>
 <context>
+    <name>MyPlugin</name>
+    <message>
+        <source>My &amp;Plugin</source>
+        <translation>My &amp;Plugin</translation>
+    </message>
+</context>
+<context>
+    <name>MyPluginImpl</name>
+    <message>
+        <source>Scribus - My Plugin</source>
+        <translation>Scribus - My Plugin</translation>
+    </message>
+    <message>
+        <source>The plugin worked!</source>
+        <translation>The plugin worked!</translation>
+    </message>
+</context>
+<context>
     <name>NewDoc</name>
     <message>
         <source>New Document</source>
@@ -8629,22 +8658,6 @@ Please choose another.</translation>
         <translation>Documents (*.sla *.scd);;</translation>
     </message>
     <message>
-        <source>Postscript Files (*.eps *.EPS *.ps *.PS);;</source>
-        <translation>Postscript Files (*.eps *.EPS *.ps *.PS);;</translation>
-    </message>
-    <message>
-        <source>SVG Images (*.svg *.svgz);;</source>
-        <translation>SVG Images (*.svg *.svgz);;</translation>
-    </message>
-    <message>
-        <source>SVG Images (*.svg);;</source>
-        <translation>SVG Images (*.svg);;</translation>
-    </message>
-    <message>
-        <source>OpenOffice.org Draw (*.sxd);;</source>
-        <translation>OpenOffice.org Draw (*.sxd);;</translation>
-    </message>
-    <message>
         <source>All Files (*)</source>
         <translation>All Files (*)</translation>
     </message>
@@ -8654,14 +8667,10 @@ Please choose another.</translation>
     </message>
 </context>
 <context>
-    <name>NewTm</name>
+    <name>NewFromTemplatePlugin</name>
     <message>
-        <source>Left Page</source>
-        <translation type="obsolete">Left Page</translation>
-    </message>
-    <message>
-        <source>Right Page</source>
-        <translation type="obsolete">Right Page</translation>
+        <source>New &amp;from Template...</source>
+        <translation>New &amp;from Template...</translation>
     </message>
 </context>
 <context>
@@ -8800,6 +8809,13 @@ Please choose another.</translation>
     </message>
 </context>
 <context>
+    <name>OODrawImportPlugin</name>
+    <message>
+        <source>Import &amp;OpenOffice.org Draw...</source>
+        <translation>Import &amp;OpenOffice.org Draw...</translation>
+    </message>
+</context>
+<context>
     <name>OdtDialog</name>
     <message>
         <source>Use document name as a prefix for paragraph styles</source>
@@ -8879,6 +8895,14 @@ Please choose another.</translation>
         <source>Save as PDF</source>
         <translation>Save as PDF</translation>
     </message>
+    <message>
+        <source>Output one file for eac&amp;h page</source>
+        <translation>Output one file for eac&amp;h page</translation>
+    </message>
+    <message>
+        <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commerical printing.</source>
+        <translation>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commerical printing.</translation>
+    </message>
 </context>
 <context>
     <name>PPreview</name>
@@ -8889,12 +8913,6 @@ Please choose another.</translation>
     <message>
         <source>All</source>
         <translation>All</translation>
-    </message>
-    <message>
-        <source>Provides a more pleasant view of text items in the viewer, at the expense
-of a slight slowdown in previewing. This only affects Type 1 fonts</source>
-        <translation>Provides a more pleasant view of text items in the viewer, at the expense
-of a slight slowdown in previewing. This only affects Type 1 fonts</translation>
     </message>
     <message>
         <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</source>
@@ -8957,42 +8975,48 @@ of a slight slowdown in previewing. This only affects Type 1 fonts</translation>
         <translation>&amp;Under Colour Removal</translation>
     </message>
     <message>
-        <source>A way of switching off some of the gray shades which are composed
-of cyan, yellow and magenta and using black instead.
-UCR most affects parts of images which are neutral and/or dark tones
-which are close to the gray. Use of this may improve printing some images
-and some experimentation and testing is need on a case by case basis.
-UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>A way of switching off some of the grey shades which are composed
-of cyan, yellow and magenta and using black instead.
-UCR most affects parts of images which are neutral and/or dark tones
-which are close to the grey. Use of this may improve printing some images
-and some experimentation and testing is need on a case by case basis.
-UCR reduces the possibility of over saturation with CMY inks.</translation>
+        <source>Separation Name</source>
+        <translation>Separation Name</translation>
     </message>
     <message>
-        <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and
-vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and
-vector graphics in the preview, at the expense of a slight slowdown in previewing</translation>
+        <source>Cyan</source>
+        <translation>Cyan</translation>
     </message>
     <message>
-        <source>Warning</source>
-        <translation>Warning</translation>
+        <source>Magenta</source>
+        <translation>Magenta</translation>
     </message>
     <message>
-        <source>Detected some Errors.
-Consider using the Preflight Checker to correct them</source>
-        <translation>Detected some Errors.
-Consider using the Preflight Checker to correct them</translation>
+        <source>Yellow</source>
+        <translation>Yellow</translation>
     </message>
     <message>
-        <source>Abort</source>
-        <translation>Abort</translation>
+        <source>Black</source>
+        <translation>Black</translation>
     </message>
     <message>
-        <source>Ignore</source>
-        <translation>Ignore</translation>
+        <source>Scaling:</source>
+        <translation>Scaling:</translation>
+    </message>
+    <message>
+        <source>Print...</source>
+        <translation>Print...</translation>
+    </message>
+    <message>
+        <source>Provides a more pleasant view of text items in the viewer, at the expense of a slight slowdown in previewing. This only affects Type 1 fonts</source>
+        <translation>Provides a more pleasant view of text items in the viewer, at the expense of a slight slowdown in previewing. This only affects Type 1 fonts</translation>
+    </message>
+    <message>
+        <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
+        <translation>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation>A way of switching off some of the grey shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the grey. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</translation>
+    </message>
+    <message>
+        <source>Resize the scale of the page.</source>
+        <translation>Resize the scale of the page.</translation>
     </message>
 </context>
 <context>
@@ -9120,47 +9144,19 @@ Consider using the Preflight Checker to correct them</translation>
         <translation>Page Layout</translation>
     </message>
     <message>
-        <source>Single Page</source>
-        <translation type="obsolete">Single Page</translation>
-    </message>
-    <message>
-        <source>Double sided</source>
-        <translation type="obsolete">Double sided</translation>
-    </message>
-    <message>
-        <source>3-Fold</source>
-        <translation type="obsolete">3-Fold</translation>
-    </message>
-    <message>
-        <source>4-Fold</source>
-        <translation type="obsolete">4-Fold</translation>
-    </message>
-    <message>
-        <source>Page #</source>
-        <translation type="obsolete">Page #</translation>
-    </message>
-    <message>
-        <source>is the first Page.</source>
-        <translation type="obsolete">is the first Page.</translation>
-    </message>
-    <message>
         <source>First Page is:</source>
-        <translation type="unfinished"></translation>
+        <translation>First Page is:</translation>
     </message>
 </context>
 <context>
     <name>PageSelector</name>
     <message>
-        <source>Page </source>
-        <translation>Page </translation>
-    </message>
-    <message>
-        <source> of %1</source>
-        <translation> of %1</translation>
-    </message>
-    <message>
         <source>%1 of %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 of %2</translation>
+    </message>
+    <message>
+        <source>%1 of %1</source>
+        <translation>%1 of %1</translation>
     </message>
 </context>
 <context>
@@ -9341,27 +9337,14 @@ Consider using the Preflight Checker to correct them</translation>
     </message>
 </context>
 <context>
+    <name>PixmapExportPlugin</name>
+    <message>
+        <source>Save as &amp;Image...</source>
+        <translation>Save as &amp;Image...</translation>
+    </message>
+</context>
+<context>
     <name>PluginManager</name>
-    <message>
-        <source>Persistent</source>
-        <comment>plugin manager</comment>
-        <translation>Persistent</translation>
-    </message>
-    <message>
-        <source>Import</source>
-        <comment>plugin manager</comment>
-        <translation>Import</translation>
-    </message>
-    <message>
-        <source>Standard</source>
-        <comment>plugin manager</comment>
-        <translation>Standard</translation>
-    </message>
-    <message>
-        <source>Unknown</source>
-        <comment>plugin manager</comment>
-        <translation>Unknown</translation>
-    </message>
     <message>
         <source>Cannot find plugin</source>
         <comment>plugin manager</comment>
@@ -9376,6 +9359,90 @@ Consider using the Preflight Checker to correct them</translation>
         <source>Cannot find symbol (%1)</source>
         <comment>plugin manager</comment>
         <translation>Cannot find symbol (%1)</translation>
+    </message>
+    <message>
+        <source>Plugin: loading %1</source>
+        <comment>plugin manager</comment>
+        <translation>Plugin: loading %1</translation>
+    </message>
+    <message>
+        <source>init failed</source>
+        <comment>plugin load error</comment>
+        <translation>init failed</translation>
+    </message>
+    <message>
+        <source>unknown plugin type</source>
+        <comment>plugin load error</comment>
+        <translation>unknown plugin type</translation>
+    </message>
+    <message>
+        <source>Plugin: %1 loaded</source>
+        <comment>plugin manager</comment>
+        <translation>Plugin: %1 loaded</translation>
+    </message>
+    <message>
+        <source>Plugin: %1 failed to load: %2</source>
+        <comment>plugin manager</comment>
+        <translation>Plugin: %1 failed to load: %2</translation>
+    </message>
+    <message>
+        <source>PostScript Files (*.eps *.EPS *.ps *.PS);;</source>
+        <translation>PostScript Files (*.eps *.EPS *.ps *.PS);;</translation>
+    </message>
+    <message>
+        <source>SVG Images (*.svg *.svgz);;</source>
+        <translation>SVG Images (*.svg *.svgz);;</translation>
+    </message>
+    <message>
+        <source>SVG Images (*.svg);;</source>
+        <translation>SVG Images (*.svg);;</translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Draw (*.sxd);;</source>
+        <translation>OpenOffice.org Draw (*.sxd);;</translation>
+    </message>
+</context>
+<context>
+    <name>PluginManagerPrefsGui</name>
+    <message>
+        <source>Plugin Manager</source>
+        <translation>Plugin Manager</translation>
+    </message>
+    <message>
+        <source>Plugin</source>
+        <translation>Plugin</translation>
+    </message>
+    <message>
+        <source>How to run</source>
+        <translation>How to run</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>Type</translation>
+    </message>
+    <message>
+        <source>Load it?</source>
+        <translation>Load it?</translation>
+    </message>
+    <message>
+        <source>Plugin ID</source>
+        <translation>Plugin ID</translation>
+    </message>
+    <message>
+        <source>File</source>
+        <translation>File</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation>Yes</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation>No</translation>
+    </message>
+    <message>
+        <source>You need to restart the application to apply the changes.</source>
+        <translation>You need to restart the application to apply the changes.</translation>
     </message>
 </context>
 <context>
@@ -9527,10 +9594,6 @@ a positive value will make it convex</translation>
     <message>
         <source>External Tools</source>
         <translation>External Tools</translation>
-    </message>
-    <message>
-        <source>Postscript Interpreter</source>
-        <translation>Postscript Interpreter</translation>
     </message>
     <message>
         <source>Image Processing Tool</source>
@@ -9857,52 +9920,8 @@ instance of gimp.</translation>
         <translation>Miscellaneous</translation>
     </message>
     <message>
-        <source>Plugin Manager</source>
-        <translation>Plugin Manager</translation>
-    </message>
-    <message>
-        <source>Plugin</source>
-        <translation>Plugin</translation>
-    </message>
-    <message>
-        <source>How to run</source>
-        <translation>How to run</translation>
-    </message>
-    <message>
-        <source>Type</source>
-        <translation>Type</translation>
-    </message>
-    <message>
-        <source>Load it?</source>
-        <translation>Load it?</translation>
-    </message>
-    <message>
-        <source>Plugin ID</source>
-        <translation>Plugin ID</translation>
-    </message>
-    <message>
-        <source>File</source>
-        <translation>File</translation>
-    </message>
-    <message>
-        <source>Yes</source>
-        <translation>Yes</translation>
-    </message>
-    <message>
-        <source>No</source>
-        <translation>No</translation>
-    </message>
-    <message>
-        <source>You need to restart the application to apply the changes.</source>
-        <translation>You need to restart the application to apply the changes.</translation>
-    </message>
-    <message>
         <source>Plugins</source>
         <translation>Plugins</translation>
-    </message>
-    <message>
-        <source>Turns the display of linked frames on or off</source>
-        <translation>Turns the display of linked frames on or off</translation>
     </message>
     <message>
         <source>Turns the display of frames on or off</source>
@@ -9911,14 +9930,6 @@ instance of gimp.</translation>
     <message>
         <source>Turns the display of pictures on or off</source>
         <translation>Turns the display of pictures on or off</translation>
-    </message>
-    <message>
-        <source>Select your default language for Scribus to run with.
-Leave this blank to choose based on environment variables.
-You can still override this by passing a command line option when starting Scribus</source>
-        <translation>Select your default language for Scribus to run with.
-Leave this blank to choose based on environment variables.
-You can still override this by passing a command line option when starting Scribus</translation>
     </message>
     <message>
         <source>Default ICC profiles directory. This cannot
@@ -10032,6 +10043,18 @@ If set to 0 infinite amount of actions will be stored.</translation>
         <source>Locate your image editor</source>
         <translation>Locate your image editor</translation>
     </message>
+    <message>
+        <source>PostScript Interpreter</source>
+        <translation>PostScript Interpreter</translation>
+    </message>
+    <message>
+        <source>Enable or disable  the display of linked frames.</source>
+        <translation>Enable or disable  the display of linked frames.</translation>
+    </message>
+    <message>
+        <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
+        <translation>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</translation>
+    </message>
 </context>
 <context>
     <name>PrefsDialogBase</name>
@@ -10048,15 +10071,15 @@ If set to 0 infinite amount of actions will be stored.</translation>
     </message>
     <message>
         <source>PDF 1.3</source>
-        <translation type="obsolete">PDF 1.3</translation>
+        <translation>PDF 1.3</translation>
     </message>
     <message>
         <source>PDF 1.4</source>
-        <translation type="obsolete">PDF 1.4</translation>
+        <translation>PDF 1.4</translation>
     </message>
     <message>
         <source>PDF/X-3</source>
-        <translation type="obsolete">PDF/X-3</translation>
+        <translation>PDF/X-3</translation>
     </message>
     <message>
         <source>Migrate Old Scribus Settings?</source>
@@ -10070,39 +10093,95 @@ Do you want to migrate them to the new Scribus version?</translation>
     </message>
     <message>
         <source>Single Page</source>
-        <translation type="unfinished">Single Page</translation>
+        <translation>Single Page</translation>
     </message>
     <message>
         <source>Double sided</source>
-        <translation type="unfinished">Double sided</translation>
+        <translation>Double sided</translation>
     </message>
     <message>
         <source>Left Page</source>
-        <translation type="unfinished">Left Page</translation>
+        <translation>Left Page</translation>
     </message>
     <message>
         <source>Right Page</source>
-        <translation type="unfinished">Right Page</translation>
+        <translation>Right Page</translation>
     </message>
     <message>
         <source>3-Fold</source>
-        <translation type="unfinished">3-Fold</translation>
+        <translation>3-Fold</translation>
     </message>
     <message>
         <source>Middle</source>
-        <translation type="unfinished"></translation>
+        <translation>Middle</translation>
     </message>
     <message>
         <source>4-Fold</source>
-        <translation type="unfinished">4-Fold</translation>
+        <translation>4-Fold</translation>
     </message>
     <message>
         <source>Middle Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Middle Left</translation>
     </message>
     <message>
         <source>Middle Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Middle Right</translation>
+    </message>
+    <message>
+        <source>PostScript</source>
+        <translation>PostScript</translation>
+    </message>
+    <message>
+        <source>Could not open preferences file &quot;%1&quot; for writing: %2</source>
+        <translation>Could not open preferences file &quot;%1&quot; for writing: %2</translation>
+    </message>
+    <message>
+        <source>Writing to preferences file &quot;%1&quot; failed: QIODevice status code %2</source>
+        <translation>Writing to preferences file &quot;%1&quot; failed: QIODevice status code %2</translation>
+    </message>
+    <message>
+        <source>Failed to open prefs file &quot;%1&quot;: %2</source>
+        <translation>Failed to open prefs file &quot;%1&quot;: %2</translation>
+    </message>
+    <message>
+        <source>Failed to read prefs XML from &quot;%1&quot;: %2 at line %3, col %4</source>
+        <translation>Failed to read prefs XML from &quot;%1&quot;: %2 at line %3, col %4</translation>
+    </message>
+    <message>
+        <source>Error Writing Preferences</source>
+        <translation>Error Writing Preferences</translation>
+    </message>
+    <message>
+        <source>Scribus was not able to save its preferences:&lt;br&gt;%1&lt;br&gt;Please check file and directory permissions and available disk space.</source>
+        <comment>scribus app error</comment>
+        <translation>Scribus was not able to save its preferences:&lt;br&gt;%1&lt;br&gt;Please check file and directory permissions and available disk space.</translation>
+    </message>
+    <message>
+        <source>Error Loading Preferences</source>
+        <translation>Error Loading Preferences</translation>
+    </message>
+    <message>
+        <source>Scribus was not able to load its preferences:&lt;br&gt;%1&lt;br&gt;Default settings will be loaded.</source>
+        <translation>Scribus was not able to load its preferences:&lt;br&gt;%1&lt;br&gt;Default settings will be loaded.</translation>
+    </message>
+</context>
+<context>
+    <name>PresetLayout</name>
+    <message>
+        <source>None</source>
+        <translation>None</translation>
+    </message>
+    <message>
+        <source>Book</source>
+        <translation>Book</translation>
+    </message>
+    <message>
+        <source>Magazine</source>
+        <translation>Magazine</translation>
+    </message>
+    <message>
+        <source>You can select predefined page layout here. &apos;None&apos; leave margins as is, &apos;Book&apos; sets margins classically (Gutenberg). &apos;Book&apos; is proposed for two-sided documents. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
+        <translation>You can select predefined page layout here. &apos;None&apos; leave margins as is, &apos;Book&apos; sets margins classically (Gutenberg). &apos;Book&apos; is proposed for two-sided documents. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</translation>
     </message>
 </context>
 <context>
@@ -10172,28 +10251,20 @@ Do you want to migrate them to the new Scribus version?</translation>
         <translation>Save Current Output</translation>
     </message>
     <message>
-        <source>&amp;Save As...</source>
-        <translation type="obsolete">&amp;Save As...</translation>
-    </message>
-    <message>
-        <source>&amp;Run As Console</source>
-        <translation type="obsolete">&amp;Run As Console</translation>
-    </message>
-    <message>
         <source>Save &amp;As...</source>
-        <translation type="unfinished">Save &amp;As...</translation>
+        <translation>Save &amp;As...</translation>
     </message>
     <message>
         <source>Run As &amp;Console</source>
-        <translation type="unfinished"></translation>
+        <translation>Run As &amp;Console</translation>
     </message>
     <message>
         <source>Scribus Python Console</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus Python Console</translation>
     </message>
     <message>
         <source>This is derived from standard Python console so it contains some limitations esp. in the case of whitespaces. Please consult Scribus manual for more informations.</source>
-        <translation type="unfinished"></translation>
+        <translation>This is derived from standard Python console so it contains some limitations esp. in the case of whitespaces. Please consult Scribus manual for more informations.</translation>
     </message>
 </context>
 <context>
@@ -10625,10 +10696,6 @@ Check path and filename.</translation>
         <translation>Initialising...</translation>
     </message>
     <message>
-        <source>Document</source>
-        <translation>Document</translation>
-    </message>
-    <message>
         <source>Background</source>
         <translation>Background</translation>
     </message>
@@ -10641,10 +10708,6 @@ Check path and filename.</translation>
 %1 ?</source>
         <translation>Do you really want to overwrite the File:
 %1 ?</translation>
-    </message>
-    <message>
-        <source>Online Reference</source>
-        <translation>Online Reference</translation>
     </message>
     <message>
         <source>Open</source>
@@ -10701,10 +10764,6 @@ Check path and filename.</translation>
     <message>
         <source>All Files (*)</source>
         <translation>All Files (*)</translation>
-    </message>
-    <message>
-        <source>New &amp;from Template...</source>
-        <translation>New &amp;from Template...</translation>
     </message>
     <message>
         <source>Newsletters</source>
@@ -10793,34 +10852,6 @@ Check path and filename.</translation>
     <message>
         <source>Own Templates</source>
         <translation>Own Templates</translation>
-    </message>
-    <message>
-        <source>Save as &amp;Image...</source>
-        <translation>Save as &amp;Image...</translation>
-    </message>
-    <message>
-        <source>Print Previe&amp;w</source>
-        <translation>Print Previe&amp;w</translation>
-    </message>
-    <message>
-        <source>Import &amp;EPS/PS...</source>
-        <translation>Import &amp;EPS/PS...</translation>
-    </message>
-    <message>
-        <source>Save as &amp;Template...</source>
-        <translation>Save as &amp;Template...</translation>
-    </message>
-    <message>
-        <source>S&amp;cripter Manual...</source>
-        <translation>S&amp;cripter Manual...</translation>
-    </message>
-    <message>
-        <source>Save Page as &amp;SVG...</source>
-        <translation>Save Page as &amp;SVG...</translation>
-    </message>
-    <message>
-        <source>Import &amp;SVG...</source>
-        <translation>Import &amp;SVG...</translation>
     </message>
     <message>
         <source>Importing text</source>
@@ -11101,10 +11132,6 @@ External Links</translation>
         <translation>Cannot replace a colour with an empty name.</translation>
     </message>
     <message>
-        <source>Import &amp;OpenOffice.org Draw...</source>
-        <translation>Import &amp;OpenOffice.org Draw...</translation>
-    </message>
-    <message>
         <source>OpenOffice.org Draw (*.sxd);;All Files (*)</source>
         <translation>OpenOffice.org Draw (*.sxd);;All Files (*)</translation>
     </message>
@@ -11126,11 +11153,6 @@ External Links</translation>
         <source>Standard configuration: </source>
         <comment>short words plugin</comment>
         <translation>Standard configuration: </translation>
-    </message>
-    <message>
-        <source>Short &amp;Words...</source>
-        <comment>short words plugin</comment>
-        <translation>Short &amp;Words...</translation>
     </message>
     <message>
         <source>Short Words processing. Wait please...</source>
@@ -11561,14 +11583,6 @@ Do you want to replace it with the file you are saving?</translation>
     <message>
         <source>All</source>
         <translation>All</translation>
-    </message>
-    <message>
-        <source>&amp;Color Wheel...</source>
-        <translation>&amp;Colour Wheel...</translation>
-    </message>
-    <message>
-        <source>&amp;Fonts Preview...</source>
-        <translation>&amp;Fonts Preview...</translation>
     </message>
     <message>
         <source>Document Template: </source>
@@ -12027,17 +12041,81 @@ is not exhaustive due to exceptions from called functions.
         <translation>The filename should not be empty string.</translation>
     </message>
     <message>
-        <source>Normal</source>
-        <translation type="obsolete">Normal</translation>
-    </message>
-    <message>
         <source>Wiki:           http://wiki.scribus.net</source>
         <translation>Wiki:           http://wiki.scribus.net</translation>
     </message>
     <message>
         <source>page</source>
         <comment>page export</comment>
-        <translation type="unfinished"></translation>
+        <translation>page</translation>
+    </message>
+    <message>
+        <source>Copy #%1 of </source>
+        <translation>Copy #%1 of </translation>
+    </message>
+    <message>
+        <source>Black</source>
+        <translation>Black</translation>
+    </message>
+    <message>
+        <source>Cyan</source>
+        <translation>Cyan</translation>
+    </message>
+    <message>
+        <source>Magenta</source>
+        <translation>Magenta</translation>
+    </message>
+    <message>
+        <source>Yellow</source>
+        <translation>Yellow</translation>
+    </message>
+    <message>
+        <source>Color Wheel</source>
+        <translation>Colour Wheel</translation>
+    </message>
+    <message>
+        <source>Font Preview</source>
+        <translation>Font Preview</translation>
+    </message>
+    <message>
+        <source>My Plugin</source>
+        <translation>My Plugin</translation>
+    </message>
+    <message>
+        <source>New From Template</source>
+        <translation>New From Template</translation>
+    </message>
+    <message>
+        <source>Export As Image</source>
+        <translation>Export As Image</translation>
+    </message>
+    <message>
+        <source>PS/EPS Importer</source>
+        <translation>PS/EPS Importer</translation>
+    </message>
+    <message>
+        <source>Save As Template</source>
+        <translation>Save As Template</translation>
+    </message>
+    <message>
+        <source>Scripter</source>
+        <translation>Scripter</translation>
+    </message>
+    <message>
+        <source>Short Words</source>
+        <translation>Short Words</translation>
+    </message>
+    <message>
+        <source>SVG Export</source>
+        <translation>SVG Export</translation>
+    </message>
+    <message>
+        <source>SVG Import</source>
+        <translation>SVG Import</translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Draw Importer</source>
+        <translation>OpenOffice.org Draw Importer</translation>
     </message>
 </context>
 <context>
@@ -12308,10 +12386,6 @@ is not exhaustive due to exceptions from called functions.
         <translation>Colour Management</translation>
     </message>
     <message>
-        <source>Turns the of linked frames on or off</source>
-        <translation>Turns the of linked frames on or off</translation>
-    </message>
-    <message>
         <source>Turns the display of frames on or off</source>
         <translation>Turns the display of frames on or off</translation>
     </message>
@@ -12377,11 +12451,15 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished">None</translation>
+        <translation>None</translation>
     </message>
     <message>
         <source>Adjusting Colors</source>
-        <translation type="unfinished">Adjusting Colours</translation>
+        <translation>Adjusting Colours</translation>
+    </message>
+    <message>
+        <source>Enable or disable the display of linked text frames.</source>
+        <translation>Enable or disable the display of linked text frames.</translation>
     </message>
 </context>
 <context>
@@ -12492,16 +12570,60 @@ is not exhaustive due to exceptions from called functions.
     </message>
 </context>
 <context>
-    <name>ScImportExportPlugin</name>
+    <name>SVGExportPlugin</name>
+    <message>
+        <source>Save Page as &amp;SVG...</source>
+        <translation>Save Page as &amp;SVG...</translation>
+    </message>
+</context>
+<context>
+    <name>SVGImportPlugin</name>
+    <message>
+        <source>Import &amp;SVG...</source>
+        <translation>Import &amp;SVG...</translation>
+    </message>
+</context>
+<context>
+    <name>SaveAsTemplatePlugin</name>
+    <message>
+        <source>Save as &amp;Template...</source>
+        <translation>Save as &amp;Template...</translation>
+    </message>
+</context>
+<context>
+    <name>ScActionPlugin</name>
     <message>
         <source>Could not find target file %1: %2</source>
         <comment>plugins</comment>
-        <translation type="unfinished"></translation>
+        <translation>Could not find target file %1: %2</translation>
     </message>
     <message>
         <source>Could not open target file %1: %2</source>
         <comment>plugins</comment>
-        <translation type="unfinished"></translation>
+        <translation>Could not open target file %1: %2</translation>
+    </message>
+</context>
+<context>
+    <name>ScPlugin</name>
+    <message>
+        <source>Persistent</source>
+        <comment>plugin manager plugin type</comment>
+        <translation>Persistent</translation>
+    </message>
+    <message>
+        <source>Import</source>
+        <comment>plugin manager plugin type</comment>
+        <translation>Import</translation>
+    </message>
+    <message>
+        <source>Export</source>
+        <comment>plugin manager plugin type</comment>
+        <translation>Export</translation>
+    </message>
+    <message>
+        <source>Action</source>
+        <comment>plugin manager plugin type</comment>
+        <translation>Action</translation>
     </message>
 </context>
 <context>
@@ -12638,10 +12760,6 @@ is not exhaustive due to exceptions from called functions.
         <translation>All</translation>
     </message>
     <message>
-        <source>Adjusting Colors</source>
-        <translation type="obsolete">Adjusting Colours</translation>
-    </message>
-    <message>
         <source>English</source>
         <translation>English</translation>
     </message>
@@ -12714,10 +12832,6 @@ is not exhaustive due to exceptions from called functions.
         <translation>Irish</translation>
     </message>
     <message>
-        <source>Choose a Directory</source>
-        <translation>Choose a Directory</translation>
-    </message>
-    <message>
         <source>&amp;File</source>
         <translation>&amp;File</translation>
     </message>
@@ -12754,10 +12868,6 @@ is not exhaustive due to exceptions from called functions.
         <translation>&amp;Help</translation>
     </message>
     <message>
-        <source>Some Objects are locked.</source>
-        <translation>Some Objects are locked.</translation>
-    </message>
-    <message>
         <source>Lithuanian</source>
         <translation>Lithuanian</translation>
     </message>
@@ -12788,14 +12898,6 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>St&amp;yle</source>
         <translation>St&amp;yle</translation>
-    </message>
-    <message>
-        <source>&amp;Cascade</source>
-        <translation>&amp;Cascade</translation>
-    </message>
-    <message>
-        <source>&amp;Tile</source>
-        <translation>&amp;Tile</translation>
     </message>
     <message>
         <source>&amp;Color</source>
@@ -12894,22 +12996,6 @@ is not exhaustive due to exceptions from called functions.
         <translation>Exiting now.</translation>
     </message>
     <message>
-        <source>Postscript</source>
-        <translation>Postscript</translation>
-    </message>
-    <message>
-        <source>PDF 1.3</source>
-        <translation type="obsolete">PDF 1.3</translation>
-    </message>
-    <message>
-        <source>PDF 1.4</source>
-        <translation type="obsolete">PDF 1.4</translation>
-    </message>
-    <message>
-        <source>PDF/X-3</source>
-        <translation type="obsolete">PDF/X-3</translation>
-    </message>
-    <message>
         <source>&amp;Level</source>
         <translation>&amp;Level</translation>
     </message>
@@ -12946,24 +13032,6 @@ is not exhaustive due to exceptions from called functions.
         <translation>Documents (*.sla *.scd);;</translation>
     </message>
     <message>
-        <source>Postscript Files (*.eps *.EPS *.ps *.PS);;</source>
-        <translation>Postscript Files (*.eps *.EPS *.ps *.PS);;</translation>
-    </message>
-    <message>
-        <source>SVG Images (*.svg *.svgz);;</source>
-        <translation>SVG Images (*.svg *.svgz);;</translation>
-    </message>
-    <message>
-        <source>SVG Images (*.svg);;</source>
-        <translation>SVG Images (*.svg);;</translation>
-    </message>
-    <message>
-        <source>File %1 
-is not in an acceptable format</source>
-        <translation>File %1 
-is not in an acceptable format</translation>
-    </message>
-    <message>
         <source>Some fonts used by this document have been substituted:</source>
         <translation>Some fonts used by this document have been substituted:</translation>
     </message>
@@ -12990,32 +13058,12 @@ is not in an acceptable format</translation>
         <translation>Save As</translation>
     </message>
     <message>
-        <source>Detected some Errors.
-Consider using the Preflight Checker to correct them</source>
-        <translation>Detected some Errors.
-Consider using the Preflight Checker to correct them</translation>
-    </message>
-    <message>
-        <source>Abort</source>
-        <translation>Abort</translation>
-    </message>
-    <message>
-        <source>Ignore</source>
-        <translation>Ignore</translation>
-    </message>
-    <message>
         <source>The following programs are missing:</source>
         <translation>The following programs are missing:</translation>
     </message>
     <message>
         <source>EPS Files (*.eps);;All Files (*)</source>
         <translation>EPS Files (*.eps);;All Files (*)</translation>
-    </message>
-    <message>
-        <source>Detected some Errors.
-Consider using the Preflight Verifier to correct them</source>
-        <translation>Detected some Errors.
-Consider using the Preflight Verifier to correct them</translation>
     </message>
     <message>
         <source>&amp;Lock All</source>
@@ -13030,20 +13078,8 @@ Consider using the Preflight Verifier to correct them</translation>
         <translation>Bulgarian</translation>
     </message>
     <message>
-        <source>The program</source>
-        <translation>The program</translation>
-    </message>
-    <message>
-        <source>is already running!</source>
-        <translation>is already running!</translation>
-    </message>
-    <message>
         <source>Information</source>
         <translation>Information</translation>
-    </message>
-    <message>
-        <source>is missing!</source>
-        <translation>is missing!</translation>
     </message>
     <message>
         <source>Ghostscript : You cannot use EPS images or Print Preview</source>
@@ -13086,29 +13122,78 @@ Consider using the Preflight Verifier to correct them</translation>
         <translation>Initialising Keyboard Shortcuts</translation>
     </message>
     <message>
-        <source>OpenOffice.org Draw (*.sxd);;</source>
-        <translation>OpenOffice.org Draw (*.sxd);;</translation>
-    </message>
-    <message>
         <source>Preview Settings</source>
-        <translation type="unfinished">Preview Settings</translation>
+        <translation>Preview Settings</translation>
     </message>
     <message>
         <source>Level</source>
-        <translation type="unfinished">Level</translation>
+        <translation>Level</translation>
     </message>
     <message>
         <source>Send to La&amp;yer</source>
-        <translation type="unfinished">Send to La&amp;yer</translation>
+        <translation>Send to La&amp;yer</translation>
     </message>
     <message>
-        <source>Collecting...</source>
-        <translation type="unfinished"></translation>
+        <source>File %1 is not in an acceptable format</source>
+        <translation>File %1 is not in an acceptable format</translation>
     </message>
     <message>
-        <source>Cannot collect all files for output for file:
-%1</source>
-        <translation type="unfinished"></translation>
+        <source>PostScript</source>
+        <translation>PostScript</translation>
+    </message>
+    <message>
+        <source>Scribus has detected some errors.
+Consider using the Pre-flight Checker to correct them</source>
+        <translation>Scribus has detected some errors.
+Consider using the Pre-flight Checker to correct them</translation>
+    </message>
+    <message>
+        <source>&amp;Abort</source>
+        <translation>&amp;Abort</translation>
+    </message>
+    <message>
+        <source>&amp;Ignore</source>
+        <translation>&amp;Ignore</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>Name:</translation>
+    </message>
+    <message>
+        <source>New MasterPage</source>
+        <translation>New MasterPage</translation>
+    </message>
+    <message>
+        <source>New Master Page</source>
+        <translation>New Master Page</translation>
+    </message>
+    <message>
+        <source>Scribus detected some errors.
+Consider using the Preflight Verifier  to correct them.</source>
+        <translation>Scribus detected some errors.
+Consider using the Preflight Verifier  to correct them.</translation>
+    </message>
+    <message>
+        <source>Detected some errors.
+Consider using the Preflight Verifier to correct them</source>
+        <translation>Detected some errors.
+Consider using the Preflight Verifier to correct them</translation>
+    </message>
+    <message>
+        <source>-Page%1</source>
+        <translation>-Page%1</translation>
+    </message>
+    <message>
+        <source>Some objects are locked.</source>
+        <translation>Some objects are locked.</translation>
+    </message>
+    <message>
+        <source>The program %1 is already running!</source>
+        <translation>The program %1 is already running!</translation>
+    </message>
+    <message>
+        <source>The program %1 is missing!</source>
+        <translation>The program %1 is missing!</translation>
     </message>
 </context>
 <context>
@@ -13119,7 +13204,15 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation type="unfinished">Normal</translation>
+        <translation>Normal</translation>
+    </message>
+    <message>
+        <source>Document</source>
+        <translation>Document</translation>
+    </message>
+    <message>
+        <source>Background</source>
+        <translation>Background</translation>
     </message>
 </context>
 <context>
@@ -13233,10 +13326,6 @@ Consider using the Preflight Verifier to correct them</translation>
         <translation>Warning</translation>
     </message>
     <message>
-        <source>Do you really want to clear all your Text?</source>
-        <translation>Do you really want to clear all your Text?</translation>
-    </message>
-    <message>
         <source>Cannot Delete In-Use Item</source>
         <translation>Cannot Delete In-Use Item</translation>
     </message>
@@ -13245,16 +13334,24 @@ Consider using the Preflight Verifier to correct them</translation>
         <translation>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</translation>
     </message>
     <message>
-        <source>Unit</source>
-        <translation type="obsolete">Unit</translation>
-    </message>
-    <message>
         <source>Linking Text Frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Linking Text Frames</translation>
     </message>
     <message>
-        <source>There is a problem with text frames linking. You are trying to link filled frames or a frame to the same one itself</source>
-        <translation type="unfinished"></translation>
+        <source>You are trying to link to a filled frame, or a frame to itself.</source>
+        <translation>You are trying to link to a filled frame, or a frame to itself.</translation>
+    </message>
+    <message>
+        <source>Do you really want to clear all your text?</source>
+        <translation>Do you really want to clear all your text?</translation>
+    </message>
+    <message>
+        <source>Cannot Convert In-Use Item</source>
+        <translation>Cannot Convert In-Use Item</translation>
+    </message>
+    <message>
+        <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
+        <translation>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</translation>
     </message>
 </context>
 <context>
@@ -13282,6 +13379,17 @@ Consider using the Preflight Verifier to correct them</translation>
     <message>
         <source>&amp;Save Now</source>
         <translation>&amp;Save Now</translation>
+    </message>
+</context>
+<context>
+    <name>ScriptPlugin</name>
+    <message>
+        <source>Embedded Python scripting support.</source>
+        <translation>Embedded Python scripting support.</translation>
+    </message>
+    <message>
+        <source>Scripter</source>
+        <translation>Scripter</translation>
     </message>
 </context>
 <context>
@@ -13313,6 +13421,25 @@ Consider using the Preflight Verifier to correct them</translation>
     <message>
         <source>Setting up the Python plugin failed. Error details were printed to stderr. </source>
         <translation>Setting up the Python plugin failed. Error details were printed to stderr. </translation>
+    </message>
+</context>
+<context>
+    <name>ScripterPrefsGui</name>
+    <message>
+        <source>Scripter Preferences</source>
+        <translation>Scripter Preferences</translation>
+    </message>
+    <message>
+        <source>Extension Scripts</source>
+        <translation>Extension Scripts</translation>
+    </message>
+    <message>
+        <source>Enable Extension Scripts</source>
+        <translation>Enable Extension Scripts</translation>
+    </message>
+    <message>
+        <source>Startup Script</source>
+        <translation>Startup Script</translation>
     </message>
 </context>
 <context>
@@ -13533,6 +13660,14 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
 </context>
 <context>
+    <name>ShortWordsPlugin</name>
+    <message>
+        <source>Short &amp;Words...</source>
+        <comment>short words plugin</comment>
+        <translation>Short &amp;Words...</translation>
+    </message>
+</context>
+<context>
     <name>SideBar</name>
     <message>
         <source>No Style</source>
@@ -13605,12 +13740,12 @@ Consider using the Preflight Verifier to correct them</translation>
         <translation>&amp;Delete</translation>
     </message>
     <message>
-        <source>Do you really want to delete this Style?</source>
-        <translation>Do you really want to delete this Style?</translation>
-    </message>
-    <message>
         <source>&amp;Import</source>
         <translation>&amp;Import</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this style?</source>
+        <translation>Do you really want to delete this style?</translation>
     </message>
 </context>
 <context>
@@ -14887,6 +15022,10 @@ This can increase memory usage and slow down export.</source>
 Leaving this unchecked will render them at their native resolution.
 This can increase memory usage and slow down export.</translation>
     </message>
+    <message>
+        <source>Convert Spot Colors to Process Colors</source>
+        <translation>Convert Spot Colours to Process Colours</translation>
+    </message>
 </context>
 <context>
     <name>TabTools</name>
@@ -15169,6 +15308,18 @@ This can increase memory usage and slow down export.</translation>
     <message>
         <source>Custom: </source>
         <translation>Custom: </translation>
+    </message>
+    <message>
+        <source>Text Color:</source>
+        <translation>Text Colour:</translation>
+    </message>
+    <message>
+        <source>Shading:</source>
+        <translation>Shading:</translation>
+    </message>
+    <message>
+        <source>Text Stroke:</source>
+        <translation>Text Stroke:</translation>
     </message>
 </context>
 <context>

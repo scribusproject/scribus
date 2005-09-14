@@ -1770,8 +1770,66 @@ C-C-T означава: C=CUPS C=littlecms T=TIFF подршку.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Missing library support is indicated by a * This also indicates the version of Ghostscript which Scribus has detected.</source>
+        <source>This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart Missing library support is indicated by a * This also indicates the version of Ghostscript which Scribus has detected.</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>AboutPlugins</name>
+    <message>
+        <source>Yes</source>
+        <translation type="unfinished">Да</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation type="unfinished">Не</translation>
+    </message>
+</context>
+<context>
+    <name>AboutPluginsBase</name>
+    <message>
+        <source>Scribus: About Plug-ins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File Name:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Version:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enabled:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Release Date:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copyright:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Author(s):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Description:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>License:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished">&amp;Затвори</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation type="unfinished">Alt+C</translation>
     </message>
 </context>
 <context>
@@ -1902,7 +1960,7 @@ C-C-T означава: C=CUPS C=littlecms T=TIFF подршку.
     </message>
     <message>
         <source>&amp;Javascripts...</source>
-        <translation type="unfinished">&amp;Javascript-ови...</translation>
+        <translation type="obsolete">&amp;Javascript-ови...</translation>
     </message>
     <message>
         <source>P&amp;references...</source>
@@ -2548,40 +2606,64 @@ C-C-T означава: C=CUPS C=littlecms T=TIFF подршку.
         <source>Toggle Guides</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Print Previe&amp;w</source>
+        <translation type="unfinished">Прегл&amp;ед за штампање</translation>
+    </message>
+    <message>
+        <source>&amp;JavaScripts...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Convert to Master Page...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cascade</source>
+        <translation type="unfinished">&amp;Наслажи</translation>
+    </message>
+    <message>
+        <source>&amp;Tile</source>
+        <translation type="unfinished">Поп&amp;лочај</translation>
+    </message>
+    <message>
+        <source>&amp;About Plug-ins</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AdvOptions</name>
     <message>
         <source>Advanced Options</source>
-        <translation>Напредне опције</translation>
+        <translation type="obsolete">Напредне опције</translation>
     </message>
     <message>
         <source>Mirror Page(s) &amp;Horizontal</source>
-        <translation>Окрени страницу(е) &amp;водоравно</translation>
+        <translation type="obsolete">Окрени страницу(е) &amp;водоравно</translation>
     </message>
     <message>
         <source>Mirror Page(s) &amp;Vertical</source>
-        <translation>Окрени страницу(е) &amp;усправно</translation>
+        <translation type="obsolete">Окрени страницу(е) &amp;усправно</translation>
     </message>
     <message>
         <source>Apply Under Color &amp;Removal</source>
-        <translation>Примени под &amp;уклањањем боја</translation>
+        <translation type="obsolete">Примени под &amp;уклањањем боја</translation>
     </message>
     <message>
         <source>Apply &amp;ICC Profiles</source>
-        <translation>Примени &amp;ICC профиле</translation>
+        <translation type="obsolete">Примени &amp;ICC профиле</translation>
     </message>
     <message>
         <source>PostScript Level &amp;1</source>
-        <translation>PostScript ниво &amp;1</translation>
+        <translation type="obsolete">PostScript ниво &amp;1</translation>
     </message>
     <message>
         <source>PostScript Level &amp;2</source>
-        <translation>PostScript ниво &amp;2</translation>
+        <translation type="obsolete">PostScript ниво &amp;2</translation>
     </message>
     <message>
         <source>PostScript Level &amp;3</source>
-        <translation>PostScript ниво &amp;3</translation>
+        <translation type="obsolete">PostScript ниво &amp;3</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -2593,18 +2675,18 @@ C-C-T означава: C=CUPS C=littlecms T=TIFF подршку.
     </message>
     <message>
         <source>Creates PostScript Level 3</source>
-        <translation>Прави PostScript ниво 3</translation>
+        <translation type="obsolete">Прави PostScript ниво 3</translation>
     </message>
     <message>
         <source>Creates PostScript Level 2 only, beware,
 this can create huge files</source>
-        <translation>Прави PostScript ниво 2 само, опрез,
+        <translation type="obsolete">Прави PostScript ниво 2 само, опрез,
 ово може направити огромне фајлове</translation>
     </message>
     <message>
         <source>Creates PostScript Level 1 only, beware,
 this can create huge files</source>
-        <translation>Прави PostScript ниво 1 само, опрез, 
+        <translation type="obsolete">Прави PostScript ниво 1 само, опрез, 
 oво може направити огромне фајловеНиво огроман</translation>
     </message>
     <message>
@@ -2614,16 +2696,12 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>Начин за искључивање неких сивих сенки које су састављене
+        <translation type="obsolete">Начин за искључивање неких сивих сенки које су састављене
 од цијан, жуте, и магенте и коришћења црне уместо тога.
 UCR највише утиче на делове слике који имају неутралне и/или тамне тонове
 који су блиски сивој. Коришћење овога може поправити штампу неких слика
 и потребно је мало експериментисања у зависности од случаја.
 UCR смањује могућност презасићености CMY мастилима</translation>
-    </message>
-    <message>
-        <source>Set Media Size</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3171,7 +3249,7 @@ UCR смањује могућност презасићености CMY маст�
     </message>
     <message>
         <source>Java Script</source>
-        <translation>Java Script</translation>
+        <translation type="obsolete">Java Script</translation>
     </message>
     <message>
         <source>Go To</source>
@@ -3435,7 +3513,7 @@ UCR смањује могућност презасићености CMY маст�
     </message>
     <message>
         <source>Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)</source>
-        <translation>Слике (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Сви фајлови (*)</translation>
+        <translation type="obsolete">Слике (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Сви фајлови (*)</translation>
     </message>
     <message>
         <source>Example:</source>
@@ -3448,6 +3526,14 @@ UCR смањује могућност презасићености CMY маст�
     <message>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>PDF фајлови (*.pdf);;Сви фајлови (*)</translation>
+    </message>
+    <message>
+        <source>JavaScript</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3977,11 +4063,11 @@ It is recommended that you enable this if you have photos in your document.</sou
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Default color profile for imported cmyk images</source>
+        <source>Default color profile for imported CMYK images</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Default color profile for imported rgb images</source>
+        <source>Default color profile for imported RGB images</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4094,11 +4180,11 @@ It&apos;s a reserved name for transparent color</source>
 То име је резервисано за провидну боју</translation>
     </message>
     <message>
-        <source>Is Spot-Color</source>
+        <source>Is Spot Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Is Registration-Color</source>
+        <source>Is Registration Color</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4343,19 +4429,7 @@ and the Delete key removes the last inserted one</source>
     <name>CheckerPrefsList</name>
     <message>
         <source>Postscript</source>
-        <translation type="unfinished">Postscript</translation>
-    </message>
-    <message>
-        <source>PDF 1.3</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PDF 1.4</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PDF/X-3</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Postscript</translation>
     </message>
 </context>
 <context>
@@ -4370,11 +4444,31 @@ and the Delete key removes the last inserted one</source>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">У реду</translation>
+        <translation type="obsolete">У реду</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Поништи</translation>
+        <translation type="obsolete">Поништи</translation>
+    </message>
+</context>
+<context>
+    <name>CollectForOutput</name>
+    <message>
+        <source>Choose a Directory</source>
+        <translation type="unfinished">Изаберите директоријум</translation>
+    </message>
+    <message>
+        <source>Collecting...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation type="unfinished">Упозорење</translation>
+    </message>
+    <message>
+        <source>Cannot collect all files for output for file:
+%1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4464,14 +4558,6 @@ and the Delete key removes the last inserted one</source>
     <name>ColorWheelDialog</name>
     <message>
         <source>Normal Vision</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Protanopy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Deuteranopy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4580,6 +4666,25 @@ and the Delete key removes the last inserted one</source>
     </message>
     <message>
         <source>Color Merging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Protanopia (red)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Deuteranopia (green)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tritanopia (blue)</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ColorWheelPlugin</name>
+    <message>
+        <source>&amp;Color Wheel...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4694,7 +4799,7 @@ and the Delete key removes the last inserted one</source>
     </message>
     <message>
         <source>Color of selected object</source>
-        <translation>Боја изабраног објекта</translation>
+        <translation type="obsolete">Боја изабраног објекта</translation>
     </message>
     <message>
         <source>None</source>
@@ -5331,11 +5436,11 @@ a range of pages or a single page number.</source>
     </message>
     <message>
         <source>Print &amp;Normal</source>
-        <translation>Штампај &amp;нормално</translation>
+        <translation type="obsolete">Штампај &amp;нормално</translation>
     </message>
     <message>
         <source>Print &amp;Separations</source>
-        <translation>Штампај &amp;раздвајања</translation>
+        <translation type="obsolete">Штампај &amp;раздвајања</translation>
     </message>
     <message>
         <source>All</source>
@@ -5359,15 +5464,15 @@ a range of pages or a single page number.</source>
     </message>
     <message>
         <source>Pr&amp;int In Color If Available</source>
-        <translation>Шт&amp;ампај у боји ако је доступно</translation>
+        <translation type="obsolete">Шт&amp;ампај у боји ако је доступно</translation>
     </message>
     <message>
         <source>Print In Gra&amp;yscale</source>
-        <translation>Штампај у &amp;сивим тоновима</translation>
+        <translation type="obsolete">Штампај у &amp;сивим тоновима</translation>
     </message>
     <message>
         <source>Ad&amp;vanced Options...</source>
-        <translation>&amp;Напредне опције...</translation>
+        <translation type="obsolete">&amp;Напредне опције...</translation>
     </message>
     <message>
         <source>&amp;Print</source>
@@ -5386,7 +5491,89 @@ a range of pages or a single page number.</source>
         <translation type="obsolete">Postscript-фајлови (*.ps);;Сви фајлови (*)</translation>
     </message>
     <message>
-        <source>Postscript Files (*.ps);;All Files (*)</source>
+        <source>Print Normal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Print Separations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Print in Color if Available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Print in Grayscale</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PostScript Level 1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PostScript Level 2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PostScript Level 3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page</source>
+        <translation type="unfinished">Страница</translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) Horizontal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) Vertical</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set Media Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation type="unfinished">Боја</translation>
+    </message>
+    <message>
+        <source>Apply Under Color Removal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Convert Spot Colors to Process Colors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply ICC Profiles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Advanced Options</source>
+        <translation type="unfinished">Напредне опције</translation>
+    </message>
+    <message>
+        <source>Preview...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sets the PostScript Level.
+ Setting to Level 1 or 2 can create huge files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed
+of cyan, yellow and magenta and using black instead.
+UCR most affects parts of images which are neutral and/or dark tones
+which are close to the gray. Use of this may improve printing some images
+and some experimentation and testing is need on a case by case basis.
+UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PostScript Files (*.ps);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5679,7 +5866,11 @@ failed!</source>
     </message>
     <message>
         <source>Javascripts (*.js);;All Files (*)</source>
-        <translation>Javascripts (*.js);;Сви фајлови (*)</translation>
+        <translation type="obsolete">Javascripts (*.js);;Сви фајлови (*)</translation>
+    </message>
+    <message>
+        <source>JavaScripts (*.js);;All Files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6209,7 +6400,7 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     </message>
     <message>
         <source>Postscript</source>
-        <translation>Postscript</translation>
+        <translation type="obsolete">Postscript</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -6310,6 +6501,10 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     </message>
     <message>
         <source>&lt;qt&gt;Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PostScript</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6443,6 +6638,17 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
         <source>Size of the selected font</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&amp;Append</source>
+        <translation type="unfinished">&amp;Примени</translation>
+    </message>
+</context>
+<context>
+    <name>FontPreviewPlugin</name>
+    <message>
+        <source>&amp;Font Preview...</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>FontReplaceDialog</name>
@@ -6467,8 +6673,19 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
         <translation type="obsolete">У реду</translation>
     </message>
     <message>
-        <source>This document contains some fonts that are not installed on your system,
-please choose a suitable replacement for them.</source>
+        <source>This document contains some fonts that are not installed on your system, please choose a suitable replacement for them. Cancel will stop the document from loading.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancels these font substitutions and stops loading the document.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enabling this tells Scribus to use these replacements for missing <byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>fonts permanently in all future layouts. This can be reverted or changed <byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>in Edit &gt; Preferences &gt; Fonts.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If you select OK, then save, these substitutions are made permanent in the <byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>document.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6754,6 +6971,13 @@ and www.scribus.net for downloads.</source>
 A value of 0 means unlimited hyphenations.</source>
         <translation>Максималан број спајања цртицом који могу ићи једно за другим.
 Вредност 0 означава неограничено спајање цртицом.</translation>
+    </message>
+</context>
+<context>
+    <name>ImportPSPlugin</name>
+    <message>
+        <source>Import &amp;EPS/PS...</source>
+        <translation type="unfinished">Увези &amp;EPS/PS...</translation>
     </message>
 </context>
 <context>
@@ -7382,6 +7606,10 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>O&amp;utside:</source>
         <translation type="unfinished">Спо&amp;ља:</translation>
+    </message>
+    <message>
+        <source>Preset Layouts:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8623,6 +8851,24 @@ Please choose another.</source>
     </message>
 </context>
 <context>
+    <name>MyPlugin</name>
+    <message>
+        <source>My &amp;Plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>MyPluginImpl</name>
+    <message>
+        <source>Scribus - My Plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The plugin worked!</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>NewDoc</name>
     <message>
         <source> pt</source>
@@ -8869,28 +9115,19 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Postscript Files (*.eps *.EPS *.ps *.PS);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>SVG Images (*.svg *.svgz);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>SVG Images (*.svg);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>OpenOffice.org Draw (*.sxd);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>All Files (*)</source>
         <translation type="unfinished">Сви фајлови (*)</translation>
     </message>
     <message>
         <source>Open</source>
         <translation type="unfinished">Отвори</translation>
+    </message>
+</context>
+<context>
+    <name>NewFromTemplatePlugin</name>
+    <message>
+        <source>New &amp;from Template...</source>
+        <translation type="unfinished">Нови &amp;из шаблона...</translation>
     </message>
 </context>
 <context>
@@ -9050,6 +9287,13 @@ otherwise Coordinates are relative to the Object.</source>
     </message>
     <message>
         <source>When checked use coordinates relative to the page, otherwise coordinates are relative to the Object.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>OODrawImportPlugin</name>
+    <message>
+        <source>Import &amp;OpenOffice.org Draw...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9836,6 +10080,14 @@ PDF-а PDF/X-3-у. Препоручујемо да користите насло
         <source>Save as PDF</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Output one file for eac&amp;h page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commerical printing.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PPreview</name>
@@ -9882,7 +10134,7 @@ PDF-а PDF/X-3-у. Препоручујемо да користите насло
     <message>
         <source>Provides a more pleasant view of text items in the viewer, at the expense
 of a slight slowdown in previewing. This only affects Type 1 fonts</source>
-        <translation>Обезбеђује пријатнији приказ текстуалних ставки у прегледачу, на рачун
+        <translation type="obsolete">Обезбеђује пријатнији приказ текстуалних ставки у прегледачу, на рачун
 незнатног успорења при прегледању. Ово утиче само на Type 1 фонтове</translation>
     </message>
     <message>
@@ -9935,34 +10187,51 @@ UCR смањује могућност презасићења CMY мастили�
         <translation>Све</translation>
     </message>
     <message>
-        <source>A way of switching off some of the gray shades which are composed
-of cyan, yellow and magenta and using black instead.
-UCR most affects parts of images which are neutral and/or dark tones
-which are close to the gray. Use of this may improve printing some images
-and some experimentation and testing is need on a case by case basis.
-UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and
-vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Warning</source>
-        <translation type="unfinished">Упозорење</translation>
+        <translation type="obsolete">Упозорење</translation>
     </message>
     <message>
-        <source>Detected some Errors.
-Consider using the Preflight Checker to correct them</source>
+        <source>Separation Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Abort</source>
+        <source>Cyan</source>
+        <translation type="unfinished">Цијан</translation>
+    </message>
+    <message>
+        <source>Magenta</source>
+        <translation type="unfinished">Магента</translation>
+    </message>
+    <message>
+        <source>Yellow</source>
+        <translation type="unfinished">Жута</translation>
+    </message>
+    <message>
+        <source>Black</source>
+        <translation type="unfinished">Црна</translation>
+    </message>
+    <message>
+        <source>Scaling:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Ignore</source>
+        <source>Print...</source>
+        <translation type="unfinished">Штампај...</translation>
+    </message>
+    <message>
+        <source>Provides a more pleasant view of text items in the viewer, at the expense of a slight slowdown in previewing. This only affects Type 1 fonts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Resize the scale of the page.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10390,14 +10659,18 @@ Consider using the Preflight Checker to correct them</source>
     <name>PageSelector</name>
     <message>
         <source>Page </source>
-        <translation>Страница</translation>
+        <translation type="obsolete">Страница</translation>
     </message>
     <message>
         <source> of %1</source>
-        <translation> од %1</translation>
+        <translation type="obsolete"> од %1</translation>
     </message>
     <message>
         <source>%1 of %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 of %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10587,6 +10860,13 @@ Consider using the Preflight Checker to correct them</source>
     </message>
 </context>
 <context>
+    <name>PixmapExportPlugin</name>
+    <message>
+        <source>Save as &amp;Image...</source>
+        <translation type="unfinished">Сними као &amp;слику...</translation>
+    </message>
+</context>
+<context>
     <name>PluginManager</name>
     <message>
         <source>Cannot find plugin</source>
@@ -10604,24 +10884,98 @@ Consider using the Preflight Checker to correct them</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Persistent</source>
-        <comment>plugin manager</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Import</source>
         <comment>plugin manager</comment>
-        <translation type="unfinished">Увези</translation>
-    </message>
-    <message>
-        <source>Standard</source>
-        <comment>plugin manager</comment>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Увези</translation>
     </message>
     <message>
         <source>Unknown</source>
         <comment>plugin manager</comment>
-        <translation type="unfinished">Непознат</translation>
+        <translation type="obsolete">Непознат</translation>
+    </message>
+    <message>
+        <source>Plugin: loading %1</source>
+        <comment>plugin manager</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>init failed</source>
+        <comment>plugin load error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>unknown plugin type</source>
+        <comment>plugin load error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Plugin: %1 loaded</source>
+        <comment>plugin manager</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Plugin: %1 failed to load: %2</source>
+        <comment>plugin manager</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PostScript Files (*.eps *.EPS *.ps *.PS);;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SVG Images (*.svg *.svgz);;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SVG Images (*.svg);;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Draw (*.sxd);;</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PluginManagerPrefsGui</name>
+    <message>
+        <source>Plugin Manager</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>How to run</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation type="unfinished">Врста</translation>
+    </message>
+    <message>
+        <source>Load it?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Plugin ID</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File</source>
+        <translation type="unfinished">Фајл</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation type="unfinished">Да</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation type="unfinished">Не</translation>
+    </message>
+    <message>
+        <source>You need to restart the application to apply the changes.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11216,7 +11570,7 @@ Consider using the Preflight Checker to correct them</source>
     </message>
     <message>
         <source>Postscript Interpreter</source>
-        <translation>Postscript интерпретатор</translation>
+        <translation type="obsolete">Postscript интерпретатор</translation>
     </message>
     <message>
         <source>&amp;Name of Executable:</source>
@@ -11736,10 +12090,6 @@ UCR смањује могућност презасићености CMY маст�
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Plugin Manager</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Plugins</source>
         <translation type="unfinished"></translation>
     </message>
@@ -11749,12 +12099,6 @@ UCR смањује могућност презасићености CMY маст�
     </message>
     <message>
         <source>Turns the display of pictures on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Select your default language for Scribus to run with.
-Leave this blank to choose based on environment variables.
-You can still override this by passing a command line option when starting Scribus</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -11839,44 +12183,20 @@ If set to 0 infinite amount of actions will be stored.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Plugin</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>How to run</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Type</source>
-        <translation type="unfinished">Врста</translation>
-    </message>
-    <message>
-        <source>Load it?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Plugin ID</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Врста</translation>
     </message>
     <message>
         <source>File</source>
-        <translation type="unfinished">Фајл</translation>
+        <translation type="obsolete">Фајл</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished">Да</translation>
+        <translation type="obsolete">Да</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished">Не</translation>
-    </message>
-    <message>
-        <source>You need to restart the application to apply the changes.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the display of linked frames on or off</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Не</translation>
     </message>
     <message>
         <source>Display non-printing characters such as paragraph markers in text frames</source>
@@ -11924,6 +12244,18 @@ instance of gimp.</source>
     </message>
     <message>
         <source>Locate your image editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PostScript Interpreter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable or disable  the display of linked frames.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -11991,6 +12323,74 @@ instance of gimp.</source>
     <message>
         <source>Scribus has detected existing Scribus 1.2 preferences files.
 Do you want to migrate them to the new Scribus version?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PostScript</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Could not open preferences file &quot;%1&quot; for writing: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Writing to preferences file &quot;%1&quot; failed: QIODevice status code %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to open prefs file &quot;%1&quot;: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to read prefs XML from &quot;%1&quot;: %2 at line %3, col %4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF 1.3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF 1.4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF/X-3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error Writing Preferences</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus was not able to save its preferences:&lt;br&gt;%1&lt;br&gt;Please check file and directory permissions and available disk space.</source>
+        <comment>scribus app error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error Loading Preferences</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus was not able to load its preferences:&lt;br&gt;%1&lt;br&gt;Default settings will be loaded.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PresetLayout</name>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Ниједан</translation>
+    </message>
+    <message>
+        <source>Book</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Magazine</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You can select predefined page layout here. &apos;None&apos; leave margins as is, &apos;Book&apos; sets margins classically (Gutenberg). &apos;Book&apos; is proposed for two-sided documents. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -12537,7 +12937,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Document</source>
-        <translation>Документ</translation>
+        <translation type="obsolete">Документ</translation>
     </message>
     <message>
         <source>Background</source>
@@ -12563,7 +12963,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>New &amp;from Template...</source>
-        <translation>Нови &amp;из шаблона...</translation>
+        <translation type="obsolete">Нови &amp;из шаблона...</translation>
     </message>
     <message>
         <source>Template: </source>
@@ -12659,7 +13059,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Save as &amp;Image...</source>
-        <translation>Сними као &amp;слику...</translation>
+        <translation type="obsolete">Сними као &amp;слику...</translation>
     </message>
     <message>
         <source>Save as Image</source>
@@ -12703,11 +13103,11 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Print Previe&amp;w</source>
-        <translation type="unfinished">Прегл&amp;ед за штампање</translation>
+        <translation type="obsolete">Прегл&amp;ед за штампање</translation>
     </message>
     <message>
         <source>Import &amp;EPS/PS...</source>
-        <translation>Увези &amp;EPS/PS...</translation>
+        <translation type="obsolete">Увези &amp;EPS/PS...</translation>
     </message>
     <message>
         <source>All Supported Formats (*.eps *.EPS *.ps *.PS);;</source>
@@ -12719,7 +13119,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Save as &amp;Template...</source>
-        <translation>Сними као &amp;шаблон...</translation>
+        <translation type="obsolete">Сними као &amp;шаблон...</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to load image into an object doesn&apos;t exist or isn&apos;t selected!</source>
@@ -12747,7 +13147,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>S&amp;cripter Manual...</source>
-        <translation>S&amp;cripter приручник...</translation>
+        <translation type="obsolete">S&amp;cripter приручник...</translation>
     </message>
     <message>
         <source>&amp;Scribus Scripts</source>
@@ -12771,7 +13171,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Online Reference</source>
-        <translation>Веб референца</translation>
+        <translation type="obsolete">Веб референца</translation>
     </message>
     <message>
         <source>Python Scripts (*.py);; All Files (*)</source>
@@ -12779,7 +13179,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Save Page as &amp;SVG...</source>
-        <translation>Сними страницу као &amp;SVG...</translation>
+        <translation type="obsolete">Сними страницу као &amp;SVG...</translation>
     </message>
     <message>
         <source>Save as</source>
@@ -12795,7 +13195,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Import &amp;SVG...</source>
-        <translation>Увези &amp;SVG...</translation>
+        <translation type="obsolete">Увези &amp;SVG...</translation>
     </message>
     <message>
         <source>Comma Separated Value Files</source>
@@ -13068,10 +13468,6 @@ External Links
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Import &amp;OpenOffice.org Draw...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>OpenOffice.org Draw (*.sxd);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -13091,11 +13487,6 @@ External Links
     </message>
     <message>
         <source>Standard configuration: </source>
-        <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Short &amp;Words...</source>
         <comment>short words plugin</comment>
         <translation type="unfinished"></translation>
     </message>
@@ -13865,12 +14256,8 @@ Do you want to replace it with the file you are saving?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Color Wheel...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Fonts Preview...</source>
-        <translation type="unfinished">Преглед &amp;фонтова...</translation>
+        <translation type="obsolete">Преглед &amp;фонтова...</translation>
     </message>
     <message>
         <source>Document Template: </source>
@@ -13961,6 +14348,74 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>OpenDocument Text Documents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy #%1 of </source>
+        <translation type="unfinished">Копија #%1 од</translation>
+    </message>
+    <message>
+        <source>Black</source>
+        <translation type="unfinished">Црна</translation>
+    </message>
+    <message>
+        <source>Cyan</source>
+        <translation type="unfinished">Цијан</translation>
+    </message>
+    <message>
+        <source>Magenta</source>
+        <translation type="unfinished">Магента</translation>
+    </message>
+    <message>
+        <source>Yellow</source>
+        <translation type="unfinished">Жута</translation>
+    </message>
+    <message>
+        <source>Color Wheel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font Preview</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>My Plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New From Template</source>
+        <translation type="unfinished">Нови из шаблона</translation>
+    </message>
+    <message>
+        <source>Export As Image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PS/EPS Importer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save As Template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scripter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Short Words</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SVG Export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SVG Import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Draw Importer</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -14331,10 +14786,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Turns the of linked frames on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Turns the display of frames on or off</source>
         <translation type="unfinished"></translation>
     </message>
@@ -14413,6 +14864,10 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Adjusting Colors</source>
         <translation type="unfinished">Прилагођавам боје</translation>
+    </message>
+    <message>
+        <source>Enable or disable the display of linked text frames.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14535,7 +14990,28 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
 </context>
 <context>
-    <name>ScImportExportPlugin</name>
+    <name>SVGExportPlugin</name>
+    <message>
+        <source>Save Page as &amp;SVG...</source>
+        <translation type="unfinished">Сними страницу као &amp;SVG...</translation>
+    </message>
+</context>
+<context>
+    <name>SVGImportPlugin</name>
+    <message>
+        <source>Import &amp;SVG...</source>
+        <translation type="unfinished">Увези &amp;SVG...</translation>
+    </message>
+</context>
+<context>
+    <name>SaveAsTemplatePlugin</name>
+    <message>
+        <source>Save as &amp;Template...</source>
+        <translation type="unfinished">Сними као &amp;шаблон...</translation>
+    </message>
+</context>
+<context>
+    <name>ScActionPlugin</name>
     <message>
         <source>Could not find target file %1: %2</source>
         <comment>plugins</comment>
@@ -14545,6 +15021,29 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <source>Could not open target file %1: %2</source>
         <comment>plugins</comment>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ScPlugin</name>
+    <message>
+        <source>Persistent</source>
+        <comment>plugin manager plugin type</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import</source>
+        <comment>plugin manager plugin type</comment>
+        <translation type="unfinished">Увези</translation>
+    </message>
+    <message>
+        <source>Export</source>
+        <comment>plugin manager plugin type</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Action</source>
+        <comment>plugin manager plugin type</comment>
+        <translation type="unfinished">Акција</translation>
     </message>
 </context>
 <context>
@@ -15362,11 +15861,11 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>&amp;Cascade</source>
-        <translation>&amp;Наслажи</translation>
+        <translation type="obsolete">&amp;Наслажи</translation>
     </message>
     <message>
         <source>&amp;Tile</source>
-        <translation>Поп&amp;лочај</translation>
+        <translation type="obsolete">Поп&amp;лочај</translation>
     </message>
     <message>
         <source>None</source>
@@ -15598,7 +16097,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Some Objects are locked.</source>
-        <translation>Неки објекти су закључани.</translation>
+        <translation type="obsolete">Неки објекти су закључани.</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -15730,7 +16229,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Choose a Directory</source>
-        <translation>Изаберите директоријум</translation>
+        <translation type="obsolete">Изаберите директоријум</translation>
     </message>
     <message>
         <source>Invert</source>
@@ -15758,7 +16257,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Postscript</source>
-        <translation type="unfinished">Postscript</translation>
+        <translation type="obsolete">Postscript</translation>
     </message>
     <message>
         <source>&amp;Redo</source>
@@ -15797,41 +16296,11 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Postscript Files (*.eps *.EPS *.ps *.PS);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>SVG Images (*.svg *.svgz);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>SVG Images (*.svg);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>File %1 
-is not in an acceptable format</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source> was replaced by: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>(converted)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Detected some Errors.
-Consider using the Preflight Checker to correct them</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Abort</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ignore</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -15845,11 +16314,6 @@ Consider using the Preflight Checker to correct them</source>
     <message>
         <source>Cannot write the file: 
 %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Detected some Errors.
-Consider using the Preflight Verifier to correct them</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -15873,16 +16337,12 @@ Consider using the Preflight Verifier to correct them</source>
         <translation type="obsolete">Програм</translation>
     </message>
     <message>
-        <source>is already running!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Information</source>
         <translation type="unfinished">Информација</translation>
     </message>
     <message>
         <source>is missing!</source>
-        <translation type="unfinished">недостаје!</translation>
+        <translation type="obsolete">недостаје!</translation>
     </message>
     <message>
         <source>Initializing Keyboard Shortcuts</source>
@@ -15945,10 +16405,6 @@ Consider using the Preflight Verifier to correct them</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>OpenOffice.org Draw (*.sxd);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Some fonts used by this document have been substituted:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -15977,19 +16433,6 @@ Consider using the Preflight Verifier to correct them</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Collecting...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot collect all files for output for file:
-%1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The program</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>The selected color does not exist in the document&apos;s color set. Please enter a name for this new color.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -16013,6 +16456,65 @@ Consider using the Preflight Verifier to correct them</source>
         <source>Previe&amp;w Settings</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>File %1 is not in an acceptable format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PostScript</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus has detected some errors.
+Consider using the Pre-flight Checker to correct them</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Abort</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Ignore</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation type="unfinished">Име:</translation>
+    </message>
+    <message>
+        <source>New MasterPage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Master Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus detected some errors.
+Consider using the Preflight Verifier  to correct them.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Detected some errors.
+Consider using the Preflight Verifier to correct them</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-Page%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Some objects are locked.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The program %1 is already running!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The program %1 is missing!</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusDoc</name>
@@ -16023,6 +16525,14 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <source>Normal</source>
         <translation type="unfinished">Нормално</translation>
+    </message>
+    <message>
+        <source>Document</source>
+        <translation type="unfinished">Документ</translation>
+    </message>
+    <message>
+        <source>Background</source>
+        <translation type="unfinished">Позадина</translation>
     </message>
 </context>
 <context>
@@ -16265,7 +16775,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Do you really want to clear all your Text?</source>
-        <translation type="unfinished">Да ли стварно желите да очистите сав текст?</translation>
+        <translation type="obsolete">Да ли стварно желите да очистите сав текст?</translation>
     </message>
     <message>
         <source>None</source>
@@ -16284,15 +16794,27 @@ Consider using the Preflight Verifier to correct them</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>There is a problem with text frames linking. You are trying to link filled frames or a frame to the same one itself</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Cannot Delete In-Use Item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are trying to link to a filled frame, or a frame to itself.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do you really want to clear all your text?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot Convert In-Use Item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -16325,6 +16847,17 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Откажи</translation>
+    </message>
+</context>
+<context>
+    <name>ScriptPlugin</name>
+    <message>
+        <source>Embedded Python scripting support.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scripter</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16407,6 +16940,25 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <source>Advanced Options</source>
         <translation type="obsolete">Напредне опције</translation>
+    </message>
+</context>
+<context>
+    <name>ScripterPrefsGui</name>
+    <message>
+        <source>Scripter Preferences</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Extension Scripts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable Extension Scripts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Startup Script</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16665,6 +17217,14 @@ drag a Template to the Pageview below.</source>
     </message>
 </context>
 <context>
+    <name>ShortWordsPlugin</name>
+    <message>
+        <source>Short &amp;Words...</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SideBar</name>
     <message>
         <source>No Style</source>
@@ -16734,7 +17294,7 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Do you really want to delete this Style?</source>
-        <translation>Да ли стварно желите да обришете овај стил?</translation>
+        <translation type="obsolete">Да ли стварно желите да обришете овај стил?</translation>
     </message>
     <message>
         <source>No</source>
@@ -16759,6 +17319,10 @@ drag a Template to the Pageview below.</source>
     <message>
         <source>&amp;Import</source>
         <translation type="unfinished">&amp;Увези</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this style?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -18161,6 +18725,10 @@ If you selected PDF 1.4, the PDF will be protected by 128 bit encryption.
 Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Convert Spot Colors to Process Colors</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabTools</name>
@@ -18442,6 +19010,18 @@ Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does 
     </message>
     <message>
         <source>Custom: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text Color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shading:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text Stroke:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

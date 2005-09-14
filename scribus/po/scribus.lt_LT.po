@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-22 02:29+0200\n"
+"POT-Creation-Date: 2005-09-14 09:28+0200\n"
 "PO-Revision-Date: 2002-04-20 22:57GMT\n"
 "Last-Translator: Aivaras Kirejevas <kiras@mail.lt>\n"
 "Language-Team: Lithuanian\n"
@@ -136,7 +136,7 @@ msgid "Path to Font File"
 msgstr "Ðriftu saugojimo vieta"
 
 #, fuzzy
-msgid "Postscript"
+msgid "PostScript"
 msgstr "Portretui"
 
 #, fuzzy
@@ -303,6 +303,18 @@ msgstr ""
 
 msgid "Size:"
 msgstr "Dydis:"
+
+#, fuzzy
+msgid "Text Color:"
+msgstr "Iðtrinti spalvà"
+
+#, fuzzy
+msgid "Shading:"
+msgstr "Su ðeðëliu:"
+
+#, fuzzy
+msgid "Text Stroke:"
+msgstr "Klaviðas:"
 
 msgid "Fill Color:"
 msgstr "Uþpildo spalva:"
@@ -630,6 +642,40 @@ msgid "Delete all Tabulators"
 msgstr "Iðtrinti spalvà"
 
 #, fuzzy
+msgid "Plugin Manager"
+msgstr "Spausdinimo eiliðkumas"
+
+#, fuzzy
+msgid "Plugin"
+msgstr "Paprastas"
+
+msgid "How to run"
+msgstr ""
+
+msgid "Type"
+msgstr "Tipas"
+
+#, fuzzy
+msgid "Load it?"
+msgstr "Ruoðiama..."
+
+#, fuzzy
+msgid "Plugin ID"
+msgstr "Paprastas"
+
+msgid "File"
+msgstr "Failas"
+
+msgid "Yes"
+msgstr "Taip"
+
+msgid "No"
+msgstr "Ne"
+
+msgid "You need to restart the application to apply the changes."
+msgstr ""
+
+#, fuzzy
 msgid "Document"
 msgstr "Dokumentas "
 
@@ -758,11 +804,12 @@ msgid ""
 msgstr ""
 
 #, fuzzy
+msgid "Copy #%1 of "
+msgstr "Kopijuoti "
+
+#, fuzzy
 msgid "Name"
 msgstr "Pavadinimas:"
-
-msgid "Type"
-msgstr "Tipas"
 
 #, fuzzy
 msgid "Value"
@@ -856,12 +903,6 @@ msgstr ""
 
 msgid "Mirror"
 msgstr ""
-
-msgid "No"
-msgstr "Ne"
-
-msgid "Yes"
-msgstr "Taip"
 
 #, fuzzy
 msgid "Orientation"
@@ -1350,6 +1391,18 @@ msgid "String"
 msgstr "Pelës nuostatos"
 
 #, fuzzy
+msgid "Collecting..."
+msgstr "Ruoðiama..."
+
+msgid "Warning"
+msgstr "Dëmesio!"
+
+msgid ""
+"Cannot collect all files for output for file:\n"
+"%1"
+msgstr ""
+
+#, fuzzy
 msgid "Manage Tabulators"
 msgstr "Priþiûrëti paveiksliukus"
 
@@ -1440,16 +1493,11 @@ msgstr "Pakeisti á"
 msgid "Linking Text Frames"
 msgstr "Teksto rëmelis"
 
-msgid ""
-"There is a problem with text frames linking. You are trying to link filled "
-"frames or a frame to the same one itself"
+msgid "You are trying to link to a filled frame, or a frame to itself."
 msgstr ""
 
-msgid "Warning"
-msgstr "Dëmesio!"
-
 #, fuzzy
-msgid "Do you really want to clear all your Text?"
+msgid "Do you really want to clear all your text?"
 msgstr "Ar tu tikrai labai nori paðalinti stiliø?"
 
 msgid "Cannot Delete In-Use Item"
@@ -1458,6 +1506,14 @@ msgstr ""
 msgid ""
 "The item %1 is currently being edited by Story Editor. The delete operation "
 "will be cancelled"
+msgstr ""
+
+msgid "Cannot Convert In-Use Item"
+msgstr ""
+
+msgid ""
+"The item %1 is currently being edited by Story Editor. The convert to "
+"outlines operation for this item will be skipped"
 msgstr ""
 
 msgid "Ignore all errors"
@@ -1525,26 +1581,45 @@ msgid "Cannot find symbol (%1)"
 msgstr ""
 
 #, fuzzy
-msgid "Persistent"
-msgstr "Spausdinti"
+msgid "Plugin: loading %1"
+msgstr "Spausdinimo eiliðkumas"
 
 #, fuzzy
-msgid "Import"
-msgstr "Importuoti..."
+msgid "init failed"
+msgstr "Spausdinimas nutrauktas"
+
+msgid "unknown plugin type"
+msgstr ""
+
+msgid "Plugin: %1 loaded"
+msgstr ""
+
+msgid "Plugin: %1 failed to load: %2"
+msgstr ""
 
 #, fuzzy
-msgid "Standard"
-msgstr "Þvaigþdë"
+msgid "PostScript Files (*.eps *.EPS *.ps *.PS);;"
+msgstr "JavaScript (*.js);; Visi failai (*)"
 
-msgid "Unknown"
-msgstr "Neþinomas"
+#, fuzzy
+msgid "SVG Images (*.svg *.svgz);;"
+msgstr "Kiðenë (*.scs);; Visi failai (*)"
+
+#, fuzzy
+msgid "SVG Images (*.svg);;"
+msgstr "Dokumentai (*.sdc);; Visi failai (*)"
+
+#, fuzzy
+msgid "OpenOffice.org Draw (*.sxd);;"
+msgstr "Tekstinis failas (*.txt);;Visi failai (*)"
+
+#, fuzzy
+msgid "%1 of %1"
+msgstr "Kopijuoti "
 
 #, fuzzy
 msgid "%1 of %2"
 msgstr "Kopijuoti "
-
-msgid " of %1"
-msgstr ""
 
 #, fuzzy
 msgid "Icon Placement"
@@ -2016,8 +2091,9 @@ msgstr ""
 msgid "Display"
 msgstr "Rodyti"
 
-msgid "Postscript Interpreter"
-msgstr ""
+#, fuzzy
+msgid "PostScript Interpreter"
+msgstr "Skr&iptas"
 
 #, fuzzy
 msgid "&Name of Executable:"
@@ -2079,35 +2155,10 @@ msgid "Miscellaneous"
 msgstr ""
 
 #, fuzzy
-msgid "Plugin Manager"
-msgstr "Spausdinimo eiliðkumas"
-
-#, fuzzy
-msgid "Plugin"
-msgstr "Paprastas"
-
-msgid "How to run"
-msgstr ""
-
-#, fuzzy
-msgid "Load it?"
-msgstr "Ruoðiama..."
-
-#, fuzzy
-msgid "Plugin ID"
-msgstr "Paprastas"
-
-msgid "File"
-msgstr "Failas"
-
-msgid "You need to restart the application to apply the changes."
-msgstr ""
-
-#, fuzzy
 msgid "Plugins"
 msgstr "Paprastas"
 
-msgid "Turns the display of linked frames on or off"
+msgid "Enable or disable  the display of linked frames."
 msgstr ""
 
 msgid ""
@@ -2121,10 +2172,9 @@ msgid "Turns the display of pictures on or off"
 msgstr ""
 
 msgid ""
-"Select your default language for Scribus to run with.\n"
-"Leave this blank to choose based on environment variables.\n"
-"You can still override this by passing a command line option when starting "
-"Scribus"
+"Select your default language for Scribus to run with. Leave this blank to "
+"choose based on environment variables. You can still override this by "
+"passing a command line option when starting Scribus"
 msgstr ""
 
 msgid ""
@@ -2321,10 +2371,6 @@ msgstr ""
 msgid "element <lpiSettingsEntry> lacks `name' attribute"
 msgstr ""
 
-#, fuzzy
-msgid "Copy #%1 of "
-msgstr "Kopijuoti "
-
 msgid "Delete Pages"
 msgstr "Iðplëðti puslapius"
 
@@ -2488,9 +2534,18 @@ msgstr "Iðsaugoti kaip PDF..."
 msgid "O&utput to File:"
 msgstr "Iðvesti á failà:"
 
+msgid "Output one file for eac&h page"
+msgstr ""
+
 #, fuzzy
 msgid "&Save"
 msgstr "Iðsaugoti"
+
+msgid ""
+"This enables exporting one individually named PDF file for each page in the "
+"document. Page numbers are added automatically. This is most useful for "
+"imposing PDF for commerical printing."
+msgstr ""
 
 msgid "Save as"
 msgstr "Iðsaugoti kitu vardu"
@@ -2637,6 +2692,114 @@ msgid "memcpy offset: %1 %2 %3"
 msgstr ""
 
 #, fuzzy
+msgid "Print Preview"
+msgstr "Pasiþiûrëti kaip atrodys"
+
+msgid "Anti-alias &Text"
+msgstr ""
+
+msgid "Anti-alias &Graphics"
+msgstr ""
+
+#, fuzzy
+msgid "Display Trans&parency"
+msgstr "Rodyti rëmelius"
+
+msgid "&Under Color Removal"
+msgstr ""
+
+#, fuzzy
+msgid "&Display CMYK"
+msgstr "Rodyti"
+
+msgid "&C"
+msgstr ""
+
+msgid "&M"
+msgstr ""
+
+#, fuzzy
+msgid "&Y"
+msgstr "Taip"
+
+#, fuzzy
+msgid "&K"
+msgstr "Tinka!"
+
+#, fuzzy
+msgid "Separation Name"
+msgstr "Sodrumas"
+
+msgid "Cyan"
+msgstr ""
+
+msgid "Magenta"
+msgstr ""
+
+#, fuzzy
+msgid "Yellow"
+msgstr "Po:"
+
+#, fuzzy
+msgid "Black"
+msgstr "Riboti"
+
+#, fuzzy
+msgid "Scaling:"
+msgstr "Dydis:"
+
+msgid "Print..."
+msgstr "Spausdinti..."
+
+msgid ""
+"Provides a more pleasant view of text items in the viewer, at the expense of "
+"a slight slowdown in previewing. This only affects Type 1 fonts"
+msgstr ""
+
+msgid ""
+"Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF "
+"and vector graphics in the preview, at the expense of a slight slowdown in "
+"previewing"
+msgstr ""
+
+msgid ""
+"Shows transparency and transparent items in your document. Requires "
+"Ghostscript 7.07 or later"
+msgstr ""
+
+msgid ""
+"Gives a print preview using simulations of generic CMYK inks, instead of RGB "
+"colors"
+msgstr ""
+
+msgid ""
+"A way of switching off some of the gray shades which are composed of cyan, "
+"yellow and magenta and using black instead. UCR most affects parts of images "
+"which are neutral and/or dark tones which are close to the gray. Use of this "
+"may improve printing some images and some experimentation and testing is "
+"need on a case by case basis. UCR reduces the possibility of over saturation "
+"with CMY inks."
+msgstr ""
+
+msgid "Resize the scale of the page."
+msgstr ""
+
+msgid "Enable/disable the C (Cyan) ink plate"
+msgstr ""
+
+msgid "Enable/disable the M (Magenta) ink plate"
+msgstr ""
+
+msgid "Enable/disable the Y (Yellow) ink plate"
+msgstr ""
+
+msgid "Enable/disable the K (Black) ink plate"
+msgstr ""
+
+msgid "All"
+msgstr "Viskà"
+
+#, fuzzy
 msgid "Select Lorem Ipsum"
 msgstr "Paþymëti objekts"
 
@@ -2659,6 +2822,9 @@ msgstr ""
 
 msgid "DPI"
 msgstr ""
+
+msgid "Unknown"
+msgstr "Neþinomas"
 
 msgid "RGB"
 msgstr ""
@@ -3222,6 +3388,9 @@ msgstr ""
 msgid "Printer"
 msgstr "Spausdintuvas"
 
+msgid "Convert Spot Colors to Process Colors"
+msgstr ""
+
 msgid "&Use Custom Rendering Settings"
 msgstr ""
 
@@ -3565,6 +3734,40 @@ msgid ""
 "Do you want to migrate them to the new Scribus version?"
 msgstr ""
 
+msgid "Could not open preferences file \"%1\" for writing: %2"
+msgstr ""
+
+msgid "Writing to preferences file \"%1\" failed: QIODevice status code %2"
+msgstr ""
+
+msgid "Failed to open prefs file \"%1\": %2"
+msgstr ""
+
+msgid "Failed to read prefs XML from \"%1\": %2 at line %3, col %4"
+msgstr ""
+
+#, fuzzy
+msgid "Postscript"
+msgstr "Portretui"
+
+#, fuzzy
+msgid "Error Writing Preferences"
+msgstr "Parinktys"
+
+msgid ""
+"Scribus was not able to save its preferences:<br>%1<br>Please check file and "
+"directory permissions and available disk space."
+msgstr ""
+
+#, fuzzy
+msgid "Error Loading Preferences"
+msgstr "Parinktys"
+
+msgid ""
+"Scribus was not able to load its preferences:<br>%1<br>Default settings will "
+"be loaded."
+msgstr ""
+
 msgid "New Document"
 msgstr "Naujas dokumentas"
 
@@ -3638,22 +3841,6 @@ msgstr "Dokumentai (*.sdc);; Visi failai (*)"
 msgid "Documents (*.sla *.scd);;"
 msgstr "Dokumentai (*.sdc);; Visi failai (*)"
 
-#, fuzzy
-msgid "Postscript Files (*.eps *.EPS *.ps *.PS);;"
-msgstr "JavaScript (*.js);; Visi failai (*)"
-
-#, fuzzy
-msgid "SVG Images (*.svg *.svgz);;"
-msgstr "Kiðenë (*.scs);; Visi failai (*)"
-
-#, fuzzy
-msgid "SVG Images (*.svg);;"
-msgstr "Dokumentai (*.sdc);; Visi failai (*)"
-
-#, fuzzy
-msgid "OpenOffice.org Draw (*.sxd);;"
-msgstr "Tekstinis failas (*.txt);;Visi failai (*)"
-
 msgid "Open"
 msgstr "Atidaryti"
 
@@ -3698,10 +3885,6 @@ msgstr ""
 msgid "Set the transparency for the color selected"
 msgstr ""
 
-#, fuzzy
-msgid "Color of selected object"
-msgstr "Atðaukti objekto paðalinimà"
-
 msgid ""
 "Move the start of the gradient vector with the left mouse button pressed and "
 "move the end of the gradient vector with the right mouse button pressed"
@@ -3732,7 +3915,7 @@ msgstr "Informacija"
 msgid "Minimum Scratch Space"
 msgstr "Vertikalûs tarpai"
 
-msgid "Turns the of linked frames on or off"
+msgid "Enable or disable the display of linked text frames."
 msgstr ""
 
 msgid "Adjusting Colors"
@@ -3888,7 +4071,8 @@ msgstr "Pagrindinis paþymëjus"
 msgid "Editable"
 msgstr "Keièiamas"
 
-msgid "Java Script"
+#, fuzzy
+msgid "JavaScript"
 msgstr "Java Script"
 
 msgid "Go To"
@@ -4076,7 +4260,8 @@ msgstr "Ávesti kableliu atskirtà sàraðà ið laukeliø èia"
 msgid "You need at least the Icon for Normal to use Icons for Buttons"
 msgstr "Reiktu turëti nors paprastus þenkliukus mygtukams"
 
-msgid "Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)"
+#, fuzzy
+msgid "Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)"
 msgstr ""
 "Taðkinë grafika (*.tif *.png *.jpg *.xpm);;Vektorinë grafika (*.eps);;Visi "
 "failai (*)"
@@ -4147,6 +4332,10 @@ msgid "&Print..."
 msgstr "Spausdinti..."
 
 #, fuzzy
+msgid "Print Previe&w"
+msgstr "Pasiþiûrëti kaip atrodys"
+
+#, fuzzy
 msgid "&Quit"
 msgstr "Nutraukti darbus"
 
@@ -4193,7 +4382,7 @@ msgid "&Master Pages..."
 msgstr "po puslapio"
 
 #, fuzzy
-msgid "&Javascripts..."
+msgid "&JavaScripts..."
 msgstr "Java Script"
 
 #, fuzzy
@@ -4433,6 +4622,10 @@ msgid "&Apply Master Page..."
 msgstr "Pritaikyti ðablonà..."
 
 #, fuzzy
+msgid "Convert to Master Page..."
+msgstr "Ákelti duomenis"
+
+#, fuzzy
 msgid "Manage &Guides..."
 msgstr "Paraðèiø linijos"
 
@@ -4646,9 +4839,20 @@ msgstr ""
 msgid "&Generate Table Of Contents"
 msgstr ""
 
+msgid "&Cascade"
+msgstr ""
+
+#, fuzzy
+msgid "&Tile"
+msgstr "Antraðtë:"
+
 #, fuzzy
 msgid "&About Scribus"
 msgstr "Apie Scribus"
+
+#, fuzzy
+msgid "&About Plug-ins"
+msgstr "Paprastas"
 
 #, fuzzy
 msgid "About &Qt"
@@ -4924,6 +5128,10 @@ msgid ""
 "patent or trademark"
 msgstr ""
 
+#, fuzzy
+msgid "Preset Layouts:"
+msgstr "Iðvaizda:"
+
 msgid "Distance between the top margin guide and the edge of the page"
 msgstr ""
 
@@ -4949,6 +5157,21 @@ msgstr "Vidinë paraðtë:"
 #, fuzzy
 msgid "O&utside:"
 msgstr "Iðorinë paraðtë:"
+
+#, fuzzy
+msgid "Book"
+msgstr "Riboti"
+
+#, fuzzy
+msgid "Magazine"
+msgstr "Paraðtë:"
+
+msgid ""
+"You can select predefined page layout here. 'None' leave margins as is, "
+"'Book' sets margins classically (Gutenberg). 'Book' is proposed for two-"
+"sided documents. 'Magazine' sets all margins for same value. Leading is Left/"
+"Inside value."
+msgstr ""
 
 msgid ""
 "You can see a thumbnail if you press\n"
@@ -5083,11 +5306,13 @@ msgstr "Spalvø modelis"
 msgid "Web Safe RGB"
 msgstr ""
 
-msgid "Is Spot-Color"
+#, fuzzy
+msgid "Is Spot Color"
 msgstr "Atskira spalva"
 
-msgid "Is Registration-Color"
-msgstr ""
+#, fuzzy
+msgid "Is Registration Color"
+msgstr "Sodrumas"
 
 msgid "New"
 msgstr "Naujas"
@@ -5365,13 +5590,6 @@ msgstr "Lygiavimas"
 msgid "Ready"
 msgstr "Paruoðtas"
 
-msgid "&Cascade"
-msgstr ""
-
-#, fuzzy
-msgid "&Tile"
-msgstr "Antraðtë:"
-
 #, fuzzy
 msgid "Importing Pages..."
 msgstr "Ákelti duomenis"
@@ -5388,15 +5606,17 @@ msgid ""
 msgstr ""
 
 #, fuzzy
+msgid "Import"
+msgstr "Importuoti..."
+
+#, fuzzy
 msgid "Import done"
 msgstr "Importuoti..."
 
 msgid "Found nothing to import"
 msgstr ""
 
-msgid ""
-"File %1 \n"
-"is not in an acceptable format"
+msgid "File %1 is not in an acceptable format"
 msgstr ""
 
 msgid "Loading..."
@@ -5436,16 +5656,17 @@ msgid "Saving..."
 msgstr "Ruoðiama..."
 
 msgid ""
-"Detected some Errors.\n"
-"Consider using the Preflight Checker to correct them"
+"Scribus has detected some errors.\n"
+"Consider using the Pre-flight Checker to correct them"
 msgstr ""
 
 #, fuzzy
-msgid "Abort"
+msgid "&Abort"
 msgstr "Apie"
 
-msgid "Ignore"
-msgstr ""
+#, fuzzy
+msgid "&Ignore"
+msgstr "vietoj to"
 
 msgid "Printing..."
 msgstr "Spausdinu..."
@@ -5483,48 +5704,38 @@ msgstr "Ðios programos nerastos:"
 msgid "Ghostscript : You cannot use EPS images or Print Preview"
 msgstr "Ghostscript: negalite naudoti EPS paveiksliukø"
 
-msgid "All"
-msgstr "Viskà"
+msgid ""
+"Scribus detected some errors.\n"
+"Consider using the Preflight Verifier  to correct them."
+msgstr ""
 
 #, fuzzy
 msgid "EPS Files (*.eps);;All Files (*)"
 msgstr "Tekstinis failas (*.txt);;Visi failai (*)"
 
 msgid ""
-"Detected some Errors.\n"
+"Detected some errors.\n"
 "Consider using the Preflight Verifier to correct them"
 msgstr ""
 
-msgid "Some Objects are locked."
-msgstr ""
+#, fuzzy
+msgid "-Page%1"
+msgstr "Puslapis"
 
 #, fuzzy
 msgid "&Lock All"
 msgstr "Riboti"
 
 #, fuzzy
-msgid "Collecting..."
-msgstr "Ruoðiama..."
-
-msgid ""
-"Cannot collect all files for output for file:\n"
-"%1"
-msgstr ""
-
-#, fuzzy
-msgid "The program"
-msgstr "Programavo:"
-
-msgid "is already running!"
-msgstr ""
-
-#, fuzzy
 msgid "Information"
 msgstr "Formatavimas"
 
+msgid "The program %1 is already running!"
+msgstr ""
+
 #, fuzzy
-msgid "is missing!"
-msgstr "Neradau"
+msgid "The program %1 is missing!"
+msgstr "Ðios programos nerastos:"
 
 msgid ""
 "The selected color does not exist in the document's color set. Please enter "
@@ -5582,51 +5793,6 @@ msgstr "Perbrauktas"
 msgid "Shadow"
 msgstr "Ðeðëlis"
 
-#, fuzzy
-msgid "Advanced Options"
-msgstr "Failo parinktys"
-
-msgid "Mirror Page(s) &Horizontal"
-msgstr ""
-
-msgid "Mirror Page(s) &Vertical"
-msgstr ""
-
-msgid "Apply Under Color &Removal"
-msgstr ""
-
-msgid "Set Media Size"
-msgstr ""
-
-#, fuzzy
-msgid "Apply &ICC Profiles"
-msgstr "Sistemos ðablonai"
-
-#, fuzzy
-msgid "PostScript Level &1"
-msgstr "Portretui"
-
-#, fuzzy
-msgid "PostScript Level &2"
-msgstr "Portretui"
-
-#, fuzzy
-msgid "PostScript Level &3"
-msgstr "Portretui"
-
-msgid "Creates PostScript Level 3"
-msgstr ""
-
-msgid ""
-"Creates PostScript Level 2 only, beware,\n"
-"this can create huge files"
-msgstr ""
-
-msgid ""
-"Creates PostScript Level 1 only, beware,\n"
-"this can create huge files"
-msgstr ""
-
 msgid "Setup Printer"
 msgstr "Spausdintuvo nuostatos"
 
@@ -5645,11 +5811,6 @@ msgstr "Failas:"
 #, fuzzy
 msgid "A&lternative Printer Command"
 msgstr "Spausdinti naudojant kità komandà"
-
-msgid ""
-"Use an alternative print manager, such as kprinter or gtklp,\n"
-"to utilize additional printing options"
-msgstr ""
 
 #, fuzzy
 msgid "Co&mmand:"
@@ -5676,45 +5837,74 @@ msgid "N&umber of Copies:"
 msgstr "Kopijø skaièius:"
 
 #, fuzzy
-msgid "Print &Normal"
+msgid "Print Normal"
 msgstr "Spausdinti paprastai"
 
 #, fuzzy
-msgid "Print &Separations"
+msgid "Print Separations"
 msgstr "Spausdinti skaidant spalvas"
 
-msgid "Cyan"
-msgstr ""
-
-msgid "Magenta"
-msgstr ""
-
 #, fuzzy
-msgid "Yellow"
-msgstr "Po:"
-
-#, fuzzy
-msgid "Black"
-msgstr "Riboti"
-
-#, fuzzy
-msgid "Pr&int In Color If Available"
+msgid "Print in Color if Available"
 msgstr "Jei ámanoma, spausdinti visas spalvas"
 
 #, fuzzy
-msgid "Print In Gra&yscale"
+msgid "Print in Grayscale"
 msgstr "Spausdinti nespalvotai"
 
 #, fuzzy
-msgid "Ad&vanced Options..."
+msgid "PostScript Level 1"
+msgstr "Portretui"
+
+#, fuzzy
+msgid "PostScript Level 2"
+msgstr "Portretui"
+
+#, fuzzy
+msgid "PostScript Level 3"
+msgstr "Portretui"
+
+#, fuzzy
+msgid "Mirror Page(s) Horizontal"
+msgstr "Apversk horizontaliai"
+
+msgid "Mirror Page(s) Vertical"
+msgstr ""
+
+msgid "Set Media Size"
+msgstr ""
+
+msgid "Apply Under Color Removal"
+msgstr ""
+
+#, fuzzy
+msgid "Apply ICC Profiles"
+msgstr "Sistemos ðablonai"
+
+#, fuzzy
+msgid "Advanced Options"
 msgstr "Failo parinktys"
+
+#, fuzzy
+msgid "Preview..."
+msgstr "Pasiþiûrëti kaip atrodys"
 
 #, fuzzy
 msgid "&Print"
 msgstr "Spausdinti"
 
+msgid ""
+"Use an alternative print manager, such as kprinter or gtklp,\n"
+"to utilize additional printing options"
+msgstr ""
+
+msgid ""
+"Sets the PostScript Level.\n"
+" Setting to Level 1 or 2 can create huge files"
+msgstr ""
+
 #, fuzzy
-msgid "Postscript Files (*.ps);;All Files (*)"
+msgid "PostScript Files (*.ps);;All Files (*)"
 msgstr "JavaScript (*.js);; Visi failai (*)"
 
 msgid "Insert Page"
@@ -6135,8 +6325,9 @@ msgstr "Kontûras"
 msgid ""
 "This panel shows the version, build date and compiled in library support in "
 "Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support "
-"F=Fontconfig support. Missing library support is indicated by a * This also "
-"indicates the version of Ghostscript which Scribus has detected."
+"F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart "
+"Missing library support is indicated by a * This also indicates the version "
+"of Ghostscript which Scribus has detected."
 msgstr ""
 
 #, fuzzy
@@ -7000,6 +7191,14 @@ msgstr "Po paskutinio iðsaugojimo dokumente padaryti pakeitimai."
 msgid "&Save Now"
 msgstr "Iðsaugoti tuoj pat"
 
+#, fuzzy
+msgid "Persistent"
+msgstr "Spausdinti"
+
+#, fuzzy
+msgid "Export"
+msgstr "Eksportuoti..."
+
 msgid "Could not find target file %1: %2"
 msgstr ""
 
@@ -7019,8 +7218,9 @@ msgid "Font Substitution"
 msgstr "Pelës nuostatos"
 
 msgid ""
-"This document contains some fonts that are not installed on your system,\n"
-"please choose a suitable replacement for them."
+"This document contains some fonts that are not installed on your system, "
+"please choose a suitable replacement for them. Cancel will stop the document "
+"from loading."
 msgstr ""
 
 #, fuzzy
@@ -7031,6 +7231,20 @@ msgid "Substitution Font"
 msgstr ""
 
 msgid "Make these substitutions permanent"
+msgstr ""
+
+msgid "Cancels these font substitutions and stops loading the document."
+msgstr ""
+
+msgid ""
+"Enabling this tells Scribus to use these replacements for missing \t\t\t\t\t"
+"\tfonts permanently in all future layouts. This can be reverted or changed \t"
+"\t\t\t\t\tin Edit > Preferences > Fonts."
+msgstr ""
+
+msgid ""
+"If you select OK, then save, these substitutions are made permanent in the \t"
+"\t\t\t\t\tdocument."
 msgstr ""
 
 msgid "Show Page Previews"
@@ -7205,10 +7419,6 @@ msgid "Do you really want to lose all your changes?"
 msgstr "Ar tu tikrai labai nori paðalinti stiliø?"
 
 #, fuzzy
-msgid "Do you really want to clear all your text?"
-msgstr "Ar tu tikrai labai nori paðalinti stiliø?"
-
-#, fuzzy
 msgid "Glyphs missing"
 msgstr "Neradau"
 
@@ -7275,7 +7485,7 @@ msgid "&Get Field Names"
 msgstr "Gauti laukelio pavadinimus"
 
 #, fuzzy
-msgid "Javascripts (*.js);;All Files (*)"
+msgid "JavaScripts (*.js);;All Files (*)"
 msgstr "JavaScript (*.js);; Visi failai (*)"
 
 msgid "Move Bookmark"
@@ -7294,6 +7504,10 @@ msgstr "Galimi ðriftai:"
 
 msgid "Edit Styles"
 msgstr "Keisti stilius"
+
+#, fuzzy
+msgid "Do you really want to delete this style?"
+msgstr "Ar tu tikrai labai nori paðalinti stiliø?"
 
 #, fuzzy
 msgid "Common Settings"
@@ -7507,10 +7721,10 @@ msgstr ""
 msgid "Use &Blackpoint Compensation"
 msgstr ""
 
-msgid "Default color profile for imported cmyk images"
+msgid "Default color profile for imported CMYK images"
 msgstr ""
 
-msgid "Default color profile for imported rgb images"
+msgid "Default color profile for imported RGB images"
 msgstr ""
 
 msgid "Default color profile for solid colors on the page"
@@ -7829,6 +8043,42 @@ msgid "page"
 msgstr "Puslapis"
 
 #, fuzzy
+msgid "Scribus: About Plug-ins"
+msgstr "Nuosavas skriptas"
+
+#, fuzzy
+msgid "File Name:"
+msgstr "Failo &vardas:"
+
+#, fuzzy
+msgid "Version:"
+msgstr "Skiriamoji geba:"
+
+#, fuzzy
+msgid "Enabled:"
+msgstr "Keièiamas"
+
+#, fuzzy
+msgid "Release Date:"
+msgstr "Iðplëðti puslapá:"
+
+#, fuzzy
+msgid "Copyright:"
+msgstr "Kopijuoti"
+
+#, fuzzy
+msgid "Author(s):"
+msgstr "Autorius:"
+
+#, fuzzy
+msgid "Description:"
+msgstr "Komentarai:"
+
+#, fuzzy
+msgid "License:"
+msgstr "Linija"
+
+#, fuzzy
 msgid "New From Template"
 msgstr "Naujas ðablonas"
 
@@ -7999,6 +8249,10 @@ msgstr "Dokumento puslapiai:"
 msgid "Short &Words..."
 msgstr "Parinktys..."
 
+#, fuzzy
+msgid "Short Words"
+msgstr "Rodyti pagalbines linijas"
+
 msgid "Short Words processing. Wait please..."
 msgstr ""
 
@@ -8024,10 +8278,6 @@ msgstr "Naudoti paveiksliukà..."
 #, fuzzy
 msgid "&Info and Languages..."
 msgstr "Eilë:"
-
-#, fuzzy
-msgid "Short Words"
-msgstr "Rodyti pagalbines linijas"
 
 msgid "Apply unbreakable space on:"
 msgstr ""
@@ -8099,6 +8349,10 @@ msgid "Save as &Template..."
 msgstr "Iðsaugoti kaip tekstà..."
 
 #, fuzzy
+msgid "Save As Template"
+msgstr "Naujas ðablonas"
+
+#, fuzzy
 msgid "Save as Template"
 msgstr "Naujas ðablonas"
 
@@ -8140,8 +8394,20 @@ msgid "Import &OpenOffice.org Draw..."
 msgstr ""
 
 #, fuzzy
+msgid "OpenOffice.org Draw Importer"
+msgstr "Kitos parinktys"
+
+#, fuzzy
 msgid "OpenOffice.org Draw (*.sxd);;All Files (*)"
 msgstr "Tekstinis failas (*.txt);;Visi failai (*)"
+
+#, fuzzy
+msgid "&Font Preview..."
+msgstr "Pasiþiûrëti kaip atrodys"
+
+#, fuzzy
+msgid "Font Preview"
+msgstr "Pasiþiûrëti kaip atrodys"
 
 msgid "Doc"
 msgstr ""
@@ -8155,6 +8421,10 @@ msgstr "Ðrifto dydis:"
 #, fuzzy
 msgid "Fonts Preview"
 msgstr "Pasiþiûrëti kaip atrodys"
+
+#, fuzzy
+msgid "&Append"
+msgstr "Papildyk"
 
 #, fuzzy
 msgid "Quick Search: "
@@ -8357,79 +8627,6 @@ msgid "html"
 msgstr ""
 
 #, fuzzy
-msgid "Print Previe&w"
-msgstr "Pasiþiûrëti kaip atrodys"
-
-#, fuzzy
-msgid "Print Preview"
-msgstr "Pasiþiûrëti kaip atrodys"
-
-msgid "Anti-alias &Text"
-msgstr ""
-
-msgid "Anti-alias &Graphics"
-msgstr ""
-
-#, fuzzy
-msgid "Display Trans&parency"
-msgstr "Rodyti rëmelius"
-
-msgid "&Under Color Removal"
-msgstr ""
-
-#, fuzzy
-msgid "&Display CMYK"
-msgstr "Rodyti"
-
-msgid "&C"
-msgstr ""
-
-msgid "&M"
-msgstr ""
-
-#, fuzzy
-msgid "&Y"
-msgstr "Taip"
-
-#, fuzzy
-msgid "&K"
-msgstr "Tinka!"
-
-msgid ""
-"Provides a more pleasant view of text items in the viewer, at the expense\n"
-"of a slight slowdown in previewing. This only affects Type 1 fonts"
-msgstr ""
-
-msgid ""
-"Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF "
-"and\n"
-"vector graphics in the preview, at the expense of a slight slowdown in "
-"previewing"
-msgstr ""
-
-msgid ""
-"Shows transparency and transparent items in your document. Requires "
-"Ghostscript 7.07 or later"
-msgstr ""
-
-msgid ""
-"Gives a print preview using simulations of generic CMYK inks, instead of RGB "
-"colors"
-msgstr ""
-
-msgid "Enable/disable the C (Cyan) ink plate"
-msgstr ""
-
-msgid "Enable/disable the M (Magenta) ink plate"
-msgstr ""
-
-msgid "Enable/disable the Y (Yellow) ink plate"
-msgstr ""
-
-msgid "Enable/disable the K (Black) ink plate"
-msgstr ""
-
-#, fuzzy
 msgid "Failed to open document."
 msgstr "Áðsaugok savo darbà"
 
@@ -8439,6 +8636,22 @@ msgstr "Áðsaugok savo darbà"
 
 msgid "Unit out of range. Use one of the scribus.UNIT_* constants."
 msgstr ""
+
+#, fuzzy
+msgid "Scripter Preferences"
+msgstr "Nuosavas skriptas"
+
+#, fuzzy
+msgid "Extension Scripts"
+msgstr "Apie Scribus"
+
+#, fuzzy
+msgid "Enable Extension Scripts"
+msgstr "Apie Scribus"
+
+#, fuzzy
+msgid "Startup Script"
+msgstr "Nuosavas skriptas"
 
 msgid "Argument must be page item name, or PyCObject instance"
 msgstr ""
@@ -8464,8 +8677,11 @@ msgid "Types matched, but setting property failed."
 msgstr ""
 
 #, fuzzy
-msgid "S&cripter Manual..."
-msgstr "Scribus vadovas"
+msgid "Scripter"
+msgstr "Skriptas:"
+
+msgid "Embedded Python scripting support."
+msgstr ""
 
 msgid ""
 "Scribus Python interface module\n"
@@ -8932,6 +9148,10 @@ msgid "Import &SVG..."
 msgstr "Importuoti..."
 
 #, fuzzy
+msgid "SVG Import"
+msgstr "Importuoti..."
+
+#, fuzzy
 msgid "SVG-Images (*.svg *.svgz);;All Files (*)"
 msgstr "Kiðenë (*.scs);; Visi failai (*)"
 
@@ -8943,10 +9163,13 @@ msgstr "Dokumentai (*.sdc);; Visi failai (*)"
 msgid "Normal Vision"
 msgstr "Paprastas"
 
-msgid "Protanopy"
+msgid "Protanopia (red)"
 msgstr ""
 
-msgid "Deuteranopy"
+msgid "Deuteranopia (green)"
+msgstr ""
+
+msgid "Tritanopia (blue)"
 msgstr ""
 
 #, fuzzy
@@ -9176,6 +9399,10 @@ msgid "Save as &Image..."
 msgstr "Iðsaugoti kitu vardu..."
 
 #, fuzzy
+msgid "Export As Image"
+msgstr "Eksporto grupë"
+
+#, fuzzy
 msgid "Save as Image"
 msgstr "Iðsaugoti kitu vardu"
 
@@ -9199,6 +9426,10 @@ msgstr "Nuimti þymëjimà"
 msgid "Save Page as &SVG..."
 msgstr "Iðsaugoti kaip EPS..."
 
+#, fuzzy
+msgid "SVG Export"
+msgstr "Eksportuoti..."
+
 msgid ""
 "Do you really want to overwrite the File:\n"
 "%1 ?"
@@ -9211,6 +9442,10 @@ msgstr ""
 msgid "Import &EPS/PS..."
 msgstr "Importuoti..."
 
+#, fuzzy
+msgid "PS/EPS Importer"
+msgstr "Importuoti..."
+
 msgid "All Supported Formats (*.eps *.EPS *.ps *.PS);;"
 msgstr ""
 
@@ -9219,6 +9454,49 @@ msgid ""
 "%1\n"
 "failed!"
 msgstr ""
+
+#, fuzzy
+msgid "Scribus - My Plugin"
+msgstr "Nuosavas skriptas"
+
+msgid "The plugin worked!"
+msgstr ""
+
+#, fuzzy
+msgid "My &Plugin"
+msgstr "Paprastas"
+
+#, fuzzy
+msgid "My Plugin"
+msgstr "Paprastas"
+
+#, fuzzy
+#~ msgid "Do you really want to clear all your Text?"
+#~ msgstr "Ar tu tikrai labai nori paðalinti stiliø?"
+
+#, fuzzy
+#~ msgid "Standard"
+#~ msgstr "Þvaigþdë"
+
+#, fuzzy
+#~ msgid "Color of selected object"
+#~ msgstr "Atðaukti objekto paðalinimà"
+
+#, fuzzy
+#~ msgid "The program"
+#~ msgstr "Programavo:"
+
+#, fuzzy
+#~ msgid "is missing!"
+#~ msgstr "Neradau"
+
+#, fuzzy
+#~ msgid "Ad&vanced Options..."
+#~ msgstr "Failo parinktys"
+
+#, fuzzy
+#~ msgid "S&cripter Manual..."
+#~ msgstr "Scribus vadovas"
 
 #, fuzzy
 #~ msgid "First &Line:"
@@ -9377,10 +9655,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "&Document"
 #~ msgstr "Dokumentas "
-
-#, fuzzy
-#~ msgid "&Append"
-#~ msgstr "Papildyk"
 
 #, fuzzy
 #~ msgid "Import Page(s)..."
@@ -9705,9 +9979,6 @@ msgstr ""
 #~ msgid "Document Setup..."
 #~ msgstr "Dokumento nuostatø keitimas..."
 
-#~ msgid "Print..."
-#~ msgstr "Spausdinti..."
-
 #~ msgid "Select all"
 #~ msgstr "Paþymëti viskà"
 
@@ -9967,20 +10238,12 @@ msgstr ""
 #~ msgstr "Skr&iptas"
 
 #, fuzzy
-#~ msgid "Scribus - Script Plugin"
-#~ msgstr "Nuosavas skriptas"
-
-#, fuzzy
 #~ msgid "Hide &Console"
 #~ msgstr "Slëpti árankinæ"
 
 #, fuzzy
 #~ msgid "Scribus - Macro Manager"
 #~ msgstr "Scribus vadovas"
-
-#, fuzzy
-#~ msgid "Scribus - Scripter Preferences"
-#~ msgstr "Nuosavas skriptas"
 
 #~ msgid "Browse..."
 #~ msgstr "Pasirink..."
@@ -10012,10 +10275,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Conve&x Polygon"
 #~ msgstr "Iðgaubtas daugiakampis"
-
-#, fuzzy
-#~ msgid "Importer"
-#~ msgstr "Importuoti..."
 
 #~ msgid "Programming:"
 #~ msgstr "Programavo:"
@@ -10183,9 +10442,6 @@ msgstr ""
 
 #~ msgid "Rectangle"
 #~ msgstr "Staèiakampis"
-
-#~ msgid "Delete Page:"
-#~ msgstr "Iðplëðti puslapá:"
 
 #~ msgid "Print to printer:"
 #~ msgstr "Spausdinti spausdintuvu:"

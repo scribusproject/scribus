@@ -2894,8 +2894,66 @@ Les llibreries que manquen es mostren amb un *</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Missing library support is indicated by a * This also indicates the version of Ghostscript which Scribus has detected.</source>
+        <source>This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart Missing library support is indicated by a * This also indicates the version of Ghostscript which Scribus has detected.</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>AboutPlugins</name>
+    <message>
+        <source>Yes</source>
+        <translation type="unfinished">Si</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation type="unfinished">No</translation>
+    </message>
+</context>
+<context>
+    <name>AboutPluginsBase</name>
+    <message>
+        <source>Scribus: About Plug-ins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File Name:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Version:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enabled:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Release Date:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copyright:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Author(s):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Description:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>License:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished">&amp;Tanca</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation type="unfinished">Alt+C</translation>
     </message>
 </context>
 <context>
@@ -3026,7 +3084,7 @@ Les llibreries que manquen es mostren amb un *</translation>
     </message>
     <message>
         <source>&amp;Javascripts...</source>
-        <translation type="unfinished">&amp;Javascripts...</translation>
+        <translation type="obsolete">&amp;Javascripts...</translation>
     </message>
     <message>
         <source>P&amp;references...</source>
@@ -3672,40 +3730,64 @@ Les llibreries que manquen es mostren amb un *</translation>
         <source>Toggle Guides</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Print Previe&amp;w</source>
+        <translation type="unfinished">Previsualitzaci&amp;ó</translation>
+    </message>
+    <message>
+        <source>&amp;JavaScripts...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Convert to Master Page...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cascade</source>
+        <translation type="unfinished">&amp;Cascada</translation>
+    </message>
+    <message>
+        <source>&amp;Tile</source>
+        <translation type="unfinished">&amp;Mosaic</translation>
+    </message>
+    <message>
+        <source>&amp;About Plug-ins</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AdvOptions</name>
     <message>
         <source>Advanced Options</source>
-        <translation>Opcions Avançades</translation>
+        <translation type="obsolete">Opcions Avançades</translation>
     </message>
     <message>
         <source>Mirror Page(s) &amp;Horizontal</source>
-        <translation>Enmiralla la Pàgina(es) &amp;Horitzontalment</translation>
+        <translation type="obsolete">Enmiralla la Pàgina(es) &amp;Horitzontalment</translation>
     </message>
     <message>
         <source>Mirror Page(s) &amp;Vertical</source>
-        <translation>Enmiralla la Pàgina(es) &amp;Verticalment</translation>
+        <translation type="obsolete">Enmiralla la Pàgina(es) &amp;Verticalment</translation>
     </message>
     <message>
         <source>Apply Under Color &amp;Removal</source>
-        <translation>Aplica sobre Elimina&amp;r Color</translation>
+        <translation type="obsolete">Aplica sobre Elimina&amp;r Color</translation>
     </message>
     <message>
         <source>Apply &amp;ICC Profiles</source>
-        <translation>Aplica perfils &amp;ICC</translation>
+        <translation type="obsolete">Aplica perfils &amp;ICC</translation>
     </message>
     <message>
         <source>PostScript Level &amp;1</source>
-        <translation>PostScript Nivell &amp;1</translation>
+        <translation type="obsolete">PostScript Nivell &amp;1</translation>
     </message>
     <message>
         <source>PostScript Level &amp;2</source>
-        <translation>PostScript Nivell &amp;2</translation>
+        <translation type="obsolete">PostScript Nivell &amp;2</translation>
     </message>
     <message>
         <source>PostScript Level &amp;3</source>
-        <translation>PostScript Nivell &amp;3</translation>
+        <translation type="obsolete">PostScript Nivell &amp;3</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -3717,18 +3799,18 @@ Les llibreries que manquen es mostren amb un *</translation>
     </message>
     <message>
         <source>Creates PostScript Level 3</source>
-        <translation>Crea PostScript Nivell 3</translation>
+        <translation type="obsolete">Crea PostScript Nivell 3</translation>
     </message>
     <message>
         <source>Creates PostScript Level 2 only, beware,
 this can create huge files</source>
-        <translation>Crea només PostScript Nivell 2, compte,
+        <translation type="obsolete">Crea només PostScript Nivell 2, compte,
 això pot crear fitxers molt grans</translation>
     </message>
     <message>
         <source>Creates PostScript Level 1 only, beware,
 this can create huge files</source>
-        <translation>Crea només PostScript Nivell 1, compte,
+        <translation type="obsolete">Crea només PostScript Nivell 1, compte,
 això pot crear fitxers molt grans</translation>
     </message>
     <message>
@@ -3738,16 +3820,12 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>Una forma d&apos;apagar algunes de les ombres grises que estan composades
+        <translation type="obsolete">Una forma d&apos;apagar algunes de les ombres grises que estan composades
 per cian, groc i magenta però fan servir negre
 UCR pot afectar parts de imatges que són de color neutral o tons foscos
 propers a gris. Fes servir això pot millorar la impressió d&apos;algunes imatges 
 però cal algunes proves i experimentació per cada cas
 UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
-    </message>
-    <message>
-        <source>Set Media Size</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4295,7 +4373,7 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
     </message>
     <message>
         <source>Java Script</source>
-        <translation>Java Script</translation>
+        <translation type="obsolete">Java Script</translation>
     </message>
     <message>
         <source>Go To</source>
@@ -4559,7 +4637,7 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
     </message>
     <message>
         <source>Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)</source>
-        <translation>Imatges (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Tots els Fitxers (*)</translation>
+        <translation type="obsolete">Imatges (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Tots els Fitxers (*)</translation>
     </message>
     <message>
         <source>Example:</source>
@@ -4572,6 +4650,14 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
     <message>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>Fitxers PDF (*.pdf);;Tots els fitxers (*)</translation>
+    </message>
+    <message>
+        <source>JavaScript</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5101,11 +5187,11 @@ Es recomana activar-lo si tens colors en el teu document.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Default color profile for imported cmyk images</source>
+        <source>Default color profile for imported CMYK images</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Default color profile for imported rgb images</source>
+        <source>Default color profile for imported RGB images</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5218,11 +5304,11 @@ It&apos;s a reserved name for transparent color</source>
 És un nom reservat per un color transparent</translation>
     </message>
     <message>
-        <source>Is Spot-Color</source>
+        <source>Is Spot Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Is Registration-Color</source>
+        <source>Is Registration Color</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5467,19 +5553,7 @@ and the Delete key removes the last inserted one</source>
     <name>CheckerPrefsList</name>
     <message>
         <source>Postscript</source>
-        <translation type="unfinished">Postscript</translation>
-    </message>
-    <message>
-        <source>PDF 1.3</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PDF 1.4</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PDF/X-3</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Postscript</translation>
     </message>
 </context>
 <context>
@@ -5494,11 +5568,31 @@ and the Delete key removes the last inserted one</source>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">D&apos;acord</translation>
+        <translation type="obsolete">D&apos;acord</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Cancel.la</translation>
+        <translation type="obsolete">Cancel.la</translation>
+    </message>
+</context>
+<context>
+    <name>CollectForOutput</name>
+    <message>
+        <source>Choose a Directory</source>
+        <translation type="unfinished">Tria un Directori</translation>
+    </message>
+    <message>
+        <source>Collecting...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation type="unfinished">Avís</translation>
+    </message>
+    <message>
+        <source>Cannot collect all files for output for file:
+%1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5588,14 +5682,6 @@ and the Delete key removes the last inserted one</source>
     <name>ColorWheelDialog</name>
     <message>
         <source>Normal Vision</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Protanopy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Deuteranopy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5704,6 +5790,25 @@ and the Delete key removes the last inserted one</source>
     </message>
     <message>
         <source>Color Merging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Protanopia (red)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Deuteranopia (green)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tritanopia (blue)</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ColorWheelPlugin</name>
+    <message>
+        <source>&amp;Color Wheel...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5818,7 +5923,7 @@ and the Delete key removes the last inserted one</source>
     </message>
     <message>
         <source>Color of selected object</source>
-        <translation>Color del objecte seleccionat</translation>
+        <translation type="obsolete">Color del objecte seleccionat</translation>
     </message>
     <message>
         <source>None</source>
@@ -6453,11 +6558,11 @@ un rang de pàgines o un número sol.
     </message>
     <message>
         <source>Print &amp;Normal</source>
-        <translation>Impressió &amp;Normal</translation>
+        <translation type="obsolete">Impressió &amp;Normal</translation>
     </message>
     <message>
         <source>Print &amp;Separations</source>
-        <translation>Imprimeix &amp;Separacions</translation>
+        <translation type="obsolete">Imprimeix &amp;Separacions</translation>
     </message>
     <message>
         <source>All</source>
@@ -6481,15 +6586,15 @@ un rang de pàgines o un número sol.
     </message>
     <message>
         <source>Pr&amp;int In Color If Available</source>
-        <translation>&amp;Imprimeix En Color Si Es Pot</translation>
+        <translation type="obsolete">&amp;Imprimeix En Color Si Es Pot</translation>
     </message>
     <message>
         <source>Print In Gra&amp;yscale</source>
-        <translation>Imprimeix en escala de &amp;grisos</translation>
+        <translation type="obsolete">Imprimeix en escala de &amp;grisos</translation>
     </message>
     <message>
         <source>Ad&amp;vanced Options...</source>
-        <translation>Opcions A&amp;vançades...</translation>
+        <translation type="obsolete">Opcions A&amp;vançades...</translation>
     </message>
     <message>
         <source>&amp;Print</source>
@@ -6508,7 +6613,89 @@ un rang de pàgines o un número sol.
         <translation type="obsolete">Fitxers Postscript (*.ps);;Tots els fitxers(*)</translation>
     </message>
     <message>
-        <source>Postscript Files (*.ps);;All Files (*)</source>
+        <source>Print Normal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Print Separations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Print in Color if Available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Print in Grayscale</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PostScript Level 1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PostScript Level 2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PostScript Level 3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page</source>
+        <translation type="unfinished">Pàgina</translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) Horizontal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) Vertical</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set Media Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation type="unfinished">Color</translation>
+    </message>
+    <message>
+        <source>Apply Under Color Removal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Convert Spot Colors to Process Colors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply ICC Profiles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Advanced Options</source>
+        <translation type="unfinished">Opcions Avançades</translation>
+    </message>
+    <message>
+        <source>Preview...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sets the PostScript Level.
+ Setting to Level 1 or 2 can create huge files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed
+of cyan, yellow and magenta and using black instead.
+UCR most affects parts of images which are neutral and/or dark tones
+which are close to the gray. Use of this may improve printing some images
+and some experimentation and testing is need on a case by case basis.
+UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PostScript Files (*.ps);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6924,7 +7111,11 @@ es pot desar amb aquest formulari. L&apos;error és:
     </message>
     <message>
         <source>Javascripts (*.js);;All Files (*)</source>
-        <translation>Javascripts (*.js);;Tots els fitxers (*)</translation>
+        <translation type="obsolete">Javascripts (*.js);;Tots els fitxers (*)</translation>
+    </message>
+    <message>
+        <source>JavaScripts (*.js);;All Files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7455,7 +7646,7 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
     </message>
     <message>
         <source>Postscript</source>
-        <translation>Postscript</translation>
+        <translation type="obsolete">Postscript</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -7556,6 +7747,10 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
     </message>
     <message>
         <source>&lt;qt&gt;Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PostScript</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7687,16 +7882,22 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
         <comment>font preview</comment>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&amp;Append</source>
+        <translation type="unfinished">&amp;Afegeix</translation>
+    </message>
+</context>
+<context>
+    <name>FontPreviewPlugin</name>
+    <message>
+        <source>&amp;Font Preview...</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>FontReplaceDialog</name>
     <message>
         <source>Font Substitution</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This document contains some fonts that are not installed on your system,
-please choose a suitable replacement for them.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7709,6 +7910,22 @@ please choose a suitable replacement for them.</source>
     </message>
     <message>
         <source>Make these substitutions permanent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This document contains some fonts that are not installed on your system, please choose a suitable replacement for them. Cancel will stop the document from loading.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancels these font substitutions and stops loading the document.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enabling this tells Scribus to use these replacements for missing <byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>fonts permanently in all future layouts. This can be reverted or changed <byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>in Edit &gt; Preferences &gt; Fonts.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If you select OK, then save, these substitutions are made permanent in the <byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>document.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7994,6 +8211,13 @@ Un valor de 0 significa infinites separacions.</translation>
     <message>
         <source>Consecutive Hyphenations &amp;Allowed:</source>
         <translation>Separacions consecutives &amp;Permeses:</translation>
+    </message>
+</context>
+<context>
+    <name>ImportPSPlugin</name>
+    <message>
+        <source>Import &amp;EPS/PS...</source>
+        <translation type="unfinished">Importa &amp;EPS/PS...</translation>
     </message>
 </context>
 <context>
@@ -8874,6 +9098,10 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     <message>
         <source>O&amp;utside:</source>
         <translation type="unfinished">&amp;Fora:</translation>
+    </message>
+    <message>
+        <source>Preset Layouts:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10062,6 +10290,24 @@ Si us plau tria&apos;n un altre.</translation>
     </message>
 </context>
 <context>
+    <name>MyPlugin</name>
+    <message>
+        <source>My &amp;Plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>MyPluginImpl</name>
+    <message>
+        <source>Scribus - My Plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The plugin worked!</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>NewDoc</name>
     <message>
         <source> pt</source>
@@ -10320,28 +10566,19 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Postscript Files (*.eps *.EPS *.ps *.PS);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>SVG Images (*.svg *.svgz);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>SVG Images (*.svg);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>OpenOffice.org Draw (*.sxd);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>All Files (*)</source>
         <translation type="unfinished">Tots els Fitxers (*)</translation>
     </message>
     <message>
         <source>Open</source>
         <translation type="unfinished">Obre</translation>
+    </message>
+</context>
+<context>
+    <name>NewFromTemplatePlugin</name>
+    <message>
+        <source>New &amp;from Template...</source>
+        <translation type="unfinished">Nou des de P&amp;lantilla...</translation>
     </message>
 </context>
 <context>
@@ -10502,6 +10739,13 @@ Pàgina, i sinó Coordenades Relatives a l&apos;Objecte.</translation>
     <message>
         <source>When checked use coordinates relative to the page, otherwise coordinates are relative to the Object.</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>OODrawImportPlugin</name>
+    <message>
+        <source>Import &amp;OpenOffice.org Draw...</source>
+        <translation type="unfinished">Importar Dibuixos d&apos;&amp;OpenOffice.org...</translation>
     </message>
 </context>
 <context>
@@ -11286,6 +11530,14 @@ Ajustos PDF/X-3. Recomanem fer servir el títol del document.</translation>
         <source>Save as PDF</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Output one file for eac&amp;h page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commerical printing.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PPreview</name>
@@ -11332,7 +11584,7 @@ Ajustos PDF/X-3. Recomanem fer servir el títol del document.</translation>
     <message>
         <source>Provides a more pleasant view of text items in the viewer, at the expense
 of a slight slowdown in previewing. This only affects Type 1 fonts</source>
-        <translation>Dóna un punt de vista més agradabe dels items de text en el visor, a canvi
+        <translation type="obsolete">Dóna un punt de vista més agradabe dels items de text en el visor, a canvi
 d&apos;un petit ralentiment de la previsualització. Només afecta les fonts Type 1</translation>
     </message>
     <message>
@@ -11390,7 +11642,7 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>Una forma d&apos;apagar algunes de les intensitats de grisos que estan 
+        <translation type="obsolete">Una forma d&apos;apagar algunes de les intensitats de grisos que estan 
 composades per cian, groc i magenta però es veuen negres.
 UCR pot afectar parts de imatges que són de color neutral o de tons foscos
 propers a gris. Fes servir això pot millorar la impressió d&apos;algunes imatges 
@@ -11400,24 +11652,55 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
     <message>
         <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and
 vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation>Dóna una visió més agradable de les fonts TrueType, OpenType, EPS, PDF i 
+        <translation type="obsolete">Dóna una visió més agradable de les fonts TrueType, OpenType, EPS, PDF i 
 els gràfics vectorials en la previsualització, però la previsualitació serà més lenta</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation type="unfinished">Avís</translation>
+        <translation type="obsolete">Avís</translation>
     </message>
     <message>
-        <source>Detected some Errors.
-Consider using the Preflight Checker to correct them</source>
+        <source>Separation Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Abort</source>
+        <source>Cyan</source>
+        <translation type="unfinished">Cian</translation>
+    </message>
+    <message>
+        <source>Magenta</source>
+        <translation type="unfinished">Magenta</translation>
+    </message>
+    <message>
+        <source>Yellow</source>
+        <translation type="unfinished">Groc</translation>
+    </message>
+    <message>
+        <source>Black</source>
+        <translation type="unfinished">Negre</translation>
+    </message>
+    <message>
+        <source>Scaling:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Ignore</source>
+        <source>Print...</source>
+        <translation type="unfinished">Imprimir...</translation>
+    </message>
+    <message>
+        <source>Provides a more pleasant view of text items in the viewer, at the expense of a slight slowdown in previewing. This only affects Type 1 fonts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Resize the scale of the page.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -11845,14 +12128,18 @@ Consider using the Preflight Checker to correct them</source>
     <name>PageSelector</name>
     <message>
         <source>Page </source>
-        <translation>Pàgina</translation>
+        <translation type="obsolete">Pàgina</translation>
     </message>
     <message>
         <source> of %1</source>
-        <translation>de %1</translation>
+        <translation type="obsolete">de %1</translation>
     </message>
     <message>
         <source>%1 of %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 of %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -12042,6 +12329,13 @@ Consider using the Preflight Checker to correct them</source>
     </message>
 </context>
 <context>
+    <name>PixmapExportPlugin</name>
+    <message>
+        <source>Save as &amp;Image...</source>
+        <translation type="unfinished">Desa com &amp;Imatge...</translation>
+    </message>
+</context>
+<context>
     <name>PluginManager</name>
     <message>
         <source>Cannot find plugin</source>
@@ -12059,24 +12353,98 @@ Consider using the Preflight Checker to correct them</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Persistent</source>
-        <comment>plugin manager</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Import</source>
         <comment>plugin manager</comment>
-        <translation type="unfinished">Importa</translation>
-    </message>
-    <message>
-        <source>Standard</source>
-        <comment>plugin manager</comment>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Importa</translation>
     </message>
     <message>
         <source>Unknown</source>
         <comment>plugin manager</comment>
-        <translation type="unfinished">Desconegut</translation>
+        <translation type="obsolete">Desconegut</translation>
+    </message>
+    <message>
+        <source>Plugin: loading %1</source>
+        <comment>plugin manager</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>init failed</source>
+        <comment>plugin load error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>unknown plugin type</source>
+        <comment>plugin load error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Plugin: %1 loaded</source>
+        <comment>plugin manager</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Plugin: %1 failed to load: %2</source>
+        <comment>plugin manager</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PostScript Files (*.eps *.EPS *.ps *.PS);;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SVG Images (*.svg *.svgz);;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SVG Images (*.svg);;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Draw (*.sxd);;</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PluginManagerPrefsGui</name>
+    <message>
+        <source>Plugin Manager</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>How to run</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation type="unfinished">Tipus</translation>
+    </message>
+    <message>
+        <source>Load it?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Plugin ID</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File</source>
+        <translation type="unfinished">Fitxer</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation type="unfinished">Si</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation type="unfinished">No</translation>
+    </message>
+    <message>
+        <source>You need to restart the application to apply the changes.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12669,7 +13037,7 @@ i un valor positiu el farà convex</translation>
     </message>
     <message>
         <source>Postscript Interpreter</source>
-        <translation>Interpret Postscript</translation>
+        <translation type="obsolete">Interpret Postscript</translation>
     </message>
     <message>
         <source>&amp;Name of Executable:</source>
@@ -13276,51 +13644,23 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Plugin Manager</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Plugin</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>How to run</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Type</source>
-        <translation type="unfinished">Tipus</translation>
-    </message>
-    <message>
-        <source>Load it?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Plugin ID</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Tipus</translation>
     </message>
     <message>
         <source>File</source>
-        <translation type="unfinished">Fitxer</translation>
+        <translation type="obsolete">Fitxer</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished">Si</translation>
+        <translation type="obsolete">Si</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished">No</translation>
-    </message>
-    <message>
-        <source>You need to restart the application to apply the changes.</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">No</translation>
     </message>
     <message>
         <source>Plugins</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the display of linked frames on or off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -13333,12 +13673,6 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
     </message>
     <message>
         <source>Turns the display of pictures on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Select your default language for Scribus to run with.
-Leave this blank to choose based on environment variables.
-You can still override this by passing a command line option when starting Scribus</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -13388,6 +13722,18 @@ instance of gimp.</source>
     </message>
     <message>
         <source>Locate your image editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PostScript Interpreter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable or disable  the display of linked frames.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -13447,6 +13793,74 @@ instance of gimp.</source>
     <message>
         <source>Scribus has detected existing Scribus 1.2 preferences files.
 Do you want to migrate them to the new Scribus version?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PostScript</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Could not open preferences file &quot;%1&quot; for writing: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Writing to preferences file &quot;%1&quot; failed: QIODevice status code %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to open prefs file &quot;%1&quot;: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to read prefs XML from &quot;%1&quot;: %2 at line %3, col %4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF 1.3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF 1.4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF/X-3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error Writing Preferences</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus was not able to save its preferences:&lt;br&gt;%1&lt;br&gt;Please check file and directory permissions and available disk space.</source>
+        <comment>scribus app error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error Loading Preferences</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus was not able to load its preferences:&lt;br&gt;%1&lt;br&gt;Default settings will be loaded.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PresetLayout</name>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Cap</translation>
+    </message>
+    <message>
+        <source>Book</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Magazine</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You can select predefined page layout here. &apos;None&apos; leave margins as is, &apos;Book&apos; sets margins classically (Gutenberg). &apos;Book&apos; is proposed for two-sided documents. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -13983,7 +14397,7 @@ Comprova el nom i el camí.</translation>
     </message>
     <message>
         <source>Document</source>
-        <translation>Document</translation>
+        <translation type="obsolete">Document</translation>
     </message>
     <message>
         <source>Background</source>
@@ -14009,7 +14423,7 @@ Comprova el nom i el camí.</translation>
     </message>
     <message>
         <source>New &amp;from Template...</source>
-        <translation>Nou des de P&amp;lantilla...</translation>
+        <translation type="obsolete">Nou des de P&amp;lantilla...</translation>
     </message>
     <message>
         <source>Template: </source>
@@ -14105,7 +14519,7 @@ Comprova el nom i el camí.</translation>
     </message>
     <message>
         <source>Save as &amp;Image...</source>
-        <translation>Desa com &amp;Imatge...</translation>
+        <translation type="obsolete">Desa com &amp;Imatge...</translation>
     </message>
     <message>
         <source>Save as Image</source>
@@ -14149,11 +14563,11 @@ Comprova el nom i el camí.</translation>
     </message>
     <message>
         <source>Print Previe&amp;w</source>
-        <translation>Previsualitzaci&amp;ó</translation>
+        <translation type="obsolete">Previsualitzaci&amp;ó</translation>
     </message>
     <message>
         <source>Import &amp;EPS/PS...</source>
-        <translation>Importa &amp;EPS/PS...</translation>
+        <translation type="obsolete">Importa &amp;EPS/PS...</translation>
     </message>
     <message>
         <source>All Supported Formats (*.eps *.EPS *.ps *.PS);;</source>
@@ -14165,7 +14579,7 @@ Comprova el nom i el camí.</translation>
     </message>
     <message>
         <source>Save as &amp;Template...</source>
-        <translation>Desa com &amp;Plantilla...</translation>
+        <translation type="obsolete">Desa com &amp;Plantilla...</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to load image into an object doesn&apos;t exist or isn&apos;t selected!</source>
@@ -14193,7 +14607,7 @@ Comprova el nom i el camí.</translation>
     </message>
     <message>
         <source>S&amp;cripter Manual...</source>
-        <translation>Manual de Seqüèn&amp;cies...</translation>
+        <translation type="obsolete">Manual de Seqüèn&amp;cies...</translation>
     </message>
     <message>
         <source>&amp;Scribus Scripts</source>
@@ -14217,7 +14631,7 @@ Comprova el nom i el camí.</translation>
     </message>
     <message>
         <source>Online Reference</source>
-        <translation>Referència en Línia</translation>
+        <translation type="obsolete">Referència en Línia</translation>
     </message>
     <message>
         <source>Python Scripts (*.py);; All Files (*)</source>
@@ -14225,7 +14639,7 @@ Comprova el nom i el camí.</translation>
     </message>
     <message>
         <source>Save Page as &amp;SVG...</source>
-        <translation>Desa Pàgina com &amp;SVG...</translation>
+        <translation type="obsolete">Desa Pàgina com &amp;SVG...</translation>
     </message>
     <message>
         <source>Save as</source>
@@ -14241,7 +14655,7 @@ Comprova el nom i el camí.</translation>
     </message>
     <message>
         <source>Import &amp;SVG...</source>
-        <translation>Importa &amp;SVG...</translation>
+        <translation type="obsolete">Importa &amp;SVG...</translation>
     </message>
     <message>
         <source>Comma Separated Value Files</source>
@@ -14804,7 +15218,7 @@ Enllaços Externs
     </message>
     <message>
         <source>Import &amp;OpenOffice.org Draw...</source>
-        <translation>Importar Dibuixos d&apos;&amp;OpenOffice.org...</translation>
+        <translation type="obsolete">Importar Dibuixos d&apos;&amp;OpenOffice.org...</translation>
     </message>
     <message>
         <source>OpenOffice.org Draw (*.sxd);;All Files (*)</source>
@@ -14885,7 +15299,7 @@ la documentació de la funció.
     <message>
         <source>Short &amp;Words...</source>
         <comment>short words plugin</comment>
-        <translation>Short &amp;Words...</translation>
+        <translation type="obsolete">Short &amp;Words...</translation>
     </message>
     <message>
         <source>Short Words processing. Wait please...</source>
@@ -15519,12 +15933,8 @@ Do you want to replace it with the file you are saving?</source>
         <translation type="unfinished">Tot</translation>
     </message>
     <message>
-        <source>&amp;Color Wheel...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Fonts Preview...</source>
-        <translation type="unfinished">Vista Prèvia de &amp;Fonts...</translation>
+        <translation type="obsolete">Vista Prèvia de &amp;Fonts...</translation>
     </message>
     <message>
         <source>Document Template: </source>
@@ -15742,6 +16152,74 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>OpenDocument Text Documents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy #%1 of </source>
+        <translation type="unfinished">Còpia #%1 de</translation>
+    </message>
+    <message>
+        <source>Black</source>
+        <translation type="unfinished">Negre</translation>
+    </message>
+    <message>
+        <source>Cyan</source>
+        <translation type="unfinished">Cian</translation>
+    </message>
+    <message>
+        <source>Magenta</source>
+        <translation type="unfinished">Magenta</translation>
+    </message>
+    <message>
+        <source>Yellow</source>
+        <translation type="unfinished">Groc</translation>
+    </message>
+    <message>
+        <source>Color Wheel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font Preview</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>My Plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New From Template</source>
+        <translation type="unfinished">Nou des de Plantilla</translation>
+    </message>
+    <message>
+        <source>Export As Image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PS/EPS Importer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save As Template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scripter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Short Words</source>
+        <translation type="unfinished">Short Words</translation>
+    </message>
+    <message>
+        <source>SVG Export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SVG Import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Draw Importer</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -16152,10 +16630,6 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Turns the of linked frames on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Display non-printing characters such as paragraph markers in text frames</source>
         <translation type="unfinished"></translation>
     </message>
@@ -16182,6 +16656,10 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     <message>
         <source>Adjusting Colors</source>
         <translation type="unfinished">Ajustant Colors</translation>
+    </message>
+    <message>
+        <source>Enable or disable the display of linked text frames.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16304,7 +16782,28 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     </message>
 </context>
 <context>
-    <name>ScImportExportPlugin</name>
+    <name>SVGExportPlugin</name>
+    <message>
+        <source>Save Page as &amp;SVG...</source>
+        <translation type="unfinished">Desa Pàgina com &amp;SVG...</translation>
+    </message>
+</context>
+<context>
+    <name>SVGImportPlugin</name>
+    <message>
+        <source>Import &amp;SVG...</source>
+        <translation type="unfinished">Importa &amp;SVG...</translation>
+    </message>
+</context>
+<context>
+    <name>SaveAsTemplatePlugin</name>
+    <message>
+        <source>Save as &amp;Template...</source>
+        <translation type="unfinished">Desa com &amp;Plantilla...</translation>
+    </message>
+</context>
+<context>
+    <name>ScActionPlugin</name>
     <message>
         <source>Could not find target file %1: %2</source>
         <comment>plugins</comment>
@@ -16314,6 +16813,29 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
         <source>Could not open target file %1: %2</source>
         <comment>plugins</comment>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ScPlugin</name>
+    <message>
+        <source>Persistent</source>
+        <comment>plugin manager plugin type</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import</source>
+        <comment>plugin manager plugin type</comment>
+        <translation type="unfinished">Importa</translation>
+    </message>
+    <message>
+        <source>Export</source>
+        <comment>plugin manager plugin type</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Action</source>
+        <comment>plugin manager plugin type</comment>
+        <translation type="unfinished">Acció</translation>
     </message>
 </context>
 <context>
@@ -17127,11 +17649,11 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     </message>
     <message>
         <source>&amp;Cascade</source>
-        <translation>&amp;Cascada</translation>
+        <translation type="obsolete">&amp;Cascada</translation>
     </message>
     <message>
         <source>&amp;Tile</source>
-        <translation>&amp;Mosaic</translation>
+        <translation type="obsolete">&amp;Mosaic</translation>
     </message>
     <message>
         <source>None</source>
@@ -17361,7 +17883,7 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     </message>
     <message>
         <source>Some Objects are locked.</source>
-        <translation>Alguns Objectes estan bloquejats.</translation>
+        <translation type="obsolete">Alguns Objectes estan bloquejats.</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -17493,7 +18015,7 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     </message>
     <message>
         <source>Choose a Directory</source>
-        <translation>Tria un Directori</translation>
+        <translation type="obsolete">Tria un Directori</translation>
     </message>
     <message>
         <source>Invert</source>
@@ -17588,29 +18110,8 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Postscript Files (*.eps *.EPS *.ps *.PS);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>SVG Images (*.svg *.svgz);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>SVG Images (*.svg);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>OpenOffice.org Draw (*.sxd);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>File %1 
-is not in an acceptable format</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Postscript</source>
-        <translation type="unfinished">Postscript</translation>
+        <translation type="obsolete">Postscript</translation>
     </message>
     <message>
         <source>Some fonts used by this document have been substituted:</source>
@@ -17638,19 +18139,6 @@ is not in an acceptable format</source>
         <translation type="unfinished">Anomena i desa</translation>
     </message>
     <message>
-        <source>Detected some Errors.
-Consider using the Preflight Checker to correct them</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Abort</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ignore</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Cannot Cut In-Use Item</source>
         <translation type="unfinished"></translation>
     </message>
@@ -17671,11 +18159,6 @@ Consider using the Preflight Checker to correct them</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Detected some Errors.
-Consider using the Preflight Verifier to correct them</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Lock All</source>
         <translation type="unfinished"></translation>
     </message>
@@ -17692,29 +18175,12 @@ Consider using the Preflight Verifier to correct them</source>
         <translation type="unfinished">Búlgar</translation>
     </message>
     <message>
-        <source>Collecting...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot collect all files for output for file:
-%1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The program</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>is already running!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Information</source>
         <translation type="unfinished">Informació</translation>
     </message>
     <message>
         <source>is missing!</source>
-        <translation type="unfinished">està perdut!</translation>
+        <translation type="obsolete">està perdut!</translation>
     </message>
     <message>
         <source>The selected color does not exist in the document&apos;s color set. Please enter a name for this new color.</source>
@@ -17740,6 +18206,65 @@ Consider using the Preflight Verifier to correct them</source>
         <source>Previe&amp;w Settings</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>File %1 is not in an acceptable format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PostScript</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus has detected some errors.
+Consider using the Pre-flight Checker to correct them</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Abort</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Ignore</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation type="unfinished">Nom:</translation>
+    </message>
+    <message>
+        <source>New MasterPage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Master Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus detected some errors.
+Consider using the Preflight Verifier  to correct them.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Detected some errors.
+Consider using the Preflight Verifier to correct them</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-Page%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Some objects are locked.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The program %1 is already running!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The program %1 is missing!</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusDoc</name>
@@ -17750,6 +18275,14 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <source>Normal</source>
         <translation type="unfinished">Normal</translation>
+    </message>
+    <message>
+        <source>Document</source>
+        <translation type="unfinished">Document</translation>
+    </message>
+    <message>
+        <source>Background</source>
+        <translation type="unfinished">Segon Pla</translation>
     </message>
 </context>
 <context>
@@ -17883,16 +18416,12 @@ Consider using the Preflight Verifier to correct them</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>There is a problem with text frames linking. You are trying to link filled frames or a frame to the same one itself</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Warning</source>
         <translation type="unfinished">Avís</translation>
     </message>
     <message>
         <source>Do you really want to clear all your Text?</source>
-        <translation type="unfinished">Realment vols esborrar tot el Text?</translation>
+        <translation type="obsolete">Realment vols esborrar tot el Text?</translation>
     </message>
     <message>
         <source>Cannot Delete In-Use Item</source>
@@ -17900,6 +18429,22 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are trying to link to a filled frame, or a frame to itself.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do you really want to clear all your text?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot Convert In-Use Item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -17932,6 +18477,17 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancel.la</translation>
+    </message>
+</context>
+<context>
+    <name>ScriptPlugin</name>
+    <message>
+        <source>Embedded Python scripting support.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scripter</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -18191,6 +18747,25 @@ Només les seqüències escrites per ser executades com extensions es poden fer 
     </message>
 </context>
 <context>
+    <name>ScripterPrefsGui</name>
+    <message>
+        <source>Scripter Preferences</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Extension Scripts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable Extension Scripts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Startup Script</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SeList</name>
     <message>
         <source>Show Page Previews</source>
@@ -18446,6 +19021,14 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
     </message>
 </context>
 <context>
+    <name>ShortWordsPlugin</name>
+    <message>
+        <source>Short &amp;Words...</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished">Short &amp;Words...</translation>
+    </message>
+</context>
+<context>
     <name>SideBar</name>
     <message>
         <source>No Style</source>
@@ -18515,7 +19098,7 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
     </message>
     <message>
         <source>Do you really want to delete this Style?</source>
-        <translation>Realment vols esborrar aquest Estil?</translation>
+        <translation type="obsolete">Realment vols esborrar aquest Estil?</translation>
     </message>
     <message>
         <source>No</source>
@@ -18540,6 +19123,10 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
     <message>
         <source>&amp;Import</source>
         <translation type="unfinished">&amp;Importa</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this style?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -19893,6 +20480,10 @@ Ajustos PDF/X-3. Recomanem fer servir el títol del document.</translation>
         <source>Mirror Page(s) vertically</source>
         <translation type="unfinished">Enmiralla la Pàgina(es) verticalment</translation>
     </message>
+    <message>
+        <source>Convert Spot Colors to Process Colors</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabTools</name>
@@ -20174,6 +20765,18 @@ Ajustos PDF/X-3. Recomanem fer servir el títol del document.</translation>
     </message>
     <message>
         <source>Custom: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text Color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shading:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text Stroke:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

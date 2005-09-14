@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus 1.2.cvs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-22 02:29+0200\n"
+"POT-Creation-Date: 2005-09-14 09:28+0200\n"
 "PO-Revision-Date: 2004-09-29 23:27+0800\n"
 "Last-Translator: Kitae Kim <neeum@yahoo.com>\n"
 "Language-Team: Korean\n"
@@ -129,8 +129,9 @@ msgstr ""
 msgid "Path to Font File"
 msgstr ""
 
-msgid "Postscript"
-msgstr ""
+#, fuzzy
+msgid "PostScript"
+msgstr "사용자 설정 스크립트"
 
 msgid "&Available Fonts"
 msgstr ""
@@ -277,6 +278,17 @@ msgstr ""
 
 msgid "Size:"
 msgstr ""
+
+#, fuzzy
+msgid "Text Color:"
+msgstr "전체 선택(&A)"
+
+msgid "Shading:"
+msgstr ""
+
+#, fuzzy
+msgid "Text Stroke:"
+msgstr "전체 선택"
 
 #, fuzzy
 msgid "Fill Color:"
@@ -572,6 +584,38 @@ msgstr ""
 msgid "Delete all Tabulators"
 msgstr ""
 
+msgid "Plugin Manager"
+msgstr ""
+
+#, fuzzy
+msgid "Plugin"
+msgstr "단순"
+
+msgid "How to run"
+msgstr ""
+
+msgid "Type"
+msgstr ""
+
+msgid "Load it?"
+msgstr ""
+
+#, fuzzy
+msgid "Plugin ID"
+msgstr "단순"
+
+msgid "File"
+msgstr ""
+
+msgid "Yes"
+msgstr ""
+
+msgid "No"
+msgstr ""
+
+msgid "You need to restart the application to apply the changes."
+msgstr ""
+
 msgid "Document"
 msgstr ""
 
@@ -683,10 +727,10 @@ msgid ""
 "relative to the Object."
 msgstr ""
 
-msgid "Name"
+msgid "Copy #%1 of "
 msgstr ""
 
-msgid "Type"
+msgid "Name"
 msgstr ""
 
 msgid "Value"
@@ -764,12 +808,6 @@ msgid "Odd Pages only"
 msgstr ""
 
 msgid "Mirror"
-msgstr ""
-
-msgid "No"
-msgstr ""
-
-msgid "Yes"
 msgstr ""
 
 msgid "Orientation"
@@ -1199,6 +1237,17 @@ msgstr "거꾸로"
 msgid "String"
 msgstr "별"
 
+msgid "Collecting..."
+msgstr ""
+
+msgid "Warning"
+msgstr ""
+
+msgid ""
+"Cannot collect all files for output for file:\n"
+"%1"
+msgstr ""
+
 msgid "Manage Tabulators"
 msgstr ""
 
@@ -1275,15 +1324,10 @@ msgstr ""
 msgid "Linking Text Frames"
 msgstr "전체 선택"
 
-msgid ""
-"There is a problem with text frames linking. You are trying to link filled "
-"frames or a frame to the same one itself"
+msgid "You are trying to link to a filled frame, or a frame to itself."
 msgstr ""
 
-msgid "Warning"
-msgstr ""
-
-msgid "Do you really want to clear all your Text?"
+msgid "Do you really want to clear all your text?"
 msgstr ""
 
 msgid "Cannot Delete In-Use Item"
@@ -1292,6 +1336,14 @@ msgstr ""
 msgid ""
 "The item %1 is currently being edited by Story Editor. The delete operation "
 "will be cancelled"
+msgstr ""
+
+msgid "Cannot Convert In-Use Item"
+msgstr ""
+
+msgid ""
+"The item %1 is currently being edited by Story Editor. The convert to "
+"outlines operation for this item will be skipped"
 msgstr ""
 
 msgid "Ignore all errors"
@@ -1353,24 +1405,38 @@ msgstr ""
 msgid "Cannot find symbol (%1)"
 msgstr ""
 
-#, fuzzy
-msgid "Persistent"
-msgstr "퍼셋트"
+msgid "Plugin: loading %1"
+msgstr ""
 
-msgid "Import"
+msgid "init failed"
+msgstr ""
+
+msgid "unknown plugin type"
+msgstr ""
+
+msgid "Plugin: %1 loaded"
+msgstr ""
+
+msgid "Plugin: %1 failed to load: %2"
+msgstr ""
+
+msgid "PostScript Files (*.eps *.EPS *.ps *.PS);;"
+msgstr ""
+
+msgid "SVG Images (*.svg *.svgz);;"
+msgstr ""
+
+msgid "SVG Images (*.svg);;"
 msgstr ""
 
 #, fuzzy
-msgid "Standard"
-msgstr "별"
+msgid "OpenOffice.org Draw (*.sxd);;"
+msgstr "기존문서 열기"
 
-msgid "Unknown"
+msgid "%1 of %1"
 msgstr ""
 
 msgid "%1 of %2"
-msgstr ""
-
-msgid " of %1"
 msgstr ""
 
 msgid "Icon Placement"
@@ -1782,7 +1848,7 @@ msgstr ""
 msgid "Display"
 msgstr ""
 
-msgid "Postscript Interpreter"
+msgid "PostScript Interpreter"
 msgstr ""
 
 msgid "&Name of Executable:"
@@ -1839,34 +1905,11 @@ msgstr ""
 msgid "Miscellaneous"
 msgstr ""
 
-msgid "Plugin Manager"
-msgstr ""
-
-#, fuzzy
-msgid "Plugin"
-msgstr "단순"
-
-msgid "How to run"
-msgstr ""
-
-msgid "Load it?"
-msgstr ""
-
-#, fuzzy
-msgid "Plugin ID"
-msgstr "단순"
-
-msgid "File"
-msgstr ""
-
-msgid "You need to restart the application to apply the changes."
-msgstr ""
-
 #, fuzzy
 msgid "Plugins"
 msgstr "단순"
 
-msgid "Turns the display of linked frames on or off"
+msgid "Enable or disable  the display of linked frames."
 msgstr ""
 
 msgid ""
@@ -1880,10 +1923,9 @@ msgid "Turns the display of pictures on or off"
 msgstr ""
 
 msgid ""
-"Select your default language for Scribus to run with.\n"
-"Leave this blank to choose based on environment variables.\n"
-"You can still override this by passing a command line option when starting "
-"Scribus"
+"Select your default language for Scribus to run with. Leave this blank to "
+"choose based on environment variables. You can still override this by "
+"passing a command line option when starting Scribus"
 msgstr ""
 
 msgid ""
@@ -2075,9 +2117,6 @@ msgstr ""
 msgid "element <lpiSettingsEntry> lacks `name' attribute"
 msgstr ""
 
-msgid "Copy #%1 of "
-msgstr ""
-
 msgid "Delete Pages"
 msgstr ""
 
@@ -2222,7 +2261,16 @@ msgstr "PDF 로 저장..."
 msgid "O&utput to File:"
 msgstr ""
 
+msgid "Output one file for eac&h page"
+msgstr ""
+
 msgid "&Save"
+msgstr ""
+
+msgid ""
+"This enables exporting one individually named PDF file for each page in the "
+"document. Page numbers are added automatically. This is most useful for "
+"imposing PDF for commerical printing."
 msgstr ""
 
 msgid "Save as"
@@ -2362,6 +2410,106 @@ msgstr ""
 msgid "memcpy offset: %1 %2 %3"
 msgstr ""
 
+msgid "Print Preview"
+msgstr ""
+
+msgid "Anti-alias &Text"
+msgstr ""
+
+msgid "Anti-alias &Graphics"
+msgstr ""
+
+msgid "Display Trans&parency"
+msgstr ""
+
+msgid "&Under Color Removal"
+msgstr ""
+
+msgid "&Display CMYK"
+msgstr ""
+
+msgid "&C"
+msgstr ""
+
+msgid "&M"
+msgstr ""
+
+msgid "&Y"
+msgstr ""
+
+msgid "&K"
+msgstr ""
+
+#, fuzzy
+msgid "Separation Name"
+msgstr "목적 대상"
+
+msgid "Cyan"
+msgstr ""
+
+msgid "Magenta"
+msgstr ""
+
+msgid "Yellow"
+msgstr ""
+
+msgid "Black"
+msgstr ""
+
+msgid "Scaling:"
+msgstr ""
+
+msgid "Print..."
+msgstr "프린트..."
+
+msgid ""
+"Provides a more pleasant view of text items in the viewer, at the expense of "
+"a slight slowdown in previewing. This only affects Type 1 fonts"
+msgstr ""
+
+msgid ""
+"Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF "
+"and vector graphics in the preview, at the expense of a slight slowdown in "
+"previewing"
+msgstr ""
+
+msgid ""
+"Shows transparency and transparent items in your document. Requires "
+"Ghostscript 7.07 or later"
+msgstr ""
+
+msgid ""
+"Gives a print preview using simulations of generic CMYK inks, instead of RGB "
+"colors"
+msgstr ""
+
+msgid ""
+"A way of switching off some of the gray shades which are composed of cyan, "
+"yellow and magenta and using black instead. UCR most affects parts of images "
+"which are neutral and/or dark tones which are close to the gray. Use of this "
+"may improve printing some images and some experimentation and testing is "
+"need on a case by case basis. UCR reduces the possibility of over saturation "
+"with CMY inks."
+msgstr ""
+
+msgid "Resize the scale of the page."
+msgstr ""
+
+msgid "Enable/disable the C (Cyan) ink plate"
+msgstr ""
+
+msgid "Enable/disable the M (Magenta) ink plate"
+msgstr ""
+
+msgid "Enable/disable the Y (Yellow) ink plate"
+msgstr ""
+
+msgid "Enable/disable the K (Black) ink plate"
+msgstr ""
+
+msgid "All"
+msgstr ""
+
 msgid "Select Lorem Ipsum"
 msgstr ""
 
@@ -2383,6 +2531,9 @@ msgid "Alt+O"
 msgstr ""
 
 msgid "DPI"
+msgstr ""
+
+msgid "Unknown"
 msgstr ""
 
 msgid "RGB"
@@ -2873,6 +3024,9 @@ msgstr ""
 msgid "Printer"
 msgstr ""
 
+msgid "Convert Spot Colors to Process Colors"
+msgstr ""
+
 msgid "&Use Custom Rendering Settings"
 msgstr ""
 
@@ -3198,6 +3352,37 @@ msgid ""
 "Do you want to migrate them to the new Scribus version?"
 msgstr ""
 
+msgid "Could not open preferences file \"%1\" for writing: %2"
+msgstr ""
+
+msgid "Writing to preferences file \"%1\" failed: QIODevice status code %2"
+msgstr ""
+
+msgid "Failed to open prefs file \"%1\": %2"
+msgstr ""
+
+msgid "Failed to read prefs XML from \"%1\": %2 at line %3, col %4"
+msgstr ""
+
+msgid "Postscript"
+msgstr ""
+
+msgid "Error Writing Preferences"
+msgstr ""
+
+msgid ""
+"Scribus was not able to save its preferences:<br>%1<br>Please check file and "
+"directory permissions and available disk space."
+msgstr ""
+
+msgid "Error Loading Preferences"
+msgstr ""
+
+msgid ""
+"Scribus was not able to load its preferences:<br>%1<br>Default settings will "
+"be loaded."
+msgstr ""
+
 msgid "New Document"
 msgstr ""
 
@@ -3264,19 +3449,6 @@ msgstr ""
 msgid "Documents (*.sla *.scd);;"
 msgstr ""
 
-msgid "Postscript Files (*.eps *.EPS *.ps *.PS);;"
-msgstr ""
-
-msgid "SVG Images (*.svg *.svgz);;"
-msgstr ""
-
-msgid "SVG Images (*.svg);;"
-msgstr ""
-
-#, fuzzy
-msgid "OpenOffice.org Draw (*.sxd);;"
-msgstr "기존문서 열기"
-
 msgid "Open"
 msgstr ""
 
@@ -3316,9 +3488,6 @@ msgstr ""
 msgid "Set the transparency for the color selected"
 msgstr ""
 
-msgid "Color of selected object"
-msgstr ""
-
 msgid ""
 "Move the start of the gradient vector with the left mouse button pressed and "
 "move the end of the gradient vector with the right mouse button pressed"
@@ -3342,7 +3511,7 @@ msgstr ""
 msgid "Minimum Scratch Space"
 msgstr ""
 
-msgid "Turns the of linked frames on or off"
+msgid "Enable or disable the display of linked text frames."
 msgstr ""
 
 msgid "Adjusting Colors"
@@ -3495,7 +3664,8 @@ msgstr "기본 선택"
 msgid "Editable"
 msgstr "수정가능한"
 
-msgid "Java Script"
+#, fuzzy
+msgid "JavaScript"
 msgstr "자바 스크립트"
 
 msgid "Go To"
@@ -3678,7 +3848,7 @@ msgstr ""
 msgid "You need at least the Icon for Normal to use Icons for Buttons"
 msgstr ""
 
-msgid "Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)"
+msgid "Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)"
 msgstr ""
 
 msgid "Example:"
@@ -3735,6 +3905,9 @@ msgstr "문서 설정(&S)..."
 msgid "&Print..."
 msgstr "프린트(&P)..."
 
+msgid "Print Previe&w"
+msgstr ""
+
 msgid "&Quit"
 msgstr "종료(&Q)"
 
@@ -3774,7 +3947,8 @@ msgstr "선 스타일(&L)..."
 msgid "&Master Pages..."
 msgstr "다른이름으로 저장"
 
-msgid "&Javascripts..."
+#, fuzzy
+msgid "&JavaScripts..."
 msgstr "자바스크립트(&J)..."
 
 msgid "P&references..."
@@ -3968,6 +4142,10 @@ msgstr ""
 msgid "&Apply Master Page..."
 msgstr ""
 
+#, fuzzy
+msgid "Convert to Master Page..."
+msgstr "데이타 불러들이기"
+
 msgid "Manage &Guides..."
 msgstr ""
 
@@ -4149,8 +4327,18 @@ msgstr ""
 msgid "&Generate Table Of Contents"
 msgstr ""
 
+msgid "&Cascade"
+msgstr ""
+
+msgid "&Tile"
+msgstr ""
+
 msgid "&About Scribus"
 msgstr ""
+
+#, fuzzy
+msgid "&About Plug-ins"
+msgstr "단순"
 
 msgid "About &Qt"
 msgstr ""
@@ -4402,6 +4590,9 @@ msgid ""
 "patent or trademark"
 msgstr ""
 
+msgid "Preset Layouts:"
+msgstr ""
+
 msgid "Distance between the top margin guide and the edge of the page"
 msgstr ""
 
@@ -4424,6 +4615,20 @@ msgid "&Inside:"
 msgstr ""
 
 msgid "O&utside:"
+msgstr ""
+
+msgid "Book"
+msgstr ""
+
+#, fuzzy
+msgid "Magazine"
+msgstr "레이어 보이기"
+
+msgid ""
+"You can select predefined page layout here. 'None' leave margins as is, "
+"'Book' sets margins classically (Gutenberg). 'Book' is proposed for two-"
+"sided documents. 'Magazine' sets all margins for same value. Leading is Left/"
+"Inside value."
 msgstr ""
 
 msgid ""
@@ -4550,10 +4755,11 @@ msgstr ""
 msgid "Web Safe RGB"
 msgstr ""
 
-msgid "Is Spot-Color"
-msgstr ""
+#, fuzzy
+msgid "Is Spot Color"
+msgstr "색깔"
 
-msgid "Is Registration-Color"
+msgid "Is Registration Color"
 msgstr ""
 
 msgid "New"
@@ -4800,12 +5006,6 @@ msgstr ""
 msgid "Ready"
 msgstr ""
 
-msgid "&Cascade"
-msgstr ""
-
-msgid "&Tile"
-msgstr ""
-
 msgid "Importing Pages..."
 msgstr ""
 
@@ -4819,15 +5019,16 @@ msgid ""
 "pages until the last page</li><li><b>Cancel</b></li></ul><br>"
 msgstr ""
 
+msgid "Import"
+msgstr ""
+
 msgid "Import done"
 msgstr ""
 
 msgid "Found nothing to import"
 msgstr ""
 
-msgid ""
-"File %1 \n"
-"is not in an acceptable format"
+msgid "File %1 is not in an acceptable format"
 msgstr ""
 
 msgid "Loading..."
@@ -4860,14 +5061,15 @@ msgid "Saving..."
 msgstr ""
 
 msgid ""
-"Detected some Errors.\n"
-"Consider using the Preflight Checker to correct them"
+"Scribus has detected some errors.\n"
+"Consider using the Pre-flight Checker to correct them"
 msgstr ""
 
-msgid "Abort"
-msgstr ""
+#, fuzzy
+msgid "&Abort"
+msgstr "삽일(&I)"
 
-msgid "Ignore"
+msgid "&Ignore"
 msgstr ""
 
 msgid "Printing..."
@@ -4902,41 +5104,33 @@ msgstr ""
 msgid "Ghostscript : You cannot use EPS images or Print Preview"
 msgstr ""
 
-msgid "All"
+msgid ""
+"Scribus detected some errors.\n"
+"Consider using the Preflight Verifier  to correct them."
 msgstr ""
 
 msgid "EPS Files (*.eps);;All Files (*)"
 msgstr ""
 
 msgid ""
-"Detected some Errors.\n"
+"Detected some errors.\n"
 "Consider using the Preflight Verifier to correct them"
 msgstr ""
 
-msgid "Some Objects are locked."
-msgstr ""
+#, fuzzy
+msgid "-Page%1"
+msgstr "페이지:"
 
 msgid "&Lock All"
-msgstr ""
-
-msgid "Collecting..."
-msgstr ""
-
-msgid ""
-"Cannot collect all files for output for file:\n"
-"%1"
-msgstr ""
-
-msgid "The program"
-msgstr ""
-
-msgid "is already running!"
 msgstr ""
 
 msgid "Information"
 msgstr ""
 
-msgid "is missing!"
+msgid "The program %1 is already running!"
+msgstr ""
+
+msgid "The program %1 is missing!"
 msgstr ""
 
 msgid ""
@@ -4991,46 +5185,6 @@ msgstr ""
 msgid "Shadow"
 msgstr ""
 
-msgid "Advanced Options"
-msgstr ""
-
-msgid "Mirror Page(s) &Horizontal"
-msgstr ""
-
-msgid "Mirror Page(s) &Vertical"
-msgstr ""
-
-msgid "Apply Under Color &Removal"
-msgstr ""
-
-msgid "Set Media Size"
-msgstr ""
-
-msgid "Apply &ICC Profiles"
-msgstr ""
-
-msgid "PostScript Level &1"
-msgstr ""
-
-msgid "PostScript Level &2"
-msgstr ""
-
-msgid "PostScript Level &3"
-msgstr ""
-
-msgid "Creates PostScript Level 3"
-msgstr ""
-
-msgid ""
-"Creates PostScript Level 2 only, beware,\n"
-"this can create huge files"
-msgstr ""
-
-msgid ""
-"Creates PostScript Level 1 only, beware,\n"
-"this can create huge files"
-msgstr ""
-
 msgid "Setup Printer"
 msgstr ""
 
@@ -5044,11 +5198,6 @@ msgid "&File:"
 msgstr ""
 
 msgid "A&lternative Printer Command"
-msgstr ""
-
-msgid ""
-"Use an alternative print manager, such as kprinter or gtklp,\n"
-"to utilize additional printing options"
 msgstr ""
 
 msgid "Co&mmand:"
@@ -5069,37 +5218,65 @@ msgstr ""
 msgid "N&umber of Copies:"
 msgstr ""
 
-msgid "Print &Normal"
+#, fuzzy
+msgid "Print Normal"
+msgstr "퍼셋트 형식"
+
+#, fuzzy
+msgid "Print Separations"
+msgstr "목적 대상"
+
+msgid "Print in Color if Available"
 msgstr ""
 
-msgid "Print &Separations"
+msgid "Print in Grayscale"
 msgstr ""
 
-msgid "Cyan"
+msgid "PostScript Level 1"
 msgstr ""
 
-msgid "Magenta"
+msgid "PostScript Level 2"
 msgstr ""
 
-msgid "Yellow"
+msgid "PostScript Level 3"
 msgstr ""
 
-msgid "Black"
+msgid "Mirror Page(s) Horizontal"
 msgstr ""
 
-msgid "Pr&int In Color If Available"
+msgid "Mirror Page(s) Vertical"
 msgstr ""
 
-msgid "Print In Gra&yscale"
+msgid "Set Media Size"
 msgstr ""
 
-msgid "Ad&vanced Options..."
+msgid "Apply Under Color Removal"
 msgstr ""
+
+msgid "Apply ICC Profiles"
+msgstr ""
+
+msgid "Advanced Options"
+msgstr ""
+
+#, fuzzy
+msgid "Preview..."
+msgstr "프린트..."
 
 msgid "&Print"
 msgstr ""
 
-msgid "Postscript Files (*.ps);;All Files (*)"
+msgid ""
+"Use an alternative print manager, such as kprinter or gtklp,\n"
+"to utilize additional printing options"
+msgstr ""
+
+msgid ""
+"Sets the PostScript Level.\n"
+" Setting to Level 1 or 2 can create huge files"
+msgstr ""
+
+msgid "PostScript Files (*.ps);;All Files (*)"
 msgstr ""
 
 msgid "Insert Page"
@@ -5468,8 +5645,9 @@ msgstr ""
 msgid ""
 "This panel shows the version, build date and compiled in library support in "
 "Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support "
-"F=Fontconfig support. Missing library support is indicated by a * This also "
-"indicates the version of Ghostscript which Scribus has detected."
+"F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart "
+"Missing library support is indicated by a * This also indicates the version "
+"of Ghostscript which Scribus has detected."
 msgstr ""
 
 msgid "&Defaults"
@@ -6245,6 +6423,14 @@ msgstr ""
 msgid "&Save Now"
 msgstr ""
 
+#, fuzzy
+msgid "Persistent"
+msgstr "퍼셋트"
+
+#, fuzzy
+msgid "Export"
+msgstr "변환출력(&E)"
+
 msgid "Could not find target file %1: %2"
 msgstr ""
 
@@ -6263,8 +6449,9 @@ msgid "Font Substitution"
 msgstr ""
 
 msgid ""
-"This document contains some fonts that are not installed on your system,\n"
-"please choose a suitable replacement for them."
+"This document contains some fonts that are not installed on your system, "
+"please choose a suitable replacement for them. Cancel will stop the document "
+"from loading."
 msgstr ""
 
 msgid "Original Font"
@@ -6274,6 +6461,20 @@ msgid "Substitution Font"
 msgstr ""
 
 msgid "Make these substitutions permanent"
+msgstr ""
+
+msgid "Cancels these font substitutions and stops loading the document."
+msgstr ""
+
+msgid ""
+"Enabling this tells Scribus to use these replacements for missing \t\t\t\t\t"
+"\tfonts permanently in all future layouts. This can be reverted or changed \t"
+"\t\t\t\t\tin Edit > Preferences > Fonts."
+msgstr ""
+
+msgid ""
+"If you select OK, then save, these substitutions are made permanent in the \t"
+"\t\t\t\t\tdocument."
 msgstr ""
 
 msgid "Show Page Previews"
@@ -6412,9 +6613,6 @@ msgstr ""
 msgid "Do you really want to lose all your changes?"
 msgstr ""
 
-msgid "Do you really want to clear all your text?"
-msgstr ""
-
 msgid "Glyphs missing"
 msgstr ""
 
@@ -6472,7 +6670,7 @@ msgstr ""
 msgid "&Get Field Names"
 msgstr ""
 
-msgid "Javascripts (*.js);;All Files (*)"
+msgid "JavaScripts (*.js);;All Files (*)"
 msgstr ""
 
 msgid "Move Bookmark"
@@ -6489,6 +6687,9 @@ msgid "Available Styles"
 msgstr ""
 
 msgid "Edit Styles"
+msgstr ""
+
+msgid "Do you really want to delete this style?"
 msgstr ""
 
 msgid "Common Settings"
@@ -6678,10 +6879,10 @@ msgstr ""
 msgid "Use &Blackpoint Compensation"
 msgstr ""
 
-msgid "Default color profile for imported cmyk images"
+msgid "Default color profile for imported CMYK images"
 msgstr ""
 
-msgid "Default color profile for imported rgb images"
+msgid "Default color profile for imported RGB images"
 msgstr ""
 
 msgid "Default color profile for solid colors on the page"
@@ -6964,6 +7165,37 @@ msgstr ""
 msgid "page"
 msgstr "페이지:"
 
+msgid "Scribus: About Plug-ins"
+msgstr ""
+
+#, fuzzy
+msgid "File Name:"
+msgstr "이름:"
+
+msgid "Version:"
+msgstr ""
+
+#, fuzzy
+msgid "Enabled:"
+msgstr "이벤트:"
+
+#, fuzzy
+msgid "Release Date:"
+msgstr "이른 바꾸기"
+
+msgid "Copyright:"
+msgstr ""
+
+msgid "Author(s):"
+msgstr ""
+
+#, fuzzy
+msgid "Description:"
+msgstr "목적 대상"
+
+msgid "License:"
+msgstr ""
+
 msgid "New From Template"
 msgstr ""
 
@@ -7110,6 +7342,9 @@ msgstr "템플릿"
 msgid "Short &Words..."
 msgstr ""
 
+msgid "Short Words"
+msgstr ""
+
 msgid "Short Words processing. Wait please..."
 msgstr ""
 
@@ -7132,9 +7367,6 @@ msgid "S&etup editor..."
 msgstr ""
 
 msgid "&Info and Languages..."
-msgstr ""
-
-msgid "Short Words"
 msgstr ""
 
 msgid "Apply unbreakable space on:"
@@ -7204,6 +7436,9 @@ msgstr "사용자 설정 스크립트"
 msgid "Save as &Template..."
 msgstr ""
 
+msgid "Save As Template"
+msgstr ""
+
 msgid "Save as Template"
 msgstr ""
 
@@ -7240,7 +7475,17 @@ msgstr ""
 msgid "Import &OpenOffice.org Draw..."
 msgstr ""
 
+#, fuzzy
+msgid "OpenOffice.org Draw Importer"
+msgstr "기존문서 열기"
+
 msgid "OpenOffice.org Draw (*.sxd);;All Files (*)"
+msgstr ""
+
+msgid "&Font Preview..."
+msgstr ""
+
+msgid "Font Preview"
 msgstr ""
 
 msgid "Doc"
@@ -7254,6 +7499,10 @@ msgstr ""
 
 msgid "Fonts Preview"
 msgstr ""
+
+#, fuzzy
+msgid "&Append"
+msgstr "적용(&A)"
 
 msgid "Quick Search: "
 msgstr ""
@@ -7440,73 +7689,6 @@ msgstr ""
 msgid "html"
 msgstr ""
 
-msgid "Print Previe&w"
-msgstr ""
-
-msgid "Print Preview"
-msgstr ""
-
-msgid "Anti-alias &Text"
-msgstr ""
-
-msgid "Anti-alias &Graphics"
-msgstr ""
-
-msgid "Display Trans&parency"
-msgstr ""
-
-msgid "&Under Color Removal"
-msgstr ""
-
-msgid "&Display CMYK"
-msgstr ""
-
-msgid "&C"
-msgstr ""
-
-msgid "&M"
-msgstr ""
-
-msgid "&Y"
-msgstr ""
-
-msgid "&K"
-msgstr ""
-
-msgid ""
-"Provides a more pleasant view of text items in the viewer, at the expense\n"
-"of a slight slowdown in previewing. This only affects Type 1 fonts"
-msgstr ""
-
-msgid ""
-"Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF "
-"and\n"
-"vector graphics in the preview, at the expense of a slight slowdown in "
-"previewing"
-msgstr ""
-
-msgid ""
-"Shows transparency and transparent items in your document. Requires "
-"Ghostscript 7.07 or later"
-msgstr ""
-
-msgid ""
-"Gives a print preview using simulations of generic CMYK inks, instead of RGB "
-"colors"
-msgstr ""
-
-msgid "Enable/disable the C (Cyan) ink plate"
-msgstr ""
-
-msgid "Enable/disable the M (Magenta) ink plate"
-msgstr ""
-
-msgid "Enable/disable the Y (Yellow) ink plate"
-msgstr ""
-
-msgid "Enable/disable the K (Black) ink plate"
-msgstr ""
-
 #, fuzzy
 msgid "Failed to open document."
 msgstr "현재 문서 저장"
@@ -7517,6 +7699,21 @@ msgstr "현재 문서 저장"
 
 msgid "Unit out of range. Use one of the scribus.UNIT_* constants."
 msgstr ""
+
+msgid "Scripter Preferences"
+msgstr ""
+
+#, fuzzy
+msgid "Extension Scripts"
+msgstr "사용자 설정 스크립트"
+
+#, fuzzy
+msgid "Enable Extension Scripts"
+msgstr "사용자 설정 스크립트"
+
+#, fuzzy
+msgid "Startup Script"
+msgstr "자바 스크립트"
 
 msgid "Argument must be page item name, or PyCObject instance"
 msgstr ""
@@ -7541,7 +7738,11 @@ msgstr ""
 msgid "Types matched, but setting property failed."
 msgstr ""
 
-msgid "S&cripter Manual..."
+#, fuzzy
+msgid "Scripter"
+msgstr "스크립트:"
+
+msgid "Embedded Python scripting support."
 msgstr ""
 
 msgid ""
@@ -7967,6 +8168,10 @@ msgstr "사용자 설정 스크립트"
 msgid "Import &SVG..."
 msgstr ""
 
+#, fuzzy
+msgid "SVG Import"
+msgstr "삽일(&I)"
+
 msgid "SVG-Images (*.svg *.svgz);;All Files (*)"
 msgstr ""
 
@@ -7977,10 +8182,13 @@ msgstr ""
 msgid "Normal Vision"
 msgstr "보통"
 
-msgid "Protanopy"
+msgid "Protanopia (red)"
 msgstr ""
 
-msgid "Deuteranopy"
+msgid "Deuteranopia (green)"
+msgstr ""
+
+msgid "Tritanopia (blue)"
 msgstr ""
 
 msgid "Full Color Blindness"
@@ -8185,6 +8393,10 @@ msgstr ""
 msgid "Save as &Image..."
 msgstr ""
 
+#, fuzzy
+msgid "Export As Image"
+msgstr "페이지 삽입(&S)"
+
 msgid "Save as Image"
 msgstr ""
 
@@ -8206,12 +8418,19 @@ msgstr ""
 msgid "Save Page as &SVG..."
 msgstr ""
 
+#, fuzzy
+msgid "SVG Export"
+msgstr "변환출력(&E)"
+
 msgid ""
 "Do you really want to overwrite the File:\n"
 "%1 ?"
 msgstr ""
 
 msgid "Import &EPS/PS..."
+msgstr ""
+
+msgid "PS/EPS Importer"
 msgstr ""
 
 msgid "All Supported Formats (*.eps *.EPS *.ps *.PS);;"
@@ -8222,6 +8441,24 @@ msgid ""
 "%1\n"
 "failed!"
 msgstr ""
+
+msgid "Scribus - My Plugin"
+msgstr ""
+
+msgid "The plugin worked!"
+msgstr ""
+
+#, fuzzy
+msgid "My &Plugin"
+msgstr "단순"
+
+#, fuzzy
+msgid "My Plugin"
+msgstr "단순"
+
+#, fuzzy
+#~ msgid "Standard"
+#~ msgstr "별"
 
 #, fuzzy
 #~ msgid "Left Ind&ent:"
@@ -8285,10 +8522,6 @@ msgstr ""
 #~ msgstr "문단 스타일(&P)..."
 
 #, fuzzy
-#~ msgid "Orientation:"
-#~ msgstr "목적 대상"
-
-#, fuzzy
 #~ msgid "Height:"
 #~ msgstr "강조"
 
@@ -8321,9 +8554,6 @@ msgstr ""
 
 #~ msgid "Document Setup..."
 #~ msgstr "문서 설정..."
-
-#~ msgid "Print..."
-#~ msgstr "프린트..."
 
 #~ msgid "Templates..."
 #~ msgstr "템플릿"

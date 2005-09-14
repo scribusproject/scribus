@@ -150,8 +150,8 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, Pro
 		blackP->setEnabled( false );
 	}
 
-	QToolTip::add( inputPCMYK, tr( "Default color profile for imported cmyk images" ) );
-	QToolTip::add( inputP, tr( "Default color profile for imported rgb images" ) );
+	QToolTip::add( inputPCMYK, tr( "Default color profile for imported CMYK images" ) );
+	QToolTip::add( inputP, tr( "Default color profile for imported RGB images" ) );
 	QToolTip::add( inputP2, tr( "Default color profile for solid colors on the page" ) );
 	QToolTip::add( monitorP, tr( "Color profile that you have generated or received from the manufacturer.\nThis profile should be specific to your monitor and not a generic profile (i.e. sRGB)." ) );
 	QToolTip::add( printerP, tr( "Color profile for your printer model from the manufacturer.\nThis profile should be specific to your printer and not a generic profile (i.e. sRGB)." ) );

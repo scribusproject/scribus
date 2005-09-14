@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-22 02:29+0200\n"
+"POT-Creation-Date: 2005-09-14 09:28+0200\n"
 "PO-Revision-Date: 2005-01-08 17:40+0100\n"
 "Last-Translator: Pier Luigi Cinquantini <plcinquantini@katamail.com>\n"
 "Language-Team: esperanto <eo@li.org>\n"
@@ -134,7 +134,8 @@ msgstr "Sub-aro"
 msgid "Path to Font File"
 msgstr "Tipara dosierindiko"
 
-msgid "Postscript"
+#, fuzzy
+msgid "PostScript"
 msgstr "Postskripto"
 
 msgid "&Available Fonts"
@@ -288,6 +289,18 @@ msgstr " pt"
 
 msgid "Size:"
 msgstr "Grando:"
+
+#, fuzzy
+msgid "Text Color:"
+msgstr "Forigu koloron"
+
+#, fuzzy
+msgid "Shading:"
+msgstr "I&ntenso:"
+
+#, fuzzy
+msgid "Text Stroke:"
+msgstr "Klavopremo:"
 
 #, fuzzy
 msgid "Fill Color:"
@@ -596,6 +609,41 @@ msgstr "Maldekstra deŝovo por la tuta alineo"
 msgid "Delete all Tabulators"
 msgstr "Forigu ĉiujn tabojn"
 
+#, fuzzy
+msgid "Plugin Manager"
+msgstr "Printu inter&valon"
+
+#, fuzzy
+msgid "Plugin"
+msgstr "Normala"
+
+#, fuzzy
+msgid "How to run"
+msgstr "Movu malfonen"
+
+msgid "Type"
+msgstr "Tipo"
+
+#, fuzzy
+msgid "Load it?"
+msgstr "Ŝarganta:"
+
+#, fuzzy
+msgid "Plugin ID"
+msgstr "Normala"
+
+msgid "File"
+msgstr "Dosiero"
+
+msgid "Yes"
+msgstr "Jes"
+
+msgid "No"
+msgstr "Ne"
+
+msgid "You need to restart the application to apply the changes."
+msgstr ""
+
 msgid "Document"
 msgstr "Dokumento"
 
@@ -711,11 +759,11 @@ msgstr ""
 "Kiam markita ĝi uzas koordinatojn relativajn al la paĝo,\n"
 "alie koordinatojn relativajn al la objekto."
 
+msgid "Copy #%1 of "
+msgstr "Kopio de #%1 de"
+
 msgid "Name"
 msgstr "Nomo"
-
-msgid "Type"
-msgstr "Tipo"
 
 msgid "Value"
 msgstr "Valoro"
@@ -801,12 +849,6 @@ msgstr "Nur malparaj paĝoj"
 
 msgid "Mirror"
 msgstr "Reflektu"
-
-msgid "No"
-msgstr "Ne"
-
-msgid "Yes"
-msgstr "Jes"
 
 msgid "Orientation"
 msgstr "Rotacio"
@@ -1298,6 +1340,18 @@ msgstr "Centra"
 msgid "String"
 msgstr "Agordaro"
 
+#, fuzzy
+msgid "Collecting..."
+msgstr "Ŝargas..."
+
+msgid "Warning"
+msgstr "Averto"
+
+msgid ""
+"Cannot collect all files for output for file:\n"
+"%1"
+msgstr ""
+
 msgid "Manage Tabulators"
 msgstr "Administru tabojn"
 
@@ -1375,15 +1429,11 @@ msgstr "Konve&rtu al"
 msgid "Linking Text Frames"
 msgstr "Ligu tekstokadrojn"
 
-msgid ""
-"There is a problem with text frames linking. You are trying to link filled "
-"frames or a frame to the same one itself"
+msgid "You are trying to link to a filled frame, or a frame to itself."
 msgstr ""
 
-msgid "Warning"
-msgstr "Averto"
-
-msgid "Do you really want to clear all your Text?"
+#, fuzzy
+msgid "Do you really want to clear all your text?"
 msgstr "Ĉu vi vere intencas forviŝi la tutan tekston?"
 
 msgid "Cannot Delete In-Use Item"
@@ -1392,6 +1442,14 @@ msgstr ""
 msgid ""
 "The item %1 is currently being edited by Story Editor. The delete operation "
 "will be cancelled"
+msgstr ""
+
+msgid "Cannot Convert In-Use Item"
+msgstr ""
+
+msgid ""
+"The item %1 is currently being edited by Story Editor. The convert to "
+"outlines operation for this item will be skipped"
 msgstr ""
 
 #, fuzzy
@@ -1460,25 +1518,45 @@ msgid "Cannot find symbol (%1)"
 msgstr ""
 
 #, fuzzy
-msgid "Persistent"
-msgstr "Printu"
-
-msgid "Import"
-msgstr "Importu"
+msgid "Plugin: loading %1"
+msgstr "Printu inter&valon"
 
 #, fuzzy
-msgid "Standard"
-msgstr "Stelo"
+msgid "init failed"
+msgstr "Ne eblas printi!"
 
-msgid "Unknown"
-msgstr "Nekonata"
+msgid "unknown plugin type"
+msgstr ""
+
+msgid "Plugin: %1 loaded"
+msgstr ""
+
+msgid "Plugin: %1 failed to load: %2"
+msgstr ""
+
+#, fuzzy
+msgid "PostScript Files (*.eps *.EPS *.ps *.PS);;"
+msgstr "Ĉiuj subtenataj formatoj (*.eps *.EPS *.ps *.PS);;"
+
+#, fuzzy
+msgid "SVG Images (*.svg *.svgz);;"
+msgstr "SVG-bildoj (*svg *.svgz);; Ĉiaj dosieroj (*)"
+
+#, fuzzy
+msgid "SVG Images (*.svg);;"
+msgstr "SVG-bildoj (*svg);; Ĉiaj dosieroj (*)"
+
+#, fuzzy
+msgid "OpenOffice.org Draw (*.sxd);;"
+msgstr "OpenOffice.org Draw (*.sxd);;Ĉiaj dosieroj (*)"
+
+#, fuzzy
+msgid "%1 of %1"
+msgstr "%1 - [%2]"
 
 #, fuzzy
 msgid "%1 of %2"
 msgstr "%1 - [%2]"
-
-msgid " of %1"
-msgstr "el %1"
 
 msgid "Icon Placement"
 msgstr "Piktogram-dislokado"
@@ -1914,7 +1992,8 @@ msgstr "Por alĝustigi la montratan paĝon ŝovu la tenilon sub la liniilo."
 msgid "Display"
 msgstr "Montrado"
 
-msgid "Postscript Interpreter"
+#, fuzzy
+msgid "PostScript Interpreter"
 msgstr "Postskript-interpretilo"
 
 msgid "&Name of Executable:"
@@ -1976,37 +2055,11 @@ msgid "Miscellaneous"
 msgstr ""
 
 #, fuzzy
-msgid "Plugin Manager"
-msgstr "Printu inter&valon"
-
-#, fuzzy
-msgid "Plugin"
-msgstr "Normala"
-
-#, fuzzy
-msgid "How to run"
-msgstr "Movu malfonen"
-
-#, fuzzy
-msgid "Load it?"
-msgstr "Ŝarganta:"
-
-#, fuzzy
-msgid "Plugin ID"
-msgstr "Normala"
-
-msgid "File"
-msgstr "Dosiero"
-
-msgid "You need to restart the application to apply the changes."
-msgstr ""
-
-#, fuzzy
 msgid "Plugins"
 msgstr "Normala"
 
 #, fuzzy
-msgid "Turns the display of linked frames on or off"
+msgid "Enable or disable  the display of linked frames."
 msgstr "Igas videbla la bazlinian kradon"
 
 msgid ""
@@ -2020,10 +2073,9 @@ msgid "Turns the display of pictures on or off"
 msgstr ""
 
 msgid ""
-"Select your default language for Scribus to run with.\n"
-"Leave this blank to choose based on environment variables.\n"
-"You can still override this by passing a command line option when starting "
-"Scribus"
+"Select your default language for Scribus to run with. Leave this blank to "
+"choose based on environment variables. You can still override this by "
+"passing a command line option when starting Scribus"
 msgstr ""
 
 msgid ""
@@ -2233,9 +2285,6 @@ msgstr ""
 msgid "element <lpiSettingsEntry> lacks `name' attribute"
 msgstr ""
 
-msgid "Copy #%1 of "
-msgstr "Kopio de #%1 de"
-
 msgid "Delete Pages"
 msgstr "Forigu paĝojn"
 
@@ -2393,8 +2442,17 @@ msgstr "Konservu kiel P&DF..."
 msgid "O&utput to File:"
 msgstr "&Celdosiero:"
 
+msgid "Output one file for eac&h page"
+msgstr ""
+
 msgid "&Save"
 msgstr "&Konservu"
+
+msgid ""
+"This enables exporting one individually named PDF file for each page in the "
+"document. Page numbers are added automatically. This is most useful for "
+"imposing PDF for commerical printing."
+msgstr ""
 
 msgid "Save as"
 msgstr "Konservu kiel"
@@ -2539,6 +2597,127 @@ msgstr ""
 msgid "memcpy offset: %1 %2 %3"
 msgstr ""
 
+msgid "Print Preview"
+msgstr "Print-antaŭrigardo"
+
+msgid "Anti-alias &Text"
+msgstr "Glatigita &teksto"
+
+msgid "Anti-alias &Graphics"
+msgstr "&Glatigitaj grafikaĵoj"
+
+msgid "Display Trans&parency"
+msgstr "Montru travide&blecon"
+
+msgid "&Under Color Removal"
+msgstr "&Forigo de la subaj koloroj (UCR)"
+
+msgid "&Display CMYK"
+msgstr "&Montru CMYK"
+
+msgid "&C"
+msgstr "&C"
+
+msgid "&M"
+msgstr "&M"
+
+msgid "&Y"
+msgstr "&Y"
+
+msgid "&K"
+msgstr "&K"
+
+#, fuzzy
+msgid "Separation Name"
+msgstr "Saturiteco"
+
+msgid "Cyan"
+msgstr "Cejanbluo"
+
+msgid "Magenta"
+msgstr "Karmezina"
+
+msgid "Yellow"
+msgstr "Flava"
+
+msgid "Black"
+msgstr "Nigra"
+
+#, fuzzy
+msgid "Scaling:"
+msgstr "Sk&alado:"
+
+msgid "Print..."
+msgstr "Printu..."
+
+#, fuzzy
+msgid ""
+"Provides a more pleasant view of text items in the viewer, at the expense of "
+"a slight slowdown in previewing. This only affects Type 1 fonts"
+msgstr ""
+"Donas pli plaĉan vidon, en la ekrano, de tekstaj elementoj, je la kosto\n"
+"de pli malrapida montro. Tio interesas nur Type1-tiparojn"
+
+#, fuzzy
+msgid ""
+"Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF "
+"and vector graphics in the preview, at the expense of a slight slowdown in "
+"previewing"
+msgstr ""
+"Donas pli plaĉan vidon, en la ekrano, de TTF-tiparoj, EPS-aj kaj PDF-aj "
+"dosieroj kaj vektoraj grafikoj,\n"
+" je la kosto de pli malrapida montro"
+
+msgid ""
+"Shows transparency and transparent items in your document. Requires "
+"Ghostscript 7.07 or later"
+msgstr ""
+"Montras travideblecon kaj travideblajn objektojn en via dokumento. Necesas "
+"Ghostscript 7.07 aŭ pli nova"
+
+msgid ""
+"Gives a print preview using simulations of generic CMYK inks, instead of RGB "
+"colors"
+msgstr ""
+"Donas printantaŭrigardon utiligante simuladojn de komunaj CMYK-inkoj, "
+"anstataŭ RGB-koloroj"
+
+#, fuzzy
+msgid ""
+"A way of switching off some of the gray shades which are composed of cyan, "
+"yellow and magenta and using black instead. UCR most affects parts of images "
+"which are neutral and/or dark tones which are close to the gray. Use of this "
+"may improve printing some images and some experimentation and testing is "
+"need on a case by case basis. UCR reduces the possibility of over saturation "
+"with CMY inks."
+msgstr ""
+"Maniero estingi iom da griztonoj kiuj konsistas el cejanblua, flava kaj\n"
+"karmezina koloroj anstataŭante ilin per la nigra.\n"
+"UCR plejparte koncernas la partojn de la bildoj kiuj estas neŭtraj kaj/aŭ\n"
+"la malhelajn tonojn kiuj proksimas al la griza. La uzo de tio povas "
+"pliboniĝi\n"
+"printante kelkajn bildojn kaj provante laŭ la diversaj kazoj.\n"
+"UCR malpliigas la eblon de trosaturiĝo kun CMY-inkoj."
+
+#, fuzzy
+msgid "Resize the scale of the page."
+msgstr "Redaktu la kadroformon..."
+
+msgid "Enable/disable the C (Cyan) ink plate"
+msgstr "Ebligas/malebligas la C (Cejana) inkotavolon"
+
+msgid "Enable/disable the M (Magenta) ink plate"
+msgstr "Ebligas/malebligas la M (Fuksina) inkotavolon"
+
+msgid "Enable/disable the Y (Yellow) ink plate"
+msgstr "Ebligas/malebligas la Y (Flava) inkotavolon"
+
+msgid "Enable/disable the K (Black) ink plate"
+msgstr "Ebligas/malebligas la K (Nigra) inkotavolon"
+
+msgid "All"
+msgstr "Ĉiuj"
+
 #, fuzzy
 msgid "Select Lorem Ipsum"
 msgstr "Elektu objektojn"
@@ -2562,6 +2741,9 @@ msgstr "Alt+O"
 
 msgid "DPI"
 msgstr ""
+
+msgid "Unknown"
+msgstr "Nekonata"
 
 msgid "RGB"
 msgstr "RGB"
@@ -3080,6 +3262,9 @@ msgstr "Ekrano / TTT"
 msgid "Printer"
 msgstr "Printilo"
 
+msgid "Convert Spot Colors to Process Colors"
+msgstr ""
+
 msgid "&Use Custom Rendering Settings"
 msgstr "U&zu proprajn bildigoagordojn"
 
@@ -3486,6 +3671,39 @@ msgid ""
 "Do you want to migrate them to the new Scribus version?"
 msgstr ""
 
+msgid "Could not open preferences file \"%1\" for writing: %2"
+msgstr ""
+
+msgid "Writing to preferences file \"%1\" failed: QIODevice status code %2"
+msgstr ""
+
+msgid "Failed to open prefs file \"%1\": %2"
+msgstr ""
+
+msgid "Failed to read prefs XML from \"%1\": %2 at line %3, col %4"
+msgstr ""
+
+msgid "Postscript"
+msgstr "Postskripto"
+
+#, fuzzy
+msgid "Error Writing Preferences"
+msgstr "Legas preferojn"
+
+msgid ""
+"Scribus was not able to save its preferences:<br>%1<br>Please check file and "
+"directory permissions and available disk space."
+msgstr ""
+
+#, fuzzy
+msgid "Error Loading Preferences"
+msgstr "Legas preferojn"
+
+msgid ""
+"Scribus was not able to load its preferences:<br>%1<br>Default settings will "
+"be loaded."
+msgstr ""
+
 msgid "New Document"
 msgstr "Nova dokumento"
 
@@ -3557,22 +3775,6 @@ msgstr "Documentoj (*.sla *.sla.gz *.scd *.scd.gz);;Ĉiaj dosieroj (*)"
 msgid "Documents (*.sla *.scd);;"
 msgstr "Dokumentoj (*.sla *.scd);; Ĉiaj dosieroj (*)"
 
-#, fuzzy
-msgid "Postscript Files (*.eps *.EPS *.ps *.PS);;"
-msgstr "Ĉiuj subtenataj formatoj (*.eps *.EPS *.ps *.PS);;"
-
-#, fuzzy
-msgid "SVG Images (*.svg *.svgz);;"
-msgstr "SVG-bildoj (*svg *.svgz);; Ĉiaj dosieroj (*)"
-
-#, fuzzy
-msgid "SVG Images (*.svg);;"
-msgstr "SVG-bildoj (*svg);; Ĉiaj dosieroj (*)"
-
-#, fuzzy
-msgid "OpenOffice.org Draw (*.sxd);;"
-msgstr "OpenOffice.org Draw (*.sxd);;Ĉiaj dosieroj (*)"
-
 msgid "Open"
 msgstr "Malfermu"
 
@@ -3613,9 +3815,6 @@ msgstr "Normala aŭ gradienta plenigmetodo"
 msgid "Set the transparency for the color selected"
 msgstr "Agordu travideblecon por la elektita koloro"
 
-msgid "Color of selected object"
-msgstr "Koloro de la elektita objekto"
-
 msgid ""
 "Move the start of the gradient vector with the left mouse button pressed and "
 "move the end of the gradient vector with the right mouse button pressed"
@@ -3643,8 +3842,9 @@ msgstr "Dokument-informoj"
 msgid "Minimum Scratch Space"
 msgstr "Vertikalaj spacoj"
 
-msgid "Turns the of linked frames on or off"
-msgstr ""
+#, fuzzy
+msgid "Enable or disable the display of linked text frames."
+msgstr "Igas videbla la bazlinian kradon"
 
 msgid "Adjusting Colors"
 msgstr "Agordas kolorojn"
@@ -3796,7 +3996,8 @@ msgstr "Defaŭlte estas markita"
 msgid "Editable"
 msgstr "Redaktebla"
 
-msgid "Java Script"
+#, fuzzy
+msgid "JavaScript"
 msgstr "Ĝavaskripto"
 
 msgid "Go To"
@@ -3979,7 +4180,8 @@ msgstr "Enmetu komdisigitan liston de kampoj ĉi tie"
 msgid "You need at least the Icon for Normal to use Icons for Buttons"
 msgstr "Necesas minimume normala piktogramo por uzi piktogramojn kiel butonojn"
 
-msgid "Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)"
+#, fuzzy
+msgid "Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)"
 msgstr ""
 "Bildoj (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Ĉiaj dosieroj (*)"
 
@@ -4038,6 +4240,9 @@ msgstr "Dokument-&agordoj..."
 msgid "&Print..."
 msgstr "&Printu..."
 
+msgid "Print Previe&w"
+msgstr "Print-antaŭri&gardo"
+
 msgid "&Quit"
 msgstr "&Finu"
 
@@ -4077,7 +4282,8 @@ msgstr "&Linistiloj..."
 msgid "&Master Pages..."
 msgstr "post paĝo"
 
-msgid "&Javascripts..."
+#, fuzzy
+msgid "&JavaScripts..."
 msgstr "Ĝa&vaskriptoj..."
 
 msgid "P&references..."
@@ -4290,6 +4496,10 @@ msgstr "&Movu..."
 msgid "&Apply Master Page..."
 msgstr "&Apliku ŝablonon..."
 
+#, fuzzy
+msgid "Convert to Master Page..."
+msgstr "Importu datumojn"
+
 msgid "Manage &Guides..."
 msgstr "A&dministru gvidilojn..."
 
@@ -4483,8 +4693,18 @@ msgstr "Dividu vortojn"
 msgid "&Generate Table Of Contents"
 msgstr ""
 
+msgid "&Cascade"
+msgstr "&Vicigitaj"
+
+msgid "&Tile"
+msgstr "&Flankĉeflankaj"
+
 msgid "&About Scribus"
 msgstr "&Pri Scribus"
+
+#, fuzzy
+msgid "&About Plug-ins"
+msgstr "Normala"
 
 msgid "About &Qt"
 msgstr "Pri &Qt"
@@ -4778,6 +4998,10 @@ msgid ""
 "patent or trademark"
 msgstr "Informoj pri la dokumentorajtoj, ekz. kopirajtoj, patento aŭ marko"
 
+#, fuzzy
+msgid "Preset Layouts:"
+msgstr "Aranĝo:"
+
 msgid "Distance between the top margin guide and the edge of the page"
 msgstr "Distanco inter la supra marĝeno kaj la rando de la paĝo"
 
@@ -4807,6 +5031,21 @@ msgstr "I&nterna:"
 
 msgid "O&utside:"
 msgstr "&Ekstera:"
+
+#, fuzzy
+msgid "Book"
+msgstr "Alkadrigita"
+
+#, fuzzy
+msgid "Magazine"
+msgstr "Magazinoj"
+
+msgid ""
+"You can select predefined page layout here. 'None' leave margins as is, "
+"'Book' sets margins classically (Gutenberg). 'Book' is proposed for two-"
+"sided documents. 'Magazine' sets all margins for same value. Leading is Left/"
+"Inside value."
+msgstr ""
 
 msgid ""
 "You can see a thumbnail if you press\n"
@@ -4936,11 +5175,13 @@ msgstr "Ko&lorŝablono"
 msgid "Web Safe RGB"
 msgstr "RGB por Interreto"
 
-msgid "Is Spot-Color"
-msgstr ""
+#, fuzzy
+msgid "Is Spot Color"
+msgstr "Konturkoloron"
 
-msgid "Is Registration-Color"
-msgstr ""
+#, fuzzy
+msgid "Is Registration Color"
+msgstr "Saturiteco de la koloro"
 
 msgid "New"
 msgstr "Nova"
@@ -5192,12 +5433,6 @@ msgstr "&Alĝustigo"
 msgid "Ready"
 msgstr "Preta"
 
-msgid "&Cascade"
-msgstr "&Vicigitaj"
-
-msgid "&Tile"
-msgstr "&Flankĉeflankaj"
-
 msgid "Importing Pages..."
 msgstr "Importas paĝojn..."
 
@@ -5215,6 +5450,9 @@ msgstr ""
 "<br><ul><li><b>Kreu</b> la mankantajn pagojn</li><li><b>Importu</b> la "
 "paĝojn ĝis la lasta</li><li><b>Rezignu</b></li></ul><br>"
 
+msgid "Import"
+msgstr "Importu"
+
 msgid "Import done"
 msgstr "Importo finita"
 
@@ -5222,9 +5460,7 @@ msgid "Found nothing to import"
 msgstr "Trovita nenio por importi"
 
 #, fuzzy
-msgid ""
-"File %1 \n"
-"is not in an acceptable format"
+msgid "File %1 is not in an acceptable format"
 msgstr "La dosiero %1 ne havas Scribus-formaton"
 
 msgid "Loading..."
@@ -5260,16 +5496,16 @@ msgid "Saving..."
 msgstr "Konservas..."
 
 msgid ""
-"Detected some Errors.\n"
-"Consider using the Preflight Checker to correct them"
+"Scribus has detected some errors.\n"
+"Consider using the Pre-flight Checker to correct them"
 msgstr ""
 
 #, fuzzy
-msgid "Abort"
+msgid "&Abort"
 msgstr "&Pri"
 
 #, fuzzy
-msgid "Ignore"
+msgid "&Ignore"
 msgstr "&Ignoru usklecon"
 
 msgid "Printing..."
@@ -5306,46 +5542,37 @@ msgstr "Mankas la ĉi-sekvaj programoj:"
 msgid "Ghostscript : You cannot use EPS images or Print Preview"
 msgstr "Ghostscript: Vi ne povas utiligi EPS-bildojn"
 
-msgid "All"
-msgstr "Ĉiuj"
+msgid ""
+"Scribus detected some errors.\n"
+"Consider using the Preflight Verifier  to correct them."
+msgstr ""
 
 #, fuzzy
 msgid "EPS Files (*.eps);;All Files (*)"
 msgstr "EPS-dosieroj (*eps);; Ĉiaj dosieroj (*)"
 
 msgid ""
-"Detected some Errors.\n"
+"Detected some errors.\n"
 "Consider using the Preflight Verifier to correct them"
 msgstr ""
 
-msgid "Some Objects are locked."
-msgstr "Kelkaj objektoj estas ŝlositaj."
+#, fuzzy
+msgid "-Page%1"
+msgstr "Paĝo"
 
 #, fuzzy
 msgid "&Lock All"
 msgstr "Ŝlosu ĉiujn"
 
-#, fuzzy
-msgid "Collecting..."
-msgstr "Ŝargas..."
-
-msgid ""
-"Cannot collect all files for output for file:\n"
-"%1"
-msgstr ""
-
-#, fuzzy
-msgid "The program"
-msgstr "La programo"
-
-msgid "is already running!"
-msgstr ""
-
 msgid "Information"
 msgstr "Informoj"
 
-msgid "is missing!"
-msgstr "mankas!"
+msgid "The program %1 is already running!"
+msgstr ""
+
+#, fuzzy
+msgid "The program %1 is missing!"
+msgstr "Mankas la ĉi-sekvaj programoj:"
 
 msgid ""
 "The selected color does not exist in the document's color set. Please enter "
@@ -5402,50 +5629,6 @@ msgstr "Trastrekita"
 msgid "Shadow"
 msgstr "Intenso"
 
-msgid "Advanced Options"
-msgstr "Kromaj opcioj "
-
-msgid "Mirror Page(s) &Horizontal"
-msgstr "R&eflektu paĝo(j)n"
-
-msgid "Mirror Page(s) &Vertical"
-msgstr "Ren&versu paĝo(j)n"
-
-msgid "Apply Under Color &Removal"
-msgstr "Apliku &forigon de la subaj koloroj (UCR)"
-
-msgid "Set Media Size"
-msgstr ""
-
-msgid "Apply &ICC Profiles"
-msgstr "Apliku &ICC-profilojn"
-
-msgid "PostScript Level &1"
-msgstr "Postskript-nivelo &1"
-
-msgid "PostScript Level &2"
-msgstr "Postskript-nivelo &2"
-
-msgid "PostScript Level &3"
-msgstr "Postskript-nivelo &3"
-
-msgid "Creates PostScript Level 3"
-msgstr "Kreas Postskript-nivelon 3"
-
-msgid ""
-"Creates PostScript Level 2 only, beware,\n"
-"this can create huge files"
-msgstr ""
-"Kreas nur Postskript-nivelon 2, atentu,\n"
-"ĝi povus krei grandegajn dosierojn"
-
-msgid ""
-"Creates PostScript Level 1 only, beware,\n"
-"this can create huge files"
-msgstr ""
-"Kreas nur Postskript-nivelon 1, atentu,\n"
-"ĝi povus krei grandegajn dosierojn"
-
 msgid "Setup Printer"
 msgstr "Agordu printilon"
 
@@ -5460,13 +5643,6 @@ msgstr "&Dosiero:"
 
 msgid "A&lternative Printer Command"
 msgstr "A&lia printkomando"
-
-msgid ""
-"Use an alternative print manager, such as kprinter or gtklp,\n"
-"to utilize additional printing options"
-msgstr ""
-"Uzu alian printadministrilon, kiel kprinter aŭ gtklp,\n"
-"por utiligi kromajn printopciojn"
 
 msgid "Co&mmand:"
 msgstr "Ko&mando:"
@@ -5486,38 +5662,80 @@ msgstr "Printu inter&valon"
 msgid "N&umber of Copies:"
 msgstr "Kopin&ombro:"
 
-msgid "Print &Normal"
+#, fuzzy
+msgid "Print Normal"
 msgstr "Printu &normalan"
 
-msgid "Print &Separations"
+#, fuzzy
+msgid "Print Separations"
 msgstr "Printu kolordi&sigojn"
 
-msgid "Cyan"
-msgstr "Cejanbluo"
-
-msgid "Magenta"
-msgstr "Karmezina"
-
-msgid "Yellow"
-msgstr "Flava"
-
-msgid "Black"
-msgstr "Nigra"
-
-msgid "Pr&int In Color If Available"
+#, fuzzy
+msgid "Print in Color if Available"
 msgstr "Pr&intu kolore se eblas"
 
-msgid "Print In Gra&yscale"
+#, fuzzy
+msgid "Print in Grayscale"
 msgstr "Printu &grizgame"
 
-msgid "Ad&vanced Options..."
-msgstr "Kro&maj opcioj..."
+#, fuzzy
+msgid "PostScript Level 1"
+msgstr "Postskript-nivelo &1"
+
+#, fuzzy
+msgid "PostScript Level 2"
+msgstr "Postskript-nivelo &2"
+
+#, fuzzy
+msgid "PostScript Level 3"
+msgstr "Postskript-nivelo &3"
+
+#, fuzzy
+msgid "Mirror Page(s) Horizontal"
+msgstr "R&eflektu paĝo(j)n"
+
+#, fuzzy
+msgid "Mirror Page(s) Vertical"
+msgstr "Ren&versu paĝo(j)n"
+
+msgid "Set Media Size"
+msgstr ""
+
+#, fuzzy
+msgid "Apply Under Color Removal"
+msgstr "Apliku &forigon de la subaj koloroj (UCR)"
+
+#, fuzzy
+msgid "Apply ICC Profiles"
+msgstr "Apliku &ICC-profilojn"
+
+msgid "Advanced Options"
+msgstr "Kromaj opcioj "
+
+#, fuzzy
+msgid "Preview..."
+msgstr "Antaŭrigardo"
 
 msgid "&Print"
 msgstr "&Printu"
 
+msgid ""
+"Use an alternative print manager, such as kprinter or gtklp,\n"
+"to utilize additional printing options"
+msgstr ""
+"Uzu alian printadministrilon, kiel kprinter aŭ gtklp,\n"
+"por utiligi kromajn printopciojn"
+
 #, fuzzy
-msgid "Postscript Files (*.ps);;All Files (*)"
+msgid ""
+"Sets the PostScript Level.\n"
+" Setting to Level 1 or 2 can create huge files"
+msgstr ""
+"Kreas nur Postskript-nivelon 2, atentu,\n"
+"ĝi povus krei grandegajn dosierojn"
+
+#, fuzzy
+msgid "PostScript Files (*.ps);;All Files (*)"
 msgstr "Postskriptdosieroj (*.ps);; Ĉiaj dosieroj (*)"
 
 msgid "Insert Page"
@@ -5900,8 +6118,9 @@ msgstr "&Rete"
 msgid ""
 "This panel shows the version, build date and compiled in library support in "
 "Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support "
-"F=Fontconfig support. Missing library support is indicated by a * This also "
-"indicates the version of Ghostscript which Scribus has detected."
+"F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart "
+"Missing library support is indicated by a * This also indicates the version "
+"of Ghostscript which Scribus has detected."
 msgstr ""
 "Ĉi tiu panelo montras la version, la pretigodaton kaj\n"
 " tradukon en biblioteksubteno en Scribus\n"
@@ -6703,6 +6922,14 @@ msgstr "estis ŝanĝita depost lasta konservo."
 msgid "&Save Now"
 msgstr "Kon&servu"
 
+#, fuzzy
+msgid "Persistent"
+msgstr "Printu"
+
+#, fuzzy
+msgid "Export"
+msgstr "Ekspor&tu"
+
 msgid "Could not find target file %1: %2"
 msgstr ""
 
@@ -6722,8 +6949,9 @@ msgid "Font Substitution"
 msgstr "Tipar-anstataŭoj"
 
 msgid ""
-"This document contains some fonts that are not installed on your system,\n"
-"please choose a suitable replacement for them."
+"This document contains some fonts that are not installed on your system, "
+"please choose a suitable replacement for them. Cancel will stop the document "
+"from loading."
 msgstr ""
 
 #, fuzzy
@@ -6735,6 +6963,20 @@ msgid "Substitution Font"
 msgstr "Tipar-anstataŭoj"
 
 msgid "Make these substitutions permanent"
+msgstr ""
+
+msgid "Cancels these font substitutions and stops loading the document."
+msgstr ""
+
+msgid ""
+"Enabling this tells Scribus to use these replacements for missing \t\t\t\t\t"
+"\tfonts permanently in all future layouts. This can be reverted or changed \t"
+"\t\t\t\t\tin Edit > Preferences > Fonts."
+msgstr ""
+
+msgid ""
+"If you select OK, then save, these substitutions are made permanent in the \t"
+"\t\t\t\t\tdocument."
 msgstr ""
 
 msgid "Show Page Previews"
@@ -6885,10 +7127,6 @@ msgid "Do you really want to lose all your changes?"
 msgstr "Ĉu vi vere intencas perdi ĉiujn viajn ŝanĝojn?"
 
 #, fuzzy
-msgid "Do you really want to clear all your text?"
-msgstr "Ĉu vi vere intencas forviŝi la tutan tekston?"
-
-#, fuzzy
 msgid "Glyphs missing"
 msgstr "mankas!"
 
@@ -6952,7 +7190,8 @@ msgstr "Fi&nu ne konservante"
 msgid "&Get Field Names"
 msgstr "Enmetu &kamponomojn"
 
-msgid "Javascripts (*.js);;All Files (*)"
+#, fuzzy
+msgid "JavaScripts (*.js);;All Files (*)"
 msgstr "Ĝavaskriptoj (*.js);; Ĉiaj dosieroj (*)"
 
 msgid "Move Bookmark"
@@ -6971,6 +7210,10 @@ msgstr "Disponeblaj tiparoj"
 
 msgid "Edit Styles"
 msgstr "Redaktu stilojn"
+
+#, fuzzy
+msgid "Do you really want to delete this style?"
+msgstr "Ĉu vi vere intencas forigi ĉi tiun stilon?"
 
 #, fuzzy
 msgid "Common Settings"
@@ -7182,11 +7425,11 @@ msgid "Use &Blackpoint Compensation"
 msgstr "Uzu &Kompensadon de Nigra Punkto"
 
 #, fuzzy
-msgid "Default color profile for imported cmyk images"
+msgid "Default color profile for imported CMYK images"
 msgstr "Apriora kolorprofilo por importitaj bildoj"
 
 #, fuzzy
-msgid "Default color profile for imported rgb images"
+msgid "Default color profile for imported RGB images"
 msgstr "Apriora kolorprofilo por importitaj bildoj"
 
 msgid "Default color profile for solid colors on the page"
@@ -7504,6 +7747,42 @@ msgstr ""
 msgid "page"
 msgstr "Paĝo"
 
+#, fuzzy
+msgid "Scribus: About Plug-ins"
+msgstr "&Scribus-skriptoj"
+
+#, fuzzy
+msgid "File Name:"
+msgstr "Dosier&nomo:"
+
+#, fuzzy
+msgid "Version:"
+msgstr "Distingi&vo:"
+
+#, fuzzy
+msgid "Enabled:"
+msgstr "Ebligita"
+
+#, fuzzy
+msgid "Release Date:"
+msgstr "Anstataŭu per:"
+
+#, fuzzy
+msgid "Copyright:"
+msgstr "Kopiu"
+
+#, fuzzy
+msgid "Author(s):"
+msgstr "Aŭtoro:"
+
+#, fuzzy
+msgid "Description:"
+msgstr "&Priksribo:"
+
+#, fuzzy
+msgid "License:"
+msgstr "&Linioj:"
+
 msgid "New From Template"
 msgstr "Nova el ŝablono"
 
@@ -7670,6 +7949,10 @@ msgstr "Dokumentpaĝoj:"
 msgid "Short &Words..."
 msgstr "Montru E&cojn..."
 
+#, fuzzy
+msgid "Short Words"
+msgstr "&Tuta vorto"
+
 msgid "Short Words processing. Wait please..."
 msgstr ""
 
@@ -7695,10 +7978,6 @@ msgstr "&Enmetu bildon..."
 #, fuzzy
 msgid "&Info and Languages..."
 msgstr "&Lingvo:"
-
-#, fuzzy
-msgid "Short Words"
-msgstr "&Tuta vorto"
 
 msgid "Apply unbreakable space on:"
 msgstr ""
@@ -7768,6 +8047,10 @@ msgstr "&Tuta vorto"
 msgid "Save as &Template..."
 msgstr "Konservu kiel ŝa&blonon..."
 
+#, fuzzy
+msgid "Save As Template"
+msgstr "Savu kiel ŝablonon"
+
 msgid "Save as Template"
 msgstr "Savu kiel ŝablonon"
 
@@ -7804,8 +8087,20 @@ msgstr "propra"
 msgid "Import &OpenOffice.org Draw..."
 msgstr "Importu &OpenOffice.org Draw..."
 
+#, fuzzy
+msgid "OpenOffice.org Draw Importer"
+msgstr "Opcioj de importilo por OpenOffice.org Writer"
+
 msgid "OpenOffice.org Draw (*.sxd);;All Files (*)"
 msgstr "OpenOffice.org Draw (*.sxd);;Ĉiaj dosieroj (*)"
+
+#, fuzzy
+msgid "&Font Preview..."
+msgstr "Tipar-a&ntaŭrigardo..."
+
+#, fuzzy
+msgid "Font Preview"
+msgstr "Tipar-antaŭrigardo"
 
 msgid "Doc"
 msgstr ""
@@ -7820,6 +8115,9 @@ msgstr "Ti&pargrando:"
 
 msgid "Fonts Preview"
 msgstr "Tipar-antaŭrigardo"
+
+msgid "&Append"
+msgstr "&Aldonu"
 
 #, fuzzy
 msgid "Quick Search: "
@@ -8010,82 +8308,6 @@ msgstr "HTML-dosieroj"
 msgid "html"
 msgstr "html"
 
-msgid "Print Previe&w"
-msgstr "Print-antaŭri&gardo"
-
-msgid "Print Preview"
-msgstr "Print-antaŭrigardo"
-
-msgid "Anti-alias &Text"
-msgstr "Glatigita &teksto"
-
-msgid "Anti-alias &Graphics"
-msgstr "&Glatigitaj grafikaĵoj"
-
-msgid "Display Trans&parency"
-msgstr "Montru travide&blecon"
-
-msgid "&Under Color Removal"
-msgstr "&Forigo de la subaj koloroj (UCR)"
-
-msgid "&Display CMYK"
-msgstr "&Montru CMYK"
-
-msgid "&C"
-msgstr "&C"
-
-msgid "&M"
-msgstr "&M"
-
-msgid "&Y"
-msgstr "&Y"
-
-msgid "&K"
-msgstr "&K"
-
-msgid ""
-"Provides a more pleasant view of text items in the viewer, at the expense\n"
-"of a slight slowdown in previewing. This only affects Type 1 fonts"
-msgstr ""
-"Donas pli plaĉan vidon, en la ekrano, de tekstaj elementoj, je la kosto\n"
-"de pli malrapida montro. Tio interesas nur Type1-tiparojn"
-
-msgid ""
-"Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF "
-"and\n"
-"vector graphics in the preview, at the expense of a slight slowdown in "
-"previewing"
-msgstr ""
-"Donas pli plaĉan vidon, en la ekrano, de TTF-tiparoj, EPS-aj kaj PDF-aj "
-"dosieroj kaj vektoraj grafikoj,\n"
-" je la kosto de pli malrapida montro"
-
-msgid ""
-"Shows transparency and transparent items in your document. Requires "
-"Ghostscript 7.07 or later"
-msgstr ""
-"Montras travideblecon kaj travideblajn objektojn en via dokumento. Necesas "
-"Ghostscript 7.07 aŭ pli nova"
-
-msgid ""
-"Gives a print preview using simulations of generic CMYK inks, instead of RGB "
-"colors"
-msgstr ""
-"Donas printantaŭrigardon utiligante simuladojn de komunaj CMYK-inkoj, "
-"anstataŭ RGB-koloroj"
-
-msgid "Enable/disable the C (Cyan) ink plate"
-msgstr "Ebligas/malebligas la C (Cejana) inkotavolon"
-
-msgid "Enable/disable the M (Magenta) ink plate"
-msgstr "Ebligas/malebligas la M (Fuksina) inkotavolon"
-
-msgid "Enable/disable the Y (Yellow) ink plate"
-msgstr "Ebligas/malebligas la Y (Flava) inkotavolon"
-
-msgid "Enable/disable the K (Black) ink plate"
-msgstr "Ebligas/malebligas la K (Nigra) inkotavolon"
-
 #, fuzzy
 msgid "Failed to open document."
 msgstr "La dokumentmalfermo malsukcesis"
@@ -8096,6 +8318,22 @@ msgstr "La dokumentkonservo malsukcesis"
 
 msgid "Unit out of range. Use one of the scribus.UNIT_* constants."
 msgstr "Unuo eksterintervala. Utiligu unu el la konstantoj de scribus.UNIT_*."
+
+#, fuzzy
+msgid "Scripter Preferences"
+msgstr "&Scribus-skriptoj"
+
+#, fuzzy
+msgid "Extension Scripts"
+msgstr "&Plenumu skripton..."
+
+#, fuzzy
+msgid "Enable Extension Scripts"
+msgstr "&Plenumu skripton..."
+
+#, fuzzy
+msgid "Startup Script"
+msgstr "&Scribus-skriptoj"
 
 msgid "Argument must be page item name, or PyCObject instance"
 msgstr ""
@@ -8120,8 +8358,12 @@ msgstr ""
 msgid "Types matched, but setting property failed."
 msgstr ""
 
-msgid "S&cripter Manual..."
-msgstr "S&kriptilo-manlibro..."
+#, fuzzy
+msgid "Scripter"
+msgstr "Skripto:"
+
+msgid "Embedded Python scripting support."
+msgstr ""
 
 #, fuzzy
 msgid ""
@@ -8655,6 +8897,10 @@ msgstr "&Plenumu skripton..."
 msgid "Import &SVG..."
 msgstr "Importu &SVG..."
 
+#, fuzzy
+msgid "SVG Import"
+msgstr "Importu"
+
 msgid "SVG-Images (*.svg *.svgz);;All Files (*)"
 msgstr "SVG-bildoj (*svg *.svgz);; Ĉiaj dosieroj (*)"
 
@@ -8665,10 +8911,13 @@ msgstr "SVG-bildoj (*svg);; Ĉiaj dosieroj (*)"
 msgid "Normal Vision"
 msgstr "Normaligu"
 
-msgid "Protanopy"
+msgid "Protanopia (red)"
 msgstr ""
 
-msgid "Deuteranopy"
+msgid "Deuteranopia (green)"
+msgstr ""
+
+msgid "Tritanopia (blue)"
 msgstr ""
 
 #, fuzzy
@@ -8894,6 +9143,10 @@ msgstr "Ŝanĝu la eligodosierujon"
 msgid "Save as &Image..."
 msgstr "Konservu kiel &bildon..."
 
+#, fuzzy
+msgid "Export As Image"
+msgstr "Eksportu kiel bildo(j)n"
+
 msgid "Save as Image"
 msgstr "Konservu kiel bildon"
 
@@ -8915,6 +9168,10 @@ msgstr "Jes ĉiujn"
 msgid "Save Page as &SVG..."
 msgstr "Konservu paĝon kiel &SVG..."
 
+#, fuzzy
+msgid "SVG Export"
+msgstr "Ekspor&tu"
+
 msgid ""
 "Do you really want to overwrite the File:\n"
 "%1 ?"
@@ -8924,6 +9181,10 @@ msgstr ""
 
 msgid "Import &EPS/PS..."
 msgstr "Importu &EPS/PS..."
+
+#, fuzzy
+msgid "PS/EPS Importer"
+msgstr "Importilo:"
 
 msgid "All Supported Formats (*.eps *.EPS *.ps *.PS);;"
 msgstr "Ĉiuj subtenataj formatoj (*.eps *.EPS *.ps *.PS);;"
@@ -8936,6 +9197,64 @@ msgstr ""
 "La importo de la dosiero:\n"
 "%1\n"
 "malsukcesis!"
+
+#, fuzzy
+msgid "Scribus - My Plugin"
+msgstr "&Scribus-skriptoj"
+
+msgid "The plugin worked!"
+msgstr ""
+
+#, fuzzy
+msgid "My &Plugin"
+msgstr "Normala"
+
+#, fuzzy
+msgid "My Plugin"
+msgstr "Normala"
+
+#, fuzzy
+#~ msgid "Default color profile for imported cmyk images"
+#~ msgstr "Apriora kolorprofilo por importitaj bildoj"
+
+#~ msgid "Do you really want to clear all your Text?"
+#~ msgstr "Ĉu vi vere intencas forviŝi la tutan tekston?"
+
+#, fuzzy
+#~ msgid "Standard"
+#~ msgstr "Stelo"
+
+#~ msgid " of %1"
+#~ msgstr "el %1"
+
+#~ msgid "Color of selected object"
+#~ msgstr "Koloro de la elektita objekto"
+
+#~ msgid "Some Objects are locked."
+#~ msgstr "Kelkaj objektoj estas ŝlositaj."
+
+#, fuzzy
+#~ msgid "The program"
+#~ msgstr "La programo"
+
+#~ msgid "is missing!"
+#~ msgstr "mankas!"
+
+#~ msgid "Creates PostScript Level 3"
+#~ msgstr "Kreas Postskript-nivelon 3"
+
+#~ msgid ""
+#~ "Creates PostScript Level 1 only, beware,\n"
+#~ "this can create huge files"
+#~ msgstr ""
+#~ "Kreas nur Postskript-nivelon 1, atentu,\n"
+#~ "ĝi povus krei grandegajn dosierojn"
+
+#~ msgid "Ad&vanced Options..."
+#~ msgstr "Kro&maj opcioj..."
+
+#~ msgid "S&cripter Manual..."
+#~ msgstr "S&kriptilo-manlibro..."
 
 #~ msgid "First &Line:"
 #~ msgstr "Unu&a linio:"
@@ -9081,9 +9400,6 @@ msgstr ""
 
 #~ msgid "&Document"
 #~ msgstr "&Dokumento"
-
-#~ msgid "&Append"
-#~ msgstr "&Aldonu"
 
 #, fuzzy
 #~ msgid "PDF-1.3"
@@ -9447,9 +9763,6 @@ msgstr ""
 #~ msgid "Document Setup..."
 #~ msgstr "Dokument-agordoj..."
 
-#~ msgid "Print..."
-#~ msgstr "Printu..."
-
 #~ msgid "Select all"
 #~ msgstr "Elektu ĉion"
 
@@ -9724,20 +10037,12 @@ msgstr ""
 #~ msgid "S&cript"
 #~ msgstr "S&kriptoj"
 
-#, fuzzy
-#~ msgid "Scribus - Script Plugin"
-#~ msgstr "&Scribus-skriptoj"
-
 #~ msgid "Hide &Console"
 #~ msgstr "Kaŝu &konzolon"
 
 #, fuzzy
 #~ msgid "Scribus - Macro Manager"
 #~ msgstr "Scribus-Manlibro"
-
-#, fuzzy
-#~ msgid "Scribus - Scripter Preferences"
-#~ msgstr "&Scribus-skriptoj"
 
 #, fuzzy
 #~ msgid "Browse..."
