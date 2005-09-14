@@ -1,4 +1,4 @@
-This is Scribus Version 1.2.3
+This is Scribus Version 1.2.4cvs
 
 The Scribus 1.2.x versions feature a complete rewrite of the rendering engine.
 All rendering is done via libart and freetype2. 
