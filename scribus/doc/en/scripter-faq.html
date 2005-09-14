@@ -7,17 +7,17 @@
 <h3>How do I use non-ASCII text in the scripter?</h3>
 <p>First, make sure to ensure that your script has a correct coding line. Your script should start with something like:
 <pre>
-    #!/usr/bin/env python
+    #!/usr/bin/env Python
     # -*- coding: latin-1 -*-
 </pre>
 or
 <pre>
-    #!/usr/bin/env python
+    #!/usr/bin/env Python
     # -*- coding: utf-8 -*-
 </pre>
 or
 <pre>
-    #!/usr/bin/env python
+    #!/usr/bin/env Python
     # -*- coding: ascii -*-
 </pre>
 </p>
@@ -65,13 +65,13 @@ which is admittedly less than helpful.</p>
 <p>While 'import scribus' results in slightly more verbose code, it's generally worth it in improved code readability and explictness.</p>
 
 <h3>What about general programming style?</h3>
-<p>In general, we defer to the Python gurus. Have a look at <a href="http://www.python.org/peps/pep-0008.html" title="Extern link">http://www.python.org/peps/pep-0008.html</a> for a rather in-depth look at the subject.</p>
+<p>In general, we defer to the Python gurus. Have a look at <a href="http://www.Python.org/peps/pep-0008.html" title="Extern link">http://www.Python.org/peps/pep-0008.html</a> for a rather in-depth look at the subject.</p>
 
 <p>An exception is made for source code encodings, where either ASCII with escapes, latin-1, or utf-8 are recommended. Almost any encoding you choose should work fine, though.</p>
 
 <p>Please note that none of this is set in stone - you can code however you like. These recommendations are made for a reason though, and are a good idea to follow especially if you plan to share your code with others.</p>
 
-<h3>Are there any quirks specific to the Scribus python interface that I should know about?</h3>
+<h3>Are there any quirks specific to the Scribus Python interface that I should know about?</h3>
 <p>Yes, there are a few differences you should be aware of:</p>
 
 <ul>
@@ -79,7 +79,7 @@ which is admittedly less than helpful.</p>
 
 	<li>PyQt does not currently work correctly from Python scripts run from normal Scribus scripts, though it can now be used from the 'extension script' mode. Please enquire on the mailing list if you think you may be able to assist in solving this. Experience with the Python/C API, sub-interpreters, and PyQt would probably be required.</li>
 
-	<li>The Scribus python plug-in changes the Python default string encoding (sysdefaultencoding) to utf-8. Python defaults to ASCII. Because utf-8 is a (large) superset of ASCII, this should not affect scripts that only use ASCII-encoded strings. The Scribus functions have been tested to work correctly with this for unicode text, so there should not be any issues there either.<br>
+	<li>The Scribus Python plug-in changes the Python default string encoding (sysdefaultencoding) to utf-8. Python defaults to ASCII. Because utf-8 is a (large) superset of ASCII, this should not affect scripts that only use ASCII-encoded strings. The Scribus functions have been tested to work correctly with this for unicode text, so there should not be any issues there either.<br>
 	Nonetheless, it is possible that third party C extension modules may have problems with this, if the author failed to consider the encoding of incoming text. Any such problems are almost always bugs that should be reported to the author of the module, and should be few and far between. If you encounter such an issue, please enquire on the mailing list or on IRC.</li>
 
 	<li>Python runs embedded inside Scribus. It is possible that loading certain C extension modules that perform complex initialization tricks may disrupt Scribus or the Python interpreter. If you encounter such a module, please report it on the mailing list or drop in on IRC. Anything that wants to run its own event loop is likely to be problematic, and interfaces to GUI toolkits also seem to be troublesome. Anything that spawns threads is also likely to cause issues.</li>

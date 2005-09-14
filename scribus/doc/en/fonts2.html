@@ -7,10 +7,10 @@
 <p>Fundamentally, Scribus is <strong>really really</strong> fussy about fonts. This is a feature and not a bug. Certainly, on Linux no other application is less tolerant of fonts with defects than any other. This is a Good Thing &#8482;! Preventing the use of possibly defective fonts is without question essential for reliable output. This has caused some minor annoyance or confusion for end users. Rest assured, this avoids many potential problems down the road. Like a PDF which crashes when you are printing 200,000 magazine covers because the imagesetting machine crashes or refuses to output a file. That, in the real world can cost thousands or millions in your local currency.</p>
 
 <p>Scribus uses the freetype2 libraries for accessing font internals. Scribus also does some error checking upon loading to verify the quality of the fonts. Not all fonts are up to the task for use in DTP. Why ?</p>
-<p>High quality fonts are essential for reliable output, no matter which platform. Call me a font snob, but I <b>never ever</b> use freely downloaded shareware fonts. Experience has shown us some freeware fonts do not follow normal font specifications for things like having a proper encoding, missing Postscript name, broken curves in individual glyphs and other defects. </p>
+<p>High quality fonts are essential for reliable output, no matter which platform. Call me a font snob, but I <b>never ever</b> use freely downloaded shareware fonts. Experience has shown us some freeware fonts do not follow normal font specifications for things like having a proper encoding, missing PostScript name, broken curves in individual glyphs and other defects. </p>
 
 <p>
-Scribus does an initial "self-defense" test when starting to see if the available fonts have usable encodings, is scalable and has a correctly embedded Postscript name. Then, loading a document, Scribus uses freetype2 to do a more extensive check of the requested fonts to ensure freetype2 can access all the glyphs within the font. If freetype2 cannot read the glyphs correctly, then usage of that particular font is disabled by Scribus.</p>
+Scribus does an initial "self-defense" test when starting to see if the available fonts have usable encodings, is scalable and has a correctly embedded PostScript name. Then, loading a document, Scribus uses freetype2 to do a more extensive check of the requested fonts to ensure freetype2 can access all the glyphs within the font. If freetype2 cannot read the glyphs correctly, then usage of that particular font is disabled by Scribus.</p>
 
 
 
@@ -33,7 +33,7 @@ Scribus does an initial "self-defense" test when starting to see if the availabl
 
 <p>Some Linux distributions package some free fonts and shareware fonts under various package names. I avoid them and have removed them from some installs without missing them. </p>
 
-<p>Do not be surprised when shareware or clone TrueType fonts downloaded from the Internet disappoint when printed. Sometimes shareware TrueType fonts do not follow proper the proper encoding specs, so they are unreliable in a Postscript environment. Making good reliable fonts in the Postscript sense is not easy and requires extensive QA testing. An example: Verdana from the MS web font collection took almost a year to create.</p>
+<p>Do not be surprised when shareware or clone TrueType fonts downloaded from the Internet disappoint when printed. Sometimes shareware TrueType fonts do not follow proper the proper encoding specs, so they are unreliable in a PostScript environment. Making good reliable fonts in the PostScript sense is not easy and requires extensive QA testing. An example: Verdana from the MS web font collection took almost a year to create.</p>
 
 <p>Also, do not be put off by the lack of a great screen preview with the URW fonts - they are excellent printer fonts. Font faces like Palladio and Utopia for example, are not really attractive on screen, but they are excellent fonts for easy to read printed documents. There is a reason service bureaus and printers spend literally thousands of dollars for high quality font libraries. </p>
 

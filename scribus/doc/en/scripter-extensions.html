@@ -122,7 +122,7 @@ an example of the differences between PyQt and Scribus, we'll convert
 that program to run in Scribus. Here's the original:</p>
 
 <pre>
-#!/usr/bin/env python
+#!/usr/bin/env Python
 import sys
 import qt
 
@@ -218,7 +218,7 @@ comment out <code>qt.setMainWidget</code>.</p>
 <p>The new script looks like:</p>
 
 <pre>
-#!/usr/bin/env python
+#!/usr/bin/env Python
 import sys
 import qt
 
@@ -325,7 +325,7 @@ except ImportError:
 assumes it is not running under Scribus and complains. It's a good idea
 to do this in all your scripts so that you don't confuse users who try
 to run them with the standalone Python interpreter. Try running the
-script with <code>python pyqt_tut1.py</code> and note how it tells the user why
+script with <code>Python pyqt_tut1.py</code> and note how it tells the user why
 it won't work then exits. This is much nicer than an import error or bizarre
 behaviour.</p>
 

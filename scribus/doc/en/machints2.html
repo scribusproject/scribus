@@ -64,19 +64,19 @@ export PKG_CONFIG_PATH="/sw/lib/pkgconfig"
 <p>It is not necessary to install autoconf and automake from Fink, they exist in Mac OSX 10.3 already. Then <code>configure</code> as follows:</p>
 
 <blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
-<pre>./configure --with-qt-dir=/sw --with-qt-includes=/sw/include/qt --with-qt-libraries=/sw/lib<br /> --with-extra-includes=/sw/include<br /> --with-pythondir=/System/Library/Frameworks/Python.framework/Versions/2.3/</pre>
+<pre>./configure --with-qt-dir=/sw --with-qt-includes=/sw/include/qt --with-qt-libraries=/sw/lib<br /> --with-extra-includes=/sw/include<br /> --with-Pythondir=/System/Library/Frameworks/Python.framework/Versions/2.3/</pre>
 </small></td></tr></table></blockquote>
 
 <p>Before one can run <code>make</code>, one needs the patches that are done in the PatchScript of the Fink scribus.info file.</p>
 
-<p>The first group of patches helps find the right versions of the freetype headers and libraries (those from Fink, Apple's X11 has a freetype version that is too old) and the right python version (the one from MacOSX):</p>
+<p>The first group of patches helps find the right versions of the freetype headers and libraries (those from Fink, Apple's X11 has a freetype version that is too old) and the right Python version (the one from MacOSX):</p>
 
 <blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
 <pre>
 perl -pi -e 's,usr/X11/bin,usr/X11R6/bin,g' configure
 perl -pi -e 's,FREETYPE_CONFIG=\"\",FREETYPE_CONFIG=\"/sw/lib/freetype2/bin/freetype-config\",g' configure
 perl -pi -e 's,LIBS=\"\-lfreetype,LIBS=\"\$LIBFREETYPE_LIBS,g' configure
-perl -pi -e "s,PYTHONLIB=.*,PYTHONLIB='-framework Python'\npython_libdir=yes\nLIBPYTHON=' ',g" configure
+perl -pi -e "s,PYTHONLIB=.*,PYTHONLIB='-framework Python'\nPython_libdir=yes\nLIBPYTHON=' ',g" configure
 perl -pi -e "s,LIBPYTHON =.*,LIBPYTHON=,g" scribus/plugins/scriptplugin/Makefile.in
 </pre>
 </small></td></tr></table></blockquote>
