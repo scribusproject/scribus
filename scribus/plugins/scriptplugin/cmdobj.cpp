@@ -24,7 +24,7 @@ PyObject *scribus_newrect(PyObject* /* self */, PyObject* args)
 	int i = ScApp->doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, pageUnitXToDocX(x), pageUnitYToDocY(y),
 									 ValueToPoint(b), ValueToPoint(h), ScApp->doc->toolSettings.dWidth,
 									 ScApp->doc->toolSettings.dBrush, ScApp->doc->toolSettings.dPen, !ScApp->view->Mpressed);
-	ScApp->doc->Items.at(i)->SetRectFrame();
+	//ScApp->doc->Items.at(i)->SetRectFrame();
 	ScApp->view->setRedrawBounding(ScApp->doc->Items.at(i));
 	if (Name != "")
 		ScApp->doc->Items.at(i)->setItemName(QString::fromUtf8(Name));
@@ -55,7 +55,7 @@ PyObject *scribus_newellipse(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
 		return NULL;
 	}
-	ScApp->doc->Items.at(i)->SetOvalFrame();
+	//ScApp->doc->Items.at(i)->SetOvalFrame();
 	ScApp->view->setRedrawBounding(ScApp->doc->Items.at(i));
 	if (Name != "")
 		ScApp->doc->Items.at(i)->setItemName(QString::fromUtf8(Name));
@@ -78,7 +78,7 @@ PyObject *scribus_newimage(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
 		return NULL;
 	}
-	ScApp->doc->Items.at(i)->SetRectFrame();
+	//ScApp->doc->Items.at(i)->SetRectFrame();
 	ScApp->view->setRedrawBounding(ScApp->doc->Items.at(i));
 	if (Name != "")
 		ScApp->doc->Items.at(i)->setItemName(QString::fromUtf8(Name));
@@ -103,7 +103,7 @@ PyObject *scribus_newtext(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
 		return NULL;
 	}
-	ScApp->doc->Items.at(i)->SetRectFrame();
+	//ScApp->doc->Items.at(i)->SetRectFrame();
 	ScApp->view->setRedrawBounding(ScApp->doc->Items.at(i));
 	if (Name != "")
 		ScApp->doc->Items.at(i)->setItemName(QString::fromUtf8(Name));

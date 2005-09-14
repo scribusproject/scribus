@@ -8652,7 +8652,7 @@ Page* ScribusView::addPage(int nr, bool mov)
 		else
 			Doc->FirstAuto = Doc->Items.at(z);
 		Doc->LastAuto = Doc->Items.at(z);
-		Doc->Items.at(z)->SetRectFrame();
+		//Doc->Items.at(z)->SetRectFrame();
 		setRedrawBounding(Doc->Items.at(z));
 		if (nr > 0)
 		{
