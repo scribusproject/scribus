@@ -2196,6 +2196,8 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 	measurementPalette->hide();
 	docCheckerPalette->hide();
 
+	// Clean up plugins, THEN save prefs to disk
+	pluginManager->cleanupPlugins();
 	if (!emergencyActivated)
 		prefsManager->SavePrefs();
 	UndoManager::deleteInstance();
@@ -2208,7 +2210,6 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 	if (scrapbookPalette->objectCount() == 0)
 		unlink(PrefsPfad+"/scrap13.scs");
 	qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-	pluginManager->cleanupPlugins();
 	exit(0);
 }
 
