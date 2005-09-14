@@ -31,7 +31,7 @@ private:
 };
 
 PageValidator::PageValidator(int min, int max, QObject * parent) : QValidator
-(parent), rx("^([0-9])+.*"), rx2("^[0-9]+") 
+(parent), rx("^([0-9]+).*"), rx2("^[0-9]+$") 
 {
 	pageSelector = static_cast<PageSelector*>(parent);
 }
