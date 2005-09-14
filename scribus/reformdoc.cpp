@@ -91,16 +91,6 @@ ReformDoc::ReformDoc( QWidget* parent, double t, double l, double r, double b, d
 	TextLabel5->setBuddy(TopR);
 	Layout4->addWidget( TextLabel5, 0, 0 );
 
-	LeftR = new MSpinBox( GroupBox7, 4 );
-	LeftR->setSuffix( ein );
-	LeftR->setDecimals( decimals );
-	LeftR->setMaxValue(Breite);
-	LeftR->setValue(l * UmReFaktor);
-	Layout4->addWidget( LeftR, 0, 3 );
-	Links = new QLabel( tr( "&Left:" ), GroupBox7, "Links" );
-	Links->setBuddy(LeftR);
-	Layout4->addWidget( Links, 0, 2 );
-
 	BottomR = new MSpinBox( GroupBox7, 4 );
 	BottomR->setSuffix( ein );
 	BottomR->setDecimals( decimals );
@@ -110,6 +100,16 @@ ReformDoc::ReformDoc( QWidget* parent, double t, double l, double r, double b, d
 	TextLabel7 = new QLabel( tr( "&Bottom:" ), GroupBox7, "TextLabel7" );
 	TextLabel7->setBuddy(BottomR);
 	Layout4->addWidget( TextLabel7, 1, 0 );
+
+	LeftR = new MSpinBox( GroupBox7, 4 );
+	LeftR->setSuffix( ein );
+	LeftR->setDecimals( decimals );
+	LeftR->setMaxValue(Breite);
+	LeftR->setValue(l * UmReFaktor);
+	Layout4->addWidget( LeftR, 0, 3 );
+	Links = new QLabel( tr( "&Left:" ), GroupBox7, "Links" );
+	Links->setBuddy(LeftR);
+	Layout4->addWidget( Links, 0, 2 );
 
 	RightR = new MSpinBox( GroupBox7, 4 );
 	RightR->setSuffix( ein );
