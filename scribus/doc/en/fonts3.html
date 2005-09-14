@@ -1,7 +1,7 @@
 <qt>
 <title>CJK, Indic Script and Other non-Latin Fonts</title>
 <h2>CJK, Indic Script and Other non-Latin Fonts</h2>
-<p>CJK (Chinese, Japanese, Korean) usage in Scribus is possible. Actually, except for adding KOIR-8 encodings, not much has been done to support CJK fonts (yet). However, some users have reported some success, including using exported PDFs for commercial print jobs. Thanks to QT's excellent Unicode support, already some of the work is done. Major work is underway on the next genration of Scribus to vastly expand support for non-Latin scripts. Stay tuned.</p>
+<p>CJK (Chinese, Japanese, Korean) usage in Scribus is possible. Actually, except for adding KOIR-8 encodings, not much has been done to support CJK fonts (yet). However, some users have reported some success, including using exported PDFs for commercial print jobs. Thanks to QT's excellent Unicode support, already some of the work is done. Major work is underway on the next generation of Scribus to vastly expand support for non-Latin scripts. Stay tuned.</p>
 <h4>So, what Scribus can do now ?</h4>
 <ul>
 	<li>Almost any good Unicode font will display individual glyphs in Scribus. Testing with large Unicode fonts such as Bitsream Cyberbit font shows no issues in display or printing, except for loading speed. </li>
@@ -10,19 +10,19 @@
 	<li>Indic Scripts are a much more difficult task, however, we have strong interest in supporting them. One developer has been working with Scribus developers to modify the display canvas to fully support the special features needed to display and print them properly.</li>
 	<li>Glyph combining in these languages is not supported (yet).</li>
 	<li>Scribus supports both Unicode TrueType fonts and OpenType Fonts, even if you export PDF 1.3.</li>
-	<li>Exported EPS or PostScript works fine with most CJK or Unicode fonts.</li>
+	<li>Exported EPS or Postscript works fine with most CJK or Unicode fonts.</li>
 	<li>Cyrillic works perfectly and Scribus has active translators for Russian and Ukrainian.</li>
 </ul>
 <h4>Hints: </h4>
 <ul>
-	<li>To reduce the size of your exported PDF and PostScript files either:
+	<li>To reduce the size of your exported PDF and Postscript files either:
 		<ol>
-			<li>Convert all fonts in text frames to PostScript outlines. </li>
+			<li>Convert all fonts in text frames to Postscript outlines. </li>
 			<li>Enable sub-setting of any Unicode or CJK TrueType font in Settings > Fonts.</li>
 		</ol>
 	</li>
 	<li>When viewing in Acrobat Reader, enable the preference for smooth artwork display. See the <a href="toolbox1.html">Acrobat Reader section</a>.</li>
-	<li>If you are exporting to SVG, conversion of text to PostScript outlines is almost always more satisfactory.</li>
+	<li>If you are exporting to SVG, conversion of text to Postscript outlines is almost always more satisfactory.</li>
 	<li>Some Unicode fonts are quite large and will slow launching Scribus significantly. You should expect higher memory usage as well. Scribus does some very needed sanity checks on fonts upon loading.</li>
 </ul>
 </qt>

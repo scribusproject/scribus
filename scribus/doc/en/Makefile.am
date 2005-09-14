@@ -1,6 +1,6 @@
 SUBDIRS = tutorials images
 
-EXTRA_DIST = about1.html about2.html cms.html cms2.html cms3.html cms4.html codingstandards.html contributions.html cross-platform.html cups.html  developers.html  doccopyright.html docinfo.html download.html faq1.html faq2.html faq3.html fonts1.html fonts2.html fonts3.html fonts4.html fonts5.html gettexthowto.html gsadv.html gsfont.html gsview.html hyphenator.html importhints1.html importhints2.html importhints.html index.html install1.html install2.html install3.html install.html install-dpkg.html intro.html irc.html javascriptpdf.html keys.html machints1.html machints2.html menu.xml moncal.html mouse.html parallel-install.html pdflavor.html pdfexport1.html pdfexport2.html pdfexport3.html pdfexport4.html pdfx3.html pdf_form.html plugin_howto.html prepress.html print1.html print2.html print3.html  readme.html resources.html scprinters.html scribuscopyright.html scribusfileformat.html scribus-svg.html scripter1.html scripter-extensions.html scripterapi-color.html scripterapi-constants.html scripterapi-dialogs.html scripterapi-doc.html scripterapi-font.html scripterapi-getobjprop.html scripterapi.html scripterapi-layer.html scripterapi-manobj.html scripterapi-object.html scripterapi-page.html scripterapi-select.html scripterapi-setobjprop.html scripterapi-textframes.html scripter-faq.html scripterapi-pydoc.html scripterapi-PDFfile.html scripterapi-Printer.html scripterapi-ImageExport.html settings1.html specs.html  short-words.html toolbox10.html toolbox11.html toolbox12.html toolbox13.html toolbox1.html toolbox2.html toolbox3.html toolbox4.html toolbox5.html toolbox6.html toolbox7.html toolbox8.html toolbox9.html toolbox.html topten.html translation_howto.html  otherinfo.html documentation.html tutorials.html
+EXTRA_DIST = about1.html about2.html cms.html cms2.html cms3.html cms4.html codingstandards.html contributions.html cross-platform.html cups.html  developers.html  doccopyright.html docinfo.html download.html faq1.html faq2.html faq3.html fonts1.html fonts2.html fonts3.html fonts4.html fonts5.html gettexthowto.html gsfont.html  hyphenator.html importhints1.html importhints2.html importhints.html importhints3.html index.html install1.html install2.html install3.html install.html install-dpkg.html intro.html irc.html javascriptpdf.html keys.html machints1.html machints2.html menu.xml moncal.html mouse.html parallel-install.html pdflavor.html pdfexport1.html pdfexport2.html pdfexport3.html pdfexport4.html pdfx3.html pdf_form.html plugin_howto.html prepress.html print1.html print2.html print3.html  readme.html resources.html scprinters.html scribuscopyright.html scribusfileformat.html scribus-svg.html scripter1.html scripter-extensions.html scripterapi-color.html scripterapi-constants.html scripterapi-dialogs.html scripterapi-doc.html scripterapi-font.html scripterapi-getobjprop.html scripterapi.html scripterapi-layer.html scripterapi-manobj.html scripterapi-object.html scripterapi-page.html scripterapi-select.html scripterapi-setobjprop.html scripterapi-textframes.html scripter-faq.html scripterapi-pydoc.html scripterapi-PDFfile.html scripterapi-Printer.html scripterapi-ImageExport.html settings1.html specs.html  short-words.html toolbox10.html toolbox11.html toolbox12.html toolbox13.html toolbox1.html toolbox2.html toolbox3.html toolbox4.html toolbox5.html toolbox6.html toolbox7.html toolbox8.html toolbox9.html toolbox.html topten.html translation_howto.html  otherinfo.html documentation.html tutorials.html
 
 install-data-local:
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/
@@ -27,13 +27,12 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/fonts4.html $(prefix)/share/scribus/doc/en/fonts4.html
 	$(INSTALL_DATA) $(srcdir)/fonts5.html $(prefix)/share/scribus/doc/en/fonts5.html
 	$(INSTALL_DATA) $(srcdir)/gettexthowto.html $(prefix)/share/scribus/doc/en/gettexthowto.html
-	$(INSTALL_DATA) $(srcdir)/gsadv.html $(prefix)/share/scribus/doc/en/gsadv.html
-	$(INSTALL_DATA) $(srcdir)/gsview.html $(prefix)/share/scribus/doc/en/gsview.html
 	$(INSTALL_DATA) $(srcdir)/gsfont.html $(prefix)/share/scribus/doc/en/gsfont.html
 	$(INSTALL_DATA) $(srcdir)/hyphenator.html $(prefix)/share/scribus/doc/en/hyphenator.html
 	$(INSTALL_DATA) $(srcdir)/importhints.html $(prefix)/share/scribus/doc/en/importhints.html
 	$(INSTALL_DATA) $(srcdir)/importhints1.html $(prefix)/share/scribus/doc/en/importhints1.html
 	$(INSTALL_DATA) $(srcdir)/importhints2.html $(prefix)/share/scribus/doc/en/importhints2.html
+	$(INSTALL_DATA) $(srcdir)/importhints3.html $(prefix)/share/scribus/doc/en/importhints3.html
 	$(INSTALL_DATA) $(srcdir)/index.html $(prefix)/share/scribus/doc/en/index.html
 	$(INSTALL_DATA) $(srcdir)/install1.html $(prefix)/share/scribus/doc/en/install1.html
 	$(INSTALL_DATA) $(srcdir)/install2.html $(prefix)/share/scribus/doc/en/install2.html
@@ -137,9 +136,7 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/doc/en/fonts4.html
 	-rm -f $(prefix)/share/scribus/doc/en/fonts5.html
 	-rm -f $(prefix)/share/scribus/doc/en/gettexthowto.html
-	-rm -f $(prefix)/share/scribus/doc/en/gsadv.html
 	-rm -f $(prefix)/share/scribus/doc/en/gsfont.html
-	-rm -f $(prefix)/share/scribus/doc/en/gsview.html
 	-rm -f $(prefix)/share/scribus/doc/en/hyphenator.html
 	-rm -f $(prefix)/share/scribus/doc/en/importhints1.html
 	-rm -f $(prefix)/share/scribus/doc/en/importhints2.html
