@@ -66,7 +66,7 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, preV *prefs, 
 		FlagsUse.append(cp);
 		Table1->setCellWidget(a, 1, cp);
 		QCheckBox *cp2 = new QCheckBox(this, "ps");
-		cp2->setText( tr("Postscript"));
+		cp2->setText( tr("PostScript"));
 		cp2->setChecked(it.current()->EmbedPS);
 		cp2->setEraseColor(white);
 		FlagsPS.append(cp2);
@@ -393,7 +393,7 @@ void FontPrefs::RebuildDialog()
 		FlagsUse.append(cp);
 		Table1->setCellWidget(a, 1, cp);
 		QCheckBox *cp2 = new QCheckBox(this, "ps");
-		cp2->setText( tr("Postscript"));
+		cp2->setText( tr("PostScript"));
 		cp2->setChecked(it.current()->EmbedPS);
 		cp2->setEraseColor(white);
 		FlagsPS.append(cp2);

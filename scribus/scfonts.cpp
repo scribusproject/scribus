@@ -122,7 +122,7 @@ void Foi::FontBez()
 
 /*
 	Class Foi_postscript
-	Subclass of Foi, for Postscript fonts that could possibly have a .afm file
+	Subclass of Foi, for PostScript fonts that could possibly have a .afm file
 	associated with them for metrics information.
 */
 

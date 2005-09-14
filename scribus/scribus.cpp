@@ -459,7 +459,7 @@ void ScribusApp::initScribus()
 		SetKeyEntry(60, tr("Insert Page Number"), 0, CTRL+Key_NumberSign);
 		SetKeyEntry(61, tr("Attach Text to Path"), PfadT, 0);
 		SetKeyEntry(62, tr("Show Layers"), viewLpal, 0);
-		SetKeyEntry(63, tr("Javascripts..."), jman, 0);
+		SetKeyEntry(63, tr("JavaScripts..."), jman, 0);
 		SetKeyEntry(64, tr("Undo"), edUndo, CTRL+Key_Z);
 		SetKeyEntry(65, tr("Show Page Palette"), viewSepal, 0);
 		SetKeyEntry(66, tr("Lock/Unlock"), LockOb, CTRL+Key_F);
@@ -719,7 +719,7 @@ void ScribusApp::initMenuBar()
 	SetKeyEntry(15, tr("Styles..."), edid6, 0);
 	tman = editMenu->insertItem( tr("&Templates..."), this, SLOT(ManageTemp()));
 	SetKeyEntry(16, tr("Templates..."), tman, 0);
-	jman = editMenu->insertItem( tr("&Javascripts..."), this, SLOT(ManageJava()));
+	jman = editMenu->insertItem( tr("&JavaScripts..."), this, SLOT(ManageJava()));
 	editMenu->setItemEnabled(edUndo, 0);
 	editMenu->setItemEnabled(edid1, 0);
 	editMenu->setItemEnabled(edid2, 0);
@@ -7242,7 +7242,7 @@ void ScribusApp::ShowSubs()
 	{
 		mess = tr("The following Programs are missing:")+"\n\n";
 		if (HaveGS != 0)
-			mess += tr("Ghostscript : You cannot use EPS Images")+"\n\n";
+			mess += tr("GhostScript : You cannot use EPS Images")+"\n\n";
 		QMessageBox::warning(this, tr("Warning"), mess, 1, 0, 0);
 	}
 	setTools(Prefs.Werkv);
@@ -7335,7 +7335,7 @@ void ScribusApp::SaveAsEps()
 		wdir = dirs->get("eps", Prefs.DocDir);
 	else
 		wdir = dirs->get("eps", ".");
-	QString fn = CFileDialog( wdir, tr("Save as"), tr("EPS-Files (*.eps);;All Files (*)"), fna, false, false);
+	QString fn = CFileDialog( wdir, tr("Save as"), tr("EPS Files (*.eps);;All Files (*)"), fna, false, false);
 	if (!fn.isEmpty())
 	{
 		dirs->set("eps", fn.left(fn.findRev("/")));

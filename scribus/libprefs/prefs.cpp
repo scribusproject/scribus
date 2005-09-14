@@ -1429,7 +1429,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 
 	ExtTool = new QWidget( TabWidget3, "ExtTool" );
 	ExtToolLayout = new QVBoxLayout( ExtTool, 11, 6, "ExtToolLayout");
-	groupGS = new QGroupBox( tr( "Postscript Interpreter" ), ExtTool, "groupGS" );
+	groupGS = new QGroupBox( tr( "PostScript Interpreter" ), ExtTool, "groupGS" );
 	groupGS->setColumnLayout(0, Qt::Vertical );
 	groupGS->layout()->setSpacing( 6 );
 	groupGS->layout()->setMargin( 10 );
@@ -1627,7 +1627,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	QToolTip::add( UsePDFTrans, tr( "Enable transparency features within PDF 1.4 export" ) );
 	QToolTip::add( CaliSlider, tr( "Set the default zoom level" ) );
 
-	QToolTip::add( GSName, tr( "File system location for the Ghostscript interpreter" ) );
+	QToolTip::add( GSName, tr( "File system location for the GhostScript interpreter" ) );
 	QToolTip::add( GSantiText, tr( "Antialias text for EPS and PDF onscreen rendering" ) );
 	QToolTip::add( GSantiGraph, tr( "Antialias graphics for EPS and PDF onscreen rendering" ) );
 	QToolTip::add( GimpName, tr( "File system location for graphics editor. If you use gimp\n"
