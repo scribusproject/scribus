@@ -11101,20 +11101,40 @@ void ScribusView::loadPict(QString fn, PageItem *pageItem, bool reload)
 
 void ScribusView::changePreview(int id)
 {
-	if (SelItem.count() != 0)
+	uint selectedItemCount=SelItem.count();
+	if (selectedItemCount != 0)
 	{
-		PageItem *Item = SelItem.at(0);
-		Item->pixm.imgInfo.lowResType = id;
+		PageItem *pageItem;
+		bool found=false;
+		uint j;
+		for (uint i = 0; i < selectedItemCount; ++i)
+		{
+			pageItem = SelItem.at(i);
+			if (pageItem!=NULL)
+				if (pageItem->itemType() == PageItem::ImageFrame)
+				{
+					pageItem->pixm.imgInfo.lowResType = id;
+					if (!found)
+					{
+						j=i;
+						found=true;
+					}
+				}
+		}
+		if (!found) //No image frames in the current selection!
+			return;
 		UpdatePic();
 		disconnect( ScApp->scrActions["itemPreviewLow"], SIGNAL(activatedData(int)) , 0, 0 );
 		disconnect( ScApp->scrActions["itemPreviewNormal"], SIGNAL(activatedData(int)) , 0, 0 );
 		disconnect( ScApp->scrActions["itemPreviewFull"], SIGNAL(activatedData(int)) , 0, 0 );
-		ScApp->scrActions["itemPreviewLow"]->setOn(Item->pixm.imgInfo.lowResType==ScApp->scrActions["itemPreviewLow"]->actionInt());
-		ScApp->scrActions["itemPreviewNormal"]->setOn(Item->pixm.imgInfo.lowResType==ScApp->scrActions["itemPreviewNormal"]->actionInt());
-		ScApp->scrActions["itemPreviewFull"]->setOn(Item->pixm.imgInfo.lowResType==ScApp->scrActions["itemPreviewFull"]->actionInt());
-		connect( ScApp->scrActions["itemPreviewLow"], SIGNAL(activatedData(int)) , this, SLOT(changePreview(int)) );
-		connect( ScApp->scrActions["itemPreviewNormal"], SIGNAL(activatedData(int)) , this, SLOT(changePreview(int)) );
-		connect( ScApp->scrActions["itemPreviewFull"], SIGNAL(activatedData(int)) , this, SLOT(changePreview(int)) );
+		//We can only set these to be on like the first image page item selected, however after above, they are all the same.
+		pageItem=SelItem.at(j);
+		ScApp->scrActions["itemPreviewLow"]->setOn(id==ScApp->scrActions["itemPreviewLow"]->actionInt());
+		ScApp->scrActions["itemPreviewNormal"]->setOn(id==ScApp->scrActions["itemPreviewNormal"]->actionInt());
+		ScApp->scrActions["itemPreviewFull"]->setOn(id==ScApp->scrActions["itemPreviewFull"]->actionInt());
+		connect( ScApp->scrActions["itemPreviewLow"], SIGNAL(activatedData(int)), this, SLOT(changePreview(int)) );
+		connect( ScApp->scrActions["itemPreviewNormal"], SIGNAL(activatedData(int)), this, SLOT(changePreview(int)) );
+		connect( ScApp->scrActions["itemPreviewFull"], SIGNAL(activatedData(int)), this, SLOT(changePreview(int)) );
 	}
 }
 
@@ -11289,10 +11309,11 @@ void ScribusView::removePict(QString name)
 
 void ScribusView::UpdatePic()
 {
-	if (SelItem.count() > 0)
+	uint selectedItemCount=SelItem.count();
+	if (selectedItemCount > 0)
 	{
 		bool toUpdate=false;
-		for (uint i = 0; i < SelItem.count(); ++i)
+		for (uint i = 0; i < selectedItemCount; ++i)
 		{
 			if (SelItem.at(i)!=NULL)
 				if (SelItem.at(i)->itemType() == PageItem::ImageFrame)
