@@ -119,9 +119,9 @@ PSLib::PSLib(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, CListe
 
 		if ((fext == "ttf") || (AllFonts[it.key()]->isOTF) || (AllFonts[it.key()]->Subset))
 		{
-			FontDesc += "/"+AllFonts[it.key()]->RealName().simplifyWhiteSpace().replace( QRegExp("\\s"), "" )+
+			FontDesc += "/"+AllFonts[it.key()]->RealName().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "" )+
 					" "+IToStr(AllFonts[it.key()]->RealGlyphs.count()+1)+" dict def\n";
-			FontDesc += AllFonts[it.key()]->RealName().simplifyWhiteSpace().replace( QRegExp("\\s"), "" )+" begin\n";
+			FontDesc += AllFonts[it.key()]->RealName().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "" )+" begin\n";
 			QMap<uint,FPointArray>::Iterator ig;
 			for (ig = AllFonts[it.key()]->RealGlyphs.begin(); 
 				ig != AllFonts[it.key()]->RealGlyphs.end(); ++ig)
@@ -161,13 +161,13 @@ PSLib::PSLib(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, CListe
 		else
 		{
 			UsedFonts.insert(it.key(), "/Fo"+IToStr(a));
-			Fonts += "/Fo"+IToStr(a)+" /"+AllFonts[it.key()]->RealName().simplifyWhiteSpace().replace( QRegExp("\\s"), "" )+" findfont definefont pop\n";
+			Fonts += "/Fo"+IToStr(a)+" /"+AllFonts[it.key()]->RealName().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "" )+" findfont definefont pop\n";
 			if (AllFonts[it.key()]->EmbedPS)
 			{
 				QString tmp;
 				if(AllFonts[it.key()]->EmbedFont(tmp))
 				{
-					FontDesc += "%%BeginFont: " + AllFonts[it.key()]->RealName().simplifyWhiteSpace().replace( QRegExp("\\s"), "" ) + "\n";
+					FontDesc += "%%BeginFont: " + AllFonts[it.key()]->RealName().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "" ) + "\n";
 					FontDesc += tmp + "\n%%EndFont\n";
 				}
 			}
@@ -265,7 +265,7 @@ bool PSLib::PS_set_file(QString fn)
 	return Spool.open(IO_WriteOnly);
 }
 
-void PSLib::PS_begin_doc(int Ori, double x, double y, double breite, double hoehe, int numpage, bool doDev)
+void PSLib::PS_begin_doc(int , double x, double y, double breite, double hoehe, int numpage, bool doDev)
 {
 	PutDoc(Header);
 	PutDoc("%%For: " + User + "\n");
@@ -305,19 +305,11 @@ void PSLib::PS_begin_doc(int Ori, double x, double y, double breite, double hoeh
 QString PSLib::PSEncode(QString in)
 {
 	QString tmp = "";
-	QString cc;
-	for (uint d = 0; d < in.length(); ++d)
-	{
-		cc = in.at(d);
-		if ((cc == "(") || (cc == ")") || (cc == "\\"))
-			tmp += "\\";
-		tmp += cc;
-	}
-	tmp = tmp.simplifyWhiteSpace().replace( QRegExp("\\s"), "" );
+	tmp = in.simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "" );
 	return tmp;
 }
 
-void PSLib::PS_TemplateStart(QString Name, double breite, double hoehe)
+void PSLib::PS_TemplateStart(QString Name, double , double )
 {
 	PutDoc("/"+PSEncode(Name)+"\n{\n");
 }

@@ -598,7 +598,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 						PutDoc("\n/Filter /FlateDecode");
 					PutDoc(" >>\nstream\n"+EncStream(&fon,	
 								 ObjCounter-1)+"\nendstream\nendobj\n");
-					Seite.ImgObjects[AllFonts[it.key()]->RealName().simplifyWhiteSpace().replace( QRegExp("\\s"), "" )+IToStr(ig.key())] =
+					Seite.ImgObjects[AllFonts[it.key()]->RealName().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "" )+IToStr(ig.key())] =
 						 ObjCounter-1;
 					fon = "";
 				}
@@ -725,7 +725,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 			}
 			StartObj(ObjCounter);
 			PutDoc("<<\n/Type /FontDescriptor\n");
-			PutDoc("/FontName /"+AllFonts[it.key()]->RealName().simplifyWhiteSpace().replace( QRegExp("\\s"), "" )+"\n");
+			PutDoc("/FontName /"+AllFonts[it.key()]->RealName().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "" )+"\n");
 			PutDoc("/FontBBox [ "+AllFonts[it.key()]->FontBBox+" ]\n");
 			PutDoc("/Flags ");
 			QFontInfo fo = QFontInfo(it.data());
@@ -799,7 +799,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 				PutDoc("<<\n/Type /Font\n/Subtype ");
 				PutDoc(((fext == "ttf") || (fext == "otf")) ? "/TrueType\n" : "/Type1\n");
 				PutDoc("/Name /Fo"+IToStr(a)+"S"+IToStr(Fc)+"\n");
-				PutDoc("/BaseFont /"+AllFonts[it.key()]->RealName().simplifyWhiteSpace().replace( QRegExp("\\s"), "" )+"\n");
+				PutDoc("/BaseFont /"+AllFonts[it.key()]->RealName().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "" )+"\n");
 				PutDoc("/FirstChar 0\n");
 				PutDoc("/LastChar "+IToStr(chCount-1)+"\n");
 				PutDoc("/Widths "+IToStr(ObjCounter-2)+" 0 R\n");
@@ -1247,7 +1247,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 				if ((Options->Compress) && (CompAvail))
 					PutDoc("\n/Filter /FlateDecode");
 				PutDoc(" >>\nstream\n"+EncStream(&Inhalt, ObjCounter-1)+"\nendstream\nendobj\n");
-				QString name = pag->PageNam.simplifyWhiteSpace().replace( QRegExp("\\s"), "" ) + IToStr(ite->ItemNr);
+				QString name = pag->PageNam.simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "" ) + IToStr(ite->ItemNr);
 				Seite.XObjects[name] = ObjCounter-1;
 				}
 			}
@@ -1421,7 +1421,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 						ite = mPage->Items.at(am);
 						if ((ite->LayerNr != ll.LNr) || (!ite->isPrintable))
 							continue;
-						QString name = "/"+pag->MPageNam.simplifyWhiteSpace().replace( QRegExp("\\s"), "" ) + IToStr(ite->ItemNr);
+						QString name = "/"+pag->MPageNam.simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "" ) + IToStr(ite->ItemNr);
 						if (ite->PType != 4)
 							PutPage(name+" Do\n");
 						else
@@ -2467,7 +2467,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 					tmp2 += FToStr(tsz / 10.0)+" 0 0 "+FToStr(tsz / 10.0)+" 0 "+FToStr(((tsz / 10.0)))+" cm\n";
 				}
 				tmp2 += FToStr(QMIN(QMAX(hl->cscale, 25), 400) / 100.0)+" 0 0 1 0 0 cm\n";
-				tmp2 += "/"+(*doc->AllFonts)[hl->cfont]->RealName().replace( QRegExp("\\s"), "" )+IToStr(chr)+" Do\n";
+				tmp2 += "/"+(*doc->AllFonts)[hl->cfont]->RealName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "" )+IToStr(chr)+" Do\n";
 				if (hl->cstyle & 4)
 				{
 					FPointArray gly = (*doc->AllFonts)[hl->cfont]->GlyphArray[chr].Outlines.copy();
