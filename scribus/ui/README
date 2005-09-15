@@ -1,0 +1,6 @@
+This directory contains Qt Designer .ui files to implement the basic behaviour
+of the user interface of some dialogs and windows in the application. It should
+not contain any non-generated .cpp or .h files. Subclass the classes defined
+by these files to add the behaviour you need.
+
+Please do not use .ui.h files, they're clunky and our build system hates them.
