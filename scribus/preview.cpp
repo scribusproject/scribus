@@ -411,7 +411,7 @@ void PPreview::scaleBox_valueChanged(int value)
  \brief Renders the Preview to a file on Disk
  \param Seite int page number
  \param Res int
- \retval bool Flag indicating succsess
+ \retval int Flag indicating error
  */
 int PPreview::RenderPreview(int Seite, int Res)
 {
@@ -588,8 +588,10 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 
 void PPreview::blendImages(QImage &target, ScImage &source, ScColor col)
 {
-	int h = target.height();
-	int w = target.width();
+	//FIXME: if source and target have different sizesomething went wrong.
+	// eg. loadPicture() failed and returned a 1x1 image
+	int h = QMIN(target.height(),source.height());
+	int w = QMIN(target.width(),source.width());
 	int cyan, c, m, yc, k, cc, mm, yy, kk;
 	col.getCMYK(&c, &m, &yc, &k);
 	for (int y=0; y < h; ++y )
@@ -640,6 +642,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			{
 				Bild.resize(1,1);
 				qApp->setOverrideCursor(QCursor(arrowCursor), true);
+				APage = Seite;
 				return Bild;
 			}
 		}
