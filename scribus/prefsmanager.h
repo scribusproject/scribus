@@ -75,6 +75,7 @@ public:
 	void setImageEditorExecutable(const QString&);
 	const QString ghostscriptExecutable();
 	const QString imageEditorExecutable();
+	const int gsResolution(); //Get the users preferred preview resolution
 	const QString documentDir(); // Get the users preferred document directory
 	const int mouseWheelValue();
 	const double displayScale(); // Get the user set display scale

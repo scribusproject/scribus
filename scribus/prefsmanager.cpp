@@ -1745,3 +1745,8 @@ void PrefsManager::alertLoadPrefsFailed() const
 			QMessageBox::NoButton);
 	ScApp->showSplash(splashShowing);
 }
+
+const int PrefsManager::gsResolution()
+{
+	return appPrefs.gs_Resolution;
+}

@@ -9128,28 +9128,25 @@ int ScribusView::CountElements()
 
 void ScribusView::RecalcPictures(ProfilesL *Pr, QProgressBar *dia)
 {
-	PageItem* it;
-	int counter;
-	if (dia != NULL)
-		counter = dia->progress();
-	else
-		counter = 0;
-	if (Doc->Items.count() != 0)
+	uint docItemCount=Doc->Items.count();
+	if ( docItemCount!= 0)
 	{
-		for (uint i=0; i < Doc->Items.count(); i++)
+		int counter;
+		if (dia != NULL)
+			counter = dia->progress();
+		else
+			counter = 0;
+		PageItem* it;
+		for (uint i=0; i < docItemCount; ++i)
 		{
 			it = Doc->Items.at(i);
 			if ((it->itemType() == PageItem::ImageFrame) && (it->PicAvail))
 			{
-				if (Pr->contains(it->IProfile))
-					LoadPict(it->Pfile, i, true);
-				else
-				{
+				if (!Pr->contains(it->IProfile))
 					it->IProfile = Doc->CMSSettings.DefaultImageRGBProfile;
-					LoadPict(it->Pfile, i, true);
-				}
+				LoadPict(it->Pfile, i, true);
 			}
-			counter++;
+			++counter;
 			if (dia != NULL)
 				dia->setProgress(counter);
 		}
@@ -9256,7 +9253,7 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr)
 
 void ScribusView::rulerMove(QMouseEvent *m)
 {
-	QPoint py = viewport()->mapFromGlobal(m->globalPos());
+	QPoint py(viewport()->mapFromGlobal(m->globalPos()));
 	int newY = py.y();
 	int newX = py.x();
 	QPoint out = viewportToContents(py);
@@ -9911,12 +9908,13 @@ void ScribusView::insertColor(QString nam, double c, double m, double y, double 
 
 void ScribusView::ChLineWidth(double w)
 {
-	if (SelItem.count() != 0)
+	uint selectedItemCount=SelItem.count();
+	if (selectedItemCount != 0)
 	{
-		if (SelItem.count() > 1)
+		if (selectedItemCount > 1)
 			undoManager->beginTransaction(Um::SelectionGroup,
 										  Um::IGroup, Um::LineWidth, "", Um::ILineStyle);
-		for (uint a = 0; a < SelItem.count(); ++a)
+		for (uint a = 0; a < selectedItemCount; ++a)
 		{
 			PageItem *currItem = SelItem.at(a);
 			currItem->OldPwidth = currItem->Pwidth;
@@ -9932,86 +9930,91 @@ void ScribusView::ChLineWidth(double w)
 			}
 			RefreshItem(currItem);
 		}
-		if (SelItem.count() > 1)
+		if (selectedItemCount > 1)
 			undoManager->commit();
 	}
 }
 
 void ScribusView::ChLineArt(PenStyle w)
 {
-	if (SelItem.count() != 0)
+	uint selectedItemCount=SelItem.count();
+	if (selectedItemCount != 0)
 	{
-		if (SelItem.count() > 1)
+		if (selectedItemCount > 1)
 			undoManager->beginTransaction(Um::SelectionGroup,
 						  Um::IGroup, Um::LineStyle, "", Um::ILineStyle);
-		for (uint a = 0; a < SelItem.count(); ++a)
+		for (uint a = 0; a < selectedItemCount; ++a)
 		{
 			SelItem.at(a)->setLineStyle(w);
 			RefreshItem(SelItem.at(a));
 		}
-		if (SelItem.count() > 1)
+		if (selectedItemCount > 1)
 			undoManager->commit();
 	}
 }
 
 void ScribusView::ChLineJoin(PenJoinStyle w)
 {
-	if (SelItem.count() != 0)
+	uint selectedItemCount=SelItem.count();
+	if (selectedItemCount != 0)
 	{
-		if (SelItem.count() > 1)
+		if (selectedItemCount > 1)
 			undoManager->beginTransaction(Um::SelectionGroup,
 										  Um::IGroup, Um::LineJoin, "", Um::ILineStyle);
-		for (uint a = 0; a < SelItem.count(); ++a)
+		for (uint a = 0; a < selectedItemCount; ++a)
 		{
 			SelItem.at(a)->setLineJoin(w);
 			RefreshItem(SelItem.at(a));
 		}
-		if (SelItem.count() > 1)
+		if (selectedItemCount > 1)
 			undoManager->commit();
 	}
 }
 
 void ScribusView::ChLineEnd(PenCapStyle w)
 {
-	if (SelItem.count() != 0)
+	uint selectedItemCount=SelItem.count();
+	if (selectedItemCount != 0)
 	{
-		if (SelItem.count() > 1)
+		if (selectedItemCount > 1)
 			undoManager->beginTransaction(Um::SelectionGroup,
 										  Um::IGroup, Um::LineEnd, "", Um::ILineStyle);
-		for (uint a = 0; a < SelItem.count(); ++a)
+		for (uint a = 0; a < selectedItemCount; ++a)
 		{
 			SelItem.at(a)->setLineEnd(w);
 			RefreshItem(SelItem.at(a));
 		}
-		if (SelItem.count() > 1)
+		if (selectedItemCount > 1)
 			undoManager->commit();
 	}
 }
 
 void ScribusView::ChLineSpa(double w)
 {
-	if (SelItem.count() != 0)
+	uint selectedItemCount=SelItem.count();
+	if (selectedItemCount != 0)
 	{
-		if (SelItem.count() > 1)
+		if (selectedItemCount > 1)
 			undoManager->beginTransaction(Um::SelectionGroup,
 										  Um::IGroup, Um::SetLineSpacing, QString("%1").arg(w), Um::IFont);
-		for (uint a = 0; a < SelItem.count(); ++a)
+		for (uint a = 0; a < selectedItemCount; ++a)
 		{
 			SelItem.at(a)->setLineSpacing(w);
 			RefreshItem(SelItem.at(a));
 		}
 		Doc->docParagraphStyles[0].LineSpa = w;
-		if (SelItem.count() > 1)
+		if (selectedItemCount > 1)
 			undoManager->commit();
 	}
 }
 
 void ScribusView::ChLocalXY(double x, double y)
 {
-	if (SelItem.count() != 0)
+	uint selectedItemCount=SelItem.count();
+	if (selectedItemCount != 0)
 	{
 		PageItem *currItem;
-		for (uint a = 0; a < SelItem.count(); ++a)
+		for (uint a = 0; a < selectedItemCount; ++a)
 		{
 			currItem = SelItem.at(a);
 			currItem->LocalX = x;
@@ -10031,10 +10034,11 @@ void ScribusView::ChLocalXY(double x, double y)
 
 void ScribusView::ChLocalSc(double x, double y)
 {
-	if (SelItem.count() != 0)
+	uint selectedItemCount=SelItem.count();
+	if (selectedItemCount != 0)
 	{
 		PageItem *currItem;
-		for (uint a = 0; a < SelItem.count(); ++a)
+		for (uint a = 0; a < selectedItemCount; ++a)
 		{
 			currItem = SelItem.at(a);
 			currItem->LocalScX = x;
@@ -10054,11 +10058,12 @@ void ScribusView::ChLocalSc(double x, double y)
 
 void ScribusView::ItemFont(QString fon)
 {
-	if (SelItem.count() != 0)
+	uint selectedItemCount=SelItem.count();
+	if (selectedItemCount != 0)
 	{
-		if (SelItem.count() > 1)
+		if (selectedItemCount > 1)
 			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SetFont, fon, Um::IFont);
-		for (uint aa = 0; aa < SelItem.count(); ++aa)
+		for (uint aa = 0; aa < selectedItemCount; ++aa)
 		{
 			PageItem *currItem = SelItem.at(aa);
 			if (Doc->appMode == modeNormal)
@@ -10091,22 +10096,23 @@ void ScribusView::ItemFont(QString fon)
 				}
 			}
 		}
-		if (SelItem.count() > 1)
+		if (selectedItemCount > 1)
 			undoManager->commit();
 	}
 }
 
 void ScribusView::ItemPen(QString farbe)
 {
-	if (farbe == ScApp->noneString)
-		farbe = "None";
-	if (SelItem.count() != 0)
+	uint selectedItemCount=SelItem.count();
+	if (selectedItemCount != 0)
 	{
-		PageItem *i;
-		if (SelItem.count() > 1)
+		if (farbe == ScApp->noneString)
+			farbe = "None";	
+		if (selectedItemCount > 1)
 			undoManager->beginTransaction(Um::SelectionGroup,
 										  Um::IGroup, Um::SetLineColor, farbe, Um::IFill);
-		for (uint a = 0; a < SelItem.count(); ++a)
+		PageItem *i;										  
+		for (uint a = 0; a < selectedItemCount; ++a)
 		{
 			i = SelItem.at(a);
 			if ((i->itemType() == PageItem::Line) && (farbe == "None"))
@@ -10117,22 +10123,23 @@ void ScribusView::ItemPen(QString farbe)
 			RefreshItem(i);
 			emit ItemFarben(i->lineColor(), i->fillColor(), i->lineShade(), i->fillShade());
 		}
-		if (SelItem.count() > 1)
+		if (selectedItemCount > 1)
 			undoManager->commit();
 	}
 }
 
 void ScribusView::ItemTextBrush(QString farbe)
 {
-	if (farbe == ScApp->noneString)
-		farbe = "None";
-	if (SelItem.count() != 0)
+	uint selectedItemCount=SelItem.count();
+	if (selectedItemCount != 0)
 	{
-		if (SelItem.count() > 1)
+		if (farbe == ScApp->noneString)
+			farbe = "None";	
+		if (selectedItemCount > 1)
 			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SetFontFill,
 										  farbe, Um::IFont);
 		PageItem *currItem;
-		for (uint a = 0; a < SelItem.count(); ++a)
+		for (uint a = 0; a < selectedItemCount; ++a)
 		{
 			currItem = SelItem.at(a);
 			if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::PathText))
@@ -10153,20 +10160,21 @@ void ScribusView::ItemTextBrush(QString farbe)
 			RefreshItem(currItem);
 			emit ItemFarben(currItem->lineColor(), currItem->fillColor(), currItem->lineShade(), currItem->fillShade());
 		}
-		if (SelItem.count() > 1)
+		if (selectedItemCount > 1)
 			undoManager->commit();
 	}
 }
 
 void ScribusView::ItemTextBrushS(int sha)
 {
-	if (SelItem.count() != 0)
+	uint selectedItemCount=SelItem.count();
+	if (selectedItemCount != 0)
 	{
 		PageItem *currItem;
 		if (SelItem.count() > 1)
 			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SetFontFillShade,
 									  QString("%1").arg(sha), Um::IFont);
-		for (uint a = 0; a < SelItem.count(); ++a)
+		for (uint a = 0; a < selectedItemCount; ++a)
 		{
 			currItem = SelItem.at(a);
 			if (currItem->itemType() == PageItem::TextFrame)
@@ -10187,7 +10195,7 @@ void ScribusView::ItemTextBrushS(int sha)
 			RefreshItem(currItem);
 			emit ItemFarben(currItem->lineColor(), currItem->fillColor(), currItem->lineShade(), currItem->fillShade());
 		}
-		if (SelItem.count() > 1)
+		if (selectedItemCount > 1)
 			undoManager->commit();
 	}
 }
@@ -11075,115 +11083,17 @@ void ScribusView::LoadPict(QString fn, int ItNr, bool reload)
 
 void ScribusView::loadPict(QString fn, PageItem *pageItem, bool reload)
 {
-	bool dummy;
-	QFileInfo fi = QFileInfo(fn);
-	PageItem *Item = pageItem;
-	QString clPath = Item->pixm.imgInfo.usedPath;
-	Item->pixm.imgInfo.valid = false;
-	Item->pixm.imgInfo.clipPath = "";
-	Item->pixm.imgInfo.PDSpathData.clear();
-	Item->pixm.imgInfo.layerInfo.clear();
-	Item->pixm.imgInfo.usedPath = "";
-	Item->imageClip.resize(0);
 	if (!reload)
 	{
-		if ((ScApp->fileWatcher->files().contains(Item->Pfile) != 0) && (Item->PicAvail))
-			ScApp->fileWatcher->removeFile(Item->Pfile);
+		if ((ScApp->fileWatcher->files().contains(pageItem->Pfile) != 0) && (pageItem->PicAvail))
+			ScApp->fileWatcher->removeFile(pageItem->Pfile);
 	}
-	if (!Item->pixm.LoadPicture(fn, Item->IProfile, Item->IRender, Item->UseEmbedded, true, 2, Prefs->gs_Resolution, &dummy))
-	{
-		Item->Pfile = fi.absFilePath();
-		Item->PicAvail = false;
-		Item->PicArt = false;
-	}
-	else
-	{
-		if (UndoManager::undoEnabled() && !reload)
-		{
-			SimpleState *ss = new SimpleState(Um::GetImage, fn, Um::IGetImage);
-			ss->set("GET_IMAGE", "get_image");
-			ss->set("OLD_IMAGE_PATH", Item->Pfile);
-			ss->set("NEW_IMAGE_PATH", fn);
-			undoManager->action(Item, ss);
-		}
-		double xres = Item->pixm.imgInfo.xres;
-		double yres = Item->pixm.imgInfo.yres;
-		Item->PicAvail = true;
-		Item->PicArt = true;
-		Item->BBoxX = 0;
-		if (Item->Pfile != fn)
-		{
-			Item->LocalScX = 72.0 / xres;
-			Item->LocalScY = 72.0 / yres;
-			Item->LocalX = 0;
-			Item->LocalY = 0;
-			if ((Doc->toolSettings.useEmbeddedPath) && (!Item->pixm.imgInfo.clipPath.isEmpty()))
-			{
-				Item->pixm.imgInfo.usedPath = Item->pixm.imgInfo.clipPath;
-				clPath = Item->pixm.imgInfo.clipPath;
-				if (Item->pixm.imgInfo.PDSpathData.contains(clPath))
-				{
-					Item->imageClip = Item->pixm.imgInfo.PDSpathData[clPath].copy();
-					Item->pixm.imgInfo.usedPath = clPath;
-					QWMatrix cl;
-					cl.translate(Item->LocalX*Item->LocalScX, Item->LocalY*Item->LocalScY);
-					cl.scale(Item->LocalScX, Item->LocalScY);
-					Item->imageClip.map(cl);
-				}
-			}
-		}
-		Item->Pfile = fi.absFilePath();
-		if (!reload)
-			ScApp->fileWatcher->addFile(Item->Pfile);
-		else
-		{
-			if (Item->pixm.imgInfo.PDSpathData.contains(clPath))
-			{
-				Item->imageClip = Item->pixm.imgInfo.PDSpathData[clPath].copy();
-				Item->pixm.imgInfo.usedPath = clPath;
-				QWMatrix cl;
-				cl.translate(Item->LocalX*Item->LocalScX, Item->LocalY*Item->LocalScY);
-				cl.scale(Item->LocalScX, Item->LocalScY);
-				Item->imageClip.map(cl);
-			}
-		}
-		Item->BBoxH = Item->pixm.height();
-		Item->OrigW = Item->pixm.width();
-		Item->OrigH = Item->pixm.height();
-		QString ext = fi.extension(false).lower();
-		if ((ext == "pdf") || (ext == "ps") || (ext == "eps"))
-			Item->isRaster = false;
-		else
-			Item->isRaster = true;
-		if (Item->pixm.imgInfo.isEmbedded)
-		{
-			Item->IProfile = "Embedded " + Item->pixm.imgInfo.profileName;
-			Item->EmProfile = "Embedded " + Item->pixm.imgInfo.profileName;
-			Item->UseEmbedded = true;
-		}
-		else
-		{
-			Item->IProfile = Item->pixm.imgInfo.profileName;
-			Item->UseEmbedded = false;
-		}
-	}
-	if (Item->PicAvail)
-	{
-		if (Item->pixm.imgInfo.lowResType != 0)
-		{
-			double scaling = 1.0;
-			if (Item->pixm.imgInfo.lowResType == 1)
-				scaling = Item->pixm.imgInfo.xres / 72.0;
-			else
-				scaling = Item->pixm.imgInfo.xres / 36.0;
-			Item->pixm.createLowRes(scaling);
-			Item->pixm.imgInfo.lowResScale = scaling;
-		}
-		Item->pixm.applyEffect(Item->effectsInUse, Doc->PageColors, false);
-	}
+	pageItem->loadImage(fn, reload);
+	if (!reload)
+		ScApp->fileWatcher->addFile(pageItem->Pfile);
 	if (!Doc->isLoading())
 	{
-		emit RasterPic(Item->isRaster);
+		emit RasterPic(pageItem->isRaster);
 //		emit UpdtObj(PageNr, ItNr);
 		emit DocChanged();
 	}

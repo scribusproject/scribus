@@ -34,6 +34,7 @@
 #include "scribus.h"
 #include "scribusstructs.h"
 #include "scribusdoc.h"
+#include "prefsmanager.h"
 #include "undomanager.h"
 #include "undostate.h"
 #include "mpalette.h"
@@ -4837,7 +4838,7 @@ void PageItem::restoreGetImage(SimpleState *state, bool isUndo)
 		ScApp->view->ClearItem();
 	}
 	else
-		ScApp->view->loadPict(fn, this, false);
+		loadImage(fn, false);
 }
 
 void PageItem::select()
@@ -5296,3 +5297,100 @@ QRect PageItem::getRedrawBounding(const double viewScale)
 	return ret;
 }
 */
+
+bool PageItem::loadImage(const QString& filename, const bool reload, const int gsResolution)
+{
+	if (itemType()!=PageItem::ImageFrame)
+		return false;
+	QFileInfo fi(filename);
+	QString clPath(pixm.imgInfo.usedPath);
+	pixm.imgInfo.valid = false;
+	pixm.imgInfo.clipPath="";
+	pixm.imgInfo.PDSpathData.clear();
+	pixm.imgInfo.layerInfo.clear();
+	pixm.imgInfo.usedPath="";
+	imageClip.resize(0);
+	int gsRes=gsResolution;
+	if (gsResolution==-1) //If it wasn't supplied, get it from PrefsManager.
+		gsRes=PrefsManager::instance()->gsResolution();
+	bool dummy;
+	if (!pixm.LoadPicture(filename, IProfile, IRender, UseEmbedded, true, 2, gsRes, &dummy))
+	{
+		Pfile = fi.absFilePath();
+		PicAvail = false;
+		PicArt = false;
+	}
+	else
+	{
+		if (UndoManager::undoEnabled() && !reload)
+		{
+			SimpleState *ss = new SimpleState(Um::GetImage, filename, Um::IGetImage);
+			ss->set("GET_IMAGE", "get_image");
+			ss->set("OLD_IMAGE_PATH", Pfile);
+			ss->set("NEW_IMAGE_PATH", filename);
+			undoManager->action(this, ss);
+		}
+		double xres = pixm.imgInfo.xres;
+		double yres = pixm.imgInfo.yres;
+		PicAvail = true;
+		PicArt = true;
+		BBoxX = 0;
+		if (Pfile != filename)
+		{
+			LocalScX = 72.0 / xres;
+			LocalScY = 72.0 / yres;
+			LocalX = 0;
+			LocalY = 0;
+			if ((Doc->toolSettings.useEmbeddedPath) && (!pixm.imgInfo.clipPath.isEmpty()))
+			{
+				pixm.imgInfo.usedPath = pixm.imgInfo.clipPath;
+				clPath = pixm.imgInfo.clipPath;
+				if (pixm.imgInfo.PDSpathData.contains(clPath))
+				{
+					imageClip = pixm.imgInfo.PDSpathData[clPath].copy();
+					pixm.imgInfo.usedPath = clPath;
+					QWMatrix cl;
+					cl.translate(LocalX*LocalScX, LocalY*LocalScY);
+					cl.scale(LocalScX, LocalScY);
+					imageClip.map(cl);
+				}
+			}
+		}
+		Pfile = fi.absFilePath();
+		if (reload && pixm.imgInfo.PDSpathData.contains(clPath))
+		{
+			imageClip = pixm.imgInfo.PDSpathData[clPath].copy();
+			pixm.imgInfo.usedPath = clPath;
+			QWMatrix cl;
+			cl.translate(LocalX*LocalScX, LocalY*LocalScY);
+			cl.scale(LocalScX, LocalScY);
+			imageClip.map(cl);
+		}
+		BBoxH = pixm.height();
+		OrigW = pixm.width();
+		OrigH = pixm.height();
+		QString ext = fi.extension(false).lower();
+		isRaster = !(ext == "pdf" || ext == "ps" || ext == "eps");
+		UseEmbedded=pixm.imgInfo.isEmbedded;
+		if (pixm.imgInfo.isEmbedded)
+		{
+			IProfile = "Embedded " + pixm.imgInfo.profileName;
+			EmProfile = "Embedded " + pixm.imgInfo.profileName;
+		}
+		else
+			IProfile = pixm.imgInfo.profileName;
+	}
+	if (PicAvail)
+	{
+		if (pixm.imgInfo.lowResType != 0)
+		{
+			double scaling = pixm.imgInfo.xres / 36.0;
+			if (pixm.imgInfo.lowResType == 1)
+				scaling = pixm.imgInfo.xres / 72.0;
+			pixm.createLowRes(scaling);
+			pixm.imgInfo.lowResScale = scaling;
+		}
+		pixm.applyEffect(effectsInUse, Doc->PageColors, false);
+	}
+	return true;
+}
