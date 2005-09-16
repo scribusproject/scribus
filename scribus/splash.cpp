@@ -78,7 +78,7 @@ void SplashScreen::setStatus( const QString &message )
 	QPainter painter( &textPix, this );
 	painter.setFont(QFont("Helvetica", 10));
 	painter.setPen( white );
-	painter.setRasterOp(NotROP);
+	//painter.setRasterOp(NotROP);
 	painter.drawText( 10, textPix.height()-8, tmp );
 	setErasePixmap( textPix );
 	repaint();
