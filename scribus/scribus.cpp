@@ -1326,7 +1326,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 		return;
 	}
 	ButtonState buttonState = k->state();
-	if ((HaveDoc) && (!view->LE->hasFocus()) && (!view->PGS->focused()))
+	if ((HaveDoc) && (!view->zoomSpinBox->hasFocus()) && (!view->pageSelector->focused()))
 	{
 		if ((doc->appMode != modeEdit) && (view->SelItem.count() == 0))
 		{
@@ -2155,7 +2155,7 @@ void ScribusApp::keyReleaseEvent(QKeyEvent *k)
 		case Key_Up:
 		case Key_Down:
 			_arrowKeyDown = false;
-			if ((HaveDoc) && (!view->LE->hasFocus()) && (!view->PGS->focused()))
+			if ((HaveDoc) && (!view->zoomSpinBox->hasFocus()) && (!view->pageSelector->focused()))
 			{
 				if ((view->SelItem.count() != 0) && (doc->appMode == modeNormal) && (doc->EditClip) && (view->ClRe != -1))
 					view->updateContents();
@@ -6041,8 +6041,8 @@ void ScribusApp::setAppMode(int mode)
 			actionManager->saveActionShortcutsPreEditMode();
 		if (oldMode == modeEdit)
 		{
-			view->LE->setFocusPolicy(QWidget::ClickFocus);
-			view->PGS->focusPolicy(QWidget::ClickFocus);
+			view->zoomSpinBox->setFocusPolicy(QWidget::ClickFocus);
+			view->pageSelector->focusPolicy(QWidget::ClickFocus);
 			scrActions["editClearContents"]->setEnabled(false);
 			scrActions["insertGlyph"]->setEnabled(false);
 			view->slotDoCurs(false);
@@ -6057,8 +6057,8 @@ void ScribusApp::setAppMode(int mode)
 		}
 		if (mode == modeEdit)
 		{
-			view->LE->setFocusPolicy(QWidget::NoFocus);
-			view->PGS->focusPolicy(QWidget::NoFocus);
+			view->zoomSpinBox->setFocusPolicy(QWidget::NoFocus);
+			view->pageSelector->focusPolicy(QWidget::NoFocus);
 			if (currItem != 0)
 			{
 				if ((currItem->itemType() == PageItem::Polygon) || (currItem->itemType() == PageItem::PolyLine) || (currItem->itemType() == PageItem::PathText))

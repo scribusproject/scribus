@@ -106,11 +106,11 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc) : QScrollView(parent,
 	unitSwitcher->setFont(fo);
 	for (int i=0;i<=unitGetMaxIndex();++i)
 		unitSwitcher->insertItem(unitGetStrFromIndex(i));
-	LE = new MSpinBox( 10, 3200, this, 2 );
-	LE->setFont(fo);
-	LE->setValue( 100 );
-	LE->setFocusPolicy(QWidget::ClickFocus);
-	LE->setSuffix( tr( " %" ) );
+	zoomSpinBox = new MSpinBox( 10, 3200, this, 2 );
+	zoomSpinBox->setFont(fo);
+	zoomSpinBox->setValue( 100 );
+	zoomSpinBox->setFocusPolicy(QWidget::ClickFocus);
+	zoomSpinBox->setSuffix( tr( " %" ) );
 #if OPTION_USE_QTOOLBUTTON
 	zoomOutToolbarButton = new QToolButton(this);
 	zoomDefaultToolbarButton = new QToolButton(this);
@@ -139,17 +139,17 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc) : QScrollView(parent,
 //	zoomDefaultToolbarButton->setPixmap(loadIcon("viewmag1.png"));
 	zoomOutToolbarButton->setPixmap(loadIcon("viewmagout.png"));
 	zoomInToolbarButton->setPixmap(loadIcon("viewmagin.png"));
-	PGS = new PageSelector(this, 1);
-	PGS->setFont(fo);
-	PGS->setFocusPolicy(QWidget::ClickFocus);
-	LY = new QComboBox( true, this, "LY" );
-	LY->setEditable(false);
-	LY->setFont(fo);
-	LY->setFocusPolicy(QWidget::NoFocus);
+	pageSelector = new PageSelector(this, 1);
+	pageSelector->setFont(fo);
+	pageSelector->setFocusPolicy(QWidget::ClickFocus);
+	layerMenu = new QComboBox( true, this, "LY" );
+	layerMenu->setEditable(false);
+	layerMenu->setFont(fo);
+	layerMenu->setFocusPolicy(QWidget::NoFocus);
 	horizRuler = new Hruler(this, Doc);
 	vertRuler = new Vruler(this, Doc);
-	UN = new RulerMover(this);
-	UN->setFocusPolicy(QWidget::NoFocus);
+	rulerMover = new RulerMover(this);
+	rulerMover->setFocusPolicy(QWidget::NoFocus);
 	Ready = true;
 	viewport()->setMouseTracking(true);
 	setAcceptDrops(true);
@@ -193,9 +193,9 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc) : QScrollView(parent,
 	connect(zoomOutToolbarButton, SIGNAL(clicked()), this, SLOT(slotZoomOut()));
 	connect(zoomInToolbarButton, SIGNAL(clicked()), this, SLOT(slotZoomIn()));
 	connect(zoomDefaultToolbarButton, SIGNAL(clicked()), this, SLOT(slotZoom100()));
-	connect(LE, SIGNAL(valueChanged(int)), this, SLOT(Zval()));
-	connect(PGS, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
-	connect(LY, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
+	connect(zoomSpinBox, SIGNAL(valueChanged(int)), this, SLOT(Zval()));
+	connect(pageSelector, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
+	connect(layerMenu, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
 	connect(unitSwitcher, SIGNAL(activated(int)), this, SLOT(ChgUnit(int)));
 	connect(this, SIGNAL(contentsMoving(int, int)), this, SLOT(setRulerPos(int, int)));
 	connect(this, SIGNAL(HaveSel(int)), this, SLOT(selectionChanged()));
@@ -204,16 +204,16 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc) : QScrollView(parent,
 
 void ScribusView::languageChange()
 {
-	disconnect(LY, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
+	disconnect(layerMenu, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
 	disconnect(unitSwitcher, SIGNAL(activated(int)), this, SLOT(ChgUnit(int)));
-	LE->setSuffix( tr( " %" ) );
-	LY->setCurrentText( tr("Layer")+" 0");
+	zoomSpinBox->setSuffix( tr( " %" ) );
+	layerMenu->setCurrentText( tr("Layer")+" 0");
 	//CB TODO Convert to actions later
 	unitSwitcher->clear();
 	for (int i=0;i<=unitGetMaxIndex();++i)
 		unitSwitcher->insertItem(unitGetStrFromIndex(i));
 	unitSwitcher->setCurrentText(unitGetStrFromIndex(Doc->unitIndex()));
-	connect(LY, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
+	connect(layerMenu, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
 	connect(unitSwitcher, SIGNAL(activated(int)), this, SLOT(ChgUnit(int)));
 
 }
@@ -8566,7 +8566,7 @@ void ScribusView::setVBarGeometry(QScrollBar &bar, int x, int y, int w, int h)
 	if (Ready)
 	{
 		vertRuler->setGeometry(1, 17, 17, h-16);
-		UN->setGeometry(1, 1, 17, 17);
+		rulerMover->setGeometry(1, 1, 17, 17);
 	}
 }
 
@@ -8640,7 +8640,7 @@ void ScribusView::Zval()
 	int w = qRound(QMIN(visibleWidth() / Scale, Doc->pageWidth));
 	int h = qRound(QMIN(visibleHeight() / Scale, Doc->pageHeight));
 	rememberPreviousSettings(w / 2 + x,h / 2 + y);
-	setScale(LE->value() / 100.0 * Prefs->DisScale);
+	setScale(zoomSpinBox->value() / 100.0 * Prefs->DisScale);
 	slotDoZoom();
 	ScApp->setFocus();
 }
@@ -8649,8 +8649,8 @@ void ScribusView::Zval()
 Page* ScribusView::addPage(int nr, bool mov)
 {
 	Page* fe=Doc->addPage(nr);
-	disconnect(PGS, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
-	PGS->setMaxValue(Doc->pageCount);
+	disconnect(pageSelector, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
+	pageSelector->setMaxValue(Doc->pageCount);
 	reformPages(mov);
 	if ((Doc->PageAT) && (!Doc->isLoading()))
 	{
@@ -8690,8 +8690,8 @@ Page* ScribusView::addPage(int nr, bool mov)
 		}
 	}
 	if ((!ScApp->ScriptRunning) && (!Doc->isLoading()) && (!Doc->masterPageMode))
-		PGS->GotoPg(nr);
-	connect(PGS, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
+		pageSelector->GotoPg(nr);
+	connect(pageSelector, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
 	Mpressed = false;
 	Doc->DragP = false;
 	Doc->leaveDrag = false;
@@ -8714,10 +8714,10 @@ void ScribusView::delPage(int Nr)
 {
 	if (!Doc->deletePage(Nr))
 		return;
-	disconnect(PGS, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
-	PGS->setMaxValue(Doc->pageCount);
-	PGS->GotoPg(0);
-	connect(PGS, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
+	disconnect(pageSelector, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
+	pageSelector->setMaxValue(Doc->pageCount);
+	pageSelector->GotoPg(0);
+	connect(pageSelector, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
 }
 
 void ScribusView::movePage(int from, int to, int ziel, int art)
@@ -8885,11 +8885,11 @@ void ScribusView::setMenTxt(int Seite)
 {
 	if (ScApp->ScriptRunning)
 		return;
-	disconnect(PGS, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
-	PGS->setMaxValue(Doc->pageCount);
+	disconnect(pageSelector, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
+	pageSelector->setMaxValue(Doc->pageCount);
 	if ((!Doc->isLoading()) && (!Doc->masterPageMode))
-		PGS->GotoPg(Seite);
-	connect(PGS, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
+		pageSelector->GotoPg(Seite);
+	connect(pageSelector, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
 }
 
 /** Fuehrt die Vergroesserung/Verkleinerung aus */
@@ -8996,9 +8996,9 @@ void ScribusView::DrawNew()
 	updateContents();
 	setRulerPos(contentsX(), contentsY());
 	setMenTxt(Doc->currentPage->pageNr());
-	disconnect(LE, SIGNAL(valueChanged(int)), this, SLOT(Zval()));
-	LE->setValue(Scale/Prefs->DisScale*100);
-	connect(LE, SIGNAL(valueChanged(int)), this, SLOT(Zval()));
+	disconnect(zoomSpinBox, SIGNAL(valueChanged(int)), this, SLOT(Zval()));
+	zoomSpinBox->setValue(Scale/Prefs->DisScale*100);
+	connect(zoomSpinBox, SIGNAL(valueChanged(int)), this, SLOT(Zval()));
 }
 
 void ScribusView::SetCCPo(int x, int y)
@@ -9019,21 +9019,21 @@ void ScribusView::SetCPo(int x, int y)
 
 void ScribusView::updateLayerMenu()
 {
-	disconnect(LY, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
-	LY->clear();
+	disconnect(layerMenu, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
+	layerMenu->clear();
 	QStringList newNames;
 	Doc->orderedLayerList(&newNames);
 	for (QStringList::Iterator it=newNames.begin(); it!=newNames.end(); ++it)
-        LY->insertItem(*it);
-	connect(LY, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
+        layerMenu->insertItem(*it);
+	connect(layerMenu, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
 }
 
 void ScribusView::setLayerMenuText(const QString &layerName)
 {
-	disconnect(LY, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
-	if (LY->count() != 0)
-		LY->setCurrentText(layerName);
-	connect(LY, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
+	disconnect(layerMenu, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
+	if (layerMenu->count() != 0)
+		layerMenu->setCurrentText(layerName);
+	connect(layerMenu, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
 }
 
 void ScribusView::GotoLa(int l)
@@ -9066,12 +9066,12 @@ void ScribusView::GotoPage(int Seite)
 	Doc->currentPage = Doc->Pages.at(Seite);
 	if (ScApp->ScriptRunning)
 		return;
-	disconnect(PGS, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
+	disconnect(pageSelector, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
 	SetCPo(qRound(Doc->currentPage->xOffset()-10), qRound(Doc->currentPage->yOffset()-10));
-	PGS->setMaxValue(Doc->pageCount);
+	pageSelector->setMaxValue(Doc->pageCount);
 	if ((!Doc->isLoading()) && (!Doc->masterPageMode))
-		PGS->GotoPg(Seite);
-	connect(PGS, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
+		pageSelector->GotoPg(Seite);
+	connect(pageSelector, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
 }
 
 void ScribusView::showMasterPage(int nr)
@@ -9088,7 +9088,7 @@ void ScribusView::showMasterPage(int nr)
 	Doc->pageCount = 1;
 	Doc->masterPageMode = true;
 	Doc->currentPage = Doc->Pages.at(nr);
-	PGS->setEnabled(false);
+	pageSelector->setEnabled(false);
 	updateOn = false;
 //	reformPages();
 	slotDoZoom();
@@ -9109,7 +9109,7 @@ void ScribusView::hideMasterPage()
 	Doc->Pages = Doc->DocPages;
 	Doc->masterPageMode = false;
 	Doc->currentPage = Doc->Pages.at(0);
-	PGS->setEnabled(true);
+	pageSelector->setEnabled(true);
 	setScale(OldScale);
 	updateOn = false;
 	GotoPage(0);

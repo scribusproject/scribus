@@ -64,9 +64,9 @@ public:
     ScribusView(QWidget *parent=0, ScribusDoc *doc=0);
     ~ScribusView() {};
   /** Vergroesserungseingabefeld */
-	MSpinBox* LE;
-	PageSelector* PGS;
-	RulerMover *UN;
+	MSpinBox* zoomSpinBox; //zoom spinbox at bottom of view
+	PageSelector* pageSelector; //Page selector at bottom of view
+	RulerMover *rulerMover; //Widget between the two rulers for dragging the ruler origin
 	Hruler *horizRuler;
 	Vruler *vertRuler;
 #if OPTION_USE_QTOOLBUTTON
@@ -78,8 +78,8 @@ public:
 	QPushButton *zoomOutToolbarButton;
 	QPushButton *zoomInToolbarButton;
 #endif
-	QComboBox *LY;
-	QComboBox *unitSwitcher;
+	QComboBox *layerMenu; //Menu for layers at bottom of view
+	QComboBox *unitSwitcher; //Menu for units at bottom of view
   /** Dokument zu dem die Seite gehoert */
 	ScribusDoc *Doc;
 	ApplicationPrefs *Prefs;
