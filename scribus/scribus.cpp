@@ -6463,6 +6463,7 @@ void ScribusApp::MovePage()
 
 void ScribusApp::CopyPage()
 {
+	int GrMax = doc->GroupCounter;
 	NoFrameEdit();
 	MovePages *dia = new MovePages(this, doc->currentPage->pageNr()+1, doc->Pages.count(), false);
 	if (dia->exec())
@@ -6498,15 +6499,31 @@ void ScribusApp::CopyPage()
 		uint oldItems = doc->Items.count();
 		for (uint ite = 0; ite < oldItems; ++ite)
 		{
-			if (doc->Items.at(ite)->OwnPage == static_cast<int>(from->pageNr()))
+			PageItem *itemToCopy = doc->Items.at(ite);
+			if (itemToCopy->OwnPage == static_cast<int>(from->pageNr()))
 			{
-				doc->Items.at(ite)->copyToCopyPasteBuffer(&Buffer);
+				itemToCopy->copyToCopyPasteBuffer(&Buffer);
 				Buffer.Xpos = Buffer.Xpos - from->xOffset() + Ziel->xOffset();
 				Buffer.Ypos = Buffer.Ypos - from->yOffset() + Ziel->yOffset();
+				if (itemToCopy->Groups.count() != 0)
+				{
+					Buffer.Groups.clear();
+					QValueStack<int>::Iterator nx;
+					QValueStack<int> tmpGroup;
+					for (nx = itemToCopy->Groups.begin(); nx != itemToCopy->Groups.end(); ++nx)
+					{
+						tmpGroup.push((*nx)+doc->GroupCounter);
+						GrMax = QMAX(GrMax, (*nx)+doc->GroupCounter);
+					}
+					for (nx = tmpGroup.begin(); nx != tmpGroup.end(); ++nx)
+					{
+						Buffer.Groups.push((*nx));
+					}
+				}
 				view->PasteItem(&Buffer, true, true);
 				PageItem* Neu = doc->Items.at(doc->Items.count()-1);
 				Neu->OnMasterPage = "";
-				if (doc->Items.at(ite)->isBookmark)
+				if (itemToCopy->isBookmark)
 					AddBookMark(Neu);
 				if (Neu->isTableItem)
 				{
@@ -6557,6 +6574,7 @@ void ScribusApp::CopyPage()
 			}
 			qHeapSort(Ziel->XGuides);
 		}
+		doc->GroupCounter = GrMax + 1;
 		view->Deselect(true);
 		doc->setLoading(false);
 		view->reformPages();
