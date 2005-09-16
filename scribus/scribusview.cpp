@@ -11349,10 +11349,19 @@ void ScribusView::FrameToPic()
 					PageItem *currItem = SelItem.at(i);
 					if (currItem->PicAvail)
 					{
-						double w = static_cast<double>(currItem->pixm.width())*currItem->pixm.imgInfo.lowResScale * currItem->LocalScX;
-						double h = static_cast<double>(currItem->pixm.height())*currItem->pixm.imgInfo.lowResScale * currItem->LocalScY;
-						double x = currItem->LocalX * currItem->LocalScX;
-						double y = currItem->LocalY * currItem->LocalScY;
+						double w, h, x, y;
+						if (currItem->pixm.imgInfo.lowResType == 0)
+						{
+							w = static_cast<double>(currItem->pixm.width()) * currItem->LocalScX;
+							h = static_cast<double>(currItem->pixm.height()) * currItem->LocalScY;
+						}
+						else
+						{
+							w = static_cast<double>(currItem->pixm.width())*currItem->pixm.imgInfo.lowResScale * currItem->LocalScX;
+							h = static_cast<double>(currItem->pixm.height())*currItem->pixm.imgInfo.lowResScale * currItem->LocalScY;
+						}
+						x = currItem->LocalX * currItem->LocalScX;
+						y = currItem->LocalY * currItem->LocalScY;
 						if (!currItem->isTableItem)
 						{
 							SizeItem(w, h, currItem->ItemNr);
