@@ -1566,7 +1566,56 @@ void SEditor::copy()
 	{
 		disconnect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(ClipChange()));
 		disconnect(QApplication::clipboard(), SIGNAL(selectionChanged()), this, SLOT(SelClipChange()));
-		tBuffer = selectedText();
+		tBuffer = "";
+		int PStart, PEnd, SelStart, SelEnd, start, end;
+		int p, i;
+		QChar origChar;
+		QChar nextOrigChar;
+		QColor dispColor;
+		QChar destChar;
+		getSelection(&PStart, &SelStart, &PEnd, &SelEnd);
+		getCursorPosition(&p, &i);
+		for (int pa = PStart; pa < PEnd+1; ++pa)
+		{
+			if (pa == PStart)
+				start = SelStart;
+			else
+				start = 0;
+			if (pa == PEnd)
+				end = SelEnd;
+			else
+				end = paragraphLength(pa);
+			for (int ca = start; ca < end; ++ca)
+			{
+				origChar = text(pa)[ca];
+				setCursorPosition(pa,ca+1);
+				dispColor = color();
+				// special chars are displayed in red
+				if (dispColor == QColor(red))
+				{
+					if (origChar == '#')
+						destChar = QChar(ScApp->scrActions["specialPageNumber"]->actionInt());
+					else if (origChar == '_')
+						destChar = QChar(ScApp->scrActions["specialNonBreakingSpace"]->actionInt());
+					else if (origChar == '*')
+						destChar = QChar(ScApp->scrActions["specialNewLine"]->actionInt());
+					else if (origChar == '|')
+						destChar = QChar(ScApp->scrActions["specialFrameBreak"]->actionInt());
+					else if (origChar == '^')
+						destChar = QChar(ScApp->scrActions["specialColumnBreak"]->actionInt());
+					else if (origChar == '=')
+						destChar = QChar(ScApp->scrActions["specialNonBreakingHyphen"]->actionInt());
+					else
+						destChar = origChar;
+				}
+				else
+					destChar = origChar;
+				tBuffer.append(destChar);
+			}
+			if (pa != PEnd)
+			        tBuffer.append("\n");
+		}
+		setCursorPosition(p,i);
 		copyStyledText();
 		QApplication::clipboard()->setText(tBuffer, QClipboard::Clipboard);
 		ClipData = 1;
