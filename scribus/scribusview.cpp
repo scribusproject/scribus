@@ -215,7 +215,6 @@ void ScribusView::languageChange()
 	unitSwitcher->setCurrentText(unitGetStrFromIndex(Doc->unitIndex()));
 	connect(layerMenu, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
 	connect(unitSwitcher, SIGNAL(activated(int)), this, SLOT(ChgUnit(int)));
-
 }
 
 void ScribusView::viewportPaintEvent ( QPaintEvent * p )
@@ -227,7 +226,6 @@ void ScribusView::viewportPaintEvent ( QPaintEvent * p )
 
 void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int cliph)
 {
-	QPoint vr;
 	if (Doc->isLoading())
 		return;
 	if (!updateOn)
@@ -236,7 +234,7 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 //	tim.start();
 	if ((clipw > 0) && (cliph > 0))
 	{
-		vr = contentsToViewport(QPoint(clipx, clipy));
+		QPoint vr = contentsToViewport(QPoint(clipx, clipy));
 		ScPainter *painter = new ScPainter(viewport(), clipw, cliph, vr.x(), vr.y());
 		painter->clear(paletteBackgroundColor());
 		painter->translate(-Doc->minCanvasCoordinate.x()*Scale, -Doc->minCanvasCoordinate.y()*Scale);
@@ -504,18 +502,18 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 
 void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 {
-	QPainter p;
-	int Lnr;
-	struct Layer ll;
-	PageItem *currItem;
-	ll.isViewable = false;
-	ll.LNr = 0;
 	double z = painter->zoomFactor();
 	if (!page->MPageNam.isEmpty())
 	{
 		Page* Mp = Doc->MasterPages.at(Doc->MasterNames[page->MPageNam]);
 		if (page->FromMaster.count() != 0)
 		{
+			QPainter p;
+			int Lnr;
+			struct Layer ll;
+			PageItem *currItem;
+			ll.isViewable = false;
+			ll.LNr = 0;
 			Lnr = 0;
 			uint layerCount=Doc->layerCount();
 			for (uint la = 0; la < layerCount; ++la)
@@ -626,17 +624,16 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 
 void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 {
-	QPainter p;
-	int Lnr;
-	struct Layer ll;
-	PageItem *currItem;
-	ll.isViewable = false;
-	ll.LNr = 0;
 	linkedFramesToShow.clear();
 	double z = painter->zoomFactor();
 	if (Doc->Items.count() != 0)
 	{
-		Lnr = 0;
+		QPainter p;
+		int Lnr=0;
+		struct Layer ll;
+		PageItem *currItem;
+		ll.isViewable = false;
+		ll.LNr = 0;
 		uint layerCount=Doc->layerCount();
 		for (uint la2 = 0; la2 < layerCount; ++la2)
 		{
@@ -11106,7 +11103,6 @@ void ScribusView::changePreview(int id)
 	{
 		PageItem *pageItem;
 		bool found=false;
-		uint j;
 		for (uint i = 0; i < selectedItemCount; ++i)
 		{
 			pageItem = SelItem.at(i);
@@ -11115,10 +11111,7 @@ void ScribusView::changePreview(int id)
 				{
 					pageItem->pixm.imgInfo.lowResType = id;
 					if (!found)
-					{
-						j=i;
 						found=true;
-					}
 				}
 		}
 		if (!found) //No image frames in the current selection!
@@ -11127,8 +11120,6 @@ void ScribusView::changePreview(int id)
 		disconnect( ScApp->scrActions["itemPreviewLow"], SIGNAL(activatedData(int)) , 0, 0 );
 		disconnect( ScApp->scrActions["itemPreviewNormal"], SIGNAL(activatedData(int)) , 0, 0 );
 		disconnect( ScApp->scrActions["itemPreviewFull"], SIGNAL(activatedData(int)) , 0, 0 );
-		//We can only set these to be on like the first image page item selected, however after above, they are all the same.
-		pageItem=SelItem.at(j);
 		ScApp->scrActions["itemPreviewLow"]->setOn(id==ScApp->scrActions["itemPreviewLow"]->actionInt());
 		ScApp->scrActions["itemPreviewNormal"]->setOn(id==ScApp->scrActions["itemPreviewNormal"]->actionInt());
 		ScApp->scrActions["itemPreviewFull"]->setOn(id==ScApp->scrActions["itemPreviewFull"]->actionInt());
