@@ -174,13 +174,31 @@ void MasterPagesPalette::duplicateMasterPage()
 			qHeapSort(currentDoc->currentPage->XGuides);
 		}
 		uint end = currentDoc->Items.count();
+		int GrMax = currentDoc->GroupCounter;
 		for (uint a = 0; a < end; ++a)
 		{
+			PageItem *itemToCopy = currentDoc->Items.at(a);
 			if (currentDoc->Items.at(a)->OwnPage == inde)
 			{
-				currentDoc->Items.at(a)->copyToCopyPasteBuffer(&Buffer);
+				itemToCopy->copyToCopyPasteBuffer(&Buffer);
+				if (itemToCopy->Groups.count() != 0)
+				{
+					Buffer.Groups.clear();
+					QValueStack<int>::Iterator nx;
+					QValueStack<int> tmpGroup;
+					for (nx = itemToCopy->Groups.begin(); nx != itemToCopy->Groups.end(); ++nx)
+					{
+						tmpGroup.push((*nx)+currentDoc->GroupCounter);
+						GrMax = QMAX(GrMax, (*nx)+currentDoc->GroupCounter);
+					}
+					for (nx = tmpGroup.begin(); nx != tmpGroup.end(); ++nx)
+					{
+						Buffer.Groups.push((*nx));
+					}
+				}
 				currentView->PasteItem(&Buffer, true, true);
 				PageItem* Neu = currentDoc->Items.at(currentDoc->Items.count()-1);
+				Neu->OnMasterPage = MasterPageName;
 				if (Neu->isTableItem)
 				{
 					TableItems.append(Neu);
@@ -220,6 +238,7 @@ void MasterPagesPalette::duplicateMasterPage()
 		currentDoc->MasterPages = currentDoc->Pages;
 		currentDoc->setLoading(false);
 		currentView->DrawNew();
+		currentDoc->GroupCounter = GrMax + 1;
 		emit docAltered(currentDoc);
 	}
 	delete dia;
