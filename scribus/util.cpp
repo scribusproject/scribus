@@ -190,7 +190,7 @@ int callGS(const QString& args_in, const QString device)
 {
 	PrefsManager* prefsManager=PrefsManager::instance();
 	QString cmd1 = getShortPathName(prefsManager->ghostscriptExecutable());
-	cmd1 += " -q -dNOPAUSE";
+	cmd1 += " -q -dNOPAUSE -dQUIET -dPARANOIDSAFER -dBATCH";
 	// Choose rendering device
 	if (!device.isEmpty())
 		// user specified device
@@ -221,7 +221,7 @@ int callGS(const QString& args_in, const QString device)
 #endif
 
 	// then add any user specified args and run gs
-	cmd1 += " " + args_in + " -c showpage -c quit";
+	cmd1 += " " + args_in + " -c showpage";
 //	qDebug("Calling gs as: %s", cmd1.ascii());
 	return system(cmd1.local8Bit());
 }
@@ -230,7 +230,7 @@ int  convertPS2PS(QString in, QString out, const QString& opts, int level)
 {
 	PrefsManager* prefsManager=PrefsManager::instance();
 	QString cmd1 = getShortPathName(prefsManager->ghostscriptExecutable());
-	cmd1 += " -q -dNOPAUSE -dSAFER -dBATCH";
+	cmd1 += " -q -dQUIET -dNOPAUSE -dPARANOIDSAFER -dBATCH";
 	cmd1 += " -sDEVICE=pswrite";
 	if(level <= 3)
 		cmd1 += QString(" -dLanguageLevel=%1").arg(level);
