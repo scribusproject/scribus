@@ -6,10 +6,13 @@
 #include <qvaluevector.h>
 #include <scribusstructs.h>
 
+
+typedef QMap<int,QColor> ColorMap;
+
 /**
 \brief Widget ColorWheel graphicaly shows a color wheel for color theory.
- Class ColorWheel is new widget inherited from the QLabel.
- See e.g. http://en.wikipedia.org/wiki/Color_wheel for more info.
+Class ColorWheel is new widget inherited from the QLabel.
+See e.g. http://en.wikipedia.org/wiki/Color_wheel for more info.
 \author Petr Vanek; petr@yarpen.cz
 \date April 2005
 */
@@ -19,7 +22,7 @@ class ColorWheel : public QLabel
 
 	public:
 		ColorWheel(QWidget * parent, const char * name = 0);
-		~ColorWheel();
+		~ColorWheel(){};
 
 		/** It can handle these color theory methods */
 		enum MethodType {
@@ -38,31 +41,31 @@ class ColorWheel : public QLabel
 		*/
 		int angle;
 
-		/** Coordinates of the leading point. */
-		QPoint actualPoint;
-		QPoint oldPoint;
-		/** RGB interpretation of the leading point. */
-		QRgb actualRgb;
+		/*! \brief Angle of the base color */
+		int baseAngle;
+
+		/** \brief RGB interpretation of the leading point. */
+		QColor actualColor;
 
 		/** \brief List of the colors created in this widget.
 		Colors can be added into Scribus color list later. */
 		ColorList colorList;
 
-		/** \brief Draw a color wheel.
-		\param QValueVector<QPoint> points to be drawed.
-		*/
-		void paintWheel(QValueVector<QPoint>);
+		/*! \brief "V" in HSV model. The darkness level of the colors. */
+		int darkness;
 
-		/** \brief Returns localized name of the type */
+		/** \brief Draw a color wheel. */
+		void paintWheel();
+
+		/** \brief Returns localized name of the type.
+		\param aType Type of the color algorithm. See MethodType.
+		\retval QString Translated method name. */
 		QString getTypeDescription(MethodType aType);
 
-		/** Draws a sample square filled with specified color. */
-		QPixmap sample(QColor);
-
-		/** Finds the color of the point in this widget
-		\param QPoint Coordinates of the point.
-		\return QRgb value with color of the point. */
-		QRgb getPointColor(QPoint);
+		/** Draws a sample square filled with specified color.
+		\param c A QColor to fill sample pixmap.
+		\retval QPixmap An image with sample. */
+		QPixmap sample(QColor c);
 
 		/** \brief Counts the monochromatic colors.
 		The monochromatic color scheme uses variations in lightness
@@ -93,6 +96,11 @@ class ColorWheel : public QLabel
 		It's two times complementary. */
 		void makeTetradic();
 
+		/*! \brief Setup the values by given QColor.
+		It sets all options by given color (from input color dialogs).
+		\param col examined color */
+		void recomputeColor(QColor col);
+
 	signals:
 		/** \brief Signal raised by mouse click on widget by user.
 		\param int Mouse button number. See Qt docs.
@@ -100,40 +108,69 @@ class ColorWheel : public QLabel
 		void clicked(int, const QPoint &);
 
 	protected:
-		bool mousePressed;
+		/*! \brief Internal color mapping.
+		It provides angle-color dictionary.
+		*/
+		ColorMap colorMap;
+
+		/** \brief Angle diff between colorMap and painted wheel itself.
+		QWMatrix wheel and colorMap have different start points.
+		It's taken from Qt. */
+		int angleShift;
+
+		/*! \brief Half of the widget sizes.
+		To prevent all width()/2 divisions. */
+		int widthH;
+		int heightH;
 
 		/** \brief An event for mouse actions handling.
 		See \see clicked() for more info.
 		\param QMouseEvent Mouse properties. */
 		void mouseReleaseEvent(QMouseEvent *);
-
+		/** \brief Mouse handling.
+		It calls mouseReleaseEvent */
 		void mousePressEvent(QMouseEvent *);
+		/** \brief Mouse handling.
+		It calls mouseReleaseEvent */
 		void mouseMoveEvent(QMouseEvent *);
+
+		/** \brief Draw center circle filled with base color */
 		void paintCenterSample();
 
 		/** \brief Appends a color into \see colorList.
-		\param double an angle for transformation counting.
-		              E.g. base angle is 30, param is 90 - transformation is 120.
-		\param QString name of the color. */
-		void sampleByAngle(double, QString);
-
-		/** \brief Counts an angle of the point in color wheel
-		\param QPoint coordinates of the point. */
-		double pointAngle(QPoint);
+		\param int an angle for transformation counting.
+		E.g. base angle is 30, param is 90 - transformation is 120.
+		There is easy "convert 665485 into 0-359 interval" algorithm too.
+		\param angle Angle of the color in the wheel.
+		\param name Human readable name of the color. */
+		void sampleByAngle(int angle, QString name);
 
 		/** \brief Appends the base color into color list. */
 		void baseColor();
 
 		/** \brief Creates a Scribus ScColor from rgb value.
-		\param QRgb a rgb value of the color. */
-		ScColor cmykColor(QRgb rgb);
+		\param col a QColor to convert.
+		\retval ScColor Scribus color structure */
+		ScColor cmykColor(QColor col);
 
-		/** \brief Quick and dirty border checking.
-		It prevents crashes when user moves mouse out of bounds
-		\param p current point
-		\retval QPoint point surely in widget
+		/** \brief Display user selection - selected colors.
+		Chosen colors are marked via bullets on the border of
+		the wheel.
+		\param angle angle of the drawed mark
+		\param base Draw it highlighted if it is base color
 		*/
-		QPoint checkBounds(QPoint p);
+		void drawBorderPoint(int angle, bool base=false);
+
+		/*! \brief Clear border marks before redrawing.
+		It redraws only small piece of the bitmap */
+		void clearBorder();
+
+		/** \brief Counts an angle of the point in color wheel.
+		Modified method from Qt QDial widget.
+		\param QPoint coordinates of the point.
+		\retval int index in the colorMap */
+		int valueFromPoint(const QPoint & p) const;
 };
 
 #endif
+

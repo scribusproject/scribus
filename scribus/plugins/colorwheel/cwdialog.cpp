@@ -12,8 +12,11 @@
 #include <qpushbutton.h>
 #include <qspinbox.h>
 #include <qpainter.h>
+#include <qmenubar.h>
 
 #include "prefsmanager.h"
+#include "commonstrings.h"
+#include "cmykfw.h"
 #include "prefsfile.h"
 #include "mpalette.h"
 #include "colorblind.h"
@@ -21,13 +24,89 @@
 
 extern ScribusApp SCRIBUS_API *ScApp;
 
+ScribusColorList::ScribusColorList(QWidget* parent, const char* name, bool modal, WFlags fl)
+	: QDialog(parent, name, modal, fl)
+{
+	if (!name)
+		setName("ScribusColorList");
+	ScribusColorListLayout = new QGridLayout(this, 1, 1, 11, 6, "ScribusColorListLayout");
+
+	listLayout = new QVBoxLayout(0, 0, 6, "listLayout");
+
+	listView = new QListView(this, "listView");
+	listView->addColumn(tr("Sample"));
+	listView->addColumn(tr("Color"));
+	listLayout->addWidget(listView);
+
+	btnLayout = new QHBoxLayout(0, 0, 6, "btnLayout");
+	btnSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+	btnLayout->addItem(btnSpacer);
+
+	okButton = new QPushButton(this, "okButton");
+	btnLayout->addWidget(okButton);
+
+	cancelButton = new QPushButton(this, "cancelButton");
+	btnLayout->addWidget(cancelButton);
+	listLayout->addLayout(btnLayout);
+
+	ScribusColorListLayout->addLayout(listLayout, 0, 0);
+	languageChange();
+	resize(QSize(288, 310).expandedTo(minimumSizeHint()));
+	clearWState(WState_Polished);
+
+	ColorList::Iterator it;
+	PrefsManager *prefsManager = PrefsManager::instance();
+	ColorList clist = prefsManager->colorSet();
+	// only for sample() method
+	ColorWheel *cw = new ColorWheel(this, "cw");
+	for (it = clist.begin(); it != clist.end(); ++it)
+	{
+		if (it.key() != "None" && it.key() != tr("None"))
+		{
+			ScColor col = clist[it.key()];
+			QPixmap pm = cw->sample(col.getRGBColor());
+			QListViewItem *item = new QListViewItem(listView);
+			item->setPixmap(0, pm);
+			item->setText(1, it.key());
+			listView->insertItem(item);
+		}
+	}
+	delete cw;
+
+	connect(okButton, SIGNAL(clicked()), this, SLOT(okButton_clicked()));
+	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+}
+
+void ScribusColorList::languageChange()
+{
+	setCaption(tr("Document Colors"));
+	okButton->setText(CommonStrings::tr_OK);
+	cancelButton->setText(CommonStrings::tr_Cancel);
+}
+
+void ScribusColorList::okButton_clicked()
+{
+	PrefsManager *prefsManager = PrefsManager::instance();
+	ScColor c = prefsManager->colorSet()[listView->currentItem()->text(1)];
+	selectedColor = c.getRGBColor();
+	accept();
+}
+
+
 ColorWheelDialog::ColorWheelDialog(QWidget* parent, const char* name, bool modal, WFlags fl)
 	: QDialog(parent, name, modal, fl)
 {
 	if (!name)
 		setName("ColorWheelDialog");
 
+	QMenuBar *menuBar = new QMenuBar(this, "menuBar");
+	QPopupMenu *colorMenu = new QPopupMenu(this);
+	colorMenu->insertItem(tr("&Create color..."), this, SLOT(createColor()));
+	colorMenu->insertItem(tr("&Import existing color..."), this, SLOT(importColor()));
+	menuBar->insertItem(tr("&Color"), colorMenu);
+
 	formLayout = new QGridLayout(this, 1, 1, 11, 6, "formLayout");
+	formLayout->setMenuBar(menuBar);
 	mainLayout = new QHBoxLayout(0, 0, 6, "mainLayout");
 	wheelLayout = new QVBoxLayout(0, 0, 6, "wheelLayout");
 
@@ -64,13 +143,20 @@ ColorWheelDialog::ColorWheelDialog(QWidget* parent, const char* name, bool modal
 	angleLabel = new QLabel(this, "angleLabel");
 	angleLayout = new QHBoxLayout(0, 0, 6, "angleLayout");
 	angleLayout->addWidget(angleLabel);
-
 	angleSpin = new QSpinBox(this, "angleSpin");
-	angleSpin->setValue(15);
 	angleSpin->setMinValue(0);
 	angleSpin->setMaxValue(90);
 	angleLayout->addWidget(angleSpin);
 	listLayout->addLayout(angleLayout);
+
+	darkLabel = new QLabel(this, "darkLabel");
+	darkLayout = new QHBoxLayout(0, 0, 6, "darkLayout");
+	darkLayout->addWidget(darkLabel);
+	darkSpin = new QSpinBox(this, "darkSpin");
+	darkSpin->setMinValue(1);
+	darkSpin->setMaxValue(1000);
+	darkLayout->addWidget(darkSpin);
+	listLayout->addLayout(darkLayout);
 
 	colorList = new QListView(this, "colorList");
 	listLayout->addWidget(colorList);
@@ -110,13 +196,10 @@ ColorWheelDialog::ColorWheelDialog(QWidget* parent, const char* name, bool modal
 	typeCombo->setCurrentItem(prefs->getInt("cw_type", 0));
 	angleSpin->setValue(prefs->getInt("cw_angle", 15));
 	colorWheel->angle = angleSpin->value();
-	QValueVector<QPoint> vp;
-	int x = prefs->getInt("cw_x", colorWheel->width()/2 + 1);
-	int y = prefs->getInt("cw_y", colorWheel->height()/2);
-	vp.append(QPoint(x, y));
-	colorWheel->actualPoint = QPoint(x, y);
-	colorWheel->actualRgb = QColor(prefs->getInt("cw_r", 0), prefs->getInt("cw_g", 0), prefs->getInt("cw_b", 0)).rgb();
-	colorWheel->paintWheel(vp);
+	colorWheel->baseAngle = prefs->getInt("cw_baseangle", 0);
+	colorWheel->actualColor = QColor(prefs->getInt("cw_r", 0), prefs->getInt("cw_g", 0), prefs->getInt("cw_b", 0));
+	colorWheel->paintWheel();
+	darkSpin->setValue(prefs->getInt("cw_darkness", 100));
 
 	// actions
 	typeCombo_activated(typeCombo->currentItem());
@@ -126,6 +209,7 @@ ColorWheelDialog::ColorWheelDialog(QWidget* parent, const char* name, bool modal
 	connect(colorWheel, SIGNAL(clicked(int, const QPoint&)), this, SLOT(colorWheel_clicked(int, const QPoint&)));
 	colorWheel_clicked(0, QPoint(0, 0));
 	connect(angleSpin, SIGNAL(valueChanged(int)), this, SLOT(angleSpin_valueChanged(int)));
+	connect(darkSpin, SIGNAL(valueChanged(int)), this, SLOT(darkSpin_valueChanged(int)));
 	connect(addButton, SIGNAL(clicked()), this, SLOT(addButton_clicked()));
 	connect(replaceButton, SIGNAL(clicked()), this, SLOT(replaceButton_clicked()));
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(cancelButton_clicked()));
@@ -140,11 +224,11 @@ ColorWheelDialog::~ColorWheelDialog()
 	// preferences
 	prefs->set("cw_type", typeCombo->currentItem());
 	prefs->set("cw_angle", angleSpin->value());
-	prefs->set("cw_x", colorWheel->actualPoint.x());
-	prefs->set("cw_y", colorWheel->actualPoint.y());
-	prefs->set("cw_r", qRed(colorWheel->actualRgb));
-	prefs->set("cw_g", qGreen(colorWheel->actualRgb));
-	prefs->set("cw_b", qBlue(colorWheel->actualRgb));
+	prefs->set("cw_baseangle", colorWheel->baseAngle);
+	prefs->set("cw_darkness", darkSpin->value());
+	prefs->set("cw_r", colorWheel->actualColor.red());
+	prefs->set("cw_g", colorWheel->actualColor.green());
+	prefs->set("cw_b", colorWheel->actualColor.blue());
 }
 
 /*
@@ -154,6 +238,7 @@ ColorWheelDialog::~ColorWheelDialog()
 void ColorWheelDialog::languageChange()
 {
 	defectLabel->setText(tr("Vision Defect:"));
+	darkLabel->setText(tr("Darkness:"));
 	setCaption(tr("Color Wheel"));
 	colorList->addColumn(tr("Color"));
 	colorList->addColumn(tr("Name"));
@@ -169,9 +254,10 @@ void ColorWheelDialog::languageChange()
 	cancelButton->setText(tr("&Cancel"));
 	// tips
 	QToolTip::add(addButton, "<qt>" + tr("Merge created colors into the document colors") + "</qt>");
-	QToolTip::add(addButton, "<qt>" + tr("Replace created colors in the document colors") + "</qt>");
+	QToolTip::add(replaceButton, "<qt>" + tr("Replace created colors in the document colors") + "</qt>");
 	QToolTip::add(cancelButton, "<qt>" + tr("Leave colors untouched") + "</qt>");
 	QToolTip::add(angleSpin, "<qt>" + tr("Difference between selected value and counted ones. See documentation for more info") + "</qt>");
+	QToolTip::add(darkSpin, "<qt>" + tr("Darkness of the color. V in HSV mode") + "</qt>");
 	QToolTip::add(colorWheel, "<qt>" + tr("Click the wheel to get base color") + "</qt>");
 	QToolTip::add(previewLabel, "<qt>" + tr("Here you have the sample color schema") + "</qt>");
 	QToolTip::add(typeCombo, "<qt>" + tr("Select one of the method to create color schema. See documentation for more info") + "</qt>");
@@ -344,3 +430,37 @@ QColor ColorWheelDialog::computeDefect(QColor c)
 	return nc;
 }
 
+void ColorWheelDialog::darkSpin_valueChanged(int value)
+{
+	colorWheel->darkness = value;
+	typeCombo_activated(typeCombo->currentItem());
+}
+
+void ColorWheelDialog::createColor()
+{
+	/* these 3 variables are defined for CMYKChoose constructor.
+	No other need to use them. */
+	ScColor tmp = ScColor(0, 0, 0, 0);
+	ColorList tmpcl;
+	QStringList tmpsl;
+	CMYKChoose* dia = new CMYKChoose(this, tmp, tr("New Color"), &tmpcl, tmpsl);
+	if (dia->exec())
+	{
+		colorWheel->recomputeColor(dia->Farbe.getRGBColor());
+		darkSpin->setValue(colorWheel->darkness);
+		typeCombo_activated(typeCombo->currentItem());
+	}
+	delete dia;
+}
+
+void ColorWheelDialog::importColor()
+{
+	ScribusColorList *dia = new ScribusColorList(this, "dia", true, 0);
+	if (dia->exec())
+	{
+		colorWheel->recomputeColor(dia->selectedColor);
+		darkSpin->setValue(colorWheel->darkness);
+		typeCombo_activated(typeCombo->currentItem());
+	}
+	delete dia;
+}

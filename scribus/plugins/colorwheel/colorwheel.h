@@ -13,7 +13,6 @@ More on: http://en.wikipedia.org/wiki/Color_wheel
 \author Petr Vanek; petr@yarpen.cz
 \date April 2005
 */
-
 class PLUGIN_API ColorWheelPlugin : public ScActionPlugin
 {
 	Q_OBJECT

@@ -17,6 +17,37 @@ class QListViewItem;
 class QPushButton;
 class QSpinBox;
 
+
+/*! \brief GUI for colors from preferences/document.
+List all available colors in one dialog with samples.
+\author Petr Vanek; petr@yarpen.cz
+*/
+class ScribusColorList : public QDialog
+{
+	Q_OBJECT
+
+	public:
+		ScribusColorList( QWidget* parent = 0, const char* name = 0, bool modal = FALSE, WFlags fl = 0 );
+		~ScribusColorList(){};
+
+		QListView* listView;
+		QPushButton* okButton;
+		QPushButton* cancelButton;
+
+		/*! Selected color when user press "OK" */
+		QColor selectedColor;
+
+	protected:
+		QGridLayout* ScribusColorListLayout;
+		QVBoxLayout* listLayout;
+		QHBoxLayout* btnLayout;
+		QSpacerItem* btnSpacer;
+
+	protected slots:
+		virtual void languageChange();
+		virtual void okButton_clicked();
+};
+
 /** \brief GUI dialog for Color Wheel Plugin.
 Quite everything in this class is self explanatory (except few things ;)).
 \author Petr Vanek; petr@yarpen.cz
@@ -36,7 +67,9 @@ class ColorWheelDialog : public QDialog
 		ColorWheel* colorWheel;
 		QLabel* previewLabel;
 		QLabel* angleLabel;
+		QLabel* darkLabel;
 		QSpinBox* angleSpin;
+		QSpinBox* darkSpin;
 		QPushButton* addButton;
 		QPushButton* replaceButton;
 		QPushButton* cancelButton;
@@ -45,13 +78,14 @@ class ColorWheelDialog : public QDialog
 
 	protected:
 		/** It fills a colors into list view. It takes colors
-		    from ColorWheel widget. */
+		from ColorWheel widget. */
 		void fillColorList();
 		QGridLayout* formLayout;
 		QHBoxLayout* mainLayout;
 		QVBoxLayout* wheelLayout;
 		QSpacerItem* spacer1;
 		QHBoxLayout* angleLayout;
+		QHBoxLayout* darkLayout;
 		QVBoxLayout* listLayout;
 		QHBoxLayout* buttonLayout;
 		QHBoxLayout* defectLayout;
@@ -72,9 +106,12 @@ class ColorWheelDialog : public QDialog
 		virtual void replaceButton_clicked();
 		virtual void cancelButton_clicked();
 		virtual void angleSpin_valueChanged(int);
+		virtual void darkSpin_valueChanged(int);
 
 	protected slots:
 		virtual void languageChange();
+		virtual void createColor();
+		virtual void importColor();
 
 };
 

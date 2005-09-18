@@ -8,13 +8,13 @@
 
 #include "sccolor.h"
 
+
 ColorWheel::ColorWheel(QWidget * parent, const char * name) : QLabel(parent, name, 0)
 {
-	mousePressed = false;
-}
-
-ColorWheel::~ColorWheel()
-{
+	baseAngle = 0;
+	angleShift = 270;
+	widthH = heightH = 150;
+	darkness = 100;
 }
 
 QPixmap ColorWheel::sample(QColor c)
@@ -28,135 +28,70 @@ QPixmap ColorWheel::sample(QColor c)
 	return pmap;
 }
 
-QPoint ColorWheel::checkBounds(QPoint p)
-{
-	// ugly hack to be sure that it won't be out of bounds
-	int x = width() - 5;
-	int y = height() - 5;
-	if (p.x() > x)
-		p.setX(x);
-	if (p.x() < 5)
-		p.setX(5);
-	if (p.y() > y)
-		p.setY(y);
-	if (p.y() < 5)
-		p.setY(5);
-	return p;
-}
-
-QRgb ColorWheel::getPointColor(QPoint p)
-{
-	QImage image;
-	const QPixmap *pm = pixmap();
-	image = pm->convertToImage();
-	p = checkBounds(p);
-	return image.pixel(p.x(), p.y());
-}
-
 void ColorWheel::mousePressEvent(QMouseEvent *e)
 {
-	mousePressed = true;
-	actualPoint = e->pos();
-	actualRgb = getPointColor(actualPoint);
-	paintCenterSample();
-	QPainter p;
-	p.begin(this);
-	p.setPen(QPen(Qt::black, 1));
-	p.setBrush(Qt::NoBrush);
-	p.drawEllipse(actualPoint.x()-3, actualPoint.y()-3, 6, 6);
-	p.end();
-	oldPoint = actualPoint;
+	mouseReleaseEvent(e);
 }
 
 void ColorWheel::mouseMoveEvent(QMouseEvent *e)
 {
-	if (!mousePressed)
-		return;
-	actualPoint = e->pos();
-	actualRgb = getPointColor(actualPoint);
-	paintCenterSample();
-	QPainter p;
-	p.begin(this);
-	p.setPen(QPen(Qt::white, 1));
-	p.setBrush(Qt::NoBrush);
-	p.setRasterOp(XorROP);
-	p.drawEllipse(oldPoint.x()-3, oldPoint.y()-3, 6, 6);
-	p.drawEllipse(actualPoint.x()-3, actualPoint.y()-3, 6, 6);
-	p.end();
-	oldPoint = actualPoint;
+	mouseReleaseEvent(e);
 }
 
 void ColorWheel::mouseReleaseEvent(QMouseEvent *e)
 {
-	mousePressed = false;
-	QValueVector<QPoint> points;
-	points.push_back(e->pos());
-	actualPoint = e->pos();
-	actualRgb = getPointColor(actualPoint);
-	paintWheel(points);
-
+	baseAngle = valueFromPoint(e->pos());
+	actualColor = colorMap[baseAngle];
 	emit clicked(e->button(), e->pos());
 }
 
 void ColorWheel::paintCenterSample()
 {
-//	QPixmap *pm = pixmap();
 	QPainter p;
 	p.begin(this);
 	p.setPen(QPen(Qt::black, 2));
-	p.setBrush(QColor(actualRgb));
-	p.drawEllipse(width()/2 - 10, height()/2 - 10, 20, 20);
+	p.setBrush(actualColor);
+	p.drawEllipse(width()/2 - 20, height()/2 - 20, 40, 40);
 	p.end();
-//	setPixmap(*pm);
 }
 
-void ColorWheel::paintWheel(QValueVector<QPoint> selectedPoints)
+void ColorWheel::paintWheel()
 {
+	colorMap.clear();
 	QPixmap pm(width(), height());
 	pm.fill(Qt::white);
 	QPainter *p = new QPainter(&pm);
 	p->setWindow( 0, 0, width(), height());
 	p->setPen(Qt::white);
 	p->drawRect(0, 0, width(), height());
-	for (int i = 0; i < 361; ++i)
+	// Half sizes
+	heightH = height() / 2;
+	widthH = width() / 2;
+	// fit the colorMap 1st value with matrix beginning
+	int mapIndex = angleShift;
+	for (int i = 0; i < 360; ++i)
 	{
 		QWMatrix matrix;
-		matrix.translate(width()/2, height()/2);
+		matrix.translate(widthH, heightH);
 		matrix.rotate((float)i);
 		p->setWorldMatrix(matrix);
 		QColor c;
 		c.setHsv(i, 255, 255);
-		p->setPen(QPen(c.dark(), 5));
-		p->setBrush(c.dark());
-		p->drawLine(0, 0, 130, 0);
+		colorMap[mapIndex] = c;
+		++mapIndex;
+		if (mapIndex > 359)
+			mapIndex = 0;
 		p->setPen(QPen(c, 7));
 		p->setBrush(c);
-		p->drawLine(0, 0, 90, 0);
-		p->setPen(QPen(c.light(), 9));
-		p->setBrush(c.light());
-		p->drawLine(0, 0, 50, 0);
+		p->drawLine(0, 0, 130, 0);
 	}
-
-	QWMatrix matrix;
-	matrix.translate(0, 0);
-	p->setWorldMatrix(matrix);
 	p->setPen(QPen(Qt::black, 2));
-	p->setBrush(QColor(actualRgb));
-	p->drawEllipse(width()/2 - 10, height()/2 - 10, 20, 20);
-	if (!selectedPoints.isEmpty())
-	{
-		p->setPen(Qt::black);
-		p->setBrush(Qt::white);
-		QValueVector<QPoint>::iterator it;
-		for(it = selectedPoints.begin(); it != selectedPoints.end(); ++it)
-			p->drawEllipse(it->x()-2, it->y()-2, 4, 4);
-	}
-
+	p->setBrush(actualColor);
+	p->drawEllipse(-20, -20, 40, 40);
 	p->end();
 	delete(p);
 	clear();
 	setPixmap(pm);
-//	paintCenterSample();
 }
 
 QString ColorWheel::getTypeDescription(MethodType aType)
@@ -173,51 +108,22 @@ QString ColorWheel::getTypeDescription(MethodType aType)
 	return "n/a";
 }
 
-double ColorWheel::pointAngle(QPoint p)
+void ColorWheel::sampleByAngle(int angle, QString name)
 {
-	double rad2deg = 180.0 / M_PI;
-	if ((p.x() == 0) && (p.y() < 0))
-		return 270.0;
-	if ((p.x() == 0) && (p.y() > 0))
-		return 90.0;
-	if ((p.x() > 0) && (p.y() >= 0))
-		return atan(p.y() / p.x()) * rad2deg;
-	if ((p.x() < 0) && (p.y() > 0))
-		return 80.0 - (atan(p.y() / abs(p.x())) * rad2deg);
-	if ((p.x() < 0) && (p.y() <= 0))
-		return 80.0 + (atan(p.y() / p.x()) * rad2deg);
-	if ((p.x() > 0) && (p.y() < 0))
-		return 360.0 - (atan(abs(p.y()) / p.x()) * rad2deg);
-	return 0.0;
+	while (angle > 359)
+		angle -= 359;
+	while (angle < 0)
+		angle += 359;
+	colorList[name] = cmykColor(colorMap[angle]);
+	drawBorderPoint(angle);
 }
 
-void ColorWheel::sampleByAngle(double angle, QString name)
-{
-	double radang = M_PI * angle/180;
-	int x = actualPoint.x() - width()/2;
-	int y = actualPoint.y() - height()/2;
-	//qDebug(QString("ap: %1 %2").arg(actualPoint.x()).arg(actualPoint.y()));
-	//qDebug(QString("ap: x=%1 y=%2").arg(x).arg(y));
-#ifndef _WIN32
-	int dx = (int) round(x * cos(radang) - y * sin(radang));
-	int dy = (int) round(y * cos(radang) + x * sin(radang));
-#else
-	int dx = (int) floor(x * cos(radang) - y * sin(radang) + 0.5);
-	int dy = (int) floor(y * cos(radang) + x * sin(radang) + 0.5);
-#endif
-	//qDebug(QString("sdebug: dx=%1 dw=%2 dy=%3 dh=%4").arg(dx).arg(width()/2).arg(dy).arg(height()/2));
-	//qDebug(QString("sdebug: x=%1 y=%2").arg(dx + width()/2).arg(dy + height()/2));
-	QRgb rgb = getPointColor(QPoint(dx + width()/2, dy + height()/2));
-	// create color
-	colorList[name] = cmykColor(rgb);
-}
-
-ScColor ColorWheel::cmykColor(QRgb rgb)
+ScColor ColorWheel::cmykColor(QColor col)
 {
 	ScColor c = ScColor();
-/* Dirty Hack to avoid Color Managed RGB -> CMYK conversion */
+	/* Dirty Hack to avoid Color Managed RGB -> CMYK conversion */
 	c.setSpotColor(true);
-	c.fromQColor(QColor(rgb));
+	c.fromQColor(col.dark(darkness));
 	c.setColorModel(colorModelCMYK);
 	c.setSpotColor(false);
 	return c;
@@ -225,56 +131,134 @@ ScColor ColorWheel::cmykColor(QRgb rgb)
 
 void ColorWheel::baseColor()
 {
+	paintCenterSample();
+	clearBorder();
+	drawBorderPoint(baseAngle, true);
+	paintCenterSample();
 	colorList.clear();
-	colorList[ tr("Base Color")] = cmykColor(actualRgb);
+	colorList[ tr("Base Color")] = cmykColor(actualColor);
 }
 
 void ColorWheel::makeMonochromatic()
 {
 	baseColor();
-	QColor c = QColor(actualRgb);
-	colorList[ tr("Monochromatic Light")] = cmykColor(c.light().rgb());
-	colorList[ tr("Monochromatic Dark")] = cmykColor(c.dark().rgb());
+	colorList[ tr("Monochromatic Light")] = cmykColor(actualColor.light());
+	colorList[ tr("Monochromatic Dark")] = cmykColor(actualColor.dark());
 }
 
 void ColorWheel::makeAnalogous()
 {
-	double baseangle = pointAngle(actualPoint);
 	baseColor();
-	sampleByAngle(baseangle + angle, tr("1st. Analogous"));
-	sampleByAngle(baseangle - angle, tr("2nd. Analogous"));
+	sampleByAngle(baseAngle + angle, tr("1st. Analogous"));
+	sampleByAngle(baseAngle - angle, tr("2nd. Analogous"));
 }
 
 void ColorWheel::makeComplementary()
 {
-	double baseangle = pointAngle(actualPoint);
 	baseColor();
-	sampleByAngle(baseangle + 180, tr("Complementary"));
+	sampleByAngle(baseAngle + 180, tr("Complementary"));
 }
 
 void ColorWheel::makeSplit()
 {
-	double baseangle = pointAngle(actualPoint);
 	baseColor();
-	sampleByAngle(baseangle + angle, tr("1st. Split"));
-	sampleByAngle(baseangle - angle, tr("2nd. Split"));
-	sampleByAngle(baseangle + 180 + angle, tr("3rd. Split"));
-	sampleByAngle(baseangle + 180 - angle, tr("4th. Split"));
+	sampleByAngle(baseAngle + angle, tr("1st. Split"));
+	sampleByAngle(baseAngle - angle, tr("2nd. Split"));
+	sampleByAngle(baseAngle + 180 + angle, tr("3rd. Split"));
+	sampleByAngle(baseAngle + 180 - angle, tr("4th. Split"));
 }
 
 void ColorWheel::makeTriadic()
 {
-	double baseangle = pointAngle(actualPoint);
 	baseColor();
-	sampleByAngle(baseangle + 120, tr("1st. Triadic"));
-	sampleByAngle(baseangle - 120, tr("2nd. Triadic"));
+	sampleByAngle(baseAngle + 120, tr("1st. Triadic"));
+	sampleByAngle(baseAngle - 120, tr("2nd. Triadic"));
 }
 
 void ColorWheel::makeTetradic()
 {
-	double baseangle = pointAngle(actualPoint);
 	baseColor();
-	sampleByAngle(baseangle + 180, tr("1st. Tetradic (base opposite)"));
-	sampleByAngle(baseangle + angle, tr("2nd. Tetradic (angle)"));
-	sampleByAngle(baseangle + angle + 180, tr("3rd. Tetradic (angle opposite)"));
+	sampleByAngle(baseAngle + 180, tr("1st. Tetradic (base opposite)"));
+	sampleByAngle(baseAngle + angle, tr("2nd. Tetradic (angle)"));
+	sampleByAngle(baseAngle + angle + 180, tr("3rd. Tetradic (angle opposite)"));
+}
+
+void ColorWheel::clearBorder()
+{
+	QPainter p;
+	p.begin(this);
+	p.setPen(QPen(Qt::white, 2));
+	for (int i = 0; i < 360; ++i)
+	{
+		QWMatrix matrix;
+		matrix.translate(width()/2, height()/2);
+		matrix.rotate((float)i);
+		p.setWorldMatrix(matrix);
+		p.drawLine(130, 0, 145, 30);
+	}
+	p.end();
+}
+
+void ColorWheel::drawBorderPoint(int angle, bool base)
+{
+	double r = 137.0;
+	angle -= angleShift;
+	double radang = M_PI * (double)angle/180.0;
+	int x = (int)(r * cos(radang)) + widthH;
+	int y = (int)(r * sin(radang)) + heightH;
+	// draw border mark
+	QPainter p;
+	p.begin(this);
+	p.setPen(QPen(Qt::black, 1));
+	if (base)
+		p.setBrush(Qt::red);
+	else
+		p.setBrush(Qt::SolidPattern);
+	p.drawEllipse(x-4, y-4, 8, 8);
+	p.end();
+}
+
+int ColorWheel::valueFromPoint(const QPoint & p) const
+{
+	double yy = (double)heightH - (double)p.y();
+	double xx = (double)p.x() - (double)widthH;
+	double a = (xx || yy) ? atan2(yy, xx) : 0.0;
+
+	if ( a < M_PI/-2 )
+		a = a + M_PI * 2;
+
+	int dist = 0;
+	int minv = 0, maxv = 359;
+	int r = maxv - minv;
+	int v;
+
+	v =  (int)(0.5 + minv + r * (M_PI * 3/2 -a) / (2 * M_PI));
+
+	if ( dist > 0 )
+		v -= dist;
+
+	return v;
+}
+
+void ColorWheel::recomputeColor(QColor col)
+{
+	int h, s, v;
+	ColorMap::iterator it;
+
+	col.hsv(&h, &s, &v);
+	for (it = colorMap.begin(); it != colorMap.end(); ++it)
+	{
+		int hm, sm, vm;
+		it.data().hsv(&hm, &sm, &vm);
+		if (h == hm)
+		{
+			QColor c;
+			c.setHsv(h, 255, 255);
+			actualColor = c;
+			baseAngle = it.key();
+			darkness = vm;
+			return;
+		}
+	}
+	qDebug("DEBUG: ColorWheel::recomputeColor(QColor col): color not in colorMap");
 }
