@@ -440,7 +440,7 @@ int PPreview::RenderPreview(int Seite, int Res)
 	double b = doc->Pages.at(Seite)->width() * Res / 72.0;
 	double h = doc->Pages.at(Seite)->height() * Res / 72.0;
 	cmd1 = getShortPathName(prefsManager->ghostscriptExecutable());
-	cmd1 += " -q -dNOPAUSE -r"+tmp.setNum(qRound(Res))+" -g"+tmp2.setNum(qRound(b))+"x"+tmp3.setNum(qRound(h));
+	cmd1 += " -q -dNOPAUSE -dPARANOIDSAFER -r"+tmp.setNum(qRound(Res))+" -g"+tmp2.setNum(qRound(b))+"x"+tmp3.setNum(qRound(h));
 	if (EnableCMYK->isChecked())
 	{
 		if (HaveTiffSep == 0)
