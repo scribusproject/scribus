@@ -5496,6 +5496,7 @@ void ScribusApp::duplicateToMasterPage()
 	QString MasterPageName;
 	int nr;
 	bool atf;
+	int GrMax = doc->GroupCounter;
 	struct CopyPasteBuffer BufferT;
 	view->Deselect(true);
 	Page* Source = doc->currentPage;
@@ -5563,9 +5564,25 @@ void ScribusApp::duplicateToMasterPage()
 		uint docItemsCount = doc->DocItems.count();
 		for (uint a = 0; a < docItemsCount; ++a)
 		{
-			if (doc->DocItems.at(a)->OwnPage == static_cast<int>(Source->pageNr()))
+			PageItem *itemToCopy = doc->Items.at(a);
+			if (itemToCopy->OwnPage == static_cast<int>(Source->pageNr()))
 			{
-				doc->DocItems.at(a)->copyToCopyPasteBuffer(&BufferT);
+				itemToCopy->copyToCopyPasteBuffer(&BufferT);
+				if (itemToCopy->Groups.count() != 0)
+				{
+					BufferT.Groups.clear();
+					QValueStack<int>::Iterator nx;
+					QValueStack<int> tmpGroup;
+					for (nx = itemToCopy->Groups.begin(); nx != itemToCopy->Groups.end(); ++nx)
+					{
+						tmpGroup.push((*nx)+doc->GroupCounter);
+						GrMax = QMAX(GrMax, (*nx)+doc->GroupCounter);
+					}
+					for (nx = tmpGroup.begin(); nx != tmpGroup.end(); ++nx)
+					{
+						BufferT.Groups.push((*nx));
+					}
+				}
 				view->PasteItem(&BufferT, true, true);
 				PageItem* Neu = doc->Items.at(doc->Items.count()-1);
 				if (Neu->isTableItem)
@@ -5608,6 +5625,7 @@ void ScribusApp::duplicateToMasterPage()
 		Target->MPageNam = "";
 		doc->PageAT = atf;
 		doc->setLoading(false);
+		doc->GroupCounter = GrMax + 1;
 	}
 	delete dia;
 }

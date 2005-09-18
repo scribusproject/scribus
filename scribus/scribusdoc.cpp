@@ -2028,6 +2028,7 @@ void ScribusDoc::setScTextDefaultsFromDoc(ScText *sctextdata)
 const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, const QString& masterPageName)
 {
 	//TODO Add Undo here
+	int GrMax = GroupCounter;
 	Page* sourcePage = Pages.at(pageNumber);
 	int nr = Pages.count();
 	DocPages = Pages;
@@ -2065,9 +2066,25 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 	uint end = DocItems.count();
 	for (uint a = 0; a < end; ++a)
 	{
-		if (DocItems.at(a)->OwnPage == static_cast<int>(sourcePage->pageNr()))
+		PageItem *itemToCopy = Items.at(a);
+		if (itemToCopy->OwnPage == static_cast<int>(sourcePage->pageNr()))
 		{
-			DocItems.at(a)->copyToCopyPasteBuffer(&BufferT);
+			itemToCopy->copyToCopyPasteBuffer(&BufferT);
+			if (itemToCopy->Groups.count() != 0)
+			{
+				BufferT.Groups.clear();
+				QValueStack<int>::Iterator nx;
+				QValueStack<int> tmpGroup;
+				for (nx = itemToCopy->Groups.begin(); nx != itemToCopy->Groups.end(); ++nx)
+				{
+					tmpGroup.push((*nx)+GroupCounter);
+					GrMax = QMAX(GrMax, (*nx)+GroupCounter);
+				}
+				for (nx = tmpGroup.begin(); nx != tmpGroup.end(); ++nx)
+				{
+					BufferT.Groups.push((*nx));
+				}
+			}
 			ScApp->view->PasteItem(&BufferT, true, true);
 			PageItem* Neu = Items.at(Items.count()-1);
 			if (Neu->isTableItem)
@@ -2111,6 +2128,7 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 	targetPage->MPageNam = "";
 	PageAT = atf;
 	setLoading(false);
+	GroupCounter = GrMax + 1;
 	return true;
 }
 
