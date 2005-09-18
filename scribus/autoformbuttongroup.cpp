@@ -1,6 +1,7 @@
 #include <qimage.h>
 #include <qlayout.h>
 #include <qpopupmenu.h>
+#include <qbitmap.h>
 #include <qpixmap.h>
 #include <qbuttongroup.h>
 
@@ -282,7 +283,7 @@ QPixmap AutoformButtonGroup::getIconPixmap(int nr)
 		Path.addPoint(x2, y2);
 	}
 	ScPainter *painter = new ScPainter(&Ico, 22, 22);
-	painter->setBrush(qRgb(230, 230, 230));
+	painter->setBrush(qRgb(255, 255, 255));
 	painter->setPen(qRgb(0, 0, 0));
 	painter->setFillMode(1);
 	painter->translate(3.0, 3.0);
@@ -292,22 +293,7 @@ QPixmap AutoformButtonGroup::getIconPixmap(int nr)
 	painter->drawPolyLine();
 	painter->end();
 	delete painter;
-	QImage image;
-	image = Ico.convertToImage();
-  	image = image.convertDepth(32);
-	image.setAlphaBuffer(true);
-	int wi = image.width();
-	int hi = image.height();
-    for( int yi=0; yi < hi; ++yi )
-	{
-		QRgb *s = (QRgb*)(image.scanLine( yi ));
-		for(int xi=0; xi < wi; ++xi )
-		{
-			if((*s) == 0xffffffff)
-				(*s) &= 0x00ffffff;
-			s++;
-		}
-    }
-	Ico.convertFromImage(image);
+	Ico.setMask( Ico.createHeuristicMask() );
+
 	return Ico;
 }
