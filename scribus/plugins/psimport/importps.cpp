@@ -360,7 +360,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 					{
 						if (ClosedPath)
 							//z = ScApp->view->PaintPoly(0, 0, 10, 10, LineW, CurrColor, "None");
-							ScApp->doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, 0, 0, 10, 10, LineW, CurrColor, "None", !ScApp->view->Mpressed);
+							z = ScApp->doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, 0, 0, 10, 10, LineW, CurrColor, "None", !ScApp->view->Mpressed);
 						else
 							//z = ScApp->view->PaintPolyLine(0, 0, 10, 10, LineW, CurrColor, "None");
 							z = ScApp->doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, 0, 0, 10, 10, LineW, CurrColor, "None", !ScApp->view->Mpressed);

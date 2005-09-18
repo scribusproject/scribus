@@ -4553,7 +4553,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			{
 				selectPage(m);
 				//z = PaintPoly(Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen);
-				z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen, !Mpressed);
+				z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen, !Mpressed);
 				currItem = Doc->Items.at(z);
 				FPointArray cli = RegularPolygonF(currItem->Width, currItem->Height, Doc->toolSettings.polyC, Doc->toolSettings.polyS, Doc->toolSettings.polyF, Doc->toolSettings.polyR);
 				FPoint np = FPoint(cli.point(0));
