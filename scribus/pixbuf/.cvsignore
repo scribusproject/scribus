@@ -1,9 +1,10 @@
-.deps
-.libs
 Makefile
 Makefile.in
-gdk-pixbuf-xlib-drawable.lo
-gdk-pixbuf-xlib-render.lo
-gdk-pixbuf-xlib.lo
-gdk-pixbuf-xlibrgb.lo
-libpixbuf.la
+*.la
+*.lo
+*.moc.cpp
+*.moc
+*.o
+.deps
+.libs
+CVS
