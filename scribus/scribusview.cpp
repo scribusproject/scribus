@@ -3298,7 +3298,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 						if (m->state() & ControlButton)
 						{
 							np2 = QPoint(m->x(), qRound((gy+(gh * ((newX-gx) / gw)))*sc));
-							np2 = QPoint(qRound(np2.x()/sc), qRound(np2.y()/sc));
+							np2 = QPoint(qRound(np2.x()/sc + Doc->minCanvasCoordinate.x()), qRound(np2.y()/sc + Doc->minCanvasCoordinate.y()));
 						}
 						else
 							np2 = QPoint(qRound(newX), qRound(newY));
@@ -3349,11 +3349,17 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 								Transform(currItem, &p);
 								p.translate(qRound(-Doc->minCanvasCoordinate.x()), qRound(-Doc->minCanvasCoordinate.y()));
 								if ((m->state() & ShiftButton) && (!(m->state() & ControlButton)))
-									mop = QPoint(m->x(), static_cast<int>((currItem->Ypos + (newX - currItem->Xpos)) * sc));
+								{
+									int nX = qRound(m->x()/sc + Doc->minCanvasCoordinate.x());
+									mop = QPoint(m->x(), static_cast<int>((currItem->Ypos - Doc->minCanvasCoordinate.y() + (nX - currItem->Xpos)) * sc));
+								}
 								else
 								{
 									if ((m->state() & ControlButton) && (!(m->state() & ShiftButton)))
-										mop = QPoint(m->x(), static_cast<int>((currItem->Ypos + ((newX - currItem->Xpos) / currItem->OldB2 * currItem->OldH2)) * sc));
+									{
+										int nX = qRound(m->x()/sc + Doc->minCanvasCoordinate.x());
+										mop = QPoint(m->x(), static_cast<int>((currItem->Ypos - Doc->minCanvasCoordinate.y() + ((nX - currItem->Xpos) / currItem->OldB2 * currItem->OldH2)) * sc));
+									}
 									else
 										mop = QPoint(m->x(), m->y());
 								}
@@ -6324,6 +6330,7 @@ void ScribusView::scaleGroup(double scx, double scy)
 	gx -= Doc->minCanvasCoordinate.x();
 	gy -= Doc->minCanvasCoordinate.y();
 	QRect oldR = QRect(static_cast<int>(gx*sc-5), static_cast<int>(gy*sc-5), static_cast<int>(gw*sc+10), static_cast<int>(gh*sc+10));
+	getGroupRect(&gx, &gy, &gw, &gh);
 	setUpdatesEnabled(false);
 	for (uint a = 0; a < SelItem.count(); ++a)
 	{
@@ -8596,7 +8603,7 @@ void ScribusView::setRulerPos(int x, int y)
 	if (Doc->guidesSettings.rulerMode)
 	{
 		horizRuler->offs = qRound(x / Scale - Doc->currentPage->xOffset());
-		vertRuler->offs = qRound(y / Scale - Doc->currentPage->xOffset());
+		vertRuler->offs = qRound(y / Scale - Doc->currentPage->yOffset());
 	}
 	else
 	{
