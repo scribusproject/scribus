@@ -1934,6 +1934,10 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc, ScribusView *
 		}
 		if (!currItem->Pfile.isEmpty())
 			view->loadPict(currItem->Pfile, currItem, false);
+		currItem->IProfile = obj->attribute("PRFILE","");
+		currItem->EmProfile = obj->attribute("EPROF","");
+		currItem->IRender = QStoInt(obj->attribute("IRENDER","1"));
+		currItem->UseEmbedded = QStoInt(obj->attribute("EMBEDDED","1"));
 		currItem->LocalScX = scx;
 		currItem->LocalScY = scy;
 		clPath = obj->attribute("ImageClip", "");
