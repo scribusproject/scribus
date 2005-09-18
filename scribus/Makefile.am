@@ -221,13 +221,13 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/annota.h                      $(prefix)/include/scribus/annota.h
 	$(INSTALL_DATA) $(srcdir)/applytemplatedialog.h         $(prefix)/include/scribus/applytemplatedialog.h
 	$(INSTALL_DATA) $(srcdir)/arrowchooser.h                $(prefix)/include/scribus/arrowchooser.h
-	$(INSTALL_DATA) $(srcdir)/art_kmisc.h                   $(prefix)/include/scribus/art_kmisc.h
-	$(INSTALL_DATA) $(srcdir)/art_render_misc.h             $(prefix)/include/scribus/art_render_misc.h
-	$(INSTALL_DATA) $(srcdir)/art_render_pattern.h          $(prefix)/include/scribus/art_render_pattern.h
-	$(INSTALL_DATA) $(srcdir)/art_rgb.h                     $(prefix)/include/scribus/art_rgb.h
-	$(INSTALL_DATA) $(srcdir)/art_rgba_affine.h             $(prefix)/include/scribus/art_rgba_affine.h
-	$(INSTALL_DATA) $(srcdir)/art_rgb_affine_private.h      $(prefix)/include/scribus/art_rgb_affine_private.h
-	$(INSTALL_DATA) $(srcdir)/art_rgb_svp.h                 $(prefix)/include/scribus/art_rgb_svp.h
+#	$(INSTALL_DATA) $(srcdir)/art_kmisc.h                   $(prefix)/include/scribus/art_kmisc.h
+#	$(INSTALL_DATA) $(srcdir)/art_render_misc.h             $(prefix)/include/scribus/art_render_misc.h
+#	$(INSTALL_DATA) $(srcdir)/art_render_pattern.h          $(prefix)/include/scribus/art_render_pattern.h
+#	$(INSTALL_DATA) $(srcdir)/art_rgb.h                     $(prefix)/include/scribus/art_rgb.h
+#	$(INSTALL_DATA) $(srcdir)/art_rgba_affine.h             $(prefix)/include/scribus/art_rgba_affine.h
+#	$(INSTALL_DATA) $(srcdir)/art_rgb_affine_private.h      $(prefix)/include/scribus/art_rgb_affine_private.h
+#	$(INSTALL_DATA) $(srcdir)/art_rgb_svp.h                 $(prefix)/include/scribus/art_rgb_svp.h
 	$(INSTALL_DATA) $(srcdir)/autoform.h                    $(prefix)/include/scribus/autoform.h
 	$(INSTALL_DATA) $(srcdir)/autoformbuttongroup.h         $(prefix)/include/scribus/autoformbuttongroup.h
 	$(INSTALL_DATA) $(srcdir)/bookmwin.h                    $(prefix)/include/scribus/bookmwin.h
