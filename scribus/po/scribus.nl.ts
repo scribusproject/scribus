@@ -9,7 +9,13 @@ frame has some text selected the value assigned to the first character of
 the selection is returned.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getFontSize([&quot;name&quot;]) -&gt; float
+
+Retourneert de tekengrootte in punten voor het tekstframe &quot;name&quot;. Indien
+er tekst geselecteerd is wordt de tekengrootte van het eerste geselecteerde
+teken geretourneerd.
+Als &quot;name&quot; niet wordt opgegeven wordt het actieve item gebruikt.
+</translation>
     </message>
     <message>
         <source>getColorNames() -&gt; list
@@ -17,7 +23,13 @@ If &quot;name&quot; is not given the currently selected item is used.
 Returns a list containing the names of all defined colors in the document.
 If no document is open, returns a list of the default document colors.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getColorNames() -&gt; list
+
+Retourneert een lijst met de namen van alle gedefiniëerde kleuren in het document.
+Als er geen document geopend is wordt een lijst van de standaard documentkleuren
+geretourneerd.
+ 
+</translation>
     </message>
     <message>
         <source>newDocDialog() -&gt; bool
@@ -26,7 +38,12 @@ Displays the &quot;New Document&quot; dialog box. Creates a new document if the 
 accepts the settings. Does not create a document if the user presses cancel.
 Returns true if a new document was created.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>newDocDialog() -&gt; boolean
+
+Geeft de &quot;Nieuw document&quot; dialoog weer. Maakt een nieuw document aan als de
+gebruiker op OK klikt, en niet als de gebruiker op Annuleren klikt.
+Geeft True terug als een nieuw document werd aangemaakt. 
+</translation>
     </message>
     <message>
         <source>getFillColor([&quot;name&quot;]) -&gt; string
@@ -34,7 +51,11 @@ Returns true if a new document was created.
 Returns the name of the fill color of the object &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getFillColor([&quot;name&quot;]) -&gt; tekenreeks
+
+Geeft de naam van de vulkleur van het genoemde object terug.
+Als de &quot;name&quot; niet wordt opgegeven wordt het actieve item gebruikt.
+</translation>
     </message>
     <message>
         <source>moveObject(dx, dy [, &quot;name&quot;])
@@ -44,7 +65,13 @@ distances are expressed in the current measurement unit of the document (see
 UNIT constants). If &quot;name&quot; is not given the currently selected item is used.
 If the object &quot;name&quot; belongs to a group, the whole group is moved.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>moveObject(dx, dy [, &quot;name&quot;])
+
+Verplaatst het object &quot;name&quot; over de afstand dx en dy vanaf de huidige positie. De
+afstanden worden uitgedrukt in de huidige afstandseenheid van het document (zie
+Eenheidsconstanten). Als &quot;name&quot; niet wordt opgegeven wordt het actieve item
+gebruikt. Als het object tot een groep behoort wordt de hele groep verplaatst. 
+</translation>
     </message>
     <message>
         <source>setRedraw(bool)
@@ -53,7 +80,12 @@ Disables page redraw when bool = False, otherwise redrawing is enabled.
 This change will persist even after the script exits, so make sure to call
 setRedraw(True) in a finally: clause at the top level of your script.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setRedraw(boolean)
+
+schakelt het verversen van de pagina uit indien boolean = False, anders in.
+Dit blijft zelfs van kracht als het script afsluit, dus wees er zeker van dat
+u setRedraw(True) aanroept in een finally: clausule in uw script.
+</translation>
     </message>
     <message>
         <source>createRect(x, y, width, height, [&quot;name&quot;]) -&gt; string
@@ -66,7 +98,16 @@ is not given Scribus will create one for you.
 
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>createRect(x, y, width, height, [&quot;naam&quot;]) -&gt; tekenreeks
+
+Maakt een nieuwe rechthoek aan op de huidige pagina en retourneert de naam
+ervan. De coördinaten worden opgegeven in de huidige eenheid van het document
+(zie Eenheidsconstanten). &quot;naam&quot; dient een uniek kenmerk te zijn voor het object. U
+gebruikt deze naam om in de toekomst aan dit object te kunnen refereren. Als u &quot;naam&quot;
+niet zelf opgeeft kiest Scribus een naam.
+
+Veroorzaakt NameExistsError als u een naam opgeeft die al bestaat.
+</translation>
     </message>
     <message>
         <source>newPage(where [,&quot;template&quot;])
@@ -79,7 +120,15 @@ template page for the new page.
 
 May raise IndexError if the page number is out of range
 </source>
-        <translation type="unfinished"></translation>
+        <translation>newPage(plaats [,&quot;sjabloon&quot;])
+
+Voegt een nieuwe pagina toe. Als de plaats = -1 wordt de pagina aan het eind
+toegevoegd. Bij andere waarden wordt de nieuwe pagina voor de desbetreffende
+pagina ingevoegd. 1 staat altijd voor de eerste pagina, ongeacht het weergegeven
+paginanummer dat u hebt ingesteld. De optionele parameter &quot;sjabloon&quot; geeft de naam
+van het sjabloon dat u wilt gebruiken. 
+
+Veroorzaakt een IndexError als het paginanummer buiten het bestaande bereik ligt</translation>
     </message>
     <message>
         <source>setGradientFill(type, &quot;color1&quot;, shade1, &quot;color2&quot;, shade2, [&quot;name&quot;])
@@ -88,7 +137,12 @@ Sets the gradient fill of the object &quot;name&quot; to type. Color description
 the same as for setFillColor() and setFillShade(). See the constants for
 available types (FILL_&lt;type&gt;).
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setGradientFill(type, &quot;kleur1&quot;, shade1, &quot;kleur2&quot;, shade2, [&quot;naam&quot;])
+
+Stelt het vulverloop van het object met de naam &quot;naam&quot; in op type. Kleuromschrijvingen
+zijn gelijk aan die bij setFillColor() en setFillShade(). Zie de constanten voor een
+lijst met beschikbare typen (FILL_&lt;type&gt;).
+</translation>
     </message>
     <message>
         <source>messagebarText(&quot;string&quot;)
@@ -96,7 +150,11 @@ available types (FILL_&lt;type&gt;).
 Writes the &quot;string&quot; into the Scribus message bar (status line). The text
 must be UTF8 encoded or &apos;unicode&apos; string(recommended).
 </source>
-        <translation type="unfinished"></translation>
+        <translation>messagebarText(&quot;tekenreeks&quot;)
+
+Schrijft de tekst &quot;tekenreeks&quot; in de statusbalk van Scribus. De tekst moet worden
+opgegeven in UTF8-codering of als &apos;unicode&apos; string (aanbevolen).
+</translation>
     </message>
     <message>
         <source>newDoc(size, margins, orientation, firstPageNumber,
@@ -132,7 +190,37 @@ is not in points, make sure to account for this.
 example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
                 FACINGPAGES, FIRSTPAGERIGHT)
 </source>
-        <translation type="unfinished"></translation>
+        <translation>newDoc(size, margins, orientation, firstPageNumber,
+                   unit, facingPages, firstSideLeft) -&gt; boolean
+
+Maakt een nieuw document aan en retourneert True als dat lukte.
+
+    size = Een groep (breedte, hoogte) die de grootte van het document weergeeft. U kunt
+    voorgedefiniëerde constanten gebruiken als PAPER_&lt;papier_type&gt; bijv. PAPER_A4 etc.
+
+    margins = Een groep (links, rechts, boven, onder) die de marges weergeeft.
+
+    orientation = kies hier voor een van de constanten PORTRAIT (staand) of LANDSCAPE
+    (liggend).
+
+    firstPageNumber = het nummer van de eerste pagina. Normaalgesproken 1, maar
+    soms is het handig om een hoger nummer te kiezen om later documenten aaneen
+    te kunnen voegen.
+
+    unit = stelt in welke eenheid het document standaard gebruik. Kies een van de volgende constanten:
+    UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.
+
+    facingPages = FACINGPAGES (links en rechts naast elkaar) of NOFACINGPAGES (niet)
+
+    firstSideLeft = FIRSTPAGELEFT (eerste pagina is een linkerpagina) of FIRSTPAGERIGHT (rechts)
+
+De waarden voor breedte, hoogte en de marges worden uitgedrukt in de opgegeven eenheid.
+De PAPER_* constanten zijn altijd in punten. Houdt hier rekening mee als u een andere eenheid in 
+uw document gebruikt.
+
+Voorbeeld: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
+                FACINGPAGES, FIRSTPAGERIGHT)
+</translation>
     </message>
     <message>
         <source>register_macro_callable(name, callable, accel=&apos;&apos;)
@@ -148,7 +236,17 @@ __call__ method with no arguments. There is no problem with registering
 a callable more than once, nor with registering multiple bound methods
 of a single instance.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>register_macro_callable(name, callable, accel=&apos;&apos;)
+
+Maakt een macro aan met naam &quot;name&quot; met het bestaande aanroepbare
+object &quot;callable&quot;. Dit object moet geen parameters vereisen bij het aanroepen.
+Indien opgegeven wordt de tekenreeks &quot;accel&quot; gebruikt om een sneltoets aan te
+geven voor de macro.
+Het oproepbare object mag geen class zijn. Functies en bound methods zijn
+toegestaan, net als instanties van classes die een __call__ method zonder
+parameters aanboeden. Aanroepbare objecten mogen meermaals geregis-
+treerd worden, ook met verschillende bound methods van een enkele instantie.
+</translation>
     </message>
 </context>
 <context>
@@ -5470,19 +5568,22 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
  compiled in library support in Scribus
 The C-C-T equates to C=littlecms C=CUPS T=TIFF support.
 Missing library support is indicated by a *</source>
-        <translation type="unfinished"></translation>
+        <translation>Dit paneel toont de versie, compileerdatum en de
+meegecompileerde bibliotheken van Scribus,
+C-C-T slaat op C=littlecms C=CUPS T=TIFF-ondersteuning.
+Ontbrekende ondersteuning wordt door een * aangegeven</translation>
     </message>
     <message>
         <source>%1 %2 %3 </source>
-        <translation type="unfinished"></translation>
+        <translation>%1 %2 %3 </translation>
     </message>
     <message>
         <source>Afrikaans:</source>
-        <translation type="unfinished"></translation>
+        <translation>Afrikaans:</translation>
     </message>
     <message>
         <source>Portuguese (Brazilian):</source>
-        <translation type="unfinished"></translation>
+        <translation>Portugees (Braziliaans):</translation>
     </message>
 </context>
 <context>
@@ -5559,14 +5660,17 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
         <source>Set Media Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Mediagrootte instellen</translation>
     </message>
     <message>
         <source>This enables you to explicitely set,
 the media size of the postscript file.
 Not recommended unless
  requested by your printer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiermee kunt u de mediagrootte van het
+PostScript-bestand expliciet instellen.
+Niet aanbevolen tenzij uw printer het
+vereist.</translation>
     </message>
 </context>
 <context>
@@ -6812,19 +6916,19 @@ Deze naam is reeds gereserveerd voor transparante kleuren</translation>
     <name>ChooseStyles</name>
     <message>
         <source>Choose Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Stijlen kiezen</translation>
     </message>
     <message>
         <source>Available Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Beschikbare stijlen</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation>OK</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Annuleren</translation>
+        <translation>Annuleren</translation>
     </message>
 </context>
 <context>
@@ -7466,149 +7570,157 @@ is mislukt!</translation>
     <name>EditMacroDialog</name>
     <message>
         <source>Editing Macro: &lt;b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Macro wordt bewerkt: &lt;b&gt;</translation>
     </message>
     <message>
         <source>Scribus - Macro Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Macro Manager</translation>
     </message>
     <message>
         <source>The file &apos;%1&apos; already exists.
 Are you sure you want to overwrite it?
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Het bestand &apos;%&apos; bestaat reeds.
+Wilt u het werkelijk overschrijven?</translation>
     </message>
     <message>
         <source>You have already edited this macro.
 Are you sure you want to discard all your changes?
 </source>
-        <translation type="unfinished"></translation>
+        <translation>U heeft deze macro al bewerkt.
+Wilt u alle wijzigingen verwerpen?</translation>
     </message>
     <message>
         <source>A full traceback follows:
 
 %1
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Een volledige backtrace volgt:
+
+%1
+</translation>
     </message>
     <message>
         <source>Compilation of the macro failed, so it can not 
 be saved in its current form. The error was:
 %1
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Het compileren van de macro is mislukt; deze kan dus
+niet worden opgeslagen in zijn huidige vorm. De foutmelding was:
+%1
+</translation>
     </message>
     <message>
         <source>Scribus - New Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Nieuwe macro</translation>
     </message>
     <message>
         <source>&lt;qt&gt;This is the Edit Macro / New Macro dialog box. Here you can change the source code to macros. Edit the source code to the macro in the text editing area below the &quot;Source Code&quot; label and click OK to save your changes to the macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Dit is de dialoog Macro bewerken of aanmaken. Hier kunt u de broncode van macro&apos;s aanpassen. Bewerk de broncode van de macro in het tekstvenster en klik OK om uw wijzigingen op te slaan.&lt;/qt&gt; </translation>
     </message>
     <message>
         <source>Source Code:</source>
-        <translation type="unfinished"></translation>
+        <translation>Broncode:</translation>
     </message>
     <message>
         <source>Editing Macro:</source>
-        <translation type="unfinished"></translation>
+        <translation>Macro bewerken:</translation>
     </message>
     <message>
         <source>The name of the macro being edited.</source>
-        <translation type="unfinished"></translation>
+        <translation>De naam van de macro die momenteel wordt bewerkt.</translation>
     </message>
     <message>
         <source>&lt;/qt&gt;This item displays the name of the macro you are currently editing.&lt;qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Dit item geeft de naam weer van de macro die u momenteel aan het bewerken bent.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Annuleren</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+A</translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Discard all changes and exit.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Alle wijzigingen verwerpen en sluiten.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Exit the editing dialog, discarding all changes you have made. If you want to exit without saving the macro but don&apos;t want to lose your changes, save your changes with &quot;Save Source As...&quot;.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Hiermee kunt u dit venster verlaten zonder uw wijzigingen op te slaan. Als u wilt sluiten zonder de macro op te slaan, maar uw wijzigingen wel wilt bewaren kies dan &quot;Broncode opslaan als...&quot;.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation type="unfinished">Atl+O</translation>
+        <translation>Atl+O</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Save changes and exit.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Wijzigingen opslaan en sluiten.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Save changes to the macro and exit. If there is a problem with the macro, a message will be displayed and the editing dialog will not close.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Hiermee kunt u de wijzigingen opslaan en het venster sluiten. Als er fouten in de macro zitten wordt een foutmelding gegeven en zal de dialoog niet sluiten.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;This text area contains the source code of the macro. If you&apos;re creating a new macro there won&apos;t be anything in it, and if you&apos;re editing an existing macro the source code the macro was defined with will be shown here.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Dit tekstvak toont de broncode van de macro. Als u een nieuwe macro aanmaakt is de ruimte leeg; als u een bestaande macro bewerkt wordt de broncode getoond.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Load Source ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Broncode &amp;laden...</translation>
     </message>
     <message>
         <source>Alt+L</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+L</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Replace the current source code with code from a file.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Vervang de huidige broncode door code uit een bestand.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Load new source code into the editing area from &quot;file&quot;. Any source code in the editing area is replaced. The loaded source must be a Scribus macro function. If you load any other script, you&apos;ll need to edit it so that it&apos;ll work as a scripter macro before saving it.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Hiermee kunt u nieuwe broncode in het tekstvak laden. Reeds aanwezige broncode wordt vervangen. De geladen broncode moet in het Scribus macro-formaat zijn. Als u een ander script laadt zult u de code moeten aanpassen zodat het functioneert als een scripter-macro voordat u het opslaat.&lt;/qt&gt; </translation>
     </message>
     <message>
         <source>&amp;Save Source As...</source>
-        <translation type="unfinished"></translation>
+        <translation>Broncode op&amp;slaan als...</translation>
     </message>
     <message>
         <source>Alt+S</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+S</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Save the source code being edited to a file.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;De broncode naar een ander bestand opslaan.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Save the source code - the text - of the macro to a file. You can edit the saved source and load it again with &quot;Load Source...&quot;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Slaat de broncode (tekst) van deze macro op in een ander bestand. U kunt deze bijvoorbeeld met een andere editor bewerken en later opnieuw inladen.</translation>
     </message>
     <message>
         <source>Save File Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Bestand opslaan</translation>
     </message>
     <message>
         <source>Save macro source</source>
-        <translation type="unfinished"></translation>
+        <translation>Macro-broncode opslaan</translation>
     </message>
     <message>
         <source>Open File Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Bestand openen</translation>
     </message>
     <message>
         <source>Select the source file to load</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecteer het te laden broncodebestand</translation>
     </message>
     <message>
         <source>Python source files (*.py)</source>
-        <translation type="unfinished"></translation>
+        <translation>Python bronbestanden (*.py)</translation>
     </message>
 </context>
 <context>
@@ -8233,7 +8345,7 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     </message>
     <message>
         <source>Size of the Font</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekengrootte</translation>
     </message>
 </context>
 <context>
@@ -8340,35 +8452,35 @@ documentatie en op http://www.scribus.net/ voor downloads.</translation>
     </message>
     <message>
         <source>&amp;Contents</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Inhoud</translation>
     </message>
     <message>
         <source>&amp;Search</source>
-        <translation type="unfinished">&amp;Zoeken</translation>
+        <translation>&amp;Zoeken</translation>
     </message>
     <message>
         <source>S&amp;earch</source>
-        <translation type="unfinished"></translation>
+        <translation>Zo&amp;eken</translation>
     </message>
     <message>
         <source>Ctrl+F</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+F</translation>
     </message>
     <message>
         <source>F3</source>
-        <translation type="unfinished"></translation>
+        <translation>F3</translation>
     </message>
     <message>
         <source>unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>onbekend</translation>
     </message>
     <message>
         <source>Find</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoeken</translation>
     </message>
     <message>
         <source>Search Term:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoekterm:</translation>
     </message>
 </context>
 <context>
@@ -8797,46 +8909,46 @@ De waarde 0 betekent onbeperkt.</translation>
     <message>
         <source>Passed object is not callable</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Het opgegeven object is niet aanroepbaar</translation>
     </message>
 </context>
 <context>
     <name>MacroManager</name>
     <message>
         <source>Manage Macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Macro&apos;s beheren</translation>
     </message>
     <message>
         <source>Brings up a graphical window for creating, deleting, editing, saving and loading macros.</source>
-        <translation type="unfinished"></translation>
+        <translation>Opent een venster om macro&apos;s te maken, verwijderen, bewerken, laden en opslaan.</translation>
     </message>
     <message>
         <source>Create, edit and delete macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Macro&apos;s aanmaken, bewerken en verwijderen</translation>
     </message>
     <message>
         <source>&amp;Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Macro</translation>
     </message>
     <message>
         <source>Scribus - Macro Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Macrobeheer</translation>
     </message>
     <message>
         <source>Unable to open the requested file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Kan het gevraagde bestand niet openen: %1</translation>
     </message>
     <message>
         <source>Scribus - Edit Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Macro bewerken</translation>
     </message>
     <message>
         <source>&lt;qt&gt;The macro name you requested is already taken  by another macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>  &lt;qt&gt;De gevraagde macronaam is al in gebruik door een andere macro.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Macro creation failed. The macro manager was unable to set up the macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Het aanmaken van de macro is mislukt. De macrobeheerder kon de macro niet initialiseren.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>The macro &apos;%1&apos; has reported a minor error.
@@ -8845,7 +8957,12 @@ A full traceback follows:
 
 %3
 </source>
-        <translation type="unfinished"></translation>
+        <translation>De macro &apos;%1&apos; rapporteerde een kleine fout.
+De fout is: %2
+Een volledige backtrace volgt:
+
+%3
+</translation>
     </message>
     <message>
         <source>The macro &apos;%1&apos; failed to execute correctly.
@@ -8854,76 +8971,83 @@ A full traceback follows:
 
 %3
 </source>
-        <translation type="unfinished"></translation>
+        <translation>The macro &apos;%1&apos; kon niet correct worden uitgevoerd.
+De fout is: %2
+Een volledige backtrace volgt:
+
+%3
+</translation>
     </message>
     <message>
         <source>Scribus - New Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Nieuwe macro</translation>
     </message>
     <message>
         <source>Enter name for new macro: </source>
-        <translation type="unfinished"></translation>
+        <translation> Voer een naam in voor de nieuwe macro:</translation>
     </message>
 </context>
 <context>
     <name>ManageMacrosDialog</name>
     <message>
         <source>Scribus - Macro Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Macrobeheer</translation>
     </message>
     <message>
         <source>Renaming the macro failed because the name is already in use.</source>
-        <translation type="unfinished"></translation>
+        <translation>De macro kon niet worden hernoemd omdat de naam al in gebruik is.</translation>
     </message>
     <message>
         <source>Scribus - Manage Macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus  - Macro&apos;s beheren</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;This window is the Scribus Macro Manager. Here you can create macros, edit macros, etc. All changes are made using the buttons on the right hand side of the window.&lt;/p&gt;
 &lt;p&gt;All changes made in this dialog take effect instantly - you cannot cancel the actions you make here.
 The table in the center of the dialog lists what macros are currently loaded and some information about them. Use &quot;What&apos;s this&quot; on the table for more information.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;Dit is de Scribus Macro manager. Hier kunt u macro&apos;s maken en bewerken. Alle wijzigingen worden gemaakt met de knoppen aan de rechterkant van het venster.&lt;/p&gt;
+&lt;p&gt;Alle wijzigingen worden direct van kracht in dit venster - u kunt geen handelingen annuleren.
+De tabel in het midden toont de lijst van macro&apos;s die op dit moment geladen zijn en enige informatie erover. Gebruik de &quot;Wat is dit&quot;-functie voor meer informatie.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation type="unfinished">&amp;Nieuw</translation>
+        <translation>&amp;Nieuw</translation>
     </message>
     <message>
         <source>Alt+N</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+N</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Create a new macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Een nieuwe macro aanmaken.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Create a new macro by prompting for the macro name then bringing up the edit macro dialog box.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Maakt een nieuwe macro aan. Eerst wordt om een passende naam gevraagd.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation type="unfinished">Atl+O</translation>
+        <translation>Atl+O</translation>
     </message>
     <message>
         <source>Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Macro</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation type="unfinished">Bewerken</translation>
+        <translation>Bewerken</translation>
     </message>
     <message>
         <source>Accel</source>
-        <translation type="unfinished"></translation>
+        <translation>Sneltoets</translation>
     </message>
     <message>
         <source>Description</source>
-        <translation type="unfinished">Omschrijving</translation>
+        <translation>Omschrijving</translation>
     </message>
     <message>
         <source>&lt;p&gt;This table lists the macros that are currently defined.&lt;/p&gt;
@@ -8932,174 +9056,182 @@ The table in the center of the dialog lists what macros are currently loaded and
 &lt;p&gt;&lt;b&gt;Edit:&lt;/b&gt; If the macro can be edited, &quot;Yes&quot; appears in this column. Usually if a macro cannot be edited it was created using the register_macro command in a script.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Accel:&lt;/b&gt; The menu shortcut key sequence, if any, associated with the macro. For example, CTRL-F8 means that you can press Control-F8 when in Scribus to run the macro.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Description:&lt;/b&gt; If the macro contains a &quot;docstring&quot;, a special string at the start of its definition that describes it, that is shown here. If the docstring is long, only the beginning is shown - use &quot;What&apos;s This&quot; on the macro&apos;s entry in the Macro menu to see the full description.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Deze tabel toont de macro&apos;s die op dit moment zijn gedefiniëerd.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Naam:&lt;/b&gt; De naam van de macro, zoals deze getoond wordt in de menubalk en andere plaatsen in Scribus.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Bewerken:&lt;/b&gt; Als hier &quot;Ja&quot; staat, kan de macro bewerkt worden. Sommige macro&apos;s kunnen niet bewerkt worden, bijvoorbeeld als ze aangemaakt werken via het register_macro commando in een script.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Sneltoets:&lt;/b&gt; De sneltoets (indien aanwezig) voor deze macro. Zo betekent CTRL-F8 dat u Control-F8 kunt indrukken in Scribus om de macro te starten.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Omschrijving:&lt;/b&gt; Indien de macro een &quot;docstring&quot; (een speciale tekenreeks aan het begin van de definitie) bevat wordt deze hier getoond. Als deze omschrijving erg lang is, kunt u deze volledig bekijken door de &quot;Wat is dit&quot;-functie in het macro-menu te gebruiken.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Rena&amp;me</source>
-        <translation type="unfinished"></translation>
+        <translation>Hernoe&amp;men</translation>
     </message>
     <message>
         <source>Alt+M</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+M</translation>
     </message>
     <message>
         <source>Rename the selected macro.</source>
-        <translation type="unfinished"></translation>
+        <translation>De naam van de geselecteerde macro wijzigen.</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Rename the selected macro. You will be prompted for the new name.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Geeft de geselecteerde macro een nieuwe naam. U wordt om de nieuwe naam gevraagd.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Edit...</source>
-        <translation type="unfinished">B&amp;ewerken...</translation>
+        <translation>B&amp;ewerken...</translation>
     </message>
     <message>
         <source>Alt+E</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+E</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Edit the source of the selected macro, if the source is availible.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;De broncode van de geselecteerde macro bewerken (indien aanwezig).&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">Verwij&amp;deren</translation>
+        <translation>Verwij&amp;deren</translation>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Delete the currently selected macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Verwijdert de geselecteerde macro.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;p&gt;Delete the selected macro. This is instant, and there is no way to recover the macro once deleted. If the macro is created by a start-up script, it will reappear next time you load Scribus.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Verwijdert de geselecteerde macro. Dit gebeurt direct, en er is geen manier om een verwijderde macro terug te krijgen. Indien de macro werd gedefiniëerd door een opstartscript verschijnt deze opnieuw na herstarten van Scribus.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>&amp;Set Accel</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Sneltoets instellen</translation>
     </message>
     <message>
         <source>Alt+S</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+S</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Set the keyboard shortcut for the selected macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Stelt de sneltoets in voor de geselecteerde macro.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;p&gt;Set the keyboard shortcut (accelerator) key of the selected macro. You will be prompted for the new shortcut in a dialog box.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Stelt de sneltoets in voor de macro. U wordt gevraagd een nieuwe sneltoets aan te slaan in een speciaal venster.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>E&amp;xport</source>
-        <translation type="unfinished"></translation>
+        <translation>E&amp;xporteren</translation>
     </message>
     <message>
         <source>Alt+X</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+X</translation>
     </message>
     <message>
         <source>Export macros to a file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Macro&apos;s exporteren naar een bestand.</translation>
     </message>
     <message>
         <source>&lt;p&gt;Export macros to an external file. The file will be a Python script containing the scripter commands to re-create the macros. It can be run using &lt;tt&gt;Load extension script&lt;/tt&gt; from the &lt;tt&gt;Script&lt;/tt&gt; menu, or the import button in the macro manager.&lt;/p&gt;
 &lt;p&gt;If you want a nice, human readable version of your macros, select the macro you want, press the &lt;tt&gt;Edit&lt;/tt&gt;  button, and use the &lt;tt&gt;Save source&lt;/tt&gt; button in the &lt;tt&gt;Edit Macro&lt;/tt&gt; dialog. You won&apos;t be able to load that version with &lt;tt&gt;Load extension script&lt;/tt&gt; - instead, create a new macro with the&lt;tt&gt; New&lt;/tt&gt; button and use &lt;tt&gt;Load source&lt;/tt&gt;.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Slaat macro&apos;s op naar een extern bestand. Dit is een Python-script dat de scripter-commando&apos;s bevat om de macro&apos;s opnieuw aan te maken. Het kan worden gestart door de functie &lt;tt&gt;Extensie-script laden&lt;/tt&gt; uit het &lt;tt&gt;Script&lt;/tt&gt;-menu te gebruiken, of de knop Importeren in de Macro manager.&lt;/p&gt;
+  &lt;p&gt;Als u een nette goed leesbare versie van uw macro&apos;s wilt, selecteer dan de macro en klik op &lt;tt&gt;Bewerken&lt;/tt&gt;, en gebruik vervolgens de functie &lt;tt&gt;Broncode opslaan&lt;/tt&gt; de dialoog &lt;tt&gt;Macro bewerken&lt;/tt&gt;. U kunt die versie dan echter niet laden met de functie &lt;tt&gt;Extensie-script laden&lt;/tt&gt;. Maak dan een nieuwe macro aan met de knop &lt;tt&gt;Nieuw&lt;/tt&gt; en gebruik dan de functie &lt;tt&gt;Broncode laden&lt;/tt&gt;.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Delete &amp;All</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Alles verwijderen</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <source>Delete all macros.</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwijdert alle macro&apos;s.</translation>
     </message>
     <message>
         <source>&lt;p&gt;Delete all registered macros. This is instant, and there is no way to recover the deleted macros. Any macros created by your start-up script will reappear next time you load Scribus.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Verwijdert alle macro&apos;s. Dit gebeurt direct, en er is geen manier om de verwijderde macro&apos;s terug te krijgen. Macro&apos;s die door uw opstartscript werden aangemaakt zullen bij de volgende keer starten van Scribus wel weer geladen worden.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation type="unfinished">&amp;Importeren</translation>
+        <translation>&amp;Importeren</translation>
     </message>
     <message>
         <source>Alt+I</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+I</translation>
     </message>
     <message>
         <source>Import macros from a file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Macro&apos;s uit een bestand importeren.</translation>
     </message>
     <message>
         <source>&lt;p&gt;Loads macros from an external file.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Hiermee kunt u macro&apos;s uit een extern bestand importeren.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Close this dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Dit dialoogvenster sluiten</translation>
     </message>
     <message>
         <source>Return to Scribus</source>
-        <translation type="unfinished"></translation>
+        <translation>Terug naar Scribus</translation>
     </message>
     <message>
         <source>&lt;p&gt;Edit the selected macro. &lt;/p&gt;
 &lt;p&gt;If this button is greyed out, either there is no selected macro or the macro manager does not have the source code for the macro you have selected (in which case &lt;tt&gt;No&lt;/tt&gt; will be shown in the &lt;tt&gt;Edit &lt;/tt&gt;column of the macro).&lt;/p&gt;
 &lt;p&gt;If Scribus doesn&apos;t have the source, the macro was probably created by a script.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;De geselecteerde macro bewerken.&lt;/p&gt;
+&lt;p&gt;Als deze knop niet actief is hebt u óf geen macro geselecteerd of de macro heeft geen broncode (in welk geval er &lt;tt&gt;Nee&lt;/tt&gt; wordt weergegeven in de kolom &lt;tt&gt;Bewerken&lt;/tt&gt; van de macro).&lt;/p&gt;
+&lt;p&gt;Als Scribus de broncode niet heeft is de macro wellicht aangemaakt door een script.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Scribus Macro Files (*.pymacro)</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus macrobestanden (*.pymacro)</translation>
     </message>
     <message>
         <source>Open File Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Bestand openen</translation>
     </message>
     <message>
         <source>Select the macro file to load.</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecteer de te laden macro.</translation>
     </message>
     <message>
         <source>Save File Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Bestand opslaan</translation>
     </message>
     <message>
         <source>Save all macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle macro&apos;s opslaan</translation>
     </message>
     <message>
         <source>Scribus - Rename Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Macro hernoemen</translation>
     </message>
     <message>
         <source>Enter new name: </source>
-        <translation type="unfinished"></translation>
+        <translation>Voer nieuwe naam in:</translation>
     </message>
     <message>
         <source>Scribus - Set Macro Shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - macro sneltoets instellen</translation>
     </message>
     <message>
         <source>Enter new shortcut: </source>
-        <translation type="unfinished"></translation>
+        <translation>Voer nieuwe sneltoets in:</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished">Ja</translation>
+        <translation>Ja</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished">Nee</translation>
+        <translation>Nee</translation>
     </message>
 </context>
 <context>
@@ -9949,11 +10081,11 @@ Kies een andere naam.</translation>
     </message>
     <message>
         <source>Trac&amp;king:</source>
-        <translation type="unfinished"></translation>
+        <translation>Vol&amp;gen:</translation>
     </message>
     <message>
         <source>Manual Tracking</source>
-        <translation type="unfinished"></translation>
+        <translation>Handmatig volgen</translation>
     </message>
 </context>
 <context>
@@ -10520,7 +10652,7 @@ aanpassen aan de geïmporteerde stijl, of deze laten zoals ze is
     </message>
     <message>
         <source>Use document name as a prefix for paragraph styles</source>
-        <translation type="unfinished">Documentnaam als prefix voor alineastijlen gebruiken</translation>
+        <translation>Documentnaam als prefix voor alineastijlen gebruiken</translation>
     </message>
     <message>
         <source>Should importer add the name of the document
@@ -10530,7 +10662,7 @@ paragraaf-stijlnamen toevoegt in Scribus</translation>
     </message>
     <message>
         <source>Do not ask again</source>
-        <translation type="unfinished">Deze vraag niet meer stellen</translation>
+        <translation>Deze vraag niet meer stellen</translation>
     </message>
     <message>
         <source>Should the importer always use currently
@@ -10541,35 +10673,35 @@ zonder u telkens om bevestiging te vragen</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation>OK</translation>
     </message>
     <message>
         <source>OpenDocument Importer Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Instellingen voor OpenDocument import</translation>
     </message>
     <message>
         <source>Update paragraph Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Alineastijlen bijwerken</translation>
     </message>
     <message>
         <source>Enabling this will overwrite existing styles in the current Scribus document</source>
-        <translation type="unfinished"></translation>
+        <translation>Als u deze optie inschakelt zullen bestaande stijlen in het huidige Scribus-document worden overschreven</translation>
     </message>
     <message>
         <source>Merge Paragraph Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Alineastijlen samenvoegen</translation>
     </message>
     <message>
         <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document&apos;s styles are named differently.</source>
-        <translation type="unfinished"></translation>
+        <translation>Voegt stijlen samen op grond van attributen. U krijgt zo minder vrijwel gelijke alineastijlen. Stijlattributen blijven bewaard zelfs als ze andere namen hebben in het originele document.</translation>
     </message>
     <message>
         <source>Prepend the document name to the paragraph style name in Scribus.</source>
-        <translation type="unfinished"></translation>
+        <translation>De documentnaam aan de alineastijlnaam toevoegen in Scribus.</translation>
     </message>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
-        <translation type="unfinished"></translation>
+        <translation>Deze instellingen als standaard instellen en er niet om vragen bij het importeren van een OASIS OpenDocument.</translation>
     </message>
 </context>
 <context>
@@ -11309,55 +11441,59 @@ deze standaard. We bevelen aan de titel van het document te gebruiken.</translat
     </message>
     <message>
         <source>Save as PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>Opslaan als PDF</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Color management must be enabled to use PDF/X-3. You can enable color management from the Settings menu.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Kleurmanagement moet worden ingeschakeld om PDF/X-3 te kunnen gebruiken. U kunt kleurbeheer inschakelen in het menu Instellingen.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;PDF/X-3 is supported and enabled, but can not be used for the selected PDF version. If you want to use PDF/X-3, you need to set PDF/X-3 as your PDF version (compatibility level).&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;PDF/X-3 wordt ondersteund en is ingeschakeld, maar is niet bruikbaar voor de geselecteerde PDF-versie. Als u PDF/X-3 wilt gebruiken, selecteer dan onder PDF-versie (compatibiliteitsniveau): PDF/X-3.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;PDF/X-3 is not supported by this Scribus build (CMS support not present).&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;PDF/X-3 wordt niet ondersteund door deze versie van Scribus (niet gecompileerd met CMS-ondersteuning).&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Allow adding annotations and fields to the PDF. 
 If un-checked, editing annotations and fields is prevented.</source>
-        <translation type="unfinished"></translation>
+        <translation> Annotaties en velden aan PDF toevoegen toestaan.
+Indien uitgeschakeld kunt u geen annotaties en velden toevoegen.</translation>
     </message>
     <message>
         <source>PDF security settings</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF-veiligheidsinstellingen</translation>
     </message>
     <message>
         <source>PDF/X-3 settings</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF/X-3 instellingen</translation>
     </message>
     <message>
         <source>&lt;qt&gt;PDF security can not be used with PDF/X-3. If you want to turn on security, change your PDF version (compatibility level) to something other than PDF/X-3.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Beveiligde PDFs kunnen niet met PDF/X-3 worden aangemaakt. Als u de beveiliging wilt inschakelen, kies dan een andere compatibiliteitsversie.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source> Lossless compression of text and graphics.
 Unless you have a reason, leave this checked. This reduces PDF size.</source>
-        <translation type="unfinished"></translation>
+        <translation> Afbeeldingen en tekst zonder verlies comprimeren.
+Tenzij u een speciale reden hebt is deze optie aanbevolen. De PDFs worden daardoor compacter.</translation>
     </message>
     <message>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options.</source>
-        <translation type="unfinished"></translation>
+        <translation>Methode om de afbeeldingen te comprimeren. &quot;Automatisch&quot; (aanbevolen) laat Scribus de beste methode kiezen. ZIP is zonder verlies en goed voor afbeeldingen met effen kleuren. JPEG maakt PDF-bestanden met veel foto&apos;s kleiner (waarbij een klein verlies van kwaliteit mogelijk is).</translation>
     </message>
     <message>
         <source>Re-sample your bitmap images to the selected DPI.
 Leaving this unchecked will render them at their native resolution.
 This can increase memory usage and slow down export.</source>
-        <translation type="unfinished"></translation>
+        <translation>Rasterafbeeldingen resamplen naar het geselecteerde oplossend vermogen (DPI).
+Als u deze optie uitschakelt worden afbeeldingen op hun eigen resolutie weergegeven.
+Soms worden PDF-bestanden daardoor nodeloos groot.</translation>
     </message>
     <message>
         <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility. Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Note: PDF/X-3 will convert all CMYK images to ICC based RGB colors. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bepaalt de PDF-compatibiliteit. Standaard is &quot;Acrobat 4.0&quot;, dat het meest compatibel is. Kies Acrobat 5.0 als uw document PDF 1.4-functies gebruikt zoals transparantie of 128-bits encryptie. PDF/X-3 is voor het exporteren van PDF met kleurmanagement voor commercieel drukwerk en is beschikbaar indien u kleurmanagement hebt ingeschakeld. Let op: PDF/X-3 zal alle CMYK-afbeeldingen omzetten naar ICC-gebaseerde RGB-kleuren. Gebruik deze optie alleen als uw printer dit vereist, bijvoorbeeld bij een vier-kleuren digitale laserprinter. </translation>
     </message>
 </context>
 <context>
@@ -12894,26 +13030,29 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     <message>
         <source>Default ICC profiles directory. This cannot
 be changed with documents open.</source>
-        <translation type="unfinished"></translation>
+        <translation>Standaardmap voor ICC-profielen. Dit kan niet
+worden gewijzigd indien documenten geopend zijn.</translation>
     </message>
     <message>
         <source>Turns on the base grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Schakelt het basisraster in</translation>
     </message>
     <message>
         <source>Turns off the base grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Schakelt het basisraster uit</translation>
     </message>
     <message>
         <source>File system location for the Ghostscript interpreter</source>
-        <translation type="unfinished"></translation>
+        <translation>Locatie van de Ghostscript-interpreter (gs)</translation>
     </message>
     <message>
         <source>File system location for graphics editor. If you use gimp
 and your distro includes it, we recommend &apos;gimp-remote&apos;,
 as it allows you to edit the image in an already running
 instance of gimp.</source>
-        <translation type="unfinished"></translation>
+        <translation>Locatie van een programma om afbeeldingen te bewerken. Als u GIMP
+gebruikt, kies dan &apos;gimp-remote&apos;, zodat u verscheidene afbeeldingen
+kunt openen in een reeds gestarte instantie van The GIMP.</translation>
     </message>
 </context>
 <context>
@@ -13828,192 +13967,192 @@ Externe koppelingen
     <message>
         <source>Cannot get font size of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan tekengrootte niet bepalen voor niet-tekst-frame.</translation>
     </message>
     <message>
         <source>Cannot get font of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan lettertype niet bepalen voor niet-tekst-frame.</translation>
     </message>
     <message>
         <source>Cannot get text size of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan tekstgrootte niet bepalen voor niet-tekst-frame.</translation>
     </message>
     <message>
         <source>Cannot get column count of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan aantal kolommen niet bepalen voor niet-tekst-frame.</translation>
     </message>
     <message>
         <source>Cannot get line space of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan regelspatiëring niet bepalen voor niet-tekst-frame.</translation>
     </message>
     <message>
         <source>Cannot get column gap of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan kolomtussenruimte niet bepalen voor niet-tekst-frame.</translation>
     </message>
     <message>
         <source>Cannot get text of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan tekstinhoud niet bepalen voor niet-tekst-frame.</translation>
     </message>
     <message>
         <source>Cannot set text of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan tekstinhoud niet wijzigen voor niet-tekst-frame.</translation>
     </message>
     <message>
         <source>Cannot insert text into non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan geen tekst invoegen in niet-tekst-frame.</translation>
     </message>
     <message>
         <source>Alignment out of range. Use one of the scribus.ALIGN* constants.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Uitlijning buiten bereik. Gebruik een van de scribus.ALIGN* constanten.</translation>
     </message>
     <message>
         <source>Selection index out of bounds</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Selectieindex buiten bereik</translation>
     </message>
     <message>
         <source>Failed to open document</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kon document niet openen</translation>
     </message>
     <message>
         <source>Failed to save document</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kon document niet opslaan</translation>
     </message>
     <message>
         <source>Unit out of range. Use one of the scribus.UNIT_* constants.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Eenheid buiten bereik. Gebruik een van de scribus.UNIT_* constanten.</translation>
     </message>
     <message>
         <source>Target is not an image frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Doel is geen afbeeldingsframe.</translation>
     </message>
     <message>
         <source>An object with the requested name already exists</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Er bestaat reeds een object met de gevraagde naam</translation>
     </message>
     <message>
         <source>Point list must contain at least two points (four values)</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Lijst met punten moet op zijn minst 2 punten bevatten (4 waarden)</translation>
     </message>
     <message>
         <source>Point list must contain an even number of values</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Lijst met punten moet een even aantal waarden bevatten</translation>
     </message>
     <message>
         <source>Point list must contain at least three points (six values)</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Lijst met punten moet op zijn minst 3 punten bevatten (6 waarden)</translation>
     </message>
     <message>
         <source>Point list must contain at least four points (eight values)</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Lijst met punten moet op zijn minst 4 punten bevatten (8 waarden)</translation>
     </message>
     <message>
         <source>Point list must have a multiple of six values</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Lijst met punten moet een veelvoud van 6 waarden hebben</translation>
     </message>
     <message>
         <source>Object not found</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Object niet gevonden</translation>
     </message>
     <message>
         <source>Style not found</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Stijl niet gevonden</translation>
     </message>
     <message>
         <source>Can&apos;t set style on a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan stijl niet wijzigen voor niet-tekst-frame</translation>
     </message>
     <message>
         <source>Failed to save EPS</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kon EPS niet opslaan</translation>
     </message>
     <message>
         <source>Page number out of range</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Paginanummer buiten bereik</translation>
     </message>
     <message>
         <source>argument is not list: must be list of float values</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>argument is geen lijst: moet een lijst van float-waarden zijn</translation>
     </message>
     <message>
         <source>argument contains non-numeric values: must be list of float values</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>argument bevat niet-numerieke waarden: moet een lijst van float-waarden zijn</translation>
     </message>
     <message>
         <source>Line width out of bounds, must be 0 &lt;= line_width &lt;= 12</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Lijndikte buiten bereik, moet zijn: 0 &lt;= lijndikte &lt;= 12</translation>
     </message>
     <message>
         <source>Line shade out of bounds, must be 0 &lt;= shade &lt;= 100</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Lijntint buiten bereik, moet zijn: 0 &lt;= tint &lt;= 100</translation>
     </message>
     <message>
         <source>Fill shade out of bounds, must be 0 &lt;= shade &lt;= 100</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Vultint buiten bereik, moet zijn: 0 &lt;= tint &lt;= 100</translation>
     </message>
     <message>
         <source>Corner radius must be a positive number.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Hoek-straal moet een positief getal zijn.</translation>
     </message>
     <message>
         <source>Line style not found</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Lijnstijl niet gevonden</translation>
     </message>
     <message>
         <source>Cannot get a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan kleur met lege naam niet bepalen.</translation>
     </message>
     <message>
         <source>Cannot change a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan kleur met lege naam niet wijzigen.</translation>
     </message>
     <message>
         <source>Cannot create a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan kleur met lege naam niet aanmaken.</translation>
     </message>
     <message>
         <source>Cannot delete a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan kleur met lege naam niet verwijderen.</translation>
     </message>
     <message>
         <source>Cannot replace a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan kleur met lege naam niet vervangen.</translation>
     </message>
     <message>
         <source>Import &amp;OpenOffice.org Draw...</source>
@@ -14030,7 +14169,7 @@ Externe koppelingen
     <message>
         <source>Color not found - python error</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kleur niet gevonden</translation>
     </message>
     <message>
         <source>Scribus Python interface module
@@ -14058,299 +14197,323 @@ any function as provided here and in its docstring is incomplete.
 
 Details of what exceptions each function may throw are provided on the
 function&apos;s documentation.</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus Python interface module
+
+Deze module is de Python-interface voor Scribus. Het bevat functies om scribus
+te besturen en objecten op het canvas te manipuleren. Elke functie wordt hier-
+onder apart beschreven.
+
+Een aantal zaken is vrijwel overal gelijk:
+
+De meeste functies werken op frames. Frames zijn bekend onder hun naam,
+een string - het zijn geen echte Python-objecten. Veel functies hebben een
+optionele parameter, een framenaam.
+Veel uitzonderingen zijn ook identiek tussen verschillende functies. Deze zijn
+momenteel niet gedocumenteerd in de docstring voor elke functie.
+- Vele functies veroorzaken een NoDocOpenError als ze probeert zonder dat er een document open is.
+- Als u geen framenaam aan een functie geeft die dat wel nodig heeft, gebruikt de functie het momenteel
+geselecteerde frame, indien deze bestaat, of veroorzaakt een NoValidObjectError als er geen frame is.
+- Veel functies geven WrongFrameTypeError als u ze gebruikt op een frame waarvoor ze niet bedoeld zijn.
+Bijvoorbeeld de tekstkleur instellen op een grafisch frame heeft geen zin.
+- Foutmeldingen vanuit de onderliggende Python API worden ongewijzigd
+doorgegeven. Zodoende is de lijst van mogelijke uitzonderingen bij iedere
+functie niet volledig.
+
+Details over de mogelijke excepties worden in de documentatie van elke fuctie
+gegeven.
+</translation>
     </message>
     <message>
         <source>Custom (optional) configuration: </source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation> Eigen (optionele) configuratie:</translation>
     </message>
     <message>
         <source>Standard configuration: </source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation> Standaardinstelling:</translation>
     </message>
     <message>
         <source>Short &amp;Words...</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Korte &amp;woorden...</translation>
     </message>
     <message>
         <source>Short Words processing. Wait please...</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Korte Woorden is bezig. Wacht a.u.b...</translation>
     </message>
     <message>
         <source>Short Words processing. Done.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Korte Woorden is bezig. Voltooid.</translation>
     </message>
     <message>
         <source>Afrikaans</source>
-        <translation type="unfinished">Afrikaans</translation>
+        <translation>Afrikaans</translation>
     </message>
     <message>
         <source>Turkish</source>
-        <translation type="unfinished"></translation>
+        <translation>Turks</translation>
     </message>
     <message>
         <source>Ukranian</source>
-        <translation type="unfinished"></translation>
+        <translation>Oekraïns</translation>
     </message>
     <message>
         <source>Welsh</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>The filename must be a string.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>De bestandsnaam dient een string (tekenreeks) te zijn.</translation>
     </message>
     <message>
         <source>Cannot delete image type settings.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan afbeeldingstype-instellingen niet verwijderen.</translation>
     </message>
     <message>
         <source>The image type must be a string.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Het afbeeldingstype moet een string (tekenreeks) zijn.</translation>
     </message>
     <message>
         <source>&apos;allTypes&apos; attribute is READ-ONLY</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Het &apos;allTypes&apos;-attribuut is alleen-lezen</translation>
     </message>
     <message>
         <source>Failed to export image</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kon afbeelding niet exporteren</translation>
     </message>
     <message>
         <source>Color not found.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kleur niet gevonden.</translation>
     </message>
     <message>
         <source>Color not found in document.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kleur niet gevonden in document.</translation>
     </message>
     <message>
         <source>Color not found in default colors.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kleur niet gevonden in standaardkleuren.</translation>
     </message>
     <message>
         <source>Cannot scale by 0%.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan niet schalen met 0%.</translation>
     </message>
     <message>
         <source>Specified item not an image frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Het opgegeven item is geen afbeeldingsframe.</translation>
     </message>
     <message>
         <source>Font not found.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Lettertype niet gevonden.</translation>
     </message>
     <message>
         <source>Cannot render an empty sample.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan leeg voorbeeld niet weergeven.</translation>
     </message>
     <message>
         <source>Cannot have an empty layer name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Laagnaam kan niet leeg zijn.</translation>
     </message>
     <message>
         <source>Layer not found.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Laag niet gevonden.</translation>
     </message>
     <message>
         <source>Cannot remove the last layer.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan de laatste laag niet verwijderen.</translation>
     </message>
     <message>
         <source>Cannot create layer without a name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan geen laag zonder naam aanmaken.</translation>
     </message>
     <message>
         <source>Insert index out of bounds.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Invoegings-index buiten bereik.</translation>
     </message>
     <message>
         <source>Cannot set text alignment on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan tekst-uitlijning niet instellen bij een niet-tekst-frame.</translation>
     </message>
     <message>
         <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Tekengrootte buiten bereik, moet zijn: 1 &lt;= grootte &lt;= 512.</translation>
     </message>
     <message>
         <source>Cannot set font size on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan tekengrootte niet bepalen voor niet-tekst-frame.</translation>
     </message>
     <message>
         <source>Cannot set font on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan lettertype niet bepalen voor niet-tekst-frame.</translation>
     </message>
     <message>
         <source>Line space out of bounds, must be &gt;= 0.1.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Regelafstand buiten bereik, moet zijn &gt;= 0.1.</translation>
     </message>
     <message>
         <source>Cannot set line spacing on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan regelspatiëring niet bepalen voor niet-tekst-frame.</translation>
     </message>
     <message>
         <source>Column gap out of bounds, must be positive.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kolomtussenruimte buiten bereik, moet positief zijn.</translation>
     </message>
     <message>
         <source>Cannot set column gap on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan kolomtussenruimte niet bepalen voor niet-tekst-frame.</translation>
     </message>
     <message>
         <source>Column count out of bounds, must be &gt; 1.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Aantal kolommen buiten bereik, moet zijn &gt; 1.</translation>
     </message>
     <message>
         <source>Cannot set number of columns on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan aantal kolommen niet instellen voor niet-tekst-frame.</translation>
     </message>
     <message>
         <source>Cannot select text in a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan geen tekst selecteren in niet-tekst-frame</translation>
     </message>
     <message>
         <source>Cannot delete text from a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan geen tekst verwijderen in niet-tekst-frame.</translation>
     </message>
     <message>
         <source>Cannot set text fill on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan tekstvulling niet instellen voor niet-tekst-frame.</translation>
     </message>
     <message>
         <source>Cannot set text stroke on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan tekst-lijn niet instellen voor niet-tekst-frame.</translation>
     </message>
     <message>
         <source>Cannot set text shade on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan tekst-tint niet instellen voor niet-tekst-frame.</translation>
     </message>
     <message>
         <source>Can only link text frames.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Alleen tekstframes kunnen worden verbonden.</translation>
     </message>
     <message>
         <source>Target frame must be empty.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Doelframe moet leeg zijn.</translation>
     </message>
     <message>
         <source>Target frame links to another frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Doelframe is al verbonden met ander frame.</translation>
     </message>
     <message>
         <source>Target frame is linked to by another frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Een ander frame is al verbonden met het doelframe.</translation>
     </message>
     <message>
         <source>Source and target are the same object.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Bron en doel zijn hetzelfde object.</translation>
     </message>
     <message>
         <source>Cannot unlink a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan verbinding niet verwijderen van niet-tekst-frame.</translation>
     </message>
     <message>
         <source>Object is not a linked text frame, cannot unlink.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Object is geen verbonden tekstframe, kan verbinding niet verwijderen.</translation>
     </message>
     <message>
         <source>Object the last frame in a series, cannot unlink. Unlink the previous frame instead.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Dit object is het laatste in een reeks, kan de verbinding niet verwijderen. Gebruik het vorige frame inplaats.</translation>
     </message>
     <message>
         <source>Cannot convert a non-text frame to outlines.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan een niet-tekst-frame niet converteren naar contouren.</translation>
     </message>
     <message>
         <source>Portuguese (Brazilian)</source>
-        <translation type="unfinished"></translation>
+        <translation>Portugees (Braziliaans)</translation>
     </message>
     <message>
         <source>Cannot get a colour with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan kleur met lege naam niet bepalen.</translation>
     </message>
     <message>
         <source>Unable to save pixmap.</source>
         <comment>scripter error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan pixmap niet opslaan.</translation>
     </message>
     <message>
         <source>Can&apos;t set bookmark on a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan geen bladwijzer instellen in een niet-tekst-frame</translation>
     </message>
     <message>
         <source>Can&apos;t get info from a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan informatie niet bepalen voor niet-tekst-frame</translation>
     </message>
     <message>
         <source>OpenDocument Text Documents</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenDocument tekstdocumenten</translation>
     </message>
     <message>
         <source>Croatian</source>
-        <translation type="unfinished"></translation>
+        <translation>Croatisch</translation>
     </message>
     <message>
         <source>Color not found</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kleur niet gevonden</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation type="unfinished">Normaal</translation>
+        <translation>Normaal</translation>
     </message>
     <message>
         <source>page</source>
         <comment>page export</comment>
-        <translation type="unfinished"></translation>
+        <translation>pagina</translation>
     </message>
 </context>
 <context>
@@ -14708,11 +14871,11 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     </message>
     <message>
         <source>Tracking:</source>
-        <translation type="unfinished"></translation>
+        <translation>Volgen:</translation>
     </message>
     <message>
         <source>Manual Tracking</source>
-        <translation type="unfinished"></translation>
+        <translation>Handmatig volgen</translation>
     </message>
 </context>
 <context>
@@ -15912,23 +16075,23 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     </message>
     <message>
         <source>Portuguese (BR)</source>
-        <translation type="unfinished"></translation>
+        <translation>Portugees (BR)</translation>
     </message>
     <message>
         <source>There are no suitable Fonts on your System</source>
-        <translation type="unfinished"></translation>
+        <translation>Er zijn geen passende lettertypen op uw systeem</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Color management is supported but can not currently be enabled. Make sure you have ICC color profiles installed and that the profile path in the preferences points to where they&apos;re installed.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Kleurmanagement is ondersteund maar kan op dit moment niet ingeschakeld worden. Kijk of u ICC-kleurprofielen hebt geïnstalleerd en dat het pad ernaartoe in de voorkeuren correct is ingesteld.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Color management is not supported by this Scribus build (not compiled in).&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Kleurmanagement is niet ondersteund door deze compilatie van Scribus.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Croatian</source>
-        <translation type="unfinished"></translation>
+        <translation>Croatisch</translation>
     </message>
 </context>
 <context>
@@ -15963,7 +16126,7 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     </message>
     <message>
         <source>Copy of</source>
-        <translation type="unfinished">Kopie van</translation>
+        <translation>Kopie van</translation>
     </message>
 </context>
 <context>
@@ -16001,75 +16164,75 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     <name>ScripterCore</name>
     <message>
         <source>&amp;Scribus Scripts</source>
-        <translation type="unfinished">&amp;Scribus scripts</translation>
+        <translation>&amp;Scribus scripts</translation>
     </message>
     <message>
         <source>&amp;Execute Script...</source>
-        <translation type="unfinished">Script &amp;uitvoeren...</translation>
+        <translation>Script uitvo&amp;eren...</translation>
     </message>
     <message>
         <source>Run a Python script from a file.</source>
         <comment>scripter</comment>
-        <translation type="unfinished"></translation>
+        <translation>Python-script uit bestand uitvoeren.</translation>
     </message>
     <message>
         <source>&amp;Load Extension Script...</source>
-        <translation type="unfinished"></translation>
+        <translation>Extensie-script &amp;laden...</translation>
     </message>
     <message>
         <source>Load a Python script as an extension. Used for loading macros and for advanced Python scripts that extend the Scribus user interface.</source>
         <comment>scripter</comment>
-        <translation type="unfinished"></translation>
+        <translation>Python-script als extensie laden. Wordt gebruikt voor het laden van macro&apos;s en geavanceerde python scripts die de gebruikersinterface van Scribus uitbreiden. </translation>
     </message>
     <message>
         <source>&amp;Recent Scripts</source>
-        <translation type="unfinished">&amp;Recente scripts</translation>
+        <translation>&amp;Recente scripts</translation>
     </message>
     <message>
         <source>Show &amp;Console</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Console weergeven</translation>
     </message>
     <message>
         <source>Display an interactive Python console where you can write and run Python programs that use the Scripter tools.</source>
         <comment>scripter</comment>
-        <translation type="unfinished"></translation>
+        <translation>Toont een interactieve Python-console waar u Python programma&apos;s kunt schrijven en starten die de Scripter-tools gebruiken.</translation>
     </message>
     <message>
         <source>&amp;About Script...</source>
-        <translation type="unfinished">&amp;Over script...</translation>
+        <translation>&amp;Over script...</translation>
     </message>
     <message>
         <source>S&amp;cript</source>
-        <translation type="unfinished">S&amp;cript</translation>
+        <translation>S&amp;cript</translation>
     </message>
     <message>
         <source>Scripter &amp;Settings</source>
         <comment>script menu</comment>
-        <translation type="unfinished"></translation>
+        <translation>Scripter &amp;instellingen</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation type="unfinished">Openen</translation>
+        <translation>Openen</translation>
     </message>
     <message>
         <source>Python Scripts (*.py);; All Files (*)</source>
-        <translation type="unfinished">Python scripts (*.py);;Alle bestanden (*)</translation>
+        <translation>Python scripts (*.py);;Alle bestanden (*)</translation>
     </message>
     <message>
         <source>Script error</source>
-        <translation type="unfinished">Scriptfout</translation>
+        <translation>Scriptfout</translation>
     </message>
     <message>
         <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
-        <translation type="unfinished">Als dit een officieel script is, geef deze fout dan a.u.b. door op &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
+        <translation>Als dit een officieel script is, geef deze fout dan a.u.b. door op &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
     </message>
     <message>
         <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
-        <translation type="unfinished">Dit bericht staat ook op het klembord. Met Ctrl+V kunt u het in de bugtracker plakken.</translation>
+        <translation>Dit bericht staat ook op het klembord. Met Ctrl+V kunt u het in de bugtracker plakken.</translation>
     </message>
     <message>
         <source>Scribus - Script Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Script plugin</translation>
     </message>
     <message>
         <source>The &apos;Load Script&apos; function of the script plugin is currently disabled.
@@ -16082,140 +16245,157 @@ scripter extensions there.
 
 Please read the documentation on extension scripts first.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>De functie &apos;Script laden&apos; van de script plugin is momenteel uigeschakeld.
+Als u een normaal script wilt starten kunt u de functie &apos;Script uitveoren...&apos;
+gebruiken.
+
+Als u werkelijkj een Python extensie-script of macro wilt laden, kunt u
+naar het Scripter-instellingenvenster gaan in het Script menu, en daar
+scripter-extensies inschakelen.
+
+Lees ook de documentatie over extensie-scripts.</translation>
     </message>
     <message>
         <source>Hide &amp;Console</source>
-        <translation type="unfinished">&amp;Console verbergen</translation>
+        <translation>&amp;Console verbergen</translation>
     </message>
     <message>
         <source>About Script</source>
-        <translation type="unfinished">Over script</translation>
+        <translation>Over script</translation>
     </message>
 </context>
 <context>
     <name>ScripterPreferences</name>
     <message>
         <source>Scribus - Scripter Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Scripter instellingen</translation>
     </message>
     <message>
         <source>Enable Scripter Extensions</source>
-        <translation type="unfinished"></translation>
+        <translation>Scripter-extensies inschakelen</translation>
     </message>
     <message>
         <source>Turn on extension scripts and macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Schakelt scripter-extensies en macro&apos;s in</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;Enabling scripter extensions turns on additional scripter functionality including Python macros and the option of loading a Python script at start-up. Turning on this option unlocks the &lt;tt&gt;Load Extension Script&lt;/tt&gt; item in the Script menu.&lt;/p&gt;
 &lt;p&gt;
 Only scripts written to be run as extension scripts should be used with &lt;tt&gt;Load Extension Script&lt;/tt&gt; or as start-up scripts. See the scripter documentation for more details.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;Als u deze optie inschakelt krijgt u de beschikking over extra mogelijkheden zoals het laden van Python macro&apos;s en het starten van een Python-script bij het opstarten van Scribus. De optie &lt;tt&gt;Extensie-script laden&lt;/tt&gt; uit het Script-menu wordt ook ingeschakeld.&lt;/p&gt;
+&lt;p&gt;Alleen scripts die geschreven zijn om als extensie-script te worden gebruikt, kunnen worden geladen. Lees de scripter-documentatie voor meer informatie.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Use a Startup Script</source>
-        <translation type="unfinished"></translation>
+        <translation>Opstartscript gebruiken</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;If &lt;tt&gt;Use a Startup Script&lt;/tt&gt; is checked, Scribus will load the script file specified here as an extension script at start-up. It is important that the script be written as an extension script, as if not written carefully it can potentially cause problems.&lt;/p&gt;
 &lt;p&gt;&lt;tt&gt;Use a Startup Script&lt;/tt&gt; will be disabled if scripter extensions are off, as extension scripts cannot be loaded without scripter extensions enabled.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;Als de optie &lt;tt&gt;Opstartscript gebruiken&lt;/tt&gt; is ingeschakeld zal Scribus het opgegeven scriptbestand als extensie laden bij het opstarten. Het is belangrijk dat het script correct geschreven is, anders kan het problemen veroorzaken.&lt;/p&gt;
+&lt;p&gt;De optie &lt;tt&gt;Opstartscript gebruiken&lt;/tt&gt; is uitgeschakeld als scripter-uibreidingen zijn uitgeschakeld.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Browse...</source>
-        <translation type="unfinished">Browse...</translation>
+        <translation>Bladeren...</translation>
     </message>
     <message>
         <source>Browse for a new script file</source>
-        <translation type="unfinished"></translation>
+        <translation>Blader naar een nieuw scriptbestand</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Browse for a new script file&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Blader naar een nieuw scriptbestand&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>What script file to load at start-up</source>
-        <translation type="unfinished"></translation>
+        <translation>Welk script u wilt laden bij het opstarten</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;The file containing the Python script to run as an extension script at start-up.&lt;/p&gt;
 &lt;p&gt;Note that when this script is run, Scribus has not completely started up and the workspace does not yet exist.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;Het Python-script dat moet worden gestart als extensie-script bij het opstarten.&lt;/p&gt;
+&lt;p&gt;Let op: op het moment dat dit script wordt gestart, is Scribus nog niet volledig opgestart en bestaat het werk-oppervlak nog niet.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Script File:</source>
-        <translation type="unfinished"></translation>
+        <translation>Scriptbestand:</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Annuleren</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+A</translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <source>Close without saving changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Sluiten zonder opslaan</translation>
     </message>
     <message>
         <source>&amp;Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation type="unfinished">Atl+O</translation>
+        <translation>Atl+O</translation>
     </message>
     <message>
         <source>Save changes and close</source>
-        <translation type="unfinished"></translation>
+        <translation>Wijzigingen opslaan en sluiten</translation>
     </message>
     <message>
         <source>Advanced Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Geavanceerde opties</translation>
     </message>
     <message>
         <source>Import All Names at Startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle namen importeren bij opstarten</translation>
     </message>
     <message>
         <source>Run &apos;from scribus import *&apos; in the script console at start-up</source>
-        <translation type="unfinished"></translation>
+        <translation>Start &apos;from scribus import *&apos; in de scriptconsole bij het opstarten</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Import All Names at Startup&lt;/tt&gt; is an advanced option. You should probably leave it checked unless you have read the documentation and know what you are doing.&lt;/p&gt;
 &lt;p&gt;Unchecking this option will prevent the scripter from running its usual &lt;tt&gt;from scribus import *&lt;/tt&gt; command when it initializes the main interpreter (used for the script console and extension scripts) at start-up.&lt;/p&gt;
 &lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Alle namen importeren bij opstarten&lt;/tt&gt; is een geavanceerde optie. U kunt deze het beste ingeschakeld laten tenzij u de documentatie hebt gelezen en weet wat u doet.&lt;/p&gt;
+&lt;p&gt;Als u deze optie uitschakelt zal de scripter niet het gebruikelijke commando &lt;tt&gt;from scribus import *&lt;/tt&gt; uitvoeren tijdens het opstarten.&lt;/p&gt;
+&lt;p&gt;Deze optie heeft pas effect als Scribus herstart wordt.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Enable Legacy Name Aliases</source>
-        <translation type="unfinished"></translation>
+        <translation>Oude naam-aliassen inschakelen</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Enable the use of OldStyle function names&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Schakelt het gebruik van functienamen OudeStijl in&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Enable Legacy Aliases&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
 &lt;p&gt;If checked, this option will cause the scripter to create a large number of function and constant name aliases for 1.2.0 script compatibility. It defaults to checked.&lt;/p&gt;
 &lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Oude naam-aliassen inschakelen&lt;/tt&gt; is een geavanceerde optie, die u het beste zo kunt laten.&lt;/p&gt;
+&lt;p&gt;Indien ingeschakeld, maakt de scripter een groot aantal functies en constanten aan voor compatibiliteit met scripts van Scribus 1.2.0. Standaard is deze functie ingeschakeld.&lt;/p&gt;
+&lt;p&gt;Deze optie heeft pas effect bij herstarten van Scribus.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Use Fake Stdin</source>
-        <translation type="unfinished"></translation>
+        <translation>Fake-stdin gebruiken</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Replace sys.stdin with a fake file to prevent Scribus hanging when a script tries to read from stdin.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Vervangt sys.stdin met een nepbestand zodat Scribus niet zal blijven hangen als een script van stdin probeert te lezen.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Use Fake Stdin&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
 &lt;p&gt;Normally, scribus will provide Python with a fake file object for &lt;tt&gt;sys.stdin&lt;/tt&gt;, so that reads from stdin always return an empty string. If the real &lt;tt&gt;sys.stdin&lt;/tt&gt; is left in place, scripts that try to read from it will block - and in turn block scribus&apos;s execution, making the app appear to hang - until input arrives on stdin. It&apos;s unusual for GUI apps to expect anything on stdin, so mostly users will think scribus has crashed.&lt;/p&gt;
 &lt;p&gt;You can disable this option if you want to accept input on stdin. Generally you should use &lt;tt&gt;os.popen&lt;/tt&gt; to make a pipe instead, or use some other input mechanism, but this option is here just in case.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Fake-stdin gebruiken&lt;/tt&gt; is een geavanceerde optie die u het best zo kunt laten.&lt;/p&gt;
+&lt;p&gt;Normaal gesproken  biedt Scribus Python een nep-object aan voor &lt;tt&gt;sys.stdin&lt;/tt&gt;, zodat scripts niet blijven hangen als ze standaard invoer proberen te lezen.&lt;/p&gt;
+&lt;p&gt;U kunt deze optie uitschakelen als u toch werkelijk van stdin wilt kunnen lezen. In het algemeen kunt u in scripts beter de functie &lt;tt&gt;os.popen&lt;/tt&gt; gebruiken voor communicatie met andere processen, of een andere invoermethode gebruiken. Deze optie is hier voor het geval dát.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
 </context>
 <context>
@@ -16819,27 +16999,27 @@ zonder u telkens om bevestiging te vragen</translation>
     </message>
     <message>
         <source>Update Paragraph Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Alineastijlen bijwerken</translation>
     </message>
     <message>
         <source>Enabling this will overwrite existing styles in the current Scribus document</source>
-        <translation type="unfinished"></translation>
+        <translation>Als u deze optie inschakelt zullen bestaande stijlen in het huidige Scribus-document worden overschreven</translation>
     </message>
     <message>
         <source>Merge Paragraph Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Alineastijlen samenvoegen</translation>
     </message>
     <message>
         <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document&apos;s styles are named differently.</source>
-        <translation type="unfinished"></translation>
+        <translation>Voegt stijlen samen op grond van attributen. U krijgt zo minder vrijwel gelijke alineastijlen. Stijlattributen blijven bewaard zelfs als ze andere namen hebben in het originele document.</translation>
     </message>
     <message>
         <source>Prepend the document name to the paragraph style name in Scribus.</source>
-        <translation type="unfinished"></translation>
+        <translation>De documentnaam aan de alineastijlnaam toevoegen in Scribus.</translation>
     </message>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Deze instellingen als standaard instellen en er niet om vragen bij het importeren van een OpenOffice.org 1.x document.</translation>
     </message>
 </context>
 <context>
@@ -17037,48 +17217,48 @@ Kies een andere naam.</translation>
     <message>
         <source>Short Words</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Korte woorden</translation>
     </message>
     <message>
         <source>Apply unbreakable space on:</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Harde spatie toepassen op:</translation>
     </message>
     <message>
         <source>&amp;Selected frames</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ge&amp;selecteerde frames</translation>
     </message>
     <message>
         <source>Active &amp;page</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Actieve &amp;pagina</translation>
     </message>
     <message>
         <source>&amp;All items</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Alle items</translation>
     </message>
     <message>
         <source>&amp;OK</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Annuleren</translation>
     </message>
     <message>
         <source>&amp;Info and
 Languages</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Info en talen</translation>
     </message>
     <message>
         <source>Replace defaults by user config</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Standaardinstellingen vervangen door gebruikersconfiguratie</translation>
     </message>
     <message>
         <source>When the user config file exists 
@@ -17089,37 +17269,43 @@ to the global configuration by unchecked button.
 You can replace predefined values by yours
 with checked button too.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation> Als het gebruikersconfiguratiebestand bestaat
+(%1)
+worden uw instellingen toegevoegd aan de globale
+instellingen als u deze optie niet selecteert.
+
+De globale instellingen worden vervangen als u deze
+optie selecteert.</translation>
     </message>
     <message>
         <source>Only selected frames processed.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Alleen het geselecteerde frame is bewerkt.</translation>
     </message>
     <message>
         <source>Only actual page processed.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Alleen de actieve pagina is bewerkt.</translation>
     </message>
     <message>
         <source>All items in document processed.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Alle items in het document zijn bewerkt.</translation>
     </message>
     <message>
         <source>Short Words for Scribus</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Korte woorden voor Scribus</translation>
     </message>
     <message>
         <source>Available in the following languages</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Beschikbaar in de volgende talen</translation>
     </message>
     <message>
         <source>About Short Words</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Over Korte woorden</translation>
     </message>
 </context>
 <context>
@@ -17299,7 +17485,7 @@ with checked button too.</source>
     </message>
     <message>
         <source>Import Text Only</source>
-        <translation type="unfinished"></translation>
+        <translation>Alleen tekst importeren</translation>
     </message>
 </context>
 <context>
