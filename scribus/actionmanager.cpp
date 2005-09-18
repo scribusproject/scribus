@@ -440,8 +440,8 @@ void ActionManager::initToolsMenuActions()
 
 	scrActions->insert("toolsRotate", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Rotieren.xpm"), loadIcon("Rotieren.xpm")), "", QKeySequence(Key_R), ScApp, "toolsRotate", modeRotation));
 	scrActions->insert("toolsZoom", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Lupe.xpm"), loadIcon("Lupe.xpm")), "", QKeySequence(Key_Z), ScApp, "toolsZoom", modeMagnifier));
-	scrActions->insert("toolsZoomIn", new ScrAction(QIconSet(loadIcon("Gross.xpm"), loadIcon("Gross.xpm")), "", QKeySequence(CTRL+Key_Plus), ScApp, "toolsZoomIn"));
-	scrActions->insert("toolsZoomOut", new ScrAction(QIconSet(loadIcon("Klein.xpm"), loadIcon("Klein.xpm")), "", QKeySequence(CTRL+Key_Minus), ScApp, "toolsZoomOut"));
+	scrActions->insert("toolsZoomIn", new ScrAction(QIconSet(loadIcon("viewmagin.png"), loadIcon("viewmagin.png")), "", QKeySequence(CTRL+Key_Plus), ScApp, "toolsZoomIn"));
+	scrActions->insert("toolsZoomOut", new ScrAction(QIconSet(loadIcon("viewmagout.png"), loadIcon("viewmagout.png")), "", QKeySequence(CTRL+Key_Minus), ScApp, "toolsZoomOut"));
 	scrActions->insert("toolsEditContents", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Editm.xpm"), loadIcon("Editm.xpm")), "", QKeySequence(Key_E), ScApp, "toolsEditContents", modeEdit));
 	scrActions->insert("toolsEditWithStoryEditor", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("signature.png"), loadIcon("signature.png")), "", QKeySequence(CTRL+Key_Y), ScApp, "toolsEditWithStoryEditor", modeStoryEditor));
 	scrActions->insert("toolsLinkTextFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Lock.xpm"), loadIcon("Lock.xpm")), "", QKeySequence(Key_N), ScApp, "toolsLinkTextFrame", modeLinkFrames));

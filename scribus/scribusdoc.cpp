@@ -2066,7 +2066,7 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 	uint end = DocItems.count();
 	for (uint a = 0; a < end; ++a)
 	{
-		PageItem *itemToCopy = Items.at(a);
+		PageItem *itemToCopy = DocItems.at(a);
 		if (itemToCopy->OwnPage == static_cast<int>(sourcePage->pageNr()))
 		{
 			itemToCopy->copyToCopyPasteBuffer(&BufferT);
@@ -2087,6 +2087,7 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 			}
 			ScApp->view->PasteItem(&BufferT, true, true);
 			PageItem* Neu = Items.at(Items.count()-1);
+			Neu->OnMasterPage = masterPageName;
 			if (Neu->isTableItem)
 			{
 				TableItems.append(Neu);

@@ -5564,7 +5564,7 @@ void ScribusApp::duplicateToMasterPage()
 		uint docItemsCount = doc->DocItems.count();
 		for (uint a = 0; a < docItemsCount; ++a)
 		{
-			PageItem *itemToCopy = doc->Items.at(a);
+			PageItem *itemToCopy = doc->DocItems.at(a);
 			if (itemToCopy->OwnPage == static_cast<int>(Source->pageNr()))
 			{
 				itemToCopy->copyToCopyPasteBuffer(&BufferT);
@@ -5585,6 +5585,7 @@ void ScribusApp::duplicateToMasterPage()
 				}
 				view->PasteItem(&BufferT, true, true);
 				PageItem* Neu = doc->Items.at(doc->Items.count()-1);
+				Neu->OnMasterPage = MasterPageName;
 				if (Neu->isTableItem)
 				{
 					TableItems.append(Neu);
