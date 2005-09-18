@@ -1,5 +1,9 @@
 bin_PROGRAMS = scribus
 
+if COMPILE_CAIRO
+pixbuf_subdirs =
+pixbuf_libs =
+else
 if LINK_PIXBUF
 # Use a convenience library for the gdk-pixbuf sources so we can avoid
 # compiling and linking them if they're not needed. We do this because using a
@@ -7,6 +11,7 @@ if LINK_PIXBUF
 # moc'ing and uic'ing done by the build system.
 pixbuf_subdirs = pixbuf
 pixbuf_libs = pixbuf/libpixbuf.la
+endif
 endif
 
 scribus_SOURCES = \
@@ -20,13 +25,6 @@ scribus_SOURCES = \
 	annot.cpp	\
 	applytemplatedialog.cpp	\
 	arrowchooser.cpp	\
-	art_kmisc.c	\
-	art_render_misc.c	\
-	art_render_pattern.c	\
-	art_rgba_affine.c	\
-	art_rgb_affine_private.c	\
-	art_rgb.c	\
-	art_rgb_svp.c	\
 	autoformbuttongroup.cpp	\
 	autoform.cpp	\
 	bookmwin.cpp	\
@@ -338,7 +336,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/prefspanel.h                  $(prefix)/include/scribus/prefspanel.h
 	$(INSTALL_DATA) $(srcdir)/prefsreader.h                 $(prefix)/include/scribus/prefsreader.h
 	$(INSTALL_DATA) $(srcdir)/prefstable.h                  $(prefix)/include/scribus/prefstable.h
-	$(INSTALL_DATA) $(srcdir)/preview.h                  $(prefix)/include/scribus/preview.h
+	$(INSTALL_DATA) $(srcdir)/preview.h                     $(prefix)/include/scribus/preview.h
 	$(INSTALL_DATA) $(srcdir)/query.h                       $(prefix)/include/scribus/query.h
 	$(INSTALL_DATA) $(srcdir)/rc4.h                         $(prefix)/include/scribus/rc4.h
 	$(INSTALL_DATA) $(srcdir)/rulermover.h                  $(prefix)/include/scribus/rulermover.h

@@ -173,6 +173,8 @@ AC_ARG_ENABLE(cairo, [  --enable-cairo     Enables building with cairo support],
 		AC_MSG_RESULT([failed: pkg-config not found])
 	fi
 	if test $hacairo = yes; then
+		LIBART_LIBS=""
+		LIBART_CFLAGS=""
 		AC_DEFINE_UNQUOTED(HAVE_CAIRO, 1, [Defines if your system has the cairo library])
 	else
 		libmissing cairo optional
