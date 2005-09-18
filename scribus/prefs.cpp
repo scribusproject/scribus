@@ -442,7 +442,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	backColor->setMaximumSize( QSize( 60, 20 ) );
 	backColor->setFlat( false );
 	backColor->setAutoDefault( false );
-	QPixmap pm5 = QPixmap(54, 14);
+	QPixmap pm5(54, 14);
 	pm5.fill(prefsData->DpapColor);
 	colorPaper = prefsData->DpapColor;
 	backColor->setPixmap(pm5);
@@ -1091,7 +1091,7 @@ void Preferences::changePaperColor()
 	neu = QColorDialog::getColor(colorPaper, this);
 	if (neu.isValid())
 	{
-		QPixmap pm = QPixmap(54, 14);
+		QPixmap pm(54, 14);
 		pm.fill(neu);
 		colorPaper = neu;
 		backColor->setPixmap(pm);

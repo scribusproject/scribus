@@ -92,7 +92,7 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	guideColor->setMaximumSize( QSize( 60, 20 ) );
 	guideColor->setFlat( false );
 	guideColor->setAutoDefault( false );
-	QPixmap pm3 = QPixmap(54, 14);
+	QPixmap pm3(54, 14);
 	pm3.fill(prefsData->guideColor);
 	colorGuides = prefsData->guideColor;
 	guideColor->setPixmap(pm3);
@@ -114,7 +114,7 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	marginColor->setMinimumSize( QSize( 60, 20 ) );
 	marginColor->setMaximumSize( QSize( 60, 20 ) );
 	marginColor->setAutoDefault( false );
-	QPixmap pm6 = QPixmap(54, 14);
+	QPixmap pm6(54, 14);
 	pm6.fill(prefsData->margColor);
 	colorMargin = prefsData->margColor;
 	marginColor->setPixmap(pm6);
@@ -145,7 +145,7 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	majorGridColor->setMaximumSize( QSize( 60, 20 ) );
 	majorGridColor->setFlat( false );
 	majorGridColor->setAutoDefault( false );
-	QPixmap pm1 = QPixmap(54, 14);
+	QPixmap pm1(54, 14);
 	pm1.fill(prefsData->majorColor);
 	colorMajorGrid = prefsData->majorColor;
 	majorGridColor->setPixmap(pm1);
@@ -177,7 +177,7 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	minorGridColor->setMaximumSize( QSize( 60, 20 ) );
 	minorGridColor->setFlat( false );
 	minorGridColor->setAutoDefault( false );
-	QPixmap pm = QPixmap(54, 14);
+	QPixmap pm(54, 14);
 	pm.fill(prefsData->minorColor);
 	colorMinorGrid = prefsData->minorColor;
 	minorGridColor->setPixmap(pm);
@@ -211,7 +211,7 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	baselineColor->setMaximumSize( QSize( 60, 20 ) );
 	baselineColor->setFlat( false );
 	baselineColor->setAutoDefault( false );
-	QPixmap pm4 = QPixmap(54, 14);
+	QPixmap pm4(54, 14);
 	pm4.fill(prefsData->baseColor);
 	colorBaselineGrid = prefsData->baseColor;
 	baselineColor->setPixmap(pm4);
@@ -272,23 +272,23 @@ void TabGuides::restoreDefaults(struct guidesPrefs *prefsData, struct typoPrefs 
 	unit = unitGetSuffixFromIndex(unitIndex);
 	precision = unitGetPrecisionFromIndex(unitIndex);
 	unitRatio = unitGetRatioFromIndex(unitIndex);
-	QPixmap pm3 = QPixmap(54, 14);
+	QPixmap pm3(54, 14);
 	pm3.fill(prefsData->guideColor);
 	colorGuides = prefsData->guideColor;
 	guideColor->setPixmap(pm3);
-	QPixmap pm6 = QPixmap(54, 14);
+	QPixmap pm6(54, 14);
 	pm6.fill(prefsData->margColor);
 	colorMargin = prefsData->margColor;
 	marginColor->setPixmap(pm6);
-	QPixmap pm1 = QPixmap(54, 14);
+	QPixmap pm1(54, 14);
 	pm1.fill(prefsData->majorColor);
 	colorMajorGrid = prefsData->majorColor;
 	majorGridColor->setPixmap(pm1);
-	QPixmap pm = QPixmap(54, 14);
+	QPixmap pm(54, 14);
 	pm.fill(prefsData->minorColor);
 	colorMinorGrid = prefsData->minorColor;
 	minorGridColor->setPixmap(pm);
-	QPixmap pm4 = QPixmap(54, 14);
+	QPixmap pm4(54, 14);
 	pm4.fill(prefsData->baseColor);
 	colorBaselineGrid = prefsData->baseColor;
 	baselineColor->setPixmap(pm4);
@@ -312,7 +312,7 @@ void TabGuides::changeMajorColor()
 	neu = QColorDialog::getColor(colorMajorGrid, this);
 	if (neu.isValid())
 	{
-		QPixmap pm = QPixmap(54, 14);
+		QPixmap pm(54, 14);
 		pm.fill(neu);
 		colorMajorGrid = neu;
 		majorGridColor->setPixmap(pm);
@@ -325,7 +325,7 @@ void TabGuides::changeMinorColor()
 	neu = QColorDialog::getColor(colorMinorGrid, this);
 	if (neu.isValid())
 	{
-		QPixmap pm = QPixmap(54, 14);
+		QPixmap pm(54, 14);
 		pm.fill(neu);
 		colorMinorGrid = neu;
 		minorGridColor->setPixmap(pm);
@@ -338,7 +338,7 @@ void TabGuides::changeBaselineColor()
 	neu = QColorDialog::getColor(colorBaselineGrid, this);
 	if (neu.isValid())
 	{
-		QPixmap pm = QPixmap(54, 14);
+		QPixmap pm(54, 14);
 		pm.fill(neu);
 		colorBaselineGrid = neu;
 		baselineColor->setPixmap(pm);
@@ -351,7 +351,7 @@ void TabGuides::changeGuideColor()
 	neu = QColorDialog::getColor(colorGuides, this);
 	if (neu.isValid())
 	{
-		QPixmap pm = QPixmap(54, 14);
+		QPixmap pm(54, 14);
 		pm.fill(neu);
 		colorGuides = neu;
 		guideColor->setPixmap(pm);
@@ -364,7 +364,7 @@ void TabGuides::changeMarginColor()
 	neu = QColorDialog::getColor(colorMargin, this);
 	if (neu.isValid())
 	{
-		QPixmap pm = QPixmap(54, 14);
+		QPixmap pm(54, 14);
 		pm.fill(neu);
 		colorMargin = neu;
 		marginColor->setPixmap(pm);

@@ -905,7 +905,7 @@ void TabPDFOptions::BleedChanged()
 	BleedBottom->setMaxValue(pageH*unitRatio-BleedTop->value());
 	BleedRight->setMaxValue(pageB*unitRatio-BleedLeft->value());
 	BleedLeft->setMaxValue(pageB*unitRatio-BleedRight->value());
-	QPixmap pm = QPixmap(70,80);
+	QPixmap pm(70,80);
 	pm.fill(white);
 	QPainter p;
 	p.begin(&pm);

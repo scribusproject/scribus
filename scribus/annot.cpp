@@ -23,6 +23,7 @@
 #include "pageitem.h"
 #include "navigator.h"
 #include "scribusview.h"
+#include "util.h"
 #include <prefscontext.h>
 #include <scribusstructs.h>
 
@@ -152,15 +153,14 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	GroupBox20Layout->addWidget( TextLabel40a, 0, 0 );
 	BorderC = new QComboBox( true, GroupBox20, "BorderC" );
 	ColorList::Iterator cit;
-	QPixmap pm;
+	QPixmap * pm;
 	BorderC->insertItem( tr("None"));
 	if (item->AnBColor == "None")
 		BorderC->setCurrentItem(BorderC->count()-1);
-	pm = QPixmap(15, 15);
 	for (cit = Farben.begin(); cit != Farben.end(); ++cit)
 	{
-		pm.fill(Farben[cit.key()].getRawRGBColor());
-		BorderC->insertItem(pm, cit.key());
+		pm = getSmallPixmap(Farben[cit.key()].getRawRGBColor());
+		BorderC->insertItem(*pm, cit.key());
 		if (cit.key() == item->AnBColor)
 			BorderC->setCurrentItem(BorderC->count()-1);
 	}

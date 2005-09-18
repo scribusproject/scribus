@@ -33,8 +33,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 {
 	setCaption( tr( "Search/Replace" ) );
 	setIcon(loadIcon("AppIcon.png"));
-	QPixmap pm;
-	pm = QPixmap(30, 15);
+	QPixmap * pm;
 	ColorList::Iterator it;
 	Item = ite;
 	Doc = doc;
@@ -115,8 +114,8 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	SFillVal->insertItem( tr("None"));
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 	{
-		pm.fill(doc->PageColors[it.key()].getRawRGBColor());
-		SFillVal->insertItem(pm, it.key());
+		pm = getWidePixmap(doc->PageColors[it.key()].getRawRGBColor());
+		SFillVal->insertItem(*pm, it.key());
 	}
 	SFillVal->listBox()->setMinimumWidth(SFillVal->listBox()->maxItemWidth()+24);
 	SFillVal->setCurrentText(doc->CurrTextFill);
@@ -130,8 +129,8 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	SStrokeVal->insertItem( tr("None"));
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 	{
-		pm.fill(doc->PageColors[it.key()].getRawRGBColor());
-		SStrokeVal->insertItem(pm, it.key());
+		pm = getWidePixmap(doc->PageColors[it.key()].getRawRGBColor());
+		SStrokeVal->insertItem(*pm, it.key());
 	}
 	SStrokeVal->listBox()->setMinimumWidth(SStrokeVal->listBox()->maxItemWidth()+24);
 	SStrokeVal->setCurrentText(doc->CurrTextStroke);
@@ -213,8 +212,8 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	RFillVal->insertItem( tr("None"));
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 	{
-		pm.fill(doc->PageColors[it.key()].getRawRGBColor());
-		RFillVal->insertItem(pm, it.key());
+		pm = getWidePixmap(doc->PageColors[it.key()].getRawRGBColor());
+		RFillVal->insertItem(*pm, it.key());
 	}
 	RFillVal->listBox()->setMinimumWidth(RFillVal->listBox()->maxItemWidth()+24);
 	RFillVal->setCurrentText(doc->CurrTextFill);
@@ -228,8 +227,8 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	RStrokeVal->insertItem( tr("None"));
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 	{
-		pm.fill(doc->PageColors[it.key()].getRawRGBColor());
-		RStrokeVal->insertItem(pm, it.key());
+		pm = getWidePixmap(doc->PageColors[it.key()].getRawRGBColor());
+		RStrokeVal->insertItem(*pm, it.key());
 	}
 	RStrokeVal->listBox()->setMinimumWidth(RStrokeVal->listBox()->maxItemWidth()+24);
 	RStrokeVal->setCurrentText(doc->CurrTextStroke);

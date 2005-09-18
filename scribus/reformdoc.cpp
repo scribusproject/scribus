@@ -231,7 +231,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	backColor->setMaximumSize( QSize( 60, 20 ) );
 	backColor->setFlat( false );
 	backColor->setAutoDefault( false );
-	QPixmap pm5 = QPixmap(54, 14);
+	QPixmap pm5(54, 14);
 	pm5.fill(doc->papColor);
 	colorPaper = doc->papColor;
 	backColor->setPixmap(pm5);
@@ -448,7 +448,7 @@ void ReformDoc::restoreDefaults()
 	}
 	else if (current == tabView)
 	{
-		QPixmap pm = QPixmap(54, 14);
+		QPixmap pm(54, 14);
 		pm.fill(currDoc->papColor);
 		colorPaper = currDoc->papColor;
 		backColor->setPixmap(pm);
@@ -578,7 +578,7 @@ void ReformDoc::changePaperColor()
 	neu = QColorDialog::getColor(colorPaper, this);
 	if (neu.isValid())
 	{
-		QPixmap pm = QPixmap(54, 14);
+		QPixmap pm(54, 14);
 		pm.fill(neu);
 		colorPaper = neu;
 		backColor->setPixmap(pm);

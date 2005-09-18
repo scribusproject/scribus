@@ -1726,11 +1726,11 @@ void SToolBColorF::setCurrentDocument(ScribusDoc *doc)
 	TxFill->insertItem( tr("None"));
 	if (doc!=NULL)
 	{
-		QPixmap pm = QPixmap(15, 15);
+		QPixmap * pm;
 		for (ColorList::Iterator it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 		{
-			pm.fill(doc->PageColors[it.key()].getRawRGBColor());
-			TxFill->insertItem(pm, it.key());
+			pm = getSmallPixmap(doc->PageColors[it.key()].getRawRGBColor());
+			TxFill->insertItem(*pm, it.key());
 		}
 	}
 	resize(minimumSizeHint());
@@ -1786,11 +1786,11 @@ void SToolBColorS::setCurrentDocument(ScribusDoc *doc)
 	TxStroke->insertItem( tr("None"));
 	if (doc!=NULL)
 	{
-		QPixmap pm = QPixmap(15, 15);
+		QPixmap * pm;
 		for (ColorList::Iterator it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 		{
-			pm.fill(doc->PageColors[it.key()].getRawRGBColor());
-			TxStroke->insertItem(pm, it.key());
+			pm = getSmallPixmap(doc->PageColors[it.key()].getRawRGBColor());
+			TxStroke->insertItem(*pm, it.key());
 		}
 	}
 	resize(minimumSizeHint());

@@ -74,7 +74,7 @@ QPixmap ScPreview::createPreview(QString data)
 	double GrW = QStodouble(elem.attribute("W"));
 	double GrH = QStodouble(elem.attribute("H"));
 	double pmmax = prefsManager->appPrefs.PSize / QMAX(GrW+50, GrH+50);
-	QPixmap tmp = QPixmap(static_cast<int>(GrW)+50, static_cast<int>(GrH)+50);
+	QPixmap tmp(static_cast<int>(GrW)+50, static_cast<int>(GrH)+50);
 	ScPainter *pS = new ScPainter(&tmp, tmp.width(), tmp.height());
 	pS->translate(25,25);
 	QDomNode DOC=elem.firstChild();

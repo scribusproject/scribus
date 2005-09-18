@@ -6,6 +6,7 @@
 
 #include "scribusdoc.h"
 #include "page.h"
+#include "util.h"
 #include "commonstrings.h"
 
 extern QPixmap loadIcon(QString nam);
@@ -96,11 +97,11 @@ MultiLine::MultiLine( QWidget* parent, ScribusDoc* doc, multiLine ml, QString na
 	layout4 = new QHBoxLayout( 0, 0, 6, "layout4");
 	Color = new QComboBox( true, Properties, "Color" );
 	ColorList::Iterator it;
-	QPixmap pm = QPixmap(30, 15);
+	QPixmap * pm;
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 	{
-		pm.fill(doc->PageColors[it.key()].getRawRGBColor());
-		Color->insertItem(pm, it.key());
+		pm = getWidePixmap(doc->PageColors[it.key()].getRawRGBColor());
+		Color->insertItem(*pm, it.key());
 	}
 	Color->setEditable(false);
 	layout4->addWidget( Color );
@@ -186,8 +187,8 @@ QColor MultiLine::calcFarbe(QString name, int shade)
 void MultiLine::updateSList()
 {
 	QString tmp, tmp2;
-	QPixmap pm = QPixmap(30, 15);
-	pm.fill(calcFarbe(TempVorl[CurLin].Color, TempVorl[CurLin].Shade));
+	QPixmap * pm;
+	pm = getWidePixmap(calcFarbe(TempVorl[CurLin].Color, TempVorl[CurLin].Shade));
 	tmp2 = " "+tmp.setNum(TempVorl[CurLin].Width)+ tr(" pt ");
 	switch (static_cast<PenStyle>(TempVorl[CurLin].Dash))
 	{
@@ -214,10 +215,10 @@ void MultiLine::updateSList()
 	if (Styles->count() == 1)				// to avoid Bug in Qt-3.1.2
 	{
 		Styles->clear();
-		Styles->insertItem(pm, tmp2);
+		Styles->insertItem(*pm, tmp2);
 	}
 	else
-		Styles->changeItem(pm, tmp2, CurLin);
+		Styles->changeItem(*pm, tmp2, CurLin);
 }
 
 void MultiLine::reSort()
@@ -264,10 +265,10 @@ void MultiLine::RebuildList()
 {
 	QString tmp, tmp2;
 	Styles->clear();
-	QPixmap pm2 = QPixmap(30, 15);
+	QPixmap * pm2;
 	for (multiLine::iterator it = TempVorl.begin(); it != TempVorl.end(); ++it)
 	{
-		pm2.fill(calcFarbe((*it).Color, (*it).Shade));
+		pm2 = getWidePixmap(calcFarbe((*it).Color, (*it).Shade));
 		tmp2 = " "+tmp.setNum((*it).Width)+ tr(" pt")+" ";
 		switch (static_cast<PenStyle>((*it).Dash))
 		{
@@ -291,7 +292,7 @@ void MultiLine::RebuildList()
 			break;
 		}
 		tmp2 += " ";
-		Styles->insertItem(pm2, tmp2);
+		Styles->insertItem(*pm2, tmp2);
 	}
 }
 
