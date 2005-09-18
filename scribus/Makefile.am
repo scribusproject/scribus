@@ -11,6 +11,9 @@ if LINK_PIXBUF
 # moc'ing and uic'ing done by the build system.
 pixbuf_subdirs = pixbuf
 pixbuf_libs = pixbuf/libpixbuf.la
+else
+pixbuf_subdirs = libart
+pixbuf_libs = libart/libart.la
 endif
 endif
 
