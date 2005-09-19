@@ -3499,22 +3499,27 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 				if (!GroupSel)
 				{
 					currItem = SelItem.at(0);
-					if (!(currItem->isTableItem && currItem->isSingleSel))
+					if ((currItem->itemType() == PageItem::ImageFrame) && (m->state() & (ControlButton | AltButton)))
+						MoveItemI((newX-Mxp)/currItem->LocalScX, (newY-Myp)/currItem->LocalScY, currItem->ItemNr);
+					else
 					{
-						moveGroup(newX-Mxp, newY-Myp, false);
-						if (Doc->SnapGuides)
+						if (!(currItem->isTableItem && currItem->isSingleSel))
 						{
-							double nx = currItem->Xpos;
-							double ny = currItem->Ypos;
-							ApplyGuides(&nx, &ny);
-							moveGroup(nx-currItem->Xpos, ny-currItem->Ypos, false);
-							nx = currItem->Xpos+currItem->Width;
-							ny = currItem->Ypos+currItem->Height;
-							ApplyGuides(&nx, &ny);
-							moveGroup(nx-(currItem->Xpos+currItem->Width), ny-(currItem->Ypos+currItem->Height), false);
+							moveGroup(newX-Mxp, newY-Myp, false);
+							if (Doc->SnapGuides)
+							{
+								double nx = currItem->Xpos;
+								double ny = currItem->Ypos;
+								ApplyGuides(&nx, &ny);
+								moveGroup(nx-currItem->Xpos, ny-currItem->Ypos, false);
+								nx = currItem->Xpos+currItem->Width;
+								ny = currItem->Ypos+currItem->Height;
+								ApplyGuides(&nx, &ny);
+								moveGroup(nx-(currItem->Xpos+currItem->Width), ny-(currItem->Ypos+currItem->Height), false);
+							}
 						}
-						erf = true;
 					}
+					erf = true;
 				}
 				else
 				{
