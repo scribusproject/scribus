@@ -86,6 +86,10 @@ const QString OODrawImportPlugin::fullTrName() const
 const ScActionPlugin::AboutData* OODrawImportPlugin::getAboutData() const
 {
 	AboutData* about = new AboutData;
+	about->authors = "Franz Schmid <franz@scribus.info>";
+	about->shortDescription = tr("Imports OpenOffice Draw Files");
+	about->description = tr("Imports most OpenOffice Draw Files into the current Document,\nconverting their vector data into Scribus objects");
+	about->license = "GPL";
 	Q_CHECK_PTR(about);
 	return about;
 }

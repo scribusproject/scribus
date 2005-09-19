@@ -66,6 +66,10 @@ const QString ImportPSPlugin::fullTrName() const
 const ScActionPlugin::AboutData* ImportPSPlugin::getAboutData() const
 {
 	AboutData* about = new AboutData;
+	about->authors = "Franz Schmid <franz@scribus.info>";
+	about->shortDescription = tr("Imports EPS-Files");
+	about->description = tr("Imports most EPS-Files into the current Document,\nconverting their vector data into Scribus objects");
+	about->license = "GPL";
 	Q_CHECK_PTR(about);
 	return about;
 }
