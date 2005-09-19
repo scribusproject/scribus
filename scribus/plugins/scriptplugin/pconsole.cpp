@@ -26,7 +26,6 @@ the Free Software Foundation; either version 2 of the License, or
 extern QPixmap loadIcon(QString nam);
 
 
-
 PythonConsole::PythonConsole( QWidget* parent)
 	: QWidget( parent, "PythonConsole", WType_TopLevel )
 {
@@ -45,7 +44,7 @@ PythonConsole::PythonConsole( QWidget* parent)
 	fileMenu->insertItem(loadIcon("exit.png"), tr("&Exit"), this, SLOT(slot_quit()));
 	menuBar->insertItem(tr("&File"), fileMenu);
 	QPopupMenu *scriptMenu = new QPopupMenu(this);
-	scriptMenu->insertItem(loadIcon("launch16.png"), tr("&Run"), this, SLOT(slot_runScript()), Key_F9);
+	scriptMenu->insertItem(loadIcon("ok.png"), tr("&Run"), this, SLOT(slot_runScript()), Key_F9);
 	scriptMenu->insertItem(tr("Run As &Console"), this, SLOT(slot_runScriptAsConsole()), Key_F5);
 	scriptMenu->insertItem(tr("&Save Output..."), this, SLOT(slot_saveOutput()));
 	menuBar->insertItem(tr("&Script"), scriptMenu);
@@ -73,7 +72,7 @@ PythonConsole::PythonConsole( QWidget* parent)
 
 	gridLayout->addLayout( editorsLayout, 0, 0 );
 	languageChange();
-	resize( QSize(640, 480).expandedTo(minimumSizeHint()) );
+	resize(QSize(640, 480).expandedTo(minimumSizeHint()));
 	clearWState( WState_Polished );
 
 	// welcome note
@@ -85,8 +84,9 @@ PythonConsole::PythonConsole( QWidget* parent)
 			"so it contains some limitations esp. in the "
 			"case of whitespaces. Please consult Scribus "
 			"manual for more informations.");
-	welcomeText += "\"\"\"";
+	welcomeText += "\"\"\"\n";
 	commandEdit->setText(welcomeText);
+	commandEdit->selectAll(true);
 }
 
 /*
