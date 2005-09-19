@@ -443,7 +443,7 @@ void ActionManager::initToolsMenuActions()
 	scrActions->insert("toolsZoomIn", new ScrAction(QIconSet(loadIcon("viewmagin.png"), loadIcon("viewmagin.png")), "", QKeySequence(CTRL+Key_Plus), ScApp, "toolsZoomIn"));
 	scrActions->insert("toolsZoomOut", new ScrAction(QIconSet(loadIcon("viewmagout.png"), loadIcon("viewmagout.png")), "", QKeySequence(CTRL+Key_Minus), ScApp, "toolsZoomOut"));
 	scrActions->insert("toolsEditContents", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Editm.xpm"), loadIcon("Editm.xpm")), "", QKeySequence(Key_E), ScApp, "toolsEditContents", modeEdit));
-	scrActions->insert("toolsEditWithStoryEditor", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("signature.png"), loadIcon("signature.png")), "", QKeySequence(CTRL+Key_Y), ScApp, "toolsEditWithStoryEditor", modeStoryEditor));
+	scrActions->insert("toolsEditWithStoryEditor", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("signature2.png"), loadIcon("signature.png")), "", QKeySequence(CTRL+Key_Y), ScApp, "toolsEditWithStoryEditor", modeStoryEditor));
 	scrActions->insert("toolsLinkTextFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Lock.xpm"), loadIcon("Lock.xpm")), "", QKeySequence(Key_N), ScApp, "toolsLinkTextFrame", modeLinkFrames));
 	scrActions->insert("toolsUnlinkTextFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Unlock.xpm"), loadIcon("Unlock.xpm")), "", QKeySequence(Key_U), ScApp, "toolsUnlinkTextFrame", modeUnlinkFrames));
 	scrActions->insert("toolsEyeDropper", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("colorpicker.png"), loadIcon("colorpicker.png")), "", QKeySequence(Key_Y), ScApp, "toolsEyeDropper", modeEyeDropper));
