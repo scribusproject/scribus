@@ -2,14 +2,14 @@
 <title>Notes on Importing Issues with Scribus</title>
 <h2>Notes on Importing Issues with Scribus</h2>
 <p>Although Scribus imports most common DTP image formats like TIFF and EPS, over time one of the more difficult tasks in DTP is getting stuff into your layout. Unlike some other DTP programs where printing can be finicky, Scribus print and PDF export has always been very reliable. I can think of
-a handful of times when I had crashes or could not get the desired print or PDF from Scribus. With correctly prepared images and files the output from Scribus matches proprietary layout programs.</p>
-<p>In my experience, the keys to this are using the right format for the right type of image. Whenever possible, import your images as vector via SVG, EPS or PDF. The other is I am <strong>really</strong> picky about fonts. You will see this noted through the docs; when you are working with high-end DTP tools like Scribus, font quality matters. In professional DTP, it matters <strong>a lot</strong>. Probably the number one reason postscript output fails, whether to a printer or PDF export, is a dodgy or corrupted font.</p>
+a handful of times when I had crashes or could not get the desired print or PDF from Scribus. With correctly prepared images and files, the output from Scribus matches proprietary layout programs.</p>
+<p>In my experience, the key to this are using the right format for the right type of image. Whenever possible, import your images as vector via SVG, EPS or PDF. The other is I am <strong>really</strong> picky about fonts. You will see this noted through the docs; when you are working with high-end DTP tools like Scribus, font quality matters. In professional DTP, it matters <strong>a lot</strong>. Probably the number one reason postscript output fails, whether to a printer or PDF export, is a dodgy or corrupted font.</p>
 
 <h3>TIFF, JPEG, PNG what is the difference?</h3>
 <p>Hints (or) avoiding some issues which can baffle a beginner:</p>
 
 <h3>If it looks good on screen it will look good on paper</h3>
-<p>Nope, sorry. One of the most common beginner mistakes is to assume a nice looking JPEG from website will print nicely on paper. Most websites use JPEGs, gifs or sadly, less commonly, PNGs. JPEGs, by their design, are lossy compression. In the process of compressing a JPEG, data is discarded and permanently lost. Moreover, there is a type of JPEG called progressive which is pure poison in a postscript work-flow. A progressive JPEG is the type that partially displays as it is downloading in a web browser. <strong>Avoid these at all costs.</strong> Lastly, remember, most web page graphics have a resolution of 72-96 DPI. Scribus can generate PDFs with 4000 dpi.</p>
+<p>Nope, sorry. One of the most common beginner mistakes is to assume a nice looking JPEG from website will print nicely on paper. Most websites use JPEGs, gifs or sadly, less commonly, PNGs. JPEGs, by their design, are lossy compression. In the process of compressing a JPEG, data is discarded and permanently lost. Moreover, there is a type of JPEG called progressive which is pure poison in a postscript work-flow. A progressive JPEG is the type that partially displays as it is downloading in a web browser. <strong>Avoid these at all costs.</strong> Scribus will not load, nor export progressive jpegs. Lastly, remember, most web page graphics have a resolution of 72-96 DPI. Scribus can generate PDFs with 4000 dpi.</p>
 <p>For high-level postscript printing there are three kinds of file formats that work well for images like photos and anything that is made up of pixels and have been time tested: TIFF, tif and Tiff.</p>
 <p>No matter which way you spell it, a Tagged Image File Format is the file format for bitmap images. Period. End of story. Don't give me any arguments: I'll win.</p>
 
@@ -20,7 +20,7 @@ a handful of times when I had crashes or could not get the desired print or PDF 
 	<li>It handles ICC profiles without problems. You can &#034;tag&#034; it with the little cms utility tifficc or embed an ICC profile in Photoshop, Photopaint and other bitmap editors.</li>
 	<li>It supports CMYK colors better than almost any other bitmap format.</li>
 	<li>Every high end DTP application can support them, including Scribus.</li>
-	<li>TIFF files, if they are prepared properly in the GIMP or Photoshop are extremely reliable when printed commercially and rarely do postscript devices have problems with them.</li>
+	<li>TIFF files, if they are prepared properly in the GIMP or Photoshop are extremely reliable when printed commercially. Rarely do postscript devices have problems with them.</li>
 </ol>
 
 <h3>Caveats</h3>
@@ -43,7 +43,7 @@ Open in Acro Reader. Zoom in 200-400 %. Now you see the difference...</p>
 
 <h3>Think About Fonts When Importing Too</h3>
 <p>A similar issue is the fonts look good on screen, but do not print well. Usually, this is the case of freeware TrueType fonts, downloaded from the web. TrueType fonts, on average will look better on screen, but may not print with the intended results. However, it takes a huge amount of time and QA to create high-quality fonts, especially correctly hinting TrueType fonts. Notice that there are very few high-quality fonts which have been developed in open source. There are a few, but sadly not with the regularity which we see new apps pop up on Freshmeat.</p>
-<p>Conversely, the Type 1 fonts included with Ghostscript are not optimized for on-screen appearance, but they usually make excellent printer fonts. The fonts actually were made by URW++, a well regarded type foundry and were donated to the Ghostscript distribution by Artifex. The only issue is when the Nimbus fonts - their true postscript name are often aliased to Times, Helvetica and Courier. This results in a user thinking it is not necessary to embed these fonts as they come standard with Acrobat Reader. Unfortunately, if they are not embedded Acro Reader does a particularly
+<p>Conversely, the Type 1 fonts included with Ghostscript are not optimized for on-screen appearance, but they usually make excellent printer fonts. The fonts actually were made by URW++, a well regarded type foundry and were donated to the Ghostscript distribution by Artifex. The only issue is when the Nimbus fonts - their true postscript names are often aliased to Times, Helvetica and Courier. This results in a user thinking it is not necessary to embed these fonts as they come standard with Acrobat Reader. Unfortunately, if they are not embedded Acro Reader does a particularly
 poor job of emulating these with its built-in multi-master fonts. With Scribus, you will not have this worry, as Scribus uses the correct PostScript name embedded in the font.</p>
 <p>The Bitstream fonts included with Xfree86 like Charter and the new Vera fonts are fine fonts for printing. I also like the Utopia family which is actually an Adobe Type 1 font donated by IBM. When creating Scribus docs in PDF form, I pretty much use this family exclusively.</p>
 </qt>
