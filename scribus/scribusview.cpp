@@ -1948,7 +1948,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					double newXF = m->x()/sc + Doc->minCanvasCoordinate.x();
 					double newYF = m->y()/sc + Doc->minCanvasCoordinate.y();
 					if (m->state() & ControlButton)
-						np2 = QPoint(qRound(newXF), qRound(((gy+(gh * ((newYF-gx) / gw)))*sc)/sc));
+						np2 = QPoint(qRound(newXF), qRound(gy+(gh * ((newXF-gx) / gw))));
 					else
 						np2 = QPoint(qRound(newXF), qRound(newYF));
 					nx = np2.x();
@@ -1962,8 +1962,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					switch (HowTo)
 					{
 						case 1:
-							scx = fabs(nx-gx) / gw;
 							scy = fabs(ny-gy) / gh;
+							scx = fabs(nx-gx) / gw;
 							break;
 						case 2:
 							scx = fabs(nx-(gx+gw)) / gw;
@@ -3296,10 +3296,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 					{
 					case 1:
 						if (m->state() & ControlButton)
-						{
-							np2 = QPoint(m->x(), qRound((gy+(gh * ((newX-gx) / gw)))*sc));
-							np2 = QPoint(qRound(np2.x()/sc + Doc->minCanvasCoordinate.x()), qRound(np2.y()/sc + Doc->minCanvasCoordinate.y()));
-						}
+							np2 = QPoint(qRound(newX), qRound(gy+(gh * ((newX-gx) / gw))));
 						else
 							np2 = QPoint(qRound(newX), qRound(newY));
 						np2 = ApplyGrid(np2);
