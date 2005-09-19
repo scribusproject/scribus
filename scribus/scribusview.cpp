@@ -6748,7 +6748,9 @@ bool ScribusView::slotSetCurs(int x, int y)
 			uint a, i;
 			int xp, yp, w, h, chs;
 			CursVis = true;
-			for (a=0; a<currItem->itemText.count(); ++a)
+			bool breakAndReturn=false;
+			uint currItemTextCount=currItem->itemText.count();
+			for (a=0; a<currItemTextCount; ++a)
 			{
 				xp = static_cast<int>(currItem->itemText.at(a)->xp);
 				yp = static_cast<int>(currItem->itemText.at(a)->yp);
@@ -6768,6 +6770,9 @@ bool ScribusView::slotSetCurs(int x, int y)
 				{
 					currItem->CPos = a;
 					p.end();
+					breakAndReturn=true;
+					break;
+					/*
 					Doc->CurrFont = currItem->itemText.at(a)->cfont->SCName;
 					Doc->CurrFontSize = currItem->itemText.at(a)->csize;
 					Doc->CurrTextFill = currItem->itemText.at(a)->ccolor;
@@ -6798,10 +6803,46 @@ bool ScribusView::slotSetCurs(int x, int y)
 					emit ItemTextAbs(currItem->itemText.at(a)->cab);
 					emit ItemTextFarben(currItem->itemText.at(a)->cstroke, currItem->itemText.at(a)->ccolor, currItem->itemText.at(a)->cshade2, currItem->itemText.at(a)->cshade);
 					return true;
+					*/
+					
 				}
 			}
+			if (breakAndReturn)
+			{
+				Doc->CurrFont = currItem->itemText.at(a)->cfont->SCName;
+				Doc->CurrFontSize = currItem->itemText.at(a)->csize;
+				Doc->CurrTextFill = currItem->itemText.at(a)->ccolor;
+				Doc->CurrTextFillSh = currItem->itemText.at(a)->cshade;
+				Doc->CurrTextStroke = currItem->itemText.at(a)->cstroke;
+				Doc->CurrTextStrokeSh = currItem->itemText.at(a)->cshade2;
+				Doc->CurrTextScale = currItem->itemText.at(a)->cscale;
+				Doc->CurrTextScaleV = currItem->itemText.at(a)->cscalev;
+				Doc->CurrTextBase = currItem->itemText.at(a)->cbase;
+				Doc->CurrTextShadowX = currItem->itemText.at(a)->cshadowx;
+				Doc->CurrTextShadowY = currItem->itemText.at(a)->cshadowy;
+				Doc->CurrTextOutline = currItem->itemText.at(a)->coutline;
+				Doc->CurrTextUnderPos = currItem->itemText.at(a)->cunderpos;
+				Doc->CurrTextUnderWidth = currItem->itemText.at(a)->cunderwidth;
+				Doc->CurrTextStrikePos = currItem->itemText.at(a)->cstrikepos;
+				Doc->CurrTextStrikeWidth = currItem->itemText.at(a)->cstrikewidth;
+				emit ItemTextStrike(currItem->itemText.at(a)->cstrikepos, currItem->itemText.at(a)->cstrikewidth);
+				emit ItemTextUnderline(currItem->itemText.at(a)->cunderpos, currItem->itemText.at(a)->cunderwidth);
+				emit ItemTextOutline(currItem->itemText.at(a)->coutline);
+				emit ItemTextShadow(currItem->itemText.at(a)->cshadowx, currItem->itemText.at(a)->cshadowy);
+				emit ItemTextBase(currItem->itemText.at(a)->cbase);
+				emit ItemTextSca(currItem->itemText.at(a)->cscale);
+				emit ItemTextScaV(currItem->itemText.at(a)->cscalev);
+				emit ItemTextFont(currItem->itemText.at(a)->cfont->SCName);
+				emit ItemTextSize(currItem->itemText.at(a)->csize);
+				emit ItemTextUSval(currItem->itemText.at(a)->cextra);
+				emit ItemTextStil(currItem->itemText.at(a)->cstyle);
+				emit ItemTextAbs(currItem->itemText.at(a)->cab);
+				emit ItemTextFarben(currItem->itemText.at(a)->cstroke, currItem->itemText.at(a)->ccolor, currItem->itemText.at(a)->cshade2, currItem->itemText.at(a)->cshade);
+				return true;
+			}
 			QPoint np;
-			for (a=0; a<currItem->itemText.count(); ++a)
+			currItemTextCount=currItem->itemText.count();
+			for (a=0; a<currItemTextCount; ++a)
 			{
 				xp = static_cast<int>(currItem->itemText.at(a)->xp);
 				yp = static_cast<int>(currItem->itemText.at(a)->yp);
