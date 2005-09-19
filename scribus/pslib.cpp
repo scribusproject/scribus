@@ -1576,23 +1576,26 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					putColor(c->fillColor(), c->fillShade(), true);
 				PS_newpath();
 			}
-			if ((c->NamedLStyle.isEmpty()) && (c->Pwidth != 0.0))
+			if ((c->lineColor() != "None") || (!c->NamedLStyle.isEmpty()))
 			{
-				SetClipPath(&c->PoLine, false);
-				putColor(c->lineColor(), c->lineShade(), false);
-			}
-			else
-			{
-				multiLine ml = Doc->MLineStyles[c->NamedLStyle];
-				for (int it = ml.size()-1; it > -1; it--)
+				if ((c->NamedLStyle.isEmpty()) && (c->Pwidth != 0.0))
 				{
-					SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
-					PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-					PS_setlinewidth(ml[it].Width);
-					PS_setcapjoin(static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
-					PS_setdash(static_cast<Qt::PenStyle>(ml[it].Dash), 0, dum);
 					SetClipPath(&c->PoLine, false);
-					putColor(ml[it].Color, ml[it].Shade, false);
+					putColor(c->lineColor(), c->lineShade(), false);
+				}
+				else
+				{
+					multiLine ml = Doc->MLineStyles[c->NamedLStyle];
+					for (int it = ml.size()-1; it > -1; it--)
+					{
+						SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
+						PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+						PS_setlinewidth(ml[it].Width);
+						PS_setcapjoin(static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
+						PS_setdash(static_cast<Qt::PenStyle>(ml[it].Dash), 0, dum);
+						SetClipPath(&c->PoLine, false);
+						putColor(ml[it].Color, ml[it].Shade, false);
+					}
 				}
 			}
 			if (c->startArrowIndex != 0)
