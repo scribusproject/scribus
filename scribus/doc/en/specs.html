@@ -1,8 +1,8 @@
 <qt>
-<title>Scribus 1.3.x Specifications</title>
-<h2>Scribus 1.3.x Specifications</h2>
+<title>Scribus Specifications</title>
+<h2>Scribus Specifications</h2>
 <h3>Summary:</h3>
-<p>Scribus is a GPL desktop publishing (DTP) program primarly, but not exclusively, for Linux and Unix-based operating systems. Its goals are to be both user friendly, yet offer advanced professional features. Win32 and a native Aqua OSX ports are well underway.</p>
+<p>Scribus is a GPL desktop publishing (DTP) program similar for Linux and Unix-based operating systems. Its goals are to be both user friendly, yet offer advanced professional features.</p>
 <h3>Document Features:</h3>
 <ul>
 	<li>Supports Unicode text and fonts including right to left text for Arabic and Hebrew script via freetype2.</li>
@@ -17,16 +17,15 @@
 
 <h3>Professional Publishing Features:</h3>
 <ul>
-	<li>CMYK color including ICC color managed previews of images and embedding ICC profiles in PDF documents for accurate screen to print color.</li>
-	<li>Creation of CMYK and RGB color PostScript separations, including support for N-up color separations for up to 8 separate spot colors..</li>
+	<li>CMYK color including ICC color managed previews of images and embedding ICC profiles in PDF documents for accurate screen to print color. Scribus supports the proposed openicc specification for profiles.</li>
+	<li>Creation of CMYK and RGB color PostScript separations.</li>
 	<li>Sophisticated PDF creation, including interactive PDF forms, support for nearly all PDF field types, and JavaScript actions.</li>
-	<li>The ability to output to professional quality image-setting equipment including advanced Level 3/PDF 1.4+ PostScript devices.</li>
+	<li>The ability to output to professional quality image-setting equipment including advanced Level 3/PDF 1.4 postscript devices.</li>
 	<li>Encapsulated PostScript import with previews on the page canvas / EPS export.</li>
 	<li>Full support for Level 2 PostScript output, a very large subset of Level 3 and support for PDF 1.4 features including transparency, gradients and 128 bit security.</li>
-	<li>Full Compliance with PDF/X-3, an ISO standard for creating &#034;press ready&#034; PDFs - a first for any DTP application.</li>
-	<li>Supports font embedding and sub-setting in both PostScript and PDF export.</li>
+	<li>Full Compliance with PDF/X-3, an ISO standard for creating &#034;press ready&#034; PDFs - a first for any page layout application.</li>
+	<li>Supports font embedding and sub-setting in both postscript and PDF export.</li>
 	<li>Scribus can convert all supported fonts into PostScript outlines, which can be further edited in Scribus.</li>
-<li>Document Pre-Flight Tool tests for print or export readiness.</li>
 </ul>
 
 <h3>Ease of use features:</h3>
@@ -44,16 +43,16 @@
 
 <h3>File Formats:</h3>
 <ul>
-	<li>EPS (Encapsulated PostScript) JPEG (Joint Photographic Experts Group) PNG (Portable Network Graphics), TIFF (Tag Image File Format), and XPM (XpixMap).</li>
-	<li>Scribus native file format is fully documented and XML based - a PDF of the file format is available on line.</li>
+	<li>EPS (Encapsulated PostScript), JPEG (Joint Photographic Experts Group), PNG (Portable Network Graphics), TIFF (Tag Image File Format), and XPM (XpixMap). PSD support includes layers and clipping paths. 16-bit TIFF and PSD support is in testing.</li>
+	<li>Scribus 1.2.x native file format is fully documented and XML based. The current 1.3.x format is a transitional format which will have a full DTD before the next stable release. </li>
 	<li>Scribus can also import and export well-formed SVG 1.0 (Scalable Vector Graphics) including text on a path, images and text. Scribus can export all features of a Scribus document as SVG. Images are converted to PNG when exporting SVG.</li>
-	<li>Scribus can import text with many different encodings including Unicode, as well as support for Open Office.org 1.x and OASIS Open Document support. Styles and formatting are retained on import. </li>
+	<li>Scribus can import text with many different encodings including Unicode, as well as support for OpenOffice.org 1.x and OASIS Open Document Writer and Draw files. Styles and formatting are retained on import. </li>
 </ul>
 
 <h3>Architecture:</h3>
 <ul>
-	<li>Developed with GPL QT 3 for Linux and &#034;Unix like&#034; operating systems. Scribus has been ported to Fink and is actively maintained for X11 applications on Mac OS X.</li>
-	<li>Plug-in support and API including import plug-ins and special character inserter.</li>
+	<li>Developed with GPL QT 3 for Linux and &#034;Unix like&#034; operating systems. Scribus has been ported to Fink and is actively maintained for X11 applications on Mac OS X. Scribus 1.3.x is actively being ported to native Win32 and MacOSX.</li>
+	<li>Plug-in support and API including import and export plug-ins. </li>
 	<li>Powerful Python Scripting Plug-in for extending Scribus functions and automating tasks, as well as calling external applications within Scribus.</li>
 </ul>
 <h3>Target Usage:</h3>
