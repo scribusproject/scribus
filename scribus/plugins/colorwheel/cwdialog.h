@@ -67,9 +67,11 @@ class ColorWheelDialog : public QDialog
 		ColorWheel* colorWheel;
 		QLabel* previewLabel;
 		QLabel* angleLabel;
-		QLabel* darkLabel;
+		QLabel* sLabel;
+		QLabel* vLabel;
 		QSpinBox* angleSpin;
-		QSpinBox* darkSpin;
+		QSpinBox* sSpin;
+		QSpinBox* vSpin;
 		QPushButton* addButton;
 		QPushButton* replaceButton;
 		QPushButton* cancelButton;
@@ -77,26 +79,35 @@ class ColorWheelDialog : public QDialog
 		QComboBox* defectCombo;
 
 	protected:
-		/** It fills a colors into list view. It takes colors
-		from ColorWheel widget. */
+		/** \brief It fills a colors into list view.
+		It takes colors from ColorWheel widget. */
 		void fillColorList();
+
 		QGridLayout* formLayout;
 		QHBoxLayout* mainLayout;
 		QVBoxLayout* wheelLayout;
 		QSpacerItem* spacer1;
 		QHBoxLayout* angleLayout;
-		QHBoxLayout* darkLayout;
+		QHBoxLayout* sLayout;
+		QHBoxLayout* vLayout;
 		QVBoxLayout* listLayout;
 		QHBoxLayout* buttonLayout;
 		QHBoxLayout* defectLayout;
-		/** Configuration structure */
+
+		/** \brief Configuration structure */
 		PrefsContext* prefs;
-		/** Draws a strange colorful things as preview of the color schema. */
+
+		/** \brief Draws a strange colorful things as preview of the color schema. */
 		void setPreview();
-		/*! Main color manipulator for preview.
+
+		/*! \brief Main color manipulator for preview.
 		\param c input color. QColor from sample list.
 		\retval QColor It returns c for normalVision. It calls transformations for other filters*/
 		QColor computeDefect(QColor c);
+
+		/*! \brief Handling of the user requested colors via menus.
+		\param c a color given by create/importColor */
+		void userColorInput(QColor c);
 
 	public slots:
 		virtual void typeCombo_activated(int);
@@ -106,11 +117,15 @@ class ColorWheelDialog : public QDialog
 		virtual void replaceButton_clicked();
 		virtual void cancelButton_clicked();
 		virtual void angleSpin_valueChanged(int);
-		virtual void darkSpin_valueChanged(int);
+		virtual void sSpin_valueChanged(int);
+		virtual void vSpin_valueChanged(int);
 
 	protected slots:
 		virtual void languageChange();
+
+		/*! \brief Color from "new color" dialog. Via menu. */
 		virtual void createColor();
+		/*! \brief Color from "show existing colors" dialog. Via menu. */
 		virtual void importColor();
 
 };

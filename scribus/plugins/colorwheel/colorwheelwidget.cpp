@@ -14,7 +14,8 @@ ColorWheel::ColorWheel(QWidget * parent, const char * name) : QLabel(parent, nam
 	baseAngle = 0;
 	angleShift = 270;
 	widthH = heightH = 150;
-	darkness = 100;
+	setV(255);
+	setS(255);
 }
 
 QPixmap ColorWheel::sample(QColor c)
@@ -57,6 +58,11 @@ void ColorWheel::paintCenterSample()
 
 void ColorWheel::paintWheel()
 {
+	int h, s, v;
+	actualColor.hsv(&h, &s, &v);
+	setV(v);
+	setS(s);
+
 	colorMap.clear();
 	QPixmap pm(width(), height());
 	pm.fill(Qt::white);
@@ -123,7 +129,10 @@ ScColor ColorWheel::cmykColor(QColor col)
 	ScColor c = ScColor();
 	/* Dirty Hack to avoid Color Managed RGB -> CMYK conversion */
 	c.setSpotColor(true);
-	c.fromQColor(col.dark(darkness));
+	int h, sm, vm;
+	col.hsv(&h, &sm, &vm);
+	col.setHsv(h, s(), v());
+	c.fromQColor(col);
 	c.setColorModel(colorModelCMYK);
 	c.setSpotColor(false);
 	return c;
@@ -230,35 +239,56 @@ int ColorWheel::valueFromPoint(const QPoint & p) const
 	int dist = 0;
 	int minv = 0, maxv = 359;
 	int r = maxv - minv;
-	int v;
+	int val;
 
-	v =  (int)(0.5 + minv + r * (M_PI * 3/2 -a) / (2 * M_PI));
+	val = (int)(0.5 + minv + r * (M_PI * 3/2 -a) / (2 * M_PI));
 
 	if ( dist > 0 )
-		v -= dist;
+		val -= dist;
 
-	return v;
+	return val;
 }
 
-void ColorWheel::recomputeColor(QColor col)
+bool ColorWheel::recomputeColor(QColor col)
 {
-	int h, s, v;
+	int origh, origs, origv;
 	ColorMap::iterator it;
 
-	col.hsv(&h, &s, &v);
+	col.hsv(&origh, &origs, &origv);
 	for (it = colorMap.begin(); it != colorMap.end(); ++it)
 	{
-		int hm, sm, vm;
-		it.data().hsv(&hm, &sm, &vm);
-		if (h == hm)
+		int tmph, tmps, tmpv;
+		it.data().hsv(&tmph, &tmps, &tmpv);
+		if (origh == tmph)
 		{
 			QColor c;
-			c.setHsv(h, 255, 255);
+			c.setHsv(tmph, 255, 255);
 			actualColor = c;
 			baseAngle = it.key();
-			darkness = vm;
-			return;
+			setV(origv);
+			setS(origs);
+			return true;
 		}
 	}
-	qDebug("DEBUG: ColorWheel::recomputeColor(QColor col): color not in colorMap");
+	return false;
+}
+
+void ColorWheel::setV(int value)
+{
+	vcomp = value;
+}
+
+void ColorWheel::setS(int value)
+{
+	scomp = value;
+}
+
+int ColorWheel::s()
+{
+	return scomp;
+}
+
+int ColorWheel::v()
+{
+	return vcomp;
 }

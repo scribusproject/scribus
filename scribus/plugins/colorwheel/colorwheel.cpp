@@ -57,7 +57,7 @@ const ScActionPlugin::AboutData* ColorWheelPlugin::getAboutData() const
 	AboutData* about = new AboutData;
 	Q_CHECK_PTR(about);
 	about->authors = QString::fromUtf8("Petr Van\xc4\x9bk <petr@scribus.info>");
-	about->shortDescription = tr("Color setting helper.");
+	about->shortDescription = tr("Color setting helper");
 	about->description = tr("Color selector with color theory included.");
 	// about->version
 	// about->releaseDate
