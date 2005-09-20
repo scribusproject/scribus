@@ -5454,7 +5454,7 @@ void ScribusApp::slotNewPage(int w, bool mov)
 	slotDocCh(!doc->loading); */
 }
 
-/*
+
 void ScribusApp::duplicateToMasterPage()
 {
 	NewTm *dia = new NewTm(this, tr("Name:"), tr("Convert Page to Master Page"), doc);
@@ -5489,8 +5489,8 @@ void ScribusApp::duplicateToMasterPage()
 	}
 	delete dia;
 }
-*/
 
+/* CB TODO Remove after 1.3.1 release
 void ScribusApp::duplicateToMasterPage()
 {
 	QString MasterPageName;
@@ -5630,7 +5630,7 @@ void ScribusApp::duplicateToMasterPage()
 	}
 	delete dia;
 }
-
+*/
 /*!
 	\fn void ScribusApp::slotZoom(double zoomFactor)
 	\author Craig Bradney

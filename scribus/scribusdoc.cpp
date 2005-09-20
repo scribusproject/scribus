@@ -2040,14 +2040,15 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 	pageCount = 0;
 	bool atf = PageAT;
 	PageAT = false;
+	//Note we are bypassing the view here, but things seem fine. The master page is offscreen anyway.
 	//ScApp->slotNewPage(nr);
+	//Page* targetPage = Pages.at(nr);	
 	Page* targetPage=addPage(nr);
 	setLoading(true);
 	if (currentPageLayout != singlePage)
 		Pages.at(nr)->LeftPg = leftPage;
 	QMap<int,int> TableID;
 	QPtrList<PageItem> TableItems;
-	//Page* targetPage = Pages.at(nr);
 	if (sourcePage->YGuides.count() != 0)
 	{
 		targetPage->YGuides.clear();
