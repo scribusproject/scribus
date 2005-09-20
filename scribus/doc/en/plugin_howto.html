@@ -358,46 +358,8 @@ myPluginPrefs-&gt;set("s", "cat");
 	of this is that you can interact with these classes without having to
 	delve into the guts of ScApp.</p>
 
-<h3>Some (useful) code examples</h3>
-
-<p>Some pieces of the code from the source code follows. Be aware that
-due to the often rapid change of the codebase, some of this might be
-out of date.</p>
-
-<h4>How to show what are you doing to the user in Scribus's statusbar:</h4>
-
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
-<pre>
-ScApp-&gt;FMess-&gt;setText(aText);
-</pre>
-</small></td></tr></table></blockquote>
-
-<h4>Determining if an item is a text frame:</h4>
-
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
-<pre>
-PageItem *aFrame;
-if (aFrame-&gt;PType==PageItem::TextFrame) {}
-</pre>
-</small></td></tr></table></blockquote>
-
-<h4>Navigation through the pages:</h4>
-
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
-<pre>
-for (uint i=0; i<plug->view-&gt;Pages.count(); i++)
-{
-	plug-&gt;FMess-&gt;setText(QObject::tr("Page: ")
-			+ i
-			+ plug-&gt;view-&gt;Pages.at(i)-&gt;PageNam);
-	// do something with active page
-	parse(plug-&gt;view-&gt;Pages.at(i));
-}
-</pre>
-</small></td></tr></table></blockquote>
-
 <h3>Plugin related links</h3>
 <a href="http://doc.trolltech.com/">Qt documentation from Trolltech</a><br />
-<a href="http://doc.trolltech.com/3.2/qmake-manual.html">QMake documentation from Trolltech</a><br />
+<a href="http://doc.trolltech.com/3.3/qmake-manual.html">QMake documentation from Trolltech</a><br />
 <a href="http://www.murrayc.com/learning/linux/automake/automake.shtml">Automake/autoconf example</a><br />
 </qt>
