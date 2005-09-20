@@ -84,7 +84,7 @@ const ScActionPlugin::AboutData* SVGExportPlugin::getAboutData() const
 	AboutData* about = new AboutData;
 	about->authors = "Franz Schmid <franz@scribus.info>";
 	about->shortDescription = tr("Exports SVG Files");
-	about->description = tr("Exports the current Page into an SVG file.");
+	about->description = tr("Exports the current page into an SVG file.");
 	about->license = "GPL";
 	Q_CHECK_PTR(about);
 	return about;
