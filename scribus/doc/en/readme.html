@@ -13,9 +13,9 @@ within your Scribus document. Version 1.2.1 supported OpenOffice.org 1.1.x and S
 Version 1.2.2+ supports OpenOffice.org 2.x/Star Office 8.x (OASIS) as well.
 </p>
 
-<p>Scribus 1.2.3 also includes 2 icc color profiles to make sure color management is working immediately after install. Note that these are basic generic profiles not sufficient to ensure good color management. See the help files for details under <a href="cms.html">color management</a>. Grey scale icc profiles in images are not supported in this release.</p>
+<p>Scribus 1.2.4 also includes 2 icc color profiles to make sure color management is working immediately after install. Note that these are basic generic profiles not sufficient to ensure good color management. See the help files for details under <a href="cms.html">color management</a>. Grey scale icc profiles in images are not supported in this release.</p>
 
-<p>Scribus 1.2.3 also supports the proposed OpenIcc standard icc profile locations: $home/color/icc and /usr/share/color/icc/ under linux. Scribus will automatically detect them in these locations. Some distro neutral rpms for installing profiles are available on www.scribus.net.</p>
+<p>Scribus 1.2.4 also supports the proposed OpenIcc standard icc profile locations: $home/color/icc and /usr/share/color/icc/ under linux. Scribus will automatically detect them in these locations. Some distro neutral rpms for installing profiles are available on www.scribus.net.</p>
 
 <p>For detailed changes please see the ChangeLog.</p>
 
@@ -56,13 +56,14 @@ A fix is expected in a future release. Registration with UCR disabled works prop
 	This we believe is a libart issue and not fixable by us. The gradient will export
 	and print properly.</p>
 	
-<strong>	For Debian Users:	</strong>
+<strong>	For Debian/Ubuntu Users:	</strong>
 <p>
 	If Scribus does not start while complaining about the absence of
 	PostScript fonts please install either xfonts-scalable or gsfonts-x11.
 	They are in the "Recommends" and will be installed by all sensible apt
 	front-ends.
-</p>	
+</p>
+<p>We recommend all Debian/Ubuntu users to use the Scribus Debian Repository for updated Scribus package. These are newer and contain many bug fixes and updates, compared to the ones installed by default. See http://debian.scribus.net </p>	
 <p><strong>	For SuSE 9.x Users:</strong></p>
 	<ul>
 <li>The littlecms libs 1.10, which shipped with Suse 9.0 does not offer complete
