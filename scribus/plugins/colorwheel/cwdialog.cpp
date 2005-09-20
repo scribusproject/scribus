@@ -276,14 +276,14 @@ void ColorWheelDialog::languageChange()
 	QToolTip::add(addButton, "<qt>" + tr("Merge created colors into the document colors") + "</qt>");
 	QToolTip::add(replaceButton, "<qt>" + tr("Replace created colors in the document colors") + "</qt>");
 	QToolTip::add(cancelButton, "<qt>" + tr("Leave colors untouched") + "</qt>");
-	QToolTip::add(angleSpin, "<qt>" + tr("Difference between selected value and counted ones. See documentation for more info") + "</qt>");
+	QToolTip::add(angleSpin, "<qt>" + tr("Difference between the selected value and the counted ones. Refer to documentation for more information.") + "</qt>");
 	QToolTip::add(sSpin, "<qt>" + tr("Saturation component in HSV mode") + "</qt>");
 	QToolTip::add(vSpin, "<qt>" + tr("Value component in HSV mode") + "</qt>");
-	QToolTip::add(colorWheel, "<qt>" + tr("Click the wheel to get base color. It's hue in HSV mode") + "</qt>");
-	QToolTip::add(previewLabel, "<qt>" + tr("Here you have the sample color schema") + "</qt>");
-	QToolTip::add(typeCombo, "<qt>" + tr("Select one of the method to create color schema. See documentation for more info") + "</qt>");
-	QToolTip::add(colorList, "<qt>" + tr("Here you have the color of your chosen color schema") + "</qt>");
-	QToolTip::add(defectCombo, "<qt>" + tr("You can simulate common vision defects here. Just select type of the defect") + "</qt>");
+	QToolTip::add(colorWheel, "<qt>" + tr("Click the wheel to get the base color. It is hue in HSV mode.") + "</qt>");
+	QToolTip::add(previewLabel, "<qt>" + tr("Sample color scheme") + "</qt>");
+	QToolTip::add(typeCombo, "<qt>" + tr("Select one of the methods to create a color scheme. Refer to documentation for more information.") + "</qt>");
+	QToolTip::add(colorList, "<qt>" + tr("Colors of your chosen color scheme") + "</qt>");
+	QToolTip::add(defectCombo, "<qt>" + tr("Simulate common vision defects here. Select type of the defect.") + "</qt>");
 }
 
 void ColorWheelDialog::fillColorList()
@@ -499,6 +499,6 @@ void ColorWheelDialog::userColorInput(QColor c)
 	else
 		QMessageBox::information(this, caption(),
 				"<qt>" + tr("Unable to find the requested color. "
-							"You have selected white, black or gray propably. "
-							"There is no way to process this color") + "</qt>");
+							"You have probably selected black, gray or white. "
+							"There is no way to process this color.") + "</qt>");
 }
