@@ -2,29 +2,25 @@
 <title>Scripting Scribus with Python</title>
 <h2>Scripting Scribus with Python</h2>
 
-<h4>Abstract</h4>
-<p>This is the description how to use the Scripting Plugin for Scribus. This Plugin allows you to use the powerful Python Language as a Scripting Language in Scribus.</p>
+<h4>Overview</h4>
+<p>This is the description how to use the Scripting Plugin for Scribus. The scripter allows you to use the powerful Python Language as a scripting language in Scribus. This can allow you to automate otherwise repetitive tasks among other features. </p>
 
-<p>This manual is the first version, by no means complete or fully accurate. There are just a couple of commands written in red letters aren't yet implemented yet in this version.</p>
+<p>This manual is the first version, by no means complete or fully accurate. Addtions to the scripter are made frequently, so a short note to the mailing list is in order ifyou have questions.</p>
 
-<p>There are some simple example scripts in the samples subdirectory where Scribus is installed. If you have created scripts which would be useful for other users, please feel free to contribute a copy to the program author, Franz Schmid. Hopefully, in the near future, a Scribus plug-in gallery will be added.</p>
+<p>There are some simple example scripts in the samples subdirectory where Scribus is installed. If you have created scripts which would be useful for other users, please feel free to upload it to www.scribus.net or mail mrdocs at scribus.info with an attachment. We hope to add a plug-in gallery to the main website in the future. </p>
 
 <h3>Using the Plugin</h3>
 
 <table width="100%"><tr><td align="center"><img src="images/Scripter.png" align="center" alt="Running a script" title="Running a script" /></td></tr></table>
 
-<p>To execute a Python Script select "Script-&gt;Execute Script..." Scribus will display a File select Box which allows you to select a Python Script. Below there is an extra Menu item "Recent Scripts" where all your recent Scripts are remembered. How many Scripts are remembered depends on your Setting for Recent Documents in the Scribus Preferences.</p>
+<p>To execute a Python Script select "Script-&gt;Execute Script..." Scribus will display a File select Box which allows you to select a Python Script. Below that, there is a menu item "Recent Scripts" where the most recently run scripts are listed. The number listed depends on your preferences setting. </p> 
 
-<p>You can use many Python Programs with this Plugin. The only exception are Scripts who expect Parameters from the Command Line. They won't work because the Plugin gives the Python Interpreter an empty Command Line.</p>
+<p>You can use many Python modules with this Plugin. The only exception are scripts who expect parameters from the command Line. They won't work because the plugin gives the Python interpreter an empty command line.</p>
 
-<p>The Menu Item "Show Console" gives you an interactive Python Console, where you can execute Commands directly. There is no need to do a "from scribus import *", this has already been done. You can use all the following Commands in the Scripter API section directly without any Prefix. Scribus Python console is quite different from Python console itself. It takes some useful things from well known development tools.</p>
+<p>The nenu item "Show Console" gives you an interactive Python console, where you can execute commands directly. There is no need to do a "from scribus import *", this has already been done. You can use all the following commands in the Scripter API section directly without any prefix.</p>
 
-<p>The console window id divided into two parts. First part, the code editor, is simple programming text editor. You can here load and save your scripts or files with some unrelated commands. You can run all commands at once by "Script/Run" menu item (or just press "F9" key) but you can select only a piece of the text so then will be only selected commands processed. The second way can be used for simple debugging of the large scripts. You can have e.g. file with small pieces of the frequently used commands (e.g. a loop with eleven text boxes creation) then you can quickly "select and run" without any writting.</p>
+<p>You can findsome useful information about any script calling "Script-&gt;About Script...".</p>
 
-<p>Second part of the console is the output window. It is a container of the output of your commands or scripts. Text in this window is erased everytime you run new command but you can save actual content by "Script/Save Output...".</p>
-
-<p>You can get some useful informations about any script calling "Script-&gt;About Script...".</p>
-
-<p>You can display this Reference Manual when you select "Help-&gt;Scripter Manual...".</p>
+<p>You can display the full Scripter reference manual when you select "Help-&gt;Scripter Manual...".</p>
 
 </qt>
