@@ -55,6 +55,13 @@ const ScActionPlugin::AboutData* FontPreviewPlugin::getAboutData() const
 {
 	AboutData* about = new AboutData;
 	Q_CHECK_PTR(about);
+	about->authors = QString::fromUtf8("Petr Van\xc4\x9bk <petr@scribus.info>");
+	about->shortDescription = tr("Font Preview dialog");
+	about->description = tr("Sorting, searching and browsing available fonts.");
+	// about->version
+	// about->releaseDate
+	// about->copyright
+	about->license = "GPL";
 	return about;
 }
 

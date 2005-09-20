@@ -76,6 +76,18 @@ const ScActionPlugin::AboutData* ShortWordsPlugin::getAboutData() const
 {
 	AboutData* about = new AboutData;
 	Q_CHECK_PTR(about);
+	about->authors = QString::fromUtf8("Petr Van\xc4\x9bk <petr@scribus.info>, "
+			"Łukasz [DeeJay1] Jernaś <deejay1@nsj.srem.pl>, "
+			"Maciej Hanski, Zdenko Podobny, Mikolaj Machowski <mikmach@wp.pl>, "
+			"Ludi Maciel, Frederico Guimarães, "
+			"Claudio Beccari <claudio.beccari@polito.it>, "
+			"Christoph Schäfer <christoph-schaefer@gmx.de>");
+	about->shortDescription = tr("Short Words");
+	about->description = tr("Special plug-in for adding non-breaking spaces before or after so called short words.");
+	// about->version
+	// about->releaseDate
+	// about->copyright
+	about->license = "GPL";
 	return about;
 }
 

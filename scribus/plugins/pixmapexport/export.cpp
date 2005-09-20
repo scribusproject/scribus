@@ -64,6 +64,13 @@ const ScActionPlugin::AboutData* PixmapExportPlugin::getAboutData() const
 {
 	AboutData* about = new AboutData;
 	Q_CHECK_PTR(about);
+	about->authors = QString::fromUtf8("Petr Van\xc4\x9bk <petr@scribus.info>");
+	about->shortDescription = tr("Export As Image");
+	about->description = tr("Export selected pages as bitmap image.");
+	// about->version
+	// about->releaseDate
+	// about->copyright
+	about->license = "GPL";
 	return about;
 }
 
