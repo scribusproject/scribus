@@ -262,10 +262,10 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	tabFillCombo = new QComboBox( true, subTabText, "tabFillCombo" );
 	tabFillCombo->setEditable(false);
 	tabFillCombo->insertItem( tr("None"));
-	tabFillCombo->insertItem( "Dot");
-	tabFillCombo->insertItem( "Hyphen");
-	tabFillCombo->insertItem( "Underscore");
-	tabFillCombo->insertItem( "Custom");
+	tabFillCombo->insertItem( tr("Dot"));
+	tabFillCombo->insertItem( tr("Hyphen"));
+	tabFillCombo->insertItem( tr("Underscore"));
+	tabFillCombo->insertItem( tr("Custom"));
 	if (prefsData->tabFillChar.isEmpty())
 	{
 		tabFillCombo->setEditable(false);

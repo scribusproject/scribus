@@ -280,18 +280,18 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLangu
 	fileMenu->insertItem(loadIcon("DateiPrint.xpm"), tr("&Print..."), this, SLOT(print()), CTRL+Key_P);
 	fileMenu->insertSeparator();
 	fileMenu->insertItem(loadIcon("exit.png"), tr("E&xit"), this, SLOT(close()));
-	menuBar->insertItem("&File", fileMenu);
+	menuBar->insertItem( tr("&File"), fileMenu);
 	QPopupMenu *editMenu = new QPopupMenu(this);
-	editMenu->insertItem(loadIcon("find.png"), "&Find...", this, SLOT(find()), CTRL+Key_F);
-	editMenu->insertItem("Find &Next", this, SLOT(findNext()), Key_F3);
-	editMenu->insertItem("Find &Previous", this, SLOT(findPrevious()), SHIFT+Key_F3);
-	menuBar->insertItem("&Edit", editMenu);
+	editMenu->insertItem(loadIcon("find.png"), tr("&Find..."), this, SLOT(find()), CTRL+Key_F);
+	editMenu->insertItem( tr("Find &Next"), this, SLOT(findNext()), Key_F3);
+	editMenu->insertItem( tr("Find &Previous"), this, SLOT(findPrevious()), SHIFT+Key_F3);
+	menuBar->insertItem( tr("&Edit"), editMenu);
 	QPopupMenu *bookmarkMenu = new QPopupMenu(this);
-	bookmarkMenu->insertItem("&Add Bookmark", this, SLOT(bookmarkButton_clicked()), CTRL+Key_D);
-	bookmarkMenu->insertItem("&Delete", this, SLOT(deleteBookmarkButton_clicked()));
-	bookmarkMenu->insertItem("D&elete All", this, SLOT(deleteAllBookmarkButton_clicked()));
+	bookmarkMenu->insertItem( tr("&Add Bookmark"), this, SLOT(bookmarkButton_clicked()), CTRL+Key_D);
+	bookmarkMenu->insertItem( tr("&Delete"), this, SLOT(deleteBookmarkButton_clicked()));
+	bookmarkMenu->insertItem( tr("D&elete All"), this, SLOT(deleteAllBookmarkButton_clicked()));
 	helpBrowsermainLayout->setMenuBar(menuBar);
-	menuBar->insertItem("&Bookmarks", bookmarkMenu);
+	menuBar->insertItem( tr("&Bookmarks"), bookmarkMenu);
 
 	languageChange();
 	resize( QSize(640, 480).expandedTo(minimumSizeHint()) );
