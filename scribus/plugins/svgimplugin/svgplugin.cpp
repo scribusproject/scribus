@@ -79,8 +79,8 @@ const ScActionPlugin::AboutData* SVGImportPlugin::getAboutData() const
 {
 	AboutData* about = new AboutData;
 	about->authors = "Franz Schmid <franz@scribus.info>";
-	about->shortDescription = tr("Imports SVG-Files");
-	about->description = tr("Imports most SVG-Files into the current Document,\nconverting their vector data into Scribus objects");
+	about->shortDescription = tr("Imports SVG Files");
+	about->description = tr("Imports most SVG files into the current document,\nconverting their vector data into Scribus objects");
 	about->license = "GPL";
 	Q_CHECK_PTR(about);
 	return about;
