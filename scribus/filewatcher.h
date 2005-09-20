@@ -17,15 +17,28 @@ class SCRIBUS_API FileWatcher : public QObject
 public:
 	FileWatcher(QWidget* parent);
 	~FileWatcher();
-	void addFile(QString fileName);
-	void removeFile(QString fileName);
-	void addDir(QString fileName);
-	void removeDir(QString fileName);
-	void start();
-	void stop();
-	void forceScan();
 	bool isActive();
+	// Set the timer length in milliseconds
+	void setTimeOut(const int);
+	// Get the timer length
+	const int timeOut();
 	QValueList<QString> files();
+	
+public slots:
+	//Add a file to the watch list for monitoring
+	void addFile(QString fileName);
+	//Remove a file from the watch list
+	void removeFile(QString fileName);
+	//Add a directory to the watch list for monitoring
+	void addDir(QString fileName);
+	//Remove a directory from the watch list
+	void removeDir(QString fileName);
+	//Start the watcher's timer for file monitoring
+	void start();
+	//Stop the watcher's timer
+	void stop();
+	//Force a scan of the watched item list
+	void forceScan();
 
 private:
 	struct fileMod
@@ -36,6 +49,7 @@ private:
 	QMap<QString, fileMod> watchedFiles;
 	QTimer* watchTimer;
 	bool blockAddRemove;
+	int m_timeOut; // milliseconds
 
 private slots:
 	void checkFiles();
