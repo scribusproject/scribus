@@ -800,16 +800,16 @@ void ReformDoc::updateDocumentSettings()
 			break;
 	}
 	// TODO fix these tr("None") things
-	if (currDoc->toolSettings.dStrokeText == tr("None"))
+	if (currDoc->toolSettings.dStrokeText == ScApp->noneString)
 		currDoc->toolSettings.dStrokeText = "None";
 	currDoc->toolSettings.dPenText = tabTools->colorComboText->currentText();
-	if (currDoc->toolSettings.dPenText == tr("None"))
+	if (currDoc->toolSettings.dPenText == ScApp->noneString)
 		currDoc->toolSettings.dPenText = "None";
 	currDoc->toolSettings.dTextBackGround = tabTools->colorComboTextBackground->currentText();
-	if (currDoc->toolSettings.dTextBackGround == tr("None"))
+	if (currDoc->toolSettings.dTextBackGround == ScApp->noneString)
 		currDoc->toolSettings.dTextBackGround = "None";
 	currDoc->toolSettings.dTextLineColor = tabTools->colorComboTextLine->currentText();
-	if (currDoc->toolSettings.dTextLineColor == tr("None"))
+	if (currDoc->toolSettings.dTextLineColor == ScApp->noneString)
 		currDoc->toolSettings.dTextLineColor = "None";
 	currDoc->toolSettings.dTextBackGroundShade = tabTools->shadingTextBack->value();
 	currDoc->toolSettings.dTextLineShade = tabTools->shadingTextLine->value();
@@ -819,10 +819,10 @@ void ReformDoc::updateDocumentSettings()
 	currDoc->toolSettings.dGap = tabTools->gapText->value() / currDoc->unitRatio();
 	currDoc->toolSettings.dTabWidth = tabTools->gapTab->value() / currDoc->unitRatio();
 	currDoc->toolSettings.dPen = tabTools->colorComboLineShape->currentText();
-	if (currDoc->toolSettings.dPen == tr("None"))
+	if (currDoc->toolSettings.dPen == ScApp->noneString)
 		currDoc->toolSettings.dPen = "None";
 	currDoc->toolSettings.dBrush = tabTools->comboFillShape->currentText();
-	if (currDoc->toolSettings.dBrush == tr("None"))
+	if (currDoc->toolSettings.dBrush == ScApp->noneString)
 		currDoc->toolSettings.dBrush = "None";
 	currDoc->toolSettings.dShade = tabTools->shadingFillShape->value();
 	currDoc->toolSettings.dShade2 = tabTools->shadingLineShape->value();
@@ -851,7 +851,7 @@ void ReformDoc::updateDocumentSettings()
 	currDoc->toolSettings.magMax = tabTools->maximumZoom->value();
 	currDoc->toolSettings.magStep = tabTools->zoomStep->value();
 	currDoc->toolSettings.dPenLine = tabTools->colorComboLine->currentText();
-	if (currDoc->toolSettings.dPenLine == tr("None"))
+	if (currDoc->toolSettings.dPenLine == ScApp->noneString)
 		currDoc->toolSettings.dPenLine = "None";
 	currDoc->toolSettings.dShadeLine = tabTools->shadingLine->value();
 	switch (tabTools->comboStyleLine->currentItem())
@@ -874,7 +874,7 @@ void ReformDoc::updateDocumentSettings()
 	}
 	currDoc->toolSettings.dWidthLine = tabTools->lineWidthLine->value();
 	currDoc->toolSettings.dBrushPict = tabTools->comboFillImage->currentText();
-	if (currDoc->toolSettings.dBrushPict == tr("None"))
+	if (currDoc->toolSettings.dBrushPict == ScApp->noneString)
 		currDoc->toolSettings.dBrushPict = "None";
 	currDoc->toolSettings.shadePict = tabTools->shadingFillImage->value();
 	currDoc->toolSettings.scaleX = static_cast<double>(tabTools->scalingHorizontal->value()) / 100.0;

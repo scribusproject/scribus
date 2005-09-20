@@ -2276,13 +2276,10 @@ void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageIte
 		newItem->setLineShade(toolSettings.dShade2);
 	}
 	//ItemType::image,text,polygon,polyline
-	if (itemType==PageItem::ImageFrame || itemType==PageItem::TextFrame || itemType==PageItem::Polygon || itemType==PageItem::PolyLine)
-	{
-		if (newItem->fillColor() != "None")
-			newItem->fillQColor = PageColors[newItem->fillColor()].getShadeColorProof(newItem->fillShade());
-		if (newItem->lineColor() != "None")
-			newItem->strokeQColor = PageColors[newItem->lineColor()].getShadeColorProof(newItem->lineShade());
-	}
+	if (newItem->fillColor() != "None")
+		newItem->fillQColor = PageColors[newItem->fillColor()].getShadeColorProof(newItem->fillShade());
+	if (newItem->lineColor() != "None")
+		newItem->strokeQColor = PageColors[newItem->lineColor()].getShadeColorProof(newItem->lineShade());
 }
 
 
