@@ -6487,7 +6487,8 @@ void ScribusApp::CopyPage()
 	MovePages *dia = new MovePages(this, doc->currentPage->pageNr()+1, doc->Pages.count(), false);
 	if (dia->exec())
 	{
-		doc->setLoading(true);
+		bool autoText = doc->PageAT;
+		doc->PageAT = false;
 		Page* from = doc->Pages.at(dia->getFromPage()-1);
 		int wo = dia->getWherePage();
 		switch (dia->getWhere())
@@ -6502,6 +6503,7 @@ void ScribusApp::CopyPage()
 			slotNewPage(doc->Pages.count());
 			break;
 		}
+		doc->PageAT = autoText;
 		Page* Ziel = doc->currentPage;
 		Ziel->setInitialHeight(from->height());
 		Ziel->setInitialWidth(from->width());
@@ -6511,6 +6513,7 @@ void ScribusApp::CopyPage()
 		Ziel->initialMargins.Bottom = from->Margins.Bottom;
 		Ziel->initialMargins.Left = from->Margins.Left;
 		Ziel->initialMargins.Right = from->Margins.Right;
+		view->reformPages();
 		QMap<int,int> TableID;
 		QPtrList<PageItem> TableItems;
 		TableID.clear();
@@ -6595,8 +6598,6 @@ void ScribusApp::CopyPage()
 		}
 		doc->GroupCounter = GrMax + 1;
 		view->Deselect(true);
-		doc->setLoading(false);
-		view->reformPages();
 		view->DrawNew();
 		slotDocCh();
 		pagePalette->RebuildPage();
