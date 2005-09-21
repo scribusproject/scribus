@@ -1741,6 +1741,17 @@ bool ScImage::loadLayer( QDataStream & s, const PSDHeader & header )
 		return false;
 	}
 	uint channel_num = header.channel_count;
+	if (channel_num < 4)
+	{
+		for (int i = 0; i < height(); i++)
+		{
+			QRgb * s = (QRgb*)(scanLine( i ));
+			for (int j = 0; j < width(); j++)
+			{
+				*s++ = qRgba(0, 0, 0, 255);
+			}
+		}
+	}
 	channel_num = 4;
 	const uint pixel_count = header.height * header.width;
 	static const uint components[4] = {2, 1, 0, 3};
