@@ -246,13 +246,13 @@ QString PDFlib::EncStream(QString *in, int ObjNum)
 
 QString PDFlib::EncString(QString in, int ObjNum)
 {
-	if (in.length() < 3)
-    		return "<>";
   	rc4_context_t	rc4;
 	QString tmp;
 	int dlen = 0;
 	if (Options->Encrypt)
 	{
+		if (in.length() < 3)
+ 	   		return "<>";
 		tmp = in.mid(1, in.length()-2);
 		QByteArray us(tmp.length());
 		QByteArray ou(tmp.length());
