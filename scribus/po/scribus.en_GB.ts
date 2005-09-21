@@ -5106,10 +5106,6 @@ and the Delete key removes the last inserted one</translation>
         <translation>&amp;Replace Colours</translation>
     </message>
     <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Cancel</translation>
-    </message>
-    <message>
         <source>Merge created colors into the document colors</source>
         <translation>Merge created colours into the document colours</translation>
     </message>
@@ -5120,26 +5116,6 @@ and the Delete key removes the last inserted one</translation>
     <message>
         <source>Leave colors untouched</source>
         <translation>Leave colours untouched</translation>
-    </message>
-    <message>
-        <source>Difference between selected value and counted ones. See documentation for more info</source>
-        <translation>Difference between selected value and counted ones. See documentation for more info</translation>
-    </message>
-    <message>
-        <source>Click the wheel to get base color</source>
-        <translation>Click the wheel to get base colour</translation>
-    </message>
-    <message>
-        <source>Here you have the sample color schema</source>
-        <translation>Here you have the sample colour schema</translation>
-    </message>
-    <message>
-        <source>Select one of the method to create color schema. See documentation for more info</source>
-        <translation>Select one of the method to create colour schema. See documentation for more info</translation>
-    </message>
-    <message>
-        <source>Here you have the color of your chosen color schema</source>
-        <translation>Here you have the colour of your chosen colour schema</translation>
     </message>
     <message>
         <source>Merging colors</source>
@@ -5170,10 +5146,6 @@ and the Delete key removes the last inserted one</translation>
         <translation>Vision Defect:</translation>
     </message>
     <message>
-        <source>You can simulate common vision defects here. Just select type of the defect</source>
-        <translation>You can simulate common vision defects here. Just select type of the defect</translation>
-    </message>
-    <message>
         <source>Protanopia (red)</source>
         <translation>Protanopia (red)</translation>
     </message>
@@ -5185,12 +5157,92 @@ and the Delete key removes the last inserted one</translation>
         <source>Tritanopia (blue)</source>
         <translation>Tritanopia (blue)</translation>
     </message>
+    <message>
+        <source>Cr&amp;eate color...</source>
+        <translation>Cr&amp;eate colour...</translation>
+    </message>
+    <message>
+        <source>&amp;Import existing color...</source>
+        <translation>&amp;Import existing colour...</translation>
+    </message>
+    <message>
+        <source>&amp;Merge colors</source>
+        <translation>&amp;Merge colours</translation>
+    </message>
+    <message>
+        <source>&amp;Replace colors</source>
+        <translation>&amp;Replace colours</translation>
+    </message>
+    <message>
+        <source>E&amp;xit</source>
+        <translation>E&amp;xit</translation>
+    </message>
+    <message>
+        <source>C&amp;olor</source>
+        <translation>C&amp;olour</translation>
+    </message>
+    <message>
+        <source>Saturation:</source>
+        <translation>Saturation:</translation>
+    </message>
+    <message>
+        <source>Value:</source>
+        <translation>Value:</translation>
+    </message>
+    <message>
+        <source>Saturation component in HSV mode</source>
+        <translation>Saturation component in HSV mode</translation>
+    </message>
+    <message>
+        <source>Value component in HSV mode</source>
+        <translation>Value component in HSV mode</translation>
+    </message>
+    <message>
+        <source>New Color</source>
+        <translation>New Colour</translation>
+    </message>
+    <message>
+        <source>Difference between the selected value and the counted ones. Refer to documentation for more information.</source>
+        <translation>Difference between the selected value and the counted ones. Refer to documentation for more information.</translation>
+    </message>
+    <message>
+        <source>Click the wheel to get the base color. It is hue in HSV mode.</source>
+        <translation>Click the wheel to get the base colour. It is hue in HSV mode.</translation>
+    </message>
+    <message>
+        <source>Sample color scheme</source>
+        <translation>Sample colour scheme</translation>
+    </message>
+    <message>
+        <source>Select one of the methods to create a color scheme. Refer to documentation for more information.</source>
+        <translation>Select one of the methods to create a colour scheme. Refer to documentation for more information.</translation>
+    </message>
+    <message>
+        <source>Colors of your chosen color scheme</source>
+        <translation>Colors of your chosen colour scheme</translation>
+    </message>
+    <message>
+        <source>Simulate common vision defects here. Select type of the defect.</source>
+        <translation>Simulate common vision defects here. Select type of the defect.</translation>
+    </message>
+    <message>
+        <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
+        <translation>Unable to find the requested colour. You have probably selected black, gray or white. There is no way to process this colour.</translation>
+    </message>
 </context>
 <context>
     <name>ColorWheelPlugin</name>
     <message>
         <source>&amp;Color Wheel...</source>
         <translation>&amp;Colour Wheel...</translation>
+    </message>
+    <message>
+        <source>Color setting helper</source>
+        <translation>Colour setting helper</translation>
+    </message>
+    <message>
+        <source>Color selector with color theory included.</source>
+        <translation>Colour selector with colour theory included.</translation>
     </message>
 </context>
 <context>
@@ -6797,6 +6849,14 @@ Use 72 dpi for Images intended for the Screen</translation>
         <source>&amp;Font Preview...</source>
         <translation>&amp;Font Preview...</translation>
     </message>
+    <message>
+        <source>Font Preview dialog</source>
+        <translation>Font Preview dialog</translation>
+    </message>
+    <message>
+        <source>Sorting, searching and browsing available fonts.</source>
+        <translation>Sorting, searching and browsing available fonts.</translation>
+    </message>
 </context>
 <context>
     <name>FontReplaceDialog</name>
@@ -7020,6 +7080,38 @@ and www.scribus.net for downloads.</translation>
         <source>New Bookmark&apos;s Title:</source>
         <translation>New Bookmark&apos;s Title:</translation>
     </message>
+    <message>
+        <source>&amp;File</source>
+        <translation>&amp;File</translation>
+    </message>
+    <message>
+        <source>&amp;Find...</source>
+        <translation>&amp;Find...</translation>
+    </message>
+    <message>
+        <source>Find &amp;Next</source>
+        <translation>Find &amp;Next</translation>
+    </message>
+    <message>
+        <source>Find &amp;Previous</source>
+        <translation>Find &amp;Previous</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation>&amp;Edit</translation>
+    </message>
+    <message>
+        <source>&amp;Add Bookmark</source>
+        <translation>&amp;Add Bookmark</translation>
+    </message>
+    <message>
+        <source>D&amp;elete All</source>
+        <translation>D&amp;elete All</translation>
+    </message>
+    <message>
+        <source>&amp;Bookmarks</source>
+        <translation>&amp;Bookmarks</translation>
+    </message>
 </context>
 <context>
     <name>HyAsk</name>
@@ -7086,6 +7178,16 @@ A value of 0 means unlimited hyphenations.</translation>
     <message>
         <source>Import &amp;EPS/PS...</source>
         <translation>Import &amp;EPS/PS...</translation>
+    </message>
+    <message>
+        <source>Imports EPS Files</source>
+        <translation>Imports EPS Files</translation>
+    </message>
+    <message>
+        <source>Imports most EPS files into the current document,
+converting their vector data into Scribus objects.</source>
+        <translation>Imports most EPS files into the current document,
+converting their vector data into Scribus objects.</translation>
     </message>
 </context>
 <context>
@@ -8814,6 +8916,14 @@ Please choose another.</translation>
         <source>Import &amp;OpenOffice.org Draw...</source>
         <translation>Import &amp;OpenOffice.org Draw...</translation>
     </message>
+    <message>
+        <source>Imports OpenOffice Draw Files</source>
+        <translation>Imports OpenOffice Draw Files</translation>
+    </message>
+    <message>
+        <source>Imports most OpenOffice Draw files into the current document, converting their vector data into Scribus objects.</source>
+        <translation>Imports most OpenOffice Draw files into the current document, converting their vector data into Scribus objects.</translation>
+    </message>
 </context>
 <context>
     <name>OdtDialog</name>
@@ -9341,6 +9451,14 @@ Please choose another.</translation>
     <message>
         <source>Save as &amp;Image...</source>
         <translation>Save as &amp;Image...</translation>
+    </message>
+    <message>
+        <source>Export As Image</source>
+        <translation>Export As Image</translation>
+    </message>
+    <message>
+        <source>Exports selected pages as bitmap images.</source>
+        <translation>Exports selected pages as bitmap images.</translation>
     </message>
 </context>
 <context>
@@ -12450,10 +12568,6 @@ is not exhaustive due to exceptions from called functions.
         <translation>Vertical:</translation>
     </message>
     <message>
-        <source>None</source>
-        <translation>None</translation>
-    </message>
-    <message>
         <source>Adjusting Colors</source>
         <translation>Adjusting Colours</translation>
     </message>
@@ -12575,12 +12689,30 @@ is not exhaustive due to exceptions from called functions.
         <source>Save Page as &amp;SVG...</source>
         <translation>Save Page as &amp;SVG...</translation>
     </message>
+    <message>
+        <source>Exports SVG Files</source>
+        <translation>Exports SVG Files</translation>
+    </message>
+    <message>
+        <source>Exports the current page into an SVG file.</source>
+        <translation>Exports the current page into an SVG file.</translation>
+    </message>
 </context>
 <context>
     <name>SVGImportPlugin</name>
     <message>
         <source>Import &amp;SVG...</source>
         <translation>Import &amp;SVG...</translation>
+    </message>
+    <message>
+        <source>Imports SVG Files</source>
+        <translation>Imports SVG Files</translation>
+    </message>
+    <message>
+        <source>Imports most SVG files into the current document,
+converting their vector data into Scribus objects.</source>
+        <translation>Imports most SVG files into the current document,
+converting their vector data into Scribus objects.</translation>
     </message>
 </context>
 <context>
@@ -13160,10 +13292,6 @@ Consider using the Pre-flight Checker to correct them</translation>
         <translation>Name:</translation>
     </message>
     <message>
-        <source>New MasterPage</source>
-        <translation>New MasterPage</translation>
-    </message>
-    <message>
         <source>New Master Page</source>
         <translation>New Master Page</translation>
     </message>
@@ -13194,6 +13322,29 @@ Consider using the Preflight Verifier to correct them</translation>
     <message>
         <source>The program %1 is missing!</source>
         <translation>The program %1 is missing!</translation>
+    </message>
+    <message>
+        <source>Convert Page to Master Page</source>
+        <translation>Convert Page to Master Page</translation>
+    </message>
+</context>
+<context>
+    <name>ScribusColorList</name>
+    <message>
+        <source>Sample</source>
+        <translation>Sample</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation>Colour</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>None</translation>
+    </message>
+    <message>
+        <source>Document Colors</source>
+        <translation>Document Colours</translation>
     </message>
 </context>
 <context>
@@ -13352,6 +13503,10 @@ Consider using the Preflight Verifier to correct them</translation>
     <message>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</translation>
+    </message>
+    <message>
+        <source>Page %1 to %2</source>
+        <translation>Page %1 to %2</translation>
     </message>
 </context>
 <context>
@@ -13665,6 +13820,14 @@ Consider using the Preflight Verifier to correct them</translation>
         <source>Short &amp;Words...</source>
         <comment>short words plugin</comment>
         <translation>Short &amp;Words...</translation>
+    </message>
+    <message>
+        <source>Short Words</source>
+        <translation>Short Words</translation>
+    </message>
+    <message>
+        <source>Special plug-in for adding non-breaking spaces before or after so called short words.</source>
+        <translation>Special plug-in for adding non-breaking spaces before or after so called short words.</translation>
     </message>
 </context>
 <context>
@@ -15320,6 +15483,22 @@ This can increase memory usage and slow down export.</translation>
     <message>
         <source>Text Stroke:</source>
         <translation>Text Stroke:</translation>
+    </message>
+    <message>
+        <source>Dot</source>
+        <translation>Dot</translation>
+    </message>
+    <message>
+        <source>Hyphen</source>
+        <translation>Hyphen</translation>
+    </message>
+    <message>
+        <source>Underscore</source>
+        <translation>Underscore</translation>
+    </message>
+    <message>
+        <source>Custom</source>
+        <translation>Custom</translation>
     </message>
 </context>
 <context>

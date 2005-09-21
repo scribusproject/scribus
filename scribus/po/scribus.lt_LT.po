@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-09-14 09:28+0200\n"
+"POT-Creation-Date: 2005-09-21 01:40+0200\n"
 "PO-Revision-Date: 2002-04-20 22:57GMT\n"
 "Last-Translator: Aivaras Kirejevas <kiras@mail.lt>\n"
 "Language-Team: Lithuanian\n"
@@ -323,6 +323,17 @@ msgstr "Uþpildo spalva:"
 msgid "Stroke Color:"
 msgstr "Nauja spalva:"
 
+msgid "Dot"
+msgstr ""
+
+#, fuzzy
+msgid "Hyphen"
+msgstr "Simboliø parinktys"
+
+#, fuzzy
+msgid "Underscore"
+msgstr "vietoj to"
+
 #, fuzzy
 msgid "Custom: "
 msgstr "Nuosavas"
@@ -611,17 +622,6 @@ msgstr "Per vidurá"
 #, fuzzy
 msgid "&Position:"
 msgstr "Komentarai:"
-
-msgid "Dot"
-msgstr ""
-
-#, fuzzy
-msgid "Hyphen"
-msgstr "Simboliø parinktys"
-
-#, fuzzy
-msgid "Underscore"
-msgstr "vietoj to"
 
 #, fuzzy
 msgid "Fill Char:"
@@ -1507,6 +1507,10 @@ msgid ""
 "The item %1 is currently being edited by Story Editor. The delete operation "
 "will be cancelled"
 msgstr ""
+
+#, fuzzy
+msgid "Page %1 to %2"
+msgstr "Puslapis"
 
 msgid "Cannot Convert In-Use Item"
 msgstr ""
@@ -5693,6 +5697,10 @@ msgstr "Scribus vadovas"
 msgid "Text Files (*.txt);;All Files(*)"
 msgstr "Tekstinis failas (*.txt);;Visi failai (*)"
 
+#, fuzzy
+msgid "Convert Page to Master Page"
+msgstr "Ákelti duomenis"
+
 msgid "Size"
 msgstr "Dydis"
 
@@ -7237,14 +7245,14 @@ msgid "Cancels these font substitutions and stops loading the document."
 msgstr ""
 
 msgid ""
-"Enabling this tells Scribus to use these replacements for missing \t\t\t\t\t"
-"\tfonts permanently in all future layouts. This can be reverted or changed \t"
-"\t\t\t\t\tin Edit > Preferences > Fonts."
+"Enabling this tells Scribus to use these replacements for missing fonts "
+"permanently in all future layouts. This can be reverted or changed in Edit > "
+"Preferences > Fonts."
 msgstr ""
 
 msgid ""
-"If you select OK, then save, these substitutions are made permanent in the \t"
-"\t\t\t\t\tdocument."
+"If you select OK, then save, these substitutions are made permanent in the "
+"document."
 msgstr ""
 
 msgid "Show Page Previews"
@@ -7794,6 +7802,26 @@ msgid "E&xit"
 msgstr "Iðeiti"
 
 #, fuzzy
+msgid "&Find..."
+msgstr "Spausdinti..."
+
+#, fuzzy
+msgid "Find &Next"
+msgstr "Lygiuoti kairëje"
+
+#, fuzzy
+msgid "Find &Previous"
+msgstr "Pasiþiûrëti kaip atrodys"
+
+#, fuzzy
+msgid "&Add Bookmark"
+msgstr "Nuorodos"
+
+#, fuzzy
+msgid "D&elete All"
+msgstr "Iðtrinti"
+
+#, fuzzy
 msgid "Scribus Online Help"
 msgstr "Pagalba tinkle..."
 
@@ -8253,6 +8281,11 @@ msgstr "Parinktys..."
 msgid "Short Words"
 msgstr "Rodyti pagalbines linijas"
 
+msgid ""
+"Special plug-in for adding non-breaking spaces before or after so called "
+"short words."
+msgstr ""
+
 msgid "Short Words processing. Wait please..."
 msgstr ""
 
@@ -8398,6 +8431,15 @@ msgid "OpenOffice.org Draw Importer"
 msgstr "Kitos parinktys"
 
 #, fuzzy
+msgid "Imports OpenOffice Draw Files"
+msgstr "Paskutiniai dokumentai"
+
+msgid ""
+"Imports most OpenOffice Draw files into the current document, converting "
+"their vector data into Scribus objects."
+msgstr ""
+
+#, fuzzy
 msgid "OpenOffice.org Draw (*.sxd);;All Files (*)"
 msgstr "Tekstinis failas (*.txt);;Visi failai (*)"
 
@@ -8408,6 +8450,13 @@ msgstr "Pasiþiûrëti kaip atrodys"
 #, fuzzy
 msgid "Font Preview"
 msgstr "Pasiþiûrëti kaip atrodys"
+
+#, fuzzy
+msgid "Font Preview dialog"
+msgstr "Pasiþiûrëti kaip atrodys"
+
+msgid "Sorting, searching and browsing available fonts."
+msgstr ""
 
 msgid "Doc"
 msgstr ""
@@ -9152,12 +9201,41 @@ msgid "SVG Import"
 msgstr "Importuoti..."
 
 #, fuzzy
+msgid "Imports SVG Files"
+msgstr "Importuoti..."
+
+msgid ""
+"Imports most SVG files into the current document,\n"
+"converting their vector data into Scribus objects."
+msgstr ""
+
+#, fuzzy
 msgid "SVG-Images (*.svg *.svgz);;All Files (*)"
 msgstr "Kiðenë (*.scs);; Visi failai (*)"
 
 #, fuzzy
 msgid "SVG-Images (*.svg);;All Files (*)"
 msgstr "Dokumentai (*.sdc);; Visi failai (*)"
+
+#, fuzzy
+msgid "Document Colors"
+msgstr "Viskà apraðë:"
+
+#, fuzzy
+msgid "Cr&eate color..."
+msgstr "Spalvos..."
+
+#, fuzzy
+msgid "&Import existing color..."
+msgstr "Ákelti duomenis"
+
+#, fuzzy
+msgid "&Merge colors"
+msgstr "Popieriaus spalva"
+
+#, fuzzy
+msgid "&Replace colors"
+msgstr "Pakeisti á:"
 
 #, fuzzy
 msgid "Normal Vision"
@@ -9178,6 +9256,10 @@ msgstr "Uþpildo spalva:"
 
 msgid "Vision Defect:"
 msgstr ""
+
+#, fuzzy
+msgid "Saturation:"
+msgstr "Sodrumas"
 
 #, fuzzy
 msgid "Color Wheel"
@@ -9224,26 +9306,32 @@ msgid "Leave colors untouched"
 msgstr ""
 
 msgid ""
-"Difference between selected value and counted ones. See documentation for "
-"more info"
+"Difference between the selected value and the counted ones. Refer to "
+"documentation for more information."
 msgstr ""
 
-msgid "Click the wheel to get base color"
+msgid "Saturation component in HSV mode"
 msgstr ""
 
-msgid "Here you have the sample color schema"
+msgid "Value component in HSV mode"
 msgstr ""
+
+msgid "Click the wheel to get the base color. It is hue in HSV mode."
+msgstr ""
+
+#, fuzzy
+msgid "Sample color scheme"
+msgstr "Pasirink spalvà"
 
 msgid ""
-"Select one of the method to create color schema. See documentation for more "
-"info"
+"Select one of the methods to create a color scheme. Refer to documentation "
+"for more information."
 msgstr ""
 
-msgid "Here you have the color of your chosen color schema"
+msgid "Colors of your chosen color scheme"
 msgstr ""
 
-msgid ""
-"You can simulate common vision defects here. Just select type of the defect"
+msgid "Simulate common vision defects here. Select type of the defect."
 msgstr ""
 
 #, fuzzy
@@ -9261,9 +9349,21 @@ msgstr ""
 msgid "Color Merging"
 msgstr "Spalvø modelis"
 
+msgid ""
+"Unable to find the requested color. You have probably selected black, gray "
+"or white. There is no way to process this color."
+msgstr ""
+
 #, fuzzy
 msgid "&Color Wheel..."
 msgstr "Spalvos..."
+
+#, fuzzy
+msgid "Color setting helper"
+msgstr "Uþpildo spalva:"
+
+msgid "Color selector with color theory included."
+msgstr ""
 
 msgid "Monochromatic"
 msgstr ""
@@ -9402,6 +9502,9 @@ msgstr "Iðsaugoti kitu vardu..."
 msgid "Export As Image"
 msgstr "Eksporto grupë"
 
+msgid "Exports selected pages as bitmap images."
+msgstr ""
+
 #, fuzzy
 msgid "Save as Image"
 msgstr "Iðsaugoti kitu vardu"
@@ -9430,6 +9533,13 @@ msgstr "Iðsaugoti kaip EPS..."
 msgid "SVG Export"
 msgstr "Eksportuoti..."
 
+#, fuzzy
+msgid "Exports SVG Files"
+msgstr "Importuoti..."
+
+msgid "Exports the current page into an SVG file."
+msgstr ""
+
 msgid ""
 "Do you really want to overwrite the File:\n"
 "%1 ?"
@@ -9445,6 +9555,15 @@ msgstr "Importuoti..."
 #, fuzzy
 msgid "PS/EPS Importer"
 msgstr "Importuoti..."
+
+#, fuzzy
+msgid "Imports EPS Files"
+msgstr "Ákelti duomenis"
+
+msgid ""
+"Imports most EPS files into the current document,\n"
+"converting their vector data into Scribus objects."
+msgstr ""
 
 msgid "All Supported Formats (*.eps *.EPS *.ps *.PS);;"
 msgstr ""
@@ -10354,10 +10473,6 @@ msgstr "Paprastas"
 
 #~ msgid "Print first page first"
 #~ msgstr "Pradëti nuo pirmojo puslapio"
-
-#, fuzzy
-#~ msgid "Document to load:"
-#~ msgstr "Viskà apraðë:"
 
 #, fuzzy
 #~ msgid "Document contains: 0 Page(s)"

@@ -5768,7 +5768,7 @@ and the Delete key removes the last inserted one</source>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancelar</translation>
+        <translation type="obsolete">&amp;Cancelar</translation>
     </message>
     <message>
         <source>Merge created colors into the document colors</source>
@@ -5780,30 +5780,6 @@ and the Delete key removes the last inserted one</source>
     </message>
     <message>
         <source>Leave colors untouched</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Difference between selected value and counted ones. See documentation for more info</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Click the wheel to get base color</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Here you have the sample color schema</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Select one of the method to create color schema. See documentation for more info</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Here you have the color of your chosen color schema</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You can simulate common vision defects here. Just select type of the defect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5834,11 +5810,91 @@ and the Delete key removes the last inserted one</source>
         <source>Tritanopia (blue)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Cr&amp;eate color...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Import existing color...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Merge colors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Replace colors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>E&amp;xit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;olor</source>
+        <translation type="unfinished">Co&amp;lor</translation>
+    </message>
+    <message>
+        <source>Saturation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Value:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Difference between the selected value and the counted ones. Refer to documentation for more information.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Saturation component in HSV mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Value component in HSV mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click the wheel to get the base color. It is hue in HSV mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sample color scheme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select one of the methods to create a color scheme. Refer to documentation for more information.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Colors of your chosen color scheme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Simulate common vision defects here. Select type of the defect.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Color</source>
+        <translation type="unfinished">Nuevo color</translation>
+    </message>
+    <message>
+        <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ColorWheelPlugin</name>
     <message>
         <source>&amp;Color Wheel...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color setting helper</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color selector with color theory included.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7943,6 +7999,14 @@ El nombre del archivo será &apos;documento-página.tipo&apos;</translation>
         <source>&amp;Font Preview...</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Font Preview dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sorting, searching and browsing available fonts.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>FontReplaceDialog</name>
@@ -7971,11 +8035,11 @@ El nombre del archivo será &apos;documento-página.tipo&apos;</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enabling this tells Scribus to use these replacements for missing <byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>fonts permanently in all future layouts. This can be reverted or changed <byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>in Edit &gt; Preferences &gt; Fonts.</source>
+        <source>Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in Edit &gt; Preferences &gt; Fonts.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If you select OK, then save, these substitutions are made permanent in the <byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>document.</source>
+        <source>If you select OK, then save, these substitutions are made permanent in the document.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8201,6 +8265,38 @@ and www.scribus.net for downloads.</source>
         <source>New Bookmark&apos;s Title:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&amp;File</source>
+        <translation type="unfinished">&amp;Archivo</translation>
+    </message>
+    <message>
+        <source>&amp;Find...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Find &amp;Next</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Find &amp;Previous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation type="unfinished">&amp;Editar</translation>
+    </message>
+    <message>
+        <source>&amp;Add Bookmark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>D&amp;elete All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Bookmarks</source>
+        <translation type="unfinished">&amp;Marcadores</translation>
+    </message>
 </context>
 <context>
     <name>HyAsk</name>
@@ -8279,6 +8375,15 @@ Un valor de 0 significa divisiones ilimitadas.</translation>
     <message>
         <source>Import &amp;EPS/PS...</source>
         <translation type="unfinished">Importar &amp;EPS/PS...</translation>
+    </message>
+    <message>
+        <source>Imports EPS Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports most EPS files into the current document,
+converting their vector data into Scribus objects.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10835,6 +10940,14 @@ de otro modo las coordenadas son relativas al objeto.</translation>
         <source>Import &amp;OpenOffice.org Draw...</source>
         <translation type="unfinished">Importar &amp;OpenOffice.org Draw...</translation>
     </message>
+    <message>
+        <source>Imports OpenOffice Draw Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports most OpenOffice Draw files into the current document, converting their vector data into Scribus objects.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>OdtDialog</name>
@@ -12421,6 +12534,14 @@ UCR reduce la posibilidad de sobresaturación con tintas CMY (cian, magenta, ama
     <message>
         <source>Save as &amp;Image...</source>
         <translation type="unfinished">Guardar como &amp;Imagen...</translation>
+    </message>
+    <message>
+        <source>Export As Image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exports selected pages as bitmap images.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16541,7 +16662,7 @@ para lograr los márgenes correctos para la encuadernación.</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished">Ninguno</translation>
+        <translation type="obsolete">Ninguno</translation>
     </message>
     <message>
         <source>Adjusting Colors</source>
@@ -16673,12 +16794,29 @@ para lograr los márgenes correctos para la encuadernación.</translation>
         <source>Save Page as &amp;SVG...</source>
         <translation type="unfinished">Guardar la página como &amp;SVG...</translation>
     </message>
+    <message>
+        <source>Exports SVG Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exports the current page into an SVG file.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SVGImportPlugin</name>
     <message>
         <source>Import &amp;SVG...</source>
         <translation type="unfinished">Importar &amp;SVG...</translation>
+    </message>
+    <message>
+        <source>Imports SVG Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports most SVG files into the current document,
+converting their vector data into Scribus objects.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -18126,10 +18264,6 @@ Consider using the Pre-flight Checker to correct them</source>
         <translation type="unfinished">Nombre:</translation>
     </message>
     <message>
-        <source>New MasterPage</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>New Master Page</source>
         <translation type="unfinished"></translation>
     </message>
@@ -18157,6 +18291,29 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>The program %1 is missing!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Convert Page to Master Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ScribusColorList</name>
+    <message>
+        <source>Sample</source>
+        <translation type="unfinished">Ejemplo</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation type="unfinished">Color</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Ninguno</translation>
+    </message>
+    <message>
+        <source>Document Colors</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -18343,6 +18500,10 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page %1 to %2</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -18920,6 +19081,14 @@ arrastra una plantilla en la vista de páginas de abajo.</translation>
         <source>Short &amp;Words...</source>
         <comment>short words plugin</comment>
         <translation type="unfinished">&amp;Palabras Cortas...</translation>
+    </message>
+    <message>
+        <source>Short Words</source>
+        <translation type="unfinished">Palabras Cortas</translation>
+    </message>
+    <message>
+        <source>Special plug-in for adding non-breaking spaces before or after so called short words.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -20614,6 +20783,22 @@ Recomendamos que uses el título del documento.</translation>
     <message>
         <source>Text Stroke:</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dot</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hyphen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Underscore</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Custom</source>
+        <translation type="unfinished">Personalizado</translation>
     </message>
 </context>
 <context>

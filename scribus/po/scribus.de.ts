@@ -5021,7 +5021,7 @@ und die Taste Löschen entfernt das letzte Zeichen wieder</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>A&amp;bbrechen</translation>
+        <translation type="obsolete">A&amp;bbrechen</translation>
     </message>
     <message>
         <source>Merge created colors into the document colors</source>
@@ -5037,23 +5037,23 @@ und die Taste Löschen entfernt das letzte Zeichen wieder</translation>
     </message>
     <message>
         <source>Difference between selected value and counted ones. See documentation for more info</source>
-        <translation>Differenz zwischen der gewählten und berechneten Farbe. Mehr Infos gibts in der Hilfe</translation>
+        <translation type="obsolete">Differenz zwischen der gewählten und berechneten Farbe. Mehr Infos gibts in der Hilfe</translation>
     </message>
     <message>
         <source>Click the wheel to get base color</source>
-        <translation>Klicken Sie auf das Farbrad, um die Ausgangsfarbe zu wählen</translation>
+        <translation type="obsolete">Klicken Sie auf das Farbrad, um die Ausgangsfarbe zu wählen</translation>
     </message>
     <message>
         <source>Here you have the sample color schema</source>
-        <translation>Ein Beispielschema, basierend auf den aktuellen Einstellungen</translation>
+        <translation type="obsolete">Ein Beispielschema, basierend auf den aktuellen Einstellungen</translation>
     </message>
     <message>
         <source>Select one of the method to create color schema. See documentation for more info</source>
-        <translation>Wählen Sie eine Methode, nach der Sie das Schema erstellen wollen. Weitere Informationen im Handbuch</translation>
+        <translation type="obsolete">Wählen Sie eine Methode, nach der Sie das Schema erstellen wollen. Weitere Informationen im Handbuch</translation>
     </message>
     <message>
         <source>Here you have the color of your chosen color schema</source>
-        <translation>Hier sehen Sie alle Farben für Ihr Farbschema</translation>
+        <translation type="obsolete">Hier sehen Sie alle Farben für Ihr Farbschema</translation>
     </message>
     <message>
         <source>Merging colors</source>
@@ -5093,7 +5093,7 @@ und die Taste Löschen entfernt das letzte Zeichen wieder</translation>
     </message>
     <message>
         <source>You can simulate common vision defects here. Just select type of the defect</source>
-        <translation>Sie können hier bekannte Sehschwächen simulieren. Wählen Sie einfach die Krankheit aus</translation>
+        <translation type="obsolete">Sie können hier bekannte Sehschwächen simulieren. Wählen Sie einfach die Krankheit aus</translation>
     </message>
     <message>
         <source>Protanopia (red)</source>
@@ -5107,12 +5107,92 @@ und die Taste Löschen entfernt das letzte Zeichen wieder</translation>
         <source>Tritanopia (blue)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Cr&amp;eate color...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Import existing color...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Merge colors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Replace colors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>E&amp;xit</source>
+        <translation type="unfinished">Ver&amp;lassen</translation>
+    </message>
+    <message>
+        <source>C&amp;olor</source>
+        <translation type="unfinished">&amp;Farbe</translation>
+    </message>
+    <message>
+        <source>Saturation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Value:</source>
+        <translation type="unfinished">Wert:</translation>
+    </message>
+    <message>
+        <source>Difference between the selected value and the counted ones. Refer to documentation for more information.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Saturation component in HSV mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Value component in HSV mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click the wheel to get the base color. It is hue in HSV mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sample color scheme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select one of the methods to create a color scheme. Refer to documentation for more information.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Colors of your chosen color scheme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Simulate common vision defects here. Select type of the defect.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Color</source>
+        <translation type="unfinished">Neue Farbe</translation>
+    </message>
+    <message>
+        <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ColorWheelPlugin</name>
     <message>
         <source>&amp;Color Wheel...</source>
         <translation type="unfinished">Farb&amp;rad...</translation>
+    </message>
+    <message>
+        <source>Color setting helper</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color selector with color theory included.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6829,6 +6909,14 @@ setHGuides([90,250]) # ersetzt alle vorhandenen Hilfslinien</translation>
         <source>&amp;Font Preview...</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Font Preview dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sorting, searching and browsing available fonts.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>FontReplaceDialog</name>
@@ -6867,11 +6955,11 @@ bitte wählen Sie dafür geeignete Ersatz-Schriften.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enabling this tells Scribus to use these replacements for missing <byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>fonts permanently in all future layouts. This can be reverted or changed <byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>in Edit &gt; Preferences &gt; Fonts.</source>
+        <source>Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in Edit &gt; Preferences &gt; Fonts.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If you select OK, then save, these substitutions are made permanent in the <byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>document.</source>
+        <source>If you select OK, then save, these substitutions are made permanent in the document.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7065,6 +7153,38 @@ and www.scribus.net for downloads.</source>
         <source>New Bookmark&apos;s Title:</source>
         <translation>Titel des Lesezeichens:</translation>
     </message>
+    <message>
+        <source>&amp;File</source>
+        <translation type="unfinished">&amp;Datei</translation>
+    </message>
+    <message>
+        <source>&amp;Find...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Find &amp;Next</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Find &amp;Previous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation type="unfinished">&amp;Bearbeiten</translation>
+    </message>
+    <message>
+        <source>&amp;Add Bookmark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>D&amp;elete All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Bookmarks</source>
+        <translation type="unfinished">&amp;Lesezeichen</translation>
+    </message>
 </context>
 <context>
     <name>HyAsk</name>
@@ -7131,6 +7251,15 @@ Null bedeutet unbegrenzt.</translation>
     <message>
         <source>Import &amp;EPS/PS...</source>
         <translation type="unfinished">&amp;EPS/PS importieren...</translation>
+    </message>
+    <message>
+        <source>Imports EPS Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports most EPS files into the current document,
+converting their vector data into Scribus objects.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9024,6 +9153,14 @@ Bitte wählen Sie einen anderen.</translation>
         <source>Import &amp;OpenOffice.org Draw...</source>
         <translation type="unfinished">&amp;OpenOffice.org Zeichnung importieren...</translation>
     </message>
+    <message>
+        <source>Imports OpenOffice Draw Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports most OpenOffice Draw files into the current document, converting their vector data into Scribus objects.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>OdtDialog</name>
@@ -9630,6 +9767,14 @@ Benutzen Sie den Druckvorstufen-Check, um die Fehler zu beheben</translation>
     <message>
         <source>Save as &amp;Image...</source>
         <translation type="unfinished">Als &amp;Bild speichern...</translation>
+    </message>
+    <message>
+        <source>Export As Image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exports selected pages as bitmap images.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12936,10 +13081,6 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>None</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Adjusting Colors</source>
         <translation type="unfinished">Passe Farben an</translation>
     </message>
@@ -13057,12 +13198,29 @@ is not exhaustive due to exceptions from called functions.
         <source>Save Page as &amp;SVG...</source>
         <translation type="unfinished">Seite als &amp;SVG speichern...</translation>
     </message>
+    <message>
+        <source>Exports SVG Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exports the current page into an SVG file.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SVGImportPlugin</name>
     <message>
         <source>Import &amp;SVG...</source>
         <translation type="unfinished">&amp;SVG importieren...</translation>
+    </message>
+    <message>
+        <source>Imports SVG Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports most SVG files into the current document,
+converting their vector data into Scribus objects.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13743,7 +13901,7 @@ Consider using the Pre-flight Checker to correct them</source>
     </message>
     <message>
         <source>New MasterPage</source>
-        <translation type="unfinished">Neue Musterseite</translation>
+        <translation type="obsolete">Neue Musterseite</translation>
     </message>
     <message>
         <source>New Master Page</source>
@@ -13773,6 +13931,29 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>The program %1 is missing!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Convert Page to Master Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ScribusColorList</name>
+    <message>
+        <source>Sample</source>
+        <translation type="unfinished">Vorschau</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation type="unfinished">Farbe</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document Colors</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -13947,6 +14128,10 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page %1 to %2</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -14277,6 +14462,14 @@ Consider using the Preflight Verifier to correct them</source>
         <source>Short &amp;Words...</source>
         <comment>short words plugin</comment>
         <translation type="unfinished">Short &amp;Words...</translation>
+    </message>
+    <message>
+        <source>Short Words</source>
+        <translation type="unfinished">Short Words</translation>
+    </message>
+    <message>
+        <source>Special plug-in for adding non-breaking spaces before or after so called short words.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15971,6 +16164,22 @@ Unless you have a reason, leave this checked. This reduces PDF size.</source>
     <message>
         <source>Text Stroke:</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dot</source>
+        <translation type="unfinished">Punkt</translation>
+    </message>
+    <message>
+        <source>Hyphen</source>
+        <translation type="unfinished">Trennstrich</translation>
+    </message>
+    <message>
+        <source>Underscore</source>
+        <translation type="unfinished">Unterstrich</translation>
+    </message>
+    <message>
+        <source>Custom</source>
+        <translation type="unfinished">Benutzerdefiniert</translation>
     </message>
 </context>
 <context>

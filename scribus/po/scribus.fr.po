@@ -38,7 +38,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus 1.3.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-09-14 09:28+0200\n"
+"POT-Creation-Date: 2005-09-21 01:40+0200\n"
 "PO-Revision-Date: 2005-07-02 14:38+0200\n"
 "Last-Translator: Christophe Merlet (RedFox) <redfox@redfoxcenter.org>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
@@ -333,6 +333,18 @@ msgstr "Couleur de fond :"
 msgid "Stroke Color:"
 msgstr "Couleur des contours :"
 
+#, fuzzy
+msgid "Dot"
+msgstr "Doc"
+
+#, fuzzy
+msgid "Hyphen"
+msgstr "Césure"
+
+#, fuzzy
+msgid "Underscore"
+msgstr "&Non trié"
+
 msgid "Custom: "
 msgstr "Sur mesure :"
 
@@ -595,18 +607,6 @@ msgstr "Centré"
 
 msgid "&Position:"
 msgstr "&Position :"
-
-#, fuzzy
-msgid "Dot"
-msgstr "Doc"
-
-#, fuzzy
-msgid "Hyphen"
-msgstr "Césure"
-
-#, fuzzy
-msgid "Underscore"
-msgstr "&Non trié"
 
 msgid "Fill Char:"
 msgstr "Caractère de remplissage :"
@@ -1361,6 +1361,10 @@ msgid ""
 msgstr ""
 "L'objet %1 est en cours d'édition dans l'éditeur. L'opération de suppression "
 "est annulée"
+
+#, fuzzy
+msgid "Page %1 to %2"
+msgstr "Page %1"
 
 #, fuzzy
 msgid "Cannot Convert In-Use Item"
@@ -5307,6 +5311,10 @@ msgstr "Manuel de Scribus"
 msgid "Text Files (*.txt);;All Files(*)"
 msgstr "Fichiers texte (*.txt);;Tous les fichiers (*)"
 
+#, fuzzy
+msgid "Convert Page to Master Page"
+msgstr "Importer un gabarit"
+
 msgid "Size"
 msgstr "Corps"
 
@@ -6722,14 +6730,14 @@ msgid "Cancels these font substitutions and stops loading the document."
 msgstr ""
 
 msgid ""
-"Enabling this tells Scribus to use these replacements for missing \t\t\t\t\t"
-"\tfonts permanently in all future layouts. This can be reverted or changed \t"
-"\t\t\t\t\tin Edit > Preferences > Fonts."
+"Enabling this tells Scribus to use these replacements for missing fonts "
+"permanently in all future layouts. This can be reverted or changed in Edit > "
+"Preferences > Fonts."
 msgstr ""
 
 msgid ""
-"If you select OK, then save, these substitutions are made permanent in the \t"
-"\t\t\t\t\tdocument."
+"If you select OK, then save, these substitutions are made permanent in the "
+"document."
 msgstr ""
 
 msgid "Show Page Previews"
@@ -7217,6 +7225,26 @@ msgstr "Si&gnets"
 msgid "E&xit"
 msgstr "&Quitter"
 
+#, fuzzy
+msgid "&Find..."
+msgstr "Im&primer..."
+
+#, fuzzy
+msgid "Find &Next"
+msgstr "Texte lié"
+
+#, fuzzy
+msgid "Find &Previous"
+msgstr "Aperçu des polices disponibles"
+
+#, fuzzy
+msgid "&Add Bookmark"
+msgstr "&Signets"
+
+#, fuzzy
+msgid "D&elete All"
+msgstr "Tout effacer"
+
 msgid "Scribus Online Help"
 msgstr "Aide en ligne"
 
@@ -7640,6 +7668,11 @@ msgstr "Espaces &insécables..."
 msgid "Short Words"
 msgstr "Espaces insécables"
 
+msgid ""
+"Special plug-in for adding non-breaking spaces before or after so called "
+"short words."
+msgstr ""
+
 msgid "Short Words processing. Wait please..."
 msgstr "Traitement des espaces insécables en cours..."
 
@@ -7780,6 +7813,15 @@ msgstr "Importer une illustration &OpenOffice.org..."
 msgid "OpenOffice.org Draw Importer"
 msgstr "Options d'importation des fichiers OpenOffice.org"
 
+#, fuzzy
+msgid "Imports OpenOffice Draw Files"
+msgstr "Importer une illustration OpenOffice.org"
+
+msgid ""
+"Imports most OpenOffice Draw files into the current document, converting "
+"their vector data into Scribus objects."
+msgstr ""
+
 msgid "OpenOffice.org Draw (*.sxd);;All Files (*)"
 msgstr "Illustrations OpenOffice.org (*.sxd);;Tous les fichiers (*)"
 
@@ -7790,6 +7832,13 @@ msgstr "Aperçu des &polices disponibles..."
 #, fuzzy
 msgid "Font Preview"
 msgstr "Aperçu des polices disponibles"
+
+#, fuzzy
+msgid "Font Preview dialog"
+msgstr "Aperçu des polices disponibles"
+
+msgid "Sorting, searching and browsing available fonts."
+msgstr ""
 
 msgid "Doc"
 msgstr "Doc"
@@ -8520,11 +8569,40 @@ msgstr "Importer un fichier &SVG..."
 msgid "SVG Import"
 msgstr "Importer"
 
+#, fuzzy
+msgid "Imports SVG Files"
+msgstr "Importer un fichier SVG"
+
+msgid ""
+"Imports most SVG files into the current document,\n"
+"converting their vector data into Scribus objects."
+msgstr ""
+
 msgid "SVG-Images (*.svg *.svgz);;All Files (*)"
 msgstr "Fichiers SVG (*.svg *.svgz);;Tous les fichiers (*)"
 
 msgid "SVG-Images (*.svg);;All Files (*)"
 msgstr "Fichiers SVG (*.svg);;Tous les fichiers (*)"
+
+#, fuzzy
+msgid "Document Colors"
+msgstr "Vérification de document"
+
+#, fuzzy
+msgid "Cr&eate color..."
+msgstr "C&ouleurs..."
+
+#, fuzzy
+msgid "&Import existing color..."
+msgstr "Importation des pages..."
+
+#, fuzzy
+msgid "&Merge colors"
+msgstr "&Fusion de couleurs"
+
+#, fuzzy
+msgid "&Replace colors"
+msgstr "Substitue&r les couleurs"
 
 #, fuzzy
 msgid "Normal Vision"
@@ -8545,6 +8623,10 @@ msgstr "Paramètres de couleur du texte"
 
 msgid "Vision Defect:"
 msgstr ""
+
+#, fuzzy
+msgid "Saturation:"
+msgstr "Saturation"
 
 msgid "Color Wheel"
 msgstr "Cercle chromatique"
@@ -8582,31 +8664,42 @@ msgstr "Remplacer les couleurs créées dans le document"
 msgid "Leave colors untouched"
 msgstr "Laisser les couleurs inchangées"
 
+#, fuzzy
 msgid ""
-"Difference between selected value and counted ones. See documentation for "
-"more info"
+"Difference between the selected value and the counted ones. Refer to "
+"documentation for more information."
 msgstr ""
 "Différence entre la valeur sélectionnée et celle comptée. Voire la "
 "documentation pour plus d'informations"
 
-msgid "Click the wheel to get base color"
+#, fuzzy
+msgid "Saturation component in HSV mode"
+msgstr "Saturation de la couleur des filets"
+
+msgid "Value component in HSV mode"
+msgstr ""
+
+#, fuzzy
+msgid "Click the wheel to get the base color. It is hue in HSV mode."
 msgstr "Cliquer sur la roue pour obtenir la couleur de base"
 
-msgid "Here you have the sample color schema"
-msgstr "Vous avez ici un échantillon du schéma de couleurs"
+#, fuzzy
+msgid "Sample color scheme"
+msgstr "Couleur des contours des formes"
 
+#, fuzzy
 msgid ""
-"Select one of the method to create color schema. See documentation for more "
-"info"
+"Select one of the methods to create a color scheme. Refer to documentation "
+"for more information."
 msgstr ""
 "Choisir une méthode de création pour le schéma de couleur. Voir la "
 "documentation pour plus de détails"
 
-msgid "Here you have the color of your chosen color schema"
+#, fuzzy
+msgid "Colors of your chosen color scheme"
 msgstr "Vous avez ici la couleur du schéma de couleurs choisi"
 
-msgid ""
-"You can simulate common vision defects here. Just select type of the defect"
+msgid "Simulate common vision defects here. Select type of the defect."
 msgstr ""
 
 msgid "Merging colors"
@@ -8621,8 +8714,20 @@ msgstr "Ouverture du gestionnaire de couleurs"
 msgid "Color Merging"
 msgstr "Fusion de couleurs"
 
+msgid ""
+"Unable to find the requested color. You have probably selected black, gray "
+"or white. There is no way to process this color."
+msgstr ""
+
 msgid "&Color Wheel..."
 msgstr "Gestion des &couleurs..."
+
+#, fuzzy
+msgid "Color setting helper"
+msgstr "Paramètres de couleur du texte"
+
+msgid "Color selector with color theory included."
+msgstr ""
 
 msgid "Monochromatic"
 msgstr "Monochromatique"
@@ -8751,6 +8856,9 @@ msgstr "Enregistrer en tant qu'&image..."
 msgid "Export As Image"
 msgstr "Exportation en tant qu'image(s)"
 
+msgid "Exports selected pages as bitmap images."
+msgstr ""
+
 msgid "Save as Image"
 msgstr "Enregistrer en tant qu'image"
 
@@ -8776,6 +8884,14 @@ msgstr "Enregistrer la page en &SVG..."
 msgid "SVG Export"
 msgstr "E&xporter"
 
+#, fuzzy
+msgid "Exports SVG Files"
+msgstr "Importer un fichier SVG"
+
+#, fuzzy
+msgid "Exports the current page into an SVG file."
+msgstr "Exporter les raccourcis clavier actuel vers un fichier"
+
 msgid ""
 "Do you really want to overwrite the File:\n"
 "%1 ?"
@@ -8789,6 +8905,15 @@ msgstr "Importer un fichier (&E)PS..."
 #, fuzzy
 msgid "PS/EPS Importer"
 msgstr "Filtre d'importation :"
+
+#, fuzzy
+msgid "Imports EPS Files"
+msgstr "Importer un fichier EPS"
+
+msgid ""
+"Imports most EPS files into the current document,\n"
+"converting their vector data into Scribus objects."
+msgstr ""
 
 msgid "All Supported Formats (*.eps *.EPS *.ps *.PS);;"
 msgstr "Tous les formats pris en charge (*.eps *.EPS *.ps *.PS);;"
@@ -8815,6 +8940,9 @@ msgstr "Extension"
 #, fuzzy
 msgid "My Plugin"
 msgstr "Extension"
+
+#~ msgid "Here you have the sample color schema"
+#~ msgstr "Vous avez ici un échantillon du schéma de couleurs"
 
 #, fuzzy
 #~ msgid "Default color profile for imported cmyk images"
@@ -8893,9 +9021,6 @@ msgstr "Extension"
 
 #~ msgid "Left &Page First"
 #~ msgstr "&Page gauche en premier"
-
-#~ msgid "Document Checker"
-#~ msgstr "Vérification de document"
 
 #~ msgid "Enable single or spread based layout"
 #~ msgstr "Document simple ou double page"

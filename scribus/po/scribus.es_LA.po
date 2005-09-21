@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus.es_LA\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-09-14 09:28+0200\n"
+"POT-Creation-Date: 2005-09-21 01:40+0200\n"
 "Last-Translator: Gonzalo Huerta C.\n"
 "Language-Team:  <gonzalo@huerta.cl>\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
@@ -322,6 +322,17 @@ msgstr "Color de Relleno:"
 msgid "Stroke Color:"
 msgstr "Nuevo Color:"
 
+msgid "Dot"
+msgstr ""
+
+#, fuzzy
+msgid "Hyphen"
+msgstr "Propiedades de Caracter"
+
+#, fuzzy
+msgid "Underscore"
+msgstr "en lugar de"
+
 #, fuzzy
 msgid "Custom: "
 msgstr "Propio"
@@ -610,17 +621,6 @@ msgstr "Centro"
 #, fuzzy
 msgid "&Position:"
 msgstr "Descripción:"
-
-msgid "Dot"
-msgstr ""
-
-#, fuzzy
-msgid "Hyphen"
-msgstr "Propiedades de Caracter"
-
-#, fuzzy
-msgid "Underscore"
-msgstr "en lugar de"
 
 #, fuzzy
 msgid "Fill Char:"
@@ -1506,6 +1506,10 @@ msgid ""
 "The item %1 is currently being edited by Story Editor. The delete operation "
 "will be cancelled"
 msgstr ""
+
+#, fuzzy
+msgid "Page %1 to %2"
+msgstr "Página"
 
 msgid "Cannot Convert In-Use Item"
 msgstr ""
@@ -5692,6 +5696,10 @@ msgstr "Manual de Scribus"
 msgid "Text Files (*.txt);;All Files(*)"
 msgstr "Archivos de texto (*.txt);;Todos los archivos (*)"
 
+#, fuzzy
+msgid "Convert Page to Master Page"
+msgstr "Importar datos"
+
 msgid "Size"
 msgstr "Tamaño"
 
@@ -7235,14 +7243,14 @@ msgid "Cancels these font substitutions and stops loading the document."
 msgstr ""
 
 msgid ""
-"Enabling this tells Scribus to use these replacements for missing \t\t\t\t\t"
-"\tfonts permanently in all future layouts. This can be reverted or changed \t"
-"\t\t\t\t\tin Edit > Preferences > Fonts."
+"Enabling this tells Scribus to use these replacements for missing fonts "
+"permanently in all future layouts. This can be reverted or changed in Edit > "
+"Preferences > Fonts."
 msgstr ""
 
 msgid ""
-"If you select OK, then save, these substitutions are made permanent in the \t"
-"\t\t\t\t\tdocument."
+"If you select OK, then save, these substitutions are made permanent in the "
+"document."
 msgstr ""
 
 msgid "Show Page Previews"
@@ -7792,6 +7800,26 @@ msgid "E&xit"
 msgstr "Salir"
 
 #, fuzzy
+msgid "&Find..."
+msgstr "Imprimir..."
+
+#, fuzzy
+msgid "Find &Next"
+msgstr "Alinear Izquierda"
+
+#, fuzzy
+msgid "Find &Previous"
+msgstr "Previsualizar"
+
+#, fuzzy
+msgid "&Add Bookmark"
+msgstr "Marcadores"
+
+#, fuzzy
+msgid "D&elete All"
+msgstr "Borrar"
+
+#, fuzzy
 msgid "Scribus Online Help"
 msgstr "Ayuda Online..."
 
@@ -8251,6 +8279,11 @@ msgstr "Propiedades..."
 msgid "Short Words"
 msgstr "Mostrar Guías"
 
+msgid ""
+"Special plug-in for adding non-breaking spaces before or after so called "
+"short words."
+msgstr ""
+
 msgid "Short Words processing. Wait please..."
 msgstr ""
 
@@ -8396,6 +8429,15 @@ msgid "OpenOffice.org Draw Importer"
 msgstr "Otras Opciones"
 
 #, fuzzy
+msgid "Imports OpenOffice Draw Files"
+msgstr "Documentos Recientes"
+
+msgid ""
+"Imports most OpenOffice Draw files into the current document, converting "
+"their vector data into Scribus objects."
+msgstr ""
+
+#, fuzzy
 msgid "OpenOffice.org Draw (*.sxd);;All Files (*)"
 msgstr "Archivos de texto (*.txt);;Todos los archivos (*)"
 
@@ -8406,6 +8448,13 @@ msgstr "Previsualizar"
 #, fuzzy
 msgid "Font Preview"
 msgstr "Previsualizar"
+
+#, fuzzy
+msgid "Font Preview dialog"
+msgstr "Previsualizar"
+
+msgid "Sorting, searching and browsing available fonts."
+msgstr ""
 
 msgid "Doc"
 msgstr ""
@@ -9150,12 +9199,41 @@ msgid "SVG Import"
 msgstr "Importar..."
 
 #, fuzzy
+msgid "Imports SVG Files"
+msgstr "Importar..."
+
+msgid ""
+"Imports most SVG files into the current document,\n"
+"converting their vector data into Scribus objects."
+msgstr ""
+
+#, fuzzy
 msgid "SVG-Images (*.svg *.svgz);;All Files (*)"
 msgstr "Álbum de recortes (*.scs);; Todos los archivos (*)"
 
 #, fuzzy
 msgid "SVG-Images (*.svg);;All Files (*)"
 msgstr "Documentos (*.scd);; Todos los archivos (*)"
+
+#, fuzzy
+msgid "Document Colors"
+msgstr "Documentación:"
+
+#, fuzzy
+msgid "Cr&eate color..."
+msgstr "Colores..."
+
+#, fuzzy
+msgid "&Import existing color..."
+msgstr "Importar datos"
+
+#, fuzzy
+msgid "&Merge colors"
+msgstr "Color de las Páginas"
+
+#, fuzzy
+msgid "&Replace colors"
+msgstr "Reemplazar Con:"
 
 #, fuzzy
 msgid "Normal Vision"
@@ -9176,6 +9254,10 @@ msgstr "Color de Relleno:"
 
 msgid "Vision Defect:"
 msgstr ""
+
+#, fuzzy
+msgid "Saturation:"
+msgstr "Saturación"
 
 #, fuzzy
 msgid "Color Wheel"
@@ -9222,26 +9304,32 @@ msgid "Leave colors untouched"
 msgstr ""
 
 msgid ""
-"Difference between selected value and counted ones. See documentation for "
-"more info"
+"Difference between the selected value and the counted ones. Refer to "
+"documentation for more information."
 msgstr ""
 
-msgid "Click the wheel to get base color"
+msgid "Saturation component in HSV mode"
 msgstr ""
 
-msgid "Here you have the sample color schema"
+msgid "Value component in HSV mode"
 msgstr ""
+
+msgid "Click the wheel to get the base color. It is hue in HSV mode."
+msgstr ""
+
+#, fuzzy
+msgid "Sample color scheme"
+msgstr "Seleccionar color"
 
 msgid ""
-"Select one of the method to create color schema. See documentation for more "
-"info"
+"Select one of the methods to create a color scheme. Refer to documentation "
+"for more information."
 msgstr ""
 
-msgid "Here you have the color of your chosen color schema"
+msgid "Colors of your chosen color scheme"
 msgstr ""
 
-msgid ""
-"You can simulate common vision defects here. Just select type of the defect"
+msgid "Simulate common vision defects here. Select type of the defect."
 msgstr ""
 
 #, fuzzy
@@ -9259,9 +9347,21 @@ msgstr ""
 msgid "Color Merging"
 msgstr "Modelo de Color"
 
+msgid ""
+"Unable to find the requested color. You have probably selected black, gray "
+"or white. There is no way to process this color."
+msgstr ""
+
 #, fuzzy
 msgid "&Color Wheel..."
 msgstr "Colores..."
+
+#, fuzzy
+msgid "Color setting helper"
+msgstr "Color de Relleno:"
+
+msgid "Color selector with color theory included."
+msgstr ""
 
 msgid "Monochromatic"
 msgstr ""
@@ -9400,6 +9500,9 @@ msgstr "Guardar como..."
 msgid "Export As Image"
 msgstr "Exportar Rango"
 
+msgid "Exports selected pages as bitmap images."
+msgstr ""
+
 #, fuzzy
 msgid "Save as Image"
 msgstr "Guardar como"
@@ -9428,6 +9531,13 @@ msgstr "Guardar Página como EPS..."
 msgid "SVG Export"
 msgstr "Exportar..."
 
+#, fuzzy
+msgid "Exports SVG Files"
+msgstr "Importar..."
+
+msgid "Exports the current page into an SVG file."
+msgstr ""
+
 msgid ""
 "Do you really want to overwrite the File:\n"
 "%1 ?"
@@ -9442,6 +9552,15 @@ msgstr "Importar..."
 #, fuzzy
 msgid "PS/EPS Importer"
 msgstr "Importar..."
+
+#, fuzzy
+msgid "Imports EPS Files"
+msgstr "Importar datos"
+
+msgid ""
+"Imports most EPS files into the current document,\n"
+"converting their vector data into Scribus objects."
+msgstr ""
 
 msgid "All Supported Formats (*.eps *.EPS *.ps *.PS);;"
 msgstr ""
@@ -10350,10 +10469,6 @@ msgstr "Plano"
 
 #~ msgid "Print first page first"
 #~ msgstr "Comenzar la impresión desde la primera página"
-
-#, fuzzy
-#~ msgid "Document to load:"
-#~ msgstr "Documentación:"
 
 #, fuzzy
 #~ msgid "Document contains: 0 Page(s)"
