@@ -1,19 +1,23 @@
 bin_PROGRAMS = scribus
 
 if COMPILE_CAIRO
-pixbuf_subdirs =
-pixbuf_libs =
+# We don't need to build libart/ or pixbuf/ since we're using Cairo
+renderer_subdirs =
+renderer_libs =
 else
 if LINK_PIXBUF
 # Use a convenience library for the gdk-pixbuf sources so we can avoid
 # compiling and linking them if they're not needed. We do this because using a
 # variable subsitution in scribus_SOURCES appears to break the automatic
 # moc'ing and uic'ing done by the build system.
-pixbuf_subdirs = pixbuf
-pixbuf_libs = pixbuf/libpixbuf.la
+renderer_subdirs = libart pixbuf
+renderer_libs = libart/libart.la pixbuf/libpixbuf.la
 else
-pixbuf_subdirs = libart
-pixbuf_libs = libart/libart.la
+# Use a convenience library to build our libart renderer, but omit
+# libgdk-pixbuf. This is used for build paths that use libart, but don't have
+# X11, such as Qt/Mac .
+renderer_subdirs = libart
+renderer_libs = libart/libart.la
 endif
 endif
 
@@ -197,7 +201,7 @@ scribus_SOURCES = \
 INTERFACES =
 TRANSLATIONS =
 
-SUBDIRS = $(pixbuf_subdirs) dicts doc icons keysets manpages plugins po profiles qm templates dtd loremipsum
+SUBDIRS = $(renderer_subdirs) dicts doc icons keysets manpages plugins po profiles qm templates dtd loremipsum
 
 #     NOTE: `EXTRA_DIST' is *NOT* required. The build system includes all
 #     loose files by default. You only need to use `EXTRA_DIST' when using

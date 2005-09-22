@@ -42,12 +42,12 @@
 #include <libart_lgpl/art_rect_svp.h>
 #include <libart_lgpl/art_pathcode.h>
 #include <libart_lgpl/art_vpath_dash.h>
-#include "pixbuf/art_render_misc.h"
 #include <libart_lgpl/art_render_svp.h>
 #include <libart_lgpl/art_vpath_svp.h>
-#include "pixbuf/art_rgb_svp.h"
-#include "pixbuf/art_render_pattern.h"
-#include "pixbuf/art_kmisc.h"
+#include "libart/art_render_misc.h"
+#include "libart/art_rgb_svp.h"
+#include "libart/art_render_pattern.h"
+#include "libart/art_kmisc.h"
 #define INITIAL_ALLOC	300
 #define ALLOC_INCREMENT	100
 #endif
