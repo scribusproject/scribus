@@ -135,11 +135,6 @@ ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h, unsigned i
 	m_y = y;
 	m_buffer = 0L;
 	m_index = 0;
-#ifndef HAVE_CAIRO
-	m_path = 0L;
-	resize( m_width, m_height );
-#endif
-	clear();
 	m_stroke = QColor(0,0,0);
 	m_fill = QColor(0,0,0);
 	fill_trans = 1.0;
@@ -160,6 +155,21 @@ ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h, unsigned i
 	m_zoomFactor = 1;
 	imageMode = true;
 	m_image = target;
+#ifdef HAVE_CAIRO
+	cairo_surface_t *img = cairo_image_surface_create_for_data(target->bits(), CAIRO_FORMAT_ARGB32, w, h, w*4);
+	m_cr = cairo_create(img);
+	clear();
+	cairo_save( m_cr );
+	cairo_set_fill_rule (m_cr, CAIRO_FILL_RULE_EVEN_ODD);
+	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
+/*	Setting to 0.5 here gives a good tradeoff between speed and precision
+	the former setting of 0.2 is just too precise, and setting it to 0.9 or greater will give bad rendering */
+	cairo_set_tolerance( m_cr, 0.5 );
+#else
+	resize( m_width, m_height );
+	clear();
+	m_path = 0L;
+#endif
 }
 
 ScPainter::~ScPainter()
@@ -172,16 +182,18 @@ ScPainter::~ScPainter()
 	if( m_path )
 		art_free( m_path );
 #endif
-	if (imageMode)
-		return;
 #if defined(Q_WS_X11) && defined(SC_USE_PIXBUF)
 #ifdef HAVE_CAIRO
 	cairo_destroy( m_cr );
 #else
+	if (imageMode)
+		return;
 	if( gc )
 		XFreeGC( m_target->x11Display(), gc );
 #endif
 #elif defined(_WIN32) && defined(SC_USE_GDI)
+	if (imageMode)
+		return;
 	if( dc )
 		DeleteDC( dc );
 #endif
@@ -195,8 +207,11 @@ void ScPainter::end()
 {
 	if (imageMode)
 	{
+#ifdef HAVE_CAIRO
+		cairo_surface_flush(cairo_get_target(m_cr));
+		cairo_restore( m_cr );
+#else
 		QRgb * bits = (QRgb *) m_image->bits();
-#ifndef HAVE_CAIRO
 		int words = m_image->numBytes() / 4;
 		art_u8 * p = m_buffer;;
 		for (int i=0; i < words; ++i)
@@ -278,7 +293,10 @@ void ScPainter::end()
 void ScPainter::clear()
 {
 #ifdef HAVE_CAIRO
-	pixm.fill( Qt::white );
+	if (imageMode)
+		m_image->fill( qRgba(255, 255, 255, 255) );
+	else
+		pixm.fill( Qt::white );
 #else
 	if( m_buffer )
 		memset( m_buffer, 255, m_width * m_height * 4 );
@@ -288,7 +306,11 @@ void ScPainter::clear()
 void ScPainter::clear( const QColor &c )
 {
 #ifdef HAVE_CAIRO
-	pixm.fill( c );
+	QRgb cs = c.rgb();
+	if (imageMode)
+		m_image->fill( qRgba(qRed(cs), qGreen(cs), qBlue(cs), qAlpha(cs)) );
+	else
+		pixm.fill( c );
 #else
 	if( m_buffer )
 	{
