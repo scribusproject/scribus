@@ -15,3 +15,5 @@ pageitemattributes.cpp
 pageitemattributes.h
 tocindexprefs.cpp
 tocindexprefs.h
+aboutpluginsbase.cpp
+aboutpluginsbase.h
