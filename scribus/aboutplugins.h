@@ -1,7 +1,7 @@
 #ifndef ABOUTPLUGINS_H
 #define ABOUTPLUGINS_H
 
-#include <ui/aboutpluginsbase.h>
+#include <aboutpluginsbase.h>
 
 class AboutPlugins : public AboutPluginsBase
 {
