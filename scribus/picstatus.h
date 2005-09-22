@@ -34,6 +34,9 @@ public:
     QPtrList<QCheckBox> FlagsPic;
     QValueList<uint> ItemNrs;
 
+public slots:
+	void languageChange();
+
 private slots:
     void GotoPic();
     void SearchPic();
@@ -67,11 +70,11 @@ protected:
 	static const unsigned short COL_SEARCH;
 
 	// Common translated strings
-	static const QString trOK;
-	static const QString trMissing;
-	static const QString trSearch;
-	static const QString trCancelSearch;
-	static const QString trGoto;
+	static QString trOK;
+	static QString trMissing;
+	static QString trSearch;
+	static QString trCancelSearch;
+	static QString trGoto;
 
 signals:
 	void selectPage(int);

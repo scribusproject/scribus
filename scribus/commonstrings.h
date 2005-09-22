@@ -39,6 +39,7 @@ class SCRIBUS_API CommonStrings : public QObject
 {
 	Q_OBJECT
 public:
+	CommonStrings();
 	static void languageChange();
 	static QString _Apply;
 	static QString tr_Apply;

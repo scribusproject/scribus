@@ -5229,6 +5229,14 @@ and the Delete key removes the last inserted one</translation>
         <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
         <translation>Unable to find the requested colour. You have probably selected black, gray or white. There is no way to process this colour.</translation>
     </message>
+    <message>
+        <source>Color %1 exists already!</source>
+        <translation>Colour %1 exists already!</translation>
+    </message>
+    <message>
+        <source>Color %1 appended.</source>
+        <translation>Colour %1 appended.</translation>
+    </message>
 </context>
 <context>
     <name>ColorWheelPlugin</name>

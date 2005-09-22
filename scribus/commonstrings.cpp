@@ -27,6 +27,11 @@ QString CommonStrings::tr_OK       = "";
 QString CommonStrings::_Save       = "";
 QString CommonStrings::tr_Save     = "";
 
+CommonStrings::CommonStrings()
+{
+	languageChange();
+}
+
 void CommonStrings::languageChange()
 {
 	CommonStrings::_Apply    = "&Apply";
@@ -36,12 +41,12 @@ void CommonStrings::languageChange()
 	CommonStrings::tr_Cancel  = tr( "&Cancel" );
 	
 	CommonStrings::None       = "None";
-	CommonStrings::trNone     = QT_TR_NOOP( "None" );
+	CommonStrings::trNone     = tr( "None" );
 	
 	CommonStrings::_OK        = "&OK";
 	CommonStrings::tr_OK      = tr( "&OK" );
 	
 	CommonStrings::_Save      = "&Save";
-	CommonStrings::tr_Save    = QT_TR_NOOP( "&Save" );
+	CommonStrings::tr_Save    = tr( "&Save" );
 }
 

@@ -41,11 +41,11 @@ const unsigned short PicStatus::COL_PRINT = 4;
 const unsigned short PicStatus::COL_STATUS = 5;
 const unsigned short PicStatus::COL_SEARCH = 6;
 
-const QString PicStatus::trOK = PicStatus::tr("OK");
-const QString PicStatus::trMissing = PicStatus::tr("Missing");
-const QString PicStatus::trSearch = PicStatus::tr("Search");
-const QString PicStatus::trCancelSearch = PicStatus::tr("Cancel Search");
-const QString PicStatus::trGoto = PicStatus::tr("Goto");
+QString PicStatus::trOK = "";
+QString PicStatus::trMissing = "";
+QString PicStatus::trSearch = "";
+QString PicStatus::trCancelSearch = "";
+QString PicStatus::trGoto = "";
 
 /*!
  \fn void PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi)
@@ -62,6 +62,7 @@ to search for missing Images.
 PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi) :
 	QDialog( parent, "pic", true, 0 )
 {
+	languageChange();
 	uint p, i;
 	QString tmp;
 	setCaption( tr( "Manage Pictures" ) );
@@ -200,6 +201,15 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi) :
 
 	// signals and slots connections
 	connect( OkB, SIGNAL( clicked() ), this, SLOT( accept() ) );
+}
+
+void PicStatus::languageChange()
+{
+	PicStatus::trOK = tr("OK");
+	PicStatus::trMissing = tr("Missing");
+	PicStatus::trSearch = tr("Search");
+	PicStatus::trCancelSearch = tr("Cancel Search");
+	PicStatus::trGoto = tr("Goto");
 }
 
 /*!
