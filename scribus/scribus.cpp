@@ -6468,7 +6468,7 @@ void ScribusApp::MovePage()
 		int to = dia->getToPage();
 		int wie = dia->getWhere();
 		int wo = dia->getWherePage();
-		if (from != wo)
+		if ((from != wo) || (wie == 2))
 			view->movePage(from-1, to, wo-1, wie);
 		slotDocCh();
 		view->DrawNew();
