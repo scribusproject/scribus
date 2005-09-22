@@ -4640,7 +4640,14 @@ void PDFlib::PDF_End_Doc(QString PrintPr, QString Name, int Components)
 			Inhal = "";
 			Bmc++;
 			Inhal += IToStr(ip->ItemNr+Basis)+ " 0 obj\n";
-			Inhal += "<<\n/Title "+EncString("("+ip->Titel+")", ip->ItemNr+Basis)+"\n";
+			QString encText = QString(QChar(254))+QString(QChar(255));
+			for (uint telen = 0; telen < ip->Titel.length(); telen++)
+			{
+				QChar ch = ip->Titel.at(telen);
+				encText += QChar(ch.row());
+				encText += QChar(ch.cell());
+			}
+			Inhal += "<<\n/Title "+EncString("("+encText+")", ip->ItemNr+Basis)+"\n";
 			if (ip->Pare == 0)
 				Inhal += "/Parent 3 0 R\n";
 			else
