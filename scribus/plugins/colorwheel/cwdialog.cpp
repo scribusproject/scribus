@@ -365,12 +365,12 @@ void ColorWheelDialog::addButton_clicked()
 	{
 		if (ScApp->doc->PageColors.contains(it.key()))
 		{
-			status += "<b>" + tr("Error: ") + "</b>" + tr(QString("Color %1 exists already!").arg(it.key())) + "<br/>";
+			status += "<b>" + tr("Error: ") + "</b>" + tr("Color %1 exists already!").arg(it.key()) + "<br/>";
 			err = true;
 		}
 		else
 		{
-			status += tr(QString("Color %1 appended.").arg(it.key())) + "<br/>";
+			status += tr("Color %1 appended.").arg(it.key()) + "<br/>";
 			ScApp->doc->PageColors[it.key()] = it.data();
 		}
 	}
