@@ -121,29 +121,10 @@ ColorWheelDialog::ColorWheelDialog(QWidget* parent, const char* name, bool modal
 	colorWheel->setMaximumSize(QSize(300, 300));
 	wheelLayout->addWidget(colorWheel);
 
-	defectLayout = new QHBoxLayout(0, 0, 6, "defectLayout");
-	defectLabel = new QLabel(this, "defectLabel");
-	defectLayout->addWidget(defectLabel);
-	defectCombo = new QComboBox(false, this, "defectCombo");
-	defectLayout->addWidget(defectCombo);
-	wheelLayout->addLayout(defectLayout);
-
-	previewLabel = new QLabel(this, "previewLabel");
-	previewLabel->setFrameShape(QFrame::Box);
-	previewLabel->setMinimumSize(QSize(300, 120));
-	previewLabel->setMaximumSize(QSize(300, 120));
-	wheelLayout->addWidget(previewLabel);
-
-	spacer1 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-	wheelLayout->addItem(spacer1);
-	mainLayout->addLayout(wheelLayout);
-
-	listLayout = new QVBoxLayout(0, 0, 6, "listLayout");
-
 	typeLabel = new QLabel(this, "typeLabel");
-	listLayout->addWidget(typeLabel);
+	wheelLayout->addWidget(typeLabel);
 	typeCombo = new QComboBox(false, this, "typeCombo");
-	listLayout->addWidget(typeCombo);
+	wheelLayout->addWidget(typeCombo);
 
 	angleLabel = new QLabel(this, "angleLabel");
 	angleLayout = new QHBoxLayout(0, 0, 6, "angleLayout");
@@ -152,7 +133,7 @@ ColorWheelDialog::ColorWheelDialog(QWidget* parent, const char* name, bool modal
 	angleSpin->setMinValue(0);
 	angleSpin->setMaxValue(90);
 	angleLayout->addWidget(angleSpin);
-	listLayout->addLayout(angleLayout);
+	wheelLayout->addLayout(angleLayout);
 
 	sLabel = new QLabel(this, "sLabel");
 	sLayout = new QHBoxLayout(0, 0, 6, "sLayout");
@@ -161,7 +142,7 @@ ColorWheelDialog::ColorWheelDialog(QWidget* parent, const char* name, bool modal
 	sSpin->setMinValue(0);
 	sSpin->setMaxValue(255);
 	sLayout->addWidget(sSpin);
-	listLayout->addLayout(sLayout);
+	wheelLayout->addLayout(sLayout);
 
 	vLabel = new QLabel(this, "vLabel");
 	vLayout = new QHBoxLayout(0, 0, 6, "vLayout");
@@ -170,7 +151,26 @@ ColorWheelDialog::ColorWheelDialog(QWidget* parent, const char* name, bool modal
 	vSpin->setMinValue(0);
 	vSpin->setMaxValue(255);
 	vLayout->addWidget(vSpin);
-	listLayout->addLayout(vLayout);
+	wheelLayout->addLayout(vLayout);
+
+	spacer1 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+	wheelLayout->addItem(spacer1);
+	mainLayout->addLayout(wheelLayout);
+
+	listLayout = new QVBoxLayout(0, 0, 6, "listLayout");
+
+	defectLayout = new QHBoxLayout(0, 0, 6, "defectLayout");
+	defectLabel = new QLabel(this, "defectLabel");
+	defectLayout->addWidget(defectLabel);
+	defectCombo = new QComboBox(false, this, "defectCombo");
+	defectLayout->addWidget(defectCombo);
+	listLayout->addLayout(defectLayout);
+
+	previewLabel = new QLabel(this, "previewLabel");
+	previewLabel->setFrameShape(QFrame::Box);
+	previewLabel->setMinimumSize(QSize(400, 160));
+	previewLabel->setMaximumSize(QSize(400, 160));
+	listLayout->addWidget(previewLabel);
 
 	colorList = new QListView(this, "colorList");
 	listLayout->addWidget(colorList);
@@ -432,7 +432,7 @@ void ColorWheelDialog::setPreview()
 	p->drawText(15, 5 + fm.height(), "Lorem ipsum dolor sit amet");
 	p->setPen(Qt::white);
 	p->setBrush(Qt::white);
-	p->drawText(25, y - 5 - fm.height(), "Lorem ipsum dolor sit amet");
+	p->drawText(125, y - 5 - fm.height(), "Lorem ipsum dolor sit amet");
 	p->end();
 	delete(p);
 	previewLabel->clear();
