@@ -180,6 +180,10 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td>Johannes Rüschel</td><td>jo.rueschel@gmx.de</td></tr>" +
 											"<tr><td>Franz Schmid</td><td>Franz.Schmid@altmuehlnet.de</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("ga").utf8()  + "</b></td><td> </td></tr>" +
+											"<tr><td>Xose Calvo</td><td>xosecalvo@galizaweb.net</td></tr>" +
+											"<tr><td>Manuel Anxo Rei</td><td>manxopar@avogaciagalega.org</td></tr>" +
+											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("it").utf8()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Pier Luigi Cinquantini</td><td>plcinquantini@katamail.com</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
@@ -221,7 +225,6 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td>Kevin Donnelly</td><td>kevin@dotmon.com</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 											"</table>" +
-		
 											"<table><tr><td><b><i>" + tr("Previous Translation Contributors:").utf8() + "</i></b></td><td></td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("eu").utf8() + "</b></td><td></td></tr>" +
 											"<tr><td>Pablo Saratxaga</td><td>pablo@mandrakesoft.com</td></tr>" +
@@ -240,10 +243,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td>Michel Briand</td><td>michelbriand@free.fr</td></tr>" +
 											"<tr><td>Yves Ceccone</td><td>yves@yeccoe.org</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("ga").utf8()  + "</b></td><td> </td></tr>" +
-											"<tr><td>Xose Calvo</td><td>xosecalvo@galizaweb.net</td></tr>" +
-											"<tr><td>Manuel Anxo Rei</td><td>manxopar@avogaciagalega.org</td></tr>" +
-											"<tr><td> </td><td> </td></tr>" +
+											
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("hu").utf8()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Giovanni Biczó</td><td>gbiczo@freestart.hu</td></tr>" +
 											"<tr><td>Bence Nagy</td><td>scribus@tipogral.hu</td></tr>" +
