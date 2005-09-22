@@ -1,6 +1,11 @@
 pluginsdir = $(libdir)/scribus/plugins
 
-plugins_LTLIBRARIES = libmyplugin.la
+# Disable installation of this plug-in. You must remove this
+# for your own plug-ins.
+noinst_LTLIBRARIES = libmyplugin.la
+
+# Enable this instead:
+# plugins_LTLIBRARIES = libmyplugin.la
 
 INCLUDES = $(LIBFREETYPE_CFLAGS) $(all_includes)
 

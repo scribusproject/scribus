@@ -1,12 +1,16 @@
 #ifndef MYPLUGINIMPL_H
 #define MYPLUGINIMPL_H
 
-class MyPluginImpl
+#include <qobject.h>
+
+class QString;
+
+class MyPluginImpl : public QObject
 {
 	public:
 		MyPluginImpl();
 		~MyPluginImpl() {};
-		void run(const QString & target);
-}
+		bool run(const QString & target);
+};
 
 #endif
