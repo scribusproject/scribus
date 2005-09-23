@@ -1566,7 +1566,8 @@ void SEditor::copy()
 	{
 		disconnect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(ClipChange()));
 		disconnect(QApplication::clipboard(), SIGNAL(selectionChanged()), this, SLOT(SelClipChange()));
-		tBuffer = "";
+		tBuffer = selectedText();
+/*		tBuffer = "";
 		int PStart, PEnd, SelStart, SelEnd, start, end;
 		int p, i;
 		QChar origChar;
@@ -1615,7 +1616,7 @@ void SEditor::copy()
 			if (pa != PEnd)
 			        tBuffer.append("\n");
 		}
-		setCursorPosition(p,i);
+		setCursorPosition(p,i); */
 		copyStyledText();
 		QApplication::clipboard()->setText(tBuffer, QClipboard::Clipboard);
 		ClipData = 1;
