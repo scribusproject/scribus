@@ -825,7 +825,7 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuSeparator("InsertQuote");
 	scrMenuMgr->addMenuItem(scrActions["specialQuoteLowSingleComma"], "InsertQuote");
 	scrMenuMgr->addMenuItem(scrActions["specialQuoteLowDoubleComma"], "InsertQuote");
-	scrMenuMgr->addMenuItem(scrActions["specialQuoteDoubleTurnedComma"], "InsertQuote");
+	//scrMenuMgr->addMenuItem(scrActions["specialQuoteDoubleTurnedComma"], "InsertQuote");
 	scrMenuMgr->addMenuSeparator("InsertQuote");
 	scrMenuMgr->addMenuItem(scrActions["specialQuoteCJKSingleLeft"], "InsertQuote");
 	scrMenuMgr->addMenuItem(scrActions["specialQuoteCJKSingleRight"], "InsertQuote");

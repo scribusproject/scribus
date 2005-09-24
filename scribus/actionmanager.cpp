@@ -570,7 +570,7 @@ void ActionManager::initSpecialActions()
 	scrActions->insert("specialQuoteDoubleRightGuillemet", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialQuoteDoubleRightGuillemet",0x00BB));
 	scrActions->insert("specialQuoteLowSingleComma", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialQuoteLowSingleComma",0x201A));
 	scrActions->insert("specialQuoteLowDoubleComma", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialQuoteLowDoubleComma",0x201E));
-	scrActions->insert("specialQuoteDoubleTurnedComma", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialQuoteDoubleTurnedComma",0x201C));
+	//scrActions->insert("specialQuoteDoubleTurnedComma", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialQuoteDoubleTurnedComma",0x201C));
 	scrActions->insert("specialQuoteCJKSingleLeft", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialQuoteCJKSingleLeft",0x300C));
 	scrActions->insert("specialQuoteCJKSingleRight", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialQuoteCJKSingleRight",0x300D));
 	scrActions->insert("specialQuoteCJKDoubleLeft", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialQuoteCJKDoubleLeft",0x300E));
@@ -595,7 +595,7 @@ void ActionManager::initSpecialActions()
 	//French quotes
 	*unicodeCharActionNames << "specialQuoteSingleLeftGuillemet" << "specialQuoteSingleRightGuillemet" << "specialQuoteDoubleLeftGuillemet" << "specialQuoteDoubleRightGuillemet";
 	//German quotes
-	*unicodeCharActionNames << "specialQuoteLowSingleComma" << "specialQuoteLowDoubleComma" << "specialQuoteDoubleTurnedComma";
+	*unicodeCharActionNames << "specialQuoteLowSingleComma" << "specialQuoteLowDoubleComma";// << "specialQuoteDoubleTurnedComma";
 	//CJK Quotes
 	*unicodeCharActionNames << "specialQuoteCJKSingleLeft" << "specialQuoteCJKSingleRight" << "specialQuoteCJKDoubleLeft" << "specialQuoteCJKDoubleRight";
 
@@ -1021,7 +1021,7 @@ void ActionManager::languageChange()
 	(*scrActions)["specialQuoteDoubleRightGuillemet"]->setTexts( tr("Double Right Guillemet"));
 	(*scrActions)["specialQuoteLowSingleComma"]->setTexts( tr("Low Single Comma"));
 	(*scrActions)["specialQuoteLowDoubleComma"]->setTexts( tr("Low Double Comma"));
-	(*scrActions)["specialQuoteDoubleTurnedComma"]->setTexts( tr("Double Turned Comma"));
+	//(*scrActions)["specialQuoteDoubleTurnedComma"]->setTexts( tr("Double Turned Comma"));
 	(*scrActions)["specialQuoteCJKSingleLeft"]->setTexts( tr("CJK Single Left"));
 	(*scrActions)["specialQuoteCJKSingleRight"]->setTexts( tr("CJK Single Right"));
 	(*scrActions)["specialQuoteCJKDoubleLeft"]->setTexts( tr("CJK Double Left"));
