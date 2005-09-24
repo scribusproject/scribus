@@ -7,6 +7,7 @@ class QString;
 
 class MyPluginImpl : public QObject
 {
+	Q_OBJECT
 	public:
 		MyPluginImpl();
 		~MyPluginImpl() {};
