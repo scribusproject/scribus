@@ -16,7 +16,8 @@
 
 AboutPlugins::AboutPlugins( QWidget* parent )
 	: AboutPluginsBase( parent, "AboutPlugins" ),
-	pluginNames(PluginManager::instance().pluginNames())
+	// Get a list of plugins, enabled or not
+	pluginNames(PluginManager::instance().pluginNames(true))
 {
 	// Populate the list with translated human-readable plugin names
 	QValueList<QCString>::const_iterator it(pluginNames.begin());

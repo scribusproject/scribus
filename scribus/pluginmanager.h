@@ -4,6 +4,7 @@
 #include <qobject.h>
 #include <qstring.h>
 #include <qmap.h>
+#include <qvaluelist.h>
 
 #include "scribusapi.h"
 
@@ -65,6 +66,11 @@ public:
 	 * If includeDisabled is true, plugins that are loaded but not enabled
 	 * are returned. If it is false, 0 is returned if the requested plugin
 	 * is loaded but not enabled.
+	 *
+	 * If your code only cares about plugins of one specific type,
+	 * you are probably better off using getPluginT<PluginType> .
+	 *
+	 * \sa getPluginT
 	 */
 	ScPlugin* getPlugin(const QCString & pluginName, bool includeDisabled) const;
 
@@ -116,9 +122,20 @@ public:
 	 * If includeNotLoaded is true, names are returned for plug-ins that are
 	 * not loaded (ie we have no ScPlugin instance for them).
 	 *
-	 * Disabled plugins are always returned.
+	 * \param includeDisabled  Should the names of plugins that are loaded, but
+	 *                         disabled, be returned?
+	 * \param inherits         Only return plugins that inherit from this parent
+	 *                         (the text name of the type - uses QMetaObject).
+	 * \return A list of internal plugin names suitable for use with getPlugin etc.
+	 *
+	 * If your code only cares about plugins of one specific type,
+	 * you are probably better off using getPluginNamesT<PluginType> .
+	 *
+	 * \sa getPluginNamesT
+	 * \sa getPlugin
 	 */
-	QValueList<QCString> pluginNames(bool includeNotLoaded = false) const;
+	QValueList<QCString> pluginNames(bool includeDisabled = false,
+									 const char* inherits = 0) const;
 
 public slots:
 
@@ -197,4 +214,3 @@ protected:
 };
 
 #endif
-

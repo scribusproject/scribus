@@ -37,9 +37,9 @@ PluginManagerPrefsGui::PluginManagerPrefsGui(QWidget * parent)
 	pluginsList->setColumnWidthMode(4, QListView::Maximum);
 	pluginsList->addColumn( tr("File"));
 	pluginsList->setColumnWidthMode(5, QListView::Maximum);
-	// Get a list of all internal plugin names, then loop over them and add
-	// each one to the plugin list.
-	QValueList<QCString> pluginNames(pluginManager.pluginNames());
+	// Get a list of all internal plugin names, including those of disabled
+	// plugins, then loop over them and add each one to the plugin list.
+	QValueList<QCString> pluginNames(pluginManager.pluginNames(true));
 	for (QValueList<QCString>::Iterator it = pluginNames.begin(); it != pluginNames.end(); ++it)
 	{
 		QListViewItem *plugItem = new QListViewItem(pluginsList);

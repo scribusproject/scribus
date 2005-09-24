@@ -239,7 +239,7 @@ bool PluginManager::DLLexists(QCString name, bool includeDisabled) const
 	if (pluginMap.contains(name))
 		// the plugin must be loaded
 		if (pluginMap[name].plugin)
-			// and the plugin must be enabled
+			// and the plugin must be enabled unless we were told otherwise
 			if (pluginMap[name].enabled || includeDisabled)
 				return true;
 	return false;
@@ -448,12 +448,17 @@ bool PluginManager::enabled(const QCString pluginName)
 	return pluginMap[pluginName].enabled;
 }
 
-QValueList<QCString> PluginManager::pluginNames(bool includeNotLoaded) const
+QValueList<QCString> PluginManager::pluginNames(
+		bool includeDisabled, const char* inherits) const
 {
+	// Scan the plugin map for plugins...
 	QValueList<QCString> names;
 	for (PluginMap::ConstIterator it = pluginMap.constBegin(); it != pluginMap.constEnd(); ++it)
-		if (includeNotLoaded || it.data().plugin != 0)
-			names.append(it.data().pluginName);
+		if (includeDisabled || it.data().enabled)
+			// Only including plugins that inherit a named parent (if
+			// specified), using the QMetaObject system.
+			if (!inherits || it.data().plugin->inherits(inherits))
+				names.append(it.data().pluginName);
 	return names;
 }
 

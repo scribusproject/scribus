@@ -825,9 +825,9 @@ void Preferences::addPlugins()
 {
 	// Scan for plugins that provide a prefs widget, and add it to the
 	// prefs dialog.
-	// For each plugin that's loaded:
+	// For each plugin, enabled or not:
 	PluginManager& pluginManager = PluginManager::instance();
-	QValueList<QCString> pluginNames(pluginManager.pluginNames());
+	QValueList<QCString> pluginNames(pluginManager.pluginNames(true));
 	QValueList<QCString>::Iterator itEnd(pluginNames.end());
 	for (QValueList<QCString>::Iterator it(pluginNames.begin()); it != itEnd ; ++it )
 	{
