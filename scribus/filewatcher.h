@@ -19,7 +19,7 @@ public:
 	~FileWatcher();
 	bool isActive();
 	// Set the timer length in milliseconds
-	void setTimeOut(const int);
+	void setTimeOut(const int newTimeOut, const bool restartTimer=false);
 	// Get the timer length
 	const int timeOut();
 	QValueList<QString> files();
