@@ -1,4 +1,17 @@
-Changes since 1.2 (all Changes from 1.2 to 1.2.2.1 are included in the 1.3.0 Version too)
+Changes since 1.2 (all Changes from 1.2 to 1.2.2.1 are included in the 1.3.1 Version too)
+Scribus - 1.3.0cvs
+==================
+- 0002046: [User Interface] Scribus appears to lock up when using Manage Pictures "Search" function (ringerc)
+- 0000349: [User Interface] If a file is saved under a default name under a non-English locale it does not show up in the "Recent documents" submenu. (ringerc)
+- 0001075: [General] Add-Item-to-Index checkbox in properties dialog (cbradney)
+- 0002214: [Internal] Platform independent implementation of PicStatus (ringerc)
+- 0002175: [User Interface] "apply master page" dialog elements don't fit (fschmid)
+- 0002203: [Story Editor / Text Frames] sample text generator adds the text to the existing instead of replacing it (subik)
+- 0002146: [User Interface] page size limited to 352.7778 cm (cbradney)
+- 0002206: [Internal] Little patches for improved msvc compatibility (cbradney)
+- 0002087: [Internal] Migrate font path prefs to 1.3 prefs API (ringerc)
+- 0001811: [Picture Frames] Tools - manage images: Search button does not work (ringerc)
+- 0000176: [Releases] 1.3 release Metabug (fschmid)
 - 0002235: [User Interface] change tab order in page -> manage margins to make it user friendly (cbradney)-
 - 0001811: [Picture Frames] Tools - manage images: Search button does not work (ringerc)
 - 0002224: [Import / Export] no preview available for attached document when trying to import the pdf into scribus (fschmid)
