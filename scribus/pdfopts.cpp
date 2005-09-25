@@ -82,6 +82,8 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString docFileName, QMap<QString,QFont> D
 	Cancel = new QPushButton( CommonStrings::tr_Cancel, this, "Cancel" );
 	Layout7->addWidget( Cancel );
 	PDFOptsLayout->addLayout( Layout7 );
+	if ((pdfOptions->Version == PDFOptions::PDFVersion_X3) && (Options->InfoString->text().isEmpty()))
+		OK->setEnabled(false);
 	resize(sizeHint());
 //	setMaximumSize( sizeHint() );
 //tooltips
@@ -92,6 +94,18 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString docFileName, QMap<QString,QFont> D
 	connect( Cancel, SIGNAL( clicked() ), this, SLOT( reject() ) );
 	connect( fileNameLineEdit, SIGNAL( lostFocus() ), this, SLOT( fileNameChanged() ) );
 	connect( fileNameLineEdit, SIGNAL( returnPressed() ), this, SLOT( fileNameChanged() ) );
+	connect( Options, SIGNAL(noInfo()), this, SLOT(disableSave()));
+	connect( Options, SIGNAL(hasInfo()), this, SLOT(enableSave()));
+}
+
+void PDF_Opts::enableSave()
+{
+	OK->setEnabled(true);
+}
+
+void PDF_Opts::disableSave()
+{
+	OK->setEnabled(false);
 }
 
 void PDF_Opts::DoExport()

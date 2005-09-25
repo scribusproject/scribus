@@ -48,6 +48,8 @@ protected slots:
 	void DoExport();
 	void ChangeFile();
 	void fileNameChanged();
+	void enableSave();
+	void disableSave();
 
 protected:
 	QVBoxLayout* PDFOptsLayout;

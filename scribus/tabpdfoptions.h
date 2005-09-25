@@ -162,8 +162,11 @@ public:
 	double pageH;
 	double pageB;
 	bool cms;
-	
 	double unitRatio;
+
+signals:
+	void noInfo();
+	void hasInfo();
 
 public slots:
 	void ToggleEncr();
@@ -196,6 +199,7 @@ public slots:
 	void EnableLPI2();
 	void SelLPIcol(int);
 	void enableCMS(bool enable);
+	void checkInfo();
 
 protected:
 	QGridLayout* CBoxLayout;

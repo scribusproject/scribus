@@ -815,6 +815,9 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 		connect(EDirection_2_2, SIGNAL(activated(int)), this, SLOT(ValidDI(int)));
 		connect(CheckBox10, SIGNAL(clicked()), this, SLOT(DoEffects()));
 		connect(EonAllPg, SIGNAL(clicked()), this, SLOT(EffectOnAll()));
+		connect(InfoString, SIGNAL(textChanged(const QString &)), this, SLOT(checkInfo()));
+		connect(InfoString, SIGNAL(returnPressed()), this, SLOT(checkInfo()));
+		connect(InfoString, SIGNAL(lostFocus()), this, SLOT(checkInfo()));
 		QToolTip::add( EmbedFonts, tr( "Embed fonts into the PDF. Embedding the fonts\nwill preserve the layout and appearance of your document." ) );
 		QToolTip::add( CheckBox10, "<qt>" + tr( "Enables presentation effects when using Adobe&#174; Reader&#174; in full screen mode." ) + "</qt>");
 		QToolTip::add( PagePrev, tr( "Show page previews of each page listed above." ) );
@@ -890,6 +893,14 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 
 void TabPDFOptions::restoreDefaults()
 {
+}
+
+void TabPDFOptions::checkInfo()
+{
+	if ((PDFVersionCombo->currentItem() == 3) && (InfoString->text().isEmpty()))
+		emit noInfo();
+	else
+		emit hasInfo();
 }
 
 void TabPDFOptions::ToggleEncr()
@@ -974,6 +985,10 @@ void TabPDFOptions::EnablePDFX(int a)
 		EmbedFonts->setEnabled(false);
 		FromEmbed->setEnabled(false);
 		ToEmbed->setEnabled(false);
+		if (InfoString->text().isEmpty())
+			emit noInfo();
+		else
+			emit hasInfo();
 	}
 	EnablePGI();
 	setTabEnabled(tabPDFX, true);
