@@ -6469,7 +6469,10 @@ void ScribusApp::MovePage()
 		int wie = dia->getWhere();
 		int wo = dia->getWherePage();
 		if ((from != wo) || (wie == 2))
-			view->movePage(from-1, to, wo-1, wie);
+		{
+			doc->movePage(from-1, to, wo-1, wie);
+			view->reformPages();
+		}
 		slotDocCh();
 		view->DrawNew();
 		AdjustBM();

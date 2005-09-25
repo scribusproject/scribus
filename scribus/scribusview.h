@@ -145,8 +145,6 @@ public:
 	};
   /** Deletes a Page */
 	void delPage(int Nr);
-  /** verschiebt Seiten */
-	void movePage(int from, int to, int ziel, int art);
 	void reformPages(bool moveObjects = true);
 	void updateLayerMenu();
 	void showMasterPage(int nr);

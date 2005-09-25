@@ -605,7 +605,8 @@ void SeitenPal::DelMPage(QString tmp)
 
 void SeitenPal::MPage(int r, int c)
 {
-	Vie->movePage(r, r + 1, c, r > c ? 0 : (c > PageView->MaxC ? 2 : 1));
+	Vie->Doc->movePage(r, r + 1, c, r > c ? 0 : (c > PageView->MaxC ? 2 : 1));
+	Vie->reformPages();
 	RebuildPage();
 	Vie->Doc->setModified(true);
 }

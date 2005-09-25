@@ -8766,13 +8766,13 @@ void ScribusView::delPage(int Nr)
 	pageSelector->GotoPg(0);
 	connect(pageSelector, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
 }
-
+/*
 void ScribusView::movePage(int from, int to, int ziel, int art)
 {
 	Doc->movePage(from, to, ziel, art);
 	reformPages();
 }
-
+*/
 void ScribusView::reformPages(bool moveObjects)
 {
 	Page* Seite;
