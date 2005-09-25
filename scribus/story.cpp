@@ -735,6 +735,7 @@ void SEditor::copyStyledText()
 		}
 		hg = new PtiSmall;
 		hg->ch = QChar(13);
+		tBuffer += QChar(13);
 		hg->cfont = "";
 		hg->csize = 1;
 		hg->ccolor = "";
