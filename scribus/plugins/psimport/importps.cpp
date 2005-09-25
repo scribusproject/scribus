@@ -247,8 +247,7 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.extension(false).lower();
 	cmd1 = getShortPathName(PrefsManager::instance()->ghostscriptExecutable());
-	cmd1 += " -q -dNOPAUSE -dNODISPLAY";
-	cmd1 += " -dBATCH -g"+tmp2.setNum(qRound(b-x))+"x"+tmp3.setNum(qRound(h-y))+" -c "+tmp4.setNum(-x)+" "+tmp.setNum(-y)+" translate";
+	cmd1 += " -q -dNOPAUSE -dNODISPLAY -dBATCH ";
 	// Add any extra font paths being used by Scribus to gs's font search
 	// path We have to use Scribus's prefs context, not a plugin context, to
 	// get to the required information.
@@ -266,6 +265,7 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 		cmd1 += QString(";\"%1\"").arg(extraFonts->get(i,0));
 #endif
 	// then finish building the command and call gs
+	cmd1 += " -g"+tmp2.setNum(qRound(b-x))+"x"+tmp3.setNum(qRound(h-y))+" -c "+tmp4.setNum(-x)+" "+tmp.setNum(-y)+" translate";
 	cmd1 += " -sOutputFile=\"" + QDir::convertSeparators(tmpFile) + "\"";
 	cmd1 += " \"" + pfad2 + "\"";
 	cmd2 = " \"" + QDir::convertSeparators(fn) + "\"";
