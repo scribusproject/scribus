@@ -971,8 +971,42 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 		PS_setGray();
 	if ((!Art) && (view->SelItem.count() != 0))
 	{
-		view->setGroupRect();
-		view->getGroupRect(&gx, &gy, &gw, &gh);
+		double minx = 99999.9;
+		double miny = 99999.9;
+		double maxx = -99999.9;
+		double maxy = -99999.9;
+		for (uint ep = 0; ep < view->SelItem.count(); ++ep)
+		{
+			PageItem* currItem = view->SelItem.at(ep);
+			double lw = currItem->lineWidth() / 2.0;
+			if (currItem->Rot != 0)
+			{
+				FPointArray pb;
+				pb.resize(0);
+				pb.addPoint(FPoint(currItem->Xpos-lw, currItem->Ypos-lw));
+				pb.addPoint(FPoint(currItem->Width+lw*2.0, -lw, currItem->Xpos-lw, currItem->Ypos-lw, currItem->Rot, 1.0, 1.0));
+				pb.addPoint(FPoint(currItem->Width+lw*2.0, currItem->Height+lw*2.0, currItem->Xpos-lw, currItem->Ypos-lw, currItem->Rot, 1.0, 1.0));
+				pb.addPoint(FPoint(-lw, currItem->Height+lw*2.0, currItem->Xpos-lw, currItem->Ypos-lw, currItem->Rot, 1.0, 1.0));
+				for (uint pc = 0; pc < 4; ++pc)
+				{
+					minx = QMIN(minx, pb.point(pc).x());
+					miny = QMIN(miny, pb.point(pc).y());
+					maxx = QMAX(maxx, pb.point(pc).x());
+					maxy = QMAX(maxy, pb.point(pc).y());
+				}
+			}
+			else
+			{
+				minx = QMIN(minx, currItem->Xpos-lw);
+				miny = QMIN(miny, currItem->Ypos-lw);
+				maxx = QMAX(maxx, currItem->Xpos-lw + currItem->Width+lw*2.0);
+				maxy = QMAX(maxy, currItem->Ypos-lw + currItem->Height+lw*2.0);
+			}
+		}
+		gx = minx;
+		gy = miny;
+		gw = maxx - minx;
+		gh = maxy - miny;
 		int pgNum = pageNs[0]-1;
 		gx -= Doc->Pages.at(pgNum)->xOffset();
 		gy -= Doc->Pages.at(pgNum)->yOffset();
