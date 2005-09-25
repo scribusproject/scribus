@@ -1815,16 +1815,21 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			if (Doc->appMode != modeEdit) //Create convertTo Menu
 			{
 				bool insertConvertToMenu=false;
-				if (currItem->itemType() == PageItem::TextFrame)
+				if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::PathText))
 				{
 					insertConvertToMenu=true;
-					if (currItem->isTableItem)
-						ScApp->scrActions["itemConvertToImageFrame"]->addTo(pmen2);
-					if ((!currItem->isTableItem) && (currItem->BackBox == 0) && (currItem->NextBox == 0))
-					{
-						ScApp->scrActions["itemConvertToImageFrame"]->addTo(pmen2);
+					if (currItem->itemType() == PageItem::PathText)
 						ScApp->scrActions["itemConvertToOutlines"]->addTo(pmen2);
-						ScApp->scrActions["itemConvertToPolygon"]->addTo(pmen2);
+					else
+					{
+						if (currItem->isTableItem)
+							ScApp->scrActions["itemConvertToImageFrame"]->addTo(pmen2);
+						if ((!currItem->isTableItem) && (currItem->BackBox == 0) && (currItem->NextBox == 0))
+						{
+							ScApp->scrActions["itemConvertToImageFrame"]->addTo(pmen2);
+							ScApp->scrActions["itemConvertToOutlines"]->addTo(pmen2);
+							ScApp->scrActions["itemConvertToPolygon"]->addTo(pmen2);
+						}
 					}
 				}
 				if (currItem->itemType() == PageItem::ImageFrame)
@@ -11950,7 +11955,7 @@ void ScribusView::TextToPath()
 		{
 			PageItem *currItem = SelItem.at(offset);
 			bool cont=false;
-			if ((currItem->itemType()!=PageItem::TextFrame) || (currItem->isTableItem && currItem->isSingleSel) || (currItem->locked()) || currItem->itemText.count() == 0)
+			if ((!((currItem->itemType()==PageItem::TextFrame) || (currItem->itemType()==PageItem::PathText))) || (currItem->isTableItem && currItem->isSingleSel) || (currItem->locked()) || currItem->itemText.count() == 0)
 				cont=true;
 			if (currItem==ScApp->storyEditor->currentItem() && Doc==ScApp->storyEditor->currentDocument())
 			{
@@ -11965,15 +11970,17 @@ void ScribusView::TextToPath()
 			}				
 			newGroupedItems.clear();
 			FPointArray pts;
-			double x, y;
+			double x, y, wide;
 			QString chx, ccounter;
 			PageItem* bb;
+			struct ScText *hl;
 			for (uint a = 0; a < currItem->MaxChars; ++a)
 			{
 				pts.resize(0);
 				x = 0.0;
 				y = 0.0;
-				chx = currItem->itemText.at(a)->ch;
+				hl = currItem->itemText.at(a);
+				chx = hl->ch;
 				if ((chx == QChar(13)) || (chx == QChar(32)) || (chx == QChar(29)))
 					continue;
 				if (chx == QChar(30))
@@ -11982,35 +11989,76 @@ void ScribusView::TextToPath()
 					if (chx == QChar(32))
 						continue;
 				}
-				int chs = currItem->itemText.at(a)->csize;
-				if (currItem->itemText.at(a)->cstyle & 64)
+				int chs = hl->csize;
+				if (hl->cstyle & 64)
 				{
 					if (chx.upper() != chx)
 					{
-						chs = QMAX(static_cast<int>(currItem->itemText.at(a)->csize * Doc->typographicSettings.valueSmallCaps / 100), 1);
+						chs = QMAX(static_cast<int>(hl->csize * Doc->typographicSettings.valueSmallCaps / 100), 1);
 						chx = chx.upper();
 					}
 				}
 				double csi = static_cast<double>(chs) / 100.0;
 				uint chr = chx[0].unicode();
-				QWMatrix chma;
-				chma.scale(csi, csi);
-				pts = currItem->itemText.at(a)->cfont->GlyphArray[chr].Outlines.copy();
-				if (pts.size() < 4)
-					continue;
-				x = currItem->itemText.at(a)->cfont->GlyphArray[chr].x * csi;
-				y = currItem->itemText.at(a)->cfont->GlyphArray[chr].y * csi;
-				pts.map(chma);
-				chma = QWMatrix();
-				chma.scale(currItem->itemText.at(a)->cscale / 1000.0, currItem->itemText.at(a)->cscalev / 1000.0);
-				pts.map(chma);
-				chma = QWMatrix();
-				if (currItem->imageFlippedH() && (!currItem->Reverse))
-					chma.scale(-1, 1);
-				if (currItem->imageFlippedV())
-					chma.scale(1, -1);
-				pts.map(chma);
-				//uint z = PaintPoly(currItem->Xpos, currItem->Ypos, currItem->Width, currItem->Height, currItem->Pwidth, currItem->lineColor(), currItem->fillColor());
+				QWMatrix chma, chma2, chma3, chma4, chma6;
+				if (currItem->itemType()==PageItem::PathText)
+				{
+					QWMatrix trafo = QWMatrix( 1, 0, 0, -1, -hl->PRot, 0 );
+					trafo *= QWMatrix( hl->PtransX, hl->PtransY, hl->PtransY, -hl->PtransX, hl->xp, hl->yp);
+					if (currItem->Rot != 0)
+					{
+						QWMatrix sca;
+						sca.translate(-currItem->Xpos, -currItem->Ypos);
+						sca.rotate(currItem->Rot);
+						trafo *= sca;
+					}
+					chma.scale(csi, csi);
+					chma2.scale(hl->cscale / 1000.0, hl->cscalev / 1000.0);
+					if (currItem->Reverse)
+					{
+						if (a < currItem->itemText.count()-1)
+							wide = Cwidth(Doc, hl->cfont, chx, hl->csize, currItem->itemText.at(a+1)->ch);
+						else
+							wide = Cwidth(Doc, hl->cfont, chx, hl->csize);
+						chma3.scale(-1, 1);
+						chma3.translate(-wide, 0);
+						chma4.translate(0, currItem->BaseOffs-((hl->csize / 10.0) * (hl->cscalev / 1000.0)));
+					}
+					else
+						chma4.translate(0, currItem->BaseOffs-((hl->csize / 10.0) * (hl->cscalev / 1000.0)));
+					if (hl->cbase != 0)
+						chma6.translate(0, -(hl->csize / 10.0) * (hl->cbase / 1000.0));
+					pts = currItem->itemText.at(a)->cfont->GlyphArray[chr].Outlines.copy();
+					if (pts.size() < 4)
+						continue;
+					pts.map(chma * chma2 * chma3 * chma4 * chma6);
+					pts.map(trafo);
+					if (currItem->Rot != 0)
+					{
+						QWMatrix sca;
+						sca.translate(currItem->Xpos, currItem->Ypos);
+						pts.map(sca);
+					}
+				}
+				else
+				{
+					chma.scale(csi, csi);
+					pts = hl->cfont->GlyphArray[chr].Outlines.copy();
+					if (pts.size() < 4)
+						continue;
+					x = hl->cfont->GlyphArray[chr].x * csi;
+					y = hl->cfont->GlyphArray[chr].y * csi;
+					pts.map(chma);
+					chma = QWMatrix();
+					chma.scale(hl->cscale / 1000.0, hl->cscalev / 1000.0);
+					pts.map(chma);
+					chma = QWMatrix();
+					if (currItem->imageFlippedH() && (!currItem->Reverse))
+						chma.scale(-1, 1);
+					if (currItem->imageFlippedV())
+						chma.scale(1, -1);
+					pts.map(chma);
+				}
 				uint z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, currItem->Xpos, currItem->Ypos, currItem->Width, currItem->Height, currItem->Pwidth, currItem->lineColor(), currItem->fillColor(), !Mpressed);
 				bb = Doc->Items.at(z);
 				bb->setTextFlowsAroundFrame(currItem->textFlowsAroundFrame());
@@ -12021,13 +12069,14 @@ void ScribusView::TextToPath()
 				bb->setItemName(currItem->itemName()+"+"+ccounter.setNum(a));
 				bb->AutoName = false;
 				bb->PoLine = pts.copy();
-				bb->Rot = currItem->Rot;
-				bb->setFillColor(currItem->itemText.at(a)->ccolor);
-				bb->setFillShade(currItem->itemText.at(a)->cshade);
+				if (currItem->itemType()!=PageItem::PathText)
+					bb->Rot = currItem->Rot;
+				bb->setFillColor(hl->ccolor);
+				bb->setFillShade(hl->cshade);
 				if (currItem->itemText.at(a)->cstyle & 4)
 				{
-					bb->lineColor() = currItem->itemText.at(a)->cstroke;
-					bb->setLineShade(currItem->itemText.at(a)->cshade2);
+					bb->lineColor() = hl->cstroke;
+					bb->setLineShade(hl->cshade2);
 				}
 				else
 				{
@@ -12038,30 +12087,46 @@ void ScribusView::TextToPath()
 					bb->fillQColor = Doc->PageColors[bb->fillColor()].getShadeColorProof(bb->fillShade());
 				if (bb->lineColor() != "None")
 					bb->strokeQColor = Doc->PageColors[bb->lineColor()].getShadeColorProof(bb->lineShade());
-				bb->Pwidth = chs * currItem->itemText.at(a)->coutline / 10000.0;
-				FPoint tp2 = getMinClipF(&bb->PoLine);
-				bb->PoLine.translate(-tp2.x(), -tp2.y());
-				FPoint tp = getMaxClipF(&bb->PoLine);
-				bb->Width = tp.x();
-				bb->Height = tp.y();
-				bb->Clip = FlattenPath(bb->PoLine, bb->Segments);
-				double textX = currItem->itemText.at(a)->xp;
-				double textY = currItem->itemText.at(a)->yp;
-				double wide;
-				if (a < currItem->itemText.count()-1)
-					wide = Cwidth(Doc, currItem->itemText.at(a)->cfont, chx, currItem->itemText.at(a)->csize, currItem->itemText.at(a+1)->ch);
+				bb->Pwidth = chs * hl->coutline / 10000.0;
+				if (currItem->itemType()==PageItem::PathText)
+					AdjustItemSize(bb);
 				else
-					wide = Cwidth(Doc, currItem->itemText.at(a)->cfont, chx, currItem->itemText.at(a)->csize);
-				if (currItem->imageFlippedH())
-					textX = currItem->Width - textX - wide;
-				if (currItem->imageFlippedV())
-					textY = currItem->Height - textY+ y - (bb->Height - y);
-				FPoint npo(textX+x, textY-y, 0.0, 0.0, currItem->Rot, 1.0, 1.0);
-				bb->Xpos = currItem->Xpos+npo.x();
-				bb->Ypos = currItem->Ypos+npo.y();
+				{
+					FPoint tp2 = getMinClipF(&bb->PoLine);
+					bb->PoLine.translate(-tp2.x(), -tp2.y());
+					FPoint tp = getMaxClipF(&bb->PoLine);
+					bb->Width = tp.x();
+					bb->Height = tp.y();
+					bb->Clip = FlattenPath(bb->PoLine, bb->Segments);
+					double textX = hl->xp;
+					double textY = hl->yp;
+					if (a < currItem->itemText.count()-1)
+						wide = Cwidth(Doc, hl->cfont, chx, hl->csize, currItem->itemText.at(a+1)->ch);
+					else
+						wide = Cwidth(Doc, hl->cfont, chx, hl->csize);
+					if (currItem->imageFlippedH())
+						textX = currItem->Width - textX - wide;
+					if (currItem->imageFlippedV())
+						textY = currItem->Height - textY+ y - (bb->Height - y);
+					FPoint npo(textX+x, textY-y, 0.0, 0.0, currItem->Rot, 1.0, 1.0);
+					bb->Xpos = currItem->Xpos+npo.x();
+					bb->Ypos = currItem->Ypos+npo.y();
+				}
 				bb->ContourLine = bb->PoLine.copy();
 				bb->ClipEdited = true;
 				setRedrawBounding(bb);
+				newGroupedItems.append(bb);
+			}
+			if ((currItem->itemType()==PageItem::PathText) && (currItem->PoShow))
+			{
+				uint z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->Xpos, currItem->Ypos, currItem->Width, currItem->Height, currItem->Pwidth, "None", currItem->lineColor(), !Mpressed);
+				PageItem *bb = Doc->Items.at(z);
+				bb->PoLine = currItem->PoLine.copy();
+				bb->ClipEdited = true;
+				bb->FrameType = 3;
+				bb->Rot = currItem->Rot;
+				SetPolyClip(bb, qRound(QMAX(bb->Pwidth / 2, 1)));
+				AdjustItemSize(bb);
 				newGroupedItems.append(bb);
 			}
 			if (newGroupedItems.count() > 1)

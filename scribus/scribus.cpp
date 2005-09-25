@@ -3120,10 +3120,10 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrMenuMgr->setMenuEnabled("Item", true);
 		scrMenuMgr->setMenuEnabled("ItemShapes", false);
 		scrActions["itemDetachTextFromPath"]->setEnabled(true);
-		scrMenuMgr->setMenuEnabled("ItemConvertTo", false);
+		scrMenuMgr->setMenuEnabled("ItemConvertTo", true);
 		scrActions["itemConvertToBezierCurve"]->setEnabled(false);
 		scrActions["itemConvertToImageFrame"]->setEnabled(false);
-		scrActions["itemConvertToOutlines"]->setEnabled(false);
+		scrActions["itemConvertToOutlines"]->setEnabled(true);
 		scrActions["itemConvertToPolygon"]->setEnabled(false);
 		scrActions["itemConvertToTextFrame"]->setEnabled(false);
 
