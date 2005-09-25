@@ -72,7 +72,6 @@ Search path:
    /usr/local/share/ghostscript/8.51/Resource :
    /usr/share/ghostscript/fonts</pre></small></td></tr></table>
 </blockquote>
-
 <p>The key thing here is:</p>
 <ol><li>You see the correct version of GS. Otherwise, you might need to adjust your <code>$PATH</code> settings</li>
 <li>You have <code>pngalpha</code> and the <code>x11</code> devices listed, along with  <code>bitcmyk</code> for cmyk preview, and <code>png16m</code>.</li> 
@@ -80,11 +79,9 @@ Search path:
 <p>If you are concerned about messing about with your existing packaging setup, you could use: <code>checkinstall</code> or <code>Xstow</code>. These programs will keep track of applications which are outside of your normal packaging system. I have used checkinstall with good luck in these kinds of situations on Red Hat systems.</p>
 <p>Next,if installed, open up GSview and go to <strong>Options.. &#062; Advanced Configure</strong>. Then, make sure the &#034;Ghostscript Shared Object&#034; is pointing at the correct libgs.so. Below is how I have setup GSview on my system.: </p>
 <table width="100%"><tr><td align="center"><img src="images/gsadv1.png" alt="GSview - Advanced Options Panel" align="middle" title="GSview - Advanced Options Panel" /></td></tr></table>
-
 <p>Next, we need to tell Scribus where to find the newer GS. Go <strong>Edit..&#062; Preferences.. &#062;General</strong>. Then in External Tools, add the path of the new GS.</p>
 <table width="100%"><tr><td align="center"><img src="images/gsadv2.png" alt="Scribus External Tools Preferences" align="middle" title="Scribus External Tools Preferences" /></td></tr></table>
 <p>Another tool which is available with GSview is <code>epstool</code>. An older version is shipped with the current GSview 4.6, but a newer one is available on the GSview home page. This is a great command line tool, which can perform advanced EPS/DCS 2.0 conversion. This is very useful when someone sends you an EPS file from other DTP applications - even those created on Macs. Upgrading this to work with GSview gives you excellent support on Linux to handle EPS files from all platforms. Recommended.</p>
 <p>Lastly, one other tool which works as a plug-in with GSview is <code>pstoedit</code> This is a command line tool for converting bitmap images into vectors and PostScript, which then, depending on the nature of the image, can be edited in a vector drawing tool like Inkscape or Skencil. See the section Import Hints for hints on how I used this to convert the Scribus logo into SVG and then a native Scribus file. GSview uses this as a plug-in to convert files into vector format. </p>
 <p>GSview has been, in my experience, the most reliable and versatile EPS/PS viewer on Linux. How good is it ? Well, the best example is letting you know this usually installed on every Windows DTP workstation I support for clients. For DTP with Scribus, I consider it essential.</p>
-
 </qt>
