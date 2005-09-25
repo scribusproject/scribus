@@ -1,0 +1,19 @@
+all:
+	doxygen
+	echo Applying templates
+	cat templates/header.html > index.html
+	cat templates/index.html >> index.html
+	cat templates/footer.html >> index.html
+
+clean:
+	rm *.html
+	rm *.png
+	rm *.css
+
+tgz:
+	tar -cf Scribus-devel-docs.tar *
+	gzip Scribus-devel-docs.tar
+
+tbz:
+	tar -cf Scribus-devel-docs.tar *
+	bzip2 Scribus-devel-docs.tar

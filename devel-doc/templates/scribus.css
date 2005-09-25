@@ -1,0 +1,149 @@
+/*
+ * CSS file for Scribus doxygen docs.
+ * author: Petr Vanek, <petr@yarpen.cz>
+ */
+body {
+	font-color: black;
+	font-size: 12pt;
+	background-color: #1e72a8;
+	color: black;
+	font-family: sans-serif;
+	padding: 0px;
+	margin: 0px;
+}
+.maincontent {
+	border: 1px solid black;
+	margin: 1em;
+	padding: 1em;
+	background-color: white;
+}
+
+.scheader {
+	background:url(images/logo3m.png) repeat-x;
+	margin: 0px;
+	padding: 0px;
+	margin-bottom: 1em;
+	height: 87px;
+	border-bottom: 0px #33347a solid;
+	border-top: 0px #33347a solid;
+}
+h1.mainh1 {
+	font-size: 130%;
+	color: white;
+	margin: 0px;
+	margin-left: 1em;
+	padding: 0px;
+	text-shadow: black 0.1em 0.1em 3px;
+}
+img.logo {
+	float: left;
+	border: none;
+}
+
+img.logo2 {
+	float: right;
+	border: none;
+}
+
+div.scfooter {
+	color: white;
+	margin: 1em;
+}
+div.scfooter a {
+	color: #b9b9b9;
+}
+a:link, a:visited, a:hover {
+	/* color: #a6823d; std. scribus a */
+	color: #1e72a8;
+	text-decoration: underline;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+a:visited {
+	color: #a81e76;
+}
+
+/*
+ * Doxygen classes
+ */
+div.qindex {
+	background-color: #1e72a8;
+	padding: 0.1em;
+	border: 1px solid black;
+	border-top: 0px;
+	border-left: 0px;
+	border-right: 0px;
+	margin-bottom: 1em;
+	margin-top: -1em;
+	margin-left: -1em;
+	margin-right: -1em;
+}
+a.qindex, a.qindexHL {
+	color: white;
+	margin-left: 0.5em;
+	margin-right: 0.5em;
+} 
+a.qindex:hover, a.qindexHL:hover {
+	color: #1e72a8;
+	background: white;
+}
+
+h1 {
+	font-size: 170%;
+}
+h2 {
+	font-size: 150%;
+}
+h3 {
+	font-size: 130%;
+}
+h4, h5, h6, h7 {
+	font-size: 110%;
+}
+
+.el {
+	font-weight: bold;
+	color: #2ba81e;
+}
+
+.md {
+	font-weight: bold;
+}
+
+b {
+	font-weight: normal;
+}
+
+
+/*
+ * Syntax highlighting
+ */
+.keyword {
+	color: navy;
+}
+
+.keywordtype
+{
+	color: red;
+}
+
+.code {
+	font-weight: normal;
+}
+
+.preprocessor {
+	color: green;
+}
+
+img.formulaInl { vertical-align: middle; }
+.keyword	   { color: #008000 }
+.keywordtype   { color: #604020 }
+.keywordflow   { color: #e08000 }
+.comment	   { color: #800000 }
+.preprocessor  { color: #806020 }
+.stringliteral { color: #002080 }
+.charliteral   { color: #008080 } 
+
