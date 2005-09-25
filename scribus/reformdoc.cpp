@@ -201,9 +201,9 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	autoSaveTime->setMaxValue( 60 );
 	autoSaveTime->setSuffix( " " + tr("min") );
 	autoSaveTime->setValue(doc->AutoSaveTime / 1000 / 60);
-	groupAutoSaveLayout->addWidget( autoSaveTime );
 	textLabel1m = new QLabel(autoSaveTime, tr( "&Interval:" ), groupAutoSave, "textLabel1m" );
 	groupAutoSaveLayout->addWidget( textLabel1m );
+	groupAutoSaveLayout->addWidget( autoSaveTime );
 	reformDocLayout->addWidget( groupAutoSave );
 	addItem( tr("Document"), loadIcon("page.png"), tabPage);
 

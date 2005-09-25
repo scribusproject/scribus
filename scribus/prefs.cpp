@@ -290,22 +290,21 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	QBoxLayout *asurLayout = new QHBoxLayout( 0, 0, 6, "asurLayout");
 
 	GroupAS = new QGroupBox( tr( "Autosave" ), tab_7, "GroupAS" );
+	GroupAS->setCheckable( true );
+	GroupAS->setChecked( prefsData->AutoSave );
 	GroupAS->setColumnLayout(0, Qt::Vertical );
 	GroupAS->layout()->setSpacing( 5 );
 	GroupAS->layout()->setMargin( 10 );
-	GroupASLayout = new QGridLayout( GroupAS->layout() );
+	GroupASLayout = new QHBoxLayout( GroupAS->layout() );
 	GroupASLayout->setAlignment( Qt::AlignTop );
-	ASon = new QCheckBox( tr( "&Enabled" ), GroupAS, "Enable Autosave" );
-	ASon->setChecked(prefsData->AutoSave);
-	GroupASLayout->addMultiCellWidget( ASon, 0, 0, 0, 1 );
 	ASTime = new QSpinBox( GroupAS, "Time" );
 	ASTime->setMaxValue( 60 );
 	ASTime->setMinValue( 1 );
 	ASTime->setSuffix( " " + tr("min") );
 	ASTime->setValue(prefsData->AutoSaveTime / 1000 / 60);
 	ASText = new QLabel( ASTime, tr( "&Interval:" ), GroupAS, "ASText" );
-	GroupASLayout->addWidget( ASText, 1, 0 );
-	GroupASLayout->addWidget( ASTime, 1, 1 );
+	GroupASLayout->addWidget( ASText);
+	GroupASLayout->addWidget( ASTime );
 	asurLayout->addWidget(GroupAS);
 
 	urGroup = new QGroupBox( tr("Undo/Redo"), tab_7, "urGroup");
@@ -737,7 +736,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	QToolTip::add( pageHeight, tr( "Height of document pages, editable if you have chosen a custom page size" ) );
 //	QToolTip::add( facingPages, tr( "Enable single or spread based layout" ) );
 //	QToolTip::add( Linkszuerst, tr( "Make the first page the left page of a document" ) );
-	QToolTip::add( ASon, tr( "When enabled, Scribus saves a backup copy of your file with the .bak extension\neach time the time period elapses" ) );
+	QToolTip::add( GroupAS, tr( "When enabled, Scribus saves a backup copy of your file with the .bak extension\neach time the time period elapses" ) );
 	QToolTip::add( ASTime, tr( "Time period between saving automatically" ) );
 
 	QToolTip::add( urSpinBox, tr("Set the length of the action history in steps.\nIf set to 0 infinite amount of actions will be stored."));
@@ -1518,7 +1517,7 @@ void Preferences::updatePreferences()
 	if (tabTools->checkHalfRes->isChecked())
 		haRes = 2;
 	prefsManager->appPrefs.toolSettings.lowResType = haRes;
-	prefsManager->appPrefs.AutoSave = ASon->isChecked();
+	prefsManager->appPrefs.AutoSave = GroupAS->isChecked();
 	prefsManager->appPrefs.AutoSaveTime = ASTime->value() * 60 * 1000;
 	prefsManager->appPrefs.MinWordLen = tabHyphenator->wordLen->value();
 	prefsManager->appPrefs.Language = ScApp->GetLang(tabHyphenator->language->currentText());

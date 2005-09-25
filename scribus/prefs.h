@@ -148,7 +148,6 @@ public:
 	PageLayouts* docLayout;
 	MarginWidget* GroupRand;
 	QGroupBox* GroupAS;
-	QCheckBox* ASon;
 	QLabel* ASText;
 	QSpinBox* ASTime;
 	QGroupBox* urGroup;
@@ -243,7 +242,7 @@ protected:
 	QVBoxLayout* GroupSizeLayout;
 	QGridLayout* Layout6;
 	QHBoxLayout* Layout5_2;
-	QGridLayout* GroupASLayout;
+	QHBoxLayout* GroupASLayout;
 	QVBoxLayout* CaliGroupLayout;
 	QHBoxLayout* layout15ca;
 	QVBoxLayout* ExtToolLayout;
