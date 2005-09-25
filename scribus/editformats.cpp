@@ -10,6 +10,7 @@
 #include "prefsmanager.h"
 #include "prefsfile.h"
 #include "scribusXml.h"
+#include "page.h"
 
 extern QPixmap loadIcon(QString nam);
 

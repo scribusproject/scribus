@@ -12,6 +12,7 @@
 #include "scpainter.h"
 #include "fpoint.h"
 #include "fpointarray.h"
+#include "page.h"
 #include "util.h"
 
 // this code contains a set of font related functions

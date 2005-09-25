@@ -4,6 +4,7 @@
 #include "editor.h"
 #include <qmessagebox.h>
 #include "scribusdoc.h"
+#include "page.h"
 
 extern QPixmap loadIcon(QString nam);
 
