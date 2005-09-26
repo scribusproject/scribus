@@ -1907,7 +1907,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 								double BotOffset = desc+BExtra+lineCorr;
 								pt1 = QPoint(qRound(CurX+RExtra), static_cast<int>(CurY+BotOffset));
 								pt2 = QPoint(qRound(CurX+RExtra), static_cast<int>(ceil(CurY-asce)));
-								while ((!cl.contains(pf2.xForm(pt1))) || (!cl.contains(pf2.xForm(pt2))) || (CurX+RExtra+lineCorr < ColBound.y()))
+								while (CurX+RExtra+lineCorr < ColBound.y())
 								{
 									CurX++;
 									if (CurX+RExtra+lineCorr > ColBound.y())
@@ -1946,6 +1946,8 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 									}
 									pt1 = QPoint(qRound(CurX+RExtra), static_cast<int>(CurY+BotOffset));
 									pt2 = QPoint(qRound(CurX+RExtra), static_cast<int>(ceil(CurY-asce)));
+									if ((cl.contains(pf2.xForm(pt1))) && (cl.contains(pf2.xForm(pt2))))
+										break;
 								}
 								if (fromOut)
 								{
