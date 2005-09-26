@@ -18,14 +18,6 @@ MarginWidget::MarginWidget( QWidget* parent, QString title, MarginStruct* margs,
 	presetCombo = new PresetLayout(this, "presetCombo");
 	presetLabel = new QLabel(presetCombo, tr("Preset Layouts:"), this, "presetLabel");
 
-	topR = new MSpinBox( 0, 1000, this, decimals );
-	topR->setSuffix( einh );
-	topR->setValue(RandT * unitRatio);
-
-	bottomR = new MSpinBox( 0, 1000, this, decimals );
-	bottomR->setSuffix( einh );
-	bottomR->setValue(RandB * unitRatio);
-
 	leftR = new MSpinBox( 0, 1000, this, decimals );
 	leftR->setSuffix( einh );
 	leftR->setValue(RandL * unitRatio);
@@ -33,6 +25,14 @@ MarginWidget::MarginWidget( QWidget* parent, QString title, MarginStruct* margs,
 	rightR = new MSpinBox( 0, 1000, this, decimals );
 	rightR->setSuffix( einh );
 	rightR->setValue(RandR * unitRatio);
+
+	topR = new MSpinBox( 0, 1000, this, decimals );
+	topR->setSuffix( einh );
+	topR->setValue(RandT * unitRatio);
+
+	bottomR = new MSpinBox( 0, 1000, this, decimals );
+	bottomR->setSuffix( einh );
+	bottomR->setValue(RandB * unitRatio);
 
 	bText = new QLabel( bottomR, tr( "&Bottom:" ), this, "bText" );
 	tText = new QLabel( topR, tr( "&Top:" ), this, "tText" );
