@@ -1971,6 +1971,7 @@ void ScImage::parseRessourceData( QDataStream & s, const PSDHeader & header, uin
 					first = true;
 					break;
 				case 1:
+				case 2:
 					if (first)
 					{
 						firstControl = FPoint(frac2 * header.width, frac1 * header.height);
