@@ -72,6 +72,17 @@ void MarginWidget::setFacingPages(bool facing)
 	setPreset();
 }
 
+void MarginWidget::setPageWidthHeight(double width, double height)
+{
+	rightR->setMaxValue(width * unitRatio - leftR->value());
+	leftR->setMaxValue(width * unitRatio - rightR->value());
+	pageWidth = width;
+	topR->setMaxValue(height * unitRatio - bottomR->value());
+	bottomR->setMaxValue(height * unitRatio - topR->value());
+	pageHeight = height;
+	setPreset();
+}
+
 void MarginWidget::setPageWidth(double width)
 {
 	rightR->setMaxValue(width * unitRatio - leftR->value());
@@ -147,22 +158,40 @@ void MarginWidget::unitChange(double newUnit, int newDecimals, QString newSuffix
 
 void MarginWidget::setPreset()
 {
+	disconnect(topR, SIGNAL(valueChanged(int)), this, SLOT(setTop()));
+	disconnect(bottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom()));
+	disconnect(leftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft()));
+	disconnect(rightR, SIGNAL(valueChanged(int)), this, SLOT(setRight()));
 	int item = presetCombo->currentItem();
 	MarginStruct marg = presetCombo->getMargins(item, pageWidth, pageHeight, leftR->value());
-	if (!presetCombo->needUpdate())
+	if (presetCombo->needUpdate())
+	{
+		leftR->setValue(marg.Left);
+		rightR->setValue(marg.Right);
+		topR->setValue(marg.Top);
+		bottomR->setValue(marg.Bottom);
+		RandT = topR->value() / unitRatio;
+		RandB = bottomR->value() / unitRatio;
+		RandL = leftR->value() / unitRatio;
+		RandR = rightR->value() / unitRatio;
+		bottomR->setMaxValue(pageHeight * unitRatio - topR->value());
+		topR->setMaxValue(pageHeight * unitRatio - bottomR->value());
+		rightR->setMaxValue(pageWidth * unitRatio - leftR->value());
+		leftR->setMaxValue(pageWidth * unitRatio - rightR->value());
+		rightR->setEnabled(false);
+		topR->setEnabled(false);
+		bottomR->setEnabled(false);
+	}
+	else
 	{
 		rightR->setEnabled(true);
 		topR->setEnabled(true);
 		bottomR->setEnabled(true);
-		return;
 	}
-	leftR->setValue(marg.Left);
-	rightR->setValue(marg.Right);
-	topR->setValue(marg.Top);
-	bottomR->setValue(marg.Bottom);
-	rightR->setEnabled(false);
-	topR->setEnabled(false);
-	bottomR->setEnabled(false);
+	connect(topR, SIGNAL(valueChanged(int)), this, SLOT(setTop()));
+	connect(bottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom()));
+	connect(leftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft()));
+	connect(rightR, SIGNAL(valueChanged(int)), this, SLOT(setRight()));
 }
 
 /*

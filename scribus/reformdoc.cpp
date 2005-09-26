@@ -62,8 +62,8 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	unitRatio = doc->unitRatio();
 	QString ein = unitGetSuffixFromIndex(einheit);
 	decimals = unitGetDecimalsFromIndex(einheit);
-	pageWidth = doc->pageWidth * unitRatio;
-	pageHeight = doc->pageHeight * unitRatio;
+	pageWidth = doc->pageWidth;
+	pageHeight = doc->pageHeight;
 	setCaption( tr( "Document Setup" ) );
 	tabPage = new QWidget( prefsWidgets, "tab" );
 	reformDocLayout = new QVBoxLayout( tabPage );
@@ -124,14 +124,14 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	widthQLabel = new QLabel( tr( "&Width:" ), dsGroupBox7, "widthLabel" );
 	widthMSpinBox->setEnabled( false );
 	widthMSpinBox->setSuffix(ein);
-	widthMSpinBox->setValue(pageWidth);
+	widthMSpinBox->setValue(pageWidth * unitRatio);
 	widthQLabel->setBuddy(widthMSpinBox);
 	dsLayout4->addWidget( widthQLabel, 1, 0 );
 	dsLayout4->addWidget( widthMSpinBox, 1, 1 );
 	heightMSpinBox = new MSpinBox( 1, 100000, dsGroupBox7, 2 );
 	heightMSpinBox->setEnabled( false );
 	heightMSpinBox->setSuffix(ein);
-	heightMSpinBox->setValue(pageHeight);
+	heightMSpinBox->setValue(pageHeight * unitRatio);
 	heightQLabel = new QLabel(heightMSpinBox,  tr( "&Height:" ), dsGroupBox7, "heightLabel" );
 	dsLayout4->addWidget( heightQLabel, 1, 2 );
 	dsLayout4->addWidget( heightMSpinBox, 1, 3 );
@@ -151,8 +151,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	dsLayout4pv->addWidget( dsGroupBox7 );
 
 	GroupRand = new MarginWidget(tabPage,  tr( "Margin Guides" ), &doc->pageMargins, decimals, unitRatio, ein );
-	GroupRand->setPageHeight(pageHeight);
-	GroupRand->setPageWidth(pageWidth);
+	GroupRand->setPageWidthHeight(pageWidth, pageHeight);
 	dsLayout4pv->addWidget( GroupRand );
 	dsLayout4p->addLayout( dsLayout4pv );
 	reformDocLayout->addLayout( dsLayout4p );

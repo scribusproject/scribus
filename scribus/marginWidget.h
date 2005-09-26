@@ -70,6 +70,8 @@ public:
 	~MarginWidget() {};
 	/*! Setup the labels by facing pages option */
 	void setFacingPages(bool facing);
+	/*! Setup the spinboxes properties (min/max value etc.) by width and height */
+	void setPageWidthHeight(double width, double height);
 	/*! Setup the spinboxes properties (min/max value etc.) by width */
 	void setPageWidth(double width);
 	/*! Setup the spinboxes properties (min/max value etc.) by height */

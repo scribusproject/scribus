@@ -100,8 +100,7 @@ MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent
 	dialogLayout->addWidget( dsGroupBox7 );
 	
 	GroupRand = new MarginWidget(this,  tr( "Margin Guides" ), &doc->currentPage->initialMargins, unitGetDecimalsFromIndex(doc->unitIndex()), doc->unitRatio(), unitGetSuffixFromIndex(doc->unitIndex()));
-	GroupRand->setPageHeight(doc->currentPage->height() * doc->unitRatio());
-	GroupRand->setPageWidth(doc->currentPage->width() * doc->unitRatio());
+	GroupRand->setPageWidthHeight(doc->currentPage->width(), doc->currentPage->height());
 	GroupRand->setFacingPages(!(doc->currentPageLayout == singlePage));
 	dialogLayout->addWidget( GroupRand );
 

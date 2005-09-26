@@ -282,8 +282,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	marg.Left = prefsData->RandLinks;
 	marg.Right = prefsData->RandRechts;
 	GroupRand = new MarginWidget(tab_7,  tr( "Margin Guides" ), &marg, decimals, unitRatio, unitGetSuffixFromIndex(docUnitIndex) );
-	GroupRand->setPageHeight(prefsData->PageHeight);
-	GroupRand->setPageWidth(prefsData->PageWidth);
+	GroupRand->setPageWidthHeight(prefsData->PageWidth, prefsData->PageHeight);
 	dsLayout4pv->addWidget( GroupRand );
 	dsLayout4p->addLayout( dsLayout4pv );
 	Layout21->addLayout( dsLayout4p );
