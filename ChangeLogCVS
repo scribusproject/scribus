@@ -1,5 +1,7 @@
 Scribus - 1.2.4cvs
 ==================
-
+- 0002591: [General] Hyphenation: Wrong behaviour in connection with "t" glyph (fschmid)
+- 0002565: [Import / Export] Content in page templates causes PDF exported which has grave errors in Acrobat 5 and 7 (fschmid)
+- 0002578: [Translation] updated Dutch translation for 1.2.4 (plinnell)
 - 0002555: [User Interface] Different order of tab keys in "New Document" and in "Document Setup" (cbradney)
 - 0002516: [Translation] Minor errors in English scribus versions (cbradney)
