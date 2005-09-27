@@ -1,33 +1,32 @@
 <qt>
 <title>Printing in Depth</title>
 <h2>Printing in Depth</h2>
-<p>One of the challenges of an advanced DTP application like Scribus, is the ability to generate what I refer to as "high-level" postscript or PDF features. By <em>high level</em>, this is meant to describe things like transparency, blends, masks and gradients, usually created by professional grade DTP applications and illustration programs. <strong>Always</strong> make sure you have the newest updated versions of CUPS and Ghostscript available for your distribution. Newer versions of CUPS and Ghostscript are much better at supporting the kinds of high level PS3 and PDF features Scribus can create.</p>
+<p>One of the challenges of an advanced DTP application like Scribus, is the ability to generate what I refer to as "high-level" postscript or PDF features.By <em>high level</em>, this is meant to describe things like transparency,blends, masks and gradients, usually created by professional grade DTP applications and illustration programs. <strong>Always</strong> make sure you have the newest updated versions of CUPS and Ghostscript available for your distribution. Newer versions of CUPS and Ghostscript are much better at supporting the kinds of high level PS3 and PDF features Scribus can create.</p>
 <h3>Basic Options:</h3>
 <ul>
-	<li>Print to your default printer with the defaults set either by kprinter, CUPS or Lprng, depending on your specific installation. You can also specify printing in gray scale, as well as reverse the order of printing, which makes the pages stack in correct order on many ink jet printers.</li>
-	<li>You can also use an external print command example. XPP, or kprinter.</li>
+<li>Print to your default printer with the defaults set either by kprinter, CUPS or Lprng, depending on your specific installation. You can also specify printing in gray scale, as well as reverse the order of printing, which makes the pages stack in correct order on many ink jet printers.</li>
+<li>You can also use an external print command example. XPP, or kprinter.</li>
 </ul>
 
 <h3>Advanced Options:</h3>
 <ul>
-	<li>&#034;Print&#034; a separation as shown below. This enables you to create a 4 color separation of the CMYK inks used in process printing. Each of the inks will print on a separate page. This can also be saved to a postscript file for later processing.</li>
+<li>&#034;Print&#034; a separation as shown below. This enables you to create a 4 color separation of the CMYK inks used in process printing. Each of the inks will print on a separate page. This can also be saved to a postscript file for later processing.</li>
 </ul>
-<table width="100%"><tr><td align="center"><img src="images/printseps.png" alt="Printing Separations from Scribus" title="Printing Separations from Scribus" /></td></tr></table>
+<table width="100%"><tr><td align="center"><img src="images/printseps.png"
+alt="Printing Separations from Scribus" title="Printing Separations from
+Scribus" /></td></tr></table>
 
 <ul>
-	<li>&#034;Print&#034; a postscript file, which can be later &#034;distilled&#034; or transferred for processing by a printer or service bureau.</li>
-	<li>If you have the <strong>Gimp Print</strong> modules, selecting Options will bring up a panel similar to the one below. The exact contents will vary with the capabilities of the printer - one very good reason for having CUPS-Gimp Print. These modules are much less &quot;generic&quot; than many other printer drivers. When installed correctly, they enable you to use all the options your printer is capable of handling such as: different paper types, duplex modes, color printing modes etc. Scribus directly supports <strong>Gimp-Print</strong> drivers with CUPS, These high quality drivers are optimized for printing high resolution prints from ink-jet printers. The specific details are here: <a href="cups.html">CUPS and Gimp-Print</a>.</li>
+<li>&#034;Print&#034; a postscript file, which can be later &#034;distilled&#034; or transferred for processing by a printer or service bureau.</li>
+<li>If you have the <strong>Gimp Print</strong> modules, selecting Options will bring up a panel similar to the one below. The exact contents will vary with the capabilities of the printer - one very good reason for having CUPS-Gimp Print. These modules are much less &quot;generic&quot; than many other printer drivers. When installed correctly, they enable you to use all the options your printer is capable of handling such as: different paper types, duplex modes, color printing modes etc. Scribus directly supports <strong>Gimp-Print</strong> drivers with CUPS, These high quality drivers are optimized for printing high resolution prints from ink-jet printers. The specific details are here: <a href="cups.html">CUPS and Gimp-Print</a>.</li>
 </ul>
 <table width="100%"><tr><td align="center"><img src="images/printer1.png" alt="Setup Printer Dialog" title="Advanced CUPS Options in Scribus"/></td></tr></table>
-
 <ul>
-	<li>&#034;Mirrored&#034; Printing - this option enables you to mirror pages on the printer. This is useful when printing things like card layouts, calendars or brochures to compensate for folds and cuts or when duplexing prints.</li>
+<li>&#034;Mirrored&#034; Printing - this option enables you to mirror pages on the printer. This is useful when printing things like card layouts, calendars or brochures to compensate for folds and cuts or when duplexing prints.</li>
 </ul>
 <table width="100%"><tr><td align="center"><img src="images/printer2.png" alt="Advanced Options" title="Advanced Printing Options"/></td></tr></table>
 
 <ul>
-	<li>Color Managed Printing - When color management is enabled Scribus can apply ICC profiles to the print output. This option can be used to make simple simulations of CMYK press conditions. This can also be used if have special profiles of your printer for special papers like glossy photo paper or specially coated stock paper for color laser printers. More details are found in <a href="cms.html">Scribus and littlecms</a>.</li>
+<li>Color Managed Printing - When color management is enabled Scribus can apply ICC profiles to the print output. This option can be used to make simple simulations of CMYK press conditions. This can also be used if have special profiles of your printer for special papers like glossy photo paper or specially coated stock paper for color laser printers. More details are found in <a href="cms.html">Scribus and littlecms</a>.</li>
 </ul>
-
-
 </qt>
