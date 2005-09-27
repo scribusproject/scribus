@@ -28,25 +28,9 @@ class QPushButton;
 class QString;
 class QStringList;
 
-/*! \brief This module provides simple interface to the various Lorem Ipsum variants.
-Scribus LI are stored in the set of XML files.
-The file has followind structure:
-				   <?xml version="1.0" encoding="utf8"?>
-				   <lorem>
-
-				   <name>name to display</name>
-				   <author>person name</author>
-				   <url>web interface</url>
-
-				   <p>text</p>
-				   <p>...</p>
-				   </lorem>
-Files are in UTF encoding.
-\author Petr Vanek <petr@yarpen.cz>
-*/
 
 /*! \brief XML parser for Lorem Ipsum file.
-This helper class reads one ile
+This helper class reads one file
 \author Petr Vanek <petr@yarpen.cz>
  */
 class SCRIBUS_API LoremParser
@@ -73,7 +57,20 @@ class SCRIBUS_API LoremParser
 		QString createLorem(uint parCount);
 };
 
-
+/*! \brief This module provides simple interface to the various Lorem Ipsum variants.
+Scribus LI are stored in the set of XML files.
+The file has followind structure:
+\<?xml version="1.0" encoding="utf8"?\>
+\<lorem\>
+\<name\>name to display\</name\>
+\<author\>person name\</author\>
+\<url\>web interface\</url\>
+\<p\>text\</p\>
+\<p\>...\</p\>
+\</lorem\>
+Files are in UTF8 encoding.
+\author Petr Vanek <petr@yarpen.cz>
+*/
 class SCRIBUS_API LoremManager : public QDialog
 {
 	Q_OBJECT

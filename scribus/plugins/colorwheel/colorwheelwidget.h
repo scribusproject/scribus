@@ -106,9 +106,9 @@ class ColorWheel : public QLabel
 
 	signals:
 		/** \brief Signal raised by mouse click on widget by user.
-		\param int Mouse button number. See Qt docs.
-		\param QPoint Coordinates of the mouse pointer. */
-		void clicked(int, const QPoint &);
+		\param button Mouse button number. See Qt docs.
+		\param point Coordinates of the mouse pointer. */
+		void clicked(int button, const QPoint & point);
 
 	protected:
 		/*! \brief Internal color mapping.
@@ -133,23 +133,24 @@ class ColorWheel : public QLabel
 
 		/** \brief An event for mouse actions handling.
 		See \see clicked() for more info.
-		\param QMouseEvent Mouse properties. */
-		void mouseReleaseEvent(QMouseEvent *);
+		\param e Mouse properties. */
+		void mouseReleaseEvent(QMouseEvent *e);
 		/** \brief Mouse handling.
-		It calls mouseReleaseEvent */
-		void mousePressEvent(QMouseEvent *);
+		It calls mouseReleaseEvent
+		\param e Mouse properties.*/
+		void mousePressEvent(QMouseEvent *e);
 		/** \brief Mouse handling.
-		It calls mouseReleaseEvent */
-		void mouseMoveEvent(QMouseEvent *);
+		It calls mouseReleaseEvent
+		\param e Mouse properties.*/
+		void mouseMoveEvent(QMouseEvent *e);
 
 		/** \brief Draw center circle filled with base color */
 		void paintCenterSample();
 
 		/** \brief Appends a color into \see colorList.
-		\param int an angle for transformation counting.
+		\param angle Angle of the color in the wheel. An angle for transformation counting.
 		E.g. base angle is 30, param is 90 - transformation is 120.
 		There is easy "convert 665485 into 0-359 interval" algorithm too.
-		\param angle Angle of the color in the wheel.
 		\param name Human readable name of the color. */
 		void sampleByAngle(int angle, QString name);
 
@@ -175,7 +176,7 @@ class ColorWheel : public QLabel
 
 		/** \brief Counts an angle of the point in color wheel.
 		Modified method from Qt QDial widget.
-		\param QPoint coordinates of the point.
+		\param p coordinates of the point.
 		\retval int index in the colorMap */
 		int valueFromPoint(const QPoint & p) const;
 };
