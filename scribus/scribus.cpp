@@ -815,6 +815,10 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["specialQuoteDoubleLeft"], "InsertQuote");
 	scrMenuMgr->addMenuItem(scrActions["specialQuoteDoubleRight"], "InsertQuote");
 	scrMenuMgr->addMenuSeparator("InsertQuote");
+	scrMenuMgr->addMenuItem(scrActions["specialQuoteLowSingleComma"], "InsertQuote");
+	scrMenuMgr->addMenuItem(scrActions["specialQuoteLowDoubleComma"], "InsertQuote");
+	//scrMenuMgr->addMenuItem(scrActions["specialQuoteDoubleTurnedComma"], "InsertQuote");
+	scrMenuMgr->addMenuSeparator("InsertQuote");
 	scrMenuMgr->addMenuItem(scrActions["specialQuoteSingleReversed"], "InsertQuote");
 	scrMenuMgr->addMenuItem(scrActions["specialQuoteDoubleReversed"], "InsertQuote");
 	scrMenuMgr->addMenuSeparator("InsertQuote");
@@ -822,10 +826,6 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["specialQuoteSingleRightGuillemet"], "InsertQuote");
 	scrMenuMgr->addMenuItem(scrActions["specialQuoteDoubleLeftGuillemet"], "InsertQuote");
 	scrMenuMgr->addMenuItem(scrActions["specialQuoteDoubleRightGuillemet"], "InsertQuote");
-	scrMenuMgr->addMenuSeparator("InsertQuote");
-	scrMenuMgr->addMenuItem(scrActions["specialQuoteLowSingleComma"], "InsertQuote");
-	scrMenuMgr->addMenuItem(scrActions["specialQuoteLowDoubleComma"], "InsertQuote");
-	//scrMenuMgr->addMenuItem(scrActions["specialQuoteDoubleTurnedComma"], "InsertQuote");
 	scrMenuMgr->addMenuSeparator("InsertQuote");
 	scrMenuMgr->addMenuItem(scrActions["specialQuoteCJKSingleLeft"], "InsertQuote");
 	scrMenuMgr->addMenuItem(scrActions["specialQuoteCJKSingleRight"], "InsertQuote");
@@ -1165,7 +1165,7 @@ void ScribusApp::specialActionKeyEvent(QString actionName, int unicodevalue)
 }
 
 /*!
-  \brief Receive key events from palettes such as palette hiding events. Possibly eaier way but this is cleaner than before. No need to modify all those palettes and each new one in future.
+  \brief Receive key events from palettes such as palette hiding events. Possibly easier way but this is cleaner than before. No need to modify all those palettes and each new one in future.
  */
 bool ScribusApp::eventFilter( QObject */*o*/, QEvent *e )
 {
@@ -1225,6 +1225,13 @@ bool ScribusApp::eventFilter( QObject */*o*/, QEvent *e )
 		//Other actions
 		if (currKeySeq == scrActions["fileQuit"]->accel())
 			scrActions["fileQuit"]->activate();
+		else
+		//Zoom actions
+		if (currKeySeq == scrActions["toolsZoomIn"]->accel())
+			scrActions["toolsZoomIn"]->activate();
+		else
+		if (currKeySeq == scrActions["toolsZoomOut"]->accel())
+			scrActions["toolsZoomOut"]->activate();
 		else
 			retVal=false;
 	}
