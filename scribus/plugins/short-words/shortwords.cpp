@@ -1,4 +1,4 @@
-/*! This is the Scribus Short Words plugin interface implementation.
+/* This is the Scribus Short Words plugin interface implementation.
 
 This code is based on the Scribus-Vlna plug in rewritten for
 international use.
@@ -15,6 +15,7 @@ or documentation
 #include "vlnadialog.h"
 #include "configuration.h"
 #include "parse.h"
+#include "swprefsgui.h"
 #include "scpaths.h"
 #include "scribus.h"
 #include <qmessagebox.h>
@@ -83,7 +84,7 @@ const ScActionPlugin::AboutData* ShortWordsPlugin::getAboutData() const
 			"Claudio Beccari <claudio.beccari@polito.it>, "
 			"Christoph Schäfer <christoph-schaefer@gmx.de>");
 	about->shortDescription = tr("Short Words");
-	about->description = tr("Special plug-in for adding non-breaking spaces before or after so called short words.");
+	about->description = tr("Special plug-in for adding non-breaking spaces before or after so called short words. Available in the following languages: " + QString::fromUtf8(SWConfig::getAvailableLanguages()));
 	// about->version
 	// about->releaseDate
 	// about->copyright
@@ -101,17 +102,28 @@ bool ShortWordsPlugin::run(QString target)
 {
 	Q_ASSERT(target.isEmpty());
 	ShortWords *sw = new ShortWords();
-	/*delete sw;
-	delete trans;*/
+	delete sw;
+	return true;
+}
+
+bool ShortWordsPlugin::newPrefsPanelWidget(QWidget* parent,
+									       PrefsPanel*& panel,
+									       QString& caption,
+									       QPixmap& icon)
+{
+	panel = new SWPrefsGui(parent);
+	Q_CHECK_PTR(panel);
+	caption = tr("Short Words");
+	icon = loadIcon("plugins.png");
 	return true;
 }
 
 ShortWords::ShortWords()
 {
 	originalPage = ScApp->doc->currentPage->pageNr();
-	VlnaDialog *dlg = new VlnaDialog(ScApp, "dlg", true, 0);
+	SWDialog *dlg = new SWDialog(ScApp, "dlg", true, 0);
 	if (dlg->exec() == QDialog::Accepted) {
-		parse = new Parse();
+		parse = new SWParse();
 		QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 		ScApp->mainWindowStatusLabel->setText(QObject::tr("Short Words processing. Wait please...", "short words plugin"));
 		switch (dlg->actionSelected) {

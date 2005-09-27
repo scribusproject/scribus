@@ -1,4 +1,4 @@
-/*! This is the Scribus Short Words plugin main mechanism.
+/* This is the Scribus Short Words plugin main mechanism.
 
 This code is based on the Scribus-Vlna plug in rewritten for
 international use.
@@ -23,16 +23,12 @@ or documentation
 extern ScribusApp SCRIBUS_API *ScApp;
 
 
-Parse::Parse()
+SWParse::SWParse()
 {
 	modify = 0;
 }
 
-Parse::~Parse()
-{
-}
-
-void Parse::parseItem(PageItem *aFrame)
+void SWParse::parseItem(PageItem *aFrame)
 {
 	// the content of the frame - text itself
 	QString content = QString();
@@ -46,7 +42,7 @@ void Parse::parseItem(PageItem *aFrame)
 	// the regexp
 	QRegExp rx(" ");
 	// cfg
-	Config *cfg = new Config();
+	SWConfig *cfg = new SWConfig();
 
 	// just textframes processed
 	if (aFrame->itemType() != PageItem::TextFrame)
@@ -96,7 +92,7 @@ void Parse::parseItem(PageItem *aFrame)
 	delete(cfg);
 } // end of method
 
-void Parse::parseSelection()
+void SWParse::parseSelection()
 {
 	uint cnt = ScApp->view->SelItem.count();
 	ScApp->mainWindowProgressBar->setTotalSteps(cnt);
@@ -109,12 +105,12 @@ void Parse::parseSelection()
 }
 
 
-void Parse::parsePage()
+void SWParse::parsePage()
 {
 	parsePage(ScApp->doc->currentPage->pageNr());
 }
 
-void Parse::parsePage(int page)
+void SWParse::parsePage(int page)
 {
 	uint cnt = 0;
 	for (uint a = 0; a < ScApp->doc->Items.count(); ++a)
@@ -138,7 +134,7 @@ void Parse::parsePage(int page)
 	ScApp->mainWindowProgressBar->setProgress(cnt);
 }
 
-void Parse::parseAll()
+void SWParse::parseAll()
 {
 	for (uint i=0; i < ScApp->doc->Pages.count(); ++i)
 		parsePage(i);

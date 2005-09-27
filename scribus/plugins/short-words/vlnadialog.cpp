@@ -1,4 +1,4 @@
-/*! This is the Scribus Short Words GUI class implementation.
+/* This is the Scribus Short Words GUI class implementation.
 
 This code is based on the Scribus-Vlna plug in rewritten for
 international use.
@@ -30,7 +30,6 @@ or documentation
 #include <qstringlist.h>
 #include <qlayout.h>
 #include <qcheckbox.h>
-#include <qmenubar.h>
 #include <qinputdialog.h>
 #include <qprocess.h>
 
@@ -39,35 +38,14 @@ or documentation
 extern ScribusApp SCRIBUS_API *ScApp;
 
 
-/*!
-Constructs a VlnaDialog as a child of 'parent', with the
-name 'name' and widget flags set to 'f'.
-
-The dialog will by default be modeless, unless you set 'modal' to
-true to construct a modal dialog.
-*/
-VlnaDialog::VlnaDialog(QWidget* parent, const char* name, bool modal, WFlags fl)
+SWDialog::SWDialog(QWidget* parent, const char* name, bool modal, WFlags fl)
 	: QDialog(parent, name, modal, fl)
 {
 	if (!name)
-		setName("VlnaDialog");
-	cfg = new Config();
+		setName("SWDialog");
+	cfg = new SWConfig();
 
-	menuBar = new QMenuBar(this, "menuBar");
-	QPopupMenu *editMenu = new QPopupMenu(this);
-	editMenu->insertItem(tr("Edit &system configuration..."), this, SLOT(editSystemCfg()));
-	editMenu->insertItem(tr("Edit &user configuration..."), this, SLOT(editUserCfg()));
-	editMenu->insertSeparator();
-	editMenu->insertItem(tr("S&etup editor..."), this, SLOT(setupEditor()));
-	menuBar->insertItem(tr("&Edit"), editMenu);
-	QPopupMenu *helpMenu = new QPopupMenu(this);
-	helpMenu->insertItem(tr("&Info and Languages..."), this, SLOT(infoButton_pressed()));
-	// FIXME: modal dialog + HelpBrowser navigation!
-	//helpMenu->insertItem(tr("&Manual..."), this, SLOT(help()));
-	menuBar->insertItem(tr("&Help"), helpMenu);
-
-	VlnaDialogLayout = new QGridLayout(this, 1, 1, 11, 6, "VlnaDialogLayout");
-	VlnaDialogLayout->setMenuBar(menuBar);
+	SWDialogLayout = new QGridLayout(this, 1, 1, 11, 6, "SWDialogLayout");
 
 	layout4 = new QVBoxLayout(0, 0, 6, "layout4");
 
@@ -100,27 +78,23 @@ VlnaDialog::VlnaDialog(QWidget* parent, const char* name, bool modal, WFlags fl)
 	cancelButton->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)1, (QSizePolicy::SizeType)0, 0, 0, cancelButton->sizePolicy().hasHeightForWidth()));
 	layout1->addWidget(cancelButton);
 
-	/*infoButton = new QPushButton(this, "infoButton");
-	infoButton->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)1, (QSizePolicy::SizeType)0, 0, 0, infoButton->sizePolicy().hasHeightForWidth()));
-	layout1->addWidget(infoButton);*/
-
 	layout2->addLayout(layout1);
 	layout3->addLayout(layout2);
 	layout4->addLayout(layout3);
 
-	userCheckBox = new QCheckBox(this, "userCheckBox");
-	layout4->addWidget(userCheckBox);
+	/*userCheckBox = new QCheckBox(this, "userCheckBox");
+	layout4->addWidget(userCheckBox); */
 
-	VlnaDialogLayout->addLayout(layout4, 0, 0);
+	SWDialogLayout->addLayout(layout4, 0, 0);
 
-	QFile::exists(RC_PATH_USR) ? userCheckBox->setEnabled(true) : userCheckBox->setEnabled(false);
+	//QFile::exists(RC_PATH_USR) ? userCheckBox->setEnabled(true) : userCheckBox->setEnabled(false);
 
 	languageChange();
 	resize(QSize(306, 193).expandedTo(minimumSizeHint()));
 	clearWState(WState_Polished);
 
 	// cfg
-	cfg->userConfig ? userCheckBox->setChecked(true) : userCheckBox->setChecked(false);
+	//cfg->userConfig ? userCheckBox->setChecked(true) : userCheckBox->setChecked(false);
 	selectAction(cfg->action);
 
 	// signals and slots connections
@@ -132,9 +106,9 @@ VlnaDialog::VlnaDialog(QWidget* parent, const char* name, bool modal, WFlags fl)
 /*
  *  Destroys the object and frees any allocated resources
  */
-VlnaDialog::~VlnaDialog()
+SWDialog::~SWDialog()
 {
-	userCheckBox->isChecked() ? cfg->userConfig = 1 : cfg->userConfig = 0;
+	//userCheckBox->isChecked() ? cfg->userConfig = 1 : cfg->userConfig = 0;
 	cfg->action = actionSelected;
 	cfg->saveConfig();
 }
@@ -143,7 +117,7 @@ VlnaDialog::~VlnaDialog()
  *  Sets the strings of the subwidgets using the current
  *  language.
  */
-void VlnaDialog::languageChange()
+void SWDialog::languageChange()
 {
 	setCaption(tr("Short Words", "short words plugin"));
 	buttonGroup->setTitle(tr("Apply unbreakable space on:", "short words plugin"));
@@ -154,88 +128,29 @@ void VlnaDialog::languageChange()
 	cancelButton->setText(CommonStrings::tr_Cancel);
 	//infoButton->setText(tr("&Info and\nLanguages", "short words plugin"));
 	//statusLabel->setText(tr("Select action..."));
-	userCheckBox->setText(tr("Replace defaults by user config", "short words plugin"));
+	//userCheckBox->setText(tr("Replace defaults by user config", "short words plugin"));
 	// hints
-	QToolTip::add(userCheckBox, tr("When the user config file exists \n(%1)\nyou can choose if you want to append your config\nto the global configuration by unchecked button.\n\nYou can replace predefined values by yours\nwith checked button too.", "short words plugin").arg(RC_PATH_USR));
+	//QToolTip::add(userCheckBox, tr("When the user config file exists \n(%1)\nyou can choose if you want to append your config\nto the global configuration by unchecked button.\n\nYou can replace predefined values by yours\nwith checked button too.", "short words plugin").arg(RC_PATH_USR));
 	QToolTip::add(frameRadio, tr("Only selected frames processed.", "short words plugin"));
 	QToolTip::add(pageRadio, tr("Only actual page processed.", "short words plugin"));
 	QToolTip::add(allRadio, tr("All items in document processed.", "short words plugin"));
 }
 
-void VlnaDialog::okButton_pressed()
+void SWDialog::okButton_pressed()
 {
 	actionSelected = buttonGroup->id(buttonGroup->selected());
 	accept();
 }
 
-void VlnaDialog::cancelButton_pressed()
+void SWDialog::cancelButton_pressed()
 {
 	reject();
 }
 
-void VlnaDialog::infoButton_pressed()
-{
-	QString aMessage;
-	aMessage += "<h1>";
-	aMessage += tr("Short Words for Scribus", "short words plugin");
-	aMessage += "</h1><b>";
-	aMessage += tr("Available in the following languages", "short words plugin");
-	aMessage += "</b><br>";
-	aMessage += cfg->getAvailableLanguages();
-	QMessageBox::about(ScApp, tr("About Short Words", "short words plugin"), aMessage);
-	//infoButton->setDown(false);
-}
-
-void VlnaDialog::selectAction(int aAction)
+void SWDialog::selectAction(int aAction)
 {
 	if (aAction!=0 and aAction!=1 and aAction!=2) {
 			aAction = 0;
 	}
 	buttonGroup->setButton(aAction);
-}
-
-void VlnaDialog::editSystemCfg()
-{
-	editFile(RC_PATH);
-}
-
-void VlnaDialog::editUserCfg()
-{
-	editFile(RC_PATH_USR);
-}
-
-void VlnaDialog::editFile(QString fName)
-{
-	if (cfg->editor.isEmpty())
-		setupEditor();
-	QFileInfo fi(fName);
-	if (fi.isWritable())
-	{
-		QMessageBox::warning( this,
-							  tr("Short Words"),
-							  "<qt>" + tr("You are starting to edit read-only file.\n%1").arg(fName) + "</qt>");
-	}
-	QProcess *p = new QProcess(this);
-	p->addArgument(cfg->editor);
-	p->addArgument(fName);
-	if (!p->start())
-	{
-		QMessageBox::warning( this,
-							  tr("Short Words"),
-							  "<qt>" + tr("Application '%1' error. Cannot be started.").arg(cfg->editor) + "</qt>");
-		qDebug("SW4S: Error starting editor");
-	}
-}
-
-void VlnaDialog::setupEditor()
-{
-	QString ed = QInputDialog::getText(tr("Short Words setup"), "<qt>" + tr("Enter name of the plain text editor executable:")+ "</qt>", QLineEdit::Normal, cfg->editor);
-	if (ed.length() != 0)
-		cfg->editor = ed;
-}
-
-void VlnaDialog::help()
-{
-	HelpBrowser *dia = new HelpBrowser(0, QObject::tr("Short Words Manual"), ScApp->getGuiLanguage(), "tutorials/short-words");
-	dia->show();
 }

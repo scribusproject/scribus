@@ -1,4 +1,4 @@
-/*! This is the Scribus Short Words configuratin implementation.
+/* This is the Scribus Short Words configuratin implementation.
 There will be interface for the future Scribus central plugin
 config center. maybe :)
 
@@ -17,7 +17,6 @@ or documentation
 #include "configuration.moc"
 #include "scpaths.h"
 #include "version.h"
-#include "shortwords.h"
 
 #include "scribus.h"
 #include "prefsmanager.h"
@@ -28,26 +27,22 @@ or documentation
 
 extern ScribusApp SCRIBUS_API *ScApp;
 
-Config::Config()
+SWConfig::SWConfig()
 {
 	prefs = PrefsManager::instance()->prefsFile->getPluginContext("short-words");
 	action = prefs->getUInt("action", 0);
-	userConfig = prefs->getUInt("userConfig", 0);
-	editor = prefs->get("editor", "");
+	//userConfig = prefs->getUInt("userConfig", 0);
+	//editor = prefs->get("editor", "");
 }
 
-Config::~Config()
-{
-}
-
-void Config::saveConfig()
+void SWConfig::saveConfig()
 {
 	prefs->set("action", action);
-	prefs->set("userConfig", userConfig);
-	prefs->set("editor", editor);
+	//prefs->set("userConfig", userConfig);
+	//prefs->set("editor", editor);
 }
 
-QStringList Config::getShortWordsFromFile(QString lang, QString filename)
+QStringList SWConfig::getShortWordsFromFile(QString lang, QString filename)
 {
 	// all shorts for one language
 	QString shorts = "";
@@ -83,17 +78,20 @@ QStringList Config::getShortWordsFromFile(QString lang, QString filename)
 	return QStringList();
 }
 
-QStringList Config::getShortWords(QString lang)
+QStringList SWConfig::getShortWords(QString lang)
 {
-	QStringList allShorts;
-	if (userConfig && QFile::exists(RC_PATH_USR))
+	//QStringList allShorts;
+	if (QFile::exists(RC_PATH_USR))
+		return getShortWordsFromFile(lang, RC_PATH_USR);
+	return getShortWordsFromFile(lang, RC_PATH);
+	/*if (userConfig && QFile::exists(RC_PATH_USR))
 		return getShortWordsFromFile(lang, RC_PATH_USR);
 	if (!userConfig && QFile::exists(RC_PATH_USR))
 		allShorts = getShortWordsFromFile(lang, RC_PATH_USR);
-	return allShorts + getShortWordsFromFile(lang, RC_PATH);
+	return allShorts + getShortWordsFromFile(lang, RC_PATH);*/
 }
 
-QString Config::getAvailableLanguagesFromFile(QString filename)
+QString SWConfig::getAvailableLanguagesFromFile(QString filename)
 {
 	QStringList langs;
 	QStringList nations;
@@ -125,7 +123,7 @@ QString Config::getAvailableLanguagesFromFile(QString filename)
 	return nations.join(", "); // save return only
 }
 
-QString Config::getAvailableLanguages()
+QString SWConfig::getAvailableLanguages()
 {
 	QString allConfig = getAvailableLanguagesFromFile(RC_PATH);
 	if (QFile::exists(RC_PATH_USR))
@@ -133,13 +131,13 @@ QString Config::getAvailableLanguages()
 	return  allConfig;
 }
 
-QString Config::getLangCodeFromHyph(QString hyphenCode)
+QString SWConfig::getLangCodeFromHyph(QString hyphenCode)
 {
 	hyphenCode.remove(0, 5);
 	return hyphenCode.remove(2, 10);
 }
 
-QString Config::getLangFromCode(QString code)
+QString SWConfig::getLangFromCode(QString code)
 {
 	QMap<QString,QString>::Iterator it;
 	QString lang;

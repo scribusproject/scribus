@@ -1,4 +1,4 @@
-/*! \brief This is the Scribus Short Words various constants and preprocessor
+/* \brief This is the Scribus Short Words various constants and preprocessor
 definitions. There should be all SPACEs defined (unbreak, em, en etc.)
 
 This code is based on the Scribus-Vlna plug in rewritten for

@@ -13,34 +13,30 @@ It walks trough the user specified objects and apply the spaces.
 This code is based on the Scribus-Vlna plug in rewritten for
 international use.
 
-\author Petr Vanek <petr@yarpen.cz>
-with contributions by good people listed in AUTHORS file
-
-This program is free software - see LICENSE file in the distribution
-or documentation
- */
-class Parse : public QObject
+\author Petr Vanek <petr@yarpen.cz> with contributions by good people listed in AUTHORS file
+*/
+class SWParse : public QObject
 {
 	Q_OBJECT
 
 public:
-	/** lightwiight constructor */
-	Parse();
-	/** nothing here to do */
-	~Parse();
+	/*! \brief lightweight constructor */
+	SWParse();
+	/*! \brief nothing here to do */
+	~SWParse(){};
 
-	/** count of the changes (one frame = one change) */
+	/*! \brief count of the changes (one frame = one change) */
 	uint modify;
 
-	/** process one frame - base method! */
+	/*! \brief process one frame - base method! */
 	void parseItem(PageItem *aFrame);
-	/** selcted frames on the page */
+	/*! \brief selcted frames on the page */
 	void parseSelection();
-	/** one page - using actual page */
+	/*! \brief one page - using actual page */
 	void parsePage();
-	/** one page */
+	/*! \brief one page */
 	void parsePage(int page);
-	/** all pages in the document */
+	/*! \brief all pages in the document */
 	void parseAll();
 };
 

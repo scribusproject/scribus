@@ -6,9 +6,9 @@ INCLUDES = $(LIBFREETYPE_CFLAGS) $(all_includes)
 
 libscribusshortwords_la_LDFLAGS = -version-info 0:0:0
 libscribusshortwords_la_METASOURCES = AUTO
-libscribusshortwords_la_SOURCES = vlnadialog.cpp parse.cpp shortwords.cpp configuration.cpp version.h
+libscribusshortwords_la_SOURCES = vlnadialog.cpp parse.cpp shortwords.cpp configuration.cpp version.h swprefsgui.cpp
 
-EXTRA_DIST = parse.h vlnadialog.h shortwords.h version.h configuration.h scribus-short-words.rc
+EXTRA_DIST = parse.h vlnadialog.h shortwords.h version.h configuration.h scribus-short-words.rc swprefsgui.h
 
 KDE_OPTIONS = qtonly
 

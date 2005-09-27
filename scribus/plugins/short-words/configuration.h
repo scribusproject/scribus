@@ -8,56 +8,58 @@ class QStringList;
 class PrefsContext;
 
 /*! \brief This is the Scribus Short Words configuratin specification.
-There will be interface for the future Scribus central plugin
-config center. maybe :)
+Methods of this class read config files and PrefsManager context informations.
+Preferences GUI is in SWPrefsGui.
 
 This code is based on the Scribus-Vlna plug in rewritten for
 international use.
 
-\author Petr Vanek <petr@yarpen.cz>
-with contributions by good people listed in AUTHORS file
-
-This program is free software - see LICENSE file in the distribution
-or documentation
- */
-class Config : public QObject
+\author Petr Vanek <petr@yarpen.cz> with contributions by good people listed in AUTHORS file
+*/
+class SWConfig : public QObject
 {
 	Q_OBJECT
 
 public:
-	/** reads config from the ui cfg file */
-	Config();
-	/** writes config into the ui cfg file */
-	~Config();
+	/*! \brief Reads config from the ui cfg file */
+	SWConfig();
+	/*! \brief Writes config into the ui cfg file */
+	~SWConfig(){};
 
-	/** id of the UI radiobutton  */
+	/*! \brief Id of the UI radiobutton  */
 	uint action;
-	/** UI checkbox */
-	uint userConfig;
-	/** User's text editor */
-	QString editor;
+	//*! \brief UI checkbox */
+	//uint userConfig;
 
-	/** returns all options for specified language */
+	/*! \brief Returns all options for specified language.
+	\param lang language of the ext frame */
 	QStringList getShortWords(QString lang);
-	/** available configs for UI about */
-	QString getAvailableLanguages();
-	/** get lang code (en, cs, pl) from Scribus hyphenator configuration
-	structure */
-	QString getLangCodeFromHyph(QString hyphenCode);
-	/** Save cfg. */
+	/*! \brief available configs for UI about.
+	\retval QString with languages in the configuration. */
+	static QString getAvailableLanguages();
+	/*! \brief get lang code (en, cs, pl) from Scribus hyphenator configuration structure.
+	\param hyphenCode code of the language.
+	\retval QString full named language. */
+	static QString getLangCodeFromHyph(QString hyphenCode);
+	/*! \brief Save cfg. */
 	void saveConfig();
 
 private:
-	/** Configuration structure */
+	/*! \brief Configuration structure */
 	PrefsContext* prefs;
-	/** getShortWords use this one. for each case from GUI select
-	the right config file (or both) */
+	/*! \brief getShortWords use this one. for each case from GUI select the right config file (or both).
+	\param lang language
+	\param filename configuration file.
+	\retval QStringList parsed SW. Each SW in one string item. */
 	QStringList getShortWordsFromFile(QString lang, QString filename);
-	/** getAvailableLanguages use this one. available config in
-	the specified file for UI about */
-	QString getAvailableLanguagesFromFile(QString filename);
-	/** returns full lang name by lang code (en -> English) */
-	QString getLangFromCode(QString code);
+	/*! \brief getAvailableLanguages use this one. available config in the specified file for UI about
+	\param filename config file
+	\retval QString all supported languages in one string */
+	static QString getAvailableLanguagesFromFile(QString filename);
+	/*! \brief returns full lang name by lang code (en -> English)
+	\param code language code
+	\retval QString full named language */
+	static QString getLangFromCode(QString code);
 };
 
 #endif
