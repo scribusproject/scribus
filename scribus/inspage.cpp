@@ -131,14 +131,14 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	orientationQComboBox->setCurrentItem(currentDoc->PageOri );
 	TextLabel2->setBuddy(orientationQComboBox);
 	dsGroupBox7Layout->addMultiCellWidget( orientationQComboBox, 1, 1, 2, 3 );
-	widthMSpinBox = new MSpinBox( 1, 100000, dsGroupBox7, unitGetDecimalsFromIndex(currentDoc->unitIndex()) );
+	widthMSpinBox = new MSpinBox( 1, 10000, dsGroupBox7, unitGetDecimalsFromIndex(currentDoc->unitIndex()) );
 	widthQLabel = new QLabel( tr( "&Width:" ), dsGroupBox7, "widthLabel" );
 	widthMSpinBox->setSuffix(unitGetSuffixFromIndex(currentDoc->unitIndex()));
 	widthMSpinBox->setValue(currentDoc->pageWidth * currentDoc->unitRatio());
 	widthQLabel->setBuddy(widthMSpinBox);
 	dsGroupBox7Layout->addWidget( widthQLabel, 2, 0 );
 	dsGroupBox7Layout->addWidget( widthMSpinBox, 2, 1 );
-	heightMSpinBox = new MSpinBox( 1, 100000, dsGroupBox7, unitGetDecimalsFromIndex(currentDoc->unitIndex()) );
+	heightMSpinBox = new MSpinBox( 1, 10000, dsGroupBox7, unitGetDecimalsFromIndex(currentDoc->unitIndex()) );
 	heightMSpinBox->setSuffix(unitGetSuffixFromIndex(currentDoc->unitIndex()));
 	heightMSpinBox->setValue(currentDoc->pageHeight * currentDoc->unitRatio());
 	heightQLabel = new QLabel(heightMSpinBox,  tr( "&Height:" ), dsGroupBox7, "heightLabel" );
