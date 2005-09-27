@@ -2847,7 +2847,7 @@ Brak wsparcia oznaczony jest symbolem *</translation>
     </message>
     <message>
         <source>&amp;Shape</source>
-        <translation>&amp;Kształt ramki</translation>
+        <translation>&amp;Figura</translation>
     </message>
     <message>
         <source>&amp;Line</source>
@@ -3063,7 +3063,7 @@ Brak wsparcia oznaczony jest symbolem *</translation>
     </message>
     <message>
         <source>Double Turned Comma</source>
-        <translation>Podwójny definicyjny lewy</translation>
+        <translation type="obsolete">Podwójny definicyjny lewy</translation>
     </message>
     <message>
         <source>CJK Single Left</source>
@@ -5275,15 +5275,15 @@ and the Delete key removes the last inserted one</source>
     </message>
     <message>
         <source>Saturation component in HSV mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Składowa nasycenia w trybie HSV</translation>
     </message>
     <message>
         <source>Value component in HSV mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Składowa wartości w trybie HSV</translation>
     </message>
     <message>
         <source>Click the wheel to get the base color. It is hue in HSV mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kliknij na koło, aby uzyskać kolor podstawowy. Jest nim składowa częstotliwości światła (H) w modelu HSV.</translation>
     </message>
     <message>
         <source>Sample color scheme</source>
@@ -5291,15 +5291,15 @@ and the Delete key removes the last inserted one</source>
     </message>
     <message>
         <source>Select one of the methods to create a color scheme. Refer to documentation for more information.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wybierz jedną z metod tworzenia schematu koloru. W dokumentacji programu znajdziesz więcej informacji.</translation>
     </message>
     <message>
         <source>Colors of your chosen color scheme</source>
-        <translation type="unfinished"></translation>
+        <translation>Kolory wybranego modelu kolorów</translation>
     </message>
     <message>
         <source>Simulate common vision defects here. Select type of the defect.</source>
-        <translation type="unfinished"></translation>
+        <translation>Symulacja częstych wad wzroku. Wybierz typ wady wzroku.</translation>
     </message>
     <message>
         <source>New Color</source>
@@ -5307,7 +5307,15 @@ and the Delete key removes the last inserted one</source>
     </message>
     <message>
         <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można znaleźć wybranego koloru. Prawdopodobnie wybrałeś czarny, szary lub biały. Nie da się przetworzyć tego koloru.</translation>
+    </message>
+    <message>
+        <source>Color %1 exists already!</source>
+        <translation>Kolor %1 już istnieje!</translation>
+    </message>
+    <message>
+        <source>Color %1 appended.</source>
+        <translation>Kolor %1 został dołączony.</translation>
     </message>
 </context>
 <context>
@@ -5811,11 +5819,11 @@ opcjonalnie uzupełniony o myślnik i kod kraju zgodny z ISO-3166, np pl-PL, fr-
     </message>
     <message>
         <source>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>Osoba lub organizacja głównie odpowiedzialna za utworzenie zawartości dokumentu. Pole to może zostać zapisane w dokumencie Scribusa, jak też w dokumencie PDF jako metadane</translation>
     </message>
     <message>
         <source>A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>Nazwa danego dokumentu. Pole to może zostać zapisane w dokumencie Scribusa, jak też w dokumencie PDF jako metadane</translation>
     </message>
     <message>
         <source>An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
@@ -6136,7 +6144,8 @@ lub gtklp, by uzyskać dostęp do dodatkowych opcji drukowania</translation>
     <message>
         <source>Sets the PostScript Level.
  Setting to Level 1 or 2 can create huge files</source>
-        <translation type="unfinished"></translation>
+        <translation>Ustala Postscript Level.
+Wybór Level 1 lub 2 może spowodować tworzenie dużych plików</translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed
@@ -7137,11 +7146,11 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     </message>
     <message>
         <source>Font Preview dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Okno dialogowe podglądu fontów</translation>
     </message>
     <message>
         <source>Sorting, searching and browsing available fonts.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sortowanie i przeszukiwanie dostępnych fontów. </translation>
     </message>
 </context>
 <context>
@@ -7168,19 +7177,19 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     </message>
     <message>
         <source>This document contains some fonts that are not installed on your system, please choose a suitable replacement for them. Cancel will stop the document from loading.</source>
-        <translation type="unfinished"></translation>
+        <translation>Niektóre fonty zawarte w tym dokumencie nie są zainstalowane w twoim systemie, wybierz pasujące fonty zastępcze. &quot;Anuluj&quot; spowoduje przerwanie wczytywania dokumentu.</translation>
     </message>
     <message>
         <source>Cancels these font substitutions and stops loading the document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Anuluje zastępowanie fontów i przerywa wczytywanie dokumentu.</translation>
     </message>
     <message>
         <source>Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in Edit &gt; Preferences &gt; Fonts.</source>
-        <translation type="unfinished"></translation>
+        <translation>Włączenie tej opcji spowoduje, że Scribus będzie używał tych fontów zastępczych we wszystkich przyszłych dokumentów. Można to zmienić w menu Edycja&gt;Konfiguracja&gt;Fonty.</translation>
     </message>
     <message>
         <source>If you select OK, then save, these substitutions are made permanent in the document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Jeśli wybierzesz OK i zapiszesz dokument, fonty te będą zastępowane permanentnie w dokumentnie.</translation>
     </message>
 </context>
 <context>
@@ -7480,7 +7489,8 @@ Wartość 0 oznacza brak ograniczeń.</translation>
     <message>
         <source>Imports most EPS files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importuje większość plików EPS do aktualnego dokumentu, 
+zamieniając dane wektorowe na obiekty Scribusa.</translation>
     </message>
 </context>
 <context>
@@ -9430,7 +9440,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Imports most OpenOffice Draw files into the current document, converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importuje większość plików OpenOffice Draw do aktualnego dokumentu, zamieniając dane wektorowe na obiekty Scribusa.</translation>
     </message>
 </context>
 <context>
@@ -10046,7 +10056,7 @@ Możesz użyć weryfikatora materiału wejściowego, aby je poprawić</translati
     </message>
     <message>
         <source>Exports selected pages as bitmap images.</source>
-        <translation type="unfinished"></translation>
+        <translation>Eksportuje wybrane strony jako grafiki bitmapowe.</translation>
     </message>
 </context>
 <context>
@@ -10093,7 +10103,7 @@ Możesz użyć weryfikatora materiału wejściowego, aby je poprawić</translati
     <message>
         <source>Plugin: loading %1</source>
         <comment>plugin manager</comment>
-        <translation type="unfinished"></translation>
+        <translation>Wtyczka: wczytywanie %1</translation>
     </message>
     <message>
         <source>init failed</source>
@@ -10103,17 +10113,17 @@ Możesz użyć weryfikatora materiału wejściowego, aby je poprawić</translati
     <message>
         <source>unknown plugin type</source>
         <comment>plugin load error</comment>
-        <translation type="unfinished"></translation>
+        <translation>nieznany typ wtyczki</translation>
     </message>
     <message>
         <source>Plugin: %1 loaded</source>
         <comment>plugin manager</comment>
-        <translation type="unfinished"></translation>
+        <translation>Wtyczka: %1 został wczytany</translation>
     </message>
     <message>
         <source>Plugin: %1 failed to load: %2</source>
         <comment>plugin manager</comment>
-        <translation type="unfinished"></translation>
+        <translation>Wtyczka: nie udało się wczytać %1 : %2</translation>
     </message>
     <message>
         <source>PostScript Files (*.eps *.EPS *.ps *.PS);;</source>
@@ -10547,7 +10557,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>&amp;Enabled</source>
-        <translation>&amp;Włączony</translation>
+        <translation type="obsolete">&amp;Włączony</translation>
     </message>
     <message>
         <source>&amp;Interval:</source>
@@ -10783,7 +10793,8 @@ ustawienie, zamknij wszystkie otwarte dokumenty.</translation>
     <message>
         <source>Set the length of the action history in steps.
 If set to 0 infinite amount of actions will be stored.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ustal długość historii operacji w krokach.
+Wartość 0 oznacza zapamiętanie nieograniczonej ilości operacji.</translation>
     </message>
     <message>
         <source>Filesystem location for the Ghostscript interpreter</source>
@@ -10859,19 +10870,19 @@ If set to 0 infinite amount of actions will be stored.</source>
     </message>
     <message>
         <source>Defines amount of space left of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="unfinished"></translation>
+        <translation>Definiuje ilość miejsca po lewej stronie obszaru roboczego dokumentu, na którym będzie można tworzyć i modyfikować obiekty oraz przeciągać je na aktywną stronę</translation>
     </message>
     <message>
         <source>Defines amount of space right of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="unfinished"></translation>
+        <translation>Definiuje ilość miejsca po prawej stronie obszaru roboczego dokumentu, na którym będzie można tworzyć i modyfikować obiekty oraz przeciągać je na aktywną stronę</translation>
     </message>
     <message>
         <source>Defines amount of space above the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="unfinished"></translation>
+        <translation>Definiuje ilość miejsca powyżej obszaru roboczego dokumentu, na którym będzie można tworzyć i modyfikować obiekty oraz przeciągać je na aktywną stronę</translation>
     </message>
     <message>
         <source>Defines amount of space below the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="unfinished"></translation>
+        <translation>Definiuje ilość miejsca poniżej obszaru roboczego dokumentu, na którym będzie można tworzyć i modyfikować obiekty oraz przeciągać je na aktywną stronę</translation>
     </message>
     <message>
         <source>Locate Ghostscript</source>
@@ -10972,7 +10983,7 @@ Czy chcesz przejąć te pliki do nowej wersji Scribusa?</translation>
     </message>
     <message>
         <source>Writing to preferences file &quot;%1&quot; failed: QIODevice status code %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapis do pliku konfiguracyjnego &quot;%1&quot; nie powiódł się: status błędu QIODevice   %2</translation>
     </message>
     <message>
         <source>Failed to open prefs file &quot;%1&quot;: %2</source>
@@ -10980,7 +10991,7 @@ Czy chcesz przejąć te pliki do nowej wersji Scribusa?</translation>
     </message>
     <message>
         <source>Failed to read prefs XML from &quot;%1&quot;: %2 at line %3, col %4</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie udało się wczytać pliku konfiguracyjnego XML z &quot;%1&quot;: %2 w wierszu %3, szpalta %4</translation>
     </message>
     <message>
         <source>PDF 1.3</source>
@@ -11001,7 +11012,7 @@ Czy chcesz przejąć te pliki do nowej wersji Scribusa?</translation>
     <message>
         <source>Scribus was not able to save its preferences:&lt;br&gt;%1&lt;br&gt;Please check file and directory permissions and available disk space.</source>
         <comment>scribus app error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Scribuss nie był w stanie zapisać pliku konfiguracyjnego: &lt;br&gt;%1&lt;br&gt;Proszę sprawdzić uprawnienia pliku i katalogu oraz ilość wolnego miejsca na dysku.</translation>
     </message>
     <message>
         <source>Error Loading Preferences</source>
@@ -11009,7 +11020,7 @@ Czy chcesz przejąć te pliki do nowej wersji Scribusa?</translation>
     </message>
     <message>
         <source>Scribus was not able to load its preferences:&lt;br&gt;%1&lt;br&gt;Default settings will be loaded.</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus nie był w stanie wczytać pliku konfiguracyjnego. &lt;br&gt;%1&lt;br&gt;Zostaną wczytane domyślne ustawienia.</translation>
     </message>
 </context>
 <context>
@@ -11468,7 +11479,7 @@ Sprawdź katalog i nazwę pliku.</translation>
     </message>
     <message>
         <source>Scr&amp;ipt</source>
-        <translation>Skr&amp;ypt</translation>
+        <translation type="unfinished">&amp;Kodowanie</translation>
     </message>
     <message>
         <source>OK</source>
@@ -12401,7 +12412,7 @@ Zewnętrzne dowiązania
     </message>
     <message>
         <source>You are running a development version of Scribus 1.3.x. The current document you are working with was originally created in Scribus 1.2.2 or lower. The process of saving will make this file unusable again in Scribus 1.2.2 unless you use File-&gt;Save As. Are you sure you wish to proceed with this operation?</source>
-        <translation type="unfinished"></translation>
+        <translation>Używaśz wersji rozwojowej Scribusa 1.3.x. Aktualny dokument został utworzony w Scribusie 1.2.x. Procedura zapisywania spowoduje, że plik ten nie da się już edytować w Scribusie 1.2.x, chyba że użyjesz opcji Zapisz&gt;Zapisz jako. Czy na pewno chcesz kontynuować tę operację?</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -12582,12 +12593,12 @@ Czy chcesz zastąpić go zapisywanym właśnie plikiem?</translation>
     <message>
         <source>Style not found.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nie znaleziono stylu.</translation>
     </message>
     <message>
         <source>Cannot set style on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nie można przypisać stylu do ramki nietekstowej.</translation>
     </message>
     <message>
         <source>Failed to save EPS.</source>
@@ -12637,7 +12648,7 @@ Czy chcesz zastąpić go zapisywanym właśnie plikiem?</translation>
     <message>
         <source>Object is not a linked text frame, can&apos;t unlink.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Obiekt nie jest ramką tekstową połączoną z inną ramką, nie da się go odłączyć.</translation>
     </message>
     <message>
         <source>Object the last frame in a series, can&apos;t unlink. Unlink the previous frame instead.</source>
@@ -12813,47 +12824,47 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Font %1 is broken (FreeType2), discarding it</source>
-        <translation type="unfinished"></translation>
+        <translation>Font %1 jest wadliwy (FreeType2) i zostaje odrzucony</translation>
     </message>
     <message>
         <source>Font %1 is broken (no Face), discarding it</source>
-        <translation type="unfinished"></translation>
+        <translation>Font %1 jest wadliwy i zostaje odrzucony</translation>
     </message>
     <message>
         <source>Font %1 has broken glyph %2 (charcode %3)</source>
-        <translation type="unfinished"></translation>
+        <translation>Font %1 zawiera wadliwy glif %2 (kod znaku %3)</translation>
     </message>
     <message>
         <source>Font %1 cannot be read, no embedding</source>
-        <translation type="unfinished"></translation>
+        <translation>Font %1 nie daje się wczytać i nie zostanie zagnieżdżony</translation>
     </message>
     <message>
         <source>Failed to load font %1 - font type unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie udało się wczytać fontu %1 - nieznany typ fontu</translation>
     </message>
     <message>
         <source>Font %1 loaded from %2(%3)</source>
-        <translation type="unfinished"></translation>
+        <translation>Font %1 został wczytany z %2(%3)</translation>
     </message>
     <message>
         <source>Font %1(%2) is duplicate of %3</source>
-        <translation type="unfinished"></translation>
+        <translation>Font %1(%2) jest duplikatem fontu %3</translation>
     </message>
     <message>
         <source>Loading font %1 (found using fontconfig)</source>
-        <translation type="unfinished"></translation>
+        <translation>Wczytywanie fontu %1 (znalezionego za pomocą fontconfigu)</translation>
     </message>
     <message>
         <source>Failed to load a font - freetype2 couldn&apos;t find the font file</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie udało się wczytać fontu - freetype2 nie znalazł pliku zawierającego font</translation>
     </message>
     <message>
         <source>Font %1 is broken (FreeType), discarding it</source>
-        <translation type="unfinished"></translation>
+        <translation>Font %1 jest wadliwy (FreeType) i zostaje odrzucony</translation>
     </message>
     <message>
         <source>Font %1  has invalid glyph %2 (charcode %3), discarding it</source>
-        <translation type="unfinished"></translation>
+        <translation>Font %1 zawiera wadliwy glif %2 (kod znaku %3) i zostaje odrzucony</translation>
     </message>
     <message>
         <source>extracting face %1 from font %2 (offset=%3, nTables=%4)</source>
@@ -12881,7 +12892,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Show information on the console when fonts are being loaded</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyświetl w konsoli informację, jakie fonty są wczytywane</translation>
     </message>
     <message>
         <source>Scribus Crash</source>
@@ -12897,7 +12908,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Font %1 is broken and will be discarded</source>
-        <translation type="unfinished"></translation>
+        <translation>Font %1 jest wadliwy i zostaje odrzucony</translation>
     </message>
     <message>
         <source> c</source>
@@ -12914,12 +12925,12 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>Cannot group less than two items</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nie można zgrupować mniej niż dwu obiektów</translation>
     </message>
     <message>
         <source>Can&apos;t group less than two items</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nie można zgrupować mniej niż dwu obiektów</translation>
     </message>
     <message>
         <source>Need selection or argument list of items to group</source>
@@ -12929,7 +12940,7 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>The filename should not be empty string.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nazwa pliku nie powinna być pustym ciągiem znaków.</translation>
     </message>
     <message>
         <source>Wiki:           http://wiki.scribus.net</source>
@@ -13551,7 +13562,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Exports the current page into an SVG file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Eksportuje aktualną stronę do pliku SVG.</translation>
     </message>
 </context>
 <context>
@@ -13567,7 +13578,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     <message>
         <source>Imports most SVG files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importuje większość plików SVG do aktualnego dokumentu, zamieniając dane wektorowe na obiekty Scribusa.</translation>
     </message>
 </context>
 <context>
@@ -13582,12 +13593,12 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>Could not find target file %1: %2</source>
         <comment>plugins</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nie można znaleźć pliku docelowego %1: %2</translation>
     </message>
     <message>
         <source>Could not open target file %1: %2</source>
         <comment>plugins</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nie można otworzyć pliku docelowego %1: %2</translation>
     </message>
 </context>
 <context>
@@ -15348,7 +15359,7 @@ materiału wejściowego, aby je poprawić</translation>
     </message>
     <message>
         <source>The paragraph style used for the entry lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Styl akapitu używany dla tekstu w spisie treści</translation>
     </message>
     <message>
         <source>Paragraph Style:</source>
@@ -16090,7 +16101,8 @@ w nawigowaniu pomiędzy powiązanymi ze sobą artykułami w PDF.</translation>
     <message>
         <source>Layers in your document are exported to the PDF
 Only available if PDF 1.5 is choosen.</source>
-        <translation type="unfinished"></translation>
+        <translation>Warstwy dokumentu zostaną wyeksportowane do PDF.
+Opcja dostępna tylko po wybraniu PDF 1.5.</translation>
     </message>
     <message>
         <source>Embed the bookmarks you created in your document.
@@ -16689,7 +16701,7 @@ This can increase memory usage and slow down export.</source>
     </message>
     <message>
         <source>Line width expressed as a percentage of the font size</source>
-        <translation type="unfinished"></translation>
+        <translation>Grubość linii wyrażona jako procent stopnia pisma</translation>
     </message>
     <message>
         <source>Displacement above the baseline of the normal font expressed as a percentage of the fonts ascender</source>

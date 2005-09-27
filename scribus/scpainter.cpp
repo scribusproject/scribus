@@ -504,8 +504,6 @@ void ScPainter::strokePath()
 #else
 	if( m_index == 0 )
 		return;
-	if( LineWidth == 0 )
-		return;
 	if( m_path[ m_index ].code != ART_END)
 		m_path[ m_index ].code = ART_END;
 	ArtVpath *path = art_bez_path_to_vec( m_path , 0.25 );
