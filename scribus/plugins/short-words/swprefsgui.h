@@ -3,12 +3,14 @@
 
 #include "prefspanel.h"
 
+#include <qtextedit.h>
+#include <qsyntaxhighlighter.h>
+
 class QWidget;
 class QVBoxLayout;
 class QHBoxLayout;
 class QGridLayout;
 class QSpacerItem;
-class QTextEdit;
 class QPushButton;
 class QLabel;
 class QString;
@@ -17,7 +19,6 @@ class PrefsPanel;
 
 /*! \brief This is the Scribus Short Words plugin configuration widget.
 Used in Preferences dialog.
-TODO: expanding cfgEdit. "Syntax Highlighting"
 \author Petr Vanek <petr@yarpen.cz>
 */
 class SWPrefsGui : public PrefsPanel
@@ -57,5 +58,19 @@ class SWPrefsGui : public PrefsPanel
 		virtual void languageChange();
 };
 
+/*! Simple syntax highlighting for configuration editor (QTextEdit).
+\author Petr Vanek, <petr@yarpen.cz>
+ */
+class SWSyntaxHighlighter : public QSyntaxHighlighter
+{
+	public:
+		SWSyntaxHighlighter(QTextEdit *textEdit);
+
+		/*! Reimplementation of the Qt highligtion for simple cfg file
+		\param text string (one row) provided by text editor via QSyntaxHighlighter inheritance.
+		\param endStateOfLastPara how is the syntax left for next paragraph
+		 */
+		int highlightParagraph(const QString &text, int endStateOfLastPara);
+};
 
 #endif

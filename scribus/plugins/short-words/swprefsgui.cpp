@@ -6,13 +6,13 @@
 #include <qvariant.h>
 #include <qwidget.h>
 #include <qlayout.h>
-#include <qtextedit.h>
 #include <qpushbutton.h>
 #include <qlabel.h>
 #include <qfile.h>
 #include <qdir.h>
 #include <qmessagebox.h>
 #include <qtooltip.h>
+#include <qtextcodec.h>
 
 
 SWPrefsGui::SWPrefsGui(QWidget* parent )
@@ -56,6 +56,7 @@ SWPrefsGui::SWPrefsGui(QWidget* parent )
 		loadCfgFile(RC_PATH);
 	}
 	okButton->setEnabled(false);
+	SWSyntaxHighlighter *sxHigh = new SWSyntaxHighlighter(cfgEdit);
 
 	// signals
 	connect(okButton, SIGNAL(pressed()), this, SLOT(okButton_pressed()));
@@ -103,6 +104,7 @@ void SWPrefsGui::okButton_pressed()
 			 CommonStrings::tr_OK);
 	}
 	QTextStream stream(&f);
+	stream.setCodec(QTextCodec::codecForName("utf8"));
 	stream << cfgEdit->text();
 	f.close();
 	titleLabel->setText(tr("User settings saved"));
@@ -133,10 +135,34 @@ bool SWPrefsGui::loadCfgFile(QString filename)
 		titleLabel->setText(tr("Cannot open file %1").arg(f.name()));
 		return false;
 	}
-	cfgEdit->setText(QString::fromUtf8(f.readAll()));
+	cfgEdit->clear();
+	QTextStream stream(&f);
+	stream.setCodec(QTextCodec::codecForName("utf8"));
+	while (!stream.atEnd())
+		cfgEdit->append(stream.readLine());
 	f.close();
 	return true;
 }
 
+
+/*
+ * Syntax highlighting
+ */
+SWSyntaxHighlighter::SWSyntaxHighlighter(QTextEdit *textEdit)
+	: QSyntaxHighlighter(textEdit)
+{
+}
+
+int SWSyntaxHighlighter::highlightParagraph(const QString &text, int)
+{
+	// position in the text
+	if (text[0] == '#')
+	{
+		QFont f(textEdit()->currentFont());
+		f.setItalic(true);
+		setFormat(0, text.length(), f, QColor(Qt::gray));
+	}
+	return 0;
+}
 
 #include "swprefsgui.moc"
