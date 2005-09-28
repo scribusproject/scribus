@@ -6044,7 +6044,7 @@ bool ScribusView::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, 
 	double dY = ma.m22() * (currItem->Height - newY) + ma.m12() * (currItem->Width - newX) + ma.dy();
 	currItem->Width = newX;
 	currItem->Height = newY;
-	if ((Doc->RotMode != 0) && (fromMP))
+	if ((Doc->RotMode != 0) && (fromMP) && (!Doc->isLoading()))
 	{
 		switch (Doc->RotMode)
 		{
@@ -6338,6 +6338,8 @@ void ScribusView::scaleGroup(double scx, double scy)
 	gy -= Doc->minCanvasCoordinate.y();
 	QRect oldR = QRect(static_cast<int>(gx*sc-5), static_cast<int>(gy*sc-5), static_cast<int>(gw*sc+10), static_cast<int>(gh*sc+10));
 	getGroupRect(&gx, &gy, &gw, &gh);
+	double origGW = gw;
+	double origGH = gh;
 	setUpdatesEnabled(false);
 	for (uint a = 0; a < SelItem.count(); ++a)
 	{
@@ -6414,6 +6416,8 @@ void ScribusView::scaleGroup(double scx, double scy)
 		}
 		bb->LocalX = oldLocalX;
 		bb->LocalY = oldLocalY;
+		double dX = bb->Width - bb->OldB2;
+		double dY = bb->Height - bb->OldH2;
 		bb->OldB2 = bb->Width;
 		bb->OldH2 = bb->Height;
 		QWMatrix ma4;
@@ -6426,14 +6430,50 @@ void ScribusView::scaleGroup(double scx, double scy)
 		bb->GrEndX = gr.point(1).x();
 		bb->GrEndY = gr.point(1).y();
 		updateGradientVectors(bb);
+		if ((Doc->RotMode != 0) && (!Doc->isLoading()))
+		{
+			switch (Doc->RotMode)
+			{
+			case 2:
+				MoveItem(dX / 2.0, dY / 2.0, bb);
+				break;
+			case 4:
+				MoveItem(dX, dY, bb);
+				break;
+			case 3:
+				MoveItem(0.0, dY, bb);
+				break;
+			case 1:
+				MoveItem(dX, 0.0, bb);
+				break;
+			}
+		}
 	}
 	bb = SelItem.at(0);
 	GroupOnPage(bb);
 	setGroupRect();
-	setUpdatesEnabled(true);
 	getGroupRect(&gx, &gy, &gw, &gh);
+	if ((Doc->RotMode != 0) && (!Doc->isLoading()))
+	{
+		switch (Doc->RotMode)
+		{
+		case 2:
+			moveGroup((origGW-gw) / 2.0, (origGH-gh) / 2.0, true);
+			break;
+		case 4:
+			moveGroup(origGW-gw, origGH-gh, true);
+			break;
+		case 3:
+			moveGroup(0.0, origGH-gh, true);
+			break;
+		case 1:
+			moveGroup(origGW-gw, 0.0, true);
+			break;
+		}
+	}
 	gx -= Doc->minCanvasCoordinate.x();
 	gy -= Doc->minCanvasCoordinate.y();
+	setUpdatesEnabled(true);
 	updateContents(QRect(static_cast<int>(gx*sc-5), static_cast<int>(gy*sc-5), static_cast<int>(gw*sc+10), static_cast<int>(gh*sc+10)).unite(oldR));
 	emit DocChanged();
 }
