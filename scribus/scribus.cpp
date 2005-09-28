@@ -8033,6 +8033,8 @@ void ScribusApp::doSaveAsPDF()
 			uint aa = 0;
 			while (aa < pageNs.size())
 			{
+				ReallyUsed.clear();
+				doc->getUsedFonts(&ReallyUsed);
 				thumbs.clear();
 				std::vector<int> pageNs2;
 				pageNs2.clear();
