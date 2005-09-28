@@ -9916,10 +9916,6 @@ hver gang det valgte tids-interval udløber</translation>
         <translation>&amp;Venstre:</translation>
     </message>
     <message>
-        <source>&amp;Enabled</source>
-        <translation>A&amp;ktiv</translation>
-    </message>
-    <message>
         <source>&amp;Interval:</source>
         <translation>I&amp;nterval:</translation>
     </message>
@@ -12186,10 +12182,6 @@ er denne liste ikke udtømmende, på grund af indsiglser fra kaldte funktioner.
 </translation>
     </message>
     <message>
-        <source>Short Words Manual</source>
-        <translation>Manual for korte ord</translation>
-    </message>
-    <message>
         <source>Wiki:           http://wiki.scribus.net</source>
         <translation>Wiki:           http://wiki.scribus.net</translation>
     </message>
@@ -12744,6 +12736,104 @@ er denne liste ikke udtømmende, på grund af indsiglser fra kaldte funktioner.
 converting their vector data into Scribus objects.</source>
         <translation>Importerer de fleste SVG filer ind i det aktive dokument,
 og konverterer deres vektordata til Scribus objekter.</translation>
+    </message>
+</context>
+<context>
+    <name>SWDialog</name>
+    <message>
+        <source>Short Words</source>
+        <comment>short words plugin</comment>
+        <translation>Korte ord</translation>
+    </message>
+    <message>
+        <source>Apply unbreakable space on:</source>
+        <comment>short words plugin</comment>
+        <translation>Anvend mellemrum, der ikke kan brydes, på: </translation>
+    </message>
+    <message>
+        <source>&amp;Selected frames</source>
+        <comment>short words plugin</comment>
+        <translation>&amp;Markerede rammer</translation>
+    </message>
+    <message>
+        <source>Active &amp;page</source>
+        <comment>short words plugin</comment>
+        <translation>Aktiv &amp;side</translation>
+    </message>
+    <message>
+        <source>&amp;All items</source>
+        <comment>short words plugin</comment>
+        <translation>Alle &amp;elementer</translation>
+    </message>
+    <message>
+        <source>Only selected frames processed.</source>
+        <comment>short words plugin</comment>
+        <translation>Kun markerede rammer behandlet.</translation>
+    </message>
+    <message>
+        <source>Only actual page processed.</source>
+        <comment>short words plugin</comment>
+        <translation>Kun aktive side behandlet.</translation>
+    </message>
+    <message>
+        <source>All items in document processed.</source>
+        <comment>short words plugin</comment>
+        <translation>Alle elementer i dokumentet behandlet.</translation>
+    </message>
+</context>
+<context>
+    <name>SWPrefsGui</name>
+    <message>
+        <source>User settings</source>
+        <translation>Bruger indstillinger</translation>
+    </message>
+    <message>
+        <source>System wide configuration</source>
+        <translation>Den indbyggede konfiguration</translation>
+    </message>
+    <message>
+        <source>&amp;Save</source>
+        <translation>&amp;Gem</translation>
+    </message>
+    <message>
+        <source>&amp;Reset</source>
+        <translation>Nu&amp;lstil</translation>
+    </message>
+    <message>
+        <source>Save user configuration</source>
+        <translation>Gem bruger konfiguration</translation>
+    </message>
+    <message>
+        <source>Reload system wide configuration and remove user defined one</source>
+        <translation>Genindlæs den indbyggede konfiguration og fjern den brugerdefinerede</translation>
+    </message>
+    <message>
+        <source>Edit custom configuration. If you save it, it will be used over system wide configuration</source>
+        <translation>Redigér bruger konfiguration. Hvis du gemmer den, vil den blive brugt i stedet for den indbyggede konfiguration</translation>
+    </message>
+    <message>
+        <source>Short Words</source>
+        <translation>Korte ord</translation>
+    </message>
+    <message>
+        <source>User configuration exists elready. Do you really want to overwrite it?</source>
+        <translation>Bruger konfiguration findes allerede. Ønsker du virkelig at overskrive den?</translation>
+    </message>
+    <message>
+        <source>Cannot write file %1.</source>
+        <translation>Kan ikke skrive fil %1.</translation>
+    </message>
+    <message>
+        <source>User settings saved</source>
+        <translation>Bruger indstillinger gemt</translation>
+    </message>
+    <message>
+        <source>System wide configuration reloaded</source>
+        <translation>Den indbyggede konfiguration er genindlæst</translation>
+    </message>
+    <message>
+        <source>Cannot open file %1</source>
+        <translation>Kan ikke åbne fil %1</translation>
     </message>
 </context>
 <context>
@@ -13859,10 +13949,6 @@ Overvej at bruge Preflight efterprøvning for at rette dem</translation>
     <message>
         <source>Short Words</source>
         <translation>Korte ord</translation>
-    </message>
-    <message>
-        <source>Special plug-in for adding non-breaking spaces before or after so called short words.</source>
-        <translation>Speciel udvidelsesmodul til tilføjelse af ikke-brydbare mellemrum før eller efter de såkaldte korte ord.</translation>
     </message>
 </context>
 <context>
@@ -16240,132 +16326,6 @@ til %2</translation>
     <message>
         <source>Send your value to the script</source>
         <translation>Send din værdi til scripten</translation>
-    </message>
-</context>
-<context>
-    <name>VlnaDialog</name>
-    <message>
-        <source>Short Words</source>
-        <comment>short words plugin</comment>
-        <translation>Korte ord</translation>
-    </message>
-    <message>
-        <source>Apply unbreakable space on:</source>
-        <comment>short words plugin</comment>
-        <translation>Anvend mellemrum, der ikke kan brydes, på: </translation>
-    </message>
-    <message>
-        <source>&amp;Selected frames</source>
-        <comment>short words plugin</comment>
-        <translation>&amp;Markerede rammer</translation>
-    </message>
-    <message>
-        <source>Active &amp;page</source>
-        <comment>short words plugin</comment>
-        <translation>Aktiv &amp;side</translation>
-    </message>
-    <message>
-        <source>&amp;All items</source>
-        <comment>short words plugin</comment>
-        <translation>Alle &amp;elementer</translation>
-    </message>
-    <message>
-        <source>Replace defaults by user config</source>
-        <comment>short words plugin</comment>
-        <translation>Erstat standardværdier med bruger opsætning</translation>
-    </message>
-    <message>
-        <source>When the user config file exists 
-(%1)
-you can choose if you want to append your config
-to the global configuration by unchecked button.
-
-You can replace predefined values by yours
-with checked button too.</source>
-        <comment>short words plugin</comment>
-        <translation>Når bruger opsætnings-filen findes
-(%1)
-kan du vælge, om du ønsker at tilføje din opsætning
-til den globale opsætning ved en ikke afkrydset knap.
-
-Du kan også erstatte predefinerede værdier med 
-dine med afkrydset knap.</translation>
-    </message>
-    <message>
-        <source>Only selected frames processed.</source>
-        <comment>short words plugin</comment>
-        <translation>Kun markerede rammer behandlet.</translation>
-    </message>
-    <message>
-        <source>Only actual page processed.</source>
-        <comment>short words plugin</comment>
-        <translation>Kun aktive side behandlet.</translation>
-    </message>
-    <message>
-        <source>All items in document processed.</source>
-        <comment>short words plugin</comment>
-        <translation>Alle elementer i dokumentet behandlet.</translation>
-    </message>
-    <message>
-        <source>Short Words for Scribus</source>
-        <comment>short words plugin</comment>
-        <translation>Korte ord for Scribus</translation>
-    </message>
-    <message>
-        <source>Available in the following languages</source>
-        <comment>short words plugin</comment>
-        <translation>Tilgængelig i følgende sprog</translation>
-    </message>
-    <message>
-        <source>About Short Words</source>
-        <comment>short words plugin</comment>
-        <translation>Om Korte Ord</translation>
-    </message>
-    <message>
-        <source>Edit &amp;system configuration...</source>
-        <translation>Redigér &amp;system konfiguration...</translation>
-    </message>
-    <message>
-        <source>Edit &amp;user configuration...</source>
-        <translation>Redigér &amp;bruger konfiguration...</translation>
-    </message>
-    <message>
-        <source>S&amp;etup editor...</source>
-        <translation>&amp;Opsætning af editor...</translation>
-    </message>
-    <message>
-        <source>&amp;Edit</source>
-        <translation>&amp;Redigér</translation>
-    </message>
-    <message>
-        <source>&amp;Info and Languages...</source>
-        <translation>&amp;Info og sprog...</translation>
-    </message>
-    <message>
-        <source>&amp;Help</source>
-        <translation>&amp;Hjælp</translation>
-    </message>
-    <message>
-        <source>Short Words</source>
-        <translation>Korte ord</translation>
-    </message>
-    <message>
-        <source>You are starting to edit read-only file.
-%1</source>
-        <translation>Du er begyndt at redigere en fil, der kun kan læses.
-%1</translation>
-    </message>
-    <message>
-        <source>Application &apos;%1&apos; error. Cannot be started.</source>
-        <translation>Program &apos;%1&apos; fejl. Kan ikke starte.</translation>
-    </message>
-    <message>
-        <source>Short Words setup</source>
-        <translation>Opsætning af korte ord</translation>
-    </message>
-    <message>
-        <source>Enter name of the plain text editor executable:</source>
-        <translation>Indtast navnet på et enkelt tekst-redigerings-program:</translation>
     </message>
 </context>
 <context>
