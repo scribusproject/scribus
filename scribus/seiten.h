@@ -30,32 +30,32 @@
 class SCRIBUS_API SeDrag : public QStoredDrag
 {
 public:
-    SeDrag( QString s, QWidget * parent = 0, const char * name = 0 );
-    ~SeDrag() {};
+	SeDrag( QString s, QWidget * parent = 0, const char * name = 0 );
+	~SeDrag() {};
 
-    static bool canDecode( QDragMoveEvent* e );
-    static bool decode( QDropEvent* e, QString& s );
+	static bool canDecode( QDragMoveEvent* e );
+	static bool decode( QDropEvent* e, QString& s );
 };
 
 class SCRIBUS_API SeItem : public QTableItem
 {
 public:
-	SeItem(QTable* parent, QString text, QPixmap Pix, bool ss);
-    ~SeItem() {};
+	SeItem(QTable* parent, QString text, QPixmap Pix);
+	~SeItem() {};
 	virtual void paint(QPainter *p, const QColorGroup &cg, const QRect &cr, bool selected);
-	bool Side;
+	QString pageName;
 };
 
 class SCRIBUS_API SeList : public QListBox
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    SeList(QWidget* parent);
-    ~SeList() {};
-    QPoint Mpos;
+	SeList(QWidget* parent);
+	~SeList() {};
+	QPoint Mpos;
 	QListBoxItem *CurItem;
-    bool Mpressed;
+	bool Mpressed;
 	bool Thumb;
 
 private slots:
@@ -72,20 +72,25 @@ protected:
 
 class SCRIBUS_API SeView : public QTable
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    SeView(QWidget* parent);
-    ~SeView() {};
+	SeView(QWidget* parent);
+	~SeView() {};
 	void ClearPix();
-	int GetPage(int r, int c);
-    QPoint Mpos;
-    bool Mpressed;
+	int GetPage(int r, int c, bool *last);
+	QPoint Mpos;
+	bool Mpressed;
 	bool Doppel;
 	bool Links;
 	bool Namen;
 	int MaxC;
-	QPixmap pix;
+	int colmult;
+	int rowmult;
+	int coladd;
+	int rowadd;
+	int cols;
+	int firstP;
 
 public slots:
 	void ToggleNam();
@@ -108,7 +113,7 @@ protected:
 
 class SCRIBUS_API TrashBin : public QLabel
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
 	TrashBin( QWidget * parent );
@@ -125,21 +130,21 @@ signals:
 };
 
 class SCRIBUS_API SeitenPal : public ScrPaletteBase
-{ 
-    Q_OBJECT
+{
+	Q_OBJECT
 
 public:
-    SeitenPal(QWidget* parent);
-    ~SeitenPal() {};
+	SeitenPal(QWidget* parent);
+	~SeitenPal() {};
 	//void keyPressEvent(QKeyEvent *k);
-    //void closeEvent(QCloseEvent *ce);
+	//void closeEvent(QCloseEvent *ce);
 
-    QSplitter* Splitter1;
-    TrashBin* Trash;
+	QSplitter* Splitter1;
+	TrashBin* Trash;
 	QLabel* TextLabel1;
 	QLabel* TextLabel2;
-    SeList* masterPageList;
-    SeView* PageView;
+	SeList* masterPageList;
+	SeView* PageView;
 	QCheckBox* facingPagesChk;
 	QCheckBox* firstPageLeftChk;
 	ScribusView *Vie;
@@ -168,11 +173,11 @@ signals:
 	//void Schliessen();
 
 protected:
-    QVBoxLayout* SeitenPalLayout;
-    QHBoxLayout* Layout1;
-    QVBoxLayout* Layout2;
-    QVBoxLayout* Layout3;
-    QVBoxLayout* Layout4;
+	QVBoxLayout* SeitenPalLayout;
+	QHBoxLayout* Layout1;
+	QVBoxLayout* Layout2;
+	QVBoxLayout* Layout3;
+	QVBoxLayout* Layout4;
 
 protected slots:
 	//virtual void reject();

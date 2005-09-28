@@ -34,10 +34,10 @@ bool SeDrag::decode( QDropEvent* e, QString& str )
 }
 
 /* IconItems Code */
-SeItem::SeItem(QTable* parent, QString text, QPixmap Pix, bool ss)
-		: QTableItem(parent, QTableItem::Never, text, Pix)
+SeItem::SeItem(QTable* parent, QString text, QPixmap Pix)
+		: QTableItem(parent, QTableItem::Never, "", Pix)
 {
-	Side = ss;
+	pageName = text;
 	setWordWrap(true);
 }
 
@@ -48,20 +48,7 @@ void SeItem::paint(QPainter *p, const QColorGroup &, const QRect &cr, bool )
 	SeView *sv;
 	QTable *tt = table();
 	sv = (SeView*)tt;
-	if (Side)
-	{
-		p->drawPixmap(0, (cr.height()-py)/2, pixmap());
-		if (sv->Namen)
-			p->drawText(px, 0, cr.width()-px, cr.height(), Qt::AlignLeft | Qt::AlignVCenter | Qt::WordBreak,
-			            text());
-	}
-	else
-	{
-		p->drawPixmap(cr.width()-px-2, (cr.height()-py)/2, pixmap());
-		if (sv->Namen)
-			p->drawText(0, 0, cr.width()-px-2, cr.height(), Qt::AlignLeft | Qt::AlignVCenter | Qt::WordBreak,
-			            text());
-	}
+	p->drawPixmap(0, 0, pixmap());
 }
 
 /* ListBox Subclass */
@@ -130,8 +117,6 @@ SeView::SeView(QWidget* parent) : QTable(parent)
 	Mpressed = false;
 	Doppel = false;
 	Namen = true;
-	pix = QPixmap(2, 34);
-	pix.fill(black);
 	setFocusPolicy(NoFocus);
 }
 
@@ -146,7 +131,7 @@ void SeView::contentsMouseReleaseEvent(QMouseEvent* e)
 {
 	e->accept();
 	Mpressed = false;
-	if (e->button() == RightButton)
+/*	if (e->button() == RightButton)
 	{
 		QPopupMenu *pmen = new QPopupMenu();
 		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
@@ -155,25 +140,26 @@ void SeView::contentsMouseReleaseEvent(QMouseEvent* e)
 			pmen->setItemChecked(px, true);
 		pmen->exec(QCursor::pos());
 		delete pmen;
-	}
+	} */
 	emit Click(rowAt(e->pos().y()), columnAt(e->pos().x()), e->button());
 }
 
 void SeView::ToggleNam()
 {
-	Namen = !Namen;
+/*	Namen = !Namen;
 	int val = 35;
 	if (Namen)
 		val = 100;
 	setColumnWidth(1, val);
 	setColumnWidth(3, val);
 	hide();
-	show();
+	show(); */
 }
 
 void SeView::contentsMouseMoveEvent(QMouseEvent* e)
 {
 	QString str, tmp;
+	bool dummy;
 	int p;
 	int a = rowAt(e->pos().y());
 	int b = columnAt(e->pos().x());
@@ -182,8 +168,10 @@ void SeView::contentsMouseMoveEvent(QMouseEvent* e)
 		Mpressed = false;
 		if ((a != -1) && (b != -1))
 		{
-			str = text(a, b);
-			p = GetPage(a, b);
+			QTableItem* ite = item(a, b);
+			SeItem* it = (SeItem*)ite;
+			str = it->pageName;
+			p = GetPage(a, b, &dummy);
 			QDragObject *dr = new SeDrag("2 "+tmp.setNum(p)+" "+str, this, "te");
 			dr->setPixmap(loadIcon("doc.png"));
 			dr->drag();
@@ -194,8 +182,10 @@ void SeView::contentsMouseMoveEvent(QMouseEvent* e)
 void SeView::contentsDropEvent(QDropEvent * e)
 {
 	QString str, tmp;
+	bool lastPage = false;
 	if (SeDrag::decode(e, str))
 	{
+		ClearPix();
 		if (str.startsWith("1"))
 		{
 			int a = rowAt(e->pos().y());
@@ -204,58 +194,33 @@ void SeView::contentsDropEvent(QDropEvent * e)
 			tmp = str.remove(0,1);
 			if ((a == -1) || (b == -1))
 				return;
-			if (Doppel)
+			if (a == numRows()-1)
 			{
-				if (((a % 2) == 1) && ((b == 0) || (b == 2)))
-				{
-					if (Links)
-					{
-						if (b == 0)
-							emit NewPage(a-1, tmp);
-						if (b == 2)
-							emit NewPage(a, tmp);
-					}
-					else
-					{
-						if (b == 0)
-							emit NewPage((a == 1 ? a - 1 : a - 2), tmp);
-						if (b == 2)
-							emit NewPage(a-1, tmp);
-					}
-					ClearPix();
-				}
-				if (a == numRows()-1)
-					emit NewPage(MaxC+1, tmp);
-				if (((a % 2) == 1) && ((b == 1) || (b == 3)))
-				{
-					if (item(a,b) != 0)
-					{
-						p = GetPage(a, b);
-						emit UseTemp(tmp, p);
-						setText(a, b, tmp);
-					}
-				}
+				emit NewPage(MaxC+1, tmp);
+				return;
+			}
+			p = GetPage(a, b, &lastPage);
+			if (numCols() == 1)
+			{
+				if ((a % 2) == 0)
+					emit NewPage(p, tmp);
+				else
+					emit UseTemp(tmp, p);
+				return;
 			}
 			else
 			{
-				if ((a == -1) || ((a % 2) == 0))
+				if ((b % 2) == 0)
 				{
-					setNumRows(numRows()+2);
-					if (a == -1)
-						emit NewPage(numRows()/2-1, tmp);
+					if (lastPage)
+						emit NewPage(p+1, tmp);
 					else
-					{
-						emit NewPage(a/2, tmp);
-						clearCell(a, 0);
-					}
+						emit NewPage(p, tmp);
 				}
 				else
-				{
-					emit UseTemp(tmp, a/2);
-					setText(a, 0, tmp);
-				}
+					emit UseTemp(tmp, p);
+				return;
 			}
-			return;
 		}
 		if (str.startsWith("2"))
 		{
@@ -268,7 +233,31 @@ void SeView::contentsDropEvent(QDropEvent * e)
 			int p, z;
 			if ((a == -1) || (b == -1))
 				return;
-			if (Doppel)
+			p = GetPage(a, b, &lastPage);
+			if (numCols() == 1)
+			{
+				if ((a % 2) != 0)
+				{
+					emit UseTemp(tmp, p);
+					QTableItem* ite = item(a, b);
+					SeItem* it = (SeItem*)ite;
+					it->pageName = tmp;
+				}
+				return;
+			}
+			else
+			{
+				if ((b % 2) != 0)
+				{
+					emit UseTemp(tmp, p);
+					QTableItem* ite = item(a, b);
+					SeItem* it = (SeItem*)ite;
+					it->pageName = tmp;
+				}
+				return;
+			}
+		}
+/*			if (Doppel)
 			{
 				if (((a % 2) == 1) && ((b == 0) || (b == 2)))
 				{
@@ -324,7 +313,7 @@ void SeView::contentsDropEvent(QDropEvent * e)
 			}
 			ClearPix();
 			return;
-		}
+		} */
 	}
 }
 
@@ -346,89 +335,114 @@ void SeView::contentsDragMoveEvent(QDragMoveEvent *e)
 	{
 		int a = rowAt(e->pos().y());
 		int b = columnAt(e->pos().x());
+		ClearPix();
 		if ((a == -1) || (b == -1))
-		{
-			ClearPix();
 			return;
-		}
-		if (Doppel)
+		if (numCols() == 1)
 		{
-			if ((((a % 2) == 1) && ((b == 0) || (b == 2))) || (a == numRows()-1))
+			if ((a % 2) == 0)
+			{
+				QPixmap pm;
+				pm = QPixmap(columnWidth(b), rowHeight(a));
+				pm.fill(darkBlue);
+				setPixmap(a, 0, pm);
+			}
+		}
+		else
+		{
+			if (((b % 2) == 0) || (a == numRows()-1))
 			{
 				QPixmap pm;
 				pm = QPixmap(columnWidth(b), rowHeight(a));
 				pm.fill(darkBlue);
 				setPixmap(a, b, pm);
 			}
-			else
-				ClearPix();
-		}
-		else
-		{
-			if ((a % 2) == 0)
-			{
-				QPixmap pm;
-				pm = QPixmap(columnWidth(0), 9);
-				pm.fill(darkBlue);
-				setPixmap(a, 0, pm);
-			}
-			else
-				ClearPix();
 		}
 	}
 }
 
 void SeView::ClearPix()
 {
+	int counter = 0;
+	int rowcounter = 0;
 	for (int a = 0; a < numRows(); ++a)
 	{
-		if (Doppel)
+		counter = 0;
+		if (numCols() == 1)
 		{
-			clearCell(a, 0);
-			setPixmap(a, 2, pix);
-			if ((a % 2) != 1)
+			if ((a % 2) == 0)
 			{
-				clearCell(a,1);
-				clearCell(a,3);
+				clearCell(rowcounter, 0);
+				rowcounter += 2;
 			}
 		}
 		else
 		{
-			if ((a % 2) == 0)
-				clearCell(a, 0);
+			for (int b = 0; b < numCols(); ++b)
+			{
+				if ((b % 2) == 0)
+				{
+					clearCell(rowcounter, counter);
+					counter += 2;
+				}
+			}
+			rowcounter++;
 		}
+	}
+	for (int c = 0; c < numCols(); ++c)
+	{
+		clearCell(numRows()-1, c);
 	}
 }
 
-int SeView::GetPage(int r, int c)
+int SeView::GetPage(int r, int c, bool *last)
 {
-	int p;
-	if (Doppel)
+	int counter = firstP;
+	int rowcounter = 0;
+	int ret = MaxC;
+	*last = false;
+	if (r == numRows()-1)
 	{
-		if (Links)
+		*last = true;
+		return ret;
+	}
+	if ((r == 0) && (c < firstP*colmult+coladd))
+		return 0;
+	for (int a = 0; a < MaxC+1; ++a)
+	{
+		if ((rowcounter*rowmult+rowadd == r) && (counter*colmult+coladd == c))
 		{
-			if (c == 1)
-				p = r;
-			if (c == 3)
-				p = r+1;
+			ret = a;
+			break;
 		}
 		else
 		{
-			if ((c == 1) && ( r == 1))
-				return 0;
-			p = c == 1 ? r - 1 : r;
+			if (numCols() == 1)
+			{
+				if (rowcounter*rowmult == r)
+				{
+					ret = a;
+					break;
+				}
+			}
+			else
+			{
+				if ((counter*colmult == c) && (rowcounter*rowmult+rowadd == r))
+				{
+					ret = a;
+					break;
+				}
+			}
 		}
-		p--;
-		if (p > MaxC)
-			p = MaxC;
+		counter++;
+		if (counter > cols-1)
+		{
+			counter = 0;
+			rowcounter++;
+		}
 	}
-	else
-	{
-		p = r / 2;
-		if (p > MaxC)
-			p = MaxC;
-	}
-	return p;
+	*last = true;
+	return ret;
 }
 
 /* Der Muelleimer */
@@ -477,7 +491,6 @@ void TrashBin::dropEvent(QDropEvent * e)
 
 
 SeitenPal::SeitenPal(QWidget* parent) : ScrPaletteBase( parent, "SP", false, 0)
-		//    : QDialog( parent, "SP", false, Qt::WStyle_Customize | Qt::WStyle_Title | Qt::WStyle_Tool)
 {
 	setIcon(loadIcon("AppIcon.png"));
 	SeitenPalLayout = new QVBoxLayout( this );
@@ -546,25 +559,10 @@ SeitenPal::SeitenPal(QWidget* parent) : ScrPaletteBase( parent, "SP", false, 0)
 	QToolTip::add(Trash, "<qt>" + tr("Drag pages or master pages onto the trashbin to delete them") + "</qt>");
 	QToolTip::add(PageView, "<qt>" + tr("Previews all the pages of your document") + "</qt>");
 	QToolTip::add(masterPageList, "<qt>" + tr("Here are all your master pages. To create a new page, drag a master page to the page view below") + "</qt>");
-}
-/*
-void SeitenPal::keyPressEvent(QKeyEvent *k)
-{
-	QDialog::keyPressEvent(k);
+	facingPagesChk->setEnabled(false);
+	firstPageLeftChk->setEnabled(false);
 }
 
-void SeitenPal::closeEvent(QCloseEvent *ce)
-{
-	emit Schliessen();
-	ce->accept();
-}
-
-void SeitenPal::reject()
-{
-	emit Schliessen();
-	QDialog::reject();
-}
-*/
 void SeitenPal::DelMPage(QString tmp)
 {
 	if (tmp == tr("Normal"))
@@ -614,9 +612,10 @@ void SeitenPal::MPage(int r, int c)
 void SeitenPal::GotoPage(int r, int c, int b)
 {
 	int p;
+	bool dummy;
 	if ((b == LeftButton) && (r != -1) && (c != -1))
 	{
-		p = PageView->GetPage(r, c);
+		p = PageView->GetPage(r, c, &dummy);
 		emit GotoSeite(p);
 	}
 }
@@ -633,8 +632,8 @@ void SeitenPal::EnablePal()
 {
 	PageView->setEnabled(true);
 	masterPageList->setEnabled(true);
-	facingPagesChk->setEnabled(true);
-	firstPageLeftChk->setEnabled(PageView->Doppel ? true : false);
+/*	facingPagesChk->setEnabled(true);
+	firstPageLeftChk->setEnabled(PageView->Doppel ? true : false); */
 }
 
 void SeitenPal::handleFacingPagesChk()
@@ -713,73 +712,58 @@ void SeitenPal::RebuildPage()
 	if (PageView->Doppel)
 		firstPageLeftChk->setEnabled(true);
 	PageView->MaxC = Vie->Doc->Pages.count()-1;
-	if (Vie->Doc->currentPageLayout == doublePage)
+	int cols = Vie->Doc->pageSets[Vie->Doc->currentPageLayout].Columns;
+	int rows = Vie->Doc->pageCount / Vie->Doc->pageSets[Vie->Doc->currentPageLayout].Columns;
+	if ((Vie->Doc->pageCount % Vie->Doc->pageSets[Vie->Doc->currentPageLayout].Columns) != 0)
+		rows++;
+	int counter, rowcounter, colmult, rowmult, coladd,rowadd;
+	counter = Vie->Doc->pageSets[Vie->Doc->currentPageLayout].FirstPage;
+	rowcounter = 0;
+	if (cols == 1)
 	{
-		int cc, cb;
-		bool Side;
-		resize(PageView->Namen ? 240 : 180, height());
-		PageView->setNumCols(4);
-		PageView->setColumnWidth(0, 5);
-		PageView->setColumnWidth(2, 5);
-		int val = 35;
-		if (PageView->Namen)
-			val = 100;
-		PageView->setColumnWidth(1, val);
-		PageView->setColumnWidth(3, val);
-		cc = 1;
-		if (Vie->Doc->pageSets[Vie->Doc->currentPageLayout].FirstPage)
-		{
-			PageView->setNumRows(((Vie->Doc->pageCount-1)/2 + 1) * 2 + 1);
-			cb = 1;
-		}
-		else
-		{
-			PageView->setNumRows((Vie->Doc->pageCount/2 + 1) * 2 +1);
-			cb = 3;
-		}
-		for (uint a = 0; a < Vie->Doc->Pages.count(); ++a)
-		{
-			str = Vie->Doc->Pages.at(a)->MPageNam;
-			Side = cb == 1 ? false : true;
-			QTableItem *it = new SeItem( PageView, str, CreateIcon(a, pix), Side);
-			PageView->setItem(cc, cb, it);
-			PageView->setRowHeight(cc, pix.height());
-			PageView->setPixmap(cc, 2, PageView->pix);
-			PageView->setPixmap(cc-1, 2, PageView->pix);
-			PageView->setRowHeight(cc-1, 10);
-			PageView->setRowReadOnly(cc-1, true);
-			PageView->adjustRow(cc);
-			cb += 2;
-			if (cb > 3)
-			{
-				cb = 1;
-				cc += 2;
-			}
-		}
+		PageView->setNumCols(cols);
+		PageView->setNumRows(rows*2+1);
+		colmult = 1;
+		coladd = 0;
+		rowmult = 2;
+		rowadd = 1;
 	}
 	else
 	{
-		PageView->setNumRows(Vie->Doc->Pages.count()*2+1);
-		PageView->setNumCols(1);
-		resize(180, height());
-		int cc = 1;
-		for (uint a = 0; a < Vie->Doc->Pages.count(); ++a)
+		PageView->setNumCols(cols*2);
+		PageView->setNumRows(rows+1);
+		colmult = 2;
+		coladd = 1;
+		rowmult = 1;
+		rowadd = 0;
+	}
+	PageView->coladd = coladd;
+	PageView->colmult = colmult;
+	PageView->rowadd = rowadd;
+	PageView->rowmult = rowmult;
+	PageView->firstP = counter;
+	PageView->cols = Vie->Doc->pageSets[Vie->Doc->currentPageLayout].Columns;
+	for (uint a = 0; a < Vie->Doc->Pages.count(); ++a)
+	{
+		str = Vie->Doc->Pages.at(a)->MPageNam;
+		QTableItem *it = new SeItem( PageView, str, CreateIcon(a, pix));
+		PageView->setItem(rowcounter*rowmult+rowadd, counter*colmult+coladd, it);
+		PageView->setRowHeight(rowcounter*rowmult+rowadd, pix.height());
+		PageView->adjustRow(rowcounter*rowmult+rowadd);
+		PageView->setColumnWidth(counter*colmult+coladd, pix.width());
+		PageView->adjustColumn(counter*colmult+coladd);
+		if (cols == 1)
+			PageView->setRowHeight(rowcounter*rowmult, 10);
+		else
+			PageView->setColumnWidth(counter*colmult, 10);
+		counter++;
+		if (counter > Vie->Doc->pageSets[Vie->Doc->currentPageLayout].Columns-1)
 		{
-			str = Vie->Doc->Pages.at(a)->MPageNam;
-			QTableItem *it = new SeItem( PageView, str, CreateIcon(a, pix), true);
-			PageView->setItem(cc, 0, it);
-			PageView->setRowHeight(cc, pix.height());
-			PageView->adjustRow(cc);
-			PageView->setRowHeight(cc-1, 10);
-			PageView->setRowReadOnly(cc-1, true);
-			cc += 2;
+			counter = 0;
+			rowcounter++;
 		}
-		PageView->adjustColumn(0);
 	}
 	PageView->setRowHeight(PageView->numRows()-1, 10);
-	if (Vie->Doc->currentPageLayout == doublePage)
-		PageView->setPixmap(PageView->numRows()-1, 2, PageView->pix);
-	PageView->setRowReadOnly(PageView->numRows()-1, true);
 	PageView->repaint();
 	connect(facingPagesChk, SIGNAL(clicked()), this, SLOT(handleFacingPagesChk()));
 	connect(firstPageLeftChk, SIGNAL(clicked()), this, SLOT(handleFirstPageLeftChk()));
