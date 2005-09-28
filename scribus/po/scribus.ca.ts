@@ -2714,7 +2714,7 @@ May raise ValueError if an empty sample or filename is passed.
 </source>
         <translation>renderFont(&quot;nom&quot;, &quot;fitxer&quot;, &quot;mostra&quot;, size, format=&quot;PPM&quot;) -&gt; bool
 
-Crea una previsualització de la font &quot;nom&quot; amb el text &quot;mostra&quot; a la mida especificada.
+Crea una vista prèvia de la font &quot;nom&quot; amb el text &quot;mostra&quot; a la mida especificada.
 Si el nom no és &quot;&quot;,  la imatge es guarda a &quot;nom&quot;. I si no ho és es retornen les 
 dades de la imatge com una cadena. L&apos;argument opcional &quot;format&quot;
 especifica el format de la imatge a generar, i suporta tots els formats permesos
@@ -3439,7 +3439,7 @@ Les llibreries que manquen es mostren amb un *</translation>
     </message>
     <message>
         <source>&amp;Detach Text from Path</source>
-        <translation>&amp;Desajusta Text al Camí</translation>
+        <translation>&amp;Desajusta Text del Camí</translation>
     </message>
     <message>
         <source>&amp;Combine Polygons</source>
@@ -3507,7 +3507,7 @@ Les llibreries que manquen es mostren amb un *</translation>
     </message>
     <message>
         <source>Manage Page Properties...</source>
-        <translation>Gestiona pàgines de propietats...</translation>
+        <translation>Gestiona propietats de pàgina...</translation>
     </message>
     <message>
         <source>&amp;Fit in window</source>
@@ -3643,7 +3643,7 @@ Les llibreries que manquen es mostren amb un *</translation>
     </message>
     <message>
         <source>Rotate Item</source>
-        <translation>Rota Ítem</translation>
+        <translation>Gira Ítem</translation>
     </message>
     <message>
         <source>Zoom in or out</source>
@@ -3715,7 +3715,7 @@ Les llibreries que manquen es mostren amb un *</translation>
     </message>
     <message>
         <source>Insert Freehand Line</source>
-        <translation>Insereix Línia manual</translation>
+        <translation>Insereix Línia a mà alçada</translation>
     </message>
     <message>
         <source>&amp;Manage Pictures</source>
@@ -3895,7 +3895,7 @@ Les llibreries que manquen es mostren amb un *</translation>
     </message>
     <message>
         <source>Print Previe&amp;w</source>
-        <translation>Previsualitzaci&amp;ó</translation>
+        <translation>&amp;Vista Prèvia</translation>
     </message>
     <message>
         <source>&amp;JavaScripts...</source>
@@ -5974,7 +5974,7 @@ i la Esborrar elimina la darrera inserció</translation>
     </message>
     <message>
         <source>Saturation:</source>
-        <translation>Saturació:</translation>
+        <translation>Intensitat:</translation>
     </message>
     <message>
         <source>Value:</source>
@@ -5986,7 +5986,7 @@ i la Esborrar elimina la darrera inserció</translation>
     </message>
     <message>
         <source>Saturation component in HSV mode</source>
-        <translation>Component de saturació en mode HSV</translation>
+        <translation>Component de Intensitat (S) en mode HSV</translation>
     </message>
     <message>
         <source>Value component in HSV mode</source>
@@ -6135,7 +6135,7 @@ i la Esborrar elimina la darrera inserció</translation>
     </message>
     <message>
         <source>Saturation of color</source>
-        <translation>Saturació del color</translation>
+        <translation>Intensitat del color</translation>
     </message>
     <message>
         <source>Normal or gradient fill method</source>
@@ -6233,7 +6233,7 @@ i la Esborrar elimina la darrera inserció</translation>
     </message>
     <message>
         <source>Mirror</source>
-        <translation>Mirall</translation>
+        <translation>Enmiralla</translation>
     </message>
     <message>
         <source>No</source>
@@ -7912,7 +7912,7 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
     </message>
     <message>
         <source>Replacement</source>
-        <translation>Canvis</translation>
+        <translation>Substituta</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
@@ -8083,7 +8083,7 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
     <message>
         <source>Leave preview</source>
         <comment>font preview</comment>
-        <translation>Sortir de la previsualització</translation>
+        <translation>Sortir de vista prèvia</translation>
     </message>
     <message>
         <source>Typing the text here provides quick searching in the font names. E.g. &apos;bold&apos; shows all fonts with Bold in name. Searching is case insensitive.</source>
@@ -8100,7 +8100,7 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
     <message>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
         <comment>font preview</comment>
-        <translation>Woven silk pyjamas exchanged for blue quartz</translation>
+        <translation>Que poca xefla farem amb un whisky jove i dotze glaçons</translation>
     </message>
     <message>
         <source>User</source>
@@ -8516,11 +8516,11 @@ convertint el seu vector de dades en objectes Scribus.</translation>
     </message>
     <message>
         <source>before Page</source>
-        <translation>abans Pàgina</translation>
+        <translation>abans de la pàgina</translation>
     </message>
     <message>
         <source>after Page</source>
-        <translation>després Pàgina</translation>
+        <translation>després de la pàgina</translation>
     </message>
     <message>
         <source>at End</source>
@@ -10084,7 +10084,7 @@ A&amp;rrodonits:</translation>
     </message>
     <message>
         <source>Rotation of object at current basepoint</source>
-        <translation>Rotació de l&apos;objecte en el Punt Base</translation>
+        <translation>Gira l&apos;objecte en el Punt Base</translation>
     </message>
     <message>
         <source>Point from which measurements or rotation angles are referenced</source>
@@ -10172,7 +10172,7 @@ A&amp;rrodonits:</translation>
     </message>
     <message>
         <source>Scaling width of characters</source>
-        <translation>Escalant amplada de caràcters</translation>
+        <translation>Escalat de l&apos;amplada de caràcter</translation>
     </message>
     <message>
         <source>Color of text stroke</source>
@@ -10406,7 +10406,7 @@ Si us plau tria&apos;n un altre.</translation>
     </message>
     <message>
         <source>Scaling height of characters</source>
-        <translation>Escalar l&apos;alçada dels caràcters</translation>
+        <translation>Escalat de l&apos;alçada del caràcter</translation>
     </message>
     <message>
         <source>Manual Tracking</source>
@@ -10976,11 +10976,11 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     </message>
     <message>
         <source>Rotate the Path Counter-Clockwise</source>
-        <translation>Rota el camí antihorariament</translation>
+        <translation>Gira el camí antihorariament</translation>
     </message>
     <message>
         <source>Rotate the Path Clockwise</source>
-        <translation>Rota el camí horariament</translation>
+        <translation>Gira el camí horariament</translation>
     </message>
     <message>
         <source>Reduce the Size of the Path by shown %</source>
@@ -11831,7 +11831,7 @@ Ajustos PDF/X-3. Recomanem fer servir el títol del document.</translation>
     <name>PPreview</name>
     <message>
         <source>Print Preview</source>
-        <translation>Previsualització</translation>
+        <translation>Vista prèvia d&apos;Impressió</translation>
     </message>
     <message>
         <source>Anti-alias &amp;Text</source>
@@ -11887,7 +11887,7 @@ gràfics vectorials en la previsualització, a canvi d&apos;un petit ralentiment
     </message>
     <message>
         <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
-        <translation>Permet a la previsualització simular l&apos;ús de tintes CMYK en comptes de colors RGB</translation>
+        <translation>Permet a la vista prèvia d&apos;impressió simular l&apos;ús de tintes CMYK en comptes de colors RGB</translation>
     </message>
     <message>
         <source>Enable/disable the C (Cyan) ink plate</source>
@@ -12828,7 +12828,7 @@ i un valor positiu el farà convex</translation>
     </message>
     <message>
         <source>Degrees of rotation for polygons</source>
-        <translation>Graus de rotació dels polígons</translation>
+        <translation>Graus de gir dels polígons</translation>
     </message>
     <message>
         <source>Apply Convex/Concave Factor to change shape of Polygons</source>
@@ -13317,7 +13317,7 @@ i un valor positiu el farà convex</translation>
     </message>
     <message>
         <source>Display &amp;Unprintable Area in Margin Color</source>
-        <translation>Mostra àrea no imprimible en C&amp;olor de marge</translation>
+        <translation>Mostra l&apos;àrea no imprimible en C&amp;olor de marge</translation>
     </message>
     <message>
         <source>Use PDF 1.4 &amp;Transparency Features</source>
@@ -13687,7 +13687,7 @@ i un valor positiu el farà convex</translation>
     </message>
     <message>
         <source>Choose the size of the preview in the scrapbook palette</source>
-        <translation>Tria la mida de previsualització en l&apos;àlbum de retalls</translation>
+        <translation>Tria la mida de vista prèvia en l&apos;àlbum de retalls</translation>
     </message>
     <message>
         <source>Save the scrapbook contents everytime after a change</source>
@@ -15627,7 +15627,7 @@ la documentació de la funció.
     </message>
     <message>
         <source>Ukranian</source>
-        <translation>Ucranià</translation>
+        <translation>Ucraïnès</translation>
     </message>
     <message>
         <source>Welsh</source>
@@ -16879,7 +16879,7 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     </message>
     <message>
         <source>Display &amp;Unprintable Area in Margin Color</source>
-        <translation>Mostra àrea no imprimible en el C&amp;olor de marge</translation>
+        <translation>Mostra l&apos;àrea no imprimible en el C&amp;olor de marge</translation>
     </message>
     <message>
         <source>Alt+U</source>
@@ -17079,11 +17079,11 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     </message>
     <message>
         <source>Scaling width of characters</source>
-        <translation>Escalant amplada de caràcters</translation>
+        <translation>Escalat de l&apos;amplada de caràcter</translation>
     </message>
     <message>
         <source>Scaling height of characters</source>
-        <translation>Escalar l&apos;alçada dels caràcters</translation>
+        <translation>Escalat de l&apos;alçada del caràcter</translation>
     </message>
 </context>
 <context>
@@ -18329,7 +18329,7 @@ convertint les dades vectorials en un objecte Scribus.</translation>
     </message>
     <message>
         <source>Ukrainian</source>
-        <translation>Ucranià</translation>
+        <translation>Ucraïnès</translation>
     </message>
     <message>
         <source>Greek</source>
@@ -18503,7 +18503,7 @@ convertint les dades vectorials en un objecte Scribus.</translation>
     </message>
     <message>
         <source>Ghostscript : You cannot use EPS images or Print Preview</source>
-        <translation>Ghostscript : No es pot fer servir imatges EPS o previsualització d&apos;impressió</translation>
+        <translation>Ghostscript : No es pot fer servir imatges EPS o vista prèvia d&apos;impressió</translation>
     </message>
     <message>
         <source>EPS Files (*.eps);;All Files (*)</source>
@@ -20048,7 +20048,7 @@ després d&apos;importar-lo.</translation>
     </message>
     <message>
         <source>Snapping</source>
-        <translation>Desplaçant</translation>
+        <translation>Desplaçament</translation>
     </message>
     <message>
         <source>Snap Distance:</source>
@@ -20286,7 +20286,7 @@ després d&apos;importar-lo.</translation>
     </message>
     <message>
         <source>Maximum</source>
-        <translation>Màxim</translation>
+        <translation>Màxima</translation>
     </message>
     <message>
         <source>High</source>
@@ -20302,7 +20302,7 @@ després d&apos;importar-lo.</translation>
     </message>
     <message>
         <source>Minimum</source>
-        <translation>Mínim</translation>
+        <translation>Mínima</translation>
     </message>
     <message>
         <source>Resample Images to:</source>
@@ -20636,7 +20636,7 @@ preservarà la distribució i l&apos;apariència del teu document .</translation
     </message>
     <message>
         <source>Show page previews of each page listed above.</source>
-        <translation>Mostra previsualització de cada pàgina llistada a sota.</translation>
+        <translation>Mostra la vista prèvia de cada pàgina llistada a sota.</translation>
     </message>
     <message>
         <source>Length of time the page is shown before the presentation starts on the selected page.</source>
@@ -20926,7 +20926,7 @@ Ajustos PDF/X-3. Recomanem fer servir el títol del document.</translation>
     </message>
     <message>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
-        <translation>Woven silk pyjamas exchanged for blue quartz</translation>
+        <translation>Que poca xefla farem amb un whisky jove i dotze glaçons</translation>
     </message>
     <message>
         <source>&amp;Line Color:</source>
@@ -21146,7 +21146,7 @@ Ajustos PDF/X-3. Recomanem fer servir el títol del document.</translation>
     </message>
     <message>
         <source>Saturation of color</source>
-        <translation>Saturació del color</translation>
+        <translation>Intensitat del color</translation>
     </message>
     <message>
         <source>Style of lines</source>
