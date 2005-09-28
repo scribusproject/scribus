@@ -20,6 +20,7 @@
 
 #include <qtooltip.h>
 #include <qlistbox.h>
+#include <qtable.h>
 #include "scribusapi.h"
 #include "scribusstructs.h"
 
@@ -27,8 +28,11 @@ class SCRIBUS_API DynamicTip : public QToolTip
 {
 public:
 	DynamicTip( QListBox* parent, ColorList* pale );
+	DynamicTip( QTable* parent );
 	ColorList* colorList;
 	QListBox* listB;
+	QTable* table;
+	int kind;
 protected:
 	void maybeTip( const QPoint & );
 };

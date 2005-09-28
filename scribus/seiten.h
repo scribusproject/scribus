@@ -26,6 +26,7 @@
 #include "scribusapi.h"
 #include "scrpalettebase.h"
 #include "scribusview.h"
+class DynamicTip;
 
 class SCRIBUS_API SeDrag : public QStoredDrag
 {
@@ -42,7 +43,6 @@ class SCRIBUS_API SeItem : public QTableItem
 public:
 	SeItem(QTable* parent, QString text, QPixmap Pix);
 	~SeItem() {};
-	virtual void paint(QPainter *p, const QColorGroup &cg, const QRect &cr, bool selected);
 	QString pageName;
 };
 
@@ -136,9 +136,6 @@ class SCRIBUS_API SeitenPal : public ScrPaletteBase
 public:
 	SeitenPal(QWidget* parent);
 	~SeitenPal() {};
-	//void keyPressEvent(QKeyEvent *k);
-	//void closeEvent(QCloseEvent *ce);
-
 	QSplitter* Splitter1;
 	TrashBin* Trash;
 	QLabel* TextLabel1;
@@ -149,6 +146,7 @@ public:
 	QCheckBox* firstPageLeftChk;
 	ScribusView *Vie;
 	QPixmap pix;
+	DynamicTip* dynTip;
 
 public slots:
 	void SetView(ScribusView *view);

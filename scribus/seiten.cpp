@@ -2,6 +2,7 @@
 #include "seiten.moc"
 #include <qcursor.h>
 #include "scribus.h"
+#include "dynamictip.h"
 extern QPixmap loadIcon(QString nam);
 
 
@@ -39,16 +40,6 @@ SeItem::SeItem(QTable* parent, QString text, QPixmap Pix)
 {
 	pageName = text;
 	setWordWrap(true);
-}
-
-void SeItem::paint(QPainter *p, const QColorGroup &, const QRect &cr, bool )
-{
-	int px = pixmap().width();
-	int py = pixmap().height();
-	SeView *sv;
-	QTable *tt = table();
-	sv = (SeView*)tt;
-	p->drawPixmap(0, 0, pixmap());
 }
 
 /* ListBox Subclass */
@@ -169,6 +160,8 @@ void SeView::contentsMouseMoveEvent(QMouseEvent* e)
 		if ((a != -1) && (b != -1))
 		{
 			QTableItem* ite = item(a, b);
+			if (ite == 0)
+				return;
 			SeItem* it = (SeItem*)ite;
 			str = it->pageName;
 			p = GetPage(a, b, &dummy);
@@ -177,6 +170,7 @@ void SeView::contentsMouseMoveEvent(QMouseEvent* e)
 			dr->drag();
 		}
 	}
+	QTable::contentsMouseMoveEvent(e);
 }
 
 void SeView::contentsDropEvent(QDropEvent * e)
@@ -230,16 +224,25 @@ void SeView::contentsDropEvent(QDropEvent * e)
 			int dr = str.mid(st, en-st).toInt();
 			int a = rowAt(e->pos().y());
 			int b = columnAt(e->pos().x());
-			int p, z;
+			int p;
 			if ((a == -1) || (b == -1))
 				return;
+			QTableItem* ite = item(a, b);
 			p = GetPage(a, b, &lastPage);
+			if (a == numRows()-1)
+			{
+				emit MovePage(dr, p+1);
+				return;
+			}
 			if (numCols() == 1)
 			{
-				if ((a % 2) != 0)
+				if ((a % 2) == 0)
+					emit MovePage(dr, p);
+				else
 				{
 					emit UseTemp(tmp, p);
-					QTableItem* ite = item(a, b);
+					if (ite == 0)
+						return;
 					SeItem* it = (SeItem*)ite;
 					it->pageName = tmp;
 				}
@@ -247,73 +250,24 @@ void SeView::contentsDropEvent(QDropEvent * e)
 			}
 			else
 			{
-				if ((b % 2) != 0)
+				if ((b % 2) == 0)
+				{
+					if (lastPage)
+						emit MovePage(dr, p+1);
+					else
+						emit MovePage(dr, p);
+				}
+				else
 				{
 					emit UseTemp(tmp, p);
-					QTableItem* ite = item(a, b);
+					if (ite == 0)
+						return;
 					SeItem* it = (SeItem*)ite;
 					it->pageName = tmp;
 				}
 				return;
 			}
 		}
-/*			if (Doppel)
-			{
-				if (((a % 2) == 1) && ((b == 0) || (b == 2)))
-				{
-					if (Links)
-					{
-						if (b == 0)
-							z = a-1;
-						if (b == 2)
-							z = a;
-					}
-					else
-					{
-						if (b == 0)
-							z = a == 1 ? a - 1 : a - 2;
-						if (b == 2)
-							z = a-1;
-					}
-					if (dr != z)
-						emit MovePage(dr, z);
-					ClearPix();
-				}
-				if (a == numRows()-1)
-				{
-					z = MaxC;
-					emit MovePage(dr, z);
-				}
-				if (((a % 2) == 1) && ((b == 1) || (b == 3)))
-				{
-					if (item(a,b) != 0)
-					{
-						p = GetPage(a, b);
-						emit UseTemp(tmp, p);
-						setText(a, b, tmp);
-					}
-				}
-			}
-			else
-			{
-				if ((a == -1) || ((a % 2) == 0))
-				{
-					if (a != -1)
-					{
-						if (dr != a/2)
-							emit MovePage(dr, a/2);
-						clearCell(a, 0);
-					}
-				}
-				else
-				{
-					emit UseTemp(tmp, a/2);
-					setText(a, 0, tmp);
-				}
-			}
-			ClearPix();
-			return;
-		} */
 	}
 }
 
@@ -549,12 +503,13 @@ SeitenPal::SeitenPal(QWidget* parent) : ScrPaletteBase( parent, "SP", false, 0)
 	Vie = 0;
 	Rebuild();
 	languageChange();
+//	dynTip = new DynamicTip(PageView);
 	connect(masterPageList, SIGNAL(doubleClicked(QListBoxItem*)), this, SLOT(selMasterPage()));
 	connect(masterPageList, SIGNAL(ThumbChanged()), this, SLOT(RebuildTemp()));
 	connect(PageView, SIGNAL(Click(int, int, int)), this, SLOT(GotoPage(int, int, int)));
 	connect(PageView, SIGNAL(MovePage(int, int)), this, SLOT(MPage(int, int)));
-	connect(facingPagesChk, SIGNAL(clicked()), this, SLOT(handleFacingPagesChk()));
-	connect(firstPageLeftChk, SIGNAL(clicked()), this, SLOT(handleFirstPageLeftChk()));
+//	connect(facingPagesChk, SIGNAL(clicked()), this, SLOT(handleFacingPagesChk()));
+//	connect(firstPageLeftChk, SIGNAL(clicked()), this, SLOT(handleFirstPageLeftChk()));
 	connect(Trash, SIGNAL(DelMaster(QString)), this, SLOT(DelMPage(QString)));
 	QToolTip::add(Trash, "<qt>" + tr("Drag pages or master pages onto the trashbin to delete them") + "</qt>");
 	QToolTip::add(PageView, "<qt>" + tr("Previews all the pages of your document") + "</qt>");
@@ -603,9 +558,20 @@ void SeitenPal::DelMPage(QString tmp)
 
 void SeitenPal::MPage(int r, int c)
 {
-	Vie->Doc->movePage(r, r + 1, c, r > c ? 0 : (c > PageView->MaxC ? 2 : 1));
+	if (r == c)
+		return;
+	if (c > PageView->MaxC)
+		Vie->Doc->movePage(r, r + 1, c, 2);
+	else
+	{
+		if (r > c)
+			Vie->Doc->movePage(r, r + 1, c, 0);
+		else
+			Vie->Doc->movePage(r, r + 1, c, 1);
+	}
 	Vie->reformPages();
 	RebuildPage();
+	Vie->DrawNew();
 	Vie->Doc->setModified(true);
 }
 
@@ -649,7 +615,7 @@ void SeitenPal::handleFacingPagesChk()
 	Vie->GotoPage(Vie->Doc->currentPage->pageNr());
 	RebuildPage();
 	Vie->Doc->setModified(true);
-	firstPageLeftChk->setEnabled(fp ? true : false);
+//	firstPageLeftChk->setEnabled(fp ? true : false);
 }
 
 void SeitenPal::handleFirstPageLeftChk()
@@ -707,17 +673,17 @@ void SeitenPal::RebuildPage()
 	}
 	PageView->Doppel = Vie->Doc->currentPageLayout == doublePage;
 	PageView->Links = Vie->Doc->pageSets[Vie->Doc->currentPageLayout].FirstPage;
-	facingPagesChk->setChecked(PageView->Doppel);
-	firstPageLeftChk->setChecked(PageView->Links);
-	if (PageView->Doppel)
-		firstPageLeftChk->setEnabled(true);
+//	facingPagesChk->setChecked(PageView->Doppel);
+//	firstPageLeftChk->setChecked(PageView->Links);
+//	if (PageView->Doppel)
+//		firstPageLeftChk->setEnabled(true);
 	PageView->MaxC = Vie->Doc->Pages.count()-1;
-	int cols = Vie->Doc->pageSets[Vie->Doc->currentPageLayout].Columns;
-	int rows = Vie->Doc->pageCount / Vie->Doc->pageSets[Vie->Doc->currentPageLayout].Columns;
-	if ((Vie->Doc->pageCount % Vie->Doc->pageSets[Vie->Doc->currentPageLayout].Columns) != 0)
-		rows++;
 	int counter, rowcounter, colmult, rowmult, coladd,rowadd;
 	counter = Vie->Doc->pageSets[Vie->Doc->currentPageLayout].FirstPage;
+	int cols = Vie->Doc->pageSets[Vie->Doc->currentPageLayout].Columns;
+	int rows = (Vie->Doc->pageCount+counter) / Vie->Doc->pageSets[Vie->Doc->currentPageLayout].Columns;
+	if (((Vie->Doc->pageCount+counter) % Vie->Doc->pageSets[Vie->Doc->currentPageLayout].Columns) != 0)
+		rows++;
 	rowcounter = 0;
 	if (cols == 1)
 	{
@@ -748,14 +714,14 @@ void SeitenPal::RebuildPage()
 		str = Vie->Doc->Pages.at(a)->MPageNam;
 		QTableItem *it = new SeItem( PageView, str, CreateIcon(a, pix));
 		PageView->setItem(rowcounter*rowmult+rowadd, counter*colmult+coladd, it);
-		PageView->setRowHeight(rowcounter*rowmult+rowadd, pix.height());
-		PageView->adjustRow(rowcounter*rowmult+rowadd);
 		PageView->setColumnWidth(counter*colmult+coladd, pix.width());
-		PageView->adjustColumn(counter*colmult+coladd);
 		if (cols == 1)
+		{
 			PageView->setRowHeight(rowcounter*rowmult, 10);
+			PageView->setRowHeight(rowcounter*rowmult+rowadd, pix.height());
+		}
 		else
-			PageView->setColumnWidth(counter*colmult, 10);
+			PageView->setRowHeight(rowcounter*rowmult+rowadd, pix.height()+5);
 		counter++;
 		if (counter > Vie->Doc->pageSets[Vie->Doc->currentPageLayout].Columns-1)
 		{
@@ -764,6 +730,18 @@ void SeitenPal::RebuildPage()
 		}
 	}
 	PageView->setRowHeight(PageView->numRows()-1, 10);
+	counter = 0;
+	if (cols != 1)
+	{
+		for (int c = 0; c < PageView->numCols(); ++c)
+		{
+			if ((counter % 2) == 0)
+				PageView->setColumnWidth(counter, 10);
+			else
+				PageView->setColumnWidth(counter, pix.width());
+			counter++;
+		}
+	}
 	PageView->repaint();
 	connect(facingPagesChk, SIGNAL(clicked()), this, SLOT(handleFacingPagesChk()));
 	connect(firstPageLeftChk, SIGNAL(clicked()), this, SLOT(handleFirstPageLeftChk()));
@@ -802,9 +780,12 @@ QPixmap SeitenPal::CreateIcon(int nr, QPixmap ret)
 		p.setPen(QPen(black, 1, SolidLine, FlatCap, MiterJoin));
 		p.setFont(QFont("Helvetica", 12, QFont::Bold));
 		tmp = tmp.setNum(nr+1);
-		QRect b = p.boundingRect(3,0, ret.width(), ret.height(), Qt::AlignCenter, tmp);
-		p.drawRect(QRect(b.x()-2, b.y()-2, b.width()+4, b.height()+4));
-		p.drawText(b, Qt::AlignCenter, tmp);
+		QRect b = p.fontMetrics().boundingRect(tmp);
+		QRect c = QRect((ret.width() / 2 - b.width() / 2)-2, (ret.height() / 2 - b.height() / 2)-2, b.width()+4, b.height()+4);
+		p.drawRect(c);
+		QRect d = QRect((ret.width() / 2 - b.width() / 2), (ret.height() / 2 - b.height() / 2), b.width(), b.height());
+		p.setFont(QFont("Helvetica", 11, QFont::Bold));
+		p.drawText(d, Qt::AlignCenter, tmp);
 		p.end();
 	}
 	return ret;
