@@ -732,6 +732,7 @@ void CMYKChoose::SelModel(const QString& mod)
 		CyanP->setPixmap(SliderPix(0));
 		MagentaP->setPixmap(SliderPix(120));
 		YellowP->setPixmap(SliderPix(240));
+		Layout2x->setResizeMode(QLayout::Fixed);
 		BlackP->hide();
 		BlackSL->hide();
 		BlackSp->hide();
