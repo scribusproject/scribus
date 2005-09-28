@@ -3293,10 +3293,6 @@ style name or None when user cancels the dialog.
         <translation>Low Double Comma</translation>
     </message>
     <message>
-        <source>Double Turned Comma</source>
-        <translation>Double Turned Comma</translation>
-    </message>
-    <message>
         <source>CJK Single Left</source>
         <translation>CJK Single Left</translation>
     </message>
@@ -9890,10 +9886,6 @@ each time the time period elapses</translation>
         <translation>&amp;Left:</translation>
     </message>
     <message>
-        <source>&amp;Enabled</source>
-        <translation>&amp;Enabled</translation>
-    </message>
-    <message>
         <source>&amp;Interval:</source>
         <translation>&amp;Interval:</translation>
     </message>
@@ -11955,10 +11947,6 @@ is not exhaustive due to exceptions from called functions.
 </translation>
     </message>
     <message>
-        <source>Short Words Manual</source>
-        <translation>Short Words Manual</translation>
-    </message>
-    <message>
         <source>Could not open output file %1</source>
         <translation>Could not open output file %1</translation>
     </message>
@@ -12721,6 +12709,104 @@ is not exhaustive due to exceptions from called functions.
 converting their vector data into Scribus objects.</source>
         <translation>Imports most SVG files into the current document,
 converting their vector data into Scribus objects.</translation>
+    </message>
+</context>
+<context>
+    <name>SWDialog</name>
+    <message>
+        <source>Short Words</source>
+        <comment>short words plugin</comment>
+        <translation>Short Words</translation>
+    </message>
+    <message>
+        <source>Apply unbreakable space on:</source>
+        <comment>short words plugin</comment>
+        <translation>Apply unbreakable space on:</translation>
+    </message>
+    <message>
+        <source>&amp;Selected frames</source>
+        <comment>short words plugin</comment>
+        <translation>&amp;Selected frames</translation>
+    </message>
+    <message>
+        <source>Active &amp;page</source>
+        <comment>short words plugin</comment>
+        <translation>Active &amp;page</translation>
+    </message>
+    <message>
+        <source>&amp;All items</source>
+        <comment>short words plugin</comment>
+        <translation>&amp;All items</translation>
+    </message>
+    <message>
+        <source>Only selected frames processed.</source>
+        <comment>short words plugin</comment>
+        <translation>Only selected frames processed.</translation>
+    </message>
+    <message>
+        <source>Only actual page processed.</source>
+        <comment>short words plugin</comment>
+        <translation>Only actual page processed.</translation>
+    </message>
+    <message>
+        <source>All items in document processed.</source>
+        <comment>short words plugin</comment>
+        <translation>All items in document processed.</translation>
+    </message>
+</context>
+<context>
+    <name>SWPrefsGui</name>
+    <message>
+        <source>User settings</source>
+        <translation>User settings</translation>
+    </message>
+    <message>
+        <source>System wide configuration</source>
+        <translation>System wide configuration</translation>
+    </message>
+    <message>
+        <source>&amp;Save</source>
+        <translation>&amp;Save</translation>
+    </message>
+    <message>
+        <source>&amp;Reset</source>
+        <translation>&amp;Reset</translation>
+    </message>
+    <message>
+        <source>Save user configuration</source>
+        <translation>Save user configuration</translation>
+    </message>
+    <message>
+        <source>Reload system wide configuration and remove user defined one</source>
+        <translation>Reload system wide configuration and remove user defined one</translation>
+    </message>
+    <message>
+        <source>Edit custom configuration. If you save it, it will be used over system wide configuration</source>
+        <translation>Edit custom configuration. If you save it, it will be used over system wide configuration</translation>
+    </message>
+    <message>
+        <source>Short Words</source>
+        <translation>Short Words</translation>
+    </message>
+    <message>
+        <source>User configuration exists elready. Do you really want to overwrite it?</source>
+        <translation>User configuration exists elready. Do you really want to overwrite it?</translation>
+    </message>
+    <message>
+        <source>Cannot write file %1.</source>
+        <translation>Cannot write file %1.</translation>
+    </message>
+    <message>
+        <source>User settings saved</source>
+        <translation>User settings saved</translation>
+    </message>
+    <message>
+        <source>System wide configuration reloaded</source>
+        <translation>System wide configuration reloaded</translation>
+    </message>
+    <message>
+        <source>Cannot open file %1</source>
+        <translation>Cannot open file %1</translation>
     </message>
 </context>
 <context>
@@ -13832,10 +13918,6 @@ Consider using the Preflight Verifier to correct them</translation>
     <message>
         <source>Short Words</source>
         <translation>Short Words</translation>
-    </message>
-    <message>
-        <source>Special plug-in for adding non-breaking spaces before or after so called short words.</source>
-        <translation>Special plug-in for adding non-breaking spaces before or after so called short words.</translation>
     </message>
 </context>
 <context>
@@ -16212,132 +16294,6 @@ to %2</translation>
     <message>
         <source>Send your value to the script</source>
         <translation>Send your value to the script</translation>
-    </message>
-</context>
-<context>
-    <name>VlnaDialog</name>
-    <message>
-        <source>Short Words</source>
-        <comment>short words plugin</comment>
-        <translation>Short Words</translation>
-    </message>
-    <message>
-        <source>Apply unbreakable space on:</source>
-        <comment>short words plugin</comment>
-        <translation>Apply unbreakable space on:</translation>
-    </message>
-    <message>
-        <source>&amp;Selected frames</source>
-        <comment>short words plugin</comment>
-        <translation>&amp;Selected frames</translation>
-    </message>
-    <message>
-        <source>Active &amp;page</source>
-        <comment>short words plugin</comment>
-        <translation>Active &amp;page</translation>
-    </message>
-    <message>
-        <source>&amp;All items</source>
-        <comment>short words plugin</comment>
-        <translation>&amp;All items</translation>
-    </message>
-    <message>
-        <source>Replace defaults by user config</source>
-        <comment>short words plugin</comment>
-        <translation>Replace defaults by user config</translation>
-    </message>
-    <message>
-        <source>When the user config file exists 
-(%1)
-you can choose if you want to append your config
-to the global configuration by unchecked button.
-
-You can replace predefined values by yours
-with checked button too.</source>
-        <comment>short words plugin</comment>
-        <translation>When the user config file exists 
-(%1)
-you can choose if you want to append your config
-to the global configuration by unchecked button.
-
-You can replace predefined values by yours
-with checked button too.</translation>
-    </message>
-    <message>
-        <source>Only selected frames processed.</source>
-        <comment>short words plugin</comment>
-        <translation>Only selected frames processed.</translation>
-    </message>
-    <message>
-        <source>Only actual page processed.</source>
-        <comment>short words plugin</comment>
-        <translation>Only actual page processed.</translation>
-    </message>
-    <message>
-        <source>All items in document processed.</source>
-        <comment>short words plugin</comment>
-        <translation>All items in document processed.</translation>
-    </message>
-    <message>
-        <source>Short Words for Scribus</source>
-        <comment>short words plugin</comment>
-        <translation>Short Words for Scribus</translation>
-    </message>
-    <message>
-        <source>Available in the following languages</source>
-        <comment>short words plugin</comment>
-        <translation>Available in the following languages</translation>
-    </message>
-    <message>
-        <source>About Short Words</source>
-        <comment>short words plugin</comment>
-        <translation>About Short Words</translation>
-    </message>
-    <message>
-        <source>Edit &amp;system configuration...</source>
-        <translation>Edit &amp;system configuration...</translation>
-    </message>
-    <message>
-        <source>Edit &amp;user configuration...</source>
-        <translation>Edit &amp;user configuration...</translation>
-    </message>
-    <message>
-        <source>S&amp;etup editor...</source>
-        <translation>S&amp;etup editor...</translation>
-    </message>
-    <message>
-        <source>&amp;Edit</source>
-        <translation>&amp;Edit</translation>
-    </message>
-    <message>
-        <source>&amp;Info and Languages...</source>
-        <translation>&amp;Info and Languages...</translation>
-    </message>
-    <message>
-        <source>&amp;Help</source>
-        <translation>&amp;Help</translation>
-    </message>
-    <message>
-        <source>Short Words</source>
-        <translation>Short Words</translation>
-    </message>
-    <message>
-        <source>You are starting to edit read-only file.
-%1</source>
-        <translation>You are starting to edit read-only file.
-%1</translation>
-    </message>
-    <message>
-        <source>Application &apos;%1&apos; error. Cannot be started.</source>
-        <translation>Application &apos;%1&apos; error. Cannot be started.</translation>
-    </message>
-    <message>
-        <source>Short Words setup</source>
-        <translation>Short Words setup</translation>
-    </message>
-    <message>
-        <source>Enter name of the plain text editor executable:</source>
-        <translation>Enter name of the plain text editor executable:</translation>
     </message>
 </context>
 <context>
