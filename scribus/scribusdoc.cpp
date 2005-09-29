@@ -395,12 +395,13 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 	PDF_Options.PrintProf = CMSSettings.DefaultPrinterProfile;
 	PDF_Options.Intent = CMSSettings.DefaultIntentMonitor;
 	PDF_Options.Intent2 = CMSSettings.DefaultIntentImages;
+#ifdef HAVE_CMS	
 	SoftProofing = CMSSettings.SoftProofOn;
 	Gamut = CMSSettings.GamutCheck;
 	IntentPrinter = CMSSettings.DefaultIntentPrinter;
 	IntentMonitor = CMSSettings.DefaultIntentMonitor;
 	BlackPoint = CMSSettings.BlackPoint;
-
+#endif
 	if ((CMSavail) && (CMSSettings.CMSinUse))
 	{
 #ifdef HAVE_CMS
