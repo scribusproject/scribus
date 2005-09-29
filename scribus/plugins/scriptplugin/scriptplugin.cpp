@@ -133,7 +133,7 @@ const ScActionPlugin::AboutData* ScriptPlugin::getAboutData() const
 			"Craig Ringer <craig@scribus.info>");
 	about->shortDescription = tr("Embedded Python scripting support.");
 	// about->description = tr("Write me!")
-	// about->version 
+	// about->version
 	// about->releaseDate
 	// about->copyright
 	// about->license
@@ -496,8 +496,8 @@ void initscribus(ScribusApp *pl)
 	PyDict_SetItemString(d, const_cast<char*>("LANDSCAPE"), Py_BuildValue(const_cast<char*>("i"), landscapePage));
 	PyDict_SetItemString(d, const_cast<char*>("NOFACINGPAGES"), Py_BuildValue(const_cast<char*>("i"), 0));
 	PyDict_SetItemString(d, const_cast<char*>("FACINGPAGES"),  Py_BuildValue(const_cast<char*>("i"), 1));
-	PyDict_SetItemString(d, const_cast<char*>("FIRSTPAGERIGHT"), Py_BuildValue(const_cast<char*>("i"), 0));
-	PyDict_SetItemString(d, const_cast<char*>("FIRSTPAGELEFT"), Py_BuildValue(const_cast<char*>("i"), 1));
+	PyDict_SetItemString(d, const_cast<char*>("FIRSTPAGERIGHT"), Py_BuildValue(const_cast<char*>("i"), 1));
+	PyDict_SetItemString(d, const_cast<char*>("FIRSTPAGELEFT"), Py_BuildValue(const_cast<char*>("i"), 0));
 	PyDict_SetItemString(d, const_cast<char*>("ALIGN_LEFT"), Py_BuildValue(const_cast<char*>("i"), 0));
 	PyDict_SetItemString(d, const_cast<char*>("ALIGN_RIGHT"), Py_BuildValue(const_cast<char*>("i"), 2));
 	PyDict_SetItemString(d, const_cast<char*>("ALIGN_CENTERED"), Py_BuildValue(const_cast<char*>("i"), 1));
