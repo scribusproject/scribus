@@ -367,7 +367,7 @@ int SeView::GetPage(int r, int c, bool *last)
 		if ((rowcounter*rowmult+rowadd == r) && (counter*colmult+coladd == c))
 		{
 			ret = a;
-			break;
+			return ret;
 		}
 		else
 		{
@@ -376,7 +376,7 @@ int SeView::GetPage(int r, int c, bool *last)
 				if (rowcounter*rowmult == r)
 				{
 					ret = a;
-					break;
+					return ret;
 				}
 			}
 			else
@@ -384,7 +384,7 @@ int SeView::GetPage(int r, int c, bool *last)
 				if ((counter*colmult == c) && (rowcounter*rowmult+rowadd == r))
 				{
 					ret = a;
-					break;
+					return ret;
 				}
 			}
 		}
@@ -503,7 +503,7 @@ SeitenPal::SeitenPal(QWidget* parent) : ScrPaletteBase( parent, "SP", false, 0)
 	Vie = 0;
 	Rebuild();
 	languageChange();
-//	dynTip = new DynamicTip(PageView);
+	dynTip = new DynamicTip(PageView);
 	connect(masterPageList, SIGNAL(doubleClicked(QListBoxItem*)), this, SLOT(selMasterPage()));
 	connect(masterPageList, SIGNAL(ThumbChanged()), this, SLOT(RebuildTemp()));
 	connect(PageView, SIGNAL(Click(int, int, int)), this, SLOT(GotoPage(int, int, int)));
@@ -512,7 +512,7 @@ SeitenPal::SeitenPal(QWidget* parent) : ScrPaletteBase( parent, "SP", false, 0)
 //	connect(firstPageLeftChk, SIGNAL(clicked()), this, SLOT(handleFirstPageLeftChk()));
 	connect(Trash, SIGNAL(DelMaster(QString)), this, SLOT(DelMPage(QString)));
 	QToolTip::add(Trash, "<qt>" + tr("Drag pages or master pages onto the trashbin to delete them") + "</qt>");
-	QToolTip::add(PageView, "<qt>" + tr("Previews all the pages of your document") + "</qt>");
+//	QToolTip::add(PageView, "<qt>" + tr("Previews all the pages of your document") + "</qt>");
 	QToolTip::add(masterPageList, "<qt>" + tr("Here are all your master pages. To create a new page, drag a master page to the page view below") + "</qt>");
 	facingPagesChk->setEnabled(false);
 	firstPageLeftChk->setEnabled(false);
@@ -563,12 +563,7 @@ void SeitenPal::MPage(int r, int c)
 	if (c > PageView->MaxC)
 		Vie->Doc->movePage(r, r + 1, c, 2);
 	else
-	{
-		if (r > c)
-			Vie->Doc->movePage(r, r + 1, c, 0);
-		else
-			Vie->Doc->movePage(r, r + 1, c, 1);
-	}
+		Vie->Doc->movePage(r, r + 1, c, 0);
 	Vie->reformPages();
 	RebuildPage();
 	Vie->DrawNew();

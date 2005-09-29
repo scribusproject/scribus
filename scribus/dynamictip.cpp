@@ -25,7 +25,7 @@ DynamicTip::DynamicTip( QListBox* parent, ColorList* pale ) : QToolTip( parent )
 	kind = 0;
 }
 
-DynamicTip::DynamicTip( QTable* parent ) : QToolTip( parent )
+DynamicTip::DynamicTip( QTable* parent ) : QToolTip( parent->viewport() )
 {
 	table = parent;
 	kind = 1;
@@ -68,6 +68,7 @@ void DynamicTip::maybeTip( const QPoint &pos )
 		SeItem* it = (SeItem*)ite;
 		QString tipString = it->pageName;
 		QRect cr = table->cellGeometry( row, col );
+		cr.moveTopLeft( table->contentsToViewport( cr.topLeft() ) );
 		tip( cr, tipString );
 	}
 }
