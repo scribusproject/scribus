@@ -186,7 +186,6 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc) : QScrollView(parent,
 	ClRe = -1;
 	ClRe2 = -1;
 	_groupTransactionStarted = false;
-	//CB TODO _itemCreationTransactionStarted = false;
 	_isGlobalMode = true;
 	undoManager = UndoManager::instance();
 //	languageChange();
@@ -2840,24 +2839,6 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		if (emitToOutline)
 			emit AddObj(SelItem.at(0));
 	}
-	/*CB Commented out, left in for now
-	if (_itemCreationTransactionStarted && Doc->appMode !=  modeDrawBezierLine)
-	{
-		PageItem *ite = SelItem.at(0);
-		if (ite!=NULL)
-		{
-			ite->checkChanges(true);
-			QString targetName = Um::ScratchSpace;
-			if (ite->OwnPage > -1)
-				targetName = Doc->Pages.at(ite->OwnPage)->getUName();
-			undoManager->commit(targetName, ite->getUPixmap(),
-								Um::Create + " " + ite->getUName(),  "", Um::ICreate);
-			_itemCreationTransactionStarted = false;
-			if (!Doc->isLoading())
-				emit AddObj(ite);
-		}
-	}
-	*/
 }
 
 void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
@@ -4277,17 +4258,14 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			switch (Doc->SubMode)
 			{
 			case 0:
-				//z = PaintRect(Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen);
 				z = Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen, !Mpressed);
 				SetupDraw(z);
 				break;
 			case 1:
-				//z = PaintEllipse(Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen);
 				z = Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen, !Mpressed);
 				SetupDraw(z);
 				break;
 			default:
-				//z = PaintPoly(Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen);
 				z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen, !Mpressed);
 				Doc->Items.at(z)->SetFrameShape(Doc->ValCount, Doc->ShapeValues);
 				setRedrawBounding(Doc->Items.at(z));
@@ -4299,14 +4277,12 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			break;
 		case modeDrawPicture:
 			selectPage(m);
-			//z = PaintPict(Rxp, Ryp, 1+Rxpd, 1+Rypd);
 			z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, 1, Doc->toolSettings.dBrushPict, "None", !Mpressed);
 			SetupDraw(z);
 			emit HaveSel(PageItem::ImageFrame);
 			break;
 		case modeDrawText:
 			selectPage(m);
-			//z = PaintText(Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dPenText);
 			z = Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, "None", Doc->toolSettings.dPenText, Mpressed);
 			SetupDraw(z);
 			emit HaveSel(PageItem::TextFrame);
@@ -4898,69 +4874,7 @@ FPoint ScribusView::ApplyGridF(FPoint in)
 		np = in;
 	return np;
 }
-/* CB: Moved to FPoint, left in commented out for now
-FPoint ScribusView::transformPointI(FPoint in, double dx, double dy, double rot, double sx, double sy)
-{
-	QWMatrix ma;
-	ma.translate(dx, dy);
-	ma.scale(sx, sy);
-	ma.rotate(rot);
-	ma = ma.invert();
-	double x = ma.m11() * in.x() + ma.m21() * in.y() + ma.dx();
-	double y = ma.m22() * in.y() + ma.m12() * in.x() + ma.dy();
-	return FPoint(x, y);
-}
 
-FPoint ScribusView::transformPoint(FPoint in, double dx, double dy, double rot, double sx, double sy)
-{
-	QWMatrix ma;
-	ma.translate(dx, dy);
-	ma.scale(sx, sy);
-	ma.rotate(rot);
-	double x = ma.m11() * in.x() + ma.m21() * in.y() + ma.dx();
-	double y = ma.m22() * in.y() + ma.m12() * in.x() + ma.dy();
-	return FPoint(x, y);
-}
-*/
-/* CB: Moved to PageItem, left in commented out for now
-void ScribusView::getBoundingRect(PageItem *currItem, double *x1, double *y1, double *x2, double *y2)
-{
-	double minx = 99999.9;
-	double miny = 99999.9;
-	double maxx = -99999.9;
-	double maxy = -99999.9;
-	if (currItem->Rot != 0)
-	{
-		FPointArray pb;
-		pb.resize(0);
-		pb.addPoint(FPoint(currItem->Xpos, currItem->Ypos));
-		FPoint p1(currItem->Width, 0.0, currItem->Xpos, currItem->Ypos, currItem->Rot, 1.0, 1.0);
-		pb.addPoint(p1);
-		FPoint p2(currItem->Width, currItem->Height, currItem->Xpos, currItem->Ypos, currItem->Rot, 1.0, 1.0);
-		pb.addPoint(p2);
-		FPoint p3(0.0, currItem->Height, currItem->Xpos, currItem->Ypos, currItem->Rot, 1.0, 1.0);
-		pb.addPoint(p3);
-		for (uint pc = 0; pc < 4; ++pc)
-		{
-			minx = QMIN(minx, pb.point(pc).x());
-			miny = QMIN(miny, pb.point(pc).y());
-			maxx = QMAX(maxx, pb.point(pc).x());
-			maxy = QMAX(maxy, pb.point(pc).y());
-		}
-		*x1 = minx;
-		*y1 = miny;
-		*x2 = maxx;
-		*y2 = maxy;
-	}
-	else
-	{
-		*x1 = currItem->Xpos;
-		*y1 = currItem->Ypos;
-		*x2 = currItem->Xpos + currItem->Width;
-		*y2 = currItem->Ypos + currItem->Height;
-	}
-}
-*/
 QRect ScribusView::getRedrawBounding(PageItem *currItem)
 {
 	int x = qRound(floor(currItem->BoundingX - currItem->OldPwidth / 2.0 - 5) * Scale);
@@ -6817,39 +6731,6 @@ bool ScribusView::slotSetCurs(int x, int y)
 					p.end();
 					breakAndReturn=true;
 					break;
-					/* CB TODO Remove after 1.3.1 release
-					Doc->CurrFont = currItem->itemText.at(a)->cfont->SCName;
-					Doc->CurrFontSize = currItem->itemText.at(a)->csize;
-					Doc->CurrTextFill = currItem->itemText.at(a)->ccolor;
-					Doc->CurrTextFillSh = currItem->itemText.at(a)->cshade;
-					Doc->CurrTextStroke = currItem->itemText.at(a)->cstroke;
-					Doc->CurrTextStrokeSh = currItem->itemText.at(a)->cshade2;
-					Doc->CurrTextScale = currItem->itemText.at(a)->cscale;
-					Doc->CurrTextScaleV = currItem->itemText.at(a)->cscalev;
-					Doc->CurrTextBase = currItem->itemText.at(a)->cbase;
-					Doc->CurrTextShadowX = currItem->itemText.at(a)->cshadowx;
-					Doc->CurrTextShadowY = currItem->itemText.at(a)->cshadowy;
-					Doc->CurrTextOutline = currItem->itemText.at(a)->coutline;
-					Doc->CurrTextUnderPos = currItem->itemText.at(a)->cunderpos;
-					Doc->CurrTextUnderWidth = currItem->itemText.at(a)->cunderwidth;
-					Doc->CurrTextStrikePos = currItem->itemText.at(a)->cstrikepos;
-					Doc->CurrTextStrikeWidth = currItem->itemText.at(a)->cstrikewidth;
-					emit ItemTextStrike(currItem->itemText.at(a)->cstrikepos, currItem->itemText.at(a)->cstrikewidth);
-					emit ItemTextUnderline(currItem->itemText.at(a)->cunderpos, currItem->itemText.at(a)->cunderwidth);
-					emit ItemTextOutline(currItem->itemText.at(a)->coutline);
-					emit ItemTextShadow(currItem->itemText.at(a)->cshadowx, currItem->itemText.at(a)->cshadowy);
-					emit ItemTextBase(currItem->itemText.at(a)->cbase);
-					emit ItemTextSca(currItem->itemText.at(a)->cscale);
-					emit ItemTextScaV(currItem->itemText.at(a)->cscalev);
-					emit ItemTextFont(currItem->itemText.at(a)->cfont->SCName);
-					emit ItemTextSize(currItem->itemText.at(a)->csize);
-					emit ItemTextUSval(currItem->itemText.at(a)->cextra);
-					emit ItemTextStil(currItem->itemText.at(a)->cstyle);
-					emit ItemTextAbs(currItem->itemText.at(a)->cab);
-					emit ItemTextFarben(currItem->itemText.at(a)->cstroke, currItem->itemText.at(a)->ccolor, currItem->itemText.at(a)->cshade2, currItem->itemText.at(a)->cshade);
-					return true;
-					*/
-					
 				}
 			}
 			if (breakAndReturn)
@@ -8743,11 +8624,6 @@ Page* ScribusView::addPage(int nr, bool mov)
 	reformPages(mov);
 	if ((Doc->PageAT) && (!Doc->isLoading()))
 	{
-		//int z = PaintText(fe->Margins.Left+fe->xOffset(),
-		//                  fe->Margins.Top+fe->yOffset(),
-		//                  Doc->pageWidth-fe->Margins.Right-fe->Margins.Left,
-		//                  Doc->pageHeight-fe->Margins.Bottom-fe->Margins.Top,
-		//                  1, Doc->toolSettings.dPen);
 		int z = Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, 
 		                     fe->Margins.Left+fe->xOffset(),
 		                     fe->Margins.Top+fe->yOffset(), Doc->pageWidth-fe->Margins.Right-fe->Margins.Left,
@@ -8762,7 +8638,6 @@ Page* ScribusView::addPage(int nr, bool mov)
 		else
 			Doc->FirstAuto = Doc->Items.at(z);
 		Doc->LastAuto = Doc->Items.at(z);
-		//Doc->Items.at(z)->SetRectFrame();
 		setRedrawBounding(Doc->Items.at(z));
 		if (nr > 0)
 		{
@@ -9485,90 +9360,6 @@ void ScribusView::TransformM(PageItem *currItem, QPainter *p)
 	}
 }
 
-/* CB: Moved to PageItem, left in commented out for now
-void ScribusView::SetFrameShape(PageItem *currItem, int count, double *vals)
-{
-	currItem->PoLine.resize(0);
-	for (int a = 0; a < count-3; a += 4)
-	{
-		if (vals[a] < 0)
-		{
-			currItem->PoLine.setMarker();
-			continue;
-		}
-		double x1 = currItem->Width * vals[a] / 100.0;
-		double y1 = currItem->Height * vals[a+1] / 100.0;
-		double x2 = currItem->Width * vals[a+2] / 100.0;
-		double y2 = currItem->Height * vals[a+3] / 100.0;
-		currItem->PoLine.addPoint(x1, y1);
-		currItem->PoLine.addPoint(x2, y2);
-	}
-	currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
-	currItem->ClipEdited = true;
-}
-
-void ScribusView::SetRectFrame(PageItem *currItem)
-{
-	double rect[] = {   0.0,   0.0,   0.0,   0.0,
-	                    100.0,   0.0, 100.0,   0.0,
-	                    100.0,   0.0, 100.0,   0.0,
-	                    100.0, 100.0, 100.0, 100.0,
-	                    100.0, 100.0, 100.0, 100.0,
-	                    0.0, 100.0,   0.0, 100.0,
-	                    0.0, 100.0,   0.0, 100.0,
-	                    0.0,   0.0,   0.0,   0.0};
-	SetFrameShape(currItem, 32, rect);
-	currItem->ClipEdited = false;
-	currItem->FrameType = 0;
-}
-
-void ScribusView::SetOvalFrame(PageItem *currItem)
-{
-	double rect[] = { 100.0,  50.0, 100.0,       77.615235,
-	                  50.0, 100.0,  77.615235, 100.0,
-	                  50.0, 100.0,  22.385765, 100.0,
-	                  0.0,  50.0,   0.0,       77.615235,
-	                  0.0,  50.0,   0.0,       22.385765,
-	                  50.0,   0.0,  22.385765,   0.0,
-	                  50.0,   0.0,  77.615235,   0.0,
-	                  100.0,  50.0, 100.0,       22.385765};
-	SetFrameShape(currItem, 32, rect);
-	currItem->FrameType = 1;
-	currItem->ClipEdited = false;
-}
-
-void ScribusView::SetFrameRound(PageItem* currItem)
-{
-	currItem->RadRect = QMIN(currItem->RadRect, QMIN(currItem->Width,currItem->Height)/2);
-	currItem->PoLine.resize(0);
-	double rr = fabs(currItem->RadRect);
-	if (currItem->RadRect > 0)
-	{
-		currItem->PoLine.addQuadPoint(rr, 0, rr, 0, currItem->Width-rr, 0, currItem->Width-rr, 0);
-		currItem->PoLine.addQuadPoint(currItem->Width-rr, 0, currItem->Width-rr+rr*0.552284749, 0, currItem->Width, rr, currItem->Width, rr*0.552284749);
-		currItem->PoLine.addQuadPoint(currItem->Width, rr, currItem->Width, rr, currItem->Width, currItem->Height-rr, currItem->Width, currItem->Height-rr);
-		currItem->PoLine.addQuadPoint(currItem->Width, currItem->Height-rr, currItem->Width, currItem->Height-rr+rr*0.552284749, currItem->Width-rr, currItem->Height, currItem->Width-rr+rr*0.552284749, currItem->Height);
-		currItem->PoLine.addQuadPoint(currItem->Width-rr, currItem->Height, currItem->Width-rr, currItem->Height, rr, currItem->Height, rr, currItem->Height);
-		currItem->PoLine.addQuadPoint(rr, currItem->Height, rr*0.552284749, currItem->Height, 0, currItem->Height-rr, 0, currItem->Height-rr+rr*0.552284749);
-		currItem->PoLine.addQuadPoint(0, currItem->Height-rr, 0, currItem->Height-rr, 0, rr, 0, rr);
-		currItem->PoLine.addQuadPoint(0, rr, 0, rr*0.552284749, rr, 0, rr*0.552284749, 0);
-	}
-	else
-	{
-		currItem->PoLine.addQuadPoint(rr, 0, rr, 0, currItem->Width-rr, 0, currItem->Width-rr, 0);
-		currItem->PoLine.addQuadPoint(currItem->Width-rr, 0, currItem->Width-rr, rr*0.552284749, currItem->Width, rr, currItem->Width-rr*0.552284749, rr);
-		currItem->PoLine.addQuadPoint(currItem->Width, rr, currItem->Width, rr, currItem->Width, currItem->Height-rr, currItem->Width, currItem->Height-rr);
-		currItem->PoLine.addQuadPoint(currItem->Width, currItem->Height-rr, currItem->Width-rr*0.552284749, currItem->Height-rr, currItem->Width-rr, currItem->Height, currItem->Width-rr, currItem->Height-rr*0.552284749);
-		currItem->PoLine.addQuadPoint(currItem->Width-rr, currItem->Height, currItem->Width-rr, currItem->Height, rr, currItem->Height, rr, currItem->Height);
-		currItem->PoLine.addQuadPoint(rr, currItem->Height, rr, currItem->Height-rr*0.552284749, 0, currItem->Height-rr, rr*0.552284749, currItem->Height-rr);
-		currItem->PoLine.addQuadPoint(0, currItem->Height-rr, 0, currItem->Height-rr, 0, rr, 0, rr);
-		currItem->PoLine.addQuadPoint(0, rr, rr*0.552284749, rr, rr, 0, rr, rr*0.552284749);
-	}
-	currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
-	currItem->ClipEdited = false;
-	currItem->FrameType = 2;
-}
-*/
 void ScribusView::SetFrameRect()
 {
 	ClRe = -1;
@@ -9610,374 +9401,6 @@ void ScribusView::SetFrameOval()
 		updateContents(getRedrawBounding(currItem));
 	}
 }
-
-/** Zeichnet eine Ellipse */
-/* CB: Moved to ScribusDoc, left in commented out for now
-int ScribusView::PaintEllipse(double x, double y, double b, double h, double w, QString fill, QString outline)
-{
-	return Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, x, y, b, h, w, fill, outline, !Mpressed);
-	
-	if (UndoManager::undoEnabled() && !_itemCreationTransactionStarted)
-	{
-		_itemCreationTransactionStarted = true;
-		undoManager->beginTransaction();
-	}
-	PageItem* ite = new PageItem(Doc, PageItem::Polygon, x, y, b, h, w, fill, outline);
-	Doc->Items.append(ite);
-	if (Doc->masterPageMode)
-		Doc->MasterItems = Doc->Items;
-	else
-		Doc->DocItems = Doc->Items;
-	ite->PLineArt = PenStyle(Doc->toolSettings.dLineArt);
-	ite->setFillShade(Doc->toolSettings.dShade);
-	ite->setLineShade(Doc->toolSettings.dShade2);
-	if (ite->fillColor() != "None")
-		ite->fillQColor = Doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
-	if (ite->lineColor() != "None")
-		ite->strokeQColor = Doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
-	ite->ItemNr = Doc->Items.count()-1;
-	ite->SetOvalFrame();
-	setRedrawBounding(ite);
-	ite->ContourLine = ite->PoLine.copy();
-	if (!Doc->isLoading())
-	{
-		ite->paintObj();
-//		emit AddObj(ite);
-	}
-	if (UndoManager::undoEnabled())
-	{
-		ItemState<PageItem*> *is = new ItemState<PageItem*>("Create PageItem");
-		is->set("CREATE_ITEM", "create_item");
-		is->setItem(ite);
-		UndoObject *target = Doc->Pages.at(0);
-		if (ite->OwnPage > -1)
-			target = Doc->Pages.at(ite->OwnPage);
-		undoManager->action(target, is);
-		if (!Mpressed) // commit the creation transaction if the item
-		{              // is not created by dragging with a mouse
-			ite->checkChanges(true);
-			undoManager->commit(Doc->Pages.at(ite->OwnPage)->getUName(), ite->getUPixmap(),
-								Um::Create + " " + ite->getUName(),  "", Um::ICreate);
-			_itemCreationTransactionStarted = false;
-		}
-	}
-	return ite->ItemNr;
-}*/
-
-/** Zeichnet einen Bildrahmen */
-/* CB: Moved to ScribusDoc, left in commented out for now
-int ScribusView::PaintPict(double x, double y, double b, double h)
-{
-	return Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, x, y, b, h, 1, Doc->toolSettings.dBrushPict, "None", !Mpressed);
-	if (UndoManager::undoEnabled() && !_itemCreationTransactionStarted)
-	{
-		_itemCreationTransactionStarted = true;
-		undoManager->beginTransaction();
-	}
-	PageItem* ite = new PageItem(Doc, PageItem::ImageFrame, x, y, b, h, 1, Doc->toolSettings.dBrushPict, "None");
-	Doc->Items.append(ite);
-	if (Doc->masterPageMode)
-		Doc->MasterItems = Doc->Items;
-	else
-		Doc->DocItems = Doc->Items;
-	ite->setFillShade(Doc->toolSettings.shadePict);
-	ite->LocalScX = Doc->toolSettings.scaleX;
-	ite->LocalScY = Doc->toolSettings.scaleY;
-	ite->ScaleType = Doc->toolSettings.scaleType;
-	ite->AspectRatio = Doc->toolSettings.aspectRatio;
-	ite->IProfile = Doc->CMSSettings.DefaultImageRGBProfile;
-	ite->IRender = Doc->CMSSettings.DefaultIntentImages;
-	ite->ItemNr = Doc->Items.count()-1;
-	if (ite->fillColor() != "None")
-		ite->fillQColor = Doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
-	if (ite->lineColor() != "None")
-		ite->strokeQColor = Doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
-	ite->SetRectFrame();
-	setRedrawBounding(ite);
-	ite->ContourLine = ite->PoLine.copy();
-	if (!Doc->isLoading())
-	{
-		ite->paintObj();
-//		emit AddObj(ite);
-	}
-	if (UndoManager::undoEnabled())
-	{
-		ItemState<PageItem*> *is = new ItemState<PageItem*>("Create PageItem");
-		is->set("CREATE_ITEM", "create_item");
-		is->setItem(ite);
-		UndoObject *target = Doc->Pages.at(0);
-		if (ite->OwnPage > -1)
-			target = Doc->Pages.at(ite->OwnPage);
-		undoManager->action(target, is);
-		if (!Mpressed)
-		{
-			ite->checkChanges(true);
-			undoManager->commit(Doc->Pages.at(ite->OwnPage)->getUName(), ite->getUPixmap(),
-								Um::Create + " " + ite->getUName(),  "", Um::ICreate);
-			_itemCreationTransactionStarted = false;
-		}
-	}
-	return ite->ItemNr;
-}*/
-
-/** Zeichnet ein Rechteck */
-/* CB: Moved to ScribusDoc, left in commented out for now
-int ScribusView::PaintRect(double x, double y, double b, double h, double w, QString fill, QString outline)
-{
-	return Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, x, y, b, h, w, fill, outline, !Mpressed);
-	if (UndoManager::undoEnabled() && !_itemCreationTransactionStarted)
-	{
-		_itemCreationTransactionStarted = true;
-		undoManager->beginTransaction();
-	}
-	PageItem* ite = new PageItem(Doc, PageItem::Polygon, x, y, b, h, w, fill, outline);
-	Doc->Items.append(ite);
-	if (Doc->masterPageMode)
-		Doc->MasterItems = Doc->Items;
-	else
-		Doc->DocItems = Doc->Items;
-	ite->PLineArt = PenStyle(Doc->toolSettings.dLineArt);
-	ite->setFillShade(Doc->toolSettings.dShade);
-	ite->setLineShade(Doc->toolSettings.dShade2);
-	if (ite->fillColor() != "None")
-		ite->fillQColor = Doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
-	if (ite->lineColor() != "None")
-		ite->strokeQColor = Doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
-	ite->ItemNr = Doc->Items.count()-1;
-	ite->SetRectFrame();
-	setRedrawBounding(ite);
-	ite->ContourLine = ite->PoLine.copy();
-	if (!Doc->isLoading())
-	{
-		ite->paintObj();
-//		emit AddObj(ite);
-	}
-	if (UndoManager::undoEnabled())
-	{
-		ItemState<PageItem*> *is = new ItemState<PageItem*>("Create PageItem");
-		is->set("CREATE_ITEM", "create_item");
-		is->setItem(ite);
-		UndoObject *target = Doc->Pages.at(0);
-		if (ite->OwnPage > -1)
-			target = Doc->Pages.at(ite->OwnPage);
-		undoManager->action(target, is);
-		if (!Mpressed)
-		{
-			ite->checkChanges(true);
-			undoManager->commit(Doc->Pages.at(ite->OwnPage)->getUName(), ite->getUPixmap(),
-								Um::Create + " " + ite->getUName(),  "", Um::ICreate);
-			_itemCreationTransactionStarted = false;
-		}
-	}
-	return ite->ItemNr;
-}
-*/
-	
-/** Zeichnet ein Polygon */
-/* CB: Moved to ScribusDoc, left in commented out for now
-int ScribusView::PaintPoly(double x, double y, double b, double h, double w, QString fill, QString outline)
-{
-	return Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, x, y, b, h, w, fill, outline, !Mpressed);
-	if (UndoManager::undoEnabled() && !_itemCreationTransactionStarted)
-	{
-		_itemCreationTransactionStarted = true;
-		undoManager->beginTransaction();
-	}
-	PageItem* ite = new PageItem(Doc, PageItem::Polygon, x, y, b, h, w, fill, outline);
-	Doc->Items.append(ite);
-	if (Doc->masterPageMode)
-		Doc->MasterItems = Doc->Items;
-	else
-		Doc->DocItems = Doc->Items;
-	ite->PLineArt = PenStyle(Doc->toolSettings.dLineArt);
-	ite->setFillShade(Doc->toolSettings.dShade);
-	ite->setLineShade(Doc->toolSettings.dShade2);
-	if (ite->fillColor() != "None")
-		ite->fillQColor = Doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
-	if (ite->lineColor() != "None")
-		ite->strokeQColor = Doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
-	ite->ItemNr =Doc-> Items.count()-1;
-	ite->ClipEdited = true;
-	ite->FrameType = 3;
-	if (!Doc->isLoading())
-	{
-		ite->paintObj();
-//		emit AddObj(ite);
-	}
-	if (UndoManager::undoEnabled())
-	{
-		ItemState<PageItem*> *is = new ItemState<PageItem*>("Create PageItem");
-		is->set("CREATE_ITEM", "create_item");
-		is->setItem(ite);
-		UndoObject *target = Doc->Pages.at(0);
-		if (ite->OwnPage > -1)
-			target = Doc->Pages.at(ite->OwnPage);
-		undoManager->action(target, is);
-		if (!Mpressed)
-		{
-			ite->checkChanges(true);
-			undoManager->commit(Doc->Pages.at(ite->OwnPage)->getUName(), ite->getUPixmap(),
-								Um::Create + " " + ite->getUName(),  "", Um::ICreate);
-			_itemCreationTransactionStarted = false;
-		}
-	}
-	return ite->ItemNr;
-}
-*/
-
-/** Zeichnet eine Polyline */
-/* CB: Moved to ScribusDoc, left in commented out for now
-int ScribusView::PaintPolyLine(double x, double y, double b, double h, double w, QString fill, QString outline)
-{
-	return Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, x, y, b, h, w, fill, outline, !Mpressed);
-	if (UndoManager::undoEnabled() && !_itemCreationTransactionStarted)
-	{
-		_itemCreationTransactionStarted = true;
-		undoManager->beginTransaction();
-	}
-	PageItem* ite = new PageItem(Doc, PageItem::PolyLine, x, y, b, h, w, fill, outline);
-	Doc->Items.append(ite);
-	if (Doc->masterPageMode)
-		Doc->MasterItems = Doc->Items;
-	else
-		Doc->DocItems = Doc->Items;
-	ite->PLineArt = PenStyle(Doc->toolSettings.dLineArt);
-	ite->setFillShade(Doc->toolSettings.dShade);
-	ite->setLineShade(Doc->toolSettings.dShade2);
-	if (ite->fillColor() != "None")
-		ite->fillQColor = Doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
-	if (ite->lineColor() != "None")
-		ite->strokeQColor = Doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
-	ite->ItemNr = Doc->Items.count()-1;
-	ite->ClipEdited = true;
-	if (!Doc->isLoading())
-	{
-		ite->paintObj();
-//		emit AddObj(ite);
-	}
-	if (UndoManager::undoEnabled())
-	{
-		ItemState<PageItem*> *is = new ItemState<PageItem*>("Create PageItem");
-		is->set("CREATE_ITEM", "create_item");
-		is->setItem(ite);
-		UndoObject *target = Doc->Pages.at(0);
-		if (ite->OwnPage > -1)
-			target = Doc->Pages.at(ite->OwnPage);
-		undoManager->action(target, is);
-		if (!Mpressed)
-		{
-			ite->checkChanges(true);
-			undoManager->commit(Doc->Pages.at(ite->OwnPage)->getUName(), ite->getUPixmap(),
-								Um::Create + " " + ite->getUName(),  "", Um::ICreate);
-			_itemCreationTransactionStarted = false;
-		}
-	}
-	return ite->ItemNr;
-}
-*/
-
-/** Zeichnet einen Textrahmen */
-/* CB: Moved to ScribusDoc, left in commented out for now
-int ScribusView::PaintText(double x, double y, double b, double h, double w, QString outline)
-{
-	return Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y, b, h, w, "None", outline, !Mpressed);
-	if (UndoManager::undoEnabled() && !_itemCreationTransactionStarted)
-	{
-		_itemCreationTransactionStarted = true;
-		undoManager->beginTransaction();
-	}
-	PageItem* ite = new PageItem(Doc, PageItem::TextFrame, x, y, b, h, w, "None", outline);
-	Doc->Items.append(ite);
-	if (Doc->masterPageMode)
-		Doc->MasterItems = Doc->Items;
-	else
-		Doc->DocItems = Doc->Items;
-	ite->ItemNr = Doc->Items.count()-1;
-	ite->SetRectFrame();
-	setRedrawBounding(ite);
-	ite->ContourLine = ite->PoLine.copy();
-	ite->setFontFillShade(Doc->toolSettings.dTextPenShade);
-	ite->setFontStrokeShade(Doc->toolSettings.dTextStrokeShade);
-	ite->setFillColor(Doc->toolSettings.dTextBackGround);
-	ite->setFillShade(Doc->toolSettings.dTextBackGroundShade);
-	ite->setLineColor(Doc->toolSettings.dTextLineColor);
-	ite->setLineShade(Doc->toolSettings.dTextLineShade);
-	if (ite->fillColor() != "None")
-		ite->fillQColor = Doc->PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
-	if (ite->lineColor() != "None")
-		ite->strokeQColor = Doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
-	if (!Doc->isLoading())
-	{
-		ite->paintObj();
-//		emit AddObj(ite);
-	}
-	if (UndoManager::undoEnabled())
-	{
-		ItemState<PageItem*> *is = new ItemState<PageItem*>("Create PageItem");
-		is->set("CREATE_ITEM", "create_item");
-		is->setItem(ite);
-		UndoObject *target = Doc->Pages.at(0);
-		if (ite->OwnPage > -1)
-			target = Doc->Pages.at(ite->OwnPage);
-		undoManager->action(target, is);
-		if (!Mpressed)
-		{
-			ite->checkChanges(true);
-			undoManager->commit(Doc->Pages.at(ite->OwnPage)->getUName(), ite->getUPixmap(),
-								Um::Create + " " + ite->getUName(),  "", Um::ICreate);
-			_itemCreationTransactionStarted = false;
-		}
-	}
-	return ite->ItemNr;
-}
-*/
-
-/** Zeichnet eine Linie */
-/* CB: Moved to ScribusDoc, left in commented out for now
-int ScribusView::PaintLine(double x, double y, double b, double h, double w, QString outline)
-{
-	return Doc->itemAdd(PageItem::Line, PageItem::Unspecified, x, y, b, h, w, "None", outline, !Mpressed);
-	if (w == 0)
-		w = 1;
-	if (UndoManager::undoEnabled() && !_itemCreationTransactionStarted)
-	{
-		_itemCreationTransactionStarted = true;
-		undoManager->beginTransaction();
-	}
-	PageItem* ite = new PageItem(Doc, PageItem::Line, x, y, b, h, w, "None", outline);
-	Doc->Items.append(ite);
-	if (Doc->masterPageMode)
-		Doc->MasterItems = Doc->Items;
-	else
-		Doc->DocItems = Doc->Items;
-	ite->PLineArt = PenStyle(Doc->toolSettings.dLstyleLine);
-	ite->setLineShade(Doc->toolSettings.dShadeLine);
-	ite->ItemNr = Doc->Items.count()-1;
-	if (!Doc->isLoading())
-	{
-		ite->paintObj();
-//		emit AddObj(ite);
-	}
-	if (UndoManager::undoEnabled())
-	{
-		ItemState<PageItem*> *is = new ItemState<PageItem*>("Create PageItem");
-		is->set("CREATE_ITEM", "create_item");
-		is->setItem(ite);
-		UndoObject *target = Doc->Pages.at(0);
-		if (ite->OwnPage > -1)
-			target = Doc->Pages.at(ite->OwnPage);
-		undoManager->action(target, is);
-		if (!Mpressed)
-		{
-			ite->checkChanges(true);
-			undoManager->commit(Doc->Pages.at(ite->OwnPage)->getUName(), ite->getUPixmap(),
-								Um::Create + " " + ite->getUName(),  "", Um::ICreate);
-			_itemCreationTransactionStarted = false;
-		}
-	}
-	return ite->ItemNr;
-}
-*/
 
 void ScribusView::insertColor(QString nam, double c, double m, double y, double k)
 {
@@ -11483,12 +10906,10 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	{
 	// OBSOLETE CR 2005-02-06
 	case PageItem::ItemType1:
-		//z = PaintEllipse(x, y, w, h, pw, Buffer->Pcolor, Buffer->Pcolor2);
 		z = Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, x, y, w, h, pw, Buffer->Pcolor, Buffer->Pcolor2, !Mpressed);
 		break;
 	//
 	case PageItem::ImageFrame:
-		//z = PaintPict(x, y, w, h);
 		z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, x, y, w, h, 1, Doc->toolSettings.dBrushPict, "None", !Mpressed);
 		Doc->Items.at(z)->LocalScX = Buffer->LocalScX;
 		Doc->Items.at(z)->LocalScY = Buffer->LocalScY;
@@ -11512,13 +10933,11 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		break;
 	// OBSOLETE CR 2005-02-06
 	case PageItem::ItemType3:
-		//z = PaintRect(x, y, w, h, pw, Buffer->Pcolor, Buffer->Pcolor2);
 		z = Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, x, y, w, h, pw, Buffer->Pcolor, Buffer->Pcolor2, !Mpressed);
 		break;
 	//
 	case PageItem::PathText:
 	case PageItem::TextFrame:
-		//z = PaintText(x, y, w, h, pw, Buffer->Pcolor);
 		z = Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y, w, h, pw, "None", Buffer->Pcolor, !Mpressed);
 		if ((Buffer->isAnnotation) && (Buffer->AnUseIcons))
 		{
@@ -11616,15 +11035,12 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		Doc->Items.at(z)->convertTo(Buffer->PType);
 		break;
 	case PageItem::Line:
-		//z = PaintLine(x, y, w, 0, pw, Buffer->Pcolor2);
 		z = Doc->itemAdd(PageItem::Line, PageItem::Unspecified, x, y, w ,0, pw, "None", Buffer->Pcolor2, !Mpressed);
 		break;
 	case PageItem::Polygon:
-		//z = PaintPoly(x, y, w, h, pw, Buffer->Pcolor, Buffer->Pcolor2);
 		z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, x, y, w, h, pw, Buffer->Pcolor, Buffer->Pcolor2, !Mpressed);
 		break;
 	case PageItem::PolyLine:
-		//z = PaintPolyLine(x, y, w, h, pw, Buffer->Pcolor, Buffer->Pcolor2);
 		z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, x, y, w, h, pw, Buffer->Pcolor, Buffer->Pcolor2, !Mpressed);
 		break;
 	}
@@ -11968,7 +11384,6 @@ void ScribusView::FromPathText()
 	PageItem *currItem;
 	if (GetItem(&currItem))
 	{
-		//uint z = PaintPolyLine(currItem->Xpos, currItem->Ypos, currItem->Width, currItem->Height, currItem->Pwidth, "None", currItem->lineColor());
 		uint z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->Xpos, currItem->Ypos, currItem->Width, currItem->Height, currItem->Pwidth, "None", currItem->lineColor(), !Mpressed);
 		PageItem *bb = Doc->Items.at(z);
 		bb->PoLine = currItem->PoLine.copy();
@@ -12250,7 +11665,6 @@ void ScribusView::SplitObj()
 		if (currItem->PoLine.point(a).x() > 900000)
 		{
 			StartInd = a + 1;
-			//z = PaintPoly(currItem->Xpos, currItem->Ypos, currItem->Width, currItem->Height, currItem->Pwidth, currItem->fillColor(), currItem->lineColor());
 			z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, currItem->Xpos, currItem->Ypos, currItem->Width, currItem->Height, currItem->Pwidth, currItem->fillColor(), currItem->lineColor(), !Mpressed);
 			bb = Doc->Items.at(z);
 			bb->PoLine.resize(0);

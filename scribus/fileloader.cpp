@@ -1959,14 +1959,12 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc, ScribusView *
 		break;
 	// OBSOLETE CR 2005-02-06
 	case PageItem::ItemType3:
-		//z = view->PaintRect(x, y, w, h, pw, Pcolor, Pcolor2);
 		z = doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, x, y, w, h, pw, Pcolor, Pcolor2, !view->Mpressed);
 		currItem = doc->Items.at(z);
 		break;
 	//
 	case PageItem::PathText:
 	case PageItem::TextFrame:
-		//z = view->PaintText(x, y, w, h, pw, Pcolor);
 		z = doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y, w, h, pw, "None", Pcolor, !view->Mpressed);
 		currItem = doc->Items.at(z);
 		if ((QStoInt(obj->attribute("ANNOTATION","0"))) && (static_cast<bool>(QStoInt(obj->attribute("ANICON","0")))))
@@ -1996,17 +1994,14 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc, ScribusView *
 		currItem->convertTo(pt);
 		break;
 	case PageItem::Line:
-		//z = view->PaintLine(x, y, w, h, pw, Pcolor2);
 		z = doc->itemAdd(PageItem::Line, PageItem::Unspecified, x, y, w, h, pw, "None", Pcolor2, !ScApp->view->Mpressed);
 		currItem = doc->Items.at(z);
 		break;
 	case PageItem::Polygon:
-		//z = view->PaintPoly(x, y, w, h, pw, Pcolor, Pcolor2);
 		z = doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, x, y, w, h, pw, Pcolor, Pcolor2, !ScApp->view->Mpressed);
 		currItem = doc->Items.at(z);
 		break;
 	case PageItem::PolyLine:
-		//z = view->PaintPolyLine(x, y, w, h, pw, Pcolor, Pcolor2);
 		z = doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, x, y, w, h, pw, Pcolor, Pcolor2, !ScApp->view->Mpressed);
 		currItem = doc->Items.at(z);
 		break;

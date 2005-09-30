@@ -164,11 +164,6 @@ public:
 	void SnapToGuides(PageItem *currItem);
 	QPoint ApplyGrid(QPoint in);
 	FPoint ApplyGridF(FPoint in);
-	/*
-	FPoint transformPointI(FPoint in, double dx, double dy, double rot, double sx, double sy);
-	FPoint transformPoint(FPoint in, double dx, double dy, double rot, double sx, double sy);
-	*/
-	//void getBoundingRect(PageItem *currItem, double *x1, double *y1, double *x2, double *y2);
 	QRect getRedrawBounding(PageItem *currItem);
 	void setRedrawBounding(PageItem *currItem);
 	void setGroupRect();
@@ -224,20 +219,9 @@ public:
 	void EmitValues(PageItem *currItem);
 	void Transform(PageItem *currItem, QPainter *p);
 	void TransformM(PageItem *currItem, QPainter *p);
-	//void SetFrameShape(PageItem *currItem, int count, double *vals);
-	//void SetRectFrame(PageItem *currItem);
-	//void SetOvalFrame(PageItem *currItem);
-	//void SetFrameRound(PageItem *currItem);
 	void SetFrameRect();
 	void SetFrameRounded();
 	void SetFrameOval();
-	//int PaintEllipse(double x, double y, double b, double h, double w, QString fill, QString outline);
-	//int PaintPict(double x, double y, double b, double h);
-	//int PaintRect(double x, double y, double b, double h, double w, QString fill, QString outline);
-	//int PaintLine(double x, double y, double b, double h, double w, QString outline);
-	//int PaintText(double x, double y, double b, double h, double w, QString outline);
-	//int PaintPoly(double x, double y, double b, double h, double w, QString fill, QString outline);
-	//int PaintPolyLine(double x, double y, double b, double h, double w, QString fill, QString outline);
 	void insertColor(QString nam, double c, double m, double y, double k);
 	void ChLineWidth(double w);
 	void ChLineArt(PenStyle w);
@@ -344,7 +328,6 @@ private: // Private attributes
 	int    oldX;
 	int    oldY;
 	bool _groupTransactionStarted;
-	//CB Moved to ScribusDoc, bool _itemCreationTransactionStarted;
 	bool _isGlobalMode;
 	bool evSpon;
 	bool forceRedraw;
