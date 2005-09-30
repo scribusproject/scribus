@@ -27,14 +27,19 @@
 class SCRIBUS_API DynamicTip : public QToolTip
 {
 public:
+	enum TipType {
+		ColorListBox,
+		Table
+	};
+
 	DynamicTip( QListBox* parent, ColorList* pale );
 	DynamicTip( QTable* parent );
+protected:
+	void maybeTip( const QPoint & );
 	ColorList* colorList;
 	QListBox* listB;
 	QTable* table;
-	int kind;
-protected:
-	void maybeTip( const QPoint & );
+	TipType kind;
 };
 
 #endif

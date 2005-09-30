@@ -22,18 +22,18 @@ DynamicTip::DynamicTip( QListBox* parent, ColorList* pale ) : QToolTip( parent )
 {
 	colorList = pale;
 	listB = parent;
-	kind = 0;
+	kind = ColorListBox;
 }
 
 DynamicTip::DynamicTip( QTable* parent ) : QToolTip( parent->viewport() )
 {
 	table = parent;
-	kind = 1;
+	kind = Table;
 }
 
 void DynamicTip::maybeTip( const QPoint &pos )
 {
-	if (kind == 0)
+	if (kind == ColorListBox)
 	{
 		QListBoxItem* it = listB->itemAt(pos);
 		if (it != 0)
@@ -46,13 +46,13 @@ void DynamicTip::maybeTip( const QPoint &pos )
 			{
 				int c, m, y, k;
 				col.getCMYK(&c, &m, &y, &k);
-				tipText = QString("C = %1% M = %2% Y = %3% K = %4%").arg(qRound(c / 2.55)).arg(qRound(m / 2.55)).arg(qRound(y / 2.55)).arg(qRound(k / 2.55));
+				tipText = QString("C:%1% M:%2% Y:%3% K:%4%").arg(qRound(c / 2.55)).arg(qRound(m / 2.55)).arg(qRound(y / 2.55)).arg(qRound(k / 2.55));
 			}
 			else
 			{
 				int r, g, b;
 				col.getRawRGBColor(&r, &g, &b);
-				tipText = QString("R = %1 G = %2 B = %3").arg(r).arg(g).arg(b);
+				tipText = QString("R:%1 G:%2 B:%3").arg(r).arg(g).arg(b);
 			}
 			tip(listB->itemRect(it), tipText);
 		}
