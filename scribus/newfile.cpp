@@ -450,6 +450,7 @@ void NewDoc::setSize(QString gr)
 			//Pagebr = page_y[gr];
 			//Pageho = page_x[gr];
 		}
+		delete ps2;
 	}
 	Breite->setValue(Pagebr * unitRatio);
 	Hoehe->setValue(Pageho * unitRatio);
