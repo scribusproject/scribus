@@ -285,7 +285,39 @@ is not in points, make sure to account for this.
 example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
                 FACINGPAGES, FIRSTPAGERIGHT)
 </source>
-        <translation type="unfinished"></translation>
+        <translation>newDoc(size, margins, orientation, firstPageNumber,
+                   unit, facingPages, firstSideLeft) -&gt; bool
+
+    Створює новий документ та повертає булеве значення true у разі успіху. Значення 
+    параметрів:
+
+    size = Тупль (ширина, висота), який описує розмір документа. Дозволяється 
+    використання попередньо визначених констант з іменами типу PAPER_&lt;paper_type&gt; - 
+    наприклад PAPER_A4 і т.д.
+
+    margins = Тупль (ліве, праве, верхнє, нижнє), який визначає поля документа
+
+    orientation = орієнтація сторінки - доступні константи - PORTRAIT (портрет), 
+    LANDSCAPE (ландшафт)
+
+    firstPageNumer = Номер першої сторінки документа - використовується для нумерації 
+    сторінок. У більшості випадків рекомендується використання 1, але можна 
+    використовувати і інші номери, наприклад якщо документ складається з кількох частин.
+
+    unit (одиниця виміру) = Ця величина визначає одиниці виміру, які використовуються в  
+    документі. Використовуйте констати з набору: UNIT_INCHES, UNIT_MILLIMETERS,
+    UNIT_PICAS, UNIT_POINTS.
+
+    facingPages = Книжкове розміщення сторінок - константи FACINGPAGES, NOFACINGPAGES
+
+    firstSideLeft = Перша сторінка з лівої сторони - константи FIRSTPAGELEFT, FIRSTPAGERIGHT
+
+    Значення ширини, висоти та полів виражаються в одиницях виміру прийнятих для 
+    документа. PAPER_* константи виражаються в точках.
+
+   Приклад: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
+                FACINGPAGES, FIRSTPAGERIGHT)
+</translation>
     </message>
     <message>
         <source>newPage(where [,&quot;masterpage&quot;])
@@ -298,7 +330,12 @@ master page for the new page.
 
 May raise IndexError if the page number is out of range
 </source>
-        <translation type="unfinished"></translation>
+        <translation>newPage(where [,&quot;masterpage&quot;])
+
+Створює нову сторінку. Якщо &quot;where&quot; дорівнює -1 то нова сторінка добавляється в кінець документа. В іншому випадку вона вставляється в документ перед &quot;where&quot;. Номери сторінок внутрішньо рахуються з 1 вверх незважаючи на показаний номер документа. Необов&apos;язковий параметр &quot;masterpage&quot; вказує на ім&apos;я головної сторінки.
+
+Може повернути помилку IndexError, якщо номер сторінки виходить за можливий діапазон
+</translation>
     </message>
     <message>
         <source>importSVG(&quot;string&quot;)
@@ -306,7 +343,10 @@ May raise IndexError if the page number is out of range
 The &quot;string&quot; must be a valid filename for a SVG image. The text
 must be UTF8 encoded or &apos;unicode&apos; string(recommended).
 </source>
-        <translation type="unfinished"></translation>
+        <translation>importSVG(&quot;string&quot;)
+
+Строкова величина &quot;string&quot; повинна містити ім&quot;я файла з зображенням у форматі SVG. Текст повинет бути у кодуванні UTF8 або в строковій величині &apos;unicode&apos; str (рекоменд.).
+</translation>
     </message>
 </context>
 <context>
@@ -560,7 +600,7 @@ selected item is used.
 
 May throw IndexError if the selection is outside the bounds of the text.
 </source>
-        <translation type="unfinished">selectText(start, count, [&quot;name&quot;])
+        <translation>selectText(start, count, [&quot;name&quot;])
 
 Вибирає &quot;count&quot; число знаків тексту в текстовій рамці &quot;name&quot;, починаючи з
 знака &quot;start&quot;. Рахунок знаків починається з 0. Якщо &quot;count&quot; дорівнює нулю,
@@ -568,7 +608,7 @@ May throw IndexError if the selection is outside the bounds of the text.
 активний об&apos;єкт.
 
 Може повернути помилку IndexError, якщо вибірка виходить за межі 
-наявного тексту.
+тексту.
 </translation>
     </message>
     <message>
@@ -2587,7 +2627,13 @@ from the default document colors.
 May raise NotFoundError if the named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getColorAsRGB(&quot;name&quot;) -&gt; тупль
+
+Повертає тупль (R,G,B), який містить три компоненти кольору &quot;name&quot; з активного документа, конвертовані в кольоровий простір RGB. При відсутності активного документа повертає значення названого кольору з основної палітри кольорів.
+
+Може повернути помилку NotFoundError, якщо названий колір не було знайдено.
+Може повернути помилку ValueError, якщо ім&apos;я кольору вказано неправильно.
+</translation>
     </message>
     <message>
         <source>defineColor(&quot;name&quot;, c, m, y, k)
@@ -2598,7 +2644,13 @@ the range from 0 to 255.
 
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>defineColor(&quot;name&quot;, c, m, y, k)
+
+Визначає новий колір &quot;name&quot;. Значення кольору визначається через чотири компоненти:
+c = Cyan (Салатовий), m = Magenta (Рожевий), y = Yello (Жовтий) and k = Black (Чорний). Компоненти кольору повинні бути в діапазоні від 0 до 255.
+
+Може повернути помилку ValueError, якщо ім&apos;я кольору було вказано невірно.
+</translation>
     </message>
     <message>
         <source>fileDialog(&quot;caption&quot;, [&quot;filter&quot;, &quot;defaultname&quot;, haspreview, issave, isdir]) -&gt; string with filename
@@ -2620,22 +2672,27 @@ Refer to the Qt-Documentation for QFileDialog for details on filters.
 Example: fileDialog(&apos;Open input&apos;, &apos;CSV files (*.csv)&apos;)
 Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;, issave=True)
 </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>newStyleDialog() -&gt; string
+        <translation>fileDialog(&quot;caption&quot;, [&quot;filter&quot;, &quot;defaultname&quot;, haspreview, issave, isdir]) -&gt; строкова величина з назвою файла
 
-Shows &apos;Create new paragraph style&apos; dialog. Function returns real
-style name or None when user cancels the dialog.
-</source>
-        <translation type="unfinished"></translation>
+Показує діалог відкриття файла з підписом &quot;caption&quot;. Назви файлів фільтруються за допомогою текстової величини &quot;filter&quot;. Назва або шлях до файла по умовчанню також можуть бути вказані. Залиште цю строкову величину пустою, якщо Ви не збираєтеся її використовувати. Булеве значення True для haspreview вмикає невелике поля для попереднього перегляду в діалоговому вікні FileSelect. Якщо параметр issave дорівнює True то діалог перетворюється в &quot;Записати як&quot;. В протилежному випадку він діє як &quot;Відчинити файл&quot; діалог. Якщо параметр isdir дорівнює True то діалог показує і повертає лише директорії. Значення всіх необов&apos;язкових параметрів по умовчанню дорівнює False.
+
+Якщо вкзано фільтр він повинен прийняти форму &apos;comment (*.type *.type2 ...)&apos;.
+Наприклад &apos;Зображення (*.png *.xpm *.jpg)&apos;.
+
+Зверніться до документації Qt по QFileDialog за детальним описом фільтрів.
+
+Приклад: fileDialog(&apos;Відкрити дані&apos;, &apos;CSV files (*.csv)&apos;)
+Приклад: fileDialog(&apos;Записати звіт&apos;, defaultname=&apos;report.txt&apos;, issave=True)
+</translation>
     </message>
     <message>
         <source>getCornerRadius([&quot;name&quot;]) -&gt; integer
 
 Returns the corner radius of the object &quot;name&quot;. The radius isexpressed in points. If &quot;name&quot; is not given the currentlyselected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getCornerRadius([&quot;name&quot;]) -&gt; ціле число
+
+Повертає радіус кута об&apos;єкта &quot;name&quot;. Радіус виражається в точках. Якщо &quot;name&quot; не задано - буде використано вибраний об&apos;єкт.</translation>
     </message>
     <message>
         <source>getPosition([&quot;name&quot;]) -&gt; (x,y)
@@ -2644,7 +2701,11 @@ Returns a (x, y) tuple with the position of the object &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.The position is expressed in the actual measurement unit of the document
 - see UNIT_&lt;type&gt; for reference.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getPosition([&quot;name&quot;]) -&gt; (x,y)
+
+Повертає тупль (x, y) з координатами об&apos;єкта &quot;name&quot;.
+Якщо &quot;name&quot; не задано, буде використано вибраний об&apos;єкт. Координати виражаються в одиницях виміру прийнятих для документа. Дивіться UNIT_&lt;type&gt; для додаткової інформації.
+</translation>
     </message>
     <message>
         <source>getPropertyCType(object, property, includesuper=True)
@@ -2654,7 +2715,13 @@ for details of arguments.
 
 If `includesuper&apos; is true, search inherited properties too.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getPropertyCType(object, property, includesuper=True)
+
+Повертає назву типу С для атрибута `property&apos; об&apos;єкта `object&apos;. Див. getProperty()
+для додаткової інформації про атрибути.
+
+Якщо `includesuper&apos; дорівнює true - також шукати наслідкові атрибути.
+</translation>
     </message>
     <message>
         <source>getPropertyNames(object, includesuper=True)
@@ -2663,7 +2730,11 @@ Return a list of property names supported by `object&apos;.
 If `includesuper&apos; is true, return properties supported
 by parent classes as well.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getPropertyNames(object, includesuper=True)
+
+Повертає лист назв атрибутів, які підтримує об&apos;єкт `object&apos;.
+Якщо `includesuper&apos; дорівнює true, також повернути атрибути, які підтримуються батьківськими класами.
+</translation>
     </message>
     <message>
         <source>getProperty(object, property)
@@ -2679,7 +2750,16 @@ to look up on `object&apos;.
 
 The return value varies depending on the type of the property.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getProperty(object, property)
+
+Повертає значення атрибута `property&apos; переданого об&apos;єкта `object&apos;.
+
+Аргумент `object&apos; може бути строковою величиною. В цьому випадку буде шукатися названий об&apos;єкт PageItem. Він також може бути об&apos;єктом PyCObject, який може вказувати на любий екземпляр C++ QObject.
+
+Аргумент `property&apos; повинен бути строковою величиною і являється назвою атрибута об&apos;єкта  `object&apos;.
+
+Повернене значення залежить від типу атрибута.
+</translation>
     </message>
     <message>
         <source>setProperty(object, property, value)
@@ -2690,7 +2770,12 @@ also be raised if the underlying setter fails.
 
 See getProperty() for more information.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setProperty(object, property, value)
+
+Установити `property&apos; об&apos;єкта `object&apos; до значення `value&apos;. Якщо `value&apos; не може бути конвертоване в тип сумісний з типом `property&apos; - буде повернена помилка. Помилка може бути також повернена, якщо послідуюча установлююча функція не буде успішно виконана.
+
+Дивіться getProperty() для додаткової інформації.
+</translation>
     </message>
     <message>
         <source>getChildren(object, ofclass=None, ofname=None, regexpmatch=False, recursive=True)
@@ -2701,7 +2786,13 @@ search recursively through children, grandchildren, etc.
 
 See QObject::children() in the Qt docs for more information.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getChildren(object, ofclass=None, ofname=None, regexpmatch=False, recursive=True)
+
+Повертає список дітей об&apos;єкта `object&apos;. Можливо дозволити лише повернення дітей класу з назвою `ofclass&apos; або лише дітей з назвами`ofname&apos;. Якщо `recursive&apos; дорівнює true,
+пошук буде проводитися рекурсивно між дітей, внуків і т.д.
+
+Дивіться QObject::children() в документації Qt для подальшої інформації.
+</translation>
     </message>
     <message>
         <source>getChild(object, childname, ofclass=None, recursive=True)
@@ -2710,7 +2801,10 @@ Return the first child of `object&apos; named `childname&apos;, possibly restric
 the search to children of type name `ofclass&apos;. If `recursive&apos; is true,
 search recursively through children, grandchildren, etc.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getChild(object, childname, ofclass=None, recursive=True)
+
+Повертає першу дитину об&apos;єкта `object&apos; названу `childname&apos; з можливим обмеженням дітьми класу з назвою `ofclass&apos;. Якщо `recursive&apos; дорівнює true, пошук буде проводитися рекурсивно між дітей, внуків і т.д.
+</translation>
     </message>
     <message>
         <source>rotateObjectAbs(rot [, &quot;name&quot;])
@@ -2719,7 +2813,10 @@ Sets the rotation of the object &quot;name&quot; to &quot;rot&quot;. Positve val
 mean counter clockwise rotation. If &quot;name&quot; is not given the currently
 selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>rotateObjectAbs(rot [, &quot;name&quot;])
+
+Установлює кут повороту об&apos;єкта &quot;name&quot; до &quot;rot&quot;. Позитивні значення приводять до повороту проти часової стрілки. Якщо &quot;name&quot; не задано, буде використано вибраний об&apos;єкт.
+</translation>
     </message>
     <message>
         <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
@@ -2731,7 +2828,14 @@ that the layer &quot;layer&quot; is visible, a value of False means that the lay
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>isLayerPrintable(&quot;layer&quot;) -&gt; bool
+
+Повертає результат того чи видимий план &quot;layer&quot;. Значення True означає, що план
+&quot;layer&quot; видимий, а значення False означає, що план невидимий.
+
+Може повернути помилку NotFoundError, якщо план не може бути знайдено.
+Може повернути помилку ValueError, якщо назва плана не допустима.
+</translation>
     </message>
     <message>
         <source>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
@@ -2743,7 +2847,13 @@ not given the currently selected Item is used.
 
 May throw IndexError for an insertion out of bounds.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
+
+Вставляє текст &quot;text&quot; в позицію &quot;pos&quot; в текстову рамку &quot;name&quot;.
+Текст повинен бути в кодуванні UTF  (див. setText() для довідки). Перший знак має значення індекса 0. Вставка в позиції -1 добавляє текст до рамки. Якщо &quot;name&quot; не задано, буде використаний вибраний об&apos;єкт.
+
+Може повернути помилку IndexError при спробі вставки за доступними межами.
+</translation>
     </message>
     <message>
         <source>textOverflows([&quot;name&quot;, nolinks]) -&gt; integer
@@ -2754,7 +2864,24 @@ use text frame linking. Without this parameter it search all linking chain.
 
 May raise WrongFrameTypeError if the target frame is not an text frame
 </source>
-        <translation type="unfinished"></translation>
+        <translation>textOverflows([&quot;name&quot;, nolinks]) -&gt; ціле число
+
+Повертає дійсне число знаків, які виходять за межі текстової рамки &quot;name&quot;.
+Якщо nolinks не дорівнює нулю, опрацьовується лише одна рамка. Зв&apos;язування рамок не грає ролі. При відсутності цього параметра пошук проводиться по всіх зв&apos;язаних рамках.
+
+Може повернути помилку WrongFrameTypeError, якщо цільова рамка не являється текстовою</translation>
+    </message>
+    <message>
+        <source>newStyleDialog() -&gt; string
+
+Shows &apos;Create new paragraph style&apos; dialog. Function returns real
+style name or None when user cancels the dialog.
+</source>
+        <translation>newStyleDialog() -&gt; string
+
+Показує діалогове вікно &quot;новий стиль абзацу&quot;. Функція повертає справжнє
+ім&apos;я стилю або None, якщо користувач відмінить діалог.
+</translation>
     </message>
 </context>
 <context>
@@ -2994,218 +3121,231 @@ tiff</translation>
         <translation type="obsolete">Португальська (Бразильська):</translation>
     </message>
     <message>
+        <source>Windows Port:</source>
+        <translation>Порт  до системи Windows:</translation>
+    </message>
+    <message>
+        <source>This panel shows the version, build date and
+ compiled in library support in Scribus
+The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support.
+Missing library support is indicated by a *</source>
+        <translation type="obsolete">Ця панель показує версію, дату збірки і вбудовану підтримку бібліотек в Scribus
+Абревіатура C-C-T-F перекладається як C=littlecms (підтримка профілювання кольору) C=CUPS (підтримка системи друку CUPS), T=TIFF (підтримка формату зображень TIFF), F=Fontconfig (підтримка системи керування шрифтами). Відсутня бібліотека позначається символом *</translation>
+    </message>
+    <message>
         <source>Using GhostScript version %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Використовується GhostScript версії %1</translation>
     </message>
     <message>
         <source>No GS version available</source>
-        <translation type="unfinished"></translation>
+        <translation>Відсутня будь-яка версія GS</translation>
     </message>
     <message>
         <source>Scribus Version %1
 %2 %3 (%4)</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus версія %1
+%2 %3 (%4)</translation>
     </message>
     <message>
         <source>Mac OSX Aqua Port:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Windows Port:</source>
-        <translation type="unfinished"></translation>
+        <translation>Порт для Mac OSX Aqua:</translation>
     </message>
     <message>
         <source>Wiki</source>
-        <translation type="unfinished"></translation>
+        <translation>Вікі</translation>
+    </message>
+    <message>
+        <source>This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Missing library support is indicated by a * This also indicates the version of Ghostscript which Scribus has detected.</source>
+        <translation type="obsolete">Ця панель показує версію, дату збірки та вбудовану підтримку бібліотек в Scribus. C-C-T-F розшифровується, як підтримка C=littlecms C=CUPS T=TIFF F=Fontconfig. Відсутність підтримки певної бібліотеки вказується за допомогою знака *. Тут також вказується версія Ghostscript знайденого Scribus.</translation>
     </message>
     <message>
         <source>This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart Missing library support is indicated by a * This also indicates the version of Ghostscript which Scribus has detected.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ця панель показує версію, дату збірки та підтримку вбудованих бібліотек в Scribus. C-C-T-F означає слідуюче: C=littlecms (система управління передачею кольору) C=CUPS (система друку) T=TIFF (формат зображень TIFF) F=Fontconfig (система керування шрифтами). Остання літера показує використання для рендерингу сторінок бібліотеки C=cairo (Каїро) або A=libart. Відсутність підтримки певної бібліотеки вказується за допомогою знака *. В цій панелі також вказується знайдена версія інтерпретатора Ghostscript.</translation>
     </message>
 </context>
 <context>
     <name>AboutPlugins</name>
     <message>
         <source>Yes</source>
-        <translation type="unfinished">Так</translation>
+        <translation>Так</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished">Ні</translation>
+        <translation>Ні</translation>
     </message>
 </context>
 <context>
     <name>AboutPluginsBase</name>
     <message>
         <source>Scribus: About Plug-ins</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus: Про модулі</translation>
     </message>
     <message>
         <source>File Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ім&apos;я файла:</translation>
     </message>
     <message>
         <source>Version:</source>
-        <translation type="unfinished"></translation>
+        <translation>Версія:</translation>
     </message>
     <message>
         <source>Enabled:</source>
-        <translation type="unfinished"></translation>
+        <translation>Доступна:</translation>
     </message>
     <message>
         <source>Release Date:</source>
-        <translation type="unfinished"></translation>
+        <translation>Дата випуску:</translation>
     </message>
     <message>
         <source>Copyright:</source>
-        <translation type="unfinished"></translation>
+        <translation>Авторські права:</translation>
     </message>
     <message>
         <source>Author(s):</source>
-        <translation type="unfinished"></translation>
+        <translation>Автор(и):</translation>
     </message>
     <message>
         <source>Description:</source>
-        <translation type="unfinished"></translation>
+        <translation>Описання:</translation>
     </message>
     <message>
         <source>License:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ліцензія:</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished">&amp;Зачинити</translation>
+        <translation>&amp;Зачинити</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
 </context>
 <context>
     <name>ActionManager</name>
     <message>
         <source>&amp;New</source>
-        <translation type="unfinished">&amp;Новий</translation>
+        <translation>&amp;Новий</translation>
     </message>
     <message>
         <source>&amp;Open...</source>
-        <translation type="unfinished">&amp;Відчинити...</translation>
+        <translation>&amp;Відчинити...</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished">&amp;Зачинити</translation>
+        <translation>&amp;Зачинити</translation>
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation type="unfinished">&amp;Записати</translation>
+        <translation>&amp;Записати</translation>
     </message>
     <message>
         <source>Save &amp;As...</source>
-        <translation type="unfinished">Записати &amp;як...</translation>
+        <translation>Записати &amp;як...</translation>
     </message>
     <message>
         <source>Re&amp;vert to Saved</source>
-        <translation type="unfinished">Повернутися до за&amp;писаного</translation>
+        <translation>Повернутися до за&amp;писаного</translation>
     </message>
     <message>
         <source>Collect for O&amp;utput...</source>
-        <translation type="unfinished">Зібрати для в&amp;иводу...</translation>
+        <translation>Зібрати для в&amp;иводу...</translation>
     </message>
     <message>
         <source>Get Text...</source>
-        <translation type="unfinished">Вставити текст...</translation>
+        <translation>Вставити текст...</translation>
     </message>
     <message>
         <source>Append &amp;Text...</source>
-        <translation type="unfinished">Додати &amp;текст...</translation>
+        <translation>Додати &amp;текст...</translation>
     </message>
     <message>
         <source>Get Image...</source>
-        <translation type="unfinished"></translation>
+        <translation>Вставити зображення...</translation>
     </message>
     <message>
         <source>Save &amp;Text...</source>
-        <translation type="unfinished">Записати &amp;текст...</translation>
+        <translation>Записати &amp;текст...</translation>
     </message>
     <message>
         <source>Save Page as &amp;EPS...</source>
-        <translation type="unfinished">Записати, як &amp;ЕPS...</translation>
+        <translation>Записати сторінку як &amp;ЕPS...</translation>
     </message>
     <message>
         <source>Save as P&amp;DF...</source>
-        <translation type="unfinished">Записати, як &amp;РDF...</translation>
+        <translation>Записати як &amp;РDF...</translation>
     </message>
     <message>
         <source>Document &amp;Setup...</source>
-        <translation type="unfinished">Установка &amp;опцій документу...</translation>
+        <translation>Установки &amp;Документа...</translation>
     </message>
     <message>
         <source>&amp;Print...</source>
-        <translation type="unfinished">&amp;Друк...</translation>
+        <translation>&amp;Друк...</translation>
     </message>
     <message>
         <source>&amp;Quit</source>
-        <translation type="unfinished">&amp;Вихід</translation>
+        <translation>&amp;Вихід</translation>
     </message>
     <message>
         <source>&amp;Undo</source>
-        <translation type="unfinished">&amp;Відмінити</translation>
+        <translation>&amp;Відміна</translation>
     </message>
     <message>
         <source>&amp;Redo</source>
-        <translation type="unfinished">&amp;Повторити</translation>
+        <translation>&amp;Повтор</translation>
     </message>
     <message>
         <source>&amp;Item Action Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Режим дії Об&apos;єкта</translation>
     </message>
     <message>
         <source>Cu&amp;t</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви&amp;різати</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation type="unfinished">&amp;Скопіювати</translation>
+        <translation>&amp;Скопіювати</translation>
     </message>
     <message>
         <source>&amp;Paste</source>
-        <translation type="unfinished">&amp;Вклеїти</translation>
+        <translation>&amp;Вклеїти</translation>
     </message>
     <message>
         <source>C&amp;lear Contents</source>
-        <translation type="unfinished">Очистити &amp;вміст</translation>
+        <translation>Очистити &amp;вміст</translation>
     </message>
     <message>
         <source>Select &amp;All</source>
-        <translation type="unfinished">Виді&amp;лити все</translation>
+        <translation>Виді&amp;лити все</translation>
     </message>
     <message>
         <source>&amp;Deselect All</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Убрати всі виділення</translation>
     </message>
     <message>
         <source>&amp;Search/Replace...</source>
-        <translation type="unfinished">&amp;Пошук/Заміна...</translation>
+        <translation>&amp;Пошук/Заміна...</translation>
     </message>
     <message>
         <source>Edit Image...</source>
-        <translation type="unfinished"></translation>
+        <translation>Редагувати зображення...</translation>
     </message>
     <message>
         <source>C&amp;olors...</source>
-        <translation type="unfinished">&amp;Кольори...</translation>
+        <translation>&amp;Кольори...</translation>
     </message>
     <message>
         <source>&amp;Paragraph Styles...</source>
-        <translation type="unfinished">&amp;Стилі абзаців...</translation>
+        <translation>&amp;Стилі абзаців...</translation>
     </message>
     <message>
         <source>&amp;Line Styles...</source>
-        <translation type="unfinished">Стилі &amp;ліній...</translation>
+        <translation>Стилі &amp;ліній...</translation>
     </message>
     <message>
         <source>&amp;Master Pages...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Головні сторінки...</translation>
     </message>
     <message>
         <source>&amp;Javascripts...</source>
@@ -3213,671 +3353,675 @@ tiff</translation>
     </message>
     <message>
         <source>P&amp;references...</source>
-        <translation type="unfinished">&amp;Установки...</translation>
+        <translation>&amp;Установки...</translation>
     </message>
     <message>
         <source>%1 pt</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 тчк</translation>
     </message>
     <message>
         <source>&amp;Other...</source>
-        <translation type="unfinished">&amp;Інше...</translation>
+        <translation>&amp;Інше...</translation>
     </message>
     <message>
         <source>&amp;Left</source>
-        <translation type="unfinished">&amp;Ліве</translation>
+        <translation>&amp;Ліве</translation>
     </message>
     <message>
         <source>&amp;Center</source>
-        <translation type="unfinished">По &amp;центру</translation>
+        <translation>По &amp;центру</translation>
     </message>
     <message>
         <source>&amp;Right</source>
-        <translation type="unfinished">&amp;Праве</translation>
+        <translation>&amp;Праве</translation>
     </message>
     <message>
         <source>&amp;Block</source>
-        <translation type="unfinished">&amp;Блок</translation>
+        <translation>&amp;Блок</translation>
     </message>
     <message>
         <source>&amp;Forced</source>
-        <translation type="unfinished">&amp;Вимушене</translation>
+        <translation>&amp;Вимушене</translation>
     </message>
     <message>
         <source>&amp;%1 %</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;%1 %</translation>
     </message>
     <message>
         <source>&amp;Normal</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Звичайне</translation>
     </message>
     <message>
         <source>&amp;Underline</source>
-        <translation type="unfinished">&amp;Підкреслення</translation>
+        <translation>&amp;Підкреслення</translation>
     </message>
     <message>
         <source>Underline &amp;Words</source>
-        <translation type="unfinished"></translation>
+        <translation>Підкреслення &amp;Слів</translation>
     </message>
     <message>
         <source>&amp;Strike Through</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Перекреслення</translation>
     </message>
     <message>
         <source>&amp;All Caps</source>
-        <translation type="unfinished"></translation>
+        <translation>Всі ве&amp;ликі літери</translation>
     </message>
     <message>
         <source>Small &amp;Caps</source>
-        <translation type="unfinished"></translation>
+        <translation>Ка&amp;пітель</translation>
     </message>
     <message>
         <source>Su&amp;perscript</source>
-        <translation type="unfinished"></translation>
+        <translation>В&amp;ерхній індекс</translation>
     </message>
     <message>
         <source>Su&amp;bscript</source>
-        <translation type="unfinished"></translation>
+        <translation>Ни&amp;жній індекс</translation>
     </message>
     <message>
         <source>&amp;Outline</source>
-        <translation type="unfinished">С&amp;хема документу</translation>
+        <translation>С&amp;хема документу</translation>
     </message>
     <message>
         <source>S&amp;hadow</source>
-        <translation type="unfinished"></translation>
+        <translation>Т&amp;інь</translation>
     </message>
     <message>
         <source>&amp;Image Effects</source>
-        <translation type="unfinished"></translation>
+        <translation>Ефекти зо&amp;браження</translation>
     </message>
     <message>
         <source>&amp;Tabulators...</source>
-        <translation type="unfinished">&amp;Табулятори...</translation>
+        <translation>&amp;Табулятори...</translation>
     </message>
     <message>
         <source>D&amp;uplicate</source>
-        <translation type="unfinished">&amp;Дублювати</translation>
+        <translation>&amp;Дублювати</translation>
     </message>
     <message>
         <source>&amp;Multiple Duplicate</source>
-        <translation type="unfinished">&amp;Багаторазове дублювання</translation>
+        <translation>&amp;Багаторазове дублювання</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Видалити</translation>
+        <translation>&amp;Видалити</translation>
     </message>
     <message>
         <source>&amp;Group</source>
-        <translation type="unfinished">З&amp;групувати</translation>
+        <translation>З&amp;групувати</translation>
     </message>
     <message>
         <source>&amp;Ungroup</source>
-        <translation type="unfinished">&amp;Розгрупувати</translation>
+        <translation>&amp;Розгрупувати</translation>
     </message>
     <message>
         <source>Is &amp;Locked</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Замкнуті</translation>
     </message>
     <message>
         <source>Si&amp;ze is Locked</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Розмір замкнутий</translation>
     </message>
     <message>
         <source>Lower to &amp;Bottom</source>
-        <translation type="unfinished"></translation>
+        <translation>Опустити на &amp;дно</translation>
     </message>
     <message>
         <source>Raise to &amp;Top</source>
-        <translation type="unfinished"></translation>
+        <translation>Підняти на&amp;гору</translation>
     </message>
     <message>
         <source>&amp;Lower</source>
-        <translation type="unfinished">&amp;Опустити</translation>
+        <translation>&amp;Опустити</translation>
     </message>
     <message>
         <source>&amp;Raise</source>
-        <translation type="unfinished">&amp;Підняти</translation>
+        <translation>&amp;Підняти</translation>
     </message>
     <message>
         <source>Send to S&amp;crapbook</source>
-        <translation type="unfinished">Послат в &amp;чорновик</translation>
+        <translation>Послат в &amp;чорновик</translation>
     </message>
     <message>
         <source>&amp;Attributes...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Атрибути...</translation>
     </message>
     <message>
         <source>I&amp;mage Visible</source>
-        <translation type="unfinished">&amp;Показувати зображення</translation>
+        <translation>&amp;Зображення видиме</translation>
     </message>
     <message>
         <source>&amp;Update Image</source>
-        <translation type="unfinished"></translation>
+        <translation>По&amp;новити зображення</translation>
     </message>
     <message>
         <source>Adjust Frame to Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Установити розмір рамки по розміру зображення</translation>
     </message>
     <message>
         <source>Extended Image Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Додаткові властивості зображення</translation>
     </message>
     <message>
         <source>&amp;Low Resolution</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Низьке розрішення</translation>
     </message>
     <message>
         <source>&amp;Normal Resolution</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Звичайне розрішення</translation>
     </message>
     <message>
         <source>&amp;Full Resolution</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Повне розрішення</translation>
     </message>
     <message>
         <source>Is PDF &amp;Bookmark</source>
-        <translation type="unfinished">&amp;Закладка PDF</translation>
+        <translation>&amp;Закладка PDF</translation>
     </message>
     <message>
         <source>Is PDF A&amp;nnotation</source>
-        <translation type="unfinished">&amp;Аннотація PDF</translation>
+        <translation>&amp;Аннотація PDF</translation>
     </message>
     <message>
         <source>Annotation P&amp;roperties</source>
-        <translation type="unfinished">В&amp;ластивості аннотації</translation>
+        <translation>В&amp;ластивості аннотації</translation>
     </message>
     <message>
         <source>Field P&amp;roperties</source>
-        <translation type="unfinished">Властивості &amp;поля</translation>
+        <translation>Властивості &amp;поля</translation>
     </message>
     <message>
         <source>&amp;Edit Shape...</source>
-        <translation type="unfinished">&amp;Редагувати форму...</translation>
+        <translation>&amp;Редагувати форму...</translation>
     </message>
     <message>
         <source>&amp;Attach Text to Path</source>
-        <translation type="unfinished">При&amp;єднати текст до шляху</translation>
+        <translation>При&amp;єднати текст до шляху</translation>
     </message>
     <message>
         <source>&amp;Detach Text from Path</source>
-        <translation type="unfinished">В&amp;ідєднати текст від шляху</translation>
+        <translation>В&amp;ідєднати текст від шляху</translation>
     </message>
     <message>
         <source>&amp;Combine Polygons</source>
-        <translation type="unfinished">Поєдн&amp;ати полігони</translation>
+        <translation>Скомбінув&amp;ати полігони</translation>
     </message>
     <message>
         <source>Split &amp;Polygons</source>
-        <translation type="unfinished">Розділ&amp;ити полігони</translation>
+        <translation>Розділ&amp;ити полігони</translation>
     </message>
     <message>
         <source>&amp;Bezier Curve</source>
-        <translation type="unfinished">Крива &amp;Безьє</translation>
+        <translation>Крива &amp;Безьє</translation>
     </message>
     <message>
         <source>&amp;Image Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Рамка &amp;зображення</translation>
     </message>
     <message>
         <source>&amp;Outlines</source>
-        <translation type="unfinished">&amp;Контури</translation>
+        <translation>&amp;Контури</translation>
     </message>
     <message>
         <source>&amp;Polygon</source>
-        <translation type="unfinished"></translation>
+        <translation>Полі&amp;гон</translation>
     </message>
     <message>
         <source>&amp;Text Frame</source>
-        <translation type="unfinished">&amp;Текстова рамка</translation>
+        <translation>&amp;Текстова рамка</translation>
     </message>
     <message>
         <source>&amp;Glyph...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Символ...</translation>
     </message>
     <message>
         <source>Sample Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Зразковий текст</translation>
     </message>
     <message>
         <source>&amp;Insert...</source>
-        <translation type="unfinished">&amp;Вставити...</translation>
+        <translation>&amp;Вставити...</translation>
     </message>
     <message>
         <source>Im&amp;port...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Імпортувати...</translation>
     </message>
     <message>
         <source>&amp;Delete...</source>
-        <translation type="unfinished">&amp;Видалити...</translation>
+        <translation>&amp;Видалити...</translation>
     </message>
     <message>
         <source>&amp;Copy...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Скопіювати...</translation>
     </message>
     <message>
         <source>&amp;Move...</source>
-        <translation type="unfinished">&amp;Перемістити...</translation>
+        <translation>&amp;Перемістити...</translation>
     </message>
     <message>
         <source>&amp;Apply Master Page...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Застосувати головну сторінку...</translation>
     </message>
     <message>
         <source>Manage &amp;Guides...</source>
-        <translation type="unfinished">Установка роз&amp;мітки...</translation>
-    </message>
-    <message>
-        <source>Manage Page Properties...</source>
-        <translation type="unfinished"></translation>
+        <translation>Установка роз&amp;мітки...</translation>
     </message>
     <message>
         <source>&amp;Fit in window</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Змінити до розміру вікна</translation>
     </message>
     <message>
         <source>&amp;50%</source>
-        <translation type="unfinished">&amp;50%</translation>
+        <translation>&amp;50%</translation>
     </message>
     <message>
         <source>&amp;75%</source>
-        <translation type="unfinished">&amp;75%</translation>
+        <translation>&amp;75%</translation>
     </message>
     <message>
         <source>&amp;100%</source>
-        <translation type="unfinished">&amp;100%</translation>
+        <translation>&amp;100%</translation>
     </message>
     <message>
         <source>&amp;200%</source>
-        <translation type="unfinished">&amp;200%</translation>
+        <translation>&amp;200%</translation>
     </message>
     <message>
         <source>&amp;Thumbnails</source>
-        <translation type="unfinished">&amp;Мініатюрні зображення</translation>
+        <translation>&amp;Мініатюрні зображення</translation>
     </message>
     <message>
         <source>Show &amp;Margins</source>
-        <translation type="unfinished">Показати &amp;розмітку полів</translation>
+        <translation>Показати &amp;розмітку полів</translation>
     </message>
     <message>
         <source>Show &amp;Frames</source>
-        <translation type="unfinished">Показати ра&amp;мки</translation>
+        <translation>Показати ра&amp;мки</translation>
     </message>
     <message>
         <source>Show &amp;Images</source>
-        <translation type="unfinished">&amp;Показати зображення</translation>
+        <translation>&amp;Показати зображення</translation>
     </message>
     <message>
         <source>Show &amp;Grid</source>
-        <translation type="unfinished">Показати &amp;сітку</translation>
+        <translation>Показати &amp;сітку</translation>
     </message>
     <message>
         <source>Show G&amp;uides</source>
-        <translation type="unfinished">Показати розм&amp;ітку</translation>
+        <translation>Показати розм&amp;ітку</translation>
     </message>
     <message>
         <source>Show &amp;Baseline Grid</source>
-        <translation type="unfinished">Показати &amp;базову сітку</translation>
+        <translation>Показати &amp;базову сітку</translation>
     </message>
     <message>
         <source>Show &amp;Text Chain</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати лан&amp;цюг тексту</translation>
     </message>
     <message>
         <source>Show Control Characters</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Rulers relative to Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати контрольні знаки</translation>
     </message>
     <message>
         <source>Sn&amp;ap to Grid</source>
-        <translation type="unfinished">П&amp;ритягування до сітки</translation>
+        <translation>П&amp;ритягування до сітки</translation>
     </message>
     <message>
         <source>Sna&amp;p to Guides</source>
-        <translation type="unfinished">Притягування до розмітк&amp;и</translation>
+        <translation>Притягування до розмітк&amp;и</translation>
     </message>
     <message>
         <source>&amp;Properties</source>
-        <translation type="unfinished">&amp;Властивості</translation>
+        <translation>&amp;Властивості</translation>
     </message>
     <message>
         <source>&amp;Scrapbook</source>
-        <translation type="unfinished">&amp;Чорновик</translation>
+        <translation>&amp;Чорновик</translation>
     </message>
     <message>
         <source>&amp;Layers</source>
-        <translation type="unfinished">П&amp;лани</translation>
+        <translation>П&amp;лани</translation>
     </message>
     <message>
-        <source>&amp;Arrange Pages</source>
-        <translation type="unfinished"></translation>
+        <source>P&amp;age Palette</source>
+        <translation type="obsolete">&amp;Палітра сторінки</translation>
     </message>
     <message>
         <source>&amp;Bookmarks</source>
-        <translation type="unfinished">&amp;Закладки</translation>
+        <translation>&amp;Закладки</translation>
     </message>
     <message>
         <source>&amp;Measurements</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Виміри</translation>
     </message>
     <message>
         <source>Action &amp;History</source>
-        <translation type="unfinished"></translation>
+        <translation>Покрокова &amp;історія</translation>
     </message>
     <message>
         <source>Preflight &amp;Verifier</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Попередня перевірка</translation>
     </message>
     <message>
         <source>&amp;Align and Distribute</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Розташувати/Вирівняти</translation>
     </message>
     <message>
         <source>&amp;Tools</source>
-        <translation type="unfinished">&amp;Інструменти</translation>
+        <translation>&amp;Інструменти</translation>
     </message>
     <message>
         <source>P&amp;DF Tools</source>
-        <translation type="unfinished">PDF &amp;Інструменти</translation>
+        <translation>PDF &amp;Інструменти</translation>
     </message>
     <message>
         <source>Select Item</source>
-        <translation type="unfinished"></translation>
+        <translation>Вибрати об&apos;єкт</translation>
     </message>
     <message>
         <source>T&amp;able</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Таблиця</translation>
     </message>
     <message>
         <source>&amp;Shape</source>
-        <translation type="unfinished">&amp;Фігура</translation>
+        <translation>&amp;Фігура</translation>
     </message>
     <message>
         <source>&amp;Line</source>
-        <translation type="unfinished">&amp;Лінія</translation>
+        <translation>&amp;Лінія</translation>
     </message>
     <message>
         <source>&amp;Freehand Line</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Вільна лінія</translation>
     </message>
     <message>
         <source>Rotate Item</source>
-        <translation type="unfinished">Повернути об&apos;єкт</translation>
+        <translation>Повернути об&apos;єкт</translation>
     </message>
     <message>
         <source>Zoom in or out</source>
-        <translation type="unfinished">Змінити масштаб зображення</translation>
+        <translation>Змінити масштаб зображення</translation>
     </message>
     <message>
         <source>Zoom in</source>
-        <translation type="unfinished"></translation>
+        <translation>Збільшити масштаб зображення</translation>
     </message>
     <message>
         <source>Zoom out</source>
-        <translation type="unfinished"></translation>
+        <translation>Зменшити масштаб зображення</translation>
     </message>
     <message>
         <source>Edit Contents of Frame</source>
-        <translation type="unfinished">Редагувати зміст рамки</translation>
+        <translation>Редагувати зміст рамки</translation>
     </message>
     <message>
         <source>Edit Text...</source>
-        <translation type="unfinished">Редагувати текст...</translation>
+        <translation>Редагувати текст...</translation>
     </message>
     <message>
         <source>Link Text Frames</source>
-        <translation type="unfinished">Установити зв&apos;язок між текстовими рамками</translation>
+        <translation>Установити зв&apos;язок між текстовими рамками</translation>
     </message>
     <message>
         <source>Unlink Text Frames</source>
-        <translation type="unfinished">Розірвати зв&apos;язок між текстовими рамками</translation>
+        <translation>Розірвати зв&apos;язок між текстовими рамками</translation>
     </message>
     <message>
         <source>&amp;Eye Dropper</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Селектор кольору</translation>
     </message>
     <message>
         <source>Copy Item Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Копіювати властивості об&apos;єкта</translation>
     </message>
     <message>
         <source>Edit the text with the Story Editor</source>
-        <translation type="unfinished">Редагувати текст вбудованим редактором</translation>
+        <translation>Редагувати текст вбудованим редактором</translation>
     </message>
     <message>
         <source>Insert Text Frame</source>
-        <translation type="unfinished">Вставити текстову рамку</translation>
+        <translation>Вставити текстову рамку</translation>
     </message>
     <message>
         <source>Insert Image Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Вставити рамку для зображення</translation>
     </message>
     <message>
         <source>Insert Table</source>
-        <translation type="unfinished">Вставити таблицю</translation>
+        <translation>Вставити таблицю</translation>
     </message>
     <message>
         <source>Insert Shape</source>
-        <translation type="unfinished"></translation>
+        <translation>Вставити геометричну форму</translation>
     </message>
     <message>
         <source>Insert Polygon</source>
-        <translation type="unfinished"></translation>
+        <translation>Вставити полігон</translation>
     </message>
     <message>
         <source>Insert Line</source>
-        <translation type="unfinished"></translation>
+        <translation>Вставити лінію</translation>
     </message>
     <message>
         <source>Insert Bezier Curve</source>
-        <translation type="unfinished"></translation>
+        <translation>Вставити криву Безье</translation>
     </message>
     <message>
         <source>Insert Freehand Line</source>
-        <translation type="unfinished">Вставити вільно рисовану лінію</translation>
+        <translation>Вставити вільно рисовану лінію</translation>
     </message>
     <message>
         <source>&amp;Manage Pictures</source>
-        <translation type="unfinished">Керування &amp;зображеннями</translation>
+        <translation>Керування &amp;зображеннями</translation>
     </message>
     <message>
         <source>&amp;Hyphenate Text</source>
-        <translation type="unfinished">Пе&amp;ренос тексту</translation>
-    </message>
-    <message>
-        <source>Dehyphenate Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Пе&amp;ренос тексту</translation>
     </message>
     <message>
         <source>&amp;Generate Table Of Contents</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Генерувати зміст</translation>
     </message>
     <message>
         <source>&amp;About Scribus</source>
-        <translation type="unfinished">&amp;Про програму Scribus</translation>
+        <translation>&amp;Про програму Scribus</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
-        <translation type="unfinished">Про &amp;систему Qt</translation>
+        <translation>Про &amp;систему Qt</translation>
     </message>
     <message>
         <source>Toolti&amp;ps</source>
-        <translation type="unfinished">Пі&amp;дказки</translation>
+        <translation>Пі&amp;дказки</translation>
     </message>
     <message>
         <source>Scribus &amp;Manual...</source>
-        <translation type="unfinished">&amp;Довідка по Scribus...</translation>
+        <translation>&amp;Довідка по Scribus...</translation>
     </message>
     <message>
         <source>Smart &amp;Hyphen</source>
-        <translation type="unfinished"></translation>
+        <translation>Розумний знак &amp;переносу</translation>
     </message>
     <message>
         <source>Non Breaking Dash</source>
-        <translation type="unfinished"></translation>
+        <translation>Непереносне тире</translation>
     </message>
     <message>
         <source>Non Breaking &amp;Space</source>
-        <translation type="unfinished"></translation>
+        <translation>Непереносний промі&amp;жок</translation>
     </message>
     <message>
         <source>Page &amp;Number</source>
-        <translation type="unfinished"></translation>
+        <translation>Номер &amp;сторінки</translation>
     </message>
     <message>
         <source>New Line</source>
-        <translation type="unfinished"></translation>
+        <translation>Нова лінія</translation>
     </message>
     <message>
         <source>Frame Break</source>
-        <translation type="unfinished"></translation>
+        <translation>Розрив рамки</translation>
     </message>
     <message>
         <source>Column Break</source>
-        <translation type="unfinished"></translation>
+        <translation>Розрив колонки</translation>
     </message>
     <message>
         <source>Copyright</source>
-        <translation type="unfinished"></translation>
+        <translation>Копірайт</translation>
     </message>
     <message>
         <source>Registered Trademark</source>
-        <translation type="unfinished"></translation>
+        <translation>Зареєстрована торгова марка</translation>
     </message>
     <message>
         <source>Trademark</source>
-        <translation type="unfinished"></translation>
+        <translation>Торгова марка</translation>
     </message>
     <message>
         <source>Bullet</source>
-        <translation type="unfinished"></translation>
+        <translation>Куля</translation>
     </message>
     <message>
         <source>Em Dash</source>
-        <translation type="unfinished"></translation>
+        <translation>Ем риска</translation>
     </message>
     <message>
         <source>En Dash</source>
-        <translation type="unfinished"></translation>
+        <translation>Ен риска</translation>
     </message>
     <message>
         <source>Figure Dash</source>
-        <translation type="unfinished"></translation>
+        <translation>Фігурна риска</translation>
     </message>
     <message>
         <source>Quotation Dash</source>
-        <translation type="unfinished"></translation>
+        <translation>Цитатна риска</translation>
     </message>
     <message>
         <source>Apostrophe</source>
-        <translation type="unfinished"></translation>
+        <translation>Апостроф</translation>
     </message>
     <message>
         <source>Straight Double</source>
-        <translation type="unfinished"></translation>
+        <translation>Пряма подвійна</translation>
     </message>
     <message>
         <source>Single Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Пряма ліва</translation>
     </message>
     <message>
         <source>Single Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Пряма права</translation>
     </message>
     <message>
         <source>Double Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Подвійна ліва</translation>
     </message>
     <message>
         <source>Double Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Подвійна права</translation>
     </message>
     <message>
         <source>Single Reversed</source>
-        <translation type="unfinished"></translation>
+        <translation>Одинарна зворотня</translation>
     </message>
     <message>
         <source>Double Reversed</source>
-        <translation type="unfinished"></translation>
+        <translation>Подвійна зворотня</translation>
     </message>
     <message>
         <source>Single Left Guillemet</source>
-        <translation type="unfinished"></translation>
+        <translation>Одинарний лівий Гуілемет</translation>
     </message>
     <message>
         <source>Single Right Guillemet</source>
-        <translation type="unfinished"></translation>
+        <translation>Одинарний правий Гуілемет</translation>
     </message>
     <message>
         <source>Double Left Guillemet</source>
-        <translation type="unfinished"></translation>
+        <translation>Подвійний лівий Гуілемет</translation>
     </message>
     <message>
         <source>Double Right Guillemet</source>
-        <translation type="unfinished"></translation>
+        <translation>Подвійний правий Гуілемет</translation>
     </message>
     <message>
         <source>Low Single Comma</source>
-        <translation type="unfinished"></translation>
+        <translation>Низька одинарна кома</translation>
     </message>
     <message>
         <source>Low Double Comma</source>
-        <translation type="unfinished"></translation>
+        <translation>Низька подвійна кома</translation>
     </message>
     <message>
         <source>Double Turned Comma</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Подвійна повернута кома</translation>
     </message>
     <message>
         <source>CJK Single Left</source>
-        <translation type="unfinished"></translation>
+        <translation>CJK одинарний лівий</translation>
     </message>
     <message>
         <source>CJK Single Right</source>
-        <translation type="unfinished"></translation>
+        <translation>CJK одинарний правий</translation>
     </message>
     <message>
         <source>CJK Double Left</source>
-        <translation type="unfinished"></translation>
+        <translation>CJK подвійний лівий</translation>
     </message>
     <message>
         <source>CJK Double Right</source>
-        <translation type="unfinished"></translation>
+        <translation>CJK подвійний правий</translation>
     </message>
     <message>
         <source>Toggle Palettes</source>
-        <translation type="unfinished"></translation>
+        <translation>Переключити палітри</translation>
     </message>
     <message>
         <source>Toggle Guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Переключити направляючі</translation>
+    </message>
+    <message>
+        <source>Manage Page Properties...</source>
+        <translation>Керування установками сторінки...</translation>
+    </message>
+    <message>
+        <source>Rulers relative to Page</source>
+        <translation>Лінійки відносні до сторінки</translation>
+    </message>
+    <message>
+        <source>&amp;Arrange Pages</source>
+        <translation>&amp;Розмістити сторінки</translation>
+    </message>
+    <message>
+        <source>Dehyphenate Text</source>
+        <translation>Видалити переноси тексту</translation>
     </message>
     <message>
         <source>Print Previe&amp;w</source>
-        <translation type="unfinished">Перегляд перед д&amp;руком</translation>
+        <translation>Перегляд перед д&amp;руком</translation>
     </message>
     <message>
         <source>&amp;JavaScripts...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;JavaScript сценарії...</translation>
     </message>
     <message>
         <source>Convert to Master Page...</source>
-        <translation type="unfinished"></translation>
+        <translation>Конвертувати в головну сторінку...</translation>
     </message>
     <message>
         <source>&amp;Cascade</source>
-        <translation type="unfinished">&amp;Каскадне розміщення</translation>
+        <translation>&amp;Каскадне розміщення</translation>
     </message>
     <message>
         <source>&amp;Tile</source>
-        <translation type="unfinished">&amp;Мозаїчне розміщення</translation>
+        <translation>&amp;Мозаїчне розміщення</translation>
     </message>
     <message>
         <source>&amp;About Plug-ins</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Про модулі</translation>
     </message>
 </context>
 <context>
@@ -4079,159 +4223,163 @@ Not recommended unless
     <name>AlignDistributePalette</name>
     <message>
         <source>Align and Distribute</source>
-        <translation type="unfinished"></translation>
+        <translation>Розташувати/Вирівняти</translation>
     </message>
     <message>
         <source>Align</source>
-        <translation type="unfinished">Вирівняти</translation>
+        <translation>Вирівняти</translation>
     </message>
     <message>
         <source>&amp;Relative to:</source>
-        <translation type="unfinished"></translation>
+        <translation>В&amp;ідносно до:</translation>
     </message>
     <message>
         <source>First Selected</source>
-        <translation type="unfinished"></translation>
+        <translation>Перший вибраний</translation>
     </message>
     <message>
         <source>Last Selected</source>
-        <translation type="unfinished"></translation>
+        <translation>Останній вибраний</translation>
     </message>
     <message>
         <source>Page</source>
-        <translation type="unfinished">Сторінка</translation>
+        <translation>Сторінка</translation>
     </message>
     <message>
         <source>Margins</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Guide</source>
-        <translation type="unfinished"></translation>
+        <translation>Поля</translation>
     </message>
     <message>
         <source>Selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Вибірка</translation>
     </message>
     <message>
         <source>Align right sides of objects to left side of anchor</source>
-        <translation type="unfinished"></translation>
+        <translation>Вирівняти праві краї об&quot;єктів по лівій стороні якоря</translation>
     </message>
     <message>
         <source>Align left sides of objects to right side of anchor</source>
-        <translation type="unfinished"></translation>
+        <translation>Вирівняти ліві краї об&quot;єктів по правій стороні якоря</translation>
     </message>
     <message>
         <source>Align bottoms</source>
-        <translation type="unfinished"></translation>
+        <translation>Вирівняти нижні сторони</translation>
     </message>
     <message>
         <source>Align right sides</source>
-        <translation type="unfinished"></translation>
+        <translation>Вирівняти по правому краю</translation>
     </message>
     <message>
         <source>Align tops of objects to bottom of anchor</source>
-        <translation type="unfinished"></translation>
+        <translation>Вирівняти об&quot;єкти по низу якоря</translation>
     </message>
     <message>
         <source>Center on vertical axis</source>
-        <translation type="unfinished"></translation>
+        <translation>Центрувати по вертикальній вісі</translation>
     </message>
     <message>
         <source>Align left sides</source>
-        <translation type="unfinished"></translation>
+        <translation>Вирівняти по лівому краю</translation>
     </message>
     <message>
         <source>Center on horizontal axis</source>
-        <translation type="unfinished"></translation>
+        <translation>Центрувати по горизонтальній вісі</translation>
     </message>
     <message>
         <source>Align bottoms of objects to top of anchor</source>
-        <translation type="unfinished"></translation>
+        <translation>Вирівняти низи об&quot;єктів по верху якоря</translation>
     </message>
     <message>
         <source>Align tops</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Selected Guide:</source>
-        <translation type="unfinished"></translation>
+        <translation>Вирівняти верхи</translation>
     </message>
     <message>
         <source>Distribute</source>
-        <translation type="unfinished"></translation>
+        <translation>Розсередити</translation>
     </message>
     <message>
         <source>Make horizontal gaps between objects equal</source>
-        <translation type="unfinished"></translation>
+        <translation>Зробити одинаковими горизонтальні проміжки між об&quot;єктами</translation>
     </message>
     <message>
         <source>Make horizontal gaps between objects equal to the value specified</source>
-        <translation type="unfinished"></translation>
+        <translation>Установити задані горизонтальні проміжки між об&quot;єктами</translation>
     </message>
     <message>
         <source>Distribute right sides equidistantly</source>
-        <translation type="unfinished"></translation>
+        <translation>Рівномірно розподілити об&quot;єкти по правому краю</translation>
     </message>
     <message>
         <source>Distribute bottoms equidistantly</source>
-        <translation type="unfinished"></translation>
+        <translation>Рівномірно розподілити об&quot;єкти по нижньому краю</translation>
     </message>
     <message>
         <source>Distribute centers equidistantly horizontally</source>
-        <translation type="unfinished"></translation>
+        <translation> Рівномірно розподілити об&quot;єкти по центрах</translation>
     </message>
     <message>
         <source>Make vertical gaps between objects equal</source>
-        <translation type="unfinished"></translation>
+        <translation>Зробити одинаковими вертикальні проміжки між об&quot;єктами</translation>
     </message>
     <message>
         <source>Make vertical gaps between objects equal to the value specified</source>
-        <translation type="unfinished"></translation>
+        <translation>Установити задані вертикальні проміжки між об&quot;єктами</translation>
     </message>
     <message>
         <source>Distribute left sides equidistantly</source>
-        <translation type="unfinished"></translation>
+        <translation>Рівномірно розподілити об&quot;єкти по лівому краю</translation>
     </message>
     <message>
         <source>Distribute centers equidistantly vertically</source>
-        <translation type="unfinished"></translation>
+        <translation> Рівномірно розподілити об&quot;єкти по центрах по вертикалі</translation>
     </message>
     <message>
         <source>Distribute tops equidistantly</source>
-        <translation type="unfinished"></translation>
+        <translation>Рівномірно розподілити об&quot;єкти по верхньому краю</translation>
     </message>
     <message>
         <source>&amp;Distance:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Відстань:</translation>
     </message>
     <message>
         <source>Distribute the items with the distance specified</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>None Selected</source>
-        <translation type="unfinished"></translation>
+        <translation>Розподілити об&quot;єкти на вказану відстань</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation type="unfinished">Застереження</translation>
+        <translation>Застереження</translation>
     </message>
     <message>
         <source>Some objects are locked.</source>
-        <translation type="unfinished"></translation>
+        <translation>Деякі об&quot;єкти - замкнені.</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">В&amp;ихід</translation>
     </message>
     <message>
         <source>&amp;Unlock All</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Розімкнути всі об&quot;єкти</translation>
+    </message>
+    <message>
+        <source>Guide</source>
+        <translation>Направляюча</translation>
+    </message>
+    <message>
+        <source>&amp;Selected Guide:</source>
+        <translation>&amp;Вибрана направляюча:</translation>
+    </message>
+    <message>
+        <source>None Selected</source>
+        <translation>Нічого не було вибрано</translation>
     </message>
     <message>
         <source>Y: %1%2</source>
-        <translation type="unfinished"></translation>
+        <translation>Y: %1%2</translation>
     </message>
     <message>
         <source>X: %1%2</source>
-        <translation type="unfinished"></translation>
+        <translation>X: %1%2</translation>
     </message>
 </context>
 <context>
@@ -4793,11 +4941,11 @@ Not recommended unless
     </message>
     <message>
         <source>JavaScript</source>
-        <translation type="unfinished"></translation>
+        <translation>JavaScript</translation>
     </message>
     <message>
         <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Зображення (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;Всі файли (*)</translation>
     </message>
 </context>
 <context>
@@ -4871,75 +5019,83 @@ Not recommended unless
     <name>ApplyMasterPageDialog</name>
     <message>
         <source>Normal</source>
-        <translation type="unfinished"></translation>
+        <translation>Звичайна</translation>
     </message>
     <message>
         <source>Apply Master Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Застосувати головну сторінку</translation>
     </message>
     <message>
         <source>&amp;Master Page:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Головна сторінка:</translation>
     </message>
     <message>
         <source>Apply To</source>
-        <translation type="unfinished"></translation>
+        <translation>Застосувати до</translation>
     </message>
     <message>
         <source>Current &amp;page</source>
-        <translation type="unfinished"></translation>
+        <translation>Активна &amp;сторінка</translation>
     </message>
     <message>
         <source>Alt+P</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+P</translation>
     </message>
     <message>
         <source>&amp;Even pages</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Парні сторінки</translation>
     </message>
     <message>
         <source>Alt+E</source>
-        <translation type="unfinished">Alt+E</translation>
+        <translation>Alt+E</translation>
     </message>
     <message>
         <source>O&amp;dd pages</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Непарні сторінки</translation>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation type="unfinished">Alt+D</translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
         <source>&amp;All pages</source>
-        <translation type="unfinished">&amp;Всі сторінки</translation>
+        <translation>&amp;Всі сторінки</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished">Alt+A</translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <source>&amp;Within range</source>
-        <translation type="unfinished"></translation>
+        <translation>В д&amp;іапазоні</translation>
     </message>
     <message>
         <source>Alt+W</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+W</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Apply the selected template to even, odd or all pages within the following range&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Застосувати вибраний шаблон на парних, непарних чи всіх сторінках в такому діапазоні&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>to</source>
-        <translation type="unfinished">до</translation>
+        <translation>до</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;Гаразд</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
+        <translation>Alt+O</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">В&amp;ихід</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
 </context>
 <context>
@@ -4989,7 +5145,7 @@ Not recommended unless
     <name>ArrowChooser</name>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Нічого</translation>
     </message>
 </context>
 <context>
@@ -5075,6 +5231,10 @@ Please choose another.</source>
     <message>
         <source>&amp;Name:</source>
         <translation>&amp;Ім&apos;я:</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;Гаразд</translation>
     </message>
 </context>
 <context>
@@ -5322,19 +5482,19 @@ It is recommended that you enable this if you have photos in your document.</sou
     </message>
     <message>
         <source>&amp;RGB Pictures:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;RGB зображення:</translation>
     </message>
     <message>
         <source>&amp;CMYK Pictures:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;CMYK зображення:</translation>
     </message>
     <message>
         <source>Default color profile for imported CMYK images</source>
-        <translation type="unfinished"></translation>
+        <translation>Стандартний кольоровий профіль для імпортованих CMYK зображень</translation>
     </message>
     <message>
         <source>Default color profile for imported RGB images</source>
-        <translation type="unfinished"></translation>
+        <translation>Стандартний кольоровий профіль для імпортованих RGB зображень</translation>
     </message>
 </context>
 <context>
@@ -5447,11 +5607,11 @@ It&apos;s a reserved name for transparent color</source>
     </message>
     <message>
         <source>Is Spot Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Точковий колір</translation>
     </message>
     <message>
         <source>Is Registration Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Реєстраційний колір</translation>
     </message>
 </context>
 <context>
@@ -5462,240 +5622,235 @@ and hold down the right mouse button
 
 The Insert key inserts a Glyph into the Selection below
 and the Delete key removes the last inserted one</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви можете побачити зменшене зображення, якщо Ви натиснете і триматимете праву клавішу миші
+
+Клавіша вставки виконує вставку символа у вибірку внизу, а клавіша виділення виконує виділення останнього вставленого символа</translation>
     </message>
 </context>
 <context>
     <name>CharSelect</name>
     <message>
         <source>Select Character:</source>
-        <translation type="unfinished">Вибрати символ:</translation>
+        <translation>Вибрати символ:</translation>
     </message>
     <message>
         <source>Font:</source>
-        <translation type="unfinished">Шрифт:</translation>
+        <translation>Шрифт:</translation>
     </message>
     <message>
         <source>Character Class:</source>
-        <translation type="unfinished"></translation>
+        <translation>Символьний клас:</translation>
     </message>
     <message>
         <source>&amp;Insert</source>
-        <translation type="unfinished">&amp;Вставити</translation>
+        <translation>&amp;Вставити</translation>
     </message>
     <message>
         <source>C&amp;lear</source>
-        <translation type="unfinished">О&amp;чистити</translation>
+        <translation>О&amp;чистити</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished">&amp;Зачинити</translation>
+        <translation>&amp;Зачинити</translation>
     </message>
     <message>
         <source>Insert the characters at the cursor in the text</source>
-        <translation type="unfinished">Вставити символи в текст в місці знаходження курсора</translation>
+        <translation>Вставити символи в текст в місці знаходження курсора</translation>
     </message>
     <message>
         <source>Delete the current selection(s).</source>
-        <translation type="unfinished">Видалити активну вибірку.</translation>
+        <translation>Видалити активну вибірку.</translation>
     </message>
     <message>
         <source>Close this dialog and return to text editing.</source>
-        <translation type="unfinished">Зачинити цей діалог та повернутися до редагування тексту.</translation>
+        <translation>Зачинити цей діалог та повернутися до редагування тексту.</translation>
     </message>
     <message>
         <source>Full Character Set</source>
-        <translation type="unfinished"></translation>
+        <translation>Повний набір символів</translation>
     </message>
     <message>
         <source>Basic Latin</source>
-        <translation type="unfinished"></translation>
+        <translation>Елементарна Латиниця</translation>
     </message>
     <message>
         <source>Latin-1 Supplement</source>
-        <translation type="unfinished"></translation>
+        <translation>Latin-1 додаток</translation>
     </message>
     <message>
         <source>Latin Extended-A</source>
-        <translation type="unfinished"></translation>
+        <translation>Розширена латиниця-А</translation>
     </message>
     <message>
         <source>Latin Extended-B</source>
-        <translation type="unfinished"></translation>
+        <translation>Розширена латиниця-B</translation>
     </message>
     <message>
         <source>General Punctuation</source>
-        <translation type="unfinished"></translation>
+        <translation>Основні знаки пунктуації</translation>
     </message>
     <message>
         <source>Super- and Subscripts</source>
-        <translation type="unfinished"></translation>
+        <translation>Верхній та нижній індекси</translation>
     </message>
     <message>
         <source>Currency Symbols</source>
-        <translation type="unfinished"></translation>
+        <translation>Знаки валют</translation>
     </message>
     <message>
         <source>Letterlike Symbols</source>
-        <translation type="unfinished"></translation>
+        <translation>Літерні символи</translation>
     </message>
     <message>
         <source>Number Forms</source>
-        <translation type="unfinished"></translation>
+        <translation>Числові форми</translation>
     </message>
     <message>
         <source>Arrows</source>
-        <translation type="unfinished"></translation>
+        <translation>Стрілки</translation>
     </message>
     <message>
         <source>Mathematical Operators</source>
-        <translation type="unfinished"></translation>
+        <translation>Математичні оператори</translation>
     </message>
     <message>
         <source>Box Drawing</source>
-        <translation type="unfinished"></translation>
+        <translation>Знаки рисування стінок</translation>
     </message>
     <message>
         <source>Block Elements</source>
-        <translation type="unfinished"></translation>
+        <translation>Блокові елементи</translation>
     </message>
     <message>
         <source>Geometric Shapes</source>
-        <translation type="unfinished"></translation>
+        <translation>Геометричні форми</translation>
     </message>
     <message>
         <source>Miscellaneous Symbols</source>
-        <translation type="unfinished"></translation>
+        <translation>Різні символи</translation>
     </message>
     <message>
         <source>Dingbats</source>
-        <translation type="unfinished"></translation>
+        <translation>Іконки</translation>
     </message>
     <message>
         <source>Small Form Variants</source>
-        <translation type="unfinished"></translation>
+        <translation>Зменшені варіанти</translation>
     </message>
     <message>
         <source>Ligatures</source>
-        <translation type="unfinished"></translation>
+        <translation>Лігатури</translation>
     </message>
     <message>
         <source>Specials</source>
-        <translation type="unfinished"></translation>
+        <translation>Особливі</translation>
     </message>
     <message>
         <source>Greek</source>
-        <translation type="unfinished">Грецька</translation>
+        <translation>Грецька</translation>
     </message>
     <message>
         <source>Greek Extended</source>
-        <translation type="unfinished"></translation>
+        <translation>Розширена грецька</translation>
     </message>
     <message>
         <source>Cyrillic</source>
-        <translation type="unfinished"></translation>
+        <translation>Кирилиця</translation>
     </message>
     <message>
         <source>Cyrillic Supplement</source>
-        <translation type="unfinished"></translation>
+        <translation>Розширена кирилиця</translation>
     </message>
     <message>
         <source>Arabic</source>
-        <translation type="unfinished"></translation>
+        <translation>Арабська</translation>
     </message>
     <message>
         <source>Arabic Extended A</source>
-        <translation type="unfinished"></translation>
+        <translation>Розширена арабська А</translation>
     </message>
     <message>
         <source>Arabic Extended B</source>
-        <translation type="unfinished"></translation>
+        <translation>Розширена арабська B</translation>
     </message>
     <message>
         <source>Hebrew</source>
-        <translation type="unfinished"></translation>
+        <translation>Іврит</translation>
     </message>
 </context>
 <context>
     <name>CheckDocument</name>
     <message>
         <source>Glyphs missing</source>
-        <translation type="unfinished"></translation>
+        <translation>Відсутні знаки</translation>
     </message>
     <message>
         <source>Text overflow</source>
-        <translation type="unfinished"></translation>
+        <translation>Текст виходить за рамку</translation>
     </message>
     <message>
         <source>Object is not on a Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Об&quot;єкт відсутній на сторінці</translation>
     </message>
     <message>
         <source>Missing Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Відсутнє зображення</translation>
     </message>
     <message>
         <source>Image has a DPI-Value less than %1 DPI</source>
-        <translation type="unfinished"></translation>
+        <translation>Зображення має значення DPI менше ніж %1 DPI</translation>
     </message>
     <message>
         <source>Object has transparency</source>
-        <translation type="unfinished"></translation>
+        <translation>Об&quot;єкт містить прозорість</translation>
     </message>
     <message>
         <source>Object is a PDF Annotation or Field</source>
-        <translation type="unfinished"></translation>
+        <translation>Об&quot;єкт являється анотацією або полем PDF</translation>
     </message>
     <message>
         <source>Object is a placed PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>Об&quot;єкт являються вміщеним PDF</translation>
     </message>
     <message>
         <source>Document</source>
-        <translation type="unfinished">Документ</translation>
+        <translation>Документ</translation>
     </message>
     <message>
         <source>No Problems found</source>
-        <translation type="unfinished"></translation>
+        <translation>Проблем не знайдено</translation>
     </message>
     <message>
         <source>Page </source>
-        <translation type="unfinished">Сторінка</translation>
+        <translation>Сторінка</translation>
     </message>
     <message>
         <source>Free Objects</source>
-        <translation type="unfinished"></translation>
+        <translation>Вільні об&quot;єкти</translation>
     </message>
     <message>
         <source>Problems found</source>
-        <translation type="unfinished"></translation>
+        <translation>Знайдено проблеми</translation>
     </message>
     <message>
         <source>Preflight Verifier</source>
-        <translation type="unfinished"></translation>
+        <translation>Передекспортна перевірка</translation>
     </message>
     <message>
         <source>Items</source>
-        <translation type="unfinished"></translation>
+        <translation>Об&quot;єкти</translation>
     </message>
     <message>
         <source>Problems</source>
-        <translation type="unfinished"></translation>
+        <translation>Проблеми</translation>
     </message>
     <message>
         <source>Current Profile:</source>
-        <translation type="unfinished"></translation>
+        <translation>Активний профіль:</translation>
     </message>
     <message>
         <source>&amp;Ignore Errors</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>CheckerPrefsList</name>
-    <message>
-        <source>Postscript</source>
-        <translation type="obsolete">Постскрипт</translation>
+        <translation>&amp;Ігнорувати помилки</translation>
     </message>
 </context>
 <context>
@@ -5721,162 +5876,151 @@ and the Delete key removes the last inserted one</source>
     <name>CollectForOutput</name>
     <message>
         <source>Choose a Directory</source>
-        <translation type="unfinished">Вибрати директорію</translation>
+        <translation>Виберіть директорію</translation>
     </message>
     <message>
         <source>Collecting...</source>
-        <translation type="unfinished"></translation>
+        <translation>Збірка...</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation type="unfinished">Застереження</translation>
+        <translation>Застереження</translation>
     </message>
     <message>
         <source>Cannot collect all files for output for file:
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо зібрати всі файли для виводу для файла:
+%1</translation>
     </message>
 </context>
 <context>
     <name>ColorWheel</name>
     <message>
         <source>Monochromatic</source>
-        <translation type="unfinished"></translation>
+        <translation>Монохромний</translation>
     </message>
     <message>
         <source>Analogous</source>
-        <translation type="unfinished"></translation>
+        <translation>Аналоговий</translation>
     </message>
     <message>
         <source>Complementary</source>
-        <translation type="unfinished"></translation>
+        <translation>Комплементарний</translation>
     </message>
     <message>
         <source>Split Complementary</source>
-        <translation type="unfinished"></translation>
+        <translation>Роздільно комплементарний</translation>
     </message>
     <message>
         <source>Triadic</source>
-        <translation type="unfinished"></translation>
+        <translation>Тріадний</translation>
     </message>
     <message>
         <source>Tetradic (Double Complementary)</source>
-        <translation type="unfinished"></translation>
+        <translation>Тетраедрний (подвійно комплементарний)</translation>
     </message>
     <message>
         <source>Base Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Основний колір</translation>
     </message>
     <message>
         <source>Monochromatic Light</source>
-        <translation type="unfinished"></translation>
+        <translation>Монохромне світле</translation>
     </message>
     <message>
         <source>Monochromatic Dark</source>
-        <translation type="unfinished"></translation>
+        <translation>Монохромне темне</translation>
     </message>
     <message>
         <source>1st. Analogous</source>
-        <translation type="unfinished"></translation>
+        <translation>Перше аналогове</translation>
     </message>
     <message>
         <source>2nd. Analogous</source>
-        <translation type="unfinished"></translation>
+        <translation>Друге аналогове</translation>
     </message>
     <message>
         <source>1st. Split</source>
-        <translation type="unfinished"></translation>
+        <translation>Перший розділ</translation>
     </message>
     <message>
         <source>2nd. Split</source>
-        <translation type="unfinished"></translation>
+        <translation>Другий розділ</translation>
     </message>
     <message>
         <source>3rd. Split</source>
-        <translation type="unfinished"></translation>
+        <translation>Третій розділ</translation>
     </message>
     <message>
         <source>4th. Split</source>
-        <translation type="unfinished"></translation>
+        <translation>Четвертий розділ</translation>
     </message>
     <message>
         <source>1st. Triadic</source>
-        <translation type="unfinished"></translation>
+        <translation>Перший тріадний</translation>
     </message>
     <message>
         <source>2nd. Triadic</source>
-        <translation type="unfinished"></translation>
+        <translation>Другий тріадний</translation>
     </message>
     <message>
         <source>1st. Tetradic (base opposite)</source>
-        <translation type="unfinished"></translation>
+        <translation>Перший тетраедрний (протилежно основі)</translation>
     </message>
     <message>
         <source>2nd. Tetradic (angle)</source>
-        <translation type="unfinished"></translation>
+        <translation>Другий тетраедрний (кут)</translation>
     </message>
     <message>
         <source>3rd. Tetradic (angle opposite)</source>
-        <translation type="unfinished"></translation>
+        <translation>Третій тетраедрний (протилежно куту)</translation>
     </message>
 </context>
 <context>
     <name>ColorWheelDialog</name>
     <message>
-        <source>Normal Vision</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Full Color Blindness</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Vision Defect:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Color Wheel</source>
-        <translation type="unfinished"></translation>
+        <translation>Колесо кольорів</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation type="unfinished">Колір</translation>
+        <translation>Колір</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished">Ім&apos;я</translation>
+        <translation>Ім&apos;я</translation>
     </message>
     <message>
         <source>C</source>
-        <translation type="unfinished">С</translation>
+        <translation>С</translation>
     </message>
     <message>
         <source>M</source>
-        <translation type="unfinished"></translation>
+        <translation>M</translation>
     </message>
     <message>
         <source>Y</source>
-        <translation type="unfinished"></translation>
+        <translation>Y</translation>
     </message>
     <message>
         <source>K</source>
-        <translation type="unfinished"></translation>
+        <translation>K</translation>
     </message>
     <message>
         <source>Select Method:</source>
-        <translation type="unfinished"></translation>
+        <translation>Вибрати метод:</translation>
     </message>
     <message>
         <source>Angle (0 - 90 degrees):</source>
-        <translation type="unfinished"></translation>
+        <translation>Кут (0 - 90 градусів):</translation>
     </message>
     <message>
         <source>&amp;Merge Colors</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Об&quot;єднати кольори</translation>
     </message>
     <message>
         <source>&amp;Replace Colors</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Замінити кольори</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -5884,160 +6028,200 @@ and the Delete key removes the last inserted one</source>
     </message>
     <message>
         <source>Merge created colors into the document colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Ввести створені кольори в кольори документу</translation>
     </message>
     <message>
         <source>Replace created colors in the document colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Замінити кольори документу створеними кольорами</translation>
     </message>
     <message>
         <source>Leave colors untouched</source>
-        <translation type="unfinished"></translation>
+        <translation>Залишити кольори без змін</translation>
+    </message>
+    <message>
+        <source>Difference between selected value and counted ones. See documentation for more info</source>
+        <translation type="obsolete">Різниця між вибраним значенням і вирахуваним числом. Дивіться додаткову інформацію в документації</translation>
+    </message>
+    <message>
+        <source>Click the wheel to get base color</source>
+        <translation type="obsolete">Клацніть на колесі, щоб вибрати базовий колір</translation>
+    </message>
+    <message>
+        <source>Here you have the sample color schema</source>
+        <translation type="obsolete">Тут розміщена зразкова кольорова схема</translation>
+    </message>
+    <message>
+        <source>Select one of the method to create color schema. See documentation for more info</source>
+        <translation type="obsolete">Виберіть один з методів створення кольорової схеми. Дивіться додаткову інформацію в документації</translation>
+    </message>
+    <message>
+        <source>Here you have the color of your chosen color schema</source>
+        <translation type="obsolete">Тут розміщені кольори вибраної кольорової схеми</translation>
     </message>
     <message>
         <source>Merging colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Поєднання кольорів</translation>
     </message>
     <message>
         <source>Error: </source>
-        <translation type="unfinished"></translation>
+        <translation>Помилка:</translation>
     </message>
     <message>
         <source>Now opening the color manager.</source>
-        <translation type="unfinished"></translation>
+        <translation>Відкриття менеджера кольорів.</translation>
     </message>
     <message>
         <source>Color Merging</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Protanopia (red)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Deuteranopia (green)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tritanopia (blue)</source>
-        <translation type="unfinished"></translation>
+        <translation>Об&quot;єднання кольорів</translation>
     </message>
     <message>
         <source>Cr&amp;eate color...</source>
-        <translation type="unfinished"></translation>
+        <translation>Ст&amp;ворити колір...</translation>
     </message>
     <message>
         <source>&amp;Import existing color...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Імпортувати існуючий колір...</translation>
     </message>
     <message>
         <source>&amp;Merge colors</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Об&apos;єднати кольори</translation>
     </message>
     <message>
         <source>&amp;Replace colors</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Замінити кольори</translation>
     </message>
     <message>
         <source>E&amp;xit</source>
-        <translation type="unfinished"></translation>
+        <translation>В&amp;ихід</translation>
     </message>
     <message>
         <source>C&amp;olor</source>
-        <translation type="unfinished">&amp;Колір</translation>
+        <translation>&amp;Колір</translation>
+    </message>
+    <message>
+        <source>Normal Vision</source>
+        <translation>Нормальний зір</translation>
+    </message>
+    <message>
+        <source>Protanopia (red)</source>
+        <translation>Протанопія (червоний)</translation>
+    </message>
+    <message>
+        <source>Deuteranopia (green)</source>
+        <translation>Дейтеранопія (зелений)</translation>
+    </message>
+    <message>
+        <source>Tritanopia (blue)</source>
+        <translation>Тританопія (блакитний)</translation>
+    </message>
+    <message>
+        <source>Full Color Blindness</source>
+        <translation>Повний дальтонізм</translation>
+    </message>
+    <message>
+        <source>Vision Defect:</source>
+        <translation>Дефект зору:</translation>
     </message>
     <message>
         <source>Saturation:</source>
-        <translation type="unfinished"></translation>
+        <translation>Насичення:</translation>
     </message>
     <message>
         <source>Value:</source>
-        <translation type="unfinished"></translation>
+        <translation>Значення:</translation>
     </message>
     <message>
         <source>Difference between the selected value and the counted ones. Refer to documentation for more information.</source>
-        <translation type="unfinished"></translation>
+        <translation>Різниця між вибраним значенням та вирахуваними. Зверніться до документації за додатковою інформацією.</translation>
     </message>
     <message>
         <source>Saturation component in HSV mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Компонент насиченості в режимі ВНЗ</translation>
     </message>
     <message>
         <source>Value component in HSV mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Компонент значення в режимі ВНЗ</translation>
     </message>
     <message>
         <source>Click the wheel to get the base color. It is hue in HSV mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>Клацніть на колесі, щоб отримати основний колір. Це компонент відтінок в режимі ВНЗ.</translation>
     </message>
     <message>
         <source>Sample color scheme</source>
-        <translation type="unfinished"></translation>
+        <translation>Проста кольорова схема</translation>
     </message>
     <message>
         <source>Select one of the methods to create a color scheme. Refer to documentation for more information.</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть один з методів для створення кольорової схеми. Зверніться до документації за додатковою інформацією.</translation>
     </message>
     <message>
         <source>Colors of your chosen color scheme</source>
-        <translation type="unfinished"></translation>
+        <translation>Кольори в вибраній Вами кольоровій схемі</translation>
     </message>
     <message>
         <source>Simulate common vision defects here. Select type of the defect.</source>
-        <translation type="unfinished"></translation>
+        <translation>Симуляція найбіль поширених недоліків зору. Виберіть тип недоліку.</translation>
+    </message>
+    <message>
+        <source>Color %1 exists already!</source>
+        <translation>Колір %1 вже існує!</translation>
+    </message>
+    <message>
+        <source>Color %1 appended.</source>
+        <translation>Колір %1 додано.</translation>
     </message>
     <message>
         <source>New Color</source>
-        <translation type="unfinished">Новий колір</translation>
+        <translation>Новий колір</translation>
     </message>
     <message>
         <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо знайти зазначений колір. Ви, можливо, вибрали чорний, сірий, чи білий. Цей колір не може бути опрацьовано.</translation>
     </message>
 </context>
 <context>
     <name>ColorWheelPlugin</name>
     <message>
         <source>&amp;Color Wheel...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Колесо кольорів...</translation>
     </message>
     <message>
         <source>Color setting helper</source>
-        <translation type="unfinished"></translation>
+        <translation>Допомога для кольорових установок</translation>
     </message>
     <message>
         <source>Color selector with color theory included.</source>
-        <translation type="unfinished"></translation>
+        <translation>Вибір кольору з включеною теорією кольору.</translation>
     </message>
 </context>
 <context>
     <name>CommonStrings</name>
     <message>
         <source>&amp;Apply</source>
-        <translation type="unfinished">&amp;Застосувати</translation>
+        <translation>&amp;Застосувати</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">В&amp;ихід</translation>
+        <translation>В&amp;ихід</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Нічого</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;Гаразд</translation>
+        <translation>&amp;Гаразд</translation>
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation type="unfinished">&amp;Записати</translation>
+        <translation>&amp;Записати</translation>
     </message>
 </context>
 <context>
     <name>Cpalette</name>
     <message>
         <source>Normal</source>
-        <translation>Нормальне</translation>
+        <translation>Звичайний</translation>
     </message>
     <message>
         <source>Horizontal Gradient</source>
@@ -6141,11 +6325,11 @@ and the Delete key removes the last inserted one</source>
     </message>
     <message>
         <source>Move Vector</source>
-        <translation type="unfinished"></translation>
+        <translation>Перемістити вектор</translation>
     </message>
     <message>
         <source>Move the start of the gradient vector with the left mouse button pressed and move the end of the gradient vector with the right mouse button pressed</source>
-        <translation type="unfinished"></translation>
+        <translation>Перемістити початок вектора градієнта натиснувши ліву клавішу миші, або перемістити кінець вектора градієнта натиснувши праву клавішу миші</translation>
     </message>
 </context>
 <context>
@@ -6301,7 +6485,7 @@ This can be set in the Preferences.</source>
     <name>DeferredTask</name>
     <message>
         <source>Cancelled by user</source>
-        <translation type="unfinished"></translation>
+        <translation>Відмінено користувачем</translation>
     </message>
 </context>
 <context>
@@ -6344,11 +6528,11 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>Delete Color:</source>
-        <translation type="unfinished"></translation>
+        <translation>Видалити колір:</translation>
     </message>
     <message>
         <source>Replace With:</source>
-        <translation type="unfinished"></translation>
+        <translation>Замінити на:</translation>
     </message>
 </context>
 <context>
@@ -6375,7 +6559,7 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>Delete From:</source>
-        <translation type="unfinished"></translation>
+        <translation>Видалити з:</translation>
     </message>
 </context>
 <context>
@@ -6558,134 +6742,134 @@ optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH<
     </message>
     <message>
         <source>Documen&amp;t</source>
-        <translation type="unfinished"></translation>
+        <translation>Докумен&amp;т</translation>
     </message>
     <message>
         <source>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>Людина чи організація відповідальна за створення вмісту документа. Це поле може бути вбудоване в документ Scribus і в метадані PDF документа для довідки</translation>
     </message>
     <message>
         <source>A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>Ім&quot;я задане в документі. Це поле може бути вбудоване в документ Scribus і в метадані PDF документа для довідки</translation>
     </message>
     <message>
         <source>An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
-        <translation type="unfinished"></translation>
+        <translation>Зміст документа. Це поле призначене для короткого опису чи абстракта документа. Вбудовується в PDF документ при експортуванні</translation>
     </message>
     <message>
         <source>The topic of the content of the document. This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
-        <translation type="unfinished"></translation>
+        <translation>Заголовок змісту документа. Це поле для ключових слів, які будуть вбудовані в PDF для полегшення пошуку та індексування PDF файлів</translation>
     </message>
     <message>
         <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting. RFC2045,RFC2046 for MIME types are also useful here</source>
-        <translation type="unfinished"></translation>
+        <translation>Фізичне чи цифрове представлення документа, такі як тип носія та його розмір. RFC2045 та RFC2046 для типів MIME також можуть бути корисними</translation>
     </message>
     <message>
         <source>The language in which the content of the document is written, usually a ISO-639 language code optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH</source>
-        <translation type="unfinished"></translation>
+        <translation>Мова на якій написано вміст документа. Звичайно це код ISO-639 з необов&quot;язковим суфіксом через тире - код країни по ISO-3166. Наприклад en-GB, fr-CH</translation>
     </message>
 </context>
 <context>
     <name>DocumentItemAttributes</name>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Нічого</translation>
     </message>
     <message>
         <source>Relates To</source>
-        <translation type="unfinished"></translation>
+        <translation>Відноситься до</translation>
     </message>
     <message>
         <source>Is Parent Of</source>
-        <translation type="unfinished"></translation>
+        <translation>Батько</translation>
     </message>
     <message>
         <source>Is Child Of</source>
-        <translation type="unfinished"></translation>
+        <translation>Дитина</translation>
     </message>
     <message>
         <source>Text Frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Текстові рамки</translation>
     </message>
     <message>
         <source>Image Frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Рамки для зображень</translation>
     </message>
     <message>
         <source>Boolean</source>
-        <translation type="unfinished"></translation>
+        <translation>Булеве</translation>
     </message>
     <message>
         <source>Integer</source>
-        <translation type="unfinished"></translation>
+        <translation>Ціле</translation>
     </message>
     <message>
         <source>String</source>
-        <translation type="unfinished"></translation>
+        <translation>Строкова величина</translation>
     </message>
     <message>
         <source>Document Item Attributes</source>
-        <translation type="unfinished"></translation>
+        <translation>Атрибути об&apos;єкта документа</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished">Ім&apos;я</translation>
+        <translation>Ім&apos;я</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation type="unfinished">Тип</translation>
+        <translation>Тип</translation>
     </message>
     <message>
         <source>Value</source>
-        <translation type="unfinished">Значення</translation>
+        <translation>Значення</translation>
     </message>
     <message>
         <source>Parameter</source>
-        <translation type="unfinished"></translation>
+        <translation>Параметр</translation>
     </message>
     <message>
         <source>Relationship</source>
-        <translation type="unfinished"></translation>
+        <translation>Зв&apos;язок</translation>
     </message>
     <message>
         <source>Relationship To</source>
-        <translation type="unfinished"></translation>
+        <translation>Зв&apos;язок з</translation>
     </message>
     <message>
         <source>Auto Add To</source>
-        <translation type="unfinished"></translation>
+        <translation>Автоматично додати до</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished">&amp;Додати</translation>
+        <translation>&amp;Додати</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished">Alt+A</translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation type="unfinished">&amp;Скопіювати</translation>
+        <translation>&amp;Копіювати</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Видалити</translation>
+        <translation>&amp;Видалити</translation>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation type="unfinished">Alt+D</translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
         <source>C&amp;lear</source>
-        <translation type="unfinished">О&amp;чистити</translation>
+        <translation>О&amp;чистити</translation>
     </message>
     <message>
         <source>Alt+L</source>
-        <translation type="unfinished">Alt+L</translation>
+        <translation>Alt+L</translation>
     </message>
 </context>
 <context>
@@ -6817,77 +7001,83 @@ to utilize additional printing options</source>
 чи gtklp, для доступу до додаткових установок друку</translation>
     </message>
     <message>
+        <source>Postscript Files (*.ps);;All Files (*)</source>
+        <translation type="obsolete">Файли Postscript (*.ps);;Всі файли (*)</translation>
+    </message>
+    <message>
         <source>Print Normal</source>
-        <translation type="unfinished"></translation>
+        <translation>Звичайний друк</translation>
     </message>
     <message>
         <source>Print Separations</source>
-        <translation type="unfinished"></translation>
+        <translation>Друкувати окремі кольори</translation>
     </message>
     <message>
         <source>Print in Color if Available</source>
-        <translation type="unfinished"></translation>
+        <translation>Друкувати в кольорі, якщо можливо</translation>
     </message>
     <message>
         <source>Print in Grayscale</source>
-        <translation type="unfinished"></translation>
+        <translation>Друкувати у відтінках сірого кольору</translation>
     </message>
     <message>
         <source>PostScript Level 1</source>
-        <translation type="unfinished"></translation>
+        <translation>Постскрипт 1-го рівня</translation>
     </message>
     <message>
         <source>PostScript Level 2</source>
-        <translation type="unfinished"></translation>
+        <translation>Постскрипт 2-го рівня</translation>
     </message>
     <message>
         <source>PostScript Level 3</source>
-        <translation type="unfinished"></translation>
+        <translation>Постскрипт 3-го рівня</translation>
     </message>
     <message>
         <source>Page</source>
-        <translation type="unfinished">Сторінка</translation>
+        <translation>Сторінка</translation>
     </message>
     <message>
         <source>Mirror Page(s) Horizontal</source>
-        <translation type="unfinished"></translation>
+        <translation>Віддзеркалити сторінку(и) горизонтально</translation>
     </message>
     <message>
         <source>Mirror Page(s) Vertical</source>
-        <translation type="unfinished"></translation>
+        <translation>Віддзеркалити сторінку(и) вертикально</translation>
     </message>
     <message>
         <source>Set Media Size</source>
-        <translation type="unfinished">Установити розмір паперу</translation>
+        <translation>Установити розмір паперу</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation type="unfinished">Колір</translation>
+        <translation>Колір</translation>
     </message>
     <message>
         <source>Apply Under Color Removal</source>
-        <translation type="unfinished"></translation>
+        <translation>Виконати видалення кольорів</translation>
     </message>
     <message>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Конвертувати точкові кольори в процесні кольори</translation>
     </message>
     <message>
         <source>Apply ICC Profiles</source>
-        <translation type="unfinished"></translation>
+        <translation>Застосувати ICC профілі</translation>
     </message>
     <message>
         <source>Advanced Options</source>
-        <translation type="unfinished">Додаткові установки</translation>
+        <translation>Додаткові установки</translation>
     </message>
     <message>
         <source>Preview...</source>
-        <translation type="unfinished"></translation>
+        <translation>Попередній перегляд...</translation>
     </message>
     <message>
         <source>Sets the PostScript Level.
  Setting to Level 1 or 2 can create huge files</source>
-        <translation type="unfinished"></translation>
+        <translation>Установлює рівень Постскрипту.
+ Вибір 1-го чи 2-го рівня може призвести
+до створення дуже великих файлів</translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed
@@ -6896,11 +7086,17 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished"></translation>
+        <translation>Метод видалення деяких відтінків сірого, скомпонованих з салатового,
+жовтого та малинового кольорів, і використання чорного кольору натомість.
+UCR найбільше впливає на ті частини зображень, які містять нейтральні чи
+темні відтінки, близькі до сірого кольору. Використання цього методу може
+покращити друк деяких зображень, але деяке експериментування та
+тестування можуть бути необхідними в певних випадках. UCR зменшує
+ймовірність перенасичення паперу СЖМ чорнилами.</translation>
     </message>
     <message>
         <source>PostScript Files (*.ps);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Постскрипт файли (*.ps);;Всі файли (*)</translation>
     </message>
 </context>
 <context>
@@ -7234,43 +7430,43 @@ be saved in its current form. The error was:
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished">%</translation>
+        <translation>%</translation>
     </message>
     <message>
         <source>Distances</source>
-        <translation type="unfinished">Відстані</translation>
+        <translation>Відстані</translation>
     </message>
     <message>
         <source>Fixed Linespacing</source>
-        <translation type="unfinished"></translation>
+        <translation>Фіксований міжрядковий проміжок</translation>
     </message>
     <message>
         <source>Automatic Linespacing</source>
-        <translation type="unfinished"></translation>
+        <translation>Автоматичний міжрядковий проміжок</translation>
     </message>
     <message>
         <source>Align to Baseline Grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Вирівняти по базовій сітці</translation>
     </message>
     <message>
         <source>Drop Caps</source>
-        <translation type="unfinished"></translation>
+        <translation>Буквиця</translation>
     </message>
     <message>
         <source>Distance from Text:</source>
-        <translation type="unfinished"></translation>
+        <translation>Відстань від тексту:</translation>
     </message>
     <message>
         <source>Preview of the Paragraph Style</source>
-        <translation type="unfinished"></translation>
+        <translation>Попередній перегляд стилю абзаца</translation>
     </message>
     <message>
         <source>Determines the gap between the DropCaps and the Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Встановлює проміжок між буквицею та текстом</translation>
     </message>
     <message>
         <source>Toggles sample text of this paragraph style</source>
-        <translation type="unfinished"></translation>
+        <translation>Переключає зразковий текст для цього стилю абзаца</translation>
     </message>
 </context>
 <context>
@@ -7341,102 +7537,102 @@ be saved in its current form. The error was:
     </message>
     <message>
         <source>JavaScripts (*.js);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Сценарії JavaScript (*.js);;Всі файли (*)</translation>
     </message>
 </context>
 <context>
     <name>EffectsDialog</name>
     <message>
         <source>Image Effects</source>
-        <translation type="unfinished"></translation>
+        <translation>Ефекти зображення</translation>
     </message>
     <message>
         <source>Options:</source>
-        <translation type="unfinished"></translation>
+        <translation>Установки:</translation>
     </message>
     <message>
         <source>Color:</source>
-        <translation type="unfinished">Колір:</translation>
+        <translation>Колір:</translation>
     </message>
     <message>
         <source>Shade:</source>
-        <translation type="unfinished">Тінь:</translation>
+        <translation>Тінь:</translation>
     </message>
     <message>
         <source>Brightness:</source>
-        <translation type="unfinished"></translation>
+        <translation>Яскравість:</translation>
     </message>
     <message>
         <source>Contrast:</source>
-        <translation type="unfinished"></translation>
+        <translation>Контраст:</translation>
     </message>
     <message>
         <source>Radius:</source>
-        <translation type="unfinished"></translation>
+        <translation>Радіус:</translation>
     </message>
     <message>
         <source>Value:</source>
-        <translation type="unfinished"></translation>
+        <translation>Значення:</translation>
     </message>
     <message>
         <source>Posterize:</source>
-        <translation type="unfinished"></translation>
+        <translation>Спростити набір кольорів:</translation>
     </message>
     <message>
         <source>Available Effects</source>
-        <translation type="unfinished"></translation>
+        <translation>Доступні ефекти</translation>
     </message>
     <message>
         <source>Blur</source>
-        <translation type="unfinished"></translation>
+        <translation>Розмивання</translation>
     </message>
     <message>
         <source>Brightness</source>
-        <translation type="unfinished"></translation>
+        <translation>Яскравість</translation>
     </message>
     <message>
         <source>Colorize</source>
-        <translation type="unfinished"></translation>
+        <translation>Замінити карту кольорів зображення</translation>
     </message>
     <message>
         <source>Contrast</source>
-        <translation type="unfinished"></translation>
+        <translation>Контраст</translation>
     </message>
     <message>
         <source>Grayscale</source>
-        <translation type="unfinished"></translation>
+        <translation>Конвертувати в тони сірого кольору</translation>
     </message>
     <message>
         <source>Invert</source>
-        <translation type="unfinished">Негатив</translation>
+        <translation>Негатив</translation>
     </message>
     <message>
         <source>Posterize</source>
-        <translation type="unfinished"></translation>
+        <translation>Спростити набір кольорів</translation>
     </message>
     <message>
         <source>Sharpen</source>
-        <translation type="unfinished"></translation>
+        <translation>Збільшити чіткість</translation>
     </message>
     <message>
         <source>&gt;&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&gt;&gt;</translation>
     </message>
     <message>
         <source>&lt;&lt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;&lt;</translation>
     </message>
     <message>
         <source>Effects in use</source>
-        <translation type="unfinished"></translation>
+        <translation>Активні ефекти</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">Гаразд</translation>
+        <translation>Гаразд</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Вихід</translation>
+        <translation>Вихід</translation>
     </message>
 </context>
 <context>
@@ -7568,111 +7764,111 @@ Use 72 dpi for Images intended for the Screen</source>
     <name>ExtImageProps</name>
     <message>
         <source>Extended Image Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Додаткові властивості зображення</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation type="unfinished"></translation>
+        <translation>Звичайний</translation>
     </message>
     <message>
         <source>Darken</source>
-        <translation type="unfinished"></translation>
+        <translation>Затемнити</translation>
     </message>
     <message>
         <source>Lighten</source>
-        <translation type="unfinished"></translation>
+        <translation>Зробити світлішим</translation>
     </message>
     <message>
         <source>Hue</source>
-        <translation type="unfinished"></translation>
+        <translation>Відтінок</translation>
     </message>
     <message>
         <source>Saturation</source>
-        <translation type="unfinished">Насичення</translation>
+        <translation>Насичення</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation type="unfinished">Колір</translation>
+        <translation>Колір</translation>
     </message>
     <message>
         <source>Luminosity</source>
-        <translation type="unfinished"></translation>
+        <translation>Яскравість</translation>
     </message>
     <message>
         <source>Multiply</source>
-        <translation type="unfinished"></translation>
+        <translation>Перемножити</translation>
     </message>
     <message>
         <source>Screen</source>
-        <translation type="unfinished"></translation>
+        <translation>Екран</translation>
     </message>
     <message>
         <source>Dissolve</source>
-        <translation type="unfinished">Розтавання</translation>
+        <translation>Розбавити</translation>
     </message>
     <message>
         <source>Overlay</source>
-        <translation type="unfinished"></translation>
+        <translation>Перекрити</translation>
     </message>
     <message>
         <source>Hard Light</source>
-        <translation type="unfinished"></translation>
+        <translation>Різке світло</translation>
     </message>
     <message>
         <source>Soft Light</source>
-        <translation type="unfinished"></translation>
+        <translation>М&apos;яке світло</translation>
     </message>
     <message>
         <source>Difference</source>
-        <translation type="unfinished"></translation>
+        <translation>Різниця</translation>
     </message>
     <message>
         <source>Exclusion</source>
-        <translation type="unfinished"></translation>
+        <translation>Виключення</translation>
     </message>
     <message>
         <source>Color Dodge</source>
-        <translation type="unfinished"></translation>
+        <translation>Уникання кольору</translation>
     </message>
     <message>
         <source>Color Burn</source>
-        <translation type="unfinished"></translation>
+        <translation>Випалення кольором</translation>
     </message>
     <message>
         <source>Exlusion</source>
-        <translation type="unfinished"></translation>
+        <translation>Виключення</translation>
     </message>
     <message>
         <source>Blend Mode:</source>
-        <translation type="unfinished"></translation>
+        <translation>Режим змішування:</translation>
     </message>
     <message>
         <source>Opacity:</source>
-        <translation type="unfinished">Непрозорість:</translation>
+        <translation>Непрозорість:</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished">%</translation>
+        <translation>%</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished">Ім&apos;я</translation>
+        <translation>Ім&apos;я</translation>
     </message>
     <message>
         <source>Background</source>
-        <translation type="unfinished">Фон</translation>
+        <translation>Фон</translation>
     </message>
     <message>
         <source>Layers</source>
-        <translation type="unfinished">Плани</translation>
+        <translation>Плани</translation>
     </message>
     <message>
         <source>Don&apos;t use any Path</source>
-        <translation type="unfinished"></translation>
+        <translation>Не використовуйте ніякий шлях</translation>
     </message>
     <message>
         <source>Paths</source>
-        <translation type="unfinished">Шляхи</translation>
+        <translation>Шляхи</translation>
     </message>
 </context>
 <context>
@@ -7703,27 +7899,27 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Resolution:</source>
-        <translation type="unfinished"></translation>
+        <translation>Розрішення:</translation>
     </message>
     <message>
         <source>DPI</source>
-        <translation type="unfinished"></translation>
+        <translation>DPI</translation>
     </message>
     <message>
         <source>RGB</source>
-        <translation type="unfinished">RGB</translation>
+        <translation>RGB</translation>
     </message>
     <message>
         <source>CMYK</source>
-        <translation type="unfinished">CMYK</translation>
+        <translation>CMYK</translation>
     </message>
     <message>
         <source>Grayscale</source>
-        <translation type="unfinished"></translation>
+        <translation>Відтінки сірого</translation>
     </message>
     <message>
         <source>Colorspace:</source>
-        <translation type="unfinished"></translation>
+        <translation>Кольоровий простір:</translation>
     </message>
 </context>
 <context>
@@ -7846,11 +8042,18 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation type="unfinished">І&amp;мпортувати</translation>
+        <translation>І&amp;мпортувати</translation>
     </message>
     <message>
         <source>Import colors to the current set from an existing document</source>
-        <translation type="unfinished"></translation>
+        <translation>Імпортувати кольори з існуючого документу в активний набір</translation>
+    </message>
+</context>
+<context>
+    <name>FileSearch</name>
+    <message>
+        <source>Search cancelled</source>
+        <translation type="obsolete">Пошук відмінено</translation>
     </message>
 </context>
 <context>
@@ -7950,35 +8153,35 @@ Use 72 dpi for Images intended for the Screen</source>
     <message>
         <source>Font Name</source>
         <comment>font preview</comment>
-        <translation type="unfinished">Ім&apos;я шрифта</translation>
+        <translation>Ім&apos;я шрифта</translation>
     </message>
     <message>
         <source>Use Font</source>
         <comment>font preview</comment>
-        <translation type="unfinished">Використовувати</translation>
+        <translation>Використовувати шрифт</translation>
     </message>
     <message>
         <source>Embed in:</source>
         <comment>font preview</comment>
-        <translation type="unfinished">Вбудувати в:</translation>
+        <translation>Вбудувати в:</translation>
     </message>
     <message>
         <source>Subset</source>
         <comment>font preview</comment>
-        <translation type="unfinished">Вибірка</translation>
+        <translation>Вибірка</translation>
     </message>
     <message>
         <source>Path to Font File</source>
         <comment>font preview</comment>
-        <translation type="unfinished">Шлях до файла шрифта</translation>
+        <translation>Шлях до файла шрифта</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Шляхи пошуку шрифтів можуть бути встановлені в Установках і лише при відсутності відчинених документів. Зачиніть всі відчинені документи і зайдіть в Редагувати&gt;Установки для того, щоб змінити шлях пошуку шрифтів.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>PostScript</source>
-        <translation type="unfinished"></translation>
+        <translation>Постскрипт</translation>
     </message>
 </context>
 <context>
@@ -8022,150 +8225,165 @@ Use 72 dpi for Images intended for the Screen</source>
     <message>
         <source>Font Name</source>
         <comment>font preview</comment>
-        <translation type="unfinished">Ім&apos;я шрифта</translation>
+        <translation>Ім&apos;я шрифта</translation>
     </message>
     <message>
         <source>Doc</source>
         <comment>font preview</comment>
-        <translation type="unfinished"></translation>
+        <translation>Документ</translation>
     </message>
     <message>
         <source>Type</source>
         <comment>font preview</comment>
-        <translation type="unfinished">Тип</translation>
+        <translation>Тип</translation>
     </message>
     <message>
         <source>Subset</source>
         <comment>font preview</comment>
-        <translation type="unfinished">Вибірка</translation>
+        <translation>Вибірка</translation>
     </message>
     <message>
         <source>Access</source>
         <comment>font preview</comment>
-        <translation type="unfinished"></translation>
+        <translation>Доступ</translation>
     </message>
     <message>
         <source>Font Size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Розмір шрифта:</translation>
     </message>
     <message>
         <source>Fonts Preview</source>
         <comment>font preview</comment>
-        <translation type="unfinished">Попередній перегляд шрифтів</translation>
+        <translation>Попередній перегляд шрифтів</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <comment>font preview</comment>
+        <translation type="obsolete">&amp;Гаразд</translation>
     </message>
     <message>
         <source>Alt+O</source>
         <comment>font preview</comment>
-        <translation type="unfinished">Alt+O</translation>
+        <translation>Alt+O</translation>
     </message>
     <message>
         <source>Quick Search: </source>
-        <translation type="unfinished"></translation>
+        <translation>Швидкий пошук:</translation>
     </message>
     <message>
         <source>&amp;Search</source>
-        <translation type="unfinished">&amp;Пошук</translation>
+        <translation>&amp;Пошук</translation>
     </message>
     <message>
         <source>&amp;Close</source>
         <comment>font preview</comment>
-        <translation type="unfinished">&amp;Зачинити</translation>
+        <translation>&amp;Зачинити</translation>
     </message>
     <message>
         <source>Alt+C</source>
         <comment>font preview</comment>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <source>Append selected font into Style, Font menu</source>
         <comment>font preview</comment>
-        <translation type="unfinished">Додати вибраний шрифт в меню Стиль, Шрифт</translation>
+        <translation>Додати вибраний шрифт в меню Стиль, Шрифт</translation>
     </message>
     <message>
         <source>Leave preview</source>
         <comment>font preview</comment>
-        <translation type="unfinished">Вихід з попереднього перегляду</translation>
+        <translation>Вихід з попереднього перегляду</translation>
     </message>
     <message>
         <source>Typing the text here provides quick searching in the font names. E.g. &apos;bold&apos; shows all fonts with Bold in name. Searching is case insensitive.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ввід текту тут дозволяє проводити швидкий пошук в іменах шрифтів. Наприклад, &apos;жирний&apos; показує всі шрифти з словом &apos;жирний&apos; в імені. Пошук не залежить від реєстру літер.</translation>
     </message>
     <message>
         <source>Start searching</source>
-        <translation type="unfinished"></translation>
+        <translation>Почати пошук</translation>
     </message>
     <message>
         <source>Size of the selected font</source>
-        <translation type="unfinished"></translation>
+        <translation>Розмір вибраного шрифта</translation>
     </message>
     <message>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
         <comment>font preview</comment>
-        <translation type="unfinished">Реве та стогне Дніпр широкий, сердитий вітер завива</translation>
+        <translation>Реве та стогне Дніпр широкий, сердитий вітер завива</translation>
     </message>
     <message>
         <source>User</source>
         <comment>font preview</comment>
-        <translation type="unfinished"></translation>
+        <translation>Користувач</translation>
     </message>
     <message>
         <source>System</source>
         <comment>font preview</comment>
-        <translation type="unfinished"></translation>
+        <translation>Система</translation>
     </message>
     <message>
         <source>&amp;Append</source>
-        <translation type="unfinished">&amp;Добавити</translation>
+        <translation>&amp;Добавити</translation>
     </message>
 </context>
 <context>
     <name>FontPreviewPlugin</name>
     <message>
         <source>&amp;Font Preview...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Попередній перегляд шрифта...</translation>
     </message>
     <message>
         <source>Font Preview dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Діалогове вікно для попереднього перегляду шрифта</translation>
     </message>
     <message>
         <source>Sorting, searching and browsing available fonts.</source>
-        <translation type="unfinished"></translation>
+        <translation>Сортування, пошук, та перегляд доступних шрифтів.</translation>
     </message>
 </context>
 <context>
     <name>FontReplaceDialog</name>
     <message>
         <source>Font Substitution</source>
-        <translation type="unfinished"></translation>
+        <translation>Підміна шрифта</translation>
+    </message>
+    <message>
+        <source>This document contains some fonts that are not installed on your system,
+please choose a suitable replacement for them.</source>
+        <translation type="obsolete">В цьому документі є шрифти, які не встановлені на вашій системі. Будь-ласка виберіть східну замінту для них.</translation>
     </message>
     <message>
         <source>Original Font</source>
-        <translation type="unfinished"></translation>
+        <translation>Оригінальний шрифт</translation>
     </message>
     <message>
         <source>Substitution Font</source>
-        <translation type="unfinished"></translation>
+        <translation>Новий шрифт</translation>
     </message>
     <message>
         <source>Make these substitutions permanent</source>
-        <translation type="unfinished"></translation>
+        <translation>Зробити ці заміни постійними</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;Гаразд</translation>
     </message>
     <message>
         <source>This document contains some fonts that are not installed on your system, please choose a suitable replacement for them. Cancel will stop the document from loading.</source>
-        <translation type="unfinished"></translation>
+        <translation>У цьому документі присутні шрифти, які не встановлені на Вашій системі. Будь-ласка виберіть
+для них заміну. Відміна процесу приведе до відміни завантаження документа.</translation>
     </message>
     <message>
         <source>Cancels these font substitutions and stops loading the document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Відмінює заміни шрифтів та завантаження документа.</translation>
     </message>
     <message>
         <source>Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in Edit &gt; Preferences &gt; Fonts.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ввімкнення цієї установки змусить Scribus використовувати ці заміни відсутніх шрифтів в майбутньому. Цей результат може бути відмінено чи змінено в Редагувати&gt;Установки&gt;Шрифти.</translation>
     </message>
     <message>
         <source>If you select OK, then save, these substitutions are made permanent in the document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Якщо Ви виберете Гаразд і запишете документ, то ці заміни будуть у ньому зафіксовані.</translation>
     </message>
 </context>
 <context>
@@ -8251,52 +8469,52 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Rows and Columns - Automatic Guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Рядки і колонки - автоматичні направляючі</translation>
     </message>
     <message>
         <source>&amp;Rows:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Рядки:</translation>
     </message>
     <message>
         <source>C&amp;olumns:</source>
-        <translation type="unfinished"></translation>
+        <translation>К&amp;олонки:</translation>
     </message>
     <message>
         <source>Row &amp;Gap</source>
-        <translation type="unfinished"></translation>
+        <translation>Міжрядковий &amp;Проміжок</translation>
     </message>
     <message>
         <source>Colum&amp;n Gap</source>
-        <translation type="unfinished"></translation>
+        <translation>Міжколонковий П&amp;роміжок</translation>
     </message>
     <message>
         <source>Refer to:</source>
-        <translation type="unfinished"></translation>
+        <translation>Зверніться до:</translation>
     </message>
     <message>
         <source>&amp;Page</source>
-        <translation type="unfinished">С&amp;торінка</translation>
+        <translation>С&amp;торінка</translation>
     </message>
     <message>
         <source>&amp;Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>По&amp;ля</translation>
     </message>
     <message>
         <source>&amp;Selection</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Вибірка</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished">&amp;Зачинити</translation>
+        <translation>&amp;Зачинити</translation>
     </message>
     <message>
         <source>&amp;Update</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Поновити</translation>
     </message>
     <message>
         <source>Set the guides in document. Guide manager is still opened but the changes are persistant</source>
         <comment>guide manager</comment>
-        <translation type="unfinished"></translation>
+        <translation>Установити направляючі в документі. Менеджер направляючих залишиться відчиненим, але зміни стануть постійними</translation>
     </message>
 </context>
 <context>
@@ -8352,75 +8570,75 @@ and www.scribus.net for downloads.</source>
     </message>
     <message>
         <source>Se&amp;arch</source>
-        <translation type="unfinished"></translation>
+        <translation>По&amp;шук</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation type="unfinished">&amp;Новий</translation>
+        <translation>&amp;Новий</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Видалити</translation>
+        <translation>&amp;Видалити</translation>
     </message>
     <message>
         <source>De&amp;lete All</source>
-        <translation type="unfinished"></translation>
+        <translation>Вид&amp;алити Все</translation>
     </message>
     <message>
         <source>Book&amp;marks</source>
-        <translation type="unfinished"></translation>
+        <translation>Заклад&amp;ки</translation>
     </message>
     <message>
         <source>&amp;Print...</source>
-        <translation type="unfinished">&amp;Друк...</translation>
+        <translation>&amp;Друк...</translation>
     </message>
     <message>
         <source>E&amp;xit</source>
-        <translation type="unfinished"></translation>
+        <translation>В&amp;ихід</translation>
     </message>
     <message>
         <source>Searching is case unsensitive</source>
-        <translation type="unfinished"></translation>
+        <translation>Пошук не залежить від реєстру</translation>
     </message>
     <message>
         <source>New Bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation>Нова закладка</translation>
     </message>
     <message>
         <source>New Bookmark&apos;s Title:</source>
-        <translation type="unfinished"></translation>
+        <translation>Назва нової закладки:</translation>
     </message>
     <message>
         <source>&amp;File</source>
-        <translation type="unfinished">&amp;Файл</translation>
+        <translation>&amp;Файл</translation>
     </message>
     <message>
         <source>&amp;Find...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Пошук...</translation>
     </message>
     <message>
         <source>Find &amp;Next</source>
-        <translation type="unfinished"></translation>
+        <translation>Знайти &amp;наступний</translation>
     </message>
     <message>
         <source>Find &amp;Previous</source>
-        <translation type="unfinished"></translation>
+        <translation>Знайти &amp;попередній</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Редагувати</translation>
     </message>
     <message>
         <source>&amp;Add Bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Добавити закладку</translation>
     </message>
     <message>
         <source>D&amp;elete All</source>
-        <translation type="unfinished"></translation>
+        <translation>Вид&amp;алити Все</translation>
     </message>
     <message>
         <source>&amp;Bookmarks</source>
-        <translation type="unfinished">&amp;Закладки</translation>
+        <translation>&amp;Закладки</translation>
     </message>
 </context>
 <context>
@@ -8500,16 +8718,17 @@ A value of 0 means unlimited hyphenations.</source>
     <name>ImportPSPlugin</name>
     <message>
         <source>Import &amp;EPS/PS...</source>
-        <translation type="unfinished">Імпорт &amp;ЕPS/PS...</translation>
+        <translation>Імпорт &amp;ЕPS/PS...</translation>
     </message>
     <message>
         <source>Imports EPS Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Імпорт ЕPS файлів</translation>
     </message>
     <message>
         <source>Imports most EPS files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Імпортує більшість EPS файлів в активний документ,
+конвертуючи їхні векторні дані в об&apos;єкти Scribus.</translation>
     </message>
 </context>
 <context>
@@ -8568,51 +8787,59 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;Insert</source>
-        <translation type="unfinished">&amp;Вставити</translation>
+        <translation>&amp;Вставити</translation>
     </message>
     <message>
-        <source>Master Pages</source>
-        <translation type="unfinished"></translation>
+        <source>Master Page (&amp;Left Page):</source>
+        <translation type="obsolete">Головна сторінка (&amp;Ліва сторінка):</translation>
     </message>
     <message>
         <source>&amp;Master Page:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Головна сторінка:</translation>
+    </message>
+    <message>
+        <source>Master Page (&amp;Right Page):</source>
+        <translation type="obsolete">Головна сторінка (&amp;Права сторінка):</translation>
     </message>
     <message>
         <source>Page Size</source>
-        <translation type="unfinished">Розмір сторінки</translation>
+        <translation>Розмір сторінки</translation>
     </message>
     <message>
         <source>&amp;Size:</source>
-        <translation type="unfinished">&amp;Розмір:</translation>
+        <translation>&amp;Розмір:</translation>
     </message>
     <message>
         <source>Custom</source>
-        <translation type="unfinished">Нестандартний</translation>
+        <translation>Нестандартний</translation>
     </message>
     <message>
         <source>Orie&amp;ntation:</source>
-        <translation type="unfinished">&amp;Орієнтація:</translation>
+        <translation>&amp;Орієнтація:</translation>
     </message>
     <message>
         <source>Portrait</source>
-        <translation type="unfinished">Вертикальна</translation>
+        <translation>Вертикальна</translation>
     </message>
     <message>
         <source>Landscape</source>
-        <translation type="unfinished">Горизонтальна</translation>
+        <translation>Горизонтальна</translation>
     </message>
     <message>
         <source>&amp;Width:</source>
-        <translation type="unfinished">&amp;Ширина:</translation>
+        <translation>&amp;Ширина:</translation>
     </message>
     <message>
         <source>&amp;Height:</source>
-        <translation type="unfinished">&amp;Висота:</translation>
+        <translation>&amp;Висота:</translation>
     </message>
     <message>
         <source>Move Objects with their Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Пересувати об&apos;єкти разом з їх сторінкою</translation>
+    </message>
+    <message>
+        <source>Master Pages</source>
+        <translation>Головні сторінки</translation>
     </message>
 </context>
 <context>
@@ -8639,11 +8866,19 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Number of rows:</source>
-        <translation type="unfinished"></translation>
+        <translation>Число рядків:</translation>
     </message>
     <message>
         <source>Number of columns:</source>
-        <translation type="unfinished"></translation>
+        <translation>Число колонок:</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;Гаразд</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">В&amp;ихід</translation>
     </message>
 </context>
 <context>
@@ -8769,47 +9004,47 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Loadable Shortcut Sets</source>
-        <translation type="unfinished"></translation>
+        <translation>Набори гарячих клавіш</translation>
     </message>
     <message>
         <source>&amp;Load</source>
-        <translation type="unfinished"></translation>
+        <translation>За&amp;вантажити</translation>
     </message>
     <message>
         <source>&amp;Import...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Імпортувати...</translation>
     </message>
     <message>
         <source>&amp;Export...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Експортувати...</translation>
     </message>
     <message>
         <source>&amp;Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Перезавантажити</translation>
     </message>
     <message>
         <source>Keyboard shortcut sets available to load</source>
-        <translation type="unfinished"></translation>
+        <translation>Набори гарячих клавіш доступні для завантаження</translation>
     </message>
     <message>
         <source>Load the selected shortcut set</source>
-        <translation type="unfinished"></translation>
+        <translation>Завантажити вибраний набір гарячих клавіш</translation>
     </message>
     <message>
         <source>Import a shortcut set into the current configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Імпортувати набір гарячих клавіш в активну конфігурацію</translation>
     </message>
     <message>
         <source>Export the current shortcuts into an importable file</source>
-        <translation type="unfinished"></translation>
+        <translation>Експортувати активні гарячі клавіші в зовнішій файл</translation>
     </message>
     <message>
         <source>Reload the default Scribus shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Перезавантажити набір гарячих клавіш по умовчанню</translation>
     </message>
     <message>
         <source>Key Set XML Files (*.ksxml)</source>
-        <translation type="unfinished"></translation>
+        <translation>Файли ключового набору XML (*.ksxml)</translation>
     </message>
 </context>
 <context>
@@ -8843,28 +9078,28 @@ converting their vector data into Scribus objects.</source>
         <translation type="obsolete">Ви бажаєте видалити всі об&apos;екти разом з цим планом?</translation>
     </message>
     <message>
-        <source>Do you want to delete all objects on this layer too?</source>
-        <translation type="unfinished"></translation>
+        <source>Name</source>
+        <translation>Ім&apos;я</translation>
     </message>
     <message>
-        <source>Name</source>
-        <translation type="unfinished">Ім&apos;я</translation>
+        <source>Do you want to delete all objects on this layer too?</source>
+        <translation>Ви бажаєте також видалити всі об&apos;єкти на цьому плані?</translation>
     </message>
     <message>
         <source>Add a new layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Додати новий план</translation>
     </message>
     <message>
         <source>Delete layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Видалити план</translation>
     </message>
     <message>
         <source>Raise layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Підняти план на вищий рівень</translation>
     </message>
     <message>
         <source>Lower layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Опустити план на нижчий рівень</translation>
     </message>
 </context>
 <context>
@@ -8943,42 +9178,50 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation type="unfinished">І&amp;мпортувати</translation>
+        <translation>І&amp;мпортувати</translation>
     </message>
 </context>
 <context>
     <name>LoremManager</name>
     <message>
         <source>Select Lorem Ipsum</source>
-        <translation type="unfinished"></translation>
+        <translation>Вибрати Lorem Ipsum</translation>
     </message>
     <message>
         <source>Author:</source>
-        <translation type="unfinished">Автор:</translation>
+        <translation>Автор:</translation>
     </message>
     <message>
         <source>Get More:</source>
-        <translation type="unfinished"></translation>
+        <translation>Добавити ще:</translation>
     </message>
     <message>
         <source>XML File:</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл XML:</translation>
     </message>
     <message>
         <source>Lorem Ipsum</source>
-        <translation type="unfinished"></translation>
+        <translation>Lorem Ipsum</translation>
     </message>
     <message>
         <source>Paragraphs:</source>
-        <translation type="unfinished"></translation>
+        <translation>Абзаци:</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;Гаразд</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
+        <translation>Alt+O</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">В&amp;ихід</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
 </context>
 <context>
@@ -9349,167 +9592,175 @@ The table in the center of the dialog lists what macros are currently loaded and
     <name>MarginDialog</name>
     <message>
         <source>Manage Page Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Керування властивостями сторінки</translation>
     </message>
     <message>
         <source>Page Size</source>
-        <translation type="unfinished">Розмір сторінки</translation>
+        <translation>Розмір сторінки</translation>
     </message>
     <message>
         <source>&amp;Size:</source>
-        <translation type="unfinished">&amp;Розмір:</translation>
+        <translation>&amp;Розмір:</translation>
     </message>
     <message>
         <source>Custom</source>
-        <translation type="unfinished">Нестандартний</translation>
+        <translation>Нестандартний</translation>
     </message>
     <message>
         <source>Orie&amp;ntation:</source>
-        <translation type="unfinished">&amp;Орієнтація:</translation>
+        <translation>&amp;Орієнтація:</translation>
     </message>
     <message>
         <source>Portrait</source>
-        <translation type="unfinished">Вертикальна</translation>
+        <translation>Вертикальна</translation>
     </message>
     <message>
         <source>Landscape</source>
-        <translation type="unfinished">Горизонтальна</translation>
+        <translation>Горизонтальна</translation>
     </message>
     <message>
         <source>&amp;Width:</source>
-        <translation type="unfinished">&amp;Ширина:</translation>
+        <translation>&amp;Ширина:</translation>
     </message>
     <message>
         <source>&amp;Height:</source>
-        <translation type="unfinished">&amp;Висота:</translation>
+        <translation>&amp;Висота:</translation>
     </message>
     <message>
         <source>Move Objects with their Page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Type:</source>
-        <translation type="unfinished">Тип:</translation>
+        <translation>Пересувати об&apos;єкти разом з їх сторінкою</translation>
     </message>
     <message>
         <source>Margin Guides</source>
-        <translation type="unfinished">Розмітка полів</translation>
+        <translation>Розмітка полів</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;Гаразд</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">В&amp;ихід</translation>
+    </message>
+    <message>
+        <source>Type:</source>
+        <translation>Тип:</translation>
     </message>
 </context>
 <context>
     <name>MarginWidget</name>
     <message>
         <source>&amp;Bottom:</source>
-        <translation type="unfinished">&amp;Низ:</translation>
+        <translation>&amp;Низ:</translation>
     </message>
     <message>
         <source>&amp;Top:</source>
-        <translation type="unfinished">&amp;Верх:</translation>
+        <translation>&amp;Верх:</translation>
     </message>
     <message>
         <source>&amp;Right:</source>
-        <translation type="unfinished">&amp;Правий край:</translation>
+        <translation>&amp;Правий край:</translation>
     </message>
     <message>
         <source>&amp;Left:</source>
-        <translation type="unfinished">&amp;Лівий край:</translation>
+        <translation>&amp;Лівий край:</translation>
     </message>
     <message>
         <source>Distance between the top margin guide and the edge of the page</source>
-        <translation type="unfinished">Відстань від границі верхнього поля сторінки до її краю</translation>
+        <translation>Відстань від границі верхнього поля сторінки до її краю</translation>
     </message>
     <message>
         <source>Distance between the bottom margin guide and the edge of the page</source>
-        <translation type="unfinished">Відстань від границі нижнього поля сторінки до її краю</translation>
+        <translation>Відстань від границі нижнього поля сторінки до її краю</translation>
     </message>
     <message>
         <source>Distance between the left margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="unfinished"></translation>
+        <translation>Відстань від границі лівого поля сторінки до її краю. Якщо було вибране книжкове розташування сторінок, це місце може використовуватися для досягнення достатньої ширини полів для переплітання</translation>
     </message>
     <message>
         <source>Distance between the right margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="unfinished"></translation>
+        <translation>Відстань від границі правого поля сторінки до її краю. Якщо було вибране книжкове розташування сторінок, це місце може використовуватися для досягнення достатньої ширини полів для переплітання</translation>
     </message>
     <message>
         <source>&amp;Inside:</source>
-        <translation type="unfinished">&amp;Зсередини:</translation>
+        <translation>&amp;Зсередини:</translation>
     </message>
     <message>
         <source>O&amp;utside:</source>
-        <translation type="unfinished">Зз&amp;овні:</translation>
+        <translation>Зз&amp;овні:</translation>
     </message>
     <message>
         <source>Preset Layouts:</source>
-        <translation type="unfinished"></translation>
+        <translation>Попередньо підготовлені схеми розміщення:</translation>
     </message>
 </context>
 <context>
     <name>MasterPagesPalette</name>
     <message>
         <source>Edit Master Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Редагувати Головні сторінки</translation>
     </message>
     <message>
         <source>Duplicates the selected master page</source>
-        <translation type="unfinished"></translation>
+        <translation>Здублювати вибрану головну сторінку</translation>
     </message>
     <message>
         <source>Deletes the selected master page</source>
-        <translation type="unfinished"></translation>
+        <translation>Видалити вибрану головну сторінку</translation>
     </message>
     <message>
         <source>Adds a new master page</source>
-        <translation type="unfinished"></translation>
+        <translation>Додати нову головну сторінку</translation>
     </message>
     <message>
         <source>Imports master pages from another document</source>
-        <translation type="unfinished"></translation>
+        <translation>Імпортувати головні сторінки з іншого документу</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation type="unfinished">Застереження</translation>
+        <translation>Застереження</translation>
     </message>
     <message>
         <source>Do you really want to delete this master page?</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви справді бажаєте видалити цю головну сторінку?</translation>
     </message>
     <message>
         <source>&amp;No</source>
-        <translation type="unfinished">&amp;Ні</translation>
+        <translation>&amp;Ні</translation>
     </message>
     <message>
         <source>&amp;Yes</source>
-        <translation type="unfinished">&amp;Так</translation>
+        <translation>&amp;Так</translation>
     </message>
     <message>
         <source>&amp;Name:</source>
-        <translation type="unfinished">&amp;Ім&apos;я:</translation>
+        <translation>&amp;Ім&apos;я:</translation>
     </message>
     <message>
         <source>New Master Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Нова головна сторінка</translation>
     </message>
     <message>
         <source>Copy of %1</source>
-        <translation type="unfinished">Копія %1</translation>
+        <translation>Копія %1</translation>
     </message>
     <message>
         <source>Name:</source>
-        <translation type="unfinished">Ім&apos;я:</translation>
+        <translation>Ім&apos;я:</translation>
     </message>
     <message>
         <source>New MasterPage</source>
-        <translation type="unfinished"></translation>
+        <translation>Нова головна сторінка</translation>
     </message>
     <message>
         <source>Copy #%1 of </source>
-        <translation type="unfinished">Копія №%1 з </translation>
+        <translation>Копія %1 з </translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation type="unfinished"></translation>
+        <translation>Звичайна</translation>
     </message>
 </context>
 <context>
@@ -9611,7 +9862,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>pt</source>
-        <translation type="unfinished">тчк</translation>
+        <translation>тчк</translation>
     </message>
 </context>
 <context>
@@ -9714,62 +9965,70 @@ a range of pages or a single page number.</source>
     </message>
     <message>
         <source>Import Master Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Імпортувати Головну сторінку</translation>
     </message>
     <message>
         <source>&amp;From Document:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;З документа:</translation>
     </message>
     <message>
         <source>Chan&amp;ge...</source>
-        <translation type="unfinished"></translation>
+        <translation>Змі&amp;нити...</translation>
     </message>
     <message>
         <source>&amp;Import Page(s):</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Імпортувати сторінку(и):</translation>
     </message>
     <message>
         <source>&amp;Import Master Page</source>
-        <translation type="unfinished"></translation>
+        <translation>І&amp;мпортувати Головну сторінку</translation>
     </message>
     <message>
         <source>Insert a comma separated list of tokens import where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
-        <translation type="unfinished"></translation>
+        <translation>Вставити розділений комами список знаків де знаком може бути * для всіх сторінок, 1-5 для діапазону сторінок чи номер одної сторінки.</translation>
     </message>
     <message>
         <source>Before Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Перед цією сторінкою</translation>
     </message>
     <message>
         <source>After Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Після цієї сторінки</translation>
     </message>
     <message>
         <source>At End</source>
-        <translation type="unfinished"></translation>
+        <translation>В кінці документа</translation>
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation type="unfinished">І&amp;мпортувати</translation>
+        <translation>І&amp;мпортувати</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">В&amp;ихід</translation>
     </message>
 </context>
 <context>
     <name>MissingFont</name>
     <message>
         <source>Missing Font</source>
-        <translation type="unfinished">Відсутній шрифт</translation>
+        <translation>Відсутній шрифт</translation>
     </message>
     <message>
         <source>The Font %1 is not installed.</source>
-        <translation type="unfinished">Шрифт %1 не встановлений.</translation>
+        <translation>Шрифт %1 не встановлений.</translation>
     </message>
     <message>
         <source>Use</source>
-        <translation type="unfinished">Використати</translation>
+        <translation>Використати</translation>
     </message>
     <message>
         <source>instead</source>
-        <translation type="unfinished">замість</translation>
+        <translation>замість</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;Гаразд</translation>
     </message>
 </context>
 <context>
@@ -9812,19 +10071,19 @@ a range of pages or a single page number.</source>
     </message>
     <message>
         <source>Move Page(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Перемістити сторінку(и)</translation>
     </message>
     <message>
         <source>Before Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Перед цією сторінкою</translation>
     </message>
     <message>
         <source>After Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Після цієї сторінки</translation>
     </message>
     <message>
         <source>At End</source>
-        <translation type="unfinished"></translation>
+        <translation>В кінці документа</translation>
     </message>
 </context>
 <context>
@@ -10443,39 +10702,43 @@ Corners:</source>
     </message>
     <message>
         <source>Fixed Linespacing</source>
-        <translation type="unfinished"></translation>
+        <translation>Фіксований міжрядковий проміжок</translation>
     </message>
     <message>
         <source>Automatic Linespacing</source>
-        <translation type="unfinished"></translation>
+        <translation>Автоматичний міжрядковий проміжок</translation>
     </message>
     <message>
         <source>Align to Baseline Grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Вирівняти по базовій сітці</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;Гаразд</translation>
     </message>
     <message>
         <source>Actual X-DPI:</source>
-        <translation type="unfinished"></translation>
+        <translation>Справжні X-DPI:</translation>
     </message>
     <message>
         <source>Actual Y-DPI:</source>
-        <translation type="unfinished"></translation>
+        <translation>Справжні Y-DPI:</translation>
     </message>
     <message>
         <source>Start Arrow:</source>
-        <translation type="unfinished"></translation>
+        <translation>Початок стрілки:</translation>
     </message>
     <message>
         <source>End Arrow:</source>
-        <translation type="unfinished"></translation>
+        <translation>Кінець стрілки:</translation>
     </message>
     <message>
         <source>Offset to baseline of characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Відступ від основи знаків</translation>
     </message>
     <message>
         <source>Scaling height of characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Масштабування висоти знаків</translation>
     </message>
 </context>
 <context>
@@ -10638,18 +10901,18 @@ Please choose another.</source>
     <name>MyPlugin</name>
     <message>
         <source>My &amp;Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Мій &amp;модуль</translation>
     </message>
 </context>
 <context>
     <name>MyPluginImpl</name>
     <message>
         <source>Scribus - My Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Мій модуль</translation>
     </message>
     <message>
         <source>The plugin worked!</source>
-        <translation type="unfinished"></translation>
+        <translation>Модуль спрацював нормально!</translation>
     </message>
 </context>
 <context>
@@ -10886,46 +11149,62 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Open Document</source>
-        <translation type="unfinished"></translation>
+        <translation>Відчинити документ</translation>
     </message>
     <message>
         <source>Recent Documents</source>
-        <translation type="unfinished"></translation>
+        <translation>Недавно редаговані документи</translation>
     </message>
     <message>
         <source>Do not show this dialog again</source>
-        <translation type="unfinished"></translation>
+        <translation>Не показувати це діалогове вікно знову</translation>
     </message>
     <message>
         <source>Initial number of pages of the document</source>
-        <translation type="unfinished"></translation>
+        <translation>Початкове число сторінок документу</translation>
     </message>
     <message>
         <source>N&amp;umber of Pages:</source>
-        <translation type="unfinished"></translation>
+        <translation>Число сто&amp;рінок:</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;</source>
-        <translation type="unfinished"></translation>
+        <translation>Документи (*.sla *.sla.gz *.scd *.scd.gz);;</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;</source>
-        <translation type="unfinished"></translation>
+        <translation>Документи (*.sla *.scd);;</translation>
+    </message>
+    <message>
+        <source>Postscript Files (*.eps *.EPS *.ps *.PS);;</source>
+        <translation type="obsolete">Файли Postscript (*.eps *.EPS *.ps *.PS);;</translation>
+    </message>
+    <message>
+        <source>SVG Images (*.svg *.svgz);;</source>
+        <translation type="obsolete">SVG зображення (*.svg *.svgz);;</translation>
+    </message>
+    <message>
+        <source>SVG Images (*.svg);;</source>
+        <translation type="obsolete">SVG зображення (*.svg);;</translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Draw (*.sxd);;</source>
+        <translation type="obsolete">OpenOffice.org Draw (*.sxd);;</translation>
     </message>
     <message>
         <source>All Files (*)</source>
-        <translation type="unfinished">Всі файли (*)</translation>
+        <translation>Всі файли (*)</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation type="unfinished">Відчинити</translation>
+        <translation>Відчинити</translation>
     </message>
 </context>
 <context>
     <name>NewFromTemplatePlugin</name>
     <message>
         <source>New &amp;from Template...</source>
-        <translation type="unfinished">Новий з &amp;шаблона...</translation>
+        <translation>Новий з &amp;шаблона...</translation>
     </message>
 </context>
 <context>
@@ -11081,26 +11360,27 @@ otherwise Coordinates are relative to the Object.</source>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished">%</translation>
+        <translation>%</translation>
     </message>
     <message>
         <source>When checked use coordinates relative to the page, otherwise coordinates are relative to the Object.</source>
-        <translation type="unfinished"></translation>
+        <translation>Коли вибрано, використовувати координати відносно до сторінки. В іншому випадку координати відносні до об&apos;єкта.</translation>
     </message>
 </context>
 <context>
     <name>OODrawImportPlugin</name>
     <message>
         <source>Import &amp;OpenOffice.org Draw...</source>
-        <translation type="unfinished">Імпортувати файл  &amp;OpenOffice.org Draw...</translation>
+        <translation>Імпортувати файл  &amp;OpenOffice.org Draw...</translation>
     </message>
     <message>
         <source>Imports OpenOffice Draw Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Імпортує файли OpenOffice.org Draw</translation>
     </message>
     <message>
         <source>Imports most OpenOffice Draw files into the current document, converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Імпортує більшість файлів OpenOffice Draw в активний документ,
+конвертуючи їхні векторні дані в об&apos;єкти Scribus.</translation>
     </message>
 </context>
 <context>
@@ -11196,18 +11476,18 @@ Scribus.</translation>
     </message>
     <message>
         <source>Overwrite Paragraph Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Переписати стилі абзаців</translation>
     </message>
 </context>
 <context>
     <name>OutlineValues</name>
     <message>
         <source> %</source>
-        <translation type="unfinished">%</translation>
+        <translation>%</translation>
     </message>
     <message>
         <source>Linewidth</source>
-        <translation type="unfinished"></translation>
+        <translation>Товщина лінії</translation>
     </message>
 </context>
 <context>
@@ -11980,11 +12260,12 @@ If un-checked, editing annotations and fields is prevented.</source>
     </message>
     <message>
         <source>Output one file for eac&amp;h page</source>
-        <translation type="unfinished"></translation>
+        <translation>Експортувати окремий файл для ко&amp;жної сторінки</translation>
     </message>
     <message>
         <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commerical printing.</source>
-        <translation type="unfinished"></translation>
+        <translation>Дозволяє експортувати один індивідуально названий PDF файл для кожної сторінки документу. Номери сторінок додаються автоматично. Ця функція найбіль корисна для
+імпозиції PDF для комерційного друку.</translation>
     </message>
 </context>
 <context>
@@ -12113,48 +12394,67 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
         <translation type="obsolete">Застереження</translation>
     </message>
     <message>
+        <source>Detected some Errors.
+Consider using the Preflight Checker to correct them</source>
+        <translation type="obsolete">Знайдено помилки. Спробуйте використати попередню перевірку для їх коригування</translation>
+    </message>
+    <message>
+        <source>Abort</source>
+        <translation type="obsolete">Відміна</translation>
+    </message>
+    <message>
+        <source>Ignore</source>
+        <translation type="obsolete">Ігнорувати</translation>
+    </message>
+    <message>
         <source>Separation Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Ім&apos;я кольорового розділення</translation>
     </message>
     <message>
         <source>Cyan</source>
-        <translation type="unfinished">Салатовий</translation>
+        <translation>Салатовий</translation>
     </message>
     <message>
         <source>Magenta</source>
-        <translation type="unfinished">Малиновий</translation>
+        <translation>Малиновий</translation>
     </message>
     <message>
         <source>Yellow</source>
-        <translation type="unfinished">Жовтий</translation>
+        <translation>Жовтий</translation>
     </message>
     <message>
         <source>Black</source>
-        <translation type="unfinished">Чорний</translation>
+        <translation>Чорний</translation>
     </message>
     <message>
         <source>Scaling:</source>
-        <translation type="unfinished"></translation>
+        <translation>Масштабування:</translation>
     </message>
     <message>
         <source>Print...</source>
-        <translation type="unfinished">Друк...</translation>
+        <translation>Друк...</translation>
     </message>
     <message>
         <source>Provides a more pleasant view of text items in the viewer, at the expense of a slight slowdown in previewing. This only affects Type 1 fonts</source>
-        <translation type="unfinished"></translation>
+        <translation>Забезпечує біль приємний вигляд текстових об&apos;єктів у вікні попереднього перегляду за рахунок невеликого сповільненя процесу перегляду. Лише впливає на шрифти Type 1</translation>
     </message>
     <message>
         <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation type="unfinished"></translation>
+        <translation>Забезпечує біль приємний вигляд шрифтів TrueType та OpenType, EPS, PDF, та векторної графіки у вікні попереднього перегляду за рахунок невеликого сповільненя процесу перегляду</translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished"></translation>
+        <translation>Метод видалення деяких відтінків сірого, скомпонованих з салатового,
+жовтого та малинового кольорів, і використання чорного кольору натомість.
+UCR найбільше впливає на ті частини зображень, які містять нейтральні чи
+темні відтінки, близькі до сірого кольору. Використання цього методу може
+покращити друк деяких зображень, але деяке експериментування та
+тестування можуть бути необхідними в певних випадках. UCR зменшує
+ймовірність перенасичення паперу СЖМ чорнилами.</translation>
     </message>
     <message>
         <source>Resize the scale of the page.</source>
-        <translation type="unfinished"></translation>
+        <translation>Змінити масштаб сторінки.</translation>
     </message>
 </context>
 <context>
@@ -12475,106 +12775,110 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
         <translation>Текст на шляху</translation>
     </message>
     <message>
+        <source>Warning</source>
+        <translation type="obsolete">Застереження</translation>
+    </message>
+    <message>
         <source>Copy of</source>
-        <translation type="unfinished">Копія</translation>
+        <translation>Копія</translation>
     </message>
 </context>
 <context>
     <name>PageItemAttributes</name>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Нічого</translation>
     </message>
     <message>
         <source>Relates To</source>
-        <translation type="unfinished"></translation>
+        <translation>Відноситься до</translation>
     </message>
     <message>
         <source>Is Parent Of</source>
-        <translation type="unfinished"></translation>
+        <translation>Батько</translation>
     </message>
     <message>
         <source>Is Child Of</source>
-        <translation type="unfinished"></translation>
+        <translation>Дитина</translation>
     </message>
     <message>
         <source>Page Item Attributes</source>
-        <translation type="unfinished"></translation>
+        <translation>Атрибути об&apos;єкта сторінки</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished">Ім&apos;я</translation>
+        <translation>Ім&apos;я</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation type="unfinished">Тип</translation>
+        <translation>Тип</translation>
     </message>
     <message>
         <source>Value</source>
-        <translation type="unfinished">Значення</translation>
+        <translation>Значення</translation>
     </message>
     <message>
         <source>Parameter</source>
-        <translation type="unfinished"></translation>
+        <translation>Параметр</translation>
     </message>
     <message>
         <source>Relationship</source>
-        <translation type="unfinished"></translation>
+        <translation>Зв&apos;язок</translation>
     </message>
     <message>
         <source>Relationship To</source>
-        <translation type="unfinished"></translation>
+        <translation>Зв&apos;язок з</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished">&amp;Додати</translation>
+        <translation>&amp;Додати</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished">Alt+A</translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation type="unfinished">&amp;Скопіювати</translation>
+        <translation>&amp;Скопіювати</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Видалити</translation>
+        <translation>&amp;Видалити</translation>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation type="unfinished">Alt+D</translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
         <source>C&amp;lear</source>
-        <translation type="unfinished">О&amp;чистити</translation>
+        <translation>О&amp;чистити</translation>
     </message>
     <message>
         <source>Alt+L</source>
-        <translation type="unfinished">Alt+L</translation>
+        <translation>Alt+L</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;Гаразд</translation>
+        <translation>&amp;Гаразд</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">В&amp;ихід</translation>
+        <translation>В&amp;ихід</translation>
     </message>
 </context>
 <context>
     <name>PageLayouts</name>
     <message>
         <source>Page Layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Макет сторінки</translation>
     </message>
     <message>
         <source>First Page is:</source>
-        <translation type="unfinished"></translation>
+        <translation>Перша сторінка:</translation>
     </message>
 </context>
 <context>
@@ -12588,103 +12892,103 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
         <translation type="obsolete"> з %1</translation>
     </message>
     <message>
-        <source>%1 of %2</source>
-        <translation type="unfinished"></translation>
+        <source>%1 of %1</source>
+        <translation>%1 з %1</translation>
     </message>
     <message>
-        <source>%1 of %1</source>
-        <translation type="unfinished"></translation>
+        <source>%1 of %2</source>
+        <translation>%1 з %2</translation>
     </message>
 </context>
 <context>
     <name>PageSize</name>
     <message>
         <source>Quarto</source>
-        <translation type="unfinished"></translation>
+        <translation>Кварто</translation>
     </message>
     <message>
         <source>Foolscap</source>
-        <translation type="unfinished"></translation>
+        <translation>Фулскап</translation>
     </message>
     <message>
         <source>Letter</source>
-        <translation type="unfinished">Лист</translation>
+        <translation>Лист</translation>
     </message>
     <message>
         <source>Government Letter</source>
-        <translation type="unfinished"></translation>
+        <translation>Урядовий лист</translation>
     </message>
     <message>
         <source>Legal</source>
-        <translation type="unfinished">Юридичний</translation>
+        <translation>Юридичний</translation>
     </message>
     <message>
         <source>Ledger</source>
-        <translation type="unfinished">Бухгалтерський</translation>
+        <translation>Бухгалтерський</translation>
     </message>
     <message>
         <source>Executive</source>
-        <translation type="unfinished">Виконавчий</translation>
+        <translation>Виконавчий</translation>
     </message>
     <message>
         <source>Post</source>
-        <translation type="unfinished"></translation>
+        <translation>Поштовий</translation>
     </message>
     <message>
         <source>Crown</source>
-        <translation type="unfinished"></translation>
+        <translation>Королівський</translation>
     </message>
     <message>
         <source>Large Post</source>
-        <translation type="unfinished"></translation>
+        <translation>Великий поштовий</translation>
     </message>
     <message>
         <source>Demy</source>
-        <translation type="unfinished"></translation>
+        <translation>Демі</translation>
     </message>
     <message>
         <source>Medium</source>
-        <translation type="unfinished"></translation>
+        <translation>Середній</translation>
     </message>
     <message>
         <source>Royal</source>
-        <translation type="unfinished"></translation>
+        <translation>Вінценосний</translation>
     </message>
     <message>
         <source>Elephant</source>
-        <translation type="unfinished"></translation>
+        <translation>Слоновий</translation>
     </message>
     <message>
         <source>Double Demy</source>
-        <translation type="unfinished"></translation>
+        <translation>Подвійний демі</translation>
     </message>
     <message>
         <source>Quad Demy</source>
-        <translation type="unfinished"></translation>
+        <translation>Четверний демі</translation>
     </message>
     <message>
         <source>STMT</source>
-        <translation type="unfinished"></translation>
+        <translation>STMT</translation>
     </message>
     <message>
         <source>A</source>
-        <translation type="unfinished"></translation>
+        <translation>A</translation>
     </message>
     <message>
         <source>B</source>
-        <translation type="unfinished"></translation>
+        <translation>B</translation>
     </message>
     <message>
         <source>C</source>
-        <translation type="unfinished">С</translation>
+        <translation>С</translation>
     </message>
     <message>
         <source>D</source>
-        <translation type="unfinished"></translation>
+        <translation>D</translation>
     </message>
     <message>
         <source>E</source>
-        <translation type="unfinished"></translation>
+        <translation>E</translation>
     </message>
 </context>
 <context>
@@ -12762,56 +13066,46 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Cancel Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Відмінити пошук</translation>
     </message>
     <message>
         <source>Manage Pictures</source>
-        <translation type="unfinished">Керування зображеннями</translation>
+        <translation>Керувати зображеннями</translation>
     </message>
     <message>
         <source>Scribus - Image Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - пошук зображень</translation>
     </message>
     <message>
         <source>The search failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Пошук був безуспішним: %1</translation>
     </message>
     <message>
         <source>No images named &quot;%1&quot; were found.</source>
-        <translation type="unfinished"></translation>
+        <translation>Зображень з назвою &quot;%1&quot; не знайдено.</translation>
     </message>
 </context>
 <context>
     <name>PixmapExportPlugin</name>
     <message>
         <source>Save as &amp;Image...</source>
-        <translation type="unfinished">Записати, як зо&amp;браження...</translation>
+        <translation>Записати, як зо&amp;браження...</translation>
     </message>
     <message>
         <source>Export As Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Експортувати, як зображення</translation>
     </message>
     <message>
         <source>Exports selected pages as bitmap images.</source>
-        <translation type="unfinished"></translation>
+        <translation>Експортувати вибрані сторінки, як растрові зображення.</translation>
     </message>
 </context>
 <context>
     <name>PluginManager</name>
     <message>
-        <source>Cannot find plugin</source>
+        <source>Persistent</source>
         <comment>plugin manager</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>unknown error</source>
-        <comment>plugin manager</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot find symbol (%1)</source>
-        <comment>plugin manager</comment>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Постійний</translation>
     </message>
     <message>
         <source>Import</source>
@@ -12819,93 +13113,113 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
         <translation type="obsolete">Імпортувати</translation>
     </message>
     <message>
+        <source>Standard</source>
+        <comment>plugin manager</comment>
+        <translation type="obsolete">Стандартний</translation>
+    </message>
+    <message>
         <source>Unknown</source>
         <comment>plugin manager</comment>
         <translation type="obsolete">Невідомий</translation>
     </message>
     <message>
+        <source>Cannot find plugin</source>
+        <comment>plugin manager</comment>
+        <translation>Неможливо знайти модуль</translation>
+    </message>
+    <message>
+        <source>unknown error</source>
+        <comment>plugin manager</comment>
+        <translation>невідома помилка</translation>
+    </message>
+    <message>
+        <source>Cannot find symbol (%1)</source>
+        <comment>plugin manager</comment>
+        <translation>Неможливо знайти символ (%1)</translation>
+    </message>
+    <message>
         <source>Plugin: loading %1</source>
         <comment>plugin manager</comment>
-        <translation type="unfinished"></translation>
+        <translation>Модуль: завантаження %1</translation>
     </message>
     <message>
         <source>init failed</source>
         <comment>plugin load error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ініціалізація не досягла успіху</translation>
     </message>
     <message>
         <source>unknown plugin type</source>
         <comment>plugin load error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Невідомий тип модуля</translation>
     </message>
     <message>
         <source>Plugin: %1 loaded</source>
         <comment>plugin manager</comment>
-        <translation type="unfinished"></translation>
+        <translation>Модуль: %1 завантажений</translation>
     </message>
     <message>
         <source>Plugin: %1 failed to load: %2</source>
         <comment>plugin manager</comment>
-        <translation type="unfinished"></translation>
+        <translation>Модуль: %1 неможливо завантажити: %2</translation>
     </message>
     <message>
         <source>PostScript Files (*.eps *.EPS *.ps *.PS);;</source>
-        <translation type="unfinished"></translation>
+        <translation>Файли постскрипт (*.eps *.EPS *.ps *.PS);;</translation>
     </message>
     <message>
         <source>SVG Images (*.svg *.svgz);;</source>
-        <translation type="unfinished"></translation>
+        <translation>SVG зображення (*.svg *.svgz);;</translation>
     </message>
     <message>
         <source>SVG Images (*.svg);;</source>
-        <translation type="unfinished"></translation>
+        <translation>SVG зображення (*.svg);;</translation>
     </message>
     <message>
         <source>OpenOffice.org Draw (*.sxd);;</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenOffice.org Draw (*.sxd);;</translation>
     </message>
 </context>
 <context>
     <name>PluginManagerPrefsGui</name>
     <message>
         <source>Plugin Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Менеджер модулів</translation>
     </message>
     <message>
         <source>Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Модуль</translation>
     </message>
     <message>
         <source>How to run</source>
-        <translation type="unfinished"></translation>
+        <translation>Як запустити</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation type="unfinished">Тип</translation>
+        <translation>Тип</translation>
     </message>
     <message>
         <source>Load it?</source>
-        <translation type="unfinished"></translation>
+        <translation>Завантажити?</translation>
     </message>
     <message>
         <source>Plugin ID</source>
-        <translation type="unfinished"></translation>
+        <translation>Ідентифікаційний код модуля</translation>
     </message>
     <message>
         <source>File</source>
-        <translation type="unfinished">Файл</translation>
+        <translation>Файл</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished">Так</translation>
+        <translation>Так</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished">Ні</translation>
+        <translation>Ні</translation>
     </message>
     <message>
         <source>You need to restart the application to apply the changes.</source>
-        <translation type="unfinished"></translation>
+        <translation>Програму необхідно перезапустити, щоб активувати зміни.</translation>
     </message>
 </context>
 <context>
@@ -12969,44 +13283,44 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     <name>PolygonWidget</name>
     <message>
         <source>Corn&amp;ers:</source>
-        <translation type="unfinished">К&amp;ути:</translation>
+        <translation>К&amp;ути:</translation>
     </message>
     <message>
         <source>&amp;Rotation:</source>
-        <translation type="unfinished">&amp;Кут повороту:</translation>
+        <translation>&amp;Кут повороту:</translation>
     </message>
     <message>
         <source>Apply &amp;Factor</source>
-        <translation type="unfinished">Застосувати &amp;фактор</translation>
+        <translation>Застосувати &amp;фактор</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished">%</translation>
+        <translation>%</translation>
     </message>
     <message>
         <source>&amp;Factor:</source>
-        <translation type="unfinished">&amp;Фактор:</translation>
+        <translation>&amp;Фактор:</translation>
     </message>
     <message>
         <source>Number of corners for polygons</source>
-        <translation type="unfinished">Число кутів полігонів</translation>
+        <translation>Число кутів полігонів</translation>
     </message>
     <message>
         <source>Degrees of rotation for polygons</source>
-        <translation type="unfinished">Кут повороту полігонів</translation>
+        <translation>Кут повороту полігонів</translation>
     </message>
     <message>
         <source>Apply Convex/Concave Factor to change shape of Polygons</source>
-        <translation type="unfinished">Застосувати випуклий/ввігнутий фактор для зміни форми полігонів</translation>
+        <translation>Застосувати випуклий/ввігнутий фактор для зміни форми полігонів</translation>
     </message>
     <message>
         <source>Sample Polygon</source>
-        <translation type="unfinished">Зразок полігону</translation>
+        <translation>Зразковий полігон</translation>
     </message>
     <message>
         <source>A negative value will make the polygon concave (or star shaped),
  a positive value will make it convex</source>
-        <translation type="unfinished">Негативне число зробить полігон ввігнутим (або зіркоподібним),
+        <translation>Негативне число зробить полігон ввігнутим (або зіркоподібним),
 позитивне число зробить його випуклим</translation>
     </message>
 </context>
@@ -13146,7 +13460,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>None</source>
-        <translation type="obsolete">Немає</translation>
+        <translation type="obsolete">Нічого</translation>
     </message>
     <message>
         <source>Other Options</source>
@@ -13524,7 +13838,7 @@ each time the time period elapses</source>
     </message>
     <message>
         <source>Filesystem location for the Ghostscript interpreter</source>
-        <translation type="unfinished">Розміщення інтерпретатора Ghostscript на жорсткому диску</translation>
+        <translation>Розміщення інтерпретатора Ghostscript на жорсткому диску</translation>
     </message>
     <message>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
@@ -13652,7 +13966,7 @@ each time the time period elapses</source>
     </message>
     <message>
         <source>&amp;Enabled</source>
-        <translation>Вв&amp;імкнено</translation>
+        <translation type="obsolete">Вв&amp;імкнено</translation>
     </message>
     <message>
         <source>&amp;Interval:</source>
@@ -13998,147 +14312,119 @@ Gimp і Ваш дистрибутив його включає, ми рекоме
     </message>
     <message>
         <source>&amp;Language:</source>
-        <translation type="unfinished">&amp;Мова:</translation>
+        <translation>&amp;Мова:</translation>
     </message>
     <message>
         <source>Document T&amp;emplates:</source>
-        <translation type="unfinished"></translation>
+        <translation>Шаблони доку&amp;ментів:</translation>
     </message>
     <message>
         <source>Units:</source>
-        <translation type="unfinished"></translation>
+        <translation>Одиниці виміру:</translation>
     </message>
     <message>
         <source>Undo/Redo</source>
-        <translation type="unfinished"></translation>
+        <translation>Відмінити/повторити</translation>
     </message>
     <message>
         <source>Action history length</source>
-        <translation type="unfinished"></translation>
+        <translation>Розмір історії подій</translation>
     </message>
     <message>
         <source>Hyphenator</source>
-        <translation type="unfinished"></translation>
+        <translation>Переносник</translation>
     </message>
     <message>
         <source>Fonts</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Preflight Verifier</source>
-        <translation type="unfinished"></translation>
+        <translation>Шрифти</translation>
     </message>
     <message>
         <source>Color Management</source>
-        <translation type="unfinished"></translation>
+        <translation>Керування кольорами</translation>
     </message>
     <message>
         <source>PDF Export</source>
-        <translation type="unfinished"></translation>
+        <translation>Експорт PDF</translation>
     </message>
     <message>
         <source>Document Item Attributes</source>
-        <translation type="unfinished"></translation>
+        <translation>Атрибути об&apos;єкта документа</translation>
     </message>
     <message>
         <source>Table of Contents and Indexes</source>
-        <translation type="unfinished"></translation>
+        <translation>Зміст та індекси</translation>
     </message>
     <message>
         <source>Keyboard Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Набори гарячих клавіш</translation>
     </message>
     <message>
         <source>Page Display</source>
-        <translation type="unfinished"></translation>
+        <translation>Показ сторінки</translation>
     </message>
     <message>
         <source>Color:</source>
-        <translation type="unfinished">Колір:</translation>
+        <translation>Колір:</translation>
     </message>
     <message>
         <source>Alt+U</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+U</translation>
     </message>
     <message>
         <source>Show Pictures</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати зображення</translation>
     </message>
     <message>
         <source>Show Text Chains</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати текстові ланцюги</translation>
     </message>
     <message>
         <source>Show Text Control Characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати контрольні знаки тексту</translation>
     </message>
     <message>
         <source>Show Frames</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Rulers relative to Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати рамки</translation>
     </message>
     <message>
         <source>Scratch Space</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Gaps between Pages</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Horizontal:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Vertical:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>To adjust the display drag the ruler below with the slider.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>dpi</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Resolution:</source>
-        <translation type="unfinished"></translation>
+        <translation>Чорновик</translation>
     </message>
     <message>
         <source>Always ask before fonts are replaced when loading a document</source>
-        <translation type="unfinished"></translation>
+        <translation>Завжди запитувати перед заміною шрифтів при завантаженні документа</translation>
     </message>
     <message>
         <source>Preview of current Paragraph Style visible when editing Styles</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show Startup Dialog</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Lorem Ipsum</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Always use standard Lorem Ipsum</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Count of the Paragraphs:</source>
-        <translation type="unfinished"></translation>
+        <translation>Попередній перегляд активних стилів абзаців видимий при редагуванні стилів</translation>
     </message>
     <message>
         <source>Miscellaneous</source>
-        <translation type="unfinished"></translation>
+        <translation>Різне</translation>
+    </message>
+    <message>
+        <source>Plugin Manager</source>
+        <translation type="obsolete">Керування модулями</translation>
+    </message>
+    <message>
+        <source>Plugin</source>
+        <translation type="obsolete">Модуль</translation>
+    </message>
+    <message>
+        <source>How to run</source>
+        <translation type="obsolete">Як запустити</translation>
     </message>
     <message>
         <source>Type</source>
         <translation type="obsolete">Тип</translation>
+    </message>
+    <message>
+        <source>Load it?</source>
+        <translation type="obsolete">Завантажити?</translation>
+    </message>
+    <message>
+        <source>Plugin ID</source>
+        <translation type="obsolete">Код Модуля</translation>
     </message>
     <message>
         <source>File</source>
@@ -14153,284 +14439,365 @@ Gimp і Ваш дистрибутив його включає, ми рекоме
         <translation type="obsolete">Ні</translation>
     </message>
     <message>
-        <source>Plugins</source>
-        <translation type="unfinished"></translation>
+        <source>You need to restart the application to apply the changes.</source>
+        <translation type="obsolete">Програму необхідно перезапустити, щоб активувати зміни.</translation>
     </message>
     <message>
-        <source>Display non-printing characters such as paragraph markers in text frames</source>
-        <translation type="unfinished"></translation>
+        <source>Plugins</source>
+        <translation>Модулі</translation>
+    </message>
+    <message>
+        <source>Turns the display of linked frames on or off</source>
+        <translation type="obsolete">Переключає показ зв&apos;язаних рамок</translation>
     </message>
     <message>
         <source>Turns the display of frames on or off</source>
-        <translation type="unfinished"></translation>
+        <translation>Переключає показ рамок</translation>
     </message>
     <message>
         <source>Turns the display of pictures on or off</source>
-        <translation type="unfinished"></translation>
+        <translation>Переключає показ зображень</translation>
+    </message>
+    <message>
+        <source>Select your default language for Scribus to run with.
+Leave this blank to choose based on environment variables.
+You can still override this by passing a command line option when starting Scribus</source>
+        <translation type="obsolete">Вибрати мову інтерфейса Scribus по умовчанню. Залиште пустим для використання перемінних оточення. Ви можете змінити мову при запуску програми за допомогою командного перемикача</translation>
     </message>
     <message>
         <source>Default ICC profiles directory. This cannot
 be changed with a document open.</source>
-        <translation type="unfinished"></translation>
+        <translation>Директорія з основними ICC профілями. Не може бути змінена при наявності відчиненого документа.</translation>
     </message>
     <message>
         <source>Additional directory for document templates</source>
-        <translation type="unfinished"></translation>
+        <translation>Додаткова директорія для шаблонів</translation>
     </message>
     <message>
         <source>Set the length of the action history in steps.
 If set to 0 infinite amount of actions will be stored.</source>
-        <translation type="unfinished"></translation>
+        <translation>Установити розмір історії подій в кількості кроків.
+Якщо установлено нуль то буде збережена необмежена
+кількість кроків.</translation>
+    </message>
+    <message>
+        <source>Preflight Verifier</source>
+        <translation>Передекспортна перевірка</translation>
+    </message>
+    <message>
+        <source>Rulers relative to Page</source>
+        <translation>Лінійки відносні до сторінки</translation>
+    </message>
+    <message>
+        <source>Gaps between Pages</source>
+        <translation>Проміжки між сторінками</translation>
+    </message>
+    <message>
+        <source>Horizontal:</source>
+        <translation>Горизонтальна:</translation>
+    </message>
+    <message>
+        <source>Vertical:</source>
+        <translation>Вертикальна:</translation>
+    </message>
+    <message>
+        <source>To adjust the display drag the ruler below with the slider.</source>
+        <translation>Для зміни видимого перетягніть лінійку внизу повзунком.</translation>
+    </message>
+    <message>
+        <source>dpi</source>
+        <translation>тнд</translation>
+    </message>
+    <message>
+        <source>Resolution:</source>
+        <translation>Розрішення:</translation>
+    </message>
+    <message>
+        <source>Show Startup Dialog</source>
+        <translation>Показувати стартовий діалог</translation>
+    </message>
+    <message>
+        <source>Lorem Ipsum</source>
+        <translation>Lorem Ipsum</translation>
+    </message>
+    <message>
+        <source>Always use standard Lorem Ipsum</source>
+        <translation>Завжди використовувати стандартний текст Lorem Ipsum</translation>
+    </message>
+    <message>
+        <source>Count of the Paragraphs:</source>
+        <translation>Число абзаців:</translation>
+    </message>
+    <message>
+        <source>Display non-printing characters such as paragraph markers in text frames</source>
+        <translation>Показувати недруковані знаки, такі як маркери абзаців, в текстових рамках</translation>
     </message>
     <message>
         <source>Place a ruler against your screen and drag the slider to set the zoom level so Scribus will display your pages and objects on them at the correct size</source>
-        <translation type="unfinished"></translation>
+        <translation>Притуліть лінійку до екрану та зсуньте повзунок масштаба зображення поки Scribus не почне показувати справжній розмір сторінок та об&apos;єктів на них</translation>
     </message>
     <message>
         <source>Defines amount of space left of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="unfinished"></translation>
+        <translation>Визначає розмір простіру на канві зліва від документа доступного як чорновик для створення та редагування елементів перед перетягуванням їх на активну сторінку</translation>
     </message>
     <message>
         <source>Defines amount of space right of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="unfinished"></translation>
+        <translation>Визначає розмір простіру на канві справа від документа доступного як чорновик для створення та редагування елементів перед перетягуванням їх на активну сторінку</translation>
     </message>
     <message>
         <source>Defines amount of space above the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="unfinished"></translation>
+        <translation>Визначає розмір простіру на канві над документом доступного як чорновик для створення та редагування елементів перед перетягуванням їх на активну сторінку</translation>
     </message>
     <message>
         <source>Defines amount of space below the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Locate Ghostscript</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Locate your image editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Визначає розмір простіру на канві під документом доступного як чорновик для створення та редагування елементів перед перетягуванням їх на активну сторінку</translation>
     </message>
     <message>
         <source>PostScript Interpreter</source>
-        <translation type="unfinished"></translation>
+        <translation>Інтерпретатор постскрипт</translation>
     </message>
     <message>
         <source>Enable or disable  the display of linked frames.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ввімкнути або вимкнути показ поєднаних рамок.</translation>
     </message>
     <message>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть основну мову для використання в Scribus. Залиште пустим для використання перемінних робочого середовища. Ви зможете змінити цю установку за допомогою використання перемикачів командної строки при запуску Scribus</translation>
+    </message>
+    <message>
+        <source>Locate Ghostscript</source>
+        <translation>Знайти Ghostscript </translation>
+    </message>
+    <message>
+        <source>Locate your image editor</source>
+        <translation>Знайти редактор зображень</translation>
     </message>
 </context>
 <context>
     <name>PrefsDialogBase</name>
     <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;Гаразд</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">В&amp;ихід</translation>
+    </message>
+    <message>
         <source>&amp;Defaults</source>
-        <translation type="unfinished"></translation>
+        <translation>По &amp;умовчанню</translation>
     </message>
 </context>
 <context>
     <name>PrefsManager</name>
     <message>
-        <source>Single Page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Double sided</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Left Page</source>
-        <translation type="unfinished">Ліва сторінка</translation>
-    </message>
-    <message>
-        <source>Right Page</source>
-        <translation type="unfinished">Права сторінка</translation>
-    </message>
-    <message>
-        <source>3-Fold</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Middle</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>4-Fold</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Middle Left</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Middle Right</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Postscript</source>
-        <translation type="unfinished">Постскрипт</translation>
+        <translation>Постскрипт</translation>
+    </message>
+    <message>
+        <source>PDF 1.3</source>
+        <translation>PDF 1.3</translation>
+    </message>
+    <message>
+        <source>PDF 1.4</source>
+        <translation>PDF 1.4</translation>
+    </message>
+    <message>
+        <source>PDF/X-3</source>
+        <translation>PDF/X-3</translation>
     </message>
     <message>
         <source>Migrate Old Scribus Settings?</source>
-        <translation type="unfinished"></translation>
+        <translation>Конвертувати старі установки?</translation>
     </message>
     <message>
         <source>Scribus has detected existing Scribus 1.2 preferences files.
 Do you want to migrate them to the new Scribus version?</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus знайшов файл з установками формату Scribus 1.2.
+Ви бажаєте конвертувати їх у формат нової версії Scribus?</translation>
+    </message>
+    <message>
+        <source>Single Page</source>
+        <translation>Одна сторінка</translation>
+    </message>
+    <message>
+        <source>Double sided</source>
+        <translation>Двохстороння</translation>
+    </message>
+    <message>
+        <source>Left Page</source>
+        <translation>Ліва сторінка</translation>
+    </message>
+    <message>
+        <source>Right Page</source>
+        <translation>Права сторінка</translation>
+    </message>
+    <message>
+        <source>3-Fold</source>
+        <translation>3-х сторіночна складка</translation>
+    </message>
+    <message>
+        <source>Middle</source>
+        <translation>Середня</translation>
+    </message>
+    <message>
+        <source>4-Fold</source>
+        <translation>4-х сторіночна складка</translation>
+    </message>
+    <message>
+        <source>Middle Left</source>
+        <translation>Середня ліва</translation>
+    </message>
+    <message>
+        <source>Middle Right</source>
+        <translation>Середня права</translation>
     </message>
     <message>
         <source>PostScript</source>
-        <translation type="unfinished"></translation>
+        <translation>Постскрипт</translation>
     </message>
     <message>
         <source>Could not open preferences file &quot;%1&quot; for writing: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо відчинити файл з установками &quot;%1&quot; для запису: %2</translation>
     </message>
     <message>
         <source>Writing to preferences file &quot;%1&quot; failed: QIODevice status code %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Запис у файл установок &quot;%1&quot; неможливий: код статуса QIODevice %2</translation>
     </message>
     <message>
         <source>Failed to open prefs file &quot;%1&quot;: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо відчинити файл установок &quot;%1&quot;: %2</translation>
     </message>
     <message>
         <source>Failed to read prefs XML from &quot;%1&quot;: %2 at line %3, col %4</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PDF 1.3</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PDF 1.4</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PDF/X-3</source>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо прочитати ХМЛ установки з &quot;%1&quot;: %2 в рядку %3, колонка %4</translation>
     </message>
     <message>
         <source>Error Writing Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Помилка запису установок</translation>
     </message>
     <message>
         <source>Scribus was not able to save its preferences:&lt;br&gt;%1&lt;br&gt;Please check file and directory permissions and available disk space.</source>
         <comment>scribus app error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Scribus не зміг записати свої установки:&lt;br&gt;%1&lt;br&gt;Будь-ласка перевірте дозволи на запис файлів та директорій та наявність вільного простіру на диску.</translation>
     </message>
     <message>
         <source>Error Loading Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Помилка зчитування установок</translation>
     </message>
     <message>
         <source>Scribus was not able to load its preferences:&lt;br&gt;%1&lt;br&gt;Default settings will be loaded.</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus не зміг зчитати свої установки:&lt;br&gt;%1&lt;br&gt;Будуть використані стандартні установки.</translation>
     </message>
 </context>
 <context>
     <name>PresetLayout</name>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Нічого</translation>
     </message>
     <message>
         <source>Book</source>
-        <translation type="unfinished"></translation>
+        <translation>Книга</translation>
     </message>
     <message>
         <source>Magazine</source>
-        <translation type="unfinished"></translation>
+        <translation>Журнал</translation>
     </message>
     <message>
         <source>You can select predefined page layout here. &apos;None&apos; leave margins as is, &apos;Book&apos; sets margins classically (Gutenberg). &apos;Book&apos; is proposed for two-sided documents. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
-        <translation type="unfinished"></translation>
+        <translation>Тут Ви можете вибрати стандартний макет сторінки. &apos;Нічого&apos; - залишити поля в теперішньому стані, &apos;Книга&apos; - установлює класичні поля (Гутенберг). &apos;Книга&apos; пропонується для використання в двохсторонніх документах. &apos;Журнал&apos; - установлює всі поля одного розміру. Головним є ліве внутрішне поле.</translation>
     </message>
 </context>
 <context>
     <name>PythonConsole</name>
     <message>
         <source>&amp;Open...</source>
-        <translation type="unfinished">&amp;Відчинити...</translation>
+        <translation>&amp;Відчинити...</translation>
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation type="unfinished">&amp;Записати</translation>
-    </message>
-    <message>
-        <source>Save &amp;As...</source>
-        <translation type="unfinished">Записати &amp;як...</translation>
+        <translation>&amp;Записати</translation>
     </message>
     <message>
         <source>&amp;Exit</source>
-        <translation type="unfinished"></translation>
+        <translation>В&amp;ийти</translation>
     </message>
     <message>
         <source>&amp;File</source>
-        <translation type="unfinished">&amp;Файл</translation>
+        <translation>&amp;Файл</translation>
     </message>
     <message>
         <source>&amp;Run</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Run As &amp;Console</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Запустити</translation>
     </message>
     <message>
         <source>&amp;Save Output...</source>
-        <translation type="unfinished"></translation>
+        <translation>За&amp;писати результат...</translation>
     </message>
     <message>
         <source>&amp;Script</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Scribus Python Console</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This is derived from standard Python console so it contains some limitations esp. in the case of whitespaces. Please consult Scribus manual for more informations.</source>
-        <translation type="unfinished"></translation>
+        <translation>С&amp;ценарій</translation>
     </message>
     <message>
         <source>Script Console</source>
-        <translation type="unfinished">Консоль сценарія</translation>
+        <translation>Консоль сценарія</translation>
     </message>
     <message>
         <source>Write your commands here. A selection is processed as script</source>
-        <translation type="unfinished"></translation>
+        <translation>Пишіть Ваші команди тут. Вибірка буде виконана, як сценарій</translation>
     </message>
     <message>
         <source>Output of your script</source>
-        <translation type="unfinished"></translation>
+        <translation>Результат виконання сценарія</translation>
     </message>
     <message>
         <source>Python Scripts (*.py)</source>
-        <translation type="unfinished"></translation>
+        <translation>Сценарї на Пітоні (*.py)</translation>
     </message>
     <message>
         <source>Open File With Python Commands</source>
-        <translation type="unfinished"></translation>
+        <translation>Відчинити файл з командами на пітоні</translation>
     </message>
     <message>
         <source>Save the Python Commands in File</source>
-        <translation type="unfinished"></translation>
+        <translation>Записати команди на пітоні в файл</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation type="unfinished">Застереження</translation>
+        <translation>Застереження</translation>
     </message>
     <message>
         <source>Text Files (*.txt)</source>
-        <translation type="unfinished"></translation>
+        <translation>Текстові файли (*.txt)</translation>
     </message>
     <message>
         <source>Save Current Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Записати активний результат</translation>
+    </message>
+    <message>
+        <source>&amp;Save As...</source>
+        <translation type="obsolete">Записати &amp;як...</translation>
+    </message>
+    <message>
+        <source>&amp;Run As Console</source>
+        <translation type="obsolete">Запустити в кон&amp;солі</translation>
+    </message>
+    <message>
+        <source>Save &amp;As...</source>
+        <translation>Записати &amp;як...</translation>
+    </message>
+    <message>
+        <source>Run As &amp;Console</source>
+        <translation>Виконати в ко&amp;нсолі</translation>
+    </message>
+    <message>
+        <source>Scribus Python Console</source>
+        <translation>Консоль Пітону</translation>
+    </message>
+    <message>
+        <source>This is derived from standard Python console so it contains some limitations esp. in the case of whitespaces. Please consult Scribus manual for more informations.</source>
+        <translation>Модифікована з стандартної консолі Пітону, тому може містити деякі обмеження особливу у випадку проміжків. Будь-ласка зверніться до керівництва користувача Scribus за подальшою інформацією.</translation>
     </message>
 </context>
 <context>
@@ -15089,19 +15456,19 @@ Check path and filename.</source>
     </message>
     <message>
         <source>&amp;Scribus Scripts</source>
-        <translation type="unfinished">С&amp;ценарії Scribus</translation>
+        <translation>С&amp;ценарії Scribus</translation>
     </message>
     <message>
         <source>&amp;Execute Script...</source>
-        <translation type="unfinished">&amp;Виконати сценарій...</translation>
+        <translation>&amp;Виконати сценарій...</translation>
     </message>
     <message>
         <source>&amp;Recent Scripts</source>
-        <translation type="unfinished">&amp;Недавно виконані сценарії</translation>
+        <translation>&amp;Недавно виконані сценарії</translation>
     </message>
     <message>
         <source>Show &amp;Console</source>
-        <translation type="unfinished">Покзати ко&amp;нсоль</translation>
+        <translation>Покзати ко&amp;нсоль</translation>
     </message>
     <message>
         <source>Save Page as &amp;SVG...</source>
@@ -15324,11 +15691,11 @@ External Links
     </message>
     <message>
         <source>&amp;About Script...</source>
-        <translation type="unfinished">&amp;Про скрипт...</translation>
+        <translation>&amp;Про скрипт...</translation>
     </message>
     <message>
         <source>About Script</source>
-        <translation type="unfinished">Про скрипт</translation>
+        <translation>Про скрипт</translation>
     </message>
     <message>
         <source>Cannot get font size of non-text frame.</source>
@@ -15505,12 +15872,12 @@ External Links
     <message>
         <source>Object is not a linked text frame, can&apos;t unlink.</source>
         <comment>python error</comment>
-        <translation type="unfinished">Об&apos;єкт не являється зв&apos;язаною текстовою рамкою, неможливо розімкнути.</translation>
+        <translation>Об&apos;єкт не являється зв&apos;язаною текстовою рамкою, неможливо розімкнути.</translation>
     </message>
     <message>
         <source>Object the last frame in a series, can&apos;t unlink. Unlink the previous frame instead.</source>
         <comment>python error</comment>
-        <translation type="unfinished">Об&apos;єкт являється останньою рамкою в серії, неможливо роз&apos;єднати. Роз&apos;єднайте попередню рамку натомість.</translation>
+        <translation>Об&apos;єкт являється останньою рамкою в серії, неможливо роз&apos;єднати. Роз&apos;єднайте попередню рамку натомість.</translation>
     </message>
     <message>
         <source>Can&apos;t convert a non-text frame to outlines</source>
@@ -16109,390 +16476,374 @@ NoValidObjectError, якщо не зможе знайти жодного об&ap
     </message>
     <message>
         <source>Portuguese</source>
-        <translation type="unfinished">Португальська</translation>
+        <translation>Португальська</translation>
     </message>
     <message>
         <source>Portuguese (BR)</source>
-        <translation type="unfinished">Португальська (Бр)</translation>
+        <translation>Португальська (Бр)</translation>
     </message>
     <message>
         <source>Scribus Crash</source>
-        <translation type="unfinished">Аварійний вихід Scribus</translation>
+        <translation>Аварійний вихід Scribus</translation>
     </message>
     <message>
         <source>Scribus crashes due to Signal #%1</source>
-        <translation type="unfinished">Аварійний вихід Scribus із-за сигнала №%1</translation>
+        <translation>Аварійний вихід Scribus з приводу сигнала номер %1</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;Гаразд</translation>
+        <translation>&amp;Гаразд</translation>
     </message>
     <message>
         <source>Custom</source>
-        <translation type="unfinished">Нестандартний</translation>
+        <translation>Нестандартний</translation>
     </message>
     <message>
         <source>Page</source>
-        <translation type="unfinished">Сторінка</translation>
+        <translation>Сторінка</translation>
     </message>
     <message>
         <source>Master Page </source>
-        <translation type="unfinished"></translation>
+        <translation>Головна сторінка</translation>
     </message>
     <message>
         <source>4A0</source>
-        <translation type="unfinished"></translation>
+        <translation>4A0</translation>
     </message>
     <message>
         <source>2A0</source>
-        <translation type="unfinished"></translation>
+        <translation>2A0</translation>
     </message>
     <message>
         <source>Comm10E</source>
-        <translation type="unfinished"></translation>
+        <translation>Comm10E</translation>
     </message>
     <message>
         <source>DLE</source>
-        <translation type="unfinished"></translation>
+        <translation>DLE</translation>
     </message>
     <message>
         <source>Could not open output file %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо відчинити вихідний файл %1</translation>
     </message>
     <message>
         <source>Output stream not writeable</source>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо писати у вихідний потік</translation>
     </message>
     <message>
         <source>Verification of settings failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Перевірка установок не пройшла успішно: %1</translation>
     </message>
     <message>
         <source>Could not open input file %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо відчинити вхідний файл %1</translation>
     </message>
     <message>
         <source>Unable to read settings XML:</source>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо зчитати установки ХМЛ:</translation>
     </message>
     <message>
         <source>%1 (line %2 col %3)</source>
         <comment>Load PDF settings</comment>
-        <translation type="unfinished"></translation>
+        <translation>%1 (рядок %2 колонка %3)</translation>
     </message>
     <message>
         <source>Unable to read settings XML: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо зчитати установки ХМЛ: %1</translation>
     </message>
     <message>
         <source>null root node</source>
         <comment>Load PDF settings</comment>
-        <translation type="unfinished"></translation>
+        <translation>Нульовий корневий вузол</translation>
     </message>
     <message>
         <source>&lt;pdfVersion&gt; invalid</source>
         <comment>Load PDF settings</comment>
-        <translation type="unfinished"></translation>
+        <translation>&lt;pdfVersion&gt; невірна</translation>
     </message>
     <message>
         <source>found %1 &lt;%2&gt; nodes, need 1.</source>
         <comment>Load PDF settings</comment>
-        <translation type="unfinished"></translation>
+        <translation>знайдено %1 &lt;%2&gt; вузлів, повинен бути 1.</translation>
     </message>
     <message>
         <source>unexpected null &lt;%2&gt; node</source>
         <comment>Load PDF settings</comment>
-        <translation type="unfinished"></translation>
+        <translation>неочікуваний нульовий &lt;%2&gt; вузол</translation>
     </message>
     <message>
         <source>node &lt;%1&gt; not an element</source>
         <comment>Load PDF settings</comment>
-        <translation type="unfinished"></translation>
+        <translation>вузол &lt;%1&gt; не являється елементом</translation>
     </message>
     <message>
         <source>element &lt;%1&gt; lacks `value&apos; attribute</source>
         <comment>Load PDF settings</comment>
-        <translation type="unfinished"></translation>
+        <translation>елемент &lt;%1&gt; не містить атрибут `value&apos;</translation>
     </message>
     <message>
         <source>element &lt;%1&gt; value must be `true&apos; or `false&apos;</source>
         <comment>Load PDF settings</comment>
-        <translation type="unfinished"></translation>
+        <translation>значення елемента &lt;%1&gt; повинне бути `true&apos; або `false&apos;</translation>
     </message>
     <message>
         <source>element &lt;lpiSettingsEntry&gt; lacks `name&apos; attribute</source>
         <comment>Load PDF settings</comment>
-        <translation type="unfinished"></translation>
+        <translation>елемент &lt;lpiSettingsEntry&gt; не містить атрибут `name&apos; </translation>
     </message>
     <message>
         <source>Freetype2 library not available</source>
-        <translation type="unfinished"></translation>
+        <translation>Бібліотека Freetype2 недоступна</translation>
     </message>
     <message>
         <source>Font %1 is broken, no embedding</source>
-        <translation type="unfinished"></translation>
+        <translation>Шрифт %1 містить помилку - вставка недоступна</translation>
     </message>
     <message>
         <source>Font %1 is broken (read stream), no embedding</source>
-        <translation type="unfinished"></translation>
+        <translation>Шрифт %1 містить помилку (вхідний потік) - вставка недоступна</translation>
     </message>
     <message>
         <source>Font %1 is broken (FreeType2), discarding it</source>
-        <translation type="unfinished"></translation>
+        <translation>Шрифт %1 містить помилку (FreeType2) і буде видалено</translation>
     </message>
     <message>
         <source>Font %1 is broken (no Face), discarding it</source>
-        <translation type="unfinished"></translation>
+        <translation>Шрифт %1 містить помилку (відсутній тип) і буде видалено</translation>
     </message>
     <message>
         <source>Font %1 has broken glyph %2 (charcode %3)</source>
-        <translation type="unfinished"></translation>
+        <translation>Шрифт %1 містить помилковий символ %2 (код символа %3)</translation>
     </message>
     <message>
         <source>Font %1 is broken and will be discarded</source>
-        <translation type="unfinished"></translation>
+        <translation>Шрифт %1 містить помилку і буде видалено</translation>
     </message>
     <message>
         <source>Font %1 cannot be read, no embedding</source>
-        <translation type="unfinished"></translation>
+        <translation>Шрифт %1 неможливо зчитати - вставка недоступна</translation>
     </message>
     <message>
         <source>Failed to load font %1 - font type unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо завантажити шрифт %1 - невідомий тип шрифта</translation>
     </message>
     <message>
         <source>Font %1 loaded from %2(%3)</source>
-        <translation type="unfinished"></translation>
+        <translation>Шрифт %1 завантажено з %2(%3)</translation>
     </message>
     <message>
         <source>Font %1(%2) is duplicate of %3</source>
-        <translation type="unfinished"></translation>
+        <translation>Шрифт %1(%2) являється копією %3</translation>
     </message>
     <message>
         <source>Loading font %1 (found using fontconfig)</source>
-        <translation type="unfinished"></translation>
+        <translation>Завантажується шрифт %1 (знайдений за допомогою fontconfig)</translation>
     </message>
     <message>
         <source>Font %1 (found using fontconfig) is broken, discarding it</source>
-        <translation type="unfinished"></translation>
+        <translation>Шрифт %1 (знайдений за допомогою fontconfig) містить помилку і буде видалено</translation>
     </message>
     <message>
         <source>Failed to load a font - freetype2 couldn&apos;t find the font file</source>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо завантажити шрифт - freetype2 не може знайти файл шрифта</translation>
     </message>
     <message>
         <source>Font %1 is broken (FreeType), discarding it</source>
-        <translation type="unfinished"></translation>
+        <translation>Шрифт %1 містить помилку (FreeType) і буде видалено</translation>
     </message>
     <message>
         <source>Font %1  has invalid glyph %2 (charcode %3), discarding it</source>
-        <translation type="unfinished"></translation>
+        <translation>Шрифт %1 містить помилковий символ %2 (код символа %3) і буде видалено</translation>
     </message>
     <message>
         <source>extracting face %1 from font %2 (offset=%3, nTables=%4)</source>
-        <translation type="unfinished"></translation>
+        <translation>Екстракція типу %1 з шрифта %2 (offset=%3, nTables=%4)</translation>
     </message>
     <message>
         <source>memcpy header: %1 %2 %3</source>
-        <translation type="unfinished"></translation>
+        <translation>заголовок memcpy: %1 %2 %3</translation>
     </message>
     <message>
         <source>table &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>таблиця &apos;%1&apos;</translation>
     </message>
     <message>
         <source>memcpy table: %1 %2 %3</source>
-        <translation type="unfinished"></translation>
+        <translation>таблиця memcpy: %1 %2 %3</translation>
     </message>
     <message>
         <source>memcpy offset: %1 %2 %3</source>
-        <translation type="unfinished"></translation>
+        <translation>зміщення memcpy: %1 %2 %3</translation>
     </message>
     <message>
         <source>Scribus Development Version</source>
-        <translation type="unfinished"></translation>
+        <translation>Версія Scribus в стадії розробки</translation>
     </message>
     <message>
         <source>You are running a development version of Scribus 1.3.x. The current document you are working with was originally created in Scribus 1.2.2 or lower. The process of saving will make this file unusable again in Scribus 1.2.2 unless you use File-&gt;Save As. Are you sure you wish to proceed with this operation?</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви запустили версію Scribus 1.3.x, яка знаходиться в стадії розробки. Активний документ з яким Ви працюєте був створений в Scribus версії 1.2.2 або нижче. Процес запису зробить цей файл несумісним з Scribus 1.2.2, якщо Ви не використаєте Файл-&gt;Записати як. Ви впевнені, що Ви бажаєте продовжити виконання операції запису?</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">В&amp;ихід</translation>
     </message>
     <message>
         <source>&amp;Proceed</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Продовжити</translation>
     </message>
     <message>
         <source>Invalid argument: </source>
-        <translation type="unfinished"></translation>
+        <translation>Невірний аргумент:</translation>
     </message>
     <message>
         <source>File %1 does not exist, aborting.</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл %1 не існує, аварійний вихід.</translation>
     </message>
     <message>
         <source>Usage: scribus [option ... ] [file]</source>
-        <translation type="unfinished"></translation>
+        <translation>Використання: scribus [ключ ... ] [файл]</translation>
     </message>
     <message>
         <source>Options:</source>
-        <translation type="unfinished"></translation>
+        <translation>Установки:</translation>
     </message>
     <message>
         <source>Print help (this message) and exit</source>
-        <translation type="unfinished"></translation>
+        <translation>Надрукувати підказку (це повідомлення) та вийти</translation>
     </message>
     <message>
         <source>Uses xx as shortcut for a language</source>
-        <translation type="unfinished"></translation>
+        <translation>Використовує хх, як скорочений код мови</translation>
     </message>
     <message>
         <source>List the currently installed interface languages</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати список установлених мов інтерфейса</translation>
     </message>
     <message>
         <source>Show information on the console when fonts are being loaded</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати в консолі інформацію про завантаження шрифтів</translation>
     </message>
     <message>
         <source>Do not show the splashscreen on startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Не показувати стартову заставку під час запуску програми</translation>
     </message>
     <message>
         <source>Output version information and exit</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати інформацію про версію та вийти</translation>
     </message>
     <message>
         <source>Installed interface languages for Scribus are as follows:</source>
-        <translation type="unfinished"></translation>
+        <translation>Інстальовані мови інтерфейсу Scribus включають:</translation>
     </message>
     <message>
         <source>To override the default language choice:</source>
-        <translation type="unfinished"></translation>
+        <translation>Вибрати нестандартну мову:</translation>
     </message>
     <message>
         <source>scribus -l xx or scribus --lang xx, where xx is the language of choice.</source>
-        <translation type="unfinished"></translation>
+        <translation>scribus -l xx або scribus --lang xx, де xx - це код вибраної мови.</translation>
     </message>
     <message>
         <source>Scribus Version </source>
-        <translation type="unfinished"></translation>
+        <translation>Версія Scribus</translation>
     </message>
     <message>
         <source>Scribus, Open Source Desktop Publishing</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus, поліграфічне програмне забезпечення з відкритим кодом</translation>
     </message>
     <message>
         <source>---------------------------------------</source>
-        <translation type="unfinished"></translation>
+        <translation>---------------------------------------</translation>
     </message>
     <message>
         <source>Homepage:       http://www.scribus.net </source>
-        <translation type="unfinished"></translation>
+        <translation>Домашня сторінка:       http://www.scribus.net </translation>
     </message>
     <message>
         <source>Documentation:  http://docs.scribus.net</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Wiki:           http://wiki.scribus.net</source>
-        <translation type="unfinished"></translation>
+        <translation>Документація:  http://docs.scribus.net</translation>
     </message>
     <message>
         <source>Issues:         http://bugs.scribus.net</source>
-        <translation type="unfinished"></translation>
+        <translation>Звіт про проблеми:         http://bugs.scribus.net</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation type="unfinished"></translation>
+        <translation> тчк</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation type="unfinished">мм</translation>
+        <translation> мм</translation>
     </message>
     <message>
         <source> in</source>
-        <translation type="unfinished">д</translation>
+        <translation> д</translation>
     </message>
     <message>
         <source> p</source>
-        <translation type="unfinished"></translation>
+        <translation> п</translation>
     </message>
     <message>
         <source> cm</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> c</source>
-        <translation type="unfinished"></translation>
+        <translation> см</translation>
     </message>
     <message>
         <source>pt</source>
-        <translation type="unfinished">тчк</translation>
+        <translation>тчк</translation>
     </message>
     <message>
         <source>mm</source>
-        <translation type="unfinished">мм</translation>
+        <translation>мм</translation>
     </message>
     <message>
         <source>in</source>
-        <translation type="unfinished">д</translation>
+        <translation>д</translation>
     </message>
     <message>
         <source>p</source>
-        <translation type="unfinished">п</translation>
+        <translation>п</translation>
     </message>
     <message>
         <source>cm</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>c</source>
-        <translation type="unfinished"></translation>
+        <translation>см</translation>
     </message>
     <message>
         <source>Points (pt)</source>
-        <translation type="unfinished">Точки (тчк)</translation>
+        <translation>Точки (тчк)</translation>
     </message>
     <message>
         <source>Millimeters (mm)</source>
-        <translation type="unfinished"></translation>
+        <translation>Мілліметри (мм)</translation>
     </message>
     <message>
         <source>Inches (in)</source>
-        <translation type="unfinished">Дюйми (д)</translation>
+        <translation>Дюйми (д)</translation>
     </message>
     <message>
         <source>Picas (p)</source>
-        <translation type="unfinished">Піки (п)</translation>
+        <translation>Піки (п)</translation>
     </message>
     <message>
         <source>Centimeters (cm)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cicero (c)</source>
-        <translation type="unfinished"></translation>
+        <translation>Сентиметри (см)</translation>
     </message>
     <message>
         <source>File exists</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл вже існує</translation>
     </message>
     <message>
         <source>A file named &apos;%1&apos; already exists.
 Do you want to replace it with the file you are saving?</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл з іменем &apos;%1&apos; вже існує.
+Ви бажаєте переписати його файлом, який ви записуєте?</translation>
     </message>
     <message>
         <source>&amp;Replace</source>
-        <translation type="unfinished">&amp;Заміна</translation>
-    </message>
-    <message>
-        <source>page</source>
-        <comment>page export</comment>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Заміна</translation>
     </message>
     <message>
         <source>All</source>
-        <translation type="unfinished"></translation>
+        <translation>Всі</translation>
     </message>
     <message>
         <source>&amp;Fonts Preview...</source>
@@ -16500,169 +16851,149 @@ Do you want to replace it with the file you are saving?</source>
     </message>
     <message>
         <source>Document Template: </source>
-        <translation type="unfinished"></translation>
+        <translation>Шаблон документа: </translation>
     </message>
     <message>
         <source>Failed to open document.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо відчинити документ.</translation>
     </message>
     <message>
         <source>Failed to save document.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо записати документ.</translation>
     </message>
     <message>
         <source>Argument must be page item name, or PyCObject instance</source>
-        <translation type="unfinished"></translation>
+        <translation>Аргументом може бути ім&apos;я об&apos;єкта сторінки або примірник PyCObject</translation>
     </message>
     <message>
         <source>Property not found</source>
-        <translation type="unfinished"></translation>
+        <translation>Властивість не знайдено</translation>
     </message>
     <message>
         <source>Child not found</source>
-        <translation type="unfinished"></translation>
+        <translation>Дитячий об&apos;єкт не знайдено</translation>
     </message>
     <message>
         <source>Couldn&apos;t convert result type &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо конвертувати тип результату &apos;%1&apos;.</translation>
     </message>
     <message>
         <source>Property type &apos;%1&apos; not supported</source>
-        <translation type="unfinished"></translation>
+        <translation>Тип властивості &apos;%1&apos; не підтримується</translation>
     </message>
     <message>
         <source>Couldn&apos;t convert &apos;%1&apos; to property type &apos;%2&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо конвертувати &apos;%1&apos; в тип властивості &apos;%2&apos;</translation>
     </message>
     <message>
         <source>Types matched, but setting property failed.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot group less than two items</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Can&apos;t group less than two items</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Need selection or argument list of items to group</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Типи співпадають, але установка властивості неможлива.</translation>
     </message>
     <message>
         <source>Unable to save pixmap</source>
         <comment>scripter error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо записати зображення</translation>
     </message>
     <message>
         <source>An object with the requested name already exists.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Об&apos;єкт з таким іменем вже існує.</translation>
     </message>
     <message>
         <source>Point list must contain at least two points (four values).</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Список точок повинен містити хоча б дві точки (чотири значення).</translation>
     </message>
     <message>
         <source>Point list must contain an even number of values.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Список точок повинен містити парну кількість значень.</translation>
     </message>
     <message>
         <source>Point list must contain at least three points (six values).</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Список точок повинен містити хоча б три точки (шість значень).</translation>
     </message>
     <message>
         <source>Point list must contain at least four points (eight values).</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Список точок повинен містити хоча б чотири точки (вісім значень).</translation>
     </message>
     <message>
         <source>Point list must have a multiple of six values.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Список точок повинен містити кількість значень, яка ділиться на шість.</translation>
     </message>
     <message>
         <source>Object not found.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Об&apos;єкт не знайдено.</translation>
     </message>
     <message>
         <source>Style not found.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Стиль не знайдено.</translation>
     </message>
     <message>
         <source>Cannot set style on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо установити стиль в нетекстовій рамці.</translation>
     </message>
     <message>
         <source>Failed to save EPS.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо записати EPS.</translation>
     </message>
     <message>
         <source>Page number out of range.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Число сторінок виходить за допустимий діапазон.</translation>
     </message>
     <message>
         <source>argument is not list: must be list of float values.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>аргумент не являється списком - повинен бути списком чисел з плаваючою комою.</translation>
     </message>
     <message>
         <source>argument contains non-numeric values: must be list of float values.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>аргумент містить нечислові значення - повинен бути списком чисел з плаваючою комою.</translation>
     </message>
     <message>
         <source>argument contains no-numeric values: must be list of float values.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>аргумент не містить числових значень - повинен бути списком чисел з плаваючою комою.</translation>
     </message>
     <message>
         <source>Line width out of bounds, must be 0 &lt;= line_width &lt;= 12.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Товщина лінії виходить за межі - повинна бути між 0 та 12.</translation>
     </message>
     <message>
         <source>Line shade out of bounds, must be 0 &lt;= shade &lt;= 100.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Тінь лінії виходить за межі - повинна бути від 0 до 100.</translation>
     </message>
     <message>
         <source>Fill shade out of bounds, must be 0 &lt;= shade &lt;= 100.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Заповнення тіні виходить за межі - повинне бути від 0 до 100.</translation>
     </message>
     <message>
         <source>Line style not found.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>стиль лінії не знайдено.</translation>
     </message>
     <message>
         <source>Only text frames can be checked for overflowing</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The filename should not be empty string.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Лише текстові рамки можуть бути перевірені на переповнення</translation>
     </message>
     <message>
         <source>&amp;Script</source>
-        <translation type="unfinished"></translation>
+        <translation>С&amp;ценарій</translation>
     </message>
     <message>
         <source>Scribus Python interface module
@@ -16696,79 +17027,139 @@ Details of what exceptions each function may throw are provided on the
 function&apos;s documentation, though as with most Python code this list
 is not exhaustive due to exceptions from called functions.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Модуль інтерфейса Пітона
+
+Цей модуль являється інтерфейсом Пітона та Scribus. Він містить функції для керування scribus і для маніпуляції об&apos;єктами на канві. Кожна функція індивідуально описана внизу. 
+
+Деякі загальні поняття для всього інтерфейсу.
+
+Більшість функцій оперує на рамками. Рамки визначаються іменем, 
+яке являється строковою величиною Пітона. Багато функцій приймають
+необов&apos;язковий параметр (не ключове слово) імені рамки. Багато виключень
+такоє є спільними для більшості функцій. Ці виключення не описуються окремо.
+Багато функцій активують виключення NoDocOpenError, якщо їх застосувати
+при відсутності активного документу.
+- Якщо функції, яка вимагає ім&apos;я рамки, не задати цей параметр, то вона спробує
+використати активну рамку, якщо така існує, або активує виключення 
+NoValidObjectError, якщо вона не знайде об&apos;єкта над яким можна провести дії.
+- Багато функцій активують виключення WrongFrameTypeError, якщо їх застосувати
+на типові рамки для якого вони не підходять. Наприклад, установка кольору
+тексту на рамці для зображень не має смислу і призведе до активації цього виключення.
+- Помилки, які є результатом викликів стандартного програмного інтерфейсу Пітону
+повертаються без змін. Тому список можливих виключень, який міститься в 
+документації функції не може бути повним принципово.
+
+Деталі виключень для кожної функції можна знайти в документації функції, хоча
+цей список і не являється повним із-за особливостей виключень Пітона.</translation>
     </message>
     <message>
-        <source>Short Words Manual</source>
-        <translation type="unfinished"></translation>
+        <source>Wiki:           http://wiki.scribus.net</source>
+        <translation>Вікі:           http://wiki.scribus.net</translation>
+    </message>
+    <message>
+        <source> c</source>
+        <translation>с</translation>
+    </message>
+    <message>
+        <source>c</source>
+        <translation>с</translation>
+    </message>
+    <message>
+        <source>Cicero (c)</source>
+        <translation>Сісеро (с)</translation>
+    </message>
+    <message>
+        <source>Cannot group less than two items</source>
+        <comment>python error</comment>
+        <translation>Неможливо згрупувати менш ніж два об&apos;єкти</translation>
+    </message>
+    <message>
+        <source>Can&apos;t group less than two items</source>
+        <comment>python error</comment>
+        <translation>Неможливо згрупувати менш ніж два об&apos;єкти</translation>
+    </message>
+    <message>
+        <source>Need selection or argument list of items to group</source>
+        <comment>python error</comment>
+        <translation>Потрібний список аргументів чи об&apos;єктів для згрупування</translation>
+    </message>
+    <message>
+        <source>The filename should not be empty string.</source>
+        <comment>python error</comment>
+        <translation>Ім&apos;я файла не повинне бути пустою строковою величиною.</translation>
     </message>
     <message>
         <source>Copy #%1 of </source>
-        <translation type="unfinished">Копія №%1 з </translation>
+        <translation>Копія №%1 з</translation>
     </message>
     <message>
         <source>Black</source>
-        <translation type="unfinished">Чорний</translation>
+        <translation>Чорний</translation>
     </message>
     <message>
         <source>Cyan</source>
-        <translation type="unfinished">Салатовий</translation>
+        <translation>Салатовий</translation>
     </message>
     <message>
         <source>Magenta</source>
-        <translation type="unfinished">Малиновий</translation>
+        <translation>Малиновий</translation>
     </message>
     <message>
         <source>Yellow</source>
-        <translation type="unfinished">Жовтий</translation>
+        <translation>Жовтий</translation>
+    </message>
+    <message>
+        <source>page</source>
+        <comment>page export</comment>
+        <translation>сторінка</translation>
     </message>
     <message>
         <source>Color Wheel</source>
-        <translation type="unfinished"></translation>
+        <translation>Колесо кольорів</translation>
     </message>
     <message>
         <source>Font Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Попередній перегляд шрифтів</translation>
     </message>
     <message>
         <source>My Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Мій модуль</translation>
     </message>
     <message>
         <source>New From Template</source>
-        <translation type="unfinished">Новий з шаблона</translation>
+        <translation>Новий з шаблона</translation>
     </message>
     <message>
         <source>Export As Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Експортувати, як зображення</translation>
     </message>
     <message>
         <source>PS/EPS Importer</source>
-        <translation type="unfinished"></translation>
+        <translation>ЕPS/PS імпортер</translation>
     </message>
     <message>
         <source>Save As Template</source>
-        <translation type="unfinished"></translation>
+        <translation>Записати як шаблон</translation>
     </message>
     <message>
         <source>Scripter</source>
-        <translation type="unfinished"></translation>
+        <translation>Сценарист</translation>
     </message>
     <message>
         <source>Short Words</source>
-        <translation type="unfinished">Короткі слова</translation>
+        <translation>Короткі слова</translation>
     </message>
     <message>
         <source>SVG Export</source>
-        <translation type="unfinished"></translation>
+        <translation>Експорт SVG</translation>
     </message>
     <message>
         <source>SVG Import</source>
-        <translation type="unfinished"></translation>
+        <translation>Імпорт SVG</translation>
     </message>
     <message>
         <source>OpenOffice.org Draw Importer</source>
-        <translation type="unfinished"></translation>
+        <translation>Імпортер OpenOffice.org Draw</translation>
     </message>
 </context>
 <context>
@@ -17033,191 +17424,191 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>&amp;Size:</source>
-        <translation type="unfinished">&amp;Розмір:</translation>
+        <translation>&amp;Розмір:</translation>
     </message>
     <message>
         <source>Orie&amp;ntation:</source>
-        <translation type="unfinished">&amp;Орієнтація:</translation>
+        <translation>&amp;Орієнтація:</translation>
     </message>
     <message>
         <source>&amp;Width:</source>
-        <translation type="unfinished">&amp;Ширина:</translation>
+        <translation>&amp;Ширина:</translation>
     </message>
     <message>
         <source>&amp;Height:</source>
-        <translation type="unfinished">&amp;Висота:</translation>
+        <translation>&amp;Висота:</translation>
     </message>
     <message>
         <source>&amp;Unit:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Options</source>
-        <translation type="unfinished">Установки</translation>
-    </message>
-    <message>
-        <source>Apply size settings to all Pages</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Apply margin settings to all Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Одиниця виміру:</translation>
     </message>
     <message>
         <source>Autosave</source>
-        <translation type="unfinished">Автоматичне збереження</translation>
+        <translation>Автоматичний запис</translation>
     </message>
     <message>
         <source>min</source>
-        <translation type="unfinished">хв</translation>
+        <translation>хв</translation>
     </message>
     <message>
         <source>&amp;Interval:</source>
-        <translation type="unfinished">&amp;Інтервал:</translation>
+        <translation>&amp;Інтервал:</translation>
     </message>
     <message>
         <source>Document</source>
-        <translation type="unfinished">Документ</translation>
+        <translation>Документ</translation>
     </message>
     <message>
         <source>Document Information</source>
-        <translation type="unfinished">Інформація про документ</translation>
+        <translation>Інформація про документ</translation>
     </message>
     <message>
         <source>Guides</source>
-        <translation type="unfinished">Розмітка</translation>
+        <translation>Розмітка</translation>
     </message>
     <message>
         <source>Page Display</source>
-        <translation type="unfinished"></translation>
+        <translation>Показ сторінки</translation>
     </message>
     <message>
         <source>Color:</source>
-        <translation type="unfinished">Колір:</translation>
+        <translation>Колір:</translation>
     </message>
     <message>
         <source>Display &amp;Unprintable Area in Margin Color</source>
-        <translation type="unfinished">Виділити &amp;недрукуєму область кольором поля</translation>
+        <translation>Виділити &amp;недрукуєму область кольором поля</translation>
     </message>
     <message>
         <source>Alt+U</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+U</translation>
     </message>
     <message>
         <source>Show Pictures</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати зображення</translation>
     </message>
     <message>
         <source>Show Text Chains</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати текстові ланцюги</translation>
     </message>
     <message>
         <source>Show Text Control Characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати контрольні знаки тексту</translation>
     </message>
     <message>
         <source>Show Frames</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Rulers relative to Page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Minimum Scratch Space</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Gaps between Pages</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Horizontal:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Vertical:</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати рамки</translation>
     </message>
     <message>
         <source>Display</source>
-        <translation type="unfinished">Відображення</translation>
+        <translation>Відображення</translation>
     </message>
     <message>
         <source>Typography</source>
-        <translation type="unfinished">Типографія</translation>
+        <translation>Типографія</translation>
     </message>
     <message>
         <source>Tools</source>
-        <translation type="unfinished"></translation>
+        <translation>Інструменти</translation>
     </message>
     <message>
         <source>Hyphenator</source>
-        <translation type="unfinished"></translation>
+        <translation>Переносник</translation>
     </message>
     <message>
         <source>Fonts</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Preflight Verifier</source>
-        <translation type="unfinished"></translation>
+        <translation>Шрифти</translation>
     </message>
     <message>
         <source>PDF Export</source>
-        <translation type="unfinished"></translation>
+        <translation>Експорт PDF</translation>
     </message>
     <message>
         <source>Document Item Attributes</source>
-        <translation type="unfinished"></translation>
+        <translation>Атрибути об&apos;єкта документа</translation>
     </message>
     <message>
         <source>Table of Contents and Indexes</source>
-        <translation type="unfinished"></translation>
+        <translation>Зміст та індекси</translation>
     </message>
     <message>
         <source>Color Management</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Display non-printing characters such as paragraph markers in text frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Керування кольорами</translation>
     </message>
     <message>
         <source>Turns the display of frames on or off</source>
-        <translation type="unfinished"></translation>
+        <translation>Переключає показ рамок</translation>
     </message>
     <message>
         <source>Turns the display of pictures on or off</source>
-        <translation type="unfinished"></translation>
+        <translation>Переключає показ зображень</translation>
     </message>
     <message>
         <source>Color for paper</source>
-        <translation type="unfinished">Колір паперу</translation>
+        <translation>Колір паперу</translation>
     </message>
     <message>
         <source>Mask the area outside the margins in the margin color</source>
-        <translation type="unfinished">Замаскувати область за полями кольором полів</translation>
+        <translation>Замаскувати область за полями кольором полів</translation>
     </message>
     <message>
-        <source>Adjusting Colors</source>
-        <translation type="unfinished">Настройка кольорів</translation>
+        <source>Apply size settings to all Pages</source>
+        <translation>Примінити установки до всіх сторінок</translation>
+    </message>
+    <message>
+        <source>Apply margin settings to all Pages</source>
+        <translation>Примінити установки полів до всіх сторінок</translation>
+    </message>
+    <message>
+        <source>Rulers relative to Page</source>
+        <translation>Лінійки відносні до сторінки</translation>
+    </message>
+    <message>
+        <source>Minimum Scratch Space</source>
+        <translation>Мінімальний чорновик</translation>
+    </message>
+    <message>
+        <source>Gaps between Pages</source>
+        <translation>Проміжки між сторінками</translation>
+    </message>
+    <message>
+        <source>Horizontal:</source>
+        <translation>Горизонтальна:</translation>
+    </message>
+    <message>
+        <source>Vertical:</source>
+        <translation>Вертикальна:</translation>
+    </message>
+    <message>
+        <source>Preflight Verifier</source>
+        <translation>Передекспортна перевірка</translation>
+    </message>
+    <message>
+        <source>Display non-printing characters such as paragraph markers in text frames</source>
+        <translation>Показувати недруковані знаки, такі як маркери абзаців, в текстових рамках</translation>
+    </message>
+    <message>
+        <source>Options</source>
+        <translation>Установки</translation>
     </message>
     <message>
         <source>Enable or disable the display of linked text frames.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ввімкнути або вимкнути показ поєднаних текстових рамок.</translation>
+    </message>
+    <message>
+        <source>Adjusting Colors</source>
+        <translation>Налаштування кольорів</translation>
     </message>
 </context>
 <context>
     <name>RunScriptDialog</name>
     <message>
         <source>Python Scripts (*.py);; All Files (*)</source>
-        <translation type="unfinished">Сценарії на Пітоні (*.py);; Всі файли (*)</translation>
+        <translation>Сценарії на Пітоні (*.py);; Всі файли (*)</translation>
     </message>
     <message>
         <source>Run as Extension Script</source>
         <comment>run script dialog</comment>
-        <translation type="unfinished"></translation>
+        <translation>Запустити, як зовнішній сценарій</translation>
     </message>
 </context>
 <context>
@@ -17297,7 +17688,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Scaling height of characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Масштабування висоти знаків</translation>
     </message>
 </context>
 <context>
@@ -17328,45 +17719,145 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished">%</translation>
+        <translation> %</translation>
     </message>
 </context>
 <context>
     <name>SVGExportPlugin</name>
     <message>
         <source>Save Page as &amp;SVG...</source>
-        <translation type="unfinished">Записати, як SVG з&amp;ображення...</translation>
+        <translation>Записати сторінку, як SVG з&amp;ображення...</translation>
     </message>
     <message>
         <source>Exports SVG Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Експорт SVG файлів</translation>
     </message>
     <message>
         <source>Exports the current page into an SVG file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Експортувати активну сторінку в SVG файл.</translation>
     </message>
 </context>
 <context>
     <name>SVGImportPlugin</name>
     <message>
         <source>Import &amp;SVG...</source>
-        <translation type="unfinished">Імпортувати  SVG зображ&amp;ення...</translation>
+        <translation>Імпортувати  SVG зображ&amp;ення...</translation>
     </message>
     <message>
         <source>Imports SVG Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Імпорт SVG файлів</translation>
     </message>
     <message>
         <source>Imports most SVG files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Імпортує більшість SVG файлів в активний документ,
+конвертуючи їхні векторні дані в об&apos;єкти Scribus.</translation>
+    </message>
+</context>
+<context>
+    <name>SWDialog</name>
+    <message>
+        <source>Short Words</source>
+        <comment>short words plugin</comment>
+        <translation>Модуль &quot;короткі слова&quot;</translation>
+    </message>
+    <message>
+        <source>Apply unbreakable space on:</source>
+        <comment>short words plugin</comment>
+        <translation>Вставити нерозбиваємий інтервал в:</translation>
+    </message>
+    <message>
+        <source>&amp;Selected frames</source>
+        <comment>short words plugin</comment>
+        <translation>&amp;Вибрані рамки</translation>
+    </message>
+    <message>
+        <source>Active &amp;page</source>
+        <comment>short words plugin</comment>
+        <translation>Активна &amp;сторінка</translation>
+    </message>
+    <message>
+        <source>&amp;All items</source>
+        <comment>short words plugin</comment>
+        <translation>Всі &amp;Об&apos;єкти</translation>
+    </message>
+    <message>
+        <source>Only selected frames processed.</source>
+        <comment>short words plugin</comment>
+        <translation>Обробляються лише вибрані рамки.</translation>
+    </message>
+    <message>
+        <source>Only actual page processed.</source>
+        <comment>short words plugin</comment>
+        <translation>Обробляється лише активна сторінка.</translation>
+    </message>
+    <message>
+        <source>All items in document processed.</source>
+        <comment>short words plugin</comment>
+        <translation>Обробляються всі об&apos;єкти в документі.</translation>
+    </message>
+</context>
+<context>
+    <name>SWPrefsGui</name>
+    <message>
+        <source>User settings</source>
+        <translation>Установки користувача</translation>
+    </message>
+    <message>
+        <source>System wide configuration</source>
+        <translation>Системна конфігурація</translation>
+    </message>
+    <message>
+        <source>&amp;Save</source>
+        <translation>&amp;Записати</translation>
+    </message>
+    <message>
+        <source>&amp;Reset</source>
+        <translation>&amp;Перезавантажити</translation>
+    </message>
+    <message>
+        <source>Save user configuration</source>
+        <translation>Записати конфігурацію користувача</translation>
+    </message>
+    <message>
+        <source>Reload system wide configuration and remove user defined one</source>
+        <translation>Перезавантажити системну конфігурацію та видалити конфігурацію користувача</translation>
+    </message>
+    <message>
+        <source>Edit custom configuration. If you save it, it will be used over system wide configuration</source>
+        <translation>Редагувати нетипову конфігурацію. Якщо Ви її запишете, то вона буде використовуватися
+замість системної конфігурації</translation>
+    </message>
+    <message>
+        <source>Short Words</source>
+        <translation>Короткі слова</translation>
+    </message>
+    <message>
+        <source>User configuration exists elready. Do you really want to overwrite it?</source>
+        <translation>Конфігурація користувача вже існує. Ви справді бажаєте її перезаписати?</translation>
+    </message>
+    <message>
+        <source>Cannot write file %1.</source>
+        <translation>Неможливо записати файл %1.</translation>
+    </message>
+    <message>
+        <source>User settings saved</source>
+        <translation>Установки користувача записано</translation>
+    </message>
+    <message>
+        <source>System wide configuration reloaded</source>
+        <translation>Системна конфігурація перезавантажена</translation>
+    </message>
+    <message>
+        <source>Cannot open file %1</source>
+        <translation>Неможливо відчинити файл %1</translation>
     </message>
 </context>
 <context>
     <name>SaveAsTemplatePlugin</name>
     <message>
         <source>Save as &amp;Template...</source>
-        <translation type="unfinished">Записати як ша&amp;блон...</translation>
+        <translation>Записати як ша&amp;блон...</translation>
     </message>
 </context>
 <context>
@@ -17374,12 +17865,12 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>Could not find target file %1: %2</source>
         <comment>plugins</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо знайти цільовий файл %1: %2</translation>
     </message>
     <message>
         <source>Could not open target file %1: %2</source>
         <comment>plugins</comment>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо відчинити цільовий файл %1: %2</translation>
     </message>
 </context>
 <context>
@@ -17387,22 +17878,22 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>Persistent</source>
         <comment>plugin manager plugin type</comment>
-        <translation type="unfinished"></translation>
+        <translation>Постійний</translation>
     </message>
     <message>
         <source>Import</source>
         <comment>plugin manager plugin type</comment>
-        <translation type="unfinished">Імпортувати</translation>
+        <translation>Імпортувати</translation>
     </message>
     <message>
         <source>Export</source>
         <comment>plugin manager plugin type</comment>
-        <translation type="unfinished"></translation>
+        <translation>Експортувати</translation>
     </message>
     <message>
         <source>Action</source>
         <comment>plugin manager plugin type</comment>
-        <translation type="unfinished">Дія</translation>
+        <translation>Дія</translation>
     </message>
 </context>
 <context>
@@ -17414,6 +17905,10 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>Background</source>
         <translation>Фон</translation>
+    </message>
+    <message>
+        <source>Postscript</source>
+        <translation type="obsolete">Постскрипт</translation>
     </message>
 </context>
 <context>
@@ -17732,7 +18227,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Normal</source>
-        <translation>Нормальний</translation>
+        <translation>Звичайний</translation>
     </message>
     <message>
         <source>Underline</source>
@@ -18621,141 +19116,168 @@ converting their vector data into Scribus objects.</source>
         <translation>Хорватська</translation>
     </message>
     <message>
-        <source>Initializing Keyboard Shortcuts</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Initializing Story Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Ініціалізація текстового редактора</translation>
     </message>
     <message>
         <source>Reading ICC Profiles</source>
-        <translation type="unfinished"></translation>
+        <translation>Зчитування ICC профілів</translation>
     </message>
     <message>
         <source>Initializing Hyphenator</source>
-        <translation type="unfinished"></translation>
+        <translation>Ініціалізація системи переносів</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation type="unfinished">Редагувати</translation>
+        <translation>Редагувати</translation>
     </message>
     <message>
         <source>There are no fonts found on your system.</source>
-        <translation type="unfinished"></translation>
+        <translation>На вашій системі не знайдено жодного шрифта.</translation>
     </message>
     <message>
         <source>Exiting now.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Preview Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Level</source>
-        <translation type="unfinished">План</translation>
-    </message>
-    <message>
-        <source>Send to La&amp;yer</source>
-        <translation type="unfinished">Перемістити на &amp;план</translation>
-    </message>
-    <message>
-        <source>&amp;PDF Options</source>
-        <translation type="unfinished">&amp;Установки PDF</translation>
-    </message>
-    <message>
-        <source>C&amp;onvert To</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>I&amp;nsert</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Character</source>
-        <translation type="unfinished">Символ</translation>
-    </message>
-    <message>
-        <source>Quote</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Space</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Documents (*.sla *.scd);;</source>
-        <translation type="unfinished"></translation>
+        <translation>Терміновий вихід.</translation>
     </message>
     <message>
         <source>Postscript</source>
         <translation type="obsolete">Постскрипт</translation>
     </message>
     <message>
+        <source>PDF 1.3</source>
+        <translation type="obsolete">PDF 1.3</translation>
+    </message>
+    <message>
+        <source>PDF 1.4</source>
+        <translation type="obsolete">PDF 1.4</translation>
+    </message>
+    <message>
+        <source>PDF/X-3</source>
+        <translation type="obsolete">PDF/X-3</translation>
+    </message>
+    <message>
+        <source>&amp;PDF Options</source>
+        <translation>&amp;Установки PDF</translation>
+    </message>
+    <message>
+        <source>C&amp;onvert To</source>
+        <translation>К&amp;онвертувати в</translation>
+    </message>
+    <message>
+        <source>I&amp;nsert</source>
+        <translation>&amp;Вставити</translation>
+    </message>
+    <message>
+        <source>Character</source>
+        <translation>Символ</translation>
+    </message>
+    <message>
+        <source>Quote</source>
+        <translation>Цитата</translation>
+    </message>
+    <message>
+        <source>Space</source>
+        <translation>Проміжок</translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;</source>
+        <translation>Документи (*.sla *.sla.gz *.scd *.scd.gz);;</translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.scd);;</source>
+        <translation>Документи (*.sla *.scd);;</translation>
+    </message>
+    <message>
+        <source>Postscript Files (*.eps *.EPS *.ps *.PS);;</source>
+        <translation type="obsolete">Файли Postscript (*.eps *.EPS *.ps *.PS);;</translation>
+    </message>
+    <message>
+        <source>SVG Images (*.svg *.svgz);;</source>
+        <translation type="obsolete">SVG зображення (*.svg *.svgz);;</translation>
+    </message>
+    <message>
+        <source>SVG Images (*.svg);;</source>
+        <translation type="obsolete">SVG зображення (*.svg);;</translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Draw (*.sxd);;All Files (*)</source>
+        <translation type="obsolete">OpenOffice.org Draw (*.sxd);;Всі файли (*)</translation>
+    </message>
+    <message>
+        <source>File %1 
+is not in an acceptable format</source>
+        <translation type="obsolete">Файл %1 
+в недоступному форматі</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;Гаразд</translation>
+    </message>
+    <message>
         <source>Some fonts used by this document have been substituted:</source>
-        <translation type="unfinished"></translation>
+        <translation>Деякі шрифти, використані в цьому документі, були замінені:</translation>
     </message>
     <message>
         <source> was replaced by: </source>
-        <translation type="unfinished"></translation>
+        <translation>був замінений на:</translation>
     </message>
     <message>
         <source>Some ICC profiles used by this document are not installed:</source>
-        <translation type="unfinished"></translation>
+        <translation>Деякі ICC, використані в цьому документі, не інстальовано:</translation>
     </message>
     <message>
         <source>(converted)</source>
-        <translation type="unfinished"></translation>
+        <translation>(конвертовано)</translation>
     </message>
     <message>
         <source>Cannot write the file: 
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо записати файл: 
+%1</translation>
     </message>
     <message>
         <source>Save As</source>
-        <translation type="unfinished">Записати як</translation>
+        <translation>Записати як</translation>
     </message>
     <message>
         <source>Cannot Cut In-Use Item</source>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо вирізати об&apos;єкт під час його використання</translation>
     </message>
     <message>
         <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
-        <translation type="unfinished"></translation>
+        <translation>Об&apos;єкт %1 в даний час редагується в редакторі тексту. Операція вирізання буде відмінена</translation>
     </message>
     <message>
         <source>The following programs are missing:</source>
-        <translation type="unfinished"></translation>
+        <translation>Слідуючі програми відсутні:</translation>
     </message>
     <message>
         <source>Ghostscript : You cannot use EPS images or Print Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Ghostscript : Ви не можете використовувати EPS зображення або попередній перегляд перед друком</translation>
     </message>
     <message>
         <source>EPS Files (*.eps);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Файли EPS (*.eps);;Всі файли (*)</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">В&amp;ихід</translation>
     </message>
     <message>
         <source>&amp;Lock All</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Замкнути все</translation>
     </message>
     <message>
         <source>&amp;Unlock All</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Розімкнути все</translation>
     </message>
     <message>
         <source>Bulgarian</source>
-        <translation type="unfinished">Болгарська</translation>
+        <translation>Болгарська</translation>
     </message>
     <message>
         <source>Information</source>
-        <translation type="unfinished">Інформація</translation>
+        <translation>Інформація</translation>
     </message>
     <message>
         <source>is missing!</source>
@@ -18763,124 +19285,143 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>The selected color does not exist in the document&apos;s color set. Please enter a name for this new color.</source>
-        <translation type="unfinished"></translation>
+        <translation>Вибраний колір відсутній в наборі кольорів документу. Будь ласка введіть ім&apos;я для цього нового кольору.</translation>
     </message>
     <message>
         <source>Color Not Found</source>
-        <translation type="unfinished"></translation>
+        <translation>Колір не знайдено</translation>
     </message>
     <message>
         <source>The name you have selected already exists. Please enter a different name for this new color.</source>
-        <translation type="unfinished"></translation>
+        <translation>Вибране ім&apos;я вже існує. Будь-ласка введіть інше ім&apos;я для цього нового кольору.</translation>
     </message>
     <message>
         <source>&amp;Level</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;План</translation>
     </message>
     <message>
         <source>Send to Layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Перемістити на план</translation>
+    </message>
+    <message>
+        <source>Initializing Keyboard Shortcuts</source>
+        <translation>Ініціалізація гарячих клавіш</translation>
     </message>
     <message>
         <source>Previe&amp;w Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Установки попереднього перегляду перед д&amp;руком</translation>
+    </message>
+    <message>
+        <source>Preview Settings</source>
+        <translation>Установки попереднього перегляду перед друком</translation>
+    </message>
+    <message>
+        <source>Level</source>
+        <translation>План</translation>
+    </message>
+    <message>
+        <source>Send to La&amp;yer</source>
+        <translation>Перемістити на &amp;план</translation>
     </message>
     <message>
         <source>File %1 is not in an acceptable format</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл %1 має недопустимий формат</translation>
     </message>
     <message>
         <source>PostScript</source>
-        <translation type="unfinished"></translation>
+        <translation>Постскрипт</translation>
     </message>
     <message>
         <source>Scribus has detected some errors.
 Consider using the Pre-flight Checker to correct them</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus знайшов деякі помилки. Спробуйте використати
+переддрукову перевірку для їх виправлення</translation>
     </message>
     <message>
         <source>&amp;Abort</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Аварійний вихід</translation>
     </message>
     <message>
         <source>&amp;Ignore</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ігнорувати</translation>
     </message>
     <message>
         <source>Name:</source>
-        <translation type="unfinished">Ім&apos;я:</translation>
+        <translation>Ім&apos;я:</translation>
+    </message>
+    <message>
+        <source>Convert Page to Master Page</source>
+        <translation>Конвертувати сторінку в головну сторінку</translation>
     </message>
     <message>
         <source>New Master Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Нова головна сторінка</translation>
     </message>
     <message>
         <source>Scribus detected some errors.
 Consider using the Preflight Verifier  to correct them.</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus знайшов деякі помилки. Спробуйте використати
+переддрукову перевірку для їх виправлення.</translation>
     </message>
     <message>
         <source>Detected some errors.
 Consider using the Preflight Verifier to correct them</source>
-        <translation type="unfinished"></translation>
+        <translation>Знайдено деякі помилки. Спробуйте використати
+переддрукову перевірку для їх виправлення</translation>
     </message>
     <message>
         <source>-Page%1</source>
-        <translation type="unfinished"></translation>
+        <translation>-Сторінка%1</translation>
     </message>
     <message>
         <source>Some objects are locked.</source>
-        <translation type="unfinished"></translation>
+        <translation>Деякі об&quot;єкти замкнені.</translation>
     </message>
     <message>
         <source>The program %1 is already running!</source>
-        <translation type="unfinished"></translation>
+        <translation>Програма %1 вже працює!</translation>
     </message>
     <message>
         <source>The program %1 is missing!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Convert Page to Master Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Програма %1 відсутня!</translation>
     </message>
 </context>
 <context>
     <name>ScribusColorList</name>
     <message>
         <source>Sample</source>
-        <translation type="unfinished">Зразок</translation>
+        <translation>Зразок</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation type="unfinished">Колір</translation>
+        <translation>Колір</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Нічого</translation>
     </message>
     <message>
         <source>Document Colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Кольори документу</translation>
     </message>
 </context>
 <context>
     <name>ScribusDoc</name>
     <message>
-        <source>New Layer</source>
-        <translation type="unfinished">Новий план</translation>
-    </message>
-    <message>
-        <source>Normal</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Document</source>
-        <translation type="unfinished">Документ</translation>
+        <translation>Документ</translation>
     </message>
     <message>
         <source>Background</source>
-        <translation type="unfinished">Фон</translation>
+        <translation>Фон</translation>
+    </message>
+    <message>
+        <source>New Layer</source>
+        <translation>Новий план</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation>Звичайний</translation>
     </message>
 </context>
 <context>
@@ -18919,107 +19460,103 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Copy Here</source>
-        <translation type="unfinished">Копіювати сюди</translation>
+        <translation>Копіювати сюди</translation>
     </message>
     <message>
         <source>Move Here</source>
-        <translation type="unfinished">Перемістити сюди</translation>
+        <translation>Перемістити сюди</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Вихід</translation>
+        <translation>Вихід</translation>
     </message>
     <message>
         <source>&amp;Paste</source>
-        <translation type="unfinished">&amp;Вклеїти</translation>
+        <translation>&amp;Вклеїти</translation>
     </message>
     <message>
         <source>Picture</source>
-        <translation type="unfinished">Зображення</translation>
+        <translation>Зображення</translation>
     </message>
     <message>
         <source>File: </source>
-        <translation type="unfinished">Файл:</translation>
+        <translation>Файл: </translation>
     </message>
     <message>
         <source>Original PPI: </source>
-        <translation type="unfinished">Початкові ТНД: </translation>
+        <translation>Початкові ТНД: </translation>
     </message>
     <message>
         <source>Actual PPI: </source>
-        <translation type="unfinished">Фактичні ТНД:</translation>
+        <translation>Фактичні ТНД: </translation>
     </message>
     <message>
         <source>Linked Text</source>
-        <translation type="unfinished">Зв&apos;язаний текст</translation>
+        <translation>Зв&apos;язаний текст</translation>
     </message>
     <message>
         <source>Text Frame</source>
-        <translation type="unfinished">Текстова рамка</translation>
+        <translation>Текстова рамка</translation>
     </message>
     <message>
         <source>Text on a Path</source>
-        <translation type="unfinished">Текст на шляху</translation>
+        <translation>Текст на шляху</translation>
     </message>
     <message>
         <source>Paragraphs: </source>
-        <translation type="unfinished">Абзаци:</translation>
+        <translation>Абзаци: </translation>
     </message>
     <message>
         <source>Words: </source>
-        <translation type="unfinished">Слова:</translation>
+        <translation>Слова: </translation>
     </message>
     <message>
         <source>Chars: </source>
-        <translation type="unfinished">Символи:</translation>
+        <translation>Символи: </translation>
     </message>
     <message>
         <source>Print: </source>
-        <translation type="unfinished">Друкувати:</translation>
+        <translation>Друкувати: </translation>
     </message>
     <message>
         <source>Enabled</source>
-        <translation type="unfinished">Ввімкнено</translation>
+        <translation>Ввімкнено</translation>
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished">Вимкнено</translation>
+        <translation>Вимкнено</translation>
     </message>
     <message>
         <source>In&amp;fo</source>
-        <translation type="unfinished">&amp;Інформація</translation>
+        <translation>&amp;Інформація</translation>
     </message>
     <message>
         <source>Preview Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Установки попереднього перегляду перед друком</translation>
     </message>
     <message>
         <source>&amp;PDF Options</source>
-        <translation type="unfinished">&amp;Установки PDF</translation>
+        <translation>&amp;Установки PDF</translation>
     </message>
     <message>
         <source>Send to La&amp;yer</source>
-        <translation type="unfinished">Перемістити на &amp;план</translation>
+        <translation>Перемістити на &amp;план</translation>
     </message>
     <message>
         <source>Le&amp;vel</source>
-        <translation type="unfinished">Пла&amp;н</translation>
+        <translation>Пла&amp;н</translation>
     </message>
     <message>
         <source>Conve&amp;rt to</source>
-        <translation type="unfinished">&amp;Конвертувати в</translation>
+        <translation>&amp;Конвертувати в</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Видалити</translation>
-    </message>
-    <message>
-        <source>Linking Text Frames</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Видалити</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation type="unfinished">Застереження</translation>
+        <translation>Застереження</translation>
     </message>
     <message>
         <source>Do you really want to clear all your Text?</source>
@@ -19027,31 +19564,35 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Cannot Delete In-Use Item</source>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо видалити об&apos;єкт під час його використання</translation>
     </message>
     <message>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
-        <translation type="unfinished"></translation>
+        <translation>Об&apos;єкт %1 в даний час редагується в редакторі тексту. Операція видалення буде відмінена</translation>
+    </message>
+    <message>
+        <source>Linking Text Frames</source>
+        <translation>Установка зв&apos;язку між текстовими рамками</translation>
     </message>
     <message>
         <source>You are trying to link to a filled frame, or a frame to itself.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви намагаєтеся установити зв&apos;язок до заповненої рамки або до цієї ж рамки.</translation>
     </message>
     <message>
         <source>Do you really want to clear all your text?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot Convert In-Use Item</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви справді бажаєте очистити весь текст?</translation>
     </message>
     <message>
         <source>Page %1 to %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Від сторінки %1 до %2</translation>
+    </message>
+    <message>
+        <source>Cannot Convert In-Use Item</source>
+        <translation>Неможливо конвертувати об&apos;єкт під час його використання</translation>
+    </message>
+    <message>
+        <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
+        <translation>Об&apos;єкт %1 в даний час редагується в редакторі тексту. Операція конвертування в контурні лінії буде пропущена</translation>
     </message>
 </context>
 <context>
@@ -19089,11 +19630,11 @@ Consider using the Preflight Verifier to correct them</source>
     <name>ScriptPlugin</name>
     <message>
         <source>Embedded Python scripting support.</source>
-        <translation type="unfinished"></translation>
+        <translation>Вбудована підтримка сценаріїв пітону.</translation>
     </message>
     <message>
         <source>Scripter</source>
-        <translation type="unfinished"></translation>
+        <translation>Сценарист</translation>
     </message>
 </context>
 <context>
@@ -19201,20 +19742,20 @@ Please read the documentation on extension scripts first.
         <translation type="obsolete">Про скрипт</translation>
     </message>
     <message>
-        <source>There was an internal error while trying the command you entered. Details were printed to stderr. </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Examine Script</source>
-        <translation type="unfinished"></translation>
+        <translation>Розглянути сценарій</translation>
     </message>
     <message>
         <source>Python Scripts (*.py)</source>
-        <translation type="unfinished"></translation>
+        <translation>Сценарї на Пітоні (*.py)</translation>
+    </message>
+    <message>
+        <source>There was an internal error while trying the command you entered. Details were printed to stderr. </source>
+        <translation>Під час виконання введеної Вами команди була знайдена внутрішня помилка. Деталі будуть надруковані в стандартний вивід помилок. </translation>
     </message>
     <message>
         <source>Setting up the Python plugin failed. Error details were printed to stderr. </source>
-        <translation type="unfinished"></translation>
+        <translation>Активація модуля пітона не вдалася. Деталі помилки будуть надруковані в стандартний вивід помилок. </translation>
     </message>
 </context>
 <context>
@@ -19356,19 +19897,19 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
     <name>ScripterPrefsGui</name>
     <message>
         <source>Scripter Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Установки сценариста</translation>
     </message>
     <message>
         <source>Extension Scripts</source>
-        <translation type="unfinished"></translation>
+        <translation>Зовнішні сценарії</translation>
     </message>
     <message>
         <source>Enable Extension Scripts</source>
-        <translation type="unfinished"></translation>
+        <translation>Ввімкнути зовнішні сценарії</translation>
     </message>
     <message>
         <source>Startup Script</source>
-        <translation type="unfinished"></translation>
+        <translation>Сценарій виконуваний при запуску програми</translation>
     </message>
 </context>
 <context>
@@ -19383,10 +19924,6 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
     <message>
         <source>Show Template Names</source>
         <translation type="obsolete">Показати імена шаблонів</translation>
-    </message>
-    <message>
-        <source>Show Master Page Names</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -19503,6 +20040,10 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
         <source>C&amp;lear</source>
         <translation>О&amp;чистити</translation>
     </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;Гаразд</translation>
+    </message>
 </context>
 <context>
     <name>SeitenPal</name>
@@ -19546,23 +20087,23 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Drag pages or master pages onto the trashbin to delete them</source>
-        <translation type="unfinished"></translation>
+        <translation>Перетягніть сторінки або головні сторінки на іконку сміттєвої корзини для їх видалення</translation>
     </message>
     <message>
         <source>Previews all the pages of your document</source>
-        <translation type="unfinished"></translation>
+        <translation>Попередній перегляд всіх сторінок документа</translation>
     </message>
     <message>
         <source>Here are all your master pages. To create a new page, drag a master page to the page view below</source>
-        <translation type="unfinished"></translation>
+        <translation>Тут містяться всі Ваші головні сторінки. Для створення нової сторінки перетягніть головну сторінку в поле перегляду сторінок внизу</translation>
     </message>
     <message>
         <source>Available Master Pages:</source>
-        <translation type="unfinished"></translation>
+        <translation>Доступні головні сторінки:</translation>
     </message>
     <message>
         <source>Left Page First</source>
-        <translation type="unfinished"></translation>
+        <translation>Ліва сторінка перша</translation>
     </message>
 </context>
 <context>
@@ -19615,15 +20156,15 @@ drag a Template to the Pageview below.</source>
     <name>ShadowValues</name>
     <message>
         <source> %</source>
-        <translation type="unfinished">%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>X-Offset</source>
-        <translation type="unfinished"></translation>
+        <translation>Зміщення по осі Х</translation>
     </message>
     <message>
         <source>Y-Offset</source>
-        <translation type="unfinished"></translation>
+        <translation>Зміщення по осі У</translation>
     </message>
 </context>
 <context>
@@ -19631,15 +20172,11 @@ drag a Template to the Pageview below.</source>
     <message>
         <source>Short &amp;Words...</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished">Короткі &amp;Слова...</translation>
+        <translation>Короткі &amp;Слова...</translation>
     </message>
     <message>
         <source>Short Words</source>
-        <translation type="unfinished">Короткі слова</translation>
-    </message>
-    <message>
-        <source>Special plug-in for adding non-breaking spaces before or after so called short words.</source>
-        <translation type="unfinished"></translation>
+        <translation>Короткі слова</translation>
     </message>
 </context>
 <context>
@@ -19650,7 +20187,7 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Edit Styles...</source>
-        <translation type="unfinished"></translation>
+        <translation>Редагувати стилі...</translation>
     </message>
 </context>
 <context>
@@ -19736,11 +20273,11 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation type="unfinished">І&amp;мпортувати</translation>
+        <translation>І&amp;мпортувати</translation>
     </message>
     <message>
         <source>Do you really want to delete this style?</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви справді бажаєте видалити цей стиль?</translation>
     </message>
 </context>
 <context>
@@ -19935,42 +20472,42 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>&amp;Insert Glyph...</source>
-        <translation type="unfinished"></translation>
+        <translation>Вставити &amp;Символ...</translation>
     </message>
     <message>
         <source>Clear All Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Очистити весь текст</translation>
     </message>
     <message>
         <source>Story Editor - %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Редактор тексту - %1</translation>
     </message>
     <message>
         <source>Do you really want to lose all your changes?</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви справді бажаєте відмінити всі Ваші зміни?</translation>
     </message>
     <message>
         <source>Do you really want to clear all your text?</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви справді бажаєте очистити весь Ваш текст?</translation>
     </message>
 </context>
 <context>
     <name>StrikeValues</name>
     <message>
         <source>Auto</source>
-        <translation type="unfinished"></translation>
+        <translation>Автоматична</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished">%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>Displacement</source>
-        <translation type="unfinished"></translation>
+        <translation>Зміщення</translation>
     </message>
     <message>
         <source>Linewidth</source>
-        <translation type="unfinished"></translation>
+        <translation>Товщина лінії</translation>
     </message>
 </context>
 <context>
@@ -20001,19 +20538,19 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Underline Words Only</source>
-        <translation type="unfinished"></translation>
+        <translation>Підкреслити лише слова</translation>
     </message>
     <message>
         <source>All Caps</source>
-        <translation type="unfinished"></translation>
+        <translation>Всі великі літери</translation>
     </message>
     <message>
         <source>Outline</source>
-        <translation type="unfinished"></translation>
+        <translation>Контур</translation>
     </message>
     <message>
         <source>Shadow</source>
-        <translation type="unfinished"></translation>
+        <translation>Тінь</translation>
     </message>
 </context>
 <context>
@@ -20118,300 +20655,300 @@ Scribus.</translation>
     </message>
     <message>
         <source>Overwrite Paragraph Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Переписати стилі абзаців</translation>
     </message>
 </context>
 <context>
     <name>TOCIndexPrefs</name>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Ніякого</translation>
     </message>
     <message>
         <source>At the beginning</source>
-        <translation type="unfinished"></translation>
+        <translation>На початку</translation>
     </message>
     <message>
         <source>At the end</source>
-        <translation type="unfinished"></translation>
+        <translation>В кінці</translation>
     </message>
     <message>
         <source>Not Shown</source>
-        <translation type="unfinished"></translation>
+        <translation>Не показано</translation>
     </message>
     <message>
         <source>Table of Contents and Indexes</source>
-        <translation type="unfinished"></translation>
+        <translation>Зміст та індекси</translation>
     </message>
     <message>
         <source>Table Of Contents</source>
-        <translation type="unfinished"></translation>
+        <translation>Зміст</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished">&amp;Додати</translation>
+        <translation>&amp;Додати</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished">Alt+A</translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Видалити</translation>
+        <translation>&amp;Видалити</translation>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation type="unfinished">Alt+D</translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
         <source>The frame the table of contents will be placed into</source>
-        <translation type="unfinished"></translation>
+        <translation>Рамка в якій буде розміщено зміст</translation>
     </message>
     <message>
         <source>Page Numbers Placed:</source>
-        <translation type="unfinished"></translation>
+        <translation>Розміщені номери сторінок:</translation>
     </message>
     <message>
         <source>Item Attribute Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Назва атрибута об&apos;єкта:</translation>
     </message>
     <message>
         <source>The Item Attribute that will be set on frames used as a basis for creation of the entries</source>
-        <translation type="unfinished"></translation>
+        <translation>Атрибут об&apos;єкта, який буде встановлено для рамок, які будуть використані для створення нових пунктів</translation>
     </message>
     <message>
         <source>Place page numbers of the entries at the beginning or the end of the line, or not at all</source>
-        <translation type="unfinished"></translation>
+        <translation>Розмістити номери сторінок пунктів на початку або в кінці рядка, або ніде</translation>
     </message>
     <message>
         <source>List Non-Printing Entries</source>
-        <translation type="unfinished"></translation>
+        <translation>Представити список недрукуємих пунктів</translation>
     </message>
     <message>
         <source>Include frames that are set to not print as well</source>
-        <translation type="unfinished"></translation>
+        <translation>Також включити рамки, які не будуть надруковані</translation>
     </message>
     <message>
         <source>The paragraph style used for the entry lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Стиль абзацу використовуваний для рядків</translation>
     </message>
     <message>
         <source>Paragraph Style:</source>
-        <translation type="unfinished"></translation>
+        <translation>Стиль абзацу:</translation>
     </message>
     <message>
         <source>Destination Frame:</source>
-        <translation type="unfinished"></translation>
+        <translation>Цільова рамка:</translation>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation type="unfinished"></translation>
+        <translation>Інде&amp;кс</translation>
     </message>
 </context>
 <context>
     <name>TabCheckDoc</name>
     <message>
         <source>Ignore all errors</source>
-        <translation type="unfinished"></translation>
+        <translation>Ігнорувати всі помилки</translation>
     </message>
     <message>
         <source>Automatic check before printing or exporting</source>
-        <translation type="unfinished"></translation>
+        <translation>Автоматична перевірка перед друком чи експортом</translation>
     </message>
     <message>
         <source>Check for missing glyphs</source>
-        <translation type="unfinished"></translation>
+        <translation>Перевірка відсутності символів</translation>
     </message>
     <message>
         <source>Check for objects not on a page</source>
-        <translation type="unfinished"></translation>
+        <translation>Перевірка відсутності об&apos;єктів на сторінці</translation>
     </message>
     <message>
         <source>Check for overflow in text frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Перевірка переповнення текстових рамок</translation>
     </message>
     <message>
         <source>Check for transparencies used</source>
-        <translation type="unfinished"></translation>
+        <translation>Перевірка використання прозорості</translation>
     </message>
     <message>
         <source>Check for missing images</source>
-        <translation type="unfinished"></translation>
+        <translation>Перевірка відсутності зображень</translation>
     </message>
     <message>
         <source>Check image resolution</source>
-        <translation type="unfinished"></translation>
+        <translation>Перевірка розрішення зображень</translation>
     </message>
     <message>
         <source>Lowest allowed resolution</source>
-        <translation type="unfinished"></translation>
+        <translation>Найнижче дозволене розрішення</translation>
     </message>
     <message>
         <source> dpi</source>
-        <translation type="unfinished">тнд</translation>
+        <translation> тнд</translation>
     </message>
     <message>
         <source>Check for placed PDF Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Перевірка розміщених PDF файлів</translation>
     </message>
     <message>
         <source>Check for PDF Annotations and Fields</source>
-        <translation type="unfinished"></translation>
+        <translation>Перевірка PDF аннотацій та полів</translation>
     </message>
     <message>
         <source>Add Profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Додати профіль</translation>
     </message>
     <message>
         <source>Remove Profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Видалити профіль</translation>
     </message>
 </context>
 <context>
     <name>TabGuides</name>
     <message>
         <source>Common Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Загальні установки</translation>
     </message>
     <message>
         <source>Placing in Documents</source>
-        <translation type="unfinished"></translation>
+        <translation>Розміщення в документах</translation>
     </message>
     <message>
         <source>In the Background</source>
-        <translation type="unfinished"></translation>
+        <translation>На фоні</translation>
     </message>
     <message>
         <source>In the Foreground</source>
-        <translation type="unfinished"></translation>
+        <translation>На передньому плані</translation>
     </message>
     <message>
         <source>Snapping</source>
-        <translation type="unfinished"></translation>
+        <translation>Притягування</translation>
     </message>
     <message>
         <source>Snap Distance:</source>
-        <translation type="unfinished"></translation>
+        <translation>Відстань притягування:</translation>
     </message>
     <message>
         <source>Grab Radius:</source>
-        <translation type="unfinished"></translation>
+        <translation>Радіус захвату:</translation>
     </message>
     <message>
         <source> px</source>
-        <translation type="unfinished">пікс</translation>
+        <translation> пікс</translation>
     </message>
     <message>
         <source>Show Guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати розмітку</translation>
     </message>
     <message>
         <source>Color:</source>
-        <translation type="unfinished">Колір:</translation>
+        <translation>Колір:</translation>
     </message>
     <message>
         <source>Show Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати поля</translation>
     </message>
     <message>
         <source>Show Page Grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати сітку сторінки</translation>
     </message>
     <message>
         <source>Major Grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Основна сітка</translation>
     </message>
     <message>
         <source>Spacing:</source>
-        <translation type="unfinished"></translation>
+        <translation>Проміжок:</translation>
     </message>
     <message>
         <source>Minor Grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Допоміжна сітка</translation>
     </message>
     <message>
         <source>Show Baseline Grid</source>
-        <translation type="unfinished">Показати базову сітку</translation>
+        <translation>Показати базову сітку</translation>
     </message>
     <message>
         <source>Baseline Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Установки базової сітки</translation>
     </message>
     <message>
         <source>Baseline &amp;Grid:</source>
-        <translation type="unfinished">&amp;Базова сітка:</translation>
+        <translation>&amp;Базова сітка:</translation>
     </message>
     <message>
         <source>Baseline &amp;Offset:</source>
-        <translation type="unfinished">Зс&amp;ув базової сітки:</translation>
-    </message>
-    <message>
-        <source>Guides are not visible through objects on the page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Guides are visible above all objects on the page</source>
-        <translation type="unfinished"></translation>
+        <translation>Зс&amp;ув базової сітки:</translation>
     </message>
     <message>
         <source>Distance between the minor grid lines</source>
-        <translation type="unfinished">Відстань між лініями допоміжної сітки</translation>
+        <translation>Відстань між лініями допоміжної сітки</translation>
     </message>
     <message>
         <source>Distance between the major grid lines</source>
-        <translation type="unfinished">Відстань між лініями головної сітки</translation>
+        <translation>Відстань між лініями головної сітки</translation>
     </message>
     <message>
         <source>Distance within which an object will snap to your placed guides</source>
-        <translation type="unfinished">Зона притягування об&apos;єкта до розмітки</translation>
+        <translation>Зона притягування об&apos;єкта до розмітки</translation>
     </message>
     <message>
         <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
-        <translation type="unfinished">Радіус площі захвату вузлів об&apos;єктів</translation>
+        <translation>Радіус захвату вузлів об&apos;єктів</translation>
     </message>
     <message>
         <source>Color of the minor grid lines</source>
-        <translation type="unfinished">Колір ліній допоміжної сітки</translation>
+        <translation>Колір ліній допоміжної сітки</translation>
     </message>
     <message>
         <source>Color of the major grid lines</source>
-        <translation type="unfinished">Колір ліній головної сітки</translation>
+        <translation>Колір ліній головної сітки</translation>
     </message>
     <message>
         <source>Color of the guide lines you insert</source>
-        <translation type="unfinished">Колір ліній розмітки</translation>
+        <translation>Колір вставлених ліній розмітки</translation>
     </message>
     <message>
         <source>Color for the margin lines</source>
-        <translation type="unfinished">Колір границь полів сторінки</translation>
+        <translation>Колір ліній полів сторінки</translation>
     </message>
     <message>
         <source>Color for the baseline grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Колір базової сітки</translation>
     </message>
     <message>
         <source>Turns the basegrid on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Distance between the lines of the baseline grid</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Distance from the top of the page for the first baseline</source>
-        <translation type="unfinished"></translation>
+        <translation>Вмикає та вимикає базову сітку</translation>
     </message>
     <message>
         <source>Turns the gridlines on or off</source>
-        <translation type="unfinished"></translation>
+        <translation>Вмикає та вимикає сітку</translation>
     </message>
     <message>
         <source>Turns the guides on or off</source>
-        <translation type="unfinished"></translation>
+        <translation>Вмикає та вимикає розмітку</translation>
     </message>
     <message>
         <source>Turns the margins on or off</source>
-        <translation type="unfinished"></translation>
+        <translation>Вмикає та вимикає поля</translation>
+    </message>
+    <message>
+        <source>Guides are not visible through objects on the page</source>
+        <translation>Розмітка не видима через об&apos;єкти розміщені на сторінці</translation>
+    </message>
+    <message>
+        <source>Guides are visible above all objects on the page</source>
+        <translation>Розмітка видима через об&apos;єкти розміщені на сторінці</translation>
+    </message>
+    <message>
+        <source>Distance between the lines of the baseline grid</source>
+        <translation>Відстань між лініями базової сітки</translation>
+    </message>
+    <message>
+        <source>Distance from the top of the page for the first baseline</source>
+        <translation>Відстань від верхнього краю сторінки до першої базової лінії</translation>
     </message>
 </context>
 <context>
@@ -20433,492 +20970,683 @@ Scribus.</translation>
     <name>TabPDFOptions</name>
     <message>
         <source>Export Range</source>
-        <translation type="unfinished">Діапазон експортування</translation>
+        <translation>Діапазон експортування</translation>
     </message>
     <message>
         <source>&amp;All Pages</source>
-        <translation type="unfinished">&amp;Всі сторінки</translation>
+        <translation>&amp;Всі сторінки</translation>
     </message>
     <message>
         <source>C&amp;hoose Pages</source>
-        <translation type="unfinished">&amp;Виберіть сторінки</translation>
+        <translation>&amp;Виберіть сторінки</translation>
     </message>
     <message>
         <source>&amp;Rotation:</source>
-        <translation type="unfinished">&amp;Кут повороту:</translation>
+        <translation>&amp;Кут повороту:</translation>
     </message>
     <message>
         <source>File Options</source>
-        <translation type="unfinished">Установки файла</translation>
+        <translation>Установки файла</translation>
     </message>
     <message>
         <source>Compatibilit&amp;y:</source>
-        <translation type="unfinished">&amp;Сумісність:</translation>
+        <translation>&amp;Сумісність:</translation>
     </message>
     <message>
         <source>&amp;Binding:</source>
-        <translation type="unfinished">&amp;Перепліт:</translation>
+        <translation>&amp;Перепліт:</translation>
     </message>
     <message>
         <source>Left Margin</source>
-        <translation type="unfinished">Ліва сторона</translation>
+        <translation>Ліва сторона</translation>
     </message>
     <message>
         <source>Right Margin</source>
-        <translation type="unfinished">Права сторона</translation>
+        <translation>Права сторона</translation>
     </message>
     <message>
         <source>Generate &amp;Thumbnails</source>
-        <translation type="unfinished">Створити &amp;Мініатюрні зображення</translation>
+        <translation>Створити &amp;Мініатюрні зображення</translation>
     </message>
     <message>
         <source>Save &amp;Linked Text Frames as PDF Articles</source>
-        <translation type="unfinished">Зберегти &amp;зв&apos;язані текстові рамки, як статті PDF</translation>
+        <translation>Зберегти &amp;зв&apos;язані текстові рамки, як статті PDF</translation>
     </message>
     <message>
         <source>&amp;Include Bookmarks</source>
-        <translation type="unfinished">Включити &amp;закладки</translation>
+        <translation>Включити &amp;закладки</translation>
     </message>
     <message>
         <source>Include Layers</source>
-        <translation type="unfinished"></translation>
+        <translation>Включити плани</translation>
     </message>
     <message>
         <source> dpi</source>
-        <translation type="unfinished">тнд</translation>
+        <translation> тнд</translation>
     </message>
     <message>
         <source>&amp;Resolution for EPS Graphics:</source>
-        <translation type="unfinished"></translation>
+        <translation>Роз&amp;рішення для EPS графіки:</translation>
     </message>
     <message>
         <source>Com&amp;press Text and Vector Graphics</source>
-        <translation type="unfinished"></translation>
+        <translation>Стис&amp;нути текст та векторну графіку</translation>
     </message>
     <message>
         <source>Image Settings</source>
-        <translation type="unfinished">Установки зображення</translation>
+        <translation>Установки зображення</translation>
     </message>
     <message>
         <source>Automatic</source>
-        <translation type="unfinished">Автоматичний</translation>
+        <translation>Автоматичний</translation>
     </message>
     <message>
         <source>JPEG</source>
-        <translation type="unfinished">JPEG</translation>
+        <translation>JPEG</translation>
     </message>
     <message>
         <source>Zip</source>
-        <translation type="unfinished">Zip</translation>
+        <translation>Zip</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Ніякого</translation>
     </message>
     <message>
         <source>&amp;Method:</source>
-        <translation type="unfinished">&amp;Метод:</translation>
+        <translation>&amp;Метод:</translation>
     </message>
     <message>
         <source>&amp;Quality:</source>
-        <translation type="unfinished">&amp;Якість:</translation>
+        <translation>&amp;Якість:</translation>
     </message>
     <message>
         <source>Maximum</source>
-        <translation type="unfinished">Максимальна</translation>
+        <translation>Максимальна</translation>
     </message>
     <message>
         <source>High</source>
-        <translation type="unfinished">Висока</translation>
+        <translation>Висока</translation>
     </message>
     <message>
         <source>Medium</source>
-        <translation type="unfinished"></translation>
+        <translation>Середня</translation>
     </message>
     <message>
         <source>Low</source>
-        <translation type="unfinished">Низька</translation>
+        <translation>Низька</translation>
     </message>
     <message>
         <source>Minimum</source>
-        <translation type="unfinished">Мінімальна</translation>
+        <translation>Мінімальна</translation>
     </message>
     <message>
         <source>Resample Images to:</source>
-        <translation type="unfinished"></translation>
+        <translation>Змінити розрішення зображення до:</translation>
     </message>
     <message>
         <source>&amp;General</source>
-        <translation type="unfinished">&amp;Загальні</translation>
+        <translation>&amp;Загальні</translation>
     </message>
     <message>
         <source>&amp;Embed all Fonts</source>
-        <translation type="unfinished">&amp;Вкласти всі шрифти</translation>
+        <translation>&amp;Вбудувати всі шрифти</translation>
     </message>
     <message>
         <source>&amp;Subset all Fonts</source>
-        <translation type="unfinished">Провести вибірку всіх &amp;шрифтів</translation>
+        <translation>Провести вибірку всіх &amp;шрифтів</translation>
     </message>
     <message>
         <source>Embedding</source>
-        <translation type="unfinished">Вкладання шрифтів</translation>
+        <translation>Вбудовування шрифтів</translation>
     </message>
     <message>
         <source>Available Fonts:</source>
-        <translation type="unfinished">Доступні шрифти:</translation>
+        <translation>Доступні шрифти:</translation>
     </message>
     <message>
         <source>&amp;&gt;&gt;</source>
-        <translation type="unfinished">&amp;&gt;&gt;</translation>
+        <translation>&amp;&gt;&gt;</translation>
     </message>
     <message>
         <source>&amp;&lt;&lt;</source>
-        <translation type="unfinished">&amp;&lt;&lt;</translation>
+        <translation>&amp;&lt;&lt;</translation>
     </message>
     <message>
         <source>Fonts to embed:</source>
-        <translation type="unfinished">Шрифти для вкладання:</translation>
+        <translation>Шрифти для вбудовування:</translation>
     </message>
     <message>
         <source>Fonts to subset:</source>
-        <translation type="unfinished">Шрифти для вибірки:</translation>
+        <translation>Шрифти для вибірки:</translation>
     </message>
     <message>
         <source>&amp;Fonts</source>
-        <translation type="unfinished">&amp;Шрифти</translation>
+        <translation>&amp;Шрифти</translation>
     </message>
     <message>
         <source>Enable &amp;Presentation Effects</source>
-        <translation type="unfinished"></translation>
+        <translation>Ввімкнути презентаційні &amp;ефекти</translation>
     </message>
     <message>
         <source>Page</source>
-        <translation type="unfinished">Сторінка</translation>
+        <translation>Сторінка</translation>
     </message>
     <message>
         <source>Show Page Pre&amp;views</source>
-        <translation type="unfinished">&amp;Попередній перегляд сторінок</translation>
+        <translation>&amp;Попередній перегляд сторінок</translation>
     </message>
     <message>
         <source>Effects</source>
-        <translation type="unfinished">Ефекти</translation>
+        <translation>Ефекти</translation>
     </message>
     <message>
         <source>&amp;Display Duration:</source>
-        <translation type="unfinished">&amp;Тривалість показу:</translation>
+        <translation>&amp;Тривалість показу:</translation>
     </message>
     <message>
         <source>Effec&amp;t Duration:</source>
-        <translation type="unfinished">Тривалість &amp;ефекту:</translation>
+        <translation>Тривалість &amp;ефекту:</translation>
     </message>
     <message>
         <source>Effect T&amp;ype:</source>
-        <translation type="unfinished">Т&amp;ип ефекту:</translation>
+        <translation>Т&amp;ип ефекту:</translation>
     </message>
     <message>
         <source>&amp;Moving Lines:</source>
-        <translation type="unfinished">&amp;Рухливі лінії:</translation>
+        <translation>&amp;Рухливі лінії:</translation>
     </message>
     <message>
         <source>F&amp;rom the:</source>
-        <translation type="unfinished">&amp;Від:</translation>
+        <translation>&amp;Від:</translation>
     </message>
     <message>
         <source>D&amp;irection:</source>
-        <translation type="unfinished">&amp;Напрямок:</translation>
+        <translation>&amp;Напрямок:</translation>
     </message>
     <message>
         <source> sec</source>
-        <translation type="unfinished">сек</translation>
+        <translation> сек</translation>
     </message>
     <message>
         <source>No Effect</source>
-        <translation type="unfinished">Ніякого ефекту</translation>
+        <translation>Ніякого ефекту</translation>
     </message>
     <message>
         <source>Blinds</source>
-        <translation type="unfinished">Венська фіранка</translation>
+        <translation>Венська фіранка</translation>
     </message>
     <message>
         <source>Box</source>
-        <translation type="unfinished">Коробка</translation>
+        <translation>Коробка</translation>
     </message>
     <message>
         <source>Dissolve</source>
-        <translation type="unfinished">Розтавання</translation>
+        <translation>Розтавання</translation>
     </message>
     <message>
         <source>Glitter</source>
-        <translation type="unfinished">Сяяння</translation>
+        <translation>Сяйво</translation>
     </message>
     <message>
         <source>Split</source>
-        <translation type="unfinished">Розділення</translation>
+        <translation>Розділення</translation>
     </message>
     <message>
         <source>Wipe</source>
-        <translation type="unfinished">Витирання</translation>
+        <translation>Витирання</translation>
     </message>
     <message>
         <source>Horizontal</source>
-        <translation type="unfinished">Горизонтально</translation>
+        <translation>Горизонтально</translation>
     </message>
     <message>
         <source>Vertical</source>
-        <translation type="unfinished">Вертикально</translation>
+        <translation>Вертикально</translation>
     </message>
     <message>
         <source>Inside</source>
-        <translation type="unfinished">Зсередини</translation>
+        <translation>Зсередини</translation>
     </message>
     <message>
         <source>Outside</source>
-        <translation type="unfinished">Ззовні</translation>
+        <translation>Ззовні</translation>
     </message>
     <message>
         <source>Left to Right</source>
-        <translation type="unfinished">Зліва направо</translation>
+        <translation>Зліва направо</translation>
     </message>
     <message>
         <source>Top to Bottom</source>
-        <translation type="unfinished">Зверху донизу</translation>
+        <translation>Зверху донизу</translation>
     </message>
     <message>
         <source>Bottom to Top</source>
-        <translation type="unfinished">Знизу вверх</translation>
+        <translation>Знизу вверх</translation>
     </message>
     <message>
         <source>Right to Left</source>
-        <translation type="unfinished">Зправа наліво</translation>
+        <translation>Зправа наліво</translation>
     </message>
     <message>
         <source>Top-left to Bottom-Right</source>
-        <translation type="unfinished">Зліва зверху вправо вниз</translation>
+        <translation>Зліва зверху вправо вниз</translation>
     </message>
     <message>
         <source>&amp;Apply Effect on all Pages</source>
-        <translation type="unfinished">Застосувати ефект на в&amp;сіх сторінках</translation>
+        <translation>Застосувати ефект на в&amp;сіх сторінках</translation>
     </message>
     <message>
         <source>E&amp;xtras</source>
-        <translation type="unfinished">&amp;Додатки</translation>
+        <translation>&amp;Додатки</translation>
     </message>
     <message>
         <source>&amp;Use Encryption</source>
-        <translation type="unfinished">Використовувати &amp;шифрування</translation>
+        <translation>Використовувати &amp;шифрування</translation>
     </message>
     <message>
         <source>Passwords</source>
-        <translation type="unfinished">Паролі</translation>
+        <translation>Паролі</translation>
     </message>
     <message>
         <source>&amp;User:</source>
-        <translation type="unfinished">&amp;Користувач:</translation>
+        <translation>&amp;Користувач:</translation>
     </message>
     <message>
         <source>&amp;Owner:</source>
-        <translation type="unfinished">В&amp;ласник:</translation>
+        <translation>В&amp;ласник:</translation>
     </message>
     <message>
         <source>Settings</source>
-        <translation type="unfinished">Установки</translation>
+        <translation>Установки</translation>
     </message>
     <message>
         <source>Allow &amp;Printing the Document</source>
-        <translation type="unfinished">Дозволити &amp;друк документа</translation>
+        <translation>Дозволити &amp;друк документа</translation>
     </message>
     <message>
         <source>Allow &amp;Changing the Document</source>
-        <translation type="unfinished">Дозволити внесення &amp;змін в документ</translation>
+        <translation>Дозволити внесення &amp;змін в документ</translation>
     </message>
     <message>
         <source>Allow Cop&amp;ying Text and Graphics</source>
-        <translation type="unfinished">Дозволити &amp;копіювання тексту і зображень</translation>
+        <translation>Дозволити &amp;копіювання тексту і зображень</translation>
     </message>
     <message>
         <source>Allow Adding &amp;Annotations and Fields</source>
-        <translation type="unfinished">Дозволити додавання &amp;аннотацій та полів</translation>
+        <translation>Дозволити додавання &amp;аннотацій та полів</translation>
     </message>
     <message>
         <source>S&amp;ecurity</source>
-        <translation type="unfinished">&amp;Захист</translation>
+        <translation>&amp;Захист</translation>
     </message>
     <message>
         <source>General</source>
-        <translation type="unfinished">Загальні</translation>
+        <translation>Загальні</translation>
     </message>
     <message>
         <source>Output &amp;Intended For:</source>
-        <translation type="unfinished">Вихідний документ &amp;призначений для:</translation>
+        <translation>Вихідний документ &amp;призначений для:</translation>
     </message>
     <message>
         <source>Screen / Web</source>
-        <translation type="unfinished">Екран комп&apos;ютера/Веб сторінка</translation>
+        <translation>Екран комп&apos;ютера/Веб сторінка</translation>
     </message>
     <message>
         <source>Printer</source>
-        <translation type="unfinished">Принтер</translation>
+        <translation>Прінтер</translation>
     </message>
     <message>
         <source>Grayscale</source>
-        <translation type="unfinished"></translation>
+        <translation>Відтінки сірого</translation>
     </message>
     <message>
         <source>&amp;Use Custom Rendering Settings</source>
-        <translation type="unfinished">Використовувати нестандартні &amp;установки рендерингу</translation>
+        <translation>Використовувати нестандартні &amp;установки рендерингу</translation>
     </message>
     <message>
         <source>Rendering Settings</source>
-        <translation type="unfinished">Установки рендерингу</translation>
+        <translation>Установки рендерингу</translation>
     </message>
     <message>
         <source>Fre&amp;quency:</source>
-        <translation type="unfinished">&amp;Частота:</translation>
+        <translation>&amp;Частота:</translation>
     </message>
     <message>
         <source>&amp;Angle:</source>
-        <translation type="unfinished">&amp;Кут:</translation>
+        <translation>&amp;Кут:</translation>
     </message>
     <message>
         <source>S&amp;pot Function:</source>
-        <translation type="unfinished">&amp;Локальна функція:</translation>
+        <translation>&amp;Локальна функція:</translation>
     </message>
     <message>
         <source>Simple Dot</source>
-        <translation type="unfinished">Проста точка</translation>
+        <translation>Проста точка</translation>
     </message>
     <message>
         <source>Line</source>
-        <translation type="unfinished">Лінія</translation>
+        <translation>Лінія</translation>
     </message>
     <message>
         <source>Round</source>
-        <translation type="unfinished">Круг</translation>
+        <translation>Круг</translation>
     </message>
     <message>
         <source>Ellipse</source>
-        <translation type="unfinished">Елліпс</translation>
+        <translation>Елліпс</translation>
     </message>
     <message>
         <source>Solid Colors:</source>
-        <translation type="unfinished">Однотонні кольори:</translation>
+        <translation>Однотонні кольори:</translation>
     </message>
     <message>
         <source>Use ICC Profile</source>
-        <translation type="unfinished">Використовувати ICC профіль</translation>
+        <translation>Використовувати ICC профіль</translation>
     </message>
     <message>
         <source>Profile:</source>
-        <translation type="unfinished">Профіль:</translation>
+        <translation>Профіль:</translation>
     </message>
     <message>
         <source>Rendering-Intent:</source>
-        <translation type="unfinished">Призначення вихідного зображення:</translation>
+        <translation>Призначення вихідного зображення:</translation>
     </message>
     <message>
         <source>Perceptual</source>
-        <translation type="unfinished">Уявний</translation>
+        <translation>Уявний</translation>
     </message>
     <message>
         <source>Relative Colorimetric</source>
-        <translation type="unfinished">Відносна кольорометрія</translation>
+        <translation>Відносно кольорометричний</translation>
     </message>
     <message>
         <source>Saturation</source>
-        <translation type="unfinished">Насичення</translation>
+        <translation>Насичення</translation>
     </message>
     <message>
         <source>Absolute Colorimetric</source>
-        <translation type="unfinished">Абсолютна кольорометрія</translation>
+        <translation>Абсолютна кольорометрія</translation>
     </message>
     <message>
         <source>Images:</source>
-        <translation type="unfinished">Зображення:</translation>
+        <translation>Зображення:</translation>
     </message>
     <message>
         <source>Don&apos;t use embedded ICC profiles</source>
-        <translation type="unfinished">Не використовувати внутрішні ICC профілі</translation>
+        <translation>Не використовувати внутрішні ICC профілі</translation>
     </message>
     <message>
         <source>C&amp;olor</source>
-        <translation type="unfinished">&amp;Колір</translation>
+        <translation>&amp;Колір</translation>
     </message>
     <message>
         <source>PDF/X-3 Output Intent</source>
-        <translation type="unfinished">Призначення вихідного документу PDF/X-3</translation>
+        <translation>Призначення вихідного документу PDF/X-3</translation>
     </message>
     <message>
         <source>&amp;Info String:</source>
-        <translation type="unfinished">&amp;Інформація:</translation>
+        <translation>&amp;Інформація:</translation>
     </message>
     <message>
         <source>Output &amp;Profile:</source>
-        <translation type="unfinished">Профіль &amp;виводу:</translation>
+        <translation>Профіль &amp;виводу:</translation>
     </message>
     <message>
         <source>Trim Box</source>
-        <translation type="unfinished">Обрізати рамку</translation>
+        <translation>Обрізати рамку</translation>
     </message>
     <message>
         <source>PDF/X-&amp;3</source>
-        <translation type="unfinished">PDF/X-&amp;3</translation>
+        <translation>PDF/X-&amp;3</translation>
     </message>
     <message>
         <source>Embed fonts into the PDF. Embedding the fonts
 will preserve the layout and appearance of your document.</source>
-        <translation type="unfinished">Вбудувати шрифти в PDF. Вбудовування шрифтів.
+        <translation>Вбудувати шрифти в PDF. Вбудовування шрифтів.
 збереже формат і вигляд документу.</translation>
     </message>
     <message>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; in full screen mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>Вмикає презентаційні ефекти при використанні  Adobe&amp;#174; Reader&amp;#174; в повноекранному режимі.</translation>
     </message>
     <message>
         <source>Show page previews of each page listed above.</source>
-        <translation type="unfinished">Показувати попередній перегляд кожної сторінки вказаної вверху.</translation>
+        <translation>Показувати попередній перегляд кожної сторінки вказаної вверху.</translation>
     </message>
     <message>
         <source>Length of time the page is shown before the presentation starts on the selected page.</source>
-        <translation type="unfinished">Тривалість показу сторінки перед початком прозентації на вибраній сторінці.</translation>
+        <translation>Тривалість показу сторінки перед початком прозентації на вибраній сторінці.</translation>
     </message>
     <message>
         <source>Length of time the effect runs.
 A shorter time will speed up the effect, a longer one will slow it down.</source>
-        <translation type="unfinished">Тривалість ефекту. Менша тривалість пришвидшуе ефект і навпаки.</translation>
+        <translation>Тривалість ефекту. Менша тривалість пришвидшуе ефект і навпаки.</translation>
     </message>
     <message>
         <source>Type of the display effect.</source>
-        <translation type="unfinished">Тип ефекту.</translation>
+        <translation>Тип ефекту.</translation>
     </message>
     <message>
         <source>Direction of the effect of moving lines for the split and blind effects.</source>
-        <translation type="unfinished">Напрямок руху ліній для &quot;розділений&quot; і &quot;венеціанська штора&quot; ефектів.</translation>
+        <translation>Напрямок руху ліній для ефектів &quot;розділений&quot; і &quot;венеціанська штора&quot;.</translation>
     </message>
     <message>
         <source>Starting position for the box and split effects.</source>
-        <translation type="unfinished">Початкова позиція для ефектів &quot;коробка&quot; і &quot;розділений&quot;.</translation>
+        <translation>Початкова позиція для ефектів &quot;коробка&quot; і &quot;розділений&quot;.</translation>
     </message>
     <message>
         <source>Direction of the glitter or wipe effects.</source>
-        <translation type="unfinished">Напрямок руху ефектів &quot;блиск&quot; і &quot;витирання&quot;.</translation>
+        <translation>Напрямок руху ефектів &quot;блиск&quot; і &quot;витирання&quot;.</translation>
     </message>
     <message>
         <source>Apply the selected effect to all pages.</source>
-        <translation type="unfinished">Застосувати вибраний ефект на всіх сторінках.</translation>
+        <translation>Застосувати вибраний ефект на всіх сторінках.</translation>
     </message>
     <message>
         <source>Export all pages to PDF</source>
-        <translation type="unfinished">Експортувати всі сторінки в PDF</translation>
+        <translation>Експортувати всі сторінки в PDF</translation>
     </message>
     <message>
         <source>Export a range of pages to PDF</source>
-        <translation type="unfinished">Експортувати діапазон сторінок в PDF</translation>
+        <translation>Експортувати діапазон сторінок в PDF</translation>
     </message>
     <message>
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
-        <translation type="unfinished"></translation>
+        <translation>Вставити розділений комами список знаків де знаком може бути * для всіх сторінок, 1-5 для діапазону сторінок чи номер одної сторінки.</translation>
+    </message>
+    <message>
+        <source>Determines the binding of pages in the PDF. Unless you know
+you need to change it leave the default choice - Left.</source>
+        <translation>Визначає тип переплітання сторінок в PDF. Стандартний варіант - 
+переплітання з лівої сторони.</translation>
+    </message>
+    <message>
+        <source>Generates thumbnails of each page in the PDF.
+Some viewers can use the thumbnails for navigation.</source>
+        <translation>Вкладає зменшені зображення кожної сторінки в PDF.
+Деякі програми для перегляду PDF можуть використовувати
+ці зображення для навігації.</translation>
+    </message>
+    <message>
+        <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
+        <translation>Генерувати PDF Статті. Вони корисні для навігації ссилок на статті в PDF.</translation>
+    </message>
+    <message>
+        <source>Layers in your document are exported to the PDF
+Only available if PDF 1.5 is choosen.</source>
+        <translation>Плани в Вашому документі експортовані в PDF
+Цей варіант доступний лише при використанні
+PDF 1.5.</translation>
+    </message>
+    <message>
+        <source>Embed the bookmarks you created in your document.
+These are useful for navigating long PDF documents.</source>
+        <translation>Вбудувати закладки. які Ви зробили в документі, в PDF.
+Корисно для навігації довгих PDF документів.</translation>
+    </message>
+    <message>
+        <source>Export resolution of text and vector graphics.
+This does not affect the resolution of bitmap images like photos.</source>
+        <translation>Розрішення експортованого тексту та зображень.
+Не має ніякого ефекту на розрішення растрових зображень,
+таких як фотографії.</translation>
+    </message>
+    <message>
+        <source>Compression of text and graphics.
+Unless you have a reason, leave this checked. This reduces PDF size.</source>
+        <translation type="obsolete">Компресія тексту та зображень.
+Зменшує розмір PDF. Не змінюйте без явної причини.</translation>
+    </message>
+    <message>
+        <source>Version of compression for images.
+Automatic allows Scribus to choose the best method.
+ZIP is good for images with solid colors.
+JPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).
+Leave it set to automatic, unless you have a need for special compression options.</source>
+        <translation type="obsolete">Версія компресії для зображень.
+Автоматична - дозволяє Scribus вибрати найкращий метод.
+ZIP - добре використовувати для зображень з однотонними кольорами.
+JPEG - добре використовувати при створенні невеликих PDF файлів в які
+вставлено багато фотографічних зображень. Можлива невелика втрата
+якості зображення.
+Залиште установку на автоматичну компресію при відсутності явної причини для
+використання більш специфічних схем компресії.</translation>
+    </message>
+    <message>
+        <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
+        <translation>Ступені стиснення:  Мінімальна (25%), Низка (50%), Середня (75%), Висока (85%), Максимальна (95%)</translation>
+    </message>
+    <message>
+        <source>Downsample your bitmap images to the selected DPI.
+Leaving this unchecked will render them at their native resolution.</source>
+        <translation type="obsolete">Перерахувати розрішення растрових зображень до вибраних точок/кв. дюйм (DPI).
+Якщо ця опція не установлена то буде використане вихідне розрішення зображень.</translation>
+    </message>
+    <message>
+        <source>DPI (Dots Per Inch) for image export.</source>
+        <translation>DPI (Точок на квадратний дюйм) для експорту зображень.</translation>
+    </message>
+    <message>
+        <source>Enable the security features in your exported PDF.
+If you selected PDF 1.3, the PDF will be protected by 40 bit encryption.
+If you selected PDF 1.4, the PDF will be protected by 128 bit encryption.
+Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
+        <translation>Ввімкнути засоби захисту в експортованому PDF.
+При виборі PDF 1.3, PDF буде захищено 40-бітним шифруванням.
+При виборі PDF 1.4, PDF буде захищено 128-бітним шифруванням.
+Попередження: PDF шифрування не настільки надійне, як GPG чи PGP шифрування і має певні обмеження.</translation>
+    </message>
+    <message>
+        <source>Choose a master password which enables or disables all the
+security features in your exported PDF</source>
+        <translation>Виберіть головний пароль для ввімкнення та вимкнення всіх
+засобів захисту в експортованому PDF</translation>
+    </message>
+    <message>
+        <source>Choose a password for users to be able to read your PDF.</source>
+        <translation>Виберіть пароль для захисту PDF документа від перегляду.</translation>
+    </message>
+    <message>
+        <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
+        <translation>Дозволити друк PDF. Якщо не вибрати цей параметр, то друк буде заборонено.</translation>
+    </message>
+    <message>
+        <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
+        <translation>Дозволити редагування PDF. Якщо цей параметр не вибрати, то редагування PDF буде заборонено.</translation>
+    </message>
+    <message>
+        <source>Allow copying of text or graphics from the PDF. 
+If un-checked, text and graphics cannot be copied.</source>
+        <translation>Дозволити копіювання тексту і зображень з PDF.
+Якщо цей параметр не вибрати, то копіювання 
+тексту і зображень буде заборонено.</translation>
+    </message>
+    <message>
+        <source>Allow adding annotations and fields to the PDF. 
+If un-checked, editing annotations and fileds is prevented.</source>
+        <translation>Дозволити вставку анотацій та полів в PDF.
+Якщо цей параметр не вибрати, то редагування
+анотацій та полів буде заборонено.</translation>
+    </message>
+    <message>
+        <source>Color model for the output of your PDF.
+Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets.
+Choose Printer when printing to a true 4 color CMYK printer.</source>
+        <translation>Кольорова модель для створення PDF.
+Виберіть Екран/Веб для PDF документів, призначених для показу на екрані або для друку на типових струменевих прінтерах.
+Виберіть Прінтер для друку на справжніх 4-х кольорових CMYK прінтерах.</translation>
+    </message>
+    <message>
+        <source>This is an advanced setting which is not enabled by default. This should only be enabled
+when specifically requested by your printer and they have given you the exact details needed.
+Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
+        <translation>Це додаткова установка, яка не використовується по умовчанню. Вона має бути ввімкнена лише по вимозі типографії і наявності точних деталей. Інакше експортований PDF може не друкуватися правильно і не бути придатним для використання на різних платформах.</translation>
+    </message>
+    <message>
+        <source>Embed a color profile for solid colors</source>
+        <translation>Вбудувати кольоровий профіль для однотонних кольорів</translation>
+    </message>
+    <message>
+        <source>Color profile for solid colors</source>
+        <translation>Кольоровий профіль для однотонних кольорів</translation>
+    </message>
+    <message>
+        <source>Rendering intent for solid colors</source>
+        <translation>Схема перерахунку кольорів для однотонних кольорів</translation>
+    </message>
+    <message>
+        <source>Embed a color profile for images</source>
+        <translation>Вбудований кольоровий профіль для зображень</translation>
+    </message>
+    <message>
+        <source>Do not use color profiles that are embedded in source images</source>
+        <translation>Не використовувати кольорові профілі вбудовані в оригінальні зображення</translation>
+    </message>
+    <message>
+        <source>Color profile for images</source>
+        <translation>Кольоровий профіль для зображень</translation>
+    </message>
+    <message>
+        <source>Rendering intent for images</source>
+        <translation>Схема перерахунку кольорів для зображень</translation>
+    </message>
+    <message>
+        <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
+        <translation>Профіль для друку. При можливості скористайтеся порадами 
+технолога типографії для правильного вибору цього профіля.</translation>
+    </message>
+    <message>
+        <source>Mandatory string for PDF/X-3 or the PDF will fail
+PDF/X-3 conformance. We recommend you use the title of the document.</source>
+        <translation>Цей запис вимагається форматом PDF/X-3. Без нього PDF не пройде перевірку
+на відповідність формату PDF/X-3. Ми рекомендуємо використання заголовку документу.</translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the top of the physical page</source>
+        <translation>Розмір поля для перекриття з верхньої сторони фізичної сторінки</translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the bottom of the physical page</source>
+        <translation>Розмір поля для перекриття з нижньої сторони фізичної сторінки</translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the left of the physical page</source>
+        <translation>Розмір поля для перекриття з лівої сторони фізичної сторінки</translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the right of the physical page</source>
+        <translation>Розмір поля для перекриття з правої сторони фізичної сторінки</translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) horizontally</source>
+        <translation>Віддзеркалити сторінку(и) горизонтально</translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) vertically</source>
+        <translation>Віддзеркалити сторінку(и) вертикально</translation>
     </message>
     <message>
         <source>Determines the PDF compatibility.
@@ -20927,602 +21655,451 @@ Choose PDF 1.4 if your file uses features such as transparency or you require 12
 PDF/X-3 is for exporting the PDF, when you want color managed RGB for commercial printing
  and is selectable when you have activated color management. 
 Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Determines the binding of pages in the PDF. Unless you know
-you need to change it leave the default choice - Left.</source>
-        <translation type="unfinished">Визначає тип переплітання сторінок в PDF. Стандартний варіант - 
-переплітання з лівої сторони.</translation>
-    </message>
-    <message>
-        <source>Generates thumbnails of each page in the PDF.
-Some viewers can use the thumbnails for navigation.</source>
-        <translation type="unfinished">Вкладає зменшені зображення кожної сторінки в PDF.
-Деякі програми для перегляду PDF можуть використовувати
-ці зображення для навігації.</translation>
-    </message>
-    <message>
-        <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
-        <translation type="unfinished">Генерувати PDF Статті. Корисні для навігації ссилок на статті в PDF.</translation>
-    </message>
-    <message>
-        <source>Layers in your document are exported to the PDF
-Only available if PDF 1.5 is choosen.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Embed the bookmarks you created in your document.
-These are useful for navigating long PDF documents.</source>
-        <translation type="unfinished">Вбудувати закладки. які Ви зробили в документі, в PDF.
-Корисно для навігації довгих PDF документів.</translation>
-    </message>
-    <message>
-        <source>Export resolution of text and vector graphics.
-This does not affect the resolution of bitmap images like photos.</source>
-        <translation type="unfinished">Розрішення експортованого тексту та зображень.
-Не має ніякого ефекту на розрішення растрових зображень,
-таких як фотографії.</translation>
-    </message>
-    <message>
-        <source>Enable lossless compression of text and graphics.
-Unless you have a reason, leave this checked. This reduces PDF size.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
-        <translation type="unfinished">Ступені стиснення:  Мінімальна (25%), Низка (50%), Середня (75%), Висока (85%), Максимальна (95%)</translation>
+        <translation>Визначає рівень сумісності PDF.
+Типово використовується PDF 1.3, який представляє собою найвищий рівень сумісності.
+Виберіть PDF 1.4, якщо Ваш файл використовує такі риси, як прозорість, або Вам потрібне 128-бітне шифрування.
+PDF/X-3 призначений для експорту PDF з використанням кольорових профілів для RGB кольорів для комерційного друку. Його можна вибрати лише при активному менеджменті кольорів. Використовуйте лише з поради вашого комерційного друкаря або в деяких випадках друку на 4-кольорових цифрових лазерних прінтерах.
+</translation>
     </message>
     <message>
         <source>Re-sample your bitmap images to the selected DPI.
 Leaving this unchecked will render them at their native resolution.
 This can increase memory usage and slow down export.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>DPI (Dots Per Inch) for image export.</source>
-        <translation type="unfinished">DPI (Точок на квадратний дюйм) для експорту зображень.</translation>
-    </message>
-    <message>
-        <source>Enable the security features in your exported PDF.
-If you selected PDF 1.3, the PDF will be protected by 40 bit encryption.
-If you selected PDF 1.4, the PDF will be protected by 128 bit encryption.
-Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Choose a master password which enables or disables all the
-security features in your exported PDF</source>
-        <translation type="unfinished">Виберіть головний пароль для ввімкнення та вимкнення всіх
-засобів захисту в експортованому PDF</translation>
-    </message>
-    <message>
-        <source>Choose a password for users to be able to read your PDF.</source>
-        <translation type="unfinished">Виберіть пароль для захисту PDF документа від перегляду.</translation>
-    </message>
-    <message>
-        <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
-        <translation type="unfinished">Дозволити друк PDF. Якщо не вибрати цей параметр, то друк буде заборонено.</translation>
-    </message>
-    <message>
-        <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
-        <translation type="unfinished">Дозволити редагування PDF. Якщо цей параметр не вибрати, то редагування PDF буде заборонено.</translation>
-    </message>
-    <message>
-        <source>Allow copying of text or graphics from the PDF. 
-If un-checked, text and graphics cannot be copied.</source>
-        <translation type="unfinished">Дозволити копіювання тексту і зображень з PDF.
-Якщо цей параметр не вибрати, то копіювання 
-тексту і зображень буде заборонено.</translation>
-    </message>
-    <message>
-        <source>Allow adding annotations and fields to the PDF. 
-If un-checked, editing annotations and fileds is prevented.</source>
-        <translation type="unfinished">Дозволити вставку анотацій та полів в PDF.
-Якщо цей параметр не вибрати, то редагування
-анотацій та полів буде заборонено.</translation>
-    </message>
-    <message>
-        <source>Color model for the output of your PDF.
-Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets.
-Choose Printer when printing to a true 4 color CMYK printer.</source>
-        <translation type="unfinished">Кольорова модель для створення PDF.
-Виберіть Екран/Веб для PDF документів, призначених для показу на екрані або для друку на типових
-струменевих прінтерах.
-Виберіть Прінтер для друку на справжніх 4-х кольорових CMYK прінтерах.</translation>
-    </message>
-    <message>
-        <source>This is an advanced setting which is not enabled by default. This should only be enabled
-when specifically requested by your printer and they have given you the exact details needed.
-Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
-        <translation type="unfinished">Це додаткова установка, яка не використовується по умовчанню. Вона має бути ввімкнена
-лише по вимозі типографії і наявності точних деталей. Інакше експортований PDF може не
-друкуватися правильно і не бути придатним для використання на різних платформах.</translation>
-    </message>
-    <message>
-        <source>Embed a color profile for solid colors</source>
-        <translation type="unfinished">Вбудувати кольоровий профіль для однотонних кольорів</translation>
-    </message>
-    <message>
-        <source>Color profile for solid colors</source>
-        <translation type="unfinished">Кольоровий профіль для однотонних кольорів</translation>
-    </message>
-    <message>
-        <source>Rendering intent for solid colors</source>
-        <translation type="unfinished">Схема перерахунку кольорів для однотонних кольорів</translation>
-    </message>
-    <message>
-        <source>Embed a color profile for images</source>
-        <translation type="unfinished">Вбудований кольоровий профіль для зображень</translation>
-    </message>
-    <message>
-        <source>Do not use color profiles that are embedded in source images</source>
-        <translation type="unfinished">Не використовувати кольорові профілі вбудовані в оригінальні зображення</translation>
-    </message>
-    <message>
-        <source>Color profile for images</source>
-        <translation type="unfinished">Кольоровий профіль для зображень</translation>
-    </message>
-    <message>
-        <source>Rendering intent for images</source>
-        <translation type="unfinished">Схема перерахунку кольорів для зображень</translation>
-    </message>
-    <message>
-        <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
-        <translation type="unfinished">Профіль для друку. При можливості скористайтеся порадами 
-технолога типографії для правильного вибору цього профіля.</translation>
-    </message>
-    <message>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail
-PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation type="unfinished">Цей запис вимагається форматом PDF/X-3. Без нього PDF не пройде перевірку
-на відповідність формату PDF/X-3. Ми рекомендуємо використання заголовку документу.</translation>
-    </message>
-    <message>
-        <source>Distance for bleed from the top of the physical page</source>
-        <translation type="unfinished">Розмір поля для перекриття з верхньої сторони фізичної сторінки</translation>
-    </message>
-    <message>
-        <source>Distance for bleed from the bottom of the physical page</source>
-        <translation type="unfinished">Розмір поля для перекриття з нижньої сторони фізичної сторінки</translation>
-    </message>
-    <message>
-        <source>Distance for bleed from the left of the physical page</source>
-        <translation type="unfinished">Розмір поля для перекриття з лівої сторони фізичної сторінки</translation>
-    </message>
-    <message>
-        <source>Distance for bleed from the right of the physical page</source>
-        <translation type="unfinished">Розмір поля для перекриття з правої сторони фізичної сторінки</translation>
-    </message>
-    <message>
-        <source>Mirror Page(s) horizontally</source>
-        <translation type="unfinished">Віддзеркалити сторінку(и) горизонтально</translation>
-    </message>
-    <message>
-        <source>Mirror Page(s) vertically</source>
-        <translation type="unfinished">Віддзеркалити сторінку(и) вертикально</translation>
+        <translation>Перерахувати растрові зображення на нове розрішення в ТНД.
+Якщо Ви залишите цю установку невибраною, то растрові зображення
+залишаться з їх початковим розрішенням.
+Це може привести до збільшення використання пам&apos;яті комп&apos;ютера і 
+сповільнення процесу експорту.</translation>
     </message>
     <message>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Конвертувати точкові кольори в процесні кольори</translation>
+    </message>
+    <message>
+        <source>Enable lossless compression of text and graphics.
+Unless you have a reason, leave this checked. This reduces PDF size.</source>
+        <translation>Ввімкнути стиснення без втрат для тексту та зображень.
+Залиште ввімкненим, якщо у Вас немає гарної причини
+для його вимкнення. Ця установки приводить до зменшення
+розміру PDF.</translation>
+    </message>
+    <message>
+        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options.</source>
+        <translation>Метод стиснення зображень. Автоматичний дозволяє Scribus вибрати найкращий метод. ZIP дає стиснення без втрат і гарно підходить для зображень з однотонними кольорами. JPEG краще використовувати для зменшення розміру PDF файлів з багатьма фотографічними зображеннями (існує можливість деякої втрати якості зображень). Залиште автоматичний режим, якщо у вас немає потреби в особливих режимах стиснення.</translation>
     </message>
 </context>
 <context>
     <name>TabTools</name>
     <message>
         <source>Font:</source>
-        <translation type="unfinished">Шрифт:</translation>
+        <translation>Шрифт:</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation type="unfinished"></translation>
+        <translation> тчк</translation>
     </message>
     <message>
         <source>Size:</source>
-        <translation type="unfinished">Розмір:</translation>
+        <translation>Розмір:</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Нічого</translation>
     </message>
     <message>
         <source>Fill Color:</source>
-        <translation type="unfinished"></translation>
+        <translation>Колір заповнення:</translation>
     </message>
     <message>
         <source>Stroke Color:</source>
-        <translation type="unfinished"></translation>
+        <translation>Колір контура:</translation>
     </message>
     <message>
         <source>Tab Fill Character:</source>
-        <translation type="unfinished"></translation>
+        <translation>Символ заповнення відступа:</translation>
     </message>
     <message>
         <source>Tab Width:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ширина відступа:</translation>
     </message>
     <message>
         <source>Colu&amp;mns:</source>
-        <translation type="unfinished">&amp;Стовпці:</translation>
+        <translation>&amp;Стовпці:</translation>
     </message>
     <message>
         <source>&amp;Gap:</source>
-        <translation type="unfinished">&amp;Проміжок:</translation>
+        <translation>&amp;Проміжок:</translation>
     </message>
     <message>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
-        <translation type="unfinished">Реве та стогне Дніпр широкий, сердитий вітер завива</translation>
+        <translation>Реве та стогне Дніпр широкий, сердитий вітер завива</translation>
     </message>
     <message>
         <source>&amp;Line Color:</source>
-        <translation type="unfinished">Колір &amp;лінії:</translation>
+        <translation>Колір &amp;лінії:</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished">%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>&amp;Shading:</source>
-        <translation type="unfinished">&amp;Затінення:</translation>
+        <translation>&amp;Затінення:</translation>
     </message>
     <message>
         <source>&amp;Fill Color:</source>
-        <translation type="unfinished">Колір запо&amp;внення:</translation>
+        <translation>Колір запо&amp;внення:</translation>
     </message>
     <message>
         <source>S&amp;hading:</source>
-        <translation type="unfinished">&amp;Затінення:</translation>
+        <translation>&amp;Затінення:</translation>
     </message>
     <message>
         <source>Line Style:</source>
-        <translation type="unfinished"></translation>
+        <translation>Стиль лінії:</translation>
     </message>
     <message>
         <source>Line &amp;Width:</source>
-        <translation type="unfinished">Тов&amp;щина лінії:</translation>
+        <translation>Тов&amp;щина лінії:</translation>
     </message>
     <message>
         <source>Line S&amp;tyle:</source>
-        <translation type="unfinished"></translation>
+        <translation>Стиль &amp;лінії:</translation>
     </message>
     <message>
         <source>Arrows:</source>
-        <translation type="unfinished"></translation>
+        <translation>Стрілки:</translation>
     </message>
     <message>
         <source>Start:</source>
-        <translation type="unfinished"></translation>
+        <translation>Початок:</translation>
     </message>
     <message>
         <source>End:</source>
-        <translation type="unfinished"></translation>
+        <translation>Кінець:</translation>
     </message>
     <message>
         <source>&amp;Free Scaling</source>
-        <translation type="unfinished">&amp;Вільне масштабування</translation>
+        <translation>&amp;Вільне масштабування</translation>
     </message>
     <message>
         <source>&amp;Horizontal Scaling:</source>
-        <translation type="unfinished">&amp;Горизонтальне масштабування:</translation>
+        <translation>&amp;Горизонтальне масштабування:</translation>
     </message>
     <message>
         <source>&amp;Vertical Scaling:</source>
-        <translation type="unfinished">&amp;Вертикальне масштабування:</translation>
+        <translation>&amp;Вертикальне масштабування:</translation>
     </message>
     <message>
         <source>&amp;Scale Picture to Frame Size</source>
-        <translation type="unfinished">Установити масштаб зображення по розміру &amp;рамки</translation>
+        <translation>Установити масштаб зображення по розміру &amp;рамки</translation>
     </message>
     <message>
         <source>Keep Aspect &amp;Ratio</source>
-        <translation type="unfinished">Зберігати &amp;співвідношення сторін</translation>
+        <translation>Зберігати &amp;співвідношення сторін</translation>
     </message>
     <message>
         <source>F&amp;ill Color:</source>
-        <translation type="unfinished">Колір запо&amp;внення:</translation>
+        <translation>Колір запо&amp;внення:</translation>
     </message>
     <message>
         <source>Use embedded Clipping Path</source>
-        <translation type="unfinished"></translation>
+        <translation>Використовувати вбудований шлях обрізання</translation>
     </message>
     <message>
         <source>On Screen Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Попередній перегляд на екрані</translation>
     </message>
     <message>
         <source>Full Resolution Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Попередній перегляд з повним розрішенням</translation>
     </message>
     <message>
         <source>Normal Resolution Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Попередній перегляд зі звичайним розрішенням</translation>
     </message>
     <message>
         <source>Low Resolution Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Попередній перегляд з низьким розрішенням</translation>
     </message>
     <message>
         <source>Mi&amp;nimum:</source>
-        <translation type="unfinished">&amp;Мінімум:</translation>
+        <translation>&amp;Мінімум:</translation>
     </message>
     <message>
         <source>Ma&amp;ximum:</source>
-        <translation type="unfinished">Ма&amp;ксимум:</translation>
+        <translation>Ма&amp;ксимум:</translation>
     </message>
     <message>
         <source>&amp;Stepping:</source>
-        <translation type="unfinished">&amp;Крок:</translation>
+        <translation>&amp;Крок:</translation>
     </message>
     <message>
         <source>Text Frame Properties</source>
-        <translation type="unfinished">Властивості текстової рамки</translation>
+        <translation>Властивості текстової рамки</translation>
     </message>
     <message>
         <source>Picture Frame Properties</source>
-        <translation type="unfinished">Властивості рамки зображення</translation>
+        <translation>Властивості рамки для зображень</translation>
     </message>
     <message>
         <source>Shape Drawing Properties</source>
-        <translation type="unfinished">Властивості рисування геометричних фігур</translation>
+        <translation>Властивості рисування геометричних фігур</translation>
     </message>
     <message>
         <source>Magnification Level Defaults</source>
-        <translation type="unfinished">Стандартні установки масштабу зображення</translation>
+        <translation>Стандартні установки масштабу зображення</translation>
     </message>
     <message>
         <source>Line Drawing Properties</source>
-        <translation type="unfinished">Властивості рисування лінії</translation>
+        <translation>Властивості рисування лінії</translation>
     </message>
     <message>
         <source>Polygon Drawing Properties</source>
-        <translation type="unfinished">Властивості рисування полігонів</translation>
+        <translation>Властивості рисування полігонів</translation>
     </message>
     <message>
         <source>Font for new text frames</source>
-        <translation type="unfinished">Шрифт для нових текстових рамок</translation>
+        <translation>Шрифт для нових текстових рамок</translation>
     </message>
     <message>
         <source>Size of font for new text frames</source>
-        <translation type="unfinished">Розмір шрифта для нових текстових рамок</translation>
+        <translation>Розмір шрифта для нових текстових рамок</translation>
     </message>
     <message>
         <source>Color of font</source>
-        <translation type="unfinished">Колір шрифта</translation>
+        <translation>Колір шрифта</translation>
     </message>
     <message>
         <source>Number of columns in a text frame</source>
-        <translation type="unfinished">Число стовпців в текстовій рамці</translation>
+        <translation>Число стовпців в текстовій рамці</translation>
     </message>
     <message>
         <source>Gap between text frame columns</source>
-        <translation type="unfinished">Проміжок між стовпцями текстової рамки</translation>
+        <translation>Проміжок між стовпцями текстової рамки</translation>
     </message>
     <message>
         <source>Sample of your font</source>
-        <translation type="unfinished">Зразок Вашого шрифта</translation>
+        <translation>Зразок Вашого шрифта</translation>
     </message>
     <message>
         <source>Picture frames allow pictures to scale to any size</source>
-        <translation type="unfinished">Рамки для зображень дозволяють масштабування зображень до любого розміру</translation>
+        <translation>Рамки для зображень дозволяють масштабування зображень до любого розміру</translation>
     </message>
     <message>
         <source>Horizontal scaling of images</source>
-        <translation type="unfinished">Горизонтальне масштабування зображень</translation>
+        <translation>Горизонтальне масштабування зображень</translation>
     </message>
     <message>
         <source>Vertical scaling of images</source>
-        <translation type="unfinished">Вертикальне масштабування зображень</translation>
+        <translation>Вертикальне масштабування зображень</translation>
     </message>
     <message>
         <source>Keep horizontal and vertical scaling the same</source>
-        <translation type="unfinished">Утримувати горизонтальне масштабування рівним вертикальному</translation>
+        <translation>Утримувати горизонтальне масштабування рівним вертикальному</translation>
     </message>
     <message>
         <source>Pictures in picture frames are scaled to the size of the frame</source>
-        <translation type="unfinished">Зображення у рамках для зображень масштабовані до розміру рамки</translation>
+        <translation>Зображення у рамках для зображень масштабовані до розміру рамки</translation>
     </message>
     <message>
         <source>Automatically scaled pictures keep their original proportions</source>
-        <translation type="unfinished">Автоматично масштабовані зображення зберігають відношення сторін</translation>
+        <translation>Автоматично масштабовані зображення зберігають відношення сторін</translation>
     </message>
     <message>
         <source>Fill color of picture frames</source>
-        <translation type="unfinished">Колір заповнення рамок зображень</translation>
+        <translation>Колір заповнення рамок зображень</translation>
     </message>
     <message>
         <source>Saturation of color of fill</source>
-        <translation type="unfinished">Насиченість кольору заповнення</translation>
+        <translation>Насиченість кольору заповнення</translation>
     </message>
     <message>
         <source>Line color of shapes</source>
-        <translation type="unfinished">Колір ліній геометричних фігур</translation>
+        <translation>Колір ліній геометричних фігур</translation>
     </message>
     <message>
         <source>Saturation of color of lines</source>
-        <translation type="unfinished">Насиченість кольору ліній геометричних фігур</translation>
+        <translation>Насиченість кольору ліній геометричних фігур</translation>
     </message>
     <message>
         <source>Fill color of shapes</source>
-        <translation type="unfinished">Колір заповнення геометричних фігур</translation>
+        <translation>Колір заповнення геометричних фігур</translation>
     </message>
     <message>
         <source>Line style of shapes</source>
-        <translation type="unfinished">Стиль ліній геометричних фігур</translation>
+        <translation>Стиль ліній геометричних фігур</translation>
     </message>
     <message>
         <source>Line width of shapes</source>
-        <translation type="unfinished">Ширина ліній геометричних фігур</translation>
+        <translation>Ширина ліній геометричних фігур</translation>
     </message>
     <message>
         <source>Minimum magnification allowed</source>
-        <translation type="unfinished">Мінімально дозволений масштаб зображення</translation>
+        <translation>Мінімально дозволений масштаб зображення</translation>
     </message>
     <message>
         <source>Maximum magnification allowed</source>
-        <translation type="unfinished">Максимально дозволений масштаб зображення</translation>
+        <translation>Максимально дозволений масштаб зображення</translation>
     </message>
     <message>
         <source>Change in magnification for each zoom operation</source>
-        <translation type="unfinished">Зміна масштабу зображення при кожному кроці масштабування</translation>
+        <translation>Зміна масштабу зображення при кожному кроці масштабування</translation>
     </message>
     <message>
         <source>Color of lines</source>
-        <translation type="unfinished">Колір ліній</translation>
+        <translation>Колір ліній</translation>
     </message>
     <message>
         <source>Saturation of color</source>
-        <translation type="unfinished">Насиченість кольору</translation>
+        <translation>Насиченість кольору</translation>
     </message>
     <message>
         <source>Style of lines</source>
-        <translation type="unfinished">Стиль ліній</translation>
+        <translation>Стиль ліній</translation>
     </message>
     <message>
         <source>Width of lines</source>
-        <translation type="unfinished">Товщина ліній</translation>
+        <translation>Товщина ліній</translation>
     </message>
     <message>
         <source>Custom:</source>
-        <translation type="unfinished"></translation>
+        <translation>Нестандартний:</translation>
     </message>
     <message>
         <source>Custom: </source>
-        <translation type="unfinished"></translation>
+        <translation>Нестандартний: </translation>
     </message>
     <message>
         <source>Text Color:</source>
-        <translation type="unfinished"></translation>
+        <translation>Колір тексту:</translation>
     </message>
     <message>
         <source>Shading:</source>
-        <translation type="unfinished"></translation>
+        <translation>Затінення:</translation>
     </message>
     <message>
         <source>Text Stroke:</source>
-        <translation type="unfinished"></translation>
+        <translation>Контур тексту:</translation>
     </message>
     <message>
         <source>Dot</source>
-        <translation type="unfinished"></translation>
+        <translation>Точка</translation>
     </message>
     <message>
         <source>Hyphen</source>
-        <translation type="unfinished"></translation>
+        <translation>Тире</translation>
     </message>
     <message>
         <source>Underscore</source>
-        <translation type="unfinished"></translation>
+        <translation>Підкреслення</translation>
     </message>
     <message>
         <source>Custom</source>
-        <translation type="unfinished">Нестандартний</translation>
+        <translation>Нестандартний</translation>
     </message>
 </context>
 <context>
     <name>TabTypograpy</name>
     <message>
         <source>Subscript</source>
-        <translation type="unfinished">Нижній індекс</translation>
+        <translation>Нижній індекс</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished">%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>&amp;Displacement:</source>
-        <translation type="unfinished">Змі&amp;щення:</translation>
+        <translation>Змі&amp;щення:</translation>
     </message>
     <message>
         <source>&amp;Scaling:</source>
-        <translation type="unfinished">&amp;Масштабування:</translation>
+        <translation>&amp;Масштабування:</translation>
     </message>
     <message>
         <source>Superscript</source>
-        <translation type="unfinished">Верхній індекс</translation>
+        <translation>Верхній індекс</translation>
     </message>
     <message>
         <source>D&amp;isplacement:</source>
-        <translation type="unfinished">Змі&amp;щення:</translation>
+        <translation>Змі&amp;щення:</translation>
     </message>
     <message>
         <source>S&amp;caling:</source>
-        <translation type="unfinished">&amp;Масштабування:</translation>
+        <translation>&amp;Масштабування:</translation>
     </message>
     <message>
         <source>Underline</source>
-        <translation type="unfinished"></translation>
+        <translation>Підкреслення</translation>
     </message>
     <message>
         <source>Displacement:</source>
-        <translation type="unfinished"></translation>
+        <translation>Зміщення:</translation>
     </message>
     <message>
         <source>Auto</source>
-        <translation type="unfinished"></translation>
+        <translation>Автоматична</translation>
     </message>
     <message>
         <source>Line Width:</source>
-        <translation type="unfinished">Товщина лінії:</translation>
+        <translation>Товщина лінії:</translation>
     </message>
     <message>
         <source>Strikethru</source>
-        <translation type="unfinished">Перекреслення</translation>
+        <translation>Перекреслення</translation>
     </message>
     <message>
         <source>Small Caps</source>
-        <translation type="unfinished">Капітель</translation>
+        <translation>Капітель</translation>
     </message>
     <message>
         <source>Sc&amp;aling:</source>
-        <translation type="unfinished">&amp;Масштабування:</translation>
+        <translation>&amp;Масштабування:</translation>
     </message>
     <message>
         <source>Automatic &amp;Line Spacing</source>
-        <translation type="unfinished"></translation>
+        <translation>Автоматичний мі&amp;жрядковий інтервал</translation>
     </message>
     <message>
         <source>Line Spacing:</source>
-        <translation type="unfinished"></translation>
+        <translation>Міжрядковий інтервал:</translation>
     </message>
     <message>
         <source>Displacement above the baseline of the font on a line</source>
-        <translation type="unfinished">Зміщення над основою шрифта на лінії</translation>
+        <translation>Зміщення над основою шрифта на лінії</translation>
     </message>
     <message>
         <source>Relative size of the superscript compared to the normal font</source>
-        <translation type="unfinished">Відносний розмір верхнього індексу у порівнянні з звичайним шрифтом</translation>
+        <translation>Відносний розмір верхнього індексу у порівнянні з звичайним шрифтом</translation>
     </message>
     <message>
         <source>Displacement below the baseline of the normal font on a line</source>
-        <translation type="unfinished">Зміщення під основою шрифта на лінії</translation>
+        <translation>Зміщення під основою шрифта на лінії</translation>
     </message>
     <message>
         <source>Relative size of the subscript compared to the normal font</source>
-        <translation type="unfinished">Відносний розмір нижнього індексу у порівнянні з звичайним шрифтом</translation>
+        <translation>Відносний розмір нижнього індексу у порівнянні з звичайним шрифтом</translation>
     </message>
     <message>
         <source>Relative size of the small caps font compared to the normal font</source>
-        <translation type="unfinished">Відносний розмір капітелі у порівнянні з звичайним шрифтом</translation>
+        <translation>Відносний розмір капітелі у порівнянні з звичайним шрифтом</translation>
     </message>
     <message>
         <source>Percentage increase over the font size for the line spacing</source>
-        <translation type="unfinished">Збільшення інтервалу між рядками у відсотках розміру шрифта</translation>
+        <translation>Збільшення інтервалу між рядками у відсотках розміру шрифта</translation>
     </message>
     <message>
         <source>Displacement below the baseline of the normal font expressed as a percentage of the fonts descender</source>
-        <translation type="unfinished"></translation>
+        <translation>Зміщення під базовою лінією нормального шрифта, виражене у відсотках зменшення шрифтів</translation>
     </message>
     <message>
         <source>Line width expressed as a percentage of the font size</source>
-        <translation type="unfinished"></translation>
+        <translation>Товщина лінії вираженя у відсотках розміру шрифта</translation>
     </message>
     <message>
         <source>Displacement above the baseline of the normal font expressed as a percentage of the fonts ascender</source>
-        <translation type="unfinished"></translation>
+        <translation>Зміщення над базовою лінією нормального шрифта, виражене у відсотках збільшення шрифтів</translation>
     </message>
 </context>
 <context>
@@ -21597,35 +22174,35 @@ PDF/X-3 conformance. We recommend you use the title of the document.</source>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Dot</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Hyphen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Underscore</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Custom</source>
-        <translation type="unfinished">Нестандартний</translation>
+        <translation>Нічого</translation>
     </message>
     <message>
         <source>Fill Char:</source>
-        <translation type="unfinished"></translation>
+        <translation>Символ заповнення:</translation>
     </message>
     <message>
         <source>Custom:</source>
-        <translation type="unfinished"></translation>
+        <translation>Нестандартний:</translation>
     </message>
     <message>
         <source>Custom: </source>
-        <translation type="unfinished"></translation>
+        <translation>Нестандартний: </translation>
+    </message>
+    <message>
+        <source>Dot</source>
+        <translation>Точка</translation>
+    </message>
+    <message>
+        <source>Hyphen</source>
+        <translation>Тире</translation>
+    </message>
+    <message>
+        <source>Underscore</source>
+        <translation>Підкреслення</translation>
+    </message>
+    <message>
+        <source>Custom</source>
+        <translation>Нестандартний</translation>
     </message>
 </context>
 <context>
@@ -21706,480 +22283,484 @@ Please choose another.</source>
     </message>
     <message>
         <source>Free Objects</source>
-        <translation type="unfinished"></translation>
+        <translation>Вільні об&quot;єкти</translation>
     </message>
     <message>
         <source>Page </source>
-        <translation type="unfinished">Сторінка</translation>
+        <translation>Сторінка </translation>
     </message>
 </context>
 <context>
     <name>UnderlineValues</name>
     <message>
         <source>Auto</source>
-        <translation type="unfinished"></translation>
+        <translation>Автоматично</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished">%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>Displacement</source>
-        <translation type="unfinished"></translation>
+        <translation>Зміщення</translation>
     </message>
     <message>
         <source>Linewidth</source>
-        <translation type="unfinished"></translation>
+        <translation>Товщина лінії</translation>
     </message>
 </context>
 <context>
     <name>UndoManager</name>
     <message>
         <source>Add vertical guide</source>
-        <translation type="unfinished"></translation>
+        <translation>Додати вертикальну направляючу</translation>
     </message>
     <message>
         <source>Add horizontal guide</source>
-        <translation type="unfinished"></translation>
+        <translation>Додати горизонтальну направляючу</translation>
     </message>
     <message>
         <source>Remove vertical guide</source>
-        <translation type="unfinished"></translation>
+        <translation>Видалити вертикальну направляючу</translation>
     </message>
     <message>
         <source>Remove horizontal guide</source>
-        <translation type="unfinished"></translation>
+        <translation>Видалити горизонтальну направляючу</translation>
     </message>
     <message>
         <source>Move vertical guide</source>
-        <translation type="unfinished"></translation>
+        <translation>Перемістити вертикальну направляючу</translation>
     </message>
     <message>
         <source>Move horizontal guide</source>
-        <translation type="unfinished"></translation>
+        <translation>Перемістити горизонтальну направляючу</translation>
     </message>
     <message>
         <source>Lock guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Замкнути направляючі</translation>
     </message>
     <message>
         <source>Unlock guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Розімкнути направляючі</translation>
     </message>
     <message>
         <source>Move</source>
-        <translation type="unfinished"></translation>
+        <translation>Перемістити</translation>
     </message>
     <message>
         <source>Resize</source>
-        <translation type="unfinished"></translation>
+        <translation>Змінити розмір</translation>
     </message>
     <message>
         <source>Rotate</source>
-        <translation type="unfinished"></translation>
+        <translation>Повернути</translation>
     </message>
     <message>
         <source>X1: %1, Y1: %2, %3
 X2: %4, Y2: %5, %6</source>
-        <translation type="unfinished"></translation>
+        <translation>X1: %1, Y1: %2, %3
+X2: %4, Y2: %5, %6</translation>
     </message>
     <message>
         <source>W1: %1, H1: %2
 W2: %3, H2: %4</source>
-        <translation type="unfinished"></translation>
+        <translation>W1: %1, H1: %2
+W2: %3, H2: %4</translation>
     </message>
     <message>
         <source>Selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Вибірка</translation>
     </message>
     <message>
         <source>Group</source>
-        <translation type="unfinished">Згрупувати</translation>
+        <translation>Згрупувати</translation>
     </message>
     <message>
         <source>Selection/Group</source>
-        <translation type="unfinished"></translation>
+        <translation>Вибірка/Група</translation>
     </message>
     <message>
         <source>Create</source>
-        <translation type="unfinished">Створити</translation>
+        <translation>Створити</translation>
     </message>
     <message>
         <source>X: %1, Y: %2
 W: %3, H: %4</source>
-        <translation type="unfinished"></translation>
+        <translation>X: %1, Y: %2
+W: %3, H: %4</translation>
     </message>
     <message>
         <source>Align/Distribute</source>
-        <translation type="unfinished"></translation>
+        <translation>Розташувати/Вирівняти</translation>
     </message>
     <message>
         <source>Items involved</source>
-        <translation type="unfinished"></translation>
+        <translation>Затронуті об&apos;єкти</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Вихід</translation>
+        <translation>Вихід</translation>
     </message>
     <message>
         <source>Set fill color</source>
-        <translation type="unfinished"></translation>
+        <translation>Установити колір заповнення</translation>
     </message>
     <message>
         <source>Color1: %1, Color2: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Колір1: %1, Колір2: %2</translation>
     </message>
     <message>
         <source>Set fill color shade</source>
-        <translation type="unfinished"></translation>
+        <translation>Установити колір заповнення тіні</translation>
     </message>
     <message>
         <source>Set line color</source>
-        <translation type="unfinished"></translation>
+        <translation>Установити колір лінії</translation>
     </message>
     <message>
         <source>Set line color shade</source>
-        <translation type="unfinished"></translation>
+        <translation>Установити колір тіні лінії</translation>
     </message>
     <message>
         <source>Flip horizontally</source>
-        <translation type="unfinished"></translation>
+        <translation>Перевернути по горизонталі</translation>
     </message>
     <message>
         <source>Flip vertically</source>
-        <translation type="unfinished"></translation>
+        <translation>Перевернути по вертикалі</translation>
     </message>
     <message>
         <source>Lock</source>
-        <translation type="unfinished">Замкнути</translation>
+        <translation>Замкнути</translation>
     </message>
     <message>
         <source>Unlock</source>
-        <translation type="unfinished">Відімкнути</translation>
+        <translation>Розімкнути</translation>
     </message>
     <message>
         <source>Lock size</source>
-        <translation type="unfinished"></translation>
+        <translation>Замкнути розмір</translation>
     </message>
     <message>
         <source>Unlock size</source>
-        <translation type="unfinished"></translation>
+        <translation>Розімкнути розмір</translation>
     </message>
     <message>
         <source>Ungroup</source>
-        <translation type="unfinished"></translation>
+        <translation>Розгрупувати</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation type="unfinished">Видалити</translation>
+        <translation>Видалити</translation>
     </message>
     <message>
         <source>Rename</source>
-        <translation type="unfinished">Перейменувати</translation>
+        <translation>Перейменувати</translation>
     </message>
     <message>
         <source>From %1
 to %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Від %1
+до %2</translation>
     </message>
     <message>
         <source>Apply Master Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Застосувати головну сторінку</translation>
     </message>
     <message>
         <source>Paste</source>
-        <translation type="unfinished">Вклеїти</translation>
+        <translation>Вклеїти</translation>
     </message>
     <message>
         <source>Cut</source>
-        <translation type="unfinished">Вирізати</translation>
+        <translation>Вирізати</translation>
     </message>
     <message>
         <source>Set fill color transparency</source>
-        <translation type="unfinished"></translation>
+        <translation>Установити прозорість кольору заповнення</translation>
     </message>
     <message>
         <source>Set line color transparency</source>
-        <translation type="unfinished"></translation>
+        <translation>Установити прозорість кольору лінії</translation>
     </message>
     <message>
         <source>Set line style</source>
-        <translation type="unfinished"></translation>
+        <translation>Установити стиль лінії</translation>
     </message>
     <message>
         <source>Set the style of line end</source>
-        <translation type="unfinished"></translation>
+        <translation>Установити стиль кінця лінії</translation>
     </message>
     <message>
         <source>Set the style of line join</source>
-        <translation type="unfinished"></translation>
+        <translation>Установити стиль з&apos;єднання лінії</translation>
     </message>
     <message>
         <source>Set line width</source>
-        <translation type="unfinished"></translation>
+        <translation>Установити товщину лінії</translation>
     </message>
     <message>
         <source>No style</source>
-        <translation type="unfinished"></translation>
+        <translation>Стиль не встановлено</translation>
     </message>
     <message>
         <source>Set custom line style</source>
-        <translation type="unfinished"></translation>
+        <translation>Установити нестандартний стиль лінії</translation>
     </message>
     <message>
         <source>Do not use custom line style</source>
-        <translation type="unfinished"></translation>
+        <translation>Не використовувати нестандартний стиль лінії</translation>
     </message>
     <message>
         <source>Set start arrow</source>
-        <translation type="unfinished"></translation>
+        <translation>Установити початкову стрілку</translation>
     </message>
     <message>
         <source>Set end arrow</source>
-        <translation type="unfinished"></translation>
+        <translation>Установити кінцеву стрілку</translation>
     </message>
     <message>
         <source>Create table</source>
-        <translation type="unfinished"></translation>
+        <translation>Створити таблицю</translation>
     </message>
     <message>
         <source>Rows: %1, Cols: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Рядків: %1, Стовпців: %2</translation>
     </message>
     <message>
         <source>Set font</source>
-        <translation type="unfinished"></translation>
+        <translation>Установити шрифт</translation>
     </message>
     <message>
         <source>Set font size</source>
-        <translation type="unfinished"></translation>
+        <translation>Установити розмір шрифта</translation>
     </message>
     <message>
         <source>Set font width</source>
-        <translation type="unfinished"></translation>
+        <translation>Установити ширину шрифта</translation>
     </message>
     <message>
         <source>Set font height</source>
-        <translation type="unfinished"></translation>
+        <translation>Установити висоту шрифта</translation>
     </message>
     <message>
         <source>Set font fill color</source>
-        <translation type="unfinished"></translation>
+        <translation>Установити колір заповнення шрифта</translation>
     </message>
     <message>
         <source>Set font stroke color</source>
-        <translation type="unfinished"></translation>
+        <translation>Колір силуетів шрифта</translation>
     </message>
     <message>
         <source>Set font fill color shade</source>
-        <translation type="unfinished"></translation>
+        <translation>Установити колір заповнення тіні шрифта</translation>
     </message>
     <message>
         <source>Set font stroke color shade</source>
-        <translation type="unfinished"></translation>
+        <translation>Колір тіні силуетів шрифта</translation>
     </message>
     <message>
         <source>Set kerning</source>
-        <translation type="unfinished"></translation>
+        <translation>Установити кернінг</translation>
     </message>
     <message>
         <source>Set line spacing</source>
-        <translation type="unfinished"></translation>
+        <translation>Установити міжрядковий інтервал</translation>
     </message>
     <message>
         <source>Set paragraph style</source>
-        <translation type="unfinished"></translation>
+        <translation>Установити стиль абзацу</translation>
     </message>
     <message>
         <source>Set language</source>
-        <translation type="unfinished"></translation>
+        <translation>Установити мову</translation>
     </message>
     <message>
         <source>Align text</source>
-        <translation type="unfinished"></translation>
+        <translation>Вирівняти текст</translation>
     </message>
     <message>
         <source>Set font effect</source>
-        <translation type="unfinished"></translation>
+        <translation>Установити ефект шрифта</translation>
     </message>
     <message>
         <source>Image frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Рамка для зображень</translation>
     </message>
     <message>
         <source>Text frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Текстова рамка</translation>
     </message>
     <message>
         <source>Polygon</source>
-        <translation type="unfinished">Полігон</translation>
+        <translation>Полігон</translation>
     </message>
     <message>
         <source>Bezier curve</source>
-        <translation type="unfinished"></translation>
+        <translation>Крива Безьє</translation>
     </message>
     <message>
         <source>Polyline</source>
-        <translation type="unfinished">Багатосегментна лінія</translation>
+        <translation>Багатосегментна лінія</translation>
     </message>
     <message>
         <source>Convert to</source>
-        <translation type="unfinished"></translation>
+        <translation>Конвертувати в</translation>
     </message>
     <message>
         <source>Import SVG image</source>
-        <translation type="unfinished"></translation>
+        <translation>Імпорт SVG зображення</translation>
     </message>
     <message>
         <source>Import EPS image</source>
-        <translation type="unfinished"></translation>
+        <translation>Імпорт ЕPS зображення</translation>
     </message>
     <message>
         <source>Import OpenOffice.org Draw image</source>
-        <translation type="unfinished"></translation>
+        <translation>Імпортувати зображення OpenOffice.org Draw</translation>
     </message>
     <message>
         <source>Scratch space</source>
-        <translation type="unfinished"></translation>
+        <translation>Чорновик</translation>
     </message>
     <message>
         <source>Text flows around the frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Текст огинає рамку</translation>
     </message>
     <message>
         <source>Text flows around bounding box</source>
-        <translation type="unfinished"></translation>
+        <translation>Текст огинає обмежуючу рамку</translation>
     </message>
     <message>
         <source>Text flows around contour line</source>
-        <translation type="unfinished"></translation>
+        <translation>Текст огинає контурну лінію</translation>
     </message>
     <message>
         <source>No text flow</source>
-        <translation type="unfinished"></translation>
+        <translation>Відміна огинання тексту</translation>
     </message>
     <message>
         <source>No bounding box</source>
-        <translation type="unfinished"></translation>
+        <translation>Не використовувати обмежуючу рамку</translation>
     </message>
     <message>
         <source>No contour line</source>
-        <translation type="unfinished"></translation>
+        <translation>Не використовувати контурну лінію</translation>
     </message>
     <message>
         <source>Page %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Сторінка %1</translation>
     </message>
     <message>
         <source>Set image scaling</source>
-        <translation type="unfinished"></translation>
+        <translation>Установити масштабування зображення</translation>
     </message>
     <message>
         <source>Frame size</source>
-        <translation type="unfinished"></translation>
+        <translation>Розмір рамки</translation>
     </message>
     <message>
         <source>Free scaling</source>
-        <translation type="unfinished"></translation>
+        <translation>Вільне масштабування</translation>
     </message>
     <message>
         <source>Keep aspect ratio</source>
-        <translation type="unfinished"></translation>
+        <translation>Зберігати співвідношення сторін</translation>
     </message>
     <message>
         <source>Break aspect ratio</source>
-        <translation type="unfinished"></translation>
+        <translation>Не зберігати співвідношення сторін</translation>
     </message>
     <message>
         <source>Edit contour line</source>
-        <translation type="unfinished"></translation>
+        <translation>Редагувати контурну лінію</translation>
     </message>
     <message>
         <source>Edit shape</source>
-        <translation type="unfinished"></translation>
+        <translation>Редагувати геометричну форму</translation>
     </message>
     <message>
         <source>Reset contour line</source>
-        <translation type="unfinished"></translation>
+        <translation>Повернути контурну лінію в початковий стан</translation>
     </message>
     <message>
         <source>Add page</source>
-        <translation type="unfinished"></translation>
+        <translation>Додати сторінку</translation>
     </message>
     <message>
         <source>Add pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Додати сторінки</translation>
     </message>
     <message>
         <source>Delete page</source>
-        <translation type="unfinished"></translation>
+        <translation>Видалити сторінку</translation>
     </message>
     <message>
         <source>Delete pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Видалити сторінки</translation>
     </message>
     <message>
         <source>Add layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Додати план</translation>
     </message>
     <message>
         <source>Delete layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Видалити план</translation>
     </message>
     <message>
         <source>Rename layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Перейменувати план</translation>
     </message>
     <message>
         <source>Raise layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Підняти план на вищий рівень</translation>
     </message>
     <message>
         <source>Lower layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Опустити план на нижчий рівень</translation>
     </message>
     <message>
         <source>Send to layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Перемістити на план</translation>
     </message>
     <message>
         <source>Enable printing of layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Ввімкнути друк плану</translation>
     </message>
     <message>
         <source>Disable printing of layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Вимкнути друк плану</translation>
     </message>
     <message>
         <source>Change name of the layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Перейменувати план</translation>
     </message>
     <message>
         <source>Get image</source>
-        <translation type="unfinished"></translation>
+        <translation>Вставити зображення</translation>
     </message>
 </context>
 <context>
     <name>UndoPalette</name>
     <message>
         <source>Initial State</source>
-        <translation type="unfinished"></translation>
+        <translation>Початковий стан</translation>
     </message>
     <message>
         <source>Action History</source>
-        <translation type="unfinished"></translation>
+        <translation>Історія подій</translation>
     </message>
     <message>
         <source>Show selected object only</source>
-        <translation type="unfinished"></translation>
+        <translation>Показувати лише вибраний об&apos;єкт</translation>
     </message>
     <message>
         <source>&amp;Undo</source>
-        <translation type="unfinished">&amp;Відмінити</translation>
+        <translation>&amp;Відмінити</translation>
     </message>
     <message>
         <source>&amp;Redo</source>
-        <translation type="unfinished">&amp;Повторити</translation>
+        <translation>&amp;Повторити</translation>
     </message>
 </context>
 <context>
@@ -22187,7 +22768,7 @@ to %2</source>
     <message>
         <source>%1: %2</source>
         <comment>undo target: action (f.e. Text frame: Resize)</comment>
-        <translation type="unfinished"></translation>
+        <translation>%1: %2</translation>
     </message>
 </context>
 <context>
@@ -22222,27 +22803,27 @@ to %2</source>
     <message>
         <source>Short Words</source>
         <comment>short words plugin</comment>
-        <translation>Короткі слова</translation>
+        <translation type="obsolete">Короткі слова</translation>
     </message>
     <message>
         <source>Apply unbreakable space on:</source>
         <comment>short words plugin</comment>
-        <translation>Вставити нерозбиваємий інтервал в:</translation>
+        <translation type="obsolete">Вставити нерозбиваємий інтервал в:</translation>
     </message>
     <message>
         <source>&amp;Selected frames</source>
         <comment>short words plugin</comment>
-        <translation>&amp;Вибрані рамки</translation>
+        <translation type="obsolete">&amp;Вибрані рамки</translation>
     </message>
     <message>
         <source>Active &amp;page</source>
         <comment>short words plugin</comment>
-        <translation>Активна &amp;сторінка</translation>
+        <translation type="obsolete">Активна &amp;сторінка</translation>
     </message>
     <message>
         <source>&amp;All items</source>
         <comment>short words plugin</comment>
-        <translation>Всі &amp;Об&apos;єкти</translation>
+        <translation type="obsolete">Всі &amp;Об&apos;єкти</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -22263,7 +22844,7 @@ Languages</source>
     <message>
         <source>Replace defaults by user config</source>
         <comment>short words plugin</comment>
-        <translation>Замінити значення по умочанню конфігурацією користувача</translation>
+        <translation type="obsolete">Замінити значення по умочанню конфігурацією користувача</translation>
     </message>
     <message>
         <source>When the user config file exists 
@@ -22274,7 +22855,7 @@ to the global configuration by unchecked button.
 You can replace predefined values by yours
 with checked button too.</source>
         <comment>short words plugin</comment>
-        <translation>Якщо файл з конфігурацією користувача існує
+        <translation type="obsolete">Якщо файл з конфігурацією користувача існує
 (%1)
 Ви можете зробити вибір щодо добавлення вашої 
 конфігурації до глобальної конфігурації деактивацією
@@ -22286,77 +22867,40 @@ with checked button too.</source>
     <message>
         <source>Only selected frames processed.</source>
         <comment>short words plugin</comment>
-        <translation>Обробляються лише вибрані рамки.</translation>
+        <translation type="obsolete">Обробляються лише вибрані рамки.</translation>
     </message>
     <message>
         <source>Only actual page processed.</source>
         <comment>short words plugin</comment>
-        <translation>Обробляється лише активна сторінка.</translation>
+        <translation type="obsolete">Обробляється лише активна сторінка.</translation>
     </message>
     <message>
         <source>All items in document processed.</source>
         <comment>short words plugin</comment>
-        <translation>Обробляються всі об&apos;єкти в документі.</translation>
+        <translation type="obsolete">Обробляються всі об&apos;єкти в документі.</translation>
     </message>
     <message>
         <source>Short Words for Scribus</source>
         <comment>short words plugin</comment>
-        <translation>Короткі Слова для Scribus</translation>
+        <translation type="obsolete">Короткі Слова для Scribus</translation>
     </message>
     <message>
         <source>Available in the following languages</source>
         <comment>short words plugin</comment>
-        <translation>Доступні для наступних мов</translation>
+        <translation type="obsolete">Доступні для наступних мов</translation>
     </message>
     <message>
         <source>About Short Words</source>
         <comment>short words plugin</comment>
-        <translation>Про Короткі Слова</translation>
-    </message>
-    <message>
-        <source>Edit &amp;system configuration...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Edit &amp;user configuration...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>S&amp;etup editor...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Edit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Info and Languages...</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Про Короткі Слова</translation>
     </message>
     <message>
         <source>&amp;Help</source>
-        <translation type="unfinished">До&amp;помога</translation>
+        <translation type="obsolete">До&amp;помога</translation>
     </message>
     <message>
         <source>Short Words</source>
-        <translation type="unfinished">Короткі слова</translation>
-    </message>
-    <message>
-        <source>You are starting to edit read-only file.
-%1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Application &apos;%1&apos; error. Cannot be started.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Short Words setup</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enter name of the plain text editor executable:</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Короткі слова</translation>
     </message>
 </context>
 <context>
@@ -22566,8 +23110,12 @@ files of this type.</source>
         <translation type="obsolete">Гаразд</translation>
     </message>
     <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;Гаразд</translation>
+    </message>
+    <message>
         <source>Remember the file extension - importer association and do not ask again to select an importer for files of this type.</source>
-        <translation type="unfinished"></translation>
+        <translation>Запам&apos;ятати ассоціацію між розширенням імені файла та вибраним імпортером і більне не задавати питання про вибір імпортера для цього типу файлів.</translation>
     </message>
 </context>
 <context>
