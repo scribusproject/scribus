@@ -127,11 +127,8 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	RotateCW->setText( "" );
 	RotateCW->setPixmap(loadIcon("rotate_cw.png"));
 	ButtonGroup1Layout->addWidget( RotateCW, 4, 1 );
-	RotVal = new QSpinBox( ButtonGroup1, "RotVal");
+	RotVal = new QSpinBox( 1, 180, 1, ButtonGroup1, "RotVal");
 	RotVal->setSuffix( QString::fromUtf8(" °"));
-	RotVal->setMinValue(1);
-	RotVal->setMaxValue(180);
-	RotVal->setValue(1);
 	ButtonGroup1Layout->addMultiCellWidget( RotVal, 4, 4, 2, 3 );
 
 	Expand = new QToolButton( ButtonGroup1, "Expand" );
