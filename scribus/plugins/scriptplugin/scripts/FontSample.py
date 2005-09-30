@@ -36,7 +36,7 @@ to a value of 0. This will disable the new preview features.
 ******************************************************************************
 
 First release    : 30/12/2003
-This release     : v0.7.4tk (released 14th Aug 2005)
+This release     : v0.7.5tk (released 30th Sep 2005)
 Copyright        : (C) 2003 - 2005 Steve Callcott
 Latest releases
 and support      : www.firstwish.co.uk/sjc/scribus/index.php
@@ -46,6 +46,11 @@ Email            : stotte@firstwish.co.uk
 For revision history see the ChangeLog file.
 Bugs and future plans are listed in the TODO file.
 See NEWS for new features since last version.
+
+WHATS NEW v0.7.5tk
+Fixed bug in table of contents. TOC rows value was not being honoured.
+Would create an unrequired blank headed toc page when the toc rows count setting
+matched the amount of samples selected.
 
 WHATS NEW v0.7.4tk
 Now updates the Scribus Progress Bar (one increment for each font drawn).
@@ -98,7 +103,7 @@ except ImportError,err:
     sys.exit(1)
 
 
-WINDOWTITLE = "Font Sampler v0.7.4tk - Steve Callcott"
+WINDOWTITLE = "Font Sampler v0.7.5tk - Steve Callcott"
 TEMPPATH = os.path.join(os.path.expanduser("~"), ".scribus")
 
 showPreviewPanel = 1  # change to 0 to permanently hide the preview
@@ -223,7 +228,7 @@ def setPaperSize(paperSize):
         paper.lmargin = 50
         paper.rmargin = 50
         paper.binding = 16
-        tocstyle.tocRows = 56
+        tocstyle.tocRows = 57
         paper.pagenumvoffset = 16
         paper.textwidth = paper.width - paper.lmargin - paper.rmargin - 2
         paper.lmarginOdd = paper.lmargin + paper.binding
@@ -239,7 +244,7 @@ def setPaperSize(paperSize):
         paper.lmargin = 50
         paper.rmargin = 50
         paper.binding = 18
-        tocstyle.tocRows = 55
+        tocstyle.tocRows = 56
         paper.pagenumvoffset = 16
         paper.textwidth = paper.width - paper.lmargin - paper.rmargin - 2
         paper.lmarginOdd = paper.lmargin + paper.binding
@@ -378,9 +383,7 @@ def addToc(tocList):
     else:
         scribus.setTextAlignment(0, body)
     for i in tocList:
-        yPos = addTocRow(i[0], i[1], yPos, body)
-        rowCount = rowCount + 1
-        if rowCount > tocstyle.tocRows:     # Need to build a new TOC page (started from zero, not one)
+        if rowCount == tocstyle.tocRows:     # Need to build a new TOC page (started from zero, not one)
             tocPageNum = tocPageNum + 1
             scribus.newPage(tocPageNum)
             isEvenPage = setOddEven(tocPageNum)
@@ -392,6 +395,8 @@ def addToc(tocList):
             rowCount = 0
             yPos = 0
             tocPageCount = tocPageCount + 1
+        yPos = addTocRow(i[0], i[1], yPos, body)
+        rowCount = rowCount + 1
     if app.wantDoubleSided.get() == 1:
         if tocPageCount % 2 != 0:           # Odd page
             tocPageNum = tocPageNum + 1
