@@ -14,7 +14,7 @@ Preferences GUI is in SWPrefsGui.
 This code is based on the Scribus-Vlna plug in rewritten for
 international use.
 
-\author Petr Vanek <petr@yarpen.cz> with contributions by good people listed in AUTHORS file
+\author Petr Vanek <petr@yarpen.cz> with contributors.
 */
 class SWConfig : public QObject
 {

@@ -82,7 +82,8 @@ const ScActionPlugin::AboutData* ShortWordsPlugin::getAboutData() const
 			"Maciej Hanski, Zdenko Podobny, Mikolaj Machowski <mikmach@wp.pl>, "
 			"Ludi Maciel, Frederico Guimarães, "
 			"Claudio Beccari <claudio.beccari@polito.it>, "
-			"Christoph Schäfer <christoph-schaefer@gmx.de>");
+			"Christoph Schäfer <christoph-schaefer@gmx.de>, "
+			"intrigeri <intrigeri@boum.org>");
 	about->shortDescription = tr("Short Words");
 	about->description = tr("Special plug-in for adding non-breaking spaces before or after so called short words. Available in the following languages: " + QString::fromUtf8(SWConfig::getAvailableLanguages()));
 	// about->version

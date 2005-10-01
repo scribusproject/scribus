@@ -6,7 +6,7 @@ This code is based on the Scribus-Vlna plug in rewritten for
 international use.
 
 2004 Petr Vanek <petr@yarpen.cz>
-with contributions by good people listed in AUTHORS file
+with contributors.
 
 This program is free software - see LICENSE file in the distribution
 or documentation

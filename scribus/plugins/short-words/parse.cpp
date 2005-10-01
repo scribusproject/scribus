@@ -4,7 +4,7 @@ This code is based on the Scribus-Vlna plug in rewritten for
 international use.
 
 2004 Petr Vanek <petr@yarpen.cz>
-with contributions by good people listed in AUTHORS file
+with contributors.
 
 This program is free software - see LICENSE file in the distribution
 or documentation
@@ -61,27 +61,40 @@ void SWParse::parseItem(PageItem *aFrame)
 	for (uint i=0; i<aFrame->MaxChars; ++i)
 		content += aFrame->itemText.at(i)->ch;
 	changes = content.contains(UNBREAKABLE_SPACE);
-	// replace it
+
+	// for every config string, replace its spaces by nbsp's.
 	for (QStringList::Iterator it = shorts.begin(); it != shorts.end(); ++it)
 	{
 		unbreak = (*it);
-		// replace ' ' from cfg with '~'
+		// replace ' ' from cfg with '~' in the replacement string
 		unbreak = unbreak.replace(SPACE, UNBREAKABLE_SPACE);
-		//looking for pattern with word boundaries and more chars
-		// replace hell needed too to remove regexp special chars
-		rx.setPattern("(\\b)" + (*it).replace("*", "\\*").replace("+", "\\+").replace("-", "\\-").replace("$", "\\$").replace(".","\\.") + "(\\b)");
-		// replacement loop
-		int pos = 0;
-		while ( pos >= 0 )
-		{
-			pos = rx.search(content, pos);
-			if ( pos >= 0 )
-			{
-				//replace + keep word boundaries
-				content.replace(rx, rx.cap(1) + unbreak + rx.cap(2));
-				pos  += rx.matchedLength();
-			}
-		}
+		/*
+		Regexp used to find the config string (*it) in content.
+		Cheat sheet:
+		- \b is a "word boundary"; it matches at a *position*
+		not a *character*
+		- \W is a "non-word character"; it matches every character
+		that is neither a letter, nor a number, nor '_';
+		for example, it matches all kind of whitespace
+		(including carriage return) and punctuation
+		Example occurrences when (*it) == "Mr ":
+			- "Mr Bla etc." : there's one of the word boundaries
+			of the word "Mr" before the pattern, and one of the
+			word boundaries of the word "Bla" after.
+		Example occurrences when (*it) == " !":
+			- "ugly hack ! No." : there's a word boundary before,
+			and a whitespace is matched by \W after.
+			- "» !" : '«' is matched by \W before, newline is
+			matched by \W after.
+		*/
+		rx.setPattern("(\\b|\\W)" + rx.escape(*it) + "(\\b|\\W)");
+		/*
+		QString::replace works on the whole string in one pass.
+		On every occurrence of our regexp, \1 and \2 are replaced
+		by what has been matched (captured characters) in,
+		respectively, the first and second capturing parentheses.
+		*/
+		content.replace(rx, "\\1" + unbreak + "\\2");
 	}
 	// retrun text into frame
 	for (uint i=0; i<aFrame->MaxChars; ++i)
