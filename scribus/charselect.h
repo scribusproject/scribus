@@ -117,6 +117,11 @@ class SCRIBUS_API ChTable : public QTable
 public:
 	ChTable(CharSelect* parent, ScribusApp *pl);
 	~ChTable() {};
+	void resizeData( int ) {};
+	QRect cellGeometry ( int row, int col ) const;
+	void paintCell( QPainter * p, int row, int col, const QRect & cr, bool selected, const QColorGroup & cg );
+	void paintFocus( QPainter * p, const QRect & cr ) {};
+
 	bool mPressed;
 	bool alternate;
 	Zoom* dia;
