@@ -6206,7 +6206,7 @@ void ScribusApp::setAppMode(int mode)
 		}
 		if (mode == modeLinkFrames)
 			doc->ElemToLink = view->SelItem.at(0);
-		if ((mode == modeLinkFrames) || (mode == modeUnlinkFrames))
+		if ((mode == modeLinkFrames) || (mode == modeUnlinkFrames) || (oldMode == modeLinkFrames) || (oldMode == modeUnlinkFrames))
 			view->updateContents();
 		if (mode == modeStoryEditor)
 		{

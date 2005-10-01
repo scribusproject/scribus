@@ -1872,7 +1872,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			delete pmenPDF;
 			delete pmenResolution;
 		}
-		if (Doc->appMode == modeLinkFrames)
+		if ((Doc->appMode == modeLinkFrames) || (Doc->appMode == modeUnlinkFrames))
 		{
 			updateContents();
 			if (Doc->ElemToLink != 0)
