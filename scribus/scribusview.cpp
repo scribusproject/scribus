@@ -1855,7 +1855,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				ScApp->scrActions["editCopy"]->addTo(pmen);
 			if ((Doc->appMode == modeEdit) && (ScApp->Buffer2.startsWith("<SCRIBUSTEXT")) && (currItem->itemType() == PageItem::TextFrame))
 				ScApp->scrActions["editPaste"]->addTo(pmen);
-			if (!currItem->locked() && (Doc->appMode != 7) && (!(currItem->isTableItem && currItem->isSingleSel)))
+			if (!currItem->locked() && (Doc->appMode != modeEdit) && (!(currItem->isTableItem && currItem->isSingleSel)))
 				pmen->insertItem( tr("&Delete"), this, SLOT(DeleteItem()));
 			if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame))
 				ScApp->scrActions["editClearContents"]->addTo(pmen);
