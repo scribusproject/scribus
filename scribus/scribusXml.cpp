@@ -2509,36 +2509,37 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 		QDir::setCurrent(CurDirP);
 		for(uint k=0;k<item->itemText.count();++k)
 		{
+			ScText * itemTextAtK = item->itemText.at(k);
 			QDomElement it=docu.createElement("ITEXT");
-			ts = item->itemText.at(k)->csize / 10.0;
-			tf = item->itemText.at(k)->cfont->SCName;
-			tc = item->itemText.at(k)->ccolor;
-			te = item->itemText.at(k)->cextra;
-			tsh = item->itemText.at(k)->cshade;
-			tst = item->itemText.at(k)->cstyle & 2047;
-			if (item->itemText.at(k)->cab > 4)
-				tsb = UsedMapped2Saved[item->itemText.at(k)->cab];
+			ts = itemTextAtK->csize / 10.0;
+			tf = itemTextAtK->cfont->SCName;
+			tc = itemTextAtK->ccolor;
+			te = itemTextAtK->cextra;
+			tsh = itemTextAtK->cshade;
+			tst = itemTextAtK->cstyle & 2047;
+			if (itemTextAtK->cab > 4)
+				tsb = UsedMapped2Saved[itemTextAtK->cab];
 			else
-				tsb = item->itemText.at(k)->cab;
-			tcs = item->itemText.at(k)->cstroke;
-			tshs = item->itemText.at(k)->cshade2;
-			tsc = item->itemText.at(k)->cscale / 10.0;
-			tscv = item->itemText.at(k)->cscalev / 10.0;
-			tb = item->itemText.at(k)->cbase / 10.0;
-			tsx = item->itemText.at(k)->cshadowx / 10.0;
-			tsy = item->itemText.at(k)->cshadowy / 10.0;
-			tout = item->itemText.at(k)->coutline / 10.0;
-			tulp = item->itemText.at(k)->cunderpos / 10.0;
-			tulw = item->itemText.at(k)->cunderwidth / 10.0;
-			tstp = item->itemText.at(k)->cstrikepos / 10.0;
-			tstw = item->itemText.at(k)->cstrikewidth / 10.0;
-			if (item->itemText.at(k)->ch == QChar(13))
+				tsb = itemTextAtK->cab;
+			tcs = itemTextAtK->cstroke;
+			tshs = itemTextAtK->cshade2;
+			tsc = itemTextAtK->cscale / 10.0;
+			tscv = itemTextAtK->cscalev / 10.0;
+			tb = itemTextAtK->cbase / 10.0;
+			tsx = itemTextAtK->cshadowx / 10.0;
+			tsy = itemTextAtK->cshadowy / 10.0;
+			tout = itemTextAtK->coutline / 10.0;
+			tulp = itemTextAtK->cunderpos / 10.0;
+			tulw = itemTextAtK->cunderwidth / 10.0;
+			tstp = itemTextAtK->cstrikepos / 10.0;
+			tstw = itemTextAtK->cstrikewidth / 10.0;
+			if (itemTextAtK->ch == QChar(13))
 				text = QChar(5);
-			else if (item->itemText.at(k)->ch == QChar(9))
+			else if (itemTextAtK->ch == QChar(9))
 				text = QChar(4);
 			else
-				text = item->itemText.at(k)->ch;
-			k++;
+				text = itemTextAtK->ch;
+			++k;
 			if (k == item->itemText.count())
 			{
 				it.setAttribute("CH",text);
@@ -2564,28 +2565,29 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 				ob.appendChild(it);
 				break;
 			}
-			ts2 = item->itemText.at(k)->csize / 10.0;
-			tf2 = item->itemText.at(k)->cfont->SCName;
-			tc2 = item->itemText.at(k)->ccolor;
-			te2 = item->itemText.at(k)->cextra;
-			tsh2 = item->itemText.at(k)->cshade;
-			tst2 = item->itemText.at(k)->cstyle & 2047;
-			if (item->itemText.at(k)->cab > 4)
-				tsb2 = UsedMapped2Saved[item->itemText.at(k)->cab];
+			itemTextAtK = item->itemText.at(k);
+			ts2 = itemTextAtK->csize / 10.0;
+			tf2 = itemTextAtK->cfont->SCName;
+			tc2 = itemTextAtK->ccolor;
+			te2 = itemTextAtK->cextra;
+			tsh2 = itemTextAtK->cshade;
+			tst2 = itemTextAtK->cstyle & 2047;
+			if (itemTextAtK->cab > 4)
+				tsb2 = UsedMapped2Saved[itemTextAtK->cab];
 			else
-				tsb2 = item->itemText.at(k)->cab;
-			tcs2 = item->itemText.at(k)->cstroke;
-			tshs2 = item->itemText.at(k)->cshade2;
-			tsc2 = item->itemText.at(k)->cscale / 10.0;
-			tscv2 = item->itemText.at(k)->cscalev / 10.0;
-			tb2 = item->itemText.at(k)->cbase / 10.0;
-			tsx2 = item->itemText.at(k)->cshadowx / 10.0;
-			tsy2 = item->itemText.at(k)->cshadowy / 10.0;
-			tout2 = item->itemText.at(k)->coutline / 10.0;
-			tulp2 = item->itemText.at(k)->cunderpos / 10.0;
-			tulw2 = item->itemText.at(k)->cunderwidth / 10.0;
-			tstp2 = item->itemText.at(k)->cstrikepos / 10.0;
-			tstw2 = item->itemText.at(k)->cstrikewidth / 10.0;
+				tsb2 = itemTextAtK->cab;
+			tcs2 = itemTextAtK->cstroke;
+			tshs2 = itemTextAtK->cshade2;
+			tsc2 = itemTextAtK->cscale / 10.0;
+			tscv2 = itemTextAtK->cscalev / 10.0;
+			tb2 = itemTextAtK->cbase / 10.0;
+			tsx2 = itemTextAtK->cshadowx / 10.0;
+			tsy2 = itemTextAtK->cshadowy / 10.0;
+			tout2 = itemTextAtK->coutline / 10.0;
+			tulp2 = itemTextAtK->cunderpos / 10.0;
+			tulw2 = itemTextAtK->cunderwidth / 10.0;
+			tstp2 = itemTextAtK->cstrikepos / 10.0;
+			tstw2 = itemTextAtK->cstrikewidth / 10.0;
 			while ((ts2 == ts)
 							&& (tsb2 == tsb)
 							&& (tf2 == tf)
@@ -2606,37 +2608,38 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 							&& (tstw2 == tstw)
 							&& (tst2 == tst))
 			{
-				if (item->itemText.at(k)->ch == QChar(13))
+				if (itemTextAtK->ch == QChar(13))
 					text += QChar(5);
-				else if (item->itemText.at(k)->ch == QChar(9))
+				else if (itemTextAtK->ch == QChar(9))
 					text += QChar(4);
 				else
-					text += item->itemText.at(k)->ch;
-				k++;
+					text += itemTextAtK->ch;
+				++k;
 				if (k == item->itemText.count())
 					break;
-				ts2 = item->itemText.at(k)->csize / 10.0;
-				tf2 = item->itemText.at(k)->cfont->SCName;
-				tc2 = item->itemText.at(k)->ccolor;
-				te2 = item->itemText.at(k)->cextra;
-				tsh2 = item->itemText.at(k)->cshade;
-				tst2 = item->itemText.at(k)->cstyle & 2047;
-				if (item->itemText.at(k)->cab > 4)
-					tsb2 = UsedMapped2Saved[item->itemText.at(k)->cab];
+				itemTextAtK = item->itemText.at(k);
+				ts2 = itemTextAtK->csize / 10.0;
+				tf2 = itemTextAtK->cfont->SCName;
+				tc2 = itemTextAtK->ccolor;
+				te2 = itemTextAtK->cextra;
+				tsh2 = itemTextAtK->cshade;
+				tst2 = itemTextAtK->cstyle & 2047;
+				if (itemTextAtK->cab > 4)
+					tsb2 = UsedMapped2Saved[itemTextAtK->cab];
 				else
-					tsb2 = item->itemText.at(k)->cab;
-				tcs2 = item->itemText.at(k)->cstroke;
-				tshs2 = item->itemText.at(k)->cshade2;
-				tsc2 = item->itemText.at(k)->cscale / 10.0;
-				tscv2 = item->itemText.at(k)->cscalev / 10.0;
-				tb2 = item->itemText.at(k)->cbase / 10.0;
-				tsx2 = item->itemText.at(k)->cshadowx / 10.0;
-				tsy2 = item->itemText.at(k)->cshadowy / 10.0;
-				tout2 = item->itemText.at(k)->coutline / 10.0;
-				tulp2 = item->itemText.at(k)->cunderpos / 10.0;
-				tulw2 = item->itemText.at(k)->cunderwidth / 10.0;
-				tstp2 = item->itemText.at(k)->cstrikepos / 10.0;
-				tstw2 = item->itemText.at(k)->cstrikewidth / 10.0;
+					tsb2 = itemTextAtK->cab;
+				tcs2 = itemTextAtK->cstroke;
+				tshs2 = itemTextAtK->cshade2;
+				tsc2 = itemTextAtK->cscale / 10.0;
+				tscv2 = itemTextAtK->cscalev / 10.0;
+				tb2 = itemTextAtK->cbase / 10.0;
+				tsx2 = itemTextAtK->cshadowx / 10.0;
+				tsy2 = itemTextAtK->cshadowy / 10.0;
+				tout2 = itemTextAtK->coutline / 10.0;
+				tulp2 = itemTextAtK->cunderpos / 10.0;
+				tulw2 = itemTextAtK->cunderwidth / 10.0;
+				tstp2 = itemTextAtK->cstrikepos / 10.0;
+				tstw2 = itemTextAtK->cstrikewidth / 10.0;
 			}
 			it.setAttribute("CH",text);
 			it.setAttribute("CSIZE",ts);
@@ -2825,37 +2828,38 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 		ob.setAttribute("BookNr", item->BMnr);
 		for(uint k=0;k<item->itemText.count();++k)
 		{
+			ScText *itemTextAtK = item->itemText.at(k);
 			QDomElement it=docu->createElement("ITEXT");
-			ts = item->itemText.at(k)->csize / 10.0;
-			tf = item->itemText.at(k)->cfont->SCName;
-			tc = item->itemText.at(k)->ccolor;
-			te = item->itemText.at(k)->cextra;
-			tsh = item->itemText.at(k)->cshade;
-			tst = item->itemText.at(k)->cstyle & 2047;
-			tsb = item->itemText.at(k)->cab;
-			tcs = item->itemText.at(k)->cstroke;
-			tshs = item->itemText.at(k)->cshade2;
-			tsc = item->itemText.at(k)->cscale / 10.0;
-			tscv = item->itemText.at(k)->cscalev / 10.0;
-			tb = item->itemText.at(k)->cbase / 10.0;
-			tsx = item->itemText.at(k)->cshadowx / 10.0;
-			tsy = item->itemText.at(k)->cshadowy / 10.0;
-			tout = item->itemText.at(k)->coutline / 10.0;
-			tulp = item->itemText.at(k)->cunderpos / 10.0;
-			tulw = item->itemText.at(k)->cunderwidth / 10.0;
-			tstp = item->itemText.at(k)->cstrikepos / 10.0;
-			tstw = item->itemText.at(k)->cstrikewidth / 10.0;
-			if ((item->itemText.at(k)->ch == QChar(25)) && (item->itemText.at(k)->cembedded != 0))
-				tobj = item->itemText.at(k)->cembedded->ItemNr;
+			ts = itemTextAtK->csize / 10.0;
+			tf = itemTextAtK->cfont->SCName;
+			tc = itemTextAtK->ccolor;
+			te = itemTextAtK->cextra;
+			tsh = itemTextAtK->cshade;
+			tst = itemTextAtK->cstyle & 2047;
+			tsb = itemTextAtK->cab;
+			tcs = itemTextAtK->cstroke;
+			tshs = itemTextAtK->cshade2;
+			tsc = itemTextAtK->cscale / 10.0;
+			tscv = itemTextAtK->cscalev / 10.0;
+			tb = itemTextAtK->cbase / 10.0;
+			tsx = itemTextAtK->cshadowx / 10.0;
+			tsy = itemTextAtK->cshadowy / 10.0;
+			tout = itemTextAtK->coutline / 10.0;
+			tulp = itemTextAtK->cunderpos / 10.0;
+			tulw = itemTextAtK->cunderwidth / 10.0;
+			tstp = itemTextAtK->cstrikepos / 10.0;
+			tstw = itemTextAtK->cstrikewidth / 10.0;
+			if ((itemTextAtK->ch == QChar(25)) && (itemTextAtK->cembedded != 0))
+				tobj = itemTextAtK->cembedded->ItemNr;
 			else
 				tobj = -1;
-			if (item->itemText.at(k)->ch == QChar(13))
+			if (itemTextAtK->ch == QChar(13))
 				text = QChar(5);
-			else if (item->itemText.at(k)->ch == QChar(9))
+			else if (itemTextAtK->ch == QChar(9))
 				text = QChar(4);
 			else
-				text = item->itemText.at(k)->ch;
-			k++;
+				text = itemTextAtK->ch;
+			++k;
 			if (k == item->itemText.count())
 			{
 				it.setAttribute("CH",text);
@@ -2883,27 +2887,28 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 				ob.appendChild(it);
 				break;
 			}
-			ts2 = item->itemText.at(k)->csize / 10.0;
-			tf2 = item->itemText.at(k)->cfont->SCName;
-			tc2 = item->itemText.at(k)->ccolor;
-			te2 = item->itemText.at(k)->cextra;
-			tsh2 = item->itemText.at(k)->cshade;
-			tst2 = item->itemText.at(k)->cstyle & 2047;
-			tsb2 = item->itemText.at(k)->cab;
-			tcs2 = item->itemText.at(k)->cstroke;
-			tshs2 = item->itemText.at(k)->cshade2;
-			tsc2 = item->itemText.at(k)->cscale / 10.0;
-			tscv2 = item->itemText.at(k)->cscalev / 10.0;
-			tb2 = item->itemText.at(k)->cbase / 10.0;
-			tsx2 = item->itemText.at(k)->cshadowx / 10.0;
-			tsy2 = item->itemText.at(k)->cshadowy / 10.0;
-			tout2 = item->itemText.at(k)->coutline / 10.0;
-			tulp2 = item->itemText.at(k)->cunderpos / 10.0;
-			tulw2 = item->itemText.at(k)->cunderwidth / 10.0;
-			tstp2 = item->itemText.at(k)->cstrikepos / 10.0;
-			tstw2 = item->itemText.at(k)->cstrikewidth / 10.0;
-			if ((item->itemText.at(k)->ch == QChar(25)) && (item->itemText.at(k)->cembedded != 0))
-				tobj2 = item->itemText.at(k)->cembedded->ItemNr;
+			itemTextAtK = item->itemText.at(k);
+			ts2 = itemTextAtK->csize / 10.0;
+			tf2 = itemTextAtK->cfont->SCName;
+			tc2 = itemTextAtK->ccolor;
+			te2 = itemTextAtK->cextra;
+			tsh2 = itemTextAtK->cshade;
+			tst2 = itemTextAtK->cstyle & 2047;
+			tsb2 = itemTextAtK->cab;
+			tcs2 = itemTextAtK->cstroke;
+			tshs2 = itemTextAtK->cshade2;
+			tsc2 = itemTextAtK->cscale / 10.0;
+			tscv2 = itemTextAtK->cscalev / 10.0;
+			tb2 = itemTextAtK->cbase / 10.0;
+			tsx2 = itemTextAtK->cshadowx / 10.0;
+			tsy2 = itemTextAtK->cshadowy / 10.0;
+			tout2 = itemTextAtK->coutline / 10.0;
+			tulp2 = itemTextAtK->cunderpos / 10.0;
+			tulw2 = itemTextAtK->cunderwidth / 10.0;
+			tstp2 = itemTextAtK->cstrikepos / 10.0;
+			tstw2 = itemTextAtK->cstrikewidth / 10.0;
+			if ((itemTextAtK->ch == QChar(25)) && (itemTextAtK->cembedded != 0))
+				tobj2 = itemTextAtK->cembedded->ItemNr;
 			else
 				tobj2 = -1;
 			while ((ts2 == ts)
@@ -2927,36 +2932,37 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 						&& (tobj2 == tobj)
 						&& (tst2 == tst))
 			{
-				if (item->itemText.at(k)->ch == QChar(13))
+				if (itemTextAtK->ch == QChar(13))
 					text += QChar(5);
-				else if (item->itemText.at(k)->ch == QChar(9))
+				else if (itemTextAtK->ch == QChar(9))
 					text += QChar(4);
 				else
-					text += item->itemText.at(k)->ch;
-				k++;
+					text += itemTextAtK->ch;
+				++k;
 				if (k == item->itemText.count())
 					break;
-				ts2 = item->itemText.at(k)->csize / 10.0;
-				tf2 = item->itemText.at(k)->cfont->SCName;
-				tc2 = item->itemText.at(k)->ccolor;
-				te2 = item->itemText.at(k)->cextra;
-				tsh2 = item->itemText.at(k)->cshade;
-				tst2 = item->itemText.at(k)->cstyle & 2047;
-				tsb2 = item->itemText.at(k)->cab;
-				tcs2 = item->itemText.at(k)->cstroke;
-				tshs2 = item->itemText.at(k)->cshade2;
-				tsc2 = item->itemText.at(k)->cscale / 10.0;
-				tscv2 = item->itemText.at(k)->cscalev / 10.0;
-				tb2 = item->itemText.at(k)->cbase / 10.0;
-				tsx2 = item->itemText.at(k)->cshadowx / 10.0;
-				tsy2 = item->itemText.at(k)->cshadowy / 10.0;
-				tout2 = item->itemText.at(k)->coutline / 10.0;
-				tulp2 = item->itemText.at(k)->cunderpos / 10.0;
-				tulw2 = item->itemText.at(k)->cunderwidth / 10.0;
-				tstp2 = item->itemText.at(k)->cstrikepos / 10.0;
-				tstw2 = item->itemText.at(k)->cstrikewidth / 10.0;
-				if ((item->itemText.at(k)->ch == QChar(25)) && (item->itemText.at(k)->cembedded != 0))
-					tobj2 = item->itemText.at(k)->cembedded->ItemNr;
+				itemTextAtK = item->itemText.at(k);
+				ts2 = itemTextAtK->csize / 10.0;
+				tf2 = itemTextAtK->cfont->SCName;
+				tc2 = itemTextAtK->ccolor;
+				te2 = itemTextAtK->cextra;
+				tsh2 = itemTextAtK->cshade;
+				tst2 = itemTextAtK->cstyle & 2047;
+				tsb2 = itemTextAtK->cab;
+				tcs2 = itemTextAtK->cstroke;
+				tshs2 = itemTextAtK->cshade2;
+				tsc2 = itemTextAtK->cscale / 10.0;
+				tscv2 = itemTextAtK->cscalev / 10.0;
+				tb2 = itemTextAtK->cbase / 10.0;
+				tsx2 = itemTextAtK->cshadowx / 10.0;
+				tsy2 = itemTextAtK->cshadowy / 10.0;
+				tout2 = itemTextAtK->coutline / 10.0;
+				tulp2 = itemTextAtK->cunderpos / 10.0;
+				tulw2 = itemTextAtK->cunderwidth / 10.0;
+				tstp2 = itemTextAtK->cstrikepos / 10.0;
+				tstw2 = itemTextAtK->cstrikewidth / 10.0;
+				if ((itemTextAtK->ch == QChar(25)) && (itemTextAtK->cembedded != 0))
+					tobj2 = itemTextAtK->cembedded->ItemNr;
 				else
 					tobj2 = -1;
 			}
