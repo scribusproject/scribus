@@ -6,6 +6,7 @@
 #include <qmessagebox.h>
 #include <qtooltip.h>
 
+#include "sccombobox.h"
 #include "commonstrings.h"
 #include "scribusdoc.h"
 #include "styleselect.h"
@@ -112,7 +113,7 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	FillIcon = new QLabel( "", GroupFont, "FillIcon" );
 	FillIcon->setPixmap(loadIcon("fill.png"));
 	layout5->addWidget( FillIcon );
-	TxFill = new QComboBox( true, GroupFont, "TxFill" );
+	TxFill = new ScComboBox( true, GroupFont, "TxFill" );
 	TxFill->setEditable(false);
 	layout5->addWidget( TxFill );
 	pixmapLabel3_20 = new QLabel( GroupFont, "pixmapLabel3_20" );
@@ -130,7 +131,7 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	StrokeIcon = new QLabel( "", GroupFont, "StrokeIcon" );
 	StrokeIcon->setPixmap(loadIcon("Stiftalt.xpm"));
 	layout6->addWidget( StrokeIcon );
-	TxStroke = new QComboBox( true, GroupFont, "TxStroke" );
+	TxStroke = new ScComboBox( true, GroupFont, "TxStroke" );
 	TxStroke->setEditable(false);
 	layout6->addWidget( TxStroke );
 	pixmapLabel3_19 = new QLabel( "", GroupFont, "pixmapLabel3_19" );

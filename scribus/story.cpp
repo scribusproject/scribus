@@ -14,6 +14,7 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
+#include "sccombobox.h"
 #include "scfonts.h"
 #include "story.h"
 #include "story.moc"
@@ -1654,7 +1655,7 @@ SToolBColorF::SToolBColorF(QMainWindow* parent, ScribusDoc *doc) : QToolBar( tr(
 	FillIcon = new QLabel( "", this, "FillIcon" );
 	FillIcon->setPixmap(loadIcon("fill.png"));
 	FillIcon->setScaledContents( false );
-	TxFill = new QComboBox( true, this, "TxFill" );
+	TxFill = new ScComboBox( true, this, "TxFill" );
 	TxFill->setEditable(false);
 	PM2 = new ShadeButton(this);
 	setCurrentDocument(doc);
@@ -1714,7 +1715,7 @@ SToolBColorS::SToolBColorS(QMainWindow* parent, ScribusDoc *doc) : QToolBar( tr(
 	StrokeIcon = new QLabel( "", this, "StrokeIcon" );
 	StrokeIcon->setPixmap(loadIcon("Stiftalt.xpm"));
 	StrokeIcon->setScaledContents( false );
-	TxStroke = new QComboBox( true, this, "TxStroke" );
+	TxStroke = new ScComboBox( true, this, "TxStroke" );
 	TxStroke->setEditable(false);
 	PM1 = new ShadeButton(this);
 	setCurrentDocument(doc);

@@ -4,6 +4,7 @@
 #include <qpainter.h>
 #include <qmessagebox.h>
 
+#include "sccombobox.h"
 #include "scribusdoc.h"
 #include "page.h"
 #include "util.h"
@@ -68,14 +69,14 @@ MultiLine::MultiLine( QWidget* parent, ScribusDoc* doc, multiLine ml, QString na
 	Dashes = new LineCombo(Properties);
 	PropertiesLayout->addWidget( Dashes );
 
-	LineEnds = new QComboBox( true, Properties, "LineEnds" );
+	LineEnds = new ScComboBox( true, Properties, "LineEnds" );
 	LineEnds->setEditable(false);
 	LineEnds->insertItem(loadIcon("ButtCap.png"), tr( "Flat Cap" ) );
 	LineEnds->insertItem(loadIcon("SquareCap.png"), tr( "Square Cap" ) );
 	LineEnds->insertItem(loadIcon("RoundCap.png"), tr( "Round Cap" ) );
 	PropertiesLayout->addWidget( LineEnds );
 
-	LineJoin = new QComboBox( true, Properties, "LineJoin" );
+	LineJoin = new ScComboBox( true, Properties, "LineJoin" );
 	LineJoin->setEditable(false);
 	LineJoin->insertItem(loadIcon("MiterJoin.png"), tr( "Miter Join" ) );
 	LineJoin->insertItem(loadIcon("BevelJoin.png"), tr( "Bevel Join" ) );
@@ -95,7 +96,7 @@ MultiLine::MultiLine( QWidget* parent, ScribusDoc* doc, multiLine ml, QString na
 	PropertiesLayout->addLayout( layout1 );
 
 	layout4 = new QHBoxLayout( 0, 0, 6, "layout4");
-	Color = new QComboBox( true, Properties, "Color" );
+	Color = new ScComboBox( true, Properties, "Color" );
 	ColorList::Iterator it;
 	QPixmap * pm;
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)

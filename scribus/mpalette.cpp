@@ -2,6 +2,8 @@
 #include "scfonts.h"
 #include "mpalette.h"
 #include "mpalette.moc"
+#include "sccombobox.h"
+
 #include <cmath>
 #include <qpoint.h>
 #include <qwmatrix.h>
@@ -482,7 +484,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "Mdouble", false,
 	StrokeIcon->setPixmap(loadIcon("Stiftalt.xpm"));
 	StrokeIcon->setScaledContents( false );
 	layout23->addWidget( StrokeIcon );
-	TxStroke = new QComboBox( true, page_3, "TxStroke" );
+	TxStroke = new ScComboBox( true, page_3, "TxStroke" );
 	TxStroke->setEditable(false);
 	layout23->addWidget( TxStroke );
 	ShadeTxt1 = new QLabel( "", page_3, "ShadeTxt" );
@@ -496,7 +498,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "Mdouble", false,
 	FillIcon = new QLabel( "", page_3, "FillIcon" );
 	FillIcon->setPixmap(loadIcon("fill.png"));
 	layout24->addWidget( FillIcon );
-	TxFill = new QComboBox( true, page_3, "TxFill" );
+	TxFill = new ScComboBox( true, page_3, "TxFill" );
 	TxFill->setEditable(false);
 	layout24->addWidget( TxFill );
 	ShadeTxt2 = new QLabel("", page_3, "ShadeTxt" );
@@ -531,7 +533,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "Mdouble", false,
 	styleLabel = new QLabel( Spal, "St&yle:", page_3, "styleLabel" );
 	GroupBox3aLayout->addWidget( styleLabel, 0, 0 );
 	GroupBox3aLayout->addWidget( Spal, 0, 1 );
-	langCombo = new QComboBox( true, page_3, "Lang" );
+	langCombo = new ScComboBox( true, page_3, "Lang" );
 	langCombo->setEditable(false);
 	langLabel = new QLabel( langCombo, "Lan&guage:", page_3, "langLabel" );
 	GroupBox3aLayout->addWidget( langLabel, 1, 0 );
@@ -620,12 +622,12 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "Mdouble", false,
 	GroupBoxCMLayout->setAlignment( Qt::AlignTop );
 	TextCms1 = new QLabel( GroupBoxCM, "xposLabel" );
 	GroupBoxCMLayout->addWidget( TextCms1 );
-	InputP = new QComboBox( true, GroupBoxCM, "InputP" );
+	InputP = new ScComboBox( true, GroupBoxCM, "InputP" );
 	InputP->setEditable(false);
 	GroupBoxCMLayout->addWidget(InputP);
 	TextCms2 = new QLabel( GroupBoxCM, "TextCms2" );
 	GroupBoxCMLayout->addWidget(TextCms2);
-	MonitorI = new QComboBox( true, GroupBoxCM, "MonitorI" );
+	MonitorI = new ScComboBox( true, GroupBoxCM, "MonitorI" );
 	MonitorI->setEditable(false);
 	GroupBoxCMLayout->addWidget(MonitorI);
 	pageLayout_4->addWidget(GroupBoxCM);
@@ -638,7 +640,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "Mdouble", false,
 	pageLayout_5 = new QVBoxLayout( page_5, 0, 5, "pageLayout_5");
 
 	Layout13_2 = new QHBoxLayout( 0, 0, 4, "Layout13_2");
-	LineMode = new QComboBox( true, page_5, "LMode" );
+	LineMode = new ScComboBox( true, page_5, "LMode" );
 	LineMode->setEditable(false);
 	LineModeT = new QLabel( LineMode, "&Basepoint:", page_5, "LModeText" );
 	Layout13_2->addWidget( LineModeT );
@@ -665,12 +667,12 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "Mdouble", false,
 	linewidthLabel = new QLabel(LSize, "Line &Width:", page_5, "linewidthLabel" );
 	Layout12_2->addWidget( linewidthLabel, 3, 0 );
 	Layout12_2->addWidget( LSize, 3, 1 );
-	LJoinStyle = new QComboBox( true, page_5, "LJoin" );
+	LJoinStyle = new ScComboBox( true, page_5, "LJoin" );
 	LJoinStyle->setEditable(false);
 	edgesLabel = new QLabel( LJoinStyle, "Ed&ges:", page_5, "edgesLabel" );
 	Layout12_2->addWidget( edgesLabel, 4, 0 );
 	Layout12_2->addWidget( LJoinStyle, 4, 1 );
-	LEndStyle = new QComboBox( true, page_5, "LCap" );
+	LEndStyle = new ScComboBox( true, page_5, "LCap" );
 	LEndStyle->setEditable(false);
 	endingsLabel = new QLabel( LEndStyle, "&Endings:", page_5, "endingsLabel" );
 	Layout12_2->addWidget( endingsLabel, 5, 0 );

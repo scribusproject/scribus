@@ -19,6 +19,9 @@
 #include <qlistbox.h>
 #include <qfont.h>
 #include <qpainter.h>
+
+#include "sccombobox.h"
+
 #include "scribusdoc.h"
 #include "fontcombo.h"
 #include "fontcombo.moc"
@@ -102,10 +105,10 @@ FontComboH::FontComboH(QWidget* parent) : QWidget(parent, "FontComboH")
 	prefsManager = PrefsManager::instance();
 	currDoc = 0;
 	fontComboLayout = new QVBoxLayout( this, 0, 0, "fontComboLayout");
-	fontFamily = new QComboBox( true, this, "fontFamily" );
+	fontFamily = new ScComboBox( true, this, "fontFamily" );
 	fontFamily->setEditable(false);
 	fontComboLayout->addWidget(fontFamily);
-	fontStyle = new QComboBox( true, this, "fontStyle" );
+	fontStyle = new ScComboBox( true, this, "fontStyle" );
 	fontStyle->setEditable(false);
 	fontComboLayout->addWidget(fontStyle);
 	QStringList flist = prefsManager->appPrefs.AvailFonts.fontMap.keys();

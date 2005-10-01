@@ -48,7 +48,7 @@
 #include <signal.h>
 #include <string>
 
-
+#include "sccombobox.h"
 #include "scribusapp.h"
 #include "scribus.h"
 #include "scribus.moc"
@@ -682,7 +682,7 @@ void ScribusApp::initMenuBar()
 	//Color menu
 	// CB TODO
 	scrMenuMgr->createMenu("Color", tr("&Color"));
-	ColorMenC = new QComboBox(false);
+	ColorMenC = new ScComboBox(false);
 	ColorMenC->setEditable(false);
 	scrMenuMgr->addMenuItem(ColorMenC, "Color");
 

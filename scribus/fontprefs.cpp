@@ -7,6 +7,7 @@
 #include <qlabel.h>
 #include "prefscontext.h"
 #include "prefsfile.h"
+#include "sccombobox.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "prefsmanager.h"
@@ -120,7 +121,7 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, QString PPath
 	for (itfsu = RList.begin(); itfsu != RList.end(); ++itfsu)
 	{
 		Table3->setText(a, 0, itfsu.key());
-		QComboBox *item = new QComboBox( true, this, "Replace" );
+		QComboBox *item = new ScComboBox( true, this, "Replace" );
 		item->setEditable(false);
 		item->insertStringList(UsedFonts);
 		item->setCurrentText(itfsu.data());

@@ -16,6 +16,7 @@
 #include <qwhatsthis.h>
 #include <qimage.h>
 #include <qpixmap.h>
+#include "sccombobox.h"
 
 extern QPixmap loadIcon(QString nam);
 
@@ -94,7 +95,7 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, "pgs
 	PageSelectorLayout->addWidget( Back );
 
 	v = new PageValidator(1, LastPG, this);
-	PageCombo = new QComboBox( true, this, "PageCombo" );
+	PageCombo = new ScComboBox( true, this, "PageCombo" );
 	PageCombo->setEditable( true );
 	PageCombo->setDuplicatesEnabled( false );
 	PageCombo->lineEdit()->setAlignment(Qt::AlignHCenter);

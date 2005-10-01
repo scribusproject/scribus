@@ -149,6 +149,7 @@ scribus_SOURCES = \
 	reformdoc.cpp	\
 	rulermover.cpp	\
 	sccolor.cpp	\
+	sccombobox.cpp	\
 	scfonts.cpp	\
 	scfonts_ttf.cpp	\
 	scfontmetrics.cpp	\

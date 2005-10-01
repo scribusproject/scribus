@@ -14,6 +14,7 @@
 #include "mergedoc.h"
 #include "mergedoc.moc"
 #include "customfdialog.h"
+#include "sccombobox.h"
 #include "scribusXml.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
@@ -46,7 +47,7 @@ MergeDoc::MergeDoc( QWidget* parent, bool importMasterPages, int targetDocPageCo
 	if (masterPages)
 	{
 		importPageLabel->setText( tr("&Import Master Page") );
-		masterPageNameData = new QComboBox( false, this, "masterPageNameData" );
+		masterPageNameData = new ScComboBox( false, this, "masterPageNameData" );
 		masterPageNameData->setEnabled(false);
 		importPageLabel->setBuddy( masterPageNameData );
 		fromInfoLayout->addWidget( masterPageNameData, 1, 1 );
@@ -66,7 +67,7 @@ MergeDoc::MergeDoc( QWidget* parent, bool importMasterPages, int targetDocPageCo
 		createPageData = new QCheckBox( this, "createPageData" );
 		createPageData->setText( tr("Create Page(s)"));
 		fromInfoLayout->addWidget( createPageData, 2, 0 );
-		importWhereData = new QComboBox( false, this, "positionCombo" );
+		importWhereData = new ScComboBox( false, this, "positionCombo" );
 		importWhereData->setEnabled(false);
 		importWhereData->insertItem( tr("Before Page"));
 		importWhereData->insertItem( tr("After Page"));

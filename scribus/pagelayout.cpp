@@ -1,5 +1,7 @@
 #include "pagelayout.h"
 #include "pagelayout.moc"
+#include "sccombobox.h"
+
 #include <qvariant.h>
 #include <qgroupbox.h>
 #include <qiconview.h>
@@ -36,7 +38,7 @@ PageLayouts::PageLayouts( QWidget* parent, QValueList<PageSet> pSets )  : QGroup
 
 	layoutLabel1 = new QLabel( this, "layoutLabel1" );
 	layoutGroupLayout->addWidget( layoutLabel1 );
-	firstPage = new QComboBox( true, this, "firstPage" );
+	firstPage = new ScComboBox( true, this, "firstPage" );
 	firstPage->setEditable(false);
 	layoutGroupLayout->addWidget( firstPage );
 	languageChange();

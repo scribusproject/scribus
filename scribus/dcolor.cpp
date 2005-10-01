@@ -19,6 +19,7 @@
 #include "commonstrings.h"
 #include "scribusdoc.h"
 #include "page.h"
+#include "sccombobox.h"
 
 #include "dcolor.h"
 #include "dcolor.moc"
@@ -45,7 +46,7 @@ DelColor::DelColor( QWidget* parent, ColorList colorList, QString colorName, boo
 	{
     	replaceLabel = new QLabel( tr( "Replace With:" ), this, "replaceLabel" );
     	delColorLayout->addWidget( replaceLabel, 1, 0 );
-    	replacementColData = new QComboBox(false, this);
+    	replacementColData = new ScComboBox(false, this);
 		ColorList::Iterator it;
 		QPixmap pm = QPixmap(15, 15);
 		colorList.remove(colorName);
