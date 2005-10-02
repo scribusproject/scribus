@@ -715,10 +715,20 @@ void CharSelect::newCharClass(int c)
 void CharSelect::newFont(int font)
 {
 	zTabelle->maxCount = 0;
+	QString oldFont = fontInUse;
 	fontInUse = fontSelector->text(font);
 	delEdit();
 	setCaption( tr( "Select Character:" )+" "+fontInUse );
 	ap->SetNewFont(fontInUse);
+	if (ScApp->doc->CurrFont != fontInUse)
+	{
+		disconnect(fontSelector, SIGNAL(activated(int)), this, SLOT(newFont(int)));
+		fontSelector->RebuildList(ScApp->doc);
+		fontInUse = ScApp->doc->CurrFont;
+		setCaption( tr( "Select Character:" )+" "+fontInUse );
+		fontSelector->setCurrentText(fontInUse);
+		connect(fontSelector, SIGNAL(activated(int)), this, SLOT(newFont(int)));
+	}
 	scanFont();
 	generatePreview(0);
 	characterClass = 0;
