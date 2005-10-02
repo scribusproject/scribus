@@ -502,13 +502,17 @@ double RealCWidth(ScribusDoc *currentDoc, Foi* name, QString ch, int Size)
 	{
 		face = currentDoc->FFonts[name->SCName];
 		uint cl = FT_Get_Char_Index(face, c1);
-		FT_Load_Glyph(face, cl, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
-		w = (face->glyph->metrics.width + fabs((double)face->glyph->metrics.horiBearingX)) / name->uniEM * (Size / 10.0);
-		ww = face->glyph->metrics.horiAdvance / name->uniEM * (Size / 10.0);
-		return QMAX(ww, w);
+		int error = FT_Load_Glyph(face, cl, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
+		if (!error) {
+			w = (face->glyph->metrics.width + fabs((double)face->glyph->metrics.horiBearingX)) / name->uniEM * (Size / 10.0);
+			ww = face->glyph->metrics.horiAdvance / name->uniEM * (Size / 10.0);
+			return QMAX(ww, w);
+		}
+		else
+			sDebug(QString("internal error: missing glyph: %1 (char %2) error=%3").arg(c1).arg(ch).arg(error));
+
 	}
-	else
-		return static_cast<double>(Size / 10.0);
+	return static_cast<double>(Size / 10.0);
 }
 
 double RealCHeight(ScribusDoc *currentDoc, Foi* name, QString ch, int Size)
@@ -520,8 +524,13 @@ double RealCHeight(ScribusDoc *currentDoc, Foi* name, QString ch, int Size)
 	{
 		face = currentDoc->FFonts[name->SCName];
 		uint cl = FT_Get_Char_Index(face, c1);
-		FT_Load_Glyph(face, cl, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
-		w = face->glyph->metrics.height / name->uniEM * (Size / 10.0);
+		int error = FT_Load_Glyph(face, cl, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
+		if (!error)
+			w = face->glyph->metrics.height / name->uniEM * (Size / 10.0);
+		else {
+			sDebug(QString("internal error: missing glyph: %1 (char %2) error=%3").arg(c1).arg(ch).arg(error));
+			w = Size / 10.0;
+		}
 		return w;
 	}
 	else
@@ -537,8 +546,13 @@ double RealCAscent(ScribusDoc *currentDoc, Foi* name, QString ch, int Size)
 	{
 		face = currentDoc->FFonts[name->SCName];
 		uint cl = FT_Get_Char_Index(face, c1);
-		FT_Load_Glyph(face, cl, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
-		w = face->glyph->metrics.horiBearingY / name->uniEM * (Size / 10.0);
+		int error = FT_Load_Glyph(face, cl, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
+		if (! error)
+			w = face->glyph->metrics.horiBearingY / name->uniEM * (Size / 10.0);
+		else {
+			sDebug(QString("internal error: missing glyph: %1 (char %2) error=%3").arg(c1).arg(ch).arg(error));
+			w = Size / 10.0;
+		}
 		return w;
 	}
 	else
