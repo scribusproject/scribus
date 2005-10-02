@@ -35,29 +35,4 @@ extern "C" PLUGIN_API int scribusshortwords_getPluginAPIVersion();
 extern "C" PLUGIN_API ScPlugin* scribusshortwords_getPlugin();
 extern "C" PLUGIN_API void scribusshortwords_freePlugin(ScPlugin* plugin);
 
-
-class SWParse;
-class SWConfig;
-
-/*! \brief  This is Short Words plugin main class.
-It contains main logic. */
-class ShortWords : public QObject
-{
-	Q_OBJECT
-
-public:
-	/*! \brief  inicialization - Raise dialog, handles parsing etc. */
-	ShortWords();
-	/*! \brief  clear memaory, write cfg. */
-	~ShortWords();
-
-	/*! \brief  actual page when user calls this plug */
-	uint originalPage;
-	/*! \brief  All available configuration object */
-	SWConfig *cfg;
-	/*! \brief  all available "engine" */
-	SWParse *parse;
-};
-
-
 #endif

@@ -102,33 +102,11 @@ void ShortWordsPlugin::deleteAboutData(const AboutData* about) const
 bool ShortWordsPlugin::run(QString target)
 {
 	Q_ASSERT(target.isEmpty());
-	ShortWords *sw = new ShortWords();
-	// it freezes Scribus in some environments
-	// I don't know why...
-	// FIXME! Need to examine it.
-	/*if (sw != NULL)
-	delete sw;*/
-	return true;
-}
 
-bool ShortWordsPlugin::newPrefsPanelWidget(QWidget* parent,
-									       PrefsPanel*& panel,
-									       QString& caption,
-									       QPixmap& icon)
-{
-	panel = new SWPrefsGui(parent);
-	Q_CHECK_PTR(panel);
-	caption = tr("Short Words");
-	icon = loadIcon("plugins.png");
-	return true;
-}
-
-ShortWords::ShortWords()
-{
-	originalPage = ScApp->doc->currentPage->pageNr();
+	uint originalPage = ScApp->doc->currentPage->pageNr();
 	SWDialog *dlg = new SWDialog(ScApp, "dlg", true, 0);
 	if (dlg->exec() == QDialog::Accepted) {
-		parse = new SWParse();
+		SWParse *parse = new SWParse();
 		QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 		ScApp->mainWindowStatusLabel->setText(QObject::tr("Short Words processing. Wait please...", "short words plugin"));
 		switch (dlg->actionSelected) {
@@ -145,6 +123,7 @@ ShortWords::ShortWords()
 		// enable "Save" icon
 		if (parse->modify > 0)
 			ScApp->slotDocCh(true);
+		delete parse;
 		// redraw document
 		ScApp->view->DrawNew();
 		QApplication::restoreOverrideCursor();
@@ -154,9 +133,18 @@ ShortWords::ShortWords()
 		ScApp->view->GotoPage(originalPage);
 	} // action
 	delete dlg;
-} // constructor
-
-ShortWords::~ShortWords()
-{
-	delete parse;
+	return true;
 }
+
+bool ShortWordsPlugin::newPrefsPanelWidget(QWidget* parent,
+									       PrefsPanel*& panel,
+									       QString& caption,
+									       QPixmap& icon)
+{
+	panel = new SWPrefsGui(parent);
+	Q_CHECK_PTR(panel);
+	caption = tr("Short Words");
+	icon = loadIcon("plugins.png");
+	return true;
+}
+
