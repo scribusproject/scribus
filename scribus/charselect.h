@@ -104,7 +104,7 @@ public slots:
 
 protected:
 	void run(QWidget* parent, PageItem* item, ScribusApp* pl);
-	
+	bool eventFilter( QObject *obj, QEvent *ev );
 	QVBoxLayout* zAuswahlLayout;
 	QHBoxLayout* selectionsLayout;
 	QHBoxLayout* layout1;

@@ -228,6 +228,7 @@ CharSelect::CharSelect( QWidget* parent, PageItem *item) : QDialog( parent, "Cha
 {
 	fontInUse = ScApp->doc->CurrFont;
 	needReturn = false;
+	installEventFilter(this);
 	run(parent, item, ScApp);
 }
 
@@ -235,6 +236,7 @@ CharSelect::CharSelect( QWidget* parent, PageItem *item, QString font) : QDialog
 {
 	fontInUse = font;
 	needReturn = true;
+	installEventFilter(this);
 	run(parent, item, ScApp);
 }
 
@@ -288,8 +290,8 @@ void CharSelect::run( QWidget* /*parent*/, PageItem *item, ScribusApp *pl)
 	zTabelle->setColumnMovingEnabled(false);
 	zTabelle->setRowMovingEnabled(false);
 	scanFont();
-	generatePreview(0);
-	zTabelle->maxCount = maxCount;
+	//generatePreview(0);
+	//zTabelle->maxCount = maxCount;
 //	zTabelle->setMinimumSize(QSize(zTabelle->rowHeight(0)*18, zTabelle->rowHeight(0)*7));
 	zAuswahlLayout->addWidget( zTabelle );
 
@@ -326,13 +328,16 @@ void CharSelect::run( QWidget* /*parent*/, PageItem *item, ScribusApp *pl)
 	connect(fontSelector, SIGNAL(activated(int)), this, SLOT(newFont(int)));
 	connect(rangeSelector, SIGNAL(activated(int)), this, SLOT(newCharClass(int)));
 	setupRangeCombo();
-	int cellWidth = zTabelle->width() / 16;
+	//show();
+	newCharClass(0);
+	/*int cellWidth = zTabelle->width() / 16;
 	int cellHeight = 4 * cellWidth / 3;
 	for (int d = 0; d < 16; ++d)
 		zTabelle->setColumnStretchable(d, TRUE);
 	for (int d = 0; d < zTabelle->numRows(); ++d)
 		zTabelle->setRowHeight(d, cellHeight);
 	zTabelle->updateScrollBars();
+	*/
 }
 
 void CharSelect::scanFont()
@@ -822,4 +827,21 @@ void CharSelect::insChar()
 	}
 	ap->view->DrawNew();
 	ap->slotDocCh();
+}
+
+bool CharSelect::eventFilter( QObject *obj, QEvent *ev )
+{
+	if ( ev->type() == QEvent::Show )
+	{
+		int cellWidth = zTabelle->width() / 16;
+		int cellHeight = 4 * cellWidth / 3;
+		for (int d = 0; d < 16; ++d)
+			zTabelle->setColumnStretchable(d, TRUE);
+		for (int d = 0; d < zTabelle->numRows(); ++d)
+			zTabelle->setRowHeight(d, cellHeight);
+		zTabelle->updateScrollBars();
+		return true;
+	} 
+	else 
+		return false;
 }
