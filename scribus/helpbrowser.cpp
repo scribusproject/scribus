@@ -154,12 +154,16 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLangu
 	helpBrowsermainLayout->addLayout( helpBrowserLayout );
 
 	languageChange();
-	resize( QSize(602, 491).expandedTo(minimumSizeHint()) );
-	clearWState( WState_Polished );
+//	resize( QSize(602, 491).expandedTo(minimumSizeHint()) );
+//	clearWState( WState_Polished );
 	loadMenu();
 	listView->header()->hide();
 	searchingView->header()->hide();
 	jumpToHelpSection(jumpToSection, jumpToFile );
+	splitter->setResizeMode(tabWidget, QSplitter::KeepSize);
+	splitter->setResizeMode(textBrowser, QSplitter::Stretch);
+	resize( QSize(640, 480).expandedTo(minimumSizeHint()) );
+	clearWState( WState_Polished );
 
 	QAccel *a = new QAccel( this, "a");
 	a->connectItem(a->insertItem(QAccel::stringToKey(tr("Ctrl+F"))), this, SLOT(find()));
