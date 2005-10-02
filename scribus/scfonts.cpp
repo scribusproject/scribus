@@ -654,8 +654,45 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 
 	while (!error)
 	{
-		QString ts = QString(face->family_name) + " " + QString(face->style_name);
+//		QString ts = QString(face->family_name) + " " + QString(face->style_name);
+		QString fam = QString(face->family_name);
+		QString sty = QString(face->style_name);
+		if (sty == "Regular")
+		{
+			switch (face->style_flags)
+			{
+				case 0:
+					break;
+				case 1:
+					sty = "Italic";
+					break;
+				case 2:
+					sty = "Bold";
+					break;
+				case 3:
+					sty = "Bold Italic";
+					break;
+				default:
+					break;
+			}
+		}
+		QString ts = fam + " " + sty;
+		const char* psName = FT_Get_Postscript_Name(face);
+		QString qpsName;
+		if (psName)
+			qpsName = QString(psName);
+		else
+			qpsName = ts;
 		Foi *t = find(ts);
+		if (t)
+		{
+			if (t->cached_RealName != qpsName)
+			{
+				ts += " ("+qpsName+")";
+				sty += " ("+qpsName+")";
+			}
+		}
+		t = find(ts);
 		if (!t)
 		{
 			switch (format) 
@@ -696,11 +733,12 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 					}
 					break;
 			}
-			const char* psName = FT_Get_Postscript_Name(face);
+			t->cached_RealName = qpsName;
+/*			const char* psName = FT_Get_Postscript_Name(face);
 			if (psName)
 				t->cached_RealName = QString(psName);
 			else
-				t->cached_RealName = ts;
+				t->cached_RealName = ts; */
 			t->Font = qApp->font();
 			t->Font.setPointSize(qApp->font().pointSize());
 			insert(ts,t);
@@ -709,8 +747,10 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 			t->CharWidth[13] = 0;
 			t->CharWidth[28] = 0;
 			t->CharWidth[9] = 1;
-			t->Family = QString(face->family_name);
-			t->Effect = QString(face->style_name);
+//			t->Family = QString(face->family_name);
+//			t->Effect = QString(face->style_name);
+			t->Family = fam;
+			t->Effect = sty;
 			t->faceIndex = faceindex;
 			t->PrivateFont = DocName;
 			//setBestEncoding(face); //AV

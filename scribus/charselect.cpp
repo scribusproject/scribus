@@ -289,9 +289,9 @@ void CharSelect::run( QWidget* /*parent*/, PageItem *item, ScribusApp *pl)
 	zTabelle->setRowMovingEnabled(false);
 	scanFont();
 	generatePreview(0);
+	zTabelle->maxCount = maxCount;
 //	zTabelle->setMinimumSize(QSize(zTabelle->rowHeight(0)*18, zTabelle->rowHeight(0)*7));
 	zAuswahlLayout->addWidget( zTabelle );
-	zTabelle->maxCount = maxCount;
 
 	sample = new QLabel( this, "Zeichen" );
 	sample->setFrameShape(QFrame::Box);
@@ -317,8 +317,6 @@ void CharSelect::run( QWidget* /*parent*/, PageItem *item, ScribusApp *pl)
 	QToolTip::add( insertButton, tr( "Insert the characters at the cursor in the text" ) );
 	QToolTip::add( deleteButton, tr( "Delete the current selection(s)." ) );
 	QToolTip::add( closeButton, tr( "Close this dialog and return to text editing." ) );
-
-
 	// signals and slots connections
 	connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
 	connect(deleteButton, SIGNAL(clicked()), this, SLOT(delEdit()));
@@ -328,6 +326,13 @@ void CharSelect::run( QWidget* /*parent*/, PageItem *item, ScribusApp *pl)
 	connect(fontSelector, SIGNAL(activated(int)), this, SLOT(newFont(int)));
 	connect(rangeSelector, SIGNAL(activated(int)), this, SLOT(newCharClass(int)));
 	setupRangeCombo();
+	int cellWidth = zTabelle->width() / 16;
+	int cellHeight = 4 * cellWidth / 3;
+	for (int d = 0; d < 16; ++d)
+		zTabelle->setColumnStretchable(d, TRUE);
+	for (int d = 0; d < zTabelle->numRows(); ++d)
+		zTabelle->setRowHeight(d, cellHeight);
+	zTabelle->updateScrollBars();
 }
 
 void CharSelect::scanFont()
