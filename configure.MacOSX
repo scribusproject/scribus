@@ -6,8 +6,14 @@ PKG_CONFIG_PATH=/sw/lib/pkgconfig
 export PKG_CONFIG_PATH
 QTDIR=/sw/lib/qt3mac
 export QTDIR
+
+MACOSX_DEPLOYMENT_TARGET=10.3 
+LD_PREBIND=1
+LD_PREBIND_ALLOW_OVERLAP=1
+
 CPPFLAGS=-I/sw/include
 LDFLAGS=-L/sw/lib
-export CPATH LDFLAGS CPPFLAGS
+export CPATH LDFLAGS CPPFLAGS MACOSX_DEPLOYMENT_TARGET LD_PREBIND LD_PREBIND_ALLOW_OVERLAP
+
 ./configure --enable-debug --enable-mac --enable-bundle --prefix=$BUNDLE_LOCATION/Scribus.app/Contents/ --with-extra-includes=/sw/include/ $EXTRACONF
 #--with-extra-libs=/sw/lib/
