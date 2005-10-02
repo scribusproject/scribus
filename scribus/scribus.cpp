@@ -239,7 +239,11 @@ int ScribusApp::initScribus(bool showSplash, bool showFontInfo, const QString ne
 
 	BuFromApp = false;
 
+#ifdef QT_MAC
+	bool haveFonts=initFonts(true);
+#else
 	bool haveFonts=initFonts(showFontInfo);
+#endif
 	if (!haveFonts)
 		retVal=1;
 	else
@@ -6042,7 +6046,7 @@ void ScribusApp::setAppMode(int mode)
 	scrActions["toolsCopyProperties"]->setOn(mode==modeCopyProperties);
 
 	PageItem *currItem;
-	setActiveWindow();
+	//setActiveWindow();
 	if (HaveDoc)
 	{
 		if (view->SelItem.count() != 0)
@@ -6226,6 +6230,8 @@ void ScribusApp::setAppMode(int mode)
 				scrActions["toolsCopyProperties"]->setEnabled(true);
 			}
 		}
+		if (mode != modeNormal && mode != modeStoryEditor)
+			setActiveWindow();
 	}
 	actionManager->connectModeActions();
 }
