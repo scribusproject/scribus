@@ -55,7 +55,7 @@ ScPaths::ScPaths() :
 	                                       kCFURLPOSIXPathStyle);
 	const char *pathPtr = CFStringGetCStringPtr(macPath,
 	                                       CFStringGetSystemEncoding());
-	char *p = pathPtr + strlen(pathPtr) -1;
+	char *p = const_cast<char*>(pathPtr + strlen(pathPtr) - 1);
 	while (*p == '/')
 		--p;
 	++p;
