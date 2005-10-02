@@ -40,6 +40,11 @@
 <pre>./configure --enable-cairo</pre>
 
 <p>The cairo build option is experimental, has not received all the needed regression tests and requires cairo 0.9+ or greater. Cario 1.0+ is strongly recommended.</p>
+
+<h4>Font Issues</h4>
+<p>There are extensive notes and detailed on documentation on fonts and trouble shooting of font issues in the help documentation and online at http://docs.scribus.net.  Please read these carefully before filing bugs.</p>
+<p>There are issues with the postscript naming conventions with the Computer Modern Type 1 fonts, depending on distribution.  In some cases, not all fonts from the same family are visible in Scribus. We are working on a more complete solution for the next release. 
+</p>
 	
 <h4>For Debian Users:	</h4>
 <p>If Scribus does not start while complaining about the absence of PostScript fonts please install either xfonts-scalable or gsfonts-x11.	They are in the "Recommends" and will be installed by all sensible apt front-ends.
