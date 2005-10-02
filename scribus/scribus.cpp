@@ -7708,14 +7708,6 @@ void ScribusApp::slotPrefsOrg()
 		GetCMSProfiles();
 		SetShortCut();
 		emit prefsChanged();
-		QWidgetList windows = wsp->windowList();
-		for ( int i = 0; i < static_cast<int>(windows.count()); ++i )
-		{
-			QWidget* w = wsp->windowList().at( i );
-			ScribusWin* swin = (ScribusWin*)w;
-			swin->doc->guidesSettings.before = prefsManager->appPrefs.guidesSettings.before;
-			swin->doc->marginColored = prefsManager->appPrefs.marginColored;
-		}
 	}
 	delete dia;
 }
