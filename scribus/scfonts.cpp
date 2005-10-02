@@ -864,7 +864,7 @@ void SCFonts::AddFontconfigFonts()
 			if (showFontInformation)
 				sDebug(QObject::tr("Loading font %1 (found using fontconfig)").arg(QString((char*)file)));
 			error = AddScalableFont(QString((char*)file), library, "");
-			if (error)
+			if (showFontInformation && error)
 				sDebug(QObject::tr("Font %1 (found using fontconfig) is broken, discarding it").arg(QString((char*)file)));
 		}
 		else
