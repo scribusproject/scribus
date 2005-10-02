@@ -292,10 +292,7 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLangu
 	bookmarkMenu->insertItem( tr("D&elete All"), this, SLOT(deleteAllBookmarkButton_clicked()));
 	helpBrowsermainLayout->setMenuBar(menuBar);
 	menuBar->insertItem( tr("&Bookmarks"), bookmarkMenu);
-
 	languageChange();
-	resize( QSize(640, 480).expandedTo(minimumSizeHint()) );
-	clearWState( WState_Polished );
 	loadMenu();
 	listView->header()->hide();
 	searchingView->header()->hide();
@@ -303,6 +300,10 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLangu
 	jumpToHelpSection(jumpToSection, jumpToFile );
 	readBookmarks();
 	readHistory();
+	splitter->setResizeMode( tabWidget, QSplitter::KeepSize );
+	splitter->setResizeMode( textBrowser, QSplitter::Stretch );
+	resize( QSize(640, 480).expandedTo(minimumSizeHint()) );
+	clearWState( WState_Polished );
 
 	connect( homeButton, SIGNAL( clicked() ), textBrowser, SLOT( home() ) );
 	connect( forwButton, SIGNAL( clicked() ), textBrowser, SLOT( forward() ) );
