@@ -649,9 +649,24 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 		sDebug(QObject::tr("Failed to load font %1 - font type unknown").arg(filename));
 		error = true;
 	}
-		
-	int faceindex=0; 
-
+	if (!error)
+	{
+		FT_UInt gindex = 0;
+		FT_ULong charcode = FT_Get_First_Char( face, &gindex );
+		while ( gindex != 0 )
+		{
+			error = FT_Load_Glyph( face, gindex, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
+			if (error)
+			{
+				sDebug(QObject::tr("Font %1 has broken glyph %2 (charcode %3)").arg(filename).arg(gindex).arg(charcode));
+				if (face != NULL)
+					FT_Done_Face( face );
+				return true;
+			}
+			charcode = FT_Get_Next_Char( face, charcode, &gindex );
+		}
+	}
+	int faceindex=0;
 	while (!error)
 	{
 //		QString ts = QString(face->family_name) + " " + QString(face->style_name);
