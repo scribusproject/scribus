@@ -105,8 +105,9 @@ bool ShortWordsPlugin::run(QString target)
 	ShortWords *sw = new ShortWords();
 	// it freezes Scribus in some environments
 	// I don't know why...
-	if (sw != NULL)
-		delete sw;
+	// FIXME! Need to examine it.
+	/*if (sw != NULL)
+	delete sw;*/
 	return true;
 }
 
