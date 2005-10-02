@@ -646,7 +646,8 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 	
 	if (format == Foi::UNKNOWN_FORMAT) 
 	{
-		sDebug(QObject::tr("Failed to load font %1 - font type unknown").arg(filename));
+		if (showFontInformation)
+			sDebug(QObject::tr("Failed to load font %1 - font type unknown").arg(filename));
 		error = true;
 	}
 	if (!error)
@@ -658,7 +659,8 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 			error = FT_Load_Glyph( face, gindex, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
 			if (error)
 			{
-				sDebug(QObject::tr("Font %1 has broken glyph %2 (charcode %3)").arg(filename).arg(gindex).arg(charcode));
+				if (showFontInformation)
+					sDebug(QObject::tr("Font %1 has broken glyph %2 (charcode %3)").arg(filename).arg(gindex).arg(charcode));
 				if (face != NULL)
 					FT_Done_Face( face );
 				return true;
