@@ -825,7 +825,7 @@ bool CharSelect::eventFilter( QObject *obj, QEvent *ev )
 void CharSelect::recalcCellSizes()
 {
 	int cellWidth = zTabelle->width() / 16;
-	int cellHeight = 3 * cellWidth / 3;
+	int cellHeight = cellWidth;
 	for (int d = 0; d < 16; ++d)
 		zTabelle->setColumnStretchable(d, TRUE);
 	for (int d = 0; d < zTabelle->numRows(); ++d)
