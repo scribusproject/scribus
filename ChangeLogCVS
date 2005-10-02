@@ -1,5 +1,15 @@
 Scribus - 1.3.1cvs
 ==================
+- 0001666: [Printing] Registration color reduced to black (fschmid)
+- 0002167: [Internal] Spot colours (fschmid)
+- 0002240: [PPCOSX] Story Editor Loses Focus When Called (avox)
+- 0002625: [Plug-ins] Cancelling Short Words triggers a crash (subik)
+- 0002381: [Shape Drawing] zooming is not possible with ctrl & +- when doubleclicking a shape to edit it (cbradney)
+- 0002422: [Internal] Attempting to change document preferences after running Font Sampler causes a crash
+- 0002478: [Story Editor / Text Frames] Editing text frames deletes text (fschmid)
+- 0002097: [Plug-ins] Re-write plugin API (ringerc)
+- 0002318: [General] duplicating a page duplicates it on top of every page (fschmid)
+- 0002643: [General] "Display Unprintable Area in Margin Colour": Colour isn't drawn correctly (fschmid)
 - 0002636: [General] When leaving the "link text frames" tool, the text chains are not hidden even when "Show text chains" is disabled (fschmid)
 - 0002569: [Plug-ins] Short-words: punctuation is not handled (subik)
 - 0002625: [Plug-ins] Cancelling Short Words triggers a crash (subik)
