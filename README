@@ -83,6 +83,20 @@ We encourage those willing to test the Cairo backend builds and report issues
 to the mailing list and/IRC. We *know* the Cairo enabled build is slower, but
 are encouraged by the on-going development by the Cairo team.
 
+FONT ISSUES
+===========
+
+There are extensive notes and detailed on documentation on fonts and trouble
+shooting of font issues in the help documentation and online at 
+http://docs.scribus.net  Please read these carefully before filing bugs.
+
+There are issues with the postscript naming conventions with the Computer Modern
+Type 1 fonts, depending on distribution.  In some cases, not all fonts from the
+same family are visible in Scribus. We are working on a more complete solution
+for the next release. 
+
+
+
 BUILDING AND INSTALLING FROM SOURCE
 ===================================
 
