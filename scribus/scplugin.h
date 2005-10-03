@@ -19,20 +19,44 @@ class PrefsPanel;
  *
  * ScPlugin is a class that provides information about a plug-in, and a gateway
  * into any plugin-specific functionality.  It should not generally be
- * inherited directly by plugins - use one of the provided base classes
- * instead.
+ * inherited directly by actual plugin implementations - use one of the
+ * provided base classes instead. See below for info on the creation of
+ * new types of plugin.
  *
- * Plugins create and return an ScPlugin instance when asked for it by the
- * plugin manager. The plugin manager is responsible for tracking these
- * instances.
+ * Plugins create and return a instance of a subclass of ScPlugin when asked
+ * for it by the plugin manager. The plugin manager is responsible for tracking
+ * these instances. The ScPlugin instance is used by the plugin manager for
+ * tasks such as hooking the plugin up to the UI where appropriate. It's also
+ * used by other code that talks to plugins, usually by dynamic_cast<>ing it to
+ * a more specific subclass and working with that. The file loader system will
+ * provide an example of this.
  *
- * Note that the implementation below really creates two quite different kinds
- * of plugins. One for import/export of data which is generally loaded, run,
- * and unloaded. A second for persistent plugins that are loaded (generally
- * when the app starts) and remain resident.
+ * A given plugin implementation's ScPlugin subclass is *not* the best place
+ * to implement the bulk of the plugin's functionality. It must be lightweight
+ * and maintain as little state as possible. Most functionality should be
+ * implemented in a private subclass that is not exposed in the header of the
+ * scplugin subclass defined by the plugin. That helps keep the plugin's
+ * implementation separate from its inteface to Scribus.
+ *
+ * Note that the two subclases ScActionPlugin and ScPersistentPlugin, defined
+ * below, create two quite different kinds of plugins. One is for import/export
+ * of data and for single function actions (like providing a particular dialog
+ * or function) which generally do nothing when not in active use. A second for
+ * persistent plugins that are loaded (generally when the app starts) and
+ * remain resident, possibly active in the background or hooked into many
+ * parts of the user interface.
  *
  * More plugin classes - such as plugins for text import and document import
  * - may be added in future.
+ *
+ * New types of plugin can be created by subclassing ScPlugin or one of its
+ * subclasses and adding the additional interfaces required. The two existing
+ * subclasses provide examples of how this can work. Of course, once you have
+ * the plugin interface, you still need to actually use the plugins. You'll need
+ * to extend pluginmanager.cpp a little to handle any low-level init required by
+ * the new plugin type (please keep this minimal!). You'll then need to extend
+ * the appropriate classes to make use of the new plugin type where required.
+ * The new file loader mechanism will provide a good example of this.
  *
  * In addition to the API described here, a plugin is expected to implement
  * the following "extern C" functions, where 'pluginname' is the base name
@@ -127,19 +151,32 @@ class SCRIBUS_API ScPlugin : public QObject
 		 * @param pluginType      plugin type enum, used by plugin
 		 *                        manager to identify plugin.
 		 *
-		 * Only the actual plugin implmementation should call this, from
-		 * its setup function.
+		 * Only pluginname_getPlugin(...) may call this. Calls by other code
+		 * will have undefined results.
 		 */
 		ScPlugin(PluginType pluginType);
 
-		/** @brief Pure virtual destructor - this is an abstract class */
+		/** @brief Destroy the ScPlugin instance
+		 *
+		 * Pure virtual destructor - this is an abstract class.
+		 *
+		 * Only pluginname_freePlugin(...) may call this. Calls by other code
+		 * will have undefined results.
+		 */
 		virtual ~ScPlugin() = 0;
 
-		// Plug-in type, inited by ctor.
+		/** @brief Plug-in type, inited by ctor.
+		 *
+		 * @sa ScPlugin::PluginType
+		 */
 		const PluginType pluginType;
 
-		// Plug-in's human-readable, translated name. Please don't use this for
-		// anything except display to the user.
+		/** @brief Plug-in's human-readable, translated name.
+		 *
+		 * Please don't use this for anything except display to the user.
+		 * The results of testing the value of this can not be guaranteed,
+		 * as its value may change depending on locale and change at runtime.
+		 */
 		virtual const QString fullTrName() const = 0;
 
 		/**
@@ -149,7 +186,7 @@ class SCRIBUS_API ScPlugin : public QObject
 		 * preferences dialog.
 		 *
 		 * The caller takes ownership of the panel. Qt is responsible for
-		 * deleting it when it's parent is deleted. Parent must be the dialog
+		 * deleting it when it's parent is deleted. `parent' must be the dialog
 		 * the widget will be added to or a child of it, otherwise the panel
 		 * won't be deleted correctly when the dialog is.
 		 *
@@ -172,26 +209,44 @@ class SCRIBUS_API ScPlugin : public QObject
 
 		// Return icon and caption to use for preferences panel in the prefs
 		// dialog. Unless overridden, returns QString::null and an empty pixmap.
+		/// TODO: OBSOLETE: Delete these next time the plugin API version is bumped.
 		virtual const QPixmap prefsPanelIcon() const;
 		virtual const QString prefsPanelName() const;
 
-		// Returns a structure containing descriptive information about the
-		// plug-in. This information is used in places like the Help->About
-		// Plug-ins menu item. The stucture MUST be deleted using
-		// deleteAboutData(AboutData* about) when finished with.
-		//
-		// Every plug-in must re-implment these.
+		/* @brief Return descriptive information about the plug-in
+		 *
+		 * Returns a structure containing descriptive information about the
+		 * plug-in. This information is used in places like the Help->About
+		 * Plug-ins menu item. The stucture MUST be deleted using
+		 * deleteAboutData(AboutData* about) when finished with.
+		 *
+		 * Every plugin MUST reimplement getAboutData(...) and deleteAboutData(...).
+		 *
+		 * @sa ScPlugin::deleteAboutData
+		 */
 		virtual const AboutData* getAboutData() const = 0;
 		virtual void deleteAboutData(const AboutData* about) const = 0;
 
-		// Return human readable, translated text of last error to be
-		// encountered. DO NOT ATTEMPT TO USE THIS VALUE TO MAKE
-		// DECISIONS IN PROGRAM CODE.
+		/* @brief Text summary of last error encountered
+		 *
+		 * Return the human readable, translated text of last error to be
+		 * encountered by this plugin. DO NOT ATTEMPT TO USE THIS VALUE TO MAKE
+		 * DECISIONS IN PROGRAM CODE. The value returned for a given error
+		 * may change depending on locale, and may change at runtime.
+		 */
 		const QString & lastError() const;
 
-		// Updates the text on all widgets on the plug-in to reflect the new
-		// language. You should generally use this method to set all the widget
-		// text during construction.
+		/* @brief Update all user-visible text to reflect current UI language
+		 *
+		 * Updates the text on all widgets on the plug-in to reflect the new
+		 * language. You should generally use this method to set all the widget
+		 * text during construction. That ensures that text is not duplicated,
+		 * and that when this method is called the text of all persistent
+		 * widgets is correctly changed.
+		 *
+		 * This method only needs to affect text in widgets that currently
+		 * exists (displayed or otherwise).
+		 */
 		virtual void languageChange() = 0;
 
 		/// Returns human readable plugin type from plug-in's pluginType
@@ -203,18 +258,20 @@ class SCRIBUS_API ScPlugin : public QObject
 };
 
 
+/*
+ * @brief A plug-in that performs a single action
+ *
+ * ScActionPlugin describes a plug-in that is used to perform a single well
+ * defined action. Uses include data import/export, displaying a dialog, or
+ * doing a single batch task. It is automatically connected to the user
+ * interface and has simple methods to trigger the plug-in's supported action.
+ *
+ * If you need more complex user interface integration, persistent operation,
+ * etc, you may be better off with ScPersistentPlugin.
+ */
 class SCRIBUS_API ScActionPlugin : public ScPlugin
 {
 	Q_OBJECT
-
-	/*
-	 * @brief A plug-in that's loaded for data import/export duties
-	 *
-	 * ScActionPlugin describes a plug-in that is loaded on demand
-	 * to perform a data import/export task such as importing an SVG
-	 * image or exporting a page to EPS format. It'll generally by unloaded
-	 * after being queried, then loaded on demand when it needs to run.
-	 */
 
 	public:
 
@@ -245,15 +302,15 @@ class SCRIBUS_API ScActionPlugin : public ScPlugin
 		/**
 		 * @brief Run the plug-in's main action.
 		 *
-		 * Run the plug-in's default action. That usually means prompting the
-		 * user for a target (file to save as / file to import) then
-		 * performing the import/export action the plug-in is written for.
+		 * Run the plug-in's default action synchronously, blocking the rest of
+		 * the application until this method returns.
 		 *
-		 * It should generally call run(..., QIODevice* target) or run(...,
-		 * QString target) to do the work. This is done by default, with the
-		 * assumption that the target is a file. An open QFile with
-		 * IO_ReadOnly or IO_WriteOnly mode, depending on plugin type,
-		 * is supplied. Override this if you need more flexibility.
+		 * This method should generally call run(..., QIODevice* target) or
+		 * run(..., QString target) to do the work. This is done by default,
+		 * with the assumption that the target is a file. The argument is
+		 * opened as QFile with IO_ReadOnly or IO_WriteOnly mode, depending on
+		 * plugin type, and passed to run(..., QIODevice*). Override this if
+		 * you need more flexibility.
 		 *
 		 * The optional target argument is a plugin-defined string indicating
 		 * what the plugin should operate on. It will typically be a filename
@@ -298,11 +355,10 @@ class SCRIBUS_API ScActionPlugin : public ScPlugin
 		 *
 		 * The caller of this method is responsible for handling the aborted()
 		 * and finished() signals from the DeferredTask, and (if necessary) for
-		 * cleaning it up once it has finished. Remember that a DeferredTask is
-		 * automatically deleted when its parent is, if it hasn't already been
-		 * deleted.
-		 *
-		 * FIXME: The above is probably utterly broken on win32.
+		 * cleaning it up using deleteLater(...) once it has finished. Remember
+		 * that a DeferredTask is automatically deleted when its parent is, if
+		 * it hasn't already been deleted. This approach is preferred where
+		 * possible.
 		 *
 		 * See the DeferredTask documentation for details on how it works.
 		 *
@@ -344,28 +400,33 @@ class SCRIBUS_API ScActionPlugin : public ScPlugin
 		// DO NOT USE THIS INTERFACE FOR NEW PLUG-INS; you should
 		// dynamic_cast<> to the plugin type then call a plug-in specific
 		// method instead.
+		/// Obsolete method - do not use this or rely on it in new code.
 		const QString & runResult() const;
 
 	protected:
 		// Action info. To be set up by ctor.
 		ActionInfo m_actionInfo;
+		// Obsolete - see runResult()
 		QString m_runResult;
 };
 
+/**
+ * @brief A plug-in that is resident for the lifetime of the app
+ *
+ * ScPersistentPlugin describes a plugin that is to be kept resident for the
+ * lifetime of the app (or until unloaded by a request to the plug-in manager).
+ * Persistent plugins are useful where the plugin author needs to retain state,
+ * needs more control of how they integrate with the Scribus user interface,
+ * and/or wants to perform tasks in the background.
+ *
+ * Such plug-ins have an init method and a cleanup method; they have
+ * no "run" method as such. It is up to the plugin to determine how
+ * best to interfact with the user.
+ */
 class SCRIBUS_API ScPersistentPlugin : public ScPlugin
 {
 	Q_OBJECT
 
-	/**
-	 * @brief A plug-in that is resident for the lifetime of the app
-	 *
-	 * ScPersistentPlugin describes a plugin that is to be kept resident
-	 * for the lifetime of the app (or until unloaded by a request to
-	 * the plug-in manager).
-	 *
-	 * Such plug-ins have an init method and a cleanup method; they have
-	 * no "run" method as such.
-	 */
 	public:
 
 		/** @brief ctor
@@ -382,7 +443,8 @@ class SCRIBUS_API ScPersistentPlugin : public ScPlugin
 		 *
 		 * This method must initialize the plugin. It is called at plug-in load
 		 * time. This method will never be called twice without an intervening
-		 * cleanupPlug call (but not necessarily unloading the plugin).
+		 * cleanupPlugin call, but there is no guarantee the plugin will actually
+		 * be unloaded between initPlugin() and cleanupPlugin().
 		 *
 		 * It will usually instantiate a class and store a pointer to the
 		 * instance in a static variable of the plugin or a member of its
@@ -392,7 +454,8 @@ class SCRIBUS_API ScPersistentPlugin : public ScPlugin
 		 * Note that this is NOT the same as the init function of the plugin. That
 		 * is always simple and lightweight, intended to just get an instance of this
 		 * class back to the core app. This function is where any time-consuming or
-		 * memory expensive init should be done.
+		 * memory expensive init should be triggered, generally by the instantiation
+		 * of the class that does the real work for the plugin.
 		 *
 		 * If this method returns failure, the plugin will be treated as dead and
 		 * cleanupPlug() will not be called.
@@ -402,13 +465,13 @@ class SCRIBUS_API ScPersistentPlugin : public ScPlugin
 		virtual bool initPlugin() = 0;
 
 		/**
-		 * @brief Cleans up the plugin so it can be safely unloaded.
+		 * @brief Deactivates the plugin for unloading / program quit
 		 *
 		 * This method will be called when the plug-in is about to be unloaded,
 		 * or if the plug-in manager has been asked to disable the plug-in.
-		 * This method will never be called unless initPlug has been called
-		 * first, but there is no guarantee the plugin will be unloaded after
-		 * this is called, or before initPlug is called again.
+		 * This method will never be called unless initPlugin has been called
+		 * first, but there is no guarantee the plugin will actually be
+		 * unloaded after this is called, or before initPlugin is called again.
 		 *
 		 * @returns bool True for success.
 		 */
