@@ -294,7 +294,7 @@ currently selected item is used.
 
 May throw ValueError if the font cannot be found.
 </source>
-        <translation type="unfinished">setFont(&quot;font&quot;, [&quot;nazwa&quot;])
+        <translation>setFont(&quot;font&quot;, [&quot;nazwa&quot;])
 
 Przypisuje fontowi w ramce tekstowej &quot;nazwa&quot; font &quot;font&quot;. Jeśli ramka zawiera
 zaznaczony tekst, zostanie zmieniony tylko ten tekst. Jeśli &quot;nazwa&quot; nie zostanie podana,
@@ -5271,7 +5271,7 @@ and the Delete key removes the last inserted one</source>
     </message>
     <message>
         <source>Difference between the selected value and the counted ones. Refer to documentation for more information.</source>
-        <translation type="unfinished"></translation>
+        <translation>Różnica pomiędzy wybraną wartością a wartością obliczoną. Zajrzyj do dokumentacji, aby uzyskać więcej informacji.</translation>
     </message>
     <message>
         <source>Saturation component in HSV mode</source>
@@ -5456,7 +5456,7 @@ and the Delete key removes the last inserted one</source>
     </message>
     <message>
         <source>Move the start of the gradient vector with the left mouse button pressed and move the end of the gradient vector with the right mouse button pressed</source>
-        <translation type="unfinished"></translation>
+        <translation>Przesuwanie początku wektora gradientu przy wciśniętym lewym przycisku myszy, przesuwanie końca wektora gradientu przy wciśniętym prawym przycisku myszy</translation>
     </message>
 </context>
 <context>
@@ -5827,11 +5827,11 @@ opcjonalnie uzupełniony o myślnik i kod kraju zgodny z ISO-3166, np pl-PL, fr-
     </message>
     <message>
         <source>An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
-        <translation type="unfinished"></translation>
+        <translation>Opis zawartości dokumentu. Pole to zawiera krótki opis lub streszczenie dokumentu. Jest ono zagnieżdżane w pliku PDF w trakcie eksportu</translation>
     </message>
     <message>
         <source>The topic of the content of the document. This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
-        <translation type="unfinished"></translation>
+        <translation>Temat zawartości dokumentu. Pole to przeznaczone jest na słowa kluczowe, które chcesz zagnieździć w pliku PDF, aby umożliwić przeszukiwanie i indeksowanie plików PDF</translation>
     </message>
     <message>
         <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting. RFC2045,RFC2046 for MIME types are also useful here</source>
@@ -5839,7 +5839,7 @@ opcjonalnie uzupełniony o myślnik i kod kraju zgodny z ISO-3166, np pl-PL, fr-
     </message>
     <message>
         <source>The language in which the content of the document is written, usually a ISO-639 language code optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH</source>
-        <translation type="unfinished"></translation>
+        <translation>Język zawartości dokumentu, zazwyczaj kod języka wg ISO-639, z opcjonalnie dołączonym po myślniku kodem kraju wg ISO-3166, np. en-GB lub fr-CH</translation>
     </message>
 </context>
 <context>
@@ -8245,7 +8245,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Insert a comma separated list of tokens import where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wstaw rozdzieloną przecinkami listę wartości, gdzie wartość może być znakiem * oznaczającym wszystkie strony, np. 1-5 dla zakresu stron lub pojedyńczym numerem strony.</translation>
     </message>
 </context>
 <context>
@@ -9425,7 +9425,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>When checked use coordinates relative to the page, otherwise coordinates are relative to the Object.</source>
-        <translation type="unfinished"></translation>
+        <translation>Jeśli zakreślisz tę opcję, zostaną użyte współrzędne odnoszące się do strony, w innym przypadku współrzędne odnoszą się do obiektu.</translation>
     </message>
 </context>
 <context>
@@ -9544,7 +9544,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commerical printing.</source>
-        <translation type="unfinished"></translation>
+        <translation>Opcja ta umożliwia wyeksportowanie stron dokumentu jako oddzielnych plików PDF. Numery stron zostaną dodane automatycznie. Opcja ta jest przydatna przy impozycji PDF w profesjonalnym druku.</translation>
     </message>
 </context>
 <context>
@@ -9692,11 +9692,11 @@ Możesz użyć weryfikatora materiału wejściowego, aby je poprawić</translati
     </message>
     <message>
         <source>Provides a more pleasant view of text items in the viewer, at the expense of a slight slowdown in previewing. This only affects Type 1 fonts</source>
-        <translation type="unfinished"></translation>
+        <translation>Umożliwia ładniejszy widok tekstu w oknie podglądu kosztem nieznacznego spowolnienia generowania podglądu. Dotyczy tylko fontów Type 1</translation>
     </message>
     <message>
         <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation type="unfinished"></translation>
+        <translation>Umożliwia ładniejszy widok fontów TrueType  i OpenType, plików EPS, PDF oraz grafik wektorowych w oknie podglądu kosztem nieznacznego spowolnienia generowania podglądu</translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
@@ -10108,7 +10108,7 @@ Możesz użyć weryfikatora materiału wejściowego, aby je poprawić</translati
     <message>
         <source>init failed</source>
         <comment>plugin load error</comment>
-        <translation type="unfinished"></translation>
+        <translation>init nie powiódł się</translation>
     </message>
     <message>
         <source>unknown plugin type</source>
@@ -10903,7 +10903,7 @@ połączeń między ramkami.</translation>
     </message>
     <message>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
-        <translation type="unfinished"></translation>
+        <translation>Wybierz domyślny język, w którym będzie uruchamiany Scribus. Zostaw to pole puste, aby wybrać język zdefiniowany w zmiennych środowiskowych. Można nadpisać to ustawienie startując Scribusa z odpowiednią opcją</translation>
     </message>
 </context>
 <context>
@@ -11479,7 +11479,7 @@ Sprawdź katalog i nazwę pliku.</translation>
     </message>
     <message>
         <source>Scr&amp;ipt</source>
-        <translation type="unfinished">&amp;Kodowanie</translation>
+        <translation>&amp;Kodowanie</translation>
     </message>
     <message>
         <source>OK</source>
@@ -12370,7 +12370,7 @@ Zewnętrzne dowiązania
     <message>
         <source>&lt;pdfVersion&gt; invalid</source>
         <comment>Load PDF settings</comment>
-        <translation type="unfinished"></translation>
+        <translation>&lt;pdfVersion&gt; błędna</translation>
     </message>
     <message>
         <source>found %1 &lt;%2&gt; nodes, need 1.</source>
@@ -12536,15 +12536,15 @@ Czy chcesz zastąpić go zapisywanym właśnie plikiem?</translation>
     </message>
     <message>
         <source>Couldn&apos;t convert result type &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można było zamienić wyniku typu  &apos;%1&apos;.</translation>
     </message>
     <message>
         <source>Property type &apos;%1&apos; not supported</source>
-        <translation type="unfinished"></translation>
+        <translation>Atrybut typu &apos;%1&apos;  nie jest wspierany</translation>
     </message>
     <message>
         <source>Couldn&apos;t convert &apos;%1&apos; to property type &apos;%2&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można było zamienić  &apos;%1&apos; na atrybut typu  &apos;%2&apos;</translation>
     </message>
     <message>
         <source>Types matched, but setting property failed.</source>
@@ -12553,12 +12553,12 @@ Czy chcesz zastąpić go zapisywanym właśnie plikiem?</translation>
     <message>
         <source>Unable to save pixmap</source>
         <comment>scripter error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nie udało się zapisać bitmapy</translation>
     </message>
     <message>
         <source>An object with the requested name already exists.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Obiekt o wybranej nazwie już istnieje.</translation>
     </message>
     <message>
         <source>Point list must contain at least two points (four values).</source>
@@ -12658,7 +12658,7 @@ Czy chcesz zastąpić go zapisywanym właśnie plikiem?</translation>
     <message>
         <source>Only text frames can be checked for overflowing</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Tylko ramki tekstowe mogą być sprawdzane, czy są przepełnione</translation>
     </message>
     <message>
         <source>&amp;Execute Script...</source>
@@ -12728,7 +12728,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Short Words Manual</source>
-        <translation>Podręcznik Short Words</translation>
+        <translation type="obsolete">Podręcznik Short Words</translation>
     </message>
     <message>
         <source>Could not open output file %1</source>
@@ -13579,6 +13579,104 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
         <source>Imports most SVG files into the current document,
 converting their vector data into Scribus objects.</source>
         <translation>Importuje większość plików SVG do aktualnego dokumentu, zamieniając dane wektorowe na obiekty Scribusa.</translation>
+    </message>
+</context>
+<context>
+    <name>SWDialog</name>
+    <message>
+        <source>Short Words</source>
+        <comment>short words plugin</comment>
+        <translation>Short Words</translation>
+    </message>
+    <message>
+        <source>Apply unbreakable space on:</source>
+        <comment>short words plugin</comment>
+        <translation>Zastosuj twarde spacje dla:</translation>
+    </message>
+    <message>
+        <source>&amp;Selected frames</source>
+        <comment>short words plugin</comment>
+        <translation>Zaznaczonych &amp;ramek</translation>
+    </message>
+    <message>
+        <source>Active &amp;page</source>
+        <comment>short words plugin</comment>
+        <translation>Aktualnej &amp;strony</translation>
+    </message>
+    <message>
+        <source>&amp;All items</source>
+        <comment>short words plugin</comment>
+        <translation>&amp;Całego dokumentu</translation>
+    </message>
+    <message>
+        <source>Only selected frames processed.</source>
+        <comment>short words plugin</comment>
+        <translation>Operacja dotyczy tylko zaznaczonych ramek.</translation>
+    </message>
+    <message>
+        <source>Only actual page processed.</source>
+        <comment>short words plugin</comment>
+        <translation>Operacja dotyczy aktualnej strony.</translation>
+    </message>
+    <message>
+        <source>All items in document processed.</source>
+        <comment>short words plugin</comment>
+        <translation>Operacja dotyczy całego dokumentu.</translation>
+    </message>
+</context>
+<context>
+    <name>SWPrefsGui</name>
+    <message>
+        <source>User settings</source>
+        <translation>Ustawienia użytkownika</translation>
+    </message>
+    <message>
+        <source>System wide configuration</source>
+        <translation>Ustawienia systemowe</translation>
+    </message>
+    <message>
+        <source>&amp;Save</source>
+        <translation>&amp;Zapisz</translation>
+    </message>
+    <message>
+        <source>&amp;Reset</source>
+        <translation>&amp;Wyzeruj</translation>
+    </message>
+    <message>
+        <source>Save user configuration</source>
+        <translation>Zapisz ustawienia użytkownika</translation>
+    </message>
+    <message>
+        <source>Reload system wide configuration and remove user defined one</source>
+        <translation>Wczytaj ustawienia systemowe i usuń ustawienia użytkownika</translation>
+    </message>
+    <message>
+        <source>Edit custom configuration. If you save it, it will be used over system wide configuration</source>
+        <translation>Edycja ustawień użytkownika. Jeśli je zapiszesz, zostaną one użyte zamiast ustawień systemowych</translation>
+    </message>
+    <message>
+        <source>Short Words</source>
+        <translation>Short Words</translation>
+    </message>
+    <message>
+        <source>User configuration exists elready. Do you really want to overwrite it?</source>
+        <translation>Ustawienia użytkownika już istnieją. Czy zastąpić je nowym plikiem?</translation>
+    </message>
+    <message>
+        <source>Cannot write file %1.</source>
+        <translation>Nie można zapisać pliku %1.</translation>
+    </message>
+    <message>
+        <source>User settings saved</source>
+        <translation>Ustawienia użytkownika zostały zapisane</translation>
+    </message>
+    <message>
+        <source>System wide configuration reloaded</source>
+        <translation>Ustawienia systemowe zostały wczytane</translation>
+    </message>
+    <message>
+        <source>Cannot open file %1</source>
+        <translation>Nie można otworzyć pliku %1</translation>
     </message>
 </context>
 <context>
@@ -14632,7 +14730,7 @@ materiału wejściowego, aby je poprawić</translation>
     <name>SeView</name>
     <message>
         <source>Show Master Page Names</source>
-        <translation>Wyświetlaj nazwy stron wzorcowych</translation>
+        <translation type="obsolete">Wyświetlaj nazwy stron wzorcowych</translation>
     </message>
 </context>
 <context>
@@ -14778,7 +14876,7 @@ materiału wejściowego, aby je poprawić</translation>
     </message>
     <message>
         <source>Previews all the pages of your document</source>
-        <translation>Podgląd wszystkich stron twojego dokumentu</translation>
+        <translation type="obsolete">Podgląd wszystkich stron twojego dokumentu</translation>
     </message>
     <message>
         <source>Here are all your master pages. To create a new page, drag a master page to the page view below</source>
@@ -14863,7 +14961,7 @@ materiału wejściowego, aby je poprawić</translation>
     </message>
     <message>
         <source>Special plug-in for adding non-breaking spaces before or after so called short words.</source>
-        <translation>Specjalna wtyczka wstawiająca twarde spacje przed albo po tzw. short words, np. przed &quot;zawieszonymi spójnikami&quot;.</translation>
+        <translation type="obsolete">Specjalna wtyczka wstawiająca twarde spacje przed albo po tzw. short words, np. przed &quot;zawieszonymi spójnikami&quot;.</translation>
     </message>
 </context>
 <context>
@@ -15347,7 +15445,7 @@ materiału wejściowego, aby je poprawić</translation>
     </message>
     <message>
         <source>Place page numbers of the entries at the beginning or the end of the line, or not at all</source>
-        <translation type="unfinished"></translation>
+        <translation>Umieść numery stron na początku albo na końcu wierszy, albo nie umieszczaj ich w ogóle</translation>
     </message>
     <message>
         <source>List Non-Printing Entries</source>
@@ -16181,7 +16279,8 @@ If un-checked, text and graphics cannot be copied.</source>
     <message>
         <source>Allow adding annotations and fields to the PDF. 
 If un-checked, editing annotations and fileds is prevented.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pozwól na dodawanie adnotacji i pól do pliku PDF.
+Jeśli opcja pozostanie niezakreślona, edycja adnotacji i pól będzie niedopuszczalna.</translation>
     </message>
     <message>
         <source>Color model for the output of your PDF.
@@ -16263,7 +16362,7 @@ Zalecane jest wpisanie tutaj tytułu dokumentu.</translation>
     </message>
     <message>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; in full screen mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>Włącza efekty prezentacyjne przy używaniu programu Adobe&amp;#174; Reader&amp;#174; w trybie pełnoekranowym.</translation>
     </message>
     <message>
         <source>Determines the PDF compatibility.
@@ -16277,7 +16376,9 @@ Use only when advised by your printer or in some cases printing to a 4 color dig
     <message>
         <source>Enable lossless compression of text and graphics.
 Unless you have a reason, leave this checked. This reduces PDF size.</source>
-        <translation type="unfinished"></translation>
+        <translation>Włącza bezstratną kompresję tekstu i grafiki.
+Jeśli nie masz specjalnego powodu, pozostaw tę opcję zakreśloną,
+ponieważ redukuje to wielkość pliku PDF.</translation>
     </message>
     <message>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options.</source>
@@ -17327,27 +17428,27 @@ do %2</translation>
     <message>
         <source>Short Words</source>
         <comment>short words plugin</comment>
-        <translation>Short Words</translation>
+        <translation type="obsolete">Short Words</translation>
     </message>
     <message>
         <source>Apply unbreakable space on:</source>
         <comment>short words plugin</comment>
-        <translation>Zastosuj twarde spacje dla:</translation>
+        <translation type="obsolete">Zastosuj twarde spacje dla:</translation>
     </message>
     <message>
         <source>&amp;Selected frames</source>
         <comment>short words plugin</comment>
-        <translation>Zaznaczonych &amp;ramek</translation>
+        <translation type="obsolete">Zaznaczonych &amp;ramek</translation>
     </message>
     <message>
         <source>Active &amp;page</source>
         <comment>short words plugin</comment>
-        <translation>Aktualnej &amp;strony</translation>
+        <translation type="obsolete">Aktualnej &amp;strony</translation>
     </message>
     <message>
         <source>&amp;All items</source>
         <comment>short words plugin</comment>
-        <translation>&amp;Całego dokumentu</translation>
+        <translation type="obsolete">&amp;Całego dokumentu</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -17362,7 +17463,7 @@ do %2</translation>
     <message>
         <source>Replace defaults by user config</source>
         <comment>short words plugin</comment>
-        <translation>Zastąp ustawienia domyślne własną konfiguracją</translation>
+        <translation type="obsolete">Zastąp ustawienia domyślne własną konfiguracją</translation>
     </message>
     <message>
         <source>When the user config file exists 
@@ -17373,85 +17474,85 @@ to the global configuration by unchecked button.
 You can replace predefined values by yours
 with checked button too.</source>
         <comment>short words plugin</comment>
-        <translation>możesz wybrać, czy dołączyć ustawienia własne
+        <translation type="obsolete">możesz wybrać, czy dołączyć ustawienia własne
 do ustawień domyślnych, nie zakreślając tej opcji,
 czy też zastąpić domyślne ustawienia własnymi, zakreślając ją.</translation>
     </message>
     <message>
         <source>Only selected frames processed.</source>
         <comment>short words plugin</comment>
-        <translation>Operacja dotyczy tylko zaznaczonych ramek.</translation>
+        <translation type="obsolete">Operacja dotyczy tylko zaznaczonych ramek.</translation>
     </message>
     <message>
         <source>Only actual page processed.</source>
         <comment>short words plugin</comment>
-        <translation>Operacja dotyczy aktualnej strony.</translation>
+        <translation type="obsolete">Operacja dotyczy aktualnej strony.</translation>
     </message>
     <message>
         <source>All items in document processed.</source>
         <comment>short words plugin</comment>
-        <translation>Operacja dotyczy całego dokumentu.</translation>
+        <translation type="obsolete">Operacja dotyczy całego dokumentu.</translation>
     </message>
     <message>
         <source>Short Words for Scribus</source>
         <comment>short words plugin</comment>
-        <translation>Short Words dla Scribusa</translation>
+        <translation type="obsolete">Short Words dla Scribusa</translation>
     </message>
     <message>
         <source>Available in the following languages</source>
         <comment>short words plugin</comment>
-        <translation>Ustawienia dostępne dla następujących języków</translation>
+        <translation type="obsolete">Ustawienia dostępne dla następujących języków</translation>
     </message>
     <message>
         <source>About Short Words</source>
         <comment>short words plugin</comment>
-        <translation>O Short Words</translation>
+        <translation type="obsolete">O Short Words</translation>
     </message>
     <message>
         <source>Edit &amp;system configuration...</source>
-        <translation>Edytuj &amp;konfigurację systemu...</translation>
+        <translation type="obsolete">Edytuj &amp;konfigurację systemu...</translation>
     </message>
     <message>
         <source>Edit &amp;user configuration...</source>
-        <translation>Edytuj konfigurację &amp;użytkownika...</translation>
+        <translation type="obsolete">Edytuj konfigurację &amp;użytkownika...</translation>
     </message>
     <message>
         <source>S&amp;etup editor...</source>
-        <translation>U&amp;stawienia edytora...</translation>
+        <translation type="obsolete">U&amp;stawienia edytora...</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation>&amp;Edycja</translation>
+        <translation type="obsolete">&amp;Edycja</translation>
     </message>
     <message>
         <source>&amp;Info and Languages...</source>
-        <translation>&amp;Informacja i języki...</translation>
+        <translation type="obsolete">&amp;Informacja i języki...</translation>
     </message>
     <message>
         <source>&amp;Help</source>
-        <translation>Po&amp;moc</translation>
+        <translation type="obsolete">Po&amp;moc</translation>
     </message>
     <message>
         <source>Short Words</source>
-        <translation>Short Words</translation>
+        <translation type="obsolete">Short Words</translation>
     </message>
     <message>
         <source>You are starting to edit read-only file.
 %1</source>
-        <translation>Zaczynasz edytować plik read-only.
+        <translation type="obsolete">Zaczynasz edytować plik read-only.
 %1</translation>
     </message>
     <message>
         <source>Application &apos;%1&apos; error. Cannot be started.</source>
-        <translation>Błąd aplikacji  &apos;%1&apos;. Nie można wystartować.</translation>
+        <translation type="obsolete">Błąd aplikacji  &apos;%1&apos;. Nie można wystartować.</translation>
     </message>
     <message>
         <source>Short Words setup</source>
-        <translation>Ustawienia Short Words</translation>
+        <translation type="obsolete">Ustawienia Short Words</translation>
     </message>
     <message>
         <source>Enter name of the plain text editor executable:</source>
-        <translation>Wpisz nazwę edytora zwykłych plików tekstowych:</translation>
+        <translation type="obsolete">Wpisz nazwę edytora zwykłych plików tekstowych:</translation>
     </message>
 </context>
 <context>
@@ -17562,7 +17663,7 @@ i nie pytaj więcej, jakiego importera używać dla tego typu pliku.</translatio
     </message>
     <message>
         <source>Remember the file extension - importer association and do not ask again to select an importer for files of this type.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapamiętaj skojarzenie rozszerzenia pliku z importerem i nie pytaj więcej o wybór importera dla plików tego typu.</translation>
     </message>
 </context>
 <context>
