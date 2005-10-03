@@ -1,8 +1,8 @@
 #ifndef SCPATHS_H
 #define SCPATHS_H
 
-#include "qstring.h"
-#include "qstringlist.h"
+#include <qstring.h>
+#include <qstringlist.h>
 #include "scribusapi.h"
 
 class SCRIBUS_API ScPaths
