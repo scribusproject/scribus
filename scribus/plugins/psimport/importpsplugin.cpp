@@ -26,8 +26,7 @@ void importps_freePlugin(ScPlugin* plugin)
 	delete plug;
 }
 
-ImportPSPlugin::ImportPSPlugin() :
-	ScActionPlugin(ScPlugin::PluginType_Import)
+ImportPSPlugin::ImportPSPlugin() : LoadSavePlugin()
 {
 	// Set action info in languageChange, so we only have to do
 	// it in one place.
@@ -79,6 +78,25 @@ void ImportPSPlugin::deleteAboutData(const AboutData* about) const
 	Q_ASSERT(about);
 	delete about;
 }
+
+QValueList<LoadSavePlugin::FormatSupport> ImportPSPlugin::supportedFormats() const
+{
+	QValueList<FormatSupport> formats;
+	QString psName = tr("PostScript");
+	FormatSupport fmt = {
+		psName, "psimport", psName + " (*.ps *.PS *.eps *.EPS)",
+		Format_Import|Format_Load,
+		QStringList("application/postscript"), 64};
+	formats.append(fmt);
+	return formats;
+}
+
+bool ImportPSPlugin::fileSupported(QIODevice* /* file */) const
+{
+	// TODO: check for %!PS-Adobe
+	return true;
+}
+
 
 /*!
  \fn void Run(QWidget *d, ScribusApp *plug)

@@ -5,10 +5,10 @@
 #include <qdict.h>
 #include <qptrlist.h>
 #include "pluginapi.h"
-#include "scplugin.h"
+#include "loadsaveplugin.h"
 #include "stylestack.h"
 
-class PLUGIN_API OODrawImportPlugin : public ScActionPlugin
+class PLUGIN_API OODrawImportPlugin : public LoadSavePlugin
 {
 	Q_OBJECT
 
@@ -21,6 +21,8 @@ class PLUGIN_API OODrawImportPlugin : public ScActionPlugin
 		virtual const AboutData* getAboutData() const;
 		virtual void deleteAboutData(const AboutData* about) const;
 		virtual void languageChange();
+		virtual QValueList<FormatSupport> supportedFormats() const;
+		virtual bool fileSupported(QIODevice* file) const;
 
 		// Special features (none)
 };

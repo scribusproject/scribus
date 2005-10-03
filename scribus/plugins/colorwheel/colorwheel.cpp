@@ -24,8 +24,7 @@ void colorwheel_freePlugin(ScPlugin* plugin)
 	delete plug;
 }
 
-ColorWheelPlugin::ColorWheelPlugin() :
-	ScActionPlugin(ScPlugin::PluginType_Action)
+ColorWheelPlugin::ColorWheelPlugin() : ScActionPlugin()
 {
 	// Set action info in languageChange, so we only have to do
 	// it in one place.

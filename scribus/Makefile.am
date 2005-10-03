@@ -102,6 +102,7 @@ scribus_SOURCES = \
 	linecombo.cpp	\
 	lineformats.cpp	\
 	linkbutton.cpp	\
+	loadsaveplugin.cpp	\
 	loremipsum.cpp	\
 	margindialog.cpp	\
 	marginWidget.cpp	\

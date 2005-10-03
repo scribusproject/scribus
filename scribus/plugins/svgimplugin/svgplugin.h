@@ -4,10 +4,10 @@
 #include <qdom.h>
 #include <qptrstack.h>
 #include "pluginapi.h"
-#include "scplugin.h"
+#include "loadsaveplugin.h"
 #include "vgradient.h"
 
-class PLUGIN_API SVGImportPlugin : public ScActionPlugin
+class PLUGIN_API SVGImportPlugin : public LoadSavePlugin
 {
 	Q_OBJECT
 
@@ -20,6 +20,8 @@ class PLUGIN_API SVGImportPlugin : public ScActionPlugin
 		virtual const AboutData* getAboutData() const;
 		virtual void deleteAboutData(const AboutData* about) const;
 		virtual void languageChange();
+		virtual QValueList<FormatSupport> supportedFormats() const;
+		virtual bool fileSupported(QIODevice* file) const;
 
 		// Special features (none)
 };

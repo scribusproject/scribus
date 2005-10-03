@@ -11,9 +11,8 @@
 //                        ScPlugin                     //
 //=====================================================//
 
-ScPlugin::ScPlugin(PluginType pluginType)
-	: QObject(0),
-	pluginType(pluginType)
+ScPlugin::ScPlugin()
+	: QObject(0)
 {
 }
 
@@ -29,16 +28,6 @@ bool ScPlugin::newPrefsPanelWidget( QWidget* /* parent */,
 	return false;
 }
 
-const QPixmap ScPlugin::prefsPanelIcon() const
-{
-	return QPixmap();
-}
-
-const QString ScPlugin::prefsPanelName() const
-{
-	return QString::null;
-}
-
 const QString & ScPlugin::lastError() const
 {
 	return m_lastError;
@@ -46,63 +35,30 @@ const QString & ScPlugin::lastError() const
 
 const QString ScPlugin::pluginTypeName() const
 {
-	switch(pluginType)
+	QCString cname(className());
+	if (cname == "ScPersistentPlugin")
+		return tr("Persistent", "plugin manager plugin type");
+	else if (cname == "ScActionPlugin")
+		return tr("Action", "plugin manager plugin type");
+	else if (cname == "LoadSavePlugin")
+		return tr("Load/Save/Import/Export");
+	else
 	{
-		case PluginType_Persistent:
-			return tr("Persistent", "plugin manager plugin type");
-			break;
-		case PluginType_Import:
-			return tr("Import", "plugin manager plugin type");
-			break;
-		case PluginType_Export:
-			return tr("Export", "plugin manager plugin type");
-			break;
-		case PluginType_Action:
-			return tr("Action", "plugin manager plugin type");
-			break;
+		Q_ASSERT(false);
+		return QString();
 	}
-	Q_ASSERT(false);
-	return QString();
 }
 
 //=====================================================//
 //                   ScActionPlugin              //
 //=====================================================//
 
-ScActionPlugin::ScActionPlugin(PluginType pluginType)
-	: ScPlugin(pluginType)
+ScActionPlugin::ScActionPlugin() : ScPlugin()
 {
 }
 
 ScActionPlugin::~ScActionPlugin()
 {
-}
-
-// Stub for plugins that don't implement this method to inherit
-// Just calls the QIODevice version, assuming target is a file.
-bool ScActionPlugin::run(QString target)
-{
-	int flag = (pluginType == PluginType_Export) ? IO_WriteOnly : IO_ReadOnly;
-	QFile f(target);
-	if (!f.exists())
-	{
-		m_lastError = tr("Could not find target file %1: %2", "plugins")
-			.arg(target)
-			.arg(qApp->translate("QFile",f.errorString()));
-		return false;
-	}
-	if (!f.open(flag))
-	{
-		m_lastError = tr("Could not open target file %1: %2", "plugins")
-			.arg(target)
-			.arg(qApp->translate("QFile",f.errorString()));
-		return false;
-	}
-	// Call the QIODevice* based implementation
-	bool result = run(&f);
-	if (f.isOpen())
-		f.close();
-	return result;
 }
 
 // Stub for plugins that don't implement this method to inherit
@@ -142,7 +98,7 @@ const ScActionPlugin::ActionInfo & ScActionPlugin::actionInfo() const
 //=====================================================//
 
 ScPersistentPlugin::ScPersistentPlugin()
-	: ScPlugin(ScPlugin::PluginType_Persistent)
+	: ScPlugin()
 {
 }
 

@@ -23,8 +23,7 @@ void fontpreview_freePlugin(ScPlugin* plugin)
 	delete plug;
 }
 
-FontPreviewPlugin::FontPreviewPlugin() :
-	ScActionPlugin(ScPlugin::PluginType_Action)
+FontPreviewPlugin::FontPreviewPlugin() : ScActionPlugin()
 {
 	// Set action info in languageChange, so we only have to do
 	// it in one place.

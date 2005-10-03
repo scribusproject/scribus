@@ -47,8 +47,7 @@ void svgimplugin_freePlugin(ScPlugin* plugin)
 	delete plug;
 }
 
-SVGImportPlugin::SVGImportPlugin() :
-	ScActionPlugin(ScPlugin::PluginType_Import)
+SVGImportPlugin::SVGImportPlugin() : LoadSavePlugin()
 {
 	// Set action info in languageChange, so we only have to do
 	// it in one place.
@@ -90,6 +89,23 @@ void SVGImportPlugin::deleteAboutData(const AboutData* about) const
 {
 	Q_ASSERT(about);
 	delete about;
+}
+
+QValueList<LoadSavePlugin::FormatSupport> SVGImportPlugin::supportedFormats() const
+{
+	QValueList<FormatSupport> formats;
+	QString svgName = tr("Scalable Vector Graphics");
+	FormatSupport fmt = {
+		svgName, "svgim", svgName + " (*.svg *.svgz)",
+		Format_Import|Format_Load, QStringList("image/svg+xml"), 64};
+	formats.append(fmt);
+	return formats;
+}
+
+bool SVGImportPlugin::fileSupported(QIODevice* /* file */) const
+{
+	// TODO: identify valid SVG
+	return true;
 }
 
 /*!

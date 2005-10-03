@@ -6,8 +6,7 @@
 // Please don't implement the functionality of your plugin here; do that
 // in mypluginimpl.h and mypluginimpl.cpp .
 
-MyPlugin::MyPlugin() :
-	ScActionPlugin(ScPlugin::PluginType_Action)
+MyPlugin::MyPlugin() : ScActionPlugin()
 {
 	// Set action info in languageChange, so we only have to do
 	// it in one place.

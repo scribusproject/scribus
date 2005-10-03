@@ -91,37 +91,6 @@ class SCRIBUS_API ScPlugin : public QObject
 	 */
 	public:
 
-		/** \brief Human readable enumertion of the plugin types
-		 *
-		 * This might get replaced with checking inheritance
-		 * with QObject.
-		 *
-		 * PluginType_Persistent:
-		 *    The plug-in is loaded and initialised on app startup. No
-		 *    automatic connection to the GUI is made, and the plugin
-		 *    essentially becomes part of the application, maintaining
-		 *    its state as long as it's loaded.
-		 * 
-		 * PluginType_Import:
-		 *    The plug-in provides the facility to import file type(s).
-		 *    It keeps no state.
-		 *
-		 * PluginType_Export:
-		 *    The plugin provides a facility to export file type(s).
-		 *    It keeps no state.
-		 *
-		 * PluginType_Action:
-		 *    The plugin has a single specific action it can take that
-		 *    is not import or export. It's automatically hooked into
-		 *    the GUI and keeps no state.
-		 */
-		enum PluginType {
-			PluginType_Persistent = 4,
-			PluginType_Import = 7,
-			PluginType_Export = 8,
-			PluginType_Action = 9
-		};
-
 		// A struct providing the information returned by getAboutData(), for
 		// the "About Plug-ins" menu item.
 		struct AboutData
@@ -148,13 +117,10 @@ class SCRIBUS_API ScPlugin : public QObject
 		/**
 		 * @brief ctor, returns a new ScPlugin instance
 		 *
-		 * @param pluginType      plugin type enum, used by plugin
-		 *                        manager to identify plugin.
-		 *
 		 * Only pluginname_getPlugin(...) may call this. Calls by other code
 		 * will have undefined results.
 		 */
-		ScPlugin(PluginType pluginType);
+		ScPlugin();
 
 		/** @brief Destroy the ScPlugin instance
 		 *
@@ -164,12 +130,6 @@ class SCRIBUS_API ScPlugin : public QObject
 		 * will have undefined results.
 		 */
 		virtual ~ScPlugin() = 0;
-
-		/** @brief Plug-in type, inited by ctor.
-		 *
-		 * @sa ScPlugin::PluginType
-		 */
-		const PluginType pluginType;
 
 		/** @brief Plug-in's human-readable, translated name.
 		 *
@@ -206,12 +166,6 @@ class SCRIBUS_API ScPlugin : public QObject
 		*/
 		virtual bool newPrefsPanelWidget(QWidget* parent, PrefsPanel*& panel,
 										 QString& caption, QPixmap& icon);
-
-		// Return icon and caption to use for preferences panel in the prefs
-		// dialog. Unless overridden, returns QString::null and an empty pixmap.
-		/// TODO: OBSOLETE: Delete these next time the plugin API version is bumped.
-		virtual const QPixmap prefsPanelIcon() const;
-		virtual const QString prefsPanelName() const;
 
 		/* @brief Return descriptive information about the plug-in
 		 *
@@ -279,7 +233,7 @@ class SCRIBUS_API ScActionPlugin : public ScPlugin
 		 *
 		 * @sa ScPlugin::ScPlugin()
 		 */
-		ScActionPlugin(PluginType pluginType);
+		ScActionPlugin();
 
 		// Pure virtual dtor - abstract class
 		virtual ~ScActionPlugin() = 0;
@@ -325,7 +279,7 @@ class SCRIBUS_API ScActionPlugin : public ScPlugin
 		 * @returns bool True for success.
 		 *
 		 */
-		virtual bool run(QString target = QString::null);
+		virtual bool run(QString target = QString::null) = 0;
 
 		/**
 		 * @brief Run the plugin on a QIODevice
@@ -488,7 +442,7 @@ class SCRIBUS_API ScPersistentPlugin : public ScPlugin
 //
 // The API version is currently simply incremented with each incompatible
 // change. Future versions may introduce a minor/major scheme if necessary.
-#define PLUGIN_API_VERSION 0x00000002
+#define PLUGIN_API_VERSION 0x00000003
 
 
 #endif

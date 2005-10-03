@@ -34,8 +34,7 @@ void newfromtemplateplugin_freePlugin(ScPlugin* plugin)
 	delete plug;
 }
 
-NewFromTemplatePlugin::NewFromTemplatePlugin() :
-	ScActionPlugin(ScPlugin::PluginType_Action)
+NewFromTemplatePlugin::NewFromTemplatePlugin() : ScActionPlugin()
 {
 	// Set action info in languageChange, so we only have to do
 	// it in one place.

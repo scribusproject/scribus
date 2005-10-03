@@ -56,7 +56,7 @@ void oodrawimp_freePlugin(ScPlugin* plugin)
 }
 
 OODrawImportPlugin::OODrawImportPlugin() :
-	ScActionPlugin(ScPlugin::PluginType_Import)
+	LoadSavePlugin()
 {
 	// Set action info in languageChange, so we only have to do
 	// it in one place.
@@ -98,6 +98,36 @@ void OODrawImportPlugin::deleteAboutData(const AboutData* about) const
 {
 	Q_ASSERT(about);
 	delete about;
+}
+
+QValueList<LoadSavePlugin::FormatSupport> OODrawImportPlugin::supportedFormats() const
+{
+	QValueList<FormatSupport> formats;
+	QString odtName = tr("OpenDocument 1.0 Draw", "Import/export format name");
+	FormatSupport odtformat = {
+		odtName, // Human readable name
+		"oddraw", // Internal name
+		odtName + " (*.odg)", // QFileDialog filter
+		LoadSavePlugin::Format_Load|LoadSavePlugin::Format_Import, // Modes
+		QStringList("application/vnd.oasis.opendocument.graphics"), // MIME types
+		64}; // Priority
+	formats.append(odtformat);
+	QString sxdName = tr("OpenOffice.org 1.x Draw", "Import/export format name");
+	FormatSupport sxdformat = {
+		sxdName, // Human readable name
+		"oodraw", // Internal name
+		sxdName + " (*.sxd)", // QFileDialog filter
+		LoadSavePlugin::Format_Load|LoadSavePlugin::Format_Import, // Modes
+		QStringList("application/vnd.sun.xml.draw"), // MIME types
+		64}; // Priority
+	formats.append(sxdformat);
+	return formats;
+}
+
+bool OODrawImportPlugin::fileSupported(QIODevice* /* file */) const
+{
+	// TODO: try to identify .sxd / .odt files
+	return true;
 }
 
 bool OODrawImportPlugin::run(QString fileName)

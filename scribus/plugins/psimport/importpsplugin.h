@@ -2,9 +2,9 @@
 #define IMPORTPSPLUGIN_H
 
 #include "pluginapi.h"
-#include "scplugin.h"
+#include "loadsaveplugin.h"
 
-class PLUGIN_API ImportPSPlugin : public ScActionPlugin
+class PLUGIN_API ImportPSPlugin : public LoadSavePlugin
 {
 	Q_OBJECT
 
@@ -17,6 +17,8 @@ class PLUGIN_API ImportPSPlugin : public ScActionPlugin
 		virtual const AboutData* getAboutData() const;
 		virtual void deleteAboutData(const AboutData* about) const;
 		virtual void languageChange();
+		virtual QValueList<FormatSupport> supportedFormats() const;
+		virtual bool fileSupported(QIODevice* file) const;
 
 		// Special features (none)
 };

@@ -4,12 +4,12 @@
 #include <qstring.h>
 #include <qfiledialog.h>
 #include <pluginapi.h>
-#include <scplugin.h>
+#include <loadsaveplugin.h>
 #include <vector>
 
 class ScrAction;
 
-class PLUGIN_API PixmapExportPlugin : public ScActionPlugin
+class PLUGIN_API PixmapExportPlugin : public LoadSavePlugin
 {
 	Q_OBJECT
 
@@ -22,6 +22,8 @@ class PLUGIN_API PixmapExportPlugin : public ScActionPlugin
 		virtual const AboutData* getAboutData() const;
 		virtual void deleteAboutData(const AboutData* about) const;
 		virtual void languageChange();
+		virtual QValueList<FormatSupport> supportedFormats() const;
+		virtual bool fileSupported(QIODevice* file) const;
 
 		// Special features (none)
 };

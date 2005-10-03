@@ -4,14 +4,14 @@
 #include <qobject.h>
 #include <qdom.h>
 #include "pluginapi.h"
-#include "scplugin.h"
+#include "loadsaveplugin.h"
 
 class QString;
 class ScribusApp;
 class PageItem;
 class Page;
 
-class PLUGIN_API SVGExportPlugin : public ScActionPlugin
+class PLUGIN_API SVGExportPlugin : public LoadSavePlugin
 {
 	Q_OBJECT
 
@@ -24,6 +24,8 @@ class PLUGIN_API SVGExportPlugin : public ScActionPlugin
 		virtual const AboutData* getAboutData() const;
 		virtual void deleteAboutData(const AboutData* about) const;
 		virtual void languageChange();
+		virtual QValueList<FormatSupport> supportedFormats() const;
+		virtual bool fileSupported(QIODevice* file) const;
 
 		// Special features (none)
 };

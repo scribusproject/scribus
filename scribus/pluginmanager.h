@@ -66,11 +66,6 @@ public:
 	 * If includeDisabled is true, plugins that are loaded but not enabled
 	 * are returned. If it is false, 0 is returned if the requested plugin
 	 * is loaded but not enabled.
-	 *
-	 * If your code only cares about plugins of one specific type,
-	 * you are probably better off using getPluginT<PluginType> .
-	 *
-	 * \sa getPluginT
 	 */
 	ScPlugin* getPlugin(const QCString & pluginName, bool includeDisabled) const;
 
@@ -127,9 +122,6 @@ public:
 	 * \param inherits         Only return plugins that inherit from this parent
 	 *                         (the text name of the type - uses QMetaObject).
 	 * \return A list of internal plugin names suitable for use with getPlugin etc.
-	 *
-	 * If your code only cares about plugins of one specific type,
-	 * you are probably better off using getPluginNamesT<PluginType> .
 	 *
 	 * \sa getPluginNamesT
 	 * \sa getPlugin
