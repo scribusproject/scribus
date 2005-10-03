@@ -46,6 +46,7 @@ public:
 	QCheckBox* EnableGCR;
 	QScrollView* Anzeige;
 	QLabel* Anz;
+	QPushButton *closeButton;
 	QPushButton *printButton;
 	/*! scaling GUI */
 	QLabel* scaleLabel;

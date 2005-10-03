@@ -228,6 +228,8 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	Layout6->addWidget(scaleBox);
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout6->addItem( spacer );
+	closeButton = new QPushButton( tr("Close..."), this, "closeButton" );
+	Layout6->addWidget( closeButton );
 	printButton = new QPushButton( tr("Print..."), this, "printButton" );
 	printButton->setEnabled(!printDinUse);
 	Layout6->addWidget( printButton );
@@ -274,6 +276,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 		QToolTip::add( EnableCMYK_K, tr( "Enable/disable the K (Black) ink plate" ) );
 	}
 	connect(PGSel, SIGNAL(GotoPage(int)), this, SLOT(ToSeite(int)));
+	connect(closeButton, SIGNAL(clicked()), this, SLOT(close()));
 	connect(printButton, SIGNAL(clicked()), this, SIGNAL(doPrint()));
 	connect(scaleBox, SIGNAL(activated(int)), this, SLOT(scaleBox_valueChanged(int)));
 }
