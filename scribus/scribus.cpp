@@ -8679,7 +8679,7 @@ void ScribusApp::GetCMSProfiles()
 void ScribusApp::GetCMSProfilesDir(QString pfad)
 {
 #ifdef HAVE_CMS
-	QDir d(pfad, "*.*", QDir::Name, QDir::Files | QDir::NoSymLinks);
+	QDir d(pfad, "*", QDir::Name, QDir::Files | QDir::Readable | QDir::Dirs | QDir::NoSymLinks);
 	if ((d.exists()) && (d.count() != 0))
 	{
 		QString nam = "";
@@ -8688,9 +8688,26 @@ void ScribusApp::GetCMSProfilesDir(QString pfad)
 
 		for (uint dc = 0; dc < d.count(); ++dc)
 		{
-			QFileInfo fi(pfad + d[dc]);
+			QFileInfo fi(pfad + "/" + d[dc]);
+#ifdef QT_MAC
+			if (fi.isDir() && d[dc][0] != '.')
+			{
+				GetCMSProfilesDir(fi.filePath()+"/");
+				continue;
+			}
+			QFile f(fi.filePath());
+			QByteArray bb(40);
+			if (!f.open(IO_ReadOnly)) {
+				sDebug(QString("couldn't open %1 as ICC").arg(fi.filePath()));
+				continue;
+			}
+			int len = f.readBlock(bb.data(), 40);
+			f.close();
+			if (len == 40 && bb[36] == 'a' && bb[37] == 'c' && bb[38] == 's' && bb[39] == 'p')
+#else
 			QString ext = fi.extension(false).lower();
 			if ((ext == "icm") || (ext == "icc"))
+#endif
 			{
 				hIn = cmsOpenProfileFromFile(pfad + d[dc], "r");
 				if (hIn == NULL)
