@@ -39,7 +39,12 @@ bool ScColor::UseProf = true;
 
 ScColor::ScColor()
 {
-	setColor(0, 0, 0, 0);
+//	setColor(0, 0, 0, 0);
+	Model = colorModelCMYK;
+	C = M = Y = K = 0;
+	R = G = B = 255;
+	RGB = Qt::white;
+
 	Spot = false;
 	outOfGamutFlag = false;
 	Regist = false;
