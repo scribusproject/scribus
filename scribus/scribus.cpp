@@ -4836,15 +4836,15 @@ void ScribusApp::slotEditCut()
 						Buffer2 += nextItem->itemText.at(a)->cstroke+"\t";
 						Buffer2 += QString::number(nextItem->itemText.at(a)->cshade2)+'\t';
 						Buffer2 += QString::number(nextItem->itemText.at(a)->cscale)+"\t";
-						Buffer2 += QString::number(currItem->itemText.at(a)->cscalev)+'\t';
-						Buffer2 += QString::number(currItem->itemText.at(a)->cbase)+'\t';
-						Buffer2 += QString::number(currItem->itemText.at(a)->cshadowx)+'\t';
-						Buffer2 += QString::number(currItem->itemText.at(a)->cshadowy)+'\t';
-						Buffer2 += QString::number(currItem->itemText.at(a)->coutline)+'\t';
-						Buffer2 += QString::number(currItem->itemText.at(a)->cunderpos)+'\t';
-						Buffer2 += QString::number(currItem->itemText.at(a)->cunderwidth)+'\t';
-						Buffer2 += QString::number(currItem->itemText.at(a)->cstrikepos)+'\t';
-						Buffer2 += QString::number(currItem->itemText.at(a)->cstrikewidth)+'\n';
+						Buffer2 += QString::number(nextItem->itemText.at(a)->cscalev)+'\t';
+						Buffer2 += QString::number(nextItem->itemText.at(a)->cbase)+'\t';
+						Buffer2 += QString::number(nextItem->itemText.at(a)->cshadowx)+'\t';
+						Buffer2 += QString::number(nextItem->itemText.at(a)->cshadowy)+'\t';
+						Buffer2 += QString::number(nextItem->itemText.at(a)->coutline)+'\t';
+						Buffer2 += QString::number(nextItem->itemText.at(a)->cunderpos)+'\t';
+						Buffer2 += QString::number(nextItem->itemText.at(a)->cunderwidth)+'\t';
+						Buffer2 += QString::number(nextItem->itemText.at(a)->cstrikepos)+'\t';
+						Buffer2 += QString::number(nextItem->itemText.at(a)->cstrikewidth)+'\n';
 					}
 				}
 				deleteSelectedTextFromFrame(nextItem);
@@ -4922,15 +4922,15 @@ void ScribusApp::slotEditCopy()
 						Buffer2 += nextItem->itemText.at(a)->cstroke+"\t";
 						Buffer2 += QString::number(nextItem->itemText.at(a)->cshade2)+"\t";
 						Buffer2 += QString::number(nextItem->itemText.at(a)->cscale)+"\t";
-						Buffer2 += QString::number(currItem->itemText.at(a)->cscalev)+'\t';
-						Buffer2 += QString::number(currItem->itemText.at(a)->cbase)+'\t';
-						Buffer2 += QString::number(currItem->itemText.at(a)->cshadowx)+'\t';
-						Buffer2 += QString::number(currItem->itemText.at(a)->cshadowy)+'\t';
-						Buffer2 += QString::number(currItem->itemText.at(a)->coutline)+'\t';
-						Buffer2 += QString::number(currItem->itemText.at(a)->cunderpos)+'\t';
-						Buffer2 += QString::number(currItem->itemText.at(a)->cunderwidth)+'\t';
-						Buffer2 += QString::number(currItem->itemText.at(a)->cstrikepos)+'\t';
-						Buffer2 += QString::number(currItem->itemText.at(a)->cstrikewidth)+'\n';
+						Buffer2 += QString::number(nextItem->itemText.at(a)->cscalev)+'\t';
+						Buffer2 += QString::number(nextItem->itemText.at(a)->cbase)+'\t';
+						Buffer2 += QString::number(nextItem->itemText.at(a)->cshadowx)+'\t';
+						Buffer2 += QString::number(nextItem->itemText.at(a)->cshadowy)+'\t';
+						Buffer2 += QString::number(nextItem->itemText.at(a)->coutline)+'\t';
+						Buffer2 += QString::number(nextItem->itemText.at(a)->cunderpos)+'\t';
+						Buffer2 += QString::number(nextItem->itemText.at(a)->cunderwidth)+'\t';
+						Buffer2 += QString::number(nextItem->itemText.at(a)->cstrikepos)+'\t';
+						Buffer2 += QString::number(nextItem->itemText.at(a)->cstrikewidth)+'\n';
 					}
 				}
 				nextItem = nextItem->NextBox;
