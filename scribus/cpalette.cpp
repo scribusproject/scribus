@@ -41,11 +41,6 @@
 
 Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 {
-	alertIcon = loadIcon("alert.png");
-	cmykIcon = loadIcon("cmyk.png");
-	rgbIcon = loadIcon("rgb.png");
-	spotIcon = loadIcon("spot.png");
-	regIcon = loadIcon("register.png");
 	Color = "";
 	Color3 = "";
 	Shade = 100;
@@ -230,27 +225,13 @@ void Cpalette::updateCList()
 	disconnect(colorListQLBox, SIGNAL(selected(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));
 	colorListQLBox->clear();
 	ColorList::Iterator it;
-	QPixmap pa = QPixmap(60, 15);
 	if ((!GradientMode) || (Mode == 1))
 		colorListQLBox->insertItem( tr("None"));
 	for (it = colorList.begin(); it != colorList.end(); ++it)
 	{
 		ScColor col = colorList[it.key()];
-		QPixmap * pm = getSmallPixmap(col.getRawRGBColor());
-		pa.fill(white);
-		paintAlert(*pm, pa, 0, 0);
-		col.checkGamut();
-		if (col.isOutOfGamut())
-			paintAlert(alertIcon, pa, 15, 0);
-		if ((col.getColorModel() == colorModelCMYK) || (col.isSpotColor()))
-			paintAlert(cmykIcon, pa, 30, 0);
-		else
-			paintAlert(rgbIcon, pa, 30, 0);
-		if (col.isSpotColor())
-			paintAlert(spotIcon, pa, 46, 2);
-		if (col.isRegistrationColor())
-			paintAlert(regIcon, pa, 45, 0);
-		colorListQLBox->insertItem(pa, it.key());
+		QPixmap * pm = getFancyPixmap(col);
+		colorListQLBox->insertItem(*pm, it.key());
 	}
 	colorListQLBox->setSelected(colorListQLBox->currentItem(), false);
 	connect(colorListQLBox, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));

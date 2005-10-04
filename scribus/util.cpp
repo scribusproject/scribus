@@ -522,6 +522,17 @@ bool loadText(QString filename, QString *Buffer)
 		f.close();
 		for (uint posi = 0; posi < bb.size(); ++posi)
 			*Buffer += QChar(bb[posi]);
+		/*
+		int len = bb.size();
+		int oldLen = Buffer->length();
+		Buffer->setLength( oldLen + len + 1);
+		// digged into Qt 3.3 sources to find that. Might break in Qt 4 -- AV
+		unsigned short * ucsString = const_cast<unsigned short *>(Buffer->ucs2()) + oldLen;
+		char * data = bb.data();
+		for (uint posi = 0; posi < len; ++posi)
+			*ucsString++ = *data++;
+		*ucsString = 0;
+		 */
 		ret = true;
 	}
 	else
@@ -1230,6 +1241,76 @@ QPixmap * getWidePixmap(QColor rgb)
 	}
 	return pm;
 }
+
+static Q_UINT64 code64(ScColor & col) {
+	int C, M, Y, K, R, G, B;
+	Q_UINT64 result;
+	col.getRGB( &R, &G, &B );
+	col.getCMYK( &C, &M, &Y, &K );
+	result |= col.getColorModel() == colorModelRGB ? 1 : 0;
+	result |= col.isOutOfGamut() ? 64 : 0;
+	result |= col.isSpotColor() ? 32 : 0;
+	result |= col.isRegistrationColor() ? 16 : 0;
+	result <<= 8;
+	result |= C;
+	result <<= 8;
+	result |= M;
+	result <<= 8;
+	result |= Y;
+	result <<= 8;
+	result |= K;
+	result <<= 8;
+	result |= R;
+	result <<= 8;
+	result |= G;
+	result <<= 8;
+	result |= B;
+	return result;
+}
+
+QPixmap * getFancyPixmap(ScColor col) {
+	static QMap<Q_UINT64, QPixmap*> pxCache;
+	
+	static QPixmap alertIcon;
+	static QPixmap cmykIcon;
+	static QPixmap rgbIcon;
+	static QPixmap spotIcon;
+	static QPixmap regIcon;
+	static bool iconsInitialized = false;
+	
+	if ( !iconsInitialized ) {
+		alertIcon = loadIcon("alert.png");
+		cmykIcon = loadIcon("cmyk.png");
+		rgbIcon = loadIcon("rgb.png");
+		spotIcon = loadIcon("spot.png");
+		regIcon = loadIcon("register.png");
+		iconsInitialized = true;
+	}
+	
+	
+	QPixmap * pa = pxCache[code64(col)];
+	if (!pa) {
+		pa = new QPixmap(60, 15);
+		
+		QPixmap * pm = getSmallPixmap(col.getRawRGBColor());
+		pa->fill(Qt::white);
+		paintAlert(*pm, *pa, 0, 0);
+		col.checkGamut();
+		if (col.isOutOfGamut())
+			paintAlert(alertIcon, *pa, 15, 0);
+		if ((col.getColorModel() == colorModelCMYK) || (col.isSpotColor()))
+			paintAlert(cmykIcon, *pa, 30, 0);
+		else
+			paintAlert(rgbIcon, *pa, 30, 0);
+		if (col.isSpotColor())
+			paintAlert(spotIcon, *pa, 46, 2);
+		if (col.isRegistrationColor())
+			paintAlert(regIcon, *pa, 45, 0);
+		pxCache[code64(col)] = pa;
+	}
+	return pa;
+}
+
 
 void paintAlert(QPixmap &toPaint, QPixmap &target, int x, int y)
 {
