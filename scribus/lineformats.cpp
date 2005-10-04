@@ -162,8 +162,8 @@ void LineFormate::editFormat()
 void LineFormate::deleteFormat()
 {
 	int exit=QMessageBox::warning(this,
-	                              tr("Warning"),
-	                              tr("Do you really want to delete this Style?"),
+	                              CommonStrings::trWarning,
+	                              tr("Do you really want to delete this style?"),
 	                              tr("&No"),
 	                              tr("&Yes"),
 	                              0, 0, 0);

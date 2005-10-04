@@ -249,8 +249,8 @@ void KeyManager::keyPressEvent(QKeyEvent *k)
 				if (checkKey(keyCode))
 				{
 					QMessageBox::information(this,
-											tr("Warning"),
-											tr("This Key Sequence is already in use"),
+											CommonStrings::trWarning,
+											tr("This key sequence is already in use"),
 											CommonStrings::tr_OK, 0, 0, 0, QMessageBox::Ok);
 					keyTable->setText(currRow, 1, "");
 					keyDisplay->setText("");

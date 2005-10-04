@@ -5,6 +5,7 @@
 #include <qmessagebox.h>
 #include "scribusdoc.h"
 #include "page.h"
+#include "commonstrings.h"
 
 extern QPixmap loadIcon(QString nam);
 
@@ -101,8 +102,8 @@ void JavaDocs::slotEdit()
 void JavaDocs::slotDelete()
 {
 	int exit=QMessageBox::warning(this,
-	                              tr("Warning"),
-	                              tr("Do you really want to delete this Script?"),
+	                              CommonStrings::trWarning,
+	                              tr("Do you really want to delete this script?"),
 	                              tr("&No"),
 	                              tr("&Yes"),
 	                              0, 0, 0);

@@ -95,9 +95,6 @@ class ScribusApp;
 
 extern ScribusApp* ScApp;
 
-class ScribusApp;
-
-extern ScribusApp* ScApp;
 
 /**
   * This Class is the base class for your application. It sets up the main

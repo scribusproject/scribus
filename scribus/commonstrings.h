@@ -50,7 +50,9 @@ public:
 	static QString _OK;
 	static QString tr_OK;
 	static QString _Save;
-	static QString tr_Save;	
+	static QString tr_Save;
+	static QString Warning;
+	static QString trWarning;
 };
 
 #endif

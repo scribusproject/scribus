@@ -154,6 +154,7 @@
 #include "preview.h"
 #include "scribuswin.h"
 #include "hyphenator.h"
+#include "scmessagebox.h"
 
 using namespace std;
 
@@ -584,10 +585,11 @@ const QString ScribusApp::getGuiLanguage()
 bool ScribusApp::warningVersion(QWidget *parent)
 {
 	bool retval = false;
-	int t = QMessageBox::warning(parent, QObject::tr("Scribus Development Version"), "<qt>" +
-								 QObject::tr("You are running a development version of Scribus 1.3.x. The current document you are working with was originally created in Scribus 1.2.2 or lower. The process of saving will make this file unusable again in Scribus 1.2.2 unless you use File->Save As. Are you sure you wish to proceed with this operation?") + "</qt>",
-								 CommonStrings::tr_Cancel, QObject::tr("&Proceed"), "", 1, 0);
-	if (t == 1)
+	int t = ScMessageBox::warning(parent, QObject::tr("Scribus Development Version"), "<qt>" +
+								 QObject::tr("You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.3 or lower. The process of saving will make this file unusable again in Scribus 1.2.3 unless you use File->Save As. Are you sure you wish to proceed with this operation?") + "</qt>",
+								 CommonStrings::tr_OK, CommonStrings::tr_Cancel, "", 1, 0);
+	int buttonOKVal=ScQApp->reverseDialogButtons()?1:0;
+	if (t == buttonOKVal)
 		retval = true;
 	return retval;
 }
@@ -3824,7 +3826,7 @@ bool ScribusApp::loadDoc(QString fileName)
 			{
 				mess += it.key() + tr(" was replaced by: ")+ it.data() +"\n";
 			}
-			QMessageBox::warning(this, tr("Warning"), mess, 1, 0, 0);
+			QMessageBox::warning(this, CommonStrings::trWarning, mess, 1, 0, 0);
 		}
 		if (!doc->HasCMS)
 		{
@@ -3903,7 +3905,7 @@ bool ScribusApp::loadDoc(QString fileName)
 				{
 					mess += missing[m] + tr(" was replaced by: ")+replacement[m]+"\n";
 				}
-				QMessageBox::warning(this, tr("Warning"), mess, 1, 0, 0);
+				QMessageBox::warning(this, CommonStrings::trWarning, mess, 1, 0, 0);
 			}
 #ifdef HAVE_CMS
 			doc->SoftProofing = doc->CMSSettings.SoftProofOn;
@@ -4261,9 +4263,9 @@ void ScribusApp::slotFileRevert()
 {
 	if ((doc->hasName) && (doc->isModified()) && (!doc->masterPageMode))
 	{
-		int t = QMessageBox::warning(this, QObject::tr("Warning"), "<qt>" +
+		int t = ScMessageBox::warning(this, CommonStrings::trWarning, "<qt>" +
 								 QObject::tr("The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?") + "</qt>",
-								 QMessageBox::No | QMessageBox::Default, QMessageBox::Yes);
+								 QMessageBox::Yes, QMessageBox::No | QMessageBox::Default);
 		if (t == QMessageBox::No)
 			return;
 
@@ -4300,7 +4302,7 @@ bool ScribusApp::slotFileSave()
 		QString fn = doc->DocName;
 		ret = DoFileSave(fn);
 		if (!ret)
-			QMessageBox::warning(this, tr("Warning"), tr("Cannot write the file: \n%1").arg(fn), CommonStrings::tr_OK);
+			QMessageBox::warning(this, CommonStrings::trWarning, tr("Cannot write the file: \n%1").arg(fn), CommonStrings::tr_OK);
 	}
 	else
 		ret = slotFileSaveAs();
@@ -4358,7 +4360,7 @@ bool ScribusApp::slotFileSaveAs()
 		{
 			ret = DoFileSave(fna);
 			if (!ret)
-				QMessageBox::warning(this, tr("Warning"), tr("Cannot write the file: \n%1").arg(fn), CommonStrings::tr_OK);
+				QMessageBox::warning(this, CommonStrings::trWarning, tr("Cannot write the file: \n%1").arg(fn), CommonStrings::tr_OK);
 			else
 				doc->PDF_Options.Datei = ""; // #1482 reset the pdf file name
 		}
@@ -4549,10 +4551,11 @@ void ScribusApp::slotFilePrint()
 		{
 			if (doc->checkerProfiles[doc->curCheckProfile].ignoreErrors)
 			{
-				int t = QMessageBox::warning(this, tr("Warning"),
-											"<qt>"+tr("Scribus has detected some errors. Consider using the Pre-flight Checker to correct them")+"</qt>",
-											tr("&Abort"), tr("&Ignore"), 0, 0, 0);
-				if (t == 0)
+				int t = ScMessageBox::warning(this, CommonStrings::trWarning,
+											"<qt>"+tr("Scribus has detected some errors. Consider using the Preflight Verifier to correct them")+"</qt>",
+											tr("&Ignore"), tr("&Abort"), 0, 0, 0);
+				int buttonCancelVal=ScQApp->reverseDialogButtons()?0:1;
+				if (t == buttonCancelVal)
 					return;
 			}
 			else
@@ -4663,7 +4666,7 @@ void ScribusApp::slotReallyPrint()
 		if (!doPrint(&options))
 		{
 			qApp->setOverrideCursor(QCursor(arrowCursor), true);
-			QMessageBox::warning(this, tr("Warning"), tr("Printing failed!"), CommonStrings::tr_OK);
+			QMessageBox::warning(this, CommonStrings::trWarning, tr("Printing failed!"), CommonStrings::tr_OK);
 		}
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	}
@@ -7732,7 +7735,7 @@ void ScribusApp::ShowSubs()
 		mess = tr("The following programs are missing:")+"\n\n";
 		if (HaveGS != 0)
 			mess += tr("Ghostscript : You cannot use EPS images or Print Preview")+"\n\n";
-		QMessageBox::warning(this, tr("Warning"), mess, 1, 0, 0);
+		QMessageBox::warning(this, CommonStrings::trWarning, mess, 1, 0, 0);
 	}
 
 	propertiesPalette->startup();
@@ -7813,10 +7816,11 @@ void ScribusApp::printPreview()
 		{
 			if (doc->checkerProfiles[doc->curCheckProfile].ignoreErrors)
 			{
-				int t = QMessageBox::warning(this, tr("Warning"),
-											tr("Scribus detected some errors.\nConsider using the Preflight Verifier  to correct them."),
-											tr("&Abort"), tr("&Ignore"), 0, 0, 0);
-				if (t == 0)
+				int t = ScMessageBox::warning(this, CommonStrings::trWarning,
+											"<qt>"+tr("Scribus has detected some errors. Consider using the Preflight Verifier to correct them")+"</qt>",
+											tr("&Ignore"), tr("&Abort"), 0, 0, 0);
+				int buttonCancelVal=ScQApp->reverseDialogButtons()?0:1;
+				if (t == buttonCancelVal)
 					return;
 			}
 			else
@@ -7872,7 +7876,7 @@ void ScribusApp::SaveAsEps()
 		{
 			if (doc->checkerProfiles[doc->curCheckProfile].ignoreErrors)
 			{
-				int t = QMessageBox::warning(this, tr("Warning"),
+				int t = QMessageBox::warning(this, CommonStrings::trWarning,
 											tr("Scribus detected some errors.\nConsider using the Preflight Verifier  to correct them."),
 											tr("&Abort"), tr("&Ignore"), 0, 0, 0);
 				if (t == 0)
@@ -7929,7 +7933,7 @@ void ScribusApp::reallySaveAsEps()
 		if (overwrite(this, fn))
 		{
 			if (!DoSaveAsEps(fn))
-				QMessageBox::warning(this, tr("Warning"), tr("Cannot write the file: \n%1").arg(fn), CommonStrings::tr_OK);
+				QMessageBox::warning(this, CommonStrings::trWarning, tr("Cannot write the file: \n%1").arg(fn), CommonStrings::tr_OK);
 		}
 	}
 }
@@ -7955,7 +7959,7 @@ void ScribusApp::SaveAsPDF()
 		{
 			if (doc->checkerProfiles[doc->curCheckProfile].ignoreErrors)
 			{
-				int t = QMessageBox::warning(this, tr("Warning"),
+				int t = QMessageBox::warning(this, CommonStrings::trWarning,
 											tr("Detected some errors.\nConsider using the Preflight Verifier to correct them"),
 											tr("&Abort"), tr("&Ignore"), 0, 0, 0);
 				if (t == 0)
@@ -8052,7 +8056,7 @@ void ScribusApp::doSaveAsPDF()
 				if (!getPDFDriver(realName, nam, components, pageNs2, thumbs))
 				{
 					qApp->setOverrideCursor(QCursor(arrowCursor), true);
-					QMessageBox::warning(this, tr("Warning"), tr("Cannot write the file: \n%1").arg(doc->PDF_Options.Datei), CommonStrings::tr_OK);
+					QMessageBox::warning(this, CommonStrings::trWarning, tr("Cannot write the file: \n%1").arg(doc->PDF_Options.Datei), CommonStrings::tr_OK);
 					delete dia;
 					return;
 				}
@@ -8072,7 +8076,7 @@ void ScribusApp::doSaveAsPDF()
 			if (!getPDFDriver(fileName, nam, components, pageNs, thumbs))
 			{
 				qApp->setOverrideCursor(QCursor(arrowCursor), true);
-				QMessageBox::warning(this, tr("Warning"), tr("Cannot write the file: \n%1").arg(doc->PDF_Options.Datei), CommonStrings::tr_OK);
+				QMessageBox::warning(this, CommonStrings::trWarning, tr("Cannot write the file: \n%1").arg(doc->PDF_Options.Datei), CommonStrings::tr_OK);
 			}
 		}
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
@@ -8390,7 +8394,7 @@ void ScribusApp::GroupObj(bool showLockDia)
 			for (uint a=0; a<selectedItemCount; ++a)
 			{
 				if (t == -1 && view->SelItem.at(a)->locked())
-					t = QMessageBox::warning(this, tr("Warning"),
+					t = QMessageBox::warning(this, CommonStrings::trWarning,
 											 tr("Some objects are locked."),
 											 CommonStrings::tr_Cancel,
 											 tr("&Lock All"),
@@ -9418,7 +9422,7 @@ void ScribusApp::callImageEditor()
 			{
 				delete ExternalApp;
 				ExternalApp = 0;
-				QMessageBox::critical(this, tr("Warning"), "<qt>" + tr("The program %1 is missing!").arg(imageEditorExecutable) + "</qt>", 1, 0, 0);
+				QMessageBox::critical(this, CommonStrings::trWarning, "<qt>" + tr("The program %1 is missing!").arg(imageEditorExecutable) + "</qt>", 1, 0, 0);
 				return;
 			}
 			connect(ExternalApp, SIGNAL(processExited()), this, SLOT(imageEditorExited()));

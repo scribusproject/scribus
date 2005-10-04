@@ -12,6 +12,7 @@
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "util.h"
+#include "commonstrings.h"
 
 MasterPagesPalette::MasterPagesPalette( QWidget* parent, ScribusDoc *pCurrentDoc, ScribusView *pCurrentView, QString masterPageName)
 		: QDialog( parent, "Muster", false, WDestructiveClose)
@@ -86,7 +87,7 @@ void MasterPagesPalette::deleteMasterPage()
 	if (sMuster == "Normal")
 		return;
 	int exit=QMessageBox::warning(this,
-	                              tr("Warning"),
+	                              CommonStrings::trWarning,
 	                              tr("Do you really want to delete this master page?"),
 	                              tr("&No"),
 	                              tr("&Yes"),

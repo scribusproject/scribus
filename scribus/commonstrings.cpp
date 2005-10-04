@@ -26,6 +26,8 @@ QString CommonStrings::_OK         = "";
 QString CommonStrings::tr_OK       = "";
 QString CommonStrings::_Save       = "";
 QString CommonStrings::tr_Save     = "";
+QString CommonStrings::Warning     = "";
+QString CommonStrings::trWarning   = "";
 
 CommonStrings::CommonStrings()
 {
@@ -34,8 +36,8 @@ CommonStrings::CommonStrings()
 
 void CommonStrings::languageChange()
 {
-	CommonStrings::_Apply    = "&Apply";
-	CommonStrings::tr_Apply  = tr( "&Apply" );
+	CommonStrings::_Apply     = "&Apply";
+	CommonStrings::tr_Apply   = tr( "&Apply" );
 	
 	CommonStrings::_Cancel    = "&Cancel";
 	CommonStrings::tr_Cancel  = tr( "&Cancel" );
@@ -48,5 +50,8 @@ void CommonStrings::languageChange()
 	
 	CommonStrings::_Save      = "&Save";
 	CommonStrings::tr_Save    = tr( "&Save" );
+	
+	CommonStrings::Warning    = "Warning";
+	CommonStrings::trWarning  = tr( "Warning" );
 }
 

@@ -35,6 +35,7 @@ class SCRIBUS_API ScribusQApp : public QApplication
 		void installTranslators(QStringList langs);
 		void changeGUILanguage(QString);
 		const bool usingGUI();
+		const bool reverseDialogButtons();
 		
 		static bool useGUI;
 		

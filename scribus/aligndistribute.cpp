@@ -387,7 +387,7 @@ bool AlignDistributePalette::startAlign()
 					oneLocked=true;
 	if (oneLocked)
 	{
-		int t = QMessageBox::warning(ScApp, tr("Warning"),
+		int t = QMessageBox::warning(ScApp, CommonStrings::trWarning,
 											tr("Some objects are locked."),
 											CommonStrings::tr_Cancel,
 											tr("&Unlock All"), 0, 0);

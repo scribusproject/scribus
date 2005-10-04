@@ -403,3 +403,26 @@ const bool ScribusQApp::usingGUI()
 	return useGUI;
 }
 
+const bool ScribusQApp::reverseDialogButtons()
+{
+	//Win32 - dont switch
+	#if defined(_WIN32)
+		return false;
+	//Mac Aqua - switch
+	#elif defined(Q_WS_MAC)
+		return true;
+	#else
+	//Gnome - switch
+	QString gnomesession= ::getenv("GNOME_DESKTOP_SESSION_ID");
+	if (!gnomesession.isEmpty())
+		return true;
+	
+	//KDE/KDE Aqua - dont switch
+	//Best guess for now if we are running under KDE
+	QString kdesession= ::getenv("KDE_FULL_SESSION");
+	if (!kdesession.isEmpty())
+		return false;
+	#endif
+	return false;
+}
+

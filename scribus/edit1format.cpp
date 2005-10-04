@@ -445,13 +445,14 @@ void EditStyle::FontChange()
 
 void EditStyle::Verlassen()
 {
+	QString mess=tr("Name of the style is not unique");
 	if (IsNew)
 	{
 		for (uint x=0; x<allV.count()-1; ++x)
 		{
 			if (Name->text() == allV[x].Vname)
 			{
-				QMessageBox::information(this, tr("Warning"), tr("Name of the Style is not unique"), CommonStrings::tr_OK,0, 0, 0, QMessageBox::Ok);
+				QMessageBox::information(this, CommonStrings::trWarning, mess, CommonStrings::tr_OK,0, 0, 0, QMessageBox::Ok);
 				Name->selectAll();
 				Name->setFocus();
 				return;
@@ -466,7 +467,7 @@ void EditStyle::Verlassen()
 			{
 				if (Name->text() == allV[x].Vname)
 				{
-					QMessageBox::information(this, tr("Warning"), tr("Name of the Style is not unique"), CommonStrings::tr_OK,0, 0, 0, QMessageBox::Ok);
+					QMessageBox::information(this, CommonStrings::trWarning, mess, CommonStrings::tr_OK,0, 0, 0, QMessageBox::Ok);
 					Name->selectAll();
 					Name->setFocus();
 					return;

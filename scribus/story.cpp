@@ -46,6 +46,7 @@
 #include "alignselect.h"
 #include "fontcombo.h"
 #include "shadebutton.h"
+#include "commonstrings.h"
 
 extern QPixmap loadIcon(QString nam);
 
@@ -2331,7 +2332,7 @@ void StoryEditor::closeEvent(QCloseEvent *)
 	if (textChanged)
 	{
 		blockUpdate = true;
-		int t = QMessageBox::warning(this, tr("Warning"),
+		int t = QMessageBox::warning(this, CommonStrings::trWarning,
 									tr("Do you want to save your changes?"),
 									QMessageBox::Yes|QMessageBox::Default,
 									QMessageBox::No,
@@ -2872,7 +2873,7 @@ void StoryEditor::Do_leave()
 	if (textChanged)
 	{
 		blockUpdate = true;
-		int t = QMessageBox::warning(this, tr("Warning"),
+		int t = QMessageBox::warning(this, CommonStrings::trWarning,
 		                             tr("Do you really want to lose all your changes?"),
 		                             QMessageBox::No, QMessageBox::Yes, QMessageBox::NoButton);
 		qApp->processEvents();
@@ -2903,7 +2904,7 @@ bool StoryEditor::Do_new()
 	if (Editor->length() != 0)
 	{
 		blockUpdate = true;
-		int t = QMessageBox::warning(this, tr("Warning"),
+		int t = QMessageBox::warning(this, CommonStrings::trWarning,
 	                             tr("Do you really want to clear all your text?"),
 	                             QMessageBox::No, QMessageBox::Yes, QMessageBox::NoButton);
 		qApp->processEvents();

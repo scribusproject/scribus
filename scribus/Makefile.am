@@ -156,6 +156,7 @@ scribus_SOURCES = \
 	scfontmetrics.cpp	\
 	scimage.cpp	\
 	scmenu.cpp	\
+	scmessagebox.cpp Â\
 	scpainter.cpp	\
 	scpaths.cpp	\
 	scplugin.cpp	\
@@ -355,6 +356,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/scfonts_ttf.h                 $(prefix)/include/scribus/scfonts_ttf.h
 	$(INSTALL_DATA) $(srcdir)/scfontmetrics.h               $(prefix)/include/scribus/scfontmetrics.h
 	$(INSTALL_DATA) $(srcdir)/scmenu.h                      $(prefix)/include/scribus/scmenu.h
+	$(INSTALL_DATA) $(srcdir)/scmessagebox.h                $(prefix)/include/scribus/scmessagebox.h
 	$(INSTALL_DATA) $(srcdir)/scpainter.h                   $(prefix)/include/scribus/scpainter.h
 	$(INSTALL_DATA) $(srcdir)/scpaths.h                     $(prefix)/include/scribus/scpaths.h
 	$(INSTALL_DATA) $(srcdir)/scplugin.h                    $(prefix)/include/scribus/scplugin.h
@@ -535,6 +537,7 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/scfonts.h
 	-rm -f $(prefix)/include/scribus/scfonts_ttf.h
 	-rm -f $(prefix)/include/scribus/scmenu.h
+	-rm -f $(prefix)/include/scribus/scmessagebox.h
 	-rm -f $(prefix)/include/scribus/scpainter.h
 	-rm -f $(prefix)/include/scribus/scpaths.h
 	-rm -f $(prefix)/include/scribus/scpreview.h

@@ -924,7 +924,7 @@ void CMYKChoose::Verlassen()
 	// if condition 10/21/2004 pv #1191 - just be sure that user cannot create "None" color
 	if (Farbname->text() == "None" || Farbname->text() == tr("None"))
 	{
-		QMessageBox::information(this, tr("Warning"), tr("You cannot create a color named \"%1\".\nIt's a reserved name for transparent color").arg(Farbname->text()), 0);
+		QMessageBox::information(this, CommonStrings::trWarning, tr("You cannot create a color named \"%1\".\nIt is a reserved name for transparent color").arg(Farbname->text()), 0);
 		Farbname->setFocus();
 		Farbname->selectAll();
 		return;
@@ -933,7 +933,7 @@ void CMYKChoose::Verlassen()
 	{
 		if (EColors->contains(Farbname->text()))
 		{
-			QMessageBox::information(this, tr("Warning"), tr("Name of the Color is not unique"), CommonStrings::tr_OK, 0, 0, 0, QMessageBox::Ok);
+			QMessageBox::information(this, CommonStrings::trWarning, tr("Name of the color is not unique"), CommonStrings::tr_OK, 0, 0, 0, QMessageBox::Ok);
 			Farbname->selectAll();
 			Farbname->setFocus();
 			return;

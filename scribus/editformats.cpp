@@ -310,7 +310,7 @@ void StilFormate::editFormat()
 void StilFormate::deleteFormat()
 {
 	int exit=QMessageBox::warning(this,
-	                              tr("Warning"),
+	                              CommonStrings::trWarning,
 	                              tr("Do you really want to delete this style?"),
 	                              tr("No"),
 	                              tr("Yes"),
