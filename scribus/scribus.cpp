@@ -4261,6 +4261,12 @@ void ScribusApp::slotFileRevert()
 {
 	if ((doc->hasName) && (doc->isModified()) && (!doc->masterPageMode))
 	{
+		int t = QMessageBox::warning(this, QObject::tr("Warning"), "<qt>" +
+								 QObject::tr("The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?") + "</qt>",
+								 QMessageBox::No | QMessageBox::Default, QMessageBox::Yes);
+		if (t == QMessageBox::No)
+			return;
+
 		QString fn(doc->DocName);
 		QFileInfo fi(fn);
 		QDir::setCurrent(fi.dirPath(true));
@@ -4544,8 +4550,8 @@ void ScribusApp::slotFilePrint()
 			if (doc->checkerProfiles[doc->curCheckProfile].ignoreErrors)
 			{
 				int t = QMessageBox::warning(this, tr("Warning"),
-											tr("Scribus has detected some errors.\nConsider using the Pre-flight Checker to correct them"),
-											"<qt>"+tr("&Abort"), tr("&Ignore"), 0, 0, 0);
+											"<qt>"+tr("Scribus has detected some errors. Consider using the Pre-flight Checker to correct them")+"</qt>",
+											tr("&Abort"), tr("&Ignore"), 0, 0, 0);
 				if (t == 0)
 					return;
 			}
