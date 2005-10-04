@@ -3716,6 +3716,12 @@ void ScribusApp::slotFileRevert()
 {
 	if ((doc->hasName) && (doc->isModified()) && (!doc->TemplateMode))
 	{
+		int t = QMessageBox::warning(this, QObject::tr("Warning"), "<qt>" +
+								 QObject::tr("The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?") + "</qt>",
+								 QMessageBox::No | QMessageBox::Default, QMessageBox::Yes);
+		if (t == QMessageBox::No)
+			return;
+
 		QString fn = doc->DocName;
 		QFileInfo fi(fn);
 		QDir::setCurrent(fi.dirPath(true));
