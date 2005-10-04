@@ -332,7 +332,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	tabGuides = new TabGuides(prefsWidgets, &prefsData->guidesSettings, &prefsData->typographicSettings, docUnitIndex);
 	addItem( tr("Guides"), loadIcon("guides.png"), tabGuides);
 	tabTypo = new TabTypograpy(  prefsWidgets, &prefsData->typographicSettings);
-	addItem( tr("Typography"), loadIcon("font.png"), tabTypo);
+	addItem( tr("Typography"), loadIcon("typography.png"), tabTypo);
 	tabTools = new TabTools(  prefsWidgets, &prefsData->toolSettings, docUnitIndex, 0);
 	addItem( tr("Tools"), loadIcon("tools.png"), tabTools);
 
@@ -641,7 +641,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	ExtToolLayout->addWidget( groupImageEditor );
 	QSpacerItem* spacer_gs = new QSpacerItem( 0, 1, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	ExtToolLayout->addItem( spacer_gs );
-	addItem(  tr("External Tools"), loadIcon("misc.png"), ExtTool);
+	addItem(  tr("External Tools"), loadIcon("externaltools.png"), ExtTool);
 
 	Misc = new QWidget( prefsWidgets, "Misc" );
 	MiscLayout = new QVBoxLayout( Misc, 0, 5, "MiscLayout");
