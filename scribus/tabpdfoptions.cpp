@@ -853,7 +853,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 			              "a token can be * for all the pages, 1-5 for\n"
 			              "a range of pages or a single page number.") );
 
-	QToolTip::add( PDFVersionCombo, tr( "Determines the PDF compatibility.\nThe default is PDF 1.3 which gives the widest compatibility.\nChoose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption.\nPDF/X-3 is for exporting the PDF, when you want color managed RGB for commercial printing\n and is selectable when you have activated color management. \nUse only when advised by your printer or in some cases printing to a 4 color digital color laser printer." ) );
+	QToolTip::add( PDFVersionCombo, "<qt>" + tr( "Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer." ) + "</qt>");
 	QToolTip::add( ComboBind, tr( "Determines the binding of pages in the PDF. Unless you know\nyou need to change it leave the default choice - Left." ) );
 	QToolTip::add( CheckBox1, tr( "Generates thumbnails of each page in the PDF.\nSome viewers can use the thumbnails for navigation." ) );
 	QToolTip::add( Article, tr( "Generate PDF Articles, which is useful for navigating linked articles in a PDF." ) );
