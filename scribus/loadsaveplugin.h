@@ -16,7 +16,7 @@
  * plugins. It provides the facilities for discovering what format(s) a plugin
  * supports, how they should be identified, etc.
  */
-class LoadSavePlugin : public ScActionPlugin
+class SCRIBUS_API LoadSavePlugin : public ScActionPlugin
 {
 	Q_OBJECT
 
