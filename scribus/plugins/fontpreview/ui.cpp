@@ -218,7 +218,7 @@ void FontPreview::updateFontList(QString searchStr)
 				row->setText(2, "TrueType");
 			}
 
-			QFileInfo fi(fontIter.current()->Datei);
+			QFileInfo fi(fontIter.current()->fontFilePath());
 			fi.absFilePath().contains(QDir::homeDirPath()) ?
 					row->setText(4, tr("User", "font preview")):
 					row->setText(4, tr("System", "font preview"));

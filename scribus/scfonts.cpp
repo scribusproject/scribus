@@ -225,19 +225,19 @@ class Foi_postscript : public Foi
 			if (error)
 			{
 				UseFont = false;
-				sDebug(QObject::tr("Font %1 is broken (FreeType2), discarding it").arg(Datei));
+				sDebug(QObject::tr("Font %1 is broken (FreeType2), discarding it").arg(fontPath()));
 				return false;
 			}
-			error = FT_New_Face( library, Datei, faceIndex, &face );
+			error = FT_New_Face( library, fontFilePath(), faceIndex, &face );
 			if (error)
 			{
 				UseFont = false;
-				sDebug(QObject::tr("Font %1 is broken (no Face), discarding it").arg(Datei));
+				sDebug(QObject::tr("Font %1 is broken (no Face), discarding it").arg(fontPath()));
 				FT_Done_FreeType( library );
 				return false;
 			}
 			uniEM = static_cast<double>(face->units_per_EM);
-			QString afnm = Datei.left(Datei.length()-3);
+			QString afnm = fontFilePath().left(fontFilePath().length()-3);
 			QFile afm(afnm+"afm");
 			if(!(afm.exists()))
 			{
@@ -272,7 +272,7 @@ class Foi_postscript : public Foi
 				if (error)
 				{
 					++invalidGlyph;
-					sDebug(QObject::tr("Font %1 has broken glyph %2 (charcode %3)").arg(Datei).arg(gindex).arg(charcode));
+					sDebug(QObject::tr("Font %1 has broken glyph %2 (charcode %3)").arg(fontPath()).arg(gindex).arg(charcode));
 					charcode = FT_Get_Next_Char( face, charcode, &gindex );
 					continue;
 				}
@@ -302,7 +302,7 @@ class Foi_postscript : public Foi
 			FT_Done_FreeType( library );
 			if (invalidGlyph > 0) {
 				UseFont = false;
-				sDebug(QObject::tr("Font %1 is broken and will be discarded").arg(Datei));
+				sDebug(QObject::tr("Font %1 is broken and will be discarded").arg(fontPath()));
 			}
 			HasMetrics=UseFont;
 			metricsread=UseFont;
@@ -393,7 +393,7 @@ class Foi_pfb : public Foi_postscript
 			}
 			else 
 			{
-				sDebug(QObject::tr("Font %1 cannot be read, no embedding").arg(Datei));
+				sDebug(QObject::tr("Font %1 cannot be read, no embedding").arg(fontPath()));
 				return false;
 			}
 		}

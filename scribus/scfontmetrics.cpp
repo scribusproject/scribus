@@ -191,7 +191,7 @@ QPixmap FontSample(Foi * fnt, int s, QString ts, QColor back, bool force)
 	int  pen_x;
 	FPoint gp;
 	error = FT_Init_FreeType( &library );
-	error = FT_New_Face( library, fnt->Datei, fnt->faceIndex, &face );
+	error = FT_New_Face( library, fnt->fontFilePath(), fnt->faceIndex, &face );
 	int encode = setBestEncoding(face);
 	double uniEM = static_cast<double>(face->units_per_EM);
 	int h = qRound(face->height / uniEM) * s + 1;
@@ -308,7 +308,7 @@ bool GlyNames(Foi * fnt, QMap<uint, QString> *GList)
 	FT_ULong  charcode;
 	FT_UInt gindex;
 	error = FT_Init_FreeType(&library);
-	error = FT_New_Face(library, fnt->Datei, fnt->faceIndex, &face);
+	error = FT_New_Face(library, fnt->fontFilePath(), fnt->faceIndex, &face);
 	setBestEncoding(face);
 	gindex = 0;
 	charcode = FT_Get_First_Char(face, &gindex );
@@ -346,7 +346,7 @@ bool GlyIndex(Foi * fnt, QMap<uint, PDFlib::GlNamInd> *GListInd)
 	uint counter1 = 32;
 	uint counter2 = 0;
 	error = FT_Init_FreeType(&library);
-	error = FT_New_Face(library, fnt->Datei, fnt->faceIndex, &face);
+	error = FT_New_Face(library, fnt->fontFilePath(), fnt->faceIndex, &face);
 	setBestEncoding(face);
 	gindex = 0;
 	charcode = FT_Get_First_Char(face, &gindex );

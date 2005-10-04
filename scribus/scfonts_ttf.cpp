@@ -50,14 +50,14 @@ bool Foi_ttf::ReadMetrics()
 	if (error)
 	{
 		UseFont = false;
-		sDebug(QObject::tr("Font %1 is broken (FreeType), discarding it").arg(Datei));
+		sDebug(QObject::tr("Font %1 is broken (FreeType), discarding it").arg(fontPath()));
 		return false;
 	}
-	error = FT_New_Face( library, Datei, faceIndex, &face );
+	error = FT_New_Face( library, fontFilePath(), faceIndex, &face );
 	if (error)
 	{
 		UseFont = false;
-		sDebug(QObject::tr("Font %1 is broken (no Face), discarding it").arg(Datei));
+		sDebug(QObject::tr("Font %1 is broken (no Face), discarding it").arg(fontPath()));
 		return false;
 	}
 	uniEM = static_cast<double>(face->units_per_EM);
@@ -86,7 +86,7 @@ bool Foi_ttf::ReadMetrics()
 		if (error)
 		{
 			++invalidGlyphs;
-			sDebug(QObject::tr("Font %1  has invalid glyph %2 (charcode %3), discarding it").arg(Datei).arg(gindex).arg(charcode));
+			sDebug(QObject::tr("Font %1  has invalid glyph %2 (charcode %3), discarding it").arg(fontPath()).arg(gindex).arg(charcode));
 			charcode = FT_Get_Next_Char( face, charcode, &gindex );
 			continue;
 		}
@@ -171,7 +171,7 @@ void Foi_ttf::RawData(QByteArray & bb) {
 		static const uint   TDIR_ENTRY_LEN = 16;
 		uint faceOffset = word(coll, 12 + 4 * faceIndex);
 		uint nTables    = word16(coll, faceOffset + 4);
-		sDebug(QObject::tr("extracting face %1 from font %2 (offset=%3, nTables=%4)").arg(faceIndex).arg(Datei).arg(faceOffset).arg(nTables));
+		sDebug(QObject::tr("extracting face %1 from font %2 (offset=%3, nTables=%4)").arg(faceIndex).arg(fontPath()).arg(faceOffset).arg(nTables));
 		uint headerLength = OFFSET_TABLE_LEN + TDIR_ENTRY_LEN * nTables;   
 		uint tableLengths = 0;
 		// sum table lengths incl padding
@@ -232,7 +232,7 @@ bool Foi_ttf::EmbedFont(QString &str)
 	FT_ULong  charcode;
 	FT_UInt   gindex;
 	FT_Init_FreeType(&library);
-	FT_New_Face(library, Datei, faceIndex, &face);
+	FT_New_Face(library, fontFilePath(), faceIndex, &face);
 	const FT_Stream fts = face->stream;
 	if (FT_Stream_Seek(fts, 0L)) {
 		FT_Done_FreeType( library );
@@ -286,7 +286,7 @@ bool Foi_ttf::EmbedFont(QString &str)
 			str += "00\n>";
 		}
 		else {
-			sDebug(QObject::tr("Font %1 is broken (read stream), no embedding").arg(Datei).arg(gindex));
+			sDebug(QObject::tr("Font %1 is broken (read stream), no embedding").arg(fontPath()).arg(gindex));
 			str += "\n] def\n";
 			return false;
 		}

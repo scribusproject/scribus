@@ -228,8 +228,8 @@ bool CollectForOutput::collectFonts()
 	QMap<QString,QFont>::Iterator it3end = ScApp->doc->UsedFonts.end();
 	for (it3 = ScApp->doc->UsedFonts.begin(); it3 != it3end; ++it3)
 	{
-		QFileInfo itf = QFileInfo(prefsManager->appPrefs.AvailFonts[it3.key()]->Datei);
-		copyFile(prefsManager->appPrefs.AvailFonts[it3.key()]->Datei, outputDirectory + itf.fileName());
+		QFileInfo itf = QFileInfo(prefsManager->appPrefs.AvailFonts[it3.key()]->fontFilePath());
+		copyFile(prefsManager->appPrefs.AvailFonts[it3.key()]->fontFilePath(), outputDirectory + itf.fileName());
 	}
 	return true;
 }

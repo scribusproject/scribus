@@ -790,7 +790,7 @@ bool ScribusDoc::AddFont(QString name, QFont fo)
 	if (UsedFonts.contains(name))
 		return true;
 
-	error = FT_New_Face( library, (*AllFonts)[name]->Datei, (*AllFonts)[name]->faceIndex, &face );
+	error = FT_New_Face( library, (*AllFonts)[name]->fontFilePath(), (*AllFonts)[name]->faceIndex, &face );
 	if (error)
 		return ret;
 
@@ -800,7 +800,7 @@ bool ScribusDoc::AddFont(QString name, QFont fo)
 		(*AllFonts)[name]->CharWidth[28] = 0;
 		(*AllFonts)[name]->CharWidth[26] = 0;
 		(*AllFonts)[name]->CharWidth[9] = 1;
-		QString afnm = (*AllFonts)[name]->Datei.left((*AllFonts)[name]->Datei.length()-3);
+		QString afnm = (*AllFonts)[name]->fontFilePath().left((*AllFonts)[name]->fontFilePath().length()-3);
 		QFile afm(afnm+"afm");
 		if(!(afm.exists()))
 		{

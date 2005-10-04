@@ -56,7 +56,7 @@ PyObject *scribus_xfontnames(PyObject* /* self */)
 							it.current()->RealName().utf8().data(),
 							it.current()->Subset,
 							it.current()->EmbedPS,
-							it.current()->Datei.utf8().data()
+							it.current()->fontFilePath().utf8().data()
 						);
 		PyList_SetItem(l, cc, row);
 		cc++;

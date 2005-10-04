@@ -57,13 +57,13 @@ class SCRIBUS_API Foi
 		virtual void RawData(QByteArray & bb);
 		virtual bool ReadMetrics();
 		virtual bool GlNames(QMap<uint, QString> *GList);
-//		virtual void FontBez();
 		QString SCName;
-//private:
+private:
 		QString Datei;
-		int     faceIndex;
 public:
+		int     faceIndex;
 		QString fontPath() { return faceIndex >= 0 ? QString("%1(%2)").arg(Datei).arg(faceIndex+1) : Datei; }
+		QString fontFilePath() { return Datei; }
 		QString cached_RealName;
 		QString Family;
 		QString Effect;

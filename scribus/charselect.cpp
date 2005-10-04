@@ -213,11 +213,11 @@ void ChTable::showAlternate()
 	{
 		QPopupMenu *pmen = new QPopupMenu();
 		chToIns = QChar(par->characters[baseChar]);
-		pmen->insertItem(FontSample((*ap->doc->AllFonts)[font]->Datei, 20, chToIns, paletteBackgroundColor(), true));
+		pmen->insertItem(FontSample((*ap->doc->AllFonts)[font], 20, chToIns, paletteBackgroundColor(), true));
 		if ((*ap->doc->AllFonts)[font]->CharWidth.contains(par->characters[baseChar] + 0xF720))
 		{
 			chToIns = QChar(par->characters[baseChar] + 0xF720);
-			pmen->insertItem(FontSample((*ap->doc->AllFonts)[font]->Datei, 20, chToIns, paletteBackgroundColor(), true));
+			pmen->insertItem(FontSample((*ap->doc->AllFonts)[font], 20, chToIns, paletteBackgroundColor(), true));
 		}
 		int re = pmen->indexOf(pmen->exec(QCursor::pos()));
 		delete pmen;

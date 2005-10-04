@@ -122,7 +122,7 @@ QPixmap ScPreview::createPreview(QString data)
 			if (!DoFonts2.contains(tmpf))
 			{
 				FT_Face      face;
-				error = FT_New_Face( library, prefsManager->appPrefs.AvailFonts[tmpf]->Datei, prefsManager->appPrefs.AvailFonts[tmpf]->faceIndex, &face );
+				error = FT_New_Face( library, prefsManager->appPrefs.AvailFonts[tmpf]->fontFilePath(), prefsManager->appPrefs.AvailFonts[tmpf]->faceIndex, &face );
 				if (error)
 					tmpf = prefsManager->appPrefs.toolSettings.defFont;
 				if (prefsManager->appPrefs.AvailFonts[tmpf]->ReadMetrics())
