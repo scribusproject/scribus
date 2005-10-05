@@ -30,31 +30,41 @@ MovePages::MovePages( QWidget* parent, int currentPage, int maxPages, bool movin
 	fromToLayout->setSpacing( 6 );
 	fromToLayout->setMargin( 5 );
 	moveLabel = new QLabel( (move ? tr("Move Page(s)") : tr("Copy Page")) + ":", this, "moveLabel" );
-	fromToLayout->addWidget( moveLabel, 0, 0);
-
 	fromPageData = new QSpinBox( 1, maxPages, 1, this, "fromPageData" );
 	fromPageData->setValue( currentPage );
-	fromToLayout->addWidget( fromPageData, 0, 1);
+	uint currentRow=0;
+	fromToLayout->addWidget( moveLabel, currentRow, 0);
+	fromToLayout->addWidget( fromPageData, currentRow, 1);
 
 	if (move)
 	{
-		toLabel = new QLabel( tr("to:"), this, "toLabel" );
-		fromToLayout->addWidget( toLabel, 0, 2);
+		toLabel = new QLabel( tr("To:"), this, "toLabel" );
 		toPageData = new QSpinBox( 1, maxPages, 1, this, "toPageData" );
 		toPageData->setValue( currentPage );
-		fromToLayout->addWidget( toPageData, 0, 3);
+		fromToLayout->addWidget( toLabel, currentRow, 2);
+		fromToLayout->addWidget( toPageData, currentRow, 3);
 	}
-
+	else
+	{
+		numberOfCopiesLabel = new QLabel( tr("Number of copies:"), this, "numberOfCopiesLabel" );
+		numberOfCopiesData = new QSpinBox(this, "numberOfCopiesData" );
+		numberOfCopiesData->setMinValue(1);
+		numberOfCopiesData->setMaxValue(100);
+		++currentRow;
+		fromToLayout->addWidget(numberOfCopiesLabel, currentRow, 0);
+		fromToLayout->addWidget(numberOfCopiesData, currentRow, 1);
+	}
+	++currentRow;
 	mvWhereData = new QComboBox( false, this, "mvWhereData" );
 	mvWhereData->insertItem( tr("Before Page"));
 	mvWhereData->insertItem( tr("After Page"));
 	mvWhereData->insertItem( tr("At End"));
 	mvWhereData->setCurrentItem(2);
-	fromToLayout->addMultiCellWidget( mvWhereData, 1, 1, 0, 1 );
 	mvWherePageData = new QSpinBox( 1, maxPages, 1, this, "mvWherePageData" );
 	mvWherePageData->setValue( currentPage );
 	mvWherePageData->setDisabled( true );
-	fromToLayout->addWidget( mvWherePageData, 1, 3 );
+	fromToLayout->addWidget( mvWhereData, currentRow, 0 );	
+	fromToLayout->addWidget( mvWherePageData, currentRow, 1 );
 	fromToLayout->addColSpacing(0, moveLabel->fontMetrics().width( tr( "Move Page(s):" )));
 	dialogLayout->addLayout( fromToLayout );
 
@@ -125,3 +135,7 @@ const int MovePages::getWherePage()
 	return mvWherePageData->value();
 }
 
+const int MovePages::getCopyCount()
+{
+	return numberOfCopiesData->value();
+}

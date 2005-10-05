@@ -6516,112 +6516,118 @@ void ScribusApp::CopyPage()
 		doc->PageAT = false;
 		Page* from = doc->Pages.at(dia->getFromPage()-1);
 		int wo = dia->getWherePage();
-		switch (dia->getWhere())
+		int copyCount=dia->getCopyCount();
+		int whereToInsert=dia->getWhere();
+		for (int copyNumber=1; copyNumber<=copyCount; ++copyNumber)
 		{
-		case 0:
-			slotNewPage(wo-1);
-			break;
-		case 1:
-			slotNewPage(wo);
-			break;
-		case 2:
-			slotNewPage(doc->Pages.count());
-			break;
-		}
-		doc->PageAT = autoText;
-		Page* Ziel = doc->currentPage;
-		Ziel->setInitialHeight(from->height());
-		Ziel->setInitialWidth(from->width());
-		Ziel->PageOri = from->PageOri;
-		Ziel->PageSize = from->PageSize;
-		Ziel->initialMargins.Top = from->Margins.Top;
-		Ziel->initialMargins.Bottom = from->Margins.Bottom;
-		Ziel->initialMargins.Left = from->Margins.Left;
-		Ziel->initialMargins.Right = from->Margins.Right;
-		view->reformPages();
-		QMap<int,int> TableID;
-		QPtrList<PageItem> TableItems;
-		TableID.clear();
-		TableItems.clear();
-		uint oldItems = doc->Items.count();
-		for (uint ite = 0; ite < oldItems; ++ite)
-		{
-			PageItem *itemToCopy = doc->Items.at(ite);
-			if (itemToCopy->OwnPage == static_cast<int>(from->pageNr()))
+			//For multiple insertions we can insert in the same place
+			switch (whereToInsert)
 			{
-				itemToCopy->copyToCopyPasteBuffer(&Buffer);
-				Buffer.Xpos = Buffer.Xpos - from->xOffset() + Ziel->xOffset();
-				Buffer.Ypos = Buffer.Ypos - from->yOffset() + Ziel->yOffset();
-				if (itemToCopy->Groups.count() != 0)
+			case 0:
+				slotNewPage(wo-1);
+				break;
+			case 1:
+				slotNewPage(wo);
+				break;
+			case 2:
+				slotNewPage(doc->Pages.count());
+				break;
+			}
+			doc->PageAT = autoText;
+			Page* Ziel = doc->currentPage;
+			Ziel->setInitialHeight(from->height());
+			Ziel->setInitialWidth(from->width());
+			Ziel->PageOri = from->PageOri;
+			Ziel->PageSize = from->PageSize;
+			Ziel->initialMargins.Top = from->Margins.Top;
+			Ziel->initialMargins.Bottom = from->Margins.Bottom;
+			Ziel->initialMargins.Left = from->Margins.Left;
+			Ziel->initialMargins.Right = from->Margins.Right;
+			view->reformPages();
+			QMap<int,int> TableID;
+			QPtrList<PageItem> TableItems;
+			TableID.clear();
+			TableItems.clear();
+			uint oldItems = doc->Items.count();
+			for (uint ite = 0; ite < oldItems; ++ite)
+			{
+				PageItem *itemToCopy = doc->Items.at(ite);
+				if (itemToCopy->OwnPage == static_cast<int>(from->pageNr()))
 				{
-					Buffer.Groups.clear();
-					QValueStack<int>::Iterator nx;
-					QValueStack<int> tmpGroup;
-					for (nx = itemToCopy->Groups.begin(); nx != itemToCopy->Groups.end(); ++nx)
+					itemToCopy->copyToCopyPasteBuffer(&Buffer);
+					Buffer.Xpos = Buffer.Xpos - from->xOffset() + Ziel->xOffset();
+					Buffer.Ypos = Buffer.Ypos - from->yOffset() + Ziel->yOffset();
+					if (itemToCopy->Groups.count() != 0)
 					{
-						tmpGroup.push((*nx)+doc->GroupCounter);
-						GrMax = QMAX(GrMax, (*nx)+doc->GroupCounter);
+						Buffer.Groups.clear();
+						QValueStack<int>::Iterator nx;
+						QValueStack<int> tmpGroup;
+						for (nx = itemToCopy->Groups.begin(); nx != itemToCopy->Groups.end(); ++nx)
+						{
+							tmpGroup.push((*nx)+doc->GroupCounter);
+							GrMax = QMAX(GrMax, (*nx)+doc->GroupCounter);
+						}
+						for (nx = tmpGroup.begin(); nx != tmpGroup.end(); ++nx)
+						{
+							Buffer.Groups.push((*nx));
+						}
 					}
-					for (nx = tmpGroup.begin(); nx != tmpGroup.end(); ++nx)
+					view->PasteItem(&Buffer, true, true);
+					PageItem* Neu = doc->Items.at(doc->Items.count()-1);
+					Neu->OnMasterPage = "";
+					if (itemToCopy->isBookmark)
+						AddBookMark(Neu);
+					if (Neu->isTableItem)
 					{
-						Buffer.Groups.push((*nx));
+						TableItems.append(Neu);
+						TableID.insert(ite, Neu->ItemNr);
 					}
 				}
-				view->PasteItem(&Buffer, true, true);
-				PageItem* Neu = doc->Items.at(doc->Items.count()-1);
-				Neu->OnMasterPage = "";
-				if (itemToCopy->isBookmark)
-					AddBookMark(Neu);
-				if (Neu->isTableItem)
+			}
+			if (TableItems.count() != 0)
+			{
+				for (uint ttc = 0; ttc < TableItems.count(); ++ttc)
 				{
-					TableItems.append(Neu);
-					TableID.insert(ite, Neu->ItemNr);
+					PageItem* ta = TableItems.at(ttc);
+					if (ta->TopLinkID != -1)
+						ta->TopLink = doc->Items.at(TableID[ta->TopLinkID]);
+					else
+						ta->TopLink = 0;
+					if (ta->LeftLinkID != -1)
+						ta->LeftLink = doc->Items.at(TableID[ta->LeftLinkID]);
+					else
+						ta->LeftLink = 0;
+					if (ta->RightLinkID != -1)
+						ta->RightLink = doc->Items.at(TableID[ta->RightLinkID]);
+					else
+						ta->RightLink = 0;
+					if (ta->BottomLinkID != -1)
+						ta->BottomLink = doc->Items.at(TableID[ta->BottomLinkID]);
+					else
+						ta->BottomLink = 0;
 				}
 			}
-		}
-		if (TableItems.count() != 0)
-		{
-			for (uint ttc = 0; ttc < TableItems.count(); ++ttc)
+			Apply_MasterPage(from->MPageNam, Ziel->pageNr(), false);
+			if (from->YGuides.count() != 0)
 			{
-				PageItem* ta = TableItems.at(ttc);
-				if (ta->TopLinkID != -1)
-					ta->TopLink = doc->Items.at(TableID[ta->TopLinkID]);
-				else
-					ta->TopLink = 0;
-				if (ta->LeftLinkID != -1)
-					ta->LeftLink = doc->Items.at(TableID[ta->LeftLinkID]);
-				else
-					ta->LeftLink = 0;
-				if (ta->RightLinkID != -1)
-					ta->RightLink = doc->Items.at(TableID[ta->RightLinkID]);
-				else
-					ta->RightLink = 0;
-				if (ta->BottomLinkID != -1)
-					ta->BottomLink = doc->Items.at(TableID[ta->BottomLinkID]);
-				else
-					ta->BottomLink = 0;
+				for (uint y = 0; y < from->YGuides.count(); ++y)
+				{
+					if (Ziel->YGuides.contains(from->YGuides[y]) == 0)
+						Ziel->YGuides.append(from->YGuides[y]);
+				}
+				qHeapSort(Ziel->YGuides);
 			}
-		}
-		Apply_MasterPage(from->MPageNam, Ziel->pageNr(), false);
-		if (from->YGuides.count() != 0)
-		{
-			for (uint y = 0; y < from->YGuides.count(); ++y)
+			if (from->XGuides.count() != 0)
 			{
-				if (Ziel->YGuides.contains(from->YGuides[y]) == 0)
-					Ziel->YGuides.append(from->YGuides[y]);
+				for (uint x = 0; x < from->XGuides.count(); ++x)
+				{
+					if (Ziel->XGuides.contains(from->XGuides[x]) == 0)
+						Ziel->XGuides.append(from->XGuides[x]);
+				}
+				qHeapSort(Ziel->XGuides);
 			}
-			qHeapSort(Ziel->YGuides);
+			doc->GroupCounter = GrMax + 1;
 		}
-		if (from->XGuides.count() != 0)
-		{
-			for (uint x = 0; x < from->XGuides.count(); ++x)
-			{
-				if (Ziel->XGuides.contains(from->XGuides[x]) == 0)
-					Ziel->XGuides.append(from->XGuides[x]);
-			}
-			qHeapSort(Ziel->XGuides);
-		}
-		doc->GroupCounter = GrMax + 1;
 		view->Deselect(true);
 		view->DrawNew();
 		slotDocCh();

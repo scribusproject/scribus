@@ -76,6 +76,13 @@ public:
 	// Add, delete and move pages
 	Page* addPage(const int);
 	bool deletePage(const int);
+	/**
+	 * @brief Move page(s) within the document
+	 * @param From page index
+	 * @param To page index
+	 * @param Position to move to (page index)
+	 * @param Before, After or at the end
+	 */
 	void movePage(const int, const int, const int, const int);
 	// Add, delete and move layers
 	/**
