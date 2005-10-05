@@ -99,6 +99,12 @@ localization = {
       u'Pu\xf2', 'Giugno', 'Luglio', 'Agosto', 'Settembre',
       'Ottobre', 'Novembre', 'Dicembre'],
      ['Lunedě','Martedě','Mercoledě','Giovedě',u'Venerd\xec','Sabato','Domenica']],
+# Polish by "Łukasz [DeeJay1] Jernaś" <deejay1@nsj.srem.pl>
+'Polish' :
+    [['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj',
+      'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień',
+      'Październik', 'Listopad', 'Grudzień'],
+     ['Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota', 'Niedziela']],
 'Portuguese' :
     [['Janeiro', 'Fevereiro', u'Mar\xe7o', 'Abril',
       'Pode', 'Junho', 'Julho', 'Agosto', 'Setembro',
