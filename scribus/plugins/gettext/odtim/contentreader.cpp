@@ -226,7 +226,7 @@ bool ContentReader::endElement(const QString&, const QString&, const QString &na
 
 void ContentReader::write(const QString& text)
 {
-	qDebug(text);
+	/*qDebug(text); */
 	if (importTextOnly)
 		writer->append(text);
 	else if (inSpan)
