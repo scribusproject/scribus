@@ -172,7 +172,7 @@ void Cpalette::InhaltButton()
 		gradEdit->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 		GradientMode = false;
 		layout()->activate();
-		updateCList();
+		//updateCList();
 		repaint();
 	}
 	emit QueryItem();
@@ -206,7 +206,7 @@ void Cpalette::InnenButton()
 			}
 		}
 		layout()->activate();
-		updateCList();
+		//updateCList();
 		repaint();
 	}
 	emit QueryItem();
@@ -224,10 +224,11 @@ void Cpalette::updateCList()
 	disconnect(colorListQLBox, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));
 	disconnect(colorListQLBox, SIGNAL(selected(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));
 	colorListQLBox->clear();
-	ColorList::Iterator it;
 	if ((!GradientMode) || (Mode == 1))
 		colorListQLBox->insertItem( tr("None"));
-	for (it = colorList.begin(); it != colorList.end(); ++it)
+	ColorList::Iterator it;
+	ColorList::Iterator itend=colorList.end();
+	for (it = colorList.begin(); it != itend; ++it)
 	{
 		ScColor col = colorList[it.key()];
 		QPixmap * pm = getFancyPixmap(col);
@@ -272,17 +273,17 @@ void Cpalette::updateBoxS(QString colorName)
 {
 	disconnect(colorListQLBox, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));
 	disconnect(colorListQLBox, SIGNAL(selected(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));
-	ColorList::Iterator it;
 	int c = 0;
 	if ((colorName != "None") && (!colorName.isEmpty()))
 	{
 		if (!GradientMode)
-			c++;
-		for (it = colorList.begin(); it != colorList.end(); ++it)
+			++c;
+		ColorList::Iterator itend=colorList.end();
+		for (ColorList::Iterator it = colorList.begin(); it != itend; ++it)
 		{
 			if (it.key() == colorName)
 				break;
-			c++;
+			++c;
 		}
 	}
 	colorListQLBox->setCurrentItem(c);
@@ -360,12 +361,12 @@ void Cpalette::ChooseGrad(int number)
 	switch (number)
 	{
 	case 0:
-		updateCList();
+		//updateCList();
 		PM1->setValue(Shade3);
 		updateBoxS(Color3);
 		break;
 	default:
-		updateCList();
+		//updateCList();
 		PM1->setValue(Shade);
 		updateBoxS(Color);
 		break;

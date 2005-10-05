@@ -9009,7 +9009,7 @@ void ScribusView::GotoLa(int l)
 void ScribusView::GotoPa(int Seite)
 {
 	GotoPage(Seite-1);
-	ScApp->setFocus();
+	//ScApp->setFocus();
 }
 
 void ScribusView::ChgUnit(int art)
