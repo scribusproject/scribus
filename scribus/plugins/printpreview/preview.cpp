@@ -430,6 +430,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 		{
 			Bild.resize(1,1);
 			qApp->setOverrideCursor(QCursor(arrowCursor), true);
+			APage = Seite;
 			return Bild;
 		}
 	}
