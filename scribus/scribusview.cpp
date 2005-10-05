@@ -11690,7 +11690,7 @@ void ScribusView::contentsWheelEvent(QWheelEvent *w)
 {
 	QScrollView::contentsWheelEvent(w);
 	evSpon = true;
-	if ((Mpressed) && (MidButt))
+	if ((Mpressed) && (MidButt) || ( w->state() & ControlButton ))
 	{
 		w->delta() > 0 ? slotZoomIn2() : slotZoomOut2();
 	}
