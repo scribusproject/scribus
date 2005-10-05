@@ -35,17 +35,18 @@ const QString & ScPlugin::lastError() const
 
 const QString ScPlugin::pluginTypeName() const
 {
-	QCString cname(className());
-	if (cname == "ScPersistentPlugin")
-		return tr("Persistent", "plugin manager plugin type");
-	else if (cname == "ScActionPlugin")
-		return tr("Action", "plugin manager plugin type");
-	else if (cname == "LoadSavePlugin")
+	// These tests must be in reverse order of inheritance,
+	// ie most specific to least specific.
+	if (inherits("LoadSavePlugin"))
 		return tr("Load/Save/Import/Export");
+	else if (inherits("ScPersistentPlugin"))
+		return tr("Persistent", "plugin manager plugin type");
+	else if (inherits("ScActionPlugin"))
+		return tr("Action", "plugin manager plugin type");
 	else
 	{
-		Q_ASSERT(false);
-		return QString();
+		qDebug("Unknown plugin type: %s", className());
+		return tr("Unknown");
 	}
 }
 
