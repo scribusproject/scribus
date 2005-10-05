@@ -2614,7 +2614,7 @@ void ScribusView::SetClipPath(PSLib *p, FPointArray *c, bool poly)
 
 void ScribusView::contentsWheelEvent(QWheelEvent *w)
 {
-	if ((Doc->ActPage->Mpressed) && (Doc->ActPage->MidButt))
+	if ((Doc->ActPage->Mpressed) && (Doc->ActPage->MidButt) || ( w->state() & ControlButton ))
 	{
 		w->delta() > 0 ? slotZoomIn2() : slotZoomOut2();
 	}
