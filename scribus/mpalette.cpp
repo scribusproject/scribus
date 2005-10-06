@@ -1,8 +1,7 @@
 
-#include "scfonts.h"
+
 #include "mpalette.h"
 #include "mpalette.moc"
-#include "sccombobox.h"
 
 #include <cmath>
 #include <qpoint.h>
@@ -15,12 +14,15 @@
 #include "tabmanager.h"
 #include "scribus.h"
 #include "styleselect.h"
+#include "cpalette.h"
 #include "spalette.h"
 #include "arrowchooser.h"
 #include "units.h"
 #include "undomanager.h"
 #include "util.h"
 #include "commonstrings.h"
+#include "sccombobox.h"
+#include "scfonts.h"
 
 using namespace std;
 
@@ -801,6 +803,35 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "Mdouble", false,
 	connect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
 	connect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
 	connect(lineSpacingPop, SIGNAL(activated(int)), this, SLOT(setLspMode(int )));
+	
+	connect(this, SIGNAL(DocChanged()), ScApp, SLOT(slotDocCh()));
+	connect(this, SIGNAL(NewAbStyle(int)), ScApp, SLOT(setNewAbStyle(int)));
+	connect(this, SIGNAL(Stellung(int)), ScApp, SLOT(setItemHoch(int)));
+	connect(this, SIGNAL(EditCL()), ScApp, SLOT(ToggleFrameEdit()));
+	connect(this, SIGNAL(NewTF(const QString&)), ScApp, SLOT(SetNewFont(const QString&)));
+	connect(this, SIGNAL(UpdtGui(int)), ScApp, SLOT(HaveNewSel(int)));
+	connect(this->Cpal, SIGNAL(NewPen(QString)), ScApp, SLOT(setPenFarbe(QString)));
+	connect(this->Cpal, SIGNAL(NewBrush(QString)), ScApp, SLOT(setBrushFarbe(QString)));
+	connect(this->Cpal, SIGNAL(NewPenShade(int)), ScApp, SLOT(setPenShade(int)));
+	connect(this->Cpal, SIGNAL(NewBrushShade(int)), ScApp, SLOT(setBrushShade(int)));
+	connect(this->Cpal, SIGNAL(NewTrans(double)), ScApp, SLOT(setItemFillTransparency(double)));
+	connect(this->Cpal, SIGNAL(NewTransS(double)), ScApp, SLOT(setItemLineTransparency(double)));
+	connect(this->Cpal, SIGNAL(NewGradient(int)), ScApp, SLOT(setGradFill(int)));
+	connect(this->Cpal->gradEdit->Preview, SIGNAL(gradientChanged()), ScApp, SLOT(updtGradFill()));
+	connect(this->Cpal, SIGNAL(gradientChanged()), ScApp, SLOT(updtGradFill()));
+	connect(this->Cpal, SIGNAL(QueryItem()), ScApp, SLOT(GetBrushPen()));
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	HaveItem = false;
 	Xpos->setValue(0);
 	Ypos->setValue(0);
@@ -827,9 +858,7 @@ void Mpalette::SelTab(int t)
 	if ((HaveDoc) && (HaveItem) && (t == 5))
 	{
 		Cpal->setActGradient(CurItem->GrType);
-		Cpal->setSpecialGradient(CurItem->GrStartX * Umrech, CurItem->GrStartY * Umrech,
-											CurItem->GrEndX * Umrech, CurItem->GrEndY * Umrech,
-											CurItem->Width * Umrech, CurItem->Height * Umrech);
+		updateColorSpecialGradient();
 		Cpal->gradEdit->Preview->fill_gradient = CurItem->fill_gradient;
 		Cpal->gradEdit->Preview->updateDisplay();
 	}
@@ -895,9 +924,7 @@ void Mpalette::SetCurItem(PageItem *i)
 	CurItem = i;
 	if (TabStack->currentIndex() == 5)
 		Cpal->setActGradient(CurItem->GrType);
-	Cpal->setSpecialGradient(CurItem->GrStartX * Umrech, CurItem->GrStartY * Umrech,
-										  CurItem->GrEndX * Umrech, CurItem->GrEndY * Umrech,
-										  CurItem->Width * Umrech, CurItem->Height * Umrech);
+	updateColorSpecialGradient();
 	Cpal->gradEdit->Preview->fill_gradient = CurItem->fill_gradient;
 	Cpal->gradEdit->Preview->updateDisplay();
 	if (i->FrameType == 0)
@@ -3000,6 +3027,13 @@ void Mpalette::SetSTline(QListBoxItem *c)
 	emit DocChanged();
 }
 
+void Mpalette::updateColorList()
+{
+	if (!HaveDoc)
+		return;
+	Cpal->SetColors(doc->PageColors);
+}
+
 void Mpalette::updateCList()
 {
 	if (ScApp->ScriptRunning)
@@ -3008,10 +3042,11 @@ void Mpalette::updateCList()
 		return;
 	TxFill->clear();
 	TxStroke->clear();
-	ColorList::Iterator it;
+	
 	TxFill->insertItem( tr("None"));
 	TxStroke->insertItem( tr("None"));
-	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
+	ColorList::Iterator itend=doc->PageColors.end();
+	for (ColorList::Iterator it = doc->PageColors.begin(); it != itend; ++it)
 	{
 		QPixmap * pm = getSmallPixmap(doc->PageColors[it.key()].getRawRGBColor());
 		TxFill->insertItem(*pm, it.key());
@@ -3210,7 +3245,8 @@ void Mpalette::handleLock()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		if (ScApp->view->SelItem.count() > 1)
+		uint selectedItemCount=ScApp->view->SelItem.count();
+		if (selectedItemCount > 1)
 		{
 			if (ScApp->view->SelItem.at(0)->locked())
 				ScApp->view->undoManager->beginTransaction(Um::SelectionGroup,
@@ -3219,7 +3255,7 @@ void Mpalette::handleLock()
 				ScApp->view->undoManager->beginTransaction(Um::SelectionGroup,
 											  Um::IGroup, Um::Lock, 0, Um::ILock);
 		}
-		for ( uint a = 0; a < ScApp->view->SelItem.count(); ++a)
+		for ( uint a = 0; a < selectedItemCount; ++a)
 		{
 			ScApp->view->SelItem.at(a)->setLocked(Locked->isOn());
 			ScApp->view->RefreshItem(ScApp->view->SelItem.at(a));
@@ -3235,7 +3271,7 @@ void Mpalette::handleLock()
 		ShapeGroup->setEnabled(!setter);
 		LayerGroup->setEnabled(!setter);
 		emit DocChanged();
-		if (ScApp->view->SelItem.count() > 1)
+		if (selectedItemCount > 1)
 			ScApp->view->undoManager->commit();
 	}
 }
@@ -3256,7 +3292,8 @@ void Mpalette::handleResize()
 {
 	if ((HaveDoc) && (HaveItem))
 	{
-		if (ScApp->view->SelItem.count() > 1)
+		uint selectedItemCount=ScApp->view->SelItem.count();
+		if (selectedItemCount > 1)
 		{
 			if (ScApp->view->SelItem.at(0)->sizeLocked())
 				ScApp->view->undoManager->beginTransaction(Um::SelectionGroup,
@@ -3265,7 +3302,7 @@ void Mpalette::handleResize()
 				ScApp->view->undoManager->beginTransaction(Um::SelectionGroup,
 											  Um::IGroup, Um::SizeLock, 0, Um::ILock);
 		}
-		for ( uint a = 0; a < ScApp->view->SelItem.count(); ++a)
+		for ( uint a = 0; a < selectedItemCount; ++a)
 		{
 			ScApp->view->SelItem.at(a)->setSizeLocked(NoResize->isOn());
 			ScApp->view->RefreshItem(ScApp->view->SelItem.at(a));
@@ -3273,7 +3310,7 @@ void Mpalette::handleResize()
 		Width->setReadOnly(NoResize->isOn());
 		Height->setReadOnly(NoResize->isOn());
 		emit DocChanged();
-		if (ScApp->view->SelItem.count() > 1)
+		if (selectedItemCount > 1)
 			ScApp->view->undoManager->commit();
 	}
 }
@@ -3740,6 +3777,27 @@ void Mpalette::languageChange()
 	QToolTip::add(MonitorI, tr("Rendering intent for the image"));	
 }
 
+
+const VGradient Mpalette::getFillGradient()
+{
+	return Cpal->gradEdit->Preview->fill_gradient;
+}
+
+void Mpalette::setGradientEditMode(const bool on)
+{
+	Cpal->gradEditButton->setOn(on);
+}
+
+void Mpalette::updateColorSpecialGradient()
+{
+	double dur=doc->unitRatio();
+	PageItem *currItem=ScApp->view->SelItem.at(0);
+	Cpal->setSpecialGradient(currItem->GrStartX * dur, currItem->GrStartY * dur,
+							currItem->GrEndX * dur, currItem->GrEndY * dur,
+							currItem->Width * dur, currItem->Height * dur);
+}
+
+
 UserActionSniffer::UserActionSniffer() : QObject (this)
 {
 
@@ -3765,3 +3823,4 @@ bool UserActionSniffer::eventFilter(QObject*, QEvent *e)
 	}
 	return false;
 }
+

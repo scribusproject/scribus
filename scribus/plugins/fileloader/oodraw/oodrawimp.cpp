@@ -87,8 +87,8 @@ const ScActionPlugin::AboutData* OODrawImportPlugin::getAboutData() const
 {
 	AboutData* about = new AboutData;
 	about->authors = "Franz Schmid <franz@scribus.info>";
-	about->shortDescription = tr("Imports OpenOffice Draw Files");
-	about->description = tr("Imports most OpenOffice Draw files into the current document, converting their vector data into Scribus objects.");
+	about->shortDescription = tr("Imports OpenOffice.org Draw Files");
+	about->description = tr("Imports most OpenOffice.org Draw files into the current document, converting their vector data into Scribus objects.");
 	about->license = "GPL";
 	Q_CHECK_PTR(about);
 	return about;
@@ -944,7 +944,7 @@ QString OODPlug::parseColor( const QString &s )
 		ScColor tmp;
 		tmp.fromQColor(c);
 		Doku->PageColors.insert("FromOODraw"+c.name(), tmp);
-		ScApp->propertiesPalette->Cpal->SetColors(Doku->PageColors);
+		ScApp->propertiesPalette->updateColorList();
 		ret = "FromOODraw"+c.name();
 	}
 	return ret;

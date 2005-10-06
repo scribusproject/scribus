@@ -137,7 +137,7 @@ void ScripterCore::FinishScriptRun()
 		ScApp->propertiesPalette->updateCList();
 		ScApp->propertiesPalette->Spal->setFormats(ScApp->doc);
 		ScApp->propertiesPalette->SetLineFormats(ScApp->doc);
-		ScApp->propertiesPalette->Cpal->SetColors(ScApp->doc->PageColors);
+		ScApp->propertiesPalette->updateColorList();
 		ScApp->layerPalette->setLayers(&ScApp->doc->Layers, ScApp->doc->activeLayer());
 		ScApp->outlinePalette->BuildTree(ScApp->doc);
 		ScApp->pagePalette->SetView(ScApp->view);

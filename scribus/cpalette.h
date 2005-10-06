@@ -46,39 +46,13 @@ class DynamicTip;
 class SCRIBUS_API Cpalette : public QWidget
 {
 	Q_OBJECT
+	
+friend class Mpalette;	
+	
 public:
 	Cpalette(QWidget* parent);
 	~Cpalette() {};
 
-	QListBox *colorListQLBox;
-	QToolButton *Inhalt;
-	QToolButton *Innen;
-	QSpinBox *PM1;
-	QComboBox* gradientQCombo;
-	GradientEditor* gradEdit;
-	QFrame* freeGradientQFrame;
-	QLabel* GTextX1;
-	QLabel* GTextY1;
-	QLabel* GTextX2;
-	QLabel* GTextY2;
-	MSpinBox* gY1;
-	MSpinBox* gX2;
-	MSpinBox* gX1;
-	MSpinBox* gY2;
-	QToolButton *gradEditButton;
-	QLabel* TransTxt;
-	QLabel* ShadeTxt;
-	QSpinBox* TransSpin;
-	int Mode;
-	QString sFarbe;
-	ColorList colorList;
-	bool CSichtbar;
-	QString Color;
-	int Shade;
-	QString Color3;
-	int Shade3;
-	bool UseTransFeature;
-	bool GradientMode;
 
 public slots:
 	void InhaltButton();
@@ -127,6 +101,37 @@ protected:
 	QPixmap spotIcon;
 	QPixmap regIcon;
 	DynamicTip* dynTip;
+	
+	
+	QListBox *colorListQLBox;
+	QToolButton *Inhalt;
+	QToolButton *Innen;
+	QSpinBox *PM1;
+	QComboBox* gradientQCombo;
+	GradientEditor* gradEdit;
+	QFrame* freeGradientQFrame;
+	QLabel* GTextX1;
+	QLabel* GTextY1;
+	QLabel* GTextX2;
+	QLabel* GTextY2;
+	MSpinBox* gY1;
+	MSpinBox* gX2;
+	MSpinBox* gX1;
+	MSpinBox* gY2;
+	QToolButton *gradEditButton;
+	QLabel* TransTxt;
+	QLabel* ShadeTxt;
+	QSpinBox* TransSpin;
+	int Mode;
+	QString sFarbe;
+	ColorList colorList;
+	bool CSichtbar;
+	QString Color;
+	int Shade;
+	QString Color3;
+	int Shade3;
+	bool UseTransFeature;
+	bool GradientMode;
 };
 
 #endif

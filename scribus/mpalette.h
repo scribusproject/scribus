@@ -36,7 +36,7 @@ class ScribusDoc;
 class StyleSelect;
 #include "alignselect.h"
 #include "shadebutton.h"
-#include "cpalette.h"
+class Cpalette;
 class Autoforms;
 class ArrowChooser;
 class UserActionSniffer;
@@ -89,6 +89,11 @@ class SCRIBUS_API Mpalette : public ScrPaletteBase
 public:
 	Mpalette(QWidget* parent);
 	~Mpalette() {};
+	
+	void updateColorSpecialGradient();
+	const VGradient getFillGradient();
+	void updateColorList();
+	void setGradientEditMode(const bool);
 	void updateCList();
 	void updateCmsList();
 	void ShowCMS();
@@ -99,184 +104,15 @@ public:
                          // and if in ScribusView a groupTransaction has been started it must be also
                          // commmited
 
+	Cpalette *Cpal;
 	Autoforms* SCustom;
-	LabelButton* colgapLabel;
+	Spalette *Spal;	
 	FontComboH* Fonts;
-	StyleSelect* SeStyle;
-	AlignSelect* GroupAlign;
-	Spalette *Spal;
-	LinkButton* keepImageWHRatioButton;
-	LinkButton* keepFrameWHRatioButton;
-	LinkButton* keepImageDPIRatioButton;
-	LineCombo* LStyle;
 	ArrowChooser* startArrow;
 	ArrowChooser* endArrow;
-	ShadeButton *PM1;
-	ShadeButton *PM2;
-	PageItem *CurItem;
-	bool HaveDoc;
-	bool HaveItem;
-	ScribusDoc *doc;
-	double Umrech;
-	bool LMode;
-	double RoVal;
-
 	QButtonGroup* RotationGroup;
-	QButtonGroup* ShapeGroup;
-
-	QToolButton* TabsButton;
-
-	QToolButton* Zup;
-	QToolButton* ZDown;
-	QToolButton* ZTop;
-	QToolButton* ZBottom;
-
-	QToolBox* TabStack;
-	QWidgetStack* TabStack2;
-	QWidgetStack* TabStack3;
-
-	QWidget* page;
-	QWidget* page_2;
-	QWidget* page_2a;
-	QWidget* page_2b;
-	QWidget* page_3;
-	QWidget* page_4;
-	QWidget* page_5;
-	QWidget* page_5a;
-	QWidget* page_5b;
-
-	Cpalette *Cpal;
-	NameWidget* NameEdit;
-
-	QGroupBox* NameGroup;
-	QGroupBox* GeoGroup;
-	QGroupBox* LayerGroup;
-	QGroupBox* Distance;
-	QGroupBox* Distance2;
-	QGroupBox* GroupBoxCM;
-	QGroupBox* TLines;
-	QGroupBox* GroupBox3a;
-
-	QButtonGroup* textFlowsAroundFrame;
-	QCheckBox* textFlowUsesBoundingBox;
-	QCheckBox* Textflow3;
-	QCheckBox* Aspect;
-	QCheckBox* showcurveCheckBox;
-	QCheckBox* TopLine;
-	QCheckBox* LeftLine;
-	QCheckBox* RightLine;
-	QCheckBox* BottomLine;
-
-	QComboBox* langCombo;
-	QComboBox* InputP;
-	QComboBox* MonitorI;
-	QComboBox* LineMode;
-	QComboBox* TxStroke;
-	QComboBox* LJoinStyle;
-	QComboBox* LEndStyle;
-	QComboBox* TxFill;
-
-	QLabel* xposLabel;
-	QLabel* widthLabel;
-	QLabel* yposLabel;
-	QLabel* heightLabel;
-	QLabel* rotationLabel;
-	QLabel* basepointLabel;
-	QLabel* LevelTxt;
-	QLabel* SRect;
-	QLabel* rndcornersLabel;
-	QLabel* startoffsetLabel;
-	QLabel* distfromcurveLabel;
-	QLabel* topLabel;
-	QLabel* columnsLabel;
-	QLabel* bottomLabel;
-	QLabel* leftLabel;
-	QLabel* rightLabel;
-	QLabel* trackingLabel;
-	QLabel* fontsizeLabel;
-	QLabel* yscaleLabel;
-	QLabel* xscaleLabel;
-	QLabel* xposImgLabel;
-	QLabel* yposImgLabel;
-	QLabel* linewidthLabel;
-	QLabel* endingsLabel;
-	QLabel* linetypeLabel;
-	QLabel* StrokeIcon;
-	QLabel* ShadeTxt2;
-	QLabel* ShadeTxt1;
-	QLabel* FillIcon;
-	QLabel* styleLabel;
-	QLabel* langLabel;
-	QLabel* LineModeT;
-	QLabel* TextCms1;
-	QLabel* TextCms2;
-	QLabel* edgesLabel;
-	QLabel* ChBaseTxt;
-	QLabel* ScaleTxt;
-	QLabel* ScaleTxtV;
-	QLabel* imgDPIXLabel;
-	QLabel* imgDPIYLabel;
-	QLabel* startArrowText;
-	QLabel* endArrowText;
-
-	QListBox* StyledLine;
-
-	MSpinBox* Width;
-	MSpinBox* Xpos;
-	MSpinBox* Ypos;
-	MSpinBox* Height;
-	MSpinBox* Rot;
-	MSpinBox* RoundRect;
-	MSpinBox* dGap;
-	MSpinBox* DTop;
-	MSpinBox* DBottom;
-	MSpinBox* DLeft;
-	MSpinBox* DRight;
-	MSpinBox* Dist;
-	MSpinBox* LineW;
-	MSpinBox* Size;
-	MSpinBox* LineSp;
-	MSpinBox* Extra;
-	MSpinBox* LYpos;
-	MSpinBox* LXpos;
-	MSpinBox* ScaleY;
-	MSpinBox* ScaleX;
-	MSpinBox* imgDpiX;
-	MSpinBox* imgDpiY;
-	MSpinBox* LSize;
-
-	MSpinBox* ChScale;
-	MSpinBox* ChScaleV;
-	MSpinBox* ChBase;
-	QSpinBox* DCol;
-
-	QRadioButton* TopLeft;
-	QRadioButton* TopRight;
-	QRadioButton* Center;
-	QRadioButton* BottomLeft;
-	QRadioButton* BottomRight;
-	QRadioButton* FreeScale;
-	QRadioButton* FrameScale;
-
-	QFrame* Line1;
-	QFrame* Line2;
-	QFrame* Line4;
-	QFrame* Line5;
-	QFrame* Line5_2;
-	QFrame* Frame4;
-
-	QPopupMenu* lineSpacingPop;
-
-	QToolButton* linespacingLabel;
-	QToolButton* FlipH;
-	QToolButton* FlipV;
-	QToolButton* Locked;
-	QToolButton* NoPrint;
-	QToolButton* NoResize;
-	QToolButton* Revert;
-	QToolButton* EditShape;
-
-
+	QButtonGroup* textFlowsAroundFrame;	
+	
 public slots:
 	void languageChange();
 	void SetDoc(ScribusDoc *d);
@@ -436,6 +272,199 @@ protected:
 	QVBoxLayout* textFlowsAroundFrameLayout;
 	QHBoxLayout* layout23;
 	QHBoxLayout* layout24;
+	
+	NameWidget* NameEdit;
+	
+	QWidget* page;
+	QWidget* page_2;
+	QWidget* page_2a;
+	QWidget* page_2b;
+	QWidget* page_3;
+	QWidget* page_4;
+	QWidget* page_5;
+	QWidget* page_5a;
+	QWidget* page_5b;
+	
+	QLabel* xposLabel;
+	QLabel* widthLabel;
+	QLabel* yposLabel;
+	QLabel* heightLabel;
+	QLabel* rotationLabel;
+	QLabel* basepointLabel;
+	QLabel* LevelTxt;
+	QLabel* SRect;
+	QLabel* rndcornersLabel;
+	QLabel* startoffsetLabel;
+	QLabel* distfromcurveLabel;
+	QLabel* topLabel;
+	QLabel* columnsLabel;
+	QLabel* bottomLabel;
+	QLabel* leftLabel;
+	QLabel* rightLabel;
+	QLabel* trackingLabel;
+	QLabel* fontsizeLabel;
+	QLabel* yscaleLabel;
+	QLabel* xscaleLabel;
+	QLabel* xposImgLabel;
+	QLabel* yposImgLabel;
+	QLabel* linewidthLabel;
+	QLabel* endingsLabel;
+	QLabel* linetypeLabel;
+	QLabel* StrokeIcon;
+	QLabel* ShadeTxt2;
+	QLabel* ShadeTxt1;
+	QLabel* FillIcon;
+	QLabel* styleLabel;
+	QLabel* langLabel;
+	QLabel* LineModeT;
+	QLabel* TextCms1;
+	QLabel* TextCms2;
+	QLabel* edgesLabel;
+	QLabel* ChBaseTxt;
+	QLabel* ScaleTxt;
+	QLabel* ScaleTxtV;
+	QLabel* imgDPIXLabel;
+	QLabel* imgDPIYLabel;
+	QLabel* startArrowText;
+	QLabel* endArrowText;	
+	
+
+	LabelButton* colgapLabel;	
+	StyleSelect* SeStyle;
+	AlignSelect* GroupAlign;
+
+	LinkButton* keepImageWHRatioButton;
+	LinkButton* keepFrameWHRatioButton;
+	LinkButton* keepImageDPIRatioButton;
+	LineCombo* LStyle;
+
+	ShadeButton *PM1;
+	ShadeButton *PM2;
+	PageItem *CurItem;
+	bool HaveDoc;
+	bool HaveItem;
+	ScribusDoc *doc;
+	double Umrech;
+	bool LMode;
+	double RoVal;
+
+
+	QButtonGroup* ShapeGroup;
+
+	QToolButton* TabsButton;
+
+	QToolButton* Zup;
+	QToolButton* ZDown;
+	QToolButton* ZTop;
+	QToolButton* ZBottom;
+
+	QToolBox* TabStack;
+	QWidgetStack* TabStack2;
+	QWidgetStack* TabStack3;
+
+
+	QGroupBox* NameGroup;
+	QGroupBox* GeoGroup;
+	QGroupBox* LayerGroup;
+	QGroupBox* Distance;
+	QGroupBox* Distance2;
+	QGroupBox* GroupBoxCM;
+	QGroupBox* TLines;
+	QGroupBox* GroupBox3a;
+
+	QCheckBox* textFlowUsesBoundingBox;
+	QCheckBox* Textflow3;
+	QCheckBox* Aspect;
+	QCheckBox* showcurveCheckBox;
+	QCheckBox* TopLine;
+	QCheckBox* LeftLine;
+	QCheckBox* RightLine;
+	QCheckBox* BottomLine;
+
+	QComboBox* langCombo;
+	QComboBox* InputP;
+	QComboBox* MonitorI;
+	QComboBox* LineMode;
+	QComboBox* TxStroke;
+	QComboBox* LJoinStyle;
+	QComboBox* LEndStyle;
+	QComboBox* TxFill;
+
+	QListBox* StyledLine;
+
+	MSpinBox* Width;
+	MSpinBox* Xpos;
+	MSpinBox* Ypos;
+	MSpinBox* Height;
+	MSpinBox* Rot;
+	MSpinBox* RoundRect;
+	MSpinBox* dGap;
+	MSpinBox* DTop;
+	MSpinBox* DBottom;
+	MSpinBox* DLeft;
+	MSpinBox* DRight;
+	MSpinBox* Dist;
+	MSpinBox* LineW;
+	MSpinBox* Size;
+	MSpinBox* LineSp;
+	MSpinBox* Extra;
+	MSpinBox* LYpos;
+	MSpinBox* LXpos;
+	MSpinBox* ScaleY;
+	MSpinBox* ScaleX;
+	MSpinBox* imgDpiX;
+	MSpinBox* imgDpiY;
+	MSpinBox* LSize;
+
+	MSpinBox* ChScale;
+	MSpinBox* ChScaleV;
+	MSpinBox* ChBase;
+	QSpinBox* DCol;
+
+	QRadioButton* TopLeft;
+	QRadioButton* TopRight;
+	QRadioButton* Center;
+	QRadioButton* BottomLeft;
+	QRadioButton* BottomRight;
+	QRadioButton* FreeScale;
+	QRadioButton* FrameScale;
+
+	QFrame* Line1;
+	QFrame* Line2;
+	QFrame* Line4;
+	QFrame* Line5;
+	QFrame* Line5_2;
+	QFrame* Frame4;
+
+	QPopupMenu* lineSpacingPop;
+
+	QToolButton* linespacingLabel;
+	QToolButton* FlipH;
+	QToolButton* FlipV;
+	QToolButton* Locked;
+	QToolButton* NoPrint;
+	QToolButton* NoResize;
+	QToolButton* Revert;
+	QToolButton* EditShape;
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	bool _userActionOn;
 	UserActionSniffer *userActionSniffer;
 	void installSniffer(MSpinBox *spinBox);

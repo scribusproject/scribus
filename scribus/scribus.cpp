@@ -88,6 +88,7 @@
 #include "javadocs.h"
 #include "colorm.h"
 #include "mpalette.h"
+#include "cpalette.h"
 #include "bookpalette.h"
 #include "seiten.h"
 #include "layers.h"
@@ -472,7 +473,8 @@ void ScribusApp::initPalettes()
 	connect( scrActions["toolsProperties"], SIGNAL(toggled(bool)) , propertiesPalette, SLOT(setPaletteShown(bool)) );
 	connect( propertiesPalette, SIGNAL(paletteShown(bool)), scrActions["toolsProperties"], SLOT(setOn(bool)));
 	propertiesPalette->setPrefsContext("PropertiesPalette");
-	propertiesPalette->Cpal->SetColors(prefsManager->colorSet());
+	//CB dont need this until we have a doc... 
+	//propertiesPalette->Cpal->SetColors(prefsManager->colorSet());
 	propertiesPalette->Cpal->UseTrans(true);
 	propertiesPalette->Fonts->RebuildList(0);
 	propertiesPalette->installEventFilter(this);
@@ -531,22 +533,7 @@ void ScribusApp::initPalettes()
 	connect(undoPalette, SIGNAL(paletteShown(bool)), this, SLOT(setUndoPalette(bool)));
 	connect(undoPalette, SIGNAL(objectMode(bool)), this, SLOT(setUndoMode(bool)));
 
-	connect(propertiesPalette, SIGNAL(DocChanged()), this, SLOT(slotDocCh()));
-	connect(propertiesPalette, SIGNAL(NewAbStyle(int)), this, SLOT(setNewAbStyle(int)));
-	connect(propertiesPalette, SIGNAL(Stellung(int)), this, SLOT(setItemHoch(int)));
-	connect(propertiesPalette, SIGNAL(EditCL()), this, SLOT(ToggleFrameEdit()));
-	connect(propertiesPalette, SIGNAL(NewTF(const QString&)), this, SLOT(SetNewFont(const QString&)));
-	connect(propertiesPalette, SIGNAL(UpdtGui(int)), this, SLOT(HaveNewSel(int)));
-	connect(propertiesPalette->Cpal, SIGNAL(NewPen(QString)), this, SLOT(setPenFarbe(QString)));
-	connect(propertiesPalette->Cpal, SIGNAL(NewBrush(QString)), this, SLOT(setBrushFarbe(QString)));
-	connect(propertiesPalette->Cpal, SIGNAL(NewPenShade(int)), this, SLOT(setPenShade(int)));
-	connect(propertiesPalette->Cpal, SIGNAL(NewBrushShade(int)), this, SLOT(setBrushShade(int)));
-	connect(propertiesPalette->Cpal, SIGNAL(NewTrans(double)), this, SLOT(setItemFillTransparency(double)));
-	connect(propertiesPalette->Cpal, SIGNAL(NewTransS(double)), this, SLOT(setItemLineTransparency(double)));
-	connect(propertiesPalette->Cpal, SIGNAL(NewGradient(int)), this, SLOT(setGradFill(int)));
-	connect(propertiesPalette->Cpal->gradEdit->Preview, SIGNAL(gradientChanged()), this, SLOT(updtGradFill()));
-	connect(propertiesPalette->Cpal, SIGNAL(gradientChanged()), this, SLOT(updtGradFill()));
-	connect(propertiesPalette->Cpal, SIGNAL(QueryItem()), this, SLOT(GetBrushPen()));
+
 	connect(docCheckerPalette, SIGNAL(selectElement(int, int)), this, SLOT(selectItemsFromOutlines(int, int)));
 	connect(docCheckerPalette, SIGNAL(selectPage(int)), this, SLOT(selectPagesFromOutlines(int)));
 	connect(docCheckerPalette, SIGNAL(selectMasterPage(QString)), this, SLOT(manageMasterPages(QString)));
@@ -2686,7 +2673,7 @@ void ScribusApp::SwitchWin()
 	CMSprinterProf = doc->DocPrinterProf;
 	CMSuse = doc->CMSSettings.CMSinUse;
 #endif
-	propertiesPalette->Cpal->SetColors(doc->PageColors);
+	propertiesPalette->updateColorList();
 	propertiesPalette->Cpal->ChooseGrad(0);
 	ActWin->setCaption(doc->DocName);
 	scrActions["shade100"]->setOn(true);
@@ -2802,7 +2789,7 @@ void ScribusApp::HaveNewDoc()
 	scrActions["pageMove"]->setEnabled(setter);
 
 	updateColorMenu();
-	propertiesPalette->Cpal->SetColors(doc->PageColors);
+	propertiesPalette->updateColorList();
 	propertiesPalette->Cpal->ChooseGrad(0);
 	ActWin->setCaption(doc->DocName);
 	scrActions["shade100"]->setOn(true);
@@ -2970,7 +2957,8 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["toolsEditWithStoryEditor"]->setEnabled(false);
 		scrActions["toolsRotate"]->setEnabled(false);
 		scrActions["toolsCopyProperties"]->setEnabled(false);
-		propertiesPalette->Cpal->gradientQCombo->setCurrentItem(0);
+		//CB 061005 moved to cpalette choosegrad
+		//propertiesPalette->Cpal->gradientQCombo->setCurrentItem(0);
 		outlinePalette->slotShowSelect(doc->currentPage->pageNr(), -1);
 		break;
 	case PageItem::ImageFrame: //Image Frame
@@ -3003,7 +2991,6 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["toolsRotate"]->setEnabled(true);
 		scrActions["toolsCopyProperties"]->setEnabled(true);
 		scrActions["itemImageIsVisible"]->setOn(currItem->PicArt);
-
 		scrActions["itemPreviewLow"]->setOn(currItem->pixm.imgInfo.lowResType==scrActions["itemPreviewLow"]->actionInt());
 		scrActions["itemPreviewNormal"]->setOn(currItem->pixm.imgInfo.lowResType==scrActions["itemPreviewNormal"]->actionInt());
 		scrActions["itemPreviewFull"]->setOn(currItem->pixm.imgInfo.lowResType==scrActions["itemPreviewFull"]->actionInt());
@@ -3667,7 +3654,7 @@ bool ScribusApp::loadPage(QString fileName, int Nr, bool Mpa)
 			if ((ite->itemType() == PageItem::TextFrame) && (ite->isBookmark))
 				bookmarkPalette->BView->AddPageItem(ite);
 		}
-		propertiesPalette->Cpal->SetColors(doc->PageColors);
+		propertiesPalette->updateColorList();
 		propertiesPalette->updateCList();
 		propertiesPalette->Spal->setFormats(doc);
 		propertiesPalette->SetLineFormats(doc);
@@ -3957,7 +3944,7 @@ bool ScribusApp::loadDoc(QString fileName)
 			CMSuse = doc->CMSSettings.CMSinUse;
 #endif
 		}
-		propertiesPalette->Cpal->SetColors(doc->PageColors);
+		propertiesPalette->updateColorList();
 		propertiesPalette->Cpal->ChooseGrad(0);
 		if (fl->FileType > 1)
 		{
@@ -4207,7 +4194,7 @@ void ScribusApp::slotFileOpen()
 				qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
 				qApp->restoreOverrideCursor();
 				view->DrawNew();
-				propertiesPalette->Cpal->SetColors(doc->PageColors);
+				propertiesPalette->updateColorList();
 				propertiesPalette->updateCList();
 				propertiesPalette->ShowCMS();
 				//slotDocCh(); view->LoadPict does this now.
@@ -4518,7 +4505,8 @@ bool ScribusApp::DoFileClose()
 		mainToolBar->setEnabled(false);
 		pdfToolBar->setEnabled(false);
 		ColorMenC->clear();
-		propertiesPalette->Cpal->SetColors(prefsManager->colorSet());
+		//CB dont need this until we have a doc... 
+		//propertiesPalette->Cpal->SetColors(prefsManager->colorSet());
 		propertiesPalette->Cpal->ChooseGrad(0);
 		mainWindowStatusLabel->setText( tr("Ready"));
 		PrinterUsed = false;
@@ -6146,7 +6134,7 @@ void ScribusApp::setAppMode(int mode)
 			view->FirstPoly = true;
 		}
 		if (mode == modeEditGradientVectors)
-			propertiesPalette->Cpal->gradEditButton->setOn(true);
+			propertiesPalette->setGradientEditMode(true);
 		if (mode == modeMeasurementTool)
 		{
 			measurementPalette->show();
@@ -6215,7 +6203,7 @@ void ScribusApp::setAppMode(int mode)
 		{
 			pdfToolBar->PDFTool->setOn(false);
 			pdfToolBar->PDFaTool->setOn(false);
-			propertiesPalette->Cpal->gradEditButton->setOn(false);
+			propertiesPalette->setGradientEditMode(false);
 		}
 		if (mode == modeLinkFrames)
 			doc->ElemToLink = view->SelItem.at(0);
@@ -7217,7 +7205,7 @@ void ScribusApp::saveStyles(StilFormate *dia)
 		}
 	}
 	propertiesPalette->Spal->updateFormatList();
-	propertiesPalette->Cpal->SetColors(doc->PageColors);
+	propertiesPalette->updateColorList();
 	propertiesPalette->updateCList();
 	disconnect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
 	ColorList::Iterator it;
@@ -7271,7 +7259,7 @@ void ScribusApp::slotEditColors()
 			QColor tmpc;
 			slotDocCh();
 			doc->PageColors = dia->EditColors;
-			propertiesPalette->Cpal->SetColors(doc->PageColors);
+			propertiesPalette->updateColorList();
 			propertiesPalette->updateCList();
 			updateColorMenu();
 			ers = dia->Ersatzliste;
@@ -7492,7 +7480,7 @@ void ScribusApp::updtGradFill()
 		if (view->SelItem.count() != 0)
 		{
 			PageItem *currItem = view->SelItem.at(0);
-			currItem->fill_gradient = propertiesPalette->Cpal->gradEdit->Preview->fill_gradient;
+			currItem->fill_gradient = propertiesPalette->getFillGradient();
 			view->RefreshItem(currItem);
 			slotDocCh();
 		}
@@ -7501,7 +7489,10 @@ void ScribusApp::updtGradFill()
 
 void ScribusApp::GetBrushPen()
 {
-	setActiveWindow();
+	//What? we come back here from mpalette and then go to the view.. someones kidding
+	
+	//why this.. ugh. setActiveWindow();
+	//
 	if (HaveDoc)
 	{
 		view->QueryFarben();
@@ -7535,8 +7526,8 @@ void ScribusApp::MakeFrame(int f, int c, double *vals)
 
 void ScribusApp::DeleteObjekt()
 {
-	 if (HaveDoc)
-	 	if (!doc->EditClip)
+	if (HaveDoc)
+		if (!doc->EditClip)
 			view->DeleteItem();
 }
 
@@ -8211,7 +8202,7 @@ void ScribusApp::slotElemRead(QString Name, int x, int y, bool art, bool loca, S
 		{
 			doc->OpenNodes = outlinePalette->buildReopenVals();
 			buildFontMenu();
-			propertiesPalette->Cpal->SetColors(docc->PageColors);
+			propertiesPalette->updateColorList();
 			propertiesPalette->updateCList();
 			propertiesPalette->Spal->updateFormatList();
 			propertiesPalette->SetLineFormats(docc);
@@ -8809,7 +8800,7 @@ void ScribusApp::recalcColors(QProgressBar *dia)
 	{
 		doc->recalculateColors();
 		updateColorMenu(dia);
-		propertiesPalette->Cpal->SetColors(doc->PageColors);
+		propertiesPalette->updateColorList();
 		propertiesPalette->updateCList();
 	}
 }
@@ -9548,7 +9539,7 @@ void ScribusApp::mouseReleaseEvent(QMouseEvent *m)
 				{
 					ScColor newColor(selectedColor.red(), selectedColor.green(), selectedColor.blue());
 					doc->PageColors[colorName]=newColor;
-					propertiesPalette->Cpal->SetColors(ScApp->doc->PageColors);
+					propertiesPalette->updateColorList();
 					propertiesPalette->updateCList();
 				}
 				else

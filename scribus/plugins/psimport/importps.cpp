@@ -644,7 +644,7 @@ QString EPSPlug::parseColor(QString vals, colorModel model)
 	if (!found)
 	{
 		Doku->PageColors.insert("FromEPS"+tmp.name(), tmp);
-		ScApp->propertiesPalette->Cpal->SetColors(Doku->PageColors);
+		ScApp->propertiesPalette->updateColorList();
 		ret = "FromEPS"+tmp.name();
 	}
 	return ret;

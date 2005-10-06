@@ -381,7 +381,7 @@ void ColorWheelDialog::addButton_clicked()
 		ScApp->slotEditColors();
 		return;
 	}
-	ScApp->propertiesPalette->Cpal->SetColors(ScApp->doc->PageColors);
+	ScApp->propertiesPalette->updateColorList();
 	ScApp->propertiesPalette->updateCList();
 	accept();
 }
@@ -392,7 +392,7 @@ void ColorWheelDialog::replaceButton_clicked()
 	{
 		ScApp->doc->PageColors[it.key()] = it.data();
 	}
-	ScApp->propertiesPalette->Cpal->SetColors(ScApp->doc->PageColors);
+	ScApp->propertiesPalette->updateColorList();
 	ScApp->propertiesPalette->updateCList();
 	accept();
 }

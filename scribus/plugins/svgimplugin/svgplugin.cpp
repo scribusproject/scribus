@@ -1475,7 +1475,7 @@ QString SVGPlug::parseColor( const QString &s )
 		ScColor tmp;
 		tmp.fromQColor(c);
 		currDoc->PageColors.insert("FromSVG"+c.name(), tmp);
-		ScApp->propertiesPalette->Cpal->SetColors(currDoc->PageColors);
+		ScApp->propertiesPalette->updateColorList();
 		ret = "FromSVG"+c.name();
 	}
 	return ret;

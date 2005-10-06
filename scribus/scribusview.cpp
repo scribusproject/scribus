@@ -2923,10 +2923,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 		Mxp = newX;
 		Myp = newY;
 		RefreshItem(currItem);
-		double dur=Doc->unitRatio();
-		ScApp->propertiesPalette->Cpal->setSpecialGradient(currItem->GrStartX * dur, currItem->GrStartY * dur,
-															currItem->GrEndX * dur, currItem->GrEndY * dur,
-															currItem->Width * dur, currItem->Height * dur);
+		ScApp->propertiesPalette->updateColorSpecialGradient();
 		return;
 	}
 	if (Mpressed && (Doc->appMode == modeMeasurementTool))
@@ -7810,7 +7807,7 @@ void ScribusView::Deselect(bool prop)
 	}
 	if (prop)
 		emit HaveSel(-1);
-	ScApp->propertiesPalette->Cpal->gradEditButton->setOn(false);
+	ScApp->propertiesPalette->setGradientEditMode(false);
 }
 
 void ScribusView::updateGradientVectors(PageItem *currItem)
@@ -7863,10 +7860,7 @@ void ScribusView::updateGradientVectors(PageItem *currItem)
 	currItem->GrEndY = QMIN(QMAX(currItem->GrEndY, 0), currItem->Height);
 	currItem->GrStartX = QMIN(QMAX(currItem->GrStartX, 0), currItem->Width);
 	currItem->GrStartY = QMIN(QMAX(currItem->GrStartY, 0), currItem->Height);
-	double dur=Doc->unitRatio();
-	ScApp->propertiesPalette->Cpal->setSpecialGradient(currItem->GrStartX * dur, currItem->GrStartY * dur,
-														 currItem->GrEndX * dur, currItem->GrEndY * dur,
-														 currItem->Width * dur, currItem->Height * dur);
+	ScApp->propertiesPalette->updateColorSpecialGradient();
 }
 
 void ScribusView::SetupDraw(int nr)
@@ -7909,10 +7903,7 @@ void ScribusView::EmitValues(PageItem *currItem)
 		emit ItemTextFont(currItem->IFont);
 		emit ItemTextSize(currItem->ISize);
 	}
-	double dur=Doc->unitRatio();
-	ScApp->propertiesPalette->Cpal->setSpecialGradient(currItem->GrStartX * dur, currItem->GrStartY * dur,
-																 currItem->GrEndX * dur, currItem->GrEndY * dur,
-																 currItem->Width * dur, currItem->Height * dur);
+	ScApp->propertiesPalette->updateColorSpecialGradient();
 }
 
 void ScribusView::ToggleBookmark()

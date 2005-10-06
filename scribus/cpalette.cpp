@@ -226,9 +226,8 @@ void Cpalette::updateCList()
 	colorListQLBox->clear();
 	if ((!GradientMode) || (Mode == 1))
 		colorListQLBox->insertItem( tr("None"));
-	ColorList::Iterator it;
 	ColorList::Iterator itend=colorList.end();
-	for (it = colorList.begin(); it != itend; ++it)
+	for (ColorList::Iterator it = colorList.begin(); it != itend; ++it)
 	{
 		ScColor col = colorList[it.key()];
 		QPixmap * pm = getFancyPixmap(col);
@@ -331,6 +330,8 @@ void Cpalette::slotGrad(int number)
 
 void Cpalette::ChooseGrad(int number)
 {
+	if (number==-1)
+		gradientQCombo->setCurrentItem(0); //no need to disconnect as qcombobox only emits from user action
 	/* PFJ - 29.02.04 - Removed GradGroup and Gradient mode from switch */
 	GradientMode = number == 0 ? false : true;
 
