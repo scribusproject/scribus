@@ -7669,7 +7669,7 @@ void ScribusApp::buildFontMenu()
 		QMap<QString,int>::Iterator it3;
 		for (it3 = doc->UsedFonts.begin(); it3 != doc->UsedFonts.end(); ++it3)
 		{
-			a = FontMenu->insertItem(new FmItem(it3.key(), it3.data()));
+			a = FontMenu->insertItem(new FmItem(it3.key(), prefsManager->appPrefs.AvailFonts[it3.key()]));
 			if (it3.key() == doc->toolSettings.defFont)
 				FontMenu->setItemChecked(a, true);
 			FontID.insert(a, it3.key());
