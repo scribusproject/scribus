@@ -26,7 +26,7 @@ extern bool CMSavail;
 
 
 TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &AllFonts,
-								ProfilesL *PDFXProfiles, QMap<QString,QFont> DocFonts,
+								ProfilesL *PDFXProfiles, QMap<QString,int> DocFonts,
 								QValueList<PDFPresentationData> Eff, int unitIndex,
 								double PageH, double PageB, ScribusView *vie ) : QTabWidget( parent, "pdf" )
 {
@@ -231,7 +231,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 		TextFont1 = new QLabel( tr( "Available Fonts:" ), GroupFont, "TextFont1" );
 		Layout4_2->addWidget( TextFont1 );
 		AvailFlist = new QListBox( GroupFont, "AvailFlist" );
-		QMap<QString,QFont>::Iterator it;
+		QMap<QString,int>::Iterator it;
 		for (it = DocFonts.begin(); it != DocFonts.end(); ++it)
 		{
 			if (AllFonts[it.key()]->typeCode == Foi::TYPE1)

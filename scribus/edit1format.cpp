@@ -576,9 +576,9 @@ void EditStyle::updatePreview()
 	tmpStyle.baseOff = qRound(fontBase->value() * 10.0);
 	tmpStyle.kernVal = qRound(fontKern->value() * 10.0);
 
-	QFont fo = QFont(FontC->currentFont());
-	fo.setPointSize(qRound(parentDoc->toolSettings.defSize / 10.0));
-	parentDoc->AddFont(FontC->currentFont(), fo);
+//	QFont fo = QFont(FontC->currentFont());
+//	fo.setPointSize(qRound(parentDoc->toolSettings.defSize / 10.0));
+	parentDoc->AddFont(FontC->currentFont(), qRound(parentDoc->toolSettings.defSize / 10.0));
 	parentDoc->docParagraphStyles.append(tmpStyle);
 	int tmpIndex = parentDoc->docParagraphStyles.count() - 1;
 	previewItem->itemText.clear();

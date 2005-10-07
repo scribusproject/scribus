@@ -191,7 +191,7 @@ QPixmap FontSample(Foi * fnt, int s, QString ts, QColor back, bool force)
 	int  pen_x;
 	FPoint gp;
 	error = FT_Init_FreeType( &library );
-	error = FT_New_Face( library, fnt->fontFilePath(), fnt->faceIndex, &face );
+	error = FT_New_Face( library, fnt->fontFilePath(), fnt->faceIndex(), &face );
 	int encode = setBestEncoding(face);
 	double uniEM = static_cast<double>(face->units_per_EM);
 	int h = qRound(face->height / uniEM) * s + 1;
@@ -308,7 +308,7 @@ bool GlyNames(Foi * fnt, QMap<uint, QString> *GList)
 	FT_ULong  charcode;
 	FT_UInt gindex;
 	error = FT_Init_FreeType(&library);
-	error = FT_New_Face(library, fnt->fontFilePath(), fnt->faceIndex, &face);
+	error = FT_New_Face(library, fnt->fontFilePath(), fnt->faceIndex(), &face);
 	setBestEncoding(face);
 	gindex = 0;
 	charcode = FT_Get_First_Char(face, &gindex );
@@ -346,7 +346,7 @@ bool GlyIndex(Foi * fnt, QMap<uint, PDFlib::GlNamInd> *GListInd)
 	uint counter1 = 32;
 	uint counter2 = 0;
 	error = FT_Init_FreeType(&library);
-	error = FT_New_Face(library, fnt->fontFilePath(), fnt->faceIndex, &face);
+	error = FT_New_Face(library, fnt->fontFilePath(), fnt->faceIndex(), &face);
 	setBestEncoding(face);
 	gindex = 0;
 	charcode = FT_Get_First_Char(face, &gindex );
@@ -481,7 +481,7 @@ double Cwidth(ScribusDoc *currentDoc, Foi* name, QString ch, int Size, QString c
 		width = name->CharWidth[c1]*size10;
 		if (name->HasKern)
 		{
-			face = currentDoc->FFonts[name->SCName];
+			face = currentDoc->FFonts[name->scName()];
 			uint cl = FT_Get_Char_Index(face, c1);
 			uint cr = FT_Get_Char_Index(face, c2);
 			FT_Get_Kerning(face, cl, cr, ft_kerning_unscaled, &delta);
@@ -500,7 +500,7 @@ double RealCWidth(ScribusDoc *currentDoc, Foi* name, QString ch, int Size)
 	FT_Face      face;
 	if (name->CharWidth.contains(c1))
 	{
-		face = currentDoc->FFonts[name->SCName];
+		face = currentDoc->FFonts[name->scName()];
 		uint cl = FT_Get_Char_Index(face, c1);
 		int error = FT_Load_Glyph(face, cl, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
 		if (!error) {
@@ -522,7 +522,7 @@ double RealCHeight(ScribusDoc *currentDoc, Foi* name, QString ch, int Size)
 	FT_Face      face;
 	if (name->CharWidth.contains(c1))
 	{
-		face = currentDoc->FFonts[name->SCName];
+		face = currentDoc->FFonts[name->scName()];
 		uint cl = FT_Get_Char_Index(face, c1);
 		int error = FT_Load_Glyph(face, cl, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
 		if (!error)
@@ -544,7 +544,7 @@ double RealCAscent(ScribusDoc *currentDoc, Foi* name, QString ch, int Size)
 	FT_Face      face;
 	if (name->CharWidth.contains(c1))
 	{
-		face = currentDoc->FFonts[name->SCName];
+		face = currentDoc->FFonts[name->scName()];
 		uint cl = FT_Get_Char_Index(face, c1);
 		int error = FT_Load_Glyph(face, cl, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
 		if (! error)
@@ -561,6 +561,6 @@ double RealCAscent(ScribusDoc *currentDoc, Foi* name, QString ch, int Size)
 
 double RealFHeight(ScribusDoc *currentDoc, Foi* name, int Size)
 {
-	FT_Face face = currentDoc->FFonts[name->SCName];
+	FT_Face face = currentDoc->FFonts[name->scName()];
 	return face->height / name->uniEM * (Size / 10.0);
 }

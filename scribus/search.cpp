@@ -419,7 +419,7 @@ void SearchReplace::slotDoSearch()
 			}
 			if (SFont->isChecked())
 			{
-				if (Item->itemText.at(a)->cfont->SCName != sFont)
+				if (Item->itemText.at(a)->cfont->scName() != sFont)
 					found = false;
 			}
 			if (SStyle->isChecked())

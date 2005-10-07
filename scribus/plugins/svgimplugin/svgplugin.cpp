@@ -1649,7 +1649,7 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 		for ( ; it.current(); ++it)
 		{
 			QString fam;
-			QString &fn = it.current()->SCName;
+			QString fn = it.current()->scName();
 			int	pos=fn.find(" ");
 			fam = fn.left(pos);
 			if (fam == family)

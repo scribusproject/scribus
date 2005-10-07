@@ -526,7 +526,7 @@ QString gtAction::validateFont(gtFont* font)
 	}
 
 	if(!ScApp->doc->UsedFonts.contains(useFont))
-		ScApp->doc->AddFont(useFont, prefsManager->appPrefs.AvailFonts[useFont]->Font);
+		ScApp->doc->AddFont(useFont);
 	return useFont;
 }
 

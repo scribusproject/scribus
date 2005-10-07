@@ -223,7 +223,7 @@ public:
 	//Items
 	const bool deleteTaggedItems();
 
-	bool AddFont(QString name, QFont fo);
+	bool AddFont(QString name, int fsize = 10);
 	void OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo);
 	void CloseCMSProfiles();
 	void loadStylesFromFile(QString fileName, QValueList<ParagraphStyle> *tempStyles = NULL);
@@ -255,7 +255,7 @@ public:
 	/*!
 	 * @brief Returns a qmap of the fonts used within the document
 	 */
-	void getUsedFonts(QMap<QString,QFont> *Really);
+	void getUsedFonts(QMap<QString,int> *Really);
 	/*!
 	* @brief Builds a qmap of the colours used within the document
 	*/
@@ -408,7 +408,7 @@ public: // Public attributes
 	double *ShapeValues;
 	int ValCount;
 	QString DocName;
-	QMap<QString,QFont> UsedFonts;
+	QMap<QString,int> UsedFonts;
 	SCFonts *AllFonts;
 	QColor papColor;
 	int CurrentSel;

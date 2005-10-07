@@ -268,7 +268,7 @@ static int PDFfile_init(PDFfile *self, PyObject */*args*/, PyObject */*kwds*/)
 		return -1;
 	}
 	// get all used fonts
-	QMap<QString,QFont> ReallyUsed;
+	QMap<QString,int> ReallyUsed;
 	ReallyUsed.clear();
 	ScApp->doc->getUsedFonts(&ReallyUsed);
 	// create list of all used fonts

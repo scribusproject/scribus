@@ -977,7 +977,7 @@ void SEditor::loadItemText(PageItem *currItem)
 			{
 				hg = new PtiSmall;
 				hg->ch = nextItem->itemText.at(a)->ch;
-				hg->cfont = nextItem->itemText.at(a)->cfont->SCName;
+				hg->cfont = nextItem->itemText.at(a)->cfont->scName();
 				hg->csize = nextItem->itemText.at(a)->csize;
 				hg->ccolor = nextItem->itemText.at(a)->ccolor;
 				hg->cshade = nextItem->itemText.at(a)->cshade;
@@ -2470,7 +2470,8 @@ void StoryEditor::newTxStroke(int c, int s)
 void StoryEditor::newTxFont(const QString &f)
 {
 	if(!currDoc->UsedFonts.contains(f)) {
-		if (!currDoc->AddFont(f, prefsManager->appPrefs.AvailFonts[f]->Font)) {
+		if (!currDoc->AddFont(f)) {
+//, prefsManager->appPrefs.AvailFonts[f]->Font)) {
 			FontTools->Fonts->RebuildList(currDoc);
 			return;
 		};
@@ -2786,29 +2787,27 @@ void StoryEditor::updateProps(int p, int ch)
 
 void StoryEditor::updateStatus()
 {
-	//FIXME Too slow!! Possibly move to a timer
 	QString tmp;
 	int p, i;
 	Editor->getCursorPosition(&p, &i);
-	uint styledTextCount=Editor->StyledText.count();
-	ParC->setText(tmp.setNum(styledTextCount));
-	static QRegExp rx( "(\\w+)\\b" );
+	ParC->setText(tmp.setNum(Editor->StyledText.count()));
+	QRegExp rx( "(\\w+)\\b" );
 	int pos = 0;
 	int counter = 0;
+	int counter1 = 0;
+	int counter2 = 0;
 	while ( pos >= 0 )
 	{
 		pos = rx.search( Editor->text(p), pos );
 		if ( pos > -1 )
 		{
-			++counter;
+			counter++;
 			pos += rx.matchedLength();
 		}
 	}
 	WordC->setText(tmp.setNum(counter));
 	CharC->setText(tmp.setNum(Editor->text(p).length()-1));
-	int counter1 = 0;
-	int counter2 = 0;
-	for (uint a = 0; a < styledTextCount; ++a)
+	for (uint a = 0; a < Editor->StyledText.count(); ++a)
 	{
 		int pos = 0;
 		while ( pos >= 0 )
@@ -2816,7 +2815,7 @@ void StoryEditor::updateStatus()
 			pos = rx.search( Editor->text(a), pos );
 			if ( pos > -1 )
 			{
-				++counter2;
+				counter2++;
 				pos += rx.matchedLength();
 			}
 		}

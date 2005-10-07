@@ -6733,7 +6733,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 			}
 			if (breakAndReturn)
 			{
-				Doc->CurrFont = currItem->itemText.at(a)->cfont->SCName;
+				Doc->CurrFont = currItem->itemText.at(a)->cfont->scName();
 				Doc->CurrFontSize = currItem->itemText.at(a)->csize;
 				Doc->CurrTextFill = currItem->itemText.at(a)->ccolor;
 				Doc->CurrTextFillSh = currItem->itemText.at(a)->cshade;
@@ -6756,7 +6756,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 				emit ItemTextBase(currItem->itemText.at(a)->cbase);
 				emit ItemTextSca(currItem->itemText.at(a)->cscale);
 				emit ItemTextScaV(currItem->itemText.at(a)->cscalev);
-				emit ItemTextFont(currItem->itemText.at(a)->cfont->SCName);
+				emit ItemTextFont(currItem->itemText.at(a)->cfont->scName());
 				emit ItemTextSize(currItem->itemText.at(a)->csize);
 				emit ItemTextUSval(currItem->itemText.at(a)->cextra);
 				emit ItemTextStil(currItem->itemText.at(a)->cstyle);
@@ -6779,7 +6779,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 						i = a - 1;
 					else
 						i = a;
-					Doc->CurrFont = currItem->itemText.at(i)->cfont->SCName;
+					Doc->CurrFont = currItem->itemText.at(i)->cfont->scName();
 					Doc->CurrFontSize = currItem->itemText.at(i)->csize;
 					Doc->CurrTextFill = currItem->itemText.at(i)->ccolor;
 					Doc->CurrTextFillSh = currItem->itemText.at(i)->cshade;
@@ -6802,7 +6802,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 					emit ItemTextSca(currItem->itemText.at(i)->cscale);
 					emit ItemTextScaV(currItem->itemText.at(i)->cscalev);
 					emit ItemTextFarben(currItem->itemText.at(i)->cstroke, currItem->itemText.at(i)->ccolor, currItem->itemText.at(i)->cshade2, currItem->itemText.at(i)->cshade);
-					emit ItemTextFont(currItem->itemText.at(i)->cfont->SCName);
+					emit ItemTextFont(currItem->itemText.at(i)->cfont->scName());
 					emit ItemTextSize(currItem->itemText.at(i)->csize);
 					emit ItemTextUSval(currItem->itemText.at(i)->cextra);
 					emit ItemTextStil(currItem->itemText.at(i)->cstyle);
@@ -6814,7 +6814,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 			currItem->CPos = currItem->itemText.count();
 			if (currItem->itemText.count() != 0)
 			{
-				Doc->CurrFont = currItem->itemText.at(currItem->CPos-1)->cfont->SCName;
+				Doc->CurrFont = currItem->itemText.at(currItem->CPos-1)->cfont->scName();
 				Doc->CurrFontSize = currItem->itemText.at(currItem->CPos-1)->csize;
 				Doc->CurrTextFill = currItem->itemText.at(currItem->CPos-1)->ccolor;
 				Doc->CurrTextFillSh = currItem->itemText.at(currItem->CPos-1)->cshade;
@@ -6837,7 +6837,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 				emit ItemTextSca(currItem->itemText.at(currItem->CPos-1)->cscale);
 				emit ItemTextScaV(currItem->itemText.at(currItem->CPos-1)->cscalev);
 				emit ItemTextFarben(currItem->itemText.at(currItem->CPos-1)->cstroke, currItem->itemText.at(currItem->CPos-1)->ccolor, currItem->itemText.at(currItem->CPos-1)->cshade2, currItem->itemText.at(currItem->CPos-1)->cshade);
-				emit ItemTextFont(currItem->itemText.at(currItem->CPos-1)->cfont->SCName);
+				emit ItemTextFont(currItem->itemText.at(currItem->CPos-1)->cfont->scName());
 				emit ItemTextSize(currItem->itemText.at(currItem->CPos-1)->csize);
 				emit ItemTextUSval(currItem->itemText.at(currItem->CPos-1)->cextra);
 				emit ItemTextStil(currItem->itemText.at(currItem->CPos-1)->cstyle);

@@ -763,12 +763,12 @@ void SVGExPlug::SetTextProps(QDomElement *tp, struct ScText *hl)
 	if ((hl->cstroke != "None") && (chst & 4))
 		{
 		tp->setAttribute("stroke", SetFarbe(hl->cstroke, hl->cshade2));
-		tp->setAttribute("stroke-width", FToStr((*ScApp->doc->AllFonts)[hl->cfont->SCName]->strokeWidth * (hl->csize / 10.0))+"pt");
+		tp->setAttribute("stroke-width", FToStr((*ScApp->doc->AllFonts)[hl->cfont->scName()]->strokeWidth * (hl->csize / 10.0))+"pt");
 		}
 	else
 		tp->setAttribute("stroke", "none");
 	tp->setAttribute("font-size", (hl->csize / 10.0));
-	tp->setAttribute("font-family", (*ScApp->doc->AllFonts)[hl->cfont->SCName]->Family);
+	tp->setAttribute("font-family", (*ScApp->doc->AllFonts)[hl->cfont->scName()]->family());
 	if (chst != 0)
 		{
 		if (chst & 64)

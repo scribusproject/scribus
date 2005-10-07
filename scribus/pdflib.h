@@ -47,7 +47,7 @@ public:
 	PDFlib(ScribusDoc *docu);
 	~PDFlib() {};
 	bool doExport(QString fn, QString nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs, QProgressBar *dia2);
-	bool PDF_Begin_Doc(QString fn, PDFOptions *opts, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, BookMView* vi);
+	bool PDF_Begin_Doc(QString fn, PDFOptions *opts, SCFonts &AllFonts, QMap<QString,int> DocFonts, BookMView* vi);
 	void PDF_Begin_Page(Page* pag, QPixmap pm = 0);
 	void PDF_End_Page();
 	void PDF_TemplatePage(Page* pag, bool clip = false);
@@ -189,7 +189,7 @@ private:
 	QString Datum;
 	int NDnum;
 	QMap<QString, QString> UsedFontsP;
-	QMap<QString, QFont> RealFonts;
+	QMap<QString, int> RealFonts;
 	bool CompAvail;
 	QByteArray KeyGen;
 	QByteArray OwnerKey;

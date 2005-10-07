@@ -185,7 +185,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	GroupBox200Layout->addWidget( DocumentTemplateDir, 3, 1 );
 	GroupBox200Layout->addWidget( FileC4, 3, 2 );
 	tabLayout->addWidget( GroupBox200, 1, 0 );
-	addItem( tr("General"), loadIcon("AppIcon.png"), tab);
+	addItem( tr("General"), loadIcon("scribusicon.png"), tab);
 
 	tab_7 = new QWidget( prefsWidgets, "tab_7" );
 	tabLayout_7 = new QHBoxLayout( tab_7, 0, 5, "tabLayout_7");
@@ -327,7 +327,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	Layout21->addLayout(asurLayout);
 
 	tabLayout_7->addLayout( Layout21 );
-	addItem( tr("Document"), loadIcon("page.png"), tab_7);
+	addItem( tr("Document"), loadIcon("scribusdoc.png"), tab_7);
 
 	tabGuides = new TabGuides(prefsWidgets, &prefsData->guidesSettings, &prefsData->typographicSettings, docUnitIndex);
 	addItem( tr("Guides"), loadIcon("guides.png"), tabGuides);
@@ -355,7 +355,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 		tabColorManagement = new CMSPrefs(prefsWidgets, &prefsData->DCMSset, &ap->InputProfiles, &ap->InputProfilesCMYK, &ap->PrinterProfiles, &ap->MonitorProfiles);
 		addItem( tr("Color Management"), loadIcon("blend.png"), tabColorManagement);
 	}
-	QMap<QString,QFont> DocFonts;
+	QMap<QString,int> DocFonts;
 	DocFonts.clear();
 	tabPDF = new TabPDFOptions( prefsWidgets,
 								&prefsData->PDF_Options,

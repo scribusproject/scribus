@@ -25,6 +25,7 @@
 #include <qmenudata.h>
 
 #include "scribusapi.h"
+#include "scfonts.h"
 
 /**
   *@author Franz Schmid
@@ -33,7 +34,7 @@
 class SCRIBUS_API FmItem : public QCustomMenuItem 
 {
 public: 
-	FmItem(const QString& s, const QFont& f);
+	FmItem(const QString& s, const Foi * f);
 	~FmItem() {};
 	void paint(QPainter *p, const QColorGroup& cg, bool act, bool enabled, int x, int y, int w, int h);
 	QSize sizeHint();

@@ -33,7 +33,7 @@ class SCRIBUS_API TabPDFOptions : public QTabWidget
 
 public:
 	TabPDFOptions(  QWidget* parent, PDFOptions *Optionen, SCFonts &AllFonts,
-					ProfilesL *PDFXProfiles, QMap<QString,QFont> DocFonts,
+					ProfilesL *PDFXProfiles, QMap<QString,int> DocFonts,
 					QValueList<PDFPresentationData> Eff, int unitIndex,
 					double PageH, double PageB, ScribusView *vie = 0 );
 	~TabPDFOptions() {};

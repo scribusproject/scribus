@@ -402,7 +402,7 @@ QByteArray PDFlib::ComputeMD5(QString in)
 	return ComputeMD5Sum(&TBytes);
 }
 
-bool PDFlib::PDF_Begin_Doc(QString fn, PDFOptions *opts, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, BookMView* vi)
+bool PDFlib::PDF_Begin_Doc(QString fn, PDFOptions *opts, SCFonts &AllFonts, QMap<QString,int> DocFonts, BookMView* vi)
 {
   	Spool.setName(fn);
 	if (!Spool.open(IO_WriteOnly))
@@ -533,7 +533,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, PDFOptions *opts, SCFonts &AllFonts, QMap
 		PutDoc("/P "+IToStr(Options->Permissions)+"\n>>\nendobj\n");
 	}
 	RealFonts = DocFonts;
-	QMap<QString,QFont> ReallyUsed;
+	QMap<QString,int> ReallyUsed;
 	ReallyUsed.clear();
 	PageItem* pgit;
 	for (uint c = 0; c < doc->FrameItems.count(); ++c)
@@ -543,7 +543,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, PDFOptions *opts, SCFonts &AllFonts, QMap
 		{
 			for (uint e = 0; e < pgit->itemText.count(); ++e)
 			{
-				ReallyUsed.insert(pgit->itemText.at(e)->cfont->SCName, DocFonts[pgit->itemText.at(e)->cfont->SCName]);
+				ReallyUsed.insert(pgit->itemText.at(e)->cfont->scName(), DocFonts[pgit->itemText.at(e)->cfont->scName()]);
 			}
 		}
 	}
@@ -554,7 +554,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, PDFOptions *opts, SCFonts &AllFonts, QMap
 		{
 			for (uint e = 0; e < pgit->itemText.count(); ++e)
 			{
-				ReallyUsed.insert(pgit->itemText.at(e)->cfont->SCName, DocFonts[pgit->itemText.at(e)->cfont->SCName]);
+				ReallyUsed.insert(pgit->itemText.at(e)->cfont->scName(), DocFonts[pgit->itemText.at(e)->cfont->scName()]);
 			}
 		}
 	}
@@ -565,11 +565,11 @@ bool PDFlib::PDF_Begin_Doc(QString fn, PDFOptions *opts, SCFonts &AllFonts, QMap
 		{
 			for (uint e = 0; e < pgit->itemText.count(); ++e)
 			{
-				ReallyUsed.insert(pgit->itemText.at(e)->cfont->SCName, DocFonts[pgit->itemText.at(e)->cfont->SCName]);
+				ReallyUsed.insert(pgit->itemText.at(e)->cfont->scName(), DocFonts[pgit->itemText.at(e)->cfont->scName()]);
 			}
 		}
 	}
-	QMap<QString,QFont>::Iterator it;
+	QMap<QString,int>::Iterator it;
 	a = 0;
 	for (it = ReallyUsed.begin(); it != ReallyUsed.end(); ++it)
 	{
@@ -743,11 +743,13 @@ bool PDFlib::PDF_Begin_Doc(QString fn, PDFOptions *opts, SCFonts &AllFonts, QMap
 			PutDoc("/FontName /"+AllFonts[it.key()]->RealName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+"\n");
 			PutDoc("/FontBBox [ "+AllFonts[it.key()]->FontBBox+" ]\n");
 			PutDoc("/Flags ");
-			QFontInfo fo = QFontInfo(it.data());
+			//FIXME: isItalic() should be queried from Foi, not from Qt -- AV
+			//QFontInfo fo = QFontInfo(it.data());
 			int pfl = 0;
 			if (AllFonts[it.key()]->IsFixedPitch)
 				pfl = pfl ^ 1;
-			if (fo.italic())
+			//if (fo.italic())
+			if (AllFonts[it.key()]->ItalicAngle != "0")
 				pfl = pfl ^ 64;
 //			pfl = pfl ^ 4;
 			pfl = pfl ^ 32;
@@ -2861,8 +2863,8 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 	}
 	uint cc = chx[0].unicode();
 	uint idx = 0;
-	if (GlyphsIdxOfFont[hl->cfont->SCName].contains(cc))
-		idx = GlyphsIdxOfFont[hl->cfont->SCName][cc].Code;
+	if (GlyphsIdxOfFont[hl->cfont->scName()].contains(cc))
+		idx = GlyphsIdxOfFont[hl->cfont->scName()][cc].Code;
 	uint idx1 = (idx >> 8) & 0xFF;
 	if (hl->cstyle & 32)
 	{
@@ -2891,7 +2893,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 		FillColor = "";
 		FillColor += putColor(hl->ccolor, hl->cshade, true);
 	}
-	if ((hl->cfont->isOTF) || (!hl->cfont->HasNames) || (hl->cfont->Subset) || (Options->SubsetList.contains(hl->cfont->SCName)))
+	if ((hl->cfont->isOTF) || (!hl->cfont->HasNames) || (hl->cfont->Subset) || (Options->SubsetList.contains(hl->cfont->scName())))
 	{
 		uint chr = chx[0].unicode();
 		if ((hl->cfont->CharWidth.contains(chr)) && (chr != 32))
@@ -3016,10 +3018,10 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 	{
 		cc = chx[0].unicode();
 		idx = 0;
-		if (GlyphsIdxOfFont[hl->cfont->SCName].contains(cc))
-			idx = GlyphsIdxOfFont[hl->cfont->SCName][cc].Code;
+		if (GlyphsIdxOfFont[hl->cfont->scName()].contains(cc))
+			idx = GlyphsIdxOfFont[hl->cfont->scName()][cc].Code;
 		idx1 = (idx >> 8) & 0xFF;
-		tmp += UsedFontsP[hl->cfont->SCName]+"S"+IToStr(idx1)+" "+FToStr(tsz / 10.0)+" Tf\n";
+		tmp += UsedFontsP[hl->cfont->scName()]+"S"+IToStr(idx1)+" "+FToStr(tsz / 10.0)+" Tf\n";
 		if (hl->cstroke != "None")
 		{
 			tmp += StrokeColor;
@@ -3073,10 +3075,10 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 				chx = "-";
 				cc = chx[0].unicode();
 				idx = 0;
-				if (GlyphsIdxOfFont[hl->cfont->SCName].contains(cc))
-					idx = GlyphsIdxOfFont[hl->cfont->SCName][cc].Code;
+				if (GlyphsIdxOfFont[hl->cfont->scName()].contains(cc))
+					idx = GlyphsIdxOfFont[hl->cfont->scName()][cc].Code;
 				idx1 = (idx >> 8) & 0xFF;
-				tmp += UsedFontsP[hl->cfont->SCName]+"S"+IToStr(idx1)+" "+FToStr(tsz / 10.0)+" Tf\n";
+				tmp += UsedFontsP[hl->cfont->scName()]+"S"+IToStr(idx1)+" "+FToStr(tsz / 10.0)+" Tf\n";
 				idx2 = idx & 0xFF;
 				tmp += "<"+QString(toHex(idx2))+"> Tj\n";
 			}

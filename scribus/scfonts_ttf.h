@@ -13,8 +13,8 @@
 class SCRIBUS_API Foi_ttf : public Foi
 {
 	public:
-		Foi_ttf(QString scname, QString path, bool embedps) :
-		Foi(scname,path,embedps), metricsread(false)
+		Foi_ttf(QString fam, QString sty, QString alt, QString psname, QString path, int face, bool embedps) :
+		Foi(fam,sty,alt,psname,path,face,embedps), metricsread(false)
 		{
 			HasMetrics=true;
 			formatCode = SFNT;

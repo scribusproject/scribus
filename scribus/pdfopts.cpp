@@ -23,7 +23,7 @@ extern bool CMSuse;
 #endif
 extern bool CMSavail;
 
-PDF_Opts::PDF_Opts( QWidget* parent,  QString docFileName, QMap<QString,QFont> DocFonts, ScribusView *currView, PDFOptions *pdfOptions, QValueList<PDFPresentationData> Eff, ProfilesL *PDFXProfiles, SCFonts &AllFonts, double unitRatio, ProfilesL *printerProfiles)
+PDF_Opts::PDF_Opts( QWidget* parent,  QString docFileName, QMap<QString,int> DocFonts, ScribusView *currView, PDFOptions *pdfOptions, QValueList<PDFPresentationData> Eff, ProfilesL *PDFXProfiles, SCFonts &AllFonts, double unitRatio, ProfilesL *printerProfiles)
 		: QDialog( parent, "pdf", true, 0 )
 {
 	setCaption( tr( "Save as PDF" ) );

@@ -5070,7 +5070,7 @@ void PageItem::copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer)
 				Text += QString(QChar(4))+"\t";
 			else
 				Text += itemText.at(a)->ch+"\t";
-			Text += itemText.at(a)->cfont->SCName+"\t";
+			Text += itemText.at(a)->cfont->scName()+"\t";
 			Text += QString::number(itemText.at(a)->csize / 10.0)+"\t";
 			Text += itemText.at(a)->ccolor+"\t";
 			Text += QString::number(itemText.at(a)->cextra)+"\t";

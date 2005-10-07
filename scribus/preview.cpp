@@ -420,7 +420,7 @@ int PPreview::RenderPreview(int Seite, int Res)
 {
 	bool ret = -1;
 	QString cmd1, cmd2, cmd3;
-	QMap<QString,QFont> ReallyUsed;
+	QMap<QString,int> ReallyUsed;
 	// Recreate Postscript-File only when the actual Page has changed
 	if ((Seite != APage)  || (EnableGCR->isChecked() != GMode))
 	{
@@ -493,7 +493,7 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 {
 	bool ret = -1;
 	QString cmd1, cmd2, cmd3;
-	QMap<QString,QFont> ReallyUsed;
+	QMap<QString,int> ReallyUsed;
 	// Recreate Postscript-File only when the actual Page has changed
 	if ((Seite != APage)  || (EnableGCR->isChecked() != GMode))
 	{

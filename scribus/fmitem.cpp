@@ -22,11 +22,12 @@
 #include <qfontmetrics.h>
 #include <qapplication.h>
 
-FmItem::FmItem(const QString& s, const QFont& f)
+FmItem::FmItem(const QString& s, const Foi * f)
 {
 	stringy = s;
-	font = f;
-	font.setPointSize(qApp->font().pointSize());
+//	font = f;
+//	font.setPointSize(qApp->font().pointSize());
+	font = qApp->font();
 }
 
 void FmItem::paint(QPainter *p, const QColorGroup&, bool, bool, int x, int y, int w, int h)

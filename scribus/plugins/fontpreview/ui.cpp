@@ -185,16 +185,16 @@ void FontPreview::updateFontList(QString searchStr)
 	QString sstr = searchStr.lower();
 	for (SCFontsIterator fontIter(PrefsManager::instance()->appPrefs.AvailFonts); fontIter.current(); ++fontIter)
 	{
-		if (searchStr.length()!=0 && !fontIter.current()->SCName.lower().contains(sstr))
+		if (searchStr.length()!=0 && !fontIter.current()->scName().lower().contains(sstr))
 			continue;
 		if (fontIter.current()->UseFont)
 		{
 			QListViewItem *row = new QListViewItem(fontList);
 			Foi::FontType type = fontIter.current()->typeCode;
 
-			row->setText(0, fontIter.current()->SCName);
+			row->setText(0, fontIter.current()->scName());
 			// searching
-			if (reallyUsedFonts.contains(fontIter.current()->SCName))
+			if (reallyUsedFonts.contains(fontIter.current()->scName()))
 				row->setPixmap(1, okIcon);
 
 			if (type == Foi::OTF)

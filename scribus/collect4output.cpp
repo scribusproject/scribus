@@ -224,8 +224,8 @@ bool CollectForOutput::collectFonts()
 		return false;
 
 	PrefsManager *prefsManager = PrefsManager::instance();
-	QMap<QString,QFont>::Iterator it3;
-	QMap<QString,QFont>::Iterator it3end = ScApp->doc->UsedFonts.end();
+	QMap<QString,int>::Iterator it3;
+	QMap<QString,int>::Iterator it3end = ScApp->doc->UsedFonts.end();
 	for (it3 = ScApp->doc->UsedFonts.begin(); it3 != it3end; ++it3)
 	{
 		QFileInfo itf = QFileInfo(prefsManager->appPrefs.AvailFonts[it3.key()]->fontFilePath());

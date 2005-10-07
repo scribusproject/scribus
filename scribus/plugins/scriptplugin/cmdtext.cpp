@@ -47,7 +47,7 @@ PyObject *scribus_getfont(PyObject* /* self */, PyObject* args)
 	{
 		for (uint b = 0; b < it->itemText.count(); b++)
 			if (it->itemText.at(b)->cselect)
-				return PyString_FromString(it->itemText.at(b)->cfont->SCName.utf8());
+				return PyString_FromString(it->itemText.at(b)->cfont->scName().utf8());
 		return NULL;
 	}
 	else

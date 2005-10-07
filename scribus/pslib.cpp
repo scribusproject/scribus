@@ -34,7 +34,7 @@
 #include "util.h"
 #include "scfontmetrics.h"
 
-PSLib::PSLib(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, ColorList DocColors, bool pdf, bool spot)
+PSLib::PSLib(bool psart, SCFonts &AllFonts, QMap<QString,int> DocFonts, ColorList DocColors, bool pdf, bool spot)
 {
 	QString tmp, tmp2, tmp3, tmp4, CHset;
 	QStringList wt;
@@ -103,7 +103,7 @@ PSLib::PSLib(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, ColorL
 			erst = false;
 		}
 	}
-	QMap<QString,QFont>::Iterator it;
+	QMap<QString,int>::Iterator it;
 	int a = 0;
 	for (it = DocFonts.begin(); it != DocFonts.end(); ++it)
 	{
@@ -1775,14 +1775,14 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				}
 				else
 				{
-					PS_selectfont(hl->cfont->SCName, tsz / 10.0);
+					PS_selectfont(hl->cfont->scName(), tsz / 10.0);
 					PS_save();
 					PutSeite("["+ToStr(1) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(-1) + " " + ToStr(-hl->PRot) + " " + ToStr(0) + "]\n");
 					PutSeite("["+ToStr(hl->PtransX) + " " + ToStr(-hl->PtransY) + " " + ToStr(-hl->PtransY) + " " + ToStr(-hl->PtransX) + " " + ToStr(hl->xp) + " " + ToStr(-hl->yp) + "]\n");
 					PutSeite("["+ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + "] concatmatrix\nconcat\n");
 					if (c->BaseOffs != 0)
 						PS_translate(0, -c->BaseOffs);
-					PS_show_xyG(hl->cfont->SCName, chx, 0, 0);
+					PS_show_xyG(hl->cfont->scName(), chx, 0, 0);
 					PS_restore();
 				}
 			}
@@ -2309,7 +2309,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 	}
 	else
 	{
-		PS_selectfont(hl->cfont->SCName, tsz / 10.0);
+		PS_selectfont(hl->cfont->scName(), tsz / 10.0);
 		PS_save();
 		PS_translate(hl->xp, -hl->yp);
 		if (ite->Reverse)
@@ -2343,7 +2343,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 		{
 			SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
 			PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-			PS_show_xyG(hl->cfont->SCName, chx, 0, 0);
+			PS_show_xyG(hl->cfont->scName(), chx, 0, 0);
 		}
 		PS_restore();
 	}

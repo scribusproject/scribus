@@ -444,7 +444,7 @@ static PyObject *Printer_print(Printer *self)
 		psl = 3;
 	PSLevel = psl;
 	printcomm = QString(PyString_AsString(self->cmd));
-	QMap<QString,QFont> ReallyUsed;
+	QMap<QString,int> ReallyUsed;
 	ReallyUsed.clear();
 	ScApp->doc->getUsedFonts(&ReallyUsed);
 	PrefsManager *prefsManager=PrefsManager::instance();

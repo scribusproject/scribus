@@ -149,8 +149,8 @@ void FontComboH::setCurrentFont(QString f)
 {
 	disconnect(fontFamily, SIGNAL(activated(int)), this, SLOT(familySelected(int)));
 	disconnect(fontStyle, SIGNAL(activated(int)), this, SLOT(styleSelected(int)));
-	QString family = prefsManager->appPrefs.AvailFonts[f]->Family;
-	QString style = prefsManager->appPrefs.AvailFonts[f]->Effect;
+	QString family = prefsManager->appPrefs.AvailFonts[f]->family();
+	QString style = prefsManager->appPrefs.AvailFonts[f]->style();
 	fontFamily->setCurrentText(family);
 	fontStyle->clear();
 	QStringList slist = prefsManager->appPrefs.AvailFonts.fontMap[family];

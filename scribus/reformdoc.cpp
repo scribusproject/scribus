@@ -204,7 +204,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	groupAutoSaveLayout->addWidget( textLabel1m );
 	groupAutoSaveLayout->addWidget( autoSaveTime );
 	reformDocLayout->addWidget( groupAutoSave );
-	addItem( tr("Document"), loadIcon("page.png"), tabPage);
+	addItem( tr("Document"), loadIcon("scribusdoc.png"), tabPage);
 
 	docInfos = new DocInfos(prefsWidgets, doc->documentInfo);
 	addItem( tr("Document Information"), loadIcon("documentinfo32.png"), docInfos);
@@ -346,7 +346,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	addItem( tr("Display"), loadIcon("screen.png"), tabView);
 
 	tabTypo = new TabTypograpy(  prefsWidgets, &doc->typographicSettings);
-	addItem( tr("Typography"), loadIcon("font.png"), tabTypo);
+	addItem( tr("Typography"), loadIcon("typography.png"), tabTypo);
 
 	tabTools = new TabTools(  prefsWidgets, &doc->toolSettings, einheit, doc);
 	addItem( tr("Tools"), loadIcon("tools.png"), tabTools);
@@ -991,14 +991,14 @@ void ReformDoc::updateDocumentSettings()
 	for (itfsu = tabFonts->RList.begin(); itfsu != itfsuend; ++itfsu)
 		prefsManager->appPrefs.GFontSub[itfsu.key()] = tabFonts->FlagsRepl.at(a++)->currentText();
 	QStringList uf = currDoc->UsedFonts.keys();
-	QMap<QString,QFont>::Iterator it3;
+	QMap<QString,int>::Iterator it3;
 	for (it3 = currDoc->UsedFonts.begin(); it3 != currDoc->UsedFonts.end(); ++it3)
 		FT_Done_Face(currDoc->FFonts[it3.key()]);
 	currDoc->UsedFonts.clear();
 	QStringList::Iterator it3a;
 	QStringList::Iterator it3aend=uf.end();
 	for (it3a = uf.begin(); it3a != it3aend; ++it3a)
-		currDoc->AddFont((*it3a), prefsManager->appPrefs.AvailFonts[(*it3a)]->Font);
+		currDoc->AddFont(*it3a);
 
 	currDoc->PDF_Options.Thumbnails = tabPDF->CheckBox1->isChecked();
 	currDoc->PDF_Options.Compress = tabPDF->Compression->isChecked();

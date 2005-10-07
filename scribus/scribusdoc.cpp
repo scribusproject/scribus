@@ -73,7 +73,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document"))
 	UsedFonts.clear();
 	FT_Init_FreeType( &library );
 	AllFonts = &prefsData->AvailFonts;
-	AddFont(prefsData->toolSettings.defFont, prefsData->AvailFonts[prefsData->toolSettings.defFont]->Font);
+	AddFont(prefsData->toolSettings.defFont);//, prefsData->AvailFonts[prefsData->toolSettings.defFont]->Font);
 	toolSettings.defFont = prefsData->toolSettings.defFont;
 	toolSettings.defSize = prefsData->toolSettings.defSize;
 	toolSettings.tabFillChar = prefsData->toolSettings.tabFillChar;
@@ -341,7 +341,7 @@ ScribusDoc::~ScribusDoc()
 	DocPages.setAutoDelete(true);
 	MasterPages.clear();
 	DocPages.clear();
-	QMap<QString,QFont>::Iterator it3;
+	QMap<QString,int>::Iterator it3;
 	for (it3 = UsedFonts.begin(); it3 != UsedFonts.end(); ++it3)
 	{
 		if (!(*AllFonts)[it3.key()]->PrivateFont.isEmpty())
@@ -781,7 +781,7 @@ void ScribusDoc::resetPage(double t, double l, double r, double bo, int fp)
 	currentPageLayout = fp;
 }
 
-bool ScribusDoc::AddFont(QString name, QFont fo)
+bool ScribusDoc::AddFont(QString name, int fsize)
 {
 	bool ret = false;
 	bool error;
@@ -790,7 +790,7 @@ bool ScribusDoc::AddFont(QString name, QFont fo)
 	if (UsedFonts.contains(name))
 		return true;
 
-	error = FT_New_Face( library, (*AllFonts)[name]->fontFilePath(), (*AllFonts)[name]->faceIndex, &face );
+	error = FT_New_Face( library, (*AllFonts)[name]->fontFilePath(), (*AllFonts)[name]->faceIndex(), &face );
 	if (error)
 		return ret;
 
@@ -811,7 +811,7 @@ bool ScribusDoc::AddFont(QString name, QFont fo)
 		if (afm.exists())
 			FT_Attach_File(face, afm.name());
 		FFonts[name] = face;
-		UsedFonts[name] = fo;
+		UsedFonts[name] = fsize;
 		ret = true;
 	}
 	else
@@ -1626,7 +1626,7 @@ void ScribusDoc::getUsedColors(ColorList &colorsToUse, bool spot)
 	}
 }
 
-void ScribusDoc::getUsedFonts(QMap<QString,QFont> *Really)
+void ScribusDoc::getUsedFonts(QMap<QString,int> *Really)
 {
 	PageItem* it;
 	FPointArray gly;
@@ -1664,7 +1664,7 @@ void ScribusDoc::getUsedFonts(QMap<QString,QFont> *Really)
 			{
 				for (uint e = 0; e < it->itemText.count(); ++e)
 				{
-					Really->insert(it->itemText.at(e)->cfont->SCName, UsedFonts[it->itemText.at(e)->cfont->SCName]);
+					Really->insert(it->itemText.at(e)->cfont->scName(), UsedFonts[it->itemText.at(e)->cfont->scName()]);
 					uint chr = it->itemText.at(e)->ch[0].unicode();
 					if ((chr == 13) || (chr == 32) || (chr == 29))
 						continue;
@@ -1732,7 +1732,7 @@ void ScribusDoc::getUsedFonts(QMap<QString,QFont> *Really)
 
 void ScribusDoc::reorganiseFonts()
 {
-	QMap<QString,QFont> Really;
+	QMap<QString,int> Really;
 	//QMap<QString,QFont> DocF;
 	//DocF = UsedFonts;
 	if (!masterPageMode)
@@ -1773,12 +1773,12 @@ void ScribusDoc::reorganiseFonts()
 				uint itemTextCount=it->itemText.count();
 				for (uint e = 0; e < itemTextCount; ++e)
 				{
-					Really.insert(it->itemText.at(e)->cfont->SCName, UsedFonts[it->itemText.at(e)->cfont->SCName]);
+					Really.insert(it->itemText.at(e)->cfont->scName(), UsedFonts[it->itemText.at(e)->cfont->scName()]);
 				}
 			}
 		}
 	}
-	QMap<QString,QFont>::Iterator itfo, itnext;
+	QMap<QString,int>::Iterator itfo, itnext;
 	for (itfo = UsedFonts.begin(); itfo != UsedFonts.end(); itfo = itnext)
 	{
 		itnext = itfo;
@@ -1791,8 +1791,8 @@ void ScribusDoc::reorganiseFonts()
 		}
 	}
 	PrefsManager* prefsManager=PrefsManager::instance();
-	AddFont(prefsManager->appPrefs.toolSettings.defFont, prefsManager->appPrefs.AvailFonts[prefsManager->appPrefs.toolSettings.defFont]->Font);
-	AddFont(toolSettings.defFont, prefsManager->appPrefs.AvailFonts[toolSettings.defFont]->Font);
+	AddFont(prefsManager->appPrefs.toolSettings.defFont);//, prefsManager->appPrefs.AvailFonts[prefsManager->appPrefs.toolSettings.defFont]->Font);
+	AddFont(toolSettings.defFont);//, prefsManager->appPrefs.AvailFonts[toolSettings.defFont]->Font);
 }
 
 void ScribusDoc::setUnitIndex(const int newIndex)

@@ -35,7 +35,7 @@ class SCRIBUS_API PDF_Opts : public QDialog
 	Q_OBJECT
 
 public:
-	PDF_Opts( QWidget* parent, QString docFileName, QMap<QString,QFont> DocFonts, ScribusView *currView, PDFOptions *pdfOptions,
+	PDF_Opts( QWidget* parent, QString docFileName, QMap<QString,int> DocFonts, ScribusView *currView, PDFOptions *pdfOptions,
 				QValueList<PDFPresentationData> Eff, ProfilesL *PDFXProfiles, SCFonts &AllFonts, double unitRatio, ProfilesL *printerProfiles);
 	~PDF_Opts() {};
 

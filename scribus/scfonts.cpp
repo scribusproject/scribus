@@ -47,19 +47,28 @@
 #include FT_TRUETYPE_TAGS_H
 #include FT_TRUETYPE_TABLES_H
 
-Foi::Foi(QString scname, QString path, bool embedps) :
-	SCName(scname), Datei(path), faceIndex(0), EmbedPS(embedps)
+Foi::Foi(QString fam, QString sty, QString alt, QString psname, QString path, int face, bool embedps) :
+	Family(fam), Effect(sty), Alternative(alt), cached_RealName(psname), fontFile(path), faceIndex_(face), EmbedPS(embedps)
 {
 	isOTF = false;
 	Subset = false;
 	typeCode = Foi::UNKNOWN_TYPE;
 	formatCode = Foi::UNKNOWN_FORMAT;
+	if ( sty != "" )
+		SCName = fam + " " + sty + alt;
+	else
+		SCName = fam + alt;
+}
+
+
+FT_Face * ftFace() {
+	// dummy for now
+	return NULL;
 }
 
 QString Foi::RealName()
 {
-	QString result="Base";
-	return(result);
+	return QString("Base");
 }
 
 bool Foi::EmbedFont(QString &str)
@@ -91,9 +100,9 @@ void Foi::RawData(QByteArray & bb)
 	if (error)
 		sDebug(QObject::tr("Freetype2 library not available"));
 	else
-		error = FT_New_Face( library, Datei, faceIndex, &face );
+		error = FT_New_Face( library, fontFile, faceIndex_, &face );
 	if (error)
-		sDebug(QObject::tr("Font %1 is broken, no embedding").arg(Datei));
+		sDebug(QObject::tr("Font %1 is broken, no embedding").arg(fontFile));
 	else 
 	{
 		FT_Stream fts = face->stream;
@@ -103,14 +112,14 @@ void Foi::RawData(QByteArray & bb)
 			error = FT_Stream_Read(fts, reinterpret_cast<FT_Byte *>(bb.data()), fts->size);
 		if (error) 
 		{
-			sDebug(QObject::tr("Font %1 is broken (read stream), no embedding").arg(Datei));
+			sDebug(QObject::tr("Font %1 is broken (read stream), no embedding").arg(fontFile));
 			bb.resize(0);
 		}
 		/*
 		if (showFontInformation)
 		{
-			QFile f(Datei);
-			qDebug(QObject::tr("RawData for Font %1(%2): size=%3 filesize=%4").arg(Datei).arg(faceIndex).arg(bb.size()).arg(f.size()));
+			QFile f(fontFile);
+			qDebug(QObject::tr("RawData for Font %1(%2): size=%3 filesize=%4").arg(fontFile).arg(faceIndex_).arg(bb.size()).arg(f.size()));
 		}
 		*/
 	}
@@ -131,7 +140,7 @@ void Foi::FontBez()
 	int YPos = qApp->font().pointSize();
 	uint n;
 	error = FT_Init_FreeType( &library );
-	error = FT_New_Face( library, Datei, 0, &face );
+	error = FT_New_Face( library, fontFile, 0, &face );
 	ts = QString(face->family_name) + " " + QString(face->style_name);
 	pm.fill();
 	pen_x = 0;
@@ -182,8 +191,8 @@ void Foi::FontBez()
 class Foi_postscript : public Foi
 {
 	public:
-		Foi_postscript(QString scname, QString path, bool embedps) :
-		Foi(scname,path,embedps), metricsread(false)
+		Foi_postscript(QString fam, QString sty, QString alt, QString psname, QString path, int face, bool embedps) :
+		Foi(fam,sty,alt,psname,path,face,embedps), metricsread(false)
 		{
 			HasMetrics=false;
 			HasKern = false;
@@ -200,7 +209,7 @@ class Foi_postscript : public Foi
 
 		virtual QString RealName()
 		{
-			return(cached_RealName);
+			return(Foi::RealName());
 		}
 
 		virtual bool ReadMetrics()  // routine by Franz Schmid - modified by Alastair M. Robinson
@@ -228,7 +237,7 @@ class Foi_postscript : public Foi
 				sDebug(QObject::tr("Font %1 is broken (FreeType2), discarding it").arg(fontPath()));
 				return false;
 			}
-			error = FT_New_Face( library, fontFilePath(), faceIndex, &face );
+			error = FT_New_Face( library, fontFilePath(), faceIndex(), &face );
 			if (error)
 			{
 				UseFont = false;
@@ -321,8 +330,8 @@ class Foi_postscript : public Foi
 class Foi_pfb : public Foi_postscript
 {
 	public:
-		Foi_pfb(QString scname, QString path, bool embedps) :
-		Foi_postscript(scname,path,embedps)
+		Foi_pfb(QString fam, QString sty, QString alt, QString psname, QString path, int face, bool embedps) :
+		Foi_postscript(fam,sty,alt,psname,path,face,embedps)
 		{
 			formatCode = PFB;
 		}
@@ -408,8 +417,8 @@ class Foi_pfb : public Foi_postscript
 class Foi_pfa : public Foi_postscript
 {
 	public:
-		Foi_pfa(QString scname, QString path, bool embedps) :
-		Foi_postscript(scname,path,embedps)
+		Foi_pfa(QString fam, QString sty, QString alt, QString psname, QString path, int face, bool embedps) :
+		Foi_postscript(fam,sty,alt,psname,path,face,embedps)
 		{
 			formatCode = PFA;
 		}
@@ -443,19 +452,19 @@ void SCFonts::updateFontMap()
 	{
 		if (it.current()->UseFont)
 		{
-			if (fontMap.contains(it.current()->Family))
+			if (fontMap.contains(it.current()->family()))
 			{
 				QStringList effect;
-				if (!fontMap[it.current()->Family].contains(it.current()->Effect))
+				if (!fontMap[it.current()->family()].contains(it.current()->style()))
 				{
-					fontMap[it.current()->Family].append(it.current()->Effect);
+					fontMap[it.current()->family()].append(it.current()->style());
 				}
 			}
 			else
 			{
 				QStringList effect;
-				effect.append(it.current()->Effect);
-				fontMap.insert(it.current()->Family, effect);
+				effect.append(it.current()->style());
+				fontMap.insert(it.current()->family(), effect);
 			}
 		}
 	}
@@ -694,6 +703,7 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 			}
 		}
 		QString ts = fam + " " + sty;
+		QString alt = "";
 		const char* psName = FT_Get_Postscript_Name(face);
 		QString qpsName;
 		if (psName)
@@ -703,10 +713,11 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 		Foi *t = find(ts);
 		if (t)
 		{
-			if (t->cached_RealName != qpsName)
+			if (t->RealName() != qpsName)
 			{
-				ts += " ("+qpsName+")";
-				sty += " ("+qpsName+")";
+				alt = " ("+qpsName+")";
+				ts += alt;
+				sty += alt;
 			}
 		}
 		t = find(ts);
@@ -715,13 +726,13 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 			switch (format) 
 			{
 				case Foi::PFA:
-					t = new Foi_pfa(ts, filename, true);
+					t = new Foi_pfa(fam, sty, alt, qpsName, filename, faceindex, true);
 					break;
 				case Foi::PFB:
-					t = new Foi_pfb(ts, filename, true);
+					t = new Foi_pfb(fam, sty, alt, qpsName, filename, faceindex, true);
 					break;
 				case Foi::SFNT:
-					t = new Foi_ttf(ts, filename, true);
+					t = new Foi_ttf(fam, sty, alt, qpsName, filename, faceindex, true);
 					getSFontType(face, t->typeCode);
 					if (t->typeCode == Foi::OTF) 
 					{
@@ -730,7 +741,7 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 					}
 					break;
 				case Foi::TTCF:
-					t = new Foi_ttf(ts, filename, true);
+					t = new Foi_ttf(fam, sty, alt, qpsName, filename, faceindex, true);
 					t->formatCode = Foi::TTCF;
 					t->typeCode = Foi::TTF;
 					//getSFontType(face, t->typeCode);
@@ -741,7 +752,7 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 					}
 					break;
 				case Foi::TYPE42:
-					t = new Foi_ttf(ts, filename, true);
+					t = new Foi_ttf(fam, sty, alt, qpsName, filename, faceindex, true);
 					getSFontType(face, t->typeCode);
 					if (t->typeCode == Foi::OTF) 
 					{
@@ -750,14 +761,14 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 					}
 					break;
 			}
-			t->cached_RealName = qpsName;
+//			t->cached_RealName = qpsName;
 /*			const char* psName = FT_Get_Postscript_Name(face);
 			if (psName)
 				t->cached_RealName = QString(psName);
 			else
 				t->cached_RealName = ts; */
-			t->Font = qApp->font();
-			t->Font.setPointSize(qApp->font().pointSize());
+//			t->Font = qApp->font();
+//			t->Font.setPointSize(qApp->font().pointSize());
 			insert(ts,t);
 			t->EmbedPS = true;
 			t->UseFont = true;
@@ -766,9 +777,9 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 			t->CharWidth[9] = 1;
 //			t->Family = QString(face->family_name);
 //			t->Effect = QString(face->style_name);
-			t->Family = fam;
-			t->Effect = sty;
-			t->faceIndex = faceindex;
+//			t->Family = fam;
+//			t->Effect = sty;
+//			t->faceIndex_ = faceindex;
 			t->PrivateFont = DocName;
 			//setBestEncoding(face); //AV
 			switch (face->charmap? face->charmap->encoding : -1)
@@ -792,7 +803,7 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 					t->FontEnc = QString();
 			}
 			if (showFontInformation)
-				sDebug(QObject::tr("Font %1 loaded from %2(%3)").arg(t->cached_RealName).arg(filename).arg(faceindex+1));
+				sDebug(QObject::tr("Font %1 loaded from %2(%3)").arg(t->RealName()).arg(filename).arg(faceindex+1));
 
 /*
 //debug

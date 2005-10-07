@@ -41,7 +41,6 @@ QPixmap ScPreview::createPreview(QString data)
 	ScColor lf = ScColor();
 	QFont fo;
 	QMap<QString,QString> DoFonts;
-	QMap<QString,QFont> DoFonts2;
 	QMap<int,int> arrowID;
 	QString tmpf, tmpx, tmp2, tmp3;
 	int x, y;
@@ -119,10 +118,10 @@ QPixmap ScPreview::createPreview(QString data)
 				else
 					tmpf = prefsManager->appPrefs.GFontSub[tmpf];
 			}
-			if (!DoFonts2.contains(tmpf))
+			if (!DoFonts.contains(tmpf))
 			{
 				FT_Face      face;
-				error = FT_New_Face( library, prefsManager->appPrefs.AvailFonts[tmpf]->fontFilePath(), prefsManager->appPrefs.AvailFonts[tmpf]->faceIndex, &face );
+				error = FT_New_Face( library, prefsManager->appPrefs.AvailFonts[tmpf]->fontFilePath(), prefsManager->appPrefs.AvailFonts[tmpf]->faceIndex(), &face );
 				if (error)
 					tmpf = prefsManager->appPrefs.toolSettings.defFont;
 				if (prefsManager->appPrefs.AvailFonts[tmpf]->ReadMetrics())
@@ -134,10 +133,10 @@ QPixmap ScPreview::createPreview(QString data)
 					prefsManager->appPrefs.AvailFonts[tmpf]->CharWidth[13] = 0;
 				}
 			}
-			fo = prefsManager->appPrefs.AvailFonts[tmpf]->Font;
-			fo.setPointSize(12);
+//			fo = prefsManager->appPrefs.AvailFonts[tmpf]->Font;
+//			fo.setPointSize(12);
 			DoFonts[GetAttr(&pg, "NAME")] = tmpf;
-			DoFonts2[GetAttr(&pg, "NAME")] = fo;
+//			DoFonts2[GetAttr(&pg, "NAME")] = fo;
 		}
 		if(pg.tagName()=="COLOR")
 		{
@@ -596,7 +595,7 @@ QPixmap ScPreview::createPreview(QString data)
 							pS->setPen(tmpfa, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 							mode += 1;
 						}
-						DrawZeichenS(pS, hl->xp, hl->yp, chx, hl->cfont->SCName, OB.Reverse, hl->cstyle, mode, chs);
+						DrawZeichenS(pS, hl->xp, hl->yp, chx, hl->cfont->scName(), OB.Reverse, hl->cstyle, mode, chs);
 					}
 					pS->restore();
 				}
@@ -754,7 +753,7 @@ QPixmap ScPreview::createPreview(QString data)
 						pS->setPen(tmpfa);
 					}
 					chs = hl->csize;
-					asce = prefsManager->appPrefs.AvailFonts[hl->cfont->SCName]->numAscent * (hl->csize / 10.0);
+					asce = prefsManager->appPrefs.AvailFonts[hl->cfont->scName()]->numAscent * (hl->csize / 10.0);
 					int chst = hl->cstyle & 127;
 					if (chst != 0)
 					{
@@ -777,7 +776,7 @@ QPixmap ScPreview::createPreview(QString data)
 							}
 						}
 					}
-					wide = prefsManager->appPrefs.AvailFonts[hl->cfont->SCName]->CharWidth[chx[0].unicode()]*(chs / 10.0);
+					wide = prefsManager->appPrefs.AvailFonts[hl->cfont->scName()]->CharWidth[chx[0].unicode()]*(chs / 10.0);
 					if ((CurX+(wide+chs * hl->cextra / 10000.0)/2) >= wid)
 					{
 						if (zae < cl.size()-1)
@@ -807,7 +806,7 @@ QPixmap ScPreview::createPreview(QString data)
 					pS->save();
 					pS->translate(cl.point(zae).x(), cl.point(zae).y());
 					pS->rotate(rota);
-					DrawZeichenS(pS, CurX+chs * hl->cextra / 10000.0, CurY+OB.BaseOffs, chx, hl->cfont->SCName, OB.Reverse, hl->cstyle, 2, chs);
+					DrawZeichenS(pS, CurX+chs * hl->cextra / 10000.0, CurY+OB.BaseOffs, chx, hl->cfont->scName(), OB.Reverse, hl->cstyle, 2, chs);
 					pS->restore();
 					CurX += wide+chs * hl->cextra / 10000.0;
 				}

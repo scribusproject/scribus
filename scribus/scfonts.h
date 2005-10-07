@@ -50,33 +50,40 @@ class SCRIBUS_API Foi
 		// handled by freetype:	PFB_MAC, DFONT, HQX, MACBIN,
 		                  SFNT, TTCF, UNKNOWN_FORMAT };
 		
-		Foi(QString scname, QString path, bool embedps);
+		Foi(QString fam, QString style, QString alt, QString psname, QString path, int face, bool embedps);
 		virtual ~Foi() {};
 		virtual QString RealName();
 		virtual bool EmbedFont(QString &str);
 		virtual void RawData(QByteArray & bb);
 		virtual bool ReadMetrics();
 		virtual bool GlNames(QMap<uint, QString> *GList);
-		QString SCName;
 private:
-		QString Datei;
-public:
-		int     faceIndex;
-		QString fontPath() { return faceIndex >= 0 ? QString("%1(%2)").arg(Datei).arg(faceIndex+1) : Datei; }
-		QString fontFilePath() { return Datei; }
+		QString SCName;
+		QString fontFile;
+		int     faceIndex_;
 		QString cached_RealName;
 		QString Family;
 		QString Effect;
-		QFont Font;
+		QString Alternative;
+public:
+		FT_Face * ftFace();
+		QString scName()   const { return SCName; } ;
+		QString fontPath() const { return faceIndex_ >= 0 ? QString("%1(%2)").arg(fontFile).arg(faceIndex_+1) : fontFile; };
+		QString fontFilePath() const { return fontFile; };
+		int faceIndex() const { return faceIndex_; };
+		QString family()   const { return Family; } ;
+		QString style()    const { return Effect; } ;
+//		QFont Font;
+		struct GlyphR { FPointArray Outlines;
+					 					double x;
+					 					double y;
+				  				};
+// those should be private: -AV
 		bool EmbedPS;
 		bool HasMetrics;
 		bool isOTF;
 		bool Subset;
 		bool isStroked;
-		struct GlyphR { FPointArray Outlines;
-					 					double x;
-					 					double y;
-				  				};
 		QMap<uint,double> CharWidth;
 		QMap<uint,GlyphR> GlyphArray;
 		QMap<uint,FPointArray> RealGlyphs;

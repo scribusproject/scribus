@@ -202,8 +202,8 @@ bool FileLoader::LoadPage(ScribusApp* app, int PageToLoad, bool Mpage)
 			{
 				for (uint e = 0; e < it->itemText.count(); ++e)
 				{
-				if (!app->doc->UsedFonts.contains(it->itemText.at(e)->cfont->SCName))
-					it->itemText.at(e)->cfont = (*app->doc->AllFonts)[ReplacedFonts[it->itemText.at(e)->cfont->SCName]];
+				if (!app->doc->UsedFonts.contains(it->itemText.at(e)->cfont->scName()))
+					it->itemText.at(e)->cfont = (*app->doc->AllFonts)[ReplacedFonts[it->itemText.at(e)->cfont->scName()]];
 				}
 			}
 		}
@@ -216,8 +216,8 @@ bool FileLoader::LoadPage(ScribusApp* app, int PageToLoad, bool Mpage)
 			{
 				for (uint e = 0; e < it->itemText.count(); ++e)
 				{
-				if (!app->doc->UsedFonts.contains(it->itemText.at(e)->cfont->SCName))
-					it->itemText.at(e)->cfont = (*app->doc->AllFonts)[ReplacedFonts[it->itemText.at(e)->cfont->SCName]];
+				if (!app->doc->UsedFonts.contains(it->itemText.at(e)->cfont->scName()))
+					it->itemText.at(e)->cfont = (*app->doc->AllFonts)[ReplacedFonts[it->itemText.at(e)->cfont->scName()]];
 				}
 			}
 		}
@@ -230,8 +230,8 @@ bool FileLoader::LoadPage(ScribusApp* app, int PageToLoad, bool Mpage)
 			{
 				for (uint e = 0; e < it->itemText.count(); ++e)
 				{
-				if (!app->doc->UsedFonts.contains(it->itemText.at(e)->cfont->SCName))
-					it->itemText.at(e)->cfont = (*app->doc->AllFonts)[ReplacedFonts[it->itemText.at(e)->cfont->SCName]];
+				if (!app->doc->UsedFonts.contains(it->itemText.at(e)->cfont->scName()))
+					it->itemText.at(e)->cfont = (*app->doc->AllFonts)[ReplacedFonts[it->itemText.at(e)->cfont->scName()]];
 				}
 			}
 		}
@@ -245,9 +245,9 @@ bool FileLoader::LoadPage(ScribusApp* app, int PageToLoad, bool Mpage)
 		{
 			if (!app->doc->UsedFonts.contains(itfsu.data()))
 			{
-				QFont fo = prefsManager->appPrefs.AvailFonts[itfsu.data()]->Font;
-				fo.setPointSize(qRound(app->doc->toolSettings.defSize / 10.0));
-				app->doc->AddFont(itfsu.data(), fo);
+//				QFont fo = prefsManager->appPrefs.AvailFonts[itfsu.data()]->Font;
+//				fo.setPointSize(qRound(app->doc->toolSettings.defSize / 10.0));
+				app->doc->AddFont(itfsu.data(), qRound(app->doc->toolSettings.defSize / 10.0));
 			}
 		}
 		if (prefsManager->appPrefs.askBeforeSubstituite)
@@ -379,8 +379,8 @@ bool FileLoader::LoadFile(ScribusApp* app)
 			{
 				for (uint e = 0; e < it->itemText.count(); ++e)
 				{
-				if (!app->doc->UsedFonts.contains(it->itemText.at(e)->cfont->SCName))
-					it->itemText.at(e)->cfont = (*app->doc->AllFonts)[ReplacedFonts[it->itemText.at(e)->cfont->SCName]];
+				if (!app->doc->UsedFonts.contains(it->itemText.at(e)->cfont->scName()))
+					it->itemText.at(e)->cfont = (*app->doc->AllFonts)[ReplacedFonts[it->itemText.at(e)->cfont->scName()]];
 				}
 			}
 		}
@@ -393,8 +393,8 @@ bool FileLoader::LoadFile(ScribusApp* app)
 			{
 				for (uint e = 0; e < it->itemText.count(); ++e)
 				{
-				if (!app->doc->UsedFonts.contains(it->itemText.at(e)->cfont->SCName))
-					it->itemText.at(e)->cfont = (*app->doc->AllFonts)[ReplacedFonts[it->itemText.at(e)->cfont->SCName]];
+				if (!app->doc->UsedFonts.contains(it->itemText.at(e)->cfont->scName()))
+					it->itemText.at(e)->cfont = (*app->doc->AllFonts)[ReplacedFonts[it->itemText.at(e)->cfont->scName()]];
 				}
 			}
 		}
@@ -407,8 +407,8 @@ bool FileLoader::LoadFile(ScribusApp* app)
 			{
 				for (uint e = 0; e < it->itemText.count(); ++e)
 				{
-				if (!app->doc->UsedFonts.contains(it->itemText.at(e)->cfont->SCName))
-					it->itemText.at(e)->cfont = (*app->doc->AllFonts)[ReplacedFonts[it->itemText.at(e)->cfont->SCName]];
+				if (!app->doc->UsedFonts.contains(it->itemText.at(e)->cfont->scName()))
+					it->itemText.at(e)->cfont = (*app->doc->AllFonts)[ReplacedFonts[it->itemText.at(e)->cfont->scName()]];
 				}
 			}
 		}
@@ -441,9 +441,9 @@ bool FileLoader::LoadFile(ScribusApp* app)
 		{
 			if (!app->doc->UsedFonts.contains(itfsu.data()))
 			{
-				QFont fo = prefsManager->appPrefs.AvailFonts[itfsu.data()]->Font;
-				fo.setPointSize(qRound(app->doc->toolSettings.defSize / 10.0));
-				app->doc->AddFont(itfsu.data(), fo);
+//				QFont fo = prefsManager->appPrefs.AvailFonts[itfsu.data()]->Font;
+//				fo.setPointSize(qRound(app->doc->toolSettings.defSize / 10.0));
+				app->doc->AddFont(itfsu.data(), qRound(app->doc->toolSettings.defSize / 10.0));
 			}
 		}
 		if (prefsManager->appPrefs.askBeforeSubstituite)
@@ -716,9 +716,9 @@ bool FileLoader::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 					{
 						if (!doc->UsedFonts.contains(tmpf))
 						{
-							QFont fo = avail[tmpf]->Font;
-							fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
-							doc->AddFont(tmpf, fo);
+//							QFont fo = avail[tmpf]->Font;
+//							fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
+							doc->AddFont(tmpf, qRound(doc->toolSettings.defSize / 10.0));
 						}
 					}
 					Neu->IFont = tmpf;
@@ -934,9 +934,9 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 		}
 		else
 		{
-			QFont fo = avail[Defont]->Font;
-			fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
-			doc->AddFont(Defont, fo);
+//			QFont fo = avail[Defont]->Font;
+//			fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
+			doc->AddFont(Defont, qRound(doc->toolSettings.defSize / 10.0));
 		}
 		doc->toolSettings.defFont = Defont;
 		doc->toolSettings.dCols=QStoInt(dc.attribute("DCOL", "1"));
@@ -1186,9 +1186,9 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 				{
 					if (!doc->UsedFonts.contains(tmpf))
 					{
-						QFont fo = avail[tmpf]->Font;
-						fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
-						doc->AddFont(tmpf, fo);
+//						QFont fo = avail[tmpf]->Font;
+//						fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
+						doc->AddFont(tmpf, qRound(doc->toolSettings.defSize / 10.0));
 					}
 				}
 				vg.Font = tmpf;
@@ -1587,9 +1587,9 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 					{
 						if (!doc->UsedFonts.contains(tmpf))
 						{
-							QFont fo = avail[tmpf]->Font;
-							fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
-							doc->AddFont(tmpf, fo);
+//							QFont fo = avail[tmpf]->Font;
+//							fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
+							doc->AddFont(tmpf, qRound(doc->toolSettings.defSize / 10.0));
 						}
 					}
 					Neu->IFont = tmpf;
@@ -1765,7 +1765,7 @@ void FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, bo
 		bool isThere = false;
 		for (uint dl = 0; dl < dummyFois.count(); ++dl)
 		{
-			if (dummyFois.at(dl)->SCName == tmpf)
+			if (dummyFois.at(dl)->scName() == tmpf)
 			{
 				isThere = true;
 				dummy = dummyFois.at(dl);
@@ -1774,7 +1774,7 @@ void FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, bo
 		}
 		if (!isThere)
 		{
-			dummy = new Foi(tmpf, "", false);
+			dummy = new Foi(tmpf, "", "", "", "", 1, false);
 			dummyFois.append(dummy);
 		}
 		unknown = true;
@@ -1790,9 +1790,9 @@ void FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, bo
 	{
 		if (!doc->UsedFonts.contains(tmpf))
 		{
-			QFont fo = prefsManager->appPrefs.AvailFonts[tmpf]->Font;
-			fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
-			doc->AddFont(tmpf, fo);
+//			QFont fo = prefsManager->appPrefs.AvailFonts[tmpf]->Font;
+//			fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
+			doc->AddFont(tmpf, qRound(doc->toolSettings.defSize / 10.0));
 		}
 	}
 	int size = qRound(QStodouble(it->attribute("CSIZE")) * 10);
@@ -2330,9 +2330,9 @@ void FileLoader::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 	{
 		if (!doc->UsedFonts.contains(tmpf))
 		{
-			QFont fo = prefsManager->appPrefs.AvailFonts[tmpf]->Font;
-			fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
-			doc->AddFont(tmpf, fo);
+//			QFont fo = prefsManager->appPrefs.AvailFonts[tmpf]->Font;
+//			fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
+			doc->AddFont(tmpf, qRound(doc->toolSettings.defSize / 10.0));
 		}
 	}
 	vg->Font = tmpf;

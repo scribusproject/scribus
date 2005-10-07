@@ -18,7 +18,7 @@
 
 QString Foi_ttf::RealName()
 {
-	return(cached_RealName);
+	return(Foi::RealName());
 }
 
 bool Foi_ttf::ReadMetrics()
@@ -53,7 +53,7 @@ bool Foi_ttf::ReadMetrics()
 		sDebug(QObject::tr("Font %1 is broken (FreeType), discarding it").arg(fontPath()));
 		return false;
 	}
-	error = FT_New_Face( library, fontFilePath(), faceIndex, &face );
+	error = FT_New_Face( library, fontFilePath(), faceIndex(), &face );
 	if (error)
 	{
 		UseFont = false;
@@ -162,16 +162,16 @@ void Foi_ttf::RawData(QByteArray & bb) {
 		QByteArray coll;
 		Foi::RawData(coll);
 		// access table for faceIndex
-		if (faceIndex >= static_cast<int>(word(coll, 8)))
+		if (faceIndex() >= static_cast<int>(word(coll, 8)))
 		{
 			bb.resize(0);
 			return;
 		}
 		static const uint OFFSET_TABLE_LEN = 12;
 		static const uint   TDIR_ENTRY_LEN = 16;
-		uint faceOffset = word(coll, 12 + 4 * faceIndex);
+		uint faceOffset = word(coll, 12 + 4 * faceIndex());
 		uint nTables    = word16(coll, faceOffset + 4);
-		sDebug(QObject::tr("extracting face %1 from font %2 (offset=%3, nTables=%4)").arg(faceIndex).arg(fontPath()).arg(faceOffset).arg(nTables));
+		sDebug(QObject::tr("extracting face %1 from font %2 (offset=%3, nTables=%4)").arg(faceIndex()).arg(fontPath()).arg(faceOffset).arg(nTables));
 		uint headerLength = OFFSET_TABLE_LEN + TDIR_ENTRY_LEN * nTables;   
 		uint tableLengths = 0;
 		// sum table lengths incl padding
@@ -232,7 +232,7 @@ bool Foi_ttf::EmbedFont(QString &str)
 	FT_ULong  charcode;
 	FT_UInt   gindex;
 	FT_Init_FreeType(&library);
-	FT_New_Face(library, fontFilePath(), faceIndex, &face);
+	FT_New_Face(library, fontFilePath(), faceIndex(), &face);
 	const FT_Stream fts = face->stream;
 	if (FT_Stream_Seek(fts, 0L)) {
 		FT_Done_FreeType( library );

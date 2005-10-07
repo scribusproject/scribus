@@ -36,7 +36,7 @@ public:
 	QLabel* sizeLabel;
 	QSpinBox* sizeSpin;
 	/** Font iteration */
-	QMap<QString,QFont> reallyUsedFonts;
+	QMap<QString,int> reallyUsedFonts;
 	/** Pixmaps for each font type */
 	QPixmap ttfFont;
 	QPixmap otfFont;

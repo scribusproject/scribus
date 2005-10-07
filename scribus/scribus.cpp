@@ -583,7 +583,6 @@ bool ScribusApp::warningVersion(QWidget *parent)
 
 void ScribusApp::initMenuBar()
 {
-	QFont tmp;
 	RecentDocs.clear();
 
 	scrMenuMgr->createMenu("File", tr("&File"));
@@ -1063,7 +1062,7 @@ void ScribusApp::setTBvals(PageItem *currItem)
 		doc->currentParaStyle = currItem->itemText.at(ChPos)->cab;
 		setAbsValue(doc->currentParaStyle);
 		propertiesPalette->setAli(doc->currentParaStyle);
-		doc->CurrFont = currItem->itemText.at(ChPos)->cfont->SCName;
+		doc->CurrFont = currItem->itemText.at(ChPos)->cfont->scName();
 		doc->CurrFontSize = currItem->itemText.at(ChPos)->csize;
 		doc->CurrTextFill = currItem->itemText.at(ChPos)->ccolor;
 		doc->CurrTextFillSh = currItem->itemText.at(ChPos)->cshade;
@@ -4676,7 +4675,7 @@ void ScribusApp::slotReallyPrint()
 bool ScribusApp::doPrint(PrintOptions *options)
 {
 	bool retw = false;
-	QMap<QString,QFont> ReallyUsed;
+	QMap<QString,int> ReallyUsed;
 	QString filename(options->filename);
 	ReallyUsed.clear();
 	doc->getUsedFonts(&ReallyUsed);
@@ -4823,7 +4822,7 @@ void ScribusApp::slotEditCut()
 							BufferI += nextItem->itemText.at(a)->ch;
 						}
 						Buffer2 += "\t";
-						Buffer2 += nextItem->itemText.at(a)->cfont->SCName+"\t";
+						Buffer2 += nextItem->itemText.at(a)->cfont->scName()+"\t";
 						Buffer2 += QString::number(nextItem->itemText.at(a)->csize)+"\t";
 						Buffer2 += nextItem->itemText.at(a)->ccolor+"\t";
 						Buffer2 += QString::number(nextItem->itemText.at(a)->cextra)+"\t";
@@ -4909,7 +4908,7 @@ void ScribusApp::slotEditCopy()
 							BufferI += nextItem->itemText.at(a)->ch;
 						}
 						Buffer2 += "\t";
-						Buffer2 += nextItem->itemText.at(a)->cfont->SCName+"\t";
+						Buffer2 += nextItem->itemText.at(a)->cfont->scName()+"\t";
 						Buffer2 += QString::number(nextItem->itemText.at(a)->csize)+"\t";
 						Buffer2 += nextItem->itemText.at(a)->ccolor+"\t";
 						Buffer2 += QString::number(nextItem->itemText.at(a)->cextra)+"\t";
@@ -6666,10 +6665,10 @@ void ScribusApp::SetNewFont(const QString& nf)
 	QString nf2(nf);
 	if (!doc->UsedFonts.contains(nf))
 	{
-		if (doc->AddFont(nf, prefsManager->appPrefs.AvailFonts[nf]->Font))
+		if (doc->AddFont(nf)) //, prefsManager->appPrefs.AvailFonts[nf]->Font))
 		{
-			int a = FontMenu->insertItem(new FmItem(nf, prefsManager->appPrefs.AvailFonts[nf]->Font));
-			FontID.insert(a, prefsManager->appPrefs.AvailFonts[nf]->SCName);
+			int a = FontMenu->insertItem(new FmItem(nf, prefsManager->appPrefs.AvailFonts[nf]));
+			FontID.insert(a, prefsManager->appPrefs.AvailFonts[nf]->scName());
 		}
 		else
 		{
@@ -7194,10 +7193,10 @@ void ScribusApp::saveStyles(StilFormate *dia)
 			QString nf = doc->docParagraphStyles[a].Font;
 			if (!doc->UsedFonts.contains(nf))
 			{
-				if (doc->AddFont(nf, prefsManager->appPrefs.AvailFonts[nf]->Font))
+				if (doc->AddFont(nf)) //, prefsManager->appPrefs.AvailFonts[nf]->Font))
 				{
-					int ff = FontMenu->insertItem(new FmItem(nf, prefsManager->appPrefs.AvailFonts[nf]->Font));
-					FontID.insert(ff, prefsManager->appPrefs.AvailFonts[nf]->SCName);
+					int ff = FontMenu->insertItem(new FmItem(nf, prefsManager->appPrefs.AvailFonts[nf]));
+					FontID.insert(ff, prefsManager->appPrefs.AvailFonts[nf]->scName());
 				}
 				else
 					doc->docParagraphStyles[a].Font = doc->toolSettings.defFont;
@@ -7661,13 +7660,13 @@ void ScribusApp::buildFontMenu()
 	if (!HaveDoc)
 	{
 		it.toFirst();
-		a = FontMenu->insertItem(new FmItem(it.currentKey(), it.current()->Font));
+		a = FontMenu->insertItem(new FmItem(it.currentKey(), it.current()));
 		FontMenu->setItemChecked(a, true);
-		FontID.insert(a, it.current()->SCName);
+		FontID.insert(a, it.current()->scName());
 	}
 	else
 	{
-		QMap<QString,QFont>::Iterator it3;
+		QMap<QString,int>::Iterator it3;
 		for (it3 = doc->UsedFonts.begin(); it3 != doc->UsedFonts.end(); ++it3)
 		{
 			a = FontMenu->insertItem(new FmItem(it3.key(), it3.data()));
@@ -7843,7 +7842,7 @@ bool ScribusApp::DoSaveAsEps(QString fn)
 	pageNs.push_back(doc->currentPage->pageNr()+1);
 	ReOrderText(doc, view);
 	qApp->setOverrideCursor(QCursor(waitCursor), true);
-	QMap<QString,QFont> ReallyUsed;
+	QMap<QString,int> ReallyUsed;
 	ReallyUsed.clear();
 	doc->getUsedFonts(&ReallyUsed);
 	ColorList usedColors;
@@ -7990,7 +7989,7 @@ void ScribusApp::doSaveAsPDF()
 	}
 /*	if (bookmarkPalette->BView->childCount() == 0)
 		doc->PDF_Options.Bookmarks = false; */
-	QMap<QString,QFont> ReallyUsed;
+	QMap<QString,int> ReallyUsed;
 	ReallyUsed.clear();
 	doc->getUsedFonts(&ReallyUsed);
 	if (doc->PDF_Options.EmbedList.count() != 0)
