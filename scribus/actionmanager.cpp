@@ -71,7 +71,7 @@ void ActionManager::initFileMenuActions()
 	scrActions->insert("fileExportAsEPS", new ScrAction(ScApp, "fileExportAsEPS"));
 	scrActions->insert("fileExportAsPDF", new ScrAction(loadIcon("acrobat.png"), "", QKeySequence(), ScApp, "fileExportAsPDF"));
 	//Rest of File Menu
-	scrActions->insert("fileDocSetup", new ScrAction(QPixmap(loadIcon("documentinfo.png")), "", 0, ScApp, "fileDocSetup"));
+	scrActions->insert("fileDocSetup", new ScrAction(QPixmap(loadIcon("scribusdoc16.png")), "", 0, ScApp, "fileDocSetup"));
 	scrActions->insert("filePrint", new ScrAction(QIconSet(loadIcon("DateiPrint16.png"), loadIcon("DateiPrint.xpm")), "", CTRL+Key_P, ScApp, "filePrint"));
 	scrActions->insert("PrintPreview", new ScrAction("", CTRL+ALT+Key_P, ScApp, "PrintPreview"));
 	scrActions->insert("fileQuit", new ScrAction(QPixmap(loadIcon("exit.png")), "", CTRL+Key_Q, ScApp, "fileQuit"));
