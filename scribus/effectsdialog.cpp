@@ -8,11 +8,11 @@
 #include <qtooltip.h>
 #include <qwhatsthis.h>
 #include <qimage.h>
-#include <qcombobox.h>
 #include <qtextstream.h>
 #include <qwidgetstack.h>
 #include <qwidget.h>
 #include <qslider.h>
+#include "sccombobox.h"
 #include "scribusdoc.h"
 #include "shadebutton.h"
 #include "mspinbox.h"
@@ -68,7 +68,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	textLabel3 = new QLabel( tr( "Color:" ), WStackPage_2, "textLabel3" );
 	layout17->addWidget( textLabel3 );
 
-	colData = new QComboBox(false, WStackPage_2, "colData");
+	colData = new ScComboBox(false, WStackPage_2, "colData");
 	ColorList::Iterator it;
 	QPixmap pm = QPixmap(15, 15);
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)

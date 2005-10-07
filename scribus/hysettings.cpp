@@ -1,5 +1,6 @@
 #include "hysettings.h"
 #include "hysettings.moc"
+#include "sccombobox.h"
 
 HySettings::HySettings( QWidget* parent, QMap<QString,QString>* langs ) : QWidget( parent, "Settings" )
 {
@@ -12,7 +13,7 @@ HySettings::HySettings( QWidget* parent, QMap<QString,QString>* langs ) : QWidge
 	input = new QCheckBox( tr("Hyphenate Text Automatically &During Typing"), this, "inp");
 	layout3->addMultiCellWidget(input, 1, 1, 0, 1);
 	
-	language = new QComboBox( true, this, "Language" );
+	language = new ScComboBox( true, this, "Language" );
 	QMap<QString,QString>::Iterator it;
 	for (it = langs->begin(); it != langs->end(); ++it)
 		lada.append(it.data());

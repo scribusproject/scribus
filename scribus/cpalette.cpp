@@ -27,9 +27,9 @@
 #include <qlayout.h>
 #include <qtoolbutton.h>
 #include <qbuttongroup.h>
-#include <qcombobox.h>
 #include <qlabel.h>
 #include <qspinbox.h>
+#include "sccombobox.h"
 #include "scribusdoc.h"
 #include "shadebutton.h"
 #include "mspinbox.h"
@@ -84,7 +84,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	GradLayout = new QVBoxLayout( 0, 0, 6, "GradLayout");
 	QFont fo = QFont(font());
 	fo.setPointSize(fo.pointSize()-1);
-	gradientQCombo = new QComboBox( true, this, "gradientQCombo" );
+	gradientQCombo = new ScComboBox( true, this, "gradientQCombo" );
 	gradientQCombo->setEditable(false);
 	gradientQCombo->setFont(fo);
 	GradLayout->addWidget( gradientQCombo );

@@ -23,6 +23,7 @@
 #include <qdir.h>
 #include <qdom.h>
 #include <qtextcodec.h>
+#include "sccombobox.h"
 #include "scribusstructs.h"
 #include "scimage.h"
 #include <util.h>
@@ -274,7 +275,7 @@ CustomFDialog::CustomFDialog(QWidget *pa, QString wDir, QString cap, QString fil
 			Layout1C->setMargin( 4 );
 			TxCodeT = new QLabel(this);
 			TxCodeT->setText( tr("Encoding:"));
-			TxCodeM = new QComboBox(true, LayoutC, "Cod");
+			TxCodeM = new ScComboBox(true, LayoutC, "Cod");
 			TxCodeM->setEditable(false);
 			QString tmp_txc[] = {"ISO 8859-1", "ISO 8859-2", "ISO 8859-3", "ISO 8859-4", "ISO 8859-5", "ISO 8859-6",
 								"ISO 8859-7", "ISO 8859-8", "ISO 8859-9", "ISO 8859-10", "ISO 8859-13", "ISO 8859-14",

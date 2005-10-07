@@ -9,6 +9,7 @@
 #include <cstdlib>
 
 #include "commonstrings.h"
+#include "sccombobox.h"
 #include "scconfig.h"
 #include "scpaths.h"
 #ifdef HAVE_CMS
@@ -81,7 +82,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScColor orig, QString name, ColorList *
 	TextLabel3->setMinimumSize( QSize( 100, 22 ) );
 	Layout23->addWidget( TextLabel3 );
 
-	ComboBox1 = new QComboBox( true, this, "ComboBox1" );
+	ComboBox1 = new ScComboBox( true, this, "ComboBox1" );
 	ComboBox1->setEditable(false);
 	ComboBox1->insertItem( tr( "CMYK" ) );
 	ComboBox1->insertItem( tr( "RGB" ) );
@@ -162,7 +163,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScColor orig, QString name, ColorList *
 	Frame4Layout->setSpacing( 6 );
 	Frame4Layout->setMargin( 0 );
 	
-	Swatches = new QComboBox( true, Frame4, "ComboBox1" );
+	Swatches = new ScComboBox( true, Frame4, "ComboBox1" );
 	Swatches->setEditable(false);
 	Swatches->insertItem( tr( "HSV-Colormap" ) );
 	Swatches->insertItem("X11 RGB-Set");

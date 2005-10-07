@@ -11,8 +11,8 @@
 #include <qpixmap.h>
 #include <qmap.h>
 #include <qlabel.h>
-#include <qcombobox.h>
 
+#include "sccombobox.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "page.h"
@@ -127,7 +127,7 @@ CheckDocument::CheckDocument( QWidget* parent, bool modal )  : ScrPaletteBase( p
 	layout1 = new QHBoxLayout( 0, 0, 5, "layout1");
 	textLabel1 = new QLabel( this, "textLabel1" );
 	layout1->addWidget( textLabel1 );
-	curCheckProfile = new QComboBox( true, this, "Profiles" );
+	curCheckProfile = new ScComboBox( true, this, "Profiles" );
 	curCheckProfile->setEditable(false);
 	layout1->addWidget( curCheckProfile );
 	checkDocumentLayout->addLayout( layout1 );

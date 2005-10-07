@@ -5,7 +5,6 @@
 #include <qtabwidget.h>
 #include <qwidget.h>
 #include <qlabel.h>
-#include <qcombobox.h>
 #include <qcheckbox.h>
 #include <qspinbox.h>
 #include <qtable.h>
@@ -14,6 +13,7 @@
 #include <qtooltip.h>
 #include <qwhatsthis.h>
 #include <qheader.h>
+#include "sccombobox.h"
 #include "scpainter.h"
 #include "util.h"
 
@@ -69,7 +69,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ScImage::ImageInfoRecord *info, P
 	textLabel1 = new QLabel( tab, "textLabel1" );
 	textLabel1->setText( tr( "Blend Mode:" ) );
 	layout1->addWidget( textLabel1 );
-	blendMode = new QComboBox( true, tab, "blendMode" );
+	blendMode = new ScComboBox( true, tab, "blendMode" );
 	blendMode->setEditable(false);
 	blendMode->clear();
 	blendMode->insertItem( tr("Normal"));

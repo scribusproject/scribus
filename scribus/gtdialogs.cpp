@@ -23,6 +23,7 @@
 #include "prefsmanager.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
+#include "sccombobox.h"
 #include <qlabel.h>
 #include "commonstrings.h"
 
@@ -49,7 +50,7 @@ void gtFileDialog::createWidgets(const QStringList& importers)
 	importerLayout->setSpacing(10);
 	importerLayout->setMargin(0);
 
-	importerCombo = new QComboBox(0, importerFrame, "importerCombo");
+	importerCombo = new ScComboBox(0, importerFrame, "importerCombo");
 	importerCombo->setMinimumSize(QSize(150, 0));
 	QToolTip::add(importerCombo, tr("Choose the importer to use"));
 	importerCombo->insertItem( tr("Automatic"));
@@ -72,7 +73,7 @@ void gtFileDialog::createWidgets(const QStringList& importers)
 	encodingLayout->setSpacing(10);
 	encodingLayout->setMargin(0);
 
-	encodingCombo = new QComboBox(true, encodingFrame, "encodingCombo");
+	encodingCombo = new ScComboBox(true, encodingFrame, "encodingCombo");
 	encodingCombo->setEditable(false);
 	QString tmp_txc[] = {"ISO 8859-1", "ISO 8859-2", "ISO 8859-3", "ISO 8859-4", "ISO 8859-5", "ISO 8859-6",
 					   "ISO 8859-7", "ISO 8859-8", "ISO 8859-9", "ISO 8859-10", "ISO 8859-13", "ISO 8859-14",
@@ -135,7 +136,7 @@ gtImporterDialog::gtImporterDialog(const QStringList& importers, int currentSele
 	layout->addLayout(llayout);
 
 	QBoxLayout* ilayout = new QHBoxLayout(0, 5, 5, "dlayout2");
-	importerCombo = new QComboBox(0, this, "importerCombo2");
+	importerCombo = new ScComboBox(0, this, "importerCombo2");
 	importerCombo->setMinimumSize(QSize(150, 0));
 	QToolTip::add(importerCombo, tr("Choose the importer to use"));
 	importerCombo->insertStringList(importers);

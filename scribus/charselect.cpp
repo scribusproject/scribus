@@ -15,6 +15,7 @@
 #include "fontcombo.h"
 #include "charselect.h"
 #include "charselect.moc"
+#include "sccombobox.h"
 #include "scpainter.h"
 
 #include "scconfig.h"
@@ -272,7 +273,7 @@ void CharSelect::run( QWidget* /*parent*/, PageItem *item, ScribusApp *pl)
 	rangeLabel = new QLabel( this, "fontLabel" );
 	rangeLabel->setText( tr( "Character Class:" ) );
 	selectionsLayout->addWidget( rangeLabel );
-	rangeSelector = new QComboBox( true, this, "rangeSelector" );
+	rangeSelector = new ScComboBox( true, this, "rangeSelector" );
 	rangeSelector->setEditable(false);
 	characterClass = 0;
 	selectionsLayout->addWidget( rangeSelector );
