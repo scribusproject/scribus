@@ -19,11 +19,25 @@
 #include "scmenu.h"
 #include "scmenu.moc"
 #include "scraction.h"
+#include "util.h"
 
 ScrPopupMenu::ScrPopupMenu ( QWidget * parent, const char * name, const QString pMenuName, const QString pMenuText, const QString parentName ) : QObject(parent, name)
 {
 	parentMenuName=parentName;
 	parentMenuID=-1;
+	menuText=pMenuText;
+	menuName=pMenuName;
+	menuBarID=-1;
+	menuItemList.clear();
+	localPopupMenu=new QPopupMenu(parent, name);
+	enabled=true;
+}
+
+ScrPopupMenu::ScrPopupMenu ( QWidget * parent, const char * name, const QString pMenuName, const QIconSet pMenuIcon, const QString pMenuText, const QString parentName ) : QObject(parent, name)
+{
+	parentMenuName=parentName;
+	parentMenuID=-1;
+	menuIcon=pMenuIcon;
 	menuText=pMenuText;
 	menuName=pMenuName;
 	menuBarID=-1;
@@ -45,6 +59,16 @@ const QString ScrPopupMenu::getMenuText()
 void ScrPopupMenu::setMenuText(const QString pMenuText)
 {
 	menuText=pMenuText;
+}
+
+const QIconSet ScrPopupMenu::getMenuIcon()
+{
+	return menuIcon;
+}
+
+void ScrPopupMenu::setMenuIcon(const QIconSet pMenuIcon)
+{
+	menuIcon=pMenuIcon;
 }
 
 const QString ScrPopupMenu::getMenuName()
@@ -140,6 +164,9 @@ bool ScrPopupMenu::insertMenuItemAfter(ScrAction *newMenuAction, ScrAction *afte
 	//Allow duplicate menu items ???
 	//if (menuItemList.findRef(newMenuAction)!=-1)
 	//	return false;
+	
+	if (newMenuAction->iconSet().isNull() && ! afterMenuAction->iconSet().isNull())
+		newMenuAction->setIconSet(loadIcon("noicon.xpm"));
 	
 	QValueList< QGuardedPtr<QObject> >::Iterator it=menuItemList.find(QGuardedPtr<QObject>(afterMenuAction));
 	menuItemList.insert(++it, QGuardedPtr<QObject>(newMenuAction));

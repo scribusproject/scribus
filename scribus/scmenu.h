@@ -16,6 +16,7 @@
 #define SCMENU_H
 
 #include <qaction.h>
+#include <qiconset.h>
 #include <qguardedptr.h>
 
 class QPopupMenu;
@@ -28,12 +29,15 @@ class SCRIBUS_API ScrPopupMenu : public QObject
 	Q_OBJECT
 	public:
 		ScrPopupMenu ( QWidget * parent = 0, const char * name = 0, const QString pMenuName = QString::null, const QString pMenuText = QString::null, const QString parentName = QString::null);
+		ScrPopupMenu ( QWidget * parent = 0, const char * name = 0, const QString pMenuName = QString::null, const QIconSet pMenuIcon = QIconSet(), const QString pMenuText = QString::null, const QString parentName = QString::null);
 		~ScrPopupMenu ();
 		
 		const QString getMenuName();
 		const QString getParentMenuName();
 		const QString getMenuText();
 		void setMenuText(const QString pMenuText);
+		const QIconSet getMenuIcon();
+		void setMenuIcon(const QIconSet pMenuIcon);
 		void setMenuBarID(int id);
 		int getMenuBarID();
 		void setEnabled(bool menuEnabled);
@@ -64,6 +68,7 @@ class SCRIBUS_API ScrPopupMenu : public QObject
 		QString parentMenuName;
 		int parentMenuID;
 		QString menuText;
+		QIconSet menuIcon;
 		int menuBarID;
 		bool enabled;
 };

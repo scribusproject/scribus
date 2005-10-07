@@ -50,6 +50,24 @@ bool MenuManager::createMenu(const QString &menuName, const QString &menuText, c
 	return retVal;
 }
 
+
+bool MenuManager::createMenu(const QString &menuName, const QIconSet menuIcon, const QString &menuText, const QString parent)
+{
+	bool retVal=false;
+	
+	ScrPopupMenu *newMenu = new ScrPopupMenu(NULL, NULL, menuName, menuIcon, menuText, parent);
+	if (newMenu)
+	{
+		menuList.insert(menuName, newMenu);
+		if (!parent.isNull() && menuList[parent])
+			retVal=menuList[parent]->insertSubMenu(newMenu);
+	}
+	else
+		retVal=false;	
+	
+	return retVal;
+}
+
 bool MenuManager::addMenuToMenu(const QString &child, const QString &parent)
 {
 	bool retVal=false;
@@ -93,8 +111,27 @@ void MenuManager::setMenuText(const QString &menuName, const QString &menuText)
 			menuList[parent]->repopulateLocalMenu();
 		
 		int id=menuList[menuName]->getMenuBarID();
-		if (id!=-1)
-			scribusMenuBar->changeItem(id, menuText);
+		if (id!=-1) {
+			QIconSet menuIcon = menuList[menuName]->getMenuIcon();
+			scribusMenuBar->changeItem(id, menuIcon, menuText);
+		}
+	}
+}
+
+void MenuManager::setMenuIcon(const QString &menuName, const QIconSet &menuIcon)
+{
+	if (menuList.contains(menuName) && menuList[menuName]!=NULL)
+	{
+		menuList[menuName]->setMenuIcon(menuIcon);
+		QString parent=menuList[menuName]->getParentMenuName();
+		if (!parent.isNull())
+			menuList[parent]->repopulateLocalMenu();
+		
+		int id=menuList[menuName]->getMenuBarID();
+		if (id!=-1) {
+			QString menuText = menuList[menuName]->getMenuText();
+			scribusMenuBar->changeItem(id, menuIcon, menuText);
+		}
 	}
 }
 
@@ -132,7 +169,7 @@ bool MenuManager::addMenuToMenuBar(const QString &menuName)
 	bool retVal;
 	if (menuList.contains(menuName) && menuList[menuName]!=NULL)
 	{
-		int id=scribusMenuBar->insertItem( menuList[menuName]->getMenuText(), menuList[menuName]->getLocalPopupMenu());
+		int id=scribusMenuBar->insertItem( menuList[menuName]->getMenuIcon(), menuList[menuName]->getMenuText(), menuList[menuName]->getLocalPopupMenu());
 		menuList[menuName]->setMenuBarID(id);
 		retVal=true;
 	}
@@ -151,7 +188,7 @@ bool MenuManager::addMenuToMenuBarAfter(const QString &menuName, const QString &
 			int afterID=menuList[afterMenuName]->getMenuBarID();
 			if (afterID!=-1)
 			{
-				int id=scribusMenuBar->insertItem( menuList[menuName]->getMenuText(), menuList[menuName]->getLocalPopupMenu(), scribusMenuBar->indexOf(afterID)+1, scribusMenuBar->indexOf(afterID)+1);
+				int id=scribusMenuBar->insertItem( menuList[menuName]->getMenuIcon(), menuList[menuName]->getMenuText(), menuList[menuName]->getLocalPopupMenu(), scribusMenuBar->indexOf(afterID)+1, scribusMenuBar->indexOf(afterID)+1);
 				menuList[menuName]->setMenuBarID(id);
 				retVal=true;
 			}

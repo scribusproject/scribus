@@ -589,7 +589,8 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["fileNew"], "File");
 	scrMenuMgr->addMenuItem(scrActions["fileOpen"], "File");
 	recentFileMenuName="FileOpenRecent";
-	scrMenuMgr->createMenu(recentFileMenuName, tr("Open &Recent"), "File");
+	scrMenuMgr->createMenu(recentFileMenuName, QIconSet(loadIcon("noicon.xpm")), tr("Open &Recent"), "File");
+//	scrMenuMgr->setMenuIcon(recentFileMenuName, QIconSet(loadIcon("noicon.xpm")));
 	scrMenuMgr->addMenuSeparator("File");
 	scrMenuMgr->addMenuItem(scrActions["fileClose"], "File");
 	scrMenuMgr->addMenuItem(scrActions["fileSave"], "File");
@@ -598,10 +599,12 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["fileCollect"], "File");
 	scrMenuMgr->addMenuSeparator("File");
 	scrMenuMgr->createMenu("FileImport", tr("&Import"), "File");
+	scrMenuMgr->setMenuIcon("FileImport", QIconSet(loadIcon("noicon.xpm")));
 	scrMenuMgr->addMenuItem(scrActions["fileImportText"], "FileImport");
 	scrMenuMgr->addMenuItem(scrActions["fileImportAppendText"], "FileImport");
 	scrMenuMgr->addMenuItem(scrActions["fileImportImage"], "FileImport");
 	scrMenuMgr->createMenu("FileExport", tr("&Export"), "File");
+	scrMenuMgr->setMenuIcon("FileExport", QIconSet(loadIcon("noicon.xpm")));
 	scrMenuMgr->addMenuItem(scrActions["fileExportText"], "FileExport");
 	scrMenuMgr->addMenuItem(scrActions["fileExportAsEPS"], "FileExport");
 	scrMenuMgr->addMenuItem(scrActions["fileExportAsPDF"], "FileExport");
