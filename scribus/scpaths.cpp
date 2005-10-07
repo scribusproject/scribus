@@ -55,6 +55,10 @@ ScPaths::ScPaths() :
 	                                       kCFURLPOSIXPathStyle);
 	const char *pathPtr = CFStringGetCStringPtr(macPath,
 	                                       CFStringGetSystemEncoding());
+
+	// make sure we get the Scribus.app directory, not some subdir
+
+	// strip trailing '/':
 	char *p = const_cast<char*>(pathPtr + strlen(pathPtr) - 1);
 	while (*p == '/')
 		--p;
@@ -73,7 +77,7 @@ ScPaths::ScPaths() :
 		*p = '\0';
 	}
 
-//	qDebug(QString("scpaths: bundle at %1:").arg(pathPtr));
+	qDebug(QString("scpaths: bundle at %1:").arg(pathPtr));
 	m_shareDir = strdup(QString("%1/Contents/share/scribus/").arg(pathPtr));
 	m_docDir = strdup(QString("%1/Contents/share/scribus/doc/").arg(pathPtr));
 	m_iconDir = strdup(QString("%1/Contents/share/scribus/icons/").arg(pathPtr));
@@ -85,7 +89,8 @@ ScPaths::ScPaths() :
 	QApplication::setLibraryPaths(QString("%1/Contents/lib/qtplugins/").arg(pathPtr));
 	CFRelease(pluginRef);
 	CFRelease(macPath);
-/*
+
+	// on OSX this goes to the sys console, so user only sees it when they care -- AV
 	qDebug(QString("scpaths: doc dir=%1").arg(m_docDir));
 	qDebug(QString("scpaths: icon dir=%1").arg(m_iconDir));
 	qDebug(QString("scpaths: sample dir=%1").arg(m_sampleScriptDir));
@@ -94,7 +99,7 @@ ScPaths::ScPaths() :
 	qDebug(QString("scpaths: lib dir=%1").arg(m_libDir));
 	qDebug(QString("scpaths: plugin dir=%1").arg(m_pluginDir));
 	qDebug(QString("scpaths: qtplugins=%1").arg(QApplication::libraryPaths().join(":")));
-*/
+
 #elif defined(_WIN32)
 	QString appPath = qApp->applicationDirPath();
 	m_shareDir = strdup(QString("%1/share/").arg(appPath));
