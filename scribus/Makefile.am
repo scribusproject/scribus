@@ -156,7 +156,7 @@ scribus_SOURCES = \
 	scfontmetrics.cpp	\
 	scimage.cpp	\
 	scmenu.cpp	\
-	scmessagebox.cpp Â\
+	scmessagebox.cpp	\
 	scpainter.cpp	\
 	scpaths.cpp	\
 	scplugin.cpp	\
