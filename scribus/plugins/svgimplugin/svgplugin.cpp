@@ -1919,7 +1919,8 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 	QPainter p;
 	QPtrList<PageItem> GElements;
 	p.begin(ScApp->view->viewport());
-	QFont ff(currDoc->UsedFonts[m_gc.current()->Family]);
+//	QFont ff(currDoc->UsedFonts[m_gc.current()->Family]);
+	QFont ff(m_gc.current()->Family);
 	ff.setPointSize(QMAX(qRound(m_gc.current()->FontSize / 10.0), 1));
 	p.setFont(ff);
 	setupTransform(e);
