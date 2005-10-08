@@ -200,9 +200,9 @@ ColorWheelDialog::ColorWheelDialog(QWidget* parent, const char* name, bool modal
 	typeCombo->insertItem(colorWheel->getTypeDescription(colorWheel->Tetradic), colorWheel->Tetradic);
 	// defects
 	defectCombo->insertItem(tr("Normal Vision"));
-	defectCombo->insertItem(tr("Protanopia (red)"));
-	defectCombo->insertItem(tr("Deuteranopia (green)"));
-	defectCombo->insertItem(tr("Tritanopia (blue)"));
+	defectCombo->insertItem(tr("Protanopia (Red)"));
+	defectCombo->insertItem(tr("Deuteranopia (Green)"));
+	defectCombo->insertItem(tr("Tritanopia (Blue)"));
 	defectCombo->insertItem(tr("Full Color Blindness"));
 
 	// preferences
