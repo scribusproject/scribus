@@ -485,6 +485,17 @@ SeitenPal::SeitenPal(QWidget* parent) : ScrPaletteBase( parent, "SP", false, 0)
 	Layout1->setMargin( 0 );
 	QValueList<PageSet> dummy;
 	dummy.clear();
+	struct PageSet pageS;
+	pageS.Name = tr( "Double sided" );
+	pageS.FirstPage = 0;
+	pageS.Rows = 1;
+	pageS.Columns = 1;
+	pageS.GapHorizontal = 0.0;
+	pageS.GapVertical = 0.0;
+	pageS.GapBelow = 40.0;
+	pageS.pageNames.clear();
+	pageS.pageNames.append( tr("Middle Right"));
+	dummy.append(pageS);
 	pageLayout = new PageLayouts(this, dummy, false);
 	Layout1->addWidget( pageLayout );
 
