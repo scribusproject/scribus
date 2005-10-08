@@ -15,6 +15,7 @@
 #include "commonstrings.h"
 #include "mspinbox.h"
 #include "customfdialog.h"
+#include "sccombobox.h"
 
 
 extern QPixmap loadIcon(QString nam);

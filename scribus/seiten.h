@@ -27,6 +27,7 @@
 #include "scrpalettebase.h"
 #include "scribusview.h"
 class DynamicTip;
+class PageLayouts;
 
 class SCRIBUS_API SeDrag : public QStoredDrag
 {
@@ -142,8 +143,7 @@ public:
 	QLabel* TextLabel2;
 	SeList* masterPageList;
 	SeView* PageView;
-	QCheckBox* facingPagesChk;
-	QCheckBox* firstPageLeftChk;
+	PageLayouts* pageLayout;
 	ScribusView *Vie;
 	QPixmap pix;
 	DynamicTip* dynTip;
@@ -155,8 +155,8 @@ public slots:
 	void GotoPage(int r, int c, int b);
 	void DisablePal();
 	void EnablePal();
-	void handleFacingPagesChk();
-	void handleFirstPageLeftChk();
+	void handlePageLayout(int layout);
+	void handleFirstPage(int fp);
 	void RebuildTemp();
 	void RebuildPage();
 	void Rebuild();
@@ -165,20 +165,14 @@ public slots:
 	void languageChange();
 
 signals:
-	//void ToggleAllPalettes();
 	void EditTemp(QString);
 	void GotoSeite(int);
-	//void Schliessen();
 
 protected:
 	QVBoxLayout* SeitenPalLayout;
 	QHBoxLayout* Layout1;
 	QVBoxLayout* Layout2;
 	QVBoxLayout* Layout3;
-	QVBoxLayout* Layout4;
-
-protected slots:
-	//virtual void reject();
 };
 
 #endif // SEITENPAL_H

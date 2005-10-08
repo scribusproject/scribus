@@ -3,6 +3,8 @@
 #include <qcursor.h>
 #include "scribus.h"
 #include "dynamictip.h"
+#include "pagelayout.h"
+#include "sccombobox.h"
 extern QPixmap loadIcon(QString nam);
 
 
@@ -106,7 +108,6 @@ SeView::SeView(QWidget* parent) : QTable(parent)
 	viewport()->setAcceptDrops(true);
 	setShowGrid(false);
 	Mpressed = false;
-	Doppel = false;
 	Namen = true;
 	setFocusPolicy(NoFocus);
 }
@@ -480,19 +481,14 @@ SeitenPal::SeitenPal(QWidget* parent) : ScrPaletteBase( parent, "SP", false, 0)
 	SeitenPalLayout->addWidget( Splitter1 );
 
 	Layout1 = new QHBoxLayout;
-	Layout1->setSpacing( 6 );
+	Layout1->setSpacing( 5 );
 	Layout1->setMargin( 0 );
+	QValueList<PageSet> dummy;
+	dummy.clear();
+	pageLayout = new PageLayouts(this, dummy, false);
+	Layout1->addWidget( pageLayout );
 
-	Layout4 = new QVBoxLayout;
-	Layout4->setSpacing( 6 );
-	Layout4->setMargin( 0 );
-	facingPagesChk = new QCheckBox(this, "facingPagesChk");
-	Layout4->addWidget( facingPagesChk );
-	firstPageLeftChk = new QCheckBox(this, "firstPageLeftChk");
-	Layout4->addWidget( firstPageLeftChk );
-	Layout1->addLayout( Layout4 );
-
-	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	QSpacerItem* spacer = new QSpacerItem( 15, 15, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout1->addItem( spacer );
 
 	Trash = new TrashBin( this );
@@ -508,14 +504,11 @@ SeitenPal::SeitenPal(QWidget* parent) : ScrPaletteBase( parent, "SP", false, 0)
 	connect(masterPageList, SIGNAL(ThumbChanged()), this, SLOT(RebuildTemp()));
 	connect(PageView, SIGNAL(Click(int, int, int)), this, SLOT(GotoPage(int, int, int)));
 	connect(PageView, SIGNAL(MovePage(int, int)), this, SLOT(MPage(int, int)));
-//	connect(facingPagesChk, SIGNAL(clicked()), this, SLOT(handleFacingPagesChk()));
-//	connect(firstPageLeftChk, SIGNAL(clicked()), this, SLOT(handleFirstPageLeftChk()));
 	connect(Trash, SIGNAL(DelMaster(QString)), this, SLOT(DelMPage(QString)));
+	connect(pageLayout, SIGNAL(selectedLayout(int )), this, SLOT(handlePageLayout(int )));
+	connect(pageLayout, SIGNAL(selectedFirstPage(int )), this, SLOT(handleFirstPage(int )));
 	QToolTip::add(Trash, "<qt>" + tr("Drag pages or master pages onto the trashbin to delete them") + "</qt>");
-//	QToolTip::add(PageView, "<qt>" + tr("Previews all the pages of your document") + "</qt>");
 	QToolTip::add(masterPageList, "<qt>" + tr("Here are all your master pages. To create a new page, drag a master page to the page view below") + "</qt>");
-	facingPagesChk->setEnabled(false);
-	firstPageLeftChk->setEnabled(false);
 }
 
 void SeitenPal::DelMPage(QString tmp)
@@ -585,44 +578,34 @@ void SeitenPal::DisablePal()
 {
 	PageView->setEnabled(false);
 	masterPageList->setEnabled(false);
-	facingPagesChk->setEnabled(false);
-	firstPageLeftChk->setEnabled(false);
+	pageLayout->setEnabled(false);
 }
 
 void SeitenPal::EnablePal()
 {
 	PageView->setEnabled(true);
 	masterPageList->setEnabled(true);
-/*	facingPagesChk->setEnabled(true);
-	firstPageLeftChk->setEnabled(PageView->Doppel ? true : false); */
+	pageLayout->setEnabled(true);
 }
 
-void SeitenPal::handleFacingPagesChk()
+void SeitenPal::handlePageLayout(int layout)
 {
 	double tpr = Vie->Doc->pageMargins.Top;
 	double lr = Vie->Doc->pageMargins.Left;
 	double rr = Vie->Doc->pageMargins.Right;
 	double br = Vie->Doc->pageMargins.Bottom;
-	bool fp = facingPagesChk->isChecked();
-	Vie->Doc->resetPage(tpr, lr, rr, br, fp);
+	pageLayout->selectFirstP(Vie->Doc->pageSets[layout].FirstPage);
+	Vie->Doc->resetPage(tpr, lr, rr, br, layout);
 	Vie->reformPages();
 	Vie->DrawNew();
 	Vie->GotoPage(Vie->Doc->currentPage->pageNr());
 	RebuildPage();
 	Vie->Doc->setModified(true);
-//	firstPageLeftChk->setEnabled(fp ? true : false);
 }
 
-void SeitenPal::handleFirstPageLeftChk()
+void SeitenPal::handleFirstPage(int fp)
 {
-	double tpr = Vie->Doc->pageMargins.Top;
-	double lr = Vie->Doc->pageMargins.Left;
-	double rr = Vie->Doc->pageMargins.Right;
-	double br = Vie->Doc->pageMargins.Bottom;
-	int fp2 = Vie->Doc->currentPageLayout;
-	if (fp2 == doublePage)
-		Vie->Doc->pageSets[Vie->Doc->currentPageLayout].FirstPage = firstPageLeftChk->isChecked();
-	Vie->Doc->resetPage(tpr, lr, rr, br, fp2);
+	Vie->Doc->pageSets[Vie->Doc->currentPageLayout].FirstPage = fp;
 	Vie->reformPages();
 	Vie->DrawNew();
 	Vie->GotoPage(Vie->Doc->currentPage->pageNr());
@@ -656,22 +639,19 @@ void SeitenPal::RebuildPage()
 	if (ScApp->ScriptRunning)
 		return;
 	QString str;
-	disconnect(facingPagesChk, SIGNAL(clicked()), this, SLOT(handleFacingPagesChk()));
-	disconnect(firstPageLeftChk, SIGNAL(clicked()), this, SLOT(handleFirstPageLeftChk()));
+	disconnect(pageLayout, SIGNAL(selectedLayout(int )), this, SLOT(handlePageLayout(int )));
+	disconnect(pageLayout, SIGNAL(selectedFirstPage(int )), this, SLOT(handleFirstPage(int )));
 	PageView->setNumRows(1);
 	PageView->setNumCols(1);
 	if (Vie == 0)
 	{
-		connect(facingPagesChk, SIGNAL(clicked()), this, SLOT(handleFacingPagesChk()));
-		connect(firstPageLeftChk, SIGNAL(clicked()), this, SLOT(handleFirstPageLeftChk()));
+		connect(pageLayout, SIGNAL(selectedLayout(int )), this, SLOT(handlePageLayout(int )));
+		connect(pageLayout, SIGNAL(selectedFirstPage(int )), this, SLOT(handleFirstPage(int )));
 		return;
 	}
-	PageView->Doppel = Vie->Doc->currentPageLayout == doublePage;
-	PageView->Links = Vie->Doc->pageSets[Vie->Doc->currentPageLayout].FirstPage;
-//	facingPagesChk->setChecked(PageView->Doppel);
-//	firstPageLeftChk->setChecked(PageView->Links);
-//	if (PageView->Doppel)
-//		firstPageLeftChk->setEnabled(true);
+	pageLayout->updateLayoutSelector(Vie->Doc->pageSets);
+	pageLayout->selectItem(Vie->Doc->currentPageLayout);
+	pageLayout->firstPage->setCurrentItem(Vie->Doc->pageSets[Vie->Doc->currentPageLayout].FirstPage);
 	PageView->MaxC = Vie->Doc->Pages.count()-1;
 	int counter, rowcounter, colmult, rowmult, coladd,rowadd;
 	counter = Vie->Doc->pageSets[Vie->Doc->currentPageLayout].FirstPage;
@@ -738,8 +718,8 @@ void SeitenPal::RebuildPage()
 		}
 	}
 	PageView->repaint();
-	connect(facingPagesChk, SIGNAL(clicked()), this, SLOT(handleFacingPagesChk()));
-	connect(firstPageLeftChk, SIGNAL(clicked()), this, SLOT(handleFirstPageLeftChk()));
+	connect(pageLayout, SIGNAL(selectedLayout(int )), this, SLOT(handlePageLayout(int )));
+	connect(pageLayout, SIGNAL(selectedFirstPage(int )), this, SLOT(handleFirstPage(int )));
 }
 
 void SeitenPal::Rebuild()
@@ -791,6 +771,4 @@ void SeitenPal::languageChange()
 	setCaption( tr( "Arrange Pages" ) );
 	TextLabel1->setText( tr( "Available Master Pages:" ) );
 	TextLabel2->setText( tr( "Document Pages:" ) );
-	facingPagesChk->setText( tr( "Facing Pages" ) );
-	firstPageLeftChk->setText( tr( "Left Page First" ) );
 }

@@ -30,6 +30,7 @@
 #include "arrowchooser.h"
 #include "polygonwidget.h"
 #include "hyphenator.h"
+#include "sccombobox.h"
 
 extern QPixmap loadIcon(QString nam);
 extern bool CMSavail;

@@ -41,6 +41,7 @@
 #include "pluginmanager.h"
 #include "pluginmanagerprefsgui.h"
 #include "scplugin.h"
+#include "sccombobox.h"
 
 using namespace std;
 
