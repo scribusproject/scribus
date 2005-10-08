@@ -71,7 +71,7 @@ void ScribusWin::closeEvent(QCloseEvent *ce)
 			CloseTxt = tr("&Leave Anyway");
 		else
 			CloseTxt = tr("C&lose Anyway");
-		int exit=QMessageBox::information(this,
+		int exit=QMessageBox::information(ScApp,
 		                                  tr("Warning"),
 		                                  tr("Document:")+" "+doc->DocName+"\n"+ tr("has been changed since the last save."),
 		                                  tr("&Save Now"),
@@ -89,14 +89,16 @@ void ScribusWin::closeEvent(QCloseEvent *ce)
 		case 1:
 			break;
 		case 2:
-			emit Schliessen();
+			//emit Schliessen();
+			ScApp->DoFileClose();
 			ce->accept();
 			break;
 		}
 	}
 	else
 	{
-		emit Schliessen();
+		//emit Schliessen();
+		ScApp->DoFileClose();
 		ce->accept();
 	}
 }

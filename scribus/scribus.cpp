@@ -2018,10 +2018,12 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 {
 	QWidgetList windows = wsp->windowList();
 	ScribusWin* tw;
+	disconnect(wsp, SIGNAL(windowActivated(QWidget *)), this, SLOT(newActWin(QWidget *)));
 	if (!windows.isEmpty())
 	{
 		singleClose = true;
-		for ( int i = 0; i < static_cast<int>(windows.count()); ++i )
+		uint windowCount=windows.count();
+		for ( uint i = 0; i < windowCount; ++i )
 		{
 			newActWin(windows.at(i));
 			tw = ActWin;
@@ -2030,6 +2032,7 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 			{
 				ce->ignore();
 				singleClose = false;
+				connect(wsp, SIGNAL(windowActivated(QWidget *)), this, SLOT(newActWin(QWidget *)));
 				return;
 			}
 		}
@@ -2283,7 +2286,7 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	RestoreBookMarks();
 	doc->WinHan = w;
 	w->setCentralWidget(view);
-	connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
+	//connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
 	//	connect(w, SIGNAL(SaveAndClose()), this, SLOT(DoSaveClose()));
 	if (CMSavail)
 	{
@@ -3426,7 +3429,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 			lpo.Angle = 45;
 			doc->PDF_Optionen.LPISettings.insert("Black", lpo);
 		}
-		connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
+		//connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
 		if (!doc->HasCMS)
 		{
 			doc->CMSSettings.DefaultInputProfile = Prefs.DCMSset.DefaultInputProfile;
@@ -9522,7 +9525,7 @@ void ScribusApp::emergencySave()
 			{
 				std::cout << "Saving: " << doc->DocName+".emergency" << std::endl;
 				doc->ASaveTimer->stop();
-				disconnect(ActWin, SIGNAL(Schliessen()), ScApp, SLOT(DoFileClose()));
+				//disconnect(ActWin, SIGNAL(Schliessen()), ScApp, SLOT(DoFileClose()));
 				ScriXmlDoc *ss = new ScriXmlDoc();
 				ss->WriteDoc(doc->DocName+".emergency", doc, view, 0);
 				delete ss;
