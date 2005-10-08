@@ -35,6 +35,10 @@ class SCRIBUS_API ScribusQApp : public QApplication
 		void installTranslators(QStringList langs);
 		void changeGUILanguage(QString);
 		const bool usingGUI();
+		/**
+		 * @brief Are we swapping dialog button order?
+		 * @retval bool if we are swapping
+		 */
 		const bool reverseDialogButtons();
 		
 		static bool useGUI;
@@ -49,6 +53,7 @@ class SCRIBUS_API ScribusQApp : public QApplication
 		QString lang;
 		bool showSplash;
 		bool showFontInfo;
+		bool swapDialogButtonOrder;
 		QString file;
 
 	signals:

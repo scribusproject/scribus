@@ -2175,7 +2175,8 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 	if (!windows.isEmpty())
 	{
 		singleClose = true;
-		for ( int i = 0; i < static_cast<int>(windows.count()); ++i )
+		uint windowCount=windows.count();
+		for ( uint i = 0; i < windowCount; ++i )
 		{
 			newActWin(windows.at(i));
 			tw = ActWin;
@@ -2421,7 +2422,7 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 	doc->WinHan = w;
 	w->setCentralWidget(view);
 	connect(undoManager, SIGNAL(undoRedoDone()), view, SLOT(DrawNew()));
-	connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
+	//connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
 	connect(view, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
 
 	//	connect(w, SIGNAL(SaveAndClose()), this, SLOT(DoSaveClose()));
@@ -2486,7 +2487,7 @@ void ScribusApp::newView()
 	w->setCentralWidget(view);
 	alignDistributePalette->setView(view);
 	connect(undoManager, SIGNAL(undoRedoDone()), view, SLOT(DrawNew()));
-	connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
+	//connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
 }
 
 bool ScribusApp::DoSaveClose()
@@ -2528,11 +2529,14 @@ void ScribusApp::newActWin(QWidget *w)
 		ActWin = NULL;
 		return;
 	}
+	ActWin = (ScribusWin*)w;
+	if (ActWin->doc==NULL)
+		return;
 	QString oldDocName = "";
 	if (ActWin && ActWin->doc)
 		oldDocName = ActWin->doc->DocName;
 
-	ActWin = (ScribusWin*)w;
+
 /*	if (doc != NULL)
 	{
 		if ((HaveDoc) && (doc != ActWin->doc))
@@ -3804,7 +3808,7 @@ bool ScribusApp::loadDoc(QString fileName)
 			lpo.Angle = 45;
 			doc->PDF_Options.LPISettings.insert("Black", lpo);
 		}
-		connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
+		//connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
 		if (fl->ReplacedFonts.count() != 0)
 		{
 			qApp->setOverrideCursor(QCursor(arrowCursor), true);
@@ -5490,147 +5494,6 @@ void ScribusApp::duplicateToMasterPage()
 	delete dia;
 }
 
-/* CB TODO Remove after 1.3.1 release
-void ScribusApp::duplicateToMasterPage()
-{
-	QString MasterPageName;
-	int nr;
-	bool atf;
-	int GrMax = doc->GroupCounter;
-	struct CopyPasteBuffer BufferT;
-	view->Deselect(true);
-	Page* Source = doc->currentPage;
-	NewTm *dia = new NewTm(this, tr("Name:"), tr("New MasterPage"), doc);
-	dia->Answer->setText( tr("New Master Page"));
-	dia->Answer->selectAll();
-	if (dia->exec())
-	{
-		MasterPageName = dia->Answer->text();
-		while (doc->MasterNames.contains(MasterPageName) || (MasterPageName == "Normal"))
-		{
-			if (!dia->exec())
-			{
-				delete dia;
-				return;
-			}
-			MasterPageName = dia->Answer->text();
-		}
-		doc->DocPages = doc->Pages;
-		doc->Pages = doc->MasterPages;
-		doc->DocItems = doc->Items;
-		doc->Items = doc->MasterItems;
-		doc->masterPageMode = true;
-		nr = doc->Pages.count();
-		doc->MasterNames.insert(MasterPageName, nr);
-		doc->pageCount = 0;
-		atf = doc->PageAT;
-		doc->PageAT = false;
-		slotNewPage(nr);
-		doc->setLoading(true);
-		if (doc->currentPageLayout != singlePage)
-		{
-			int lp = dia->Links->currentItem();
-			if (lp == 0)
-				lp = 1;
-			else if (lp == static_cast<int>(dia->Links->count()-1))
-				lp = 0;
-			else
-				lp++;
-			doc->Pages.at(nr)->LeftPg = lp;
-		}
-		Page* Target = doc->Pages.at(nr);
-		QMap<int,int> TableID;
-		QPtrList<PageItem> TableItems;
-		TableID.clear();
-		TableItems.clear();
-		if (Source->YGuides.count() != 0)
-		{
-			Target->YGuides.clear();
-			for (uint y = 0; y < Source->YGuides.count(); ++y)
-			{
-				Target->YGuides.append(Source->YGuides[y]);
-			}
-			qHeapSort(Target->YGuides);
-		}
-		if (Source->XGuides.count() != 0)
-		{
-			Target->XGuides.clear();
-			for (uint x = 0; x < Source->XGuides.count(); ++x)
-			{
-				Target->XGuides.append(Source->XGuides[x]);
-			}
-			qHeapSort(Target->XGuides);
-		}
-		uint docItemsCount = doc->DocItems.count();
-		for (uint a = 0; a < docItemsCount; ++a)
-		{
-			PageItem *itemToCopy = doc->DocItems.at(a);
-			if (itemToCopy->OwnPage == static_cast<int>(Source->pageNr()))
-			{
-				itemToCopy->copyToCopyPasteBuffer(&BufferT);
-				if (itemToCopy->Groups.count() != 0)
-				{
-					BufferT.Groups.clear();
-					QValueStack<int>::Iterator nx;
-					QValueStack<int> tmpGroup;
-					for (nx = itemToCopy->Groups.begin(); nx != itemToCopy->Groups.end(); ++nx)
-					{
-						tmpGroup.push((*nx)+doc->GroupCounter);
-						GrMax = QMAX(GrMax, (*nx)+doc->GroupCounter);
-					}
-					for (nx = tmpGroup.begin(); nx != tmpGroup.end(); ++nx)
-					{
-						BufferT.Groups.push((*nx));
-					}
-				}
-				view->PasteItem(&BufferT, true, true);
-				PageItem* Neu = doc->Items.at(doc->Items.count()-1);
-				Neu->OnMasterPage = MasterPageName;
-				if (Neu->isTableItem)
-				{
-					TableItems.append(Neu);
-					TableID.insert(a, Neu->ItemNr);
-				}
-			}
-		}
-		if (TableItems.count() != 0)
-		{
-			for (uint ttc = 0; ttc < TableItems.count(); ++ttc)
-			{
-				PageItem* ta = TableItems.at(ttc);
-				if (ta->TopLinkID != -1)
-					ta->TopLink = doc->Items.at(TableID[ta->TopLinkID]);
-				else
-					ta->TopLink = 0;
-				if (ta->LeftLinkID != -1)
-					ta->LeftLink = doc->Items.at(TableID[ta->LeftLinkID]);
-				else
-					ta->LeftLink = 0;
-				if (ta->RightLinkID != -1)
-					ta->RightLink = doc->Items.at(TableID[ta->RightLinkID]);
-				else
-					ta->RightLink = 0;
-				if (ta->BottomLinkID != -1)
-					ta->BottomLink = doc->Items.at(TableID[ta->BottomLinkID]);
-				else
-					ta->BottomLink = 0;
-			}
-		}
-		doc->MasterPages = doc->Pages;
-		doc->pageCount = doc->DocPages.count();
-		doc->Pages = doc->DocPages;
-		doc->MasterItems = doc->Items;
-		doc->Items = doc->DocItems;
-		doc->masterPageMode = false;
-		Target->setPageName(MasterPageName);
-		Target->MPageNam = "";
-		doc->PageAT = atf;
-		doc->setLoading(false);
-		doc->GroupCounter = GrMax + 1;
-	}
-	delete dia;
-}
-*/
 /*!
 	\fn void ScribusApp::slotZoom(double zoomFactor)
 	\author Craig Bradney
@@ -9344,7 +9207,7 @@ void ScribusApp::emergencySave()
 			{
 				std::cout << "Saving: " << doc->DocName+".emergency" << std::endl;
 				doc->autoSaveTimer->stop();
-				disconnect(ActWin, SIGNAL(Schliessen()), ScApp, SLOT(DoFileClose()));
+				//disconnect(ActWin, SIGNAL(Schliessen()), ScApp, SLOT(DoFileClose()));
 				ScriXmlDoc *ss = new ScriXmlDoc();
 				ss->WriteDoc(doc->DocName+".emergency", doc, 0);
 				delete ss;

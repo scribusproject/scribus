@@ -103,7 +103,8 @@ void ScribusWin::closeEvent(QCloseEvent *ce)
 				return;
 			break;
 		case 1:
-			emit Schliessen();
+			ScApp->DoFileClose();
+			//emit Schliessen();
 			ce->accept();
 			break;
 		case 2:
@@ -113,7 +114,8 @@ void ScribusWin::closeEvent(QCloseEvent *ce)
 	}
 	else
 	{
-		emit Schliessen();
+		ScApp->DoFileClose();
+		//emit Schliessen();
 		ce->accept();
 	}
 }
