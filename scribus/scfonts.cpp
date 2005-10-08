@@ -31,7 +31,7 @@
 #include "prefsfile.h"
 #include "prefscontext.h"
 #include "prefstable.h"
-
+#include "scribus.h"
 #ifdef Q_WS_X11
 #include <X11/X.h>
 #include <X11/Xlib.h>
@@ -498,7 +498,7 @@ void SCFonts::AddScalableFonts(const QString &path, QString DocName)
 	FT_Library library = NULL;
 	QString pathfile;
 	bool error;
-	error = FT_Init_FreeType( &library );        
+	error = FT_Init_FreeType( &library );
 	QDir d(path, "*", QDir::Name, QDir::Dirs | QDir::Files | QDir::Readable);
 	if ((d.exists()) && (d.count() != 0))
 	{
@@ -649,6 +649,7 @@ void getSFontType(FT_Face face, Foi::FontType & type)
 // Load a single font into the library from the passed filename. Returns true on error.
 bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString DocName)
 {
+	static bool firstRun;
 	Foi::FontFormat format;
 	Foi::FontType   type;
 	FT_Face         face = NULL;
@@ -657,6 +658,11 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 	foCache.isOK = false;
 	foCache.isChecked = true;
 	foCache.lastMod = fic.lastModified();
+	if (checkedFonts.count() == 0)
+	{
+		firstRun = true;
+		ScApp->setSplashStatus( QObject::tr("Creating Font Cache") );
+	}
 	bool error = FT_New_Face( library, filename, 0, &face );
 	if (error) 
 	{
@@ -665,9 +671,7 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 		checkedFonts.insert(filename, foCache);
 		return true;
 	}
-		
 	getFontFormat(face, format, type);
-	
 	if (format == Foi::UNKNOWN_FORMAT) 
 	{
 		if (showFontInformation)
@@ -679,6 +683,8 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 	{
 		if (!checkedFonts.contains(filename))
 		{
+			if (!firstRun)
+				ScApp->setSplashStatus( QObject::tr("New Font found, checking...") );
 			FT_UInt gindex = 0;
 			FT_ULong charcode = FT_Get_First_Char( face, &gindex );
 			while ( gindex != 0 )
@@ -707,6 +713,7 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 			}
 			if (checkedFonts[filename].lastMod != fic.lastModified())
 			{
+				ScApp->setSplashStatus( QObject::tr("Modified Font found, checking...") );
 				FT_UInt gindex = 0;
 				FT_ULong charcode = FT_Get_First_Char( face, &gindex );
 				while ( gindex != 0 )
@@ -736,7 +743,6 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 	int faceindex=0;
 	while (!error)
 	{
-//		QString ts = QString(face->family_name) + " " + QString(face->style_name);
 		QString fam = QString(face->family_name);
 		QString sty = QString(face->style_name);
 		if (sty == "Regular")
@@ -817,25 +823,12 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 					}
 					break;
 			}
-//			t->cached_RealName = qpsName;
-/*			const char* psName = FT_Get_Postscript_Name(face);
-			if (psName)
-				t->cached_RealName = QString(psName);
-			else
-				t->cached_RealName = ts; */
-//			t->Font = qApp->font();
-//			t->Font.setPointSize(qApp->font().pointSize());
 			insert(ts,t);
 			t->EmbedPS = true;
 			t->UseFont = true;
 			t->CharWidth[13] = 0;
 			t->CharWidth[28] = 0;
 			t->CharWidth[9] = 1;
-//			t->Family = QString(face->family_name);
-//			t->Effect = QString(face->style_name);
-//			t->Family = fam;
-//			t->Effect = sty;
-//			t->faceIndex_ = faceindex;
 			t->PrivateFont = DocName;
 			//setBestEncoding(face); //AV
 			switch (face->charmap? face->charmap->encoding : -1)
@@ -1030,6 +1023,7 @@ void SCFonts::ReadCacheList(QString pf)
 	QFile f(pf + "/cfonts.xml");
 	if(!f.open(IO_ReadOnly))
 		return;
+	ScApp->setSplashStatus( QObject::tr("Reading Font Cache") );
 	QTextStream ts(&f);
 	ts.setEncoding(QTextStream::UnicodeUTF8);
 	QString errorMsg;
@@ -1076,6 +1070,7 @@ void SCFonts::WriteCacheList(QString pf)
 			elem.appendChild(fosu);
 		}
 	}
+	ScApp->setSplashStatus( QObject::tr("Writing updated Font Cache") );
 	QFile f(pf + "/cfonts.xml");
 	if(f.open(IO_WriteOnly))
 	{
@@ -1092,6 +1087,7 @@ void SCFonts::GetFonts(QString pf, bool showFontInfo)
 	showFontInformation=showFontInfo;
 	FontPath.clear();
 	ReadCacheList(pf);
+	ScApp->setSplashStatus( QObject::tr("Searching for Fonts") );
 	AddUserPath(pf);
 // if fontconfig is there, it does all the work
 #if HAVE_FONTCONFIG
