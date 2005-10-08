@@ -7,6 +7,7 @@
 #include <qdict.h>
 #include <qfont.h>
 #include <qmap.h>
+#include <qdatetime.h>
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include FT_OUTLINE_H
@@ -123,11 +124,7 @@ public:
 class SCRIBUS_API SCFonts : public QDict<Foi>
 {
 	public:
-		SCFonts() : QDict<Foi>(), FontPath(true)
-		{
-			setAutoDelete(true);
-			showFontInformation=false;
-		}
+		SCFonts();
 		~SCFonts();
 		void updateFontMap();
 		void GetFonts(QString pf, bool showFontInfo=false);
@@ -135,6 +132,8 @@ class SCRIBUS_API SCFonts : public QDict<Foi>
 		void removeFont(QString name);
 		QMap<QString, QStringList> fontMap;
 	private:
+		void ReadCacheList(QString pf);
+		void WriteCacheList(QString pf);
 		void AddPath(QString p);
 		bool AddScalableFont(QString filename, FT_Library &library, QString DocName);
 		void AddUserPath(QString pf);
@@ -148,6 +147,13 @@ class SCRIBUS_API SCFonts : public QDict<Foi>
 #endif
 		QStrList FontPath;
 		QString ExtraPath;
+		struct testCache
+		{
+			bool isOK;
+			bool isChecked;
+			QDateTime lastMod;
+		};
+		QMap<QString, testCache> checkedFonts;
 	protected:
 		bool showFontInformation;
 };

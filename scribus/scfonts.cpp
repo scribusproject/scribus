@@ -47,17 +47,20 @@
 #include FT_TRUETYPE_TAGS_H
 #include FT_TRUETYPE_TABLES_H
 
-Foi::Foi(QString fam, QString sty, QString alt, QString psname, QString path, int face, bool embedps) :
-	Family(fam), Effect(sty), Alternative(alt), cached_RealName(psname), fontFile(path), faceIndex_(face), EmbedPS(embedps)
+Foi::Foi(QString fam, QString sty, QString alt, QString psname, QString path, int face, bool embedps)
 {
 	isOTF = false;
 	Subset = false;
 	typeCode = Foi::UNKNOWN_TYPE;
 	formatCode = Foi::UNKNOWN_FORMAT;
-	if ( sty != "" )
-		SCName = fam + " " + sty + alt;
-	else
-		SCName = fam + alt;
+	SCName = alt;
+	Family = fam;
+	Effect = sty;
+	cached_RealName = psname;
+	fontFile = path;
+	faceIndex_ = face;
+	EmbedPS = embedps;
+	Alternative = "";
 }
 
 
@@ -68,7 +71,7 @@ FT_Face * ftFace() {
 
 QString Foi::RealName()
 {
-	return QString("Base");
+	return cached_RealName;
 }
 
 bool Foi::EmbedFont(QString &str)
@@ -440,6 +443,13 @@ class Foi_pfa : public Foi_postscript
 
 /***************************************************************************/
 
+SCFonts::SCFonts() : QDict<Foi>(), FontPath(true)
+{
+	setAutoDelete(true);
+	showFontInformation=false;
+	checkedFonts.clear();
+}
+
 SCFonts::~SCFonts()
 {
 }
@@ -642,12 +652,17 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 	Foi::FontFormat format;
 	Foi::FontType   type;
 	FT_Face         face = NULL;
-	
+	struct testCache foCache;
+	QFileInfo fic(filename);
+	foCache.isOK = false;
+	foCache.isChecked = true;
+	foCache.lastMod = fic.lastModified();
 	bool error = FT_New_Face( library, filename, 0, &face );
 	if (error) 
 	{
 		if (face != NULL)
 			FT_Done_Face( face );
+		checkedFonts.insert(filename, foCache);
 		return true;
 	}
 		
@@ -657,24 +672,65 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 	{
 		if (showFontInformation)
 			sDebug(QObject::tr("Failed to load font %1 - font type unknown").arg(filename));
+		checkedFonts.insert(filename, foCache);
 		error = true;
 	}
 	if (!error)
 	{
-		FT_UInt gindex = 0;
-		FT_ULong charcode = FT_Get_First_Char( face, &gindex );
-		while ( gindex != 0 )
+		if (!checkedFonts.contains(filename))
 		{
-			error = FT_Load_Glyph( face, gindex, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
-			if (error)
+			FT_UInt gindex = 0;
+			FT_ULong charcode = FT_Get_First_Char( face, &gindex );
+			while ( gindex != 0 )
 			{
-				if (showFontInformation)
-					sDebug(QObject::tr("Font %1 has broken glyph %2 (charcode %3)").arg(filename).arg(gindex).arg(charcode));
-				if (face != NULL)
-					FT_Done_Face( face );
+				error = FT_Load_Glyph( face, gindex, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
+				if (error)
+				{
+					if (showFontInformation)
+						sDebug(QObject::tr("Font %1 has broken glyph %2 (charcode %3)").arg(filename).arg(gindex).arg(charcode));
+					if (face != NULL)
+						FT_Done_Face( face );
+					checkedFonts.insert(filename, foCache);
+					return true;
+				}
+				charcode = FT_Get_Next_Char( face, charcode, &gindex );
+			}
+			foCache.isOK = true;
+			checkedFonts.insert(filename, foCache);
+		}
+		else
+		{
+			if (!checkedFonts[filename].isOK)
+			{
+				checkedFonts[filename].isChecked = true;
 				return true;
 			}
-			charcode = FT_Get_Next_Char( face, charcode, &gindex );
+			if (checkedFonts[filename].lastMod != fic.lastModified())
+			{
+				FT_UInt gindex = 0;
+				FT_ULong charcode = FT_Get_First_Char( face, &gindex );
+				while ( gindex != 0 )
+				{
+					error = FT_Load_Glyph( face, gindex, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
+					if (error)
+					{
+						if (showFontInformation)
+							sDebug(QObject::tr("Font %1 has broken glyph %2 (charcode %3)").arg(filename).arg(gindex).arg(charcode));
+						if (face != NULL)
+							FT_Done_Face( face );
+						checkedFonts.insert(filename, foCache);
+						return true;
+					}
+					charcode = FT_Get_Next_Char( face, charcode, &gindex );
+				}
+				foCache.isOK = true;
+				checkedFonts[filename] = foCache;
+			}
+			else
+			{
+				checkedFonts[filename].isOK = true;
+				checkedFonts[filename].isChecked = true;
+			}
 		}
 	}
 	int faceindex=0;
@@ -726,13 +782,13 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 			switch (format) 
 			{
 				case Foi::PFA:
-					t = new Foi_pfa(fam, sty, alt, qpsName, filename, faceindex, true);
+					t = new Foi_pfa(fam, sty, ts, qpsName, filename, faceindex, true);
 					break;
 				case Foi::PFB:
-					t = new Foi_pfb(fam, sty, alt, qpsName, filename, faceindex, true);
+					t = new Foi_pfb(fam, sty, ts, qpsName, filename, faceindex, true);
 					break;
 				case Foi::SFNT:
-					t = new Foi_ttf(fam, sty, alt, qpsName, filename, faceindex, true);
+					t = new Foi_ttf(fam, sty, ts, qpsName, filename, faceindex, true);
 					getSFontType(face, t->typeCode);
 					if (t->typeCode == Foi::OTF) 
 					{
@@ -741,7 +797,7 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 					}
 					break;
 				case Foi::TTCF:
-					t = new Foi_ttf(fam, sty, alt, qpsName, filename, faceindex, true);
+					t = new Foi_ttf(fam, sty, ts, qpsName, filename, faceindex, true);
 					t->formatCode = Foi::TTCF;
 					t->typeCode = Foi::TTF;
 					//getSFontType(face, t->typeCode);
@@ -752,7 +808,7 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 					}
 					break;
 				case Foi::TYPE42:
-					t = new Foi_ttf(fam, sty, alt, qpsName, filename, faceindex, true);
+					t = new Foi_ttf(fam, sty, ts, qpsName, filename, faceindex, true);
 					getSFontType(face, t->typeCode);
 					if (t->typeCode == Foi::OTF) 
 					{
@@ -966,10 +1022,76 @@ void SCFonts::AddUserPath(QString )
 		AddPath(extraDirs->get(i, 0));
 }
 
+void SCFonts::ReadCacheList(QString pf)
+{
+	checkedFonts.clear();
+	struct testCache foCache;
+	QDomDocument docu("fontcacherc");
+	QFile f(pf + "/cfonts.xml");
+	if(!f.open(IO_ReadOnly))
+		return;
+	QTextStream ts(&f);
+	ts.setEncoding(QTextStream::UnicodeUTF8);
+	QString errorMsg;
+	int errorLine = 0, errorColumn = 0;
+	if( !docu.setContent(ts.read(), &errorMsg, &errorLine, &errorColumn) )
+	{
+		f.close();
+		return;
+	}
+	f.close();
+	QDomElement elem = docu.documentElement();
+	if (elem.tagName() != "CachedFonts")
+		return;
+	QDomNode DOC = elem.firstChild();
+	while(!DOC.isNull())
+	{
+		QDomElement dc = DOC.toElement();
+		if (dc.tagName()=="Font")
+		{
+			foCache.isChecked = false;
+			foCache.isOK = static_cast<bool>(QStoInt(dc.attribute("Status","1")));
+			foCache.lastMod = QDateTime::fromString(dc.attribute("Modified"), Qt::ISODate);
+			checkedFonts.insert(dc.attribute("File"), foCache);
+		}
+		DOC = DOC.nextSibling();
+	}
+}
+
+void SCFonts::WriteCacheList(QString pf)
+{
+	QDomDocument docu("fontcacherc");
+	QString st="<CachedFonts></CachedFonts>";
+	docu.setContent(st);
+	QDomElement elem = docu.documentElement();
+	QMap<QString, testCache>::Iterator it;
+	for (it = checkedFonts.begin(); it != checkedFonts.end(); ++it)
+	{
+		if (it.data().isChecked)
+		{
+			QDomElement fosu = docu.createElement("Font");
+			fosu.setAttribute("File",it.key());
+			fosu.setAttribute("Status",static_cast<int>(it.data().isOK));
+			fosu.setAttribute("Modified",it.data().lastMod.toString(Qt::ISODate));
+			elem.appendChild(fosu);
+		}
+	}
+	QFile f(pf + "/cfonts.xml");
+	if(f.open(IO_WriteOnly))
+	{
+		QTextStream s(&f);
+		s.setEncoding(QTextStream::UnicodeUTF8);
+		s<<docu.toString();
+		f.close();
+	}
+	checkedFonts.clear();
+}
+
 void SCFonts::GetFonts(QString pf, bool showFontInfo)
 {
 	showFontInformation=showFontInfo;
 	FontPath.clear();
+	ReadCacheList(pf);
 	AddUserPath(pf);
 // if fontconfig is there, it does all the work
 #if HAVE_FONTCONFIG
@@ -994,4 +1116,5 @@ void SCFonts::GetFonts(QString pf, bool showFontInfo)
 		AddScalableFonts(fpi.current());
 #endif
 	updateFontMap();
+	WriteCacheList(pf);
 }
