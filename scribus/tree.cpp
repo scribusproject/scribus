@@ -456,8 +456,7 @@ void Tree::slotSelect(QListViewItem* ite)
 	selectionTriggered = true;
 	if (itemMap.contains(ite))
 	{
-		if (document->masterPageMode)
-			ScApp->ActWin->muster->close();
+		ScApp->closeActiveWindowMasterPageEditor();
 		if (document->DocItems.at(itemMap[ite])->Groups.count() == 0)
 			emit selectElement(document->DocItems.at(itemMap[ite])->OwnPage, itemMap[ite], false);
 		else
@@ -467,16 +466,14 @@ void Tree::slotSelect(QListViewItem* ite)
 	}
 	if (groupMap.contains(ite))
 	{
-		if (document->masterPageMode)
-			ScApp->ActWin->muster->close();
+		ScApp->closeActiveWindowMasterPageEditor();
 		emit selectElement(document->DocItems.at(groupMap[ite])->OwnPage, groupMap[ite], false);
 		selectionTriggered = false;
 		return;
 	}
 	if (pageMap.contains(ite))
 	{
-		if (document->masterPageMode)
-			ScApp->ActWin->muster->close();
+		ScApp->closeActiveWindowMasterPageEditor();
 		emit selectPage(pageMap[ite]);
 		selectionTriggered = false;
 		return;

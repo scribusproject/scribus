@@ -175,15 +175,13 @@ void CheckDocument::slotSelect(QListViewItem* ite)
 {
 	if (itemMap.contains(ite))
 	{
-		if (document->masterPageMode)
-			ScApp->ActWin->muster->close();
+		ScApp->closeActiveWindowMasterPageEditor();
 		emit selectElement(document->DocItems.at(itemMap[ite])->OwnPage, itemMap[ite]);
 		return;
 	}
 	if (pageMap.contains(ite))
 	{
-		if (document->masterPageMode)
-			ScApp->ActWin->muster->close();
+		ScApp->closeActiveWindowMasterPageEditor();
 		emit selectPage(pageMap[ite]);
 		return;
 	}

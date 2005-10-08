@@ -225,8 +225,7 @@ void PicStatus::GotoPic()
 	QString pageText = PicTable->text(QString(sender()->name()).toInt(), 2);
 	bool ok = false;
 	int pageNum = pageText.toInt(&ok);
-	if (doc->masterPageMode)
-		ScApp->ActWin->muster->close();
+	ScApp->closeActiveWindowMasterPageEditor();
 	if (!ok)
 		emit selectMasterPage(pageText);
 	else

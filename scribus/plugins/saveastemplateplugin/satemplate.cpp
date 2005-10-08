@@ -129,10 +129,10 @@ void MenuSAT::RunSATPlug()
 		ScApp->doc->DocName = currentFile;
 		ScApp->doc->hasName = hasName;
 		ScApp->doc->setModified(isModified);
+		QString newCaption=currentFile;
 		if (isModified)
-			ScApp->ActWin->setCaption(currentFile+"*");
-		else
-			ScApp->ActWin->setCaption(currentFile);
+			newCaption.append('*');
+		ScApp->updateActiveWindowCaption(newCaption);
 		ScApp->removeRecent(docPath);
 		QDir::setCurrent(currentDirPath);
 		delete satdia;

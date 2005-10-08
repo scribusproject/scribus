@@ -31,8 +31,9 @@ public:
 	static int critical ( QWidget * parent, const QString & caption, const QString & text, int button0, int button1, int button2 = 0 );
 	static int critical ( QWidget * parent, const QString & caption, const QString & text, const QString & button0Text = QString::null, const QString & button1Text = QString::null, const QString & button2Text = QString::null, int defaultButtonNumber = 0, int escapeButtonNumber = -1 );
 	
-	static void swapButtonValues(int &b0, int &b1, int &b2);
-	static void swapButtonValues(QString &b0Text, QString &b1Text, QString &b2Text, int &defaultButton, int &escapeButton);
+	static int swapButtonValues(int &b0, int &b1, int &b2);
+	static int swapButtonValues(QString &b0Text, QString &b1Text, QString &b2Text, int &defaultButton, int &escapeButton);
+	static int swapReturnValues(const int, const int, const int, const int, const int);
 };
 
 #endif

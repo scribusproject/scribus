@@ -54,13 +54,6 @@
 #include "scribusapi.h"
 #include "scribusview.h"
 #include "scribusdoc.h"
-#include "scribuswin.h"
-
-class NodePalette;
-class LayerPalette;
-class SeitenPal;
-class BookPalette;
-class SplashScreen;
 
 #include "scribusstructs.h"
 
@@ -90,6 +83,12 @@ class AlignDistributePalette;
 class TOCGenerator;
 class PrefsManager;
 class PrefsContext;
+class NodePalette;
+class LayerPalette;
+class SeitenPal;
+class BookPalette;
+class SplashScreen;
+class ScribusWin;
 
 class ScribusApp;
 
@@ -271,6 +270,8 @@ public slots:
 	bool DoSaveClose();
 	void windowsMenuAboutToShow();
 	void newActWin(QWidget *w);
+	void closeActiveWindowMasterPageEditor();
+	void updateActiveWindowCaption(const QString &newCaption);
 	void windowsMenuActivated(int id);
 	void UnDoAction();
 	void RedoAction();

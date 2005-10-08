@@ -63,7 +63,7 @@ QString CollectForOutput::collect()
 	}
 	collectFonts();
 	QDir::setCurrent(outputDirectory);
-	ScApp->ActWin->setCaption(newName);
+	ScApp->updateActiveWindowCaption(newName);
 	UndoManager::instance()->renameStack(newName);
 	ScApp->scrActions["fileSave"]->setEnabled(false);
 	ScApp->scrActions["fileRevert"]->setEnabled(false);

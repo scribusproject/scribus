@@ -20,8 +20,9 @@
 extern ScribusQApp* ScQApp;
 
 
-void ScMessageBox::swapButtonValues(int &b0, int &b1, int &b2)
+int ScMessageBox::swapButtonValues(int &b0, int &b1, int &b2)
 {
+	int buttonsUsed=1;
 	if (ScQApp->reverseDialogButtons())
 	{
 		//Last button not used, and 2nd one used, swap 1st and 2nd.
@@ -30,6 +31,7 @@ void ScMessageBox::swapButtonValues(int &b0, int &b1, int &b2)
 			int t=b1;
 			b1=b0;
 			b0=t;
+			buttonsUsed=2;
 		}
 		//All three buttons used, swap the outside ones only
 		if (b2!=0 && b1!=0 && b0!=0)
@@ -37,12 +39,15 @@ void ScMessageBox::swapButtonValues(int &b0, int &b1, int &b2)
 			int t=b2;
 			b2=b0;
 			b0=t;
+			buttonsUsed=3;
 		}
 	}
+	return buttonsUsed;
 }
 
-void ScMessageBox::swapButtonValues(QString &b0Text, QString &b1Text, QString &b2Text, int &defaultButton, int &escapeButton)
+int ScMessageBox::swapButtonValues(QString &b0Text, QString &b1Text, QString &b2Text, int &defaultButton, int &escapeButton)
 {
+	int buttonsUsed=1;
 	if (ScQApp->reverseDialogButtons())
 	{
 		//Last button not used, and 2nd one used, swap 1st and 2nd.
@@ -61,6 +66,7 @@ void ScMessageBox::swapButtonValues(QString &b0Text, QString &b1Text, QString &b
 			else
 			if (escapeButton==1)
 				escapeButton=0;
+			buttonsUsed=2;
 		}
 		//All three buttons used, swap the outside ones only
 		if (!b2Text.isEmpty() && !b1Text.isEmpty() && !b0Text.isEmpty())
@@ -78,69 +84,106 @@ void ScMessageBox::swapButtonValues(QString &b0Text, QString &b1Text, QString &b
 			else
 			if (escapeButton==2)
 				escapeButton=0;
+			buttonsUsed=3;
 		}
 	}
+	return buttonsUsed;
 }
 
+int ScMessageBox::swapReturnValues(const int b0Val, const int b1Val, const int b2Val, const int returnVal, const int buttonsUsed)
+{
+	int retVal=returnVal;
+	if (ScQApp->reverseDialogButtons())
+	{
+		//Last button not used, and 2nd one used, swap 1st and 2nd.
+		if (buttonsUsed==2)
+		{
+			if (returnVal==b0Val)
+				retVal=b1Val;
+			else
+			if (returnVal==b1Val)
+				retVal=b0Val;
+		}
+		
+		//All three buttons used, swap the outside ones only
+		if (buttonsUsed==3)
+		{
+			if (returnVal==b0Val)
+				retVal=b2Val;
+			else
+			if (returnVal==b2Val)
+				retVal=b0Val;
+		}
+	}
+	return retVal;
+}
 
 int ScMessageBox::information ( QWidget * parent, const QString & caption, const QString & text, int button0, int button1, int button2)
 {
 	int b0=button0, b1=button1, b2=button2;
-	swapButtonValues(b0, b1, b2);
-	return QMessageBox::information(parent, caption, text, b0, b1, b2);
+	int buttonsUsed=swapButtonValues(b0, b1, b2);
+	int stdReturn=QMessageBox::information(parent, caption, text, b0, b1, b2);
+	return swapReturnValues(b0, b1, b2, stdReturn, buttonsUsed);
 }
 
 int ScMessageBox::information ( QWidget * parent, const QString & caption, const QString & text, const QString & button0Text, const QString & button1Text, const QString & button2Text, int defaultButtonNumber, int escapeButtonNumber)
 {
 	QString b0Text=button0Text, b1Text=button1Text, b2Text=button2Text;
 	int defaultButton=defaultButtonNumber, escapeButton=escapeButtonNumber;
-	swapButtonValues(b0Text, b1Text, b2Text, defaultButton, escapeButton);
-	return QMessageBox::information(parent, caption, text, b0Text, b1Text, b2Text, defaultButton, escapeButton);
+	int buttonsUsed=swapButtonValues(b0Text, b1Text, b2Text, defaultButton, escapeButton);
+	int stdReturn=QMessageBox::information(parent, caption, text, b0Text, b1Text, b2Text, defaultButton, escapeButton);
+	return swapReturnValues(0, 1, 2, stdReturn, buttonsUsed);
 }
 
 int ScMessageBox::question ( QWidget * parent, const QString & caption, const QString & text, int button0, int button1, int button2)
 {
 	int b0=button0, b1=button1, b2=button2;
-	swapButtonValues(b0, b1, b2);
-	return QMessageBox::question(parent, caption, text, b0, b1, b2);
+	int buttonsUsed=swapButtonValues(b0, b1, b2);
+	int stdReturn=QMessageBox::question(parent, caption, text, b0, b1, b2);
+	return swapReturnValues(b0, b1, b2, stdReturn, buttonsUsed);
 }
 
 int ScMessageBox::question ( QWidget * parent, const QString & caption, const QString & text, const QString & button0Text, const QString & button1Text, const QString & button2Text, int defaultButtonNumber, int escapeButtonNumber)
 {
 	QString b0Text=button0Text, b1Text=button1Text, b2Text=button2Text;
 	int defaultButton=defaultButtonNumber, escapeButton=escapeButtonNumber;
-	swapButtonValues(b0Text, b1Text, b2Text, defaultButton, escapeButton);
-	return QMessageBox::question(parent, caption, text, b0Text, b1Text, b2Text, defaultButton, escapeButton);
+	int buttonsUsed=swapButtonValues(b0Text, b1Text, b2Text, defaultButton, escapeButton);
+	int stdReturn=QMessageBox::question(parent, caption, text, b0Text, b1Text, b2Text, defaultButton, escapeButton);
+	return swapReturnValues(0, 1, 2, stdReturn, buttonsUsed);
 }
 
 int ScMessageBox::warning ( QWidget * parent, const QString & caption, const QString & text, int button0, int button1, int button2)
 {
 	int b0=button0, b1=button1, b2=button2;
-	swapButtonValues(b0, b1, b2);
-	return QMessageBox::warning(parent, caption, text, b0, b1, b2);
+	int buttonsUsed=swapButtonValues(b0, b1, b2);
+	int stdReturn=QMessageBox::warning(parent, caption, text, b0, b1, b2);
+	return swapReturnValues(b0, b1, b2, stdReturn, buttonsUsed);
 }
 
 int ScMessageBox::warning ( QWidget * parent, const QString & caption, const QString & text, const QString & button0Text, const QString & button1Text, const QString & button2Text, int defaultButtonNumber, int escapeButtonNumber)
 {
 	QString b0Text=button0Text, b1Text=button1Text, b2Text=button2Text;
 	int defaultButton=defaultButtonNumber, escapeButton=escapeButtonNumber;
-	swapButtonValues(b0Text, b1Text, b2Text, defaultButton, escapeButton);
-	return QMessageBox::warning(parent, caption, text, b0Text, b1Text, b2Text, defaultButton, escapeButton);
+	int buttonsUsed=swapButtonValues(b0Text, b1Text, b2Text, defaultButton, escapeButton);
+	int stdReturn=QMessageBox::warning(parent, caption, text, b0Text, b1Text, b2Text, defaultButton, escapeButton);
+	return swapReturnValues(0, 1, 2, stdReturn, buttonsUsed);
 }
 
 int ScMessageBox::critical ( QWidget * parent, const QString & caption, const QString & text, int button0, int button1, int button2)
 {
 	int b0=button0, b1=button1, b2=button2;
-	swapButtonValues(b0, b1, b2);
-	return QMessageBox::critical(parent, caption, text, b0, b1, b2);
+	int buttonsUsed=swapButtonValues(b0, b1, b2);
+	int stdReturn=QMessageBox::critical(parent, caption, text, b0, b1, b2);
+	return swapReturnValues(b0, b1, b2, stdReturn, buttonsUsed);
 }
 
 int ScMessageBox::critical ( QWidget * parent, const QString & caption, const QString & text, const QString & button0Text, const QString & button1Text, const QString & button2Text, int defaultButtonNumber, int escapeButtonNumber)
 {
 	QString b0Text=button0Text, b1Text=button1Text, b2Text=button2Text;
 	int defaultButton=defaultButtonNumber, escapeButton=escapeButtonNumber;
-	swapButtonValues(b0Text, b1Text, b2Text, defaultButton, escapeButton);
-	return QMessageBox::critical(parent, caption, text, b0Text, b1Text, b2Text, defaultButton, escapeButton);
+	int buttonsUsed=swapButtonValues(b0Text, b1Text, b2Text, defaultButton, escapeButton);
+	int stdReturn=QMessageBox::critical(parent, caption, text, b0Text, b1Text, b2Text, defaultButton, escapeButton);
+	return swapReturnValues(0, 1, 2, stdReturn, buttonsUsed);
 }
 
 

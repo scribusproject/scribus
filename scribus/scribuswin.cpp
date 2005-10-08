@@ -18,6 +18,7 @@
 #include <qdir.h>
 #include "scribuswin.h"
 #include "pageselector.h"
+#include "scmessagebox.h"
 #include "scribuswin.moc"
 #include "scribusXml.h"
 #include "scribus.h"
@@ -86,18 +87,9 @@ void ScribusWin::closeEvent(QCloseEvent *ce)
 {
 	if (doc->isModified() && (doc->viewCount == 1))
 	{
-		QString CloseTxt;
-		if (ScApp->singleClose)
-			CloseTxt = tr("&Leave Anyway");
-		else
-			CloseTxt = tr("C&lose Anyway");
-		int exit=QMessageBox::information(this,
-		                                  CommonStrings::trWarning,
+		int exit=ScMessageBox::information(this, CommonStrings::trWarning,
 		                                  tr("Document:")+" "+doc->DocName+"\n"+ tr("has been changed since the last save."),
-		                                  tr("&Save Now"),
-		                                  CommonStrings::tr_Cancel,
-		                                  CloseTxt,
-		                                  0, 1);
+		                                  CommonStrings::tr_Save, tr("&Discard"), CommonStrings::tr_Cancel, 2, 2);
 		switch (exit)
 		{
 		case 0:
@@ -111,11 +103,12 @@ void ScribusWin::closeEvent(QCloseEvent *ce)
 				return;
 			break;
 		case 1:
-			break;
-		case 2:
 			emit Schliessen();
 			ce->accept();
 			break;
+		case 2:
+			break;
+			
 		}
 	}
 	else

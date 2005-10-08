@@ -19,9 +19,6 @@
 #define SCRIBUSWIN_H
 
 #include <qmainwindow.h>
-#include <qmessagebox.h>
-#include <qlayout.h>
-#include <qframe.h>
 class ScribusView;
 class ScribusDoc;
 #include "scribusapi.h"

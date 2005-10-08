@@ -575,8 +575,7 @@ bool ScribusApp::warningVersion(QWidget *parent)
 	int t = ScMessageBox::warning(parent, QObject::tr("Scribus Development Version"), "<qt>" +
 								 QObject::tr("You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.3 or lower. The process of saving will make this file unusable again in Scribus 1.2.3 unless you use File->Save As. Are you sure you wish to proceed with this operation?") + "</qt>",
 								 CommonStrings::tr_OK, CommonStrings::tr_Cancel, "", 1, 0);
-	int buttonOKVal=ScQApp->reverseDialogButtons()?1:0;
-	if (t == buttonOKVal)
+	if (t == 0)
 		retval = true;
 	return retval;
 }
@@ -4401,12 +4400,8 @@ bool ScribusApp::DoFileClose()
 	disconnect(view, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
 	if (doc->viewCount > 1)
 	{
-		doc->viewCount--;
-		if(doc->masterPageMode)
-		{
-			ActWin->muster->close();
-			qApp->processEvents();
-		}
+		--doc->viewCount;
+		closeActiveWindowMasterPageEditor();
 		setAppMode(modeNormal);
 		disconnect(fileWatcher, SIGNAL(fileChanged(QString )), view, SLOT(updatePict(QString)));
 		disconnect(fileWatcher, SIGNAL(fileDeleted(QString )), view, SLOT(removePict(QString)));
@@ -4418,11 +4413,7 @@ bool ScribusApp::DoFileClose()
 		return true;
 	}
 	undoManager->removeStack(doc->DocName);
-	if(doc->masterPageMode)
-	{
-		ActWin->muster->close();
-		qApp->processEvents();
-	}
+	closeActiveWindowMasterPageEditor();
 	setAppMode(modeNormal);
 	doc->autoSaveTimer->stop();
 	disconnect(doc->autoSaveTimer, SIGNAL(timeout()), doc->WinHan, SLOT(slotAutoSave()));
@@ -4544,8 +4535,7 @@ void ScribusApp::slotFilePrint()
 				int t = ScMessageBox::warning(this, CommonStrings::trWarning,
 											"<qt>"+tr("Scribus has detected some errors. Consider using the Preflight Verifier to correct them")+"</qt>",
 											tr("&Ignore"), tr("&Abort"), 0, 0, 0);
-				int buttonCancelVal=ScQApp->reverseDialogButtons()?0:1;
-				if (t == buttonCancelVal)
+				if (t == 1)
 					return;
 			}
 			else
@@ -7834,8 +7824,7 @@ void ScribusApp::printPreview()
 				int t = ScMessageBox::warning(this, CommonStrings::trWarning,
 											"<qt>"+tr("Scribus has detected some errors. Consider using the Preflight Verifier to correct them")+"</qt>",
 											tr("&Ignore"), tr("&Abort"), 0, 0, 0);
-				int buttonCancelVal=ScQApp->reverseDialogButtons()?0:1;
-				if (t == buttonCancelVal)
+				if (t == 1)
 					return;
 			}
 			else
@@ -9721,4 +9710,22 @@ void ScribusApp::updateColorMenu(QProgressBar* progressBar)
 		}
 	}
 	connect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
+}
+
+void ScribusApp::closeActiveWindowMasterPageEditor()
+{
+	if (!HaveDoc)
+		return;
+	if(doc->masterPageMode)
+	{
+		ActWin->muster->close();
+		qApp->processEvents();
+	}
+}
+
+void ScribusApp::updateActiveWindowCaption(const QString &newCaption)
+{
+	if (!HaveDoc)
+		return;
+	ActWin->setCaption(newCaption);
 }
