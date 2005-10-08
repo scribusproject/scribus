@@ -186,6 +186,7 @@ PSLib::PSLib(bool psart, SCFonts &AllFonts, QMap<QString,int> DocFonts, ColorLis
 	Prolog += "/ro {rotate} bind def\n";
 	Prolog += "/sh {show} bind def\n";
 	Prolog += "/shg {setcmykcolor moveto glyphshow} def\n";
+	Prolog += "/shgsp {moveto glyphshow} def\n";
 	Prolog += "/sc {scale} bind def\n";
 	Prolog += "/se {selectfont} bind def\n";
 	Prolog += "/sf {setfont} bind def\n";
@@ -625,12 +626,15 @@ void PSLib::PS_MultiLinGradient(double w, double h, QValueList<double> Stops, QS
 	PutSeite("cliprestore\n");
 }
 
-void PSLib::PS_show_xyG(QString font, QString ch, double x, double y)
+void PSLib::PS_show_xyG(QString font, QString ch, double x, double y, bool spot)
 {
 	QString Name;
 	uint cc = ch[0].unicode();
 	Name = GlyphsOfFont[font].contains(cc) ? GlyphsOfFont[font][cc] : QString(".notdef");
-	PutSeite("/"+Name+" "+ToStr(x)+" "+ToStr(y)+" "+StrokeColor+" shg\n");
+	if (spot)
+		PutSeite("/"+Name+" "+ToStr(x)+" "+ToStr(y)+" shgsp\n");
+	else
+		PutSeite("/"+Name+" "+ToStr(x)+" "+ToStr(y)+" "+StrokeColor+" shg\n");
 }
 
 void PSLib::PS_show(double x, double y)
@@ -1782,7 +1786,13 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					PutSeite("["+ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + "] concatmatrix\nconcat\n");
 					if (c->BaseOffs != 0)
 						PS_translate(0, -c->BaseOffs);
-					PS_show_xyG(hl->cfont->scName(), chx, 0, 0);
+					if ((colorsToUse[hl->ccolor].isSpotColor()) && (!DoSep))
+					{
+						PutSeite(ToStr(hl->cshade / 100.0)+" "+spotMap[hl->ccolor]);
+						PS_show_xyG(hl->cfont->scName(), chx, 0, 0, true);
+					}
+					else
+						PS_show_xyG(hl->cfont->scName(), chx, 0, 0, false);
 					PS_restore();
 				}
 			}
@@ -2343,7 +2353,13 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 		{
 			SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
 			PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-			PS_show_xyG(hl->cfont->scName(), chx, 0, 0);
+			if ((colorsToUse[hl->ccolor].isSpotColor()) && (!DoSep))
+			{
+				PutSeite(ToStr(hl->cshade / 100.0)+" "+spotMap[hl->ccolor]);
+				PS_show_xyG(hl->cfont->scName(), chx, 0, 0, true);
+			}
+			else
+				PS_show_xyG(hl->cfont->scName(), chx, 0, 0, false);
 		}
 		PS_restore();
 	}

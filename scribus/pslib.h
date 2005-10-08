@@ -69,7 +69,7 @@ public:
 	virtual void PS_MultiLinGradient(double w, double h, QValueList<double> Stops, QStringList Colors);
 	virtual void PS_show(double x, double y);
 	virtual void PS_showSub(uint chr, QString font, double size, bool stroke);
-	virtual void PS_show_xyG(QString font, QString ch, double x, double y);
+	virtual void PS_show_xyG(QString font, QString ch, double x, double y, bool stop);
 	virtual void PS_image(PageItem *c, double x, double y, QString fn, double scalex, double scaley, QString Prof, bool UseEmbedded, bool UseProf, QString Name = "");
 	virtual void PS_plate(int nr, QString name = "");
 	virtual void PS_setGray();
