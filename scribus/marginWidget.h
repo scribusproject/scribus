@@ -38,7 +38,10 @@ public:
 	{
 		none = 0,
 		book = 1,
-		magazine = 2
+		magazine = 2,
+		fibonacci = 3,
+		goldencut = 4,
+		nineparts = 5
 	};
 
 	/*! returns updateMargins value */

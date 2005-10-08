@@ -163,7 +163,7 @@ void MarginWidget::setPreset()
 	disconnect(leftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft()));
 	disconnect(rightR, SIGNAL(valueChanged(int)), this, SLOT(setRight()));
 	int item = presetCombo->currentItem();
-	MarginStruct marg = presetCombo->getMargins(item, pageWidth, pageHeight, leftR->value());
+	MarginStruct marg = presetCombo->getMargins(item, pageWidth * unitRatio, pageHeight * unitRatio, leftR->value());
 	if (presetCombo->needUpdate())
 	{
 		leftR->setValue(marg.Left);
@@ -202,6 +202,9 @@ PresetLayout::PresetLayout(QWidget *parent, const char * name) : QComboBox(paren
 	insertItem(tr("None"), PresetLayout::none);
 	insertItem(tr("Book"), PresetLayout::book);
 	insertItem(tr("Magazine"), PresetLayout::magazine);
+	insertItem(tr("Fibonacci"), PresetLayout::fibonacci);
+	insertItem(tr("Golden Mean"), PresetLayout::goldencut);
+	insertItem(tr("Nine Parts"), PresetLayout::nineparts);
 	setCurrentItem(PresetLayout::none);
 
 	QToolTip::add(this, "<qt>" +tr("You can select predefined page layout here. 'None' leave margins as is, 'Book' sets margins classically (Gutenberg). 'Book' is proposed for two-sided documents. 'Magazine' sets all margins for same value. Leading is Left/Inside value.") + "</qt>");
@@ -226,6 +229,24 @@ MarginStruct PresetLayout::getMargins(int index, double pageWidth, double pageHe
 				ret.Right = leftMargin * 2.0;
 				ret.Bottom = ret.Right * ratio;
 			}
+			break;
+		case PresetLayout::fibonacci:
+			ret.Left = leftMargin;
+			ret.Top = leftMargin / 2.0 * 3.0;
+			ret.Right = leftMargin / 2.0 * 5.0;
+			ret.Bottom = leftMargin / 2.0 * 8.0;
+			break;
+		case PresetLayout::goldencut:
+			ret.Left = leftMargin;
+			ret.Top = leftMargin / 2.0 * 3.4;
+			ret.Right = leftMargin / 2.0 * 4.8;
+			ret.Bottom = leftMargin / 2.0 * 6.8;
+			break;
+		case PresetLayout::nineparts:
+			ret.Left = pageWidth / 9.0;
+			ret.Top = pageHeight / 9.0;
+			ret.Right = pageWidth / 9.0 * 2.0;
+			ret.Bottom = pageHeight / 9.0 * 2.0;
 			break;
 		default:
 			updateMargins = false;
