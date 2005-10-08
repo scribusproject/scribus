@@ -6630,11 +6630,27 @@ void ScribusApp::CopyPage()
 
 void ScribusApp::changePageMargins()
 {
+	int lp;
 	NoFrameEdit();
 	MarginDialog *dia = new MarginDialog(this, doc);
 	if (dia->exec())
 	{
-		doc->changePageMargins(dia->GroupRand->RandT, dia->GroupRand->RandB, dia->GroupRand->RandL, dia->GroupRand->RandR, dia->pageHeight, dia->pageWidth, dia->pageHeight, dia->pageWidth, dia->orientationQComboBox->currentItem(), dia->prefsPageSizeName, doc->currentPage->pageNr());
+		if (doc->masterPageMode)
+		{
+			if (doc->currentPageLayout != singlePage)
+			{
+				lp = dia->Links->currentItem();
+				if (lp == 0)
+					lp = 1;
+				else if (lp == static_cast<int>(dia->Links->count()-1))
+					lp = 0;
+				else
+					lp++;
+			}
+			doc->changePageMargins(dia->GroupRand->RandT, dia->GroupRand->RandB, dia->GroupRand->RandL, dia->GroupRand->RandR, dia->pageHeight, dia->pageWidth, dia->pageHeight, dia->pageWidth, dia->orientationQComboBox->currentItem(), dia->prefsPageSizeName, doc->currentPage->pageNr(), lp);
+		}
+		else
+			doc->changePageMargins(dia->GroupRand->RandT, dia->GroupRand->RandB, dia->GroupRand->RandL, dia->GroupRand->RandR, dia->pageHeight, dia->pageWidth, dia->pageHeight, dia->pageWidth, dia->orientationQComboBox->currentItem(), dia->prefsPageSizeName, doc->currentPage->pageNr());
 		view->reformPages(dia->moveObjects->isChecked());
 		view->DrawNew();
 		slotDocCh();

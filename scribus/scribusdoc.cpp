@@ -1905,7 +1905,7 @@ const bool ScribusDoc::save(const QString& fileName)
 	return ret;
 }
 
-const bool ScribusDoc::changePageMargins(const double initialTop, const double initialBottom, const double initialLeft, const double initialRight, const double initialHeight, const double initialWidth, const double height, const double width, const int orientation, const QString& pageSize, const int pageNumber)
+const bool ScribusDoc::changePageMargins(const double initialTop, const double initialBottom, const double initialLeft, const double initialRight, const double initialHeight, const double initialWidth, const double height, const double width, const int orientation, const QString& pageSize, const int pageNumber, const int pageType)
 {
 	bool retVal=true;
 	if (pageNumber==-1)
@@ -1930,6 +1930,7 @@ const bool ScribusDoc::changePageMargins(const double initialTop, const double i
 			currentPage->setWidth(width);
 			currentPage->PageOri = orientation;
 			currentPage->PageSize = pageSize;
+			currentPage->LeftPg = pageType;
 		}
 	}
 	return retVal;
