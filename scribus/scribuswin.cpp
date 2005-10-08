@@ -87,7 +87,7 @@ void ScribusWin::closeEvent(QCloseEvent *ce)
 {
 	if (doc->isModified() && (doc->viewCount == 1))
 	{
-		int exit=ScMessageBox::information(this, CommonStrings::trWarning,
+		int exit=ScMessageBox::information(ScApp, CommonStrings::trWarning,
 		                                  tr("Document:")+" "+doc->DocName+"\n"+ tr("has been changed since the last save."),
 		                                  CommonStrings::tr_Save, tr("&Discard"), CommonStrings::tr_Cancel, 2, 2);
 		switch (exit)

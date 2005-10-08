@@ -2172,6 +2172,7 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 {
 	QWidgetList windows = wsp->windowList();
 	ScribusWin* tw;
+	disconnect(wsp, SIGNAL(windowActivated(QWidget *)), this, SLOT(newActWin(QWidget *)));
 	if (!windows.isEmpty())
 	{
 		singleClose = true;
@@ -2185,6 +2186,7 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 			{
 				ce->ignore();
 				singleClose = false;
+				connect(wsp, SIGNAL(windowActivated(QWidget *)), this, SLOT(newActWin(QWidget *)));
 				return;
 			}
 		}
@@ -2536,7 +2538,6 @@ void ScribusApp::newActWin(QWidget *w)
 	if (ActWin && ActWin->doc)
 		oldDocName = ActWin->doc->DocName;
 
-
 /*	if (doc != NULL)
 	{
 		if ((HaveDoc) && (doc != ActWin->doc))
@@ -2546,6 +2547,7 @@ void ScribusApp::newActWin(QWidget *w)
 	QString newDocName = "";
 	if (ActWin && ActWin->doc)
 		newDocName = ActWin->doc->DocName;
+		
 	if (oldDocName != newDocName)
 		undoManager->switchStack(newDocName);
 
@@ -4104,6 +4106,7 @@ bool ScribusApp::loadDoc(QString fileName)
 		delete fl;
 		view->setUpdatesEnabled(true);
 		w->setUpdatesEnabled(true);
+		disconnect(wsp, SIGNAL(windowActivated(QWidget *)), this, SLOT(newActWin(QWidget *)));
 		if ((wsp->windowList().isEmpty()) || (wsp->windowList().count() == 1))
 			w->showMaximized();
 		else
@@ -4112,6 +4115,7 @@ bool ScribusApp::loadDoc(QString fileName)
 		newActWin(w);
 		view->slotDoZoom();
 		view->GotoPage(0);
+		connect(wsp, SIGNAL(windowActivated(QWidget *)), this, SLOT(newActWin(QWidget *)));
 		connect(doc->autoSaveTimer, SIGNAL(timeout()), w, SLOT(slotAutoSave()));
 		connect(w, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
 		connect(fileWatcher, SIGNAL(fileChanged(QString )), view, SLOT(updatePict(QString)));
