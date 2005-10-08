@@ -36,8 +36,7 @@ class QComboBox;
 class QLabel;
 class QSpinBox;
 class DynamicTip;
-#include "shadebutton.h"
-#include "mspinbox.h"
+class MSpinBox;
 
 /**
   *@author Franz Schmid

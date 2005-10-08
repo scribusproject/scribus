@@ -31,7 +31,6 @@
 #include <qspinbox.h>
 #include "sccombobox.h"
 #include "scribusdoc.h"
-#include "shadebutton.h"
 #include "mspinbox.h"
 #include "gradienteditor.h"
 #include "units.h"
