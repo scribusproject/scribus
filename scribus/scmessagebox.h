@@ -22,6 +22,7 @@ class SCRIBUS_API ScMessageBox : public QMessageBox
 {
 	Q_OBJECT
 public:
+	//Basic copies of the normal constructors
 	static int information ( QWidget * parent, const QString & caption, const QString & text, int button0, int button1 = 0, int button2 = 0 );
 	static int information ( QWidget * parent, const QString & caption, const QString & text, const QString & button0Text = QString::null, const QString & button1Text = QString::null, const QString & button2Text = QString::null, int defaultButtonNumber = 0, int escapeButtonNumber = -1 );
 	static int question ( QWidget * parent, const QString & caption, const QString & text, int button0, int button1 = 0, int button2 = 0 );
@@ -31,8 +32,10 @@ public:
 	static int critical ( QWidget * parent, const QString & caption, const QString & text, int button0, int button1, int button2 = 0 );
 	static int critical ( QWidget * parent, const QString & caption, const QString & text, const QString & button0Text = QString::null, const QString & button1Text = QString::null, const QString & button2Text = QString::null, int defaultButtonNumber = 0, int escapeButtonNumber = -1 );
 	
+	//Swap the values the buttons are passing in, return the number of buttons used
 	static int swapButtonValues(int &b0, int &b1, int &b2);
 	static int swapButtonValues(QString &b0Text, QString &b1Text, QString &b2Text, int &defaultButton, int &escapeButton);
+	//Swap the return values attained from the QMessageBox class so in main code we dont have to check for swapped buttons.
 	static int swapReturnValues(const int, const int, const int, const int, const int);
 };
 
