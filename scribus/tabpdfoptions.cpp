@@ -960,6 +960,7 @@ void TabPDFOptions::EnablePDFX(int a)
 		setTabEnabled(tabSecurity, true);
 		OutCombo->setEnabled(true);
 		EmbedProfs2->setEnabled(true);
+		emit hasInfo();
 		if (view != 0)
 		{
 			CheckBox10->setEnabled(true);
