@@ -123,7 +123,7 @@ void ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, b
 		}
 		if (!isThere)
 		{
-			dummy = new Foi(tmpf, "", "", "", "", 1, false);
+			dummy = new Foi(tmpf, "", tmpf, "", "", 1, false);
 			dummyFois.append(dummy);
 		}
 		unknown = true;
