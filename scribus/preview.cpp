@@ -229,8 +229,10 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout6->addItem( spacer );
 	closeButton = new QPushButton( tr("Close"), this, "closeButton" );
+	closeButton->setAutoDefault(false);
 	Layout6->addWidget( closeButton );
 	printButton = new QPushButton( tr("Print..."), this, "printButton" );
+	printButton->setAutoDefault(false);	
 	printButton->setEnabled(!printDinUse);
 	Layout6->addWidget( printButton );
 	PLayout->addLayout(Layout6);
