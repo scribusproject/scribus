@@ -790,6 +790,9 @@ bool ScribusDoc::AddFont(QString name, int fsize)
 	if (UsedFonts.contains(name))
 		return true;
 
+	if (! ((*AllFonts)[name]) )
+		return ret;
+
 	error = FT_New_Face( library, (*AllFonts)[name]->fontFilePath(), (*AllFonts)[name]->faceIndex(), &face );
 	if (error)
 		return ret;
