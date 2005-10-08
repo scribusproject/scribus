@@ -47,7 +47,6 @@ public slots:
 	void slotAutoSave();
 	
 signals:
-	void Schliessen();
 	void AutoSaved();
 
 protected:
