@@ -64,7 +64,7 @@ bool MenuManager::createMenu(const QString &menuName, const QIconSet menuIcon, c
 	}
 	else
 		retVal=false;	
-	qDebug(QString("createMenu: parent=%1 (%2) newMenu=%3 (%4) checkable=%5 -> %6").arg(parent).arg(!parent.isNull()).arg(menuName).arg(!newMenu).arg(checkable).arg(retVal));
+	//qDebug(QString("createMenu: parent=%1 (%2) newMenu=%3 (%4) checkable=%5 -> %6").arg(parent).arg(!parent.isNull()).arg(menuName).arg(!newMenu).arg(checkable).arg(retVal));
 	
 	return retVal;
 }
