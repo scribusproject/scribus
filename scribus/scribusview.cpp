@@ -325,6 +325,7 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 				else
 					currItem = SelItem.at(0);
 			}
+			//Draw the frame links
 			if ((((Doc->appMode == modeLinkFrames) || (Doc->appMode == modeUnlinkFrames))
 				   && (currItem->itemType() == PageItem::TextFrame)) || (Doc->guidesSettings.linkShown))
 			{
@@ -405,8 +406,8 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 							{
 								FPoint End(a2-nextItem->Xpos, b2-nextItem->Ypos, nextItem->Xpos, nextItem->Ypos, nextItem->Rot, 1, 1);
 								//FPoint End = transformPoint(FPoint(nextItem->Width/2, 0), nextItem->Xpos, nextItem->Ypos, nextItem->Rot, 1, 1);
-								painter->setPen(black, 5.0 / Scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-								painter->setPenOpacity(0.3);
+								painter->setPen(black, 1.0 / Scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+								painter->setPenOpacity(1.0);
 								painter->drawLine(Start, End);
 								double r = atan2(End.y()-Start.y(),End.x()-Start.x())*(180.0/M_PI);
 								QWMatrix arrowTrans;
@@ -418,10 +419,10 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 								arrow.addQuadPoint(-12, 0, -12, 0, -12, 0, -12, 0);
 								arrowTrans.translate(End.x(), End.y());
 								arrowTrans.rotate(r);
-								arrowTrans.scale(2.5 / Scale, 2.5 / Scale);
+								arrowTrans.scale(0.8 / Scale, 0.8 / Scale);
 								arrow.map(arrowTrans);
 								painter->setBrush(painter->pen());
-								painter->setBrushOpacity(0.3);
+								painter->setBrushOpacity(1.0);
 								painter->setLineWidth(0);
 								painter->setFillMode(ScPainter::Solid);
 								painter->setupPolygon(&arrow);
