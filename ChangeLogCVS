@@ -1,7 +1,8 @@
 Scribus - 1.2.4cvs
 ==================
-- 0002678: [User Interface] Control + mousewheel for zooming (cbradney)
+- 0002104: [Internal] crash on save after restoring window (cbradney)
 - 0002566: [Import / Export] Add the 1.3.1cvs sanity checks for the print preview to 1.2.4 (plinnell)
+- 0002678: [User Interface] Control + mousewheel for zooming (cbradney)
 - 0002368: [User Interface] "Revert to saved" doesn't prompt to confirm. (cbradney)
 - 0002642: [General] Scribus help browser: ugly ratios between windows (fschmid)
 - 0002591: [General] Hyphenation: Wrong behaviour in connection with "t" glyph (fschmid)
