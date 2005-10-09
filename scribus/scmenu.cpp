@@ -30,7 +30,7 @@ ScrPopupMenu::ScrPopupMenu ( QWidget * parent, const char * name, const QString 
 	menuBarID=-1;
 	menuItemList.clear();
 	localPopupMenu=new QPopupMenu(parent, name);
-	localPopupMenu->setCheckable(pCheckable);
+//	localPopupMenu->setCheckable(pCheckable);
 	enabled=true;
 	checkable = pCheckable;
 }
@@ -45,7 +45,7 @@ ScrPopupMenu::ScrPopupMenu ( QWidget * parent, const char * name, const QString 
 	menuBarID=-1;
 	menuItemList.clear();
 	localPopupMenu=new QPopupMenu(parent, name);
-	localPopupMenu->setCheckable(pCheckable);
+//	localPopupMenu->setCheckable(pCheckable);
 	enabled=true;
 	checkable=pCheckable;
 }
