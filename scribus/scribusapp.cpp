@@ -409,6 +409,16 @@ const bool ScribusQApp::usingGUI()
 	return useGUI;
 }
 
+const bool ScribusQApp::isMacGUI()
+{
+	// Do it statically for now
+#if defined(Q_WS_MAC)
+	return true;
+#else
+	return false;
+#endif
+}
+
 const bool ScribusQApp::reverseDialogButtons()
 {
 	if (swapDialogButtonOrder)

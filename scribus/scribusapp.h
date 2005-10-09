@@ -36,6 +36,11 @@ class SCRIBUS_API ScribusQApp : public QApplication
 		void changeGUILanguage(QString);
 		const bool usingGUI();
 		/**
+		 * @brief Are we trying to adhere to Apple Mac HIG ?
+		 * @retva√l bool true if we are on Qt/Mac
+		 */
+		const bool isMacGUI();
+		/**
 		 * @brief Are we swapping dialog button order?
 		 * @retval bool if we are swapping
 		 */
