@@ -67,17 +67,23 @@ FontReplaceDialog::FontReplaceDialog( QWidget* parent, QMap<QString, QString> *R
 	QToolTip::add( cancelButton, "<qt>" + tr( "Cancels these font substitutions and stops loading the document.") + "</qt>" );
 	QToolTip::add( stickyReplacements, "<qt>" + tr( "Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in Edit > Preferences > Fonts.") + "</qt>" );
 	QToolTip::add( okButton, "<qt>" + tr( "If you select OK, then save, these substitutions are made permanent in the document.") + "</qt>" );
-	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
+	connect(okButton, SIGNAL(clicked()), this, SLOT(leaveOK()));
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 }
 
 void FontReplaceDialog::closeEvent(QCloseEvent *closeEvent)
+{
+	leaveOK();
+	closeEvent->accept();
+}
+
+void FontReplaceDialog::leaveOK()
 {
 	for (int a = 0; a < replacementTable->numRows(); ++a)
 	{
 		FontCombo* item = (FontCombo*)replacementTable->cellWidget(a, 1);
 		ReplaceList->replace(replacementTable->text(a, 0), item->currentText());
 	}
-	closeEvent->accept();
+	if (okButton == sender())
+		accept();
 }
-

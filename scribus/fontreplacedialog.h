@@ -30,6 +30,9 @@ public:
 	QPushButton* cancelButton;
 	QMap<QString, QString> *ReplaceList;
 
+private slots:
+	void leaveOK();
+
 protected:
 	void closeEvent(QCloseEvent *closeEvent);
 	QVBoxLayout* FontReplaceDialogLayout;
