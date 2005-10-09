@@ -36,9 +36,22 @@ int ScMessageBox::swapButtonValues(int &b0, int &b1, int &b2)
 		//All three buttons used, swap the outside ones only
 		if (b2!=0 && b1!=0 && b0!=0)
 		{
-			int t=b2;
-			b2=b0;
-			b0=t;
+			int t;
+			if (ScQApp->isMacGUI())
+			{
+				// Mac order is "No, Cancel, Yes"
+				t = b2;
+				b2 = b0;
+				b0 = b1;
+				b1 = t;
+			}
+			else 
+			{
+				// Unix order is "Cancel, No, Yes"
+				t = b2;
+				b2=b0;
+				b0=t;
+			}
 			buttonsUsed=3;
 		}
 	}
@@ -71,19 +84,54 @@ int ScMessageBox::swapButtonValues(QString &b0Text, QString &b1Text, QString &b2
 		//All three buttons used, swap the outside ones only
 		if (!b2Text.isEmpty() && !b1Text.isEmpty() && !b0Text.isEmpty())
 		{
-			QString tText=b2Text;
-			b2Text=b0Text;
-			b0Text=tText;
-			if (defaultButton==0)
-				defaultButton=2;
-			else
-			if (defaultButton==2)
-				defaultButton=0;
-			if (escapeButton==0)
-				escapeButton=2;
-			else
-			if (escapeButton==2)
-				escapeButton=0;
+			QString tText;
+			if (ScQApp->isMacGUI())
+			{
+				// Mac order is "No, Cancel, Yes"
+				tText = b2Text;
+				b2Text = b0Text;
+				b0Text = b1Text;
+				b1Text = tText;
+
+				switch (defaultButton) {
+				case 0:
+					defaultButton=2;
+					break;
+				case 1:
+
+					break;
+				case 2:
+					defaultButton=0;
+				}
+
+				switch (escapeButton) {
+				case 0:
+					escapeButton=2;
+					break;
+				case 1:
+					escapeButton=0;
+					break;
+				case 2:
+					escapeButton=1;
+				}
+			}
+			else 
+			{
+				// Unix order is "Cancel, No, Yes"
+				tText = b2Text;
+				b2Text=b0Text;
+				b0Text=tText;
+				if (defaultButton==0)
+					defaultButton=2;
+				else
+				if (defaultButton==2)
+					defaultButton=0;
+				if (escapeButton==0)
+					escapeButton=2;
+				else
+				if (escapeButton==2)
+					escapeButton=0;
+			}
 			buttonsUsed=3;
 		}
 	}
@@ -108,11 +156,23 @@ int ScMessageBox::swapReturnValues(const int b0Val, const int b1Val, const int b
 		//All three buttons used, swap the outside ones only
 		if (buttonsUsed==3)
 		{
-			if (returnVal==b0Val)
-				retVal=b2Val;
+			if (ScQApp->isMacGUI()) {
+				if (returnVal == b0Val)
+					retVal = b1Val;
+				else if (returnVal == b1Val)
+					retVal = b2Val;
+				else if (returnVal == b2Val)
+					retVal = b0Val;
+			}
 			else
-			if (returnVal==b2Val)
-				retVal=b0Val;
+			{
+				if (returnVal==b0Val)
+					retVal=b2Val;
+				else
+				if (returnVal==b2Val)
+					retVal=b0Val;
+
+			}
 		}
 	}
 	return retVal;
