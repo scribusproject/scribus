@@ -516,8 +516,13 @@ COMPILE_DEBUG=no
 AC_ARG_ENABLE(debug, [  --enable-debug     Enables debugging information (recommended for snapshots)],
 [if test "x$enable_debug" = "xyes" || test "x$enable_debug" = "xfull"; then
 	COMPILE_DEBUG=yes
-    CXXFLAGS="$CXXFLAGS -g3 -fno-inline -O0 "
-    CFLAGS="$CFLAGS -g3 -fno-inline -O0 "
+    if test "$enable_mac" = "yes"; then
+        CXXFLAGS="$CXXFLAGS -g3 "
+        CFLAGS="$CFLAGS -g3 "
+    else
+        CXXFLAGS="$CXXFLAGS -g3 -fno-inline -O0 "
+        CFLAGS="$CFLAGS -g3 -fno-inline -O0 "
+    fi
 fi])
 AM_CONDITIONAL(COMPILE_DEBUG, test x$COMPILE_DEBUG = xyes)
 
