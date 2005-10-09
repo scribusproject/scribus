@@ -1,19 +1,45 @@
 # configuration for OSX using fink libraries
+# 
+# THIS FILE NEEDS TO BE SOURCED (bash$ . configure.MacOSX) IN ORDER TO WORK!
+# NO GUARANTEES!
 
 BUNDLE_LOCATION=/Applications/
 
 PKG_CONFIG_PATH=/sw/lib/pkgconfig
 export PKG_CONFIG_PATH
-QTDIR=/sw/lib/qt3mac
+QTDIR=/Developer/qt
 export QTDIR
 
 MACOSX_DEPLOYMENT_TARGET=10.3 
 LD_PREBIND=1
 LD_PREBIND_ALLOW_OVERLAP=1
+DYLD_LIBRARY_PATH=$QTDIR/lib/:$DYLD_LIBRARY_PATH
 
 CPPFLAGS=-I/sw/include
 LDFLAGS=-L/sw/lib
-export CPATH LDFLAGS CPPFLAGS MACOSX_DEPLOYMENT_TARGET LD_PREBIND LD_PREBIND_ALLOW_OVERLAP
+export CPATH LDFLAGS CPPFLAGS MACOSX_DEPLOYMENT_TARGET LD_PREBIND LD_PREBIND_ALLOW_OVERLAP DYLD_LIBRARY_PATH
 
 ./configure --enable-debug --enable-mac --enable-bundle --prefix=$BUNDLE_LOCATION/Scribus.app/Contents/ --with-extra-includes=/sw/include/ $EXTRACONF
 #--with-extra-libs=/sw/lib/
+
+cat > install_MacOSX.sh <<-EOF
+	#!/bin/sh
+	# This script was created by configure.MacOSX
+	BUNDLE_CONTENTS=$BUNDLE_LOCATION/Scribus.app/Contents
+	SKELETON=./Scribus.app/Contents
+	
+	mkdir -p \$BUNDLE_CONTENTS/MacOS
+	mkdir -p \$BUNDLE_CONTENTS/Resources
+	cp -f \$SKELETON/Info.plist \$BUNDLE_CONTENTS
+	cp -f \$SKELETON/Resources/*.icns \$BUNDLE_CONTENTS/Resources
+	(cd \$BUNDLE_CONTENTS ; rm -f Scribus ; ln -s ../bin/scribus Scribus)
+
+	echo
+	echo "Mac OSX Scribus bundle installed!"
+	echo "Please check bundle dependencies manually:"
+	echo
+	otool -L \$BUNDLE_CONTENTS/bin/scribus
+EOF
+
+chmod a+x install_MacOSX.sh
+echo 'To install, enter "make install ; ./install_MacOSX.sh" !'
