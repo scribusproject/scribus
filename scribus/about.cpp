@@ -46,7 +46,18 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	tabLayout1->addWidget( pixmapLabel1 );
 	buildID = new QLabel( tab, "BB" );
 	buildID->setAlignment(Qt::AlignCenter);
-	QString bu = tr("%1 %2 %3 ").arg("08").arg("October").arg("2005 ");
+	QString BUILD_DAY = "8";
+	QString BUILD_MONTH = "Oktober";
+	QString BUILD_YEAR = "2005";
+	QString BUILD_TIME = "-";
+	QString BUILD_TZ = "-";
+	QString BUILD_NAME = "";
+#include "about_builddate.inc"
+	QString version = VERSION;
+	if (BUILD_NAME != "")
+		version += " \"" + BUILD_NAME + "\"";
+	QString built = tr("Built: %3-%2-%1 %4 %5").arg(BUILD_DAY).arg(BUILD_MONTH).arg(BUILD_YEAR).arg(BUILD_TIME).arg(BUILD_TZ);
+	QString bu;
 #ifdef HAVE_CMS
 	bu += "C";
 #else
@@ -82,7 +93,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 		gsver = tr("Using GhostScript version %1").arg(gsver);
 	else
 		gsver = tr("No GS version available");
-	buildID->setText( tr("Scribus Version %1\n%2 %3 (%4)").arg(VERSION).arg( tr("Build-ID:")).arg(bu).arg(gsver));
+	buildID->setText( tr("<b>Scribus Version %1</b><p>%2</p><p>%3 %4</p><p>%5</p>").arg(version).arg(tr(built)).arg( tr("Build-ID:")).arg(bu).arg(gsver));
 	tabLayout1->addWidget( buildID );
 	tabWidget2->insertTab( tab, tr( "&About" ) );
 	tab_2 = new QWidget( tabWidget2, "tab_2" );

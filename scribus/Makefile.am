@@ -211,6 +211,12 @@ SUBDIRS = $(renderer_subdirs) dicts doc icons keysets manpages plugins po profil
 #     `KDE_OPTIONS = noautodist'
 # EXTRA_DIST =
 
+
+about.o: about_builddate.inc
+
+about_builddate.inc:
+	python -c 'f = open("about_builddate.inc", "w") ; import sys; args = sys.argv + [""]; import time; f.write(time.strftime("BUILD_YEAR = \"%Y\";\nBUILD_DAY = \"%d\";\nBUILD_MONTH = \"%B\";\nBUILD_TIME=\"%H:%M\";\nBUILD_TZ = \"%Z\";\n")); f.write("BUILD_NAME = \"%s\";\n" % args[1]); f.close()' ${BUILD_NAME}
+
 install-data-local:
 	$(mkinstalldirs) $(libdir)/scribus/
 	$(INSTALL_DATA) $(srcdir)/rgbsvg.txt $(libdir)/scribus/rgbsvg.txt
