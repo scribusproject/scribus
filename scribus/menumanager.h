@@ -38,8 +38,8 @@ public:
 
 	enum MenuType {Normal, DLL};
 
-	bool createMenu(const QString &menuName, const QString &menuText = QString::null, const QString parent = QString::null);
-	bool createMenu(const QString &menuName, const QIconSet menuIcon, const QString &menuText = QString::null, const QString parent = QString::null);
+	bool createMenu(const QString &menuName, const QString &menuText = QString::null, const QString parent = QString::null, bool checkable = false);
+	bool createMenu(const QString &menuName, const QIconSet menuIcon, const QString &menuText = QString::null, const QString parent = QString::null, bool checkable = false);
 	bool addMenuToMenu(const QString & child, const QString &parent);
 	bool deleteMenu(const QString &menuName, const QString &parent = QString::null);
 	bool clearMenu(const QString &menuName);

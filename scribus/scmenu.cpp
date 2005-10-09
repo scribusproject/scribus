@@ -21,7 +21,7 @@
 #include "scraction.h"
 #include "util.h"
 
-ScrPopupMenu::ScrPopupMenu ( QWidget * parent, const char * name, const QString pMenuName, const QString pMenuText, const QString parentName ) : QObject(parent, name)
+ScrPopupMenu::ScrPopupMenu ( QWidget * parent, const char * name, const QString pMenuName, const QString pMenuText, const QString parentName, bool pCheckable ) : QObject(parent, name)
 {
 	parentMenuName=parentName;
 	parentMenuID=-1;
@@ -30,10 +30,12 @@ ScrPopupMenu::ScrPopupMenu ( QWidget * parent, const char * name, const QString 
 	menuBarID=-1;
 	menuItemList.clear();
 	localPopupMenu=new QPopupMenu(parent, name);
+	localPopupMenu->setCheckable(pCheckable);
 	enabled=true;
+	checkable = pCheckable;
 }
 
-ScrPopupMenu::ScrPopupMenu ( QWidget * parent, const char * name, const QString pMenuName, const QIconSet pMenuIcon, const QString pMenuText, const QString parentName ) : QObject(parent, name)
+ScrPopupMenu::ScrPopupMenu ( QWidget * parent, const char * name, const QString pMenuName, const QIconSet pMenuIcon, const QString pMenuText, const QString parentName, bool pCheckable ) : QObject(parent, name)
 {
 	parentMenuName=parentName;
 	parentMenuID=-1;
@@ -43,7 +45,9 @@ ScrPopupMenu::ScrPopupMenu ( QWidget * parent, const char * name, const QString 
 	menuBarID=-1;
 	menuItemList.clear();
 	localPopupMenu=new QPopupMenu(parent, name);
+	localPopupMenu->setCheckable(pCheckable);
 	enabled=true;
+	checkable=pCheckable;
 }
 
 ScrPopupMenu::~ScrPopupMenu()
@@ -117,7 +121,7 @@ bool ScrPopupMenu::insertSubMenu(ScrPopupMenu* newSubMenu)
 	if (newSubMenu)
 	{
 		menuItemList.append(newSubMenu);
-		localPopupMenu->insertItem(newSubMenu->getMenuText(), newSubMenu->getLocalPopupMenu());
+		localPopupMenu->insertItem(newSubMenu->getMenuIcon(), newSubMenu->getMenuText(), newSubMenu->getLocalPopupMenu());
 		return true;
 	}
 	else
@@ -139,7 +143,7 @@ bool ScrPopupMenu::insertMenuItem(ScrAction *newMenuAction)
 	if (newMenuAction)
 	{
 		menuItemList.append(newMenuAction);
-		newMenuAction->addTo(localPopupMenu);
+		newMenuAction->addTo(localPopupMenu);			
 		return true;
 	}
 	else 
@@ -165,9 +169,11 @@ bool ScrPopupMenu::insertMenuItemAfter(ScrAction *newMenuAction, ScrAction *afte
 	//if (menuItemList.findRef(newMenuAction)!=-1)
 	//	return false;
 	
-	if (newMenuAction->iconSet().isNull() && ! afterMenuAction->iconSet().isNull())
+#ifdef Q_WS_MAC
+	if (newMenuAction->iconSet().isNull() && ! (afterMenuAction->iconSet().isNull()))
 		newMenuAction->setIconSet(loadIcon("noicon.xpm"));
-	
+#endif
+		
 	QValueList< QGuardedPtr<QObject> >::Iterator it=menuItemList.find(QGuardedPtr<QObject>(afterMenuAction));
 	menuItemList.insert(++it, QGuardedPtr<QObject>(newMenuAction));
 	/*
@@ -256,14 +262,17 @@ bool ScrPopupMenu::repopulateLocalMenu()
 			//qDebug("ScrAction found");
 			if(QString(listObj->name())==QString("separator_action"))
 				localPopupMenu->insertSeparator();
-			else
-				dynamic_cast<ScrAction *>(listObj)->addTo(localPopupMenu);
+			else {
+				ScrAction * act = dynamic_cast<ScrAction *>(listObj);
+				act->addTo(localPopupMenu);
+			}
 		}
 		else 
 		{
 			if (menuItemListClassName=="ScrPopupMenu")
 			{
-				localPopupMenu->insertItem(dynamic_cast<ScrPopupMenu *>(listObj)->getMenuText(), dynamic_cast<ScrPopupMenu *>(listObj)->getLocalPopupMenu());
+				ScrPopupMenu * men = dynamic_cast<ScrPopupMenu *>(listObj);
+				localPopupMenu->insertItem(men->getMenuIcon(), men->getMenuText(), men->getLocalPopupMenu());
 			}
 			else
 				qDebug(QString("Alien found: %1").arg((*menuItemListIt)->className()));

@@ -33,11 +33,11 @@ MenuManager::~MenuManager()
 {
 }
 
-bool MenuManager::createMenu(const QString &menuName, const QString &menuText, const QString parent)
+bool MenuManager::createMenu(const QString &menuName, const QString &menuText, const QString parent, bool checkable)
 {
 	bool retVal=false;
 		
-	ScrPopupMenu *newMenu = new ScrPopupMenu(NULL, NULL, menuName, menuText, parent);
+	ScrPopupMenu *newMenu = new ScrPopupMenu(NULL, NULL, menuName, menuText, parent, checkable);
 	if (newMenu)
 	{
 		menuList.insert(menuName, newMenu);
@@ -51,11 +51,11 @@ bool MenuManager::createMenu(const QString &menuName, const QString &menuText, c
 }
 
 
-bool MenuManager::createMenu(const QString &menuName, const QIconSet menuIcon, const QString &menuText, const QString parent)
+bool MenuManager::createMenu(const QString &menuName, const QIconSet menuIcon, const QString &menuText, const QString parent, bool checkable)
 {
 	bool retVal=false;
 	
-	ScrPopupMenu *newMenu = new ScrPopupMenu(NULL, NULL, menuName, menuIcon, menuText, parent);
+	ScrPopupMenu *newMenu = new ScrPopupMenu(NULL, NULL, menuName, menuIcon, menuText, parent, checkable);
 	if (newMenu)
 	{
 		menuList.insert(menuName, newMenu);
@@ -64,6 +64,7 @@ bool MenuManager::createMenu(const QString &menuName, const QIconSet menuIcon, c
 	}
 	else
 		retVal=false;	
+	qDebug(QString("createMenu: parent=%1 (%2) newMenu=%3 (%4) checkable=%5 -> %6").arg(parent).arg(!parent.isNull()).arg(menuName).arg(!newMenu).arg(checkable).arg(retVal));
 	
 	return retVal;
 }

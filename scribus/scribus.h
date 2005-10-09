@@ -521,6 +521,7 @@ private:
 	QString guiLanguage;
 	QString recentFileMenuName;
 	QString layerMenuName;
+	QPixmap noIcon;
 	bool scribusInitialized;
 	QComboBox *ColorMenC;
 	/** ShapeMenu enthaelt die Rahmenformen */

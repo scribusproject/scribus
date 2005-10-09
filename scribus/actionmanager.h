@@ -70,6 +70,7 @@ class SCRIBUS_API ActionManager : public QObject
 		void initHelpMenuActions();
 		void initSpecialActions();
 	
+		QPixmap noIcon;
 		ScribusApp *ScApp;
 		ScribusQApp *ScQApp;
 		UndoManager *undoManager;

@@ -194,6 +194,9 @@ ScribusApp::ScribusApp()
 	scrMenuMgr=NULL;
 	undoManager=NULL;
 	prefsManager=NULL;
+#ifdef Q_WS_MAC
+	noIcon = loadIcon("noicon.xpm");
+#endif
 } // ScribusApp::ScribusApp()
 
 /*
@@ -588,8 +591,7 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["fileNew"], "File");
 	scrMenuMgr->addMenuItem(scrActions["fileOpen"], "File");
 	recentFileMenuName="FileOpenRecent";
-	scrMenuMgr->createMenu(recentFileMenuName, QIconSet(loadIcon("noicon.xpm")), tr("Open &Recent"), "File");
-//	scrMenuMgr->setMenuIcon(recentFileMenuName, QIconSet(loadIcon("noicon.xpm")));
+	scrMenuMgr->createMenu(recentFileMenuName, QIconSet(noIcon), tr("Open &Recent"), "File");
 	scrMenuMgr->addMenuSeparator("File");
 	scrMenuMgr->addMenuItem(scrActions["fileClose"], "File");
 	scrMenuMgr->addMenuItem(scrActions["fileSave"], "File");
@@ -597,13 +599,11 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["fileRevert"], "File");
 	scrMenuMgr->addMenuItem(scrActions["fileCollect"], "File");
 	scrMenuMgr->addMenuSeparator("File");
-	scrMenuMgr->createMenu("FileImport", tr("&Import"), "File");
-	scrMenuMgr->setMenuIcon("FileImport", QIconSet(loadIcon("noicon.xpm")));
+	scrMenuMgr->createMenu("FileImport", QIconSet(noIcon), tr("&Import"), "File");
 	scrMenuMgr->addMenuItem(scrActions["fileImportText"], "FileImport");
 	scrMenuMgr->addMenuItem(scrActions["fileImportAppendText"], "FileImport");
 	scrMenuMgr->addMenuItem(scrActions["fileImportImage"], "FileImport");
-	scrMenuMgr->createMenu("FileExport", tr("&Export"), "File");
-	scrMenuMgr->setMenuIcon("FileExport", QIconSet(loadIcon("noicon.xpm")));
+	scrMenuMgr->createMenu("FileExport", QIconSet(noIcon), tr("&Export"), "File");
 	scrMenuMgr->addMenuItem(scrActions["fileExportText"], "FileExport");
 	scrMenuMgr->addMenuItem(scrActions["fileExportAsEPS"], "FileExport");
 	scrMenuMgr->addMenuItem(scrActions["fileExportAsPDF"], "FileExport");
@@ -783,7 +783,7 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuSeparator("Insert");
 	scrMenuMgr->addMenuItem(scrActions["insertGlyph"], "Insert");
 
-	scrMenuMgr->createMenu("InsertChar", tr("Character"), "Insert");
+	scrMenuMgr->createMenu("InsertChar", QPixmap(noIcon), tr("Character"), "Insert");
 	//scrMenuMgr->addMenuToMenu("InsertChar", "Insert");
 	scrMenuMgr->addMenuItem(scrActions["specialPageNumber"], "InsertChar");
 	scrMenuMgr->addMenuItem(scrActions["specialSmartHyphen"], "InsertChar");
@@ -799,7 +799,7 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["specialDashFigure"], "InsertChar");
 	scrMenuMgr->addMenuItem(scrActions["specialDashQuotation"], "InsertChar");
 
-	scrMenuMgr->createMenu("InsertQuote", tr("Quote"), "Insert");
+	scrMenuMgr->createMenu("InsertQuote", QPixmap(noIcon), tr("Quote"), "Insert");
 	//scrMenuMgr->addMenuToMenu("InsertQuote", "Insert");
 	scrMenuMgr->addMenuItem(scrActions["specialQuoteApostrophe"], "InsertQuote");
 	scrMenuMgr->addMenuItem(scrActions["specialQuoteStraight"], "InsertQuote");
@@ -826,7 +826,7 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["specialQuoteCJKDoubleLeft"], "InsertQuote");
 	scrMenuMgr->addMenuItem(scrActions["specialQuoteCJKDoubleRight"], "InsertQuote");
 
-	scrMenuMgr->createMenu("InsertSpace", tr("Space"), "Insert");
+	scrMenuMgr->createMenu("InsertSpace", QPixmap(noIcon), tr("Space"), "Insert");
 	//scrMenuMgr->addMenuToMenu("InsertSpace", "Insert");
 	scrMenuMgr->addMenuItem(scrActions["specialNonBreakingSpace"], "InsertSpace");
 	scrMenuMgr->addMenuItem(scrActions["specialNewLine"], "InsertSpace");
@@ -905,7 +905,7 @@ void ScribusApp::initMenuBar()
 	scrActions["extrasDeHyphenateText"]->setEnabled(false);
 
 	//Window menu
-	scrMenuMgr->createMenu("Windows", tr("&Windows"));
+	 scrMenuMgr->createMenu("Windows", tr("&Windows"), QString::null, true);
 	connect(scrMenuMgr->getLocalPopupMenu("Windows"), SIGNAL(aboutToShow()), this, SLOT(windowsMenuAboutToShow()));
 	addDefaultWindowMenuItems();
 
@@ -2515,7 +2515,7 @@ void ScribusApp::windowsMenuAboutToShow()
 		for ( int i = 0; i < windowCount; ++i )
 		{
 			QString docInWindow=windows.at(i)->caption();
-			scrWindowsActions.insert(docInWindow, new ScrAction( ScrAction::Window, QIconSet(), docInWindow, QKeySequence(), this, docInWindow, i));
+			scrWindowsActions.insert(docInWindow, new ScrAction( ScrAction::Window, noIcon, docInWindow, QKeySequence(), this, docInWindow, i));
 			scrWindowsActions[docInWindow]->setToggleAction(true);
 			connect( scrWindowsActions[docInWindow], SIGNAL(activatedData(int)), this, SLOT(windowsMenuActivated(int)) );
 			scrMenuMgr->addMenuItem(scrWindowsActions[docInWindow], "Windows");
