@@ -260,9 +260,6 @@ void NodePalette::PolyStatus(int typ, uint size)
 		PolySplit->setEnabled(false);
 		break;
 	}
-	if (doc->EditClipMode != 0)
-		MoveN();
-	MoveControl->setEnabled(true);
 }
 
 void NodePalette::CloseBezier()
@@ -459,14 +456,41 @@ void NodePalette::HaveNode(bool have, bool mov)
 		ResNode->setEnabled(setter);
 		Res1Node->setEnabled(setter);
 	}
-	disconnect(AsymMove, SIGNAL(clicked()), this, SLOT(SetAsym()));
-	disconnect(SymMove, SIGNAL(clicked()), this, SLOT(SetSym()));
-	if (mov)
-		SymMove->setOn(true);
-	else
-		AsymMove->setOn(true);
-	connect(AsymMove, SIGNAL(clicked()), this, SLOT(SetAsym()));
-	connect(SymMove, SIGNAL(clicked()), this, SLOT(SetSym()));
+	if (doc->EditClipMode == 0)
+	{
+		disconnect(AsymMove, SIGNAL(clicked()), this, SLOT(SetAsym()));
+		disconnect(SymMove, SIGNAL(clicked()), this, SLOT(SetSym()));
+		if (mov)
+			SymMove->setOn(true);
+		else
+			AsymMove->setOn(true);
+		connect(AsymMove, SIGNAL(clicked()), this, SLOT(SetAsym()));
+		connect(SymMove, SIGNAL(clicked()), this, SLOT(SetSym()));
+	}
+	if (doc->EditClipMode == 2)
+	{
+		uint cc;
+		bool leaveEd = false;
+		if (view->EditContour)
+			cc = view->SelItem.at(0)->ContourLine.size();
+		else
+			cc = view->SelItem.at(0)->PoLine.size();
+		if (view->SelItem.at(0)->itemType() == PageItem::PolyLine)
+		{
+			if (cc < 5)
+				leaveEd = true;
+		}
+		else
+		{
+			if (cc < 13)
+				leaveEd = true;
+		}
+		if (leaveEd)
+		{
+			MoveN();
+			MoveControl->setEnabled(true);
+		}
+	}
 }
 
 void NodePalette::MoveK()

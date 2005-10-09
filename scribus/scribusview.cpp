@@ -4106,9 +4106,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 						MarkClip(currItem, currItem->ContourLine, true);
 					else
 						MarkClip(currItem, currItem->PoLine, true);
-					emit PStatus(currItem->itemType(), currItem->PoLine.size());
 					emit DocChanged();
-					qApp->setOverrideCursor(QCursor(pointingHandCursor), true);
 				}
 				return;
 			}
