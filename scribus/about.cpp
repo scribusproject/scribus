@@ -52,11 +52,18 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	QString BUILD_TIME = "";
 	QString BUILD_TZ = "";
 	QString BUILD_NAME = "";
-//#include "about_builddate.inc"
+
+// This is the old way:
+	QString built = tr("%1 %2 %3").arg(BUILD_DAY).arg(BUILD_MONTH).arg(BUILD_YEAR);
+
+// This is my way, only activated when envvar BUILD_NAME is set :-)  AV
+#include "about_builddate.inc"
 	QString version = VERSION;
 	if (BUILD_NAME != "")
 		version += " \"" + BUILD_NAME + "\"";
-	QString built = tr("Built: %3-%2-%1 %4 %5").arg(BUILD_DAY).arg(BUILD_MONTH).arg(BUILD_YEAR).arg(BUILD_TIME).arg(BUILD_TZ);
+	if (BUILD_NAME == "BleedingEdge")
+		 built = tr("%3-%2-%1 %4 %5").arg(BUILD_DAY).arg(BUILD_MONTH).arg(BUILD_YEAR).arg(BUILD_TIME).arg(BUILD_TZ);
+
 	QString bu;
 #ifdef HAVE_CMS
 	bu += "C";
@@ -86,6 +93,31 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	bu += "C";
 #else
 	bu += "A";
+#endif
+
+// Some more information if we are not on a 32bit little endian Unix machine
+#if defined(Q_OS_WIN)
+	bu += "-Windows";
+#elif defined(Q_OS_DARWIN)
+	// dunno if anyone uses this...
+	bu += "-Darwin";
+#elif defined(Q_OS_MAC)
+	bu += "-Mac/";
+#  if defined(Q_WS_MACX)
+	bu += "Aqua";
+#  elif define(Q_WS_X11)
+	bu += "X11";
+#  else
+	bu += "?";
+#  endif
+#else 
+	int wordSize;
+	bool bigEndian;
+	qSysInfo( & wordSize, & bigEndian );
+	if (wordSize != 30)
+		bu += QString("-%1bit").arg(wordSize);
+	if (bigEndian)
+		bu += "-Big";
 #endif
 
 	QString gsver(getGSVersion());
