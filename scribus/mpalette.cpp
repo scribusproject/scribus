@@ -3792,6 +3792,8 @@ void Mpalette::updateColorSpecialGradient()
 {
 	if (!HaveDoc)
 		return;
+	if(ScApp->view->SelItem.count()==0)
+		return;
 	double dur=doc->unitRatio();
 	PageItem *currItem=ScApp->view->SelItem.at(0);
 	Cpal->setSpecialGradient(currItem->GrStartX * dur, currItem->GrStartY * dur,
