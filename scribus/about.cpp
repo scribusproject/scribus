@@ -90,10 +90,10 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 
 	QString gsver(getGSVersion());
 	if (!gsver.isNull())
-		gsver = tr("Using GhostScript version %1").arg(gsver);
+		gsver = tr("Using Ghostscript version %1").arg(gsver);
 	else
-		gsver = tr("No GS version available");
-	buildID->setText( tr("<b>Scribus Version %1</b><p>%2</p><p>%3 %4</p><p>%5</p>").arg(version).arg(tr(built)).arg( tr("Build-ID:")).arg(bu).arg(gsver));
+		gsver = tr("No Ghostscript version available");
+	buildID->setText( tr("<b>Scribus Version %1</b><p>%2<br/>%3 %4<br/>%5</p>").arg(version).arg(built).arg( tr("Build ID:")).arg(bu).arg(gsver));
 	tabLayout1->addWidget( buildID );
 	tabWidget2->insertTab( tab, tr( "&About" ) );
 	tab_2 = new QWidget( tabWidget2, "tab_2" );
@@ -137,7 +137,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td> </td><td> </td></tr>" +
 
 											"<tr><td><b>" + tr("Official Documentation:").utf8()  + "</b></td><td></td></tr>" +
-											"<tr><td>Peter Linnell</td><td>mrdocs@scribus.info.com</td></tr>" + 
+											"<tr><td>Peter Linnell</td><td>mrdocs@scribus.info</td></tr>" + 
 											"<tr><td>Craig Bradney</td><td>cbradney@zip.com.au</td></tr>" +
 											"<tr><td>Frédéric Dubuy</td><td>effediwhy@gmail.com</td></tr>" +
 											"<tr><td>Johannes Rüschel</td><td>jo.rueschel@gmx.de</td></tr>" +
