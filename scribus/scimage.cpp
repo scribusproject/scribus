@@ -3375,7 +3375,7 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 			if (PhotoshopLen != 0)
 			{
 				QByteArray arrayPhot(PhotoshopLen);
-				arrayPhot.assign((const char*)PhotoshopBuffer,PhotoshopLen);
+				arrayPhot.setRawData((const char*)PhotoshopBuffer,PhotoshopLen);
 				QDataStream strPhot(arrayPhot,IO_ReadOnly);
 				strPhot.setByteOrder( QDataStream::BigEndian );
 				PSDHeader fakeHeader;
@@ -3395,6 +3395,8 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 				setDotsPerMeterX( int(100. * imgInfo.xres / 2.54) );
 				setDotsPerMeterY( int(100. * imgInfo.yres / 2.54) );
 				imgInfo.valid = (imgInfo.PDSpathData.size())>0?true:false; // The only interest is vectormask
+				arrayPhot.resetRawData((const char*)PhotoshopBuffer,PhotoshopLen);
+				free( PhotoshopBuffer );
 			}
 		}
 		if ( cinfo.output_components == 3 || cinfo.output_components == 4)
