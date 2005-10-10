@@ -168,8 +168,7 @@ bool CollectForOutput::collectItems()
 				if (itf.exists())
 				{
 					QString oldFile = ite->Pfile;
-					QString newFile = outputDirectory + itf.fileName();
-					ite->Pfile = collectFile(oldFile, newFile);
+					ite->Pfile = collectFile(oldFile, itf.fileName());
 					if (ScApp->fileWatcherActive())
 					{
 						ScApp->fileWatcher->removeFile(oldFile);
@@ -188,8 +187,7 @@ bool CollectForOutput::collectItems()
 						if (itf.exists())
 						{
 							QString oldFile = ite->Pfile;
-							QString newFile = outputDirectory + itf.fileName();
-							ite->Pfile = collectFile(oldFile, newFile);
+							ite->Pfile = collectFile(oldFile, itf.fileName());
 							if (ScApp->fileWatcherActive())
 							{
 								ScApp->fileWatcher->removeFile(oldFile);
@@ -201,13 +199,13 @@ bool CollectForOutput::collectItems()
 					{
 						itf = QFileInfo(ite->Pfile2);
 						if (itf.exists())
-							ite->Pfile2 = collectFile(ite->Pfile2, outputDirectory + itf.fileName());
+							ite->Pfile2 = collectFile(ite->Pfile2, itf.fileName());
 					}
 					if (!ite->Pfile3.isEmpty())
 					{
 						itf = QFileInfo(ite->Pfile3);
 						if (itf.exists())
-							ite->Pfile3 = collectFile(ite->Pfile3, outputDirectory + itf.fileName());
+							ite->Pfile3 = collectFile(ite->Pfile3, itf.fileName());
 					}
 				}
 			}
@@ -246,7 +244,7 @@ QString CollectForOutput::collectFile(QString oldFile, QString newFile)
 		}
 		QFileInfo fi(newFile);
 		QString basename = fi.baseName().left(fi.baseName().findRev("_"));
-		newFile = QString("%1/%2_%3.%4").arg(fi.dirPath(true)).arg(basename).arg(cnt).arg(fi.extension());
+		newFile = QString("%1_%2.%3").arg(basename).arg(cnt).arg(fi.extension());
 		++cnt;
 	}
 	if (copy)
