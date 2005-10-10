@@ -12,6 +12,7 @@
 #include "filewatcher.h"
 #include "pageitem.h"
 #include "scraction.h"
+#include "scraction.h"
 
 #include <qmessagebox.h>
 #include <qstring.h>
@@ -47,21 +48,26 @@ bool CollectForOutput::newDirDialog()
 	}
 	if (outputDirectory.isEmpty())
 		return false;
+	outputDirectory += "/";
 	return true;
 }
 
 QString CollectForOutput::collect()
 {
-	newDirDialog();
-	if (!collectDocument())
+	if (!newDirDialog())
 		return "";
 	ScApp->mainWindowStatusLabel->setText(tr("Collecting..."));
 	if (!collectItems())
 	{
-		QMessageBox::warning(ScApp, tr("Warning"), tr("Cannot collect all files for output for file:\n%1").arg(newName), CommonStrings::tr_OK);
+		QMessageBox::warning(ScApp, tr("Warning"), "<qt>" + tr("Cannot collect all files for output for file:\n%1").arg(newName) + "</qt>", CommonStrings::tr_OK);
 		return "";
 	}
 	collectFonts();
+	if (!collectDocument())
+	{
+		QMessageBox::warning(ScApp, CommonStrings::trWarning, "<qt>" + tr("Cannot collect  the file: \n%1").arg(newName) + "</qt>", CommonStrings::tr_OK);
+		return "";
+	}
 	QDir::setCurrent(outputDirectory);
 	ScApp->updateActiveWindowCaption(newName);
 	UndoManager::instance()->renameStack(newName);
@@ -115,7 +121,7 @@ bool CollectForOutput::collectDocument()
 
 	if (!overwrite(ScApp, newName))
 		return false;
-	if (!ScApp->doc->save(newName))
+	if (!ScApp->DoFileSave(newName))
 		return false;
 	return true;
 }
@@ -163,12 +169,11 @@ bool CollectForOutput::collectItems()
 				{
 					QString oldFile = ite->Pfile;
 					QString newFile = outputDirectory + itf.fileName();
-					collectFile(oldFile, newFile);
-					ite->Pfile = newFile;
+					ite->Pfile = collectFile(oldFile, newFile);
 					if (ScApp->fileWatcherActive())
 					{
 						ScApp->fileWatcher->removeFile(oldFile);
-						ScApp->fileWatcher->addFile(newFile);
+						ScApp->fileWatcher->addFile(ite->Pfile);
 					}
 				}
 			}
@@ -184,12 +189,11 @@ bool CollectForOutput::collectItems()
 						{
 							QString oldFile = ite->Pfile;
 							QString newFile = outputDirectory + itf.fileName();
-							collectFile(oldFile, newFile);
-							ite->Pfile = newFile;
+							ite->Pfile = collectFile(oldFile, newFile);
 							if (ScApp->fileWatcherActive())
 							{
 								ScApp->fileWatcher->removeFile(oldFile);
-								ScApp->fileWatcher->addFile(newFile);
+								ScApp->fileWatcher->addFile(ite->Pfile);
 							}
 						}
 					}
@@ -197,19 +201,13 @@ bool CollectForOutput::collectItems()
 					{
 						itf = QFileInfo(ite->Pfile2);
 						if (itf.exists())
-						{
-							collectFile(ite->Pfile2, outputDirectory + itf.fileName());
-							ite->Pfile2 = outputDirectory + itf.fileName();
-						}
+							ite->Pfile2 = collectFile(ite->Pfile2, outputDirectory + itf.fileName());
 					}
 					if (!ite->Pfile3.isEmpty())
 					{
 						itf = QFileInfo(ite->Pfile3);
 						if (itf.exists())
-						{
-							collectFile(ite->Pfile3, outputDirectory + itf.fileName());
-							ite->Pfile3 = outputDirectory + itf.fileName();
-						}
+							ite->Pfile3 = collectFile(ite->Pfile3, outputDirectory + itf.fileName());
 					}
 				}
 			}
