@@ -39,6 +39,8 @@
 #include "documentinformation.h"
 #include "undoobject.h"
 #include "pageitem.h"
+#include "pageitem_line.h"
+#include "pageitem_textframe.h"
 
 #ifdef HAVE_CMS
 	#include CMS_INC

@@ -23,7 +23,7 @@
 class ScribusDoc;
 class StyleSelect;
 class Tabruler;
-class PageItem;
+class PageItem_TextFrame;
 
 
 class SCRIBUS_API EditStyle : public QDialog

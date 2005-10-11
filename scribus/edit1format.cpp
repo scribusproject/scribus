@@ -11,6 +11,7 @@
 #include "scribusdoc.h"
 #include "styleselect.h"
 #include "pageitem.h"
+#include "pageitem_textframe.h"
 #include "scribusdoc.h"
 #include "scribusstructs.h"
 #include "scpaths.h"
@@ -299,7 +300,7 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	previewText->setPaletteBackgroundColor(paletteBackgroundColor());
 	layoutPreview->addWidget(previewText);
 	// preview setting - reading first paragraphs from LoremIpsum.txt etc.
-	previewItem = new PageItem(parentDoc, PageItem::TextFrame, 0, 0, previewText->width(), previewText->height(), 0, "None", parentDoc->toolSettings.dPenText);
+	previewItem = new PageItem_TextFrame(parentDoc, 0, 0, previewText->width(), previewText->height(), 0, "None", parentDoc->toolSettings.dPenText);
 	previewItem->FrameType = PageItem::TextFrame;
 	LoremParser *m = new LoremParser("loremipsum.xml");
 	lorem = m->createLorem(3);

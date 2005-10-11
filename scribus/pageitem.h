@@ -165,7 +165,6 @@ struct TabRecord
 				PageItem* embedded;
 			  };
 
-
 	ObjAttrVector* getObjectAttributes();
 	/*!
 	 * brief Returns a complete ObjectAttribute struct if 1 is found, or ObjectAttribute.name will be QString::null if 0 or >1 are found
@@ -177,9 +176,12 @@ struct TabRecord
 	void DrawObj(ScPainter *p, QRect e);
 	void DrawObj_Pre(ScPainter *p, double &sc);
 	void DrawObj_Post(ScPainter *p);
+	virtual void DrawObj_Item(ScPainter *p);
+	virtual void DrawObj_Item(ScPainter *p, double sc);
+	virtual void DrawObj_Item(ScPainter *p, QRect e, double sc);
 	void DrawObj_ImageFrame(ScPainter *p, double sc);
-	void DrawObj_TextFrame(ScPainter *p, QRect e, double sc);
-	void DrawObj_Line(ScPainter *p);
+	//void DrawObj_TextFrame(ScPainter *p, QRect e, double sc);
+	//void DrawObj_Line(ScPainter *p);
 	void DrawObj_Polygon(ScPainter *p);
 	void DrawObj_PolyLine(ScPainter *p);
 	void DrawObj_PathText(ScPainter *p, double sc);

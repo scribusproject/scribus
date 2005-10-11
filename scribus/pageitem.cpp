@@ -326,25 +326,28 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 	DrawObj_Pre(p, sc);
 	switch(itemType())
 	{
-		case ImageFrame:
-			DrawObj_ImageFrame(p, sc);
-			break;
 		case TextFrame:
-			DrawObj_TextFrame(p, e, sc);
+			//DrawObj_TextFrame(p, e, sc);
+			DrawObj_Item(p, e, sc);
 			break;
-		case Line:
-			DrawObj_Line(p);
-			break;
-		case Polygon:
-			DrawObj_Polygon(p);
-			break;
-		case PolyLine:
-			DrawObj_PolyLine(p);
-			break;
+		//case Line:
+		//	DrawObj_Line(p);
+		//	break;
+		//case Polygon:
+			//DrawObj_Polygon(p);
+		//	break;
+		//case PolyLine:
+		//	DrawObj_PolyLine(p);
+		//	break;
+		//case ImageFrame:
+			//DrawObj_ImageFrame(p, sc);
+		//	break;
+		case ImageFrame:
 		case PathText:
-			DrawObj_PathText(p, sc);
+			DrawObj_Item(p, sc);
 			break;
 		default:
+			DrawObj_Item(p);
 			break;
 	}
 	DrawObj_Post(p);
@@ -545,24 +548,30 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, struct ZZ *hl)
 			switch(embedded->itemType())
 			{
 				case ImageFrame:
-					embedded->DrawObj_ImageFrame(p, sc);
+					//embedded->DrawObj_ImageFrame(p, sc);
+					embedded->DrawObj_Item(p, sc);
 					break;
 				case TextFrame:
-					embedded->DrawObj_TextFrame(p, e, sc);
+					//embedded->DrawObj_TextFrame(p, e, sc);
+					embedded->DrawObj_Item(p, e, sc);
 					break;
 				case Line:
 					embedded->Pwidth = pws * QMIN(hl->scale / 1000.0, hl->scalev / 1000.0);
-					embedded->DrawObj_Line(p);
+					//embedded->DrawObj_Line(p);
+					embedded->DrawObj_Item(p);
 					break;
 				case Polygon:
-					embedded->DrawObj_Polygon(p);
+					//embedded->DrawObj_Polygon(p);
+					embedded->DrawObj_Item(p);
 					break;
 				case PolyLine:
 					embedded->Pwidth = pws * QMIN(hl->scale / 1000.0, hl->scalev / 1000.0);
-					embedded->DrawObj_PolyLine(p);
+					//embedded->DrawObj_PolyLine(p);
+					embedded->DrawObj_Item(p);
 					break;
 				case PathText:
-					embedded->DrawObj_PathText(p, sc);
+					//embedded->DrawObj_PathText(p, sc);
+					embedded->DrawObj_Item(p, sc);
 					break;
 				default:
 					break;
@@ -587,7 +596,7 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, struct ZZ *hl)
 	}
 }
 
-/** Zeichnet das Item */
+/*
 void PageItem::DrawObj_ImageFrame(ScPainter *p, double sc)
 {
 	if(!Doc->RePos)
@@ -645,8 +654,9 @@ void PageItem::DrawObj_ImageFrame(ScPainter *p, double sc)
 		}
 	}
 }
+*/
 
-/** Zeichnet das Item */
+/*
 void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 {
 	switch (itemType())
@@ -2561,8 +2571,9 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e, double sc)
 	}
 	Dirty = false;
 }
+*/
 
-/** Zeichnet das Item */
+/*
 void PageItem::DrawObj_Line(ScPainter *p)
 {
 	if (!Doc->RePos)
@@ -2614,8 +2625,8 @@ void PageItem::DrawObj_Line(ScPainter *p)
 			}
 	}
 }
-
-/** Zeichnet das Item */
+*/
+/*
 void PageItem::DrawObj_Polygon(ScPainter *p)
 {
 	if (!Doc->RePos)
@@ -2624,8 +2635,8 @@ void PageItem::DrawObj_Polygon(ScPainter *p)
 		p->fillPath();
 	}
 }
-
-/** Zeichnet das Item */
+*/
+/*
 void PageItem::DrawObj_PolyLine(ScPainter *p)
 {
 	if (!Doc->RePos && PoLine.size()>=4)
@@ -2737,8 +2748,8 @@ void PageItem::DrawObj_PolyLine(ScPainter *p)
 		}
 	}
 }
-
-/** Zeichnet das Item */
+*/
+/*
 void PageItem::DrawObj_PathText(ScPainter *p, double sc)
 {
 	uint a;
@@ -2915,7 +2926,7 @@ void PageItem::DrawObj_PathText(ScPainter *p, double sc)
 		first = false;
 	}
 }
-
+*/
 
 void PageItem::paintObj(QRect e, QPixmap *ppX)
 {
@@ -3050,7 +3061,7 @@ QString PageItem::ExpandToken(uint base)
 {
 	uint zae = 0;
 	uint za2 = base;
-	QString chx = "#";
+	QString chx("#");
 	if ((!Doc->masterPageMode) && (OwnPage != -1))
 	{
 		do
@@ -3068,7 +3079,7 @@ QString PageItem::ExpandToken(uint base)
 			if (za2+zae == itemText.count())
 				break;
 		}
-		QString out="%1";
+		QString out("%1");
 		QString out2;
 		out2 = out.arg(OwnPage+Doc->FirstPnum, -zae);
 		chx = out2.mid(base-za2, 1);
@@ -4473,8 +4484,8 @@ void PageItem::restoreRotate(SimpleState *state, bool isUndo)
 	}
 	else
 	{
-		mx = x - ox;
-		my = y - oy;
+		mx = -mx;
+		my = -my;
 		ScApp->view->RotateItem(rt, this);
 		ScApp->view->MoveItem(mx, my, this, false);
 		ScApp->view->SizeItem(w, h, this, false, true, true);
@@ -4588,12 +4599,16 @@ void PageItem::restoreCustomLineStyle(SimpleState *state, bool isUndo)
 
 void PageItem::restoreName(SimpleState *state, bool isUndo)
 {
-	QString oldName = state->get("OLD_NAME");
-	QString newName = state->get("NEW_NAME");
 	if (isUndo)
+	{
+		QString oldName = state->get("OLD_NAME");
 		setItemName(oldName);
+	}
 	else
+	{
+		QString newName = state->get("NEW_NAME");
 		setItemName(newName);
+	}
 }
 
 void PageItem::restoreArrow(SimpleState *state, bool isUndo, bool isStart)
@@ -5395,4 +5410,17 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 		pixm.applyEffect(effectsInUse, Doc->PageColors, false);
 	}
 	return true;
+}
+
+
+void PageItem::DrawObj_Item(ScPainter *p)
+{
+}
+
+void PageItem::DrawObj_Item(ScPainter *p, double sc)
+{
+}
+
+void PageItem::DrawObj_Item(ScPainter *p, QRect e, double sc)
+{
 }

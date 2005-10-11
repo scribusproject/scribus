@@ -123,6 +123,12 @@ scribus_SOURCES = \
 	page.cpp	\
 	pageitemattributes.ui	\
 	pageitem.cpp	\
+	pageitem_imageframe.cpp	\
+	pageitem_line.cpp	\
+	pageitem_pathtext.cpp	\
+	pageitem_polygon.cpp	\
+	pageitem_polyline.cpp	\
+	pageitem_textframe.cpp	\
 	pagelayout.cpp	\
 	pageselector.cpp	\
 	pagesize.cpp	\
