@@ -26,7 +26,7 @@ class SCRIBUS_API PageSelector : public QWidget
 public:
 	PageSelector( QWidget* parent, int maxPg );
 	~PageSelector() {};
-	bool focused();
+	bool hasFocus();
 	void focusPolicy(QWidget::FocusPolicy policy);
 
 #if OPTION_USE_QTOOLBUTTON
@@ -50,6 +50,7 @@ public slots:
 	virtual void GotoPg(int);
 	virtual void setMaxValue(int);
 	void languageChange();
+	void clearFocus();
 
 private slots:
 	virtual void GotoPgE(int);

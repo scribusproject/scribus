@@ -134,7 +134,7 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, "pgs
 	connect( Last, SIGNAL( clicked() ), this, SLOT( ToEnd() ) );
 }
 
-bool PageSelector::focused()
+bool PageSelector::hasFocus()
 {
 	return PageCombo->hasFocus();
 }
@@ -239,4 +239,9 @@ void PageSelector::languageChange()
 	disconnect( PageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
 	PageCombo->setEditText( tr( "%1 of %2").arg(APage).arg(LastPG) );
 	connect( PageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
+}
+
+void PageSelector::clearFocus()
+{
+	PageCombo->clearFocus();	
 }

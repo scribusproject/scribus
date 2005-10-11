@@ -2847,6 +2847,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		if (emitToOutline)
 			emit AddObj(SelItem.at(0));
 	}
+	//Make sure the Zoom spinbox and page selector dont have focus if we click on the canvas
+	zoomSpinBox->clearFocus();
+	pageSelector->clearFocus();
 }
 
 void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
