@@ -1597,9 +1597,11 @@ void SEditor::cut()
 void SEditor::paste()
 {
 	emit SideBarUp(false);
-	int p, i;
+	int currentPara, currentCharPos;
 	QString data = "";
-	getCursorPosition(&p, &i);
+	int newParaCount, lengthLastPara;
+	bool inserted=false;
+	getCursorPosition(&currentPara, &currentCharPos);
 	if (ClipData == 1)
 		insStyledText();
 	else
@@ -1610,7 +1612,10 @@ void SEditor::paste()
 		if (!data.isNull())
 		{
 			data.replace(QRegExp("\r"), "");
+			newParaCount=data.contains("\n");
+			lengthLastPara=data.length()-data.findRev("\n");
 			data.replace(QRegExp("\n"), QChar(13));
+			inserted=true;
 			insChars(data);
 			ClipData = 2;
 			emit PasteAvail();
@@ -1622,6 +1627,8 @@ void SEditor::paste()
 		}
 	}
 	updateAll();
+	if (inserted)
+		setCursorPosition(currentPara+newParaCount,(newParaCount==0?currentCharPos:0)+lengthLastPara-1);
 	sync();
 	repaintContents();
 	emit SideBarUp(true);
