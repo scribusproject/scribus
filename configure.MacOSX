@@ -38,6 +38,7 @@ cat > install_MacOSX.sh <<-EOF
 	echo "Mac OSX Scribus bundle installed!"
 	echo "Please check bundle dependencies manually:"
 	echo
+	otool -hv \$BUNDLE_CONTENTS/bin/scribus
 	otool -L \$BUNDLE_CONTENTS/bin/scribus
 EOF
 

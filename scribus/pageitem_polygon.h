@@ -46,6 +46,8 @@ class SCRIBUS_API PageItem_Polygon : public PageItem
 public:
 	PageItem_Polygon(ScribusDoc *pa, double x, double y, double w, double h, double w2, QString fill, QString outline);
 	~PageItem_Polygon() {};
+
+	virtual PageItem_Polygon * asPolygon() { return this; }
 	
 protected:
 	virtual void DrawObj_Item(ScPainter *p);

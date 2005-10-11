@@ -47,6 +47,8 @@ public:
 	PageItem_Line(ScribusDoc *pa, double x, double y, double w, double h, double w2, QString fill, QString outline);
 	~PageItem_Line() {};
 	
+	virtual PageItem_Line * asLine() { return this; }
+	
 protected:
 	virtual void DrawObj_Item(ScPainter *p);
 

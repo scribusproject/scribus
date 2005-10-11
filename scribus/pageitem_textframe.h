@@ -46,7 +46,9 @@ class SCRIBUS_API PageItem_TextFrame : public PageItem
 public:
 	PageItem_TextFrame(ScribusDoc *pa, double x, double y, double w, double h, double w2, QString fill, QString outline);
 	~PageItem_TextFrame() {};
-	
+
+	virtual PageItem_TextFrame * asTextFrame() { return this; }
+
 protected:
 	virtual void DrawObj_Item(ScPainter *p, QRect e, double sc);
 

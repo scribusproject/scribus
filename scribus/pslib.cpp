@@ -299,8 +299,9 @@ void PSLib::PS_begin_doc(int, double x, double y, double breite, double hoehe, i
 
 QString PSLib::PSEncode(QString in)
 {
+	static QRegExp badchars("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]");
 	QString tmp = "";
-	tmp = in.simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" );
+	tmp = in.simplifyWhiteSpace().replace( badchars, "_" );
 	return tmp;
 }
 

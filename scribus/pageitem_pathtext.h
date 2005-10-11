@@ -48,6 +48,8 @@ public:
 	PageItem_PathText(ScribusDoc *pa, double x, double y, double w, double h, double w2, QString fill, QString outline);
 	~PageItem_PathText() {};
 	
+	virtual PageItem_PathText * asPathText() { return this; }
+
 protected:
 	virtual void DrawObj_Item(ScPainter *p, double sc);
 
