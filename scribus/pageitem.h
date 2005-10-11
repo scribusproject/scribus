@@ -35,6 +35,15 @@ class ScribusDoc;
 class UndoManager;
 class UndoState;
 class Foi;
+
+class PageItem;              
+class PageItem_ImageFrame;   
+class PageItem_Line;         
+class PageItem_Polygon;
+class PageItem_PolyLine;
+class PageItem_TextFrame;
+class PageItem_PathText;     
+
 struct CopyPasteBuffer;
 /**
   *@author Franz Schmid
@@ -101,7 +110,7 @@ public:
 
 	/** @brief Item Type
 	 *
-	 * Later, item type will probably go away in favour of using
+	 * Soon, item type will probably go away in favour of using
 	 * subclasses and checking types using more conventional methods
 	 * and using Qt's MetaObject introspection.
 	 */
@@ -115,6 +124,16 @@ public:
 		PolyLine	= 7,
 		PathText	= 8
 	};
+
+	/* these do essentially the same as a dynamic cast but might be more readable */
+	virtual PageItem_ImageFrame * asImageFrame() { return NULL; }
+	virtual PageItem_Line * asLine() { return NULL; }
+	virtual PageItem_PathText * asPathText() { return NULL; }
+	virtual PageItem_Polygon * asPolygon() { return NULL; }
+	virtual PageItem_PolyLine * asPolyLine() { return NULL; }
+	virtual PageItem_TextFrame * asTextFrame() { return NULL; }
+
+
 	/** @brief Frame Type
 	 *
 	 * 
