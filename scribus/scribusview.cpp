@@ -2487,7 +2487,12 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 							MoveItemI(0, (currItem->Height - currItem->OldH2)/currItem->LocalScY, currItem->ItemNr, false);
 						break;
 					}
-					if ((currItem->itemType() == PageItem::TextFrame) && (m->state() & ShiftButton) && (m->state() & ControlButton))
+					//TextFrame resize - Resize text with resize of frame
+					//alt resize, free resize with text scaling
+					//shift alt, square resize with text scaling
+					//control alt, proportional resize with text scaling
+					//if ((currItem->itemType() == PageItem::TextFrame) && (m->state() & ShiftButton) && (m->state() & ControlButton))
+					if ((currItem->itemType() == PageItem::TextFrame) && (m->state() & AltButton))
 					{
 						double scx = currItem->Width / currItem->OldB2;
 						double scy = currItem->Height / currItem->OldH2;
@@ -3331,6 +3336,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 								p.begin(viewport());
 								Transform(currItem, &p);
 								p.translate(qRound(-Doc->minCanvasCoordinate.x()), qRound(-Doc->minCanvasCoordinate.y()));
+								//Shift proportional square resize
 								if ((m->state() & ShiftButton) && (!(m->state() & ControlButton)))
 								{
 									int nX = qRound(m->x()/sc + Doc->minCanvasCoordinate.x());
@@ -3338,6 +3344,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 								}
 								else
 								{
+									//Control proportional resize 
 									if ((m->state() & ControlButton) && (!(m->state() & ShiftButton)))
 									{
 										int nX = qRound(m->x()/sc + Doc->minCanvasCoordinate.x());
@@ -4902,7 +4909,8 @@ void ScribusView::setGroupRect()
 	double miny = 99999.9;
 	double maxx = -99999.9;
 	double maxy = -99999.9;
-	for (uint gc = 0; gc < SelItem.count(); ++gc)
+	uint selectedItemCount=SelItem.count();
+	for (uint gc = 0; gc < selectedItemCount; ++gc)
 	{
 		currItem = SelItem.at(gc);
 		if (currItem->Rot != 0)
