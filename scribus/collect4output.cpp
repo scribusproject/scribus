@@ -56,12 +56,19 @@ QString CollectForOutput::collect()
 {
 	if (!newDirDialog())
 		return "";
+	ScApp->fileWatcher->forceScan();
+	ScApp->fileWatcher->stop();
+	if(outputDirectory.right(1) != "/")
+		outputDirectory += "/";
+	dirs->set("collect", outputDirectory.left(outputDirectory.findRev("/",-2)));
 	ScApp->mainWindowStatusLabel->setText(tr("Collecting..."));
 	if (!collectItems())
 	{
 		QMessageBox::warning(ScApp, tr("Warning"), "<qt>" + tr("Cannot collect all files for output for file:\n%1").arg(newName) + "</qt>", CommonStrings::tr_OK);
 		return "";
 	}
+	if (!collectDocument())
+		return "";
 	collectFonts();
 	if (!collectDocument())
 	{
@@ -83,15 +90,6 @@ QString CollectForOutput::collect()
 
 bool CollectForOutput::collectDocument()
 {
-	if (outputDirectory.isEmpty())
-		return false;
-
-	ScApp->fileWatcher->forceScan();
-	ScApp->fileWatcher->stop();
-	if(outputDirectory.right(1) != "/")
-		outputDirectory += "/";
-	dirs->set("collect", outputDirectory.left(outputDirectory.findRev("/",-2)));
-
 	QFileInfo fi = QFileInfo(outputDirectory);
 	newName = outputDirectory;
 	if (!fi.exists())
