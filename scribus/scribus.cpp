@@ -1327,7 +1327,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 		return;
 	}
 	ButtonState buttonState = k->state();
-	if ((HaveDoc) && (!view->zoomSpinBox->hasFocus()) && (!view->pageSelector->focused()))
+	if ((HaveDoc) && (!view->zoomSpinBox->hasFocus()) && (!view->pageSelector->hasFocus()))
 	{
 		if ((doc->appMode != modeEdit) && (view->SelItem.count() == 0))
 		{
@@ -2156,7 +2156,7 @@ void ScribusApp::keyReleaseEvent(QKeyEvent *k)
 		case Key_Up:
 		case Key_Down:
 			_arrowKeyDown = false;
-			if ((HaveDoc) && (!view->zoomSpinBox->hasFocus()) && (!view->pageSelector->focused()))
+			if ((HaveDoc) && (!view->zoomSpinBox->hasFocus()) && (!view->pageSelector->hasFocus()))
 			{
 				if ((view->SelItem.count() != 0) && (doc->appMode == modeNormal) && (doc->EditClip) && (view->ClRe != -1))
 					view->updateContents();
