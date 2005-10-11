@@ -35,8 +35,6 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 	// whatif selection settings
 	FPoint SelectionTopLeft = FPoint(0, 0);
 	FPoint SelectionBottomRight = FPoint(0, 0);
-	FPoint MarginTopLeft(ScApp->doc->pageMargins.Top, ScApp->doc->pageMargins.Bottom);
-	FPoint MarginBottomRight(ScApp->doc->pageMargins.Left, ScApp->doc->pageMargins.Right);
 
 	if (ScApp->view->SelItem.count() > 1)
 	{
@@ -52,6 +50,15 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 							   currItem->BoundingY - ScApp->doc->ScratchTop);
 		SelectionBottomRight.setXY(currItem->BoundingW, currItem->BoundingH);
 	}
+	bool selected = true;
+	if (SelectionBottomRight != FPoint(0, 0))
+	{
+		gy = SelectionTopLeft.y();
+		gx = SelectionTopLeft.x();
+		gw = SelectionBottomRight.x();
+		gh = SelectionBottomRight.y();
+	}
+	else selected = false;
 
 	QString tmp;
 	setCaption( tr("Manage Guides"));
@@ -64,25 +71,33 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 
 	horizontalGuides = ScApp->doc->currentPage->YGuides; // in page XGuides and YGuides are inverted
 	verticalGuides = ScApp->doc->currentPage->XGuides;
-	LocPageWidth = ScApp->doc->currentPage->width();
-	LocPageHeight = ScApp->doc->currentPage->height();
+	locPageWidth = ScApp->doc->currentPage->width();
+	locPageHeight = ScApp->doc->currentPage->height();
 	lockedGuides = ScApp->doc->GuideLock;
 
-	LocLeft = MarginTopLeft.x();
-	LocTop = MarginTopLeft.y();
-	LocRight = MarginBottomRight.x();
-	LocBottom = MarginBottomRight.y();
-
-	bool selected = true;
-
-	if (SelectionBottomRight != FPoint(0, 0))
+	locTop = ScApp->doc->pageMargins.Top;
+	locBottom = ScApp->doc->pageMargins.Bottom;
+	// left or right page? See ScribusView::reformPages(bool moveObjects) as example
+	// TODO: #2711
+	int counter = ScApp->doc->pageSets[ScApp->doc->currentPageLayout].FirstPage;
+	for (uint i = 0; i < ScApp->doc->currentPage->pageNr(); ++i)
 	{
-		gy = SelectionTopLeft.y();
-		gx = SelectionTopLeft.x();
-		gw = SelectionBottomRight.x();
-		gh = SelectionBottomRight.y();
+		++counter;
+		if (counter >= ScApp->doc->pageSets[ScApp->doc->currentPageLayout].Columns)
+			counter = 0;
 	}
-	else selected=false;
+	locLeft = ScApp->doc->pageMargins.Left;
+	locRight = ScApp->doc->pageMargins.Left;
+	if (counter == 0)
+	{
+		locLeft = ScApp->doc->pageMargins.Right;
+		locRight = ScApp->doc->pageMargins.Left;
+	}
+	if (counter == ScApp->doc->pageSets[ScApp->doc->currentPageLayout].Columns-1)
+	{
+		locRight = ScApp->doc->pageMargins.Right;
+		locLeft = ScApp->doc->pageMargins.Left;
+	}
 
 	selHor = selVer = -1;
 
@@ -108,7 +123,7 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 	TextLabel2 = new QLabel( tr("&Y-Pos:"), HorGroup, "TextLabel2");
 	Layout4->addWidget(TextLabel2);
 
-	HorSpin = new MSpinBox(0, LocPageHeight, HorGroup, 4);
+	HorSpin = new MSpinBox(0, locPageHeight, HorGroup, 4);
 	HorSpin->setDecimals(decimals);
 	TextLabel2->setBuddy(HorSpin);
 	Layout4->addWidget(HorSpin);
@@ -146,7 +161,7 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 	TextLabel1 = new QLabel( tr("&X-Pos:"), VerGroup, "TextLabel1");
 	Layout2->addWidget(TextLabel1);
 
-	VerSpin = new MSpinBox(0, LocPageWidth, VerGroup, 4);
+	VerSpin = new MSpinBox(0, locPageWidth, VerGroup, 4);
 	VerSpin->setDecimals(decimals);
 	TextLabel1->setBuddy(VerSpin);
 	Layout2->addWidget(VerSpin);
@@ -363,30 +378,30 @@ QValueList<double> GuideManager::getRowValues()
 {
 	int n = QString(RowSpin->text()).toInt();
 	double offset = 0;
-	double NewPageHeight = LocPageHeight;
+	double newPageHeight = locPageHeight;
 
 	if (BGroup->selectedId() == 1)
 	{
-		NewPageHeight = LocPageHeight - LocTop - LocBottom;
-		offset = LocTop;
+		newPageHeight = locPageHeight - locTop - locBottom;
+		offset = locTop;
 	}
 	else if (BGroup->selectedId() == 2)
 	{
 		offset = gy;
-		NewPageHeight = gh;
+		newPageHeight = gh;
 	}
 
-	double spacing = NewPageHeight / n;
+	double spacing = newPageHeight / n;
 	QValueList<double> values;
 	for (int i = 1; i < n; ++i)
 	{
 		if (useRowGap->isChecked())
 		{
-			values.append(offset + spacing * i + rowGap->value() / 2);
-			values.append(offset + spacing * i - rowGap->value() / 2);
+			values.append(offset + (spacing * i) + (rowGap->value() / 2));
+			values.append(offset + (spacing * i) - (rowGap->value() / 2));
 		}
 		else
-			values.append(offset + spacing * i);
+			values.append(offset + (spacing * i));
 	}
 	return values;
 }
@@ -395,20 +410,20 @@ QValueList<double> GuideManager::getColValues()
 {
 	int n = QString(ColSpin->text()).toInt();
 	double offset = 0;
-	double NewPageWidth = LocPageWidth;
+	double newPageWidth = locPageWidth;
 
 	if (BGroup->selectedId() == 1)
 	{
-		NewPageWidth = LocPageWidth - LocLeft - LocRight;
-		offset = LocLeft;
+		newPageWidth = locPageWidth - locLeft - locRight;
+		offset = locLeft;
 	}
 	else if (BGroup->selectedId() == 2)
 	{
 		offset = gx;
-		NewPageWidth = gw;
+		newPageWidth = gw;
 	}
 
-	double spacing = NewPageWidth / n;
+	double spacing = newPageWidth / n;
 	QValueList<double> values;
 	for (int i = 1; i < n; ++i)
 	{
