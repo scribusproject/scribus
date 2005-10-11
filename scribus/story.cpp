@@ -1327,7 +1327,7 @@ void SEditor::updateAll()
 	setStyle(Csty);
 	insert(Text);
 	setUpdatesEnabled(true);
-	setCursorPosition(p, i);
+	//CB Removed to fix 2083 setCursorPosition(p, i);
 }
 
 void SEditor::updateFromChars(int pa)
