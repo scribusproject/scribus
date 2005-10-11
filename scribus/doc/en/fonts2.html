@@ -35,9 +35,21 @@ Scribus does an initial "self-defense" test when starting to see if the availabl
 
 <p>Do not be surprised when shareware or clone TrueType fonts downloaded from the Internet disappoint when printed. Sometimes shareware TrueType fonts do not follow proper the proper encoding specs, so they are unreliable in a PostScript environment. Making good reliable fonts in the PostScript sense is not easy and requires extensive QA testing. An example: Verdana from the MS web font collection took almost a year to create.</p>
 
-<p>Also, do not be put off by the lack of a great screen preview with the URW fonts - they are excellent printer fonts. Font faces like Palladio and Utopia for example, are not really attractive on screen, but they are excellent fonts for easy to read printed documents. There is a reason service bureaus and printers spend literally thousands of dollars for high quality font libraries. </p>
+<p>Also, do not be put off by the lack of a great screen preview with the URW fonts - they are excellent printer fonts. Font faces like Palladio and Utopia for example, are not really attractive on screen, but they are excellent fonts for easy to read printed documents. There is a reason service bureaus and printers spend literally thousands of dollars for high quality font libraries.  </p>
+<h4>Managing Fonts on Linux</h4>
 
-<p>On Linux, installation, if you use <code>$home/.fonts</code> directory for adding fonts, Scribus should find them just fine. For those leery of messing around with the command line tools for font installation, KDE 3.2+ includes an improved version of Keith Drummond's kfontinstaller program. The one in KDE 3.3+ works superbly and you can even preview fonts within Konqueror. In my opinion, it is one of the most user friendly font installers I have seen on any platform. It also automatically will create Ghostscript Fontmap files for use with GSview and Ghostscript. Highly recommended. </p>
+<p>On Linux, installation, if you use <code>$home/.fonts</code> directory for adding fonts, Scribus should find them just fine. For those leery of messing around with the command line tools for font installation, KDE 3.2+ includes an improved version of Keith Drummond's kfontinstaller program. The one in KDE 3.3+ works superbly and you can even preview fonts within Konqueror. In my opinion, it is one of the most user friendly font installers I have seen on any platform. It also automatically will create Ghostscript Fontmap files for use with GSview and Ghostscript. <strong>Highly recommended.</strong> </p>
+
+
+<table width="100%"><tr><td align="center"><img src="images/kfontinstaller2.png" alt="A correct listing of font metadata" title="A correct listing of font metadata" /></td></tr></table>
+
+<h4><em>But I do not have KDE ?</em></h4>
+<p>You do not need to run KDE running, just have the <em>kdebase</em> package installed. From a console (with kdebase installed) :</p>
+
+<pre>kcmshell kcmfontinst</pre>
+
+
+
 
 <p>Scribus also makes it easy to add additional font paths. Simply, close all documents, then select Settings > Fonts > Additional Paths. Select the new path and click OK. If fonts, still do not show up, you may need to add these to either your <code>$home/.fonts.conf</code> file or other method depending on your distribution. If some still fail to show up, it is possibly Scribus's font checking mechanism has disabled them. You can make some basic checks by following the hints in: <a href="fonts4.html">Basic Font Tests</a> </p>
 </qt>
