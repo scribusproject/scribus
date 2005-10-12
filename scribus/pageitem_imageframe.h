@@ -50,6 +50,8 @@ public:
 
 	virtual PageItem_ImageFrame * asImageFrame() { return this; }
 	
+	virtual void clearContents();
+	
 protected:
 	virtual void DrawObj_Item(ScPainter *p, double sc);
 

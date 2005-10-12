@@ -91,7 +91,9 @@ class SplashScreen;
 class ScribusWin;
 
 class ScribusApp;
+class ScribusQApp;
 
+extern ScribusQApp* ScQApp;
 extern ScribusApp* ScApp;
 
 

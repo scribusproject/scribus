@@ -8309,10 +8309,38 @@ void ScribusView::ClearItem()
 	if (SelItem.count() != 0)
 	{
 		PageItem *currItem;
-		for (uint i = 0; i < SelItem.count(); ++i)
+		uint selectedItemCount=SelItem.count();
+		for (uint i = 0; i < selectedItemCount; ++i)
 		{
 			currItem = SelItem.at(i);
-			if ((currItem->asImageFrame()) || (currItem->asTextFrame()))
+			if (currItem->asImageFrame())
+			{
+				if (ScApp->fileWatcher->files().contains(currItem->Pfile) != 0 && currItem->PicAvail)
+					ScApp->fileWatcher->removeFile(currItem->Pfile);
+			}
+			else
+			if (currItem->asTextFrame())
+			{
+				if (currItem->itemText.count() != 0 && (currItem->NextBox == 0 || currItem->BackBox == 0))
+				{
+					int t = QMessageBox::warning(this, CommonStrings::trWarning,
+										tr("Do you really want to clear all your text?"),
+										QMessageBox::No, QMessageBox::Yes, QMessageBox::NoButton);
+					if (t == QMessageBox::No)
+						continue;
+				}
+			}
+			currItem->clearContents();
+		}
+		uint frameItemCount=Doc->FrameItems.count();
+		for (uint i = 0; i < frameItemCount; ++i)
+		{
+			Doc->FrameItems.at(i)->ItemNr = i;
+		}
+		updateContents();
+		emit DocChanged();
+			/*
+			if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame))
 			{
 				if (currItem->asTextFrame())
 				{
@@ -8369,16 +8397,10 @@ void ScribusView::ClearItem()
 					currItem->setFillTransparency(0.0);
 					currItem->setLineTransparency(0.0);
 					currItem->imageClip.resize(0);
-	/*				emit UpdtObj(Doc->currentPage->pageNr(), currItem->ItemNr); */
+					//	emit UpdtObj(Doc->currentPage->pageNr(), currItem->ItemNr); 
 				}
-				for (uint a = 0; a < Doc->FrameItems.count(); ++a)
-				{
-					Doc->FrameItems.at(a)->ItemNr = a;
-				}
-				updateContents();
-				emit DocChanged();
 			}
-		}
+		}*/
 	}
 }
 

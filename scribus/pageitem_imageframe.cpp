@@ -113,3 +113,28 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, double sc)
 		}
 	}
 }
+
+void PageItem_ImageFrame::clearContents()
+{
+	Pfile = "";
+	PicAvail = false;
+	pixm = ScImage();
+	
+	LocalScX = 1;
+	LocalScY = 1;
+	OrigW = 0;
+	OrigH = 0;
+	LocalX = 0;
+	LocalY = 0;
+	setImageFlippedH(false);
+	setImageFlippedV(false);
+	textAlignment = 0;
+	EmProfile = "";
+	ScaleType = true;
+	AspectRatio = true;
+	setFillTransparency(0.0);
+	setLineTransparency(0.0);
+	imageClip.resize(0);
+	//				emit UpdtObj(Doc->currentPage->pageNr(), ItemNr); 
+}
+

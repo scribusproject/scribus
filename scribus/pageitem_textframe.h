@@ -49,6 +49,8 @@ public:
 	~PageItem_TextFrame() {};
 
 	virtual PageItem_TextFrame * asTextFrame() { return this; }
+	
+	virtual void clearContents();
 
 protected:
 	virtual void DrawObj_Item(ScPainter *p, QRect e, double sc);

@@ -184,7 +184,15 @@ public:
 				QString Farb2;
 				Foi* ZFo;
 				PageItem* embedded;
-			  };
+			};
+	/**
+	 * @brief Clear the contents of a frame.
+	 * WARNING: Currently *they* do not check if the user wants this.
+	 * The view does when these are called.
+	 */	
+	virtual void clearContents() {};
+			
+			
 
 	ObjAttrVector* getObjectAttributes();
 	/*!

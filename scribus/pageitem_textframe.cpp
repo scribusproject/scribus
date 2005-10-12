@@ -1970,3 +1970,30 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 	}
 	Dirty = false;
 }
+
+void PageItem_TextFrame::clearContents()
+{
+	//FIXME use PageItem_TextFrame pointers
+	PageItem *nextItem = this;
+	while (nextItem != 0)
+	{
+		if (nextItem->BackBox != 0)
+			nextItem = nextItem->BackBox;
+		else
+			break;
+	}
+	while (nextItem != 0)
+	{
+		for (ScText *it = nextItem->itemText.first(); it != 0; it = nextItem->itemText.next())
+		{
+			if ((it->ch == QChar(25)) && (it->cembedded != 0))
+			{
+				Doc->FrameItems.remove(it->cembedded);
+				delete it->cembedded;
+			}
+		}
+		nextItem->itemText.clear();
+		nextItem->CPos = 0;
+		nextItem = nextItem->NextBox;
+	}
+}
