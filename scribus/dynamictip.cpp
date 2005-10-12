@@ -65,10 +65,10 @@ void DynamicTip::maybeTip( const QPoint &pos )
 		QTableItem* ite = table->item(row, col);
 		if (ite == 0)
 			return;
-		SeItem* it = (SeItem*)ite;
-		QString tipString = it->pageName;
 		QRect cr = table->cellGeometry( row, col );
 		cr.moveTopLeft( table->contentsToViewport( cr.topLeft() ) );
+		SeItem* it = (SeItem*)ite;
+		QString tipString = it->getPageName();
 		tip( cr, tipString );
 	}
 }
