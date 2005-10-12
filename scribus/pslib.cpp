@@ -23,10 +23,9 @@
 #include <cstdlib>
 #include <qregexp.h>
 
+#include "pslib.h"
 #include "scconfig.h"
 #include "pluginapi.h"
-
-#include "pslib.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "scfonts.h"
@@ -1050,7 +1049,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 							continue;
 						if ((it->OwnPage != static_cast<int>(Doc->MasterPages.at(ap)->pageNr())) && (it->OwnPage != -1))
 							continue;
-						if ((it->itemType() == PageItem::ImageFrame) && (it->PicAvail) && (!it->Pfile.isEmpty()) && (it->printable()) && (!sep) && (farb))
+						if ((it->asImageFrame()) && (it->PicAvail) && (!it->Pfile.isEmpty()) && (it->printable()) && (!sep) && (farb))
 							PS_ImageData(it, it->Pfile, it->itemName(), it->IProfile, it->UseEmbedded, Ic);
 						PS_TemplateStart(Doc->MasterPages.at(ap)->PageNam + tmps.setNum(it->ItemNr));
 						ProcessItem(Doc, Doc->MasterPages.at(ap), it, ap+1, sep, farb, Ic, gcr, true);
@@ -1125,9 +1124,9 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 							PageItem *ite = Doc->Pages.at(a)->FromMaster.at(am);
 							if ((ite->LayerNr != ll.LNr) || (!ite->printable()))
 								continue;
-							if ((ite->itemType() != PageItem::TextFrame) && (ite->itemType() != PageItem::ImageFrame))
+							if (!(ite->asTextFrame()) && !(ite->asImageFrame()))
 								PS_UseTemplate(Doc->Pages.at(a)->MPageNam + tmps.setNum(ite->ItemNr));
-							else if (ite->itemType() == PageItem::ImageFrame)
+							else if (ite->asImageFrame())
 							{
 								PS_save();
 								PS_translate(ite->Xpos - mPage->xOffset(), mPage->height() -(ite->Ypos) - mPage->yOffset());
@@ -1200,7 +1199,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 								}
 								PS_restore();
 							}
-							else if (ite->itemType() == PageItem::TextFrame)
+							else if (ite->asTextFrame())
 							{
 								PS_save();
 								if (ite->fillColor() != "None")
@@ -1829,9 +1828,9 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, b
 				c = PItems.at(b);
 				if (c->LayerNr != ll.LNr)
 					continue;
-				if ((!a->PageNam.isEmpty()) && (c->itemType() == PageItem::TextFrame))
+				if ((!a->PageNam.isEmpty()) && (c->asTextFrame()))
 					continue;
-				if ((!a->PageNam.isEmpty()) && (c->itemType() == PageItem::ImageFrame) && ((sep) || (!farb)))
+				if ((!a->PageNam.isEmpty()) && (c->asImageFrame()) && ((sep) || (!farb)))
 					continue;
 				if ((!Art) && (view->SelItem.count() != 0) && (!c->Select))
 					continue;
@@ -1857,9 +1856,9 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, b
 			c = PItems.at(b);
 			if (c->LayerNr != ll.LNr)
 				continue;
-			if ((!a->PageNam.isEmpty()) && (c->itemType() == PageItem::TextFrame))
+			if ((!a->PageNam.isEmpty()) && (c->asTextFrame()))
 				continue;
-			if ((!a->PageNam.isEmpty()) && (c->itemType() == PageItem::ImageFrame) && ((sep) || (!farb)))
+			if ((!a->PageNam.isEmpty()) && (c->asImageFrame()) && ((sep) || (!farb)))
 				continue;
 			int x = static_cast<int>(a->xOffset());
 			int y = static_cast<int>(a->yOffset());

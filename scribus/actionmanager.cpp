@@ -755,7 +755,7 @@ void ActionManager::setPDFActions(ScribusView *currView)
 	disconnect( (*scrActions)["itemPDFIsBookmark"], 0, 0, 0);
 	disconnect( (*scrActions)["itemPDFIsAnnotation"], 0, 0, 0);
 
-	if (currItem->itemType()!=PageItem::TextFrame)
+	if (!currItem->asTextFrame())
 	{
 		(*scrActions)["itemPDFIsAnnotation"]->setEnabled(false);
 		(*scrActions)["itemPDFIsBookmark"]->setEnabled(false);

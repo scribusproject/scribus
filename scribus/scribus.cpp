@@ -1533,7 +1533,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 			case modeEdit:
 				int oldPos = currItem->CPos; // 15-mar-2004 jjsa for cursor movement with Shift + Arrow key
 				view->oldCp = currItem->CPos;
-				if (currItem->itemType() == PageItem::ImageFrame)
+				if (currItem->asImageFrame())
 				{
 					switch (kk)
 					{
@@ -2922,7 +2922,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["itemPreviewNormal"]->setOn(false);
 		scrActions["itemPreviewFull"]->setOn(false);
 	}
-	if ((Nr==-1) || (Nr!=-1 && currItem->itemType()!=PageItem::TextFrame))
+	if ((Nr==-1) || (Nr!=-1 && !currItem->asTextFrame()))
 		actionManager->enableUnicodeActions(false);
 	scrActions["insertSampleText"]->setEnabled(false);
 
@@ -3051,7 +3051,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			setTBvals(currItem);
 			scrActions["editSelectAll"]->setEnabled(true);
 			scrActions["insertGlyph"]->setEnabled(true);
-			if (currItem->itemType()==PageItem::TextFrame)
+			if (currItem->asTextFrame())
 				actionManager->enableUnicodeActions(true);
 			view->horizRuler->setItemPosition(currItem->Xpos, currItem->Width);
 			if (currItem->lineColor() != "None")
@@ -3233,7 +3233,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			firstElem = currItem->Groups.top();
 		for (uint bx=0; bx<view->SelItem.count(); ++bx)
 		{
-			if (view->SelItem.at(bx)->itemType() != PageItem::Polygon)
+			if (!view->SelItem.at(bx)->asPolygon())
 				hPoly = false;
 			if (view->SelItem.at(bx)->Groups.count() != 0)
 			{
@@ -3274,7 +3274,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		else
 		{
 			scrActions["itemUngroup"]->setEnabled(false);
-			scrActions["itemSplitPolygons"]->setEnabled( (currItem->itemType() == PageItem::Polygon) && (currItem->Segments.count() != 0) );
+			scrActions["itemSplitPolygons"]->setEnabled( (currItem->asPolygon()) && (currItem->Segments.count() != 0) );
 		}
 		if (currItem->locked())
 		{
@@ -3654,7 +3654,7 @@ bool ScribusApp::loadPage(QString fileName, int Nr, bool Mpa)
 		for (uint i = oldItemsCount; i < docItemsCount; ++i)
 		{
 			PageItem *ite = doc->Items.at(i);
-			if ((ite->itemType() == PageItem::TextFrame) && (ite->isBookmark))
+			if ((ite->asTextFrame()) && (ite->isBookmark))
 				bookmarkPalette->BView->AddPageItem(ite);
 		}
 		propertiesPalette->updateColorList();
@@ -3994,9 +3994,9 @@ bool ScribusApp::loadDoc(QString fileName)
 			// TODO fix that for Groups on Masterpages
 //			if (ite->Groups.count() != 0)
 //				view->GroupOnPage(ite);
-			if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText))
+			if ((ite->asTextFrame()) || (ite->asPathText()))
 			{
-				if (ite->itemType() == PageItem::PathText)
+				if (ite->asPathText())
 				{
 					ite->Frame = false;
 					view->UpdatePolyClip(ite);
@@ -4205,7 +4205,7 @@ void ScribusApp::slotFileOpen()
 				//slotDocCh(); view->LoadPict does this now.
 			}
 		}
-		if (currItem->itemType() == PageItem::TextFrame)
+		if (currItem->asTextFrame())
 		{
 			gtGetText* gt = new gtGetText();
 			gt->run(false);
@@ -4769,7 +4769,7 @@ void ScribusApp::slotEditCut()
 		for (uint i = 0; i < view->SelItem.count(); ++i)
 		{
 			currItem=view->SelItem.at(i);
-			if ((currItem->itemType()==PageItem::TextFrame || currItem->itemType()==PageItem::PathText) && currItem==ScApp->storyEditor->currentItem() && doc==ScApp->storyEditor->currentDocument())
+			if ((currItem->asTextFrame() || currItem->asPathText()) && currItem==ScApp->storyEditor->currentItem() && doc==ScApp->storyEditor->currentDocument())
 			{
 					QMessageBox::critical(ScApp, tr("Cannot Cut In-Use Item"), tr("The item %1 is currently being edited by Story Editor. The cut operation will be cancelled").arg(currItem->itemName()), QMessageBox::Ok, QMessageBox::NoButton, QMessageBox::NoButton);
 					return;
@@ -5646,7 +5646,7 @@ void ScribusApp::TogglePics()
 	doc->guidesSettings.showPic = !doc->guidesSettings.showPic;
 	for (uint b=0; b<doc->Items.count(); ++b)
 	{
-		if (doc->Items.at(b)->itemType() == PageItem::ImageFrame)
+		if (doc->Items.at(b)->asImageFrame())
 			doc->Items.at(b)->PicArt = doc->guidesSettings.showPic;
 	}
 	view->DrawNew();
@@ -5953,7 +5953,7 @@ void ScribusApp::setAppMode(int mode)
 			}
 			scrActions["editPaste"]->setEnabled(false);
 			scrActions["insertGlyph"]->setEnabled(true);
-			if (currItem!=NULL && currItem->itemType()==PageItem::TextFrame)
+			if (currItem!=NULL && currItem->asTextFrame())
 				actionManager->enableUnicodeActions(true);
 			if (!Buffer2.isNull())
 			{
@@ -6655,7 +6655,7 @@ void ScribusApp::setCSMenu(QString , QString l, int  , int ls)
 	if (view->SelItem.count() != 0)
 	{
 		currItem = view->SelItem.at(0);
-		if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::PathText))
+		if ((currItem->asTextFrame()) || (currItem->asPathText()))
 		{
 			if ((doc->appMode == modeEdit) && (currItem->itemText.count() != 0))
 			{
@@ -6889,7 +6889,7 @@ void ScribusApp::saveStyles(StilFormate *dia)
 					ite = doc->FrameItems.at(d);
 					break;
 			}
-			if (ite->itemType() == PageItem::TextFrame)
+			if (ite->asTextFrame())
 			{
 				for (uint e=0; e<ite->itemText.count(); ++e)
 				{
@@ -7146,7 +7146,7 @@ void ScribusApp::slotEditColors()
 					for (c=0; c<doc->DocItems.count(); ++c)
 					{
 						ite = doc->DocItems.at(c);
-						if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText))
+						if ((ite->asTextFrame()) || (ite->asPathText()))
 						{
 							for (d=0; d<ite->itemText.count(); ++d)
 							{
@@ -7185,7 +7185,7 @@ void ScribusApp::slotEditColors()
 					for (c=0; c<doc->FrameItems.count(); ++c)
 					{
 						ite = doc->FrameItems.at(c);
-						if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText))
+						if ((ite->asTextFrame()) || (ite->asPathText()))
 						{
 							for (d=0; d<ite->itemText.count(); ++d)
 							{
@@ -9151,7 +9151,7 @@ void ScribusApp::HaveRaster(bool art)
 	if (art && view->SelItem.count() != 0)
 	{
 		PageItem *currItem = view->SelItem.at(0);
-		if (currItem->itemType() == PageItem::ImageFrame)
+		if (currItem->asImageFrame())
 		{
 			scrMenuMgr->clearMenu("Style");
 			scrMenuMgr->addMenuToMenu("Color","Style");
@@ -9304,7 +9304,7 @@ void ScribusApp::slotCharSelect()
 	if ((HaveDoc) && (view->SelItem.count() != 0))
 	{
 		PageItem *currItem = view->SelItem.at(0);
-		if ((currItem->itemType() == PageItem::TextFrame) && (doc->appMode == modeEdit))
+		if ((currItem->asTextFrame()) && (doc->appMode == modeEdit))
 		{
 			CharSelect *dia = new CharSelect(this, currItem);
 			dia->exec();
@@ -9424,7 +9424,7 @@ void ScribusApp::mouseReleaseEvent(QMouseEvent *m)
 					if (view->SelItem.at(i)!=NULL)
 					{
 						PageItem *currItem=view->SelItem.at(i);
-						if ((m->stateAfter() & Qt::ControlButton) && (currItem->itemType() == PageItem::TextFrame || currItem->itemType() == PageItem::PathText))
+						if ((m->stateAfter() & Qt::ControlButton) && (currItem->asTextFrame() || currItem->asPathText()))
 							view->ItemTextBrush(colorName); //Text colour
 						else
 						if (m->stateAfter() & Qt::AltButton) //Line colour

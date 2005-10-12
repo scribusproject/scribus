@@ -363,7 +363,7 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 	ob->setAttribute("TEXTRA",item->TExtra);
 	ob->setAttribute("BEXTRA",item->BExtra);
 	ob->setAttribute("REXTRA",item->RExtra);
-	if (((item->itemType() == PageItem::ImageFrame) || (item->itemType() == PageItem::TextFrame)) && (!item->Pfile.isEmpty()))
+	if (((item->asImageFrame()) || (item->asTextFrame())) && (!item->Pfile.isEmpty()))
 		ob->setAttribute("PFILE",Path2Relative(item->Pfile));
 	else
 		ob->setAttribute("PFILE","");
@@ -2292,7 +2292,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 				vg.kernVal = doc->docParagraphStyles[item->textAlignment].kernVal;
 				UsedStyles[item->textAlignment] = vg;
 			}
-			if (((item->itemType() == PageItem::TextFrame) || (item->itemType() == PageItem::PathText)) && (item->itemText.count() != 0))
+			if (((item->asTextFrame()) || (item->asPathText())) && (item->itemText.count() != 0))
 			{
 				for (uint tx = 0; tx < item->itemText.count(); ++tx)
 				{

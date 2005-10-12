@@ -45,6 +45,7 @@ class SCRIBUS_API PageItem_PolyLine : public PageItem
 
 public:
 	PageItem_PolyLine(ScribusDoc *pa, double x, double y, double w, double h, double w2, QString fill, QString outline);
+	PageItem_PolyLine(const PageItem & p) : PageItem(p) {}
 	~PageItem_PolyLine() {};
 	
 	virtual PageItem_PolyLine * asPolyLine() { return this; }

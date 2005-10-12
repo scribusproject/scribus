@@ -665,7 +665,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 				ss->GetText(ite, AbsStyle, Doku->toolSettings.defFont, FontSize*10, firstPa);
 				delete ss;
 				firstPa = true;
-				if (ite->itemType() != PageItem::PolyLine)
+				if (! ite->asPolyLine())
 					ite->convertTo(PageItem::TextFrame);
 			}
 			ite->setFillTransparency(FillTrans);

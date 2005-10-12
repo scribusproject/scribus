@@ -201,7 +201,7 @@ void LoremManager::insertLoremIpsum(QString name, int paraCount)
 	{
 		if (ScApp->view->SelItem.at(i) == NULL)
 			continue;
-		if (ScApp->view->SelItem.at(i)->itemType() != PageItem::TextFrame)
+		if (! ScApp->view->SelItem.at(i)->asTextFrame())
 			continue;
 		if (ScApp->view->SelItem.at(i)->itemText.count() != 0)
 		{

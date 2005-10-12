@@ -45,6 +45,7 @@ class SCRIBUS_API PageItem_Line : public PageItem
 
 public:
 	PageItem_Line(ScribusDoc *pa, double x, double y, double w, double h, double w2, QString fill, QString outline);
+	PageItem_Line(const PageItem & p) : PageItem(p) {}
 	~PageItem_Line() {};
 	
 	virtual PageItem_Line * asLine() { return this; }

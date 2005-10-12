@@ -933,7 +933,7 @@ void Mpalette::SetCurItem(PageItem *i)
 		SCustom->setPixmap(SCustom->getIconPixmap(1));
 	if (i->FrameType > 3)
 		SCustom->setPixmap(SCustom->getIconPixmap(i->FrameType-2));
-	if ((i->itemType() == PageItem::Line) || (i->itemType() == PageItem::PolyLine))
+	if ((i->asLine()) || (i->asPolyLine()))
 	{
 		startArrow->setEnabled(true);
 		endArrow->setEnabled(true);
@@ -1035,7 +1035,7 @@ void Mpalette::SetCurItem(PageItem *i)
 		Width->setReadOnly(setter);
 		Height->setReadOnly(setter);
 	}
-	if (i->itemType() == PageItem::PathText)
+	if (i->asPathText())
 	{
 		TabStack2->raiseWidget(1);
 		showcurveCheckBox->setChecked(i->PoShow);
@@ -1046,11 +1046,11 @@ void Mpalette::SetCurItem(PageItem *i)
 		TabStack2->raiseWidget(0);
 	// Frame type 3 is obsolete: CR 2005-02-06
 	//if (((i->itemType() == PageItem::TextFrame) || (i->itemType() == PageItem::ImageFrame) || (i->itemType() == 3)) &&  (!i->ClipEdited))
-	if (((i->itemType() == PageItem::TextFrame) || (i->itemType() == PageItem::ImageFrame)) &&  (!i->ClipEdited))
+	if (((i->asTextFrame()) || (i->asImageFrame())) &&  (!i->ClipEdited))
 		RoundRect->setEnabled(true);
 	else
 	{
-		if ((i->itemType() == PageItem::Polygon) && ((i->FrameType == 0) || (i->FrameType == 2)))
+		if ((i->asPolygon()) && ((i->FrameType == 0) || (i->FrameType == 2)))
 			RoundRect->setEnabled(true);
 		else
 			RoundRect->setEnabled(false);
@@ -1070,7 +1070,7 @@ void Mpalette::SetCurItem(PageItem *i)
 		Rot->setEnabled(true);
 	}
 	HaveItem = true;
-	if (i->itemType() == PageItem::Line)
+	if (i->asLine())
 	{
 		keepFrameWHRatioButton->setEnabled(false);
 		if (LMode && !i->locked())
@@ -1082,7 +1082,7 @@ void Mpalette::SetCurItem(PageItem *i)
 	{
 		Height->setEnabled(true);
 		keepFrameWHRatioButton->setEnabled(true);
-		if (i->itemType() == PageItem::ImageFrame)
+		if (i->asImageFrame())
 		{
 			updateCmsList();
 			setter = i->ScaleType;
@@ -1454,7 +1454,7 @@ void Mpalette::setBH(double x, double y)
 	HaveItem = false;
 	QWMatrix ma;
 	QPoint dp;
-	if ((LMode) && (CurItem->itemType() == PageItem::Line))
+	if ((LMode) && (CurItem->asLine()))
 	{
 		ma.translate(static_cast<double>(Xpos->value()) / Umrech, static_cast<double>(Ypos->value()) / Umrech);
 		ma.rotate(static_cast<double>(Rot->value())*(-1));
@@ -1851,7 +1851,7 @@ void Mpalette::NewX()
 		}
 		else
 		{
-			if ((CurItem->itemType() == PageItem::Line) && (LMode))
+			if ((CurItem->asLine()) && (LMode))
 			{
 				double r = atan2(h-y,w-x)*(180.0/M_PI);
 				w = sqrt(pow(w-x,2)+pow(h-y,2));
@@ -1913,7 +1913,7 @@ void Mpalette::NewY()
 		}
 		else
 		{
-			if ((CurItem->itemType() == PageItem::Line) && (LMode))
+			if ((CurItem->asLine()) && (LMode))
 			{
 				double r = atan2(h-y,w-x)*(180.0/M_PI);
 				w = sqrt(pow(w-x,2)+pow(h-y,2));
@@ -1972,7 +1972,7 @@ void Mpalette::NewW()
 		{
 			CurItem->OldB2 = CurItem->Width;
 			CurItem->OldH2 = CurItem->Height;
-			if (CurItem->itemType() == PageItem::Line)
+			if (CurItem->asLine())
 			{
 				if (LMode)
 				{
@@ -2069,7 +2069,7 @@ void Mpalette::NewH()
 		{
 			CurItem->OldB2 = CurItem->Width;
 			CurItem->OldH2 = CurItem->Height;
-			if (CurItem->itemType() == PageItem::Line)
+			if (CurItem->asLine())
 			{
 				if (LMode)
 				{

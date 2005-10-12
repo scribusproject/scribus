@@ -36,7 +36,6 @@ class UndoManager;
 class UndoState;
 class Foi;
 
-class PageItem;              
 class PageItem_ImageFrame;   
 class PageItem_Line;         
 class PageItem_Polygon;
@@ -153,7 +152,10 @@ struct TabRecord
 	QChar tabFillChar;
 };
 
-
+protected:
+	PageItem(const PageItem & other);
+	
+public:
 	PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double w, double h, double w2, QString fill, QString outline);
 	~PageItem() {};
 	struct ZZ {

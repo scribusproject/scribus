@@ -160,7 +160,7 @@ bool CollectForOutput::collectItems()
 					ite = ScApp->doc->FrameItems.at(b);
 					break;
 			}
-			if (ite->itemType() == PageItem::ImageFrame)
+			if (ite->asImageFrame())
 			{
 				QFileInfo itf = QFileInfo(ite->Pfile);
 				if (itf.exists())
@@ -174,7 +174,7 @@ bool CollectForOutput::collectItems()
 					}
 				}
 			}
-			if (ite->itemType() == PageItem::TextFrame)
+			if (ite->asTextFrame())
 			{
 				if (ite->isAnnotation)
 				{

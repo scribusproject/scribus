@@ -360,7 +360,7 @@ void Farbmanager::delUnused()
 				if (found)
 					break;
 			}
-			if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText))
+			if ((ite->asTextFrame()) || (ite->asPathText()))
 			{
 				for (uint d=0; d<ite->itemText.count(); ++d)
 				{
@@ -394,7 +394,7 @@ void Farbmanager::delUnused()
 				if (found)
 					break;
 			}
-			if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText))
+			if ((ite->asTextFrame()) || (ite->asPathText()))
 			{
 				for (uint d=0; d<ite->itemText.count(); ++d)
 				{
@@ -428,7 +428,7 @@ void Farbmanager::delUnused()
 				if (found)
 					break;
 			}
-			if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText))
+			if ((ite->asTextFrame()) || (ite->asPathText()))
 			{
 				for (uint d=0; d<ite->itemText.count(); ++d)
 				{

@@ -49,6 +49,218 @@
 
 using namespace std;
 
+PageItem::PageItem(const PageItem & other)
+	: QObject(other.parent()),
+
+// 200 attributes! That is madness, or to quote some famous people from Kriquet:
+// "THAT ALL HAS TO GO!"
+	Reverse(other.Reverse),
+ 	Xpos(other.Xpos),
+	oldXpos(other.oldXpos),
+	Ypos(other.Ypos),
+	oldYpos(other.oldYpos),
+	Width(other.Width),
+	oldWidth(other.oldWidth),
+	Height(other.Height),
+	oldHeight(other.oldHeight),
+	gXpos(other.gXpos),
+	gYpos(other.gYpos),
+	gWidth(other.gWidth),
+	gHeight(other.gHeight),
+ 	RadRect(other.RadRect),
+ 	Rot(other.Rot),
+	oldRot(other.oldRot),
+ 	Doc(other.Doc),
+	GrType(other.GrType),
+	GrStartX(other.GrStartX),
+	GrStartY(other.GrStartY),
+	GrEndX(other.GrEndX),
+	GrEndY(other.GrEndY),
+	TxtStroke(other.TxtStroke),
+	TxtFill(other.TxtFill),
+	ShTxtStroke(other.ShTxtStroke),
+	ShTxtFill(other.ShTxtFill),
+	TxtScale(other.TxtScale),
+	TxtScaleV(other.TxtScaleV),
+	TxTStyle(other.TxTStyle),
+	TxtBase(other.TxtBase),
+	TxtShadowX(other.TxtShadowX),
+	TxtShadowY(other.TxtShadowY),
+	TxtOutline(other.TxtOutline),
+	TxtUnderPos(other.TxtUnderPos),
+	TxtUnderWidth(other.TxtUnderWidth),
+	TxtStrikePos(other.TxtStrikePos),
+	TxtStrikeWidth(other.TxtStrikeWidth),
+	Cols(other.Cols),
+	ColGap(other.ColGap),
+  	Pwidth(other.Pwidth),
+	OldPwidth(other.OldPwidth),
+ 	PLineArt(other.PLineArt),
+	PLineEnd(other.PLineEnd),
+	PLineJoin(other.PLineJoin),
+	NamedLStyle(other.NamedLStyle),
+	Select(other.Select),
+	Clip(other.Clip),
+	PoLine(other.PoLine),
+	ContourLine(other.ContourLine),
+	imageClip(other.imageClip),
+	Segments(other.Segments),
+	effectsInUse(other.effectsInUse),
+	PoShow(other.PoShow),
+	BaseOffs(other.BaseOffs),
+	ClipEdited(other.ClipEdited),
+	FrameType(other.FrameType),
+	ItemNr(other.ItemNr),
+	Frame(other.Frame),
+	OwnPage(other.OwnPage),
+	savedOwnPage(other.savedOwnPage),
+	oldOwnPage(other.oldOwnPage),
+ 	pixm(other.pixm),
+  	Pfile(other.Pfile),
+	Pfile2(other.Pfile2),
+	Pfile3(other.Pfile3),
+	IProfile(other.IProfile),
+	UseEmbedded(other.UseEmbedded),
+	EmProfile(other.EmProfile),
+	IRender(other.IRender),
+  	PicArt(other.PicArt),
+   	PicAvail(other.PicAvail),
+   	LocalScX(other.LocalScX),
+   	LocalScY(other.LocalScY),
+   	LocalX(other.LocalX),
+   	LocalY(other.LocalY),
+	OrigW(other.OrigW),
+	OrigH(other.OrigH),
+   	BBoxX(other.BBoxX),
+ 	BBoxH(other.BBoxH),
+ 	Extra(other.Extra),
+	TExtra(other.TExtra),
+	BExtra(other.BExtra),
+	RExtra(other.RExtra),
+  	LineSp(other.LineSp),
+	LineSpMode(other.LineSpMode),
+	CurX(other.CurX),
+	CurY(other.CurY),
+	CPos(other.CPos),
+	itemText(other.itemText),
+  	isBookmark(other.isBookmark),
+	BMnr(other.BMnr),
+   	isAnnotation(other.isAnnotation),
+	AnType(other.AnType),
+	AnActType(other.AnActType),
+	AnAction(other.AnAction),
+	An_E_act(other.An_E_act),
+	An_X_act(other.An_X_act),
+	An_D_act(other.An_D_act),
+	An_Fo_act(other.An_Fo_act),
+	An_Bl_act(other.An_Bl_act),
+	An_K_act(other.An_K_act),
+	An_F_act(other.An_F_act),
+	An_V_act(other.An_V_act),
+	An_C_act(other.An_C_act),
+	AutoName(other.AutoName),
+	AnToolTip(other.AnToolTip),
+	AnRollOver(other.AnRollOver),
+	AnDown(other.AnDown),
+	AnBColor(other.AnBColor),
+	An_Extern(other.An_Extern),
+	AnBsty(other.AnBsty),
+	AnBwid(other.AnBwid),
+	AnFeed(other.AnFeed),
+	AnZiel(other.AnZiel),
+	AnFlag(other.AnFlag),
+	AnMaxChar(other.AnVis),
+	AnVis(other.AnVis),
+	AnChkStil(other.AnChkStil),
+	AnFont(other.AnFont),
+	AnIsChk(other.AnIsChk),
+	AnAAact(other.AnAAact),
+	AnHTML(other.AnHTML),
+	AnUseIcons(other.AnUseIcons),
+	AnIPlace(other.AnIPlace),
+	AnScaleW(other.AnScaleW),
+	AnFormat(other.AnFormat),
+ 	IFont(other.IFont),
+  	ISize(other.ISize),
+ 	HasSel(other.HasSel),
+ 	FrameOnly(other.FrameOnly),
+	BackBox(other.BackBox),
+	NextBox(other.NextBox),
+	NextIt(other.NextIt),
+	NextPg(other.NextPg),
+	Tinput(other.Tinput),
+	isAutoText(other.isAutoText),
+	textAlignment(other.textAlignment),
+	MaxChars(other.MaxChars),
+	Redrawn(other.Redrawn),
+	ExtraV(other.ExtraV),
+	isRaster(other.isRaster),
+	OldB(other.OldB),
+	OldH(other.OldH),
+	OldB2(other.OldB2),
+	OldH2(other.OldH2),
+	Sizing(other.Sizing),
+	toPixmap(other.toPixmap),
+	LayerNr(other.LayerNr),
+	ScaleType(other.ScaleType),
+	AspectRatio(other.AspectRatio),
+	Groups(other.Groups),
+	DashValues(other.DashValues),
+	TabValues(other.TabValues),
+	DashOffset(other.DashOffset),
+	fill_gradient(other.fill_gradient),
+	fillRule(other.fillRule),
+	Language(other.Language),
+	LeftLink(other.LeftLink),
+	RightLink(other.RightLink),
+	TopLink(other.TopLink),
+	BottomLink(other.BottomLink),
+	LeftLinkID(other.LeftLinkID),
+	RightLinkID(other.RightLinkID),
+	TopLinkID(other.TopLinkID),
+	BottomLinkID(other.BottomLinkID),
+	LeftLine(other.LeftLine),
+	RightLine(other.RightLine),
+	TopLine(other.TopLine),
+	BottomLine(other.BottomLine),
+	isTableItem(other.isTableItem),
+	isSingleSel(other.isSingleSel),
+	BoundingX(other.BoundingX),
+	BoundingY(other.BoundingY),
+	BoundingW(other.BoundingW),
+	BoundingH(other.BoundingH),
+	ChangedMasterItem(other.ChangedMasterItem),
+	OnMasterPage(other.OnMasterPage),
+	startArrowIndex(other.startArrowIndex),
+	endArrowIndex(other.endArrowIndex),
+	isEmbedded(other.isEmbedded),
+	fillQColor(other.fillQColor),
+	strokeQColor(other.strokeQColor),
+	undoManager(other.undoManager),
+
+	// protected
+	
+	AnName(other.AnName),
+	fillColorVal(other.fillColorVal),
+	lineColorVal(other.lineColorVal),
+	lineShadeVal(other.lineShadeVal),
+	fillShadeVal(other.fillShadeVal),
+	fillTransparencyVal(other.fillTransparencyVal),
+	lineTransparencyVal(other.fillTransparencyVal),
+	imageIsFlippedH(other.imageIsFlippedH),
+	imageIsFlippedV(other.imageIsFlippedV),
+	Locked(other.Locked),
+	LockRes(other.LockRes),
+	textFlowsAroundFrameVal(other.textFlowsAroundFrameVal),
+	textFlowUsesBoundingBoxVal(other.textFlowUsesBoundingBoxVal),
+	textFlowUsesContourLineVal(other.textFlowUsesContourLineVal),
+	pageItemAttributes(other.pageItemAttributes),
+	isPrintable(other.isPrintable),
+	tagged(other.tagged)
+{
+}
+
+
 PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double w, double h, double w2, QString fill, QString outline)
 	// Initialize superclasses
 	: QObject(pa),
@@ -403,7 +615,7 @@ void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 	}
 	if (lineColor() != "None")
 	{
-		if ((Pwidth == 0) && (itemType() != Line))
+		if ((Pwidth == 0) && ! asLine())
 			p->setLineWidth(0);
 		else
 		{
@@ -2993,7 +3205,7 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 					pr.setBrush(red);
 					if ((!Locked) && (!LockRes))
 					{
-						if (itemType() != Line)
+						if (! asLine())
 						{
 							pr.drawRect(-1, -1, 6, 6);
 							pr.drawRect(static_cast<int>(Width*sc), static_cast<int>(Height*sc), -6, -6);
@@ -4149,6 +4361,7 @@ void PageItem::convertTo(ItemType newType)
 		SimpleState *ss = new SimpleState(Um::ConvertTo + " " + toType,
 										  QString(Um::FromTo).arg(fromType).arg(toType));
 		ss->set("CONVERT", "convert");
+		ss->set("PAGEITEM", reinterpret_cast<int>(this));
 		ss->set("OLD_TYPE", itemTypeVal);
 		ss->set("NEW_TYPE", newType);
 		undoManager->action(this, ss);
@@ -4728,12 +4941,18 @@ void PageItem::restoreFontEffect(SimpleState *state, bool isUndo)
 	ScApp->view->chTyStyle(effect);
 }
 
+
+// This must go into class ScribusDoc! 
+// For now we'll just make it independent of 'this' -- AV
 void PageItem::restoreType(SimpleState *state, bool isUndo)
 {
+	// well, probably not the best way to handle pointers...
+	PageItem * item = state->getInt("PAGEITEM");
 	int type = state->getInt("OLD_TYPE");
 	if (!isUndo)
 		type = state->getInt("NEW_TYPE");
-	select();
+	ScApp->view->Deselect(false);
+	ScApp->view->SelectItem(item, false);
 	switch (type) {
 		case ImageFrame: ScApp->view->ToPicFrame(); break;
 		case TextFrame: ScApp->view->ToTextFrame(); break;
@@ -5317,7 +5536,7 @@ QRect PageItem::getRedrawBounding(const double viewScale)
 
 bool PageItem::loadImage(const QString& filename, const bool reload, const int gsResolution)
 {
-	if (itemType()!=PageItem::ImageFrame)
+	if (! asImageFrame())
 		return false;
 	QFileInfo fi(filename);
 	QString clPath(pixm.imgInfo.usedPath);

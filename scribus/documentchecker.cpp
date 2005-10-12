@@ -50,7 +50,7 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 			itemError.insert(6, 0);
 		if ((currItem->OwnPage == -1) && (checkerSettings.checkOrphans))
 			itemError.insert(3, 0);
-		if (currItem->itemType() == PageItem::ImageFrame)
+		if (currItem->asImageFrame())
 		{
 		 	if ((!currItem->PicAvail) && (checkerSettings.checkPictures))
 				itemError.insert(4, 0);
@@ -65,7 +65,7 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 					itemError.insert(8, 0);
 			}
 		}
-		if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::PathText))
+		if ((currItem->asTextFrame()) || (currItem->asPathText()))
 		{
 			if ((currItem->itemText.count() > currItem->MaxChars) && (checkerSettings.checkOverflow))
 				itemError.insert(2, 0);
@@ -139,7 +139,7 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 			itemError.insert(7, 0);
 		if ((currItem->OwnPage == -1) && (checkerSettings.checkOrphans))
 			itemError.insert(3, 0);
-		if (currItem->itemType() == PageItem::ImageFrame)
+		if (currItem->asImageFrame())
 		{
 		 	if ((!currItem->PicAvail) && (checkerSettings.checkPictures))
 				itemError.insert(4, 0);
@@ -154,7 +154,7 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 					itemError.insert(8, 0);
 			}
 		}
-		if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::PathText))
+		if ((currItem->asTextFrame()) || (currItem->asPathText()))
 		{
 			if ((currItem->itemText.count() > currItem->MaxChars) && (checkerSettings.checkOverflow))
 				itemError.insert(2, 0);

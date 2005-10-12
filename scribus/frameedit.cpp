@@ -475,7 +475,7 @@ void NodePalette::HaveNode(bool have, bool mov)
 			cc = view->SelItem.at(0)->ContourLine.size();
 		else
 			cc = view->SelItem.at(0)->PoLine.size();
-		if (view->SelItem.at(0)->itemType() == PageItem::PolyLine)
+		if (view->SelItem.at(0)->asPolyLine())
 		{
 			if (cc < 5)
 				leaveEd = true;

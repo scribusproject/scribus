@@ -1663,7 +1663,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 						if ((!pag->PageNam.isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
 							continue;
 						QString name = "/"+pag->MPageNam.simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ) + IToStr(ite->ItemNr);
-						if (ite->itemType() != PageItem::TextFrame)
+						if (! ite->asTextFrame())
 							PutPage(name+" Do\n");
 						else
 						{
@@ -2657,7 +2657,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, Page* pag)
 			continue;
 		if (hl->cstyle & 4096)
 			continue;
-		if ((hl->yp == 0) && (ite->itemType() == PageItem::TextFrame))
+		if ((hl->yp == 0) && (ite->asTextFrame()))
 			continue;
 		if (hl->cab < 5)
 			tTabValues = ite->TabValues;
@@ -2772,7 +2772,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 {
 	QString FillColor = "";
 	QString StrokeColor = "";
-	if (ite->itemType() == PageItem::PathText)
+	if (ite->asPathText())
 	{
 		tmp += "q\n";
 		QWMatrix trafo = QWMatrix( 1, 0, 0, -1, -hl->PRot, 0 );
@@ -2912,7 +2912,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 				trafo *= QWMatrix( hl->PtransX, -hl->PtransY, -hl->PtransY, -hl->PtransX, hl->xp, -hl->yp );
 				tmp2 += FToStr(trafo.m11())+" "+FToStr(trafo.m12())+" "+FToStr(trafo.m21())+" "+FToStr(trafo.m22())+" "+FToStr(trafo.dx())+" "+FToStr(trafo.dy())+" cm\n";
 			}
-			if (ite->itemType() != PageItem::PathText)
+			if (!ite->asPathText())
 			{
 				if (ite->Reverse)
 				{
@@ -3038,7 +3038,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 			tmp += FToStr(tsz * hl->coutline / 10000.0) + (hl->ccolor != "None" ? " w 2 Tr\n" : " w 1 Tr\n");
 		else
 			tmp += "0 Tr\n";
-		if (ite->itemType() != PageItem::PathText)
+		if (!ite->asPathText())
 		{
 			if (ite->Reverse)
 			{
@@ -3065,7 +3065,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 			tmp += FToStr(QMIN(QMAX(hl->cscale, 100), 4000) / 1000.0)+" 0 0 "+FToStr(QMIN(QMAX(hl->cscalev, 100), 4000) / 1000.0)+" 0 0 Tm\n";
 		uchar idx2 = idx & 0xFF;
 		tmp += "<"+QString(toHex(idx2))+"> Tj\n";
-		if (ite->itemType() != PageItem::PathText)
+		if (! ite->asPathText())
 		{
 			if (hl->cstyle & 8192)
 			{
@@ -3150,7 +3150,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 		tmp2 += FToStr(hl->xp+Ulen)+" "+FToStr(-hl->yp+Upos)+" l\n";
 		tmp2 += "S\n";
 	}
-	if (ite->itemType() == PageItem::PathText)
+	if (ite->asPathText())
 	{
 		tmp += "ET\nQ\n"+tmp2;
 		tmp2 = "";
@@ -4834,7 +4834,7 @@ void PDFlib::PDF_End_Doc(QString PrintPr, QString Name, int Components)
 		for (uint ele = 0; ele < doc->Items.count(); ++ele)
 		{
 			PageItem* tel = doc->Items.at(ele);
-			if ((tel->itemType() == PageItem::TextFrame) && (tel->BackBox == 0) && (tel->NextBox != 0) &&
+			if ((tel->asTextFrame()) && (tel->BackBox == 0) && (tel->NextBox != 0) &&
 					(!tel->Redrawn))
 			{
 				StartObj(ObjCounter);

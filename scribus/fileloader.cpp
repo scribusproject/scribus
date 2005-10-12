@@ -198,7 +198,7 @@ bool FileLoader::LoadPage(ScribusApp* app, int PageToLoad, bool Mpage)
 			PageItem *it = app->doc->MasterItems.at(d);
 			if ((!app->doc->UsedFonts.contains(it->IFont)) && (!it->IFont.isEmpty()))
 				it->IFont = ReplacedFonts[it->IFont];
-			if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
+			if ((it->asTextFrame()) || (it->asPathText()))
 			{
 				for (uint e = 0; e < it->itemText.count(); ++e)
 				{
@@ -212,7 +212,7 @@ bool FileLoader::LoadPage(ScribusApp* app, int PageToLoad, bool Mpage)
 			PageItem *it = app->doc->DocItems.at(d);
 			if ((!app->doc->UsedFonts.contains(it->IFont)) && (!it->IFont.isEmpty()))
 				it->IFont = ReplacedFonts[it->IFont];
-			if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
+			if ((it->asTextFrame()) || (it->asPathText()))
 			{
 				for (uint e = 0; e < it->itemText.count(); ++e)
 				{
@@ -226,7 +226,7 @@ bool FileLoader::LoadPage(ScribusApp* app, int PageToLoad, bool Mpage)
 			PageItem *it = app->doc->FrameItems.at(d);
 			if ((!app->doc->UsedFonts.contains(it->IFont)) && (!it->IFont.isEmpty()))
 				it->IFont = ReplacedFonts[it->IFont];
-			if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
+			if ((it->asTextFrame()) || (it->asPathText()))
 			{
 				for (uint e = 0; e < it->itemText.count(); ++e)
 				{
@@ -375,7 +375,7 @@ bool FileLoader::LoadFile(ScribusApp* app)
 			PageItem *it = app->doc->MasterItems.at(d);
 			if ((!app->doc->UsedFonts.contains(it->IFont)) && (!it->IFont.isEmpty()))
 				it->IFont = ReplacedFonts[it->IFont];
-			if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
+			if ((it->asTextFrame()) || (it->asPathText()))
 			{
 				for (uint e = 0; e < it->itemText.count(); ++e)
 				{
@@ -389,7 +389,7 @@ bool FileLoader::LoadFile(ScribusApp* app)
 			PageItem *it = app->doc->DocItems.at(d);
 			if ((!app->doc->UsedFonts.contains(it->IFont)) && (!it->IFont.isEmpty()))
 				it->IFont = ReplacedFonts[it->IFont];
-			if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
+			if ((it->asTextFrame()) || (it->asPathText()))
 			{
 				for (uint e = 0; e < it->itemText.count(); ++e)
 				{
@@ -403,7 +403,7 @@ bool FileLoader::LoadFile(ScribusApp* app)
 			PageItem *it = app->doc->FrameItems.at(d);
 			if ((!app->doc->UsedFonts.contains(it->IFont)) && (!it->IFont.isEmpty()))
 				it->IFont = ReplacedFonts[it->IFont];
-			if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
+			if ((it->asTextFrame()) || (it->asPathText()))
 			{
 				for (uint e = 0; e < it->itemText.count(); ++e)
 				{
@@ -2234,7 +2234,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc, ScribusView *
 	}
 	else
 		currItem->ContourLine = currItem->PoLine.copy();
-	if (currItem->itemType() != PageItem::Line)
+	if (!currItem->asLine())
 		currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
 	else
 	{
@@ -2246,9 +2246,9 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc, ScribusView *
 		                  -ph,static_cast<int>(currItem->Height+ph));
 		currItem->Height = 1;
 	}
-	if (currItem->itemType() == PageItem::ImageFrame)
+	if (currItem->asImageFrame())
 		view->AdjustPictScale(currItem);
-	if ((currItem->itemType() != PageItem::TextFrame) && (currItem->itemType() != PageItem::PathText))
+	if (!(currItem->asTextFrame()) && !(currItem->asPathText()))
 		currItem->IFont = doc->toolSettings.defFont;
 	currItem->GrType = QStoInt(obj->attribute("GRTYP","0"));
 	QString GrColor;

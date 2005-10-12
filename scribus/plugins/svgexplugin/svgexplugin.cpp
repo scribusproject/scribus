@@ -427,11 +427,11 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 				}
 				gr = docu->createElement("g");
 				gr.setAttribute("transform", trans);
-				if (Item->itemType() != PageItem::TextFrame)
+				if (!Item->asTextFrame())
 				{
 					if (Item->NamedLStyle.isEmpty())
 					{
-						if ((Item->itemType() == PageItem::Line) || (Item->itemType() == PageItem::PolyLine) || (Item->itemType() == PageItem::PathText))
+						if ((Item->asLine()) || (Item->asPolyLine()) || (Item->asPathText()))
 							gr.setAttribute("style", "fill:none; "+stroke+" "+strokeW+" "+strokeLC+" "+strokeLJ+" "+strokeDA);
 						else
 							gr.setAttribute("style", fill+" "+stroke+" "+strokeW+" "+strokeLC+" "+strokeLJ+" "+strokeDA);

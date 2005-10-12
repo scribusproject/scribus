@@ -228,7 +228,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 		nextItem->CPos = 0;
 		nextItem = nextItem->NextBox;
 	}
-	if ((!useAble) || (nb1->itemType() != PageItem::TextFrame) || (nb1 ->itemText.count() == 0))
+	if ((!useAble) || !(nb1->asTextFrame()) || (nb1 ->itemText.count() == 0))
 		return;
 	doc->DoDrawing = false;
 	const char *word;
@@ -378,7 +378,7 @@ void Hyphenator::slotDeHyphenate(PageItem* it)
 {
 	PageItem *nextItem = it;
 	PageItem *nb1;
-	if ((it->itemType() != PageItem::TextFrame) || (it ->itemText.count() == 0))
+	if (!(it->asTextFrame()) || (it ->itemText.count() == 0))
 		return;
 	while (nextItem != 0)
 	{
