@@ -13,10 +13,10 @@
 
 #include "runscriptdialog.h"
 #include "helpbrowser.h"
-#include "mpalette.h"
-#include "seiten.h"
-#include "layers.h"
-#include "tree.h"
+#include "mpalette.h" //TODO Move the calls to this to a signal
+#include "seiten.h" //TODO Move the calls to this to a signal
+#include "layers.h" //TODO Move the calls to this to a signal
+#include "tree.h" //TODO Move the calls to this to a signal
 #include "menumanager.h"
 #include "pconsole.h"
 #include "scraction.h"
@@ -140,7 +140,7 @@ void ScripterCore::FinishScriptRun()
 		ScApp->propertiesPalette->updateColorList();
 		ScApp->layerPalette->setLayers(&ScApp->doc->Layers, ScApp->doc->activeLayer());
 		ScApp->outlinePalette->BuildTree(ScApp->doc);
-		ScApp->pagePalette->SetView(ScApp->view);
+		ScApp->pagePalette->setView(ScApp->view);
 		ScApp->pagePalette->Rebuild();
 		ScApp->doc->RePos = true;
 		QPixmap pgPix(10, 10);

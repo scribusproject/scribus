@@ -85,7 +85,7 @@ class PrefsManager;
 class PrefsContext;
 class NodePalette;
 class LayerPalette;
-class SeitenPal;
+class PagePalette;
 class BookPalette;
 class SplashScreen;
 class ScribusWin;
@@ -209,7 +209,7 @@ public:
 	Tree *outlinePalette;
 	Biblio *scrapbookPalette;
 	LayerPalette* layerPalette;
-	SeitenPal *pagePalette;
+	PagePalette *pagePalette;
 	BookPalette *bookmarkPalette;
 	Measurements* measurementPalette;
 	CheckDocument * docCheckerPalette;

@@ -496,7 +496,7 @@ void ScribusApp::initPalettes()
 	connect( scrapbookPalette, SIGNAL(paletteShown(bool)), scrActions["toolsScrapbook"], SLOT(setOn(bool)));
 	scrapbookPalette->setPrefsContext("ScrapbookPalette");
 	scrapbookPalette->installEventFilter(this);
-	pagePalette = new SeitenPal(this);
+	pagePalette = new PagePalette(this);
 	connect( scrActions["toolsPages"], SIGNAL(toggled(bool)) , pagePalette, SLOT(setPaletteShown(bool)) );
 	connect( scrActions["toolsPages"], SIGNAL(toggled(bool)) , this, SLOT(setPagePalette(bool)) );
 	connect( pagePalette, SIGNAL(paletteShown(bool)), scrActions["toolsPages"], SLOT(setOn(bool)));
@@ -547,11 +547,7 @@ void ScribusApp::initPalettes()
 	connect(propertiesPalette, SIGNAL(EditLSt()), this, SLOT(slotEditLineStyles()));
 	connect(nodePalette, SIGNAL(Schliessen()), this, SLOT(NoFrameEdit()));
 	connect(layerPalette, SIGNAL(LayerChanged()), this, SLOT(showLayer()));
-	connect(pagePalette, SIGNAL(EditTemp(QString)), this, SLOT(manageMasterPages(QString)));
-	connect(pagePalette->PageView, SIGNAL(UseTemp(QString, int)), this, SLOT(Apply_MasterPage(QString, int)));
-	connect(pagePalette->PageView, SIGNAL(NewPage(int, QString)), this, SLOT(slotNewPageP(int, QString)));
-	connect(pagePalette->Trash, SIGNAL(DelPage(int)), this, SLOT(DeletePage2(int)));
-	connect(pagePalette, SIGNAL(GotoSeite(int)), this, SLOT(selectPagesFromOutlines(int)));
+
 	connect(bookmarkPalette->BView, SIGNAL(MarkMoved()), this, SLOT(StoreBookmarks()));
 	connect(bookmarkPalette->BView, SIGNAL(ChangeBMNr(int, int, int)), this, SLOT(ChBookmarks(int, int, int)));
 	connect(bookmarkPalette->BView, SIGNAL(SelectElement(int, int)), this, SLOT(selectItemsFromOutlines(int, int)));
@@ -2560,7 +2556,7 @@ void ScribusApp::newActWin(QWidget *w)
 	view = ActWin->view;
 	actionManager->connectNewViewActions(view);
 	connect(view, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
-	pagePalette->SetView(view);
+	pagePalette->setView(view);
 	alignDistributePalette->setView(view);
 	ScribusWin* swin;
 	if (!doc->isLoading())
@@ -2687,7 +2683,7 @@ void ScribusApp::SwitchWin()
 	//ShadeMenu->setItemChecked(ShadeMenu->idAt(11), true);
 	propertiesPalette->SetDoc(doc);
 	propertiesPalette->updateCList();
-	pagePalette->SetView(view);
+	pagePalette->setView(view);
 	propertiesPalette->Spal->setFormats(doc);
 	propertiesPalette->SetLineFormats(doc);
 	propertiesPalette->startArrow->rebuildList(&doc->arrowStyles);
@@ -2721,7 +2717,7 @@ void ScribusApp::SwitchWin()
 		scrActions["fileClose"]->setEnabled(false);
 		scrActions["fileRevert"]->setEnabled(false);
 		scrMenuMgr->setMenuEnabled("FileOpenRecent", false);
-		pagePalette->DisablePal();
+		pagePalette->enablePalette(false);
 	}
 	else
 	{
@@ -2745,7 +2741,7 @@ void ScribusApp::SwitchWin()
 			slotDocCh(false);
 		scrActions["fileSaveAs"]->setEnabled(true);
 		scrActions["fileCollect"]->setEnabled(true);
-		pagePalette->EnablePal();
+		pagePalette->enablePalette(true);
 	}
 }
 
@@ -2802,7 +2798,7 @@ void ScribusApp::HaveNewDoc()
 	scrActions["shade100"]->setOn(true);
 	propertiesPalette->SetDoc(doc);
 	propertiesPalette->updateCList();
-	pagePalette->SetView(view);
+	pagePalette->setView(view);
 	propertiesPalette->Spal->setFormats(doc);
 	propertiesPalette->SetLineFormats(doc);
 	propertiesPalette->startArrow->rebuildList(&doc->arrowStyles);
@@ -4130,7 +4126,7 @@ bool ScribusApp::loadDoc(QString fileName)
 	}
 	else
 	{
-		pagePalette->Vie = 0;
+		pagePalette->setView(0);
 	}
 	undoManager->switchStack(doc->DocName);
 	pagePalette->Rebuild();
@@ -4438,7 +4434,7 @@ bool ScribusApp::DoFileClose()
 		doc->CloseCMSProfiles();
 //	propertiesPalette->NewSel(-1);
 	propertiesPalette->UnsetDoc();
-	pagePalette->Vie = 0;
+	pagePalette->setView(0);
 	pagePalette->Rebuild();
 	propertiesPalette->Spal->setFormats(0);
 	propertiesPalette->SetLineFormats(0);
@@ -5598,8 +5594,8 @@ void ScribusApp::setPagePalette(bool visible)
 {
 	if (!visible)
 	{
-		prefsManager->appPrefs.SepalT = pagePalette->masterPageList->Thumb;
-		prefsManager->appPrefs.SepalN = pagePalette->PageView->Namen;
+		prefsManager->appPrefs.SepalT = pagePalette->getThumb();
+		prefsManager->appPrefs.SepalN = pagePalette->getNamen();
 	}
 }
 
@@ -8146,7 +8142,7 @@ void ScribusApp::manageMasterPages(QString temp)
 			scrActions["fileDocSetup"]->setEnabled(false);
 			scrActions["filePrint"]->setEnabled(false);
 			scrActions["PrintPreview"]->setEnabled(false);
-			pagePalette->DisablePal();
+			pagePalette->enablePalette(false);
 			dia->show();
 			ActWin->muster = dia;
 			doc->OpenNodes = outlinePalette->buildReopenVals();
@@ -8180,7 +8176,7 @@ void ScribusApp::manageMasterPagesEnd()
 	for (uint c=0; c<pageCount; ++c)
 		Apply_MasterPage(doc->Pages.at(c)->MPageNam, c, false);
 	doc->masterPageMode = false;
-	pagePalette->EnablePal();
+	pagePalette->enablePalette(true);
 	pagePalette->RebuildTemp();
 	ActWin->muster = NULL;
 	view->DrawNew();
@@ -8241,6 +8237,8 @@ void ScribusApp::ApplyMasterPage()
 
 void ScribusApp::Apply_MasterPage(QString in, int Snr, bool reb)
 {
+	if (!HaveDoc)
+		return;
 	doc->applyMasterPage(in, Snr);
 	if (reb)
 	{

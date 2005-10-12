@@ -41,23 +41,30 @@ public:
 
 class SCRIBUS_API SeItem : public QTableItem
 {
+
+friend class PagePalette;
+friend class SeView;
+
+
 public:
 	SeItem(QTable* parent, QString text, QPixmap Pix);
 	~SeItem() {};
+	
+	const QString& getPageName();
+	
+protected:
 	QString pageName;
 };
 
 class SCRIBUS_API SeList : public QListBox
 {
+friend class PagePalette;
+
 	Q_OBJECT
 
 public:
 	SeList(QWidget* parent);
 	~SeList() {};
-	QPoint Mpos;
-	QListBoxItem *CurItem;
-	bool Mpressed;
-	bool Thumb;
 
 private slots:
 	void ToggleTh();
@@ -69,29 +76,25 @@ protected:
 	void mouseReleaseEvent(QMouseEvent *m);
 	void mousePressEvent(QMouseEvent* e);
 	void mouseMoveEvent(QMouseEvent* e);
+	
+	QPoint Mpos;
+	QListBoxItem *CurItem;
+	bool Mpressed;
+	bool Thumb;
+
 };
 
 class SCRIBUS_API SeView : public QTable
 {
 	Q_OBJECT
+	
+friend class PagePalette;
 
 public:
 	SeView(QWidget* parent);
 	~SeView() {};
 	void ClearPix();
 	int GetPage(int r, int c, bool *last);
-	QPoint Mpos;
-	bool Mpressed;
-	bool Doppel;
-	bool Links;
-	bool Namen;
-	int MaxC;
-	int colmult;
-	int rowmult;
-	int coladd;
-	int rowadd;
-	int cols;
-	int firstP;
 
 public slots:
 	void ToggleNam();
@@ -110,6 +113,19 @@ protected:
 	virtual void contentsMouseReleaseEvent(QMouseEvent *m);
 	virtual void contentsMousePressEvent(QMouseEvent* e);
 	virtual void contentsMouseMoveEvent(QMouseEvent* e);
+	
+	QPoint Mpos;
+	bool Mpressed;
+	bool Doppel;
+	bool Links;
+	bool Namen;
+	int MaxC;
+	int colmult;
+	int rowmult;
+	int coladd;
+	int rowadd;
+	int cols;
+	int firstP;
 };
 
 class SCRIBUS_API TrashBin : public QLabel
@@ -119,42 +135,37 @@ class SCRIBUS_API TrashBin : public QLabel
 public:
 	TrashBin( QWidget * parent );
 	~TrashBin() {};
-	QPixmap Normal;
-	QPixmap Offen;
 	void dragEnterEvent( QDragEnterEvent *e );
 	void dragLeaveEvent( QDragLeaveEvent * );
 	void dropEvent( QDropEvent * e );
 
+protected:
+	QPixmap Normal;
+	QPixmap Offen;
+	
 signals:
 	void DelPage(int);
 	void DelMaster(QString);
 };
 
-class SCRIBUS_API SeitenPal : public ScrPaletteBase
+class SCRIBUS_API PagePalette : public ScrPaletteBase
 {
 	Q_OBJECT
 
 public:
-	SeitenPal(QWidget* parent);
-	~SeitenPal() {};
-	QSplitter* Splitter1;
-	TrashBin* Trash;
-	QLabel* TextLabel1;
-	QLabel* TextLabel2;
-	SeList* masterPageList;
-	SeView* PageView;
-	PageLayouts* pageLayout;
-	ScribusView *Vie;
-	QPixmap pix;
-	DynamicTip* dynTip;
+	PagePalette(QWidget* parent);
+	~PagePalette() {};
+	
+	//CB FIXME Put these in for now and hide the rest. What are these indicating?
+	const bool getNamen();
+	const bool getThumb();
 
 public slots:
-	void SetView(ScribusView *view);
+	void setView(ScribusView *view);
 	void DelMPage(QString tmp);
 	void MPage(int r, int c);
 	void GotoPage(int r, int c, int b);
-	void DisablePal();
-	void EnablePal();
+	void enablePalette(const bool);
 	void handlePageLayout(int layout);
 	void handleFirstPage(int fp);
 	void RebuildTemp();
@@ -169,10 +180,21 @@ signals:
 	void GotoSeite(int);
 
 protected:
-	QVBoxLayout* SeitenPalLayout;
+	QVBoxLayout* PagePaletteLayout;
 	QHBoxLayout* Layout1;
 	QVBoxLayout* Layout2;
 	QVBoxLayout* Layout3;
+	
+	PageLayouts* pageLayout;
+	QSplitter* Splitter1;
+	QLabel* TextLabel1;
+	QLabel* TextLabel2;
+	TrashBin* Trash;
+	SeList* masterPageList;
+	SeView* pageView;
+	ScribusView *currView;
+	QPixmap pix;
+	DynamicTip* dynTip;
 };
 
 #endif // SEITENPAL_H

@@ -44,6 +44,11 @@ SeItem::SeItem(QTable* parent, QString text, QPixmap Pix)
 	setWordWrap(true);
 }
 
+const QString& SeItem::getPageName()
+{
+	return pageName;
+}
+
 /* ListBox Subclass */
 SeList::SeList(QWidget* parent) : QListBox(parent)
 {
@@ -445,12 +450,12 @@ void TrashBin::dropEvent(QDropEvent * e)
 }
 
 
-SeitenPal::SeitenPal(QWidget* parent) : ScrPaletteBase( parent, "SP", false, 0)
+PagePalette::PagePalette(QWidget* parent) : ScrPaletteBase( parent, "SP", false, 0)
 {
 	setIcon(loadIcon("AppIcon.png"));
-	SeitenPalLayout = new QVBoxLayout( this );
-	SeitenPalLayout->setSpacing( 5 );
-	SeitenPalLayout->setMargin( 5 );
+	PagePaletteLayout = new QVBoxLayout( this );
+	PagePaletteLayout->setSpacing( 5 );
+	PagePaletteLayout->setMargin( 5 );
 	Splitter1 = new QSplitter( this, "Splitter1" );
 	Splitter1->setOrientation( QSplitter::Vertical );
 	QWidget* privateLayoutWidget = new QWidget( Splitter1, "Layout2" );
@@ -465,20 +470,20 @@ SeitenPal::SeitenPal(QWidget* parent) : ScrPaletteBase( parent, "SP", false, 0)
 	Layout3 = new QVBoxLayout( privateLayoutWidget_2, 0, 5, "Layout3");
 	TextLabel2 = new QLabel( privateLayoutWidget_2, "TextLabel2" );
 	Layout3->addWidget( TextLabel2 );
-	PageView = new SeView(privateLayoutWidget_2);
-	PageView->setLeftMargin(0);
-	PageView->verticalHeader()->hide();
-	PageView->setTopMargin(0);
-	PageView->horizontalHeader()->hide();
-	PageView->setSorting(false);
-	PageView->setSelectionMode(QTable::NoSelection);
-	PageView->setColumnMovingEnabled(false);
-	PageView->setRowMovingEnabled(false);
-	PageView->setNumRows(1);
-	PageView->setNumCols(1);
-	PageView->setMinimumSize(QSize(130,120));
-	Layout3->addWidget( PageView );
-	SeitenPalLayout->addWidget( Splitter1 );
+	pageView = new SeView(privateLayoutWidget_2);
+	pageView->setLeftMargin(0);
+	pageView->verticalHeader()->hide();
+	pageView->setTopMargin(0);
+	pageView->horizontalHeader()->hide();
+	pageView->setSorting(false);
+	pageView->setSelectionMode(QTable::NoSelection);
+	pageView->setColumnMovingEnabled(false);
+	pageView->setRowMovingEnabled(false);
+	pageView->setNumRows(1);
+	pageView->setNumCols(1);
+	pageView->setMinimumSize(QSize(130,120));
+	Layout3->addWidget( pageView );
+	PagePaletteLayout->addWidget( Splitter1 );
 
 	Layout1 = new QHBoxLayout;
 	Layout1->setSpacing( 5 );
@@ -505,139 +510,139 @@ SeitenPal::SeitenPal(QWidget* parent) : ScrPaletteBase( parent, "SP", false, 0)
 	Trash = new TrashBin( this );
 	Trash->setMinimumSize(QSize(22,22));
 	Layout1->addWidget( Trash );
-	SeitenPalLayout->addLayout( Layout1 );
+	PagePaletteLayout->addLayout( Layout1 );
 	pix = loadIcon("document2.png");
-	Vie = 0;
+	currView = 0;
 	Rebuild();
 	languageChange();
-	dynTip = new DynamicTip(PageView);
+	dynTip = new DynamicTip(pageView);
 	connect(masterPageList, SIGNAL(doubleClicked(QListBoxItem*)), this, SLOT(selMasterPage()));
 	connect(masterPageList, SIGNAL(ThumbChanged()), this, SLOT(RebuildTemp()));
-	connect(PageView, SIGNAL(Click(int, int, int)), this, SLOT(GotoPage(int, int, int)));
-	connect(PageView, SIGNAL(MovePage(int, int)), this, SLOT(MPage(int, int)));
+	connect(pageView, SIGNAL(Click(int, int, int)), this, SLOT(GotoPage(int, int, int)));
+	connect(pageView, SIGNAL(MovePage(int, int)), this, SLOT(MPage(int, int)));
 	connect(Trash, SIGNAL(DelMaster(QString)), this, SLOT(DelMPage(QString)));
 	connect(pageLayout, SIGNAL(selectedLayout(int )), this, SLOT(handlePageLayout(int )));
 	connect(pageLayout, SIGNAL(selectedFirstPage(int )), this, SLOT(handleFirstPage(int )));
+	
+	connect(this, SIGNAL(EditTemp(QString)), ScApp, SLOT(manageMasterPages(QString)));
+	connect(pageView, SIGNAL(UseTemp(QString, int)), ScApp, SLOT(Apply_MasterPage(QString, int)));
+	connect(pageView, SIGNAL(NewPage(int, QString)), ScApp, SLOT(slotNewPageP(int, QString)));
+	connect(Trash, SIGNAL(DelPage(int)), ScApp, SLOT(DeletePage2(int)));
+	connect(this, SIGNAL(GotoSeite(int)), ScApp, SLOT(selectPagesFromOutlines(int)));
+	
 	QToolTip::add(Trash, "<qt>" + tr("Drag pages or master pages onto the trashbin to delete them") + "</qt>");
 	QToolTip::add(masterPageList, "<qt>" + tr("Here are all your master pages. To create a new page, drag a master page to the page view below") + "</qt>");
 }
 
-void SeitenPal::DelMPage(QString tmp)
+void PagePalette::DelMPage(QString tmp)
 {
 	if (tmp == tr("Normal"))
 		return;
-	int Nr = Vie->Doc->MasterNames[tmp];
-	Page* Seite = Vie->Doc->MasterPages.at(Nr);
-	Vie->Doc->MasterPages.remove(Nr);
+	int Nr = currView->Doc->MasterNames[tmp];
+	Page* Seite = currView->Doc->MasterPages.at(Nr);
+	currView->Doc->MasterPages.remove(Nr);
 	delete Seite;
-	Vie->Doc->MasterNames.clear();
-	for (uint aa=0; aa < Vie->Doc->MasterPages.count(); ++aa)
+	currView->Doc->MasterNames.clear();
+	for (uint aa=0; aa < currView->Doc->MasterPages.count(); ++aa)
 	{
-		Seite = Vie->Doc->MasterPages.at(aa);
+		Seite = currView->Doc->MasterPages.at(aa);
 		Seite->setPageNr(aa);
-		if (Vie->Doc->currentPageLayout == doublePage)
+		if (currView->Doc->currentPageLayout == doublePage)
 		{
-			Seite->Margins.Left = Seite->LeftPg ? Vie->Doc->pageMargins.Right : Vie->Doc->pageMargins.Left;
-			Seite->Margins.Right= Seite->LeftPg? Vie->Doc->pageMargins.Left : Vie->Doc->pageMargins.Right;
+			Seite->Margins.Left = Seite->LeftPg ? currView->Doc->pageMargins.Right : currView->Doc->pageMargins.Left;
+			Seite->Margins.Right= Seite->LeftPg? currView->Doc->pageMargins.Left : currView->Doc->pageMargins.Right;
 		}
 		else
 		{
-			Seite->Margins.Right = Vie->Doc->pageMargins.Right;
-			Seite->Margins.Left = Vie->Doc->pageMargins.Left;
+			Seite->Margins.Right = currView->Doc->pageMargins.Right;
+			Seite->Margins.Left = currView->Doc->pageMargins.Left;
 		}
-		Seite->Margins.Top = Vie->Doc->pageMargins.Top;
-		Seite->Margins.Bottom = Vie->Doc->pageMargins.Bottom;
-		Vie->Doc->MasterNames[Seite->PageNam] = aa;
+		Seite->Margins.Top = currView->Doc->pageMargins.Top;
+		Seite->Margins.Bottom = currView->Doc->pageMargins.Bottom;
+		currView->Doc->MasterNames[Seite->PageNam] = aa;
 	}
-	for (uint b=0; b<Vie->Doc->DocPages.count(); ++b)
+	for (uint b=0; b<currView->Doc->DocPages.count(); ++b)
 	{
-		if (Vie->Doc->DocPages.at(b)->MPageNam == tmp)
-			Vie->Doc->DocPages.at(b)->MPageNam = "Normal";
+		if (currView->Doc->DocPages.at(b)->MPageNam == tmp)
+			currView->Doc->DocPages.at(b)->MPageNam = "Normal";
 	}
-	Vie->DrawNew();
+	currView->DrawNew();
 	RebuildTemp();
 	RebuildPage();
-	Vie->Doc->setModified(true);
+	currView->Doc->setModified(true);
 }
 
-void SeitenPal::MPage(int r, int c)
+void PagePalette::MPage(int r, int c)
 {
 	if (r == c)
 		return;
-	if (c > PageView->MaxC)
-		Vie->Doc->movePage(r, r + 1, c, 2);
+	if (c > pageView->MaxC)
+		currView->Doc->movePage(r, r + 1, c, 2);
 	else
-		Vie->Doc->movePage(r, r + 1, c, 0);
-	Vie->reformPages();
+		currView->Doc->movePage(r, r + 1, c, 0);
+	currView->reformPages();
 	RebuildPage();
-	Vie->DrawNew();
-	Vie->Doc->setModified(true);
+	currView->DrawNew();
+	currView->Doc->setModified(true);
 }
 
-void SeitenPal::GotoPage(int r, int c, int b)
+void PagePalette::GotoPage(int r, int c, int b)
 {
 	int p;
 	bool dummy;
 	if ((b == LeftButton) && (r != -1) && (c != -1))
 	{
-		p = PageView->GetPage(r, c, &dummy);
+		p = pageView->GetPage(r, c, &dummy);
 		emit GotoSeite(p);
 	}
 }
 
-void SeitenPal::DisablePal()
+void PagePalette::enablePalette(const bool enabled)
 {
-	PageView->setEnabled(false);
-	masterPageList->setEnabled(false);
-	pageLayout->setEnabled(false);
+	pageView->setEnabled(enabled);
+	masterPageList->setEnabled(enabled);
+	pageLayout->setEnabled(enabled);
 }
 
-void SeitenPal::EnablePal()
+void PagePalette::handlePageLayout(int layout)
 {
-	PageView->setEnabled(true);
-	masterPageList->setEnabled(true);
-	pageLayout->setEnabled(true);
-}
-
-void SeitenPal::handlePageLayout(int layout)
-{
-	double tpr = Vie->Doc->pageMargins.Top;
-	double lr = Vie->Doc->pageMargins.Left;
-	double rr = Vie->Doc->pageMargins.Right;
-	double br = Vie->Doc->pageMargins.Bottom;
-	pageLayout->selectFirstP(Vie->Doc->pageSets[layout].FirstPage);
-	Vie->Doc->resetPage(tpr, lr, rr, br, layout);
-	Vie->reformPages();
-	Vie->DrawNew();
-	Vie->GotoPage(Vie->Doc->currentPage->pageNr());
+	double tpr = currView->Doc->pageMargins.Top;
+	double lr = currView->Doc->pageMargins.Left;
+	double rr = currView->Doc->pageMargins.Right;
+	double br = currView->Doc->pageMargins.Bottom;
+	pageLayout->selectFirstP(currView->Doc->pageSets[layout].FirstPage);
+	currView->Doc->resetPage(tpr, lr, rr, br, layout);
+	currView->reformPages();
+	currView->DrawNew();
+	currView->GotoPage(currView->Doc->currentPage->pageNr());
 	RebuildPage();
-	Vie->Doc->setModified(true);
+	currView->Doc->setModified(true);
 }
 
-void SeitenPal::handleFirstPage(int fp)
+void PagePalette::handleFirstPage(int fp)
 {
-	Vie->Doc->pageSets[Vie->Doc->currentPageLayout].FirstPage = fp;
-	Vie->reformPages();
-	Vie->DrawNew();
-	Vie->GotoPage(Vie->Doc->currentPage->pageNr());
+	currView->Doc->pageSets[currView->Doc->currentPageLayout].FirstPage = fp;
+	currView->reformPages();
+	currView->DrawNew();
+	currView->GotoPage(currView->Doc->currentPage->pageNr());
 	RebuildPage();
-	Vie->Doc->setModified(true);
+	currView->Doc->setModified(true);
 }
 
-void SeitenPal::RebuildTemp()
+void PagePalette::RebuildTemp()
 {
 	if (ScApp->ScriptRunning)
 		return;
 	masterPageList->clear();
-	if (Vie == 0)
+	if (currView == 0)
 		return;
 	QPixmap pm;
 	QMap<QString,int>::Iterator it;
-	for (it = Vie->Doc->MasterNames.begin(); it != Vie->Doc->MasterNames.end(); ++it)
+	for (it = currView->Doc->MasterNames.begin(); it != currView->Doc->MasterNames.end(); ++it)
 	{
 		if (masterPageList->Thumb)
 		{
-			pm.convertFromImage(Vie->MPageToPixmap(it.key(),60));
+			pm.convertFromImage(currView->MPageToPixmap(it.key(),60));
 			masterPageList->insertItem(pm, it.key() == "Normal" ? tr("Normal") : it.key());
 		}
 		else
@@ -645,36 +650,36 @@ void SeitenPal::RebuildTemp()
 	}
 }
 
-void SeitenPal::RebuildPage()
+void PagePalette::RebuildPage()
 {
 	if (ScApp->ScriptRunning)
 		return;
 	QString str;
 	disconnect(pageLayout, SIGNAL(selectedLayout(int )), this, SLOT(handlePageLayout(int )));
 	disconnect(pageLayout, SIGNAL(selectedFirstPage(int )), this, SLOT(handleFirstPage(int )));
-	PageView->setNumRows(1);
-	PageView->setNumCols(1);
-	if (Vie == 0)
+	pageView->setNumRows(1);
+	pageView->setNumCols(1);
+	if (currView == 0)
 	{
 		connect(pageLayout, SIGNAL(selectedLayout(int )), this, SLOT(handlePageLayout(int )));
 		connect(pageLayout, SIGNAL(selectedFirstPage(int )), this, SLOT(handleFirstPage(int )));
 		return;
 	}
-	pageLayout->updateLayoutSelector(Vie->Doc->pageSets);
-	pageLayout->selectItem(Vie->Doc->currentPageLayout);
-	pageLayout->firstPage->setCurrentItem(Vie->Doc->pageSets[Vie->Doc->currentPageLayout].FirstPage);
-	PageView->MaxC = Vie->Doc->Pages.count()-1;
+	pageLayout->updateLayoutSelector(currView->Doc->pageSets);
+	pageLayout->selectItem(currView->Doc->currentPageLayout);
+	pageLayout->firstPage->setCurrentItem(currView->Doc->pageSets[currView->Doc->currentPageLayout].FirstPage);
+	pageView->MaxC = currView->Doc->Pages.count()-1;
 	int counter, rowcounter, colmult, rowmult, coladd,rowadd;
-	counter = Vie->Doc->pageSets[Vie->Doc->currentPageLayout].FirstPage;
-	int cols = Vie->Doc->pageSets[Vie->Doc->currentPageLayout].Columns;
-	int rows = (Vie->Doc->pageCount+counter) / Vie->Doc->pageSets[Vie->Doc->currentPageLayout].Columns;
-	if (((Vie->Doc->pageCount+counter) % Vie->Doc->pageSets[Vie->Doc->currentPageLayout].Columns) != 0)
+	counter = currView->Doc->pageSets[currView->Doc->currentPageLayout].FirstPage;
+	int cols = currView->Doc->pageSets[currView->Doc->currentPageLayout].Columns;
+	int rows = (currView->Doc->pageCount+counter) / currView->Doc->pageSets[currView->Doc->currentPageLayout].Columns;
+	if (((currView->Doc->pageCount+counter) % currView->Doc->pageSets[currView->Doc->currentPageLayout].Columns) != 0)
 		rows++;
 	rowcounter = 0;
 	if (cols == 1)
 	{
-		PageView->setNumCols(cols);
-		PageView->setNumRows(rows*2+1);
+		pageView->setNumCols(cols);
+		pageView->setNumRows(rows*2+1);
 		colmult = 1;
 		coladd = 0;
 		rowmult = 2;
@@ -682,79 +687,76 @@ void SeitenPal::RebuildPage()
 	}
 	else
 	{
-		PageView->setNumCols(cols*2);
-		PageView->setNumRows(rows+1);
+		pageView->setNumCols(cols*2);
+		pageView->setNumRows(rows+1);
 		colmult = 2;
 		coladd = 1;
 		rowmult = 1;
 		rowadd = 0;
 	}
-	PageView->coladd = coladd;
-	PageView->colmult = colmult;
-	PageView->rowadd = rowadd;
-	PageView->rowmult = rowmult;
-	PageView->firstP = counter;
-	PageView->cols = Vie->Doc->pageSets[Vie->Doc->currentPageLayout].Columns;
-	for (uint a = 0; a < Vie->Doc->Pages.count(); ++a)
+	pageView->coladd = coladd;
+	pageView->colmult = colmult;
+	pageView->rowadd = rowadd;
+	pageView->rowmult = rowmult;
+	pageView->firstP = counter;
+	pageView->cols = currView->Doc->pageSets[currView->Doc->currentPageLayout].Columns;
+	for (uint a = 0; a < currView->Doc->Pages.count(); ++a)
 	{
-		str = Vie->Doc->Pages.at(a)->MPageNam;
-		QTableItem *it = new SeItem( PageView, str, CreateIcon(a, pix));
-		PageView->setItem(rowcounter*rowmult+rowadd, counter*colmult+coladd, it);
-		PageView->setColumnWidth(counter*colmult+coladd, pix.width());
+		str = currView->Doc->Pages.at(a)->MPageNam;
+		QTableItem *it = new SeItem( pageView, str, CreateIcon(a, pix));
+		pageView->setItem(rowcounter*rowmult+rowadd, counter*colmult+coladd, it);
+		pageView->setColumnWidth(counter*colmult+coladd, pix.width());
 		if (cols == 1)
 		{
-			PageView->setRowHeight(rowcounter*rowmult, 10);
-			PageView->setRowHeight(rowcounter*rowmult+rowadd, pix.height());
+			pageView->setRowHeight(rowcounter*rowmult, 10);
+			pageView->setRowHeight(rowcounter*rowmult+rowadd, pix.height());
 		}
 		else
-			PageView->setRowHeight(rowcounter*rowmult+rowadd, pix.height()+5);
+			pageView->setRowHeight(rowcounter*rowmult+rowadd, pix.height()+5);
 		counter++;
-		if (counter > Vie->Doc->pageSets[Vie->Doc->currentPageLayout].Columns-1)
+		if (counter > currView->Doc->pageSets[currView->Doc->currentPageLayout].Columns-1)
 		{
 			counter = 0;
 			rowcounter++;
 		}
 	}
-	PageView->setRowHeight(PageView->numRows()-1, 10);
+	pageView->setRowHeight(pageView->numRows()-1, 10);
 	counter = 0;
 	if (cols != 1)
 	{
-		for (int c = 0; c < PageView->numCols(); ++c)
+		for (int c = 0; c < pageView->numCols(); ++c)
 		{
 			if ((counter % 2) == 0)
-				PageView->setColumnWidth(counter, 10);
+				pageView->setColumnWidth(counter, 10);
 			else
-				PageView->setColumnWidth(counter, pix.width());
+				pageView->setColumnWidth(counter, pix.width());
 			counter++;
 		}
 	}
-	PageView->repaint();
+	pageView->repaint();
 	connect(pageLayout, SIGNAL(selectedLayout(int )), this, SLOT(handlePageLayout(int )));
 	connect(pageLayout, SIGNAL(selectedFirstPage(int )), this, SLOT(handleFirstPage(int )));
 }
 
-void SeitenPal::Rebuild()
+void PagePalette::Rebuild()
 {
 	RebuildTemp();
 	RebuildPage();
-	if (Vie == 0)
-		DisablePal();
-	else
-		EnablePal();
+	enablePalette(currView != 0);
 }
 
-void SeitenPal::SetView(ScribusView *view)
+void PagePalette::setView(ScribusView *view)
 {
-	Vie = view;
+	currView = view;
 }
 
-void SeitenPal::selMasterPage()
+void PagePalette::selMasterPage()
 {
 	if (masterPageList->CurItem != 0)
 		emit EditTemp(masterPageList->CurItem->text());
 }
 
-QPixmap SeitenPal::CreateIcon(int nr, QPixmap ret)
+QPixmap PagePalette::CreateIcon(int nr, QPixmap ret)
 {
 	QString tmp;
 	QPainter p;
@@ -777,9 +779,23 @@ QPixmap SeitenPal::CreateIcon(int nr, QPixmap ret)
 	return ret;
 }
 
-void SeitenPal::languageChange()
+void PagePalette::languageChange()
 {
 	setCaption( tr( "Arrange Pages" ) );
 	TextLabel1->setText( tr( "Available Master Pages:" ) );
 	TextLabel2->setText( tr( "Document Pages:" ) );
+}
+
+//CB Whats this variable returned for.. its always true... ? 
+//CB Clean up the interface and stick it behind this member for now
+const bool PagePalette::getNamen()
+{
+	return pageView->Namen;
+}
+
+//CB Whats this variable returned for.. its always true... ? 
+//CB Clean up the interface and stick it behind this member for now
+const bool PagePalette::getThumb()
+{
+	return masterPageList->Thumb;
 }
