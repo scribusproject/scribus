@@ -4947,7 +4947,7 @@ void PageItem::restoreFontEffect(SimpleState *state, bool isUndo)
 void PageItem::restoreType(SimpleState *state, bool isUndo)
 {
 	// well, probably not the best way to handle pointers...
-	PageItem * item = state->getInt("PAGEITEM");
+	PageItem * item = reinterpret_cast<PageItem *>(state->getInt("PAGEITEM"));
 	int type = state->getInt("OLD_TYPE");
 	if (!isUndo)
 		type = state->getInt("NEW_TYPE");
