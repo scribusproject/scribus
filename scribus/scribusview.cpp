@@ -8332,11 +8332,7 @@ void ScribusView::ClearItem()
 			}
 			currItem->clearContents();
 		}
-		uint frameItemCount=Doc->FrameItems.count();
-		for (uint i = 0; i < frameItemCount; ++i)
-		{
-			Doc->FrameItems.at(i)->ItemNr = i;
-		}
+		Doc->updateFrameItems();
 		updateContents();
 		emit DocChanged();
 			/*
@@ -8512,10 +8508,7 @@ void ScribusView::DeleteItem()
 			if (Doc->Items.at(a)->isBookmark)
 				emit NewBMNr(Doc->Items.at(a)->BMnr, a);
 		}
-		for (uint a = 0; a < Doc->FrameItems.count(); ++a)
-		{
-			Doc->FrameItems.at(a)->ItemNr = a;
-		}
+		Doc->updateFrameItems();
 		if (anz > 1)
 			undoManager->commit();
 		updateContents();

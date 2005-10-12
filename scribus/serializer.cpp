@@ -81,10 +81,7 @@ void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, boo
 			nextItem->CPos = 0;
 			nextItem = nextItem->NextBox;
 		}
-		for (uint a = 0; a < doku->FrameItems.count(); ++a)
-		{
-			doku->FrameItems.at(a)->ItemNr = a;
-		}
+		doku->updateFrameItems();
 	}
 	for (a=0; a<Objekt.length(); ++a)
 	{

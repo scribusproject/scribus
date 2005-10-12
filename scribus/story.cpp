@@ -3071,10 +3071,7 @@ void StoryEditor::updateTextFrame()
 		Editor->FrameItems.remove(FrameItemsDel.at(a));
 	}
 	FrameItemsDel.clear();
-	for (uint a = 0; a < currDoc->FrameItems.count(); ++a)
-	{
-		currDoc->FrameItems.at(a)->ItemNr = a;
-	}
+	currDoc->updateFrameItems();
 	bool rep = currDoc->RePos;
 	currDoc->RePos = true;
 	QPixmap pgPix(1, 1);

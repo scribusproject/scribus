@@ -2321,3 +2321,10 @@ bool ScribusDoc::itemAddCommit(const int /*itemNumber*/)
 	}
 	return false;
 }
+
+void ScribusDoc::updateFrameItems()
+{
+	uint frameItemsCount=FrameItems.count();
+	for (uint a = 0; a < frameItemsCount; ++a)
+		FrameItems.at(a)->ItemNr = a;
+}

@@ -90,10 +90,7 @@ void gtAction::clearFrame()
 	}
 	textFrame->itemText.clear();
 	textFrame->CPos = 0;
-	for (uint a = 0; a < ScApp->doc->FrameItems.count(); ++a)
-	{
-		ScApp->doc->FrameItems.at(a)->ItemNr = a;
-	}
+	ScApp->doc->updateFrameItems();
 }
 
 void gtAction::write(const QString& text, gtStyle *style)
@@ -130,10 +127,7 @@ void gtAction::write(const QString& text, gtStyle *style)
 			}
 			it->itemText.clear();
 			it->CPos = 0;
-			for (uint a = 0; a < ScApp->doc->FrameItems.count(); ++a)
-			{
-				ScApp->doc->FrameItems.at(a)->ItemNr = a;
-			}
+			ScApp->doc->updateFrameItems();
 		}
 	}
 	int paragraphStyle = -1;

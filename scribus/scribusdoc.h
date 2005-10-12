@@ -334,6 +334,11 @@ public:
 	
 	//itemDelete
 	//itemBlah...
+	
+	/**
+	 * @brief Run this common frame item update code
+	 */
+	void updateFrameItems();
 
 protected:
 	void addSymbols();

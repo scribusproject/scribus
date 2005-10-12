@@ -1044,10 +1044,7 @@ void ScribusApp::deleteSelectedTextFromFrame(PageItem *currItem)
 	else
 		currItem->CPos = 0;
 	currItem->HasSel = false;
-	for (uint a = 0; a < doc->FrameItems.count(); ++a)
-	{
-		doc->FrameItems.at(a)->ItemNr = a;
-	}
+	doc->updateFrameItems();
 	DisableTxEdit();
 }
 
