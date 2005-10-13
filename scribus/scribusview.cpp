@@ -3250,13 +3250,8 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 							ClRe = *SelNode.at(itm);
 							currItem->OldB2 = currItem->Width;
 							currItem->OldH2 = currItem->Height;
-							if (ClRe != 0)
+							if (((ClRe != 0) && (SelNode.count() > 1)) || (SelNode.count() == 1))
 								MoveClipPoint(currItem, npf);
-							else
-							{
-								if (currItem->asPolyLine())
-									MoveClipPoint(currItem, npf);
-							}
 						}
 						currItem->OldB2 = currItem->Width;
 						currItem->OldH2 = currItem->Height;
