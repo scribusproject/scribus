@@ -45,6 +45,7 @@ public:
 		bool FlagUse;
 		bool FlagSub;
 		bool FlagOTF;
+		bool FlagNames;
 	};
 	QMap<QString, fontSet> fontFlags;
 	QPtrList<QComboBox> FlagsRepl;

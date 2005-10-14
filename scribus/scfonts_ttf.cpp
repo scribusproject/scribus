@@ -44,8 +44,6 @@ bool Foi_ttf::ReadMetrics()
 	FPointArray outlines;
 	double x, y;
 	struct GlyphR GRec;
-	char *buf[50];
-	QString glyName = "";
 	error = FT_Init_FreeType( &library );
 	if (error)
 	{
@@ -62,7 +60,6 @@ bool Foi_ttf::ReadMetrics()
 	}
 	uniEM = static_cast<double>(face->units_per_EM);
 	HasKern = FT_HAS_KERNING(face);
-	HasNames = FT_HAS_GLYPH_NAMES(face);
 	Ascent = tmp.setNum(face->ascender * 1000 / uniEM);
 	Descender = tmp.setNum(face->descender * 1000 / uniEM);
 	CapHeight = Ascent;
@@ -104,12 +101,6 @@ bool Foi_ttf::ReadMetrics()
 			GRec.y = y;
 			GlyphArray.insert(charcode, GRec);
 		}
-/* The following lines are a check for some weired fonts which have invalid "post" tables */
-		FT_Get_Glyph_Name(face, gindex, buf, 50);
-		QString newName = QString(reinterpret_cast<char*>(buf));
-		if (newName == glyName)
-			HasNames = false;
-		glyName = newName;
 		charcode = FT_Get_Next_Char( face, charcode, &gindex );
 	}
 	UseFont = (invalidGlyphs == 0);

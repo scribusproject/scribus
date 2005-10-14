@@ -36,6 +36,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	unitRatio = unitGetRatioFromIndex(unitIndex);
 	
 	FontsToEmbed.clear();
+	AllFontsP = &AllFonts;
 	view = vie;
 	EffVal = Eff;
 	Opts = Optionen;
@@ -1312,28 +1313,69 @@ void TabPDFOptions::PutToEmbed()
 {
 	if (EmbedList->count() != 0)
 	{
-		if (EmbedList->findItem(AvailFlist->currentText()) == NULL)
+		if (!(*AllFontsP)[AvailFlist->currentText()]->Subset)
 		{
-			FontsToEmbed.append(AvailFlist->currentText());
-			EmbedList->insertItem(AvailFlist->currentText());
+			if (EmbedList->findItem(AvailFlist->currentText()) == NULL)
+			{
+				FontsToEmbed.append(AvailFlist->currentText());
+				EmbedList->insertItem(AvailFlist->currentText());
+			}
+		}
+		else
+		{
+			if (SubsetList->count() != 0)
+			{
+				if (SubsetList->findItem(AvailFlist->currentText()) == NULL)
+				{
+					FontsToSubset.append(AvailFlist->currentText());
+					SubsetList->insertItem(AvailFlist->currentText());
+				}
+			}
+			else
+			{
+				FontsToSubset.append(AvailFlist->currentText());
+				SubsetList->insertItem(AvailFlist->currentText());
+			}
 		}
 	}
 	else
 	{
-		FontsToEmbed.append(AvailFlist->currentText());
-		EmbedList->insertItem(AvailFlist->currentText());
+		if (!(*AllFontsP)[AvailFlist->currentText()]->Subset)
+		{
+			FontsToEmbed.append(AvailFlist->currentText());
+			EmbedList->insertItem(AvailFlist->currentText());
+		}
+		else
+		{
+			if (SubsetList->count() != 0)
+			{
+				if (SubsetList->findItem(AvailFlist->currentText()) == NULL)
+				{
+					FontsToSubset.append(AvailFlist->currentText());
+					SubsetList->insertItem(AvailFlist->currentText());
+				}
+			}
+			else
+			{
+				FontsToSubset.append(AvailFlist->currentText());
+				SubsetList->insertItem(AvailFlist->currentText());
+			}
+		}
 	}
 }
 
 void TabPDFOptions::RemoveSubset()
 {
-	FontsToSubset.remove(SubsetList->currentText());
-	FontsToEmbed.append(SubsetList->currentText());
-	EmbedList->insertItem(SubsetList->currentText());
-	SubsetList->removeItem(SubsetList->currentItem());
-	SubsetList->clearSelection();
-	if (SubsetList->count() == 0)
-		FromSubset->setEnabled(false);
+	if (!(*AllFontsP)[SubsetList->currentText()]->Subset)
+	{
+		FontsToSubset.remove(SubsetList->currentText());
+		FontsToEmbed.append(SubsetList->currentText());
+		EmbedList->insertItem(SubsetList->currentText());
+		SubsetList->removeItem(SubsetList->currentItem());
+		SubsetList->clearSelection();
+		if (SubsetList->count() == 0)
+			FromSubset->setEnabled(false);
+	}
 }
 
 void TabPDFOptions::PutToSubset()
@@ -1419,8 +1461,16 @@ void TabPDFOptions::EmbedAll()
 		{
 			if (AvailFlist->item(a)->isSelectable())
 			{
-				FontsToEmbed.append(AvailFlist->item(a)->text());
-				EmbedList->insertItem(AvailFlist->item(a)->text());
+				if (!(*AllFontsP)[AvailFlist->item(a)->text()]->Subset)
+				{
+					FontsToEmbed.append(AvailFlist->item(a)->text());
+					EmbedList->insertItem(AvailFlist->item(a)->text());
+				}
+				else
+				{
+					FontsToSubset.append(AvailFlist->item(a)->text());
+					SubsetList->insertItem(AvailFlist->item(a)->text());
+				}
 			}
 		}
 	}

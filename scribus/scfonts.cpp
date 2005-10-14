@@ -230,8 +230,6 @@ class Foi_postscript : public Foi
 			FT_ULong  charcode;
 			FT_UInt   gindex;
 			FT_Face   face;
-			char *buf[50];
-			QString glyName = "";
 			isStroked = false;
 			error = FT_Init_FreeType( &library );
 			if (error)
@@ -260,7 +258,6 @@ class Foi_postscript : public Foi
 			if (afm.exists())
 				error = FT_Attach_File(face, afm.name());
 			HasKern = FT_HAS_KERNING(face);
-			HasNames = FT_HAS_GLYPH_NAMES(face);
 			Ascent = tmp.setNum(face->ascender);
 			Descender = tmp.setNum(face->descender);
 			numDescender = face->descender / uniEM;
@@ -302,12 +299,6 @@ class Foi_postscript : public Foi
 					GRec.y = y;
 					GlyphArray.insert(charcode, GRec);
 				}
-/* The following lines are a check for some weired fonts which have invalid "post" tables */
-				FT_Get_Glyph_Name(face, gindex, buf, 50);
-				QString newName = QString(reinterpret_cast<char*>(buf));
-				if (newName == glyName)
-					HasNames = false;
-				glyName = newName;
 				charcode = FT_Get_Next_Char( face, charcode, &gindex );
 			}
 			FT_Done_Face( face );
@@ -650,6 +641,9 @@ void getSFontType(FT_Face face, Foi::FontType & type)
 bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString DocName)
 {
 	static bool firstRun;
+	bool Subset = false;
+	char *buf[50];
+	QString glyName = "";
 	Foi::FontFormat format;
 	Foi::FontType   type;
 	FT_Face         face = NULL;
@@ -679,6 +673,7 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 		checkedFonts.insert(filename, foCache);
 		error = true;
 	}
+	bool HasNames = FT_HAS_GLYPH_NAMES(face);
 	if (!error)
 	{
 		if (!checkedFonts.contains(filename))
@@ -699,6 +694,14 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 					checkedFonts.insert(filename, foCache);
 					return true;
 				}
+				FT_Get_Glyph_Name(face, gindex, buf, 50);
+				QString newName = QString(reinterpret_cast<char*>(buf));
+				if (newName == glyName)
+				{
+					HasNames = false;
+					Subset = true;
+				}
+				glyName = newName;
 				charcode = FT_Get_Next_Char( face, charcode, &gindex );
 			}
 			foCache.isOK = true;
@@ -728,6 +731,14 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 						checkedFonts.insert(filename, foCache);
 						return true;
 					}
+					FT_Get_Glyph_Name(face, gindex, buf, 50);
+					QString newName = QString(reinterpret_cast<char*>(buf));
+					if (newName == glyName)
+					{
+						HasNames = false;
+						Subset = true;
+					}
+					glyName = newName;
 					charcode = FT_Get_Next_Char( face, charcode, &gindex );
 				}
 				foCache.isOK = true;
@@ -789,9 +800,11 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 			{
 				case Foi::PFA:
 					t = new Foi_pfa(fam, sty, ts, qpsName, filename, faceindex, true);
+					t->Subset = Subset;
 					break;
 				case Foi::PFB:
 					t = new Foi_pfb(fam, sty, ts, qpsName, filename, faceindex, true);
+					t->Subset = Subset;
 					break;
 				case Foi::SFNT:
 					t = new Foi_ttf(fam, sty, ts, qpsName, filename, faceindex, true);
@@ -801,6 +814,8 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 						t->isOTF = true;
 						t->Subset = true;
 					}
+					else
+						t->Subset = Subset;
 					break;
 				case Foi::TTCF:
 					t = new Foi_ttf(fam, sty, ts, qpsName, filename, faceindex, true);
@@ -812,6 +827,8 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 						t->isOTF = true;
 						t->Subset = true;
 					}
+					else
+						t->Subset = Subset;
 					break;
 				case Foi::TYPE42:
 					t = new Foi_ttf(fam, sty, ts, qpsName, filename, faceindex, true);
@@ -821,9 +838,12 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 						t->isOTF = true;
 						t->Subset = true;
 					}
+					else
+						t->Subset = Subset;
 					break;
 			}
 			insert(ts,t);
+			t->HasNames = HasNames;
 			t->EmbedPS = true;
 			t->UseFont = true;
 			t->CharWidth[13] = 0;
@@ -1017,10 +1037,14 @@ void SCFonts::AddUserPath(QString )
 
 void SCFonts::ReadCacheList(QString pf)
 {
+	QFile fr(pf + "/cfonts.xml");
+	QFileInfo fir(fr);
+	if (fir.exists())
+		fr.remove();
 	checkedFonts.clear();
 	struct testCache foCache;
 	QDomDocument docu("fontcacherc");
-	QFile f(pf + "/cfonts.xml");
+	QFile f(pf + "/checkfonts.xml");
 	if(!f.open(IO_ReadOnly))
 		return;
 	ScApp->setSplashStatus( QObject::tr("Reading Font Cache") );
@@ -1071,7 +1095,7 @@ void SCFonts::WriteCacheList(QString pf)
 		}
 	}
 	ScApp->setSplashStatus( QObject::tr("Writing updated Font Cache") );
-	QFile f(pf + "/cfonts.xml");
+	QFile f(pf + "/checkfonts.xml");
 	if(f.open(IO_WriteOnly))
 	{
 		QTextStream s(&f);

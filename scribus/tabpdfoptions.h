@@ -39,6 +39,7 @@ public:
 	~TabPDFOptions() {};
 	void restoreDefaults();
 
+	SCFonts *AllFontsP;
 	QWidget* tabGeneral;
 	QWidget* tabFonts;
 	QWidget* tabPresentation;

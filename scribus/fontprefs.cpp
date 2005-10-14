@@ -94,6 +94,7 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, QString PPath
 			if (type == Foi::OTF)
 				row->setPixmap(0, otfFont);
 		}
+		foS.FlagNames = it.current()->HasNames;
 		row->setText(4, it.current()->fontPath());
 		fontFlags.insert(it.currentKey(), foS);
 	}
@@ -217,7 +218,7 @@ void FontPrefs::slotClick(QListViewItem* ite, const QPoint &, int col)
 		else
 			ite->setPixmap(2, empty);
 	}
-	if ((col == 3) && (!fontFlags[tmp].FlagOTF))
+	if ((col == 3) && (!fontFlags[tmp].FlagOTF) && (!fontFlags[tmp].FlagNames))
 	{
 		fontFlags[tmp].FlagSub = !fontFlags[tmp].FlagSub;
 		if (fontFlags[tmp].FlagSub)
@@ -424,12 +425,11 @@ void FontPrefs::RebuildDialog()
 			if (type == Foi::OTF)
 				row->setPixmap(0, otfFont);
 		}
+		foS.FlagNames = it.current()->HasNames;
 		row->setText(4, it.current()->fontPath());
 		fontFlags.insert(it.currentKey(), foS);
 	}
-	//fontList->setSorting(0);
 	fontList->sort();
 	UsedFonts.sort();
-	//fontList->setSorting(-1);
 	UpdateFliste();
 }
