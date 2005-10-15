@@ -3511,9 +3511,9 @@ void PageItem::DrawPolyL(QPainter *p, QPointArray pts)
 	QColor tmp;
 	if (Segments.count() != 0)
 	{
-		QValueList<uint>::Iterator it2;
+		QValueList<uint>::Iterator it2end=Segments.end();
 		uint FirstVal = 0;
-		for (it2 = Segments.begin(); it2 != Segments.end(); ++it2)
+		for (QValueList<uint>::Iterator it2 = Segments.begin(); it2 != it2end; ++it2)
 		{
 			if (NamedLStyle.isEmpty())
 				p->drawPolyline(pts, FirstVal, (*it2)-FirstVal);
@@ -4248,7 +4248,7 @@ void PageItem::setLanguage(const QString& newLanguage)
 
 bool PageItem::textFlowsAroundFrame() const
 {
-	return this->textFlowsAroundFrameVal;
+	return textFlowsAroundFrameVal;
 }
 
 void PageItem::setTextFlowsAroundFrame(bool isFlowing)
@@ -4266,7 +4266,7 @@ void PageItem::setTextFlowsAroundFrame(bool isFlowing)
 
 bool PageItem::textFlowUsesBoundingBox() const
 {
-	return this->textFlowUsesBoundingBoxVal;
+	return textFlowUsesBoundingBoxVal;
 }
 
 void PageItem::setTextFlowUsesBoundingBox(bool useBounding)
@@ -4287,7 +4287,7 @@ void PageItem::setTextFlowUsesBoundingBox(bool useBounding)
 
 bool PageItem::textFlowUsesContourLine() const
 {
-	return this->textFlowUsesContourLineVal;
+	return textFlowUsesContourLineVal;
 }
 
 void PageItem::setTextFlowUsesContourLine(bool useContour)
@@ -4389,13 +4389,13 @@ void PageItem::setLayer(int layerId)
 void PageItem::checkChanges(bool force)
 {
 	// has the item been resized
-	if ((force) || ((oldWidth != Width || oldHeight != Height) && (shouldCheck())))
+	if (force || ((oldWidth != Width || oldHeight != Height) && shouldCheck()))
 		resizeUndoAction();
 	// has the item been rotated
-	if ((force) || ((oldRot != Rot) && (shouldCheck())))
+	if (force || ((oldRot != Rot) && (shouldCheck())))
 		rotateUndoAction();
 	// has the item been moved
-	if ((force) || ((oldXpos != Xpos || oldYpos != Ypos) && (shouldCheck())))
+	if (force || ((oldXpos != Xpos || oldYpos != Ypos) && shouldCheck()))
 		moveUndoAction();
 }
 
@@ -4630,8 +4630,8 @@ void PageItem::restoreMove(SimpleState *state, bool isUndo)
 	double my = oy - y;
 	if (!isUndo)
 	{
-		mx = x - ox;
-		my = y - oy;
+		mx = -mx;
+		my = -my;
 	}
 	ScApp->view->MoveItem(mx, my, this, false);
 	oldXpos = Xpos;
@@ -4661,8 +4661,8 @@ void PageItem::restoreResize(SimpleState *state, bool isUndo)
 	}
 	else
 	{
-		mx = x - ox;
-		my = y - oy;
+		mx = -mx;
+		my = -my;
 		ScApp->view->SizeItem(w, h, this, false, true, true);
 		ScApp->view->MoveItem(mx, my, this, false);
 		ScApp->view->RotateItem(rt, this);
@@ -4812,16 +4812,10 @@ void PageItem::restoreCustomLineStyle(SimpleState *state, bool isUndo)
 
 void PageItem::restoreName(SimpleState *state, bool isUndo)
 {
-	if (isUndo)
-	{
-		QString oldName = state->get("OLD_NAME");
-		setItemName(oldName);
-	}
-	else
-	{
-		QString newName = state->get("NEW_NAME");
-		setItemName(newName);
-	}
+	QString name = state->get("OLD_NAME");
+	if (!isUndo)
+		name = state->get("NEW_NAME");
+	setItemName(name);
 }
 
 void PageItem::restoreArrow(SimpleState *state, bool isUndo, bool isStart)
@@ -4989,7 +4983,7 @@ void PageItem::restoreTextFlowing(SimpleState *state, bool isUndo)
 
 void PageItem::restoreImageScaling(SimpleState *state, bool isUndo)
 {
-	bool type, ratio;
+	bool type=ScaleType;
 	if (state->contains("SCALE_TYPE"))
 	{
 		if (isUndo)
@@ -4997,8 +4991,8 @@ void PageItem::restoreImageScaling(SimpleState *state, bool isUndo)
 		else
 			type = state->getBool("SCALE_TYPE");
 	}
-	else
-		type = ScaleType;
+	
+	bool ratio=AspectRatio;
 	if (state->contains("ASPECT_RATIO"))
 	{
 		if (isUndo)
@@ -5006,8 +5000,6 @@ void PageItem::restoreImageScaling(SimpleState *state, bool isUndo)
 		else
 			ratio = state->getBool("ASPECT_RATIO");
 	}
-	else
-		ratio = AspectRatio;
 
 	setImageScalingMode(type, ratio);
 }
@@ -5030,11 +5022,8 @@ void PageItem::restorePoly(SimpleState *state, bool isUndo, bool isContour)
 			scaling = (1.0 - (100.0 / (100.0 + scaling))) * 100.0;
 		else if (mode == 3)
 			scaling = ((100.0 / (100.0 - scaling)) - 1.0) * 100.0;
-		ScApp->view->TransformPoly(mode, rot, scaling);
 	}
-	else
-		ScApp->view->TransformPoly(mode, rot, scaling);
-
+	ScApp->view->TransformPoly(mode, rot, scaling);
 	ScApp->view->EditContour = editContour;
 }
 
@@ -5044,15 +5033,10 @@ void PageItem::restoreContourLine(SimpleState *state, bool isUndo)
 	if (is)
 	{
 		if (isUndo)
-		{
 			ContourLine = is->getItem();
-			ClipEdited = true;
-		}
 		else
-		{
 			ContourLine = PoLine.copy();
-			ClipEdited = true;
-		}
+		ClipEdited = true;
 	}
 }
 
@@ -5115,10 +5099,12 @@ void PageItem::setObjectAttributes(ObjAttrVector* map)
 	pageItemAttributes=*map;
 }
 
+//CB Shouldn't this be in ScribusDoc???
 bool PageItem::nameExists(const QString itemName) const
 {
 	bool found = false;
-	for (uint c = 0; c < Doc->Items.count(); ++c)
+	uint docItemCount=Doc->Items.count();
+	for (uint c = 0; c < docItemCount; ++c)
 	{
 		if (itemName == Doc->Items.at(c)->itemName())
 		{
