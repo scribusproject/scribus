@@ -149,6 +149,11 @@ void PrefsManager::initDefaults()
 	}
 
 	appPrefs.Wheelval = 40;
+	/** Set Default window position and size to sane default values which should work on every screen */
+	appPrefs.mainWinSettings.xPosition = 0;
+	appPrefs.mainWinSettings.yPosition = 0;
+	appPrefs.mainWinSettings.width = 640;
+	appPrefs.mainWinSettings.height = 480;
 	appPrefs.guidesSettings.marginsShown = true;
 	appPrefs.guidesSettings.framesShown = true;
 	appPrefs.guidesSettings.gridShown = false;
@@ -1357,10 +1362,10 @@ bool PrefsManager::ReadPref(QString ho)
 		}
 		if (dc.tagName()=="MAINWINDOW")
 		{
-			appPrefs.mainWinSettings.xPosition = QStoInt(dc.attribute("XPOS"));
-			appPrefs.mainWinSettings.yPosition = QStoInt(dc.attribute("YPOS"));
-			appPrefs.mainWinSettings.width = QStoInt(dc.attribute("WIDTH"));
-			appPrefs.mainWinSettings.height = QStoInt(dc.attribute("HEIGHT"));
+			appPrefs.mainWinSettings.xPosition = QStoInt(dc.attribute("XPOS", "0"));
+			appPrefs.mainWinSettings.yPosition = QStoInt(dc.attribute("YPOS", "0"));
+			appPrefs.mainWinSettings.width = QStoInt(dc.attribute("WIDTH", "640"));
+			appPrefs.mainWinSettings.height = QStoInt(dc.attribute("HEIGHT", "480"));
 		}
 		if (dc.tagName()=="PAGEPALETTE")
 		{
