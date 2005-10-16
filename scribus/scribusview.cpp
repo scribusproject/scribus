@@ -916,6 +916,7 @@ void ScribusView::contentsDragEnterEvent(QDragEnterEvent *e)
 			QPainter p;
 			p.begin(viewport());
 			PaintSizeRect(&p, QRect());
+			emit ItemGeom(gw, gh);
 //			QPoint pv = QPoint(qRound(gx), qRound(gy));
 //			PaintSizeRect(&p, QRect(pv, QPoint(pv.x()+qRound(gw), pv.y()+qRound(gh))));
 			p.end();
@@ -1110,9 +1111,10 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 				for (uint as = ac; as < Doc->Items.count(); ++as)
 				{
 					currItem = Doc->Items.at(as);
+					currItem->Select = true;
+					SelItem.append(currItem);
 					if (currItem->isBookmark)
 						emit AddBM(currItem);
-					SelectItemNr(as);
 				}
 			}
 			else
@@ -1193,12 +1195,25 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 				for (uint as = ac; as < Doc->Items.count(); ++as)
 				{
 					currItem = Doc->Items.at(as);
+					currItem->Select = true;
+					SelItem.append(currItem);
 					if (currItem->isBookmark)
 						emit AddBM(currItem);
-					SelectItemNr(as);
 				}
-				updateContents();
 			}
+			emit HaveSel(SelItem.at(0)->itemType());
+			if (SelItem.count() > 1)
+			{
+				setGroupRect();
+				paintGroupRect();
+				double x, y, w, h;
+				getGroupRect(&x, &y, &w, &h);
+				emit ItemPos(x, y);
+				emit ItemGeom(w, h);
+			}
+			else
+				EmitValues(SelItem.at(0));
+					updateContents();
 //		}
 	}
 }
