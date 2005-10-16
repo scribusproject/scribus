@@ -117,6 +117,7 @@ StilFormate::StilFormate( QWidget* parent, ScribusDoc *doc) : QDialog( parent, "
 	setCaption( tr( "Edit Styles" ) );
 	setIcon(loadIcon("AppIcon.png"));
 	Docu = doc;
+	ReplaceList.clear();
 	StilFormateLayout = new QHBoxLayout( this );
 	StilFormateLayout->setSpacing( 5 );
 	StilFormateLayout->setMargin( 10 );

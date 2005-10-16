@@ -6854,7 +6854,27 @@ void ScribusApp::saveStyles(StilFormate *dia)
 			if (ff)
 				ers.append(nr);
 			else
-				ers.append(0);
+			{
+				if (dia->ReplaceList.count() != 0)
+				{
+					QString ne = dia->ReplaceList[nn];
+					for (uint b=0; b<dia->TempVorl.count(); ++b)
+					{
+						if (ne == dia->TempVorl[b].Vname)
+						{
+							nr = b;
+							ff = true;
+							break;
+						}
+					}
+					if (ff)
+						ers.append(nr);
+					else
+						ers.append(0);
+				}
+				else
+					ers.append(0);
+			}
 		}
 	}
 	uint counter = 0;

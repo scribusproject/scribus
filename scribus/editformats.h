@@ -51,6 +51,7 @@ public:
 	QPushButton* CancelB;
 	int sFnumber;
 	QValueList<ParagraphStyle> TempVorl;
+	QMap<QString, QString> ReplaceList;
 	ScribusDoc *Docu;
 	void UpdateFList();
 
