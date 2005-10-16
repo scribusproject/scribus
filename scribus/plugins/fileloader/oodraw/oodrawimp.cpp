@@ -104,22 +104,22 @@ QValueList<LoadSavePlugin::FormatSupport> OODrawImportPlugin::supportedFormats()
 {
 	QValueList<FormatSupport> formats;
 	QString odtName = tr("OpenDocument 1.0 Draw", "Import/export format name");
-	FormatSupport odtformat = {
-		odtName, // Human readable name
-		"oddraw", // Internal name
-		odtName + " (*.odg)", // QFileDialog filter
-		LoadSavePlugin::Format_Load|LoadSavePlugin::Format_Import, // Modes
-		QStringList("application/vnd.oasis.opendocument.graphics"), // MIME types
-		64}; // Priority
+	FormatSupport odtformat;
+	odtformat.trName = odtName; // Human readable name
+	odtformat.internalName = "oddraw"; // Internal name
+	odtformat.filter = odtName + " (*.odg)"; // QFileDialog filter
+	odtformat.modes = LoadSavePlugin::Format_Load|LoadSavePlugin::Format_Import; // Modes
+	odtformat.mimeTypes = QStringList("application/vnd.oasis.opendocument.graphics"); // MIME types
+	odtformat.priority = 64; // Priority
 	formats.append(odtformat);
 	QString sxdName = tr("OpenOffice.org 1.x Draw", "Import/export format name");
-	FormatSupport sxdformat = {
-		sxdName, // Human readable name
-		"oodraw", // Internal name
-		sxdName + " (*.sxd)", // QFileDialog filter
-		LoadSavePlugin::Format_Load|LoadSavePlugin::Format_Import, // Modes
-		QStringList("application/vnd.sun.xml.draw"), // MIME types
-		64}; // Priority
+	FormatSupport sxdformat;
+	sxdformat.trName = sxdName; // Human readable name
+	sxdformat.internalName = "oodraw"; // Internal name
+	sxdformat.filter = sxdName + " (*.sxd)"; // QFileDialog filter
+	sxdformat.modes = LoadSavePlugin::Format_Load|LoadSavePlugin::Format_Import; // Modes
+	sxdformat.mimeTypes = QStringList("application/vnd.sun.xml.draw"); // MIME types
+	sxdformat.priority = 64; // Priority
 	formats.append(sxdformat);
 	return formats;
 }

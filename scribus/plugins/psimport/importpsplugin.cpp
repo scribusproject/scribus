@@ -83,10 +83,13 @@ QValueList<LoadSavePlugin::FormatSupport> ImportPSPlugin::supportedFormats() con
 {
 	QValueList<FormatSupport> formats;
 	QString psName = tr("PostScript");
-	FormatSupport fmt = {
-		psName, "psimport", psName + " (*.ps *.PS *.eps *.EPS)",
-		Format_Import|Format_Load,
-		QStringList("application/postscript"), 64};
+	FormatSupport fmt;
+	fmt.trName = psName; // Human readable name
+	fmt.internalName = "psimport"; // Internal name
+	fmt.filter = psName + " (*.ps *.PS *.eps *.EPS)"; // QFileDialog filter
+	fmt.modes = Format_Import|Format_Load; // Modes
+	fmt.mimeTypes = QStringList("application/postscript"); // MIME types
+	fmt.priority = 64; // Priority
 	formats.append(fmt);
 	return formats;
 }

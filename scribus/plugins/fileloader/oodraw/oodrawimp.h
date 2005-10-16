@@ -7,6 +7,8 @@
 #include "pluginapi.h"
 #include "loadsaveplugin.h"
 #include "stylestack.h"
+#include "pageitem.h"
+#include "scribusstructs.h"
 
 class PLUGIN_API OODrawImportPlugin : public LoadSavePlugin
 {
@@ -34,7 +36,6 @@ extern "C" PLUGIN_API void oodrawimp_freePlugin(ScPlugin* plugin);
 class QWidget;
 class ScribusApp;
 class ScribusDoc;
-class PageItem;
 class FPointArray;
 class QDomDocument;
 class QDomElement;

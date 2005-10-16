@@ -85,9 +85,13 @@ QValueList<LoadSavePlugin::FormatSupport> PixmapExportPlugin::supportedFormats()
 	// TODO: For now, we only support "export" and omit a list of supported
 	// formats. Later, it might be good to support "Save as" with the chosen
 	// format.
-	FormatSupport fmt = {
-		QString::null, "pixmapex", QString::null,
-		Format_Export, QStringList(), 64};
+	FormatSupport fmt;
+	fmt.trName = QString::null; // Human readable name
+	fmt.internalName = "pixmapex"; // Internal name
+	fmt.filter = QString::null; // QFileDialog filter
+	fmt.modes = Format_Export; // Modes
+	fmt.mimeTypes = QStringList(); // MIME types
+	fmt.priority = 64; // Priority
 	formats.append(fmt);
 	return formats;
 }

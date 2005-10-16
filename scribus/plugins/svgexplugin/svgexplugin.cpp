@@ -93,9 +93,13 @@ QValueList<LoadSavePlugin::FormatSupport> SVGExportPlugin::supportedFormats() co
 {
 	QValueList<FormatSupport> formats;
 	// TODO: more complete format definition
-	FormatSupport fmt = {
-		QString::null, "svgex", QString::null,
-		Format_Save|Format_Export, QStringList(), 64};
+	FormatSupport fmt;
+	fmt.trName = QString::null;
+	fmt.internalName = "svgex";
+	fmt.filter = QString::null;
+	fmt.modes = Format_Save|Format_Export;
+	fmt.mimeTypes = QStringList();
+	fmt.priority = 64;
 	formats.append(fmt);
 	return formats;
 }

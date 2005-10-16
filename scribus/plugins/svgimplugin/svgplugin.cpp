@@ -95,9 +95,13 @@ QValueList<LoadSavePlugin::FormatSupport> SVGImportPlugin::supportedFormats() co
 {
 	QValueList<FormatSupport> formats;
 	QString svgName = tr("Scalable Vector Graphics");
-	FormatSupport fmt = {
-		svgName, "svgim", svgName + " (*.svg *.svgz)",
-		Format_Import|Format_Load, QStringList("image/svg+xml"), 64};
+	FormatSupport fmt;
+	fmt.trName = svgName;
+	fmt.internalName = "svgim";
+	fmt.filter = svgName + " (*.svg *.svgz)";
+	fmt.modes = Format_Import|Format_Load;
+	fmt.mimeTypes = QStringList("image/svg+xml");
+	fmt.priority = 64;
 	formats.append(fmt);
 	return formats;
 }
