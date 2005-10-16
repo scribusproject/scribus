@@ -3,8 +3,68 @@
 #include "units.h"
 #include "documentinformation.h"
 
+/*
+newDocument(size, margins, orientation, firstPageNumber,
+            unit, pagesType, firstPageOrder)*/
+PyObject *scribus_newdocument(PyObject* /* self */, PyObject* args)
+{
+	double topMargin, bottomMargin, leftMargin, rightMargin;
+	double pageWidth, pageHeight;
+	int orientation, firstPageNr, unit, pagesType, facingPages, firstPageOrder;
+
+	PyObject *p, *m;
+
+	if ((!PyArg_ParseTuple(args, "OOiiiii", &p, &m, &orientation,
+											&firstPageNr, &unit,
+											&pagesType,
+											&firstPageOrder)) ||
+						(!PyArg_ParseTuple(p, "dd", &pageWidth, &pageHeight)) ||
+						(!PyArg_ParseTuple(m, "dddd", &leftMargin, &rightMargin,
+												&topMargin, &bottomMargin)))
+		return NULL;
+
+	if (pagesType == 0)
+	{
+		facingPages = 0;
+		firstPageOrder = 0;
+	}
+	else
+		facingPages = 1;
+	// checking the bounds
+	if (pagesType < firstPageOrder)
+	{
+		PyErr_SetString(ScribusException, QObject::tr("firstPageOrder is bigger than allowed.","python error"));
+		return NULL;
+	}
+
+	pageWidth = value2pts(pageWidth, unit);
+	pageHeight = value2pts(pageHeight, unit);
+	if (orientation == 1)
+	{
+		double x = pageWidth;
+		pageWidth = pageHeight;
+		pageHeight = x;
+	}
+	leftMargin = value2pts(leftMargin, unit);
+	rightMargin = value2pts(rightMargin, unit);
+	topMargin = value2pts(topMargin, unit);
+	bottomMargin = value2pts(bottomMargin, unit);
+
+	bool ret = ScApp->doFileNew(pageWidth, pageHeight,
+								topMargin, leftMargin, rightMargin, bottomMargin,
+								// autoframes. It's disabled in python
+								// columnDistance, numberCols, autoframes,
+								0, 1, false,
+								pagesType, unit, firstPageOrder,
+								orientation, firstPageNr, "Custom");
+	ScApp->doc->pageSets[pagesType].FirstPage = firstPageOrder;
+
+	return PyInt_FromLong(static_cast<long>(ret));
+}
+
 PyObject *scribus_newdoc(PyObject* /* self */, PyObject* args)
 {
+	qDebug("WARNING: newDoc() procedure is obsolete. Use newDocument() instead. It can be removed in next releases");
 	double b, h, lr, tpr, btr, rr, ebr;
 	int unit, ds, fsl, fNr, ori;
 	PyObject *p, *m;
@@ -20,6 +80,13 @@ PyObject *scribus_newdoc(PyObject* /* self */, PyObject* args)
 		b = h;
 		h = ebr;
 	}
+	/*! \todo Obsolete! In the case of no facing pages use only firstpageleft
+	scripter is not new-page-size ready.
+	What is it: don't allow to use wrong FSL constant in the case of
+	onesided document. */
+	if (ds!=1 && fsl>0)
+		fsl = 0;
+	// end of hack
 	tpr = value2pts(tpr, unit);
 	lr = value2pts(lr, unit);
 	rr = value2pts(rr, unit);
