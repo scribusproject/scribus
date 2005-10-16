@@ -7904,7 +7904,8 @@ void ScribusView::EmitValues(PageItem *currItem)
 	emit SetLocalValues(currItem->LocalScX, currItem->LocalScY, currItem->LocalX, currItem->LocalY );
 	emit ItemFarben(currItem->lineColor(), currItem->fillColor(), currItem->lineShade(), currItem->fillShade());
 	emit ItemGradient(currItem->GrType);
-	emit ItemTrans(currItem->fillTransparency(), currItem->lineTransparency());
+	if (currItem->GrType == 0)
+		emit ItemTrans(currItem->fillTransparency(), currItem->lineTransparency());
 	emit ItemTextAttr(currItem->LineSp);
 	emit ItemTextUSval(currItem->ExtraV);
 	emit SetDistValues(currItem->Extra, currItem->TExtra, currItem->BExtra, currItem->RExtra);

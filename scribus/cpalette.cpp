@@ -171,7 +171,7 @@ void Cpalette::InhaltButton()
 		gradEdit->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 		GradientMode = false;
 		layout()->activate();
-		//updateCList();
+		updateCList();
 		repaint();
 	}
 	emit QueryItem();
@@ -205,7 +205,7 @@ void Cpalette::InnenButton()
 			}
 		}
 		layout()->activate();
-		//updateCList();
+		updateCList();
 		repaint();
 	}
 	emit QueryItem();
@@ -361,12 +361,12 @@ void Cpalette::ChooseGrad(int number)
 	switch (number)
 	{
 	case 0:
-		//updateCList();
+		updateCList();
 		PM1->setValue(Shade3);
 		updateBoxS(Color3);
 		break;
 	default:
-		//updateCList();
+		updateCList();
 		PM1->setValue(Shade);
 		updateBoxS(Color);
 		break;
