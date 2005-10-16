@@ -110,7 +110,7 @@ int FileLoader::TestFile()
 int FileLoader::CheckScribus()
 {
 	int ret = -1;
-	QString fText = ReadDatei(FileName);
+	QString fText(readSLA(FileName));
 	if (fText.isEmpty())
 		return ret;
 	if ((fText.startsWith("<SCRIBUSUTF8NEW")) && (fText.contains("<PAGE ", true) != 0))
@@ -121,24 +121,30 @@ int FileLoader::CheckScribus()
 }
 
 /*!
- \fn QString FileLoader::ReadDatei(QString fileName)
+ \fn QString FileLoader::readSLA(QString fileName)
  \author Franz Schmid
  \date
- \brief Auxiliary function loads the file "fileName" into a QString and does conversion from UTF8 if required
+ \brief Auxiliary function loads the file "fileName" into a QString, taking care of any encoding issues
  \param QString fileName
- \retval QString Contents of the file, converted from UTF8
+ \retval QString Contents of the file
+
+ Note that this method will use the system text encoding when loading .sla /
+ .scd files from before the conversion to utf-8 storage. There is presently no
+ override for the encoding used.
  */
-QString FileLoader::ReadDatei(QString fileName)
+QString FileLoader::readSLA(const QString & fileName)
 {
-/**
-  * added to support gz docs
-  * 2.7.2002 C.Toepp
-  * <c.toepp@gmx.de>
-  */
-	QString f = "";
-#ifdef HAVE_LIBZ
+	QCString docBytes("");
 	if(fileName.right(2) == "gz")
 	{
+#ifdef HAVE_LIBZ
+		/**
+		  * added to support gz docs
+		  * 2.7.2002 C.Toepp
+		  * <c.toepp@gmx.de>
+		  */
+		// The file is gzip encoded and we can load
+		// gzip files.
 		gzFile gzDoc;
 		char buff[4097];
 		int i;
@@ -148,24 +154,26 @@ QString FileLoader::ReadDatei(QString fileName)
 		while((i = gzread(gzDoc,&buff,4096)) > 0)
 		{
 			buff[i] = '\0';
-			f.append(buff);
+			docBytes.append(buff);
 		}
 		gzclose(gzDoc);
+#else
+		// The file is gzip encoded but we can't load gzip files.
+		// Leave `f' empty, since we have no way to
+		// report a failure condition from here.
+#endif
 	}
 	else
-		loadText(fileName, &f);
-#else
-	loadText(fileName, &f);
-#endif
-	QString ff = "";
-	if (f.startsWith("<SCRIBUSUTF8"))
-		ff = QString::fromUtf8(f);
-	else if (f.startsWith("<SCRIBUS"))
-		ff = f;
-	if (ff.endsWith(QChar(10)) || ff.endsWith(QChar(13)))
-		ff.truncate(ff.length()-1);
-	return ff;
-/** end changes */
+		// Not gzip encoded, just load it
+		loadRawText(fileName, docBytes);
+	QString docText("");
+	if (docBytes.left(12) == "<SCRIBUSUTF8")
+		docText = QString::fromUtf8(docBytes);
+	else if (docBytes.left(8) == "<SCRIBUS")
+		docText = QString::fromLocal8Bit(docBytes);
+	if (docText.endsWith(QChar(10)) || docText.endsWith(QChar(13)))
+		docText.truncate(docText.length()-1);
+	return docText;
 }
 
 bool FileLoader::LoadPage(int PageToLoad, bool Mpage)
@@ -486,7 +494,7 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 	PageItem *Neu;
 	Page* Apage;
 	LFrames.clear();
-	QString tmV, tmp, tmpf, tmp2, tmp3, tmp4, PgNam, f, Defont, tmf;
+	QString tmV, tmp, tmpf, tmp2, tmp3, tmp4, PgNam, Defont, tmf;
 	QFont fo;
 	QMap<int,int> TableID;
 	QPtrList<PageItem> TableItems;
@@ -512,8 +520,7 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 	DoVorl[4] = "4";
 	VorlC = 5;
 	QDomDocument docu("scridoc");
-	f = "";
-	f = ReadDatei(fileName);
+	QString f(readSLA(fileName));
 	if (f.isEmpty())
 		return false;
 	if(!docu.setContent(f))
@@ -897,8 +904,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 	Page* Apage;
 	LFrames.clear();
 	QDomDocument docu("scridoc");
-	QString f = "";
-	f = ReadDatei(fileName);
+	QString f(readSLA(fileName));
 	/* 2004/10/02 - petr vanek - bug #1092 - missing <PAGE> crash Scribus. The check constraint moved into IsScribus()
 	FIXME: I've add test on containig tag PAGE but returning false freezes S. in scribus.cpp need some hack too...  */
 	if (!docu.setContent(f))

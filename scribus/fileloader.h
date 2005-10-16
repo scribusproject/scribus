@@ -22,7 +22,6 @@ public:
 	~FileLoader() {};
 	int TestFile();
 	int CheckScribus();
-	QString ReadDatei(QString fileName);
 	bool LoadPage(int PageToLoad, bool Mpage);
 	bool LoadFile();
 	bool ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *doc, ScribusView *view, int PageToLoad, bool Mpage);
@@ -42,7 +41,8 @@ public:
 	uint VorlC;
 	QPtrList<Foi> dummyFois;
 
-	static const QString FileLoader::getLoadFilterString();
+	static const QString getLoadFilterString();
+	static QString readSLA(const QString & fileName);
 private:
 	PrefsManager* prefsManager;
 };

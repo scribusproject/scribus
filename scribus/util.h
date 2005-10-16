@@ -51,9 +51,9 @@ QPixmap SCRIBUS_API *getFancyPixmap(ScColor col);
 void SCRIBUS_API paintAlert(QPixmap &toPaint, QPixmap &target, int x = 0, int y = 0);
 QPixmap SCRIBUS_API loadIcon(QString nam);
 uint SCRIBUS_API getDouble(QString in, bool raw);
-// loadText is INCORRECT - use loadRawText instead
+// WARNING: loadText is INCORRECT - use loadRawText instead
 bool SCRIBUS_API loadText(QString nam, QString *Buffer);
-bool SCRIBUS_API loadRawText(QString filename, QByteArray & buf);
+bool SCRIBUS_API loadRawText(const QString & filename, QCString & buf);
 double SCRIBUS_API QStodouble(QString in);
 int SCRIBUS_API QStoInt(QString in);
 QString SCRIBUS_API GetAttr(QDomElement *el, QString at, QString def="0");

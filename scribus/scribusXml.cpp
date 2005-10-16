@@ -24,6 +24,9 @@
 #include "prefsmanager.h"
 #include "scribusview.h"
 
+// We use some common routines defined in fileloader.h
+#include "fileloader.h"
+
 #include <iostream>
 
 #include "scconfig.h"
@@ -51,51 +54,10 @@ ScriXmlDoc::ScriXmlDoc()
 */
 bool ScriXmlDoc::IsScribus(QString fileName)
 {
-	QString fText = ReadDatei(fileName);
+	QString fText(FileLoader::readSLA(fileName));
 	if ((fText.isEmpty()) || (!fText.startsWith("<SCRIBUS")) || (fText.contains("<PAGE ", true) == 0))
- 		return false;
+		return false;
 	return true;
-}
-
-QString ScriXmlDoc::ReadDatei(QString fileName)
-{
-/**
-  * added to support gz docs
-  * 2.7.2002 C.Toepp
-  * <c.toepp@gmx.de>
-  */
-	QString f = "";
-#ifdef HAVE_LIBZ
-	if(fileName.right(2) == "gz")
-	{
-		gzFile gzDoc;
-		char buff[4097];
-		int i;
-		gzDoc = gzopen(fileName.latin1(),"rb");
-		if(gzDoc == NULL)
-			return "";
-		while((i = gzread(gzDoc,&buff,4096)) > 0)
-		{
-			buff[i] = '\0';
-			f.append(buff);
-		}
-		gzclose(gzDoc);
-	}
-	else
-// a normal document
-		loadText(fileName, &f);
-#else
-	loadText(fileName, &f);
-#endif
-	QString ff = "";
-	if (f.startsWith("<SCRIBUSUTF8"))
-		ff = QString::fromUtf8(f);
-	else if (f.startsWith("<SCRIBUS"))
-		ff = f;
-	if (ff.endsWith(QChar(10)) || ff.endsWith(QChar(13)))
-		ff.truncate(ff.length()-1);
-	return ff;
-/** end changes */
 }
 
 void ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, bool impo, PageItem* obj)
@@ -446,8 +408,7 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 bool ScriXmlDoc::ReadLStyles(QString fileName, QMap<QString,multiLine> *Sty)
 {
 	QDomDocument docu("scridoc");
-	QString f = "";
-	f = ReadDatei(fileName);
+	QString f(FileLoader::readSLA(fileName));
 	if (f.isEmpty())
 		return false;
 	if(!docu.setContent(f))
@@ -740,10 +701,9 @@ bool ScriXmlDoc::ReadStyles(QString fileName, ScribusDoc* doc)
 {
 	struct ParagraphStyle vg;
 	QDomDocument docu("scridoc");
-	QString f = "";
 	QString tmpf, tmf;
 	DoFonts.clear();
-	f = ReadDatei(fileName);
+	QString f (FileLoader::readSLA(fileName));
 	if (f.isEmpty())
 		return false;
 	if(!docu.setContent(f))
@@ -771,8 +731,7 @@ bool ScriXmlDoc::ReadStyles(QString fileName, ScribusDoc* doc)
 bool ScriXmlDoc::ReadColors(QString fileName)
 {
 	QDomDocument docu("scridoc");
-	QString f = "";
-	f = ReadDatei(fileName);
+	QString f(FileLoader::readSLA(fileName));
 	if (f.isEmpty())
 		return false;
 	if(!docu.setContent(f))
@@ -821,8 +780,7 @@ bool ScriXmlDoc::ReadPageCount(QString fileName, int *num1, int *num2)
 	int counter2 = 0;
 	MNames.clear();
 	QDomDocument docu("scridoc");
-	QString f = "";
-	f = ReadDatei(fileName);
+	QString f(FileLoader::readSLA(fileName));
 	if (f.isEmpty())
 		return false;
 	if(!docu.setContent(f))
@@ -880,7 +838,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 	struct Linked Link;
 	PageItem *Neu;
 	LFrames.clear();
-	QString tmV, tmp, tmpf, tmp2, tmp3, tmp4, PgNam, f, Defont, tmf;
+	QString tmV, tmp, tmpf, tmp2, tmp3, tmp4, PgNam, Defont, tmf;
 	QMap<int,int> TableID;
 	QPtrList<PageItem> TableItems;
 	int x, a, counter, baseobj;
@@ -907,8 +865,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 	DoVorl[4] = "4";
 	VorlC = 5;
 	QDomDocument docu("scridoc");
-	f = "";
-	f = ReadDatei(fileName);
+	QString f(FileLoader::readSLA(fileName));
 	if (f.isEmpty())
 		return false;
 	if(!docu.setContent(f))
@@ -1239,30 +1196,13 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 	PageItem *Neu;
 	LFrames.clear();
 	QDomDocument docu("scridoc");
-	QString f = "";
 	QFile fi(fileName);
-	/* 2004/10/02 - petr vanek - bug #1092 - missing <PAGE> crash Scribus. The check constraint moved into IsScribus()
-	FIXME: I've add test on containig tag PAGE but returning false freezes S. in scribus.cpp need some hack too...  */
-	if (fileName.right(2) == "gz")
-	{
-		f = ReadDatei(fileName);
-		if (!docu.setContent(f))
-			return false;
-	}
-	else
-	{
-		if ( !fi.open( IO_ReadOnly ) )
-		{
-			fi.close();
-			return false;
-		}
-		if (!docu.setContent(&fi))
-		{
-			fi.close();
-			return false;
-		}
-		fi.close();
-	}
+	// Load the document text
+	QString f(FileLoader::readSLA(fileName));
+	// Build the DOM from it
+	if (!docu.setContent(f))
+		return false;
+	// and begin loading the doc
 	doc->PageColors.clear();
 	doc->Layers.clear();
 	ScColor lf = ScColor();

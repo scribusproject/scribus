@@ -540,12 +540,12 @@ bool loadText(QString filename, QString *Buffer)
 	return ret;
 }
 
-// Replacement version of loadText that returns a QByteArray as an out
-// parameter. The QByteArray, usually actually a QCString, is filled with the
-// contents of the specified file. The return byte string is of unknown
-// encoding; the caller must handle encoding issues. There is no need to
-// preallocate the buffer, and the new data replaces any old contents.
-bool loadRawText(QString filename, QByteArray & buf)
+// Replacement version of loadText that returns a QCString as an out parameter.
+// The QCString is filled with the contents of the specified file. The return
+// byte string is of unknown encoding; the caller must handle encoding issues.
+// There is no need to preallocate the buffer, and the new data replaces any
+// old contents.
+bool loadRawText(const QString & filename, QCString & buf)
 {
 	bool ret = false;
 	QFile f(filename);
@@ -553,10 +553,11 @@ bool loadRawText(QString filename, QByteArray & buf)
 	if (fi.exists())
 	{
 		bool ret;
-		QCString tempBuf(f.size());
+		QCString tempBuf(f.size() + 1);
 		if (f.open(IO_ReadOnly))
 		{
 			Q_ULONG bytesRead = f.readBlock(tempBuf.data(), f.size());
+			tempBuf[bytesRead] = '\0';
 			ret = bytesRead == f.size();
 			if (ret)
 				buf = tempBuf; // sharing makes this efficient
