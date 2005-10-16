@@ -136,8 +136,8 @@ void MasterPagesPalette::duplicateMasterPage()
 		nr = currentDoc->Pages.count();
 		currentDoc->MasterNames.insert(MasterPageName, nr);
 		currentDoc->pageCount = 0;
-		atf = currentDoc->PageAT;
-		currentDoc->PageAT = false;
+		atf = currentDoc->usesAutomaticTextFrames();
+		currentDoc->setUsesAutomaticTextFrames(false);
 		emit createNew(nr);
 		currentDoc->setLoading(true);
 		if (currentDoc->currentPageLayout != singlePage)
@@ -235,7 +235,7 @@ void MasterPagesPalette::duplicateMasterPage()
 		currentDoc->Pages.at(nr)->setPageName(MasterPageName);
 		currentDoc->Pages.at(nr)->MPageNam = "";
 		updateMasterPageList(MasterPageName);
-		currentDoc->PageAT = atf;
+		currentDoc->setUsesAutomaticTextFrames(atf);
 		currentDoc->MasterPages = currentDoc->Pages;
 		currentDoc->setLoading(false);
 		currentView->DrawNew();
@@ -268,8 +268,8 @@ void MasterPagesPalette::newMasterPage()
 		nr = currentDoc->Pages.count();
 		currentDoc->MasterNames.insert(MasterPageName, nr);
 		currentDoc->pageCount = 0;
-		atf = currentDoc->PageAT;
-		currentDoc->PageAT = false;
+		atf = currentDoc->usesAutomaticTextFrames();
+		currentDoc->setUsesAutomaticTextFrames(false);
 		emit createNew(nr);
 		if (currentDoc->currentPageLayout != singlePage)
 		{
@@ -285,7 +285,7 @@ void MasterPagesPalette::newMasterPage()
 		currentDoc->Pages.at(nr)->setPageName(MasterPageName);
 		currentDoc->Pages.at(nr)->MPageNam = "";
 		updateMasterPageList(MasterPageName);
-		currentDoc->PageAT = atf;
+		currentDoc->setUsesAutomaticTextFrames(atf);
 		currentView->showMasterPage(currentDoc->MasterNames[MasterPageName]);
 		currentView->reformPages();
 		currentDoc->MasterPages = currentDoc->Pages;
@@ -305,8 +305,8 @@ void MasterPagesPalette::appendPage()
 		qApp->setOverrideCursor(QCursor(waitCursor), true);
 		nr = currentDoc->Pages.count();
 		currentDoc->pageCount = 0;
-		atf = currentDoc->PageAT;
-		currentDoc->PageAT = false;
+		atf = currentDoc->usesAutomaticTextFrames();
+		currentDoc->setUsesAutomaticTextFrames(false);
 		emit createNew(nr);
 		qApp->processEvents();
 		emit loadPage(dia->getFromDoc(), dia->getMasterPageNameItem(), true);
@@ -323,7 +323,7 @@ void MasterPagesPalette::appendPage()
 		currentDoc->Pages.at(nr)->setPageName(MasterPageName2);
 		currentDoc->Pages.at(nr)->MPageNam = "";
 		updateMasterPageList(MasterPageName2);
-		currentDoc->PageAT = atf;
+		currentDoc->setUsesAutomaticTextFrames(atf);
 		currentView->showMasterPage(currentDoc->MasterNames[MasterPageName2]);
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 		currentDoc->MasterPages = currentDoc->Pages;

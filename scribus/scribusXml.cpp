@@ -1242,7 +1242,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 		if (doc->currentPageLayout == 0)
 			fp = 0;
 		doc->pageSets[doc->currentPageLayout].FirstPage = fp;
-		doc->PageAT=QStoInt(dc.attribute("AUTOTEXT"));
+		doc->setUsesAutomaticTextFrames(QStoInt(dc.attribute("AUTOTEXT")));
 		doc->PageSp=QStoInt(dc.attribute("AUTOSPALTEN"));
 		doc->PageSpa=QStodouble(dc.attribute("ABSTSPALTEN"));
 		doc->setUnitIndex(QStoInt(dc.attribute("UNITS","0")));
@@ -1469,24 +1469,28 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				PgNam = "";
 				PgNam = pg.attribute("NAM", "");
 				Pgc = doc->pageCount;
-				AtFl = doc->PageAT;
+				AtFl = doc->usesAutomaticTextFrames();
 				if (PgNam.isEmpty())
 				{
 					doc->pageCount = Pgc;
 					doc->Pages = doc->DocPages;
-					doc->PageAT = AtFl;
+					doc->setUsesAutomaticTextFrames(AtFl);
 					doc->masterPageMode = false;
 					doc->Items = doc->DocItems;
 				}
 				else
 				{
 					doc->pageCount = 0;
-					doc->PageAT = false;
+					doc->setUsesAutomaticTextFrames(false);
 					doc->Pages = doc->MasterPages;
 					doc->masterPageMode = true;
 					doc->Items = doc->MasterItems;
 				}
-				emit NewPage(a);
+				//CB: Remove this unnecessarily "slow" slot call when we have no gui for the doc yet!
+				//Items dont appear in the right place if we just doc->addPage(a); for <=1.2.x docs
+				//so we have to call the view, but we certainly dont need to emit to the mainwindow!
+				view->addPage(a);
+				//emit NewPage(a);
 				doc->Pages.at(a)->LeftPg=QStoInt(pg.attribute("LEFT","0"));
 				QString Mus = "";
 				Mus = pg.attribute("MNAM","Normal");
@@ -1671,7 +1675,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				}
 				doc->masterPageMode = false;
 				doc->pageCount = Pgc+1;
-				doc->PageAT = AtFl;
+				doc->setUsesAutomaticTextFrames(AtFl);
 			}
 			PAGE=PAGE.nextSibling();
 		}
@@ -2979,7 +2983,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	dc.setAttribute("PAGESIZE",doc->PageSize);
 	dc.setAttribute("FIRSTNUM",doc->FirstPnum);
 	dc.setAttribute("BOOK", doc->currentPageLayout);
-	if(doc->PageAT)
+	if(doc->usesAutomaticTextFrames())
 		dc.setAttribute("AUTOTEXT",1);
 	dc.setAttribute("AUTOSPALTEN",doc->PageSp);
 	dc.setAttribute("ABSTSPALTEN",doc->PageSpa);

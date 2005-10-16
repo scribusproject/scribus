@@ -339,6 +339,12 @@ public:
 	 * @brief Run this common frame item update code
 	 */
 	void updateFrameItems();
+	
+	/**
+	 * @brief Doc uses automatic text frames?
+	 */
+	const bool usesAutomaticTextFrames();
+	void setUsesAutomaticTextFrames(const bool);
 
 protected:
 	void addSymbols();
@@ -348,6 +354,7 @@ protected:
 	int docUnitIndex;
 	double docUnitRatio;
 	UndoManager *undoManager;
+	bool automaticTextFrames; // Flag for automatic Textframes
 
 public: // Public attributes
 	bool is12doc; //public for now, it will be removed later
@@ -394,8 +401,6 @@ public: // Public attributes
 	double PageSp;
   /** Distance of Columns */
 	double PageSpa;
-  /** Flag for automatic Textframes */
-	bool PageAT;
  /** current Pagelayout */
 	int currentPageLayout;
 	/** Flag fuer Hoch- oder Querformat 0 = Hochformat */

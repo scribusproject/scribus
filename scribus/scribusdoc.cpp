@@ -775,7 +775,7 @@ void ScribusDoc::setPage(double b, double h, double t, double l, double r, doubl
 	PageSp = sp;
 	PageSpa = ab;
 	currentPageLayout = fp;
-	PageAT = atf;
+	automaticTextFrames = atf;
 }
 
 void ScribusDoc::resetPage(double t, double l, double r, double bo, int fp)
@@ -2049,8 +2049,8 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 	masterPageMode = true;
 	MasterNames.insert(masterPageName, nr);
 	pageCount = 0;
-	bool atf = PageAT;
-	PageAT = false;
+	bool atf = automaticTextFrames;
+	automaticTextFrames = false;
 	//Note we are bypassing the view here, but things seem fine. The master page is offscreen anyway.
 	//ScApp->slotNewPage(nr);
 	//Page* targetPage = Pages.at(nr);	
@@ -2139,7 +2139,7 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 	masterPageMode = false;
 	targetPage->setPageName(masterPageName);
 	targetPage->MPageNam = "";
-	PageAT = atf;
+	automaticTextFrames = atf;
 	setLoading(false);
 	GroupCounter = GrMax + 1;
 	return true;
@@ -2327,4 +2327,14 @@ void ScribusDoc::updateFrameItems()
 	uint frameItemsCount=FrameItems.count();
 	for (uint a = 0; a < frameItemsCount; ++a)
 		FrameItems.at(a)->ItemNr = a;
+}
+
+const bool ScribusDoc::usesAutomaticTextFrames()
+{
+	return automaticTextFrames;
+}
+
+void ScribusDoc::setUsesAutomaticTextFrames(const bool atf)
+{
+	automaticTextFrames=atf;
 }

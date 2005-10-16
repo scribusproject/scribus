@@ -323,12 +323,13 @@ bool FileLoader::LoadFile()
 		case 0:
 			{
 				ScriXmlDoc *ss = new ScriXmlDoc();
-				QObject::connect(ss, SIGNAL(NewPage(int)), ScApp, SLOT(slotNewPage(int)));
+				//CB: WTF? We use a slot to make the new pages? hello!
+				//QObject::connect(ss, SIGNAL(NewPage(int)), ScApp, SLOT(slotNewPage(int)));
 				ss->ReplacedFonts.clear();
 				ss->newReplacement = false;
 				ss->dummyFois.clear();
 				ret = ss->ReadDoc(FileName, prefsManager->appPrefs.AvailFonts, ScApp->doc, ScApp->view, ScApp->mainWindowProgressBar);
-				QObject::disconnect(ss, SIGNAL(NewPage(int)), ScApp, SLOT(slotNewPage(int)));
+				//QObject::disconnect(ss, SIGNAL(NewPage(int)), ScApp, SLOT(slotNewPage(int)));
 				ReplacedFonts = ss->ReplacedFonts;
 				newReplacement = ss->newReplacement;
 				dummyFois = ss->dummyFois;
@@ -952,7 +953,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 			doc->pageSets[doc->currentPageLayout].GapVertical = 0.0;
 			doc->pageSets[doc->currentPageLayout].GapBelow = QStodouble(dc.attribute("GapVertical", "40"));
 		}
-		doc->PageAT=QStoInt(dc.attribute("AUTOTEXT"));
+		doc->setUsesAutomaticTextFrames(QStoInt(dc.attribute("AUTOTEXT")));
 		doc->PageSp=QStoInt(dc.attribute("AUTOSPALTEN"));
 		doc->PageSpa=QStodouble(dc.attribute("ABSTSPALTEN"));
 		doc->setUnitIndex(QStoInt(dc.attribute("UNITS","0")));
@@ -1488,23 +1489,26 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 				PgNam = "";
 				PgNam = pg.attribute("NAM", "");
 				Pgc = doc->pageCount;
-				AtFl = doc->PageAT;
+				AtFl = doc->usesAutomaticTextFrames();
 				if (PgNam.isEmpty())
 				{
 					doc->pageCount = Pgc;
 					doc->Pages = doc->DocPages;
-					doc->PageAT = AtFl;
+					doc->setUsesAutomaticTextFrames(AtFl);
 					doc->masterPageMode = false;
 				}
 				else
 				{
 					doc->pageCount = 0;
-					doc->PageAT = false;
+					doc->setUsesAutomaticTextFrames(false);
 					doc->Pages = doc->MasterPages;
 					doc->masterPageMode = true;
 				}
-				ScApp->slotNewPage(a);
-				Apage = doc->Pages.at(a);
+				//CB: Stop calling damn GUI code in loading docs! IT doesnt *look* like 
+				//this makes a difference apart from being faster, of course.
+				//ScApp->slotNewPage(a);
+				//Apage = doc->Pages.at(a);
+				Apage = doc->addPage(a);
 				if (PgNam.isEmpty())
 				{
 					doc->DocPages = doc->Pages;
@@ -1517,7 +1521,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 					doc->MasterPages = doc->Pages;
 					doc->pageCount = Pgc;
 				}
-				doc->PageAT = AtFl;
+				doc->setUsesAutomaticTextFrames(AtFl);
 				Apage->LeftPg=QStoInt(pg.attribute("LEFT","0"));
 				QString Mus = "";
 				Mus = pg.attribute("MNAM","Normal");

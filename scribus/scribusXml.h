@@ -65,7 +65,7 @@ public:
 	bool newReplacement;
 	
 signals:
-	void NewPage(int);
+//	void NewPage(int);
 	
 protected:
 	PrefsManager* prefsManager;

@@ -2431,11 +2431,11 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 	doc->DocPages = doc->Pages;
 	doc->Pages = doc->MasterPages;
 	doc->pageCount = doc->MasterPages.count();
-	bool atfb = doc->PageAT;
-	doc->PageAT = false;
+	bool atfb = doc->usesAutomaticTextFrames();
+	doc->setUsesAutomaticTextFrames(false);
 	doc->masterPageMode = true;
 	slotNewPage(0);
-	doc->PageAT = atfb;
+	doc->setUsesAutomaticTextFrames(atfb);
 	doc->MasterNames["Normal"] = 0;
 	doc->Pages.at(0)->setPageName("Normal");
 	doc->MasterPages = doc->Pages;
@@ -3958,10 +3958,10 @@ bool ScribusApp::loadDoc(QString fileName)
 			doc->DocPages = doc->Pages;
 			doc->Pages = doc->MasterPages;
 			doc->pageCount = doc->MasterPages.count();
-			bool atf = doc->PageAT;
-			doc->PageAT = false;
+			bool atf = doc->usesAutomaticTextFrames();
+			doc->setUsesAutomaticTextFrames(false);
 			slotNewPage(0);
-			doc->PageAT = atf;
+			doc->setUsesAutomaticTextFrames(atf);
 			doc->MasterNames["Normal"] = 0;
 			doc->Pages.at(0)->setPageName("Normal");
 			doc->MasterPages = doc->Pages;
@@ -6345,8 +6345,8 @@ void ScribusApp::CopyPage()
 	MovePages *dia = new MovePages(this, doc->currentPage->pageNr()+1, doc->Pages.count(), false);
 	if (dia->exec())
 	{
-		bool autoText = doc->PageAT;
-		doc->PageAT = false;
+		bool autoText = doc->usesAutomaticTextFrames();
+		doc->setUsesAutomaticTextFrames(false);
 		Page* from = doc->Pages.at(dia->getFromPage()-1);
 		int wo = dia->getWherePage();
 		int copyCount=dia->getCopyCount();
@@ -6366,7 +6366,7 @@ void ScribusApp::CopyPage()
 				slotNewPage(doc->Pages.count());
 				break;
 			}
-			doc->PageAT = autoText;
+			doc->setUsesAutomaticTextFrames(autoText);
 			Page* Ziel = doc->currentPage;
 			Ziel->setInitialHeight(from->height());
 			Ziel->setInitialWidth(from->width());

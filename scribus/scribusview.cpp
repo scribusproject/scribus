@@ -8620,7 +8620,8 @@ void ScribusView::setRulerPos(int x, int y)
 	{
 		QValueList<int> pag;
 		pag.clear();
-		for (uint a = 0; a < Doc->Pages.count(); ++a)
+		uint docPageCount=Doc->Pages.count();
+		for (uint a = 0; a < docPageCount; ++a)
 		{
 			int xs = static_cast<int>(Doc->Pages.at(a)->xOffset() * Scale);
 			int ys = static_cast<int>(Doc->Pages.at(a)->yOffset() * Scale);
@@ -8657,7 +8658,7 @@ Page* ScribusView::addPage(int nr, bool mov)
 	disconnect(pageSelector, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
 	pageSelector->setMaxValue(Doc->pageCount);
 	reformPages(mov);
-	if ((Doc->PageAT) && (!Doc->isLoading()))
+	if ((Doc->usesAutomaticTextFrames()) && (!Doc->isLoading()))
 	{
 		int z = Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, 
 		                     fe->Margins.Left+fe->xOffset(),
