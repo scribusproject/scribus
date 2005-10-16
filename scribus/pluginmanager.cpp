@@ -461,21 +461,3 @@ QValueList<QCString> PluginManager::pluginNames(
 				names.append(it.data().pluginName);
 	return names;
 }
-
-// FIXME: Temporary hack ... need a better mechanism to look up plug-ins that
-// support various formats.
-const QString PluginManager::getImportFilterString() const
-{
-	QString formats;
-	if (ScApp->pluginManager->DLLexists("importps"))
-		formats += tr("PostScript Files (*.eps *.EPS *.ps *.PS);;");
-	if (ScApp->pluginManager->DLLexists("svgimplugin"))
-#ifdef HAVE_LIBZ
-		formats += tr("SVG Images (*.svg *.svgz);;");
-#else
-		formats += tr("SVG Images (*.svg);;");
-#endif
-	if (ScApp->pluginManager->DLLexists("oodrawimp"))
-		formats += tr("OpenOffice.org Draw (*.sxd);;");
-	return formats;
-}

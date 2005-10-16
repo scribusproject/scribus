@@ -49,10 +49,6 @@ public:
 	 */
 	void initPlugs();
 
-	// Return a list of import filters, in the form used by a QFileDialog
-	// or similar, for all supported plug-in imported formats.
-	const QString getImportFilterString() const;
-
 	/*! \brief Checks if is the plugin is in the plugin map, is loaded, and is enabled.
 	 *
 	 * \param pluginName name of plugin to get

@@ -16,6 +16,7 @@
 #include "mspinbox.h"
 #include "customfdialog.h"
 #include "sccombobox.h"
+#include "fileloader.h"
 
 
 extern QPixmap loadIcon(QString nam);
@@ -259,14 +260,7 @@ void NewDoc::createOpenDocPage()
 		docDir = docContext->get("docsopen", prefsDocDir);
 	else
 		docDir = docContext->get("docsopen", ".");
-	QString formats = "";
-#ifdef HAVE_LIBZ
-	formats += tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);;");
-#else
-	formats += tr("Documents (*.sla *.scd);;");
-#endif
-	formats += ScApp->pluginManager->getImportFilterString();
-	formats += tr("All Files (*)");
+	QString formats(FileLoader::getLoadFilterString());
 	openDocFrame = new QFrame(this, "openDocFrame");
 	QVBoxLayout* openDocLayout = new QVBoxLayout(openDocFrame, 5,5, "openDocLayout");
 	fileDialog = new CustomFDialog(openDocFrame, docDir, tr("Open"), formats, false,  true, false, false, false);

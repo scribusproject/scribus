@@ -27,21 +27,47 @@
 #include "prefsmanager.h"
 
 /*!
- \fn FileLoader::FileLoader(QString fileName, ScribusApp* app)
+ \fn FileLoader::FileLoader(QString fileName)
  \author Franz Schmid
  \date
  \brief Constructor, sets the variable "FileName" to the input parameter fileName
  \param QString fileName
  \retval None
  */
-FileLoader::FileLoader(QString fileName, ScribusApp* app)
+FileLoader::FileLoader(const QString & fileName) :
+	QObject(0, "FileLoader")
 {
 	prefsManager=PrefsManager::instance();
 	FileName = fileName;
 	FileType = -1;
-	havePS = app->pluginManager->DLLexists("importps");
-	haveSVG = app->pluginManager->DLLexists("svgimplugin");
-	haveSXD = app->pluginManager->DLLexists("oodrawimp");
+	havePS = ScApp->pluginManager->DLLexists("importps");
+	haveSVG = ScApp->pluginManager->DLLexists("svgimplugin");
+	haveSXD = ScApp->pluginManager->DLLexists("oodrawimp");
+}
+
+// FIXME: This static method is here as a temporary transitional
+// measure during the process of converting to file loader plugins.
+const QString FileLoader::getLoadFilterString()
+{
+	PluginManager& pluginManager(PluginManager::instance());
+	QString formats;
+#ifdef HAVE_LIBZ
+	formats += tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);;");
+#else
+	formats += tr("Documents (*.sla *.scd);;");
+#endif
+	if (pluginManager.DLLexists("importps"))
+		formats += tr("PostScript Files (*.eps *.EPS *.ps *.PS);;");
+	if (pluginManager.DLLexists("svgimplugin"))
+#ifdef HAVE_LIBZ
+		formats += tr("SVG Images (*.svg *.svgz);;");
+#else
+		formats += tr("SVG Images (*.svg);;");
+#endif
+	if (pluginManager.DLLexists("oodrawimp"))
+		formats += tr("OpenOffice.org Draw (*.sxd);;");
+	formats += tr("All Files (*)");
+	return formats;
 }
 
 /*!
@@ -142,7 +168,7 @@ QString FileLoader::ReadDatei(QString fileName)
 /** end changes */
 }
 
-bool FileLoader::LoadPage(ScribusApp* app, int PageToLoad, bool Mpage)
+bool FileLoader::LoadPage(int PageToLoad, bool Mpage)
 {
 	bool ret = false;
 	newReplacement = false;
@@ -157,7 +183,7 @@ bool FileLoader::LoadPage(ScribusApp* app, int PageToLoad, bool Mpage)
 				ss->ReplacedFonts.clear();
 				ss->newReplacement = false;
 				ss->dummyFois.clear();
-				ret = ss->ReadPage(FileName, prefsManager->appPrefs.AvailFonts, app->doc, app->view, PageToLoad, Mpage);
+				ret = ss->ReadPage(FileName, prefsManager->appPrefs.AvailFonts, ScApp->doc, ScApp->view, PageToLoad, Mpage);
 				ReplacedFonts = ss->ReplacedFonts;
 				newReplacement = ss->newReplacement;
 				dummyFois = ss->dummyFois;
@@ -165,7 +191,7 @@ bool FileLoader::LoadPage(ScribusApp* app, int PageToLoad, bool Mpage)
 			}
 			break;
 		case 1:
-			ret = ReadPage(FileName, prefsManager->appPrefs.AvailFonts, app->doc, app->view, PageToLoad, Mpage);
+			ret = ReadPage(FileName, prefsManager->appPrefs.AvailFonts, ScApp->doc, ScApp->view, PageToLoad, Mpage);
 			break;
 		default:
 			ret = false;
@@ -193,61 +219,61 @@ bool FileLoader::LoadPage(ScribusApp* app, int PageToLoad, bool Mpage)
 				return false;
 			}
 		}
-		for (uint d = 0; d < app->doc->MasterItems.count(); ++d)
+		for (uint d = 0; d < ScApp->doc->MasterItems.count(); ++d)
 		{
-			PageItem *it = app->doc->MasterItems.at(d);
-			if ((!app->doc->UsedFonts.contains(it->IFont)) && (!it->IFont.isEmpty()))
+			PageItem *it = ScApp->doc->MasterItems.at(d);
+			if ((!ScApp->doc->UsedFonts.contains(it->IFont)) && (!it->IFont.isEmpty()))
 				it->IFont = ReplacedFonts[it->IFont];
 			if ((it->asTextFrame()) || (it->asPathText()))
 			{
 				for (uint e = 0; e < it->itemText.count(); ++e)
 				{
-				if (!app->doc->UsedFonts.contains(it->itemText.at(e)->cfont->scName()))
-					it->itemText.at(e)->cfont = (*app->doc->AllFonts)[ReplacedFonts[it->itemText.at(e)->cfont->scName()]];
+				if (!ScApp->doc->UsedFonts.contains(it->itemText.at(e)->cfont->scName()))
+					it->itemText.at(e)->cfont = (*ScApp->doc->AllFonts)[ReplacedFonts[it->itemText.at(e)->cfont->scName()]];
 				}
 			}
 		}
-		for (uint d = 0; d < app->doc->DocItems.count(); ++d)
+		for (uint d = 0; d < ScApp->doc->DocItems.count(); ++d)
 		{
-			PageItem *it = app->doc->DocItems.at(d);
-			if ((!app->doc->UsedFonts.contains(it->IFont)) && (!it->IFont.isEmpty()))
+			PageItem *it = ScApp->doc->DocItems.at(d);
+			if ((!ScApp->doc->UsedFonts.contains(it->IFont)) && (!it->IFont.isEmpty()))
 				it->IFont = ReplacedFonts[it->IFont];
 			if ((it->asTextFrame()) || (it->asPathText()))
 			{
 				for (uint e = 0; e < it->itemText.count(); ++e)
 				{
-				if (!app->doc->UsedFonts.contains(it->itemText.at(e)->cfont->scName()))
-					it->itemText.at(e)->cfont = (*app->doc->AllFonts)[ReplacedFonts[it->itemText.at(e)->cfont->scName()]];
+				if (!ScApp->doc->UsedFonts.contains(it->itemText.at(e)->cfont->scName()))
+					it->itemText.at(e)->cfont = (*ScApp->doc->AllFonts)[ReplacedFonts[it->itemText.at(e)->cfont->scName()]];
 				}
 			}
 		}
-		for (uint d = 0; d < app->doc->FrameItems.count(); ++d)
+		for (uint d = 0; d < ScApp->doc->FrameItems.count(); ++d)
 		{
-			PageItem *it = app->doc->FrameItems.at(d);
-			if ((!app->doc->UsedFonts.contains(it->IFont)) && (!it->IFont.isEmpty()))
+			PageItem *it = ScApp->doc->FrameItems.at(d);
+			if ((!ScApp->doc->UsedFonts.contains(it->IFont)) && (!it->IFont.isEmpty()))
 				it->IFont = ReplacedFonts[it->IFont];
 			if ((it->asTextFrame()) || (it->asPathText()))
 			{
 				for (uint e = 0; e < it->itemText.count(); ++e)
 				{
-				if (!app->doc->UsedFonts.contains(it->itemText.at(e)->cfont->scName()))
-					it->itemText.at(e)->cfont = (*app->doc->AllFonts)[ReplacedFonts[it->itemText.at(e)->cfont->scName()]];
+				if (!ScApp->doc->UsedFonts.contains(it->itemText.at(e)->cfont->scName()))
+					it->itemText.at(e)->cfont = (*ScApp->doc->AllFonts)[ReplacedFonts[it->itemText.at(e)->cfont->scName()]];
 				}
 			}
 		}
-		for (uint a = 0; a < app->doc->docParagraphStyles.count(); ++a)
+		for (uint a = 0; a < ScApp->doc->docParagraphStyles.count(); ++a)
 		{
-			if ((!app->doc->UsedFonts.contains(app->doc->docParagraphStyles[a].Font)) && (!app->doc->docParagraphStyles[a].Font.isEmpty()))
-				app->doc->docParagraphStyles[a].Font = ReplacedFonts[app->doc->docParagraphStyles[a].Font];
+			if ((!ScApp->doc->UsedFonts.contains(ScApp->doc->docParagraphStyles[a].Font)) && (!ScApp->doc->docParagraphStyles[a].Font.isEmpty()))
+				ScApp->doc->docParagraphStyles[a].Font = ReplacedFonts[ScApp->doc->docParagraphStyles[a].Font];
 		}
 		QMap<QString,QString>::Iterator itfsu;
 		for (itfsu = ReplacedFonts.begin(); itfsu != ReplacedFonts.end(); ++itfsu)
 		{
-			if (!app->doc->UsedFonts.contains(itfsu.data()))
+			if (!ScApp->doc->UsedFonts.contains(itfsu.data()))
 			{
 //				QFont fo = prefsManager->appPrefs.AvailFonts[itfsu.data()]->Font;
-//				fo.setPointSize(qRound(app->doc->toolSettings.defSize / 10.0));
-				app->doc->AddFont(itfsu.data(), qRound(app->doc->toolSettings.defSize / 10.0));
+//				fo.setPointSize(qRound(ScApp->doc->toolSettings.defSize / 10.0));
+				ScApp->doc->AddFont(itfsu.data(), qRound(ScApp->doc->toolSettings.defSize / 10.0));
 			}
 		}
 		if (prefsManager->appPrefs.askBeforeSubstituite)
@@ -258,30 +284,29 @@ bool FileLoader::LoadPage(ScribusApp* app, int PageToLoad, bool Mpage)
 }
 
 /*!
- \fn bool FileLoader::LoadFile(ScribusApp* app)
+ \fn bool FileLoader::LoadFile()
  \author Franz Schmid
  \date
  \brief Loads the file "FileName" as a Scribus document
- \param ScribusApp* app, pointer to the main application class
  \retval bool true when loading is succsessful, false otherwise
  */
-bool FileLoader::LoadFile(ScribusApp* app)
+bool FileLoader::LoadFile()
 {
 	bool ret = false;
 	newReplacement = false;
-	app->doc->guidesSettings.marginsShown = prefsManager->appPrefs.guidesSettings.marginsShown;
-	app->doc->guidesSettings.framesShown = prefsManager->appPrefs.guidesSettings.framesShown;
-	app->doc->guidesSettings.gridShown = prefsManager->appPrefs.guidesSettings.gridShown;
-	app->doc->guidesSettings.guidesShown = prefsManager->appPrefs.guidesSettings.guidesShown;
-	app->doc->guidesSettings.baseShown = prefsManager->appPrefs.guidesSettings.baseShown;
-	app->doc->guidesSettings.linkShown = prefsManager->appPrefs.guidesSettings.linkShown;
-	app->doc->toolSettings.polyC = prefsManager->appPrefs.toolSettings.polyC;
-	app->doc->toolSettings.polyF = prefsManager->appPrefs.toolSettings.polyF;
-	app->doc->toolSettings.polyR = prefsManager->appPrefs.toolSettings.polyR;
-	app->doc->toolSettings.polyFd = prefsManager->appPrefs.toolSettings.polyFd;
-	app->doc->toolSettings.polyS = prefsManager->appPrefs.toolSettings.polyS;
-	app->doc->AutoSave = prefsManager->appPrefs.AutoSave;
-	app->doc->AutoSaveTime = prefsManager->appPrefs.AutoSaveTime;
+	ScApp->doc->guidesSettings.marginsShown = prefsManager->appPrefs.guidesSettings.marginsShown;
+	ScApp->doc->guidesSettings.framesShown = prefsManager->appPrefs.guidesSettings.framesShown;
+	ScApp->doc->guidesSettings.gridShown = prefsManager->appPrefs.guidesSettings.gridShown;
+	ScApp->doc->guidesSettings.guidesShown = prefsManager->appPrefs.guidesSettings.guidesShown;
+	ScApp->doc->guidesSettings.baseShown = prefsManager->appPrefs.guidesSettings.baseShown;
+	ScApp->doc->guidesSettings.linkShown = prefsManager->appPrefs.guidesSettings.linkShown;
+	ScApp->doc->toolSettings.polyC = prefsManager->appPrefs.toolSettings.polyC;
+	ScApp->doc->toolSettings.polyF = prefsManager->appPrefs.toolSettings.polyF;
+	ScApp->doc->toolSettings.polyR = prefsManager->appPrefs.toolSettings.polyR;
+	ScApp->doc->toolSettings.polyFd = prefsManager->appPrefs.toolSettings.polyFd;
+	ScApp->doc->toolSettings.polyS = prefsManager->appPrefs.toolSettings.polyS;
+	ScApp->doc->AutoSave = prefsManager->appPrefs.AutoSave;
+	ScApp->doc->AutoSaveTime = prefsManager->appPrefs.AutoSaveTime;
 	ReplacedFonts.clear();
 	dummyFois.clear();
 	dummyFois.setAutoDelete(true);
@@ -290,12 +315,12 @@ bool FileLoader::LoadFile(ScribusApp* app)
 		case 0:
 			{
 				ScriXmlDoc *ss = new ScriXmlDoc();
-				QObject::connect(ss, SIGNAL(NewPage(int)), app, SLOT(slotNewPage(int)));
+				QObject::connect(ss, SIGNAL(NewPage(int)), ScApp, SLOT(slotNewPage(int)));
 				ss->ReplacedFonts.clear();
 				ss->newReplacement = false;
 				ss->dummyFois.clear();
-				ret = ss->ReadDoc(FileName, prefsManager->appPrefs.AvailFonts, app->doc, app->view, app->mainWindowProgressBar);
-				QObject::disconnect(ss, SIGNAL(NewPage(int)), app, SLOT(slotNewPage(int)));
+				ret = ss->ReadDoc(FileName, prefsManager->appPrefs.AvailFonts, ScApp->doc, ScApp->view, ScApp->mainWindowProgressBar);
+				QObject::disconnect(ss, SIGNAL(NewPage(int)), ScApp, SLOT(slotNewPage(int)));
 				ReplacedFonts = ss->ReplacedFonts;
 				newReplacement = ss->newReplacement;
 				dummyFois = ss->dummyFois;
@@ -303,46 +328,46 @@ bool FileLoader::LoadFile(ScribusApp* app)
 			}
 			break;
 		case 1:
-			ret = ReadDoc(app, FileName, prefsManager->appPrefs.AvailFonts, app->doc, app->view, app->mainWindowProgressBar);
+			ret = ReadDoc(FileName, prefsManager->appPrefs.AvailFonts, ScApp->doc, ScApp->view, ScApp->mainWindowProgressBar);
 			break;
 		case 2:
-			ret = app->pluginManager->callImportExportPlugin("importps", FileName);
+			ret = ScApp->pluginManager->callImportExportPlugin("importps", FileName);
 			break;
 		case 3:
-			ret = app->pluginManager->callImportExportPlugin("svgimplugin", FileName);
+			ret = ScApp->pluginManager->callImportExportPlugin("svgimplugin", FileName);
 			break;
 		case 5:
-			ret = app->pluginManager->callImportExportPlugin("oodrawimp", FileName);
+			ret = ScApp->pluginManager->callImportExportPlugin("oodrawimp", FileName);
 			break;
 		default:
 			ret = false;
 			break;
 	}
-/*	for (uint d = 0; d < app->doc->MasterItems.count(); ++d)
+/*	for (uint d = 0; d < ScApp->doc->MasterItems.count(); ++d)
 	{
-		PageItem *it = app->doc->MasterItems.at(d);
+		PageItem *it = ScApp->doc->MasterItems.at(d);
 		if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
 		{
 			for (uint e = 0; e < it->itemText.count(); ++e)
 			{
 				ScText *hl = it->itemText.at(e);
 				if ((hl->ch == QChar(25)) && ((int)hl->cembedded != -1))
-					hl->cembedded = app->doc->FrameItems.at((int)hl->cembedded);
+					hl->cembedded = ScApp->doc->FrameItems.at((int)hl->cembedded);
 				else
 					hl->cembedded = 0;
 			}
 		}
 	}
-	for (uint d = 0; d < app->doc->DocItems.count(); ++d)
+	for (uint d = 0; d < ScApp->doc->DocItems.count(); ++d)
 	{
-		PageItem *it = app->doc->DocItems.at(d);
+		PageItem *it = ScApp->doc->DocItems.at(d);
 		if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
 		{
 			for (uint e = 0; e < it->itemText.count(); ++e)
 			{
 				ScText *hl = it->itemText.at(e);
 				if ((hl->ch == QChar(25)) && ((int)hl->cembedded != -1))
-					hl->cembedded = app->doc->FrameItems.at((int)hl->cembedded);
+					hl->cembedded = ScApp->doc->FrameItems.at((int)hl->cembedded);
 				else
 					hl->cembedded = 0;
 			}
@@ -370,80 +395,80 @@ bool FileLoader::LoadFile(ScribusApp* app)
 				return false;
 			}
 		}
-		for (uint d = 0; d < app->doc->MasterItems.count(); ++d)
+		for (uint d = 0; d < ScApp->doc->MasterItems.count(); ++d)
 		{
-			PageItem *it = app->doc->MasterItems.at(d);
-			if ((!app->doc->UsedFonts.contains(it->IFont)) && (!it->IFont.isEmpty()))
+			PageItem *it = ScApp->doc->MasterItems.at(d);
+			if ((!ScApp->doc->UsedFonts.contains(it->IFont)) && (!it->IFont.isEmpty()))
 				it->IFont = ReplacedFonts[it->IFont];
 			if ((it->asTextFrame()) || (it->asPathText()))
 			{
 				for (uint e = 0; e < it->itemText.count(); ++e)
 				{
-				if (!app->doc->UsedFonts.contains(it->itemText.at(e)->cfont->scName()))
-					it->itemText.at(e)->cfont = (*app->doc->AllFonts)[ReplacedFonts[it->itemText.at(e)->cfont->scName()]];
+				if (!ScApp->doc->UsedFonts.contains(it->itemText.at(e)->cfont->scName()))
+					it->itemText.at(e)->cfont = (*ScApp->doc->AllFonts)[ReplacedFonts[it->itemText.at(e)->cfont->scName()]];
 				}
 			}
 		}
-		for (uint d = 0; d < app->doc->DocItems.count(); ++d)
+		for (uint d = 0; d < ScApp->doc->DocItems.count(); ++d)
 		{
-			PageItem *it = app->doc->DocItems.at(d);
-			if ((!app->doc->UsedFonts.contains(it->IFont)) && (!it->IFont.isEmpty()))
+			PageItem *it = ScApp->doc->DocItems.at(d);
+			if ((!ScApp->doc->UsedFonts.contains(it->IFont)) && (!it->IFont.isEmpty()))
 				it->IFont = ReplacedFonts[it->IFont];
 			if ((it->asTextFrame()) || (it->asPathText()))
 			{
 				for (uint e = 0; e < it->itemText.count(); ++e)
 				{
-				if (!app->doc->UsedFonts.contains(it->itemText.at(e)->cfont->scName()))
-					it->itemText.at(e)->cfont = (*app->doc->AllFonts)[ReplacedFonts[it->itemText.at(e)->cfont->scName()]];
+				if (!ScApp->doc->UsedFonts.contains(it->itemText.at(e)->cfont->scName()))
+					it->itemText.at(e)->cfont = (*ScApp->doc->AllFonts)[ReplacedFonts[it->itemText.at(e)->cfont->scName()]];
 				}
 			}
 		}
-		for (uint d = 0; d < app->doc->FrameItems.count(); ++d)
+		for (uint d = 0; d < ScApp->doc->FrameItems.count(); ++d)
 		{
-			PageItem *it = app->doc->FrameItems.at(d);
-			if ((!app->doc->UsedFonts.contains(it->IFont)) && (!it->IFont.isEmpty()))
+			PageItem *it = ScApp->doc->FrameItems.at(d);
+			if ((!ScApp->doc->UsedFonts.contains(it->IFont)) && (!it->IFont.isEmpty()))
 				it->IFont = ReplacedFonts[it->IFont];
 			if ((it->asTextFrame()) || (it->asPathText()))
 			{
 				for (uint e = 0; e < it->itemText.count(); ++e)
 				{
-				if (!app->doc->UsedFonts.contains(it->itemText.at(e)->cfont->scName()))
-					it->itemText.at(e)->cfont = (*app->doc->AllFonts)[ReplacedFonts[it->itemText.at(e)->cfont->scName()]];
+				if (!ScApp->doc->UsedFonts.contains(it->itemText.at(e)->cfont->scName()))
+					it->itemText.at(e)->cfont = (*ScApp->doc->AllFonts)[ReplacedFonts[it->itemText.at(e)->cfont->scName()]];
 				}
 			}
 		}
-		for (uint a = 0; a < app->doc->docParagraphStyles.count(); ++a)
+		for (uint a = 0; a < ScApp->doc->docParagraphStyles.count(); ++a)
 		{
-			if ((!app->doc->UsedFonts.contains(app->doc->docParagraphStyles[a].Font)) && (!app->doc->docParagraphStyles[a].Font.isEmpty()))
-				app->doc->docParagraphStyles[a].Font = ReplacedFonts[app->doc->docParagraphStyles[a].Font];
+			if ((!ScApp->doc->UsedFonts.contains(ScApp->doc->docParagraphStyles[a].Font)) && (!ScApp->doc->docParagraphStyles[a].Font.isEmpty()))
+				ScApp->doc->docParagraphStyles[a].Font = ReplacedFonts[ScApp->doc->docParagraphStyles[a].Font];
 		}
 		QValueList<QString> tmpList;
 		tmpList.clear();
-		for (uint fe = 0; fe <  app->doc->PDF_Options.EmbedList.count(); ++fe)
+		for (uint fe = 0; fe <  ScApp->doc->PDF_Options.EmbedList.count(); ++fe)
 		{
-			if (ReplacedFonts.contains(app->doc->PDF_Options.EmbedList[fe]))
-				tmpList.append(ReplacedFonts[app->doc->PDF_Options.EmbedList[fe]]);
+			if (ReplacedFonts.contains(ScApp->doc->PDF_Options.EmbedList[fe]))
+				tmpList.append(ReplacedFonts[ScApp->doc->PDF_Options.EmbedList[fe]]);
 			else
-				tmpList.append(app->doc->PDF_Options.EmbedList[fe]);
+				tmpList.append(ScApp->doc->PDF_Options.EmbedList[fe]);
 		}
-		app->doc->PDF_Options.EmbedList = tmpList;
+		ScApp->doc->PDF_Options.EmbedList = tmpList;
 		tmpList.clear();
-		for (uint fe = 0; fe <  app->doc->PDF_Options.SubsetList.count(); ++fe)
+		for (uint fe = 0; fe <  ScApp->doc->PDF_Options.SubsetList.count(); ++fe)
 		{
-			if (ReplacedFonts.contains(app->doc->PDF_Options.SubsetList[fe]))
-				tmpList.append(ReplacedFonts[app->doc->PDF_Options.SubsetList[fe]]);
+			if (ReplacedFonts.contains(ScApp->doc->PDF_Options.SubsetList[fe]))
+				tmpList.append(ReplacedFonts[ScApp->doc->PDF_Options.SubsetList[fe]]);
 			else
-				tmpList.append(app->doc->PDF_Options.SubsetList[fe]);
+				tmpList.append(ScApp->doc->PDF_Options.SubsetList[fe]);
 		}
-		app->doc->PDF_Options.SubsetList = tmpList;
+		ScApp->doc->PDF_Options.SubsetList = tmpList;
 		QMap<QString,QString>::Iterator itfsu;
 		for (itfsu = ReplacedFonts.begin(); itfsu != ReplacedFonts.end(); ++itfsu)
 		{
-			if (!app->doc->UsedFonts.contains(itfsu.data()))
+			if (!ScApp->doc->UsedFonts.contains(itfsu.data()))
 			{
 //				QFont fo = prefsManager->appPrefs.AvailFonts[itfsu.data()]->Font;
-//				fo.setPointSize(qRound(app->doc->toolSettings.defSize / 10.0));
-				app->doc->AddFont(itfsu.data(), qRound(app->doc->toolSettings.defSize / 10.0));
+//				fo.setPointSize(qRound(ScApp->doc->toolSettings.defSize / 10.0));
+				ScApp->doc->AddFont(itfsu.data(), qRound(ScApp->doc->toolSettings.defSize / 10.0));
 			}
 		}
 		if (prefsManager->appPrefs.askBeforeSubstituite)
@@ -453,7 +478,7 @@ bool FileLoader::LoadFile(ScribusApp* app)
 	return ret;
 }
 
-bool FileLoader::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, ScribusView *view, int PageToLoad, bool Mpage)
+bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *doc, ScribusView *view, int PageToLoad, bool Mpage)
 {
 	struct ParagraphStyle vg;
 	struct Layer la;
@@ -766,7 +791,7 @@ bool FileLoader::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 						Neu->fill_gradient.addStop(doc->PageColors[doc->toolSettings.dBrush].getRGBColor(), 0.0, 0.5, 1.0, doc->toolSettings.dBrush, 100);
 						Neu->fill_gradient.addStop(doc->PageColors[doc->toolSettings.dPen].getRGBColor(), 1.0, 0.5, 1.0, doc->toolSettings.dPen, 100);
 					}
-//					Neu->Language = app->GetLang(pg.attribute("LANGUAGE", doc->Language));
+//					Neu->Language = ScApp->GetLang(pg.attribute("LANGUAGE", doc->Language));
 					Neu->Language = doc->Language;
 					Neu->isAutoText = static_cast<bool>(QStoInt(pg.attribute("AUTOTEXT")));
 					Neu->isEmbedded = static_cast<bool>(QStoInt(pg.attribute("isInline","0")));
@@ -854,7 +879,7 @@ bool FileLoader::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 	return true;
 }
 
-bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, ScribusDoc *doc, ScribusView *view, QProgressBar *dia2)
+bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *doc, ScribusView *view, QProgressBar *dia2)
 {
 	struct ParagraphStyle vg;
 	struct Layer la;
@@ -1472,7 +1497,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 					doc->Pages = doc->MasterPages;
 					doc->masterPageMode = true;
 				}
-				app->slotNewPage(a);
+				ScApp->slotNewPage(a);
 				Apage = doc->Pages.at(a);
 				if (PgNam.isEmpty())
 				{
@@ -1639,7 +1664,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 						Neu->fill_gradient.addStop(doc->PageColors[doc->toolSettings.dBrush].getRGBColor(), 0.0, 0.5, 1.0, doc->toolSettings.dBrush, 100);
 						Neu->fill_gradient.addStop(doc->PageColors[doc->toolSettings.dPen].getRGBColor(), 1.0, 0.5, 1.0, doc->toolSettings.dPen, 100);
 					}
-					Neu->Language = app->GetLang(pg.attribute("LANGUAGE", doc->Language));
+					Neu->Language = ScApp->GetLang(pg.attribute("LANGUAGE", doc->Language));
 					Neu->isAutoText = static_cast<bool>(QStoInt(pg.attribute("AUTOTEXT")));
 					Neu->isEmbedded = static_cast<bool>(QStoInt(pg.attribute("isInline","0")));
 					Neu->gXpos = QStodouble(pg.attribute("gXpos","0.0"));

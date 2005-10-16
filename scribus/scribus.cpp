@@ -3505,14 +3505,7 @@ bool ScribusApp::slotDocOpen()
 		docDir = docContext->get("docsopen", prefsDocDir);
 	else
 		docDir = docContext->get("docsopen", ".");
-	QString formats = "";
-#ifdef HAVE_LIBZ
-	formats += tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);;");
-#else
-	formats += tr("Documents (*.sla *.scd);;");
-#endif
-	formats += pluginManager->getImportFilterString();
-	formats += tr("All Files (*)");
+	QString formats(FileLoader::getLoadFilterString());
 	QString fileName = CFileDialog( docDir, tr("Open"), formats);
 	if (fileName.isEmpty())
 		// User cancelled
@@ -3627,7 +3620,7 @@ bool ScribusApp::loadPage(QString fileName, int Nr, bool Mpa)
 	{
 		if (!Mpa)
 			doc->OpenNodes = outlinePalette->buildReopenVals();
-		FileLoader *fl = new FileLoader(fileName, this);
+		FileLoader *fl = new FileLoader(fileName);
 		if (fl->TestFile() == -1)
 		{
 			delete fl;
@@ -3635,7 +3628,7 @@ bool ScribusApp::loadPage(QString fileName, int Nr, bool Mpa)
 		}
 		doc->setLoading(true);
 		uint oldItemsCount = doc->Items.count();
-		if(!fl->LoadPage(this, Nr, Mpa))
+		if(!fl->LoadPage(Nr, Mpa))
 		{
 			delete fl;
 			doc->setLoading(false);
@@ -3716,7 +3709,7 @@ bool ScribusApp::loadDoc(QString fileName)
 	{
 		QString FName = fi.absFilePath();
 		QDir::setCurrent(fi.dirPath(true));
-		FileLoader *fl = new FileLoader(FName, this);
+		FileLoader *fl = new FileLoader(FName);
 		if (fl->TestFile() == -1)
 		{
 			delete fl;
@@ -3760,7 +3753,7 @@ bool ScribusApp::loadDoc(QString fileName)
 		CMSuse = false;
 #endif
 		ScApp->ScriptRunning = true;
-		if(!fl->LoadFile(this))
+		if(!fl->LoadFile())
 		{
 			view->close();
 			delete fl;
