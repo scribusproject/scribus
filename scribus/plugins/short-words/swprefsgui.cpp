@@ -59,8 +59,8 @@ SWPrefsGui::SWPrefsGui(QWidget* parent )
 	SWSyntaxHighlighter *sxHigh = new SWSyntaxHighlighter(cfgEdit);
 
 	// signals
-	connect(okButton, SIGNAL(pressed()), this, SLOT(okButton_pressed()));
-	connect(resetButton, SIGNAL(pressed()), this, SLOT(resetButton_pressed()));
+	connect(okButton, SIGNAL(clicked()), this, SLOT(okButton_pressed()));
+	connect(resetButton, SIGNAL(clicked()), this, SLOT(resetButton_pressed()));
 	connect(cfgEdit, SIGNAL(textChanged()), this, SLOT(cfgEdit_changed()));
 }
 

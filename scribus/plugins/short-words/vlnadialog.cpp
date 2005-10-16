@@ -98,8 +98,8 @@ SWDialog::SWDialog(QWidget* parent, const char* name, bool modal, WFlags fl)
 	selectAction(cfg->action);
 
 	// signals and slots connections
-	connect(okButton, SIGNAL(pressed()), this, SLOT(okButton_pressed()));
-	connect(cancelButton, SIGNAL(pressed()), this, SLOT(cancelButton_pressed()));
+	connect(okButton, SIGNAL(clicked()), this, SLOT(okButton_pressed()));
+	connect(cancelButton, SIGNAL(clicked()), this, SLOT(cancelButton_pressed()));
 	//connect(infoButton, SIGNAL(pressed()), this, SLOT(infoButton_pressed()));
 }
 
