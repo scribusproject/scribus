@@ -54,7 +54,7 @@
 #include "scribusapi.h"
 #include "scribusview.h"
 #include "scribusdoc.h"
-
+#include "fileloader.h"
 #include "scribusstructs.h"
 
 class Autoforms;
@@ -303,6 +303,10 @@ public slots:
 	void rebuildLayersList();
 	bool slotDocOpen();
 	bool loadDoc(QString);
+	/**
+	 * @brief Do post loading functions
+	 */
+	bool postLoadDoc();
 	void slotAutoSaved();
 	/** save a document */
 	bool slotFileSave();

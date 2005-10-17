@@ -3933,7 +3933,9 @@ void PageItem::setImageScalingMode(bool freeScale, bool keepRatio)
 	}
 	ScaleType = freeScale;
 	AspectRatio = keepRatio;
-	ScApp->view->AdjustPictScale(this);
+	AdjustPictScale();
+	//FIXME emit here instead
+	ScApp->propertiesPalette->setLvalue(LocalScX, LocalScY, LocalX, LocalY);
 	ScApp->view->RefreshItem(this);
 }
 
@@ -5541,6 +5543,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 		Pfile = fi.absFilePath();
 		PicAvail = false;
 		PicArt = false;
+		return false;
 	}
 	else
 	{
@@ -5628,4 +5631,39 @@ void PageItem::DrawObj_Item(ScPainter *p, double sc)
 
 void PageItem::DrawObj_Item(ScPainter *p, QRect e, double sc)
 {
+}
+
+
+void PageItem::AdjustPictScale()
+{
+	if (itemType()!=PageItem::ImageFrame)
+		return;
+	if (ScaleType)
+		return;
+	if (OrigW == 0 || OrigH == 0)
+		return;
+	LocalX = 0;
+	LocalY = 0;
+	double xs = Width / static_cast<double>(OrigW);
+	double ys = Height / static_cast<double>(OrigH);
+	if (AspectRatio)
+	{
+		LocalScX = QMIN(xs, ys);
+		LocalScY = QMIN(xs, ys);
+	}
+	else
+	{
+		LocalScX = xs;
+		LocalScY = ys;
+	}
+	if (imageClip.size() != 0)
+	{
+		imageClip = pixm.imgInfo.PDSpathData[pixm.imgInfo.usedPath].copy();
+		QWMatrix cl;
+		cl.translate(LocalX*LocalScX, LocalY*LocalScY);
+		cl.scale(LocalScX, LocalScY);
+		imageClip.map(cl);
+	}
+	//FIXME Make this emit here, currently pasted after calls to this function in the view
+	//emit SetLocalValues(LocalScX, LocalScY, LocalX, LocalY );
 }

@@ -953,7 +953,8 @@ Page* ScribusDoc::addPage(const int pageNumber)
 	addedPage->setPageNr(pageNumber);
 	addedPage->PageSize = PageSize;
 	addedPage->PageOri = PageOri;
-	Pages.insert(pageNumber, addedPage);
+	bool insertsuccess=Pages.insert(pageNumber, addedPage);
+	Q_ASSERT(insertsuccess==true && Pages.at(pageNumber)!=NULL);	
 	if (masterPageMode)
 		MasterPages = Pages;
 	else
@@ -2036,12 +2037,12 @@ void ScribusDoc::setScTextDefaultsFromDoc(ScText *sctextdata)
 	}
 }
 
-const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, const QString& masterPageName)
+const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, const int maxLeftPage,  const QString& masterPageName)
 {
 	//TODO Add Undo here
 	int GrMax = GroupCounter;
 	Page* sourcePage = Pages.at(pageNumber);
-	int nr = Pages.count();
+	int nr = MasterPages.count();
 	DocPages = Pages;
 	Pages = MasterPages;
 	DocItems = Items;
@@ -2055,9 +2056,20 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 	//ScApp->slotNewPage(nr);
 	//Page* targetPage = Pages.at(nr);	
 	Page* targetPage=addPage(nr);
+	Q_ASSERT(targetPage!=NULL);
 	setLoading(true);
+	//Grab the left page setting for the current document layout from the dialog, and increment, singlePage==1 remember.
 	if (currentPageLayout != singlePage)
-		Pages.at(nr)->LeftPg = leftPage;
+	{
+		int lp = leftPage;
+		if (lp == 0)
+			lp = 1;
+		else if (lp == maxLeftPage-1)
+			lp = 0;
+		else
+			++lp;
+		Pages.at(nr)->LeftPg = lp;
+	}
 	QMap<int,int> TableID;
 	QPtrList<PageItem> TableItems;
 	if (sourcePage->YGuides.count() != 0)
@@ -2147,7 +2159,7 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 
 int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, const double x, const double y, const double b, const double h, const double w, const QString& fill, const QString& outline, const bool itemFinalised)
 {
-	if (UndoManager::undoEnabled() && !_itemCreationTransactionStarted)
+	if (UndoManager::undoEnabled() && !_itemCreationTransactionStarted  && false)
 	{
 		_itemCreationTransactionStarted = true;
 		undoManager->beginTransaction();
@@ -2202,16 +2214,17 @@ int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemF
 		DocItems = Items;
 	//Add in item default values based on itemType and frameType
 	itemAddDetails(itemType, frameType, newItem->ItemNr);
-
-	if (UndoManager::undoEnabled())
+	if (UndoManager::undoEnabled() && false)
 	{
 		ItemState<PageItem*> *is = new ItemState<PageItem*>("Create PageItem");
 		is->set("CREATE_ITEM", "create_item");
 		is->setItem(newItem);
 		//Undo target rests with the Page for object specific undo
 		UndoObject *target = Pages.at(0);
+		qDebug(QString("%1").arg((int)target));
 		if (newItem->OwnPage > -1)
 			target = Pages.at(newItem->OwnPage);
+		qDebug(QString("%1 %2").arg((int)target).arg(newItem->OwnPage));
 		undoManager->action(target, is);
 		//If the item is created "complete" (ie, not being created by drag/resize, commit to undomanager)
 		if (itemFinalised)
@@ -2337,4 +2350,34 @@ const bool ScribusDoc::usesAutomaticTextFrames()
 void ScribusDoc::setUsesAutomaticTextFrames(const bool atf)
 {
 	automaticTextFrames=atf;
+}
+
+const bool ScribusDoc::LoadPict(QString fn, int ItNr, bool reload)
+{
+	return loadPict(fn, Items.at(ItNr), reload);
+}
+
+const bool ScribusDoc::loadPict(QString fn, PageItem *pageItem, bool reload)
+{
+	if (!reload)
+	{
+		if ((ScApp->fileWatcher->files().contains(pageItem->Pfile) != 0) && (pageItem->PicAvail))
+			ScApp->fileWatcher->removeFile(pageItem->Pfile);
+	}
+	if(!pageItem->loadImage(fn, reload))
+		return false;
+	if (!reload)
+		ScApp->fileWatcher->addFile(pageItem->Pfile);
+	if (!isLoading())
+	{
+		//TODO: Make this a signal again one day
+		//emit RasterPic(pageItem->isRaster);
+		ScApp->HaveRaster(pageItem->isRaster);
+		//TODO: Previously commented out.. unsure why, remove later
+		//emit UpdtObj(PageNr, ItNr);
+		//TODO: Make this a signal again one day
+		//emit DocChanged();
+		ScApp->slotDocCh();
+	}
+	return true;
 }

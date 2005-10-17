@@ -255,9 +255,7 @@ public:
 	void chFSize(int size);
 	void FlipImageH();
 	void FlipImageV();
-	void LoadPict(QString fn, int ItNr, bool reload = false);
-	void loadPict(QString fn, PageItem *pageItem, bool reload = false);
-	void AdjustPictScale(PageItem *currItem, bool reload = true);
+	//void AdjustPictScale(PageItem *currItem, bool reload = true);
 	void PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool drag = false);
 	void BuildAObj();
 	void QueryFarben();

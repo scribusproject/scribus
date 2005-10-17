@@ -2551,7 +2551,10 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						}
 					}
 					if (currItem->itemType() == PageItem::ImageFrame)
-						AdjustPictScale(currItem);
+					{
+						currItem->AdjustPictScale();
+						emit SetLocalValues(currItem->LocalScX, currItem->LocalScY, currItem->LocalX, currItem->LocalY );
+					}
 					UpdateClip(currItem);
 					emit ItemTextCols(currItem->Cols, currItem->ColGap);
 					Doc->SnapGuides = sav;
@@ -6003,7 +6006,10 @@ bool ScribusView::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, 
 	}
 	currItem->RadRect = QMIN(currItem->RadRect, QMIN(currItem->Width,currItem->Height)/2);
 	if ((currItem->asImageFrame()) && (!currItem->Sizing) && (!Doc->EditClip))
-		AdjustPictScale(currItem);
+	{
+		currItem->AdjustPictScale();
+		emit SetLocalValues(currItem->LocalScX, currItem->LocalScY, currItem->LocalX, currItem->LocalY );
+	}
 	if (currItem->asLine())
 	{
 		if (!fromMP)
@@ -9138,7 +9144,7 @@ void ScribusView::RecalcPictures(ProfilesL *Pr, QProgressBar *dia)
 			{
 				if (!Pr->contains(it->IProfile))
 					it->IProfile = Doc->CMSSettings.DefaultImageRGBProfile;
-				LoadPict(it->Pfile, i, true);
+				Doc->LoadPict(it->Pfile, i, true);
 			}
 			++counter;
 			if (dia != NULL)
@@ -10627,29 +10633,6 @@ void ScribusView::editExtendedImageProperties()
 	}
 }
 
-void ScribusView::LoadPict(QString fn, int ItNr, bool reload)
-{
-	loadPict(fn, Doc->Items.at(ItNr), reload);
-}
-
-void ScribusView::loadPict(QString fn, PageItem *pageItem, bool reload)
-{
-	if (!reload)
-	{
-		if ((ScApp->fileWatcher->files().contains(pageItem->Pfile) != 0) && (pageItem->PicAvail))
-			ScApp->fileWatcher->removeFile(pageItem->Pfile);
-	}
-	pageItem->loadImage(fn, reload);
-	if (!reload)
-		ScApp->fileWatcher->addFile(pageItem->Pfile);
-	if (!Doc->isLoading())
-	{
-		emit RasterPic(pageItem->isRaster);
-//		emit UpdtObj(PageNr, ItNr);
-		emit DocChanged();
-	}
-}
-
 void ScribusView::changePreview(int id)
 {
 	uint selectedItemCount=SelItem.count();
@@ -10683,6 +10666,7 @@ void ScribusView::changePreview(int id)
 	}
 }
 
+/*
 void ScribusView::AdjustPictScale(PageItem *currItem, bool )
 {
 	if (currItem->ScaleType)
@@ -10713,6 +10697,7 @@ void ScribusView::AdjustPictScale(PageItem *currItem, bool )
 	}
 	emit SetLocalValues(currItem->LocalScX, currItem->LocalScY, currItem->LocalX, currItem->LocalY );
 }
+*/
 
 void ScribusView::TogglePic()
 {
@@ -10736,10 +10721,12 @@ void ScribusView::updatePict(QString name)
 		{
 			bool fho = currItem->imageFlippedH();
 			bool fvo = currItem->imageFlippedV();
-			LoadPict(currItem->Pfile, currItem->ItemNr, true);
+			Doc->LoadPict(currItem->Pfile, currItem->ItemNr, true);
 			currItem->setImageFlippedH(fho);
 			currItem->setImageFlippedV(fvo);
-			AdjustPictScale(currItem);
+			currItem->AdjustPictScale();
+			//FIXME: From old AdjustPictScale, Emit the new scale to the Prop Pal.. but we dont need to do it for this loop!!
+			emit SetLocalValues(currItem->LocalScX, currItem->LocalScY, currItem->LocalX, currItem->LocalY );
 		}
 	}
 	for (uint a = 0; a < Doc->MasterItems.count(); ++a)
@@ -10749,10 +10736,12 @@ void ScribusView::updatePict(QString name)
 		{
 			bool fho = currItem->imageFlippedH();
 			bool fvo = currItem->imageFlippedV();
-			LoadPict(currItem->Pfile, currItem->ItemNr, true);
+			Doc->LoadPict(currItem->Pfile, currItem->ItemNr, true);
 			currItem->setImageFlippedH(fho);
 			currItem->setImageFlippedV(fvo);
-			AdjustPictScale(currItem);
+			currItem->AdjustPictScale();
+			//FIXME: From old AdjustPictScale, Emit the new scale to the Prop Pal.. but we dont need to do it for this loop!!
+			emit SetLocalValues(currItem->LocalScX, currItem->LocalScY, currItem->LocalX, currItem->LocalY );
 		}
 	}
 	for (uint a = 0; a < Doc->FrameItems.count(); ++a)
@@ -10762,10 +10751,12 @@ void ScribusView::updatePict(QString name)
 		{
 			bool fho = currItem->imageFlippedH();
 			bool fvo = currItem->imageFlippedV();
-			LoadPict(currItem->Pfile, currItem->ItemNr, true);
+			Doc->LoadPict(currItem->Pfile, currItem->ItemNr, true);
 			currItem->setImageFlippedH(fho);
 			currItem->setImageFlippedV(fvo);
-			AdjustPictScale(currItem);
+			currItem->AdjustPictScale();
+			//FIXME: From old AdjustPictScale, Emit the new scale to the Prop Pal.. but we dont need to do it for this loop!!
+			emit SetLocalValues(currItem->LocalScX, currItem->LocalScY, currItem->LocalX, currItem->LocalY );
 		}
 	}
 	updateContents();
@@ -10781,10 +10772,12 @@ void ScribusView::RecalcPicturesRes()
 		{
 			bool fho = currItem->imageFlippedH();
 			bool fvo = currItem->imageFlippedV();
-			LoadPict(currItem->Pfile, currItem->ItemNr, true);
+			Doc->LoadPict(currItem->Pfile, currItem->ItemNr, true);
 			currItem->setImageFlippedH(fho);
 			currItem->setImageFlippedV(fvo);
-			AdjustPictScale(currItem);
+			currItem->AdjustPictScale();
+			//FIXME: From old AdjustPictScale, Emit the new scale to the Prop Pal.. but we dont need to do it for this loop!!
+			emit SetLocalValues(currItem->LocalScX, currItem->LocalScY, currItem->LocalX, currItem->LocalY );
 		}
 	}
 	for (uint a = 0; a < Doc->MasterItems.count(); ++a)
@@ -10794,10 +10787,12 @@ void ScribusView::RecalcPicturesRes()
 		{
 			bool fho = currItem->imageFlippedH();
 			bool fvo = currItem->imageFlippedV();
-			LoadPict(currItem->Pfile, currItem->ItemNr, true);
+			Doc->LoadPict(currItem->Pfile, currItem->ItemNr, true);
 			currItem->setImageFlippedH(fho);
 			currItem->setImageFlippedV(fvo);
-			AdjustPictScale(currItem);
+			currItem->AdjustPictScale();
+			//FIXME: From old AdjustPictScale, Emit the new scale to the Prop Pal.. but we dont need to do it for this loop!!
+			emit SetLocalValues(currItem->LocalScX, currItem->LocalScY, currItem->LocalX, currItem->LocalY );
 		}
 	}
 	for (uint a = 0; a < Doc->FrameItems.count(); ++a)
@@ -10807,10 +10802,12 @@ void ScribusView::RecalcPicturesRes()
 		{
 			bool fho = currItem->imageFlippedH();
 			bool fvo = currItem->imageFlippedV();
-			LoadPict(currItem->Pfile, currItem->ItemNr, true);
+			Doc->LoadPict(currItem->Pfile, currItem->ItemNr, true);
 			currItem->setImageFlippedH(fho);
 			currItem->setImageFlippedV(fvo);
-			AdjustPictScale(currItem);
+			currItem->AdjustPictScale();
+			//FIXME: From old AdjustPictScale, Emit the new scale to the Prop Pal.. but we dont need to do it for this loop!!
+			emit SetLocalValues(currItem->LocalScX, currItem->LocalScY, currItem->LocalX, currItem->LocalY );
 		}
 	}
 	updateContents();
@@ -10868,10 +10865,12 @@ void ScribusView::UpdatePic()
 					{
 						int fho = currItem->imageFlippedH();
 						int fvo = currItem->imageFlippedV();
-						LoadPict(currItem->Pfile, currItem->ItemNr, true);
+						Doc->LoadPict(currItem->Pfile, currItem->ItemNr, true);
 						currItem->setImageFlippedH(fho);
 						currItem->setImageFlippedV(fvo);
-						AdjustPictScale(currItem);
+						currItem->AdjustPictScale();
+						//FIXME: From old AdjustPictScale, Emit the new scale to the Prop Pal.. but we dont need to do it for this loop!!
+						emit SetLocalValues(currItem->LocalScX, currItem->LocalScY, currItem->LocalX, currItem->LocalY );
 						toUpdate=true;
 					}
 				}
@@ -10957,7 +10956,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		Doc->Items.at(z)->IRender = Buffer->IRender;
 		Doc->Items.at(z)->UseEmbedded = Buffer->UseEmbedded;
 		if (!Doc->Items.at(z)->Pfile.isEmpty())
-			LoadPict(Doc->Items.at(z)->Pfile, z);
+			Doc->LoadPict(Doc->Items.at(z)->Pfile, z);
 		Doc->Items.at(z)->LocalScX = Buffer->LocalScX;
 		Doc->Items.at(z)->LocalScY = Buffer->LocalScY;
 		Doc->Items.at(z)->PicArt = Buffer->PicArt;
@@ -10988,7 +10987,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 			Doc->Items.at(z)->EmProfile = Buffer->EmProfile;
 			Doc->Items.at(z)->IRender = Buffer->IRender;
 			Doc->Items.at(z)->UseEmbedded = Buffer->UseEmbedded;
-			LoadPict(Doc->Items.at(z)->Pfile, z);
+			Doc->LoadPict(Doc->Items.at(z)->Pfile, z);
 			Doc->Items.at(z)->LocalScX = Buffer->LocalScX;
 			Doc->Items.at(z)->LocalScY = Buffer->LocalScY;
 			Doc->Items.at(z)->PicArt = Buffer->PicArt;
@@ -11261,7 +11260,11 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		currItem->ClipEdited = true;
 	}
 	if (currItem->asImageFrame())
-		AdjustPictScale(currItem);
+	{
+		currItem->AdjustPictScale();
+		//FIXME: From old AdjustPictScale, Emit the new scale to the Prop Pal.. 
+		emit SetLocalValues(currItem->LocalScX, currItem->LocalScY, currItem->LocalX, currItem->LocalY );
+	}
 	if ((currItem->asTextFrame()) && !(currItem->asPathText()))
 		currItem->IFont = Doc->toolSettings.defFont;
 	if (Buffer->GrType != 0)

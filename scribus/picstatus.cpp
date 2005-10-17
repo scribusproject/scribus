@@ -311,7 +311,7 @@ bool PicStatus::loadPictByRow(const QString & newFilePath, unsigned int row)
 {
 	unsigned int itemNumber = ItemNrs[row];
 	// FIXME: error checking
-	view->LoadPict(newFilePath, itemNumber);
+	doc->LoadPict(newFilePath, itemNumber);
 	// WTF?
 	bool isMaster = PicTable->cellWidget(row, COL_GOTO)->isEnabled();
 	PageItem* item = isMaster ? doc->Items.at(itemNumber) : doc->MasterItems.at(itemNumber);

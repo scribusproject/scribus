@@ -3709,16 +3709,16 @@ bool ScribusApp::loadDoc(QString fileName)
 	{
 		QString FName = fi.absFilePath();
 		QDir::setCurrent(fi.dirPath(true));
-		FileLoader *fl = new FileLoader(FName);
-		if (fl->TestFile() == -1)
+		FileLoader *fileLoader = new FileLoader(FName);
+		if (fileLoader->TestFile() == -1)
 		{
-			delete fl;
+			delete fileLoader;
 			qApp->setOverrideCursor(QCursor(arrowCursor), true);
 			QMessageBox::critical(this, tr("Fatal Error"), "<qt>"+tr("File %1 is not in an acceptable format").arg(FName)+"</qt>", CommonStrings::tr_OK);
 			return false;
 		}
 		bool is12doc=false;
-		if (fl->TestFile() == 0)
+		if (fileLoader->TestFile() == 0)
 		{
 			qApp->setOverrideCursor(QCursor(arrowCursor), true);
 			//Scribus 1.3.x warning, remove at a later stage
@@ -3753,10 +3753,15 @@ bool ScribusApp::loadDoc(QString fileName)
 		CMSuse = false;
 #endif
 		ScApp->ScriptRunning = true;
-		if(!fl->LoadFile())
+		bool loadSuccess=fileLoader->LoadFile();
+		//Do the font replacement check from here, when we have a GUI. TODO do this also somehow without the GUI
+		//This also gives the user the opportunity to cancel the load when finding theres a replacement required.
+		if (loadSuccess && ScQApp->usingGUI())
+			loadSuccess=fileLoader->postLoad();
+		if(!loadSuccess)
 		{
 			view->close();
-			delete fl;
+			delete fileLoader;
 			delete view;
 			delete doc;
 			delete w;
@@ -3768,6 +3773,8 @@ bool ScribusApp::loadDoc(QString fileName)
 				newActWin(ActWinOld);
 			return false;
 		}
+		fileLoader->informReplacementFonts();
+		view->unitSwitcher->setCurrentText(unitGetStrFromIndex(doc->unitIndex()));
 		view->unitChange();
 		ScApp->ScriptRunning = false;
 		view->Deselect(true);
@@ -3797,17 +3804,6 @@ bool ScribusApp::loadDoc(QString fileName)
 			doc->PDF_Options.LPISettings.insert("Black", lpo);
 		}
 		//connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
-		if (fl->ReplacedFonts.count() != 0)
-		{
-			qApp->setOverrideCursor(QCursor(arrowCursor), true);
-			QString mess = tr("Some fonts used by this document have been substituted:")+"\n\n";
-			QMap<QString,QString>::Iterator it;
-			for (it = fl->ReplacedFonts.begin(); it != fl->ReplacedFonts.end(); ++it)
-			{
-				mess += it.key() + tr(" was replaced by: ")+ it.data() +"\n";
-			}
-			QMessageBox::warning(this, CommonStrings::trWarning, mess, 1, 0, 0);
-		}
 		if (!doc->HasCMS)
 		{
 			doc->CMSSettings.DefaultImageRGBProfile = prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile;
@@ -3939,7 +3935,7 @@ bool ScribusApp::loadDoc(QString fileName)
 		}
 		propertiesPalette->updateColorList();
 		propertiesPalette->Cpal->ChooseGrad(0);
-		if (fl->FileType > 1)
+		if (fileLoader->FileType > 1)
 		{
 			doc->setName(FName+tr("(converted)"));
 			QFileInfo fi(doc->DocName);
@@ -4084,12 +4080,12 @@ bool ScribusApp::loadDoc(QString fileName)
 		{
 			Apply_MasterPage(doc->Pages.at(p)->MPageNam, p, false);
 		}
-		if (fl->FileType > 1)
+		if (fileLoader->FileType > 1)
 		{
 			doc->hasName = false;
 			slotFileSaveAs();
 		}
-		delete fl;
+		delete fileLoader;
 		view->setUpdatesEnabled(true);
 		w->setUpdatesEnabled(true);
 		disconnect(wsp, SIGNAL(windowActivated(QWidget *)), this, SLOT(newActWin(QWidget *)));
@@ -4123,6 +4119,14 @@ bool ScribusApp::loadDoc(QString fileName)
 	qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	undoManager->setUndoEnabled(true);
 	return ret;
+}
+
+bool ScribusApp::postLoadDoc()
+{
+	//FIXME Just return for now, if we arent using the GUI
+	if (!ScQApp->usingGUI())
+		return false;
+	return true;
 }
 
 void ScribusApp::slotFileOpen()
@@ -4184,8 +4188,11 @@ void ScribusApp::slotFileOpen()
 				currItem->IRender = doc->CMSSettings.DefaultIntentImages;
 				qApp->setOverrideCursor( QCursor(Qt::WaitCursor) );
 				qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
-				view->LoadPict(fileName, currItem->ItemNr);
-				view->AdjustPictScale(currItem, false);
+				doc->LoadPict(fileName, currItem->ItemNr);
+				//view->AdjustPictScale(currItem, false);
+				//false was ignored anyway
+				currItem->AdjustPictScale();
+				propertiesPalette->setLvalue(currItem->LocalScX, currItem->LocalScY, currItem->LocalX, currItem->LocalY);
 				qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
 				qApp->restoreOverrideCursor();
 				view->DrawNew();
@@ -5454,9 +5461,16 @@ void ScribusApp::duplicateToMasterPage()
 	NewTm *dia = new NewTm(this, tr("Name:"), tr("Convert Page to Master Page"), doc);
 	dia->Answer->setText( tr("New Master Page"));
 	dia->Answer->selectAll();
+	view->Deselect(true);
 	if (dia->exec())
 	{
-		view->Deselect(true);
+		int diaLinksCurrItem=0;
+		int diaLinksCount=0;
+		if (doc->currentPageLayout != singlePage)
+		{
+			diaLinksCurrItem=dia->Links->currentItem();
+			diaLinksCount=static_cast<int>(dia->Links->count());
+		}
 		QString masterPageName = dia->Answer->text();
 		while (doc->MasterNames.contains(masterPageName) || (masterPageName == "Normal"))
 		{
@@ -5467,18 +5481,8 @@ void ScribusApp::duplicateToMasterPage()
 			}
 			masterPageName = dia->Answer->text();
 		}
-		//Grab the left page setting for the current document layout from the dialog, and increment, singlePage==1 remember.
-		int lp;
-		if (doc->currentPageLayout != singlePage)
-		{
-			lp = dia->Links->currentItem();
-			if (lp == static_cast<int>(dia->Links->count()-1))
-				lp = 0;
-			else
-				++lp;
-		}
 		int currentPageNumber=doc->currentPage->pageNr();
-		bool ok=doc->copyPageToMasterPage(currentPageNumber, lp, masterPageName);
+		bool ok=doc->copyPageToMasterPage(currentPageNumber, diaLinksCurrItem, diaLinksCount, masterPageName);
 		Q_ASSERT(ok); //TODO get a return value in case the copy was not possible
 	}
 	delete dia;

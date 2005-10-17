@@ -266,7 +266,7 @@ void ExtImageProps::changedLayer()
 		loadingInfo.visible = FlagsSicht.at(layerTable->numRows() - r - 1)->isChecked();
 		currentItem->pixm.imgInfo.RequestProps.insert(layerTable->numRows() - r - 1, loadingInfo);
 	}
-	viewWidget->LoadPict(currentItem->Pfile, currentItem->ItemNr, true);
+	viewWidget->Doc->LoadPict(currentItem->Pfile, currentItem->ItemNr, true);
 	viewWidget->updateContents();
 }
 

@@ -1,5 +1,6 @@
 #include "cmdmani.h"
 #include "cmdutil.h"
+#include "mpalette.h" //CB argh.. noooooooooooooooooooooooooooooooooooo FIXME see other FIXME
 
 PyObject *scribus_loadimage(PyObject* /* self */, PyObject* args)
 {
@@ -17,7 +18,7 @@ PyObject *scribus_loadimage(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Target is not an image frame.","python error"));
 		return NULL;
 	}
-	ScApp->view->LoadPict(QString::fromUtf8(Image), item->ItemNr);
+	ScApp->doc->LoadPict(QString::fromUtf8(Image), item->ItemNr);
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -363,7 +364,12 @@ PyObject *scribus_setscaleimagetoframe(PyObject* /* self */, PyObject* args, PyO
 	if (proportional != -1)
 		item->AspectRatio = proportional > 0;
 	// Force the braindead app to notice the changes
-	ScApp->view->AdjustPictScale(item);
+	
+	//FIXME emit or something so we dont need this
+	ScApp->propertiesPalette->setLvalue(item->LocalScX, item->LocalScY, item->LocalX, item->LocalY);
+	item->AdjustPictScale();
+	//ScApp->view->AdjustPictScale(item);
+	
 	ScApp->view->RefreshItem(item);
 	Py_INCREF(Py_None);
 	return Py_None;

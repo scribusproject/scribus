@@ -299,7 +299,7 @@ public:
 	/**
 	 * @brief Copies a normal page to be a master pages
 	 */
-	const bool copyPageToMasterPage(const int, const int, const QString&);
+	const bool copyPageToMasterPage(const int, const int, const int, const QString&);
 	/**
 	 * @brief Paste an item to the document.
 	 * The bulk of a paste item process runs here for want of a better place, but its a better place
@@ -345,6 +345,14 @@ public:
 	 */
 	const bool usesAutomaticTextFrames();
 	void setUsesAutomaticTextFrames(const bool);
+	
+	/**
+	 * @brief Load images into an image frame, moved from the view
+	 * @retval Return false on failure
+	 */
+	const bool LoadPict(QString fn, int ItNr, bool reload = false);
+	const bool loadPict(QString fn, PageItem *pageItem, bool reload = false);
+
 
 protected:
 	void addSymbols();

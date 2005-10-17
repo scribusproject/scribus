@@ -575,7 +575,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			//z = ScApp->view->PaintPict(x+BaseX, y+BaseY, w, h);
 			z = currDoc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, x+BaseX, y+BaseY, w, h, 1, currDoc->toolSettings.dBrushPict, "None", !ScApp->view->Mpressed);
 			if (!fname.isEmpty())
-				ScApp->view->LoadPict(fname, z);
+				currDoc->LoadPict(fname, z);
 			PageItem* ite = currDoc->Items.at(z);
 			if (ImgClip.size() != 0)
 				ite->PoLine = ImgClip.copy();

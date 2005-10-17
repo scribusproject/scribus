@@ -3134,7 +3134,7 @@ void Mpalette::ChProf(const QString& prn)
 		/* PFJ - 29.02.04 - re-arranged the initialisation of EmbedP */
 		bool EmbedP = prn.startsWith("Embedded") ? true : false;
 		CurItem->UseEmbedded = EmbedP;
-		ScApp->view->LoadPict(CurItem->Pfile, CurItem->ItemNr, true);
+		doc->LoadPict(CurItem->Pfile, CurItem->ItemNr, true);
 		ScApp->view->RefreshItem(CurItem);
 	}
 }
@@ -3146,7 +3146,7 @@ void Mpalette::ChIntent()
 	if ((HaveDoc) && (HaveItem))
 	{
 		CurItem->IRender = MonitorI->currentItem();
-		ScApp->view->LoadPict(CurItem->Pfile, CurItem->ItemNr, true);
+		doc->LoadPict(CurItem->Pfile, CurItem->ItemNr, true);
 		ScApp->view->RefreshItem(CurItem);
 	}
 }
