@@ -2039,6 +2039,9 @@ void ScribusDoc::setScTextDefaultsFromDoc(ScText *sctextdata)
 
 const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, const int maxLeftPage,  const QString& masterPageName)
 {
+	Q_ASSERT(!masterPageMode);
+	if (masterPageMode)
+		return false;
 	//TODO Add Undo here
 	int GrMax = GroupCounter;
 	Page* sourcePage = Pages.at(pageNumber);
@@ -2154,6 +2157,8 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 	automaticTextFrames = atf;
 	setLoading(false);
 	GroupCounter = GrMax + 1;
+	//Reset the current page.. 
+	currentPage=sourcePage;
 	return true;
 }
 
@@ -2221,10 +2226,8 @@ int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemF
 		is->setItem(newItem);
 		//Undo target rests with the Page for object specific undo
 		UndoObject *target = Pages.at(0);
-		qDebug(QString("%1").arg((int)target));
 		if (newItem->OwnPage > -1)
 			target = Pages.at(newItem->OwnPage);
-		qDebug(QString("%1 %2").arg((int)target).arg(newItem->OwnPage));
 		undoManager->action(target, is);
 		//If the item is created "complete" (ie, not being created by drag/resize, commit to undomanager)
 		if (itemFinalised)
