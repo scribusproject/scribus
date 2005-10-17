@@ -191,6 +191,12 @@ public:
 	 * The view does when these are called.
 	 */	
 	virtual void clearContents() {};
+	
+	/**
+	 * @brief Adjust the picture scale, moved from the view, no view code here
+	 * FIXME: Move to PageItem_TextFrame
+	 */
+	void AdjustPictScale();
 			
 			
 
