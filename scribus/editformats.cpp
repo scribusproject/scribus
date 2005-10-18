@@ -11,11 +11,65 @@
 #include "prefsfile.h"
 #include "scribusXml.h"
 #include "page.h"
+#include "sccombobox.h"
 
 extern QPixmap loadIcon(QString nam);
 
+DelStyle::DelStyle(QWidget* parent, QValueList<ParagraphStyle> sty, QString styleName)
+		: QDialog( parent, "dd", true, 0 )
+{
+	setName( "DelColor" );
+	setCaption( tr( "Delete Style" ) );
+	setIcon(loadIcon("AppIcon.png"));
+	dialogLayout = new QVBoxLayout( this, 10, 5 );
+	delStyleLayout = new QGridLayout;
+	delStyleLayout->setSpacing( 5 );
+	delStyleLayout->setMargin( 5 );
+	deleteLabel = new QLabel( tr( "Delete Style:" ), this, "deleteLabel" );
+	delStyleLayout->addWidget( deleteLabel, 0, 0 );
+	styleToDelLabel = new QLabel( styleName, this, "colorToDelLabel" );
+	delStyleLayout->addWidget( styleToDelLabel, 0, 1 );
+	replaceLabel = new QLabel( tr( "Replace With:" ), this, "replaceLabel" );
+	delStyleLayout->addWidget( replaceLabel, 1, 0 );
+	replacementStyleData = new ScComboBox(false, this);
+	for (uint x = 5; x < sty.count(); ++x)
+	{
+		if (sty[x].Vname != styleName)
+			replacementStyleData->insertItem(sty[x].Vname);
+	}
+	delStyleLayout->addWidget( replacementStyleData, 1, 1 );
+	replacementStyle = replacementStyleData->text(0);
+	dialogLayout->addLayout( delStyleLayout );
+	okCancelLayout = new QHBoxLayout;
+	okCancelLayout->setSpacing( 6 );
+	okCancelLayout->setMargin( 0 );
+	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	okCancelLayout->addItem( spacer );
+	okButton = new QPushButton( CommonStrings::tr_OK, this, "okButton" );
+	okCancelLayout->addWidget( okButton );
+	cancelButton = new QPushButton( CommonStrings::tr_Cancel, this, "PushButton13" );
+	cancelButton->setDefault( true );
+	okCancelLayout->addWidget( cancelButton );
+	dialogLayout->addLayout( okCancelLayout );
+	setMaximumSize(sizeHint());
+
+	connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
+	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
+	connect( replacementStyleData, SIGNAL(activated(int)), this, SLOT( ReplaceStyle(int) ) );
+}
+
+void DelStyle::ReplaceStyle(int id)
+{
+	replacementStyle = replacementStyleData->text(id);
+}
+
+const QString DelStyle::getReplacementStyle()
+{
+	return replacementStyle;
+}
+
 ChooseStyles::ChooseStyles( QWidget* parent, QValueList<ParagraphStyle> *styleList, QValueList<ParagraphStyle> *styleOld)
- : QDialog( parent, "ChooseStyles", true, 0 )
+		: QDialog( parent, "ChooseStyles", true, 0 )
 {
 	setCaption( tr( "Choose Styles" ) );
 	setIcon(loadIcon("AppIcon.png"));
@@ -67,15 +121,15 @@ ChooseStyles::ChooseStyles( QWidget* parent, QValueList<ParagraphStyle> *styleLi
 					}
 				}
 				if ((vg.LineSpa == vg2.LineSpa) && (vg.Indent == vg2.Indent) && (vg.First == vg2.First) &&
-					(vg.textAlignment == vg2.textAlignment) && (vg.gapBefore == vg2.gapBefore) &&
-					(vg.LineSpaMode == vg2.LineSpaMode) && (vg.gapAfter == vg2.gapAfter) && (vg.Font == vg2.Font) && (tabEQ)
-					&& (vg.Drop == vg2.Drop) && (vg.DropDist == vg2.DropDist) && (vg.DropLin == vg2.DropLin) && (vg.FontEffect == vg2.FontEffect) &&
-					(vg.FColor == vg2.FColor) && (vg.FShade == vg2.FShade) && (vg.SColor == vg2.SColor) &&
-					(vg.txtShadowX == vg2.txtShadowX) && (vg.txtShadowY == vg2.txtShadowY) &&
-					(vg.txtOutline == vg2.txtOutline) && (vg.txtUnderPos == vg2.txtUnderPos) && (vg.txtUnderWidth == vg2.txtUnderWidth) &&
-					(vg.scaleH == vg2.scaleH) && (vg.scaleV == vg2.scaleV) && (vg.baseOff == vg2.baseOff) && (vg.kernVal == vg2.kernVal) &&
-					(vg.txtStrikePos == vg2.txtStrikePos) && (vg.txtStrikeWidth == vg2.txtStrikeWidth) &&
-					(vg.SShade == vg2.SShade) && (vg.BaseAdj == vg2.BaseAdj) && (vg.FontSize == vg2.FontSize))
+				        (vg.textAlignment == vg2.textAlignment) && (vg.gapBefore == vg2.gapBefore) &&
+				        (vg.LineSpaMode == vg2.LineSpaMode) && (vg.gapAfter == vg2.gapAfter) && (vg.Font == vg2.Font) && (tabEQ)
+				        && (vg.Drop == vg2.Drop) && (vg.DropDist == vg2.DropDist) && (vg.DropLin == vg2.DropLin) && (vg.FontEffect == vg2.FontEffect) &&
+				        (vg.FColor == vg2.FColor) && (vg.FShade == vg2.FShade) && (vg.SColor == vg2.SColor) &&
+				        (vg.txtShadowX == vg2.txtShadowX) && (vg.txtShadowY == vg2.txtShadowY) &&
+				        (vg.txtOutline == vg2.txtOutline) && (vg.txtUnderPos == vg2.txtUnderPos) && (vg.txtUnderWidth == vg2.txtUnderWidth) &&
+				        (vg.scaleH == vg2.scaleH) && (vg.scaleV == vg2.scaleV) && (vg.baseOff == vg2.baseOff) && (vg.kernVal == vg2.kernVal) &&
+				        (vg.txtStrikePos == vg2.txtStrikePos) && (vg.txtStrikeWidth == vg2.txtStrikeWidth) &&
+				        (vg.SShade == vg2.SShade) && (vg.BaseAdj == vg2.BaseAdj) && (vg.FontSize == vg2.FontSize))
 				{
 					found = true;
 				}
@@ -248,7 +302,7 @@ void StilFormate::dupFormat()
 	sty.kernVal = TempVorl[sFnumber].kernVal;
 	TempVorl.append(sty);
 	sFnumber = TempVorl.count()-1;
-	EditStyle* dia2 = new EditStyle(this, &TempVorl[sFnumber], TempVorl, true, 
+	EditStyle* dia2 = new EditStyle(this, &TempVorl[sFnumber], TempVorl, true,
 	                                static_cast<double>(Docu->typographicSettings.autoLineSpacing), Docu->unitIndex(), Docu);
 	if (!dia2->exec())
 		TempVorl.remove(TempVorl.fromLast());
@@ -301,7 +355,7 @@ void StilFormate::neuesFormat()
 
 void StilFormate::editFormat()
 {
-	EditStyle* dia = new EditStyle(this, &TempVorl[sFnumber], TempVorl, false, 
+	EditStyle* dia = new EditStyle(this, &TempVorl[sFnumber], TempVorl, false,
 	                               static_cast<double>(Docu->typographicSettings.autoLineSpacing), Docu->unitIndex(), Docu);
 	dia->exec();
 	delete dia;
@@ -310,20 +364,33 @@ void StilFormate::editFormat()
 
 void StilFormate::deleteFormat()
 {
-	int exit=QMessageBox::warning(this,
+/*	int exit=QMessageBox::warning(this,
 	                              CommonStrings::trWarning,
 	                              tr("Do you really want to delete this style?"),
 	                              tr("No"),
 	                              tr("Yes"),
-	                              0, 0, 0);
+	                              0, 0, 0); */
 	/* PFJ - 29.02.04 - Altered to use the correct QMessageBox value. It was 1 */
 	/* FS - 13.03.04 the 1 is correct in this version of QMessageBox, it returns the Nr of the clicked Button either 0 or 1 or 2 */
-	if (exit == 1)
+//	if (exit == 1)
+	DelStyle *dia = new DelStyle(this, TempVorl, TempVorl[sFnumber].Vname);
+	if (dia->exec())
 	{
+		if (ReplaceList.values().contains(TempVorl[sFnumber].Vname))
+		{
+			QMap<QString,QString>::Iterator it;
+			for (it = ReplaceList.begin(); it != ReplaceList.end(); ++it)
+			{
+				if (it.data() == TempVorl[sFnumber].Vname)
+					it.data() = dia->getReplacementStyle();
+			}
+		}
+		ReplaceList.insert(TempVorl[sFnumber].Vname, dia->getReplacementStyle());
 		ListBox1->removeItem(sFnumber);
 		TempVorl.remove(TempVorl.at(sFnumber));
 		UpdateFList();
 	}
+	delete dia;
 }
 
 void StilFormate::loadStyles()

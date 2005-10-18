@@ -528,6 +528,15 @@ void Farbmanager::delFarbe()
 	DelColor *dia = new DelColor(this, EditColors, sFarbe, HaveDoc);
 	if (dia->exec())
 	{
+		if (Ersatzliste.values().contains(sFarbe))
+		{
+			QMap<QString,QString>::Iterator it;
+			for (it = Ersatzliste.begin(); it != Ersatzliste.end(); ++it)
+			{
+				if (it.data() == sFarbe)
+					it.data() = dia->getReplacementColor();
+			}
+		}
 		Ersatzliste.insert(sFarbe, dia->getReplacementColor());
 		EditColors.remove(sFarbe);
 		updateCList();

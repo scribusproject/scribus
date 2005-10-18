@@ -8,10 +8,37 @@
 #include <qlayout.h>
 #include <qtooltip.h>
 #include <qmap.h>
-
+#include <qlabel.h>
 #include "scribusapi.h"
 #include "scribusstructs.h"
 class ScribusDoc;
+class ScComboBox;
+
+class SCRIBUS_API DelStyle : public QDialog
+{
+	Q_OBJECT
+
+public:
+	DelStyle(QWidget* parent, QValueList<ParagraphStyle> sty, QString styleName);
+	~DelStyle() {};
+	const QString getReplacementStyle();
+
+private:
+	QLabel* deleteLabel;
+	QLabel* styleToDelLabel;
+	QLabel* replaceLabel;
+	QPushButton* okButton;
+	QPushButton* cancelButton;
+	ScComboBox* replacementStyleData;
+	QVBoxLayout* dialogLayout;
+	QGridLayout* delStyleLayout;
+	QHBoxLayout* okCancelLayout;
+
+	QString replacementStyle;
+
+private slots:
+	virtual void ReplaceStyle(int);
+};
 
 class SCRIBUS_API ChooseStyles : public QDialog
 {
