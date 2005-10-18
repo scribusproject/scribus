@@ -14,6 +14,53 @@
 
 /** Document related Commands */
 
+PyDoc_STRVAR(scribus_newdocument__doc__,
+QT_TR_NOOP("newDocument(size, margins, orientation, firstPageNumber,\n\
+unit, pagesType, firstPageOrder) -> bool\n\
+\n\
+WARNING: This is backported function from 1.3.x series. You are using constants\n\
+larger PAGE_3 and bigger on your own risk. So do you with firstPageOrder biger\n\
+than 1.\n\
+\n\
+Creates a new document and returns true if successful. The parameters have the\n\
+following meaning:\n\
+\n\
+size = A tuple (width, height) describing the size of the document. You can\n\
+use predefined constants named PAPER_<paper_type> e.g. PAPER_A4 etc.\n\
+\n\
+margins = A tuple (left, right, top, bottom) describing the document\n\
+margins\n\
+\n\
+orientation = the page orientation - constants PORTRAIT, LANDSCAPE\n\
+\n\
+firstPageNumer = is the number of the first page in the document used for\n\
+pagenumbering. While you'll usually want 1, it's useful to have higher\n\
+numbers if you're creating a document in several parts.\n\
+\n\
+unit: this value sets the measurement units used by the document. Use a\n\
+predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,\n\
+UNIT_PICAS, UNIT_POINTS.\n\
+\n\
+pagesType = One of the predefined constants PAGE_n. PAGE_1 is single page,\n\
+PAGE_2 is for double sided documents, PAGE_3 is for 3 pages fold and\n\
+PAGE_4 is 4-fold.\n\
+\n\
+firstPageOrder = What is position of first page in the document.\n\
+Indexed from 0 (0 = first).\n\
+\n\
+The values for width, height and the margins are expressed in the given unit\n\
+for the document. PAPER_* constants are expressed in points. If your document\n\
+is not in points, make sure to account for this.\n\
+\n\
+example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,\n\
+PAGE_4, 3)\n\
+\n\
+May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.\n\
+"));
+/** Creates a new document e.g. (Paper_A4, Margins, 1, 1, 1, NoFacingPages, FirstPageLeft)
+ first 2 args are lists (tuples) */
+PyObject *scribus_newdocument(PyObject */*self*/, PyObject* args);
+
 /*! docstring */
 PyDoc_STRVAR(scribus_newdoc__doc__,
 QT_TR_NOOP("newDoc(size, margins, orientation, firstPageNumber,\n\

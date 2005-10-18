@@ -320,6 +320,7 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("moveObject"), scribus_moveobjrel, METH_VARARGS, tr(scribus_moveobjrel__doc__)},
 	{const_cast<char*>("newDocDialog"), (PyCFunction)scribus_newdocdia, METH_NOARGS, tr(scribus_newdocdia__doc__)},
 	{const_cast<char*>("newDoc"), scribus_newdoc, METH_VARARGS, tr(scribus_newdoc__doc__)},
+	{const_cast<char*>("newDocument"), scribus_newdocument, METH_VARARGS, tr(scribus_newdocument__doc__)},
 	{const_cast<char*>("newPage"), scribus_newpage, METH_VARARGS, tr(scribus_newpage__doc__)},
 	{const_cast<char*>("objectExists"),scribus_objectexists, METH_VARARGS, tr(scribus_objectexists__doc__)},
 	{const_cast<char*>("openDoc"), scribus_opendoc, METH_VARARGS, tr(scribus_opendoc__doc__)},
@@ -524,6 +525,11 @@ void initscribus(ScribusApp *pl)
 	PyDict_SetItemString(d, const_cast<char*>("PAPER_LEGAL"), Py_BuildValue(const_cast<char*>("(ff)"), 612.0, 1008.0));
 	PyDict_SetItemString(d, const_cast<char*>("PAPER_LETTER"), Py_BuildValue(const_cast<char*>("(ff)"), 612.0, 792.0));
 	PyDict_SetItemString(d, const_cast<char*>("PAPER_TABLOID"), Py_BuildValue(const_cast<char*>("(ff)"), 792.0, 1224.0));
+	// preset page layouts - backward comp. from 1.3.x
+	PyDict_SetItemString(d, const_cast<char*>("PAGE_1"), Py_BuildValue(const_cast<char*>("i"), 0));
+	PyDict_SetItemString(d, const_cast<char*>("PAGE_2"), Py_BuildValue(const_cast<char*>("i"), 1));
+	PyDict_SetItemString(d, const_cast<char*>("PAGE_3"), Py_BuildValue(const_cast<char*>("i"), 2));
+	PyDict_SetItemString(d, const_cast<char*>("PAGE_4"), Py_BuildValue(const_cast<char*>("i"), 3));
 
 	// Export the Scribus version into the module namespace so scripts know what they're running in
 	PyDict_SetItemString(d, const_cast<char*>("scribus_version"), PyString_FromString(const_cast<char*>(VERSION)));

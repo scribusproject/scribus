@@ -9,6 +9,72 @@
 #include "cmddoc.h"
 #include "cmdutil.h"
 
+/*
+newDocument(size, margins, orientation, firstPageNumber,
+            unit, pagesType, firstPageOrder)*/
+PyObject *scribus_newdocument(PyObject* /* self */, PyObject* args)
+{
+	double topMargin, bottomMargin, leftMargin, rightMargin;
+	double pageWidth, pageHeight;
+	int orientation, firstPageNr, unit, pagesType, facingPages, firstPageOrder;
+
+	PyObject *p, *m;
+
+	if ((!PyArg_ParseTuple(args, "OOiiiii", &p, &m, &orientation,
+		  &firstPageNr, &unit,
+		  &pagesType,
+		  &firstPageOrder)) ||
+			 (!PyArg_ParseTuple(p, "dd", &pageWidth, &pageHeight)) ||
+			 (!PyArg_ParseTuple(m, "dddd", &leftMargin, &rightMargin,
+			   &topMargin, &bottomMargin)))
+		return NULL;
+
+	/* 1.2.x bounds checking. It is fully functional in 1.3.
+	It's in 1.2 as "future backward compatibility" ;) */
+	if (pagesType > 1)
+		pagesType = 1;
+	if (firstPageOrder > 1)
+		firstPageOrder = 1;
+	// end of checks
+	if (pagesType == 0)
+	{
+		facingPages = 0;
+		firstPageOrder = 0;
+	}
+	else
+		facingPages = 1;
+	// checking the bounds
+	if (pagesType < firstPageOrder)
+	{
+		PyErr_SetString(ScribusException, QObject::tr("firstPageOrder is bigger than allowed.","python error"));
+		return NULL;
+	}
+
+	pageWidth = ValToPts(pageWidth, unit);
+	pageHeight = ValToPts(pageHeight, unit);
+	if (orientation == 1)
+	{
+		double x = pageWidth;
+		pageWidth = pageHeight;
+		pageHeight = x;
+	}
+	leftMargin = ValToPts(leftMargin, unit);
+	rightMargin = ValToPts(rightMargin, unit);
+	topMargin = ValToPts(topMargin, unit);
+	bottomMargin = ValToPts(bottomMargin, unit);
+
+	bool ret = Carrier->doFileNew(pageWidth, pageHeight,
+								topMargin, leftMargin, rightMargin, bottomMargin,
+								// autoframes. It's disabled in python
+								// columnDistance, numberCols, autoframes,
+								0, 1, false,
+								pagesType, unit, firstPageOrder,
+								orientation, firstPageNr, "Custom");
+	//ScApp->doc->pageSets[pagesType].FirstPage = firstPageOrder;
+
+	return PyInt_FromLong(static_cast<long>(ret));
+}
+
 PyObject *scribus_newdoc(PyObject */*self*/, PyObject* args)
 {
 	double b, h, lr, tpr, btr, rr, ebr;
