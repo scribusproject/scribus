@@ -352,7 +352,11 @@ public:
 	 */
 	const bool LoadPict(QString fn, int ItNr, bool reload = false);
 	const bool loadPict(QString fn, PageItem *pageItem, bool reload = false);
-
+	
+	/**
+	 * @brief Find the minX,MinY and maxX,maxY for the canvas required for the doc
+	 */
+	void canvasMinMax(FPoint&, FPoint&);
 
 protected:
 	void addSymbols();

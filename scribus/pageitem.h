@@ -197,6 +197,12 @@ public:
 	 * FIXME: Move to PageItem_TextFrame
 	 */
 	void AdjustPictScale();
+	
+	/**
+	 * @brief Set or get the redraw bounding box of the item, moved from the View
+	 */
+	QRect getRedrawBounding(const double);
+	void setRedrawBounding();
 			
 			
 

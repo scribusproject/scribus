@@ -2384,3 +2384,47 @@ const bool ScribusDoc::loadPict(QString fn, PageItem *pageItem, bool reload)
 	}
 	return true;
 }
+
+void ScribusDoc::canvasMinMax(FPoint& minPoint, FPoint& maxPoint)
+{
+	PageItem *currItem;
+	double minx = 99999.9;
+	double miny = 99999.9;
+	double maxx = -99999.9;
+	double maxy = -99999.9;
+	uint docItemsCount=Items.count();
+	for (uint ic = 0; ic < docItemsCount; ++ic)
+	{
+		currItem = Items.at(ic);
+		if (currItem->Rot != 0)
+		{
+			FPointArray pb;
+			pb.resize(0);
+			pb.addPoint(FPoint(currItem->Xpos, currItem->Ypos));
+			FPoint p1(currItem->Width, 0.0, currItem->Xpos, currItem->Ypos, currItem->Rot, 1.0, 1.0);
+			pb.addPoint(p1);
+			FPoint p2(currItem->Width, currItem->Height, currItem->Xpos, currItem->Ypos, currItem->Rot, 1.0, 1.0);
+			pb.addPoint(p2);
+			FPoint p3(0.0, currItem->Height, currItem->Xpos, currItem->Ypos, currItem->Rot, 1.0, 1.0);
+			pb.addPoint(p3);
+			for (uint pc = 0; pc < 4; ++pc)
+			{
+				minx = QMIN(minx, pb.point(pc).x());
+				miny = QMIN(miny, pb.point(pc).y());
+				maxx = QMAX(maxx, pb.point(pc).x());
+				maxy = QMAX(maxy, pb.point(pc).y());
+			}
+		}
+		else
+		{
+			minx = QMIN(minx, currItem->Xpos);
+			miny = QMIN(miny, currItem->Ypos);
+			maxx = QMAX(maxx, currItem->Xpos + currItem->Width);
+			maxy = QMAX(maxy, currItem->Ypos + currItem->Height);
+		}
+	}
+	minPoint.setX(minx);
+	minPoint.setY(miny);
+	maxPoint.setX(maxx);
+	maxPoint.setY(maxy);
+}

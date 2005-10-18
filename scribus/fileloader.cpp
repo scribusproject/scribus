@@ -601,10 +601,10 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 					Neu = PasteItem(&pg, doc, view);
 					Neu->Xpos = Neu->Xpos - pageX + Apage->xOffset();
 					Neu->Ypos = Neu->Ypos - pageY + Apage->yOffset();
-					view->setRedrawBounding(Neu);
-					Neu->OwnPage = view->OnPage(Neu);
-					//CB Why not :  ??
-					//Neu->OwnPage = PageToLoad;
+					//view->setRedrawBounding(Neu);
+					Neu->setRedrawBounding();
+					//Neu->OwnPage = view->OnPage(Neu);
+					Neu->OwnPage = PageToLoad;
 					if (pg.tagName()=="PAGEOBJECT")
 						Neu->OnMasterPage = "";
 					doc->GroupCounter = docGc;
@@ -2591,6 +2591,12 @@ bool FileLoader::postLoad()
 			ReplacedFonts.clear();
 		dummyFois.clear();
 	}
+	
+	//Calculate the canvas size
+	FPoint mincp, maxcp;
+	ScApp->doc->canvasMinMax(mincp, maxcp);
+	ScApp->view->adjustCanvas(mincp, maxcp);
+	
 	return true;
 }
 

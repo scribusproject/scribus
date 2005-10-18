@@ -5498,30 +5498,6 @@ void PageItem::getBoundingRect(double *x1, double *y1, double *x2, double *y2)
 	}
 }
 
-/* TODO
-void PageItem::setRedrawBounding()
-{
-	double bw, bh;
-	getBoundingRect(&BoundingX, &BoundingY, &bw, &bh);
-	BoundingW = bw - BoundingX;
-	BoundingH = bh - BoundingY;
-	if (itemType() == PageItem::Line)
-		BoundingH = QMAX(BoundingH, 1);
-	//TODO adjustCanvas(FPoint(BoundingX, BoundingY), FPoint(bw, bh));
-}
-
-QRect PageItem::getRedrawBounding(const double viewScale)
-{
-	int x = qRound(floor(BoundingX - OldPwidth / 2.0 - 5) * viewScale);
-	int y = qRound(floor(BoundingY - OldPwidth / 2.0 - 5) * viewScale);
-	int w = qRound(ceil(BoundingW + OldPwidth + 10) * viewScale);
-	int h = qRound(ceil(BoundingH + OldPwidth + 10) * viewScale);
-	QRect ret = QRect(x, y, w, h);
-	ret.moveBy(qRound(-Doc->minCanvasCoordinate.x() * viewScale), qRound(-Doc->minCanvasCoordinate.y() * viewScale));
-	return ret;
-}
-*/
-
 bool PageItem::loadImage(const QString& filename, const bool reload, const int gsResolution)
 {
 	if (! asImageFrame())
@@ -5666,4 +5642,26 @@ void PageItem::AdjustPictScale()
 	}
 	//FIXME Make this emit here, currently pasted after calls to this function in the view
 	//emit SetLocalValues(LocalScX, LocalScY, LocalX, LocalY );
+}
+
+QRect PageItem::getRedrawBounding(const double viewScale)
+{
+	int x = qRound(floor(BoundingX - OldPwidth / 2.0 - 5) * viewScale);
+	int y = qRound(floor(BoundingY - OldPwidth / 2.0 - 5) * viewScale);
+	int w = qRound(ceil(BoundingW + OldPwidth + 10) * viewScale);
+	int h = qRound(ceil(BoundingH + OldPwidth + 10) * viewScale);
+	QRect ret = QRect(x, y, w, h);
+	ret.moveBy(qRound(-Doc->minCanvasCoordinate.x() * viewScale), qRound(-Doc->minCanvasCoordinate.y() * viewScale));
+	return ret;
+}
+
+
+void PageItem::setRedrawBounding()
+{
+	double bw, bh;
+	getBoundingRect(&BoundingX, &BoundingY, &bw, &bh);
+	BoundingW = bw - BoundingX;
+	BoundingH = bh - BoundingY;
+	if (asLine())
+		BoundingH = QMAX(BoundingH, 1);
 }

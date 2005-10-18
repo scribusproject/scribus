@@ -164,7 +164,7 @@ public:
 	void SnapToGuides(PageItem *currItem);
 	QPoint ApplyGrid(QPoint in);
 	FPoint ApplyGridF(FPoint in);
-	QRect getRedrawBounding(PageItem *currItem);
+	//CB moved to pageitem QRect getRedrawBounding(PageItem *currItem);
 	void setRedrawBounding(PageItem *currItem);
 	void setGroupRect();
 	void getGroupRect(double *x, double *y, double *w, double *h);

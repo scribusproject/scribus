@@ -556,7 +556,7 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 						}
 						if (evSpon)
 							currItem->Dirty = true;
-						QRect oldR = getRedrawBounding(currItem);
+						QRect oldR(currItem->getRedrawBounding(Scale));
 						if (clip.intersects(oldR))
 							currItem->DrawObj(painter, clip);
 						currItem->OwnPage = currItem->savedOwnPage;
@@ -588,7 +588,7 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 							currItem->BoundingX = OldBX - Mp->xOffset() + page->xOffset();
 							currItem->BoundingY = OldBY - Mp->yOffset() + page->yOffset();
 						}
-						QRect oldR = getRedrawBounding(currItem);
+						QRect oldR(currItem->getRedrawBounding(Scale));
 						if (clip.intersects(oldR))
 						{
 							painter->setZoomFactor(Scale);
@@ -666,7 +666,7 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 						if (currItem->OnMasterPage != Doc->currentPage->PageNam)
 							continue;
 					}
-					QRect oldR = getRedrawBounding(currItem);
+					QRect oldR(currItem->getRedrawBounding(Scale));
 //					oldR.moveBy(qRound(-Doc->minCanvasCoordinate.x() * Scale), qRound(-Doc->minCanvasCoordinate.y() * Scale));
 					if (clip.intersects(oldR))
 					{
@@ -728,7 +728,7 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 						continue;
 					if (!currItem->isTableItem)
 						continue;
-					QRect oldR = getRedrawBounding(currItem);
+					QRect oldR(currItem->getRedrawBounding(Scale));
 					if (clip.intersects(oldR))
 					{
 						painter->setZoomFactor(Scale);
@@ -2661,15 +2661,16 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				Myp=static_cast<int>(tmp);
 			}
 			QRect Sele = QRect(static_cast<int>(Mxp*sc), static_cast<int>(Myp*sc), static_cast<int>((SeRx-Mxp)*sc), static_cast<int>((SeRy-Myp)*sc));
-			if (Doc->Items.count() != 0)
+			uint docItemCount=Doc->Items.count();
+			if (docItemCount != 0)
 			{
-				for (uint a = 0; a < Doc->Items.count(); ++a)
+				for (uint a = 0; a < docItemCount; ++a)
 				{
 					PageItem* docItem = Doc->Items.at(a);
 					p.begin(viewport());
 					Transform(docItem, &p);
 					QRegion apr = QRegion(p.xForm(docItem->Clip));
-					QRect apr2 = getRedrawBounding(docItem);
+					QRect apr2(docItem->getRedrawBounding(Scale));
 					p.end();
 					if ((Doc->masterPageMode) && (docItem->OnMasterPage != Doc->currentPage->PageNam))
 						continue;
@@ -4902,6 +4903,7 @@ FPoint ScribusView::ApplyGridF(FPoint in)
 	return np;
 }
 
+/* CB moved to pageitem
 QRect ScribusView::getRedrawBounding(PageItem *currItem)
 {
 	int x = qRound(floor(currItem->BoundingX - currItem->OldPwidth / 2.0 - 5) * Scale);
@@ -4912,16 +4914,20 @@ QRect ScribusView::getRedrawBounding(PageItem *currItem)
 	ret.moveBy(qRound(-Doc->minCanvasCoordinate.x() * Scale), qRound(-Doc->minCanvasCoordinate.y() * Scale));
 	return ret;
 }
-
+*/
 void ScribusView::setRedrawBounding(PageItem *currItem)
 {
+	/*
 	double bw, bh;
 	currItem->getBoundingRect(&currItem->BoundingX, &currItem->BoundingY, &bw, &bh);
 	currItem->BoundingW = bw - currItem->BoundingX;
 	currItem->BoundingH = bh - currItem->BoundingY;
 	if (currItem->asLine())
 		currItem->BoundingH = QMAX(currItem->BoundingH, 1);
-	adjustCanvas(FPoint(currItem->BoundingX, currItem->BoundingY), FPoint(bw, bh));
+	*/
+	currItem->setRedrawBounding();
+	//adjustCanvas(FPoint(currItem->BoundingX, currItem->BoundingY), FPoint(bw, bh));
+	adjustCanvas(FPoint(currItem->BoundingX, currItem->BoundingY), FPoint(currItem->BoundingX+currItem->BoundingW, currItem->BoundingY+currItem->BoundingH));
 }
 
 void ScribusView::setGroupRect()
@@ -5040,7 +5046,8 @@ void ScribusView::ToView(QPainter *p)
 
 void ScribusView::RefreshItem(PageItem *currItem)
 {
-	updateContents(getRedrawBounding(currItem));
+	//updateContents(getRedrawBounding(currItem));
+	updateContents(currItem->getRedrawBounding(Scale));
 }
 
 bool ScribusView::MoveItem(double newX, double newY, PageItem* currItem, bool fromMP)
@@ -5075,9 +5082,9 @@ bool ScribusView::MoveItem(double newX, double newY, PageItem* currItem, bool fr
 	}
 /*	if (!Doc->loading)
 		emit UpdtObj(Doc->currentPage->pageNr(), b->ItemNr); */
-	QRect oldR = getRedrawBounding(currItem);
+	QRect oldR(currItem->getRedrawBounding(Scale));
 	setRedrawBounding(currItem);
-	QRect newR = getRedrawBounding(currItem);
+	QRect newR(currItem->getRedrawBounding(Scale));
 	if ((!Imoved) && (!currItem->Sizing))
 		updateContents(newR.unite(oldR));
 	currItem->OwnPage = OnPage(currItem);
@@ -5106,7 +5113,7 @@ void ScribusView::MoveItemI(double newX, double newY, int ite, bool redraw)
 		currItem->imageClip.map(cl);
 	}
 	if (redraw)
-		updateContents(getRedrawBounding(currItem));
+		updateContents(currItem->getRedrawBounding(Scale));
 	emit SetLocalValues(currItem->LocalScX, currItem->LocalScY, currItem->LocalX, currItem->LocalY);
 }
 
@@ -5973,7 +5980,7 @@ bool ScribusView::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, 
 	if (currItem->locked())
 		return false;
 	QPainter p;
-	QRect oldR = getRedrawBounding(currItem);
+	QRect oldR(currItem->getRedrawBounding(Scale));
 	if (!currItem->asLine())
 	{
 		newX = QMAX(newX, 1);
@@ -6073,7 +6080,7 @@ bool ScribusView::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, 
 	updateGradientVectors(currItem);
 	if (redraw)
 	{
-		QRect newR = getRedrawBounding(currItem);
+		QRect newR(currItem->getRedrawBounding(Scale));
 		updateContents(newR.unite(oldR));
 	}
 	if (!fromMP)
@@ -6105,7 +6112,7 @@ void ScribusView::MoveRotated(PageItem *currItem, FPoint npv, bool fromMP)
 bool ScribusView::MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP)
 {
 	PageItem *currItem = Doc->Items.at(ite);
-	QRect oldR = getRedrawBounding(currItem);
+	QRect oldR(currItem->getRedrawBounding(Scale));
 	if (currItem->asLine())
 	{
 		QWMatrix ma;
@@ -6119,7 +6126,7 @@ bool ScribusView::MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP)
 		currItem->Height = 1;
 		UpdateClip(currItem);
 		setRedrawBounding(currItem);
-		QRect newR = getRedrawBounding(currItem);
+		QRect newR(currItem->getRedrawBounding(Scale));
 		updateContents(newR.unite(oldR));
 		emit ItemPos(currItem->Xpos, currItem->Ypos);
 		emit ItemGeom(currItem->Width, currItem->Height);
@@ -6435,7 +6442,7 @@ void ScribusView::RotateItem(double win, PageItem *pi)
 	if (currItem->locked())
 		return;
 	FPoint n;
-	QRect oldR = getRedrawBounding(currItem);
+	QRect oldR(currItem->getRedrawBounding(Scale));
 	if ((Doc->RotMode != 0) && !(currItem->asLine()))
 	{
 		QWMatrix ma;
@@ -6476,7 +6483,7 @@ void ScribusView::RotateItem(double win, PageItem *pi)
 		currItem->Rot = win;
 		setRedrawBounding(currItem);
 	}
-	QRect newR = getRedrawBounding(currItem);
+	QRect newR(currItem->getRedrawBounding(Scale));
 	updateContents(newR.unite(oldR));
 	emit SetAngle(currItem->Rot);
 }
@@ -7834,7 +7841,7 @@ void ScribusView::Deselect(bool prop)
 		else
 		{
 			SelItem.clear();
-			updateContents(getRedrawBounding(currItem));
+			updateContents(currItem->getRedrawBounding(Scale));
 		}
 		GroupSel = false;
 	}
@@ -9410,7 +9417,7 @@ void ScribusView::SetFrameRect()
 	{
 		currItem->SetRectFrame();
 		setRedrawBounding(currItem);
-		updateContents(getRedrawBounding(currItem));
+		updateContents(currItem->getRedrawBounding(Scale));
 	}
 }
 
@@ -9428,7 +9435,7 @@ void ScribusView::SetFrameRounded()
 		currItem->SetFrameRound();
 		setRedrawBounding(currItem);
 		emit ItemRadius(currItem->RadRect);
-		updateContents(getRedrawBounding(currItem));
+		updateContents(currItem->getRedrawBounding(Scale));
 	}
 }
 
@@ -9440,7 +9447,7 @@ void ScribusView::SetFrameOval()
 	{
 		currItem->SetOvalFrame();
 		setRedrawBounding(currItem);
-		updateContents(getRedrawBounding(currItem));
+		updateContents(currItem->getRedrawBounding(Scale));
 	}
 }
 
