@@ -207,9 +207,9 @@ public:
 	void HandleSizer(QPainter *p, PageItem *currItem, QRect mpo, QMouseEvent *m);
 	bool GetItem(PageItem **b, int nr = -1);
 	void Deselect(bool prop = true);
-	int OnPage(double x2, double  y2);
-	int OnPage(PageItem *currItem);
-	void GroupOnPage(PageItem *currItem);
+	//int OnPage(double x2, double  y2);
+	//int OnPage(PageItem *currItem);
+	//void GroupOnPage(PageItem *currItem);
 	void SelectItemNr(int nr, bool draw = true, bool single = false);
 	void SelectItem(PageItem *pi, bool draw = true, bool single = false);
 	void selectPage(QMouseEvent *m);

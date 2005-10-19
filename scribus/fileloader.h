@@ -24,10 +24,10 @@ public:
 	int CheckScribus();
 	bool LoadPage(int PageToLoad, bool Mpage);
 	bool LoadFile();
-	bool ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *doc, ScribusView *view, int PageToLoad, bool Mpage);
-	bool ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *doc, ScribusView *view, QProgressBar *dia2);
+	bool ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *doc, int PageToLoad, bool Mpage);
+	bool ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *doc, QProgressBar *dia2);
 	void GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, bool impo=false, bool VorLFound=false);
-	PageItem* PasteItem(QDomElement *obj, ScribusDoc *doc, ScribusView *view);
+	PageItem* PasteItem(QDomElement *obj, ScribusDoc *doc);
 	void GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl);
 	bool postLoad();
 	void informReplacementFonts();

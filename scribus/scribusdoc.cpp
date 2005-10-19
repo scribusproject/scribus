@@ -2428,3 +2428,235 @@ void ScribusDoc::canvasMinMax(FPoint& minPoint, FPoint& maxPoint)
 	maxPoint.setX(maxx);
 	maxPoint.setY(maxy);
 }
+
+int ScribusDoc::OnPage(double x2, double  y2)
+{
+	int retw = -1;
+	if (masterPageMode)
+	{
+		int x = static_cast<int>(currentPage->xOffset());
+		int y = static_cast<int>(currentPage->yOffset());
+		int w = static_cast<int>(currentPage->width());
+		int h = static_cast<int>(currentPage->height());
+		if (QRect(x, y, w, h).contains(QPoint(qRound(x2), qRound(y2))))
+			retw = currentPage->pageNr();
+	}
+	else
+	{
+		uint docPageCount=Pages.count();
+		for (uint a = 0; a < docPageCount; ++a)
+		{
+			int x = static_cast<int>(Pages.at(a)->xOffset());
+			int y = static_cast<int>(Pages.at(a)->yOffset());
+			int w = static_cast<int>(Pages.at(a)->width());
+			int h = static_cast<int>(Pages.at(a)->height());
+			if (QRect(x, y, w, h).contains(QPoint(qRound(x2), qRound(y2))))
+			{
+				retw = static_cast<int>(a);
+				break;
+			}
+		}
+	}
+	return retw;
+}
+
+int ScribusDoc::OnPage(PageItem *currItem)
+{
+	int retw = -1;
+	if (masterPageMode)
+	{
+		int x = static_cast<int>(currentPage->xOffset());
+		int y = static_cast<int>(currentPage->yOffset());
+		int w = static_cast<int>(currentPage->width());
+		int h = static_cast<int>(currentPage->height());
+		int x2 = static_cast<int>(currItem->Xpos);
+		int y2 = static_cast<int>(currItem->Ypos);
+		int w2 = QMAX(static_cast<int>(currItem->Width), 1);
+		int h2 = QMAX(static_cast<int>(currItem->Height), 1);
+		if (QRect(x, y, w, h).intersects(QRect(x2, y2, w2, h2)))
+			retw = currentPage->pageNr();
+	}
+	else
+	{
+		uint docPageCount=Pages.count();
+		for (uint a = 0; a < docPageCount; ++a)
+		{
+			int x = static_cast<int>(Pages.at(a)->xOffset());
+			int y = static_cast<int>(Pages.at(a)->yOffset());
+			int w = static_cast<int>(Pages.at(a)->width());
+			int h = static_cast<int>(Pages.at(a)->height());
+			int x2 = static_cast<int>(currItem->Xpos);
+			int y2 = static_cast<int>(currItem->Ypos);
+			int w2 = QMAX(static_cast<int>(currItem->Width), 1);
+			int h2 = QMAX(static_cast<int>(currItem->Height), 1);
+			if (QRect(x, y, w, h).intersects(QRect(x2, y2, w2, h2)))
+			{
+				retw = static_cast<int>(a);;
+				break;
+			}
+		}
+	}
+	if ((retw == -1) && (currItem->isBookmark))
+	{
+		//FIXME emit DelBM(currItem);
+		currItem->isBookmark = false;
+	}
+	return retw;
+}
+
+void ScribusDoc::GroupOnPage(PageItem* currItem)
+{
+	QPtrList<PageItem> Objects;
+	PageItem* item;
+	if (currItem->Groups.count() == 0)
+		return;
+	int ObjGroup = currItem->Groups.top();
+	uint docItemCount=Items.count();
+	for (uint a = 0; a < docItemCount; ++a)
+	{
+		item = Items.at(a);
+		if (item->Groups.top() == ObjGroup)
+			Objects.append(item);
+	}
+	int Off_Page = -1;
+	int On_Page = 999999;
+	uint objectCount=Objects.count();
+	for (uint a = 0; a < objectCount; ++a)
+	{
+		int res = OnPage(Objects.at(a));
+		Off_Page = QMAX(Off_Page, res);
+		if (res != -1)
+			On_Page = QMIN(On_Page, res);
+	}
+	int final = -1;
+	if (Off_Page != -1)
+		final = On_Page;
+	for (uint a = 0; a < objectCount; ++a)
+	{
+		Objects.at(a)->OwnPage = final;
+	}
+}
+
+void ScribusDoc::reformPages(double& maxX, double& maxY, bool moveObjects)
+{
+	QMap<uint, ScribusView::oldPageVar> pageTable;
+	struct ScribusView::oldPageVar oldPg;
+	int counter = pageSets[currentPageLayout].FirstPage;
+	int rowcounter = 0;
+	double maxYPos=0.0, maxXPos=0.0;
+	double currentXPos=ScratchLeft, currentYPos=ScratchTop, lastYPos=Pages.at(0)->initialHeight();
+	currentXPos += (pageWidth+pageSets[currentPageLayout].GapHorizontal) * counter;	
+
+	lastYPos = Pages.at(0)->initialHeight();
+	Page* Seite;
+	uint docPageCount=Pages.count();
+	for (uint a = 0; a < docPageCount; ++a)
+	{
+		Seite = Pages.at(a);
+		oldPg.oldXO = Seite->xOffset();
+		oldPg.oldYO = Seite->yOffset();
+		oldPg.newPg = a;
+		pageTable.insert(Seite->pageNr(), oldPg);
+		Seite->setPageNr(a);
+		if (masterPageMode)
+		{
+			Seite->setXOffset(ScratchLeft);
+			Seite->setYOffset(ScratchTop);
+			if (Seite->LeftPg == 0)
+			{
+				Seite->Margins.Right = Seite->initialMargins.Right;
+				Seite->Margins.Left = Seite->initialMargins.Left;
+			}
+			else if ((Seite->LeftPg > 1) && (Seite->LeftPg < pageSets[currentPageLayout].Columns))
+			{
+				Seite->Margins.Left = Seite->initialMargins.Left;
+				Seite->Margins.Right = Seite->initialMargins.Left;
+			}
+			else
+			{
+				Seite->Margins.Left = Seite->initialMargins.Right;
+				Seite->Margins.Right = Seite->initialMargins.Left;
+			}
+		}
+		else
+		{
+			Seite->setWidth(Seite->initialWidth());
+			Seite->setHeight(Seite->initialHeight());
+			Seite->setXOffset(currentXPos);
+			Seite->setYOffset(currentYPos);
+			if (counter < pageSets[currentPageLayout].Columns-1)
+			{
+				currentXPos += Seite->width() + pageSets[currentPageLayout].GapHorizontal;
+				lastYPos = QMAX(lastYPos, Seite->height());
+				if (counter == 0)
+				{
+					Seite->Margins.Left = Seite->initialMargins.Right;
+					Seite->Margins.Right = Seite->initialMargins.Left;
+				}
+				else
+				{
+					Seite->Margins.Left = Seite->initialMargins.Left;
+					Seite->Margins.Right = Seite->initialMargins.Left;
+				}
+			}
+			else
+			{
+				currentXPos = ScratchLeft;
+				currentYPos += QMAX(lastYPos, Seite->height())+pageSets[currentPageLayout].GapVertical;
+				lastYPos = QMAX(lastYPos, Seite->height());
+				Seite->Margins.Right = Seite->initialMargins.Right;
+				Seite->Margins.Left = Seite->initialMargins.Left;
+			}
+			counter++;
+			if (counter > pageSets[currentPageLayout].Columns-1)
+			{
+				counter = 0;
+				rowcounter++;
+				if (rowcounter > pageSets[currentPageLayout].Rows-1)
+				{
+					currentYPos += pageSets[currentPageLayout].GapBelow;
+					rowcounter = 0;
+				}
+			}
+		}
+		Seite->Margins.Top = Seite->initialMargins.Top;
+		Seite->Margins.Bottom = Seite->initialMargins.Bottom;
+		maxXPos = QMAX(maxXPos, Seite->xOffset()+Seite->width()+ScratchRight);
+		maxYPos = QMAX(maxYPos, Seite->yOffset()+Seite->height()+ScratchBottom);
+	}
+	if (!isLoading())
+	{
+		uint docItemsCount=Items.count();
+		for (uint ite = 0; ite < docItemsCount; ++ite)
+		{
+			PageItem *item = Items.at(ite);
+			if (item->OwnPage < 0)
+			{
+				if (item->Groups.count() != 0)
+					GroupOnPage(item);
+				else
+					item->OwnPage = OnPage(item);
+			}
+			else
+			{
+				if (moveObjects)
+				{
+					oldPg = pageTable[item->OwnPage];
+					item->Xpos = item->Xpos - oldPg.oldXO + Pages.at(oldPg.newPg)->xOffset();
+					item->Ypos = item->Ypos - oldPg.oldYO + Pages.at(oldPg.newPg)->yOffset();
+					item->OwnPage = static_cast<int>(oldPg.newPg);
+				}
+				else
+				{
+					if (item->Groups.count() != 0)
+						GroupOnPage(item);
+					else
+						item->OwnPage = OnPage(item);
+				}
+			}
+			item->setRedrawBounding();
+		}
+	}
+	maxX=maxXPos;
+	maxY=maxYPos;
+}

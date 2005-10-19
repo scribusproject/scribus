@@ -5665,3 +5665,55 @@ void PageItem::setRedrawBounding()
 	if (asLine())
 		BoundingH = QMAX(BoundingH, 1);
 }
+
+void PageItem::updateGradientVectors()
+{
+	switch (GrType)
+	{
+		case 0:
+		case 1:
+			GrStartX = 0;
+			GrStartY = Height / 2.0;
+			GrEndX = Width;
+			GrEndY = Height / 2.0;
+			break;
+		case 2:
+			GrStartX = Width / 2.0;
+			GrStartY = 0;
+			GrEndX = Width / 2.0;
+			GrEndY = Height;
+			break;
+		case 3:
+			GrStartX = 0;
+			GrStartY = 0;
+			GrEndX = Width;
+			GrEndY = Height;
+			break;
+		case 4:
+			GrStartX = 0;
+			GrStartY = Height;
+			GrEndX = Width;
+			GrEndY = 0;
+			break;
+		case 5:
+			GrStartX = Width / 2.0;
+			GrStartY = Height / 2.0;
+			if (Width >= Height)
+			{
+				GrEndX = Width;
+				GrEndY = Height / 2.0;
+			}
+			else
+			{
+				GrEndX = Width / 2.0;
+				GrEndY = Height;
+			}
+			break;
+		default:
+			break;
+	}
+	GrEndX = QMIN(QMAX(GrEndX, 0), Width);
+	GrEndY = QMIN(QMAX(GrEndY, 0), Height);
+	GrStartX = QMIN(QMAX(GrStartX, 0), Width);
+	GrStartY = QMIN(QMAX(GrStartY, 0), Height);
+}

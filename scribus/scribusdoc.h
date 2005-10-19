@@ -357,6 +357,11 @@ public:
 	 * @brief Find the minX,MinY and maxX,maxY for the canvas required for the doc
 	 */
 	void canvasMinMax(FPoint&, FPoint&);
+	
+	int OnPage(double x2, double  y2);
+	int OnPage(PageItem *currItem);
+	void GroupOnPage(PageItem *currItem);
+	void reformPages(double& maxX, double& maxY, bool moveObjects = true);
 
 protected:
 	void addSymbols();

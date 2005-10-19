@@ -204,6 +204,10 @@ public:
 	QRect getRedrawBounding(const double);
 	void setRedrawBounding();
 			
+	/**
+	 * @brief Update the gradient vectors, moved from the View
+	 */		
+	void updateGradientVectors();
 			
 
 	ObjAttrVector* getObjectAttributes();

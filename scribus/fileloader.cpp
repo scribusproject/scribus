@@ -203,7 +203,7 @@ bool FileLoader::LoadPage(int PageToLoad, bool Mpage)
 			}
 			break;
 		case 1:
-			ret = ReadPage(FileName, prefsManager->appPrefs.AvailFonts, ScApp->doc, ScApp->view, PageToLoad, Mpage);
+			ret = ReadPage(FileName, prefsManager->appPrefs.AvailFonts, ScApp->doc, PageToLoad, Mpage);
 			break;
 		default:
 			ret = false;
@@ -341,7 +341,7 @@ bool FileLoader::LoadFile()
 			}
 			break;
 		case 1:
-			ret = ReadDoc(FileName, prefsManager->appPrefs.AvailFonts, ScApp->doc, ScApp->view, ScApp->mainWindowProgressBar);
+			ret = ReadDoc(FileName, prefsManager->appPrefs.AvailFonts, ScApp->doc, ScApp->mainWindowProgressBar);
 			break;
 		case 2:
 			ret = ScApp->pluginManager->callImportExportPlugin("importps", FileName);
@@ -359,7 +359,7 @@ bool FileLoader::LoadFile()
 	return ret;
 }
 
-bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *doc, ScribusView *view, int PageToLoad, bool Mpage)
+bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *doc, int PageToLoad, bool Mpage)
 {
 	struct ParagraphStyle vg;
 	struct Layer la;
@@ -598,7 +598,7 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 					}
 					int docGc = doc->GroupCounter;
 					doc->GroupCounter = 0;
-					Neu = PasteItem(&pg, doc, view);
+					Neu = PasteItem(&pg, doc);
 					Neu->Xpos = Neu->Xpos - pageX + Apage->xOffset();
 					Neu->Ypos = Neu->Ypos - pageY + Apage->yOffset();
 					//view->setRedrawBounding(Neu);
@@ -761,7 +761,7 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 	return true;
 }
 
-bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *doc, ScribusView *view, QProgressBar *dia2)
+bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *doc, QProgressBar *dia2)
 {
 	struct ParagraphStyle vg;
 	struct Layer la;
@@ -1477,7 +1477,9 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 					}
 					int docGc = doc->GroupCounter;
 					doc->GroupCounter = 0;
-					Neu = PasteItem(&pg, doc, view);
+					Neu = PasteItem(&pg, doc);
+					Neu->setRedrawBounding();
+					Neu->OwnPage = pg.attribute("OwnPage").toInt();
 					if (pg.tagName()=="PAGEOBJECT")
 						Neu->OnMasterPage = "";
 					doc->GroupCounter = docGc;
@@ -1620,7 +1622,9 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 	doc->pageCount = doc->Pages.count();
 	doc->Items = doc->DocItems;
 	doc->masterPageMode = false;
-	view->reformPages();
+	//ScApp->view->reformPages();
+	double maxxtemp,maxytemp;
+	doc->reformPages(maxxtemp,maxytemp);
 	if (doc->Layers.count() == 0)
 	{
 		la.LNr = 0;
@@ -1784,7 +1788,7 @@ void FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, bo
 	return;
 }
 
-PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc, ScribusView *view)
+PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 {
 	int z = 0;
 	PageItem::ItemType pt = static_cast<PageItem::ItemType>(QStoInt(obj->attribute("PTYPE")));
@@ -2199,10 +2203,11 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc, ScribusView *
 				currItem->fill_gradient.addStop(tmpc, 1.0, 0.5, 1.0, GrColor, GrShade);
 			}
 		}
-		view->updateGradientVectors(currItem);
+		//ScApp->view->updateGradientVectors(currItem);
+		currItem->updateGradientVectors();
 	}
-	view->setRedrawBounding(currItem);
-	currItem->OwnPage = view->OnPage(currItem);
+	//currItem->setRedrawBounding();
+	//currItem->OwnPage = view->OnPage(currItem);
 	return currItem;
 }
 

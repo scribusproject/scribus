@@ -4013,9 +4013,9 @@ bool ScribusApp::loadDoc(QString fileName)
 		{
 			PageItem *ite = doc->Items.at(azz);
 			if (ite->Groups.count() != 0)
-				view->GroupOnPage(ite);
+				doc->GroupOnPage(ite);
 			else
-				ite->OwnPage = view->OnPage(ite);
+				ite->OwnPage = doc->OnPage(ite);
 			view->setRedrawBounding(ite);
 			if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText) && (!ite->Redrawn))
 			{

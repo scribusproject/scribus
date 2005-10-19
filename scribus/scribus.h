@@ -54,7 +54,6 @@
 #include "scribusapi.h"
 #include "scribusview.h"
 #include "scribusdoc.h"
-#include "fileloader.h"
 #include "scribusstructs.h"
 
 class Autoforms;

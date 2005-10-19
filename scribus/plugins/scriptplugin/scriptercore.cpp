@@ -150,10 +150,11 @@ void ScripterCore::FinishScriptRun()
 		{
 			PageItem *ite = ScApp->doc->Items.at(azz);
 			if (ite->Groups.count() != 0)
-				ScApp->view->GroupOnPage(ite);
+				ScApp->doc->GroupOnPage(ite);
 			else
-				ite->OwnPage = ScApp->view->OnPage(ite);
-			ScApp->view->setRedrawBounding(ite);
+				ite->OwnPage = ScApp->doc->OnPage(ite);
+			//ScApp->view->setRedrawBounding(ite);
+			ite->setRedrawBounding();
 			if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText) && (!ite->Redrawn))
 			{
 				if (ite->itemType() == PageItem::PathText)
