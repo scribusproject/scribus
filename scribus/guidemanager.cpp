@@ -78,7 +78,6 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 	locTop = ScApp->doc->pageMargins.Top;
 	locBottom = ScApp->doc->pageMargins.Bottom;
 	// left or right page? See ScribusView::reformPages(bool moveObjects) as example
-	// TODO: #2711
 	int counter = ScApp->doc->pageSets[ScApp->doc->currentPageLayout].FirstPage;
 	for (uint i = 0; i < ScApp->doc->currentPage->pageNr(); ++i)
 	{
