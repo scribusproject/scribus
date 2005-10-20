@@ -289,14 +289,12 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool 
 	QToolTip::add( PageNr, tr( "Insert a comma separated list of tokens where\n"
 		                           "a token can be * for all the pages, 1-5 for\n"
 		                           "a range of pages or a single page number.") );
-	QToolTip::add( OtherCom, tr( "Use an alternative print manager, such as kprinter or gtklp,\nto utilize additional printing options") );
-	QToolTip::add( psLevel, tr( "Sets the PostScript Level.\n Setting to Level 1 or 2 can create huge files" ) );
-	QToolTip::add( GcR, tr( "A way of switching off some of the gray shades which are composed\n"
-		                        "of cyan, yellow and magenta and using black instead.\n"
-		                        "UCR most affects parts of images which are neutral and/or dark tones\n"
-		                        "which are close to the gray. Use of this may improve printing some images\n"
-		                        "and some experimentation and testing is need on a case by case basis.\n"
-		                        "UCR reduces the possibility of over saturation with CMY inks." ) );
+	QToolTip::add( OtherCom,"<qt>" + tr( "Use an alternative print manager, such as kprinter or gtklp, to utilize additional printing options") + "</qt>" );
+	QToolTip::add( psLevel,"<qt>" +  tr( "Sets the PostScript Level.\n Setting to Level 1 or 2 can create huge files" ) + "</qt>" );
+	QToolTip::add( GcR, "<qt>" + tr( "A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks." ) + "</qt>");
+        QToolTip::add(spotColors,"<qt>" + tr( "Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled." ) + "</qt>");
+        QToolTip::add(UseICC,"<qt>" + tr( "When color management is enabled, allows you to embed ICC profiles in the print stream." ) + "</qt>");
+        QToolTip::add(devPar, "<qt>" + tr( "This enables you to explicitely set, the media size of the PostScript file. Not recommended unless requested by your printer." ) + "</qt>");
 	// signals and slots connections
 	connect( OKButton, SIGNAL( clicked() ), this, SLOT( okButtonClicked() ) );
 	connect( OKButton_2, SIGNAL( clicked() ), this, SLOT( reject() ) );
