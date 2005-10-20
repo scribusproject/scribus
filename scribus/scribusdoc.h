@@ -362,6 +362,12 @@ public:
 	int OnPage(PageItem *currItem);
 	void GroupOnPage(PageItem *currItem);
 	void reformPages(double& maxX, double& maxY, bool moveObjects = true);
+	
+	/**
+	 *
+	 */
+	const double getXOffsetForPage(const int);
+	const double getYOffsetForPage(const int);
 
 protected:
 	void addSymbols();

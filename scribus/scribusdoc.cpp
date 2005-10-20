@@ -2660,3 +2660,17 @@ void ScribusDoc::reformPages(double& maxX, double& maxY, bool moveObjects)
 	maxX=maxXPos;
 	maxY=maxYPos;
 }
+
+const double ScribusDoc::getXOffsetForPage(const int pageNumber)
+{
+	if (Pages.at(pageNumber)!=NULL)
+		return Pages.at(pageNumber)->xOffset();
+	return -1.0;
+}
+
+const double ScribusDoc::getYOffsetForPage(const int pageNumber)
+{
+	if (Pages.at(pageNumber)!=NULL)
+		return Pages.at(pageNumber)->yOffset();
+	return -1.0;
+}
