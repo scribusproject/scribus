@@ -5450,11 +5450,11 @@ void PageItem::SetFrameRound()
 	else
 	{
 		PoLine.addQuadPoint(rr, 0, rr, 0, Width_rr, 0, Width_rr, 0);
-		PoLine.addQuadPoint(Width_rr, 0, Width_rr, rrxBezierFactor, Width, rr, Width_rr*bezierFactor, rr);
+		PoLine.addQuadPoint(Width_rr, 0, Width_rr, rrxBezierFactor, Width, rr, Width-rrxBezierFactor, rr);
 		PoLine.addQuadPoint(Width, rr, Width, rr, Width, Height_rr, Width, Height_rr);
-		PoLine.addQuadPoint(Width, Height_rr, Width_rr*bezierFactor, Height_rr, Width_rr, Height, Width_rr, Height_rr*bezierFactor);
+		PoLine.addQuadPoint(Width, Height_rr, Width-rrxBezierFactor, Height_rr, Width_rr, Height, Width_rr, Height-rrxBezierFactor);
 		PoLine.addQuadPoint(Width_rr, Height, Width_rr, Height, rr, Height, rr, Height);
-		PoLine.addQuadPoint(rr, Height, rr, Height_rr*bezierFactor, 0, Height_rr, rrxBezierFactor, Height_rr);
+		PoLine.addQuadPoint(rr, Height, rr, Height-rrxBezierFactor, 0, Height_rr, rrxBezierFactor, Height_rr);
 		PoLine.addQuadPoint(0, Height_rr, 0, Height_rr, 0, rr, 0, rr);
 		PoLine.addQuadPoint(0, rr, rrxBezierFactor, rr, rr, 0, rr, rr*bezierFactor);
 	}
