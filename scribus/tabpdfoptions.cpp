@@ -861,7 +861,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	QToolTip::add( useLayers, tr( "Layers in your document are exported to the PDF\nOnly available if PDF 1.5 is choosen." ) );
 	QToolTip::add( CheckBM, tr( "Embed the bookmarks you created in your document.\nThese are useful for navigating long PDF documents." ) );
 	QToolTip::add( Resolution, tr( "Export resolution of text and vector graphics.\nThis does not affect the resolution of bitmap images like photos." ) );
-	QToolTip::add( Compression, tr( "Enable lossless compression of text and graphics.\nUnless you have a reason, leave this checked. This reduces PDF size." ) );
+	QToolTip::add( Compression, tr( "Enables lossless compression of text and graphics.\nUnless you have a reason, leave this checked. This reduces PDF file size." ) );
 	QToolTip::add( CMethod, "<qt>" + tr( "Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options." ) + "</qt>");
 	QToolTip::add( CQuality, tr( "<qt>Compression quality levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level.</qt>" ) );
 	QToolTip::add( DSColor, tr( "Re-sample your bitmap images to the selected DPI.\nLeaving this unchecked will render them at their native resolution.\nThis can increase memory usage and slow down export." ) );
@@ -890,6 +890,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	QToolTip::add( BleedRight, tr( "Distance for bleed from the right of the physical page" ) );
 	QToolTip::add( MirrorH, tr( "Mirror Page(s) horizontally" ) );
 	QToolTip::add( MirrorV, tr( "Mirror Page(s) vertically" ) );
+        QToolTip::add( useSpot,"<qt>" + tr( "Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled." ) + "</qt>");
 }
 
 void TabPDFOptions::restoreDefaults()
