@@ -7,6 +7,7 @@
 #include <scribusstructs.h>
 
 
+/*! \brief Mapping angle - color in the color wheel */
 typedef QMap<int,QColor> ColorMap;
 
 /**
@@ -151,8 +152,8 @@ class ColorWheel : public QLabel
 		\param angle Angle of the color in the wheel. An angle for transformation counting.
 		E.g. base angle is 30, param is 90 - transformation is 120.
 		There is easy "convert 665485 into 0-359 interval" algorithm too.
-		\param name Human readable name of the color. */
-		void sampleByAngle(int angle, QString name);
+		\retval ScColor Scribus color of the angle. */
+		ScColor sampleByAngle(int angle);
 
 		/** \brief Appends the base color into color list. */
 		void baseColor();

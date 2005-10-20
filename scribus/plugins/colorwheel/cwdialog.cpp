@@ -332,7 +332,7 @@ void ColorWheelDialog::typeCombo_activated(int index)
 	}
 	if (index == colorWheel->Triadic)
 	{
-		angleSpin->setEnabled(false); //TODO?
+		angleSpin->setEnabled(false);
 		angleLabel->setEnabled(false);
 		colorWheel->makeTriadic();
 	}

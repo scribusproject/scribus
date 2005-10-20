@@ -114,14 +114,14 @@ QString ColorWheel::getTypeDescription(MethodType aType)
 	return "n/a";
 }
 
-void ColorWheel::sampleByAngle(int angle, QString name)
+ScColor ColorWheel::sampleByAngle(int angle)
 {
 	while (angle > 359)
 		angle -= 359;
 	while (angle < 0)
 		angle += 359;
-	colorList[name] = cmykColor(colorMap[angle]);
 	drawBorderPoint(angle);
+	return cmykColor(colorMap[angle]);
 }
 
 ScColor ColorWheel::cmykColor(QColor col)
@@ -151,45 +151,45 @@ void ColorWheel::baseColor()
 void ColorWheel::makeMonochromatic()
 {
 	baseColor();
-	colorList[ tr("Monochromatic Light")] = cmykColor(actualColor.light());
-	colorList[ tr("Monochromatic Dark")] = cmykColor(actualColor.dark());
+	colorList[tr("Monochromatic Light")] = cmykColor(actualColor.light());
+	colorList[tr("Monochromatic Dark")] = cmykColor(actualColor.dark());
 }
 
 void ColorWheel::makeAnalogous()
 {
 	baseColor();
-	sampleByAngle(baseAngle + angle, tr("1st. Analogous"));
-	sampleByAngle(baseAngle - angle, tr("2nd. Analogous"));
+	colorList[tr("1st. Analogous")] = sampleByAngle(baseAngle + angle);
+	colorList[tr("2nd. Analogous")] = sampleByAngle(baseAngle - angle);
 }
 
 void ColorWheel::makeComplementary()
 {
 	baseColor();
-	sampleByAngle(baseAngle + 180, tr("Complementary"));
+	colorList[tr("Complementary")] = sampleByAngle(baseAngle + 180);
 }
 
 void ColorWheel::makeSplit()
 {
 	baseColor();
-	sampleByAngle(baseAngle + angle, tr("1st. Split"));
-	sampleByAngle(baseAngle - angle, tr("2nd. Split"));
-	sampleByAngle(baseAngle + 180 + angle, tr("3rd. Split"));
-	sampleByAngle(baseAngle + 180 - angle, tr("4th. Split"));
+	colorList[tr("1st. Split")] = sampleByAngle(baseAngle + angle);
+	colorList[tr("2nd. Split")] = sampleByAngle(baseAngle - angle);
+	colorList[tr("3rd. Split")] = sampleByAngle(baseAngle + 180 + angle);
+	colorList[tr("4th. Split")] = sampleByAngle(baseAngle + 180 - angle);
 }
 
 void ColorWheel::makeTriadic()
 {
 	baseColor();
-	sampleByAngle(baseAngle + 120, tr("1st. Triadic"));
-	sampleByAngle(baseAngle - 120, tr("2nd. Triadic"));
+	colorList[tr("1st. Triadic")] = sampleByAngle(baseAngle + 120);
+	colorList[tr("2nd. Triadic")] = sampleByAngle(baseAngle - 120);
 }
 
 void ColorWheel::makeTetradic()
 {
 	baseColor();
-	sampleByAngle(baseAngle + 180, tr("1st. Tetradic (base opposite)"));
-	sampleByAngle(baseAngle + angle, tr("2nd. Tetradic (angle)"));
-	sampleByAngle(baseAngle + angle + 180, tr("3rd. Tetradic (angle opposite)"));
+	colorList[tr("1st. Tetradic (base opposite)")] = sampleByAngle(baseAngle + 180);
+	colorList[tr("2nd. Tetradic (angle)")] = sampleByAngle(baseAngle + angle);
+	colorList[tr("3rd. Tetradic (angle opposite)")] = sampleByAngle(baseAngle + angle + 180);
 }
 
 void ColorWheel::clearBorder()
