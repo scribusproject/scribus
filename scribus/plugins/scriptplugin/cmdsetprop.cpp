@@ -196,21 +196,11 @@ PyObject *scribus_setcornerrad(PyObject* /* self */, PyObject* args)
 	PageItem *currItem = GetUniqueItem(QString::fromUtf8(Name));
 	if (currItem == NULL)
 		return NULL;
-	// FIXME: Doesn't seem to work, at least on rect/polygon frames
-	if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame))
-	{
-		currItem->RadRect = w;
-		if (w > 0)
-		{
-			currItem->SetFrameRound();
-			ScApp->view->setRedrawBounding(currItem);
-		}
-	}
-	else
-	{
-		currItem->SetRectFrame();
-		ScApp->view->setRedrawBounding(currItem);
-	}
+	// apply rounding
+	currItem->RadRect = w;
+	currItem->SetFrameRound();
+	ScApp->view->setRedrawBounding(currItem);
+	ScApp->view->SetFrameRounded();
 	Py_INCREF(Py_None);
 	return Py_None;
 }
