@@ -3735,8 +3735,8 @@ void Mpalette::languageChange()
 	QToolTip::add(ChBase, tr("Offset to baseline of characters"));
 	QToolTip::add(ChScale, tr("Scaling width of characters"));
 	QToolTip::add(ChScaleV, tr("Scaling height of characters"));
-	QToolTip::add(TxStroke, tr("Color of text stroke"));
-	QToolTip::add(TxFill, tr("Color of text fill"));
+	QToolTip::add(TxStroke, tr("Color of text stroke. Only available with \"outline\" text decoration."));
+	QToolTip::add(TxFill, tr("Color of text fill. Only available with \"outline\" text decoration."));
 	QToolTip::add(PM1, tr("Saturation of color of text stroke"));
 	QToolTip::add(PM2, tr("Saturation of color of text fill"));
 	QToolTip::add(Revert, tr("Right to Left Writing"));
