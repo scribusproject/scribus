@@ -111,7 +111,7 @@ bool PixmapExportPlugin::run(QString target)
 
 	// interval widgets handling
 	QString tmp;
-	dia->RangeVal->setText(tmp.setNum(ScApp->doc->currentPage->pageNr()+1));
+	dia->RangeVal->setText(tmp.setNum(ScApp->doc->currentPageNumber()+1));
 	// main "loop"
 	if (dia->exec()==QDialog::Accepted)
 	{
@@ -216,7 +216,7 @@ bool ExportBitmap::exportPage(uint pageNr, bool single = true)
 
 bool ExportBitmap::exportActual()
 {
-	return exportPage(ScApp->doc->currentPage->pageNr(), true);
+	return exportPage(ScApp->doc->currentPageNumber(), true);
 }
 
 bool ExportBitmap::exportInterval(std::vector<int> &pageNs)

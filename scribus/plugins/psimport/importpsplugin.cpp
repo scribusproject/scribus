@@ -1,6 +1,7 @@
 #include "importpsplugin.h"
 #include "importps.h"
 #include "scribus.h"
+#include "page.h"
 #include "prefsmanager.h"
 #include "prefscontext.h"
 #include "prefsfile.h"

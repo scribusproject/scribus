@@ -20,6 +20,7 @@
 #include "scribusdoc.h"
 #include "scribusXml.h"
 
+#include <utility>
 #include <qfile.h>
 
 #include "page.h"
@@ -2164,7 +2165,7 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 
 int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, const double x, const double y, const double b, const double h, const double w, const QString& fill, const QString& outline, const bool itemFinalised)
 {
-	if (UndoManager::undoEnabled() && !_itemCreationTransactionStarted  && false)
+	if (UndoManager::undoEnabled() && !_itemCreationTransactionStarted)
 	{
 		_itemCreationTransactionStarted = true;
 		undoManager->beginTransaction();
@@ -2219,7 +2220,7 @@ int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemF
 		DocItems = Items;
 	//Add in item default values based on itemType and frameType
 	itemAddDetails(itemType, frameType, newItem->ItemNr);
-	if (UndoManager::undoEnabled() && false)
+	if (UndoManager::undoEnabled())
 	{
 		ItemState<PageItem*> *is = new ItemState<PageItem*>("Create PageItem");
 		is->set("CREATE_ITEM", "create_item");
@@ -2673,4 +2674,41 @@ const double ScribusDoc::getYOffsetForPage(const int pageNumber)
 	if (Pages.at(pageNumber)!=NULL)
 		return Pages.at(pageNumber)->yOffset();
 	return -1.0;
+}
+
+PageItem* ScribusDoc::convertToImageFrame(PageItem *currItem)
+{
+	PageItem *oldItem = Items.take(currItem->ItemNr);
+	PageItem *newItem = new PageItem_ImageFrame(*oldItem);
+	Q_ASSERT(newItem!=NULL);
+	if (newItem==NULL)
+		return false;	
+	newItem->convertTo(PageItem::ImageFrame);
+	newItem->Frame = true;
+	Items.append(newItem);
+	newItem->ItemNr = Items.count()-1;
+	//<<At some point we HAVE to stop this!
+	if (masterPageMode)
+		MasterItems = Items;
+	else
+		DocItems = Items;
+	//>>
+	if (UndoManager::undoEnabled())
+	{
+		ItemState<std::pair<PageItem*, PageItem*> > *is = new ItemState<std::pair<PageItem*, PageItem*> >("Convert Item");
+		is->set("CONVERT_ITEM", "convert_item");
+		is->setItem(std::pair<PageItem*, PageItem*>(oldItem, newItem));
+		//Undo target rests with the Page for object specific undo
+		UndoObject *target = Pages.at(0);
+		if (newItem->OwnPage > -1)
+			target = Pages.at(newItem->OwnPage);
+		undoManager->action(target, is);
+	}
+
+	return newItem;
+}
+
+const int ScribusDoc::currentPageNumber()
+{
+	return currentPage->pageNr();
 }

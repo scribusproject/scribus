@@ -17,6 +17,7 @@ or documentation
 #include "configuration.h"
 
 #include "scribus.h"
+#include "page.h"
 #include "pageitem.h"
 #include <qregexp.h>
 
@@ -120,7 +121,7 @@ void SWParse::parseSelection()
 
 void SWParse::parsePage()
 {
-	parsePage(ScApp->doc->currentPage->pageNr());
+	parsePage(ScApp->doc->currentPageNumber());
 }
 
 void SWParse::parsePage(int page)

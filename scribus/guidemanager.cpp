@@ -19,7 +19,7 @@
 #include "scribus.h"
 #include "guidemanager.h"
 #include "guidemanager.moc"
-
+#include "page.h"
 #include "units.h"
 #include <qradiobutton.h>
 #include <qlayout.h>

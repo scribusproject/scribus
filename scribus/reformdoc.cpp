@@ -23,6 +23,7 @@
 #include "docitemattrprefs.h"
 #include "tocindexprefs.h"
 #include "marginWidget.h"
+#include "page.h"
 #include "prefsmanager.h"
 #include "pagelayout.h"
 #include "fontcombo.h"

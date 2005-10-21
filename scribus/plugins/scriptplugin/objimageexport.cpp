@@ -1,5 +1,6 @@
 #include "objimageexport.h"
 #include "cmdutil.h"
+#include "page.h"
 
 #include <structmember.h>
 #include <qfileinfo.h>

@@ -29,7 +29,7 @@
 #include <qlineedit.h>
 
 #include "aligndistribute.moc"
-
+#include "page.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "undomanager.h"

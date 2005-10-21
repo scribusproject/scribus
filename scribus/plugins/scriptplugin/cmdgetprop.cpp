@@ -191,7 +191,7 @@ PyObject *scribus_getallobj(PyObject* /* self */, PyObject* args)
 	int typ = -1;
 	uint counter = 0;
 	uint counter2 = 0;
-	uint pageNr = ScApp->doc->currentPage->pageNr();
+	uint pageNr = ScApp->doc->currentPageNumber();
 	if (!PyArg_ParseTuple(args, "|i", &typ))
 		return NULL;
 	if(!checkHaveDocument())

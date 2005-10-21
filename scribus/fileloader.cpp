@@ -17,6 +17,7 @@
 #include "fileloader.h"
 #include "fontreplacedialog.h"
 #include "missing.h"
+#include "page.h"
 #include "pluginmanager.h"
 #include "pagestructs.h"
 #include "scconfig.h"

@@ -38,6 +38,7 @@
 #include "prefsstructs.h"
 #include "documentinformation.h"
 #include "undoobject.h"
+//#include "page.h"
 #include "pageitem.h"
 #include "pageitem_line.h"
 #include "pageitem_textframe.h"
@@ -364,10 +365,22 @@ public:
 	void reformPages(double& maxX, double& maxY, bool moveObjects = true);
 	
 	/**
-	 *
+	 * @brief Return the x or y offset for a page on the canvas
+	 * @retval double containing the offset. Returns -1.0 if page not in Pages list (as -ve is not possible).
+	 * Mostly saves bringing in extra includes into files that already have scribusdoc.h
 	 */
 	const double getXOffsetForPage(const int);
 	const double getYOffsetForPage(const int);
+	
+	/**
+	 * @brief Item type conversion functions
+	 */
+	PageItem* convertToImageFrame(PageItem *);
+	
+	/**
+	 * @brief The page number of the current page
+	 */
+	const int currentPageNumber();
 
 protected:
 	void addSymbols();

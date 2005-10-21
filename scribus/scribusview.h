@@ -41,7 +41,7 @@
 #include "scribusdoc.h"
 #include "scribusstructs.h"
 #include "scpainter.h"
-#include "page.h"
+class Page;
 #include "mspinbox.h"
 #include "util.h"
 class Hruler;

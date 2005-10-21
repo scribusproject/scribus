@@ -110,7 +110,7 @@ PyObject *scribus_setmargins(PyObject* /* self */, PyObject* args)
 	ScApp->doc->resetPage(tpr, lr, rr, btr, ScApp->doc->currentPageLayout);
 	ScApp->view->reformPages();
 	ScApp->doc->setModified(true);
-	ScApp->view->GotoPage(ScApp->doc->currentPage->pageNr());
+	ScApp->view->GotoPage(ScApp->doc->currentPageNumber());
 	ScApp->view->DrawNew();
 	Py_INCREF(Py_None);
 	return Py_None;
@@ -237,7 +237,7 @@ PyObject *scribus_setdoctype(PyObject* /* self */, PyObject* args)
 	if (ScApp->doc->currentPageLayout = fp)
 		ScApp->doc->pageSets[ScApp->doc->currentPageLayout].FirstPage = fsl;
 	ScApp->view->reformPages();
-	ScApp->view->GotoPage(ScApp->doc->currentPage->pageNr()); // is this needed?
+	ScApp->view->GotoPage(ScApp->doc->currentPageNumber()); // is this needed?
 	ScApp->view->DrawNew();   // is this needed?
 	//CB TODO ScApp->pagePalette->RebuildPage(); // is this needed?
 	ScApp->slotDocCh();

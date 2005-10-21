@@ -259,6 +259,8 @@ void Page::restore(UndoState* state, bool isUndo)
 			restorePageItemCreation(dynamic_cast<ItemState<PageItem*>*>(ss), isUndo);
 		else if (ss->contains("DELETE_ITEM"))
 			restorePageItemDeletion(dynamic_cast<ItemState<PageItem*>*>(ss), isUndo);
+		else if (ss->contains("CONVERT_ITEM"))
+			restorePageItemConversion(dynamic_cast<ItemState<std::pair<PageItem*, PageItem*> >*>(ss), isUndo);
 	}
 }
 
@@ -306,6 +308,31 @@ void Page::restorePageItemDeletion(ItemState<PageItem*> *state, bool isUndo)
 		ScApp->view->DeleteItem();
 		ScApp->view->Deselect();
 	}
+}
+
+void Page::restorePageItemConversion(ItemState<std::pair<PageItem*, PageItem*> >*state, bool isUndo)
+{
+	if (!state)
+		return;
+
+	PageItem *oldItem=state->getItem().first;
+	PageItem *newItem=state->getItem().second;
+	if (isUndo)
+	{
+		ScApp->doc->Items.take(newItem->ItemNr);
+		ScApp->doc->Items.append(oldItem);
+		oldItem->ItemNr = ScApp->doc->Items.count()-1;
+	}
+	else
+	{
+		ScApp->doc->Items.take(oldItem->ItemNr);
+		ScApp->doc->Items.append(newItem);
+		newItem->ItemNr = ScApp->doc->Items.count()-1;
+	}
+	if (ScApp->doc->masterPageMode)
+		ScApp->doc->MasterItems = ScApp->doc->Items;
+	else
+		ScApp->doc->DocItems = ScApp->doc->Items;
 }
 
 const double Page::xOffset()

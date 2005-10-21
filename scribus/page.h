@@ -18,6 +18,8 @@
 #ifndef PAGE_H
 #define PAGE_H
 
+#include <utility>
+
 class QString;
 #include "qvaluelist.h"
 #include "qptrlist.h"
@@ -80,6 +82,7 @@ private:
 	UndoManager* undoManager;
 	void restorePageItemCreation(ItemState<PageItem*> *state, bool isUndo);
 	void restorePageItemDeletion(ItemState<PageItem*> *state, bool isUndo);
+	void restorePageItemConversion(ItemState<std::pair<PageItem*, PageItem*> >*state, bool isUndo);
 	
 	double m_xOffset;
 	double m_yOffset;

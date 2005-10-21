@@ -3,6 +3,7 @@
 #include <qcursor.h>
 #include "scribus.h"
 #include "dynamictip.h"
+#include "page.h"
 #include "pagelayout.h"
 #include "sccombobox.h"
 extern QPixmap loadIcon(QString nam);
@@ -614,7 +615,7 @@ void PagePalette::handlePageLayout(int layout)
 	currView->Doc->resetPage(tpr, lr, rr, br, layout);
 	currView->reformPages();
 	currView->DrawNew();
-	currView->GotoPage(currView->Doc->currentPage->pageNr());
+	currView->GotoPage(currView->Doc->currentPageNumber());
 	RebuildPage();
 	currView->Doc->setModified(true);
 }
@@ -624,7 +625,7 @@ void PagePalette::handleFirstPage(int fp)
 	currView->Doc->pageSets[currView->Doc->currentPageLayout].FirstPage = fp;
 	currView->reformPages();
 	currView->DrawNew();
-	currView->GotoPage(currView->Doc->currentPage->pageNr());
+	currView->GotoPage(currView->Doc->currentPageNumber());
 	RebuildPage();
 	currView->Doc->setModified(true);
 }

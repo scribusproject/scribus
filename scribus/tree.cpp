@@ -10,6 +10,7 @@
 #include <qmessagebox.h>
 
 #include "commonstrings.h"
+#include "page.h"
 #include "scribus.h"
 
 extern QPixmap loadIcon(QString nam);

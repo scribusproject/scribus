@@ -1,5 +1,6 @@
 #include "cmdutil.h"
 #include "units.h"
+#include "page.h"
 
 ScribusApp* Carrier;
 ScribusDoc* doc;

@@ -36,6 +36,7 @@
 #endif
 #include "rc4.h"
 
+#include "page.h"
 #include "pageitem.h"
 #include "bookmwin.h"
 #include "scribus.h"

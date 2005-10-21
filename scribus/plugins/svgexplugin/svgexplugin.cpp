@@ -24,12 +24,13 @@
 
 #include "customfdialog.h"
 #include "scribus.h"
+#include "page.h"
 #ifdef HAVE_LIBZ
 #include <zlib.h>
 #endif
 #include "prefsmanager.h"
-#include <prefsfile.h>
-#include <prefscontext.h>
+#include "prefsfile.h"
+#include "prefscontext.h"
 #include "util.h"
 
 int svgexplugin_getPluginAPIVersion()

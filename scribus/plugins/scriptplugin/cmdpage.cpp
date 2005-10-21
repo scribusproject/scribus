@@ -1,11 +1,12 @@
 #include "cmdpage.h"
 #include "cmdutil.h"
+#include "page.h"
 
 PyObject *scribus_actualpage(PyObject* /* self */)
 {
 	if(!checkHaveDocument())
 		return NULL;
-	return PyInt_FromLong(static_cast<long>(ScApp->doc->currentPage->pageNr() + 1));
+	return PyInt_FromLong(static_cast<long>(ScApp->doc->currentPageNumber() + 1));
 }
 
 PyObject *scribus_redraw(PyObject* /* self */)
@@ -121,7 +122,7 @@ PyObject *scribus_getpageitems(PyObject* /* self */)
 	if (ScApp->doc->Items.count() == 0)
 		return Py_BuildValue((char*)"[]");
 	uint counter = 0;
-	uint pageNr = ScApp->doc->currentPage->pageNr();
+	uint pageNr = ScApp->doc->currentPageNumber();
 	for (uint lam2 = 0; lam2 < ScApp->doc->Items.count(); ++lam2)
 	{
 		if (pageNr == ScApp->doc->Items.at(lam2)->OwnPage)

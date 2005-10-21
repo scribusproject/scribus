@@ -8256,14 +8256,14 @@ void ScribusView::RaiseItem()
 void ScribusView::ToPicFrame()
 {
 	//emit Amode(1);
-	PageItem *currItem = new PageItem_ImageFrame(*SelItem.at(0));
-	currItem->convertTo(PageItem::ImageFrame);
-	currItem->Frame = true;
-	RefreshItem(currItem);
-	emit HaveSel(currItem->itemType());
+	PageItem *currItem = SelItem.at(0);
+	Deselect(true);
+	PageItem* newItem=Doc->convertToImageFrame(currItem);
+	RefreshItem(newItem);
+	emit HaveSel(newItem->itemType());
 	if (!Doc->isLoading())
-		emit UpdtObj(Doc->currentPage->pageNr(), currItem->ItemNr);
-	EmitValues(currItem);
+		emit UpdtObj(Doc->currentPage->pageNr(), newItem->ItemNr);
+	EmitValues(newItem);
 	emit DocChanged();
 }
 
