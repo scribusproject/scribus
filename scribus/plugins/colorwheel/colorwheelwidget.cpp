@@ -151,8 +151,12 @@ void ColorWheel::baseColor()
 void ColorWheel::makeMonochromatic()
 {
 	baseColor();
-	colorList[tr("Monochromatic Light")] = cmykColor(actualColor.light());
-	colorList[tr("Monochromatic Dark")] = cmykColor(actualColor.dark());
+	ScColor l = ScColor();
+	l.fromQColor(actualColor.light());
+	ScColor d = ScColor();
+	d.fromQColor(actualColor.dark());
+	colorList[tr("Monochromatic Light")] = l;
+	colorList[tr("Monochromatic Dark")] = d;
 }
 
 void ColorWheel::makeAnalogous()
