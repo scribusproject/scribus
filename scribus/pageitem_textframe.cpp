@@ -201,12 +201,13 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 					oldCurY = SetZeichAttr(hl, &chs, &chx);
 					if ((chx == QChar(9)) && (tTabValues.count() != 0) && (tabCc < tTabValues.count()) && (!tTabValues[tabCc].tabFillChar.isNull()))
 					{
-						double wt = Cwidth(Doc, hl->cfont, QString(tTabValues[tabCc].tabFillChar), chs);
+						QString tabFillCharQStr(tTabValues[tabCc].tabFillChar);
+						double wt = Cwidth(Doc, hl->cfont, tabFillCharQStr, chs);
 						int coun = static_cast<int>((hl->xp - tabDist) / wt);
 						double sPos = hl->xp - (hl->xp - tabDist) + 1;
 						desc = hl->cfont->numDescender * (-chs / 10.0);
 						asce = hl->cfont->numAscent * (chs / 10.0);
-						Zli3.Zeich = QString(tTabValues[tabCc].tabFillChar);
+						Zli3.Zeich = tabFillCharQStr;
 						Zli3.Farb = hl->ccolor;
 						Zli3.Farb2 = hl->cstroke;
 						Zli3.shade = hl->cshade;
@@ -399,6 +400,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 				Doc->docParagraphStyles[0].LineSpa = LineSp;
 				QRegion cl = QRegion(pf2.xForm(Clip));
 				int LayerLev = Doc->layerLevelFromNumber(LayerNr);
+				uint docItemsCount=Doc->Items.count();
 				if (!isEmbedded)
 				{
 					if (!OnMasterPage.isEmpty())
@@ -442,7 +444,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 								}
 							}
 						}
-						for (a = 0; a < Doc->Items.count(); ++a)
+						for (a = 0; a < docItemsCount; ++a)
 						{
 							PageItem* docItem = Doc->Items.at(a);
 							if (docItem->textFlowsAroundFrame())
@@ -476,7 +478,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 							}
 						}
 					}
-					for (a = 0; a < Doc->Items.count(); ++a)
+					for (a = 0; a < docItemsCount; ++a)
 					{
 						PageItem* docItem = Doc->Items.at(a);
 						int LayerLevItem = Doc->layerLevelFromNumber(docItem->LayerNr);
@@ -583,17 +585,20 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 							nextItem = BackBox;
 							while (nextItem != 0)
 							{
-								if (nextItem->itemText.count() != 0)
+								uint nextItemTextCount=nextItem->itemText.count();
+								if (nextItemTextCount != 0)
 								{
-									if (nextItem->itemText.at(nextItem->itemText.count()-1)->ch == QChar(13))
+									if (nextItem->itemText.at(nextItemTextCount-1)->ch == QChar(13))
 									{
 										CurY += Doc->docParagraphStyles[absa].gapBefore;
 										if (chx != QChar(13))
+										{
 											DropCmode = Doc->docParagraphStyles[absa].Drop;
+											if (DropCmode)
+												DropLines = Doc->docParagraphStyles[absa].DropLin;
+										}
 										else
 											DropCmode = false;
-										if (DropCmode)
-											DropLines = Doc->docParagraphStyles[absa].DropLin;
 										break;
 									}
 									else
@@ -605,12 +610,14 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						else
 						{
 							if (chx != QChar(13))
+							{
 								DropCmode = Doc->docParagraphStyles[absa].Drop;
+								if (DropCmode)
+									DropLines = Doc->docParagraphStyles[absa].DropLin;
+							}
 							else
 								DropCmode = false;
 							CurY += Doc->docParagraphStyles[absa].gapBefore;
-							if (DropCmode)
-								DropLines = Doc->docParagraphStyles[absa].DropLin;
 						}
 					}
 					hl->cstyle &= 0xF7FF; // 2047;
@@ -1526,11 +1533,12 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 							{
 								if ((Zli2->Zeich == QChar(9)) && (tTabValues.count() != 0) && (tabCc < tTabValues.count()) && (!tTabValues[tabCc].tabFillChar.isNull()))
 								{
-									double wt = Cwidth(Doc, Zli2->ZFo, QString(tTabValues[tabCc].tabFillChar), Zli2->Siz);
+									QString tabFillCharQStr(tTabValues[tabCc].tabFillChar);
+									double wt = Cwidth(Doc, Zli2->ZFo, tabFillCharQStr, Zli2->Siz);
 									int coun = static_cast<int>((Zli2->xco - tabDist) / wt);
 									double sPos = Zli2->xco - (Zli2->xco - tabDist) + 1;
 									Zli = new ZZ;
-									Zli->Zeich = QString(tTabValues[tabCc].tabFillChar);
+									Zli->Zeich = tabFillCharQStr;
 									Zli->Farb = Zli2->Farb;
 									Zli->Farb2 = Zli2->Farb2;
 									Zli->shade = Zli2->shade;
@@ -1804,11 +1812,12 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 					{
 						if ((Zli2->Zeich == QChar(9)) && (tTabValues.count() != 0) && (tabCc < tTabValues.count()) && (!tTabValues[tabCc].tabFillChar.isNull()))
 						{
-							double wt = Cwidth(Doc, Zli2->ZFo, QString(tTabValues[tabCc].tabFillChar), Zli2->Siz);
+							QString tabFillCharQStr(tTabValues[tabCc].tabFillChar);
+							double wt = Cwidth(Doc, Zli2->ZFo, tabFillCharQStr, Zli2->Siz);
 							int coun = static_cast<int>((Zli2->xco - tabDist) / wt);
 							double sPos = Zli2->xco - (Zli2->xco - tabDist) + 1;
 							Zli = new ZZ;
-							Zli->Zeich = QString(tTabValues[tabCc].tabFillChar);
+							Zli->Zeich = tabFillCharQStr;
 							Zli->Farb = Zli2->Farb;
 							Zli->Farb2 = Zli2->Farb2;
 							Zli->shade = Zli2->shade;
