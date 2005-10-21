@@ -4358,6 +4358,7 @@ void PageItem::convertTo(ItemType newType)
 			setUPixmap(NULL);
 			break;
 	}
+	/*
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::ConvertTo + " " + toType,
@@ -4368,6 +4369,7 @@ void PageItem::convertTo(ItemType newType)
 		ss->set("NEW_TYPE", newType);
 		undoManager->action(this, ss);
 	}
+	*/
 	itemTypeVal = newType;
 }
 
