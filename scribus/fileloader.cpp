@@ -2598,11 +2598,11 @@ bool FileLoader::postLoad(bool is12doc)
 	}
 	
 	//Calculate the canvas size
-	FPoint mincp, maxcp;
 	if (!is12doc)
 	{
+		FPoint mincp, maxcp;
 		ScApp->doc->canvasMinMax(mincp, maxcp);
-		FPoint maximumCanvas = FPoint(QMAX(maxcp.x(), maximumX), QMAX(maxcp.y(), maximumY));
+		FPoint maximumCanvas(QMAX(maxcp.x(), maximumX), QMAX(maxcp.y(), maximumY));
 		ScApp->view->adjustCanvas(mincp, maximumCanvas);
 	}
 	

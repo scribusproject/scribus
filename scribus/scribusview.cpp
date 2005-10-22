@@ -7252,9 +7252,8 @@ void ScribusView::SelectItemNr(int nr, bool draw, bool single)
 	SelectItem(Doc->Items.at(nr), draw, single);
 }
 
-void ScribusView::SelectItem(PageItem *pi, bool draw, bool single)
+void ScribusView::SelectItem(PageItem *currItem, bool draw, bool single)
 {
-	PageItem *currItem = pi;
 	if (!currItem->Select)
 	{
 		if (single)
@@ -8252,85 +8251,6 @@ void ScribusView::RaiseItem()
 		emit DocChanged();
 		updateContents();
 	}
-}
-
-void ScribusView::ToPicFrame()
-{
-	PageItem *currItem = SelItem.at(0);
-	Deselect(true);
-	PageItem* newItem=Doc->convertItemTo(currItem, PageItem::ImageFrame);
-	RefreshItem(newItem);
-	SelectItem(newItem);
-	emit HaveSel(newItem->itemType());
-	if (!Doc->isLoading())
-		emit UpdtObj(Doc->currentPage->pageNr(), newItem->ItemNr);
-	EmitValues(newItem);
-	emit DocChanged();
-}
-
-void ScribusView::ToPolyFrame()
-{
-	PageItem *currItem = new PageItem_Polygon(*SelItem.at(0));
-	Deselect(true);
-	PageItem* newItem=Doc->convertItemTo(currItem, PageItem::Polygon);
-	RefreshItem(newItem);
-	SelectItem(newItem);
-	emit HaveSel(newItem->itemType());
-	if (!Doc->isLoading())
-		emit UpdtObj(Doc->currentPage->pageNr(), newItem->ItemNr);
-	EmitValues(newItem);
-	emit DocChanged();
-}
-
-void ScribusView::ToTextFrame()
-{
-	PageItem *currItem = SelItem.at(0);
-	Deselect(true);
-	PageItem* newItem=Doc->convertItemTo(currItem, PageItem::TextFrame);
-	RefreshItem(newItem);
-	SelectItem(newItem);
-	emit HaveSel(newItem->itemType());
-	if (!Doc->isLoading())
-		emit UpdtObj(Doc->currentPage->pageNr(), newItem->ItemNr);
-	EmitValues(newItem);
-	emit DocChanged();
-}
-
-void ScribusView::ToBezierFrame()
-{
-	PageItem *currItem = SelItem.at(0);
-	Deselect(true);
-	PageItem* newItem=Doc->convertItemTo(currItem, PageItem::PolyLine);
-	RefreshItem(newItem);
-	SelectItem(newItem);
-	emit HaveSel(newItem->itemType());
-	if (!Doc->isLoading())
-		emit UpdtObj(Doc->currentPage->pageNr(), newItem->ItemNr);
-	EmitValues(newItem);
-	emit DocChanged();
-}
-
-void ScribusView::Bezier2Poly()
-{
-	PageItem *currItem = SelItem.at(0);
-	
-	currItem->convertTo(PageItem::Polygon);
-	currItem->Frame = false;
-	currItem->ClipEdited = true;
-	currItem->FrameType = 3;
-	currItem->PoLine.addPoint(currItem->PoLine.point(currItem->PoLine.size()-2));
-	currItem->PoLine.addPoint(currItem->PoLine.point(currItem->PoLine.size()-3));
-	currItem->PoLine.addPoint(currItem->PoLine.point(0));
-	currItem->PoLine.addPoint(currItem->PoLine.point(0));
-	currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
-	currItem->ContourLine = currItem->PoLine.copy();
-	
-	RefreshItem(currItem);
-	emit HaveSel(currItem->itemType());
-	if (!Doc->isLoading())
-		emit UpdtObj(Doc->currentPage->pageNr(), currItem->ItemNr);
-	EmitValues(currItem);
-	emit DocChanged();
 }
 
 void ScribusView::ClearItem()
@@ -11394,42 +11314,120 @@ void ScribusView::QueryFarben()
 	}
 }
 
+void ScribusView::ToPicFrame()
+{
+	PageItem *currItem = SelItem.at(0);
+	Deselect(true);
+	PageItem* newItem=Doc->convertItemTo(currItem, PageItem::ImageFrame);
+	RefreshItem(newItem);
+	SelectItem(newItem);
+	emit HaveSel(newItem->itemType());
+	if (!Doc->isLoading())
+		emit UpdtObj(Doc->currentPage->pageNr(), newItem->ItemNr);
+	EmitValues(newItem);
+	emit DocChanged();
+}
+
+void ScribusView::ToPolyFrame()
+{
+	PageItem *currItem = new PageItem_Polygon(*SelItem.at(0));
+	Deselect(true);
+	PageItem* newItem=Doc->convertItemTo(currItem, PageItem::Polygon);
+	RefreshItem(newItem);
+	SelectItem(newItem);
+	emit HaveSel(newItem->itemType());
+	if (!Doc->isLoading())
+		emit UpdtObj(Doc->currentPage->pageNr(), newItem->ItemNr);
+	EmitValues(newItem);
+	emit DocChanged();
+}
+
+void ScribusView::ToTextFrame()
+{
+	PageItem *currItem = SelItem.at(0);
+	Deselect(true);
+	PageItem* newItem=Doc->convertItemTo(currItem, PageItem::TextFrame);
+	RefreshItem(newItem);
+	SelectItem(newItem);
+	emit HaveSel(newItem->itemType());
+	if (!Doc->isLoading())
+		emit UpdtObj(Doc->currentPage->pageNr(), newItem->ItemNr);
+	EmitValues(newItem);
+	emit DocChanged();
+}
+
+void ScribusView::ToBezierFrame()
+{
+	PageItem *currItem = SelItem.at(0);
+	Deselect(true);
+	PageItem* newItem=Doc->convertItemTo(currItem, PageItem::PolyLine);
+	RefreshItem(newItem);
+	SelectItem(newItem);
+	emit HaveSel(newItem->itemType());
+	if (!Doc->isLoading())
+		emit UpdtObj(Doc->currentPage->pageNr(), newItem->ItemNr);
+	EmitValues(newItem);
+	emit DocChanged();
+}
+
+void ScribusView::Bezier2Poly()
+{
+	PageItem *currItem = SelItem.at(0);
+	Deselect(true);
+	PageItem* newItem=Doc->convertItemTo(currItem, PageItem::Polygon);
+	RefreshItem(newItem);
+	SelectItem(newItem);
+	emit HaveSel(newItem->itemType());
+	if (!Doc->isLoading())
+		emit UpdtObj(Doc->currentPage->pageNr(), newItem->ItemNr);
+	EmitValues(newItem);
+	emit DocChanged();
+	/*
+	currItem->convertTo(PageItem::Polygon);
+	currItem->Frame = false;
+	currItem->ClipEdited = true;
+	currItem->FrameType = 3;
+	currItem->PoLine.addPoint(currItem->PoLine.point(currItem->PoLine.size()-2));
+	currItem->PoLine.addPoint(currItem->PoLine.point(currItem->PoLine.size()-3));
+	currItem->PoLine.addPoint(currItem->PoLine.point(0));
+	currItem->PoLine.addPoint(currItem->PoLine.point(0));
+	currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
+	currItem->ContourLine = currItem->PoLine.copy();
+	
+	RefreshItem(currItem);
+	emit HaveSel(currItem->itemType());
+	if (!Doc->isLoading())
+		emit UpdtObj(Doc->currentPage->pageNr(), currItem->ItemNr);
+	EmitValues(currItem);
+	emit DocChanged();
+	*/
+}
+
 void ScribusView::ToPathText()
 {
 	if (SelItem.count() > 1)
 	{
-		PageItem* oldItem=SelItem.at(0);
-		PageItem *bb;
-		if (oldItem->asTextFrame())
-			bb = SelItem.at(1);
+		PageItem* currItem=SelItem.at(0);
+		PageItem *polyLineItem;
+		if (currItem->asTextFrame())
+			polyLineItem = SelItem.at(1);
 		else
 		{
-			bb = SelItem.at(0);
-			oldItem = SelItem.at(1);
+			polyLineItem = SelItem.at(0);
+			currItem = SelItem.at(1);
 		}
-		if (!bb->asPolyLine())
+		if (!polyLineItem->asPolyLine())
 			return;
-		PageItem* currItem = new PageItem_PathText(*oldItem);
-		PageItem* newItem=Doc->convertItemTo(currItem, PageItem::PathText);
-		newItem->PoLine = bb->PoLine.copy();
-		newItem->Pwidth = bb->Pwidth;
-		newItem->setLineColor(bb->lineColor());
-		newItem->PLineArt = bb->PLineArt;
-		newItem->PLineEnd = bb->PLineEnd;
-		newItem->PLineJoin = bb->PLineJoin;
-/*		if (!Doc->loading)
-			emit UpdtObj(Doc->currentPage->pageNr(), b->ItemNr); */
-		UpdatePolyClip(newItem);
-		AdjustItemSize(newItem);
-		double dx = bb->Xpos - newItem->Xpos;
-		double dy = bb->Ypos - newItem->Ypos;
-		MoveItem(dx, dy, newItem);
-		newItem->Rot = bb->Rot;
-		newItem->FrameType = 3;
+	
 		Deselect(true);
-		SelectItemNr(bb->ItemNr);
-		DeleteItem();
-		updateContents();
+		PageItem* newItem=Doc->convertItemTo(currItem, PageItem::PathText, polyLineItem);
+		RefreshItem(newItem);
+		SelectItem(newItem);
+		emit HaveSel(newItem->itemType());
+		if (!Doc->isLoading())
+			emit UpdtObj(Doc->currentPage->pageNr(), newItem->ItemNr);
+		EmitValues(newItem);
+		emit DocChanged();
 	}
 }
 

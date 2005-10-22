@@ -517,6 +517,7 @@ public:
 	static QString Polygon;
 	static QString BezierCurve;
 	static QString Polyline;
+	static QString PathText;
 	static QString ConvertTo;
 	static QString ImportSVG;
 	static QString ImportEPS;

@@ -375,7 +375,7 @@ public:
 	/**
 	 * @brief Item type conversion functions
 	 */
-	PageItem* convertItemTo(PageItem *, PageItem::ItemType);
+	PageItem* convertItemTo(PageItem *currItem, PageItem::ItemType newType, PageItem* secondaryItem=NULL);
 	
 	/**
 	 * @brief The page number of the current page

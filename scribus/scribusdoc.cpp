@@ -2676,16 +2676,18 @@ const double ScribusDoc::getYOffsetForPage(const int pageNumber)
 	return -1.0;
 }
 
-PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newType)
+PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newType, PageItem* secondaryItem)
 {
+	//Item to convert is null, return
 	Q_ASSERT(currItem!=NULL);
 	if (currItem==NULL)
 		return false;
-		
+	//Dont attempt a Line conversion	
 	if (currItem->itemType()==PageItem::Line || newType==PageItem::Line)
 		return false;
-
+	//Take the item to convert from the docs Items list
 	PageItem *oldItem = Items.take(currItem->ItemNr);
+	//Create a new item from the old one
 	PageItem *newItem;
 	switch (newType)
 	{
@@ -2706,6 +2708,10 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 			newItem = new PageItem_PolyLine(*oldItem);
 			break;
 		case PageItem::PathText:
+			if (secondaryItem==NULL)
+				return false;
+			if (UndoManager::undoEnabled())
+				undoManager->beginTransaction(currentPage->getUName(), 0, Um::PathText, "", Um::ITextFrame);
 			newItem = new PageItem_PathText(*oldItem);
 			break;
 		default:
@@ -2713,8 +2719,16 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 			break;
 	}
 	Q_ASSERT(newItem!=NULL);
+	//If the new item is null, return. If converting Text to Path, start a transaction
+	//as the old bezier will be deleted
 	if (newItem==NULL)
+	{
+		if (newType==PageItem::PathText && UndoManager::undoEnabled())
+			undoManager->cancelTransaction();
 		return false;
+	}
+	//Do new item type specific adjustments to the new item. Some of this may move when new 
+	//constructors are built into the item classes
 	switch (newType)
 	{
 		case PageItem::ImageFrame:
@@ -2734,6 +2748,13 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 			newItem->Frame = false;
 			newItem->ClipEdited = true;
 			newItem->FrameType = 3;
+			if(oldItem->itemType()==PageItem::PolyLine)
+			{
+				newItem->PoLine.addPoint(newItem->PoLine.point(newItem->PoLine.size()-2));
+				newItem->PoLine.addPoint(newItem->PoLine.point(newItem->PoLine.size()-3));
+				newItem->PoLine.addPoint(newItem->PoLine.point(0));
+				newItem->PoLine.addPoint(newItem->PoLine.point(0));
+			}
 			newItem->Clip = FlattenPath(newItem->PoLine, newItem->Segments);
 			newItem->ContourLine = newItem->PoLine.copy();
 			break;
@@ -2744,16 +2765,33 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 			ScApp->view->AdjustItemSize(newItem);
 			break;
 		case PageItem::PathText:
-			newItem->Frame = false;
-			newItem->ClipEdited = true;
-			newItem->convertTo(PageItem::PathText);
+			{
+				newItem->convertTo(PageItem::PathText);
+				newItem->Frame = false;
+				newItem->ClipEdited = true;
+				newItem->PoLine = secondaryItem->PoLine.copy();
+				newItem->Pwidth = secondaryItem->Pwidth;
+				newItem->setLineColor(secondaryItem->lineColor());
+				newItem->PLineArt = secondaryItem->PLineArt;
+				newItem->PLineEnd = secondaryItem->PLineEnd;
+				newItem->PLineJoin = secondaryItem->PLineJoin;
+				/*	if (!Doc->loading)
+					emit UpdtObj(Doc->currentPage->pageNr(), b->ItemNr); */
+				//FIXME: Stop using the view here
+				ScApp->view->UpdatePolyClip(newItem);
+				ScApp->view->AdjustItemSize(newItem);
+				double dx = secondaryItem->Xpos - newItem->Xpos;
+				double dy = secondaryItem->Ypos - newItem->Ypos;
+				ScApp->view->MoveItem(dx, dy, newItem);
+				newItem->Rot = secondaryItem->Rot;
+				newItem->FrameType = 3;
+			}
 			break;
 		default:
 			newItem=NULL;
 			break;
 	}
-	
-	
+	//Insert the new item into the docs items list
 	Items.append(newItem);
 	newItem->ItemNr = Items.count()-1;
 	//<<At some point we HAVE to stop this!
@@ -2762,6 +2800,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 	else
 		DocItems = Items;
 	//>>
+	//Create the undo action for the new item
 	if (UndoManager::undoEnabled())
 	{
 		ItemState<std::pair<PageItem*, PageItem*> > *is = new ItemState<std::pair<PageItem*, PageItem*> >("Convert Item");
@@ -2773,7 +2812,18 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 			target = Pages.at(newItem->OwnPage);
 		undoManager->action(target, is);
 	}
-
+	//If converting text to path, delete the bezier and close the undo transaction
+	if (newType==PageItem::PathText)
+	{
+		//FIXME: Stop using the view here
+		ScApp->view->SelectItem(secondaryItem);
+		ScApp->view->DeleteItem();
+		ScApp->view->updateContents();
+		ScApp->view->Deselect(true);
+		
+		if (UndoManager::undoEnabled())
+			undoManager->commit();
+	}
 	return newItem;
 }
 
