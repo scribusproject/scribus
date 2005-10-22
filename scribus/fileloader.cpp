@@ -1874,6 +1874,34 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 		break;
 	//
 	case PageItem::PathText:
+		z = doc->itemAdd(PageItem::PathText, PageItem::Unspecified, x, y, w, h, pw, "None", Pcolor, true);
+		currItem = doc->Items.at(z);
+		if ((QStoInt(obj->attribute("ANNOTATION","0"))) && (static_cast<bool>(QStoInt(obj->attribute("ANICON","0")))))
+		{
+			currItem->LocalScX = scx;
+			currItem->LocalScY = scy;
+			currItem->LocalX = QStodouble(obj->attribute("LOCALX"));
+			currItem->LocalY = QStodouble(obj->attribute("LOCALY"));
+			currItem->Pfile = obj->attribute("PFILE");
+			currItem->Pfile2 = obj->attribute("PFILE2","");
+			currItem->Pfile3 = obj->attribute("PFILE3","");
+			currItem->IProfile = obj->attribute("PRFILE","");
+			currItem->EmProfile = obj->attribute("EPROF","");
+			currItem->IRender = QStoInt(obj->attribute("IRENDER","1"));
+			currItem->UseEmbedded = QStoInt(obj->attribute("EMBEDDED","1"));
+			doc->LoadPict(currItem->Pfile, z);
+			currItem->LocalScX = scx;
+			currItem->LocalScY = scy;
+			currItem->PicArt = QStoInt(obj->attribute("PICART"));
+			currItem->BBoxX = QStodouble(obj->attribute("BBOXX"));
+			currItem->BBoxH = QStodouble(obj->attribute("BBOXH"));
+			currItem->ScaleType = QStoInt(obj->attribute("SCALETYPE","1"));
+			currItem->AspectRatio = QStoInt(obj->attribute("RATIO","0"));
+		}
+		currItem->LineSp = QStodouble(obj->attribute("LINESP"));
+		currItem->LineSpMode = QStoInt(obj->attribute("LINESPMode","0"));
+		//currItem->convertTo(pt);
+		break;
 	case PageItem::TextFrame:
 		z = doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y, w, h, pw, "None", Pcolor, true);
 		currItem = doc->Items.at(z);
@@ -1901,7 +1929,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 		}
 		currItem->LineSp = QStodouble(obj->attribute("LINESP"));
 		currItem->LineSpMode = QStoInt(obj->attribute("LINESPMode","0"));
-		currItem->convertTo(pt);
+		//currItem->convertTo(pt);
 		break;
 	case PageItem::Line:
 		z = doc->itemAdd(PageItem::Line, PageItem::Unspecified, x, y, w, h, pw, "None", Pcolor2, true);

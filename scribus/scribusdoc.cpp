@@ -2204,7 +2204,9 @@ int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemF
 			Q_ASSERT(frameType==PageItem::Unspecified);
 			break;
 		case PageItem::PathText:
-		//At this point, we cannot create a PathText item like this, only by conversion
+			//Currently used only in fileloader
+			newItem = new PageItem_PathText(this, x, y, b, h, w, fill, outline);
+			Q_ASSERT(frameType==PageItem::Unspecified);
 			break;
 		default:
 			break;
