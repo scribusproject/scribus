@@ -2678,6 +2678,7 @@ const double ScribusDoc::getYOffsetForPage(const int pageNumber)
 
 PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newType, PageItem* secondaryItem)
 {
+	bool transactionConversion=false;
 	//Item to convert is null, return
 	Q_ASSERT(currItem!=NULL);
 	if (currItem==NULL)
@@ -2696,6 +2697,11 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 			break;
 		case PageItem::TextFrame:
 			newItem = new PageItem_TextFrame(*oldItem);
+			if (UndoManager::undoEnabled() && oldItem->itemType()==PageItem::PathText)
+			{
+				undoManager->beginTransaction(currentPage->getUName(), 0, Um::TextFrame, "", Um::ITextFrame);
+				transactionConversion=true;
+			}
 			break;
 		//We dont allow this
 		//case PageItem::Line:
@@ -2711,7 +2717,10 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 			if (secondaryItem==NULL)
 				return false;
 			if (UndoManager::undoEnabled())
+			{
 				undoManager->beginTransaction(currentPage->getUName(), 0, Um::PathText, "", Um::ITextFrame);
+				transactionConversion=true;
+			}
 			newItem = new PageItem_PathText(*oldItem);
 			break;
 		default:
@@ -2723,7 +2732,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 	//as the old bezier will be deleted
 	if (newItem==NULL)
 	{
-		if (newType==PageItem::PathText && UndoManager::undoEnabled())
+		if (transactionConversion)
 			undoManager->cancelTransaction();
 		return false;
 	}
@@ -2738,8 +2747,23 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 		case PageItem::TextFrame:
 			newItem->convertTo(PageItem::TextFrame);
 			newItem->Frame = true;
+			if (oldItem->itemType()==PageItem::PathText)
+			{
+				uint newPolyItemNo = itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->Xpos, currItem->Ypos, currItem->Width, currItem->Height, currItem->Pwidth, "None", currItem->lineColor(), true);
+				PageItem *polyLineItem = Items.at(newPolyItemNo);
+				polyLineItem->PoLine = currItem->PoLine.copy();
+				polyLineItem->ClipEdited = true;
+				polyLineItem->FrameType = 3;
+				polyLineItem->Rot = currItem->Rot;
+				ScApp->view->SetPolyClip(polyLineItem, qRound(QMAX(polyLineItem->Pwidth / 2, 1)));
+				ScApp->view->AdjustItemSize(polyLineItem);
+				
+				newItem->setLineColor("None");
+				newItem->SetRectFrame();
+				newItem->setRedrawBounding();
+			}
 			break;
-		//We dont allow this
+		//We dont allow this right now
 		//case PageItem::Line:
 		//	newItem->convertTo(PageItem::Line);
 		//	break;
@@ -2794,6 +2818,15 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 	//Insert the new item into the docs items list
 	Items.append(newItem);
 	newItem->ItemNr = Items.count()-1;
+	//If converting text to path, delete the bezier
+	if (newType==PageItem::PathText)
+	{
+		//FIXME: Stop using the view here
+		ScApp->view->SelectItem(secondaryItem);
+		ScApp->view->DeleteItem();
+		ScApp->view->updateContents();
+		ScApp->view->Deselect(true);
+	}
 	//<<At some point we HAVE to stop this!
 	if (masterPageMode)
 		MasterItems = Items;
@@ -2812,15 +2845,9 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 			target = Pages.at(newItem->OwnPage);
 		undoManager->action(target, is);
 	}
-	//If converting text to path, delete the bezier and close the undo transaction
-	if (newType==PageItem::PathText)
+	//Close any undo transaction
+	if (transactionConversion)
 	{
-		//FIXME: Stop using the view here
-		ScApp->view->SelectItem(secondaryItem);
-		ScApp->view->DeleteItem();
-		ScApp->view->updateContents();
-		ScApp->view->Deselect(true);
-		
 		if (UndoManager::undoEnabled())
 			undoManager->commit();
 	}

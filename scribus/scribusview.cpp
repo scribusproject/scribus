@@ -11436,22 +11436,27 @@ void ScribusView::FromPathText()
 	PageItem *currItem;
 	if (GetItem(&currItem))
 	{
-		uint z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->Xpos, currItem->Ypos, currItem->Width, currItem->Height, currItem->Pwidth, "None", currItem->lineColor(), !Mpressed);
-		PageItem *bb = Doc->Items.at(z);
-		bb->PoLine = currItem->PoLine.copy();
-		bb->ClipEdited = true;
-		bb->FrameType = 3;
-		bb->Rot = currItem->Rot;
-		SetPolyClip(bb, qRound(QMAX(bb->Pwidth / 2, 1)));
-		AdjustItemSize(bb);
-		currItem->convertTo(PageItem::TextFrame);
-		currItem->setLineColor("None");
-		currItem->Frame = true;
-		currItem->SetRectFrame();
-		setRedrawBounding(currItem);
-		SelectItemNr(currItem->ItemNr);
-		ToFront();
 		Deselect(true);
+		PageItem* newItem=Doc->convertItemTo(currItem, PageItem::TextFrame);
+		
+		/*
+		uint z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->Xpos, currItem->Ypos, currItem->Width, currItem->Height, currItem->Pwidth, "None", currItem->lineColor(), true);
+		PageItem *polyLineItem = Doc->Items.at(z);
+		polyLineItem->PoLine = currItem->PoLine.copy();
+		polyLineItem->ClipEdited = true;
+		polyLineItem->FrameType = 3;
+		polyLineItem->Rot = currItem->Rot;
+		SetPolyClip(polyLineItem, qRound(QMAX(polyLineItem->Pwidth / 2, 1)));
+		AdjustItemSize(polyLineItem);
+		Deselect(true);
+		PageItem* newItem=Doc->convertItemTo(currItem, PageItem::TextFrame);
+		newItem->setLineColor("None");
+		newItem->Frame = true;
+		newItem->SetRectFrame();
+		setRedrawBounding(newItem);
+		*/
+		SelectItem(newItem);
+		ToFront();
 		update();
 	}
 }
