@@ -1624,8 +1624,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 	doc->Items = doc->DocItems;
 	doc->masterPageMode = false;
 	//ScApp->view->reformPages();
-	double maxxtemp,maxytemp;
-	doc->reformPages(maxxtemp,maxytemp);
+	doc->reformPages(maximumX, maximumY);
 	if (doc->Layers.count() == 0)
 	{
 		la.LNr = 0;
@@ -2463,7 +2462,7 @@ void FileLoader::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 	}
 }
 
-bool FileLoader::postLoad()
+bool FileLoader::postLoad(bool is12doc)
 {
 /*	for (uint d = 0; d < ScApp->doc->MasterItems.count(); ++d)
 	{
@@ -2600,8 +2599,12 @@ bool FileLoader::postLoad()
 	
 	//Calculate the canvas size
 	FPoint mincp, maxcp;
-	ScApp->doc->canvasMinMax(mincp, maxcp);
-	ScApp->view->adjustCanvas(mincp, maxcp);
+	if (!is12doc)
+	{
+		ScApp->doc->canvasMinMax(mincp, maxcp);
+		FPoint maximumCanvas = FPoint(QMAX(maxcp.x(), maximumX), QMAX(maxcp.y(), maximumY));
+		ScApp->view->adjustCanvas(mincp, maximumCanvas);
+	}
 	
 	return true;
 }

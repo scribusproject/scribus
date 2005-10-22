@@ -3757,7 +3757,7 @@ bool ScribusApp::loadDoc(QString fileName)
 		//Do the font replacement check from here, when we have a GUI. TODO do this also somehow without the GUI
 		//This also gives the user the opportunity to cancel the load when finding theres a replacement required.
 		if (loadSuccess && ScQApp->usingGUI())
-			loadSuccess=fileLoader->postLoad();
+			loadSuccess=fileLoader->postLoad(is12doc);
 		if(!loadSuccess)
 		{
 			view->close();
