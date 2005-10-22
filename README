@@ -49,7 +49,7 @@ distribution.
 
 Activating Color Management *requires* installation of CMYK and RGB ICC
 profiles. Please see the included help files, FAQ's on www.scribus.net and
-http://docs.scribus.net for details. Current versions of Scribus 1.3.1 ships with
+http://docs.scribus.net for details. As of the 1.3.1 release,  Scribus ships with
 2 icc profiles, which are installed only to enable color management functionality.
 The profiles do not provide meaningful color management for printing. Additional
 profiles are downloadable from www.scribus,net and depend on your hardware and
@@ -60,13 +60,13 @@ Other notes/known issues at the time of release:
 There is a bug in font outline handling for some fonts in the freetype
 libraries. It's being worked on upstream. Don't file a bug report. Instead
 change the font used if you need the outlines. This is not a Scribus bug.
-Some testing has shown that this bug is not present in freetype 2.1.9, but
+Some testing has shown that this bug is not present in freetype 2.1.9+, but
 we counsel caution trying to upgrade freetype2. Upgrading freetype2 on some
 distributions can be quite difficult.
 
 PSD/CMYK TIFF Support
 
-1.3.1cvs now has support for CMYK PSD and 8-bit CMYK TIFF support. RGB PSD and
+1.3.1 now has support for CMYK PSD and 8-bit CMYK TIFF support. RGB PSD and
 16-bit TIFF support is being developed. PSD and TIFF support includes layers, ICC 
 profiles and embedding clipping paths. 
 
@@ -160,6 +160,9 @@ SuSE 9.x
 3)To enable direct CUPS support which recommended, make sure both cups-devel
   and openssl-devel are installed. Suse enables ssl support in CUPS. The
   current Scribus config checks do not test for this.
+4)There is an issue with certain dialogs in Scribus with Suse 9.3 and 10.0
+ and Yes, No order. This is adressed in: 
+ https://bugzilla.novell.com/show_bug.cgi?id=119090
 
 Red Hat / Fedora
 ================
@@ -170,7 +173,7 @@ quality and have been created with close cooperation from Fedora maintainers
 and the Scribus Team. We recommend them for most users as they will ensure
 correct integration with the menuing system and mime types.
 
-There are no packages for LittleCMS or a recent Ghostscript in Fedora Core 3,
+There are no packages for LittleCMS or a recent Ghostscript in Fedora Core ,
 though LittleCMS (lcms) is in Fedora Extras. Please see the included help files
 and http://docs.scribus.net for details.
 Grey scale icc profiles in images are not supported in this release..
@@ -223,4 +226,4 @@ the Scribus community so special.
 For the Scribus Team,
 Craig Ringer
 Peter Linnell
-in September 2005
+in October 2005

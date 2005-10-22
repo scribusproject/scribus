@@ -46,7 +46,7 @@ Recommended Spec File Description:
 %description
 Scribus is an desktop open source page layout program with the aim of producing 
 commerical grade output in PDF and Postscript, primarily, though not exclusively
-for Linux. 
+for Linux. Scirbus runs natively on Linux, BSD, Solaris, and Win32.
 
 Recommended Spec File Summary: Scribus - Open Source Page Layout 
 
