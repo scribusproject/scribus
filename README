@@ -90,6 +90,10 @@ For SuSE 9.x Users:
 - To enable direct CUPS support which we recommend, make sure both cups-devel and 
   openssl-devel are installed. Suse enables ssl support in CUPS. 
 
+- There is an issue with certain dialogs in Scribus with Suse 9.3 and 10.0
+  and Yes, No order. This is adressed in: 
+  https://bugzilla.novell.com/show_bug.cgi?id=119090
+
 For Fedora/RH using Qt 3.3.2-6+ has the same fixes.
 
 There is a separate file, PACKAGING for detailed hints and denotes on building
