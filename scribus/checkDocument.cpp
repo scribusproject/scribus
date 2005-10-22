@@ -127,8 +127,7 @@ CheckDocument::CheckDocument( QWidget* parent, bool modal )  : ScrPaletteBase( p
 	layout1 = new QHBoxLayout( 0, 0, 5, "layout1");
 	textLabel1 = new QLabel( this, "textLabel1" );
 	layout1->addWidget( textLabel1 );
-	curCheckProfile = new ScComboBox( true, this, "Profiles" );
-	curCheckProfile->setEditable(false);
+	curCheckProfile = new ScComboBox( false, this, "Profiles" );
 	layout1->addWidget( curCheckProfile );
 	checkDocumentLayout->addLayout( layout1 );
 	reportDisplay = new QListView( this, "reportDisplay" );

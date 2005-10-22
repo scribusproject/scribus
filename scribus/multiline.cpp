@@ -69,15 +69,13 @@ MultiLine::MultiLine( QWidget* parent, ScribusDoc* doc, multiLine ml, QString na
 	Dashes = new LineCombo(Properties);
 	PropertiesLayout->addWidget( Dashes );
 
-	LineEnds = new ScComboBox( true, Properties, "LineEnds" );
-	LineEnds->setEditable(false);
+	LineEnds = new ScComboBox( false, Properties, "LineEnds" );
 	LineEnds->insertItem(loadIcon("ButtCap.png"), tr( "Flat Cap" ) );
 	LineEnds->insertItem(loadIcon("SquareCap.png"), tr( "Square Cap" ) );
 	LineEnds->insertItem(loadIcon("RoundCap.png"), tr( "Round Cap" ) );
 	PropertiesLayout->addWidget( LineEnds );
 
-	LineJoin = new ScComboBox( true, Properties, "LineJoin" );
-	LineJoin->setEditable(false);
+	LineJoin = new ScComboBox( false, Properties, "LineJoin" );
 	LineJoin->insertItem(loadIcon("MiterJoin.png"), tr( "Miter Join" ) );
 	LineJoin->insertItem(loadIcon("BevelJoin.png"), tr( "Bevel Join" ) );
 	LineJoin->insertItem(loadIcon("RoundJoin.png"), tr( "Round Join" ) );
@@ -96,7 +94,7 @@ MultiLine::MultiLine( QWidget* parent, ScribusDoc* doc, multiLine ml, QString na
 	PropertiesLayout->addLayout( layout1 );
 
 	layout4 = new QHBoxLayout( 0, 0, 6, "layout4");
-	Color = new ScComboBox( true, Properties, "Color" );
+	Color = new ScComboBox( false, Properties, "Color" );
 	ColorList::Iterator it;
 	QPixmap * pm;
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
@@ -104,7 +102,6 @@ MultiLine::MultiLine( QWidget* parent, ScribusDoc* doc, multiLine ml, QString na
 		pm = getWidePixmap(doc->PageColors[it.key()].getRawRGBColor());
 		Color->insertItem(*pm, it.key());
 	}
-	Color->setEditable(false);
 	layout4->addWidget( Color );
 	Shade = new QSpinBox( Properties, "Shade" );
 	Shade->setSuffix( tr( " %" ) );

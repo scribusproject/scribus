@@ -322,7 +322,7 @@ void Page::restorePageItemConversion(ItemState<std::pair<PageItem*, PageItem*> >
 		ScApp->doc->Items.take(newItem->ItemNr);
 		ScApp->doc->Items.append(oldItem);
 		oldItem->ItemNr = ScApp->doc->Items.count()-1;
-		ScApp->view->UpdatePolyClip(oldItem);
+		oldItem->UpdatePolyClip();
 		ScApp->view->AdjustItemSize(oldItem);
 	}
 	else

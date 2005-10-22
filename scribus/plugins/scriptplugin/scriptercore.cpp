@@ -160,7 +160,7 @@ void ScripterCore::FinishScriptRun()
 				if (ite->itemType() == PageItem::PathText)
 				{
 					ite->Frame = false;
-					ScApp->view->UpdatePolyClip(ite);
+					ite->UpdatePolyClip();
 					ite->DrawObj(painter, rd);
 				}
 				else

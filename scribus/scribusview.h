@@ -176,9 +176,9 @@ public:
 	bool MoveItem(double newX, double newY, PageItem* ite, bool fromMP = false);
 	void MoveItemI(PageItem* currItem, double newX, double newY, bool redraw = true);
 	void UpdateClip(PageItem *currItem);
-	void SetPolyClip(PageItem *currItem, int up);
+	//void SetPolyClip(PageItem *currItem, int up);
 	void ConvertClip(PageItem *currItem);
-	void UpdatePolyClip(PageItem *currItem);
+	//void UpdatePolyClip(PageItem *currItem);
 	void MarkClip(PageItem *currItem, FPointArray cli, bool once = false);
 	bool PointOnLine(QPoint Start, QPoint Ende, QRect MArea);
 	void MirrorPolyH();
@@ -195,7 +195,7 @@ public:
 	void RotateGroup(double win);
 	void scaleGroup(double scx, double scy);
 	void RotateItem(double win, int ite);
-	void RotateItem(double win, PageItem *pi);
+	void RotateItem(double win, PageItem *currItem);
 	void AdjustItemSize(PageItem *currItem);
 	void AdvanceSel(PageItem *currItem, int oldPos, int len, int dir, int expandSel, int state);
 	void setNewPos(PageItem *currItem, int oldPos, int len, int dir);

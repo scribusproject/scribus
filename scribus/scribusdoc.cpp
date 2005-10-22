@@ -2680,7 +2680,6 @@ const double ScribusDoc::getYOffsetForPage(const int pageNumber)
 
 PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newType, PageItem* secondaryItem)
 {
-	bool transactionConversion=false;
 	//Item to convert is null, return
 	Q_ASSERT(currItem!=NULL);
 	if (currItem==NULL)
@@ -2691,6 +2690,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 	//Take the item to convert from the docs Items list
 	PageItem *oldItem = Items.take(currItem->ItemNr);
 	//Create a new item from the old one
+	bool transactionConversion=false;	
 	PageItem *newItem;
 	switch (newType)
 	{
@@ -2757,7 +2757,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 				polyLineItem->ClipEdited = true;
 				polyLineItem->FrameType = 3;
 				polyLineItem->Rot = currItem->Rot;
-				ScApp->view->SetPolyClip(polyLineItem, qRound(QMAX(polyLineItem->Pwidth / 2, 1)));
+				polyLineItem->SetPolyClip(qRound(QMAX(polyLineItem->Pwidth / 2, 1)));
 				ScApp->view->AdjustItemSize(polyLineItem);
 				
 				newItem->setLineColor("None");
@@ -2787,7 +2787,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 		case PageItem::PolyLine:
 			newItem->convertTo(PageItem::PolyLine);
 			newItem->ClipEdited = true;
-			ScApp->view->SetPolyClip(newItem, qRound(QMAX(newItem->Pwidth / 2, 1)));
+			newItem->SetPolyClip(qRound(QMAX(newItem->Pwidth / 2, 1)));
 			ScApp->view->AdjustItemSize(newItem);
 			break;
 		case PageItem::PathText:
@@ -2803,8 +2803,8 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 				newItem->PLineJoin = secondaryItem->PLineJoin;
 				/*	if (!Doc->loading)
 					emit UpdtObj(Doc->currentPage->pageNr(), b->ItemNr); */
+				newItem->UpdatePolyClip();
 				//FIXME: Stop using the view here
-				ScApp->view->UpdatePolyClip(newItem);
 				ScApp->view->AdjustItemSize(newItem);
 				double dx = secondaryItem->Xpos - newItem->Xpos;
 				double dy = secondaryItem->Ypos - newItem->Ypos;

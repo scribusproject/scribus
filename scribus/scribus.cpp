@@ -1292,7 +1292,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 					else
 					{
 						view->SizeItem(currItem->PoLine.WidthHeight().x(), currItem->PoLine.WidthHeight().y(), currItem->ItemNr, false, false);
-						view->SetPolyClip(currItem, qRound(QMAX(currItem->Pwidth / 2, 1)));
+						currItem->SetPolyClip(qRound(QMAX(currItem->Pwidth / 2, 1)));
 						view->AdjustItemSize(currItem);
 						currItem->ContourLine = currItem->PoLine.copy();
 						currItem->ClipEdited = true;
@@ -3985,7 +3985,7 @@ bool ScribusApp::loadDoc(QString fileName)
 				if (ite->asPathText())
 				{
 					ite->Frame = false;
-					view->UpdatePolyClip(ite);
+					ite->UpdatePolyClip();
 				}
 				else
 				{
@@ -4022,7 +4022,7 @@ bool ScribusApp::loadDoc(QString fileName)
 				if (ite->itemType() == PageItem::PathText)
 				{
 					ite->Frame = false;
-					view->UpdatePolyClip(ite);
+					ite->UpdatePolyClip();
 					ite->DrawObj(painter, rd);
 				}
 				else
@@ -4063,7 +4063,7 @@ bool ScribusApp::loadDoc(QString fileName)
 				if (ite->itemType() == PageItem::PathText)
 				{
 					ite->Frame = false;
-					view->UpdatePolyClip(ite);
+					ite->UpdatePolyClip();
 				}
 				ite->DrawObj(painter, rd);
 			}

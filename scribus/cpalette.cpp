@@ -83,8 +83,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	GradLayout = new QVBoxLayout( 0, 0, 6, "GradLayout");
 	QFont fo = QFont(font());
 	fo.setPointSize(fo.pointSize()-1);
-	gradientQCombo = new ScComboBox( true, this, "gradientQCombo" );
-	gradientQCombo->setEditable(false);
+	gradientQCombo = new ScComboBox( false, this, "gradientQCombo" );
 	gradientQCombo->setFont(fo);
 	GradLayout->addWidget( gradientQCombo );
 	gradEdit = new GradientEditor(this);

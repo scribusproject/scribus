@@ -105,11 +105,9 @@ FontComboH::FontComboH(QWidget* parent) : QWidget(parent, "FontComboH")
 	prefsManager = PrefsManager::instance();
 	currDoc = 0;
 	fontComboLayout = new QVBoxLayout( this, 0, 0, "fontComboLayout");
-	fontFamily = new ScComboBox( true, this, "fontFamily" );
-	fontFamily->setEditable(false);
+	fontFamily = new ScComboBox( false, this, "fontFamily" );
 	fontComboLayout->addWidget(fontFamily);
-	fontStyle = new ScComboBox( true, this, "fontStyle" );
-	fontStyle->setEditable(false);
+	fontStyle = new ScComboBox( false, this, "fontStyle" );
 	fontComboLayout->addWidget(fontStyle);
 	QStringList flist = prefsManager->appPrefs.AvailFonts.fontMap.keys();
 	fontFamily->insertStringList(flist);

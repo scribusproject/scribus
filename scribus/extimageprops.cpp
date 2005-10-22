@@ -69,8 +69,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ScImage::ImageInfoRecord *info, P
 	textLabel1 = new QLabel( tab, "textLabel1" );
 	textLabel1->setText( tr( "Blend Mode:" ) );
 	layout1->addWidget( textLabel1 );
-	blendMode = new ScComboBox( true, tab, "blendMode" );
-	blendMode->setEditable(false);
+	blendMode = new ScComboBox( false, tab, "blendMode" );
 	blendMode->clear();
 	blendMode->insertItem( tr("Normal"));
 	blendMode->insertItem( tr("Darken"));

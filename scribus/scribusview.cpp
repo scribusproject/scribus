@@ -2816,7 +2816,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		else
 		{
 		SizeItem(currItem->PoLine.WidthHeight().x(), currItem->PoLine.WidthHeight().y(), currItem->ItemNr, false, false, false);
-		SetPolyClip(currItem, qRound(QMAX(currItem->Pwidth / 2, 1)));
+		currItem->SetPolyClip(qRound(QMAX(currItem->Pwidth / 2, 1)));
 		AdjustItemSize(currItem);
 		currItem->Sizing = ssiz;
 		currItem->ContourLine = currItem->PoLine.copy();
@@ -2838,7 +2838,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		else
 		{
 			SizeItem(currItem->PoLine.WidthHeight().x(), currItem->PoLine.WidthHeight().y(), currItem->ItemNr, false, false);
-			SetPolyClip(currItem, qRound(QMAX(currItem->Pwidth / 2, 1)));
+			currItem->SetPolyClip(qRound(QMAX(currItem->Pwidth / 2, 1)));
 			AdjustItemSize(currItem);
 			currItem->ContourLine = currItem->PoLine.copy();
 		}
@@ -4025,7 +4025,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 							edited = true;
 							Doc->EditClipMode = 0;
 							currItem->convertTo(PageItem::PolyLine);
-							SetPolyClip(currItem, qRound(QMAX(currItem->Pwidth / 2, 1)));
+							currItem->SetPolyClip(qRound(QMAX(currItem->Pwidth / 2, 1)));
 							emit PolyOpen();
 						}
 						else
@@ -4052,7 +4052,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 								currItem->ClipEdited = true;
 								edited = true;
 								Doc->EditClipMode = 0;
-								SetPolyClip(currItem, qRound(QMAX(currItem->Pwidth / 2, 1)));
+								currItem->SetPolyClip(qRound(QMAX(currItem->Pwidth / 2, 1)));
 								emit PolyOpen();
 							}
 						}
@@ -4628,7 +4628,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				MoveItem(0, npf2.y(), currItem);
 			}
 			SizeItem(currItem->PoLine.WidthHeight().x(), currItem->PoLine.WidthHeight().y(), currItem->ItemNr, false, false, false);
-			SetPolyClip(currItem, qRound(QMAX(currItem->Pwidth / 2, 1)));
+			currItem->SetPolyClip(qRound(QMAX(currItem->Pwidth / 2, 1)));
 			currItem->paintObj();
 			emit ItemPos(currItem->Xpos, currItem->Ypos);
 			emit SetSizeValue(currItem->Pwidth);
@@ -5141,6 +5141,7 @@ void ScribusView::ConvertClip(PageItem *currItem)
 	}
 }
 
+
 void ScribusView::UpdateClip(PageItem* currItem)
 {
 	if (Doc->appMode == modeDrawBezierLine)
@@ -5194,7 +5195,7 @@ void ScribusView::UpdateClip(PageItem* currItem)
 					currItem->PoLine.map(ma);
 					currItem->ContourLine.map(ma);
 					if (currItem->asPathText())
-						UpdatePolyClip(currItem);
+						currItem->UpdatePolyClip();
 					else
 						currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
 				}
@@ -5244,7 +5245,7 @@ void ScribusView::UpdateClip(PageItem* currItem)
 			currItem->PoLine.map(ma);
 			currItem->ContourLine.map(ma);
 			if (currItem->asPathText())
-				UpdatePolyClip(currItem);
+				currItem->UpdatePolyClip();
 			else
 				currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
 			currItem->OldB2 = currItem->Width;
@@ -5255,6 +5256,7 @@ void ScribusView::UpdateClip(PageItem* currItem)
 	updateGradientVectors(currItem);
 }
 
+/*CB Moved to PageItem
 void ScribusView::SetPolyClip(PageItem *currItem, int up)
 {
 	QPoint np, np2;
@@ -5306,9 +5308,9 @@ void ScribusView::UpdatePolyClip(PageItem *currItem)
 		if (des > desc)
 			desc = des;
 	}
-	SetPolyClip(currItem, static_cast<int>(asce+currItem->BaseOffs));
+	currItem->SetPolyClip(static_cast<int>(asce+currItem->BaseOffs));
 }
-
+*/
 void ScribusView::MarkClip(PageItem *currItem, FPointArray cli, bool once)
 {
 	double x, y;
@@ -5513,7 +5515,7 @@ void ScribusView::MirrorPolyH()
 	currItem->PoLine.map(ma);
 	currItem->PoLine.translate(currItem->Width, 0);
 	if (currItem->asPathText())
-		UpdatePolyClip(currItem);
+		currItem->UpdatePolyClip();
 	else
 		currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
 	setRedrawBounding(currItem);
@@ -5560,7 +5562,7 @@ void ScribusView::MirrorPolyV()
 	currItem->PoLine.map(ma);
 	currItem->PoLine.translate(0, currItem->Height);
 	if (currItem->asPathText())
-		UpdatePolyClip(currItem);
+		currItem->UpdatePolyClip();
 	else
 		currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
 	setRedrawBounding(currItem);
@@ -5705,7 +5707,7 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 	double y = ma2.m22() * n.y() + ma2.m12() * n.x() + ma2.dy();
 	MoveItem(x-oldPos.x(), y-oldPos.y(), currItem);
 	if (currItem->asPathText())
-		UpdatePolyClip(currItem);
+		currItem->UpdatePolyClip();
 	setRedrawBounding(currItem);
 	RefreshItem(currItem);
 	MarkClip(currItem, currItem->PoLine, true);
@@ -6364,7 +6366,7 @@ void ScribusView::scaleGroup(double scx, double scy)
 			for (aa = 0; aa < bb->itemText.count(); ++aa)
 				bb->itemText.at(aa)->csize = QMAX(qRound(bb->itemText.at(aa)->csize*((scx+scy)/2)), 1);
 			if (bb->asPathText())
-				UpdatePolyClip(bb);
+				bb->UpdatePolyClip();
 		}
 		bb->LocalX = oldLocalX;
 		bb->LocalY = oldLocalY;
@@ -6435,13 +6437,10 @@ void ScribusView::RotateItem(double win, int ite)
 	RotateItem(win, Doc->Items.at(ite));
 }
 
-void ScribusView::RotateItem(double win, PageItem *pi)
+void ScribusView::RotateItem(double win, PageItem *currItem)
 {
-	PageItem *currItem;
-	currItem = pi;
 	if (currItem->locked())
 		return;
-	FPoint n;
 	QRect oldR(currItem->getRedrawBounding(Scale));
 	if ((Doc->RotMode != 0) && !(currItem->asLine()))
 	{
@@ -6451,6 +6450,7 @@ void ScribusView::RotateItem(double win, PageItem *pi)
 		ma.rotate(currItem->Rot);
 		double ro = win-currItem->Rot;
 		currItem->Rot = win;
+		FPoint n;
 		switch (Doc->RotMode)
 		{
 		case 2:
@@ -6518,7 +6518,7 @@ void ScribusView::AdjustItemSize(PageItem *currItem)
 	currItem->ClipEdited = true;
 	currItem->PoLine = Clip.copy();
 	if (currItem->asPolyLine())
-		SetPolyClip(currItem, qRound(QMAX(currItem->Pwidth / 2, 1)));
+		currItem->SetPolyClip(qRound(QMAX(currItem->Pwidth / 2, 1)));
 	else
 		currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
 	currItem->Sizing = siz;
@@ -9404,7 +9404,7 @@ void ScribusView::ChLineWidth(double w)
 			currItem->OldPwidth = currItem->Pwidth;
 			currItem->setLineWidth(w);
 			if (currItem->asPolyLine())
-				SetPolyClip(currItem, qRound(QMAX(currItem->Pwidth / 2, 1)));
+				currItem->SetPolyClip(qRound(QMAX(currItem->Pwidth / 2, 1)));
 			if (currItem->asLine())
 			{
 				int ph = static_cast<int>(QMAX(1.0, w / 2.0));
@@ -9559,7 +9559,7 @@ void ScribusView::ItemFont(QString fon)
 						currItem->itemText.at(a)->cfont = (*Doc->AllFonts)[fon];
 					if (currItem->asPathText())
 					{
-						UpdatePolyClip(currItem);
+						currItem->UpdatePolyClip();
 						AdjustItemSize(currItem);
 					}
 /*					if (!Doc->loading)
@@ -10508,7 +10508,7 @@ void ScribusView::chFSize(int size)
 				}
 				if (currItem->asPathText())
 				{
-					UpdatePolyClip(currItem);
+					currItem->UpdatePolyClip();
 					AdjustItemSize(currItem);
 				}
 				RefreshItem(currItem);
@@ -11643,7 +11643,7 @@ void ScribusView::TextToPath()
 				bb->ClipEdited = true;
 				bb->FrameType = 3;
 				bb->Rot = currItem->Rot;
-				SetPolyClip(bb, qRound(QMAX(bb->Pwidth / 2, 1)));
+				bb->SetPolyClip(qRound(QMAX(bb->Pwidth / 2, 1)));
 				AdjustItemSize(bb);
 				newGroupedItems.append(bb);
 			}

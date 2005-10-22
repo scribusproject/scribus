@@ -82,8 +82,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScColor orig, QString name, ColorList *
 	TextLabel3->setMinimumSize( QSize( 100, 22 ) );
 	Layout23->addWidget( TextLabel3 );
 
-	ComboBox1 = new ScComboBox( true, this, "ComboBox1" );
-	ComboBox1->setEditable(false);
+	ComboBox1 = new ScComboBox( false, this, "ComboBox1" );
 	ComboBox1->insertItem( tr( "CMYK" ) );
 	ComboBox1->insertItem( tr( "RGB" ) );
 	ComboBox1->insertItem( tr( "Web Safe RGB" ) );
@@ -163,8 +162,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScColor orig, QString name, ColorList *
 	Frame4Layout->setSpacing( 6 );
 	Frame4Layout->setMargin( 0 );
 	
-	Swatches = new ScComboBox( true, Frame4, "ComboBox1" );
-	Swatches->setEditable(false);
+	Swatches = new ScComboBox( false, Frame4, "ComboBox1" );
 	Swatches->insertItem( tr( "HSV-Colormap" ) );
 	Swatches->insertItem("X11 RGB-Set");
 	Swatches->insertItem("X11 Grey-Set");

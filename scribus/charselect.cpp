@@ -273,8 +273,7 @@ void CharSelect::run( QWidget* /*parent*/, PageItem *item, ScribusApp *pl)
 	rangeLabel = new QLabel( this, "fontLabel" );
 	rangeLabel->setText( tr( "Character Class:" ) );
 	selectionsLayout->addWidget( rangeLabel );
-	rangeSelector = new ScComboBox( true, this, "rangeSelector" );
-	rangeSelector->setEditable(false);
+	rangeSelector = new ScComboBox( false, this, "rangeSelector" );
 	characterClass = 0;
 	selectionsLayout->addWidget( rangeSelector );
 	QSpacerItem* spacer2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );

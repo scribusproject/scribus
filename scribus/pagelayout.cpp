@@ -39,14 +39,12 @@ PageLayouts::PageLayouts( QWidget* parent, QValueList<PageSet> pSets, bool mode 
 	}
 	else
 	{
-		layoutsCombo = new ScComboBox( true, this, "layoutsCombo" );
-		layoutsCombo->setEditable(false);
+		layoutsCombo = new ScComboBox( false, this, "layoutsCombo" );
 		layoutGroupLayout->addWidget( layoutsCombo );
 	}
 	layoutLabel1 = new QLabel( this, "layoutLabel1" );
 	layoutGroupLayout->addWidget( layoutLabel1 );
-	firstPage = new ScComboBox( true, this, "firstPage" );
-	firstPage->setEditable(false);
+	firstPage = new ScComboBox( false, this, "firstPage" );
 	layoutGroupLayout->addWidget( firstPage );
 	languageChange();
 	clearWState( WState_Polished );

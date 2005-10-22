@@ -5725,3 +5725,59 @@ void PageItem::updateGradientVectors()
 	GrStartX = QMIN(QMAX(GrStartX, 0), Width);
 	GrStartY = QMIN(QMAX(GrStartY, 0), Height);
 }
+
+void PageItem::SetPolyClip(int up)
+{
+	Clip.resize(0);
+	if (PoLine.size() < 4)
+		return;
+	double rot;
+	QPoint np, np2;
+	QPointArray cl, cl1, cl2;
+	cl = FlattenPath(PoLine, Segments);
+	for (uint a = 0; a < cl.size()-1; ++a)
+	{
+		rot = xy2Deg(cl.point(a+1).x()-cl.point(a).x(),cl.point(a+1).y()-cl.point(a).y());
+		QWMatrix ma;
+		ma.rotate(rot);
+		np = ma*QPoint(0, -up);
+		cl1.resize(cl1.size()+1);
+		cl1.setPoint(cl1.size()-1, np+cl.point(a));
+		cl1.resize(cl1.size()+1);
+		cl1.setPoint(cl1.size()-1, np+cl.point(a+1));
+		cl2.resize(cl2.size()+1);
+		cl2.setPoint(cl2.size()-1, np2+cl.point(a));
+		cl2.resize(cl2.size()+1);
+		cl2.setPoint(cl2.size()-1, np2+cl.point(a+1));
+	}
+	cl1.resize(cl1.size()+1);
+	cl1.setPoint(cl1.size()-1, np+cl.point(cl.size()-1));
+	cl2.resize(cl2.size()+1);
+	cl2.setPoint(cl2.size()-1, np2+cl.point(cl.size()-1));
+	Clip.putPoints(Clip.size(), cl1.size(), cl1);
+	for (int a2 = cl2.size()-1; a2 > -1; a2--)
+	{
+		Clip.resize(Clip.size()+1);
+		Clip.setPoint(Clip.size()-1, cl2.point(a2));
+	}
+}
+
+void PageItem::UpdatePolyClip()
+{
+	struct ScText *hl;
+	int asce = 1;
+	int desc = 1;
+	uint itemTextCount=itemText.count();
+	for (uint a = 0; a < itemTextCount; ++a)
+	{
+		hl = itemText.at(a);
+		int des = static_cast<int>(hl->cfont->numDescender * (-hl->csize / 10.0));
+		int asc = static_cast<int>(hl->cfont->numAscent * (hl->csize / 10.0));
+		if (asc > asce)
+			asce = asc;
+		if (des > desc)
+			desc = des;
+	}
+	SetPolyClip(static_cast<int>(asce+BaseOffs));
+}
+

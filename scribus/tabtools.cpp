@@ -89,8 +89,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	subTabTextLayout->addMultiCellWidget( fontComboText, 0, 0, 1, 3, Qt::AlignLeft );
 	textLabel1b = new QLabel( fontComboText, tr( "Font:" ), subTabText, "textLabel1b" );
 	subTabTextLayout->addWidget( textLabel1b, 0, 0 );
-	sizeComboText = new ScComboBox( true, subTabText, "SizeCombo" );
-	sizeComboText->setEditable(false);
+	sizeComboText = new ScComboBox( false, subTabText, "SizeCombo" );
 	QString ar_sizes[] = {" 7", " 9", "10", "11", "12", "14", "18", "24", "36", "48", "60", "72"};
 	size_t f_size = sizeof(ar_sizes) / sizeof(*ar_sizes);
 	for (uint s = 0; s < f_size; ++s)
@@ -104,8 +103,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	textLabel2b = new QLabel(sizeComboText, tr( "Size:" ), subTabText, "textLabel2b" );
 	subTabTextLayout->addWidget( textLabel2b, 1, 0 );
 
-	colorComboText = new ScComboBox( true, subTabText, "colorComboText" );
-	colorComboText->setEditable(false);
+	colorComboText = new ScComboBox( false, subTabText, "colorComboText" );
 	ColorList::Iterator itc;
 	colorComboText->insertItem( tr("None"));
 	if (prefsData->dPenText == "None")
@@ -144,8 +142,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	textLabelTS = new QLabel( shadingText, tr( "Shading:" ), subTabText, "textLabelTS" );
 	subTabTextLayout->addWidget( textLabelTS, 2, 2 );
 
-	colorComboStrokeText = new ScComboBox( true, subTabText, "colorComboStrokeText" );
-	colorComboStrokeText->setEditable(false);
+	colorComboStrokeText = new ScComboBox( false, subTabText, "colorComboStrokeText" );
 	colorComboStrokeText->insertItem( tr("None"));
 	if (prefsData->dStrokeText == "None")
 		colorComboStrokeText->setCurrentItem(colorComboStrokeText->count()-1);
@@ -183,8 +180,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	textLabelTSS = new QLabel( shadingTextStroke, tr( "Shading:" ), subTabText, "textLabelTS" );
 	subTabTextLayout->addWidget( textLabelTSS, 3, 2 );
 
-	colorComboTextBackground = new ScComboBox( true, subTabText, "colorComboTextBackground" );
-	colorComboTextBackground->setEditable(false);
+	colorComboTextBackground = new ScComboBox( false, subTabText, "colorComboTextBackground" );
 	colorComboTextBackground->insertItem( tr("None"));
 	if (prefsData->dTextBackGround == "None")
 		colorComboTextBackground->setCurrentItem(colorComboTextBackground->count()-1);
@@ -222,8 +218,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	textLabelTSB = new QLabel( shadingTextBack, tr( "Shading:" ), subTabText, "textLabelTSS" );
 	subTabTextLayout->addWidget( textLabelTSB, 4, 2 );
 
-	colorComboTextLine = new ScComboBox( true, subTabText, "colorComboTextLine" );
-	colorComboTextLine->setEditable(false);
+	colorComboTextLine = new ScComboBox( false, subTabText, "colorComboTextLine" );
 	colorComboTextLine->insertItem( tr("None"));
 	if (prefsData->dTextLineColor == "None")
 		colorComboTextLine->setCurrentItem(colorComboTextLine->count()-1);
@@ -261,8 +256,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	textLabelTSL = new QLabel( shadingTextLine, tr( "Shading:" ), subTabText, "textLabelTSL" );
 	subTabTextLayout->addWidget( textLabelTSL, 5, 2 );
 
-	tabFillCombo = new ScComboBox( true, subTabText, "tabFillCombo" );
-	tabFillCombo->setEditable(false);
+	tabFillCombo = new ScComboBox( false, subTabText, "tabFillCombo" );
 	tabFillCombo->insertItem( tr("None"));
 	tabFillCombo->insertItem( tr("Dot"));
 	tabFillCombo->insertItem( tr("Hyphen"));
@@ -270,22 +264,18 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	tabFillCombo->insertItem( tr("Custom"));
 	if (prefsData->tabFillChar.isEmpty())
 	{
-		tabFillCombo->setEditable(false);
 		tabFillCombo->setCurrentItem(0);
 	}
 	else if (prefsData->tabFillChar == ".")
 	{
-		tabFillCombo->setEditable(false);
 		tabFillCombo->setCurrentItem(1);
 	}
 	else if (prefsData->tabFillChar == "-")
 	{
-		tabFillCombo->setEditable(false);
 		tabFillCombo->setCurrentItem(2);
 	}
 	else if (prefsData->tabFillChar == "_")
 	{
-		tabFillCombo->setEditable(false);
 		tabFillCombo->setCurrentItem(3);
 	}
 	else
@@ -325,8 +315,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	subTabShape = new QWidget( subStackTools, "subTabShape" );
 	subTabShapeLayout = new QGridLayout( subTabShape, 1, 1, 11, 6, "subTabShapeLayout");
 	subTabShapeLayout->setAlignment( Qt::AlignTop );
-	colorComboLineShape = new ScComboBox( true, subTabShape, "colorComboLineShape" );
-	colorComboLineShape->setEditable(false);
+	colorComboLineShape = new ScComboBox( false, subTabShape, "colorComboLineShape" );
 	colorComboLineShape->insertItem( tr("None"));
 	if (prefsData->dPen == "None")
 		colorComboLineShape->setCurrentItem(colorComboLineShape->count()-1);
@@ -363,8 +352,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	subTabShapeLayout->addWidget( shadingLineShape, 1, 1, Qt::AlignLeft );
 	textLabel8b = new QLabel( shadingLineShape, tr( "&Shading:" ), subTabShape, "textLabel8b" );
 	subTabShapeLayout->addWidget( textLabel8b, 1, 0 );
-	comboFillShape = new ScComboBox( true, subTabShape, "comboFillShape" );
-	comboFillShape->setEditable(false);
+	comboFillShape = new ScComboBox( false, subTabShape, "comboFillShape" );
 	comboFillShape->insertItem( tr("None"));
 	if (prefsData->dBrush == "None")
 		comboFillShape->setCurrentItem(comboFillShape->count()-1);
@@ -438,8 +426,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	subTabLine = new QWidget( subStackTools, "subTabLine" );
 	subTabLineLayout = new QGridLayout( subTabLine, 1, 1, 11, 6, "subTabLineLayout");
 	subTabLineLayout->setAlignment( Qt::AlignTop );
-	colorComboLine = new ScComboBox( true, subTabLine, "colorComboLine" );
-	colorComboLine->setEditable(false);
+	colorComboLine = new ScComboBox( false, subTabLine, "colorComboLine" );
 	colorComboLine->insertItem( tr("None"));
 	if (prefsData->dPenLine == "None")
 		colorComboLine->setCurrentItem(colorComboLine->count()-1);
@@ -578,8 +565,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	checkRatioImage->setChecked(prefsData->aspectRatio);
 	buttonGroup5Layout->addWidget( checkRatioImage );
 	subTabImageLayout->addMultiCellWidget( buttonGroup5, 1, 1, 0, 1 );
-	comboFillImage = new ScComboBox( true, subTabImage, "comboFillImage" );
-	comboFillImage->setEditable(false);
+	comboFillImage = new ScComboBox( false, subTabImage, "comboFillImage" );
 	comboFillImage->insertItem( tr("None"));
 	if (prefsData->dBrushPict == "None")
 		comboFillImage->setCurrentItem(comboFillImage->count()-1);

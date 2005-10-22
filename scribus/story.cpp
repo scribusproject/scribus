@@ -1663,8 +1663,7 @@ SToolBColorF::SToolBColorF(QMainWindow* parent, ScribusDoc *doc) : QToolBar( tr(
 	FillIcon = new QLabel( "", this, "FillIcon" );
 	FillIcon->setPixmap(loadIcon("fill.png"));
 	FillIcon->setScaledContents( false );
-	TxFill = new ScComboBox( true, this, "TxFill" );
-	TxFill->setEditable(false);
+	TxFill = new ScComboBox( false, this, "TxFill" );
 	PM2 = new ShadeButton(this);
 	setCurrentDocument(doc);
 	//TxFill->listBox()->setMinimumWidth(TxFill->listBox()->maxItemWidth()+24);
@@ -1723,8 +1722,7 @@ SToolBColorS::SToolBColorS(QMainWindow* parent, ScribusDoc *doc) : QToolBar( tr(
 	StrokeIcon = new QLabel( "", this, "StrokeIcon" );
 	StrokeIcon->setPixmap(loadIcon("Stiftalt.xpm"));
 	StrokeIcon->setScaledContents( false );
-	TxStroke = new ScComboBox( true, this, "TxStroke" );
-	TxStroke->setEditable(false);
+	TxStroke = new ScComboBox( false, this, "TxStroke" );
 	PM1 = new ShadeButton(this);
 	setCurrentDocument(doc);
 	//TxStroke->listBox()->setMinimumWidth(TxStroke->listBox()->maxItemWidth()+24);

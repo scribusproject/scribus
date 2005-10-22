@@ -13,13 +13,12 @@ HySettings::HySettings( QWidget* parent, QMap<QString,QString>* langs ) : QWidge
 	input = new QCheckBox( tr("Hyphenate Text Automatically &During Typing"), this, "inp");
 	layout3->addMultiCellWidget(input, 1, 1, 0, 1);
 	
-	language = new ScComboBox( true, this, "Language" );
+	language = new ScComboBox( false, this, "Language" );
 	QMap<QString,QString>::Iterator it;
 	for (it = langs->begin(); it != langs->end(); ++it)
 		lada.append(it.data());
 	lada.sort();
 	language->insertStringList(lada);
-	language->setEditable(false);
 	text1 = new QLabel( language, tr( "&Language:" ), this, "Text1" );
 	layout3->addWidget( text1, 2, 0 );
 	layout3->addWidget( language, 2, 1, Qt::AlignLeft );

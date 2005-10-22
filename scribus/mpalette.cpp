@@ -486,8 +486,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "Mdouble", false,
 	StrokeIcon->setPixmap(loadIcon("Stiftalt.xpm"));
 	StrokeIcon->setScaledContents( false );
 	layout23->addWidget( StrokeIcon );
-	TxStroke = new ScComboBox( true, page_3, "TxStroke" );
-	TxStroke->setEditable(false);
+	TxStroke = new ScComboBox( false, page_3, "TxStroke" );
 	layout23->addWidget( TxStroke );
 	ShadeTxt1 = new QLabel( "", page_3, "ShadeTxt" );
 	ShadeTxt1->setPixmap(loadIcon("shade.png"));
@@ -500,8 +499,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "Mdouble", false,
 	FillIcon = new QLabel( "", page_3, "FillIcon" );
 	FillIcon->setPixmap(loadIcon("fill.png"));
 	layout24->addWidget( FillIcon );
-	TxFill = new ScComboBox( true, page_3, "TxFill" );
-	TxFill->setEditable(false);
+	TxFill = new ScComboBox( false, page_3, "TxFill" );
 	layout24->addWidget( TxFill );
 	ShadeTxt2 = new QLabel("", page_3, "ShadeTxt" );
 	ShadeTxt2->setPixmap(loadIcon("shade.png"));
@@ -535,8 +533,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "Mdouble", false,
 	styleLabel = new QLabel( Spal, "St&yle:", page_3, "styleLabel" );
 	GroupBox3aLayout->addWidget( styleLabel, 0, 0 );
 	GroupBox3aLayout->addWidget( Spal, 0, 1 );
-	langCombo = new ScComboBox( true, page_3, "Lang" );
-	langCombo->setEditable(false);
+	langCombo = new ScComboBox( false, page_3, "Lang" );
 	langLabel = new QLabel( langCombo, "Lan&guage:", page_3, "langLabel" );
 	GroupBox3aLayout->addWidget( langLabel, 1, 0 );
 	GroupBox3aLayout->addWidget( langCombo, 1, 1 );
@@ -624,13 +621,11 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "Mdouble", false,
 	GroupBoxCMLayout->setAlignment( Qt::AlignTop );
 	TextCms1 = new QLabel( GroupBoxCM, "xposLabel" );
 	GroupBoxCMLayout->addWidget( TextCms1 );
-	InputP = new ScComboBox( true, GroupBoxCM, "InputP" );
-	InputP->setEditable(false);
+	InputP = new ScComboBox( false, GroupBoxCM, "InputP" );
 	GroupBoxCMLayout->addWidget(InputP);
 	TextCms2 = new QLabel( GroupBoxCM, "TextCms2" );
 	GroupBoxCMLayout->addWidget(TextCms2);
-	MonitorI = new ScComboBox( true, GroupBoxCM, "MonitorI" );
-	MonitorI->setEditable(false);
+	MonitorI = new ScComboBox( false, GroupBoxCM, "MonitorI" );
 	GroupBoxCMLayout->addWidget(MonitorI);
 	pageLayout_4->addWidget(GroupBoxCM);
 
@@ -642,8 +637,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "Mdouble", false,
 	pageLayout_5 = new QVBoxLayout( page_5, 0, 5, "pageLayout_5");
 
 	Layout13_2 = new QHBoxLayout( 0, 0, 4, "Layout13_2");
-	LineMode = new ScComboBox( true, page_5, "LMode" );
-	LineMode->setEditable(false);
+	LineMode = new ScComboBox( false, page_5, "LMode" );
 	LineModeT = new QLabel( LineMode, "&Basepoint:", page_5, "LModeText" );
 	Layout13_2->addWidget( LineModeT );
 	Layout13_2->addWidget( LineMode );
@@ -669,13 +663,11 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "Mdouble", false,
 	linewidthLabel = new QLabel(LSize, "Line &Width:", page_5, "linewidthLabel" );
 	Layout12_2->addWidget( linewidthLabel, 3, 0 );
 	Layout12_2->addWidget( LSize, 3, 1 );
-	LJoinStyle = new ScComboBox( true, page_5, "LJoin" );
-	LJoinStyle->setEditable(false);
+	LJoinStyle = new ScComboBox( false, page_5, "LJoin" );
 	edgesLabel = new QLabel( LJoinStyle, "Ed&ges:", page_5, "edgesLabel" );
 	Layout12_2->addWidget( edgesLabel, 4, 0 );
 	Layout12_2->addWidget( LJoinStyle, 4, 1 );
-	LEndStyle = new ScComboBox( true, page_5, "LCap" );
-	LEndStyle->setEditable(false);
+	LEndStyle = new ScComboBox( false, page_5, "LCap" );
 	endingsLabel = new QLabel( LEndStyle, "&Endings:", page_5, "endingsLabel" );
 	Layout12_2->addWidget( endingsLabel, 5, 0 );
 	Layout12_2->addWidget( LEndStyle, 5, 1 );
@@ -3334,7 +3326,7 @@ void Mpalette::handlePathDist()
 	if ((HaveDoc) && (HaveItem))
 	{
 		CurItem->Extra = Dist->value();
-		ScApp->view->UpdatePolyClip(CurItem);
+		CurItem->UpdatePolyClip();
 		ScApp->view->AdjustItemSize(CurItem);
 		ScApp->view->RefreshItem(CurItem);
 		emit DocChanged();
@@ -3348,7 +3340,7 @@ void Mpalette::handlePathOffs()
 	if ((HaveDoc) && (HaveItem))
 	{
 		CurItem->BaseOffs = -LineW->value();
-		ScApp->view->UpdatePolyClip(CurItem);
+		CurItem->UpdatePolyClip();
 		ScApp->view->AdjustItemSize(CurItem);
 		ScApp->view->RefreshItem(CurItem);
 		emit DocChanged();

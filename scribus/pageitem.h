@@ -236,10 +236,20 @@ public:
 	void SetRectFrame();
 	void SetOvalFrame();
 	void SetFrameRound();
+	void SetPolyClip(int up);
+	void UpdatePolyClip();
 	//QRect getRedrawBounding(const double);
 	//void setRedrawBounding();
 	void getBoundingRect(double *x1, double *y1, double *x2, double *y2);
 	void copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer);
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	double SetZeichAttr(struct ScText *hl, int *chs, QString *chx);
 	void SetFarbe(QColor *tmp, QString farbe, int shad);
