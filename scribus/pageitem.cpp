@@ -3431,9 +3431,15 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 					p->translate((hl->Siz * hl->shadowX / 10000.0) * p->zoomFactor(), -(hl->Siz * hl->shadowY / 10000.0) * p->zoomFactor());
 					QColor tmp = p->brush();
 					p->setBrush(p->pen());
+#ifdef HAVE_CAIRO
+					p->setupTextPolygon(&gly);
+#endif
 					p->fillPath();
 					p->setBrush(tmp);
 					p->restore();
+#ifdef HAVE_CAIRO
+					p->setupTextPolygon(&gly);
+#endif
 				}
 				if (hl->Farb != "None")
 					p->fillPath();
