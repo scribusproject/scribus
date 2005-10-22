@@ -174,7 +174,7 @@ public:
 	void ToView(QPainter *p);
 	void RefreshItem(PageItem *currItem);
 	bool MoveItem(double newX, double newY, PageItem* ite, bool fromMP = false);
-	void MoveItemI(double newX, double newY, int ite, bool redraw = true);
+	void MoveItemI(PageItem* currItem, double newX, double newY, bool redraw = true);
 	void UpdateClip(PageItem *currItem);
 	void SetPolyClip(PageItem *currItem, int up);
 	void ConvertClip(PageItem *currItem);
@@ -188,7 +188,7 @@ public:
 	void ResetControl();
 	void MoveClipPoint(PageItem *currItem, FPoint np);
 	bool SizeItem(double newX, double newY, int ite, bool fromMP = false, bool DoUpdateClip = true, bool redraw = true);
-	bool SizeItem(double newX, double newY, PageItem *pi, bool fromMP, bool DoUpdateClip, bool redraw);
+	bool SizeItem(double newX, double newY, PageItem *pi, bool fromMP = false, bool DoUpdateClip = true, bool redraw = true);
 	void moveGroup(double x, double y, bool fromMP = false);
 	void MoveRotated(PageItem *currItem, FPoint npv, bool fromMP = false);
 	bool MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP = false);

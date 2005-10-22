@@ -1538,22 +1538,22 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							if (!currItem->locked())
 							{
 								if ( buttonState & ShiftButton )
-									view->MoveItemI(-10, 0, currItem->ItemNr, true);
+									view->MoveItemI(currItem, -10, 0, true);
 								else if ( buttonState & ControlButton )
-									view->MoveItemI(-0.1, 0, currItem->ItemNr, true);
+									view->MoveItemI(currItem, -0.1, 0, true);
 								else
-									view->MoveItemI(-1, 0, currItem->ItemNr, true);
+									view->MoveItemI(currItem, -1, 0, true);
 							}
 							break;
 						case Key_Right:
 							if (!currItem->locked())
 							{
 								if ( buttonState & ShiftButton )
-									view->MoveItemI(10, 0, currItem->ItemNr, true);
+									view->MoveItemI(currItem, 10, 0, true);
 								else if ( buttonState & ControlButton )
-									view->MoveItemI(0.1, 0, currItem->ItemNr, true);
+									view->MoveItemI(currItem, 0.1, 0, true);
 								else
-									view->MoveItemI(1, 0, currItem->ItemNr, true);
+									view->MoveItemI(currItem, 1, 0, true);
 							}
 							break;
 						case Key_Up:

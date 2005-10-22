@@ -2128,9 +2128,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 									MoveSizeItem(FPoint(0, 0), FPoint(-dist, 0), bb->ItemNr);
 							}
 							if (currItem->imageFlippedH())
-								MoveItemI(-(currItem->Width - currItem->OldB2)/currItem->LocalScX, 0, currItem->ItemNr, false);
+								MoveItemI(currItem, -(currItem->Width - currItem->OldB2)/currItem->LocalScX, 0, false);
 							if (currItem->imageFlippedV())
-								MoveItemI(0, -(currItem->Height - currItem->OldH2)/currItem->LocalScY, currItem->ItemNr, false);
+								MoveItemI(currItem, 0, -(currItem->Height - currItem->OldH2)/currItem->LocalScY, false);
 						}
 						else
 						{
@@ -2212,9 +2212,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 								MoveSizeItem(npx, npx, currItem->ItemNr);
 							currItem->Sizing = false;
 							if (!currItem->imageFlippedH())
-								MoveItemI((currItem->Width - currItem->OldB2)/currItem->LocalScX, 0, currItem->ItemNr);
+								MoveItemI(currItem, (currItem->Width - currItem->OldB2)/currItem->LocalScX, 0);
 							if (!currItem->imageFlippedV())
-								MoveItemI(0, (currItem->Height - currItem->OldH2)/currItem->LocalScY, currItem->ItemNr);
+								MoveItemI(currItem, 0, (currItem->Height - currItem->OldH2)/currItem->LocalScY);
 						}
 						else
 						{
@@ -2301,9 +2301,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 							MoveSizeItem(FPoint(0, npx.y()), FPoint(currItem->Width - npx.x(), npx.y()), currItem->ItemNr);
 						currItem->Sizing = false;
 						if (currItem->imageFlippedH())
-							MoveItemI(-(currItem->Width - currItem->OldB2)/currItem->LocalScX, 0, currItem->ItemNr, false);
+							MoveItemI(currItem, -(currItem->Width - currItem->OldB2)/currItem->LocalScX, 0, false);
 						if (!currItem->imageFlippedV())
-							MoveItemI(0, (currItem->Height - currItem->OldH2)/currItem->LocalScY, currItem->ItemNr, false);
+							MoveItemI(currItem, 0, (currItem->Height - currItem->OldH2)/currItem->LocalScY, false);
 						break;
 					case 4:
 						if (currItem->isTableItem)
@@ -2361,9 +2361,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 							MoveSizeItem(FPoint(npx.x(), 0), FPoint(npx.x(), currItem->Height - npx.y()), currItem->ItemNr);
 						currItem->Sizing = false;
 						if (!currItem->imageFlippedH())
-							MoveItemI((currItem->Width - currItem->OldB2)/currItem->LocalScX, 0, currItem->ItemNr, false);
+							MoveItemI(currItem, (currItem->Width - currItem->OldB2)/currItem->LocalScX, 0, false);
 						if (currItem->imageFlippedV())
-							MoveItemI(0, -(currItem->Height - currItem->OldH2)/currItem->LocalScY, currItem->ItemNr, false);
+							MoveItemI(currItem, 0, -(currItem->Height - currItem->OldH2)/currItem->LocalScY, false);
 						break;
 					case 5:
 						if (currItem->isTableItem)
@@ -2397,7 +2397,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						else
 							MoveSizeItem(FPoint(0, 0), FPoint(0, currItem->Height - npx.y()), currItem->ItemNr);
 						if (currItem->imageFlippedV())
-							MoveItemI(0, -(currItem->Height - currItem->OldH2)/currItem->LocalScY, currItem->ItemNr, false);
+							MoveItemI(currItem, 0, -(currItem->Height - currItem->OldH2)/currItem->LocalScY, false);
 						currItem->Sizing = false;
 						break;
 					case 6:
@@ -2432,7 +2432,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						else
 							MoveSizeItem(FPoint(0, 0), FPoint(currItem->Width - npx.x(), 0), currItem->ItemNr);
 						if (currItem->imageFlippedH())
-							MoveItemI(-(currItem->Width - currItem->OldB2)/currItem->LocalScX, 0, currItem->ItemNr, false);
+							MoveItemI(currItem, -(currItem->Width - currItem->OldB2)/currItem->LocalScX, 0, false);
 						currItem->Sizing = false;
 						break;
 					case 7:
@@ -2467,9 +2467,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 							MoveSizeItem(FPoint(npx.x(), 0), FPoint(npx.x(), 0), currItem->ItemNr);
 						currItem->Sizing = false;
 						if (!currItem->imageFlippedH())
-							MoveItemI((currItem->Width - currItem->OldB2)/currItem->LocalScX, 0, currItem->ItemNr, false);
+							MoveItemI(currItem, (currItem->Width - currItem->OldB2)/currItem->LocalScX, 0, false);
 						if (currItem->imageFlippedV())
-							MoveItemI(0, -(currItem->Height - currItem->OldH2)/currItem->LocalScY, currItem->ItemNr, false);
+							MoveItemI(currItem, 0, -(currItem->Height - currItem->OldH2)/currItem->LocalScY, false);
 						break;
 					case 8:
 						if (currItem->isTableItem)
@@ -2503,9 +2503,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 							MoveSizeItem(FPoint(0, npx.y()), FPoint(0, npx.y()), currItem->ItemNr);
 						currItem->Sizing = false;
 						if (currItem->imageFlippedH())
-							MoveItemI(-(currItem->Width - currItem->OldB2)/currItem->LocalScX, 0, currItem->ItemNr, false);
+							MoveItemI(currItem, -(currItem->Width - currItem->OldB2)/currItem->LocalScX, 0, false);
 						if (!currItem->imageFlippedV())
-							MoveItemI(0, (currItem->Height - currItem->OldH2)/currItem->LocalScY, currItem->ItemNr, false);
+							MoveItemI(currItem, 0, (currItem->Height - currItem->OldH2)/currItem->LocalScY, false);
 						break;
 					}
 					//TextFrame resize - Resize text with resize of frame
@@ -3152,7 +3152,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 		{
 			if (currItem->asImageFrame())
 			{
-				MoveItemI((newX-Mxp)/currItem->LocalScX, (newY-Myp)/currItem->LocalScY, currItem->ItemNr);
+				MoveItemI(currItem, (newX-Mxp)/currItem->LocalScX, (newY-Myp)/currItem->LocalScY);
 				Mxp = newX;
 				Myp = newY;
 			}
@@ -3516,7 +3516,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 				{
 					currItem = SelItem.at(0);
 					if ((currItem->asImageFrame()) && (m->state() & (ControlButton | AltButton)))
-						MoveItemI((newX-Mxp)/currItem->LocalScX, (newY-Myp)/currItem->LocalScY, currItem->ItemNr);
+						MoveItemI(currItem, (newX-Mxp)/currItem->LocalScX, (newY-Myp)/currItem->LocalScY);
 					else
 					{
 						if (!(currItem->isTableItem && currItem->isSingleSel))
@@ -5091,9 +5091,9 @@ bool ScribusView::MoveItem(double newX, double newY, PageItem* currItem, bool fr
 	return retw;
 }
 
-void ScribusView::MoveItemI(double newX, double newY, int ite, bool redraw)
+void ScribusView::MoveItemI(PageItem* currItem, double newX, double newY, bool redraw)
 {
-	PageItem *currItem = Doc->Items.at(ite);
+	//PageItem *currItem = Doc->Items.at(ite);
 	if ((currItem->locked()) || (!currItem->ScaleType))
 		return;
 	if (currItem->imageFlippedH())
@@ -5855,7 +5855,7 @@ void ScribusView::MoveClipPoint(PageItem *currItem, FPoint ip)
 				MoveItem(np.x(), 0, currItem);
 			Clip.translate(-np.x(), 0);
 			if (!currItem->imageFlippedH())
-				MoveItemI(-np.x()/currItem->LocalScX, 0, currItem->ItemNr, false);
+				MoveItemI(currItem, -np.x()/currItem->LocalScX, 0, false);
 			np.setX(0);
 		}
 		if ((np.y() < 0) && (!EditContour))
@@ -5870,7 +5870,7 @@ void ScribusView::MoveClipPoint(PageItem *currItem, FPoint ip)
 				MoveItem(0, np.y(), currItem);
 			Clip.translate(0, -np.y());
 			if (!currItem->imageFlippedV())
-				MoveItemI(0, -np.y()/currItem->LocalScY, currItem->ItemNr, false);
+				MoveItemI(currItem, 0, -np.y()/currItem->LocalScY, false);
 			np.setY(0);
 		}
 		emit ClipPo(np.x(), np.y());
@@ -6064,16 +6064,16 @@ bool ScribusView::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, 
 		if (fromMP)
 		{
 			if (currItem->imageFlippedH())
-				MoveItemI(-(currItem->Width - currItem->OldB2)/currItem->LocalScX, 0, currItem->ItemNr, false);
+				MoveItemI(currItem, -(currItem->Width - currItem->OldB2)/currItem->LocalScX, 0, false);
 			if (currItem->imageFlippedV())
-				MoveItemI(0, -(currItem->Height - currItem->OldH2)/currItem->LocalScY, currItem->ItemNr, false);
+				MoveItemI(currItem, 0, -(currItem->Height - currItem->OldH2)/currItem->LocalScY, false);
 		}
 		else
 		{
 			if (!currItem->imageFlippedH())
-				MoveItemI((currItem->Width - currItem->OldB2)/currItem->LocalScX, 0, currItem->ItemNr, false);
+				MoveItemI(currItem, (currItem->Width - currItem->OldB2)/currItem->LocalScX, 0, false);
 			if (!currItem->imageFlippedV())
-				MoveItemI(0, (currItem->Height - currItem->OldH2)/currItem->LocalScY, currItem->ItemNr, false);
+				MoveItemI(currItem, 0, (currItem->Height - currItem->OldH2)/currItem->LocalScY, false);
 		}
 		UpdateClip(currItem);
 	}
@@ -6495,7 +6495,8 @@ void ScribusView::AdjustItemSize(PageItem *currItem)
 	FPointArray Clip;
 	Clip = currItem->PoLine;
 	FPoint tp2 = getMinClipF(&Clip);
-	SizeItem(currItem->Width - tp2.x(), currItem->Height - tp2.y(), currItem->ItemNr, true, false, false);
+	//SizeItem(currItem->Width - tp2.x(), currItem->Height - tp2.y(), currItem->ItemNr, true, false, false);
+	SizeItem(currItem->Width - tp2.x(), currItem->Height - tp2.y(), currItem, true, false, false);
 	Clip.translate(-tp2.x(), -tp2.y());
 	if (currItem->Rot != 0)
 	{
@@ -6505,15 +6506,15 @@ void ScribusView::AdjustItemSize(PageItem *currItem)
 	else
 		MoveItem(tp2.x(), tp2.y(), currItem, true);
 	if (!currItem->imageFlippedH())
-		MoveItemI(-tp2.x()/currItem->LocalScX, 0, currItem->ItemNr, false);
+		MoveItemI(currItem, -tp2.x()/currItem->LocalScX, 0, false);
 	if (!currItem->imageFlippedV())
-		MoveItemI(0, -tp2.y()/currItem->LocalScY, currItem->ItemNr, false);
+		MoveItemI(currItem, 0, -tp2.y()/currItem->LocalScY, false);
 	FPoint tp = getMaxClipF(&Clip);
 	if (currItem->imageFlippedH())
-		MoveItemI((currItem->Width - tp.x())/currItem->LocalScX, 0, currItem->ItemNr, false);
+		MoveItemI(currItem, (currItem->Width - tp.x())/currItem->LocalScX, 0, false);
 	if (currItem->imageFlippedV())
-		MoveItemI(0, (currItem->Height - tp.y())/currItem->LocalScY, currItem->ItemNr, false);
-	SizeItem(tp.x(), tp.y(), currItem->ItemNr, true, false);
+		MoveItemI(currItem, 0, (currItem->Height - tp.y())/currItem->LocalScY, false);
+	SizeItem(tp.x(), tp.y(), currItem, true, false);
 	currItem->ClipEdited = true;
 	currItem->PoLine = Clip.copy();
 	if (currItem->asPolyLine())
@@ -8255,11 +8256,11 @@ void ScribusView::RaiseItem()
 
 void ScribusView::ToPicFrame()
 {
-	//emit Amode(1);
 	PageItem *currItem = SelItem.at(0);
 	Deselect(true);
-	PageItem* newItem=Doc->convertToImageFrame(currItem);
+	PageItem* newItem=Doc->convertItemTo(currItem, PageItem::ImageFrame);
 	RefreshItem(newItem);
+	SelectItem(newItem);
 	emit HaveSel(newItem->itemType());
 	if (!Doc->isLoading())
 		emit UpdtObj(Doc->currentPage->pageNr(), newItem->ItemNr);
@@ -8270,51 +8271,49 @@ void ScribusView::ToPicFrame()
 void ScribusView::ToPolyFrame()
 {
 	PageItem *currItem = new PageItem_Polygon(*SelItem.at(0));
-	currItem->convertTo(PageItem::Polygon);
-	currItem->Frame = false;
-	currItem->ClipEdited = true;
-	currItem->FrameType = 3;
-	currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
-	currItem->ContourLine = currItem->PoLine.copy();
-	RefreshItem(currItem);
-	emit HaveSel(currItem->itemType());
+	Deselect(true);
+	PageItem* newItem=Doc->convertItemTo(currItem, PageItem::Polygon);
+	RefreshItem(newItem);
+	SelectItem(newItem);
+	emit HaveSel(newItem->itemType());
 	if (!Doc->isLoading())
-		emit UpdtObj(Doc->currentPage->pageNr(), currItem->ItemNr);
-	EmitValues(currItem);
+		emit UpdtObj(Doc->currentPage->pageNr(), newItem->ItemNr);
+	EmitValues(newItem);
 	emit DocChanged();
 }
 
 void ScribusView::ToTextFrame()
 {
-	PageItem *currItem = new PageItem_TextFrame(*SelItem.at(0));
-	currItem->convertTo(PageItem::TextFrame);
-	currItem->Frame = true;
-	RefreshItem(currItem);
-	emit HaveSel(currItem->itemType());
+	PageItem *currItem = SelItem.at(0);
+	Deselect(true);
+	PageItem* newItem=Doc->convertItemTo(currItem, PageItem::TextFrame);
+	RefreshItem(newItem);
+	SelectItem(newItem);
+	emit HaveSel(newItem->itemType());
 	if (!Doc->isLoading())
-		emit UpdtObj(Doc->currentPage->pageNr(), currItem->ItemNr);
-	EmitValues(currItem);
+		emit UpdtObj(Doc->currentPage->pageNr(), newItem->ItemNr);
+	EmitValues(newItem);
 	emit DocChanged();
 }
 
 void ScribusView::ToBezierFrame()
 {
-	PageItem *currItem = new PageItem_PolyLine(*SelItem.at(0));
-	currItem->convertTo(PageItem::PolyLine);
-	currItem->ClipEdited = true;
-	SetPolyClip(currItem, qRound(QMAX(currItem->Pwidth / 2, 1)));
-	AdjustItemSize(currItem);
-	RefreshItem(currItem);
-	emit HaveSel(currItem->itemType());
+	PageItem *currItem = SelItem.at(0);
+	Deselect(true);
+	PageItem* newItem=Doc->convertItemTo(currItem, PageItem::PolyLine);
+	RefreshItem(newItem);
+	SelectItem(newItem);
+	emit HaveSel(newItem->itemType());
 	if (!Doc->isLoading())
-		emit UpdtObj(Doc->currentPage->pageNr(), currItem->ItemNr);
-	EmitValues(currItem);
+		emit UpdtObj(Doc->currentPage->pageNr(), newItem->ItemNr);
+	EmitValues(newItem);
 	emit DocChanged();
 }
 
 void ScribusView::Bezier2Poly()
 {
 	PageItem *currItem = SelItem.at(0);
+	
 	currItem->convertTo(PageItem::Polygon);
 	currItem->Frame = false;
 	currItem->ClipEdited = true;
@@ -8325,6 +8324,7 @@ void ScribusView::Bezier2Poly()
 	currItem->PoLine.addPoint(currItem->PoLine.point(0));
 	currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
 	currItem->ContourLine = currItem->PoLine.copy();
+	
 	RefreshItem(currItem);
 	emit HaveSel(currItem->itemType());
 	if (!Doc->isLoading())
@@ -11398,35 +11398,34 @@ void ScribusView::ToPathText()
 {
 	if (SelItem.count() > 1)
 	{
-		PageItem *currItem = new PageItem_PathText(*SelItem.at(0));
+		PageItem* oldItem=SelItem.at(0);
 		PageItem *bb;
-		if (currItem->asTextFrame())
+		if (oldItem->asTextFrame())
 			bb = SelItem.at(1);
 		else
 		{
 			bb = SelItem.at(0);
-			currItem = SelItem.at(1);
+			oldItem = SelItem.at(1);
 		}
 		if (!bb->asPolyLine())
 			return;
-		currItem->Frame = false;
-		currItem->ClipEdited = true;
-		currItem->convertTo(PageItem::PathText);
-		currItem->PoLine = bb->PoLine.copy();
-		currItem->Pwidth = bb->Pwidth;
-		currItem->setLineColor(bb->lineColor());
-		currItem->PLineArt = bb->PLineArt;
-		currItem->PLineEnd = bb->PLineEnd;
-		currItem->PLineJoin = bb->PLineJoin;
+		PageItem* currItem = new PageItem_PathText(*oldItem);
+		PageItem* newItem=Doc->convertItemTo(currItem, PageItem::PathText);
+		newItem->PoLine = bb->PoLine.copy();
+		newItem->Pwidth = bb->Pwidth;
+		newItem->setLineColor(bb->lineColor());
+		newItem->PLineArt = bb->PLineArt;
+		newItem->PLineEnd = bb->PLineEnd;
+		newItem->PLineJoin = bb->PLineJoin;
 /*		if (!Doc->loading)
 			emit UpdtObj(Doc->currentPage->pageNr(), b->ItemNr); */
-		UpdatePolyClip(currItem);
-		AdjustItemSize(currItem);
-		double dx = bb->Xpos - currItem->Xpos;
-		double dy = bb->Ypos - currItem->Ypos;
-		MoveItem(dx, dy, currItem);
-		currItem->Rot = bb->Rot;
-		currItem->FrameType = 3;
+		UpdatePolyClip(newItem);
+		AdjustItemSize(newItem);
+		double dx = bb->Xpos - newItem->Xpos;
+		double dy = bb->Ypos - newItem->Ypos;
+		MoveItem(dx, dy, newItem);
+		newItem->Rot = bb->Rot;
+		newItem->FrameType = 3;
 		Deselect(true);
 		SelectItemNr(bb->ItemNr);
 		DeleteItem();

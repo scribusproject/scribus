@@ -2676,15 +2676,84 @@ const double ScribusDoc::getYOffsetForPage(const int pageNumber)
 	return -1.0;
 }
 
-PageItem* ScribusDoc::convertToImageFrame(PageItem *currItem)
+PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newType)
 {
+	Q_ASSERT(currItem!=NULL);
+	if (currItem==NULL)
+		return false;
+		
+	if (currItem->itemType()==PageItem::Line || newType==PageItem::Line)
+		return false;
+
 	PageItem *oldItem = Items.take(currItem->ItemNr);
-	PageItem *newItem = new PageItem_ImageFrame(*oldItem);
+	PageItem *newItem;
+	switch (newType)
+	{
+		case PageItem::ImageFrame:
+			newItem = new PageItem_ImageFrame(*oldItem);
+			break;
+		case PageItem::TextFrame:
+			newItem = new PageItem_TextFrame(*oldItem);
+			break;
+		//We dont allow this
+		//case PageItem::Line:
+		//	newItem = new PageItem_Line(*oldItem);
+		//	break;
+		case PageItem::Polygon:
+			newItem = new PageItem_Polygon(*oldItem);
+			break;
+		case PageItem::PolyLine:
+			newItem = new PageItem_PolyLine(*oldItem);
+			break;
+		case PageItem::PathText:
+			newItem = new PageItem_PathText(*oldItem);
+			break;
+		default:
+			newItem=NULL;
+			break;
+	}
 	Q_ASSERT(newItem!=NULL);
 	if (newItem==NULL)
-		return false;	
-	newItem->convertTo(PageItem::ImageFrame);
-	newItem->Frame = true;
+		return false;
+	switch (newType)
+	{
+		case PageItem::ImageFrame:
+			newItem->convertTo(PageItem::ImageFrame);
+			newItem->Frame = true;
+			break;
+		case PageItem::TextFrame:
+			newItem->convertTo(PageItem::TextFrame);
+			newItem->Frame = true;
+			break;
+		//We dont allow this
+		//case PageItem::Line:
+		//	newItem->convertTo(PageItem::Line);
+		//	break;
+		case PageItem::Polygon:
+			newItem->convertTo(PageItem::Polygon);
+			newItem->Frame = false;
+			newItem->ClipEdited = true;
+			newItem->FrameType = 3;
+			newItem->Clip = FlattenPath(newItem->PoLine, newItem->Segments);
+			newItem->ContourLine = newItem->PoLine.copy();
+			break;
+		case PageItem::PolyLine:
+			newItem->convertTo(PageItem::PolyLine);
+			newItem->ClipEdited = true;
+			ScApp->view->SetPolyClip(newItem, qRound(QMAX(newItem->Pwidth / 2, 1)));
+			ScApp->view->AdjustItemSize(newItem);
+			break;
+		case PageItem::PathText:
+			newItem->Frame = false;
+			newItem->ClipEdited = true;
+			newItem->convertTo(PageItem::PathText);
+			break;
+		default:
+			newItem=NULL;
+			break;
+	}
+	
+	
 	Items.append(newItem);
 	newItem->ItemNr = Items.count()-1;
 	//<<At some point we HAVE to stop this!

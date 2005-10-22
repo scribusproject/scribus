@@ -375,7 +375,7 @@ public:
 	/**
 	 * @brief Item type conversion functions
 	 */
-	PageItem* convertToImageFrame(PageItem *);
+	PageItem* convertItemTo(PageItem *, PageItem::ItemType);
 	
 	/**
 	 * @brief The page number of the current page
