@@ -114,7 +114,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	int wordSize;
 	bool bigEndian;
 	qSysInfo( & wordSize, & bigEndian );
-	if (wordSize != 30)
+	if (wordSize != 32)
 		bu += QString("-%1bit").arg(wordSize);
 	if (bigEndian)
 		bu += "-Big";
