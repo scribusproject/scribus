@@ -839,13 +839,6 @@ public:
 	void restore(UndoState *state, bool isUndo);
 
 	/**
-	 * @brief Return true iff the passed name is not used by any existing PageItem
-	 *        in the same document as this PageItem.
-	 * @author Craig Ringer
-	 */
-	bool nameExists(const QString itemName) const;
-
-	/**
 	 * @brief Return a variant of `originalName' that is guaranteed to be unique
 	 *        in the same document as this PageItem.  If the passed name is not
 	 *        in use it is returned unchanged.

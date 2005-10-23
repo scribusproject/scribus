@@ -1403,3 +1403,14 @@ QString getFileNameByPage(uint pageNo, QString extension)
 	}
 	return QString("%1-%2%3.%4").arg(defaultName).arg(QObject::tr("page", "page export")).arg(number).arg(extension);
 }
+
+inline double square(double x)
+{
+	return x*x;
+}
+
+inline double distance(double x, double y)
+{
+	return sqrt(x*x+y*y);
+}
+

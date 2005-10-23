@@ -75,4 +75,6 @@ QString SCRIBUS_API getShortPathName(QString longPath);
 // Create a common name for page exports (SVG, bitmap, EPS)
 QString SCRIBUS_API getFileNameByPage(uint pageNo, QString extension);
 void SCRIBUS_API sDebug(QString message);
+inline double SCRIBUS_API square(double);
+inline double SCRIBUS_API distance(double, double);
 #endif

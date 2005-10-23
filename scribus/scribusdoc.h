@@ -381,6 +381,14 @@ public:
 	 * @brief The page number of the current page
 	 */
 	const int currentPageNumber();
+	
+	/**
+	 * @brief Return true iff the passed name is not used by any existing PageItem
+	 *        in the same document as this PageItem.
+	 * @author Craig Ringer
+	 ** CB Moved from PageItem
+	 */
+	bool itemNameExists(const QString itemName);
 
 protected:
 	void addSymbols();

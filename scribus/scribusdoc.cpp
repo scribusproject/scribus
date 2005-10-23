@@ -2860,3 +2860,18 @@ const int ScribusDoc::currentPageNumber()
 {
 	return currentPage->pageNr();
 }
+
+bool ScribusDoc::itemNameExists(const QString checkItemName)
+{
+	bool found = false;
+	uint docItemCount=Items.count();
+	for (uint i = 0; i < docItemCount; ++i)
+	{
+		if (checkItemName == Items.at(i)->itemName())
+		{
+			found = true;
+			break;
+		}
+	}
+	return found;
+}

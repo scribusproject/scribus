@@ -107,8 +107,7 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc) : QScrollView(parent,
 	QFont fo = QFont(font());
 	int posi = fo.pointSize()-2;
 	fo.setPointSize(posi);
-	unitSwitcher = new QComboBox( true, this, "unitSwitcher" );
-	unitSwitcher->setEditable(false);
+	unitSwitcher = new QComboBox( false, this, "unitSwitcher" );
 	unitSwitcher->setFocusPolicy(QWidget::NoFocus);
 	unitSwitcher->setFont(fo);
 	for (int i=0;i<=unitGetMaxIndex();++i)
@@ -252,7 +251,8 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 /* Draw Page Outlines */
 		if (!Doc->masterPageMode)
 		{
-			for (uint a = 0; a < Doc->Pages.count(); ++a)
+			uint docPagesCount=Doc->Pages.count();
+			for (uint a = 0; a < docPagesCount; ++a)
 			{
 				int x = static_cast<int>(Doc->Pages.at(a)->xOffset() * Scale);
 				int y = static_cast<int>(Doc->Pages.at(a)->yOffset() * Scale);
@@ -266,7 +266,7 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 					painter->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
 					painter->setBrush(QColor(128,128,128));
 					painter->drawRect(x+5, y+5, w, h);
-					if (a == Doc->currentPage->pageNr())
+					if (a == Doc->currentPageNumber())
 						painter->setPen(red, 2, SolidLine, FlatCap, MiterJoin);
 					else
 						painter->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
@@ -280,7 +280,7 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 			DrawPageItems(painter, QRect(clipx, clipy, clipw, cliph));
 			if (!Doc->guidesSettings.before)
 			{
-				for (uint a = 0; a < Doc->Pages.count(); ++a)
+				for (uint a = 0; a < docPagesCount; ++a)
 				{
 					int x = static_cast<int>(Doc->Pages.at(a)->xOffset() * Scale);
 					int y = static_cast<int>(Doc->Pages.at(a)->yOffset() * Scale);
@@ -532,7 +532,8 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 					pr = false;
 				if ((ll.isViewable) && (pr))
 				{
-					for (uint a = 0; a < page->FromMaster.count(); ++a)
+					uint pageFromMasterCount=page->FromMaster.count();
+					for (uint a = 0; a < pageFromMasterCount; ++a)
 					{
 						currItem = page->FromMaster.at(a);
 						if (currItem->LayerNr != ll.LNr)
@@ -568,7 +569,7 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 							currItem->BoundingY = OldBY;
 						}
 					}
-					for (uint a = 0; a < page->FromMaster.count(); ++a)
+					for (uint a = 0; a < pageFromMasterCount; ++a)
 					{
 						currItem = page->FromMaster.at(a);
 						if (currItem->LayerNr != ll.LNr)
@@ -643,6 +644,7 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 		ll.isViewable = false;
 		ll.LNr = 0;
 		uint layerCount=Doc->layerCount();
+		int docCurrPageNo=static_cast<int>(Doc->currentPageNumber());
 		for (uint la2 = 0; la2 < layerCount; ++la2)
 		{
 			Level2Layer(Doc, &ll, Lnr);
@@ -652,16 +654,16 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 			if ((ll.isViewable) && (pr))
 			{
 				QPtrListIterator<PageItem> docItem(Doc->Items);
-				 while ( (currItem = docItem.current()) != 0)
-				 {
+				while ( (currItem = docItem.current()) != 0)
+				{
 					++docItem;
 					if (currItem->LayerNr != ll.LNr)
 						continue;
 					if ((previewMode) && (!currItem->printable()))
 						continue;
-					if ((Doc->masterPageMode) && ((currItem->OwnPage != -1) && (currItem->OwnPage != static_cast<int>(Doc->currentPage->pageNr()))))
+					if ((Doc->masterPageMode) && ((currItem->OwnPage != -1) && (currItem->OwnPage != docCurrPageNo)))
 						continue;
-					if ((!Doc->masterPageMode) && (!currItem->OnMasterPage.isEmpty()))
+					if (!Doc->masterPageMode && !currItem->OnMasterPage.isEmpty())
 					{
 						if (currItem->OnMasterPage != Doc->currentPage->PageNam)
 							continue;
@@ -721,8 +723,8 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 					}
 				}
 				QPtrListIterator<PageItem> docItem2(Doc->Items);
-				 while ( (currItem = docItem2.current()) != 0 )
-				 {
+				while ( (currItem = docItem2.current()) != 0 )
+				{
 					++docItem2;
 					if (currItem->LayerNr != ll.LNr)
 						continue;
@@ -4903,30 +4905,9 @@ FPoint ScribusView::ApplyGridF(FPoint in)
 	return np;
 }
 
-/* CB moved to pageitem
-QRect ScribusView::getRedrawBounding(PageItem *currItem)
-{
-	int x = qRound(floor(currItem->BoundingX - currItem->OldPwidth / 2.0 - 5) * Scale);
-	int y = qRound(floor(currItem->BoundingY - currItem->OldPwidth / 2.0 - 5) * Scale);
-	int w = qRound(ceil(currItem->BoundingW + currItem->OldPwidth + 10) * Scale);
-	int h = qRound(ceil(currItem->BoundingH + currItem->OldPwidth + 10) * Scale);
-	QRect ret = QRect(x, y, w, h);
-	ret.moveBy(qRound(-Doc->minCanvasCoordinate.x() * Scale), qRound(-Doc->minCanvasCoordinate.y() * Scale));
-	return ret;
-}
-*/
 void ScribusView::setRedrawBounding(PageItem *currItem)
 {
-	/* CB moved to pageitem
-	double bw, bh;
-	currItem->getBoundingRect(&currItem->BoundingX, &currItem->BoundingY, &bw, &bh);
-	currItem->BoundingW = bw - currItem->BoundingX;
-	currItem->BoundingH = bh - currItem->BoundingY;
-	if (currItem->asLine())
-		currItem->BoundingH = QMAX(currItem->BoundingH, 1);
-	*/
 	currItem->setRedrawBounding();
-	//adjustCanvas(FPoint(currItem->BoundingX, currItem->BoundingY), FPoint(bw, bh));
 	adjustCanvas(FPoint(currItem->BoundingX, currItem->BoundingY), FPoint(currItem->BoundingX+currItem->BoundingW, currItem->BoundingY+currItem->BoundingH));
 }
 
@@ -5046,7 +5027,6 @@ void ScribusView::ToView(QPainter *p)
 
 void ScribusView::RefreshItem(PageItem *currItem)
 {
-	//updateContents(getRedrawBounding(currItem));
 	updateContents(currItem->getRedrawBounding(Scale));
 }
 
@@ -5093,7 +5073,6 @@ bool ScribusView::MoveItem(double newX, double newY, PageItem* currItem, bool fr
 
 void ScribusView::MoveItemI(PageItem* currItem, double newX, double newY, bool redraw)
 {
-	//PageItem *currItem = Doc->Items.at(ite);
 	if ((currItem->locked()) || (!currItem->ScaleType))
 		return;
 	if (currItem->imageFlippedH())
@@ -5256,61 +5235,6 @@ void ScribusView::UpdateClip(PageItem* currItem)
 	updateGradientVectors(currItem);
 }
 
-/*CB Moved to PageItem
-void ScribusView::SetPolyClip(PageItem *currItem, int up)
-{
-	QPoint np, np2;
-	QPointArray cl, cl1, cl2;
-	double rot;
-	currItem->Clip.resize(0);
-	if (currItem->PoLine.size() < 4)
-		return;
-	cl = FlattenPath(currItem->PoLine, currItem->Segments);
-	for (uint a = 0; a < cl.size()-1; ++a)
-	{
-		rot = xy2Deg(cl.point(a+1).x()-cl.point(a).x(),cl.point(a+1).y()-cl.point(a).y());
-		QWMatrix ma;
-		ma.rotate(rot);
-		np = ma*QPoint(0, -up);
-		cl1.resize(cl1.size()+1);
-		cl1.setPoint(cl1.size()-1, np+cl.point(a));
-		cl1.resize(cl1.size()+1);
-		cl1.setPoint(cl1.size()-1, np+cl.point(a+1));
-		cl2.resize(cl2.size()+1);
-		cl2.setPoint(cl2.size()-1, np2+cl.point(a));
-		cl2.resize(cl2.size()+1);
-		cl2.setPoint(cl2.size()-1, np2+cl.point(a+1));
-	}
-	cl1.resize(cl1.size()+1);
-	cl1.setPoint(cl1.size()-1, np+cl.point(cl.size()-1));
-	cl2.resize(cl2.size()+1);
-	cl2.setPoint(cl2.size()-1, np2+cl.point(cl.size()-1));
-	currItem->Clip.putPoints(currItem->Clip.size(), cl1.size(), cl1);
-	for (int a2 = cl2.size()-1; a2 > -1; a2--)
-	{
-		currItem->Clip.resize(currItem->Clip.size()+1);
-		currItem->Clip.setPoint(currItem->Clip.size()-1, cl2.point(a2));
-	}
-}
-
-void ScribusView::UpdatePolyClip(PageItem *currItem)
-{
-	struct ScText *hl;
-	int asce = 1;
-	int desc = 1;
-	for (uint a = 0; a < currItem->itemText.count(); ++a)
-	{
-		hl = currItem->itemText.at(a);
-		int des = static_cast<int>(hl->cfont->numDescender * (-hl->csize / 10.0));
-		int asc = static_cast<int>(hl->cfont->numAscent * (hl->csize / 10.0));
-		if (asc > asce)
-			asce = asc;
-		if (des > desc)
-			desc = des;
-	}
-	currItem->SetPolyClip(static_cast<int>(asce+currItem->BaseOffs));
-}
-*/
 void ScribusView::MarkClip(PageItem *currItem, FPointArray cli, bool once)
 {
 	double x, y;
@@ -6295,7 +6219,8 @@ void ScribusView::scaleGroup(double scx, double scy)
 	double origGW = gw;
 	double origGH = gh;
 	setUpdatesEnabled(false);
-	for (uint a = 0; a < SelItem.count(); ++a)
+	uint selectedItemCount=SelItem.count();
+	for (uint a = 0; a < selectedItemCount; ++a)
 	{
 		bb = SelItem.at(a);
 		if ((bb->locked()) || (bb->sizeLocked()))
@@ -6620,7 +6545,7 @@ void ScribusView::ExpandSel(PageItem *currItem, int dir, int oldPos)
 			dir = -1;
 	}
    // show for selection of previous, actual and next character
-	if ( currItem->HasSel ) /* selection allready present */
+	if ( currItem->HasSel ) /* selection already present */
 	{
 		if (dir > 0 && oldPos < len) // -> key
 		{
@@ -6648,7 +6573,7 @@ void ScribusView::ExpandSel(PageItem *currItem, int dir, int oldPos)
 		{
          return;
 		}
-		if ( selMode && ! (leftSel||actSel||rightSel) )
+		if ( selMode && !(leftSel||actSel||rightSel) )
 		{
          // selected outside from concerned range
          // deselect all
@@ -6701,24 +6626,23 @@ void ScribusView::ExpandSel(PageItem *currItem, int dir, int oldPos)
 
 void ScribusView::deselectAll(PageItem *currItem)
 {
-	PageItem *i = currItem;
-	int       n;
-	int       l;
-	while( i->BackBox )
-		i=i->BackBox;
-	while ( i )
+	PageItem *item = currItem;
+	while( item->BackBox )
+		item=item->BackBox;
+
+	while ( item )
 	{
-		if ( i->HasSel )
+		if ( item->HasSel )
 		{
-			l = i->itemText.count();
-			for (n=0; n < l; n++ )
-				i->itemText.at(n)->cselect = false;
-			RefreshItem(i);
-			i->HasSel = false;
+			uint l = item->itemText.count();
+			for (uint n=0; n < l; ++n )
+				item->itemText.at(n)->cselect = false;
+			RefreshItem(item);
+			item->HasSel = false;
 		}
-		i = i->NextBox;
+		item = item->NextBox;
 	}
-	emit  HasNoTextSel();
+	emit HasNoTextSel();
 }
 
 bool ScribusView::slotSetCurs(int x, int y)
@@ -7137,116 +7061,6 @@ void ScribusView::HandleCurs(QPainter *p, PageItem *currItem, QRect mpo)
 		qApp->setOverrideCursor(QCursor(crossCursor), true);
 }
 
-/*
-int ScribusView::OnPage(double x2, double  y2)
-{
-	int retw = -1;
-	if (Doc->masterPageMode)
-	{
-		int x = static_cast<int>(Doc->currentPage->xOffset());
-		int y = static_cast<int>(Doc->currentPage->yOffset());
-		int w = static_cast<int>(Doc->currentPage->width());
-		int h = static_cast<int>(Doc->currentPage->height());
-		if (QRect(x, y, w, h).contains(QPoint(qRound(x2), qRound(y2))))
-			retw = Doc->currentPage->pageNr();
-	}
-	else
-	{
-		uint docPageCount=Doc->Pages.count();
-		for (uint a = 0; a < docPageCount; ++a)
-		{
-			int x = static_cast<int>(Doc->Pages.at(a)->xOffset());
-			int y = static_cast<int>(Doc->Pages.at(a)->yOffset());
-			int w = static_cast<int>(Doc->Pages.at(a)->width());
-			int h = static_cast<int>(Doc->Pages.at(a)->height());
-			if (QRect(x, y, w, h).contains(QPoint(qRound(x2), qRound(y2))))
-			{
-				retw = static_cast<int>(a);
-				break;
-			}
-		}
-	}
-	return retw;
-}
-
-int ScribusView::OnPage(PageItem *currItem)
-{
-	int retw = -1;
-	if (Doc->masterPageMode)
-	{
-		int x = static_cast<int>(Doc->currentPage->xOffset());
-		int y = static_cast<int>(Doc->currentPage->yOffset());
-		int w = static_cast<int>(Doc->currentPage->width());
-		int h = static_cast<int>(Doc->currentPage->height());
-		int x2 = static_cast<int>(currItem->Xpos);
-		int y2 = static_cast<int>(currItem->Ypos);
-		int w2 = QMAX(static_cast<int>(currItem->Width), 1);
-		int h2 = QMAX(static_cast<int>(currItem->Height), 1);
-		if (QRect(x, y, w, h).intersects(QRect(x2, y2, w2, h2)))
-			retw = Doc->currentPage->pageNr();
-	}
-	else
-	{
-		uint docPageCount=Doc->Pages.count();
-		for (uint a = 0; a < docPageCount; ++a)
-		{
-			int x = static_cast<int>(Doc->Pages.at(a)->xOffset());
-			int y = static_cast<int>(Doc->Pages.at(a)->yOffset());
-			int w = static_cast<int>(Doc->Pages.at(a)->width());
-			int h = static_cast<int>(Doc->Pages.at(a)->height());
-			int x2 = static_cast<int>(currItem->Xpos);
-			int y2 = static_cast<int>(currItem->Ypos);
-			int w2 = QMAX(static_cast<int>(currItem->Width), 1);
-			int h2 = QMAX(static_cast<int>(currItem->Height), 1);
-			if (QRect(x, y, w, h).intersects(QRect(x2, y2, w2, h2)))
-			{
-				retw = static_cast<int>(a);;
-				break;
-			}
-		}
-	}
-	if ((retw == -1) && (currItem->isBookmark))
-	{
-		emit DelBM(currItem);
-		currItem->isBookmark = false;
-	}
-	return retw;
-}
-
-void ScribusView::GroupOnPage(PageItem* currItem)
-{
-	QPtrList<PageItem> Objects;
-	PageItem* item;
-	if (currItem->Groups.count() == 0)
-		return;
-	int ObjGroup = currItem->Groups.top();
-	uint docItemCount=Doc->Items.count();
-	for (uint a = 0; a < docItemCount; ++a)
-	{
-		item = Doc->Items.at(a);
-		if (item->Groups.top() == ObjGroup)
-			Objects.append(item);
-	}
-	int Off_Page = -1;
-	int On_Page = 999999;
-	uint objectCount=Objects.count();
-	for (uint a = 0; a < objectCount; ++a)
-	{
-		int res = OnPage(Objects.at(a));
-		Off_Page = QMAX(Off_Page, res);
-		if (res != -1)
-			On_Page = QMIN(On_Page, res);
-	}
-	int final = -1;
-	if (Off_Page != -1)
-		final = On_Page;
-	for (uint a = 0; a < objectCount; ++a)
-	{
-		Objects.at(a)->OwnPage = final;
-	}
-}
-*/
-
 void ScribusView::SelectItemNr(int nr, bool draw, bool single)
 {
 	SelectItem(Doc->Items.at(nr), draw, single);
@@ -7357,18 +7171,20 @@ void ScribusView::selectPage(QMouseEvent *m)
 	Deselect(false);
 	if (!Doc->masterPageMode)
 	{
-		for (uint a = 0; a < Doc->Pages.count(); ++a)
+		uint docPagesCount=Doc->Pages.count();
+		uint docCurrPageNo=Doc->currentPageNumber();
+		for (uint i = 0; i < docPagesCount; ++i)
 		{
-			int x = static_cast<int>(Doc->Pages.at(a)->xOffset() * Scale);
-			int y = static_cast<int>(Doc->Pages.at(a)->yOffset() * Scale);
-			int w = static_cast<int>(Doc->Pages.at(a)->width() * Scale);
-			int h = static_cast<int>(Doc->Pages.at(a)->height() * Scale);
+			int x = static_cast<int>(Doc->Pages.at(i)->xOffset() * Scale);
+			int y = static_cast<int>(Doc->Pages.at(i)->yOffset() * Scale);
+			int w = static_cast<int>(Doc->Pages.at(i)->width() * Scale);
+			int h = static_cast<int>(Doc->Pages.at(i)->height() * Scale);
 			if (QRect(x, y, w, h).intersects(mpo))
 			{
-				if (Doc->currentPage->pageNr() != a)
+				if (docCurrPageNo != i)
 				{
-					Doc->currentPage = Doc->Pages.at(a);
-					setMenTxt(a);
+					Doc->currentPage = Doc->Pages.at(i);
+					setMenTxt(i);
 					DrawNew();
 				}
 				break;
@@ -7855,56 +7671,6 @@ void ScribusView::Deselect(bool prop)
 void ScribusView::updateGradientVectors(PageItem *currItem)
 {
 	currItem->updateGradientVectors();
-	/*CB moved to currItem->updateGradientVectors()
-	switch (currItem->GrType)
-	{
-		case 0:
-		case 1:
-			currItem->GrStartX = 0;
-			currItem->GrStartY = currItem->Height / 2.0;
-			currItem->GrEndX = currItem->Width;
-			currItem->GrEndY = currItem->Height / 2.0;
-			break;
-		case 2:
-			currItem->GrStartX = currItem->Width / 2.0;
-			currItem->GrStartY = 0;
-			currItem->GrEndX = currItem->Width / 2.0;
-			currItem->GrEndY = currItem->Height;
-			break;
-		case 3:
-			currItem->GrStartX = 0;
-			currItem->GrStartY = 0;
-			currItem->GrEndX = currItem->Width;
-			currItem->GrEndY = currItem->Height;
-			break;
-		case 4:
-			currItem->GrStartX = 0;
-			currItem->GrStartY = currItem->Height;
-			currItem->GrEndX = currItem->Width;
-			currItem->GrEndY = 0;
-			break;
-		case 5:
-			currItem->GrStartX = currItem->Width / 2.0;
-			currItem->GrStartY = currItem->Height / 2.0;
-			if (currItem->Width >= currItem->Height)
-			{
-				currItem->GrEndX = currItem->Width;
-				currItem->GrEndY = currItem->Height / 2.0;
-			}
-			else
-			{
-				currItem->GrEndX = currItem->Width / 2.0;
-				currItem->GrEndY = currItem->Height;
-			}
-			break;
-		default:
-			break;
-	}
-	currItem->GrEndX = QMIN(QMAX(currItem->GrEndX, 0), currItem->Width);
-	currItem->GrEndY = QMIN(QMAX(currItem->GrEndY, 0), currItem->Height);
-	currItem->GrStartX = QMIN(QMAX(currItem->GrStartX, 0), currItem->Width);
-	currItem->GrStartY = QMIN(QMAX(currItem->GrStartY, 0), currItem->Height);
-	*/
 	ScApp->propertiesPalette->updateColorSpecialGradient();
 }
 
@@ -8024,11 +7790,11 @@ void ScribusView::ToggleLock()
 		{
 			SelItem.at(a)->toggleLock();
 			RefreshItem(SelItem.at(a));
-			emit HaveSel(SelItem.at(a)->itemType());
 		}
-		emit DocChanged();
 		if (SelItem.count() > 1)
 			undoManager->commit();
+		emit DocChanged();
+		emit HaveSel(SelItem.at(0)->itemType());
 	}
 }
 
@@ -8048,11 +7814,11 @@ void ScribusView::ToggleSizeLock()
 		{
 			SelItem.at(a)->toggleSizeLock();
 			RefreshItem(SelItem.at(a));
-			emit HaveSel(SelItem.at(a)->itemType());
 		}
-		emit DocChanged();
 		if (selectedItemCount > 1)
 			undoManager->commit();
+		emit DocChanged();
+		emit HaveSel(SelItem.at(0)->itemType());
 	}
 }
 
@@ -8660,127 +8426,6 @@ void ScribusView::delPage(int Nr)
 
 void ScribusView::reformPages(bool moveObjects)
 {
-	/*
-	Page* Seite;
-	QMap<uint, oldPageVar> pageTable;
-	struct oldPageVar oldPg;
-	FPoint maxSize;
-	double maxYPos, maxXPos, currentXPos, currentYPos, lastYPos;
-	int counter = Doc->pageSets[Doc->currentPageLayout].FirstPage;
-	int rowcounter = 0;
-	maxYPos = 0;
-	maxXPos = 0;
-	currentYPos = Doc->ScratchTop;
-	currentXPos = Doc->ScratchLeft;
-	currentXPos += (Doc->pageWidth+Doc->pageSets[Doc->currentPageLayout].GapHorizontal) * counter;
-	lastYPos = Doc->Pages.at(0)->initialHeight();
-	for (uint a = 0; a < Doc->Pages.count(); ++a)
-	{
-		Seite = Doc->Pages.at(a);
-		oldPg.oldXO = Seite->xOffset();
-		oldPg.oldYO = Seite->yOffset();
-		oldPg.newPg = a;
-		pageTable.insert(Seite->pageNr(), oldPg);
-		Seite->setPageNr(a);
-		if (Doc->masterPageMode)
-		{
-			Seite->setXOffset(Doc->ScratchLeft);
-			Seite->setYOffset(Doc->ScratchTop);
-			if (Seite->LeftPg == 0)
-			{
-				Seite->Margins.Right = Seite->initialMargins.Right;
-				Seite->Margins.Left = Seite->initialMargins.Left;
-			}
-			else if ((Seite->LeftPg > 1) && (Seite->LeftPg < Doc->pageSets[Doc->currentPageLayout].Columns))
-			{
-				Seite->Margins.Left = Seite->initialMargins.Left;
-				Seite->Margins.Right = Seite->initialMargins.Left;
-			}
-			else
-			{
-				Seite->Margins.Left = Seite->initialMargins.Right;
-				Seite->Margins.Right = Seite->initialMargins.Left;
-			}
-		}
-		else
-		{
-			Seite->setWidth(Seite->initialWidth());
-			Seite->setHeight(Seite->initialHeight());
-			Seite->setXOffset(currentXPos);
-			Seite->setYOffset(currentYPos);
-			if (counter < Doc->pageSets[Doc->currentPageLayout].Columns-1)
-			{
-				currentXPos += Seite->width() + Doc->pageSets[Doc->currentPageLayout].GapHorizontal;
-				lastYPos = QMAX(lastYPos, Seite->height());
-				if (counter == 0)
-				{
-					Seite->Margins.Left = Seite->initialMargins.Right;
-					Seite->Margins.Right = Seite->initialMargins.Left;
-				}
-				else
-				{
-					Seite->Margins.Left = Seite->initialMargins.Left;
-					Seite->Margins.Right = Seite->initialMargins.Left;
-				}
-			}
-			else
-			{
-				currentXPos = Doc->ScratchLeft;
-				currentYPos += QMAX(lastYPos, Seite->height())+Doc->pageSets[Doc->currentPageLayout].GapVertical;
-				lastYPos = QMAX(lastYPos, Seite->height());
-				Seite->Margins.Right = Seite->initialMargins.Right;
-				Seite->Margins.Left = Seite->initialMargins.Left;
-			}
-			counter++;
-			if (counter > Doc->pageSets[Doc->currentPageLayout].Columns-1)
-			{
-				counter = 0;
-				rowcounter++;
-				if (rowcounter > Doc->pageSets[Doc->currentPageLayout].Rows-1)
-				{
-					currentYPos += Doc->pageSets[Doc->currentPageLayout].GapBelow;
-					rowcounter = 0;
-				}
-			}
-		}
-		Seite->Margins.Top = Seite->initialMargins.Top;
-		Seite->Margins.Bottom = Seite->initialMargins.Bottom;
-		maxXPos = QMAX(maxXPos, Seite->xOffset()+Seite->width()+Doc->ScratchRight);
-		maxYPos = QMAX(maxYPos, Seite->yOffset()+Seite->height()+Doc->ScratchBottom);
-	}
-	if (!Doc->isLoading())
-	{
-		for (uint ite = 0; ite < Doc->Items.count(); ++ite)
-		{
-			PageItem *item = Doc->Items.at(ite);
-			if (item->OwnPage < 0)
-			{
-				if (item->Groups.count() != 0)
-					Doc->GroupOnPage(item);
-				else
-					item->OwnPage = Doc->OnPage(item);
-			}
-			else
-			{
-				if (moveObjects)
-				{
-					oldPg = pageTable[item->OwnPage];
-					item->Xpos = item->Xpos - oldPg.oldXO + Doc->Pages.at(oldPg.newPg)->xOffset();
-					item->Ypos = item->Ypos - oldPg.oldYO + Doc->Pages.at(oldPg.newPg)->yOffset();
-					item->OwnPage = static_cast<int>(oldPg.newPg);
-				}
-				else
-				{
-					if (item->Groups.count() != 0)
-						Doc->GroupOnPage(item);
-					else
-						item->OwnPage = Doc->OnPage(item);
-				}
-			}
-			setRedrawBounding(item);
-		}
-	}
-	*/
 	double maxXPos=0.0,maxYPos=0.0;
 	Doc->reformPages(maxXPos, maxYPos, moveObjects);
 	FPoint maxSize(maxXPos, maxYPos);
@@ -10602,39 +10247,6 @@ void ScribusView::changePreview(int id)
 	}
 }
 
-/*
-void ScribusView::AdjustPictScale(PageItem *currItem, bool )
-{
-	if (currItem->ScaleType)
-		return;
-	if ((currItem->OrigW == 0) || (currItem->OrigH == 0))
-		return;
-	currItem->LocalX = 0;
-	currItem->LocalY = 0;
-	double xs = currItem->Width / static_cast<double>(currItem->OrigW);
-	double ys = currItem->Height / static_cast<double>(currItem->OrigH);
-	if (currItem->AspectRatio)
-	{
-		currItem->LocalScX = QMIN(xs, ys);
-		currItem->LocalScY = QMIN(xs, ys);
-	}
-	else
-	{
-		currItem->LocalScX = xs;
-		currItem->LocalScY = ys;
-	}
-	if (currItem->imageClip.size() != 0)
-	{
-		currItem->imageClip = currItem->pixm.imgInfo.PDSpathData[currItem->pixm.imgInfo.usedPath].copy();
-		QWMatrix cl;
-		cl.translate(currItem->LocalX*currItem->LocalScX, currItem->LocalY*currItem->LocalScY);
-		cl.scale(currItem->LocalScX, currItem->LocalScY);
-		currItem->imageClip.map(cl);
-	}
-	emit SetLocalValues(currItem->LocalScX, currItem->LocalScY, currItem->LocalX, currItem->LocalY );
-}
-*/
-
 void ScribusView::TogglePic()
 {
 	if (SelItem.count() != 0)
@@ -11382,25 +10994,6 @@ void ScribusView::Bezier2Poly()
 		emit UpdtObj(Doc->currentPage->pageNr(), newItem->ItemNr);
 	EmitValues(newItem);
 	emit DocChanged();
-	/*
-	currItem->convertTo(PageItem::Polygon);
-	currItem->Frame = false;
-	currItem->ClipEdited = true;
-	currItem->FrameType = 3;
-	currItem->PoLine.addPoint(currItem->PoLine.point(currItem->PoLine.size()-2));
-	currItem->PoLine.addPoint(currItem->PoLine.point(currItem->PoLine.size()-3));
-	currItem->PoLine.addPoint(currItem->PoLine.point(0));
-	currItem->PoLine.addPoint(currItem->PoLine.point(0));
-	currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
-	currItem->ContourLine = currItem->PoLine.copy();
-	
-	RefreshItem(currItem);
-	emit HaveSel(currItem->itemType());
-	if (!Doc->isLoading())
-		emit UpdtObj(Doc->currentPage->pageNr(), currItem->ItemNr);
-	EmitValues(currItem);
-	emit DocChanged();
-	*/
 }
 
 void ScribusView::ToPathText()
@@ -11425,7 +11018,7 @@ void ScribusView::ToPathText()
 		SelectItem(newItem);
 		emit HaveSel(newItem->itemType());
 		if (!Doc->isLoading())
-			emit UpdtObj(Doc->currentPage->pageNr(), newItem->ItemNr);
+			emit UpdtObj(Doc->currentPageNumber(), newItem->ItemNr);
 		EmitValues(newItem);
 		emit DocChanged();
 	}
@@ -11438,23 +11031,6 @@ void ScribusView::FromPathText()
 	{
 		Deselect(true);
 		PageItem* newItem=Doc->convertItemTo(currItem, PageItem::TextFrame);
-		
-		/*
-		uint z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->Xpos, currItem->Ypos, currItem->Width, currItem->Height, currItem->Pwidth, "None", currItem->lineColor(), true);
-		PageItem *polyLineItem = Doc->Items.at(z);
-		polyLineItem->PoLine = currItem->PoLine.copy();
-		polyLineItem->ClipEdited = true;
-		polyLineItem->FrameType = 3;
-		polyLineItem->Rot = currItem->Rot;
-		SetPolyClip(polyLineItem, qRound(QMAX(polyLineItem->Pwidth / 2, 1)));
-		AdjustItemSize(polyLineItem);
-		Deselect(true);
-		PageItem* newItem=Doc->convertItemTo(currItem, PageItem::TextFrame);
-		newItem->setLineColor("None");
-		newItem->Frame = true;
-		newItem->SetRectFrame();
-		setRedrawBounding(newItem);
-		*/
 		SelectItem(newItem);
 		ToFront();
 		update();
