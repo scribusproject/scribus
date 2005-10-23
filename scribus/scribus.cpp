@@ -470,8 +470,6 @@ void ScribusApp::initPalettes()
 	outlinePalette = new Tree(this, this);
 	connect( scrActions["toolsOutline"], SIGNAL(toggled(bool)) , outlinePalette, SLOT(setPaletteShown(bool)) );
 	connect( outlinePalette, SIGNAL(paletteShown(bool)), scrActions["toolsOutline"], SLOT(setOn(bool)));
-	outlinePalette->setPrefsContext("OutlinePalette");
-	outlinePalette->reportDisplay->installEventFilter(this);
 	propertiesPalette = new Mpalette(this);
 	connect( scrActions["toolsProperties"], SIGNAL(toggled(bool)) , propertiesPalette, SLOT(setPaletteShown(bool)) );
 	connect( propertiesPalette, SIGNAL(paletteShown(bool)), scrActions["toolsProperties"], SLOT(setOn(bool)));
@@ -2278,7 +2276,6 @@ bool ScribusApp::arrowKeyDown()
 
 void ScribusApp::startUpDialog()
 {
-	QString fileName("");
 	PrefsContext* docContext = prefsManager->prefsFile->getContext("docdirs", false);
 	NewDoc* dia = new NewDoc(this, true);
 	if (dia->exec())
@@ -2311,7 +2308,7 @@ void ScribusApp::startUpDialog()
 					applyNewMaster( tr("Normal"));
 					doc->DocPages = doc->Pages;
 				}
-				outlinePalette->BuildTree(doc);
+				outlinePalette->BuildTree();
 				pagePalette->RebuildPage();
 				view->show();
 				view->GotoPage(0);
@@ -2322,7 +2319,7 @@ void ScribusApp::startUpDialog()
 		{
 			if (dia->tabSelected == 1)
 			{
-				fileName = dia->fileDialog->selectedFile();
+				QString fileName(dia->fileDialog->selectedFile());
 				if (!fileName.isEmpty())
 				{
 					docContext->set("docsopen", fileName.left(fileName.findRev("/")));
@@ -2331,7 +2328,7 @@ void ScribusApp::startUpDialog()
 			}
 			else
 			{
-				fileName = dia->recentDocList->currentText();
+				QString fileName(dia->recentDocList->currentText());
 				if (!fileName.isEmpty())
 					loadRecent(fileName);
 			}
@@ -2375,7 +2372,7 @@ bool ScribusApp::slotFileNew()
 				applyNewMaster( tr("Normal"));
 				doc->DocPages = doc->Pages;
 			}
-			outlinePalette->BuildTree(doc);
+			outlinePalette->BuildTree();
 			pagePalette->RebuildPage();
 			view->show();
 			view->GotoPage(0);
@@ -2450,7 +2447,7 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 	doc->OpenNodes.clear();
 
 	//Independent finishing tasks after doc setup
-	outlinePalette->BuildTree(doc);
+	outlinePalette->BuildTree();
 	pagePalette->Rebuild();
 	bookmarkPalette->BView->clear();
 	if ( wsp->windowList().isEmpty() )
@@ -2585,7 +2582,7 @@ void ScribusApp::newActWin(QWidget *w)
 	scrActions["viewRulerMode"]->setOn(doc->guidesSettings.rulerMode);
 	if (!doc->masterPageMode)
 		pagePalette->Rebuild();
-	outlinePalette->BuildTree(doc);
+	outlinePalette->BuildTree();
 //	outlinePalette->reopenTree(doc->OpenNodes);
 /*	bookmarkPalette->BView->NrItems = doc->NrItems;
 	bookmarkPalette->BView->First = doc->First;
@@ -2678,7 +2675,7 @@ void ScribusApp::SwitchWin()
 	ActWin->setCaption(doc->DocName);
 	scrActions["shade100"]->setOn(true);
 	//ShadeMenu->setItemChecked(ShadeMenu->idAt(11), true);
-	propertiesPalette->SetDoc(doc);
+	propertiesPalette->setDoc(doc);
 	propertiesPalette->updateCList();
 	pagePalette->setView(view);
 	propertiesPalette->Spal->setFormats(doc);
@@ -2789,11 +2786,12 @@ void ScribusApp::HaveNewDoc()
 	scrActions["pageMove"]->setEnabled(setter);
 
 	updateColorMenu();
+	//Update palettes
 	propertiesPalette->updateColorList();
 	propertiesPalette->Cpal->ChooseGrad(0);
 	ActWin->setCaption(doc->DocName);
 	scrActions["shade100"]->setOn(true);
-	propertiesPalette->SetDoc(doc);
+	propertiesPalette->setDoc(doc);
 	propertiesPalette->updateCList();
 	pagePalette->setView(view);
 	propertiesPalette->Spal->setFormats(doc);
@@ -2801,6 +2799,8 @@ void ScribusApp::HaveNewDoc()
 	propertiesPalette->startArrow->rebuildList(&doc->arrowStyles);
 	propertiesPalette->endArrow->rebuildList(&doc->arrowStyles);
 	layerPalette->setLayers(&doc->Layers, doc->activeLayer());
+	outlinePalette->setDoc(doc);
+	outlinePalette->BuildTree();
 	rebuildLayersList();
 	view->updateLayerMenu();
 	view->setLayerMenuText(doc->activeLayerName());
@@ -3655,7 +3655,7 @@ bool ScribusApp::loadPage(QString fileName, int Nr, bool Mpa)
 		propertiesPalette->endArrow->rebuildList(&doc->arrowStyles);
 		if (!Mpa)
 		{
-			outlinePalette->BuildTree(doc);
+			outlinePalette->BuildTree();
 			outlinePalette->reopenTree(doc->OpenNodes);
 			scanDocument();
 			docCheckerPalette->buildErrorList(doc);
@@ -4219,7 +4219,7 @@ void ScribusApp::slotFileOpen()
 				doc->MasterItems = doc->Items;
 			else
 				doc->DocItems = doc->Items;
-			outlinePalette->BuildTree(doc);
+			outlinePalette->BuildTree();
 			view->DrawNew();
 			slotDocCh();
 		}
@@ -4429,8 +4429,9 @@ bool ScribusApp::DoFileClose()
 	}
 	if (CMSavail)
 		doc->CloseCMSProfiles();
+	//<<Palettes
 //	propertiesPalette->NewSel(-1);
-	propertiesPalette->UnsetDoc();
+	propertiesPalette->unsetDoc();
 	pagePalette->setView(0);
 	pagePalette->Rebuild();
 	propertiesPalette->Spal->setFormats(0);
@@ -4441,6 +4442,8 @@ bool ScribusApp::DoFileClose()
 	bookmarkPalette->BView->NrItems = 0;
 	bookmarkPalette->BView->First = 1;
 	bookmarkPalette->BView->Last = 0;
+	outlinePalette->unsetDoc();
+	//>>
 	if ((wsp->windowList().isEmpty()) || (wsp->windowList().count() == 1))
 	{
 #ifdef HAVE_CMS
@@ -4507,12 +4510,7 @@ bool ScribusApp::DoFileClose()
 	}
 	view->close();
 	delete view;
-	outlinePalette->itemMap.clear();
-	outlinePalette->pageMap.clear();
-	outlinePalette->masterPageMap.clear();
-	outlinePalette->masterPageItemMap.clear();
 	doc->setLoading(true);
-	outlinePalette->reportDisplay->clear();
 	layerPalette->ClearInhalt();
 	docCheckerPalette->clearErrorList();
 	HaveDoc--;
@@ -4750,7 +4748,7 @@ bool ScribusApp::doPrint(PrintOptions *options)
 
 void ScribusApp::slotFileQuit()
 {
-	propertiesPalette->UnsetDoc();
+	propertiesPalette->unsetDoc();
 	pluginManager->savePreferences();
 	close();
 }
@@ -5088,7 +5086,7 @@ void ScribusApp::slotEditPaste()
 				view->scrollBy(qRound((doc->minCanvasCoordinate.x() - minSize.x()) * view->getScale()), qRound((doc->minCanvasCoordinate.y() - minSize.y()) * view->getScale()));
 				doc->minCanvasCoordinate = minSize;
 				doc->maxCanvasCoordinate = maxSize;
-				outlinePalette->BuildTree(doc);
+				outlinePalette->BuildTree();
 				outlinePalette->reopenTree(doc->OpenNodes);
 				hg = new ScText;
 				hg->ch = QChar(25);
@@ -5320,7 +5318,7 @@ void ScribusApp::slotNewPageP(int wo, QString templ)
 		doc->MasterPages = doc->Pages;
 	else
 		doc->DocPages = doc->Pages;
-	outlinePalette->BuildTree(doc);
+	outlinePalette->BuildTree();
 	pagePalette->RebuildPage();
 }
 
@@ -5425,7 +5423,7 @@ void ScribusApp::addNewPages(int wo, int where, int numPages, double height, dou
 		doc->MasterPages = doc->Pages;
 	else
 		doc->DocPages = doc->Pages;
-	outlinePalette->BuildTree(doc);
+	outlinePalette->BuildTree();
 	if (UndoManager::undoEnabled())
 		undoManager->commit();
 }
@@ -6238,7 +6236,7 @@ void ScribusApp::DeletePage2(int pg)
 	AdjustBM();
 	view->DrawNew();
 	doc->OpenNodes.clear();
-	outlinePalette->BuildTree(doc);
+	outlinePalette->BuildTree();
 	bool setter = doc->Pages.count() > 1 ? true : false;
 	scrActions["pageDelete"]->setEnabled(setter);
 	scrActions["pageMove"]->setEnabled(setter);
@@ -6306,7 +6304,7 @@ void ScribusApp::DeletePage(int from, int to)
 	view->reformPages();
 	view->DrawNew();
 //	doc->OpenNodes.clear();
-	outlinePalette->BuildTree(doc);
+	outlinePalette->BuildTree();
 	bool setter = doc->Pages.count() > 1 ? true : false;
 	scrActions["pageDelete"]->setEnabled(setter);
 	scrActions["pageMove"]->setEnabled(setter);
@@ -6336,7 +6334,7 @@ void ScribusApp::MovePage()
 		view->DrawNew();
 		AdjustBM();
 		pagePalette->RebuildPage();
-		outlinePalette->BuildTree(doc);
+		outlinePalette->BuildTree();
 		outlinePalette->reopenTree(doc->OpenNodes);
 	}
 	delete dia;
@@ -6469,7 +6467,7 @@ void ScribusApp::CopyPage()
 		view->DrawNew();
 		slotDocCh();
 		pagePalette->RebuildPage();
-		outlinePalette->BuildTree(doc);
+		outlinePalette->BuildTree();
 		AdjustBM();
 	}
 	delete dia;
@@ -8090,7 +8088,7 @@ void ScribusApp::slotElemRead(QString Name, int x, int y, bool art, bool loca, S
 			propertiesPalette->updateCList();
 			propertiesPalette->Spal->updateFormatList();
 			propertiesPalette->SetLineFormats(docc);
-			outlinePalette->BuildTree(doc);
+			outlinePalette->BuildTree();
 			outlinePalette->reopenTree(doc->OpenNodes);
 			slotDocCh();
 		}
@@ -8134,8 +8132,8 @@ void ScribusApp::manageMasterPages(QString temp)
 			connect(dia, SIGNAL(removePage(int )), this, SLOT(DeletePage2(int )));
 			connect(dia, SIGNAL(loadPage(QString, int, bool)), this, SLOT(loadPage(QString, int, bool)));
 			connect(dia, SIGNAL(finished()), this, SLOT(manageMasterPagesEnd()));
-			connect(dia, SIGNAL(docAltered(ScribusDoc* )), outlinePalette, SLOT(BuildTree(ScribusDoc* )));
-			connect(dia, SIGNAL(docAltered(ScribusDoc*)), SLOT(slotDocCh()));
+			connect(dia, SIGNAL(docAltered()), outlinePalette, SLOT(BuildTree()));
+			connect(dia, SIGNAL(docAltered()), SLOT(slotDocCh()));
 			scrActions["pageInsert"]->setEnabled(false);
 			scrActions["pageImport"]->setEnabled(false);
 			scrActions["pageDelete"]->setEnabled(false);
@@ -8195,7 +8193,7 @@ void ScribusApp::manageMasterPagesEnd()
 	ActWin->muster = NULL;
 	view->DrawNew();
 	pagePalette->Rebuild();
-	outlinePalette->BuildTree(doc);
+	outlinePalette->BuildTree();
 //	outlinePalette->reopenTree(doc->OpenNodes);
 //	slotDocCh();
 }
@@ -8318,7 +8316,7 @@ void ScribusApp::GroupObj(bool showLockDia)
 		doc->GroupCounter++;
 		view->getGroupRect(&x, &y, &w, &h);
 		view->updateContents(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
-		outlinePalette->BuildTree(doc);
+		outlinePalette->BuildTree();
 		slotDocCh();
 		scrActions["itemAttachTextToPath"]->setEnabled(false);
 		scrActions["itemGroup"]->setEnabled(false);
@@ -8348,7 +8346,7 @@ void ScribusApp::UnGroupObj()
 			ss->set(QString("item%1").arg(a), currItem->ItemNr);
 			tooltip += "\t" + currItem->getUName() + "\n";
 		}
-		outlinePalette->BuildTree(doc);
+		outlinePalette->BuildTree();
 		slotDocCh();
 		view->Deselect(true);
 

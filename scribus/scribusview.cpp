@@ -4408,7 +4408,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 							Doc->MasterItems = Doc->Items;
 						else
 							Doc->DocItems = Doc->Items;
-						ScApp->outlinePalette->BuildTree(Doc);
+						ScApp->outlinePalette->BuildTree();
 					}
 					else
 					{
@@ -7860,7 +7860,7 @@ void ScribusView::ToBack()
 			Doc->MasterItems = Doc->Items;
 		else
 			Doc->DocItems = Doc->Items;
-		ScApp->outlinePalette->BuildTree(Doc);
+		ScApp->outlinePalette->BuildTree();
 		emit LevelChanged(0);
 		emit DocChanged();
 		updateContents();
@@ -7898,7 +7898,7 @@ void ScribusView::ToFront()
 			Doc->MasterItems = Doc->Items;
 		else
 			Doc->DocItems = Doc->Items;
-		ScApp->outlinePalette->BuildTree(Doc);
+		ScApp->outlinePalette->BuildTree();
 		emit LevelChanged(SelItem.at(0)->ItemNr);
 		emit DocChanged();
 		updateContents();
@@ -7955,7 +7955,7 @@ void ScribusView::LowerItem()
 			Doc->MasterItems = Doc->Items;
 		else
 			Doc->DocItems = Doc->Items;
-		ScApp->outlinePalette->BuildTree(Doc);
+		ScApp->outlinePalette->BuildTree();
 		emit LevelChanged(SelItem.at(0)->ItemNr);
 		emit DocChanged();
 		updateContents();
@@ -8012,7 +8012,7 @@ void ScribusView::RaiseItem()
 			Doc->MasterItems = Doc->Items;
 		else
 			Doc->DocItems = Doc->Items;
-		ScApp->outlinePalette->BuildTree(Doc);
+		ScApp->outlinePalette->BuildTree();
 		emit LevelChanged(SelItem.at(0)->ItemNr);
 		emit DocChanged();
 		updateContents();
@@ -8232,7 +8232,7 @@ void ScribusView::DeleteItem()
 			Doc->MasterItems = Doc->Items;
 		else
 			Doc->DocItems = Doc->Items;
-		ScApp->outlinePalette->BuildTree(Doc);
+		ScApp->outlinePalette->BuildTree();
 		if (SelItem.count() == 0)
 			emit HaveSel(-1);
 		else

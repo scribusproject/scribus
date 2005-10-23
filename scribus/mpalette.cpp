@@ -856,7 +856,7 @@ void Mpalette::SelTab(int t)
 	}
 }
 
-void Mpalette::SetDoc(ScribusDoc *d)
+void Mpalette::setDoc(ScribusDoc *d)
 {
 	doc = d;
 	Umrech=doc->unitRatio();
@@ -899,7 +899,7 @@ void Mpalette::SetDoc(ScribusDoc *d)
 	updateCList();
 }
 
-void Mpalette::UnsetDoc()
+void Mpalette::unsetDoc()
 {
 	HaveDoc = false;
 }

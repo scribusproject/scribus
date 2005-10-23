@@ -133,13 +133,14 @@ void ScripterCore::FinishScriptRun()
 {
 	if (ScApp->HaveDoc)
 	{
-		ScApp->propertiesPalette->SetDoc(ScApp->doc);
+		ScApp->propertiesPalette->setDoc(ScApp->doc);
 		ScApp->propertiesPalette->updateCList();
 		ScApp->propertiesPalette->Spal->setFormats(ScApp->doc);
 		ScApp->propertiesPalette->SetLineFormats(ScApp->doc);
 		ScApp->propertiesPalette->updateColorList();
 		ScApp->layerPalette->setLayers(&ScApp->doc->Layers, ScApp->doc->activeLayer());
-		ScApp->outlinePalette->BuildTree(ScApp->doc);
+		ScApp->outlinePalette->setDoc(ScApp->doc);
+		ScApp->outlinePalette->BuildTree();
 		ScApp->pagePalette->setView(ScApp->view);
 		ScApp->pagePalette->Rebuild();
 		ScApp->doc->RePos = true;

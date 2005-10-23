@@ -34,6 +34,10 @@ public:
 	//void keyPressEvent(QKeyEvent *k);
 	//void closeEvent(QCloseEvent *ce);
 	void resizeEvent(QResizeEvent *r);
+	
+	void setDoc(ScribusDoc *);
+	void unsetDoc();
+	
 	void rebuildPageD();
 	void reopenTree(QValueList<int> op);
 	QListViewItem* getListItem(uint SNr, int Nr);
@@ -41,6 +45,35 @@ public:
 	void parseSubGroup(int level, QListViewItem* object, QPtrList<PageItem> *subGroupList, bool onMasterPage);
 	QValueList<int> buildReopenVals();
 
+public slots:
+	void BuildTree();
+	void languageChange();
+	void slotShowSelect(uint SNr, int Nr);
+
+signals:
+	void ToggleAllPalettes();
+	//void Schliessen();
+	//void CloseMpal();
+	//void CloseSpal();
+	void selectElement(int, int, bool);
+	void selectPage(int);
+	void selectMasterPage(QString);
+	void selectMasterPageElement(QString, int);
+
+protected slots:
+	//virtual void reject();
+	void slotRightClick(QListViewItem* ite, const QPoint &, int);
+	void slotDoRename(QListViewItem* ite, int col);
+	void slotRemoveElement(uint SNr, uint Nr);
+	void slotUpdateElement(uint SNr, uint Nr);
+	void slotAddElement(PageItem *item);
+	void slotMoveElement(uint SNr, uint NrOld, uint NrNew);
+	void slotDelPage(uint Nr);
+	void slotAddPage(uint Nr);
+	void slotSelect(QListViewItem* ite);
+protected:
+	void clearPalette();
+	int idElemCol;
 	QListView* reportDisplay;
 	QMap<QListViewItem*, int> itemMap;
 	QMap<QListViewItem*, int> groupMap;
@@ -57,7 +90,6 @@ public:
 	QMap<QString, QListViewItem*> masterPageMapRev;
 	QListViewItem* freeObjects;
 	QListViewItem* rootObject;
-	ScribusDoc* document;
 	ScribusApp* ScApp;
 	QPixmap imageIcon;
 	QPixmap textIcon;
@@ -66,36 +98,7 @@ public:
 	QPixmap polylineIcon;
 	QPixmap groupIcon;
 	bool selectionTriggered;
-
-public slots:
-	void slotRightClick(QListViewItem* ite, const QPoint &, int);
-	void slotDoRename(QListViewItem* ite, int col);
-	void slotShowSelect(uint SNr, int Nr);
-	void slotRemoveElement(uint SNr, uint Nr);
-	void slotUpdateElement(uint SNr, uint Nr);
-	void slotAddElement(PageItem *item);
-	void slotMoveElement(uint SNr, uint NrOld, uint NrNew);
-	void slotDelPage(uint Nr);
-	void slotAddPage(uint Nr);
-	void slotSelect(QListViewItem* ite);
-	void BuildTree(ScribusDoc *doc);
-	void languageChange();
-
-signals:
-	void ToggleAllPalettes();
-	//void Schliessen();
-	//void CloseMpal();
-	//void CloseSpal();
-	void selectElement(int, int, bool);
-	void selectPage(int);
-	void selectMasterPage(QString);
-	void selectMasterPageElement(QString, int);
-
-protected slots:
-	//virtual void reject();
-
-private:
-	int idElemCol;
+	ScribusDoc *currDoc;
 };
 
 #endif // TREE_H
