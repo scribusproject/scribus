@@ -470,6 +470,7 @@ void ScribusApp::initPalettes()
 	outlinePalette = new Tree(this, this);
 	connect( scrActions["toolsOutline"], SIGNAL(toggled(bool)) , outlinePalette, SLOT(setPaletteShown(bool)) );
 	connect( outlinePalette, SIGNAL(paletteShown(bool)), scrActions["toolsOutline"], SLOT(setOn(bool)));
+	outlinePalette->setPrefsContext("OutlinePalette");
 	propertiesPalette = new Mpalette(this);
 	connect( scrActions["toolsProperties"], SIGNAL(toggled(bool)) , propertiesPalette, SLOT(setPaletteShown(bool)) );
 	connect( propertiesPalette, SIGNAL(paletteShown(bool)), scrActions["toolsProperties"], SLOT(setOn(bool)));
@@ -2396,9 +2397,9 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 	doc = new ScribusDoc();
 	doc->setLoading(true);
 	doc->setup(einh, fp, firstleft, Ori, SNr, defaultPageSize, doc->DocName+cc.setNum(DocNr));
-	docCheckerPalette->clearErrorList();
 	HaveDoc++;
 	DocNr++;
+	//<<View code, needs to be here before other doc code for now as we run ScribusView::AddPage via slotNewPageq
 	ScribusWin* w = new ScribusWin(wsp, doc);
 	if (view!=NULL)
 	{
@@ -2409,15 +2410,12 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 	view->setScale(prefsManager->displayScale());
 	actionManager->connectNewViewActions(view);
 	alignDistributePalette->setView(view);
+	docCheckerPalette->clearErrorList();
 	w->setView(view);
 	ActWin = w;
 	doc->WinHan = w;
 	w->setCentralWidget(view);
-	connect(undoManager, SIGNAL(undoRedoDone()), view, SLOT(DrawNew()));
-	//connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
-	connect(view, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
-
-	//	connect(w, SIGNAL(SaveAndClose()), this, SLOT(DoSaveClose()));
+	//>>
 	if ((CMSavail) && (doc->CMSSettings.CMSinUse))
 		recalcColors();
 	doc->setPage(width, h, tpr, lr, rr, br, sp, ab, atf, fp);
@@ -2445,6 +2443,13 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 	doc->DocItems = doc->Items;
 	doc->currentPage = doc->Pages.at(0);
 	doc->OpenNodes.clear();
+
+	connect(undoManager, SIGNAL(undoRedoDone()), view, SLOT(DrawNew()));
+	//connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
+	connect(view, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
+
+	//	connect(w, SIGNAL(SaveAndClose()), this, SLOT(DoSaveClose()));
+
 
 	//Independent finishing tasks after doc setup
 	outlinePalette->BuildTree();
