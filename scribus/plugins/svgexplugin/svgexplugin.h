@@ -11,7 +11,7 @@ class ScribusApp;
 class PageItem;
 class Page;
 
-class PLUGIN_API SVGExportPlugin : public LoadSavePlugin
+class PLUGIN_API SVGExportPlugin : public ScActionPlugin
 {
 	Q_OBJECT
 
@@ -24,8 +24,6 @@ class PLUGIN_API SVGExportPlugin : public LoadSavePlugin
 		virtual const AboutData* getAboutData() const;
 		virtual void deleteAboutData(const AboutData* about) const;
 		virtual void languageChange();
-		virtual QValueList<FormatSupport> supportedFormats() const;
-		virtual bool fileSupported(QIODevice* file) const;
 
 		// Special features (none)
 };

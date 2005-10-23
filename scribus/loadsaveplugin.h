@@ -25,19 +25,13 @@ class SCRIBUS_API LoadSavePlugin : public ScActionPlugin
 		LoadSavePlugin();
 		~LoadSavePlugin();
 
-		// What modes this plugin supports. Often ORed.
-		// The distinction between "import" and "load", and between
-		// "export" and "save" is really mostly a user interface issue.
-		enum FormatSupportType
-		{
-			Format_Load = 1,
-			Format_Save = 2,
-			Format_Import = 4,
-			Format_Export = 8
-		};
-
-		// Info on each supported format. A list of these structures
-		// is returned by supportedFormats()
+		// Info on each supported format. A plugin must register a
+		// FormatSupport structure for every format it knows how to load or
+		// save. If it both loads and saves a given format, one structure must
+		// be registered for load and one for save.
+		// Plugins must unregister formats when being unloaded to ensure that
+		// no attempt is made to load a file using a plugin that's no longer
+		// available.
 		struct FormatSupport
 		{
 			// The human-readable, translated name of this file format.
@@ -49,22 +43,34 @@ class SCRIBUS_API LoadSavePlugin : public ScActionPlugin
 			// A filter in the format used by QFileDialog that should be used to
 			// select for this format.
 			QString filter;
-			// One or more ORed values from FileTypePlugin::FormatSupportType
-			// to indicate how the plugin works. Import? Export? Load? Save?
-			int modes;
+			// Regexp to match filenames for this format
+			QRegExp nameMatch;
 			// MIME type(s) that should be matched by this format.
 			QStringList mimeTypes;
+			// Can we load it?
+			bool load;
+			// Can we save it?
+			bool save;
+			// Can we build it? Er... forget that, sorry ;-) ^U
 			// Priority of this format from 0 (lowest, tried last) to
 			// 255 (highest, tried first). 64-128 recommended in general.
 			// Priority controls the order options are displayed in when a given
 			// file type is selected, and controls the order loaders are tried in
 			// when multiple plugins support the same file type.
 			unsigned short int priority;
+			// For convenience, a pointer back to the plugin to use to open
+			// this format.
+			LoadSavePlugin* plug;
 		};
 
-		// Return a list of all formats this plugin supports. All plugins must
-		// implement this method.
-		virtual QValueList<FormatSupport> supportedFormats() const = 0;
+		// Static functions:
+
+		// Return a list of all formats supported by all currently loaded and
+		// active plugins.
+		static const QValueList<FormatSupport> & supportedFormats();
+
+
+		// Non-static members implemented by plugins:
 
 		// Examine the passed file and test to see whether it appears to be
 		// loadable with this plugin. This test must be quick and simple.
@@ -73,9 +79,37 @@ class SCRIBUS_API LoadSavePlugin : public ScActionPlugin
 		// All plugins must implement this method.
 		virtual bool fileSupported(QIODevice* file) const = 0;
 
-		// Actual import is accomplished through the inherited
-		// run() method, or its async version. Further refinement can be
-		// accomplished later.
+		// Load the requested format from the specified path.
+		// Default implementation always reports falure.
+		virtual bool loadFile(const QString & fileName, const FormatSupport & fmt);
+
+		// Save the requested format to the requested path.
+		virtual bool saveFile(const QString & fileName, const FormatSupport & fmt);
+	
+	protected:
+		/// Register the passed format so it can be used by 
+		void registerFormat(const FormatSupport & fmt);
+
+		/// Unregister the format with internal name `name' that references by the calling plugin.
+		void unregisterFormat(const QCString & name);
+
+		/// Unregister all formats owned by the calling plugin
+		void unregisterAll();
+
+	private:
+		// A list of all supported formats. This is maintained by plugins
+		// using the protected `registerFormat(...)', `unregisterFormat(...)'
+		// and `unregisterAll(...)' methods.
+		static QValueList<FormatSupport> formats;
+
+		// Return an iterator referencing the first format structure named `name'.
+		// If specified, only return formats implmented by `plug'.
+		// If `start' is specified, start searching at this iterator rather than the
+		// start of the list.
+		// The end iterator is returned if no match was found.
+		QValueList<FormatSupport>::iterator findFormat(const QCString & name,
+				LoadSavePlugin* plug = 0,
+				QValueList<FormatSupport>::iterator it = formats.begin());
 };
 
 #endif

@@ -30,14 +30,16 @@ void scribusexportpixmap_freePlugin(ScPlugin* plugin)
 	delete plug;
 }
 
-PixmapExportPlugin::PixmapExportPlugin() : LoadSavePlugin()
+PixmapExportPlugin::PixmapExportPlugin() : ScActionPlugin()
 {
 	// Set action info in languageChange, so we only have to do
-	// it in one place.
+	// it in one place. This includes registering file formats.
 	languageChange();
 }
 
-PixmapExportPlugin::~PixmapExportPlugin() {};
+PixmapExportPlugin::~PixmapExportPlugin()
+{
+};
 
 void PixmapExportPlugin::languageChange()
 {
@@ -77,29 +79,6 @@ void PixmapExportPlugin::deleteAboutData(const AboutData* about) const
 {
 	Q_ASSERT(about);
 	delete about;
-}
-
-QValueList<LoadSavePlugin::FormatSupport> PixmapExportPlugin::supportedFormats() const
-{
-	QValueList<FormatSupport> formats;
-	// TODO: For now, we only support "export" and omit a list of supported
-	// formats. Later, it might be good to support "Save as" with the chosen
-	// format.
-	FormatSupport fmt;
-	fmt.trName = QString::null; // Human readable name
-	fmt.internalName = "pixmapex"; // Internal name
-	fmt.filter = QString::null; // QFileDialog filter
-	fmt.modes = Format_Export; // Modes
-	fmt.mimeTypes = QStringList(); // MIME types
-	fmt.priority = 64; // Priority
-	formats.append(fmt);
-	return formats;
-}
-
-bool PixmapExportPlugin::fileSupported(QIODevice* /* file */) const
-{
-	// TODO: For now, just accept 'em all.
-	return true;
 }
 
 bool PixmapExportPlugin::run(QString target)

@@ -17,10 +17,12 @@ class PLUGIN_API ImportPSPlugin : public LoadSavePlugin
 		virtual const AboutData* getAboutData() const;
 		virtual void deleteAboutData(const AboutData* about) const;
 		virtual void languageChange();
-		virtual QValueList<FormatSupport> supportedFormats() const;
 		virtual bool fileSupported(QIODevice* file) const;
 
 		// Special features (none)
+
+	private:
+		void registerFormats();
 };
 
 extern "C" PLUGIN_API int importps_getPluginAPIVersion();

@@ -52,7 +52,7 @@ void svgexplugin_freePlugin(ScPlugin* plugin)
 	delete plug;
 }
 
-SVGExportPlugin::SVGExportPlugin() : LoadSavePlugin()
+SVGExportPlugin::SVGExportPlugin() : ScActionPlugin()
 {
 	// Set action info in languageChange, so we only have to do
 	// it in one place.
@@ -88,27 +88,6 @@ const ScActionPlugin::AboutData* SVGExportPlugin::getAboutData() const
 	about->license = "GPL";
 	Q_CHECK_PTR(about);
 	return about;
-}
-
-QValueList<LoadSavePlugin::FormatSupport> SVGExportPlugin::supportedFormats() const
-{
-	QValueList<FormatSupport> formats;
-	// TODO: more complete format definition
-	FormatSupport fmt;
-	fmt.trName = QString::null;
-	fmt.internalName = "svgex";
-	fmt.filter = QString::null;
-	fmt.modes = Format_Save|Format_Export;
-	fmt.mimeTypes = QStringList();
-	fmt.priority = 64;
-	formats.append(fmt);
-	return formats;
-}
-
-bool SVGExportPlugin::fileSupported(QIODevice* /* file */) const
-{
-	// TODO: detect valid SVG
-	return true;
 }
 
 void SVGExportPlugin::deleteAboutData(const AboutData* about) const

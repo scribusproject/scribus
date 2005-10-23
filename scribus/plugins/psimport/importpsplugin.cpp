@@ -29,8 +29,8 @@ void importps_freePlugin(ScPlugin* plugin)
 
 ImportPSPlugin::ImportPSPlugin() : LoadSavePlugin()
 {
-	// Set action info in languageChange, so we only have to do
-	// it in one place.
+	// Set action info in languageChange, so we only have to do it in one
+	// place. This includes registering file format support.
 	languageChange();
 }
 
@@ -45,9 +45,15 @@ void ImportPSPlugin::languageChange()
 	// Menu
 	m_actionInfo.menu = "FileImport";
 	m_actionInfo.enabledOnStartup = true;
+	// (Re)register file format support
+	unregisterAll();
+	registerFormats();
 }
 
-ImportPSPlugin::~ImportPSPlugin() {};
+ImportPSPlugin::~ImportPSPlugin()
+{
+	unregisterAll();
+};
 
 /*!
  \fn QString Name()
@@ -80,19 +86,19 @@ void ImportPSPlugin::deleteAboutData(const AboutData* about) const
 	delete about;
 }
 
-QValueList<LoadSavePlugin::FormatSupport> ImportPSPlugin::supportedFormats() const
+void ImportPSPlugin::registerFormats()
 {
-	QValueList<FormatSupport> formats;
 	QString psName = tr("PostScript");
 	FormatSupport fmt;
 	fmt.trName = psName; // Human readable name
 	fmt.internalName = "psimport"; // Internal name
 	fmt.filter = psName + " (*.ps *.PS *.eps *.EPS)"; // QFileDialog filter
-	fmt.modes = Format_Import|Format_Load; // Modes
+	fmt.nameMatch = QRegExp("\.(ps|eps)$", false);
+	fmt.load = true;
+	fmt.save = false;
 	fmt.mimeTypes = QStringList("application/postscript"); // MIME types
 	fmt.priority = 64; // Priority
-	formats.append(fmt);
-	return formats;
+	registerFormat(fmt);
 }
 
 bool ImportPSPlugin::fileSupported(QIODevice* /* file */) const

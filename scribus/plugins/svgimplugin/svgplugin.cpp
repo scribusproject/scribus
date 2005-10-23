@@ -50,11 +50,15 @@ void svgimplugin_freePlugin(ScPlugin* plugin)
 SVGImportPlugin::SVGImportPlugin() : LoadSavePlugin()
 {
 	// Set action info in languageChange, so we only have to do
-	// it in one place.
+	// it in one place. This includes registering file format
+	// support.
 	languageChange();
 }
 
-SVGImportPlugin::~SVGImportPlugin() {};
+SVGImportPlugin::~SVGImportPlugin()
+{
+	unregisterAll();
+};
 
 void SVGImportPlugin::languageChange()
 {
@@ -67,6 +71,9 @@ void SVGImportPlugin::languageChange()
 	// Menu
 	m_actionInfo.menu = "FileImport";
 	m_actionInfo.enabledOnStartup = true;
+	// (Re)register file format support.
+	unregisterAll();
+	registerFormats();
 }
 
 const QString SVGImportPlugin::fullTrName() const
@@ -91,19 +98,24 @@ void SVGImportPlugin::deleteAboutData(const AboutData* about) const
 	delete about;
 }
 
-QValueList<LoadSavePlugin::FormatSupport> SVGImportPlugin::supportedFormats() const
+void SVGImportPlugin::registerFormats()
 {
-	QValueList<FormatSupport> formats;
 	QString svgName = tr("Scalable Vector Graphics");
 	FormatSupport fmt;
 	fmt.trName = svgName;
 	fmt.internalName = "svgim";
+#ifdef HAVE_LIBZ
 	fmt.filter = svgName + " (*.svg *.svgz)";
-	fmt.modes = Format_Import|Format_Load;
+	fmt.nameMatch = QRegExp("\.(svg|svgz)$", false);
+#else
+	fmt.filter = svgName + " (*.svg)";
+	fmt.nameMatch = QRegExp("\.svg$", false);
+#endif
+	fmt.load = true;
+	fmt.save = false;
 	fmt.mimeTypes = QStringList("image/svg+xml");
 	fmt.priority = 64;
-	formats.append(fmt);
-	return formats;
+	registerFormat(fmt);
 }
 
 bool SVGImportPlugin::fileSupported(QIODevice* /* file */) const
