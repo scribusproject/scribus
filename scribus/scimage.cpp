@@ -18,7 +18,7 @@ extern int IntentMonitor;
 extern int IntentPrinter;
 #endif
 #include "util.h"
-
+#include "exif.h"
 
 
 
@@ -2781,7 +2781,7 @@ bool ScImage::read_jpeg_marker (UINT8 requestmarker, j_decompress_ptr cinfo, JOC
 	for (marker = cinfo->marker_list; marker != NULL; marker = marker->next)
 	{
 		if ( (requestmarker == ICC_MARKER && marker_is_icc(marker)) ||
-		        (requestmarker == PHOTOSHOP_MARKER && marker_is_photoshop(marker)))
+		        (requestmarker == PHOTOSHOP_MARKER && marker_is_photoshop(marker)) || (requestmarker == 0xE1))
 		{
 			JOCTET FAR *src_ptr;
 			JOCTET *dst_ptr;
@@ -2931,7 +2931,7 @@ void ScImage::getEmbeddedProfile(QString fn, QString *profile, int *components)
 
 bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes, bool *realCMYK)
 {
-	// requestType - 0: CMYK, 1: RGB, 2: RGB Proof
+	// requestType - 0: CMYK, 1: RGB, 2: RGB Proof 3 : RawData, 4: Thumbnail
 	// gsRes - is the resolution that ghostscript will render at
 	bool isCMYK = false;
 	bool ret = false;
@@ -2940,6 +2940,7 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 	bool bilevel = false;
 	float xres, yres;
 	short resolutionunit = 0;
+	int reqType = requestType;
 #ifdef HAVE_CMS
 	cmsHTRANSFORM xform = 0;
 	cmsHPROFILE inputProf = 0;
@@ -2959,6 +2960,8 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 	QString picFile = QDir::convertSeparators(fn);
 	if (ext == "pdf")
 	{
+		if (reqType == 4)
+			reqType = 1;
 		QStringList args;
 		xres = gsRes;
 		yres = gsRes;
@@ -2994,6 +2997,8 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 	}
 	if ((ext == "eps") || (ext == "ps"))
 	{
+		if (reqType == 4)
+			reqType = 1;
 		QFile f(fn);
 		if (f.open(IO_ReadOnly))
 		{
@@ -3075,6 +3080,8 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 #ifdef HAVE_TIFF
 	else if ((ext == "tif") || (ext == "tiff"))
 	{
+		if (reqType == 4)
+			reqType = 1;
 		QImage img2;
 		TIFF* tif = TIFFOpen(fn.local8Bit(), "r");
 		if(tif)
@@ -3233,6 +3240,8 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 #endif // HAVE_TIFF
 	else if (ext == "psd")
 	{
+		if (reqType == 4)
+			reqType = 1;
 		QFile f(fn);
 		if (f.open(IO_ReadOnly))
 		{
@@ -3295,6 +3304,20 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 	}
 	else if ((ext == "jpg") || (ext == "jpeg"))
 	{
+		ExifData ExifInfo;
+		if (ExifInfo.scan(fn))
+		{
+/*    		sDebug(ExifInfo.getCameraMake());
+    		sDebug(ExifInfo.getCameraModel()); */
+    		if ((reqType == 4) && (!ExifInfo.isNullThumbnail()))
+    		{
+    			*this = ExifInfo.getThumbnail();
+    			sDebug("Thumbnail found");
+    			return true;
+    		}
+    		else
+    			reqType = 1;
+		}
 		struct jpeg_decompress_struct cinfo;
 		struct my_error_mgr         jerr;
 		FILE     *infile;
@@ -3559,7 +3582,7 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 		}
 		if (BlackPoint)
 			cmsFlags |= cmsFLAGS_BLACKPOINTCOMPENSATION;
-		switch (requestType)
+		switch (reqType)
 		{
 		case 0: // CMYK
 			if (!isCMYK)
@@ -3596,7 +3619,7 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 				cmsDoTransform(xform, ptr, ptr, width());
 				// if transforming from CMYK to RGB, flatten the alpha channel
 				// which will still contain the black channel
-				if (isCMYK && requestType != 0 && !bilevel)
+				if (isCMYK && reqType != 0 && !bilevel)
 				{
 					QRgb *p = (QRgb *) ptr;
 					QRgb alphaFF = qRgba(0,0,0,255);
@@ -3614,7 +3637,7 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 #endif // HAVE_CMS
 
 	{
-		switch (requestType)
+		switch (reqType)
 		{
 		case 0:
 			if (!isCMYK)
@@ -3657,7 +3680,7 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 			break;
 		}
 	}
-	if ((requestType == 0 || isCMYK) && !bilevel)
+	if ((reqType == 0 || isCMYK) && !bilevel)
 		setAlphaBuffer(false);
 	setDotsPerMeterX (QMAX(2834, (int) (xres / 0.0254)));
 	setDotsPerMeterY (QMAX(2834, (int) (yres / 0.0254)));

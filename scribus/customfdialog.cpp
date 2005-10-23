@@ -126,7 +126,7 @@ void FDialogPreview::GenPreview(QString name)
 	if (formats.contains(ext))
 	{
 		ScImage im;
-		if (im.LoadPicture(name, "", 0, false, false, 1, 72, &mode))
+		if (im.LoadPicture(name, "", 0, false, false, 4, 72, &mode))
 		{
 			int ix = im.width();
 			int iy = im.height();

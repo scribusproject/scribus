@@ -61,6 +61,7 @@ scribus_SOURCES = \
 	editformats.cpp	\
 	editor.cpp	\
 	effectsdialog.cpp	\
+	exif.cpp	\
 	extimageprops.cpp	\
 	fileloader.cpp	\
 	filesearch.cpp	\
