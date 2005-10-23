@@ -106,15 +106,16 @@ void SVGImportPlugin::registerFormats()
 	fmt.internalName = "svgim";
 #ifdef HAVE_LIBZ
 	fmt.filter = svgName + " (*.svg *.svgz)";
-	fmt.nameMatch = QRegExp("\.(svg|svgz)$", false);
+	fmt.nameMatch = QRegExp("\\.(svg|svgz)$", false);
 #else
 	fmt.filter = svgName + " (*.svg)";
-	fmt.nameMatch = QRegExp("\.svg$", false);
+	fmt.nameMatch = QRegExp("\\.svg$", false);
 #endif
 	fmt.load = true;
 	fmt.save = false;
 	fmt.mimeTypes = QStringList("image/svg+xml");
 	fmt.priority = 64;
+	fmt.plug = this;
 	registerFormat(fmt);
 }
 

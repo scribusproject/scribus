@@ -113,11 +113,12 @@ void OODrawImportPlugin::registerFormats()
 	odtformat.trName = odtName; // Human readable name
 	odtformat.internalName = "oddraw"; // Internal name
 	odtformat.filter = odtName + " (*.odg)"; // QFileDialog filter
-	odtformat.nameMatch = QRegExp("\.odg$", false);
+	odtformat.nameMatch = QRegExp("\\.odg$", false);
 	odtformat.load = true;
 	odtformat.save = false;
 	odtformat.mimeTypes = QStringList("application/vnd.oasis.opendocument.graphics"); // MIME types
 	odtformat.priority = 64; // Priority
+	odtformat.plug = this;
 	registerFormat(odtformat);
 
 	QString sxdName = tr("OpenOffice.org 1.x Draw", "Import/export format name");
@@ -125,11 +126,12 @@ void OODrawImportPlugin::registerFormats()
 	sxdformat.trName = sxdName; // Human readable name
 	sxdformat.internalName = "oodraw"; // Internal name
 	sxdformat.filter = sxdName + " (*.sxd)"; // QFileDialog filter
-	sxdformat.nameMatch = QRegExp("\.sxd$", false);
+	sxdformat.nameMatch = QRegExp("\\.sxd$", false);
 	sxdformat.load = true;
 	sxdformat.save = false;
 	sxdformat.mimeTypes = QStringList("application/vnd.sun.xml.draw"); // MIME types
 	sxdformat.priority = 64; // Priority
+	sxdformat.plug = this;
 	registerFormat(sxdformat);
 }
 

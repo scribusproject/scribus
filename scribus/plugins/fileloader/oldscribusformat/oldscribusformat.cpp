@@ -59,14 +59,15 @@ void OldScribusFormat::registerFormats()
 	fmt.save = true;
 #ifdef HAVE_LIBZ
 	fmt.filter = fmt.trName + " (*.sla *.sla.gz *.scd *.scd.gz)";
-	fmt.nameMatch = QRegExp("\.(sla|scd)(\.gz)?", false);
+	fmt.nameMatch = QRegExp("\\.(sla|scd)(\\.gz)?", false);
 #else
 	fmt.filter = fmt.trName + " (*.sla *.scd)";
-	fmt.nameMatch = QRegExp("\.(sla|scd)", false);
+	fmt.nameMatch = QRegExp("\\.(sla|scd)", false);
 #endif
 	fmt.mimeTypes = QStringList();
 	fmt.mimeTypes.append("application/x-scribus");
 	fmt.priority = 64;
+	fmt.plug = this;
 	registerFormat(fmt);
 }
 

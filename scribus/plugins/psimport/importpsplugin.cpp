@@ -93,11 +93,12 @@ void ImportPSPlugin::registerFormats()
 	fmt.trName = psName; // Human readable name
 	fmt.internalName = "psimport"; // Internal name
 	fmt.filter = psName + " (*.ps *.PS *.eps *.EPS)"; // QFileDialog filter
-	fmt.nameMatch = QRegExp("\.(ps|eps)$", false);
+	fmt.nameMatch = QRegExp("\\.(ps|eps)$", false);
 	fmt.load = true;
 	fmt.save = false;
 	fmt.mimeTypes = QStringList("application/postscript"); // MIME types
 	fmt.priority = 64; // Priority
+	fmt.plug = this;
 	registerFormat(fmt);
 }
 
