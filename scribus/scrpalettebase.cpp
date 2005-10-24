@@ -29,6 +29,7 @@
 
 ScrPaletteBase::ScrPaletteBase(  QWidget * parent, const char * name, bool modal, WFlags f) : QDialog ( parent, name, modal, f) 
 {
+	palettePrefs=NULL;
 }
 
 void ScrPaletteBase::setPrefsContext(QString context)
