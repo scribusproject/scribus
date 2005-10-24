@@ -7,7 +7,7 @@
 #include "prefsfile.h"
 #include "undomanager.h"
 #include "customfdialog.h"
-#include "menumanager.cpp"
+#include "scraction.h"
 #include "menumanager.h"
 
 int importps_getPluginAPIVersion()
