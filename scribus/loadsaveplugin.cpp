@@ -11,6 +11,12 @@ LoadSavePlugin::~LoadSavePlugin()
 {
 }
 
+// STATIC method - return a list of all existing formats
+const QValueList<LoadSavePlugin::FormatSupport> & LoadSavePlugin::supportedFormats()
+{
+	return formats;
+}
+
 bool LoadSavePlugin::saveFile(const QString & /* fileName */,
 							  const LoadSavePlugin::FormatSupport & /* fmt */)
 {
@@ -23,14 +29,8 @@ bool LoadSavePlugin::loadFile(const QString & /* fileName */,
 	return false;
 }
 
-const QValueList<LoadSavePlugin::FormatSupport> & LoadSavePlugin::supportedFormats()
-{
-	return formats;
-}
-
 void LoadSavePlugin::registerFormat(const LoadSavePlugin::FormatSupport & fmt)
 {
-	return; // FIXME - temporarily disabled
 	// Must be no existing format of that name owned by this plugin
 	Q_ASSERT(findFormat(fmt.internalName, this) == formats.end());
 	formats.append(fmt);
@@ -38,7 +38,6 @@ void LoadSavePlugin::registerFormat(const LoadSavePlugin::FormatSupport & fmt)
 
 void LoadSavePlugin::unregisterFormat(const QCString & name)
 {
-	return; // FIXME - temporarily disabled
 	QValueList<LoadSavePlugin::FormatSupport>::iterator it(findFormat(name, this));
 	Q_ASSERT(it != formats.end());
 	formats.remove(it);
@@ -46,13 +45,14 @@ void LoadSavePlugin::unregisterFormat(const QCString & name)
 
 void LoadSavePlugin::unregisterAll()
 {
-	return; // FIXME - temporarily disabled
 	QValueList<LoadSavePlugin::FormatSupport>::iterator it(formats.begin());
 	QValueList<LoadSavePlugin::FormatSupport>::iterator itEnd(formats.end());
-	for ( ; it != itEnd; ++it )
+	while (it != itEnd)
 	{
 		if ((*it).plug == this)
-			formats.remove(it);
+			it = formats.remove(it);
+		else
+			++it;
 	}
 }
 
