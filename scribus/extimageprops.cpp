@@ -13,8 +13,11 @@
 #include <qtooltip.h>
 #include <qwhatsthis.h>
 #include <qheader.h>
+
+#include "pageitem.h"
 #include "sccombobox.h"
 #include "scpainter.h"
+#include "scribusview.h"
 #include "util.h"
 
 ExtImageProps::ExtImageProps( QWidget* parent, ScImage::ImageInfoRecord *info, PageItem *item, ScribusView *view )  : QDialog( parent, "ExtImageProps", true, 0 )

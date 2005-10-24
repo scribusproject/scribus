@@ -17,8 +17,9 @@ class QListBoxItem;
 class QCheckBox;
 class QPushButton;
 
+class ScribusView;
+class PageItem;
 #include "scribusapi.h"
-#include "scribus.h"
 #include "scimage.h"
 
 class SCRIBUS_API ExtImageProps : public QDialog

@@ -2,6 +2,7 @@
 #include <qcursor.h>
 #include <qtimer.h>
 #include <qlabel.h>
+#include <qpixmap.h>
 #include <qpushbutton.h>
 #include <qtable.h>
 #include <qlayout.h>
@@ -10,8 +11,11 @@
 #include <qcombobox.h>
 #include <qfont.h>
 #include <qpopupmenu.h>
+#include <qwidget.h>
 
 #include "scribus.h"
+#include "scribusdoc.h"
+#include "scribusview.h"
 #include "fontcombo.h"
 #include "charselect.h"
 #include "charselect.moc"

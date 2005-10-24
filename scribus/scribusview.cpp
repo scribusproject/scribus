@@ -252,7 +252,7 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 		if (!Doc->masterPageMode)
 		{
 			uint docPagesCount=Doc->Pages.count();
-			for (uint a = 0; a < docPagesCount; ++a)
+			for (int a = 0; a < static_cast<int>(docPagesCount); ++a)
 			{
 				int x = static_cast<int>(Doc->Pages.at(a)->xOffset() * Scale);
 				int y = static_cast<int>(Doc->Pages.at(a)->yOffset() * Scale);

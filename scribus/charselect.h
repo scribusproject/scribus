@@ -13,8 +13,11 @@ class QToolTip;
 class QStringList;
 class QComboBox;
 class QFont;
-class ScribusApp;
+class QWidget;
+
 class FontCombo;
+class PageItem;
+class ScribusApp;
 
 class SCRIBUS_API Zoom : public QDialog
 {

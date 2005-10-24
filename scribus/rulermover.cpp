@@ -18,6 +18,7 @@
 #include "rulermover.h"
 #include "rulermover.moc"
 #include "scribusview.h"
+#include "scribusdoc.h"
 #include <qcursor.h>
 extern QPixmap loadIcon(QString nam);
 

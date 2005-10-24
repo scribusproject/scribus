@@ -2,6 +2,7 @@
 #include "seiten.moc"
 #include <qcursor.h>
 #include "scribus.h"
+#include "scribusview.h"
 #include "dynamictip.h"
 #include "page.h"
 #include "pagelayout.h"

@@ -26,6 +26,8 @@
 #include "loremipsum.h"
 #include "loremipsum.moc"
 #include "scribus.h"
+#include "scribusdoc.h"
+#include "scribusview.h"
 #include "scpaths.h"
 #include "serializer.h"
 #include "prefsmanager.h"

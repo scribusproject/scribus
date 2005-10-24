@@ -19,6 +19,7 @@
 #include "picstatus.moc"
 #include <qfileinfo.h>
 #include <qfiledialog.h>
+#include <qmessagebox.h>
 #include <qtoolbutton.h>
 #include <qstringlist.h>
 #include <qtextstream.h>

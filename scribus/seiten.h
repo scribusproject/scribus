@@ -25,7 +25,7 @@
 
 #include "scribusapi.h"
 #include "scrpalettebase.h"
-#include "scribusview.h"
+class ScribusView;
 class DynamicTip;
 class PageLayouts;
 
