@@ -33,6 +33,8 @@
 #include "util.h"
 #include "scfontmetrics.h"
 #include "stylestack.h"
+#include "scraction.h"
+#include "menumanager.h"
 
 using namespace std;
 
@@ -40,6 +42,9 @@ int oodrawimp_getPluginAPIVersion()
 {
 	return PLUGIN_API_VERSION;
 }
+
+static const unsigned int formatId_odt = 1;
+static const unsigned int formatId_sxd = 2;
 
 ScPlugin* oodrawimp_getPlugin()
 {
@@ -56,29 +61,28 @@ void oodrawimp_freePlugin(ScPlugin* plugin)
 }
 
 OODrawImportPlugin::OODrawImportPlugin() :
-	LoadSavePlugin()
+	LoadSavePlugin(),
+	importAction(new ScrAction(ScrAction::DLL, QIconSet(), "", QKeySequence(), this, "ImportOpenOfficeDraw"))
 {
 	// Set action info in languageChange, so we only have to do
 	// it in one place. This includes registering file formats.
 	languageChange();
+
+	// Then hook up the action
+	importAction->setEnabled(true);
+	connect( importAction, SIGNAL(activated()), SLOT(import()) );
+	ScApp->scrMenuMgr->addMenuItem(importAction, "FileImport");
 }
 
 OODrawImportPlugin::~OODrawImportPlugin()
 {
 	unregisterAll();
+	// note: importAction is automatically deleted by Qt
 };
 
 void OODrawImportPlugin::languageChange()
 {
-	// Note that we leave the unused members unset. They'll be initialised
-	// with their default ctors during construction.
-	// Action name
-	m_actionInfo.name = "ImportOpenOfficeDraw";
-	// Action text for menu, including accel
-	m_actionInfo.text = tr("Import &OpenOffice.org Draw...");
-	// Menu
-	m_actionInfo.menu = "FileImport";
-	m_actionInfo.enabledOnStartup = true;
+	importAction->setMenuText(tr("Import &OpenOffice.org Draw..."));
 	// (Re)register file formats
 	unregisterAll();
 	registerFormats();
@@ -111,7 +115,7 @@ void OODrawImportPlugin::registerFormats()
 	QString odtName = tr("OpenDocument 1.0 Draw", "Import/export format name");
 	FormatSupport odtformat;
 	odtformat.trName = odtName; // Human readable name
-	odtformat.internalName = "oddraw"; // Internal name
+	odtformat.formatId = formatId_odt;
 	odtformat.filter = odtName + " (*.odg)"; // QFileDialog filter
 	odtformat.nameMatch = QRegExp("\\.odg$", false);
 	odtformat.load = true;
@@ -124,7 +128,7 @@ void OODrawImportPlugin::registerFormats()
 	QString sxdName = tr("OpenOffice.org 1.x Draw", "Import/export format name");
 	FormatSupport sxdformat;
 	sxdformat.trName = sxdName; // Human readable name
-	sxdformat.internalName = "oodraw"; // Internal name
+	sxdformat.formatId = formatId_sxd;
 	sxdformat.filter = sxdName + " (*.sxd)"; // QFileDialog filter
 	sxdformat.nameMatch = QRegExp("\\.sxd$", false);
 	sxdformat.load = true;
@@ -141,7 +145,13 @@ bool OODrawImportPlugin::fileSupported(QIODevice* /* file */) const
 	return true;
 }
 
-bool OODrawImportPlugin::run(QString fileName)
+bool OODrawImportPlugin::loadFile(const QString & fileName, const LoadSavePlugin::FormatSupport & fmt)
+{
+	// For this plugin, right now "load" and "import" are the same thing
+	return import(fileName);
+}
+
+bool OODrawImportPlugin::import(QString fileName)
 {
 	bool interactive = false;
 	if (fileName.isEmpty())

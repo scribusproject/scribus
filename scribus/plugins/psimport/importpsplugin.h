@@ -4,6 +4,8 @@
 #include "pluginapi.h"
 #include "loadsaveplugin.h"
 
+class ScrAction;
+
 class PLUGIN_API ImportPSPlugin : public LoadSavePlugin
 {
 	Q_OBJECT
@@ -12,17 +14,19 @@ class PLUGIN_API ImportPSPlugin : public LoadSavePlugin
 		// Standard plugin implementation
 		ImportPSPlugin();
 		virtual ~ImportPSPlugin();
-		virtual bool run(QString target = QString::null);
 		virtual const QString fullTrName() const;
 		virtual const AboutData* getAboutData() const;
 		virtual void deleteAboutData(const AboutData* about) const;
 		virtual void languageChange();
 		virtual bool fileSupported(QIODevice* file) const;
 
-		// Special features (none)
+	public slots:
+		// Import menu item
+		virtual bool import(QString target = QString::null);
 
 	private:
 		void registerFormats();
+		ScrAction* importAction;
 };
 
 extern "C" PLUGIN_API int importps_getPluginAPIVersion();

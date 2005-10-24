@@ -44,17 +44,11 @@ void OldScribusFormat::deleteAboutData(const AboutData* about) const
 	delete about;
 }
 
-bool OldScribusFormat::run(QString target)
-{
-	OldScribusFormatImpl impl;
-	return impl.run(target);
-}
-
 void OldScribusFormat::registerFormats()
 {
 	FormatSupport fmt;
 	fmt.trName = tr("Scribus Document");
-	fmt.internalName = "oldscribusformat";
+	fmt.formatId = 0;
 	fmt.load = true;
 	fmt.save = true;
 #ifdef HAVE_LIBZ
@@ -69,11 +63,31 @@ void OldScribusFormat::registerFormats()
 	fmt.priority = 64;
 	fmt.plug = this;
 	registerFormat(fmt);
+	FormatSupport fmt2;
+	fmt2.trName = tr("Scribus 1.2.x Document");
+	fmt2.formatId = 0;
+	fmt2.load = true;
+	fmt2.save = false;
+	fmt2.filter = fmt.filter;
+	fmt2.nameMatch = fmt.nameMatch;
+	fmt2.mimeTypes.append("application/x-scribus");
+	fmt2.priority = 63;
+	registerFormat(fmt2);
 }
 
 bool OldScribusFormat::fileSupported(QIODevice* /* file */) const
 {
 	return true;
+}
+
+bool OldScribusFormat::loadFile(const QString & /* fileName */, const LoadSavePlugin::FormatSupport & /* fmt */)
+{
+	return false;
+}
+
+bool OldScribusFormat::saveFile(const QString & /* fileName */, const LoadSavePlugin::FormatSupport & /* fmt */)
+{
+	return false;
 }
 
 // Low level plugin API

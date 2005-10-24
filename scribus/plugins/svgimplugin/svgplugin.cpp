@@ -25,6 +25,8 @@
 #include "pageitem.h"
 #include "scribusdoc.h"
 #include "fpointarray.h"
+#include "scraction.h"
+#include "menumanager.h"
 
 using namespace std;
 
@@ -47,12 +49,17 @@ void svgimplugin_freePlugin(ScPlugin* plugin)
 	delete plug;
 }
 
-SVGImportPlugin::SVGImportPlugin() : LoadSavePlugin()
+SVGImportPlugin::SVGImportPlugin() : LoadSavePlugin(),
+	importAction(new ScrAction(ScrAction::DLL, QIconSet(), "", QKeySequence(), this, "ImportSVG"))
 {
 	// Set action info in languageChange, so we only have to do
 	// it in one place. This includes registering file format
 	// support.
 	languageChange();
+
+	importAction->setEnabled(true);
+	connect( importAction, SIGNAL(activated()), SLOT(import()) );
+	ScApp->scrMenuMgr->addMenuItem(importAction, "FileImport");
 }
 
 SVGImportPlugin::~SVGImportPlugin()
@@ -62,15 +69,7 @@ SVGImportPlugin::~SVGImportPlugin()
 
 void SVGImportPlugin::languageChange()
 {
-	// Note that we leave the unused members unset. They'll be initialised
-	// with their default ctors during construction.
-	// Action name
-	m_actionInfo.name = "ImportSVG";
-	// Action text for menu, including accel
-	m_actionInfo.text = tr("Import &SVG...");
-	// Menu
-	m_actionInfo.menu = "FileImport";
-	m_actionInfo.enabledOnStartup = true;
+	importAction->setMenuText(tr("Import &SVG..."));
 	// (Re)register file format support.
 	unregisterAll();
 	registerFormats();
@@ -103,7 +102,7 @@ void SVGImportPlugin::registerFormats()
 	QString svgName = tr("Scalable Vector Graphics");
 	FormatSupport fmt;
 	fmt.trName = svgName;
-	fmt.internalName = "svgim";
+	fmt.formatId = 3;
 #ifdef HAVE_LIBZ
 	fmt.filter = svgName + " (*.svg *.svgz)";
 	fmt.nameMatch = QRegExp("\\.(svg|svgz)$", false);
@@ -126,13 +125,13 @@ bool SVGImportPlugin::fileSupported(QIODevice* /* file */) const
 }
 
 /*!
- \fn void Run(QString filename)
+ \fn void import(QString filename)
  \author Franz Schmid
  \date
  \brief Run the SVG import
  \retval true for success
  */
-bool SVGImportPlugin::run(QString filename)
+bool SVGImportPlugin::import(QString filename)
 {
 	bool interactive = false;
 	if (filename.isEmpty())

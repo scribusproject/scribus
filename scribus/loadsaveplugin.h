@@ -16,7 +16,7 @@
  * plugins. It provides the facilities for discovering what format(s) a plugin
  * supports, how they should be identified, etc.
  */
-class SCRIBUS_API LoadSavePlugin : public ScActionPlugin
+class SCRIBUS_API LoadSavePlugin : public ScPlugin
 {
 	Q_OBJECT
 
@@ -34,12 +34,16 @@ class SCRIBUS_API LoadSavePlugin : public ScActionPlugin
 		// available.
 		struct FormatSupport
 		{
+			// An integer ID code used to idenfify formats. Should be unique
+			// across all FormatSupport structures except where they implement
+			// support for the same file format, eg sla 1.2.x, sla 1.3.x and
+			// "new format" SLA should all have equal IDs (with different
+			// priorities to control what order they're tried in when a user
+			// tries to open a file).
+			// Note that dialog box options are sorted in descending `id' order.
+			unsigned int formatId;
 			// The human-readable, translated name of this file format.
 			QString trName;
-			// A short internal name for the format. This is used for deciding
-			// whether two plugins implement the same format, in which case only
-			// one is shown in some UI and they are tried in order of priority.
-			QCString internalName;
 			// A filter in the format used by QFileDialog that should be used to
 			// select for this format.
 			QString filter;
@@ -51,12 +55,12 @@ class SCRIBUS_API LoadSavePlugin : public ScActionPlugin
 			bool load;
 			// Can we save it?
 			bool save;
-			// Can we build it? Er... forget that, sorry ;-) ^U
 			// Priority of this format from 0 (lowest, tried last) to
 			// 255 (highest, tried first). 64-128 recommended in general.
-			// Priority controls the order options are displayed in when a given
-			// file type is selected, and controls the order loaders are tried in
-			// when multiple plugins support the same file type.
+			// Priority controls the order options are displayed in when a file
+			// of a given type is selected in a dialog, and controls the order
+			// loaders are tried in when multiple plugins support the same file
+			// type.
 			unsigned short int priority;
 			// For convenience, a pointer back to the plugin to use to open
 			// this format.
@@ -66,9 +70,17 @@ class SCRIBUS_API LoadSavePlugin : public ScActionPlugin
 		// Static functions:
 
 		// Return a list of all formats supported by all currently loaded and
-		// active plugins.
+		// active plugins. This list is sorted in a very specific order:
+		// First, by descending order of `id', then descending order of priority.
 		static const QValueList<FormatSupport> & supportedFormats();
 
+		// Return a list of format descriptions suitable for use with
+		// QFileDialog.  You can convert it to QString form with
+		// fileDialogSaveFilter().join(";;")
+		static const QStringList fileDialogLoadFilter();
+
+		// Same deal but for save
+		static const QStringList fileDialogSaveFilter();
 
 		// Non-static members implemented by plugins:
 
@@ -87,11 +99,11 @@ class SCRIBUS_API LoadSavePlugin : public ScActionPlugin
 		virtual bool saveFile(const QString & fileName, const FormatSupport & fmt);
 	
 	protected:
-		/// Register the passed format so it can be used by 
+		/// Register the passed format so it can be used by the app
 		void registerFormat(const FormatSupport & fmt);
 
-		/// Unregister the format with internal name `name' that references by the calling plugin.
-		void unregisterFormat(const QCString & name);
+		/// Unregister the format with format ID `id' that references by the calling plugin.
+		void unregisterFormat(unsigned int id);
 
 		/// Unregister all formats owned by the calling plugin
 		void unregisterAll();
@@ -99,7 +111,8 @@ class SCRIBUS_API LoadSavePlugin : public ScActionPlugin
 	private:
 		// A list of all supported formats. This is maintained by plugins
 		// using the protected `registerFormat(...)', `unregisterFormat(...)'
-		// and `unregisterAll(...)' methods.
+		// and `unregisterAll(...)' methods. This is sorted in a very specific
+		// order - ascending ID, then descending priority.
 		static QValueList<FormatSupport> formats;
 
 		// Return an iterator referencing the first format structure named `name'.
@@ -107,9 +120,19 @@ class SCRIBUS_API LoadSavePlugin : public ScActionPlugin
 		// If `start' is specified, start searching at this iterator rather than the
 		// start of the list.
 		// The end iterator is returned if no match was found.
-		QValueList<FormatSupport>::iterator findFormat(const QCString & name,
+		// Note that due to the sort order maintained in `formats', the first
+		// iterator returned by this method will always be to the highest
+		// priority format of the required ID, and each subsequent call will
+		// return the next lowest priority format.
+		QValueList<FormatSupport>::iterator findFormat(unsigned int id,
 				LoadSavePlugin* plug = 0,
 				QValueList<FormatSupport>::iterator it = formats.begin());
+
+		// Print out a format list for debugging purposes
+		static void printFormatList();
+
+		// Base implementation for fileDialogLoadFilter and fileDialogSaveFilter
+		static const QStringList getDialogFilter(bool forLoad);
 };
 
 #endif

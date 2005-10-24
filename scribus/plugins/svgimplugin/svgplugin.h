@@ -7,6 +7,8 @@
 #include "loadsaveplugin.h"
 #include "vgradient.h"
 
+class ScrAction;
+
 class PLUGIN_API SVGImportPlugin : public LoadSavePlugin
 {
 	Q_OBJECT
@@ -15,17 +17,18 @@ class PLUGIN_API SVGImportPlugin : public LoadSavePlugin
 		// Standard plugin implementation
 		SVGImportPlugin();
 		virtual ~SVGImportPlugin();
-		virtual bool run(QString target = QString::null);
 		virtual const QString fullTrName() const;
 		virtual const AboutData* getAboutData() const;
 		virtual void deleteAboutData(const AboutData* about) const;
 		virtual void languageChange();
 		virtual bool fileSupported(QIODevice* file) const;
 
-		// Special features (none)
+	public slots:
+		virtual bool import(QString target = QString::null);
 
 	private:
 		void registerFormats();
+		ScrAction* importAction;
 
 };
 

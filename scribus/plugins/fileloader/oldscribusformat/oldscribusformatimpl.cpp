@@ -9,14 +9,10 @@ OldScribusFormatImpl::OldScribusFormatImpl() : QObject(0, "OldScribusFormatImpl"
 {
 }
 
+// This method is connected to the "import page" entry in the UI
+// For now, we just call back into Scribus
 bool OldScribusFormatImpl::run(const QString & target)
 {
-	// Do the bulk of your work here
-	QMessageBox::information(
-			ScApp,
-			tr("Scribus - My Plugin"),
-			tr("The plugin worked!"),
-			QMessageBox::Ok|QMessageBox::Default|QMessageBox::Escape,
-			QMessageBox::NoButton);
+	ScApp->slotPageImport();
 	return true;
 }

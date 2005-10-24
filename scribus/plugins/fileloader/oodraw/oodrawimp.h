@@ -10,6 +10,8 @@
 #include "pageitem.h"
 #include "scribusstructs.h"
 
+class ScrAction;
+
 class PLUGIN_API OODrawImportPlugin : public LoadSavePlugin
 {
 	Q_OBJECT
@@ -18,17 +20,20 @@ class PLUGIN_API OODrawImportPlugin : public LoadSavePlugin
 		// Standard plugin implementation
 		OODrawImportPlugin();
 		virtual ~OODrawImportPlugin();
-		virtual bool run(QString target = QString::null);
 		virtual const QString fullTrName() const;
 		virtual const AboutData* getAboutData() const;
 		virtual void deleteAboutData(const AboutData* about) const;
 		virtual void languageChange();
 		virtual bool fileSupported(QIODevice* file) const;
+		virtual bool loadFile(const QString & fileName, const FormatSupport & fmt);
 
-		// Special features (none)
+		// Special features - File->Import slot
+	public slots:
+		virtual bool import(QString target = QString::null);
 
 	private:
 		void registerFormats();
+		ScrAction* importAction;
 };
 
 extern "C" PLUGIN_API int oodrawimp_getPluginAPIVersion();

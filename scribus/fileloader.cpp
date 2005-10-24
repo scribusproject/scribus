@@ -24,6 +24,7 @@
 #include "scribus.h"
 #include "scribusXml.h"
 #include "units.h"
+#include "loadsaveplugin.h"
 
 #ifdef HAVE_LIBZ
 	#include <zlib.h>
@@ -54,6 +55,7 @@ FileLoader::FileLoader(const QString & fileName) :
 // measure during the process of converting to file loader plugins.
 const QString FileLoader::getLoadFilterString()
 {
+	/*
 	PluginManager& pluginManager(PluginManager::instance());
 	QString formats;
 #ifdef HAVE_LIBZ
@@ -73,6 +75,8 @@ const QString FileLoader::getLoadFilterString()
 		formats += tr("OpenOffice.org Draw (*.sxd);;");
 	formats += tr("All Files (*)");
 	return formats;
+	*/
+	return LoadSavePlugin::fileDialogLoadFilter().join(";;");
 }
 
 /*!

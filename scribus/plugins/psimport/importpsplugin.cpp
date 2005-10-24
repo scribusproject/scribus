@@ -7,6 +7,8 @@
 #include "prefsfile.h"
 #include "undomanager.h"
 #include "customfdialog.h"
+#include "menumanager.cpp"
+#include "menumanager.h"
 
 int importps_getPluginAPIVersion()
 {
@@ -27,24 +29,21 @@ void importps_freePlugin(ScPlugin* plugin)
 	delete plug;
 }
 
-ImportPSPlugin::ImportPSPlugin() : LoadSavePlugin()
+ImportPSPlugin::ImportPSPlugin() : LoadSavePlugin(),
+	importAction(new ScrAction(ScrAction::DLL, QIconSet(), "", QKeySequence(), this, "ImportPS"))
 {
 	// Set action info in languageChange, so we only have to do it in one
 	// place. This includes registering file format support.
 	languageChange();
+
+	importAction->setEnabled(true);
+	connect( importAction, SIGNAL(activated()), SLOT(import()) );
+	ScApp->scrMenuMgr->addMenuItem(importAction, "FileImport");
 }
 
 void ImportPSPlugin::languageChange()
 {
-	// Note that we leave the unused members unset. They'll be initialised
-	// with their default ctors during construction.
-	// Action name
-	m_actionInfo.name = "ImportPS";
-	// Action text for menu, including accel
-	m_actionInfo.text = tr("Import &EPS/PS...");
-	// Menu
-	m_actionInfo.menu = "FileImport";
-	m_actionInfo.enabledOnStartup = true;
+	importAction->setMenuText(tr("Import &EPS/PS..."));
 	// (Re)register file format support
 	unregisterAll();
 	registerFormats();
@@ -91,7 +90,7 @@ void ImportPSPlugin::registerFormats()
 	QString psName = tr("PostScript");
 	FormatSupport fmt;
 	fmt.trName = psName; // Human readable name
-	fmt.internalName = "psimport"; // Internal name
+	fmt.formatId = 4;
 	fmt.filter = psName + " (*.ps *.PS *.eps *.EPS)"; // QFileDialog filter
 	fmt.nameMatch = QRegExp("\\.(ps|eps)$", false);
 	fmt.load = true;
@@ -110,14 +109,14 @@ bool ImportPSPlugin::fileSupported(QIODevice* /* file */) const
 
 
 /*!
- \fn void Run(QWidget *d, ScribusApp *plug)
+ \fn void import(QString fileName)
  \author Franz Schmid
  \date
  \brief Run the EPS import
- \param fileNAme input filename, or QString::null to prompt.
+ \param fileName input filename, or QString::null to prompt.
  \retval None
  */
-bool ImportPSPlugin::run(QString fileName)
+bool ImportPSPlugin::import(QString fileName)
 {
 	bool interactive = fileName.isEmpty();
 	if (!interactive)

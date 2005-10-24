@@ -12,12 +12,14 @@ class PLUGIN_API OldScribusFormat : public LoadSavePlugin
 		// Standard plugin implementation
 		OldScribusFormat();
 		virtual ~OldScribusFormat();
-		virtual bool run(QString target = QString::null);
 		virtual const QString fullTrName() const;
 		virtual const AboutData* getAboutData() const;
 		virtual void deleteAboutData(const AboutData* about) const;
 		virtual void languageChange();
 		virtual bool fileSupported(QIODevice* file) const;
+
+		virtual bool loadFile(const QString & fileName, const FormatSupport & fmt);
+		virtual bool saveFile(const QString & fileName, const FormatSupport & fmt);
 
 		// Special features - .sla page extraction support
 		bool loadPage(int pageNumber, bool Mpage);
