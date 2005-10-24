@@ -56,41 +56,41 @@
 #include "scribusdoc.h"
 #include "scribusstructs.h"
 
+class ActionManager;
+class AlignDistributePalette;
 class Autoforms;
+class Biblio;
+class BookPalette;
+class CheckDocument;
+class FileWatcher;
 class FontCombo;
-class StilFormate;
+class LayerPalette;
 class LineFormate;
 class Mpalette;
 class Measurements;
-class StoryEditor;
-class PSLib;
-class WerkToolB;
-class WerkToolBP;
-class UndoPalette;
-class FileWatcher;
-class UndoManager;
-class UndoState;
-class SimpleState;
-class ScrAction;
 class MenuManager;
-class CheckDocument;
-class Tree;
-class Biblio;
+class NodePalette;
+class PageItem;
+class PagePalette;
 class PluginManager;
-class ActionManager;
-class AlignDistributePalette;
-class TOCGenerator;
 class PrefsManager;
 class PrefsContext;
-class NodePalette;
-class LayerPalette;
-class PagePalette;
-class BookPalette;
-class SplashScreen;
-class ScribusWin;
-
+class PSLib;
+class ScrAction;
 class ScribusApp;
 class ScribusQApp;
+class ScribusWin;
+class SimpleState;
+class SplashScreen;
+class StilFormate;
+class StoryEditor;
+class TOCGenerator;
+class Tree;
+class UndoManager;
+class UndoPalette;
+class UndoState;
+class WerkToolB;
+class WerkToolBP;
 
 extern ScribusQApp* ScQApp;
 extern ScribusApp* ScApp;

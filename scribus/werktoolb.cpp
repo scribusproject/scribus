@@ -18,13 +18,16 @@
 #include <qtooltip.h>
 #include <qpopupmenu.h>
 #include <qpixmap.h>
+
 #include "werktoolb.h"
 #include "werktoolb.moc"
-#include "polyprops.h"
+
 #include "autoformbuttongroup.h"
-#include "scribus.h"
 #include "menumanager.h"
+#include "polyprops.h"
 #include "scraction.h"
+#include "scribus.h"
+#include "scribusdoc.h"
 
 extern QPixmap loadIcon(QString nam);
 

@@ -17,6 +17,7 @@
 #include "pageitem.h"
 #include "sccombobox.h"
 #include "scpainter.h"
+#include "scribusdoc.h"
 #include "scribusview.h"
 #include "util.h"
 

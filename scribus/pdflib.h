@@ -20,6 +20,7 @@
 
 #include "qvaluelist.h"
 #include <qfile.h>
+#include <vector>
 
 class QString;
 class QRect;
@@ -32,8 +33,8 @@ class ScribusDoc;
 class Page;
 class PDFOptions;
 class PrefsContext;
+
 #include "scribusstructs.h"
-#include <vector>
 
 /**
   *@author Franz Schmid

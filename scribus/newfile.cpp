@@ -1,22 +1,23 @@
 #include "newfile.h"
 #include "newfile.moc"
+
 #include <qtooltip.h>
 #include <qobjectlist.h>
 #include <qpoint.h>
+
+#include "fileloader.h"
 #include "prefsfile.h"
 #include "units.h"
 #include "pagesize.h"
 #include "marginWidget.h"
 #include "scconfig.h"
 #include "scribus.h"
-#include "pluginmanager.h"
 #include "prefsmanager.h"
 #include "pagelayout.h"
 #include "commonstrings.h"
 #include "mspinbox.h"
 #include "customfdialog.h"
 #include "sccombobox.h"
-#include "fileloader.h"
 
 
 extern QPixmap loadIcon(QString nam);

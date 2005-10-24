@@ -40,6 +40,7 @@
 #include "pageitem.h"
 #include "bookmwin.h"
 #include "scribus.h"
+#include "scribusdoc.h"
 
 #include "bookpalette.h"
 #include "scfontmetrics.h"

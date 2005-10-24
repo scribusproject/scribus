@@ -12,7 +12,9 @@
 #include <qdir.h>
 #include <cmath>
 #include <cstdlib>
+
 #include "missing.h"
+#include "sccolor.h"
 #include "scribus.h"
 #include "splash.h"
 #include "util.h"
