@@ -2402,6 +2402,7 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 	doc->addMasterPage(0, "Normal");
 	//TODO CB Make addPage take a master page name
 	doc->addPage(0);
+	doc->DocPages = doc->Pages;
 	doc->Pages.at(0)->MPageNam = "Normal";
 	doc->pageCount = doc->Pages.count();
 
