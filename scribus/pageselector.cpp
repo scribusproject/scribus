@@ -100,7 +100,9 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, "pgs
 	PageCombo->lineEdit()->setAlignment(Qt::AlignHCenter);
 	QString tmp;
 	for (int a = 0; a < LastPG; ++a)
+	{
 		PageCombo->insertItem(tmp.setNum(a+1));
+	}
 	PageCombo->setValidator(v);
 	PageCombo->setMinimumSize(fontMetrics().width( "999 of 999" )+20, 20);
 	PageCombo->setFocusPolicy(QWidget::ClickFocus);

@@ -302,6 +302,9 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document"))
 	PDF_Options.LPISettings = prefsData->PDF_Options.LPISettings;
 	PDF_Options.useLayers = prefsData->PDF_Options.useLayers;
 	PDF_Options.doMultiFile = prefsData->PDF_Options.doMultiFile;
+	
+	//CB Moved from scribus.cpp.
+	CurTimer = NULL;
 
 	docItemAttributes = prefsData->defaultItemAttributes;
 	docToCSetups = prefsData->defaultToCSetups;
@@ -334,6 +337,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document"))
 	docItemErrors.clear();
 	masterItemErrors.clear();
 	addSymbols();
+	docHyphenator = new Hyphenator(ScApp, this, ScApp);
 }
 
 ScribusDoc::~ScribusDoc()
@@ -777,6 +781,12 @@ void ScribusDoc::setPage(double b, double h, double t, double l, double r, doubl
 	PageSpa = ab;
 	currentPageLayout = fp;
 	automaticTextFrames = atf;
+	
+	//CB Moved from scribus.cpp. Overrides the defaults...
+	PDF_Options.BleedTop = pageMargins.Top;
+	PDF_Options.BleedLeft = pageMargins.Left;
+	PDF_Options.BleedRight = pageMargins.Right;
+	PDF_Options.BleedBottom = pageMargins.Bottom;
 }
 
 void ScribusDoc::resetPage(double t, double l, double r, double bo, int fp)
@@ -962,6 +972,28 @@ Page* ScribusDoc::addPage(const int pageNumber)
 		DocPages = Pages;
 	currentPage = addedPage;
 	pageCount++;
+	return addedPage;
+}
+
+Page* ScribusDoc::addMasterPage(const int pageNumber, const QString& pageName)
+{
+	//CB We dont create master pages (yet) with a pageCount based location
+	//Page* addedPage = new Page(ScratchLeft, pageCount*(pageHeight+ScratchBottom+ScratchTop)+ScratchTop, pageWidth, pageHeight);
+	Page* addedPage = new Page(ScratchLeft, ScratchTop, pageWidth, pageHeight);
+	Q_ASSERT(addedPage!=NULL);
+	addedPage->Margins.Top = pageMargins.Top;
+	addedPage->Margins.Bottom = pageMargins.Bottom;
+	addedPage->initialMargins.Top = pageMargins.Top;
+	addedPage->initialMargins.Bottom = pageMargins.Bottom;
+	addedPage->initialMargins.Left = pageMargins.Left;
+	addedPage->initialMargins.Right = pageMargins.Right;
+	addedPage->setPageNr(pageNumber);
+	addedPage->PageSize = PageSize;
+	addedPage->PageOri = PageOri;
+	addedPage->setPageName(pageName);
+	MasterNames.insert(pageName, pageNumber);
+	bool insertsuccess=MasterPages.insert(pageNumber, addedPage);
+	Q_ASSERT(insertsuccess==true && MasterPages.at(pageNumber)!=NULL);
 	return addedPage;
 }
 

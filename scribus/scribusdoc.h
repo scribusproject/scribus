@@ -79,6 +79,7 @@ public:
 	// Add, delete and move pages
 	Page* addPage(const int);
 	bool deletePage(const int);
+	Page* addMasterPage(const int, const QString&);
 	/**
 	 * @brief Move page(s) within the document
 	 * @param From page index
@@ -579,6 +580,20 @@ public: // Public attributes
 	
 private:
 	bool _itemCreationTransactionStarted;
+	
+signals:
+	//Lets make our doc talk to our GUI rather than confusing all our normal stuff
+	
+	/**
+	 * @brief A signal for when the outline palette needs to rebuild itself
+	 * Emit when:
+	 * - An item is created or deleted
+	 * - An item changes page
+	 * - An page is created or deleted
+	 * - Some items are grouped or a group is ungrouped
+	 * This also applies to Master Pages
+	 */
+	void signalRebuildOutLinePalette();
 };
 
 #endif

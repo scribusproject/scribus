@@ -63,6 +63,7 @@
 #include "undomanager.h"
 #include "units.h"
 #include "extimageprops.h"
+#include "page.h"
 #include "pageitemattributes.h"
 #include "pageitem_imageframe.h"
 #include "pageitem_line.h"
@@ -97,7 +98,6 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc) : QScrollView(parent,
 	Ready = false;
 	updateOn = true;
 	Doc = doc;
-	Doc->pageCount = 0;
 	Prefs = &(PrefsManager::instance()->appPrefs);
 	setHScrollBarMode(QScrollView::AlwaysOn);
 	setVScrollBarMode(QScrollView::AlwaysOn);

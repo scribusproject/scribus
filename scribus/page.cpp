@@ -41,6 +41,7 @@ Page::Page(const double x, const double y, const double b, const double h) : Und
 	initialMargins.Bottom = 40;
 	LeftPg = 0;
 	PageNam = "";
+	MPageNam = "";
 	XGuides.clear();
 	YGuides.clear();
 	FromMaster.clear();

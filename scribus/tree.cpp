@@ -60,6 +60,8 @@ Tree::Tree( QWidget* parent, ScribusApp* scApp ) : ScrPaletteBase( parent, "Tree
 void Tree::setDoc(ScribusDoc *newDoc)
 {
 	currDoc=newDoc;
+	if (currDoc==NULL)
+		clearPalette();
 }
 
 void Tree::unsetDoc()
@@ -197,6 +199,8 @@ QListViewItem* Tree::getListItem(uint SNr, int Nr)
 void Tree::slotShowSelect(uint SNr, int Nr)
 {
 	if (ScApp->ScriptRunning)
+		return;
+	if (currDoc==NULL)
 		return;
 	if (currDoc->isLoading())
 		return;

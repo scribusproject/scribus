@@ -2309,12 +2309,11 @@ void ScribusApp::startUpDialog()
 					applyNewMaster( tr("Normal"));
 					doc->DocPages = doc->Pages;
 				}
-				outlinePalette->BuildTree();
-				pagePalette->RebuildPage();
 				view->show();
 				view->GotoPage(0);
 			}
 			delete ps2;
+			HaveNewDoc();
 		}
 		else
 		{
@@ -2337,7 +2336,6 @@ void ScribusApp::startUpDialog()
 	}
 	prefsManager->setShowStartupDialog(!dia->startUpDialog->isChecked());
 	delete dia;
-	windowsMenuAboutToShow();
 	mainWindowStatusLabel->setText( tr("Ready"));
 }
 
@@ -2373,18 +2371,16 @@ bool ScribusApp::slotFileNew()
 				applyNewMaster( tr("Normal"));
 				doc->DocPages = doc->Pages;
 			}
-			outlinePalette->BuildTree();
-			pagePalette->RebuildPage();
 			view->show();
 			view->GotoPage(0);
 		}
 		mainWindowStatusLabel->setText( tr("Ready"));
 		delete ps2;
+		HaveNewDoc();
 	}
 	else
 		retVal = false;
 	delete dia;
-	windowsMenuAboutToShow();
 	return retVal;
 }
 
@@ -2399,7 +2395,22 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 	doc->setup(einh, fp, firstleft, Ori, SNr, defaultPageSize, doc->DocName+cc.setNum(DocNr));
 	HaveDoc++;
 	DocNr++;
-	//<<View code, needs to be here before other doc code for now as we run ScribusView::AddPage via slotNewPageq
+	if (CMSavail && doc->CMSSettings.CMSinUse)
+		recalcColors();
+	doc->setPage(width, h, tpr, lr, rr, br, sp, ab, atf, fp);
+	//--doc->setLoading(false);
+	doc->addMasterPage(0, "Normal");
+	//TODO CB Make addPage take a master page name
+	doc->addPage(0);
+	doc->Pages.at(0)->MPageNam = "Normal";
+	doc->pageCount = doc->Pages.count();
+
+	doc->setModified(false);
+	doc->setLoading(false);
+	doc->DocItems = doc->Items;
+	doc->currentPage = doc->Pages.at(0);
+	doc->OpenNodes.clear();
+	//<<View and window code
 	ScribusWin* w = new ScribusWin(wsp, doc);
 	if (view!=NULL)
 	{
@@ -2416,45 +2427,13 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 	doc->WinHan = w;
 	w->setCentralWidget(view);
 	//>>
-	if ((CMSavail) && (doc->CMSSettings.CMSinUse))
-		recalcColors();
-	doc->setPage(width, h, tpr, lr, rr, br, sp, ab, atf, fp);
-	doc->setLoading(false);
-	slotNewPage(0);
-	doc->setLoading(true);
-	HaveNewDoc();
-	doc->DocPages = doc->Pages;
-	doc->Pages = doc->MasterPages;
-	doc->pageCount = doc->MasterPages.count();
-	bool atfb = doc->usesAutomaticTextFrames();
-	doc->setUsesAutomaticTextFrames(false);
-	doc->masterPageMode = true;
-	slotNewPage(0);
-	doc->setUsesAutomaticTextFrames(atfb);
-	doc->MasterNames["Normal"] = 0;
-	doc->Pages.at(0)->setPageName("Normal");
-	doc->MasterPages = doc->Pages;
-	doc->pageCount = doc->DocPages.count();
-	doc->Pages = doc->DocPages;
-	doc->masterPageMode = false;
-	doc->Pages.at(0)->MPageNam = "Normal";
-	doc->setModified(false);
-	doc->setLoading(false);
-	doc->DocItems = doc->Items;
-	doc->currentPage = doc->Pages.at(0);
-	doc->OpenNodes.clear();
-
+	view->reformPages(true);
 	connect(undoManager, SIGNAL(undoRedoDone()), view, SLOT(DrawNew()));
 	//connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
 	connect(view, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
-
 	//	connect(w, SIGNAL(SaveAndClose()), this, SLOT(DoSaveClose()));
 
-
 	//Independent finishing tasks after doc setup
-	outlinePalette->BuildTree();
-	pagePalette->Rebuild();
-	bookmarkPalette->BView->clear();
 	if ( wsp->windowList().isEmpty() )
 		w->showMaximized();
 	else
@@ -2587,6 +2566,7 @@ void ScribusApp::newActWin(QWidget *w)
 	scrActions["viewRulerMode"]->setOn(doc->guidesSettings.rulerMode);
 	if (!doc->masterPageMode)
 		pagePalette->Rebuild();
+	outlinePalette->setDoc(doc);
 	outlinePalette->BuildTree();
 //	outlinePalette->reopenTree(doc->OpenNodes);
 /*	bookmarkPalette->BView->NrItems = doc->NrItems;
@@ -2811,8 +2791,8 @@ void ScribusApp::HaveNewDoc()
 	view->setLayerMenuText(doc->activeLayerName());
 	doc->currentParaStyle = 0;
 	slotChangeUnit(doc->unitIndex());
-	doc->docHyphenator = new Hyphenator(this, doc, this);
 	buildFontMenu();
+	windowsMenuAboutToShow();
 	connect(view, SIGNAL(changeUN(int)), this, SLOT(slotChangeUnit(int)));
 	connect(view, SIGNAL(changeLA(int)), layerPalette, SLOT(markActiveLayer(int)));
 	connect(view->horizRuler, SIGNAL(MarkerMoved(double, double)), this, SLOT(setMousePositionOnStatusBar(double, double)));
@@ -2884,11 +2864,13 @@ void ScribusApp::HaveNewDoc()
 		connect(doc->currentPage, SIGNAL(UpdtObj(uint, uint)), outlinePalette, SLOT(slotUpdateElement(uint, uint)));
 		connect(doc->currentPage, SIGNAL(MoveObj(uint, uint, uint)), outlinePalette, SLOT(slotMoveElement(uint, uint, uint)));
 	} */
+	/*CB Moved to ScribusDoc
 	doc->PDF_Options.BleedBottom = doc->pageMargins.Bottom;
 	doc->PDF_Options.BleedTop = doc->pageMargins.Top;
 	doc->PDF_Options.BleedLeft = doc->pageMargins.Left;
 	doc->PDF_Options.BleedRight = doc->pageMargins.Right;
 	doc->CurTimer = NULL;
+	*/
 }
 
 void ScribusApp::HaveNewSel(int Nr)
@@ -2964,7 +2946,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["toolsCopyProperties"]->setEnabled(false);
 		//CB 061005 moved to cpalette choosegrad
 		//propertiesPalette->Cpal->gradientQCombo->setCurrentItem(0);
-		outlinePalette->slotShowSelect(doc->currentPage->pageNr(), -1);
+		outlinePalette->slotShowSelect(doc->currentPageNumber(), -1);
 		break;
 	case PageItem::ImageFrame: //Image Frame
 		scrActions["fileImportAppendText"]->setEnabled(false);
