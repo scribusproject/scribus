@@ -110,6 +110,12 @@ localization = {
       'Pode', 'Junho', 'Julho', 'Agosto', 'Setembro',
       'Outubro', 'Novembro', 'Dezembro'],
      ['Segunda-feira', u'Ter\xe7a-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', u'S\xe1bado', 'Domingo']],
+'Russian' :
+    [['Январь', 'Февраль', 'Март', 'Апрель',
+      'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь',
+      'Октябрь', 'Ноябрь', 'Декабрь'],
+     ['Понедельник','Вторник','Среда','Четверг','Пятница','Суббота', 'Воскресенье']],
+
 'Spanish' :
     [['Enero', 'Febrero', 'Marco', 'Abril', 'Mayo',
       'Junio', 'Julio', 'Agosto', 'Septiembre',
