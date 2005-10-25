@@ -128,19 +128,28 @@ void FDialogPreview::GenPreview(QString name)
 		ScImage im;
 		if (im.LoadPicture(name, "", 0, false, false, 4, 72, &mode))
 		{
-			int ix = im.width();
-			int iy = im.height();
+			int ix,iy;
+			if ((im.imgInfo.exifDataValid) && (!im.imgInfo.exifInfo.thumbnail.isNull()))
+			{
+				ix = im.imgInfo.width;
+				iy = im.imgInfo.height;
+			}
+			else
+			{
+				ix = im.width();
+				iy = im.height();
+			}
 			int xres = im.imgInfo.xres;
 			int yres = im.imgInfo.yres;
 			QString tmp = "";
 			QString tmp2 = "";
 			QImage im2;
-			if ((im.width() > w-5) || (im.height() > h-44))
+			if ((ix > w-5) || (iy > h-44))
 			{
 				double sx = im.width() / static_cast<double>(w-5);
 				double sy = im.height() / static_cast<double>(h-44);
 				im2 = sy < sx ?  im.smoothScale(qRound(im.width() / sx), qRound(im.height() / sx)) :
-									im.smoothScale(qRound(im.width() / sy), qRound(im.height() / sy));
+				                 im.smoothScale(qRound(im.width() / sy), qRound(im.height() / sy));
 			}
 			else
 				im2 = im.copy();

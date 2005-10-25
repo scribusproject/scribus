@@ -1663,6 +1663,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				QLabel *WordC = new QLabel(InfoGroup, "wc");
 				QLabel *CharCT = new QLabel(InfoGroup, "ct");
 				QLabel *CharC = new QLabel(InfoGroup, "cc");
+				QLabel *ColCT = new QLabel(InfoGroup, "ct");
+				QLabel *ColC = new QLabel(InfoGroup, "cc");
 				QLabel *PrintCT = new QLabel(InfoGroup, "nt"); // <a.l.e>
 				QLabel *PrintC = new QLabel(InfoGroup, "nc"); // </a.l.e>
 				if (currItem->itemType() == PageItem::ImageFrame)
@@ -1683,6 +1685,29 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					CharC->setText(txtC.setNum(qRound(72.0 / currItem->LocalScX))+" x "+
 					               txtC2.setNum(qRound(72.0 / currItem->LocalScY)));
 					InfoGroupLayout->addWidget( CharC, 3, 1 );
+					ColCT->setText( tr("Colorspace: "));
+					InfoGroupLayout->addWidget( ColCT, 4, 0, Qt::AlignRight );
+					QString cSpace;
+					QString ext = fi.extension(false).lower();
+					if ((ext == "pdf") || (ext == "eps") || (ext == "ps"))
+						cSpace = tr("Unknown");
+					else
+					{
+						switch (currItem->pixm.imgInfo.colorspace)
+						{
+							case 0:
+								cSpace = tr("RGB");
+								break;
+							case 1:
+								cSpace = tr("CMYK");
+								break;
+							case 2:
+								cSpace = tr("Grayscale");
+								break;
+						}
+					}
+					ColC->setText(cSpace);
+					InfoGroupLayout->addWidget( ColC, 4, 1 );
 				}
 				if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::PathText))
 				{

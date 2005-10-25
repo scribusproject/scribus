@@ -75,6 +75,7 @@ void ScImage::initialize()
 	imgInfo.valid = false;
 	imgInfo.isRequest = false;
 	imgInfo.progressive = false;
+	imgInfo.exifDataValid = false;
 	imgInfo.lowResType = 1;
 	imgInfo.lowResScale = 1.0;
 	imgInfo.PDSpathData.clear();
@@ -82,6 +83,9 @@ void ScImage::initialize()
 	imgInfo.clipPath = "";
 	imgInfo.usedPath = "";
 	imgInfo.layerInfo.clear();
+	imgInfo.exifInfo.cameraName = "";
+	imgInfo.exifInfo.cameraVendor = "";
+	imgInfo.exifInfo.thumbnail = QImage();
 }
 
 void ScImage::applyEffect(QValueList<imageEffect> effectsList, QMap<QString,ScColor> colors, bool cmyk)
@@ -3304,20 +3308,7 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 	}
 	else if ((ext == "jpg") || (ext == "jpeg"))
 	{
-		ExifData ExifInfo;
-		if (ExifInfo.scan(fn))
-		{
-/*    		sDebug(ExifInfo.getCameraMake());
-    		sDebug(ExifInfo.getCameraModel()); */
-    		if ((reqType == 4) && (!ExifInfo.isNullThumbnail()))
-    		{
-    			*this = ExifInfo.getThumbnail();
-    			sDebug("Thumbnail found");
-    			return true;
-    		}
-    		else
-    			reqType = 1;
-		}
+		ExifData ExifInf;
 		struct jpeg_decompress_struct cinfo;
 		struct my_error_mgr         jerr;
 		FILE     *infile;
@@ -3339,6 +3330,51 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 		jpeg_save_markers(&cinfo, PHOTOSHOP_MARKER, 0xFFFF);
 		jpeg_read_header(&cinfo, true);
 		jpeg_start_decompress(&cinfo);
+		if (ExifInf.scan(fn))
+		{
+			if ((!ExifInf.isNullThumbnail()) && (reqType == 4))
+				*this = ExifInf.getThumbnail();
+			imgInfo.exifInfo.cameraName = ExifInf.getCameraModel();
+			imgInfo.exifInfo.cameraVendor = ExifInf.getCameraMake();
+			imgInfo.exifInfo.thumbnail = ExifInf.getThumbnail();
+			imgInfo.exifDataValid = true;
+			imgInfo.width = cinfo.output_width;
+			imgInfo.height = cinfo.output_height;
+			if (cinfo.density_unit == 0)
+			{
+				xres = 72;
+				yres = 72;
+			}
+			else if ( cinfo.density_unit == 1 )
+			{
+				xres = cinfo.X_density;
+				yres = cinfo.Y_density;
+			}
+			else if ( cinfo.density_unit == 2 )
+			{
+				xres = cinfo.X_density * 2.54;
+				yres = cinfo.Y_density * 2.54;
+			}
+			imgInfo.xres = qRound(xres);
+			imgInfo.yres = qRound(yres);
+			if (cinfo.output_components == 4)
+				imgInfo.colorspace = 1;
+			else if (cinfo.output_components == 3)
+				imgInfo.colorspace = 0;
+			else if (cinfo.output_components == 1)
+				imgInfo.colorspace = 2;
+			imgInfo.progressive = jpeg_has_multiple_scans(&cinfo);
+			if ((!ExifInf.isNullThumbnail()) && (reqType == 4))
+			{
+				jpeg_destroy_decompress(&cinfo);
+				fclose(infile);
+				return true;
+			}
+			else
+				reqType = 1;
+		}
+		else
+			imgInfo.exifDataValid = false;
 #ifdef HAVE_CMS
 		unsigned int EmbedLen = 0;
 		unsigned char* EmbedBuffer;

@@ -111,47 +111,58 @@ public:
 		ushort color_mode;
 	};
 
-struct PSDLayer
-{
-	QValueList<uint> channelLen;
-	QValueList<int> channelType;
-	int xpos;
-	int ypos;
-	int width;
-	int height;
-	ushort opacity;
-	uchar clipping;
-	uchar flags;
-	QString layerName;
-	QString blend;
-	QImage thumb;
-};
-
-struct LoadRequest
-{
-	bool visible;
-	ushort opacity;
-	QString blend;
-};
-
-struct ImageInfoRecord
-{
-	int xres;
-	int yres;
-	int colorspace; /* 0 = RGB  1 = CMYK  2 = Grayscale */
-	bool valid;
-	bool isRequest;
-	bool progressive;
-	bool isEmbedded;
-	int lowResType; /* 0 = full Resolution, 1 = 72 dpi, 2 = 36 dpi */
-	double lowResScale;
-	QMap<QString, FPointArray> PDSpathData;
-	QMap<int, LoadRequest> RequestProps;
-	QString clipPath;
-	QString usedPath;
-	QString profileName;
-	QValueList<PSDLayer> layerInfo;
-} imgInfo;
+	struct PSDLayer
+	{
+		QValueList<uint> channelLen;
+		QValueList<int> channelType;
+		int xpos;
+		int ypos;
+		int width;
+		int height;
+		ushort opacity;
+		uchar clipping;
+		uchar flags;
+		QString layerName;
+		QString blend;
+		QImage thumb;
+	};
+	
+	struct LoadRequest
+	{
+		bool visible;
+		ushort opacity;
+		QString blend;
+	};
+	
+	struct ExifValues
+	{
+		QString cameraName;
+		QString cameraVendor;
+		QImage thumbnail;
+	};
+	
+	struct ImageInfoRecord
+	{
+		int xres;
+		int yres;
+		int colorspace; /* 0 = RGB  1 = CMYK  2 = Grayscale */
+		int width;
+		int height;
+		bool valid;
+		bool isRequest;
+		bool progressive;
+		bool isEmbedded;
+		bool exifDataValid;
+		int lowResType; /* 0 = full Resolution, 1 = 72 dpi, 2 = 36 dpi */
+		double lowResScale;
+		QMap<QString, FPointArray> PDSpathData;
+		QMap<int, LoadRequest> RequestProps;
+		QString clipPath;
+		QString usedPath;
+		QString profileName;
+		QValueList<PSDLayer> layerInfo;
+		ExifValues exifInfo;
+	} imgInfo;
 
 private:
 	void liberateMemory(void **memory);
