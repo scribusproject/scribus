@@ -1,5 +1,6 @@
 Scribus - 1.3.2cvs
 ==================
+- 0002760: [Scripter] russian localization for CalendarWizard.py (plinnell)
 - 0002749: [General] Scribus crash with Signal 11 when trying to convert a page to Master Page (cbradney)
 - 0002732: [Translation] Italian sample text (plinnell)
 - 0002744: [User Interface] PDF Export/Printing: Add missing tooltips for advanced printing fucntions (plinnell)
