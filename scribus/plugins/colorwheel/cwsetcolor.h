@@ -26,7 +26,7 @@ class CwSetColor: public QDialog
 	Q_OBJECT
 
 	public:
-		CwSetColor(QWidget* parent = 0, const char* name = 0, bool modal = FALSE, WFlags fl = 0);
+		CwSetColor(QColor beginColor, QWidget* parent = 0, const char* name = 0, bool modal = FALSE, WFlags fl = 0);
 		~CwSetColor(){};
 
 		/*! \brief This is the color which user created.
@@ -81,6 +81,10 @@ class CwSetColor: public QDialog
 		virtual void hsvButton_clicked();
 		virtual void rgbButton_clicked();
 		virtual void cmykButton_clicked();
+
+		/*! \brief Fill spinboxes from given color.
+		\param col QColor to get components */
+		virtual void fillBeginComponents(QColor col);
 
 		/*! \brief Draw a sample for specified model */
 		virtual void sampleRGB();

@@ -428,12 +428,14 @@ QColor ColorWheelDialog::computeDefect(QColor c)
 
 void ColorWheelDialog::createColor()
 {
-	/* these 3 variables are defined for CMYKChoose constructor.
+	ScColor beginColor;
+	/* these 2 variables are defined for CMYKChoose constructor.
 	No other need to use them. */
-	ScColor tmp = ScColor(0, 0, 0, 0);
 	ColorList tmpcl;
 	QStringList tmpsl;
-	CMYKChoose* dia = new CMYKChoose(this, tmp, tr("New Color"), &tmpcl, tmpsl);
+
+	beginColor.fromQColor(colorWheel->actualColor);
+	CMYKChoose* dia = new CMYKChoose(this, beginColor, tr("New Color"), &tmpcl, tmpsl);
 	if (dia->exec())
 	{
 		userColorInput(dia->Farbe.getRGBColor());
@@ -443,7 +445,7 @@ void ColorWheelDialog::createColor()
 
 void ColorWheelDialog::setColorComponents()
 {
-	CwSetColor *dia = new CwSetColor(this);
+	CwSetColor *dia = new CwSetColor(colorWheel->actualColor, this);
 	if (dia->exec())
 	{
 		userColorInput(dia->newColor);

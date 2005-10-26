@@ -8,10 +8,10 @@
 #include <qpushbutton.h>
 #include <qgroupbox.h>
 #include <qpixmap.h>
-#include <qpainter.h> 
+#include <qpainter.h>
 
 
-CwSetColor::CwSetColor(QWidget* parent, const char* name, bool modal, WFlags fl)
+CwSetColor::CwSetColor(QColor beginColor, QWidget* parent, const char* name, bool modal, WFlags fl)
 	: QDialog(parent, name, modal, fl)
 {
 	if (!name)
@@ -61,7 +61,7 @@ CwSetColor::CwSetColor(QWidget* parent, const char* name, bool modal, WFlags fl)
 	cmykBoxLayout->addWidget(kSpin, 0, 7);
 	cmykBoxLayout->addWidget(cmykSample, 0, 8);
 	cmykBoxLayout->addWidget(cmykButton, 0, 9);
-	
+
 	// RGB
 	rgbBox = new QGroupBox(this, "rgbBox");
 	rgbBox->setColumnLayout(0, Qt::Vertical );
@@ -149,6 +149,9 @@ CwSetColor::CwSetColor(QWidget* parent, const char* name, bool modal, WFlags fl)
 	languageChange();
 	clearWState(WState_Polished);
 
+	// fill begin values
+	fillBeginComponents(beginColor);
+
 	sampleRGB();
 	sampleHSV();
 	sampleCMYK();
@@ -171,6 +174,7 @@ CwSetColor::CwSetColor(QWidget* parent, const char* name, bool modal, WFlags fl)
 
 void CwSetColor::languageChange()
 {
+	setCaption(tr("Set Color Components"));
 	cmykBox->setTitle(tr("CMYK"));
 	rgbBox->setTitle(tr("RGB"));
 	hsvBox->setTitle(tr("HSV"));
@@ -237,6 +241,27 @@ void CwSetColor::sampleCMYK()
 {
 	ScColor col = ScColor(cSpin->value(), mSpin->value(), ySpin->value(), kSpin->value());
 	cmykSample->setPixmap(sample(col.getRGBColor()));
+}
+
+void CwSetColor::fillBeginComponents(QColor col)
+{
+	int c, m, y, k, r, g, b, h, s, v;
+	ScColor sc;
+
+	col.getRgb(&r, &g, &b);
+	col.getHsv(&h, &s, &v);
+	sc.fromQColor(col);
+	sc.getCMYK(&c, &m, &y, &k);
+	rSpin->setValue(r);
+	gSpin->setValue(g);
+	bSpin->setValue(b);
+	hSpin->setValue(h);
+	sSpin->setValue(s);
+	vSpin->setValue(v);
+	cSpin->setValue(c);
+	mSpin->setValue(m);
+	ySpin->setValue(y);
+	kSpin->setValue(k);
 }
 
 #include "cwsetcolor.moc"
