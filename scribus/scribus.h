@@ -442,6 +442,7 @@ public slots:
 	/** Reformatiert das Dokument */
 	bool SetupDoc();
 	void objectAttributes();
+	void getImageInfo();
 	void generateTableOfContents();
 	void buildFontMenu();
 	void slotPrefsOrg();

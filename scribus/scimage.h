@@ -136,8 +136,11 @@ public:
 	
 	struct ExifValues
 	{
+		int width;
+		int height;
 		QString cameraName;
 		QString cameraVendor;
+		QString comment;
 		QImage thumbnail;
 	};
 	
@@ -146,8 +149,6 @@ public:
 		int xres;
 		int yres;
 		int colorspace; /* 0 = RGB  1 = CMYK  2 = Grayscale */
-		int width;
-		int height;
 		bool valid;
 		bool isRequest;
 		bool progressive;

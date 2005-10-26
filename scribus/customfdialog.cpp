@@ -131,8 +131,8 @@ void FDialogPreview::GenPreview(QString name)
 			int ix,iy;
 			if ((im.imgInfo.exifDataValid) && (!im.imgInfo.exifInfo.thumbnail.isNull()))
 			{
-				ix = im.imgInfo.width;
-				iy = im.imgInfo.height;
+				ix = im.imgInfo.exifInfo.width;
+				iy = im.imgInfo.exifInfo.height;
 			}
 			else
 			{

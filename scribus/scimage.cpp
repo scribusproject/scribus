@@ -3337,9 +3337,10 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 			imgInfo.exifInfo.cameraName = ExifInf.getCameraModel();
 			imgInfo.exifInfo.cameraVendor = ExifInf.getCameraMake();
 			imgInfo.exifInfo.thumbnail = ExifInf.getThumbnail();
+			imgInfo.exifInfo.comment = ExifInf.getComment();
+			imgInfo.exifInfo.width = ExifInf.getWidth();
+			imgInfo.exifInfo.height = ExifInf.getHeight();
 			imgInfo.exifDataValid = true;
-			imgInfo.width = cinfo.output_width;
-			imgInfo.height = cinfo.output_height;
 			if (cinfo.density_unit == 0)
 			{
 				xres = 72;

@@ -156,6 +156,7 @@
 #include "scribuswin.h"
 #include "hyphenator.h"
 #include "scmessagebox.h"
+#include "imageinfodialog.h"
 
 using namespace std;
 
@@ -9341,6 +9342,23 @@ void ScribusApp::slotTest()
 
 void ScribusApp::slotTest2()
 {
+}
+
+void ScribusApp::getImageInfo()
+{
+	if ((HaveDoc) && (view->SelItem.count() == 1))
+	{
+		PageItem *pageItem = view->SelItem.at(0);
+		if (pageItem != NULL)
+		{
+			if (pageItem->itemType() == PageItem::ImageFrame)
+			{
+				ImageInfoDialog *dia = new ImageInfoDialog(this, &pageItem->pixm.imgInfo.exifInfo);
+				dia->exec();
+				delete dia;
+			}
+		}
+	}
 }
 
 void ScribusApp::objectAttributes()

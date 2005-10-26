@@ -255,6 +255,7 @@ void ActionManager::initItemMenuActions()
 	
 	scrActions->insert("itemSendToScrapbook", new ScrAction(ScApp, "itemSendToScrapbook"));
 
+	scrActions->insert("itemImageInfo", new ScrAction(ScApp, "itemImageInfo"));
 	scrActions->insert("itemAttributes", new ScrAction(ScApp, "itemAttributes"));
 	scrActions->insert("itemImageIsVisible", new ScrAction(ScApp, "itemImageIsVisible"));
 	scrActions->insert("itemUpdateImage", new ScrAction(ScApp, "itemUpdateImage"));
@@ -310,6 +311,7 @@ void ActionManager::initItemMenuActions()
 	connect( (*scrActions)["itemSendToScrapbook"], SIGNAL(activated()), ScApp, SLOT(PutScrap()) );
 	connect( (*scrActions)["itemAttributes"], SIGNAL(activated()), ScApp, SLOT(objectAttributes()) );
 	connect( (*scrActions)["itemShapeEdit"], SIGNAL(activated()), ScApp, SLOT(ToggleFrameEdit()) );
+	connect( (*scrActions)["itemImageInfo"], SIGNAL(activated()), ScApp, SLOT(getImageInfo()) );
 	//connect( (*scrActions)["itemAttachTextToPath"], SIGNAL(activated()), ScApp, SLOT(Pfadtext()) );
 	//connect( (*scrActions)["itemDetachTextFromPath"], SIGNAL(activated()), ScApp, SLOT(noPfadtext()) );
 	//connect( (*scrActions)["itemCombinePolygons"], SIGNAL(activated()), ScApp, SLOT(UniteOb()) );
@@ -873,6 +875,7 @@ void ActionManager::languageChange()
 	(*scrActions)["itemRaise"]->setTexts( tr("&Raise"));
 	(*scrActions)["itemSendToScrapbook"]->setTexts( tr("Send to S&crapbook"));
 	(*scrActions)["itemAttributes"]->setTexts( tr("&Attributes..."));
+	(*scrActions)["itemImageInfo"]->setTexts( tr("More Info..."));
 	(*scrActions)["itemImageIsVisible"]->setTexts( tr("I&mage Visible"));
 	(*scrActions)["itemUpdateImage"]->setTexts( tr("&Update Image"));
 	(*scrActions)["itemAdjustFrameToImage"]->setTexts( tr("Adjust Frame to Image"));

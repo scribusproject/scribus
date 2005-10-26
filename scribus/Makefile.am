@@ -93,6 +93,7 @@ scribus_SOURCES = \
 	hyphenator.cpp	\
 	hyphen.c	\
 	hysettings.cpp	\
+	imageinfodialog.cpp	\
 	insertTable.cpp	\
 	inspage.cpp	\
 	ioapi.c	\
