@@ -162,8 +162,8 @@ public:
 	void SetXGuide(QMouseEvent *m, int oldIndex);
 	bool ApplyGuides(double *x, double *y);
 	void SnapToGuides(PageItem *currItem);
-	QPoint ApplyGrid(QPoint in);
-	FPoint ApplyGridF(FPoint in);
+	QPoint ApplyGrid(const QPoint& in);
+	FPoint ApplyGridF(const FPoint& in);
 	//CB moved to pageitem QRect getRedrawBounding(PageItem *currItem);
 	void setRedrawBounding(PageItem *currItem);
 	void setGroupRect();

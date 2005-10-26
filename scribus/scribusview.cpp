@@ -99,6 +99,7 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc) : QScrollView(parent,
 	updateOn = true;
 	Doc = doc;
 	Prefs = &(PrefsManager::instance()->appPrefs);
+	Scale=Prefs->DisScale;
 	setHScrollBarMode(QScrollView::AlwaysOn);
 	setVScrollBarMode(QScrollView::AlwaysOn);
 	setMargins(17, 17, 0, 0);
@@ -343,14 +344,12 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 						nextItem = linkedFramesToShow.at(lks);
 						while (nextItem != 0)
 						{
-							double x11, y11, x12, y12, x1mid, y1mid;
-							double x21, y21, x22, y22, x2mid, y2mid;
-							x11 = nextItem->Xpos;
-							y11 = nextItem->Ypos;
-							x12 = nextItem->Xpos+nextItem->Width;
-							y12 = nextItem->Ypos+nextItem->Height;
-							x1mid = x11+(x12-x11)/2;
-							y1mid = y11+(y12-y11)/2;
+							double x11 = nextItem->Xpos;
+							double y11 = nextItem->Ypos;
+							double x12 = nextItem->Xpos+nextItem->Width;
+							double y12 = nextItem->Ypos+nextItem->Height;
+							double x1mid = x11+(x12-x11)/2;
+							double y1mid = y11+(y12-y11)/2;
 
 							if (nextItem->Rot!=0.000)
 							{
@@ -370,14 +369,14 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 							a1 = a2 = b1 = b2 = 0;
 							if (nextItem->NextBox!=NULL)
 							{
-								x21 = nextItem->NextBox->Xpos;
-								y21 = nextItem->NextBox->Ypos;
-								x22 = nextItem->NextBox->Xpos+nextItem->NextBox->Width;
-								y22 = nextItem->NextBox->Ypos+nextItem->NextBox->Height;
-								x2mid = nextItem->NextBox->Xpos + nextItem->NextBox->Width/2;
-								y2mid = nextItem->NextBox->Ypos + nextItem->NextBox->Height/2;
-								x2mid = x21+(x22-x21)/2;
-								y2mid = y21+(y22-y21)/2;
+								double x21 = nextItem->NextBox->Xpos;
+								double y21 = nextItem->NextBox->Ypos;
+								double x22 = nextItem->NextBox->Xpos+nextItem->NextBox->Width;
+								double y22 = nextItem->NextBox->Ypos+nextItem->NextBox->Height;
+								double x2mid = nextItem->NextBox->Xpos + nextItem->NextBox->Width/2;
+								double y2mid = nextItem->NextBox->Ypos + nextItem->NextBox->Height/2;
+								//x2mid = x21+(x22-x21)/2;
+								//y2mid = y21+(y22-y21)/2;
 
 								if (nextItem->NextBox->Rot!=0.000)
 								{
@@ -468,6 +467,7 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 		}
 		painter->end();
 		delete painter;
+		painter=NULL;
 	}
 	if (SelItem.count() != 0)
 	{
@@ -880,6 +880,7 @@ void ScribusView::leaveEvent(QEvent *)
 			dr->setPixmap(loadIcon("DragPix.xpm"));
 			dr->drag();
 			delete ss;
+			ss=NULL;
 			doku->DragP = false;
 			doku->leaveDrag = false;
 			Mpressed = false;
@@ -924,6 +925,7 @@ void ScribusView::contentsDragEnterEvent(QDragEnterEvent *e)
 			p.end();
 		}
 		delete ss;
+		ss=NULL;
 	}
 }
 
@@ -1054,6 +1056,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 						emit DocChanged();
 					}
 					delete ss;
+					ss=NULL;
 					update();
 				}
 				else
@@ -1132,6 +1135,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 						pmen->insertItem( tr("Cancel"));
 						re = pmen->indexOf(pmen->exec(QCursor::pos()));
 						delete pmen;
+						pmen=NULL;
 					}
 					else
 						re = 1;
@@ -1403,12 +1407,14 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				Doc->appMode = modeNormal;
 				emit PaintingDone();
 				delete dia;
+				dia=NULL;
 				return;
 			}
 			p.end();
 			Cols = dia->Cols->value();
 			Rows = dia->Rows->value();
 			delete dia;
+			dia=NULL;
 			deltaX = Tw / Cols;
 			deltaY = Th / Rows;
 			offX = 0.0;
@@ -1626,6 +1632,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		pmen->exec(QCursor::pos());
 		setGlobalUndoMode();
 		delete pmen;
+		pmen=NULL;
 		return;
 	}
 	if ((Doc->appMode != modeMagnifier) && (!Doc->EditClip) && (Doc->appMode != modeDrawBezierLine))
@@ -1924,6 +1931,13 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			delete pmenLevel;
 			delete pmenPDF;
 			delete pmenResolution;
+			pmen=NULL;
+			pmen2=NULL;
+			pmen3=NULL;
+			pmen4=NULL;
+			pmenLevel=NULL;
+			pmenPDF=NULL;
+			pmenResolution=NULL;
 		}
 		if ((Doc->appMode == modeLinkFrames) || (Doc->appMode == modeUnlinkFrames))
 		{
@@ -3065,6 +3079,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 				dr->setPixmap(loadIcon("DragPix.xpm"));
 				dr->drag();
 				delete ss;
+				ss=NULL;
 				Doc->DragP = false;
 				Doc->leaveDrag = false;
 				Mpressed = false;
@@ -4423,6 +4438,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 						else
 							ss->GetText(currItem, st, currItem->IFont, currItem->ISize, true);
 						delete ss;
+						ss=NULL;
 						if (Doc->docHyphenator->AutoCheck)
 							Doc->docHyphenator->slotHyphenate(currItem);
 						for (uint a = 0; a < Doc->Items.count(); ++a)
@@ -4903,7 +4919,7 @@ void ScribusView::SnapToGuides(PageItem *currItem)
 	}
 }
 
-QPoint ScribusView::ApplyGrid(QPoint in)
+QPoint ScribusView::ApplyGrid(const QPoint& in)
 {
 	QPoint np;
 	int onp = Doc->OnPage(in.x(), in.y());
@@ -4917,7 +4933,7 @@ QPoint ScribusView::ApplyGrid(QPoint in)
 	return np;
 }
 
-FPoint ScribusView::ApplyGridF(FPoint in)
+FPoint ScribusView::ApplyGridF(const FPoint& in)
 {
 	FPoint np;
 	int onp = Doc->OnPage(in.x(), in.y());
@@ -4951,15 +4967,11 @@ void ScribusView::setGroupRect()
 		currItem = SelItem.at(gc);
 		if (currItem->Rot != 0)
 		{
-			FPointArray pb;
-			pb.resize(0);
-			pb.addPoint(FPoint(currItem->Xpos, currItem->Ypos));
-			FPoint p1(currItem->Width, 0.0, currItem->Xpos, currItem->Ypos, currItem->Rot, 1.0, 1.0);
-			pb.addPoint(p1);
-			FPoint p2(currItem->Width, currItem->Height, currItem->Xpos, currItem->Ypos, currItem->Rot, 1.0, 1.0);
-			pb.addPoint(p2);
-			FPoint p3(0.0, currItem->Height, currItem->Xpos, currItem->Ypos, currItem->Rot, 1.0, 1.0);
-			pb.addPoint(p3);
+			FPointArray pb(4);
+			pb.setPoint(0, FPoint(currItem->Xpos, currItem->Ypos));
+			pb.setPoint(1, FPoint(currItem->Width, 0.0, currItem->Xpos, currItem->Ypos, currItem->Rot, 1.0, 1.0));
+			pb.setPoint(2, FPoint(currItem->Width, currItem->Height, currItem->Xpos, currItem->Ypos, currItem->Rot, 1.0, 1.0));
+			pb.setPoint(3, FPoint(0.0, currItem->Height, currItem->Xpos, currItem->Ypos, currItem->Rot, 1.0, 1.0));
 			for (uint pc = 0; pc < 4; ++pc)
 			{
 				minx = QMIN(minx, pb.point(pc).x());
@@ -7854,6 +7866,7 @@ void ScribusView::sentToScrap()
 	ScriXmlDoc *ss = new ScriXmlDoc();
 	emit ToScrap(ss->WriteElem(&SelItem, Doc, this));
 	delete ss;
+	ss=NULL;
 }
 
 void ScribusView::ToBack()
@@ -8417,6 +8430,7 @@ Page* ScribusView::addPage(int nr, bool mov)
 				Doc->Items.at(z)->BackBox->DrawObj(painter, QRect(0, 0, 1, 1));
 			painter->end();
 			delete painter;
+			painter=NULL;
 			Doc->RePos = savre;
 		}
 	}
@@ -8810,6 +8824,7 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr)
 		else
 			im = pm.smoothScale(static_cast<int>(pm.width() / sy), static_cast<int>(pm.height() / sy));
 		delete painter;
+		painter=NULL;
 		previewMode = false;
 	}
 	return im;
@@ -8854,6 +8869,7 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr)
 		else
 			im = pm.smoothScale(static_cast<int>(pm.width() / sy), static_cast<int>(pm.height() / sy));
 		delete painter;
+		painter=NULL;
 		previewMode = false;
 	}
 	return im;
@@ -10237,6 +10253,7 @@ void ScribusView::editExtendedImageProperties()
 			ExtImageProps* dia = new ExtImageProps(this, &Item->pixm.imgInfo, Item, this);
 			dia->exec();
 			delete dia;
+			dia=NULL;
 		}
 	}
 }
