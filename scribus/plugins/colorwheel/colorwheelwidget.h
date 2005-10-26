@@ -52,11 +52,6 @@ class ColorWheel : public QLabel
 		Colors can be added into Scribus color list later. */
 		ColorList colorList;
 
-		void setS(int value);
-		void setV(int value);
-		int s();
-		int v();
-
 		/** \brief Draw a color wheel. */
 		void paintWheel();
 
@@ -121,11 +116,6 @@ class ColorWheel : public QLabel
 		QWMatrix wheel and colorMap have different start points.
 		It's taken from Qt. */
 		int angleShift;
-
-		/*! \brief "V" component in HSV model. */
-		int vcomp;
-		/*! \brief "S" component in HSV model. */
-		int scomp;
 
 		/*! \brief Half of the widget sizes.
 		To prevent all width()/2 divisions. */

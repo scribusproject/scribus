@@ -14,8 +14,6 @@ ColorWheel::ColorWheel(QWidget * parent, const char * name) : QLabel(parent, nam
 	baseAngle = 0;
 	angleShift = 270;
 	widthH = heightH = 150;
-	setV(255);
-	setS(255);
 }
 
 QPixmap ColorWheel::sample(QColor c)
@@ -60,8 +58,6 @@ void ColorWheel::paintWheel()
 {
 	int h, s, v;
 	actualColor.hsv(&h, &s, &v);
-	setV(v);
-	setS(s);
 
 	colorMap.clear();
 	QPixmap pm(width(), height());
@@ -129,9 +125,10 @@ ScColor ColorWheel::cmykColor(QColor col)
 	ScColor c = ScColor();
 	/* Dirty Hack to avoid Color Managed RGB -> CMYK conversion */
 	c.setSpotColor(true);
-	int h, sm, vm;
-	col.hsv(&h, &sm, &vm);
-	col.setHsv(h, s(), v());
+	int h, sm, vm, s, v;
+	actualColor.getHsv(&h, &s, &v);
+	col.getHsv(&h, &sm, &vm);
+	col.setHsv(h, s, v);
 	c.fromQColor(col);
 	c.setColorModel(colorModelCMYK);
 	c.setSpotColor(false);
@@ -265,34 +262,10 @@ bool ColorWheel::recomputeColor(QColor col)
 		it.data().hsv(&tmph, &tmps, &tmpv);
 		if (origh == tmph)
 		{
-			QColor c;
-			c.setHsv(tmph, 255, 255);
-			actualColor = c;
+			actualColor.setHsv(tmph, origs, origv);
 			baseAngle = it.key();
-			setV(origv);
-			setS(origs);
 			return true;
 		}
 	}
 	return false;
-}
-
-void ColorWheel::setV(int value)
-{
-	vcomp = value;
-}
-
-void ColorWheel::setS(int value)
-{
-	scomp = value;
-}
-
-int ColorWheel::s()
-{
-	return scomp;
-}
-
-int ColorWheel::v()
-{
-	return vcomp;
 }

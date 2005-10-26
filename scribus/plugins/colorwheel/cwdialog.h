@@ -16,6 +16,8 @@ class QListView;
 class QListViewItem;
 class QPushButton;
 class QSpinBox;
+class QGroupBox;
+class QSlider;
 
 
 /*! \brief GUI for colors from preferences/document.
@@ -27,7 +29,7 @@ class ScribusColorList : public QDialog
 	Q_OBJECT
 
 	public:
-		ScribusColorList( QWidget* parent = 0, const char* name = 0, bool modal = FALSE, WFlags fl = 0 );
+		ScribusColorList(QWidget* parent = 0, const char* name = 0, bool modal = FALSE, WFlags fl = 0);
 		~ScribusColorList(){};
 
 		QListView* listView;
@@ -67,11 +69,7 @@ class ColorWheelDialog : public QDialog
 		ColorWheel* colorWheel;
 		QLabel* previewLabel;
 		QLabel* angleLabel;
-		QLabel* sLabel;
-		QLabel* vLabel;
 		QSpinBox* angleSpin;
-		QSpinBox* sSpin;
-		QSpinBox* vSpin;
 		QPushButton* addButton;
 		QPushButton* replaceButton;
 		QPushButton* cancelButton;
@@ -88,8 +86,6 @@ class ColorWheelDialog : public QDialog
 		QVBoxLayout* wheelLayout;
 		QSpacerItem* spacer1;
 		QHBoxLayout* angleLayout;
-		QHBoxLayout* sLayout;
-		QHBoxLayout* vLayout;
 		QVBoxLayout* listLayout;
 		QHBoxLayout* buttonLayout;
 		QHBoxLayout* defectLayout;
@@ -117,8 +113,6 @@ class ColorWheelDialog : public QDialog
 		virtual void replaceButton_clicked();
 		virtual void cancelButton_clicked();
 		virtual void angleSpin_valueChanged(int);
-		virtual void sSpin_valueChanged(int);
-		virtual void vSpin_valueChanged(int);
 
 	protected slots:
 		virtual void languageChange();
@@ -127,6 +121,8 @@ class ColorWheelDialog : public QDialog
 		virtual void createColor();
 		/*! \brief Color from "show existing colors" dialog. Via menu. */
 		virtual void importColor();
+		/*! \brief Create color by exact numeric values. */
+		virtual void setColorComponents();
 
 };
 

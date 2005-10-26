@@ -13,6 +13,8 @@
 #include <qspinbox.h>
 #include <qpainter.h>
 #include <qmenubar.h>
+#include <qgroupbox.h>
+#include <qslider.h>
 
 #include "prefsmanager.h"
 #include "commonstrings.h"
@@ -20,6 +22,7 @@
 #include "prefsfile.h"
 #include "mpalette.h"
 #include "colorblind.h"
+#include "cwsetcolor.h"
 
 
 extern ScribusApp SCRIBUS_API *ScApp;
@@ -103,6 +106,7 @@ ColorWheelDialog::ColorWheelDialog(QWidget* parent, const char* name, bool modal
 	QMenuBar *menuBar = new QMenuBar(this, "menuBar");
 	QPopupMenu *colorMenu = new QPopupMenu(this);
 	colorMenu->insertItem(tr("Cr&eate color..."), this, SLOT(createColor()));
+	colorMenu->insertItem(tr("C&olor Components..."), this, SLOT(setColorComponents()));
 	colorMenu->insertItem(tr("&Import existing color..."), this, SLOT(importColor()));
 	colorMenu->insertSeparator();
 	colorMenu->insertItem(tr("&Merge colors"), this, SLOT(addButton_clicked()));
@@ -134,24 +138,6 @@ ColorWheelDialog::ColorWheelDialog(QWidget* parent, const char* name, bool modal
 	angleSpin->setMaxValue(90);
 	angleLayout->addWidget(angleSpin);
 	wheelLayout->addLayout(angleLayout);
-
-	sLabel = new QLabel(this, "sLabel");
-	sLayout = new QHBoxLayout(0, 0, 6, "sLayout");
-	sLayout->addWidget(sLabel);
-	sSpin = new QSpinBox(this, "sSpin");
-	sSpin->setMinValue(0);
-	sSpin->setMaxValue(255);
-	sLayout->addWidget(sSpin);
-	wheelLayout->addLayout(sLayout);
-
-	vLabel = new QLabel(this, "vLabel");
-	vLayout = new QHBoxLayout(0, 0, 6, "vLayout");
-	vLayout->addWidget(vLabel);
-	vSpin = new QSpinBox(this, "sSpin");
-	vSpin->setMinValue(0);
-	vSpin->setMaxValue(255);
-	vLayout->addWidget(vSpin);
-	wheelLayout->addLayout(vLayout);
 
 	spacer1 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 	wheelLayout->addItem(spacer1);
@@ -213,21 +199,16 @@ ColorWheelDialog::ColorWheelDialog(QWidget* parent, const char* name, bool modal
 	colorWheel->baseAngle = prefs->getInt("cw_baseangle", 0);
 	colorWheel->actualColor = QColor(prefs->getInt("cw_r", 0), prefs->getInt("cw_g", 0), prefs->getInt("cw_b", 0));
 	colorWheel->paintWheel();
-	sSpin->setValue(prefs->getInt("cw_s", 255));
-	vSpin->setValue(prefs->getInt("cw_v", 255));
-	colorWheel->setS(sSpin->value());
-	colorWheel->setV(vSpin->value());
 
 	// actions
 	typeCombo_activated(typeCombo->currentItem());
+
 	// signals and slots connections
 	connect(typeCombo, SIGNAL(activated(int)), this, SLOT(typeCombo_activated(int)));
 	connect(defectCombo, SIGNAL(activated(int)), this, SLOT(defectCombo_activated(int)));
 	connect(colorWheel, SIGNAL(clicked(int, const QPoint&)), this, SLOT(colorWheel_clicked(int, const QPoint&)));
 	colorWheel_clicked(0, QPoint(0, 0));
 	connect(angleSpin, SIGNAL(valueChanged(int)), this, SLOT(angleSpin_valueChanged(int)));
-	connect(sSpin, SIGNAL(valueChanged(int)), this, SLOT(sSpin_valueChanged(int)));
-	connect(vSpin, SIGNAL(valueChanged(int)), this, SLOT(vSpin_valueChanged(int)));
 	connect(addButton, SIGNAL(clicked()), this, SLOT(addButton_clicked()));
 	connect(replaceButton, SIGNAL(clicked()), this, SLOT(replaceButton_clicked()));
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(cancelButton_clicked()));
@@ -243,8 +224,6 @@ ColorWheelDialog::~ColorWheelDialog()
 	prefs->set("cw_type", typeCombo->currentItem());
 	prefs->set("cw_angle", angleSpin->value());
 	prefs->set("cw_baseangle", colorWheel->baseAngle);
-	prefs->set("cw_s", sSpin->value());
-	prefs->set("cw_v", vSpin->value());
 	prefs->set("cw_r", colorWheel->actualColor.red());
 	prefs->set("cw_g", colorWheel->actualColor.green());
 	prefs->set("cw_b", colorWheel->actualColor.blue());
@@ -257,8 +236,6 @@ ColorWheelDialog::~ColorWheelDialog()
 void ColorWheelDialog::languageChange()
 {
 	defectLabel->setText(tr("Vision Defect:"));
-	sLabel->setText(tr("Saturation:"));
-	vLabel->setText(tr("Value:"));
 	setCaption(tr("Color Wheel"));
 	colorList->addColumn(tr("Color"));
 	colorList->addColumn(tr("Name"));
@@ -277,8 +254,6 @@ void ColorWheelDialog::languageChange()
 	QToolTip::add(replaceButton, "<qt>" + tr("Replace created colors in the document colors") + "</qt>");
 	QToolTip::add(cancelButton, "<qt>" + tr("Leave colors untouched") + "</qt>");
 	QToolTip::add(angleSpin, "<qt>" + tr("Difference between the selected value and the counted ones. Refer to documentation for more information.") + "</qt>");
-	QToolTip::add(sSpin, "<qt>" + tr("Saturation component in HSV mode") + "</qt>");
-	QToolTip::add(vSpin, "<qt>" + tr("Value component in HSV mode") + "</qt>");
 	QToolTip::add(colorWheel, "<qt>" + tr("Click the wheel to get the base color. It is hue in HSV mode.") + "</qt>");
 	QToolTip::add(previewLabel, "<qt>" + tr("Sample color scheme") + "</qt>");
 	QToolTip::add(typeCombo, "<qt>" + tr("Select one of the methods to create a color scheme. Refer to documentation for more information.") + "</qt>");
@@ -451,18 +426,6 @@ QColor ColorWheelDialog::computeDefect(QColor c)
 	return nc;
 }
 
-void ColorWheelDialog::sSpin_valueChanged(int value)
-{
-	colorWheel->setS(value);
-	typeCombo_activated(typeCombo->currentItem());
-}
-
-void ColorWheelDialog::vSpin_valueChanged(int value)
-{
-	colorWheel->setV(value);
-	typeCombo_activated(typeCombo->currentItem());
-}
-
 void ColorWheelDialog::createColor()
 {
 	/* these 3 variables are defined for CMYKChoose constructor.
@@ -474,6 +437,16 @@ void ColorWheelDialog::createColor()
 	if (dia->exec())
 	{
 		userColorInput(dia->Farbe.getRGBColor());
+	}
+	delete dia;
+}
+
+void ColorWheelDialog::setColorComponents()
+{
+	CwSetColor *dia = new CwSetColor(this);
+	if (dia->exec())
+	{
+		userColorInput(dia->newColor);
 	}
 	delete dia;
 }
@@ -491,11 +464,7 @@ void ColorWheelDialog::importColor()
 void ColorWheelDialog::userColorInput(QColor c)
 {
 	if (colorWheel->recomputeColor(c))
-	{
-		sSpin->setValue(colorWheel->s());
-		vSpin->setValue(colorWheel->v());
 		typeCombo_activated(typeCombo->currentItem());
-	}
 	else
 		QMessageBox::information(this, caption(),
 				"<qt>" + tr("Unable to find the requested color. "
