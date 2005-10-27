@@ -514,6 +514,7 @@ PyObject *scribus_setstyle(PyObject* /* self */, PyObject* args)
 		}
 		// quick hack to always apply on the right frame - pv
 		ScApp->view->Deselect(true);
+		//CB I dont think we need to draw here. Its faster if we dont.
 		ScApp->view->SelectItem(item, false);
 		// Now apply the style.
 		ScApp->setNewAbStyle(styleid);
