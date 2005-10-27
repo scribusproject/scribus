@@ -1213,20 +1213,20 @@ QPixmap * getSmallPixmap(QColor rgb)
 {
 	static QMap<QRgb, QPixmap*> pxCache;
 
-	QPixmap * pm = pxCache[rgb.rgb()];
-	if (!pm)
-	{
-		pm = new QPixmap(15, 15);
-		pm->fill(rgb);
-		QPainter p;
-		p.begin(pm);
-		p.setBrush(Qt::NoBrush);
-		QPen b(Qt::black, 1);
-		p.setPen(b);
-		p.drawRect(0, 0, 15, 15);
-		p.end();
-		pxCache[rgb.rgb()] = pm;
-	}
+	QRgb index=rgb.rgb();
+	if (pxCache.contains(index))
+		return pxCache[index];
+
+	QPixmap *pm = new QPixmap(15, 15);
+	pm->fill(rgb);
+	QPainter p;
+	p.begin(pm);
+	p.setBrush(Qt::NoBrush);
+	QPen b(Qt::black, 1);
+	p.setPen(b);
+	p.drawRect(0, 0, 15, 15);
+	p.end();
+	pxCache.insert(index, pm);
 	return pm;
 }
 
@@ -1234,12 +1234,13 @@ QPixmap * getWidePixmap(QColor rgb)
 {
 	static QMap<QRgb, QPixmap*> pxCache;
 
-	QPixmap * pm = pxCache[rgb.rgb()];
-	if (!pm) {
-		pm = new QPixmap(30, 15);
-		pm->fill(rgb);
-		pxCache[rgb.rgb()] = pm;
-	}
+	QRgb index=rgb.rgb();
+	if (pxCache.contains(index))
+		return pxCache[index];
+
+	QPixmap *pm = new QPixmap(30, 15);
+	pm->fill(rgb);
+	pxCache.insert(index, pm);
 	return pm;
 }
 
@@ -1308,7 +1309,6 @@ QPixmap * getFancyPixmap(ScColor col) {
 	if (col.isRegistrationColor())
 		paintAlert(regIcon, *pa, 45, 0);
 	pxCache.insert(res, pa);
-		
 	return pa;
 }
 
@@ -1326,7 +1326,8 @@ FPoint getMaxClipF(FPointArray* Clip)
 	FPoint np, rp;
 	double mx = 0;
 	double my = 0;
-	for (uint c = 0; c < Clip->size(); ++c)
+	uint clipSize=Clip->size();
+	for (uint c = 0; c < clipSize; ++c)
 	{
 		np = Clip->point(c);
 		if (np.x() > 900000)
@@ -1345,7 +1346,8 @@ FPoint getMinClipF(FPointArray* Clip)
 	FPoint np, rp;
 	double mx = 99999;
 	double my = 99999;
-	for (uint c = 0; c < Clip->size(); ++c)
+	uint clipSize=Clip->size();
+	for (uint c = 0; c < clipSize; ++c)
 	{
 		np = Clip->point(c);
 		if (np.x() > 900000)
