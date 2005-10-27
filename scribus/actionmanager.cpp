@@ -111,10 +111,10 @@ void ActionManager::initEditMenuActions()
 	scrActions->insert("editRedoAction", new ScrAction(ScrAction::DataInt, QIconSet(loadIcon("u_redo16.png"), loadIcon("u_redo.png")), "", CTRL+SHIFT+Key_Z, ScApp, "editRedoAction", 1));
 	scrActions->insert("editActionMode", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScApp, "editActionMode"));
 	(*scrActions)["editActionMode"]->setToggleAction(true);
-	scrActions->insert("editCut", new ScrAction(QIconSet(loadIcon("editcut.png"), loadIcon("editcut.png")), "", CTRL+Key_X, ScApp, "editCut"));
+	scrActions->insert("editCut", new ScrAction(QIconSet(loadIcon("editcut.png"), loadIcon("editcut22.png")), "", CTRL+Key_X, ScApp, "editCut"));
 	scrActions->insert("editCopy", new ScrAction(QIconSet(loadIcon("editcopy.png"), loadIcon("editcopy.png")), "", CTRL+Key_C, ScApp, "editCopy"));
 	scrActions->insert("editPaste", new ScrAction(QIconSet(loadIcon("editpaste.png"), loadIcon("editpaste.png")), "", CTRL+Key_V, ScApp, "editPaste"));
-	scrActions->insert("editClearContents", new ScrAction(QIconSet(loadIcon("editdelete.png"), loadIcon("editdelete.png")), "", QKeySequence(), ScApp, "editClearContents"));
+	scrActions->insert("editClearContents", new ScrAction(QIconSet(loadIcon("editdelete.png"), loadIcon("editdelete22.png")), "", QKeySequence(), ScApp, "editClearContents"));
 	scrActions->insert("editSelectAll", new ScrAction(QIconSet(noIcon), "", CTRL+Key_A, ScApp, "editSelectAll"));
 	scrActions->insert("editDeselectAll", new ScrAction(QIconSet(noIcon), "", CTRL+SHIFT+Key_A, ScApp, "editDeselectAll"));
 	scrActions->insert("editSearchReplace", new ScrAction(QIconSet(loadIcon("find16.png"), loadIcon("find16.png")), "", QKeySequence(CTRL+Key_F), ScApp, "editSearchReplace"));
