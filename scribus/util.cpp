@@ -1270,7 +1270,7 @@ static Q_UINT64 code64(ScColor & col) {
 }
 
 QPixmap * getFancyPixmap(ScColor col) {
-	//static QMap<Q_UINT64, QPixmap*> pxCache;
+	static QMap<Q_UINT64, QPixmap*> pxCache;
 	
 	static QPixmap alertIcon;
 	static QPixmap cmykIcon;
@@ -1288,29 +1288,27 @@ QPixmap * getFancyPixmap(ScColor col) {
 		iconsInitialized = true;
 	}
 	
-	QPixmap * pa = getSmallPixmap(col.getRawRGBColor());
-	/* CB disabled due to ugly memory leak here
-	QPixmap * pa = pxCache[code64(col)];
-	if (!pa) {
-		pa = new QPixmap(60, 15);
+	Q_UINT64 res=code64(col);
+	if (pxCache.contains(res))
+		return pxCache[res];
+	
+	QPixmap *pa=new QPixmap(60, 15);
+	QPixmap *pm=getSmallPixmap(col.getRawRGBColor());
+	pa->fill(Qt::white);
+	paintAlert(*pm, *pa, 0, 0);
+	col.checkGamut();
+	if (col.isOutOfGamut())
+		paintAlert(alertIcon, *pa, 15, 0);
+	if ((col.getColorModel() == colorModelCMYK) || (col.isSpotColor()))
+		paintAlert(cmykIcon, *pa, 30, 0);
+	else
+		paintAlert(rgbIcon, *pa, 30, 0);
+	if (col.isSpotColor())
+		paintAlert(spotIcon, *pa, 46, 2);
+	if (col.isRegistrationColor())
+		paintAlert(regIcon, *pa, 45, 0);
+	pxCache.insert(res, pa);
 		
-		QPixmap * pm = getSmallPixmap(col.getRawRGBColor());
-		pa->fill(Qt::white);
-		paintAlert(*pm, *pa, 0, 0);
-		col.checkGamut();
-		if (col.isOutOfGamut())
-			paintAlert(alertIcon, *pa, 15, 0);
-		if ((col.getColorModel() == colorModelCMYK) || (col.isSpotColor()))
-			paintAlert(cmykIcon, *pa, 30, 0);
-		else
-			paintAlert(rgbIcon, *pa, 30, 0);
-		if (col.isSpotColor())
-			paintAlert(spotIcon, *pa, 46, 2);
-		if (col.isRegistrationColor())
-			paintAlert(regIcon, *pa, 45, 0);
-		pxCache[code64(col)] = pa;
-	}
-	*/
 	return pa;
 }
 
