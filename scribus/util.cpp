@@ -1270,7 +1270,7 @@ static Q_UINT64 code64(ScColor & col) {
 }
 
 QPixmap * getFancyPixmap(ScColor col) {
-	static QMap<Q_UINT64, QPixmap*> pxCache;
+	//static QMap<Q_UINT64, QPixmap*> pxCache;
 	
 	static QPixmap alertIcon;
 	static QPixmap cmykIcon;
@@ -1289,7 +1289,7 @@ QPixmap * getFancyPixmap(ScColor col) {
 	}
 	
 	QPixmap * pa = getSmallPixmap(col.getRawRGBColor());
-	/*
+	/* CB disabled due to ugly memory leak here
 	QPixmap * pa = pxCache[code64(col)];
 	if (!pa) {
 		pa = new QPixmap(60, 15);
