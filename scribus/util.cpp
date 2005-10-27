@@ -1288,7 +1288,8 @@ QPixmap * getFancyPixmap(ScColor col) {
 		iconsInitialized = true;
 	}
 	
-	
+	QPixmap * pa = getSmallPixmap(col.getRawRGBColor());
+	/*
 	QPixmap * pa = pxCache[code64(col)];
 	if (!pa) {
 		pa = new QPixmap(60, 15);
@@ -1309,6 +1310,7 @@ QPixmap * getFancyPixmap(ScColor col) {
 			paintAlert(regIcon, *pa, 45, 0);
 		pxCache[code64(col)] = pa;
 	}
+	*/
 	return pa;
 }
 
