@@ -3372,7 +3372,10 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 				return true;
 			}
 			else
-				reqType = 1;
+			{
+				if (reqType == 4)
+					reqType = 1;
+			}
 		}
 		else
 			imgInfo.exifDataValid = false;

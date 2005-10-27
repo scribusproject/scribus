@@ -9353,7 +9353,7 @@ void ScribusApp::getImageInfo()
 		{
 			if (pageItem->itemType() == PageItem::ImageFrame)
 			{
-				ImageInfoDialog *dia = new ImageInfoDialog(this, &pageItem->pixm.imgInfo.exifInfo);
+				ImageInfoDialog *dia = new ImageInfoDialog(this, &pageItem->pixm.imgInfo);
 				dia->exec();
 				delete dia;
 			}
