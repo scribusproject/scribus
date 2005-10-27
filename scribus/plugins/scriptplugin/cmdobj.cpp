@@ -491,16 +491,15 @@ PyObject *scribus_setstyle(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if ((item->itemType() == PageItem::TextFrame) || (item->itemType() == PageItem::PathText))
 	{
-		/*
-		 * First, find the style number associated with the requested style
-		 * by scanning through the styles looking for the name. If
-		 * we can't find it, raise PyExc_Exception.
-		 * FIXME: Should use a more specific exception.
-		 */
+		// First, find the style number associated with the requested style
+		// by scanning through the styles looking for the name. If
+		// we can't find it, raise PyExc_Exception.
+		// FIXME: Should use a more specific exception.
 		bool found = false;
 		uint styleid = 0;
 		// We start at zero here because it's OK to match an internal name
-		for (uint i=0; i < ScApp->doc->docParagraphStyles.count(); ++i)
+		uint docParagraphStylesCount=ScApp->doc->docParagraphStyles.count();
+		for (uint i=0; i < docParagraphStylesCount; ++i)
 		{
 			if (ScApp->doc->docParagraphStyles[i].Vname == QString::fromUtf8(style)) {
 				found = true;
@@ -515,7 +514,7 @@ PyObject *scribus_setstyle(PyObject* /* self */, PyObject* args)
 		}
 		// quick hack to always apply on the right frame - pv
 		ScApp->view->Deselect(true);
-		ScApp->view->SelectItemNr(item->ItemNr);
+		ScApp->view->SelectItem(item, false);
 		// Now apply the style.
 		ScApp->setNewAbStyle(styleid);
 	}
