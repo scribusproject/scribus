@@ -59,10 +59,10 @@ MasterPagesPalette::MasterPagesPalette( QWidget* parent, ScribusDoc *pCurrentDoc
 
 	setMaximumSize(sizeHint());
 
-	QToolTip::add( duplicateButton, tr( "Duplicates the selected master page" ) );
-	QToolTip::add( deleteButton, tr( "Deletes the selected master page" ) );
-	QToolTip::add( newButton, tr( "Adds a new master page" ) );
-	QToolTip::add( importButton, tr( "Imports master pages from another document" ) );
+	QToolTip::add( duplicateButton, tr( "Duplicate the selected master page" ) );
+	QToolTip::add( deleteButton, tr( "Delete the selected master page" ) );
+	QToolTip::add( newButton, tr( "Add a new master page" ) );
+	QToolTip::add( importButton, tr( "Import master pages from another document" ) );
 	// signals and slots connections
 	connect(duplicateButton, SIGNAL(clicked()), this, SLOT(duplicateMasterPage()));
 	connect(deleteButton, SIGNAL(clicked()), this, SLOT(deleteMasterPage()));
