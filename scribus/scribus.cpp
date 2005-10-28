@@ -3941,22 +3941,8 @@ bool ScribusApp::loadDoc(QString fileName)
 		propertiesPalette->updateCList();
 		doc->hasName = true;
 		if (doc->MasterPages.count() == 0)
-		{
-			doc->setMasterPageMode(true);
-			//doc->DocPages = doc->Pages;
-			//doc->Pages = &doc->MasterPages;
-			doc->pageCount = doc->MasterPages.count();
-			bool atf = doc->usesAutomaticTextFrames();
-			doc->setUsesAutomaticTextFrames(false);
-			slotNewPage(0);
-			doc->setUsesAutomaticTextFrames(atf);
-			doc->MasterNames["Normal"] = 0;
-			doc->Pages->at(0)->setPageName("Normal");
-			//doc->MasterPages = doc->Pages;
-			doc->setMasterPageMode(false);
-			doc->pageCount = doc->DocPages.count();
-			//doc->Pages = &doc->DocPages;
-		}
+			doc->addMasterPage(0, "Normal");
+		doc->pageCount = doc->DocPages.count();
 		doc->setLoading(false);
 		doc->DocItems = doc->Items;
 		doc->RePos = true;
