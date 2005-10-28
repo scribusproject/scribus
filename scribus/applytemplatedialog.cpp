@@ -150,12 +150,13 @@ void ApplyMasterPageDialog::setup(ScribusDoc *view, QString Nam)
 			masterPageComboBox->setCurrentItem(cc);
 		++cc;
 	}
-	if (view->Pages.count() < 2)
+	uint docPagesCount=view->Pages->count();
+	if (docPagesCount < 2)
 		evenPagesRadioButton->setEnabled(false);
-	fromPageSpinBox->setMaxValue(view->Pages.count());
+	fromPageSpinBox->setMaxValue(docPagesCount);
 	fromPageSpinBox->setValue(view->currentPage->pageNr()+1);
-	toPageSpinBox->setMaxValue(view->Pages.count());
-	toPageSpinBox->setValue(view->Pages.count());
+	toPageSpinBox->setMaxValue(docPagesCount);
+	toPageSpinBox->setValue(docPagesCount);
 }
 
 
