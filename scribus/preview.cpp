@@ -442,8 +442,8 @@ int PPreview::RenderPreview(int Seite, int Res)
 			return ret;
 	}
 	QString tmp, tmp2, tmp3;
-	double b = doc->Pages.at(Seite)->width() * Res / 72.0;
-	double h = doc->Pages.at(Seite)->height() * Res / 72.0;
+	double b = doc->Pages->at(Seite)->width() * Res / 72.0;
+	double h = doc->Pages->at(Seite)->height() * Res / 72.0;
 	cmd1 = getShortPathName(prefsManager->ghostscriptExecutable());
 	cmd1 += " -q -dNOPAUSE -dPARANOIDSAFER -r"+tmp.setNum(qRound(Res))+" -g"+tmp2.setNum(qRound(b))+"x"+tmp3.setNum(qRound(h));
 	if (EnableCMYK->isChecked())
@@ -515,8 +515,8 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 			return ret;
 	}
 	QString tmp, tmp2, tmp3;
-	double b = doc->Pages.at(Seite)->width() * Res / 72.0;
-	double h = doc->Pages.at(Seite)->height() * Res / 72.0;
+	double b = doc->Pages->at(Seite)->width() * Res / 72.0;
+	double h = doc->Pages->at(Seite)->height() * Res / 72.0;
 	cmd1 = getShortPathName(prefsManager->ghostscriptExecutable());
 	cmd1 += " -q -dNOPAUSE -dPARANOIDSAFER -r"+tmp.setNum(qRound(Res))+" -g"+tmp2.setNum(qRound(b))+"x"+tmp3.setNum(qRound(h));
 	if (AliasText->isChecked())
@@ -633,8 +633,8 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 {
 	int ret = -1;
 	QPixmap Bild;
-	double b = doc->Pages.at(Seite)->width() * Res / 72.0;
-	double h = doc->Pages.at(Seite)->height() * Res / 72.0;
+	double b = doc->Pages->at(Seite)->width() * Res / 72.0;
+	double h = doc->Pages->at(Seite)->height() * Res / 72.0;
 	qApp->setOverrideCursor(QCursor(waitCursor), true);
 	if ((Seite != APage) || (EnableCMYK->isChecked() != CMode) || (SMode != scaleBox->currentItem())
 	        || (AliasText->isChecked() != TxtAl) || (AliasGr->isChecked() != GrAl) || (EnableGCR->isChecked() != GMode)

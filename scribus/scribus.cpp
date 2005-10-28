@@ -2308,7 +2308,7 @@ void ScribusApp::startUpDialog()
 				{
 					slotNewPage(pg);
 					applyNewMaster( tr("Normal"));
-					doc->DocPages = doc->Pages;
+					//doc->DocPages = doc->Pages;
 				}
 				view->show();
 				view->GotoPage(0);
@@ -2370,7 +2370,7 @@ bool ScribusApp::slotFileNew()
 			{
 				slotNewPage(pg);
 				applyNewMaster( tr("Normal"));
-				doc->DocPages = doc->Pages;
+				//doc->DocPages = doc->Pages;
 			}
 			view->show();
 			view->GotoPage(0);
@@ -2399,18 +2399,19 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 	if (CMSavail && doc->CMSSettings.CMSinUse)
 		recalcColors();
 	doc->setPage(width, h, tpr, lr, rr, br, sp, ab, atf, fp);
-	//--doc->setLoading(false);
+	doc->setMasterPageMode(false);	
 	doc->addMasterPage(0, "Normal");
 	//TODO CB Make addPage take a master page name
 	doc->addPage(0);
-	doc->DocPages = doc->Pages;
-	doc->Pages.at(0)->MPageNam = "Normal";
-	doc->pageCount = doc->Pages.count();
+	//doc->DocPages = doc->Pages;
+	//doc->Pages = &doc->DocPages;
+	doc->Pages->at(0)->MPageNam = "Normal";
+	doc->pageCount = doc->Pages->count();
 
 	doc->setModified(false);
 	doc->setLoading(false);
 	doc->DocItems = doc->Items;
-	doc->currentPage = doc->Pages.at(0);
+	doc->currentPage = doc->Pages->at(0);
 	doc->OpenNodes.clear();
 	//<<View and window code
 	ScribusWin* w = new ScribusWin(wsp, doc);
@@ -2551,7 +2552,7 @@ void ScribusApp::newActWin(QWidget *w)
 			if (swin->muster != NULL)
 				swin->muster->hide();
 		}
-		if (doc->masterPageMode)
+		if (doc->masterPageMode())
 			ActWin->muster->show();
 		setAppMode(doc->appMode);
 	}
@@ -2566,7 +2567,7 @@ void ScribusApp::newActWin(QWidget *w)
 	scrActions["viewShowTextChain"]->setOn(doc->guidesSettings.linkShown);
 	scrActions["viewShowTextControls"]->setOn(doc->guidesSettings.showControls);
 	scrActions["viewRulerMode"]->setOn(doc->guidesSettings.rulerMode);
-	if (!doc->masterPageMode)
+	if (!doc->masterPageMode())
 		pagePalette->Rebuild();
 	outlinePalette->setDoc(doc);
 	outlinePalette->BuildTree();
@@ -2601,7 +2602,7 @@ void ScribusApp::windowsMenuActivated( int id )
 bool ScribusApp::SetupDoc()
 {
 	bool ret = false;
-	if (doc->masterPageMode)
+	if (doc->masterPageMode())
 		doc->MasterItems = doc->Items;
 	else
 		doc->DocItems = doc->Items;
@@ -2683,7 +2684,7 @@ void ScribusApp::SwitchWin()
 		ToggleFrameEdit();
 	}
 	scrActions["fileClose"]->setEnabled(true);
-	if (doc->masterPageMode)
+	if (doc->masterPageMode())
 	{
 		scrActions["pageInsert"]->setEnabled(false);
 		scrActions["pageDelete"]->setEnabled(false);
@@ -2714,7 +2715,7 @@ void ScribusApp::SwitchWin()
 		scrActions["fileRevert"]->setEnabled(false);
 		scrMenuMgr->setMenuEnabled("FileOpenRecent", true);
 
-		bool setter = doc->Pages.count() > 1 ? true : false;
+		bool setter = doc->Pages->count() > 1 ? true : false;
 		scrActions["pageDelete"]->setEnabled(setter);
 		scrActions["pageMove"]->setEnabled(setter);
 
@@ -2768,7 +2769,7 @@ void ScribusApp::HaveNewDoc()
 	mainToolBar->setEnabled(true);
 	pdfToolBar->setEnabled(true);
 
-	bool setter = doc->Pages.count() > 1 ? true : false;
+	bool setter = doc->Pages->count() > 1 ? true : false;
 	scrActions["pageDelete"]->setEnabled(setter);
 	scrActions["pageMove"]->setEnabled(setter);
 
@@ -3030,7 +3031,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			scrActions["toolsEditContents"]->setEnabled(true);
 		if (currItem->NextBox == 0)
 			scrActions["toolsLinkTextFrame"]->setEnabled(true);
-		if (doc->masterPageMode)
+		if (doc->masterPageMode())
 			scrActions["toolsLinkTextFrame"]->setEnabled(false);
 		if (doc->appMode == modeEdit)
 		{
@@ -3333,7 +3334,7 @@ void ScribusApp::slotDocCh(bool /*reb*/)
 	scrActions["fileSave"]->setEnabled(true);
 	scrActions["fileSaveAs"]->setEnabled(true);
 	scrActions["fileCollect"]->setEnabled(true);
-	if (!doc->masterPageMode)
+	if (!doc->masterPageMode())
 	{
 		scrActions["fileClose"]->setEnabled(true);
 		if (doc->hasName)
@@ -3516,7 +3517,7 @@ bool ScribusApp::slotPageImport()
 		parsePagesString(dia->getPageNumbers(), &pageNs, dia->getPageCounter());
 		int startPage, nrToImport;
 		bool doIt = true;
-		if (doc->masterPageMode)
+		if (doc->masterPageMode())
 		{
 			if (pageNs.size() > 1)
 				loadPage(dia->getFromDoc(), pageNs[0] - 1, false);
@@ -3932,27 +3933,29 @@ bool ScribusApp::loadDoc(QString fileName)
 		}
 		else
 			doc->setName(FName);
-		doc->masterPageMode = false;
+		doc->setMasterPageMode(false);
+		//doc->masterPageMode = false;
+		//doc->Pages=&doc->DocPages;
 		doc->Language = GetLang(doc->Language);
 		HaveNewDoc();
 		propertiesPalette->updateCList();
 		doc->hasName = true;
 		if (doc->MasterPages.count() == 0)
 		{
-			doc->masterPageMode = true;
-			doc->DocPages = doc->Pages;
-			doc->Pages = doc->MasterPages;
+			doc->setMasterPageMode(true);
+			//doc->DocPages = doc->Pages;
+			//doc->Pages = &doc->MasterPages;
 			doc->pageCount = doc->MasterPages.count();
 			bool atf = doc->usesAutomaticTextFrames();
 			doc->setUsesAutomaticTextFrames(false);
 			slotNewPage(0);
 			doc->setUsesAutomaticTextFrames(atf);
 			doc->MasterNames["Normal"] = 0;
-			doc->Pages.at(0)->setPageName("Normal");
-			doc->MasterPages = doc->Pages;
+			doc->Pages->at(0)->setPageName("Normal");
+			//doc->MasterPages = doc->Pages;
+			doc->setMasterPageMode(false);
 			doc->pageCount = doc->DocPages.count();
-			doc->Pages = doc->DocPages;
-			doc->masterPageMode = false;
+			//doc->Pages = &doc->DocPages;
 		}
 		doc->setLoading(false);
 		doc->DocItems = doc->Items;
@@ -3960,8 +3963,9 @@ bool ScribusApp::loadDoc(QString fileName)
 		QPixmap pgPix(10, 10);
 		QRect rd = QRect(0,0,9,9);
 		ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
-		doc->Pages = doc->MasterPages;
-		doc->masterPageMode = true;
+		doc->setMasterPageMode(true);
+		//doc->Pages = &doc->MasterPages;
+		//doc->masterPageMode = true;
 		doc->Items = doc->MasterItems;
 		for (uint azz=0; azz<doc->MasterItems.count(); ++azz)
 		{
@@ -3995,8 +3999,8 @@ bool ScribusApp::loadDoc(QString fileName)
 			}
 		}
 //		RestoreBookMarks();
-		doc->Pages = doc->DocPages;
-		doc->masterPageMode = false;
+		//doc->Pages = &doc->DocPages;
+		doc->setMasterPageMode(false);
 		doc->Items = doc->DocItems;
 		for (uint azz=0; azz<doc->Items.count(); ++azz)
 		{
@@ -4065,9 +4069,9 @@ bool ScribusApp::loadDoc(QString fileName)
 		updateRecent(FName);
 		mainWindowStatusLabel->setText( tr("Ready"));
 		ret = true;
-		for (uint p = 0; p < doc->Pages.count(); ++p)
+		for (uint p = 0; p < doc->Pages->count(); ++p)
 		{
-			Apply_MasterPage(doc->Pages.at(p)->MPageNam, p, false);
+			Apply_MasterPage(doc->Pages->at(p)->MPageNam, p, false);
 		}
 		if (fileLoader->FileType > 1)
 		{
@@ -4204,7 +4208,7 @@ void ScribusApp::slotFileOpen()
 				if (doc->Items.at(a)->isBookmark)
 					bookmarkPalette->BView->ChangeItem(doc->Items.at(a)->BMnr, a);
 			}
-			if (doc->masterPageMode)
+			if (doc->masterPageMode())
 				doc->MasterItems = doc->Items;
 			else
 				doc->DocItems = doc->Items;
@@ -4239,7 +4243,7 @@ void ScribusApp::slotFileAppend()
 
 void ScribusApp::slotFileRevert()
 {
-	if ((doc->hasName) && (doc->isModified()) && (!doc->masterPageMode))
+	if ((doc->hasName) && (doc->isModified()) && (!doc->masterPageMode()))
 	{
 		int t = ScMessageBox::warning(this, CommonStrings::trWarning, "<qt>" +
 								 QObject::tr("The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?") + "</qt>",
@@ -4578,7 +4582,7 @@ void ScribusApp::slotReallyPrint()
 	doc->getUsedColors(usedSpots, true);
 	QStringList spots = usedSpots.keys();
 	Druck *printer = new Druck(this, options.filename, options.printer, PDef.Command, prefsManager->appPrefs.GCRMode, spots);
-	printer->setMinMax(1, doc->Pages.count(), doc->currentPage->pageNr()+1);
+	printer->setMinMax(1, doc->Pages->count(), doc->currentPage->pageNr()+1);
 	printDinUse = true;
 	connect(printer, SIGNAL(doPreview()), this, SLOT(doPrintPreview()));
 	if (printer->exec())
@@ -5065,7 +5069,7 @@ void ScribusApp::slotEditPaste()
 				{
 					doc->Items.take(ac);
 				}
-				if (doc->masterPageMode)
+				if (doc->masterPageMode())
 					doc->MasterItems = doc->Items;
 				else
 					doc->DocItems = doc->Items;
@@ -5303,10 +5307,12 @@ void ScribusApp::slotNewPageP(int wo, QString templ)
 	view->Deselect(true);
 	slotNewPage(wo);
 	applyNewMaster(templ);
+	/*
 	if (doc->masterPageMode)
 		doc->MasterPages = doc->Pages;
 	else
 		doc->DocPages = doc->Pages;
+	*/
 	outlinePalette->BuildTree();
 	pagePalette->RebuildPage();
 }
@@ -5317,7 +5323,7 @@ void ScribusApp::slotNewPageM()
 	NoFrameEdit();
 	view->Deselect(true);
 	QStringList base;
-	InsPage *dia = new InsPage(this, doc, doc->currentPage->pageNr(), doc->Pages.count());
+	InsPage *dia = new InsPage(this, doc, doc->currentPage->pageNr(), doc->Pages->count());
 	if (dia->exec())
 	{
 		base = dia->getMasterPages();
@@ -5396,7 +5402,7 @@ void ScribusApp::addNewPages(int wo, int where, int numPages, double height, dou
 	case 2:
 		for (cc = 0; cc < numPages; ++cc)
 		{
-			slotNewPage(doc->Pages.count(), mov);
+			slotNewPage(doc->Pages->count(), mov);
 			doc->currentPage->setInitialHeight(height);
 			doc->currentPage->setInitialWidth(width);
 			doc->currentPage->PageOri = orient;
@@ -5408,10 +5414,12 @@ void ScribusApp::addNewPages(int wo, int where, int numPages, double height, dou
 	pagePalette->RebuildPage();
 	view->reformPages(mov);
 	view->DrawNew();
+	/*
 	if (doc->masterPageMode)
 		doc->MasterPages = doc->Pages;
 	else
 		doc->DocPages = doc->Pages;
+	*/
 	outlinePalette->BuildTree();
 	if (UndoManager::undoEnabled())
 		undoManager->commit();
@@ -5419,7 +5427,7 @@ void ScribusApp::addNewPages(int wo, int where, int numPages, double height, dou
 
 void ScribusApp::slotNewMasterPage(int w)
 {
-	if (doc->masterPageMode)
+	if (doc->masterPageMode())
 		slotNewPage(w);
 }
 
@@ -5428,10 +5436,10 @@ void ScribusApp::slotNewPage(int w, bool mov)
 	view->addPage(w, mov);
 /*	if ((!doc->loading) && (!doc->masterPageMode))
 		outlinePalette->BuildTree(doc); */
-	bool setter = doc->Pages.count() > 1 ? true : false;
+	bool setter = doc->Pages->count() > 1 ? true : false;
 	scrActions["pageDelete"]->setEnabled(setter);
 	scrActions["pageMove"]->setEnabled(setter);
-	if ((!doc->isLoading()) && (!doc->masterPageMode))
+	if ((!doc->isLoading()) && (!doc->masterPageMode()))
 		AdjustBM();
 /*	if ((!doc->loading) && (!doc->masterPageMode))
 	{
@@ -6184,7 +6192,7 @@ void ScribusApp::DeletePage2(int pg)
 {
 	PageItem* ite;
 	NoFrameEdit();
-	if (doc->Pages.count() == 1)
+	if (doc->Pages->count() == 1)
 		return;
 	if (UndoManager::undoEnabled())
 		undoManager->beginTransaction(doc->DocName, Um::IDocument, Um::DeletePage, "", Um::IDelete);
@@ -6211,12 +6219,12 @@ void ScribusApp::DeletePage2(int pg)
 		SimpleState *ss = new SimpleState(Um::DeletePage, "", Um::ICreate);
 		ss->set("DELETE_PAGE", "delete_page");
 		ss->set("PAGENR", pg + 1);
-		ss->set("MASTERPAGE", doc->Pages.at(pg)->MPageNam);
+		ss->set("MASTERPAGE", doc->Pages->at(pg)->MPageNam);
 		// replace the deleted page in the undostack by a dummy object that will
 		// replaced with the "undone" page if user choose to undo the action
 		DummyUndoObject *duo = new DummyUndoObject();
 		uint id = static_cast<uint>(duo->getUId());
-		undoManager->replaceObject(doc->Pages.at(pg)->getUId(), duo);
+		undoManager->replaceObject(doc->Pages->at(pg)->getUId(), duo);
 		ss->set("DUMMY_ID", id);
 		undoManager->action(this, ss);
 	}
@@ -6226,7 +6234,7 @@ void ScribusApp::DeletePage2(int pg)
 	view->DrawNew();
 	doc->OpenNodes.clear();
 	outlinePalette->BuildTree();
-	bool setter = doc->Pages.count() > 1 ? true : false;
+	bool setter = doc->Pages->count() > 1 ? true : false;
 	scrActions["pageDelete"]->setEnabled(setter);
 	scrActions["pageMove"]->setEnabled(setter);
 	slotDocCh();
@@ -6239,7 +6247,7 @@ void ScribusApp::DeletePage()
 {
 	NoFrameEdit();
 	view->Deselect(true);
-	DelPages *dia = new DelPages(this, doc->currentPage->pageNr()+1, doc->Pages.count());
+	DelPages *dia = new DelPages(this, doc->currentPage->pageNr()+1, doc->Pages->count());
 	if (dia->exec())
 		DeletePage(dia->getFromPage(), dia->getToPage());
 	delete dia;
@@ -6279,12 +6287,12 @@ void ScribusApp::DeletePage(int from, int to)
 			SimpleState *ss = new SimpleState(Um::DeletePage, "", Um::ICreate);
 			ss->set("DELETE_PAGE", "delete_page");
 			ss->set("PAGENR", a + 1);
-			ss->set("MASTERPAGE", doc->Pages.at(a)->MPageNam);
+			ss->set("MASTERPAGE", doc->Pages->at(a)->MPageNam);
 			// replace the deleted page in the undostack by a dummy object that will
 			// replaced with the "undone" page if user choose to undo the action
 			DummyUndoObject *duo = new DummyUndoObject();
 			uint id = static_cast<uint>(duo->getUId());
-			undoManager->replaceObject(doc->Pages.at(a)->getUId(), duo);
+			undoManager->replaceObject(doc->Pages->at(a)->getUId(), duo);
 			ss->set("DUMMY_ID", id);
 			undoManager->action(this, ss);
 		}
@@ -6294,7 +6302,7 @@ void ScribusApp::DeletePage(int from, int to)
 	view->DrawNew();
 //	doc->OpenNodes.clear();
 	outlinePalette->BuildTree();
-	bool setter = doc->Pages.count() > 1 ? true : false;
+	bool setter = doc->Pages->count() > 1 ? true : false;
 	scrActions["pageDelete"]->setEnabled(setter);
 	scrActions["pageMove"]->setEnabled(setter);
 	slotDocCh();
@@ -6306,7 +6314,7 @@ void ScribusApp::DeletePage(int from, int to)
 void ScribusApp::MovePage()
 {
 	NoFrameEdit();
-	MovePages *dia = new MovePages(this, doc->currentPage->pageNr()+1, doc->Pages.count(), true);
+	MovePages *dia = new MovePages(this, doc->currentPage->pageNr()+1, doc->Pages->count(), true);
 	if (dia->exec())
 	{
 //		doc->OpenNodes = outlinePalette->buildReopenVals();
@@ -6333,12 +6341,12 @@ void ScribusApp::CopyPage()
 {
 	int GrMax = doc->GroupCounter;
 	NoFrameEdit();
-	MovePages *dia = new MovePages(this, doc->currentPage->pageNr()+1, doc->Pages.count(), false);
+	MovePages *dia = new MovePages(this, doc->currentPage->pageNr()+1, doc->Pages->count(), false);
 	if (dia->exec())
 	{
 		bool autoText = doc->usesAutomaticTextFrames();
 		doc->setUsesAutomaticTextFrames(false);
-		Page* from = doc->Pages.at(dia->getFromPage()-1);
+		Page* from = doc->Pages->at(dia->getFromPage()-1);
 		int wo = dia->getWherePage();
 		int copyCount=dia->getCopyCount();
 		int whereToInsert=dia->getWhere();
@@ -6354,7 +6362,7 @@ void ScribusApp::CopyPage()
 				slotNewPage(wo);
 				break;
 			case 2:
-				slotNewPage(doc->Pages.count());
+				slotNewPage(doc->Pages->count());
 				break;
 			}
 			doc->setUsesAutomaticTextFrames(autoText);
@@ -6469,7 +6477,7 @@ void ScribusApp::changePageMargins()
 	MarginDialog *dia = new MarginDialog(this, doc);
 	if (dia->exec())
 	{
-		if (doc->masterPageMode)
+		if (doc->masterPageMode())
 		{
 			if (doc->currentPageLayout != singlePage)
 			{
@@ -6686,7 +6694,7 @@ void ScribusApp::slotEditLineStyles()
 
 void ScribusApp::saveLStyles(LineFormate *dia)
 {
-	if (doc->masterPageMode)
+	if (doc->masterPageMode())
 		doc->MasterItems = doc->Items;
 	else
 		doc->DocItems = doc->Items;
@@ -6750,7 +6758,7 @@ void ScribusApp::saveStyles(StilFormate *dia)
 	ers.append(2);
 	ers.append(3);
 	ers.append(4);
-	if (doc->masterPageMode)
+	if (doc->masterPageMode())
 		doc->MasterItems = doc->Items;
 	else
 		doc->DocItems = doc->Items;
@@ -8109,7 +8117,7 @@ void ScribusApp::manageMasterPages(QString temp)
 	if (HaveDoc)
 	{
 		view->Deselect(true);
-		if (doc->masterPageMode)
+		if (doc->masterPageMode())
 		{
 			ActWin->muster->updateMasterPageList(temp);
 			ActWin->muster->selectMasterPage(temp);
@@ -8170,13 +8178,14 @@ void ScribusApp::manageMasterPagesEnd()
 	scrActions["pageImport"]->setEnabled(true);
 	scrActions["pageApplyMasterPage"]->setEnabled(true);
 	scrActions["pageCopyToMasterPage"]->setEnabled(true);
-	bool setter = doc->Pages.count() > 1 ? true : false;
+	bool setter = doc->Pages->count() > 1 ? true : false;
 	scrActions["pageDelete"]->setEnabled(setter);
 	scrActions["pageMove"]->setEnabled(setter);
-	uint pageCount=doc->Pages.count();
+	uint pageCount=doc->Pages->count();
 	for (uint c=0; c<pageCount; ++c)
-		Apply_MasterPage(doc->Pages.at(c)->MPageNam, c, false);
-	doc->masterPageMode = false;
+		Apply_MasterPage(doc->Pages->at(c)->MPageNam, c, false);
+	doc->setMasterPageMode(false);
+	//doc->Pages=&doc->DocPages;
 	pagePalette->enablePalette(true);
 	pagePalette->RebuildTemp();
 	ActWin->muster = NULL;
@@ -8369,10 +8378,10 @@ void ScribusApp::restoreDeletePage(SimpleState *state, bool isUndo)
 		where = 0;
 		wo = 1;
 	}
-	else if (pagenr > doc->Pages.count())
+	else if (pagenr > doc->Pages->count())
 	{
 		where = 2;
-		wo = doc->Pages.count();
+		wo = doc->Pages->count();
 	}
 	else
 	{
@@ -8383,14 +8392,14 @@ void ScribusApp::restoreDeletePage(SimpleState *state, bool isUndo)
 	{
 		addNewPages(wo, where, 1, doc->pageHeight, doc->pageWidth, doc->PageOri, doc->PageSize, true, &tmpl);
 		UndoObject *tmp =
-			undoManager->replaceObject(state->getUInt("DUMMY_ID"), doc->Pages.at(pagenr - 1));
+			undoManager->replaceObject(state->getUInt("DUMMY_ID"), doc->Pages->at(pagenr - 1));
 		delete tmp;
 	}
 	else
 	{
 		DummyUndoObject *duo = new DummyUndoObject();
 		uint id = static_cast<uint>(duo->getUId());
-		undoManager->replaceObject(doc->Pages.at(pagenr - 1)->getUId(), duo);
+		undoManager->replaceObject(doc->Pages->at(pagenr - 1)->getUId(), duo);
 		state->set("DUMMY_ID", id);
 		DeletePage(pagenr, pagenr);
 	}
@@ -8420,8 +8429,8 @@ void ScribusApp::restoreAddPage(SimpleState *state, bool isUndo)
 			delTo = wo + count;
 			break;
 		case 2:
-			delTo = doc->Pages.count();
-			delFrom = doc->Pages.count() - count + 1;
+			delTo = doc->Pages->count();
+			delFrom = doc->Pages->count() - count + 1;
 			if (!isUndo)
 			{
 				delFrom += count;
@@ -8435,7 +8444,7 @@ void ScribusApp::restoreAddPage(SimpleState *state, bool isUndo)
 		{
 			DummyUndoObject *duo = new DummyUndoObject();
 			ulong did = duo->getUId();
-			undoManager->replaceObject(doc->Pages.at(i)->getUId(), duo);
+			undoManager->replaceObject(doc->Pages->at(i)->getUId(), duo);
 			state->set(QString("Page%1").arg(i), static_cast<uint>(did));
 		}
 		NoFrameEdit();
@@ -8448,7 +8457,7 @@ void ScribusApp::restoreAddPage(SimpleState *state, bool isUndo)
 		for (int i = delFrom - 1; i < delTo; ++i)
 		{
 			UndoObject *tmp = undoManager->replaceObject(
-					state->getUInt(QString("Page%1").arg(i)), doc->Pages.at(i));
+					state->getUInt(QString("Page%1").arg(i)), doc->Pages->at(i));
 			delete tmp;
 		}
 	}
@@ -8746,10 +8755,12 @@ void ScribusApp::showLayer()
 //TODO replace with the ScribusDoc::deleteTaggedItems
 void ScribusApp::LayerRemove(int l, bool dl)
 {
+	/*
 	if (doc->masterPageMode)
 		doc->MasterPages = doc->Pages;
 	else
 		doc->DocPages = doc->Pages;
+	*/
 	view->Deselect();
 	for (uint b = 0; b < doc->MasterItems.count(); ++b)
 	{
@@ -9216,9 +9227,9 @@ void ScribusApp::emergencySave()
 				delete ss;
 			}
 			view->close();
-			uint numPages=doc->Pages.count();
+			uint numPages=doc->Pages->count();
 			for (uint a=0; a<numPages; ++a)
-				delete doc->Pages.at(a);
+				delete doc->Pages->at(a);
 			delete doc;
 			ActWin->close();
 		}
@@ -9599,7 +9610,7 @@ void ScribusApp::closeActiveWindowMasterPageEditor()
 {
 	if (!HaveDoc)
 		return;
-	if(doc->masterPageMode)
+	if(doc->masterPageMode())
 	{
 		ActWin->muster->close();
 		qApp->processEvents();

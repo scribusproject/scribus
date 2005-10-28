@@ -69,7 +69,6 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document"))
 {
 	ApplicationPrefs* prefsData=&(PrefsManager::instance()->appPrefs);
 	modified = false;
-	masterPageMode = false;
 	_itemCreationTransactionStarted=false;
 	NrItems = 0;
 	First = 1;
@@ -257,7 +256,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document"))
 	CurrentStyle = 0;
 	currentParaStyle = 0;
 	TotalItems = 0;
-	masterPageMode = false;
+	//masterPageMode = false;
 	PDF_Options.Thumbnails = prefsData->PDF_Options.Thumbnails;
 	PDF_Options.Articles = prefsData->PDF_Options.Articles;
 	PDF_Options.Compress = prefsData->PDF_Options.Compress;
@@ -318,13 +317,17 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document"))
 	SubMode = -1;
 	autoSaveTimer = new QTimer(this);
 	MLineStyles.clear();
-	Pages.clear();
+	//Pages.clear();
 	MasterPages.clear();
 	DocPages.clear();
+	//Pages=&DocPages;
 	Items.clear();
 	MasterItems.clear();
 	DocItems.clear();
 	FrameItems.clear();
+	//Do this after all the collections have been created and cleared!
+	m_masterPageMode=true; // quick hack to force the change of pointers in setMasterPageMode();
+	setMasterPageMode(false);
 	ScratchLeft = prefsData->ScratchLeft;
 	ScratchRight = prefsData->ScratchRight;
 	ScratchTop = prefsData->ScratchTop;
@@ -964,12 +967,14 @@ Page* ScribusDoc::addPage(const int pageNumber)
 	addedPage->setPageNr(pageNumber);
 	addedPage->PageSize = PageSize;
 	addedPage->PageOri = PageOri;
-	bool insertsuccess=Pages.insert(pageNumber, addedPage);
-	Q_ASSERT(insertsuccess==true && Pages.at(pageNumber)!=NULL);	
+	bool insertsuccess=Pages->insert(pageNumber, addedPage);
+	Q_ASSERT(insertsuccess==true && Pages->at(pageNumber)!=NULL);
+	/*
 	if (masterPageMode)
 		MasterPages = Pages;
 	else
 		DocPages = Pages;
+	*/
 	currentPage = addedPage;
 	pageCount++;
 	return addedPage;
@@ -1003,7 +1008,7 @@ bool ScribusDoc::deletePage(const int pageNumber)
 		return false;
 	if (pageCount < pageNumber-1)
 		return false;
-	Page* Seite = Pages.at(pageNumber);
+	Page* Seite = Pages->at(pageNumber);
 	PageItem *currItem;
 	for (currItem = Seite->FromMaster.first(); currItem; currItem = Seite->FromMaster.next())
 	{
@@ -1014,14 +1019,16 @@ bool ScribusDoc::deletePage(const int pageNumber)
 		}
 	}
 	Seite->FromMaster.clear();
-	Pages.remove(pageNumber);
+	Pages->remove(pageNumber);
 	delete Seite;
 	pageCount -= 1;
-	currentPage = Pages.at(0);
+	currentPage = Pages->at(0);
+	/*
 	if (masterPageMode)
 		MasterPages = Pages;
 	else
 		DocPages = Pages;
+	*/
 	return true;
 }
 
@@ -1032,8 +1039,8 @@ void ScribusDoc::movePage(const int from, const int to, const int ziel, const in
 	Buf.clear();
 	for (int a = from; a < to; a++)
 	{
-		Buf.append(Pages.at(from));
-		Pages.remove(from);
+		Buf.append(Pages->at(from));
+		Pages->remove(from);
 		if (a <= zz)
 			zz--;
 	}
@@ -1041,21 +1048,23 @@ void ScribusDoc::movePage(const int from, const int to, const int ziel, const in
 	{
 		case 0:
 			for (uint b = 0; b < Buf.count(); b++)
-				Pages.insert(zz++, Buf.at(b));
+				Pages->insert(zz++, Buf.at(b));
 			break;
 		case 1:
 			for (uint b = 0; b < Buf.count(); b++)
-				Pages.insert(++zz, Buf.at(b));
+				Pages->insert(++zz, Buf.at(b));
 			break;
 		case 2:
 			for (uint b = 0; b < Buf.count(); b++)
-				Pages.append(Buf.at(b));
+				Pages->append(Buf.at(b));
 			break;
 	}
+	/*
 	if (masterPageMode)
 		MasterPages = Pages;
 	else
 		DocPages = Pages;
+	*/
 }
 
 const int ScribusDoc::addLayer(const QString& layerName=QString::null, const bool activate=false)
@@ -1446,10 +1455,12 @@ const bool ScribusDoc::changeLayerName(const int layerNumber, const QString& new
 
 const bool ScribusDoc::layerContainsItems(const int layerNumber)
 {
+	/*
 	if (masterPageMode)
 		MasterPages = Pages;
 	else
 		DocPages = Pages;
+	*/
 	uint masterItemsCount=MasterItems.count();
 	for (uint i = 0; i < masterItemsCount; ++i)
 	{
@@ -1778,8 +1789,8 @@ void ScribusDoc::reorganiseFonts()
 	QMap<QString,int> Really;
 	//QMap<QString,QFont> DocF;
 	//DocF = UsedFonts;
-	if (!masterPageMode)
-		DocPages = Pages;
+	//if (!masterPageMode)
+	//	DocPages = Pages;
 	uint counter = 0;
 	for (uint lc = 0; lc < 3; ++lc)
 	{
@@ -1858,11 +1869,11 @@ const bool ScribusDoc::applyMasterPage(const QString& in, const int pageNumber)
 {
 	if (UndoManager::undoEnabled())
 	{
-		if (Pages.at(pageNumber)->MPageNam != in)
+		if (Pages->at(pageNumber)->MPageNam != in)
 		{
-			SimpleState *ss = new SimpleState(Um::ApplyMasterPage, QString(Um::FromTo).arg(Pages.at(pageNumber)->MPageNam).arg(in));
+			SimpleState *ss = new SimpleState(Um::ApplyMasterPage, QString(Um::FromTo).arg(Pages->at(pageNumber)->MPageNam).arg(in));
 			ss->set("PAGE_NUMBER", pageNumber);
-			ss->set("OLD_MASTERPAGE", Pages.at(pageNumber)->MPageNam);
+			ss->set("OLD_MASTERPAGE", Pages->at(pageNumber)->MPageNam);
 			ss->set("NEW_MASTERPAGE", in);
 			undoManager->action(this, ss);
 		}
@@ -1873,7 +1884,7 @@ const bool ScribusDoc::applyMasterPage(const QString& in, const int pageNumber)
 		mna = "Normal";
 	if (!MasterNames.contains(mna))
 		mna = "Normal";
-	Page* Ap = Pages.at(pageNumber);
+	Page* Ap = Pages->at(pageNumber);
 	Ap->MPageNam = mna;
 	int MpNr = MasterNames[mna];
 	Page* Mp = MasterPages.at(MpNr);
@@ -1981,10 +1992,12 @@ const bool ScribusDoc::changePageMargins(const double initialTop, const double i
 
 void ScribusDoc::recalculateColors()
 {
+	/*
 	if (masterPageMode)
 		MasterPages = Pages;
 	else
 		DocPages = Pages;
+	*/
 	//Recalculate the RGB or CMYK calues to new CMS settings
 	ColorList::Iterator it;
 	ColorList::Iterator itend=PageColors.end();
@@ -2072,26 +2085,28 @@ void ScribusDoc::setScTextDefaultsFromDoc(ScText *sctextdata)
 
 const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, const int maxLeftPage,  const QString& masterPageName)
 {
-	Q_ASSERT(!masterPageMode);
-	if (masterPageMode)
+	Q_ASSERT(!masterPageMode());
+	if (masterPageMode())
 		return false;
 	//TODO Add Undo here
 	int GrMax = GroupCounter;
-	Page* sourcePage = Pages.at(pageNumber);
+	Page* sourcePage = Pages->at(pageNumber);
 	int nr = MasterPages.count();
+	/*
 	DocPages = Pages;
 	Pages = MasterPages;
+	*/
 	DocItems = Items;
 	Items = MasterItems;
-	masterPageMode = true;
+	//masterPageMode = true;
 	MasterNames.insert(masterPageName, nr);
 	pageCount = 0;
 	bool atf = automaticTextFrames;
 	automaticTextFrames = false;
 	//Note we are bypassing the view here, but things seem fine. The master page is offscreen anyway.
 	//ScApp->slotNewPage(nr);
-	//Page* targetPage = Pages.at(nr);	
-	Page* targetPage=addPage(nr);
+	//Page* targetPage = Pages->at(nr);	
+	Page* targetPage=addMasterPage(nr, masterPageName);
 	Q_ASSERT(targetPage!=NULL);
 	setLoading(true);
 	//Grab the left page setting for the current document layout from the dialog, and increment, singlePage==1 remember.
@@ -2104,7 +2119,7 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 			lp = 0;
 		else
 			++lp;
-		Pages.at(nr)->LeftPg = lp;
+		Pages->at(nr)->LeftPg = lp;
 	}
 	QMap<int,int> TableID;
 	QPtrList<PageItem> TableItems;
@@ -2179,13 +2194,13 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 				ta->BottomLink = 0;
 		}
 	}
-	MasterPages = Pages;
-	pageCount = DocPages.count();
-	Pages = DocPages;
+	//MasterPages = Pages;
+	//pageCount = DocPages.count();
+	//Pages = DocPages;
 	MasterItems = Items;
 	Items = DocItems;
-	masterPageMode = false;
-	targetPage->setPageName(masterPageName);
+	//masterPageMode = false;
+	//targetPage->setPageName(masterPageName);
 	targetPage->MPageNam = "";
 	automaticTextFrames = atf;
 	setLoading(false);
@@ -2248,7 +2263,7 @@ int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemF
 		return -1;
 	Items.append(newItem);
 	newItem->ItemNr = Items.count()-1;	
-	if (masterPageMode)
+	if (masterPageMode())
 		MasterItems = Items;
 	else
 		DocItems = Items;
@@ -2260,15 +2275,15 @@ int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemF
 		is->set("CREATE_ITEM", "create_item");
 		is->setItem(newItem);
 		//Undo target rests with the Page for object specific undo
-		UndoObject *target = Pages.at(0);
+		UndoObject *target = Pages->at(0);
 		if (newItem->OwnPage > -1)
-			target = Pages.at(newItem->OwnPage);
+			target = Pages->at(newItem->OwnPage);
 		undoManager->action(target, is);
 		//If the item is created "complete" (ie, not being created by drag/resize, commit to undomanager)
 		if (itemFinalised)
 		{
 			//dont think we need this now ... newItem->checkChanges(true);
-			undoManager->commit(Pages.at(newItem->OwnPage)->getUName(), newItem->getUPixmap(),
+			undoManager->commit(Pages->at(newItem->OwnPage)->getUName(), newItem->getUPixmap(),
 								Um::Create + " " + newItem->getUName(),  "", Um::ICreate);
 			_itemCreationTransactionStarted = false;
 		}
@@ -2362,7 +2377,7 @@ bool ScribusDoc::itemAddCommit(const int /*itemNumber*/)
 			createdItem->checkChanges(true);
 			QString targetName = Um::ScratchSpace;
 			if (createdItem->OwnPage > -1)
-				targetName = Pages.at(createdItem->OwnPage)->getUName();
+				targetName = Pages->at(createdItem->OwnPage)->getUName();
 			undoManager->commit(targetName, createdItem->getUPixmap(),
 								Um::Create + " " + createdItem->getUName(),  "", Um::ICreate);
 			_itemCreationTransactionStarted = false;
@@ -2467,7 +2482,7 @@ void ScribusDoc::canvasMinMax(FPoint& minPoint, FPoint& maxPoint)
 int ScribusDoc::OnPage(double x2, double  y2)
 {
 	int retw = -1;
-	if (masterPageMode)
+	if (masterPageMode())
 	{
 		int x = static_cast<int>(currentPage->xOffset());
 		int y = static_cast<int>(currentPage->yOffset());
@@ -2478,13 +2493,13 @@ int ScribusDoc::OnPage(double x2, double  y2)
 	}
 	else
 	{
-		uint docPageCount=Pages.count();
+		uint docPageCount=Pages->count();
 		for (uint a = 0; a < docPageCount; ++a)
 		{
-			int x = static_cast<int>(Pages.at(a)->xOffset());
-			int y = static_cast<int>(Pages.at(a)->yOffset());
-			int w = static_cast<int>(Pages.at(a)->width());
-			int h = static_cast<int>(Pages.at(a)->height());
+			int x = static_cast<int>(Pages->at(a)->xOffset());
+			int y = static_cast<int>(Pages->at(a)->yOffset());
+			int w = static_cast<int>(Pages->at(a)->width());
+			int h = static_cast<int>(Pages->at(a)->height());
 			if (QRect(x, y, w, h).contains(QPoint(qRound(x2), qRound(y2))))
 			{
 				retw = static_cast<int>(a);
@@ -2498,7 +2513,7 @@ int ScribusDoc::OnPage(double x2, double  y2)
 int ScribusDoc::OnPage(PageItem *currItem)
 {
 	int retw = -1;
-	if (masterPageMode)
+	if (masterPageMode())
 	{
 		int x = static_cast<int>(currentPage->xOffset());
 		int y = static_cast<int>(currentPage->yOffset());
@@ -2513,13 +2528,13 @@ int ScribusDoc::OnPage(PageItem *currItem)
 	}
 	else
 	{
-		uint docPageCount=Pages.count();
+		uint docPageCount=Pages->count();
 		for (uint a = 0; a < docPageCount; ++a)
 		{
-			int x = static_cast<int>(Pages.at(a)->xOffset());
-			int y = static_cast<int>(Pages.at(a)->yOffset());
-			int w = static_cast<int>(Pages.at(a)->width());
-			int h = static_cast<int>(Pages.at(a)->height());
+			int x = static_cast<int>(Pages->at(a)->xOffset());
+			int y = static_cast<int>(Pages->at(a)->yOffset());
+			int w = static_cast<int>(Pages->at(a)->width());
+			int h = static_cast<int>(Pages->at(a)->height());
 			int x2 = static_cast<int>(currItem->Xpos);
 			int y2 = static_cast<int>(currItem->Ypos);
 			int w2 = QMAX(static_cast<int>(currItem->Width), 1);
@@ -2579,21 +2594,21 @@ void ScribusDoc::reformPages(double& maxX, double& maxY, bool moveObjects)
 	int counter = pageSets[currentPageLayout].FirstPage;
 	int rowcounter = 0;
 	double maxYPos=0.0, maxXPos=0.0;
-	double currentXPos=ScratchLeft, currentYPos=ScratchTop, lastYPos=Pages.at(0)->initialHeight();
+	double currentXPos=ScratchLeft, currentYPos=ScratchTop, lastYPos=Pages->at(0)->initialHeight();
 	currentXPos += (pageWidth+pageSets[currentPageLayout].GapHorizontal) * counter;	
 
-	lastYPos = Pages.at(0)->initialHeight();
+	lastYPos = Pages->at(0)->initialHeight();
 	Page* Seite;
-	uint docPageCount=Pages.count();
+	uint docPageCount=Pages->count();
 	for (uint a = 0; a < docPageCount; ++a)
 	{
-		Seite = Pages.at(a);
+		Seite = Pages->at(a);
 		oldPg.oldXO = Seite->xOffset();
 		oldPg.oldYO = Seite->yOffset();
 		oldPg.newPg = a;
 		pageTable.insert(Seite->pageNr(), oldPg);
 		Seite->setPageNr(a);
-		if (masterPageMode)
+		if (masterPageMode())
 		{
 			Seite->setXOffset(ScratchLeft);
 			Seite->setYOffset(ScratchTop);
@@ -2677,8 +2692,8 @@ void ScribusDoc::reformPages(double& maxX, double& maxY, bool moveObjects)
 				if (moveObjects)
 				{
 					oldPg = pageTable[item->OwnPage];
-					item->Xpos = item->Xpos - oldPg.oldXO + Pages.at(oldPg.newPg)->xOffset();
-					item->Ypos = item->Ypos - oldPg.oldYO + Pages.at(oldPg.newPg)->yOffset();
+					item->Xpos = item->Xpos - oldPg.oldXO + Pages->at(oldPg.newPg)->xOffset();
+					item->Ypos = item->Ypos - oldPg.oldYO + Pages->at(oldPg.newPg)->yOffset();
 					item->OwnPage = static_cast<int>(oldPg.newPg);
 				}
 				else
@@ -2698,15 +2713,15 @@ void ScribusDoc::reformPages(double& maxX, double& maxY, bool moveObjects)
 
 const double ScribusDoc::getXOffsetForPage(const int pageNumber)
 {
-	if (Pages.at(pageNumber)!=NULL)
-		return Pages.at(pageNumber)->xOffset();
+	if (Pages->at(pageNumber)!=NULL)
+		return Pages->at(pageNumber)->xOffset();
 	return -1.0;
 }
 
 const double ScribusDoc::getYOffsetForPage(const int pageNumber)
 {
-	if (Pages.at(pageNumber)!=NULL)
-		return Pages.at(pageNumber)->yOffset();
+	if (Pages->at(pageNumber)!=NULL)
+		return Pages->at(pageNumber)->yOffset();
 	return -1.0;
 }
 
@@ -2862,7 +2877,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 		ScApp->view->Deselect(true);
 	}
 	//<<At some point we HAVE to stop this!
-	if (masterPageMode)
+	if (masterPageMode())
 		MasterItems = Items;
 	else
 		DocItems = Items;
@@ -2874,9 +2889,9 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 		is->set("CONVERT_ITEM", "convert_item");
 		is->setItem(std::pair<PageItem*, PageItem*>(oldItem, newItem));
 		//Undo target rests with the Page for object specific undo
-		UndoObject *target = Pages.at(0);
+		UndoObject *target = Pages->at(0);
 		if (newItem->OwnPage > -1)
-			target = Pages.at(newItem->OwnPage);
+			target = Pages->at(newItem->OwnPage);
 		undoManager->action(target, is);
 	}
 	//Close any undo transaction
@@ -2906,4 +2921,26 @@ bool ScribusDoc::itemNameExists(const QString checkItemName)
 		}
 	}
 	return found;
+}
+
+void ScribusDoc::setMasterPageMode(const bool changeToMasterPageMode)
+{
+	if (changeToMasterPageMode==m_masterPageMode)
+		return;
+	if (changeToMasterPageMode)
+	{
+		//Need to add in item pointer switching later too
+		Pages=&MasterPages;
+	}
+	else
+	{
+		//Need to add in item pointer switching later too
+		Pages=&DocPages;
+	}
+	m_masterPageMode=changeToMasterPageMode;
+}
+
+const bool ScribusDoc::masterPageMode()
+{
+	return m_masterPageMode;
 }

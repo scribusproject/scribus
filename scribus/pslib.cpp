@@ -1012,8 +1012,8 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 		gw = maxx - minx;
 		gh = maxy - miny;
 		int pgNum = pageNs[0]-1;
-		gx -= Doc->Pages.at(pgNum)->xOffset();
-		gy -= Doc->Pages.at(pgNum)->yOffset();
+		gx -= Doc->Pages->at(pgNum)->xOffset();
+		gy -= Doc->Pages->at(pgNum)->yOffset();
 		PS_begin_doc(Doc->PageOri, gx, Doc->pageHeight - (gy+gh), gx + gw, Doc->pageHeight - gy, 1*pagemult, false, sep);
 	}
 	else
@@ -1070,20 +1070,20 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 			struct MarginStruct Ma;
 			Ma.Left = gx;
 			Ma.Top = gy;
-			Ma.Bottom = Doc->Pages.at(a)->height() - (gy + gh);
-			Ma.Right = Doc->Pages.at(a)->width() - (gx + gw);
-			PS_begin_page(Doc->Pages.at(a)->width(), Doc->Pages.at(a)->height(), &Ma, true);
+			Ma.Bottom = Doc->Pages->at(a)->height() - (gy + gh);
+			Ma.Right = Doc->Pages->at(a)->width() - (gx + gw);
+			PS_begin_page(Doc->Pages->at(a)->width(), Doc->Pages->at(a)->height(), &Ma, true);
 		}
 		else
-			PS_begin_page(Doc->Pages.at(a)->width(), Doc->Pages.at(a)->height(), &Doc->Pages.at(a)->Margins, view->Prefs->ClipMargin);
+			PS_begin_page(Doc->Pages->at(a)->width(), Doc->Pages->at(a)->height(), &Doc->Pages->at(a)->Margins, view->Prefs->ClipMargin);
 		if (Hm)
 		{
-			PS_translate(Doc->Pages.at(a)->width(), 0);
+			PS_translate(Doc->Pages->at(a)->width(), 0);
 			PS_scale(-1, 1);
 		}
 		if (Vm)
 		{
-			PS_translate(0, Doc->Pages.at(a)->height());
+			PS_translate(0, Doc->Pages->at(a)->height());
 			PS_scale(1, -1);
 		}
 		if (sep)
@@ -1101,7 +1101,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 			else
 				PS_plate(4, SepNam);
 		}
-		if (!Doc->Pages.at(a)->MPageNam.isEmpty())
+		if (!Doc->Pages->at(a)->MPageNam.isEmpty())
 		{
 			int h, s, v, k;
 			QCString chxc;
@@ -1110,7 +1110,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 			struct Layer ll;
 			ll.isPrintable = false;
 			ll.LNr = 0;
-			Page* mPage = Doc->MasterPages.at(Doc->MasterNames[Doc->Pages.at(a)->MPageNam]);
+			Page* mPage = Doc->MasterPages.at(Doc->MasterNames[Doc->Pages->at(a)->MPageNam]);
 			if (Doc->MasterItems.count() != 0)
 			{
 				for (uint lam = 0; lam < Doc->Layers.count(); ++lam)
@@ -1118,14 +1118,14 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 					Level2Layer(Doc, &ll, Lnr);
 					if (ll.isPrintable)
 					{
-						for (uint am = 0; am < Doc->Pages.at(a)->FromMaster.count(); ++am)
+						for (uint am = 0; am < Doc->Pages->at(a)->FromMaster.count(); ++am)
 						{
 							QString tmps;
-							PageItem *ite = Doc->Pages.at(a)->FromMaster.at(am);
+							PageItem *ite = Doc->Pages->at(a)->FromMaster.at(am);
 							if ((ite->LayerNr != ll.LNr) || (!ite->printable()))
 								continue;
 							if (!(ite->asTextFrame()) && !(ite->asImageFrame()))
-								PS_UseTemplate(Doc->Pages.at(a)->MPageNam + tmps.setNum(ite->ItemNr));
+								PS_UseTemplate(Doc->Pages->at(a)->MPageNam + tmps.setNum(ite->ItemNr));
 							else if (ite->asImageFrame())
 							{
 								PS_save();
@@ -1260,9 +1260,9 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 							}
 						}
 					}
-					for (uint am = 0; am < Doc->Pages.at(a)->FromMaster.count(); ++am)
+					for (uint am = 0; am < Doc->Pages->at(a)->FromMaster.count(); ++am)
 					{
-						PageItem *ite = Doc->Pages.at(a)->FromMaster.at(am);
+						PageItem *ite = Doc->Pages->at(a)->FromMaster.at(am);
 						if (!ite->isTableItem)
 							continue;
 						if (ite->printable())
@@ -1310,7 +1310,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 				}
 			}
 		}
-		ProcessPage(Doc, view, Doc->Pages.at(a), a+1, sep, farb, Ic, gcr);
+		ProcessPage(Doc, view, Doc->Pages->at(a), a+1, sep, farb, Ic, gcr);
 		PS_end_page();
 		if (sep)
 		{
@@ -2224,7 +2224,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 		chx = " ";
 	if (hl->ch == QChar(30))
 	{
-		if (Doc->masterPageMode)
+		if (Doc->masterPageMode())
 			chx = "#";
 		else
 		{

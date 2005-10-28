@@ -406,7 +406,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 					if (!OnMasterPage.isEmpty())
 					{
 						Page* Mp = Doc->MasterPages.at(Doc->MasterNames[OnMasterPage]);
-						Page* Dp = Doc->Pages.at(savedOwnPage);
+						Page* Dp = Doc->Pages->at(savedOwnPage);
 						for (a = 0; a < Doc->MasterItems.count(); ++a)
 						{
 							PageItem* docItem = Doc->MasterItems.at(a);
@@ -780,7 +780,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 							{
 								double by = Ypos;
 								if (OwnPage != -1)
-									by = Ypos - Doc->Pages.at(OwnPage)->yOffset();
+									by = Ypos - Doc->Pages->at(OwnPage)->yOffset();
 								int ol1 = qRound((by + CurY - Doc->typographicSettings.offsetBaseGrid) * 10000.0);
 								int ol2 = static_cast<int>(ol1 / Doc->typographicSettings.valueBaseGrid);
 								CurY = ceil(  ol2 / 10000.0 ) * Doc->typographicSettings.valueBaseGrid + Doc->typographicSettings.offsetBaseGrid - by;
@@ -808,7 +808,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						{
 							double by = Ypos;
 							if (OwnPage != -1)
-								by = Ypos - Doc->Pages.at(OwnPage)->yOffset();
+								by = Ypos - Doc->Pages->at(OwnPage)->yOffset();
 							int ol1 = qRound((by + CurY - Doc->typographicSettings.offsetBaseGrid) * 10000.0);
 							int ol2 = static_cast<int>(ol1 / Doc->typographicSettings.valueBaseGrid);
 							CurY = ceil(  ol2 / 10000.0 ) * Doc->typographicSettings.valueBaseGrid + Doc->typographicSettings.offsetBaseGrid - by;
@@ -838,7 +838,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 								{
 									double by = Ypos;
 									if (OwnPage != -1)
-										by = Ypos - Doc->Pages.at(OwnPage)->yOffset();
+										by = Ypos - Doc->Pages->at(OwnPage)->yOffset();
 									int ol1 = qRound((by + CurY - Doc->typographicSettings.offsetBaseGrid) * 10000.0);
 									int ol2 = static_cast<int>(ol1 / Doc->typographicSettings.valueBaseGrid);
 									CurY = ceil(  ol2 / 10000.0 ) * Doc->typographicSettings.valueBaseGrid + Doc->typographicSettings.offsetBaseGrid - by;
@@ -875,7 +875,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 										{
 											double by = Ypos;
 											if (OwnPage != -1)
-												by = Ypos - Doc->Pages.at(OwnPage)->yOffset();
+												by = Ypos - Doc->Pages->at(OwnPage)->yOffset();
 											int ol1 = qRound((by + CurY - Doc->typographicSettings.offsetBaseGrid) * 10000.0);
 											int ol2 = static_cast<int>(ol1 / Doc->typographicSettings.valueBaseGrid);
 											CurY = ceil(  ol2 / 10000.0 ) * Doc->typographicSettings.valueBaseGrid + Doc->typographicSettings.offsetBaseGrid - by;
@@ -1128,7 +1128,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 							CurY -= Doc->typographicSettings.valueBaseGrid * (DropLines-1);
 							double by = Ypos;
 							if (OwnPage != -1)
-								by = Ypos - Doc->Pages.at(OwnPage)->yOffset();
+								by = Ypos - Doc->Pages->at(OwnPage)->yOffset();
 							int ol1 = qRound((by + CurY - Doc->typographicSettings.offsetBaseGrid) * 10000.0);
 							int ol2 = static_cast<int>(ol1 / Doc->typographicSettings.valueBaseGrid);
 							CurY = ceil(  ol2 / 10000.0 ) * Doc->typographicSettings.valueBaseGrid + Doc->typographicSettings.offsetBaseGrid - by;

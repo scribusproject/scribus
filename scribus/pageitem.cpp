@@ -929,7 +929,7 @@ QString PageItem::ExpandToken(uint base)
 	uint zae = 0;
 	uint za2 = base;
 	QString chx("#");
-	if ((!Doc->masterPageMode) && (OwnPage != -1))
+	if ((!Doc->masterPageMode()) && (OwnPage != -1))
 	{
 		do
 		{
@@ -2748,7 +2748,6 @@ ObjectAttribute PageItem::getObjectAttribute(QString attributeName)
 			++countFound;
 			foundIt=objAttrIt;
 		}
-
 	}
 	ObjectAttribute returnAttribute;
 	if(countFound==1)

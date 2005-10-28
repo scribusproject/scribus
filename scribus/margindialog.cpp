@@ -78,7 +78,7 @@ MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent
 	moveObjects->setText( tr( "Move Objects with their Page" ) );
 	moveObjects->setChecked( true );
 	dsGroupBox7Layout->addMultiCellWidget( moveObjects, 3, 3, 0, 3 );
-	if ((doc->currentPageLayout != singlePage) && (doc->masterPageMode))
+	if ((doc->currentPageLayout != singlePage) && (doc->masterPageMode()))
 	{
 		TextLabel3 = new QLabel( tr( "Type:" ), dsGroupBox7, "TextLabel3" );
 		dsGroupBox7Layout->addMultiCellWidget( TextLabel3, 4, 4, 0, 1 );

@@ -670,7 +670,7 @@ void PagePalette::RebuildPage()
 	pageLayout->updateLayoutSelector(currView->Doc->pageSets);
 	pageLayout->selectItem(currView->Doc->currentPageLayout);
 	pageLayout->firstPage->setCurrentItem(currView->Doc->pageSets[currView->Doc->currentPageLayout].FirstPage);
-	pageView->MaxC = currView->Doc->Pages.count()-1;
+	pageView->MaxC = currView->Doc->Pages->count()-1;
 	int counter, rowcounter, colmult, rowmult, coladd,rowadd;
 	counter = currView->Doc->pageSets[currView->Doc->currentPageLayout].FirstPage;
 	int cols = currView->Doc->pageSets[currView->Doc->currentPageLayout].Columns;
@@ -702,9 +702,9 @@ void PagePalette::RebuildPage()
 	pageView->rowmult = rowmult;
 	pageView->firstP = counter;
 	pageView->cols = currView->Doc->pageSets[currView->Doc->currentPageLayout].Columns;
-	for (uint a = 0; a < currView->Doc->Pages.count(); ++a)
+	for (uint a = 0; a < currView->Doc->Pages->count(); ++a)
 	{
-		str = currView->Doc->Pages.at(a)->MPageNam;
+		str = currView->Doc->Pages->at(a)->MPageNam;
 		QTableItem *it = new SeItem( pageView, str, CreateIcon(a, pix));
 		pageView->setItem(rowcounter*rowmult+rowadd, counter*colmult+coladd, it);
 		pageView->setColumnWidth(counter*colmult+coladd, pix.width());

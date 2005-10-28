@@ -711,9 +711,9 @@ void ReformDoc::updateDocumentSettings()
 	currDoc->PageSize = prefsPageSizeName;
 	currDoc->pageWidth = pageWidth;
 	currDoc->pageHeight = pageHeight;
-	for (uint p = 0; p < currDoc->Pages.count(); ++p)
+	for (uint p = 0; p < currDoc->Pages->count(); ++p)
 	{
-		Page *pp = currDoc->Pages.at(p);
+		Page *pp = currDoc->Pages->at(p);
 		if (sizeAllPages->isChecked())
 		{
 			pp->setInitialWidth(currDoc->pageWidth);

@@ -983,8 +983,8 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 				}
 				if (Mpage)
 				{
-					doc->Pages.at(a)->LeftPg=QStoInt(pg.attribute("LEFT","0"));
-					doc->Pages.at(a)->setPageName(pg.attribute("NAM",""));
+					doc->Pages->at(a)->LeftPg=QStoInt(pg.attribute("LEFT","0"));
+					doc->Pages->at(a)->setPageName(pg.attribute("NAM",""));
 				}
 				TableItems.clear();
 				TableID.clear();
@@ -995,32 +995,32 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 				{
 					tmp = pg.attribute("VerticalGuides");
 					QTextStream fgv(&tmp, IO_ReadOnly);
-					doc->Pages.at(a)->YGuides.clear();
+					doc->Pages->at(a)->YGuides.clear();
 					for (int cxv = 0; cxv < QStoInt(pg.attribute("NumVGuides","0")); ++cxv)
 					{
 						fgv >> xf;
-						doc->Pages.at(a)->YGuides.append(xf);
+						doc->Pages->at(a)->YGuides.append(xf);
 					}
-					qHeapSort(doc->Pages.at(a)->YGuides);
+					qHeapSort(doc->Pages->at(a)->YGuides);
 					tmp = "";
 				}
 				else
-					doc->Pages.at(a)->YGuides.clear();
+					doc->Pages->at(a)->YGuides.clear();
 				if ((pg.hasAttribute("NumHGuides")) && (QStoInt(pg.attribute("NumHGuides","0")) != 0))
 				{
 					tmp = pg.attribute("HorizontalGuides");
 					QTextStream fgh(&tmp, IO_ReadOnly);
-					doc->Pages.at(a)->XGuides.clear();
+					doc->Pages->at(a)->XGuides.clear();
 					for (int cxh = 0; cxh < QStoInt(pg.attribute("NumHGuides","0")); ++cxh)
 					{
 						fgh >> xf;
-						doc->Pages.at(a)->XGuides.append(xf);
+						doc->Pages->at(a)->XGuides.append(xf);
 					}
-					qHeapSort(doc->Pages.at(a)->XGuides);
+					qHeapSort(doc->Pages->at(a)->XGuides);
 					tmp = "";
 				}
 				else
-					doc->Pages.at(a)->XGuides.clear();
+					doc->Pages->at(a)->XGuides.clear();
 				QDomNode OBJ=PAGE.firstChild();
 				counter = doc->Items.count();
 				baseobj = counter;
@@ -1040,8 +1040,8 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 						}
 					}
 					GetItemProps(newVersion, &obj, &OB);
-					OB.Xpos = QStodouble(obj.attribute("XPOS"))+doc->Pages.at(a)->xOffset();
-					OB.Ypos=QStodouble(obj.attribute("YPOS"))+doc->Pages.at(a)->yOffset();
+					OB.Xpos = QStodouble(obj.attribute("XPOS"))+doc->Pages->at(a)->xOffset();
+					OB.Ypos=QStodouble(obj.attribute("YPOS"))+doc->Pages->at(a)->yOffset();
 					OB.NamedLStyle = obj.attribute("NAMEDLST", "");
 					if (!doc->MLineStyles.contains(OB.NamedLStyle))
 						OB.NamedLStyle = "";
@@ -1474,17 +1474,17 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				if (PgNam.isEmpty())
 				{
 					doc->pageCount = Pgc;
-					doc->Pages = doc->DocPages;
+					//doc->Pages = &doc->DocPages;
 					doc->setUsesAutomaticTextFrames(AtFl);
-					doc->masterPageMode = false;
+					doc->setMasterPageMode(false);
 					doc->Items = doc->DocItems;
 				}
 				else
 				{
 					doc->pageCount = 0;
 					doc->setUsesAutomaticTextFrames(false);
-					doc->Pages = doc->MasterPages;
-					doc->masterPageMode = true;
+					//doc->Pages = &doc->MasterPages;
+					doc->setMasterPageMode(true);
 					doc->Items = doc->MasterItems;
 				}
 				//CB: Remove this unnecessarily "slow" slot call when we have no gui for the doc yet!
@@ -1492,43 +1492,43 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				//so we have to call the view, but we certainly dont need to emit to the mainwindow!
 				view->addPage(a);
 				//emit NewPage(a);
-				doc->Pages.at(a)->LeftPg=QStoInt(pg.attribute("LEFT","0"));
+				doc->Pages->at(a)->LeftPg=QStoInt(pg.attribute("LEFT","0"));
 				QString Mus = "";
 				Mus = pg.attribute("MNAM","Normal");
-				if (!doc->masterPageMode)
-					doc->Pages.at(a)->MPageNam = Mus;
+				if (!doc->masterPageMode())
+					doc->Pages->at(a)->MPageNam = Mus;
 				else
-					doc->Pages.at(a)->MPageNam = "";
+					doc->Pages->at(a)->MPageNam = "";
 				if ((pg.hasAttribute("NumVGuides")) && (QStoInt(pg.attribute("NumVGuides","0")) != 0))
 				{
 					tmp = pg.attribute("VerticalGuides");
 					QTextStream fgv(&tmp, IO_ReadOnly);
-					doc->Pages.at(a)->YGuides.clear();
+					doc->Pages->at(a)->YGuides.clear();
 					for (int cxv = 0; cxv < QStoInt(pg.attribute("NumVGuides","0")); ++cxv)
 					{
 						fgv >> xf;
-						doc->Pages.at(a)->YGuides.append(xf);
+						doc->Pages->at(a)->YGuides.append(xf);
 					}
-					qHeapSort(doc->Pages.at(a)->YGuides);
+					qHeapSort(doc->Pages->at(a)->YGuides);
 					tmp = "";
 				}
 				else
-					doc->Pages.at(a)->YGuides.clear();
+					doc->Pages->at(a)->YGuides.clear();
 				if ((pg.hasAttribute("NumHGuides")) && (QStoInt(pg.attribute("NumHGuides","0")) != 0))
 				{
 					tmp = pg.attribute("HorizontalGuides");
 					QTextStream fgh(&tmp, IO_ReadOnly);
-					doc->Pages.at(a)->XGuides.clear();
+					doc->Pages->at(a)->XGuides.clear();
 					for (int cxh = 0; cxh < QStoInt(pg.attribute("NumHGuides","0")); ++cxh)
 					{
 						fgh >> xf;
-						doc->Pages.at(a)->XGuides.append(xf);
+						doc->Pages->at(a)->XGuides.append(xf);
 					}
-					qHeapSort(doc->Pages.at(a)->XGuides);
+					qHeapSort(doc->Pages->at(a)->XGuides);
 					tmp = "";
 				}
 				else
-					doc->Pages.at(a)->XGuides.clear();
+					doc->Pages->at(a)->XGuides.clear();
 				QDomNode OBJ=PAGE.firstChild();
 				while(!OBJ.isNull())
 				{
@@ -1546,8 +1546,8 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 						}
 					}
 					GetItemProps(newVersion, &obj, &OB);
-					OB.Xpos = QStodouble(obj.attribute("XPOS"))+doc->Pages.at(a)->xOffset();
-					OB.Ypos=QStodouble(obj.attribute("YPOS"))+doc->Pages.at(a)->yOffset();
+					OB.Xpos = QStodouble(obj.attribute("XPOS"))+doc->Pages->at(a)->xOffset();
+					OB.Ypos=QStodouble(obj.attribute("YPOS"))+doc->Pages->at(a)->yOffset();
 					OB.NamedLStyle = obj.attribute("NAMEDLST", "");
 					OB.isBookmark=QStoInt(obj.attribute("BOOKMARK"));
 					if ((OB.isBookmark) && (doc->BookMarks.count() == 0))
@@ -1664,17 +1664,18 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				}
 				if (PgNam.isEmpty())
 				{
-					doc->DocPages = doc->Pages;
+					//doc->DocPages = doc->Pages;
 					doc->DocItems = doc->Items;
 				}
 				else
 				{
-					doc->Pages.at(a)->setPageName(PgNam);
+					doc->Pages->at(a)->setPageName(PgNam);
 					doc->MasterNames[PgNam] = a;
-					doc->MasterPages = doc->Pages;
+					//doc->MasterPages = doc->Pages;
 					doc->MasterItems = doc->Items;
 				}
-				doc->masterPageMode = false;
+				doc->setMasterPageMode(false);
+				//doc->Pages=&doc->DocPages;
 				doc->pageCount = Pgc+1;
 				doc->setUsesAutomaticTextFrames(AtFl);
 			}
@@ -1774,10 +1775,10 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 		}
 		DOC=DOC.nextSibling();
 	}
-	doc->Pages = doc->DocPages;
-	doc->pageCount = doc->Pages.count();
+	//doc->Pages = &doc->DocPages;
+	doc->pageCount = doc->Pages->count();
 	doc->Items = doc->DocItems;
-	doc->masterPageMode = false;
+	doc->setMasterPageMode(false);
 	view->reformPages();
 	if (doc->layerCount() == 0)
 	{

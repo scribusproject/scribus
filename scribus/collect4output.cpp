@@ -126,10 +126,12 @@ bool CollectForOutput::collectDocument()
 
 bool CollectForOutput::collectItems()
 {
+	/*
 	if (ScApp->doc->masterPageMode)
 		ScApp->doc->MasterPages = ScApp->doc->Pages;
 	else
 		ScApp->doc->DocPages = ScApp->doc->Pages;
+	*/
 	uint counter = 0;
 	for (uint lc = 0; lc < 3; ++lc)
 	{

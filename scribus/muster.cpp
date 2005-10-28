@@ -95,11 +95,11 @@ void MasterPagesPalette::deleteMasterPage()
 	                              0, QMessageBox::No, QMessageBox::Yes);
 	if (exit == 1)
 	{
-		currentDoc->pageCount = currentDoc->Pages.count();
+		currentDoc->pageCount = currentDoc->Pages->count();
 		emit removePage(currentDoc->MasterNames[sMuster]);
 		currentDoc->MasterNames.clear();
-		for (uint a = 0; a < currentDoc->Pages.count(); ++a)
-			currentDoc->MasterNames[currentDoc->Pages.at(a)->PageNam] = currentDoc->Pages.at(a)->pageNr();
+		for (uint a = 0; a < currentDoc->Pages->count(); ++a)
+			currentDoc->MasterNames[currentDoc->Pages->at(a)->PageNam] = currentDoc->Pages->at(a)->pageNr();
 		for (uint b = 0; b < currentDoc->DocPages.count(); ++b)
 		{
 			if (currentDoc->DocPages.at(b)->MPageNam == sMuster)
@@ -108,7 +108,7 @@ void MasterPagesPalette::deleteMasterPage()
 		currentDoc->pageCount = 1;
 		sMuster = "Normal";
 		updateMasterPageList(sMuster);
-		currentDoc->MasterPages = currentDoc->Pages;
+		//currentDoc->MasterPages = currentDoc->Pages;
 		emit docAltered();
 	}
 }
@@ -134,7 +134,7 @@ void MasterPagesPalette::duplicateMasterPage()
 			}
 			MasterPageName = dia->Answer->text();
 		}
-		nr = currentDoc->Pages.count();
+		nr = currentDoc->Pages->count();
 		currentDoc->MasterNames.insert(MasterPageName, nr);
 		currentDoc->pageCount = 0;
 		atf = currentDoc->usesAutomaticTextFrames();
@@ -150,28 +150,28 @@ void MasterPagesPalette::duplicateMasterPage()
 				lp = 0;
 			else
 				lp++;
-			currentDoc->Pages.at(nr)->LeftPg = lp;
+			currentDoc->Pages->at(nr)->LeftPg = lp;
 		}
 		int inde = currentDoc->MasterNames[sMuster];
 		QMap<int,int> TableID;
 		QPtrList<PageItem> TableItems;
 		TableID.clear();
 		TableItems.clear();
-		if (currentDoc->Pages.at(inde)->YGuides.count() != 0)
+		if (currentDoc->Pages->at(inde)->YGuides.count() != 0)
 		{
 			currentDoc->currentPage->YGuides.clear();
-			for (uint y = 0; y < currentDoc->Pages.at(inde)->YGuides.count(); ++y)
+			for (uint y = 0; y < currentDoc->Pages->at(inde)->YGuides.count(); ++y)
 			{
-				currentDoc->currentPage->YGuides.append(currentDoc->Pages.at(inde)->YGuides[y]);
+				currentDoc->currentPage->YGuides.append(currentDoc->Pages->at(inde)->YGuides[y]);
 			}
 			qHeapSort(currentDoc->currentPage->YGuides);
 		}
-		if (currentDoc->Pages.at(inde)->XGuides.count() != 0)
+		if (currentDoc->Pages->at(inde)->XGuides.count() != 0)
 		{
 			currentDoc->currentPage->XGuides.clear();
-			for (uint x = 0; x < currentDoc->Pages.at(inde)->XGuides.count(); ++x)
+			for (uint x = 0; x < currentDoc->Pages->at(inde)->XGuides.count(); ++x)
 			{
-				currentDoc->currentPage->XGuides.append(currentDoc->Pages.at(inde)->XGuides[x]);
+				currentDoc->currentPage->XGuides.append(currentDoc->Pages->at(inde)->XGuides[x]);
 			}
 			qHeapSort(currentDoc->currentPage->XGuides);
 		}
@@ -233,11 +233,11 @@ void MasterPagesPalette::duplicateMasterPage()
 		}
 		currentView->Deselect(true);
 		currentView->DrawNew();
-		currentDoc->Pages.at(nr)->setPageName(MasterPageName);
-		currentDoc->Pages.at(nr)->MPageNam = "";
+		currentDoc->Pages->at(nr)->setPageName(MasterPageName);
+		currentDoc->Pages->at(nr)->MPageNam = "";
 		updateMasterPageList(MasterPageName);
 		currentDoc->setUsesAutomaticTextFrames(atf);
-		currentDoc->MasterPages = currentDoc->Pages;
+		//currentDoc->MasterPages = currentDoc->Pages;
 		currentDoc->setLoading(false);
 		currentView->DrawNew();
 		currentDoc->GroupCounter = GrMax + 1;
@@ -266,7 +266,7 @@ void MasterPagesPalette::newMasterPage()
 			}
 			MasterPageName = dia->Answer->text();
 		}
-		nr = currentDoc->Pages.count();
+		nr = currentDoc->Pages->count();
 		currentDoc->MasterNames.insert(MasterPageName, nr);
 		currentDoc->pageCount = 0;
 		atf = currentDoc->usesAutomaticTextFrames();
@@ -281,15 +281,15 @@ void MasterPagesPalette::newMasterPage()
 				lp = 0;
 			else
 				lp++;
-			currentDoc->Pages.at(nr)->LeftPg = lp;
+			currentDoc->Pages->at(nr)->LeftPg = lp;
 		}
-		currentDoc->Pages.at(nr)->setPageName(MasterPageName);
-		currentDoc->Pages.at(nr)->MPageNam = "";
+		currentDoc->Pages->at(nr)->setPageName(MasterPageName);
+		currentDoc->Pages->at(nr)->MPageNam = "";
 		updateMasterPageList(MasterPageName);
 		currentDoc->setUsesAutomaticTextFrames(atf);
 		currentView->showMasterPage(currentDoc->MasterNames[MasterPageName]);
 		currentView->reformPages();
-		currentDoc->MasterPages = currentDoc->Pages;
+		//currentDoc->MasterPages = currentDoc->Pages;
 		emit docAltered();
 	}
 	delete dia;
@@ -304,7 +304,7 @@ void MasterPagesPalette::appendPage()
 	if (dia->exec())
 	{
 		qApp->setOverrideCursor(QCursor(waitCursor), true);
-		nr = currentDoc->Pages.count();
+		nr = currentDoc->Pages->count();
 		currentDoc->pageCount = 0;
 		atf = currentDoc->usesAutomaticTextFrames();
 		currentDoc->setUsesAutomaticTextFrames(false);
@@ -312,7 +312,7 @@ void MasterPagesPalette::appendPage()
 		qApp->processEvents();
 		emit loadPage(dia->getFromDoc(), dia->getMasterPageNameItem(), true);
 		qApp->processEvents();
-		MasterPageName = currentDoc->Pages.at(nr)->PageNam;
+		MasterPageName = currentDoc->Pages->at(nr)->PageNam;
 		MasterPageName2 = MasterPageName;
 		int copyC = 1;
 		while (currentDoc->MasterNames.contains(MasterPageName2))
@@ -321,13 +321,13 @@ void MasterPagesPalette::appendPage()
 			copyC++;
 		}
 		currentDoc->MasterNames.insert(MasterPageName2, nr);
-		currentDoc->Pages.at(nr)->setPageName(MasterPageName2);
-		currentDoc->Pages.at(nr)->MPageNam = "";
+		currentDoc->Pages->at(nr)->setPageName(MasterPageName2);
+		currentDoc->Pages->at(nr)->MPageNam = "";
 		updateMasterPageList(MasterPageName2);
 		currentDoc->setUsesAutomaticTextFrames(atf);
 		currentView->showMasterPage(currentDoc->MasterNames[MasterPageName2]);
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
-		currentDoc->MasterPages = currentDoc->Pages;
+		//currentDoc->MasterPages = currentDoc->Pages;
 		emit docAltered();
 	}
 	delete dia;

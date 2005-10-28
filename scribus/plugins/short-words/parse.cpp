@@ -127,7 +127,8 @@ void SWParse::parsePage()
 void SWParse::parsePage(int page)
 {
 	uint cnt = 0;
-	for (uint a = 0; a < ScApp->doc->Items.count(); ++a)
+	uint docItemsCount=ScApp->doc->Items.count();
+	for (uint a = 0; a < docItemsCount; ++a)
 	{
 		PageItem* b = ScApp->doc->Items.at(a);
 		if (b->OwnPage == page)
@@ -136,7 +137,7 @@ void SWParse::parsePage(int page)
 	ScApp->mainWindowProgressBar->setTotalSteps(cnt);
 	ScApp->view->GotoPage(page);
 	uint i = 0;
-	for (uint a = 0; a < ScApp->doc->Items.count(); ++a)
+	for (uint a = 0; a < docItemsCount; ++a)
 	{
 		PageItem* b = ScApp->doc->Items.at(a);
 		if (b->OwnPage == page)
@@ -150,6 +151,6 @@ void SWParse::parsePage(int page)
 
 void SWParse::parseAll()
 {
-	for (uint i=0; i < ScApp->doc->Pages.count(); ++i)
+	for (uint i=0; i < ScApp->doc->Pages->count(); ++i)
 		parsePage(i);
 }

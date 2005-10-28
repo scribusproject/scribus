@@ -123,7 +123,7 @@ bool PDFlib::doExport(QString fn, QString nam, int Components, std::vector<int> 
 		QMap<int, int> pageNsMpa;
 		for (uint a = 0; a < pageNs.size(); ++a)
 		{
-			pageNsMpa.insert(doc->MasterNames[doc->Pages.at(pageNs[a]-1)->MPageNam], 0);
+			pageNsMpa.insert(doc->MasterNames[doc->Pages->at(pageNs[a]-1)->MPageNam], 0);
 		}
 		dia2->reset();
 		dia2->setTotalSteps(pageNsMpa.count()+pageNs.size());
@@ -144,8 +144,8 @@ bool PDFlib::doExport(QString fn, QString nam, int Components, std::vector<int> 
 		{
 			if (doc->PDF_Options.Thumbnails)
 				pm = thumbs[pageNs[a]];
-			PDF_Begin_Page(doc->Pages.at(pageNs[a]-1), pm);
-			PDF_ProcessPage(doc->Pages.at(pageNs[a]-1), pageNs[a]-1);
+			PDF_Begin_Page(doc->Pages->at(pageNs[a]-1), pm);
+			PDF_ProcessPage(doc->Pages->at(pageNs[a]-1), pageNs[a]-1);
 			PDF_End_Page();
 			progresscount++;
 			dia2->setProgress(progresscount);
@@ -1644,7 +1644,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 		PutPage("0 0 "+FToStr(ActPageP->width())+" "+FToStr(ActPageP->height())+" re W n\n");
 	if (!pag->MPageNam.isEmpty())
 	{
-		Page* mPage = doc->MasterPages.at(doc->MasterNames[doc->Pages.at(PNr)->MPageNam]);
+		Page* mPage = doc->MasterPages.at(doc->MasterNames[doc->Pages->at(PNr)->MPageNam]);
 		if (doc->MasterItems.count() != 0)
 		{
 			if (!Options->MirrorH)
@@ -4858,8 +4858,8 @@ void PDFlib::PDF_End_Doc(QString PrintPr, QString Name, int Components)
 						bd.Prev = ccb - 1;
 						ccb++;
 						bd.Page = PageTree.Kids[tel->OwnPage];
-						bd.Recht = QRect(static_cast<int>(tel->Xpos - doc->Pages.at(tel->OwnPage)->xOffset()),
-									static_cast<int>(doc->Pages.at(tel->OwnPage)->height() - (tel->Ypos  - doc->Pages.at(tel->OwnPage)->yOffset())),
+						bd.Recht = QRect(static_cast<int>(tel->Xpos - doc->Pages->at(tel->OwnPage)->xOffset()),
+									static_cast<int>(doc->Pages->at(tel->OwnPage)->height() - (tel->Ypos  - doc->Pages->at(tel->OwnPage)->yOffset())),
 									static_cast<int>(tel->Width),
 									static_cast<int>(tel->Height));
 						Beads.append(bd);
@@ -4872,8 +4872,8 @@ void PDFlib::PDF_End_Doc(QString PrintPr, QString Name, int Components)
 				if (tel->OwnPage != -1)
 				{
 					bd.Page = PageTree.Kids[tel->OwnPage];
-					bd.Recht = QRect(static_cast<int>(tel->Xpos - doc->Pages.at(tel->OwnPage)->xOffset()), 
-								static_cast<int>(doc->Pages.at(tel->OwnPage)->height() - (tel->Ypos  - doc->Pages.at(tel->OwnPage)->yOffset())),
+					bd.Recht = QRect(static_cast<int>(tel->Xpos - doc->Pages->at(tel->OwnPage)->xOffset()), 
+								static_cast<int>(doc->Pages->at(tel->OwnPage)->height() - (tel->Ypos  - doc->Pages->at(tel->OwnPage)->yOffset())),
 								static_cast<int>(tel->Width),
 								static_cast<int>(tel->Height));
 					Beads.append(bd);

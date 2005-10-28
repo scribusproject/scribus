@@ -530,7 +530,7 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 			if (((pg.tagName()=="PAGE") || (pg.tagName()=="MASTERPAGE")) && (QStoInt(pg.attribute("NUM")) == PageToLoad))
 			{
 				a = doc->currentPage->pageNr();
-				Apage = doc->Pages.at(a);
+				Apage = doc->Pages->at(a);
 				if ((pg.tagName()!="MASTERPAGE") && (Mpage))
 				{
 					PAGE=PAGE.nextSibling();
@@ -1372,16 +1372,16 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 				if (PgNam.isEmpty())
 				{
 					doc->pageCount = Pgc;
-					doc->Pages = doc->DocPages;
+					//doc->Pages = &doc->DocPages;
 					doc->setUsesAutomaticTextFrames(AtFl);
-					doc->masterPageMode = false;
+					doc->setMasterPageMode(false);
 				}
 				else
 				{
 					doc->pageCount = 0;
 					doc->setUsesAutomaticTextFrames(false);
-					doc->Pages = doc->MasterPages;
-					doc->masterPageMode = true;
+					//doc->Pages = &doc->MasterPages;
+					doc->setMasterPageMode(true);
 				}
 				//CB: Stop calling damn GUI code in loading docs! IT doesnt *look* like 
 				//this makes a difference apart from being faster, of course.
@@ -1390,21 +1390,21 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 				Apage = doc->addPage(a);
 				if (PgNam.isEmpty())
 				{
-					doc->DocPages = doc->Pages;
+					//doc->DocPages = doc->Pages;
 					doc->pageCount = Pgc+1;
 				}
 				else
 				{
 					Apage->setPageName(PgNam);
 					doc->MasterNames[PgNam] = a;
-					doc->MasterPages = doc->Pages;
+					//doc->MasterPages = doc->Pages;
 					doc->pageCount = Pgc;
 				}
 				doc->setUsesAutomaticTextFrames(AtFl);
 				Apage->LeftPg=QStoInt(pg.attribute("LEFT","0"));
 				QString Mus = "";
 				Mus = pg.attribute("MNAM","Normal");
-				if (!doc->masterPageMode)
+				if (!doc->masterPageMode())
 					Apage->MPageNam = Mus;
 				else
 					Apage->MPageNam = "";
@@ -1427,7 +1427,8 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 				Apage->initialMargins.Right = QStodouble(pg.attribute("BORDERRIGHT"));
 				Apage->Margins.Top = Apage->initialMargins.Top;
 				Apage->Margins.Bottom = Apage->initialMargins.Bottom;
-				doc->masterPageMode = false;
+				doc->setMasterPageMode(false);
+				//doc->Pages=&doc->DocPages;
 				if ((pg.hasAttribute("NumVGuides")) && (QStoInt(pg.attribute("NumVGuides","0")) != 0))
 				{
 					tmp = pg.attribute("VerticalGuides");
@@ -1464,14 +1465,14 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 					if ((pg.tagName()=="PAGEOBJECT") || (pg.tagName()=="FRAMEOBJECT"))
 					{
 						doc->Items = doc->DocItems;
-						doc->Pages = doc->DocPages;
-						doc->masterPageMode = false;
+						//doc->Pages = &doc->DocPages;
+						doc->setMasterPageMode(false);
 					}
 					else
 					{
 						doc->Items = doc->MasterItems;
-						doc->Pages = doc->MasterPages;
-						doc->masterPageMode = true;
+						//doc->Pages = &doc->MasterPages;
+						doc->setMasterPageMode(true);
 					}
 					if ((!pg.attribute("OnMasterPage").isEmpty()) && (pg.tagName()=="MASTEROBJECT"))
 						doc->currentPage = doc->MasterPages.at(doc->MasterNames[pg.attribute("OnMasterPage")]);
@@ -1586,14 +1587,15 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 					if ((pg.tagName()=="PAGEOBJECT") || (pg.tagName()=="FRAMEOBJECT"))
 					{
 						doc->DocItems = doc->Items;
-						doc->DocPages = doc->Pages;
+						//doc->DocPages = doc->Pages;
 					}
 					else
 					{
 						doc->MasterItems = doc->Items;
-						doc->MasterPages = doc->Pages;
+						//doc->MasterPages = doc->Pages;
 					}
-					doc->masterPageMode = false;
+					doc->setMasterPageMode(false);
+					//doc->Pages=&doc->DocPages;
 					counter++;
 				}
 			PAGE=PAGE.nextSibling();
@@ -1623,10 +1625,10 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 				ta->BottomLink = 0;
 		}
 	}
-	doc->Pages = doc->DocPages;
-	doc->pageCount = doc->Pages.count();
+	//doc->Pages = &doc->DocPages;
+	doc->setMasterPageMode(false);
+	doc->pageCount = doc->Pages->count();
 	doc->Items = doc->DocItems;
-	doc->masterPageMode = false;
 	//ScApp->view->reformPages();
 	doc->reformPages(maximumX, maximumY);
 	if (doc->Layers.count() == 0)

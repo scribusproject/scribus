@@ -191,7 +191,7 @@ void CheckDocument::slotSelect(QListViewItem* ite)
 	}
 	if (masterPageItemMap.contains(ite))
 	{
-		if (!document->masterPageMode)
+		if (!document->masterPageMode())
 			emit selectMasterPage(document->MasterItems.at(masterPageItemMap[ite])->OnMasterPage);
 		emit selectElement(-1, masterPageItemMap[ite]);
 		return;

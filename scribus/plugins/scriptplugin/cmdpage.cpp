@@ -43,7 +43,7 @@ PyObject *scribus_deletepage(PyObject* /* self */, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	e--;
-	if ((e < 0) || (e > static_cast<int>(ScApp->doc->Pages.count())-1))
+	if ((e < 0) || (e > static_cast<int>(ScApp->doc->Pages->count())-1))
 	{
 		PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range.","python error"));
 		return NULL;
@@ -61,7 +61,7 @@ PyObject *scribus_gotopage(PyObject* /* self */, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	e--;
-	if ((e < 0) || (e > static_cast<int>(ScApp->doc->Pages.count())-1))
+	if ((e < 0) || (e > static_cast<int>(ScApp->doc->Pages->count())-1))
 	{
 		PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range.","python error"));
 		return NULL;
@@ -80,11 +80,11 @@ PyObject *scribus_newpage(PyObject* /* self */, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	if (e < 0)
-		ScApp->slotNewPageP(ScApp->doc->Pages.count(), QString::fromUtf8(name));
+		ScApp->slotNewPageP(ScApp->doc->Pages->count(), QString::fromUtf8(name));
 	else
 	{
 		e--;
-		if ((e < 0) || (e > static_cast<int>(ScApp->doc->Pages.count())-1))
+		if ((e < 0) || (e > static_cast<int>(ScApp->doc->Pages->count())-1))
 		{
 			PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range.","python error"));
 			return NULL;
@@ -99,7 +99,7 @@ PyObject *scribus_pagecount(PyObject* /* self */)
 {
 	if(!checkHaveDocument())
 		return NULL;
-	return PyInt_FromLong(static_cast<long>(ScApp->doc->Pages.count()));
+	return PyInt_FromLong(static_cast<long>(ScApp->doc->Pages->count()));
 }
 
 PyObject *scribus_pagedimension(PyObject* /* self */)

@@ -280,7 +280,7 @@ void Page::restorePageItemCreation(ItemState<PageItem*> *state, bool isUndo)
 	else
 	{
 		ScApp->doc->Items.append(ite);
-		if (ScApp->doc->masterPageMode)
+		if (ScApp->doc->masterPageMode())
 			ScApp->doc->MasterItems = ScApp->doc->Items;
 		else
 			ScApp->doc->DocItems = ScApp->doc->Items;
@@ -296,7 +296,7 @@ void Page::restorePageItemDeletion(ItemState<PageItem*> *state, bool isUndo)
 	if (isUndo)
 	{
 		ScApp->doc->Items.append(ite);
-		if (ScApp->doc->masterPageMode)
+		if (ScApp->doc->masterPageMode())
 			ScApp->doc->MasterItems = ScApp->doc->Items;
 		else
 			ScApp->doc->DocItems = ScApp->doc->Items;
@@ -332,7 +332,7 @@ void Page::restorePageItemConversion(ItemState<std::pair<PageItem*, PageItem*> >
 		ScApp->doc->Items.append(newItem);
 		newItem->ItemNr = ScApp->doc->Items.count()-1;
 	}
-	if (ScApp->doc->masterPageMode)
+	if (ScApp->doc->masterPageMode())
 		ScApp->doc->MasterItems = ScApp->doc->Items;
 	else
 		ScApp->doc->DocItems = ScApp->doc->Items;

@@ -155,7 +155,7 @@ bool ExportBitmap::exportPage(uint pageNr, bool single = true)
 	uint over = 0;
 	QString fileName = getFileName(pageNr);
 
-	if (!ScApp->doc->Pages.at(pageNr))
+	if (!ScApp->doc->Pages->at(pageNr))
 		return false;
 
 	/* a little magic here - I need to compute the "maxGr" value...

@@ -38,7 +38,7 @@
 #include "prefsstructs.h"
 #include "documentinformation.h"
 #include "undoobject.h"
-//#include "page.h"
+#include "page.h"
 #include "pageitem.h"
 #include "pageitem_line.h"
 #include "pageitem_textframe.h"
@@ -50,7 +50,6 @@
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
-class Page;
 class UndoManager;
 class UndoState;
 class PDFOptions;
@@ -390,6 +389,13 @@ public:
 	 ** CB Moved from PageItem
 	 */
 	bool itemNameExists(const QString itemName);
+	
+	/**
+	 * @brief Set the doc into Master page mode
+	 * Do we need to return if the move to master page mode was successful?
+	 */
+	void setMasterPageMode(const bool);
+	const bool masterPageMode();
 
 protected:
 	void addSymbols();
@@ -400,6 +406,7 @@ protected:
 	double docUnitRatio;
 	UndoManager *undoManager;
 	bool automaticTextFrames; // Flag for automatic Textframes
+	bool m_masterPageMode;
 
 public: // Public attributes
 	bool is12doc; //public for now, it will be removed later
@@ -421,7 +428,7 @@ public: // Public attributes
 	double rulerXoffset;
 	double rulerYoffset;
   /** List of Pages */
-	QPtrList<Page> Pages;
+	QPtrList<Page>* Pages;
   /** List of Master Pages */
 	QPtrList<Page> MasterPages;
   /** List of Document Pages */
@@ -535,7 +542,7 @@ public: // Public attributes
 	QString Language;
 	bool Automatic;
 	bool AutoCheck;
-	bool masterPageMode;
+	
 	PDFOptions PDF_Options;
 	bool RePos;
 	struct BookMa {

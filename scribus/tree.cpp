@@ -159,7 +159,7 @@ void Tree::slotDoRename(QListViewItem* , int )
 QListViewItem* Tree::getListItem(uint SNr, int Nr)
 {
 	QListViewItem *retVal = 0;
-	if (currDoc->masterPageMode)
+	if (currDoc->masterPageMode())
 	{
 		if (Nr == -1)
 			retVal = masterPageMapRev[currDoc->MasterPages.at(SNr)->PageNam];
@@ -239,7 +239,7 @@ void Tree::slotUpdateElement(uint SNr, uint Nr)
 		return;
 	}
 	PageItem* pgItem;
-	if (currDoc->masterPageMode)
+	if (currDoc->masterPageMode())
 		pgItem = currDoc->MasterItems.at(Nr);
 	else
 		pgItem = currDoc->DocItems.at(Nr);
@@ -491,7 +491,7 @@ void Tree::slotSelect(QListViewItem* ite)
 	}
 	if (masterPageItemMap.contains(ite))
 	{
-		if (!currDoc->masterPageMode)
+		if (!currDoc->masterPageMode())
 			emit selectMasterPage(currDoc->MasterItems.at(masterPageItemMap[ite])->OnMasterPage);
 		if (currDoc->MasterItems.at(masterPageItemMap[ite])->Groups.count() == 0)
 			emit selectElement(-1, masterPageItemMap[ite], false);
@@ -502,7 +502,7 @@ void Tree::slotSelect(QListViewItem* ite)
 	}
 	if (masterPageGroupMap.contains(ite))
 	{
-		if (!currDoc->masterPageMode)
+		if (!currDoc->masterPageMode())
 			emit selectMasterPage(currDoc->MasterItems.at(masterPageGroupMap[ite])->OnMasterPage);
 		emit selectElement(-1, masterPageGroupMap[ite], false);
 		selectionTriggered = false;
