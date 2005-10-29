@@ -24,7 +24,6 @@
 #include <qdatastream.h>
 #include <qregexp.h>
 #include <qdir.h>
-#include <qmessagebox.h>
 #include <algorithm>
 #include <cstdlib>
 #include <cmath>
@@ -45,13 +44,14 @@
 #include "md5.h"
 
 #include <setjmp.h>
-#include "qprocess.h"
-#include "scpaths.h"
+#include "commonstrings.h"
 #include "prefsfile.h"
 #include "prefscontext.h"
 #include "prefstable.h"
 #include "prefsmanager.h"
-#include "commonstrings.h"
+#include "qprocess.h"
+#include "scmessagebox.h"
+#include "scpaths.h"
 
 extern "C"
 {
@@ -828,10 +828,10 @@ bool overwrite(QWidget *parent, QString filename)
 	QFileInfo fi(filename);
 	if (fi.exists())
 	{
-		int t = QMessageBox::warning(parent, QObject::tr("File exists"),
-		                             QObject::tr("A file named '%1' already exists.\nDo you want to replace it with the file you are saving?").arg(filename),
-		                             CommonStrings::tr_Cancel, QObject::tr("&Replace"), "", 1, 0);
-		if (t == 0)
+		int t = ScMessageBox::warning(parent, QObject::tr("File exists"), 
+									"<qt>"+ QObject::tr("A file named '%1' already exists.<br/>Do you want to replace it with the file you are saving?").arg(filename) +"</qt>",
+									QObject::tr("&Replace"), CommonStrings::tr_Cancel, "", 1, 1);
+		if (t == 1)
 			retval = false;
 	}
 	return retval;
