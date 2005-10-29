@@ -48,9 +48,9 @@ int GetItem(QString Name)
 {
 	if (!Name.isEmpty())
 	{
-		for (uint a = 0; a < ScApp->doc->Items.count(); a++)
+		for (uint a = 0; a < ScApp->doc->Items->count(); a++)
 		{
-			if (ScApp->doc->Items.at(a)->itemName() == Name)
+			if (ScApp->doc->Items->at(a)->itemName() == Name)
 				return static_cast<int>(a);
 		}
 	}
@@ -65,9 +65,9 @@ int GetItem(QString Name)
 void ReplaceColor(QString col, QString rep)
 {
 	QColor tmpc;
-	for (uint c = 0; c < ScApp->doc->Items.count(); c++)
+	for (uint c = 0; c < ScApp->doc->Items->count(); c++)
 	{
-		PageItem *ite = ScApp->doc->Items.at(c);
+		PageItem *ite = ScApp->doc->Items->at(c);
 		if (ite->itemType() == PageItem::TextFrame)
 		{
 			for (uint d = 0; d < ite->itemText.count(); d++)
@@ -145,10 +145,10 @@ PageItem* getPageItemByName(QString name)
 		PyErr_SetString(PyExc_ValueError, QString("Cannot accept empty name for pageitem"));
 		return NULL;
 	}
-	for (uint j = 0; j<ScApp->doc->Items.count(); j++)
+	for (uint j = 0; j<ScApp->doc->Items->count(); j++)
 	{
-		if (name==ScApp->doc->Items.at(j)->itemName())
-			return ScApp->doc->Items.at(j);
+		if (name==ScApp->doc->Items->at(j)->itemName())
+			return ScApp->doc->Items->at(j);
 	} // for items
 	PyErr_SetString(NoValidObjectError, QString("Object not found"));
 	return NULL;
@@ -164,9 +164,9 @@ bool ItemExists(QString name)
 {
 	if (name.length() == 0)
 		return false;
-	for (uint j = 0; j<ScApp->doc->Items.count(); j++)
+	for (uint j = 0; j<ScApp->doc->Items->count(); j++)
 	{
-		if (name==ScApp->doc->Items.at(j)->itemName())
+		if (name==ScApp->doc->Items->at(j)->itemName())
 			return true;
 	} // for items
 	return false;
@@ -206,9 +206,9 @@ bool setSelectedItemsByName(QStringList& itemNames)
 	{
 		// Search for the named item
 		PageItem* item = 0;
-		for (uint j = 0; j < ScApp->doc->Items.count(); j++)
-			if (*it == ScApp->doc->Items.at(j)->itemName())
-				item = ScApp->doc->Items.at(j);
+		for (uint j = 0; j < ScApp->doc->Items->count(); j++)
+			if (*it == ScApp->doc->Items->at(j)->itemName())
+				item = ScApp->doc->Items->at(j);
 		if (!item)
 			return false;
 		// and select it

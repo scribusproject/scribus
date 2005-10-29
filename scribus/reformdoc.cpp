@@ -1089,10 +1089,10 @@ void ReformDoc::updateDocumentSettings()
 	currDoc->docItemAttributes = *(tabDocItemAttributes->getNewAttributes());
 	currDoc->docToCSetups = *(tabTOCIndexPrefs->getNewToCs());
 
-	uint itemCount=currDoc->Items.count();
+	uint itemCount=currDoc->Items->count();
 	for (uint b=0; b<itemCount; ++b)
 	{
-		if (currDoc->Items.at(b)->itemType() == PageItem::ImageFrame)
-			currDoc->Items.at(b)->PicArt = currDoc->guidesSettings.showPic;
+		if (currDoc->Items->at(b)->itemType() == PageItem::ImageFrame)
+			currDoc->Items->at(b)->PicArt = currDoc->guidesSettings.showPic;
 	}
 }

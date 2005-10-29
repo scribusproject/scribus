@@ -147,9 +147,9 @@ void ScripterCore::FinishScriptRun()
 		QPixmap pgPix(10, 10);
 		QRect rd = QRect(0,0,9,9);
 		ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
-		for (uint azz=0; azz<ScApp->doc->Items.count(); ++azz)
+		for (uint azz=0; azz<ScApp->doc->Items->count(); ++azz)
 		{
-			PageItem *ite = ScApp->doc->Items.at(azz);
+			PageItem *ite = ScApp->doc->Items->at(azz);
 			if (ite->Groups.count() != 0)
 				ScApp->doc->GroupOnPage(ite);
 			else

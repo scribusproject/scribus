@@ -400,7 +400,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 				Doc->docParagraphStyles[0].LineSpa = LineSp;
 				QRegion cl = QRegion(pf2.xForm(Clip));
 				int LayerLev = Doc->layerLevelFromNumber(LayerNr);
-				uint docItemsCount=Doc->Items.count();
+				uint docItemsCount=Doc->Items->count();
 				if (!isEmbedded)
 				{
 					if (!OnMasterPage.isEmpty())
@@ -446,7 +446,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						}
 						for (a = 0; a < docItemsCount; ++a)
 						{
-							PageItem* docItem = Doc->Items.at(a);
+							PageItem* docItem = Doc->Items->at(a);
 							if (docItem->textFlowsAroundFrame())
 							{
 								pp.begin(ScApp->view->viewport());
@@ -480,7 +480,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 					}
 					for (a = 0; a < docItemsCount; ++a)
 					{
-						PageItem* docItem = Doc->Items.at(a);
+						PageItem* docItem = Doc->Items->at(a);
 						int LayerLevItem = Doc->layerLevelFromNumber(docItem->LayerNr);
 						if (((docItem->ItemNr > ItemNr) && (docItem->LayerNr == LayerNr)) || (LayerLevItem > LayerLev))
 						{

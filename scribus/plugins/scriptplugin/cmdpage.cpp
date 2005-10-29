@@ -119,26 +119,26 @@ PyObject *scribus_getpageitems(PyObject* /* self */)
 {
 	if(!checkHaveDocument())
 		return NULL;
-	if (ScApp->doc->Items.count() == 0)
+	if (ScApp->doc->Items->count() == 0)
 		return Py_BuildValue((char*)"[]");
 	uint counter = 0;
 	uint pageNr = ScApp->doc->currentPageNumber();
-	for (uint lam2 = 0; lam2 < ScApp->doc->Items.count(); ++lam2)
+	for (uint lam2 = 0; lam2 < ScApp->doc->Items->count(); ++lam2)
 	{
-		if (pageNr == ScApp->doc->Items.at(lam2)->OwnPage)
+		if (pageNr == ScApp->doc->Items->at(lam2)->OwnPage)
 			counter++;
 	}
 	PyObject *l = PyList_New(counter);
 	PyObject *row;
 	counter = 0;
-	for (uint i = 0; i<ScApp->doc->Items.count(); ++i)
+	for (uint i = 0; i<ScApp->doc->Items->count(); ++i)
 	{
-		if (pageNr == ScApp->doc->Items.at(i)->OwnPage)
+		if (pageNr == ScApp->doc->Items->at(i)->OwnPage)
 		{
 			row = Py_BuildValue((char*)"(sii)",
-			                    ScApp->doc->Items.at(i)->itemName().ascii(),
-			                    ScApp->doc->Items.at(i)->itemType(),
-			                    ScApp->doc->Items.at(i)->ItemNr
+			                    ScApp->doc->Items->at(i)->itemName().ascii(),
+			                    ScApp->doc->Items->at(i)->itemType(),
+			                    ScApp->doc->Items->at(i)->ItemNr
 			                   );
 			PyList_SetItem(l, counter, row);
 			counter++;

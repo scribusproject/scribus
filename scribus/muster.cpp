@@ -175,12 +175,12 @@ void MasterPagesPalette::duplicateMasterPage()
 			}
 			qHeapSort(currentDoc->currentPage->XGuides);
 		}
-		uint end = currentDoc->Items.count();
+		uint end = currentDoc->Items->count();
 		int GrMax = currentDoc->GroupCounter;
 		for (uint a = 0; a < end; ++a)
 		{
-			PageItem *itemToCopy = currentDoc->Items.at(a);
-			if (currentDoc->Items.at(a)->OwnPage == inde)
+			PageItem *itemToCopy = currentDoc->Items->at(a);
+			if (currentDoc->Items->at(a)->OwnPage == inde)
 			{
 				itemToCopy->copyToCopyPasteBuffer(&Buffer);
 				if (itemToCopy->Groups.count() != 0)
@@ -199,7 +199,7 @@ void MasterPagesPalette::duplicateMasterPage()
 					}
 				}
 				currentView->PasteItem(&Buffer, true, true);
-				PageItem* Neu = currentDoc->Items.at(currentDoc->Items.count()-1);
+				PageItem* Neu = currentDoc->Items->at(currentDoc->Items->count()-1);
 				Neu->OnMasterPage = MasterPageName;
 				if (Neu->isTableItem)
 				{
@@ -214,19 +214,19 @@ void MasterPagesPalette::duplicateMasterPage()
 			{
 				PageItem* ta = TableItems.at(ttc);
 				if (ta->TopLinkID != -1)
-					ta->TopLink = currentDoc->Items.at(TableID[ta->TopLinkID]);
+					ta->TopLink = currentDoc->Items->at(TableID[ta->TopLinkID]);
 				else
 					ta->TopLink = 0;
 				if (ta->LeftLinkID != -1)
-					ta->LeftLink = currentDoc->Items.at(TableID[ta->LeftLinkID]);
+					ta->LeftLink = currentDoc->Items->at(TableID[ta->LeftLinkID]);
 				else
 					ta->LeftLink = 0;
 				if (ta->RightLinkID != -1)
-					ta->RightLink = currentDoc->Items.at(TableID[ta->RightLinkID]);
+					ta->RightLink = currentDoc->Items->at(TableID[ta->RightLinkID]);
 				else
 					ta->RightLink = 0;
 				if (ta->BottomLinkID != -1)
-					ta->BottomLink = currentDoc->Items.at(TableID[ta->BottomLinkID]);
+					ta->BottomLink = currentDoc->Items->at(TableID[ta->BottomLinkID]);
 				else
 					ta->BottomLink = 0;
 			}

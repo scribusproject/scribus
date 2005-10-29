@@ -1820,7 +1820,7 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, b
 		if (!a->PageNam.isEmpty())
 			PItems = Doc->MasterItems;
 		else
-			PItems = Doc->Items;
+			PItems = Doc->DocItems;
 		if (ll.isPrintable)
 		{
 			for (b = 0; b < PItems.count(); ++b)

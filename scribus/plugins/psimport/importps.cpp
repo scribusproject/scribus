@@ -364,7 +364,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						else
 							//z = ScApp->view->PaintPolyLine(0, 0, 10, 10, LineW, CurrColor, "None");
 							z = ScApp->doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, 0, 0, 10, 10, LineW, CurrColor, "None", !ScApp->view->Mpressed);
-						ite = ScApp->doc->Items.at(z);
+						ite = ScApp->doc->Items->at(z);
 						ite->PoLine = Coords.copy();
 						ite->PoLine.translate(ScApp->doc->currentPage->xOffset(), ScApp->doc->currentPage->yOffset());
 						ite->ClipEdited = true;
@@ -406,7 +406,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						else
 							//z = ScApp->view->PaintPolyLine(0, 0, 10, 10, LineW, "None", CurrColor);
 							z = Doku->itemAdd(PageItem::PolyLine, PageItem::Unspecified, 0, 0, 10, 10, LineW, "None", CurrColor, !ScApp->view->Mpressed);
-						ite = Doku->Items.at(z);
+						ite = Doku->Items->at(z);
 						ite->PoLine = Coords.copy();
 						ite->PoLine.translate(Doku->currentPage->xOffset(), Doku->currentPage->yOffset());
 						ite->ClipEdited = true;

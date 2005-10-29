@@ -1272,7 +1272,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 					if (doc->SubMode != -1)
 					{
 						view->Deselect(false);
-						doc->Items.remove(currItem->ItemNr);
+						doc->Items->remove(currItem->ItemNr);
 					}
 					break;
 				case modeLinkFrames:
@@ -1287,7 +1287,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 					if (currItem->PoLine.size() < 4)
 					{
 						view->Deselect(false);
-						doc->Items.remove(currItem->ItemNr);
+						doc->Items->remove(currItem->ItemNr);
 					}
 					else
 					{
@@ -1303,7 +1303,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 					break;
 				default:
 					view->Deselect(false);
-					doc->Items.remove(currItem->ItemNr);
+					doc->Items->remove(currItem->ItemNr);
 					break;
 			}
 		}
@@ -2410,7 +2410,7 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 
 	doc->setModified(false);
 	doc->setLoading(false);
-	doc->DocItems = doc->Items;
+	//doc->DocItems = doc->Items;
 	doc->currentPage = doc->Pages->at(0);
 	doc->OpenNodes.clear();
 	//<<View and window code
@@ -2602,10 +2602,12 @@ void ScribusApp::windowsMenuActivated( int id )
 bool ScribusApp::SetupDoc()
 {
 	bool ret = false;
+	/*
 	if (doc->masterPageMode())
 		doc->MasterItems = doc->Items;
 	else
 		doc->DocItems = doc->Items;
+	*/
 	ReformDoc* dia = new ReformDoc(this, doc);
 	if (dia->exec())
 	{
@@ -3617,7 +3619,7 @@ bool ScribusApp::loadPage(QString fileName, int Nr, bool Mpa)
 			return false;
 		}
 		doc->setLoading(true);
-		uint oldItemsCount = doc->Items.count();
+		uint oldItemsCount = doc->Items->count();
 		if(!fl->LoadPage(Nr, Mpa))
 		{
 			delete fl;
@@ -3630,10 +3632,10 @@ bool ScribusApp::loadPage(QString fileName, int Nr, bool Mpa)
 			recalcColors();
 			view->RecalcPictures(&InputProfiles);
 		}
-		uint docItemsCount=doc->Items.count();
+		uint docItemsCount=doc->Items->count();
 		for (uint i = oldItemsCount; i < docItemsCount; ++i)
 		{
-			PageItem *ite = doc->Items.at(i);
+			PageItem *ite = doc->Items->at(i);
 			if ((ite->asTextFrame()) && (ite->isBookmark))
 				bookmarkPalette->BView->AddPageItem(ite);
 		}
@@ -3944,7 +3946,7 @@ bool ScribusApp::loadDoc(QString fileName)
 			doc->addMasterPage(0, "Normal");
 		doc->pageCount = doc->DocPages.count();
 		doc->setLoading(false);
-		doc->DocItems = doc->Items;
+		//doc->DocItems = doc->Items;
 		doc->RePos = true;
 		QPixmap pgPix(10, 10);
 		QRect rd = QRect(0,0,9,9);
@@ -3952,7 +3954,7 @@ bool ScribusApp::loadDoc(QString fileName)
 		doc->setMasterPageMode(true);
 		//doc->Pages = &doc->MasterPages;
 		//doc->masterPageMode = true;
-		doc->Items = doc->MasterItems;
+		//doc->Items = doc->MasterItems;
 		for (uint azz=0; azz<doc->MasterItems.count(); ++azz)
 		{
 			PageItem *ite = doc->MasterItems.at(azz);
@@ -3987,10 +3989,10 @@ bool ScribusApp::loadDoc(QString fileName)
 //		RestoreBookMarks();
 		//doc->Pages = &doc->DocPages;
 		doc->setMasterPageMode(false);
-		doc->Items = doc->DocItems;
-		for (uint azz=0; azz<doc->Items.count(); ++azz)
+		//doc->Items = doc->DocItems;
+		for (uint azz=0; azz<doc->Items->count(); ++azz)
 		{
-			PageItem *ite = doc->Items.at(azz);
+			PageItem *ite = doc->Items->at(azz);
 			if (ite->Groups.count() != 0)
 				doc->GroupOnPage(ite);
 			else
@@ -4188,16 +4190,18 @@ void ScribusApp::slotFileOpen()
 			delete gt;
 			if (doc->docHyphenator->AutoCheck)
 				doc->docHyphenator->slotHyphenate(currItem);
-			for (uint a = 0; a < doc->Items.count(); ++a)
+			for (uint a = 0; a < doc->Items->count(); ++a)
 			{
-				doc->Items.at(a)->ItemNr = a;
-				if (doc->Items.at(a)->isBookmark)
-					bookmarkPalette->BView->ChangeItem(doc->Items.at(a)->BMnr, a);
+				doc->Items->at(a)->ItemNr = a;
+				if (doc->Items->at(a)->isBookmark)
+					bookmarkPalette->BView->ChangeItem(doc->Items->at(a)->BMnr, a);
 			}
+			/*
 			if (doc->masterPageMode())
 				doc->MasterItems = doc->Items;
 			else
 				doc->DocItems = doc->Items;
+			*/
 			outlinePalette->BuildTree();
 			view->DrawNew();
 			slotDocCh();
@@ -4400,9 +4404,9 @@ bool ScribusApp::DoFileClose()
 	disconnect(doc->WinHan, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
 	disconnect(fileWatcher, SIGNAL(fileChanged(QString )), view, SLOT(updatePict(QString)));
 	disconnect(fileWatcher, SIGNAL(fileDeleted(QString )), view, SLOT(removePict(QString)));
-	for (uint a = 0; a < doc->Items.count(); ++a)
+	for (uint a = 0; a < doc->Items->count(); ++a)
 	{
-		PageItem *currItem = doc->Items.at(a);
+		PageItem *currItem = doc->Items->at(a);
 		if (currItem->PicAvail)
 			fileWatcher->removeFile(currItem->Pfile);
 	}
@@ -4422,6 +4426,7 @@ bool ScribusApp::DoFileClose()
 	bookmarkPalette->BView->First = 1;
 	bookmarkPalette->BView->Last = 0;
 	outlinePalette->unsetDoc();
+	alignDistributePalette->setView(NULL);
 	//>>
 	if ((wsp->windowList().isEmpty()) || (wsp->windowList().count() == 1))
 	{
@@ -5012,7 +5017,7 @@ void ScribusApp::slotEditPaste()
 			{
 				bool savedAlignGrid = doc->useRaster;
 				bool savedAlignGuides = doc->SnapGuides;
-				uint ac = doc->Items.count();
+				uint ac = doc->Items->count();
 				bool isGroup = false;
 				double gx, gy, gh, gw;
 				FPoint minSize = doc->minCanvasCoordinate;
@@ -5024,22 +5029,22 @@ void ScribusApp::slotEditPaste()
 				doc->SnapGuides = savedAlignGuides;
 				QPtrList<PageItem> bSel = view->SelItem;
 				view->SelItem.clear();
-				if (doc->Items.count() - ac > 1)
+				if (doc->Items->count() - ac > 1)
 					isGroup = true;
-				for (uint as = ac; as < doc->Items.count(); ++as)
+				for (uint as = ac; as < doc->Items->count(); ++as)
 				{
-					view->SelItem.append(doc->Items.at(as));
+					view->SelItem.append(doc->Items->at(as));
 					if (isGroup)
-						doc->Items.at(as)->Groups.push(doc->GroupCounter);
+						doc->Items->at(as)->Groups.push(doc->GroupCounter);
 				}
 				if (isGroup)
 					doc->GroupCounter++;
 				view->setGroupRect();
 				view->getGroupRect(&gx, &gy, &gw, &gh);
-				PageItem* currItem3 = doc->Items.at(ac);
-				for (uint as = ac; as < doc->Items.count(); ++as)
+				PageItem* currItem3 = doc->Items->at(ac);
+				for (uint as = ac; as < doc->Items->count(); ++as)
 				{
-					PageItem* currItem2 = doc->Items.at(as);
+					PageItem* currItem2 = doc->Items->at(as);
 					currItem2->isEmbedded = true;
 					currItem2->isAnnotation = false;
 					currItem2->isBookmark = false;
@@ -5050,15 +5055,17 @@ void ScribusApp::slotEditPaste()
 					currItem2->ItemNr = doc->FrameItems.count();
 					doc->FrameItems.append(currItem2);
 				}
-				uint acc = doc->Items.count();
+				uint acc = doc->Items->count();
 				for (uint as = ac; as < acc; ++as)
 				{
-					doc->Items.take(ac);
+					doc->Items->take(ac);
 				}
+				/*
 				if (doc->masterPageMode())
 					doc->MasterItems = doc->Items;
 				else
 					doc->DocItems = doc->Items;
+				*/
 				view->SelItem.clear();
 				view->SelItem = bSel;
 				view->resizeContents(qRound((maxSize.x() - minSize.x()) * view->getScale()), qRound((maxSize.y() - minSize.y()) * view->getScale()));
@@ -5099,7 +5106,7 @@ void ScribusApp::slotEditPaste()
 			if (Buffer2.startsWith("<SCRIBUSELEM"))
 			{
 				view->Deselect(true);
-				uint ac = doc->Items.count();
+				uint ac = doc->Items->count();
 				bool savedAlignGrid = doc->useRaster;
 				bool savedAlignGuides = doc->SnapGuides;
 				doc->useRaster = false;
@@ -5107,9 +5114,9 @@ void ScribusApp::slotEditPaste()
 				slotElemRead(Buffer2, 0, 0, false, true, doc, view);
 				doc->useRaster = savedAlignGrid;
 				doc->SnapGuides = savedAlignGuides;
-				for (uint as = ac; as < doc->Items.count(); ++as)
+				for (uint as = ac; as < doc->Items->count(); ++as)
 				{
-					PageItem* currItem = doc->Items.at(as);
+					PageItem* currItem = doc->Items->at(as);
 					if (currItem->isBookmark)
 						AddBookMark(currItem);
 					view->SelectItemNr(as);
@@ -5149,10 +5156,10 @@ void ScribusApp::SelectAll()
 	{
 		PageItem *currItem;
 		view->Deselect();
-		uint docItemsCount=doc->Items.count();
+		uint docItemsCount=doc->Items->count();
 		for (uint a = 0; a < docItemsCount; ++a)
 		{
-			currItem = doc->Items.at(a);
+			currItem = doc->Items->at(a);
 			if (currItem->LayerNr == doc->activeLayer())
 			{
 				if (!currItem->Select)
@@ -5619,10 +5626,10 @@ void ScribusApp::TogglePDFTools()
 void ScribusApp::TogglePics()
 {
 	doc->guidesSettings.showPic = !doc->guidesSettings.showPic;
-	for (uint b=0; b<doc->Items.count(); ++b)
+	for (uint b=0; b<doc->Items->count(); ++b)
 	{
-		if (doc->Items.at(b)->asImageFrame())
-			doc->Items.at(b)->PicArt = doc->guidesSettings.showPic;
+		if (doc->Items->at(b)->asImageFrame())
+			doc->Items->at(b)->PicArt = doc->guidesSettings.showPic;
 	}
 	view->DrawNew();
 }
@@ -6153,9 +6160,9 @@ void ScribusApp::setItemHoch(int h)
 
 void ScribusApp::AdjustBM()
 {
-	for (uint b = 0; b < doc->Items.count(); ++b)
+	for (uint b = 0; b < doc->Items->count(); ++b)
 	{
-		PageItem* bb = doc->Items.at(b);
+		PageItem* bb = doc->Items->at(b);
 		if (bb->isBookmark)
 		{
 			int it = bb->BMnr;
@@ -6185,9 +6192,9 @@ void ScribusApp::DeletePage2(int pg)
 /*	if (!doc->masterPageMode)
 		disconnect(doc->currentPage, SIGNAL(DelObj(uint, uint)), outlinePalette, SLOT(slotRemoveElement(uint, uint))); */
 	view->SelItem.clear();
-	for (uint d = 0; d < doc->Items.count(); ++d)
+	for (uint d = 0; d < doc->Items->count(); ++d)
 	{
-		ite = doc->Items.at(d);
+		ite = doc->Items->at(d);
 		if (ite->OwnPage == pg)
 		{
 			ite->setLocked(false);
@@ -6249,9 +6256,9 @@ void ScribusApp::DeletePage(int from, int to)
 	view->SelItem.clear();
 	for (int a = to - 1; a >= from - 1; a--)
 	{
-		for (uint d = 0; d < doc->Items.count(); ++d)
+		for (uint d = 0; d < doc->Items->count(); ++d)
 		{
-			ite = doc->Items.at(d);
+			ite = doc->Items->at(d);
 			if (ite->OwnPage == a)
 			{
 				ite->setLocked(false);
@@ -6366,10 +6373,10 @@ void ScribusApp::CopyPage()
 			QPtrList<PageItem> TableItems;
 			TableID.clear();
 			TableItems.clear();
-			uint oldItems = doc->Items.count();
+			uint oldItems = doc->Items->count();
 			for (uint ite = 0; ite < oldItems; ++ite)
 			{
-				PageItem *itemToCopy = doc->Items.at(ite);
+				PageItem *itemToCopy = doc->Items->at(ite);
 				if (itemToCopy->OwnPage == static_cast<int>(from->pageNr()))
 				{
 					itemToCopy->copyToCopyPasteBuffer(&Buffer);
@@ -6391,7 +6398,7 @@ void ScribusApp::CopyPage()
 						}
 					}
 					view->PasteItem(&Buffer, true, true);
-					PageItem* Neu = doc->Items.at(doc->Items.count()-1);
+					PageItem* Neu = doc->Items->at(doc->Items->count()-1);
 					Neu->OnMasterPage = "";
 					if (itemToCopy->isBookmark)
 						AddBookMark(Neu);
@@ -6408,19 +6415,19 @@ void ScribusApp::CopyPage()
 				{
 					PageItem* ta = TableItems.at(ttc);
 					if (ta->TopLinkID != -1)
-						ta->TopLink = doc->Items.at(TableID[ta->TopLinkID]);
+						ta->TopLink = doc->Items->at(TableID[ta->TopLinkID]);
 					else
 						ta->TopLink = 0;
 					if (ta->LeftLinkID != -1)
-						ta->LeftLink = doc->Items.at(TableID[ta->LeftLinkID]);
+						ta->LeftLink = doc->Items->at(TableID[ta->LeftLinkID]);
 					else
 						ta->LeftLink = 0;
 					if (ta->RightLinkID != -1)
-						ta->RightLink = doc->Items.at(TableID[ta->RightLinkID]);
+						ta->RightLink = doc->Items->at(TableID[ta->RightLinkID]);
 					else
 						ta->RightLink = 0;
 					if (ta->BottomLinkID != -1)
-						ta->BottomLink = doc->Items.at(TableID[ta->BottomLinkID]);
+						ta->BottomLink = doc->Items->at(TableID[ta->BottomLinkID]);
 					else
 						ta->BottomLink = 0;
 				}
@@ -6680,10 +6687,12 @@ void ScribusApp::slotEditLineStyles()
 
 void ScribusApp::saveLStyles(LineFormate *dia)
 {
+	/*
 	if (doc->masterPageMode())
 		doc->MasterItems = doc->Items;
 	else
 		doc->DocItems = doc->Items;
+	*/
 	PageItem* ite;
 	doc->MLineStyles = dia->TempStyles;
 	for (uint d = 0; d < doc->DocItems.count(); ++d)
@@ -6744,10 +6753,12 @@ void ScribusApp::saveStyles(StilFormate *dia)
 	ers.append(2);
 	ers.append(3);
 	ers.append(4);
+	/*
 	if (doc->masterPageMode())
 		doc->MasterItems = doc->Items;
 	else
 		doc->DocItems = doc->Items;
+	*/
 	for (uint a=5; a<doc->docParagraphStyles.count(); ++a)
 	{
 		ff = false;
@@ -6864,7 +6875,7 @@ void ScribusApp::saveStyles(StilFormate *dia)
 				counter = doc->MasterItems.count();
 				break;
 			case 1:
-				counter = doc->Items.count();
+				counter = doc->DocItems.count();
 				break;
 			case 2:
 				counter = doc->FrameItems.count();
@@ -6878,7 +6889,7 @@ void ScribusApp::saveStyles(StilFormate *dia)
 					ite = doc->MasterItems.at(d);
 					break;
 				case 1:
-					ite = doc->Items.at(d);
+					ite = doc->DocItems.at(d);
 					break;
 				case 2:
 					ite = doc->FrameItems.at(d);

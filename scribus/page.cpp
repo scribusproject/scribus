@@ -279,12 +279,14 @@ void Page::restorePageItemCreation(ItemState<PageItem*> *state, bool isUndo)
 	}
 	else
 	{
-		ScApp->doc->Items.append(ite);
+		ScApp->doc->Items->append(ite);
+		/*
 		if (ScApp->doc->masterPageMode())
 			ScApp->doc->MasterItems = ScApp->doc->Items;
 		else
 			ScApp->doc->DocItems = ScApp->doc->Items;
-		ite->ItemNr = ScApp->doc->Items.count()-1;
+		*/
+		ite->ItemNr = ScApp->doc->Items->count()-1;
 	}
 }
 
@@ -295,12 +297,14 @@ void Page::restorePageItemDeletion(ItemState<PageItem*> *state, bool isUndo)
 	PageItem *ite = state->getItem();
 	if (isUndo)
 	{
-		ScApp->doc->Items.append(ite);
+		ScApp->doc->Items->append(ite);
+		/*
 		if (ScApp->doc->masterPageMode())
 			ScApp->doc->MasterItems = ScApp->doc->Items;
 		else
 			ScApp->doc->DocItems = ScApp->doc->Items;
-		ite->ItemNr = ScApp->doc->Items.count()-1;
+		*/
+		ite->ItemNr = ScApp->doc->Items->count()-1;
 	}
 	else
 	{
@@ -320,22 +324,24 @@ void Page::restorePageItemConversion(ItemState<std::pair<PageItem*, PageItem*> >
 	PageItem *newItem=state->getItem().second;
 	if (isUndo)
 	{
-		ScApp->doc->Items.take(newItem->ItemNr);
-		ScApp->doc->Items.append(oldItem);
-		oldItem->ItemNr = ScApp->doc->Items.count()-1;
+		ScApp->doc->Items->take(newItem->ItemNr);
+		ScApp->doc->Items->append(oldItem);
+		oldItem->ItemNr = ScApp->doc->Items->count()-1;
 		oldItem->UpdatePolyClip();
 		ScApp->view->AdjustItemSize(oldItem);
 	}
 	else
 	{
-		ScApp->doc->Items.take(oldItem->ItemNr);
-		ScApp->doc->Items.append(newItem);
-		newItem->ItemNr = ScApp->doc->Items.count()-1;
+		ScApp->doc->Items->take(oldItem->ItemNr);
+		ScApp->doc->Items->append(newItem);
+		newItem->ItemNr = ScApp->doc->Items->count()-1;
 	}
+	/*
 	if (ScApp->doc->masterPageMode())
 		ScApp->doc->MasterItems = ScApp->doc->Items;
 	else
 		ScApp->doc->DocItems = ScApp->doc->Items;
+	*/
 }
 
 const double Page::xOffset()

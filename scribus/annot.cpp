@@ -1101,9 +1101,9 @@ void Annot::NewName()
 		return;
 	}
 	bool found = false;
-	for (uint b = 0; b < view->Doc->Items.count(); ++b)
+	for (uint b = 0; b < view->Doc->Items->count(); ++b)
 	{
-		if ((NameNew == view->Doc->Items.at(b)->itemName()) && (view->Doc->Items.at(b) != item))
+		if ((NameNew == view->Doc->Items->at(b)->itemName()) && (view->Doc->Items->at(b) != item))
 		{
 			found = true;
 			break;

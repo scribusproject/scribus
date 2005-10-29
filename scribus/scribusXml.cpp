@@ -1022,7 +1022,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 				else
 					doc->Pages->at(a)->XGuides.clear();
 				QDomNode OBJ=PAGE.firstChild();
-				counter = doc->Items.count();
+				counter = doc->Items->count();
 				baseobj = counter;
 				while(!OBJ.isNull())
 				{
@@ -1094,7 +1094,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 					}
 					OB.itemText = "";
 					view->PasteItem(&OB, true);
-					Neu = doc->Items.at(counter);
+					Neu = doc->Items->at(counter);
 					IT=OBJ.firstChild();
 					while(!IT.isNull())
 					{
@@ -1124,19 +1124,19 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 					{
 						PageItem* ta = TableItems.at(ttc);
 						if (ta->TopLinkID != -1)
-							ta->TopLink = doc->Items.at(TableID[ta->TopLinkID]);
+							ta->TopLink = doc->Items->at(TableID[ta->TopLinkID]);
 						else
 							ta->TopLink = 0;
 						if (ta->LeftLinkID != -1)
-							ta->LeftLink = doc->Items.at(TableID[ta->LeftLinkID]);
+							ta->LeftLink = doc->Items->at(TableID[ta->LeftLinkID]);
 						else
 							ta->LeftLink = 0;
 						if (ta->RightLinkID != -1)
-							ta->RightLink = doc->Items.at(TableID[ta->RightLinkID]);
+							ta->RightLink = doc->Items->at(TableID[ta->RightLinkID]);
 						else
 							ta->RightLink = 0;
 						if (ta->BottomLinkID != -1)
-							ta->BottomLink = doc->Items.at(TableID[ta->BottomLinkID]);
+							ta->BottomLink = doc->Items->at(TableID[ta->BottomLinkID]);
 						else
 							ta->BottomLink = 0;
 					}
@@ -1149,14 +1149,14 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 					QValueList<Linked>::Iterator lc;
 					for (lc = LFrames.begin(); lc != LFrames.end(); ++lc)
 					{
-						Its = doc->Items.at((*lc).Start);
+						Its = doc->Items->at((*lc).Start);
 						Itr = Its;
 						Its->BackBox = 0;
 						while (Its->NextIt != -1)
 						{
 							if (Its->NextPg == a)
 							{
-								Itn = doc->Items.at(Its->NextIt);
+								Itn = doc->Items->at(Its->NextIt);
 								Its->NextBox = Itn;
 								Itn->BackBox = Its;
 								Its = Itn;
@@ -1477,7 +1477,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 					//doc->Pages = &doc->DocPages;
 					doc->setUsesAutomaticTextFrames(AtFl);
 					doc->setMasterPageMode(false);
-					doc->Items = doc->DocItems;
+					//doc->Items = doc->DocItems;
 				}
 				else
 				{
@@ -1485,7 +1485,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 					doc->setUsesAutomaticTextFrames(false);
 					//doc->Pages = &doc->MasterPages;
 					doc->setMasterPageMode(true);
-					doc->Items = doc->MasterItems;
+					//doc->Items = doc->MasterItems;
 				}
 				//CB: Remove this unnecessarily "slow" slot call when we have no gui for the doc yet!
 				//Items dont appear in the right place if we just doc->addPage(a); for <=1.2.x docs
@@ -1613,10 +1613,10 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 					OB.itemText = "";
 					int docGc = doc->GroupCounter;
 					doc->GroupCounter = 0;
-					uint last = doc->Items.count();
+					uint last = doc->Items->count();
 					view->PasteItem(&OB, true);
 					doc->GroupCounter = docGc;
-					Neu = doc->Items.at(last);
+					Neu = doc->Items->at(last);
 					Neu->OnMasterPage = PgNam;
 					IT=OBJ.firstChild();
 					while(!IT.isNull())
@@ -1645,19 +1645,19 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 					{
 						PageItem* ta = TableItems.at(ttc);
 						if (ta->TopLinkID != -1)
-							ta->TopLink = doc->Items.at(TableID[ta->TopLinkID]);
+							ta->TopLink = doc->Items->at(TableID[ta->TopLinkID]);
 						else
 							ta->TopLink = 0;
 						if (ta->LeftLinkID != -1)
-							ta->LeftLink = doc->Items.at(TableID[ta->LeftLinkID]);
+							ta->LeftLink = doc->Items->at(TableID[ta->LeftLinkID]);
 						else
 							ta->LeftLink = 0;
 						if (ta->RightLinkID != -1)
-							ta->RightLink = doc->Items.at(TableID[ta->RightLinkID]);
+							ta->RightLink = doc->Items->at(TableID[ta->RightLinkID]);
 						else
 							ta->RightLink = 0;
 						if (ta->BottomLinkID != -1)
-							ta->BottomLink = doc->Items.at(TableID[ta->BottomLinkID]);
+							ta->BottomLink = doc->Items->at(TableID[ta->BottomLinkID]);
 						else
 							ta->BottomLink = 0;
 					}
@@ -1665,14 +1665,14 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				if (PgNam.isEmpty())
 				{
 					//doc->DocPages = doc->Pages;
-					doc->DocItems = doc->Items;
+					//doc->DocItems = doc->Items;
 				}
 				else
 				{
 					doc->Pages->at(a)->setPageName(PgNam);
 					doc->MasterNames[PgNam] = a;
 					//doc->MasterPages = doc->Pages;
-					doc->MasterItems = doc->Items;
+					//doc->MasterItems = doc->Items;
 				}
 				doc->setMasterPageMode(false);
 				//doc->Pages=&doc->DocPages;
@@ -1777,7 +1777,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 	}
 	//doc->Pages = &doc->DocPages;
 	doc->pageCount = doc->Pages->count();
-	doc->Items = doc->DocItems;
+	//doc->Items = doc->DocItems;
 	doc->setMasterPageMode(false);
 	view->reformPages();
 	if (doc->layerCount() == 0)
@@ -1797,7 +1797,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 		QValueList<Linked>::Iterator lc;
 		for (lc = LFrames.begin(); lc != LFrames.end(); ++lc)
 		{
-			Its = doc->Items.at((*lc).Start);
+			Its = doc->Items->at((*lc).Start);
 			Itr = Its;
 			Its->BackBox = 0;
 			if (Its->isAutoText)
@@ -1805,9 +1805,9 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 			while (Its->NextIt != -1)
 			{
 				int itnr = 0;
-				for (uint nn = 0; nn < doc->Items.count(); ++nn)
+				for (uint nn = 0; nn < doc->Items->count(); ++nn)
 				{
-					if (doc->Items.at(nn)->OwnPage == Its->NextPg)
+					if (doc->Items->at(nn)->OwnPage == Its->NextPg)
 					{
 						if (itnr == Its->NextIt)
 						{
@@ -1817,7 +1817,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 						itnr++;
 					}
 				}
-				Itn = doc->Items.at(itnr);
+				Itn = doc->Items->at(itnr);
 				Its->NextBox = Itn;
 				Itn->BackBox = Its;
 				Its = Itn;
@@ -2098,7 +2098,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 			OB.itemText = "";
 			OB.LayerNr = -1;
 			view->PasteItem(&OB, true, true);
-			PageItem* Neu = doc->Items.at(doc->Items.count()-1);
+			PageItem* Neu = doc->Items->at(doc->Items->count()-1);
 			IT=DOC.firstChild();
 			while(!IT.isNull())
 			{
@@ -2121,19 +2121,19 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 		{
 			PageItem* ta = TableItems.at(ttc);
 			if (ta->TopLinkID != -1)
-				ta->TopLink = doc->Items.at(TableID[ta->TopLinkID]);
+				ta->TopLink = doc->Items->at(TableID[ta->TopLinkID]);
 			else
 				ta->TopLink = 0;
 			if (ta->LeftLinkID != -1)
-				ta->LeftLink = doc->Items.at(TableID[ta->LeftLinkID]);
+				ta->LeftLink = doc->Items->at(TableID[ta->LeftLinkID]);
 			else
 				ta->LeftLink = 0;
 			if (ta->RightLinkID != -1)
-				ta->RightLink = doc->Items.at(TableID[ta->RightLinkID]);
+				ta->RightLink = doc->Items->at(TableID[ta->RightLinkID]);
 			else
 				ta->RightLink = 0;
 			if (ta->BottomLinkID != -1)
-				ta->BottomLink = doc->Items.at(TableID[ta->BottomLinkID]);
+				ta->BottomLink = doc->Items->at(TableID[ta->BottomLinkID]);
 			else
 				ta->BottomLink = 0;
 		}
@@ -2202,7 +2202,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 	{
 		for (uint co=0; co<Selitems->count(); ++co)
 		{
-			item = doc->Items.at(ELL[co]);
+			item = doc->Items->at(ELL[co]);
 			if (item->textAlignment > 4)
 			{
 				vg.Vname = doc->docParagraphStyles[item->textAlignment].Vname;
@@ -2360,7 +2360,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 	struct ArrowDesc arrow;
 	for (uint co=0; co<Selitems->count(); ++co)
 	{
-		item = doc->Items.at(ELL[co]);
+		item = doc->Items->at(ELL[co]);
 		if (item->startArrowIndex != 0)
 		{
 			arrow.points = (*doc->arrowStyles.at(item->startArrowIndex-1)).points.copy();
@@ -2400,7 +2400,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 	{
 		QString CurDirP = QDir::currentDirPath();
 		QDir::setCurrent(QDir::homeDirPath());
-		item = doc->Items.at(ELL[co]);
+		item = doc->Items->at(ELL[co]);
 		QDomElement ob=docu.createElement("ITEM");
 		if (item->textAlignment > 4)
 			ob.setAttribute("ALIGN",UsedMapped2Saved[item->textAlignment]);

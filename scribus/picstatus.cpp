@@ -94,9 +94,9 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi) :
 			ItemNrs.append(i);
 		}
 	}
-	for (i=0; i<doc->Items.count(); ++i)
+	for (i=0; i<doc->Items->count(); ++i)
 	{
-		if (doc->Items.at(i)->itemType() == PageItem::ImageFrame)
+		if (doc->Items->at(i)->itemType() == PageItem::ImageFrame)
 		{
 			Zeilen++;
 			ItemNrs.append(i);
@@ -138,14 +138,14 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi) :
 			Zeilen2++;
 		}
 	}
-	for (i=0; i< doc->Items.count(); ++i)
+	for (i=0; i< doc->Items->count(); ++i)
 	{
-		if (doc->Items.at(i)->itemType() == PageItem::ImageFrame)
+		if (doc->Items->at(i)->itemType() == PageItem::ImageFrame)
 		{
-			QFileInfo fi = QFileInfo(doc->Items.at(i)->Pfile);
+			QFileInfo fi = QFileInfo(doc->Items->at(i)->Pfile);
 			PicTable->setText(Zeilen2, COL_FILENAME, fi.fileName());
 			PicTable->setText(Zeilen2, COL_PATH, fi.dirPath());
-			p = doc->Items.at(i)->OwnPage;
+			p = doc->Items->at(i)->OwnPage;
 			PicTable->setText(Zeilen2, COL_PAGE, tmp.setNum(p+1));
 			QToolButton *tb2 = new QToolButton(this, tmp.setNum(Zeilen2));
 			tb2->setText( trGoto);
@@ -155,12 +155,12 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi) :
 			connect(tb2, SIGNAL(clicked()), this, SLOT(GotoPic()));
 			QCheckBox *cp2 = new QCheckBox(this, tmp.setNum(Zeilen2));
 			cp2->setText( tr("Yes"));
-			cp2->setChecked(doc->Items.at(i)->printable());
+			cp2->setChecked(doc->Items->at(i)->printable());
 			cp2->setEraseColor(white);
 			FlagsPic.append(cp2);
 			PicTable->setCellWidget(Zeilen2, COL_PRINT, cp2);
 			connect(cp2, SIGNAL(clicked()), this, SLOT(PrintPic()));
-			if (doc->Items.at(i)->PicAvail)
+			if (doc->Items->at(i)->PicAvail)
 				PicTable->setText(Zeilen2, COL_STATUS, trOK);
 			else
 				PicTable->setText(Zeilen2, COL_STATUS, trMissing);
@@ -315,7 +315,7 @@ bool PicStatus::loadPictByRow(const QString & newFilePath, unsigned int row)
 	doc->LoadPict(newFilePath, itemNumber);
 	// WTF?
 	bool isMaster = PicTable->cellWidget(row, COL_GOTO)->isEnabled();
-	PageItem* item = isMaster ? doc->Items.at(itemNumber) : doc->MasterItems.at(itemNumber);
+	PageItem* item = isMaster ? doc->DocItems.at(itemNumber) : doc->MasterItems.at(itemNumber);
 	// Set missing flag again. Since we do no error checking of the load,
 	// missing will generally mean "failed to load".
 	PicTable->setText(row, COL_STATUS, item->PicAvail ? trOK : trMissing);
@@ -374,7 +374,7 @@ void PicStatus::PrintPic()
 	uint ItNr = ItemNrs[ZNr];
 //	uint PgNr = PicTable->text(ZNr, 2).toInt()-1;
 	if (PicTable->cellWidget(ZNr, 3)->isEnabled())
-		doc->Items.at(ItNr)->setPrintable(FlagsPic.at(ZNr)->isChecked());
+		doc->DocItems.at(ItNr)->setPrintable(FlagsPic.at(ZNr)->isChecked());
 	else
 		doc->MasterItems.at(ItNr)->setPrintable(FlagsPic.at(ZNr)->isChecked());
 }

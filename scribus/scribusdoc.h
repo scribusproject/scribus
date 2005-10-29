@@ -436,7 +436,7 @@ public: // Public attributes
   /** Mapping Master Page Name to Master Page numbers */
 	QMap<QString,int> MasterNames;
   /** List of Objects */
-	QPtrList<PageItem> Items;
+	QPtrList<PageItem>* Items;
 	QPtrList<PageItem> MasterItems;
 	QPtrList<PageItem> DocItems;
 	QPtrList<PageItem> FrameItems;

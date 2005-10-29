@@ -560,9 +560,9 @@ bool PDFlib::PDF_Begin_Doc(QString fn, PDFOptions *opts, SCFonts &AllFonts, QMap
 			}
 		}
 	}
-	for (uint d = 0; d < doc->Items.count(); ++d)
+	for (uint d = 0; d < doc->Items->count(); ++d)
 	{
-		pgit = doc->Items.at(d);
+		pgit = doc->Items->at(d);
 		if ((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText))
 		{
 			for (uint e = 0; e < pgit->itemText.count(); ++e)
@@ -1905,7 +1905,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 		if (!pag->PageNam.isEmpty())
 			PItems = doc->MasterItems;
 		else
-			PItems = doc->Items;
+			PItems = doc->DocItems;
 		if (ll.isPrintable)
 		{
 			if ((Options->Version == 15) && (Options->useLayers))
@@ -4833,9 +4833,9 @@ void PDFlib::PDF_End_Doc(QString PrintPr, QString Name, int Components)
 	Threads.clear();
 	if (Options->Articles)
 	{
-		for (uint ele = 0; ele < doc->Items.count(); ++ele)
+		for (uint ele = 0; ele < doc->Items->count(); ++ele)
 		{
-			PageItem* tel = doc->Items.at(ele);
+			PageItem* tel = doc->Items->at(ele);
 			if ((tel->asTextFrame()) && (tel->BackBox == 0) && (tel->NextBox != 0) &&
 					(!tel->Redrawn))
 			{
@@ -4897,8 +4897,8 @@ void PDFlib::PDF_End_Doc(QString PrintPr, QString Name, int Components)
 				}
 			}
 		}
-		for (uint ele = 0; ele < doc->Items.count(); ++ele)
-			doc->Items.at(ele)->Redrawn = false;
+		for (uint ele = 0; ele < doc->Items->count(); ++ele)
+			doc->Items->at(ele)->Redrawn = false;
 	}
 	XRef[7] = Dokument;
 	PutDoc("8 0 obj\n[");

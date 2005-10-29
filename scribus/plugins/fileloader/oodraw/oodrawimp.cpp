@@ -526,7 +526,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			h = parseUnit(b.attribute("svg:height"));
 			double corner = parseUnit(b.attribute("draw:corner-radius"));
 			z = Doku->itemAdd(PageItem::Polygon, PageItem::Rectangle, BaseX+x, BaseY+y, w, h, lwidth, FillColor, StrokeColor, !ScApp->view->Mpressed);
-			PageItem* ite = Doku->Items.at(z);
+			PageItem* ite = Doku->Items->at(z);
 			if (corner != 0)
 			{
 				ite->RadRect = corner;
@@ -549,7 +549,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			double x2 = b.attribute( "svg:x2" ).isEmpty() ? 0.0 : parseUnit( b.attribute( "svg:x2" ) );
 			double y2 = b.attribute( "svg:y2" ).isEmpty() ? 0.0 : parseUnit( b.attribute( "svg:y2" ) );
 			z = Doku->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lwidth, "None", StrokeColor, !ScApp->view->Mpressed);
-			PageItem* ite = Doku->Items.at(z);
+			PageItem* ite = Doku->Items->at(z);
 			ite->PoLine.resize(4);
 			ite->PoLine.setPoint(0, FPoint(x1, y1));
 			ite->PoLine.setPoint(1, FPoint(x1, y1));
@@ -569,7 +569,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 		else if ( STag == "draw:polygon" )
 		{
 			z = Doku->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lwidth, FillColor, StrokeColor, !ScApp->view->Mpressed);
-			PageItem* ite = Doku->Items.at(z);
+			PageItem* ite = Doku->Items->at(z);
 			ite->PoLine.resize(0);
 			appendPoints(&ite->PoLine, b);
 			FPoint wh = getMaxClipF(&ite->PoLine);
@@ -586,7 +586,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 		else if( STag == "draw:polyline" )
 		{
 			z = Doku->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, lwidth, "None", StrokeColor, !ScApp->view->Mpressed);
-			PageItem* ite = Doku->Items.at(z);
+			PageItem* ite = Doku->Items->at(z);
 			ite->PoLine.resize(0);
 			appendPoints(&ite->PoLine, b);
 			FPoint wh = getMaxClipF(&ite->PoLine);
@@ -603,7 +603,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 		else if( STag == "draw:path" )
 		{
 			z = Doku->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lwidth, FillColor, StrokeColor, !ScApp->view->Mpressed);
-			PageItem* ite = Doku->Items.at(z);
+			PageItem* ite = Doku->Items->at(z);
 			ite->PoLine.resize(0);
 			if (parseSVG( b.attribute( "svg:d" ), &ite->PoLine ))
 				ite->convertTo(PageItem::PolyLine);
@@ -655,7 +655,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 		}
 		if (z != -1)
 		{
-			PageItem* ite = Doku->Items.at(z);
+			PageItem* ite = Doku->Items->at(z);
 			ite->Extra = 0;
 			ite->TExtra = 0;
 			ite->BExtra = 0;

@@ -199,37 +199,37 @@ PyObject *scribus_getallobj(PyObject* /* self */, PyObject* args)
 	// have doc already
 	if (typ != -1)
 	{
-		for (uint lam2 = 0; lam2 < ScApp->doc->Items.count(); ++lam2)
+		for (uint lam2 = 0; lam2 < ScApp->doc->Items->count(); ++lam2)
 		{
-			if ((ScApp->doc->Items.at(lam2)->itemType() == typ) && (pageNr == ScApp->doc->Items.at(lam2)->OwnPage))
+			if ((ScApp->doc->Items->at(lam2)->itemType() == typ) && (pageNr == ScApp->doc->Items->at(lam2)->OwnPage))
 				counter++;
 		}
 	}
 	else
 	{
-		for (uint lam2 = 0; lam2 < ScApp->doc->Items.count(); ++lam2)
+		for (uint lam2 = 0; lam2 < ScApp->doc->Items->count(); ++lam2)
 		{
-			if (pageNr == ScApp->doc->Items.at(lam2)->OwnPage)
+			if (pageNr == ScApp->doc->Items->at(lam2)->OwnPage)
 				counter++;
 		}
 	}
 
 	l = PyList_New(counter);
-	for (uint lam=0; lam < ScApp->doc->Items.count(); ++lam)
+	for (uint lam=0; lam < ScApp->doc->Items->count(); ++lam)
 	{
-		if  (pageNr == ScApp->doc->Items.at(lam)->OwnPage)
+		if  (pageNr == ScApp->doc->Items->at(lam)->OwnPage)
 		{
 			if (typ != -1)
 			{
-				if (ScApp->doc->Items.at(lam)->itemType() == typ)
+				if (ScApp->doc->Items->at(lam)->itemType() == typ)
 				{
-					PyList_SetItem(l, counter2, PyString_FromString(ScApp->doc->Items.at(lam)->itemName().utf8()));
+					PyList_SetItem(l, counter2, PyString_FromString(ScApp->doc->Items->at(lam)->itemName().utf8()));
 					counter2++;
 				}
 			}
 			else
 			{
-				PyList_SetItem(l, counter2, PyString_FromString(ScApp->doc->Items.at(lam)->itemName().utf8()));
+				PyList_SetItem(l, counter2, PyString_FromString(ScApp->doc->Items->at(lam)->itemName().utf8()));
 				counter2++;
 			}
 		}

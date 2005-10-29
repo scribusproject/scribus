@@ -410,7 +410,7 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 	if (elem.hasAttribute("Version"))
 		newVersion = true;
 	QDomNode DOC=elem.firstChild();
-	counter = doc->Items.count();
+	counter = doc->Items->count();
 	baseobj = counter;
 	while(!DOC.isNull())
 	{
@@ -599,7 +599,7 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 					if (QStoInt(pg.attribute("NEXTITEM")) != -1)
 					{
 						if (QStoInt(pg.attribute("BACKITEM")) == -1)
-							LFrames.append(doc->Items.count());
+							LFrames.append(doc->Items->count());
 					}
 					int docGc = doc->GroupCounter;
 					doc->GroupCounter = 0;
@@ -704,7 +704,7 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 					}
 					if (pg.tagName()=="FRAMEOBJECT")
 					{
-						doc->FrameItems.append(doc->Items.take(Neu->ItemNr));
+						doc->FrameItems.append(doc->Items->take(Neu->ItemNr));
 						Neu->ItemNr = doc->FrameItems.count()-1;
 					}
 				}
@@ -720,19 +720,19 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 		{
 			PageItem* ta = TableItems.at(ttc);
 			if (ta->TopLinkID != -1)
-				ta->TopLink = doc->Items.at(TableID[ta->TopLinkID]);
+				ta->TopLink = doc->Items->at(TableID[ta->TopLinkID]);
 			else
 				ta->TopLink = 0;
 			if (ta->LeftLinkID != -1)
-				ta->LeftLink = doc->Items.at(TableID[ta->LeftLinkID]);
+				ta->LeftLink = doc->Items->at(TableID[ta->LeftLinkID]);
 			else
 				ta->LeftLink = 0;
 			if (ta->RightLinkID != -1)
-				ta->RightLink = doc->Items.at(TableID[ta->RightLinkID]);
+				ta->RightLink = doc->Items->at(TableID[ta->RightLinkID]);
 			else
 				ta->RightLink = 0;
 			if (ta->BottomLinkID != -1)
-				ta->BottomLink = doc->Items.at(TableID[ta->BottomLinkID]);
+				ta->BottomLink = doc->Items->at(TableID[ta->BottomLinkID]);
 			else
 				ta->BottomLink = 0;
 		}
@@ -745,14 +745,14 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 		QValueList<int>::Iterator lc;
 		for (lc = LFrames.begin(); lc != LFrames.end(); ++lc)
 		{
-			Its = doc->Items.at((*lc));
+			Its = doc->Items->at((*lc));
 			Itr = Its;
 			Its->BackBox = 0;
 			while (Its->NextIt != -1)
 			{
-				if (Its->NextIt < static_cast<int>(doc->Items.count()))
+				if (Its->NextIt < static_cast<int>(doc->Items->count()))
 				{
-					Itn = doc->Items.at(Its->NextIt);
+					Itn = doc->Items->at(Its->NextIt);
 					Its->NextBox = Itn;
 					Itn->BackBox = Its;
 					Its = Itn;
@@ -1464,13 +1464,13 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 			{
 					if ((pg.tagName()=="PAGEOBJECT") || (pg.tagName()=="FRAMEOBJECT"))
 					{
-						doc->Items = doc->DocItems;
+						//doc->Items = doc->DocItems;
 						//doc->Pages = &doc->DocPages;
 						doc->setMasterPageMode(false);
 					}
 					else
 					{
-						doc->Items = doc->MasterItems;
+						//doc->Items = doc->MasterItems;
 						//doc->Pages = &doc->MasterPages;
 						doc->setMasterPageMode(true);
 					}
@@ -1479,7 +1479,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 					if ((QStoInt(pg.attribute("NEXTITEM")) != -1) || (static_cast<bool>(QStoInt(pg.attribute("AUTOTEXT")))))
 					{
 						if (QStoInt(pg.attribute("BACKITEM")) == -1)
-							LFrames.append(doc->Items.count());
+							LFrames.append(doc->Items->count());
 					}
 					int docGc = doc->GroupCounter;
 					doc->GroupCounter = 0;
@@ -1581,19 +1581,21 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 					}
 					if (pg.tagName()=="FRAMEOBJECT")
 					{
-						doc->FrameItems.append(doc->Items.take(Neu->ItemNr));
+						doc->FrameItems.append(doc->Items->take(Neu->ItemNr));
 						Neu->ItemNr = doc->FrameItems.count()-1;
 					}
+					/*
 					if ((pg.tagName()=="PAGEOBJECT") || (pg.tagName()=="FRAMEOBJECT"))
 					{
-						doc->DocItems = doc->Items;
+						//doc->DocItems = doc->Items;
 						//doc->DocPages = doc->Pages;
 					}
 					else
 					{
-						doc->MasterItems = doc->Items;
+						//doc->MasterItems = doc->Items;
 						//doc->MasterPages = doc->Pages;
 					}
+					*/
 					doc->setMasterPageMode(false);
 					//doc->Pages=&doc->DocPages;
 					counter++;
@@ -1608,19 +1610,19 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 		{
 			PageItem* ta = TableItems.at(ttc);
 			if (ta->TopLinkID != -1)
-				ta->TopLink = doc->Items.at(TableID[ta->TopLinkID]);
+				ta->TopLink = doc->Items->at(TableID[ta->TopLinkID]);
 			else
 				ta->TopLink = 0;
 			if (ta->LeftLinkID != -1)
-				ta->LeftLink = doc->Items.at(TableID[ta->LeftLinkID]);
+				ta->LeftLink = doc->Items->at(TableID[ta->LeftLinkID]);
 			else
 				ta->LeftLink = 0;
 			if (ta->RightLinkID != -1)
-				ta->RightLink = doc->Items.at(TableID[ta->RightLinkID]);
+				ta->RightLink = doc->Items->at(TableID[ta->RightLinkID]);
 			else
 				ta->RightLink = 0;
 			if (ta->BottomLinkID != -1)
-				ta->BottomLink = doc->Items.at(TableID[ta->BottomLinkID]);
+				ta->BottomLink = doc->Items->at(TableID[ta->BottomLinkID]);
 			else
 				ta->BottomLink = 0;
 		}
@@ -1628,7 +1630,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 	//doc->Pages = &doc->DocPages;
 	doc->setMasterPageMode(false);
 	doc->pageCount = doc->Pages->count();
-	doc->Items = doc->DocItems;
+	//doc->Items = doc->DocItems;
 	//ScApp->view->reformPages();
 	doc->reformPages(maximumX, maximumY);
 	if (doc->Layers.count() == 0)
@@ -1648,14 +1650,14 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 		QValueList<int>::Iterator lc;
 		for (lc = LFrames.begin(); lc != LFrames.end(); ++lc)
 		{
-			Its = doc->Items.at((*lc));
+			Its = doc->Items->at((*lc));
 			Itr = Its;
 			Its->BackBox = 0;
 			if (Its->isAutoText)
 				doc->FirstAuto = Its;
 			while (Its->NextIt != -1)
 			{
-				Itn = doc->Items.at(Its->NextIt);
+				Itn = doc->Items->at(Its->NextIt);
 				Its->NextBox = Itn;
 				Itn->BackBox = Its;
 				Its = Itn;
@@ -1819,12 +1821,12 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	// OBSOLETE CR 2005-02-06
 	case PageItem::ItemType1:
 		z = doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, x, y, w, h, pw, Pcolor, Pcolor2, true);
-		currItem = doc->Items.at(z);
+		currItem = doc->Items->at(z);
 		break;
 	//
 	case PageItem::ImageFrame:
 		z = doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, x, y, w, h, 1, doc->toolSettings.dBrushPict, "None", true);
-		currItem = doc->Items.at(z);
+		currItem = doc->Items->at(z);
 		currItem->LocalScX = scx;
 		currItem->LocalScY = scy;
 		currItem->LocalX = QStodouble(obj->attribute("LOCALX"));
@@ -1876,12 +1878,12 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	// OBSOLETE CR 2005-02-06
 	case PageItem::ItemType3:
 		z = doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, x, y, w, h, pw, Pcolor, Pcolor2, true);
-		currItem = doc->Items.at(z);
+		currItem = doc->Items->at(z);
 		break;
 	//
 	case PageItem::PathText:
 		z = doc->itemAdd(PageItem::PathText, PageItem::Unspecified, x, y, w, h, pw, "None", Pcolor, true);
-		currItem = doc->Items.at(z);
+		currItem = doc->Items->at(z);
 		if ((QStoInt(obj->attribute("ANNOTATION","0"))) && (static_cast<bool>(QStoInt(obj->attribute("ANICON","0")))))
 		{
 			currItem->LocalScX = scx;
@@ -1910,7 +1912,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 		break;
 	case PageItem::TextFrame:
 		z = doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y, w, h, pw, "None", Pcolor, true);
-		currItem = doc->Items.at(z);
+		currItem = doc->Items->at(z);
 		if ((QStoInt(obj->attribute("ANNOTATION","0"))) && (static_cast<bool>(QStoInt(obj->attribute("ANICON","0")))))
 		{
 			currItem->LocalScX = scx;
@@ -1939,15 +1941,15 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 		break;
 	case PageItem::Line:
 		z = doc->itemAdd(PageItem::Line, PageItem::Unspecified, x, y, w, h, pw, "None", Pcolor2, true);
-		currItem = doc->Items.at(z);
+		currItem = doc->Items->at(z);
 		break;
 	case PageItem::Polygon:
 		z = doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, x, y, w, h, pw, Pcolor, Pcolor2, true);
-		currItem = doc->Items.at(z);
+		currItem = doc->Items->at(z);
 		break;
 	case PageItem::PolyLine:
 		z = doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, x, y, w, h, pw, Pcolor, Pcolor2, true);
-		currItem = doc->Items.at(z);
+		currItem = doc->Items->at(z);
 		break;
 	}
 	currItem->FrameType = QStoInt(obj->attribute("FRTYPE", "0"));

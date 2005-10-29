@@ -22,9 +22,9 @@ SelectFields::SelectFields( QWidget* parent, QString Felder, QString Own, Scribu
 	Layout1->addWidget( Text1 );
 	AvailFields = new QListBox( this, "AvailFields" );
 	AvailFields->setMinimumSize( QSize( 130, 180 ) );
-	for (uint se = 0; se < Doc->Items.count(); ++se)
+	for (uint se = 0; se < Doc->Items->count(); ++se)
 	{
-		PageItem* item = Doc->Items.at(se);
+		PageItem* item = Doc->Items->at(se);
 		if (Art < 2)
 		{
 			if ((item->isAnnotation) && (item->AnType > 1))

@@ -321,7 +321,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document"))
 	MasterPages.clear();
 	DocPages.clear();
 	//Pages=&DocPages;
-	Items.clear();
+	//Items.clear();
 	MasterItems.clear();
 	DocItems.clear();
 	FrameItems.clear();
@@ -2004,10 +2004,10 @@ void ScribusDoc::recalculateColors()
 	for (it = PageColors.begin(); it != itend; ++it)
 		PageColors[it.key()].RecalcRGB();
 	//Adjust Items of the 3 types to the colors
-	uint itemsCount=Items.count();
+	uint itemsCount=Items->count();
 	for (uint c=0; c<itemsCount; ++c)
 	{
-		PageItem *ite = Items.at(c);
+		PageItem *ite = Items->at(c);
 		if (ite->fillColor() != "None")
 			ite->fillQColor = PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
 		if (ite->lineColor() != "None")
@@ -2095,14 +2095,14 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 	/*
 	DocPages = Pages;
 	Pages = MasterPages;
-	*/
 	DocItems = Items;
 	Items = MasterItems;
+	*/
 	//masterPageMode = true;
-	MasterNames.insert(masterPageName, nr);
+	//MasterNames.insert(masterPageName, nr);
 	pageCount = 0;
-	bool atf = automaticTextFrames;
-	automaticTextFrames = false;
+	//bool atf = automaticTextFrames;
+	//automaticTextFrames = false;
 	//Note we are bypassing the view here, but things seem fine. The master page is offscreen anyway.
 	//ScApp->slotNewPage(nr);
 	//Page* targetPage = Pages->at(nr);	
@@ -2139,6 +2139,8 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 	}
 	struct CopyPasteBuffer BufferT;
 	uint end = DocItems.count();
+	//CB Need to set this so the paste works correctly. Should not need it really, but its a quick op.
+	setMasterPageMode(true); 
 	for (uint a = 0; a < end; ++a)
 	{
 		PageItem *itemToCopy = DocItems.at(a);
@@ -2161,8 +2163,9 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 				}
 			}
 			ScApp->view->PasteItem(&BufferT, true, true);
-			PageItem* Neu = Items.at(Items.count()-1);
+			PageItem* Neu = Items->at(Items->count()-1);
 			Neu->OnMasterPage = masterPageName;
+			Neu->OwnPage=MasterNames[masterPageName];
 			if (Neu->isTableItem)
 			{
 				TableItems.append(Neu);
@@ -2177,19 +2180,19 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 		{
 			PageItem* ta = TableItems.at(ttc);
 			if (ta->TopLinkID != -1)
-				ta->TopLink = Items.at(TableID[ta->TopLinkID]);
+				ta->TopLink = Items->at(TableID[ta->TopLinkID]);
 			else
 				ta->TopLink = 0;
 			if (ta->LeftLinkID != -1)
-				ta->LeftLink = Items.at(TableID[ta->LeftLinkID]);
+				ta->LeftLink = Items->at(TableID[ta->LeftLinkID]);
 			else
 				ta->LeftLink = 0;
 			if (ta->RightLinkID != -1)
-				ta->RightLink = Items.at(TableID[ta->RightLinkID]);
+				ta->RightLink = Items->at(TableID[ta->RightLinkID]);
 			else
 				ta->RightLink = 0;
 			if (ta->BottomLinkID != -1)
-				ta->BottomLink = Items.at(TableID[ta->BottomLinkID]);
+				ta->BottomLink = Items->at(TableID[ta->BottomLinkID]);
 			else
 				ta->BottomLink = 0;
 		}
@@ -2197,15 +2200,16 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 	//MasterPages = Pages;
 	//pageCount = DocPages.count();
 	//Pages = DocPages;
-	MasterItems = Items;
-	Items = DocItems;
+	//MasterItems = Items;
+	//Items = DocItems;
 	//masterPageMode = false;
 	//targetPage->setPageName(masterPageName);
 	targetPage->MPageNam = "";
-	automaticTextFrames = atf;
+	//automaticTextFrames = atf;
 	setLoading(false);
 	GroupCounter = GrMax + 1;
 	//Reset the current page.. 
+	setMasterPageMode(false);
 	currentPage=sourcePage;
 	return true;
 }
@@ -2261,12 +2265,14 @@ int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemF
 	Q_CHECK_PTR(newItem);	
 	if (newItem==NULL)
 		return -1;
-	Items.append(newItem);
-	newItem->ItemNr = Items.count()-1;	
+	Items->append(newItem);
+	newItem->ItemNr = Items->count()-1;	
+	/*
 	if (masterPageMode())
 		MasterItems = Items;
 	else
 		DocItems = Items;
+	*/
 	//Add in item default values based on itemType and frameType
 	itemAddDetails(itemType, frameType, newItem->ItemNr);
 	if (UndoManager::undoEnabled())
@@ -2293,7 +2299,7 @@ int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemF
 
 void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, const int itemNumber)
 {
-	PageItem* newItem=Items.at(itemNumber);
+	PageItem* newItem=Items->at(itemNumber);
 	Q_ASSERT(newItem->itemType()==itemType);
 	switch( itemType )
 	{
@@ -2407,7 +2413,7 @@ void ScribusDoc::setUsesAutomaticTextFrames(const bool atf)
 
 const bool ScribusDoc::LoadPict(QString fn, int ItNr, bool reload)
 {
-	return loadPict(fn, Items.at(ItNr), reload);
+	return loadPict(fn, Items->at(ItNr), reload);
 }
 
 const bool ScribusDoc::loadPict(QString fn, PageItem *pageItem, bool reload)
@@ -2442,10 +2448,10 @@ void ScribusDoc::canvasMinMax(FPoint& minPoint, FPoint& maxPoint)
 	double miny = 99999.9;
 	double maxx = -99999.9;
 	double maxy = -99999.9;
-	uint docItemsCount=Items.count();
+	uint docItemsCount=Items->count();
 	for (uint ic = 0; ic < docItemsCount; ++ic)
 	{
-		currItem = Items.at(ic);
+		currItem = Items->at(ic);
 		if (currItem->Rot != 0)
 		{
 			FPointArray pb;
@@ -2561,10 +2567,10 @@ void ScribusDoc::GroupOnPage(PageItem* currItem)
 	if (currItem->Groups.count() == 0)
 		return;
 	int ObjGroup = currItem->Groups.top();
-	uint docItemCount=Items.count();
+	uint docItemCount=Items->count();
 	for (uint a = 0; a < docItemCount; ++a)
 	{
-		item = Items.at(a);
+		item = Items->at(a);
 		if (item->Groups.top() == ObjGroup)
 			Objects.append(item);
 	}
@@ -2676,10 +2682,10 @@ void ScribusDoc::reformPages(double& maxX, double& maxY, bool moveObjects)
 	}
 	if (!isLoading())
 	{
-		uint docItemsCount=Items.count();
+		uint docItemsCount=Items->count();
 		for (uint ite = 0; ite < docItemsCount; ++ite)
 		{
-			PageItem *item = Items.at(ite);
+			PageItem *item = Items->at(ite);
 			if (item->OwnPage < 0)
 			{
 				if (item->Groups.count() != 0)
@@ -2735,7 +2741,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 	if (currItem->itemType()==PageItem::Line || newType==PageItem::Line)
 		return false;
 	//Take the item to convert from the docs Items list
-	PageItem *oldItem = Items.take(currItem->ItemNr);
+	PageItem *oldItem = Items->take(currItem->ItemNr);
 	//Create a new item from the old one
 	bool transactionConversion=false;	
 	PageItem *newItem;
@@ -2799,7 +2805,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 			if (oldItem->itemType()==PageItem::PathText)
 			{
 				uint newPolyItemNo = itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->Xpos, currItem->Ypos, currItem->Width, currItem->Height, currItem->Pwidth, "None", currItem->lineColor(), true);
-				PageItem *polyLineItem = Items.at(newPolyItemNo);
+				PageItem *polyLineItem = Items->at(newPolyItemNo);
 				polyLineItem->PoLine = currItem->PoLine.copy();
 				polyLineItem->ClipEdited = true;
 				polyLineItem->FrameType = 3;
@@ -2865,8 +2871,8 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 			break;
 	}
 	//Insert the new item into the docs items list
-	Items.append(newItem);
-	newItem->ItemNr = Items.count()-1;
+	Items->append(newItem);
+	newItem->ItemNr = Items->count()-1;
 	//If converting text to path, delete the bezier
 	if (newType==PageItem::PathText)
 	{
@@ -2876,12 +2882,14 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 		ScApp->view->updateContents();
 		ScApp->view->Deselect(true);
 	}
+	/*
 	//<<At some point we HAVE to stop this!
 	if (masterPageMode())
 		MasterItems = Items;
 	else
 		DocItems = Items;
 	//>>
+	*/
 	//Create the undo action for the new item
 	if (UndoManager::undoEnabled())
 	{
@@ -2911,10 +2919,10 @@ const int ScribusDoc::currentPageNumber()
 bool ScribusDoc::itemNameExists(const QString checkItemName)
 {
 	bool found = false;
-	uint docItemCount=Items.count();
+	uint docItemCount=Items->count();
 	for (uint i = 0; i < docItemCount; ++i)
 	{
-		if (checkItemName == Items.at(i)->itemName())
+		if (checkItemName == Items->at(i)->itemName())
 		{
 			found = true;
 			break;
@@ -2929,13 +2937,13 @@ void ScribusDoc::setMasterPageMode(const bool changeToMasterPageMode)
 		return;
 	if (changeToMasterPageMode)
 	{
-		//Need to add in item pointer switching later too
 		Pages=&MasterPages;
+		Items=&MasterItems;
 	}
 	else
 	{
-		//Need to add in item pointer switching later too
 		Pages=&DocPages;
+		Items=&DocItems;
 	}
 	m_masterPageMode=changeToMasterPageMode;
 }
