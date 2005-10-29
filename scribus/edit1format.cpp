@@ -608,7 +608,7 @@ void EditStyle::updatePreview()
 		hg->cselect = false;
 		hg->cstyle = tmpStyle.FontEffect;
 		hg->cab = tmpIndex;
-		hg->cextra = 0;
+		hg->cextra = tmpStyle.kernVal;
 		hg->xp = 0;
 		hg->yp = 0;
 		hg->PRot = 0;
