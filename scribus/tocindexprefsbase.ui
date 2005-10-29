@@ -1,0 +1,215 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>TOCIndexPrefsBase</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>TOCIndexPrefsBase</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>444</width>
+            <height>234</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>Table of Contents and Indexes</string>
+    </property>
+    <vbox>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <widget class="QTabWidget">
+            <property name="name">
+                <cstring>tabTOCIndexWidget</cstring>
+            </property>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>tab</cstring>
+                </property>
+                <attribute name="title">
+                    <string>Table Of Contents</string>
+                </attribute>
+                <hbox>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <widget class="QLayoutWidget">
+                        <property name="name">
+                            <cstring>layout7</cstring>
+                        </property>
+                        <vbox>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <widget class="QListBox">
+                                <property name="name">
+                                    <cstring>tocListBox</cstring>
+                                </property>
+                            </widget>
+                            <widget class="QLineEdit">
+                                <property name="name">
+                                    <cstring>tocNameLineEdit</cstring>
+                                </property>
+                            </widget>
+                            <widget class="QLayoutWidget">
+                                <property name="name">
+                                    <cstring>layout7</cstring>
+                                </property>
+                                <hbox>
+                                    <property name="name">
+                                        <cstring>unnamed</cstring>
+                                    </property>
+                                    <widget class="QPushButton">
+                                        <property name="name">
+                                            <cstring>tocAddButton</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>&amp;Add</string>
+                                        </property>
+                                        <property name="accel">
+                                            <string>Alt+A</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QPushButton">
+                                        <property name="name">
+                                            <cstring>tocDeleteButton</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>&amp;Delete</string>
+                                        </property>
+                                        <property name="accel">
+                                            <string>Alt+D</string>
+                                        </property>
+                                    </widget>
+                                </hbox>
+                            </widget>
+                        </vbox>
+                    </widget>
+                    <widget class="QLayoutWidget">
+                        <property name="name">
+                            <cstring>layout8</cstring>
+                        </property>
+                        <vbox>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <widget class="QLayoutWidget">
+                                <property name="name">
+                                    <cstring>layout7</cstring>
+                                </property>
+                                <grid>
+                                    <property name="name">
+                                        <cstring>unnamed</cstring>
+                                    </property>
+                                    <widget class="QComboBox" row="1" column="1">
+                                        <property name="name">
+                                            <cstring>itemDestFrameComboBox</cstring>
+                                        </property>
+                                        <property name="toolTip" stdset="0">
+                                            <string>The frame the table of contents will be placed into</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QLabel" row="2" column="0">
+                                        <property name="name">
+                                            <cstring>tocNumberPlacementLabel</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>Page Numbers Placed:</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QLabel" row="0" column="0">
+                                        <property name="name">
+                                            <cstring>tocItemAttrLabel</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>Item Attribute Name:</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QComboBox" row="0" column="1">
+                                        <property name="name">
+                                            <cstring>itemAttrComboBox</cstring>
+                                        </property>
+                                        <property name="toolTip" stdset="0">
+                                            <string>The Item Attribute that will be set on frames used as a basis for creation of the entries</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QComboBox" row="2" column="1">
+                                        <property name="name">
+                                            <cstring>itemNumberPlacementComboBox</cstring>
+                                        </property>
+                                        <property name="toolTip" stdset="0">
+                                            <string>Place page numbers of the entries at the beginning or the end of the line, or not at all</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QCheckBox" row="4" column="0" rowspan="1" colspan="2">
+                                        <property name="name">
+                                            <cstring>itemListNonPrintingCheckBox</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>List Non-Printing Entries</string>
+                                        </property>
+                                        <property name="toolTip" stdset="0">
+                                            <string>Include frames that are set to not print as well</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QComboBox" row="3" column="1">
+                                        <property name="name">
+                                            <cstring>itemParagraphStyleComboBox</cstring>
+                                        </property>
+                                        <property name="toolTip" stdset="0">
+                                            <string>The paragraph style used for the entry lines</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QLabel" row="3" column="0">
+                                        <property name="name">
+                                            <cstring>tocParagraphStyleLabel</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>Paragraph Style:</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QLabel" row="1" column="0">
+                                        <property name="name">
+                                            <cstring>tocDestFrameLabel</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>Destination Frame:</string>
+                                        </property>
+                                    </widget>
+                                </grid>
+                            </widget>
+                            <spacer>
+                                <property name="name">
+                                    <cstring>spacer1</cstring>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Vertical</enum>
+                                </property>
+                                <property name="sizeType">
+                                    <enum>Expanding</enum>
+                                </property>
+                                <property name="sizeHint">
+                                    <size>
+                                        <width>16</width>
+                                        <height>36</height>
+                                    </size>
+                                </property>
+                            </spacer>
+                        </vbox>
+                    </widget>
+                </hbox>
+            </widget>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>tab</cstring>
+                </property>
+                <attribute name="title">
+                    <string>Inde&amp;x</string>
+                </attribute>
+            </widget>
+        </widget>
+    </vbox>
+</widget>
+<layoutdefaults spacing="6" margin="0"/>
+</UI>
