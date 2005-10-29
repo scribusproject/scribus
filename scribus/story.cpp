@@ -21,32 +21,33 @@
 #include <qtooltip.h>
 #include <qpixmap.h>
 #include <qcombobox.h>
-#include <qmessagebox.h>
 #include <qregexp.h>
 #include <qhbox.h>
 #include <qcolordialog.h>
 #include <qfontdialog.h>
 #include <qcursor.h>
 #include <qtextcodec.h>
+
+#include "alignselect.h"
+#include "charselect.h"
+#include "commonstrings.h"
 #include "customfdialog.h"
 #include "editformats.h"
-#include "search.h"
-#include "scribus.h"
+#include "fontcombo.h"
+#include "mspinbox.h"
+#include "pageitem.h"
+#include "pluginmanager.h"
 #include "prefscontext.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
-#include "charselect.h"
-#include "pluginmanager.h"
-#include "pageitem.h"
-#include "serializer.h"
+#include "scmessagebox.h"
 #include "scraction.h"
-#include "mspinbox.h"
+#include "scribus.h"
+#include "search.h"
+#include "serializer.h"
+#include "shadebutton.h"
 #include "spalette.h"
 #include "styleselect.h"
-#include "alignselect.h"
-#include "fontcombo.h"
-#include "shadebutton.h"
-#include "commonstrings.h"
 
 extern QPixmap loadIcon(QString nam);
 
@@ -2337,7 +2338,7 @@ void StoryEditor::closeEvent(QCloseEvent *)
 	if (textChanged)
 	{
 		blockUpdate = true;
-		int t = QMessageBox::warning(this, CommonStrings::trWarning,
+		int t = ScMessageBox::warning(this, CommonStrings::trWarning,
 									tr("Do you want to save your changes?"),
 									QMessageBox::Yes|QMessageBox::Default,
 									QMessageBox::No,
@@ -2877,9 +2878,9 @@ void StoryEditor::Do_leave()
 	if (textChanged)
 	{
 		blockUpdate = true;
-		int t = QMessageBox::warning(this, CommonStrings::trWarning,
+		int t = ScMessageBox::warning(this, CommonStrings::trWarning,
 		                             tr("Do you really want to lose all your changes?"),
-		                             QMessageBox::No, QMessageBox::Yes, QMessageBox::NoButton);
+		                             QMessageBox::Yes, QMessageBox::No, QMessageBox::NoButton);
 		qApp->processEvents();
 		if (t == QMessageBox::No)
 		{
@@ -2908,9 +2909,9 @@ bool StoryEditor::Do_new()
 	if (Editor->length() != 0)
 	{
 		blockUpdate = true;
-		int t = QMessageBox::warning(this, CommonStrings::trWarning,
+		int t = ScMessageBox::warning(this, CommonStrings::trWarning,
 	                             tr("Do you really want to clear all your text?"),
-	                             QMessageBox::No, QMessageBox::Yes, QMessageBox::NoButton);
+	                             QMessageBox::Yes, QMessageBox::No, QMessageBox::NoButton);
 		qApp->processEvents();
 		if (t == QMessageBox::No)
 		{
