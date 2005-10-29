@@ -2147,7 +2147,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 {
 	int te, te2, tsh, tsh2, tst, tst2, tsb, tsb2, tshs, tshs2;
 	QString text, tf, tf2, tc, tc2, tcs, tcs2, tmp, tmpy;
-	double ts, ts2, tsc, tsc2, tscv, tscv2, tb, tb2, tsx, tsx2, tsy, tsy2, tout, tout2, tulp, tulp2, tulw, tulw2, tstp, tstp2, tstw, tstw2;
+	double ts, ts2, tsc, tsc2, tscv, tscv2, tb, tb2, tsx, tsx2, tsy, tsy2, tout, tout2, tulp, tulp2, tulw, tulw2, tstp, tstp2, tstw, tstw2, xp, yp;
 	PageItem *item;
 	QDomDocument docu("scribus");
 	QString st="<SCRIBUSELEMUTF8></SCRIBUSELEMUTF8>";
@@ -2160,18 +2160,20 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 	qHeapSort(ELL);
 	if (view->GroupSel)
 	{
-		elem.setAttribute("XP", view->GroupX);
-		elem.setAttribute("YP", view->GroupY);
+		xp = view->GroupX - doc->currentPage->xOffset();
+		yp = view->GroupY - doc->currentPage->yOffset();
 		elem.setAttribute("W", view->GroupW);
 		elem.setAttribute("H", view->GroupH);
 	}
 	else
 	{
-		elem.setAttribute("XP", item->Xpos);
-		elem.setAttribute("YP", item->Ypos);
+		xp = item->Xpos - doc->currentPage->xOffset();
+		yp = item->Ypos - doc->currentPage->yOffset();
 		elem.setAttribute("W", item->Width);
 		elem.setAttribute("H", item->Height);
 	}
+	elem.setAttribute("XP", xp);
+	elem.setAttribute("YP", yp);
 	elem.setAttribute("COUNT", Selitems->count());
 	elem.setAttribute("Version", QString(VERSION));
 	QMap<QString,int>::Iterator itf;
@@ -2407,6 +2409,8 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 		else
 			ob.setAttribute("ALIGN",item->textAlignment);
  		SetItemProps(&ob, item, false);
+		ob.setAttribute("XPOS",item->Xpos - doc->currentPage->xOffset());
+		ob.setAttribute("YPOS",item->Ypos - doc->currentPage->yOffset());
 		ob.setAttribute("BOOKMARK", item->isBookmark ? 1 : 0);
 		if (item->effectsInUse.count() != 0)
 		{

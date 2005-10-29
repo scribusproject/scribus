@@ -5111,7 +5111,7 @@ void ScribusApp::slotEditPaste()
 				bool savedAlignGuides = doc->SnapGuides;
 				doc->useRaster = false;
 				doc->SnapGuides = false;
-				slotElemRead(Buffer2, 0, 0, false, true, doc, view);
+				slotElemRead(Buffer2, qRound(doc->currentPage->xOffset()), qRound(doc->currentPage->yOffset()), false, true, doc, view);
 				doc->useRaster = savedAlignGrid;
 				doc->SnapGuides = savedAlignGuides;
 				for (uint as = ac; as < doc->Items->count(); ++as)
