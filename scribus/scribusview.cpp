@@ -5095,14 +5095,15 @@ bool ScribusView::MoveItem(double newX, double newY, PageItem* currItem, bool fr
 		retw = true;
 	if (!fromMP)
 	{
-		if (GroupSel)
+/*		if (GroupSel)
 		{
 			double gx, gy, gh, gw;
 			setGroupRect();
 			getGroupRect(&gx, &gy, &gw, &gh);
 			emit ItemPos(gx, gy);
 		}
-		else
+		else */
+		if (!GroupSel)
 			emit ItemPos(currItem->Xpos, currItem->Ypos);
 	}
 /*	if (!Doc->loading)
@@ -6144,15 +6145,24 @@ void ScribusView::moveGroup(double x, double y, bool fromMP)
 	double sc = Scale;
 	if (GroupSel)
 	{
-		p.begin(viewport());
 		getGroupRectScreen(&gx, &gy, &gw, &gh);
+		p.begin(viewport());
 		PaintSizeRect(&p, QRect(qRound(gx), qRound(gy), qRound(gw), qRound(gh)));
+		p.end();
+	}
+	else
+	{
+		currItem = SelItem.at(0);
+		QRect oldR(currItem->getRedrawBounding(Scale));
+		p.begin(viewport());
+		ToView(&p);
+		PaintSizeRect(&p, oldR);
 		p.end();
 	}
 	for (uint a = 0; a < SelItem.count(); ++a)
 	{
 		currItem = SelItem.at(a);
-		if (!fromMP)
+		if ((!fromMP) && (!GroupSel))
 		{
 			p.begin(viewport());
 			ToView(&p);
@@ -6164,12 +6174,10 @@ void ScribusView::moveGroup(double x, double y, bool fromMP)
 			p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
 			if (!(currItem->asLine()) && (currItem->FrameType != 0) || (currItem->asPolyLine()))
 				currItem->DrawPolyL(&p, currItem->Clip);
-			else
-				p.drawRect(0, 0, static_cast<int>(currItem->Width)+1, static_cast<int>(currItem->Height)+1);
 			p.end();
 		}
 		MoveItem(x, y, currItem, fromMP);
-		if (!fromMP)
+		if ((!fromMP) && (!GroupSel))
 		{
 			p.begin(viewport());
 			ToView(&p);
@@ -6181,13 +6189,14 @@ void ScribusView::moveGroup(double x, double y, bool fromMP)
 			p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
 			if (!(currItem->asLine()) && (currItem->FrameType != 0) || (currItem->asPolyLine()))
 				currItem->DrawPolyL(&p, currItem->Clip);
-			else
-				p.drawRect(0, 0, static_cast<int>(currItem->Width)+1, static_cast<int>(currItem->Height)+1);
 			p.end();
 		}
 	}
 	if (GroupSel)
 	{
+			setGroupRect();
+			getGroupRect(&gx, &gy, &gw, &gh);
+			emit ItemPos(gx, gy);
 		currItem = SelItem.at(0);
 		Doc->GroupOnPage(currItem);
 		if (fromMP)
