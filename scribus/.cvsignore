@@ -13,7 +13,7 @@ docitemattrprefs.cpp
 docitemattrprefs.h
 pageitemattributes.cpp
 pageitemattributes.h
-tocindexprefs.cpp
-tocindexprefs.h
+tocindexprefsbase.cpp
+tocindexprefsbase.h
 aboutpluginsbase.cpp
 aboutpluginsbase.h
