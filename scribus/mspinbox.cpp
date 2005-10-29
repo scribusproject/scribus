@@ -96,11 +96,18 @@ bool MSpinBox::eventFilter( QObject* ob, QEvent* ev )
 		    qApp->sendEvent( this, ev );
 			return retval;
 		}
+		else if (k->key() == Key_Control)
+		{
+			setLineStep(QMAX(Decimals * 10, 1));
+			retval = true;
+		    qApp->sendEvent( this, ev );
+			return retval;
+		}
 	}
-	if ( ev->type() == QEvent::KeyRelease )
+	if (ev->type() == QEvent::KeyRelease )
 	{
 		QKeyEvent* k = (QKeyEvent*)ev;
-		if (k->key() == Key_Shift)
+		if ((k->key() == Key_Shift) || (k->key() == Key_Control))
 		{
 			setLineStep(Decimals);
 			retval = true;
@@ -117,8 +124,15 @@ bool MSpinBox::eventFilter( QObject* ob, QEvent* ev )
 			retval = true;
 			qApp->sendEvent( this, ev );
 			return retval;
-		}	
-		if (!(k->state() & ShiftButton))
+		} 
+		else if (k->state()  & ControlButton)
+		{
+			setLineStep(QMAX(Decimals * 10, 1));
+			retval = true;
+		    qApp->sendEvent( this, ev );
+			return retval;
+		}
+		if ((!(k->state() & ShiftButton)) && (!(k->state() & ControlButton)))
 		{
 			setLineStep(Decimals);
 			retval = true;
