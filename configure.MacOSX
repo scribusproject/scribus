@@ -32,7 +32,9 @@ cat > install_MacOSX.sh <<-EOF
 	mkdir -p \$BUNDLE_CONTENTS/Resources
 	cp -f \$SKELETON/Info.plist \$BUNDLE_CONTENTS
 	cp -f \$SKELETON/Resources/*.icns \$BUNDLE_CONTENTS/Resources
-	(cd \$BUNDLE_CONTENTS ; rm -f Scribus ; ln -s ../bin/scribus Scribus)
+	(cd \$BUNDLE_CONTENTS/MacOS ; rm -f Scribus ; ln -s ../bin/scribus Scribus)
+
+	install_name_tool -change libqt-mt.3.dylib $QTDIR/lib/libqt-mt.3.dylib \$BUNDLE_CONTENTS/bin/scribus
 
 	echo
 	echo "Mac OSX Scribus bundle installed!"
