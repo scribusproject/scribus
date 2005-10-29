@@ -193,7 +193,8 @@ scribus_SOURCES = \
 	tabtools.cpp	\
 	tabtypography.cpp	\
 	tocgenerator.cpp	\
-	tocindexprefs.ui	\
+	tocindexprefsbase.ui	\
+	tocindexprefs.cpp	\
 	tree.cpp	\
 	undogui.cpp	\
 	undomanager.cpp	\
