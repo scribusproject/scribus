@@ -163,6 +163,16 @@ QString FileLoader::readSLA(const QString & fileName)
 		while((i = gzread(gzDoc,&buff,4096)) > 0)
 		{
 			buff[i] = '\0';
+			// FIXME: Very, very, very slow. What we SHOULD be doing here is
+			// allocating a std::string or QCString of at least the file size
+			// of the gzipped doc (perhaps 1.5x or 2x), rather than
+			// reallocating it on every 4096 byte append.
+			//
+			// We should then either have gzread(...) write directly into the
+			// allocated string by passing it a pointer to the right place, or
+			// should be doing the copy into the preallocated string ourselves.
+			//
+			// This is bad and slow and evil, see bug #2764:
 			docBytes.append(buff);
 		}
 		gzclose(gzDoc);
