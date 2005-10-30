@@ -8774,7 +8774,7 @@ int ScribusView::CountElements()
 	return static_cast<int>(Doc->Items->count());
 }
 
-void ScribusView::RecalcPictures(ProfilesL *Pr, QProgressBar *dia)
+void ScribusView::RecalcPictures(ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *dia)
 {
 	uint docItemCount=Doc->Items->count();
 	if ( docItemCount!= 0)
@@ -8790,8 +8790,16 @@ void ScribusView::RecalcPictures(ProfilesL *Pr, QProgressBar *dia)
 			it = Doc->Items->at(i);
 			if ((it->itemType() == PageItem::ImageFrame) && (it->PicAvail))
 			{
-				if (!Pr->contains(it->IProfile))
-					it->IProfile = Doc->CMSSettings.DefaultImageRGBProfile;
+				if (it->pixm.imgInfo.colorspace == 1)
+				{
+					if (!PrCMYK->contains(it->IProfile))
+						it->IProfile = Doc->CMSSettings.DefaultImageCMYKProfile;
+				}
+				else
+				{
+					if (!Pr->contains(it->IProfile))
+						it->IProfile = Doc->CMSSettings.DefaultImageRGBProfile;
+				}
 				Doc->LoadPict(it->Pfile, i, true);
 			}
 			++counter;

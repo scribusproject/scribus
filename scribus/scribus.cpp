@@ -3630,7 +3630,7 @@ bool ScribusApp::loadPage(QString fileName, int Nr, bool Mpa)
 		if (CMSavail && doc->CMSSettings.CMSinUse)
 		{
 			recalcColors();
-			view->RecalcPictures(&InputProfiles);
+			view->RecalcPictures(&InputProfiles, &InputProfilesCMYK);
 		}
 		uint docItemsCount=doc->Items->count();
 		for (uint i = oldItemsCount; i < docItemsCount; ++i)
@@ -3915,7 +3915,7 @@ bool ScribusApp::loadDoc(QString fileName)
 			if (doc->CMSSettings.CMSinUse)
 			{
 				recalcColors();
-				view->RecalcPictures(&InputProfiles);
+				view->RecalcPictures(&InputProfiles, &InputProfilesCMYK);
 			}
 		}
 		else

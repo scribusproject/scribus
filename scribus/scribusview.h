@@ -152,7 +152,7 @@ public:
 	int CountElements();
 	QImage PageToPixmap(int Nr, int maxGr);
 	QImage MPageToPixmap(QString name, int maxGr);
-	void RecalcPictures(ProfilesL *Pr, QProgressBar *dia = 0);
+	void RecalcPictures(ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *dia = 0);
 	void RecalcPicturesRes();
 	void rulerMove(QMouseEvent *m);
 	void setRuler(QMouseEvent *m);
