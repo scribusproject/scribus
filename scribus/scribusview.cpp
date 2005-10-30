@@ -669,15 +669,13 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 							continue;
 					}
 					QRect oldR(currItem->getRedrawBounding(Scale));
-//					oldR.moveBy(qRound(-Doc->minCanvasCoordinate.x() * Scale), qRound(-Doc->minCanvasCoordinate.y() * Scale));
 					if (clip.intersects(oldR))
 					{
 						if (evSpon)
 							currItem->Dirty = true;
 						if (forceRedraw)
 							currItem->Dirty = false;
-						if (!((Doc->EditClip) && (Mpressed)))
-							currItem->DrawObj(painter, clip);
+						currItem->DrawObj(painter, clip);
 						currItem->Redrawn = true;
 						if ((currItem->asTextFrame()) && ((currItem->NextBox != 0) || (currItem->BackBox != 0)))
 						{
