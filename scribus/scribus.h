@@ -464,7 +464,7 @@ public slots:
 	void setItemHoch(int h);
 	void setStilvalue(int s);
 	void setItemTypeStyle(int id);
-	void slotElemRead(QString Name, int x, int y, bool art, bool loca, ScribusDoc* docc, ScribusView* vie);
+	void slotElemRead(QString Name, double x, double y, bool art, bool loca, ScribusDoc* docc, ScribusView* vie);
 	void slotChangeUnit(int art, bool draw = true);
 	void NoFrameEdit();
 	void ApplyMasterPage();

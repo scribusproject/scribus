@@ -1866,7 +1866,7 @@ bool ScriXmlDoc::ReadElemHeader(QString file, bool isFile, double *x, double *y,
 	return true;
 }
 
-bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int Xp, int Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub, ScribusView *view)
+bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, double Xp, double Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub, ScribusView *view)
 {
 	struct CopyPasteBuffer OB;
 	struct ParagraphStyle vg;
@@ -1909,8 +1909,8 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 		return false;
 	if (loc)
 	{
-		GrX = 0;
-		GrY = 0;
+		GrX = 0.0;
+		GrY = 0.0;
 	}
 	else
 	{
@@ -2029,9 +2029,9 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 		QDomElement pg=DOC.toElement();
 		if(pg.tagName()=="ITEM")
 		{
-			OB.Xpos = static_cast<double>(Xp) + QStodouble(pg.attribute("XPOS")) - GrX;
-			OB.Ypos = static_cast<double>(Yp) + QStodouble(pg.attribute("YPOS")) - GrY;
 			GetItemProps(newVersion, &pg, &OB);
+			OB.Xpos = Xp + QStodouble(pg.attribute("XPOS")) - GrX;
+			OB.Ypos = Yp + QStodouble(pg.attribute("YPOS")) - GrY;
 			OB.startArrowIndex =  arrowID[QStoInt(pg.attribute("startArrowIndex","0"))];
 			OB.endArrowIndex =  arrowID[QStoInt(pg.attribute("endArrowIndex","0"))];
 			OB.isBookmark=QStoInt(pg.attribute("BOOKMARK"));

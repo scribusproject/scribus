@@ -403,7 +403,7 @@ signals:
 	void NewBMNr(int, int);
 	void ChBMText(PageItem *);
 	void ToScrap(QString);
-	void LoadElem(QString, int, int, bool, bool, ScribusDoc *, ScribusView *);
+	void LoadElem(QString, double, double, bool, bool, ScribusDoc *, ScribusView *);
 	void LevelChanged(uint);
 	void RasterPic(bool);
 	void HavePoint(bool, bool);

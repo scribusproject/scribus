@@ -2852,7 +2852,7 @@ void ScribusApp::HaveNewDoc()
 	connect(view, SIGNAL(AppendText()), this, SLOT(slotFileAppend()));
 	connect(view, SIGNAL(AnnotProps()), this, SLOT(ModifyAnnot()));
 	connect(view, SIGNAL(EditGuides()), this, SLOT(ManageGuides()));
-	connect(view, SIGNAL(LoadElem(QString, int ,int, bool, bool, ScribusDoc *, ScribusView*)), this, SLOT(slotElemRead(QString, int, int, bool, bool, ScribusDoc *, ScribusView*)));
+	connect(view, SIGNAL(LoadElem(QString, double ,double, bool, bool, ScribusDoc *, ScribusView*)), this, SLOT(slotElemRead(QString, double, double, bool, bool, ScribusDoc *, ScribusView*)));
 	connect(view, SIGNAL(AddBM(PageItem *)), this, SLOT(AddBookMark(PageItem *)));
 	connect(view, SIGNAL(DelBM(PageItem *)), this, SLOT(DelBookMark(PageItem *)));
 	connect(view, SIGNAL(RasterPic(bool)), this, SLOT(HaveRaster(bool)));
@@ -5111,7 +5111,7 @@ void ScribusApp::slotEditPaste()
 				bool savedAlignGuides = doc->SnapGuides;
 				doc->useRaster = false;
 				doc->SnapGuides = false;
-				slotElemRead(Buffer2, qRound(doc->currentPage->xOffset()), qRound(doc->currentPage->yOffset()), false, true, doc, view);
+				slotElemRead(Buffer2, doc->currentPage->xOffset(), doc->currentPage->yOffset(), false, true, doc, view);
 				doc->useRaster = savedAlignGrid;
 				doc->SnapGuides = savedAlignGuides;
 				for (uint as = ac; as < doc->Items->count(); ++as)
@@ -8066,7 +8066,7 @@ void ScribusApp::StoreBookmarks()
 	doc->Last = bookmarkPalette->BView->Last;
 }
 
-void ScribusApp::slotElemRead(QString Name, int x, int y, bool art, bool loca, ScribusDoc* docc, ScribusView* vie)
+void ScribusApp::slotElemRead(QString Name, double x, double y, bool art, bool loca, ScribusDoc* docc, ScribusView* vie)
 {
 	if (doc == docc)
 		NoFrameEdit();
