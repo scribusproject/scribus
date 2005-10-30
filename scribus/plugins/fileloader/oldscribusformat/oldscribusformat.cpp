@@ -1,6 +1,8 @@
 #include "oldscribusformat.h"
 #include "oldscribusformatimpl.h"
 
+#include "scconfig.h"
+
 // See scplugin.h and pluginmanager.{cpp,h} for detail on what these methods
 // do. That documentatation is not duplicated here.
 // Please don't implement the functionality of your plugin here; do that
