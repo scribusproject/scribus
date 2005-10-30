@@ -236,7 +236,8 @@ void PDF_Opts::updateDocOptions()
 				if (Opts->Version == PDFOptions::PDFVersion_X3)
 				{
 					cmsHPROFILE hIn;
-					hIn = cmsOpenProfileFromFile((*appPrinterProfiles)[Opts->PrintProf], "r");
+					QCString profilePath( (*appPrinterProfiles)[Opts->PrintProf].local8Bit() );
+					hIn = cmsOpenProfileFromFile(profilePath.data(), "r");
 					const char *Descriptor = cmsTakeProductDesc(hIn);
 					cmsDescriptorName = QString(Descriptor);
 					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigRgbData)

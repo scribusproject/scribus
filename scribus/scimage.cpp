@@ -3574,32 +3574,24 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 			inputProf = tiffProf;
 		else
 		{
+			QCString profilePath;
 			if (isCMYK)
 			{
 				if (ScApp->InputProfilesCMYK.contains(Prof))
-				{
-					inputProf = cmsOpenProfileFromFile(ScApp->InputProfilesCMYK[Prof], "r");
 					imgInfo.profileName = Prof;
-				}
 				else
-				{
-					inputProf = cmsOpenProfileFromFile(ScApp->InputProfilesCMYK[ScApp->doc->CMSSettings.DefaultImageCMYKProfile], "r");
 					imgInfo.profileName = ScApp->doc->CMSSettings.DefaultImageCMYKProfile;
-				}
+				profilePath = ScApp->InputProfilesCMYK[imgInfo.profileName].local8Bit();
 			}
 			else
 			{
 				if (ScApp->InputProfiles.contains(Prof))
-				{
-					inputProf = cmsOpenProfileFromFile(ScApp->InputProfiles[Prof], "r");
 					imgInfo.profileName = Prof;
-				}
 				else
-				{
-					inputProf = cmsOpenProfileFromFile(ScApp->InputProfiles[ScApp->doc->CMSSettings.DefaultImageRGBProfile], "r");
 					imgInfo.profileName = ScApp->doc->CMSSettings.DefaultImageRGBProfile;
-				}
+				profilePath = ScApp->InputProfiles[imgInfo.profileName].local8Bit();
 			}
+			inputProf = cmsOpenProfileFromFile(profilePath.data(), "r");
 		}
 	}
 	if (CMSuse && useProf && inputProf)

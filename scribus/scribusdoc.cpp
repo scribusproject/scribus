@@ -482,9 +482,12 @@ void ScribusDoc::CloseCMSProfiles()
 void ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo)
 {
 #ifdef HAVE_CMS
-	DocInputProf = cmsOpenProfileFromFile(InPo[CMSSettings.DefaultSolidColorProfile], "r");
-	DocOutputProf = cmsOpenProfileFromFile(MoPo[CMSSettings.DefaultMonitorProfile], "r");
-	DocPrinterProf = cmsOpenProfileFromFile(PrPo[CMSSettings.DefaultPrinterProfile], "r");
+	const QCString inputProfilePath(InPo[CMSSettings.DefaultSolidColorProfile].local8Bit());
+	DocInputProf = cmsOpenProfileFromFile(inputProfilePath.data(), "r");
+	const QCString monitorProfilePath(MoPo[CMSSettings.DefaultMonitorProfile].local8Bit());
+	DocOutputProf = cmsOpenProfileFromFile(monitorProfilePath.data(), "r");
+	const QCString printerProfilePath(PrPo[CMSSettings.DefaultPrinterProfile].local8Bit());
+	DocPrinterProf = cmsOpenProfileFromFile(printerProfilePath, "r");
 	if ((DocInputProf == NULL) || (DocOutputProf == NULL) || (DocPrinterProf == NULL))
 	{
 		CMSSettings.CMSinUse = false;
