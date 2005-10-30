@@ -23,7 +23,7 @@ class QListViewItem;
 class QTextEdit;
 class QMenuBar;
 
-/*! This is simple "IDE"/python console for interactive commands execution.
+/*! \brief This is simple "IDE"/python console for interactive commands execution.
 It's used e.g. like Tora (SQLnavigator) console. Sample: highlight some code,
 press F9, then see the results.
 \author Petr Vanek <petr@yarpen.cz>
@@ -77,7 +77,29 @@ class PythonConsole : public QWidget
 
 };
 
-/*! Simple syntax highlighting for Scripter (QTextEdit).
+/*! \brief Store colors for syntax highligter.
+It provides defaults, loading and storing preferences.
+\author Petr Vanek <petr@yarpen.cz> */
+class SyntaxColors
+{
+	public:
+		SyntaxColors();
+		~SyntaxColors();
+		QColor errorColor;
+		QColor commentColor;
+		QColor keywordColor;
+		QColor signColor;
+		QColor numberColor;
+		QColor stringColor;
+		QColor textColor;
+	private:
+		/*! \brief Converts QColor into #rrggbb string.
+		\param color a QColor to convert.
+		\retval QString with "web" color string */
+		QString qcolor2named(QColor color);
+};
+
+/*! \brief Simple syntax highlighting for Scripter (QTextEdit).
 Based on the source of the Python Realizer (http://www.python-realizer.net)
 but very simplifier. Improved too (of course).
 TODO: colors of the higlited texts. User should set the colors in the
@@ -99,7 +121,8 @@ class SyntaxHighlighter : public QSyntaxHighlighter
 	private:
 		//! Reserved python keywords
 		QStringList keywords;
+		SyntaxColors colors;
 
 };
 
-#endif // PCONSOLE_H
+#endif

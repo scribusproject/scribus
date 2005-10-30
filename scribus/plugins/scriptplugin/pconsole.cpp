@@ -22,6 +22,8 @@ the Free Software Foundation; either version 2 of the License, or
 #include <qsyntaxhighlighter.h>
 #include "scribus.h"
 #include "prefsmanager.h"
+#include "prefsfile.h"
+#include "prefscontext.h"
 
 extern QPixmap loadIcon(QString nam);
 
@@ -252,7 +254,7 @@ int SyntaxHighlighter::highlightParagraph(const QString &text, int endStateOfLas
 	if (text.length() >= 3 && text[0] == '!' && text[1] == ' ' && text[2] == '!')
 	{
 		setFormat(0, 3, QColor(Qt::white));
-		setFormat(3, text.length() - 2, QColor(Qt::red));
+		setFormat(3, text.length() - 2, colors.errorColor);
 		return 0;
 	}
 
@@ -260,7 +262,7 @@ int SyntaxHighlighter::highlightParagraph(const QString &text, int endStateOfLas
 	if (text.length() >= 2 && text[0] == '!' && text[i + 1] == ' ')
 	{
 		setFormat(0, 2, QColor(Qt::white));
-		setFormat(2, text.length() - 2, QColor(Qt::black));
+		setFormat(2, text.length() - 2, colors.textColor);
 		return 0;
 	}
 
@@ -269,7 +271,7 @@ int SyntaxHighlighter::highlightParagraph(const QString &text, int endStateOfLas
 		int docstrEnd = text.find("\"\"\"");
 		if (docstrEnd == -1)
 			docstrEnd = text.length();
-		setFormat(i, docstrEnd + 3, QColor(Qt::lightGray));
+		setFormat(i, docstrEnd + 3, colors.commentColor);
 		if (docstrEnd == (int)text.length())
 			return 1;
 		i = docstrEnd + 3; // move back to """
@@ -293,76 +295,76 @@ int SyntaxHighlighter::highlightParagraph(const QString &text, int endStateOfLas
 
 			// Check for reserved keywords
 			if (keywords.contains(actualWord) != 0)
-				setFormat(s, (i - s), QColor(Qt::blue));
+				setFormat(s, (i - s), colors.keywordColor);
 			else
-				setFormat(s, (i - s), QColor(Qt::black));
+				setFormat(s, (i - s), colors.textColor);
 		} // ch.isletter
 		else if (ch == '+' && text[i] != '=')
-			setFormat(i - 1, 1, QColor(Qt::magenta));
+			setFormat(i - 1, 1, colors.signColor);
 		else if (ch == '-' && text[i] != '=')
-			setFormat(i - 1, 1, QColor(Qt::magenta));
+			setFormat(i - 1, 1, colors.signColor);
 		else if (ch == '*' && text[i] == '*' && text[i + 1] != '=')
-			setFormat(i - 1, 2, QColor(Qt::magenta));
+			setFormat(i - 1, 2, colors.signColor);
 		else if (ch == '*' && (text[i] != '=' && text[i] != '*'))
-			setFormat(i - 1, 1, QColor(Qt::magenta));
+			setFormat(i - 1, 1, colors.signColor);
 		else if (ch == '/' && text[i] == '/' && text[i + 1] != '=')
-			setFormat(i - 1, 2, QColor(Qt::magenta));
+			setFormat(i - 1, 2, colors.signColor);
 		else if (ch == '/' && (text[i] != '=' && text[i] != '/'))
-			setFormat(i - 1, 1, QColor(Qt::magenta));
+			setFormat(i - 1, 1, colors.signColor);
 		else if (ch == '%' && text[i] != '=')
-			setFormat(i - 1, 1, QColor(Qt::magenta));
+			setFormat(i - 1, 1, colors.signColor);
 		else if (ch == '&' && text[i] != '=')
-			setFormat(i - 1, 1, QColor(Qt::magenta));
+			setFormat(i - 1, 1, colors.signColor);
 		else if (ch == '|' && text[i] != '=')
-			setFormat(i - 1, 1, QColor(Qt::magenta));
+			setFormat(i - 1, 1, colors.signColor);
 		else if (ch == '^' && text[i] != '=')
-			setFormat(i - 1, 1, QColor(Qt::magenta));
+			setFormat(i - 1, 1, colors.signColor);
 		else if (ch == '=' && text[i] == '=')
 		{
-			setFormat(i - 1, 2, QColor(Qt::magenta));
+			setFormat(i - 1, 2, colors.signColor);
 			i++;
 		}
 		else if (ch == '!' && text[i] == '=')
 		{
-			setFormat(i - 1, 2, QColor(Qt::magenta));
+			setFormat(i - 1, 2, colors.signColor);
 			i++;
 		}
 		else if (ch == '~')
-			setFormat(i - 1, 1, QColor(Qt::magenta));
+			setFormat(i - 1, 1, colors.signColor);
 		else if (ch == '<')
 		{
 			if (text[i] == '>')
 			{
-				setFormat(i -1, 2, QColor(Qt::magenta));
+				setFormat(i -1, 2, colors.signColor);
 				i++;
 			}
 			else if (text[i] == '<' && text[i + 1] == '=')
 			{
-				setFormat(i - 1, 3, QColor(Qt::black));
+				setFormat(i - 1, 3, colors.textColor);
 				i += 2;
 			}
 			else if (text[i] == '=' || text[i] == '<')
 			{
-				setFormat(i - 1, 2, QColor(Qt::magenta));
+				setFormat(i - 1, 2, colors.signColor);
 				i++;
 			}
 			else
-				setFormat(i - 1, 1, QColor(Qt::magenta));
+				setFormat(i - 1, 1, colors.signColor);
 		} // ch == '<'
 		else if (ch == '>')
 		{
 			if (text[i] == '>' && text[i + 1] == '=')
 			{
-				setFormat(i - 1, 3, QColor(Qt::black));
+				setFormat(i - 1, 3, colors.textColor);
 				i += 2;
 			}
 			else if (text[i] == '=' || text[i] == '>')
 			{
-				setFormat(i - 1, 2, QColor(Qt::magenta));
+				setFormat(i - 1, 2, colors.signColor);
 				i++;
 			}
 			else
-				setFormat(i - 1, 1, QColor(Qt::magenta));
+				setFormat(i - 1, 1, colors.signColor);
 		} // ch == '>'
 		else if (ch >= '0' && ch <= '9')
 		{
@@ -374,7 +376,7 @@ int SyntaxHighlighter::highlightParagraph(const QString &text, int endStateOfLas
 					i++;
 				if (text[i] == 'L')
 					i++;
-				setFormat(s, (i - s), QColor(Qt::red));
+				setFormat(s, (i - s), colors.numberColor);
 			}
 			while (text[i] >= '0' && text[i] <= '9')
 				i++;
@@ -398,13 +400,13 @@ int SyntaxHighlighter::highlightParagraph(const QString &text, int endStateOfLas
 			}
 			if (!floating && text[i] == 'L')
 				i++;
-			setFormat(s, (i - s), QColor(Qt::red));
+			setFormat(s, (i - s), colors.numberColor);
 		} // if number
 		else if ( ch == '@')
-			setFormat(i - 1, 1, QColor(Qt::cyan));
+			setFormat(i - 1, 1, colors.signColor);
 		else if (ch == '#')
 		{
-			setFormat((i - 1), (text.length() - i), QColor(Qt::lightGray));
+			setFormat((i - 1), (text.length() - i), colors.commentColor);
 			i = text.length();
 		}
 		// docstrings etc. (""" blah """)
@@ -417,7 +419,7 @@ int SyntaxHighlighter::highlightParagraph(const QString &text, int endStateOfLas
 				docstrEnd = text.length() - i;
 				cont = true;
 			}
-			setFormat(i - 1, docstrEnd + 2, QColor(Qt::lightGray));
+			setFormat(i - 1, docstrEnd + 2, colors.commentColor);
 			if (cont)
 				return 1; // comment """ is opened
 			i += docstrEnd + 2;
@@ -431,23 +433,59 @@ int SyntaxHighlighter::highlightParagraph(const QString &text, int endStateOfLas
 					i++;
 				if (text[i] == ch)
 					i++;
-				setFormat(s, (i - s), QColor(Qt::darkGreen));
+				setFormat(s, (i - s), colors.stringColor);
 			}
 			else if (text[i] == ch && text[i + 1] == ch)
 			{
 				i += 2;
-				setFormat(s, (i - s), QColor(Qt::black));
+				setFormat(s, (i - s), colors.textColor);
 
 			}
 			else if (text[i] == ch)
 			{
 				i++;
-				setFormat(s, (i - s), QColor(Qt::darkGreen));
+				setFormat(s, (i - s), colors.stringColor);
 			}
 		}
 		/* Default */
-		else setFormat(i - 1, 1, QColor(Qt::black));
+		else setFormat(i - 1, 1, colors.textColor);
 	}	// End of while statement
 
 	return 0;
+}
+
+SyntaxColors::SyntaxColors()
+{
+	PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("scriptplugin");
+	errorColor.setNamedColor(prefs->get("syntaxerror", "#aa0000"));
+	commentColor.setNamedColor(prefs->get("syntaxcomment", "#A0A0A0"));
+	keywordColor.setNamedColor(prefs->get("syntaxkeyword", "#00007f"));
+	signColor.setNamedColor(prefs->get("syntaxsign", "#aa00ff"));
+	numberColor.setNamedColor(prefs->get("syntaxnumber", "#ffaa00"));
+	stringColor.setNamedColor(prefs->get("syntaxstring", "#005500"));
+	textColor.setNamedColor(prefs->get("syntaxtext", "#000000"));
+}
+
+SyntaxColors::~SyntaxColors()
+{
+	PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("scriptplugin");
+	prefs->set("syntaxerror", qcolor2named(errorColor));
+	prefs->set("syntaxcomment", qcolor2named(commentColor));
+	prefs->set("syntaxkeyword", qcolor2named(keywordColor));
+	prefs->set("syntaxsign", qcolor2named(signColor));
+	prefs->set("syntaxnumber", qcolor2named(numberColor));
+	prefs->set("syntaxstring", qcolor2named(stringColor));
+	prefs->set("syntaxtext", qcolor2named(textColor));
+}
+
+QString SyntaxColors::qcolor2named(QColor color)
+{
+	int r, g, b;
+	QString retval("#");
+	QString oct;
+	color.getRgb(&r, &g, &b);
+	retval += oct.setNum(r, 16).rightJustify(2, '0');
+	retval += oct.setNum(g, 16).rightJustify(2, '0');
+	retval += oct.setNum(b, 16).rightJustify(2, '0');
+	return retval;
 }
