@@ -8595,7 +8595,8 @@ void ScribusApp::GetCMSProfilesDir(QString pfad)
 			if ((ext == "icm") || (ext == "icc"))
 #endif
 			{
-				hIn = cmsOpenProfileFromFile(pfad + d[dc], "r");
+				QCString profilePath( QString(pfad + d[dc]).local8Bit() );
+				hIn = cmsOpenProfileFromFile(profilePath.data(), "r");
 				if (hIn == NULL)
 					continue;
 				Descriptor = cmsTakeProductDesc(hIn);
