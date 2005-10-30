@@ -38,7 +38,7 @@ PyObject *scribus_newellipse(PyObject* /* self */, PyObject* args)
 										pageUnitYToDocY(y), b, h,
 										ScApp->doc->toolSettings.dWidth,
 										ScApp->doc->toolSettings.dBrush,
-										ScApp->doc->toolSettings.dPen, 
+										ScApp->doc->toolSettings.dPen,
 										true);
 	if (ItemExists(QString::fromUtf8(Name)))
 	{
@@ -112,7 +112,7 @@ PyObject *scribus_newline(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	int i = ScApp->doc->itemAdd(PageItem::Line, PageItem::Unspecified, x, y, 1, 1, ScApp->doc->toolSettings.dWidth, ScApp->doc->toolSettings.dBrush, ScApp->doc->toolSettings.dPen, true);
-		
+
 	PageItem *it = ScApp->doc->Items->at(i);
 	it->PoLine.resize(4);
 	it->PoLine.setPoint(0, 0, 0);
@@ -512,12 +512,22 @@ PyObject *scribus_setstyle(PyObject* /* self */, PyObject* args)
 			PyErr_SetString(NotFoundError, QObject::tr("Style not found.","python error"));
 			return NULL;
 		}
-		// quick hack to always apply on the right frame - pv
-		ScApp->view->Deselect(true);
-		//CB I dont think we need to draw here. Its faster if we dont.
-		ScApp->view->SelectItem(item, false);
-		// Now apply the style.
-		ScApp->setNewAbStyle(styleid);
+		// for current item only
+		if (ScApp->view->SelItem.count() == 0)
+		{
+			// quick hack to always apply on the right frame - pv
+			ScApp->view->Deselect(true);
+			//CB I dont think we need to draw here. Its faster if we dont.
+			ScApp->view->SelectItem(item, false);
+			// Now apply the style.
+			ScApp->setNewAbStyle(styleid);
+		}
+		else // for multiple selection
+		{
+			for (int i = 0; i < ScApp->view->SelItem.count(); ++i)
+				ScApp->view->chAbStyle(ScApp->view->SelItem.at(i), styleid);
+		}
+
 	}
 	else
 	{
