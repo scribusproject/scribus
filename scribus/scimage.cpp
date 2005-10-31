@@ -2032,6 +2032,29 @@ void ScImage::parseRessourceData( QDataStream & s, const PSDHeader & header, uin
 					s.readRawBytes(buffer, resSize);
 				}
 				break;
+			case 0x0409:
+			case 0x040C:
+				{
+					uint thdummy, thsize;
+					s >> thdummy;
+					s >> thdummy;
+					s >> thdummy;
+					s >> thdummy;
+					s >> thdummy;
+					s >> thsize;
+					s >> thdummy;
+					char* buffer = (char*)malloc(thsize);
+					s.readRawBytes(buffer, thsize);
+					QImage imth;
+					imth.loadFromData((const uchar*)buffer, thsize, "JPEG");
+					imth.convertDepth(32);
+					if (resID == 0x0409)
+						imgInfo.exifInfo.thumbnail = imth.swapRGB();
+					else
+						imgInfo.exifInfo.thumbnail = imth;
+					imgInfo.exifDataValid = true;
+					free(buffer);
+				}
 			default:
 				break;
 			}
@@ -2177,6 +2200,8 @@ bool ScImage::LoadPSD( QDataStream & s, const PSDHeader & header)
 	startRessource = s.device()->at();
 	if (ressourceDataLen != 0)
 		parseRessourceData(s, header, ressourceDataLen);
+	if  ((!imgInfo.exifInfo.thumbnail.isNull()) && (header.reserved[0] == 't'))
+		return true;
 	s.device()->at( startRessource + ressourceDataLen );
 	// Skip the reserved data. FIX: Also incorrect, this is the actual Layer Data for Images with Layers
 	s >> layerDataLen;
@@ -3271,8 +3296,6 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 	{
 		imgInfo.typ = 2;
 		imgInfo.exifDataValid = false;
-		if (reqType == 4)
-			reqType = 1;
 		QFile f(fn);
 		if (f.open(IO_ReadOnly))
 		{
@@ -3290,6 +3313,8 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 				return ret;
 			iccbuf = 0;
 			icclen = 0;
+			if (reqType == 4)
+				header.reserved[0] = 't';
 			if( !LoadPSD(s, header) )
 				return ret;
 #ifdef HAVE_CMS
@@ -3329,6 +3354,32 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 			xres = imgInfo.xres;
 			yres = imgInfo.yres;
 			f.close();
+			if (reqType == 4)
+			{
+				if (!imgInfo.exifInfo.thumbnail.isNull())
+				{
+					create(imgInfo.exifInfo.thumbnail.width(), imgInfo.exifInfo.thumbnail.height(), 32);
+					for( int yit=0; yit < imgInfo.exifInfo.thumbnail.height(); ++yit )
+					{
+						QRgb *s = (QRgb*)(imgInfo.exifInfo.thumbnail.scanLine( yit ));
+						QRgb *d = (QRgb*)(scanLine( yit ));
+						for(int xit=0; xit < imgInfo.exifInfo.thumbnail.width(); ++xit )
+						{
+							(*d) = (*s);
+							s++;
+							d++;
+						}
+					}
+//					*this = imgInfo.exifInfo.thumbnail;
+					imgInfo.exifInfo.width = header.width;
+					imgInfo.exifInfo.height = header.height;
+					return true;
+				}
+				else
+					reqType = 1;
+			}
+			imgInfo.exifInfo.width = header.width;
+			imgInfo.exifInfo.height = header.height;
 		}
 		else
 			return ret;
