@@ -6160,7 +6160,7 @@ void ScribusView::moveGroup(double x, double y, bool fromMP)
 	for (uint a = 0; a < SelItem.count(); ++a)
 	{
 		currItem = SelItem.at(a);
-		if ((!fromMP) && (!GroupSel))
+		if ((!fromMP) && (SelItem.count() < moveWithBoxesOnlyThreshold))
 		{
 			p.begin(viewport());
 			ToView(&p);
@@ -6170,12 +6170,17 @@ void ScribusView::moveGroup(double x, double y, bool fromMP)
 			p.setRasterOp(XorROP);
 			p.setBrush(NoBrush);
 			p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
-			if (!(currItem->asLine()) && (currItem->FrameType != 0) || (currItem->asPolyLine()))
-				currItem->DrawPolyL(&p, currItem->Clip);
+			if (SelItem.count() < moveWithFullOutlinesThreshold)
+			{
+				if (!(currItem->asLine()) && (currItem->FrameType != 0) || (currItem->asPolyLine()))
+					currItem->DrawPolyL(&p, currItem->Clip);
+			}
+			else
+				p.drawRect(0, 0, static_cast<int>(currItem->Width)+1, static_cast<int>(currItem->Height)+1);
 			p.end();
 		}
 		MoveItem(x, y, currItem, fromMP);
-		if ((!fromMP) && (!GroupSel))
+		if ((!fromMP) && (SelItem.count() < moveWithBoxesOnlyThreshold))
 		{
 			p.begin(viewport());
 			ToView(&p);
@@ -6185,8 +6190,13 @@ void ScribusView::moveGroup(double x, double y, bool fromMP)
 			p.setRasterOp(XorROP);
 			p.setBrush(NoBrush);
 			p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
-			if (!(currItem->asLine()) && (currItem->FrameType != 0) || (currItem->asPolyLine()))
-				currItem->DrawPolyL(&p, currItem->Clip);
+			if (SelItem.count() < moveWithFullOutlinesThreshold)
+			{
+				if (!(currItem->asLine()) && (currItem->FrameType != 0) || (currItem->asPolyLine()))
+					currItem->DrawPolyL(&p, currItem->Clip);
+			}
+			else
+				p.drawRect(0, 0, static_cast<int>(currItem->Width)+1, static_cast<int>(currItem->Height)+1);
 			p.end();
 		}
 	}

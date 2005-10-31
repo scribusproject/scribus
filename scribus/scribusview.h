@@ -143,6 +143,8 @@ public:
 		double oldXO;
 		double oldYO;
 	};
+	static const int moveWithFullOutlinesThreshold = 21;
+	static const int moveWithBoxesOnlyThreshold = 41;
   /** Deletes a Page */
 	void delPage(int Nr);
 	void reformPages(bool moveObjects = true);
