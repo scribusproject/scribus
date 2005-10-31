@@ -69,10 +69,11 @@ QString CollectForOutput::collect()
 	}
 	if (!collectDocument())
 		return "";
-	collectFonts();
+	if (withFonts)
+		collectFonts();
 	if (!collectDocument())
 	{
-		QMessageBox::warning(ScApp, CommonStrings::trWarning, "<qt>" + tr("Cannot collect  the file: \n%1").arg(newName) + "</qt>", CommonStrings::tr_OK);
+		QMessageBox::warning(ScApp, CommonStrings::trWarning, "<qt>" + tr("Cannot collect the file: \n%1").arg(newName) + "</qt>", CommonStrings::tr_OK);
 		return "";
 	}
 	QDir::setCurrent(outputDirectory);
@@ -216,9 +217,6 @@ bool CollectForOutput::collectItems()
 
 bool CollectForOutput::collectFonts()
 {
-	if (!withFonts)
-		return false;
-
 	PrefsManager *prefsManager = PrefsManager::instance();
 	QMap<QString,int>::Iterator it3;
 	QMap<QString,int>::Iterator it3end = ScApp->doc->UsedFonts.end();
