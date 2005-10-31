@@ -4445,12 +4445,6 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 							if (Doc->Items->at(a)->isBookmark)
 								emit NewBMNr(Doc->Items->at(a)->BMnr, a);
 						}
-						/*
-						if (Doc->masterPageMode())
-							Doc->MasterItems = Doc->Items;
-						else
-							Doc->DocItems = Doc->Items;
-						*/
 						ScApp->outlinePalette->BuildTree();
 					}
 					else
@@ -4569,12 +4563,6 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			}
 			else
 				Doc->ElemToLink = NULL;
-			/*
-			if (Doc->masterPageMode())
-				Doc->MasterItems = Doc->Items;
-			else
-				Doc->DocItems = Doc->Items;
-			*/
 			break;
 		case modeUnlinkFrames:
 			SeleItem(m);
@@ -4602,12 +4590,6 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				emit DocChanged();
 				updateContents();
 			}
-			/*
-			if (Doc->masterPageMode())
-				Doc->MasterItems = Doc->Items;
-			else
-				Doc->DocItems = Doc->Items;
-			*/
 			break;
 		case modeDrawRegularPolygon:
 			{
@@ -7919,12 +7901,6 @@ void ScribusView::ToBack()
 			if (Doc->Items->at(a)->isBookmark)
 				emit NewBMNr(Doc->Items->at(a)->BMnr, a);
 		}
-		/*
-		if (Doc->masterPageMode())
-			Doc->MasterItems = Doc->Items;
-		else
-			Doc->DocItems = Doc->Items;
-		*/
 		ScApp->outlinePalette->BuildTree();
 		emit LevelChanged(0);
 		emit DocChanged();
@@ -7959,12 +7935,6 @@ void ScribusView::ToFront()
 			if (Doc->Items->at(a)->isBookmark)
 				emit NewBMNr(Doc->Items->at(a)->BMnr, a);
 		}
-		/*
-		if (Doc->masterPageMode())
-			Doc->MasterItems = Doc->Items;
-		else
-			Doc->DocItems = Doc->Items;
-		*/
 		ScApp->outlinePalette->BuildTree();
 		emit LevelChanged(SelItem.at(0)->ItemNr);
 		emit DocChanged();
@@ -8018,12 +7988,6 @@ void ScribusView::LowerItem()
 			if (Doc->Items->at(a)->Select)
 				SelItem.append(Doc->Items->at(a));
 		}
-		/*
-		if (Doc->masterPageMode())
-			Doc->MasterItems = Doc->Items;
-		else
-			Doc->DocItems = Doc->Items;
-		*/
 		ScApp->outlinePalette->BuildTree();
 		emit LevelChanged(SelItem.at(0)->ItemNr);
 		emit DocChanged();
@@ -8077,12 +8041,6 @@ void ScribusView::RaiseItem()
 			if (Doc->Items->at(a)->Select)
 				SelItem.append(Doc->Items->at(a));
 		}
-		/*
-		if (Doc->masterPageMode())
-			Doc->MasterItems = Doc->Items;
-		else
-			Doc->DocItems = Doc->Items;
-		*/
 		ScApp->outlinePalette->BuildTree();
 		emit LevelChanged(SelItem.at(0)->ItemNr);
 		emit DocChanged();
@@ -8299,12 +8257,6 @@ void ScribusView::DeleteItem()
 			undoManager->commit();
 		updateContents();
 		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-		/*
-		if (Doc->masterPageMode())
-			Doc->MasterItems = Doc->Items;
-		else
-			Doc->DocItems = Doc->Items;
-		*/
 		ScApp->outlinePalette->BuildTree();
 		if (SelItem.count() == 0)
 			emit HaveSel(-1);
@@ -8733,16 +8685,6 @@ void ScribusView::showMasterPage(int nr)
 {
 	Deselect(false);
 	OldScale = Scale;
-	/*
-	if (!Doc->masterPageMode())
-	{
-		//Doc->DocPages = Doc->Pages;
-		//Doc->Pages = &Doc->MasterPages;
-		Doc->DocItems = Doc->Items;
-		Doc->Items = Doc->MasterItems;
-		//Doc->masterPageMode = true;
-	}
-	*/
 	Doc->setMasterPageMode(true);
 	Doc->pageCount = 1;
 	Doc->currentPage = Doc->Pages->at(nr);
@@ -8760,11 +8702,7 @@ void ScribusView::showMasterPage(int nr)
 void ScribusView::hideMasterPage()
 {
 	Deselect(true);
-	//Doc->MasterItems = Doc->Items;
-	//Doc->Items = Doc->DocItems;
-	//Doc->MasterPages = Doc->Pages;
 	Doc->pageCount = Doc->DocPages.count();
-	//Doc->Pages = &Doc->DocPages;
 	Doc->setMasterPageMode(false);
 	Doc->currentPage = Doc->Pages->at(0);
 	pageSelector->setEnabled(true);
@@ -8852,6 +8790,7 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr)
 		painter->setLineWidth(1);
 		painter->setBrush(Doc->papColor);
 		painter->drawRect(clipx, clipy, clipw, cliph);
+		//Hmm do we need master page mode before this? Seiten.cpp uses this function.
 		DrawPageItems(painter, QRect(clipx, clipy, clipw, cliph));
 		Doc->guidesSettings.framesShown = frs;
 		setScale(sca);
