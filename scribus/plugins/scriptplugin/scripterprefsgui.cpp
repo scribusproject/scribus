@@ -33,7 +33,7 @@ ScripterPrefsGui::ScripterPrefsGui(QWidget* parent )
 	extensionScriptsChk = new QCheckBox(startupTab, "extensionScriptsChk");
 	extLayout->addWidget(extensionScriptsChk);
 
-	startupScriptLayout = new QHBoxLayout(startupTab, 10, 5, "startupScriptLayout");
+	startupScriptLayout = new QHBoxLayout(0, 10, 5, "startupScriptLayout");
 
 	startupScriptEditLabel = new QLabel(startupTab, "startupScriptEditLabel");
 	startupScriptLayout->addWidget(startupScriptEditLabel);
