@@ -251,7 +251,7 @@ void KeyManager::keyPressEvent(QKeyEvent *k)
 					QMessageBox::information(this,
 											CommonStrings::trWarning,
 											tr("This key sequence is already in use"),
-											CommonStrings::tr_OK, 0, 0, 0, QMessageBox::Ok);
+											CommonStrings::tr_OK);
 					keyTable->setText(currRow, 1, "");
 					keyDisplay->setText("");
 					if (currentKeyMapRow!=NULL)

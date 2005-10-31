@@ -157,22 +157,21 @@ void SeView::ToggleNam()
 
 void SeView::contentsMouseMoveEvent(QMouseEvent* e)
 {
-	QString str, tmp;
-	bool dummy;
-	int p;
-	int a = rowAt(e->pos().y());
-	int b = columnAt(e->pos().x());
 	if ((Mpressed) && ((Mpos - e->pos()).manhattanLength() > 4))
 	{
 		Mpressed = false;
+		int a = rowAt(e->pos().y());
+		int b = columnAt(e->pos().x());
 		if ((a != -1) && (b != -1))
 		{
 			QTableItem* ite = item(a, b);
 			if (ite == 0)
 				return;
 			SeItem* it = (SeItem*)ite;
-			str = it->pageName;
-			p = GetPage(a, b, &dummy);
+			QString str(it->pageName);
+			bool dummy;
+			int p = GetPage(a, b, &dummy);
+			QString tmp;
 			QDragObject *dr = new SeDrag("2 "+tmp.setNum(p)+" "+str, this, "te");
 			dr->setPixmap(loadIcon("doc.png"));
 			dr->drag();

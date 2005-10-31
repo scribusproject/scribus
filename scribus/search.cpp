@@ -13,17 +13,19 @@
 #include <qtooltip.h>
 #include <qwhatsthis.h>
 #include <qmessagebox.h>
-#include "mspinbox.h"
+
+#include "commonstrings.h"
 #include "fontcombo.h"
+#include "mspinbox.h"
 #include "page.h"
-#include "prefsmanager.h"
-#include "prefsfile.h"
 #include "prefscontext.h"
-#include "styleselect.h"
+#include "prefsfile.h"
+#include "prefsmanager.h"
+#include "scribus.h"
 #include "shadebutton.h"
 #include "story.h"
-#include "scribus.h"
-#include "commonstrings.h"
+#include "styleselect.h"
+
 
 
 extern QPixmap loadIcon(QString nam);

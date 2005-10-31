@@ -26,7 +26,7 @@ int ScMessageBox::swapButtonValues(int &b0, int &b1, int &b2)
 	if (ScQApp->reverseDialogButtons())
 	{
 		//Last button not used, and 2nd one used, swap 1st and 2nd.
-		if (b2==0 && b1!=0)
+		if (b2==0 && b1!=0) //Could be: if ((b2==0 || b2==QMessageBox::NoButton) && b1!=0) but NoButton is 0x0000, for now.
 		{
 			int t=b1;
 			b1=b0;
@@ -47,7 +47,7 @@ int ScMessageBox::swapButtonValues(int &b0, int &b1, int &b2)
 			}
 			else 
 			{
-				// Unix order is "Cancel, No, Yes"
+				// If Unix order is "Cancel, No, Yes"
 				t = b2;
 				b2=b0;
 				b0=t;
