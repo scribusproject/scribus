@@ -26,6 +26,8 @@ protected:
 	QHBoxLayout* layout1;
 	QGroupBox *GenGroup;
 	QGridLayout* layout3;
+	QLabel* Text0g;
+	QLabel* timeInfo;
 	QLabel* Text1g;
 	QLabel* emProfile;
 	QLabel* Text2g;
@@ -39,7 +41,11 @@ protected:
 	QLabel* Text1;
 	QLabel* Text2;
 	QLabel* Text3;
+	QLabel* Text4;
+	QLabel* Text5;
 	QLabel* Comment;
+	QLabel* UserComment;
+	QLabel* Artist;
 	QLabel* Model;
 	QLabel* Manufact;
 	QPushButton* okButton;

@@ -141,11 +141,16 @@ public:
 		QString cameraName;
 		QString cameraVendor;
 		QString comment;
+		QString userComment;
+		QString artist;
+		QString copyright;
+		QString dateTime;
 		QImage thumbnail;
 	};
 	
 	struct ImageInfoRecord
 	{
+		int typ;			/* 0 = jpg, 1 = tiff, 2 = psd, 3 = eps/ps, 4 = pdf, 5 = jpg2000, 6 = other */
 		int xres;
 		int yres;
 		int colorspace; /* 0 = RGB  1 = CMYK  2 = Grayscale */

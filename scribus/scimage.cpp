@@ -2964,6 +2964,8 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 	QString picFile = QDir::convertSeparators(fn);
 	if (ext == "pdf")
 	{
+		imgInfo.typ = 4;
+		imgInfo.exifDataValid = false;
 		if (reqType == 4)
 			reqType = 1;
 		QStringList args;
@@ -3001,6 +3003,8 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 	}
 	if ((ext == "eps") || (ext == "ps"))
 	{
+		imgInfo.typ = 3;
+		imgInfo.exifDataValid = false;
 		if (reqType == 4)
 			reqType = 1;
 		QFile f(fn);
@@ -3084,6 +3088,7 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 #ifdef HAVE_TIFF
 	else if ((ext == "tif") || (ext == "tiff"))
 	{
+		imgInfo.typ = 1;
 		if (reqType == 4)
 			reqType = 1;
 		QImage img2;
@@ -3091,6 +3096,8 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 		if(tif)
 		{
 			unsigned widtht, heightt, size;
+			char *description=0, *copyright=0, *datetime=0, *artist=0, *scannerMake=0, *scannerModel=0;
+			
 			TIFFGetField(tif, TIFFTAG_IMAGEWIDTH, &widtht);
 			TIFFGetField(tif, TIFFTAG_IMAGELENGTH, &heightt);
 			TIFFGetField(tif, TIFFTAG_XRESOLUTION, &xres);
@@ -3102,6 +3109,24 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 			TIFFGetField(tif, TIFFTAG_BITSPERSAMPLE, &bitspersample);
 			TIFFGetField(tif, TIFFTAG_SAMPLESPERPIXEL, &samplesperpixel);
 			TIFFGetField(tif, TIFFTAG_FILLORDER, &fillorder);
+			
+			TIFFGetField(tif, TIFFTAG_MAKE, &scannerMake);
+			TIFFGetField(tif, TIFFTAG_MODEL, &scannerModel);
+			TIFFGetField(tif, TIFFTAG_IMAGEDESCRIPTION, &description);
+			TIFFGetField(tif, TIFFTAG_COPYRIGHT, &copyright);
+			TIFFGetField(tif, TIFFTAG_DATETIME, &datetime);
+			TIFFGetField(tif, TIFFTAG_ARTIST, &artist);
+			imgInfo.exifInfo.cameraName = QString(scannerModel);
+			imgInfo.exifInfo.cameraVendor = QString(scannerMake);
+			imgInfo.exifInfo.comment = QString(description);
+			imgInfo.exifInfo.userComment = QString(copyright);
+			imgInfo.exifInfo.width = widtht;
+			imgInfo.exifInfo.height = heightt;
+			imgInfo.exifInfo.dateTime = QString(datetime);
+			imgInfo.exifInfo.artist = QString(artist);
+			imgInfo.exifInfo.thumbnail = QImage();
+			imgInfo.exifDataValid = true;
+			
 			if (!create(widtht,heightt,32))
 			{
 				TIFFClose(tif);
@@ -3244,6 +3269,8 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 #endif // HAVE_TIFF
 	else if (ext == "psd")
 	{
+		imgInfo.typ = 2;
+		imgInfo.exifDataValid = false;
 		if (reqType == 4)
 			reqType = 1;
 		QFile f(fn);
@@ -3308,6 +3335,7 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 	}
 	else if ((ext == "jpg") || (ext == "jpeg"))
 	{
+		imgInfo.typ = 0;
 		ExifData ExifInf;
 		struct jpeg_decompress_struct cinfo;
 		struct my_error_mgr         jerr;
@@ -3340,6 +3368,8 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 			imgInfo.exifInfo.comment = ExifInf.getComment();
 			imgInfo.exifInfo.width = ExifInf.getWidth();
 			imgInfo.exifInfo.height = ExifInf.getHeight();
+			imgInfo.exifInfo.userComment = ExifInf.getUserComment();
+			imgInfo.exifInfo.dateTime = ExifInf.getDateTime();
 			imgInfo.exifDataValid = true;
 			if (cinfo.density_unit == 0)
 			{
@@ -3554,6 +3584,8 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 	{
 		if (load(fn))
 		{
+			imgInfo.typ = 6;
+			imgInfo.exifDataValid = false;
 			xres = dotsPerMeterX() * 0.0254;
 			yres = dotsPerMeterY() * 0.0254;
 			int resInf = imgInfo.lowResType;
