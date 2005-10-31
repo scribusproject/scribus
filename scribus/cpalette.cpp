@@ -357,15 +357,14 @@ void Cpalette::ChooseGrad(int number)
 	}
 	layout()->activate();
 	disconnect(PM1, SIGNAL(valueChanged(int)), this, SLOT(setActShade()));
+	updateCList();
 	switch (number)
 	{
 	case 0:
-		updateCList();
 		PM1->setValue(Shade3);
 		updateBoxS(Color3);
 		break;
 	default:
-		updateCList();
 		PM1->setValue(Shade);
 		updateBoxS(Color);
 		break;
