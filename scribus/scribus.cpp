@@ -2403,16 +2403,14 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 	doc->addMasterPage(0, "Normal");
 	//TODO CB Make addPage take a master page name
 	doc->addPage(0);
-	//doc->DocPages = doc->Pages;
-	//doc->Pages = &doc->DocPages;
 	doc->Pages->at(0)->MPageNam = "Normal";
-	doc->pageCount = doc->Pages->count();
-
+	doc->pageCount = doc->DocPages.count();
+	doc->addSection();
 	doc->setModified(false);
 	doc->setLoading(false);
-	//doc->DocItems = doc->Items;
 	doc->currentPage = doc->Pages->at(0);
 	doc->OpenNodes.clear();
+	
 	//<<View and window code
 	ScribusWin* w = new ScribusWin(wsp, doc);
 	if (view!=NULL)
@@ -2429,8 +2427,9 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 	ActWin = w;
 	doc->WinHan = w;
 	w->setCentralWidget(view);
-	//>>
 	view->reformPages(true);
+	//>>
+	
 	connect(undoManager, SIGNAL(undoRedoDone()), view, SLOT(DrawNew()));
 	//connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
 	connect(view, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
@@ -2602,12 +2601,6 @@ void ScribusApp::windowsMenuActivated( int id )
 bool ScribusApp::SetupDoc()
 {
 	bool ret = false;
-	/*
-	if (doc->masterPageMode())
-		doc->MasterItems = doc->Items;
-	else
-		doc->DocItems = doc->Items;
-	*/
 	ReformDoc* dia = new ReformDoc(this, doc);
 	if (dia->exec())
 	{
@@ -3936,8 +3929,6 @@ bool ScribusApp::loadDoc(QString fileName)
 		else
 			doc->setName(FName);
 		doc->setMasterPageMode(false);
-		//doc->masterPageMode = false;
-		//doc->Pages=&doc->DocPages;
 		doc->Language = GetLang(doc->Language);
 		HaveNewDoc();
 		propertiesPalette->updateCList();
@@ -3945,16 +3936,14 @@ bool ScribusApp::loadDoc(QString fileName)
 		if (doc->MasterPages.count() == 0)
 			doc->addMasterPage(0, "Normal");
 		doc->pageCount = doc->DocPages.count();
+		//Add doc sections if we have none
+		doc->addSection(-1);
 		doc->setLoading(false);
-		//doc->DocItems = doc->Items;
 		doc->RePos = true;
 		QPixmap pgPix(10, 10);
 		QRect rd = QRect(0,0,9,9);
 		ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
 		doc->setMasterPageMode(true);
-		//doc->Pages = &doc->MasterPages;
-		//doc->masterPageMode = true;
-		//doc->Items = doc->MasterItems;
 		for (uint azz=0; azz<doc->MasterItems.count(); ++azz)
 		{
 			PageItem *ite = doc->MasterItems.at(azz);
@@ -3987,9 +3976,7 @@ bool ScribusApp::loadDoc(QString fileName)
 			}
 		}
 //		RestoreBookMarks();
-		//doc->Pages = &doc->DocPages;
 		doc->setMasterPageMode(false);
-		//doc->Items = doc->DocItems;
 		for (uint azz=0; azz<doc->Items->count(); ++azz)
 		{
 			PageItem *ite = doc->Items->at(azz);
@@ -4196,12 +4183,6 @@ void ScribusApp::slotFileOpen()
 				if (doc->Items->at(a)->isBookmark)
 					bookmarkPalette->BView->ChangeItem(doc->Items->at(a)->BMnr, a);
 			}
-			/*
-			if (doc->masterPageMode())
-				doc->MasterItems = doc->Items;
-			else
-				doc->DocItems = doc->Items;
-			*/
 			outlinePalette->BuildTree();
 			view->DrawNew();
 			slotDocCh();
@@ -5060,12 +5041,6 @@ void ScribusApp::slotEditPaste()
 				{
 					doc->Items->take(ac);
 				}
-				/*
-				if (doc->masterPageMode())
-					doc->MasterItems = doc->Items;
-				else
-					doc->DocItems = doc->Items;
-				*/
 				view->SelItem.clear();
 				view->SelItem = bSel;
 				view->resizeContents(qRound((maxSize.x() - minSize.x()) * view->getScale()), qRound((maxSize.y() - minSize.y()) * view->getScale()));
@@ -5300,12 +5275,6 @@ void ScribusApp::slotNewPageP(int wo, QString templ)
 	view->Deselect(true);
 	slotNewPage(wo);
 	applyNewMaster(templ);
-	/*
-	if (doc->masterPageMode)
-		doc->MasterPages = doc->Pages;
-	else
-		doc->DocPages = doc->Pages;
-	*/
 	outlinePalette->BuildTree();
 	pagePalette->RebuildPage();
 }
@@ -5407,12 +5376,6 @@ void ScribusApp::addNewPages(int wo, int where, int numPages, double height, dou
 	pagePalette->RebuildPage();
 	view->reformPages(mov);
 	view->DrawNew();
-	/*
-	if (doc->masterPageMode)
-		doc->MasterPages = doc->Pages;
-	else
-		doc->DocPages = doc->Pages;
-	*/
 	outlinePalette->BuildTree();
 	if (UndoManager::undoEnabled())
 		undoManager->commit();
@@ -6687,12 +6650,6 @@ void ScribusApp::slotEditLineStyles()
 
 void ScribusApp::saveLStyles(LineFormate *dia)
 {
-	/*
-	if (doc->masterPageMode())
-		doc->MasterItems = doc->Items;
-	else
-		doc->DocItems = doc->Items;
-	*/
 	PageItem* ite;
 	doc->MLineStyles = dia->TempStyles;
 	for (uint d = 0; d < doc->DocItems.count(); ++d)
@@ -6753,12 +6710,6 @@ void ScribusApp::saveStyles(StilFormate *dia)
 	ers.append(2);
 	ers.append(3);
 	ers.append(4);
-	/*
-	if (doc->masterPageMode())
-		doc->MasterItems = doc->Items;
-	else
-		doc->DocItems = doc->Items;
-	*/
 	for (uint a=5; a<doc->docParagraphStyles.count(); ++a)
 	{
 		ff = false;
@@ -8182,7 +8133,6 @@ void ScribusApp::manageMasterPagesEnd()
 	for (uint c=0; c<pageCount; ++c)
 		Apply_MasterPage(doc->Pages->at(c)->MPageNam, c, false);
 	doc->setMasterPageMode(false);
-	//doc->Pages=&doc->DocPages;
 	pagePalette->enablePalette(true);
 	pagePalette->RebuildTemp();
 	ActWin->muster = NULL;
@@ -8753,12 +8703,6 @@ void ScribusApp::showLayer()
 //TODO replace with the ScribusDoc::deleteTaggedItems
 void ScribusApp::LayerRemove(int l, bool dl)
 {
-	/*
-	if (doc->masterPageMode)
-		doc->MasterPages = doc->Pages;
-	else
-		doc->DocPages = doc->Pages;
-	*/
 	view->Deselect();
 	for (uint b = 0; b < doc->MasterItems.count(); ++b)
 	{
@@ -9123,8 +9067,10 @@ void ScribusApp::ImageEffects()
 QString ScribusApp::Collect(bool compress, bool withFonts, const QString& )
 {
 	CollectForOutput *c = new CollectForOutput(withFonts, compress);
+	Q_CHECK_PTR(c);
 	QString ret = c->collect();
 	delete c;
+	c=NULL;
 	return ret;
 }
 
@@ -9279,7 +9225,7 @@ void ScribusApp::imageEditorExited()
 	}
 }
 
-/* call gimp and wait uppon completion */
+/* call gimp and wait upon completion */
 void ScribusApp::callImageEditor()
 {
 	if (view->SelItem.count() != 0)
@@ -9479,6 +9425,7 @@ void ScribusApp::insertSampleText()
 	else
 		m->exec();
 	delete(m);
+	m=NULL;
 }
 
 void ScribusApp::languageChange()

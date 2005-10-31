@@ -23,6 +23,9 @@
 #include <utility>
 #include <qfile.h>
 
+#include "filewatcher.h"
+#include "hyphenator.h"
+#include "layers.h"
 #include "page.h"
 #include "pageitem.h"
 #include "pageitem_imageframe.h"
@@ -31,13 +34,11 @@
 #include "pageitem_polygon.h"
 #include "pageitem_polyline.h"
 #include "pageitem_textframe.h"
+#include "pagestructs.h"
+#include "prefsmanager.h"
 #include "undomanager.h"
 #include "undostate.h"
-#include "prefsmanager.h"
-#include "layers.h"
 #include "units.h"
-#include "filewatcher.h"
-#include "hyphenator.h"
 
 
 extern ScribusQApp* ScQApp;
@@ -256,7 +257,6 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document"))
 	CurrentStyle = 0;
 	currentParaStyle = 0;
 	TotalItems = 0;
-	//masterPageMode = false;
 	PDF_Options.Thumbnails = prefsData->PDF_Options.Thumbnails;
 	PDF_Options.Articles = prefsData->PDF_Options.Articles;
 	PDF_Options.Compress = prefsData->PDF_Options.Compress;
@@ -317,11 +317,8 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document"))
 	SubMode = -1;
 	autoSaveTimer = new QTimer(this);
 	MLineStyles.clear();
-	//Pages.clear();
 	MasterPages.clear();
 	DocPages.clear();
-	//Pages=&DocPages;
-	//Items.clear();
 	MasterItems.clear();
 	DocItems.clear();
 	FrameItems.clear();
@@ -972,12 +969,6 @@ Page* ScribusDoc::addPage(const int pageNumber)
 	addedPage->PageOri = PageOri;
 	bool insertsuccess=Pages->insert(pageNumber, addedPage);
 	Q_ASSERT(insertsuccess==true && Pages->at(pageNumber)!=NULL);
-	/*
-	if (masterPageMode)
-		MasterPages = Pages;
-	else
-		DocPages = Pages;
-	*/
 	currentPage = addedPage;
 	pageCount++;
 	return addedPage;
@@ -1026,12 +1017,6 @@ bool ScribusDoc::deletePage(const int pageNumber)
 	delete Seite;
 	pageCount -= 1;
 	currentPage = Pages->at(0);
-	/*
-	if (masterPageMode)
-		MasterPages = Pages;
-	else
-		DocPages = Pages;
-	*/
 	return true;
 }
 
@@ -1062,12 +1047,6 @@ void ScribusDoc::movePage(const int from, const int to, const int ziel, const in
 				Pages->append(Buf.at(b));
 			break;
 	}
-	/*
-	if (masterPageMode)
-		MasterPages = Pages;
-	else
-		DocPages = Pages;
-	*/
 }
 
 const int ScribusDoc::addLayer(const QString& layerName=QString::null, const bool activate=false)
@@ -1458,12 +1437,6 @@ const bool ScribusDoc::changeLayerName(const int layerNumber, const QString& new
 
 const bool ScribusDoc::layerContainsItems(const int layerNumber)
 {
-	/*
-	if (masterPageMode)
-		MasterPages = Pages;
-	else
-		DocPages = Pages;
-	*/
 	uint masterItemsCount=MasterItems.count();
 	for (uint i = 0; i < masterItemsCount; ++i)
 	{
@@ -1792,8 +1765,6 @@ void ScribusDoc::reorganiseFonts()
 	QMap<QString,int> Really;
 	//QMap<QString,QFont> DocF;
 	//DocF = UsedFonts;
-	//if (!masterPageMode)
-	//	DocPages = Pages;
 	uint counter = 0;
 	for (uint lc = 0; lc < 3; ++lc)
 	{
@@ -1995,12 +1966,6 @@ const bool ScribusDoc::changePageMargins(const double initialTop, const double i
 
 void ScribusDoc::recalculateColors()
 {
-	/*
-	if (masterPageMode)
-		MasterPages = Pages;
-	else
-		DocPages = Pages;
-	*/
 	//Recalculate the RGB or CMYK calues to new CMS settings
 	ColorList::Iterator it;
 	ColorList::Iterator itend=PageColors.end();
@@ -2095,20 +2060,7 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 	int GrMax = GroupCounter;
 	Page* sourcePage = Pages->at(pageNumber);
 	int nr = MasterPages.count();
-	/*
-	DocPages = Pages;
-	Pages = MasterPages;
-	DocItems = Items;
-	Items = MasterItems;
-	*/
-	//masterPageMode = true;
-	//MasterNames.insert(masterPageName, nr);
 	pageCount = 0;
-	//bool atf = automaticTextFrames;
-	//automaticTextFrames = false;
-	//Note we are bypassing the view here, but things seem fine. The master page is offscreen anyway.
-	//ScApp->slotNewPage(nr);
-	//Page* targetPage = Pages->at(nr);	
 	Page* targetPage=addMasterPage(nr, masterPageName);
 	Q_ASSERT(targetPage!=NULL);
 	setLoading(true);
@@ -2200,15 +2152,7 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 				ta->BottomLink = 0;
 		}
 	}
-	//MasterPages = Pages;
-	//pageCount = DocPages.count();
-	//Pages = DocPages;
-	//MasterItems = Items;
-	//Items = DocItems;
-	//masterPageMode = false;
-	//targetPage->setPageName(masterPageName);
 	targetPage->MPageNam = "";
-	//automaticTextFrames = atf;
 	setLoading(false);
 	GroupCounter = GrMax + 1;
 	//Reset the current page.. 
@@ -2270,12 +2214,6 @@ int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemF
 		return -1;
 	Items->append(newItem);
 	newItem->ItemNr = Items->count()-1;	
-	/*
-	if (masterPageMode())
-		MasterItems = Items;
-	else
-		DocItems = Items;
-	*/
 	//Add in item default values based on itemType and frameType
 	itemAddDetails(itemType, frameType, newItem->ItemNr);
 	if (UndoManager::undoEnabled())
@@ -2885,14 +2823,6 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 		ScApp->view->updateContents();
 		ScApp->view->Deselect(true);
 	}
-	/*
-	//<<At some point we HAVE to stop this!
-	if (masterPageMode())
-		MasterItems = Items;
-	else
-		DocItems = Items;
-	//>>
-	*/
 	//Create the undo action for the new item
 	if (UndoManager::undoEnabled())
 	{
@@ -2954,4 +2884,85 @@ void ScribusDoc::setMasterPageMode(const bool changeToMasterPageMode)
 const bool ScribusDoc::masterPageMode()
 {
 	return m_masterPageMode;
+}
+
+void ScribusDoc::addSection(const uint number, const QString& name, const uint fromindex, const uint toindex, const DocumentSectionType type, const uint sectionstartindex, const bool reversed, const bool active)
+{
+	struct DocumentSection newSection;
+	uint docPageCount=DocPages.count();
+	bool empty=sections.isEmpty();
+	if (empty || (number==-1 && empty))
+	{
+		newSection.number=0;
+		newSection.name="0";
+		newSection.fromindex=0;
+		newSection.toindex=docPageCount-1;
+		newSection.type=Type_1_2_3;
+		newSection.sectionstartindex=1;
+		newSection.reversed=false;
+		newSection.active=true;
+		sections.insert(newSection.number, newSection);
+	}
+	else if (number!=-1)
+	{
+		newSection.number=number;
+		newSection.name=name;
+		newSection.fromindex=fromindex;
+		newSection.toindex=toindex;
+		if (newSection.toindex>docPageCount-1)
+			newSection.toindex=docPageCount-1;
+		newSection.type=type;
+		newSection.sectionstartindex=sectionstartindex;
+		newSection.reversed=reversed;
+		newSection.active=active;
+		sections.insert(newSection.number, newSection);
+	}
+}
+
+const bool ScribusDoc::deleteSection(const uint number)
+{
+	if (!sections.contains(number))
+		return false;
+	if (sections.count()<=1)
+		return false;
+	uint currMinIndex, currMaxIndex;
+	QMap<uint, DocumentSection>::Iterator itprev=sections.begin();
+	QMap<uint, DocumentSection>::Iterator it=itprev;
+	for ( ; it != sections.end(); ++it )
+	{
+		currMinIndex=it.data().fromindex;
+		currMaxIndex=it.data().toindex;
+
+		if (it.key()!=number)
+			itprev=it;
+		else
+			break;
+	}
+	itprev.data().toindex=currMaxIndex;
+	sections.remove(it);
+	return true;
+}
+
+const QString ScribusDoc::getSectionPageNumberForPageIndex(const uint pageIndex) const
+{
+	bool found=false;
+	QString retVal(QString::null);
+	DocumentSectionMap::ConstIterator it = sections.begin();
+	for (; it!= sections.end(); ++it)
+	{
+		if (pageIndex>=it.data().fromindex && pageIndex<=it.data().toindex)
+		{
+			found=true;
+			break;
+		}
+	}
+	if (!found)
+		return retVal;
+	
+	uint sectionIndexOffset=pageIndex-it.data().fromindex+it.data().sectionstartindex;
+	if (it.data().type==Type_1_2_3)
+		retVal=QString::number(sectionIndexOffset);
+	else
+		retVal=getStringFromSequence(it.data().type, sectionIndexOffset);
+	return retVal;
 }

@@ -3386,6 +3386,39 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 		tocElem.appendChild(tocsetup);
 	}
 	dc.appendChild(tocElem);
+	QDomElement sectionElem = docu.createElement("Sections");
+	for(DocumentSectionMap::Iterator it = doc->sections.begin() ; it != doc->sections.end(); ++it )
+	{
+		QDomElement currsection = docu.createElement("Section");
+		currsection.setAttribute("Number", (*it).number);
+		currsection.setAttribute("Name", (*it).name);
+		currsection.setAttribute("From", (*it).fromindex);
+		currsection.setAttribute("To", (*it).toindex);
+		switch ((*it).type)
+		{
+			case Type_1_2_3:
+				currsection.setAttribute("Type", "Type_1_2_3");
+				break;
+			case Type_i_ii_iii:
+				currsection.setAttribute("Type", "Type_i_ii_iii");
+				break;
+			case Type_I_II_III:
+				currsection.setAttribute("Type", "Type_I_II_III");
+				break;
+			case Type_a_b_c:
+				currsection.setAttribute("Type", "Type_a_b_c");
+				break;
+			case Type_A_B_C:
+				currsection.setAttribute("Type", "Type_A_B_C");
+				break;
+		}
+		currsection.setAttribute("Start", (*it).sectionstartindex);
+		currsection.setAttribute("Reversed", (*it).reversed);
+		currsection.setAttribute("Active", (*it).active);
+		sectionElem.appendChild(currsection);
+	}
+	dc.appendChild(sectionElem);
+
 	QDomElement pageSetAttr = docu.createElement("PageSets");
 	QValueList<PageSet>::Iterator itpgset;
 	for(itpgset = doc->pageSets.begin(); itpgset != doc->pageSets.end(); ++itpgset )

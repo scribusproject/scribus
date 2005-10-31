@@ -781,8 +781,8 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 	struct ParagraphStyle vg;
 	struct Layer la;
 	struct ScribusDoc::BookMa bok;
-	int counter, Pgc;
-	bool AtFl;
+	int counter;//, Pgc;
+	//bool AtFl;
 	bool newVersion = false;
 	QString tmp, tmpf, tmp2, tmp3, tmp4, PgNam, Defont, tmf;
 	QFont fo;
@@ -1372,24 +1372,55 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 					TOC = TOC.nextSibling();
 				}
 			}
+			if(pg.tagName()=="Sections")
+			{
+				QDomNode Section = PAGE.firstChild();
+				while(!Section.isNull())
+				{
+					QDomElement sectionElem = Section.toElement();
+					if(sectionElem.tagName() == "Section")
+					{
+						struct DocumentSection newSection;
+						newSection.number=QStoInt(sectionElem.attribute("Number"));
+						newSection.name=sectionElem.attribute("Name");
+						newSection.fromindex=QStoInt(sectionElem.attribute("From"));
+						newSection.toindex=QStoInt(sectionElem.attribute("To"));
+						if (sectionElem.attribute("Type")=="Type_1_2_3")
+							newSection.type=Type_1_2_3;
+						if (sectionElem.attribute("Type")=="Type_i_ii_iii")
+							newSection.type=Type_i_ii_iii;
+						if (sectionElem.attribute("Type")=="Type_I_II_III")
+							newSection.type=Type_I_II_III;
+						if (sectionElem.attribute("Type")=="Type_a_b_c")
+							newSection.type=Type_a_b_c;
+						if (sectionElem.attribute("Type")=="Type_A_B_C")
+							newSection.type=Type_A_B_C;
+						newSection.sectionstartindex=QStoInt(sectionElem.attribute("Start"));
+						newSection.reversed=static_cast<bool>(QStoInt(sectionElem.attribute("Reversed")));
+						newSection.active=static_cast<bool>(QStoInt(sectionElem.attribute("Active")));
+						doc->sections.insert(newSection.number, newSection);
+					}
+					Section = Section.nextSibling();
+				}
+			}
 			if ((pg.tagName()=="PAGE") || (pg.tagName()=="MASTERPAGE"))
 			{
 				a = QStoInt(pg.attribute("NUM"));
 				PgNam = "";
 				PgNam = pg.attribute("NAM", "");
-				Pgc = doc->pageCount;
-				AtFl = doc->usesAutomaticTextFrames();
+				//Pgc = doc->pageCount;
+				//AtFl = doc->usesAutomaticTextFrames();
 				if (PgNam.isEmpty())
 				{
-					doc->pageCount = Pgc;
+					//doc->pageCount = Pgc;
 					//doc->Pages = &doc->DocPages;
-					doc->setUsesAutomaticTextFrames(AtFl);
+					//doc->setUsesAutomaticTextFrames(AtFl);
 					doc->setMasterPageMode(false);
 				}
 				else
 				{
-					doc->pageCount = 0;
-					doc->setUsesAutomaticTextFrames(false);
+					//doc->pageCount = 0;
+					//doc->setUsesAutomaticTextFrames(false);
 					//doc->Pages = &doc->MasterPages;
 					doc->setMasterPageMode(true);
 				}
@@ -1397,20 +1428,21 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 				//this makes a difference apart from being faster, of course.
 				//ScApp->slotNewPage(a);
 				//Apage = doc->Pages.at(a);
-				Apage = doc->addPage(a);
 				if (PgNam.isEmpty())
 				{
+					Apage = doc->addPage(a);
 					//doc->DocPages = doc->Pages;
-					doc->pageCount = Pgc+1;
+					++doc->pageCount;
 				}
 				else
 				{
-					Apage->setPageName(PgNam);
-					doc->MasterNames[PgNam] = a;
+					Apage = doc->addMasterPage(a, PgNam);
+					//Apage->setPageName(PgNam);
+					//doc->MasterNames[PgNam] = a;
 					//doc->MasterPages = doc->Pages;
-					doc->pageCount = Pgc;
+					//doc->pageCount = Pgc;
 				}
-				doc->setUsesAutomaticTextFrames(AtFl);
+				//doc->setUsesAutomaticTextFrames(AtFl);
 				Apage->LeftPg=QStoInt(pg.attribute("LEFT","0"));
 				QString Mus = "";
 				Mus = pg.attribute("MNAM","Normal");

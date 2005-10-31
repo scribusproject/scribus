@@ -9,6 +9,8 @@ Makefile.in
 .libs
 CVS
 scribus
+docsectionsbase.cpp
+docsectionsbase.h
 docitemattrprefs.cpp
 docitemattrprefs.h
 pageitemattributes.cpp

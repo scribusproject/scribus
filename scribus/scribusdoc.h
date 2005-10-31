@@ -42,6 +42,7 @@
 #include "pageitem.h"
 #include "pageitem_line.h"
 #include "pageitem_textframe.h"
+#include "pagestructs.h"
 
 #ifdef HAVE_CMS
 	#include CMS_INC
@@ -76,6 +77,7 @@ public:
 	void setPage(double b, double h, double t, double l, double r, double bo, double sp, double ab, bool atf, int fp);
 	void resetPage(double t, double l, double r, double bo, int fp);
 	// Add, delete and move pages
+	//TODO CB Make addPage take a master page name and stop making master pages with it
 	Page* addPage(const int);
 	bool deletePage(const int);
 	Page* addMasterPage(const int, const QString&);
@@ -396,6 +398,21 @@ public:
 	 */
 	void setMasterPageMode(const bool);
 	const bool masterPageMode();
+	
+	/**
+	 * @brief Add a section to the document sections list
+	 * Set number to -1 to add in the default section
+	 */
+	void addSection(const uint number=0, const QString& name=QString::null, const uint fromindex=0, const uint toindex=0, const  DocumentSectionType type=Type_1_2_3, const uint sectionstartindex=0, const bool reversed=false, const bool active=true);
+	/**
+	 * @brief Delete a section from the document sections list
+	 */
+	const bool deleteSection(const uint);
+	/**
+	 * @brief Gets the page number to be printed based on the section it is in.
+	 * Returns QString::null on failure to find the pageIndex
+	 */
+	const QString getSectionPageNumberForPageIndex(const uint) const;
 
 protected:
 	void addSymbols();
@@ -407,7 +424,7 @@ protected:
 	UndoManager *undoManager;
 	bool automaticTextFrames; // Flag for automatic Textframes
 	bool m_masterPageMode;
-
+	
 public: // Public attributes
 	bool is12doc; //public for now, it will be removed later
 	int NrItems;
@@ -578,6 +595,7 @@ public: // Public attributes
 	//Attributes to be applied to frames
 	ObjAttrVector docItemAttributes;
 	ToCSetupVector docToCSetups;
+	DocumentSectionMap sections;
 	FPointArray symReturn;
 	FPointArray symNewLine;
 	FPointArray symTab;

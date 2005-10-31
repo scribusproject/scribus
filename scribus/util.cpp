@@ -45,6 +45,7 @@
 
 #include <setjmp.h>
 #include "commonstrings.h"
+#include "pagestructs.h"
 #include "prefsfile.h"
 #include "prefscontext.h"
 #include "prefstable.h"
@@ -1416,3 +1417,154 @@ inline double distance(double x, double y)
 	return sqrt(x*x+y*y);
 }
 
+const QString getStringFromSequence(DocumentSectionType type, uint position)
+{
+	QString retVal("");
+	switch( type )
+	{
+		case Type_A_B_C:
+		case Type_a_b_c:
+			{
+				retVal=numberToLetterSequence(position);
+			}
+			break;
+		case Type_I_II_III:
+			retVal=arabicToRoman(position);
+			break;
+		case Type_i_ii_iii:
+			//well, for lower case people will want that, even if its "wrong"
+			//ie, X=10, x=10000
+			retVal=arabicToRoman(position).lower();
+			break;
+		default:
+			break;
+	}
+	if ( type==Type_A_B_C)
+		retVal=retVal.upper();
+	return retVal;
+}
+
+const QString numberToLetterSequence(uint i)
+{
+	QString retVal("");
+	unsigned digits = 1;
+	unsigned offset = 0;
+	uint column=i;
+	--column;
+
+	if( column > 4058115285U ) return  QString("@");
+
+	for( unsigned limit = 26; column >= limit+offset; limit *= 26, digits++ )
+		offset += limit;
+
+	for( unsigned c = column - offset; digits; --digits, c/=26 )
+		retVal.prepend( QChar( 'a' + (c%26) ) );
+	return retVal;
+}
+
+const QString arabicToRoman(uint i)
+{
+	QString roman("");
+	int arabic = i;
+	while (arabic - 1000000 >= 0){
+	roman += "m";
+	arabic -= 1000000;
+	}
+	while (arabic - 900000 >= 0){
+	roman += "cm";
+	arabic -= 900000;
+	}
+	while (arabic - 500000 >= 0){
+	roman += "d";
+	arabic -= 500000;
+	}
+	while (arabic - 400000 >= 0){
+	roman += "cd";
+	arabic -= 400000;
+	}
+	while (arabic - 100000 >= 0){
+	roman += "c";
+	arabic -= 100000;
+	}
+	while (arabic - 90000 >= 0){
+	roman += "xc";
+	arabic -= 90000;
+	}
+	while (arabic - 50000 >= 0){
+	roman += "l";
+	arabic -= 50000;
+	}
+	while (arabic - 40000 >= 0){
+	roman += "xl";
+	arabic -= 40000;
+	}
+	while (arabic - 10000 >= 0){
+	roman += "x";
+	arabic -= 10000;
+	}
+	while (arabic - 9000 >= 0){
+	roman += "Mx";
+	arabic -= 9000;
+	}
+	while (arabic - 5000 >= 0){
+	roman += "v";
+	arabic -= 5000;
+	}
+	while (arabic - 4000 >= 0){
+	roman += "Mv";
+	arabic -= 4000;
+	}
+	while (arabic - 1000 >= 0){
+	roman += "M";
+	arabic -= 1000;
+	}
+	while (arabic - 900 >= 0){
+	roman += "CM";
+	arabic -= 900;
+	}
+	while (arabic - 500 >= 0){
+	roman += "D";
+	arabic -= 500;
+	}
+	while (arabic - 400 >= 0){
+	roman += "CD";
+	arabic -= 400;
+	}
+	while (arabic - 100 >= 0){
+	roman += "C";
+	arabic -= 100;
+	}
+	while (arabic - 90 >= 0){
+	roman += "XC";
+	arabic -= 90;
+	}
+	while (arabic - 50 >= 0){
+	roman += "L";
+	arabic -= 50;
+	}
+	while (arabic - 40 >= 0){
+	roman += "XL";
+	arabic -= 40;
+	}
+	while (arabic - 10 >= 0){
+	roman += "X";
+	arabic -= 10;
+	}
+	while (arabic - 9 >= 0){
+	roman += "IX";
+	arabic -= 9;
+	}
+	while (arabic - 5 >= 0){
+	roman += "V";
+	arabic -= 5;
+	}
+	while (arabic - 4 >= 0){
+	roman += "IV";
+	arabic -= 4;
+	}
+	while (arabic - 1 >= 0){
+	roman += "I";
+	arabic -= 1;
+	}
+	return roman;
+}

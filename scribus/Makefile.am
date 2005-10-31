@@ -55,6 +55,8 @@ scribus_SOURCES = \
 	docitemattrprefs.ui	\
 	documentchecker.cpp	\
 	documentinformation.cpp	\
+	docsectionsbase.ui	\
+	docsections.cpp	\
 	druck.cpp	\
 	dynamictip.cpp	\
 	edit1format.cpp	\

@@ -6,6 +6,7 @@
 #include <qspinbox.h>
 #include <qtooltip.h>
 
+#include "docsections.h"
 #include "tabtypography.h"
 #include "docinfo.h"
 #include "tabguides.h"
@@ -383,6 +384,10 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	connect( prefsWidgets, SIGNAL(aboutToShow(QWidget *)), this, SLOT(setTOCIndexData(QWidget *)));
 	addItem( tr("Table of Contents and Indexes"), loadIcon("tabtocindex.png"), tabTOCIndexPrefs);
 
+	tabDocSections = new DocSections(prefsWidgets);
+	tabDocSections->setup(currDoc);
+	addItem( tr("Sections"), loadIcon("tabtocindex.png"), tabDocSections);
+	
 	int cmsTab = 0;
 	if (CMSavail)
 	{
@@ -1088,6 +1093,7 @@ void ReformDoc::updateDocumentSettings()
 	currDoc->documentInfo = docInfos->getDocInfo();
 	currDoc->docItemAttributes = *(tabDocItemAttributes->getNewAttributes());
 	currDoc->docToCSetups = *(tabTOCIndexPrefs->getNewToCs());
+	currDoc->sections = tabDocSections->getNewSections();
 
 	uint itemCount=currDoc->Items->count();
 	for (uint b=0; b<itemCount; ++b)

@@ -77,4 +77,7 @@ QString SCRIBUS_API getFileNameByPage(uint pageNo, QString extension);
 void SCRIBUS_API sDebug(QString message);
 inline double SCRIBUS_API square(double);
 inline double SCRIBUS_API distance(double, double);
+const QString SCRIBUS_API getStringFromSequence(DocumentSectionType type, uint position);
+const QString arabicToRoman(uint i);
+const QString numberToLetterSequence(uint i);
 #endif

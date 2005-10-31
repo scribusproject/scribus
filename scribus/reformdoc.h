@@ -18,6 +18,7 @@
 #include "prefsdialogbase.h"
 
 class QSpinBox;
+class DocSections;
 class ScribusDoc;
 class ScribusApp;
 class TabTypograpy;
@@ -81,7 +82,7 @@ protected:
 	QHBoxLayout* groupAutoSaveLayout;
 	QStringList docAttributesList;
 	
-		QWidget* tabPage;
+	QWidget* tabPage;
 	PageLayouts* docLayout;
 	MarginWidget* GroupRand;
 	QGroupBox* groupBox7a;
@@ -120,6 +121,7 @@ protected:
 	QCheckBox* checkRuler;
 
 	DocInfos* docInfos;
+	DocSections* tabDocSections;
 	TabGuides* tabGuides;
 	QWidget* tabView;
 	TabTypograpy* tabTypo;
