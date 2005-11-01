@@ -115,17 +115,61 @@ void DocSections::tableItemChanged( int row, int col )
 
 void DocSections::addEntry()
 {
-	struct DocumentSection blank;
-	uint count=localSections.count();
-	blank.number=count;
-	blank.name=QString::number(count);
-	blank.fromindex=maxpageindex;
-	blank.toindex=maxpageindex;
-	blank.type=Type_1_2_3;
-	blank.sectionstartindex=1;
-	blank.reversed=false;
-	blank.active=true;
-	localSections.insert(count, blank);
+	int currRow=sectionsTable->currentRow();
+	bool found=false;
+	DocumentSectionMap::Iterator it = localSections.begin();
+	int count=0;
+	for(; it!= localSections.end(); ++it)
+	{
+		if(count==currRow)
+		{
+			found=true;
+			break;
+		}
+		++count;
+	}
+	if (!found) //End of map, just append
+	{
+		struct DocumentSection blank;
+		uint count=localSections.count();
+		blank.number=count;
+		blank.name=QString::number(count);
+		blank.fromindex=maxpageindex;
+		blank.toindex=maxpageindex;
+		blank.type=Type_1_2_3;
+		blank.sectionstartindex=1;
+		blank.reversed=false;
+		blank.active=true;
+		localSections.insert(count, blank);
+	}
+	else
+	{
+		//Now, copy to a temp map
+		DocumentSectionMap tempSections(localSections);
+		localSections.clear();
+		//Copy the temp map entries over. When we find the number of the current row, also insert a new entry.
+		uint i=0;
+		for(DocumentSectionMap::Iterator it2 = tempSections.begin(); it2!= tempSections.end(); ++it2)
+		{
+			it2.data().number=i;
+			localSections.insert(i, it2.data());
+			
+			if ((*it).number==i)
+			{
+				struct DocumentSection blank;
+				blank.number=++i;
+				blank.name=QString::number(i);
+				blank.fromindex=(*it).toindex+1;
+				blank.toindex=(*it).toindex+2;
+				blank.type=Type_1_2_3;
+				blank.sectionstartindex=1;
+				blank.reversed=false;
+				blank.active=true;
+				localSections.insert(i, blank);
+			}
+			++i;
+		}
+	}
 	updateTable();
 }
 
