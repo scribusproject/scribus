@@ -1474,27 +1474,49 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 		// We're at the raw image data.  It's each channel in order (Red, Green, Blue, Alpha, ...)
 		// where each channel consists of an 8-bit value for each pixel in the image.
 		// Read the data by channel.
+		if (channel_num < 4)
+		{
+			for (int i = 0; i < tmpImg.height(); i++)
+			{
+				QRgb * s = (QRgb*)(tmpImg.scanLine( i ));
+				for (int j = 0; j < tmpImg.width(); j++)
+				{
+					*s++ = qRgba(0, 0, 0, 255);
+				}
+			}
+		}
 		int count = 0;
+		int count2 = 0;
+		for(uint channel = 0; channel < channel_num; channel++)
+		{
+			count = layerInfo[layer].channelLen[channel];
+			for (int i = 0; i < tmpImg.height(); i++)
+			{
+				uchar *ptr =  tmpImg.scanLine(i);
+				for (int j = 0; j < tmpImg.width(); j++)
+				{
+					s >> cbyte;
+					count--;
+					if (header.color_mode == CM_CMYK)
+						cbyte = 255 - cbyte;
+					if (channel < 4)
+						ptr[components[channel]] = cbyte;
+					if (count == 0)
+						break;
+					ptr += 4;
+				}
+				if (count == 0)
+					break;
+			}
+			count2 += layerInfo[layer].channelLen[channel];
+			s.device()->at( base+count2 );
+		}
+		count = 0;
 		for(uint channel = 0; channel < channel_num; channel++)
 		{
 			count += layerInfo[layer].channelLen[channel];
 		}
-		uchar * ptr = tmpImg.bits();
-		if (channel_num < 4)
-			tmpImg.fill(qRgba(0, 0, 0, 255));
-		while( count >= 0 )
-		{
-			for(uint channel = 0; channel < channel_num; channel++)
-			{
-				s >> cbyte;
-				count--;
-				if (header.color_mode == CM_CMYK)
-					cbyte = 255 - cbyte;
-				if (channel < 4)
-					ptr[components[channel]] = cbyte;
-			}
-			ptr += 4;
-		}
+		s.device()->at( base+count );
 	}
 	QImage tmpImg2 = tmpImg.copy();
 	if (header.color_mode == CM_CMYK)
@@ -1571,140 +1593,215 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 						layBlend = imgInfo.RequestProps[layer].blend;
 					if (layBlend == "mul ")
 					{
-						src_r = INT_MULT(src_r, d[0]);
-						src_g = INT_MULT(src_g, d[1]);
-						src_b = INT_MULT(src_b, d[2]);
 						if (header.color_mode == CM_CMYK)
+						{
+							src_r = INT_MULT(src_r, d[0]);
+							src_g = INT_MULT(src_g, d[1]);
+							src_b = INT_MULT(src_b, d[2]);
 							src_a = INT_MULT(src_a, d[3]);
+						}
 						else
-							src_a = QMIN(src_a, d[3]);
+						{
+							if (d[3] > 0)
+							{
+								src_r = INT_MULT(src_r, d[0]);
+								src_g = INT_MULT(src_g, d[1]);
+								src_b = INT_MULT(src_b, d[2]);
+							}
+						}
 					}
 					else if (layBlend == "scrn")
 					{
-						src_r = 255 - INT_MULT(255 - d[0], 255 - src_r);
-						src_g = 255 - INT_MULT(255 - d[1], 255 - src_g);
-						src_b = 255 - INT_MULT(255 - d[2], 255 - src_b);
 						if (header.color_mode == CM_CMYK)
+						{
+							src_r = 255 - INT_MULT(255 - d[0], 255 - src_r);
+							src_g = 255 - INT_MULT(255 - d[1], 255 - src_g);
+							src_b = 255 - INT_MULT(255 - d[2], 255 - src_b);
 							src_a = 255 - INT_MULT(255 - d[3], 255 - src_a);
+						}
 						else
-							src_a = QMIN(src_a, d[3]);
+						{
+							if (d[3] > 0)
+							{
+								src_r = 255 - INT_MULT(255 - d[0], 255 - src_r);
+								src_g = 255 - INT_MULT(255 - d[1], 255 - src_g);
+								src_b = 255 - INT_MULT(255 - d[2], 255 - src_b);
+							}
+						}
 					}
 					else if (layBlend == "over")
 					{
-						src_r = INT_MULT(d[0], d[0] + INT_MULT(2 * src_r, 255 - d[0]));
-						src_g = INT_MULT(d[1], d[1] + INT_MULT(2 * src_g, 255 - d[1]));
-						src_b = INT_MULT(d[2], d[2] + INT_MULT(2 * src_b, 255 - d[2]));
 						if (header.color_mode == CM_CMYK)
+						{
+							src_r = INT_MULT(d[0], d[0] + INT_MULT(2 * src_r, 255 - d[0]));
+							src_g = INT_MULT(d[1], d[1] + INT_MULT(2 * src_g, 255 - d[1]));
+							src_b = INT_MULT(d[2], d[2] + INT_MULT(2 * src_b, 255 - d[2]));
 							src_a = INT_MULT(d[3], d[3] + INT_MULT(2 * src_a, 255 - d[3]));
+						}
 						else
-							src_a = QMIN(src_a, d[3]);
+						{
+							if (d[3] > 0)
+							{
+								src_r = INT_MULT(d[0], d[0] + INT_MULT(2 * src_r, 255 - d[0]));
+								src_g = INT_MULT(d[1], d[1] + INT_MULT(2 * src_g, 255 - d[1]));
+								src_b = INT_MULT(d[2], d[2] + INT_MULT(2 * src_b, 255 - d[2]));
+							}
+						}
 					}
 					else if (layBlend == "diff")
 					{
-						src_r = d[0] > src_r ? d[0] - src_r : src_r - d[0];
-						src_g = d[1] > src_g ? d[1] - src_g : src_g - d[1];
-						src_b = d[2] > src_b ? d[2] - src_b : src_b - d[2];
 						if (header.color_mode == CM_CMYK)
+						{
+							src_r = d[0] > src_r ? d[0] - src_r : src_r - d[0];
+							src_g = d[1] > src_g ? d[1] - src_g : src_g - d[1];
+							src_b = d[2] > src_b ? d[2] - src_b : src_b - d[2];
 							src_a = d[3] > src_a ? d[3] - src_a : src_a - d[3];
+						}
 						else
-							src_a = QMIN(src_a, d[3]);
+						{
+							if (d[3] > 0)
+							{
+								src_r = d[0] > src_r ? d[0] - src_r : src_r - d[0];
+								src_g = d[1] > src_g ? d[1] - src_g : src_g - d[1];
+								src_b = d[2] > src_b ? d[2] - src_b : src_b - d[2];
+							}
+						}
 					}
 					else if (layBlend == "dark")
 					{
-						src_r = d[0]  < src_r ? d[0]  : src_r;
-						src_g = d[1] < src_g ? d[1] : src_g;
-						src_b = d[2] < src_b ? d[2] : src_b;
 						if (header.color_mode == CM_CMYK)
+						{
+							src_r = d[0]  < src_r ? d[0]  : src_r;
+							src_g = d[1] < src_g ? d[1] : src_g;
+							src_b = d[2] < src_b ? d[2] : src_b;
 							src_a = d[3] < src_a ? d[3] : src_a;
+						}
 						else
-							src_a = QMIN( src_a, d[3] );
+						{
+							if (d[3] > 0)
+							{
+								src_r = d[0]  < src_r ? d[0]  : src_r;
+								src_g = d[1] < src_g ? d[1] : src_g;
+								src_b = d[2] < src_b ? d[2] : src_b;
+							}
+						}
 					}
 					else if (layBlend == "lite")
 					{
-						src_r = d[0] < src_r ? src_r : d[0];
-						src_g = d[1] < src_g ? src_g : d[1];
-						src_b = d[2] < src_b ? src_b : d[2];
 						if (header.color_mode == CM_CMYK)
+						{
+							src_r = d[0] < src_r ? src_r : d[0];
+							src_g = d[1] < src_g ? src_g : d[1];
+							src_b = d[2] < src_b ? src_b : d[2];
 							src_a = d[3] < src_a ? src_a : d[3];
+						}
 						else
-							src_a = QMIN( src_a, d[3] );
+						{
+							if (d[3] > 0)
+							{
+								src_r = d[0] < src_r ? src_r : d[0];
+								src_g = d[1] < src_g ? src_g : d[1];
+								src_b = d[2] < src_b ? src_b : d[2];
+							}
+						}
 					}
 					else if (layBlend == "hue ")
 					{
 						if (header.color_mode != CM_CMYK)
 						{
-							uchar new_r = d[0];
-							uchar new_g = d[1];
-							uchar new_b = d[2];
-							RGBTOHSV(src_r, src_g, src_b);
-							RGBTOHSV(new_r, new_g, new_b);
-							new_r = src_r;
-							HSVTORGB(new_r, new_g, new_b);
-							src_r = new_r;
-							src_g = new_g;
-							src_b = new_b;
-							src_a = QMIN( src_a, d[3] );
+							if (d[3] > 0)
+							{
+								uchar new_r = d[0];
+								uchar new_g = d[1];
+								uchar new_b = d[2];
+								RGBTOHSV(src_r, src_g, src_b);
+								RGBTOHSV(new_r, new_g, new_b);
+								new_r = src_r;
+								HSVTORGB(new_r, new_g, new_b);
+								src_r = new_r;
+								src_g = new_g;
+								src_b = new_b;
+							}
 						}
 					}
 					else if (layBlend == "sat ")
 					{
 						if (header.color_mode != CM_CMYK)
 						{
-							uchar new_r = d[0];
-							uchar new_g = d[1];
-							uchar new_b = d[2];
-							RGBTOHSV(src_r, src_g, src_b);
-							RGBTOHSV(new_r, new_g, new_b);
-							new_g = src_g;
-							HSVTORGB(new_r, new_g, new_b);
-							src_r = new_r;
-							src_g = new_g;
-							src_b = new_b;
-							src_a = QMIN(src_a, d[3]);
+							if (d[3] > 0)
+							{
+								uchar new_r = d[0];
+								uchar new_g = d[1];
+								uchar new_b = d[2];
+								RGBTOHSV(src_r, src_g, src_b);
+								RGBTOHSV(new_r, new_g, new_b);
+								new_g = src_g;
+								HSVTORGB(new_r, new_g, new_b);
+								src_r = new_r;
+								src_g = new_g;
+								src_b = new_b;
+							}
 						}
 					}
 					else if (layBlend == "lum ")
 					{
 						if (header.color_mode != CM_CMYK)
 						{
-							uchar new_r = d[0];
-							uchar new_g = d[1];
-							uchar new_b = d[2];
-							RGBTOHSV(src_r, src_g, src_b);
-							RGBTOHSV(new_r, new_g, new_b);
-							new_b = src_b;
-							HSVTORGB(new_r, new_g, new_b);
-							src_r = new_r;
-							src_g = new_g;
-							src_b = new_b;
-							src_a = QMIN(src_a, d[3]);
+							if (d[3] > 0)
+							{
+								uchar new_r = d[0];
+								uchar new_g = d[1];
+								uchar new_b = d[2];
+								RGBTOHSV(src_r, src_g, src_b);
+								RGBTOHSV(new_r, new_g, new_b);
+								new_b = src_b;
+								HSVTORGB(new_r, new_g, new_b);
+								src_r = new_r;
+								src_g = new_g;
+								src_b = new_b;
+							}
 						}
 					}
 					else if (layBlend == "colr")
 					{
 						if (header.color_mode != CM_CMYK)
 						{
-							uchar new_r = d[0];
-							uchar new_g = d[1];
-							uchar new_b = d[2];
-							RGBTOHLS(src_r, src_g, src_b);
-							RGBTOHLS(new_r, new_g, new_b);
-							new_r = src_r;
-							new_b = src_b;
-							HLSTORGB(new_r, new_g, new_b);
-							src_r = new_r;
-							src_g = new_g;
-							src_b = new_b;
-							src_a = QMIN(src_a, d[3]);
+							if (d[3] > 0)
+							{
+								uchar new_r = d[0];
+								uchar new_g = d[1];
+								uchar new_b = d[2];
+								RGBTOHLS(src_r, src_g, src_b);
+								RGBTOHLS(new_r, new_g, new_b);
+								new_r = src_r;
+								new_b = src_b;
+								HLSTORGB(new_r, new_g, new_b);
+								src_r = new_r;
+								src_g = new_g;
+								src_b = new_b;
+							}
 						}
 					}
 					int layOpa = layerInfo[layer].opacity;
 					if ((imgInfo.isRequest) && (imgInfo.RequestProps.contains(layer)))
 						layOpa = imgInfo.RequestProps[layer].opacity;
-					r = (d[0] * (255 - layOpa) + src_r * layOpa) / 255;
-					g = (d[1] * (255 - layOpa) + src_g * layOpa) / 255;
-					b = (d[2] * (255 - layOpa) + src_b * layOpa) / 255;
-					a = (d[3] * (255 - layOpa) + src_a * layOpa) / 255;
+					if (d[3] > 0)
+					{
+						r = (d[0] * (255 - layOpa) + src_r * layOpa) / 255;
+						g = (d[1] * (255 - layOpa) + src_g * layOpa) / 255;
+						b = (d[2] * (255 - layOpa) + src_b * layOpa) / 255;
+						if (header.color_mode == CM_CMYK)
+							a = (d[3] * (255 - layOpa) + src_a * layOpa) / 255;
+						else
+							a = INT_MULT(src_a, layOpa);
+					}
+					else
+					{
+						r = src_r;
+						g = src_g;
+						b = src_b;
+						a = INT_MULT(src_a, layOpa);
+					}
 					if (header.color_mode == CM_CMYK)
 					{
 						d[0] = r;
@@ -1719,6 +1816,7 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 							d[0] = r;
 							d[1] = g;
 							d[2] = b;
+							d[3] = a;
 						}
 					}
 					dst++;
