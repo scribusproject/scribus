@@ -2841,6 +2841,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 		chx = " ";
 	if (hl->ch == QChar(30))
 	{
+		//FIXME Stop duplicating PageItem::ExpandToken code!!!
 		uint zae = 0;
 		uint za2 = d;
 		do
@@ -2860,7 +2861,9 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 		}
 		QString out="%1";
 		QString out2;
-		out2 = out.arg(PNr+doc->FirstPnum, -zae);
+		//CB Section numbering
+		//out2 = out.arg(PNr+doc->FirstPnum, -zae);
+		out2=out.arg(doc->getSectionPageNumberForPageIndex(PNr), -zae);
 		chx = out2.mid(d-za2, 1);
 	}
 	uint cc = chx[0].unicode();

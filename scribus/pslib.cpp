@@ -2224,6 +2224,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 		chx = " ";
 	if (hl->ch == QChar(30))
 	{
+		//FIXME Stop duplicating PageItem::ExpandToken code!!!
 		if (Doc->masterPageMode())
 			chx = "#";
 		else
@@ -2247,7 +2248,9 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 			}
 			QString out="%1";
 			QString out2;
-			out2 = out.arg(a+Doc->FirstPnum, -zae);
+			//CB Section numbering
+			//out2 = out.arg(a+Doc->FirstPnum, -zae);
+			out2=out.arg(Doc->getSectionPageNumberForPageIndex(a), -zae);
 			chx = out2.mid(d-za2, 1);
 		}
 	}

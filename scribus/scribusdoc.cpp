@@ -1732,12 +1732,47 @@ void ScribusDoc::getUsedFonts(QMap<QString,int> *Really)
 					}
 					if (chr == 30)
 					{
+						/* CB Removed forced loading of 0-9 for section based numbering
 						for (uint numco = 0x30; numco < 0x3A; ++numco)
 						{
 							if (it->itemText.at(e)->cfont->CharWidth.contains(numco))
 							{
 								gly = it->itemText.at(e)->cfont->GlyphArray[numco].Outlines.copy();
 								it->itemText.at(e)->cfont->RealGlyphs.insert(numco, gly);
+							}
+						}*/
+						//Our page number collection string
+						QString pageNumberText(QString::null);
+						//If not on a master page just get the page number for the page and the text
+						if (lc!=0)
+							pageNumberText=getSectionPageNumberForPageIndex(it->OwnPage);
+						else
+						{
+							//Else, for a page number in a text frame on a master page we must scan
+							//all pages to see which ones use this page and get their page numbers.
+							//We only add each character of the pages' page number text if its nothing
+							//already in the pageNumberText variable. No need to add glyphs twice.
+							QString newText;
+							uint docPageCount=DocPages.count();
+							for (uint a = 0; a < docPageCount; ++a)
+							{
+								if ((DocPages.at(a)->MPageNam) == (MasterPages.at(it->OwnPage)->PageNam))
+								{
+									newText=getSectionPageNumberForPageIndex(a);
+									for (uint nti=0;nti<newText.length();++nti)
+										if (pageNumberText.find(newText[nti])==-1)
+											pageNumberText+=newText[nti];
+								}
+							}
+						}
+						//Now scan and add any glyphs used in page numbers
+						for (uint pnti=0;pnti<pageNumberText.length(); ++pnti)
+						{
+							uint chr = pageNumberText[pnti].unicode();
+							if (it->itemText.at(e)->cfont->CharWidth.contains(chr))
+							{
+								FPointArray gly(it->itemText.at(e)->cfont->GlyphArray[chr].Outlines.copy());
+								it->itemText.at(e)->cfont->RealGlyphs.insert(chr, gly);
 							}
 						}
 						continue;
