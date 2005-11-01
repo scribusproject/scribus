@@ -8768,6 +8768,7 @@ void ScribusApp::initHyphenator()
 	QStringList L_Irish;
 	QStringList L_Italian;
 	QStringList L_Lithuanian;
+	QStringList L_Norwegian;
 	QStringList L_Polish;
 	QStringList L_Portuguese;
 	QStringList L_Portuguese_BR;
@@ -8842,6 +8843,10 @@ void ScribusApp::initHyphenator()
 				if (!translatedLang.isEmpty())
 					L_Dutch.append(translatedLang);
 				translatedLang = "";
+				translatedLang = trans->findMessage("ScribusApp", "Norwegian", "").translation();
+				if (!translatedLang.isEmpty())
+					L_Dutch.append(translatedLang);
+				translatedLang = "";
 				translatedLang = trans->findMessage("ScribusApp", "Portuguese", "").translation();
 				if (!translatedLang.isEmpty())
 					L_Portuguese.append(translatedLang);
@@ -8912,6 +8917,7 @@ void ScribusApp::initHyphenator()
 	InstLang.insert("Polish", L_Polish);
 	InstLang.insert("Portuguese (BR)", L_Portuguese_BR);
 	InstLang.insert("Portuguese", L_Portuguese);
+	InstLang.insert("Norwegian", L_Norwegian);
 	InstLang.insert("Russian", L_Russian);
 	InstLang.insert("Slovak", L_Slovak);
 	InstLang.insert("Slovenian", L_Slovenian);
