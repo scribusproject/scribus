@@ -513,7 +513,7 @@ PyObject *scribus_setstyle(PyObject* /* self */, PyObject* args)
 			return NULL;
 		}
 		// for current item only
-		if (ScApp->view->SelItem.count() == 0)
+		if (ScApp->view->SelItem.count() == 0 || name != "")
 		{
 			// quick hack to always apply on the right frame - pv
 			ScApp->view->Deselect(true);

@@ -218,7 +218,6 @@ given, it's applied on the selected object.\n\
  Craig Ringer, 2004-09-09
  Apply the named style to the currently selected object.
  pv, 2004-09-13, optionaly param objectName + "check the page" stuff
- FIXME: should handled explicitly passed object name too.
  */
 PyObject *scribus_setstyle(PyObject */*self*/, PyObject* args);
 
