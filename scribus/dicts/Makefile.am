@@ -18,6 +18,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/hyph_it.dic $(libdir)/scribus/dicts/hyph_it.dic
 	$(INSTALL_DATA) $(srcdir)/hyph_lt.dic $(libdir)/scribus/dicts/hyph_lt.dic
 	$(INSTALL_DATA) $(srcdir)/hyph_nl.dic $(libdir)/scribus/dicts/hyph_nl.dic
+	$(INSTALL_DATA) $(srcdir)/hyph_nn.dic $(libdir)/scribus/dicts/hyph_nn.dic
 	$(INSTALL_DATA) $(srcdir)/hyph_pl.dic $(libdir)/scribus/dicts/hyph_pl.dic
 	$(INSTALL_DATA) $(srcdir)/hyph_pt.dic $(libdir)/scribus/dicts/hyph_pt.dic
 	$(INSTALL_DATA) $(srcdir)/hyph_pt_BR.dic $(libdir)/scribus/dicts/hyph_pt_BR.dic
@@ -66,6 +67,7 @@ uninstall-local:
 	-rm -f $(libdir)/scribus/dicts/hyph_it.dic
 	-rm -f $(libdir)/scribus/dicts/hyph_lt.dic
 	-rm -f $(libdir)/scribus/dicts/hyph_nl.dic
+	-rm -f $(libdir)/scribus/dicts/hyph_nn.dic
 	-rm -f $(libdir)/scribus/dicts/hyph_pl.dic
 	-rm -f $(libdir)/scribus/dicts/hyph_pt.dic
 	-rm -f $(libdir)/scribus/dicts/hyph_pt_BR.dic
