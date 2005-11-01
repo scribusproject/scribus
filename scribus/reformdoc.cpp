@@ -385,7 +385,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	addItem( tr("Table of Contents and Indexes"), loadIcon("tabtocindex.png"), tabTOCIndexPrefs);
 
 	tabDocSections = new DocSections(prefsWidgets);
-	tabDocSections->setup(currDoc);
+	tabDocSections->setup(currDoc->sections, currDoc->DocPages.count()-1);
 	addItem( tr("Sections"), loadIcon("tabtocindex.png"), tabDocSections);
 	
 	int cmsTab = 0;

@@ -8,9 +8,9 @@
 
 #include <qtable.h>
 #include <qpushbutton.h>
+#include <qtooltip.h>
 
 #include "pagestructs.h"
-#include "scribusdoc.h"
 
 DocSections::DocSections( QWidget* parent )
 	: DocSectionsBase( parent, "DocSections" )
@@ -27,13 +27,14 @@ DocSections::~DocSections()
 
 void DocSections::languageChange()
 {
+	QToolTip::add(addButton, "<qt>"+ tr("Add a page numbering section to the document. The new section will be added after the currently selected section.") + "</qt>");
+	QToolTip::add(deleteButton, "<qt>"+ tr("Delete the currently selected section.") + "</qt>");
 }
 
-void DocSections::setup(ScribusDoc *doc)
+void DocSections::setup(const DocumentSectionMap docSections, int maxPageIndex)
 {
-	currDoc=doc;
-	localSections=currDoc->sections;
-	maxpageindex=currDoc->DocPages.count()-1;
+	localSections=docSections;
+	m_maxpageindex=maxPageIndex;
 	
 	styles << tr("1, 2, 3, ...") << tr("i, ii, iii, ...") << tr("I, II, III, ...") << tr("a, b, c, ...") << tr("A, B, C, ...");
 	
@@ -134,8 +135,8 @@ void DocSections::addEntry()
 		uint count=localSections.count();
 		blank.number=count;
 		blank.name=QString::number(count);
-		blank.fromindex=maxpageindex;
-		blank.toindex=maxpageindex;
+		blank.fromindex=m_maxpageindex;
+		blank.toindex=m_maxpageindex;
 		blank.type=Type_1_2_3;
 		blank.sectionstartindex=1;
 		blank.reversed=false;
@@ -214,7 +215,7 @@ void DocSections::deleteEntry()
 		int newCount=localSections.count();
 		//int preIndex=QMAX(currentIndex-1, 0);
 		localSections[0].fromindex=0;
-		localSections[newCount-1].toindex=maxpageindex;
+		localSections[newCount-1].toindex=m_maxpageindex;
 		updateTable();
 	}
 }

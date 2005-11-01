@@ -6,8 +6,6 @@
 #include "docsectionsbase.h"
 #include "pagestructs.h"
 
-class ScribusDoc;
-
 class DocSections : public DocSectionsBase
 {
 	Q_OBJECT
@@ -16,7 +14,7 @@ class DocSections : public DocSectionsBase
 		DocSections(QWidget* parent);
 		~DocSections();
 		
-		virtual void setup(ScribusDoc *);
+		virtual void setup(const DocumentSectionMap docSections, int maxPageIndex);
 		virtual void updateTable();
 		const DocumentSectionMap& getNewSections();
 		
@@ -27,10 +25,8 @@ class DocSections : public DocSectionsBase
 		virtual void deleteEntry();
 	
 	protected:
-		ScribusDoc* currDoc;
 		DocumentSectionMap localSections;
-		uint maxpageindex;
-		
+		uint m_maxpageindex;
 		QStringList styles;
 };
 
