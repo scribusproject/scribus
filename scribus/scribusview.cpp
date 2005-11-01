@@ -675,7 +675,8 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 							currItem->Dirty = true;
 						if (forceRedraw)
 							currItem->Dirty = false;
-						currItem->DrawObj(painter, clip);
+//						if ((!Mpressed) || (Doc->EditClip))
+							currItem->DrawObj(painter, clip);
 						currItem->Redrawn = true;
 						if ((currItem->asTextFrame()) && ((currItem->NextBox != 0) || (currItem->BackBox != 0)))
 						{
@@ -6123,22 +6124,6 @@ void ScribusView::moveGroup(double x, double y, bool fromMP)
 	QPainter p;
 	double gx, gy, gw, gh;
 	double sc = Scale;
-	if (GroupSel)
-	{
-		getGroupRectScreen(&gx, &gy, &gw, &gh);
-		p.begin(viewport());
-		PaintSizeRect(&p, QRect(qRound(gx), qRound(gy), qRound(gw), qRound(gh)));
-		p.end();
-	}
-	else
-	{
-		currItem = SelItem.at(0);
-		QRect oldR(currItem->getRedrawBounding(Scale));
-		p.begin(viewport());
-		ToView(&p);
-		PaintSizeRect(&p, oldR);
-		p.end();
-	}
 	for (uint a = 0; a < SelItem.count(); ++a)
 	{
 		currItem = SelItem.at(a);
@@ -6195,6 +6180,23 @@ void ScribusView::moveGroup(double x, double y, bool fromMP)
 			gy -= Doc->minCanvasCoordinate.y();
 			updateContents(QRect(static_cast<int>(gx*sc-5), static_cast<int>(gy*sc-5), static_cast<int>(gw*sc+10), static_cast<int>(gh*sc+10)));
 		}
+	}
+	if (GroupSel)
+	{
+		getGroupRectScreen(&gx, &gy, &gw, &gh);
+		p.begin(viewport());
+		PaintSizeRect(&p, QRect(qRound(gx), qRound(gy), qRound(gw), qRound(gh)));
+		p.end();
+	}
+	else
+	{
+		currItem = SelItem.at(0);
+		QRect oldR = QRect(qRound(currItem->BoundingX * Scale), qRound(currItem->BoundingY * Scale), qRound(currItem->BoundingW * Scale), qRound(currItem->BoundingH * Scale));
+		oldR.moveBy(qRound(-Doc->minCanvasCoordinate.x() * Scale), qRound(-Doc->minCanvasCoordinate.y() * Scale));
+		p.begin(viewport());
+		ToView(&p);
+		PaintSizeRect(&p, oldR);
+		p.end();
 	}
 }
 
