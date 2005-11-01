@@ -46,30 +46,56 @@
                                 <property name="text">
                                     <string>Name</string>
                                 </property>
+                                <property name="pixmap">
+                                    <pixmap></pixmap>
+                                </property>
+                            </column>
+                            <column>
+                                <property name="text">
+                                    <string>Active</string>
+                                </property>
+                                <property name="pixmap">
+                                    <pixmap></pixmap>
+                                </property>
                             </column>
                             <column>
                                 <property name="text">
                                     <string>From</string>
+                                </property>
+                                <property name="pixmap">
+                                    <pixmap></pixmap>
                                 </property>
                             </column>
                             <column>
                                 <property name="text">
                                     <string>To</string>
                                 </property>
+                                <property name="pixmap">
+                                    <pixmap></pixmap>
+                                </property>
                             </column>
                             <column>
                                 <property name="text">
                                     <string>Style</string>
+                                </property>
+                                <property name="pixmap">
+                                    <pixmap></pixmap>
                                 </property>
                             </column>
                             <column>
                                 <property name="text">
                                     <string>Start</string>
                                 </property>
+                                <property name="pixmap">
+                                    <pixmap></pixmap>
+                                </property>
                             </column>
                             <column>
                                 <property name="text">
                                     <string>End</string>
+                                </property>
+                                <property name="pixmap">
+                                    <pixmap></pixmap>
                                 </property>
                             </column>
                             <property name="name">
@@ -79,7 +105,7 @@
                                 <number>0</number>
                             </property>
                             <property name="numCols">
-                                <number>6</number>
+                                <number>7</number>
                             </property>
                         </widget>
                         <widget class="QLayoutWidget">

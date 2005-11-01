@@ -50,24 +50,27 @@ void DocSections::updateTable()
 		//Name
 		QTableItem *item1 = new QTableItem(sectionsTable, QTableItem::WhenCurrent, (*it).name);
 		sectionsTable->setItem(row, i++, item1);
-		//FromIndex
-		QTableItem *item2 = new QTableItem(sectionsTable, QTableItem::WhenCurrent, QString::number((*it).fromindex));
+		//Active
+		QCheckTableItem *item2 = new QCheckTableItem(sectionsTable,"");
+		item2->setChecked((*it).active);
 		sectionsTable->setItem(row, i++, item2);
-		//ToIndex
-		QTableItem *item3 = new QTableItem(sectionsTable, QTableItem::WhenCurrent, QString::number((*it).toindex));
+		//FromIndex
+		QTableItem *item3 = new QTableItem(sectionsTable, QTableItem::WhenCurrent, QString::number((*it).fromindex));
 		sectionsTable->setItem(row, i++, item3);
-		//Style
-		QComboTableItem *item4 = new QComboTableItem(sectionsTable, styles);
+		//ToIndex
+		QTableItem *item4 = new QTableItem(sectionsTable, QTableItem::WhenCurrent, QString::number((*it).toindex));
 		sectionsTable->setItem(row, i++, item4);
-		item4->setCurrentItem((*it).type);
-		//Start Page Number
-		QTableItem *item5 = new QTableItem(sectionsTable, QTableItem::WhenCurrent, QString::number((*it).sectionstartindex));
+		//Style
+		QComboTableItem *item5 = new QComboTableItem(sectionsTable, styles);
 		sectionsTable->setItem(row, i++, item5);
-		//End Page Number
+		item5->setCurrentItem((*it).type);
+		//Start Page Number
 		QTableItem *item6 = new QTableItem(sectionsTable, QTableItem::WhenCurrent, QString::number((*it).sectionstartindex));
-		item6->setEnabled(false);
 		sectionsTable->setItem(row, i++, item6);
-		
+		//End Page Number
+		QTableItem *item7 = new QTableItem(sectionsTable, QTableItem::WhenCurrent, QString::number((*it).sectionstartindex));
+		item6->setEnabled(false);
+		sectionsTable->setItem(row, i++, item7);
 		
 		sectionsTable->verticalHeader()->setLabel(row, QString("%1").arg(row));
 		row++;
@@ -83,12 +86,15 @@ void DocSections::tableItemChanged( int row, int col )
 		localSections[row].name=sectionsTable->text(row, col);
 		break;
 	case 1:
-		localSections[row].fromindex=sectionsTable->text(row, col).toUInt();
+		localSections[row].active=static_cast<QCheckTableItem*>(sectionsTable->item(row, col))->isChecked();
 		break;
 	case 2:
-		localSections[row].toindex=sectionsTable->text(row, col).toUInt();
+		localSections[row].fromindex=sectionsTable->text(row, col).toUInt();
 		break;
 	case 3:
+		localSections[row].toindex=sectionsTable->text(row, col).toUInt();
+		break;
+	case 4:
 		{
 			QComboTableItem* qcti=dynamic_cast<QComboTableItem*>(sectionsTable->item(row,col));
 			if (qcti!=NULL)
@@ -99,7 +105,7 @@ void DocSections::tableItemChanged( int row, int col )
 			}
 		}
 		break;
-	case 4:
+	case 5:
 		localSections[row].sectionstartindex=sectionsTable->text(row, col).toUInt();
 		break;
 	default:

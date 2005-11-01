@@ -2995,6 +2995,9 @@ const QString ScribusDoc::getSectionPageNumberForPageIndex(const uint pageIndex)
 		return retVal;
 	
 	uint sectionIndexOffset=pageIndex-it.data().fromindex+it.data().sectionstartindex;
+	//If a section is inactive, theres no page numbers printed
+	if (it.data().active==false)
+		return "";
 	if (it.data().type==Type_1_2_3)
 		retVal=QString::number(sectionIndexOffset);
 	else
