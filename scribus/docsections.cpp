@@ -132,6 +132,8 @@ void DocSections::addEntry()
 void DocSections::deleteEntry()
 {
 	int currRow=sectionsTable->currentRow();
+	if (currRow==0 && localSections.count()==1)
+		return;
 	bool found=false;
 	DocumentSectionMap::Iterator it = localSections.begin();
 	int count=0;
@@ -146,7 +148,28 @@ void DocSections::deleteEntry()
 	}
 	if (found)
 	{
-		localSections.erase(it);
+		int currentIndex=it.key();
+		bool isLast=currentIndex==localSections.count()-1;
+		bool isFirst=currentIndex==0;
+		
+		//if (isFirst && !isLast)
+		//	localSections[currentIndex+1].fromindex=localSections[currentIndex].fromindex;
+		//if (isLast && !isFirst)
+		//	localSections[currentIndex-1].toindex=localSections[currentIndex].toindex;
+		localSections.remove(it);
+		DocumentSectionMap tempSections(localSections);
+		localSections.clear();
+		uint i=0;
+		it = tempSections.begin();
+		for(; it!= tempSections.end(); ++it)
+		{
+			it.data().number=i;
+			localSections.insert(i++, it.data());
+		}
+		int newCount=localSections.count();
+		//int preIndex=QMAX(currentIndex-1, 0);
+		localSections[0].fromindex=0;
+		localSections[newCount-1].toindex=maxpageindex;
 		updateTable();
 	}
 }
