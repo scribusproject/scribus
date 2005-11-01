@@ -68,8 +68,8 @@ void DocSections::updateTable()
 		QTableItem *item6 = new QTableItem(sectionsTable, QTableItem::WhenCurrent, QString::number((*it).sectionstartindex));
 		sectionsTable->setItem(row, i++, item6);
 		//End Page Number
-		QTableItem *item7 = new QTableItem(sectionsTable, QTableItem::WhenCurrent, QString::number((*it).sectionstartindex));
-		item6->setEnabled(false);
+		QTableItem *item7 = new QTableItem(sectionsTable, QTableItem::WhenCurrent, QString::number((*it).sectionstartindex + (*it).toindex - (*it).fromindex));
+		item7->setEnabled(false);
 		sectionsTable->setItem(row, i++, item7);
 		
 		sectionsTable->verticalHeader()->setLabel(row, QString("%1").arg(row));
@@ -148,15 +148,16 @@ void DocSections::deleteEntry()
 	}
 	if (found)
 	{
-		int currentIndex=it.key();
-		bool isLast=currentIndex==localSections.count()-1;
-		bool isFirst=currentIndex==0;
-		
-		//if (isFirst && !isLast)
-		//	localSections[currentIndex+1].fromindex=localSections[currentIndex].fromindex;
-		//if (isLast && !isFirst)
-		//	localSections[currentIndex-1].toindex=localSections[currentIndex].toindex;
+		//If we arent at the start, copy the toindex of the current item
+		//to the toindex of the previous item
+		if (it!=localSections.begin())
+		{
+			DocumentSectionMap::Iterator it2(it);
+			(*--it2).toindex=(*it).toindex;
+		}
+		//Delete the currently selected entry
 		localSections.remove(it);
+		//Now, copy to a temp map and reinsert with consecutive keys again
 		DocumentSectionMap tempSections(localSections);
 		localSections.clear();
 		uint i=0;
