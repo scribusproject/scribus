@@ -209,7 +209,7 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 		keyMod |= CTRL;
 	if (k->state() & AltButton)
 		keyMod |= ALT;
-			
+
 	QString uc = k->text();
 	QKeySequence currKeySeq = QKeySequence(k->key() | keyMod);
 	if (currKeySeq == ScApp->scrActions["specialPageNumber"]->accel())
@@ -272,7 +272,7 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 		emit SideBarUpdate();
 		return;
 	}
-	
+
 	switch (k->state())
 	{
 		case ControlButton:
@@ -1670,7 +1670,7 @@ SToolBColorF::SToolBColorF(QMainWindow* parent, ScribusDoc *doc) : QToolBar( tr(
 	//TxFill->listBox()->setMinimumWidth(TxFill->listBox()->maxItemWidth()+24);
 	connect(TxFill, SIGNAL(activated(int)), this, SLOT(newShadeHandler()));
 	connect(PM2, SIGNAL(clicked()), this, SLOT(newShadeHandler()));
-	
+
 	languageChange();
 }
 
@@ -1729,7 +1729,7 @@ SToolBColorS::SToolBColorS(QMainWindow* parent, ScribusDoc *doc) : QToolBar( tr(
 	//TxStroke->listBox()->setMinimumWidth(TxStroke->listBox()->maxItemWidth()+24);
 	connect(TxStroke, SIGNAL(activated(int)), this, SLOT(newShadeHandler()));
 	connect(PM1, SIGNAL(clicked()), this, SLOT(newShadeHandler()));
-	
+
 	languageChange();
 }
 
@@ -1786,7 +1786,7 @@ SToolBStyle::SToolBStyle(QMainWindow* parent) : QToolBar( tr("Character Settings
 	Extra = new MSpinBox( this, 1 );
 	Extra->setValues( -300, 300, 10, 0);
 	Extra->setSuffix( tr( " %" ) );
-	
+
 	connect(SeStyle, SIGNAL(State(int)), this, SIGNAL(newStyle(int)));
 	connect(Extra, SIGNAL(valueChanged(int)), this, SLOT(newKernHandler()));
 	connect(SeStyle->ShadowVal->Xoffset, SIGNAL(valueChanged(int)), this, SLOT(newShadowHandler()));
@@ -1796,7 +1796,7 @@ SToolBStyle::SToolBStyle(QMainWindow* parent) : QToolBar( tr("Character Settings
 	connect(SeStyle->UnderlineVal->LPos, SIGNAL(valueChanged(int)), this, SLOT(newUnderlineHandler()));
 	connect(SeStyle->StrikeVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(newStrikeHandler()));
 	connect(SeStyle->StrikeVal->LPos, SIGNAL(valueChanged(int)), this, SLOT(newStrikeHandler()));
-	
+
 	languageChange();
 }
 
@@ -1896,7 +1896,7 @@ SToolBAlign::SToolBAlign(QMainWindow* parent) : QToolBar( tr("Style Settings"), 
 	Spal = new Spalette(this);
 	connect(Spal, SIGNAL(newStyle(int)), this, SLOT(newStyleHandler(int )));
 	connect(GroupAlign, SIGNAL(State(int)), this, SIGNAL(NewAlign(int )));
-	
+
 	languageChange();
 }
 
@@ -2002,8 +2002,8 @@ void SToolBFont::newSizeHandler()
 }
 
 /* Main Story Editor Class */
-StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite) 
-	: QMainWindow(parent, "StoryEditor", WType_TopLevel) //  WType_Dialog) //WShowModal | 
+StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
+	: QMainWindow(parent, "StoryEditor", WType_TopLevel) //  WType_Dialog) //WShowModal |
 {
 	prefsManager=PrefsManager::instance();
 	currDoc = docc;
@@ -2024,10 +2024,10 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	Editor->setFocus();
 	Editor->setFarbe(false);
 	blockUpdate = false;
-}	
+}
 
 /* Main Story Editor Class, no current document */
-StoryEditor::StoryEditor(QWidget* parent) : QMainWindow(parent, "StoryEditor", WType_TopLevel) // WType_Dialog) //WShowModal | 
+StoryEditor::StoryEditor(QWidget* parent) : QMainWindow(parent, "StoryEditor", WType_TopLevel) // WType_Dialog) //WShowModal |
 {
 	prefsManager=PrefsManager::instance();
 	currDoc = NULL;
@@ -2046,7 +2046,7 @@ StoryEditor::StoryEditor(QWidget* parent) : QMainWindow(parent, "StoryEditor", W
 	Editor->setFocus();
 	Editor->setFarbe(false);
 	blockUpdate = false;
-}	
+}
 
 void StoryEditor::buildGUI()
 {
@@ -2197,7 +2197,7 @@ void StoryEditor::buildGUI()
 	resize( QSize(660, 500).expandedTo(minimumSizeHint()) );
 	if (prefsManager==NULL)
 		sDebug(QString("%1").arg("prefsmgr null"));
-	
+
 	Editor->setPaper(prefsManager->appPrefs.STEcolor);
 	QFont fo;
 	fo.fromString(prefsManager->appPrefs.STEfont);
@@ -2205,14 +2205,14 @@ void StoryEditor::buildGUI()
 	EditorBar->setFrameStyle(Editor->frameStyle());
 	EditorBar->setLineWidth(Editor->lineWidth());
 	EditorBar->editor = Editor;
-	
+
 	languageChange();
 }
 
 void StoryEditor::languageChange()
 {
 	setCaption( tr( "Story Editor" ) );
-	
+
 	FileTools->setLabel( tr("File"));
 	DatNeu->setTextLabel( tr("Clear All Text"), true);
 	DatOpe->setTextLabel( tr("Load Text from File"), true);
@@ -2222,12 +2222,12 @@ void StoryEditor::languageChange()
 	DatRel->setTextLabel( tr("Reload Text from Frame"), true);
 	DatUpdt->setTextLabel( tr("Update Text Frame"), true);
 	DatFin->setTextLabel( tr("Search/Replace"), true);
-	
+
 	WordCT1->setText( tr("Current Paragraph:"));
 	WordCT->setText( tr("Words: "));
 	CharCT->setText( tr("Chars: "));
 	WordCT3->setText( tr("Totals:"));
-	ParCT->setText( tr("Paragraphs: "));	
+	ParCT->setText( tr("Paragraphs: "));
 	WordCT2->setText( tr("Words: "));
 	CharCT2->setText( tr("Chars: "));
 
@@ -2439,7 +2439,7 @@ void StoryEditor::setBackPref()
 void StoryEditor::setFontPref()
 {
 	blockUpdate = true;
-	Editor->setFont( QFontDialog::getFont( 0, Editor->font() ) );
+	Editor->setFont( QFontDialog::getFont( 0, Editor->font(), this ) );
 	prefsManager->appPrefs.STEfont = Editor->font().toString();
 	EditorBar->doRepaint();
 	blockUpdate = false;
@@ -3118,14 +3118,14 @@ void StoryEditor::slotEditStyles()
 	disconnect(AlignTools, SIGNAL(newStyle(int)), this, SLOT(newAlign(int)));
 	disconnect(AlignTools, SIGNAL(NewAlign(int)), this, SLOT(newAlign(int)));
 	//emit EditSt();
-	
+
 	StilFormate *dia = new StilFormate(this, currDoc);
 	connect(dia, SIGNAL(saveStyle(StilFormate *)), ScApp, SLOT(saveStyles(StilFormate *)));
 	if (dia->exec())
 		ScApp->saveStyles(dia);
 	disconnect(dia, SIGNAL(saveStyle(StilFormate *)), ScApp, SLOT(saveStyles(StilFormate *)));
 	delete dia;
-	
+
 	AlignTools->Spal->setFormats(currDoc);
 	AlignTools->SetAlign(Editor->currentParaStyle);
 	connect(AlignTools, SIGNAL(newStyle(int)), this, SLOT(newAlign(int)));
