@@ -37,7 +37,6 @@ public:
 
 private:
 	QMap<QString, langPair > langList;
-	//QMap<QString, QString> untranslatedLangList;
 	QMap<QString, QString> installedLangList;
 
 	void generateLangList();

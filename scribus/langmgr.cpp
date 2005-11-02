@@ -33,64 +33,6 @@ void LanguageManager::init(bool generateInstalledList)
 		generateInstalledLangList();
 }
 
-/*
-//CB Well we probably would like a QPair of these..but.. I'm lazy.
-void LanguageManager::generateUntranslatedLangList()
-{
-	untranslatedLangList.insert("af",     "Afrikaans" );
-	untranslatedLangList.insert("sq",     "Albanian" );
-	untranslatedLangList.insert("eu",     "Basque" );
-	untranslatedLangList.insert("bg",     "Bulgarian" );
-	untranslatedLangList.insert("br",     "Brazilian" );
-	untranslatedLangList.insert("ca",     "Catalan" );
-	untranslatedLangList.insert("zh",     "Chinese" );
-	untranslatedLangList.insert("hr",     "Croatian" );
-	untranslatedLangList.insert("cs",     "Czech" );
-	untranslatedLangList.insert("cs_CZ",  "Czech" );
-	untranslatedLangList.insert("da",     "Danish" );
-	untranslatedLangList.insert("da_DK",  "Danish" );
-	untranslatedLangList.insert("nl",     "Dutch" );
-	untranslatedLangList.insert("en",     "English" );
-	untranslatedLangList.insert("en_GB",  "English (British)" );
-	untranslatedLangList.insert("eo",     "Esperanto" );
-	untranslatedLangList.insert("de",     "German" );
-	untranslatedLangList.insert("fi",     "Finnish" );
-	untranslatedLangList.insert("fr",     "French" );
-	untranslatedLangList.insert("ga",     "Galician" );
-	untranslatedLangList.insert("galician",  "Galician" );
-	untranslatedLangList.insert("gl",     "Galician" );
-	untranslatedLangList.insert("el",     "Greek" );
-	untranslatedLangList.insert("hu",     "Hungarian" );
-	untranslatedLangList.insert("id",     "Indonesian" );
-	untranslatedLangList.insert("it",     "Italian" );
-	untranslatedLangList.insert("ko",     "Korean" );
-	untranslatedLangList.insert("lt",     "Lithuanian" );
-	untranslatedLangList.insert("lt_LT",  "Lithuanian" );
-	untranslatedLangList.insert("nb",     "Norwegian (Bokmaal)" );
-	untranslatedLangList.insert("nb_NO",  "Norwegian (Bokmaal)" );
-	untranslatedLangList.insert("nn",     "Norwegian (Nnyorsk)" );
-	untranslatedLangList.insert("nn_NO",  "Norwegian (Nnyorsk)" );
-	untranslatedLangList.insert("no",     "Norwegian" );
-	untranslatedLangList.insert("no_NO",  "Norwegian" );
-	untranslatedLangList.insert("pl",     "Polish" );
-	untranslatedLangList.insert("pl_PL",  "Polish" );
-	untranslatedLangList.insert("pt",     "Portuguese" );
-	untranslatedLangList.insert("pt_BR",  "Portuguese (BR)" );
-	untranslatedLangList.insert("ru",     "Russian" );
-	untranslatedLangList.insert("se",     "Swedish" );
-	untranslatedLangList.insert("es",     "Spanish" );
-	untranslatedLangList.insert("es_ES",  "Spanish" );
-	untranslatedLangList.insert("es_LA",  "Spanish (Latin)" );
-	untranslatedLangList.insert("sk",     "Slovak" );
-	untranslatedLangList.insert("sl",     "Slovenian" );
-	untranslatedLangList.insert("sr",     "Serbian" );
-	untranslatedLangList.insert("sv",     "Swedish" );
-	untranslatedLangList.insert("tr",     "Turkish" );
-	untranslatedLangList.insert("tr_TR",  "Turkish" );
-	untranslatedLangList.insert("uk",     "Ukranian" );
-	untranslatedLangList.insert("cy",     "Welsh" );
-}
-*/
 void LanguageManager::generateLangList()
 {
 	langList.insert("af",    langPair("Afrikaans", QObject::tr( "Afrikaans" )) );
