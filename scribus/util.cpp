@@ -1422,11 +1422,14 @@ const QString getStringFromSequence(DocumentSectionType type, uint position)
 	QString retVal("");
 	switch( type )
 	{
+		case Type_1_2_3:
+			retVal=QString::number(position);
+			break;
 		case Type_A_B_C:
+			retVal=numberToLetterSequence(position).upper();
+			break;
 		case Type_a_b_c:
-			{
-				retVal=numberToLetterSequence(position);
-			}
+			retVal=numberToLetterSequence(position);
 			break;
 		case Type_I_II_III:
 			retVal=arabicToRoman(position);
@@ -1439,8 +1442,6 @@ const QString getStringFromSequence(DocumentSectionType type, uint position)
 		default:
 			break;
 	}
-	if ( type==Type_A_B_C)
-		retVal=retVal.upper();
 	return retVal;
 }
 

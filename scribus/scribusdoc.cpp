@@ -954,7 +954,7 @@ void ScribusDoc::addSymbols()
 	symNewFrame.addQuadPoint(1.67188, 6.0625, 1.67188, 6.0625, 1.75, 6.20312, 1.75, 6.20312);
 }
 
-Page* ScribusDoc::addPage(const int pageNumber)
+Page* ScribusDoc::addPage(const int pageNumber, const QString& masterPageName)
 {
 	Page* addedPage = new Page(ScratchLeft, pageCount*(pageHeight+ScratchBottom+ScratchTop)+ScratchTop, pageWidth, pageHeight);
 	Q_ASSERT(addedPage!=NULL);
@@ -970,6 +970,8 @@ Page* ScribusDoc::addPage(const int pageNumber)
 	bool insertsuccess=Pages->insert(pageNumber, addedPage);
 	Q_ASSERT(insertsuccess==true && Pages->at(pageNumber)!=NULL);
 	currentPage = addedPage;
+	if (!masterPageMode())
+		addedPage->MPageNam = masterPageName;
 	pageCount++;
 	return addedPage;
 }
@@ -1015,7 +1017,7 @@ bool ScribusDoc::deletePage(const int pageNumber)
 	Seite->FromMaster.clear();
 	Pages->remove(pageNumber);
 	delete Seite;
-	pageCount -= 1;
+	--pageCount;
 	currentPage = Pages->at(0);
 	return true;
 }
@@ -1025,27 +1027,51 @@ void ScribusDoc::movePage(const int from, const int to, const int ziel, const in
 	QPtrList<Page> Buf;
 	int zz = ziel;
 	Buf.clear();
-	for (int a = from; a < to; a++)
+	for (int a = from; a < to; ++a)
 	{
 		Buf.append(Pages->at(from));
 		Pages->remove(from);
 		if (a <= zz)
-			zz--;
+			--zz;
 	}
+	uint bufCount=Buf.count();
 	switch (art)
 	{
 		case 0:
-			for (uint b = 0; b < Buf.count(); b++)
+			for (uint b = 0; b < bufCount; ++b)
 				Pages->insert(zz++, Buf.at(b));
 			break;
 		case 1:
-			for (uint b = 0; b < Buf.count(); b++)
+			for (uint b = 0; b < bufCount; ++b)
 				Pages->insert(++zz, Buf.at(b));
 			break;
 		case 2:
-			for (uint b = 0; b < Buf.count(); b++)
+			for (uint b = 0; b < bufCount; ++b)
 				Pages->append(Buf.at(b));
 			break;
+	}
+}
+
+const uint ScribusDoc::addAutomaticTextFrame(const int pageNumber)
+{
+	Page *addToPage=DocPages.at(pageNumber);
+	if ((usesAutomaticTextFrames()) && (!isLoading()))
+	{
+		int z = itemAdd(PageItem::TextFrame, PageItem::Unspecified, 
+		                     addToPage->Margins.Left+addToPage->xOffset(),
+		                     addToPage->Margins.Top+addToPage->yOffset(), pageWidth-addToPage->Margins.Right-addToPage->Margins.Left,
+		                     pageHeight-addToPage->Margins.Bottom-addToPage->Margins.Top,
+		                     1, "None", toolSettings.dPen, true);
+		Items->at(z)->isAutoText = true;
+		Items->at(z)->BackBox = LastAuto;
+		Items->at(z)->Cols = qRound(PageSp);
+		Items->at(z)->ColGap = PageSpa;
+		if (LastAuto != 0)
+			LastAuto->NextBox = Items->at(z);
+		else
+			FirstAuto = Items->at(z);
+		LastAuto = Items->at(z);
+		Items->at(z)->setRedrawBounding();
 	}
 }
 
@@ -3022,9 +3048,13 @@ const QString ScribusDoc::getSectionPageNumberForPageIndex(const uint pageIndex)
 	//If a section is inactive, theres no page numbers printed
 	if (sections[key].active==false)
 		return "";
-	if (sections[key].type==Type_1_2_3)
-		retVal=QString::number(sectionIndexOffset);
-	else
-		retVal=getStringFromSequence(sections[key].type, sectionIndexOffset);
+	retVal=getStringFromSequence(sections[key].type, sectionIndexOffset);
 	return retVal;
+}
+
+void ScribusDoc::updateSectionPageNumbersToPages()
+{
+	uint docPageCount=DocPages.count();
+	for (uint i=0;i<docPageCount;++i)
+		DocPages.at(i)->setPageSectionNumber(getSectionPageNumberForPageIndex(i));
 }

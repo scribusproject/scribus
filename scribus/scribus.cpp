@@ -2296,23 +2296,11 @@ void ScribusApp::startUpDialog()
 			double numberCols = dia->SpinBox10->value();
 			bool autoframes = dia->AutoFrame->isChecked();
 			int orientation = dia->Orient;
+			int pageCount=dia->PgNum->value();
 			PageSize *ps2 = new PageSize(dia->ComboBox1->currentText());
 			QString pagesize = ps2->getPageName();
-			doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->ComboBox3->currentItem(),
-							firstPage, orientation, dia->PgNr->value(), pagesize);
+			doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->ComboBox3->currentItem(), firstPage, orientation, dia->PgNr->value(), pagesize, pageCount);
 			doc->pageSets[facingPages].FirstPage = firstPage;
-			if (dia->PgNum->value() > 1)
-			{
-				view->hide();
-				for (int pg = 1; pg < dia->PgNum->value(); pg++)
-				{
-					slotNewPage(pg);
-					applyNewMaster( tr("Normal"));
-					//doc->DocPages = doc->Pages;
-				}
-				view->show();
-				view->GotoPage(0);
-			}
 			delete ps2;
 			HaveNewDoc();
 		}
@@ -2358,23 +2346,11 @@ bool ScribusApp::slotFileNew()
 		double numberCols = dia->SpinBox10->value();
 		bool autoframes = dia->AutoFrame->isChecked();
 		int orientation = dia->Orient;
+		int pageCount=dia->PgNum->value();
 		PageSize *ps2 = new PageSize(dia->ComboBox1->currentText());
 		QString pagesize = ps2->getPageName();
-		retVal = doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->ComboBox3->currentItem(),
-		                firstPage, orientation, dia->PgNr->value(), pagesize);
+		retVal = doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->ComboBox3->currentItem(), firstPage, orientation, dia->PgNr->value(), pagesize, pageCount);
 		doc->pageSets[facingPages].FirstPage = firstPage;
-		if (dia->PgNum->value() > 1)
-		{
-			view->hide();
-			for (int pg = 1; pg < dia->PgNum->value(); pg++)
-			{
-				slotNewPage(pg);
-				applyNewMaster( tr("Normal"));
-				//doc->DocPages = doc->Pages;
-			}
-			view->show();
-			view->GotoPage(0);
-		}
 		mainWindowStatusLabel->setText( tr("Ready"));
 		delete ps2;
 		HaveNewDoc();
@@ -2386,7 +2362,7 @@ bool ScribusApp::slotFileNew()
 }
 
 bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double rr, double br, double ab, double sp,
-                           bool atf, int fp, int einh, int firstleft, int Ori, int SNr, const QString& defaultPageSize)
+                           bool atf, int fp, int einh, int firstleft, int Ori, int SNr, const QString& defaultPageSize, int pageCount)
 {
 	QString cc;
 	if (HaveDoc)
@@ -2401,9 +2377,12 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 	doc->setPage(width, h, tpr, lr, rr, br, sp, ab, atf, fp);
 	doc->setMasterPageMode(false);	
 	doc->addMasterPage(0, "Normal");
-	//TODO CB Make addPage take a master page name
-	doc->addPage(0);
-	doc->Pages->at(0)->MPageNam = "Normal";
+	int createCount=pageCount;
+	if (createCount<=0)
+		createCount=1;
+	for (int i = 0; i < createCount; ++i)
+		doc->addPage(i, "Normal");
+
 	doc->pageCount = doc->DocPages.count();
 	doc->addSection();
 	doc->setModified(false);
@@ -8767,8 +8746,7 @@ void ScribusApp::initHyphenator()
 			QFileInfo fi(hyphDir[dc]);
 			QString fileLangAbbrev=fi.baseName().section('_', 1);
 			languageOfHyphFile = langmgr.getLangFromAbbrev(fileLangAbbrev, false);
-			QStringList newLangList;
-			InstLang.insert(languageOfHyphFile, newLangList);
+			InstLang.insert(languageOfHyphFile, QStringList());
 		}
 	}
 	
@@ -9422,7 +9400,7 @@ void ScribusApp::updateColorMenu(QProgressBar* progressBar)
 			ColorMenC->insertItem(*pm, it.key());
 			if (it.key() == doc->toolSettings.dBrush)
 				ColorMenC->setCurrentItem(a);
-			a++;
+			++a;
 			if (progressBar != NULL)
 				progressBar->setProgress(a);
 		}

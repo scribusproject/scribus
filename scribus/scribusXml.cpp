@@ -1474,18 +1474,14 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				if (PgNam.isEmpty())
 				{
 					doc->pageCount = Pgc;
-					//doc->Pages = &doc->DocPages;
 					doc->setUsesAutomaticTextFrames(AtFl);
 					doc->setMasterPageMode(false);
-					//doc->Items = doc->DocItems;
 				}
 				else
 				{
 					doc->pageCount = 0;
 					doc->setUsesAutomaticTextFrames(false);
-					//doc->Pages = &doc->MasterPages;
 					doc->setMasterPageMode(true);
-					//doc->Items = doc->MasterItems;
 				}
 				//CB: Remove this unnecessarily "slow" slot call when we have no gui for the doc yet!
 				//Items dont appear in the right place if we just doc->addPage(a); for <=1.2.x docs

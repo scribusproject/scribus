@@ -77,10 +77,11 @@ public:
 	void setPage(double b, double h, double t, double l, double r, double bo, double sp, double ab, bool atf, int fp);
 	void resetPage(double t, double l, double r, double bo, int fp);
 	// Add, delete and move pages
-	//TODO CB Make addPage take a master page name and stop making master pages with it
-	Page* addPage(const int);
+	//TODO CB Stop making master pages with this
+	Page* addPage(const int pageNumber, const QString& masterPageName=QString::null);
 	bool deletePage(const int);
 	Page* addMasterPage(const int, const QString&);
+	const uint addAutomaticTextFrame(const int);
 	/**
 	 * @brief Move page(s) within the document
 	 * @param From page index
@@ -418,6 +419,12 @@ public:
 	 * Returns -1 on failure to find the pageIndex
 	 */
 	const int getSectionKeyForPageIndex(const uint pageIndex) const;
+	/**
+	 *
+	 *
+	 */
+	void updateSectionPageNumbersToPages();
+	
 
 protected:
 	void addSymbols();

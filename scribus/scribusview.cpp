@@ -8389,37 +8389,21 @@ Page* ScribusView::addPage(int nr, bool mov)
 	disconnect(pageSelector, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
 	pageSelector->setMaxValue(Doc->pageCount);
 	reformPages(mov);
-	if ((Doc->usesAutomaticTextFrames()) && (!Doc->isLoading()))
+	uint newFrameNumber=Doc->addAutomaticTextFrame(nr);
+	if (newFrameNumber > 0)
 	{
-		int z = Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, 
-		                     fe->Margins.Left+fe->xOffset(),
-		                     fe->Margins.Top+fe->yOffset(), Doc->pageWidth-fe->Margins.Right-fe->Margins.Left,
-		                     Doc->pageHeight-fe->Margins.Bottom-fe->Margins.Top,
-		                     1, "None", Doc->toolSettings.dPen, !Mpressed);
-		Doc->Items->at(z)->isAutoText = true;
-		Doc->Items->at(z)->BackBox = Doc->LastAuto;
-		Doc->Items->at(z)->Cols = qRound(Doc->PageSp);
-		Doc->Items->at(z)->ColGap = Doc->PageSpa;
-		if (Doc->LastAuto != 0)
-			Doc->LastAuto->NextBox = Doc->Items->at(z);
-		else
-			Doc->FirstAuto = Doc->Items->at(z);
-		Doc->LastAuto = Doc->Items->at(z);
-		setRedrawBounding(Doc->Items->at(z));
-		if (nr > 0)
-		{
-			bool savre = Doc->RePos;
-			Doc->RePos = true;
-			QPixmap pgPix(1, 1);
-			ScPainter *painter = new ScPainter(&pgPix, 1, 1);
-//			painter->translate(0.5, 0.5);
-			if (Doc->Items->at(z)->BackBox != 0)
-				Doc->Items->at(z)->BackBox->DrawObj(painter, QRect(0, 0, 1, 1));
-			painter->end();
-			delete painter;
-			painter=NULL;
-			Doc->RePos = savre;
-		}
+		//Do we really need to run the views setRedrawBounding which calls adjustCanvas. 
+		//The frame is on the page, not hanging off the page?
+		bool savre = Doc->RePos;
+		Doc->RePos = true;
+		QPixmap pgPix(1, 1);
+		ScPainter *painter = new ScPainter(&pgPix, 1, 1);
+		if (Doc->Items->at(newFrameNumber)->BackBox != 0)
+			Doc->Items->at(newFrameNumber)->BackBox->DrawObj(painter, QRect(0, 0, 1, 1));
+		painter->end();
+		delete painter;
+		painter=NULL;
+		Doc->RePos = savre;
 	}
 	if ((!ScApp->ScriptRunning) && (!Doc->isLoading()) && (!Doc->masterPageMode()))
 		pageSelector->GotoPg(nr);

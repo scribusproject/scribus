@@ -65,6 +65,8 @@ public:
 	QPtrList<PageItem> FromMaster;
 	void setPageNr(const int pageNr);
 	uint pageNr();
+	const QString& pageSectionNumber() const;
+	void setPageSectionNumber(const QString&);
 	void addXGuide(double position);
 	void addYGuide(double position);
 	void addXGuides(QValueList<double>& guides);
@@ -91,6 +93,7 @@ private:
 	double m_initialWidth;
 	double m_initialHeight;
 	uint m_pageNr;
+	QString m_pageSectionNumber;
 };
 
 #endif

@@ -62,6 +62,17 @@ uint Page::pageNr()
 	return m_pageNr;
 }
 
+const QString& Page::pageSectionNumber() const
+{
+	return m_pageSectionNumber;
+}
+
+void Page::setPageSectionNumber(const QString& newPageSectionNumber)
+{
+	m_pageSectionNumber=newPageSectionNumber;
+}
+
+
 void Page::addXGuide(double position)
 {
 	XGuides.append(position);
