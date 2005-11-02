@@ -401,9 +401,9 @@ public:
 	
 	/**
 	 * @brief Add a section to the document sections list
-	 * Set number to -1 to add in the default section
+	 * Set number to -1 to add in the default section if the map is empty
 	 */
-	void addSection(const uint number=0, const QString& name=QString::null, const uint fromindex=0, const uint toindex=0, const  DocumentSectionType type=Type_1_2_3, const uint sectionstartindex=0, const bool reversed=false, const bool active=true);
+	void addSection(const int number=0, const QString& name=QString::null, const uint fromindex=0, const uint toindex=0, const  DocumentSectionType type=Type_1_2_3, const uint sectionstartindex=0, const bool reversed=false, const bool active=true);
 	/**
 	 * @brief Delete a section from the document sections list
 	 */
@@ -413,6 +413,11 @@ public:
 	 * Returns QString::null on failure to find the pageIndex
 	 */
 	const QString getSectionPageNumberForPageIndex(const uint) const;
+	/**
+	 * @brief Gets the key of the sections map based on the section the page index is in.
+	 * Returns -1 on failure to find the pageIndex
+	 */
+	const int getSectionKeyForPageIndex(const uint pageIndex) const;
 
 protected:
 	void addSymbols();

@@ -17,8 +17,12 @@
 #define LANGMANAGER_H
 
 #include <qmap.h>
+#include <utility>
+
 #include <qstring.h>
 #include "scribusapi.h"
+
+typedef std::pair<QString, QString> langPair;
 
 class SCRIBUS_API LanguageManager
 {
@@ -26,13 +30,14 @@ public:
 	LanguageManager() {};
 	~LanguageManager() {};
 	void init(bool generateInstalledList = true);
-	const QString getLangFromAbbrev(QString);
-	const QString getAbbrevFromLang(QString);
+	const QString getLangFromAbbrev(QString, bool getTranslated=true);
+	const QString getAbbrevFromLang(QString, bool getTranslated=true);
 	void fillInstalledStringList(QStringList *stringListToFill, bool addDefaults);
 	void printInstalledList();
 
 private:
-	QMap<QString, QString> langList;
+	QMap<QString, langPair > langList;
+	//QMap<QString, QString> untranslatedLangList;
 	QMap<QString, QString> installedLangList;
 
 	void generateLangList();

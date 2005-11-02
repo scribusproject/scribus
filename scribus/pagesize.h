@@ -17,7 +17,6 @@
 #define PAGESIZE_H
 
 #include <qmap.h>
-#include <qpair.h>
 #include <qstring.h>
 #include "scribusapi.h"
 

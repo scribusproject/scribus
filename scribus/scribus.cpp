@@ -8751,33 +8751,29 @@ void ScribusApp::RedoAction()
 
 void ScribusApp::initHyphenator()
 {
+	InstLang.clear();
+	//Build our list of hyphenation dictionaries we have in the install dir
+	//Grab the language abbreviation from it, get the full language text
+	//Insert the name as key and a new string list into the map
+	QString hyphDirName = QDir::convertSeparators(ScPaths::instance().libDir() + "dicts/");
+	QDir hyphDir(hyphDirName, "*.dic", QDir::Name, QDir::Files | QDir::NoSymLinks);
+	if ((hyphDir.exists()) && (hyphDir.count() != 0))
+	{
+		LanguageManager langmgr;
+		langmgr.init(false);
+		QString languageOfHyphFile;
+		for (uint dc = 0; dc < hyphDir.count(); ++dc)
+		{
+			QFileInfo fi(hyphDir[dc]);
+			QString fileLangAbbrev=fi.baseName().section('_', 1);
+			languageOfHyphFile = langmgr.getLangFromAbbrev(fileLangAbbrev, false);
+			QStringList newLangList;
+			InstLang.insert(languageOfHyphFile, newLangList);
+		}
+	}
+	
+	//For each qm file existing, load the file and find the translations of the names
 	QString pfad = ScPaths::instance().libDir();
-	QStringList L_Afrikaans;
-	QStringList L_Bulgarian;
-	QStringList L_Catalan;
-	QStringList L_Croatian;
-	QStringList L_Czech;
-	QStringList L_Danish;
-	QStringList L_Dutch;
-	QStringList L_English;
-	QStringList L_Finnish;
-	QStringList L_French;
-	QStringList L_German;
-	QStringList L_Greek;
-	QStringList L_Hungarian;
-	QStringList L_Irish;
-	QStringList L_Italian;
-	QStringList L_Lithuanian;
-	QStringList L_Norwegian;
-	QStringList L_Polish;
-	QStringList L_Portuguese;
-	QStringList L_Portuguese_BR;
-	QStringList L_Russian;
-	QStringList L_Slovak;
-	QStringList L_Slovenian;
-	QStringList L_Spanish;
-	QStringList L_Swedish;
-	QStringList L_Ukrainian;
 	QDir d2(pfad, "*.*", QDir::Name, QDir::Files | QDir::NoSymLinks);
 	if ((d2.exists()) && (d2.count() != 0))
 	{
@@ -8785,164 +8781,41 @@ void ScribusApp::initHyphenator()
 		{
 			QFileInfo fi(pfad + d2[dc]);
 			QString ext = fi.extension(false).lower();
-			QString ext2 = fi.extension(true).lower();
 			if (ext == "qm")
 			{
     			QTranslator *trans = new QTranslator(0);
 				trans->load(pfad + d2[dc]);
-				QString translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "Croatian", "").translation();
-				if (!translatedLang.isEmpty())
-					L_Croatian.append(translatedLang);
-				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "German", "").translation();
-				if (!translatedLang.isEmpty())
-					L_German.append(translatedLang);
-				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "Polish", "").translation();
-				if (!translatedLang.isEmpty())
-					L_Polish.append(translatedLang);
-				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "English", "").translation();
-				if (!translatedLang.isEmpty())
-					L_English.append(translatedLang);
-				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "Spanish", "").translation();
-				if (!translatedLang.isEmpty())
-					L_Spanish.append(translatedLang);
-				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "Italian", "").translation();
-				if (!translatedLang.isEmpty())
-					L_Italian.append(translatedLang);
-				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "French", "").translation();
-				if (!translatedLang.isEmpty())
-					L_French.append(translatedLang);
-				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "Russian", "").translation();
-				if (!translatedLang.isEmpty())
-					L_Russian.append(translatedLang);
-				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "Danish", "").translation();
-				if (!translatedLang.isEmpty())
-					L_Danish.append(translatedLang);
-				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "Slovak", "").translation();
-				if (!translatedLang.isEmpty())
-					L_Slovak.append(translatedLang);
-				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "Hungarian", "").translation();
-				if (!translatedLang.isEmpty())
-					L_Hungarian.append(translatedLang);
-				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "Czech", "").translation();
-				if (!translatedLang.isEmpty())
-					L_Czech.append(translatedLang);
-				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "Dutch", "").translation();
-				if (!translatedLang.isEmpty())
-					L_Dutch.append(translatedLang);
-				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "Norwegian", "").translation();
-				if (!translatedLang.isEmpty())
-					L_Dutch.append(translatedLang);
-				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "Portuguese", "").translation();
-				if (!translatedLang.isEmpty())
-					L_Portuguese.append(translatedLang);
-				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "Portuguese (BR)", "").translation();
-				if (!translatedLang.isEmpty())
-					L_Portuguese_BR.append(translatedLang);
-				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "Ukrainian", "").translation();
-				if (!translatedLang.isEmpty())
-					L_Ukrainian.append(translatedLang);
-				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "Greek", "").translation();
-				if (!translatedLang.isEmpty())
-					L_Greek.append(translatedLang);
-				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "Catalan", "").translation();
-				if (!translatedLang.isEmpty())
-					L_Catalan.append(translatedLang);
-				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "Finnish", "").translation();
-				if (!translatedLang.isEmpty())
-					L_Finnish.append(translatedLang);
-				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "Irish", "").translation();
-				if (!translatedLang.isEmpty())
-					L_Irish.append(translatedLang);
-				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "Lithuanian", "").translation();
-				if (!translatedLang.isEmpty())
-					L_Lithuanian.append(translatedLang);
-				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "Swedish", "").translation();
-				if (!translatedLang.isEmpty())
-					L_Swedish.append(translatedLang);
-				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "Slovenian", "").translation();
-				if (!translatedLang.isEmpty())
-					L_Slovenian.append(translatedLang);
-				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "Afrikaans", "").translation();
-				if (!translatedLang.isEmpty())
-					L_Afrikaans.append(translatedLang);
-				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "Bulgarian", "").translation();
-				if (!translatedLang.isEmpty())
-					L_Bulgarian.append(translatedLang);
+				
+				QString translatedLang;
+				for (QMap<QString, QStringList>::Iterator it=InstLang.begin(); it!=InstLang.end(); ++it)
+				{
+					translatedLang="";
+					translatedLang = trans->findMessage("ScribusApp", it.key(), "").translation();
+					if (!translatedLang.isEmpty())
+						it.data().append(translatedLang);
+				}
 				delete trans;
 			}
 		}
 	}
-	InstLang.insert("Afrikaans", L_Afrikaans);
-	InstLang.insert("Bulgarian", L_Bulgarian);
-	InstLang.insert("Catalan", L_Catalan);
-	InstLang.insert("Croatian", L_Croatian);
-	InstLang.insert("Czech", L_Czech);
-	InstLang.insert("Danish", L_Danish);
-	InstLang.insert("Dutch", L_Dutch);
-	InstLang.insert("English", L_English);
-	InstLang.insert("Finnish", L_Finnish);
-	InstLang.insert("French", L_French);
-	InstLang.insert("German", L_German);
-	InstLang.insert("Greek", L_Greek);
-	InstLang.insert("Hungarian", L_Hungarian);
-	InstLang.insert("Irish", L_Irish);
-	InstLang.insert("Italian", L_Italian);
-	InstLang.insert("Lithuanian", L_Lithuanian);
-	InstLang.insert("Polish", L_Polish);
-	InstLang.insert("Portuguese (BR)", L_Portuguese_BR);
-	InstLang.insert("Portuguese", L_Portuguese);
-	InstLang.insert("Norwegian", L_Norwegian);
-	InstLang.insert("Russian", L_Russian);
-	InstLang.insert("Slovak", L_Slovak);
-	InstLang.insert("Slovenian", L_Slovenian);
-	InstLang.insert("Spanish", L_Spanish);
-	InstLang.insert("Swedish", L_Swedish);
-	InstLang.insert("Ukrainian", L_Ukrainian);
+	//For each hyphenation file, grab the strings and the hyphenation data.
 	QString lang = QString(QTextCodec::locale()).left(2);
 	LangTransl.clear();
 	prefsManager->appPrefs.Language = "English";
-	pfad = QDir::convertSeparators(ScPaths::instance().libDir() + "dicts/");
-	QDir d(pfad, "*.dic", QDir::Name, QDir::Files | QDir::NoSymLinks);
-	if ((d.exists()) && (d.count() != 0))
+	if ((hyphDir.exists()) && (hyphDir.count() != 0))
 	{
 		LanguageManager langmgr;
 		langmgr.init(false);
 		QString datein = "";
-		for (uint dc = 0; dc < d.count(); ++dc)
+		for (uint dc = 0; dc < hyphDir.count(); ++dc)
 		{
-			QFileInfo fi(d[dc]);
+			QFileInfo fi(hyphDir[dc]);
 			QString fileLangAbbrev=fi.baseName().section('_', 1);
 			datein = langmgr.getLangFromAbbrev(fileLangAbbrev);
 			QString tDatein = datein;
 			datein = GetLang(datein);
 			LangTransl.insert(datein, tDatein);
-			Sprachen.insert(datein, d[dc]);
+			Sprachen.insert(datein, hyphDir[dc]);
 			if (fileLangAbbrev == lang)
 				prefsManager->appPrefs.Language = datein;
 		}

@@ -2921,12 +2921,12 @@ const bool ScribusDoc::masterPageMode()
 	return m_masterPageMode;
 }
 
-void ScribusDoc::addSection(const uint number, const QString& name, const uint fromindex, const uint toindex, const DocumentSectionType type, const uint sectionstartindex, const bool reversed, const bool active)
+void ScribusDoc::addSection(const int number, const QString& name, const uint fromindex, const uint toindex, const DocumentSectionType type, const uint sectionstartindex, const bool reversed, const bool active)
 {
 	struct DocumentSection newSection;
 	uint docPageCount=DocPages.count();
 	bool empty=sections.isEmpty();
-	if (empty || (number==-1 && empty))
+	if (empty)
 	{
 		newSection.number=0;
 		newSection.name="0";
@@ -2978,10 +2978,30 @@ const bool ScribusDoc::deleteSection(const uint number)
 	return true;
 }
 
-const QString ScribusDoc::getSectionPageNumberForPageIndex(const uint pageIndex) const
+const int ScribusDoc::getSectionKeyForPageIndex(const uint pageIndex) const
 {
 	bool found=false;
+	int retVal=-1;
+	DocumentSectionMap::ConstIterator it = sections.begin();
+	for (; it!= sections.end(); ++it)
+	{
+		if (pageIndex>=it.data().fromindex && pageIndex<=it.data().toindex)
+		{
+			found=true;
+			retVal=it.key();
+			break;
+		}
+	}
+	
+	return retVal;
+}
+
+const QString ScribusDoc::getSectionPageNumberForPageIndex(const uint pageIndex) const
+{
 	QString retVal(QString::null);
+	/*
+	bool found=false;
+	
 	DocumentSectionMap::ConstIterator it = sections.begin();
 	for (; it!= sections.end(); ++it)
 	{
@@ -2993,14 +3013,18 @@ const QString ScribusDoc::getSectionPageNumberForPageIndex(const uint pageIndex)
 	}
 	if (!found)
 		return retVal;
+	*/
+	int key=getSectionKeyForPageIndex(pageIndex);
+	if (key==-1)
+		return retVal;
 	
-	uint sectionIndexOffset=pageIndex-it.data().fromindex+it.data().sectionstartindex;
+	uint sectionIndexOffset=pageIndex-sections[key].fromindex+sections[key].sectionstartindex;
 	//If a section is inactive, theres no page numbers printed
-	if (it.data().active==false)
+	if (sections[key].active==false)
 		return "";
-	if (it.data().type==Type_1_2_3)
+	if (sections[key].type==Type_1_2_3)
 		retVal=QString::number(sectionIndexOffset);
 	else
-		retVal=getStringFromSequence(it.data().type, sectionIndexOffset);
+		retVal=getStringFromSequence(sections[key].type, sectionIndexOffset);
 	return retVal;
 }
