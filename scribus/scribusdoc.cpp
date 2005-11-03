@@ -316,6 +316,10 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document"))
 	RotMode = 0;
 	SubMode = -1;
 	autoSaveTimer = new QTimer(this);
+	AutoSave = prefsData->AutoSave;
+	AutoSaveTime = prefsData->AutoSaveTime;
+	if (AutoSave && ScQApp->usingGUI())
+		autoSaveTimer->start(AutoSaveTime);
 	MLineStyles.clear();
 	MasterPages.clear();
 	DocPages.clear();

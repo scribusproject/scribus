@@ -157,7 +157,7 @@ public:
 	void ReorgFonts();
 
 	void emergencySave();
-	void parsePagesString(QString pages, std::vector<int>* pageNs, int sourcePageCount);
+	
 	/**
 	 * @brief Returns true if an arrow key is pressed down.
 	 * @return true if an arrow key is pressed down otherwise returns false
@@ -440,7 +440,7 @@ public slots:
 	/** Dupliziert das Element mehrfach*/
 	void ObjektDupM();
 	/** Reformatiert das Dokument */
-	bool SetupDoc();
+	bool slotDocSetup();
 	void objectAttributes();
 	void getImageInfo();
 	void generateTableOfContents();

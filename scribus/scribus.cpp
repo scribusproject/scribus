@@ -2187,62 +2187,6 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 // SLOT IMPLEMENTATION
 /////////////////////////////////////////////////////////////////////
 
-void ScribusApp::parsePagesString(QString pages, std::vector<int>* pageNs, int sourcePageCount)
-{
-	QString tmp = pages;
-	QString token;
-	int from, to, pageNr;
-	do
-	{
-		if (tmp.find(",") == -1)
-		{
-			token = tmp;
-			tmp = "";
-		}
-		else
-		{
-			token = tmp.left(tmp.find(","));
-			tmp = tmp.right(tmp.length() - tmp.find(",") - 1);
-		}
-
-		token = token.stripWhiteSpace();
-		if (token == "*") // Import all source doc pages
-		{
-			for (int i = 1; i <= sourcePageCount; ++i)
-				pageNs->push_back(i);
-		}
-		else if (token.find("-") != -1) // import a range of source doc pages
-		{
-			from = QString(token.left(token.find("-"))).toInt();
-			to = QString(token.right(token.length() - token.find("-") - 1)).toInt();
-			if ((from != 0) && (to != 0))
-			{
-				if (from > sourcePageCount)
-					from = sourcePageCount;
-				if (to > sourcePageCount)
-					to = sourcePageCount;
-				if (from == to)
-					pageNs->push_back(to);
-				else if (from < to)
-				{
-					for (int i = from; i <= to; ++i)
-						pageNs->push_back(i);
-				}
-				else
-				{
-					for (int i = from; i >= to; --i)
-						pageNs->push_back(i);
-				}
-			}
-		}
-		else // import single source doc page
-		{
-			pageNr = token.toInt();
-			if ((pageNr > 0) && (pageNr <= sourcePageCount))
-				pageNs->push_back(pageNr);
-		}
-	} while (!tmp.isEmpty());
-}
 
 bool ScribusApp::arrowKeyDown()
 {
@@ -2397,10 +2341,6 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 	connect(w, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
 	connect(fileWatcher, SIGNAL(fileChanged(QString)), view, SLOT(updatePict(QString)));
 	connect(fileWatcher, SIGNAL(fileDeleted(QString)), view, SLOT(removePict(QString)));
-	doc->AutoSave = prefsManager->appPrefs.AutoSave;
-	doc->AutoSaveTime = prefsManager->appPrefs.AutoSaveTime;
-	if (doc->AutoSave)
-		doc->autoSaveTimer->start(doc->AutoSaveTime);
 	scrActions["fileSave"]->setEnabled(false);
 	undoManager->switchStack(doc->DocName);
 	tocGenerator->setDoc(doc);
@@ -2550,10 +2490,11 @@ void ScribusApp::windowsMenuActivated( int id )
 	newActWin(windowWidget);
 }
 
-bool ScribusApp::SetupDoc()
+bool ScribusApp::slotDocSetup()
 {
 	bool ret = false;
 	ReformDoc* dia = new ReformDoc(this, doc);
+	Q_CHECK_PTR(dia);
 	if (dia->exec())
 	{
 		slotChangeUnit(dia->getSelectedUnit(), false);
@@ -4204,7 +4145,7 @@ bool ScribusApp::slotFileSave()
 		if (doc->is12doc && !warningVersion(this))
 				return false;
 
-		QString fn = doc->DocName;
+		QString fn(doc->DocName);
 		ret = DoFileSave(fn);
 		if (!ret)
 			QMessageBox::warning(this, CommonStrings::trWarning, tr("Cannot write the file: \n%1").arg(fn), CommonStrings::tr_OK);
