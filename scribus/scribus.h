@@ -344,7 +344,7 @@ public slots:
 	/** Erzeugt eine neue Seite */
 	void slotNewPageP(int wo, QString templ);
 	void slotNewPageM();
-	void slotNewMasterPage(int w);
+	void slotNewMasterPage(int w, const QString &);
 	void slotNewPage(int w, bool mov = true);
 	void duplicateToMasterPage();
 	/** Loescht die aktuelle Seite */

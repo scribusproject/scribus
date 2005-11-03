@@ -1185,8 +1185,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 	struct ParagraphStyle vg;
 	struct Layer la;
 	struct ScribusDoc::BookMa bok;
-	int counter, Pgc;
-	bool AtFl;
+	int counter;
 	bool newVersion = false;
 	struct Linked Link;
 	QString tmp, tmpf, tmp2, tmp3, tmp4, PgNam, Defont, tmf;
@@ -1469,32 +1468,28 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				a = QStoInt(pg.attribute("NUM"));
 				PgNam = "";
 				PgNam = pg.attribute("NAM", "");
-				Pgc = doc->pageCount;
-				AtFl = doc->usesAutomaticTextFrames();
+				QString Mus = "";
+				Mus = pg.attribute("MNAM","Normal");
+				
 				if (PgNam.isEmpty())
 				{
-					doc->pageCount = Pgc;
-					doc->setUsesAutomaticTextFrames(AtFl);
 					doc->setMasterPageMode(false);
+					doc->currentPage=doc->addPage(a, Mus);
 				}
 				else
 				{
-					doc->pageCount = 0;
-					doc->setUsesAutomaticTextFrames(false);
 					doc->setMasterPageMode(true);
+					doc->currentPage=doc->addMasterPage(a, PgNam);
 				}
 				//CB: Remove this unnecessarily "slow" slot call when we have no gui for the doc yet!
 				//Items dont appear in the right place if we just doc->addPage(a); for <=1.2.x docs
 				//so we have to call the view, but we certainly dont need to emit to the mainwindow!
+				//This call now picks up the added page and does some view black magic. A must for 
+				//1.2.x docs!
 				view->addPage(a);
 				//emit NewPage(a);
 				doc->Pages->at(a)->LeftPg=QStoInt(pg.attribute("LEFT","0"));
-				QString Mus = "";
-				Mus = pg.attribute("MNAM","Normal");
-				if (!doc->masterPageMode())
-					doc->Pages->at(a)->MPageNam = Mus;
-				else
-					doc->Pages->at(a)->MPageNam = "";
+
 				if ((pg.hasAttribute("NumVGuides")) && (QStoInt(pg.attribute("NumVGuides","0")) != 0))
 				{
 					tmp = pg.attribute("VerticalGuides");
@@ -1658,22 +1653,6 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 							ta->BottomLink = 0;
 					}
 				}
-				if (PgNam.isEmpty())
-				{
-					//doc->DocPages = doc->Pages;
-					//doc->DocItems = doc->Items;
-				}
-				else
-				{
-					doc->Pages->at(a)->setPageName(PgNam);
-					doc->MasterNames[PgNam] = a;
-					//doc->MasterPages = doc->Pages;
-					//doc->MasterItems = doc->Items;
-				}
-				doc->setMasterPageMode(false);
-				//doc->Pages=&doc->DocPages;
-				doc->pageCount = Pgc+1;
-				doc->setUsesAutomaticTextFrames(AtFl);
 			}
 			PAGE=PAGE.nextSibling();
 		}

@@ -5274,18 +5274,26 @@ void ScribusApp::addNewPages(int wo, int where, int numPages, double height, dou
 		undoManager->commit();
 }
 
-void ScribusApp::slotNewMasterPage(int w)
+//signal is disconnected.. unused, and will be deleted.
+void ScribusApp::slotNewMasterPage(int w, const QString& name)
 {
 	if (doc->masterPageMode())
-		slotNewPage(w);
+	{
+		doc->addMasterPage(w, name);
+		view->addPage(w);
+		bool setter = doc->MasterPages.count() > 1 ? true : false;
+		scrActions["pageDelete"]->setEnabled(setter);
+		scrActions["pageMove"]->setEnabled(setter);
+	}
 }
 
 void ScribusApp::slotNewPage(int w, bool mov)
 {
+	doc->addPage(w);
 	view->addPage(w, mov);
 /*	if ((!doc->loading) && (!doc->masterPageMode))
 		outlinePalette->BuildTree(doc); */
-	bool setter = doc->Pages->count() > 1 ? true : false;
+	bool setter = doc->DocPages.count() > 1 ? true : false;
 	scrActions["pageDelete"]->setEnabled(setter);
 	scrActions["pageMove"]->setEnabled(setter);
 	if ((!doc->isLoading()) && (!doc->masterPageMode()))
@@ -7966,7 +7974,7 @@ void ScribusApp::manageMasterPages(QString temp)
 		else
 		{
 			MasterPagesPalette *dia = new MasterPagesPalette(this, doc, view, temp);
-			connect(dia, SIGNAL(createNew(int)), this, SLOT(slotNewMasterPage(int)));
+			//connect(dia, SIGNAL(createNew(int)), this, SLOT(slotNewMasterPage(int)));
 			connect(dia, SIGNAL(removePage(int )), this, SLOT(DeletePage2(int )));
 			connect(dia, SIGNAL(loadPage(QString, int, bool)), this, SLOT(loadPage(QString, int, bool)));
 			connect(dia, SIGNAL(finished()), this, SLOT(manageMasterPagesEnd()));

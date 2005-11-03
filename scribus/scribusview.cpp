@@ -8382,10 +8382,16 @@ void ScribusView::Zval()
 	ScApp->setFocus();
 }
 
-/** Adds a Page */
+//CB This MUST now be called AFTER a call to doc->addPage or doc->addMasterPage as it
+//does NOT create a page anymore.
 Page* ScribusView::addPage(int nr, bool mov)
 {
-	Page* fe=Doc->addPage(nr);
+	Page* fe=Doc->Pages->at(nr);
+	Q_ASSERT(fe!=0);
+	if (fe==0)
+		return 0;
+	//Note this picks up the new page or master page depending on the mode.
+
 	disconnect(pageSelector, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
 	pageSelector->setMaxValue(Doc->pageCount);
 	reformPages(mov);

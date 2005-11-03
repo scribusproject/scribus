@@ -249,10 +249,10 @@ void MasterPagesPalette::duplicateMasterPage()
 void MasterPagesPalette::newMasterPage()
 {
 	QString MasterPageName;
-	int nr;
 	bool atf;
 	NewTm *dia = new NewTm(this, tr("Name:"), tr("New MasterPage"), currentDoc);
 	dia->Answer->setText( tr("New Master Page"));
+	dia->Answer->resize(minimumSizeHint());
 	dia->Answer->selectAll();
 	if (dia->exec())
 	{
@@ -266,12 +266,14 @@ void MasterPagesPalette::newMasterPage()
 			}
 			MasterPageName = dia->Answer->text();
 		}
-		nr = currentDoc->Pages->count();
-		currentDoc->MasterNames.insert(MasterPageName, nr);
-		currentDoc->pageCount = 0;
-		atf = currentDoc->usesAutomaticTextFrames();
-		currentDoc->setUsesAutomaticTextFrames(false);
-		emit createNew(nr);
+		int nr = currentDoc->Pages->count();
+		currentDoc->addMasterPage(nr, MasterPageName);
+		
+		//currentDoc->MasterNames.insert(MasterPageName, nr);
+		//currentDoc->pageCount = 0;
+		//atf = currentDoc->usesAutomaticTextFrames();
+		//currentDoc->setUsesAutomaticTextFrames(false);
+		//emit createNew(nr);
 		if (currentDoc->currentPageLayout != singlePage)
 		{
 			int lp = dia->Links->currentItem();
@@ -283,10 +285,10 @@ void MasterPagesPalette::newMasterPage()
 				lp++;
 			currentDoc->Pages->at(nr)->LeftPg = lp;
 		}
-		currentDoc->Pages->at(nr)->setPageName(MasterPageName);
-		currentDoc->Pages->at(nr)->MPageNam = "";
+		//currentDoc->Pages->at(nr)->setPageName(MasterPageName);
+		//currentDoc->Pages->at(nr)->MPageNam = "";
 		updateMasterPageList(MasterPageName);
-		currentDoc->setUsesAutomaticTextFrames(atf);
+		//currentDoc->setUsesAutomaticTextFrames(atf);
 		currentView->showMasterPage(currentDoc->MasterNames[MasterPageName]);
 		currentView->reformPages();
 		//currentDoc->MasterPages = currentDoc->Pages;

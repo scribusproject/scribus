@@ -960,6 +960,7 @@ void ScribusDoc::addSymbols()
 
 Page* ScribusDoc::addPage(const int pageNumber, const QString& masterPageName)
 {
+	Q_ASSERT(masterPageMode()==false);
 	Page* addedPage = new Page(ScratchLeft, pageCount*(pageHeight+ScratchBottom+ScratchTop)+ScratchTop, pageWidth, pageHeight);
 	Q_ASSERT(addedPage!=NULL);
 	addedPage->Margins.Top = pageMargins.Top;
@@ -971,12 +972,12 @@ Page* ScribusDoc::addPage(const int pageNumber, const QString& masterPageName)
 	addedPage->setPageNr(pageNumber);
 	addedPage->PageSize = PageSize;
 	addedPage->PageOri = PageOri;
-	bool insertsuccess=Pages->insert(pageNumber, addedPage);
-	Q_ASSERT(insertsuccess==true && Pages->at(pageNumber)!=NULL);
+	bool insertsuccess=DocPages.insert(pageNumber, addedPage);
+	Q_ASSERT(insertsuccess==true && DocPages.at(pageNumber)!=NULL);
 	currentPage = addedPage;
-	if (!masterPageMode())
-		addedPage->MPageNam = masterPageName;
-	pageCount++;
+	//if (!masterPageMode())
+	addedPage->MPageNam = masterPageName;
+	++pageCount;
 	return addedPage;
 }
 
@@ -995,6 +996,7 @@ Page* ScribusDoc::addMasterPage(const int pageNumber, const QString& pageName)
 	addedPage->setPageNr(pageNumber);
 	addedPage->PageSize = PageSize;
 	addedPage->PageOri = PageOri;
+	addedPage->MPageNam = "";
 	addedPage->setPageName(pageName);
 	MasterNames.insert(pageName, pageNumber);
 	bool insertsuccess=MasterPages.insert(pageNumber, addedPage);
@@ -1059,7 +1061,7 @@ void ScribusDoc::movePage(const int from, const int to, const int ziel, const in
 const int ScribusDoc::addAutomaticTextFrame(const int pageNumber)
 {
 	Page *addToPage=DocPages.at(pageNumber);
-	if ((usesAutomaticTextFrames()) && (!isLoading()))
+	if ((!masterPageMode()) && (usesAutomaticTextFrames()) && (!isLoading()))
 	{
 		int z = itemAdd(PageItem::TextFrame, PageItem::Unspecified, 
 		                     addToPage->Margins.Left+addToPage->xOffset(),
