@@ -210,7 +210,11 @@ scribus_SOURCES = \
 	werktoolb.cpp	\
 	scribus.cpp	\
 	scribusapp.cpp	\
-	main.cpp
+	main.cpp \
+	main_nix.cpp
+	
+#	NOTE we have no conditional for this file yet, as Makefile.am is not used on win32 VCC.
+#	main_win32.cpp. Needs to be enabled in the future for mingw compilation
 
 INTERFACES =
 TRANSLATIONS =
