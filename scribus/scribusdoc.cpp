@@ -1052,7 +1052,7 @@ void ScribusDoc::movePage(const int from, const int to, const int ziel, const in
 	}
 }
 
-const uint ScribusDoc::addAutomaticTextFrame(const int pageNumber)
+const int ScribusDoc::addAutomaticTextFrame(const int pageNumber)
 {
 	Page *addToPage=DocPages.at(pageNumber);
 	if ((usesAutomaticTextFrames()) && (!isLoading()))
@@ -1072,7 +1072,9 @@ const uint ScribusDoc::addAutomaticTextFrame(const int pageNumber)
 			FirstAuto = Items->at(z);
 		LastAuto = Items->at(z);
 		Items->at(z)->setRedrawBounding();
+		return z;
 	}
+	return -1;
 }
 
 const int ScribusDoc::addLayer(const QString& layerName=QString::null, const bool activate=false)

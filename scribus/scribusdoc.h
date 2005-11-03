@@ -81,7 +81,7 @@ public:
 	Page* addPage(const int pageNumber, const QString& masterPageName=QString::null);
 	bool deletePage(const int);
 	Page* addMasterPage(const int, const QString&);
-	const uint addAutomaticTextFrame(const int);
+	const int addAutomaticTextFrame(const int);
 	/**
 	 * @brief Move page(s) within the document
 	 * @param From page index

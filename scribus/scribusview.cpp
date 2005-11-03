@@ -8389,7 +8389,7 @@ Page* ScribusView::addPage(int nr, bool mov)
 	disconnect(pageSelector, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
 	pageSelector->setMaxValue(Doc->pageCount);
 	reformPages(mov);
-	uint newFrameNumber=Doc->addAutomaticTextFrame(nr);
+	int newFrameNumber=Doc->addAutomaticTextFrame(nr);
 	if (newFrameNumber > 0)
 	{
 		//Do we really need to run the views setRedrawBounding which calls adjustCanvas. 
