@@ -1530,53 +1530,26 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 			case modeEdit:
 				int oldPos = currItem->CPos; // 15-mar-2004 jjsa for cursor movement with Shift + Arrow key
 				view->oldCp = currItem->CPos;
-				if (currItem->asImageFrame())
+				if (currItem->asImageFrame() && !currItem->locked())
 				{
+					double moveBy=1.0;
+					if (buttonState & ShiftButton)
+						moveBy=10.0;
+					else if (buttonState & ControlButton)
+						moveBy=0.1;
 					switch (kk)
 					{
 						case Key_Left:
-							if (!currItem->locked())
-							{
-								if ( buttonState & ShiftButton )
-									view->MoveItemI(currItem, -10, 0, true);
-								else if ( buttonState & ControlButton )
-									view->MoveItemI(currItem, -0.1, 0, true);
-								else
-									view->MoveItemI(currItem, -1, 0, true);
-							}
+							view->MoveItemI(currItem, -moveBy, 0, true);
 							break;
 						case Key_Right:
-							if (!currItem->locked())
-							{
-								if ( buttonState & ShiftButton )
-									view->MoveItemI(currItem, 10, 0, true);
-								else if ( buttonState & ControlButton )
-									view->MoveItemI(currItem, 0.1, 0, true);
-								else
-									view->MoveItemI(currItem, 1, 0, true);
-							}
+							view->MoveItemI(currItem, moveBy, 0, true);
 							break;
 						case Key_Up:
-							if (!currItem->locked())
-							{
-								if ( buttonState & ShiftButton )
-									view->MoveItemI(0, -10, currItem->ItemNr, true);
-								else if ( buttonState & ControlButton )
-									view->MoveItemI(0, -0.1, currItem->ItemNr, true);
-								else
-									view->MoveItemI(0, -1, currItem->ItemNr, true);
-							}
+							view->MoveItemI(currItem, 0, -moveBy, true);
 							break;
 						case Key_Down:
-							if (!currItem->locked())
-							{
-								if ( buttonState & ShiftButton )
-									view->MoveItemI(0, 10, currItem->ItemNr, true);
-								else if ( buttonState & ControlButton )
-									view->MoveItemI(0, 0.1, currItem->ItemNr, true);
-								else
-									view->MoveItemI(0, 1, currItem->ItemNr, true);
-							}
+							view->MoveItemI(currItem, 0, moveBy, true);
 							break;
 					}
 				}
