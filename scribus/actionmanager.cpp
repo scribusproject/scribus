@@ -89,7 +89,7 @@ void ActionManager::initFileMenuActions()
 	connect( (*scrActions)["PrintPreview"], SIGNAL(activated()), ScApp, SLOT(printPreview()) );
 	connect( (*scrActions)["fileSave"], SIGNAL(activated()), ScApp, SLOT(slotFileSave()) );
 	connect( (*scrActions)["fileSaveAs"], SIGNAL(activated()), ScApp, SLOT(slotFileSaveAs()) );
-	connect( (*scrActions)["fileDocSetup"], SIGNAL(activated()), ScApp, SLOT(SetupDoc()) );
+	connect( (*scrActions)["fileDocSetup"], SIGNAL(activated()), ScApp, SLOT(slotDocSetup()) );
 	connect( (*scrActions)["fileRevert"], SIGNAL(activated()), ScApp, SLOT(slotFileRevert()) );
 	connect( (*scrActions)["fileCollect"], SIGNAL(activated()), ScApp, SLOT(Collect()) );
 	connect( (*scrActions)["fileQuit"], SIGNAL(activated()), ScApp, SLOT(slotFileQuit()) );
