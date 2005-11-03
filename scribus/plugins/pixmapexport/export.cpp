@@ -107,9 +107,9 @@ bool PixmapExportPlugin::run(QString target)
 		else
 		{
 			if (dia->AllPagesRadio->isChecked())
-				ScApp->parsePagesString("*", &pageNs, ScApp->doc->pageCount);
+				parsePagesString("*", &pageNs, ScApp->doc->pageCount);
 			else
-				ScApp->parsePagesString(dia->RangeVal->text(), &pageNs, ScApp->doc->pageCount);
+				parsePagesString(dia->RangeVal->text(), &pageNs, ScApp->doc->pageCount);
 			res = ex->exportInterval(pageNs);
 		}
 		ScApp->mainWindowProgressBar->reset();
