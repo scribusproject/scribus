@@ -131,6 +131,8 @@ public:
 	void DrawMasterItems(ScPainter *painter, Page *page, QRect clip);
 	void DrawPageItems(ScPainter *painter, QRect clip);
 	void DrawPageMarks(ScPainter *p, Page* page, QRect clip);
+	//CB This MUST now be called AFTER a call to doc->addPage or doc->addMasterPage as it
+	//does NOT create a page anymore.
 	Page* addPage(int nr, bool mov = true);
 	QPtrList<PageItem> SelItem;
 	QPtrList<PageItem> linkedFramesToShow;
