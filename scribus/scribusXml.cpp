@@ -1609,6 +1609,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 					doc->GroupCounter = docGc;
 					Neu = doc->Items->at(last);
 					Neu->OnMasterPage = PgNam;
+					Neu->setRedrawBounding();
 					IT=OBJ.firstChild();
 					while(!IT.isNull())
 					{
