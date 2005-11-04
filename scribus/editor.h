@@ -34,6 +34,7 @@ private slots:
 
 protected:
     QVBoxLayout* EditorLayout;
+    QVBoxLayout* MainLayout;
 	PrefsContext* dirs;
 };
 

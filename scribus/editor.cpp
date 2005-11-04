@@ -12,15 +12,20 @@
 
 extern QPixmap loadIcon(QString nam);
 
-Editor::Editor( QWidget* parent, QString daten, ScribusView* vie) : QDialog( parent, "editor", true, 0 )
+Editor::Editor( QWidget* parent, QString daten, ScribusView* vie) : QDialog( parent, "editor", true /*, WType_TopLevel | WShowModal */ )
 {
+	QWidget * main = new QWidget(this);
 	setCaption( tr( "Editor" ) );
 	setIcon(loadIcon("AppIcon.png"));
 	view = vie;
+	MainLayout = new QVBoxLayout( this, 0, 0, "Mainlayout");
 	dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	EditorLayout = new QVBoxLayout( this, 0, 0, "EditorLayout");
 	EditTex = new QTextEdit( this, "EditTex" );
 
+	EditorLayout = new QVBoxLayout( main, 0, 0, "EditorLayout");
+	EditTex = new QTextEdit( main, "EditTex" );
+	
 	fmenu = new QPopupMenu();
 	fmenu->insertItem(loadIcon("DateiNeu16.png"), tr("&New"), EditTex, SLOT(clear()), CTRL+Key_N);
 	fmenu->insertItem(loadIcon("DateiOpen16.png"), tr("&Open..."), this, SLOT(OpenScript()));
@@ -38,7 +43,7 @@ Editor::Editor( QWidget* parent, QString daten, ScribusView* vie) : QDialog( par
 	emenu->insertItem(loadIcon("editdelete.png"), tr("C&lear"), EditTex, SLOT(del()), CTRL+Key_V);
 	emenu->insertSeparator();
 	emenu->insertItem( tr("&Get Field Names"), this, SLOT(GetFieldN()));
-	menuBar = new QMenuBar(this);
+	menuBar = new QMenuBar(main);
 	menuBar->insertItem( tr("&File"), fmenu);
 	menuBar->insertItem( tr("&Edit"), emenu);
 	EditorLayout->setMenuBar( menuBar );
@@ -46,6 +51,7 @@ Editor::Editor( QWidget* parent, QString daten, ScribusView* vie) : QDialog( par
 	EditTex->setMinimumSize( QSize( 400, 400 ) );
 	EditTex->setText(daten);
 	EditorLayout->addWidget( EditTex );
+	MainLayout->addWidget( main );
 }
 
 void Editor::GetFieldN()
