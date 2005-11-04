@@ -64,7 +64,7 @@ PyObject *scribus_newdocument(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_newdoc(PyObject* /* self */, PyObject* args)
 {
-	qDebug("WARNING: newDoc() procedure is obsolete. Use newDocument() instead. It can be removed in next releases");
+	qDebug("WARNING: newDoc() procedure is obsolete, it will be removed in a forthcoming release. Use newDocument() instead.");
 	double b, h, lr, tpr, btr, rr, ebr;
 	int unit, ds, fsl, fNr, ori;
 	PyObject *p, *m;
