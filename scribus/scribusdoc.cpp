@@ -3066,3 +3066,36 @@ void ScribusDoc::updateSectionPageNumbersToPages()
 	for (uint i=0;i<docPageCount;++i)
 		DocPages.at(i)->setPageSectionNumber(getSectionPageNumberForPageIndex(i));
 }
+
+void ScribusDoc::addPageToSection(const uint otherPageIndex, const uint location, const uint count)
+{
+	//Get the section of the new page index.
+	bool found=false;
+	DocumentSectionMap::Iterator it = sections.begin();
+	for (; it!= sections.end(); ++it)
+	{
+		if (otherPageIndex>=it.data().fromindex && otherPageIndex<=it.data().toindex)
+		{
+			found=true;
+			break;
+		}
+	}
+	Q_ASSERT(found);
+	
+	DocumentSectionMap::Iterator it2(it);
+	
+	//For this if: We are adding before the beginning of a section, so we must put this 
+	//new page in the previous section and then increment the rest
+	if (otherPageIndex==it.data().fromindex && location==0 && it!=sections.begin())
+		--it2;
+	it2.data().toindex+=count;
+	++it2;
+	while (it2!=sections.end())
+	{
+		it2.data().fromindex+=count;
+		it2.data().toindex+=count;
+		++it2;
+	}
+	//Now update the Pages' internal storage of their page number
+	updateSectionPageNumbersToPages();
+}

@@ -3870,14 +3870,15 @@ bool ScribusApp::loadDoc(QString fileName)
 		}
 //		RestoreBookMarks();
 		doc->setMasterPageMode(false);
-		for (uint azz=0; azz<doc->Items->count(); ++azz)
+		uint docItemsCount=doc->Items->count();
+		for (uint azz=0; azz<docItemsCount; ++azz)
 		{
 			PageItem *ite = doc->Items->at(azz);
 			if (ite->Groups.count() != 0)
 				doc->GroupOnPage(ite);
 			else
 				ite->OwnPage = doc->OnPage(ite);
-			view->setRedrawBounding(ite);
+			//view->setRedrawBounding(ite);
 			if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText) && (!ite->Redrawn))
 			{
 				if (ite->itemType() == PageItem::PathText)
@@ -5229,7 +5230,7 @@ void ScribusApp::addNewPages(int wo, int where, int numPages, double height, dou
 	int wot = wo;
 	switch (where)
 	{
-	case 0:
+	case 0: //before wherepage "wot"
 		wot -= 1;
 		for (cc = 0; cc < numPages; ++cc)
 		{
@@ -5242,7 +5243,7 @@ void ScribusApp::addNewPages(int wo, int where, int numPages, double height, dou
 			wot ++;
 		}
 		break;
-	case 1:
+	case 1: //after wherepage "wot"
 		for (cc = 0; cc < numPages; ++cc)
 		{
 			slotNewPage(wot, mov);
@@ -5254,7 +5255,7 @@ void ScribusApp::addNewPages(int wo, int where, int numPages, double height, dou
 			wot ++;
 		}
 		break;
-	case 2:
+	case 2: //at the end
 		for (cc = 0; cc < numPages; ++cc)
 		{
 			slotNewPage(doc->Pages->count(), mov);
@@ -5266,6 +5267,7 @@ void ScribusApp::addNewPages(int wo, int where, int numPages, double height, dou
 		}
 		break;
 	}
+	doc->addPageToSection(wot, where, numPages);
 	pagePalette->RebuildPage();
 	view->reformPages(mov);
 	view->DrawNew();

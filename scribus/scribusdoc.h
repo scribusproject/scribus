@@ -76,10 +76,16 @@ public:
 /** Setzt die Seitenattribute */
 	void setPage(double b, double h, double t, double l, double r, double bo, double sp, double ab, bool atf, int fp);
 	void resetPage(double t, double l, double r, double bo, int fp);
+	
 	// Add, delete and move pages
-	//TODO CB Stop making master pages with this
+	/**
+	 * @brief Add a page with this function, do not use addPage for creating master pages
+	 */
 	Page* addPage(const int pageNumber, const QString& masterPageName=QString::null);
 	bool deletePage(const int);
+	/**
+	 * @brief Add a master page with this function, do not use addPage
+	 */
 	Page* addMasterPage(const int, const QString&);
 	const int addAutomaticTextFrame(const int);
 	/**
@@ -424,6 +430,11 @@ public:
 	 *
 	 */
 	void updateSectionPageNumbersToPages();
+	/**
+	 *
+	 *
+	 */
+	void addPageToSection(const uint otherPageIndex, const uint location, const uint count=1);
 	
 
 protected:
