@@ -3879,10 +3879,11 @@ bool ScribusApp::loadDoc(QString fileName)
 		for (uint azz=0; azz<docItemsCount; ++azz)
 		{
 			PageItem *ite = doc->Items->at(azz);
-			if (ite->Groups.count() != 0)
-				doc->GroupOnPage(ite);
-			else
-				ite->OwnPage = doc->OnPage(ite);
+			//CB dont need this as we get it from the loading page in 1.2.x docs. 1.3.x items have this anyway.
+//			if (ite->Groups.count() != 0)
+//				doc->GroupOnPage(ite);
+//			else 
+//				ite->OwnPage = doc->OnPage(ite);
 			//view->setRedrawBounding(ite);
 			if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText) && (!ite->Redrawn))
 			{
