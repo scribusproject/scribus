@@ -43,11 +43,11 @@ NewDoc::NewDoc( QWidget* parent, bool startUp ) : QDialog( parent, "newDoc", tru
 	createNewDocPage();
 	if (startUp)
 	{
-		tabWidget->addTab(newDocFrame, tr("New Document"));
+		tabWidget->addTab(newDocFrame, tr("&New Document"));
 		createOpenDocPage();
-		tabWidget->addTab(openDocFrame, tr("Open Document"));
+		tabWidget->addTab(openDocFrame, tr("Open &Existing Document"));
 		createRecentDocPage();
-		tabWidget->addTab(recentDocFrame, tr("Recent Documents"));
+		tabWidget->addTab(recentDocFrame, tr("Open Recent &Document"));
 		TabbedNewDocLayout->addWidget(tabWidget);
 	}
 	else
