@@ -452,7 +452,7 @@ void ReformDoc::restoreDefaults()
 		unitChange();
 		autoSaveTime->setValue(currDoc->AutoSaveTime / 1000 / 60);
 		groupAutoSave->setChecked( currDoc->AutoSave );
-		pageNumber->setValue(currDoc->FirstPnum);
+		//pageNumber->setValue(currDoc->FirstPnum);
 		docLayout->selectItem(currDoc->currentPageLayout);
 		setDS(currDoc->currentPageLayout);
 		docLayout->firstPage->setCurrentItem(currDoc->pageSets[currDoc->currentPageLayout].FirstPage);
@@ -723,7 +723,7 @@ void ReformDoc::updateDocumentSettings()
 	currDoc->pageSets[fp].FirstPage = docLayout->firstPage->currentItem();
 	currDoc->pageSets[fp].GapHorizontal = gapHorizontal->value() / currDoc->unitRatio();
 	currDoc->pageSets[fp].GapBelow = gapVertical->value() / currDoc->unitRatio();
-	currDoc->FirstPnum = pageNumber->value();
+	//currDoc->FirstPnum = pageNumber->value();
 	currDoc->resetPage(tpr2, lr2, rr2, br2, fp);
 	currDoc->PageOri = orientationQComboBox->currentItem();
 	currDoc->PageSize = prefsPageSizeName;
