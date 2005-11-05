@@ -5131,7 +5131,7 @@ void ScribusApp::slotHelpAboutQt()
 
 void ScribusApp::slotOnlineHelp()
 {
-	HelpBrowser *dia = new HelpBrowser(this, tr("Scribus Manual"), ScApp->guiLanguage);
+	HelpBrowser *dia = new HelpBrowser(0, tr("Scribus Manual"), ScApp->guiLanguage);
 	dia->show();
 }
 

@@ -165,7 +165,7 @@ class HistoryParser : public QXmlDefaultHandler
 
 
 HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLanguage, QString jumpToSection, QString jumpToFile)
-	: QWidget( parent, "Help", WType_TopLevel | WDestructiveClose )
+	: QWidget( parent, "Help", WType_TopLevel | WDestructiveClose | WGroupLeader )
 {
 	QString fileName;
 	mHistory.clear();
