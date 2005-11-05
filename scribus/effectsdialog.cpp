@@ -311,7 +311,9 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	connect( okButton, SIGNAL( clicked() ), this, SLOT( leaveOK() ) );
 	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
 	connect( usedEffects, SIGNAL( clicked(QListBoxItem*) ), this, SLOT( selectEffect(QListBoxItem*) ) );
+	connect( usedEffects, SIGNAL( doubleClicked(QListBoxItem*) ), this, SLOT( moveFromEffects() ) );
 	connect( availableEffects, SIGNAL( clicked(QListBoxItem*) ), this, SLOT( selectAvailEffect(QListBoxItem*) ) );
+	connect( availableEffects, SIGNAL( doubleClicked(QListBoxItem*) ), this, SLOT( moveToEffects() ) );
 	connect( toEffects, SIGNAL( clicked() ), this, SLOT( moveToEffects() ) );
 	connect( fromEffects, SIGNAL( clicked() ), this, SLOT( moveFromEffects() ) );
 	connect( effectUp, SIGNAL( clicked() ), this, SLOT( moveEffectUp() ) );
