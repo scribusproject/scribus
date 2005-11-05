@@ -500,7 +500,9 @@ void Druck::setStoredValues(bool gcr)
 		SelComm();
 	RadioButton1->setChecked(prefs->getBool("PrintAll", true));
 	CurrentPage->setChecked(prefs->getBool("CurrentPage", false));
-	RadioButton2->setChecked(prefs->getBool("PrintRange", false));
+	bool printRangeChecked=prefs->getBool("PrintRange", false);
+	RadioButton2->setChecked(printRangeChecked);
+	PageNr->setEnabled(printRangeChecked);
 	PageNr->setText(prefs->get("PageNr", "1-1"));
 	Copies->setValue(prefs->getInt("Copies", 1));
 	PrintSep->setCurrentItem(prefs->getInt("Separations", 0));
