@@ -1346,32 +1346,115 @@ void ScImage::HLSTORGB ( uchar& hue, uchar& lightness, uchar& saturation )
 	}
 }
 
+bool ScImage::loadChannel( QDataStream & s, const PSDHeader & header, QValueList<PSDLayer> &layerInfo, uint layer, int channel, int component, QImage &tmpImg)
+{
+	uint base = s.device()->at();
+	uchar cbyte;
+	ushort compression;
+	s >> compression;
+	if( compression > 1 )
+		return false;
+	if (compression == 0)
+	{
+		int count = layerInfo[layer].channelLen[channel]-2;
+		for (int i = 0; i < tmpImg.height(); i++)
+		{
+			uchar *ptr =  tmpImg.scanLine(i);
+			for (int j = 0; j < tmpImg.width(); j++)
+			{
+				s >> cbyte;
+				count--;
+				if (header.color_mode == CM_CMYK)
+					cbyte = 255 - cbyte;
+				if (channel < 4)
+					ptr[component] = cbyte;
+				if (count == 0)
+					break;
+				ptr += 4;
+			}
+			if (count == 0)
+				break;
+		}
+	}
+	else
+	{
+		s.device()->at( s.device()->at() + tmpImg.height() * 2 );
+		uint pixel_count = tmpImg.width();
+		for (int hh = 0; hh < tmpImg.height(); hh++)
+		{
+			uint count = 0;
+			uchar *ptr = tmpImg.scanLine(hh);
+			uchar *ptr2 = ptr+tmpImg.width() * 4;
+			ptr += component;
+			while( count < pixel_count )
+			{
+				uchar c;
+				if(s.atEnd())
+					return false;
+				s >> c;
+				uint len = c;
+				if( len < 128 )
+				{
+					// Copy next len+1 bytes literally.
+					len++;
+					count += len;
+					while( len != 0 )
+					{
+						s >> cbyte;
+						if (ptr < ptr2)
+						{
+							if (header.color_mode == CM_CMYK)
+								cbyte = 255 - cbyte;
+							*ptr = cbyte;
+						}
+						ptr += 4;
+						len--;
+					}
+				}
+				else if( len > 128 )
+				{
+					// Next -len+1 bytes in the dest are replicated from next source byte.
+					// (Interpret len as a negative 8-bit int.)
+					len ^= 0xFF;
+					len += 2;
+					count += len;
+					uchar val;
+					s >> val;
+					if (header.color_mode == CM_CMYK)
+						val = 255 - val;
+					while( len != 0 )
+					{
+						if (ptr < ptr2)
+							*ptr = val;
+						ptr += 4;
+						len--;
+					}
+				}
+				else if( len == 128 )
+				{
+					// No-op.
+				}
+			}
+		}
+	}
+	s.device()->at( base+layerInfo[layer].channelLen[channel] );
+	return true;
+}
+
 bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QValueList<PSDLayer> &layerInfo, uint layer, bool* firstLayer)
 {
 	// Find out if the data is compressed.
 	// Known values:
 	//   0: no compression
 	//   1: RLE compressed
-	QImage tmpImg;
-	if (!*firstLayer)
-	{
-		if( !tmpImg.create( layerInfo[layer].width, layerInfo[layer].height, 32 ))
-			return false;
-	}
-	else
-	{
-		if( !tmpImg.create( header.width, header.height, 32 ))
-			return false;
-	}
+	QImage tmpImg = QImage();
+	QImage mask = QImage();
+	if( !tmpImg.create( layerInfo[layer].width, layerInfo[layer].height, 32 ))
+		return false;
 	tmpImg.setAlphaBuffer( true );
 	tmpImg.fill(qRgba(0, 0, 0, 0));
 	uint base = s.device()->at();
 	uint base2 = base;
-	uchar cbyte;
-	ushort compression;
-	s >> compression;
-	if( compression > 1 )
-		return false;
 	uint channel_num = layerInfo[layer].channelLen.count();
 	channel_num = QMIN(channel_num, 39);
 	uint components[40];
@@ -1397,155 +1480,38 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 			break;
 		}
 	}
-	if( compression )
+	if (channel_num < 4)
 	{
-		// Skip row lengths.
-		s.device()->at( s.device()->at() + layerInfo[layer].height * 2 );
-		// Read RLE data
-		bool first = true;
-		for(uint channel = 0; channel < channel_num; channel++)
+		for (int i = 0; i < tmpImg.height(); i++)
 		{
-			if ((layerInfo[layer].channelType[channel] < 0) && (header.color_mode == CM_CMYK))
+			QRgb * s = (QRgb*)(tmpImg.scanLine( i ));
+			for (int j = 0; j < tmpImg.width(); j++)
 			{
-				first = false;
-				continue;
-			}
-			if (layerInfo[layer].channelType[channel] == -2)
-			{
-				first = false;
-				continue;
-			}
-			if (!first)
-			{
-				s.device()->at(layerInfo[layer].channelLen[channel-1]+base);
-				base += layerInfo[layer].channelLen[channel-1];
-				s >> compression;
-				if (compression == 0)
-				{
-					int count = layerInfo[layer].channelLen[channel]-2;
-					for (int i = 0; i < tmpImg.height(); i++)
-					{
-						uchar *ptr =  tmpImg.scanLine(i);
-						for (int j = 0; j < tmpImg.width(); j++)
-						{
-							s >> cbyte;
-							count--;
-							if (header.color_mode == CM_CMYK)
-								cbyte = 255 - cbyte;
-							if (channel < 4)
-								ptr[components[channel]] = cbyte;
-							if (count == 0)
-								break;
-							ptr += 4;
-						}
-						if (count == 0)
-							break;
-					}
-					continue;
-				}
-				s.device()->at( s.device()->at() + layerInfo[layer].height * 2 );
-			}
-			first = false;
-			uint pixel_count = layerInfo[layer].width;
-			for (int hh = 0; hh < layerInfo[layer].height; hh++)
-			{
-				uint count = 0;
-				uchar *ptr = tmpImg.scanLine(hh);
-				uchar *ptr2 = ptr+tmpImg.width() * 4;
-				ptr += components[channel];
-				while( count < pixel_count )
-				{
-					uchar c;
-					if(s.atEnd())
-						return false;
-					s >> c;
-					uint len = c;
-					if( len < 128 )
-					{
-						// Copy next len+1 bytes literally.
-						len++;
-						count += len;
-						while( len != 0 )
-						{
-							s >> cbyte;
-							if (ptr < ptr2)
-							{
-								if (header.color_mode == CM_CMYK)
-									cbyte = 255 - cbyte;
-								*ptr = cbyte;
-							}
-							ptr += 4;
-							len--;
-						}
-					}
-					else if( len > 128 )
-					{
-						// Next -len+1 bytes in the dest are replicated from next source byte.
-						// (Interpret len as a negative 8-bit int.)
-						len ^= 0xFF;
-						len += 2;
-						count += len;
-						uchar val;
-						s >> val;
-						if (header.color_mode == CM_CMYK)
-							val = 255 - val;
-						while( len != 0 )
-						{
-							if (ptr < ptr2)
-								*ptr = val;
-							ptr += 4;
-							len--;
-						}
-					}
-					else if( len == 128 )
-					{
-						// No-op.
-					}
-				}
+				*s++ = qRgba(0, 0, 0, 255);
 			}
 		}
 	}
-	else
+	for(uint channel = 0; channel < channel_num; channel++)
 	{
-		// We're at the raw image data.  It's each channel in order (Red, Green, Blue, Alpha, ...)
-		// where each channel consists of an 8-bit value for each pixel in the image.
-		// Read the data by channel.
-		if (channel_num < 4)
+		if ((layerInfo[layer].channelType[channel] < 0) && (header.color_mode == CM_CMYK))
 		{
-			for (int i = 0; i < tmpImg.height(); i++)
-			{
-				QRgb * s = (QRgb*)(tmpImg.scanLine( i ));
-				for (int j = 0; j < tmpImg.width(); j++)
-				{
-					*s++ = qRgba(0, 0, 0, 255);
-				}
-			}
+			s.device()->at( base+layerInfo[layer].channelLen[channel] );
+			base = base+layerInfo[layer].channelLen[channel];
+			continue;
 		}
-		int count = 0;
-		int count2 = 0;
-		for(uint channel = 0; channel < channel_num; channel++)
+		if (layerInfo[layer].channelType[channel] == -2)
 		{
-			count = layerInfo[layer].channelLen[channel];
-			for (int i = 0; i < tmpImg.height(); i++)
-			{
-				uchar *ptr =  tmpImg.scanLine(i);
-				for (int j = 0; j < tmpImg.width(); j++)
-				{
-					s >> cbyte;
-					count--;
-					if (header.color_mode == CM_CMYK)
-						cbyte = 255 - cbyte;
-					if (channel < 4)
-						ptr[components[channel]] = cbyte;
-					if (count == 0)
-						break;
-					ptr += 4;
-				}
-				if (count == 0)
-					break;
-			}
-			count2 += layerInfo[layer].channelLen[channel];
-			s.device()->at( base+count2 );
+			if (!mask.create( layerInfo[layer].maskWidth, layerInfo[layer].maskHeight, 32 ))
+				break;
+			mask.setAlphaBuffer( true );
+			mask.fill(qRgba(0, 0, 0, 0));
+			if (!loadChannel(s, header, layerInfo, layer, channel, components[channel], mask))
+				break;
+		}
+		else
+		{
+			if (!loadChannel(s, header, layerInfo, layer, channel, components[channel], tmpImg))
+				break;
 		}
 	}
 	for(uint channel = 0; channel < channel_num; channel++)
@@ -1609,6 +1575,27 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 			startSrcX = 0;
 			startDstX = layerInfo[layer].xpos;
 		}
+		unsigned int startSrcYm, startSrcXm, startDstYm, startDstXm;
+		if (layerInfo[layer].maskYpos < 0)
+		{
+			startSrcYm = abs(layerInfo[layer].maskYpos);
+			startDstYm = 0;
+		}
+		else
+		{
+			startSrcYm = 0;
+			startDstYm = layerInfo[layer].maskYpos;
+		}
+		if (layerInfo[layer].maskXpos < 0)
+		{
+			startSrcXm = abs(layerInfo[layer].maskXpos);
+			startDstXm = 0;
+		}
+		else
+		{
+			startSrcXm = 0;
+			startDstXm = layerInfo[layer].maskXpos;
+		}
 		if (*firstLayer)
 		{
 			for( int yi=static_cast<int>(startSrcY); yi < QMIN(tmpImg.height(), height()); ++yi )
@@ -1616,7 +1603,7 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 				QRgb *s = (QRgb*)(tmpImg.scanLine( yi ));
 				QRgb *d = (QRgb*)(scanLine( QMIN(static_cast<int>(startDstY), height()-1) ));
 				d += QMIN(static_cast<int>(startDstX), width()-1);
-				s += QMIN(static_cast<int>(startSrcX), width()-1);
+				s += QMIN(static_cast<int>(startSrcX), tmpImg.width()-1);
 				for(int xi=static_cast<int>(startSrcX); xi < QMIN(tmpImg.width(), width()); ++xi )
 				{
 					(*d) = (*s);
@@ -1633,17 +1620,26 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 				unsigned int *dst = (unsigned int *)scanLine(QMIN(static_cast<int>(startDstY), height()-1));
 				unsigned int *src = (unsigned int *)tmpImg.scanLine(QMIN(i, tmpImg.height()-1));
 				dst += QMIN(static_cast<int>(startDstX), width()-1);
-				src += QMIN(static_cast<int>(startSrcX), width()-1);
+				src += QMIN(static_cast<int>(startSrcX), tmpImg.width()-1);
+				unsigned int *srcm;
+				if (!mask.isNull())
+				{
+					srcm = (unsigned int *)mask.scanLine(QMIN(i, mask.height()-1));
+					srcm += QMIN(static_cast<int>(startSrcXm), mask.width()-1);
+				}
 				startDstY++;
-				unsigned char r, g, b, a, src_r, src_g, src_b, src_a;
-				for (unsigned int j = startSrcX; j < layerInfo[layer].width; j++)
+				unsigned char r, g, b, a, src_r, src_g, src_b, src_a, mask_a;
+				for (unsigned int j = startSrcX; j < static_cast<unsigned int>(layerInfo[layer].width); j++)
 				{
 					unsigned char *d = (unsigned char *) dst;
 					unsigned char *s = (unsigned char *) src;
+					unsigned char *sm = (unsigned char *) srcm;
 					src_r = s[0];
 					src_g = s[1];
 					src_b = s[2];
 					src_a = s[3];
+					if (!mask.isNull())
+						mask_a = sm[3];
 					QString layBlend = layerInfo[layer].blend;
 					if ((imgInfo.isRequest) && (imgInfo.RequestProps.contains(layer)))
 						layBlend = imgInfo.RequestProps[layer].blend;
@@ -1841,6 +1837,8 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 					int layOpa = layerInfo[layer].opacity;
 					if ((imgInfo.isRequest) && (imgInfo.RequestProps.contains(layer)))
 						layOpa = imgInfo.RequestProps[layer].opacity;
+					if (!mask.isNull())
+						layOpa = INT_MULT(mask_a, layOpa);
 					if (d[3] > 0)
 					{
 						r = (d[0] * (255 - layOpa) + src_r * layOpa) / 255;
@@ -1867,16 +1865,18 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 					}
 					else
 					{
-						if (s[3] > 0)
+						if (src_a > 0)
 						{
 							d[0] = r;
 							d[1] = g;
 							d[2] = b;
-							d[3] = a;
+							if (mask.isNull())
+								d[3] = a;
 						}
 					}
 					dst++;
 					src++;
+					srcm++;
 				}
 			}
 		}
@@ -2281,10 +2281,12 @@ bool ScImage::parseLayer( QDataStream & s, const PSDHeader & header )
 			s >> layermasksize;
 			if (layermasksize != 0)
 			{
+				s >> lay.maskYpos;
+				s >> lay.maskXpos;
 				s >> dummy;
+				lay.maskHeight = dummy - lay.maskYpos;
 				s >> dummy;
-				s >> dummy;
-				s >> dummy;
+				lay.maskWidth = dummy - lay.maskXpos;
 				s >> dummy;
 			}
 			s >> layerRange;

@@ -122,6 +122,10 @@ public:
 		ushort opacity;
 		uchar clipping;
 		uchar flags;
+		int maskXpos;
+		int maskYpos;
+		int maskWidth;
+		int maskHeight;
 		QString layerName;
 		QString blend;
 		QImage thumb;
@@ -185,6 +189,7 @@ private:
 	void RGBTOHLS ( uchar& red, uchar& green, uchar& blue );
 	int HLSVALUE ( double n1, double n2, double hue );
 	void HLSTORGB ( uchar& hue, uchar& lightness, uchar& saturation );
+	bool loadChannel( QDataStream & s, const PSDHeader & header, QValueList<PSDLayer> &layerInfo, uint layer, int channel, int component, QImage &tmpImg);
 	bool loadLayerChannels( QDataStream & s, const PSDHeader & header, QValueList<PSDLayer> &layerInfo, uint layer, bool* firstLayer);
 	bool loadLayer( QDataStream & s, const PSDHeader & header);
 	QString getLayerString(QDataStream & s);
