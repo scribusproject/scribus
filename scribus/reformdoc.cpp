@@ -150,15 +150,23 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	unitQLabel = new QLabel(unitCombo, tr( "&Unit:" ), dsGroupBox7, "unitQLabel" );
 	dsLayout4->addWidget( unitQLabel, 2, 0 );
 	dsLayout4->addWidget( unitCombo, 2, 1 );
+	
+	sizeAllPages = new QCheckBox( dsGroupBox7, "moveObjects" );
+	sizeAllPages->setText( tr( "Apply size settings to all pages" ) );
+	sizeAllPages->setChecked( false );
+	dsLayout4->addMultiCellWidget( sizeAllPages, 3, 3, 0, 3 );
+	
 	dsGroupBox7Layout->addLayout( dsLayout4 );
 	dsLayout4pv->addWidget( dsGroupBox7 );
 
-	GroupRand = new MarginWidget(tabPage,  tr( "Margin Guides" ), &doc->pageMargins, decimals, unitRatio, ein );
+	GroupRand = new MarginWidget(tabPage,  tr( "Margin Guides" ), &doc->pageMargins, decimals, unitRatio, ein, true );
 	GroupRand->setPageWidthHeight(pageWidth, pageHeight);
 	dsLayout4pv->addWidget( GroupRand );
+		
 	dsLayout4p->addLayout( dsLayout4pv );
 	reformDocLayout->addLayout( dsLayout4p );
 	
+	/*
 	groupBox7a = new QGroupBox( tabPage, "groupBox7" );
 	groupBox7a->setTitle( tr( "Options" ) );
 	groupBox7a->setColumnLayout(0, Qt::Vertical );
@@ -171,14 +179,17 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	layout4a = new QGridLayout;
 	layout4a->setSpacing( 6 );
 	layout4a->setMargin( 0 );
+	
 	sizeAllPages = new QCheckBox( groupBox7a, "moveObjects" );
 	sizeAllPages->setText( tr( "Apply size settings to all Pages" ) );
 	sizeAllPages->setChecked( false );
 	layout4a->addMultiCellWidget( sizeAllPages, 1, 1, 0, 1 );
+	
 	marginsForAllPages = new QCheckBox( groupBox7a, "moveObjects" );
 	marginsForAllPages->setText( tr( "Apply margin settings to all Pages" ) );
 	marginsForAllPages->setChecked( false );
 	layout4a->addMultiCellWidget( marginsForAllPages, 1, 1, 2, 3 );
+	
 	TextLabel1_3 = new QLabel( tr( "F&irst Page Number:" ), groupBox7a, "TextLabel1_3" );
 	layout4a->addMultiCellWidget( TextLabel1_3, 0, 0, 0, 1 );
 	pageNumber = new QSpinBox( groupBox7a, "pageNumber" );
@@ -189,6 +200,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	TextLabel1_3->setBuddy(pageNumber);
 	groupBox7aLayout->addLayout( layout4a );
 	reformDocLayout->addWidget( groupBox7a );
+	*/
 	groupAutoSave = new QGroupBox( tabPage, "groupAutoSave" );
 	groupAutoSave->setTitle( tr( "Autosave" ) );
 	groupAutoSave->setCheckable( true );
@@ -407,6 +419,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	QToolTip::add( checkUnprintable, "<qt>" + tr( "Mask the area outside the margins in the margin color" ) + "</qt>" );
 //	QToolTip::add( facingPages, "<qt>" + tr( "Enable single or spread based layout" ) + "</qt>" );
 //	QToolTip::add( firstPage, "<qt>" + tr( "Make the first page the left page of the document" ) + "</qt>" );
+	QToolTip::add( sizeAllPages, "<qt>" + tr( "Apply the page size changes to all existing pages in the document" ) + "</qt>" );
 
 	// signals and slots connections
 	connect(docLayout, SIGNAL( selectedLayout(int) ), this, SLOT( setDS(int) ) );
@@ -724,7 +737,7 @@ void ReformDoc::updateDocumentSettings()
 			pp->setInitialWidth(currDoc->pageWidth);
 			pp->setInitialHeight(currDoc->pageHeight);
 		}
-		if (marginsForAllPages->isChecked())
+		if (GroupRand->marginsForAllPages->isChecked())
 		{
 			pp->initialMargins.Left = lr2;
 			pp->initialMargins.Right = rr2;
@@ -740,7 +753,7 @@ void ReformDoc::updateDocumentSettings()
 			pp->setInitialWidth(currDoc->pageWidth);
 			pp->setInitialHeight(currDoc->pageHeight);
 		}
-		if (marginsForAllPages->isChecked())
+		if (GroupRand->marginsForAllPages->isChecked())
 		{
 			pp->initialMargins.Left = lr2;
 			pp->initialMargins.Right = rr2;

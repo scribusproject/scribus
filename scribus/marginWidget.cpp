@@ -1,10 +1,12 @@
 #include "marginWidget.h"
 #include "marginWidget.moc"
 #include "mspinbox.h"
+
+#include <qcheckbox.h>
 #include <qtooltip.h>
 
 
-MarginWidget::MarginWidget( QWidget* parent, QString title, MarginStruct* margs, int decimals, double unit, QString einh) : QGroupBox( title, parent, "marginWidget")
+MarginWidget::MarginWidget( QWidget* parent, QString title, MarginStruct* margs, int decimals, double unit, QString einh, bool showChangeAll) : QGroupBox( title, parent, "marginWidget")
 {
 	setColumnLayout(0, Qt::Vertical );
 	layout()->setSpacing( 5 );
@@ -38,6 +40,7 @@ MarginWidget::MarginWidget( QWidget* parent, QString title, MarginStruct* margs,
 	tText = new QLabel( topR, tr( "&Top:" ), this, "tText" );
 	rText = new QLabel( rightR, tr( "&Right:" ), this, "rText" );
 	lText = new QLabel( leftR, tr( "&Left:" ), this, "lText" );
+	
 	// layout
 	GroupLayout = new QGridLayout( this->layout() );
 	GroupLayout->setAlignment( Qt::AlignTop );
@@ -51,13 +54,23 @@ MarginWidget::MarginWidget( QWidget* parent, QString title, MarginStruct* margs,
 	GroupLayout->addWidget( rText, 2, 0 );
 	GroupLayout->addWidget( tText, 3, 0 );
 	GroupLayout->addWidget( bText, 4, 0 );
-
+	if (showChangeAll)
+	{	
+		marginsForAllPages = new QCheckBox( this, "moveObjects" );
+		marginsForAllPages->setText( tr( "Apply margin settings to all pages" ) );
+		marginsForAllPages->setChecked( false );
+		GroupLayout->addMultiCellWidget( marginsForAllPages, 5, 5, 0, 1);
+		QToolTip::add( marginsForAllPages, "<qt>" + tr( "Apply the margin changes to all existing pages in the document" ) + "</qt>" );
+	}
+	else
+		marginsForAllPages=NULL;
+	
 	// hints
 	QToolTip::add( topR, "<qt>" + tr( "Distance between the top margin guide and the edge of the page" ) + "</qt>");
 	QToolTip::add( bottomR, "<qt>" + tr( "Distance between the bottom margin guide and the edge of the page" ) + "</qt>");
 	QToolTip::add( leftR, "<qt>" + tr( "Distance between the left margin guide and the edge of the page.\nIf Facing Pages is selected, this margin space can be used to achieve the correct margins for binding") + "</qt>");
 	QToolTip::add( rightR, "<qt>" +tr( "Distance between the right margin guide and the edge of the page.\nIf Facing Pages is selected, this margin space can be used to achieve the correct margins for binding") + "</qt>");
-	// signals&slots
+		// signals&slots
 	connect(topR, SIGNAL(valueChanged(int)), this, SLOT(setTop()));
 	connect(bottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom()));
 	connect(leftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft()));

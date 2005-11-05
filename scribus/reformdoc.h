@@ -95,7 +95,7 @@ protected:
 	MSpinBox* widthMSpinBox;
 	MSpinBox* heightMSpinBox;
 	QCheckBox* sizeAllPages;
-	QCheckBox* marginsForAllPages;
+	//QCheckBox* marginsForAllPages;
 	MSpinBox* topScratch;
 	MSpinBox* bottomScratch;
 	MSpinBox* leftScratch;

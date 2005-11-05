@@ -1,13 +1,15 @@
 #ifndef MARGINWIDGET_H
 #define MARGINWIDGET_H
 
-#include <qlayout.h>
-#include <qgroupbox.h>
-#include <qlabel.h>
-#include <qcombobox.h>
-
 #include "scribusapi.h"
 #include "scribusstructs.h"
+
+#include <qcombobox.h>
+#include <qgroupbox.h>
+#include <qlabel.h>
+#include <qlayout.h>
+
+class QCheckBox;
 
 class MSpinBox;
 
@@ -69,7 +71,7 @@ public:
 	\param unit mainly doc->unitRatio
 	\param einh unit text to display in the spin boxes (mm, pt etc)
 	*/
-	MarginWidget( QWidget* parent, QString title, MarginStruct* margs, int decimals, double unitRatio, QString einh);
+	MarginWidget( QWidget* parent, QString title, MarginStruct* margs, int decimals, double unitRatio, QString einh, bool showChangeAll=false);
 	~MarginWidget() {};
 	/*! Setup the labels by facing pages option */
 	void setFacingPages(bool facing);
@@ -81,6 +83,7 @@ public:
 	void setPageHeight(double heigth);
 	/*! Setup the widgets by new options */
 	void unitChange(double newUnit, int newDecimals, QString newSuffix);
+	
 	/*! Spinboxes */
 	MSpinBox* topR;
 	MSpinBox* bottomR;
@@ -93,6 +96,7 @@ public:
 	QLabel* tText;
 	QLabel* bText;
 	QLabel* presetLabel;
+	QCheckBox* marginsForAllPages;
 	/*! Top margin value converted by unitRatio */
 	double RandT;
 	/*! Bottom margin value converted by unitRatio */
