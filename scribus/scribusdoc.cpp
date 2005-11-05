@@ -3081,7 +3081,8 @@ void ScribusDoc::addPageToSection(const uint otherPageIndex, const uint location
 		}
 	}
 	Q_ASSERT(found);
-	
+	if (!found)
+		return;
 	DocumentSectionMap::Iterator it2(it);
 	
 	//For this if: We are adding before the beginning of a section, so we must put this 
@@ -3097,5 +3098,41 @@ void ScribusDoc::addPageToSection(const uint otherPageIndex, const uint location
 		++it2;
 	}
 	//Now update the Pages' internal storage of their page number
+	updateSectionPageNumbersToPages();
+}
+
+
+void ScribusDoc::removePageFromSection(const uint pageIndex)
+{
+	//Get the section of the new page index.
+	bool found=false;
+	DocumentSectionMap::Iterator it = sections.begin();
+	for (; it!= sections.end(); ++it)
+	{
+		if (pageIndex>=it.data().fromindex && pageIndex<=it.data().toindex)
+		{
+			found=true;
+			break;
+		}
+	}
+	Q_ASSERT(found);
+	if (!found)
+		return;
+	--it.data().toindex;
+	++it;
+	while (it!=sections.end())
+	{
+		--it.data().fromindex;
+		--it.data().toindex;
+		++it;
+	}
+	//Now update the Pages' internal storage of their page number
+	updateSectionPageNumbersToPages();
+}
+
+void ScribusDoc::setFirstSectionFromFirstPageNumber()
+{
+	DocumentSectionMap::Iterator it = sections.begin();
+	it.data().sectionstartindex=FirstPnum;
 	updateSectionPageNumbersToPages();
 }

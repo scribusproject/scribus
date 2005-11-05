@@ -2302,6 +2302,7 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 
 	doc->pageCount = doc->DocPages.count();
 	doc->addSection();
+	doc->setFirstSectionFromFirstPageNumber();
 	doc->setModified(false);
 	doc->setLoading(false);
 	doc->currentPage = doc->Pages->at(0);
@@ -3830,7 +3831,11 @@ bool ScribusApp::loadDoc(QString fileName)
 			doc->addMasterPage(0, "Normal");
 		doc->pageCount = doc->DocPages.count();
 		//Add doc sections if we have none
-		doc->addSection(-1);
+		if (doc->sections.count()==0)
+		{
+			doc->addSection(-1);
+			doc->setFirstSectionFromFirstPageNumber();
+		}
 		doc->setLoading(false);
 		doc->RePos = true;
 		QPixmap pgPix(10, 10);
@@ -5267,7 +5272,8 @@ void ScribusApp::addNewPages(int wo, int where, int numPages, double height, dou
 		}
 		break;
 	}
-	doc->addPageToSection(wot, where, numPages);
+	//Must use wo-1 as the dialog currently returns a page Index +1 due to old numbering scheme
+	doc->addPageToSection(wo-1, where, numPages);
 	pagePalette->RebuildPage();
 	view->reformPages(mov);
 	view->DrawNew();
@@ -6156,6 +6162,7 @@ void ScribusApp::DeletePage(int from, int to)
 			undoManager->action(this, ss);
 		}
 		view->delPage(a);
+		doc->removePageFromSection(a);
 	}
 	view->reformPages();
 	view->DrawNew();

@@ -435,6 +435,8 @@ public:
 	 *
 	 */
 	void addPageToSection(const uint otherPageIndex, const uint location, const uint count=1);
+	void removePageFromSection(const uint pageIndex);
+	void setFirstSectionFromFirstPageNumber();
 	
 
 protected:
