@@ -3587,7 +3587,12 @@ bool ScribusApp::loadDoc(QString fileName)
 	if (!fileName.isEmpty())
 	{
 		QString FName = fi.absFilePath();
-		QDir::setCurrent(fi.dirPath(true));
+		QString DPath = fi.dirPath(true);
+		// Necessary on win32 platform for setCurrent() to succeed
+		// if document is located at drive root
+		if( !DPath.endsWith("/") )
+			DPath += "/";
+		QDir::setCurrent(DPath);
 		FileLoader *fileLoader = new FileLoader(FName);
 		if (fileLoader->TestFile() == -1)
 		{
