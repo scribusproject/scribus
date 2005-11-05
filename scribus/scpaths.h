@@ -24,6 +24,8 @@ public:
 	const QString& docDir() const;
 	/** @brief Return path to icons directory*/
 	const QString& iconDir() const;
+	/** @brief Return path to the Scribus font directory */
+	const QString& fontDir() const;
 	/** @brief Return path to lib directory containing translations,
 	 *         keysets, etc. */
 	const QString& libDir() const;
@@ -58,6 +60,7 @@ protected:
 	// Members to hold system paths
 	QString m_docDir;
 	QString m_iconDir;
+	QString m_fontDir;
 	QString m_libDir;
 	QString m_pluginDir;
 	QString m_sampleScriptDir;

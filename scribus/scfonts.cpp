@@ -41,6 +41,7 @@
 #include <fontconfig/fontconfig.h>
 #endif
 
+#include "scpaths.h"
 #include "util.h"
 
 #include FT_INTERNAL_STREAM_H
@@ -955,7 +956,7 @@ void SCFonts::AddFontconfigFonts()
 }
 
 #else
-#ifndef QT_MAC
+#if !defined(QT_MAC) && !defined(_WIN32)
 
 void SCFonts::AddXFontPath()
 {
@@ -1113,19 +1114,20 @@ void SCFonts::GetFonts(QString pf, bool showFontInfo)
 	ReadCacheList(pf);
 	ScApp->setSplashStatus( QObject::tr("Searching for Fonts") );
 	AddUserPath(pf);
+	// Search the system paths
+	QStringList ftDirs = ScPaths::getSystemFontDirs();
+	for (unsigned int i = 0; i < ftDirs.count(); i++)
+		AddScalableFonts( ftDirs[i] );
+	// Search Scribus font path
+	if (QDir(ScPaths::instance().fontDir()).exists())
+		AddScalableFonts( ScPaths::instance().fontDir() );
 // if fontconfig is there, it does all the work
 #if HAVE_FONTCONFIG
+	// Search fontconfig paths
 	for(QStrListIterator fpi(FontPath) ; fpi.current() ; ++fpi)
 		AddScalableFonts(fpi.current());
 	AddFontconfigFonts();
 #else
-// if FreeType thinks we are on Mac, let it search the default paths
-#if FT_MACINTOSH
-	AddScalableFonts(QDir::homeDirPath() + "/Library/Fonts/");
-	AddScalableFonts("/Library/Fonts/");
-	AddScalableFonts("/Network/Library/Fonts/");
-	AddScalableFonts("/System/Library/Fonts/");
-#endif
 // on X11 look there:
 #ifdef Q_WS_X11
 	AddXFontPath();

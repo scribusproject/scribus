@@ -78,14 +78,14 @@ ScPaths::ScPaths() :
 	}
 
 	qDebug(QString("scpaths: bundle at %1:").arg(pathPtr));
-	m_shareDir = strdup(QString("%1/Contents/share/scribus/").arg(pathPtr));
-	m_docDir = strdup(QString("%1/Contents/share/scribus/doc/").arg(pathPtr));
-	m_iconDir = strdup(QString("%1/Contents/share/scribus/icons/").arg(pathPtr));
-	m_sampleScriptDir = strdup(QString("%1/Contents/share/scribus/samples/").arg(pathPtr));
-	m_scriptDir = strdup(QString("%1/Contents/share/scribus/scripts/").arg(pathPtr));
-	m_templateDir = strdup(QString("%1/Contents/share/scribus/templates/").arg(pathPtr));
-	m_libDir = strdup(QString("%1/Contents/lib/scribus/").arg(pathPtr));
-	m_pluginDir = strdup(QString("%1/Contents/lib/scribus/plugins/").arg(pathPtr));
+	m_shareDir = QString("%1/Contents/share/scribus/").arg(pathPtr);
+	m_docDir = QString("%1/Contents/share/scribus/doc/").arg(pathPtr);
+	m_iconDir = QString("%1/Contents/share/scribus/icons/").arg(pathPtr);
+	m_sampleScriptDir = QString("%1/Contents/share/scribus/samples/").arg(pathPtr);
+	m_scriptDir = QString("%1/Contents/share/scribus/scripts/").arg(pathPtr);
+	m_templateDir = QString("%1/Contents/share/scribus/templates/").arg(pathPtr);
+	m_libDir = QString("%1/Contents/lib/scribus/").arg(pathPtr);
+	m_pluginDir = QString("%1/Contents/lib/scribus/plugins/").arg(pathPtr);
 	QApplication::setLibraryPaths(QString("%1/Contents/lib/qtplugins/").arg(pathPtr));
 	CFRelease(pluginRef);
 	CFRelease(macPath);
@@ -102,14 +102,15 @@ ScPaths::ScPaths() :
 
 #elif defined(_WIN32)
 	QString appPath = qApp->applicationDirPath();
-	m_shareDir = strdup(QString("%1/share/").arg(appPath));
-	m_docDir = strdup(QString("%1/share/doc/").arg(appPath));
-	m_iconDir = strdup(QString("%1/share/icons/").arg(appPath));
-	m_sampleScriptDir = strdup(QString("%1/share/samples/").arg(appPath));
-	m_scriptDir = strdup(QString("%1/share/scripts/").arg(appPath));
-	m_templateDir = strdup(QString("%1/share/templates/").arg(appPath));
-	m_libDir = strdup(QString("%1/libs/").arg(appPath));
-	m_pluginDir = strdup(QString("%1/plugins/").arg(appPath));
+	m_shareDir = QString("%1/share/").arg(appPath);
+	m_docDir = QString("%1/share/doc/").arg(appPath);
+	m_fontDir = QString("%1/share/fonts/").arg(appPath);
+	m_iconDir = QString("%1/share/icons/").arg(appPath);
+	m_sampleScriptDir = QString("%1/share/samples/").arg(appPath);
+	m_scriptDir = QString("%1/share/scripts/").arg(appPath);
+	m_templateDir = QString("%1/share/templates/").arg(appPath);
+	m_libDir = QString("%1/libs/").arg(appPath);
+	m_pluginDir = QString("%1/plugins/").arg(appPath);
 #endif
 }
 
@@ -123,6 +124,11 @@ const QString&  ScPaths::docDir() const
 const QString&  ScPaths::iconDir() const
 {
 	return m_iconDir;
+}
+
+const QString&  ScPaths::fontDir() const
+{
+	return m_fontDir;
 }
 
 const QString&  ScPaths::libDir() const
