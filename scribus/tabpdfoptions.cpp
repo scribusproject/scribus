@@ -181,10 +181,9 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	CMethod->insertItem( tr( "None" ) );
 	CMethod->setEditable(false);
 	CMethod->setCurrentItem(Optionen->CompressMethod);
-	TextCom1 = new QLabel( CMethod, tr( "&Compression Method:" ), CBox, "TextCom1" );
-	CBoxLayout->addWidget( TextCom1, 0, 0 );	CBoxLayout->addWidget( CMethod, 0, 1 );
-	TextCom2 = new QLabel( tr( "&Compression Quality:" ), CBox, "TextCom2" );
-	CBoxLayout->addWidget( TextCom2, 1, 0 );
+	TextCom1 = new QLabel( CMethod, tr( "Compression &Method:" ), CBox, "TextCom1" );
+	CBoxLayout->addWidget( TextCom1, 0, 0 );	
+	CBoxLayout->addWidget( CMethod, 0, 1 );
 	CQuality = new QComboBox( true, CBox, "CQuality" );
 	CQuality->clear();
 	CQuality->insertItem( tr( "Maximum" ) );
@@ -194,7 +193,8 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	CQuality->insertItem( tr( "Minimum" ) );
 	CQuality->setEditable(false);
 	CQuality->setCurrentItem(Optionen->Quality);
-	TextCom2->setBuddy(CQuality);
+	TextCom2 = new QLabel( CQuality, tr( "Compression &Quality:" ), CBox, "TextCom2" );
+	CBoxLayout->addWidget( TextCom2, 1, 0 );
 	CBoxLayout->addWidget( CQuality, 1, 1 );
 	DSColor = new QCheckBox( tr( "Resample Images to:" ), CBox, "DSColor" );
 	DSColor->setChecked(Optionen->RecalcPic);
@@ -862,7 +862,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	QToolTip::add( CheckBM, tr( "Embed the bookmarks you created in your document.\nThese are useful for navigating long PDF documents." ) );
 	QToolTip::add( Resolution, tr( "Export resolution of text and vector graphics.\nThis does not affect the resolution of bitmap images like photos." ) );
 	QToolTip::add( Compression, tr( "Enables lossless compression of text and graphics.\nUnless you have a reason, leave this checked. This reduces PDF file size." ) );
-	QToolTip::add( CMethod, "<qt>" + tr( "Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options." ) + "</qt>");
+	QToolTip::add( CMethod, "<qt>" + tr( "Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options." ) + "</qt>");
 	QToolTip::add( CQuality, "<qt>" + tr( "Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level." ) + "</qt>");
 	QToolTip::add( DSColor, tr( "Re-sample your bitmap images to the selected DPI.\nLeaving this unchecked will render them at their native resolution.\nThis can increase memory usage and slow down export." ) );
 	QToolTip::add( ValC, tr( "DPI (Dots Per Inch) for image export.") );
@@ -871,8 +871,8 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	QToolTip::add( PassUser, tr( "Choose a password for users to be able to read your PDF." ) );
 	QToolTip::add( PrintSec, tr( "Allow printing of the PDF. If un-checked, printing is prevented. " ) );
 	QToolTip::add( ModifySec, tr( "Allow modifying of the PDF. If un-checked, modifying the PDF is prevented." ) );
-	QToolTip::add( CopySec, tr( "Allow copying of text or graphics from the PDF. \nIf un-checked, text and graphics cannot be copied." ) );
-	QToolTip::add( AddSec, tr( "Allow adding annotations and fields to the PDF. \nIf un-checked, editing annotations and fileds is prevented." ) );
+	QToolTip::add( CopySec, "<qt>" + tr( "Allow copying of text or graphics from the PDF. If unchecked, text and graphics cannot be copied." ) + "</qt>" );
+	QToolTip::add( AddSec, "<qt>" + tr( "Allow adding annotations and fields to the PDF. If unchecked, editing annotations and fields is prevented." ) + "</qt>" );
 	QToolTip::add( OutCombo, tr( "Color model for the output of your PDF.\nChoose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets.\nChoose Printer when printing to a true 4 color CMYK printer." ) );
 	QToolTip::add( UseLPI, tr( "This is an advanced setting which is not enabled by default. This should only be enabled\nwhen specifically requested by your printer and they have given you the exact details needed.\nOtherwise, your exported PDF may not print properly and is truly not portable across systems." ) );
 	QToolTip::add( EmbedProfs, tr( "Embed a color profile for solid colors" ) );
