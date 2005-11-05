@@ -186,6 +186,8 @@ public:
 	double viewScaleY;
 	bool haveViewBox;
 	bool interactive;
+	//! \brief Indicator if there is any unsupported feature in imported svg.
+	bool unsupported;
 };
 
 #endif

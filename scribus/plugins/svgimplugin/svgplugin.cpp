@@ -27,6 +27,7 @@
 #include "fpointarray.h"
 #include "scraction.h"
 #include "menumanager.h"
+#include "commonstrings.h"
 
 using namespace std;
 
@@ -164,6 +165,12 @@ bool SVGImportPlugin::import(QString filename)
 		UndoManager::instance()->commit();
 	else
 		UndoManager::instance()->setUndoEnabled(true);
+
+	if (dia->unsupported)
+	{
+		QMessageBox::warning(ScApp, CommonStrings::trWarning, tr("SVG file contains some unsupported features"), 1, 0, 0);
+	}
+
 	delete dia;
 	return true;
 }
@@ -179,6 +186,7 @@ bool SVGImportPlugin::import(QString filename)
 SVGPlug::SVGPlug( QString fName, bool isInteractive ) :
 	QObject(ScApp)
 {
+	unsupported = false;
 	interactive = isInteractive;
 	QString f = "";
 #ifdef HAVE_LIBZ
@@ -595,7 +603,11 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 		}
 		else
+		{
+			// warn if unsupported SVG feature
+			unsupported = true;
 			continue;
+		}
 		if (z != -1)
 		{
 			setupTransform( b );
@@ -1681,6 +1693,8 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 	}
 	else if( command == "font-size" )
 		obj->FontSize = static_cast<int>(parseUnit(params) * 10.0);
+	else
+		unsupported = true;
 }
 
 /*!
