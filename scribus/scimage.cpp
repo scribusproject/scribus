@@ -1353,11 +1353,20 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 	//   0: no compression
 	//   1: RLE compressed
 	QImage tmpImg;
-	if( !tmpImg.create( header.width, header.height, 32 ))
-		return false;
+	if (!*firstLayer)
+	{
+		if( !tmpImg.create( layerInfo[layer].width, layerInfo[layer].height, 32 ))
+			return false;
+	}
+	else
+	{
+		if( !tmpImg.create( header.width, header.height, 32 ))
+			return false;
+	}
 	tmpImg.setAlphaBuffer( true );
 	tmpImg.fill(qRgba(0, 0, 0, 0));
 	uint base = s.device()->at();
+	uint base2 = base;
 	uchar cbyte;
 	ushort compression;
 	s >> compression;
@@ -1401,11 +1410,39 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 				first = false;
 				continue;
 			}
+			if (layerInfo[layer].channelType[channel] == -2)
+			{
+				first = false;
+				continue;
+			}
 			if (!first)
 			{
 				s.device()->at(layerInfo[layer].channelLen[channel-1]+base);
 				base += layerInfo[layer].channelLen[channel-1];
 				s >> compression;
+				if (compression == 0)
+				{
+					int count = layerInfo[layer].channelLen[channel]-2;
+					for (int i = 0; i < tmpImg.height(); i++)
+					{
+						uchar *ptr =  tmpImg.scanLine(i);
+						for (int j = 0; j < tmpImg.width(); j++)
+						{
+							s >> cbyte;
+							count--;
+							if (header.color_mode == CM_CMYK)
+								cbyte = 255 - cbyte;
+							if (channel < 4)
+								ptr[components[channel]] = cbyte;
+							if (count == 0)
+								break;
+							ptr += 4;
+						}
+						if (count == 0)
+							break;
+					}
+					continue;
+				}
 				s.device()->at( s.device()->at() + layerInfo[layer].height * 2 );
 			}
 			first = false;
@@ -1413,9 +1450,8 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 			for (int hh = 0; hh < layerInfo[layer].height; hh++)
 			{
 				uint count = 0;
-				uchar *ptr = tmpImg.scanLine(QMIN(QMAX(layerInfo[layer].ypos, 0)+hh, static_cast<int>(tmpImg.height()-1)));
+				uchar *ptr = tmpImg.scanLine(hh);
 				uchar *ptr2 = ptr+tmpImg.width() * 4;
-				ptr += QMAX(layerInfo[layer].xpos, 0) * 4;
 				ptr += components[channel];
 				while( count < pixel_count )
 				{
@@ -1511,13 +1547,12 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 			count2 += layerInfo[layer].channelLen[channel];
 			s.device()->at( base+count2 );
 		}
-		count = 0;
-		for(uint channel = 0; channel < channel_num; channel++)
-		{
-			count += layerInfo[layer].channelLen[channel];
-		}
-		s.device()->at( base+count );
 	}
+	for(uint channel = 0; channel < channel_num; channel++)
+	{
+		base2 += layerInfo[layer].channelLen[channel];
+	}
+	s.device()->at( base2 );
 	QImage tmpImg2 = tmpImg.copy();
 	if (header.color_mode == CM_CMYK)
 	{
@@ -1553,34 +1588,55 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 		visible = imgInfo.RequestProps[layer].visible;
 	if (visible)
 	{
+		unsigned int startSrcY, startSrcX, startDstY, startDstX;
+		if (layerInfo[layer].ypos < 0)
+		{
+			startSrcY = abs(layerInfo[layer].ypos);
+			startDstY = 0;
+		}
+		else
+		{
+			startSrcY = 0;
+			startDstY = layerInfo[layer].ypos;
+		}
+		if (layerInfo[layer].xpos < 0)
+		{
+			startSrcX = abs(layerInfo[layer].xpos);
+			startDstX = 0;
+		}
+		else
+		{
+			startSrcX = 0;
+			startDstX = layerInfo[layer].xpos;
+		}
 		if (*firstLayer)
 		{
-			for( int yi=0; yi < tmpImg.height(); ++yi )
+			for( int yi=static_cast<int>(startSrcY); yi < QMIN(tmpImg.height(), height()); ++yi )
 			{
 				QRgb *s = (QRgb*)(tmpImg.scanLine( yi ));
-				QRgb *d = (QRgb*)(scanLine( yi ));
-				for(int xi=0; xi < tmpImg.width(); ++xi )
+				QRgb *d = (QRgb*)(scanLine( QMIN(static_cast<int>(startDstY), height()-1) ));
+				d += QMIN(static_cast<int>(startDstX), width()-1);
+				s += QMIN(static_cast<int>(startSrcX), width()-1);
+				for(int xi=static_cast<int>(startSrcX); xi < QMIN(tmpImg.width(), width()); ++xi )
 				{
 					(*d) = (*s);
 					s++;
 					d++;
 				}
+				startDstY++;
 			}
-			*firstLayer = false;
 		}
 		else
 		{
-			for (int i = 0; i < layerInfo[layer].height; i++)
+			for (int i = static_cast<int>(startSrcY); i < layerInfo[layer].height; i++)
 			{
-				unsigned int *dst = (unsigned int *)scanLine(QMIN(QMAX(layerInfo[layer].ypos, 0)+i, height()-1));
-				unsigned int *src = (unsigned int *)tmpImg.scanLine(QMIN(QMAX(layerInfo[layer].ypos, 0)+i, tmpImg.height()-1));
-				dst += QMAX(layerInfo[layer].xpos, 0);
-				src += QMAX(layerInfo[layer].xpos, 0);
-				unsigned int adj = 0;
-				if (layerInfo[layer].xpos < 0)
-					adj = abs(layerInfo[layer].xpos);
+				unsigned int *dst = (unsigned int *)scanLine(QMIN(static_cast<int>(startDstY), height()-1));
+				unsigned int *src = (unsigned int *)tmpImg.scanLine(QMIN(i, tmpImg.height()-1));
+				dst += QMIN(static_cast<int>(startDstX), width()-1);
+				src += QMIN(static_cast<int>(startSrcX), width()-1);
+				startDstY++;
 				unsigned char r, g, b, a, src_r, src_g, src_b, src_a;
-				for (unsigned int j = 0; j < layerInfo[layer].width-adj; j++)
+				for (unsigned int j = startSrcX; j < layerInfo[layer].width; j++)
 				{
 					unsigned char *d = (unsigned char *) dst;
 					unsigned char *s = (unsigned char *) src;
@@ -1825,6 +1881,7 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 			}
 		}
 	}
+	*firstLayer = false;
 	return true;
 }
 
