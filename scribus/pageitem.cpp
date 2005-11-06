@@ -113,7 +113,6 @@ PageItem::PageItem(const PageItem & other)
 	ItemNr(other.ItemNr),
 	Frame(other.Frame),
 	OwnPage(other.OwnPage),
-	savedOwnPage(other.savedOwnPage),
 	oldOwnPage(other.oldOwnPage),
  	pixm(other.pixm),
   	Pfile(other.Pfile),
@@ -384,7 +383,6 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	BaseOffs = 0;
 	OwnPage = Doc->currentPage->pageNr();
 	oldOwnPage = OwnPage;
-	savedOwnPage = OwnPage;
 	PicArt = true;
 	PicAvail = false;
 	isPrintable = true;

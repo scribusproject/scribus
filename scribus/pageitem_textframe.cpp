@@ -406,7 +406,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 					if (!OnMasterPage.isEmpty())
 					{
 						Page* Mp = Doc->MasterPages.at(Doc->MasterNames[OnMasterPage]);
-						Page* Dp = Doc->Pages->at(savedOwnPage);
+						Page* Dp = Doc->Pages->at(OwnPage);
 						for (a = 0; a < Doc->MasterItems.count(); ++a)
 						{
 							PageItem* docItem = Doc->MasterItems.at(a);

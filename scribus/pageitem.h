@@ -335,7 +335,6 @@ public:
 	bool Frame;
   /** Seite zu der das Element gehoert */
 	int OwnPage;
-	int savedOwnPage;
 	/** @brief Old page number tracked for the move undo action */
 	int oldOwnPage;
   /** Darzustellendes Bild */

@@ -542,7 +542,7 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 							continue;
 						if ((previewMode) && (!currItem->printable()))
 							continue;
-						currItem->savedOwnPage = currItem->OwnPage;
+						int savedOwnPage = currItem->OwnPage;
 						double OldX = currItem->Xpos;
 						double OldY = currItem->Ypos;
 						double OldBX = currItem->BoundingX;
@@ -560,7 +560,7 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 						QRect oldR(currItem->getRedrawBounding(Scale));
 						if (clip.intersects(oldR))
 							currItem->DrawObj(painter, clip);
-						currItem->OwnPage = currItem->savedOwnPage;
+						currItem->OwnPage = savedOwnPage;
 						if (!currItem->ChangedMasterItem)
 						{
 							currItem->Xpos = OldX;
