@@ -33,30 +33,30 @@ extern QPixmap loadIcon(QString nam);
 GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", true, 0)
 {
 	// whatif selection settings
-	FPoint SelectionTopLeft = FPoint(0, 0);
-	FPoint SelectionBottomRight = FPoint(0, 0);
+	FPoint selectionTopLeft = FPoint(0, 0);
+	FPoint selectionBottomRight = FPoint(0, 0);
 
 	if (ScApp->view->SelItem.count() > 1)
 	{
-		SelectionTopLeft.setXY(ScApp->view->GroupX - ScApp->doc->ScratchLeft,
+		selectionTopLeft.setXY(ScApp->view->GroupX - ScApp->doc->ScratchLeft,
 							   ScApp->view->GroupY - ScApp->doc->ScratchTop);
-		SelectionBottomRight.setXY(ScApp->view->GroupW,
+		selectionBottomRight.setXY(ScApp->view->GroupW,
 								   ScApp->view->GroupH);
 	}
 	else if (ScApp->view->SelItem.count() == 1)
 	{
 		PageItem *currItem = ScApp->view->SelItem.at(0);
-		SelectionTopLeft.setXY(currItem->BoundingX - ScApp->doc->ScratchLeft,
+		selectionTopLeft.setXY(currItem->BoundingX - ScApp->doc->ScratchLeft,
 							   currItem->BoundingY - ScApp->doc->ScratchTop);
-		SelectionBottomRight.setXY(currItem->BoundingW, currItem->BoundingH);
+		selectionBottomRight.setXY(currItem->BoundingW, currItem->BoundingH);
 	}
 	bool selected = true;
-	if (SelectionBottomRight != FPoint(0, 0))
+	if (selectionBottomRight != FPoint(0, 0))
 	{
-		gy = SelectionTopLeft.y();
-		gx = SelectionTopLeft.x();
-		gw = SelectionBottomRight.x();
-		gh = SelectionBottomRight.y();
+		gy = selectionTopLeft.y();
+		gx = selectionTopLeft.x();
+		gw = selectionBottomRight.x();
+		gh = selectionBottomRight.y();
 	}
 	else selected = false;
 
@@ -261,8 +261,13 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 	Lock->setChecked(lockedGuides);
 	Layout5->addWidget(Lock);
 
+	allPages = new QCheckBox(tr("&Apply to All Pages"), this, "allPages");
+	allPages->setChecked(false);
+	Layout5->addWidget(allPages);
+
+	QHBoxLayout *buttonLayout = new QHBoxLayout(0, 0, 6, "buttonLayout");
 	QSpacerItem* spacer = new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
-	Layout5->addItem(spacer);
+	buttonLayout->addItem(spacer);
 
 	okButton = new QPushButton( CommonStrings::tr_OK, this, "okButton");
 	okButton->setAutoDefault(false);
@@ -271,11 +276,12 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 	cancelButton->setAccel(QKeySequence("Esc"));
 	setButton = new QPushButton( tr("&Update"), this, "setButton");
 	setButton->setAutoDefault(false);
-	Layout5->addWidget(setButton);
-	Layout5->addWidget(okButton);
-	Layout5->addWidget(cancelButton);
+	buttonLayout->addWidget(setButton);
+	buttonLayout->addWidget(okButton);
+	buttonLayout->addWidget(cancelButton);
 
 	GuideManagerLayout->addLayout(Layout5);
+	GuideManagerLayout->addLayout(buttonLayout);
 
 	unitChange();
 
@@ -589,8 +595,8 @@ void GuideManager::UpdateHorList()
 	disconnect(HorSpin, SIGNAL(valueChanged(int)), this, SLOT(ChangeHorVal()));
 
 	QString tmp;
-	int precision=unitGetPrecisionFromIndex(docUnitIndex);
-	QString suffix=unitGetSuffixFromIndex(docUnitIndex);
+	int precision = unitGetPrecisionFromIndex(docUnitIndex);
+	QString suffix = unitGetSuffixFromIndex(docUnitIndex);
 
 	HorList->clear();
 
@@ -614,8 +620,8 @@ void GuideManager::UpdateVerList()
 	disconnect(VerSpin, SIGNAL(valueChanged(int)), this, SLOT(ChangeVerVal()));
 
 	QString tmp;
-	int precision=unitGetPrecisionFromIndex(docUnitIndex);
-	QString suffix=unitGetSuffixFromIndex(docUnitIndex);
+	int precision = unitGetPrecisionFromIndex(docUnitIndex);
+	QString suffix = unitGetSuffixFromIndex(docUnitIndex);
 
 	VerList->clear();
 
@@ -642,6 +648,21 @@ void GuideManager::refreshDoc()
 	ScApp->view->DrawNew();
 }
 
+void GuideManager::refreshWholeDoc()
+{
+	int origPage = ScApp->doc->currentPage->pageNr();
+
+	for (int i = 0; i < ScApp->doc->pageCount; ++i)
+	{
+		ScApp->view->GotoPage(i);
+		ScApp->doc->currentPage->addXGuides(verticalGuides);
+		ScApp->doc->currentPage->addYGuides(horizontalGuides);
+		ScApp->doc->lockGuides(lockedGuides);
+	}
+	ScApp->view->GotoPage(origPage);
+	ScApp->view->DrawNew();
+}
+
 void GuideManager::useRowGap_clicked(bool state)
 {
 	rowGap->setEnabled(state);
@@ -665,6 +686,9 @@ void GuideManager::commitEditChanges()
 		addRows();
 	if (ColSpin->value() > 1)
 		addCols();
-	refreshDoc();
+	if (allPages->isChecked())
+		refreshWholeDoc();
+	else
+		refreshDoc();
 	QApplication::restoreOverrideCursor();
 }

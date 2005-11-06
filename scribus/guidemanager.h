@@ -32,10 +32,6 @@ public:
 	GuideManager(QWidget* parent);
 	~GuideManager() {};
 
-	/*! \brief Refresh the guides in the document while the dialog is still opened.
-	    Or closed (of course). */
-	void refreshDoc();
-
 private:
 	/*! \brief A list with horizontal guides */
 	QValueList<double> horizontalGuides;
@@ -88,6 +84,9 @@ private:
 	QCheckBox* useRowGap;
 	QCheckBox* useColGap;
 
+	/*! \brief Apply selected guides on all pages */
+	QCheckBox* allPages;
+
 	/*! \brief Gaps between guides.
 	User can create automatic guides with an optional twoo gapped instead one guide.
 	For example: 100mm size - guide - 100mm size will be 95mm size - guide - 10mm gap
@@ -102,6 +101,13 @@ private:
 	void UpdateVerList();
 
 	double docUnitRatio;
+
+	/*! \brief Refresh the guides in the document while the dialog is still opened.
+	Or closed (of course). */
+	void refreshDoc();
+
+	/*! \brief Create actual guides on all pages in document */
+	void refreshWholeDoc();
 
 	/*! \brief Calculates the row position of the guide.
 	This algorithm is used for guides creating and deleting too.
