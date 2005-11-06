@@ -12,15 +12,17 @@
 #include <qpoint.h>
 #include <qdom.h>
 
+#include "fpoint.h"
+#include "fpointarray.h"
+#include "pagestructs.h"
+#include "sccolor.h"
 #include "scribusapi.h"
-#include "pdflib.h"
 
 class ScribusDoc;
 class QDomElement;
 class ScribusView;
 struct CopyPasteBuffer;
 class PageItem;
-class FPointArray;
 struct Layer;
 class Foi;
 
