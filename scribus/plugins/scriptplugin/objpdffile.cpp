@@ -9,12 +9,12 @@
 #include <vector>
 
 // these functions are located at utils.cpp
-void ReOrderText(ScribusDoc *doc, ScribusView *view);
+void SCRIBUS_API ReOrderText(ScribusDoc *doc, ScribusView *view);
 // end of utils.cpp
 //this is in file scribus.cpp
 
 #ifdef HAVE_CMS
-extern bool CMSuse;
+extern bool SCRIBUS_API CMSuse;
 #endif
 //
 
@@ -238,6 +238,7 @@ static PyObject * PDFfile_new(PyTypeObject *type, PyObject */*args*/, PyObject *
 
 static int PDFfile_init(PDFfile *self, PyObject */*args*/, PyObject */*kwds*/)
 {
+	int i;
 	if (!ScApp->HaveDoc) {
 		PyErr_SetString(PyExc_SystemError, "Must open doc first");
 		return -1;
@@ -303,7 +304,7 @@ static int PDFfile_init(PDFfile *self, PyObject */*args*/, PyObject */*kwds*/)
 		PyErr_SetString(PyExc_SystemError, "Can not initialize 'pages' attribute");
 		return -1;
 	}
-	for (int i = 0; i<num; ++i) {
+	for (i = 0; i<num; ++i) {
 		PyObject *tmp;
 		tmp = PyInt_FromLong((long)i+1L);
 		if (tmp)
@@ -361,7 +362,6 @@ static int PDFfile_init(PDFfile *self, PyObject */*args*/, PyObject */*kwds*/)
 		return -1;
 	}
 	int num2 = ScApp->doc->PDF_Options.PresentVals.count();
-	int i;
 	for (i = 0; i<num2; ++i) {
 		PyObject *tmp;
 		PDFPresentationData t = ScApp->doc->PDF_Options.PresentVals[i];

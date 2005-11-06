@@ -12,11 +12,11 @@
 #include <cups/cups.h>
 #endif
 #ifdef HAVE_CMS
-extern bool CMSuse;
+extern bool SCRIBUS_API CMSuse;
 #endif
 // these functions are located at utils.cpp
-bool loadText(QString nam, QString *Buffer);
-void ReOrderText(ScribusDoc *doc, ScribusView *view);
+bool SCRIBUS_API loadText(QString nam, QString *Buffer);
+void SCRIBUS_API ReOrderText(ScribusDoc *doc, ScribusView *view);
 // end of utils.cpp
 
 

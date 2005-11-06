@@ -30,6 +30,7 @@
 #include "cmdmisc.h"
 #include "cmdgetsetprop.h"
 #include "scriptplugin.h"
+//#include "scriptplugin.moc"
 #include "cmdutil.h"
 #include "objprinter.h"
 #include "objpdffile.h"
@@ -63,7 +64,7 @@
 #include <cstdlib>
 #include <iostream>
 
-extern QPixmap loadIcon(QString nam);
+extern QPixmap SCRIBUS_API loadIcon(QString nam);
 
 // Exceptions; visible from cmdvar.h, set up in initscribus()
 PyObject* ScribusException;

@@ -25,7 +25,7 @@ the Free Software Foundation; either version 2 of the License, or
 #include "prefsfile.h"
 #include "prefscontext.h"
 
-extern QPixmap loadIcon(QString nam);
+extern QPixmap SCRIBUS_API loadIcon(QString nam);
 
 
 PythonConsole::PythonConsole( QWidget* parent)
@@ -248,7 +248,7 @@ SyntaxHighlighter::SyntaxHighlighter(QTextEdit *textEdit) : QSyntaxHighlighter(t
 int SyntaxHighlighter::highlightParagraph(const QString &text, int endStateOfLastPara)
 {
 	// position in the text
-	unsigned long i = 0;
+	unsigned int i = 0;
 
 	/* ! ! signals error message, which we want in red */
 	if (text.length() >= 3 && text[0] == '!' && text[1] == ' ' && text[2] == '!')

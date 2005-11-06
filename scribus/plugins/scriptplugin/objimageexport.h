@@ -4,7 +4,7 @@
 // Pulls in <Python.h> first
 #include "cmdvar.h"
 
-PyAPI_DATA(PyTypeObject) ImageExport_Type;
+extern PyTypeObject ImageExport_Type;
 
 // docstrings
 PyDoc_STRVAR(imgexp__doc__,"Image export\n\

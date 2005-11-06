@@ -1,4 +1,5 @@
 #include "runscriptdialog.h"
+//#include "runscriptdialog.moc"
 #include "qdir.h"
 #include "prefsmanager.h"
 
