@@ -3885,10 +3885,12 @@ bool ScribusApp::loadDoc(QString fileName)
 		{
 			PageItem *ite = doc->Items->at(azz);
 			//CB dont need this as we get it from the loading page in 1.2.x docs. 1.3.x items have this anyway.
-//			if (ite->Groups.count() != 0)
-//				doc->GroupOnPage(ite);
-//			else 
-//				ite->OwnPage = doc->OnPage(ite);
+			/*
+			if (ite->Groups.count() != 0)
+				doc->GroupOnPage(ite);
+			else 
+				ite->OwnPage = doc->OnPage(ite);
+			*/
 			//view->setRedrawBounding(ite);
 			if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText) && (!ite->Redrawn))
 			{
@@ -3949,9 +3951,9 @@ bool ScribusApp::loadDoc(QString fileName)
 		updateRecent(FName);
 		mainWindowStatusLabel->setText( tr("Ready"));
 		ret = true;
-		for (uint p = 0; p < doc->Pages->count(); ++p)
+		for (uint p = 0; p < doc->DocPages.count(); ++p)
 		{
-			Apply_MasterPage(doc->Pages->at(p)->MPageNam, p, false);
+			Apply_MasterPage(doc->DocPages.at(p)->MPageNam, p, false);
 		}
 		if (fileLoader->FileType > 1)
 		{
@@ -3968,8 +3970,8 @@ bool ScribusApp::loadDoc(QString fileName)
 			w->show();
 		view->show();
 		newActWin(w);
-		view->slotDoZoom();
 		view->GotoPage(0);
+		view->slotDoZoom();
 		connect(wsp, SIGNAL(windowActivated(QWidget *)), this, SLOT(newActWin(QWidget *)));
 		connect(doc->autoSaveTimer, SIGNAL(timeout()), w, SLOT(slotAutoSave()));
 		connect(w, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
