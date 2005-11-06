@@ -1112,7 +1112,7 @@ bool ScImage::IsSupported( const PSDHeader & header )
 		return false;
 	if ( header.depth != 8 )
 		return false;
-	if (( header.color_mode == CM_RGB ) || (header.color_mode == CM_CMYK))
+	if (( header.color_mode == CM_RGB ) || (header.color_mode == CM_CMYK) || (header.color_mode == CM_GRAYSCALE))
 		return true;
 	return false;
 }
@@ -1366,8 +1366,17 @@ bool ScImage::loadChannel( QDataStream & s, const PSDHeader & header, QValueList
 				count--;
 				if (header.color_mode == CM_CMYK)
 					cbyte = 255 - cbyte;
-				if (channel < 4)
-					ptr[component] = cbyte;
+				if ((header.color_mode == CM_GRAYSCALE) && (component != 3))
+				{
+					ptr[0] = cbyte;
+					ptr[1] = cbyte;
+					ptr[2] = cbyte;
+				}
+				else
+				{
+					if (channel < 4)
+						ptr[component] = cbyte;
+				}
 				if (count == 0)
 					break;
 				ptr += 4;
@@ -1405,7 +1414,18 @@ bool ScImage::loadChannel( QDataStream & s, const PSDHeader & header, QValueList
 						{
 							if (header.color_mode == CM_CMYK)
 								cbyte = 255 - cbyte;
-							*ptr = cbyte;
+							if ((header.color_mode == CM_GRAYSCALE) && (component != 3))
+							{
+								ptr -= component;
+								ptr[0] = cbyte;
+								ptr[1] = cbyte;
+								ptr[2] = cbyte;
+								ptr += component;
+							}
+							else
+							{
+								*ptr = cbyte;
+							}
 						}
 						ptr += 4;
 						len--;
@@ -1425,7 +1445,18 @@ bool ScImage::loadChannel( QDataStream & s, const PSDHeader & header, QValueList
 					while( len != 0 )
 					{
 						if (ptr < ptr2)
-							*ptr = val;
+						{
+							if ((header.color_mode == CM_GRAYSCALE) && (component != 3))
+							{
+								ptr -= component;
+								ptr[0] = val;
+								ptr[1] = val;
+								ptr[2] = val;
+								ptr += component;
+							}
+							else
+								*ptr = val;
+						}
 						ptr += 4;
 						len--;
 					}
@@ -1447,15 +1478,22 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 	// Known values:
 	//   0: no compression
 	//   1: RLE compressed
-	QImage tmpImg = QImage();
-	QImage mask = QImage();
-	if( !tmpImg.create( layerInfo[layer].width, layerInfo[layer].height, 32 ))
-		return false;
-	tmpImg.setAlphaBuffer( true );
-	tmpImg.fill(qRgba(0, 0, 0, 0));
 	uint base = s.device()->at();
 	uint base2 = base;
 	uint channel_num = layerInfo[layer].channelLen.count();
+	QImage tmpImg = QImage();
+	QImage mask = QImage();
+	if( !tmpImg.create( layerInfo[layer].width, layerInfo[layer].height, 32 ))
+	{
+		for(uint channel = 0; channel < channel_num; channel++)
+		{
+			base2 += layerInfo[layer].channelLen[channel];
+		}
+		s.device()->at( base2 );
+		return false;
+	}
+	tmpImg.setAlphaBuffer( true );
+	tmpImg.fill(qRgba(0, 0, 0, 0));
 	channel_num = QMIN(channel_num, 39);
 	uint components[40];
 	for(uint channel = 0; channel < channel_num; channel++)
@@ -3527,7 +3565,6 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 							d++;
 						}
 					}
-//					*this = imgInfo.exifInfo.thumbnail;
 					imgInfo.exifInfo.width = header.width;
 					imgInfo.exifInfo.height = header.height;
 					return true;
