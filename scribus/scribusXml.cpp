@@ -1609,7 +1609,8 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 					doc->GroupCounter = docGc;
 					Neu = doc->Items->at(last);
 					Neu->OnMasterPage = PgNam;
-					Neu->OwnPage=a; //No need to scan for OnPage as we know page by page in 1.2.x
+					Neu->OwnPage = a; //No need to scan for OnPage as we know page by page in 1.2.x
+					Neu->savedOwnPage = 0;
 					Neu->setRedrawBounding();
 					IT=OBJ.firstChild();
 					while(!IT.isNull())

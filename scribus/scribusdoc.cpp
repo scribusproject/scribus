@@ -1913,11 +1913,11 @@ const bool ScribusDoc::applyMasterPage(const QString& in, const int pageNumber)
 {
 	if (UndoManager::undoEnabled())
 	{
-		if (Pages->at(pageNumber)->MPageNam != in)
+		if (DocPages.at(pageNumber)->MPageNam != in)
 		{
-			SimpleState *ss = new SimpleState(Um::ApplyMasterPage, QString(Um::FromTo).arg(Pages->at(pageNumber)->MPageNam).arg(in));
+			SimpleState *ss = new SimpleState(Um::ApplyMasterPage, QString(Um::FromTo).arg(DocPages.at(pageNumber)->MPageNam).arg(in));
 			ss->set("PAGE_NUMBER", pageNumber);
-			ss->set("OLD_MASTERPAGE", Pages->at(pageNumber)->MPageNam);
+			ss->set("OLD_MASTERPAGE", DocPages.at(pageNumber)->MPageNam);
 			ss->set("NEW_MASTERPAGE", in);
 			undoManager->action(this, ss);
 		}
@@ -1928,7 +1928,7 @@ const bool ScribusDoc::applyMasterPage(const QString& in, const int pageNumber)
 		mna = "Normal";
 	if (!MasterNames.contains(mna))
 		mna = "Normal";
-	Page* Ap = Pages->at(pageNumber);
+	Page* Ap = DocPages.at(pageNumber);
 	Ap->MPageNam = mna;
 	int MpNr = MasterNames[mna];
 	Page* Mp = MasterPages.at(MpNr);
