@@ -1870,7 +1870,7 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 							d[0] = r;
 							d[1] = g;
 							d[2] = b;
-							if (mask.isNull())
+							if ((mask.isNull()) && (d[3] < a))
 								d[3] = a;
 						}
 					}
