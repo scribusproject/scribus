@@ -1981,13 +1981,19 @@ bool ScImage::loadLayer( QDataStream & s, const PSDHeader & header )
 						return false;
 					while( len != 0 )
 					{
+						s >> cbyte;
 						if (header.color_mode == CM_CMYK)
+							cbyte = 255 - cbyte;
+						if ((header.color_mode == CM_GRAYSCALE) && (components[channel] != 3))
 						{
-							s >> cbyte;
-							*ptr = 255 - cbyte;
+							ptr -= components[channel];
+							ptr[0] = cbyte;
+							ptr[1] = cbyte;
+							ptr[2] = cbyte;
+							ptr += components[channel];
 						}
 						else
-							s >> *ptr;
+							*ptr = cbyte;
 						ptr += 4;
 						len--;
 					}
@@ -2007,7 +2013,16 @@ bool ScImage::loadLayer( QDataStream & s, const PSDHeader & header )
 						val = 255 - val;
 					while( len != 0 )
 					{
-						*ptr = val;
+						if ((header.color_mode == CM_GRAYSCALE) && (components[channel] != 3))
+						{
+							ptr -= components[channel];
+							ptr[0] = val;
+							ptr[1] = val;
+							ptr[2] = val;
+							ptr += components[channel];
+						}
+						else
+							*ptr = val;
 						ptr += 4;
 						len--;
 					}
@@ -2031,13 +2046,19 @@ bool ScImage::loadLayer( QDataStream & s, const PSDHeader & header )
 			uint count = pixel_count;
 			while( count != 0 )
 			{
+				s >> cbyte;
 				if (header.color_mode == CM_CMYK)
+					cbyte = 255 - cbyte;
+				if ((header.color_mode == CM_GRAYSCALE) && (components[channel] != 3))
 				{
-					s >> cbyte;
-					*ptr = 255 - cbyte;
+					ptr -= components[channel];
+					ptr[0] = cbyte;
+					ptr[1] = cbyte;
+					ptr[2] = cbyte;
+					ptr += components[channel];
 				}
 				else
-					s >> *ptr;
+					*ptr = cbyte;
 				ptr += 4;
 				count--;
 			}
