@@ -249,7 +249,6 @@ void MasterPagesPalette::duplicateMasterPage()
 void MasterPagesPalette::newMasterPage()
 {
 	QString MasterPageName;
-	bool atf;
 	NewTm *dia = new NewTm(this, tr("Name:"), tr("New MasterPage"), currentDoc);
 	dia->Answer->setText( tr("New Master Page"));
 	dia->Answer->resize(minimumSizeHint());
