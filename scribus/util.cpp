@@ -38,6 +38,7 @@
 #if defined(_MSC_VER)
 #define __STDC__ 1 // hack to get md5_buffer correctly identified
 #endif
+#include <valarray>
 #include <windows.h>
 #endif
 
