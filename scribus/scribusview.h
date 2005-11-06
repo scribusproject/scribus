@@ -43,7 +43,7 @@
 #include "scpainter.h"
 class Page;
 #include "mspinbox.h"
-#include "util.h"
+//#include "util.h"
 class Hruler;
 class Vruler;
 class UndoManager;

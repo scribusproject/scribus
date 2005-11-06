@@ -9,6 +9,14 @@ This program is free software - see LICENSE file in the distribution
 or documentation
 */
 
+#include <qcheckbox.h>
+#include <qcursor.h>
+#include <qdir.h>
+#include <qfile.h>
+#include <qmessagebox.h>
+#include <qprogressdialog.h>
+#include <qtextcodec.h>
+
 #include "shortwords.h"
 #include "shortwords.moc"
 #include "version.h"
@@ -19,13 +27,7 @@ or documentation
 #include "swprefsgui.h"
 #include "scpaths.h"
 #include "scribus.h"
-#include <qmessagebox.h>
-#include <qtextcodec.h>
-#include <qcursor.h>
-#include <qprogressdialog.h>
-#include <qfile.h>
-#include <qdir.h>
-#include <qcheckbox.h>
+#include "util.h"
 
 int scribusshortwords_getPluginAPIVersion()
 {

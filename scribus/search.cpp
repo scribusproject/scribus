@@ -25,7 +25,7 @@
 #include "shadebutton.h"
 #include "story.h"
 #include "styleselect.h"
-
+#include "util.h"
 
 
 extern QPixmap loadIcon(QString nam);

@@ -19,6 +19,7 @@
 #include "scribus.h"
 #include "scribusview.h"
 #include "undomanager.h"
+#include "util.h"
 
 ActionManager::ActionManager ( QObject * parent, const char * name ) : QObject ( parent, name )
 {

@@ -39,6 +39,7 @@
 #include "undomanager.h"
 #include "undostate.h"
 #include "units.h"
+#include "util.h"
 
 
 extern ScribusQApp* ScQApp;
