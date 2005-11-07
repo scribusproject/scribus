@@ -136,7 +136,8 @@ public:
 	void keyReleaseEvent(QKeyEvent *k);
 	void mouseReleaseEvent(QMouseEvent *m);
 	void wheelEvent(QWheelEvent *w);
-	void deleteSelectedTextFromFrame(PageItem *currItem);
+	//CB Moved to pageitem_textframe
+	//void deleteSelectedTextFromFrame(PageItem *currItem);
 	void setTBvals(PageItem *currItem);
 	void ShowSubs();
 	void applyNewMaster(QString name);
@@ -231,8 +232,8 @@ public:
 	int HavePngAlpha;
 	int HaveTiffSep;
 	bool unicodeTextEditMode;
-	int unicodeInputCount;
-	QString unicodeInputString;
+	//int unicodeInputCount;
+	//QString unicodeInputString;
 
 	QMap<QString, QStringList> InstLang;
 	QMap<QString,QString> LangTransl;
@@ -544,7 +545,6 @@ private:
 	QToolButton* DatPri;
 	QToolButton* DatPDF;
 	QToolButton* DatNeu;
-	int KeyMod;
 	int toolbarMenuTools;
 	int toolbarMenuPDFTools;
 	int viewToolbars;

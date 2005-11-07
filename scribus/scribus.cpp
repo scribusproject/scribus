@@ -109,6 +109,7 @@
 #include "tabpdfoptions.h"
 #include "docitemattrprefs.h"
 #include "pageitemattributes.h"
+#include "pageitem_textframe.h"
 #include "tocindexprefs.h"
 #include "tocgenerator.h"
 #include "collect4output.h"
@@ -430,9 +431,9 @@ void ScribusApp::initDefaultValues()
 	view = NULL;
 	doc = NULL;
 	Buffer2 = "";
-	unicodeTextEditMode = false;
-	unicodeInputCount = 0;
-	unicodeInputString = "";
+	//unicodeTextEditMode = false;
+	//unicodeInputCount = 0;
+	//unicodeInputString = "";
 	DispX = 10;
 	DispY = 10;
 	DocNr = 1;
@@ -1009,6 +1010,7 @@ void ScribusApp::setMousePositionOnStatusBar(double xp, double yp)
 	mainWindowYPosDataLabel->setText(tmp.setNum(qRound(yn*doc->unitRatio() * multiplier) / divisor, 'f', precision) + suffix);
 }
 
+/*
 void ScribusApp::deleteSelectedTextFromFrame(PageItem *currItem)
 {
 	int firstSelection = 0;
@@ -1047,6 +1049,7 @@ void ScribusApp::deleteSelectedTextFromFrame(PageItem *currItem)
 	doc->updateFrameItems();
 	DisableTxEdit();
 }
+*/
 
 void ScribusApp::setTBvals(PageItem *currItem)
 {
@@ -1243,6 +1246,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 	if (keyrep)
 		return;
 	keyrep = true;
+	int KeyMod;
 	switch (k->state())
 	{
 	case ShiftButton:
@@ -1258,6 +1262,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 		KeyMod = 0;
 		break;
 	}
+	//User presses escape and we have a doc open, and we have an item selected
 	if ((kk == Key_Escape) && (HaveDoc))
 	{
 		keyrep = false;
@@ -1320,8 +1325,17 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 		return;
 	}
 	ButtonState buttonState = k->state();
+	/**If we have a doc and we are not changing the page or zoom level in the status bar */
 	if ((HaveDoc) && (!view->zoomSpinBox->hasFocus()) && (!view->pageSelector->hasFocus()))
 	{
+		/**
+		 * With no item selected we can:
+		 * - With space, get into panning mode (modePanning)
+		 * - With PageUp, scroll up
+		 * - With PageDown, scroll down
+		 * - With Tab, change active document windowActivated
+		 */
+		
 		if ((doc->appMode != modeEdit) && (view->SelItem.count() == 0))
 		{
 			switch (kk)
@@ -1373,8 +1387,22 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 				break;
 			}
 		}
+		/** Now if we have an item selected 
+		 * - In normal mode we can:
+		 * -- Use backspace or delete to delete the item
+		 * -- Use PageUp to raise an item
+		 * -- Use PageDown to lower an item
+		 * -- Use the arrow keys to move an item or group around, with no meta, by 1.0, Ctrl by 0.1, Shift by 10.0.
+		 */
 		if (view->SelItem.count() != 0)
 		{
+			double moveBy=1.0;
+			if (buttonState & ShiftButton)
+				moveBy=10.0;
+			else if (buttonState & ControlButton)
+				moveBy=0.1;
+		
+		
 			PageItem *currItem = view->SelItem.at(0);
 			switch (doc->appMode)
 			{
@@ -1413,22 +1441,12 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 								np = currItem->ContourLine.point(view->ClRe);
 							else
 								np = currItem->PoLine.point(view->ClRe);
-							if ( buttonState & ShiftButton )
-								np = np - FPoint(10.0, 0);
-							else if ( buttonState & ControlButton )
-								np = np - FPoint(0.1, 0);
-							else
-								np = np - FPoint(1.0, 0);
+							np = np - FPoint(moveBy, 0);
 							view->MoveClipPoint(currItem, np);
 						}
 						else
 						{
-							if ( buttonState & ShiftButton )
-								view->moveGroup(-10, 0);
-							else if ( buttonState & ControlButton )
-								view->moveGroup(-0.1, 0);
-							else
-								view->moveGroup(-1, 0);
+							view->moveGroup(-moveBy, 0);
 						}
 						slotDocCh();
 					}
@@ -1443,22 +1461,12 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 								np = currItem->ContourLine.point(view->ClRe);
 							else
 								np = currItem->PoLine.point(view->ClRe);
-							if ( buttonState & ShiftButton )
-								np = np + FPoint(10.0, 0);
-							else if ( buttonState & ControlButton )
-								np = np + FPoint(0.1, 0);
-							else
-								np = np + FPoint(1.0, 0);
+							np = np + FPoint(moveBy, 0);
 							view->MoveClipPoint(currItem, np);
 						}
 						else
 						{
-							if ( buttonState & ShiftButton )
-								view->moveGroup(10, 0);
-							else if ( buttonState & ControlButton )
-								view->moveGroup(0.1, 0);
-							else
-								view->moveGroup(1, 0);
+							view->moveGroup(moveBy, 0);
 						}
 						slotDocCh();
 					}
@@ -1473,22 +1481,12 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 								np = currItem->ContourLine.point(view->ClRe);
 							else
 								np = currItem->PoLine.point(view->ClRe);
-							if ( buttonState & ShiftButton )
-								np = np - FPoint(0, 10.0);
-							else if ( buttonState & ControlButton )
-								np = np - FPoint(0, 0.1);
-							else
-								np = np - FPoint(0, 1.0);
+							np = np - FPoint(0, moveBy);
 							view->MoveClipPoint(currItem, np);
 						}
 						else
 						{
-							if ( buttonState & ShiftButton )
-								view->moveGroup(0, -10);
-							else if ( buttonState & ControlButton )
-								view->moveGroup(0, -0.1);
-							else
-								view->moveGroup(0, -1);
+							view->moveGroup(0, -moveBy);
 						}
 						slotDocCh();
 					}
@@ -1503,22 +1501,12 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 								np = currItem->ContourLine.point(view->ClRe);
 							else
 								np = currItem->PoLine.point(view->ClRe);
-							if ( buttonState & ShiftButton )
-								np = np + FPoint(0, 10.0);
-							else if ( buttonState & ControlButton )
-								np = np + FPoint(0, 0.1);
-							else
-								np = np + FPoint(0, 1.0);
+							np = np + FPoint(0, moveBy);
 							view->MoveClipPoint(currItem, np);
 						}
 						else
 						{
-							if ( buttonState & ShiftButton )
-								view->moveGroup(0, 10);
-							else if ( buttonState & ControlButton )
-								view->moveGroup(0, 0.1);
-							else
-								view->moveGroup(0, 1);
+							view->moveGroup(0, moveBy);
 						}
 						slotDocCh();
 					}
@@ -1528,15 +1516,8 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 				}
 				break;
 			case modeEdit:
-				int oldPos = currItem->CPos; // 15-mar-2004 jjsa for cursor movement with Shift + Arrow key
-				view->oldCp = currItem->CPos;
 				if (currItem->asImageFrame() && !currItem->locked())
 				{
-					double moveBy=1.0;
-					if (buttonState & ShiftButton)
-						moveBy=10.0;
-					else if (buttonState & ControlButton)
-						moveBy=0.1;
 					switch (kk)
 					{
 						case Key_Left:
@@ -1553,8 +1534,13 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							break;
 					}
 				}
+				view->oldCp = currItem->CPos;
 				if (currItem->itemType() == PageItem::TextFrame)
 				{
+					bool kr=keyrep;
+					currItem->handleModeEditKey(k, keyrep);
+					keyrep=kr;
+					/*
 					view->slotDoCurs(false);
 					switch (kk)
 					{
@@ -1569,19 +1555,19 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 						if ( (buttonState & ShiftButton) == 0 )
 							view->deselectAll(currItem);
 					}
-					/* ISO 14755
-					if ((buttonState & ControlButton) && (buttonState & ShiftButton))
-					{
-						if (!unicodeTextEditMode)
-						{
-							unicodeTextEditMode=true;
-							unicodeInputCount = 0;
-							unicodeInputString = "";
-							keyrep = false;
-						}
-						qDebug(QString("%1 %2 %3 %4 %5").arg("uni").arg("c+s").arg(uc).arg(kk).arg(as));
-					}
-					*/
+					//<< ISO 14755
+					//if ((buttonState & ControlButton) && (buttonState & ShiftButton))
+					//{
+					//	if (!unicodeTextEditMode)
+					//	{
+					//		unicodeTextEditMode=true;
+					//		unicodeInputCount = 0;
+					//		unicodeInputString = "";
+					//		keyrep = false;
+					//	}
+					//	qDebug(QString("%1 %2 %3 %4 %5").arg("uni").arg("c+s").arg(uc).arg(kk).arg(as));
+					//}
+					//>>
 					if (unicodeTextEditMode)
 					{
 						int conv = 0;
@@ -2094,6 +2080,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 						keyrep = false;
 						return;
 					}
+					*/
 				}
 				slotDocCh(false);
 				break;
@@ -4708,7 +4695,7 @@ void ScribusApp::slotEditCut()
 						Buffer2 += QString::number(nextItem->itemText.at(a)->cstrikewidth)+'\n';
 					}
 				}
-				deleteSelectedTextFromFrame(nextItem);
+				dynamic_cast<PageItem_TextFrame*>(nextItem)->deleteSelectedTextFromFrame();
 				nextItem = nextItem->NextBox;
 			}
 			view->RefreshItem(currItem);
@@ -4822,9 +4809,9 @@ void ScribusApp::slotEditPaste()
 			return;
 		if (doc->appMode == modeEdit)
 		{
-			PageItem *currItem = view->SelItem.at(0);
+			PageItem_TextFrame *currItem = dynamic_cast<PageItem_TextFrame*>(view->SelItem.at(0));
 			if (currItem->HasSel)
-				deleteSelectedTextFromFrame(currItem);
+				currItem->deleteSelectedTextFromFrame();
 			if (Buffer2.startsWith("<SCRIBUSTEXT>"))
 			{
 				QString Buf = Buffer2.mid(13);
@@ -9365,3 +9352,4 @@ void ScribusApp::updateActiveWindowCaption(const QString &newCaption)
 		return;
 	ActWin->setCaption(newCaption);
 }
+

@@ -47,13 +47,13 @@ class SCRIBUS_API PDFlib : public QObject
 public:
 	PDFlib(ScribusDoc *docu);
 	~PDFlib() {};
-	bool doExport(QString fn, QString nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs, QProgressBar *dia2);
-	bool PDF_Begin_Doc(QString fn, PDFOptions *opts, SCFonts &AllFonts, QMap<QString,int> DocFonts, BookMView* vi);
+	bool doExport(const QString& fn, const QString& nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs, QProgressBar *dia2);
+	bool PDF_Begin_Doc(const QString& fn, PDFOptions *opts, SCFonts &AllFonts, QMap<QString,int> DocFonts, BookMView* vi);
 	void PDF_Begin_Page(Page* pag, QPixmap pm = 0);
 	void PDF_End_Page();
 	void PDF_TemplatePage(Page* pag, bool clip = false);
 	void PDF_ProcessPage(Page* pag, uint PNr, bool clip = false);
-	void PDF_End_Doc(QString PrintPr = "", QString Name = "", int Components = 0);
+	void PDF_End_Doc(const QString& PrintPr = "", const QString& Name = "", int Components = 0);
 	struct GlNamInd
 	{
 		uint Code;
@@ -74,8 +74,8 @@ private:
 	QString SetClipPathArray(FPointArray *ite, bool poly = true);
 	QString SetClipPathImage(PageItem *ite);
 	QString SetClipPath(PageItem *ite, bool poly = true);
-	QString SetFarbe(QString farbe, int Shade);
-	QString putColor(QString color, int Shade, bool fill);
+	QString SetFarbe(const QString& farbe, int Shade);
+	QString putColor(const QString& color, int Shade, bool fill);
 	QString PDF_ProcessItem(PageItem* ite, Page* pag, uint PNr, bool embedded = false);
 	QString setTextSt(PageItem *ite, uint PNr, Page* pag);
 	void setTextCh(PageItem *ite, uint PNr, uint d,  QString &tmp, QString &tmp2, struct ScText *hl, Page* pag);
@@ -84,15 +84,15 @@ private:
 	void StartObj(int nr);
 	void WritePDFStream(QString *cc);
 	QString PDFEncode(QString in);
-	QByteArray ComputeMD5(QString in);
+	QByteArray ComputeMD5(const QString& in);
 	void PDF_Bookmark(int nr, double ypos);
 	QString PDF_Gradient(PageItem *currItem);
-	QString PDF_DoLinGradient(PageItem *currItem, QValueList<double> Stops, QValueList<double> Trans, QStringList Colors);
+	QString PDF_DoLinGradient(PageItem *currItem, QValueList<double> Stops, QValueList<double> Trans, const QStringList& Colors);
 	QString PDF_Transparenz(PageItem *currItem);
 	void PDF_Annotation(PageItem *ite, uint PNr);
-	void PDF_Form(QString im);
+	void PDF_Form(QString& im);
 	void PDF_xForm(double w, double h, QString im);
-	QString PDF_Image(PageItem* c, QString fn, double sx, double sy, double x, double y, bool fromAN = false, QString Profil = "", bool Embedded = false, int Intent = 1);
+	QString PDF_Image(PageItem* c, const QString& fn, double sx, double sy, double x, double y, bool fromAN = false, const QString& Profil = "", bool Embedded = false, int Intent = 1);
 	QString Inhalt;
 	ScribusDoc* doc;
 	Page* ActPageP;
@@ -205,6 +205,7 @@ private:
 	QMap<QString, SpotC> spotMap;
 	QString spotNam;
 	int spotCount;
+	QTextStream t;
 };
 
 #endif

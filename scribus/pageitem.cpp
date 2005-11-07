@@ -3420,3 +3420,6 @@ void PageItem::UpdatePolyClip()
 	SetPolyClip(static_cast<int>(asce+BaseOffs));
 }
 
+void PageItem::handleModeEditKey(QKeyEvent *k, bool &keyRepeat)
+{
+}

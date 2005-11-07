@@ -1,5 +1,6 @@
 #include "cmdtext.h"
 #include "cmdutil.h"
+#include "pageitem_textframe.h"
 #include "prefsmanager.h"
 
 PyObject *scribus_getfontsize(PyObject* /* self */, PyObject* args)
@@ -638,7 +639,7 @@ PyObject *scribus_deletetext(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	if (it->HasSel)
-		ScApp->deleteSelectedTextFromFrame(it);
+		dynamic_cast<PageItem_TextFrame*>(it)->deleteSelectedTextFromFrame();
 	else
 	{
 		for (ScText *itx = it->itemText.first(); itx != 0; itx = it->itemText.next())

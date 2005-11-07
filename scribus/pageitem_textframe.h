@@ -16,16 +16,17 @@
 #ifndef PAGEITEMTEXTFRAME_H
 #define PAGEITEMTEXTFRAME_H
 
+#include <qevent.h>
 #include <qobject.h>
-#include <qwidget.h>
+
 #include <qpointarray.h>
 #include <qptrlist.h>
 #include <qpixmap.h>
+#include <qrect.h>
+#include <qstring.h>
 #include <qvaluestack.h>
 #include <qvaluelist.h>
-
-#include <qstring.h>
-#include <qrect.h>
+#include <qwidget.h>
 
 #include "scribusapi.h"
 #include "undoobject.h"
@@ -51,9 +52,16 @@ public:
 	virtual PageItem_TextFrame * asTextFrame() { return this; }
 	
 	virtual void clearContents();
-
+	
+	virtual void handleModeEditKey(QKeyEvent *k, bool& keyRepeat);
+	void deleteSelectedTextFromFrame();
+	
 protected:
 	virtual void DrawObj_Item(ScPainter *p, QRect e, double sc);
+	
+	bool unicodeTextEditMode;
+	int unicodeInputCount;
+	QString unicodeInputString;
 
 };
 

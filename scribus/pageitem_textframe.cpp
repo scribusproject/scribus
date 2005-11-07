@@ -30,6 +30,7 @@
 #include <cmath>
 #include <cassert>
 
+#include "hyphenator.h"
 #include "mpalette.h"
 #include "page.h"
 #include "pageitem.h"
@@ -54,6 +55,9 @@ using namespace std;
 PageItem_TextFrame::PageItem_TextFrame(ScribusDoc *pa, double x, double y, double w, double h, double w2, QString fill, QString outline)
 	: PageItem(pa, PageItem::TextFrame, x, y, w, h, w2, fill, outline)
 {
+	unicodeTextEditMode = false;
+	unicodeInputCount = 0;
+	unicodeInputString = "";
 }
 
 void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
@@ -2005,4 +2009,617 @@ void PageItem_TextFrame::clearContents()
 		nextItem->CPos = 0;
 		nextItem = nextItem->NextBox;
 	}
+}
+
+/**
+ * Handle keyboard interaction with the text frame while in edit mode
+ * @param k 
+ */
+void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
+{
+	int oldPos = CPos; // 15-mar-2004 jjsa for cursor movement with Shift + Arrow key
+	struct ScText *hg;
+	int kk = k->key();
+	int as = k->ascii();
+	double altx, alty;
+	QString uc = k->text();
+	QString cr, Tcha, Twort;
+	uint Tcoun;
+	int len, pos, c;
+	int KeyMod;
+	ButtonState buttonState = k->state();
+	switch (buttonState)
+	{
+	case ShiftButton:
+		KeyMod = SHIFT;
+		break;
+	case AltButton:
+		KeyMod = ALT;
+		break;
+	case ControlButton:
+		KeyMod = CTRL;
+		break;
+	default:
+		KeyMod = 0;
+		break;
+	}
+
+	ScApp->view->slotDoCurs(false);
+	switch (kk)
+	{
+	case Key_Prior:
+	case Key_Next:
+	case Key_End:
+	case Key_Home:
+	case Key_Right:
+	case Key_Left:
+	case Key_Up:
+	case Key_Down:
+		if ( (buttonState & ShiftButton) == 0 )
+			ScApp->view->deselectAll(this);
+	}
+	//<< ISO 14755
+	//if ((buttonState & ControlButton) && (buttonState & ShiftButton))
+	//{
+	//	if (!unicodeTextEditMode)
+	//	{
+	//		unicodeTextEditMode=true;
+	//		unicodeInputCount = 0;
+	//		unicodeInputString = "";
+	//		keyrep = false;
+	//	}
+	//	qDebug(QString("%1 %2 %3 %4 %5").arg("uni").arg("c+s").arg(uc).arg(kk).arg(as));
+	//}
+	//>>
+	if (unicodeTextEditMode)
+	{
+		int conv = 0;
+		bool ok = false;
+		unicodeInputString += uc;
+		conv = unicodeInputString.toInt(&ok, 16);
+		if (!ok)
+		{
+			unicodeTextEditMode = false;
+			unicodeInputCount = 0;
+			unicodeInputString = "";
+			keyRepeat = false;
+			return;
+		}
+		unicodeInputCount++;
+		if (unicodeInputCount == 4)
+		{
+			unicodeTextEditMode = false;
+			unicodeInputCount = 0;
+			unicodeInputString = "";
+			if (ok)
+			{
+				if (HasSel)
+					deleteSelectedTextFromFrame();
+				if (conv < 31)
+					conv = 32;
+				hg = new ScText;
+				hg->ch = QString(QChar(conv));
+				Doc->setScTextDefaultsFromDoc(hg);
+				hg->cselect = false;
+				hg->cextra = 0;
+				hg->xp = 0;
+				hg->yp = 0;
+				hg->PRot = 0;
+				hg->PtransX = 0;
+				hg->PtransY = 0;
+				hg->cembedded = 0;
+				itemText.insert(CPos, hg);
+				CPos += 1;
+				Tinput = true;
+				ScApp->setTBvals(this);
+				ScApp->view->RefreshItem(this);
+				keyRepeat = false;
+				return;
+			}
+		}
+		else
+		{
+			keyRepeat = false;
+			return;
+		}
+	}
+	switch (kk)
+	{
+	case Key_F12:
+		unicodeTextEditMode = true;
+		unicodeInputCount = 0;
+		unicodeInputString = "";
+		keyRepeat = false;
+		return;
+		break;
+	case Key_Home:
+		// go to begin of line
+		if ( (pos = CPos) == 0 )
+			break; // at begin of frame
+		len = static_cast<int>(itemText.count());
+		if ( pos == len )
+			pos--;
+		if ( (buttonState & ControlButton) == 0 )
+		{
+			alty =  itemText.at(pos)->yp;
+			c = itemText.at(pos)->ch.at(0).latin1();
+			if ( c == 13 ) // new line, position is wrong
+				if ( --pos > 0 )
+					alty =  itemText.at(pos)->yp;
+			// check for yp at actual position
+			if ( pos < len )
+			{
+				altx =  itemText.at(pos)->yp;
+				if ( altx > alty )
+				{
+					// we was at begin of line
+					break;
+				}
+			}
+			while (  pos > 0 && itemText.at(pos-1)->yp == alty )
+				--pos;
+			if ( itemText.at(pos)->ch.at(0).latin1() == 13 )
+				++pos;
+		}
+		else
+		{
+			// paragraph begin
+			if ( pos < len &&
+					itemText.at(pos)->ch.at(0).latin1() == 13 )
+				--pos;
+			while(pos > 0 )
+				if ( itemText.at(pos)->ch.at(0).latin1() == 13 )
+				{
+					++pos;
+					break;
+				}
+				else
+					--pos;
+		}
+		CPos = pos;
+		if ( buttonState & ShiftButton )
+			ScApp->view->ExpandSel(this, -1, oldPos);
+		break;
+	case Key_End:
+		// go to end of line
+		len = static_cast<int>(itemText.count());
+		if ( CPos >= len )
+			break; // at end of frame
+		if ( (buttonState & ControlButton) == 0 )
+		{
+			if ((CPos < len) && ((itemText.at(CPos)->ch.at(0).latin1() == 13) || (itemText.at(CPos)->ch.at(0).latin1() == 28)))
+			{
+				// at end of paragraph and therefore line
+				break;
+			}
+			QString nextCh = itemText.at(CPos)->ch;
+			int nextChs = itemText.at(CPos)->csize;
+			alty =  itemText.at(CPos)->yp - SetZeichAttr(itemText.at(CPos), &nextChs, &nextCh);
+			double nextY;
+			while (CPos < len-1)
+			{
+				nextCh = itemText.at(CPos+1)->ch;
+				nextChs = itemText.at(CPos+1)->csize;
+				nextY = itemText.at(CPos+1)->yp - SetZeichAttr(itemText.at(CPos+1), &nextChs, &nextCh);
+				if (fabs(nextY - alty) > 1.0)
+					break;
+				CPos++;
+				if ( CPos == len-1)
+					break;
+			}
+			if ( CPos < len -1 )
+				c = itemText.at(CPos+1)->ch.at(0).latin1();
+			else if ( CPos == len - 1 )
+				c = 13;
+			else
+				c = 0;
+			if (( c == 13 ) || (c = 28))
+				CPos++;
+		}
+		else
+		{
+			// go to end of paragraph
+			if ( itemText.at(CPos)->ch.at(0).latin1() == 13 )
+			{
+				break;
+			}
+			pos = CPos;
+			while ( pos < len )
+			{
+				if ( itemText.at(pos)->ch.at(0).latin1() == 13 )
+					break;
+				else
+					++pos;
+			}
+			CPos = pos;
+		}
+		if ( buttonState & ShiftButton )
+			ScApp->view->ExpandSel(this, 1, oldPos);
+		break;
+	case Key_Down:
+		if (CPos != static_cast<int>(itemText.count()))
+		{
+			alty = itemText.at(CPos)->yp;
+			altx = itemText.at(CPos)->xp;
+			do
+			{
+				CPos += 1;
+				if (CPos == static_cast<int>(itemText.count()))
+					break;
+				if (itemText.at(CPos)->yp > alty)
+				{
+					if (itemText.at(CPos)->xp >= altx)
+						break;
+				}
+			}
+			while (CPos < static_cast<int>(itemText.count()));
+			if ( buttonState & ShiftButton )
+			{
+				if ( buttonState & AltButton )
+					CPos = itemText.count();
+				ScApp->view->ExpandSel(this, 1, oldPos);
+			}
+			else
+				if (CPos == static_cast<int>(itemText.count()))
+					if (NextBox != 0)
+					{
+						if (NextBox->itemText.count() != 0)
+						{
+							ScApp->view->Deselect(true);
+							NextBox->CPos = 0;
+							ScApp->view->SelectItemNr(NextBox->ItemNr);
+							//currItem = currItem->NextBox;
+						}
+					}
+		}
+		else
+		{
+			if (NextBox != 0)
+			{
+				if (NextBox->itemText.count() != 0)
+				{
+					ScApp->view->Deselect(true);
+					NextBox->CPos = 0;
+					ScApp->view->SelectItemNr(NextBox->ItemNr);
+					//currItem = currItem->NextBox;
+				}
+			}
+		}
+		if ( this->HasSel )
+			ScApp->view->RefreshItem(this);
+		ScApp->setTBvals(this);
+		break;
+	case Key_Up:
+		if (CPos > 0)
+		{
+			if (CPos == static_cast<int>(itemText.count()))
+				--CPos;
+			alty = itemText.at(CPos)->yp;
+			altx = itemText.at(CPos)->xp;
+			if (CPos > 0)
+			{
+				do
+				{
+					--CPos;
+					if (CPos == 0)
+						break;
+					if  ( itemText.at(CPos)->ch.at(0).latin1() == 13 )
+						break;
+					if (itemText.at(CPos)->yp < alty)
+					{
+						if (itemText.at(CPos)->xp <= altx)
+							break;
+					}
+				}
+				while (CPos > 0);
+			}
+			if ( buttonState & ShiftButton )
+			{
+				if ( buttonState & AltButton )
+					CPos = 0;
+				ScApp->view->ExpandSel(this, -1, oldPos);
+			}
+			else
+				if (CPos == 0)
+				{
+					if (BackBox != 0)
+					{
+						ScApp->view->Deselect(true);
+						BackBox->CPos = BackBox->itemText.count();
+						ScApp->view->SelectItemNr(BackBox->ItemNr);
+						//currItem = currItem->BackBox;
+					}
+				}
+		}
+		else
+		{
+			CPos = 0;
+			if (BackBox != 0)
+			{
+				ScApp->view->Deselect(true);
+				BackBox->CPos = BackBox->itemText.count();
+				ScApp->view->SelectItemNr(BackBox->ItemNr);
+				//currItem = currItem->BackBox;
+			}
+		}
+		if ( this->HasSel )
+			ScApp->view->RefreshItem(this);
+		ScApp->setTBvals(this);
+		break;
+	case Key_Prior:
+		CPos = 0;
+		if ( buttonState & ShiftButton )
+			ScApp->view->ExpandSel(this, -1, oldPos);
+		ScApp->setTBvals(this);
+		break;
+	case Key_Next:
+		CPos = static_cast<int>(itemText.count());
+		if ( buttonState & ShiftButton )
+			ScApp->view->ExpandSel(this, 1, oldPos);
+		ScApp->setTBvals(this);
+		break;
+	case Key_Left:
+		if ( buttonState & ControlButton )
+		{
+			ScApp->view->setNewPos(this, oldPos, itemText.count(),-1);
+			if ( buttonState & ShiftButton )
+				ScApp->view->ExpandSel(this, -1, oldPos);
+		}
+		else if ( buttonState & ShiftButton )
+		{
+			--CPos;
+			if ( CPos < 0 )
+				CPos = 0;
+			else
+				ScApp->view->ExpandSel(this, -1, oldPos);
+		}
+		else
+		{
+			--CPos;
+			if (CPos < 0)
+			{
+				CPos = 0;
+				if (BackBox != 0)
+				{
+					ScApp->view->Deselect(true);
+					BackBox->CPos = BackBox->itemText.count();
+					ScApp->view->SelectItemNr(BackBox->ItemNr);
+					//currItem = currItem->BackBox;
+				}
+			}
+		}
+		if ((CPos > 0) && (CPos == static_cast<int>(itemText.count())))
+		{
+			if (itemText.at(CPos-1)->cstyle & 4096)
+			{
+				--CPos;
+				while ((CPos > 0) && (itemText.at(CPos)->cstyle & 4096))
+				{
+					--CPos;
+					if (CPos == 0)
+						break;
+				}
+			}
+		}
+		else
+		{
+			while ((CPos > 0) && (itemText.at(CPos)->cstyle & 4096))
+			{
+				--CPos;
+				if (CPos == 0)
+					break;
+			}
+		}
+		if ( HasSel )
+			ScApp->view->RefreshItem(this);
+		ScApp->setTBvals(this);
+		break;
+	case Key_Right:
+		if ( buttonState & ControlButton )
+		{
+			ScApp->view->setNewPos(this, oldPos, itemText.count(),1);
+			if ( buttonState & ShiftButton )
+				ScApp->view->ExpandSel(this, 1, oldPos);
+		}
+		else if ( buttonState & ShiftButton )
+		{
+			++CPos;
+			if ( CPos > static_cast<int>(itemText.count()) )
+				--CPos;
+			else
+				ScApp->view->ExpandSel(this, 1, oldPos);
+		}
+		else
+		{
+			++CPos; // new position within text ?
+			if (CPos > static_cast<int>(itemText.count()))
+			{
+				--CPos;
+				if (NextBox != 0)
+				{
+					if (NextBox->itemText.count() != 0)
+					{
+						ScApp->view->Deselect(true);
+						NextBox->CPos = 0;
+						ScApp->view->SelectItemNr(NextBox->ItemNr);
+						//currItem = currItem->NextBox;
+					}
+				}
+			}
+		}
+		if ( HasSel )
+			ScApp->view->RefreshItem(this);
+		ScApp->setTBvals(this);
+		break;
+	case Key_Delete:
+		if (CPos == static_cast<int>(itemText.count()))
+		{
+			if (HasSel)
+			{
+				deleteSelectedTextFromFrame();
+				ScApp->setTBvals(this);
+				ScApp->view->RefreshItem(this);
+			}
+			keyRepeat = false;
+			return;
+		}
+		if (itemText.count() == 0)
+		{
+			keyRepeat = false;
+			return;
+		}
+		cr = itemText.at(CPos)->ch;
+		if (!HasSel)
+			itemText.at(CPos)->cselect = true;
+		deleteSelectedTextFromFrame();
+		Tinput = false;
+		if ((cr == QChar(13)) && (itemText.count() != 0))
+		{
+			ScApp->view->chAbStyle(this, itemText.at(QMAX(CPos-1,0))->cab);
+			Tinput = false;
+		}
+		ScApp->setTBvals(this);
+		ScApp->view->RefreshItem(this);
+		break;
+	case Key_Backspace:
+		if (CPos == 0)
+		{
+			if (HasSel)
+			{
+				deleteSelectedTextFromFrame();
+				ScApp->setTBvals(this);
+				ScApp->view->RefreshItem(this);
+			}
+			break;
+		}
+		if (itemText.count() == 0)
+			break;
+		cr = itemText.at(QMAX(CPos-1,0))->ch;
+		if (!HasSel)
+		{
+			--CPos;
+			itemText.at(CPos)->cselect = true;
+		}
+		deleteSelectedTextFromFrame();
+		Tinput = false;
+		if ((cr == QChar(13)) && (itemText.count() != 0))
+		{
+			ScApp->view->chAbStyle(this, itemText.at(QMAX(CPos-1,0))->cab);
+			Tinput = false;
+		}
+		ScApp->setTBvals(this);
+		ScApp->view->RefreshItem(this);
+		break;
+	default:
+		if ((HasSel) && (kk < 0x1000))
+			deleteSelectedTextFromFrame();
+		//if ((kk == Key_Tab) || ((kk == Key_Return) && (buttonState & ShiftButton)))
+		if (kk == Key_Tab)
+		{
+			hg = new ScText;
+			//	if (kk == Key_Return)
+			//		hg->ch = QString(QChar(28));
+			if (kk == Key_Tab)
+				hg->ch = QString(QChar(9));
+			Doc->setScTextDefaultsFromDoc(hg);
+			hg->cselect = false;
+			hg->cextra = 0;
+			hg->xp = 0;
+			hg->yp = 0;
+			hg->PRot = 0;
+			hg->PtransX = 0;
+			hg->PtransY = 0;
+			hg->cembedded = 0;
+			itemText.insert(CPos, hg);
+			CPos += 1;
+			Tinput = true;
+			ScApp->view->RefreshItem(this);
+			break;
+		}
+		if (((uc[0] > QChar(31)) || (as == 13) || (as == 30)) && ((*Doc->AllFonts)[Doc->CurrFont]->CharWidth.contains(uc[0].unicode())))
+		{
+			hg = new ScText;
+			hg->ch = uc;
+			Doc->setScTextDefaultsFromDoc(hg);
+			hg->cextra = 0;
+			hg->cselect = false;
+			hg->xp = 0;
+			hg->yp = 0;
+			hg->PRot = 0;
+			hg->PtransX = 0;
+			hg->PtransY = 0;
+			hg->cembedded = 0;
+			itemText.insert(CPos, hg);
+			CPos += 1;
+			if ((Doc->docHyphenator->AutoCheck) && (CPos > 1))
+			{
+				Twort = "";
+				Tcoun = 0;
+				for (int hych = CPos-1; hych > -1; hych--)
+				{
+					Tcha = itemText.at(hych)->ch;
+					if (Tcha == " ")
+					{
+						Tcoun = hych+1;
+						break;
+					}
+					Twort.prepend(Tcha);
+				}
+				if (!Twort.isEmpty())
+				{
+					if (Doc->docHyphenator->Language != Language)
+						Doc->docHyphenator->slotNewDict(Language);
+					Doc->docHyphenator->slotHyphenateWord(this, Twort, Tcoun);
+				}
+			}
+			Tinput = true;
+			ScApp->view->RefreshItem(this);
+		}
+		break;
+	}
+	ScApp->view->slotDoCurs(true);
+	if ((kk == Key_Left) || (kk == Key_Right) || (kk == Key_Up) || (kk == Key_Down))
+	{
+		keyRepeat = false;
+		return;
+	}
+}
+
+void PageItem_TextFrame::deleteSelectedTextFromFrame()
+{
+	int firstSelection = 0;
+	bool first = false;
+	for (ScText *it = itemText.first(); it != 0; it = itemText.next())
+	{
+		if (it->cselect)
+		{
+			first = true;
+			if ((it->ch == QChar(25)) && (it->cembedded != 0))
+			{
+				Doc->FrameItems.remove(it->cembedded);
+				delete it->cembedded;
+			}
+			itemText.remove();
+			it = itemText.prev();
+			if (it == 0)
+				it = itemText.first();
+		}
+		if (!first)
+			firstSelection++;
+	}
+	if (itemText.count() != 0)
+	{
+		if (itemText.first()->cselect)
+		{
+			itemText.remove();
+			CPos = 0;
+		}
+		else
+			CPos = firstSelection;
+	}
+	else
+		CPos = 0;
+	HasSel = false;
+	Doc->updateFrameItems();
+	ScApp->DisableTxEdit();
 }

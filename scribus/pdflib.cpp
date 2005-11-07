@@ -113,7 +113,7 @@ PDFlib::PDFlib(ScribusDoc *docu)
 		KeyGen[a] = kg_array[a];
 }
 
-bool PDFlib::doExport(QString fn, QString nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs, QProgressBar *dia2)
+bool PDFlib::doExport(const QString& fn, const QString& nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs, QProgressBar *dia2)
 {
 	QPixmap pm;
 	bool ret = false;
@@ -160,13 +160,13 @@ bool PDFlib::doExport(QString fn, QString nam, int Components, std::vector<int> 
 	return ret;
 }
 
-QString PDFlib::FToStr(double c)
+QString PDFlib::FToStr(const double c)
 {
 	QString cc;
 	return cc.sprintf("%.5f", c);
 }
 
-QString PDFlib::IToStr(int c)
+QString PDFlib::IToStr(const int c)
 {
 	QString cc;
 	return cc.setNum(c);
@@ -174,10 +174,11 @@ QString PDFlib::IToStr(int c)
 
 void PDFlib::PutDoc(QString in)
 {
-	QTextStream t(&Spool);
-	t.writeRawBytes(in.latin1(), in.length());
+	//QTextStream t(&Spool); //CB replaced with member t.
+	uint inlen=in.length();
+	t.writeRawBytes(in.latin1(), inlen);
 	Spool.flush();
-	Dokument += in.length();
+	Dokument += inlen;
 }
 
 void PDFlib::PutPage(QString in)
@@ -396,19 +397,21 @@ void PDFlib::CalcUserKey(QString User, int Permission)
 	}
 }
 
-QByteArray PDFlib::ComputeMD5(QString in)
+QByteArray PDFlib::ComputeMD5(const QString& in)
 {
-	QByteArray TBytes(in.length());
-	for (uint a = 0; a < in.length(); ++a)
+	uint inlen=in.length();
+	QByteArray TBytes(inlen);
+	for (uint a = 0; a < inlen; ++a)
 		TBytes[a] = static_cast<uchar>(QChar(in.at(a)));
 	return ComputeMD5Sum(&TBytes);
 }
 
-bool PDFlib::PDF_Begin_Doc(QString fn, PDFOptions *opts, SCFonts &AllFonts, QMap<QString,int> DocFonts, BookMView* vi)
+bool PDFlib::PDF_Begin_Doc(const QString& fn, PDFOptions *opts, SCFonts &AllFonts, QMap<QString,int> DocFonts, BookMView* vi)
 {
   	Spool.setName(fn);
 	if (!Spool.open(IO_WriteOnly))
 		return false;
+	t.setDevice(&Spool);
 	QString tmp;
 	QString ok = "";
 	QString uk = "";
@@ -463,7 +466,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, PDFOptions *opts, SCFonts &AllFonts, QMap
 	PutDoc("/ViewerPreferences\n<<\n/PageDirection ");
 	PutDoc( Options->Binding == 0 ? "/L2R\n" : "/R2L\n");
 	PutDoc(" >>\n>>\nendobj\n");
-	QString IDg = Datum;
+	QString IDg(Datum);
 	IDg += Options->Datei;
 	IDg += "Scribus "+QString(VERSION);
 	IDg += "Libpdf for Scribus "+QString(VERSION);
@@ -578,7 +581,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, PDFOptions *opts, SCFonts &AllFonts, QMap
 		Foi::FontFormat fformat = AllFonts[it.key()]->formatCode;
 		if ((AllFonts[it.key()]->isOTF) || (!AllFonts[it.key()]->HasNames) || (AllFonts[it.key()]->Subset) || (Options->SubsetList.contains(it.key())))
 		{
-			QString fon = "";
+			QString fon("");
 			QMap<uint,FPointArray>::Iterator ig;
 			for (ig = AllFonts[it.key()]->RealGlyphs.begin(); ig != AllFonts[it.key()]->RealGlyphs.end(); ++ig)
 			{
@@ -637,7 +640,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, PDFOptions *opts, SCFonts &AllFonts, QMap
 			UsedFontsP.insert(it.key(), "/Fo"+IToStr(a));
 			if ((fformat == Foi::PFB) && (Options->EmbedList.contains(it.key())))
 			{
-				QString fon = "";
+				QString fon("");
 				StartObj(ObjCounter);
 				QByteArray bb;
 				AllFonts[it.key()]->RawData(bb);
@@ -684,9 +687,9 @@ bool PDFlib::PDF_Begin_Doc(QString fn, PDFOptions *opts, SCFonts &AllFonts, QMap
 			}
 			if ((fformat == Foi::PFA) && (Options->EmbedList.contains(it.key())))
 			{
-				QString fon = "";
-				QString fon2 = "";
-				QString tm = "";
+				QString fon("");
+				QString fon2("");
+				QString tm("");
 				uint value;
 				bool ok = true;
 				StartObj(ObjCounter);
@@ -722,7 +725,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, PDFOptions *opts, SCFonts &AllFonts, QMap
 			}
 			if ((fformat == Foi::SFNT || fformat == Foi::TTCF) && (Options->EmbedList.contains(it.key())))
 			{
-				QString fon = "";
+				QString fon("");
 				StartObj(ObjCounter);
 				QByteArray bb;
 				AllFonts[it.key()]->RawData(bb);
@@ -878,7 +881,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, PDFOptions *opts, SCFonts &AllFonts, QMap
 		{
 			PutDoc("/"+itlp.key()+"\n<<\n/Type /Halftone\n/HalftoneType 1\n/Frequency ");
 			PutDoc(IToStr(itlp.data().Frequency)+"\n/Angle "+IToStr(itlp.data().Angle)+"\n/SpotFunction ");
-			QString func = "";
+			QString func ("");
 			switch (itlp.data().SpotFunc)
 			{
 				case 0:
@@ -981,10 +984,11 @@ bool PDFlib::PDF_Begin_Doc(QString fn, PDFOptions *opts, SCFonts &AllFonts, QMap
 		ll.isPrintable = false;
 		ll.LNr = 0;
 		int Lnr = 0;
-		QString ocgNam = "oc";
-		for (uint la = 0; la < doc->Layers.count(); ++la)
+		QString ocgNam("oc");
+		uint docLayersCount=doc->Layers.count();
+		for (uint la = 0; la < docLayersCount; ++la)
 		{
-			QString tmp = "";
+			QString tmp("");
 			Level2Layer(doc, &ll, Lnr);
 			ocg.Name = ocgNam+tmp.setNum(ll.LNr);
 			ocg.ObjNum = ObjCounter;
@@ -2495,7 +2499,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, Page* pag, uint PNr, bool embedde
 	return tmp;
 }
 
-QString PDFlib::putColor(QString color, int shade, bool fill)
+QString PDFlib::putColor(const QString& color, int shade, bool fill)
 {
 	QString tmp = "";
 	QString colString = SetFarbe(color, shade);
@@ -3162,7 +3166,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 	}
 }
 
-QString PDFlib::SetFarbe(QString farbe, int Shade)
+QString PDFlib::SetFarbe(const QString& farbe, int Shade)
 {
 	QString tmp;
 	ScColor tmpC;
@@ -3416,7 +3420,7 @@ QString PDFlib::PDF_Gradient(PageItem *currItem)
 	return PDF_DoLinGradient(currItem, StopVec, TransVec, Gcolors);
 }
 
-QString PDFlib::PDF_DoLinGradient(PageItem *currItem, QValueList<double> Stops, QValueList<double> Trans, QStringList Colors)
+QString PDFlib::PDF_DoLinGradient(PageItem *currItem, QValueList<double> Stops, QValueList<double> Trans, const QStringList& Colors)
 {
 	QString tmp = "";
 	bool first = true;
@@ -3425,7 +3429,8 @@ QString PDFlib::PDF_DoLinGradient(PageItem *currItem, QValueList<double> Stops, 
 	double w2 = QMIN(QMAX(currItem->GrStartX, 0), currItem->Width);
 	double h2 = -1.0 * QMIN(QMAX(currItem->GrStartY, 0), currItem->Height);
 	QString TRes = "";
-	for (uint c = 0; c < Colors.count()-1; ++c)
+	uint colorsCountm1=Colors.count()-1;
+	for (uint c = 0; c < colorsCountm1; ++c)
 	{
 		if ((Options->Version >= 14) && (((*Trans.at(c+1)) != 1) || ((*Trans.at(c)) != 1)))
 		{
@@ -4102,7 +4107,7 @@ void PDFlib::PDF_xForm(double w, double h, QString im)
 	Seite.XObjects[ResNam+IToStr(ResCount)] = ObjCounter-1;
 }
 
-void PDFlib::PDF_Form(QString im)
+void PDFlib::PDF_Form(QString& im)
 {
 	StartObj(ObjCounter);
 	ObjCounter++;
@@ -4127,7 +4132,7 @@ void PDFlib::PDF_Bookmark(int nr, double ypos)
 	BookMinUse = true;
 }
 
-QString PDFlib::PDF_Image(PageItem* c, QString fn, double sx, double sy, double x, double y, bool fromAN, QString Profil, bool Embedded, int Intent)
+QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, double x, double y, bool fromAN, const QString& Profil, bool Embedded, int Intent)
 {
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.extension(false).lower();
@@ -4230,7 +4235,7 @@ QString PDFlib::PDF_Image(PageItem* c, QString fn, double sx, double sy, double 
 						}
 						if (!found)
 						{
-						if (tmp.startsWith("%%BoundingBox"))
+							if (tmp.startsWith("%%BoundingBox"))
 							{
 								found = true;
 								BBox = tmp.remove("%%BoundingBox");
@@ -4611,7 +4616,7 @@ QString PDFlib::PDF_Image(PageItem* c, QString fn, double sx, double sy, double 
 		return "";
 }
 
-void PDFlib::PDF_End_Doc(QString PrintPr, QString Name, int Components)
+void PDFlib::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Components)
 {
 	QString tmp;
 	uint StX;
