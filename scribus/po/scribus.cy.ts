@@ -86,42 +86,6 @@ must be UTF8 encoded or &apos;unicode&apos; string(recommended).
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>newDoc(size, margins, orientation, firstPageNumber,
-                   unit, facingPages, firstSideLeft) -&gt; bool
-
-Creates a new document and returns true if successful. The parameters have the
-following meaning:
-
-    size = A tuple (width, height) describing the size of the document. You can
-    use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
-
-    margins = A tuple (left, right, top, bottom) describing the document
-    margins
-
-    orientation = the page orientation - constants PORTRAIT, LANDSCAPE
-
-    firstPageNumer = is the number of the first page in the document used for
-    pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
-    numbers if you&apos;re creating a document in several parts.
-
-    unit: this value sets the measurement units used by the document. Use a
-    predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
-    UNIT_PICAS, UNIT_POINTS.
-
-    facingPages = FACINGPAGES, NOFACINGPAGES
-
-    firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT
-
-The values for width, height and the margins are expressed in the given unit
-for the document. PAPER_* constants are expressed in points. If your document
-is not in points, make sure to account for this.
-
-example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
-                FACINGPAGES, FIRSTPAGERIGHT)
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>newPage(where [,&quot;masterpage&quot;])
 
 Creates a new page. If &quot;where&quot; is -1 the new Page is appended to the
@@ -139,6 +103,47 @@ May raise IndexError if the page number is out of range
 
 The &quot;string&quot; must be a valid filename for a SVG image. The text
 must be UTF8 encoded or &apos;unicode&apos; string(recommended).
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>newDocument(size, margins, orientation, firstPageNumber,
+                        unit, pagesType, firstPageOrder) -&gt; bool
+
+Creates a new document and returns true if successful. The parameters have the
+following meaning:
+
+size = A tuple (width, height) describing the size of the document. You can
+use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
+
+margins = A tuple (left, right, top, bottom) describing the document
+margins
+
+orientation = the page orientation - constants PORTRAIT, LANDSCAPE
+
+firstPageNumer = is the number of the first page in the document used for
+pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
+numbers if you&apos;re creating a document in several parts.
+
+unit: this value sets the measurement units used by the document. Use a
+predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
+UNIT_PICAS, UNIT_POINTS.
+
+pagesType = One of the predefined constants PAGE_n. PAGE_1 is single page,
+PAGE_2 is for double sided documents, PAGE_3 is for 3 pages fold and
+PAGE_4 is 4-fold.
+
+firstPageOrder = What is position of first page in the document.
+Indexed from 0 (0 = first).
+
+The values for width, height and the margins are expressed in the given unit
+for the document. PAPER_* constants are expressed in points. If your document
+is not in points, make sure to account for this.
+
+example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
+PAGE_4, 3)
+
+May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -1533,6 +1538,44 @@ May raise WrongFrameTypeError if the target frame is not a text frame
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>newDoc(size, margins, orientation, firstPageNumber,
+                   unit, facingPages, firstSideLeft) -&gt; bool
+
+WARNING: Obsolete procedure! Use newDocument instead.
+
+Creates a new document and returns true if successful. The parameters have the
+following meaning:
+
+    size = A tuple (width, height) describing the size of the document. You can
+    use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
+
+    margins = A tuple (left, right, top, bottom) describing the document
+    margins
+
+    orientation = the page orientation - constants PORTRAIT, LANDSCAPE
+
+    firstPageNumer = is the number of the first page in the document used for
+    pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
+    numbers if you&apos;re creating a document in several parts.
+
+    unit: this value sets the measurement units used by the document. Use a
+    predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
+    UNIT_PICAS, UNIT_POINTS.
+
+    facingPages = FACINGPAGES, NOFACINGPAGES
+
+    firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT
+
+The values for width, height and the margins are expressed in the given unit
+for the document. PAPER_* constants are expressed in points. If your document
+is not in points, make sure to account for this.
+
+example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
+                FACINGPAGES, FIRSTPAGERIGHT)
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -1552,7 +1595,7 @@ May raise WrongFrameTypeError if the target frame is not a text frame
     </message>
     <message>
         <source>Build-ID:</source>
-        <translation>Dynodiad-Adeiladu:</translation>
+        <translation type="obsolete">Dynodiad-Adeiladu:</translation>
     </message>
     <message>
         <source>Contributions from:</source>
@@ -1713,23 +1756,6 @@ Dynodir cynhaliaeth raglengelloedd sydd ar goll gan *</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>%1 %2 %3 </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Using GhostScript version %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>No GS version available</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Scribus Version %1
-%2 %3 (%4)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Mac OSX Aqua Port:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1742,7 +1768,35 @@ Dynodir cynhaliaeth raglengelloedd sydd ar goll gan *</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart Missing library support is indicated by a * This also indicates the version of Ghostscript which Scribus has detected.</source>
+        <source>November</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 %2 %3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%3-%2-%1 %4 %5</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Using Ghostscript version %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No Ghostscript version available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Scribus Version %1&lt;/b&gt;&lt;p&gt;%2&lt;br/&gt;%3 %4&lt;br/&gt;%5&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Build ID:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2551,10 +2605,6 @@ Dynodir cynhaliaeth raglengelloedd sydd ar goll gan *</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Double Turned Comma</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>CJK Single Left</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2600,6 +2650,10 @@ Dynodir cynhaliaeth raglengelloedd sydd ar goll gan *</translation>
     </message>
     <message>
         <source>&amp;About Plug-ins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>More Info...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2923,7 +2977,7 @@ bosibilrwydd o or-ddirlawnder efo inciau CMY.</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation type="unfinished">Rhybudd</translation>
+        <translation type="obsolete">Rhybudd</translation>
     </message>
     <message>
         <source>Some objects are locked.</source>
@@ -3728,12 +3782,12 @@ bosibilrwydd o or-ddirlawnder efo inciau CMY.</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Rhybudd</translation>
+        <translation type="obsolete">Rhybudd</translation>
     </message>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.
 Please choose another.</source>
-        <translation>Nid yw&apos;r enw &quot;%1&quot; yn unigryw.
+        <translation type="obsolete">Nid yw&apos;r enw &quot;%1&quot; yn unigryw.
 Dewiswch un arall.</translation>
     </message>
     <message>
@@ -3783,6 +3837,11 @@ Dewiswch un arall.</translation>
     <message>
         <source>&amp;Name:</source>
         <translation>&amp;Enw:</translation>
+    </message>
+    <message>
+        <source>Name &quot;%1&quot; is not unique.
+Please choose another.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4115,11 +4174,11 @@ Argymhellir alluogi hyn os oes gennych ffotos yn eich dogfen.</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Rhybudd</translation>
+        <translation type="obsolete">Rhybudd</translation>
     </message>
     <message>
         <source>Name of the Color is not unique</source>
-        <translation>Ni yw enw&apos;r Lliw yn unigryw</translation>
+        <translation type="obsolete">Ni yw enw&apos;r Lliw yn unigryw</translation>
     </message>
     <message>
         <source>HSV-Colormap</source>
@@ -4146,16 +4205,20 @@ Argymhellir alluogi hyn os oes gennych ffotos yn eich dogfen.</translation>
         <translation type="unfinished">Dim</translation>
     </message>
     <message>
-        <source>You cannot create a color named &quot;%1&quot;.
-It&apos;s a reserved name for transparent color</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Is Spot Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Is Registration Color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You cannot create a color named &quot;%1&quot;.
+It is a reserved name for transparent color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name of the color is not unique</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4441,6 +4504,11 @@ and the Delete key removes the last inserted one</source>
 %1</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Cannot collect the file: 
+%1</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ColorWheel</name>
@@ -4616,18 +4684,6 @@ and the Delete key removes the last inserted one</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Protanopia (red)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Deuteranopia (green)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tritanopia (blue)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Cr&amp;eate color...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4652,23 +4708,7 @@ and the Delete key removes the last inserted one</source>
         <translation type="unfinished">&amp;Lliw</translation>
     </message>
     <message>
-        <source>Saturation:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Value:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Difference between the selected value and the counted ones. Refer to documentation for more information.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Saturation component in HSV mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Value component in HSV mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4697,6 +4737,30 @@ and the Delete key removes the last inserted one</source>
     </message>
     <message>
         <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;olor Components...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Protanopia (Red)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Deuteranopia (Green)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tritanopia (Blue)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color %1 exists already!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color %1 appended.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4736,6 +4800,10 @@ and the Delete key removes the last inserted one</source>
     <message>
         <source>&amp;Save</source>
         <translation type="unfinished">&amp;Cadw</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation type="unfinished">Rhybudd</translation>
     </message>
 </context>
 <context>
@@ -4998,6 +5066,77 @@ This can be set in the Preferences.</source>
     </message>
 </context>
 <context>
+    <name>CwSetColor</name>
+    <message>
+        <source>Set Color Components</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CMYK</source>
+        <translation type="unfinished">CMYK</translation>
+    </message>
+    <message>
+        <source>RGB</source>
+        <translation type="unfinished">RGB</translation>
+    </message>
+    <message>
+        <source>HSV</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>H:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>S:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>V:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>R:</source>
+        <translation type="unfinished">R:</translation>
+    </message>
+    <message>
+        <source>G:</source>
+        <translation type="unfinished">G:</translation>
+    </message>
+    <message>
+        <source>B:</source>
+        <translation type="unfinished">B:</translation>
+    </message>
+    <message>
+        <source>C:</source>
+        <translation type="unfinished">C:</translation>
+    </message>
+    <message>
+        <source>M:</source>
+        <translation type="unfinished">M:</translation>
+    </message>
+    <message>
+        <source>Y:</source>
+        <translation type="unfinished">Y:</translation>
+    </message>
+    <message>
+        <source>K:</source>
+        <translation type="unfinished">K:</translation>
+    </message>
+    <message>
+        <source>Set &amp;RGB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set C&amp;MYK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set &amp;HSV</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>DeferredTask</name>
     <message>
         <source>Cancelled by user</source>
@@ -5075,6 +5214,21 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>Delete From:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>DelStyle</name>
+    <message>
+        <source>Delete Style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete Style:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Replace With:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5281,6 +5435,92 @@ efo ôl-ddodiad dewisol o gysylltnod a côd gwlad ISO-3166, e.e. en-GB, fr-CH</t
     </message>
     <message>
         <source>The language in which the content of the document is written, usually a ISO-639 language code optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>DocSections</name>
+    <message>
+        <source>Add a page numbering section to the document. The new section will be added after the currently selected section.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete the currently selected section.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>1, 2, 3, ...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>i, ii, iii, ...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>I, II, III, ...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>a, b, c, ...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A, B, C, ...</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>DocSectionsBase</name>
+    <message>
+        <source>Document Sections</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sections</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished">Enw</translation>
+    </message>
+    <message>
+        <source>Active</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>From</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Style</source>
+        <translation type="unfinished">Arddull</translation>
+    </message>
+    <message>
+        <source>Start</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>End</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Add</source>
+        <translation type="unfinished">&amp;Ychwanegu</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Dileu</translation>
+    </message>
+    <message>
+        <source>Alt+D</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5512,7 +5752,7 @@ amrediad tudalennau, neu rhif tudalen unigol.</translation>
     <message>
         <source>Use an alternative print manager, such as kprinter or gtklp,
 to utilize additional printing options</source>
-        <translation>Defnyddio rheolydd argraffu arall, megis kprinter neu gtklp,
+        <translation type="obsolete">Defnyddio rheolydd argraffu arall, megis kprinter neu gtklp,
 i gael dewisiadau argraffu ychwanegol</translation>
     </message>
     <message>
@@ -5595,7 +5835,7 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished">Ffordd o atal rhai o&apos;r arlliwiau llwyd a gyfansoddir o wyrddlas, melyn 
+        <translation type="obsolete">Ffordd o atal rhai o&apos;r arlliwiau llwyd a gyfansoddir o wyrddlas, melyn 
 a magenta, a defnyddio du yn eu lle.  Mae UCR efo&apos;r effaith mwyaf ar 
 ddarnau delweddau sy&apos;n amhendant a/neu sy&apos;n cynnwys graddliwiau tywyll
 sy&apos;n agosaf i&apos;r llwyd.  Gall defnyddio hyn wella argraffu ar rai delweddau,
@@ -5604,6 +5844,26 @@ bosibilrwydd o or-ddirlawnder efo inciau CMY.</translation>
     </message>
     <message>
         <source>PostScript Files (*.ps);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use an alternative print manager, such as kprinter or gtklp, to utilize additional printing options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allows you to embed ICC profiles in the print stream when color management is enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5674,11 +5934,11 @@ methodd
     </message>
     <message>
         <source>Warning</source>
-        <translation>Rhybudd</translation>
+        <translation type="obsolete">Rhybudd</translation>
     </message>
     <message>
         <source>Name of the Style is not unique</source>
-        <translation>Nid yw enw&apos;r Ardull yn unigryw</translation>
+        <translation type="obsolete">Nid yw enw&apos;r Ardull yn unigryw</translation>
     </message>
     <message>
         <source>Name of your paragraph style</source>
@@ -5830,6 +6090,10 @@ methodd
     </message>
     <message>
         <source>Toggles sample text of this paragraph style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name of the style is not unique</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6412,6 +6676,17 @@ Defnyddiwch 72 dpi ar gyfer Delweddau a fwriedir i&apos;r Sgrin</translation>
     </message>
 </context>
 <context>
+    <name>FileLoader</name>
+    <message>
+        <source>Some fonts used by this document have been substituted:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> was replaced by: </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>FontPrefs</name>
     <message>
         <source>Global Font Settings</source>
@@ -6858,6 +7133,10 @@ Defnyddiwch 72 dpi ar gyfer Delweddau a fwriedir i&apos;r Sgrin</translation>
         <comment>guide manager</comment>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&amp;Apply to All Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>HelpBrowser</name>
@@ -7044,6 +7323,85 @@ Mae gwerth o 0 yn golygu cysylltnodiadau heb derfyn. </translation>
     </message>
 </context>
 <context>
+    <name>ImageInfoDialog</name>
+    <message>
+        <source>Image Info</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>General Info</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Date / Time:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Has Embedded Profile:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation type="unfinished">Ydw</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation type="unfinished">Nac ydw</translation>
+    </message>
+    <message>
+        <source>Profile Name:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Has Embedded Paths:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Has Layers:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>EXIF Info</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Artist:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Comment:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User Comment:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Camera Model:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Camera Manufacturer:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Description:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copyright:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scanner Model:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scanner Manufacturer:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ImportPSPlugin</name>
     <message>
         <source>Import &amp;EPS/PS...</source>
@@ -7056,6 +7414,10 @@ Mae gwerth o 0 yn golygu cysylltnodiadau heb derfyn. </translation>
     <message>
         <source>Imports most EPS files into the current document,
 converting their vector data into Scribus objects.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PostScript</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7205,7 +7567,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Rhybudd</translation>
+        <translation type="obsolete">Rhybudd</translation>
     </message>
     <message>
         <source>&amp;Edit...</source>
@@ -7236,7 +7598,7 @@ converting their vector data into Scribus objects.</source>
         <translation>&amp;Ydw</translation>
     </message>
     <message>
-        <source>Do you really want to delete this Script?</source>
+        <source>Do you really want to delete this script?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7288,7 +7650,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Rhybudd</translation>
+        <translation type="obsolete">Rhybudd</translation>
     </message>
     <message>
         <source>&amp;No Key</source>
@@ -7312,7 +7674,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>This Key Sequence is already in use</source>
-        <translation>Mae&apos;r Dilyniant Bysell yma mewn defnydd eisoes</translation>
+        <translation type="obsolete">Mae&apos;r Dilyniant Bysell yma mewn defnydd eisoes</translation>
     </message>
     <message>
         <source>Loadable Shortcut Sets</source>
@@ -7356,6 +7718,10 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Key Set XML Files (*.ksxml)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This key sequence is already in use</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7430,7 +7796,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Rhybudd</translation>
+        <translation type="obsolete">Rhybudd</translation>
     </message>
     <message>
         <source>Open</source>
@@ -7485,12 +7851,19 @@ converting their vector data into Scribus objects.</source>
         <translation>&amp;Ydw</translation>
     </message>
     <message>
-        <source>Do you really want to delete this Style?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Import</source>
         <translation type="unfinished">&amp;Mewnforio</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this style?</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>LoadSavePlugin</name>
+    <message>
+        <source>All Files (*)</source>
+        <translation type="unfinished">Pob Ffeil (*)</translation>
     </message>
 </context>
 <context>
@@ -7691,6 +8064,14 @@ Os dewisir Tudalennau Wynebu, gellir defnyddio&apos;r lle ymylon yma i gael yr y
         <source>Preset Layouts:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Apply margin settings to all pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply the margin changes to all existing pages in the document</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MasterPagesPalette</name>
@@ -7699,24 +8080,8 @@ Os dewisir Tudalennau Wynebu, gellir defnyddio&apos;r lle ymylon yma i gael yr y
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Duplicates the selected master page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Deletes the selected master page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Adds a new master page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Imports master pages from another document</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Warning</source>
-        <translation type="unfinished">Rhybudd</translation>
+        <translation type="obsolete">Rhybudd</translation>
     </message>
     <message>
         <source>Do you really want to delete this master page?</source>
@@ -7757,6 +8122,22 @@ Os dewisir Tudalennau Wynebu, gellir defnyddio&apos;r lle ymylon yma i gael yr y
     <message>
         <source>Normal</source>
         <translation type="unfinished">Arferol</translation>
+    </message>
+    <message>
+        <source>Duplicate the selected master page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete the selected master page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add a new master page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import master pages from another document</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8042,7 +8423,7 @@ amrediad tudalennau, neu rhif tudalen unigol.</translation>
     </message>
     <message>
         <source>to:</source>
-        <translation>i:</translation>
+        <translation type="obsolete">i:</translation>
     </message>
     <message>
         <source>before Page</source>
@@ -8078,6 +8459,14 @@ amrediad tudalennau, neu rhif tudalen unigol.</translation>
     </message>
     <message>
         <source>At End</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To:</source>
+        <translation type="unfinished">I:</translation>
+    </message>
+    <message>
+        <source>Number of copies:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8213,12 +8602,12 @@ amrediad tudalennau, neu rhif tudalen unigol.</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Rhybudd</translation>
+        <translation type="obsolete">Rhybudd</translation>
     </message>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.
 Please choose another.</source>
-        <translation>Nid yw&apos;r enw &quot;%1&quot; yn unigryw.
+        <translation type="obsolete">Nid yw&apos;r enw &quot;%1&quot; yn unigryw.
  Dewiswch un arall.</translation>
     </message>
     <message>
@@ -8355,11 +8744,11 @@ Please choose another.</source>
     </message>
     <message>
         <source>Color of text stroke</source>
-        <translation>Lliw trawiad y testun</translation>
+        <translation type="obsolete">Lliw trawiad y testun</translation>
     </message>
     <message>
         <source>Color of text fill</source>
-        <translation>Lliw llenwad y testun</translation>
+        <translation type="obsolete">Lliw llenwad y testun</translation>
     </message>
     <message>
         <source>Saturation of color of text stroke</source>
@@ -8727,6 +9116,18 @@ Co&amp;rneli:</translation>
         <source>Manual Tracking</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of text stroke. Only available with &quot;outline&quot; text decoration.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of text fill. Only available with &quot;outline&quot; text decoration.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MultiLine</name>
@@ -8800,12 +9201,12 @@ Co&amp;rneli:</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Rhybudd</translation>
+        <translation type="obsolete">Rhybudd</translation>
     </message>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.
 Please choose another.</source>
-        <translation>Nid yw&apos;r enw &quot;%1&quot; yn unigryw.
+        <translation type="obsolete">Nid yw&apos;r enw &quot;%1&quot; yn unigryw.
  Dewiswch un arall.</translation>
     </message>
     <message>
@@ -8815,6 +9216,10 @@ Please choose another.</source>
     <message>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Diddymu</translation>
+    </message>
+    <message>
+        <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9160,14 +9565,6 @@ Os dewisir Tudalennau Wynebu, gellir defnyddio&apos;r lle ymylon yma i gael yr y
         <translation type="obsolete">Tu &amp;Allan:</translation>
     </message>
     <message>
-        <source>Open Document</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Recent Documents</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Do not show this dialog again</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9180,20 +9577,24 @@ Os dewisir Tudalennau Wynebu, gellir defnyddio&apos;r lle ymylon yma i gael yr y
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Documents (*.sla *.scd);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>All Files (*)</source>
-        <translation type="unfinished">Pob Ffeil (*)</translation>
+        <translation type="obsolete">Pob Ffeil (*)</translation>
     </message>
     <message>
         <source>Open</source>
         <translation type="unfinished">Agor</translation>
+    </message>
+    <message>
+        <source>&amp;New Document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open &amp;Existing Document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open Recent &amp;Document</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9370,11 +9771,21 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Imports OpenOffice Draw Files</source>
+        <source>Imports OpenOffice.org Draw Files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Imports most OpenOffice Draw files into the current document, converting their vector data into Scribus objects.</source>
+        <source>Imports most OpenOffice.org Draw files into the current document, converting their vector data into Scribus objects.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OpenDocument 1.0 Draw</source>
+        <comment>Import/export format name</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OpenOffice.org 1.x Draw</source>
+        <comment>Import/export format name</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9419,6 +9830,17 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     <message>
         <source>OK</source>
         <translation type="unfinished">Iawn</translation>
+    </message>
+</context>
+<context>
+    <name>OldScribusFormat</name>
+    <message>
+        <source>Scribus Document</source>
+        <translation type="unfinished">Dogfen Scribus</translation>
+    </message>
+    <message>
+        <source>Scribus 1.2.x Document</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10300,6 +10722,10 @@ bosibilrwydd o or-ddirlawnder efo inciau CMY.</translation>
         <source>Resize the scale of the page.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">Cau</translation>
+    </message>
 </context>
 <context>
     <name>Page</name>
@@ -10722,6 +11148,41 @@ bosibilrwydd o or-ddirlawnder efo inciau CMY.</translation>
     </message>
 </context>
 <context>
+    <name>PagePalette</name>
+    <message>
+        <source>Double sided</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Middle Right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Drag pages or master pages onto the trashbin to delete them</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Here are all your master pages. To create a new page, drag a master page to the page view below</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation type="unfinished">Arferol</translation>
+    </message>
+    <message>
+        <source>Arrange Pages</source>
+        <translation type="unfinished">Trefnu Tudalennau</translation>
+    </message>
+    <message>
+        <source>Available Master Pages:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document Pages:</source>
+        <translation type="unfinished">Tudalennau&apos;r Ddogfen:</translation>
+    </message>
+</context>
+<context>
     <name>PageSelector</name>
     <message>
         <source>Page </source>
@@ -10990,22 +11451,6 @@ bosibilrwydd o or-ddirlawnder efo inciau CMY.</translation>
     <message>
         <source>Plugin: %1 failed to load: %2</source>
         <comment>plugin manager</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PostScript Files (*.eps *.EPS *.ps *.PS);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>SVG Images (*.svg *.svgz);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>SVG Images (*.svg);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>OpenOffice.org Draw (*.sxd);;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -11779,7 +12224,7 @@ bob tro mae&apos;r cyfnod yn gorffen</translation>
     </message>
     <message>
         <source>&amp;Enabled</source>
-        <translation>&amp;Alluogir</translation>
+        <translation type="obsolete">&amp;Alluogir</translation>
     </message>
     <message>
         <source>&amp;Interval:</source>
@@ -12416,15 +12861,27 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation type="unfinished">Dim</translation>
     </message>
     <message>
-        <source>Book</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Magazine</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You can select predefined page layout here. &apos;None&apos; leave margins as is, &apos;Book&apos; sets margins classically (Gutenberg). &apos;Book&apos; is proposed for two-sided documents. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
+        <source>Guttenberg</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fibonacci</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Golden Mean</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Nine Parts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You can select predefined page layout here. &apos;None&apos; leave margins as is, Guttenberg sets margins classically. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -12491,10 +12948,6 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Open File With Python Commands</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Save the Python Commands in File</source>
         <translation type="unfinished"></translation>
     </message>
@@ -12508,6 +12961,10 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>Save Current Output</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open Python Script File</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -13732,10 +14189,6 @@ External Links
         <translation type="obsolete">&amp;Diddymu</translation>
     </message>
     <message>
-        <source>&amp;Proceed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source> pt</source>
         <translation type="unfinished">pt</translation>
     </message>
@@ -13785,11 +14238,6 @@ External Links
     </message>
     <message>
         <source>File exists</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>A file named &apos;%1&apos; already exists.
-Do you want to replace it with the file you are saving?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -14154,10 +14602,6 @@ Do you want to replace it with the file you are saving?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You are running a development version of Scribus 1.3.x. The current document you are working with was originally created in Scribus 1.2.2 or lower. The process of saving will make this file unusable again in Scribus 1.2.2 unless you use File-&gt;Save As. Are you sure you wish to proceed with this operation?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Invalid argument: </source>
         <translation type="unfinished"></translation>
     </message>
@@ -14358,10 +14802,6 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Short Words Manual</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>OpenDocument Text Documents</source>
         <translation type="unfinished"></translation>
     </message>
@@ -14431,6 +14871,59 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>OpenOffice.org Draw Importer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus crashes due to the following exception : %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Creating Font Cache</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Font found, checking...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Modified Font found, checking...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reading Font Cache</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Writing updated Font Cache</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Searching for Fonts</source>
+        <translation type="unfinished">Chwilio am Wynebfathau</translation>
+    </message>
+    <message>
+        <source>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.3 or lower. The process of saving will make this file unusable again in Scribus 1.2.3 unless you use File-&gt;Save As. Are you sure you wish to proceed with this operation?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A file named &apos;%1&apos; already exists.&lt;br/&gt;Do you want to replace it with the file you are saving?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>firstPageOrder is bigger than allowed.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Old .sla format support</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -14690,7 +15183,7 @@ Os dewisir Tudalennau Wynebu, gellir defnyddio&apos;r lle ymylon yma i gael yr y
     </message>
     <message>
         <source>F&amp;irst Page Number:</source>
-        <translation type="unfinished">Rhif y Dudalen &amp;Gyntaf:</translation>
+        <translation type="obsolete">Rhif y Dudalen &amp;Gyntaf:</translation>
     </message>
     <message>
         <source>&amp;Size:</source>
@@ -14818,15 +15311,7 @@ Os dewisir Tudalennau Wynebu, gellir defnyddio&apos;r lle ymylon yma i gael yr y
     </message>
     <message>
         <source>Options</source>
-        <translation type="unfinished">Dewisiadau</translation>
-    </message>
-    <message>
-        <source>Apply size settings to all Pages</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Apply margin settings to all Pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Dewisiadau</translation>
     </message>
     <message>
         <source>Document Information</source>
@@ -14882,6 +15367,18 @@ Os dewisir Tudalennau Wynebu, gellir defnyddio&apos;r lle ymylon yma i gael yr y
     </message>
     <message>
         <source>Enable or disable the display of linked text frames.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply size settings to all pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sections</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply the page size changes to all existing pages in the document</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -15034,25 +15531,118 @@ Os dewisir Tudalennau Wynebu, gellir defnyddio&apos;r lle ymylon yma i gael yr y
 converting their vector data into Scribus objects.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Scalable Vector Graphics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SVG file contains some unsupported features</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SWDialog</name>
+    <message>
+        <source>Short Words</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply unbreakable space on:</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Selected frames</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Active &amp;page</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;All items</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Only selected frames processed.</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Only actual page processed.</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All items in document processed.</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SWPrefsGui</name>
+    <message>
+        <source>User settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>System wide configuration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Save</source>
+        <translation type="unfinished">&amp;Cadw</translation>
+    </message>
+    <message>
+        <source>&amp;Reset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save user configuration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reload system wide configuration and remove user defined one</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit custom configuration. If you save it, it will be used over system wide configuration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Short Words</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User configuration exists elready. Do you really want to overwrite it?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot write file %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User settings saved</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>System wide configuration reloaded</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot open file %1</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SaveAsTemplatePlugin</name>
     <message>
         <source>Save as &amp;Template...</source>
         <translation type="unfinished">Cadw fel &amp;Patrymlun...</translation>
-    </message>
-</context>
-<context>
-    <name>ScActionPlugin</name>
-    <message>
-        <source>Could not find target file %1: %2</source>
-        <comment>plugins</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Could not open target file %1: %2</source>
-        <comment>plugins</comment>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15065,17 +15655,20 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>Import</source>
         <comment>plugin manager plugin type</comment>
-        <translation type="unfinished">Mewnforio</translation>
-    </message>
-    <message>
-        <source>Export</source>
-        <comment>plugin manager plugin type</comment>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Mewnforio</translation>
     </message>
     <message>
         <source>Action</source>
         <comment>plugin manager plugin type</comment>
         <translation type="unfinished">Gweithred</translation>
+    </message>
+    <message>
+        <source>Load/Save/Import/Export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation type="unfinished">Anhysbys</translation>
     </message>
 </context>
 <context>
@@ -15513,7 +16106,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Rhybudd</translation>
+        <translation type="obsolete">Rhybudd</translation>
     </message>
     <message>
         <source>Can&apos;t write the File: 
@@ -15575,75 +16168,75 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>English</source>
-        <translation>Saesneg</translation>
+        <translation type="obsolete">Saesneg</translation>
     </message>
     <message>
         <source>German</source>
-        <translation>Almaeneg</translation>
+        <translation type="obsolete">Almaeneg</translation>
     </message>
     <message>
         <source>Spanish</source>
-        <translation>Sbaeneg</translation>
+        <translation type="obsolete">Sbaeneg</translation>
     </message>
     <message>
         <source>Italian</source>
-        <translation>Eidaleg</translation>
+        <translation type="obsolete">Eidaleg</translation>
     </message>
     <message>
         <source>French</source>
-        <translation>Ffrangeg</translation>
+        <translation type="obsolete">Ffrangeg</translation>
     </message>
     <message>
         <source>Russian</source>
-        <translation>Rwsieg</translation>
+        <translation type="obsolete">Rwsieg</translation>
     </message>
     <message>
         <source>Danish</source>
-        <translation>Daneg</translation>
+        <translation type="obsolete">Daneg</translation>
     </message>
     <message>
         <source>Slovak</source>
-        <translation>Slofaceg</translation>
+        <translation type="obsolete">Slofaceg</translation>
     </message>
     <message>
         <source>Hungarian</source>
-        <translation>Hwngareg</translation>
+        <translation type="obsolete">Hwngareg</translation>
     </message>
     <message>
         <source>Czech</source>
-        <translation>Tsieceg</translation>
+        <translation type="obsolete">Tsieceg</translation>
     </message>
     <message>
         <source>Dutch</source>
-        <translation>Iseldireg</translation>
+        <translation type="obsolete">Iseldireg</translation>
     </message>
     <message>
         <source>Portuguese</source>
-        <translation>Portiwgaleg</translation>
+        <translation type="obsolete">Portiwgaleg</translation>
     </message>
     <message>
         <source>Ukrainian</source>
-        <translation>Wcraineg</translation>
+        <translation type="obsolete">Wcraineg</translation>
     </message>
     <message>
         <source>Polish</source>
-        <translation>Pwyleg</translation>
+        <translation type="obsolete">Pwyleg</translation>
     </message>
     <message>
         <source>Greek</source>
-        <translation>Groeg</translation>
+        <translation type="obsolete">Groeg</translation>
     </message>
     <message>
         <source>Catalan</source>
-        <translation>Catalaneg</translation>
+        <translation type="obsolete">Catalaneg</translation>
     </message>
     <message>
         <source>Finnish</source>
-        <translation>Ffinneg</translation>
+        <translation type="obsolete">Ffinneg</translation>
     </message>
     <message>
         <source>Irish</source>
-        <translation>Gwyddeleg</translation>
+        <translation type="obsolete">Gwyddeleg</translation>
     </message>
     <message>
         <source>Choose a Directory</source>
@@ -15775,15 +16368,15 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Lithuanian</source>
-        <translation>Lithwaneg</translation>
+        <translation type="obsolete">Lithwaneg</translation>
     </message>
     <message>
         <source>Swedish</source>
-        <translation>Swedeg</translation>
+        <translation type="obsolete">Swedeg</translation>
     </message>
     <message>
         <source>Slovenian</source>
-        <translation>Slofeneg</translation>
+        <translation type="obsolete">Slofeneg</translation>
     </message>
     <message>
         <source>&amp;Color Management...</source>
@@ -16262,15 +16855,7 @@ converting their vector data into Scribus objects.</source>
         <translation type="obsolete">Dadwneud &amp;Newid Gwrthrych</translation>
     </message>
     <message>
-        <source>Afrikaans</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Font System Initialized</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Portuguese (BR)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -16306,14 +16891,6 @@ converting their vector data into Scribus objects.</source>
         <translation type="obsolete">Mewnosod &amp;Arbennig</translation>
     </message>
     <message>
-        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Documents (*.sla *.scd);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source> was replaced by: </source>
         <translation type="unfinished"></translation>
     </message>
@@ -16344,10 +16921,6 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;Unlock All</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Bulgarian</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -16423,10 +16996,6 @@ converting their vector data into Scribus objects.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Some fonts used by this document have been substituted:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Some ICC profiles used by this document are not installed:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -16444,10 +17013,6 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Ghostscript : You cannot use EPS images or Print Preview</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Croatian</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -16480,11 +17045,6 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>PostScript</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Scribus has detected some errors.
-Consider using the Pre-flight Checker to correct them</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -16531,6 +17091,10 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Convert Page to Master Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -16808,7 +17372,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Warning</source>
-        <translation type="unfinished">Rhybudd</translation>
+        <translation type="obsolete">Rhybudd</translation>
     </message>
     <message>
         <source>Do you really want to clear all your Text?</source>
@@ -16858,12 +17422,32 @@ Consider using the Preflight Verifier to correct them</source>
         <source>Page %1 to %2</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Colorspace: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation type="unfinished">Anhysbys</translation>
+    </message>
+    <message>
+        <source>RGB</source>
+        <translation type="unfinished">RGB</translation>
+    </message>
+    <message>
+        <source>CMYK</source>
+        <translation type="unfinished">CMYK</translation>
+    </message>
+    <message>
+        <source>Grayscale</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusWin</name>
     <message>
         <source>Warning</source>
-        <translation>Rhybudd</translation>
+        <translation type="obsolete">Rhybudd</translation>
     </message>
     <message>
         <source>Document:</source>
@@ -16875,19 +17459,23 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>&amp;Leave Anyway</source>
-        <translation>Gadael Serch H&amp;ynny</translation>
+        <translation type="obsolete">Gadael Serch H&amp;ynny</translation>
     </message>
     <message>
         <source>C&amp;lose Anyway</source>
-        <translation>Cau Serch &amp;Hynny</translation>
+        <translation type="obsolete">Cau Serch &amp;Hynny</translation>
     </message>
     <message>
         <source>&amp;Save Now</source>
-        <translation>&amp;Cadw Rwan</translation>
+        <translation type="obsolete">&amp;Cadw Rwan</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Diddymu</translation>
+    </message>
+    <message>
+        <source>&amp;Discard</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16990,15 +17578,58 @@ Consider using the Preflight Verifier to correct them</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Extension Scripts</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Enable Extension Scripts</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Startup Script</source>
+        <source>Extensions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Console</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Startup Script:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Errors:</source>
+        <comment>syntax highlighting</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Comments:</source>
+        <comment>syntax highlighting</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Keywords:</source>
+        <comment>syntax highlighting</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Signs:</source>
+        <comment>syntax highlighting</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Numbers:</source>
+        <comment>syntax highlighting</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Strings:</source>
+        <comment>syntax highlighting</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Base Texts:</source>
+        <comment>syntax highlighting</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select Color</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -17014,10 +17645,6 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <source>Show Template Names</source>
         <translation type="obsolete">Dangos Enw Patrymlun</translation>
-    </message>
-    <message>
-        <source>Show Master Page Names</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -17139,7 +17766,7 @@ Consider using the Preflight Verifier to correct them</source>
     <name>SeitenPal</name>
     <message>
         <source>Arrange Pages</source>
-        <translation>Trefnu Tudalennau</translation>
+        <translation type="obsolete">Trefnu Tudalennau</translation>
     </message>
     <message>
         <source>Available Templates:</source>
@@ -17147,11 +17774,11 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Document Pages:</source>
-        <translation>Tudalennau&apos;r Ddogfen:</translation>
+        <translation type="obsolete">Tudalennau&apos;r Ddogfen:</translation>
     </message>
     <message>
         <source>Facing Pages</source>
-        <translation>Tudalennau Wynebu</translation>
+        <translation type="obsolete">Tudalennau Wynebu</translation>
     </message>
     <message>
         <source>Left Page first</source>
@@ -17169,31 +17796,11 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Normal</source>
-        <translation>Arferol</translation>
+        <translation type="obsolete">Arferol</translation>
     </message>
     <message>
         <source>Previews all the pages of your document.</source>
         <translation type="obsolete">Rhagolygu pob tudalen eich dogfen.</translation>
-    </message>
-    <message>
-        <source>Drag pages or master pages onto the trashbin to delete them</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Previews all the pages of your document</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Here are all your master pages. To create a new page, drag a master page to the page view below</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Available Master Pages:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Left Page First</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -17268,10 +17875,6 @@ drag a Template to the Pageview below.</source>
         <source>Short Words</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Special plug-in for adding non-breaking spaces before or after so called short words.</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>SideBar</name>
@@ -17307,15 +17910,15 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Rhybudd</translation>
+        <translation type="obsolete">Rhybudd</translation>
     </message>
     <message>
         <source>No</source>
-        <translation>Nac ydw</translation>
+        <translation type="obsolete">Nac ydw</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation>Ydw</translation>
+        <translation type="obsolete">Ydw</translation>
     </message>
     <message>
         <source>Open</source>
@@ -17365,10 +17968,6 @@ drag a Template to the Pageview below.</source>
         <source>&amp;Import</source>
         <translation type="unfinished">&amp;Mewnforio</translation>
     </message>
-    <message>
-        <source>Do you really want to delete this style?</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>StoryEditor</name>
@@ -17406,7 +18005,7 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Rhybudd</translation>
+        <translation type="obsolete">Rhybudd</translation>
     </message>
     <message>
         <source>Do you really want to lose all your Changes?</source>
@@ -17704,6 +18303,77 @@ drag a Template to the Pageview below.</source>
         <source>Not Shown</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Table of Contents and Indexes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Table Of Contents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Add</source>
+        <translation type="unfinished">&amp;Ychwanegu</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Dileu</translation>
+    </message>
+    <message>
+        <source>Alt+D</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The frame the table of contents will be placed into</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page Numbers Placed:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Item Attribute Name:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The Item Attribute that will be set on frames used as a basis for creation of the entries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Place page numbers of the entries at the beginning or the end of the line, or not at all</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>List Non-Printing Entries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Include frames that are set to not print as well</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The paragraph style used for the entry lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Paragraph Style:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Destination Frame:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Inde&amp;x</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TOCIndexPrefsBase</name>
     <message>
         <source>Table of Contents and Indexes</source>
         <translation type="unfinished"></translation>
@@ -18098,11 +18768,11 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>&amp;Method:</source>
-        <translation type="unfinished">&amp;Dull:</translation>
+        <translation type="obsolete">&amp;Dull:</translation>
     </message>
     <message>
         <source>&amp;Quality:</source>
-        <translation type="unfinished">&amp;Ansawdd:</translation>
+        <translation type="obsolete">&amp;Ansawdd:</translation>
     </message>
     <message>
         <source>Maximum</source>
@@ -18560,7 +19230,7 @@ Gadewch y gosodiad wrth Ymysgogol, onibai bod angen dewisiadau cywasgu arbennig.
     </message>
     <message>
         <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
-        <translation type="unfinished">Lefelau cywasgiad: Lleiaf (25%), Isel (50%), Canolig (75%), Uchel (85%), Uchaf (95%)</translation>
+        <translation type="obsolete">Lefelau cywasgiad: Lleiaf (25%), Isel (50%), Canolig (75%), Uchel (85%), Uchaf (95%)</translation>
     </message>
     <message>
         <source>Downsample your bitmap images to the selected DPI.
@@ -18604,13 +19274,13 @@ nodweddion diogelwch yn eich PDF allforedig</translation>
     <message>
         <source>Allow copying of text or graphics from the PDF. 
 If un-checked, text and graphics cannot be copied.</source>
-        <translation type="unfinished">Caniatáu copïo testun a graffeg i&apos;r PDF.
+        <translation type="obsolete">Caniatáu copïo testun a graffeg i&apos;r PDF.
 Os na frithir, atelir copïo testun a graffeg.</translation>
     </message>
     <message>
         <source>Allow adding annotations and fields to the PDF. 
 If un-checked, editing annotations and fileds is prevented.</source>
-        <translation type="unfinished">Caniatáu ychwanegu anodiadau a meyseydd i&apos;r PDF.
+        <translation type="obsolete">Caniatáu ychwanegu anodiadau a meyseydd i&apos;r PDF.
 Os na frithir, atelir golygu anodiadau a ffeiliau.</translation>
     </message>
     <message>
@@ -18709,26 +19379,8 @@ cydymffurfiad PDF/X-3.  Argymhellir defnyddio teitl y ddogfen.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Determines the PDF compatibility.
-The default is PDF 1.3 which gives the widest compatibility.
-Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption.
-PDF/X-3 is for exporting the PDF, when you want color managed RGB for commercial printing
- and is selectable when you have activated color management. 
-Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Layers in your document are exported to the PDF
 Only available if PDF 1.5 is choosen.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enable lossless compression of text and graphics.
-Unless you have a reason, leave this checked. This reduces PDF size.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -18746,6 +19398,43 @@ Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does 
     </message>
     <message>
         <source>Convert Spot Colors to Process Colors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Compression &amp;Method:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Compression &amp;Quality:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enables lossless compression of text and graphics.
+Unless you have a reason, leave this checked. This reduces PDF file size.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow copying of text or graphics from the PDF. If unchecked, text and graphics cannot be copied.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow adding annotations and fields to the PDF. If unchecked, editing annotations and fields is prevented.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -19792,6 +20481,10 @@ to %2</source>
         <source>Get image</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Text on a Path</source>
+        <translation type="unfinished">Testun ar Lwybr</translation>
+    </message>
 </context>
 <context>
     <name>UndoPalette</name>
@@ -19854,31 +20547,6 @@ to %2</source>
 <context>
     <name>VlnaDialog</name>
     <message>
-        <source>Short Words</source>
-        <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Apply unbreakable space on:</source>
-        <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Selected frames</source>
-        <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Active &amp;page</source>
-        <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;All items</source>
-        <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;OK</source>
         <comment>short words plugin</comment>
         <translation type="obsolete">&amp;Iawn</translation>
@@ -19889,95 +20557,12 @@ to %2</source>
         <translation type="obsolete">&amp;Diddymu</translation>
     </message>
     <message>
-        <source>Replace defaults by user config</source>
-        <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>When the user config file exists 
-(%1)
-you can choose if you want to append your config
-to the global configuration by unchecked button.
-
-You can replace predefined values by yours
-with checked button too.</source>
-        <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Only selected frames processed.</source>
-        <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Only actual page processed.</source>
-        <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>All items in document processed.</source>
-        <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Short Words for Scribus</source>
-        <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Available in the following languages</source>
-        <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>About Short Words</source>
-        <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Edit &amp;system configuration...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Edit &amp;user configuration...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>S&amp;etup editor...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Edit</source>
-        <translation type="unfinished">&amp;Golygu</translation>
-    </message>
-    <message>
-        <source>&amp;Info and Languages...</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">&amp;Golygu</translation>
     </message>
     <message>
         <source>&amp;Help</source>
-        <translation type="unfinished">&amp;Cymorth</translation>
-    </message>
-    <message>
-        <source>Short Words</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You are starting to edit read-only file.
-%1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Application &apos;%1&apos; error. Cannot be started.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Short Words setup</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enter name of the plain text editor executable:</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">&amp;Cymorth</translation>
     </message>
 </context>
 <context>

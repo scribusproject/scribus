@@ -285,7 +285,7 @@ is not in points, make sure to account for this.
 example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
                 FACINGPAGES, FIRSTPAGERIGHT)
 </source>
-        <translation>newDoc(mida, marges, orientació, primerNumeroPagina,
+        <translation type="obsolete">newDoc(mida, marges, orientació, primerNumeroPagina,
                    unitats, PaginesArarades, primercostatEsquerra) -&gt; bool
 
 Crea un nou document i retorna cert si se n&apos;ha sortit. Els paràmetres signifiquen el 
@@ -350,6 +350,47 @@ must be UTF8 encoded or &apos;unicode&apos; string(recommended).
 
 &quot;String&quot; ha de ser un nom vàlid per un fitxer SVG. El text
 ha de ser en codi UTF8 o unicode (recomanat).</translation>
+    </message>
+    <message>
+        <source>newDocument(size, margins, orientation, firstPageNumber,
+                        unit, pagesType, firstPageOrder) -&gt; bool
+
+Creates a new document and returns true if successful. The parameters have the
+following meaning:
+
+size = A tuple (width, height) describing the size of the document. You can
+use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
+
+margins = A tuple (left, right, top, bottom) describing the document
+margins
+
+orientation = the page orientation - constants PORTRAIT, LANDSCAPE
+
+firstPageNumer = is the number of the first page in the document used for
+pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
+numbers if you&apos;re creating a document in several parts.
+
+unit: this value sets the measurement units used by the document. Use a
+predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
+UNIT_PICAS, UNIT_POINTS.
+
+pagesType = One of the predefined constants PAGE_n. PAGE_1 is single page,
+PAGE_2 is for double sided documents, PAGE_3 is for 3 pages fold and
+PAGE_4 is 4-fold.
+
+firstPageOrder = What is position of first page in the document.
+Indexed from 0 (0 = first).
+
+The values for width, height and the margins are expressed in the given unit
+for the document. PAPER_* constants are expressed in points. If your document
+is not in points, make sure to account for this.
+
+example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
+PAGE_4, 3)
+
+May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
+</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2804,6 +2845,44 @@ Si no s&apos;especifica &quot;nom&quot; es fa servir l&apos;element actual.
 
 Pot generar un WrongFrameTypeError si el marc de destí no és de text</translation>
     </message>
+    <message>
+        <source>newDoc(size, margins, orientation, firstPageNumber,
+                   unit, facingPages, firstSideLeft) -&gt; bool
+
+WARNING: Obsolete procedure! Use newDocument instead.
+
+Creates a new document and returns true if successful. The parameters have the
+following meaning:
+
+    size = A tuple (width, height) describing the size of the document. You can
+    use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
+
+    margins = A tuple (left, right, top, bottom) describing the document
+    margins
+
+    orientation = the page orientation - constants PORTRAIT, LANDSCAPE
+
+    firstPageNumer = is the number of the first page in the document used for
+    pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
+    numbers if you&apos;re creating a document in several parts.
+
+    unit: this value sets the measurement units used by the document. Use a
+    predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
+    UNIT_PICAS, UNIT_POINTS.
+
+    facingPages = FACINGPAGES, NOFACINGPAGES
+
+    firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT
+
+The values for width, height and the margins are expressed in the given unit
+for the document. PAPER_* constants are expressed in points. If your document
+is not in points, make sure to account for this.
+
+example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
+                FACINGPAGES, FIRSTPAGERIGHT)
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -2823,7 +2902,7 @@ Pot generar un WrongFrameTypeError si el marc de destí no és de text</translat
     </message>
     <message>
         <source>Build-ID:</source>
-        <translation>ID-Creació:</translation>
+        <translation type="obsolete">ID-Creació:</translation>
     </message>
     <message>
         <source>&amp;About</source>
@@ -3028,20 +3107,20 @@ Les llibreries que manquen es mostren amb un *</translation>
     </message>
     <message>
         <source>%1 %2 %3 </source>
-        <translation>%1 %2 %3 </translation>
+        <translation type="obsolete">%1 %2 %3 </translation>
     </message>
     <message>
         <source>Using GhostScript version %1</source>
-        <translation>Fent servir GhostScript versió %1</translation>
+        <translation type="obsolete">Fent servir GhostScript versió %1</translation>
     </message>
     <message>
         <source>No GS version available</source>
-        <translation>No tenim disponible versió de GS</translation>
+        <translation type="obsolete">No tenim disponible versió de GS</translation>
     </message>
     <message>
         <source>Scribus Version %1
 %2 %3 (%4)</source>
-        <translation>Versió d&apos;Scribus %1
+        <translation type="obsolete">Versió d&apos;Scribus %1
 %2 %3 (%4)</translation>
     </message>
     <message>
@@ -3058,7 +3137,39 @@ Les llibreries que manquen es mostren amb un *</translation>
     </message>
     <message>
         <source>This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart Missing library support is indicated by a * This also indicates the version of Ghostscript which Scribus has detected.</source>
-        <translation>Aquest panell mostra la versió, data de creació i suport de llibreries afegit a Scribus. C-C-T-F significa suport per C=littlecms C=CUPS T=TIFF  F=Fontconfig. La darrera lletra és per el representador C=cairo o A=libart. Les llibreries no disponibles es mostren amb un *. També es veu la versió de Ghostscript que Scribus ha detectat.</translation>
+        <translation type="obsolete">Aquest panell mostra la versió, data de creació i suport de llibreries afegit a Scribus. C-C-T-F significa suport per C=littlecms C=CUPS T=TIFF  F=Fontconfig. La darrera lletra és per el representador C=cairo o A=libart. Les llibreries no disponibles es mostren amb un *. També es veu la versió de Ghostscript que Scribus ha detectat.</translation>
+    </message>
+    <message>
+        <source>November</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 %2 %3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%3-%2-%1 %4 %5</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Using Ghostscript version %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No Ghostscript version available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Scribus Version %1&lt;/b&gt;&lt;p&gt;%2&lt;br/&gt;%3 %4&lt;br/&gt;%5&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Build ID:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3867,7 +3978,7 @@ Les llibreries que manquen es mostren amb un *</translation>
     </message>
     <message>
         <source>Double Turned Comma</source>
-        <translation>Cometes dobes girades</translation>
+        <translation type="obsolete">Cometes dobes girades</translation>
     </message>
     <message>
         <source>CJK Single Left</source>
@@ -3916,6 +4027,10 @@ Les llibreries que manquen es mostren amb un *</translation>
     <message>
         <source>&amp;About Plug-ins</source>
         <translation>&amp;Sobre connectors</translation>
+    </message>
+    <message>
+        <source>More Info...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4238,7 +4353,7 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Avís</translation>
+        <translation type="obsolete">Avís</translation>
     </message>
     <message>
         <source>Some objects are locked.</source>
@@ -5075,12 +5190,12 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Avís</translation>
+        <translation type="obsolete">Avís</translation>
     </message>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.
 Please choose another.</source>
-        <translation>El Nom &quot;%1&quot; no és únic
+        <translation type="obsolete">El Nom &quot;%1&quot; no és únic
 Si us plau tria&apos;n un altre.</translation>
     </message>
     <message>
@@ -5098,6 +5213,11 @@ Si us plau tria&apos;n un altre.</translation>
     <message>
         <source>New Entry</source>
         <translation>Nova Entrada</translation>
+    </message>
+    <message>
+        <source>Name &quot;%1&quot; is not unique.
+Please choose another.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5446,11 +5566,11 @@ Es recomana activar-lo si tens colors en el teu document.</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Avís</translation>
+        <translation type="obsolete">Avís</translation>
     </message>
     <message>
         <source>Name of the Color is not unique</source>
-        <translation>El nom del color no és únic</translation>
+        <translation type="obsolete">El nom del color no és únic</translation>
     </message>
     <message>
         <source>OK</source>
@@ -5463,7 +5583,7 @@ Es recomana activar-lo si tens colors en el teu document.</translation>
     <message>
         <source>You cannot create a color named &quot;%1&quot;.
 It&apos;s a reserved name for transparent color</source>
-        <translation>No pots crear un color que es digui &quot;%1&quot;.
+        <translation type="obsolete">No pots crear un color que es digui &quot;%1&quot;.
 És un nom reservat per un color transparent</translation>
     </message>
     <message>
@@ -5473,6 +5593,15 @@ It&apos;s a reserved name for transparent color</source>
     <message>
         <source>Is Registration Color</source>
         <translation>És Registration Color</translation>
+    </message>
+    <message>
+        <source>You cannot create a color named &quot;%1&quot;.
+It is a reserved name for transparent color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name of the color is not unique</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5762,6 +5891,11 @@ i la Esborrar elimina la darrera inserció</translation>
         <translation>No puc triar tots els fitxers per sortir al fitxer:
 %1</translation>
     </message>
+    <message>
+        <source>Cannot collect the file: 
+%1</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ColorWheel</name>
@@ -5938,15 +6072,15 @@ i la Esborrar elimina la darrera inserció</translation>
     </message>
     <message>
         <source>Protanopia (red)</source>
-        <translation>Protanopia (vermell)</translation>
+        <translation type="obsolete">Protanopia (vermell)</translation>
     </message>
     <message>
         <source>Deuteranopia (green)</source>
-        <translation>Deuteranopia (verd)</translation>
+        <translation type="obsolete">Deuteranopia (verd)</translation>
     </message>
     <message>
         <source>Tritanopia (blue)</source>
-        <translation>Tritanopia (blau)</translation>
+        <translation type="obsolete">Tritanopia (blau)</translation>
     </message>
     <message>
         <source>Cr&amp;eate color...</source>
@@ -5974,11 +6108,11 @@ i la Esborrar elimina la darrera inserció</translation>
     </message>
     <message>
         <source>Saturation:</source>
-        <translation>Intensitat:</translation>
+        <translation type="obsolete">Intensitat:</translation>
     </message>
     <message>
         <source>Value:</source>
-        <translation>Valor:</translation>
+        <translation type="obsolete">Valor:</translation>
     </message>
     <message>
         <source>Difference between the selected value and the counted ones. Refer to documentation for more information.</source>
@@ -5986,11 +6120,11 @@ i la Esborrar elimina la darrera inserció</translation>
     </message>
     <message>
         <source>Saturation component in HSV mode</source>
-        <translation>Component de Intensitat (S) en mode HSV</translation>
+        <translation type="obsolete">Component de Intensitat (S) en mode HSV</translation>
     </message>
     <message>
         <source>Value component in HSV mode</source>
-        <translation>Valor del component en mode HSV</translation>
+        <translation type="obsolete">Valor del component en mode HSV</translation>
     </message>
     <message>
         <source>Click the wheel to get the base color. It is hue in HSV mode.</source>
@@ -6019,6 +6153,30 @@ i la Esborrar elimina la darrera inserció</translation>
     <message>
         <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
         <translation>No puc trobar el color demanat. Potser has triat negre, gris o blanc. No hi ha forma de processar aquest color.</translation>
+    </message>
+    <message>
+        <source>C&amp;olor Components...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Protanopia (Red)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Deuteranopia (Green)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tritanopia (Blue)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color %1 exists already!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color %1 appended.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6057,6 +6215,10 @@ i la Esborrar elimina la darrera inserció</translation>
     <message>
         <source>&amp;Save</source>
         <translation>&amp;Desa</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation type="unfinished">Avís</translation>
     </message>
 </context>
 <context>
@@ -6318,6 +6480,77 @@ Això es pot posar en les Preferències.</translation>
     </message>
 </context>
 <context>
+    <name>CwSetColor</name>
+    <message>
+        <source>Set Color Components</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CMYK</source>
+        <translation type="unfinished">CMYK</translation>
+    </message>
+    <message>
+        <source>RGB</source>
+        <translation type="unfinished">RGB</translation>
+    </message>
+    <message>
+        <source>HSV</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>H:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>S:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>V:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>R:</source>
+        <translation type="unfinished">R:</translation>
+    </message>
+    <message>
+        <source>G:</source>
+        <translation type="unfinished">G:</translation>
+    </message>
+    <message>
+        <source>B:</source>
+        <translation type="unfinished">B:</translation>
+    </message>
+    <message>
+        <source>C:</source>
+        <translation type="unfinished">C:</translation>
+    </message>
+    <message>
+        <source>M:</source>
+        <translation type="unfinished">M:</translation>
+    </message>
+    <message>
+        <source>Y:</source>
+        <translation type="unfinished">Y:</translation>
+    </message>
+    <message>
+        <source>K:</source>
+        <translation type="unfinished">K:</translation>
+    </message>
+    <message>
+        <source>Set &amp;RGB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set C&amp;MYK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set &amp;HSV</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>DeferredTask</name>
     <message>
         <source>Cancelled by user</source>
@@ -6396,6 +6629,21 @@ Això es pot posar en les Preferències.</translation>
     <message>
         <source>Delete From:</source>
         <translation>Esborra des de:</translation>
+    </message>
+</context>
+<context>
+    <name>DelStyle</name>
+    <message>
+        <source>Delete Style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete Style:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Replace With:</source>
+        <translation type="unfinished">Canvia&apos;l per:</translation>
     </message>
 </context>
 <context>
@@ -6605,6 +6853,92 @@ opcionalment amb el sufixe de país de ISO-3166, ex. en-GB, fr-CH</translation>
     </message>
 </context>
 <context>
+    <name>DocSections</name>
+    <message>
+        <source>Add a page numbering section to the document. The new section will be added after the currently selected section.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete the currently selected section.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>1, 2, 3, ...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>i, ii, iii, ...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>I, II, III, ...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>a, b, c, ...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A, B, C, ...</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>DocSectionsBase</name>
+    <message>
+        <source>Document Sections</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sections</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished">Nom</translation>
+    </message>
+    <message>
+        <source>Active</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>From</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Style</source>
+        <translation type="unfinished">Estil</translation>
+    </message>
+    <message>
+        <source>Start</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>End</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Add</source>
+        <translation type="unfinished">&amp;Afegeix</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation type="unfinished">Alt+A</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+D</source>
+        <translation type="unfinished">Alt+D</translation>
+    </message>
+</context>
+<context>
     <name>DocumentItemAttributes</name>
     <message>
         <source>None</source>
@@ -6740,7 +7074,7 @@ opcionalment amb el sufixe de país de ISO-3166, ex. en-GB, fr-CH</translation>
     <message>
         <source>Use an alternative print manager, such as kprinter or gtklp,
 to utilize additional printing options</source>
-        <translation>Fes servir un servidor d&apos;impressió alternatiu com kprinter o gtklp,
+        <translation type="obsolete">Fes servir un servidor d&apos;impressió alternatiu com kprinter o gtklp,
 per fer servir opcions addicionals</translation>
     </message>
     <message>
@@ -6917,7 +7251,7 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>Una forma d&apos;apagar algunes de les intensitats de grisos que estan composades
+        <translation type="obsolete">Una forma d&apos;apagar algunes de les intensitats de grisos que estan composades
 per cian, groc i magenta però fan servir negre.
 UCR pot afectar parts de imatges que són de color neutral o tons foscos
 propers a gris. Fes servir això pot millorar la impressió d&apos;algunes imatges 
@@ -6927,6 +7261,26 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
     <message>
         <source>PostScript Files (*.ps);;All Files (*)</source>
         <translation>Fitxers PostScript (*.ps);;Tots els Fitxers (*)</translation>
+    </message>
+    <message>
+        <source>Use an alternative print manager, such as kprinter or gtklp, to utilize additional printing options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allows you to embed ICC profiles in the print stream when color management is enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7226,11 +7580,11 @@ es pot desar amb aquest formulari. L&apos;error és:
     </message>
     <message>
         <source>Warning</source>
-        <translation>Avís</translation>
+        <translation type="obsolete">Avís</translation>
     </message>
     <message>
         <source>Name of the Style is not unique</source>
-        <translation>El nom de l&apos;Estil no és únic</translation>
+        <translation type="obsolete">El nom de l&apos;Estil no és únic</translation>
     </message>
     <message>
         <source>OK</source>
@@ -7275,6 +7629,10 @@ es pot desar amb aquest formulari. L&apos;error és:
     <message>
         <source>Toggles sample text of this paragraph style</source>
         <translation>Commuta el text d&apos;aquest estil de paràgraf</translation>
+    </message>
+    <message>
+        <source>Name of the style is not unique</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7857,6 +8215,17 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
     </message>
 </context>
 <context>
+    <name>FileLoader</name>
+    <message>
+        <source>Some fonts used by this document have been substituted:</source>
+        <translation type="unfinished">Algunes fonts fetes servir en aquest document han estat remplaçades:</translation>
+    </message>
+    <message>
+        <source> was replaced by: </source>
+        <translation type="unfinished"> ha estat canviat per: </translation>
+    </message>
+</context>
+<context>
     <name>FontPrefs</name>
     <message>
         <source>Global Font Settings</source>
@@ -8297,6 +8666,10 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
         <comment>guide manager</comment>
         <translation>Posa les guies al document. El gestor de guies encara està obert però els canvis són persistents</translation>
     </message>
+    <message>
+        <source>&amp;Apply to All Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>HelpBrowser</name>
@@ -8484,6 +8857,85 @@ Un valor de 0 significa infinites particions.</translation>
     </message>
 </context>
 <context>
+    <name>ImageInfoDialog</name>
+    <message>
+        <source>Image Info</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>General Info</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Date / Time:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Has Embedded Profile:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation type="unfinished">Si</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation type="unfinished">No</translation>
+    </message>
+    <message>
+        <source>Profile Name:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Has Embedded Paths:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Has Layers:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>EXIF Info</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Artist:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Comment:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User Comment:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Camera Model:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Camera Manufacturer:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Description:</source>
+        <translation type="unfinished">Descripció:</translation>
+    </message>
+    <message>
+        <source>Copyright:</source>
+        <translation type="unfinished">Copyright:</translation>
+    </message>
+    <message>
+        <source>Scanner Model:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scanner Manufacturer:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ImportPSPlugin</name>
     <message>
         <source>Import &amp;EPS/PS...</source>
@@ -8498,6 +8950,10 @@ Un valor de 0 significa infinites particions.</translation>
 converting their vector data into Scribus objects.</source>
         <translation>Importa la majoria dels fitxers EPS al document, 
 convertint el seu vector de dades en objectes Scribus.</translation>
+    </message>
+    <message>
+        <source>PostScript</source>
+        <translation type="unfinished">PostScript</translation>
     </message>
 </context>
 <context>
@@ -8666,11 +9122,11 @@ convertint el seu vector de dades en objectes Scribus.</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Avís</translation>
+        <translation type="obsolete">Avís</translation>
     </message>
     <message>
         <source>Do you really want to delete this Script?</source>
-        <translation>Realment vols esborrar la Seqüència?</translation>
+        <translation type="obsolete">Realment vols esborrar la Seqüència?</translation>
     </message>
     <message>
         <source>&amp;No</source>
@@ -8679,6 +9135,10 @@ convertint el seu vector de dades en objectes Scribus.</translation>
     <message>
         <source>&amp;Yes</source>
         <translation>&amp;Si</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this script?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8749,11 +9209,11 @@ convertint el seu vector de dades en objectes Scribus.</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Avís</translation>
+        <translation type="obsolete">Avís</translation>
     </message>
     <message>
         <source>This Key Sequence is already in use</source>
-        <translation>Aquesta Seqüència ja es fa servir</translation>
+        <translation type="obsolete">Aquesta Seqüència ja es fa servir</translation>
     </message>
     <message>
         <source>Loadable Shortcut Sets</source>
@@ -8798,6 +9258,10 @@ convertint el seu vector de dades en objectes Scribus.</translation>
     <message>
         <source>Key Set XML Files (*.ksxml)</source>
         <translation>Fitxer XML de Conjunt de tecles (*.ksxml)</translation>
+    </message>
+    <message>
+        <source>This key sequence is already in use</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8903,11 +9367,11 @@ convertint el seu vector de dades en objectes Scribus.</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Avís</translation>
+        <translation type="obsolete">Avís</translation>
     </message>
     <message>
         <source>Do you really want to delete this Style?</source>
-        <translation>Realment vols esborrar aquest Estil?</translation>
+        <translation type="obsolete">Realment vols esborrar aquest Estil?</translation>
     </message>
     <message>
         <source>&amp;No</source>
@@ -8932,6 +9396,17 @@ convertint el seu vector de dades en objectes Scribus.</translation>
     <message>
         <source>&amp;Import</source>
         <translation>&amp;Importa</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this style?</source>
+        <translation type="unfinished">Realment vols esborrar aquest Estil?</translation>
+    </message>
+</context>
+<context>
+    <name>LoadSavePlugin</name>
+    <message>
+        <source>All Files (*)</source>
+        <translation type="unfinished">Tots els Fitxers (*)</translation>
     </message>
 </context>
 <context>
@@ -9383,6 +9858,14 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
         <source>Preset Layouts:</source>
         <translation>Formats predefinits:</translation>
     </message>
+    <message>
+        <source>Apply margin settings to all pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply the margin changes to all existing pages in the document</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MasterPagesPalette</name>
@@ -9392,23 +9875,23 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     </message>
     <message>
         <source>Duplicates the selected master page</source>
-        <translation>Duplica la pàgina mestra triada</translation>
+        <translation type="obsolete">Duplica la pàgina mestra triada</translation>
     </message>
     <message>
         <source>Deletes the selected master page</source>
-        <translation>Esborra la pàgina mestra triada</translation>
+        <translation type="obsolete">Esborra la pàgina mestra triada</translation>
     </message>
     <message>
         <source>Adds a new master page</source>
-        <translation>Afegir una nova pàgina mestra</translation>
+        <translation type="obsolete">Afegir una nova pàgina mestra</translation>
     </message>
     <message>
         <source>Imports master pages from another document</source>
-        <translation>Importa les pàgines mestres d&apos;un altre document</translation>
+        <translation type="obsolete">Importa les pàgines mestres d&apos;un altre document</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Avís</translation>
+        <translation type="obsolete">Avís</translation>
     </message>
     <message>
         <source>Do you really want to delete this master page?</source>
@@ -9449,6 +9932,22 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     <message>
         <source>Normal</source>
         <translation>Normal</translation>
+    </message>
+    <message>
+        <source>Duplicate the selected master page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete the selected master page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add a new master page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import master pages from another document</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9727,7 +10226,7 @@ un rang de pàgines o un número sol.
     </message>
     <message>
         <source>to:</source>
-        <translation>a:</translation>
+        <translation type="obsolete">a:</translation>
     </message>
     <message>
         <source>before Page</source>
@@ -9764,6 +10263,14 @@ un rang de pàgines o un número sol.
     <message>
         <source>At End</source>
         <translation>Al final de</translation>
+    </message>
+    <message>
+        <source>To:</source>
+        <translation type="unfinished">A:</translation>
+    </message>
+    <message>
+        <source>Number of copies:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10176,11 +10683,11 @@ A&amp;rrodonits:</translation>
     </message>
     <message>
         <source>Color of text stroke</source>
-        <translation>Color del voltant del text</translation>
+        <translation type="obsolete">Color del voltant del text</translation>
     </message>
     <message>
         <source>Color of text fill</source>
-        <translation>Color d&apos;emplenat de text</translation>
+        <translation type="obsolete">Color d&apos;emplenat de text</translation>
     </message>
     <message>
         <source>Saturation of color of text stroke</source>
@@ -10356,12 +10863,12 @@ A&amp;rrodonits:</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Avís</translation>
+        <translation type="obsolete">Avís</translation>
     </message>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.
 Please choose another.</source>
-        <translation>El Nom &quot;%1&quot; no és únic
+        <translation type="obsolete">El Nom &quot;%1&quot; no és únic
 Si us plau tria&apos;n un altre.</translation>
     </message>
     <message>
@@ -10411,6 +10918,18 @@ Si us plau tria&apos;n un altre.</translation>
     <message>
         <source>Manual Tracking</source>
         <translation>Espai entre caràcters manual</translation>
+    </message>
+    <message>
+        <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of text stroke. Only available with &quot;outline&quot; text decoration.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of text fill. Only available with &quot;outline&quot; text decoration.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10489,17 +11008,21 @@ Si us plau tria&apos;n un altre.</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Avís</translation>
+        <translation type="obsolete">Avís</translation>
     </message>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.
 Please choose another.</source>
-        <translation>El Nom &quot;%1&quot; no és únic
+        <translation type="obsolete">El Nom &quot;%1&quot; no és únic
 Si us plau tria&apos;n un altre.</translation>
     </message>
     <message>
         <source>OK</source>
         <translation>D&apos;acord</translation>
+    </message>
+    <message>
+        <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10819,11 +11342,11 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     </message>
     <message>
         <source>Open Document</source>
-        <translation>Obrir document</translation>
+        <translation type="obsolete">Obrir document</translation>
     </message>
     <message>
         <source>Recent Documents</source>
-        <translation>Documents recents</translation>
+        <translation type="obsolete">Documents recents</translation>
     </message>
     <message>
         <source>Do not show this dialog again</source>
@@ -10839,19 +11362,31 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;</source>
-        <translation>Documents (*.sla *.sla.gz *.scd *.scd.gz);;</translation>
+        <translation type="obsolete">Documents (*.sla *.sla.gz *.scd *.scd.gz);;</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;</source>
-        <translation>Documents (*.sla *.scd);;</translation>
+        <translation type="obsolete">Documents (*.sla *.scd);;</translation>
     </message>
     <message>
         <source>All Files (*)</source>
-        <translation>Tots els Fitxers (*)</translation>
+        <translation type="obsolete">Tots els Fitxers (*)</translation>
     </message>
     <message>
         <source>Open</source>
         <translation>Obre</translation>
+    </message>
+    <message>
+        <source>&amp;New Document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open &amp;Existing Document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open Recent &amp;Document</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11029,11 +11564,29 @@ Pàgina, i sinó Coordenades Relatives a l&apos;Objecte.</translation>
     </message>
     <message>
         <source>Imports OpenOffice Draw Files</source>
-        <translation>Importar fitxers de dibuixos d&apos;OpenOffice</translation>
+        <translation type="obsolete">Importar fitxers de dibuixos d&apos;OpenOffice</translation>
     </message>
     <message>
         <source>Imports most OpenOffice Draw files into the current document, converting their vector data into Scribus objects.</source>
-        <translation>Importa la majoria dels fitxers de dibuixos d&apos;OpenOffice al document actual, convertint les dades vectorials a objectes Scribus.</translation>
+        <translation type="obsolete">Importa la majoria dels fitxers de dibuixos d&apos;OpenOffice al document actual, convertint les dades vectorials a objectes Scribus.</translation>
+    </message>
+    <message>
+        <source>Imports OpenOffice.org Draw Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports most OpenOffice.org Draw files into the current document, converting their vector data into Scribus objects.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OpenDocument 1.0 Draw</source>
+        <comment>Import/export format name</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OpenOffice.org 1.x Draw</source>
+        <comment>Import/export format name</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11077,6 +11630,17 @@ Pàgina, i sinó Coordenades Relatives a l&apos;Objecte.</translation>
     <message>
         <source>OK</source>
         <translation>D&apos;acord</translation>
+    </message>
+</context>
+<context>
+    <name>OldScribusFormat</name>
+    <message>
+        <source>Scribus Document</source>
+        <translation type="unfinished">Document Scribus</translation>
+    </message>
+    <message>
+        <source>Scribus 1.2.x Document</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11991,6 +12555,10 @@ els gràfics vectorials en la previsualització, però la previsualitació serà
         <source>Resize the scale of the page.</source>
         <translation>Redueix l&apos;escala de la pàgina.</translation>
     </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">Tanca</translation>
+    </message>
 </context>
 <context>
     <name>Page</name>
@@ -12413,6 +12981,41 @@ els gràfics vectorials en la previsualització, però la previsualitació serà
     </message>
 </context>
 <context>
+    <name>PagePalette</name>
+    <message>
+        <source>Double sided</source>
+        <translation type="unfinished">Doble cara</translation>
+    </message>
+    <message>
+        <source>Middle Right</source>
+        <translation type="unfinished">Mig dreta</translation>
+    </message>
+    <message>
+        <source>Drag pages or master pages onto the trashbin to delete them</source>
+        <translation type="unfinished">Arrossega les pàgines o les pàgines mestres a la paperera per esborrar-les</translation>
+    </message>
+    <message>
+        <source>Here are all your master pages. To create a new page, drag a master page to the page view below</source>
+        <translation type="unfinished">Aquí hi ha totes les pàgines mestres. Per crear una pàgina nova, arrossega una pàgina mestr a la vista de pàgina de sota</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation type="unfinished">Normal</translation>
+    </message>
+    <message>
+        <source>Arrange Pages</source>
+        <translation type="unfinished">Organitza Pàgines</translation>
+    </message>
+    <message>
+        <source>Available Master Pages:</source>
+        <translation type="unfinished">Pàgines mestres disponibles:</translation>
+    </message>
+    <message>
+        <source>Document Pages:</source>
+        <translation type="unfinished">Pàgines:</translation>
+    </message>
+</context>
+<context>
     <name>PageSelector</name>
     <message>
         <source>Page </source>
@@ -12685,19 +13288,19 @@ els gràfics vectorials en la previsualització, però la previsualitació serà
     </message>
     <message>
         <source>PostScript Files (*.eps *.EPS *.ps *.PS);;</source>
-        <translation>Fitxers PostScript (*.eps *.EPS *.ps *.PS);;</translation>
+        <translation type="obsolete">Fitxers PostScript (*.eps *.EPS *.ps *.PS);;</translation>
     </message>
     <message>
         <source>SVG Images (*.svg *.svgz);;</source>
-        <translation>Imatges SVG (*.svg *.svgz);;</translation>
+        <translation type="obsolete">Imatges SVG (*.svg *.svgz);;</translation>
     </message>
     <message>
         <source>SVG Images (*.svg);;</source>
-        <translation>Imatges SVG (*.svg);;</translation>
+        <translation type="obsolete">Imatges SVG (*.svg);;</translation>
     </message>
     <message>
         <source>OpenOffice.org Draw (*.sxd);;</source>
-        <translation>Dibuixos OpenOffice.org (*.sxd);;</translation>
+        <translation type="obsolete">Dibuixos OpenOffice.org (*.sxd);;</translation>
     </message>
 </context>
 <context>
@@ -13049,7 +13652,7 @@ i un valor positiu el farà convex</translation>
     </message>
     <message>
         <source>&amp;Enabled</source>
-        <translation>&amp;Activat</translation>
+        <translation type="obsolete">&amp;Activat</translation>
     </message>
     <message>
         <source>min</source>
@@ -14155,7 +14758,7 @@ Vols migrar-les a la nova versió d&apos;Scribus?</translation>
     </message>
     <message>
         <source>Book</source>
-        <translation>Llibre</translation>
+        <translation type="obsolete">Llibre</translation>
     </message>
     <message>
         <source>Magazine</source>
@@ -14163,7 +14766,27 @@ Vols migrar-les a la nova versió d&apos;Scribus?</translation>
     </message>
     <message>
         <source>You can select predefined page layout here. &apos;None&apos; leave margins as is, &apos;Book&apos; sets margins classically (Gutenberg). &apos;Book&apos; is proposed for two-sided documents. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
-        <translation>Pots seeccionar el format de pàgina. &apos;Cap&apos; deixa els marges tal com estan, &apos;Llibre&apos; posa marges clàssics (Gutenberg). &apos;Llibre&apos; es ideal per documents a doble cara. &apos;Revista&apos; posa el mateix valor a tots els marges.</translation>
+        <translation type="obsolete">Pots seeccionar el format de pàgina. &apos;Cap&apos; deixa els marges tal com estan, &apos;Llibre&apos; posa marges clàssics (Gutenberg). &apos;Llibre&apos; es ideal per documents a doble cara. &apos;Revista&apos; posa el mateix valor a tots els marges.</translation>
+    </message>
+    <message>
+        <source>Guttenberg</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fibonacci</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Golden Mean</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Nine Parts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You can select predefined page layout here. &apos;None&apos; leave margins as is, Guttenberg sets margins classically. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14230,7 +14853,7 @@ Vols migrar-les a la nova versió d&apos;Scribus?</translation>
     </message>
     <message>
         <source>Open File With Python Commands</source>
-        <translation>Obre fitxer amb comandes Python</translation>
+        <translation type="obsolete">Obre fitxer amb comandes Python</translation>
     </message>
     <message>
         <source>Save the Python Commands in File</source>
@@ -14247,6 +14870,10 @@ Vols migrar-les a la nova versió d&apos;Scribus?</translation>
     <message>
         <source>Save Current Output</source>
         <translation>Desa la sortida actual</translation>
+    </message>
+    <message>
+        <source>Open Python Script File</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16054,11 +16681,11 @@ la documentació de la funció.
     </message>
     <message>
         <source>You are running a development version of Scribus 1.3.x. The current document you are working with was originally created in Scribus 1.2.2 or lower. The process of saving will make this file unusable again in Scribus 1.2.2 unless you use File-&gt;Save As. Are you sure you wish to proceed with this operation?</source>
-        <translation>Estas utilitzant una versió de desenvolupament d&apos;Scribus. El document en que estas treballant es va crear amb la versió d&apos;Scribus 1.2.2 o inferior. Si deses el document no es podrà tornar a carregar en Scribus 1.2.2 a menys que el desis amb un nou nom. Estas segur de voler continuar?</translation>
+        <translation type="obsolete">Estas utilitzant una versió de desenvolupament d&apos;Scribus. El document en que estas treballant es va crear amb la versió d&apos;Scribus 1.2.2 o inferior. Si deses el document no es podrà tornar a carregar en Scribus 1.2.2 a menys que el desis amb un nou nom. Estas segur de voler continuar?</translation>
     </message>
     <message>
         <source>&amp;Proceed</source>
-        <translation>Fe&amp;s-ho</translation>
+        <translation type="obsolete">Fe&amp;s-ho</translation>
     </message>
     <message>
         <source>Invalid argument: </source>
@@ -16219,7 +16846,7 @@ la documentació de la funció.
     <message>
         <source>A file named &apos;%1&apos; already exists.
 Do you want to replace it with the file you are saving?</source>
-        <translation>Ja hi ha un fitxer amb el nom &apos;%1&apos;.
+        <translation type="obsolete">Ja hi ha un fitxer amb el nom &apos;%1&apos;.
 Vols sobreescriure&apos;l amb el que estas desant?</translation>
     </message>
     <message>
@@ -16480,7 +17107,7 @@ detallades exhaustivament per les funcions cridades.</translation>
     </message>
     <message>
         <source>Short Words Manual</source>
-        <translation>Manual d&apos;Abreviacions</translation>
+        <translation type="obsolete">Manual d&apos;Abreviacions</translation>
     </message>
     <message>
         <source>OpenDocument Text Documents</source>
@@ -16553,6 +17180,59 @@ detallades exhaustivament per les funcions cridades.</translation>
     <message>
         <source>OpenOffice.org Draw Importer</source>
         <translation>Importador de OpenOffice.org Draw</translation>
+    </message>
+    <message>
+        <source>Scribus crashes due to the following exception : %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Creating Font Cache</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Font found, checking...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Modified Font found, checking...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reading Font Cache</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Writing updated Font Cache</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Searching for Fonts</source>
+        <translation type="unfinished">Buscant les Fonts</translation>
+    </message>
+    <message>
+        <source>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.3 or lower. The process of saving will make this file unusable again in Scribus 1.2.3 unless you use File-&gt;Save As. Are you sure you wish to proceed with this operation?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A file named &apos;%1&apos; already exists.&lt;br/&gt;Do you want to replace it with the file you are saving?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>firstPageOrder is bigger than allowed.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Old .sla format support</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16811,7 +17491,7 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     </message>
     <message>
         <source>F&amp;irst Page Number:</source>
-        <translation>Pr&amp;imer Número de Pàgina:</translation>
+        <translation type="obsolete">Pr&amp;imer Número de Pàgina:</translation>
     </message>
     <message>
         <source>&amp;Size:</source>
@@ -16835,15 +17515,15 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     </message>
     <message>
         <source>Options</source>
-        <translation>Opcions</translation>
+        <translation type="obsolete">Opcions</translation>
     </message>
     <message>
         <source>Apply size settings to all Pages</source>
-        <translation>Aplica la mida a totes les pàgines</translation>
+        <translation type="obsolete">Aplica la mida a totes les pàgines</translation>
     </message>
     <message>
         <source>Apply margin settings to all Pages</source>
-        <translation>Aplica els paràmetres a totes les pàgines</translation>
+        <translation type="obsolete">Aplica els paràmetres a totes les pàgines</translation>
     </message>
     <message>
         <source>Autosave</source>
@@ -16992,6 +17672,18 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     <message>
         <source>Enable or disable the display of linked text frames.</source>
         <translation>Actia o desactiva  la visió de marcs enllaçats.</translation>
+    </message>
+    <message>
+        <source>Apply size settings to all pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sections</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply the page size changes to all existing pages in the document</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -17144,6 +17836,112 @@ converting their vector data into Scribus objects.</source>
         <translation>Importa la majoria dels fitxers SVG en el document actual,
 convertint les dades vectorials en un objecte Scribus.</translation>
     </message>
+    <message>
+        <source>Scalable Vector Graphics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SVG file contains some unsupported features</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SWDialog</name>
+    <message>
+        <source>Short Words</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished">Abreviacions</translation>
+    </message>
+    <message>
+        <source>Apply unbreakable space on:</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished">Aplica espai inseparable a:</translation>
+    </message>
+    <message>
+        <source>&amp;Selected frames</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished">Marcs &amp;seleccionats</translation>
+    </message>
+    <message>
+        <source>Active &amp;page</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished">&amp;Pàgina Activa</translation>
+    </message>
+    <message>
+        <source>&amp;All items</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished">&amp;Tots els Ítems</translation>
+    </message>
+    <message>
+        <source>Only selected frames processed.</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished">Només es processen els marcs seleccionats.</translation>
+    </message>
+    <message>
+        <source>Only actual page processed.</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished">Només es processa la pàgina actual.</translation>
+    </message>
+    <message>
+        <source>All items in document processed.</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished">Tots els ítems del document processats.</translation>
+    </message>
+</context>
+<context>
+    <name>SWPrefsGui</name>
+    <message>
+        <source>User settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>System wide configuration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Save</source>
+        <translation type="unfinished">&amp;Desa</translation>
+    </message>
+    <message>
+        <source>&amp;Reset</source>
+        <translation type="unfinished">&amp;Reinicia</translation>
+    </message>
+    <message>
+        <source>Save user configuration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reload system wide configuration and remove user defined one</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit custom configuration. If you save it, it will be used over system wide configuration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Short Words</source>
+        <translation type="unfinished">Abreviacions</translation>
+    </message>
+    <message>
+        <source>User configuration exists elready. Do you really want to overwrite it?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot write file %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User settings saved</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>System wide configuration reloaded</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot open file %1</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SaveAsTemplatePlugin</name>
@@ -17157,12 +17955,12 @@ convertint les dades vectorials en un objecte Scribus.</translation>
     <message>
         <source>Could not find target file %1: %2</source>
         <comment>plugins</comment>
-        <translation>No puc trobar el fitxer de destí %1: %2</translation>
+        <translation type="obsolete">No puc trobar el fitxer de destí %1: %2</translation>
     </message>
     <message>
         <source>Could not open target file %1: %2</source>
         <comment>plugins</comment>
-        <translation>No es pot obrir el fitxer de destí %1: %2</translation>
+        <translation type="obsolete">No es pot obrir el fitxer de destí %1: %2</translation>
     </message>
 </context>
 <context>
@@ -17175,17 +17973,25 @@ convertint les dades vectorials en un objecte Scribus.</translation>
     <message>
         <source>Import</source>
         <comment>plugin manager plugin type</comment>
-        <translation>Importa</translation>
+        <translation type="obsolete">Importa</translation>
     </message>
     <message>
         <source>Export</source>
         <comment>plugin manager plugin type</comment>
-        <translation>Exporta</translation>
+        <translation type="obsolete">Exporta</translation>
     </message>
     <message>
         <source>Action</source>
         <comment>plugin manager plugin type</comment>
         <translation>Acció</translation>
+    </message>
+    <message>
+        <source>Load/Save/Import/Export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation type="unfinished">Desconegut</translation>
     </message>
 </context>
 <context>
@@ -18123,7 +18929,7 @@ convertint les dades vectorials en un objecte Scribus.</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Avís</translation>
+        <translation type="obsolete">Avís</translation>
     </message>
     <message>
         <source>File %1 is not in Scribus format</source>
@@ -18277,91 +19083,91 @@ convertint les dades vectorials en un objecte Scribus.</translation>
     </message>
     <message>
         <source>German</source>
-        <translation>Alemany</translation>
+        <translation type="obsolete">Alemany</translation>
     </message>
     <message>
         <source>Polish</source>
-        <translation>Polonès</translation>
+        <translation type="obsolete">Polonès</translation>
     </message>
     <message>
         <source>English</source>
-        <translation>Anglès</translation>
+        <translation type="obsolete">Anglès</translation>
     </message>
     <message>
         <source>Spanish</source>
-        <translation>Espanyol</translation>
+        <translation type="obsolete">Espanyol</translation>
     </message>
     <message>
         <source>Italian</source>
-        <translation>Italià</translation>
+        <translation type="obsolete">Italià</translation>
     </message>
     <message>
         <source>French</source>
-        <translation>Francès</translation>
+        <translation type="obsolete">Francès</translation>
     </message>
     <message>
         <source>Russian</source>
-        <translation>Rus</translation>
+        <translation type="obsolete">Rus</translation>
     </message>
     <message>
         <source>Danish</source>
-        <translation>Danès</translation>
+        <translation type="obsolete">Danès</translation>
     </message>
     <message>
         <source>Slovak</source>
-        <translation>Eslovac</translation>
+        <translation type="obsolete">Eslovac</translation>
     </message>
     <message>
         <source>Hungarian</source>
-        <translation>Hongarès</translation>
+        <translation type="obsolete">Hongarès</translation>
     </message>
     <message>
         <source>Czech</source>
-        <translation>Txec</translation>
+        <translation type="obsolete">Txec</translation>
     </message>
     <message>
         <source>Dutch</source>
-        <translation>Holandès</translation>
+        <translation type="obsolete">Holandès</translation>
     </message>
     <message>
         <source>Portuguese</source>
-        <translation>Portuguès</translation>
+        <translation type="obsolete">Portuguès</translation>
     </message>
     <message>
         <source>Ukrainian</source>
-        <translation>Ucraïnès</translation>
+        <translation type="obsolete">Ucraïnès</translation>
     </message>
     <message>
         <source>Greek</source>
-        <translation>Grec</translation>
+        <translation type="obsolete">Grec</translation>
     </message>
     <message>
         <source>Catalan</source>
-        <translation>Català</translation>
+        <translation type="obsolete">Català</translation>
     </message>
     <message>
         <source>Finnish</source>
-        <translation>Finès</translation>
+        <translation type="obsolete">Finès</translation>
     </message>
     <message>
         <source>Irish</source>
-        <translation>Irlandès</translation>
+        <translation type="obsolete">Irlandès</translation>
     </message>
     <message>
         <source>Lithuanian</source>
-        <translation>Lituà</translation>
+        <translation type="obsolete">Lituà</translation>
     </message>
     <message>
         <source>Swedish</source>
-        <translation>Suec</translation>
+        <translation type="obsolete">Suec</translation>
     </message>
     <message>
         <source>Slovenian</source>
-        <translation>Eslovè</translation>
+        <translation type="obsolete">Eslovè</translation>
     </message>
     <message>
         <source>Afrikaans</source>
-        <translation>Africaner</translation>
+        <translation type="obsolete">Africaner</translation>
     </message>
     <message>
         <source>Choose a Directory</source>
@@ -18385,7 +19191,7 @@ convertint les dades vectorials en un objecte Scribus.</translation>
     </message>
     <message>
         <source>Portuguese (BR)</source>
-        <translation>Portuguès (BR)</translation>
+        <translation type="obsolete">Portuguès (BR)</translation>
     </message>
     <message>
         <source>Initializing Keyboard Shortcuts</source>
@@ -18453,11 +19259,11 @@ convertint les dades vectorials en un objecte Scribus.</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;</source>
-        <translation>Documents (*.sla *.sla.gz *.scd *.scd.gz);;</translation>
+        <translation type="obsolete">Documents (*.sla *.sla.gz *.scd *.scd.gz);;</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;</source>
-        <translation>Documents (*.sla *.scd);;</translation>
+        <translation type="obsolete">Documents (*.sla *.scd);;</translation>
     </message>
     <message>
         <source>Postscript</source>
@@ -18465,7 +19271,7 @@ convertint les dades vectorials en un objecte Scribus.</translation>
     </message>
     <message>
         <source>Some fonts used by this document have been substituted:</source>
-        <translation>Algunes fonts fetes servir en aquest document han estat remplaçades:</translation>
+        <translation type="obsolete">Algunes fonts fetes servir en aquest document han estat remplaçades:</translation>
     </message>
     <message>
         <source> was replaced by: </source>
@@ -18519,11 +19325,11 @@ convertint les dades vectorials en un objecte Scribus.</translation>
     </message>
     <message>
         <source>Croatian</source>
-        <translation>Croat</translation>
+        <translation type="obsolete">Croat</translation>
     </message>
     <message>
         <source>Bulgarian</source>
-        <translation>Búlgar</translation>
+        <translation type="obsolete">Búlgar</translation>
     </message>
     <message>
         <source>Information</source>
@@ -18568,7 +19374,7 @@ convertint les dades vectorials en un objecte Scribus.</translation>
     <message>
         <source>Scribus has detected some errors.
 Consider using the Pre-flight Checker to correct them</source>
-        <translation>Scribus ha detectat alguns errors.
+        <translation type="obsolete">Scribus ha detectat alguns errors.
 Considera fer servir el Comprovador per corregir-los</translation>
     </message>
     <message>
@@ -18618,6 +19424,10 @@ Considera fer servir el Verificador per corregir-los</translation>
     <message>
         <source>Convert Page to Master Page</source>
         <translation>Converteix la pàgina a una pàgina mestra</translation>
+    </message>
+    <message>
+        <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -18790,7 +19600,7 @@ Considera fer servir el Verificador per corregir-los</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Avís</translation>
+        <translation type="obsolete">Avís</translation>
     </message>
     <message>
         <source>Do you really want to clear all your Text?</source>
@@ -18824,20 +19634,40 @@ Considera fer servir el Verificador per corregir-los</translation>
         <source>Page %1 to %2</source>
         <translation>Pàgina %1 a %2</translation>
     </message>
+    <message>
+        <source>Colorspace: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation type="unfinished">Desconegut</translation>
+    </message>
+    <message>
+        <source>RGB</source>
+        <translation type="unfinished">RGB</translation>
+    </message>
+    <message>
+        <source>CMYK</source>
+        <translation type="unfinished">CMYK</translation>
+    </message>
+    <message>
+        <source>Grayscale</source>
+        <translation type="unfinished">Escala de grisos</translation>
+    </message>
 </context>
 <context>
     <name>ScribusWin</name>
     <message>
         <source>&amp;Leave Anyway</source>
-        <translation>D&amp;eixa Com Està</translation>
+        <translation type="obsolete">D&amp;eixa Com Està</translation>
     </message>
     <message>
         <source>C&amp;lose Anyway</source>
-        <translation>Tanca Igua&amp;lment</translation>
+        <translation type="obsolete">Tanca Igua&amp;lment</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Avís</translation>
+        <translation type="obsolete">Avís</translation>
     </message>
     <message>
         <source>Document:</source>
@@ -18849,11 +19679,15 @@ Considera fer servir el Verificador per corregir-los</translation>
     </message>
     <message>
         <source>&amp;Save Now</source>
-        <translation>&amp;Desa Ara</translation>
+        <translation type="obsolete">&amp;Desa Ara</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Cancel.la</translation>
+    </message>
+    <message>
+        <source>&amp;Discard</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -19131,7 +19965,7 @@ Només les seqüències escrites per ser executades com extensions es poden fer 
     </message>
     <message>
         <source>Extension Scripts</source>
-        <translation>Seqüències d&apos;extensió</translation>
+        <translation type="obsolete">Seqüències d&apos;extensió</translation>
     </message>
     <message>
         <source>Enable Extension Scripts</source>
@@ -19139,7 +19973,58 @@ Només les seqüències escrites per ser executades com extensions es poden fer 
     </message>
     <message>
         <source>Startup Script</source>
-        <translation>Seqüència d&apos;inici</translation>
+        <translation type="obsolete">Seqüència d&apos;inici</translation>
+    </message>
+    <message>
+        <source>Extensions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Console</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Startup Script:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Errors:</source>
+        <comment>syntax highlighting</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Comments:</source>
+        <comment>syntax highlighting</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Keywords:</source>
+        <comment>syntax highlighting</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Signs:</source>
+        <comment>syntax highlighting</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Numbers:</source>
+        <comment>syntax highlighting</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Strings:</source>
+        <comment>syntax highlighting</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Base Texts:</source>
+        <comment>syntax highlighting</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select Color</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -19157,7 +20042,7 @@ Només les seqüències escrites per ser executades com extensions es poden fer 
     </message>
     <message>
         <source>Show Master Page Names</source>
-        <translation>Mostra el nom de les pàgines mestres</translation>
+        <translation type="obsolete">Mostra el nom de les pàgines mestres</translation>
     </message>
 </context>
 <context>
@@ -19279,7 +20164,7 @@ Només les seqüències escrites per ser executades com extensions es poden fer 
     <name>SeitenPal</name>
     <message>
         <source>Arrange Pages</source>
-        <translation>Organitza Pàgines</translation>
+        <translation type="obsolete">Organitza Pàgines</translation>
     </message>
     <message>
         <source>Available Templates:</source>
@@ -19287,11 +20172,11 @@ Només les seqüències escrites per ser executades com extensions es poden fer 
     </message>
     <message>
         <source>Document Pages:</source>
-        <translation>Pàgines:</translation>
+        <translation type="obsolete">Pàgines:</translation>
     </message>
     <message>
         <source>Facing Pages</source>
-        <translation>Pàgines Encarades</translation>
+        <translation type="obsolete">Pàgines Encarades</translation>
     </message>
     <message>
         <source>Left Page first</source>
@@ -19313,27 +20198,27 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation>Normal</translation>
+        <translation type="obsolete">Normal</translation>
     </message>
     <message>
         <source>Drag pages or master pages onto the trashbin to delete them</source>
-        <translation>Arrossega les pàgines o les pàgines mestres a la paperera per esborrar-les</translation>
+        <translation type="obsolete">Arrossega les pàgines o les pàgines mestres a la paperera per esborrar-les</translation>
     </message>
     <message>
         <source>Previews all the pages of your document</source>
-        <translation>Visualització prèvia de totes les pàgines del document</translation>
+        <translation type="obsolete">Visualització prèvia de totes les pàgines del document</translation>
     </message>
     <message>
         <source>Here are all your master pages. To create a new page, drag a master page to the page view below</source>
-        <translation>Aquí hi ha totes les pàgines mestres. Per crear una pàgina nova, arrossega una pàgina mestr a la vista de pàgina de sota</translation>
+        <translation type="obsolete">Aquí hi ha totes les pàgines mestres. Per crear una pàgina nova, arrossega una pàgina mestr a la vista de pàgina de sota</translation>
     </message>
     <message>
         <source>Available Master Pages:</source>
-        <translation>Pàgines mestres disponibles:</translation>
+        <translation type="obsolete">Pàgines mestres disponibles:</translation>
     </message>
     <message>
         <source>Left Page First</source>
-        <translation>Primer la Pàgina Esquerra</translation>
+        <translation type="obsolete">Primer la Pàgina Esquerra</translation>
     </message>
 </context>
 <context>
@@ -19410,7 +20295,7 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
     </message>
     <message>
         <source>Special plug-in for adding non-breaking spaces before or after so called short words.</source>
-        <translation>Connector especial per afegir espais no separables abans o després de abreviacions.</translation>
+        <translation type="obsolete">Connector especial per afegir espais no separables abans o després de abreviacions.</translation>
     </message>
 </context>
 <context>
@@ -19479,7 +20364,7 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Avís</translation>
+        <translation type="obsolete">Avís</translation>
     </message>
     <message>
         <source>Do you really want to delete this Style?</source>
@@ -19487,11 +20372,11 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
     </message>
     <message>
         <source>No</source>
-        <translation>No</translation>
+        <translation type="obsolete">No</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation>Si</translation>
+        <translation type="obsolete">Si</translation>
     </message>
     <message>
         <source>Open</source>
@@ -19511,7 +20396,7 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
     </message>
     <message>
         <source>Do you really want to delete this style?</source>
-        <translation>Realment vols esborrar aquest Estil?</translation>
+        <translation type="obsolete">Realment vols esborrar aquest Estil?</translation>
     </message>
 </context>
 <context>
@@ -19666,7 +20551,7 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Avís</translation>
+        <translation type="obsolete">Avís</translation>
     </message>
     <message>
         <source>Do you want to save your changes?</source>
@@ -19967,6 +20852,77 @@ després d&apos;importar-lo.</translation>
     <message>
         <source>Inde&amp;x</source>
         <translation>Índe&amp;x</translation>
+    </message>
+</context>
+<context>
+    <name>TOCIndexPrefsBase</name>
+    <message>
+        <source>Table of Contents and Indexes</source>
+        <translation type="unfinished">Taula de contingut i índexos</translation>
+    </message>
+    <message>
+        <source>Table Of Contents</source>
+        <translation type="unfinished">Taula de continguts</translation>
+    </message>
+    <message>
+        <source>&amp;Add</source>
+        <translation type="unfinished">&amp;Afegeix</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation type="unfinished">Alt+A</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+D</source>
+        <translation type="unfinished">Alt+D</translation>
+    </message>
+    <message>
+        <source>The frame the table of contents will be placed into</source>
+        <translation type="unfinished">Marc en el qual s&apos;inserirà la taula de contingut</translation>
+    </message>
+    <message>
+        <source>Page Numbers Placed:</source>
+        <translation type="unfinished">Números de pàgina col.locats:</translation>
+    </message>
+    <message>
+        <source>Item Attribute Name:</source>
+        <translation type="unfinished">Nom de l&apos;Atribut de l&apos;element:</translation>
+    </message>
+    <message>
+        <source>The Item Attribute that will be set on frames used as a basis for creation of the entries</source>
+        <translation type="unfinished">L&apos;atribut que serà enviat al conjunt de marcs i que es farà servir com a base per la creació de noves entrades</translation>
+    </message>
+    <message>
+        <source>Place page numbers of the entries at the beginning or the end of the line, or not at all</source>
+        <translation type="unfinished">Col.loca números de pàgina al principi, al final de la línia o a cap de les dues</translation>
+    </message>
+    <message>
+        <source>List Non-Printing Entries</source>
+        <translation type="unfinished">Llista les entrades no imprimibles</translation>
+    </message>
+    <message>
+        <source>Include frames that are set to not print as well</source>
+        <translation type="unfinished">Incloure també els marcs que estan marcats com no imprimibles</translation>
+    </message>
+    <message>
+        <source>The paragraph style used for the entry lines</source>
+        <translation type="unfinished">L&apos;estil de paràgraf fet servier en les entrades de línia</translation>
+    </message>
+    <message>
+        <source>Paragraph Style:</source>
+        <translation type="unfinished">Estil de Paràgraf:</translation>
+    </message>
+    <message>
+        <source>Destination Frame:</source>
+        <translation type="unfinished">Marc de destinació:</translation>
+    </message>
+    <message>
+        <source>Inde&amp;x</source>
+        <translation type="unfinished">Índe&amp;x</translation>
     </message>
 </context>
 <context>
@@ -20278,11 +21234,11 @@ després d&apos;importar-lo.</translation>
     </message>
     <message>
         <source>&amp;Method:</source>
-        <translation>&amp;Mètode:</translation>
+        <translation type="obsolete">&amp;Mètode:</translation>
     </message>
     <message>
         <source>&amp;Quality:</source>
-        <translation>&amp;Qualitat:</translation>
+        <translation type="obsolete">&amp;Qualitat:</translation>
     </message>
     <message>
         <source>Maximum</source>
@@ -20692,7 +21648,7 @@ Choose PDF 1.4 if your file uses features such as transparency or you require 12
 PDF/X-3 is for exporting the PDF, when you want color managed RGB for commercial printing
  and is selectable when you have activated color management. 
 Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
-        <translation>Determina la compatibilitat PDF.
+        <translation type="obsolete">Determina la compatibilitat PDF.
 Per defecte es fa servir PDF 1.3 que és el que dona millor compatibilitat.
 Tria PDF 1.4 si vols fer servir coses com transparències o et fa falta encriptació de 128 bits.
 PDF/X-3 es fa servir per exportar el PDF, si vols gestió professional de color RGB per impressió comercial
@@ -20736,16 +21692,16 @@ Això no afecta la resolució de les imatges bitmap com les fotos.</translation>
     <message>
         <source>Enable lossless compression of text and graphics.
 Unless you have a reason, leave this checked. This reduces PDF size.</source>
-        <translation>Activa la compressió de text i gràfics sense pèrdues.
+        <translation type="obsolete">Activa la compressió de text i gràfics sense pèrdues.
 A menys que sàpigues perquè, deixa-ho marcat. Això redueix la mida del PDF.</translation>
     </message>
     <message>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options.</source>
-        <translation>Mètode de compressió per fer servir en les imatges. Automàtic permet a Scribus triar el millor mètode. Zip és sense pèrdua i fantàstic per imatges amb colors sòlids. JPEG és millor per crear PDF més petits amb moltes fotos (amb una lleugera pèrdua de qualitat). Deixa-ho en automàtic si no necessites opcions especials de compressió.</translation>
+        <translation type="obsolete">Mètode de compressió per fer servir en les imatges. Automàtic permet a Scribus triar el millor mètode. Zip és sense pèrdua i fantàstic per imatges amb colors sòlids. JPEG és millor per crear PDF més petits amb moltes fotos (amb una lleugera pèrdua de qualitat). Deixa-ho en automàtic si no necessites opcions especials de compressió.</translation>
     </message>
     <message>
         <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
-        <translation>Nivells de Compressió: Mínima (25%), Baixa (50%), Mitjana (75%), Alta (85%), Màxima (95%)</translation>
+        <translation type="obsolete">Nivells de Compressió: Mínima (25%), Baixa (50%), Mitjana (75%), Alta (85%), Màxima (95%)</translation>
     </message>
     <message>
         <source>Re-sample your bitmap images to the selected DPI.
@@ -20790,13 +21746,13 @@ característiques de seguretat del PDF generat</translation>
     <message>
         <source>Allow copying of text or graphics from the PDF. 
 If un-checked, text and graphics cannot be copied.</source>
-        <translation>Permet copiar text o gràfics del PDF.
+        <translation type="obsolete">Permet copiar text o gràfics del PDF.
 Si no està marcat, no es pot copiar text ni gràfics.</translation>
     </message>
     <message>
         <source>Allow adding annotations and fields to the PDF. 
 If un-checked, editing annotations and fileds is prevented.</source>
-        <translation>Permet afegir anotacions i camps al PDF.
+        <translation type="obsolete">Permet afegir anotacions i camps al PDF.
 Si no està marcat, la edició d&apos;anotacions i camps no es permet.</translation>
     </message>
     <message>
@@ -20880,6 +21836,43 @@ Ajustos PDF/X-3. Recomanem fer servir el títol del document.</translation>
     <message>
         <source>Convert Spot Colors to Process Colors</source>
         <translation>Converteix els colors Spot a colors Process</translation>
+    </message>
+    <message>
+        <source>Compression &amp;Method:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Compression &amp;Quality:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enables lossless compression of text and graphics.
+Unless you have a reason, leave this checked. This reduces PDF file size.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow copying of text or graphics from the PDF. If unchecked, text and graphics cannot be copied.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow adding annotations and fields to the PDF. If unchecked, editing annotations and fields is prevented.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -21933,6 +22926,10 @@ a %2</translation>
         <source>Get image</source>
         <translation>Obtenir Imatge</translation>
     </message>
+    <message>
+        <source>Text on a Path</source>
+        <translation type="unfinished">Text en un Camí</translation>
+    </message>
 </context>
 <context>
     <name>UndoPalette</name>
@@ -21997,27 +22994,27 @@ a %2</translation>
     <message>
         <source>Short Words</source>
         <comment>short words plugin</comment>
-        <translation>Abreviacions</translation>
+        <translation type="obsolete">Abreviacions</translation>
     </message>
     <message>
         <source>Apply unbreakable space on:</source>
         <comment>short words plugin</comment>
-        <translation>Aplica espai inseparable a:</translation>
+        <translation type="obsolete">Aplica espai inseparable a:</translation>
     </message>
     <message>
         <source>&amp;Selected frames</source>
         <comment>short words plugin</comment>
-        <translation>Marcs &amp;seleccionats</translation>
+        <translation type="obsolete">Marcs &amp;seleccionats</translation>
     </message>
     <message>
         <source>Active &amp;page</source>
         <comment>short words plugin</comment>
-        <translation>&amp;Pàgina Activa</translation>
+        <translation type="obsolete">&amp;Pàgina Activa</translation>
     </message>
     <message>
         <source>&amp;All items</source>
         <comment>short words plugin</comment>
-        <translation>&amp;Tots els Ítems</translation>
+        <translation type="obsolete">&amp;Tots els Ítems</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -22039,7 +23036,7 @@ Idiomes</translation>
     <message>
         <source>Replace defaults by user config</source>
         <comment>short words plugin</comment>
-        <translation>Remplaça la configuració per la de l&apos;usuari</translation>
+        <translation type="obsolete">Remplaça la configuració per la de l&apos;usuari</translation>
     </message>
     <message>
         <source>When the user config file exists 
@@ -22050,7 +23047,7 @@ to the global configuration by unchecked button.
 You can replace predefined values by yours
 with checked button too.</source>
         <comment>short words plugin</comment>
-        <translation>Quan la configuració de l&apos;usuari existeix
+        <translation type="obsolete">Quan la configuració de l&apos;usuari existeix
 (%1)
 pots triar si vols afegir la teva configuració
 a la configuració global si no es marca el botó.
@@ -22061,78 +23058,78 @@ si el botó està marcat.</translation>
     <message>
         <source>Only selected frames processed.</source>
         <comment>short words plugin</comment>
-        <translation>Només es processen els marcs seleccionats.</translation>
+        <translation type="obsolete">Només es processen els marcs seleccionats.</translation>
     </message>
     <message>
         <source>Only actual page processed.</source>
         <comment>short words plugin</comment>
-        <translation>Només es processa la pàgina actual.</translation>
+        <translation type="obsolete">Només es processa la pàgina actual.</translation>
     </message>
     <message>
         <source>All items in document processed.</source>
         <comment>short words plugin</comment>
-        <translation>Tots els ítems del document processats.</translation>
+        <translation type="obsolete">Tots els ítems del document processats.</translation>
     </message>
     <message>
         <source>Short Words for Scribus</source>
         <comment>short words plugin</comment>
-        <translation>Abreviacions per Scribus</translation>
+        <translation type="obsolete">Abreviacions per Scribus</translation>
     </message>
     <message>
         <source>Available in the following languages</source>
         <comment>short words plugin</comment>
-        <translation>Disponible en els següents idiomes</translation>
+        <translation type="obsolete">Disponible en els següents idiomes</translation>
     </message>
     <message>
         <source>About Short Words</source>
         <comment>short words plugin</comment>
-        <translation>Quant a Abreviacions</translation>
+        <translation type="obsolete">Quant a Abreviacions</translation>
     </message>
     <message>
         <source>Edit &amp;system configuration...</source>
-        <translation>Edició de la configuració de &amp;sistema...</translation>
+        <translation type="obsolete">Edició de la configuració de &amp;sistema...</translation>
     </message>
     <message>
         <source>Edit &amp;user configuration...</source>
-        <translation>Edició de la configuració de l&apos;&amp;usuari...</translation>
+        <translation type="obsolete">Edició de la configuració de l&apos;&amp;usuari...</translation>
     </message>
     <message>
         <source>S&amp;etup editor...</source>
-        <translation>Configuració de l&apos;&amp;Editor...</translation>
+        <translation type="obsolete">Configuració de l&apos;&amp;Editor...</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation>&amp;Edició</translation>
+        <translation type="obsolete">&amp;Edició</translation>
     </message>
     <message>
         <source>&amp;Info and Languages...</source>
-        <translation>&amp;Informació i Idiomes...</translation>
+        <translation type="obsolete">&amp;Informació i Idiomes...</translation>
     </message>
     <message>
         <source>&amp;Help</source>
-        <translation>&amp;Ajuda</translation>
+        <translation type="obsolete">&amp;Ajuda</translation>
     </message>
     <message>
         <source>Short Words</source>
-        <translation>Abreviacions</translation>
+        <translation type="obsolete">Abreviacions</translation>
     </message>
     <message>
         <source>You are starting to edit read-only file.
 %1</source>
-        <translation>Estas editant un fitxer de només lectura.
+        <translation type="obsolete">Estas editant un fitxer de només lectura.
 %1</translation>
     </message>
     <message>
         <source>Application &apos;%1&apos; error. Cannot be started.</source>
-        <translation>error &apos;%1&apos; de programa. No es pot iniciar.</translation>
+        <translation type="obsolete">error &apos;%1&apos; de programa. No es pot iniciar.</translation>
     </message>
     <message>
         <source>Short Words setup</source>
-        <translation>Configuració d&apos;Abreviacions</translation>
+        <translation type="obsolete">Configuració d&apos;Abreviacions</translation>
     </message>
     <message>
         <source>Enter name of the plain text editor executable:</source>
-        <translation>Entra el nom del editor de texte planer:</translation>
+        <translation type="obsolete">Entra el nom del editor de texte planer:</translation>
     </message>
 </context>
 <context>
