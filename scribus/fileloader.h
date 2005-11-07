@@ -17,6 +17,7 @@ class PrefsManager;
 
 class SCRIBUS_API FileLoader : public QObject
 {
+	Q_OBJECT
 public:
 	FileLoader(const QString & fileName);
 	~FileLoader() {};
