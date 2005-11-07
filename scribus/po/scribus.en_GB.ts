@@ -28,74 +28,6 @@ Returns true if a new document was created.
 </translation>
     </message>
     <message>
-        <source>newDoc(size, margins, orientation, firstPageNumber,
-                   unit, facingPages, firstSideLeft) -&gt; bool
-
-Creates a new document and returns true if successful. The parameters have the
-following meaning:
-
-    size = A tuple (width, height) describing the size of the document. You can
-    use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
-
-    margins = A tuple (left, right, top, bottom) describing the document
-    margins
-
-    orientation = the page orientation - constants PORTRAIT, LANDSCAPE
-
-    firstPageNumer = is the number of the first page in the document used for
-    pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
-    numbers if you&apos;re creating a document in several parts.
-
-    unit: this value sets the measurement units used by the document. Use a
-    predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
-    UNIT_PICAS, UNIT_POINTS.
-
-    facingPages = FACINGPAGES, NOFACINGPAGES
-
-    firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT
-
-The values for width, height and the margins are expressed in the given unit
-for the document. PAPER_* constants are expressed in points. If your document
-is not in points, make sure to account for this.
-
-example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
-                FACINGPAGES, FIRSTPAGERIGHT)
-</source>
-        <translation type="obsolete">newDoc(size, margins, orientation, firstPageNumber,
-                   unit, facingPages, firstSideLeft) -&gt; bool
-
-Creates a new document and returns true if successful. The parameters have the
-following meaning:
-
-    size = A tuple (width, height) describing the size of the document. You can
-    use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
-
-    margins = A tuple (left, right, top, bottom) describing the document
-    margins
-
-    orientation = the page orientation - constants PORTRAIT, LANDSCAPE
-
-    firstPageNumer = is the number of the first page in the document used for
-    pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
-    numbers if you&apos;re creating a document in several parts.
-
-    unit: this value sets the measurement units used by the document. Use a
-    predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
-    UNIT_PICAS, UNIT_POINTS.
-
-    facingPages = FACINGPAGES, NOFACINGPAGES
-
-    firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT
-
-The values for width, height and the margins are expressed in the given unit
-for the document. PAPER_* constants are expressed in points. If your document
-is not in points, make sure to account for this.
-
-example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
-                FACINGPAGES, FIRSTPAGERIGHT)
-</translation>
-    </message>
-    <message>
         <source>getFillColor([&quot;name&quot;]) -&gt; string
 
 Returns the name of the fill color of the object &quot;name&quot;.
@@ -274,7 +206,44 @@ PAGE_4, 3)
 
 May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>newDocument(size, margins, orientation, firstPageNumber,
+                        unit, pagesType, firstPageOrder) -&gt; bool
+
+Creates a new document and returns true if successful. The parameters have the
+following meaning:
+
+size = A tuple (width, height) describing the size of the document. You can
+use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
+
+margins = A tuple (left, right, top, bottom) describing the document
+margins
+
+orientation = the page orientation - constants PORTRAIT, LANDSCAPE
+
+firstPageNumer = is the number of the first page in the document used for
+pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
+numbers if you&apos;re creating a document in several parts.
+
+unit: this value sets the measurement units used by the document. Use a
+predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
+UNIT_PICAS, UNIT_POINTS.
+
+pagesType = One of the predefined constants PAGE_n. PAGE_1 is single page,
+PAGE_2 is for double sided documents, PAGE_3 is for 3 pages fold and
+PAGE_4 is 4-fold.
+
+firstPageOrder = What is position of first page in the document.
+Indexed from 0 (0 = first).
+
+The values for width, height and the margins are expressed in the given unit
+for the document. PAPER_* constants are expressed in points. If your document
+is not in points, make sure to account for this.
+
+example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
+PAGE_4, 3)
+
+May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
+</translation>
     </message>
 </context>
 <context>
@@ -2539,15 +2508,45 @@ is not in points, make sure to account for this.
 example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
                 FACINGPAGES, FIRSTPAGERIGHT)
 </source>
-        <translation type="unfinished"></translation>
+        <translation>newDoc(size, margins, orientation, firstPageNumber,
+                   unit, facingPages, firstSideLeft) -&gt; bool
+
+WARNING: Obsolete procedure! Use newDocument instead.
+
+Creates a new document and returns true if successful. The parameters have the
+following meaning:
+
+    size = A tuple (width, height) describing the size of the document. You can
+    use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
+
+    margins = A tuple (left, right, top, bottom) describing the document
+    margins
+
+    orientation = the page orientation - constants PORTRAIT, LANDSCAPE
+
+    firstPageNumer = is the number of the first page in the document used for
+    pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
+    numbers if you&apos;re creating a document in several parts.
+
+    unit: this value sets the measurement units used by the document. Use a
+    predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
+    UNIT_PICAS, UNIT_POINTS.
+
+    facingPages = FACINGPAGES, NOFACINGPAGES
+
+    firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT
+
+The values for width, height and the margins are expressed in the given unit
+for the document. PAPER_* constants are expressed in points. If your document
+is not in points, make sure to account for this.
+
+example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
+                FACINGPAGES, FIRSTPAGERIGHT)
+</translation>
     </message>
 </context>
 <context>
     <name>About</name>
-    <message>
-        <source>Build-ID:</source>
-        <translation type="obsolete">Build-ID:</translation>
-    </message>
     <message>
         <source>Contributions from:</source>
         <translation>Contributions from:</translation>
@@ -2613,10 +2612,6 @@ example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
         <translation>About Scribus %1</translation>
     </message>
     <message>
-        <source>%1 %2 %3 </source>
-        <translation type="obsolete">%1 %2 %3 </translation>
-    </message>
-    <message>
         <source>Windows Port:</source>
         <translation>Windows Port:</translation>
     </message>
@@ -2629,54 +2624,36 @@ example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
         <translation>Wiki</translation>
     </message>
     <message>
-        <source>Using GhostScript version %1</source>
-        <translation type="obsolete">Using GhostScript version %1</translation>
-    </message>
-    <message>
-        <source>No GS version available</source>
-        <translation type="obsolete">No GS version available</translation>
-    </message>
-    <message>
-        <source>Scribus Version %1
-%2 %3 (%4)</source>
-        <translation type="obsolete">Scribus Version %1
-%2 %3 (%4)</translation>
-    </message>
-    <message>
-        <source>This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart Missing library support is indicated by a * This also indicates the version of Ghostscript which Scribus has detected.</source>
-        <translation type="obsolete">This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart Missing library support is indicated by a * This also indicates the version of Ghostscript which Scribus has detected.</translation>
-    </message>
-    <message>
         <source>November</source>
-        <translation type="unfinished"></translation>
+        <translation>November</translation>
     </message>
     <message>
         <source>%1 %2 %3</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 %2 %3</translation>
     </message>
     <message>
         <source>%3-%2-%1 %4 %5</source>
-        <translation type="unfinished"></translation>
+        <translation>%3-%2-%1 %4 %5</translation>
     </message>
     <message>
         <source>Using Ghostscript version %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Using Ghostscript version %1</translation>
     </message>
     <message>
         <source>No Ghostscript version available</source>
-        <translation type="unfinished"></translation>
+        <translation>No Ghostscript version available</translation>
     </message>
     <message>
         <source>&lt;b&gt;Scribus Version %1&lt;/b&gt;&lt;p&gt;%2&lt;br/&gt;%3 %4&lt;br/&gt;%5&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Scribus Version %1&lt;/b&gt;&lt;p&gt;%2&lt;br/&gt;%3 %4&lt;br/&gt;%5&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Build ID:</source>
-        <translation type="unfinished"></translation>
+        <translation>Build ID:</translation>
     </message>
     <message>
         <source>This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected.</source>
-        <translation type="unfinished"></translation>
+        <translation>This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected.</translation>
     </message>
 </context>
 <context>
@@ -3529,7 +3506,7 @@ example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
     </message>
     <message>
         <source>More Info...</source>
-        <translation type="unfinished"></translation>
+        <translation>More Info...</translation>
     </message>
 </context>
 <context>
@@ -3669,10 +3646,6 @@ example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
     <message>
         <source>None Selected</source>
         <translation>None Selected</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation type="obsolete">Warning</translation>
     </message>
     <message>
         <source>Some objects are locked.</source>
@@ -4417,16 +4390,6 @@ example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
         <translation>Rename</translation>
     </message>
     <message>
-        <source>Warning</source>
-        <translation type="obsolete">Warning</translation>
-    </message>
-    <message>
-        <source>Name &quot;%1&quot; isn&apos;t unique.
-Please choose another.</source>
-        <translation type="obsolete">Name &quot;%1&quot; isn&apos;t unique.
-Please choose another.</translation>
-    </message>
-    <message>
         <source>&amp;New</source>
         <translation>&amp;New</translation>
     </message>
@@ -4473,7 +4436,8 @@ Please choose another.</translation>
     <message>
         <source>Name &quot;%1&quot; is not unique.
 Please choose another.</source>
-        <translation type="unfinished"></translation>
+        <translation>Name &quot;%1&quot; is not unique.
+Please choose another.</translation>
     </message>
 </context>
 <context>
@@ -4781,14 +4745,6 @@ This requires very accurate profiles and serves only as a warning.</translation>
         <translation> %</translation>
     </message>
     <message>
-        <source>Warning</source>
-        <translation type="obsolete">Warning</translation>
-    </message>
-    <message>
-        <source>Name of the Color is not unique</source>
-        <translation type="obsolete">Name of the colour is not unique</translation>
-    </message>
-    <message>
         <source>HSV-Colormap</source>
         <translation>HSV-Colourmap</translation>
     </message>
@@ -4805,12 +4761,6 @@ This requires very accurate profiles and serves only as a warning.</translation>
         <translation>None</translation>
     </message>
     <message>
-        <source>You cannot create a color named &quot;%1&quot;.
-It&apos;s a reserved name for transparent color</source>
-        <translation type="obsolete">You cannot create a colour named &quot;%1&quot;.
-It&apos;s a reserved name for transparent colour</translation>
-    </message>
-    <message>
         <source>Is Spot Color</source>
         <translation>Is Spot Colour</translation>
     </message>
@@ -4821,11 +4771,12 @@ It&apos;s a reserved name for transparent colour</translation>
     <message>
         <source>You cannot create a color named &quot;%1&quot;.
 It is a reserved name for transparent color</source>
-        <translation type="unfinished"></translation>
+        <translation>You cannot create a colour named &quot;%1&quot;.
+It is a reserved name for transparent colour</translation>
     </message>
     <message>
         <source>Name of the color is not unique</source>
-        <translation type="unfinished"></translation>
+        <translation>Name of the colour is not unique</translation>
     </message>
 </context>
 <context>
@@ -5103,7 +5054,8 @@ and the Delete key removes the last inserted one</translation>
     <message>
         <source>Cannot collect the file: 
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Cannot collect the file: 
+%1</translation>
     </message>
 </context>
 <context>
@@ -5276,18 +5228,6 @@ and the Delete key removes the last inserted one</translation>
         <translation>Vision Defect:</translation>
     </message>
     <message>
-        <source>Protanopia (red)</source>
-        <translation type="obsolete">Protanopia (red)</translation>
-    </message>
-    <message>
-        <source>Deuteranopia (green)</source>
-        <translation type="obsolete">Deuteranopia (green)</translation>
-    </message>
-    <message>
-        <source>Tritanopia (blue)</source>
-        <translation type="obsolete">Tritanopia (blue)</translation>
-    </message>
-    <message>
         <source>Cr&amp;eate color...</source>
         <translation>Cr&amp;eate colour...</translation>
     </message>
@@ -5310,22 +5250,6 @@ and the Delete key removes the last inserted one</translation>
     <message>
         <source>C&amp;olor</source>
         <translation>C&amp;olour</translation>
-    </message>
-    <message>
-        <source>Saturation:</source>
-        <translation type="obsolete">Saturation:</translation>
-    </message>
-    <message>
-        <source>Value:</source>
-        <translation type="obsolete">Value:</translation>
-    </message>
-    <message>
-        <source>Saturation component in HSV mode</source>
-        <translation type="obsolete">Saturation component in HSV mode</translation>
-    </message>
-    <message>
-        <source>Value component in HSV mode</source>
-        <translation type="obsolete">Value component in HSV mode</translation>
     </message>
     <message>
         <source>New Color</source>
@@ -5369,19 +5293,19 @@ and the Delete key removes the last inserted one</translation>
     </message>
     <message>
         <source>C&amp;olor Components...</source>
-        <translation type="unfinished"></translation>
+        <translation>C&amp;olour Components...</translation>
     </message>
     <message>
         <source>Protanopia (Red)</source>
-        <translation type="unfinished"></translation>
+        <translation>Protanopia (Red)</translation>
     </message>
     <message>
         <source>Deuteranopia (Green)</source>
-        <translation type="unfinished"></translation>
+        <translation>Deuteranopia (Green)</translation>
     </message>
     <message>
         <source>Tritanopia (Blue)</source>
-        <translation type="unfinished"></translation>
+        <translation>Tritanopia (Blue)</translation>
     </message>
 </context>
 <context>
@@ -5423,7 +5347,7 @@ and the Delete key removes the last inserted one</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation type="unfinished">Warning</translation>
+        <translation>Warning</translation>
     </message>
 </context>
 <context>
@@ -5664,71 +5588,71 @@ This can be set in the Preferences.</translation>
     <name>CwSetColor</name>
     <message>
         <source>Set Color Components</source>
-        <translation type="unfinished"></translation>
+        <translation>Set Colour Components</translation>
     </message>
     <message>
         <source>CMYK</source>
-        <translation type="unfinished">CMYK</translation>
+        <translation>CMYK</translation>
     </message>
     <message>
         <source>RGB</source>
-        <translation type="unfinished">RGB</translation>
+        <translation>RGB</translation>
     </message>
     <message>
         <source>HSV</source>
-        <translation type="unfinished"></translation>
+        <translation>HSV</translation>
     </message>
     <message>
         <source>H:</source>
-        <translation type="unfinished"></translation>
+        <translation>H:</translation>
     </message>
     <message>
         <source>S:</source>
-        <translation type="unfinished"></translation>
+        <translation>S:</translation>
     </message>
     <message>
         <source>V:</source>
-        <translation type="unfinished"></translation>
+        <translation>V:</translation>
     </message>
     <message>
         <source>R:</source>
-        <translation type="unfinished">R:</translation>
+        <translation>R:</translation>
     </message>
     <message>
         <source>G:</source>
-        <translation type="unfinished">G:</translation>
+        <translation>G:</translation>
     </message>
     <message>
         <source>B:</source>
-        <translation type="unfinished">B:</translation>
+        <translation>B:</translation>
     </message>
     <message>
         <source>C:</source>
-        <translation type="unfinished">C:</translation>
+        <translation>C:</translation>
     </message>
     <message>
         <source>M:</source>
-        <translation type="unfinished">M:</translation>
+        <translation>M:</translation>
     </message>
     <message>
         <source>Y:</source>
-        <translation type="unfinished">Y:</translation>
+        <translation>Y:</translation>
     </message>
     <message>
         <source>K:</source>
-        <translation type="unfinished">K:</translation>
+        <translation>K:</translation>
     </message>
     <message>
         <source>Set &amp;RGB</source>
-        <translation type="unfinished"></translation>
+        <translation>Set &amp;RGB</translation>
     </message>
     <message>
         <source>Set C&amp;MYK</source>
-        <translation type="unfinished"></translation>
+        <translation>Set C&amp;MYK</translation>
     </message>
     <message>
         <source>Set &amp;HSV</source>
-        <translation type="unfinished"></translation>
+        <translation>Set &amp;HSV</translation>
     </message>
 </context>
 <context>
@@ -5776,15 +5700,15 @@ This can be set in the Preferences.</translation>
     <name>DelStyle</name>
     <message>
         <source>Delete Style</source>
-        <translation type="unfinished"></translation>
+        <translation>Delete Style</translation>
     </message>
     <message>
         <source>Delete Style:</source>
-        <translation type="unfinished"></translation>
+        <translation>Delete Style:</translation>
     </message>
     <message>
         <source>Replace With:</source>
-        <translation type="unfinished">Replace With:</translation>
+        <translation>Replace With:</translation>
     </message>
 </context>
 <context>
@@ -5926,86 +5850,86 @@ This can be set in the Preferences.</translation>
     <name>DocSections</name>
     <message>
         <source>Add a page numbering section to the document. The new section will be added after the currently selected section.</source>
-        <translation type="unfinished"></translation>
+        <translation>Add a page numbering section to the document. The new section will be added after the currently selected section.</translation>
     </message>
     <message>
         <source>Delete the currently selected section.</source>
-        <translation type="unfinished"></translation>
+        <translation>Delete the currently selected section.</translation>
     </message>
     <message>
         <source>1, 2, 3, ...</source>
-        <translation type="unfinished"></translation>
+        <translation>1, 2, 3, ...</translation>
     </message>
     <message>
         <source>i, ii, iii, ...</source>
-        <translation type="unfinished"></translation>
+        <translation>i, ii, iii, ...</translation>
     </message>
     <message>
         <source>I, II, III, ...</source>
-        <translation type="unfinished"></translation>
+        <translation>I, II, III, ...</translation>
     </message>
     <message>
         <source>a, b, c, ...</source>
-        <translation type="unfinished"></translation>
+        <translation>a, b, c, ...</translation>
     </message>
     <message>
         <source>A, B, C, ...</source>
-        <translation type="unfinished"></translation>
+        <translation>A, B, C, ...</translation>
     </message>
 </context>
 <context>
     <name>DocSectionsBase</name>
     <message>
         <source>Document Sections</source>
-        <translation type="unfinished"></translation>
+        <translation>Document Sections</translation>
     </message>
     <message>
         <source>Sections</source>
-        <translation type="unfinished"></translation>
+        <translation>Sections</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished">Name</translation>
+        <translation>Name</translation>
     </message>
     <message>
         <source>Active</source>
-        <translation type="unfinished"></translation>
+        <translation>Active</translation>
     </message>
     <message>
         <source>From</source>
-        <translation type="unfinished"></translation>
+        <translation>From</translation>
     </message>
     <message>
         <source>To</source>
-        <translation type="unfinished"></translation>
+        <translation>To</translation>
     </message>
     <message>
         <source>Style</source>
-        <translation type="unfinished"></translation>
+        <translation>Style</translation>
     </message>
     <message>
         <source>Start</source>
-        <translation type="unfinished"></translation>
+        <translation>Start</translation>
     </message>
     <message>
         <source>End</source>
-        <translation type="unfinished"></translation>
+        <translation>End</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished">&amp;Add</translation>
+        <translation>&amp;Add</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished">Alt+A</translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Delete</translation>
+        <translation>&amp;Delete</translation>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation type="unfinished">Alt+D</translation>
+        <translation>Alt+D</translation>
     </message>
 </context>
 <context>
@@ -6206,12 +6130,6 @@ a range of pages or a single page number.</translation>
         <translation>&amp;Print</translation>
     </message>
     <message>
-        <source>Use an alternative print manager, such as kprinter or gtklp,
-to utilize additional printing options</source>
-        <translation type="obsolete">Use an alternative print manager, such as kprinter or gtklp,
-to utilise additional printing options</translation>
-    </message>
-    <message>
         <source>Print Normal</source>
         <translation>Print Normal</translation>
     </message>
@@ -6286,42 +6204,28 @@ to utilise additional printing options</translation>
  Setting to Level 1 or 2 can create huge files</translation>
     </message>
     <message>
-        <source>A way of switching off some of the gray shades which are composed
-of cyan, yellow and magenta and using black instead.
-UCR most affects parts of images which are neutral and/or dark tones
-which are close to the gray. Use of this may improve printing some images
-and some experimentation and testing is need on a case by case basis.
-UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="obsolete">A way of switching off some of the grey shades which are composed
-of cyan, yellow and magenta and using black instead.
-UCR most affects parts of images which are neutral and/or dark tones
-which are close to the grey. Use of this may improve printing some images
-and some experimentation and testing is need on a case by case basis.
-UCR reduces the possibility of over saturation with CMY inks.</translation>
-    </message>
-    <message>
         <source>PostScript Files (*.ps);;All Files (*)</source>
         <translation>PostScript Files (*.ps);;All Files (*)</translation>
     </message>
     <message>
         <source>Use an alternative print manager, such as kprinter or gtklp, to utilize additional printing options</source>
-        <translation type="unfinished"></translation>
+        <translation>Use an alternative print manager, such as kprinter or gtklp, to utilize additional printing options</translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished"></translation>
+        <translation>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Enables Spot Colours to be converted to composite colours. Unless you are planning to print spot colours at a commercial printer, this is probably best left enabled.</translation>
     </message>
     <message>
         <source>Allows you to embed ICC profiles in the print stream when color management is enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Allows you to embed ICC profiles in the print stream when colour management is enabled</translation>
     </message>
     <message>
         <source>This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
-        <translation type="unfinished"></translation>
+        <translation>This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</translation>
     </message>
 </context>
 <context>
@@ -6360,14 +6264,6 @@ failed!</translation>
     <message>
         <source>Line Spacing</source>
         <translation>Line Spacing</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation type="obsolete">Warning</translation>
-    </message>
-    <message>
-        <source>Name of the Style is not unique</source>
-        <translation type="obsolete">Name of the Style is not unique</translation>
     </message>
     <message>
         <source>Name of your paragraph style</source>
@@ -6455,7 +6351,7 @@ failed!</translation>
     </message>
     <message>
         <source>Name of the style is not unique</source>
-        <translation type="unfinished"></translation>
+        <translation>Name of the style is not unique</translation>
     </message>
 </context>
 <context>
@@ -7012,11 +6908,11 @@ Use 72 dpi for Images intended for the Screen</translation>
     <name>FileLoader</name>
     <message>
         <source>Some fonts used by this document have been substituted:</source>
-        <translation type="unfinished">Some fonts used by this document have been substituted:</translation>
+        <translation>Some fonts used by this document have been substituted:</translation>
     </message>
     <message>
         <source> was replaced by: </source>
-        <translation type="unfinished"> was replaced by: </translation>
+        <translation> was replaced by: </translation>
     </message>
 </context>
 <context>
@@ -7366,7 +7262,7 @@ Use 72 dpi for Images intended for the Screen</translation>
     </message>
     <message>
         <source>&amp;Apply to All Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Apply to All Pages</translation>
     </message>
 </context>
 <context>
@@ -7546,79 +7442,79 @@ A value of 0 means unlimited hyphenations.</translation>
     <name>ImageInfoDialog</name>
     <message>
         <source>Image Info</source>
-        <translation type="unfinished"></translation>
+        <translation>Image Info</translation>
     </message>
     <message>
         <source>General Info</source>
-        <translation type="unfinished"></translation>
+        <translation>General Info</translation>
     </message>
     <message>
         <source>Date / Time:</source>
-        <translation type="unfinished"></translation>
+        <translation>Date / Time:</translation>
     </message>
     <message>
         <source>Has Embedded Profile:</source>
-        <translation type="unfinished"></translation>
+        <translation>Has Embedded Profile:</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished">Yes</translation>
+        <translation>Yes</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished">No</translation>
+        <translation>No</translation>
     </message>
     <message>
         <source>Profile Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Profile Name:</translation>
     </message>
     <message>
         <source>Has Embedded Paths:</source>
-        <translation type="unfinished"></translation>
+        <translation>Has Embedded Paths:</translation>
     </message>
     <message>
         <source>Has Layers:</source>
-        <translation type="unfinished"></translation>
+        <translation>Has Layers:</translation>
     </message>
     <message>
         <source>EXIF Info</source>
-        <translation type="unfinished"></translation>
+        <translation>EXIF Info</translation>
     </message>
     <message>
         <source>Artist:</source>
-        <translation type="unfinished"></translation>
+        <translation>Artist:</translation>
     </message>
     <message>
         <source>Comment:</source>
-        <translation type="unfinished"></translation>
+        <translation>Comment:</translation>
     </message>
     <message>
         <source>User Comment:</source>
-        <translation type="unfinished"></translation>
+        <translation>User Comment:</translation>
     </message>
     <message>
         <source>Camera Model:</source>
-        <translation type="unfinished"></translation>
+        <translation>Camera Model:</translation>
     </message>
     <message>
         <source>Camera Manufacturer:</source>
-        <translation type="unfinished"></translation>
+        <translation>Camera Manufacturer:</translation>
     </message>
     <message>
         <source>Description:</source>
-        <translation type="unfinished">Description:</translation>
+        <translation>Description:</translation>
     </message>
     <message>
         <source>Copyright:</source>
-        <translation type="unfinished">Copyright:</translation>
+        <translation>Copyright:</translation>
     </message>
     <message>
         <source>Scanner Model:</source>
-        <translation type="unfinished"></translation>
+        <translation>Scanner Model:</translation>
     </message>
     <message>
         <source>Scanner Manufacturer:</source>
-        <translation type="unfinished"></translation>
+        <translation>Scanner Manufacturer:</translation>
     </message>
 </context>
 <context>
@@ -7639,7 +7535,7 @@ converting their vector data into Scribus objects.</translation>
     </message>
     <message>
         <source>PostScript</source>
-        <translation type="unfinished">PostScript</translation>
+        <translation>PostScript</translation>
     </message>
 </context>
 <context>
@@ -7743,10 +7639,6 @@ converting their vector data into Scribus objects.</translation>
         <translation>Edit JavaScripts</translation>
     </message>
     <message>
-        <source>Warning</source>
-        <translation type="obsolete">Warning</translation>
-    </message>
-    <message>
         <source>&amp;Edit...</source>
         <translation>&amp;Edit...</translation>
     </message>
@@ -7775,12 +7667,8 @@ converting their vector data into Scribus objects.</translation>
         <translation>&amp;Yes</translation>
     </message>
     <message>
-        <source>Do you really want to delete this Script?</source>
-        <translation type="obsolete">Do you really want to delete this Script?</translation>
-    </message>
-    <message>
         <source>Do you really want to delete this script?</source>
-        <translation type="unfinished"></translation>
+        <translation>Do you really want to delete this script?</translation>
     </message>
 </context>
 <context>
@@ -7826,10 +7714,6 @@ converting their vector data into Scribus objects.</translation>
         <translation>Ctrl+</translation>
     </message>
     <message>
-        <source>Warning</source>
-        <translation type="obsolete">Warning</translation>
-    </message>
-    <message>
         <source>&amp;No Key</source>
         <translation>&amp;No Key</translation>
     </message>
@@ -7840,10 +7724,6 @@ converting their vector data into Scribus objects.</translation>
     <message>
         <source>Set &amp;Key</source>
         <translation>Set &amp;Key</translation>
-    </message>
-    <message>
-        <source>This Key Sequence is already in use</source>
-        <translation type="obsolete">This Key Sequence is already in use</translation>
     </message>
     <message>
         <source>Loadable Shortcut Sets</source>
@@ -7891,7 +7771,7 @@ converting their vector data into Scribus objects.</translation>
     </message>
     <message>
         <source>This key sequence is already in use</source>
-        <translation type="unfinished"></translation>
+        <translation>This key sequence is already in use</translation>
     </message>
 </context>
 <context>
@@ -7944,10 +7824,6 @@ converting their vector data into Scribus objects.</translation>
         <translation>New Style</translation>
     </message>
     <message>
-        <source>Warning</source>
-        <translation type="obsolete">Warning</translation>
-    </message>
-    <message>
         <source>Open</source>
         <translation>Open</translation>
     </message>
@@ -7988,23 +7864,19 @@ converting their vector data into Scribus objects.</translation>
         <translation>&amp;Yes</translation>
     </message>
     <message>
-        <source>Do you really want to delete this Style?</source>
-        <translation type="obsolete">Do you really want to delete this Style?</translation>
-    </message>
-    <message>
         <source>&amp;Import</source>
         <translation>&amp;Import</translation>
     </message>
     <message>
         <source>Do you really want to delete this style?</source>
-        <translation type="unfinished">Do you really want to delete this style?</translation>
+        <translation>Do you really want to delete this style?</translation>
     </message>
 </context>
 <context>
     <name>LoadSavePlugin</name>
     <message>
         <source>All Files (*)</source>
-        <translation type="unfinished">All Files (*)</translation>
+        <translation>All Files (*)</translation>
     </message>
 </context>
 <context>
@@ -8145,11 +8017,11 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Apply margin settings to all pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Apply margin settings to all pages</translation>
     </message>
     <message>
         <source>Apply the margin changes to all existing pages in the document</source>
-        <translation type="unfinished"></translation>
+        <translation>Apply the margin changes to all existing pages in the document</translation>
     </message>
 </context>
 <context>
@@ -8157,26 +8029,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Edit Master Pages</source>
         <translation>Edit Master Pages</translation>
-    </message>
-    <message>
-        <source>Duplicates the selected master page</source>
-        <translation type="obsolete">Duplicates the selected master page</translation>
-    </message>
-    <message>
-        <source>Deletes the selected master page</source>
-        <translation type="obsolete">Deletes the selected master page</translation>
-    </message>
-    <message>
-        <source>Adds a new master page</source>
-        <translation type="obsolete">Adds a new master page</translation>
-    </message>
-    <message>
-        <source>Imports master pages from another document</source>
-        <translation type="obsolete">Imports master pages from another document</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation type="obsolete">Warning</translation>
     </message>
     <message>
         <source>Do you really want to delete this master page?</source>
@@ -8220,19 +8072,19 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Duplicate the selected master page</source>
-        <translation type="unfinished"></translation>
+        <translation>Duplicate the selected master page</translation>
     </message>
     <message>
         <source>Delete the selected master page</source>
-        <translation type="unfinished"></translation>
+        <translation>Delete the selected master page</translation>
     </message>
     <message>
         <source>Add a new master page</source>
-        <translation type="unfinished"></translation>
+        <translation>Add a new master page</translation>
     </message>
     <message>
         <source>Import master pages from another document</source>
-        <translation type="unfinished"></translation>
+        <translation>Import master pages from another document</translation>
     </message>
 </context>
 <context>
@@ -8402,10 +8254,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Move Page(s):</translation>
     </message>
     <message>
-        <source>to:</source>
-        <translation type="obsolete">to:</translation>
-    </message>
-    <message>
         <source>Move Page(s)</source>
         <translation>Move Page(s)</translation>
     </message>
@@ -8423,11 +8271,11 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>To:</source>
-        <translation type="unfinished"></translation>
+        <translation>To:</translation>
     </message>
     <message>
         <source>Number of copies:</source>
-        <translation type="unfinished"></translation>
+        <translation>Number of copies:</translation>
     </message>
 </context>
 <context>
@@ -8553,16 +8401,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>None</translation>
     </message>
     <message>
-        <source>Warning</source>
-        <translation type="obsolete">Warning</translation>
-    </message>
-    <message>
-        <source>Name &quot;%1&quot; isn&apos;t unique.
-Please choose another.</source>
-        <translation type="obsolete">Name &quot;%1&quot; isn&apos;t unique.
-Please choose another.</translation>
-    </message>
-    <message>
         <source>Name of selected object</source>
         <translation>Name of selected object</translation>
     </message>
@@ -8653,14 +8491,6 @@ Please choose another.</translation>
     <message>
         <source>Scaling width of characters</source>
         <translation>Scaling width of characters</translation>
-    </message>
-    <message>
-        <source>Color of text stroke</source>
-        <translation type="obsolete">Colour of text stroke</translation>
-    </message>
-    <message>
-        <source>Color of text fill</source>
-        <translation type="obsolete">Colour of text fill</translation>
     </message>
     <message>
         <source>Saturation of color of text stroke</source>
@@ -9038,15 +8868,15 @@ Corners:</translation>
     </message>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
-        <translation type="unfinished"></translation>
+        <translation>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</translation>
     </message>
     <message>
         <source>Color of text stroke. Only available with &quot;outline&quot; text decoration.</source>
-        <translation type="unfinished"></translation>
+        <translation>Colour of text stroke. Only available with &quot;outline&quot; text decoration.</translation>
     </message>
     <message>
         <source>Color of text fill. Only available with &quot;outline&quot; text decoration.</source>
-        <translation type="unfinished"></translation>
+        <translation>Colour of text fill. Only available with &quot;outline&quot; text decoration.</translation>
     </message>
 </context>
 <context>
@@ -9120,18 +8950,8 @@ Corners:</translation>
         <translation>Dash Dot Dot Line</translation>
     </message>
     <message>
-        <source>Warning</source>
-        <translation type="obsolete">Warning</translation>
-    </message>
-    <message>
-        <source>Name &quot;%1&quot; isn&apos;t unique.
-Please choose another.</source>
-        <translation type="obsolete">Name &quot;%1&quot; isn&apos;t unique.
-Please choose another.</translation>
-    </message>
-    <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
-        <translation type="unfinished"></translation>
+        <translation>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</translation>
     </message>
 </context>
 <context>
@@ -9251,14 +9071,6 @@ Please choose another.</translation>
         <translation>Colu&amp;mns:</translation>
     </message>
     <message>
-        <source>Open Document</source>
-        <translation type="obsolete">Open Document</translation>
-    </message>
-    <message>
-        <source>Recent Documents</source>
-        <translation type="obsolete">Recent Documents</translation>
-    </message>
-    <message>
         <source>Do not show this dialog again</source>
         <translation>Do not show this dialog again</translation>
     </message>
@@ -9271,32 +9083,20 @@ Please choose another.</translation>
         <translation>N&amp;umber of Pages:</translation>
     </message>
     <message>
-        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;</source>
-        <translation type="obsolete">Documents (*.sla *.sla.gz *.scd *.scd.gz);;</translation>
-    </message>
-    <message>
-        <source>Documents (*.sla *.scd);;</source>
-        <translation type="obsolete">Documents (*.sla *.scd);;</translation>
-    </message>
-    <message>
-        <source>All Files (*)</source>
-        <translation type="obsolete">All Files (*)</translation>
-    </message>
-    <message>
         <source>Open</source>
         <translation>Open</translation>
     </message>
     <message>
         <source>&amp;New Document</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;New Document</translation>
     </message>
     <message>
         <source>Open &amp;Existing Document</source>
-        <translation type="unfinished"></translation>
+        <translation>Open &amp;Existing Document</translation>
     </message>
     <message>
         <source>Open Recent &amp;Document</source>
-        <translation type="unfinished"></translation>
+        <translation>Open Recent &amp;Document</translation>
     </message>
 </context>
 <context>
@@ -9448,30 +9248,22 @@ Please choose another.</translation>
         <translation>Import &amp;OpenOffice.org Draw...</translation>
     </message>
     <message>
-        <source>Imports OpenOffice Draw Files</source>
-        <translation type="obsolete">Imports OpenOffice Draw Files</translation>
-    </message>
-    <message>
-        <source>Imports most OpenOffice Draw files into the current document, converting their vector data into Scribus objects.</source>
-        <translation type="obsolete">Imports most OpenOffice Draw files into the current document, converting their vector data into Scribus objects.</translation>
-    </message>
-    <message>
         <source>Imports OpenOffice.org Draw Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Imports OpenOffice.org Draw Files</translation>
     </message>
     <message>
         <source>Imports most OpenOffice.org Draw files into the current document, converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Imports most OpenOffice.org Draw files into the current document, converting their vector data into Scribus objects.</translation>
     </message>
     <message>
         <source>OpenDocument 1.0 Draw</source>
         <comment>Import/export format name</comment>
-        <translation type="unfinished"></translation>
+        <translation>OpenDocument 1.0 Draw</translation>
     </message>
     <message>
         <source>OpenOffice.org 1.x Draw</source>
         <comment>Import/export format name</comment>
-        <translation type="unfinished"></translation>
+        <translation>OpenOffice.org 1.x Draw</translation>
     </message>
 </context>
 <context>
@@ -9521,11 +9313,11 @@ Please choose another.</translation>
     <name>OldScribusFormat</name>
     <message>
         <source>Scribus Document</source>
-        <translation type="unfinished">Scribus Document</translation>
+        <translation>Scribus Document</translation>
     </message>
     <message>
         <source>Scribus 1.2.x Document</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus 1.2.x Document</translation>
     </message>
 </context>
 <context>
@@ -9690,7 +9482,7 @@ Please choose another.</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">Close</translation>
+        <translation>Close</translation>
     </message>
 </context>
 <context>
@@ -9826,35 +9618,35 @@ Please choose another.</translation>
     <name>PagePalette</name>
     <message>
         <source>Double sided</source>
-        <translation type="unfinished">Double sided</translation>
+        <translation>Double sided</translation>
     </message>
     <message>
         <source>Middle Right</source>
-        <translation type="unfinished">Middle Right</translation>
+        <translation>Middle Right</translation>
     </message>
     <message>
         <source>Drag pages or master pages onto the trashbin to delete them</source>
-        <translation type="unfinished">Drag pages or master pages onto the trashbin to delete them</translation>
+        <translation>Drag pages or master pages onto the trashbin to delete them</translation>
     </message>
     <message>
         <source>Here are all your master pages. To create a new page, drag a master page to the page view below</source>
-        <translation type="unfinished">Here are all your master pages. To create a new page, drag a master page to the page view below</translation>
+        <translation>Here are all your master pages. To create a new page, drag a master page to the page view below</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation type="unfinished">Normal</translation>
+        <translation>Normal</translation>
     </message>
     <message>
         <source>Arrange Pages</source>
-        <translation type="unfinished">Arrange Pages</translation>
+        <translation>Arrange Pages</translation>
     </message>
     <message>
         <source>Available Master Pages:</source>
-        <translation type="unfinished">Available Master Pages:</translation>
+        <translation>Available Master Pages:</translation>
     </message>
     <message>
         <source>Document Pages:</source>
-        <translation type="unfinished">Document Pages:</translation>
+        <translation>Document Pages:</translation>
     </message>
 </context>
 <context>
@@ -10101,22 +9893,6 @@ Please choose another.</translation>
         <source>Plugin: %1 failed to load: %2</source>
         <comment>plugin manager</comment>
         <translation>Plugin: %1 failed to load: %2</translation>
-    </message>
-    <message>
-        <source>PostScript Files (*.eps *.EPS *.ps *.PS);;</source>
-        <translation type="obsolete">PostScript Files (*.eps *.EPS *.ps *.PS);;</translation>
-    </message>
-    <message>
-        <source>SVG Images (*.svg *.svgz);;</source>
-        <translation type="obsolete">SVG Images (*.svg *.svgz);;</translation>
-    </message>
-    <message>
-        <source>SVG Images (*.svg);;</source>
-        <translation type="obsolete">SVG Images (*.svg);;</translation>
-    </message>
-    <message>
-        <source>OpenOffice.org Draw (*.sxd);;</source>
-        <translation type="obsolete">OpenOffice.org Draw (*.sxd);;</translation>
     </message>
 </context>
 <context>
@@ -10885,36 +10661,28 @@ Do you want to migrate them to the new Scribus version?</translation>
         <translation>None</translation>
     </message>
     <message>
-        <source>Book</source>
-        <translation type="obsolete">Book</translation>
-    </message>
-    <message>
         <source>Magazine</source>
         <translation>Magazine</translation>
     </message>
     <message>
-        <source>You can select predefined page layout here. &apos;None&apos; leave margins as is, &apos;Book&apos; sets margins classically (Gutenberg). &apos;Book&apos; is proposed for two-sided documents. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
-        <translation type="obsolete">You can select predefined page layout here. &apos;None&apos; leave margins as is, &apos;Book&apos; sets margins classically (Gutenberg). &apos;Book&apos; is proposed for two-sided documents. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</translation>
-    </message>
-    <message>
         <source>Guttenberg</source>
-        <translation type="unfinished"></translation>
+        <translation>Guttenberg</translation>
     </message>
     <message>
         <source>Fibonacci</source>
-        <translation type="unfinished"></translation>
+        <translation>Fibonacci</translation>
     </message>
     <message>
         <source>Golden Mean</source>
-        <translation type="unfinished"></translation>
+        <translation>Golden Mean</translation>
     </message>
     <message>
         <source>Nine Parts</source>
-        <translation type="unfinished"></translation>
+        <translation>Nine Parts</translation>
     </message>
     <message>
         <source>You can select predefined page layout here. &apos;None&apos; leave margins as is, Guttenberg sets margins classically. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
-        <translation type="unfinished"></translation>
+        <translation>You can select predefined page layout here. &apos;None&apos; leave margins as is, Guttenberg sets margins classically. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</translation>
     </message>
 </context>
 <context>
@@ -10964,10 +10732,6 @@ Do you want to migrate them to the new Scribus version?</translation>
         <translation>Python Scripts (*.py)</translation>
     </message>
     <message>
-        <source>Open File With Python Commands</source>
-        <translation type="obsolete">Open File With Python Commands</translation>
-    </message>
-    <message>
         <source>Save the Python Commands in File</source>
         <translation>Save the Python Commands in File</translation>
     </message>
@@ -11001,7 +10765,7 @@ Do you want to migrate them to the new Scribus version?</translation>
     </message>
     <message>
         <source>Open Python Script File</source>
-        <translation type="unfinished"></translation>
+        <translation>Open Python Script File</translation>
     </message>
 </context>
 <context>
@@ -12236,14 +12000,6 @@ External Links</translation>
         <translation>Scribus Development Version</translation>
     </message>
     <message>
-        <source>You are running a development version of Scribus 1.3.x. The current document you are working with was originally created in Scribus 1.2.2 or lower. The process of saving will make this file unusable again in Scribus 1.2.2 unless you use File-&gt;Save As. Are you sure you wish to proceed with this operation?</source>
-        <translation type="obsolete">You are running a development version of Scribus 1.3.x. The current document you are working with was originally created in Scribus 1.2.2 or lower. The process of saving will make this file unusable again in Scribus 1.2.2 unless you use File-&gt;Save As. Are you sure you wish to proceed with this operation?</translation>
-    </message>
-    <message>
-        <source>&amp;Proceed</source>
-        <translation type="obsolete">&amp;Proceed</translation>
-    </message>
-    <message>
         <source> pt</source>
         <translation> pt</translation>
     </message>
@@ -12306,12 +12062,6 @@ External Links</translation>
     <message>
         <source>File exists</source>
         <translation>File exists</translation>
-    </message>
-    <message>
-        <source>A file named &apos;%1&apos; already exists.
-Do you want to replace it with the file you are saving?</source>
-        <translation type="obsolete">A file named &apos;%1&apos; already exists.
-Do you want to replace it with the file you are saving?</translation>
     </message>
     <message>
         <source>&amp;Replace</source>
@@ -12852,56 +12602,56 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Scribus crashes due to the following exception : %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus crashes due to the following exception : %1</translation>
     </message>
     <message>
         <source>Creating Font Cache</source>
-        <translation type="unfinished"></translation>
+        <translation>Creating Font Cache</translation>
     </message>
     <message>
         <source>New Font found, checking...</source>
-        <translation type="unfinished"></translation>
+        <translation>New Font found, checking...</translation>
     </message>
     <message>
         <source>Modified Font found, checking...</source>
-        <translation type="unfinished"></translation>
+        <translation>Modified Font found, checking...</translation>
     </message>
     <message>
         <source>Reading Font Cache</source>
-        <translation type="unfinished"></translation>
+        <translation>Reading Font Cache</translation>
     </message>
     <message>
         <source>Writing updated Font Cache</source>
-        <translation type="unfinished"></translation>
+        <translation>Writing updated Font Cache</translation>
     </message>
     <message>
         <source>Searching for Fonts</source>
-        <translation type="unfinished">Searching for Fonts</translation>
+        <translation>Searching for Fonts</translation>
     </message>
     <message>
         <source>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.3 or lower. The process of saving will make this file unusable again in Scribus 1.2.3 unless you use File-&gt;Save As. Are you sure you wish to proceed with this operation?</source>
-        <translation type="unfinished"></translation>
+        <translation>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.3 or lower. The process of saving will make this file unusable again in Scribus 1.2.3 unless you use File-&gt;Save As. Are you sure you wish to proceed with this operation?</translation>
     </message>
     <message>
         <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</translation>
     </message>
     <message>
         <source>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</source>
-        <translation type="unfinished"></translation>
+        <translation>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</translation>
     </message>
     <message>
         <source>A file named &apos;%1&apos; already exists.&lt;br/&gt;Do you want to replace it with the file you are saving?</source>
-        <translation type="unfinished"></translation>
+        <translation>A file named &apos;%1&apos; already exists.&lt;br/&gt;Do you want to replace it with the file you are saving?</translation>
     </message>
     <message>
         <source>firstPageOrder is bigger than allowed.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>firstPageOrder is bigger than allowed.</translation>
     </message>
     <message>
         <source>Old .sla format support</source>
-        <translation type="unfinished"></translation>
+        <translation>Old .sla format support</translation>
     </message>
 </context>
 <context>
@@ -13064,10 +12814,6 @@ is not exhaustive due to exceptions from called functions.
         <translation>Landscape</translation>
     </message>
     <message>
-        <source>F&amp;irst Page Number:</source>
-        <translation type="obsolete">F&amp;irst Page Number:</translation>
-    </message>
-    <message>
         <source>&amp;Size:</source>
         <translation>&amp;Size:</translation>
     </message>
@@ -13204,18 +12950,6 @@ is not exhaustive due to exceptions from called functions.
         <translation>Preflight Verifier</translation>
     </message>
     <message>
-        <source>Options</source>
-        <translation type="obsolete">Options</translation>
-    </message>
-    <message>
-        <source>Apply size settings to all Pages</source>
-        <translation type="obsolete">Apply size settings to all Pages</translation>
-    </message>
-    <message>
-        <source>Apply margin settings to all Pages</source>
-        <translation type="obsolete">Apply margin settings to all Pages</translation>
-    </message>
-    <message>
         <source>Rulers relative to Page</source>
         <translation>Rulers relative to Page</translation>
     </message>
@@ -13245,15 +12979,15 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Apply size settings to all pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Apply size settings to all pages</translation>
     </message>
     <message>
         <source>Sections</source>
-        <translation type="unfinished"></translation>
+        <translation>Sections</translation>
     </message>
     <message>
         <source>Apply the page size changes to all existing pages in the document</source>
-        <translation type="unfinished"></translation>
+        <translation>Apply the page size changes to all existing pages in the document</translation>
     </message>
 </context>
 <context>
@@ -13396,11 +13130,11 @@ converting their vector data into Scribus objects.</translation>
     </message>
     <message>
         <source>Scalable Vector Graphics</source>
-        <translation type="unfinished"></translation>
+        <translation>Scalable Vector Graphics</translation>
     </message>
     <message>
         <source>SVG file contains some unsupported features</source>
-        <translation type="unfinished"></translation>
+        <translation>SVG file contains some unsupported features</translation>
     </message>
 </context>
 <context>
@@ -13509,34 +13243,11 @@ converting their vector data into Scribus objects.</translation>
     </message>
 </context>
 <context>
-    <name>ScActionPlugin</name>
-    <message>
-        <source>Could not find target file %1: %2</source>
-        <comment>plugins</comment>
-        <translation type="obsolete">Could not find target file %1: %2</translation>
-    </message>
-    <message>
-        <source>Could not open target file %1: %2</source>
-        <comment>plugins</comment>
-        <translation type="obsolete">Could not open target file %1: %2</translation>
-    </message>
-</context>
-<context>
     <name>ScPlugin</name>
     <message>
         <source>Persistent</source>
         <comment>plugin manager plugin type</comment>
         <translation>Persistent</translation>
-    </message>
-    <message>
-        <source>Import</source>
-        <comment>plugin manager plugin type</comment>
-        <translation type="obsolete">Import</translation>
-    </message>
-    <message>
-        <source>Export</source>
-        <comment>plugin manager plugin type</comment>
-        <translation type="obsolete">Export</translation>
     </message>
     <message>
         <source>Action</source>
@@ -13545,11 +13256,11 @@ converting their vector data into Scribus objects.</translation>
     </message>
     <message>
         <source>Load/Save/Import/Export</source>
-        <translation type="unfinished"></translation>
+        <translation>Load/Save/Import/Export</translation>
     </message>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished">Unknown</translation>
+        <translation>Unknown</translation>
     </message>
 </context>
 <context>
@@ -13650,10 +13361,6 @@ converting their vector data into Scribus objects.</translation>
         <translation>Text Files (*.txt);;All Files(*)</translation>
     </message>
     <message>
-        <source>Warning</source>
-        <translation type="obsolete">Warning</translation>
-    </message>
-    <message>
         <source>Save as</source>
         <translation>Save as</translation>
     </message>
@@ -13684,78 +13391,6 @@ converting their vector data into Scribus objects.</translation>
     <message>
         <source>All</source>
         <translation>All</translation>
-    </message>
-    <message>
-        <source>English</source>
-        <translation type="obsolete">English</translation>
-    </message>
-    <message>
-        <source>German</source>
-        <translation type="obsolete">German</translation>
-    </message>
-    <message>
-        <source>Spanish</source>
-        <translation type="obsolete">Spanish</translation>
-    </message>
-    <message>
-        <source>Italian</source>
-        <translation type="obsolete">Italian</translation>
-    </message>
-    <message>
-        <source>French</source>
-        <translation type="obsolete">French</translation>
-    </message>
-    <message>
-        <source>Russian</source>
-        <translation type="obsolete">Russian</translation>
-    </message>
-    <message>
-        <source>Danish</source>
-        <translation type="obsolete">Danish</translation>
-    </message>
-    <message>
-        <source>Slovak</source>
-        <translation type="obsolete">Slovak</translation>
-    </message>
-    <message>
-        <source>Hungarian</source>
-        <translation type="obsolete">Hungarian</translation>
-    </message>
-    <message>
-        <source>Czech</source>
-        <translation type="obsolete">Czech</translation>
-    </message>
-    <message>
-        <source>Dutch</source>
-        <translation type="obsolete">Dutch</translation>
-    </message>
-    <message>
-        <source>Portuguese</source>
-        <translation type="obsolete">Portuguese</translation>
-    </message>
-    <message>
-        <source>Ukrainian</source>
-        <translation type="obsolete">Ukrainian</translation>
-    </message>
-    <message>
-        <source>Polish</source>
-        <translation type="obsolete">Polish</translation>
-    </message>
-    <message>
-        <source>Greek</source>
-        <translation type="obsolete">Greek</translation>
-    </message>
-    <message>
-        <source>Catalan</source>
-        <translation type="obsolete">Catalan</translation>
-    </message>
-    <message>
-        <source>Finnish</source>
-        <translation type="obsolete">Finnish</translation>
-    </message>
-    <message>
-        <source>Irish</source>
-        <translation type="obsolete">Irish</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -13792,18 +13427,6 @@ converting their vector data into Scribus objects.</translation>
     <message>
         <source>&amp;Help</source>
         <translation>&amp;Help</translation>
-    </message>
-    <message>
-        <source>Lithuanian</source>
-        <translation type="obsolete">Lithuanian</translation>
-    </message>
-    <message>
-        <source>Swedish</source>
-        <translation type="obsolete">Swedish</translation>
-    </message>
-    <message>
-        <source>Slovenian</source>
-        <translation type="obsolete">Slovenian</translation>
     </message>
     <message>
         <source>Open &amp;Recent</source>
@@ -13886,20 +13509,8 @@ converting their vector data into Scribus objects.</translation>
         <translation>&amp;Shade:</translation>
     </message>
     <message>
-        <source>Afrikaans</source>
-        <translation type="obsolete">Afrikaans</translation>
-    </message>
-    <message>
         <source>Font System Initialized</source>
         <translation>Font System Initialised</translation>
-    </message>
-    <message>
-        <source>Portuguese (BR)</source>
-        <translation type="obsolete">Portuguese (BR)</translation>
-    </message>
-    <message>
-        <source>Croatian</source>
-        <translation type="obsolete">Croatian</translation>
     </message>
     <message>
         <source>Reading ICC Profiles</source>
@@ -13950,18 +13561,6 @@ converting their vector data into Scribus objects.</translation>
         <translation>Space</translation>
     </message>
     <message>
-        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;</source>
-        <translation type="obsolete">Documents (*.sla *.sla.gz *.scd *.scd.gz);;</translation>
-    </message>
-    <message>
-        <source>Documents (*.sla *.scd);;</source>
-        <translation type="obsolete">Documents (*.sla *.scd);;</translation>
-    </message>
-    <message>
-        <source>Some fonts used by this document have been substituted:</source>
-        <translation type="obsolete">Some fonts used by this document have been substituted:</translation>
-    </message>
-    <message>
         <source> was replaced by: </source>
         <translation> was replaced by: </translation>
     </message>
@@ -13998,10 +13597,6 @@ converting their vector data into Scribus objects.</translation>
     <message>
         <source>&amp;Unlock All</source>
         <translation>&amp;Unlock All</translation>
-    </message>
-    <message>
-        <source>Bulgarian</source>
-        <translation type="obsolete">Bulgarian</translation>
     </message>
     <message>
         <source>Information</source>
@@ -14068,12 +13663,6 @@ converting their vector data into Scribus objects.</translation>
         <translation>PostScript</translation>
     </message>
     <message>
-        <source>Scribus has detected some errors.
-Consider using the Pre-flight Checker to correct them</source>
-        <translation type="obsolete">Scribus has detected some errors.
-Consider using the Pre-flight Checker to correct them</translation>
-    </message>
-    <message>
         <source>&amp;Abort</source>
         <translation>&amp;Abort</translation>
     </message>
@@ -14123,7 +13712,7 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
     <message>
         <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</translation>
     </message>
 </context>
 <context>
@@ -14271,10 +13860,6 @@ Consider using the Preflight Verifier to correct them</translation>
         <translation>&amp;Delete</translation>
     </message>
     <message>
-        <source>Warning</source>
-        <translation type="obsolete">Warning</translation>
-    </message>
-    <message>
         <source>Cannot Delete In-Use Item</source>
         <translation>Cannot Delete In-Use Item</translation>
     </message>
@@ -14308,31 +13893,27 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
     <message>
         <source>Colorspace: </source>
-        <translation type="unfinished"></translation>
+        <translation>Colourspace: </translation>
     </message>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished">Unknown</translation>
+        <translation>Unknown</translation>
     </message>
     <message>
         <source>RGB</source>
-        <translation type="unfinished">RGB</translation>
+        <translation>RGB</translation>
     </message>
     <message>
         <source>CMYK</source>
-        <translation type="unfinished">CMYK</translation>
+        <translation>CMYK</translation>
     </message>
     <message>
         <source>Grayscale</source>
-        <translation type="unfinished">Greyscale</translation>
+        <translation>Greyscale</translation>
     </message>
 </context>
 <context>
     <name>ScribusWin</name>
-    <message>
-        <source>Warning</source>
-        <translation type="obsolete">Warning</translation>
-    </message>
     <message>
         <source>Document:</source>
         <translation>Document:</translation>
@@ -14342,20 +13923,8 @@ Consider using the Preflight Verifier to correct them</translation>
         <translation>has been changed since the last save.</translation>
     </message>
     <message>
-        <source>&amp;Leave Anyway</source>
-        <translation type="obsolete">&amp;Leave Anyway</translation>
-    </message>
-    <message>
-        <source>C&amp;lose Anyway</source>
-        <translation type="obsolete">C&amp;lose Anyway</translation>
-    </message>
-    <message>
-        <source>&amp;Save Now</source>
-        <translation type="obsolete">&amp;Save Now</translation>
-    </message>
-    <message>
         <source>&amp;Discard</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Discard</translation>
     </message>
 </context>
 <context>
@@ -14407,67 +13976,59 @@ Consider using the Preflight Verifier to correct them</translation>
         <translation>Scripter Preferences</translation>
     </message>
     <message>
-        <source>Extension Scripts</source>
-        <translation type="obsolete">Extension Scripts</translation>
-    </message>
-    <message>
         <source>Enable Extension Scripts</source>
         <translation>Enable Extension Scripts</translation>
     </message>
     <message>
-        <source>Startup Script</source>
-        <translation type="obsolete">Startup Script</translation>
-    </message>
-    <message>
         <source>Extensions</source>
-        <translation type="unfinished"></translation>
+        <translation>Extensions</translation>
     </message>
     <message>
         <source>Console</source>
-        <translation type="unfinished"></translation>
+        <translation>Console</translation>
     </message>
     <message>
         <source>Startup Script:</source>
-        <translation type="unfinished"></translation>
+        <translation>Startup Script:</translation>
     </message>
     <message>
         <source>Errors:</source>
         <comment>syntax highlighting</comment>
-        <translation type="unfinished"></translation>
+        <translation>Errors:</translation>
     </message>
     <message>
         <source>Comments:</source>
         <comment>syntax highlighting</comment>
-        <translation type="unfinished"></translation>
+        <translation>Comments:</translation>
     </message>
     <message>
         <source>Keywords:</source>
         <comment>syntax highlighting</comment>
-        <translation type="unfinished"></translation>
+        <translation>Keywords:</translation>
     </message>
     <message>
         <source>Signs:</source>
         <comment>syntax highlighting</comment>
-        <translation type="unfinished"></translation>
+        <translation>Signs:</translation>
     </message>
     <message>
         <source>Numbers:</source>
         <comment>syntax highlighting</comment>
-        <translation type="unfinished"></translation>
+        <translation>Numbers:</translation>
     </message>
     <message>
         <source>Strings:</source>
         <comment>syntax highlighting</comment>
-        <translation type="unfinished"></translation>
+        <translation>Strings:</translation>
     </message>
     <message>
         <source>Base Texts:</source>
         <comment>syntax highlighting</comment>
-        <translation type="unfinished"></translation>
+        <translation>Base Texts:</translation>
     </message>
     <message>
         <source>Select Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Select Colour</translation>
     </message>
 </context>
 <context>
@@ -14475,13 +14036,6 @@ Consider using the Preflight Verifier to correct them</translation>
     <message>
         <source>Show Page Previews</source>
         <translation>Show Page Previews</translation>
-    </message>
-</context>
-<context>
-    <name>SeView</name>
-    <message>
-        <source>Show Master Page Names</source>
-        <translation type="obsolete">Show Master Page Names</translation>
     </message>
 </context>
 <context>
@@ -14596,45 +14150,6 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
 </context>
 <context>
-    <name>SeitenPal</name>
-    <message>
-        <source>Arrange Pages</source>
-        <translation type="obsolete">Arrange Pages</translation>
-    </message>
-    <message>
-        <source>Document Pages:</source>
-        <translation type="obsolete">Document Pages:</translation>
-    </message>
-    <message>
-        <source>Facing Pages</source>
-        <translation type="obsolete">Facing Pages</translation>
-    </message>
-    <message>
-        <source>Normal</source>
-        <translation type="obsolete">Normal</translation>
-    </message>
-    <message>
-        <source>Drag pages or master pages onto the trashbin to delete them</source>
-        <translation type="obsolete">Drag pages or master pages onto the trashbin to delete them</translation>
-    </message>
-    <message>
-        <source>Previews all the pages of your document</source>
-        <translation type="obsolete">Previews all the pages of your document</translation>
-    </message>
-    <message>
-        <source>Here are all your master pages. To create a new page, drag a master page to the page view below</source>
-        <translation type="obsolete">Here are all your master pages. To create a new page, drag a master page to the page view below</translation>
-    </message>
-    <message>
-        <source>Available Master Pages:</source>
-        <translation type="obsolete">Available Master Pages:</translation>
-    </message>
-    <message>
-        <source>Left Page First</source>
-        <translation type="obsolete">Left Page First</translation>
-    </message>
-</context>
-<context>
     <name>SelectFields</name>
     <message>
         <source>Select Fields</source>
@@ -14732,18 +14247,6 @@ Consider using the Preflight Verifier to correct them</translation>
         <translation>New Style</translation>
     </message>
     <message>
-        <source>Warning</source>
-        <translation type="obsolete">Warning</translation>
-    </message>
-    <message>
-        <source>No</source>
-        <translation type="obsolete">No</translation>
-    </message>
-    <message>
-        <source>Yes</source>
-        <translation type="obsolete">Yes</translation>
-    </message>
-    <message>
         <source>Open</source>
         <translation>Open</translation>
     </message>
@@ -14775,10 +14278,6 @@ Consider using the Preflight Verifier to correct them</translation>
         <source>&amp;Import</source>
         <translation>&amp;Import</translation>
     </message>
-    <message>
-        <source>Do you really want to delete this style?</source>
-        <translation type="obsolete">Do you really want to delete this style?</translation>
-    </message>
 </context>
 <context>
     <name>StoryEditor</name>
@@ -14805,10 +14304,6 @@ Consider using the Preflight Verifier to correct them</translation>
     <message>
         <source>Paragraphs: </source>
         <translation>Paragraphs: </translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation type="obsolete">Warning</translation>
     </message>
     <message>
         <source>Open</source>
@@ -15159,71 +14654,71 @@ Consider using the Preflight Verifier to correct them</translation>
     <name>TOCIndexPrefsBase</name>
     <message>
         <source>Table of Contents and Indexes</source>
-        <translation type="unfinished">Table of Contents and Indexes</translation>
+        <translation>Table of Contents and Indexes</translation>
     </message>
     <message>
         <source>Table Of Contents</source>
-        <translation type="unfinished">Table Of Contents</translation>
+        <translation>Table Of Contents</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished">&amp;Add</translation>
+        <translation>&amp;Add</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished">Alt+A</translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Delete</translation>
+        <translation>&amp;Delete</translation>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation type="unfinished">Alt+D</translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
         <source>The frame the table of contents will be placed into</source>
-        <translation type="unfinished">The frame the table of contents will be placed into</translation>
+        <translation>The frame the table of contents will be placed into</translation>
     </message>
     <message>
         <source>Page Numbers Placed:</source>
-        <translation type="unfinished">Page Numbers Placed:</translation>
+        <translation>Page Numbers Placed:</translation>
     </message>
     <message>
         <source>Item Attribute Name:</source>
-        <translation type="unfinished">Item Attribute Name:</translation>
+        <translation>Item Attribute Name:</translation>
     </message>
     <message>
         <source>The Item Attribute that will be set on frames used as a basis for creation of the entries</source>
-        <translation type="unfinished">The Item Attribute that will be set on frames used as a basis for creation of the entries</translation>
+        <translation>The Item Attribute that will be set on frames used as a basis for creation of the entries</translation>
     </message>
     <message>
         <source>Place page numbers of the entries at the beginning or the end of the line, or not at all</source>
-        <translation type="unfinished">Place page numbers of the entries at the beginning or the end of the line, or not at all</translation>
+        <translation>Place page numbers of the entries at the beginning or the end of the line, or not at all</translation>
     </message>
     <message>
         <source>List Non-Printing Entries</source>
-        <translation type="unfinished">List Non-Printing Entries</translation>
+        <translation>List Non-Printing Entries</translation>
     </message>
     <message>
         <source>Include frames that are set to not print as well</source>
-        <translation type="unfinished">Include frames that are set to not print as well</translation>
+        <translation>Include frames that are set to not print as well</translation>
     </message>
     <message>
         <source>The paragraph style used for the entry lines</source>
-        <translation type="unfinished">The paragraph style used for the entry lines</translation>
+        <translation>The paragraph style used for the entry lines</translation>
     </message>
     <message>
         <source>Paragraph Style:</source>
-        <translation type="unfinished">Paragraph Style:</translation>
+        <translation>Paragraph Style:</translation>
     </message>
     <message>
         <source>Destination Frame:</source>
-        <translation type="unfinished">Destination Frame:</translation>
+        <translation>Destination Frame:</translation>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation type="unfinished">Inde&amp;x</translation>
+        <translation>Inde&amp;x</translation>
     </message>
 </context>
 <context>
@@ -15524,14 +15019,6 @@ Consider using the Preflight Verifier to correct them</translation>
     <message>
         <source>None</source>
         <translation>None</translation>
-    </message>
-    <message>
-        <source>&amp;Method:</source>
-        <translation type="obsolete">&amp;Method:</translation>
-    </message>
-    <message>
-        <source>&amp;Quality:</source>
-        <translation type="obsolete">&amp;Quality:</translation>
     </message>
     <message>
         <source>Maximum</source>
@@ -15964,10 +15451,6 @@ This does not affect the resolution of bitmap images like photos.</source>
 This does not affect the resolution of bitmap images like photos.</translation>
     </message>
     <message>
-        <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
-        <translation type="obsolete">Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</translation>
-    </message>
-    <message>
         <source>DPI (Dots Per Inch) for image export.</source>
         <translation>DPI (Dots Per Inch) for image export.</translation>
     </message>
@@ -15998,18 +15481,6 @@ security features in your exported PDF</translation>
     <message>
         <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
         <translation>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</translation>
-    </message>
-    <message>
-        <source>Allow copying of text or graphics from the PDF. 
-If un-checked, text and graphics cannot be copied.</source>
-        <translation type="obsolete">Allow copying of text or graphics from the PDF. 
-If un-checked, text and graphics cannot be copied.</translation>
-    </message>
-    <message>
-        <source>Allow adding annotations and fields to the PDF. 
-If un-checked, editing annotations and fileds is prevented.</source>
-        <translation type="obsolete">Allow adding annotations and fields to the PDF. 
-If un-checked, editing annotations and fileds is prevented.</translation>
     </message>
     <message>
         <source>Color model for the output of your PDF.
@@ -16094,30 +15565,6 @@ PDF/X-3 conformance. We recommend you use the title of the document.</translatio
         <translation>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; in full screen mode.</translation>
     </message>
     <message>
-        <source>Determines the PDF compatibility.
-The default is PDF 1.3 which gives the widest compatibility.
-Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption.
-PDF/X-3 is for exporting the PDF, when you want color managed RGB for commercial printing
- and is selectable when you have activated color management. 
-Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
-        <translation type="obsolete">Determines the PDF compatibility.
-The default is PDF 1.3 which gives the widest compatibility.
-Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption.
-PDF/X-3 is for exporting the PDF, when you want colour managed RGB for commercial printing
- and is selectable when you have activated colour management. 
-Use only when advised by your printer or in some cases printing to a 4 colour digital colour laser printer.</translation>
-    </message>
-    <message>
-        <source>Enable lossless compression of text and graphics.
-Unless you have a reason, leave this checked. This reduces PDF size.</source>
-        <translation type="obsolete">Enable lossless compression of text and graphics.
-Unless you have a reason, leave this checked. This reduces PDF size.</translation>
-    </message>
-    <message>
-        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options.</source>
-        <translation type="obsolete">Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colours. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options.</translation>
-    </message>
-    <message>
         <source>Re-sample your bitmap images to the selected DPI.
 Leaving this unchecked will render them at their native resolution.
 This can increase memory usage and slow down export.</source>
@@ -16131,40 +15578,41 @@ This can increase memory usage and slow down export.</translation>
     </message>
     <message>
         <source>Compression &amp;Method:</source>
-        <translation type="unfinished"></translation>
+        <translation>Compression &amp;Method:</translation>
     </message>
     <message>
         <source>Compression &amp;Quality:</source>
-        <translation type="unfinished"></translation>
+        <translation>Compression &amp;Quality:</translation>
     </message>
     <message>
         <source>Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want colour managed RGB for commercial printing and is selectable when you have activated colour management. Use only when advised by your printer or in some cases printing to a 4 colour digital colour laser printer.</translation>
     </message>
     <message>
         <source>Enables lossless compression of text and graphics.
 Unless you have a reason, leave this checked. This reduces PDF file size.</source>
-        <translation type="unfinished"></translation>
+        <translation>Enables lossless compression of text and graphics.
+Unless you have a reason, leave this checked. This reduces PDF file size.</translation>
     </message>
     <message>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
-        <translation type="unfinished"></translation>
+        <translation>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colours. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</translation>
     </message>
     <message>
         <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level.</source>
-        <translation type="unfinished"></translation>
+        <translation>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level.</translation>
     </message>
     <message>
         <source>Allow copying of text or graphics from the PDF. If unchecked, text and graphics cannot be copied.</source>
-        <translation type="unfinished"></translation>
+        <translation>Allow copying of text or graphics from the PDF. If unchecked, text and graphics cannot be copied.</translation>
     </message>
     <message>
         <source>Allow adding annotations and fields to the PDF. If unchecked, editing annotations and fields is prevented.</source>
-        <translation type="unfinished"></translation>
+        <translation>Allow adding annotations and fields to the PDF. If unchecked, editing annotations and fields is prevented.</translation>
     </message>
     <message>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Enables Spot Colours to be converted to composite colours. Unless you are planning to print spot colours at a commercial printer, this is probably best left enabled.</translation>
     </message>
 </context>
 <context>
@@ -17130,7 +16578,7 @@ to %2</translation>
     </message>
     <message>
         <source>Text on a Path</source>
-        <translation type="unfinished">Text on a Path</translation>
+        <translation>Text on a Path</translation>
     </message>
 </context>
 <context>
