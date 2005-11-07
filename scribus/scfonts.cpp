@@ -488,10 +488,14 @@ void SCFonts::AddPath(QString p)
 void SCFonts::AddScalableFonts(const QString &path, QString DocName)
 {
 	FT_Library library = NULL;
+	QString pathname(path);
 	QString pathfile;
 	bool error;
 	error = FT_Init_FreeType( &library );
-	QDir d(path, "*", QDir::Name, QDir::Dirs | QDir::Files | QDir::Readable);
+	if ( !pathname.endsWith("/") )
+		pathname += "/";
+	pathname=QDir::convertSeparators(pathname);
+	QDir d(pathname, "*", QDir::Name, QDir::Dirs | QDir::Files | QDir::Readable);
 	if ((d.exists()) && (d.count() != 0))
 	{
 		for (uint dc = 0; dc < d.count(); ++dc)
@@ -500,7 +504,7 @@ void SCFonts::AddScalableFonts(const QString &path, QString DocName)
 			// over. Skip 'em.
 			if (d[dc] == "." || d[dc] == "..")
 				continue;
-			QFileInfo fi(path+d[dc]);
+			QFileInfo fi(pathname+d[dc]);
 			if (!fi.exists())      // Sanity check for broken Symlinks
 				continue;
 			
@@ -510,12 +514,12 @@ void SCFonts::AddScalableFonts(const QString &path, QString DocName)
 			{
 				QFileInfo fi3(fi.readLink());
 				if (fi3.isRelative())
-					pathfile = path+fi.readLink();
+					pathfile = pathname+fi.readLink();
 				else
 					pathfile = fi3.absFilePath();
 			}
 			else
-				pathfile = path+d[dc];
+				pathfile = pathname+d[dc];
 			QFileInfo fi2(pathfile);
 			if (fi2.isDir()) 
 			{
