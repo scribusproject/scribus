@@ -155,7 +155,7 @@ void PythonConsole::slot_open()
 			tr("Python Scripts (*.py)"),
 			this,
 			"ofdialog",
-			tr("Open File With Python Commands"));
+			tr("Open Python Script File"));
 	if (filename.isNull())
 		return;
 	QFile file(filename);
