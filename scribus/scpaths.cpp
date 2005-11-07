@@ -93,6 +93,7 @@ ScPaths::ScPaths() :
 	// on OSX this goes to the sys console, so user only sees it when they care -- AV
 	qDebug(QString("scpaths: doc dir=%1").arg(m_docDir));
 	qDebug(QString("scpaths: icon dir=%1").arg(m_iconDir));
+	qDebug(QString("scpaths: font dir=%1").arg(m_fontDir));
 	qDebug(QString("scpaths: sample dir=%1").arg(m_sampleScriptDir));
 	qDebug(QString("scpaths: script dir=%1").arg(m_scriptDir));
 	qDebug(QString("scpaths: template dir=%1").arg(m_templateDir));

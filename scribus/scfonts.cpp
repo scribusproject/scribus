@@ -487,11 +487,15 @@ void SCFonts::AddPath(QString p)
 
 void SCFonts::AddScalableFonts(const QString &path, QString DocName)
 {
+	//Make sure this is not empty or we will scan the whole drive on *nix
+	//QString::null+/ is / of course.
+	if (path.isEmpty())
+		return;
 	FT_Library library = NULL;
-	QString pathname(path);
 	QString pathfile;
 	bool error;
 	error = FT_Init_FreeType( &library );
+	QString pathname(path);
 	if ( !pathname.endsWith("/") )
 		pathname += "/";
 	pathname=QDir::convertSeparators(pathname);
@@ -1123,7 +1127,7 @@ void SCFonts::GetFonts(QString pf, bool showFontInfo)
 	for (unsigned int i = 0; i < ftDirs.count(); i++)
 		AddScalableFonts( ftDirs[i] );
 	// Search Scribus font path
-	if (QDir(ScPaths::instance().fontDir()).exists())
+	if (!ScPaths::instance().fontDir().isEmpty() && QDir(ScPaths::instance().fontDir()).exists())
 		AddScalableFonts( ScPaths::instance().fontDir() );
 // if fontconfig is there, it does all the work
 #if HAVE_FONTCONFIG
