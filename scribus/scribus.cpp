@@ -3970,8 +3970,9 @@ bool ScribusApp::loadDoc(QString fileName)
 			w->show();
 		view->show();
 		newActWin(w);
-		view->GotoPage(0);
+		doc->currentPage=doc->DocPages.at(0);
 		view->slotDoZoom();
+		view->GotoPage(0);
 		connect(wsp, SIGNAL(windowActivated(QWidget *)), this, SLOT(newActWin(QWidget *)));
 		connect(doc->autoSaveTimer, SIGNAL(timeout()), w, SLOT(slotAutoSave()));
 		connect(w, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
