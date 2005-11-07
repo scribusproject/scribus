@@ -15,6 +15,7 @@
 
 #include "commonstrings.h"
 #include "fileloader.h"
+#include "fileloader.moc"
 #include "fontreplacedialog.h"
 #include "missing.h"
 #include "page.h"
