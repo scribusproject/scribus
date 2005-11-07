@@ -10296,8 +10296,6 @@ void ScribusView::updatePict(QString name)
 			currItem->setImageFlippedH(fho);
 			currItem->setImageFlippedV(fvo);
 			currItem->AdjustPictScale();
-			//FIXME: From old AdjustPictScale, Emit the new scale to the Prop Pal.. but we dont need to do it for this loop!!
-			emit SetLocalValues(currItem->LocalScX, currItem->LocalScY, currItem->LocalX, currItem->LocalY );
 		}
 	}
 	for (uint a = 0; a < Doc->MasterItems.count(); ++a)
@@ -10311,8 +10309,6 @@ void ScribusView::updatePict(QString name)
 			currItem->setImageFlippedH(fho);
 			currItem->setImageFlippedV(fvo);
 			currItem->AdjustPictScale();
-			//FIXME: From old AdjustPictScale, Emit the new scale to the Prop Pal.. but we dont need to do it for this loop!!
-			emit SetLocalValues(currItem->LocalScX, currItem->LocalScY, currItem->LocalX, currItem->LocalY );
 		}
 	}
 	for (uint a = 0; a < Doc->FrameItems.count(); ++a)
@@ -10326,11 +10322,16 @@ void ScribusView::updatePict(QString name)
 			currItem->setImageFlippedH(fho);
 			currItem->setImageFlippedV(fvo);
 			currItem->AdjustPictScale();
-			//FIXME: From old AdjustPictScale, Emit the new scale to the Prop Pal.. but we dont need to do it for this loop!!
-			emit SetLocalValues(currItem->LocalScX, currItem->LocalScY, currItem->LocalX, currItem->LocalY );
 		}
 	}
 	updateContents();
+	//We only need to emit this for the 1st item in the selection, if theres no item selected, 
+	//prop pal is showing 0s anyway. Multi selection needs fixing for prop pal anyway
+	if (SelItem.count()!=0)
+	{
+		PageItem* currItem=SelItem.at(0);
+		emit SetLocalValues(currItem->LocalScX, currItem->LocalScY, currItem->LocalX, currItem->LocalY );
+	}
 	emit DocChanged();
 }
 
