@@ -61,6 +61,14 @@ const ScActionPlugin::AboutData* SaveAsTemplatePlugin::getAboutData() const
 {
 	AboutData* about = new AboutData;
 	Q_CHECK_PTR(about);
+	about->authors = QString::fromUtf8("Riku Leino <riku@scribus.info>");
+	about->shortDescription = tr("Save a document as a template");
+	about->description = tr("Save a document as a template. Good way to ease the "
+	                        "initial work for documents with a constant look");
+    // about->version
+    // about->releaseDate
+    // about->copyright
+	about->license = "GPL";
 	return about;
 }
 

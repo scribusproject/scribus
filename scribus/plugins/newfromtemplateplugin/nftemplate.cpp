@@ -68,6 +68,14 @@ const ScActionPlugin::AboutData* NewFromTemplatePlugin::getAboutData() const
 {
 	AboutData* about = new AboutData;
 	Q_CHECK_PTR(about);
+	about->authors = QString::fromUtf8("Riku Leino <riku@scribus.info>");
+	about->shortDescription = tr("Load documents with predefined layout");
+	about->description = tr("Start a document from a template made by other users or "
+	                        "yourself (f.e. for documents you have a constant style).");
+    // about->version
+    // about->releaseDate
+    // about->copyright
+	about->license = "GPL";
 	return about;
 }
 
