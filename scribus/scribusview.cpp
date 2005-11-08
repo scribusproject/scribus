@@ -8398,6 +8398,7 @@ Page* ScribusView::addPage(int nr, bool mov)
 	disconnect(pageSelector, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
 	pageSelector->setMaxValue(Doc->pageCount);
 	reformPages(mov);
+	//CB should be done in ScribusDoc::addPage();
 	int newFrameNumber=Doc->addAutomaticTextFrame(nr);
 	if (newFrameNumber > 0)
 	{
@@ -8414,6 +8415,7 @@ Page* ScribusView::addPage(int nr, bool mov)
 		painter=NULL;
 		Doc->RePos = savre;
 	}
+	
 	if ((!ScApp->ScriptRunning) && (!Doc->isLoading()) && (!Doc->masterPageMode()))
 		pageSelector->GotoPg(nr);
 	connect(pageSelector, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
@@ -8712,10 +8714,12 @@ void ScribusView::hideMasterPage()
 //	DrawNew();
 }
 
+/*CB Only called by reform doc which can access the item count anyway.
 int ScribusView::CountElements()
 {
 	return static_cast<int>(Doc->Items->count());
 }
+*/
 
 void ScribusView::RecalcPictures(ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *dia)
 {

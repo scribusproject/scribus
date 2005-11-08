@@ -153,7 +153,7 @@ public:
 	void updateLayerMenu();
 	void showMasterPage(int nr);
 	void hideMasterPage();
-	int CountElements();
+	//int CountElements();
 	QImage PageToPixmap(int Nr, int maxGr);
 	QImage MPageToPixmap(QString name, int maxGr);
 	void RecalcPictures(ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *dia = 0);
