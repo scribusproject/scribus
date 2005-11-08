@@ -96,6 +96,16 @@ public:
 	 * @param Before, After or at the end
 	 */
 	void movePage(const int, const int, const int, const int);
+	
+	/**
+	 * @brief Copy a page (pageNumberToCopy) copyCount times, whereToInsert(before or after) the existingPage or at the end.
+	 * @param pageNumberToCopy 
+	 * @param existingPage 
+	 * @param whereToInsert 
+	 * @param copyCount 
+	 */
+	void copyPage(int pageNumberToCopy, int existingPage, int whereToInsert, int copyCount);
+	
 	// Add, delete and move layers
 	/**
 	 * @brief Add a layer to the current document

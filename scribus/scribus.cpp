@@ -1235,14 +1235,14 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 {
 	QWidgetList windows;
 	QWidget* w = NULL;
-	struct ScText *hg;
+	//struct ScText *hg;
 	int kk = k->key();
-	int as = k->ascii();
-	double altx, alty;
+	//int as = k->ascii();
+	//double altx, alty;
 	QString uc = k->text();
 	QString cr, Tcha, Twort;
-	uint Tcoun;
-	int len, pos, c;
+	//uint Tcoun;
+	//int len, pos, c;
 	if (keyrep)
 		return;
 	keyrep = true;
@@ -2313,6 +2313,11 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 	w->setCentralWidget(view);
 	view->reformPages(true);
 	//>>
+	//CB this should be done in the addPage loop above within addPage, but the left and right margins are not correct
+	//until the doc->reformPages has been run from view->reformPages.
+	if (atf)
+		for (int i = 0; i < createCount; ++i)
+			doc->addAutomaticTextFrame(i);
 	
 	connect(undoManager, SIGNAL(undoRedoDone()), view, SLOT(DrawNew()));
 	//connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
@@ -6201,17 +6206,20 @@ void ScribusApp::MovePage()
 
 void ScribusApp::CopyPage()
 {
-	int GrMax = doc->GroupCounter;
 	NoFrameEdit();
 	MovePages *dia = new MovePages(this, doc->currentPage->pageNr()+1, doc->Pages->count(), false);
 	if (dia->exec())
 	{
+		int pageNumberToCopy=dia->getFromPage()-1;
+		int whereToInsert=dia->getWhere();
+		int copyCount=dia->getCopyCount();
+		int wo = dia->getWherePage();
+		doc->copyPage(pageNumberToCopy, wo, whereToInsert, copyCount);
+		/*
 		bool autoText = doc->usesAutomaticTextFrames();
 		doc->setUsesAutomaticTextFrames(false);
 		Page* from = doc->Pages->at(dia->getFromPage()-1);
-		int wo = dia->getWherePage();
-		int copyCount=dia->getCopyCount();
-		int whereToInsert=dia->getWhere();
+		
 		for (int copyNumber=1; copyNumber<=copyCount; ++copyNumber)
 		{
 			//For multiple insertions we can insert in the same place
@@ -6322,6 +6330,7 @@ void ScribusApp::CopyPage()
 			}
 			doc->GroupCounter = GrMax + 1;
 		}
+		*/
 		view->Deselect(true);
 		view->DrawNew();
 		slotDocCh();

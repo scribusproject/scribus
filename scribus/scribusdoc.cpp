@@ -978,6 +978,10 @@ Page* ScribusDoc::addPage(const int pageNumber, const QString& masterPageName)
 	currentPage = addedPage;
 	//if (!masterPageMode())
 	addedPage->MPageNam = masterPageName;
+	//CB We cant do this here yet because of the apparent lack of a single function to determine the
+	//left and right margins, its all done in reformPages.. gaaaaaaaah
+	//if (automaticTextFrames)
+	//	addAutomaticTextFrame(pageNumber);
 	++pageCount;
 	return addedPage;
 }
@@ -1062,7 +1066,7 @@ void ScribusDoc::movePage(const int from, const int to, const int ziel, const in
 const int ScribusDoc::addAutomaticTextFrame(const int pageNumber)
 {
 	Page *addToPage=DocPages.at(pageNumber);
-	if ((!masterPageMode()) && (usesAutomaticTextFrames()) && (!isLoading()))
+	if ((!masterPageMode()) && (usesAutomaticTextFrames()))// && (!isLoading()))
 	{
 		int z = itemAdd(PageItem::TextFrame, PageItem::Unspecified, 
 		                     addToPage->Margins.Left+addToPage->xOffset(),
@@ -2356,7 +2360,8 @@ void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageIte
 	{
 		newItem->SetRectFrame();
 		//TODO one day hopefully, if(ScQApp->usingGUI())
-		ScApp->view->setRedrawBounding(newItem);
+		newItem->setRedrawBounding();
+		//ScApp->view->setRedrawBounding(newItem);
 		newItem->ContourLine = newItem->PoLine.copy();
 	}
 	
@@ -2364,7 +2369,8 @@ void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageIte
 	{
 		newItem->SetOvalFrame();
 		//TODO one day hopefully, if(ScQApp->usingGUI())
-		ScApp->view->setRedrawBounding(newItem);
+		newItem->setRedrawBounding();
+		//ScApp->view->setRedrawBounding(newItem);
 		newItem->ContourLine = newItem->PoLine.copy();
 	}
 	
@@ -2604,6 +2610,8 @@ void ScribusDoc::GroupOnPage(PageItem* currItem)
 	}
 }
 
+//CB TODO make a function to determine the place of the page.. ie, so we know the left and right margins
+// without running this monster
 void ScribusDoc::reformPages(double& maxX, double& maxY, bool moveObjects)
 {
 	QMap<uint, ScribusView::oldPageVar> pageTable;
@@ -3136,4 +3144,127 @@ void ScribusDoc::setFirstSectionFromFirstPageNumber()
 	DocumentSectionMap::Iterator it = sections.begin();
 	it.data().sectionstartindex=FirstPnum;
 	updateSectionPageNumbersToPages();
+}
+
+void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToInsert, int copyCount)
+{
+	//CB Should we really be disabled auto text frames here?
+	bool autoText = usesAutomaticTextFrames();
+	setUsesAutomaticTextFrames(false);
+	Page* from = DocPages.at(pageNumberToCopy);
+	int GrMax = GroupCounter;	
+	for (int copyNumber=1; copyNumber<=copyCount; ++copyNumber)
+	{
+		//For multiple insertions we can insert in the same place
+		switch (whereToInsert)
+		{
+		case 0:
+			currentPage=addPage(existingPage-1, from->MPageNam);
+			//ScApp->slotNewPage(existingPage-1);
+			break;
+		case 1:
+			currentPage=addPage(existingPage, from->MPageNam);
+			//ScApp->slotNewPage(existingPage);
+			break;
+		case 2:
+			currentPage=addPage(DocPages.count(), from->MPageNam);
+			//ScApp->slotNewPage(Pages->count());
+			break;
+		}
+		Page* destination = currentPage; //slotNewPage sets currentPage
+		destination->setInitialHeight(from->height());
+		destination->setInitialWidth(from->width());
+		destination->PageOri = from->PageOri;
+		destination->PageSize = from->PageSize;
+		destination->initialMargins.Top = from->Margins.Top;
+		destination->initialMargins.Bottom = from->Margins.Bottom;
+		destination->initialMargins.Left = from->Margins.Left;
+		destination->initialMargins.Right = from->Margins.Right;
+		ScApp->view->reformPages();
+		QMap<int,int> TableID;
+		QPtrList<PageItem> TableItems;
+		TableID.clear();
+		TableItems.clear();
+		uint oldItems = Items->count();
+		for (uint ite = 0; ite < oldItems; ++ite)
+		{
+			PageItem *itemToCopy = Items->at(ite);
+			if (itemToCopy->OwnPage == static_cast<int>(from->pageNr()))
+			{
+				struct CopyPasteBuffer Buffer;
+				itemToCopy->copyToCopyPasteBuffer(&Buffer);
+				Buffer.Xpos = Buffer.Xpos - from->xOffset() + destination->xOffset();
+				Buffer.Ypos = Buffer.Ypos - from->yOffset() + destination->yOffset();
+				if (itemToCopy->Groups.count() != 0)
+				{
+					Buffer.Groups.clear();
+					QValueStack<int>::Iterator nx;
+					QValueStack<int> tmpGroup;
+					for (nx = itemToCopy->Groups.begin(); nx != itemToCopy->Groups.end(); ++nx)
+					{
+						tmpGroup.push((*nx)+GroupCounter);
+						GrMax = QMAX(GrMax, (*nx)+GroupCounter);
+					}
+					for (nx = tmpGroup.begin(); nx != tmpGroup.end(); ++nx)
+					{
+						Buffer.Groups.push((*nx));
+					}
+				}
+				ScApp->view->PasteItem(&Buffer, true, true);
+				PageItem* Neu = Items->at(Items->count()-1);
+				Neu->OnMasterPage = "";
+				if (itemToCopy->isBookmark)
+					ScApp->AddBookMark(Neu);
+				if (Neu->isTableItem)
+				{
+					TableItems.append(Neu);
+					TableID.insert(ite, Neu->ItemNr);
+				}
+			}
+		}
+		if (TableItems.count() != 0)
+		{
+			for (uint ttc = 0; ttc < TableItems.count(); ++ttc)
+			{
+				PageItem* ta = TableItems.at(ttc);
+				if (ta->TopLinkID != -1)
+					ta->TopLink = Items->at(TableID[ta->TopLinkID]);
+				else
+					ta->TopLink = 0;
+				if (ta->LeftLinkID != -1)
+					ta->LeftLink = Items->at(TableID[ta->LeftLinkID]);
+				else
+					ta->LeftLink = 0;
+				if (ta->RightLinkID != -1)
+					ta->RightLink = Items->at(TableID[ta->RightLinkID]);
+				else
+					ta->RightLink = 0;
+				if (ta->BottomLinkID != -1)
+					ta->BottomLink = Items->at(TableID[ta->BottomLinkID]);
+				else
+					ta->BottomLink = 0;
+			}
+		}
+		//ScApp->Apply_MasterPage(from->MPageNam, destination->pageNr(), false);
+		if (from->YGuides.count() != 0)
+		{
+			for (uint y = 0; y < from->YGuides.count(); ++y)
+			{
+				if (destination->YGuides.contains(from->YGuides[y]) == 0)
+					destination->YGuides.append(from->YGuides[y]);
+			}
+			qHeapSort(destination->YGuides);
+		}
+		if (from->XGuides.count() != 0)
+		{
+			for (uint x = 0; x < from->XGuides.count(); ++x)
+			{
+				if (destination->XGuides.contains(from->XGuides[x]) == 0)
+					destination->XGuides.append(from->XGuides[x]);
+			}
+			qHeapSort(destination->XGuides);
+		}
+		GroupCounter = GrMax + 1;
+	}
+	setUsesAutomaticTextFrames(autoText);
 }
