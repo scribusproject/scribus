@@ -2056,7 +2056,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 	case Key_Up:
 	case Key_Down:
 		if ( (buttonState & ShiftButton) == 0 )
-			ScApp->view->deselectAll(this);
+			deselectAll();
 	}
 	//<< ISO 14755
 	//if ((buttonState & ControlButton) && (buttonState & ShiftButton))
@@ -2178,7 +2178,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		}
 		CPos = pos;
 		if ( buttonState & ShiftButton )
-			ScApp->view->ExpandSel(this, -1, oldPos);
+			ExpandSel(-1, oldPos);
 		break;
 	case Key_End:
 		// go to end of line
@@ -2234,7 +2234,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			CPos = pos;
 		}
 		if ( buttonState & ShiftButton )
-			ScApp->view->ExpandSel(this, 1, oldPos);
+			ExpandSel(1, oldPos);
 		break;
 	case Key_Down:
 		if (CPos != static_cast<int>(itemText.count()))
@@ -2257,7 +2257,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			{
 				if ( buttonState & AltButton )
 					CPos = itemText.count();
-				ScApp->view->ExpandSel(this, 1, oldPos);
+				ExpandSel(1, oldPos);
 			}
 			else
 				if (CPos == static_cast<int>(itemText.count()))
@@ -2317,7 +2317,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			{
 				if ( buttonState & AltButton )
 					CPos = 0;
-				ScApp->view->ExpandSel(this, -1, oldPos);
+				ExpandSel(-1, oldPos);
 			}
 			else
 				if (CPos == 0)
@@ -2349,21 +2349,21 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 	case Key_Prior:
 		CPos = 0;
 		if ( buttonState & ShiftButton )
-			ScApp->view->ExpandSel(this, -1, oldPos);
+			ExpandSel(-1, oldPos);
 		ScApp->setTBvals(this);
 		break;
 	case Key_Next:
 		CPos = static_cast<int>(itemText.count());
 		if ( buttonState & ShiftButton )
-			ScApp->view->ExpandSel(this, 1, oldPos);
+			ExpandSel(1, oldPos);
 		ScApp->setTBvals(this);
 		break;
 	case Key_Left:
 		if ( buttonState & ControlButton )
 		{
-			ScApp->view->setNewPos(this, oldPos, itemText.count(),-1);
+			setNewPos(oldPos, itemText.count(),-1);
 			if ( buttonState & ShiftButton )
-				ScApp->view->ExpandSel(this, -1, oldPos);
+				ExpandSel(-1, oldPos);
 		}
 		else if ( buttonState & ShiftButton )
 		{
@@ -2371,7 +2371,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			if ( CPos < 0 )
 				CPos = 0;
 			else
-				ScApp->view->ExpandSel(this, -1, oldPos);
+				ExpandSel(-1, oldPos);
 		}
 		else
 		{
@@ -2417,9 +2417,9 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 	case Key_Right:
 		if ( buttonState & ControlButton )
 		{
-			ScApp->view->setNewPos(this, oldPos, itemText.count(),1);
+			setNewPos(oldPos, itemText.count(),1);
 			if ( buttonState & ShiftButton )
-				ScApp->view->ExpandSel(this, 1, oldPos);
+				ExpandSel(1, oldPos);
 		}
 		else if ( buttonState & ShiftButton )
 		{
@@ -2427,7 +2427,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			if ( CPos > static_cast<int>(itemText.count()) )
 				--CPos;
 			else
-				ScApp->view->ExpandSel(this, 1, oldPos);
+				ExpandSel(1, oldPos);
 		}
 		else
 		{
@@ -2621,5 +2621,170 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame()
 		CPos = 0;
 	HasSel = false;
 	Doc->updateFrameItems();
+	ScApp->DisableTxEdit();
+}
+
+// jjsa added on 15-mar-2004
+// calculate the end position while ctrl + arrow pressed
+
+void PageItem_TextFrame::setNewPos(int oldPos, int len, int dir)
+{
+	int i;
+	bool isSpace;
+	if ( dir > 0 && oldPos < len )
+	{
+		isSpace = itemText.at(oldPos)->ch.at(0).isSpace();
+		CPos = oldPos +1;
+		for (i=oldPos+1; i < len; i++)
+		{
+			if ( itemText.at(i)->ch.at(0).isSpace() != isSpace )
+				break;
+			CPos++;
+		}
+	}
+	else if ( dir < 0 && oldPos > 0 )
+	{
+		oldPos--;
+		isSpace = itemText.at(oldPos)->ch.at(0).isSpace();
+		for (i=oldPos; i >= 0; i--)
+		{
+			if (  itemText.at(i)->ch.at(0).isSpace() != isSpace )
+				break;
+			CPos--;
+		}
+	}
+}
+
+
+
+// jjsa added on 15-mar-2004 expand / decrease selection
+
+// jjsa added on 14-mar-2004 text selection with pressed
+// shift button and <-, -> cursor keys
+// Parameters
+//   PageItem *currItem text item to be processed
+//   inc < 0 for left key > 0 for right key
+//  if value is +/-1 work on slection
+//  if value is +/-2 refresh if text under cursor is selected
+
+void PageItem_TextFrame::ExpandSel(int dir, int oldPos)
+{
+	int len = itemText.count();
+	bool rightSel = false; // assume left right and actual char not selected
+	bool leftSel  = false;
+	bool actSel   = false;
+	bool selMode  = false;
+
+	if ( dir == -1 || dir == 1 )
+		selMode = true;
+	else
+	{
+		if ( dir > 0 )
+			dir = 1;
+		else
+			dir = -1;
+	}
+   // show for selection of previous, actual and next character
+	if ( HasSel ) /* selection already present */
+	{
+		if (dir > 0 && oldPos < len) // -> key
+		{
+			if ( oldPos == 0 )
+				leftSel = false;
+			else
+				leftSel = itemText.at(oldPos-1)->cselect;
+			actSel = itemText.at(oldPos)->cselect;
+			rightSel = false; // not relevant
+		}
+		else if ( dir > 0 && oldPos == len) // -> key
+		{
+			return;
+		}
+		else if ( dir < 0 && oldPos > 0 ) // <- key
+		{
+			actSel = itemText.at(oldPos-1)->cselect;
+			leftSel = false; // not relevant
+			if ( oldPos < len  )
+				rightSel = itemText.at(oldPos)->cselect;
+			else
+				rightSel = false;
+		}
+		else if ( dir < 0 && oldPos == 0 ) // <- key
+		{
+         return;
+		}
+		if ( selMode && !(leftSel||actSel||rightSel) )
+		{
+         // selected outside from concerned range
+         // deselect all
+			int i;
+			for (i=0; i < len; i++ )
+			{
+				itemText.at(i)->cselect = false;
+			}
+			HasSel = false;
+			//CB Replace with direct call for now //emit HasNoTextSel();
+			ScApp->DisableTxEdit();
+		}
+		else if ( !selMode )
+		{
+			if (leftSel||actSel||rightSel)
+				ScApp->view->RefreshItem(this);
+		}
+	}
+	if ( !selMode )
+		return;
+   // no selection
+	if ( !HasSel )
+	{
+		HasSel = true;
+		//CB Replace with direct call for now //emit HasTextSel();
+		ScApp->EnableTxEdit();
+		leftSel = true;
+		rightSel = true;
+	}
+	int i;
+	int start;
+	int end;
+	int sel;
+	if (dir == 1) // ->  key
+	{
+		start = oldPos;
+		end   = CPos;
+		sel = leftSel == true;
+	}
+	else
+	{
+		start = CPos;
+		end   = oldPos;
+		sel = rightSel == true;
+	}
+	for ( i = start; i < end; i++)
+		itemText.at(i)->cselect = sel;
+	if ( ! sel )
+		//CB Replace with direct call for now //emit  HasNoTextSel();
+		ScApp->DisableTxEdit();
+	ScApp->view->RefreshItem(this);
+}
+
+void PageItem_TextFrame::deselectAll()
+{
+	PageItem *item = this;
+	while( item->BackBox )
+		item=item->BackBox;
+
+	while ( item )
+	{
+		if ( item->HasSel )
+		{
+			uint l = item->itemText.count();
+			for (uint n=0; n < l; ++n )
+				item->itemText.at(n)->cselect = false;
+			ScApp->view->RefreshItem(this);
+			item->HasSel = false;
+		}
+		item = item->NextBox;
+	}
+	//CB Replace with direct call for now //emit HasNoTextSel();
 	ScApp->DisableTxEdit();
 }

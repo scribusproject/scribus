@@ -55,6 +55,9 @@ public:
 	
 	virtual void handleModeEditKey(QKeyEvent *k, bool& keyRepeat);
 	void deleteSelectedTextFromFrame();
+	void setNewPos(int oldPos, int len, int dir);
+	void ExpandSel(int dir, int oldPos);
+	void deselectAll();
 	
 protected:
 	virtual void DrawObj_Item(ScPainter *p, QRect e, double sc);

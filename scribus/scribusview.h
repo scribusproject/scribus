@@ -202,9 +202,9 @@ public:
 	void RotateItem(double win, PageItem *currItem);
 	void AdjustItemSize(PageItem *currItem);
 	void AdvanceSel(PageItem *currItem, int oldPos, int len, int dir, int expandSel, int state);
-	void setNewPos(PageItem *currItem, int oldPos, int len, int dir);
-	void ExpandSel(PageItem *currItem, int dir, int oldPos);
-	void deselectAll(PageItem *currItem);
+	//void setNewPos(PageItem *currItem, int oldPos, int len, int dir);
+	//void ExpandSel(PageItem *currItem, int dir, int oldPos);
+	//void deselectAll(PageItem *currItem);
 	bool slotSetCurs(int x, int y);
 	void slotDoCurs(bool draw);
 	void HandleCurs(QPainter *p, PageItem *currItem, QRect mpo);

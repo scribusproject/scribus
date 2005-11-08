@@ -6495,6 +6495,7 @@ void ScribusView::AdjustItemSize(PageItem *currItem)
 	currItem->Sizing = siz;
 }
 
+//CB Unused
 void ScribusView::AdvanceSel(PageItem *currItem, int oldPos, int len, int dir, int expandSel, int state)
 {
 	int i;
@@ -6532,6 +6533,7 @@ void ScribusView::AdvanceSel(PageItem *currItem, int oldPos, int len, int dir, i
 	}
 }
 
+/*
 // jjsa added on 15-mar-2004
 // calculate the end position while ctrl + arrow pressed
 
@@ -6562,7 +6564,8 @@ void ScribusView::setNewPos(PageItem *currItem, int oldPos, int len, int dir)
 		}
 	}
 }
-
+*/
+/*
 // jjsa added on 15-mar-2004 expand / decrease selection
 
 // jjsa added on 14-mar-2004 text selection with pressed
@@ -6591,7 +6594,7 @@ void ScribusView::ExpandSel(PageItem *currItem, int dir, int oldPos)
 			dir = -1;
 	}
    // show for selection of previous, actual and next character
-	if ( currItem->HasSel ) /* selection already present */
+	if ( currItem->HasSel ) // selection already present
 	{
 		if (dir > 0 && oldPos < len) // -> key
 		{
@@ -6690,7 +6693,7 @@ void ScribusView::deselectAll(PageItem *currItem)
 	}
 	emit HasNoTextSel();
 }
-
+*/
 bool ScribusView::slotSetCurs(int x, int y)
 {
 	PageItem *currItem;
@@ -10444,14 +10447,16 @@ void ScribusView::UpdatePic()
 						currItem->setImageFlippedH(fho);
 						currItem->setImageFlippedV(fvo);
 						currItem->AdjustPictScale();
-						//FIXME: From old AdjustPictScale, Emit the new scale to the Prop Pal.. but we dont need to do it for this loop!!
-						emit SetLocalValues(currItem->LocalScX, currItem->LocalScY, currItem->LocalX, currItem->LocalY );
 						toUpdate=true;
 					}
 				}
 		}
 		if (toUpdate)
+		{
+			PageItem* currItem=SelItem.at(0);
+			emit SetLocalValues(currItem->LocalScX, currItem->LocalScY, currItem->LocalX, currItem->LocalY );
 			updateContents();
+		}
 	}
 }
 
