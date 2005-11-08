@@ -939,7 +939,7 @@ void ReformDoc::updateDocumentSettings()
 		{
 			ScApp->mainWindowStatusLabel->setText( tr("Adjusting Colors"));
 			ScApp->mainWindowProgressBar->reset();
-			int cc = currDoc->PageColors.count() + ScApp->view->CountElements();
+			int cc = currDoc->PageColors.count() + currDoc->Items->count();
 			ScApp->mainWindowProgressBar->setTotalSteps(cc);
 #ifdef HAVE_CMS
 			currDoc->HasCMS = currDoc->CMSSettings.CMSinUse;
