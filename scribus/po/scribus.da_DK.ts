@@ -22,76 +22,9 @@ Returns true if a new document was created.
 </source>
         <translation>newDocDialog() -&gt; bool
 
-Viser &quot;Ny dokument&quot; dialog boks. Laver et nyt dokument, hvis brugeren
+Viser &quot;Nyt dokument&quot; dialog boks. Laver et nyt dokument, hvis brugeren
 accepterer indstillingerne. Laver ikke et dokument, hvis brugeren trykker på annullér.
 Returnerer &quot;true&quot; hvis der blev lavet et nyt dokument.
-</translation>
-    </message>
-    <message>
-        <source>newDoc(size, margins, orientation, firstPageNumber,
-                   unit, facingPages, firstSideLeft) -&gt; bool
-
-Creates a new document and returns true if successful. The parameters have the
-following meaning:
-
-    size = A tuple (width, height) describing the size of the document. You can
-    use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
-
-    margins = A tuple (left, right, top, bottom) describing the document
-    margins
-
-    orientation = the page orientation - constants PORTRAIT, LANDSCAPE
-
-    firstPageNumber = is the number of the first page in the document used for
-    pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
-    numbers if you&apos;re creating a document in several parts.
-
-    unit: this value sets the measurement units used by the document. Use a
-    predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
-    UNIT_PICAS, UNIT_POINTS.
-
-    facingPages = FACINGPAGES, NOFACINGPAGES
-
-    firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT
-
-The values for width, height and the margins are expressed in the given unit
-for the document. PAPER_* constants are expressed in points. If your document
-is not in points, make sure to account for this.
-
-example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
-                FACINGPAGES, FIRSTPAGERIGHT)
-</source>
-        <translation>newDoc(størrelse, marginer, retning, førsteSideNummer,
-                   måle-enhed, modståendeSider, førsteSideVenstre) -&gt; bool
-
-Laver et Nyt dokument og returnerer &quot;true&quot; hvis det lykkedes. Parametrene har 
-følgende betydning:
-
-    størrelse = A tuple (bredde, højde) beskriver størrelsen af dokumentet. du kan
-    bruge predefinerede constanter med navnet PAPER_&lt;paper_type&gt; f.eks. PAPER_A4 etc.
-
-    marginer = En tuple (venstre, højre, top, bund) beskriver documentets marginer
-
-    retning = sidens retning - constanter PORTRAIT, LANDSCAPE
-
-    førsteSideNummer = er nummeret på den første side i dokumentet brugt for
-    side-nummerering. Selvom værdien oftest er 1, så er der nogen gange brug for 
-    et højere nummer, når et dokument består af flere dele.
-
-    enhed: denne værdi sætter måle-enheden, som bruges i dokumentet. Brug en
-    predefineret constant for dette, en af: UNIT_INCHES, UNIT_MILLIMETERS,
-    UNIT_PICAS, UNIT_POINTS.
-
-    modståendeSider = FACINGPAGES, NOFACINGPAGES
-
-    førsteSideVenstre = FIRSTPAGELEFT, FIRSTPAGERIGHT
-
-Værdierne for bredde, højde og marginer er udtrykt i den givne måle-enhed
-for dokumentet. PAPER_* constanter er udtrykt i punkter. Hvis dit dokument
-ikke er i punkter, så sørg for at tage højde for dette.
-
-eksempel: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
-                FACINGPAGES, FIRSTPAGERIGHT)
 </translation>
     </message>
     <message>
@@ -246,6 +179,90 @@ Hvis det givne kørbar_objekt er en klasse, vil den blive afvist. Funktioner og 
 metoder er acceptable, og det gælder også  instanser af klasser der giver en __call__ metode 
 uden argumenter. Der er ikke noget problem med at registrere et kørbar_objekt mere en 
 gang, eller med at registrere flere bundne metoder af en enkelt instans.
+</translation>
+    </message>
+    <message>
+        <source>newDocument(size, margins, orientation, firstPageNumber,
+unit, pagesType, firstPageOrder) -&gt; bool
+
+WARNING: This is backported function from 1.3.x series. You are using constants
+larger PAGE_3 and bigger on your own risk. So do you with firstPageOrder biger
+than 1.
+
+Creates a new document and returns true if successful. The parameters have the
+following meaning:
+
+size = A tuple (width, height) describing the size of the document. You can
+use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
+
+margins = A tuple (left, right, top, bottom) describing the document
+margins
+
+orientation = the page orientation - constants PORTRAIT, LANDSCAPE
+
+firstPageNumer = is the number of the first page in the document used for
+pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
+numbers if you&apos;re creating a document in several parts.
+
+unit: this value sets the measurement units used by the document. Use a
+predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
+UNIT_PICAS, UNIT_POINTS.
+
+pagesType = One of the predefined constants PAGE_n. PAGE_1 is single page,
+PAGE_2 is for double sided documents, PAGE_3 is for 3 pages fold and
+PAGE_4 is 4-fold.
+
+firstPageOrder = What is position of first page in the document.
+Indexed from 0 (0 = first).
+
+The values for width, height and the margins are expressed in the given unit
+for the document. PAPER_* constants are expressed in points. If your document
+is not in points, make sure to account for this.
+
+example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
+PAGE_4, 3)
+
+May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
+</source>
+        <translation>newDocument(størrelse, margener, retning, førsteSideNummer,
+måle-enhed, sideType, førsteSideOrden) -&gt; bool
+
+ADVARSEL: Dette er en funktion tilbageført fra 1.3.x serien. Konstanterne PAGE_3 
+og større bruges på eget ansvar. Det gælder også for førsteSideOrden større end 1.
+
+Laver et Nyt dokument og returnerer &quot;true&quot; hvis det lykkedes. Parametrene har 
+følgende betydning:
+
+størrelse = A tuple (bredde, højde) beskriver størrelsen af dokumentet. du kan
+bruge predefinerede constanter med navnet PAPER_&lt;papir_type&gt; f.eks. PAPER_A4 etc.
+
+margener = En tuple (venstre, højre, top, bund) beskriver documentets margener
+
+retning = sidens retning - constanter PORTRAIT, LANDSCAPE
+
+førsteSideNummer = er nummeret på den første side i dokumentet brugt for
+side-nummerering. Selvom værdien oftest er 1, så er der nogen gange brug for 
+et højere nummer, hvis et dokument består af flere dele.
+
+måle-enhed: denne værdi sætter måle-enheden, som bruges i dokumentet. Brug en
+predefineret constant for dette, en af: UNIT_INCHES, UNIT_MILLIMETERS,
+UNIT_PICAS, UNIT_POINTS.
+
+sideType = En af de predefinerede constanter PAGE_n. PAGE_1 er enkeltside,
+PAGE_2 er for dobbeltsidet dokumenter, PAGE_3 er for 3 siders folder og
+PAGE_4 er 4-fold
+
+førsteSideOrden= Hvad er positionen af første side i dokumentet.
+Indeksering fra 0 (0 = første).
+
+Værdierne for bredde, højde og margener er udtrykt i den givne måle-enhed
+for dokumentet. PAPER_* constanter er udtrykt i punkter. Hvis dit dokument
+ikke er i punkter, så sørg for at tage højde for dette.
+
+eksempel: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
+PAGE_4, 3)
+
+Kan rejse ScribusError hvis førsteSideOrden er større end tilladt af sideType.
 </translation>
     </message>
 </context>
@@ -2344,6 +2361,73 @@ rammen. Hvis &quot;navn&quot; ikke er givet, så bruges det markerede element.
 Kan rejse IndexError for en indsætning uden for et gyldigt område.
 </translation>
     </message>
+    <message>
+        <source>newDoc(size, margins, orientation, firstPageNumber,
+                   unit, facingPages, firstSideLeft) -&gt; bool
+
+Creates a new document and returns true if successful. The parameters have the
+following meaning:
+
+    size = A tuple (width, height) describing the size of the document. You can
+    use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
+
+    margins = A tuple (left, right, top, bottom) describing the document
+    margins
+
+    orientation = the page orientation - constants PORTRAIT, LANDSCAPE
+
+    firstPageNumber = is the number of the first page in the document used for
+    pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
+    numbers if you&apos;re creating a document in several parts.
+
+    unit: this value sets the measurement units used by the document. Use a
+    predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
+    UNIT_PICAS, UNIT_POINTS.
+
+    facingPages = FACINGPAGES, NOFACINGPAGES
+
+    firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT
+
+The values for width, height and the margins are expressed in the given unit
+for the document. PAPER_* constants are expressed in points. If your document
+is not in points, make sure to account for this.
+
+example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
+                FACINGPAGES, FIRSTPAGERIGHT)
+</source>
+        <translation>newDoc(størrelse, marginer, retning, førsteSideNummer,
+                   måle-enhed, modståendeSider, førsteSideVenstre) -&gt; bool
+
+Laver et Nyt dokument og returnerer &quot;true&quot; hvis det lykkedes. Parametrene har 
+følgende betydning:
+
+    størrelse = A tuple (bredde, højde) beskriver størrelsen af dokumentet. du kan
+    bruge predefinerede constanter med navnet PAPER_&lt;paper_type&gt; f.eks. PAPER_A4 etc.
+
+    marginer = En tuple (venstre, højre, top, bund) beskriver documentets marginer
+
+    retning = sidens retning - constanter PORTRAIT, LANDSCAPE
+
+    førsteSideNummer = er nummeret på den første side i dokumentet brugt for
+    side-nummerering. Selvom værdien oftest er 1, så er der nogen gange brug for 
+    et højere nummer, når et dokument består af flere dele.
+
+    enhed: denne værdi sætter måle-enheden, som bruges i dokumentet. Brug en
+    predefineret constant for dette, en af: UNIT_INCHES, UNIT_MILLIMETERS,
+    UNIT_PICAS, UNIT_POINTS.
+
+    modståendeSider = FACINGPAGES, NOFACINGPAGES
+
+    førsteSideVenstre = FIRSTPAGELEFT, FIRSTPAGERIGHT
+
+Værdierne for bredde, højde og marginer er udtrykt i den givne måle-enhed
+for dokumentet. PAPER_* constanter er udtrykt i punkter. Hvis dit dokument
+ikke er i punkter, så sørg for at tage højde for dette.
+
+eksempel: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
+                FACINGPAGES, FIRSTPAGERIGHT)
+</translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -2634,13 +2718,13 @@ UCR formindsker muligheden for overmætning med CMY farverne.</translation>
     </message>
     <message>
         <source>This enables you to explicitely set,
-the media size of the postscript file.
+the media size of the PostScript file.
 Not recommended unless
  requested by your printer.</source>
         <translation>Dette gør dig i stand til direkte at 
-angive medie størrelsen i postscript filen.
+angive medie størrelsen i Postscript filen.
 Anbefales ikke med mindre
-det kræves af din printer.</translation>
+det kræves af dit trykkeri.</translation>
     </message>
 </context>
 <context>
@@ -3028,10 +3112,6 @@ det kræves af din printer.</translation>
         <translation>Felt er formateret som:</translation>
     </message>
     <message>
-        <source>Java Script</source>
-        <translation>Javascript</translation>
-    </message>
-    <message>
         <source>Width:</source>
         <translation>Bredde:</translation>
     </message>
@@ -3046,10 +3126,6 @@ det kræves af din printer.</translation>
     <message>
         <source>Don&apos;t Export Value</source>
         <translation>Eksporter ikke værdi</translation>
-    </message>
-    <message>
-        <source>Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)</source>
-        <translation>Billeder (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Alle filer (*)</translation>
     </message>
     <message>
         <source>Submit Data as HTML</source>
@@ -3311,6 +3387,14 @@ det kræves af din printer.</translation>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>PDF filer (*.pdf);;Alle filer (*)</translation>
     </message>
+    <message>
+        <source>JavaScript</source>
+        <translation>JavaScript</translation>
+    </message>
+    <message>
+        <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)</source>
+        <translation>Billeder (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;Alle filer (*)</translation>
+    </message>
 </context>
 <context>
     <name>Annota</name>
@@ -3464,7 +3548,7 @@ Vælg venligst et andet.</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation>&amp;Ny</translation>
+        <translation>&amp;Nyt</translation>
     </message>
     <message>
         <source>&amp;Load...</source>
@@ -4378,10 +4462,6 @@ eventuelt efterfulgt af en bindestreg og en ISI-3166 landekode, f.eks en-GB, fr-
         <translation>Fil</translation>
     </message>
     <message>
-        <source>Postscript-Files (*.ps);;All Files (*)</source>
-        <translation>Postscript-filer (*.ps);; Alle filer (*)</translation>
-    </message>
-    <message>
         <source>Options</source>
         <translation>Indstillinger</translation>
     </message>
@@ -4498,6 +4578,10 @@ en række sider eller et enkelt sidenummer.</translation>
 to utilize additional printing options</source>
         <translation>Brug en alternativ printer håndtering, som f.eks. kprinter eller gtklp, 
 for at kunne få flere printerindstillinger</translation>
+    </message>
+    <message>
+        <source>PostScript Files (*.ps);;All Files (*)</source>
+        <translation>PostScript-filer (*.ps);; Alle filer (*)</translation>
     </message>
 </context>
 <context>
@@ -4837,12 +4921,8 @@ tekst redigerings området under &quot;Kildekode&quot; mærkaten og klik OK for 
         <translation>Editor</translation>
     </message>
     <message>
-        <source>Javascripts (*.js);;All Files (*)</source>
-        <translation>JavaScripts (*.js);; Alle filer (*)</translation>
-    </message>
-    <message>
         <source>&amp;New</source>
-        <translation>&amp;Ny</translation>
+        <translation>&amp;Nyt</translation>
     </message>
     <message>
         <source>&amp;Open...</source>
@@ -4895,6 +4975,10 @@ tekst redigerings området under &quot;Kildekode&quot; mærkaten og klik OK for 
     <message>
         <source>&amp;Edit</source>
         <translation>&amp;Redigér</translation>
+    </message>
+    <message>
+        <source>JavaScripts (*.js);;All Files (*)</source>
+        <translation>JavaScripts (*.js);; Alle filer (*)</translation>
     </message>
 </context>
 <context>
@@ -5217,10 +5301,6 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
         <translation>Tilgængelige Fonte</translation>
     </message>
     <message>
-        <source>Postscript</source>
-        <translation>Postscript</translation>
-    </message>
-    <message>
         <source>Type</source>
         <translation>Type</translation>
     </message>
@@ -5259,6 +5339,10 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Annullér</translation>
+    </message>
+    <message>
+        <source>PostScript</source>
+        <translation>PostScript</translation>
     </message>
 </context>
 <context>
@@ -9075,10 +9159,6 @@ en positiv værdi vil lave den convex</translation>
         <translation>Eksterne værktøjer</translation>
     </message>
     <message>
-        <source>Postscript Interpreter</source>
-        <translation>Postscript-fortolker</translation>
-    </message>
-    <message>
         <source>Image Processing Tool</source>
         <translation>Program til Billedbehandling</translation>
     </message>
@@ -9854,8 +9934,12 @@ be changed with documents open.</source>
         <translation>Skjuler basislinie-gitter</translation>
     </message>
     <message>
-        <source>File system location for the Ghostscript interpreter</source>
-        <translation>Placering af Ghostscript fortolkeren i filsystemet</translation>
+        <source>PostScript Interpreter</source>
+        <translation>PostScript-fortolker</translation>
+    </message>
+    <message>
+        <source>File system location for the GhostScript interpreter</source>
+        <translation>Placering af GhostScript fortolkeren i filsystemet</translation>
     </message>
 </context>
 <context>
@@ -10370,7 +10454,7 @@ Kontrollér sti og filnavn.</translation>
     </message>
     <message>
         <source>New &amp;from Template...</source>
-        <translation>Ny &amp;fra skabelon...</translation>
+        <translation>Nyt &amp;fra skabelon...</translation>
     </message>
     <message>
         <source>Newsletters</source>
@@ -11243,6 +11327,15 @@ funktionens dokumentation. </translation>
         <comment>page export</comment>
         <translation>side</translation>
     </message>
+    <message>
+        <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
+        <translation>Ændringerne i dit dokument er ikke gemt og du har valgt at fortryde dem. Ønsker du at fortsætte?</translation>
+    </message>
+    <message>
+        <source>firstPageOrder is bigger than allowed.</source>
+        <comment>python error</comment>
+        <translation>førsteSideOrden er større end tilladt.</translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -11780,10 +11873,6 @@ Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opn�
         <translation>Smart bindestreg</translation>
     </message>
     <message>
-        <source>EPS-Files (*.eps);;All Files (*)</source>
-        <translation>EPS-filer (*.eps);; Alle filer (*)</translation>
-    </message>
-    <message>
         <source>Delete...</source>
         <translation>Slet...</translation>
     </message>
@@ -12134,10 +12223,6 @@ Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opn�
         <translation>Scribus manual</translation>
     </message>
     <message>
-        <source>Javascripts...</source>
-        <translation>Javascripts...</translation>
-    </message>
-    <message>
         <source></source>
         <translation></translation>
     </message>
@@ -12311,7 +12396,7 @@ Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opn�
     </message>
     <message>
         <source>&amp;New</source>
-        <translation>&amp;Ny</translation>
+        <translation>&amp;Nyt</translation>
     </message>
     <message>
         <source>&amp;Open...</source>
@@ -12424,10 +12509,6 @@ Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opn�
     <message>
         <source>&amp;Templates...</source>
         <translation>Ska&amp;beloner...</translation>
-    </message>
-    <message>
-        <source>&amp;Javascripts...</source>
-        <translation>&amp;Javascripts...</translation>
     </message>
     <message>
         <source>D&amp;uplicate</source>
@@ -12698,10 +12779,6 @@ Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opn�
         <translation>Vis &amp;hjælpelinier</translation>
     </message>
     <message>
-        <source>Ghostscript : You cannot use EPS Images</source>
-        <translation>Ghostscript : Du kan ikke bruge EPS-billeder</translation>
-    </message>
-    <message>
         <source>Import &amp;Page(s)...</source>
         <translation>Importér &amp;Side(r)...</translation>
     </message>
@@ -12812,6 +12889,26 @@ Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opn�
     <message>
         <source>Croatian</source>
         <translation>Kroatisk</translation>
+    </message>
+    <message>
+        <source>JavaScripts...</source>
+        <translation>JavaScripts...</translation>
+    </message>
+    <message>
+        <source>&amp;JavaScripts...</source>
+        <translation>&amp;JavaScripts...</translation>
+    </message>
+    <message>
+        <source>GhostScript : You cannot use EPS Images</source>
+        <translation>GhostScript : Du kan ikke bruge EPS-billeder</translation>
+    </message>
+    <message>
+        <source>EPS Files (*.eps);;All Files (*)</source>
+        <translation>EPS filer (*.eps);; Alle filer (*)</translation>
+    </message>
+    <message>
+        <source>Norwegian</source>
+        <translation>Norsk</translation>
     </message>
 </context>
 <context>
@@ -13499,7 +13596,7 @@ til vinduet nedenunder, for at lave en ny side.</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation>&amp;Ny</translation>
+        <translation>&amp;Nyt</translation>
     </message>
     <message>
         <source>&amp;Reload Text from Frame</source>
@@ -14170,7 +14267,7 @@ for denne filtype.</translation>
     <name>nftdialog</name>
     <message>
         <source>New From Template</source>
-        <translation>Ny fra skabelon</translation>
+        <translation>Nyt fra skabelon</translation>
     </message>
     <message>
         <source>All</source>
@@ -14262,7 +14359,7 @@ for denne filtype.</translation>
     </message>
     <message>
         <source>Removing a template from the New From Template dialog will only remove the entry from the template.xml, it will not delete the document files. A popup menu with remove is only shown if you have write access to the template.xml file.</source>
-        <translation>Når du fjerner en skabelon fra &apos;Ny Fra skabelon&apos; vinduet slettes kun linien fra template.xml. Dokumentfilerne bliver ikke slettet. Pop op menuen vil kun vise &quot;Fjern&quot; hvis du har skrive rettigheder til template.xml filen.</translation>
+        <translation>Når du fjerner en skabelon fra &apos;Nyt Fra skabelon&apos; vinduet slettes kun linien fra template.xml. Dokumentfilerne bliver ikke slettet. Pop op menuen vil kun vise &quot;Fjern&quot; hvis du har skrive rettigheder til template.xml filen.</translation>
     </message>
     <message>
         <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that is present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. The copy must be located in the same directory as the original template.xml so Scribus can load it.</source>
