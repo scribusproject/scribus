@@ -1112,7 +1112,8 @@ bool ScImage::IsSupported( const PSDHeader & header )
 		return false;
 	if ( header.depth != 8 )
 		return false;
-	if (( header.color_mode == CM_RGB ) || (header.color_mode == CM_CMYK) || (header.color_mode == CM_GRAYSCALE))
+	if ((header.color_mode == CM_RGB) || (header.color_mode == CM_CMYK)
+	 || (header.color_mode == CM_GRAYSCALE) || (header.color_mode == CM_INDEXED))
 		return true;
 	return false;
 }
@@ -1372,6 +1373,13 @@ bool ScImage::loadChannel( QDataStream & s, const PSDHeader & header, QValueList
 					ptr[1] = cbyte;
 					ptr[2] = cbyte;
 				}
+				else if ((header.color_mode == CM_INDEXED) && (component != 3))
+				{
+					int ccol = colorTable[cbyte];
+					ptr[0] = qRed(ccol);
+					ptr[1] = qGreen(ccol);
+					ptr[2] = qBlue(ccol);
+				}
 				else
 				{
 					if (channel < 4)
@@ -1422,6 +1430,15 @@ bool ScImage::loadChannel( QDataStream & s, const PSDHeader & header, QValueList
 								ptr[2] = cbyte;
 								ptr += component;
 							}
+							else if ((header.color_mode == CM_INDEXED) && (component != 3))
+							{
+								ptr -= component;
+								int ccol = colorTable[cbyte];
+								ptr[0] = qRed(ccol);
+								ptr[1] = qGreen(ccol);
+								ptr[2] = qBlue(ccol);
+								ptr += component;
+							}
 							else
 							{
 								*ptr = cbyte;
@@ -1452,6 +1469,15 @@ bool ScImage::loadChannel( QDataStream & s, const PSDHeader & header, QValueList
 								ptr[0] = val;
 								ptr[1] = val;
 								ptr[2] = val;
+								ptr += component;
+							}
+							else if ((header.color_mode == CM_INDEXED) && (component != 3))
+							{
+								ptr -= component;
+								int ccol = colorTable[val];
+								ptr[0] = qRed(ccol);
+								ptr[1] = qGreen(ccol);
+								ptr[2] = qBlue(ccol);
 								ptr += component;
 							}
 							else
@@ -1669,6 +1695,8 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 				unsigned char r, g, b, a, src_r, src_g, src_b, src_a, mask_a;
 				for (unsigned int j = startSrcX; j < static_cast<unsigned int>(layerInfo[layer].width); j++)
 				{
+//					if (j == width())
+//						break;
 					unsigned char *d = (unsigned char *) dst;
 					unsigned char *s = (unsigned char *) src;
 					unsigned char *sm = (unsigned char *) srcm;
@@ -1949,7 +1977,7 @@ bool ScImage::loadLayer( QDataStream & s, const PSDHeader & header )
 			}
 		}
 	}
-	channel_num = 4;
+//	channel_num = 4;
 	const uint pixel_count = header.height * header.width;
 	static const uint components[4] = {2, 1, 0, 3};
 	if( compression )
@@ -1992,6 +2020,15 @@ bool ScImage::loadLayer( QDataStream & s, const PSDHeader & header )
 							ptr[2] = cbyte;
 							ptr += components[channel];
 						}
+						else if ((header.color_mode == CM_INDEXED) && (components[channel] != 3))
+						{
+							ptr -= components[channel];
+							int ccol = colorTable[cbyte];
+							ptr[0] = qRed(ccol);
+							ptr[1] = qGreen(ccol);
+							ptr[2] = qBlue(ccol);
+							ptr += components[channel];
+						}
 						else
 							*ptr = cbyte;
 						ptr += 4;
@@ -2019,6 +2056,15 @@ bool ScImage::loadLayer( QDataStream & s, const PSDHeader & header )
 							ptr[0] = val;
 							ptr[1] = val;
 							ptr[2] = val;
+							ptr += components[channel];
+						}
+						else if ((header.color_mode == CM_INDEXED) && (components[channel] != 3))
+						{
+							ptr -= components[channel];
+							int ccol = colorTable[val];
+							ptr[0] = qRed(ccol);
+							ptr[1] = qGreen(ccol);
+							ptr[2] = qBlue(ccol);
 							ptr += components[channel];
 						}
 						else
@@ -2055,6 +2101,15 @@ bool ScImage::loadLayer( QDataStream & s, const PSDHeader & header )
 					ptr[0] = cbyte;
 					ptr[1] = cbyte;
 					ptr[2] = cbyte;
+					ptr += components[channel];
+				}
+				else if ((header.color_mode == CM_INDEXED) && (components[channel] != 3))
+				{
+					ptr -= components[channel];
+					int ccol = colorTable[cbyte];
+					ptr[0] = qRed(ccol);
+					ptr[1] = qGreen(ccol);
+					ptr[2] = qBlue(ccol);
 					ptr += components[channel];
 				}
 				else
@@ -2405,13 +2460,27 @@ bool ScImage::LoadPSD( QDataStream & s, const PSDHeader & header)
 		return false;
 	setAlphaBuffer( true );
 	uint tmp;
+	uint cdataStart;
 	uint ressourceDataLen;
 	uint startRessource;
 	uint layerDataLen;
 	uint startLayers;
 	// Skip mode data. FIX: this is incorrect, it's the Colormap Data for indexed Images
 	s >> tmp;
-	s.device()->at( s.device()->at() + tmp );
+	cdataStart = s.device()->at();
+	if (tmp != 0)
+	{
+		colorTable.clear();
+		uchar r, g, b;
+		for (uint cc = 0; cc < 256; cc++)
+		{
+			s >> r;
+			s >> g;
+			s >> b;
+			colorTable.append(qRgb(255 - r, 255 - g, 255 - b));
+		}
+	}
+	s.device()->at( cdataStart + tmp );
 	s >> ressourceDataLen;
 	startRessource = s.device()->at();
 	if (ressourceDataLen != 0)

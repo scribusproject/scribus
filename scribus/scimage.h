@@ -203,5 +203,6 @@ private:
 	char* iccbuf;
 	uint icclen;
 	std::valarray<int> curveTable;
+	QValueList<unsigned int> colorTable;
 };
 #endif
