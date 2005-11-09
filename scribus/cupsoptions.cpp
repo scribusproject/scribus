@@ -58,7 +58,7 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent, "pr
 	ppd_group_t	*group;			/* Current group */
 	num_dests = cupsGetDests(&dests);
 	dest = cupsGetDest(Geraet, NULL, num_dests, dests);
-	if (dest == NULL || (filename = cupsGetPPD(dest->name)) == NULL || 
+	if (dest == NULL || (filename = cupsGetPPD(dest->name)) == NULL ||
 		  (ppd = ppdOpenFile(filename)) == NULL)
 		return;
 	ppdMarkDefaults(ppd);
@@ -78,7 +78,7 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent, "pr
 			Marked = "";
 			struct OpData Daten;
 			opts.clear();
-			for (j = option->num_choices, choice = option->choices; 
+			for (j = option->num_choices, choice = option->choices;
 					j > 0; j --, ++choice)
 			{
 				opts.append(QString(choice->choice));
@@ -206,7 +206,7 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent, "pr
 	resize(minimumSizeHint());
 
 //tooltips
-	QToolTip::add( Table, tr( "This panel displays various CUPS options when printing. \nThe exact parameters available will depend on your printer driver.\nYou can confirm CUPS support by selecting Help > About.\nLook for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support.\nMissing library support is indicated by a *" ) );
+	QToolTip::add( Table, "<qt>" + tr( "This panel displays various CUPS options when printing. The exact parameters available will depend on your printer driver. You can confirm CUPS support by selecting Help > About. Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support. Missing library support is indicated by a *" ) + "</qt>" );
 
     // signals and slots connections
 	connect( PushButton2, SIGNAL( clicked() ), this, SLOT( reject() ) );

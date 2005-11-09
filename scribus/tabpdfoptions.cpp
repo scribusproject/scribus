@@ -34,7 +34,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	unit = unitGetSuffixFromIndex(unitIndex);
 	precision = unitGetPrecisionFromIndex(unitIndex);
 	unitRatio = unitGetRatioFromIndex(unitIndex);
-	
+
 	FontsToEmbed.clear();
 	AllFontsP = &AllFonts;
 	view = vie;
@@ -182,7 +182,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	CMethod->setEditable(false);
 	CMethod->setCurrentItem(Optionen->CompressMethod);
 	TextCom1 = new QLabel( CMethod, tr( "Compression &Method:" ), CBox, "TextCom1" );
-	CBoxLayout->addWidget( TextCom1, 0, 0 );	
+	CBoxLayout->addWidget( TextCom1, 0, 0 );
 	CBoxLayout->addWidget( CMethod, 0, 1 );
 	CQuality = new QComboBox( true, CBox, "CQuality" );
 	CQuality->clear();
@@ -267,7 +267,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 		EmbedList = new QListBox( GroupFont, "EmbedList" );
 		EmbedList->setMinimumSize(QSize(150, 40));
 		Layout6->addWidget( EmbedList );
-		
+
 		Layout5_2a = new QHBoxLayout;
 		Layout5_2a->setSpacing( 5 );
 		Layout5_2a->setMargin( 0 );
@@ -819,16 +819,16 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 		connect(InfoString, SIGNAL(textChanged(const QString &)), this, SLOT(checkInfo()));
 		connect(InfoString, SIGNAL(returnPressed()), this, SLOT(checkInfo()));
 		connect(InfoString, SIGNAL(lostFocus()), this, SLOT(checkInfo()));
-		QToolTip::add( EmbedFonts, tr( "Embed fonts into the PDF. Embedding the fonts\nwill preserve the layout and appearance of your document." ) );
+		QToolTip::add( EmbedFonts, "<qt>" + tr( "Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document." ) + "</qt>");
 		QToolTip::add( CheckBox10, "<qt>" + tr( "Enables presentation effects when using Adobe&#174; Reader&#174; in full screen mode." ) + "</qt>");
-		QToolTip::add( PagePrev, tr( "Show page previews of each page listed above." ) );
-		QToolTip::add( PageTime, tr( "Length of time the page is shown before the presentation starts on the selected page." ) );
-		QToolTip::add( EffectTime, tr( "Length of time the effect runs.\nA shorter time will speed up the effect, a longer one will slow it down." ) );
-		QToolTip::add( EffectType, tr( "Type of the display effect." ) );
-		QToolTip::add( EDirection, tr( "Direction of the effect of moving lines for the split and blind effects." ) );
-		QToolTip::add( EDirection_2, tr( "Starting position for the box and split effects." ) );
-		QToolTip::add( EDirection_2_2, tr( "Direction of the glitter or wipe effects." ) );
-		QToolTip::add( EonAllPg, tr( "Apply the selected effect to all pages." ) );
+		QToolTip::add( PagePrev, "<qt>" + tr( "Show page previews of each page listed above." ) + "</qt>");
+		QToolTip::add( PageTime, "<qt>" + tr( "Length of time the page is shown before the presentation starts on the selected page." ) + "</qt>" );
+		QToolTip::add( EffectTime, "<qt>" + tr( "Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down." ) + "</qt>" );
+		QToolTip::add( EffectType, "<qt>" + tr( "Type of the display effect." ) + "</qt>" );
+		QToolTip::add( EDirection, "<qt>" + tr( "Direction of the effect of moving lines for the split and blind effects." ) + "</qt>" );
+		QToolTip::add( EDirection_2, "<qt>" + tr( "Starting position for the box and split effects." ) + "</qt>" );
+		QToolTip::add( EDirection_2_2, "<qt>" + tr( "Direction of the glitter or wipe effects." ) + "</qt>" );
+		QToolTip::add( EonAllPg, "<qt>" + tr( "Apply the selected effect to all pages." ) + "</qt>" );
 	}
 	connect(AllPages, SIGNAL(toggled(bool)), this, SLOT(SelRange(bool)));
 	connect(DSColor, SIGNAL(clicked()), this, SLOT(DoDownsample()));
@@ -848,48 +848,48 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	connect(UseLPI, SIGNAL(clicked()), this, SLOT(EnableLPI2()));
 	connect(LPIcolor, SIGNAL(activated(int)), this, SLOT(SelLPIcol(int)));
 	//tooltips
-	QToolTip::add( AllPages, tr( "Export all pages to PDF" ) );
-	QToolTip::add( OnlySome, tr( "Export a range of pages to PDF" ) );
-	QToolTip::add( PageNr, tr( "Insert a comma separated list of tokens where\n"
-			              "a token can be * for all the pages, 1-5 for\n"
-			              "a range of pages or a single page number.") );
+	QToolTip::add( AllPages, "<qt>" + tr( "Export all pages to PDF" ) + "</qt>" );
+	QToolTip::add( OnlySome, "<qt>" + tr( "Export a range of pages to PDF" ) );
+	QToolTip::add( PageNr, "<qt>" + tr( "Insert a comma separated list of tokens where "
+			              "a token can be * for all the pages, 1-5 for "
+								  "a range of pages or a single page number.") + "</qt>" );
 
 	QToolTip::add( PDFVersionCombo, "<qt>" + tr( "Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer." ) + "</qt>");
-	QToolTip::add( ComboBind, tr( "Determines the binding of pages in the PDF. Unless you know\nyou need to change it leave the default choice - Left." ) );
-	QToolTip::add( CheckBox1, tr( "Generates thumbnails of each page in the PDF.\nSome viewers can use the thumbnails for navigation." ) );
-	QToolTip::add( Article, tr( "Generate PDF Articles, which is useful for navigating linked articles in a PDF." ) );
-	QToolTip::add( useLayers, tr( "Layers in your document are exported to the PDF\nOnly available if PDF 1.5 is choosen." ) );
-	QToolTip::add( CheckBM, tr( "Embed the bookmarks you created in your document.\nThese are useful for navigating long PDF documents." ) );
-	QToolTip::add( Resolution, tr( "Export resolution of text and vector graphics.\nThis does not affect the resolution of bitmap images like photos." ) );
-	QToolTip::add( Compression, tr( "Enables lossless compression of text and graphics.\nUnless you have a reason, leave this checked. This reduces PDF file size." ) );
+	QToolTip::add( ComboBind, "<qt>" + tr( "Determines the binding of pages in the PDF. Unless you know you need to change it leave the default choice - Left." ) + "</qt>" );
+	QToolTip::add( CheckBox1, "<qt>" + tr( "Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation." ) + "</qt>" );
+	QToolTip::add( Article, "<qt>" + tr( "Generate PDF Articles, which is useful for navigating linked articles in a PDF." ) + "</qt>" );
+	QToolTip::add( useLayers, "<qt>" + tr( "Layers in your document are exported to the PDF Only available if PDF 1.5 is choosen." ) + "</qt>" );
+	QToolTip::add( CheckBM, "<qt>" + tr( "Embed the bookmarks you created in your document. These are useful for navigating long PDF documents." ) + "</qt>" );
+	QToolTip::add( Resolution, "<qt>" + tr( "Export resolution of text and vector graphics. This does not affect the resolution of bitmap images like photos." ) + "</qt>" );
+	QToolTip::add( Compression, "<qt>" + tr( "Enables lossless compression of text and graphics. Unless you have a reason, leave this checked. This reduces PDF file size." ) + "</qt>" );
 	QToolTip::add( CMethod, "<qt>" + tr( "Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options." ) + "</qt>");
 	QToolTip::add( CQuality, "<qt>" + tr( "Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level." ) + "</qt>");
-	QToolTip::add( DSColor, tr( "Re-sample your bitmap images to the selected DPI.\nLeaving this unchecked will render them at their native resolution.\nThis can increase memory usage and slow down export." ) );
-	QToolTip::add( ValC, tr( "DPI (Dots Per Inch) for image export.") );
-	QToolTip::add( Encry, tr( "Enable the security features in your exported PDF.\nIf you selected PDF 1.3, the PDF will be protected by 40 bit encryption.\nIf you selected PDF 1.4, the PDF will be protected by 128 bit encryption.\nDisclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations." ) );
-	QToolTip::add( PassOwner, tr( "Choose a master password which enables or disables all the\nsecurity features in your exported PDF" ) );
-	QToolTip::add( PassUser, tr( "Choose a password for users to be able to read your PDF." ) );
-	QToolTip::add( PrintSec, tr( "Allow printing of the PDF. If un-checked, printing is prevented. " ) );
-	QToolTip::add( ModifySec, tr( "Allow modifying of the PDF. If un-checked, modifying the PDF is prevented." ) );
+	QToolTip::add( DSColor, "<qt>" + tr( "Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. This can increase memory usage and slow down export." ) + "</qt>" );
+	QToolTip::add( ValC, "<qt>" + tr( "DPI (Dots Per Inch) for image export.") + "</qt>" );
+	QToolTip::add( Encry, "<qt>" + tr( "Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations." ) + "</qt>" );
+	QToolTip::add( PassOwner, "<qt>" + tr( "Choose a master password which enables or disables all the security features in your exported PDF" ) + "</qt>" );
+	QToolTip::add( PassUser, "<qt>" + tr( "Choose a password for users to be able to read your PDF." ) + "</qt>" );
+	QToolTip::add( PrintSec, "<qt>" + tr( "Allow printing of the PDF. If un-checked, printing is prevented. " ) + "</qt>" );
+	QToolTip::add( ModifySec, "<qt>" + tr( "Allow modifying of the PDF. If un-checked, modifying the PDF is prevented." ) + "</qt>" );
 	QToolTip::add( CopySec, "<qt>" + tr( "Allow copying of text or graphics from the PDF. If unchecked, text and graphics cannot be copied." ) + "</qt>" );
 	QToolTip::add( AddSec, "<qt>" + tr( "Allow adding annotations and fields to the PDF. If unchecked, editing annotations and fields is prevented." ) + "</qt>" );
-	QToolTip::add( OutCombo, tr( "Color model for the output of your PDF.\nChoose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets.\nChoose Printer when printing to a true 4 color CMYK printer." ) );
-	QToolTip::add( UseLPI, tr( "This is an advanced setting which is not enabled by default. This should only be enabled\nwhen specifically requested by your printer and they have given you the exact details needed.\nOtherwise, your exported PDF may not print properly and is truly not portable across systems." ) );
-	QToolTip::add( EmbedProfs, tr( "Embed a color profile for solid colors" ) );
-	QToolTip::add( SolidPr, tr( "Color profile for solid colors" ) );
-	QToolTip::add( IntendS, tr( "Rendering intent for solid colors" ) );
-	QToolTip::add( EmbedProfs2, tr( "Embed a color profile for images" ) );
-	QToolTip::add( NoEmbedded, tr( "Do not use color profiles that are embedded in source images" ) );
-	QToolTip::add( ImageP, tr( "Color profile for images" ) );
-	QToolTip::add( IntendI, tr( "Rendering intent for images" ) );
-	QToolTip::add( PrintProfC, tr( "Output profile for printing. If possible, get some guidance from your printer on profile selection." ) );
-	QToolTip::add( InfoString, tr( "Mandatory string for PDF/X-3 or the PDF will fail\nPDF/X-3 conformance. We recommend you use the title of the document." ) );
-	QToolTip::add( BleedTop, tr( "Distance for bleed from the top of the physical page" ) );
-	QToolTip::add( BleedBottom, tr( "Distance for bleed from the bottom of the physical page" ) );
-	QToolTip::add( BleedLeft, tr( "Distance for bleed from the left of the physical page" ) );
-	QToolTip::add( BleedRight, tr( "Distance for bleed from the right of the physical page" ) );
-	QToolTip::add( MirrorH, tr( "Mirror Page(s) horizontally" ) );
-	QToolTip::add( MirrorV, tr( "Mirror Page(s) vertically" ) );
+	QToolTip::add( OutCombo, "<qt>" + tr( "Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer." ) + "</qt>" );
+	QToolTip::add( UseLPI, "<qt>" + tr( "This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems." ) + "</qt>" );
+	QToolTip::add( EmbedProfs, "<qt>" + tr( "Embed a color profile for solid colors" ) + "</qt>" );
+	QToolTip::add( SolidPr, "<qt>" + tr( "Color profile for solid colors" ) + "</qt>" );
+	QToolTip::add( IntendS, "<qt>" + tr( "Rendering intent for solid colors" ) + "</qt>" );
+	QToolTip::add( EmbedProfs2, "<qt>" + tr( "Embed a color profile for images" ) + "</qt>" );
+	QToolTip::add( NoEmbedded, "<qt>" + tr( "Do not use color profiles that are embedded in source images" ) + "</qt>" );
+	QToolTip::add( ImageP, "<qt>" + tr( "Color profile for images" ) + "</qt>" );
+	QToolTip::add( IntendI, "<qt>" + tr( "Rendering intent for images" ) + "</qt>" );
+	QToolTip::add( PrintProfC, "<qt>" + tr( "Output profile for printing. If possible, get some guidance from your printer on profile selection." ) + "</qt>" );
+	QToolTip::add( InfoString, "<qt>" + tr( "Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document." ) + "</qt>" );
+	QToolTip::add( BleedTop, "<qt>" + tr( "Distance for bleed from the top of the physical page" ) + "</qt>" );
+	QToolTip::add( BleedBottom, "<qt>" + tr( "Distance for bleed from the bottom of the physical page" ) + "</qt>" );
+	QToolTip::add( BleedLeft, "<qt>" + tr( "Distance for bleed from the left of the physical page" ) + "</qt>" );
+	QToolTip::add( BleedRight, "<qt>" + tr( "Distance for bleed from the right of the physical page" )  + "</qt>");
+	QToolTip::add( MirrorH, "<qt>" + tr( "Mirror Page(s) horizontally" ) + "</qt>" );
+	QToolTip::add( MirrorV, "<qt>" + tr( "Mirror Page(s) vertically" ) + "</qt>" );
         QToolTip::add( useSpot,"<qt>" + tr( "Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled." ) + "</qt>");
 }
 
@@ -1171,7 +1171,7 @@ void TabPDFOptions::PDFMirror()
 
 void TabPDFOptions::Rotation( int value )
 {
-	Opts->RotateDeg = value * 90; 
+	Opts->RotateDeg = value * 90;
 }
 
 void TabPDFOptions::DoEffects()

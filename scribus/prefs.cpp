@@ -715,54 +715,54 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	QWidget::setTabOrder( DocumentTemplateDir, FileC4 );
 	QWidget::setTabOrder( PreviewSize, SaveAtQuit );
 
-	QToolTip::add( checkLink, tr("Enable or disable  the display of linked frames."));
+	QToolTip::add( checkLink, "<qt>" + tr("Enable or disable  the display of linked frames.") + "</qt>");
 	QToolTip::add( checkControl, "<qt>" + tr("Display non-printing characters such as paragraph markers in text frames") + "</qt>");
-	QToolTip::add( checkFrame, tr("Turns the display of frames on or off"));
-	QToolTip::add( checkPictures, tr("Turns the display of pictures on or off"));
+	QToolTip::add( checkFrame, "<qt>" + tr("Turns the display of frames on or off") + "</qt>");
+	QToolTip::add( checkPictures, "<qt>" + tr("Turns the display of pictures on or off") + "</qt>");
 	QToolTip::add( guiLangCombo, "<qt>" + tr( "Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus" )+"</qt>" );
-	QToolTip::add( GUICombo, tr( "Choose the default window decoration and looks.\nScribus inherits any available KDE or Qt themes" ) );
-	QToolTip::add( GFsize, tr( "Default font size for the menus and windows" ) );
-	QToolTip::add( UnitCombo, tr( "Default unit of measurement for document editing" ) );
-	QToolTip::add( SpinBox3, tr( "Number of lines Scribus will scroll for each move of the mouse wheel" ) );
-	QToolTip::add( Recen, tr( "Number of recently edited documents to show in the File menu" ) );
-	QToolTip::add( Docs, tr( "Default documents directory" ) );
-	QToolTip::add( ProPfad, tr( "Default ICC profiles directory. This cannot\nbe changed with a document open." ) );
-	QToolTip::add( ScriptPfad, tr( "Default Scripter scripts directory" ) );
+	QToolTip::add( GUICombo, "<qt>" + tr( "Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes" ) + "</qt>" );
+	QToolTip::add( GFsize, "<qt>" + tr( "Default font size for the menus and windows" ) + "</qt>" );
+	QToolTip::add( UnitCombo, "<qt>" + tr( "Default unit of measurement for document editing" ) + "</qt>" );
+	QToolTip::add( SpinBox3, "<qt>" + tr( "Number of lines Scribus will scroll for each move of the mouse wheel" ) + "</qt>" );
+	QToolTip::add( Recen, "<qt>" + tr( "Number of recently edited documents to show in the File menu" ) + "</qt>" );
+	QToolTip::add( Docs, "<qt>" + tr( "Default documents directory" ) + "</qt>" );
+	QToolTip::add( ProPfad, "<qt>" + tr( "Default ICC profiles directory. This cannot be changed with a document open." ) + "</qt>" );
+	QToolTip::add( ScriptPfad, "<qt>" + tr( "Default Scripter scripts directory" ) + "</qt>" );
 	QToolTip::add( DocumentTemplateDir, "<qt>"+tr("Additional directory for document templates")+"</qt>" );
 
-	QToolTip::add( GZComboF, tr( "Default page size, either a standard size or a custom size" ) );
-	QToolTip::add( GZComboO, tr( "Default orientation of document pages" ) );
-	QToolTip::add( pageWidth, tr( "Width of document pages, editable if you have chosen a custom page size" ) );
-	QToolTip::add( pageHeight, tr( "Height of document pages, editable if you have chosen a custom page size" ) );
+	QToolTip::add( GZComboF, "<qt>" + tr( "Default page size, either a standard size or a custom size" ) + "</qt>" );
+	QToolTip::add( GZComboO, "<qt>" + tr( "Default orientation of document pages" ) + "</qt>" );
+	QToolTip::add( pageWidth, "<qt>" + tr( "Width of document pages, editable if you have chosen a custom page size" ) + "</qt>" );
+	QToolTip::add( pageHeight, "<qt>" + tr( "Height of document pages, editable if you have chosen a custom page size" ) + "</qt>" );
 //	QToolTip::add( facingPages, tr( "Enable single or spread based layout" ) );
 //	QToolTip::add( Linkszuerst, tr( "Make the first page the left page of a document" ) );
-	QToolTip::add( GroupAS, tr( "When enabled, Scribus saves a backup copy of your file with the .bak extension\neach time the time period elapses" ) );
-	QToolTip::add( ASTime, tr( "Time period between saving automatically" ) );
+	QToolTip::add( GroupAS, "<qt>" + tr( "When enabled, Scribus saves a backup copy of your file with the .bak extension each time the time period elapses" ) + "</qt>" );
+	QToolTip::add( ASTime, "<qt>" + tr( "Time period between saving automatically" ) + "</qt>" );
 
-	QToolTip::add( urSpinBox, tr("Set the length of the action history in steps.\nIf set to 0 infinite amount of actions will be stored."));
+	QToolTip::add( urSpinBox, "<qt>" + tr("Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.") + "</qt>");
 
-	QToolTip::add( PreviewSize, tr( "Choose the size of the preview in the scrapbook palette" ) );
-	QToolTip::add( SaveAtQuit, tr( "Save the scrapbook contents everytime after a change" ) );
+	QToolTip::add( PreviewSize, "<qt>" + tr( "Choose the size of the preview in the scrapbook palette" ) + "</qt>" );
+	QToolTip::add( SaveAtQuit, "<qt>" + tr( "Save the scrapbook contents everytime after a change" ) + "</qt>" );
 
-	QToolTip::add( backColor, tr( "Color for paper" ) );
-	QToolTip::add( checkUnprintable, tr( "Mask the area outside the margins in the margin color" ) );
-	QToolTip::add( CaliText, tr( "Set the default zoom level" ) );
+	QToolTip::add( backColor, "<qt>" + tr( "Color for paper" ) + "</qt>");
+	QToolTip::add( checkUnprintable, "<qt>" + tr( "Mask the area outside the margins in the margin color" ) + "</qt>" );
+	QToolTip::add( CaliText, "<qt>" + tr( "Set the default zoom level" )  + "</qt>");
 	QToolTip::add( CaliGroup, "<qt>" + tr( "Place a ruler against your screen and drag the slider to set the zoom level so Scribus will display your pages and objects on them at the correct size" ) + "</qt>" );
 
-	QToolTip::add( ghostscriptLineEdit, tr( "Filesystem location for the Ghostscript interpreter" ) );
-	QToolTip::add( GSantiText, tr( "Antialias text for EPS and PDF onscreen rendering" ) );
-	QToolTip::add( GSantiGraph, tr( "Antialias graphics for EPS and PDF onscreen rendering" ) );
-	QToolTip::add( imageEditorLineEdit, tr( "File system location for graphics editor. If you use gimp\n"
-						"and your distro includes it, we recommend 'gimp-remote',\n"
-						"as it allows you to edit the image in an already running\n"
-						"instance of gimp." ) );
-	QToolTip::add( ClipMarg, tr( "Do not show objects outside the margins on the printed page or exported file" ) );
-	QToolTip::add( DoGCR, tr( "A way of switching off some of the gray shades which are composed\n"
-		                          "of cyan, yellow and magenta and using black instead.\n"
-		                          "UCR most affects parts of images which are neutral and/or dark tones\n"
-		                          "which are close to the gray. Use of this may improve printing some images\n"
-		                          "and some experimentation and testing is need on a case by case basis.\n"
-		                          "UCR reduces the possibility of over saturation with CMY inks." ) );
+	QToolTip::add( ghostscriptLineEdit, "<qt>" + tr( "Filesystem location for the Ghostscript interpreter" ) + "</qt>" );
+	QToolTip::add( GSantiText, "<qt>" + tr( "Antialias text for EPS and PDF onscreen rendering" ) + "</qt>");
+	QToolTip::add( GSantiGraph, "<qt>" + tr( "Antialias graphics for EPS and PDF onscreen rendering" ) + "</qt>" );
+	QToolTip::add( imageEditorLineEdit, "<qt>" + tr( "File system location for graphics editor. If you use gimp "
+						"and your distro includes it, we recommend 'gimp-remote', "
+						"as it allows you to edit the image in an already running "
+								"instance of gimp." ) + "</qt>" );
+	QToolTip::add( ClipMarg, "<qt>" + tr( "Do not show objects outside the margins on the printed page or exported file" ) + "</qt>" );
+	QToolTip::add( DoGCR, "<qt>" + tr( "A way of switching off some of the gray shades which are composed "
+		                          "of cyan, yellow and magenta and using black instead. "
+		                          "UCR most affects parts of images which are neutral and/or dark tones "
+		                          "which are close to the gray. Use of this may improve printing some images "
+		                          "and some experimentation and testing is need on a case by case basis. "
+										  "UCR reduces the possibility of over saturation with CMY inks." ) + "</qt>" );
 
 	QToolTip::add( leftScratch, "<qt>" + tr( "Defines amount of space left of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page" ) + "</qt>" );
 	QToolTip::add( rightScratch, "<qt>" + tr( "Defines amount of space right of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page" ) + "</qt>" );
@@ -1242,7 +1242,7 @@ void Preferences::drawRuler()
 		iter = 12.0;
 		iter2 = 120.0;
 		maxi = 240.0;
-		break;		
+		break;
 	default:
 		iter = 10.0;
 		iter2 = iter * 10.0;
@@ -1367,7 +1367,7 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.useStandardLI = useStandardLI->isChecked();
 	prefsManager->appPrefs.paragraphsLI = paragraphsLI->value();
 	prefsManager->appPrefs.DisScale = DisScale;
-	
+
 	prefsManager->appPrefs.docUnitIndex = UnitCombo->currentItem();
 	prefsManager->appPrefs.ScratchBottom = bottomScratch->value() / prefsUnitRatio;
 	prefsManager->appPrefs.ScratchLeft = leftScratch->value() / prefsUnitRatio;

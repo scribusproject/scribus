@@ -93,13 +93,13 @@ PolygonWidget::PolygonWidget(QWidget* parent, int polyC, int polyFd, double poly
 
 	UpdatePreView();
 	//tooltips
-	QToolTip::add( Ecken, tr( "Number of corners for polygons" ) );
-	QToolTip::add( Faktor2, tr( "Degrees of rotation for polygons" ) );
-	QToolTip::add( Slider2, tr( "Degrees of rotation for polygons" ) );
-	QToolTip::add( Konvex, tr( "Apply Convex/Concave Factor to change shape of Polygons" ) );
+	QToolTip::add( Ecken, "<qt>" + tr( "Number of corners for polygons" ) + "</qt>" );
+	QToolTip::add( Faktor2, "<qt>" + tr( "Degrees of rotation for polygons" ) + "</qt>" );
+	QToolTip::add( Slider2, "<qt>" + tr( "Degrees of rotation for polygons" ) + "</qt>" );
+	QToolTip::add( Konvex, "<qt>" + tr( "Apply Convex/Concave Factor to change shape of Polygons" ) + "</qt>" );
 	QToolTip::add( Preview, tr( "Sample Polygon" ) );
-	QToolTip::add( Faktor, tr( "A negative value will make the polygon concave (or star shaped),\n a positive value will make it convex" ) );
-	QToolTip::add( Slider1, tr( "A negative value will make the polygon concave (or star shaped),\n a positive value will make it convex" ) );
+	QToolTip::add( Faktor, "<qt>" + tr( "A negative value will make the polygon concave (or star shaped), a positive value will make it convex" ) + "</qt>" );
+	QToolTip::add( Slider1, tr( "A negative value will make the polygon concave (or star shaped), a positive value will make it convex" ) + "</qt>");
 	// signals and slots connections
 	connect(Faktor, SIGNAL(valueChanged(int)), this, SLOT(ValFromSpin(int)));
 	connect(Faktor2, SIGNAL(valueChanged(int)), this, SLOT(ValFromSpin2(int)));

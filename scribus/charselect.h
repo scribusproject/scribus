@@ -124,7 +124,7 @@ public:
 	void resizeData( int ) {};
 	QRect cellGeometry ( int row, int col ) const;
 	void paintCell( QPainter * p, int row, int col, const QRect & cr, bool selected, const QColorGroup & cg );
-	void paintFocus( QPainter * p, const QRect & cr ) {};
+	void paintFocus( QPainter * /*p*/, const QRect & /*cr*/ ) {};
 
 	bool mPressed;
 	bool alternate;

@@ -71,11 +71,11 @@ ChTable::ChTable(CharSelect* parent, ScribusApp *pl) : QTable(parent)
 	ap = pl;
 	par = parent;
 	dia = 0;
-	QToolTip::add(this, tr("You can see a thumbnail if you press\nand hold down the right mouse button\n\nThe Insert key inserts a Glyph into the Selection below\nand the Delete key removes the last inserted one"));
+	QToolTip::add(this, "<qt>" + tr("You can see a thumbnail if you press and hold down the right mouse button. The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one") + "</qt>");
 }
 
 
-QRect ChTable::cellGeometry ( int row, int col ) const
+QRect ChTable::cellGeometry ( int /*row*/, int /*col*/ ) const
 {
 	int widthHeight = QMAX(16 + qRound(-(*ap->doc->AllFonts)[par->fontInUse]->numDescender * 16) + 3, 16);
 	return QRect(0, 0, widthHeight, widthHeight);
@@ -83,11 +83,11 @@ QRect ChTable::cellGeometry ( int row, int col ) const
 }
 
 
-void ChTable::paintCell( QPainter * qp, int row, int col, const QRect & cr, bool selected, const QColorGroup & cg )
+void ChTable::paintCell( QPainter * qp, int row, int col, const QRect & cr, bool /*selected*/, const QColorGroup & /*cg*/ )
 {
 	static QPixmap pixm;
 
-	int cc = row * 16 + col;
+	uint cc = row * 16 + col;
 	if (cc >= maxCount)
 	return;
 
@@ -118,7 +118,7 @@ void ChTable::paintCell( QPainter * qp, int row, int col, const QRect & cr, bool
 		int y = QMAX(0, (cr.height() - sz.height()) / 2);
 		qp->drawPixmap(x, y, pixm);
 	}
-	qp->setPen(gray);	
+	qp->setPen(gray);
 	qp->drawRect(0, 0, cr.width(), cr.height());
 	delete p;
 }
@@ -815,14 +815,14 @@ void CharSelect::insChar()
 	ap->slotDocCh();
 }
 
-bool CharSelect::eventFilter( QObject *obj, QEvent *ev )
+bool CharSelect::eventFilter( QObject */*obj*/, QEvent *ev )
 {
 	if ( ev->type() == QEvent::Show )
 	{
 		recalcCellSizes();
 		return true;
-	} 
-	else 
+	}
+	else
 		return false;
 }
 
