@@ -2470,14 +2470,32 @@ bool ScImage::LoadPSD( QDataStream & s, const PSDHeader & header)
 	cdataStart = s.device()->at();
 	if (tmp != 0)
 	{
+		QValueList<uchar> colorTableR;
+		QValueList<uchar> colorTableG;
+		QValueList<uchar> colorTableB;
+		colorTableR.clear();
+		colorTableG.clear();
+		colorTableB.clear();
 		colorTable.clear();
-		uchar r, g, b;
+		uchar r;
 		for (uint cc = 0; cc < 256; cc++)
 		{
 			s >> r;
-			s >> g;
-			s >> b;
-			colorTable.append(qRgb(255 - r, 255 - g, 255 - b));
+			colorTableR.append(r);
+		}
+		for (uint cc = 0; cc < 256; cc++)
+		{
+			s >> r;
+			colorTableG.append(r);
+		}
+		for (uint cc = 0; cc < 256; cc++)
+		{
+			s >> r;
+			colorTableB.append(r);
+		}
+		for (uint cc = 0; cc < 256; cc++)
+		{
+			colorTable.append(qRgb(colorTableR[cc], colorTableG[cc], colorTableB[cc]));
 		}
 	}
 	s.device()->at( cdataStart + tmp );
