@@ -84,6 +84,11 @@ localization = {
       'May', 'June', 'July', 'August', 'September',
       'October', 'November', 'December'],
      ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday', 'Sunday']],
+'Finnish' :
+    [['Tammikuu', 'Helmikuu', 'Maaliskuu', 'Huhtikuu',
+      'Toukokuu', 'Kesäkuu', 'Heinäkuu', 'Elokuu', 'Syyskuu',
+      'Lokakuu', 'Marraskuu', 'Joulukuu'],
+     ['ma','ti','ke','to','pe','la', 'su']],
 'French':
     [['Janvier', u'F\xe9vrier', 'Mars', 'Avril',
       'Mai', 'Juin', 'Juillet', u'Ao\xfbt', 'Septembre',
