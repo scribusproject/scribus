@@ -3601,7 +3601,7 @@ bool ScribusApp::loadDoc(QString fileName)
 		doc->is12doc=is12doc;
 		doc->appMode = modeNormal;
 		doc->HasCMS = false;
-		doc->setActiveLayer(0);
+		//doc->setActiveLayer(0); //CB should not need this, the file load process sets it to ALAYER from the doc
 		doc->OpenNodes.clear();
 		doc->setLoading(true);
 		mainWindowStatusLabel->setText( tr("Loading..."));

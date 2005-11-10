@@ -1246,6 +1246,7 @@ const bool ScribusDoc::setActiveLayer(const int layerToActivate)
 			break;
 		}
 	}
+	Q_ASSERT(found);
 	if (found)
 		ActiveLayer=layerToActivate;
 	return found;
@@ -3290,7 +3291,7 @@ void ScribusDoc::setLocationBasedPageLRMargins(const uint pageIndex)
 		pageToAdjust->Margins.Left = pageToAdjust->initialMargins.Left;
 		pageToAdjust->Margins.Right = pageToAdjust->initialMargins.Left;
 	}
-	/* Can also calc the X pos of the frame too, and X pos, but thats not done yet
+	/* Can also calc the X pos of the frame too, and Y pos, but thats not done yet
 	int myRow=(pageIndex+pageSets[currentPageLayout].FirstPage)/setcol;
 	double xOffset=ScratchLeft;
 	double yOffset=ScratchTop;

@@ -802,6 +802,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 		return false;
 	doc->PageColors.clear();
 	doc->Layers.clear();
+	int layerToSetActive=0;
 	ScColor lf = ScColor();
 	QDomElement elem=docu.documentElement();
 	if (elem.tagName() != "SCRIBUSUTF8NEW")
@@ -904,7 +905,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 		doc->CMSSettings.DefaultIntentPrinter = QStoInt(dc.attribute("DIPr","0"));
 		doc->CMSSettings.DefaultIntentMonitor = QStoInt(dc.attribute("DIMo","1"));
 		doc->CMSSettings.DefaultIntentImages = QStoInt(dc.attribute("DIMo2","1"));
-		doc->setActiveLayer(QStoInt(dc.attribute("ALAYER","0")));
+		layerToSetActive=QStoInt(dc.attribute("ALAYER","0"));
 		doc->Language = dc.attribute("LANGUAGE", "");
 		doc->MinWordLen = QStoInt(dc.attribute("MINWORDLEN", "3"));
 		doc->HyCount = QStoInt(dc.attribute("HYCOUNT", "2"));
@@ -1670,6 +1671,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 				ta->BottomLink = 0;
 		}
 	}
+	doc->setActiveLayer(layerToSetActive);
 	//doc->Pages = &doc->DocPages;
 	doc->setMasterPageMode(false);
 	doc->pageCount = doc->Pages->count();
