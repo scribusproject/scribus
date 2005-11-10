@@ -32,6 +32,7 @@ DelStyle::DelStyle(QWidget* parent, QValueList<ParagraphStyle> sty, QString styl
 	replaceLabel = new QLabel( tr( "Replace With:" ), this, "replaceLabel" );
 	delStyleLayout->addWidget( replaceLabel, 1, 0 );
 	replacementStyleData = new ScComboBox(false, this);
+	replacementStyleData->insertItem( tr("No Style"));
 	for (uint x = 5; x < sty.count(); ++x)
 	{
 		if (sty[x].Vname != styleName)

@@ -2387,7 +2387,7 @@ bool StoryEditor::eventFilter( QObject* ob, QEvent* ev )
 	}
 	if ( ev->type() == QEvent::WindowActivate )
 	{
-		if ((!activFromApp) && (!textChanged))
+		if ((!activFromApp) && (!textChanged) && (!blockUpdate))
 		{
 			activFromApp = true;
 			if (currItem!=NULL)
@@ -2930,7 +2930,7 @@ bool StoryEditor::Do_new()
 	emenu->setItemEnabled(Mcut, 0);
 	emenu->setItemEnabled(Mdel, 0);
 	fmenu->setItemEnabled(M_FileRevert, 0);
-	textChanged = false;
+//	textChanged = false;
 	EditorBar->setRepaint(true);
 	EditorBar->doRepaint();
 	updateProps(0, 0);

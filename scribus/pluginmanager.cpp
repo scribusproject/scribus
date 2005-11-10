@@ -1,6 +1,7 @@
 #include "pluginmanager.h"
 #include "pluginmanager.moc"
 #include "scplugin.h"
+#include "loadsaveplugin.h"
 
 #include <qdir.h>
 
@@ -192,6 +193,9 @@ void PluginManager::enablePlugin(PluginData & pda)
 		if (!pda.enabled)
 			failReason = tr("init failed", "plugin load error");
 	}
+/* temporary hack to enable the import plugins */
+	else if (pda.plugin->inherits("LoadSavePlugin"))
+		pda.enabled = true;
 	else
 		failReason = tr("unknown plugin type", "plugin load error");
 	if (ScApp->splashScreen != NULL)
@@ -237,11 +241,17 @@ bool PluginManager::DLLexists(QCString name, bool includeDisabled) const
 {
 	// the plugin name must be known
 	if (pluginMap.contains(name))
+	{
 		// the plugin must be loaded
 		if (pluginMap[name].plugin)
+		{
 			// and the plugin must be enabled unless we were told otherwise
-			if (pluginMap[name].enabled || includeDisabled)
+			if (pluginMap[name].enabled)
 				return true;
+			else
+				return includeDisabled;
+		}
+	}
 	return false;
 }
 
@@ -340,6 +350,9 @@ void PluginManager::disablePlugin(PluginData & pda)
 		Q_ASSERT(plugin);
 		plugin->cleanupPlugin();
 	}
+/* temporary hack to enable the import plugins */
+	else if (pda.plugin->inherits("LoadSavePlugin"))
+		pda.enabled = false;
 	else
 		Q_ASSERT(false); // We shouldn't ever have enabled an unknown plugin type.
 	pda.enabled = false;
