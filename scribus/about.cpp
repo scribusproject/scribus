@@ -46,7 +46,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	tabLayout1->addWidget( pixmapLabel1 );
 	buildID = new QLabel( tab, "BB" );
 	buildID->setAlignment(Qt::AlignCenter);
-	QString BUILD_DAY = "08";
+	QString BUILD_DAY = "10";
 	QString BUILD_MONTH = tr("November");
 	QString BUILD_YEAR = "2005";
 	QString BUILD_TIME = "";
