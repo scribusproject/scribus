@@ -1,5 +1,7 @@
 Scribus - 1.2.4cvs
 ==================
+- 0002802: [Translation] Updated Danish 1.2.4 translation (plinnell)
+- 0002785: [Translation] Norwegian Hyphenation Added in Scribus (plinnell)
 - 0002104: [Internal] crash on save after restoring window (cbradney)
 - 0002566: [Import / Export] Add the 1.3.1cvs sanity checks for the print preview to 1.2.4 (plinnell)
 - 0002678: [User Interface] Control + mousewheel for zooming (cbradney)
