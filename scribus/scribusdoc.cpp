@@ -959,7 +959,7 @@ void ScribusDoc::addSymbols()
 	symNewFrame.addQuadPoint(1.67188, 6.0625, 1.67188, 6.0625, 1.75, 6.20312, 1.75, 6.20312);
 }
 
-Page* ScribusDoc::addPage(const int pageNumber, const QString& masterPageName)
+Page* ScribusDoc::addPage(const int pageIndex, const QString& masterPageName, const bool addAutoFrame)
 {
 	Q_ASSERT(masterPageMode()==false);
 	Page* addedPage = new Page(ScratchLeft, pageCount*(pageHeight+ScratchBottom+ScratchTop)+ScratchTop, pageWidth, pageHeight);
@@ -970,19 +970,18 @@ Page* ScribusDoc::addPage(const int pageNumber, const QString& masterPageName)
 	addedPage->initialMargins.Bottom = pageMargins.Bottom;
 	addedPage->initialMargins.Left = pageMargins.Left;
 	addedPage->initialMargins.Right = pageMargins.Right;
-	addedPage->setPageNr(pageNumber);
+	addedPage->setPageNr(pageIndex);
 	addedPage->PageSize = PageSize;
 	addedPage->PageOri = PageOri;
-	bool insertsuccess=DocPages.insert(pageNumber, addedPage);
-	Q_ASSERT(insertsuccess==true && DocPages.at(pageNumber)!=NULL);
+	bool insertsuccess=DocPages.insert(pageIndex, addedPage);
+	Q_ASSERT(insertsuccess==true && DocPages.at(pageIndex)!=NULL);
 	currentPage = addedPage;
 	//if (!masterPageMode())
 	addedPage->MPageNam = masterPageName;
-	//CB We cant do this here yet because of the apparent lack of a single function to determine the
-	//left and right margins, its all done in reformPages.. gaaaaaaaah
-	//if (automaticTextFrames)
-	//	addAutomaticTextFrame(pageNumber);
-	++pageCount;
+	setLocationBasedPageLRMargins(pageIndex);
+	if (addAutoFrame && automaticTextFrames)
+		addAutomaticTextFrame(pageIndex);
+	++pageCount;	
 	return addedPage;
 }
 
@@ -1065,6 +1064,8 @@ void ScribusDoc::movePage(const int from, const int to, const int ziel, const in
 
 const int ScribusDoc::addAutomaticTextFrame(const int pageNumber)
 {
+	if (!automaticTextFrames)
+		return -1;
 	Page *addToPage=DocPages.at(pageNumber);
 	if ((!masterPageMode()) && (usesAutomaticTextFrames()))// && (!isLoading()))
 	{
@@ -3156,21 +3157,13 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 	for (int copyNumber=1; copyNumber<=copyCount; ++copyNumber)
 	{
 		//For multiple insertions we can insert in the same place
-		switch (whereToInsert)
-		{
-		case 0:
-			currentPage=addPage(existingPage-1, from->MPageNam);
-			//ScApp->slotNewPage(existingPage-1);
-			break;
-		case 1:
-			currentPage=addPage(existingPage, from->MPageNam);
-			//ScApp->slotNewPage(existingPage);
-			break;
-		case 2:
-			currentPage=addPage(DocPages.count(), from->MPageNam);
-			//ScApp->slotNewPage(Pages->count());
-			break;
-		}
+		int destLocation=existingPage;
+		if (whereToInsert==0)
+			--destLocation;
+		else if (whereToInsert==2)
+			destLocation=DocPages.count();
+		//ScApp->slotNewPage(destLocation);
+		currentPage=addPage(destLocation, from->MPageNam);
 		Page* destination = currentPage; //slotNewPage sets currentPage
 		destination->setInitialHeight(from->height());
 		destination->setInitialWidth(from->width());
@@ -3267,4 +3260,89 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 		GroupCounter = GrMax + 1;
 	}
 	setUsesAutomaticTextFrames(autoText);
+}
+
+void ScribusDoc::setLocationBasedPageLRMargins(const uint pageIndex)
+{
+	int setcol=pageSets[currentPageLayout].Columns;
+	if (setcol==1)
+	{
+		Page* pageToAdjust=DocPages.at(pageIndex);
+		pageToAdjust->Margins.Left = pageToAdjust->initialMargins.Left;
+		pageToAdjust->Margins.Right = pageToAdjust->initialMargins.Right;
+		return;
+	}
+	Page* pageToAdjust=DocPages.at(pageIndex);
+	int myCol=(pageIndex+pageSets[currentPageLayout].FirstPage)%setcol;
+	
+	if (myCol==0) //Right hand page
+	{
+		pageToAdjust->Margins.Left = pageToAdjust->initialMargins.Right;
+		pageToAdjust->Margins.Right = pageToAdjust->initialMargins.Left;
+	}
+	else if (myCol>= setcol-1) // Left hand page
+	{
+		pageToAdjust->Margins.Right = pageToAdjust->initialMargins.Right;
+		pageToAdjust->Margins.Left = pageToAdjust->initialMargins.Left;
+	}
+	else //Middle pages
+	{
+		pageToAdjust->Margins.Left = pageToAdjust->initialMargins.Left;
+		pageToAdjust->Margins.Right = pageToAdjust->initialMargins.Left;
+	}
+	/* Can also calc the X pos of the frame too, and X pos, but thats not done yet
+	int myRow=(pageIndex+pageSets[currentPageLayout].FirstPage)/setcol;
+	double xOffset=ScratchLeft;
+	double yOffset=ScratchTop;
+	if (myRow==0)
+	{
+		if (pageIndex==0)
+		{
+			for (int i=0; i<myCol; ++i)
+				xOffset+=pageWidth+pageSets[currentPageLayout].GapHorizontal;
+		}
+		else
+		{
+			xOffset=DocPages.at(0)->xOffset();
+			for (int i=0; i<pageIndex; ++i)
+				xOffset+=DocPages.at(i)->width()+pageSets[currentPageLayout].GapHorizontal;
+		}
+	}
+	if (myRow>0)
+	{
+		int firstPageOnRow=pageIndex-myCol;
+		for (int i=firstPageOnRow; i<pageIndex; ++i)
+			xOffset+=DocPages.at(i)->width()+pageSets[currentPageLayout].GapHorizontal;
+	}
+	pageToAdjust->setXOffset(xOffset);
+	
+	
+	if (myRow!=0)
+	{
+		for (int i=0;i<myRow;++i)
+		{
+			double maxHeightOfRow=0.0;
+			yOffset+=DocPages.at(i)->width()+pageSets[currentPageLayout].GapHorizontal;
+		}
+		
+		if (pageIndex==0)
+		{
+			for (int i=0; i<myCol; ++i)
+				xOffset+=pageWidth+pageSets[currentPageLayout].GapHorizontal;
+		}
+		else
+		{
+			xOffset=DocPages.at(0)->xOffset();
+			for (int i=0; i<pageIndex; ++i)
+				xOffset+=DocPages.at(i)->width()+pageSets[currentPageLayout].GapHorizontal;
+		}
+	}
+	if (myRow>0)
+	{
+		int firstPageOnRow=pageIndex-myCol;
+		for (int i=firstPageOnRow; i<pageIndex; ++i)
+			xOffset+=DocPages.at(i)->width()+pageSets[currentPageLayout].GapHorizontal;
+	}
+	pageToAdjust->setXOffset(xOffset);
+	*/
 }

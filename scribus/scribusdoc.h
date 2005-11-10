@@ -78,16 +78,24 @@ public:
 	void resetPage(double t, double l, double r, double bo, int fp);
 	
 	// Add, delete and move pages
-	/**
-	 * @brief Add a page with this function, do not use addPage for creating master pages
-	 */
-	Page* addPage(const int pageNumber, const QString& masterPageName=QString::null);
+	
+	Page* addPage(const int pageNumber, const QString& masterPageName=QString::null, const bool addAutoFrame=false);
 	bool deletePage(const int);
 	/**
 	 * @brief Add a master page with this function, do not use addPage
 	 */
 	Page* addMasterPage(const int, const QString&);
+	/**
+	 * 
+	 * @param  
+	 * @return 
+	 */
 	const int addAutomaticTextFrame(const int);
+	/**
+	 * Set the left and right margins based on the location of the page
+	 * @param pageIndex 
+	 */
+	void setLocationBasedPageLRMargins(uint pageIndex);
 	/**
 	 * @brief Move page(s) within the document
 	 * @param From page index

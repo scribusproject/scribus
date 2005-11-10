@@ -2285,8 +2285,7 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 	if (createCount<=0)
 		createCount=1;
 	for (int i = 0; i < createCount; ++i)
-		doc->addPage(i, "Normal");
-
+		doc->addPage(i, "Normal", true);
 	doc->pageCount = doc->DocPages.count();
 	doc->addSection();
 	doc->setFirstSectionFromFirstPageNumber();
@@ -2313,11 +2312,6 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 	w->setCentralWidget(view);
 	view->reformPages(true);
 	//>>
-	//CB this should be done in the addPage loop above within addPage, but the left and right margins are not correct
-	//until the doc->reformPages has been run from view->reformPages.
-	if (atf)
-		for (int i = 0; i < createCount; ++i)
-			doc->addAutomaticTextFrame(i);
 	
 	connect(undoManager, SIGNAL(undoRedoDone()), view, SLOT(DrawNew()));
 	//connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
@@ -5298,7 +5292,7 @@ void ScribusApp::slotNewMasterPage(int w, const QString& name)
 
 void ScribusApp::slotNewPage(int w, bool mov)
 {
-	doc->addPage(w);
+	doc->addPage(w, QString::null, true);
 	view->addPage(w, mov);
 /*	if ((!doc->loading) && (!doc->masterPageMode))
 		outlinePalette->BuildTree(doc); */

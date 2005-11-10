@@ -8398,7 +8398,8 @@ Page* ScribusView::addPage(int nr, bool mov)
 	disconnect(pageSelector, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
 	pageSelector->setMaxValue(Doc->pageCount);
 	reformPages(mov);
-	//CB should be done in ScribusDoc::addPage();
+	//CB is done in ScribusDoc::addPage();
+	/*
 	int newFrameNumber=Doc->addAutomaticTextFrame(nr);
 	if (newFrameNumber > 0)
 	{
@@ -8415,7 +8416,7 @@ Page* ScribusView::addPage(int nr, bool mov)
 		painter=NULL;
 		Doc->RePos = savre;
 	}
-	
+	*/
 	if ((!ScApp->ScriptRunning) && (!Doc->isLoading()) && (!Doc->masterPageMode()))
 		pageSelector->GotoPg(nr);
 	connect(pageSelector, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
@@ -8573,9 +8574,10 @@ void ScribusView::slotZoomIn2(int mx,int my)
 {
 	rememberPreviousSettings(mx,my);
 	setScale(Scale + static_cast<double>(Doc->toolSettings.magStep*Prefs->DisScale)/100.0);
-	if (Scale > static_cast<double>(Doc->toolSettings.magMax*Prefs->DisScale)/100.0)
+	double scaledMagMax=static_cast<double>(Doc->toolSettings.magMax*Prefs->DisScale)/100.0;
+	if (Scale > scaledMagMax)
 	{
-		setScale(static_cast<double>(Doc->toolSettings.magMax*Prefs->DisScale)/100.0);
+		setScale(scaledMagMax);
 		return;
 	}
 	slotDoZoom();
@@ -8586,8 +8588,9 @@ void ScribusView::slotZoomOut2(int mx,int my)
 {
 	rememberPreviousSettings(mx,my);
 	setScale(Scale - static_cast<double>(Doc->toolSettings.magStep*Prefs->DisScale)/100.0);
-	if (Scale < static_cast<double>(Doc->toolSettings.magMin*Prefs->DisScale)/100.0)
-		setScale(static_cast<double>(Doc->toolSettings.magMin*Prefs->DisScale)/100.0);
+	double scaledMagMin=static_cast<double>(Doc->toolSettings.magMin*Prefs->DisScale)/100.0;
+	if (Scale < scaledMagMin)
+		setScale(scaledMagMin);
 	slotDoZoom();
 }
 
