@@ -5,11 +5,11 @@
 #include "cmdvar.h"
 
 #include "qobject.h"
-#include "qfiledialog.h"
+#include "q3filedialog.h"
 #include "qlabel.h"
 #include "qcheckbox.h"
 
-class RunScriptDialog : public QFileDialog
+class RunScriptDialog : public Q3FileDialog
 {
 	Q_OBJECT
 

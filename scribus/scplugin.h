@@ -6,7 +6,7 @@
 #include "qstring.h"
 #include "qpixmap.h"
 #include "qdatetime.h"
-#include "qiconset.h"
+#include "qicon.h"
 #include "scribusapi.h"
 
 class QWidget;
@@ -245,7 +245,7 @@ class SCRIBUS_API ScActionPlugin : public ScPlugin
 			QString keySequence;
 			QString menu;
 			QString menuAfterName;
-			QIconSet iconSet;
+			QIcon iconSet;
 			bool enabledOnStartup;
 		};
 

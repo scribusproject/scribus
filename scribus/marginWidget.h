@@ -2,9 +2,11 @@
 #define MARGINWIDGET_H
 
 #include <qlayout.h>
-#include <qgroupbox.h>
+#include <q3groupbox.h>
 #include <qlabel.h>
 #include <qcombobox.h>
+//Added by qt3to4:
+#include <QGridLayout>
 
 #include "scribusapi.h"
 #include "scribusstructs.h"
@@ -56,7 +58,7 @@ private:
 /*! Widget for Margins setting.
 Used e.g. in "New Doc Dialog" or "Preferences".
 */
-class SCRIBUS_API MarginWidget : public QGroupBox
+class SCRIBUS_API MarginWidget : public Q3GroupBox
 {
 	Q_OBJECT
 

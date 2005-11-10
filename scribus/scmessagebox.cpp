@@ -14,7 +14,6 @@
  ***************************************************************************/
 
 #include "scmessagebox.h"
-#include "scmessagebox.moc"
 #include "scribusapp.h"
 
 extern ScribusQApp* ScQApp;

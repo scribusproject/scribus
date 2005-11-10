@@ -2,13 +2,19 @@
 #include "scribus.h"
 #include <qvariant.h>
 #include <qpushbutton.h>
-#include <qlistview.h>
+#include <q3listview.h>
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
 #include <qstring.h>
 #include <qspinbox.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QGridLayout>
+#include <Q3Frame>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 
 #include <prefsfile.h>
 
@@ -50,7 +56,7 @@ FontPreview::FontPreview(QString fontName)
 
 	mainLayout->addLayout(searchLayout, 0);
 
-	fontList = new QListView(this, "fontList" );
+	fontList = new Q3ListView(this, "fontList" );
 	fontList->setAllColumnsShowFocus(true);
 	fontList->setShowSortIndicator(true);
 	// columns
@@ -66,8 +72,8 @@ FontPreview::FontPreview(QString fontName)
 
 	fontPreview = new QLabel(this, "fontPreview");
 	fontPreview->setMinimumSize(QSize(400, 90));
-	fontPreview->setFrameShape(QFrame::Box);
-	fontPreview->setPaletteBackgroundColor(white /* MrB RFE ;) paletteBackgroundColor()*/);
+	fontPreview->setFrameShape(Q3Frame::Box);
+	fontPreview->setPaletteBackgroundColor(Qt::white /* MrB RFE ;) paletteBackgroundColor()*/);
 	mainLayout->addWidget(fontPreview);
 
 	sizeLayout = new QHBoxLayout(0, 0, 5, "sizeLayout");
@@ -93,7 +99,7 @@ FontPreview::FontPreview(QString fontName)
 	languageChange();
 	resize(QSize(xsize, ysize).expandedTo(minimumSizeHint()));
 	layout()->activate();
-	clearWState(WState_Polished);
+	//clearWState(WState_Polished);
 
 	/* go through available fonts and check their properties */
 	reallyUsedFonts.clear();
@@ -108,7 +114,7 @@ FontPreview::FontPreview(QString fontName)
 	fontList->setSorting(sortColumn);
 
 	// set initial listitem
-	QListViewItem *item;
+	Q3ListViewItem *item;
 	if (!fontName.isEmpty())
 		item = fontList->findItem(fontName, 0);
 	else
@@ -127,7 +133,7 @@ FontPreview::FontPreview(QString fontName)
 	// signals and slots connections
 	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
-	connect(fontList, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(fontList_changed()));
+	connect(fontList, SIGNAL(selectionChanged(Q3ListViewItem*)), this, SLOT(fontList_changed()));
 	connect(sizeSpin, SIGNAL(valueChanged(int)), this, SLOT(fontList_changed()));
 	// searching
 	connect(searchButton, SIGNAL(clicked()), this, SLOT(searchButton_clicked()));
@@ -172,8 +178,8 @@ void FontPreview::fontList_changed()
 {
 	QString t = tr("Woven silk pyjamas exchanged for blue quartz", "font preview");
 	t.replace('\n', " "); // remove French <NL> from translation...
-	QListViewItem *item = fontList->currentItem();
-	QPixmap pixmap = fontSamples(PrefsManager::instance()->appPrefs.AvailFonts[item->text(0)], sizeSpin->value(), t, white /*paletteBackgroundColor()*/);
+	Q3ListViewItem *item = fontList->currentItem();
+	QPixmap pixmap = fontSamples(PrefsManager::instance()->appPrefs.AvailFonts[item->text(0)], sizeSpin->value(), t, Qt::white /*paletteBackgroundColor()*/);
 	fontPreview->clear();
 	if (!pixmap.isNull())
 		fontPreview->setPixmap(pixmap);
@@ -189,7 +195,7 @@ void FontPreview::updateFontList(QString searchStr)
 			continue;
 		if (fontIter.current()->UseFont)
 		{
-			QListViewItem *row = new QListViewItem(fontList);
+			Q3ListViewItem *row = new Q3ListViewItem(fontList);
 			Foi::FontType type = fontIter.current()->typeCode;
 
 			row->setText(0, fontIter.current()->scName());
@@ -239,4 +245,3 @@ void FontPreview::searchButton_clicked()
 	updateFontList(searchEdit->text());
 }
 
-#include "ui.moc"

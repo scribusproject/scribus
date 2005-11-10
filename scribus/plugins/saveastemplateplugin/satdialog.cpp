@@ -2,10 +2,15 @@
  *   Riku Leino, tsoots@gmail.com                                          *
  ***************************************************************************/
 #include "satdialog.h"
-#include "satdialog.moc"
 #include "scribusapi.h"
 #include "prefsmanager.h"
 #include <prefsfile.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QBoxLayout>
 
 extern QPixmap SCRIBUS_API loadIcon(QString nam);
 
@@ -61,12 +66,12 @@ satdialog::satdialog(QWidget* parent, QString tmplName, int pageW, int pageH) : 
 	
 	descrLabel = new QLabel( tr("Description"),center);
 	mlo->addWidget(descrLabel);
-	descrEdit = new QTextEdit(center);
+	descrEdit = new Q3TextEdit(center);
 	mlo->addWidget(descrEdit);
 	
 	usageLabel = new QLabel( tr("Usage"),center);
 	mlo->addWidget(usageLabel);
-	usageEdit = new QTextEdit(center);
+	usageEdit = new Q3TextEdit(center);
 	mlo->addWidget(usageEdit);
 	
 	authorLabel = new QLabel( tr("Author"),center);

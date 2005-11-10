@@ -19,6 +19,8 @@
 #define MSPINBOX_H
 
 #include <qspinbox.h>
+//Added by qt3to4:
+#include <QEvent>
 #include "scribusapi.h"
 
 /**

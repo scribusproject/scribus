@@ -4,6 +4,11 @@
 
 #include <qvariant.h>
 #include <qdialog.h>
+//Added by qt3to4:
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QGridLayout>
 
 class QVBoxLayout;
 class QHBoxLayout;
@@ -20,7 +25,7 @@ class ValueDialog : public QDialog
 	Q_OBJECT
 
 public:
-	ValueDialog( QWidget* parent = 0, const char* name = 0, bool modal = FALSE, WFlags fl = 0 );
+	ValueDialog( QWidget* parent = 0, const char* name = 0, bool modal = FALSE, Qt::WFlags fl = 0 );
 	~ValueDialog();
 
 	QLabel* dialogLabel;

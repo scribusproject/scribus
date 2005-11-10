@@ -5,6 +5,11 @@
 #include <qpixmap.h>
 #include <qpushbutton.h>
 #include <qdialog.h>
+//Added by qt3to4:
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QGridLayout>
 
 #include "scribusapi.h"
 #include "scrpalettebase.h"
@@ -13,8 +18,8 @@ class QVBoxLayout;
 class QHBoxLayout;
 class QGridLayout;
 class QSpacerItem;
-class QListView;
-class QListViewItem;
+class Q3ListView;
+class Q3ListViewItem;
 class QComboBox;
 class QLabel;
 class QPushButton;
@@ -35,17 +40,17 @@ public:
 	*/
 	QComboBox* curCheckProfile;
 	QLabel* textLabel1;
-	QListView* reportDisplay;
+	Q3ListView* reportDisplay;
 	QPushButton* ignoreErrors;
-	QMap<QListViewItem*, int> itemMap;
-	QMap<QListViewItem*, int> pageMap;
-	QMap<QListViewItem*, QString> masterPageMap;
-	QMap<QListViewItem*, int> masterPageItemMap;
+	QMap<Q3ListViewItem*, int> itemMap;
+	QMap<Q3ListViewItem*, int> pageMap;
+	QMap<Q3ListViewItem*, QString> masterPageMap;
+	QMap<Q3ListViewItem*, int> masterPageItemMap;
 	bool noButton;
 	int checkMode;
 
 public slots:
-	void slotSelect(QListViewItem* ite);
+	void slotSelect(Q3ListViewItem* ite);
 	void newScan(const QString&);
 
 signals:

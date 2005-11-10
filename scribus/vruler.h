@@ -20,6 +20,9 @@
 
 #include <qwidget.h>
 #include <qpainter.h>
+//Added by qt3to4:
+#include <QMouseEvent>
+#include <QPaintEvent>
 #include "scribusapi.h"
 class ScribusDoc;
 class ScribusView;
@@ -46,6 +49,7 @@ public:
 	bool repainted;
 	int oldMark;
 	bool Mpressed;
+	int m_wo;
 private: // Private attributes
 	/** Zeichensatz des Lineals */
 	ScribusDoc *currDoc;

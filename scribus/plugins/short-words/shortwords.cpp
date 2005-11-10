@@ -10,7 +10,6 @@ or documentation
 */
 
 #include "shortwords.h"
-#include "shortwords.moc"
 #include "version.h"
 #include "vlnadialog.h"
 #include "configuration.h"
@@ -22,10 +21,12 @@ or documentation
 #include <qmessagebox.h>
 #include <qtextcodec.h>
 #include <qcursor.h>
-#include <qprogressdialog.h>
+#include <q3progressdialog.h>
 #include <qfile.h>
 #include <qdir.h>
 #include <qcheckbox.h>
+//Added by qt3to4:
+#include <QPixmap>
 
 int scribusshortwords_getPluginAPIVersion()
 {

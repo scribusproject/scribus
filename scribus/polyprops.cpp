@@ -1,7 +1,10 @@
 #include "polyprops.h"
-#include "polyprops.moc"
 #include "polygonwidget.h"
 #include "commonstrings.h"
+//Added by qt3to4:
+#include <QPixmap>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 
 extern QPixmap loadIcon(QString nam);
 

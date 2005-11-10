@@ -15,20 +15,33 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <qaccel.h>
+#include <q3accel.h>
 #include <qapplication.h>
 #include <qeventloop.h>
 #include <qcolordialog.h>
 #include <qcolor.h>
-#include <qiconset.h>
+#include <qicon.h>
 #include <qtextstream.h>
 #include <qstylefactory.h>
 #include <qregexp.h>
 #include <qtextcodec.h>
 #include <qcursor.h>
-#include <qvbox.h>
+#include <q3vbox.h>
 #include <qpixmap.h>
 #include <qkeysequence.h>
+//Added by qt3to4:
+#include <QDesktopWidget>
+#include <QMouseEvent>
+#include <Q3Frame>
+#include <QKeyEvent>
+#include <QEvent>
+#include <QTranslator>
+#include <Q3ValueList>
+#include <QWheelEvent>
+#include <Q3PtrList>
+#include <QCloseEvent>
+#include <QImageReader>
+#include <QLabel>
 
 #include <cstdio>
 #include <cstdlib>
@@ -51,7 +64,6 @@
 #include "sccombobox.h"
 #include "scribusapp.h"
 #include "scribus.h"
-#include "scribus.moc"
 #include "newfile.h"
 #include "page.h"
 #include "query.h"
@@ -112,7 +124,6 @@
 #include "tocindexprefs.h"
 #include "tocgenerator.h"
 #include "collect4output.h"
-#include "fpoint.h"
 #include "fpointarray.h"
 #include "hysettings.h"
 #include "guidemanager.h"
@@ -259,8 +270,8 @@ int ScribusApp::initScribus(bool showSplash, bool showFontInfo, const QString ne
 		prefsManager->initDefaultGUIFont(qApp->font());
 		prefsManager->initArrowStyles();
 		resize(610, 600);
-		QVBox* vb = new QVBox( this );
-		vb->setFrameStyle( QFrame::StyledPanel | QFrame::Sunken );
+		Q3VBox* vb = new Q3VBox( this );
+		vb->setFrameStyle( Q3Frame::StyledPanel | Q3Frame::Sunken );
 		wsp = new QWorkspace( vb );
 		setCentralWidget( vb );
 		connect(wsp, SIGNAL(windowActivated(QWidget *)), this, SLOT(newActWin(QWidget *)));
@@ -373,7 +384,7 @@ void ScribusApp::closeSplash()
 
 void ScribusApp::initToolBars()
 {
-	fileToolBar = new QToolBar( tr("File"), this);
+	fileToolBar = new Q3ToolBar( tr("File"), this);
 	scrActions["fileNew"]->addTo(fileToolBar);
 	scrActions["fileOpen"]->addTo(fileToolBar);
 	scrMenuMgr->addMenuToWidgetOfAction("FileOpenRecent", scrActions["fileOpen"]);
@@ -383,18 +394,18 @@ void ScribusApp::initToolBars()
 	scrActions["toolsPreflightVerifier"]->addTo(fileToolBar);
 	scrActions["fileExportAsPDF"]->addTo(fileToolBar);
 
-	editToolBar = new QToolBar( tr("Edit"), this);
+	editToolBar = new Q3ToolBar( tr("Edit"), this);
 	UndoWidget* uWidget = new UndoWidget(editToolBar, "uWidget");
 	undoManager->registerGui(uWidget);
 
 	mainToolBar = new WerkToolB(this);
-	setDockEnabled(mainToolBar, DockLeft, false);
-	setDockEnabled(mainToolBar, DockRight, false);
+	setDockEnabled(mainToolBar, Qt::DockLeft, false);
+	setDockEnabled(mainToolBar, Qt::DockRight, false);
 	mainToolBar->Sichtbar = true;
 	mainToolBar->setEnabled(false);
 	pdfToolBar = new WerkToolBP(this);
-	setDockEnabled(pdfToolBar, DockLeft, false);
-	setDockEnabled(pdfToolBar, DockRight, false);
+	setDockEnabled(pdfToolBar, Qt::DockLeft, false);
+	setDockEnabled(pdfToolBar, Qt::DockRight, false);
 	pdfToolBar->setEnabled(false);
 	pdfToolBar->Sichtbar = true;
 
@@ -451,7 +462,7 @@ void ScribusApp::initDefaultValues()
 
 void ScribusApp::initKeyboardShortcuts()
 {
-	for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = scrActions.begin(); it!=scrActions.end(); ++it )
+	for( QMap<QString, QPointer<ScrAction> >::Iterator it = scrActions.begin(); it!=scrActions.end(); ++it )
 	{
 		if ((ScrAction*)(it.data())!=NULL)
 		{
@@ -587,7 +598,7 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["fileNew"], "File");
 	scrMenuMgr->addMenuItem(scrActions["fileOpen"], "File");
 	recentFileMenuName="FileOpenRecent";
-	scrMenuMgr->createMenu(recentFileMenuName, QIconSet(noIcon), tr("Open &Recent"), "File");
+	scrMenuMgr->createMenu(recentFileMenuName, QIcon(noIcon), tr("Open &Recent"), "File");
 	scrMenuMgr->addMenuSeparator("File");
 	scrMenuMgr->addMenuItem(scrActions["fileClose"], "File");
 	scrMenuMgr->addMenuItem(scrActions["fileSave"], "File");
@@ -595,11 +606,11 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["fileRevert"], "File");
 	scrMenuMgr->addMenuItem(scrActions["fileCollect"], "File");
 	scrMenuMgr->addMenuSeparator("File");
-	scrMenuMgr->createMenu("FileImport", QIconSet(noIcon), tr("&Import"), "File");
+	scrMenuMgr->createMenu("FileImport", QIcon(noIcon), tr("&Import"), "File");
 	scrMenuMgr->addMenuItem(scrActions["fileImportText"], "FileImport");
 	scrMenuMgr->addMenuItem(scrActions["fileImportAppendText"], "FileImport");
 	scrMenuMgr->addMenuItem(scrActions["fileImportImage"], "FileImport");
-	scrMenuMgr->createMenu("FileExport", QIconSet(noIcon), tr("&Export"), "File");
+	scrMenuMgr->createMenu("FileExport", QIcon(noIcon), tr("&Export"), "File");
 	scrMenuMgr->addMenuItem(scrActions["fileExportText"], "FileExport");
 	scrMenuMgr->addMenuItem(scrActions["fileExportAsEPS"], "FileExport");
 	scrMenuMgr->addMenuItem(scrActions["fileExportAsPDF"], "FileExport");
@@ -972,7 +983,7 @@ void ScribusApp::addDefaultWindowMenuItems()
 void ScribusApp::initStatusBar()
 {
 	mainWindowStatusLabel = new QLabel( "           ", statusBar(), "ft");
-	mainWindowProgressBar = new QProgressBar(statusBar(), "p");
+	mainWindowProgressBar = new Q3ProgressBar(statusBar(), "p");
 	mainWindowProgressBar->setCenterIndicator(true);
 	mainWindowProgressBar->setFixedWidth( 100 );
 	mainWindowProgressBar->reset();
@@ -1093,7 +1104,7 @@ void ScribusApp::wheelEvent(QWheelEvent *w)
 	if (HaveDoc)
 	{
 		int wheelVal=prefsManager->mouseWheelValue();
-		if ((w->orientation() != Qt::Vertical) || ( w->state() & ShiftButton ))
+		if ((w->orientation() != Qt::Vertical) || ( w->state() & Qt::ShiftModifier ))
 		{
 			if (w->delta() < 0)
 				view->scrollBy(wheelVal, 0);
@@ -1154,18 +1165,18 @@ void ScribusApp::specialActionKeyEvent(QString actionName, int unicodevalue)
 /*!
   \brief Receive key events from palettes such as palette hiding events. Possibly easier way but this is cleaner than before. No need to modify all those palettes and each new one in future.
  */
-bool ScribusApp::eventFilter( QObject */*o*/, QEvent *e )
+bool ScribusApp::eventFilter( QObject * /*o*/, QEvent *e )
 {
 	bool retVal;
 	if ( e->type() == QEvent::KeyPress ) {
 		QKeyEvent *k = (QKeyEvent *)e;
 		int keyMod=0;
-		if (k->state() & ShiftButton)
-			keyMod |= SHIFT;
-		if (k->state() & ControlButton)
-			keyMod |= CTRL;
-		if (k->state() & AltButton)
-			keyMod |= ALT;
+		if (k->state() & Qt::ShiftModifier)
+			keyMod |= Qt::SHIFT;
+		if (k->state() & Qt::ControlModifier)
+			keyMod |= Qt::CTRL;
+		if (k->state() & Qt::AltModifier)
+			keyMod |= Qt::ALT;
 
 		QKeySequence currKeySeq = QKeySequence(k->key() | keyMod);
 		if (QString(currKeySeq).isNull())
@@ -1245,20 +1256,20 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 	keyrep = true;
 	switch (k->state())
 	{
-	case ShiftButton:
-		KeyMod = SHIFT;
+	case Qt::ShiftModifier:
+		KeyMod = Qt::SHIFT;
 		break;
-	case AltButton:
-		KeyMod = ALT;
+	case Qt::AltModifier:
+		KeyMod = Qt::ALT;
 		break;
-	case ControlButton:
-		KeyMod = CTRL;
+	case Qt::ControlModifier:
+		KeyMod = Qt::CTRL;
 		break;
 	default:
 		KeyMod = 0;
 		break;
 	}
-	if ((kk == Key_Escape) && (HaveDoc))
+	if ((kk == Qt::Key_Escape) && (HaveDoc))
 	{
 		keyrep = false;
 		PageItem *currItem;
@@ -1292,7 +1303,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 					else
 					{
 						view->SizeItem(currItem->PoLine.WidthHeight().x(), currItem->PoLine.WidthHeight().y(), currItem->ItemNr, false, false);
-						currItem->SetPolyClip(qRound(QMAX(currItem->Pwidth / 2, 1)));
+						currItem->SetPolyClip(qRound(QMAX(currItem->Pwidth / 2, 1.0)));
 						view->AdjustItemSize(currItem);
 						currItem->ContourLine = currItem->PoLine.copy();
 						currItem->ClipEdited = true;
@@ -1319,14 +1330,14 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 		slotSelect();
 		return;
 	}
-	ButtonState buttonState = k->state();
+	Qt::ButtonState buttonState = k->state();
 	if ((HaveDoc) && (!view->zoomSpinBox->hasFocus()) && (!view->pageSelector->hasFocus()))
 	{
 		if ((doc->appMode != modeEdit) && (view->SelItem.count() == 0))
 		{
 			switch (kk)
 			{
-			case Key_Space:
+			case Qt::Key_Space:
 				keyrep = false;
 				if (doc->appMode == modePanning)
 					setAppMode(modeNormal);
@@ -1337,17 +1348,17 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 				}
 				return;
 				break;
-			case Key_Prior:
+			case Qt::Key_PageUp:
 				view->scrollBy(0, -prefsManager->mouseWheelValue());
 				keyrep = false;
 				return;
 				break;
-			case Key_Next:
+			case Qt::Key_PageDown:
 				view->scrollBy(0, prefsManager->mouseWheelValue());
 				keyrep = false;
 				return;
 				break;
-			case Key_Tab:
+			case Qt::Key_Tab:
 				keyrep = false;
 				windows = wsp->windowList();
 				if (windows.count() > 1)
@@ -1381,51 +1392,51 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 			case modeNormal:
 				switch (kk)
 				{
-				case Key_Backspace:
-				case Key_Delete:
+				case Qt::Key_Backspace:
+				case Qt::Key_Delete:
 					if (!doc->EditClip)
 					{
 						view->DeleteItem();
 						slotDocCh();
 					}
 					break;
-				case Key_Prior:
+				case Qt::Key_PageUp:
 					if (!currItem->locked())
 					{
 						view->RaiseItem();
 						slotDocCh();
 					}
 					break;
-				case Key_Next:
+				case Qt::Key_PageDown:
 					if (!currItem->locked())
 					{
 						view->LowerItem();
 						slotDocCh();
 					}
 					break;
-				case Key_Left:
+				case Qt::Key_Left:
 					if (!currItem->locked())
 					{
 						if ((doc->EditClip) && (view->ClRe != -1))
 						{
-							FPoint np;
+							QPointF np;
 							if (view->EditContour)
 								np = currItem->ContourLine.point(view->ClRe);
 							else
 								np = currItem->PoLine.point(view->ClRe);
-							if ( buttonState & ShiftButton )
-								np = np - FPoint(10.0, 0);
-							else if ( buttonState & ControlButton )
-								np = np - FPoint(0.1, 0);
+							if ( buttonState & Qt::ShiftModifier )
+								np = np - QPointF(10.0, 0);
+							else if ( buttonState & Qt::ControlModifier )
+								np = np - QPointF(0.1, 0);
 							else
-								np = np - FPoint(1.0, 0);
+								np = np - QPointF(1.0, 0);
 							view->MoveClipPoint(currItem, np);
 						}
 						else
 						{
-							if ( buttonState & ShiftButton )
+							if ( buttonState & Qt::ShiftModifier )
 								view->moveGroup(-10, 0);
-							else if ( buttonState & ControlButton )
+							else if ( buttonState & Qt::ControlModifier )
 								view->moveGroup(-0.1, 0);
 							else
 								view->moveGroup(-1, 0);
@@ -1433,29 +1444,29 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 						slotDocCh();
 					}
 					break;
-				case Key_Right:
+				case Qt::Key_Right:
 					if (!currItem->locked())
 					{
 						if ((doc->EditClip) && (view->ClRe != -1))
 						{
-							FPoint np;
+							QPointF np;
 							if (view->EditContour)
 								np = currItem->ContourLine.point(view->ClRe);
 							else
 								np = currItem->PoLine.point(view->ClRe);
-							if ( buttonState & ShiftButton )
-								np = np + FPoint(10.0, 0);
-							else if ( buttonState & ControlButton )
-								np = np + FPoint(0.1, 0);
+							if ( buttonState & Qt::ShiftModifier )
+								np = np + QPointF(10.0, 0);
+							else if ( buttonState & Qt::ControlModifier )
+								np = np + QPointF(0.1, 0);
 							else
-								np = np + FPoint(1.0, 0);
+								np = np + QPointF(1.0, 0);
 							view->MoveClipPoint(currItem, np);
 						}
 						else
 						{
-							if ( buttonState & ShiftButton )
+							if ( buttonState & Qt::ShiftModifier )
 								view->moveGroup(10, 0);
-							else if ( buttonState & ControlButton )
+							else if ( buttonState & Qt::ControlModifier )
 								view->moveGroup(0.1, 0);
 							else
 								view->moveGroup(1, 0);
@@ -1463,29 +1474,29 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 						slotDocCh();
 					}
 					break;
-				case Key_Up:
+				case Qt::Key_Up:
 					if (!currItem->locked())
 					{
 						if ((doc->EditClip) && (view->ClRe != -1))
 						{
-							FPoint np;
+							QPointF np;
 							if (view->EditContour)
 								np = currItem->ContourLine.point(view->ClRe);
 							else
 								np = currItem->PoLine.point(view->ClRe);
-							if ( buttonState & ShiftButton )
-								np = np - FPoint(0, 10.0);
-							else if ( buttonState & ControlButton )
-								np = np - FPoint(0, 0.1);
+							if ( buttonState & Qt::ShiftModifier )
+								np = np - QPointF(0, 10.0);
+							else if ( buttonState & Qt::ControlModifier )
+								np = np - QPointF(0, 0.1);
 							else
-								np = np - FPoint(0, 1.0);
+								np = np - QPointF(0, 1.0);
 							view->MoveClipPoint(currItem, np);
 						}
 						else
 						{
-							if ( buttonState & ShiftButton )
+							if ( buttonState & Qt::ShiftModifier )
 								view->moveGroup(0, -10);
-							else if ( buttonState & ControlButton )
+							else if ( buttonState & Qt::ControlModifier )
 								view->moveGroup(0, -0.1);
 							else
 								view->moveGroup(0, -1);
@@ -1493,29 +1504,29 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 						slotDocCh();
 					}
 					break;
-				case Key_Down:
+				case Qt::Key_Down:
 					if (!currItem->locked())
 					{
 						if ((doc->EditClip) && (view->ClRe != -1))
 						{
-							FPoint np;
+							QPointF np;
 							if (view->EditContour)
 								np = currItem->ContourLine.point(view->ClRe);
 							else
 								np = currItem->PoLine.point(view->ClRe);
-							if ( buttonState & ShiftButton )
-								np = np + FPoint(0, 10.0);
-							else if ( buttonState & ControlButton )
-								np = np + FPoint(0, 0.1);
+							if ( buttonState & Qt::ShiftModifier )
+								np = np + QPointF(0, 10.0);
+							else if ( buttonState & Qt::ControlModifier )
+								np = np + QPointF(0, 0.1);
 							else
-								np = np + FPoint(0, 1.0);
+								np = np + QPointF(0, 1.0);
 							view->MoveClipPoint(currItem, np);
 						}
 						else
 						{
-							if ( buttonState & ShiftButton )
+							if ( buttonState & Qt::ShiftModifier )
 								view->moveGroup(0, 10);
-							else if ( buttonState & ControlButton )
+							else if ( buttonState & Qt::ControlModifier )
 								view->moveGroup(0, 0.1);
 							else
 								view->moveGroup(0, 1);
@@ -1534,45 +1545,45 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 				{
 					switch (kk)
 					{
-						case Key_Left:
+						case Qt::Key_Left:
 							if (!currItem->locked())
 							{
-								if ( buttonState & ShiftButton )
+								if ( buttonState & Qt::ShiftButton )
 									view->MoveItemI(currItem, -10, 0, true);
-								else if ( buttonState & ControlButton )
+								else if ( buttonState & Qt::ControlButton )
 									view->MoveItemI(currItem, -0.1, 0, true);
 								else
 									view->MoveItemI(currItem, -1, 0, true);
 							}
 							break;
-						case Key_Right:
+						case Qt::Key_Right:
 							if (!currItem->locked())
 							{
-								if ( buttonState & ShiftButton )
+								if ( buttonState & Qt::ShiftButton )
 									view->MoveItemI(currItem, 10, 0, true);
-								else if ( buttonState & ControlButton )
+								else if ( buttonState & Qt::ControlButton )
 									view->MoveItemI(currItem, 0.1, 0, true);
 								else
 									view->MoveItemI(currItem, 1, 0, true);
 							}
 							break;
-						case Key_Up:
+						case Qt::Key_Up:
 							if (!currItem->locked())
 							{
-								if ( buttonState & ShiftButton )
+								if ( buttonState & Qt::ShiftModifier )
 									view->MoveItemI(0, -10, currItem->ItemNr, true);
-								else if ( buttonState & ControlButton )
+								else if ( buttonState & Qt::ControlModifier )
 									view->MoveItemI(0, -0.1, currItem->ItemNr, true);
 								else
 									view->MoveItemI(0, -1, currItem->ItemNr, true);
 							}
 							break;
-						case Key_Down:
+						case Qt::Key_Down:
 							if (!currItem->locked())
 							{
-								if ( buttonState & ShiftButton )
+								if ( buttonState & Qt::ShiftModifier )
 									view->MoveItemI(0, 10, currItem->ItemNr, true);
-								else if ( buttonState & ControlButton )
+								else if ( buttonState & Qt::ControlModifier )
 									view->MoveItemI(0, 0.1, currItem->ItemNr, true);
 								else
 									view->MoveItemI(0, 1, currItem->ItemNr, true);
@@ -1585,15 +1596,15 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 					view->slotDoCurs(false);
 					switch (kk)
 					{
-					case Key_Prior:
-					case Key_Next:
-					case Key_End:
-					case Key_Home:
-					case Key_Right:
-					case Key_Left:
-					case Key_Up:
-					case Key_Down:
-						if ( (buttonState & ShiftButton) == 0 )
+					case Qt::Key_PageUp:
+					case Qt::Key_PageDown:
+					case Qt::Key_End:
+					case Qt::Key_Home:
+					case Qt::Key_Right:
+					case Qt::Key_Left:
+					case Qt::Key_Up:
+					case Qt::Key_Down:
+						if ( (buttonState & Qt::ShiftModifier) == 0 )
 							view->deselectAll(currItem);
 					}
 					/* ISO 14755
@@ -1663,21 +1674,21 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 					}
 					switch (kk)
 					{
-					case Key_F12:
+					case Qt::Key_F12:
 						unicodeTextEditMode = true;
 						unicodeInputCount = 0;
 						unicodeInputString = "";
 						keyrep = false;
 						return;
 						break;
-					case Key_Home:
+					case Qt::Key_Home:
 						// go to begin of line
 						if ( (pos = currItem->CPos) == 0 )
 							break; // at begin of frame
 						len = static_cast<int>(currItem->itemText.count());
 						if ( pos == len )
 							pos--;
-						if ( (buttonState & ControlButton) == 0 )
+						if ( (buttonState & Qt::ControlModifier) == 0 )
 						{
 							alty =  currItem->itemText.at(pos)->yp;
 							c = currItem->itemText.at(pos)->ch.at(0).latin1();
@@ -1715,15 +1726,15 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 									--pos;
 						}
 						currItem->CPos = pos;
-						if ( buttonState & ShiftButton )
+						if ( buttonState & Qt::ShiftModifier )
 							view->ExpandSel(currItem, -1, oldPos);
 						break;
-					case Key_End:
+					case Qt::Key_End:
 						// go to end of line
 						len = static_cast<int>(currItem->itemText.count());
 						if ( currItem->CPos >= len )
 							break; // at end of frame
-						if ( (buttonState & ControlButton) == 0 )
+						if ( (buttonState & Qt::ControlModifier) == 0 )
 						{
 							if ((currItem->CPos < len) && ((currItem->itemText.at(currItem->CPos)->ch.at(0).latin1() == 13) || (currItem->itemText.at(currItem->CPos)->ch.at(0).latin1() == 28)))
 							{
@@ -1771,10 +1782,10 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							}
 							currItem->CPos = pos;
 						}
-						if ( buttonState & ShiftButton )
+						if ( buttonState & Qt::ShiftModifier )
 							view->ExpandSel(currItem, 1, oldPos);
 						break;
-					case Key_Down:
+					case Qt::Key_Down:
 						if (currItem->CPos != static_cast<int>(currItem->itemText.count()))
 						{
 							alty = currItem->itemText.at(currItem->CPos)->yp;
@@ -1791,9 +1802,9 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 								}
 							}
 							while (currItem->CPos < static_cast<int>(currItem->itemText.count()));
-							if ( buttonState & ShiftButton )
+							if ( buttonState & Qt::ShiftModifier )
 							{
-								if ( buttonState & AltButton )
+								if ( buttonState & Qt::AltModifier )
 									currItem->CPos = currItem->itemText.count();
 								view->ExpandSel(currItem, 1, oldPos);
 							}
@@ -1827,7 +1838,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							view->RefreshItem(currItem);
 						setTBvals(currItem);
 						break;
-					case Key_Up:
+					case Qt::Key_Up:
 						if (currItem->CPos > 0)
 						{
 							if (currItem->CPos == static_cast<int>(currItem->itemText.count()))
@@ -1851,9 +1862,9 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 								}
 								while (currItem->CPos > 0);
 							}
-							if ( buttonState & ShiftButton )
+							if ( buttonState & Qt::ShiftModifier )
 							{
-								if ( buttonState & AltButton )
+								if ( buttonState & Qt::AltModifier )
 									currItem->CPos = 0;
 								view->ExpandSel(currItem, -1, oldPos);
 							}
@@ -1884,26 +1895,26 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							view->RefreshItem(currItem);
 						setTBvals(currItem);
 						break;
-					case Key_Prior:
+					case Qt::Key_PageUp:
 						currItem->CPos = 0;
-						if ( buttonState & ShiftButton )
+						if ( buttonState & Qt::ShiftModifier )
 							view->ExpandSel(currItem, -1, oldPos);
 						setTBvals(currItem);
 						break;
-					case Key_Next:
+					case Qt::Key_PageDown:
 						currItem->CPos = static_cast<int>(currItem->itemText.count());
-						if ( buttonState & ShiftButton )
+						if ( buttonState & Qt::ShiftModifier )
 							view->ExpandSel(currItem, 1, oldPos);
 						setTBvals(currItem);
 						break;
-					case Key_Left:
-						if ( buttonState & ControlButton )
+					case Qt::Key_Left:
+						if ( buttonState & Qt::ControlModifier )
 						{
 							view->setNewPos(currItem, oldPos, currItem->itemText.count(),-1);
-							if ( buttonState & ShiftButton )
+							if ( buttonState & Qt::ShiftModifier )
 								view->ExpandSel(currItem, -1, oldPos);
 						}
-						else if ( buttonState & ShiftButton )
+						else if ( buttonState & Qt::ShiftModifier )
 						{
 							--currItem->CPos;
 							if ( currItem->CPos < 0 )
@@ -1952,14 +1963,14 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							view->RefreshItem(currItem);
 						setTBvals(currItem);
 						break;
-					case Key_Right:
-						if ( buttonState & ControlButton )
+					case Qt::Key_Right:
+						if ( buttonState & Qt::ControlModifier )
 						{
 							view->setNewPos(currItem, oldPos, currItem->itemText.count(),1);
-							if ( buttonState & ShiftButton )
+							if ( buttonState & Qt::ShiftModifier )
 								view->ExpandSel(currItem, 1, oldPos);
 						}
-						else if ( buttonState & ShiftButton )
+						else if ( buttonState & Qt::ShiftModifier )
 						{
 							++currItem->CPos;
 							if ( currItem->CPos > static_cast<int>(currItem->itemText.count()) )
@@ -1989,7 +2000,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							view->RefreshItem(currItem);
 						setTBvals(currItem);
 						break;
-					case Key_Delete:
+					case Qt::Key_Delete:
 						if (currItem->CPos == static_cast<int>(currItem->itemText.count()))
 						{
 							if (currItem->HasSel)
@@ -2019,7 +2030,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 						setTBvals(currItem);
 						view->RefreshItem(currItem);
 						break;
-					case Key_Backspace:
+					case Qt::Key_Backspace:
 						if (currItem->CPos == 0)
 						{
 							if (currItem->HasSel)
@@ -2052,12 +2063,12 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 						if ((currItem->HasSel) && (kk < 0x1000))
 							deleteSelectedTextFromFrame(currItem);
 //						if ((kk == Key_Tab) || ((kk == Key_Return) && (buttonState & ShiftButton)))
-						if (kk == Key_Tab)
+						if (kk == Qt::Key_Tab)
 						{
 							hg = new ScText;
 //							if (kk == Key_Return)
 //								hg->ch = QString(QChar(28));
-							if (kk == Key_Tab)
+							if (kk == Qt::Key_Tab)
 								hg->ch = QString(QChar(9));
 							doc->setScTextDefaultsFromDoc(hg);
 							hg->cselect = false;
@@ -2116,7 +2127,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 						break;
 					}
 					view->slotDoCurs(true);
-					if ((kk == Key_Left) || (kk == Key_Right) || (kk == Key_Up) || (kk == Key_Down))
+					if ((kk == Qt::Key_Left) || (kk == Qt::Key_Right) || (kk == Qt::Key_Up) || (kk == Qt::Key_Down))
 					{
 						keyrep = false;
 						return;
@@ -2129,10 +2140,10 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 	}
 	switch(kk)
 	{
-		case Key_Left:
-		case Key_Right:
-		case Key_Up:
-		case Key_Down:
+		case Qt::Key_Left:
+		case Qt::Key_Right:
+		case Qt::Key_Up:
+		case Qt::Key_Down:
 			_arrowKeyDown = true;
 	}
 	keyrep = false;
@@ -2144,10 +2155,10 @@ void ScribusApp::keyReleaseEvent(QKeyEvent *k)
 		return;
 	switch(k->key())
 	{
-		case Key_Left:
-		case Key_Right:
-		case Key_Up:
-		case Key_Down:
+		case Qt::Key_Left:
+		case Qt::Key_Right:
+		case Qt::Key_Up:
+		case Qt::Key_Down:
 			_arrowKeyDown = false;
 			if ((HaveDoc) && (!view->zoomSpinBox->hasFocus()) && (!view->pageSelector->hasFocus()))
 			{
@@ -2206,7 +2217,7 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 	}
 	if (scrapbookPalette->objectCount() == 0)
 		unlink(PrefsPfad+"/scrap13.scs");
-	qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+	qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 	exit(0);
 }
 
@@ -2476,7 +2487,7 @@ bool ScribusApp::DoSaveClose()
 
 void ScribusApp::windowsMenuAboutToShow()
 {
-	for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = scrWindowsActions.begin(); it!=scrWindowsActions.end(); ++it )
+	for( QMap<QString, QPointer<ScrAction> >::Iterator it = scrWindowsActions.begin(); it!=scrWindowsActions.end(); ++it )
 		scrMenuMgr->removeMenuItem((*it), "Windows");
 	scrWindowsActions.clear();
 	addDefaultWindowMenuItems();
@@ -2813,7 +2824,7 @@ void ScribusApp::HaveNewDoc()
 	connect(view, SIGNAL(SetAngle(double)), propertiesPalette, SLOT(setR(double)));
 	connect(view, SIGNAL(SetSizeValue(double)), propertiesPalette, SLOT(setSvalue(double)));
 	connect(view, SIGNAL(SetLocalValues(double, double, double, double)), propertiesPalette, SLOT(setLvalue(double, double, double, double)));
-	connect(view, SIGNAL(SetLineArt(PenStyle, PenCapStyle, PenJoinStyle)), propertiesPalette, SLOT( setLIvalue(PenStyle, PenCapStyle, PenJoinStyle)));
+	connect(view, SIGNAL(SetLineArt(Qt::PenStyle, Qt::PenCapStyle, Qt::PenJoinStyle)), propertiesPalette, SLOT( setLIvalue(Qt::PenStyle, Qt::PenCapStyle, Qt::PenJoinStyle)));
 	connect(view, SIGNAL(ItemFarben(QString, QString, int, int)), this, SLOT(setCSMenu(QString, QString, int, int)));
 	connect(view, SIGNAL(ItemFarben(QString, QString, int, int)), propertiesPalette->Cpal, SLOT(setActFarben(QString, QString, int, int)));
 	connect(view, SIGNAL(ItemGradient(int)), propertiesPalette->Cpal, SLOT(setActGradient(int)));
@@ -3390,16 +3401,16 @@ void ScribusApp::loadRecent(QString fn)
 
 void ScribusApp::rebuildRecentFileMenu()
 {
-	for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = scrRecentFileActions.begin(); it!=scrRecentFileActions.end(); ++it )
+	for( QMap<QString, QPointer<ScrAction> >::Iterator it = scrRecentFileActions.begin(); it!=scrRecentFileActions.end(); ++it )
 		scrMenuMgr->removeMenuItem((*it), recentFileMenuName);
 
 	scrRecentFileActions.clear();
-	uint max = QMIN(prefsManager->appPrefs.RecentDCount, RecentDocs.count());
+	uint max = qMin<int>(prefsManager->appPrefs.RecentDCount, RecentDocs.count());
 	for (uint m = 0; m < max; ++m)
 	{
 		QString strippedName=RecentDocs[m];
 		strippedName.remove(QDir::separator());
-		scrRecentFileActions.insert(strippedName, new ScrAction( ScrAction::RecentFile, QIconSet(), RecentDocs[m], QKeySequence(), this, strippedName));
+		scrRecentFileActions.insert(strippedName, new ScrAction( ScrAction::RecentFile, QIcon(), RecentDocs[m], QKeySequence(), this, strippedName));
 		connect( scrRecentFileActions[strippedName], SIGNAL(activatedData(QString)), this, SLOT(loadRecent(QString)) );
 		scrMenuMgr->addMenuItem(scrRecentFileActions[strippedName], recentFileMenuName);
 	}
@@ -3409,15 +3420,15 @@ void ScribusApp::rebuildLayersList()
 {
 	if (HaveDoc)
 	{
-		for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it0 = scrLayersActions.begin(); it0 != scrLayersActions.end(); ++it0 )
+		for( QMap<QString, QPointer<ScrAction> >::Iterator it0 = scrLayersActions.begin(); it0 != scrLayersActions.end(); ++it0 )
 			scrMenuMgr->removeMenuItem((*it0), layerMenuName);
 		scrLayersActions.clear();
-		QValueList<Layer>::iterator it;
+		Q3ValueList<Layer>::iterator it;
 		if (doc->Layers.count()!= 0)
 		{
 			for (it = doc->Layers.begin(); it != doc->Layers.end(); ++it)
 			{
-				scrLayersActions.insert(QString("%1").arg((*it).LNr), new ScrAction( ScrAction::Layer, QIconSet(), (*it).Name, QKeySequence(), this, (*it).Name, (*it).LNr));
+				scrLayersActions.insert(QString("%1").arg((*it).LNr), new ScrAction( ScrAction::Layer, QIcon(), (*it).Name, QKeySequence(), this, (*it).Name, (*it).LNr));
 				scrLayersActions[QString("%1").arg((*it).LNr)]->setToggleAction(true);
 			}
 		}
@@ -3434,7 +3445,7 @@ void ScribusApp::rebuildLayersList()
 		Q_ASSERT(found);
 		scrLayersActions[QString("%1").arg((*it).LNr)]->setOn(true);
 
-		for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=scrLayersActions.end(); ++it )
+		for( QMap<QString, QPointer<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=scrLayersActions.end(); ++it )
 		{
 			scrMenuMgr->addMenuItem((*it), layerMenuName);
 			connect( (*it), SIGNAL(activatedData(int)), this, SLOT(sendToLayer(int)) );
@@ -3446,15 +3457,15 @@ void ScribusApp::updateItemLayerList()
 {
 	if (HaveDoc)
 	{
-		QMap<QString, QGuardedPtr<ScrAction> >::Iterator itend=scrLayersActions.end();
-		for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=itend; ++it )
+		QMap<QString, QPointer<ScrAction> >::Iterator itend=scrLayersActions.end();
+		for( QMap<QString, QPointer<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=itend; ++it )
 		{
 			disconnect( (*it), SIGNAL(activatedData(int)), 0, 0 );
 			(*it)->setOn(false);
 		}
 		if (view->SelItem.count()>0 && view->SelItem.at(0))
 			scrLayersActions[QString("%1").arg(view->SelItem.at(0)->LayerNr)]->setOn(true);
-		for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=itend; ++it )
+		for( QMap<QString, QPointer<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=itend; ++it )
 			connect( (*it), SIGNAL(activatedData(int)), this, SLOT(sendToLayer(int)) );
 	}
 }
@@ -3514,7 +3525,7 @@ bool ScribusApp::slotPageImport()
 	if (dia->exec())
 	{
 		mainWindowStatusLabel->setText( tr("Importing Pages..."));
-		qApp->setOverrideCursor(QCursor(waitCursor), true);
+		qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
 		std::vector<int> pageNs;
 		parsePagesString(dia->getPageNumbers(), &pageNs, dia->getPageCounter());
 		int startPage, nrToImport;
@@ -3543,7 +3554,7 @@ bool ScribusApp::slotPageImport()
 			nrToImport = pageNs.size();
 			if (pageNs.size() > (doc->pageCount - doc->currentPage->pageNr()))
 			{
-				qApp->setOverrideCursor(QCursor(arrowCursor), true);
+				qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 				QMessageBox mb( tr("Import Page(s)"),
 				tr("<p>You are trying to import more pages than there are available "
 				   "in the current document counting from the active page.</p>"
@@ -3571,7 +3582,7 @@ bool ScribusApp::slotPageImport()
 						mainWindowStatusLabel->setText("");
 					break;
 				}
-				qApp->setOverrideCursor(QCursor(waitCursor), true);
+				qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
 			}
 		}
 		if (doIt)
@@ -3598,7 +3609,7 @@ bool ScribusApp::slotPageImport()
 				doIt = false;
 			}
 		}
-		qApp->setOverrideCursor(QCursor(arrowCursor), true);
+		qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 		ret = doIt;
 	}
 	delete dia;
@@ -3672,7 +3683,7 @@ bool ScribusApp::loadDoc(QString fileName)
 	QFileInfo fi(fileName);
 	if (!fi.exists())
 		return false;
-	qApp->setOverrideCursor(QCursor(waitCursor), true);
+	qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
 /*	if (HaveDoc)
 		doc->OpenNodes = outlinePalette->buildReopenVals(); */
 	bool ret = false;
@@ -3705,14 +3716,14 @@ bool ScribusApp::loadDoc(QString fileName)
 		if (fileLoader->TestFile() == -1)
 		{
 			delete fileLoader;
-			qApp->setOverrideCursor(QCursor(arrowCursor), true);
+			qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 			QMessageBox::critical(this, tr("Fatal Error"), "<qt>"+tr("File %1 is not in an acceptable format").arg(FName)+"</qt>", CommonStrings::tr_OK);
 			return false;
 		}
 		bool is12doc=false;
 		if (fileLoader->TestFile() == 0)
 		{
-			qApp->setOverrideCursor(QCursor(arrowCursor), true);
+			qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 			//Scribus 1.3.x warning, remove at a later stage
 			is12doc=true;
 		}
@@ -3867,9 +3878,9 @@ bool ScribusApp::loadDoc(QString fileName)
 			}
 			if ((cmsWarning) && (doc->HasCMS))
 			{
-				qApp->setOverrideCursor(QCursor(arrowCursor), true);
+				qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 				QString mess = tr("Some ICC profiles used by this document are not installed:")+"\n\n";
-				for (uint m = 0; m < missing.count(); ++m)
+				for (int m = 0; m < missing.count(); ++m)
 				{
 					mess += missing[m] + tr(" was replaced by: ")+replacement[m]+"\n";
 				}
@@ -4097,7 +4108,7 @@ bool ScribusApp::loadDoc(QString fileName)
 	}
 	undoManager->switchStack(doc->DocName);
 	pagePalette->Rebuild();
-	qApp->setOverrideCursor(QCursor(arrowCursor), true);
+	qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 	undoManager->setUndoEnabled(true);
 	return ret;
 }
@@ -4121,10 +4132,10 @@ void ScribusApp::slotFileOpen()
 			QString formatD = tr("All Supported Formats")+" (";
 			QString form1 = "";
 			QString form2 = "";
-			for ( uint i = 0; i < QImageIO::inputFormats().count(); ++i )
+			for ( int i = 0; i < QImageReader::supportedImageFormats().count(); ++i )
 			{
-				form1 = QString(QImageIO::inputFormats().at(i)).lower();
-				form2 = QString(QImageIO::inputFormats().at(i)).upper();
+				form1 = QString(QImageReader::supportedImageFormats().at(i)).lower();
+				form2 = QString(QImageReader::supportedImageFormats().at(i)).upper();
 				if (form1 == "jpeg")
 				{
 					form1 = "jpg";
@@ -4168,13 +4179,13 @@ void ScribusApp::slotFileOpen()
 				currItem->IProfile = doc->CMSSettings.DefaultImageRGBProfile;
 				currItem->IRender = doc->CMSSettings.DefaultIntentImages;
 				qApp->setOverrideCursor( QCursor(Qt::WaitCursor) );
-				qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
+				qApp->processEvents(QEventLoop::ExcludeUserInput);
 				doc->LoadPict(fileName, currItem->ItemNr);
 				//view->AdjustPictScale(currItem, false);
 				//false was ignored anyway
 				currItem->AdjustPictScale();
 				propertiesPalette->setLvalue(currItem->LocalScX, currItem->LocalScY, currItem->LocalX, currItem->LocalY);
-				qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
+				qApp->processEvents(QEventLoop::ExcludeUserInput);
 				qApp->restoreOverrideCursor();
 				view->DrawNew();
 				propertiesPalette->updateColorList();
@@ -4579,7 +4590,7 @@ void ScribusApp::slotReallyPrint()
 	if (printer->exec())
 	{
 		ReOrderText(doc, view);
-		qApp->setOverrideCursor(QCursor(waitCursor), true);
+		qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
 		options.printer = printer->printerName();
 		options.filename = printer->outputFileName();
 		options.toFile = printer->outputToFile();
@@ -4628,10 +4639,10 @@ void ScribusApp::slotReallyPrint()
 		PrinterUsed = true;
 		if (!doPrint(&options))
 		{
-			qApp->setOverrideCursor(QCursor(arrowCursor), true);
+			qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 			QMessageBox::warning(this, CommonStrings::trWarning, tr("Printing failed!"), CommonStrings::tr_OK);
 		}
-		qApp->setOverrideCursor(QCursor(arrowCursor), true);
+		qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 	}
 	printDinUse = false;
 	disconnect(printer, SIGNAL(doPreview()), this, SLOT(doPrintPreview()));
@@ -4666,14 +4677,14 @@ bool ScribusApp::doPrint(PrintOptions *options)
 			filename = PrefsPfad+"/tmp.ps";
 		else
 		{
-			qApp->setOverrideCursor(QCursor(arrowCursor), true);
+			qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 			if (!overwrite(this, filename))
 			{
 				delete dd;
 				fileWatcher->start();
 				return true;
 			}
-			qApp->setOverrideCursor(QCursor(waitCursor), true);
+			qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
 		}
 		bool PSfile = dd->PS_set_file(filename);
 		filename = QDir::convertSeparators(filename);
@@ -4750,7 +4761,7 @@ void ScribusApp::slotEditCut()
 			currItem=view->SelItem.at(i);
 			if ((currItem->asTextFrame() || currItem->asPathText()) && currItem==ScApp->storyEditor->currentItem() && doc==ScApp->storyEditor->currentDocument())
 			{
-					QMessageBox::critical(ScApp, tr("Cannot Cut In-Use Item"), tr("The item %1 is currently being edited by Story Editor. The cut operation will be cancelled").arg(currItem->itemName()), QMessageBox::Ok, QMessageBox::NoButton, QMessageBox::NoButton);
+					QMessageBox::critical(ScApp, tr("Cannot Cut In-Use Item"), tr("The item %1 is currently being edited by Story Editor. The cut operation will be cancelled").arg(currItem->itemName()), QMessageBox::Ok, Qt::NoButton, Qt::NoButton);
 					return;
 			}
 		}
@@ -4939,7 +4950,7 @@ void ScribusApp::slotEditPaste()
 			if (Buffer2.startsWith("<SCRIBUSTEXT>"))
 			{
 				QString Buf = Buffer2.mid(13);
-				QTextStream t(&Buf, IO_ReadOnly);
+				QTextStream t(&Buf, QIODevice::ReadOnly);
 				QString cc;
 				while (!t.atEnd())
 				{
@@ -4970,41 +4981,41 @@ void ScribusApp::slotEditPaste()
 					it++;
 					hg->cab = (*it).toInt();
 					it++;
-					if (it == NULL)
+					if (it == wt.end())
 						hg->cstroke = "None";
 					else
 						hg->cstroke = *it;
 					it++;
-					if (it == NULL)
+					if (it == wt.end())
 						hg->cshade2 = 100;
 					else
 						hg->cshade2 = (*it).toInt();
 					it++;
-					if (it == NULL)
+					if (it == wt.end())
 						hg->cscale = 1000;
 					else
 						hg->cscale = (*it).toInt();
 					it++;
-					if (it == NULL)
+					if (it == wt.end())
 						hg->cscalev = 1000;
 					else
 						hg->cscalev = QMIN(QMAX((*it).toInt(), 100), 4000);
 					it++;
-					hg->cbase = it == NULL ? 0 : (*it).toInt();
+					hg->cbase = it == wt.end() ? 0 : (*it).toInt();
 					it++;
-					hg->cshadowx = it == NULL ? 50 : (*it).toInt();
+					hg->cshadowx = it == wt.end() ? 50 : (*it).toInt();
 					it++;
-					hg->cshadowy = it == NULL ? -50 : (*it).toInt();
+					hg->cshadowy = it == wt.end() ? -50 : (*it).toInt();
 					it++;
-					hg->coutline = it == NULL ? 10 : (*it).toInt();
+					hg->coutline = it == wt.end() ? 10 : (*it).toInt();
 					it++;
-					hg->cunderpos = it == NULL ? -1 : (*it).toInt();
+					hg->cunderpos = it == wt.end() ? -1 : (*it).toInt();
 					it++;
-					hg->cunderwidth = it == NULL ? -1 : (*it).toInt();
+					hg->cunderwidth = it == wt.end() ? -1 : (*it).toInt();
 					it++;
-					hg->cstrikepos = it == NULL ? -1 : (*it).toInt();
+					hg->cstrikepos = it == wt.end() ? -1 : (*it).toInt();
 					it++;
-					hg->cstrikewidth = it == NULL ? -1 : (*it).toInt();
+					hg->cstrikewidth = it == wt.end() ? -1 : (*it).toInt();
 					currItem->itemText.insert(currItem->CPos, hg);
 					currItem->CPos += 1;
 					hg->PRot = 0;
@@ -5020,14 +5031,14 @@ void ScribusApp::slotEditPaste()
 				uint ac = doc->Items->count();
 				bool isGroup = false;
 				double gx, gy, gh, gw;
-				FPoint minSize = doc->minCanvasCoordinate;
-				FPoint maxSize = doc->maxCanvasCoordinate;
+				QPointF minSize = doc->minCanvasCoordinate;
+				QPointF maxSize = doc->maxCanvasCoordinate;
 				doc->useRaster = false;
 				doc->SnapGuides = false;
 				slotElemRead(Buffer2, 0, 0, false, true, doc, view);
 				doc->useRaster = savedAlignGrid;
 				doc->SnapGuides = savedAlignGuides;
-				QPtrList<PageItem> bSel = view->SelItem;
+				Q3PtrList<PageItem> bSel = view->SelItem;
 				view->SelItem.clear();
 				if (doc->Items->count() - ac > 1)
 					isGroup = true;
@@ -5206,14 +5217,16 @@ void ScribusApp::ClipChange()
 	cc = ClipB->text();
 #endif
 
-	scrActions["editPaste"]->setEnabled(false);
+        QPointer<ScrAction> a = scrActions["editPaste"];
+        if (a)
+	    a->setEnabled(false);
 	if (!cc.isNull())
 	{
 		if (!BuFromApp)
 			Buffer2 = cc;
 		BuFromApp = false;
-		if (HaveDoc && (cc.startsWith("<SCRIBUSELEM") || doc->appMode == modeEdit))
-			scrActions["editPaste"]->setEnabled(true);
+		if (HaveDoc && (cc.startsWith("<SCRIBUSELEM") || doc->appMode == modeEdit) && a)
+			a->setEnabled(true);
 	}
 }
 
@@ -5263,7 +5276,7 @@ void ScribusApp::slotOnlineHelp()
 
 void ScribusApp::ToggleTips()
 {
-	QToolTip::setGloballyEnabled(scrActions["helpTooltips"]->isOn());
+	//QToolTip::setGloballyEnabled(scrActions["helpTooltips"]->isOn());
 }
 
 void ScribusApp::SaveText()
@@ -5905,8 +5918,8 @@ void ScribusApp::setAppMode(int mode)
 			actionManager->saveActionShortcutsPreEditMode();
 		if (oldMode == modeEdit)
 		{
-			view->zoomSpinBox->setFocusPolicy(QWidget::ClickFocus);
-			view->pageSelector->focusPolicy(QWidget::ClickFocus);
+			view->zoomSpinBox->setFocusPolicy(Qt::ClickFocus);
+			view->pageSelector->focusPolicy(Qt::ClickFocus);
 			scrActions["editClearContents"]->setEnabled(false);
 			scrActions["insertGlyph"]->setEnabled(false);
 			view->slotDoCurs(false);
@@ -5921,8 +5934,8 @@ void ScribusApp::setAppMode(int mode)
 		}
 		if (mode == modeEdit)
 		{
-			view->zoomSpinBox->setFocusPolicy(QWidget::NoFocus);
-			view->pageSelector->focusPolicy(QWidget::NoFocus);
+			view->zoomSpinBox->setFocusPolicy(Qt::NoFocus);
+			view->pageSelector->focusPolicy(Qt::NoFocus);
 			if (currItem != 0)
 			{
 				if ((currItem->itemType() == PageItem::Polygon) || (currItem->itemType() == PageItem::PolyLine) || (currItem->itemType() == PageItem::PathText))
@@ -6020,10 +6033,10 @@ void ScribusApp::setAppMode(int mode)
 			case modeDrawFreehandLine:
 				if (view->SelItem.count() != 0)
 					view->Deselect(true);
-				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+				qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 				break;
 			default:
-				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+				qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 			break;
 		}
 		if (mode == modeDrawShapes)
@@ -6166,7 +6179,7 @@ void ScribusApp::AdjustBM()
 		if (bb->isBookmark)
 		{
 			int it = bb->BMnr;
-			QListViewItemIterator itn(bookmarkPalette->BView);
+			Q3ListViewItemIterator itn(bookmarkPalette->BView);
 			for ( ; itn.current(); ++itn)
 			{
 				BookMItem *ite = (BookMItem*)itn.current();
@@ -6370,7 +6383,7 @@ void ScribusApp::CopyPage()
 			Ziel->initialMargins.Right = from->Margins.Right;
 			view->reformPages();
 			QMap<int,int> TableID;
-			QPtrList<PageItem> TableItems;
+			Q3PtrList<PageItem> TableItems;
 			TableID.clear();
 			TableItems.clear();
 			uint oldItems = doc->Items->count();
@@ -6385,8 +6398,8 @@ void ScribusApp::CopyPage()
 					if (itemToCopy->Groups.count() != 0)
 					{
 						Buffer.Groups.clear();
-						QValueStack<int>::Iterator nx;
-						QValueStack<int> tmpGroup;
+						Q3ValueStack<int>::Iterator nx;
+						Q3ValueStack<int> tmpGroup;
 						for (nx = itemToCopy->Groups.begin(); nx != itemToCopy->Groups.end(); ++nx)
 						{
 							tmpGroup.push((*nx)+doc->GroupCounter);
@@ -6435,21 +6448,23 @@ void ScribusApp::CopyPage()
 			Apply_MasterPage(from->MPageNam, Ziel->pageNr(), false);
 			if (from->YGuides.count() != 0)
 			{
-				for (uint y = 0; y < from->YGuides.count(); ++y)
+				for (int y = 0; y < from->YGuides.count(); ++y)
 				{
 					if (Ziel->YGuides.contains(from->YGuides[y]) == 0)
 						Ziel->YGuides.append(from->YGuides[y]);
 				}
-				qHeapSort(Ziel->YGuides);
+				qWarning( "sorting is wrong...." );
+				//qHeapSort(Ziel->YGuides);
 			}
 			if (from->XGuides.count() != 0)
 			{
-				for (uint x = 0; x < from->XGuides.count(); ++x)
+				for (int x = 0; x < from->XGuides.count(); ++x)
 				{
 					if (Ziel->XGuides.contains(from->XGuides[x]) == 0)
 						Ziel->XGuides.append(from->XGuides[x]);
 				}
-				qHeapSort(Ziel->XGuides);
+				qWarning( "sorting is wrong...." );
+				//qHeapSort(Ziel->XGuides);
 			}
 			doc->GroupCounter = GrMax + 1;
 		}
@@ -6521,8 +6536,9 @@ void ScribusApp::SetNewFont(const QString& nf)
 	{
 		if (doc->AddFont(nf)) //, prefsManager->appPrefs.AvailFonts[nf]->Font))
 		{
-			int a = FontMenu->insertItem(new FmItem(nf, prefsManager->appPrefs.AvailFonts[nf]));
-			FontID.insert(a, prefsManager->appPrefs.AvailFonts[nf]->scName());
+			qWarning( "and widget in the menu again............." );
+			//int a = FontMenu->insertItem(new FmItem(nf, prefsManager->appPrefs.AvailFonts[nf]));
+			//FontID.insert(a, prefsManager->appPrefs.AvailFonts[nf]->scName());
 		}
 		else
 		{
@@ -6741,7 +6757,7 @@ void ScribusApp::slotEditStyles()
 
 void ScribusApp::saveStyles(StilFormate *dia)
 {
-	QValueList<uint> ers;
+	Q3ValueList<uint> ers;
 	QString nn;
 	PageItem* ite = 0;
 	bool ff;
@@ -6759,11 +6775,11 @@ void ScribusApp::saveStyles(StilFormate *dia)
 	else
 		doc->DocItems = doc->Items;
 	*/
-	for (uint a=5; a<doc->docParagraphStyles.count(); ++a)
+	for (int a=5; a<doc->docParagraphStyles.count(); ++a)
 	{
 		ff = false;
 		nn = doc->docParagraphStyles[a].Vname;
-		for (uint b=0; b<dia->TempVorl.count(); ++b)
+		for (int b=0; b<dia->TempVorl.count(); ++b)
 		{
 			if (nn == dia->TempVorl[b].Vname)
 			{
@@ -6776,7 +6792,7 @@ void ScribusApp::saveStyles(StilFormate *dia)
 			ers.append(nr);
 		else
 		{
-			for (uint b=0; b<dia->TempVorl.count(); ++b)
+			for (int b=0; b<dia->TempVorl.count(); ++b)
 			{
 				struct PageItem::TabRecord tb;
 				tabEQ = false;
@@ -6784,12 +6800,12 @@ void ScribusApp::saveStyles(StilFormate *dia)
 					tabEQ = true;
 				else
 				{
-					for (uint t1 = 0; t1 < dia->TempVorl[b].TabValues.count(); t1++)
+					for (int t1 = 0; t1 < dia->TempVorl[b].TabValues.count(); t1++)
 					{
 						tb.tabPosition = dia->TempVorl[b].TabValues[t1].tabPosition;
 						tb.tabType = dia->TempVorl[b].TabValues[t1].tabType;
 						tb.tabFillChar = dia->TempVorl[b].TabValues[t1].tabFillChar;
-						for (uint t2 = 0; t2 < doc->docParagraphStyles[a].TabValues.count(); t2++)
+						for (int t2 = 0; t2 < doc->docParagraphStyles[a].TabValues.count(); t2++)
 						{
 							struct PageItem::TabRecord tb2;
 							tb2.tabPosition = doc->docParagraphStyles[a].TabValues[t2].tabPosition;
@@ -6847,7 +6863,7 @@ void ScribusApp::saveStyles(StilFormate *dia)
 				if (dia->ReplaceList.count() != 0)
 				{
 					QString ne = dia->ReplaceList[nn];
-					for (uint b=0; b<dia->TempVorl.count(); ++b)
+					for (int b=0; b<dia->TempVorl.count(); ++b)
 					{
 						if (ne == dia->TempVorl[b].Vname)
 						{
@@ -7064,7 +7080,7 @@ void ScribusApp::saveStyles(StilFormate *dia)
 		if (CurrStED->Editor->StyledText.count() != 0)
 			CurrStED->Editor->updateAll();
 	}
-	for (uint a=0; a<doc->docParagraphStyles.count(); ++a)
+	for (int a=0; a<doc->docParagraphStyles.count(); ++a)
 	{
 		if (!doc->docParagraphStyles[a].Font.isEmpty())
 		{
@@ -7073,8 +7089,9 @@ void ScribusApp::saveStyles(StilFormate *dia)
 			{
 				if (doc->AddFont(nf)) //, prefsManager->appPrefs.AvailFonts[nf]->Font))
 				{
-					int ff = FontMenu->insertItem(new FmItem(nf, prefsManager->appPrefs.AvailFonts[nf]));
-					FontID.insert(ff, prefsManager->appPrefs.AvailFonts[nf]->scName());
+					qWarning("widget in a menu one more time for fun FUCK");
+					// int ff = FontMenu->insertItem(new FmItem(nf, prefsManager->appPrefs.AvailFonts[nf]));
+// 					FontID.insert(ff, prefsManager->appPrefs.AvailFonts[nf]->scName());
 				}
 				else
 					doc->docParagraphStyles[a].Font = doc->toolSettings.defFont;
@@ -7174,7 +7191,7 @@ void ScribusApp::slotEditColors()
 							if (ite->lineColor() != "None")
 								ite->strokeQColor = doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
 						}
-						QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+						Q3PtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 						for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 						{
 							if (it.key() == cstops.at(cst)->name)
@@ -7213,7 +7230,7 @@ void ScribusApp::slotEditColors()
 							if (ite->lineColor() != "None")
 								ite->strokeQColor = doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
 						}
-						QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+						Q3PtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 						for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 						{
 							if (it.key() == cstops.at(cst)->name)
@@ -7252,7 +7269,7 @@ void ScribusApp::slotEditColors()
 							if (ite->lineColor() != "None")
 								ite->strokeQColor = doc->PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
 						}
-						QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+						Q3PtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 						for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 						{
 							if (it.key() == cstops.at(cst)->name)
@@ -7532,14 +7549,17 @@ void ScribusApp::buildFontMenu()
 	QString b = " ";
 	SCFontsIterator it(prefsManager->appPrefs.AvailFonts);
 	FontSub = new FontCombo(0);
-	FontMenu->insertItem(FontSub);
+	qWarning("widget in a menu one more time for fun FUCK");
+	//FontMenu->insertItem(FontSub);
 	connect(FontSub, SIGNAL(activated(int)), this, SLOT(setItemFont2(int)));
 	FontMenu->insertSeparator();
 	if (!HaveDoc)
 	{
 		it.toFirst();
-		a = FontMenu->insertItem(new FmItem(it.currentKey(), it.current()));
+		qWarning("widget in a menu one more time for fun FUCK");
+		//a = FontMenu->insertItem(new FmItem(it.currentKey(), it.current()));
 		FontMenu->setItemChecked(a, true);
+                if (*it)
 		FontID.insert(a, it.current()->scName());
 	}
 	else
@@ -7547,7 +7567,8 @@ void ScribusApp::buildFontMenu()
 		QMap<QString,int>::Iterator it3;
 		for (it3 = doc->UsedFonts.begin(); it3 != doc->UsedFonts.end(); ++it3)
 		{
-			a = FontMenu->insertItem(new FmItem(it3.key(), prefsManager->appPrefs.AvailFonts[it3.key()]));
+			qWarning("widget in a menu one more time for fun FUCK");
+			//a = FontMenu->insertItem(new FmItem(it3.key(), prefsManager->appPrefs.AvailFonts[it3.key()]));
 			if (it3.key() == doc->toolSettings.defFont)
 				FontMenu->setItemChecked(a, true);
 			FontID.insert(a, it3.key());
@@ -7718,7 +7739,7 @@ bool ScribusApp::DoSaveAsEps(QString fn)
 	std::vector<int> pageNs;
 	pageNs.push_back(doc->currentPage->pageNr()+1);
 	ReOrderText(doc, view);
-	qApp->setOverrideCursor(QCursor(waitCursor), true);
+	qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
 	QMap<QString,int> ReallyUsed;
 	ReallyUsed.clear();
 	doc->getUsedFonts(&ReallyUsed);
@@ -7734,7 +7755,7 @@ bool ScribusApp::DoSaveAsEps(QString fn)
 		else
 			return_value = false;
 		delete dd;
-		qApp->setOverrideCursor(QCursor(arrowCursor), true);
+		qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 	}
 	fileWatcher->start();
 	return return_value;
@@ -7871,8 +7892,8 @@ void ScribusApp::doSaveAsPDF()
 	doc->getUsedFonts(&ReallyUsed);
 	if (doc->PDF_Options.EmbedList.count() != 0)
 	{
-		QValueList<QString> tmpEm;
-		QValueList<QString>::Iterator itef;
+		Q3ValueList<QString> tmpEm;
+		Q3ValueList<QString>::Iterator itef;
 		for (itef = doc->PDF_Options.EmbedList.begin(); itef != doc->PDF_Options.EmbedList.end(); ++itef)
 		{
 			if (ReallyUsed.contains((*itef)))
@@ -7882,8 +7903,8 @@ void ScribusApp::doSaveAsPDF()
 	}
 	if (doc->PDF_Options.SubsetList.count() != 0)
 	{
-		QValueList<QString> tmpEm;
-		QValueList<QString>::Iterator itef;
+		Q3ValueList<QString> tmpEm;
+		Q3ValueList<QString>::Iterator itef;
 		for (itef = doc->PDF_Options.SubsetList.begin(); itef != doc->PDF_Options.SubsetList.end(); ++itef)
 		{
 			if (ReallyUsed.contains((*itef)))
@@ -7894,7 +7915,7 @@ void ScribusApp::doSaveAsPDF()
 	PDF_Opts *dia = new PDF_Opts(this, doc->DocName, ReallyUsed, view, &doc->PDF_Options, doc->PDF_Options.PresentVals, &PDFXProfiles, prefsManager->appPrefs.AvailFonts, doc->unitRatio(), &ScApp->PrinterProfiles);
 	if (dia->exec())
 	{
-		qApp->setOverrideCursor(QCursor(waitCursor), true);
+		qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
 		dia->updateDocOptions();
 		ReOrderText(doc, view);
 		QString pageString(dia->getPagesString());
@@ -7928,7 +7949,7 @@ void ScribusApp::doSaveAsPDF()
 				QString realName = QDir::convertSeparators(path+"/"+name+ tr("-Page%1").arg(pageNs[aa])+"."+ext);
 				if (!getPDFDriver(realName, nam, components, pageNs2, thumbs))
 				{
-					qApp->setOverrideCursor(QCursor(arrowCursor), true);
+					qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 					QMessageBox::warning(this, CommonStrings::trWarning, tr("Cannot write the file: \n%1").arg(doc->PDF_Options.Datei), CommonStrings::tr_OK);
 					delete dia;
 					return;
@@ -7948,11 +7969,11 @@ void ScribusApp::doSaveAsPDF()
 			}
 			if (!getPDFDriver(fileName, nam, components, pageNs, thumbs))
 			{
-				qApp->setOverrideCursor(QCursor(arrowCursor), true);
+				qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 				QMessageBox::warning(this, CommonStrings::trWarning, tr("Cannot write the file: \n%1").arg(doc->PDF_Options.Datei), CommonStrings::tr_OK);
 			}
 		}
-		qApp->setOverrideCursor(QCursor(arrowCursor), true);
+		qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 	}
 	delete dia;
 }
@@ -7982,7 +8003,7 @@ void ScribusApp::ChBookmarks(int /*s*/, int /*e*/, int /*n*/)
 
 void ScribusApp::RestoreBookMarks()
 {
-	QValueList<ScribusDoc::BookMa>::Iterator it2 = doc->BookMarks.begin();
+	Q3ValueList<ScribusDoc::BookMa>::Iterator it2 = doc->BookMarks.begin();
 	bookmarkPalette->BView->clear();
 	bookmarkPalette->BView->NrItems = 0;
 	bookmarkPalette->BView->First = 1;
@@ -8004,7 +8025,7 @@ void ScribusApp::RestoreBookMarks()
 		}
 		else
 		{
-			QListViewItemIterator it3(bookmarkPalette->BView);
+			Q3ListViewItemIterator it3(bookmarkPalette->BView);
 			for ( ; it3.current(); ++it3)
 			{
 				ip = (BookMItem*)it3.current();
@@ -8021,7 +8042,7 @@ void ScribusApp::RestoreBookMarks()
 			}
 			else
 			{
-				QListViewItemIterator it4(bookmarkPalette->BView);
+				Q3ListViewItemIterator it4(bookmarkPalette->BView);
 				for ( ; it4.current(); ++it4)
 				{
 					ip = (BookMItem*)it4.current();
@@ -8043,7 +8064,7 @@ void ScribusApp::StoreBookmarks()
 {
 	doc->BookMarks.clear();
 	BookMItem* ip;
-	QListViewItemIterator it(bookmarkPalette->BView);
+	Q3ListViewItemIterator it(bookmarkPalette->BView);
 	struct ScribusDoc::BookMa Boma;
 	for ( ; it.current(); ++it)
 	{
@@ -8368,7 +8389,8 @@ void ScribusApp::restore(UndoState* state, bool isUndo)
 void ScribusApp::restoreDeletePage(SimpleState *state, bool isUndo)
 {
 	uint pagenr   = state->getUInt("PAGENR");
-	QStringList tmpl = state->get("MASTERPAGE");
+	QStringList tmpl;
+	tmpl << state->get("MASTERPAGE");
 	int where, wo;
 	if (pagenr == 1)
 	{
@@ -8526,7 +8548,7 @@ QString ScribusApp::CFileDialog(QString wDir, QString caption, QString filter, Q
 			*doFont = dia->WFonts->isChecked();
 		}
 		this->repaint();
-		qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
+		qApp->processEvents(QEventLoop::ExcludeUserInput);
 		retval = dia->selectedFile();
 	}
 	delete dia;
@@ -8546,7 +8568,7 @@ void ScribusApp::GetCMSProfiles()
 	profDirs = ScPaths::getSystemProfilesDirs();
 	profDirs.prepend( prefsManager->appPrefs.ProfileDir );
 	profDirs.prepend( pfad );
-	for(unsigned int i = 0; i < profDirs.count(); i++)
+	for(int i = 0; i < profDirs.count(); i++)
 	{
 		profDir = profDirs[i];
 		if(!profDir.isEmpty())
@@ -8583,7 +8605,7 @@ void ScribusApp::GetCMSProfilesDir(QString pfad)
 			}
 			QFile f(fi.filePath());
 			QByteArray bb(40);
-			if (!f.open(IO_ReadOnly)) {
+			if (!f.open(QIODevice::ReadOnly)) {
 				sDebug(QString("couldn't open %1 as ICC").arg(fi.filePath()));
 				continue;
 			}
@@ -8673,7 +8695,7 @@ void ScribusApp::initCMS()
 	}
 }
 
-void ScribusApp::recalcColors(QProgressBar *dia)
+void ScribusApp::recalcColors(Q3ProgressBar *dia)
 {
 	if (HaveDoc)
 	{
@@ -8845,103 +8867,103 @@ void ScribusApp::initHyphenator()
     			QTranslator *trans = new QTranslator(0);
 				trans->load(pfad + d2[dc]);
 				QString translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "Croatian", "").translation();
+				translatedLang = trans->find("ScribusApp", "Croatian", "");
 				if (!translatedLang.isEmpty())
 					L_Croatian.append(translatedLang);
 				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "German", "").translation();
+				translatedLang = trans->find("ScribusApp", "German", "");
 				if (!translatedLang.isEmpty())
 					L_German.append(translatedLang);
 				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "Polish", "").translation();
+				translatedLang = trans->find("ScribusApp", "Polish", "");
 				if (!translatedLang.isEmpty())
 					L_Polish.append(translatedLang);
 				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "English", "").translation();
+				translatedLang = trans->find("ScribusApp", "English", "");
 				if (!translatedLang.isEmpty())
 					L_English.append(translatedLang);
 				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "Spanish", "").translation();
+				translatedLang = trans->find("ScribusApp", "Spanish", "");
 				if (!translatedLang.isEmpty())
 					L_Spanish.append(translatedLang);
 				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "Italian", "").translation();
+				translatedLang = trans->find("ScribusApp", "Italian", "");
 				if (!translatedLang.isEmpty())
 					L_Italian.append(translatedLang);
 				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "French", "").translation();
+				translatedLang = trans->find("ScribusApp", "French", "");
 				if (!translatedLang.isEmpty())
 					L_French.append(translatedLang);
 				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "Russian", "").translation();
+				translatedLang = trans->find("ScribusApp", "Russian", "");
 				if (!translatedLang.isEmpty())
 					L_Russian.append(translatedLang);
 				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "Danish", "").translation();
+				translatedLang = trans->find("ScribusApp", "Danish", "");
 				if (!translatedLang.isEmpty())
 					L_Danish.append(translatedLang);
 				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "Slovak", "").translation();
+				translatedLang = trans->find("ScribusApp", "Slovak", "");
 				if (!translatedLang.isEmpty())
 					L_Slovak.append(translatedLang);
 				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "Hungarian", "").translation();
+				translatedLang = trans->find("ScribusApp", "Hungarian", "");
 				if (!translatedLang.isEmpty())
 					L_Hungarian.append(translatedLang);
 				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "Czech", "").translation();
+				translatedLang = trans->find("ScribusApp", "Czech", "");
 				if (!translatedLang.isEmpty())
 					L_Czech.append(translatedLang);
 				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "Dutch", "").translation();
+				translatedLang = trans->find("ScribusApp", "Dutch", "");
 				if (!translatedLang.isEmpty())
 					L_Dutch.append(translatedLang);
 				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "Portuguese", "").translation();
+				translatedLang = trans->find("ScribusApp", "Portuguese", "");
 				if (!translatedLang.isEmpty())
 					L_Portuguese.append(translatedLang);
 				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "Portuguese (BR)", "").translation();
+				translatedLang = trans->find("ScribusApp", "Portuguese (BR)", "");
 				if (!translatedLang.isEmpty())
 					L_Portuguese_BR.append(translatedLang);
 				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "Ukrainian", "").translation();
+				translatedLang = trans->find("ScribusApp", "Ukrainian", "");
 				if (!translatedLang.isEmpty())
 					L_Ukrainian.append(translatedLang);
 				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "Greek", "").translation();
+				translatedLang = trans->find("ScribusApp", "Greek", "");
 				if (!translatedLang.isEmpty())
 					L_Greek.append(translatedLang);
 				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "Catalan", "").translation();
+				translatedLang = trans->find("ScribusApp", "Catalan", "");
 				if (!translatedLang.isEmpty())
 					L_Catalan.append(translatedLang);
 				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "Finnish", "").translation();
+				translatedLang = trans->find("ScribusApp", "Finnish", "");
 				if (!translatedLang.isEmpty())
 					L_Finnish.append(translatedLang);
 				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "Irish", "").translation();
+				translatedLang = trans->find("ScribusApp", "Irish", "");
 				if (!translatedLang.isEmpty())
 					L_Irish.append(translatedLang);
 				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "Lithuanian", "").translation();
+				translatedLang = trans->find("ScribusApp", "Lithuanian", "");
 				if (!translatedLang.isEmpty())
 					L_Lithuanian.append(translatedLang);
 				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "Swedish", "").translation();
+				translatedLang = trans->find("ScribusApp", "Swedish", "");
 				if (!translatedLang.isEmpty())
 					L_Swedish.append(translatedLang);
 				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "Slovenian", "").translation();
+				translatedLang = trans->find("ScribusApp", "Slovenian", "");
 				if (!translatedLang.isEmpty())
 					L_Slovenian.append(translatedLang);
 				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "Afrikaans", "").translation();
+				translatedLang = trans->find("ScribusApp", "Afrikaans", "");
 				if (!translatedLang.isEmpty())
 					L_Afrikaans.append(translatedLang);
 				translatedLang = "";
-				translatedLang = trans->findMessage("ScribusApp", "Bulgarian", "").translation();
+				translatedLang = trans->find("ScribusApp", "Bulgarian", "");
 				if (!translatedLang.isEmpty())
 					L_Bulgarian.append(translatedLang);
 				delete trans;
@@ -9216,7 +9238,7 @@ void ScribusApp::emergencySave()
 			doc->setModified(false);
 			if (doc->hasName)
 			{
-				std::cout << "Saving: " << doc->DocName+".emergency" << std::endl;
+				std::cout << "Saving: " << qPrintable(doc->DocName+".emergency" ) << std::endl;
 				doc->autoSaveTimer->stop();
 				//disconnect(ActWin, SIGNAL(Schliessen()), ScApp, SLOT(DoFileClose()));
 				ScriXmlDoc *ss = new ScriXmlDoc();
@@ -9292,7 +9314,7 @@ void ScribusApp::callImageEditor()
 		PageItem *currItem = view->SelItem.at(0);
 		if (currItem->PicAvail)
 		{
-			ExternalApp = new QProcess(NULL);
+			ExternalApp = new Q3Process(NULL);
 			QStringList cmd = QStringList::split(" ", imageEditorExecutable);
 			cmd.append(currItem->Pfile);
 			ExternalApp->setArguments(cmd);
@@ -9453,7 +9475,7 @@ void ScribusApp::mouseReleaseEvent(QMouseEvent *m)
 						if ((m->stateAfter() & Qt::ControlButton) && (currItem->asTextFrame() || currItem->asPathText()))
 							view->ItemTextBrush(colorName); //Text colour
 						else
-						if (m->stateAfter() & Qt::AltButton) //Line colour
+						if (m->stateAfter() & Qt::AltModifier) //Line colour
 							setPenFarbe(colorName);
 						else
 							view->ItemBrush(colorName); //Fill colour
@@ -9466,7 +9488,7 @@ void ScribusApp::mouseReleaseEvent(QMouseEvent *m)
 		}
 	}
 	if (sendToSuper)
-		QMainWindow::mouseReleaseEvent(m);
+		Q3MainWindow::mouseReleaseEvent(m);
 
 }
 
@@ -9578,7 +9600,7 @@ const bool ScribusApp::fileWatcherActive()
 	return false;
 }
 
-void ScribusApp::updateColorMenu(QProgressBar* progressBar)
+void ScribusApp::updateColorMenu(Q3ProgressBar* progressBar)
 {
 	disconnect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
 	ColorMenC->clear();

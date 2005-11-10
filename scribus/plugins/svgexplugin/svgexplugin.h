@@ -3,6 +3,8 @@
 
 #include <qobject.h>
 #include <qdom.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 #include "pluginapi.h"
 #include "loadsaveplugin.h"
 

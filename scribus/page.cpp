@@ -19,6 +19,9 @@
 #include "scribus.h"
 #include "undomanager.h"
 #include "undostate.h"
+//Added by qt3to4:
+#include <QPixmap>
+#include <Q3ValueList>
 
 extern QPixmap loadIcon(QString nam);
 
@@ -65,7 +68,8 @@ uint Page::pageNr()
 void Page::addXGuide(double position)
 {
 	XGuides.append(position);
-	qHeapSort(XGuides);
+	//qStableSort(XGuides.begin(), XGuides.end());
+	qWarning( "sort is fucked up" );
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState* ss = new SimpleState(Um::AddVGuide, 0, Um::IGuides);
@@ -77,7 +81,8 @@ void Page::addXGuide(double position)
 void Page::addYGuide(double position)
 {
 	YGuides.append(position);
-	qHeapSort(YGuides);
+	//qSort(YGuides.begin(), YGuides.end());
+	qWarning( "sort is fucked up" );
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState* ss = new SimpleState(Um::AddHGuide, 0, Um::IGuides);
@@ -86,32 +91,32 @@ void Page::addYGuide(double position)
 	}
 }
 
-void Page::addXGuides(QValueList<double>& guides)
+void Page::addXGuides(Q3ValueList<double>& guides)
 {
-	QValueList<double> toBeRemoved;
-	for (uint i = 0; i < XGuides.size(); ++i)
+	Q3ValueList<double> toBeRemoved;
+	for (int i = 0; i < XGuides.size(); ++i)
 		if (guides.find(XGuides[i]) == guides.end())
 			toBeRemoved.push_back(XGuides[i]);
 
-	for (uint i = 0; i < toBeRemoved.size(); ++i)
+	for (int i = 0; i < toBeRemoved.size(); ++i)
 		removeXGuide(toBeRemoved[i]);
 
-	for (uint i = 0; i < guides.size(); ++i)
+	for (int i = 0; i < guides.size(); ++i)
 		if (XGuides.find(guides[i]) == XGuides.end())
 			addXGuide(guides[i]);
 }
 
-void Page::addYGuides(QValueList<double>& guides)
+void Page::addYGuides(Q3ValueList<double>& guides)
 {
-	QValueList<double> toBeRemoved;
-	for (uint i = 0; i < YGuides.size(); ++i)
+	Q3ValueList<double> toBeRemoved;
+	for (int i = 0; i < YGuides.size(); ++i)
 		if (guides.find(YGuides[i]) == guides.end())
 			toBeRemoved.push_back(YGuides[i]);
 
-	for (uint i = 0; i < toBeRemoved.size(); ++i)
+	for (int i = 0; i < toBeRemoved.size(); ++i)
 		removeYGuide(toBeRemoved[i]);
 
-	for (uint i = 0; i < guides.size(); ++i)
+	for (int i = 0; i < guides.size(); ++i)
 		if (YGuides.find(guides[i]) == YGuides.end())
 			addYGuide(guides[i]);
 }

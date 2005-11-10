@@ -1,16 +1,21 @@
+//Added by qt3to4:
+#include <QLabel>
+#include <QHBoxLayout>
+#include <QGridLayout>
+#include <Q3PopupMenu>
 #ifndef STYLESELECT_H
 #define STYLESELECT_H
 
-class QGroupBox;
 class QToolButton;
 class QLayout;
 class MSpinBox;
 class QLabel;
-class QPopupMenu;
+class Q3PopupMenu;
+class WidgetPopupMenu;
 
 #include "scribusapi.h"
 
-class SCRIBUS_API StrikeValues : public QGroupBox
+class SCRIBUS_API StrikeValues : public QWidget
 {
     Q_OBJECT
 
@@ -29,7 +34,7 @@ protected:
 	QGridLayout* group1Layout;
 };
 
-class SCRIBUS_API UnderlineValues : public QGroupBox
+class SCRIBUS_API UnderlineValues : public QWidget
 {
     Q_OBJECT
 
@@ -48,7 +53,7 @@ protected:
 	QGridLayout* group1Layout;
 };
 
-class SCRIBUS_API OutlineValues : public QGroupBox
+class SCRIBUS_API OutlineValues : public QWidget
 {
     Q_OBJECT
 
@@ -65,7 +70,7 @@ protected:
 	QGridLayout* group1Layout;
 };
 
-class SCRIBUS_API ShadowValues : public QGroupBox
+class SCRIBUS_API ShadowValues : public QWidget
 {
     Q_OBJECT
 
@@ -114,10 +119,10 @@ protected:
 	QHBoxLayout* buttonGroup2Layout;
 	QHBoxLayout* buttonGroup3Layout;
 	QHBoxLayout* buttonGroup4Layout;
-	QGroupBox* buttonGroup;
-	QGroupBox* buttonGroup2;
-	QGroupBox* buttonGroup3;
-	QGroupBox* buttonGroup4;
+	QWidget* buttonGroup;
+                QWidget* buttonGroup2;
+	QWidget* buttonGroup3;
+	QWidget* buttonGroup4;
 	QToolButton* underlineButton;
 	QToolButton* underlineWordButton;
 	QToolButton* subscriptButton;
@@ -127,10 +132,10 @@ protected:
 	QToolButton* strikeoutButton;
 	QToolButton* outlineButton;
 	QToolButton* shadowButton;
-	QPopupMenu* ShadowPop;
-	QPopupMenu* OutlinePop;
-	QPopupMenu* UnderlinePop;
-	QPopupMenu* StrikePop;
+	WidgetPopupMenu* ShadowPop;
+	WidgetPopupMenu* OutlinePop;
+	WidgetPopupMenu* UnderlinePop;
+	WidgetPopupMenu* StrikePop;
 };
 
 #endif

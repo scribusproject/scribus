@@ -9,18 +9,23 @@
 #ifndef TREE_H
 #define TREE_H
 
-#include <qptrlist.h>
-#include <qvaluelist.h>
+#include <q3ptrlist.h>
+#include <q3valuelist.h>
 #include <qpixmap.h>
+
+#include <Q3VBoxLayout>
+#include <Q3HBoxLayout>
+#include <Q3GridLayout>
+#include <QResizeEvent>
 
 #include "scribusapi.h"
 #include "scrpalettebase.h"
 
-class QVBoxLayout;
-class QHBoxLayout;
-class QGridLayout;
-class QListView;
-class QListViewItem;
+class Q3VBoxLayout;
+class Q3HBoxLayout;
+class Q3GridLayout;
+class Q3ListView;
+class Q3ListViewItem;
 class ScribusApp;
 class ScribusDoc;
 class PageItem;
@@ -39,11 +44,11 @@ public:
 	void unsetDoc();
 	
 	void rebuildPageD();
-	void reopenTree(QValueList<int> op);
-	QListViewItem* getListItem(uint SNr, int Nr);
-	void setItemIcon(QListViewItem *item, int typ);
-	void parseSubGroup(int level, QListViewItem* object, QPtrList<PageItem> *subGroupList, bool onMasterPage);
-	QValueList<int> buildReopenVals();
+	void reopenTree(Q3ValueList<int> op);
+	Q3ListViewItem* getListItem(uint SNr, int Nr);
+	void setItemIcon(Q3ListViewItem *item, int typ);
+	void parseSubGroup(int level, Q3ListViewItem* object, Q3PtrList<PageItem> *subGroupList, bool onMasterPage);
+	Q3ValueList<int> buildReopenVals();
 
 public slots:
 	void BuildTree();
@@ -62,34 +67,34 @@ signals:
 
 protected slots:
 	//virtual void reject();
-	void slotRightClick(QListViewItem* ite, const QPoint &, int);
-	void slotDoRename(QListViewItem* ite, int col);
+	void slotRightClick(Q3ListViewItem* ite, const QPoint &, int);
+	void slotDoRename(Q3ListViewItem* ite, int col);
 	void slotRemoveElement(uint SNr, uint Nr);
 	void slotUpdateElement(uint SNr, uint Nr);
 	void slotAddElement(PageItem *item);
 	void slotMoveElement(uint SNr, uint NrOld, uint NrNew);
 	void slotDelPage(uint Nr);
 	void slotAddPage(uint Nr);
-	void slotSelect(QListViewItem* ite);
+	void slotSelect(Q3ListViewItem* ite);
 protected:
 	void clearPalette();
 	int idElemCol;
-	QListView* reportDisplay;
-	QMap<QListViewItem*, int> itemMap;
-	QMap<QListViewItem*, int> groupMap;
-	QMap<QListViewItem*, int> pageMap;
-	QMap<QListViewItem*, int> masterPageItemMap;
-	QMap<QListViewItem*, int> masterPageGroupMap;
-	QMap<QListViewItem*, QString> masterPageMap;
+	Q3ListView* reportDisplay;
+	QMap<Q3ListViewItem*, int> itemMap;
+	QMap<Q3ListViewItem*, int> groupMap;
+	QMap<Q3ListViewItem*, int> pageMap;
+	QMap<Q3ListViewItem*, int> masterPageItemMap;
+	QMap<Q3ListViewItem*, int> masterPageGroupMap;
+	QMap<Q3ListViewItem*, QString> masterPageMap;
 /* Reverse mapping for selecting Listview Items */
-	QMap<int, QListViewItem*> itemMapRev;
-	QMap<int, QListViewItem*> groupMapRev;
-	QMap<int, QListViewItem*> pageMapRev;
-	QMap<int, QListViewItem*> masterPageItemMapRev;
-	QMap<int, QListViewItem*> masterPageGroupMapRev;
-	QMap<QString, QListViewItem*> masterPageMapRev;
-	QListViewItem* freeObjects;
-	QListViewItem* rootObject;
+	QMap<int, Q3ListViewItem*> itemMapRev;
+	QMap<int, Q3ListViewItem*> groupMapRev;
+	QMap<int, Q3ListViewItem*> pageMapRev;
+	QMap<int, Q3ListViewItem*> masterPageItemMapRev;
+	QMap<int, Q3ListViewItem*> masterPageGroupMapRev;
+	QMap<QString, Q3ListViewItem*> masterPageMapRev;
+	Q3ListViewItem* freeObjects;
+	Q3ListViewItem* rootObject;
 	ScribusApp* ScApp;
 	QPixmap imageIcon;
 	QPixmap textIcon;

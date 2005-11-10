@@ -3,9 +3,13 @@
 
 #include <qwidget.h>
 #include <qtoolbutton.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QGridLayout>
+#include <Q3PopupMenu>
 #include "scribusapi.h"
 class QGridLayout;
-class QPopupMenu;
+class Q3PopupMenu;
 class QPixmap;
 class AutoformButtonGroup;
 
@@ -18,7 +22,7 @@ public:
 	Autoforms( QWidget* parent );
 	~Autoforms() {};
 	QPixmap getIconPixmap(int nr);
-	QPopupMenu* Men;
+	Q3PopupMenu* Men;
 
 public slots:
 	void selForm(int a);

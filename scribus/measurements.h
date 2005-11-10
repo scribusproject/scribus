@@ -3,6 +3,11 @@
 
 #include "scribusapi.h"
 #include "scrpalettebase.h"
+//Added by qt3to4:
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QGridLayout>
 
 class QVBoxLayout;
 class QHBoxLayout;

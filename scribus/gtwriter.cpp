@@ -18,10 +18,10 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#include "scribusstructs.h"
 #include "gtwriter.h"
 //#include "scfonts.h"
 #include "pageitem.h"
-#include "scribusstructs.h"
 
 gtWriter::gtWriter(bool append)
 {
@@ -96,9 +96,7 @@ double gtWriter::getPreferredLineSpacing(double fontSize)
 
 void gtWriter::append(const QString& text)
 {
-	if (text == NULL)
-		return;
-	if (text.length() == 0)
+	if (text.isEmpty())
 		return;
 	if (characterStyle != NULL)
 	{

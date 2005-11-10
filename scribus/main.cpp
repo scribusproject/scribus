@@ -73,6 +73,7 @@ int mainApp(int argc, char **argv)
 
 void initCrashHandler()
 {
+#ifndef Q_OS_WIN
 	typedef void (*HandlerType)(int);
 	HandlerType handler	= 0;
 	handler = defaultCrashHandler;
@@ -97,10 +98,14 @@ void initCrashHandler()
 	sigaddset(&mask, SIGABRT);
 #endif
 	sigprocmask(SIG_UNBLOCK, &mask, 0);
+#else
+    // TODO: Add crash handling on Windows
+#endif Q_OS_WIN
 }
 
 void defaultCrashHandler(int sig)
 {
+#ifndef Q_OS_WIN
 	static int crashRecursionCounter = 0;
 	crashRecursionCounter++;
 	signal(SIGALRM, SIG_DFL);
@@ -111,9 +116,9 @@ void defaultCrashHandler(int sig)
 		QString sigHdr=QObject::tr("Scribus Crash");
 		QString sigLine="-------------";
 		QString sigMsg=QObject::tr("Scribus crashes due to Signal #%1").arg(sig);
-		std::cout << sigHdr << std::endl;
-		std::cout << sigLine << std::endl;
-		std::cout << sigMsg << std::endl;
+		std::cout << qPrintable( sigHdr ) << std::endl;
+		std::cout << qPrintable( sigLine ) << std::endl;
+		std::cout << qPrintable( sigMsg ) << std::endl;
 		if (ScribusQApp::useGUI)
 		{
 			ScApp->closeSplash();
@@ -123,5 +128,8 @@ void defaultCrashHandler(int sig)
 		}
 		alarm(300);
 	}
+#else
+    // TODO: Add crash handling on Windows
+#endif Q_OS_WIN
 	exit(255);
 }

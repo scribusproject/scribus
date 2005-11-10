@@ -5,11 +5,16 @@
 
 #include <qvariant.h>
 #include <qwidget.h>
+//Added by qt3to4:
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QGridLayout>
 class QGridLayout;
 class QVBoxLayout;
 class QHBoxLayout;
-class QGroupBox;
-class QButtonGroup;
+class Q3GroupBox;
+class Q3ButtonGroup;
 class QRadioButton;
 class QLabel;
 class MSpinBox;
@@ -36,16 +41,16 @@ public:
 	QColor colorMajorGrid;
 	QColor colorMinorGrid;
 	QColor colorBaselineGrid;
-	QGroupBox* checkGrid;
-	QGroupBox* groupBox1;
-	QGroupBox* groupBox2;
-	QGroupBox* commonBox;
-	QGroupBox* snapBox;
-	QGroupBox* guideBox;
-	QGroupBox* marginBox;
-	QGroupBox* baselineBox;
-	QGroupBox* baseGridBox;
-	QButtonGroup* buttonGroup1;
+	Q3GroupBox* checkGrid;
+	Q3GroupBox* groupBox1;
+	Q3GroupBox* groupBox2;
+	Q3GroupBox* commonBox;
+	Q3GroupBox* snapBox;
+	Q3GroupBox* guideBox;
+	Q3GroupBox* marginBox;
+	Q3GroupBox* baselineBox;
+	Q3GroupBox* baseGridBox;
+	Q3ButtonGroup* buttonGroup1;
 	QRadioButton* inBackground;
 	QRadioButton* inForeground;
 	QLabel* textLabel4;

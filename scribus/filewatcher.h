@@ -6,7 +6,7 @@
 #include <qmap.h>
 #include <qfileinfo.h>
 #include <qdatetime.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 
 #include "scribusapi.h"
 
@@ -22,7 +22,7 @@ public:
 	void setTimeOut(const int newTimeOut, const bool restartTimer=false);
 	// Get the timer length
 	const int timeOut();
-	QValueList<QString> files();
+	Q3ValueList<QString> files();
 	
 public slots:
 	//Add a file to the watch list for monitoring

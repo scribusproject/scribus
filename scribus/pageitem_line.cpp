@@ -16,7 +16,6 @@
  ***************************************************************************/
 
 #include "pageitem_line.h"
-#include "pageitem_line.moc"
 #include <qpainter.h>
 #include <qpen.h>
 #include <qfont.h>
@@ -61,7 +60,7 @@ void PageItem_Line::DrawObj_Item(ScPainter *p)
 	if (!Doc->RePos)
 	{
 		if (NamedLStyle.isEmpty())
-			p->drawLine(FPoint(0, 0), FPoint(Width, 0));
+			p->drawLine(QPointF(0, 0), QPointF(Width, 0));
 		else
 		{
 			multiLine ml = Doc->MLineStyles[NamedLStyle];
@@ -70,15 +69,15 @@ void PageItem_Line::DrawObj_Item(ScPainter *p)
 			{
 				SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
 				p->setPen(tmp, ml[it].Width,
-							static_cast<PenStyle>(ml[it].Dash),
-							static_cast<PenCapStyle>(ml[it].LineEnd),
-							static_cast<PenJoinStyle>(ml[it].LineJoin));
-				p->drawLine(FPoint(0, 0), FPoint(Width, 0));
+							static_cast<Qt::PenStyle>(ml[it].Dash),
+							static_cast<Qt::PenCapStyle>(ml[it].LineEnd),
+							static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
+				p->drawLine(QPointF(0, 0), QPointF(Width, 0));
 			}
 		}
 		if (startArrowIndex != 0)
 		{
-			QWMatrix arrowTrans;
+			QMatrix arrowTrans;
 			FPointArray arrow = (*Doc->arrowStyles.at(startArrowIndex-1)).points.copy();
 			arrowTrans.translate(0, 0);
 			arrowTrans.scale(Pwidth, Pwidth);
@@ -93,7 +92,7 @@ void PageItem_Line::DrawObj_Item(ScPainter *p)
 		}
 		if (endArrowIndex != 0)
 		{
-			QWMatrix arrowTrans;
+			QMatrix arrowTrans;
 			FPointArray arrow = (*Doc->arrowStyles.at(endArrowIndex-1)).points.copy();
 			arrowTrans.translate(Width, 0);
 			arrowTrans.scale(Pwidth, Pwidth);

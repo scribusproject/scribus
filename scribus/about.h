@@ -5,9 +5,12 @@
 #include <qlabel.h>
 #include <qtabwidget.h>
 #include <qwidget.h>
-#include <qtextview.h>
+#include <q3textview.h>
 #include <qpushbutton.h>
 #include <qlayout.h>
+//Added by qt3to4:
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 
 #include "scribusapi.h"
 
@@ -27,9 +30,9 @@ public:
 	QWidget* tab_2;
 	QWidget* tab_3;
 	QWidget* tab_4;
-	QTextView* textView1;
-	QTextView* textView2;
-	QTextView* textView4;
+	Q3TextView* textView1;
+	Q3TextView* textView2;
+	Q3TextView* textView4;
 
 protected:
 	QVBoxLayout* aboutLayout;

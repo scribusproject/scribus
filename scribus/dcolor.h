@@ -1,3 +1,11 @@
+//Added by qt3to4:
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QGridLayout>
+#include <QDialog>
+#include "sccolor.h"
+
 /****************************************************************************
 ** Form interface generated from reading ui file 'Cdel.ui'
 **
@@ -9,11 +17,10 @@
 #ifndef DELCOLOR_H
 #define DELCOLOR_H
 
-class QDialog;
 class QLayout;
 class QLabel;
-class QPushbutton;
-class QCombobox;
+class QPushButton;
+class QComboBox;
 
 #include "scribusapi.h"
 

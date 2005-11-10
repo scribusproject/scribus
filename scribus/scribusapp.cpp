@@ -27,7 +27,6 @@
 #include <qtextcodec.h>
 
 #include "scribusapp.h"
-#include "scribusapp.moc"
 #include "scribus.h"
 #include "scpaths.h"
 #include "prefsfile.h"
@@ -155,9 +154,11 @@ void ScribusQApp::parseCommandLine()
 			if (!QFileInfo(file).exists()) {
 				showHeader();
 				if (file.left(1) == "-" || file.left(2) == "--") {
-					std::cout << QObject::tr("Invalid argument: ") << file << std::endl;
+					std::cout << qPrintable( QObject::tr("Invalid argument: ") )
+						  << qPrintable( file ) << std::endl;
 				} else {
-					std::cout << QObject::tr("File %1 does not exist, aborting.").arg(file) << std::endl;
+					std::cout << qPrintable( QObject::tr("File %1 does not exist, aborting.").arg(file) )
+								 << std::endl;
 				}
 				showUsage();
 				useGUI=false;
@@ -266,7 +267,7 @@ QStringList ScribusQApp::getLang(QString lang)
 
 	// remove duplicate entries...
 	for (QStringList::Iterator it = langs.fromLast(); it != langs.begin(); --it)
-		if (langs.contains(*it) > 1)
+		if (langs.count(*it) > 1)
 			it = langs.remove(it);
 
 	return langs;
@@ -347,15 +348,15 @@ void ScribusQApp::changeGUILanguage(QString newGUILang)
 
 void ScribusQApp::showUsage()
 {
-	std::cout << QObject::tr("Usage: scribus [option ... ] [file]") << std::endl;
-	std::cout << QObject::tr("Options:") << std::endl;
-	std::cout << "  " << ARG_HELP_SHORT           << ",  " << ARG_HELP             << "             " << QObject::tr("Print help (this message) and exit")     << std::endl;
-	std::cout << "  " << ARG_LANG_SHORT           << ",  " << ARG_LANG             << "             " << QObject::tr("Uses xx as shortcut for a language")     << std::endl;
-	std::cout << "  " << ARG_AVAILLANG_SHORT      << ", "  << ARG_AVAILLANG        << "  "            << QObject::tr("List the currently installed interface languages") << std::endl;
-	std::cout << "  " << ARG_FONTINFO_SHORT       << ", "  << ARG_FONTINFO         << "        "      << QObject::tr("Show information on the console when fonts are being loaded") << std::endl;
-	std::cout << "  " << ARG_NOSPLASH_SHORT       << ", "  << ARG_NOSPLASH         << "        "      << QObject::tr("Do not show the splashscreen on startup")     << std::endl;
-	std::cout << "  " << ARG_VERSION_SHORT        << ",  " << ARG_VERSION          << "          "    << QObject::tr("Output version information and exit")       << std::endl;
-	std::cout << "  " << ARG_SWAPDIABUTTONS_SHORT << ",  " << ARG_SWAPDIABUTTONS   << "    "    << QObject::tr("Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)")       << std::endl;
+	std::cout << qPrintable( QObject::tr("Usage: scribus [option ... ] [file]") ) << std::endl;
+	std::cout << qPrintable( QObject::tr("Options:") ) << std::endl;
+	std::cout << "  " << ARG_HELP_SHORT           << ",  " << ARG_HELP             << "             " << qPrintable( QObject::tr("Print help (this message) and exit") )    << std::endl;
+	std::cout << "  " << ARG_LANG_SHORT           << ",  " << ARG_LANG             << "             " << qPrintable( QObject::tr("Uses xx as shortcut for a language") )    << std::endl;
+	std::cout << "  " << ARG_AVAILLANG_SHORT      << ", "  << ARG_AVAILLANG        << "  "            << qPrintable( QObject::tr("List the currently installed interface languages") ) << std::endl;
+	std::cout << "  " << ARG_FONTINFO_SHORT       << ", "  << ARG_FONTINFO         << "        "      << qPrintable( QObject::tr("Show information on the console when fonts are being loaded") ) << std::endl;
+	std::cout << "  " << ARG_NOSPLASH_SHORT       << ", "  << ARG_NOSPLASH         << "        "      << qPrintable( QObject::tr("Do not show the splashscreen on startup") )     << std::endl;
+	std::cout << "  " << ARG_VERSION_SHORT        << ",  " << ARG_VERSION          << "          "    << qPrintable( QObject::tr("Output version information and exit")  )     << std::endl;
+	std::cout << "  " << ARG_SWAPDIABUTTONS_SHORT << ",  " << ARG_SWAPDIABUTTONS   << "    "    << qPrintable( QObject::tr("Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)")    )   << std::endl;
 /*
 	std::cout << "-file|-- name Open file 'name'" << std::endl;
 	std::cout << "name          Open file 'name', the file name must not begin with '-'" << std::endl;
@@ -375,7 +376,7 @@ void ScribusQApp::showUsage()
 
 void ScribusQApp::showAvailLangs()
 {
-	std::cout << QObject::tr("Installed interface languages for Scribus are as follows:") << std::endl;
+	std::cout << qPrintable( QObject::tr("Installed interface languages for Scribus are as follows:") ) << std::endl;
 	std::cout << std::endl;
 
 	LanguageManager langMgr;
@@ -383,24 +384,24 @@ void ScribusQApp::showAvailLangs()
 	langMgr.printInstalledList();
 
 	std::cout << std::endl;
-	std::cout << QObject::tr("To override the default language choice:") << std::endl;
-	std::cout << QObject::tr("scribus -l xx or scribus --lang xx, where xx is the language of choice.") << std::endl;
+	std::cout << qPrintable( QObject::tr("To override the default language choice:") ) << std::endl;
+	std::cout << qPrintable( QObject::tr("scribus -l xx or scribus --lang xx, where xx is the language of choice.") ) << std::endl;
 }
 
 void ScribusQApp::showVersion()
 {
-	std::cout << QObject::tr("Scribus Version ") << VERSION << std::endl;
+	std::cout << qPrintable( QObject::tr("Scribus Version ") ) << VERSION << std::endl;
 }
 
 void ScribusQApp::showHeader()
 {
 	std::cout << std::endl;
-	std::cout << QObject::tr("Scribus, Open Source Desktop Publishing") << std::endl;
-	std::cout << QObject::tr("---------------------------------------") << std::endl;
-	std::cout << QObject::tr("Homepage:       http://www.scribus.net ") << std::endl;
-	std::cout << QObject::tr("Documentation:  http://docs.scribus.net") << std::endl;
-	std::cout << QObject::tr("Wiki:           http://wiki.scribus.net") << std::endl;
-	std::cout << QObject::tr("Issues:         http://bugs.scribus.net") << std::endl;
+	std::cout << qPrintable( QObject::tr("Scribus, Open Source Desktop Publishing") ) << std::endl;
+	std::cout << qPrintable( QObject::tr("---------------------------------------") ) << std::endl;
+	std::cout << qPrintable( QObject::tr("Homepage:       http://www.scribus.net ") ) << std::endl;
+	std::cout << qPrintable( QObject::tr("Documentation:  http://docs.scribus.net") ) << std::endl;
+	std::cout << qPrintable( QObject::tr("Wiki:           http://wiki.scribus.net") ) << std::endl;
+	std::cout << qPrintable( QObject::tr("Issues:         http://bugs.scribus.net") ) << std::endl;
 	std::cout << std::endl;	
 }
 

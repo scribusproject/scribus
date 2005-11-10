@@ -1,10 +1,13 @@
 #include "fontprefs.h"
-#include "fontprefs.moc"
-#include <qhbox.h>
+#include <q3hbox.h>
 #include <qfile.h>
 #include <qfileinfo.h>
-#include <qfiledialog.h>
+#include <q3filedialog.h>
 #include <qlabel.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "sccombobox.h"
@@ -27,7 +30,7 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, QString PPath
 	setMinimumSize(fontMetrics().width( tr( "Available Fonts" )+ tr( "Font Substitutions" )+ tr( "Additional Paths" ))+180, 200);
 	tab1 = new QWidget( this, "tab1" );
 	tab1Layout = new QVBoxLayout( tab1, 0, 5, "tab1Layout");
-	fontList = new QListView(tab1, "fontList" );
+	fontList = new Q3ListView(tab1, "fontList" );
 	fontList->setAllColumnsShowFocus(true);
 	fontList->setShowSortIndicator(true);
 	fontList->addColumn( tr("Font Name", "font preview"));
@@ -42,11 +45,11 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, QString PPath
 	psFont = loadIcon("font_type1_16.png");
 	okIcon = loadIcon("ok.png");
 	empty = QPixmap(16,16);
-	empty.fill(white);
+	empty.fill(Qt::white);
 	for ( ; it.current(); ++it)
 	{
 		fontSet foS;
-		QListViewItem *row = new QListViewItem(fontList);
+		Q3ListViewItem *row = new Q3ListViewItem(fontList);
 		row->setText(0, it.currentKey());
 		if (it.current()->UseFont)
 		{
@@ -107,9 +110,9 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, QString PPath
 
 	tab = new QWidget( this, "tab" );
 	tabLayout = new QVBoxLayout( tab, 10, 5, "tabLayout");
-	Table3 = new QTable( tab, "Repl" );
+	Table3 = new Q3Table( tab, "Repl" );
 	Table3->setSorting(false);
-	Table3->setSelectionMode(QTable::SingleRow);
+	Table3->setSelectionMode(Q3Table::SingleRow);
 	Table3->setLeftMargin(0);
 	Table3->verticalHeader()->hide();
 	Table3->setNumCols( 2 );
@@ -153,7 +156,7 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, QString PPath
 	// control is also not displayed if there is a document open.
 	if (!DocAvail && !ScApp->HaveDoc)
 	{
-		PathList = new QListBox( tab3, "PathList" );
+		PathList = new Q3ListBox( tab3, "PathList" );
 		readPaths();
 		PathList->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
 		tab3Layout->addWidget( PathList );
@@ -169,7 +172,7 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, QString PPath
 		tab3Layout->addLayout( LayoutR );
 		ChangeB->setEnabled(false);
 		RemoveB->setEnabled(false);
-		connect(PathList, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(SelectPath(QListBoxItem*)));
+		connect(PathList, SIGNAL(highlighted(Q3ListBoxItem*)), this, SLOT(SelectPath(Q3ListBoxItem*)));
 		connect(AddB, SIGNAL(clicked()), this, SLOT(AddPath()));
 		connect(ChangeB, SIGNAL(clicked()), this, SLOT(ChangePath()));
 		connect(RemoveB, SIGNAL(clicked()), this, SLOT(DelPath()));
@@ -190,14 +193,14 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, QString PPath
 	// signals and slots connections
 	connect(Table3, SIGNAL(currentChanged(int, int)), this, SLOT(ReplaceSel(int, int)));
 	connect(DelB, SIGNAL(clicked()), this, SLOT(DelEntry()));
-	connect(fontList, SIGNAL(clicked(QListViewItem *, const QPoint &, int)), this, SLOT(slotClick(QListViewItem*, const QPoint &, int)));
+	connect(fontList, SIGNAL(clicked(Q3ListViewItem *, const QPoint &, int)), this, SLOT(slotClick(Q3ListViewItem*, const QPoint &, int)));
 }
 
 void FontPrefs::restoreDefaults()
 {
 }
 
-void FontPrefs::slotClick(QListViewItem* ite, const QPoint &, int col)
+void FontPrefs::slotClick(Q3ListViewItem* ite, const QPoint &, int col)
 {
 	if (ite == NULL)
 		return;
@@ -286,7 +289,7 @@ void FontPrefs::writePaths()
 		fontPathTable->set(i, 0, PathList->text(i));
 }
 
-void FontPrefs::SelectPath(QListBoxItem *c)
+void FontPrefs::SelectPath(Q3ListBoxItem *c)
 {
 	if (!DocAvail)
 	{
@@ -301,7 +304,7 @@ void FontPrefs::AddPath()
 	Q_ASSERT(!DocAvail); // should never be called in doc-specific prefs
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	CurrentPath = dirs->get("fontprefs", ".");
-	QString s = QFileDialog::getExistingDirectory(CurrentPath, this, "d", tr("Choose a Directory"), true);
+	QString s = Q3FileDialog::getExistingDirectory(CurrentPath, this, "d", tr("Choose a Directory"), true);
 	if (!s.isEmpty())
 	{
 		dirs->set("fontprefs", s.left(s.findRev("/", -2)));
@@ -321,7 +324,7 @@ void FontPrefs::AddPath()
 void FontPrefs::ChangePath()
 {
 	Q_ASSERT(!DocAvail); // should never be called in doc-specific prefs
-	QString s = QFileDialog::getExistingDirectory(CurrentPath, this, "d", tr("Choose a Directory"), true);
+	QString s = Q3FileDialog::getExistingDirectory(CurrentPath, this, "d", tr("Choose a Directory"), true);
 	if (!s.isEmpty())
 	{
 		s = s.left(s.length()-1);
@@ -340,7 +343,7 @@ void FontPrefs::DelPath()
 {
 	Q_ASSERT(!DocAvail); // should never be called in doc-specific prefs
 	QFile fx(HomeP+"/scribusfont13.rc");
-	if (fx.open(IO_WriteOnly))
+	if (fx.open(QIODevice::WriteOnly))
 	{
 		if (PathList->count() == 1)
 			PathList->clear();
@@ -377,7 +380,7 @@ void FontPrefs::RebuildDialog()
 	for ( ; it.current(); ++it)
 	{
 		fontSet foS;
-		QListViewItem *row = new QListViewItem(fontList);
+		Q3ListViewItem *row = new Q3ListViewItem(fontList);
 		row->setText(0, it.currentKey());
 		if (it.current()->UseFont)
 		{

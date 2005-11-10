@@ -16,19 +16,22 @@
  ***************************************************************************/
 
 #include "cpalette.h"
-#include "cpalette.moc"
 
 #include <qtooltip.h>
-#include <qlistbox.h>
+#include <q3listbox.h>
 #include <qpixmap.h>
 #include <qrect.h>
-#include <qpopupmenu.h>
+#include <q3popupmenu.h>
 #include <qfont.h>
 #include <qlayout.h>
 #include <qtoolbutton.h>
-#include <qbuttongroup.h>
+#include <q3buttongroup.h>
 #include <qlabel.h>
 #include <qspinbox.h>
+//Added by qt3to4:
+#include <QGridLayout>
+#include <Q3Frame>
+#include <QVBoxLayout>
 #include "sccombobox.h"
 #include "scribusdoc.h"
 #include "mspinbox.h"
@@ -53,13 +56,13 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	Inhalt->setPixmap(loadIcon("Stiftalt.xpm"));
 	Inhalt->setToggleButton(true);
 	Inhalt->setAutoRaise(true);
-	Inhalt->setBackgroundMode(PaletteBackground);
+	Inhalt->setBackgroundMode(Qt::PaletteBackground);
 	Layout1->addWidget(Inhalt, 0, 0);
 	Innen = new QToolButton(this, "t2");
 	Innen->setPixmap(loadIcon("fill.png"));
 	Innen->setToggleButton(true);
 	Innen->setAutoRaise(true);
-	Innen->setBackgroundMode(PaletteBackground);
+	Innen->setBackgroundMode(Qt::PaletteBackground);
 	Innen->setOn(true);
 	Layout1->addWidget(Innen, 0, 1);
 	Mode = 2;
@@ -89,9 +92,9 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	gradEdit = new GradientEditor(this);
 	gradEdit->setSizePolicy(QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding));
 	GradLayout->addWidget(gradEdit, Qt::AlignHCenter);
-	freeGradientQFrame = new QFrame( this, "freeGradientQFrame" );
-	freeGradientQFrame->setFrameShape( QFrame::NoFrame );
-	freeGradientQFrame->setFrameShadow( QFrame::Plain );
+	freeGradientQFrame = new Q3Frame( this, "freeGradientQFrame" );
+	freeGradientQFrame->setFrameShape( Q3Frame::NoFrame );
+	freeGradientQFrame->setFrameShadow( Q3Frame::Plain );
 	freeGradientLayout = new QGridLayout( freeGradientQFrame, 1, 1, 5, 5, "freeGradientLayout");
 	GTextX1 = new QLabel("X1:", freeGradientQFrame, "GTextX1" );
 	freeGradientLayout->addWidget( GTextX1, 0, 0 );
@@ -126,7 +129,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	freeGradientLayout->addMultiCellWidget(gradEditButton, 2, 2, 0, 3);
 	GradLayout->addWidget( freeGradientQFrame );
 	Form1Layout->addLayout(GradLayout);
-	colorListQLBox = new QListBox(this, "colorListQLBox");
+	colorListQLBox = new Q3ListBox(this, "colorListQLBox");
 	colorListQLBox->setMinimumSize( QSize( 150, 30 ) );
 	colorListQLBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
 	Form1Layout->addWidget(colorListQLBox);
@@ -140,8 +143,8 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	
 	connect(Inhalt, SIGNAL(clicked()), this, SLOT(InhaltButton()));
 	connect(Innen, SIGNAL(clicked()), this, SLOT(InnenButton()));
-	connect(colorListQLBox, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));
-	connect(colorListQLBox, SIGNAL(selected(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));
+	connect(colorListQLBox, SIGNAL(clicked(Q3ListBoxItem*)), this, SLOT(selectColor(Q3ListBoxItem*)));
+	connect(colorListQLBox, SIGNAL(selected(Q3ListBoxItem*)), this, SLOT(selectColor(Q3ListBoxItem*)));
 	connect(PM1, SIGNAL(valueChanged(int)), this, SLOT(setActShade()));
 	connect(gradientQCombo, SIGNAL(activated(int)), this, SLOT(slotGrad(int)));
 	connect(TransSpin, SIGNAL(valueChanged(int)), this, SLOT(slotTrans(int)));
@@ -219,8 +222,8 @@ void Cpalette::SetColors(ColorList newColorList)
 
 void Cpalette::updateCList()
 {
-	disconnect(colorListQLBox, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));
-	disconnect(colorListQLBox, SIGNAL(selected(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));
+	disconnect(colorListQLBox, SIGNAL(clicked(Q3ListBoxItem*)), this, SLOT(selectColor(Q3ListBoxItem*)));
+	disconnect(colorListQLBox, SIGNAL(selected(Q3ListBoxItem*)), this, SLOT(selectColor(Q3ListBoxItem*)));
 	colorListQLBox->clear();
 	if ((!GradientMode) || (Mode == 1))
 		colorListQLBox->insertItem( tr("None"));
@@ -232,11 +235,11 @@ void Cpalette::updateCList()
 		colorListQLBox->insertItem(*pm, it.key());
 	}
 	colorListQLBox->setSelected(colorListQLBox->currentItem(), false);
-	connect(colorListQLBox, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));
-	connect(colorListQLBox, SIGNAL(selected(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));
+	connect(colorListQLBox, SIGNAL(clicked(Q3ListBoxItem*)), this, SLOT(selectColor(Q3ListBoxItem*)));
+	connect(colorListQLBox, SIGNAL(selected(Q3ListBoxItem*)), this, SLOT(selectColor(Q3ListBoxItem*)));
 }
 
-void Cpalette::selectColor(QListBoxItem *c)
+void Cpalette::selectColor(Q3ListBoxItem *c)
 {
 	if (c == NULL) { return; }
 	sFarbe = c->text();
@@ -268,8 +271,8 @@ QColor Cpalette::setColor(QString colorName, int shad)
 
 void Cpalette::updateBoxS(QString colorName)
 {
-	disconnect(colorListQLBox, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));
-	disconnect(colorListQLBox, SIGNAL(selected(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));
+	disconnect(colorListQLBox, SIGNAL(clicked(Q3ListBoxItem*)), this, SLOT(selectColor(Q3ListBoxItem*)));
+	disconnect(colorListQLBox, SIGNAL(selected(Q3ListBoxItem*)), this, SLOT(selectColor(Q3ListBoxItem*)));
 	int c = 0;
 	if ((colorName != "None") && (!colorName.isEmpty()))
 	{
@@ -284,8 +287,8 @@ void Cpalette::updateBoxS(QString colorName)
 		}
 	}
 	colorListQLBox->setCurrentItem(c);
-	connect(colorListQLBox, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));
-	connect(colorListQLBox, SIGNAL(selected(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));
+	connect(colorListQLBox, SIGNAL(clicked(Q3ListBoxItem*)), this, SLOT(selectColor(Q3ListBoxItem*)));
+	connect(colorListQLBox, SIGNAL(selected(Q3ListBoxItem*)), this, SLOT(selectColor(Q3ListBoxItem*)));
 }
 
 void Cpalette::setActFarben(QString p, QString b, int shp, int shb)

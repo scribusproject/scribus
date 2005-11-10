@@ -13,7 +13,9 @@
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qlineedit.h>
-#include <qmultilineedit.h>
+#include <q3multilineedit.h>
+//Added by qt3to4:
+#include <QGridLayout>
 
 #include "scribusapi.h"
 #include "documentinformation.h"
@@ -55,9 +57,9 @@ protected:
 	QLineEdit* titleEdit;
 	QLineEdit* authorEdit;
 
-	QMultiLineEdit* descriptionEdit;
-	QMultiLineEdit* keywordsEdit;
-	QMultiLineEdit* contributorsEdit;
+	Q3MultiLineEdit* descriptionEdit;
+	Q3MultiLineEdit* keywordsEdit;
+	Q3MultiLineEdit* contributorsEdit;
 
 	QLabel* authorLabel;
 	QLabel* titleLabel;

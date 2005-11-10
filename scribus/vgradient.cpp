@@ -18,7 +18,7 @@
 */
 #include "vgradient.h"
 
-int VGradient::VColorStopList::compareItems( QPtrCollection::Item item1, QPtrCollection::Item item2 )
+int VGradient::VColorStopList::compareItems( Q3PtrCollection::Item item1, Q3PtrCollection::Item item2 )
 {
 	double r1 = ( (VColorStop*)item1 )->rampPoint;
 	double r2 = ( (VColorStop*)item2 )->rampPoint;
@@ -40,8 +40,8 @@ VGradient::VGradient( VGradientType type )
 	color = QColor(255,255,0);
 	addStop( color, 1.0, 0.5, 1.0 );
 
-	setOrigin( FPoint( 0, 0 ) );
-	setVector( FPoint( 0, 50 ) );
+	setOrigin( QPointF( 0, 0 ) );
+	setVector( QPointF( 0, 50 ) );
 	setRepeatMethod( VGradient::reflect );
 }
 
@@ -56,7 +56,7 @@ VGradient::VGradient( const VGradient& gradient )
 	m_repeatMethod	= gradient.m_repeatMethod;
 
 	m_colorStops.clear();
-	QPtrVector<VColorStop> cs = gradient.colorStops();
+	Q3PtrVector<VColorStop> cs = gradient.colorStops();
 	for( uint i = 0; i < cs.count(); ++i)
 		m_colorStops.append( new VColorStop( *cs[i] ) );
 	m_colorStops.sort();
@@ -76,7 +76,7 @@ VGradient& VGradient::operator=( const VGradient& gradient )
 	m_repeatMethod	= gradient.m_repeatMethod;
 
 	m_colorStops.clear();
-	QPtrVector<VColorStop> cs = gradient.colorStops();
+	Q3PtrVector<VColorStop> cs = gradient.colorStops();
 	for( uint i = 0; i < cs.count(); ++i )
 		m_colorStops.append( new VColorStop( *cs[i] ) );
 	m_colorStops.sort();
@@ -84,9 +84,9 @@ VGradient& VGradient::operator=( const VGradient& gradient )
 	return *this;
 } // VGradient::operator=
 
-const QPtrVector<VColorStop> VGradient::colorStops() const
+const Q3PtrVector<VColorStop> VGradient::colorStops() const
 {
-	QPtrVector<VColorStop> v;
+	Q3PtrVector<VColorStop> v;
 	m_colorStops.toVector( &v );
 	v.setAutoDelete( false );
 	return v;
@@ -108,11 +108,11 @@ void
 VGradient::addStop( const QColor &color, double rampPoint, double midPoint, double opa, QString name, int shade )
 {
 	// Clamping between 0.0 and 1.0
-	rampPoint = QMAX( 0.0f, rampPoint );
-	rampPoint = QMIN( 1.0f, rampPoint );
+	rampPoint = QMAX( 0.0, rampPoint );
+	rampPoint = QMIN( 1.0, rampPoint );
 	// Clamping between 0.0 and 1.0
-	midPoint = QMAX( 0.0f, midPoint );
-	midPoint = QMIN( 1.0f, midPoint );
+	midPoint = QMAX( 0.0, midPoint );
+	midPoint = QMIN( 1.0, midPoint );
 
 	m_colorStops.inSort( new VColorStop( rampPoint, midPoint, color, opa, name, shade ) );
 }
@@ -127,16 +127,16 @@ void VGradient::removeStop( uint n )
 	m_colorStops.remove( n );
 }
 
-void VGradient::transform( const QWMatrix &m )
+void VGradient::transform( const QMatrix &m )
 {
 	double mx, my;
 	mx = m.m11() * m_origin.x() + m.m21() * m_origin.y() + m.dx();
 	my = m.m22() * m_origin.y() + m.m12() * m_origin.x() + m.dy();
-	m_origin = FPoint(mx, my);
+	m_origin = QPointF(mx, my);
 	mx = m.m11() * m_focalPoint.x() + m.m21() * m_focalPoint.y() + m.dx();
 	my = m.m22() * m_focalPoint.y() + m.m12() * m_focalPoint.x() + m.dy();
-	m_focalPoint = FPoint(mx, my);
+	m_focalPoint = QPointF(mx, my);
 	mx = m.m11() * m_vector.x() + m.m21() * m_vector.y() + m.dx();
 	my = m.m22() * m_vector.y() + m.m12() * m_vector.x() + m.dy();
-	m_vector = FPoint(mx, my);
+	m_vector = QPointF(mx, my);
 }

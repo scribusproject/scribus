@@ -1,5 +1,4 @@
 #include "svgplugin.h"
-#include "svgplugin.moc"
 
 #include "scconfig.h"
 
@@ -11,9 +10,12 @@
 #include "prefsfile.h"
 #include <qfile.h>
 #include <qtextstream.h>
-#include <qdragobject.h>
+#include <q3dragobject.h>
 #include <qregexp.h>
 #include <qcursor.h>
+//Added by qt3to4:
+#include <Q3PtrList>
+#include <Q3ValueList>
 #include <cmath>
 #ifdef HAVE_LIBZ
 #include <zlib.h>
@@ -251,15 +253,15 @@ void SVGPlug::convert()
 		ScApp->doc->PageSize = "Custom";
 	}
 	currDoc = ScApp->doc;
-	FPoint minSize = currDoc->minCanvasCoordinate;
-	FPoint maxSize = currDoc->maxCanvasCoordinate;
+	QPointF minSize = currDoc->minCanvasCoordinate;
+	QPointF maxSize = currDoc->maxCanvasCoordinate;
 	ScApp->view->Deselect();
 	Elements.clear();
 	currDoc->setLoading(true);
 	currDoc->DoDrawing = false;
 	ScApp->view->setUpdatesEnabled(false);
 	ScApp->ScriptRunning = true;
-	qApp->setOverrideCursor(QCursor(waitCursor), true);
+	qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
 	gc->Family = currDoc->toolSettings.defFont;
 	if (!currDoc->PageColors.contains("Black"))
 		currDoc->PageColors.insert("Black", ScColor(0, 0, 0, 255));
@@ -298,7 +300,7 @@ void SVGPlug::convert()
 	ScApp->ScriptRunning = false;
 	if (interactive)
 		currDoc->setLoading(false);
-	qApp->setOverrideCursor(QCursor(arrowCursor), true);
+	qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 	if ((Elements.count() > 0) && (!ret) && (interactive))
 	{
 		currDoc->DragP = true;
@@ -311,7 +313,7 @@ void SVGPlug::convert()
 		}
 		ScriXmlDoc *ss = new ScriXmlDoc();
 		ScApp->view->setGroupRect();
-		QDragObject *dr = new QTextDrag(ss->WriteElem(&ScApp->view->SelItem, currDoc, ScApp->view), ScApp->view->viewport());
+		Q3DragObject *dr = new Q3TextDrag(ss->WriteElem(&ScApp->view->SelItem, currDoc, ScApp->view), ScApp->view->viewport());
 		ScApp->view->DeleteItem();
 		ScApp->view->resizeContents(qRound((maxSize.x() - minSize.x()) * ScApp->view->getScale()), qRound((maxSize.y() - minSize.y()) * ScApp->view->getScale()));
 		ScApp->view->scrollBy(qRound((currDoc->minCanvasCoordinate.x() - minSize.x()) * ScApp->view->getScale()), qRound((currDoc->minCanvasCoordinate.y() - minSize.y()) * ScApp->view->getScale()));
@@ -358,7 +360,7 @@ void SVGPlug::addGraphicContext()
 void SVGPlug::setupTransform( const QDomElement &e )
 {
 	SvgStyle *gc = m_gc.current();
-	QWMatrix mat = parseTransform( e.attribute( "transform" ) );
+	QMatrix mat = parseTransform( e.attribute( "transform" ) );
 	if (!e.attribute("transform").isEmpty())
 		gc->matrix = mat * gc->matrix;
 }
@@ -371,9 +373,9 @@ void SVGPlug::setupTransform( const QDomElement &e )
  \param e const QDomElement &
  \retval None
  */
-QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
+Q3PtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 {
-	QPtrList<PageItem> GElements;
+	Q3PtrList<PageItem> GElements;
 	FPointArray ImgClip;
 	ImgClip.resize(0);
 	double BaseX = currDoc->currentPage->xOffset();
@@ -391,7 +393,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			SvgStyle *gc = m_gc.current();
 			setupTransform( b );
 			parseStyle( gc, b );
-			QPtrList<PageItem> gElements = parseGroup( b );
+			Q3PtrList<PageItem> gElements = parseGroup( b );
 			for (uint gr = 0; gr < gElements.count(); ++gr)
 			{
 				gElements.at(gr)->Groups.push(currDoc->GroupCounter);
@@ -431,10 +433,10 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 				ite->SetFrameRound();
 				ScApp->view->setRedrawBounding(ite);
 			}
-			QWMatrix mm = QWMatrix();
+			QMatrix mm = QMatrix();
 			mm.translate(x, y);
 			ite->PoLine.map(mm);
-			FPoint wh = getMaxClipF(&ite->PoLine);
+			QPointF wh = getMaxClipF(&ite->PoLine);
 			ite->Width = wh.x();
 			ite->Height = wh.y();
 		}
@@ -449,11 +451,12 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			parseStyle( gc, b );
 			//z = ScApp->view->PaintEllipse(BaseX, BaseY, rx * 2.0, ry * 2.0, gc->LWidth, gc->FillCol, gc->StrokeCol);
 			z = currDoc->itemAdd(PageItem::Polygon, PageItem::Ellipse, BaseX, BaseY, rx * 2.0, ry * 2.0, gc->LWidth, gc->FillCol, gc->StrokeCol, !ScApp->view->Mpressed);
+
 			PageItem* ite = currDoc->Items->at(z);
-			QWMatrix mm = QWMatrix();
+			QMatrix mm = QMatrix();
 			mm.translate(x, y);
 			ite->PoLine.map(mm);
-			FPoint wh = getMaxClipF(&ite->PoLine);
+			QPointF wh = getMaxClipF(&ite->PoLine);
 			ite->Width = wh.x();
 			ite->Height = wh.y();
 		}
@@ -468,10 +471,10 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			//z = ScApp->view->PaintEllipse(BaseX, BaseY, r * 2.0, r * 2.0, gc->LWidth, gc->FillCol, gc->StrokeCol);
 			z = currDoc->itemAdd(PageItem::Polygon, PageItem::Ellipse, BaseX, BaseY, r * 2.0, r * 2.0, gc->LWidth, gc->FillCol, gc->StrokeCol, !ScApp->view->Mpressed);
 			PageItem* ite = currDoc->Items->at(z);
-			QWMatrix mm = QWMatrix();
+			QMatrix mm = QMatrix();
 			mm.translate(x, y);
 			ite->PoLine.map(mm);
-			FPoint wh = getMaxClipF(&ite->PoLine);
+			QPointF wh = getMaxClipF(&ite->PoLine);
 			ite->Width = wh.x();
 			ite->Height = wh.y();
 		}
@@ -488,10 +491,10 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			z = currDoc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, !ScApp->view->Mpressed);
 			PageItem* ite = currDoc->Items->at(z);
 			ite->PoLine.resize(4);
-			ite->PoLine.setPoint(0, FPoint(x1, y1));
-			ite->PoLine.setPoint(1, FPoint(x1, y1));
-			ite->PoLine.setPoint(2, FPoint(x2, y2));
-			ite->PoLine.setPoint(3, FPoint(x2, y2));
+			ite->PoLine.setPoint(0, QPointF(x1, y1));
+			ite->PoLine.setPoint(1, QPointF(x1, y1));
+			ite->PoLine.setPoint(2, QPointF(x2, y2));
+			ite->PoLine.setPoint(3, QPointF(x2, y2));
 		}
 		else if( STag == "clipPath" )
 		{
@@ -569,7 +572,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			double x = b.attribute( "x" ).isEmpty() ? 0.0 : parseUnit(b.attribute("x"));
 			double y = b.attribute( "y" ).isEmpty() ? 0.0 : parseUnit(b.attribute("y"));
 			parseStyle(gc, b);
-			QPtrList<PageItem> el = parseText(x+BaseX, y+BaseY, b);
+			Q3PtrList<PageItem> el = parseText(x+BaseX, y+BaseY, b);
 			for (uint ec = 0; ec < el.count(); ++ec)
 			{
 				GElements.append(el.at(ec));
@@ -605,7 +608,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			{
 			case PageItem::ImageFrame:
 				{
-					QWMatrix mm = gc->matrix;
+					QMatrix mm = gc->matrix;
 					ite->Xpos += mm.dx();
 					ite->Ypos += mm.dy();
 					ite->Width = ite->Width * mm.m11();
@@ -620,7 +623,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 				}
 			case PageItem::TextFrame:
 				{
-					QWMatrix mm = gc->matrix;
+					QMatrix mm = gc->matrix;
 					ite->Pwidth = ite->Pwidth * ((mm.m11() + mm.m22()) / 2.0);
 				}
 				break;
@@ -628,17 +631,17 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 				{
 					ite->ClipEdited = true;
 					ite->FrameType = 3;
-					QWMatrix mm = gc->matrix;
+					QMatrix mm = gc->matrix;
 					ite->PoLine.map(mm);
 					if (haveViewBox)
 					{
-						QWMatrix mv;
+						QMatrix mv;
 						mv.translate(viewTransformX, viewTransformY);
 						mv.scale(viewScaleX, viewScaleY);
 						ite->PoLine.map(mv);
 					}
 					ite->Pwidth = ite->Pwidth * ((mm.m11() + mm.m22()) / 2.0);
-					FPoint wh = getMaxClipF(&ite->PoLine);
+					QPointF wh = getMaxClipF(&ite->PoLine);
 					ite->Width = wh.x();
 					ite->Height = wh.y();
 					ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
@@ -668,7 +671,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 					double angle2 = atan2(ite->GrEndY-ite->GrStartX,ite->GrEndX-ite->GrStartX)*(180.0/M_PI);
 					double dx = ite->GrStartX + (ite->GrEndX-ite->GrStartX) / 2.0;
 					double dy = ite->GrStartY + (ite->GrEndY-ite->GrStartY) / 2.0;
-					QWMatrix mm, mm2;
+					QMatrix mm, mm2;
 					if ((gc->GY1 < gc->GY2) && (gc->GX1 < gc->GX2))
 					{
 						mm.rotate(-angle2);
@@ -685,7 +688,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 				}
 				else
 				{
-					QWMatrix mm = gc->matrix;
+					QMatrix mm = gc->matrix;
 					mm = mm * gc->matrixg;
 					FPointArray gra;
 					gra.setPoints(2, gc->GX1, gc->GY1, gc->GX2, gc->GY2);
@@ -773,16 +776,16 @@ double SVGPlug::parseUnit(const QString &unit)
  \param transform const QString
  \retval QWMatrix
  */
-QWMatrix SVGPlug::parseTransform( const QString &transform )
+QMatrix SVGPlug::parseTransform( const QString &transform )
 {
-	QWMatrix ret;
+	QMatrix ret;
 	// Split string for handling 1 transform statement at a time
 	QStringList subtransforms = QStringList::split(')', transform);
 	QStringList::ConstIterator it = subtransforms.begin();
 	QStringList::ConstIterator end = subtransforms.end();
 	for(; it != end; ++it)
 	{
-		QWMatrix result;
+		QMatrix result;
 		QStringList subtransform = QStringList::split('(', (*it));
 		subtransform[0] = subtransform[0].stripWhiteSpace().lower();
 		subtransform[1] = subtransform[1].simplifyWhiteSpace();
@@ -1328,19 +1331,19 @@ void SVGPlug::svgLineTo(FPointArray *i, double x1, double y1)
 	WasM = false;
 	if (i->size() > 3)
 	{
-		FPoint b1 = i->point(i->size()-4);
-		FPoint b2 = i->point(i->size()-3);
-		FPoint b3 = i->point(i->size()-2);
-		FPoint b4 = i->point(i->size()-1);
-		FPoint n1 = FPoint(CurrX, CurrY);
-		FPoint n2 = FPoint(x1, y1);
+		QPointF b1 = i->point(i->size()-4);
+		QPointF b2 = i->point(i->size()-3);
+		QPointF b3 = i->point(i->size()-2);
+		QPointF b4 = i->point(i->size()-1);
+		QPointF n1 = QPointF(CurrX, CurrY);
+		QPointF n2 = QPointF(x1, y1);
 		if ((b1 == n1) && (b2 == n1) && (b3 == n2) && (b4 == n2))
 			return;
 	}
-	i->addPoint(FPoint(CurrX, CurrY));
-	i->addPoint(FPoint(CurrX, CurrY));
-	i->addPoint(FPoint(x1, y1));
-	i->addPoint(FPoint(x1, y1));
+	i->addPoint(QPointF(CurrX, CurrY));
+	i->addPoint(QPointF(CurrX, CurrY));
+	i->addPoint(QPointF(x1, y1));
+	i->addPoint(QPointF(x1, y1));
 	CurrX = x1;
 	CurrY = y1;
 	PathLen += 4;
@@ -1371,21 +1374,21 @@ void SVGPlug::svgCurveToCubic(FPointArray *i, double x1, double y1, double x2, d
 	WasM = false;
 	if (PathLen > 3)
 	{
-		FPoint b1 = i->point(i->size()-4);
-		FPoint b2 = i->point(i->size()-3);
-		FPoint b3 = i->point(i->size()-2);
-		FPoint b4 = i->point(i->size()-1);
-		FPoint n1 = FPoint(CurrX, CurrY);
-		FPoint n2 = FPoint(x1, y1);
-		FPoint n3 = FPoint(x3, y3);
-		FPoint n4 = FPoint(x2, y2);
+		QPointF b1 = i->point(i->size()-4);
+		QPointF b2 = i->point(i->size()-3);
+		QPointF b3 = i->point(i->size()-2);
+		QPointF b4 = i->point(i->size()-1);
+		QPointF n1 = QPointF(CurrX, CurrY);
+		QPointF n2 = QPointF(x1, y1);
+		QPointF n3 = QPointF(x3, y3);
+		QPointF n4 = QPointF(x2, y2);
 		if ((b1 == n1) && (b2 == n2) && (b3 == n3) && (b4 == n4))
 			return;
 	}
-	i->addPoint(FPoint(CurrX, CurrY));
-	i->addPoint(FPoint(x1, y1));
-	i->addPoint(FPoint(x3, y3));
-	i->addPoint(FPoint(x2, y2));
+	i->addPoint(QPointF(CurrX, CurrY));
+	i->addPoint(QPointF(x1, y1));
+	i->addPoint(QPointF(x3, y3));
+	i->addPoint(QPointF(x2, y2));
 	CurrX = x3;
 	CurrY = y3;
 	PathLen += 4;
@@ -1407,8 +1410,8 @@ void SVGPlug::svgClosePath(FPointArray *i)
 		{
 			i->addPoint(i->point(i->size()-2));
 			i->addPoint(i->point(i->size()-3));
-			i->addPoint(FPoint(StartX, StartY));
-			i->addPoint(FPoint(StartX, StartY));
+			i->addPoint(QPointF(StartX, StartY));
+			i->addPoint(QPointF(StartX, StartY));
 		}
 	}
 }
@@ -1643,7 +1646,7 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 	//		gc->stroke.setMiterLimit( params.todouble() );
 	else if( command == "stroke-dasharray" )
 	{
-		QValueList<double> array;
+		Q3ValueList<double> array;
 		if(params != "none")
 		{
 			QStringList dashes = QStringList::split( ' ', params );
@@ -1929,11 +1932,11 @@ void SVGPlug::parseGradient( const QDomElement &e )
  \param e const QDomElement &
  \retval None
  */
-QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
+Q3PtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 {
 	struct ScText *hg;
 	QPainter p;
-	QPtrList<PageItem> GElements;
+	Q3PtrList<PageItem> GElements;
 	p.begin(ScApp->view->viewport());
 //	QFont ff(currDoc->UsedFonts[m_gc.current()->Family]);
 	QFont ff(m_gc.current()->Family);
@@ -1964,7 +1967,7 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 			ite->LineSp = gc->FontSize / 10.0 + 2;
 			ite->Height = ite->LineSp+desc+2;
 			ScApp->SetNewFont(gc->Family);
-			QWMatrix mm = gc->matrix;
+			QMatrix mm = gc->matrix;
 			if( (!tspan.attribute("x").isEmpty()) && (!tspan.attribute("y").isEmpty()) )
 			{
 				double x1 = parseUnit( tspan.attribute( "x", "0" ) );
@@ -2002,7 +2005,7 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 			ite->TxtUnderWidth = -1;
 			ite->TxtStrikePos = -1;
 			ite->TxtStrikeWidth = -1;
-			for (uint tt = 0; tt < Text.length(); ++tt)
+			for (int tt = 0; tt < Text.length(); ++tt)
 			{
 				hg = new ScText;
 				hg->ch = Text.at(tt);
@@ -2104,7 +2107,7 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 		ite->TxtUnderWidth = -1;
 		ite->TxtStrikePos = -1;
 		ite->TxtStrikeWidth = -1;
-		for (uint cc = 0; cc<Text.length(); ++cc)
+		for (int cc = 0; cc<Text.length(); ++cc)
 		{
 			hg = new ScText;
 			hg->ch = Text.at(cc);

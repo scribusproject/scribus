@@ -12,6 +12,11 @@
 
 #include <qvariant.h>
 #include <qdialog.h>
+//Added by qt3to4:
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QVBoxLayout>
 
 #include "scribusapi.h"
 
@@ -19,8 +24,8 @@ class QVBoxLayout;
 class QHBoxLayout;
 class QGridLayout;
 class QSpacerItem;
-class QListView;
-class QListViewItem;
+class Q3ListView;
+class Q3ListViewItem;
 class QLabel;
 class QSpinBox;
 class QCheckBox;
@@ -77,7 +82,7 @@ class SCRIBUS_API LoremManager : public QDialog
 
 	public:
 		/*! Reads all XML files in cfg directory. */
-		LoremManager(QWidget* parent = 0, const char* name = 0, bool modal = true, WFlags fl = 0);
+		LoremManager(QWidget* parent = 0, const char* name = 0, bool modal = true, Qt::WFlags fl = 0);
 		~LoremManager(){};
 
 		//! all lorems with Public Name -> filename structure
@@ -94,7 +99,7 @@ class SCRIBUS_API LoremManager : public QDialog
 		virtual void cancelButton_clicked();
 
 	protected:
-		QListView* loremList;
+		Q3ListView* loremList;
 		QLabel* paraLabel;
 		QSpinBox* paraBox;
 		QPushButton* okButton;

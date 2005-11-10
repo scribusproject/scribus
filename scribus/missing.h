@@ -2,6 +2,10 @@
 #define MISSINGFONT_H
 
 #include <qdialog.h>
+//Added by qt3to4:
+#include <QLabel>
+#include <QHBoxLayout>
+#include <QGridLayout>
 class QLabel;
 class QHBoxLayout;
 class QGridLayout;

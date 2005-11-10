@@ -5,15 +5,18 @@
 #include <qvariant.h>
 #include <qpushbutton.h>
 #include <qlabel.h>
-#include <qlistbox.h>
-#include <qgroupbox.h>
+#include <q3listbox.h>
+#include <q3groupbox.h>
 #include <qcombobox.h>
 #include <qspinbox.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
 #include <qpixmap.h>
 #include <qlineedit.h>
+//Added by qt3to4:
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 
 #include "scribusapi.h"
 #include "scribusstructs.h"
@@ -40,8 +43,8 @@ public:
 	QLabel* Preview;
 	QPushButton* AddStyle;
 	QPushButton* RemoveStyle;
-	QListBox* Styles;
-	QGroupBox* Properties;
+	Q3ListBox* Styles;
+	Q3GroupBox* Properties;
 	LineCombo* Dashes;
 	QComboBox* LineEnds;
 	QComboBox* LineJoin;

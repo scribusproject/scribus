@@ -1,12 +1,15 @@
 #include "prefsdialogbase.h"
-#include "prefsdialogbase.moc"
 #include <qvariant.h>
 #include <qpushbutton.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
 #include <qlabel.h>
 #include <qfont.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 
 #include "commonstrings.h"
 
@@ -20,15 +23,15 @@ PrefsDialogBase::PrefsDialogBase( QWidget* parent ) : QDialog( parent, "PrefsDia
 	setSizeGripEnabled( true );
 	prefsLayout = new QVBoxLayout( this, 11, 6, "prefsLayout"); 
 	layout3 = new QHBoxLayout( 0, 0, 6, "layout3"); 
-	prefsSelection = new QIconView( this, "prefsSelection" );
-	prefsSelection->setHScrollBarMode( QIconView::AlwaysOff );
-	prefsSelection->setVScrollBarMode( QIconView::Auto );
-	prefsSelection->setArrangement(QIconView::LeftToRight);
+	prefsSelection = new Q3IconView( this, "prefsSelection" );
+	prefsSelection->setHScrollBarMode( Q3IconView::AlwaysOff );
+	prefsSelection->setVScrollBarMode( Q3IconView::Auto );
+	prefsSelection->setArrangement(Q3IconView::LeftToRight);
 	prefsSelection->setItemsMovable(false);
 	prefsSelection->setAutoArrange( false );
 	prefsSelection->setSorting( false );
 	prefsSelection->setWordWrapIconText(false);
-	prefsSelection->setFocusPolicy(QWidget::NoFocus);
+	prefsSelection->setFocusPolicy(Qt::NoFocus);
 	prefsSelection->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)0, (QSizePolicy::SizeType)7, 0, 0, prefsSelection->sizePolicy().hasHeightForWidth() ) );
 	layout3->addWidget( prefsSelection );
 	layout5 = new QVBoxLayout( 0, 0, 6, "layout5");
@@ -39,7 +42,7 @@ PrefsDialogBase::PrefsDialogBase( QWidget* parent ) : QDialog( parent, "PrefsDia
 	tabNameLabel->setFont(f);
 	tabNameLabel->setText("");
 	layout5->addWidget( tabNameLabel );
-	prefsWidgets = new QWidgetStack( this, "prefsWidgets" );
+	prefsWidgets = new Q3WidgetStack( this, "prefsWidgets" );
 	layout5->addWidget( prefsWidgets );
 	layout3->addLayout(layout5);
 	prefsLayout->addLayout( layout3 );
@@ -60,14 +63,14 @@ PrefsDialogBase::PrefsDialogBase( QWidget* parent ) : QDialog( parent, "PrefsDia
 	layout4->addWidget( buttonCancel );
 	prefsLayout->addLayout( layout4 );
 	languageChange();
-	connect(prefsSelection, SIGNAL(clicked(QIconViewItem *)), this, SLOT(itemSelected(QIconViewItem* )));
+	connect(prefsSelection, SIGNAL(clicked(Q3IconViewItem *)), this, SLOT(itemSelected(Q3IconViewItem* )));
 	connect( buttonOk, SIGNAL( clicked() ), this, SLOT( accept() ) );
 	connect( buttonCancel, SIGNAL( clicked() ), this, SLOT( reject() ) );
 }
 
 int PrefsDialogBase::addItem(QString name, QPixmap icon, QWidget *tab)
 {
-	QIconViewItem* icx = new QIconViewItem(prefsSelection, name, icon);
+	Q3IconViewItem* icx = new Q3IconViewItem(prefsSelection, name, icon);
 	prefsWidgets->addWidget(tab, counter);
 	icx->setDragEnabled(false);
 	itemMap.insert(icx, counter);
@@ -78,7 +81,7 @@ int PrefsDialogBase::addItem(QString name, QPixmap icon, QWidget *tab)
 void PrefsDialogBase::arrangeIcons()
 {
 	int maxWidth = 0;
-	QIconViewItem* ic = prefsSelection->firstItem();
+	Q3IconViewItem* ic = prefsSelection->firstItem();
 	int startY = 5;
 	for (uint cc = 0; cc < prefsSelection->count(); ++cc)
 	{
@@ -88,7 +91,7 @@ void PrefsDialogBase::arrangeIcons()
 	}
 	ic = prefsSelection->firstItem();
 	prefsSelection->setAutoArrange( false );
-	prefsSelection->setResizeMode(QIconView::Fixed);
+	prefsSelection->setResizeMode(Q3IconView::Fixed);
 	for (uint cc = 0; cc < prefsSelection->count(); ++cc)
 	{
 		int w = ic->width();
@@ -99,7 +102,7 @@ void PrefsDialogBase::arrangeIcons()
 	}
 }
 
-void PrefsDialogBase::itemSelected(QIconViewItem* ic)
+void PrefsDialogBase::itemSelected(Q3IconViewItem* ic)
 {
 	if (ic == 0)
 		return;

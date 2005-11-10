@@ -17,18 +17,21 @@
 
 #include <qvariant.h>
 #include <qpushbutton.h>
-#include <qgroupbox.h>
+#include <q3groupbox.h>
 #include <qlabel.h>
 #include <qcombobox.h>
 #include <qtoolbutton.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
 #include <qimage.h>
 #include <qpixmap.h>
 #include <qlineedit.h>
 
-#include "aligndistribute.moc"
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+
 #include "page.h"
 #include "scribus.h"
 #include "scribusdoc.h"
@@ -49,7 +52,7 @@ extern QPixmap loadIcon(QString nam);
  *  The dialog will by default be modeless, unless you set 'modal' to
  *  true to construct a modal dialog.
  */
-AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* name, bool modal, WFlags fl )
+AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* name, bool modal, Qt::WFlags fl )
 	: ScrPaletteBase( parent, name, modal, fl )
 {
 	if ( !name )
@@ -58,7 +61,7 @@ AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* nam
 	currDoc=NULL;
 	AlignDistributePaletteLayout = new QVBoxLayout( this, 5, 6, "AlignDistributePaletteLayout"); 
 
-	alignGroupBox = new QGroupBox( this, "alignGroupBox" );
+	alignGroupBox = new Q3GroupBox( this, "alignGroupBox" );
 	alignGroupBox->setColumnLayout(0, Qt::Vertical );
 	alignGroupBox->layout()->setSpacing( 6 );
 	alignGroupBox->layout()->setMargin( 11 );
@@ -131,7 +134,7 @@ AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* nam
 	
 	AlignDistributePaletteLayout->addWidget( alignGroupBox );
 
-	distributeGroupBox = new QGroupBox( this, "distributeGroupBox" );
+	distributeGroupBox = new Q3GroupBox( this, "distributeGroupBox" );
 	distributeGroupBox->setColumnLayout(0, Qt::Vertical );
 	distributeGroupBox->layout()->setSpacing( 6 );
 	distributeGroupBox->layout()->setMargin( 11 );
@@ -196,7 +199,7 @@ AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* nam
 	languageChange();
 
 	resize( QSize(222, 232).expandedTo(minimumSizeHint()) );
-	clearWState( WState_Polished );
+	setAttribute( Qt::WA_WState_Polished, false );
 
 	// buddies
 	alignRelativeToLabel->setBuddy( alignRelativeToCombo );
@@ -287,29 +290,29 @@ void AlignDistributePalette::init()
 {
 	undoManager = UndoManager::instance();
 
-	alignLeftOutToolButton->setIconSet(QIconSet(loadIcon("al_left_out.png"), QIconSet::Small));
-	alignLeftInToolButton->setIconSet(QIconSet(loadIcon("al_left_in.png"), QIconSet::Small));
-	alignCenterHorToolButton->setIconSet(QIconSet(loadIcon("al_center_hor.png"), QIconSet::Small));
-	alignRightInToolButton->setIconSet(QIconSet(loadIcon("al_right_in.png"), QIconSet::Small));
-	alignRightOutToolButton->setIconSet(QIconSet(loadIcon("al_right_out.png"), QIconSet::Small));
-	
-	alignTopOutToolButton->setIconSet(QIconSet(loadIcon("al_top_out.png"), QIconSet::Small));
-	alignTopInToolButton->setIconSet(QIconSet(loadIcon("al_top_in.png"), QIconSet::Small));
-	alignCenterVerToolButton->setIconSet(QIconSet(loadIcon("al_center_ver.png"), QIconSet::Small));
-	alignBottomInToolButton->setIconSet(QIconSet(loadIcon("al_bottom_in.png"), QIconSet::Small));
-	alignBottomOutToolButton->setIconSet(QIconSet(loadIcon("al_bottom_out.png"), QIconSet::Small));
-	
-	distributeLeftToolButton->setIconSet(QIconSet(loadIcon("distribute_left.png"), QIconSet::Small));
-	distributeCenterHToolButton->setIconSet(QIconSet(loadIcon("distribute_hcentre.png"), QIconSet::Small));
-	distributeRightToolButton->setIconSet(QIconSet(loadIcon("distribute_right.png"), QIconSet::Small));
-	distributeDistHToolButton->setIconSet(QIconSet(loadIcon("distribute_hdist.png"), QIconSet::Small));
-	distributeDistValueHToolButton->setIconSet(QIconSet(loadIcon("distribute_hdist_val.png"), QIconSet::Small));
-	
-	distributeBottomToolButton->setIconSet(QIconSet(loadIcon("distribute_bottom.png"), QIconSet::Small));
-	distributeCenterVToolButton->setIconSet(QIconSet(loadIcon("distribute_vcentre.png"), QIconSet::Small));
-	distributeTopToolButton->setIconSet(QIconSet(loadIcon("distribute_top.png"), QIconSet::Small));
-	distributeDistVToolButton->setIconSet(QIconSet(loadIcon("distribute_vdist.png"), QIconSet::Small));
-	distributeDistValueVToolButton->setIconSet(QIconSet(loadIcon("distribute_vdist_val.png"), QIconSet::Small));
+	alignLeftOutToolButton->setIconSet(QIcon(loadIcon("al_left_out.png")));
+	alignLeftInToolButton->setIconSet(QIcon(loadIcon("al_left_in.png")));
+	alignCenterHorToolButton->setIconSet(QIcon(loadIcon("al_center_hor.png")));
+	alignRightInToolButton->setIconSet(QIcon(loadIcon("al_right_in.png")));
+	alignRightOutToolButton->setIconSet(QIcon(loadIcon("al_right_out.png")));
+
+	alignTopOutToolButton->setIconSet(QIcon(loadIcon("al_top_out.png")));
+	alignTopInToolButton->setIconSet(QIcon(loadIcon("al_top_in.png")));
+	alignCenterVerToolButton->setIconSet(QIcon(loadIcon("al_center_ver.png")));
+	alignBottomInToolButton->setIconSet(QIcon(loadIcon("al_bottom_in.png")));
+	alignBottomOutToolButton->setIconSet(QIcon(loadIcon("al_bottom_out.png")));
+
+	distributeLeftToolButton->setIconSet(QIcon(loadIcon("distribute_left.png")));
+	distributeCenterHToolButton->setIconSet(QIcon(loadIcon("distribute_hcentre.png")));
+	distributeRightToolButton->setIconSet(QIcon(loadIcon("distribute_right.png")));
+	distributeDistHToolButton->setIconSet(QIcon(loadIcon("distribute_hdist.png")));
+	distributeDistValueHToolButton->setIconSet(QIcon(loadIcon("distribute_hdist_val.png")));
+
+	distributeBottomToolButton->setIconSet(QIcon(loadIcon("distribute_bottom.png")));
+	distributeCenterVToolButton->setIconSet(QIcon(loadIcon("distribute_vcentre.png")));
+	distributeTopToolButton->setIconSet(QIcon(loadIcon("distribute_top.png")));
+	distributeDistVToolButton->setIconSet(QIcon(loadIcon("distribute_vdist.png")));
+	distributeDistValueVToolButton->setIconSet(QIcon(loadIcon("distribute_vdist_val.png")));
 	
 	connect(alignLeftOutToolButton, SIGNAL(clicked()), this, SLOT(alignLeftOut()));
 	connect(alignRightOutToolButton, SIGNAL(clicked()), this, SLOT(alignRightOut()));

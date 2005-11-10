@@ -21,6 +21,9 @@
 #include <qfile.h>
 #include <qtextstream.h>
 #include <qtextcodec.h>
+//Added by qt3to4:
+#include <Q3CString>
+#include <Q3PtrList>
 #include <util.h>
 
 Serializer::Serializer(QString name)
@@ -38,7 +41,7 @@ void Serializer::PutText(PageItem *Item)
 {
 	uint a;
 	QString Dat = "";
-	QPtrList<ScText> y = Item->itemText;
+	Q3PtrList<ScText> y = Item->itemText;
 	for (a=0; a<y.count(); ++a)
 	{
 		QString b = y.at(a)->ch;
@@ -55,7 +58,7 @@ void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, boo
 	PageItem *nextItem;
 	PageItem *it = Item;
 	ScribusDoc* doku = it->Doc;
-	uint a;
+	int a;
 	if (!Append)
 	{
 		nextItem = Item;
@@ -156,10 +159,10 @@ bool Serializer::Write(QString Cod)
 		codec = QTextCodec::codecForLocale();
 	else
 		codec = QTextCodec::codecForName(Cod);
-	QCString dec = codec->fromUnicode( Objekt );
+	Q3CString dec = codec->fromUnicode( Objekt );
 	QFile f(Filename);
 	bool ret = false;
-	if (f.open(IO_WriteOnly))
+	if (f.open(QIODevice::WriteOnly))
 	{
 		f.writeBlock(dec, dec.length());
 		f.close();

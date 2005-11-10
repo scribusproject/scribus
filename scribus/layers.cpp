@@ -12,29 +12,31 @@
 #include <qtooltip.h>
 #include <qpixmap.h>
 #include <qcheckbox.h>
-#include <qheader.h>
-#include <qvaluelist.h>
+#include <q3header.h>
+#include <q3valuelist.h>
 #include <qtooltip.h>
 #include <qcheckbox.h>
+//Added by qt3to4:
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 
 #include "scribus.h"
 
 #include "layers.h"
-#include "layers.moc"
 
 extern QPixmap loadIcon(QString nam);
 
 
 
-LayerTable::LayerTable(QWidget* parent) : QTable(parent)
+LayerTable::LayerTable(QWidget* parent) : Q3Table(parent)
 {
 }
 
 void LayerTable::endEdit ( int row, int col, bool accept, bool replace )
 {
-	QTable::EditMode ed = editMode();
-	QTable::endEdit(row, col, accept, replace);
-	if (ed != QTable::NotEditing)
+	Q3Table::EditMode ed = editMode();
+	Q3Table::endEdit(row, col, accept, replace);
+	if (ed != Q3Table::NotEditing)
 		emit updtName(row);
 }
 
@@ -47,7 +49,7 @@ LayerPalette::LayerPalette(QWidget* parent)
 	Table = new LayerTable( this );
 	Table->setNumRows( 0 );
 	Table->setNumCols( 3 );
-	QHeader *header = Table->horizontalHeader();
+	Q3Header *header = Table->horizontalHeader();
 	header->setLabel(0, loadIcon("Layervisible.xpm"), "");
 	header->setLabel(1, loadIcon("DateiPrint16.png"), "");
 	Table->setColumnReadOnly(0, true);
@@ -56,8 +58,8 @@ LayerPalette::LayerPalette(QWidget* parent)
 	Table->setColumnWidth(1, 24);
 	Table->setRowMovingEnabled(false);
 	Table->setSorting(false);
-	Table->setSelectionMode( QTable::SingleRow );
-	Table->setFocusStyle( QTable::FollowStyle );
+	Table->setSelectionMode( Q3Table::SingleRow );
+	Table->setFocusStyle( Q3Table::FollowStyle );
 	Header = Table->verticalHeader();
 	Header->setMovingEnabled(false);
 	Header->setResizeEnabled(false);
@@ -128,7 +130,7 @@ void LayerPalette::ClearInhalt()
 	lowerLayerButton->setEnabled(false);
 }
 
-void LayerPalette::setLayers(QValueList<Layer> *layin, int act)
+void LayerPalette::setLayers(Q3ValueList<Layer> *layin, int act)
 {
 	layers = layin;
 	rebuildList();
@@ -147,7 +149,7 @@ void LayerPalette::rebuildList()
 	flagsPrintable.clear();
 	flagsVisible.clear();
 	QString tmp;
-	QValueList<Layer>::iterator it;
+	Q3ValueList<Layer>::iterator it;
 	int layerCount=ScApp->doc->layerCount();
 	Table->setNumRows(layerCount);
 	for (it = layers->begin(); it != layers->end(); ++it)
@@ -197,7 +199,7 @@ void LayerPalette::removeLayer()
 									tr("Do you want to delete all objects on this layer too?"),
 									QMessageBox::No | QMessageBox::Default | QMessageBox::Escape,
 									QMessageBox::Yes,
-									QMessageBox::NoButton)
+									Qt::NoButton)
 			== QMessageBox::Yes)
 			delToo = true;
 	}

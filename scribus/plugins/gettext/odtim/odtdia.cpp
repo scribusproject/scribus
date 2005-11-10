@@ -22,8 +22,12 @@
 
 #ifdef HAVE_XML
 
-#include "odtdia.moc"
 #include <qtooltip.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QBoxLayout>
 #include "scribusapi.h"
 
 extern QPixmap SCRIBUS_API loadIcon(QString nam);

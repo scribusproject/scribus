@@ -1,10 +1,15 @@
+//Added by qt3to4:
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QGridLayout>
+#include <QDialog>
 #ifndef MOVEPAGES_H
 #define MOVEPAGES_H
 
-class QDialog;
-class QCombobox;
+class QComboBox;
 class QLabel;
-class QPushbutton;
+class QPushButton;
 class QSpinBox;
 class QLayout;
 

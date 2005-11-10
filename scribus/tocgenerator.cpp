@@ -13,7 +13,6 @@
  *                                                                         *
  ***************************************************************************/
 #include "tocgenerator.h"
-#include "tocgenerator.moc"
 
 #include <qmap.h>
 #include <qstring.h>

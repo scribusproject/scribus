@@ -1,18 +1,25 @@
 /* $Id$ */
 #include "cwdialog.h"
-#include "cwdialog.moc"
 
 #include <qvariant.h>
 #include <qcombobox.h>
-#include <qheader.h>
-#include <qlistview.h>
+#include <q3header.h>
+#include <q3listview.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
 #include <qpushbutton.h>
 #include <qspinbox.h>
 #include <qpainter.h>
 #include <qmenubar.h>
+#include <QPixmap>
+#include <QGridLayout>
+#include <Q3Frame>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <Q3ValueList>
+#include <QVBoxLayout>
+#include <Q3PopupMenu>
 #include <qgroupbox.h>
 #include <qslider.h>
 
@@ -27,8 +34,8 @@
 
 extern ScribusApp SCRIBUS_API *ScApp;
 
-ScribusColorList::ScribusColorList(QWidget* parent, const char* name, bool modal, WFlags fl)
-	: QDialog(parent, name, modal, fl)
+ScribusColorList::ScribusColorList(QWidget* parent, const char* name, bool modal)
+	: QDialog(parent, name, modal)
 {
 	if (!name)
 		setName("ScribusColorList");
@@ -36,7 +43,7 @@ ScribusColorList::ScribusColorList(QWidget* parent, const char* name, bool modal
 
 	listLayout = new QVBoxLayout(0, 0, 6, "listLayout");
 
-	listView = new QListView(this, "listView");
+	listView = new Q3ListView(this, "listView");
 	listView->setAllColumnsShowFocus(true);
 	listView->addColumn(tr("Sample"));
 	listView->addColumn(tr("Color"));
@@ -56,7 +63,7 @@ ScribusColorList::ScribusColorList(QWidget* parent, const char* name, bool modal
 	ScribusColorListLayout->addLayout(listLayout, 0, 0);
 	languageChange();
 	resize(QSize(288, 310).expandedTo(minimumSizeHint()));
-	clearWState(WState_Polished);
+	//clearWState(WState_Polished);
 
 	ColorList::Iterator it;
 	PrefsManager *prefsManager = PrefsManager::instance();
@@ -69,7 +76,7 @@ ScribusColorList::ScribusColorList(QWidget* parent, const char* name, bool modal
 		{
 			ScColor col = clist[it.key()];
 			QPixmap pm = cw->sample(col.getRGBColor());
-			QListViewItem *item = new QListViewItem(listView);
+			Q3ListViewItem *item = new Q3ListViewItem(listView);
 			item->setPixmap(0, pm);
 			item->setText(1, it.key());
 			listView->insertItem(item);
@@ -97,14 +104,14 @@ void ScribusColorList::okButton_clicked()
 }
 
 
-ColorWheelDialog::ColorWheelDialog(QWidget* parent, const char* name, bool modal, WFlags fl)
+ColorWheelDialog::ColorWheelDialog(QWidget* parent, const char* name, bool modal, Qt::WFlags fl)
 	: QDialog(parent, name, modal, fl)
 {
 	if (!name)
 		setName("ColorWheelDialog");
 
 	QMenuBar *menuBar = new QMenuBar(this, "menuBar");
-	QPopupMenu *colorMenu = new QPopupMenu(this);
+	Q3PopupMenu *colorMenu = new Q3PopupMenu(this);
 	colorMenu->insertItem(tr("Cr&eate color..."), this, SLOT(createColor()));
 	colorMenu->insertItem(tr("C&olor Components..."), this, SLOT(setColorComponents()));
 	colorMenu->insertItem(tr("&Import existing color..."), this, SLOT(importColor()));
@@ -120,7 +127,7 @@ ColorWheelDialog::ColorWheelDialog(QWidget* parent, const char* name, bool modal
 	wheelLayout = new QVBoxLayout(0, 0, 6, "wheelLayout");
 
 	colorWheel = new ColorWheel(this, "colorWheel");
-	colorWheel->setFrameShape(QFrame::Box);
+	colorWheel->setFrameShape(Q3Frame::Box);
 	colorWheel->setMinimumSize(QSize(300, 300));
 	colorWheel->setMaximumSize(QSize(300, 300));
 	wheelLayout->addWidget(colorWheel);
@@ -153,12 +160,12 @@ ColorWheelDialog::ColorWheelDialog(QWidget* parent, const char* name, bool modal
 	listLayout->addLayout(defectLayout);
 
 	previewLabel = new QLabel(this, "previewLabel");
-	previewLabel->setFrameShape(QFrame::Box);
+	previewLabel->setFrameShape(Q3Frame::Box);
 	previewLabel->setMinimumSize(QSize(400, 160));
 	previewLabel->setMaximumSize(QSize(400, 160));
 	listLayout->addWidget(previewLabel);
 
-	colorList = new QListView(this, "colorList");
+	colorList = new Q3ListView(this, "colorList");
 	listLayout->addWidget(colorList);
 
 	buttonLayout = new QHBoxLayout(0, 0, 6, "buttonLayout");
@@ -175,7 +182,7 @@ ColorWheelDialog::ColorWheelDialog(QWidget* parent, const char* name, bool modal
 
 	languageChange();
 	resize(QSize(600, 480).expandedTo(minimumSizeHint()));
-	clearWState(WState_Polished);
+	//clearWState(WState_Polished);
 
 	// setup combobox
 	typeCombo->insertItem(colorWheel->getTypeDescription(colorWheel->Monochromatic), colorWheel->Monochromatic);
@@ -267,7 +274,7 @@ void ColorWheelDialog::fillColorList()
 	for (ColorList::iterator it = colorWheel->colorList.begin(); it != colorWheel->colorList.end(); ++it)
 	{
 		int c, m, y, k;
-		QListViewItem *item = new QListViewItem(colorList);
+		Q3ListViewItem *item = new Q3ListViewItem(colorList);
 		item->setPixmap(0, colorWheel->sample(it.data().getRGBColor()));
 		item->setText(1, it.key());
 		it.data().getCMYK(&c, &m, &y, &k);
@@ -386,7 +393,7 @@ void ColorWheelDialog::setPreview()
 {
 	int x = previewLabel->width();
 	int y = previewLabel->height();
-	QValueList<ScColor> cols = colorWheel->colorList.values();
+	Q3ValueList<ScColor> cols = colorWheel->colorList.values();
 	int xstep = x / cols.count();
 	QPixmap pm = QPixmap(x, y);
 	QPainter *p = new QPainter(&pm);
@@ -395,7 +402,7 @@ void ColorWheelDialog::setPreview()
 	pm.fill(Qt::white);
 	p->setPen(Qt::white);
 	p->drawRect(0, 0, x, y);
-	for (uint i = 0; i < cols.count(); ++i)
+	for (int i = 0; i < cols.count(); ++i)
 	{
 		QColor c = computeDefect(cols[i].getRGBColor());
 		p->setPen(c);
@@ -455,7 +462,7 @@ void ColorWheelDialog::setColorComponents()
 
 void ColorWheelDialog::importColor()
 {
-	ScribusColorList *dia = new ScribusColorList(this, "dia", true, 0);
+	ScribusColorList *dia = new ScribusColorList(this, "dia", true);
 	if (dia->exec())
 	{
 		userColorInput(dia->selectedColor);

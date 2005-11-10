@@ -1,6 +1,17 @@
 #include "seiten.h"
-#include "seiten.moc"
 #include <qcursor.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QDragLeaveEvent>
+#include <QDragMoveEvent>
+#include <QDropEvent>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <Q3ValueList>
+#include <QVBoxLayout>
+#include <Q3PopupMenu>
+#include <QDragEnterEvent>
+#include <QMouseEvent>
 #include "scribus.h"
 #include "scribusview.h"
 #include "dynamictip.h"
@@ -11,11 +22,11 @@ extern QPixmap loadIcon(QString nam);
 
 
 /* Code fuer DragObjekt */
-SeDrag::SeDrag(QString secret, QWidget * parent, const char * name): QStoredDrag("page/magic", parent, name)
+SeDrag::SeDrag(QString secret, QWidget * parent, const char * name): Q3StoredDrag("page/magic", parent, name)
 {
 	QByteArray data(secret.length());
-	for (uint a = 0; a < secret.length(); ++a)
-		data[a]= QChar(secret[a]);
+	for (int a = 0; a < secret.length(); ++a)
+		data[a]= secret[a].cell();
 	setEncodedData( data );
 }
 
@@ -31,7 +42,7 @@ bool SeDrag::decode( QDropEvent* e, QString& str )
 	{
 		e->accept();
 		str = "";
-		for (uint a = 0; a < payload.size(); ++a)
+		for (int a = 0; a < payload.size(); ++a)
 			str += payload[a];
 		return true;
 	}
@@ -39,8 +50,8 @@ bool SeDrag::decode( QDropEvent* e, QString& str )
 }
 
 /* IconItems Code */
-SeItem::SeItem(QTable* parent, QString text, QPixmap Pix)
-		: QTableItem(parent, QTableItem::Never, "", Pix)
+SeItem::SeItem(Q3Table* parent, QString text, QPixmap Pix)
+		: Q3TableItem(parent, Q3TableItem::Never, "", Pix)
 {
 	pageName = text;
 	setWordWrap(true);
@@ -52,7 +63,7 @@ const QString& SeItem::getPageName()
 }
 
 /* ListBox Subclass */
-SeList::SeList(QWidget* parent) : QListBox(parent)
+SeList::SeList(QWidget* parent) : Q3ListBox(parent)
 {
 	Mpressed = false;
 	setAcceptDrops(true);
@@ -61,10 +72,10 @@ SeList::SeList(QWidget* parent) : QListBox(parent)
 void SeList::mouseReleaseEvent(QMouseEvent *m)
 {
 	Mpressed = false;
-	if (m->button() == RightButton)
+	if (m->button() == Qt::RightButton)
 	{
-		QPopupMenu *pmen = new QPopupMenu();
-		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+		Q3PopupMenu *pmen = new Q3PopupMenu();
+		qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 		int px = pmen->insertItem( tr("Show Page Previews"), this, SLOT(ToggleTh()));
 		if (Thumb)
 			pmen->setItemChecked(px, true);
@@ -83,7 +94,7 @@ void SeList::mousePressEvent(QMouseEvent* e)
 {
 	e->accept();
 	CurItem = 0;
-	QListBoxItem *i = itemAt(e->pos());
+	Q3ListBoxItem *i = itemAt(e->pos());
 	if (i)
 	{
 		CurItem = i;
@@ -97,10 +108,10 @@ void SeList::mouseMoveEvent(QMouseEvent* e)
 	if ((Mpressed) && ((Mpos - e->pos()).manhattanLength() > 4))
 	{
 		Mpressed = false;
-		QListBoxItem *i = itemAt(Mpos);
+		Q3ListBoxItem *i = itemAt(Mpos);
 		if (i)
 		{
-			QDragObject *dr = new SeDrag("1"+i->text(), this, "te");
+			Q3DragObject *dr = new SeDrag("1"+i->text(), this, "te");
 			dr->setPixmap(loadIcon("doc.png"));
 			dr->drag();
 		}
@@ -108,7 +119,7 @@ void SeList::mouseMoveEvent(QMouseEvent* e)
 }
 
 /* QTable Subclass */
-SeView::SeView(QWidget* parent) : QTable(parent)
+SeView::SeView(QWidget* parent) : Q3Table(parent)
 {
 	setDragEnabled(true);
 	setAcceptDrops(true);
@@ -116,7 +127,7 @@ SeView::SeView(QWidget* parent) : QTable(parent)
 	setShowGrid(false);
 	Mpressed = false;
 	Namen = true;
-	setFocusPolicy(NoFocus);
+	setFocusPolicy(Qt::NoFocus);
 }
 
 void SeView::contentsMousePressEvent(QMouseEvent* e)
@@ -167,18 +178,18 @@ void SeView::contentsMouseMoveEvent(QMouseEvent* e)
 		Mpressed = false;
 		if ((a != -1) && (b != -1))
 		{
-			QTableItem* ite = item(a, b);
+			Q3TableItem* ite = item(a, b);
 			if (ite == 0)
 				return;
 			SeItem* it = (SeItem*)ite;
 			str = it->pageName;
 			p = GetPage(a, b, &dummy);
-			QDragObject *dr = new SeDrag("2 "+tmp.setNum(p)+" "+str, this, "te");
+			Q3DragObject *dr = new SeDrag("2 "+tmp.setNum(p)+" "+str, this, "te");
 			dr->setPixmap(loadIcon("doc.png"));
 			dr->drag();
 		}
 	}
-	QTable::contentsMouseMoveEvent(e);
+	Q3Table::contentsMouseMoveEvent(e);
 }
 
 void SeView::contentsDropEvent(QDropEvent * e)
@@ -235,7 +246,7 @@ void SeView::contentsDropEvent(QDropEvent * e)
 			int p;
 			if ((a == -1) || (b == -1))
 				return;
-			QTableItem* ite = item(a, b);
+			Q3TableItem* ite = item(a, b);
 			p = GetPage(a, b, &lastPage);
 			if (a == numRows()-1)
 			{
@@ -306,7 +317,7 @@ void SeView::contentsDragMoveEvent(QDragMoveEvent *e)
 			{
 				QPixmap pm;
 				pm = QPixmap(columnWidth(b), rowHeight(a));
-				pm.fill(darkBlue);
+				pm.fill(Qt::darkBlue);
 				setPixmap(a, 0, pm);
 			}
 		}
@@ -316,7 +327,7 @@ void SeView::contentsDragMoveEvent(QDragMoveEvent *e)
 			{
 				QPixmap pm;
 				pm = QPixmap(columnWidth(b), rowHeight(a));
-				pm.fill(darkBlue);
+				pm.fill(Qt::darkBlue);
 				setPixmap(a, b, pm);
 			}
 		}
@@ -459,7 +470,7 @@ PagePalette::PagePalette(QWidget* parent) : ScrPaletteBase( parent, "SP", false,
 	PagePaletteLayout->setSpacing( 5 );
 	PagePaletteLayout->setMargin( 5 );
 	Splitter1 = new QSplitter( this, "Splitter1" );
-	Splitter1->setOrientation( QSplitter::Vertical );
+	Splitter1->setOrientation( Qt::Vertical );
 	QWidget* privateLayoutWidget = new QWidget( Splitter1, "Layout2" );
 	Layout2 = new QVBoxLayout( privateLayoutWidget, 0, 5, "Layout2");
 	TextLabel1 = new QLabel( privateLayoutWidget, "TextLabel1" );
@@ -478,7 +489,7 @@ PagePalette::PagePalette(QWidget* parent) : ScrPaletteBase( parent, "SP", false,
 	pageView->setTopMargin(0);
 	pageView->horizontalHeader()->hide();
 	pageView->setSorting(false);
-	pageView->setSelectionMode(QTable::NoSelection);
+	pageView->setSelectionMode(Q3Table::NoSelection);
 	pageView->setColumnMovingEnabled(false);
 	pageView->setRowMovingEnabled(false);
 	pageView->setNumRows(1);
@@ -490,7 +501,7 @@ PagePalette::PagePalette(QWidget* parent) : ScrPaletteBase( parent, "SP", false,
 	Layout1 = new QHBoxLayout;
 	Layout1->setSpacing( 5 );
 	Layout1->setMargin( 0 );
-	QValueList<PageSet> dummy;
+	Q3ValueList<PageSet> dummy;
 	dummy.clear();
 	struct PageSet pageS;
 	pageS.Name = tr( "Double sided" );
@@ -518,7 +529,7 @@ PagePalette::PagePalette(QWidget* parent) : ScrPaletteBase( parent, "SP", false,
 	Rebuild();
 	languageChange();
 	dynTip = new DynamicTip(pageView);
-	connect(masterPageList, SIGNAL(doubleClicked(QListBoxItem*)), this, SLOT(selMasterPage()));
+	connect(masterPageList, SIGNAL(doubleClicked(Q3ListBoxItem*)), this, SLOT(selMasterPage()));
 	connect(masterPageList, SIGNAL(ThumbChanged()), this, SLOT(RebuildTemp()));
 	connect(pageView, SIGNAL(Click(int, int, int)), this, SLOT(GotoPage(int, int, int)));
 	connect(pageView, SIGNAL(MovePage(int, int)), this, SLOT(MPage(int, int)));
@@ -592,7 +603,7 @@ void PagePalette::GotoPage(int r, int c, int b)
 {
 	int p;
 	bool dummy;
-	if ((b == LeftButton) && (r != -1) && (c != -1))
+	if ((b == Qt::LeftButton) && (r != -1) && (c != -1))
 	{
 		p = pageView->GetPage(r, c, &dummy);
 		emit GotoSeite(p);
@@ -705,7 +716,7 @@ void PagePalette::RebuildPage()
 	for (uint a = 0; a < currView->Doc->Pages->count(); ++a)
 	{
 		str = currView->Doc->Pages->at(a)->MPageNam;
-		QTableItem *it = new SeItem( pageView, str, CreateIcon(a, pix));
+		Q3TableItem *it = new SeItem( pageView, str, CreateIcon(a, pix));
 		pageView->setItem(rowcounter*rowmult+rowadd, counter*colmult+coladd, it);
 		pageView->setColumnWidth(counter*colmult+coladd, pix.width());
 		if (cols == 1)
@@ -764,10 +775,10 @@ QPixmap PagePalette::CreateIcon(int nr, QPixmap ret)
 	QPainter p;
 	if (p.begin(&ret))
 	{
-		p.setBrush(white);
-		p.setBackgroundColor(white);
-		p.setBackgroundMode(QPainter::OpaqueMode);
-		p.setPen(QPen(black, 1, SolidLine, FlatCap, MiterJoin));
+		p.setBrush(Qt::white);
+		p.setBackgroundColor(Qt::white);
+		p.setBackgroundMode(Qt::OpaqueMode);
+		p.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 		p.setFont(QFont("Helvetica", 12, QFont::Bold));
 		tmp = tmp.setNum(nr+1);
 		QRect b = p.fontMetrics().boundingRect(tmp);

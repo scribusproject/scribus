@@ -1,11 +1,16 @@
 #include "frameedit.h"
-#include "frameedit.moc"
 #include "page.h"
 #include "pageitem.h"
 #include "scribusview.h"
 #include "units.h"
 #include "undomanager.h"
 #include "undostate.h"
+//Added by qt3to4:
+#include <QPixmap>
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QGridLayout>
+#include <QCloseEvent>
 
 extern QPixmap loadIcon(QString nam);
 
@@ -16,9 +21,9 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	NodePaletteLayout->setSpacing( 2 );
 	NodePaletteLayout->setMargin( 5 );
 
-	ButtonGroup1 = new QButtonGroup( this, "ButtonGroup1" );
-	ButtonGroup1->setFrameShape( QButtonGroup::NoFrame );
-	ButtonGroup1->setFrameShadow( QButtonGroup::Plain );
+	ButtonGroup1 = new Q3ButtonGroup( this, "ButtonGroup1" );
+	//ButtonGroup1->setFrameShape( Q3ButtonGroup::NoFrame );
+	//ButtonGroup1->setFrameShadow( Q3ButtonGroup::Plain );
 	ButtonGroup1->setTitle( "" );
 	ButtonGroup1->setExclusive( true );
 	ButtonGroup1->setColumnLayout(0, Qt::Vertical );
@@ -362,8 +367,8 @@ void NodePalette::MovePoint()
 {
 	if (doc->EditClipMode == 0)
 	{
-		FPoint np = FPoint(XSpin->value()/doc->unitRatio(), YSpin->value()/doc->unitRatio());
-		FPoint zp = FPoint(view->SelItem.at(0)->Xpos, view->SelItem.at(0)->Ypos);
+		QPointF np = QPointF(XSpin->value()/doc->unitRatio(), YSpin->value()/doc->unitRatio());
+		QPointF zp = QPointF(view->SelItem.at(0)->Xpos, view->SelItem.at(0)->Ypos);
 		if (AbsMode->isChecked())
 			np -= zp;
 		view->MoveClipPoint(view->SelItem.at(0), np);
@@ -382,11 +387,11 @@ void NodePalette::SetAsym()
 
 void NodePalette::SetXY(double x, double y)
 {
-	FPoint zp = FPoint(0.0, 0.0);
+	QPointF zp = QPointF(0.0, 0.0);
 	disconnect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 	disconnect(YSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 	if (AbsMode->isChecked())
-		zp = FPoint(view->SelItem.at(0)->Xpos, view->SelItem.at(0)->Ypos);
+		zp = QPointF(view->SelItem.at(0)->Xpos, view->SelItem.at(0)->Ypos);
 	XSpin->setValue((x + zp.x())*doc->unitRatio());
 	YSpin->setValue((y + zp.y())*doc->unitRatio());
 	connect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
@@ -395,11 +400,11 @@ void NodePalette::SetXY(double x, double y)
 
 void NodePalette::ToggleAbsMode()
 {
-	FPoint zp = FPoint(view->SelItem.at(0)->Xpos, view->SelItem.at(0)->Ypos);
+	QPointF zp = QPointF(view->SelItem.at(0)->Xpos, view->SelItem.at(0)->Ypos);
 	disconnect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 	disconnect(YSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 	double unitRatio=doc->unitRatio();
-	FPoint np = FPoint(XSpin->value()/unitRatio, YSpin->value()/unitRatio);
+	QPointF np = QPointF(XSpin->value()/unitRatio, YSpin->value()/unitRatio);
 	if (AbsMode->isChecked())
 		np += zp;
 	else

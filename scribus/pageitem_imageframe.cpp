@@ -16,7 +16,6 @@
  ***************************************************************************/
 
 #include "pageitem_imageframe.h"
-#include "pageitem_imageframe.moc"
 #include <qpainter.h>
 #include <qpen.h>
 #include <qfont.h>
@@ -69,9 +68,9 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, double sc)
 		{
 			if ((Frame) && (Doc->guidesSettings.framesShown))
 			{
-				p->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
-				p->drawLine(FPoint(0, 0), FPoint(Width, Height));
-				p->drawLine(FPoint(0, Height), FPoint(Width, 0));
+				p->setPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+				p->drawLine(QPointF(0, 0), QPointF(Width, Height));
+				p->drawLine(QPointF(0, Height), QPointF(Width, 0));
 			}
 		}
 		else
@@ -80,9 +79,9 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, double sc)
 			{
 				if ((Frame) && (Doc->guidesSettings.framesShown))
 				{
-					p->setPen(red, 1, SolidLine, FlatCap, MiterJoin);
-					p->drawLine(FPoint(0, 0), FPoint(Width, Height));
-					p->drawLine(FPoint(0, Height), FPoint(Width, 0));
+					p->setPen(Qt::red, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+					p->drawLine(QPointF(0, 0), QPointF(Width, Height));
+					p->drawLine(QPointF(0, Height), QPointF(Width, 0));
 				}
 			}
 			else

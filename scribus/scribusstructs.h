@@ -5,74 +5,24 @@
 #include "scconfig.h"
 #endif
 
-#include <qvaluestack.h>
-#include <qvaluelist.h>
-#include <qvaluevector.h>
+#include <q3valuestack.h>
+#include <q3valuelist.h>
+#include <q3valuevector.h>
 #include <qstring.h>
 #include <qaction.h>
+//Added by qt3to4:
+#include <Q3PointArray>
+#include <Q3PtrList>
 #include <vector>
 
+#include "sctextstruct.h"
 #include "scfonts.h"
 #include "fpointarray.h"
 #include "vgradient.h"
 #include "pageitem.h"
 
-/* Struktur fuer Pageitem Text */
-struct ScText
-{
-	bool cselect;
-	int csize;
-	short cshade;
-	short cshade2;
-	short cstyle;
-/**	Meaning of the values in cstyle
-	1			= Superscript
-	2 			= Subscript
-	4 			= Outline
-	8 			= Underline
-	16 		= Strikethru
-	32 		= All Caps
-	64 		= Small Caps
-	128 		= Hyphenation possible here (Smart Hyphen)
-	256 	= Shadowed
-	512 	= Underline Words
-	1024 	= free, not used in the moment
-	2048 	= Char is a DropCap
-	4096 	= internal use in PageItem (Suppresses spaces when in Block alignment)
-	8192 	= Smart Hyphen visible at line end
-	16384	= Start of Line
-*/
-	short cab;
-	short cscale;
-	short cscalev;
-	short cbase;
-	short cshadowx;
-	short cshadowy;
-	short coutline;
-	short cunderpos;
-	short cunderwidth;
-	short cstrikepos;
-	short cstrikewidth;
-	short cextra;
-	float xp;
-	float yp;
-	float PtransX;
-	float PtransY;
-	float PRot;
-	Foi* cfont;
-	PageItem* cembedded;
-	QString ccolor;
-	QString cstroke;
-	QString ch;
- /** Special Characters used:
- 	QChar(24) =	Non breaking Hyphen
- 	QChar(25) =	Marks an inline Object
- 	QChar(26) =	Column Break
- 	QChar(27) =	Frame Break
- 	QChar(28) =	New Line, doesn't break Paragraph
- 	QChar(29) =	Non breaking Space
- 	QChar(30) =	Automatic Pagenumbering  */
-};
+// struct ScText moved to separate file sctextstruct.h, due to
+// dependency issues with PageItem in VC++
 
 struct CopyPasteBuffer
 {
@@ -180,7 +130,7 @@ struct CopyPasteBuffer
 	int IRender;
 	bool UseEmbedded;
 	QString itemText;
-	QPointArray Clip;
+	Q3PointArray Clip;
 	FPointArray PoLine;
 	FPointArray ContourLine;
 	bool PoShow;
@@ -191,7 +141,7 @@ struct CopyPasteBuffer
 	int textAlignment;
 	QString IFont;
 	int ISize;
-	QValueStack<int> Groups;
+	Q3ValueStack<int> Groups;
 	int LayerNr;
 	bool ScaleType;
 	bool AspectRatio;
@@ -205,8 +155,8 @@ struct CopyPasteBuffer
 	QString guiLanguage;
 	int Cols;
 	double ColGap;
-	QValueList<PageItem::TabRecord> TabValues;
-	QValueList<double> DashValues;
+	Q3ValueList<PageItem::TabRecord> TabValues;
+	Q3ValueList<double> DashValues;
 	double DashOffset;
 	bool isTableItem;
 	bool TopLine;
@@ -255,7 +205,7 @@ struct ParagraphStyle
 	double gapAfter;
 	QString Font;
 	int FontSize;
-	QValueList<PageItem::TabRecord> TabValues;
+	Q3ValueList<PageItem::TabRecord> TabValues;
 	bool Drop;
 	int DropLin;
 	double DropDist;
@@ -371,7 +321,7 @@ struct PrintOptions
 };
 
 typedef QMap<QString,QString> ProfilesL;
-typedef QValueVector<SingleLine> multiLine;
+typedef Q3ValueVector<SingleLine> multiLine;
 typedef QMap<int, int> errorCodes;
 
 enum PageLayout
@@ -423,7 +373,7 @@ struct AlignObjs
 	double y2;
 	double width;
 	double height;
-	QPtrList<PageItem> Objects;
+	Q3PtrList<PageItem> Objects;
 };
 
 /*! Human readable orientations */

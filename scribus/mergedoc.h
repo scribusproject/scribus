@@ -2,6 +2,11 @@
 #define MERGEDOC_H
 
 #include <qdialog.h>
+//Added by qt3to4:
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QGridLayout>
 #include "scribusapi.h"
 class QPushButton;
 class QLabel;

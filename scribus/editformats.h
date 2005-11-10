@@ -2,13 +2,17 @@
 #define STILFORMATE_H
 
 #include <qdialog.h>
-#include <qlistbox.h>
-#include <qlistview.h>
+#include <q3listbox.h>
+#include <q3listview.h>
 #include <qpushbutton.h>
 #include <qlayout.h>
 #include <qtooltip.h>
 #include <qmap.h>
+#include <QVBoxLayout>
+#include <Q3ValueList>
+#include <QHBoxLayout>
 #include <qlabel.h>
+
 #include "scribusapi.h"
 #include "scribusstructs.h"
 class ScribusDoc;
@@ -19,7 +23,7 @@ class SCRIBUS_API DelStyle : public QDialog
 	Q_OBJECT
 
 public:
-	DelStyle(QWidget* parent, QValueList<ParagraphStyle> sty, QString styleName);
+	DelStyle(QWidget* parent, Q3ValueList<ParagraphStyle> sty, QString styleName);
 	~DelStyle() {};
 	const QString getReplacementStyle();
 
@@ -45,13 +49,13 @@ class SCRIBUS_API ChooseStyles : public QDialog
 	Q_OBJECT
 
 public:
-	ChooseStyles( QWidget* parent, QValueList<ParagraphStyle> *styleList, QValueList<ParagraphStyle> *styleOld );
+	ChooseStyles( QWidget* parent, Q3ValueList<ParagraphStyle> *styleList, Q3ValueList<ParagraphStyle> *styleOld );
 	~ChooseStyles() {};
 
-	QListView* StyleView;
+	Q3ListView* StyleView;
 	QPushButton* OkButton;
 	QPushButton* CancelButton;
-	QMap<QCheckListItem*, int> storedStyles;
+	QMap<Q3CheckListItem*, int> storedStyles;
 
 protected:
 	QVBoxLayout* ChooseStylesLayout;
@@ -67,7 +71,7 @@ public:
 	StilFormate( QWidget* parent, ScribusDoc *doc);
 	//~StilFormate() {};
 
-	QListBox* ListBox1;
+	Q3ListBox* ListBox1;
 	QPushButton* LoadS;
 	QPushButton* NewB;
 	QPushButton* EditB;
@@ -77,15 +81,15 @@ public:
 	QPushButton* ExitB;
 	QPushButton* CancelB;
 	int sFnumber;
-	QValueList<ParagraphStyle> TempVorl;
+	Q3ValueList<ParagraphStyle> TempVorl;
 	QMap<QString, QString> ReplaceList;
 	ScribusDoc *Docu;
 	void UpdateFList();
 
 public slots:
 	void saveIt();
-	void selFormat(QListBoxItem *c);
-	void selEditFormat(QListBoxItem *c);
+	void selFormat(Q3ListBoxItem *c);
+	void selEditFormat(Q3ListBoxItem *c);
 	void editFormat();
 	void neuesFormat();
 	void dupFormat();

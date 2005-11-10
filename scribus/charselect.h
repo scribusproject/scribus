@@ -2,12 +2,22 @@
 #define CHARSELECT_H
 
 #include <qdialog.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QPaintEvent>
+#include <QEvent>
+#include <QKeyEvent>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <Q3ValueList>
+#include <QVBoxLayout>
+#include <QMouseEvent>
+#include <Q3Table>
 #include "scribusapi.h"
 
 class QTimer;
 class QLabel;
 class QPushbutton;
-class QTable;
 class QLayout;
 class QToolTip;
 class QStringList;
@@ -21,7 +31,7 @@ class ScribusApp;
 
 class SCRIBUS_API Zoom : public QDialog
 {
-Q_OBJECT
+	Q_OBJECT
 
 public:
 	Zoom( QWidget* parent, QPixmap pix, uint val);
@@ -60,37 +70,37 @@ public:
 	QPushButton* closeButton;
 	PageItem *ite;
 	ScribusApp *ap;
-	typedef QValueList<uint> charClassDef;
-	QValueList<charClassDef> allClasses;
-	QValueList<uint> characters;
-	QValueList<uint> charactersFull;
-	QValueList<uint> charactersLatin1;
-	QValueList<uint> charactersLatin1Supplement;
-	QValueList<uint> charactersLatinExtendedA;
-	QValueList<uint> charactersLatinExtendedB;
-	QValueList<uint> charactersGeneralPunctuation;
-	QValueList<uint> charactersSuperSubscripts;
-	QValueList<uint> charactersCurrencySymbols;
-	QValueList<uint> charactersLetterlikeSymbols;
-	QValueList<uint> charactersNumberForms;
-	QValueList<uint> charactersArrows;
-	QValueList<uint> charactersMathematicalOperators;
-	QValueList<uint> charactersBoxDrawing;
-	QValueList<uint> charactersBlockElements;
-	QValueList<uint> charactersGeometricShapes;
-	QValueList<uint> charactersMiscellaneousSymbols;
-	QValueList<uint> charactersDingbats;
-	QValueList<uint> charactersSmallFormVariants;
-	QValueList<uint> charactersAlphabeticPresentationForms;
-	QValueList<uint> charactersSpecial;
-	QValueList<uint> charactersGreek;
-	QValueList<uint> charactersGreekExtended;
-	QValueList<uint> charactersCyrillic;
-	QValueList<uint> charactersCyrillicSupplement;
-	QValueList<uint> charactersArabic;
-	QValueList<uint> charactersArabicPresentationFormsA;
-	QValueList<uint> charactersArabicPresentationFormsB;
-	QValueList<uint> charactersHebrew;
+	typedef Q3ValueList<uint> charClassDef;
+	Q3ValueList<charClassDef> allClasses;
+	Q3ValueList<uint> characters;
+	Q3ValueList<uint> charactersFull;
+	Q3ValueList<uint> charactersLatin1;
+	Q3ValueList<uint> charactersLatin1Supplement;
+	Q3ValueList<uint> charactersLatinExtendedA;
+	Q3ValueList<uint> charactersLatinExtendedB;
+	Q3ValueList<uint> charactersGeneralPunctuation;
+	Q3ValueList<uint> charactersSuperSubscripts;
+	Q3ValueList<uint> charactersCurrencySymbols;
+	Q3ValueList<uint> charactersLetterlikeSymbols;
+	Q3ValueList<uint> charactersNumberForms;
+	Q3ValueList<uint> charactersArrows;
+	Q3ValueList<uint> charactersMathematicalOperators;
+	Q3ValueList<uint> charactersBoxDrawing;
+	Q3ValueList<uint> charactersBlockElements;
+	Q3ValueList<uint> charactersGeometricShapes;
+	Q3ValueList<uint> charactersMiscellaneousSymbols;
+	Q3ValueList<uint> charactersDingbats;
+	Q3ValueList<uint> charactersSmallFormVariants;
+	Q3ValueList<uint> charactersAlphabeticPresentationForms;
+	Q3ValueList<uint> charactersSpecial;
+	Q3ValueList<uint> charactersGreek;
+	Q3ValueList<uint> charactersGreekExtended;
+	Q3ValueList<uint> charactersCyrillic;
+	Q3ValueList<uint> charactersCyrillicSupplement;
+	Q3ValueList<uint> charactersArabic;
+	Q3ValueList<uint> charactersArabicPresentationFormsA;
+	Q3ValueList<uint> charactersArabicPresentationFormsB;
+	Q3ValueList<uint> charactersHebrew;
 	QMap<int,int> usedCharClasses;
 	QString chToIns;
 	QString fontInUse;
@@ -114,7 +124,7 @@ protected:
 	QHBoxLayout* layout1;
 };
 
-class SCRIBUS_API ChTable : public QTable
+class SCRIBUS_API ChTable : public Q3Table
 {
     Q_OBJECT
 
@@ -124,7 +134,10 @@ public:
 	void resizeData( int ) {};
 	QRect cellGeometry ( int row, int col ) const;
 	void paintCell( QPainter * p, int row, int col, const QRect & cr, bool selected, const QColorGroup & cg );
-	void paintFocus( QPainter * p, const QRect & cr ) {};
+	void paintFocus( QPainter * p, const QRect & cr )
+	{
+		Q_UNUSED( p ); Q_UNUSED( cr );
+	}
 
 	bool mPressed;
 	bool alternate;
@@ -132,7 +145,7 @@ public:
 	ScribusApp *ap;
 	CharSelect* par;
 	QTimer* watchTimer;
-	uint maxCount;
+	int maxCount;
 	uint rowA;
 	uint colA;
 

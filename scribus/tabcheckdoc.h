@@ -3,6 +3,10 @@
 
 #include <qvariant.h>
 #include <qwidget.h>
+//Added by qt3to4:
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 
 #include "scribusapi.h"
 #include "prefsstructs.h"
@@ -10,7 +14,7 @@ class QVBoxLayout;
 class QHBoxLayout;
 class QComboBox;
 class QCheckBox;
-class QGroupBox;
+class Q3GroupBox;
 class QLabel;
 class QSpinBox;
 class QPushButton;
@@ -34,7 +38,7 @@ public:
 	QCheckBox* missingPictures;
 	QCheckBox* useAnnotations;
 	QCheckBox* rasterPDF;
-	QGroupBox* pictResolution;
+	Q3GroupBox* pictResolution;
 	QLabel* textLabel1;
 	QSpinBox* resolutionValue;
 	QPushButton* addProfile;

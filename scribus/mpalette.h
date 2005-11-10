@@ -1,27 +1,34 @@
 #ifndef MPALETTE_H
 #define MPALETTE_H
 
-#include <qbuttongroup.h>
+#include <q3buttongroup.h>
 #include <qcheckbox.h>
 #include <qcombobox.h>
-#include <qframe.h>
-#include <qgroupbox.h>
+#include <q3frame.h>
+#include <q3groupbox.h>
 #include <qlabel.h>
 #include <qpushbutton.h>
 #include <qradiobutton.h>
 #include <qspinbox.h>
 #include <qtoolbutton.h>
 #include <qwidget.h>
-#include <qwidgetstack.h>
+#include <q3widgetstack.h>
 #include <qlayout.h>
 #include <qtooltip.h>
 #include <qimage.h>
 #include <qpixmap.h>
-#include <qlistbox.h>
+#include <q3listbox.h>
 #include <qlineedit.h>
 #include <qtimer.h>
 #include <qtoolbox.h>
-#include <qpopupmenu.h>
+#include <q3popupmenu.h>
+//Added by qt3to4:
+#include <QFocusEvent>
+#include <QGridLayout>
+#include <QEvent>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QMouseEvent>
 
 #include "scribusapi.h"
 #include "scrpalettebase.h"
@@ -110,8 +117,8 @@ public:
 	FontComboH* Fonts;
 	ArrowChooser* startArrow;
 	ArrowChooser* endArrow;
-	QButtonGroup* RotationGroup;
-	QButtonGroup* textFlowsAroundFrame;	
+	Q3ButtonGroup* RotationGroup;
+	Q3ButtonGroup* textFlowsAroundFrame;	
 	
 public slots:
 	void languageChange();
@@ -136,7 +143,7 @@ public slots:
 	void ChangeScaling();
 	void setLvalue(double scx, double scy, double x, double y);
 	void setSvalue(double s);
-	void setLIvalue(PenStyle p, PenCapStyle pc, PenJoinStyle pj);
+	void setLIvalue(Qt::PenStyle p, Qt::PenCapStyle pc, Qt::PenJoinStyle pj);
 	void setStil(int s);
 	void setAli(int e);
 	void setShadowOffs(int x, int y);
@@ -153,7 +160,7 @@ public slots:
 	void setTScaleV(int e);
 	void setTBase(int e);
 	void SetLineFormats(ScribusDoc *dd);
-	void SetSTline(QListBoxItem *c);
+	void SetSTline(Q3ListBoxItem *c);
 	void NewTFont(QString);
 	void newTxtFill();
 	void newTxtStroke();
@@ -351,7 +358,7 @@ protected:
 	double RoVal;
 
 
-	QButtonGroup* ShapeGroup;
+	Q3ButtonGroup* ShapeGroup;
 
 	QToolButton* TabsButton;
 
@@ -361,18 +368,18 @@ protected:
 	QToolButton* ZBottom;
 
 	QToolBox* TabStack;
-	QWidgetStack* TabStack2;
-	QWidgetStack* TabStack3;
+	Q3WidgetStack* TabStack2;
+	Q3WidgetStack* TabStack3;
 
 
-	QGroupBox* NameGroup;
-	QGroupBox* GeoGroup;
-	QGroupBox* LayerGroup;
-	QGroupBox* Distance;
-	QGroupBox* Distance2;
-	QGroupBox* GroupBoxCM;
-	QGroupBox* TLines;
-	QGroupBox* GroupBox3a;
+	Q3GroupBox* NameGroup;
+	Q3GroupBox* GeoGroup;
+	Q3GroupBox* LayerGroup;
+	Q3GroupBox* Distance;
+	Q3GroupBox* Distance2;
+	Q3GroupBox* GroupBoxCM;
+	Q3GroupBox* TLines;
+	Q3GroupBox* GroupBox3a;
 
 	QCheckBox* textFlowUsesBoundingBox;
 	QCheckBox* Textflow3;
@@ -392,7 +399,7 @@ protected:
 	QComboBox* LEndStyle;
 	QComboBox* TxFill;
 
-	QListBox* StyledLine;
+	Q3ListBox* StyledLine;
 
 	MSpinBox* Width;
 	MSpinBox* Xpos;
@@ -431,14 +438,14 @@ protected:
 	QRadioButton* FreeScale;
 	QRadioButton* FrameScale;
 
-	QFrame* Line1;
-	QFrame* Line2;
-	QFrame* Line4;
-	QFrame* Line5;
-	QFrame* Line5_2;
-	QFrame* Frame4;
+	Q3Frame* Line1;
+	Q3Frame* Line2;
+	Q3Frame* Line4;
+	Q3Frame* Line5;
+	Q3Frame* Line5_2;
+	Q3Frame* Frame4;
 
-	QPopupMenu* lineSpacingPop;
+	Q3PopupMenu* lineSpacingPop;
 
 	QToolButton* linespacingLabel;
 	QToolButton* FlipH;

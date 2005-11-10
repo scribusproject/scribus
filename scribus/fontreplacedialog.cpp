@@ -1,15 +1,19 @@
 #include "fontreplacedialog.h"
 
-#include "fontreplacedialog.moc"
 #include <qvariant.h>
 #include <qlabel.h>
-#include <qtable.h>
+#include <q3table.h>
 #include <qcheckbox.h>
 #include <qpushbutton.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
 #include <qcombobox.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QCloseEvent>
 
 #include "fontcombo.h"
 #include "commonstrings.h"
@@ -24,16 +28,16 @@ FontReplaceDialog::FontReplaceDialog( QWidget* parent, QMap<QString, QString> *R
 	FontReplaceDialogLayout = new QVBoxLayout( this, 10, 5, "FontReplaceDialogLayout");
 
 	textLabel1 = new QLabel( this, "textLabel1" );
-	textLabel1->setAlignment( int( QLabel::AlignVCenter ) );
+	textLabel1->setAlignment( int( Qt::AlignVCenter ) );
 	textLabel1->setText( "<qt>" + tr("This document contains some fonts that are not installed on your system, please choose a suitable replacement for them. Cancel will stop the document from loading.") + "</qt>" );
 	FontReplaceDialogLayout->addWidget( textLabel1 );
 
-	replacementTable = new QTable( this, "replacementTable" );
+	replacementTable = new Q3Table( this, "replacementTable" );
 	replacementTable->setNumCols( 2 );
 	replacementTable->horizontalHeader()->setLabel( 0, tr( "Original Font" ) );
 	replacementTable->horizontalHeader()->setLabel( 1, tr( "Substitution Font" ) );
 	replacementTable->setSorting(false);
-	replacementTable->setSelectionMode(QTable::NoSelection);
+	replacementTable->setSelectionMode(Q3Table::NoSelection);
 	replacementTable->setLeftMargin(0);
 	replacementTable->verticalHeader()->hide();
 	replacementTable->setNumRows(RList->count());
@@ -63,7 +67,7 @@ FontReplaceDialog::FontReplaceDialog( QWidget* parent, QMap<QString, QString> *R
 	layout1->addWidget( cancelButton );
 	FontReplaceDialogLayout->addLayout( layout1 );
 	resize( QSize(474, 247).expandedTo(minimumSizeHint()) );
-	clearWState( WState_Polished );
+	setAttribute( Qt::WA_WState_Polished, false );
 	QToolTip::add( cancelButton, "<qt>" + tr( "Cancels these font substitutions and stops loading the document.") + "</qt>" );
 	QToolTip::add( stickyReplacements, "<qt>" + tr( "Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in Edit > Preferences > Fonts.") + "</qt>" );
 	QToolTip::add( okButton, "<qt>" + tr( "If you select OK, then save, these substitutions are made permanent in the document.") + "</qt>" );

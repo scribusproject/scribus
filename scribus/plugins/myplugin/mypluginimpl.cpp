@@ -17,6 +17,6 @@ bool MyPluginImpl::run(const QString & target)
 			tr("Scribus - My Plugin"),
 			tr("The plugin worked!"),
 			QMessageBox::Ok|QMessageBox::Default|QMessageBox::Escape,
-			QMessageBox::NoButton);
+			Qt::NoButton);
 	return true;
 }

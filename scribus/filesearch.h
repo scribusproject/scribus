@@ -4,7 +4,7 @@
 #include "scribusapi.h"
 #include "deferredtask.h"
 #include <qstringlist.h>
-#include <qvaluestack.h>
+#include <q3valuestack.h>
 #include <qdir.h>
 
 class QTimer;
@@ -81,11 +81,11 @@ protected:
 	// This stack holds a list of directories on the tree, from the base
 	// to the level we're currently searching. We use iterators into the values
 	// of this stack to keep the search position.
-	QValueStack<QStringList> m_tree;
+	Q3ValueStack<QStringList> m_tree;
 
 	// A matching stack of iterators into the lists in m_tree. We use this stack
 	// to iterate directory by directory as we search.
-	QValueStack<QStringList::const_iterator> m_iter;
+	Q3ValueStack<QStringList::const_iterator> m_iter;
 
 	// A QDir set to the current directory, used for listing files and
 	// directories.

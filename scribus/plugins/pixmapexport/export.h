@@ -2,7 +2,9 @@
 #define _SCRIBUS_PIXMAPEXPORT_H_
 
 #include <qstring.h>
-#include <qfiledialog.h>
+#include <q3filedialog.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 #include <pluginapi.h>
 #include <loadsaveplugin.h>
 #include <vector>

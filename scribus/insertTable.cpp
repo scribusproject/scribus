@@ -1,7 +1,12 @@
 #include "insertTable.h"
-#include "insertTable.moc"
 
 #include "commonstrings.h"
+//Added by qt3to4:
+#include <QPixmap>
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QGridLayout>
 
 extern QPixmap loadIcon(QString nam);
 

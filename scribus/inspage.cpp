@@ -12,13 +12,17 @@
 #include <qlayout.h>
 #include <qlabel.h>
 #include <qpushbutton.h>
-#include <qgroupbox.h>
+#include <q3groupbox.h>
 #include <qcheckbox.h>
 #include <qspinbox.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 #include "scribusdoc.h"
 
 #include "inspage.h"
-#include "inspage.moc"
 #include "page.h"
 #include "units.h"
 #include "mspinbox.h"
@@ -61,7 +65,7 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	whereLayout->addColSpacing(0, insCountLabel->fontMetrics().width( tr( "&Insert" )));
 	dialogLayout->addLayout( whereLayout );
 	
-	masterPageGroup = new QGroupBox( this, "masterPageGroup" );
+	masterPageGroup = new Q3GroupBox( this, "masterPageGroup" );
 	masterPageGroup->setTitle( tr( "Master Pages" ) );
 	masterPageGroup->setColumnLayout(0, Qt::Vertical );
 	masterPageGroup->layout()->setSpacing( 0 );
@@ -83,7 +87,7 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	else
 	{
 		int row = 0;
-		for (uint mp = 0; mp < currentDoc->pageSets[currentDoc->currentPageLayout].pageNames.count(); ++mp)
+		for (int mp = 0; mp < currentDoc->pageSets[currentDoc->currentPageLayout].pageNames.count(); ++mp)
 		{
 			QComboBox* pageData = new QComboBox(false, masterPageGroup, "pageData");
 			for (QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin(); it != currentDoc->MasterNames.end(); ++it)
@@ -97,7 +101,7 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	}
 	dialogLayout->addWidget(masterPageGroup);
 
-	dsGroupBox7 = new QGroupBox( this, "GroupBox7" );
+	dsGroupBox7 = new Q3GroupBox( this, "GroupBox7" );
 	dsGroupBox7->setTitle( tr( "Page Size" ) );
 	dsGroupBox7->setColumnLayout(0, Qt::Vertical );
 	dsGroupBox7->layout()->setSpacing( 0 );

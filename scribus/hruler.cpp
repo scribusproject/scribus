@@ -15,13 +15,19 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "scribusstructs.h"
+
 #include "hruler.h"
-#include "hruler.moc"
 #include "page.h"
 #include <qcursor.h>
 #include <qcolor.h>
 #include <qrect.h>
-#include <qpointarray.h>
+#include <q3pointarray.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QPaintEvent>
+#include <Q3ValueList>
+#include <QMouseEvent>
 #include "scribusview.h"
 #include "scribusdoc.h"
 #include "scribus.h"
@@ -29,9 +35,9 @@
 #include "prefsmanager.h"
 
 #if QT_VERSION  > 0x030102
-	#define SPLITHC SplitVCursor
+	#define SPLITHC Qt::SplitVCursor
 #else
-	#define SPLITHC SplitHCursor
+	#define SPLITHC Qt::SplitHCursor
 #endif
 
 extern QPixmap loadIcon(QString nam);
@@ -57,6 +63,7 @@ Hruler::Hruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa)
 	RulerCode = 0;
 	setMouseTracking(true);
 	unitChange();
+	m_wo = -1;
 }
 
 void Hruler::mousePressEvent(QMouseEvent *m)
@@ -122,7 +129,7 @@ void Hruler::mousePressEvent(QMouseEvent *m)
 				}
 			}
 		}
-		if ((RulerCode == 0) && (ActCol != 0) && (m->button() == LeftButton))
+		if ((RulerCode == 0) && (ActCol != 0) && (m->button() == Qt::LeftButton))
 		{
 			double Pos = (ItemPos-offs+Extra+lineCorr)*Scaling;
 			int newY = m->x() - static_cast<int>(Pos);
@@ -134,7 +141,7 @@ void Hruler::mousePressEvent(QMouseEvent *m)
 			ActTab = 0;
 			RulerCode = 5;
 			UpdateTabList();
-			qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
+			qApp->setOverrideCursor(QCursor(Qt::SizeHorCursor), true);
 			emit DocChanged(false);
 		}
 		MouseX = m->x();
@@ -181,7 +188,7 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 					emit DocChanged(false);
 					break;
 				case 5:
-					if (m->button() == RightButton)
+					if (m->button() == Qt::RightButton)
 					{
 						TabValues[ActTab].tabType += 1;
 						if (TabValues[ActTab].tabType > 4)
@@ -201,7 +208,7 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 		{
 			if (RulerCode == 5)
 			{
-				QValueList<PageItem::TabRecord>::Iterator it;
+				Q3ValueList<PageItem::TabRecord>::Iterator it;
 				it = TabValues.at(ActTab);
 				TabValues.remove(it);
 				ActTab = 0;
@@ -210,7 +217,7 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 				else
 					currView->SelItem.at(0)->TabValues = TabValues;
 				emit DocChanged(false);
-				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+				qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 			}
 		}
 		RulerCode = 0;
@@ -224,7 +231,7 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 			currView->DrHY = -1;
 			currView->SetYGuide(m, -1);
 		}
-		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+		qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 		emit DocChanged(false);
 		currView->updateContents();
 	}
@@ -252,7 +259,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 		}
 		if ((Mpressed) && (m->y() < height()) && (m->y() > 0) && (m->x() > ColStart) && (m->x() < ColEnd))
 		{
-			qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
+			qApp->setOverrideCursor(QCursor(Qt::SizeHorCursor), true);
 			double toplimit = ItemEndPos-ItemPos-2*lineCorr-Extra - (ColGap * (Cols - 1))-1;
 			double toplimit2 = ItemEndPos-ItemPos-2*lineCorr-RExtra - (ColGap * (Cols - 1))-1;
 			switch (RulerCode)
@@ -313,9 +320,10 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 			{
 				QPoint py = currView->viewport()->mapFromGlobal(m->globalPos());
 				QPainter p;
-				p.begin(currView->viewport());
-				p.setRasterOp(XorROP);
-				p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
+				p.begin(&currView->viewportImage);
+				//p.setRasterOp(XorROP);
+				qWarning( "xor raster op" );
+				p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 				QPoint out = currView->contentsToViewport(QPoint(0, qRound(currDoc->currentPage->yOffset() * Scaling)));
 				p.drawLine(Markp, out.y(), Markp, out.y()+qRound(currDoc->currentPage->height() * Scaling));
 				p.drawLine(py.x(), out.y(), py.x(), out.y()+qRound(currDoc->currentPage->height() * Scaling));
@@ -329,10 +337,10 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 			qApp->setOverrideCursor(QCursor(loadIcon("tab.png"), 3), true);
 			double Pos = (ItemPos-offs+Extra+lineCorr)*Scaling;
 			if ((static_cast<int>(Pos) < (m->x()+currDoc->guidesSettings.grabRad)) && (static_cast<int>(Pos) > (m->x()-currDoc->guidesSettings.grabRad)))
-				qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
+				qApp->setOverrideCursor(QCursor(Qt::SizeHorCursor), true);
 			Pos = (ItemEndPos-offs-RExtra-lineCorr)*Scaling;
 			if ((static_cast<int>(Pos) < (m->x()+currDoc->guidesSettings.grabRad)) && (static_cast<int>(Pos) > (m->x()-currDoc->guidesSettings.grabRad)))
-				qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
+				qApp->setOverrideCursor(QCursor(Qt::SizeHorCursor), true);
 			QRect fpo;
 			double ColWidth = (ItemEndPos - ItemPos - (ColGap * (Cols - 1)) - Extra - RExtra - 2*lineCorr) / Cols;
 			if (currDoc->currentParaStyle > 4)
@@ -343,14 +351,14 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 					fpo = QRect(static_cast<int>(Pos)-3, topline, 6, 6);
 					if (fpo.contains(m->pos()))
 					{
-						qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
+						qApp->setOverrideCursor(QCursor(Qt::SizeHorCursor), true);
 						break;
 					}
 					Pos = (ItemPos-offs+Indent+(ColWidth+ColGap)*CurrCol+Extra+lineCorr)*Scaling;
 					fpo = QRect(static_cast<int>(Pos)-3, 9, 6, 6);
 					if (fpo.contains(m->pos()))
 					{
-						qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
+						qApp->setOverrideCursor(QCursor(Qt::SizeHorCursor), true);
 						break;
 					}
 				}
@@ -365,7 +373,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 						fpo = QRect(static_cast<int>(Pos)-3, 7, 8, 8);
 						if (fpo.contains(m->pos()))
 						{
-							qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
+							qApp->setOverrideCursor(QCursor(Qt::SizeHorCursor), true);
 							break;
 						}
 					}
@@ -379,7 +387,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 			qApp->setOverrideCursor(QCursor(loadIcon("DelPoint.png"), 4, 3), true);
 			return;
 		}
-		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+		qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 	}
 	else
 	{
@@ -403,8 +411,8 @@ void Hruler::paintEvent(QPaintEvent *e)
 	p.begin(this);
 	p.setClipRect(e->rect());
 	p.drawLine(0, 16, width(), 16);
-	p.setBrush(black);
-	p.setPen(black);
+	p.setBrush(Qt::black);
+	p.setPen(Qt::black);
 	p.setFont(font());
 	double cc = width() / sc;
 	double firstMark = ceil(offs / iter) * iter - offs;
@@ -472,7 +480,7 @@ void Hruler::paintEvent(QPaintEvent *e)
 			double ColWidth = (ItemEndPos - ItemPos - (ColGap * (Cols - 1)) - Extra - RExtra - 2*lineCorr) / Cols;
 			Pos = ItemPos-offs + (ColWidth + ColGap) * CurrCol+Extra + lineCorr;
 			EndPos = Pos+ColWidth;
-			p.setPen(QPen(blue, 1, SolidLine, FlatCap, MiterJoin));
+			p.setPen(QPen(Qt::blue, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 			for (xl = Pos; xl < EndPos; xl += iter)
 				p.drawLine(qRound(xl*sc), 10, qRound(xl*sc), 16);
 			for (xl = Pos; xl < EndPos; xl += iter2)
@@ -565,7 +573,7 @@ void Hruler::paintEvent(QPaintEvent *e)
 						break;
 				}
 			}
-			p.setPen(QPen(blue, 2, SolidLine, FlatCap, MiterJoin));
+			p.setPen(QPen(Qt::blue, 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 			p.drawLine(qRound(Pos*sc), topline, qRound(Pos*sc), 15);
 			if (CurrCol == 0)
 			{
@@ -574,19 +582,19 @@ void Hruler::paintEvent(QPaintEvent *e)
 			}
 			if (currDoc->currentParaStyle > 4)
 			{
-				p.setPen(QPen(blue, 1, SolidLine, FlatCap, MiterJoin));
+				p.setPen(QPen(Qt::blue, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 				double fpos = Pos+First+Indent;
-				QPointArray cr;
+				Q3PointArray cr;
 				cr.setPoints(3, qRound(fpos*sc), 9, qRound((fpos+3/sc)*sc), topline, qRound((fpos-3/sc)*sc), topline);
 				p.drawPolygon(cr);
-				QPointArray cr2;
+				Q3PointArray cr2;
 				cr2.setPoints(3, qRound((Pos+Indent)*sc), 9, qRound((Pos+Indent+3/sc)*sc), 15, qRound((Pos+Indent-3/sc)*sc), 15);
 				p.drawPolygon(cr2);
 			}
-			p.setPen(QPen(blue, 2, SolidLine, FlatCap, MiterJoin));
+			p.setPen(QPen(Qt::blue, 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 			if (TabValues.count() != 0)
 			{
-				p.setPen(QPen(black, 2, SolidLine, FlatCap, MiterJoin));
+				p.setPen(QPen(Qt::black, 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 				for (int yg = 0; yg < static_cast<int>(TabValues.count()); yg++)
 				{
 					if (Pos+TabValues[yg].tabPosition < EndPos)
@@ -641,7 +649,7 @@ void Hruler::paintEvent(QPaintEvent *e)
 					}
 				}
 			}
-			p.setPen(QPen(blue, 2, SolidLine, FlatCap, MiterJoin));
+			p.setPen(QPen(Qt::blue, 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 			p.drawLine(qRound(EndPos*sc), topline, qRound(EndPos*sc), 15);
 			if (CurrCol == Cols-1)
 			{
@@ -652,6 +660,58 @@ void Hruler::paintEvent(QPaintEvent *e)
 		p.restore();
 	}
 	p.end();
+
+	int currentCoor = m_wo - currView->contentsX();
+	Q3PointArray cr;
+#ifdef OPTION_SMOOTH_MARKERS
+	// draw new marker to pixmap
+	static const int SCALE = 16;
+	static const QColor BACKGROUND(255, 255, 255);
+	static QPixmap pix( 4*SCALE, 16*SCALE );
+	static bool initpix = true;
+	if (initpix) {
+		initpix = false;
+		p.begin( &pix );
+		p.setBrush( BACKGROUND );
+		p.drawRect( 0, 0, 4*SCALE, 16*SCALE );
+		
+		p.setPen(Qt::red);
+		p.setBrush(Qt::red);
+		cr.setPoints(3, 2*SCALE, 16*SCALE, 4*SCALE, 0, 0, 0);
+		p.drawPolygon(cr);
+		p.end();
+	}
+	// draw pixmap
+	p.begin(this);
+	p.translate(-currView->contentsX(), 0);
+	p.scale(1.0/SCALE, 1.0/(SCALE+1));
+	p.drawPixmap((m_wo-2)*SCALE, 1, pix);
+	p.end();
+	// restore marks
+	p.begin(this);
+	p.setBrush(Qt::black);
+	p.setPen(Qt::black);
+	p.setFont(font());
+	double sc = currView->getScale();
+	double cc = width() / sc;
+	double firstMark = ceil(offs / iter) * iter - offs;
+	while (firstMark < cc)
+	{
+		p.drawLine(qRound(firstMark * sc), 10, qRound(firstMark * sc), 16);
+		firstMark += iter;
+	}
+	p.end();
+#else
+	// draw slim marker
+	p.begin(this);
+	p.translate(-currView->contentsX(), 0);
+	p.setPen(Qt::red);
+	p.setBrush(Qt::red);
+	cr.setPoints(5,  m_wo, 5, m_wo, 16, m_wo, 5, m_wo+2, 0, m_wo-2, 0);
+	p.drawPolygon(cr);
+	p.end();
+#endif
+	oldMark = currentCoor;
 }
 
 
@@ -684,66 +744,15 @@ void Hruler::drawNumber(QString txt, int x, int y0, QPainter & p)
 	p.drawPixmap(x*SCALE, (y+bbox.top())*SCALE, pix, 0, 0, bbox.width()*SCALE, bbox.height()*SCALE);
 	p.scale(SCALE,SCALE);
 #endif
-}  
+}
 
 
 /** Zeichnet den Pfeil */
 void Hruler::Draw(int wo)
 {
 	// erase old marker
-	int currentCoor = wo - currView->contentsX();
-	repaint(oldMark-3, 0, 7, 17);
-	QPointArray cr;
-	QPainter p;
-#ifdef OPTION_SMOOTH_MARKERS
-	// draw new marker to pixmap
-	static const int SCALE = 16;
-	static const QColor BACKGROUND(255, 255, 255);
-	static QPixmap pix( 4*SCALE, 16*SCALE );
-	static bool initpix = true;
-	if (initpix) {
-		initpix = false;
-		p.begin( &pix );
-		p.setBrush( BACKGROUND );
-		p.drawRect( 0, 0, 4*SCALE, 16*SCALE );
-		
-		p.setPen(red);
-		p.setBrush(red);
-		cr.setPoints(3, 2*SCALE, 16*SCALE, 4*SCALE, 0, 0, 0);
-		p.drawPolygon(cr);
-		p.end();
-	}
-	// draw pixmap
-	p.begin(this);
-	p.translate(-currView->contentsX(), 0);
-	p.scale(1.0/SCALE, 1.0/(SCALE+1));
-	p.drawPixmap((wo-2)*SCALE, 1, pix);
-	p.end();
-	// restore marks
-	p.begin(this);
-	p.setBrush(black);
-	p.setPen(black);
-	p.setFont(font());
-	double sc = currView->getScale();
-	double cc = width() / sc;
-	double firstMark = ceil(offs / iter) * iter - offs;
-	while (firstMark < cc)
-	{
-		p.drawLine(qRound(firstMark * sc), 10, qRound(firstMark * sc), 16);
-		firstMark += iter;
-	}
-	p.end();
-#else
-	// draw slim marker
-	p.begin(this);
-	p.translate(-currView->contentsX(), 0);
-	p.setPen(red);
-	p.setBrush(red);
-	cr.setPoints(5,  wo, 5, wo, 16, wo, 5, wo+2, 0, wo-2, 0);
-	p.drawPolygon(cr);
-	p.end();
-#endif
-	oldMark = currentCoor;
+	m_wo = wo;
+	update(oldMark-3, 0, 7, 17);
 }
 
 void Hruler::setItemPosition(double pos, double width)
@@ -763,7 +772,7 @@ void Hruler::UpdateTabList()
 	tb.tabPosition = TabValues[ActTab].tabPosition;
 	tb.tabType = TabValues[ActTab].tabType;
 	tb.tabFillChar =  TabValues[ActTab].tabFillChar;
-	QValueList<PageItem::TabRecord>::Iterator it;
+	Q3ValueList<PageItem::TabRecord>::Iterator it;
 	int gg = static_cast<int>(TabValues.count());
 	int g = gg;
 	it = TabValues.at(ActTab);

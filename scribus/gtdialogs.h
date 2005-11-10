@@ -25,8 +25,8 @@
 #include <qcombobox.h>
 #include <qdialog.h>
 #include <qdir.h>
-#include <qfiledialog.h>
-#include <qframe.h>
+#include <q3filedialog.h>
+#include <q3frame.h>
 #include <qinputdialog.h>
 #include <qlabel.h>
 #include <qlayout.h>
@@ -37,18 +37,20 @@
 #include <qtextcodec.h>
 #include <qtoolbutton.h>
 #include <qtooltip.h>
+//Added by qt3to4:
+#include <QHBoxLayout>
 
 #include "scribusapi.h"
 
 class PrefsContext;
 
-class SCRIBUS_API gtFileDialog : public QFileDialog
+class SCRIBUS_API gtFileDialog : public Q3FileDialog
 {
 	Q_OBJECT
 private:
 	QDir dir;
-	QFrame* importerFrame;
-	QFrame* encodingFrame;
+	Q3Frame* importerFrame;
+	Q3Frame* encodingFrame;
 	QHBoxLayout* importerLayout;
 	QHBoxLayout* encodingLayout;
 	QToolButton* HomeB;

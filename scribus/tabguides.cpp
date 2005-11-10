@@ -1,8 +1,7 @@
 #include "tabguides.h"
-#include "tabguides.moc"
 #include <qlayout.h>
-#include <qgroupbox.h>
-#include <qbuttongroup.h>
+#include <q3groupbox.h>
+#include <q3buttongroup.h>
 #include <qradiobutton.h>
 #include <qlabel.h>
 #include <qtooltip.h>
@@ -12,6 +11,10 @@
 #include <qcheckbox.h>
 #include <qpushbutton.h>
 #include <qpixmap.h>
+//Added by qt3to4:
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 #include "mspinbox.h"
 #include "prefsstructs.h"
 #include "scribusstructs.h"
@@ -25,14 +28,14 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	
 	tabGuidesLayout = new QVBoxLayout( this, 0, 5, "tabViewLayout");
 
-	commonBox = new QGroupBox( this, "commonBox" );
+	commonBox = new Q3GroupBox( this, "commonBox" );
 	commonBox->setTitle( tr( "Common Settings" ) );
 	commonBox->setColumnLayout(0, Qt::Vertical );
 	commonBox->layout()->setSpacing( 5 );
 	commonBox->layout()->setMargin( 10 );
 	commonBoxLayout = new QHBoxLayout( commonBox->layout() );
 
-	buttonGroup1 = new QButtonGroup( commonBox, "buttonGroup1" );
+	buttonGroup1 = new Q3ButtonGroup( commonBox, "buttonGroup1" );
 	buttonGroup1->setExclusive( true );
 	buttonGroup1->setColumnLayout(0, Qt::Horizontal );
 	buttonGroup1->layout()->setSpacing( 5 );
@@ -50,7 +53,7 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	inForeground->setChecked( !prefsData->before );
 	commonBoxLayout->addWidget( buttonGroup1 );
 
-	snapBox = new QGroupBox( commonBox, "snapBox" );
+	snapBox = new Q3GroupBox( commonBox, "snapBox" );
 	snapBox->setTitle( tr( "Snapping" ) );
 	snapBox->setColumnLayout(0, Qt::Vertical );
 	snapBox->layout()->setSpacing( 5 );
@@ -76,7 +79,7 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	commonBoxLayout->addWidget( snapBox );
 	tabGuidesLayout->addWidget( commonBox );
 	layout9 = new QHBoxLayout( 0, 0, 5, "layout9");
-	guideBox = new QGroupBox( this, "guideBox" );
+	guideBox = new Q3GroupBox( this, "guideBox" );
 	guideBox->setTitle( tr( "Show Guides" ) );
 	guideBox->setCheckable( true );
 	guideBox->setChecked(prefsData->guidesShown);
@@ -99,7 +102,7 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	guideColor->setText( QString::null );
 	guideBoxLayout->addWidget( guideColor );
 	layout9->addWidget( guideBox );
-	marginBox = new QGroupBox( this, "guideBox" );
+	marginBox = new Q3GroupBox( this, "guideBox" );
 	marginBox->setCheckable( true );
 	marginBox->setTitle( tr( "Show Margins" ) );
 	marginBox->setChecked(prefsData->marginsShown);
@@ -124,7 +127,7 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	layout9->addWidget( marginBox );
 	tabGuidesLayout->addLayout( layout9 );
 
-	checkGrid = new QGroupBox( this, "checkGrid" );
+	checkGrid = new Q3GroupBox( this, "checkGrid" );
 	checkGrid->setTitle( tr( "Show Page Grid" ) );
 	checkGrid->setCheckable( true );
 	checkGrid->setChecked(prefsData->gridShown);
@@ -133,7 +136,7 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	checkGrid->layout()->setMargin( 10 );
 	checkGridLayout = new QGridLayout( checkGrid->layout() );
 	checkGridLayout->setAlignment( Qt::AlignTop );
-	groupBox1 = new QGroupBox( checkGrid, "groupBox1" );
+	groupBox1 = new Q3GroupBox( checkGrid, "groupBox1" );
 	groupBox1->setColumnLayout(0, Qt::Vertical );
 	groupBox1->layout()->setSpacing( 5 );
 	groupBox1->layout()->setMargin( 10 );
@@ -162,7 +165,7 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	majorSpace->setSuffix( unit );
 	groupBox1Layout->addWidget( majorSpace, 0, 1 );
 	checkGridLayout->addWidget( groupBox1, 0, 0 );
-	groupBox2 = new QGroupBox( checkGrid, "groupBox2" );
+	groupBox2 = new Q3GroupBox( checkGrid, "groupBox2" );
 	groupBox2->setColumnLayout(0, Qt::Vertical );
 	groupBox2->layout()->setSpacing( 5 );
 	groupBox2->layout()->setMargin( 10 );
@@ -194,7 +197,7 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	tabGuidesLayout->addWidget( checkGrid );
 
 	layout9a = new QHBoxLayout( 0, 0, 5, "layout9");
-	baselineBox = new QGroupBox( this, "baselineBox" );
+	baselineBox = new Q3GroupBox( this, "baselineBox" );
 	baselineBox->setTitle( tr( "Show Baseline Grid" ) );
 	baselineBox->setCheckable( true );
 	baselineBox->setChecked(prefsData->baseShown);
@@ -219,7 +222,7 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	baselineBoxLayout->addWidget( baselineColor, 0, 1 );
 	layout9a->addWidget( baselineBox );
 
-	baseGridBox = new QGroupBox( this, "baseGridBox" );
+	baseGridBox = new Q3GroupBox( this, "baseGridBox" );
 	baseGridBox->setTitle( tr( "Baseline Settings" ) );
 	baseGridBox->setColumnLayout(0, Qt::Vertical );
 	baseGridBox->layout()->setSpacing( 5 );

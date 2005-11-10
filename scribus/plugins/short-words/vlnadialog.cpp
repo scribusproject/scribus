@@ -11,35 +11,40 @@ or documentation
 
 #include "version.h"
 #include "vlnadialog.h"
-#include "vlnadialog.moc"
 #include "scribus.h"
 #include "scpaths.h"
 #include "configuration.h"
 #include "helpbrowser.h"
 
+#include <qnamespace.h>
+#include <qglobal.h>
 #include <qvariant.h>
 #include <qpushbutton.h>
-#include <qbuttongroup.h>
+#include <q3buttongroup.h>
 #include <qradiobutton.h>
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
 #include <qmessagebox.h>
 #include <qdir.h>
 #include <qstringlist.h>
 #include <qlayout.h>
 #include <qcheckbox.h>
 #include <qinputdialog.h>
-#include <qprocess.h>
+#include <q3process.h>
+//Added by qt3to4:
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QGridLayout>
 
 #include "commonstrings.h"
 
 extern ScribusApp SCRIBUS_API *ScApp;
 
 
-SWDialog::SWDialog(QWidget* parent, const char* name, bool modal, WFlags fl)
-	: QDialog(parent, name, modal, fl)
+SWDialog::SWDialog(QWidget* parent, const char* name, bool modal, Qt::WFlags fl)
+	: QDialog(parent)
 {
 	if (!name)
 		setName("SWDialog");
@@ -51,7 +56,7 @@ SWDialog::SWDialog(QWidget* parent, const char* name, bool modal, WFlags fl)
 
 	layout3 = new QHBoxLayout(0, 0, 6, "layout3");
 
-	buttonGroup = new QButtonGroup(this, "buttonGroup");
+	buttonGroup = new Q3ButtonGroup(this, "buttonGroup");
 	buttonGroup->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)3, (QSizePolicy::SizeType)3, 0, 0, buttonGroup->sizePolicy().hasHeightForWidth()));
 
 	frameRadio = new QRadioButton(buttonGroup, "frameRadio");
@@ -91,7 +96,7 @@ SWDialog::SWDialog(QWidget* parent, const char* name, bool modal, WFlags fl)
 
 	languageChange();
 	resize(QSize(306, 193).expandedTo(minimumSizeHint()));
-	clearWState(WState_Polished);
+	//clearWState(WState_Polished);
 
 	// cfg
 	//cfg->userConfig ? userCheckBox->setChecked(true) : userCheckBox->setChecked(false);

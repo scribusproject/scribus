@@ -3,6 +3,9 @@
 
 #include "qbuffer.h"
 #include "qpixmap.h"
+//Added by qt3to4:
+#include <Q3ValueList>
+#include <Q3CString>
 
 #include "scfontmetrics.h"
 #include "prefsmanager.h"
@@ -102,9 +105,9 @@ PyObject *scribus_renderfont(PyObject* /*self*/, PyObject* args, PyObject* kw)
 	// a string. Otherwise, save it to disk.
 	if (QString::fromUtf8(FileName).isEmpty())
 	{
-		QCString buffer_string = "";
-		QBuffer buffer(buffer_string);
-		buffer.open(IO_WriteOnly);
+		QByteArray buffer_string;
+		QBuffer buffer(&buffer_string);
+		buffer.open(QIODevice::WriteOnly);
 		bool ret = pm.save(&buffer, format);
 		if (!ret)
 		{
@@ -363,7 +366,7 @@ PyObject *scribus_removelayer(PyObject* /* self */, PyObject* args)
 	{
 		if (ScApp->doc->Layers[lam].Name == QString::fromUtf8(Name))
 		{
-			QValueList<Layer>::iterator it2 = ScApp->doc->Layers.at(lam);
+			Q3ValueList<Layer>::iterator it2 = ScApp->doc->Layers.at(lam);
 			int num2 = (*it2).LNr;
 			if (!num2)
 			{
@@ -373,7 +376,7 @@ PyObject *scribus_removelayer(PyObject* /* self */, PyObject* args)
 			}
 			int num = (*it2).Level;
 			ScApp->doc->Layers.remove(it2);
-			QValueList<Layer>::iterator it;
+			Q3ValueList<Layer>::iterator it;
 			for (uint l = 0; l < ScApp->doc->Layers.count(); l++)
 			{
 				it = ScApp->doc->Layers.at(l);

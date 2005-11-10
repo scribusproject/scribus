@@ -10,9 +10,11 @@
 #define _SCRIBUS_CONFIG_
 
 #include "scribusapi.h"
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 #include <qdom.h>
-#include <qprogressbar.h>
+#include <q3progressbar.h>
+//Added by qt3to4:
+#include <Q3PtrList>
 
 #include "pageitem.h"
 #include "multiline.h"
@@ -35,32 +37,32 @@ public:
 	void GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, bool impo, PageItem* obj = 0);
 	void SetItemProps(QDomElement *ob, PageItem* item, bool newFormat);
 	bool ReadLStyles(QString fileName, QMap<QString,multiLine> *Sty);
-	void GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl);
+	void GetStyle(QDomElement *pg, struct ParagraphStyle *vg, Q3ValueList<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl);
 	bool ReadStyles(QString fileName, ScribusDoc* doc);
 	bool ReadColors(QString fileName);
 	bool ReadPageCount(QString fileName, int *num1, int *num2);
 	bool ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, ScribusView *view, int PageToLoad, bool Mpage);
-	QString WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, ScribusView *view);
+	QString WriteElem(Q3PtrList<PageItem> *Selitems, ScribusDoc *doc, ScribusView *view);
 	bool ReadElemHeader(QString file, bool isFile, double *x, double *y, double *w, double *h);
 	bool ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int Xp, int Yp, bool Fi, bool loc,
 					 QMap<QString,QString> &FontSub, ScribusView *view);
-	bool ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *docu, ScribusView *viewx, QProgressBar *dia2);
-	void WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, bool master);
-	void WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, int master);
-	bool WriteDoc(QString fileName, ScribusDoc *docu, QProgressBar *dia2);
+	bool ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *docu, ScribusView *viewx, Q3ProgressBar *dia2);
+	void WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, Q3ProgressBar *dia2, uint maxC, bool master);
+	void WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, Q3ProgressBar *dia2, uint maxC, int master);
+	bool WriteDoc(QString fileName, ScribusDoc *docu, Q3ProgressBar *dia2);
 	ColorList Farben;
-	QValueList<ParagraphStyle> docParagraphStyles;
+	Q3ValueList<ParagraphStyle> docParagraphStyles;
 	struct Linked 
 	{ 
 		int Start;
 		int StPag;
 	};
-	QValueList<Linked> LFrames;
+	Q3ValueList<Linked> LFrames;
 	QStringList MNames;
 	QMap<QString,QString> DoFonts;
 	QMap<QString,QString> ReplacedFonts;
 	QMap<uint,QString> DoVorl;
-	QPtrList<Foi> dummyFois;
+	Q3PtrList<Foi> dummyFois;
 	uint VorlC;
 	bool newReplacement;
 	

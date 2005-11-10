@@ -1,5 +1,6 @@
 #include "cmdmani.h"
 #include "cmdutil.h"
+#include <Q3PtrList>
 #include "mpalette.h" //CB argh.. noooooooooooooooooooooooooooooooooooo FIXME see other FIXME
 
 PyObject *scribus_loadimage(PyObject* /* self */, PyObject* args)
@@ -59,7 +60,7 @@ PyObject *scribus_moveobjrel(PyObject* /* self */, PyObject* args)
 	if (item==NULL)
 		return NULL;
 	// Grab the old selection
-	QPtrList<PageItem> oldSelection = ScApp->view->SelItem;
+	Q3PtrList<PageItem> oldSelection = ScApp->view->SelItem;
 	// Clear the selection
 	ScApp->view->Deselect();
 	// Select the item, which will also select its group if
@@ -91,7 +92,7 @@ PyObject *scribus_moveobjabs(PyObject* /* self */, PyObject* args)
 	if (item == NULL)
 		return NULL;
 	// Grab the old selection
-	QPtrList<PageItem> oldSelection = ScApp->view->SelItem;
+	Q3PtrList<PageItem> oldSelection = ScApp->view->SelItem;
 	// Clear the selection
 	ScApp->view->Deselect();
 	// Select the item, which will also select its group if

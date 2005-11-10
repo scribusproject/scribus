@@ -20,12 +20,11 @@
 #ifndef __VGRADIENT_H__
 #define __VGRADIENT_H__
 
-#include <qptrlist.h>
-#include <qptrvector.h>
+#include <q3ptrlist.h>
+#include <q3ptrvector.h>
 #include "scribusapi.h"
-#include "fpoint.h"
 #include <qcolor.h>
-#include <qwmatrix.h>
+#include <qmatrix.h>
 
 class SCRIBUS_API VColorStop
 {
@@ -85,10 +84,10 @@ public:
 	    repeat  = 2
 	};
 
-class SCRIBUS_API VColorStopList : public QPtrList<VColorStop>
+class SCRIBUS_API VColorStopList : public Q3PtrList<VColorStop>
 	{
 	protected:
-		virtual int compareItems( QPtrCollection::Item item1, QPtrCollection::Item item2 );
+		virtual int compareItems( Q3PtrCollection::Item item1, Q3PtrCollection::Item item2 );
 	}
 	; // VColorStopList
 
@@ -103,7 +102,7 @@ class SCRIBUS_API VColorStopList : public QPtrList<VColorStop>
 	VGradientRepeatMethod repeatMethod() const { return m_repeatMethod; }
 	void setRepeatMethod( VGradientRepeatMethod repeatMethod ) { m_repeatMethod = repeatMethod; }
 
-	const QPtrVector<VColorStop> colorStops() const;
+	const Q3PtrVector<VColorStop> colorStops() const;
 	void addStop( const VColorStop& colorStop );
 	void addStop( const QColor &color, double rampPoint, double midPoint, double opa, QString name = "", int shade = 100 );
 	void removeStop( const VColorStop& colorStop );
@@ -111,28 +110,28 @@ class SCRIBUS_API VColorStopList : public QPtrList<VColorStop>
 	void clearStops();
 	uint Stops() { return m_colorStops.count(); }
 
-	FPoint origin() const { return m_origin; }
-	void setOrigin( const FPoint &origin ) { m_origin = origin; }
+	QPointF origin() const { return m_origin; }
+	void setOrigin( const QPointF &origin ) { m_origin = origin; }
 
-	FPoint focalPoint() const { return m_focalPoint; }
-	void setFocalPoint( const FPoint &focalPoint ) { m_focalPoint = focalPoint; }
+	QPointF focalPoint() const { return m_focalPoint; }
+	void setFocalPoint( const QPointF &focalPoint ) { m_focalPoint = focalPoint; }
 
-	FPoint vector() const { return m_vector; }
-	void setVector( const FPoint &vector ) { m_vector = vector; }
+	QPointF vector() const { return m_vector; }
+	void setVector( const QPointF &vector ) { m_vector = vector; }
 
-	void transform( const QWMatrix& m );
+	void transform( const QMatrix& m );
 
 protected:
 	VColorStopList        m_colorStops;
 
 private:
-VGradientType         m_type			: 2;
-VGradientRepeatMethod m_repeatMethod	: 2;
+	VGradientType         m_type			: 2;
+	VGradientRepeatMethod m_repeatMethod	: 2;
 
 	// coordinates:
-	FPoint m_origin;
-	FPoint m_focalPoint;
-	FPoint m_vector;
+	QPointF m_origin;
+	QPointF m_focalPoint;
+	QPointF m_vector;
 }
 ; // VGradient
 

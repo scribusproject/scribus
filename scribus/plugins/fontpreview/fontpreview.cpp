@@ -2,7 +2,7 @@
 #include "ui.h"
 #include "scribus.h"
 #include <qcursor.h>
-#include <qlistview.h>
+#include <q3listview.h>
 
 int fontpreview_getPluginAPIVersion()
 {

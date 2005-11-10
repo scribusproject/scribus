@@ -2,15 +2,19 @@
 #define AUTOFORMBUTTONGROUP_H
 
 #include <qwidget.h>
-#include <qbuttongroup.h>
+#include <q3buttongroup.h>
 #include <qtoolbutton.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QGridLayout>
+#include <Q3PopupMenu>
 #include "scribusapi.h"
 class QGridLayout;
-class QPopupMenu;
+class Q3PopupMenu;
 class QPixmap;
 
 
-class SCRIBUS_API AutoformButtonGroup : public QButtonGroup
+class SCRIBUS_API AutoformButtonGroup : public Q3ButtonGroup
 {
     Q_OBJECT
 

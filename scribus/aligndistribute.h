@@ -19,6 +19,12 @@
 #include <qvariant.h>
 #include <qpixmap.h>
 #include <qdialog.h>
+//Added by qt3to4:
+#include <QLabel>
+#include <QVBoxLayout>
+#include <Q3ValueList>
+#include <QHBoxLayout>
+#include <QGridLayout>
 
 #include "scribusapi.h"
 #include "scribusstructs.h"
@@ -29,7 +35,7 @@ class QVBoxLayout;
 class QHBoxLayout;
 class QGridLayout;
 class QSpacerItem;
-class QGroupBox;
+class Q3GroupBox;
 class QLabel;
 class QLineEdit;
 class QComboBox;
@@ -47,7 +53,7 @@ class SCRIBUS_API AlignDistributePalette : public ScrPaletteBase
 public:
 	typedef enum {First, Last, Page, Margins, Guide, Selection } AlignTo;
 
-	AlignDistributePalette( QWidget* parent = 0, const char* name = 0, bool modal = FALSE, WFlags fl = 0 );
+	AlignDistributePalette( QWidget* parent = 0, const char* name = 0, bool modal = FALSE, Qt::WFlags fl = 0 );
 	~AlignDistributePalette();
 
 	virtual void setView( ScribusView * newView );
@@ -60,7 +66,7 @@ protected:
 	ScribusView *currView;
 	
 	
-	QGroupBox* alignGroupBox;
+	Q3GroupBox* alignGroupBox;
 	QLabel* alignRelativeToLabel;
 	QComboBox* alignRelativeToCombo;
 	QToolButton* alignLeftOutToolButton;
@@ -75,7 +81,7 @@ protected:
 	QToolButton* alignTopInToolButton;
 	QLabel *alignGuideLabel;
 	QLineEdit* alignGuideLineEdit;
-	QGroupBox* distributeGroupBox;
+	Q3GroupBox* distributeGroupBox;
 	QToolButton* distributeDistHToolButton;
 	QToolButton* distributeDistValueHToolButton;
 	QToolButton* distributeRightToolButton;
@@ -142,7 +148,7 @@ private:
 	UndoManager *undoManager;
 	ScribusApp* ScApp;
 	AlignTo currAlignTo;
-	QValueList<AlignObjs> *alignObjects;
+	Q3ValueList<AlignObjs> *alignObjects;
 	uint alignObjectsCount;
 	ScribusDoc *currDoc;
 	double unitRatio;

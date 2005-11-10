@@ -1,5 +1,4 @@
 #include "prefs.h"
-#include "prefs.moc"
 #include "keymanager.h"
 #include "scribusdoc.h"
 #include "scribusstructs.h"
@@ -9,11 +8,20 @@
 #include <qcolor.h>
 #include <qstringlist.h>
 #include <qstylefactory.h>
-#include <qpointarray.h>
+#include <q3pointarray.h>
 #include <qpainter.h>
 #include <qrect.h>
 #include <qstring.h>
-#include <qwmatrix.h>
+#include <qmatrix.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <Q3CString>
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QBoxLayout>
+#include <QLabel>
+#include <Q3ValueList>
+#include <QVBoxLayout>
 #include <cmath>
 #include "units.h"
 #include "langmgr.h"
@@ -79,7 +87,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	tabLayout->setAlignment( Qt::AlignTop );
 
 	// GUI Group
-	ButtonGroup1 = new QButtonGroup( tr( "GUI" ), tab, "ButtonGroup1" );
+	ButtonGroup1 = new Q3ButtonGroup( tr( "GUI" ), tab, "ButtonGroup1" );
 	ButtonGroup1->setColumnLayout(0, Qt::Vertical );
 	ButtonGroup1->layout()->setSpacing( 0 );
 	ButtonGroup1->layout()->setMargin( 0 );
@@ -103,7 +111,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	GUICombo = new QComboBox( true, ButtonGroup1, "GUICombo" );
 	QStringList STtest;
 	STtest = QStyleFactory::keys();
-	for (uint stt = 0; stt < STtest.count(); ++stt)
+	for (int stt = 0; stt < STtest.count(); ++stt)
 		GUICombo->insertItem(STtest[stt]);
 	GUICombo->setEditable(false);
 	GUICombo->setCurrentText(prefsData->GUI);
@@ -129,7 +137,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	ButtonGroup1Layout->addWidget( Recen, 4, 1, Qt::AlignLeft );
 	tabLayout->addWidget( ButtonGroup1, 0, 0 );
 
-	GroupBox200 = new QGroupBox( tr( "Paths" ), tab, "GroupBox200" );
+	GroupBox200 = new Q3GroupBox( tr( "Paths" ), tab, "GroupBox200" );
 	GroupBox200->setColumnLayout(0, Qt::Horizontal );
 	GroupBox200->layout()->setSpacing( 0 );
 	GroupBox200->layout()->setMargin( 0 );
@@ -203,7 +211,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	dsLayout4pv->setSpacing( 5 );
 	dsLayout4pv->setMargin( 0 );
 
-	GroupSize = new QButtonGroup( tr( "Page Size" ), tab_7, "GroupSize" );
+	GroupSize = new Q3ButtonGroup( tr( "Page Size" ), tab_7, "GroupSize" );
 	GroupSize->setColumnLayout(0, Qt::Vertical );
 	GroupSize->layout()->setSpacing( 6 );
 	GroupSize->layout()->setMargin( 10 );
@@ -289,7 +297,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	Layout21->addLayout( dsLayout4p );
 	QBoxLayout *asurLayout = new QHBoxLayout( 0, 0, 6, "asurLayout");
 
-	GroupAS = new QGroupBox( tr( "Autosave" ), tab_7, "GroupAS" );
+	GroupAS = new Q3GroupBox( tr( "Autosave" ), tab_7, "GroupAS" );
 	GroupAS->setCheckable( true );
 	GroupAS->setChecked( prefsData->AutoSave );
 	GroupAS->setColumnLayout(0, Qt::Vertical );
@@ -307,7 +315,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	GroupASLayout->addWidget( ASTime );
 	asurLayout->addWidget(GroupAS);
 
-	urGroup = new QGroupBox( tr("Undo/Redo"), tab_7, "urGroup");
+	urGroup = new Q3GroupBox( tr("Undo/Redo"), tab_7, "urGroup");
 	urGroup->setColumnLayout(0, Qt::Vertical);
 	urGroup->layout()->setSpacing(5);
 	urGroup->layout()->setMargin(10);
@@ -389,7 +397,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	tabLayout_5 = new QGridLayout( tab_5 );
 	tabLayout_5->setSpacing( 5 );
 	tabLayout_5->setMargin( 0 );
-	saving = new QGroupBox( tr( "Other Options" ), tab_5, "Saving" );
+	saving = new Q3GroupBox( tr( "Other Options" ), tab_5, "Saving" );
 	saving->setColumnLayout(0, Qt::Vertical );
 	saving->layout()->setSpacing( 0 );
 	saving->layout()->setMargin( 0 );
@@ -401,7 +409,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	SaveAtQuit->setChecked(prefsData->SaveAtQ);
 	savingLayout->addWidget( SaveAtQuit );
 	tabLayout_5->addWidget( saving, 1, 0 );
-	preview = new QGroupBox( tr( "Preview" ), tab_5, "Preview" );
+	preview = new Q3GroupBox( tr( "Preview" ), tab_5, "Preview" );
 	preview->setColumnLayout(0, Qt::Vertical );
 	preview->layout()->setSpacing( 0 );
 	preview->layout()->setMargin( 0 );
@@ -425,7 +433,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	tabView = new QWidget( prefsWidgets, "tabView" );
 	tabViewLayout = new QVBoxLayout( tabView, 0, 5, "tabViewLayout");
 	tabViewLayout->setAlignment( Qt::AlignTop );
-	pageBackground = new QButtonGroup( tabView, "pageBackground" );
+	pageBackground = new Q3ButtonGroup( tabView, "pageBackground" );
 	pageBackground->setTitle( tr( "Page Display" ) );
 	pageBackground->setColumnLayout(0, Qt::Vertical );
 	pageBackground->layout()->setSpacing( 5 );
@@ -477,7 +485,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	pageBackgroundLayout->addWidget( checkRuler, 3, 0 );
 	tabViewLayout->addWidget( pageBackground );
 
-	groupScratch = new QGroupBox( tabView, "GroupBox7" );
+	groupScratch = new Q3GroupBox( tabView, "GroupBox7" );
 	groupScratch->setTitle( tr( "Scratch Space" ) );
 	groupScratch->setColumnLayout(0, Qt::Vertical );
 	groupScratch->layout()->setSpacing( 0 );
@@ -524,7 +532,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	Layout4s->addWidget( Rechtss, 1, 2 );
 	groupScratchLayout->addLayout( Layout4s );
 	tabViewLayout->addWidget( groupScratch );
-	groupGap = new QGroupBox( tabView, "GroupBox7" );
+	groupGap = new Q3GroupBox( tabView, "GroupBox7" );
 	groupGap->setTitle( tr( "Gaps between Pages" ) );
 	groupGap->setColumnLayout(0, Qt::Vertical );
 	groupGap->layout()->setSpacing( 0 );
@@ -555,7 +563,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	groupGapLayout->addLayout( layout4sg );
 	tabViewLayout->addWidget( groupGap );
 
-	CaliGroup = new QGroupBox( tr( "&Adjust Display Size" ), tabView, "CaliGroup" );
+	CaliGroup = new Q3GroupBox( tr( "&Adjust Display Size" ), tabView, "CaliGroup" );
 	CaliGroup->setColumnLayout(0, Qt::Vertical );
 	CaliGroup->layout()->setSpacing( 6 );
 	CaliGroup->layout()->setMargin( 11 );
@@ -575,8 +583,8 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	CaliSlider->setMinValue( -100 );
 	CaliSlider->setMaxValue( 100 );
 	CaliSlider->setValue(static_cast<int>(100 * DisScale)-100);
-	CaliSlider->setOrientation( QSlider::Horizontal );
-	CaliSlider->setTickmarks( QSlider::Right );
+	CaliSlider->setOrientation( Qt::Horizontal );
+	CaliSlider->setTickmarks( QSlider::TicksRight );
 	CaliSlider->setTickInterval( 10 );
 	CaliText->setBuddy(CaliGroup);
 	layout15ca->addWidget( CaliSlider );
@@ -590,7 +598,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	ExtTool = new QWidget( prefsWidgets, "ExtTool" );
 	ExtToolLayout = new QVBoxLayout( ExtTool, 0, 5, "ExtToolLayout");
 	ExtToolLayout->setAlignment( Qt::AlignTop );
-	ghostscriptGroup = new QGroupBox( tr( "PostScript Interpreter" ), ExtTool, "ghostscriptGroup" );
+	ghostscriptGroup = new Q3GroupBox( tr( "PostScript Interpreter" ), ExtTool, "ghostscriptGroup" );
 	ghostscriptGroup->setColumnLayout(0, Qt::Vertical );
 	ghostscriptGroup->layout()->setSpacing( 6 );
 	ghostscriptGroup->layout()->setMargin( 10 );
@@ -624,7 +632,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	GSlayout2->addWidget( GSResolution );
 	groupGhostScriptLayout->addLayout( GSlayout2 );
 	ExtToolLayout->addWidget( ghostscriptGroup );
-	groupImageEditor = new QGroupBox( tr( "Image Processing Tool" ), ExtTool, "groupImageEditor" );
+	groupImageEditor = new Q3GroupBox( tr( "Image Processing Tool" ), ExtTool, "groupImageEditor" );
 	groupImageEditor->setColumnLayout(0, Qt::Vertical );
 	groupImageEditor->layout()->setSpacing( 6 );
 	groupImageEditor->layout()->setMargin( 10 );
@@ -647,7 +655,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	Misc = new QWidget( prefsWidgets, "Misc" );
 	MiscLayout = new QVBoxLayout( Misc, 0, 5, "MiscLayout");
 	MiscLayout->setAlignment( Qt::AlignTop );
-	groupPrint = new QGroupBox( tr( "Printing" ), Misc, "groupPrint" );
+	groupPrint = new Q3GroupBox( tr( "Printing" ), Misc, "groupPrint" );
 	groupPrint->setColumnLayout(0, Qt::Vertical );
 	groupPrint->layout()->setSpacing( 10 );
 	groupPrint->layout()->setMargin( 10 );
@@ -670,7 +678,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	startUpDialog->setChecked(prefsData->showStartupDialog);
 	MiscLayout->addWidget( startUpDialog );
 	// lorem ipsum
-	groupLI = new QGroupBox(tr("Lorem Ipsum"), Misc, "groupLI");
+	groupLI = new Q3GroupBox(tr("Lorem Ipsum"), Misc, "groupLI");
 	groupLI->setColumnLayout(0, Qt::Vertical);
 	groupLI->layout()->setSpacing(10);
 	groupLI->layout()->setMargin(10);
@@ -803,7 +811,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	backToDefaults->hide();
 	prefsSelection->setSelected(prefsSelection->firstItem(), true);
 	itemSelected(prefsSelection->firstItem());
-	clearWState( WState_Polished );
+	setAttribute( Qt::WA_WState_Polished, false );
 }
 
 /*!
@@ -826,9 +834,9 @@ void Preferences::addPlugins()
 	// prefs dialog.
 	// For each plugin, enabled or not:
 	PluginManager& pluginManager = PluginManager::instance();
-	QValueList<QCString> pluginNames(pluginManager.pluginNames(true));
-	QValueList<QCString>::Iterator itEnd(pluginNames.end());
-	for (QValueList<QCString>::Iterator it(pluginNames.begin()); it != itEnd ; ++it )
+	Q3ValueList<Q3CString> pluginNames(pluginManager.pluginNames(true));
+	Q3ValueList<Q3CString>::Iterator itEnd(pluginNames.end());
+	for (Q3ValueList<Q3CString>::Iterator it(pluginNames.begin()); it != itEnd ; ++it )
 	{
 		// Ask the plugin manager for a plugin (skipping disabled plugins).
 		ScPlugin* plugin = pluginManager.getPlugin(*it, false);
@@ -874,7 +882,7 @@ void Preferences::accept()
  */
 void Preferences::changeDocs()
 {
-	QString s = QFileDialog::getExistingDirectory(Docs->text(), this, "d", tr("Choose a Directory"), true);
+	QString s = Q3FileDialog::getExistingDirectory(Docs->text(), this, "d", tr("Choose a Directory"), true);
 	if (!s.isEmpty())
 		Docs->setText(s);
 }
@@ -889,7 +897,7 @@ void Preferences::changeDocs()
  */
 void Preferences::changeProfs()
 {
-	QString s = QFileDialog::getExistingDirectory(ProPfad->text(), this, "d", tr("Choose a Directory"), true);
+	QString s = Q3FileDialog::getExistingDirectory(ProPfad->text(), this, "d", tr("Choose a Directory"), true);
 	if (!s.isEmpty())
 		ProPfad->setText(s);
 }
@@ -904,7 +912,7 @@ void Preferences::changeProfs()
  */
 void Preferences::changeScripts()
 {
-	QString s = QFileDialog::getExistingDirectory(ScriptPfad->text(), this, "d", tr("Choose a Directory"), true);
+	QString s = Q3FileDialog::getExistingDirectory(ScriptPfad->text(), this, "d", tr("Choose a Directory"), true);
 	if (!s.isEmpty())
 		ScriptPfad->setText(s);
 }
@@ -919,7 +927,7 @@ void Preferences::changeScripts()
  */
 void Preferences::changeDocumentTemplates()
 {
-	QString s = QFileDialog::getExistingDirectory(DocumentTemplateDir->text(), this, "d", tr("Choose a Directory"), true);
+	QString s = Q3FileDialog::getExistingDirectory(DocumentTemplateDir->text(), this, "d", tr("Choose a Directory"), true);
 	if (!s.isEmpty())
 		DocumentTemplateDir->setText(s);
 }
@@ -934,7 +942,7 @@ void Preferences::changeDocumentTemplates()
 void Preferences::changeGhostscript()
 {
 	QFileInfo fi(ghostscriptLineEdit->text());
-	QString s = QFileDialog::getOpenFileName(fi.dirPath(), QString::null, this, "changeGhostscript", tr("Locate Ghostscript"));
+	QString s = Q3FileDialog::getOpenFileName(fi.dirPath(), QString::null, this, "changeGhostscript", tr("Locate Ghostscript"));
 	if (!s.isEmpty())
 		ghostscriptLineEdit->setText(s);
 }
@@ -949,7 +957,7 @@ void Preferences::changeGhostscript()
 void Preferences::changeImageEditor()
 {
 	QFileInfo fi(imageEditorLineEdit->text());
-	QString s = QFileDialog::getOpenFileName(fi.dirPath(), QString::null, this, "changeImageEditor", tr("Locate your image editor"));
+	QString s = Q3FileDialog::getOpenFileName(fi.dirPath(), QString::null, this, "changeImageEditor", tr("Locate your image editor"));
 	if (!s.isEmpty())
 		imageEditorLineEdit->setText(s);
 }
@@ -1255,8 +1263,8 @@ void Preferences::drawRuler()
 	QPainter p;
 	p.begin(&pm);
 	p.drawLine(0, 19, width(), 19);
-	p.setBrush(black);
-	p.setPen(black);
+	p.setBrush(Qt::black);
+	p.setPen(Qt::black);
 	p.scale(DisScale, 1.0);
 	for (xl = 0; xl < maxi; xl += iter)
 		p.drawLine(static_cast<int>(xl), 13, static_cast<int>(xl), 19);
@@ -1456,19 +1464,19 @@ void Preferences::updatePreferences()
 	switch (tabTools->comboStyleShape->currentItem())
 	{
 		case 0:
-			prefsManager->appPrefs.toolSettings.dLineArt = SolidLine;
+			prefsManager->appPrefs.toolSettings.dLineArt = Qt::SolidLine;
 			break;
 		case 1:
-			prefsManager->appPrefs.toolSettings.dLineArt = DashLine;
+			prefsManager->appPrefs.toolSettings.dLineArt = Qt::DashLine;
 			break;
 		case 2:
-			prefsManager->appPrefs.toolSettings.dLineArt = DotLine;
+			prefsManager->appPrefs.toolSettings.dLineArt = Qt::DotLine;
 			break;
 		case 3:
-			prefsManager->appPrefs.toolSettings.dLineArt = DashDotLine;
+			prefsManager->appPrefs.toolSettings.dLineArt = Qt::DashDotLine;
 			break;
 		case 4:
-			prefsManager->appPrefs.toolSettings.dLineArt = DashDotDotLine;
+			prefsManager->appPrefs.toolSettings.dLineArt = Qt::DashDotDotLine;
 			break;
 	}
 	prefsManager->appPrefs.toolSettings.dWidth = tabTools->lineWidthShape->value();
@@ -1479,19 +1487,19 @@ void Preferences::updatePreferences()
 	switch (tabTools->comboStyleLine->currentItem())
 	{
 	case 0:
-		prefsManager->appPrefs.toolSettings.dLstyleLine = SolidLine;
+		prefsManager->appPrefs.toolSettings.dLstyleLine = Qt::SolidLine;
 		break;
 	case 1:
-		prefsManager->appPrefs.toolSettings.dLstyleLine = DashLine;
+		prefsManager->appPrefs.toolSettings.dLstyleLine = Qt::DashLine;
 		break;
 	case 2:
-		prefsManager->appPrefs.toolSettings.dLstyleLine = DotLine;
+		prefsManager->appPrefs.toolSettings.dLstyleLine = Qt::DotLine;
 		break;
 	case 3:
-		prefsManager->appPrefs.toolSettings.dLstyleLine = DashDotLine;
+		prefsManager->appPrefs.toolSettings.dLstyleLine = Qt::DashDotLine;
 		break;
 	case 4:
-		prefsManager->appPrefs.toolSettings.dLstyleLine = DashDotDotLine;
+		prefsManager->appPrefs.toolSettings.dLstyleLine = Qt::DashDotDotLine;
 		break;
 	}
 	prefsManager->appPrefs.toolSettings.dWidthLine = tabTools->lineWidthLine->value();

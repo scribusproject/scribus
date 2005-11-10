@@ -7,7 +7,6 @@
  *                                                                         *
  ***************************************************************************/
 #include "pdfopts.h"
-#include "pdfopts.moc"
 
 #include "customfdialog.h"
 #include "prefsmanager.h"
@@ -17,13 +16,18 @@
 #include "util.h"
 #include "commonstrings.h"
 #include "scconfig.h"
+//Added by qt3to4:
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <Q3ValueList>
+#include <QVBoxLayout>
 
 #ifdef HAVE_CMS
 extern bool CMSuse;
 #endif
 extern bool CMSavail;
 
-PDF_Opts::PDF_Opts( QWidget* parent,  QString docFileName, QMap<QString,int> DocFonts, ScribusView *currView, PDFOptions *pdfOptions, QValueList<PDFPresentationData> Eff, ProfilesL *PDFXProfiles, SCFonts &AllFonts, double unitRatio, ProfilesL *printerProfiles)
+PDF_Opts::PDF_Opts( QWidget* parent,  QString docFileName, QMap<QString,int> DocFonts, ScribusView *currView, PDFOptions *pdfOptions, Q3ValueList<PDFPresentationData> Eff, ProfilesL *PDFXProfiles, SCFonts &AllFonts, double unitRatio, ProfilesL *printerProfiles)
 		: QDialog( parent, "pdf", true, 0 )
 {
 	setCaption( tr( "Save as PDF" ) );
@@ -37,7 +41,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString docFileName, QMap<QString,int> Doc
 	PDFOptsLayout = new QVBoxLayout( this );
 	PDFOptsLayout->setSpacing( 5 );
 	PDFOptsLayout->setMargin( 10 );
-	Name = new QGroupBox( this, "GroupBox" );
+	Name = new Q3GroupBox( this, "GroupBox" );
 	Name->setTitle( tr( "O&utput to File:" ) );
 	Name->setColumnLayout(0, Qt::Vertical );
 	Name->layout()->setSpacing( 5 );

@@ -3,14 +3,19 @@
 
 #include "qwidget.h"
 #include "qmap.h"
+//Added by qt3to4:
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QGridLayout>
+#include <Q3CString>
 #include "prefspanel.h"
 
 class QVBoxLayout;
-class QGroupBox;
+class Q3GroupBox;
 class QGridLayout;
-class QListView;
+class Q3ListView;
 class QLabel;
-class QListViewItem;
+class Q3ListViewItem;
 
 class PluginManagerPrefsGui : public PrefsPanel
 {
@@ -21,17 +26,17 @@ class PluginManagerPrefsGui : public PrefsPanel
 		~PluginManagerPrefsGui();
 
 	public slots:
-		void updateSettings(QListViewItem *item, const QPoint &, int column);
+		void updateSettings(Q3ListViewItem *item, const QPoint &, int column);
 
 		/// Apply changes to each plugin's PluginSettings
 		void apply();
 
 	protected:
 		QVBoxLayout* pluginMainLayout;
-		QGroupBox* plugGroupBox;
+		Q3GroupBox* plugGroupBox;
 		QGridLayout* plugGroupBoxLayout;
 		QVBoxLayout* plugLayout1;
-		QListView* pluginsList;
+		Q3ListView* pluginsList;
 		QLabel* pluginWarning;
 
 		/* \brief Stores current settings for each plugin
@@ -43,7 +48,7 @@ class PluginManagerPrefsGui : public PrefsPanel
 		};
 
 		/// Store current settings about each plug-in
-		QMap<QCString,PluginSettings> pluginSettings;
+		QMap<Q3CString,PluginSettings> pluginSettings;
 };
 
 #endif

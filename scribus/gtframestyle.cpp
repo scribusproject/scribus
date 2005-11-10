@@ -18,8 +18,8 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#include "gtframestyle.h"
 #include "scribusstructs.h"
+#include "gtframestyle.h"
 
 gtFrameStyle::gtFrameStyle(QString name) : gtParagraphStyle(name) 
 {

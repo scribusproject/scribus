@@ -2,9 +2,9 @@
 #define PREFS_H
 
 #include <qdialog.h>
-#include <qbuttongroup.h>
+#include <q3buttongroup.h>
 #include <qcombobox.h>
-#include <qgroupbox.h>
+#include <q3groupbox.h>
 #include <qlabel.h>
 #include <qpushbutton.h>
 #include <qradiobutton.h>
@@ -12,15 +12,19 @@
 #include <qwidget.h>
 #include <qlayout.h>
 #include <qtoolbutton.h>
-#include <qframe.h>
+#include <q3frame.h>
 #include <qcheckbox.h>
-#include <qwidgetstack.h>
+#include <q3widgetstack.h>
 #include <qpixmap.h>
 #include <qslider.h>
 #include <qlineedit.h>
-#include <qfiledialog.h>
+#include <q3filedialog.h>
+//Added by qt3to4:
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 
-class QListView;
+class Q3ListView;
 
 #include "scribusapi.h"
 #include "scribusstructs.h"
@@ -64,7 +68,7 @@ public:
 	QLabel* TextLabel1_2;
 	QSpinBox* SpinBox3;
 	QSpinBox* Recen;
-	QButtonGroup* ButtonGroup1;
+	Q3ButtonGroup* ButtonGroup1;
 	QLabel* guiLangLabel;
 	QLabel* TextGstil;
 	QLabel* TextGstil2;
@@ -73,7 +77,7 @@ public:
 	QComboBox* GUICombo;
 	QComboBox* UnitCombo;
 	QLabel* unitComboText;
-	QGroupBox* GroupBox200;
+	Q3GroupBox* GroupBox200;
 	QLabel* PfadText;
 	QLineEdit* Docs;
 	QToolButton* FileC;
@@ -94,7 +98,7 @@ public:
 	TabTypograpy* tabTypo;
 
 	QWidget* tabView;
-	QButtonGroup* pageBackground;
+	Q3ButtonGroup* pageBackground;
 	QLabel* textLabel9;
 	QCheckBox* checkLink;
 	QCheckBox* checkFrame;
@@ -103,7 +107,7 @@ public:
 	QCheckBox* checkRuler;
 	QPushButton* backColor;
 	QCheckBox* checkUnprintable;
-	QGroupBox* groupScratch;
+	Q3GroupBox* groupScratch;
 	MSpinBox* topScratch;
 	MSpinBox* bottomScratch;
 	MSpinBox* leftScratch;
@@ -112,7 +116,7 @@ public:
 	QLabel* TextLabel5s;
 	QLabel* Linkss;
 	QLabel* Rechtss;
-	QGroupBox* groupGap;
+	Q3GroupBox* groupGap;
 	MSpinBox* gapVertical;
 	MSpinBox* gapHorizontal;
 	QLabel* TextLabel5sg;
@@ -131,12 +135,12 @@ public:
 
 	QLabel* textLabelP;
 	QWidget* tab_5;
-	QGroupBox* saving;
+	Q3GroupBox* saving;
 	QCheckBox* SaveAtQuit;
-	QGroupBox* preview;
+	Q3GroupBox* preview;
 	QComboBox* PreviewSize;
 	QWidget* tab_7;
-	QButtonGroup* GroupSize;
+	Q3ButtonGroup* GroupSize;
 	QLabel* GZText2;
 	QComboBox* GZComboF;
 	QComboBox* GZComboO;
@@ -147,19 +151,19 @@ public:
 	MSpinBox* pageHeight;
 	PageLayouts* docLayout;
 	MarginWidget* GroupRand;
-	QGroupBox* GroupAS;
+	Q3GroupBox* GroupAS;
 	QLabel* ASText;
 	QSpinBox* ASTime;
-	QGroupBox* urGroup;
+	Q3GroupBox* urGroup;
 	QLabel* urLabel;
 	QSpinBox* urSpinBox;
-	QGroupBox* CaliGroup;
+	Q3GroupBox* CaliGroup;
 	QLabel* CaliText;
 	QLabel* CaliRuler;
 	QSlider* CaliSlider;
 	QLabel* CaliAnz;
  	QWidget* ExtTool;
-	QGroupBox* ghostscriptGroup;
+	Q3GroupBox* ghostscriptGroup;
 	QLabel* ghostscriptLabel;
 	QLineEdit* ghostscriptLineEdit;
 	QToolButton* ghostscriptChangeButton;
@@ -167,19 +171,19 @@ public:
 	QCheckBox* GSantiGraph;
 	QSpinBox* GSResolution;
 	QLabel* GSResText;
-	QGroupBox* groupImageEditor;
+	Q3GroupBox* groupImageEditor;
 	QLabel* imageEditorLabel;
 	QLineEdit* imageEditorLineEdit;
 	QToolButton* imageEditorChangeButton;
 	QWidget* Misc;
-	QGroupBox* groupPrint;
+	Q3GroupBox* groupPrint;
 	QCheckBox* ClipMarg;
 	QCheckBox* DoGCR;
 	QCheckBox* AskForSubs;
 	QCheckBox* stylePreview;
 	QCheckBox* startUpDialog;
 	//! lorem ipsum
-	QGroupBox* groupLI;
+	Q3GroupBox* groupLI;
 	QCheckBox* useStandardLI;
 	QSpinBox* paragraphsLI;
 	QLabel* paraLabelLI;

@@ -1,5 +1,5 @@
+#include "scribusstructs.h"
 #include "editor.h"
-#include "editor.moc"
 #include "selfield.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
@@ -8,7 +8,11 @@
 
 #include <qfile.h>
 #include <qtextstream.h>
-#include <qfiledialog.h>
+#include <q3filedialog.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QVBoxLayout>
+#include <Q3PopupMenu>
 
 extern QPixmap loadIcon(QString nam);
 
@@ -19,23 +23,23 @@ Editor::Editor( QWidget* parent, QString daten, ScribusView* vie) : QDialog( par
 	view = vie;
 	dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	EditorLayout = new QVBoxLayout( this, 0, 0, "EditorLayout");
-	EditTex = new QTextEdit( this, "EditTex" );
+	EditTex = new Q3TextEdit( this, "EditTex" );
 
-	fmenu = new QPopupMenu();
-	fmenu->insertItem(loadIcon("DateiNeu16.png"), tr("&New"), EditTex, SLOT(clear()), CTRL+Key_N);
+	fmenu = new Q3PopupMenu();
+	fmenu->insertItem(loadIcon("DateiNeu16.png"), tr("&New"), EditTex, SLOT(clear()), Qt::CTRL+Qt::Key_N);
 	fmenu->insertItem(loadIcon("DateiOpen16.png"), tr("&Open..."), this, SLOT(OpenScript()));
 	fmenu->insertItem( tr("Save &As..."), this, SLOT(SaveAs()));
 	fmenu->insertSeparator();
 	fmenu->insertItem( tr("&Save and Exit"), this, SLOT(accept()));
 	fmenu->insertItem( tr("&Exit without Saving"), this, SLOT(reject()));
-	emenu = new QPopupMenu();
-	emenu->insertItem( tr("&Undo"), EditTex, SLOT(undo()), CTRL+Key_Z);
+	emenu = new Q3PopupMenu();
+	emenu->insertItem( tr("&Undo"), EditTex, SLOT(undo()), Qt::CTRL+Qt::Key_Z);
 	emenu->insertItem( tr("&Redo"), EditTex, SLOT(redo()));
 	emenu->insertSeparator();
-	emenu->insertItem(loadIcon("editcut.png"), tr("Cu&t"), EditTex, SLOT(cut()), CTRL+Key_X);
-	emenu->insertItem(loadIcon("editcopy.png"), tr("&Copy"), EditTex, SLOT(copy()), CTRL+Key_C);
-	emenu->insertItem(loadIcon("editpaste.png"), tr("&Paste"), EditTex, SLOT(paste()), CTRL+Key_V);
-	emenu->insertItem(loadIcon("editdelete.png"), tr("C&lear"), EditTex, SLOT(del()), CTRL+Key_V);
+	emenu->insertItem(loadIcon("editcut.png"), tr("Cu&t"), EditTex, SLOT(cut()), Qt::CTRL+Qt::Key_X);
+	emenu->insertItem(loadIcon("editcopy.png"), tr("&Copy"), EditTex, SLOT(copy()), Qt::CTRL+Qt::Key_C);
+	emenu->insertItem(loadIcon("editpaste.png"), tr("&Paste"), EditTex, SLOT(paste()), Qt::CTRL+Qt::Key_V);
+	emenu->insertItem(loadIcon("editdelete.png"), tr("C&lear"), EditTex, SLOT(del()), Qt::CTRL+Qt::Key_V);
 	emenu->insertSeparator();
 	emenu->insertItem( tr("&Get Field Names"), this, SLOT(GetFieldN()));
 	menuBar = new QMenuBar(this);
@@ -61,12 +65,12 @@ void Editor::GetFieldN()
 
 void Editor::OpenScript()
 {
-	QString fileName = QFileDialog::getOpenFileName(dirs->get("editor_open", "."), tr("JavaScripts (*.js);;All Files (*)"),this);
+	QString fileName = Q3FileDialog::getOpenFileName(dirs->get("editor_open", "."), tr("JavaScripts (*.js);;All Files (*)"),this);
 	if (!fileName.isEmpty())
 	{
 		dirs->set("editor_open", fileName.left(fileName.findRev("/")));
 		QFile file( fileName );
-		if ( file.open( IO_ReadOnly ) )
+		if ( file.open( QIODevice::ReadOnly ) )
 		{
 			QTextStream ts( &file );
 			EditTex->setText( ts.read() );
@@ -77,12 +81,12 @@ void Editor::OpenScript()
 
 void Editor::SaveAs()
 {
-	QString fn = QFileDialog::getSaveFileName(dirs->get("editor_save", "."), tr("JavaScripts (*.js);;All Files (*)"), this);
+	QString fn = Q3FileDialog::getSaveFileName(dirs->get("editor_save", "."), tr("JavaScripts (*.js);;All Files (*)"), this);
 	if (!fn.isEmpty())
 	{
 		dirs->set("editor_save", fn.left(fn.findRev("/")));
 		QFile file( fn );
-		if ( file.open( IO_WriteOnly ) )
+		if ( file.open( QIODevice::WriteOnly ) )
 		{
 			QTextStream ts( &file );
 			ts << EditTex->text();

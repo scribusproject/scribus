@@ -19,13 +19,15 @@
 #define FONTCOMBO_H
 
 #include <qcombobox.h>
-#include <qlistbox.h>
+#include <q3listbox.h>
 #include <qlayout.h>
 #include <qwidget.h>
+//Added by qt3to4:
+#include <QVBoxLayout>
 
 #include "scribusapi.h"
 #include "scribusstructs.h"
-class QListBoxItem;
+class Q3ListBoxItem;
 class QFont;
 
 class ScribusDoc;
@@ -35,14 +37,14 @@ class PrefsManager;
   *@author Franz Schmid
   */
 
-class SCRIBUS_API FontListItem : public QListBoxItem
+class SCRIBUS_API FontListItem : public QWidget
 {
 public:
     FontListItem(QComboBox* parent, QString f, QFont fo);
     virtual ~FontListItem() {};
 
-    virtual const int width(const QListBox *);
-    virtual const int height(const QListBox *);
+    virtual const int width(const Q3ListBox *);
+    virtual const int height(const Q3ListBox *);
 
 protected:
     virtual void paint(QPainter *p);

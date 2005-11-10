@@ -2,6 +2,10 @@
 #include <qpainter.h>
 #include <qpixmap.h>
 #include <qregexp.h>
+//Added by qt3to4:
+#include <QApplication>
+#include <QDesktopWidget>
+#include <QMouseEvent>
 #include "splash.h"
 extern QPixmap loadIcon(QString nam);
 
@@ -14,7 +18,7 @@ extern QPixmap loadIcon(QString nam);
  \retval None
  */
 SplashScreen::SplashScreen() 
-	: QWidget( 0, 0, WStyle_Customize | WStyle_NoBorder | WStyle_StaysOnTop | WStyle_Tool | WX11BypassWM )
+	: QWidget( 0, 0, Qt::WStyle_Customize | Qt::WStyle_NoBorder | Qt::WStyle_StaysOnTop | Qt::WStyle_Tool | Qt::WX11BypassWM )
 {
 	pix = loadIcon("Splash.png");
 	Q_ASSERT(!pix.isNull());
@@ -75,9 +79,9 @@ void SplashScreen::setStatus( const QString &message )
 		}
 	}
 	QPixmap textPix = pix;
-	QPainter painter( &textPix, this );
+	QPainter painter( &textPix );
 	painter.setFont(QFont("Helvetica", 10));
-	painter.setPen( white );
+	painter.setPen( Qt::white );
 	//painter.setRasterOp(NotROP);
 	painter.drawText( 10, textPix.height()-8, tmp );
 	setErasePixmap( textPix );

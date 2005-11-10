@@ -16,16 +16,20 @@
  ***************************************************************************/
 
 #include "navigator.h"
-#include "navigator.moc"
 
 #include <qpainter.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QMouseEvent>
+#include <QLabel>
+#include <QPaintEvent>
 #include "scribusview.h"
 #include "util.h"
 
 Navigator::Navigator(QWidget *parent, int Size, int Seite, ScribusView* vie, QString fn) : QLabel(parent)
 {
 	setScaledContents(false);
-	setAlignment(static_cast<int>( QLabel::AlignLeft | QLabel::AlignTop) );
+	setAlignment(static_cast<int>( Qt::AlignLeft | Qt::AlignTop) );
 	if (!fn.isEmpty())
 	{
 		QPixmap img = LoadPDF(fn, Seite, Size, &Breite, &Hoehe);
@@ -79,7 +83,7 @@ void Navigator::drawMark(int x, int y)
 	p.eraseRect(pmx.rect());
 	p.setClipRect(pmx.rect());
 	p.drawPixmap(0, 0, pmx);
-	p.setPen(QPen(QColor(black), 1, SolidLine, FlatCap, MiterJoin));
+	p.setPen(QPen(QColor(Qt::black), 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 	p.drawLine(x-5, y-5, x-1, y-1);
 	p.drawLine(x-5, y+5, x-1, y+1);
 	p.drawLine(x+2, y+2, x+6, y+6);

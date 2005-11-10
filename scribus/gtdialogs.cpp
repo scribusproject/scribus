@@ -19,12 +19,17 @@
  ***************************************************************************/
 
 #include "gtdialogs.h"
-#include "gtdialogs.moc"
 #include "prefsmanager.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "sccombobox.h"
 #include <qlabel.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <Q3Frame>
+#include <QHBoxLayout>
+#include <QBoxLayout>
+#include <QVBoxLayout>
 #include "commonstrings.h"
 
 extern QPixmap loadIcon(QString nam);
@@ -33,19 +38,19 @@ extern QString DocDir;
 /********* Class gtFileDialog ************************************************************************/
 
 gtFileDialog::gtFileDialog(const QString& filters, const QStringList& importers, const QString& wdir) : 
-               QFileDialog(QString::null, filters, 0, 0, true)
+               Q3FileDialog(QString::null, filters, 0, 0, true)
 {
 // 	setIcon(loadIcon("AppIcon.png"));
 	setCaption("Open");
 	dir = QDir(wdir);
 	setDir(dir);
-	setMode(QFileDialog::ExistingFile);
+	setMode(Q3FileDialog::ExistingFile);
 	createWidgets(importers);
 }
 
 void gtFileDialog::createWidgets(const QStringList& importers)
 {
-	importerFrame = new QFrame(this);
+	importerFrame = new Q3Frame(this);
 	importerLayout = new QHBoxLayout(importerFrame);
 	importerLayout->setSpacing(10);
 	importerLayout->setMargin(0);
@@ -68,7 +73,7 @@ void gtFileDialog::createWidgets(const QStringList& importers)
 
 	addWidgets(new QLabel( tr("Importer:"), this), importerFrame, 0);
 
-	encodingFrame = new QFrame(this);
+	encodingFrame = new Q3Frame(this);
 	encodingLayout = new QHBoxLayout(encodingFrame);
 	encodingLayout->setSpacing(10);
 	encodingLayout->setMargin(0);
@@ -228,7 +233,7 @@ bool gtDialogs::runImporterDialog(const QStringList& importers)
 	if (imp != "false")
 	{
 		res = imp;
-		if (importers.contains(res) > 0)
+		if (importers.contains(res))
 			ok = true;
 	}
 	
@@ -251,7 +256,7 @@ bool gtDialogs::runImporterDialog(const QStringList& importers)
 	if (ok)
 	{
 		QString fileExtension = "";
-		for (uint i = 0; i < importers.count(); ++i)
+		for (int i = 0; i < importers.count(); ++i)
 		{
 			if (importers[i] == res)
 			{

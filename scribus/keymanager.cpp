@@ -1,31 +1,36 @@
 #include "keymanager.h"
-#include "keymanager.moc"
-#include <qaccel.h>
-#include <qguardedptr.h>
+#include <q3accel.h>
+#include <qpointer.h>
 #include <qstringlist.h>
-#include <qptrlist.h>
+#include <q3ptrlist.h>
 #include <qmessagebox.h>
-#include <qgroupbox.h>
+#include <q3groupbox.h>
 #include <qpushbutton.h>
-#include <qptrlist.h>
+#include <q3ptrlist.h>
 #include <qkeysequence.h>
 #include <qwidget.h>
-#include <qbuttongroup.h>
+#include <q3buttongroup.h>
 #include <qlabel.h>
 #include <qradiobutton.h>
-#include <qtable.h>
-#include <qheader.h>
+#include <q3table.h>
+#include <q3header.h>
 #include <qlayout.h>
 #include <qtooltip.h>
 #include <qevent.h>
 #include <qcombobox.h>
 #include <qfile.h>
 #include <qfileinfo.h>
-#include <qfiledialog.h>
+#include <q3filedialog.h>
 #include <qdom.h>
 #include <qdir.h>
 #include <qtooltip.h>
 #include <qinputdialog.h> 
+//Added by qt3to4:
+#include <QGridLayout>
+#include <QKeyEvent>
+#include <QTextStream>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 
 
 #include "commonstrings.h"
@@ -51,7 +56,7 @@ KeyManager::KeyManager(QWidget* parent, QMap<QString,Keys> oldKeyMap): QWidget( 
 	keyManagerLayout = new QVBoxLayout( this, 0, 6); 
 	keyManagerLayout->setAlignment( Qt::AlignTop );
 	//CB TODO Remove third column when all done
-	keyTable = new QTable( oldKeyMap.count(), 2, this, "keyTable" );
+	keyTable = new Q3Table( oldKeyMap.count(), 2, this, "keyTable" );
 	//keyTable->setMaximumSize(QSize(500,200));
 
 	
@@ -66,9 +71,9 @@ KeyManager::KeyManager(QWidget* parent, QMap<QString,Keys> oldKeyMap): QWidget( 
 			QString actName=QString(keyMap[*it].actionName);
 			if (!actName.isEmpty() && !actName.isNull())
 			{
-				QTableItem *item = new QTableItem(keyTable, QTableItem::Never, keyMap[*it].cleanMenuText);
+				Q3TableItem *item = new Q3TableItem(keyTable, Q3TableItem::Never, keyMap[*it].cleanMenuText);
 				keyTable->setItem(currentRow, 0, item);
-				QTableItem *item2 = new QTableItem(keyTable, QTableItem::Never, QString(keyMap[*it].keySequence));
+				Q3TableItem *item2 = new Q3TableItem(keyTable, Q3TableItem::Never, QString(keyMap[*it].keySequence));
 				keyTable->setItem(currentRow, 1, item2);
 				//QTableItem *item3 = new QTableItem(keyTable, QTableItem::Never, QString(keyMap[*it].actionName));
 				//keyTable->setItem(currentRow, 2, item3);
@@ -81,7 +86,7 @@ KeyManager::KeyManager(QWidget* parent, QMap<QString,Keys> oldKeyMap): QWidget( 
 	
 	//Add in non menu item ScrActions, make a list, sort and add	
 	QStringList menuKeys2;
-	for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = ScApp->scrActions.begin(); it!=ScApp->scrActions.end(); ++it )
+	for( QMap<QString, QPointer<ScrAction> >::Iterator it = ScApp->scrActions.begin(); it!=ScApp->scrActions.end(); ++it )
 	{
 		if (*it)
 			if (!menuKeys.contains(QString(it.key())))
@@ -95,9 +100,9 @@ KeyManager::KeyManager(QWidget* parent, QMap<QString,Keys> oldKeyMap): QWidget( 
 			QString actName=QString(keyMap[*it].actionName);
 			if (!actName.isEmpty() && !actName.isNull())
 			{
-				QTableItem *item = new QTableItem(keyTable, QTableItem::Never, keyMap[*it].cleanMenuText);
+				Q3TableItem *item = new Q3TableItem(keyTable, Q3TableItem::Never, keyMap[*it].cleanMenuText);
 				keyTable->setItem(currentRow, 0, item);
-				QTableItem *item2 = new QTableItem(keyTable, QTableItem::Never, QString(keyMap[*it].keySequence));
+				Q3TableItem *item2 = new Q3TableItem(keyTable, Q3TableItem::Never, QString(keyMap[*it].keySequence));
 				keyTable->setItem(currentRow, 1, item2);
 				//QTableItem *item3 = new QTableItem(keyTable, QTableItem::Never, QString(keyMap[*it].actionName));
 				//keyTable->setItem(currentRow, 2, item3);
@@ -110,7 +115,7 @@ KeyManager::KeyManager(QWidget* parent, QMap<QString,Keys> oldKeyMap): QWidget( 
 	
 	keyTable->setNumRows(currentRow);
 	keyTable->setSorting(false);
-	keyTable->setSelectionMode(QTable::NoSelection);
+	keyTable->setSelectionMode(Q3Table::NoSelection);
 	keyTable->setLeftMargin(0);
 	keyTable->verticalHeader()->hide();
 	header = keyTable->horizontalHeader();
@@ -126,7 +131,7 @@ KeyManager::KeyManager(QWidget* parent, QMap<QString,Keys> oldKeyMap): QWidget( 
 	keyTable->setShowGrid( false );
 	keyManagerLayout->addWidget( keyTable );
 
-	keyGroup = new QButtonGroup( this, "keyGroup" );
+	keyGroup = new Q3ButtonGroup( this, "keyGroup" );
 	keyGroup->setTitle( tr( "Select a Key for this Action" ) );
 	keyGroup->setColumnLayout(0, Qt::Vertical );
 	keyGroup->layout()->setSpacing( 0 );
@@ -144,7 +149,7 @@ KeyManager::KeyManager(QWidget* parent, QMap<QString,Keys> oldKeyMap): QWidget( 
 	keyDisplay = new QLabel( tr( "ALT+SHIFT+T" ), keyGroup, "keyDisplay" );
 	keyDisplay->setFrameShape( QLabel::Panel );
 	keyDisplay->setFrameShadow( QLabel::Sunken );
-	keyDisplay->setAlignment( static_cast<int>( QLabel::AlignCenter ) );
+	keyDisplay->setAlignment( static_cast<int>( Qt::AlignCenter ) );
 
 	keyGroupLayout->addMultiCellWidget( keyDisplay, 0, 2, 2, 2 );
 
@@ -154,7 +159,7 @@ KeyManager::KeyManager(QWidget* parent, QMap<QString,Keys> oldKeyMap): QWidget( 
 	keyGroupLayout->addMultiCellWidget( setKeyButton, 0, 2, 1, 1, Qt::AlignCenter );
 	keyManagerLayout->addWidget( keyGroup );
 	
-	loadableGroupBox = new QGroupBox( tr("Loadable Shortcut Sets"), this ,"loadshortcutgroup");
+	loadableGroupBox = new Q3GroupBox( tr("Loadable Shortcut Sets"), this ,"loadshortcutgroup");
 	loadableGroupBox->setColumnLayout(0, Qt::Vertical );
 	loadableGroupBox->layout()->setSpacing( 0 );
 	loadableGroupBox->layout()->setMargin( 0 );
@@ -231,17 +236,17 @@ void KeyManager::keyPressEvent(QKeyEvent *k)
 			Part4 = "";
 		switch (k->key())
 		{
-			case Key_Shift:
+			case Qt::Key_Shift:
 				Part3 = tr("Shift+");
-				keyCode |= SHIFT;
+				keyCode |= Qt::SHIFT;
 				break;
-			case Key_Alt:
+			case Qt::Key_Alt:
 				Part2 = tr("Alt+");
-				keyCode |= ALT;
+				keyCode |= Qt::ALT;
 				break;
-			case Key_Control:
+			case Qt::Key_Control:
 				Part1 = tr("Ctrl+");
-				keyCode |= CTRL;
+				keyCode |= Qt::CTRL;
 				break;
 			default:
 				keyCode |= k->key();
@@ -254,7 +259,7 @@ void KeyManager::keyPressEvent(QKeyEvent *k)
 											CommonStrings::tr_OK, 0, 0, 0, QMessageBox::Ok);
 					keyTable->setText(currRow, 1, "");
 					keyDisplay->setText("");
-					if (currentKeyMapRow!=NULL)
+					if (currentKeyMapRow!=keyMap.end())
 						currentKeyMapRow.data().keySequence="";
 					noKey->setChecked(true);
 				}
@@ -262,7 +267,7 @@ void KeyManager::keyPressEvent(QKeyEvent *k)
 				{
 					QString newKeySequence=QString(QKeySequence(keyCode));
 					keyTable->setText(currRow, 1, newKeySequence);
-					if (currentKeyMapRow!=NULL)
+					if (currentKeyMapRow!=keyMap.end())
 						currentKeyMapRow.data().keySequence=newKeySequence;
 					userDef->setChecked(true);
 				}
@@ -288,17 +293,17 @@ void KeyManager::keyReleaseEvent(QKeyEvent *k)
 		}
 		else
 			Part4 = "";
-		if (k->key() == Key_Shift)
+		if (k->key() == Qt::Key_Shift)
 		{
 			Part3 = "";
 			keyCode &= ~0x00200000;
 		}
-		if (k->key() == Key_Alt)
+		if (k->key() == Qt::Key_Alt)
 		{
 			Part2 = "";
 			keyCode &= ~0x00800000;
 		}
-		if (k->key() == Key_Control)
+		if (k->key() == Qt::Key_Control)
 		{
 			Part1 = "";
 			keyCode &= ~0x00400000;
@@ -347,7 +352,7 @@ void KeyManager::setNoKey()
 	{
 		keyTable->setText(currRow, 1, "");
 		keyDisplay->setText("");
-		if (currentKeyMapRow!=NULL)
+		if (currentKeyMapRow!=keyMap.end())
 			currentKeyMapRow.data().keySequence="";
 	}
 }
@@ -378,7 +383,7 @@ const QMap<QString, Keys> KeyManager::getNewKeyMap()
 
 void KeyManager::loadKeySetFile()
 {
-	if (keySetList[loadableSets->currentText()])
+	if (!keySetList[loadableSets->currentText()].isEmpty())
 		importKeySet(keySetList[loadableSets->currentText()]);
 }
 
@@ -386,7 +391,7 @@ void KeyManager::importKeySetFile()
 {
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString currentPath = dirs->get("keymapprefs_import", ".");
-	QString s = QFileDialog::getOpenFileName(currentPath, tr("Key Set XML Files (*.ksxml)"), this, "load open file dialog", "Choose a file to open" );
+	QString s = Q3FileDialog::getOpenFileName(currentPath, tr("Key Set XML Files (*.ksxml)"), this, "load open file dialog", "Choose a file to open" );
 	if (!s.isEmpty())
 		importKeySet(s);
 }
@@ -394,7 +399,7 @@ void KeyManager::exportKeySetFile()
 {   
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString currentPath= dirs->get("keymapprefs_export", ".");
-	QString s = QFileDialog::getSaveFileName(currentPath, tr("Key Set XML Files (*.ksxml)"), this, "save open file dialog", "Choose a file to save" );
+	QString s = Q3FileDialog::getSaveFileName(currentPath, tr("Key Set XML Files (*.ksxml)"), this, "save open file dialog", "Choose a file to save" );
 	if (!s.isEmpty())
 		exportKeySet(s);
 }
@@ -408,7 +413,7 @@ void KeyManager::importKeySet(QString filename)
 		//import the file into qdomdoc
 		QDomDocument doc( "keymapentries" );
 		QFile file( filename );
-		if ( !file.open( IO_ReadOnly ) )
+		if ( !file.open( QIODevice::ReadOnly ) )
 			return;
 		QTextStream ts(&file);
 		ts.setEncoding(QTextStream::UnicodeUTF8);
@@ -492,14 +497,14 @@ bool KeyManager::exportKeySet(QString filename)
 			keySetElement.appendChild(function_shortcut);
 		}
 		QFile f(filename);
-		if(!f.open(IO_WriteOnly))
+		if(!f.open(QIODevice::WriteOnly))
 			return false;
 		QTextStream s(&f);
 		s.setEncoding(QTextStream::UnicodeUTF8);
 		QString xmltag("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
-		s.writeRawBytes(xmltag, xmltag.length());
+		s << xmltag;
 		QString xmldoc = doc.toString(4);
-		s.writeRawBytes(xmldoc, xmldoc.length());
+		s << xmldoc;
 		f.close();
 	}
 	return true;
@@ -527,7 +532,7 @@ QStringList KeyManager::scanForSets()
 			
 			QDomDocument doc( "keymapentries" );
 			QFile file( filename );
-			if ( !file.open( IO_ReadOnly ) )
+			if ( !file.open( QIODevice::ReadOnly ) )
 				continue;
 			QString errorMsg;
 			int eline;
@@ -551,5 +556,5 @@ QStringList KeyManager::scanForSets()
 		}
 		return QStringList(appNames);
 	}
-	return NULL;
+	return QStringList();
 }

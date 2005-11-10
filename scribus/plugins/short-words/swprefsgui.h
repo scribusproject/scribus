@@ -3,8 +3,13 @@
 
 #include "prefspanel.h"
 
-#include <qtextedit.h>
-#include <qsyntaxhighlighter.h>
+#include <q3textedit.h>
+#include <q3syntaxhighlighter.h>
+//Added by qt3to4:
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QGridLayout>
 
 class QWidget;
 class QVBoxLayout;
@@ -30,7 +35,7 @@ class SWPrefsGui : public PrefsPanel
 		~SWPrefsGui(){};
 
 		QLabel* titleLabel;
-		QTextEdit* cfgEdit;
+		Q3TextEdit* cfgEdit;
 		QPushButton* okButton;
 		QPushButton* resetButton;
 
@@ -61,10 +66,10 @@ class SWPrefsGui : public PrefsPanel
 /*! Simple syntax highlighting for configuration editor (QTextEdit).
 \author Petr Vanek, <petr@yarpen.cz>
  */
-class SWSyntaxHighlighter : public QSyntaxHighlighter
+class SWSyntaxHighlighter : public Q3SyntaxHighlighter
 {
 	public:
-		SWSyntaxHighlighter(QTextEdit *textEdit);
+		SWSyntaxHighlighter(Q3TextEdit *textEdit);
 
 		/*! Reimplementation of the Qt highligtion for simple cfg file
 		\param text string (one row) provided by text editor via QSyntaxHighlighter inheritance.

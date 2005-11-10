@@ -16,7 +16,6 @@
  ***************************************************************************/
 
 #include "cupsoptions.h"
-#include "cupsoptions.moc"
 #include "prefsmanager.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
@@ -25,6 +24,10 @@
 #include "scconfig.h"
 
 #include <qstringlist.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 #ifdef HAVE_CUPS
 #include <cups/cups.h>
 #endif
@@ -41,10 +44,10 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent, "pr
 	CupsOptionsLayout = new QVBoxLayout( this );
 	CupsOptionsLayout->setSpacing( 5 );
 	CupsOptionsLayout->setMargin( 10 );
-	Table = new QTable( this, "Table1" );
+	Table = new Q3Table( this, "Table1" );
 	Table->setNumCols( 2 );
 	Table->setSorting(false);
-	Table->setSelectionMode(QTable::NoSelection);
+	Table->setSelectionMode(Q3Table::NoSelection);
 	Table->setLeftMargin(0);
 	Table->verticalHeader()->hide();
 	Table->setMinimumSize(300, 100);

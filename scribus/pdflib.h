@@ -18,14 +18,16 @@
 #ifndef PDFLIB_H
 #define PDFLIB_H
 
-#include "qvaluelist.h"
+#include "q3valuelist.h"
 #include <qfile.h>
+#include <QPixmap>
 #include <vector>
+
 
 class QString;
 class QRect;
 class QImage;
-class QProgressBar;
+class Q3ProgressBar;
 class PageItem;
 class BookMItem;
 class BookMView;
@@ -47,7 +49,7 @@ class SCRIBUS_API PDFlib : public QObject
 public:
 	PDFlib(ScribusDoc *docu);
 	~PDFlib() {};
-	bool doExport(QString fn, QString nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs, QProgressBar *dia2);
+	bool doExport(QString fn, QString nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs, Q3ProgressBar *dia2);
 	bool PDF_Begin_Doc(QString fn, PDFOptions *opts, SCFonts &AllFonts, QMap<QString,int> DocFonts, BookMView* vi);
 	void PDF_Begin_Page(Page* pag, QPixmap pm = 0);
 	void PDF_End_Page();
@@ -87,7 +89,7 @@ private:
 	QByteArray ComputeMD5(QString in);
 	void PDF_Bookmark(int nr, double ypos);
 	QString PDF_Gradient(PageItem *currItem);
-	QString PDF_DoLinGradient(PageItem *currItem, QValueList<double> Stops, QValueList<double> Trans, QStringList Colors);
+	QString PDF_DoLinGradient(PageItem *currItem, Q3ValueList<double> Stops, Q3ValueList<double> Trans, QStringList Colors);
 	QString PDF_Transparenz(PageItem *currItem);
 	void PDF_Annotation(PageItem *ite, uint PNr);
 	void PDF_Form(QString im);
@@ -115,7 +117,7 @@ private:
 	Catalog;
 	struct PagT
 	{
-		QValueList<int> Kids;
+		Q3ValueList<int> Kids;
 		int Count;
 	}
 	PageTree;
@@ -126,8 +128,8 @@ private:
 		QMap<QString,int> XObjects;
 		QMap<QString,int> ImgObjects;
 		QMap<QString,int> FObjects;
-		QValueList<int> AObjects;
-		QValueList<int> FormObjects;
+		Q3ValueList<int> AObjects;
+		Q3ValueList<int> FormObjects;
 	}
 	Seite;
 	struct OutL
@@ -174,11 +176,11 @@ private:
 		QString ResName;
 	};
 	QMap<QString,ShIm> SharedImages;
-	QValueList<uint> XRef;
-	QValueList<Dest> NamedDest;
-	QValueList<int> Threads;
-	QValueList<Bead> Beads;
-	QValueList<int> CalcFields;
+	Q3ValueList<uint> XRef;
+	Q3ValueList<Dest> NamedDest;
+	Q3ValueList<int> Threads;
+	Q3ValueList<Bead> Beads;
+	Q3ValueList<int> CalcFields;
 	QMap<QString,int> Shadings;
 	QMap<QString,int> Transpar;
 	QMap<QString,ICCD> ICCProfiles;

@@ -1,8 +1,11 @@
 #include "lineformats.h"
-#include "lineformats.moc"
 
 #include <qmessagebox.h>
 #include <qpainter.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 
 #include "customfdialog.h"
 #include "scribusXml.h"
@@ -27,7 +30,7 @@ LineFormate::LineFormate( QWidget* parent, ScribusDoc *doc)
 	StilFormateLayout->setSpacing( 5 );
 	StilFormateLayout->setMargin( 10 );
 
-	ListBox1 = new QListBox( this, "ListBox1" );
+	ListBox1 = new Q3ListBox( this, "ListBox1" );
 	ListBox1->setMinimumSize( QSize( 200, 240 ) );
 	StilFormateLayout->addWidget( ListBox1 );
 
@@ -75,8 +78,8 @@ LineFormate::LineFormate( QWidget* parent, ScribusDoc *doc)
 	connect(NewB, SIGNAL(clicked()), this, SLOT(neuesFormat()));
 	connect(DublicateB, SIGNAL(clicked()), this, SLOT(dupFormat()));
 	connect(DeleteB, SIGNAL(clicked()), this, SLOT(deleteFormat()));
-	connect(ListBox1, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selFormat(QListBoxItem*)));
-	connect( ListBox1, SIGNAL( selected(QListBoxItem*) ), this, SLOT( selEditFormat(QListBoxItem*) ) );
+	connect(ListBox1, SIGNAL(highlighted(Q3ListBoxItem*)), this, SLOT(selFormat(Q3ListBoxItem*)));
+	connect( ListBox1, SIGNAL( selected(Q3ListBoxItem*) ), this, SLOT( selEditFormat(Q3ListBoxItem*) ) );
 	if (ListBox1->count() > 0)
     	sFnumber = TempStyles.begin().key();
 	else
@@ -90,7 +93,7 @@ void LineFormate::saveIt()
 	emit saveStyle(this);
 }
 
-void LineFormate::selFormat(QListBoxItem *c)
+void LineFormate::selFormat(Q3ListBoxItem *c)
 {
 	sFnumber = c->text();
 	EditB->setEnabled(true);
@@ -98,7 +101,7 @@ void LineFormate::selFormat(QListBoxItem *c)
 	DeleteB->setEnabled(true);
 }
 
-void LineFormate::selEditFormat(QListBoxItem *c)
+void LineFormate::selEditFormat(Q3ListBoxItem *c)
 {
 	sFnumber = c->text();
 	EditB->setEnabled(true);
@@ -125,9 +128,9 @@ void LineFormate::neuesFormat()
 	struct SingleLine sl;
 	sl.Color = "Black";
 	sl.Shade = 100;
-	sl.Dash = SolidLine;
-	sl.LineEnd = FlatCap;
-	sl.LineJoin = MiterJoin;
+	sl.Dash = Qt::SolidLine;
+	sl.LineEnd = Qt::FlatCap;
+	sl.LineJoin = Qt::MiterJoin;
 	sl.Width = 1.0;
 	multiLine ml;
 	ml.push_back(sl);
@@ -203,14 +206,14 @@ void LineFormate::loadLStyles()
 
 void LineFormate::UpdateFList()
 {
-	disconnect(ListBox1, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selFormat(QListBoxItem*)));
-	disconnect( ListBox1, SIGNAL( selected(QListBoxItem*) ), this, SLOT( selEditFormat(QListBoxItem*) ) );
+	disconnect(ListBox1, SIGNAL(highlighted(Q3ListBoxItem*)), this, SLOT(selFormat(Q3ListBoxItem*)));
+	disconnect( ListBox1, SIGNAL( selected(Q3ListBoxItem*) ), this, SLOT( selEditFormat(Q3ListBoxItem*) ) );
 	ListBox1->clear();
 	QMap<QString,multiLine>::Iterator it;
 	for (it = TempStyles.begin(); it != TempStyles.end(); ++it)
 	{
 		QPixmap pm = QPixmap(37, 37);
-		pm.fill(white);
+		pm.fill(Qt::white);
 		QPainter p;
 		p.begin(&pm);
 		QColor tmpf;
@@ -233,9 +236,9 @@ void LineFormate::UpdateFList()
 			}
 			p.setPen(QPen(tmpf,
 							QMAX(static_cast<int>(ml[its].Width), 1),
-							static_cast<PenStyle>(ml[its].Dash),
-							static_cast<PenCapStyle>(ml[its].LineEnd),
-							static_cast<PenJoinStyle>(ml[its].LineJoin)));
+							static_cast<Qt::PenStyle>(ml[its].Dash),
+							static_cast<Qt::PenCapStyle>(ml[its].LineEnd),
+							static_cast<Qt::PenJoinStyle>(ml[its].LineJoin)));
 			p.drawLine(0, 18, 37, 18);
 			}
 		p.end();
@@ -250,6 +253,6 @@ void LineFormate::UpdateFList()
 	EditB->setEnabled(!setter);
 	DeleteB->setEnabled(!setter);
 	ListBox1->sort( true );
-	connect(ListBox1, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selFormat(QListBoxItem*)));
-	connect( ListBox1, SIGNAL( selected(QListBoxItem*) ), this, SLOT( selEditFormat(QListBoxItem*) ) );
+	connect(ListBox1, SIGNAL(highlighted(Q3ListBoxItem*)), this, SLOT(selFormat(Q3ListBoxItem*)));
+	connect( ListBox1, SIGNAL( selected(Q3ListBoxItem*) ), this, SLOT( selEditFormat(Q3ListBoxItem*) ) );
 }

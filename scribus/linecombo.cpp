@@ -17,6 +17,8 @@
 
 #include "linecombo.h"
 #include "icons5.h"
+//Added by qt3to4:
+#include <QPixmap>
 
 /*!
  \fn LineCombo::LineCombo(QWidget* pa)

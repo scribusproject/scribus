@@ -2,14 +2,18 @@
 #include "scriptercore.h"
 
 #include <qvariant.h>
-#include <qgroupbox.h>
+#include <q3groupbox.h>
 #include <qcheckbox.h>
-#include <qframe.h>
+#include <q3frame.h>
 #include <qlabel.h>
 #include <qlineedit.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
+//Added by qt3to4:
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QGridLayout>
 #include <prefspanel.h>
 
 ScripterPrefsGui::ScripterPrefsGui( QWidget* parent  )
@@ -17,7 +21,7 @@ ScripterPrefsGui::ScripterPrefsGui( QWidget* parent  )
 {
 	ScripterPrefsGuiBaseLayout = new QGridLayout( this, 1, 1, 10, 5, "ScripterPrefsGuiBaseLayout"); 
 
-	extGroup = new QGroupBox( this, "extGroup" );
+	extGroup = new Q3GroupBox( this, "extGroup" );
 	extGroup->setColumnLayout(0, Qt::Vertical );
 	extGroup->layout()->setSpacing( 5 );
 	extGroup->layout()->setMargin( 10 );
@@ -27,9 +31,9 @@ ScripterPrefsGui::ScripterPrefsGui( QWidget* parent  )
 	extensionScriptsChk = new QCheckBox( extGroup, "extensionScriptsChk" );
 	extGroupLayout->addWidget( extensionScriptsChk );
 
-	startupScriptFrame = new QFrame( extGroup, "startupScriptFrame" );
-	startupScriptFrame->setFrameShape( QFrame::StyledPanel );
-	startupScriptFrame->setFrameShadow( QFrame::Raised );
+	startupScriptFrame = new Q3Frame( extGroup, "startupScriptFrame" );
+	startupScriptFrame->setFrameShape( Q3Frame::StyledPanel );
+	startupScriptFrame->setFrameShadow( Q3Frame::Raised );
 	startupScriptFrameLayout = new QHBoxLayout( startupScriptFrame, 10, 5, "startupScriptFrameLayout"); 
 
 	startupScriptEditLabel = new QLabel( startupScriptFrame, "startupScriptEditLabel" );
@@ -44,7 +48,7 @@ ScripterPrefsGui::ScripterPrefsGui( QWidget* parent  )
 	ScripterPrefsGuiBaseLayout->addWidget( extGroup, 0, 0 );
 	languageChange();
 	resize( minimumSizeHint() );
-	clearWState( WState_Polished );
+        setAttribute( Qt::WA_WState_Polished, false);
 
 	// Set the state of the ext script enable checkbox
 	extensionScriptsChk->setChecked(scripterCore->extensionsEnabled());
@@ -84,4 +88,3 @@ void ScripterPrefsGui::apply()
 	scripterCore->setStartupScript(startupScriptEdit->text());
 }
 
-#include "scripterprefsgui.moc"

@@ -6,8 +6,10 @@
 #include <qstring.h>
 #include <qregexp.h>
 #include <qiodevice.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 #include <qstringlist.h>
+//Added by qt3to4:
+#include <Q3CString>
 
 /*
  * @brief Superclass for all file import/export/load/save plugins
@@ -72,7 +74,7 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 		// Return a list of all formats supported by all currently loaded and
 		// active plugins. This list is sorted in a very specific order:
 		// First, by descending order of `id', then descending order of priority.
-		static const QValueList<FormatSupport> & supportedFormats();
+		static const Q3ValueList<FormatSupport> & supportedFormats();
 
 		// Return a list of format descriptions suitable for use with
 		// QFileDialog.  You can convert it to QString form with
@@ -113,7 +115,7 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 		// using the protected `registerFormat(...)', `unregisterFormat(...)'
 		// and `unregisterAll(...)' methods. This is sorted in a very specific
 		// order - ascending ID, then descending priority.
-		static QValueList<FormatSupport> formats;
+		static Q3ValueList<FormatSupport> formats;
 
 		// Return an iterator referencing the first format structure named `name'.
 		// If specified, only return formats implmented by `plug'.
@@ -124,9 +126,9 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 		// iterator returned by this method will always be to the highest
 		// priority format of the required ID, and each subsequent call will
 		// return the next lowest priority format.
-		QValueList<FormatSupport>::iterator findFormat(unsigned int id,
+		Q3ValueList<FormatSupport>::iterator findFormat(unsigned int id,
 				LoadSavePlugin* plug = 0,
-				QValueList<FormatSupport>::iterator it = formats.begin());
+				Q3ValueList<FormatSupport>::iterator it = formats.begin());
 
 		// Print out a format list for debugging purposes
 		static void printFormatList();

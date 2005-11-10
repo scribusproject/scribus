@@ -14,17 +14,20 @@
 #include <qfile.h>
 #include <qvariant.h>
 #include <qpushbutton.h>
-#include <qheader.h>
-#include <qlistview.h>
+#include <q3header.h>
+#include <q3listview.h>
 #include <qlabel.h>
 #include <qspinbox.h>
 #include <qcheckbox.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
+//Added by qt3to4:
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 
 #include "loremipsum.h"
-#include "loremipsum.moc"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
@@ -47,7 +50,7 @@ LoremParser::LoremParser(QString fname)
 	correct = false;
 	QDomDocument doc("loremdoc");
 	QFile file(getLoremLocation(fname));
-	if (!file.open(IO_ReadOnly))
+	if (!file.open(QIODevice::ReadOnly))
 		return;
 	if (!doc.setContent(&file))
 	{
@@ -91,7 +94,7 @@ QString LoremParser::createLorem(uint parCount)
 }
 
 
-LoremManager::LoremManager(QWidget* parent, const char* name, bool modal, WFlags fl)
+LoremManager::LoremManager(QWidget* parent, const char* name, bool modal, Qt::WFlags fl)
 	: QDialog( parent, name, modal, fl )
 {
 	if ( !name )
@@ -100,7 +103,7 @@ LoremManager::LoremManager(QWidget* parent, const char* name, bool modal, WFlags
 
 	layout3 = new QVBoxLayout( 0, 0, 6, "layout3");
 
-	loremList = new QListView( this, "loremList" );
+	loremList = new Q3ListView( this, "loremList" );
 	loremList->addColumn( tr( "Select Lorem Ipsum" ) );
 	loremList->setRootIsDecorated(true);
 	layout3->addWidget( loremList );
@@ -132,32 +135,31 @@ LoremManager::LoremManager(QWidget* parent, const char* name, bool modal, WFlags
 	LoremManagerLayout->addLayout( layout3, 0, 0 );
 	languageChange();
 	resize( QSize(439, 364).expandedTo(minimumSizeHint()) );
-	clearWState( WState_Polished );
+	setAttribute( Qt::WA_WState_Polished, false );
 
 	// reading lorems
 	QDir d(getLoremLocation(QString::null), "*.xml");
 
-	const QFileInfoList *list = d.entryInfoList();
-	QFileInfoListIterator it(*list);
-	QFileInfo *fi;
+	QFileInfoList list = d.entryInfoList();
+	QFileInfoListIterator it = list.begin();
 
-	while ( (fi = it.current()) != 0 )
+	for (; it != list.end(); ++it)
 	{
-		LoremParser *parser = new LoremParser(fi->fileName());
+		QFileInfo fi = *it;
+		LoremParser *parser = new LoremParser(fi.fileName());
 		if (!parser->correct)
 		{
 			delete parser;
 			++it;
 			continue;
 		}
-		availableLorems[parser->name] = fi->fileName();
-		QListViewItem *item = new QListViewItem(loremList);
+		availableLorems[parser->name] = fi.fileName();
+		Q3ListViewItem *item = new Q3ListViewItem(loremList);
 		item->setText(0, parser->name);
-		new QListViewItem(item, tr("Author:") + " " + parser->author);
-		new QListViewItem(item, tr("Get More:") + " " + parser->url);
-		new QListViewItem(item, tr("XML File:") + " " + fi->fileName());
+		new Q3ListViewItem(item, tr("Author:") + " " + parser->author);
+		new Q3ListViewItem(item, tr("Get More:") + " " + parser->url);
+		new Q3ListViewItem(item, tr("XML File:") + " " + fi.fileName());
 		loremList->insertItem(item);
-		++it;
 		delete parser;
 	}
 
@@ -179,7 +181,7 @@ void LoremManager::languageChange()
 void LoremManager::okButton_clicked()
 {
 	// only top level items are taken
-	QListViewItem *li;
+	Q3ListViewItem *li;
 	if (loremList->currentItem()->parent() == 0)
 		li = loremList->currentItem();
 	else

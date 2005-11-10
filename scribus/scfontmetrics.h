@@ -1,6 +1,8 @@
 #include <qglobal.h>
 #include <qstring.h>
 #include <qcolor.h>
+//Added by qt3to4:
+#include <QPixmap>
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
@@ -8,7 +10,6 @@
 #include FT_GLYPH_H
 
 #include "scribusapi.h"
-#include "fpoint.h"
 #include "fpointarray.h"
 #include "pdflib.h"
 

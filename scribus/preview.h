@@ -4,12 +4,15 @@
 #include <qdialog.h>
 #include <qlabel.h>
 #include <qpixmap.h>
-#include <qscrollview.h>
+#include <q3scrollview.h>
 #include <qlayout.h>
 #include <qtoolbutton.h>
 #include <qcombobox.h>
 #include <qcheckbox.h>
 #include <qpushbutton.h>
+//Added by qt3to4:
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 #include "scribusapi.h"
 
 class PageSelector;
@@ -21,7 +24,7 @@ class QSpinBox;
 class PrefsManager;
 
 class QImage;
-class QTable;
+class Q3Table;
 
 class SCRIBUS_API PPreview : public QDialog
 {
@@ -44,7 +47,7 @@ public:
 	QCheckBox* EnableCMYK_Y;
 	QCheckBox* EnableCMYK_K;
 	QCheckBox* EnableGCR;
-	QScrollView* Anzeige;
+	Q3ScrollView* Anzeige;
 	QLabel* Anz;
 	QPushButton *closeButton;
 	QPushButton *printButton;
@@ -65,7 +68,7 @@ public:
 	bool GMode;
 	QMap<QString, int> sepsToFileNum;
 	QMap<QString, QCheckBox*> flagsVisible;
-	QTable* Table;
+	Q3Table* Table;
 
 public slots:
 	void ToSeite(int num);

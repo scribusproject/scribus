@@ -1,7 +1,6 @@
 #include <filesearch.h>
 #include <qtimer.h>
 
-#include "filesearch.moc"
 
 enum FileSearchStatus
 {
@@ -122,12 +121,11 @@ void FileSearch::pushStack()
 void FileSearch::addCurrentDirFiles()
 {
 	// Search files in this dir
-	const QFileInfoList *filist = m_dir.entryInfoList(m_fileName, QDir::Files);
-	QFileInfoListIterator it( *filist );
-	QFileInfo *fi;
-	while ( ( fi = it.current() ) != 0 )
+	QFileInfoList filist = m_dir.entryInfoList(m_fileName, QDir::Files);
+	QFileInfoListIterator it = filist.begin();
+	for ( ; it != filist.end(); ++it)
 	{
-		++it;
-		m_matchingFiles.push_back(fi->absFilePath());
+		QFileInfo fi = *it;
+		m_matchingFiles.push_back(fi.absFilePath());
 	}
 }

@@ -16,19 +16,22 @@
  ***************************************************************************/
 
 #include "colorchart.h"
-#include "colorchart.moc"
 #include <qpixmap.h>
 #include <qimage.h>
 #include <qpainter.h>
+//Added by qt3to4:
+#include <QMouseEvent>
+#include <QLabel>
+#include <QPaintEvent>
 #include "util.h"
 
 ColorChart::ColorChart(QWidget *parent) : QLabel(parent)
 {
 	setScaledContents( true );
-	setAlignment( static_cast<int>( QLabel::AlignCenter ) );
+	setAlignment( static_cast<int>( Qt::AlignCenter ) );
 	Xp = 0;
 	Yp = 0;
-	setBackgroundMode(NoBackground);
+	setBackgroundMode(Qt::NoBackground);
 	drawPalette(255);
 }
 
@@ -64,8 +67,9 @@ void ColorChart::drawMark(int x, int y)
 {
 	QPainter p;
 	p.begin(this);
-	p.setRasterOp(XorROP);
-	p.setPen(QPen(QColor(white), 1, SolidLine, FlatCap, MiterJoin));
+        qWarning("port raster op!");
+	//p.setRasterOp(Qt::XorROP);
+	p.setPen(QPen(QColor(Qt::white), 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 	p.drawLine(Xp-5, Yp-5, Xp-1, Yp-1);
 	p.drawLine(Xp-5, Yp+5, Xp-1, Yp+1);
 	p.drawLine(Xp+2, Yp+2, Xp+6, Yp+6);

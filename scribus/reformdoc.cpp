@@ -1,10 +1,15 @@
 #include "reformdoc.h"
-#include "reformdoc.moc"
 
 #include <qcolordialog.h>
 #include <qcursor.h>
 #include <qspinbox.h>
 #include <qtooltip.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QVBoxLayout>
 
 #include "tabtypography.h"
 #include "docinfo.h"
@@ -83,7 +88,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	dsLayout4pv = new QVBoxLayout;
 	dsLayout4pv->setSpacing( 5 );
 	dsLayout4pv->setMargin( 0 );
-	dsGroupBox7 = new QGroupBox( tabPage, "GroupBox7" );
+	dsGroupBox7 = new Q3GroupBox( tabPage, "GroupBox7" );
 	dsGroupBox7->setTitle( tr( "Page Size" ) );
 	dsGroupBox7->setColumnLayout(0, Qt::Vertical );
 	dsGroupBox7->layout()->setSpacing( 0 );
@@ -158,7 +163,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	dsLayout4p->addLayout( dsLayout4pv );
 	reformDocLayout->addLayout( dsLayout4p );
 	
-	groupBox7a = new QGroupBox( tabPage, "groupBox7" );
+	groupBox7a = new Q3GroupBox( tabPage, "groupBox7" );
 	groupBox7a->setTitle( tr( "Options" ) );
 	groupBox7a->setColumnLayout(0, Qt::Vertical );
 	groupBox7a->layout()->setSpacing( 0 );
@@ -188,7 +193,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	TextLabel1_3->setBuddy(pageNumber);
 	groupBox7aLayout->addLayout( layout4a );
 	reformDocLayout->addWidget( groupBox7a );
-	groupAutoSave = new QGroupBox( tabPage, "groupAutoSave" );
+	groupAutoSave = new Q3GroupBox( tabPage, "groupAutoSave" );
 	groupAutoSave->setTitle( tr( "Autosave" ) );
 	groupAutoSave->setCheckable( true );
 	groupAutoSave->setChecked( doc->AutoSave );
@@ -216,7 +221,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 
 	tabView = new QWidget( prefsWidgets, "tabView" );
 	tabViewLayout = new QVBoxLayout( tabView, 0, 5, "tabViewLayout");
-	pageBackground = new QButtonGroup( tabView, "pageBackground" );
+	pageBackground = new Q3ButtonGroup( tabView, "pageBackground" );
 	pageBackground->setTitle( tr( "Page Display" ) );
 	pageBackground->setColumnLayout(0, Qt::Vertical );
 	pageBackground->layout()->setSpacing( 5 );
@@ -268,7 +273,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	pageBackgroundLayout->addWidget( checkRuler );
 	tabViewLayout->addWidget( pageBackground );
 
-	groupScratch = new QGroupBox( tabView, "GroupBox7" );
+	groupScratch = new Q3GroupBox( tabView, "GroupBox7" );
 	groupScratch->setTitle( tr( "Minimum Scratch Space" ) );
 	groupScratch->setColumnLayout(0, Qt::Vertical );
 	groupScratch->layout()->setSpacing( 0 );
@@ -315,7 +320,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	groupScratchLayout->addLayout( layout4s );
 	tabViewLayout->addWidget( groupScratch );
 
-	groupGap = new QGroupBox( tabView, "GroupBox7" );
+	groupGap = new Q3GroupBox( tabView, "GroupBox7" );
 	groupGap->setTitle( tr( "Gaps between Pages" ) );
 	groupGap->setColumnLayout(0, Qt::Vertical );
 	groupGap->layout()->setSpacing( 0 );
@@ -420,7 +425,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	}
 	arrangeIcons();
 	resize( minimumSizeHint() );
-	clearWState( WState_Polished );
+	setAttribute( Qt::WA_WState_Polished, false );
 	prefsSelection->setSelected(prefsSelection->firstItem(), true);
 	itemSelected(prefsSelection->firstItem());
 }
@@ -829,19 +834,19 @@ void ReformDoc::updateDocumentSettings()
 	switch (tabTools->comboStyleShape->currentItem())
 	{
 	case 0:
-		currDoc->toolSettings.dLineArt = SolidLine;
+		currDoc->toolSettings.dLineArt = Qt::SolidLine;
 		break;
 	case 1:
-		currDoc->toolSettings.dLineArt = DashLine;
+		currDoc->toolSettings.dLineArt = Qt::DashLine;
 		break;
 	case 2:
-		currDoc->toolSettings.dLineArt = DotLine;
+		currDoc->toolSettings.dLineArt = Qt::DotLine;
 		break;
 	case 3:
-		currDoc->toolSettings.dLineArt = DashDotLine;
+		currDoc->toolSettings.dLineArt = Qt::DashDotLine;
 		break;
 	case 4:
-		currDoc->toolSettings.dLineArt = DashDotDotLine;
+		currDoc->toolSettings.dLineArt = Qt::DashDotDotLine;
 		break;
 	}
 	currDoc->toolSettings.dWidth = tabTools->lineWidthShape->value();
@@ -857,19 +862,19 @@ void ReformDoc::updateDocumentSettings()
 	switch (tabTools->comboStyleLine->currentItem())
 	{
 	case 0:
-		currDoc->toolSettings.dLstyleLine = SolidLine;
+		currDoc->toolSettings.dLstyleLine = Qt::SolidLine;
 		break;
 	case 1:
-		currDoc->toolSettings.dLstyleLine = DashLine;
+		currDoc->toolSettings.dLstyleLine = Qt::DashLine;
 		break;
 	case 2:
-		currDoc->toolSettings.dLstyleLine = DotLine;
+		currDoc->toolSettings.dLstyleLine = Qt::DotLine;
 		break;
 	case 3:
-		currDoc->toolSettings.dLstyleLine = DashDotLine;
+		currDoc->toolSettings.dLstyleLine = Qt::DashDotLine;
 		break;
 	case 4:
-		currDoc->toolSettings.dLstyleLine = DashDotDotLine;
+		currDoc->toolSettings.dLstyleLine = Qt::DashDotDotLine;
 		break;
 	}
 	currDoc->toolSettings.dWidthLine = tabTools->lineWidthLine->value();
@@ -935,7 +940,7 @@ void ReformDoc::updateDocumentSettings()
 			BlackPoint = currDoc->CMSSettings.BlackPoint;
 			IntentPrinter = currDoc->CMSSettings.DefaultIntentPrinter;
 			IntentMonitor = currDoc->CMSSettings.DefaultIntentMonitor;
-			qApp->setOverrideCursor(QCursor(waitCursor), true);
+			qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
 			bool newCM = currDoc->CMSSettings.CMSinUse;
 			currDoc->CMSSettings.CMSinUse = oldCM;
 			currDoc->CloseCMSProfiles();
@@ -973,7 +978,7 @@ void ReformDoc::updateDocumentSettings()
 			ScApp->view->RecalcPictures(&ScApp->InputProfiles, ScApp->mainWindowProgressBar);
 #endif
 			ScApp->mainWindowProgressBar->setProgress(cc);
-			qApp->setOverrideCursor(QCursor(arrowCursor), true);
+			qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 			ScApp->mainWindowStatusLabel->setText("");
 			ScApp->mainWindowProgressBar->reset();
 		}

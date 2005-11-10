@@ -2,7 +2,7 @@
 #define EDITSTYLE_H
 
 #include <qdialog.h>
-#include <qbuttongroup.h>
+#include <q3buttongroup.h>
 #include <qlabel.h>
 #include <qlineedit.h>
 #include <qpushbutton.h>
@@ -12,6 +12,12 @@
 #include <qtooltip.h>
 #include <qcheckbox.h>
 #include <qcombobox.h>
+//Added by qt3to4:
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <Q3ValueList>
+#include <QVBoxLayout>
+#include <Q3PopupMenu>
 
 #include "scribusapi.h"
 #include "scribusstructs.h"
@@ -31,7 +37,7 @@ class SCRIBUS_API EditStyle : public QDialog
 	Q_OBJECT
 
 public:
-	EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<ParagraphStyle> v, bool neu,
+	EditStyle( QWidget* parent, struct ParagraphStyle *vor, Q3ValueList<ParagraphStyle> v, bool neu,
 	           double au, int dEin, ScribusDoc *doc);
 	~EditStyle() {};
 
@@ -51,16 +57,16 @@ public:
 	MSpinBox* LineSpVal;
 	MSpinBox* fontBase;
 	MSpinBox* fontKern;
-	QPopupMenu* lineSpacingPop;
+	Q3PopupMenu* lineSpacingPop;
 	QToolButton* linespacingLabel;
 	Tabruler* TabList;
 	MSpinBox* AboveV;
 	MSpinBox* BelowV;
 	StyleSelect* EffeS;
 	AlignSelect* AligS;
-	QGroupBox* GroupBox10;
-	QGroupBox* AbstandV;
-	QGroupBox* GroupFont;
+	Q3GroupBox* GroupBox10;
+	Q3GroupBox* AbstandV;
+	Q3GroupBox* GroupFont;
 	FontComboH* FontC;
 	MSpinBox* SizeC;
 	QLabel* TextF2;
@@ -70,7 +76,7 @@ public:
 	QLabel* FillIcon;
 	QComboBox* TxFill;
 	ShadeButton *PM2;
-	QGroupBox* DropCaps;
+	Q3GroupBox* DropCaps;
 	QLabel* CapLabel;
 	QSpinBox* DropLines;
 	QLabel* CapLabel2;
@@ -78,7 +84,7 @@ public:
 	QPushButton* Cancel;
 	QPushButton* OkButton;
 	struct ParagraphStyle *werte;
-	QValueList<ParagraphStyle> allV;
+	Q3ValueList<ParagraphStyle> allV;
 	QString OldName;
 	bool IsNew;
 	double AutoVal;

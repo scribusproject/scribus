@@ -114,12 +114,12 @@ bool Foi_ttf::ReadMetrics()
 namespace {
 uint word(QByteArray const & bb, uint pos) 
 {
-	unsigned char * pp = reinterpret_cast<unsigned char*>(bb.data()) + pos;
+	unsigned char * pp = reinterpret_cast<unsigned char*>(const_cast<char*>( bb.data() )) + pos;
 	return pp[0] << 24 | pp[1] << 16 | pp[2] << 8 | pp[3];
 }
 uint word16(QByteArray const & bb, uint pos) 
 {
-	unsigned char * pp = reinterpret_cast<unsigned char*>(bb.data()) + pos;
+	unsigned char * pp = reinterpret_cast<unsigned char*>(const_cast<char*>( bb.data() )) + pos;
 	return pp[0] << 8 | pp[1];
 }
 QString tag(QByteArray const & bb, uint pos)
@@ -131,7 +131,7 @@ QString tag(QByteArray const & bb, uint pos)
 	buf[3] = bb.data()[pos+3];
 	return buf;
 }
-bool copy(QByteArray & dst, uint to, QByteArray & src, uint from, uint len) 
+bool copy(QByteArray & dst, int to, QByteArray & src, int from, int len)
 {
 	if (!dst.data())
 		return false;

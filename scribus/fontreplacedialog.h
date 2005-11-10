@@ -3,13 +3,19 @@
 
 #include <qvariant.h>
 #include <qdialog.h>
+//Added by qt3to4:
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QGridLayout>
+#include <QCloseEvent>
 
 class QVBoxLayout;
 class QHBoxLayout;
 class QGridLayout;
 class QSpacerItem;
 class QLabel;
-class QTable;
+class Q3Table;
 class QCheckBox;
 class QPushButton;
 #include "scribusapi.h"
@@ -24,7 +30,7 @@ public:
 	~FontReplaceDialog() {};
 
 	QLabel* textLabel1;
-	QTable* replacementTable;
+	Q3Table* replacementTable;
 	QCheckBox* stickyReplacements;
 	QPushButton* okButton;
 	QPushButton* cancelButton;

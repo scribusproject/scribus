@@ -12,7 +12,6 @@ or documentation
 
 #include "shortwords.h"
 #include "parse.h"
-#include "parse.moc"
 #include "version.h"
 #include "configuration.h"
 
@@ -61,7 +60,7 @@ void SWParse::parseItem(PageItem *aFrame)
 	// get text from frame
 	for (uint i=0; i<aFrame->MaxChars; ++i)
 		content += aFrame->itemText.at(i)->ch;
-	changes = content.contains(UNBREAKABLE_SPACE);
+	changes = content.count(UNBREAKABLE_SPACE);
 
 	// for every config string, replace its spaces by nbsp's.
 	for (QStringList::Iterator it = shorts.begin(); it != shorts.end(); ++it)
@@ -100,7 +99,7 @@ void SWParse::parseItem(PageItem *aFrame)
 	// retrun text into frame
 	for (uint i=0; i<aFrame->MaxChars; ++i)
 		aFrame->itemText.at(i)->ch = content.at(i);
-	if (content.contains(UNBREAKABLE_SPACE) > changes)
+	if (content.count(UNBREAKABLE_SPACE) > changes)
 		++modify;
 
 	delete(cfg);

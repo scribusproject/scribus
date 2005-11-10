@@ -2,10 +2,10 @@
 #define NEWDOC_H
 
 #include <qdialog.h>
-#include <qbuttongroup.h>
+#include <q3buttongroup.h>
 #include <qcheckbox.h>
 #include <qcombobox.h>
-#include <qgroupbox.h>
+#include <q3groupbox.h>
 #include <qlabel.h>
 #include <qpushbutton.h>
 #include <qradiobutton.h>
@@ -13,8 +13,12 @@
 #include <qlayout.h>
 #include <qtooltip.h>
 #include <qtabwidget.h>
-#include <qframe.h>
-#include <qlistbox.h>
+#include <q3frame.h>
+#include <q3listbox.h>
+//Added by qt3to4:
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 
 #include "scribusapi.h"
 #include "scribusstructs.h"
@@ -41,12 +45,12 @@ public:
 	void setSize(QString gr);
 
 	QTabWidget* tabWidget;
-	QFrame* newDocFrame;
+	Q3Frame* newDocFrame;
 	PageLayouts* docLayout;
-	QButtonGroup* ButtonGroup1_2;
+	Q3ButtonGroup* ButtonGroup1_2;
 	MarginWidget* GroupRand;
-	QGroupBox* GroupBox3;
-	QGroupBox* AutoFrame;
+	Q3GroupBox* GroupBox3;
+	Q3GroupBox* AutoFrame;
 	QLabel* TextLabel1;
 	QLabel* TextLabel2;
 	QLabel* TextLabel3;
@@ -66,10 +70,10 @@ public:
 	QSpinBox* PgNum;
 	MSpinBox* Breite;
 	MSpinBox* Hoehe;
-	QFrame* openDocFrame;
+	Q3Frame* openDocFrame;
 	CustomFDialog *fileDialog;
-	QFrame* recentDocFrame;
-	QListBox* recentDocList;
+	Q3Frame* recentDocFrame;
+	Q3ListBox* recentDocList;
 	QPushButton* OKButton;
 	QPushButton* CancelB;
 	double unitRatio;
@@ -97,7 +101,7 @@ public slots:
 	\param item QListViewItem sent by signall caller
 	\author Petr Vanek <petr@yarpen.cz
 	*/
-	void recentDocList_doubleClicked(QListBoxItem * item);
+	void recentDocList_doubleClicked(Q3ListBoxItem * item);
 	void openFile(const QString &);
 
 protected:

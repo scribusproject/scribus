@@ -6,11 +6,14 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
- #include "about.h"
-#include "about.moc"
+#include "about.h"
 #include <qpixmap.h>
 #include <qtextstream.h>
 #include <qtooltip.h>
+//Added by qt3to4:
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 
 #include "scconfig.h"
 #include "util.h"
@@ -27,14 +30,16 @@ extern QPixmap loadIcon(QString nam);
  \param parent QWidget pointer to parent window
  \retval About dialog
  */
-About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
+About::About( QWidget* parent )
+    : QDialog(parent)
 {
-	setCaption( tr("About Scribus %1").arg(VERSION) );
-	setIcon(loadIcon("AppIcon.png"));
+	setObjectName( "About" );
+	setWindowTitle( tr("About Scribus %1").arg(VERSION) );
+	setWindowIcon(loadIcon("AppIcon.png"));
 	aboutLayout = new QVBoxLayout( this );
 	aboutLayout->setSpacing( 6 );
 	aboutLayout->setMargin( 10 );
-	tabWidget2 = new QTabWidget( this, "TabWidget2" );
+	tabWidget2 = new QTabWidget( this );
 	tabWidget2->setMinimumSize( QSize( 438, 258 ) );
 	tab = new QWidget( tabWidget2, "tab" );
 	tabLayout1 = new QVBoxLayout( tab );
@@ -57,7 +62,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	QString built = tr("%1 %2 %3").arg(BUILD_DAY).arg(BUILD_MONTH).arg(BUILD_YEAR);
 
 // This is my way, only activated when envvar BUILD_NAME is set :-)  AV
-#include "about_builddate.inc"
+//#include "about_builddate.inc"
 	QString version = VERSION;
 	if (BUILD_NAME != "")
 		version += " \"" + BUILD_NAME + "\"";
@@ -132,7 +137,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	tabLayout = new QHBoxLayout( tab_2 );
 	tabLayout->setSpacing( 6 );
 	tabLayout->setMargin( 10 );
-	textView1 = new QTextView( tab_2, "TextView1" );
+	textView1 = new Q3TextView( tab_2, "TextView1" );
 	textView1->setText(QString::fromUtf8("<table><tr><td><b>" + tr("Development Team:").utf8() + "</b></td><td> </td></tr>" +
 											"<tr><td>Franz Schmid</td><td>Franz.Schmid@altmuehlnet.de</td></tr>" +
 											"<tr><td>Peter Linnell</td><td>mrdocs@scribus.info</td></tr>" + 
@@ -179,14 +184,14 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td>Yves Ceccone</td><td>yves@yeccoe.org</td></tr>" + 
 											"<tr><td>Holger Reibold</td><td>http://www.bomots.de/scribus/</td></tr>" +
 											"<tr><td>Thomas Zastrow</td><td>webmaster@thomas-zastrow.de</td></tr></table>"));
-	textView1->setTextFormat( QTextView::RichText );
+	textView1->setTextFormat( Qt::RichText );
 	tabLayout->addWidget( textView1 );
 	tabWidget2->insertTab( tab_2, tr( "A&uthors" ) );
 	tab_3 = new QWidget( tabWidget2, "tab_3" );
 	tabLayout_2 = new QHBoxLayout( tab_3 );
 	tabLayout_2->setSpacing( 6 );
 	tabLayout_2->setMargin( 10 );
-	textView2 = new QTextView( tab_3, "TextView1_2" );
+	textView2 = new Q3TextView( tab_3, "TextView1_2" );
 	LanguageManager langmgr;
 	langmgr.init(false);
 	textView2->setText(QString::fromUtf8( "<table><tr><td><b><i>" + tr("Official Translations and Translators:").utf8() + "</i></b></td><td></td></tr>" +
@@ -306,13 +311,13 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td>Sergiy Kudryk</td><td>kudryk@yahoo.com</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 											"</table>"));
-	textView2->setTextFormat( QTextView::RichText );
+	textView2->setTextFormat( Qt::RichText );
 	tabLayout_2->addWidget( textView2 );
 	tabWidget2->insertTab( tab_3, tr( "&Translations" ) );
 
 	// online tab (03/04/2004 petr vanek)
 	tab_4 = new QWidget( tabWidget2, "tab_4" );
-	textView4 = new QTextView( tab_4, "TextView4" );
+	textView4 = new Q3TextView( tab_4, "TextView4" );
 	textView4->setText(QString::fromUtf8(
 		"<table><tr><td><b>" + tr("Homepage").utf8() + "</b></td><td></td></tr>" +
 		"<tr><td colspan=\"2\"><p><a href=\"http://www.scribus.net\">http://www.scribus.net</a></p></td></tr>" +
@@ -326,7 +331,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 		"<tr><td colspan=\"2\"><p><a href=\"http://nashi.altmuehlnet.de/mailman/listinfo/scribus\">http://nashi.altmuehlnet.de/mailman/listinfo/scribus</a></p></td></tr>" +
 		"</table>"
 		));
-	textView4->setTextFormat( QTextView::RichText );
+	textView4->setTextFormat( Qt::RichText );
 	tabLayout_4 = new QHBoxLayout( tab_4 );
 	tabLayout_4->setSpacing( 6 );
 	tabLayout_4->setMargin( 10 );

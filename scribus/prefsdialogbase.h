@@ -3,10 +3,16 @@
 
 #include <qvariant.h>
 #include <qdialog.h>
-#include <qiconview.h>
+#include <q3iconview.h>
 #include <qmap.h>
-#include <qwidgetstack.h>
+#include <q3widgetstack.h>
 #include <qwidget.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QGridLayout>
 
 #include "scribusapi.h"
 
@@ -26,16 +32,16 @@ public:
 	~PrefsDialogBase() {};
 	int addItem(QString name, QPixmap icon, QWidget *tab);
 	void arrangeIcons();
-	QWidgetStack* prefsWidgets;
+	Q3WidgetStack* prefsWidgets;
 	QPushButton* backToDefaults;
 	QPushButton* buttonOk;
 	QPushButton* buttonCancel;
-	QIconView* prefsSelection;
-	QMap<QIconViewItem*, int> itemMap;
+	Q3IconView* prefsSelection;
+	QMap<Q3IconViewItem*, int> itemMap;
 	int counter;
 
 public slots:
-	void itemSelected(QIconViewItem* ic);
+	void itemSelected(Q3IconViewItem* ic);
 
 protected:
 	QVBoxLayout* prefsLayout;

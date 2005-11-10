@@ -20,6 +20,10 @@
 
 #include <qwidget.h>
 #include <qpainter.h>
+//Added by qt3to4:
+#include <QMouseEvent>
+#include <Q3ValueList>
+#include <QPaintEvent>
 
 #include "scribusapi.h"
 #include "pageitem.h"
@@ -50,7 +54,7 @@ public:
 	int Markp;
 	int oldMark;
 	bool Mpressed;
-	QValueList<PageItem::TabRecord> TabValues;
+	Q3ValueList<PageItem::TabRecord> TabValues;
 	double ItemPos;
 	double ItemEndPos;
 	int Cols;
@@ -67,6 +71,7 @@ public:
 	int MouseX;
 	bool Revers;
 	bool ItemPosValid;
+	int m_wo;
 
 private: // Private attributes
 	ScribusDoc *currDoc;

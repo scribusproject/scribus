@@ -1,10 +1,14 @@
 #include "tabmanager.h"
-#include "tabmanager.moc"
 #include <qvariant.h>
 #include <qpushbutton.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QVBoxLayout>
+#include <Q3ValueList>
+#include <QHBoxLayout>
 #include "tabruler.h"
 #include "units.h"
 #include "scribusstructs.h"
@@ -12,7 +16,7 @@
 
 extern QPixmap loadIcon(QString nam);
 
-TabManager::TabManager( QWidget* parent, int dEin, QValueList<PageItem::TabRecord> inTab, double) : QDialog( parent, "TabManager", true, 0 )
+TabManager::TabManager( QWidget* parent, int dEin, Q3ValueList<PageItem::TabRecord> inTab, double) : QDialog( parent, "TabManager", true, 0 )
 {
 	setCaption( tr( "Manage Tabulators" ) );
 	setIcon(loadIcon("AppIcon.png"));

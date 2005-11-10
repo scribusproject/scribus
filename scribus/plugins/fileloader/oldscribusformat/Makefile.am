@@ -16,4 +16,5 @@ AM_LDFLAGS = $(LIBFREETYPE_LIBS) $(MODULE_LINK_FLAGS)
 
 AM_CPPFLAGS = \
     -I$(top_builddir)/scribus \
+    -DQT3_SUPPORT \
     $(GCC4_VISIBILITY_FLAGS)

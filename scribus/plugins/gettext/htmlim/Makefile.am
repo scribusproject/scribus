@@ -24,4 +24,5 @@ AM_CPPFLAGS = \
     -DTEMPLATEDIR=\"$(datadir)/scribus/templates/\" \
     -DLIBDIR=\"$(libdir)/scribus/\" \
     -DPLUGINDIR=\"$(libdir)/scribus/plugins/\" \
+    -DQT3_SUPPORT \
     $(GCC4_VISIBILITY_FLAGS)

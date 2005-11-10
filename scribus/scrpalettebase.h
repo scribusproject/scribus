@@ -22,6 +22,9 @@
 
 #include <qdialog.h>
 #include <qkeysequence.h>
+//Added by qt3to4:
+#include <QHideEvent>
+#include <QCloseEvent>
 
 #include "scribusapi.h"
 class PrefsContext;
@@ -31,7 +34,7 @@ class SCRIBUS_API ScrPaletteBase : public QDialog
 	Q_OBJECT
 
 	public:
-		ScrPaletteBase( QWidget * parent = NULL, const char * name = NULL, bool modal = false, WFlags f = 0 );
+		ScrPaletteBase( QWidget * parent = NULL, const char * name = NULL, bool modal = false, Qt::WFlags f = 0 );
 		~ScrPaletteBase() {};
 		/** @brief Set the Preferences context to be used for storage of startup visibility and position and size */
 		virtual void setPrefsContext(QString context);

@@ -1,10 +1,18 @@
 #include "edit1format.h"
-#include "edit1format.moc"
 #include "tabruler.h"
 #include "units.h"
 
 #include <qmessagebox.h>
 #include <qtooltip.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <Q3Frame>
+#include <QLabel>
+#include <Q3ValueList>
+#include <QVBoxLayout>
+#include <Q3PopupMenu>
 
 #include "sccombobox.h"
 #include "commonstrings.h"
@@ -23,7 +31,7 @@
 
 
 
-EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<ParagraphStyle> v, bool neu, double au, int dEin, ScribusDoc *doc)
+EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, Q3ValueList<ParagraphStyle> v, bool neu, double au, int dEin, ScribusDoc *doc)
 		: QDialog( parent, "EditST", true, 0)
 {
 	parentDoc = doc;
@@ -46,7 +54,7 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 
 	layout9 = new QHBoxLayout( 0, 0, 5, "layout9");
 
-	GroupFont = new QGroupBox( tr( "Character" ), this, "GroupFont" );
+	GroupFont = new Q3GroupBox( tr( "Character" ), this, "GroupFont" );
 	GroupFont->setColumnLayout(0, Qt::Vertical );
 	GroupFont->layout()->setSpacing( 5 );
 	GroupFont->layout()->setMargin( 10 );
@@ -167,7 +175,7 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	layout9->addWidget( GroupFont );
 
 	layout8 = new QVBoxLayout( 0, 0, 5, "layout8");
-	AbstandV = new QGroupBox( tr("Distances"), this, "AbstandV" );
+	AbstandV = new Q3GroupBox( tr("Distances"), this, "AbstandV" );
 	AbstandV->setColumnLayout(0, Qt::Vertical );
 	AbstandV->layout()->setSpacing( 0 );
 	AbstandV->layout()->setMargin( 0 );
@@ -175,7 +183,7 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	AbstandVLayout->setAlignment( Qt::AlignTop );
 	AbstandVLayout->setSpacing( 5 );
 	AbstandVLayout->setMargin( 10 );
-	lineSpacingPop = new QPopupMenu();
+	lineSpacingPop = new Q3PopupMenu();
 	lineSpacingPop->insertItem( tr("Fixed Linespacing"));
 	lineSpacingPop->insertItem( tr("Automatic Linespacing"));
 	lineSpacingPop->insertItem( tr("Align to Baseline Grid"));
@@ -224,7 +232,7 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	AbstandVLayout->addWidget( BelowV, 1, 3 );
 	layout8->addWidget( AbstandV );
 
-	DropCaps = new QGroupBox( tr("Drop Caps"),  this, "groupCaps" );
+	DropCaps = new Q3GroupBox( tr("Drop Caps"),  this, "groupCaps" );
 	DropCaps->setCheckable( true );
 	DropCaps->setColumnLayout(0, Qt::Vertical );
 	DropCaps->layout()->setSpacing( 5 );
@@ -267,7 +275,7 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 			LineSpVal->setEnabled(true);
 	}
 
-	GroupBox10 = new QGroupBox( tr("Tabulators and Indentation"), this, "GroupBox10" );
+	GroupBox10 = new Q3GroupBox( tr("Tabulators and Indentation"), this, "GroupBox10" );
 	GroupBox10->setColumnLayout(0, Qt::Vertical );
 	GroupBox10->layout()->setSpacing( 0 );
 	GroupBox10->layout()->setMargin( 0 );
@@ -293,8 +301,8 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	previewText = new QLabel(this, "previewText");
 	previewText->setMinimumSize(640, 200);
 	previewText->setMaximumSize(640, 200);
-	previewText->setAlignment( static_cast<int>( QLabel::AlignVCenter | QLabel::AlignLeft ) );
-	previewText->setFrameShape(QFrame::Box);
+	previewText->setAlignment( static_cast<int>( Qt::AlignVCenter | Qt::AlignLeft ) );
+	previewText->setFrameShape(Q3Frame::Box);
 	previewText->setPaletteBackgroundColor(paletteBackgroundColor());
 	layoutPreview->addWidget(previewText);
 	// preview setting - reading first paragraphs from LoremIpsum.txt etc.
@@ -447,7 +455,7 @@ void EditStyle::Verlassen()
 	QString mess=tr("Name of the style is not unique");
 	if (IsNew)
 	{
-		for (uint x=0; x<allV.count()-1; ++x)
+		for (int x=0; x<allV.count()-1; ++x)
 		{
 			if (Name->text() == allV[x].Vname)
 			{
@@ -462,7 +470,7 @@ void EditStyle::Verlassen()
 	{
 		if (OldName != Name->text())
 		{
-			for (uint x=0; x<allV.count(); ++x)
+			for (int x=0; x<allV.count(); ++x)
 			{
 				if (Name->text() == allV[x].Vname)
 				{
@@ -526,8 +534,8 @@ void EditStyle::updatePreview()
 	int y = previewText->height();
 	QPixmap pm(x, y);
 	ScPainter *painter = new ScPainter(&pm, x, y, 0, 0);
-	painter->clear(white);
-	pm.fill(white);
+	painter->clear(Qt::white);
+	pm.fill(Qt::white);
 	previewText->clear();
 
 	double sca = ScApp->view->getScale();
@@ -583,7 +591,7 @@ void EditStyle::updatePreview()
 	previewItem->itemText.clear();
 	previewItem->IFont = FontC->currentFont();
 	previewItem->Cols = 1;
-	for (uint i = 0; i < lorem.length(); ++i)
+	for (int i = 0; i < lorem.length(); ++i)
 	{
 		ScText *hg = new ScText;
 		hg->ch = lorem.at(i);

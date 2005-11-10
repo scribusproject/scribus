@@ -1,8 +1,14 @@
 #include "tffilter.h"
-#include "tffilter.moc"
 
 #include <qlayout.h>
 #include <qtooltip.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QLabel>
+#include <QVBoxLayout>
+#include <Q3Frame>
+#include <QHBoxLayout>
+#include <QBoxLayout>
 #include <scribusapi.h>
 #include <scribus.h>
 #include "prefsmanager.h"
@@ -96,7 +102,7 @@ void tfFilter::createWidget()
 	QToolTip::add(enableCheck, tr("Disable or enable this filter row"));
 	layout->addWidget(enableCheck);
 
-	actionFrame = new QFrame(this, "actionFrame");
+	actionFrame = new Q3Frame(this, "actionFrame");
 	layout->addWidget(actionFrame);
 
 	QBoxLayout* layout2 = new QVBoxLayout(actionFrame);
@@ -470,7 +476,7 @@ void tfFilter::resetBRow()
 void tfFilter::getParagraphStyles()
 {
 	thirdCombo->insertItem("");
-	for (uint i = 5; i < ScApp->doc->docParagraphStyles.size(); ++i)
+	for (int i = 5; i < ScApp->doc->docParagraphStyles.size(); ++i)
 	{
 		thirdCombo->insertItem(ScApp->doc->docParagraphStyles[i].Vname);
 	}

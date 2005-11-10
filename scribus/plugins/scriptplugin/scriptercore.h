@@ -4,7 +4,7 @@
 #include "cmdvar.h"
 
 #include "qmap.h"
-#include "qguardedptr.h"
+#include "qpointer.h"
 
 class ScrAction;
 class MenuManager;
@@ -58,8 +58,8 @@ protected:
 	QStringList SavedRecentScripts;
 	QStringList RecentScripts;
 	MenuManager *menuMgr;
-	QMap<QString, QGuardedPtr<ScrAction> > scrScripterActions;
-	QMap<QString, QGuardedPtr<ScrAction> > scrRecentScriptActions;
+	QMap<QString, QPointer<ScrAction> > scrScripterActions;
+	QMap<QString, QPointer<ScrAction> > scrRecentScriptActions;
 
 	// Preferences
 	/** pref: Enable access to main interpreter and 'extension scripts' */

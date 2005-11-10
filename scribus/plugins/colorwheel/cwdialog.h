@@ -4,6 +4,11 @@
 
 #include <qvariant.h>
 #include <qdialog.h>
+//Added by qt3to4:
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QGridLayout>
 #include "colorwheelwidget.h"
 #include <scribus.h>
 
@@ -12,8 +17,8 @@ class QHBoxLayout;
 class QGridLayout;
 class QSpacerItem;
 class QComboBox;
-class QListView;
-class QListViewItem;
+class Q3ListView;
+class Q3ListViewItem;
 class QPushButton;
 class QSpinBox;
 class QGroupBox;
@@ -29,10 +34,10 @@ class ScribusColorList : public QDialog
 	Q_OBJECT
 
 	public:
-		ScribusColorList(QWidget* parent = 0, const char* name = 0, bool modal = FALSE, WFlags fl = 0);
+		ScribusColorList(QWidget* parent = 0, const char* name = 0, bool modal = FALSE);
 		~ScribusColorList(){};
 
-		QListView* listView;
+		Q3ListView* listView;
 		QPushButton* okButton;
 		QPushButton* cancelButton;
 
@@ -60,12 +65,12 @@ class ColorWheelDialog : public QDialog
 	Q_OBJECT
 
 	public:
-		ColorWheelDialog( QWidget* parent = 0, const char* name = 0, bool modal = FALSE, WFlags fl = 0 );
+		ColorWheelDialog( QWidget* parent = 0, const char* name = 0, bool modal = FALSE, Qt::WFlags fl = 0 );
 		~ColorWheelDialog();
 
 		QLabel* typeLabel;
 		QComboBox* typeCombo;
-		QListView* colorList;
+		Q3ListView* colorList;
 		ColorWheel* colorWheel;
 		QLabel* previewLabel;
 		QLabel* angleLabel;

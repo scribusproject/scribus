@@ -3,6 +3,9 @@
 
 #include "scribusapi.h"
 #include "scribusstructs.h"
+//Added by qt3to4:
+#include <QPixmap>
+#include <Q3ValueList>
 
 class QString;
 class ScColor;
@@ -18,7 +21,7 @@ public:
 	void DrawZeichenS(ScPainter *p, double xco, double yco, QString ch, QString ZFo, bool Reverse, int Style, int mode, int Siz);
 	QMap<QString,ScColor> Farben;
 	QMap<QString,multiLine> MLineStyles;
-	QValueList<uint> Segments;
+	Q3ValueList<uint> Segments;
 	FT_Library   library;
 protected:
 	PrefsManager* prefsManager;

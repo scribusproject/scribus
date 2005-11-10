@@ -5,9 +5,11 @@
 #include <qcombobox.h>
 #include <qpushbutton.h>
 #include <qcheckbox.h>
-#include <qframe.h>
+#include <q3frame.h>
 #include <qlayout.h>
 #include <qlabel.h>
+//Added by qt3to4:
+#include <QBoxLayout>
 #include <prefstable.h>
 #include <prefscontext.h>
 
@@ -36,7 +38,7 @@ private:
 	QCheckBox* enableCheck;
 	QBoxLayout* alayout;
 	QBoxLayout* blayout;
-	QFrame* actionFrame;
+	Q3Frame* actionFrame;
 	QComboBox* firstCombo;
 	QLabel* firstLabel;
 	QComboBox* secondCombo;

@@ -3,8 +3,12 @@
 #ifdef HAVE_XML
 
 #include "scribusapi.h"
-#include "sxwdia.moc"
 #include <qtooltip.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QBoxLayout>
 
 extern QPixmap SCRIBUS_API loadIcon(QString nam);
 

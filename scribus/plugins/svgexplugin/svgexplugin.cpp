@@ -17,6 +17,9 @@
 
 #include <qfile.h>
 #include <qtextstream.h>
+//Added by qt3to4:
+#include <Q3PtrList>
+#include <Q3ValueList>
 
 #include "svgexplugin.h"
 
@@ -183,17 +186,17 @@ SVGExPlug::SVGExPlug( QString fName )
 	else
 		{
 		QFile f(fName);
-		if(!f.open(IO_WriteOnly))
+		if(!f.open(QIODevice::WriteOnly))
 			return;
 		QTextStream s(&f);
 		QString wr = vo;
 		wr += docu.toString().utf8();
-		s.writeRawBytes(wr, wr.length());
+		s << wr;
 		f.close();
 		}
 #else
 	QFile f(fName);
-	if(!f.open(IO_WriteOnly))
+	if(!f.open(QIODevice::WriteOnly))
 		return;
 	QTextStream s(&f);
 	QString wr = vo;
@@ -228,14 +231,14 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 	PageItem *Item;
 	gradi = "Grad";
 	Clipi = "Clip";
-	QPtrList<PageItem> Items;
+	Q3PtrList<PageItem> Items;
 	Page* SavedAct = ScApp->doc->currentPage;
 	ScApp->doc->currentPage = Seite;
 	if (Seite->PageNam.isEmpty())
 		Items = ScApp->doc->DocItems;
 	else
 		Items = ScApp->doc->MasterItems;
-	for (uint la = 0; la < ScApp->doc->Layers.count(); la++)
+	for (int la = 0; la < ScApp->doc->Layers.count(); la++)
 		{
 		Level2Layer(ScApp->doc, &ll, Lnr);
 		if (ll.isPrintable)
@@ -310,7 +313,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 								grad.setAttribute("cy", FToStr(Item->GrStartY));
 								break;
 						}
-						QPtrVector<VColorStop> cstops = Item->fill_gradient.colorStops();
+						Q3PtrVector<VColorStop> cstops = Item->fill_gradient.colorStops();
 						for (uint cst = 0; cst < Item->fill_gradient.Stops(); ++cst)
 						{
 							QDomElement itcl = docu->createElement("stop");
@@ -376,7 +379,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 				strokeDA = "stroke-dasharray:";
 				if (Item->DashValues.count() != 0)
 				{
-					QValueList<double>::iterator it;
+					Q3ValueList<double>::iterator it;
 					for ( it = Item->DashValues.begin(); it != Item->DashValues.end(); ++it )
 					{
 						strokeDA += IToStr(static_cast<int>(*it))+" ";
@@ -385,8 +388,8 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 				}
 				else
 				{
-					QString Dt = FToStr(QMAX(2*Item->Pwidth, 1));
-					QString Da = FToStr(QMAX(6*Item->Pwidth, 1));
+					QString Dt = FToStr(QMAX(2*Item->Pwidth, 1.0));
+					QString Da = FToStr(QMAX(6*Item->Pwidth, 1.0));
 					switch (Item->PLineArt)
 					{
 						case Qt::SolidLine:
@@ -638,7 +641,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 QString SVGExPlug::SetClipPath(PageItem *ite)
 {
 	QString tmp = "";
-	FPoint np, np1, np2;
+	QPointF np, np1, np2;
 	bool nPath = true;
 	if (ite->PoLine.size() > 3)
 		{
@@ -670,7 +673,7 @@ QString SVGExPlug::SetClipPath(PageItem *ite)
 QString SVGExPlug::SetClipPathImage(PageItem *ite)
 {
 	QString tmp = "";
-	FPoint np, np1, np2;
+	QPointF np, np1, np2;
 	bool nPath = true;
 	if (ite->imageClip.size() > 3)
 		{
@@ -799,7 +802,7 @@ QString SVGExPlug::GetMultiStroke(struct SingleLine *sl, PageItem *Item)
 		tmp += " stroke-opacity:"+FToStr(1.0 - Item->fillTransparency())+"; ";
 	tmp += "stroke-width:"+FToStr(sl->Width)+"pt; ";
 	tmp += "stroke-linecap:";
-	switch (static_cast<PenCapStyle>(sl->LineEnd))
+	switch (static_cast<Qt::PenCapStyle>(sl->LineEnd))
 		{
 		case Qt::FlatCap:
 			tmp += "butt;";
@@ -815,7 +818,7 @@ QString SVGExPlug::GetMultiStroke(struct SingleLine *sl, PageItem *Item)
 			break;
 		}
 	tmp += " stroke-linejoin:";
-	switch (static_cast<PenJoinStyle>(sl->LineJoin))
+	switch (static_cast<Qt::PenJoinStyle>(sl->LineJoin))
 		{
 		case Qt::MiterJoin:
 			tmp += "miter;";
@@ -831,9 +834,9 @@ QString SVGExPlug::GetMultiStroke(struct SingleLine *sl, PageItem *Item)
 			break;
 		}
 	tmp += " stroke-dasharray:";
-	QString Dt = FToStr(QMAX(2*sl->Width, 1));
-	QString Da = FToStr(QMAX(6*sl->Width, 1));
-	switch (static_cast<PenStyle>(sl->Dash))
+	QString Dt = FToStr(QMAX(2*sl->Width, 1.0));
+	QString Da = FToStr(QMAX(6*sl->Width, 1.0));
+	switch (static_cast<Qt::PenStyle>(sl->Dash))
 		{
 		case Qt::SolidLine:
 			tmp += "none;";
@@ -868,5 +871,3 @@ QString SVGExPlug::GetMultiStroke(struct SingleLine *sl, PageItem *Item)
 SVGExPlug::~SVGExPlug()
 {
 }
-
-#include "svgexplugin.moc"

@@ -3,6 +3,15 @@
 
 #include <qvariant.h>
 #include <qwidget.h>
+//Added by qt3to4:
+#include <QMouseEvent>
+#include <QLabel>
+#include <QVBoxLayout>
+#include <Q3ValueList>
+#include <QHBoxLayout>
+#include <QGridLayout>
+#include <QEvent>
+#include <QPaintEvent>
 
 #include "scribusapi.h"
 #include "pageitem.h"
@@ -21,11 +30,11 @@ class SCRIBUS_API RulerT : public QWidget
 	Q_OBJECT
 
 public:
-	RulerT(QWidget* parent, int ein, QValueList<PageItem::TabRecord> Tabs, bool ind, double wid);
+	RulerT(QWidget* parent, int ein, Q3ValueList<PageItem::TabRecord> Tabs, bool ind, double wid);
 	~RulerT() {};
 	void updateTabList();
 	bool mousePressed;
-	QValueList<PageItem::TabRecord> tabValues;
+	Q3ValueList<PageItem::TabRecord> tabValues;
 	bool haveInd;
 	int unitIndex;
 	int offset;
@@ -74,9 +83,9 @@ class SCRIBUS_API Tabruler : public QWidget
 	Q_OBJECT
 
 public:
-	Tabruler( QWidget* parent, bool haveFirst, int ein, QValueList<PageItem::TabRecord> Tabs, double wid );
+	Tabruler( QWidget* parent, bool haveFirst, int ein, Q3ValueList<PageItem::TabRecord> Tabs, double wid );
 	~Tabruler() {};
-	QValueList<PageItem::TabRecord> getTabVals();
+	Q3ValueList<PageItem::TabRecord> getTabVals();
 	bool haveF;
 	double getFirstLine();
 	double getLeftIndent();

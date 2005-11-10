@@ -1,17 +1,23 @@
+#include "scribusstructs.h"
+
 #include "effectsdialog.h"
-#include "effectsdialog.moc"
 #include <qvariant.h>
 #include <qpushbutton.h>
 #include <qlabel.h>
-#include <qlistbox.h>
+#include <q3listbox.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
 #include <qimage.h>
 #include <qtextstream.h>
-#include <qwidgetstack.h>
+#include <q3widgetstack.h>
 #include <qwidget.h>
 #include <qslider.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 #include "sccombobox.h"
 #include "scribusdoc.h"
 #include "shadebutton.h"
@@ -54,10 +60,10 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	textLabel5 = new QLabel( this, "textLabel5" );
 	textLabel5->setText( tr( "Options:" ) );
 	layout16->addWidget( textLabel5 );
-	optionStack = new QWidgetStack( this, "optionStack" );
+	optionStack = new Q3WidgetStack( this, "optionStack" );
 	optionStack->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)7, (QSizePolicy::SizeType)7, 0, 0, optionStack->sizePolicy().hasHeightForWidth() ) );
 	optionStack->setMinimumSize( QSize( 220, 80 ) );
-	optionStack->setFrameShape( QWidgetStack::GroupBoxPanel );
+	optionStack->setFrameShape( QFrame::StyledPanel );
 	WStackPage = new QWidget( optionStack, "WStackPage" );
 	optionStack->addWidget( WStackPage, 0 );
 
@@ -101,8 +107,8 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	brightnessSlider->setMinValue(-255);
 	brightnessSlider->setMaxValue(255);
 	brightnessSlider->setValue(0);
-	brightnessSlider->setOrientation( QSlider::Horizontal );
-	brightnessSlider->setTickmarks( QSlider::Below );
+	brightnessSlider->setOrientation( Qt::Horizontal );
+	brightnessSlider->setTickmarks( QSlider::TicksBelow );
 	WStackPage3Layout->addWidget( brightnessSlider );
 	optionStack->addWidget( WStackPage_3, 2 );
 
@@ -119,8 +125,8 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	contrastSlider->setMinValue(-127);
 	contrastSlider->setMaxValue(127);
 	contrastSlider->setValue(0);
-	contrastSlider->setOrientation( QSlider::Horizontal );
-	contrastSlider->setTickmarks( QSlider::Below );
+	contrastSlider->setOrientation( Qt::Horizontal );
+	contrastSlider->setTickmarks( QSlider::TicksBelow );
 	WStackPage4Layout->addWidget( contrastSlider );
 	optionStack->addWidget( WStackPage_4, 3 );
 
@@ -175,8 +181,8 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	solarizeSlider->setMinValue(1);
 	solarizeSlider->setMaxValue(255);
 	solarizeSlider->setValue(255);
-	solarizeSlider->setOrientation( QSlider::Horizontal );
-	solarizeSlider->setTickmarks( QSlider::Below );
+	solarizeSlider->setOrientation( Qt::Horizontal );
+	solarizeSlider->setTickmarks( QSlider::TicksBelow );
 	WStackPage7Layout->addWidget( solarizeSlider );
 	optionStack->addWidget( WStackPage_7, 6 );
 	
@@ -189,7 +195,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	textLabel1 = new QLabel( this, "textLabel1" );
 	textLabel1->setText( tr( "Available Effects" ) );
 	layout2->addWidget( textLabel1 );
-	availableEffects = new QListBox( this, "availableEffects" );
+	availableEffects = new Q3ListBox( this, "availableEffects" );
 	availableEffects->clear();
 	availableEffects->insertItem( tr("Blur"));
 	availableEffects->insertItem( tr("Brightness"));
@@ -222,11 +228,11 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	textLabel2 = new QLabel( this, "textLabel2" );
 	textLabel2->setText( tr( "Effects in use" ) );
 	layout8->addWidget( textLabel2 );
-	usedEffects = new QListBox( this, "usedEffects" );
+	usedEffects = new Q3ListBox( this, "usedEffects" );
 	usedEffects->setMinimumSize(fontMetrics().width( tr( "Available Effects" ))+40, 180);
 	usedEffects->clear();
 	effectValMap.clear();
-	for (uint a = 0; a < effectsList.count(); ++a)
+	for (int a = 0; a < effectsList.count(); ++a)
 	{
 		if ((*effectsList.at(a)).effectCode == ScImage::EF_INVERT)
 		{
@@ -305,13 +311,13 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	optionStack->raiseWidget(0);
 	createPreview();
 	resize( minimumSizeHint() );
-	clearWState( WState_Polished );
+	setAttribute( Qt::WA_WState_Polished, false );
 
 	// signals and slots connections
 	connect( okButton, SIGNAL( clicked() ), this, SLOT( leaveOK() ) );
 	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
-	connect( usedEffects, SIGNAL( clicked(QListBoxItem*) ), this, SLOT( selectEffect(QListBoxItem*) ) );
-	connect( availableEffects, SIGNAL( clicked(QListBoxItem*) ), this, SLOT( selectAvailEffect(QListBoxItem*) ) );
+	connect( usedEffects, SIGNAL( clicked(Q3ListBoxItem*) ), this, SLOT( selectEffect(Q3ListBoxItem*) ) );
+	connect( availableEffects, SIGNAL( clicked(Q3ListBoxItem*) ), this, SLOT( selectAvailEffect(Q3ListBoxItem*) ) );
 	connect( toEffects, SIGNAL( clicked() ), this, SLOT( moveToEffects() ) );
 	connect( fromEffects, SIGNAL( clicked() ), this, SLOT( moveFromEffects() ) );
 	connect( effectUp, SIGNAL( clicked() ), this, SLOT( moveEffectUp() ) );
@@ -362,7 +368,7 @@ void EffectsDialog::createPreview()
 	ScImage im = image.copy();
 	saveValues();
 	im.applyEffect(effectsList, doc->PageColors, false);
-	pixmapLabel1->setPixmap( im );
+	pixmapLabel1->setPixmap( QPixmap::fromImage( im ) );
 }
 
 void EffectsDialog::saveValues()
@@ -489,16 +495,16 @@ void EffectsDialog::moveToEffects()
 		QString efval = it.key()+" 100";
 		effectValMap.insert(usedEffects->item(usedEffects->count()-1), efval);
 	}
-	disconnect( usedEffects, SIGNAL( selected(QListBoxItem*) ), this, SLOT( selectEffect(QListBoxItem*) ) );
+	disconnect( usedEffects, SIGNAL( selected(Q3ListBoxItem*) ), this, SLOT( selectEffect(Q3ListBoxItem*) ) );
 	usedEffects->setCurrentItem(usedEffects->item(usedEffects->count()-1));
 	selectEffect(usedEffects->item(usedEffects->count()-1));
-	connect( usedEffects, SIGNAL( selected(QListBoxItem*) ), this, SLOT( selectEffect(QListBoxItem*) ) );
+	connect( usedEffects, SIGNAL( selected(Q3ListBoxItem*) ), this, SLOT( selectEffect(Q3ListBoxItem*) ) );
 	createPreview();
 }
 
 void EffectsDialog::moveFromEffects()
 {
-	disconnect( usedEffects, SIGNAL( selected(QListBoxItem*) ), this, SLOT( selectEffect(QListBoxItem*) ) );
+	disconnect( usedEffects, SIGNAL( selected(Q3ListBoxItem*) ), this, SLOT( selectEffect(Q3ListBoxItem*) ) );
 	effectValMap.remove(usedEffects->item(usedEffects->currentItem()));
 	usedEffects->removeItem(usedEffects->currentItem());
 	currentOptions = 0;
@@ -512,7 +518,7 @@ void EffectsDialog::moveFromEffects()
 	usedEffects->setSelected(usedEffects->item(usedEffects->currentItem()), true);
 	selectEffect(usedEffects->item(usedEffects->currentItem()));
 	createPreview();
-	connect( usedEffects, SIGNAL( selected(QListBoxItem*) ), this, SLOT( selectEffect(QListBoxItem*) ) );
+	connect( usedEffects, SIGNAL( selected(Q3ListBoxItem*) ), this, SLOT( selectEffect(Q3ListBoxItem*) ) );
 }
 
 void EffectsDialog::moveEffectUp()
@@ -520,15 +526,15 @@ void EffectsDialog::moveEffectUp()
 	int curr = usedEffects->currentItem();
 	if (curr == 0)
 		return;
-	disconnect( usedEffects, SIGNAL( selected(QListBoxItem*) ), this, SLOT( selectEffect(QListBoxItem*) ) );
+	disconnect( usedEffects, SIGNAL( selected(Q3ListBoxItem*) ), this, SLOT( selectEffect(Q3ListBoxItem*) ) );
 	usedEffects->clearSelection();
-	QListBoxItem *it = usedEffects->item(curr);
+	Q3ListBoxItem *it = usedEffects->item(curr);
 	usedEffects->takeItem(it);
 	usedEffects->insertItem(it, curr-1);
 	usedEffects->setCurrentItem(it);
 	selectEffect(usedEffects->item(usedEffects->currentItem()));
 	createPreview();
-	connect( usedEffects, SIGNAL( selected(QListBoxItem*) ), this, SLOT( selectEffect(QListBoxItem*) ) );
+	connect( usedEffects, SIGNAL( selected(Q3ListBoxItem*) ), this, SLOT( selectEffect(Q3ListBoxItem*) ) );
 }
 
 void EffectsDialog::moveEffectDown()
@@ -536,18 +542,18 @@ void EffectsDialog::moveEffectDown()
 	int curr = usedEffects->currentItem();
 	if (curr == static_cast<int>(usedEffects->count())-1)
 		return;
-	disconnect( usedEffects, SIGNAL( selected(QListBoxItem*) ), this, SLOT( selectEffect(QListBoxItem*) ) );
+	disconnect( usedEffects, SIGNAL( selected(Q3ListBoxItem*) ), this, SLOT( selectEffect(Q3ListBoxItem*) ) );
 	usedEffects->clearSelection();
-	QListBoxItem *it = usedEffects->item(curr);
+	Q3ListBoxItem *it = usedEffects->item(curr);
 	usedEffects->takeItem(it);
 	usedEffects->insertItem(it, curr+1);
 	usedEffects->setCurrentItem(it);
 	selectEffect(usedEffects->item(usedEffects->currentItem()));
 	createPreview();
-	connect( usedEffects, SIGNAL( selected(QListBoxItem*) ), this, SLOT( selectEffect(QListBoxItem*) ) );
+	connect( usedEffects, SIGNAL( selected(Q3ListBoxItem*) ), this, SLOT( selectEffect(Q3ListBoxItem*) ) );
 }
 
-void EffectsDialog::selectEffect(QListBoxItem* c)
+void EffectsDialog::selectEffect(Q3ListBoxItem* c)
 {
 	toEffects->setEnabled(false);
 	if (currentOptions != 0)
@@ -623,7 +629,7 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 			QString tmpstr = effectValMap[c];
 			QString col;
 			int shading;
-			QTextStream fp(&tmpstr, IO_ReadOnly);
+			QTextStream fp(&tmpstr, QIODevice::ReadOnly);
 			fp >> col;
 			fp >> shading;
 			colData->setCurrentText(col);
@@ -637,7 +643,7 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 			disconnect( brightnessSlider, SIGNAL(valueChanged(int)), this, SLOT(updateBright(int)));
 			QString tmpstr = effectValMap[c];
 			int brightness;
-			QTextStream fp(&tmpstr, IO_ReadOnly);
+			QTextStream fp(&tmpstr, QIODevice::ReadOnly);
 			fp >> brightness;
 			brightnessSlider->setValue(brightness);
 			QString tmp;
@@ -651,7 +657,7 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 			disconnect( contrastSlider, SIGNAL(valueChanged(int)), this, SLOT(updateContrast(int)));
 			QString tmpstr = effectValMap[c];
 			int contrast;
-			QTextStream fp(&tmpstr, IO_ReadOnly);
+			QTextStream fp(&tmpstr, QIODevice::ReadOnly);
 			fp >> contrast;
 			contrastSlider->setValue(contrast);
 			QString tmp;
@@ -666,7 +672,7 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 			disconnect( shValue, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
 			QString tmpstr = effectValMap[c];
 			double radius, sigma;
-			QTextStream fp(&tmpstr, IO_ReadOnly);
+			QTextStream fp(&tmpstr, QIODevice::ReadOnly);
 			fp >> radius;
 			fp >> sigma;
 			shRadius->setValue(radius);
@@ -681,7 +687,7 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 			disconnect( blValue, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
 			QString tmpstr = effectValMap[c];
 			double radius, sigma;
-			QTextStream fp(&tmpstr, IO_ReadOnly);
+			QTextStream fp(&tmpstr, QIODevice::ReadOnly);
 			fp >> radius;
 			fp >> sigma;
 			blRadius->setValue(radius);
@@ -695,7 +701,7 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 			disconnect( solarizeSlider, SIGNAL(valueChanged(int)), this, SLOT(updateSolarize(int)));
 			QString tmpstr = effectValMap[c];
 			int solarize;
-			QTextStream fp(&tmpstr, IO_ReadOnly);
+			QTextStream fp(&tmpstr, QIODevice::ReadOnly);
 			fp >> solarize;
 			solarizeSlider->setValue(solarize);
 			QString tmp;
@@ -710,19 +716,19 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 	}
 	else
 		optionStack->raiseWidget(0);
-	disconnect( availableEffects, SIGNAL( clicked(QListBoxItem*) ), this, SLOT( selectAvailEffect(QListBoxItem*) ) );
+	disconnect( availableEffects, SIGNAL( clicked(Q3ListBoxItem*) ), this, SLOT( selectAvailEffect(Q3ListBoxItem*) ) );
 	availableEffects->clearSelection();
-	connect( availableEffects, SIGNAL( clicked(QListBoxItem*) ), this, SLOT( selectAvailEffect(QListBoxItem*) ) );
+	connect( availableEffects, SIGNAL( clicked(Q3ListBoxItem*) ), this, SLOT( selectAvailEffect(Q3ListBoxItem*) ) );
 }
 
-void EffectsDialog::selectAvailEffect(QListBoxItem* c)
+void EffectsDialog::selectAvailEffect(Q3ListBoxItem* c)
 {
 	if (c)
 		toEffects->setEnabled(true);
 	fromEffects->setEnabled(false);
 	effectUp->setEnabled(false);
 	effectDown->setEnabled(false);
-	disconnect( usedEffects, SIGNAL( selected(QListBoxItem*) ), this, SLOT( selectEffect(QListBoxItem*) ) );
+	disconnect( usedEffects, SIGNAL( selected(Q3ListBoxItem*) ), this, SLOT( selectEffect(Q3ListBoxItem*) ) );
 	if (currentOptions != 0)
 	{
 		if (currentOptions->text() == tr("Colorize"))
@@ -776,6 +782,6 @@ void EffectsDialog::selectAvailEffect(QListBoxItem* c)
 	currentOptions = 0;
 	usedEffects->clearSelection();
 	optionStack->raiseWidget(0);
-	connect( usedEffects, SIGNAL( selected(QListBoxItem*) ), this, SLOT( selectEffect(QListBoxItem*) ) );
+	connect( usedEffects, SIGNAL( selected(Q3ListBoxItem*) ), this, SLOT( selectEffect(Q3ListBoxItem*) ) );
 }
 

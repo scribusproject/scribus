@@ -11,16 +11,21 @@ the Free Software Foundation; either version 2 of the License, or
 #include <qvariant.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
-#include <qsyntaxhighlighter.h>
+#include <q3whatsthis.h>
+#include <q3syntaxhighlighter.h>
+//Added by qt3to4:
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QGridLayout>
+#include <QCloseEvent>
 
 class QVBoxLayout;
 class QHBoxLayout;
 class QGridLayout;
 class QSpacerItem;
-class QListView;
-class QListViewItem;
-class QTextEdit;
+class Q3ListView;
+class Q3ListViewItem;
+class Q3TextEdit;
 class QMenuBar;
 
 /*! This is simple "IDE"/python console for interactive commands execution.
@@ -42,9 +47,9 @@ class PythonConsole : public QWidget
 		QString filename;
 
 		//! Programmer's editor ;)
-		QTextEdit* commandEdit;
+		Q3TextEdit* commandEdit;
 		//! Results viewer
-		QTextEdit* outputEdit;
+		Q3TextEdit* outputEdit;
 
 		//! Close event for turning the action off
 		void closeEvent(QCloseEvent *);
@@ -85,10 +90,10 @@ TODO: colors of the higlited texts. User should set the colors in the
 \author Petr Vanek, <petr@yarpen.cz>
 \author Richard Magnor Stenbro <stenbror@hotmail.com>
 */
-class SyntaxHighlighter : public QSyntaxHighlighter
+class SyntaxHighlighter : public Q3SyntaxHighlighter
 {
 	public:
-		SyntaxHighlighter(QTextEdit *textEdit);
+		SyntaxHighlighter(Q3TextEdit *textEdit);
 
 		/*! Reimplementation of the Qt highligtion for python.
 		\param text string (one row) provided by text editor via QSyntaxHighlighter inheritance.

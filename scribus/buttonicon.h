@@ -3,12 +3,16 @@
 
 #include <qdialog.h>
 #include <qcombobox.h>
-#include <qgroupbox.h>
+#include <q3groupbox.h>
 #include <qlabel.h>
 #include <qpushbutton.h>
 #include <qslider.h>
 #include <qlayout.h>
 #include <qtooltip.h>
+//Added by qt3to4:
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QGridLayout>
 
 #include "scribusapi.h"
 
@@ -28,7 +32,7 @@ public:
     QComboBox* ScaleW;
     QLabel* TextLabel2;
     QComboBox* ScaleH;
-    QGroupBox* GroupButton;
+    Q3GroupBox* GroupButton;
     QLabel* TextLabel3;
     QSlider* SliderX;
     QSlider* SliderY;

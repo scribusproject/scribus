@@ -1,5 +1,4 @@
 #include "importps.h"
-#include "importps.moc"
 
 #include "scconfig.h"
 #include "scribus.h"
@@ -13,7 +12,9 @@
 #include <qfile.h>
 #include <qtextstream.h>
 #include <qcursor.h>
-#include <qdragobject.h>
+#include <q3dragobject.h>
+//Added by qt3to4:
+#include <Q3CString>
 #include <cmath>
 #include <cstdlib>
 #include "undomanager.h"
@@ -52,7 +53,7 @@ EPSPlug::EPSPlug(QString fName, bool isInteractive)
 		QChar tc;
 		ScColor cc;
 		QFile f(fName);
-		if (f.open(IO_ReadOnly))
+		if (f.open(QIODevice::ReadOnly))
 		{
 /* Try to find Bounding Box */
 			QTextStream ts(&f);
@@ -82,7 +83,7 @@ EPSPlug::EPSPlug(QString fName, bool isInteractive)
 /* Read CustomColors if available */
 				if (tmp.startsWith("%%CMYKCustomColor"))
 				{
-					QTextStream ts2(&tmp, IO_ReadOnly);
+					QTextStream ts2(&tmp, QIODevice::ReadOnly);
 					ts2 >> dummy >> c >> m >> y >> k;
 					FarNam = ts2.read();
 					FarNam = FarNam.stripWhiteSpace();
@@ -102,7 +103,7 @@ EPSPlug::EPSPlug(QString fName, bool isInteractive)
 						}
 						if (!tmp.startsWith("%%+"))
 							break;
-						QTextStream ts2(&tmp, IO_ReadOnly);
+						QTextStream ts2(&tmp, QIODevice::ReadOnly);
 						ts2 >> dummy >> c >> m >> y >> k;
 						FarNam = ts2.read();
 						FarNam = FarNam.stripWhiteSpace();
@@ -121,7 +122,7 @@ EPSPlug::EPSPlug(QString fName, bool isInteractive)
 				QStringList bb = QStringList::split(" ", BBox);
 				if (bb.count() == 4)
 				{
-					QTextStream ts2(&BBox, IO_ReadOnly);
+					QTextStream ts2(&BBox, QIODevice::ReadOnly);
 					ts2 >> x >> y >> b >> h;
 				}
 			}
@@ -156,13 +157,13 @@ EPSPlug::EPSPlug(QString fName, bool isInteractive)
 			Doku->PageColors.insert(it.key(), it.data());
 	}
 	Elements.clear();
-	FPoint minSize = Doku->minCanvasCoordinate;
-	FPoint maxSize = Doku->maxCanvasCoordinate;
+	QPointF minSize = Doku->minCanvasCoordinate;
+	QPointF maxSize = Doku->maxCanvasCoordinate;
 	Doku->setLoading(true);
 	Doku->DoDrawing = false;
 	ScApp->view->setUpdatesEnabled(false);
 	ScApp->ScriptRunning = true;
-	qApp->setOverrideCursor(QCursor(waitCursor), true);
+	qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
 	QString CurDirP = QDir::currentDirPath();
 	QDir::setCurrent(fi.dirPath());
 	if (convert(fName, x, y, b, h))
@@ -181,7 +182,7 @@ EPSPlug::EPSPlug(QString fName, bool isInteractive)
 		ScApp->view->setUpdatesEnabled(true);
 		ScApp->ScriptRunning = false;
 		Doku->setLoading(false);
-		qApp->setOverrideCursor(QCursor(arrowCursor), true);
+		qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 		if ((Elements.count() > 0) && (!ret) && (interactive))
 		{
 			Doku->DragP = true;
@@ -194,7 +195,7 @@ EPSPlug::EPSPlug(QString fName, bool isInteractive)
 			}
 			ScriXmlDoc *ss = new ScriXmlDoc();
 			ScApp->view->setGroupRect();
-			QDragObject *dr = new QTextDrag(ss->WriteElem(&ScApp->view->SelItem, Doku, ScApp->view), ScApp->view->viewport());
+			Q3DragObject *dr = new Q3TextDrag(ss->WriteElem(&ScApp->view->SelItem, Doku, ScApp->view), ScApp->view->viewport());
 			ScApp->view->DeleteItem();
 			ScApp->view->resizeContents(qRound((maxSize.x() - minSize.x()) * ScApp->view->getScale()), qRound((maxSize.y() - minSize.y()) * ScApp->view->getScale()));
 			ScApp->view->scrollBy(qRound((Doku->minCanvasCoordinate.x() - minSize.x()) * ScApp->view->getScale()), qRound((Doku->minCanvasCoordinate.y() - minSize.y()) * ScApp->view->getScale()));
@@ -220,7 +221,7 @@ EPSPlug::EPSPlug(QString fName, bool isInteractive)
 		Doku->DoDrawing = true;
 		ScApp->view->setUpdatesEnabled(true);
 		ScApp->ScriptRunning = false;
-		qApp->setOverrideCursor(QCursor(arrowCursor), true);
+		qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 	}
 	if (interactive)
 		Doku->setLoading(false);
@@ -270,7 +271,7 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	cmd1 += " \"" + pfad2 + "\"";
 	cmd2 = " \"" + QDir::convertSeparators(fn) + "\"";
 	cmd3 = " -c flush cfile closefile quit";
-	QCString finalCmd = QString(cmd1 + cmd2 + cmd3).local8Bit();
+	Q3CString finalCmd = QString(cmd1 + cmd2 + cmd3).local8Bit();
 	bool ret = system(finalCmd);
 	if (ret != 0)
 	{
@@ -304,22 +305,22 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 	QFile f(fn);
 	lasttoken = "";
 	pagecount = 1;
-	if (f.open(IO_ReadOnly))
+	if (f.open(QIODevice::ReadOnly))
 	{
 		lastPath = "";
 		currPath = "";
 		LineW = 0;
 		Opacity = 1;
 		CurrColor = "None";
-		JoinStyle = MiterJoin;
-		CapStyle = FlatCap;
+		JoinStyle = Qt::MiterJoin;
+		CapStyle = Qt::FlatCap;
 		DashPattern.clear();
 		QTextStream ts(&f);
 		while (!ts.atEnd())
 		{
 			tmp = "";
 			tmp = ts.readLine();
-			QTextStream Code(&tmp, IO_ReadOnly);
+			QTextStream Code(&tmp, QIODevice::ReadOnly);
 			Code >> token;
 			params = Code.read();
 			if ((lasttoken == "sp") && (!interactive) && (!eps))
@@ -369,7 +370,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						ite->PoLine.translate(ScApp->doc->currentPage->xOffset(), ScApp->doc->currentPage->yOffset());
 						ite->ClipEdited = true;
 						ite->FrameType = 3;
-						FPoint wh = getMaxClipF(&ite->PoLine);
+						QPointF wh = getMaxClipF(&ite->PoLine);
 						ite->Width = wh.x();
 						ite->Height = wh.y();
 						ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
@@ -415,7 +416,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						ite->PLineJoin = JoinStyle;
 						ite->DashOffset = DashOffset;
 						ite->DashValues = DashPattern;
-						FPoint wh = getMaxClipF(&ite->PoLine);
+						QPointF wh = getMaxClipF(&ite->PoLine);
 						ite->Width = wh.x();
 						ite->Height = wh.y();
 						ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
@@ -439,13 +440,13 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 			}
 			else if (token == "w")
 			{
-				QTextStream Lw(&params, IO_ReadOnly);
+				QTextStream Lw(&params, QIODevice::ReadOnly);
 				Lw >> LineW;
 				currPath += params;
 			}
 			else if (token == "ld")
 			{
-				QTextStream Lw(&params, IO_ReadOnly);
+				QTextStream Lw(&params, QIODevice::ReadOnly);
 				Lw >> dc;
 				Lw >> DashOffset;
 				DashPattern.clear();
@@ -461,7 +462,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 			}
 			else if (token == "lc")
 			{
-				QTextStream Lw(&params, IO_ReadOnly);
+				QTextStream Lw(&params, QIODevice::ReadOnly);
 				Lw >> lcap;
 				switch (lcap)
 				{
@@ -482,7 +483,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 			}
 			else if (token == "lj")
 			{
-				QTextStream Lw(&params, IO_ReadOnly);
+				QTextStream Lw(&params, QIODevice::ReadOnly);
 				Lw >> ljoin;
 				switch (ljoin)
 				{
@@ -524,7 +525,7 @@ void EPSPlug::LineTo(FPointArray *i, QString vals)
 	if (vals.isEmpty())
 		return;
 	double x1, x2, y1, y2;
-	QTextStream Code(&vals, IO_ReadOnly);
+	QTextStream Code(&vals, QIODevice::ReadOnly);
 	Code >> x1;
 	Code >> y1;
 	Code >> x2;
@@ -533,10 +534,10 @@ void EPSPlug::LineTo(FPointArray *i, QString vals)
 		i->setMarker();
 	FirstM = false;
 	WasM = false;
-	i->addPoint(FPoint(x1, y1));
-	i->addPoint(FPoint(x1, y1));
-	i->addPoint(FPoint(x2, y2));
-	i->addPoint(FPoint(x2, y2));
+	i->addPoint(QPointF(x1, y1));
+	i->addPoint(QPointF(x1, y1));
+	i->addPoint(QPointF(x2, y2));
+	i->addPoint(QPointF(x2, y2));
 }
 
 /*!
@@ -553,7 +554,7 @@ void EPSPlug::Curve(FPointArray *i, QString vals)
 	if (vals.isEmpty())
 		return;
 	double x1, x2, y1, y2, x3, y3, x4, y4;
-	QTextStream Code(&vals, IO_ReadOnly);
+	QTextStream Code(&vals, QIODevice::ReadOnly);
 	Code >> x1;
 	Code >> y1;
 	Code >> x2;
@@ -566,10 +567,10 @@ void EPSPlug::Curve(FPointArray *i, QString vals)
 		i->setMarker();
 	FirstM = false;
 	WasM = false;
-	i->addPoint(FPoint(x1, y1));
-	i->addPoint(FPoint(x2, y2));
-	i->addPoint(FPoint(x4, y4));
-	i->addPoint(FPoint(x3, y3));
+	i->addPoint(QPointF(x1, y1));
+	i->addPoint(QPointF(x2, y2));
+	i->addPoint(QPointF(x4, y4));
+	i->addPoint(QPointF(x3, y3));
 }
 
 /*!
@@ -589,7 +590,7 @@ QString EPSPlug::parseColor(QString vals, colorModel model)
 	double c, m, y, k, r, g, b;
 	ScColor tmp;
 	ColorList::Iterator it;
-	QTextStream Code(&vals, IO_ReadOnly);
+	QTextStream Code(&vals, QIODevice::ReadOnly);
 	bool found = false;
 	if (model == colorModelRGB)
 	{

@@ -5,6 +5,8 @@
 #include <structmember.h>
 #include <qfileinfo.h>
 #include <qdir.h>
+//Added by qt3to4:
+#include <QTextStream>
 #include <vector>
 #include "pslib.h"
 
@@ -142,7 +144,7 @@ static int Printer_init(Printer *self, PyObject */*args*/, PyObject */*kwds*/)
 	// loadText is defined in utils.cpp
 	if (loadText("/etc/printcap", &Pcap))
 	{
-		QTextStream ts(&Pcap, IO_ReadOnly);
+		QTextStream ts(&Pcap, QIODevice::ReadOnly);
 		while(!ts.atEnd())
 		{
 			QStringList wt;

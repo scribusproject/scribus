@@ -24,6 +24,8 @@
 #include "scribus.h"
 #include <qcursor.h>
 #include <qstringlist.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 #include "color.h"
 #include "prefsmanager.h"
 #include "hyphenator.h"
@@ -156,7 +158,7 @@ void gtAction::write(const QString& text, gtStyle *style)
 	gtFont* font2 = new gtFont(*font);
 	font2->setName(ScApp->doc->docParagraphStyles[paragraphStyle].Font);
 	QString fontName2 = validateFont(font2);
-	for (uint a = 0; a < text.length(); ++a)
+	for (int a = 0; a < text.length(); ++a)
 	{
 		if ((text.at(a) == QChar(0)) || (text.at(a) == QChar(13)))
 			continue;
@@ -222,7 +224,7 @@ int gtAction::findParagraphStyle(gtParagraphStyle* pstyle)
 int gtAction::findParagraphStyle(const QString& name)
 {
 	int pstyleIndex = -1;
-	for (uint i = 0; i < ScApp->doc->docParagraphStyles.size(); ++i)
+	for (int i = 0; i < ScApp->doc->docParagraphStyles.size(); ++i)
 	{
 		if (ScApp->doc->docParagraphStyles[i].Vname == name)
 		{
@@ -254,7 +256,7 @@ void gtAction::applyFrameStyle(gtFrameStyle* fstyle)
 	textFrame->ColGap = fstyle->getColumnsGap();
 	textFrame->setFillColor(parseColor(fstyle->getBgColor()));
 	textFrame->setFillShade(fstyle->getBgShade());
-	textFrame->TabValues = QValueList<PageItem::TabRecord>(*(fstyle->getTabValues()));
+	textFrame->TabValues = Q3ValueList<PageItem::TabRecord>(*(fstyle->getTabValues()));
 	
 // 	gtParagraphStyle* pstyle = new gtParagraphStyle(*fstyle);
 // 	int pstyleIndex = findParagraphStyle(pstyle);
@@ -331,7 +333,7 @@ void gtAction::createParagraphStyle(gtParagraphStyle* pstyle)
 {
 	if (textFrame->Doc->docParagraphStyles.size() > 5)
 	{
-		for (uint i = 5; i < textFrame->Doc->docParagraphStyles.size(); ++i)
+		for (int i = 5; i < textFrame->Doc->docParagraphStyles.size(); ++i)
 		{
 			if (textFrame->Doc->docParagraphStyles[i].Vname == pstyle->getName())
 				return;
@@ -355,8 +357,8 @@ void gtAction::createParagraphStyle(gtParagraphStyle* pstyle)
 	vg.Font = validateFont(font);
 	vg.FontSize = font->getSize();
 	vg.TabValues.clear();
-	QValueList<PageItem::TabRecord> *tabs = pstyle->getTabValues();
-	for (uint i = 0; i < tabs->size(); ++i)
+	Q3ValueList<PageItem::TabRecord> *tabs = pstyle->getTabValues();
+	for (int i = 0; i < tabs->size(); ++i)
 	{
 		struct PageItem::TabRecord tmp = (*tabs)[i];
 		vg.TabValues.append(tmp);
@@ -394,7 +396,7 @@ void gtAction::removeParagraphStyle(const QString& name)
 
 void gtAction::removeParagraphStyle(int index)
 {
-	QValueList<ParagraphStyle>::iterator it = ScApp->doc->docParagraphStyles.at(index);
+	Q3ValueList<ParagraphStyle>::iterator it = ScApp->doc->docParagraphStyles.at(index);
 	ScApp->doc->docParagraphStyles.remove(it);
 }
 
@@ -425,8 +427,8 @@ void gtAction::updateParagraphStyle(int pstyleIndex, gtParagraphStyle* pstyle)
 	vg.Font = validateFont(font);
 	vg.FontSize = font->getSize();
 	vg.TabValues.clear();
-	QValueList<PageItem::TabRecord> *tabs = pstyle->getTabValues();
-	for (uint i = 0; i < tabs->size(); ++i)
+	Q3ValueList<PageItem::TabRecord> *tabs = pstyle->getTabValues();
+	for (int i = 0; i < tabs->size(); ++i)
 	{
 		struct PageItem::TabRecord tmp = (*tabs)[i];
 		vg.TabValues.append(tmp);
@@ -470,9 +472,9 @@ QString gtAction::validateFont(gtFont* font)
 	else if (prefsManager->appPrefs.AvailFonts[font->getName()] == 0)
 	{
 		bool found = false;
-		useFont == NULL;
+		useFont = QString();
 		QString tmpName = findFontName(font);
-		if (tmpName != NULL)
+		if (!tmpName.isEmpty())
 		{
 			useFont = tmpName;
 			found = true;
@@ -484,7 +486,7 @@ QString gtAction::validateFont(gtFont* font)
 				gtFont* tmp = new gtFont(*font);
 				tmp->setSlant(OBLIQUE);
 				tmpName = findFontName(tmp);
-				if (tmpName != NULL)
+				if (!tmpName.isEmpty())
 				{
 					useFont = tmpName;
 					found = true;
@@ -496,7 +498,7 @@ QString gtAction::validateFont(gtFont* font)
 				gtFont* tmp = new gtFont(*font);
 				tmp->setSlant(ITALIC);
 				tmpName = findFontName(tmp);
-				if (tmpName != NULL)
+				if (!tmpName.isEmpty())
 				{
 					useFont = tmpName;
 					found = true;

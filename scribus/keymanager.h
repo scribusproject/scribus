@@ -5,17 +5,24 @@
 #include "scribusstructs.h"
 
 #include <qmap.h>
+//Added by qt3to4:
+#include <QGridLayout>
+#include <QKeyEvent>
+#include <QEvent>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QVBoxLayout>
 class QWidget;
 class QString;
 class QKeyEvent;
 class QPushButton;
-class QGroupBox;
-class QButtonGroup;
+class Q3GroupBox;
+class Q3ButtonGroup;
 class QVBoxLayout;
 class QHBoxLayout;
 class QGridLayout;
-class QTable;
-class QHeader;
+class Q3Table;
+class Q3Header;
 class QRadioButton;
 class QLabel;
 class QComboBox;
@@ -44,13 +51,13 @@ protected:
 	QGridLayout* keyGroupLayout;
 	QHBoxLayout* okCancelLayout;
 
-	QTable* keyTable;
-	QButtonGroup* keyGroup;
+	Q3Table* keyTable;
+	Q3ButtonGroup* keyGroup;
 	QRadioButton* noKey;
 	QRadioButton* userDef;
 	QLabel* keyDisplay;
 	QPushButton* setKeyButton;
-	QHeader *header;
+	Q3Header *header;
 	QMap<QString,Keys> keyMap;
 	QMap<QString,Keys>::Iterator currentKeyMapRow;
 	int currRow;
@@ -61,7 +68,7 @@ protected:
 	QString Part4;
 	QString getKeyText(int KeyC);
 	bool checkKey(int Code);
-	QGroupBox* loadableGroupBox;
+	Q3GroupBox* loadableGroupBox;
 	QHBoxLayout* loadableGroupBoxLayout;
 	QComboBox* loadableSets;
 	QPushButton* loadSetButton;

@@ -11,15 +11,19 @@
 
 #include <qdialog.h>
 #include <qcombobox.h>
-#include <qgroupbox.h>
+#include <q3groupbox.h>
 #include <qlabel.h>
 #include <qpushbutton.h>
 #include <qspinbox.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qwidgetstack.h>
+#include <q3widgetstack.h>
 #include <qlineedit.h>
-#include <qframe.h>
+#include <q3frame.h>
+//Added by qt3to4:
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QGridLayout>
 
 #include "scribusapi.h"
 
@@ -34,10 +38,10 @@ class SCRIBUS_API Annota : public QDialog
 public:
 	Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusView* vie);
 	~Annota() {};
-	QWidgetStack* Fram;
+	Q3WidgetStack* Fram;
 	QLabel* TextLabel1;
 	QComboBox* ComboBox1;
-	QGroupBox* GroupBox1;
+	Q3GroupBox* GroupBox1;
 	QLabel* TextLabel3;
 	QLabel* TextLabel4;
 	QLabel* TextLabel5;
@@ -47,7 +51,7 @@ public:
 	QSpinBox* SpinBox1;
 	QSpinBox* SpinBox2;
 	QSpinBox* SpinBox3;
-	QFrame* Frame9;
+	Q3Frame* Frame9;
 	QPushButton* PushButton1;
 	QPushButton* PushButton2;
 	PageItem* item;

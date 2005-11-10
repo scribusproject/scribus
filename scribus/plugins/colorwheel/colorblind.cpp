@@ -1,5 +1,4 @@
 #include "colorblind.h"
-#include "colorblind.moc"
 
 #include <math.h>
 

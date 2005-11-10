@@ -25,6 +25,11 @@
 #include <qregexp.h>
 #include <qdir.h>
 #include <qmessagebox.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <Q3CString>
+#include <Q3PointArray>
+#include <Q3ValueList>
 #include <algorithm>
 #include <cstdlib>
 #include <cmath>
@@ -45,7 +50,7 @@
 #include "md5.h"
 
 #include <setjmp.h>
-#include "qprocess.h"
+#include "q3process.h"
 #include "scpaths.h"
 #include "prefsfile.h"
 #include "prefscontext.h"
@@ -143,7 +148,7 @@ QImage ProofImage(QImage *Image)
 
 int System(const QStringList & args)
 {
-	QProcess *proc = new QProcess(NULL);
+	Q3Process *proc = new Q3Process(NULL);
 	proc->setArguments(args);
 	if ( !proc->start() )
 	{
@@ -249,8 +254,8 @@ QString getGSVersion()
 	QString gsExe = getShortPathName(PrefsManager::instance()->ghostscriptExecutable());
 	args.append(gsExe.local8Bit());
 	args.append(QString("--version").local8Bit());
-	QProcess* proc = new QProcess(args);
-	proc->setCommunication(QProcess::Stdout);
+	Q3Process* proc = new Q3Process(args);
+	proc->setCommunication(Q3Process::Stdout);
 	proc->start();
 	while(proc->isRunning())
 	{
@@ -300,16 +305,16 @@ QString getGSDefaultExeName(void)
 	gsName = "gswin32c.exe";
 
 	// Search AFPL Ghostscript first as it has more chance to be up to date
-	if( RegOpenKey(HKEY_LOCAL_MACHINE, "SOFTWARE\\AFPL Ghostscript", &hKey) == ERROR_SUCCESS )
+	if( RegOpenKeyA(HKEY_LOCAL_MACHINE, "SOFTWARE\\AFPL Ghostscript", &hKey) == ERROR_SUCCESS )
 		strcpy(regPath, "SOFTWARE\\AFPL Ghostscript");
-	else if( RegOpenKey(HKEY_LOCAL_MACHINE, "SOFTWARE\\GPL Ghostscript", &hKey) == ERROR_SUCCESS )
+	else if( RegOpenKeyA(HKEY_LOCAL_MACHINE, "SOFTWARE\\GPL Ghostscript", &hKey) == ERROR_SUCCESS )
 		strcpy(regPath, "SOFTWARE\\GPL Ghostscript");
 	else
 		return gsName;
 
 	// Search the first SubKey corresponding to the version key
 	size = sizeof(regVersion) - 1;
-	retValue = RegEnumKeyEx(hKey, 0, regVersion, &size, NULL, NULL, NULL, NULL);
+	retValue = RegEnumKeyExA(hKey, 0, regVersion, &size, NULL, NULL, NULL, NULL);
 	RegCloseKey(hKey);
 	if( retValue != ERROR_SUCCESS )
 		return gsName;
@@ -318,10 +323,10 @@ QString getGSDefaultExeName(void)
 	strcat(regPath, regVersion);
 
 	// Get the GS_DLL Value
-	if (RegOpenKey(HKEY_LOCAL_MACHINE, regPath, &hKey) != ERROR_SUCCESS)
+	if (RegOpenKeyA(HKEY_LOCAL_MACHINE, regPath, &hKey) != ERROR_SUCCESS)
           return gsName;
 	size = sizeof(gsPath) - 1;
-	retValue = RegQueryValueEx(hKey, "GS_DLL", 0, &regType, (LPBYTE) gsPath, &size);
+	retValue = RegQueryValueExA(hKey, "GS_DLL", 0, &regType, (LPBYTE) gsPath, &size);
 	RegCloseKey(hKey);
 	if( retValue != ERROR_SUCCESS )
 		return gsName;
@@ -359,7 +364,7 @@ QString getShortPathName(QString longPath)
 		char shortName[MAX_PATH + 1];
 		// An error should not be blocking as ERROR_INVALID_PARAMETER can simply mean
 		// that volume does not support 8.3 filenames, so return longPath in this case
-		int ret = GetShortPathName(QDir::convertSeparators(longPath).local8Bit(), shortName, sizeof(shortName));
+		int ret = GetShortPathNameA(QDir::convertSeparators(longPath).local8Bit(), shortName, sizeof(shortName));
 		if( ret != ERROR_INVALID_PARAMETER && ret < sizeof(shortName))
 			shortPath = shortName;
 	}
@@ -378,11 +383,11 @@ int copyFile(QString source, QString target)
 	if (!s.exists())
 		return -1;
 	QByteArray bb(s.size());
-	if (s.open(IO_ReadOnly))
+	if (s.open(QIODevice::ReadOnly))
 	{
 		s.readBlock(bb.data(), s.size());
 		s.close();
-		if (t.open(IO_WriteOnly))
+		if (t.open(QIODevice::WriteOnly))
 		{
 			t.writeBlock(bb.data(), bb.size());
 			t.close();
@@ -483,17 +488,17 @@ uint getDouble(QString in, bool raw)
 	QByteArray bb(4);
 	if (raw)
 	{
-		bb[3] = static_cast<uchar>(QChar(in.at(0)));
-		bb[2] = static_cast<uchar>(QChar(in.at(1)));
-		bb[1] = static_cast<uchar>(QChar(in.at(2)));
-		bb[0] = static_cast<uchar>(QChar(in.at(3)));
+		bb[3] = in.at(0).cell();
+		bb[2] = in.at(1).cell();
+		bb[1] = in.at(2).cell();
+		bb[0] = in.at(3).cell();
 	}
 	else
 	{
-		bb[0] = static_cast<uchar>(QChar(in.at(0)));
-		bb[1] = static_cast<uchar>(QChar(in.at(1)));
-		bb[2] = static_cast<uchar>(QChar(in.at(2)));
-		bb[3] = static_cast<uchar>(QChar(in.at(3)));
+		bb[0] = in.at(0).cell();
+		bb[1] = in.at(1).cell();
+		bb[2] = in.at(2).cell();
+		bb[3] = in.at(3).cell();
 	}
 	uint ret;
 	ret = bb[0] & 0xff;
@@ -516,11 +521,11 @@ bool loadText(QString filename, QString *Buffer)
 		return false;
 	bool ret;
 	QByteArray bb(f.size());
-	if (f.open(IO_ReadOnly))
+	if (f.open(QIODevice::ReadOnly))
 	{
 		f.readBlock(bb.data(), f.size());
 		f.close();
-		for (uint posi = 0; posi < bb.size(); ++posi)
+		for (int posi = 0; posi < bb.size(); ++posi)
 			*Buffer += QChar(bb[posi]);
 		/*
 		int len = bb.size();
@@ -545,7 +550,7 @@ bool loadText(QString filename, QString *Buffer)
 // byte string is of unknown encoding; the caller must handle encoding issues.
 // There is no need to preallocate the buffer, and the new data replaces any
 // old contents.
-bool loadRawText(const QString & filename, QCString & buf)
+bool loadRawText(const QString & filename, Q3CString & buf)
 {
 	bool ret = false;
 	QFile f(filename);
@@ -553,11 +558,11 @@ bool loadRawText(const QString & filename, QCString & buf)
 	if (fi.exists())
 	{
 		bool ret;
-		QCString tempBuf(f.size() + 1);
-		if (f.open(IO_ReadOnly))
+		Q3CString tempBuf(f.size());
+		if (f.open(QIODevice::ReadOnly))
 		{
 			Q_ULONG bytesRead = f.readBlock(tempBuf.data(), f.size());
-			tempBuf[bytesRead] = '\0';
+			tempBuf[(uint)bytesRead] = '\0';
 			ret = bytesRead == f.size();
 			if (ret)
 				buf = tempBuf; // sharing makes this efficient
@@ -568,7 +573,7 @@ bool loadRawText(const QString & filename, QCString & buf)
 	return ret;
 }
 
-QPointArray RegularPolygon(double w, double h, uint c, bool star, double factor, double rota)
+Q3PointArray RegularPolygon(double w, double h, uint c, bool star, double factor, double rota)
 {
 	uint cx = star ? c * 2 : c;
 	double seg = 360.0 / cx;
@@ -576,7 +581,7 @@ QPointArray RegularPolygon(double w, double h, uint c, bool star, double factor,
 	double di = factor;
 	int mx = 0;
 	int my = 0;
-	QPointArray pts = QPointArray();
+	Q3PointArray pts = Q3PointArray();
 	for (uint x = 0; x < cx; ++x)
 	{
 		sc = seg * x + 180.0 + rota;
@@ -628,10 +633,10 @@ FPointArray RegularPolygonF(double w, double h, uint c, bool star, double factor
 	return pts;
 }
 
-QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs)
+Q3PointArray FlattenPath(FPointArray ina, Q3ValueList<uint> &Segs)
 {
-	QPointArray Bez(4);
-	QPointArray outa, cli;
+	Q3PointArray Bez(4);
+	Q3PointArray outa, cli;
 	Segs.clear();
 	if (ina.size() > 3)
 	{
@@ -659,7 +664,7 @@ double xy2Deg(double x, double y)
 	return (atan2(y,x)*(180.0/M_PI));
 }
 
-void BezierPoints(QPointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4)
+void BezierPoints(Q3PointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4)
 {
 	ar->setPoint(0, n1);
 	ar->setPoint(1, n2);
@@ -702,8 +707,8 @@ QString CompressStr(QString *in)
 	QString out = "";
 #ifdef HAVE_LIBZ
 	QByteArray bb(in->length());
-	for (uint ax = 0; ax < in->length(); ++ax)
-		bb[ax] = uchar(QChar(in->at(ax)));
+	for (int ax = 0; ax < in->length(); ++ax)
+		bb[ax] = in->at(ax).cell();
 	uLong exlen = uint(bb.size() * 0.001 + 16) + bb.size();
 	QByteArray bc(exlen);
 	int errcode = compress2((Byte *)bc.data(), &exlen, (Byte *)bb.data(), uLong(bb.size()), 9);
@@ -744,9 +749,9 @@ QString String2Hex(QString *in, bool lang)
 {
 	int i = 0;
 	QString out = "";
-	for( uint xi = 0; xi < in->length(); ++xi )
+	for( int xi = 0; xi < in->length(); ++xi )
 	{
-		out += toHex(uchar(QChar(in->at(xi))));
+		out += toHex(in->at(xi).cell());
 		++i;
 		if ((i>40) && (lang))
 		{
@@ -806,9 +811,9 @@ QString Path2Relative(QString Path)
 	Bdir = QStringList::split("/", Bfi.dirPath(true));
 #endif
 
-	for (uint ddx2 = dcoun; ddx2 < Pdir.count(); ddx2++)
+	for (int ddx2 = dcoun; ddx2 < Pdir.count(); ddx2++)
 		Ndir += "../";
-	for (uint ddx = dcoun2; ddx < Bdir.count(); ddx++)
+	for (int ddx = dcoun2; ddx < Bdir.count(); ddx++)
 		Ndir += Bdir[ddx]+"/";
 	Ndir += Bfi.fileName();
 	return Ndir;
@@ -1122,7 +1127,7 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 	{
 		OB->Clip.resize(obj->attribute("NUMCLIP").toUInt());
 		tmp = obj->attribute("CLIPCOOR");
-		QTextStream fc(&tmp, IO_ReadOnly);
+		QTextStream fc(&tmp, QIODevice::ReadOnly);
 		for (uint c=0; c<obj->attribute("NUMCLIP").toUInt(); ++c)
 		{
 			fc >> x;
@@ -1137,7 +1142,7 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 	{
 		OB->PoLine.resize(obj->attribute("NUMPO").toUInt());
 		tmp = obj->attribute("POCOOR");
-		QTextStream fp(&tmp, IO_ReadOnly);
+		QTextStream fp(&tmp, QIODevice::ReadOnly);
 		for (uint cx=0; cx<obj->attribute("NUMPO").toUInt(); ++cx)
 		{
 			fp >> xf;
@@ -1152,7 +1157,7 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 	{
 		OB->ContourLine.resize(obj->attribute("NUMCO").toUInt());
 		tmp = obj->attribute("COCOOR");
-		QTextStream fp(&tmp, IO_ReadOnly);
+		QTextStream fp(&tmp, QIODevice::ReadOnly);
 		for (uint cx=0; cx<obj->attribute("NUMCO").toUInt(); ++cx)
 		{
 			fp >> xf;
@@ -1167,7 +1172,7 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 	{
 		struct PageItem::TabRecord tb;
 		tmp = obj->attribute("TABS");
-		QTextStream tgv(&tmp, IO_ReadOnly);
+		QTextStream tgv(&tmp, QIODevice::ReadOnly);
 		OB->TabValues.clear();
 		for (int cxv = 0; cxv < QStoInt(obj->attribute("NUMTAB","0")); cxv += 2)
 		{
@@ -1185,7 +1190,7 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 	if ((obj->hasAttribute("NUMDASH")) && (QStoInt(obj->attribute("NUMDASH","0")) != 0))
 	{
 		tmp = obj->attribute("DASHS");
-		QTextStream dgv(&tmp, IO_ReadOnly);
+		QTextStream dgv(&tmp, QIODevice::ReadOnly);
 		OB->DashValues.clear();
 		for (int cxv = 0; cxv < QStoInt(obj->attribute("NUMDASH","0")); ++cxv)
 		{
@@ -1321,9 +1326,9 @@ void paintAlert(QPixmap &toPaint, QPixmap &target, int x, int y)
 	p.end();
 }
 
-FPoint getMaxClipF(FPointArray* Clip)
+QPointF getMaxClipF(FPointArray* Clip)
 {
-	FPoint np, rp;
+	QPointF np, rp;
 	double mx = 0;
 	double my = 0;
 	uint clipSize=Clip->size();
@@ -1337,13 +1342,13 @@ FPoint getMaxClipF(FPointArray* Clip)
 		if (np.y() > my)
 			my = np.y();
 	}
-	rp.setXY(mx, my);
+	rp = QPointF(mx, my);
 	return rp;
 }
 
-FPoint getMinClipF(FPointArray* Clip)
+QPointF getMinClipF(FPointArray* Clip)
 {
-	FPoint np, rp;
+	QPointF np, rp;
 	double mx = 99999;
 	double my = 99999;
 	uint clipSize=Clip->size();
@@ -1357,7 +1362,7 @@ FPoint getMinClipF(FPointArray* Clip)
 		if (np.y() < my)
 			my = np.y();
 	}
-	rp.setXY(mx, my);
+	rp  = QPointF(mx, my);
 	return rp;
 }
 

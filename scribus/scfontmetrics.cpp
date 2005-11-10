@@ -1,6 +1,6 @@
 #include <qpainter.h>
 #include <qcolor.h>
-#include <qwmatrix.h>
+#include <qmatrix.h>
 #include <qpixmap.h>
 #include <qstringlist.h>
 #include <qmap.h>
@@ -10,7 +10,6 @@
 #include "scfontmetrics.h"
 #include "scfonts.h"
 #include "scpainter.h"
-#include "fpoint.h"
 #include "fpointarray.h"
 #include "page.h"
 #include "util.h"
@@ -18,7 +17,7 @@
 // this code contains a set of font related functions
 // that don't really fit within ScFonts.
 
-static FPoint firstP;
+static QPointF firstP;
 static bool FirstM;
 static QMap<FT_ULong, QString> adobeGlyphNames;
 static const char* table[] = {
@@ -145,7 +144,7 @@ FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y, boo
 	FPointArray pts2;
 	pts.resize(0);
 	pts2.resize(0);
-	firstP = FPoint(0,0);
+	firstP = QPointF(0,0);
 	FirstM = true;
 	error = FT_Set_Char_Size( face, 0, chs*64, 72, 72 );
 	if (error)
@@ -173,7 +172,7 @@ FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y, boo
 	}
 	*x = face->glyph->metrics.horiBearingX / 64.0;
 	*y = face->glyph->metrics.horiBearingY / 64.0;
-	QWMatrix ma;
+	QMatrix ma;
 	ma.scale(1, -1);
 	pts.map(ma);
 	pts.translate(0, chs);
@@ -189,7 +188,7 @@ QPixmap FontSample(Foi * fnt, int s, QString ts, QColor back, bool force)
 	double x, y, ymax;
 	bool error;
 	int  pen_x;
-	FPoint gp;
+	QPointF gp;
 	error = FT_Init_FreeType( &library );
 	error = FT_New_Face( library, fnt->fontFilePath(), fnt->faceIndex(), &face );
 	int encode = setBestEncoding(face);
@@ -223,7 +222,7 @@ QPixmap FontSample(Foi * fnt, int s, QString ts, QColor back, bool force)
 		FT_UInt gindex;
 		gindex = 0;
 		charcode = FT_Get_First_Char(face, &gindex );
-		for (uint n = 0; n < ts.length(); ++n)
+		for (int n = 0; n < ts.length(); ++n)
 		{
 			gly = traceChar(face, charcode, s, &x, &y, &error);
 			if (error)
@@ -244,7 +243,7 @@ QPixmap FontSample(Foi * fnt, int s, QString ts, QColor back, bool force)
 	}
 	else
 	{
-		for (uint n = 0; n < ts.length(); ++n)
+		for (int n = 0; n < ts.length(); ++n)
 		{
 			dv = ts[n].unicode();
 			error = false;
@@ -283,7 +282,7 @@ QPixmap fontSamples(Foi * fnt, int s, QString ts, QColor back)
 	{
 		sample = FontSample(fnt, s, *it, back);
 		if (!sample.isNull())
-			painter->drawPixmap(0, y, sample, 0, 0);
+			painter->drawPixmap(0, y, sample);
 		y = y + sample.height();
 		if (x < sample.width())
 			x = sample.width();
@@ -394,7 +393,7 @@ static int traceMoveto( FT_Vector *to, FPointArray *composite )
 		FirstM = false;
 	composite->addPoint(tox, toy);
 	composite->addPoint(tox, toy);
-	firstP.setXY(tox, toy);
+	firstP = QPointF(tox, toy);
 	return 0;
 }
 
@@ -428,7 +427,7 @@ static int traceCubicBezier( FT_Vector *p, FT_Vector *q, FT_Vector *to, FPointAr
 	double y3 = ( to->y / 64.0 );
 	if ( !composite->hasLastQuadPoint(x3, y3, x2, y2, x3, y3, x3, y3) )
 	{
-		composite->setPoint(composite->size()-1, FPoint(x1, y1));
+		composite->setPoint(composite->size()-1, QPointF(x1, y1));
 		composite->addQuadPoint(x3, y3, x2, y2, x3, y3, x3, y3);
 	}
 	return 0;

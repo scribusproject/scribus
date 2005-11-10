@@ -18,11 +18,11 @@
 
 #include <qobject.h>
 #include <qwidget.h>
-#include <qpointarray.h>
-#include <qptrlist.h>
+#include <q3pointarray.h>
+#include <q3ptrlist.h>
 #include <qpixmap.h>
-#include <qvaluestack.h>
-#include <qvaluelist.h>
+#include <q3valuestack.h>
+#include <q3valuelist.h>
 
 #include <qstring.h>
 #include <qrect.h>

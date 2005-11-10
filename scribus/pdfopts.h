@@ -9,9 +9,13 @@
 #include <qlayout.h>
 #include <qtooltip.h>
 #include <qmap.h>
-#include <qvaluelist.h>
-#include <qgroupbox.h>
+#include <q3valuelist.h>
+#include <q3groupbox.h>
 #include <qcheckbox.h>
+//Added by qt3to4:
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QGridLayout>
 
 #include "scribusapi.h"
 #include "scribusstructs.h"
@@ -36,7 +40,7 @@ class SCRIBUS_API PDF_Opts : public QDialog
 
 public:
 	PDF_Opts( QWidget* parent, QString docFileName, QMap<QString,int> DocFonts, ScribusView *currView, PDFOptions *pdfOptions,
-				QValueList<PDFPresentationData> Eff, ProfilesL *PDFXProfiles, SCFonts &AllFonts, double unitRatio, ProfilesL *printerProfiles);
+				Q3ValueList<PDFPresentationData> Eff, ProfilesL *PDFXProfiles, SCFonts &AllFonts, double unitRatio, ProfilesL *printerProfiles);
 	~PDF_Opts() {};
 
 	void updateDocOptions();
@@ -55,14 +59,14 @@ protected:
 	QVBoxLayout* PDFOptsLayout;
 	QGridLayout* NameLayout;
 	QHBoxLayout* Layout7;
-	QGroupBox* Name;
+	Q3GroupBox* Name;
 	QCheckBox* multiFile;
 	TabPDFOptions* Options;
 	QToolButton* FileC;
 	QPushButton* OK;
 	QPushButton* Cancel;
 	QLineEdit* fileNameLineEdit;
-	QValueList<PDFPresentationData> EffVal;
+	Q3ValueList<PDFPresentationData> EffVal;
 	
 	PDFOptions *Opts;
 	double docUnitRatio;

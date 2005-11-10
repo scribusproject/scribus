@@ -16,13 +16,17 @@
  ***************************************************************************/
 
 #include "customfdialog.h"
-#include "customfdialog.moc"
 #include <qpixmap.h>
 #include <qpainter.h>
 #include <qfileinfo.h>
 #include <qdir.h>
 #include <qdom.h>
 #include <qtextcodec.h>
+//Added by qt3to4:
+#include <QImageReader>
+#include <Q3Frame>
+#include <QHBoxLayout>
+#include <QLabel>
 #include "sccombobox.h"
 #include "scribusstructs.h"
 #include "scimage.h"
@@ -30,7 +34,7 @@
 
 extern QString DocDir;
 
-ImIconProvider::ImIconProvider(QWidget *pa) : QFileIconProvider(pa)
+ImIconProvider::ImIconProvider(QWidget *pa) : Q3FileIconProvider(pa)
 {
 	fmts.clear();
 	QString tmp[] = {"eps", "gif", "png", "jpg", "jpeg", "xpm", "tif", "tiff", "bmp", "pbm", "pgm", "ppm", "xbm", "xpm", "psd"};
@@ -71,17 +75,17 @@ const QPixmap * ImIconProvider::pixmap(const QFileInfo &fi)
 			return &oosxwpm;
 		if (ext.endsWith("svg") || ext.endsWith("svgz"))
 			return &vectorpm;
-		return QFileIconProvider::pixmap(fi);
+		return Q3FileIconProvider::pixmap(fi);
 	}
 }
 
 FDialogPreview::FDialogPreview(QWidget *pa) : QLabel(pa)
 {
-	setAlignment(AlignLeft | AlignTop);
+	setAlignment(Qt::AlignLeft | Qt::AlignTop);
 	setMinimumSize( QSize( 100, 100 ) );
 	setMaximumSize( QSize( 300, 300 ) );
 	setScaledContents( false );
-	setEraseColor( white );
+	setEraseColor( Qt::white );
 	setFrameShape( QLabel::WinPanel );
 	setFrameShadow( QLabel::Sunken );
 	updtPix();
@@ -92,7 +96,7 @@ void FDialogPreview::updtPix()
 	QPixmap pm;
 	QRect inside = contentsRect();
 	pm = QPixmap(inside.width(), inside.height());
-	pm.fill(white);
+	pm.fill(Qt::white);
 	setPixmap(pm);
 }
 
@@ -109,7 +113,9 @@ void FDialogPreview::GenPreview(QString name)
 	bool mode = false;
 	QString ext = fi.extension(false).lower();
 	QStringList formats;
-	formats = QStringList::fromStrList(QImageIO::inputFormats());
+        QList<QByteArray> fmts = QImageReader::supportedImageFormats();
+        foreach(QByteArray form, fmts)
+            formats.append(form);
 	formats.append("jpg");
 #ifdef HAVE_TIFF
 	formats.append("tif");
@@ -154,8 +160,9 @@ void FDialogPreview::GenPreview(QString name)
 			else
 				im2 = im.copy();
 			QPainter p;
-			pixmap()->fill(white);
-			p.begin(pixmap());
+                        QPixmap *pixmap = const_cast<QPixmap*>(this->pixmap());
+			pixmap->fill(Qt::white);
+			p.begin(pixmap);
 			p.drawImage(0, 0, im2);
 			p.drawText(2, h-29, tr("Size:")+" "+tmp.setNum(ix)+" x "+tmp2.setNum(iy));
 			p.drawText(2, h-17, tr("Resolution:")+" "+tmp.setNum(xres)+" x "+tmp2.setNum(yres)+" "+ tr("DPI"));
@@ -214,7 +221,7 @@ void FDialogPreview::GenPreview(QString name)
 	}
 }	
 
-void FDialogPreview::previewUrl( const QUrl &url )
+void FDialogPreview::previewUrl( const Q3Url &url )
 {
 	if (url.isLocalFile())
 		GenPreview(url.path());
@@ -222,7 +229,7 @@ void FDialogPreview::previewUrl( const QUrl &url )
 
 CustomFDialog::CustomFDialog(QWidget *pa, QString wDir, QString cap, QString filter, 
                              bool Pre, bool mod, bool comp, bool cod, bool dirOnly)
-                             : QFileDialog(QString::null, filter, pa, 0, true)
+                             : Q3FileDialog(QString::null, filter, pa, 0, true)
 {
  	setIcon(loadIcon("AppIcon.png"));
  	setCaption(cap);
@@ -232,7 +239,7 @@ CustomFDialog::CustomFDialog(QWidget *pa, QString wDir, QString cap, QString fil
 	FDialogPreview *pw;
 	if (dirOnly)
 	{
-		Layout = new QFrame(this);
+		Layout = new Q3Frame(this);
 		Layout1 = new QHBoxLayout(Layout);
 		Layout1->setSpacing( 0 );
 		Layout1->setMargin( 0 );
@@ -241,7 +248,7 @@ CustomFDialog::CustomFDialog(QWidget *pa, QString wDir, QString cap, QString fil
 		QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 		Layout1->addItem( spacer );
 		addWidgets(0, Layout, 0);
-		LayoutC = new QFrame(this);
+		LayoutC = new Q3Frame(this);
 		Layout1C = new QHBoxLayout(LayoutC);
 		Layout1C->setSpacing( 0 );
 		Layout1C->setMargin( 0 );
@@ -250,7 +257,7 @@ CustomFDialog::CustomFDialog(QWidget *pa, QString wDir, QString cap, QString fil
 		QSpacerItem* spacer2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 		Layout1C->addItem( spacer2 );
 		addWidgets(0, LayoutC, 0);
-		setMode(QFileDialog::DirectoryOnly);
+		setMode(Q3FileDialog::DirectoryOnly);
 	}
 	else
 	{
@@ -259,7 +266,7 @@ CustomFDialog::CustomFDialog(QWidget *pa, QString wDir, QString cap, QString fil
 		setContentsPreview( pw, pw );
 		if (comp)
 		{
-			Layout = new QFrame(this);
+			Layout = new Q3Frame(this);
 			Layout1 = new QHBoxLayout(Layout);
 			Layout1->setSpacing( 6 );
 			Layout1->setMargin( 0 );
@@ -269,16 +276,16 @@ CustomFDialog::CustomFDialog(QWidget *pa, QString wDir, QString cap, QString fil
 			Layout1->addItem( spacer );
 		}
 		if (mod)
-			setMode(QFileDialog::ExistingFile);
+			setMode(Q3FileDialog::ExistingFile);
 		else
 		{
-			setMode(QFileDialog::AnyFile);
+			setMode(Q3FileDialog::AnyFile);
 			if (comp)
 				addWidgets(0, Layout, 0);
 		}
 		if (cod)
 		{
-			LayoutC = new QFrame(this);
+			LayoutC = new Q3Frame(this);
 			Layout1C = new QHBoxLayout(LayoutC);
 			Layout1C->setSpacing( 0 );
 			Layout1C->setMargin( 4 );
@@ -315,8 +322,8 @@ CustomFDialog::CustomFDialog(QWidget *pa, QString wDir, QString cap, QString fil
 			Layout1C->addItem( spacer2 );
 			addWidgets(TxCodeT, LayoutC, 0);
 		}
-		setPreviewMode(Pre ? QFileDialog::Contents : QFileDialog::NoPreview );
-		setViewMode( QFileDialog::List );
+		setPreviewMode(Pre ? Q3FileDialog::Contents : Q3FileDialog::NoPreview );
+		setViewMode( Q3FileDialog::List );
 		if (comp)
 			connect(SaveZip, SIGNAL(clicked()), this, SLOT(HandleComp()));
 	}

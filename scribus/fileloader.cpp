@@ -1,12 +1,16 @@
 #include <qdom.h>
+
+#include <q3progressbar.h>
 #include <qfile.h>
 #include <qfileinfo.h>
-#include <qtl.h>
+#include <q3tl.h>
 #include <qcursor.h>
 #include <qregexp.h>
 #include <qdir.h>
 #include <qtextcodec.h>
 #include <qcheckbox.h>
+#include <Q3PtrList>
+#include <Q3ValueList>
 #include <qmessagebox.h>
 #include <qprogressbar.h>
 #include <cstdlib>
@@ -143,7 +147,7 @@ int FileLoader::CheckScribus()
  */
 QString FileLoader::readSLA(const QString & fileName)
 {
-	QCString docBytes("");
+	Q3CString docBytes("");
 	if(fileName.right(2) == "gz")
 	{
 #ifdef HAVE_LIBZ
@@ -218,7 +222,7 @@ bool FileLoader::LoadPage(int PageToLoad, bool Mpage)
 	{
 		if ((prefsManager->appPrefs.askBeforeSubstituite) || (newReplacement))
 		{
-			qApp->setOverrideCursor(QCursor(Qt::arrowCursor), true);
+			qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 			FontReplaceDialog *dia = new FontReplaceDialog(0, &ReplacedFonts);
 			if (dia->exec())
 			{
@@ -278,7 +282,8 @@ bool FileLoader::LoadPage(int PageToLoad, bool Mpage)
 				}
 			}
 		}
-		for (uint a = 0; a < ScApp->doc->docParagraphStyles.count(); ++a)
+
+		for (int a = 0; a < ScApp->doc->docParagraphStyles.count(); ++a)
 		{
 			if ((!ScApp->doc->UsedFonts.contains(ScApp->doc->docParagraphStyles[a].Font)) && (!ScApp->doc->docParagraphStyles[a].Font.isEmpty()))
 				ScApp->doc->docParagraphStyles[a].Font = ReplacedFonts[ScApp->doc->docParagraphStyles[a].Font];
@@ -375,7 +380,7 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 	QString tmV, tmp, tmpf, tmp2, tmp3, tmp4, PgNam, Defont, tmf;
 	QFont fo;
 	QMap<int,int> TableID;
-	QPtrList<PageItem> TableItems;
+	Q3PtrList<PageItem> TableItems;
 	int a, counter, baseobj;
 	double xf, pageX, pageY;
 	bool newVersion = false;
@@ -518,7 +523,7 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 				arrow.userArrow = true;
 				double xa, ya;
 				QString tmp = pg.attribute("Points");
-				QTextStream fp(&tmp, IO_ReadOnly);
+				QTextStream fp(&tmp, QIODevice::ReadOnly);
 				for (uint cx = 0; cx < pg.attribute("NumPoints").toUInt(); ++cx)
 				{
 					fp >> xa;
@@ -563,7 +568,7 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 				if ((pg.hasAttribute("NumVGuides")) && (QStoInt(pg.attribute("NumVGuides","0")) != 0))
 				{
 					tmp = pg.attribute("VerticalGuides");
-					QTextStream fgv(&tmp, IO_ReadOnly);
+					QTextStream fgv(&tmp, QIODevice::ReadOnly);
 					Apage->YGuides.clear();
 					for (int cxv = 0; cxv < QStoInt(pg.attribute("NumVGuides","0")); ++cxv)
 					{
@@ -576,7 +581,7 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 				if ((pg.hasAttribute("NumHGuides")) && (QStoInt(pg.attribute("NumHGuides","0")) != 0))
 				{
 					tmp = pg.attribute("HorizontalGuides");
-					QTextStream fgh(&tmp, IO_ReadOnly);
+					QTextStream fgh(&tmp, QIODevice::ReadOnly);
 					Apage->XGuides.clear();
 					for (int cxh = 0; cxh < QStoInt(pg.attribute("NumHGuides","0")); ++cxh)
 					{
@@ -742,7 +747,7 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 		PageItem *Its;
 		PageItem *Itn;
 		PageItem *Itr;
-		QValueList<int>::Iterator lc;
+		Q3ValueList<int>::Iterator lc;
 		for (lc = LFrames.begin(); lc != LFrames.end(); ++lc)
 		{
 			Its = doc->Items->at((*lc));
@@ -766,7 +771,7 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 	return true;
 }
 
-bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *doc, QProgressBar *dia2)
+bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *doc, Q3ProgressBar *dia2)
 {
 	struct ParagraphStyle vg;
 	struct Layer la;
@@ -777,7 +782,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 	QString tmp, tmpf, tmp2, tmp3, tmp4, PgNam, Defont, tmf;
 	QFont fo;
 	QMap<int,int> TableID;
-	QPtrList<PageItem> TableItems;
+	Q3PtrList<PageItem> TableItems;
 	int a;
 	double xf, xf2;
 	PageItem *Neu;
@@ -1129,7 +1134,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 				{
 					struct PageItem::TabRecord tb;
 					tmp = pg.attribute("TABS");
-					QTextStream tgv(&tmp, IO_ReadOnly);
+					QTextStream tgv(&tmp, QIODevice::ReadOnly);
 					for (int cxv = 0; cxv < QStoInt(pg.attribute("NUMTAB","0")); cxv += 2)
 					{
 						tgv >> xf;
@@ -1217,7 +1222,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 				arrow.userArrow = true;
 				double xa, ya;
 				QString tmp = pg.attribute("Points");
-				QTextStream fp(&tmp, IO_ReadOnly);
+				QTextStream fp(&tmp, QIODevice::ReadOnly);
 				for (uint cx = 0; cx < pg.attribute("NumPoints").toUInt(); ++cx)
 				{
 					fp >> xa;
@@ -1348,7 +1353,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 						tocsetup.name=tocElem.attribute("Name");
 						tocsetup.itemAttrName=tocElem.attribute("ItemAttributeName");
 						tocsetup.frameName=tocElem.attribute("FrameName");
-						tocsetup.listNonPrintingFrames=tocElem.attribute("ListNonPrinting");
+						tocsetup.listNonPrintingFrames=tocElem.attribute("ListNonPrinting").toInt();
 						tocsetup.textStyle=tocElem.attribute("Style");
 						QString numberPlacement=tocElem.attribute("NumberPlacement");
 						if (numberPlacement=="Beginning")
@@ -1432,7 +1437,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 				if ((pg.hasAttribute("NumVGuides")) && (QStoInt(pg.attribute("NumVGuides","0")) != 0))
 				{
 					tmp = pg.attribute("VerticalGuides");
-					QTextStream fgv(&tmp, IO_ReadOnly);
+					QTextStream fgv(&tmp, QIODevice::ReadOnly);
 					Apage->YGuides.clear();
 					for (int cxv = 0; cxv < QStoInt(pg.attribute("NumVGuides","0")); ++cxv)
 					{
@@ -1447,7 +1452,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 				if ((pg.hasAttribute("NumHGuides")) && (QStoInt(pg.attribute("NumHGuides","0")) != 0))
 				{
 					tmp = pg.attribute("HorizontalGuides");
-					QTextStream fgh(&tmp, IO_ReadOnly);
+					QTextStream fgh(&tmp, QIODevice::ReadOnly);
 					Apage->XGuides.clear();
 					for (int cxh = 0; cxh < QStoInt(pg.attribute("NumHGuides","0")); ++cxh)
 					{
@@ -1647,7 +1652,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 		PageItem *Its;
 		PageItem *Itn;
 		PageItem *Itr;
-		QValueList<int>::Iterator lc;
+		Q3ValueList<int>::Iterator lc;
 		for (lc = LFrames.begin(); lc != LFrames.end(); ++lc)
 		{
 			Its = doc->Items->at((*lc));
@@ -1738,7 +1743,7 @@ void FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, bo
 	int stp = qRound(QStodouble(it->attribute("CSTP","-0.1")) * 10);
 	int stw = qRound(QStodouble(it->attribute("CSTW","-0.1")) * 10);
 	int iobj = QStoInt(it->attribute("COBJ","-1"));
-	for (uint cxx=0; cxx<tmp2.length(); ++cxx)
+	for (int cxx=0; cxx<tmp2.length(); ++cxx)
 	{
 		hg = new ScText;
 		hg->ch = tmp2.at(cxx);
@@ -1863,7 +1868,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 		{
 			currItem->imageClip = currItem->pixm.imgInfo.PDSpathData[clPath].copy();
 			currItem->pixm.imgInfo.usedPath = clPath;
-			QWMatrix cl;
+			QMatrix cl;
 			cl.translate(currItem->LocalX*currItem->LocalScX, currItem->LocalY*currItem->LocalScY);
 			cl.scale(currItem->LocalScX, currItem->LocalScY);
 			currItem->imageClip.map(cl);
@@ -2085,7 +2090,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	if ((obj->hasAttribute("GROUPS")) && (QStoInt(obj->attribute("NUMGROUP","0")) != 0))
 	{
 		tmp = obj->attribute("GROUPS");
-		QTextStream fg(&tmp, IO_ReadOnly);
+		QTextStream fg(&tmp, QIODevice::ReadOnly);
 		currItem->Groups.clear();
 		for (int cx = 0; cx < QStoInt(obj->attribute("NUMGROUP","0")); ++cx)
 		{
@@ -2102,7 +2107,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	{
 		struct PageItem::TabRecord tb;
 		tmp = obj->attribute("TABS");
-		QTextStream tgv(&tmp, IO_ReadOnly);
+		QTextStream tgv(&tmp, QIODevice::ReadOnly);
 		for (int cxv = 0; cxv < QStoInt(obj->attribute("NUMTAB","0")); cxv += 2)
 		{
 			tgv >> xf;
@@ -2139,7 +2144,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	if ((obj->hasAttribute("NUMDASH")) && (QStoInt(obj->attribute("NUMDASH","0")) != 0))
 	{
 		tmp = obj->attribute("DASHS");
-		QTextStream dgv(&tmp, IO_ReadOnly);
+		QTextStream dgv(&tmp, QIODevice::ReadOnly);
 		currItem->DashValues.clear();
 		for (int cxv = 0; cxv < QStoInt(obj->attribute("NUMDASH","0")); ++cxv)
 		{
@@ -2155,7 +2160,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	{
 		currItem->PoLine.resize(obj->attribute("NUMPO").toUInt());
 		tmp = obj->attribute("POCOOR");
-		QTextStream fp(&tmp, IO_ReadOnly);
+		QTextStream fp(&tmp, QIODevice::ReadOnly);
 		for (uint cx=0; cx<obj->attribute("NUMPO").toUInt(); ++cx)
 		{
 			fp >> xf;
@@ -2170,7 +2175,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	{
 		currItem->ContourLine.resize(obj->attribute("NUMCO").toUInt());
 		tmp = obj->attribute("COCOOR");
-		QTextStream fp(&tmp, IO_ReadOnly);
+		QTextStream fp(&tmp, QIODevice::ReadOnly);
 		for (uint cx=0; cx<obj->attribute("NUMCO").toUInt(); ++cx)
 		{
 			fp >> xf;
@@ -2247,7 +2252,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	return currItem;
 }
 
-void FileLoader::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl)
+void FileLoader::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, Q3ValueList<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl)
 {
 	bool fou;
 	QString tmpf, tmf, tmV;
@@ -2309,7 +2314,7 @@ void FileLoader::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 	{
 		struct PageItem::TabRecord tb;
 		QString tmp = pg->attribute("TABS");
-		QTextStream tgv(&tmp, IO_ReadOnly);
+		QTextStream tgv(&tmp, QIODevice::ReadOnly);
 		vg->TabValues.clear();
 		for (int cxv = 0; cxv < QStoInt(pg->attribute("NUMTAB","0")); cxv += 2)
 		{
@@ -2344,7 +2349,7 @@ void FileLoader::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 			IT=IT.nextSibling();
 		}
 	}
-	for (uint xx=0; xx<docParagraphStyles.count(); ++xx)
+	for (int xx=0; xx<docParagraphStyles.count(); ++xx)
 	{
 		if (vg->Vname == docParagraphStyles[xx].Vname)
 		{
@@ -2354,12 +2359,12 @@ void FileLoader::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 				tabEQ = true;
 			else
 			{
-				for (uint t1 = 0; t1 < docParagraphStyles[xx].TabValues.count(); t1++)
+				for (int t1 = 0; t1 < docParagraphStyles[xx].TabValues.count(); t1++)
 				{
 					tb.tabPosition = docParagraphStyles[xx].TabValues[t1].tabPosition;
 					tb.tabType = docParagraphStyles[xx].TabValues[t1].tabType;
 					tb.tabFillChar = docParagraphStyles[xx].TabValues[t1].tabFillChar;
-					for (uint t2 = 0; t2 < vg->TabValues.count(); t2++)
+					for (int t2 = 0; t2 < vg->TabValues.count(); t2++)
 					{
 						struct PageItem::TabRecord tb2;
 						tb2.tabPosition = vg->TabValues[t2].tabPosition;
@@ -2422,16 +2427,16 @@ void FileLoader::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 	}
 	if (!fou)
 	{
-		for (uint xx=0; xx< docParagraphStyles.count(); ++xx)
+		for (int xx=0; xx< docParagraphStyles.count(); ++xx)
 		{
 			struct PageItem::TabRecord tb;
 			tabEQ = false;
-			for (uint t1 = 0; t1 < docParagraphStyles[xx].TabValues.count(); t1++)
+			for (int t1 = 0; t1 < docParagraphStyles[xx].TabValues.count(); t1++)
 			{
 				tb.tabPosition = docParagraphStyles[xx].TabValues[t1].tabPosition;
 				tb.tabType = docParagraphStyles[xx].TabValues[t1].tabType;
 				tb.tabFillChar = docParagraphStyles[xx].TabValues[t1].tabFillChar;
-				for (uint t2 = 0; t2 < vg->TabValues.count(); t2++)
+				for (int t2 = 0; t2 < vg->TabValues.count(); t2++)
 				{
 					struct PageItem::TabRecord tb2;
 					tb2.tabPosition = vg->TabValues[t2].tabPosition;
@@ -2594,14 +2599,14 @@ bool FileLoader::postLoad(bool is12doc)
 				}
 			}
 		}
-		for (uint a = 0; a < ScApp->doc->docParagraphStyles.count(); ++a)
+		for (int a = 0; a < ScApp->doc->docParagraphStyles.count(); ++a)
 		{
 			if ((!ScApp->doc->UsedFonts.contains(ScApp->doc->docParagraphStyles[a].Font)) && (!ScApp->doc->docParagraphStyles[a].Font.isEmpty()))
 				ScApp->doc->docParagraphStyles[a].Font = ReplacedFonts[ScApp->doc->docParagraphStyles[a].Font];
 		}
-		QValueList<QString> tmpList;
+		Q3ValueList<QString> tmpList;
 		tmpList.clear();
-		for (uint fe = 0; fe <  ScApp->doc->PDF_Options.EmbedList.count(); ++fe)
+		for (int fe = 0; fe <  ScApp->doc->PDF_Options.EmbedList.count(); ++fe)
 		{
 			if (ReplacedFonts.contains(ScApp->doc->PDF_Options.EmbedList[fe]))
 				tmpList.append(ReplacedFonts[ScApp->doc->PDF_Options.EmbedList[fe]]);
@@ -2610,7 +2615,7 @@ bool FileLoader::postLoad(bool is12doc)
 		}
 		ScApp->doc->PDF_Options.EmbedList = tmpList;
 		tmpList.clear();
-		for (uint fe = 0; fe <  ScApp->doc->PDF_Options.SubsetList.count(); ++fe)
+		for (int fe = 0; fe <  ScApp->doc->PDF_Options.SubsetList.count(); ++fe)
 		{
 			if (ReplacedFonts.contains(ScApp->doc->PDF_Options.SubsetList[fe]))
 				tmpList.append(ReplacedFonts[ScApp->doc->PDF_Options.SubsetList[fe]]);
@@ -2636,9 +2641,9 @@ bool FileLoader::postLoad(bool is12doc)
 	//Calculate the canvas size
 	if (!is12doc)
 	{
-		FPoint mincp, maxcp;
+		QPointF mincp, maxcp;
 		ScApp->doc->canvasMinMax(mincp, maxcp);
-		FPoint maximumCanvas(QMAX(maxcp.x(), maximumX), QMAX(maxcp.y(), maximumY));
+		QPointF maximumCanvas(QMAX(maxcp.x(), maximumX), QMAX(maxcp.y(), maximumY));
 		ScApp->view->adjustCanvas(mincp, maximumCanvas);
 	}
 	
@@ -2649,7 +2654,7 @@ void FileLoader::informReplacementFonts()
 {
 	if (ReplacedFonts.count() != 0)
 	{
-		qApp->setOverrideCursor(QCursor(arrowCursor), true);
+		qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 		QString mess = tr("Some fonts used by this document have been substituted:")+"\n\n";
 		QMap<QString,QString>::Iterator it;
 		for (it = ReplacedFonts.begin(); it != ReplacedFonts.end(); ++it)

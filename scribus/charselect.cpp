@@ -4,21 +4,28 @@
 #include <qlabel.h>
 #include <qpixmap.h>
 #include <qpushbutton.h>
-#include <qtable.h>
+#include <q3table.h>
 #include <qlayout.h>
 #include <qtooltip.h>
 #include <qstringlist.h>
 #include <qcombobox.h>
 #include <qfont.h>
-#include <qpopupmenu.h>
-#include <qwidget.h>
+
+#include <q3popupmenu.h>
+#include <QPixmap>
+#include <QPaintEvent>
+#include <QKeyEvent>
+#include <QEvent>
+#include <QHBoxLayout>
+#include <Q3Frame>
+#include <QVBoxLayout>
+#include <QMouseEvent>
 
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "fontcombo.h"
 #include "charselect.h"
-#include "charselect.moc"
 #include "sccombobox.h"
 #include "scpainter.h"
 
@@ -32,9 +39,9 @@
 #include "util.h"
 
 #ifdef QT_MAC
-Zoom::Zoom(QWidget* parent, QPixmap pix, uint val) : QDialog( parent, "Edit", false, WStyle_Customize | WStyle_NoBorder | WType_Popup)
+Zoom::Zoom(QWidget* parent, QPixmap pix, uint val) : QDialog( parent, "Edit", false, Qt::WStyle_Customize | Qt::WStyle_NoBorder | Qt::WType_Popup)
 #else
-Zoom::Zoom(QWidget* parent, QPixmap pix, uint val) : QDialog( parent, "Edit", false, WStyle_Customize | WStyle_NoBorder)
+Zoom::Zoom(QWidget* parent, QPixmap pix, uint val) : QDialog( parent, "Edit", false, Qt::WStyle_Customize | Qt::WStyle_NoBorder)
 #endif
 {
 	int newwidth=pix.width()+2;
@@ -52,15 +59,15 @@ void Zoom::paintEvent(QPaintEvent *)
 {
 	QPainter p;
 	p.begin(this);
-	p.setPen(black);
-	p.setBrush(NoBrush);
+	p.setPen(Qt::black);
+	p.setBrush(Qt::NoBrush);
 	p.drawRect(0, 0, width(), height());
 	p.drawPixmap(1, 1, pixm);
 	p.drawText(5, height()-3, valu);
 	p.end();
 }
 
-ChTable::ChTable(CharSelect* parent, ScribusApp *pl) : QTable(parent)
+ChTable::ChTable(CharSelect* parent, ScribusApp *pl) : Q3Table(parent)
 {
 	watchTimer = new QTimer(this);
 //	connect(watchTimer, SIGNAL(timeout()), this, SLOT(showAlternate()));
@@ -77,6 +84,7 @@ ChTable::ChTable(CharSelect* parent, ScribusApp *pl) : QTable(parent)
 
 QRect ChTable::cellGeometry ( int row, int col ) const
 {
+	Q_UNUSED( row ); Q_UNUSED( col );
 	int widthHeight = QMAX(16 + qRound(-(*ap->doc->AllFonts)[par->fontInUse]->numDescender * 16) + 3, 16);
 	return QRect(0, 0, widthHeight, widthHeight);
 
@@ -86,6 +94,8 @@ QRect ChTable::cellGeometry ( int row, int col ) const
 void ChTable::paintCell( QPainter * qp, int row, int col, const QRect & cr, bool selected, const QColorGroup & cg )
 {
 	static QPixmap pixm;
+	Q_UNUSED( selected );
+	Q_UNUSED( cg );
 
 	int cc = row * 16 + col;
 	if (cc >= maxCount)
@@ -96,8 +106,8 @@ void ChTable::paintCell( QPainter * qp, int row, int col, const QRect & cr, bool
 
 	ScPainter *p = new ScPainter(&pixm, cr.width(), cr.height());
 	p->clear();
-	pixm.fill(white);
-	QWMatrix chma;
+	pixm.fill(Qt::white);
+	QMatrix chma;
 	chma.scale(1.6, 1.6);
 	qp->eraseRect(0, 0, cr.width(), cr.height());
 	static FPointArray gly;
@@ -109,7 +119,7 @@ void ChTable::paintCell( QPainter * qp, int row, int col, const QRect & cr, bool
 		gly.map(chma);
 		double ww = sz.width() - (*ap->doc->AllFonts)[par->fontInUse]->CharWidth[par->characters[cc]]*16;
 		p->translate(ww / 2, 1);
-		p->setBrush(black);
+		p->setBrush(Qt::black);
 		p->setFillMode(1);
 		p->setupPolygon(&gly);
 		p->fillPath();
@@ -118,7 +128,7 @@ void ChTable::paintCell( QPainter * qp, int row, int col, const QRect & cr, bool
 		int y = QMAX(0, (cr.height() - sz.height()) / 2);
 		qp->drawPixmap(x, y, pixm);
 	}
-	qp->setPen(gray);	
+	qp->setPen(Qt::gray);
 	qp->drawRect(0, 0, cr.width(), cr.height());
 	delete p;
 }
@@ -128,15 +138,15 @@ void ChTable::keyPressEvent(QKeyEvent *k)
 {
 	switch (k->key())
 	{
-		case Key_Backspace:
-		case Key_Delete:
+		case Qt::Key_Backspace:
+		case Qt::Key_Delete:
 			emit delChar();
 			break;
-		case Key_Insert:
+		case Qt::Key_Insert:
 			emit selectChar(currentRow(), currentColumn());
 			break;
 	}
-	QTable::keyPressEvent(k);
+	Q3Table::keyPressEvent(k);
 }
 
 void ChTable::contentsMousePressEvent(QMouseEvent* e)
@@ -148,15 +158,15 @@ void ChTable::contentsMousePressEvent(QMouseEvent* e)
 	font = par->fontInUse;
 	mPressed = true;
 	alternate = false;
-	if ((e->button() == RightButton) && ((r*16+c) < maxCount))
+	if ((e->button() == Qt::RightButton) && ((r*16+c) < maxCount))
 	{
 		watchTimer->stop();
 		int bh = 48 + qRound(-(*ap->doc->AllFonts)[font]->numDescender * 48) + 3;
 		QPixmap pixm(bh,bh);
 		ScPainter *p = new ScPainter(&pixm, bh, bh);
 		p->clear();
-		pixm.fill(white);
-		QWMatrix chma;
+		pixm.fill(Qt::white);
+		QMatrix chma;
 		chma.scale(4.8, 4.8);
 		FPointArray gly = (*ap->doc->AllFonts)[font]->GlyphArray[par->characters[r*16+c]].Outlines.copy();
 		double ww = bh - (*ap->doc->AllFonts)[font]->CharWidth[par->characters[r*16+c]]*48;
@@ -164,7 +174,7 @@ void ChTable::contentsMousePressEvent(QMouseEvent* e)
 		{
 			gly.map(chma);
 			p->translate(ww / 2, 1);
-			p->setBrush(black);
+			p->setBrush(Qt::black);
 			p->setFillMode(1);
 			p->setupPolygon(&gly);
 			p->fillPath();
@@ -183,14 +193,14 @@ void ChTable::contentsMousePressEvent(QMouseEvent* e)
 		colA = columnAt(e->pos().x());
 		watchTimer->start(3000, true);
 	} */
-	QTable::contentsMousePressEvent(e);
+	Q3Table::contentsMousePressEvent(e);
 }
 
 void ChTable::contentsMouseReleaseEvent(QMouseEvent* e)
 {
 	e->accept();
 	watchTimer->stop();
-	if ((e->button() == RightButton) && (mPressed))
+	if ((e->button() == Qt::RightButton) && (mPressed))
 	{
 		if (dia)
 		{
@@ -199,11 +209,11 @@ void ChTable::contentsMouseReleaseEvent(QMouseEvent* e)
 			dia = 0;
 		}
 	}
-	if ((e->button() == LeftButton) && (!alternate))
+	if ((e->button() == Qt::LeftButton) && (!alternate))
 		emit selectChar(rowAt(e->pos().y()), columnAt(e->pos().x()));
 	mPressed = false;
 	alternate = false;
-	QTable::contentsMouseReleaseEvent(e);
+	Q3Table::contentsMouseReleaseEvent(e);
 }
 
 void ChTable::showAlternate()
@@ -290,14 +300,14 @@ void CharSelect::run( QWidget* /*parent*/, PageItem *item, ScribusApp *pl)
 	zTabelle->setTopMargin(0);
 	zTabelle->horizontalHeader()->hide();
 	zTabelle->setSorting(false);
-	zTabelle->setSelectionMode(QTable::NoSelection);
+	zTabelle->setSelectionMode(Q3Table::NoSelection);
 	zTabelle->setColumnMovingEnabled(false);
 	zTabelle->setRowMovingEnabled(false);
 	scanFont();
 	zAuswahlLayout->addWidget( zTabelle );
 
 	sample = new QLabel( this, "Zeichen" );
-	sample->setFrameShape(QFrame::Box);
+	sample->setFrameShape(Q3Frame::Box);
 	sample->setPaletteBackgroundColor(paletteBackgroundColor());
 	zAuswahlLayout->addWidget( sample );
 
@@ -768,7 +778,7 @@ void CharSelect::insChar()
 		return;
 	}
 	struct ScText *hg;
-	for (uint a=0; a<chToIns.length(); ++a)
+	for (int a=0; a<chToIns.length(); ++a)
 	{
 		hg = new ScText;
 		hg->ch = chToIns.at(a);
@@ -817,6 +827,7 @@ void CharSelect::insChar()
 
 bool CharSelect::eventFilter( QObject *obj, QEvent *ev )
 {
+	Q_UNUSED( obj );
 	if ( ev->type() == QEvent::Show )
 	{
 		recalcCellSizes();

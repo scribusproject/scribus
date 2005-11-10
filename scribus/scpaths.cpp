@@ -102,14 +102,25 @@ ScPaths::ScPaths() :
 
 #elif defined(_WIN32)
 	QString appPath = qApp->applicationDirPath();
-	m_shareDir = strdup(QString("%1/share/").arg(appPath));
-	m_docDir = strdup(QString("%1/share/doc/").arg(appPath));
-	m_iconDir = strdup(QString("%1/share/icons/").arg(appPath));
-	m_sampleScriptDir = strdup(QString("%1/share/samples/").arg(appPath));
-	m_scriptDir = strdup(QString("%1/share/scripts/").arg(appPath));
-	m_templateDir = strdup(QString("%1/share/templates/").arg(appPath));
-	m_libDir = strdup(QString("%1/libs/").arg(appPath));
-	m_pluginDir = strdup(QString("%1/plugins/").arg(appPath));
+	m_shareDir        = strdup(QString("%1/%2").arg(appPath).arg(SHAREDIR));
+	m_docDir          = strdup(QString("%1/%2").arg(m_shareDir).arg(DOCDIR));
+	m_iconDir         = strdup(QString("%1/%2").arg(m_shareDir).arg(ICONDIR));
+	m_sampleScriptDir = strdup(QString("%1/%2").arg(m_shareDir).arg(SAMPLESDIR));
+	m_scriptDir       = strdup(QString("%1/%2").arg(m_shareDir).arg(SCRIPTSDIR));
+	m_templateDir     = strdup(QString("%1/%2").arg(m_shareDir).arg(TEMPLATEDIR));
+	m_libDir          = strdup(QString("%1/%2").arg(m_shareDir).arg(LIBDIR));
+	m_pluginDir       = strdup(QString("%1/%2").arg(m_shareDir).arg(PLUGINDIR));
+
+	// on Windows this goes to the Debugger, so user only sees it when they care
+	qDebug(QString("scpaths: share dir=%1").arg(m_shareDir));
+	qDebug(QString("scpaths: doc dir=%1").arg(m_docDir));
+	qDebug(QString("scpaths: icon dir=%1").arg(m_iconDir));
+	qDebug(QString("scpaths: sample dir=%1").arg(m_sampleScriptDir));
+	qDebug(QString("scpaths: script dir=%1").arg(m_scriptDir));
+	qDebug(QString("scpaths: template dir=%1").arg(m_templateDir));
+	qDebug(QString("scpaths: lib dir=%1").arg(m_libDir));
+	qDebug(QString("scpaths: plugin dir=%1").arg(m_pluginDir));
+	qDebug(QString("scpaths: qtplugins=%1").arg(QApplication::libraryPaths().join(":")));
 #endif
 }
 
@@ -187,7 +198,7 @@ QStringList ScPaths::getSystemProfilesDirs(void)
 	ZeroMemory( &osVersion, sizeof(OSVERSIONINFO));
 	osVersion.dwOSVersionInfoSize = sizeof(OSVERSIONINFO); // Necessary for GetVersionEx to succeed
 	GetVersionEx(&osVersion);  // Get Windows version infos
-	GetSystemDirectory( sysDir, MAX_PATH ); // getSpecialDir(CSIDL_SYSTEM) fails on Win9x
+	GetSystemDirectoryA( sysDir, MAX_PATH ); // getSpecialDir(CSIDL_SYSTEM) fails on Win9x
 	QString winSysDir = QString(sysDir).replace('\\','/');
 	if( osVersion.dwPlatformId == VER_PLATFORM_WIN32_NT	) // Windows NT/2k/XP
 	{
@@ -208,7 +219,7 @@ QString ScPaths::getSpecialDir(int folder)
 	QString qstr;
 #if defined(_WIN32)
 	char dir[256];
-	SHGetSpecialFolderPath(NULL, dir, folder , false);
+	SHGetSpecialFolderPathA(NULL, dir, folder , false);
 	qstr = dir;
 	if( !qstr.endsWith("\\") )
 		qstr += "\\";

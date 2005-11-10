@@ -4,11 +4,14 @@
 #include <qdialog.h>
 #include <qcheckbox.h>
 #include <qlabel.h>
-#include <qlistbox.h>
+#include <q3listbox.h>
 #include <qpushbutton.h>
 #include <qlayout.h>
 #include <qtooltip.h>
 #include <qstringlist.h>
+//Added by qt3to4:
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 
 #include "scribusapi.h"
 
@@ -22,7 +25,7 @@ public:
 
     QLabel* TextLabel1;
     QLabel* Datei;
-    QListBox* ListBox1;
+    Q3ListBox* ListBox1;
     QCheckBox* Preview;
     QPushButton* UseB;
     QPushButton* CancelB;
@@ -32,7 +35,7 @@ public:
 
 private slots:
 	void ShowPrev();
-	void selBild(QListBoxItem *c);
+	void selBild(Q3ListBoxItem *c);
 	void GenPreview();
 
 signals:

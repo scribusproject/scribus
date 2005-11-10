@@ -379,9 +379,9 @@ xlib_rgb_try_colormap (int nr, int ng, int nb)
 	      color.blue = b * 65535 / (nb - 1);
 
 #ifdef GAMMA
-	      color.red = 65535 * pow (color.red / 65535.0, 0.5);
-	      color.green = 65535 * pow (color.green / 65535.0, 0.5);
-	      color.blue = 65535 * pow (color.blue / 65535.0, 0.5);
+	      color.Qt::red = 65535 * pow (color.Qt::red / 65535.0, 0.5);
+	      color.Qt::green = 65535 * pow (color.Qt::green / 65535.0, 0.5);
+	      color.Qt::blue = 65535 * pow (color.Qt::blue / 65535.0, 0.5);
 #endif
 
 	      /* This should be a raw XAllocColor call */
@@ -714,7 +714,7 @@ xlib_rgb_set_gray_cmap (Colormap cmap)
       pixels[i] = color.pixel;
 #ifdef VERBOSE
       printf ("allocating pixel %d, %x %x %x, result %d\n",
-	       color.pixel, color.red, color.green, color.blue, status);
+	       color.pixel, color.Qt::red, color.Qt::green, color.Qt::blue, status);
 #endif
     }
 

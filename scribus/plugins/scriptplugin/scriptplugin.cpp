@@ -60,6 +60,8 @@
 #include <qpixmap.h>
 #include <qwidget.h>
 #include <qstring.h>
+//Added by qt3to4:
+#include <Q3CString>
 #include <cstdlib>
 #include <iostream>
 
@@ -250,7 +252,7 @@ char* tr(const char* docstringConstant)
 	 * a text string in a particular text encoding.
 	 */
 	//QCString utfTranslated = translated.utf8();
-	QCString trch = translated.utf8();
+	Q3CString trch = translated.utf8();
 	char* utfstr = strdup(trch.data());
 	if (!utfstr)
 		// Complain, but then return NULL anyway. Python will treat NULL as
@@ -521,7 +523,7 @@ void initscribus(ScribusApp *pl)
 	PyDict_SetItemString(d, const_cast<char*>("CAP_FLAT"), Py_BuildValue(const_cast<char*>("i"), Qt::FlatCap));
 	PyDict_SetItemString(d, const_cast<char*>("CAP_SQUARE"), Py_BuildValue(const_cast<char*>("i"), Qt::SquareCap));
 	PyDict_SetItemString(d, const_cast<char*>("CAP_ROUND"), Py_BuildValue(const_cast<char*>("i"), Qt::RoundCap));
-	PyDict_SetItemString(d, const_cast<char*>("BUTTON_NONE"), Py_BuildValue(const_cast<char*>("i"), QMessageBox::NoButton));
+	PyDict_SetItemString(d, const_cast<char*>("BUTTON_NONE"), Py_BuildValue(const_cast<char*>("i"), Qt::NoButton));
 	PyDict_SetItemString(d, const_cast<char*>("BUTTON_OK"), Py_BuildValue(const_cast<char*>("i"), QMessageBox::Ok));
 	PyDict_SetItemString(d, const_cast<char*>("BUTTON_CANCEL"), Py_BuildValue(const_cast<char*>("i"), QMessageBox::Cancel));
 	PyDict_SetItemString(d, const_cast<char*>("BUTTON_YES"), Py_BuildValue(const_cast<char*>("i"), QMessageBox::Yes));

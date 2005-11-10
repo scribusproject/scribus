@@ -1,10 +1,11 @@
 #include "export.h"
 #include "dialog.h"
-#include "export.moc"
 #include <qpixmap.h>
 #include <qstring.h>
 #include <qdir.h>
 #include <qcursor.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 
 #include "scribus.h"
 #include "scraction.h"

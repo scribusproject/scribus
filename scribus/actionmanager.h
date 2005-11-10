@@ -18,8 +18,11 @@
 #include <qobject.h> 
 #include <qstring.h>
 #include <qmap.h>
-#include <qguardedptr.h>
-#include <qdict.h>
+#include <qpointer.h>
+#include <q3dict.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <Q3ActionGroup>
 
 #include "scribusapi.h"
 #include "scraction.h"
@@ -74,8 +77,8 @@ class SCRIBUS_API ActionManager : public QObject
 		ScribusApp *ScApp;
 		ScribusQApp *ScQApp;
 		UndoManager *undoManager;
-		QMap<QString, QGuardedPtr<ScrAction> > *scrActions;
-		QDict<QActionGroup> *scrActionGroups;
+		QMap<QString, QPointer<ScrAction> > *scrActions;
+		Q3Dict<Q3ActionGroup> *scrActionGroups;
 		QStringList *modeActionNames;
 		QStringList *nonEditActionNames;
 		QStringList *unicodeCharActionNames;

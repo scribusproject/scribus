@@ -2,7 +2,7 @@
 #include "colorwheel.h"
 #include "cwdialog.h"
 #include <qcursor.h>
-#include <qlistview.h>
+#include <q3listview.h>
 #include "scribus.h"
 
 int colorwheel_getPluginAPIVersion()

@@ -12,23 +12,22 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-#include <qpopupmenu.h>
-#include <qiconset.h>
+#include <q3popupmenu.h>
+#include <qicon.h>
 #include "scraction.h"
-#include "scraction.moc"
 
 
-ScrAction::ScrAction( QObject * parent, const char * name ) : QAction( parent, name )
+ScrAction::ScrAction( QObject * parent, const char * name ) : Q3Action( parent, name )
 {
 	initScrAction();
 }
 
-ScrAction::ScrAction( const QString & menuText, QKeySequence accel, QObject * parent, const char * name ) : QAction( menuText, accel, parent, name )
+ScrAction::ScrAction( const QString & menuText, QKeySequence accel, QObject * parent, const char * name ) : Q3Action( menuText, accel, parent, name )
 {
 	initScrAction();
 }
 
-ScrAction::ScrAction( ActionType aType, const QIconSet & icon, const QString & menuText, QKeySequence accel, QObject * parent, const char * name, int extraInt, double extraDouble, QString extraQString ) : QAction( icon, menuText, accel, parent, name )
+ScrAction::ScrAction( ActionType aType, const QIcon & icon, const QString & menuText, QKeySequence accel, QObject * parent, const char * name, int extraInt, double extraDouble, QString extraQString ) : Q3Action( icon, menuText, accel, parent, name )
 {
 	initScrAction();
 	setIconSizes();
@@ -69,7 +68,7 @@ ScrAction::ScrAction( ActionType aType, const QIconSet & icon, const QString & m
 	}
 }
 
-ScrAction::ScrAction( const QIconSet & icon, const QString & menuText, QKeySequence accel, QObject * parent, const char * name ) : QAction( icon, menuText, accel, parent, name )
+ScrAction::ScrAction( const QIcon & icon, const QString & menuText, QKeySequence accel, QObject * parent, const char * name ) : Q3Action( icon, menuText, accel, parent, name )
 {
 	initScrAction();
 	setIconSizes();
@@ -91,12 +90,13 @@ ScrAction::~ScrAction()
 
 void ScrAction::setIconSizes()
 {
-	QIconSet iconset=iconSet();
-	if (!iconset.isNull())
-	{
-		iconset.setIconSize(QIconSet::Small, QSize(16,16));
-		iconset.setIconSize(QIconSet::Large, QSize(22,22));
-	}
+	qWarning( "ScrAction::setIconSizes broken " );
+// 	QIcon iconset=iconSet();
+// 	if (!iconset.isNull())
+// 	{
+// 		iconset.setIconSize(QIcon::Small, QSize(16,16));
+// 		iconset.setIconSize(QIcon::Large, QSize(22,22));
+// 	}
 }
 
 void ScrAction::activatedToActivatedData()
@@ -145,7 +145,7 @@ void ScrAction::toggledToToggledData(bool ison)
 	}
 }
 
-void ScrAction::addedTo ( int index, QPopupMenu * menu )
+void ScrAction::addedTo ( int index, Q3PopupMenu * menu )
 {
 	if (menuIndex==-1) // Add the first time, not for secondary popups.
 	{
@@ -182,7 +182,7 @@ const int ScrAction::getMenuIndex()
 bool ScrAction::addTo ( QWidget * w )
 {
 	widgetAddedTo=w;
-	return (QAction::addTo(w));
+	return (Q3Action::addTo(w));
 }
 
 const bool ScrAction::isDLLAction()
@@ -206,7 +206,7 @@ void ScrAction::setToggleAction(bool isToggle)
 		else
 			disconnect(this, SIGNAL(toggled(bool)), this, SLOT(toggledToToggledData(bool)));
 	}
-	QAction::setToggleAction(isToggle);
+	Q3Action::setToggleAction(isToggle);
 }
 
 void ScrAction::saveShortcut()
@@ -251,7 +251,7 @@ const QString ScrAction::actionQString()
 
 void ScrAction::setTexts(const QString &newText, bool setTextToo)
 {
-	QAction::setMenuText(newText);
+	Q3Action::setMenuText(newText);
 	if (setTextToo)
-		QAction::setText(cleanMenuText());
+		Q3Action::setText(cleanMenuText());
 }

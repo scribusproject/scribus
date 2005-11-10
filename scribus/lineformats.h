@@ -2,12 +2,15 @@
 #define LINEFORMATE_H
 
 #include <qdialog.h>
+//Added by qt3to4:
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 
 #include "scribusapi.h"
 #include "multiline.h"
 #include "scribusstructs.h"
 
-class QListBox;
+class Q3ListBox;
 class QPushButton;
 class QVBoxLayout;
 class QHBoxLayout;
@@ -21,7 +24,7 @@ public:
 	LineFormate( QWidget* parent, ScribusDoc *doc);
 	~LineFormate() {};
 
-	QListBox* ListBox1;
+	Q3ListBox* ListBox1;
 	QPushButton* LoadLS;
 	QPushButton* NewB;
 	QPushButton* EditB;
@@ -38,8 +41,8 @@ public:
 
 public slots:
 	void saveIt();
-	void selFormat(QListBoxItem *c);
-	void selEditFormat(QListBoxItem *c);
+	void selFormat(Q3ListBoxItem *c);
+	void selEditFormat(Q3ListBoxItem *c);
 	void editFormat();
 	void neuesFormat();
 	void dupFormat();

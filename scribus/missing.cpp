@@ -3,9 +3,11 @@
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qpushbutton.h>
+//Added by qt3to4:
+#include <QHBoxLayout>
+#include <QGridLayout>
 
 #include "missing.h"
-#include "missing.moc"
 
 #include "fontcombo.h"
 #include "scribusdoc.h"

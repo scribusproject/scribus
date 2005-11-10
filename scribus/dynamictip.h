@@ -19,12 +19,12 @@
 #define DYNAMICTIP_H
 
 #include <qtooltip.h>
-#include <qlistbox.h>
-#include <qtable.h>
+#include <q3listbox.h>
+#include <q3table.h>
 #include "scribusapi.h"
 #include "scribusstructs.h"
 
-class SCRIBUS_API DynamicTip : public QToolTip
+class SCRIBUS_API DynamicTip : public QWidget
 {
 public:
 	enum TipType {
@@ -32,13 +32,13 @@ public:
 		Table
 	};
 
-	DynamicTip( QListBox* parent, ColorList* pale );
-	DynamicTip( QTable* parent );
+	DynamicTip( Q3ListBox* parent, ColorList* pale );
+	DynamicTip( Q3Table* parent );
 protected:
 	void maybeTip( const QPoint & );
 	ColorList* colorList;
-	QListBox* listB;
-	QTable* table;
+	Q3ListBox* listB;
+	Q3Table* table;
 	TipType kind;
 };
 

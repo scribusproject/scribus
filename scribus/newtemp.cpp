@@ -1,6 +1,10 @@
 #include "newtemp.h"
-#include "newtemp.moc"
 #include "page.h"
+//Added by qt3to4:
+#include <QPixmap>
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 extern QPixmap loadIcon(QString nam);
 
 #include <qtooltip.h>
@@ -20,8 +24,8 @@ NewTm::NewTm( QWidget* parent, QString text, QString titel, ScribusDoc *doc)
 	Layout2->setMargin( 0 );
 	Answer = new QLineEdit( this, "Answer" );
 	Frage = new QLabel( Answer, text, this, "Frage" );
-	Frage->setFrameShape( QLabel::MShape );
-	Frage->setFrameShadow( QLabel::MShadow );
+	//Frage->setFrameShape( QLabel::MShape );
+	//Frage->setFrameShadow( QLabel::MShadow );
 	Frage->adjustSize();
 	Layout2->addWidget( Frage );
 	Layout2->addWidget( Answer );

@@ -2,35 +2,40 @@
 #define PAGELAYOUT_H
 
 #include <qvariant.h>
-#include <qgroupbox.h>
+#include <q3groupbox.h>
+//Added by qt3to4:
+#include <QLabel>
+#include <QVBoxLayout>
+#include <Q3ValueList>
+#include <QHBoxLayout>
 #include "scribusapi.h"
 #include "scribusstructs.h"
 
 class QVBoxLayout;
 class QHBoxLayout;
-class QIconView;
-class QIconViewItem;
+class Q3IconView;
+class Q3IconViewItem;
 class QLabel;
 class ScComboBox;
 
-class SCRIBUS_API PageLayouts : public QGroupBox
+class SCRIBUS_API PageLayouts : public Q3GroupBox
 {
 	Q_OBJECT
 
 public:
-	PageLayouts( QWidget* parent, QValueList<PageSet> pSets, bool mode = true );
+	PageLayouts( QWidget* parent, Q3ValueList<PageSet> pSets, bool mode = true );
 	~PageLayouts() {};
-	void updateLayoutSelector(QValueList<PageSet> pSets);
+	void updateLayoutSelector(Q3ValueList<PageSet> pSets);
 	void selectFirstP(int nr);
 	void selectItem(uint nr);
-	QIconView* layoutsView;
+	Q3IconView* layoutsView;
 	ScComboBox* layoutsCombo;
 	QLabel* layoutLabel1;
 	ScComboBox* firstPage;
-	QValueList<PageSet> pageSets;
+	Q3ValueList<PageSet> pageSets;
 
 public slots:
-	void itemSelected(QIconViewItem* ic);
+	void itemSelected(Q3IconViewItem* ic);
 	void itemSelected(int ic);
 
 signals:

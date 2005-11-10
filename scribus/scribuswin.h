@@ -18,7 +18,11 @@
 #ifndef SCRIBUSWIN_H
 #define SCRIBUSWIN_H
 
-#include <qmainwindow.h>
+#include <q3mainwindow.h>
+//Added by qt3to4:
+#include <Q3Frame>
+#include <QHBoxLayout>
+#include <QCloseEvent>
 class ScribusView;
 class ScribusDoc;
 #include "scribusapi.h"
@@ -27,7 +31,7 @@ class ScribusDoc;
   *@author Franz Schmid
   */
 
-class SCRIBUS_API ScribusWin : public QMainWindow
+class SCRIBUS_API ScribusWin : public Q3MainWindow
 {
 	Q_OBJECT
 
@@ -39,7 +43,7 @@ public:
 	ScribusView* view;
 	ScribusDoc* doc;
 	MasterPagesPalette* muster;
-	QFrame *statusFrame;
+	Q3Frame *statusFrame;
 	bool MenuStat[7];
 	int winIndex;
 	

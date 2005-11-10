@@ -8,7 +8,6 @@
 ****************************************************************************/
 #include "scfonts.h"
 #include "annot.h"
-#include "annot.moc"
 #include "editor.h"
 #include "selfield.h"
 #include "customfdialog.h"
@@ -17,6 +16,12 @@
 #include <qstringlist.h>
 #include <qdatetime.h>
 #include <qpixmap.h>
+//Added by qt3to4:
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <Q3Frame>
+#include <QLabel>
+#include <QVBoxLayout>
 #include "prefsmanager.h"
 #include "prefsfile.h"
 #include "scimage.h"
@@ -25,7 +30,6 @@
 #include "scribusview.h"
 #include "util.h"
 #include <prefscontext.h>
-#include <scribusstructs.h>
 
 extern QPixmap loadIcon(QString nam);
 
@@ -76,10 +80,10 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	AnnotLayout->addLayout( Layout1 );
 	ComboBox1->setCurrentItem(item->AnType-2);
 
-	Fram = new QWidgetStack(this);
+	Fram = new Q3WidgetStack(this);
 	AnnotLayout->addWidget( Fram );
 
-	GroupBox10 = new QGroupBox( this, "GroupBox1" );
+	GroupBox10 = new Q3GroupBox( this, "GroupBox1" );
 	GroupBox10->setGeometry( QRect( 11, 41, 360, 350 ) );
 	GroupBox10->setTitle( tr( "Properties" ) );
 	GroupBox10->setColumnLayout(0, Qt::Vertical );
@@ -112,7 +116,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	tab = new QWidget( TabWidget2, "tab" );
 	tabLayout = new QVBoxLayout( tab, 10, 5, "tabLayout");
 
-	GroupBox40 = new QGroupBox( tab, "GroupBox40" );
+	GroupBox40 = new Q3GroupBox( tab, "GroupBox40" );
 	GroupBox40->setTitle( tr( "Text" ) );
 	GroupBox40->setColumnLayout(0, Qt::Vertical );
 	GroupBox40->layout()->setSpacing( 5 );
@@ -141,7 +145,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	tabLayout->addWidget( GroupBox40 );
 
 	Layout10 = new QHBoxLayout( 0, 0, 5, "Layout1");
-	GroupBox20 = new QGroupBox( tab, "GroupBox2" );
+	GroupBox20 = new Q3GroupBox( tab, "GroupBox2" );
 	GroupBox20->setTitle( tr( "Border" ) );
 	GroupBox20->setColumnLayout(0, Qt::Vertical );
 	GroupBox20->layout()->setSpacing( 5 );
@@ -193,7 +197,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	GroupBox20Layout->addWidget( BorderS, 2, 1 );
 	Layout10->addWidget( GroupBox20 );
 
-	GroupBox30 = new QGroupBox( tab, "GroupBox3" );
+	GroupBox30 = new Q3GroupBox( tab, "GroupBox3" );
 	GroupBox30->setTitle( tr( "Other" ) );
 	GroupBox30->setColumnLayout(0, Qt::Vertical );
 	GroupBox30->layout()->setSpacing( 5 );
@@ -237,15 +241,15 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 
 	tab_3 = new QWidget( TabWidget2, "tab_3" );
 	tabLayout_3 = new QVBoxLayout( tab_3, 11, 6, "tabLayout_3");
-	FramOp = new QWidgetStack(tab_3);
-	Frame4a = new QGroupBox( tab_3, "GroupBox1" );
+	FramOp = new Q3WidgetStack(tab_3);
+	Frame4a = new Q3GroupBox( tab_3, "GroupBox1" );
 	Frame4a->setTitle("");
-	Frame4a->setFrameShape( QFrame::NoFrame );
+	//Frame4a->setFrameShape( Q3Frame::NoFrame );
 	Frame4a->setColumnLayout(0, Qt::Vertical );
 	Frame4a->layout()->setSpacing( 0 );
 	Frame4a->layout()->setMargin( 0 );
 	Frame4aLayout = new QGridLayout( Frame4a->layout());
-	GroupBox40a = new QGroupBox( Frame4a, "GroupBox40" );
+	GroupBox40a = new Q3GroupBox( Frame4a, "GroupBox40" );
 	GroupBox40a->setTitle( tr( "Text" ) );
 	GroupBox40a->setColumnLayout(0, Qt::Vertical );
 	GroupBox40a->layout()->setSpacing( 5 );
@@ -266,7 +270,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	GroupBox40aLayout->addWidget( TextO, 1, 2 );
 	Frame4aLayout->addMultiCellWidget( GroupBox40a, 0, 0, 0, 1 );
 
-	OptIcons = new QGroupBox( Frame4a, "OptIcons" );
+	OptIcons = new Q3GroupBox( Frame4a, "OptIcons" );
 	OptIcons->setTitle( tr( "Icons" ) );
 	OptIcons->setColumnLayout(0, Qt::Vertical );
 	OptIcons->layout()->setSpacing( 6 );
@@ -376,7 +380,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	}
 	Frame4aLayout->addWidget( OptIcons, 1, 0 );
 
-	GroupBox30a = new QGroupBox( Frame4a, "GroupBox3" );
+	GroupBox30a = new Q3GroupBox( Frame4a, "GroupBox3" );
 	GroupBox30a->setTitle( tr( "Highlight" ) );
 	GroupBox30a->setColumnLayout(0, Qt::Vertical );
 	GroupBox30a->layout()->setSpacing( 5 );
@@ -395,7 +399,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	Frame4aLayout->addWidget( GroupBox30a, 1, 1 );
 	FramOp->addWidget( Frame4a , 2);
 
-	OptTextFeld = new QGroupBox( tab_3, "OptTextFeld" );
+	OptTextFeld = new Q3GroupBox( tab_3, "OptTextFeld" );
 	OptTextFeld->setTitle( "" );
 	OptTextFeld->setColumnLayout(0, Qt::Vertical );
 	OptTextFeld->layout()->setSpacing( 6 );
@@ -438,7 +442,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	OptTextFeldLayout->addWidget( NoSpell );
 	FramOp->addWidget( OptTextFeld , 3);
 
-	OptCheck = new QGroupBox( tab_3, "OptCheck" );
+	OptCheck = new Q3GroupBox( tab_3, "OptCheck" );
 	OptCheck->setTitle( "" );
 	OptCheck->setColumnLayout(0, Qt::Vertical );
 	OptCheck->layout()->setSpacing( 6 );
@@ -469,7 +473,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	OptCheckLayout->addWidget( isChkd );
 	FramOp->addWidget( OptCheck, 4);
 
-	OptCombo = new QGroupBox( tab_3, "OptCombo" );
+	OptCombo = new Q3GroupBox( tab_3, "OptCombo" );
 	OptCombo->setTitle( "" );
 	OptCombo->setColumnLayout(0, Qt::Vertical );
 	OptCombo->layout()->setSpacing( 6 );
@@ -511,17 +515,17 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	Layout20->addWidget( ActionCombo );
 	tabLayout_2->addLayout( Layout20 );
 
-	Fram2 = new QWidgetStack(tab_2);
+	Fram2 = new Q3WidgetStack(tab_2);
 	tabLayout_2->addWidget( Fram2 );
 
-	Frame4 = new QFrame( tab_2, "Frame4" );
-	Frame4->setFrameShape( QFrame::NoFrame );
-	Frame4->setFrameShadow( QFrame::Raised );
+	Frame4 = new Q3Frame( tab_2, "Frame4" );
+	Frame4->setFrameShape( Q3Frame::NoFrame );
+	Frame4->setFrameShadow( Q3Frame::Raised );
 	Fram2->addWidget( Frame4 , 1);
 
-	Frame3 = new QFrame( tab_2, "Frame3" );
-	Frame3->setFrameShape( QFrame::Box );
-	Frame3->setFrameShadow( QFrame::Sunken );
+	Frame3 = new Q3Frame( tab_2, "Frame3" );
+	Frame3->setFrameShape( Q3Frame::Box );
+	Frame3->setFrameShadow( Q3Frame::Sunken );
 	Frame3Layout = new QVBoxLayout( Frame3, 11, 6, "Frame3Layout");
 	Layout7 = new QHBoxLayout( 0, 0, 6, "Layout7");
 	AcText1 = new QLabel( Frame3, "AcText1" );
@@ -543,13 +547,13 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	AcText2->setText( tr( "Script:" ) );
 	Frame3Layout->addWidget( AcText2 );
 	Layout71 = new QHBoxLayout( 0, 0, 6, "Layout7");
-	EditJava = new QTextEdit( Frame3, "EditAction" );
+	EditJava = new Q3TextEdit( Frame3, "EditAction" );
 	if ((item->AnActType == 1) || (item->AnAAact))
 		EditJava->setText(item->AnAction);
 	ScrEdited = 0;
 	SelAction->setCurrentItem(0);
 	EditJava->setReadOnly(true);
-	EditJava->setBackgroundMode(PaletteBackground);
+	EditJava->setBackgroundMode(Qt::PaletteBackground);
 	EditJava->setPaper(EditJava->paletteBackgroundColor());
 	Layout71->addWidget( EditJava );
 	EditJ = new QPushButton( Frame3, "EditJ" );
@@ -558,9 +562,9 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	Frame3Layout->addLayout( Layout71 );
 	Fram2->addWidget( Frame3 , 2);
 
-	Frame3b = new QFrame( tab_2, "Frame3b" );
-	Frame3b->setFrameShape( QFrame::Box );
-	Frame3b->setFrameShadow( QFrame::Sunken );
+	Frame3b = new Q3Frame( tab_2, "Frame3b" );
+	Frame3b->setFrameShape( Q3Frame::Box );
+	Frame3b->setFrameShadow( Q3Frame::Sunken );
 	Frame3bLayout = new QVBoxLayout( Frame3b, 11, 6, "Frame3Layout");
 	SubText1 = new QLabel( Frame3b, "SubText1" );
 	SubText1->setText( tr( "Submit to URL:" ) );
@@ -577,9 +581,9 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	Frame3bLayout->addItem( spacerSu);
 	Fram2->addWidget( Frame3b , 4);
 
-	Frame3c = new QFrame( tab_2, "Frame3b" );
-	Frame3c->setFrameShape( QFrame::Box );
-	Frame3c->setFrameShadow( QFrame::Sunken );
+	Frame3c = new Q3Frame( tab_2, "Frame3b" );
+	Frame3c->setFrameShape( Q3Frame::Box );
+	Frame3c->setFrameShadow( Q3Frame::Sunken );
 	Frame3cLayout = new QVBoxLayout( Frame3c, 11, 6, "Frame3Layout");
 	SubText1a = new QLabel( Frame3c, "SubText1" );
 	SubText1a->setText( tr( "Import Data from:" ) );
@@ -592,7 +596,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	Frame3cLayout->addItem( spacerSua);
 	Fram2->addWidget( Frame3c , 5);
 
-	GroupBox11 = new QGroupBox( tab_2, "GroupBox11" );
+	GroupBox11 = new Q3GroupBox( tab_2, "GroupBox11" );
 	GroupBox11->setTitle( tr( "Destination" ) );
 	GroupBox11->setColumnLayout(0, Qt::Vertical );
 	GroupBox11->layout()->setSpacing( 0 );
@@ -676,14 +680,14 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	QSpacerItem* spacer_3 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	FLayout->addItem( spacer_3 );
 	Layout->addLayout( FLayout );
-	FoFram = new QWidgetStack(tab4);
+	FoFram = new Q3WidgetStack(tab4);
 
-	FoFrameNone = new QFrame( tab4, "Frame7" );
-	FoFrameNone->setFrameShape( QFrame::NoFrame );
-	FoFrameNone->setFrameShadow( QFrame::Plain );
+	FoFrameNone = new Q3Frame( tab4, "Frame7" );
+	FoFrameNone->setFrameShape( Q3Frame::NoFrame );
+	FoFrameNone->setFrameShadow( Q3Frame::Plain );
 	FoFram->addWidget(FoFrameNone, 0);
 
-	NumbGroup = new QGroupBox( tab4, "NumbGroup" );
+	NumbGroup = new Q3GroupBox( tab4, "NumbGroup" );
 	NumbGroup->setTitle( tr( "Number Format" ) );
 	NumbGroup->setColumnLayout(0, Qt::Vertical );
 	NumbGroup->layout()->setSpacing( 6 );
@@ -716,7 +720,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	PreCurr->setText( tr( "Prepend Currency Symbol" ) );
 	PreCurr->setEnabled(false);
 	NumbGroupLayout->addWidget( PreCurr );
-	NumGroup2 = new QButtonGroup( NumbGroup, "NumGroup2" );
+	NumGroup2 = new Q3ButtonGroup( NumbGroup, "NumGroup2" );
 	NumGroup2->setTitle( tr( "Formatting" ) );
 	NumGroup2->setColumnLayout(0, Qt::Vertical );
 	NumGroup2->layout()->setSpacing( 6 );
@@ -740,7 +744,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	NumbGroupLayout->addWidget( NumGroup2 );
 	FoFram->addWidget(NumbGroup, 1);
 
-	PercGroup = new QGroupBox( tab4, "NumbGroup" );
+	PercGroup = new Q3GroupBox( tab4, "NumbGroup" );
 	PercGroup->setTitle( tr( "Percent Format" ) );
 	PercGroup->setColumnLayout(0, Qt::Vertical );
 	PercGroup->layout()->setSpacing( 6 );
@@ -759,7 +763,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	QSpacerItem* spacer_4a = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	LayoutFN1a->addItem( spacer_4a );
 	PercGroupLayout->addLayout( LayoutFN1a );
-	NumGroup2a = new QButtonGroup( PercGroup, "NumGroup2" );
+	NumGroup2a = new Q3ButtonGroup( PercGroup, "NumGroup2" );
 	NumGroup2a->setTitle( tr( "Formatting" ) );
 	NumGroup2a->setColumnLayout(0, Qt::Vertical );
 	NumGroup2a->layout()->setSpacing( 6 );
@@ -783,7 +787,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	PercGroupLayout->addWidget( NumGroup2a );
 	FoFram->addWidget(PercGroup, 2);
 
-	DateGroup = new QGroupBox( tab4, "NumbGroup" );
+	DateGroup = new Q3GroupBox( tab4, "NumbGroup" );
 	DateGroup->setTitle( tr( "Date Format" ) );
 	DateGroup->setColumnLayout(0, Qt::Vertical );
 	DateGroup->layout()->setSpacing( 6 );
@@ -808,7 +812,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	DateGroupLayout->addWidget( TextDa1 );
 	FoFram->addWidget(DateGroup, 3);
 
-	TimeGroup = new QButtonGroup( tab4, "NumbGroup" );
+	TimeGroup = new Q3ButtonGroup( tab4, "NumbGroup" );
 	TimeGroup->setTitle( tr( "Time Format" ) );
 	TimeGroup->setColumnLayout(0, Qt::Vertical );
 	TimeGroup->layout()->setSpacing( 6 );
@@ -831,7 +835,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	TimeGroupLayout->addWidget( Format3b);
 	FoFram->addWidget(TimeGroup, 4);
 
-	GroupCust = new QGroupBox( tab4, "GroupCust" );
+	GroupCust = new Q3GroupBox( tab4, "GroupCust" );
 	GroupCust->setTitle( tr( "Custom Scripts" ) );
 	GroupCust->setColumnLayout(0, Qt::Vertical );
 	GroupCust->layout()->setSpacing( 6 );
@@ -850,11 +854,11 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 		EditFormat->setEnabled( false );
 	FLayout2->addWidget( EditFormat );
 	FLayout3->addLayout( FLayout2 );
-	FormatScript = new QTextEdit( GroupCust, "FormatScript" );
+	FormatScript = new Q3TextEdit( GroupCust, "FormatScript" );
 	if (item->AnFormat == 5)
 		FormatScript->setText( item->An_F_act );
 	FormatScript->setReadOnly(true);
-	FormatScript->setBackgroundMode(PaletteBackground);
+	FormatScript->setBackgroundMode(Qt::PaletteBackground);
 	FormatScript->setPaper(FormatScript->paletteBackgroundColor());
 	FormatScript->setMaximumSize(QSize(32000,50));
 	FLayout3->addWidget( FormatScript );
@@ -871,11 +875,11 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 		EditKeystr->setEnabled( false );
 	FLayout4->addWidget( EditKeystr );
 	FLayout5->addLayout( FLayout4 );
-	KeyScript = new QTextEdit( GroupCust, "KeyScript" );
+	KeyScript = new Q3TextEdit( GroupCust, "KeyScript" );
 	if (item->AnFormat == 5)
 		KeyScript->setText( item->An_K_act );
 	KeyScript->setReadOnly(true);
-	KeyScript->setBackgroundMode(PaletteBackground);
+	KeyScript->setBackgroundMode(Qt::PaletteBackground);
 	KeyScript->setPaper(KeyScript->paletteBackgroundColor());
 	KeyScript->setMaximumSize(QSize(32000,50));
 	FLayout5->addWidget( KeyScript );
@@ -891,7 +895,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	tab_4 = new QWidget( TabWidget2, "tab_4" );
 	tabLayout_4 = new QVBoxLayout( tab_4, 11, 6, "tabLayout_4");
 
-	ValidateGroup = new QButtonGroup( tab_4, "ValidateGroup" );
+	ValidateGroup = new Q3ButtonGroup( tab_4, "ValidateGroup" );
 	ValidateGroup->setTitle( "" );
 	ValidateGroup->setColumnLayout(0, Qt::Vertical );
 	ValidateGroup->layout()->setSpacing( 6 );
@@ -929,10 +933,10 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 
 	VLayout2 = new QHBoxLayout( 0, 0, 6, "VLayout2");
 
-	ValidScript = new QTextEdit( ValidateGroup, "ValidScript" );
+	ValidScript = new Q3TextEdit( ValidateGroup, "ValidScript" );
 	ValidScript->setMinimumSize( QSize( 0, 50 ) );
 	ValidScript->setReadOnly( true );
-	ValidScript->setBackgroundMode(PaletteBackground);
+	ValidScript->setBackgroundMode(Qt::PaletteBackground);
 	ValidScript->setPaper(ValidScript->paletteBackgroundColor());
 	VLayout2->addWidget( ValidScript );
 
@@ -948,7 +952,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	tab_5 = new QWidget( TabWidget2, "tab_5" );
 	tabLayout_5 = new QVBoxLayout( tab_5, 11, 6, "tabLayout_5");
 
-	CalcGroup = new QButtonGroup( tab_5, "CalcGroup" );
+	CalcGroup = new Q3ButtonGroup( tab_5, "CalcGroup" );
 	CalcGroup->setTitle( "" );
 	CalcGroup->setColumnLayout(0, Qt::Vertical );
 	CalcGroup->layout()->setSpacing( 6 );
@@ -995,11 +999,11 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 
 	CLayout2 = new QHBoxLayout( 0, 0, 6, "CLayout2");
 
-	CalcScript = new QTextEdit( CalcGroup, "CalcScript" );
+	CalcScript = new Q3TextEdit( CalcGroup, "CalcScript" );
 	CalcScript->setMinimumSize( QSize( 0, 50 ) );
 	CalcScript->setReadOnly( true );
 	CLayout2->addWidget( CalcScript );
-	CalcScript->setBackgroundMode(PaletteBackground);
+	CalcScript->setBackgroundMode(Qt::PaletteBackground);
 	CalcScript->setPaper(CalcScript->paletteBackgroundColor());
 
 	EditCalc = new QPushButton( CalcGroup, "EditCalc" );
@@ -1013,9 +1017,9 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	GroupBox10Layout->addWidget( TabWidget2 );
 	Fram->addWidget(GroupBox10, 3);
 
-	Frame9 = new QFrame( this, "Frame7" );
-	Frame9->setFrameShape( QFrame::NoFrame );
-	Frame9->setFrameShadow( QFrame::Plain );
+	Frame9 = new Q3Frame( this, "Frame7" );
+	Frame9->setFrameShape( Q3Frame::NoFrame );
+	Frame9->setFrameShadow( Q3Frame::Plain );
 	Fram->addWidget(Frame9, 2);
 
 	SetZiel(item->AnType-2);
@@ -1394,7 +1398,7 @@ void Annot::DecodeCalc()
 	{
 		tm2 = pfol[0].stripWhiteSpace();
 		tm += tm2.mid(1, tm2.length()-2);
-		for (uint cfx = 1; cfx < pfol.count(); ++cfx)
+		for (int cfx = 1; cfx < pfol.count(); ++cfx)
 		{
 			tm2 = pfol[cfx].stripWhiteSpace();
 			tm += ", "+tm2.mid(1, tm2.length()-2);
@@ -1788,7 +1792,7 @@ void Annot::SetVals()
 			if (pfol.count() > 1)
 				{
 				item->An_C_act += "\""+pfol[0].stripWhiteSpace()+"\"";
-				for (uint cfx = 1; cfx < pfol.count(); cfx++)
+				for (int cfx = 1; cfx < pfol.count(); cfx++)
 					{
 					item->An_C_act += ", \""+pfol[cfx].stripWhiteSpace()+"\"";
 					}

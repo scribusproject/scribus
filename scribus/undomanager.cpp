@@ -19,13 +19,14 @@
  ***************************************************************************/
 
 #include "undomanager.h"
-#include "undomanager.moc"
 #include "undogui.h"
 #include "scconfig.h"
 #include "prefsmanager.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
-#include <qvaluelist.h>
+#include <q3valuelist.h>
+//Added by qt3to4:
+#include <QPixmap>
 
 #include "scpaths.h"
 

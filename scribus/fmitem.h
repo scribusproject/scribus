@@ -31,7 +31,7 @@
   *@author Franz Schmid
   */
 
-class SCRIBUS_API FmItem : public QCustomMenuItem 
+class SCRIBUS_API FmItem
 {
 public: 
 	FmItem(const QString& s, const Foi * f);

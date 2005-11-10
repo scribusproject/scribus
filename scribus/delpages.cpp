@@ -3,9 +3,12 @@
 #include <qlayout.h>
 #include <qpushbutton.h>
 #include <qspinbox.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 
 #include "delpages.h"
-#include "delpages.moc"
 
 #include "commonstrings.h"
 

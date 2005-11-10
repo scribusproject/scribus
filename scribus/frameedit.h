@@ -1,7 +1,7 @@
 #ifndef NODEPALETTE_H
 #define NODEPALETTE_H
 
-#include <qbuttongroup.h>
+#include <q3buttongroup.h>
 #include <qpushbutton.h>
 #include <qtoolbutton.h>
 #include <qlabel.h>
@@ -9,6 +9,10 @@
 #include <qtooltip.h>
 #include <qcheckbox.h>
 #include <qspinbox.h>
+//Added by qt3to4:
+#include <QVBoxLayout>
+#include <QGridLayout>
+#include <QCloseEvent>
 
 #include "scribusapi.h"
 #include "scrpalettebase.h"
@@ -25,7 +29,7 @@ public:
 	NodePalette( QWidget* parent);
 	~NodePalette() {};
 
-	QButtonGroup* ButtonGroup1;
+	Q3ButtonGroup* ButtonGroup1;
 	QToolButton* MoveNode;
 	QToolButton* MoveControl;
 	QToolButton* AddNode;

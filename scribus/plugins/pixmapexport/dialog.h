@@ -4,13 +4,18 @@
 #include <qvariant.h>
 #include <qdialog.h>
 #include <qradiobutton.h>
+//Added by qt3to4:
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QGridLayout>
 
 class QVBoxLayout;
 class QHBoxLayout;
 class QGridLayout;
-class QButtonGroup;
+class Q3ButtonGroup;
 class QComboBox;
-class QGroupBox;
+class Q3GroupBox;
 class QLabel;
 class QLineEdit;
 class QPushButton;
@@ -30,7 +35,7 @@ public:
     QLabel* TextLabel1;
     QLineEdit* OutputDirectory;
     QPushButton* OutputDirectoryButton;
-    QGroupBox* groupBox1;
+    Q3GroupBox* groupBox1;
     QLabel* TextLabel2;
     QLabel* textLabel1;
     QLabel* textLabel3;
@@ -39,7 +44,7 @@ public:
     QSpinBox* QualityBox;
     QSpinBox* DPIBox;
 	QSpinBox* EnlargementBox;
-    QButtonGroup* ButtonGroup1;
+    Q3ButtonGroup* ButtonGroup1;
     QRadioButton* OnePageRadio;
     QRadioButton* AllPagesRadio;
     QRadioButton* IntervalPagesRadio;

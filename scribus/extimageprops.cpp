@@ -1,5 +1,4 @@
 #include "extimageprops.h"
-#include "extimageprops.moc"
 #include <qvariant.h>
 #include <qpushbutton.h>
 #include <qtabwidget.h>
@@ -7,12 +6,16 @@
 #include <qlabel.h>
 #include <qcheckbox.h>
 #include <qspinbox.h>
-#include <qtable.h>
-#include <qlistbox.h>
+#include <q3table.h>
+#include <q3listbox.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
-#include <qheader.h>
+#include <q3whatsthis.h>
+#include <q3header.h>
+#include <QPixmap>
+#include <QHBoxLayout>
+#include <Q3ValueList>
+#include <QVBoxLayout>
 
 #include "pageitem.h"
 #include "sccombobox.h"
@@ -103,10 +106,10 @@ ExtImageProps::ExtImageProps( QWidget* parent, ScImage::ImageInfoRecord *info, P
 	opacitySpinBox->setSuffix( tr(" %"));
 	layout1->addWidget( opacitySpinBox );
 	tabLayout->addLayout( layout1 );
-	layerTable = new QTable( tab, "layerTable" );
+	layerTable = new Q3Table( tab, "layerTable" );
 	layerTable->setNumRows( 0 );
 	layerTable->setNumCols( 3 );
-	QHeader *header = layerTable->horizontalHeader();
+	Q3Header *header = layerTable->horizontalHeader();
 	header->setLabel(0, loadIcon("Layervisible.xpm"), "");
 	header->setLabel(1, "");
 	header->setLabel(2, tr("Name"));
@@ -118,9 +121,9 @@ ExtImageProps::ExtImageProps( QWidget* parent, ScImage::ImageInfoRecord *info, P
 	layerTable->setColumnStretchable(2, true);
 	layerTable->setRowMovingEnabled(false);
 	layerTable->setSorting(false);
-	layerTable->setSelectionMode( QTable::SingleRow );
-	layerTable->setFocusStyle( QTable::FollowStyle );
-	QHeader *Header = layerTable->verticalHeader();
+	layerTable->setSelectionMode( Q3Table::SingleRow );
+	layerTable->setFocusStyle( Q3Table::FollowStyle );
+	Q3Header *Header = layerTable->verticalHeader();
 	Header->setMovingEnabled(false);
 	Header->setResizeEnabled(false);
 	FlagsSicht.clear();
@@ -139,7 +142,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ScImage::ImageInfoRecord *info, P
 		opacitySpinBox->setEnabled(true);
 		blendMode->setEnabled(true);
 		QString tmp;
-		QValueList<ScImage::PSDLayer>::iterator it2;
+		Q3ValueList<ScImage::PSDLayer>::iterator it2;
 		layerTable->setNumRows(info->layerInfo.count());
 		uint counter = 0;
 		for (it2 = info->layerInfo.begin(); it2 != info->layerInfo.end(); ++it2)
@@ -190,7 +193,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ScImage::ImageInfoRecord *info, P
 
 	tab_2 = new QWidget( propsTab, "tab_2" );
 	tabLayout_2 = new QVBoxLayout( tab_2, 10, 5, "tabLayout_2");
-	pathList = new QListBox( tab_2, "pathList" );
+	pathList = new Q3ListBox( tab_2, "pathList" );
 	pathList->clear();
 	QMap<QString, FPointArray>::Iterator it;
 	if (info->PDSpathData.count() != 0)
@@ -203,23 +206,23 @@ ExtImageProps::ExtImageProps( QWidget* parent, ScImage::ImageInfoRecord *info, P
 			p->translate(3.0, 3.0);
 			if (it.key() == info->clipPath)
 			{
-				pixm.fill(green);
-				p->clear(green);
+				pixm.fill(Qt::green);
+				p->clear(Qt::green);
 			}
 			else
-				pixm.fill(white);
+				pixm.fill(Qt::white);
 			FPointArray Path;
 			Path.resize(0);
 			Path = info->PDSpathData[it.key()].copy();
-			FPoint min = getMinClipF(&Path);
+			QPointF min = getMinClipF(&Path);
 			Path.translate(-min.x(), -min.y());
-			FPoint max = Path.WidthHeight();
-			QWMatrix mm;
+			QPointF max = Path.WidthHeight();
+			QMatrix mm;
 			mm.scale(34.0 / QMAX(max.x(), max.y()), 34.0 / QMAX(max.x(), max.y()));
 			Path.map(mm);
 			p->setupPolygon(&Path);
-			p->setPen(black);
-			p->setBrush(white);
+			p->setPen(Qt::black);
+			p->setBrush(Qt::white);
 			p->setFillMode(0);
 			p->setLineWidth(1.0);
 			p->strokePath();
@@ -236,8 +239,8 @@ ExtImageProps::ExtImageProps( QWidget* parent, ScImage::ImageInfoRecord *info, P
 	propsTab->insertTab( tab_2, tr( "Paths" ) );
 	ExtImagePropsLayout->addWidget( propsTab );
 	resize(330, 320);
-	clearWState( WState_Polished );
-	connect(pathList, SIGNAL( highlighted(QListBoxItem*) ), this, SLOT( selPath(QListBoxItem*) ) );
+	setAttribute( Qt::WA_WState_Polished, false );
+	connect(pathList, SIGNAL( highlighted(Q3ListBoxItem*) ), this, SLOT( selPath(Q3ListBoxItem*) ) );
 	connect(layerTable, SIGNAL(currentChanged(int, int)), this, SLOT(selLayer(int)));
 	connect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changedLayer()));
 	connect(blendMode, SIGNAL(activated(int)), this, SLOT(changedLayer()));
@@ -296,19 +299,19 @@ void ExtImageProps::selLayer(int layer)
 
 void ExtImageProps::noPath()
 {
-	disconnect(pathList, SIGNAL( highlighted(QListBoxItem*) ), this, SLOT( selPath(QListBoxItem*) ) );
+	disconnect(pathList, SIGNAL( highlighted(Q3ListBoxItem*) ), this, SLOT( selPath(Q3ListBoxItem*) ) );
 	currentItem->imageClip.resize(0);
 	currentItem->pixm.imgInfo.usedPath = "";
 	pathList->clearSelection();
 	viewWidget->updateContents();
-	connect(pathList, SIGNAL( highlighted(QListBoxItem*) ), this, SLOT( selPath(QListBoxItem*) ) );
+	connect(pathList, SIGNAL( highlighted(Q3ListBoxItem*) ), this, SLOT( selPath(Q3ListBoxItem*) ) );
 }
 
-void ExtImageProps::selPath(QListBoxItem *c)
+void ExtImageProps::selPath(Q3ListBoxItem *c)
 {
 	currentItem->imageClip = currentItem->pixm.imgInfo.PDSpathData[c->text()].copy();
 	currentItem->pixm.imgInfo.usedPath = c->text();
-	QWMatrix cl;
+	QMatrix cl;
 	cl.translate(currentItem->LocalX*currentItem->LocalScX, currentItem->LocalY*currentItem->LocalScY);
 	cl.scale(currentItem->LocalScX, currentItem->LocalScY);
 	currentItem->imageClip.map(cl);

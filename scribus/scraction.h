@@ -16,13 +16,15 @@
 #ifndef SCRACTION_H
 #define SCRACTION_H
 
-#include <qaction.h>
+//Added by qt3to4:
+#include <Q3PopupMenu>
+#include <Q3Action>
 #include "scribusapi.h"
 
 /**
 @author Craig Bradney
 */
-class SCRIBUS_API ScrAction : public QAction
+class SCRIBUS_API ScrAction : public Q3Action
 {
 	Q_OBJECT
 
@@ -66,7 +68,7 @@ public:
 		\param name Name of the action
 		\retval None
 	 */
-	ScrAction( ActionType mType, const QIconSet & icon, const QString &menuText, QKeySequence accel, QObject *parent, const char *name = 0, int extraInt = 0, double extraDouble = 0.0, QString extraQString = QString::null );		
+	ScrAction( ActionType mType, const QIcon & icon, const QString &menuText, QKeySequence accel, QObject *parent, const char *name = 0, int extraInt = 0, double extraDouble = 0.0, QString extraQString = QString::null );		
 	/*!
 		\fn ScrAction::ScrAction( const QIconSet & icon, const QString & menuText, QKeySequence accel, QObject * parent, const char * name )
 		\author Craig Bradney
@@ -79,7 +81,7 @@ public:
 		\param name Name of the action
 		\retval None
 	*/			
-	ScrAction( const QIconSet & icon, const QString & menuText, QKeySequence accel, QObject *parent, const char * name = 0 );
+	ScrAction( const QIcon & icon, const QString & menuText, QKeySequence accel, QObject *parent, const char * name = 0 );
 	
 	
 	/*!
@@ -225,7 +227,7 @@ protected:
 	ActionType _actionType;
 	QWidget *widgetAddedTo;
 	QWidget *containerWidgetAddedTo;
-	QPopupMenu *popupMenuAddedTo;
+	Q3PopupMenu *popupMenuAddedTo;
 	QKeySequence savedKeySequence;
 	bool shortcutSaved;
 	
@@ -238,7 +240,7 @@ protected:
 		\param menu The menu we are adding this action to
 		\retval None
 	*/
-	void addedTo( int index, QPopupMenu * menu );
+	void addedTo( int index, Q3PopupMenu * menu );
 			
 	/*!
 		\fn ScrAction::addedTo( QWidget * actionWidget, QWidget * container )

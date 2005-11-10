@@ -16,21 +16,24 @@
  ***************************************************************************/
 
 #include "vruler.h"
-#include "vruler.moc"
 #include "page.h"
 #include <qcursor.h>
 #include <qcolor.h>
 #include <qrect.h>
-#include <qpointarray.h>
+#include <q3pointarray.h>
+//Added by qt3to4:
+#include <QMouseEvent>
+#include <QPixmap>
+#include <QPaintEvent>
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "units.h"
 #include "prefsmanager.h"
 
 #if QT_VERSION  > 0x030102
-	#define SPLITVC SplitHCursor
+	#define SPLITVC Qt::SplitHCursor
 #else
-	#define SPLITVC SplitVCursor
+	#define SPLITVC Qt::SplitVCursor
 #endif
 
 
@@ -45,6 +48,7 @@ Vruler::Vruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa)
 	oldMark = 0;
 	Mpressed = false;
 	unitChange();
+	m_wo = -1;
 }
 
 void Vruler::mousePressEvent(QMouseEvent *m)
@@ -65,7 +69,7 @@ void Vruler::mouseReleaseEvent(QMouseEvent *m)
 		currView->DrVX = -1;
 		currView->SetXGuide(m, -1);
 	}
-	qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+	qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 	Mpressed = false;
 	currView->updateContents();
 }
@@ -90,8 +94,8 @@ void Vruler::paintEvent(QPaintEvent *e)
 	p.begin(this);
 	p.setClipRect(e->rect());
 	p.drawLine(16, 0, 16, height());
-	p.setBrush(black);
-	p.setPen(black);
+	p.setBrush(Qt::black);
+	p.setPen(Qt::black);
 	p.setFont(font());
 	double cc = height() / sc;
 	double firstMark = ceil(offs / iter) * iter - offs;
@@ -141,12 +145,66 @@ void Vruler::paintEvent(QPaintEvent *e)
 		markC++;
 	}
 	p.end();
+
+
+	int currentCoor = m_wo - currView->contentsY();
+	Q3PointArray cr;
+#ifdef OPTION_SMOOTH_MARKERS
+	// draw new marker to pixmap
+	static const int SCALE = 16;
+	static const QColor BACKGROUND(255, 255, 255);
+	static QPixmap pix( 16*SCALE, 4*SCALE );
+	static bool initpix = true;
+	if (initpix) {
+		initpix = false;
+		p.begin( &pix );
+		p.setBrush( BACKGROUND );
+		p.drawRect( 0, 0, 16*SCALE, 4*SCALE );
+		
+		p.setPen(Qt::red);
+		p.setBrush(Qt::red);
+		cr.setPoints(3, 16*SCALE, 2*SCALE, 0, 4*SCALE, 0, 0);
+		p.drawPolygon(cr);
+		p.end();
+	}
+	// draw pixmap
+	p.begin(this);
+	p.translate(0, -currView->contentsY());
+	p.scale(1.0/(SCALE+1), 1.0/SCALE);
+	p.drawPixmap(0, (m_wo-2)*SCALE, pix);
+	p.end();
+	// restore marks
+	p.begin(this);
+	p.setBrush(Qt::black);
+	p.setPen(Qt::black);
+	p.setFont(font());
+	double sc = currView->getScale();
+	double cc = height() / sc;
+	double firstMark = ceil(offs / iter) * iter - offs;
+	while (firstMark < cc)
+	{
+		p.drawLine(10, qRound(firstMark * sc), 16, qRound(firstMark * sc));
+		firstMark += iter;
+	}
+	p.end();
+#else
+	// draw slim marker
+	p.begin(this);
+	p.translate(0, -currView->contentsY());
+	p.setPen(Qt::red);
+	p.setBrush(Qt::red);
+	cr.setPoints(5,  5, m_wo, 16, m_wo, 5, m_wo, 0, m_wo+2, 0, m_wo-2);
+	p.drawPolygon(cr);
+	p.end();
+#endif
+	
+	oldMark = currentCoor;
 }
 
 void Vruler::drawNumber(QString num, int starty, QPainter *p)
 {
 	int textY = starty;
-	for (uint a = 0; a < num.length(); ++a)
+	for (int a = 0; a < num.length(); ++a)
 	{
 		QString txt = num.mid(a, 1);
 #ifndef QT_MAC
@@ -183,60 +241,8 @@ void Vruler::drawNumber(QString num, int starty, QPainter *p)
 void Vruler::Draw(int wo)
 {
 	// erase old marker
-	int currentCoor = wo - currView->contentsY();
-	repaint(0, oldMark-3, 17, 6);
-	QPointArray cr;
-	QPainter p;
-#ifdef OPTION_SMOOTH_MARKERS
-	// draw new marker to pixmap
-	static const int SCALE = 16;
-	static const QColor BACKGROUND(255, 255, 255);
-	static QPixmap pix( 16*SCALE, 4*SCALE );
-	static bool initpix = true;
-	if (initpix) {
-		initpix = false;
-		p.begin( &pix );
-		p.setBrush( BACKGROUND );
-		p.drawRect( 0, 0, 16*SCALE, 4*SCALE );
-		
-		p.setPen(red);
-		p.setBrush(red);
-		cr.setPoints(3, 16*SCALE, 2*SCALE, 0, 4*SCALE, 0, 0);
-		p.drawPolygon(cr);
-		p.end();
-	}
-	// draw pixmap
-	p.begin(this);
-	p.translate(0, -currView->contentsY());
-	p.scale(1.0/(SCALE+1), 1.0/SCALE);
-	p.drawPixmap(0, (wo-2)*SCALE, pix);
-	p.end();
-	// restore marks
-	p.begin(this);
-	p.setBrush(black);
-	p.setPen(black);
-	p.setFont(font());
-	double sc = currView->getScale();
-	double cc = height() / sc;
-	double firstMark = ceil(offs / iter) * iter - offs;
-	while (firstMark < cc)
-	{
-		p.drawLine(10, qRound(firstMark * sc), 16, qRound(firstMark * sc));
-		firstMark += iter;
-	}
-	p.end();
-#else
-	// draw slim marker
-	p.begin(this);
-	p.translate(0, -currView->contentsY());
-	p.setPen(red);
-	p.setBrush(red);
-	cr.setPoints(5,  5, wo, 16, wo, 5, wo, 0, wo+2, 0, wo-2);
-	p.drawPolygon(cr);
-	p.end();
-#endif
-	
-	oldMark = currentCoor;
+	update(0, oldMark-3, 17, 6);
+	m_wo = wo;
 }
 
 void Vruler::unitChange()

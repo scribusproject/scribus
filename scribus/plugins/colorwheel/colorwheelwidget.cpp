@@ -1,15 +1,17 @@
 /* $Id$ */
 #include "colorwheelwidget.h"
-#include "colorwheelwidget.moc"
 #include <qpainter.h>
 #include <qpixmap.h>
 #include <qimage.h>
+//Added by qt3to4:
+#include <QMouseEvent>
+#include <QLabel>
 #include <math.h>
 
 #include "sccolor.h"
 
 
-ColorWheel::ColorWheel(QWidget * parent, const char * name) : QLabel(parent, name, 0)
+ColorWheel::ColorWheel(QWidget * parent, const char * name) : QLabel(parent, name)
 {
 	baseAngle = 0;
 	angleShift = 270;
@@ -73,7 +75,7 @@ void ColorWheel::paintWheel()
 	int mapIndex = angleShift;
 	for (int i = 0; i < 360; ++i)
 	{
-		QWMatrix matrix;
+		QMatrix matrix;
 		matrix.translate(widthH, heightH);
 		matrix.rotate((float)i);
 		p->setWorldMatrix(matrix);
@@ -200,7 +202,7 @@ void ColorWheel::clearBorder()
 	p.setPen(QPen(Qt::white, 2));
 	for (int i = 0; i < 360; ++i)
 	{
-		QWMatrix matrix;
+		QMatrix matrix;
 		matrix.translate(width()/2, height()/2);
 		matrix.rotate((float)i);
 		p.setWorldMatrix(matrix);

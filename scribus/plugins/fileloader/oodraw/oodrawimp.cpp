@@ -3,14 +3,16 @@
 #include <qtextstream.h>
 #include <qregexp.h>
 #include <qcursor.h>
-#include <qdragobject.h>
+#include <q3dragobject.h>
 #include <qdir.h>
 #include <qstring.h>
 #include <qdom.h>
+//Added by qt3to4:
+#include <Q3PtrList>
+#include <Q3ValueList>
 #include <cmath>
 
 #include "oodrawimp.h"
-#include "oodrawimp.moc"
 
 #include "scconfig.h"
 
@@ -193,7 +195,7 @@ OODPlug::OODPlug(QString fileName, bool isInteractive )
 	contentPath = fun->getFile("content.xml");
 	metaPath = fun->getFile("meta.xml");
 	delete fun;
-	if ((stylePath != NULL) && (contentPath != NULL))
+	if ((!stylePath.isNull()) && (!contentPath.isNull()))
 	{
 		QString docname = fileName.right(fileName.length() - fileName.findRev("/") - 1);
 		docname = docname.left(docname.findRev("."));
@@ -207,7 +209,7 @@ OODPlug::OODPlug(QString fileName, bool isInteractive )
 		f1.remove();
 		QFile f2(contentPath);
 		f2.remove();
-		if (metaPath != NULL)
+		if (!metaPath.isNull())
 		{
 			HaveMeta = true;
 			loadText(metaPath, &f3);
@@ -219,12 +221,12 @@ OODPlug::OODPlug(QString fileName, bool isInteractive )
 		else
 			HaveMeta = false;
 	}
-	else if ((stylePath == NULL) && (contentPath != NULL))
+	else if ((stylePath.isNull()) && (!contentPath.isNull()))
 	{
 		QFile f2(contentPath);
 		f2.remove();
 	}
-	else if ((stylePath != NULL) && (contentPath == NULL))
+	else if ((!stylePath.isNull()) && (contentPath.isNull()))
 	{
 		QFile f1(stylePath);
 		f1.remove();
@@ -304,15 +306,15 @@ void OODPlug::convert()
 		}
 	}
 	Doku = ScApp->doc;
-	FPoint minSize = Doku->minCanvasCoordinate;
-	FPoint maxSize = Doku->maxCanvasCoordinate;
+	QPointF minSize = Doku->minCanvasCoordinate;
+	QPointF maxSize = Doku->maxCanvasCoordinate;
 	ScApp->view->Deselect();
 	Elements.clear();
 	Doku->setLoading(true);
 	Doku->DoDrawing = false;
 	ScApp->view->setUpdatesEnabled(false);
 	ScApp->ScriptRunning = true;
-	qApp->setOverrideCursor(QCursor(Qt::waitCursor), true);
+	qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
 	if (!Doku->PageColors.contains("Black"))
 		Doku->PageColors.insert("Black", ScColor(0, 0, 0, 255));
 	for( QDomNode drawPag = body.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling() )
@@ -339,7 +341,7 @@ void OODPlug::convert()
 	ScApp->ScriptRunning = false;
 	if (interactive)
 		Doku->setLoading(false);
-	qApp->setOverrideCursor(QCursor(Qt::arrowCursor), true);
+	qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 	if ((Elements.count() > 0) && (!ret) && (interactive))
 	{
 		Doku->DragP = true;
@@ -352,7 +354,7 @@ void OODPlug::convert()
 		}
 		ScriXmlDoc *ss = new ScriXmlDoc();
 		ScApp->view->setGroupRect();
-		QDragObject *dr = new QTextDrag(ss->WriteElem(&ScApp->view->SelItem, Doku, ScApp->view), ScApp->view->viewport());
+		Q3DragObject *dr = new Q3TextDrag(ss->WriteElem(&ScApp->view->SelItem, Doku, ScApp->view), ScApp->view->viewport());
 		ScApp->view->DeleteItem();
 		ScApp->view->resizeContents(qRound((maxSize.x() - minSize.x()) * ScApp->view->getScale()), qRound((maxSize.y() - minSize.y()) * ScApp->view->getScale()));
 		ScApp->view->scrollBy(qRound((Doku->minCanvasCoordinate.x() - minSize.x()) * ScApp->view->getScale()), qRound((Doku->minCanvasCoordinate.y() - minSize.y()) * ScApp->view->getScale()));
@@ -372,9 +374,9 @@ void OODPlug::convert()
 	}
 }
 
-QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
+Q3PtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 {
-	QPtrList<PageItem> GElements;
+	Q3PtrList<PageItem> GElements;
 	FPointArray ImgClip;
 	ImgClip.resize(0);
 	VGradient gradient;
@@ -389,7 +391,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 	double x, y, w, h;
 	double FillTrans = 0;
 	double StrokeTrans = 0;
-	QValueList<double> dashes;
+	Q3ValueList<double> dashes;
 	for (QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
 	{
 		QString StrokeColor = "None";
@@ -510,7 +512,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 		}
 		if( STag == "draw:g" )
 		{
-			QPtrList<PageItem> gElements = parseGroup( b );
+			Q3PtrList<PageItem> gElements = parseGroup( b );
 			for (uint gr = 0; gr < gElements.count(); ++gr)
 			{
 				gElements.at(gr)->Groups.push(Doku->GroupCounter);
@@ -551,11 +553,11 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			z = Doku->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lwidth, "None", StrokeColor, !ScApp->view->Mpressed);
 			PageItem* ite = Doku->Items->at(z);
 			ite->PoLine.resize(4);
-			ite->PoLine.setPoint(0, FPoint(x1, y1));
-			ite->PoLine.setPoint(1, FPoint(x1, y1));
-			ite->PoLine.setPoint(2, FPoint(x2, y2));
-			ite->PoLine.setPoint(3, FPoint(x2, y2));
-			FPoint wh = getMaxClipF(&ite->PoLine);
+			ite->PoLine.setPoint(0, QPointF(x1, y1));
+			ite->PoLine.setPoint(1, QPointF(x1, y1));
+			ite->PoLine.setPoint(2, QPointF(x2, y2));
+			ite->PoLine.setPoint(3, QPointF(x2, y2));
+			QPointF wh = getMaxClipF(&ite->PoLine);
 			ite->Width = wh.x();
 			ite->Height = wh.y();
 			ite->ClipEdited = true;
@@ -572,7 +574,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			PageItem* ite = Doku->Items->at(z);
 			ite->PoLine.resize(0);
 			appendPoints(&ite->PoLine, b);
-			FPoint wh = getMaxClipF(&ite->PoLine);
+			QPointF wh = getMaxClipF(&ite->PoLine);
 			ite->Width = wh.x();
 			ite->Height = wh.y();
 			ite->ClipEdited = true;
@@ -589,7 +591,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			PageItem* ite = Doku->Items->at(z);
 			ite->PoLine.resize(0);
 			appendPoints(&ite->PoLine, b);
-			FPoint wh = getMaxClipF(&ite->PoLine);
+			QPointF wh = getMaxClipF(&ite->PoLine);
 			ite->Width = wh.x();
 			ite->Height = wh.y();
 			ite->ClipEdited = true;
@@ -624,11 +626,11 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 				double vw = 1;
 				double vh = 1;
 				parseViewBox(b, &vx, &vy, &vw, &vh);
-				QWMatrix mat;
+				QMatrix mat;
 				mat.translate(x, y);
 				mat.scale(w / vw, h / vh);
 				ite->PoLine.map(mat);
-				FPoint wh = getMaxClipF(&ite->PoLine);
+				QPointF wh = getMaxClipF(&ite->PoLine);
 				ite->Width = wh.x();
 				ite->Height = wh.y();
 				ite->ClipEdited = true;
@@ -700,7 +702,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 				parseTransform(&ite->PoLine, b.attribute("draw:transform"));
 				ite->ClipEdited = true;
 				ite->FrameType = 3;
-				FPoint wh = getMaxClipF(&ite->PoLine);
+				QPointF wh = getMaxClipF(&ite->PoLine);
 				ite->Width = wh.x();
 				ite->Height = wh.y();
 				ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
@@ -967,7 +969,7 @@ QString OODPlug::parseColor( const QString &s )
 void OODPlug::parseTransform(FPointArray *composite, const QString &transform)
 {
 	double dx, dy;
-	QWMatrix result;
+	QMatrix result;
 	QStringList subtransforms = QStringList::split(')', transform);
 	QStringList::ConstIterator it = subtransforms.begin();
 	QStringList::ConstIterator end = subtransforms.end();
@@ -982,7 +984,7 @@ void OODPlug::parseTransform(FPointArray *composite, const QString &transform)
 			subtransform[0] = subtransform[0].right(subtransform[0].length() - 1);
 		if(subtransform[0] == "rotate")
 		{
-			result = QWMatrix();
+			result = QMatrix();
 			result.rotate(-parseUnit(params[0]) * 180 / M_PI);
 			composite->map(result);
 		}
@@ -998,19 +1000,19 @@ void OODPlug::parseTransform(FPointArray *composite, const QString &transform)
 				dx = parseUnit(params[0]);
 				dy =0.0;
 			}
-			result = QWMatrix();
+			result = QMatrix();
 			result.translate(dx, dy);
 			composite->map(result);
 		}
 		else if(subtransform[0] == "skewx")
 		{
-			result = QWMatrix();
+			result = QMatrix();
 			result.shear(-params[0].toDouble(), 0.0);
 			composite->map(result);
 		}
 		else if(subtransform[0] == "skewy")
 		{
-			result = QWMatrix();
+			result = QMatrix();
 			result.shear(0.0, -params[0].toDouble());
 			composite->map(result);
 		}
@@ -1042,11 +1044,11 @@ void OODPlug::appendPoints(FPointArray *composite, const QDomElement& object)
 	double vh = 1;
 	parseViewBox(object, &vx, &vy, &vw, &vh);
 	QStringList ptList = QStringList::split( ' ', object.attribute( "draw:points" ) );
-	FPoint point, firstP;
+	QPointF point, firstP;
 	bool bFirst = true;
 	for( QStringList::Iterator it = ptList.begin(); it != ptList.end(); ++it )
 	{
-		point = FPoint((*it).section( ',', 0, 0 ).toDouble(), (*it).section( ',', 1, 1 ).toDouble());
+		point = QPointF((*it).section( ',', 0, 0 ).toDouble(), (*it).section( ',', 1, 1 ).toDouble());
 		if (bFirst)
 		{
 			composite->addPoint(point);
@@ -1064,7 +1066,7 @@ void OODPlug::appendPoints(FPointArray *composite, const QDomElement& object)
     }
 	composite->addPoint(firstP);
 	composite->addPoint(firstP);
-	QWMatrix mat;
+	QMatrix mat;
 	mat.translate(x, y);
 	mat.scale(w / vw, h / vh);
 	composite->map(mat);
@@ -1472,19 +1474,19 @@ void OODPlug::svgLineTo(FPointArray *i, double x1, double y1)
 	WasM = false;
 	if (i->size() > 3)
 	{
-		FPoint b1 = i->point(i->size()-4);
-		FPoint b2 = i->point(i->size()-3);
-		FPoint b3 = i->point(i->size()-2);
-		FPoint b4 = i->point(i->size()-1);
-		FPoint n1 = FPoint(CurrX, CurrY);
-		FPoint n2 = FPoint(x1, y1);
+		QPointF b1 = i->point(i->size()-4);
+		QPointF b2 = i->point(i->size()-3);
+		QPointF b3 = i->point(i->size()-2);
+		QPointF b4 = i->point(i->size()-1);
+		QPointF n1 = QPointF(CurrX, CurrY);
+		QPointF n2 = QPointF(x1, y1);
 		if ((b1 == n1) && (b2 == n1) && (b3 == n2) && (b4 == n2))
 			return;
 	}
-	i->addPoint(FPoint(CurrX, CurrY));
-	i->addPoint(FPoint(CurrX, CurrY));
-	i->addPoint(FPoint(x1, y1));
-	i->addPoint(FPoint(x1, y1));
+	i->addPoint(QPointF(CurrX, CurrY));
+	i->addPoint(QPointF(CurrX, CurrY));
+	i->addPoint(QPointF(x1, y1));
+	i->addPoint(QPointF(x1, y1));
 	CurrX = x1;
 	CurrY = y1;
 	PathLen += 4;
@@ -1501,21 +1503,21 @@ void OODPlug::svgCurveToCubic(FPointArray *i, double x1, double y1, double x2, d
 	WasM = false;
 	if (PathLen > 3)
 	{
-		FPoint b1 = i->point(i->size()-4);
-		FPoint b2 = i->point(i->size()-3);
-		FPoint b3 = i->point(i->size()-2);
-		FPoint b4 = i->point(i->size()-1);
-		FPoint n1 = FPoint(CurrX, CurrY);
-		FPoint n2 = FPoint(x1, y1);
-		FPoint n3 = FPoint(x3, y3);
-		FPoint n4 = FPoint(x2, y2);
+		QPointF b1 = i->point(i->size()-4);
+		QPointF b2 = i->point(i->size()-3);
+		QPointF b3 = i->point(i->size()-2);
+		QPointF b4 = i->point(i->size()-1);
+		QPointF n1 = QPointF(CurrX, CurrY);
+		QPointF n2 = QPointF(x1, y1);
+		QPointF n3 = QPointF(x3, y3);
+		QPointF n4 = QPointF(x2, y2);
 		if ((b1 == n1) && (b2 == n2) && (b3 == n3) && (b4 == n4))
 			return;
 	}
-	i->addPoint(FPoint(CurrX, CurrY));
-	i->addPoint(FPoint(x1, y1));
-	i->addPoint(FPoint(x3, y3));
-	i->addPoint(FPoint(x2, y2));
+	i->addPoint(QPointF(CurrX, CurrY));
+	i->addPoint(QPointF(x1, y1));
+	i->addPoint(QPointF(x3, y3));
+	i->addPoint(QPointF(x2, y2));
 	CurrX = x3;
 	CurrY = y3;
 	PathLen += 4;
@@ -1529,8 +1531,8 @@ void OODPlug::svgClosePath(FPointArray *i)
 		{
 			i->addPoint(i->point(i->size()-2));
 			i->addPoint(i->point(i->size()-3));
-			i->addPoint(FPoint(StartX, StartY));
-			i->addPoint(FPoint(StartX, StartY));
+			i->addPoint(QPointF(StartX, StartY));
+			i->addPoint(QPointF(StartX, StartY));
 		}
 	}
 }

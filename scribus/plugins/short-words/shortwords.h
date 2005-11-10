@@ -4,6 +4,8 @@
 #include "scconfig.h"
 #include "pluginapi.h"
 #include "scplugin.h"
+//Added by qt3to4:
+#include <QPixmap>
 
 /*! \brief This is the Scribus Short Words plugin interface specification.
 

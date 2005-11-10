@@ -8,7 +8,6 @@
 
 #include "scribus.h"
 #include "nftemplate.h"
-#include "nftemplate.moc"
 #include "nftdialog.h"
 #include "scraction.h"
 #include "menumanager.h"

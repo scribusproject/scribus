@@ -4,10 +4,13 @@
 #include <qwidget.h>
 #include <qcheckbox.h>
 #include <qcombobox.h>
-#include <qgroupbox.h>
+#include <q3groupbox.h>
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qtooltip.h>
+//Added by qt3to4:
+#include <QVBoxLayout>
+#include <QGridLayout>
 #include "scribusapi.h"
 #include "scribusstructs.h"
 
@@ -21,7 +24,7 @@ public:
 	void restoreDefaults();
 
 	QCheckBox* checkBox1;
-	QGroupBox* sysProfiles;
+	Q3GroupBox* sysProfiles;
 	QLabel* text2;
 	QLabel* text1;
 	QLabel* text1CMYK;
@@ -32,7 +35,7 @@ public:
 	QComboBox* inputP2;
 	QComboBox* monitorP;
 	QComboBox* printerP;
-	QGroupBox* render;
+	Q3GroupBox* render;
 	QLabel* text22;
 	QComboBox* monitorI;
 	QComboBox* printerI;

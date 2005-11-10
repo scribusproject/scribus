@@ -18,14 +18,15 @@
 #include "dynamictip.h"
 #include "seiten.h"
 
-DynamicTip::DynamicTip( QListBox* parent, ColorList* pale ) : QToolTip( parent )
+DynamicTip::DynamicTip( Q3ListBox* parent, ColorList* pale )
+    : QWidget(parent)
 {
 	colorList = pale;
 	listB = parent;
 	kind = ColorListBox;
 }
 
-DynamicTip::DynamicTip( QTable* parent ) : QToolTip( parent->viewport() )
+DynamicTip::DynamicTip( Q3Table* parent ) : QWidget(parent)
 {
 	table = parent;
 	kind = Table;
@@ -35,7 +36,7 @@ void DynamicTip::maybeTip( const QPoint &pos )
 {
 	if (kind == ColorListBox)
 	{
-		QListBoxItem* it = listB->itemAt(pos);
+		Q3ListBoxItem* it = listB->itemAt(pos);
 		if (it != 0)
 		{
 			if (!colorList->contains(it->text()))
@@ -54,7 +55,7 @@ void DynamicTip::maybeTip( const QPoint &pos )
 				col.getRawRGBColor(&r, &g, &b);
 				tipText = QString("R:%1 G:%2 B:%3").arg(r).arg(g).arg(b);
 			}
-			tip(listB->itemRect(it), tipText);
+			QToolTip::showText(listB->itemRect(it).topLeft(), tipText);
 		}
 	}
 	else
@@ -62,13 +63,15 @@ void DynamicTip::maybeTip( const QPoint &pos )
 		QPoint cp = table->viewportToContents( pos );
 		int row = table->rowAt( cp.y() );
 		int col = table->columnAt( cp.x() );
-		QTableItem* ite = table->item(row, col);
+		Q3TableItem* ite = table->item(row, col);
 		if (ite == 0)
 			return;
 		QRect cr = table->cellGeometry( row, col );
 		cr.moveTopLeft( table->contentsToViewport( cr.topLeft() ) );
+
 		SeItem* it = (SeItem*)ite;
 		QString tipString = it->getPageName();
-		tip( cr, tipString );
+		qWarning("XXX tooltips can't be inherited");
+		QToolTip::showText( cr.topLeft(), tipString );
 	}
 }

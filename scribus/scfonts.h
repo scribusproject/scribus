@@ -2,9 +2,9 @@
 #define SCFONTS_H
 
 #include <qstring.h>
-#include <qstrlist.h>
+#include <q3strlist.h>
 #include <qstringlist.h>
-#include <qdict.h>
+#include <q3dict.h>
 #include <qfont.h>
 #include <qmap.h>
 #include <qdatetime.h>
@@ -121,7 +121,7 @@ public:
    is not a major problem.
 */
 
-class SCRIBUS_API SCFonts : public QDict<Foi>
+class SCRIBUS_API SCFonts : public Q3Dict<Foi>
 {
 	public:
 		SCFonts();
@@ -145,7 +145,7 @@ class SCRIBUS_API SCFonts : public QDict<Foi>
 		void AddXFontPath();
 #endif
 #endif
-		QStrList FontPath;
+		Q3StrList FontPath;
 		QString ExtraPath;
 		struct testCache
 		{
@@ -158,6 +158,6 @@ class SCRIBUS_API SCFonts : public QDict<Foi>
 		bool showFontInformation;
 };
 
-typedef QDictIterator<Foi> SCFontsIterator;
+typedef Q3DictIterator<Foi> SCFontsIterator;
 
 #endif

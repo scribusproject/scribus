@@ -19,6 +19,8 @@
 #include <cstdarg>
 #include <math.h>
 #include "util.h"
+//Added by qt3to4:
+#include <Q3MemArray>
 
 using namespace std;
 
@@ -53,12 +55,12 @@ bool FPointArray::resize(uint newCount)
 		count = newCount;
 		return true;
 	}
-	else if (newCount <= 2*capacity && QMemArray<FPoint>::resize(2*capacity)) {
+	else if (newCount <= 2*capacity && Q3MemArray<QPointF>::resize(2*capacity)) {
 		capacity *= 2;
 		count = newCount;
 		return true;
 	}
-	else if (QMemArray<FPoint>::resize(newCount)) {
+	else if (Q3MemArray<QPointF>::resize(newCount)) {
 		capacity = newCount;
 		count = newCount;
 		return true;
@@ -137,68 +139,68 @@ bool FPointArray::putPoints( int index, int nPoints, const FPointArray & from, i
 
 void FPointArray::point(uint i, double *x, double *y)
 {
-//	FPoint p = QMemArray<FPoint>::at(i);
+//	QPointF p = QMemArray<QPointF>::at(i);
 	ConstIterator p = begin();
 	p += i;
 	if (x)
-		*x = p->xp;
+		*x = p->x();
 	if (y)
-		*y = p->yp;
+		*y = p->y();
 }
 
 
 QPoint FPointArray::pointQ(uint i)
 {
-//	FPoint p = QMemArray<FPoint>::at(i);
+//	QPointF p = QMemArray<QPointF>::at(i);
 	ConstIterator p = begin();
 	p += i;
-	QPoint r(qRound(p->xp),qRound(p->yp));
+	QPoint r(qRound(p->x()),qRound(p->y()));
 	return r;
 }
 
 void FPointArray::translate( double dx, double dy )
 {
-	FPoint pt( dx, dy );
+	QPointF pt( dx, dy );
 	Iterator pend = begin();
 	pend += count;
 	for (Iterator p = begin(); p != pend; p++)
 	{
-		if (p->xp < 900000)
+		if (p->x() < 900000)
 			*p += pt;
 	}
 }
 
-FPoint FPointArray::WidthHeight()
+QPointF FPointArray::WidthHeight()
 {
 	if ( count == 0 )
-		return FPoint( 0.0, 0.0 );		// null rectangle
+		return QPointF( 0.0, 0.0 );		// null rectangle
 	Iterator pd = begin();
 	Iterator pend = begin();
 	pend += count;
 	double minx, maxx, miny, maxy;
-	minx = maxx = pd->xp;
-	miny = maxy = pd->yp;
+	minx = maxx = pd->x();
+	miny = maxy = pd->y();
 	for ( ++pd; pd != pend; ++pd )
 	{	// find min+max x and y
-		if (pd->xp > 900000)
+		if (pd->x() > 900000)
 		{
 			continue;
 		}
-		if ( pd->xp < minx )
-			minx = pd->xp;
+		if ( pd->x() < minx )
+			minx = pd->x();
 		else
-			if ( pd->xp > maxx )
-		    	maxx = pd->xp;
+			if ( pd->x() > maxx )
+		    	maxx = pd->x();
 		if ( pd->y() < miny )
-			miny = pd->yp;
+			miny = pd->y();
 		else
-			if ( pd->yp > maxy )
-	    		maxy = pd->yp;
+			if ( pd->y() > maxy )
+	    		maxy = pd->y();
     }
-	return FPoint(maxx - minx,maxy - miny);
+	return QPointF(maxx - minx,maxy - miny);
 }
 
-void FPointArray::map( QWMatrix m )
+void FPointArray::map( QMatrix m )
 {
 	const double m11 = m.m11();
 	const double m12 = m.m12();
@@ -211,18 +213,18 @@ void FPointArray::map( QWMatrix m )
 	pend += count;
 	for (Iterator p = begin(); p != pend; p++)
 	{
-		if (p->xp > 900000)
+		if (p->x() > 900000)
 		{
-			mx = p->xp;
-			my = p->yp;
+			mx = p->x();
+			my = p->y();
 		}
 		else
 		{
-			mx = m11 * p->xp + m21 * p->yp + dx;
-			my = m22 * p->yp + m12 * p->xp + dy;
+			mx = m11 * p->x() + m21 * p->y() + dx;
+			my = m22 * p->y() + m12 * p->x() + dy;
 		}
-		p->xp = mx;
-		p->yp = my;
+		p->setX( mx );
+		p->setY( my );
 	}
 }
 
@@ -240,7 +242,7 @@ void FPointArray::addPoint(double x, double y)
 	setPoint(count-1, x, y);
 }
 
-void FPointArray::addPoint(FPoint p)
+void FPointArray::addPoint(QPointF p)
 {
 	FPointArray::resize(count+1);
 	setPoint(count-1, p);
@@ -254,16 +256,16 @@ bool FPointArray::hasLastQuadPoint(double x1, double y1, double x2, double y2, d
 		return false;
 	ConstIterator p = begin();
 	p += i;
-	if (p->xp != x1 || p->yp != y1)
+	if (p->x() != x1 || p->y() != y1)
 		return false;
 	++p; 
-	if (p->xp != x2 || p->yp != y2)
+	if (p->x() != x2 || p->y() != y2)
 		return false;
 	++p; 
-	if (p->xp != x3 || p->yp != y3)
+	if (p->x() != x3 || p->y() != y3)
 		return false;
 	++p; 
-	if (p->xp != x4 || p->yp != y4)
+	if (p->x() != x4 || p->y() != y4)
 		return false;
 	
 	return true;
@@ -275,16 +277,16 @@ void FPointArray::addQuadPoint(double x1, double y1, double x2, double y2, doubl
 	FPointArray::resize(count+4);
 	Iterator p = begin();
 	p += i;
-	p->setXY(x1, y1);
+	*p = QPointF(x1, y1);
 	++p;
-	p->setXY(x2, y2);
+	*p = QPointF(x2, y2);
 	++p;
-	p->setXY(x3, y3);
+	*p = QPointF(x3, y3);
 	++p;
-	p->setXY(x4, y4);
+	*p = QPointF(x4, y4);
 }
 
-void FPointArray::addQuadPoint(FPoint p1, FPoint p2, FPoint p3, FPoint p4)
+void FPointArray::addQuadPoint(QPointF p1, QPointF p2, QPointF p3, QPointF p4)
 {
 	const int i = count;
 	FPointArray::resize(count+4);
@@ -298,11 +300,11 @@ void FPointArray::addQuadPoint(FPoint p1, FPoint p2, FPoint p3, FPoint p4)
 
 double FPointArray::lenPathSeg(int seg)
 {
-	FPoint p1 = point(seg);
-	FPoint k1 = point(seg+1);
-	FPoint p2 = point(seg+2);
-	FPoint k2 = point(seg+3);
-	FPoint newP, oldP;
+	QPointF p1 = point(seg);
+	QPointF k1 = point(seg+1);
+	QPointF p2 = point(seg+2);
+	QPointF k2 = point(seg+3);
+	QPointF newP, oldP;
 	double newLen = 1;
 	double oldLen = 0;
 	double ts = 0.5;
@@ -332,11 +334,11 @@ double FPointArray::lenPathSeg(int seg)
 
 double FPointArray::lenPathDist(int seg, double t1, double t2)
 {
-	FPoint p1 = point(seg);
-	FPoint k1 = point(seg+1);
-	FPoint p2 = point(seg+2);
-	FPoint k2 = point(seg+3);
-	FPoint newP, oldP;
+	QPointF p1 = point(seg);
+	QPointF k1 = point(seg+1);
+	QPointF p2 = point(seg+2);
+	QPointF k2 = point(seg+3);
+	QPointF newP, oldP;
 	double newLen = 0;
 	double ts, t, tm;
 	tm = 1.0 - t1;
@@ -354,10 +356,10 @@ double FPointArray::lenPathDist(int seg, double t1, double t2)
 	return newLen;
 }
 
-void FPointArray::pointTangentNormalAt( int seg, double t, FPoint* p, FPoint* tn, FPoint* n )
+void FPointArray::pointTangentNormalAt( int seg, double t, QPointF* p, QPointF* tn, QPointF* n )
 {
 	// Calculate derivative if necessary.
-	FPoint d;
+	QPointF d;
 	if( tn || n )
 		pointDerivativesAt( seg, t, p, &d, 0L );
 	else
@@ -366,7 +368,7 @@ void FPointArray::pointTangentNormalAt( int seg, double t, FPoint* p, FPoint* tn
 	if( tn || n )
 	{
 		const double norm = sqrt( d.x() * d.x() + d.y() * d.y() );
-		d = norm ? d * ( 1.0 / norm ) : FPoint( 0.0, 0.0 );
+		d = norm ? d * ( 1.0 / norm ) : QPointF( 0.0, 0.0 );
 	}
 	// Assign tangent vector.
 	if( tn )
@@ -379,18 +381,18 @@ void FPointArray::pointTangentNormalAt( int seg, double t, FPoint* p, FPoint* tn
 		n->setX( d.y() );
 		n->setY( -d.x() );
 	}
-	FPoint p1 = point(seg);
-	FPoint k1 = point(seg+1);
-	FPoint p2 = point(seg+2);
-	FPoint k2 = point(seg+3);
+	QPointF p1 = point(seg);
+	QPointF k1 = point(seg+1);
+	QPointF p2 = point(seg+2);
+	QPointF k2 = point(seg+3);
 	double tm = 1.0 - t;
 	*p = ((tm * tm * tm) * p1) + (3 * t * (tm * tm) * k1) + (3 * (t * t) * tm * k2 + (t * t * t) * p2);
 }
 
-void FPointArray::pointDerivativesAt( int seg, double t, FPoint* p, FPoint* d1, FPoint* d2 )
+void FPointArray::pointDerivativesAt( int seg, double t, QPointF* p, QPointF* d1, QPointF* d2 )
 {
 	// Copy points.
-	FPoint* q = new FPoint[ 4 ];
+	QPointF* q = new QPointF[ 4 ];
 	q[ 0 ] = point(seg);
 	q[ 1 ] = point(seg+1);
 	q[ 3 ] = point(seg+2);
@@ -420,4 +422,19 @@ void FPointArray::pointDerivativesAt( int seg, double t, FPoint* p, FPoint* d1, 
 		*p = q[ 0 ];
 	delete[]( q );
 	return;
+}
+
+QPointF TransformPoint(const double xp, const double yp, const double dx, const double dy,
+		       const double rot, const double sx, const double sy, const bool invert)
+{
+
+	QMatrix ma;
+	ma.translate(dx, dy);
+	ma.scale(sx, sy);
+	ma.rotate(rot);
+	if (invert)
+		ma = ma.invert();
+	double x = ma.m11() * xp + ma.m21() * yp + ma.dx();
+	double y = ma.m22() * yp + ma.m12() * xp + ma.dy();
+	return QPointF(x, y);
 }

@@ -16,7 +16,6 @@
  ***************************************************************************/
 
 #include "pageitem_polygon.h"
-#include "pageitem_polygon.moc"
 #include <qpainter.h>
 #include <qpen.h>
 #include <qfont.h>

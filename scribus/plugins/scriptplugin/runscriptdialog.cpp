@@ -3,7 +3,7 @@
 #include "prefsmanager.h"
 
 RunScriptDialog::RunScriptDialog(QWidget* parent = 0, bool extEnable = false) :
-	QFileDialog(parent, "runScriptDialog", true)
+	Q3FileDialog(parent, "runScriptDialog", true)
 {
 	this->extEnable = extEnable;
 	PrefsManager *prefsManager=PrefsManager::instance();

@@ -25,6 +25,13 @@
 #include <qlayout.h>
 #include <qcursor.h>
 
+#include <QPixmap>
+#include <Q3Frame>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <Q3ValueList>
+#include <QVBoxLayout>
+
 #include "commonstrings.h"
 
 
@@ -33,25 +40,25 @@ extern QPixmap loadIcon(QString nam);
 GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", true, 0)
 {
 	// whatif selection settings
-	FPoint SelectionTopLeft = FPoint(0, 0);
-	FPoint SelectionBottomRight = FPoint(0, 0);
+	QPointF SelectionTopLeft = QPointF(0, 0);
+	QPointF SelectionBottomRight = QPointF(0, 0);
 
 	if (ScApp->view->SelItem.count() > 1)
 	{
-		SelectionTopLeft.setXY(ScApp->view->GroupX - ScApp->doc->ScratchLeft,
+		SelectionTopLeft = QPointF(ScApp->view->GroupX - ScApp->doc->ScratchLeft,
 							   ScApp->view->GroupY - ScApp->doc->ScratchTop);
-		SelectionBottomRight.setXY(ScApp->view->GroupW,
+		SelectionBottomRight = QPointF(ScApp->view->GroupW,
 								   ScApp->view->GroupH);
 	}
 	else if (ScApp->view->SelItem.count() == 1)
 	{
 		PageItem *currItem = ScApp->view->SelItem.at(0);
-		SelectionTopLeft.setXY(currItem->BoundingX - ScApp->doc->ScratchLeft,
+		SelectionTopLeft = QPointF(currItem->BoundingX - ScApp->doc->ScratchLeft,
 							   currItem->BoundingY - ScApp->doc->ScratchTop);
-		SelectionBottomRight.setXY(currItem->BoundingW, currItem->BoundingH);
+		SelectionBottomRight = QPointF(currItem->BoundingW, currItem->BoundingH);
 	}
 	bool selected = true;
-	if (SelectionBottomRight != FPoint(0, 0))
+	if (SelectionBottomRight != QPointF(0, 0))
 	{
 		gy = SelectionTopLeft.y();
 		gx = SelectionTopLeft.x();
@@ -105,7 +112,7 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 
 	QHBoxLayout *Layout6 = new QHBoxLayout(0, 0, 6, "Layout6");
 
-	QGroupBox *HorGroup = new QGroupBox(this, "HorGroup");
+	Q3GroupBox *HorGroup = new Q3GroupBox(this, "HorGroup");
 	HorGroup->setTitle( tr("Horizontal Guides"));
 	HorGroup->setColumnLayout(0, Qt::Vertical);
 	HorGroup->layout()->setSpacing(6);
@@ -113,7 +120,7 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 	QVBoxLayout *HorGroupLayout = new QVBoxLayout(HorGroup->layout());
 	HorGroupLayout->setAlignment(Qt::AlignTop);
 
-	HorList = new QListBox(HorGroup, "HorList");
+	HorList = new Q3ListBox(HorGroup, "HorList");
 	HorList->setMinimumSize(QSize(0, 150));
 	HorGroupLayout->addWidget(HorList);
 
@@ -143,7 +150,7 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 
 	Layout6->addWidget(HorGroup);
 
-	VerGroup = new QGroupBox(this, "VerGroup");
+	VerGroup = new Q3GroupBox(this, "VerGroup");
 	VerGroup->setTitle( tr("Vertical Guides"));
 	VerGroup->setColumnLayout(0, Qt::Vertical);
 	VerGroup->layout()->setSpacing(6);
@@ -151,7 +158,7 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 	QVBoxLayout *VerGroupLayout = new QVBoxLayout(VerGroup->layout());
 	VerGroupLayout->setAlignment(Qt::AlignTop);
 
-	VerList = new QListBox(VerGroup, "VerList");
+	VerList = new Q3ListBox(VerGroup, "VerList");
 	VerList->setMinimumSize(QSize(0, 150));
 	VerGroupLayout->addWidget(VerList);
 
@@ -186,7 +193,7 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 	QHBoxLayout *Layout7 = new QHBoxLayout(0, 0, 6, "Layout7");
 
 	// auto guides
-	QGroupBox *HorGroup2 = new QGroupBox(this, "HorGroup");
+	Q3GroupBox *HorGroup2 = new Q3GroupBox(this, "HorGroup");
 	HorGroup2->setTitle( tr("Rows and Columns - Automatic Guides"));
 	HorGroup2->setColumnLayout(0, Qt::Vertical);
 	HorGroup2->layout()->setSpacing(6);
@@ -236,8 +243,8 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 	autoGuidesLayout->addLayout(rcGapLayout);
 
 	QHBoxLayout *Layout10 = new QHBoxLayout(0, 0, 6, "Layout10");
-	BGroup = new QHButtonGroup(HorGroup2,"bgroup");
-	BGroup->setFrameStyle(QFrame::NoFrame);
+	BGroup = new Q3HButtonGroup(HorGroup2,"bgroup");
+	//BGroup->setFrameStyle(Q3Frame::NoFrame);
 	QLabel *TextLabel10 = new QLabel( tr("Refer to:"), HorGroup2, "TextLabel10");
 	Layout10->addWidget(TextLabel10);
 	QRadioButton *fPage = new QRadioButton( tr( "&Page" ), BGroup, "fpage");
@@ -286,8 +293,8 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 	connect(okButton, SIGNAL(clicked()), this, SLOT(commitChanges()));
 	connect(setButton, SIGNAL(clicked()), this, SLOT(commitEditChanges()));
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
-	connect(HorList, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selHorIte(QListBoxItem*)));
-	connect(VerList, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selVerIte(QListBoxItem*)));
+	connect(HorList, SIGNAL(highlighted(Q3ListBoxItem*)), this, SLOT(selHorIte(Q3ListBoxItem*)));
+	connect(VerList, SIGNAL(highlighted(Q3ListBoxItem*)), this, SLOT(selVerIte(Q3ListBoxItem*)));
 	connect(HorSet, SIGNAL(clicked()), this, SLOT(AddHorVal()));
 	connect(HorDel, SIGNAL(clicked()), this, SLOT(DelHorVal()));
 	connect(HorSpin, SIGNAL(valueChanged(int)), this, SLOT(ChangeHorVal()));
@@ -326,7 +333,7 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 
 void GuideManager::DelHorVal()
 {
-	QValueList<double>::Iterator it;
+	Q3ValueList<double>::Iterator it;
 	it = horizontalGuides.at(selHor);
 	it = horizontalGuides.remove(it);
 	if (horizontalGuides.isEmpty())
@@ -340,7 +347,7 @@ void GuideManager::DelHorVal()
 
 void GuideManager::DelVerVal()
 {
-	QValueList<double>::Iterator it;
+	Q3ValueList<double>::Iterator it;
 	it = verticalGuides.at(selVer);
 	it = verticalGuides.remove(it);
 	if (verticalGuides.isEmpty())
@@ -373,7 +380,7 @@ void GuideManager::AddHorVal()
 	HorSpin->selectAll();
 }
 
-QValueList<double> GuideManager::getRowValues()
+Q3ValueList<double> GuideManager::getRowValues()
 {
 	int n = QString(RowSpin->text()).toInt();
 	double offset = 0;
@@ -391,7 +398,7 @@ QValueList<double> GuideManager::getRowValues()
 	}
 
 	double spacing = newPageHeight / n;
-	QValueList<double> values;
+	Q3ValueList<double> values;
 	for (int i = 1; i < n; ++i)
 	{
 		if (useRowGap->isChecked())
@@ -405,7 +412,7 @@ QValueList<double> GuideManager::getRowValues()
 	return values;
 }
 
-QValueList<double> GuideManager::getColValues()
+Q3ValueList<double> GuideManager::getColValues()
 {
 	int n = QString(ColSpin->text()).toInt();
 	double offset = 0;
@@ -423,7 +430,7 @@ QValueList<double> GuideManager::getColValues()
 	}
 
 	double spacing = newPageWidth / n;
-	QValueList<double> values;
+	Q3ValueList<double> values;
 	for (int i = 1; i < n; ++i)
 	{
 		if (useColGap->isChecked())
@@ -439,8 +446,8 @@ QValueList<double> GuideManager::getColValues()
 
 void GuideManager::addRows()
 {
-	QValueList<double>::iterator it;
-	QValueList<double> list = getRowValues();
+	Q3ValueList<double>::iterator it;
+	Q3ValueList<double> list = getRowValues();
 	for (it = list.begin(); it != list.end(); ++it)
 	{
 		if (!horizontalGuides.contains((*it)))
@@ -451,8 +458,8 @@ void GuideManager::addRows()
 
 void GuideManager::addCols()
 {
-	QValueList<double>::iterator it;
-	QValueList<double> list = getColValues();
+	Q3ValueList<double>::iterator it;
+	Q3ValueList<double> list = getColValues();
 	for (it = list.begin(); it != list.end(); ++it)
 	{
 		if (!verticalGuides.contains((*it)))
@@ -487,7 +494,7 @@ void GuideManager::HandleLock()
 	lockedGuides = Lock->isChecked();
 }
 
-void GuideManager::selHorIte(QListBoxItem *c)
+void GuideManager::selHorIte(Q3ListBoxItem *c)
 {
 	disconnect(HorSpin, SIGNAL(valueChanged(int)), this, SLOT(ChangeHorVal()));
 	selHor = c->listBox()->currentItem();
@@ -500,7 +507,7 @@ void GuideManager::selHorIte(QListBoxItem *c)
 	connect(HorSpin, SIGNAL(valueChanged(int)), this, SLOT(ChangeHorVal()));
 }
 
-void GuideManager::selVerIte(QListBoxItem *c)
+void GuideManager::selVerIte(Q3ListBoxItem *c)
 {
 	disconnect(VerSpin, SIGNAL(valueChanged(int)), this, SLOT(ChangeVerVal()));
 	selVer = c->listBox()->currentItem();
@@ -519,7 +526,7 @@ void GuideManager::ChangeHorVal()
 	int m = n;
 	double curHor = HorSpin->value() / docUnitRatio;
 
-	QValueList<double>::Iterator it = horizontalGuides.at(selHor);
+	Q3ValueList<double>::Iterator it = horizontalGuides.at(selHor);
 	horizontalGuides.remove(it);
 
 	for (int i = n - 1; i > 0; i--)
@@ -547,7 +554,7 @@ void GuideManager::ChangeVerVal()
 	int m = n;
 	double curVer = VerSpin->value() / docUnitRatio;
 
-	QValueList<double>::Iterator it = verticalGuides.at(selVer);
+	Q3ValueList<double>::Iterator it = verticalGuides.at(selVer);
 	verticalGuides.remove(it);
 
 	for (int i = n - 1; i > 0; i--)
@@ -585,7 +592,7 @@ void GuideManager::unitChange()
 
 void GuideManager::UpdateHorList()
 {
-	disconnect(HorList, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selHorIte(QListBoxItem*)));
+	disconnect(HorList, SIGNAL(highlighted(Q3ListBoxItem*)), this, SLOT(selHorIte(Q3ListBoxItem*)));
 	disconnect(HorSpin, SIGNAL(valueChanged(int)), this, SLOT(ChangeHorVal()));
 
 	QString tmp;
@@ -594,7 +601,7 @@ void GuideManager::UpdateHorList()
 
 	HorList->clear();
 
-	for (uint i = 0; i < horizontalGuides.count(); ++ i)
+	for (int i = 0; i < horizontalGuides.count(); ++ i)
 		HorList->insertItem(tmp.setNum(qRound(horizontalGuides[i] * docUnitRatio * 10000.0) / 10000.0, 'f', precision) + suffix);
 	if (horizontalGuides.isEmpty())
 		selHor = -1;
@@ -604,13 +611,13 @@ void GuideManager::UpdateHorList()
 	HorSpin->setEnabled(selHor != -1 ? true : false);
 	HorSpin->setValue(selHor != -1 ? (horizontalGuides[selHor] * docUnitRatio * 10000.0) / 10000.0 : 0);
 
-	connect(HorList, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selHorIte(QListBoxItem*)));
+	connect(HorList, SIGNAL(highlighted(Q3ListBoxItem*)), this, SLOT(selHorIte(Q3ListBoxItem*)));
 	connect(HorSpin, SIGNAL(valueChanged(int)), this, SLOT(ChangeHorVal()));
 }
 
 void GuideManager::UpdateVerList()
 {
-	disconnect(VerList, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selVerIte(QListBoxItem*)));
+	disconnect(VerList, SIGNAL(highlighted(Q3ListBoxItem*)), this, SLOT(selVerIte(Q3ListBoxItem*)));
 	disconnect(VerSpin, SIGNAL(valueChanged(int)), this, SLOT(ChangeVerVal()));
 
 	QString tmp;
@@ -619,7 +626,7 @@ void GuideManager::UpdateVerList()
 
 	VerList->clear();
 
-	for (uint i = 0; i < verticalGuides.count(); ++ i)
+	for (int i = 0; i < verticalGuides.count(); ++ i)
 		VerList->insertItem(tmp.setNum(qRound(verticalGuides[i] * docUnitRatio * 10000.0) / 10000.0, 'f', precision) + suffix);
 	if (verticalGuides.isEmpty())
 		selVer = -1;
@@ -630,7 +637,7 @@ void GuideManager::UpdateVerList()
 	VerSpin->setEnabled(selVer != -1 ? true : false);
 	VerSpin->setValue(selVer != -1 ? (verticalGuides[selVer] * docUnitRatio * 10000.0) / 10000.0 : 0);
 
-	connect(VerList, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selVerIte(QListBoxItem*)));
+	connect(VerList, SIGNAL(highlighted(Q3ListBoxItem*)), this, SLOT(selVerIte(Q3ListBoxItem*)));
 	connect(VerSpin, SIGNAL(valueChanged(int)), this, SLOT(ChangeVerVal()));
 }
 
@@ -660,7 +667,7 @@ void GuideManager::commitChanges()
 
 void GuideManager::commitEditChanges()
 {
-	qApp->setOverrideCursor(QCursor(waitCursor), true);
+	qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
 	if (RowSpin->value() > 1)
 		addRows();
 	if (ColSpin->value() > 1)

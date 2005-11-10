@@ -23,27 +23,29 @@
 
 #include <qpaintdevice.h>
 #include <qpixmap.h>
-#include <qpointarray.h>
+#include <q3pointarray.h>
 #include <qimage.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 
 #ifdef HAVE_CAIRO
 #include <cairo.h>
 #include <cairo-xlib.h>
 #else
-#include <libart_lgpl/art_vpath.h>
-#include <libart_lgpl/art_bpath.h>
-#include <libart_lgpl/art_vpath_bpath.h>
-#include <libart_lgpl/art_svp_vpath.h>
-#include <libart_lgpl/art_svp_vpath_stroke.h>
-#include <libart_lgpl/art_svp.h>
-#include <libart_lgpl/art_svp_ops.h>
-#include <libart_lgpl/art_affine.h>
-#include <libart_lgpl/art_svp_intersect.h>
-#include <libart_lgpl/art_rect_svp.h>
-#include <libart_lgpl/art_pathcode.h>
-#include <libart_lgpl/art_vpath_dash.h>
-#include <libart_lgpl/art_render_svp.h>
-#include <libart_lgpl/art_vpath_svp.h>
+#include "libart_lgpl/art_vpath.h"
+#include "libart_lgpl/art_bpath.h"
+#include "libart_lgpl/art_vpath_bpath.h"
+#include "libart_lgpl/art_svp_vpath.h"
+#include "libart_lgpl/art_svp_vpath_stroke.h"
+#include "libart_lgpl/art_svp.h"
+#include "libart_lgpl/art_svp_ops.h"
+#include "libart_lgpl/art_affine.h"
+#include "libart_lgpl/art_svp_intersect.h"
+#include "libart_lgpl/art_rect_svp.h"
+#include "libart_lgpl/art_pathcode.h"
+#include "libart_lgpl/art_vpath_dash.h"
+#include "libart_lgpl/art_render_svp.h"
+#include "libart_lgpl/art_vpath_svp.h"
 #include "libart/art_render_misc.h"
 #include "libart/art_rgb_svp.h"
 #include "libart/art_render_pattern.h"
@@ -52,9 +54,8 @@
 #define ALLOC_INCREMENT	100
 #endif
 
-#if defined(Q_WS_X11) && defined(SC_USE_PIXBUF)
+#if defined(Q_WS_X11)
 #include <X11/Xlib.h>
-#include <pixbuf/gdk-pixbuf-xlibrgb.h>
 #endif
 
 #if defined(_WIN32) && defined(SC_USE_GDI)
@@ -62,6 +63,11 @@
 #endif
 
 #include <math.h>
+
+
+#ifdef Q_OS_X11
+extern Drawable qt_x11Handle(const QPaintDevice *pd);
+#endif
 
 ScPainter::ScPainter( QPaintDevice *target, unsigned int w, unsigned int h, unsigned int x, unsigned int y )
 {
@@ -94,7 +100,7 @@ ScPainter::ScPainter( QPaintDevice *target, unsigned int w, unsigned int h, unsi
 	stroke_gradient = VGradient(VGradient::linear);
 	m_zoomFactor = 1;
 	imageMode = false;
-	m_matrix = QWMatrix();
+	m_matrix = QMatrix();
 #if defined(Q_WS_X11) && defined(SC_USE_PIXBUF)
 #ifdef HAVE_CAIRO
 	pixm = QPixmap(w, h);
@@ -114,7 +120,7 @@ ScPainter::ScPainter( QPaintDevice *target, unsigned int w, unsigned int h, unsi
 	resize( m_width, m_height );
 	clear();
 	xlib_rgb_init_with_depth( target->x11Display(), XScreenOfDisplay( target->x11Display(), target->x11Screen() ), target->x11Depth() );
-	gc = XCreateGC( target->x11Display(), target->handle(), 0, 0 );
+	gc = XCreateGC( target->x11Display(), qt_x11Handle(target), 0, 0 );
 #endif
 #elif defined(_WIN32) && defined(SC_USE_GDI)
 	resize( m_width, m_height );
@@ -233,7 +239,7 @@ void ScPainter::end()
 		cairo_restore( m_cr );
 #else
 		// Use the original gdk-pixbuf based bitblit on X11
-		xlib_draw_rgb_32_image( m_target->handle(), gc, m_x, m_y, m_width, m_height, XLIB_RGB_DITHER_NONE, m_buffer, m_width * 4 );
+		xlib_draw_rgb_32_image( qt_x11Handle( m_target ), gc, m_x, m_y, m_width, m_height, XLIB_RGB_DITHER_NONE, m_buffer, m_width * 4 );
 #endif
 #elif defined(_WIN32) && defined(SC_USE_GDI)
 		// Use Win32 implementation
@@ -324,12 +330,12 @@ void ScPainter::clear( const QColor &c )
 #endif
 }
 
-const QWMatrix ScPainter::worldMatrix()
+const QMatrix ScPainter::worldMatrix()
 {
 #ifdef HAVE_CAIRO
 	cairo_matrix_t matrix;
 	cairo_get_matrix(m_cr, &matrix);
-	QWMatrix mat;
+	QMatrix mat;
 	mat.setMatrix ( matrix.xx, matrix.yx, matrix.xy, matrix.yy, matrix.x0, matrix.y0 );
 	return mat;
 #else
@@ -337,7 +343,7 @@ const QWMatrix ScPainter::worldMatrix()
 #endif
 }
 
-void ScPainter::setWorldMatrix( const QWMatrix &mat )
+void ScPainter::setWorldMatrix( const QMatrix &mat )
 {
 #ifdef HAVE_CAIRO
 	cairo_matrix_t matrix;
@@ -407,7 +413,7 @@ ScPainter::lineTo( const double &x, const double &y )
 #endif
 }
 
-void ScPainter::curveTo( FPoint p1, FPoint p2, FPoint p3 )
+void ScPainter::curveTo( QPointF p1, QPointF p2, QPointF p3 )
 {
 #ifdef HAVE_CAIRO
 	cairo_curve_to(m_cr, 
@@ -449,7 +455,7 @@ void ScPainter::setFillMode( int fill )
 	fillMode = fill;
 }
 
-void ScPainter::setGradient(VGradient::VGradientType mode, FPoint orig, FPoint vec, FPoint foc)
+void ScPainter::setGradient(VGradient::VGradientType mode, QPointF orig, QPointF vec, QPointF foc)
 {
 	fill_gradient.setType(mode);
 	fill_gradient.setOrigin(orig);
@@ -532,9 +538,9 @@ void ScPainter::setPen( const QColor &c, double w, Qt::PenStyle st, Qt::PenCapSt
 	LineWidth = w;
 	PLineEnd = ca;
 	PLineJoin = jo;
-	double Dt = QMAX(2*w, 1);
-	double Da = QMAX(6*w, 1);
-	QValueList<double> tmp;
+	double Dt = QMAX(2*w, 1.0);
+	double Da = QMAX(6*w, 1.0);
+	Q3ValueList<double> tmp;
 	m_array.clear();
 	m_offset = 0;
 	switch (st)
@@ -578,7 +584,7 @@ void ScPainter::setPenOpacity( double op )
 }
 
 
-void ScPainter::setDash(const QValueList<double>& array, double ofs)
+void ScPainter::setDash(const Q3ValueList<double>& array, double ofs)
 {
 	m_array = array;
 	m_offset = ofs;
@@ -628,10 +634,6 @@ void ScPainter::restore()
 #endif
 }
 
-void ScPainter::setRasterOp( int   )
-{
-}
-
 #ifdef HAVE_CAIRO
 void ScPainter::drawVPath( int mode )
 {
@@ -653,7 +655,7 @@ void ScPainter::drawVPath( int mode )
 				pat = cairo_pattern_create_linear (x1, y1,  x2, y2);
 			else
 				pat = cairo_pattern_create_radial (x1, y1, 0.1, x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)));
-			QPtrVector<VColorStop> colorStops = fill_gradient.colorStops();
+			Q3PtrVector<VColorStop> colorStops = fill_gradient.colorStops();
 			for( uint offset = 0 ; offset < colorStops.count() ; offset++ )
 			{
 				QColor qStopColor = colorStops[ offset ]->color;
@@ -889,7 +891,7 @@ void ScPainter::drawImage( QImage *image )
 void ScPainter::setupPolygon(FPointArray *points, bool closed)
 {
 	bool nPath = true;
-	FPoint np, np1, np2, np3;
+	QPointF np, np1, np2, np3;
 #ifdef HAVE_CAIRO
 	if (points->size() > 3)
 	{
@@ -985,7 +987,7 @@ void ScPainter::setupPolygon(FPointArray *points, bool closed)
 void ScPainter::setupTextPolygon(FPointArray *points)
 {
 	bool nPath = true;
-	FPoint np, np1, np2, np3;
+	QPointF np, np1, np2, np3;
 #ifdef HAVE_CAIRO
 	if (points->size() > 3)
 	{
@@ -1074,7 +1076,7 @@ void ScPainter::drawPolyLine()
 	strokePath();
 }
 
-void ScPainter::drawLine(FPoint start, FPoint end)
+void ScPainter::drawLine(QPointF start, QPointF end)
 {
 	newPath();
 	moveTo(start.x(), start.y());
@@ -1251,7 +1253,7 @@ void ScPainter::applyGradient( ArtSVP *svp, bool fill )
 
 ArtGradientStop * ScPainter::buildStopArray( VGradient &gradient, int &offsets )
 {
-	QPtrVector<VColorStop> colorStops = gradient.colorStops();
+	Q3PtrVector<VColorStop> colorStops = gradient.colorStops();
 	offsets = colorStops.count();
 	ArtGradientStop *stopArray = art_new( ArtGradientStop, offsets * 2 - 1 );
 	for( int offset = 0 ; offset < offsets ; offset++ )

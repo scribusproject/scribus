@@ -4,6 +4,9 @@
 
 #include <structmember.h>
 #include <qfileinfo.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QImageWriter>
 #include <vector>
 
 typedef struct
@@ -104,11 +107,11 @@ static PyObject *ImageExport_getAllTypes(ImageExport */*self*/, void */*closure*
 {
 	PyObject *l;
 	int pos = 0;
-	QStringList list = QImage::outputFormatList();
+	QList<QByteArray> list = QImageWriter::supportedImageFormats();
 	l = PyList_New(list.count());
-	for (QStringList::Iterator it = list.begin(); it != list.end(); ++it)
+	for (QList<QByteArray>::Iterator it = list.begin(); it != list.end(); ++it)
 	{
-		PyList_SetItem(l, pos, PyString_FromString((*it).latin1()));
+		PyList_SetItem(l, pos, PyString_FromString((*it).constData()));
 		++pos;
 	}
 	return l;
@@ -140,7 +143,7 @@ static PyObject *ImageExport_save(ImageExport *self)
 	(ScApp->doc->pageHeight > ScApp->doc->pageWidth)
 			? pixmapSize = ScApp->doc->pageHeight
 			: pixmapSize = ScApp->doc->pageWidth;
-	QPixmap pixmap = ScApp->view->PageToPixmap(ScApp->doc->currentPage->pageNr(), qRound(pixmapSize * self->scale * (self->dpi / 72.0) / 100.0));
+	QPixmap pixmap = QPixmap::fromImage(ScApp->view->PageToPixmap(ScApp->doc->currentPage->pageNr(), qRound(pixmapSize * self->scale * (self->dpi / 72.0) / 100.0)));
 	QImage im = pixmap.convertToImage();
 	int dpi = qRound(100.0 / 2.54 * self->dpi);
 	im.setDotsPerMeterY(dpi);
@@ -170,7 +173,7 @@ static PyObject *ImageExport_saveAs(ImageExport *self, PyObject *args)
 	(ScApp->doc->pageHeight > ScApp->doc->pageWidth)
 			? pixmapSize = ScApp->doc->pageHeight
 			: pixmapSize = ScApp->doc->pageWidth;
-	QPixmap pixmap = ScApp->view->PageToPixmap(ScApp->doc->currentPage->pageNr(), qRound(pixmapSize * self->scale * (self->dpi / 72.0) / 100.0));
+	QPixmap pixmap = QPixmap::fromImage(ScApp->view->PageToPixmap(ScApp->doc->currentPage->pageNr(), qRound(pixmapSize * self->scale * (self->dpi / 72.0) / 100.0)));
 	QImage im = pixmap.convertToImage();
 	int dpi = qRound(100.0 / 2.54 * self->dpi);
 	im.setDotsPerMeterY(dpi);

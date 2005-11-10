@@ -2,6 +2,9 @@
 #define ABOUTPLUGINS_H
 
 #include <aboutpluginsbase.h>
+//Added by qt3to4:
+#include <Q3ValueList>
+#include <Q3CString>
 
 class AboutPlugins : public AboutPluginsBase
 {
@@ -17,7 +20,7 @@ class AboutPlugins : public AboutPluginsBase
 
 	private:
 		// Map list entry IDs to plugin names
-		QValueList<QCString> pluginNames;
+		Q3ValueList<Q3CString> pluginNames;
 };
 
 #endif

@@ -1,9 +1,14 @@
 
 #include "scfonts.h"
 #include "buttonicon.h"
-#include "buttonicon.moc"
 #include "scribusstructs.h"
 #include "pageitem.h"
+//Added by qt3to4:
+#include <QPixmap>
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QVBoxLayout>
 
 extern QPixmap loadIcon(QString nam);
 
@@ -55,7 +60,7 @@ ButtonIcon::ButtonIcon(QWidget* parent, PageItem* ite)
 	QSpacerItem* spacer_2 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout5->addItem( spacer_2 );
 	Layout3 = new QGridLayout( 0, 1, 1, 0, 6, "Layout3");
-	GroupButton = new QGroupBox( this, "GroupButton" );
+	GroupButton = new Q3GroupBox( this, "GroupButton" );
 	GroupButton->setMinimumSize( QSize( 150, 150 ) );
 	GroupButton->setMaximumSize( QSize( 150, 150 ) );
 	GroupButton->setTitle( "" );
@@ -69,15 +74,15 @@ ButtonIcon::ButtonIcon(QWidget* parent, PageItem* ite)
 	SliderX = new QSlider( this, "SliderX" );
 	SliderX->setMaxValue( 1000 );
 	SliderX->setValue( 500 );
-	SliderX->setOrientation( QSlider::Horizontal );
-	SliderX->setTickmarks( QSlider::Left );
+	SliderX->setOrientation( Qt::Horizontal );
+	SliderX->setTickmarks( QSlider::TicksLeft );
 	SliderX->setTickInterval( 100 );
 	Layout3->addWidget( SliderX, 1, 0 );
 	SliderY = new QSlider( this, "SliderY" );
 	SliderY->setMaxValue( 1000 );
 	SliderY->setValue( 500 );
-	SliderY->setOrientation( QSlider::Vertical );
-	SliderY->setTickmarks( QSlider::Left );
+	SliderY->setOrientation( Qt::Vertical );
+	SliderY->setTickmarks( QSlider::TicksLeft );
 	SliderY->setTickInterval( 100 );
 	Layout3->addWidget( SliderY, 0, 1 );
 	Layout5->addLayout( Layout3 );

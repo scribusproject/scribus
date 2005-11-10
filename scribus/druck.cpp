@@ -7,7 +7,6 @@
 ** WARNING! All changes made in this file will be lost!
 ****************************************************************************/
 #include "druck.h"
-#include "druck.moc"
 
 #include "scconfig.h"
 
@@ -22,6 +21,11 @@
 #include <qdir.h>
 #include <qfileinfo.h>
 #include <qmap.h>
+//Added by qt3to4:
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QVBoxLayout>
 #ifdef HAVE_CUPS
 #include <cups/cups.h>
 #endif
@@ -43,7 +47,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool 
 	DruckLayout->setSpacing( 5 );
 	DruckLayout->setMargin( 10 );
 
-	Drucker = new QGroupBox( this, "Drucker" );
+	Drucker = new Q3GroupBox( this, "Drucker" );
 	Drucker->setTitle( tr( "Print Destination" ) );
 	Drucker->setColumnLayout(0, Qt::Vertical );
 	Drucker->layout()->setSpacing( 0 );
@@ -80,7 +84,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool 
 #else
 	if (loadText("/etc/printcap", &Pcap))
 	{
-		QTextStream ts(&Pcap, IO_ReadOnly);
+		QTextStream ts(&Pcap, QIODevice::ReadOnly);
 		while(!ts.atEnd())
 		{
 			tmp = ts.readLine();
@@ -133,7 +137,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool 
 	ToolButton1->setText( tr( "C&hange..." ) );
 	ToolButton1->setMinimumSize( QSize( 80, 22 ) );
 	ToolButton1->setEnabled(false);
-	ToolButton1->setFocusPolicy( QToolButton::TabFocus );
+	ToolButton1->setFocusPolicy( Qt::TabFocus );
 	Layout1->addWidget( ToolButton1 );
 	DruckerLayout->addLayout( Layout1, 1, 0 );
 
@@ -153,7 +157,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool 
 	DruckerLayout->addLayout( LayoutCC, 3, 0 );
 	DruckLayout->addWidget( Drucker );
 
-	rangeGroup = new QButtonGroup( tr( "Range" ), this, "rangeGroup" );
+	rangeGroup = new Q3ButtonGroup( tr( "Range" ), this, "rangeGroup" );
 	rangeGroup->setColumnLayout(0, Qt::Vertical );
 	rangeGroup->layout()->setSpacing( 5 );
 	rangeGroup->layout()->setMargin( 10 );
@@ -215,7 +219,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool 
 	printOptions->insertTab( tab, tr( "Options" ) );
 	tab_2 = new QWidget( printOptions, "tab_2" );
 	tabLayout_2 = new QHBoxLayout( tab_2, 10, 5, "tabLayout_2");
-	pageOpts = new QGroupBox( tab_2, "pageOpts" );
+	pageOpts = new Q3GroupBox( tab_2, "pageOpts" );
 	pageOpts->setTitle( tr( "Page" ) );
 	pageOpts->setColumnLayout(0, Qt::Vertical );
 	pageOpts->layout()->setSpacing( 5 );
@@ -232,7 +236,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool 
 	devPar->setText( tr( "Set Media Size" ) );
 	pageOptsLayout->addWidget( devPar );
 	tabLayout_2->addWidget( pageOpts );
-	colorOpts = new QButtonGroup( tab_2, "colorOpts" );
+	colorOpts = new Q3ButtonGroup( tab_2, "colorOpts" );
 	colorOpts->setTitle( tr( "Color" ) );
 	colorOpts->setColumnLayout(0, Qt::Vertical );
 	colorOpts->layout()->setSpacing( 5 );

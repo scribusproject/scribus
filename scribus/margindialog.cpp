@@ -1,13 +1,17 @@
 #include <qdialog.h>
 #include <qlayout.h>
 #include <qpushbutton.h>
-#include <qgroupbox.h>
+#include <q3groupbox.h>
 #include <qlabel.h>
 #include <qcombobox.h>
 #include <qcheckbox.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QGridLayout>
 
 #include "margindialog.h"
-#include "margindialog.moc"
 #include "marginWidget.h"
 #include "scribusstructs.h"
 #include "page.h"
@@ -26,7 +30,7 @@ MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent
 	unitRatio = doc->unitRatio();
 	dialogLayout = new QVBoxLayout( this, 10, 5);
 	
-	dsGroupBox7 = new QGroupBox( this, "GroupBox7" );
+	dsGroupBox7 = new Q3GroupBox( this, "GroupBox7" );
 	dsGroupBox7->setTitle( tr( "Page Size" ) );
 	dsGroupBox7->setColumnLayout(0, Qt::Vertical );
 	dsGroupBox7->layout()->setSpacing( 0 );

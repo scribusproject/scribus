@@ -7,9 +7,14 @@
 ** WARNING! All changes made in this file will be lost!
 ****************************************************************************/
 #include "colorm.h"
-#include "colorm.moc"
 #include <qvariant.h>
 #include <qpixmap.h>
+//Added by qt3to4:
+#include <QTextStream>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QVBoxLayout>
+#include <Q3PopupMenu>
 #include <cstdlib>
 
 #include "commonstrings.h"
@@ -50,13 +55,13 @@ Farbmanager::Farbmanager( QWidget* parent, ColorList doco, bool HDoc, QString Dc
 
 	layout5 = new QHBoxLayout( 0, 0, 6, "layout5");
 	layout3 = new QVBoxLayout( 0, 0, 6, "layout3");
-	ListBox1 = new QListBox( this, "ListBox1" );
+	ListBox1 = new Q3ListBox( this, "ListBox1" );
 	ListBox1->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)3, ListBox1->sizePolicy().hasHeightForWidth() ) );
 	ListBox1->setMinimumSize( QSize( 164, 228 ) );
-	ListBox1->setColumnMode( QListBox::FixedNumber );
+	ListBox1->setColumnMode( Q3ListBox::FixedNumber );
 	layout5->addWidget( ListBox1 );
 
-	ColorsGroup = new QGroupBox( this, "ColorsGroup" );
+	ColorsGroup = new Q3GroupBox( this, "ColorsGroup" );
 	ColorsGroup->setColumnLayout(0, Qt::Vertical );
 	ColorsGroup->layout()->setSpacing( 6 );
 	ColorsGroup->layout()->setMargin( 11 );
@@ -84,7 +89,7 @@ Farbmanager::Farbmanager( QWidget* parent, ColorList doco, bool HDoc, QString Dc
 	layout3->addWidget( ColorsGroup );
 	if (!HaveDoc)
 	{
-		ColsSetGroup = new QGroupBox( this, "ColsSetGroup" );
+		ColsSetGroup = new Q3GroupBox( this, "ColsSetGroup" );
 		ColsSetGroup->setTitle( tr( "Color Sets" ) );
 		ColsSetGroup->setColumnLayout(0, Qt::Vertical );
 		ColsSetGroup->layout()->setSpacing( 6 );
@@ -94,7 +99,7 @@ Farbmanager::Farbmanager( QWidget* parent, ColorList doco, bool HDoc, QString Dc
 		textLabel1 = new QLabel( ColsSetGroup, "textLabel1" );
 		textLabel1->setText( tr( "Current Color Set:" ) );
 		ColsSetGroupLayout->addWidget( textLabel1 );
-		CSets = new QPopupMenu();
+		CSets = new Q3PopupMenu();
 		CSets->insertItem("Scribus Small");
 		CSets->insertItem("X11 RGB-Set");
 		CSets->insertItem("X11 Grey-Set");
@@ -105,7 +110,7 @@ Farbmanager::Farbmanager( QWidget* parent, ColorList doco, bool HDoc, QString Dc
 		{
 			QStringList realEx;
 			realEx.clear();
-			for (uint m = 0; m < Cust.count(); ++m)
+			for (int m = 0; m < Cust.count(); ++m)
 			{
 				QString Cpfad = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/"+Cust[m]);
 				QFileInfo cfi(Cpfad);
@@ -163,8 +168,8 @@ Farbmanager::Farbmanager( QWidget* parent, ColorList doco, bool HDoc, QString Dc
 	connect( DupF, SIGNAL( clicked() ), this, SLOT( duplFarbe() ) );
 	connect( DelF, SIGNAL( clicked() ), this, SLOT( delFarbe() ) );
 	connect( LoadF, SIGNAL( clicked() ), this, SLOT( loadFarben() ) );
-	connect( ListBox1, SIGNAL( highlighted(QListBoxItem*) ), this, SLOT( selFarbe(QListBoxItem*) ) );
-	connect( ListBox1, SIGNAL( selected(QListBoxItem*) ), this, SLOT( selEditFarbe(QListBoxItem*) ) );
+	connect( ListBox1, SIGNAL( highlighted(Q3ListBoxItem*) ), this, SLOT( selFarbe(Q3ListBoxItem*) ) );
+	connect( ListBox1, SIGNAL( selected(Q3ListBoxItem*) ), this, SLOT( selEditFarbe(Q3ListBoxItem*) ) );
 }
 
 void Farbmanager::saveDefaults()
@@ -182,7 +187,7 @@ void Farbmanager::saveDefaults()
 		QString Fname = Cpfad+dia->getEditText();
 		LoadColSet->setText(dia->getEditText());
 		QFile fx(Fname);
-		if (fx.open(IO_WriteOnly))
+		if (fx.open(QIODevice::WriteOnly))
 		{
 			QTextStream tsx(&fx);
 			QString tmp;
@@ -255,7 +260,7 @@ void Farbmanager::loadDefaults(int id)
 	if (c != 0)
 	{
 		QFile fiC(pfadC2);
-		if (fiC.open(IO_ReadOnly))
+		if (fiC.open(QIODevice::ReadOnly))
 		{
 			QString ColorEn, Cname;
 			int Rval, Gval, Bval, Kval;
@@ -265,7 +270,7 @@ void Farbmanager::loadDefaults(int id)
 			{
 				ScColor tmp;
 				ColorEn = tsC.readLine();
-				QTextStream CoE(&ColorEn, IO_ReadOnly);
+				QTextStream CoE(&ColorEn, QIODevice::ReadOnly);
 				CoE >> Rval;
 				CoE >> Gval;
 				CoE >> Bval;
@@ -352,7 +357,7 @@ void Farbmanager::delUnused()
 		for (uint c = 0; c < ScApp->doc->MasterItems.count(); ++c)
 		{
 			ite = ScApp->doc->MasterItems.at(c);
-			QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+			Q3PtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 			{
 				if (it.key() == cstops.at(cst)->name)
@@ -386,7 +391,7 @@ void Farbmanager::delUnused()
 		for (uint c = 0; c < ScApp->doc->FrameItems.count(); ++c)
 		{
 			ite = ScApp->doc->FrameItems.at(c);
-			QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+			Q3PtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 			{
 				if (it.key() == cstops.at(cst)->name)
@@ -420,7 +425,7 @@ void Farbmanager::delUnused()
 		for (uint c = 0; c < ScApp->doc->DocItems.count(); ++c)
 		{
 			ite = ScApp->doc->DocItems.at(c);
-			QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+			Q3PtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 			{
 				if (it.key() == cstops.at(cst)->name)
@@ -544,7 +549,7 @@ void Farbmanager::delFarbe()
 	delete dia;
 }
 
-void Farbmanager::selFarbe(QListBoxItem *c)
+void Farbmanager::selFarbe(Q3ListBoxItem *c)
 {
 	sFarbe = c->text();
 	EditF->setEnabled(true);
@@ -552,7 +557,7 @@ void Farbmanager::selFarbe(QListBoxItem *c)
 	DelF->setEnabled(EditColors.count() == 1 ? false : true);
 }
 
-void Farbmanager::selEditFarbe(QListBoxItem *c)
+void Farbmanager::selEditFarbe(Q3ListBoxItem *c)
 {
 	sFarbe = c->text();
 	EditF->setEnabled(true);
@@ -573,7 +578,7 @@ void Farbmanager::updateCList()
 		{
 			ScColor col = EditColors[it.key()];
 			QPixmap * pm = getSmallPixmap(col.getRawRGBColor());
-			pa.fill(white);
+			pa.fill(Qt::white);
 			paintAlert(*pm, pa, 0, 0);
 			col.checkGamut();
 			if (col.isOutOfGamut())

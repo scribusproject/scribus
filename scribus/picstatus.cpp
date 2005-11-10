@@ -16,14 +16,16 @@
  ***************************************************************************/
 
 #include "picstatus.h"
-#include "picstatus.moc"
 #include <qfileinfo.h>
-#include <qfiledialog.h>
+#include <q3filedialog.h>
 #include <qmessagebox.h>
 #include <qtoolbutton.h>
 #include <qstringlist.h>
 #include <qtextstream.h>
 #include <qcursor.h>
+#include <QPixmap>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 #include <cstdio>
 #include "picsearch.h"
 #include "scribusdoc.h"
@@ -76,7 +78,7 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi) :
 	PicStatusLayout->setSpacing( 6 );
 	PicStatusLayout->setMargin( 11 );
 
-	PicTable = new QTable( this, "PicTable" );
+	PicTable = new Q3Table( this, "PicTable" );
 	PicTable->setLeftMargin(0);
 	PicTable->verticalHeader()->hide();
 	PicTable->setNumCols( 7 );
@@ -114,14 +116,14 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi) :
 			PicTable->setText(Zeilen2, COL_PAGE, doc->MasterItems.at(i)->OnMasterPage);
 			QToolButton *tb2 = new QToolButton(this, tmp.setNum(Zeilen2));
 			tb2->setText( trGoto);
-			tb2->setEraseColor(white);
+			tb2->setEraseColor(Qt::white);
 			PicTable->setColumnWidth(COL_GOTO, tb2->fontMetrics().width( trGoto)+10);
 			PicTable->setCellWidget(Zeilen2, COL_GOTO, tb2);
 			connect(tb2, SIGNAL(clicked()), this, SLOT(GotoPic()));
 			QCheckBox *cp2 = new QCheckBox(this, tmp.setNum(Zeilen2));
 			cp2->setText( tr("Yes"));
 			cp2->setChecked(doc->MasterItems.at(i)->printable());
-			cp2->setEraseColor(white);
+			cp2->setEraseColor(Qt::white);
 			FlagsPic.append(cp2);
 			PicTable->setCellWidget(Zeilen2, COL_PRINT, cp2);
 			connect(cp2, SIGNAL(clicked()), this, SLOT(PrintPic()));
@@ -132,7 +134,7 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi) :
 			QToolButton *tb = new QToolButton(this, tmp.setNum(Zeilen2));
 			tb->setText( trSearch);
 			PicTable->setColumnWidth(COL_SEARCH, tb->fontMetrics().width( trCancelSearch)+10);
-			tb->setEraseColor(white);
+			tb->setEraseColor(Qt::white);
 			PicTable->setCellWidget(Zeilen2, COL_SEARCH, tb);
 			connect(tb, SIGNAL(clicked()), this, SLOT(SearchPic()));
 			Zeilen2++;
@@ -149,14 +151,14 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi) :
 			PicTable->setText(Zeilen2, COL_PAGE, tmp.setNum(p+1));
 			QToolButton *tb2 = new QToolButton(this, tmp.setNum(Zeilen2));
 			tb2->setText( trGoto);
-			tb2->setEraseColor(white);
+			tb2->setEraseColor(Qt::white);
 			PicTable->setColumnWidth(COL_GOTO, tb2->fontMetrics().width( trGoto)+10);
 			PicTable->setCellWidget(Zeilen2, COL_GOTO, tb2);
 			connect(tb2, SIGNAL(clicked()), this, SLOT(GotoPic()));
 			QCheckBox *cp2 = new QCheckBox(this, tmp.setNum(Zeilen2));
 			cp2->setText( tr("Yes"));
 			cp2->setChecked(doc->Items->at(i)->printable());
-			cp2->setEraseColor(white);
+			cp2->setEraseColor(Qt::white);
 			FlagsPic.append(cp2);
 			PicTable->setCellWidget(Zeilen2, COL_PRINT, cp2);
 			connect(cp2, SIGNAL(clicked()), this, SLOT(PrintPic()));
@@ -167,7 +169,7 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi) :
 			QToolButton *tb = new QToolButton(this, tmp.setNum(Zeilen2));
 			tb->setText( trSearch);
 			PicTable->setColumnWidth(COL_SEARCH, tb->fontMetrics().width( trCancelSearch)+10);
-			tb->setEraseColor(white);
+			tb->setEraseColor(Qt::white);
 			PicTable->setCellWidget(Zeilen2, COL_SEARCH, tb);
 			connect(tb, SIGNAL(clicked()), this, SLOT(SearchPic()));
 			Zeilen2++;
@@ -180,7 +182,7 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi) :
 	PicTable->adjustColumn(COL_PRINT);
 	PicTable->adjustColumn(COL_STATUS);
 	PicTable->setSorting(false);
-	PicTable->setSelectionMode(QTable::NoSelection);
+	PicTable->setSelectionMode(Q3Table::NoSelection);
 	PicTable->setColumnMovingEnabled(false);
 	PicTable->setRowMovingEnabled(false);
 	Header->setMovingEnabled(false);
@@ -275,7 +277,7 @@ void PicStatus::SearchPicAborted(bool userCancelled)
 		QMessageBox::warning(this, tr("Scribus - Image Search"),
 				tr("The search failed: %1").arg(search->lastError()),
 				QMessageBox::Ok|QMessageBox::Default|QMessageBox::Escape,
-				QMessageBox::NoButton);
+				Qt::NoButton);
 }
 
 void PicStatus::SearchPicFinished(const QStringList & matches, const QString & fileName)
@@ -293,7 +295,7 @@ void PicStatus::SearchPicFinished(const QStringList & matches, const QString & f
 		QMessageBox::information(this, tr("Scribus - Image Search"),
 				tr("No images named \"%1\" were found.").arg(fileName),
 				QMessageBox::Ok|QMessageBox::Default|QMessageBox::Escape,
-				QMessageBox::NoButton);
+				Qt::NoButton);
 	}
 	else
 	{

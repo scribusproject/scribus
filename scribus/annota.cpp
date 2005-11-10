@@ -8,10 +8,16 @@
  ***************************************************************************/
  
 #include <qstringlist.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <Q3Frame>
+#include <QLabel>
+#include <QVBoxLayout>
 
 #include "scfonts.h"
 #include "annota.h"
-#include "annota.moc"
 #include "customfdialog.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
@@ -70,10 +76,10 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 	ComboBox1->setCurrentItem(item->AnType-10);
 	if ((item->AnActType == 7) || (item->AnActType == 8))
 		ComboBox1->setCurrentItem(item->AnActType - 5);
-	Fram = new QWidgetStack(this);
+	Fram = new Q3WidgetStack(this);
 	AnnotLayout->addWidget( Fram );
 
-	GroupBox1 = new QGroupBox( this, "GroupBox1" );
+	GroupBox1 = new Q3GroupBox( this, "GroupBox1" );
 	GroupBox1->setTitle( tr( "Destination" ) );
 	GroupBox1->setColumnLayout(0, Qt::Vertical );
 	GroupBox1->layout()->setSpacing( 0 );
@@ -126,9 +132,9 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 	GroupBox1Layout->addWidget( SpinBox3, 3, 1 );
 	Fram->addWidget(GroupBox1, 1);
 
-	Frame9 = new QFrame( this, "Frame7" );
-	Frame9->setFrameShape( QFrame::NoFrame );
-	Frame9->setFrameShadow( QFrame::Plain );
+	Frame9 = new Q3Frame( this, "Frame7" );
+	Frame9->setFrameShape( Q3Frame::NoFrame );
+	Frame9->setFrameShadow( Q3Frame::Plain );
 	Fram->addWidget(Frame9, 2);
 
 	Layout1_2 = new QHBoxLayout;

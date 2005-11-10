@@ -11,14 +11,18 @@
 
 #include <qdialog.h>
 #include <qlayout.h>
-#include <qlistbox.h>
+#include <q3listbox.h>
 #include <qpushbutton.h>
-#include <qgroupbox.h>
+#include <q3groupbox.h>
 #include <qtoolbutton.h>
 #include <qlabel.h>
-#include <qpopupmenu.h>
+#include <q3popupmenu.h>
 #include <qcolor.h>
 #include <qtooltip.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 
 #include "scribusapi.h"
 #include "scribusstructs.h"
@@ -40,9 +44,9 @@ public:
 	QStringList CColSet;
 
 private:
-	QListBox* ListBox1;
-	QGroupBox* ColorsGroup;
-	QGroupBox* ColsSetGroup;
+	Q3ListBox* ListBox1;
+	Q3GroupBox* ColorsGroup;
+	Q3GroupBox* ColsSetGroup;
 	QPushButton* LoadF;
 	QPushButton* NewF;
 	QPushButton* EditF;
@@ -53,7 +57,7 @@ private:
 	QPushButton* CancF;
 	QLabel* textLabel1;
 	QPushButton* SaveColSet;
-	QPopupMenu* CSets;
+	Q3PopupMenu* CSets;
 	QString sFarbe;
 	QColor tmpFarbe;
 	QStringList DontChange;
@@ -74,8 +78,8 @@ private slots:
 	void duplFarbe();
 	void neueFarbe();
 	void editFarbe();
-	void selFarbe(QListBoxItem*);
-	void selEditFarbe(QListBoxItem*);
+	void selFarbe(Q3ListBoxItem*);
+	void selEditFarbe(Q3ListBoxItem*);
 	void updateCList();
 
 protected:

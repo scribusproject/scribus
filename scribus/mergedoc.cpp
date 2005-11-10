@@ -9,10 +9,16 @@
 #include <qcombobox.h>
 #include <qcheckbox.h>
 #include <qtooltip.h>
+//Added by qt3to4:
+#include <QApplication>
+#include <QPixmap>
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 
 
+#include "scribusstructs.h"
 #include "mergedoc.h"
-#include "mergedoc.moc"
 #include "customfdialog.h"
 #include "sccombobox.h"
 #include "scribusXml.h"
@@ -92,7 +98,7 @@ MergeDoc::MergeDoc( QWidget* parent, bool importMasterPages, int targetDocPageCo
 	importCancelLayout->addWidget( cancelButton );
 	dialogLayout->addLayout( importCancelLayout );
 	resize( QSize(350, 134).expandedTo(minimumSizeHint()) );
-	clearWState( WState_Polished );
+	setAttribute( Qt::WA_WState_Polished, false );
 	connect( importButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
 	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
 	connect( changeButton, SIGNAL( clicked() ), this, SLOT( changeFile() ) );
@@ -132,13 +138,13 @@ void MergeDoc::changeFile()
 		if (!fn.isEmpty())
 		{
 			dirs->set("merge", fn.left(fn.findRev("/")));
-			qApp->setOverrideCursor(QCursor(waitCursor), true);
+			qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
 			ScriXmlDoc *ss = new ScriXmlDoc();
 			if (masterPages)
 				ret = ss->ReadPageCount(fn, &dummy, &count);
 			else
 				ret = ss->ReadPageCount(fn, &count, &dummy);
-			qApp->setOverrideCursor(QCursor(arrowCursor), true);
+			qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 			if ((ret) && (count != 0))
 			{
 				fromDocData->setText(fn);

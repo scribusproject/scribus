@@ -148,5 +148,7 @@ void LanguageManager::printInstalledList()
 	QMap<QString, QString>::Iterator it;
 
 	for (it=installedLangList.begin();it!=installedLangList.end();++it)
-		std::cout << it.key().leftJustify(6) << ": " << it.data() << std::endl;
+		std::cout << qPrintable( it.key().leftJustify(6) )
+			  << ": " << qPrintable( it.data() )
+			  << std::endl;
 }

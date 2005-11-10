@@ -16,7 +16,6 @@
  ***************************************************************************/
 
 #include "pageitem_textframe.h"
-#include "pageitem_textframe.moc"
 #include <qpainter.h>
 #include <qpen.h>
 #include <qfont.h>
@@ -27,6 +26,11 @@
 #include <qbitmap.h>
 #include <qregexp.h>
 #include <qmessagebox.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <Q3PointArray>
+#include <Q3ValueList>
+#include <Q3PtrList>
 #include <cmath>
 #include <cassert>
 
@@ -65,7 +69,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 			QPainter pp, pf2;
 			PageItem *nextItem;
 			QPoint pt1, pt2;
-			FPoint ColBound;
+			QPointF ColBound;
 			QRegion cm;
 			uint a, nrc, nrc2, startLin;
 			int absa, aSpa, chs, chsd, CurrCol;
@@ -84,7 +88,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 			uint StartRT, StartRT2;
 			int TabCode = 0;
 			int HyphenCount = 0;
-			QValueList<TabRecord> tTabValues;
+			Q3ValueList<TabRecord> tTabValues;
 			bool DropCmode = false;
 			bool AbsHasDrop = false;
 			double desc, asce, maxDY, firstDes, desc2, maxDX, tabDist;
@@ -108,11 +112,11 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 				Doc->docParagraphStyles[xxx].textAlignment = xxx;
 			}
 
-			QPtrList<ZZ> LiList;
+			Q3PtrList<ZZ> LiList;
 			LiList.setAutoDelete(true);
 			QRect e2 = QRect(qRound(e.x()  / sc + Doc->minCanvasCoordinate.x()), qRound(e.y()  / sc + Doc->minCanvasCoordinate.y()), qRound(e.width() / sc), qRound(e.height() / sc));
 			p->save();
-			pf2.begin(ScApp->view->viewport());
+			pf2.begin(&ScApp->view->viewportImage);
 			pf2.translate(Xpos, Ypos);
 			pf2.rotate(Rot);
 			if ((fillColor() != "None") || (GrType != 0))
@@ -150,8 +154,8 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 				struct ZZ Zli3;
 				CurrCol = 0;
 				ColWidth = (Width - (ColGap * (Cols - 1)) - Extra - RExtra - 2*lineCorr) / Cols;
-				ColBound = FPoint((ColWidth + ColGap) * CurrCol+Extra + lineCorr, ColWidth * (CurrCol+1) + ColGap * CurrCol + Extra+lineCorr);
-				ColBound = FPoint(ColBound.x(), ColBound.y()+RExtra+lineCorr);
+				ColBound = QPointF((ColWidth + ColGap) * CurrCol+Extra + lineCorr, ColWidth * (CurrCol+1) + ColGap * CurrCol + Extra+lineCorr);
+				ColBound = QPointF(ColBound.x(), ColBound.y()+RExtra+lineCorr);
 				tabDist = ColBound.x();
 				uint tabCc = 0;
 				for (a = 0; a < itemText.count(); ++a)
@@ -180,7 +184,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 					{
 						QColor tmp;
 						SetFarbe(&tmp, hl->cstroke, hl->cshade2);
-						p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
+						p->setPen(tmp, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 					}
 					chs = hl->csize;
 					if (hl->cstyle & 2048)
@@ -279,7 +283,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						{
 							wide = Zli3.wide;
 							p->setFillMode(1);
-							p->setBrush(darkBlue);
+							p->setBrush(Qt::darkBlue);
 							p->setLineWidth(0);
 							if ((a > 0) && (Zli3.Zeich == QChar(9)))
 							{
@@ -288,20 +292,20 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 							}
 							if (!Doc->RePos)
 								p->drawRect(xcoZli, qRound(Zli3.yco-asce * (Zli3.scalev / 1000.0)), wide+1, qRound((asce+desc) * (Zli3.scalev / 1000.0)));
-							p->setBrush(white);
+							p->setBrush(Qt::white);
 						}
 						if (Zli3.Farb2 != "None")
 						{
 							QColor tmp;
 							SetFarbe(&tmp, Zli3.Farb2, Zli3.shade2);
-							p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
+							p->setPen(tmp, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 						}
 						if (((chx == QChar(13)) || (chx == QChar(28))) && (Doc->guidesSettings.showControls))
 						{
 							if (e2.intersects(pf2.xForm(QRect(qRound(Zli3.xco+Zli3.wide),qRound(Zli3.yco-asce), qRound(Zli3.wide+1), qRound(asce+desc)))))
 							{
 								FPointArray points;
-								QWMatrix chma, chma2, chma4, chma5;
+								QMatrix chma, chma2, chma4, chma5;
 								double ytrans, xtrans;
 								if (chx == QChar(13))
 								{
@@ -359,7 +363,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 				{
 					if (!Doc->RePos)
 					{
-						double scp1 = 1 / QMAX(ScApp->view->getScale(), 1);
+						double scp1 = 1 / qMax(ScApp->view->getScale(), 1.0);
 						double scp16 = 16 * scp1;
 						double scp14 = 14 * scp1;
 						double scp3 = 3 * scp1;
@@ -367,11 +371,11 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						double scpheight16 = Height - scp16;
 						double scpwidth3 = Width - scp3;
 						double scpheight3 = Height - scp3;
-						p->setBrush(white);
-						p->setPen(black, scp1, SolidLine, FlatCap, MiterJoin);
+						p->setBrush(Qt::white);
+						p->setPen(Qt::black, scp1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 						p->drawRect(scpwidth16, scpheight16, scp14, scp14);
-						p->drawLine(FPoint(scpwidth16, scpheight16), FPoint(scpwidth3, scpheight3));
-						p->drawLine(FPoint(scpwidth16, scpheight3), FPoint(scpwidth3, scpheight16));
+						p->drawLine(QPointF(scpwidth16, scpheight16), QPointF(scpwidth3, scpheight3));
+						p->drawLine(QPointF(scpwidth16, scpheight3), QPointF(scpwidth3, scpheight16));
 					}
 				}
 				Dirty = false;
@@ -415,12 +419,12 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 							{
 								if (docItem->textFlowsAroundFrame())
 								{
-									pp.begin(ScApp->view->viewport());
+									pp.begin(&ScApp->view->viewportImage);
 									pp.translate(docItem->Xpos - Mp->xOffset() + Dp->xOffset(), docItem->Ypos - Mp->yOffset() + Dp->yOffset());
 									pp.rotate(docItem->Rot);
 									if (docItem->textFlowUsesBoundingBox())
 									{
-										QPointArray tcli;
+										Q3PointArray tcli;
 										tcli.resize(4);
 										tcli.setPoint(0, QPoint(0,0));
 										tcli.setPoint(1, QPoint(qRound(docItem->Width), 0));
@@ -432,8 +436,8 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 									{
 										if ((docItem->textFlowUsesContourLine()) && (docItem->ContourLine.size() != 0))
 										{
-											QValueList<uint> Segs;
-											QPointArray Clip2 = FlattenPath(docItem->ContourLine, Segs);
+											Q3ValueList<uint> Segs;
+											Q3PointArray Clip2 = FlattenPath(docItem->ContourLine, Segs);
 											cm = QRegion(pp.xForm(Clip2));
 										}
 										else
@@ -449,12 +453,12 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 							PageItem* docItem = Doc->Items->at(a);
 							if (docItem->textFlowsAroundFrame())
 							{
-								pp.begin(ScApp->view->viewport());
+								pp.begin(&ScApp->view->viewportImage);
 								pp.translate(docItem->Xpos, docItem->Ypos);
 								pp.rotate(docItem->Rot);
 								if (docItem->textFlowUsesBoundingBox())
 								{
-									QPointArray tcli;
+									Q3PointArray tcli;
 									tcli.resize(4);
 									tcli.setPoint(0, QPoint(0,0));
 									tcli.setPoint(1, QPoint(qRound(docItem->Width), 0));
@@ -466,8 +470,8 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 								{
 									if ((docItem->textFlowUsesContourLine()) && (docItem->ContourLine.size() != 0))
 									{
-										QValueList<uint> Segs;
-										QPointArray Clip2 = FlattenPath(docItem->ContourLine, Segs);
+										Q3ValueList<uint> Segs;
+										Q3PointArray Clip2 = FlattenPath(docItem->ContourLine, Segs);
 										cm = QRegion(pp.xForm(Clip2));
 									}
 									else
@@ -486,12 +490,12 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						{
 							if (docItem->textFlowsAroundFrame())
 							{
-								pp.begin(ScApp->view->viewport());
+								pp.begin(&ScApp->view->viewportImage);
 								pp.translate(docItem->Xpos, docItem->Ypos);
 								pp.rotate(docItem->Rot);
 								if (docItem->textFlowUsesBoundingBox())
 								{
-									QPointArray tcli;
+									Q3PointArray tcli;
 									tcli.resize(4);
 									tcli.setPoint(0, QPoint(0,0));
 									tcli.setPoint(1, QPoint(qRound(docItem->Width), 0));
@@ -503,8 +507,8 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 								{
 									if ((docItem->textFlowUsesContourLine()) && (docItem->ContourLine.size() != 0))
 									{
-										QValueList<uint> Segs;
-										QPointArray Clip2 = FlattenPath(docItem->ContourLine, Segs);
+										Q3ValueList<uint> Segs;
+										Q3PointArray Clip2 = FlattenPath(docItem->ContourLine, Segs);
 										cm = QRegion(pp.xForm(Clip2));
 									}
 									else
@@ -532,8 +536,8 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 				}
 				CurrCol = 0;
 				ColWidth = (Width - (ColGap * (Cols - 1)) - Extra - RExtra - 2*lineCorr) / Cols;
-				ColBound = FPoint((ColWidth + ColGap) * CurrCol+Extra + lineCorr, ColWidth * (CurrCol+1) + ColGap * CurrCol + Extra+lineCorr);
-				ColBound = FPoint(ColBound.x(), ColBound.y()+RExtra+lineCorr);
+				ColBound = QPointF((ColWidth + ColGap) * CurrCol+Extra + lineCorr, ColWidth * (CurrCol+1) + ColGap * CurrCol + Extra+lineCorr);
+				ColBound = QPointF(ColBound.x(), ColBound.y()+RExtra+lineCorr);
 				CurX = ColBound.x();
 				if (itemText.count() > 0)
 				{
@@ -756,9 +760,9 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						if (CurrCol < Cols)
 						{
 							ColWidth = (Width - (ColGap * (Cols - 1)) - Extra - RExtra - 2*lineCorr) / Cols;
-							ColBound = FPoint((ColWidth + ColGap) * CurrCol + Extra+lineCorr, ColWidth * (CurrCol+1) + ColGap * CurrCol + Extra+lineCorr);
+							ColBound = QPointF((ColWidth + ColGap) * CurrCol + Extra+lineCorr, ColWidth * (CurrCol+1) + ColGap * CurrCol + Extra+lineCorr);
 							CurX = ColBound.x();
-							ColBound = FPoint(ColBound.x(), ColBound.y()+RExtra+lineCorr);
+							ColBound = QPointF(ColBound.x(), ColBound.y()+RExtra+lineCorr);
 							CurY = asce+TExtra+lineCorr+1;
 							if (((a > 0) && (itemText.at(a-1)->ch == QChar(13))) || ((a == 0) && (BackBox == 0)))
 							{
@@ -851,9 +855,9 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 									if (CurrCol < Cols)
 									{
 										ColWidth = (Width - (ColGap * (Cols - 1)) - Extra - RExtra - 2*lineCorr) / Cols;
-										ColBound = FPoint((ColWidth + ColGap) * CurrCol + Extra+lineCorr, ColWidth * (CurrCol+1) + ColGap * CurrCol + Extra+lineCorr);
+										ColBound = QPointF((ColWidth + ColGap) * CurrCol + Extra+lineCorr, ColWidth * (CurrCol+1) + ColGap * CurrCol + Extra+lineCorr);
 										CurX = ColBound.x();
-										ColBound = FPoint(ColBound.x(), ColBound.y()+RExtra+lineCorr);
+										ColBound = QPointF(ColBound.x(), ColBound.y()+RExtra+lineCorr);
 										CurY = asce+TExtra+lineCorr+1;
 										if (((a > 0) && (itemText.at(a-1)->ch == QChar(13))) || ((a == 0) && (BackBox == 0)))
 										{
@@ -1121,7 +1125,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						CurX += Doc->docParagraphStyles[hl->cab].DropDist;
 						CurX = QMAX(CurX, ColBound.x());
 						maxDX = CurX;
-						QPointArray tcli;
+						Q3PointArray tcli;
 						tcli.resize(4);
 						if (Doc->docParagraphStyles[hl->cab].BaseAdj)
 						{
@@ -1511,7 +1515,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 							{
 								wide = Zli2->wide;
 								p->setFillMode(1);
-								p->setBrush(darkBlue);
+								p->setBrush(Qt::darkBlue);
 								p->setLineWidth(0);
 								if ((zc > 0) && (Zli2->Zeich == QChar(9)))
 								{
@@ -1521,13 +1525,13 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 								}
 								if (!Doc->RePos)
 									p->drawRect(xcoZli, qRound(Zli2->yco-asce * (Zli2->scalev / 1000.0)), wide+1, qRound((asce+desc) * (Zli2->scalev / 1000.0)));
-								p->setBrush(white);
+								p->setBrush(Qt::white);
 							}
 							if (Zli2->Farb2 != "None")
 							{
 								QColor tmp;
 								SetFarbe(&tmp, Zli2->Farb2, Zli2->shade2);
-								p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
+								p->setPen(tmp, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 							}
 							if (!Doc->RePos)
 							{
@@ -1577,7 +1581,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 									if (e2.intersects(pf2.xForm(QRect(qRound(Zli2->xco+Zli2->wide),qRound(Zli2->yco-asce), qRound(Zli2->wide+1), qRound(asce+desc)))))
 									{
 										FPointArray points;
-										QWMatrix chma, chma2, chma4, chma5;
+										QMatrix chma, chma2, chma4, chma5;
 										double ytrans, xtrans;
 										if (Zli2->Zeich == QChar(13))
 										{
@@ -1645,9 +1649,9 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 							if (CurrCol < Cols)
 							{
 								ColWidth = (Width - (ColGap * (Cols - 1)) - Extra - RExtra - 2*lineCorr) / Cols;
-								ColBound = FPoint((ColWidth + ColGap) * CurrCol + Extra+lineCorr, ColWidth * (CurrCol+1) + ColGap * CurrCol + Extra+lineCorr);
+								ColBound = QPointF((ColWidth + ColGap) * CurrCol + Extra+lineCorr, ColWidth * (CurrCol+1) + ColGap * CurrCol + Extra+lineCorr);
 								CurX = ColBound.x();
-								ColBound = FPoint(ColBound.x(), ColBound.y()+RExtra+lineCorr);
+								ColBound = QPointF(ColBound.x(), ColBound.y()+RExtra+lineCorr);
 							}
 							else
 							{
@@ -1790,7 +1794,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 					{
 						wide = Zli2->wide;
 						p->setFillMode(1);
-						p->setBrush(darkBlue);
+						p->setBrush(Qt::darkBlue);
 						p->setLineWidth(0);
 						if ((zc > 0) && (Zli2->Zeich == QChar(9)))
 						{
@@ -1800,13 +1804,13 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						}
 						if (!Doc->RePos)
 							p->drawRect(xcoZli, qRound(Zli2->yco-asce * (Zli2->scalev / 1000.0)), wide+1, qRound((asce+desc) * (Zli2->scalev / 1000.0)));
-						p->setBrush(white);
+						p->setBrush(Qt::white);
 					}
 					if (Zli2->Farb2 != "None")
 					{
 						QColor tmp;
 						SetFarbe(&tmp, Zli2->Farb2, Zli2->shade2);
-						p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
+						p->setPen(tmp, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 					}
 					if (!Doc->RePos)
 					{
@@ -1856,7 +1860,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 							if (e2.intersects(pf2.xForm(QRect(qRound(Zli2->xco+Zli2->wide),qRound(Zli2->yco-asce), qRound(Zli2->wide+1), qRound(asce+desc)))))
 							{
 								FPointArray points;
-								QWMatrix chma, chma2, chma4, chma5;
+								QMatrix chma, chma2, chma4, chma5;
 								double ytrans, xtrans;
 								if (Zli2->Zeich == QChar(13))
 								{
@@ -1954,7 +1958,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 			{
 				if (!Doc->RePos)
 				{
-					double scp1 = 1.0/QMAX(ScApp->view->getScale(), 1);
+					double scp1 = 1.0/qMax(ScApp->view->getScale(), 1.0);
 					double scp16 = 16.0*scp1;
 					double scp14 = 14.0*scp1;
 					double scp3 = 3.0*scp1;
@@ -1962,11 +1966,11 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 					double scpheight16 = Height - scp16;
 					double scpwidth3 = Width - scp3;
 					double scpheight3 = Height - scp3;
-					p->setPen(black, scp1, SolidLine, FlatCap, MiterJoin);
-					p->setBrush(white);
+					p->setPen(Qt::black, scp1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+					p->setBrush(Qt::white);
 					p->drawRect(scpwidth16, scpheight16, scp14, scp14);
-					p->drawLine(FPoint(scpwidth16, scpheight16), FPoint(scpwidth3, scpheight3));
-					p->drawLine(FPoint(scpwidth16, scpheight3), FPoint(scpwidth3, scpheight16));
+					p->drawLine(QPointF(scpwidth16, scpheight16), QPointF(scpwidth3, scpheight3));
+					p->drawLine(QPointF(scpwidth16, scpheight3), QPointF(scpwidth3, scpheight16));
 				}
 			}
 			MaxChars = nrc;

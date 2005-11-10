@@ -1,7 +1,6 @@
 #include "deferredtask.h"
 #include "qtimer.h"
 
-#include "deferredtask.moc"
 
 enum FileSearchStatus
 {

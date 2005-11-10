@@ -1,7 +1,12 @@
 #include "tabtools.h"
-#include "tabtools.moc"
 #include <qtooltip.h>
 #include <qspinbox.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QVBoxLayout>
 
 #include "sccombobox.h"
 #include "units.h"
@@ -29,7 +34,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	unitRatio = unitGetRatioFromIndex(unitIndex);
 	
 	tabToolsLayout = new QHBoxLayout( this, 0, 5, "tabToolsLayout");
-	buttonGroupTools = new QButtonGroup( this, "buttonGroupTools" );
+	buttonGroupTools = new Q3ButtonGroup( this, "buttonGroupTools" );
 	buttonGroupTools->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)0, (QSizePolicy::SizeType)5, 0, 0, buttonGroupTools->sizePolicy().hasHeightForWidth() ) );
 	buttonGroupTools->setExclusive( true );
 	buttonGroupTools->setRadioButtonExclusive( true );
@@ -42,38 +47,38 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	toolText = new QToolButton( buttonGroupTools, "toolText" );
 	toolText->setToggleButton( true );
 	toolText->setText( QString::null );
-	toolText->setIconSet( QIconSet( loadIcon("Text.xpm") ) );
+	toolText->setIconSet( QIcon( loadIcon("Text.xpm") ) );
 	buttonGroupToolsLayout->addWidget( toolText );
 	toolImage = new QToolButton( buttonGroupTools, "toolImage" );
 	toolImage->setToggleButton( true );
 	toolImage->setText( QString::null );
-	toolImage->setIconSet( QIconSet( loadIcon("Bild.xpm") ) );
+	toolImage->setIconSet( QIcon( loadIcon("Bild.xpm") ) );
 	buttonGroupToolsLayout->addWidget( toolImage );
 	toolShape = new QToolButton( buttonGroupTools, "toolShape" );
 	toolShape->setToggleButton( true );
 	toolShape->setText( QString::null );
-	toolShape->setIconSet( QIconSet( loadIcon("Rechtecke.xpm") ) );
+	toolShape->setIconSet( QIcon( loadIcon("Rechtecke.xpm") ) );
 	buttonGroupToolsLayout->addWidget( toolShape);
 	toolPoly = new QToolButton( buttonGroupTools, "toolPoly" );
 	toolPoly->setToggleButton( true );
 	toolPoly->setText( QString::null );
-	toolPoly->setIconSet( QIconSet( loadIcon("spline.png") ) );
+	toolPoly->setIconSet( QIcon( loadIcon("spline.png") ) );
 	buttonGroupToolsLayout->addWidget( toolPoly );
 	toolLine = new QToolButton( buttonGroupTools, "toolLine" );
 	toolLine->setToggleButton( true );
 	toolLine->setText( QString::null );
-	toolLine->setIconSet( QIconSet( loadIcon("Stift.xpm") ) );
+	toolLine->setIconSet( QIcon( loadIcon("Stift.xpm") ) );
 	buttonGroupToolsLayout->addWidget( toolLine );
 	toolZoom = new QToolButton( buttonGroupTools, "toolZoom" );
 	toolZoom->setToggleButton( true );
 	toolZoom->setText( QString::null );
-	toolZoom->setIconSet( QIconSet( loadIcon("Lupe.xpm") ) );
+	toolZoom->setIconSet( QIcon( loadIcon("Lupe.xpm") ) );
 	buttonGroupToolsLayout->addWidget( toolZoom );
 	tabToolsLayout->addWidget( buttonGroupTools );
-	subStackTools = new QWidgetStack( this, "subStackTools" );
+	subStackTools = new Q3WidgetStack( this, "subStackTools" );
 	subStackTools->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)5, 0, 0, subStackTools->sizePolicy().hasHeightForWidth() ) );
-	subStackTools->setFrameShape( QWidgetStack::GroupBoxPanel );
-	subStackTools->setFrameShadow( QWidgetStack::Sunken );
+	subStackTools->setFrameShape( QFrame::StyledPanel );
+	subStackTools->setFrameShadow( Q3WidgetStack::Sunken );
 
 	subTabText = new QWidget( subStackTools, "subTabText" );
 	subTabTextLayout = new QGridLayout( subTabText, 1, 1, 11, 6, "subTabTextLayout");
@@ -308,7 +313,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	subTabTextLayout->addWidget( textLabel5b, 7, 2 );
 	previewText = new QLabel( tr( "Woven silk pyjamas exchanged for blue quartz" ), subTabText, "previewText" );
 	previewText->setMinimumSize( QSize( 280, 70 ) );
-	previewText->setAlignment( static_cast<int>( QLabel::AlignVCenter | QLabel::AlignLeft ) );
+	previewText->setAlignment( static_cast<int>( Qt::AlignVCenter | Qt::AlignLeft ) );
 	subTabTextLayout->addMultiCellWidget( previewText, 8, 8, 0, 3 );
 	subStackTools->addWidget( subTabText, 0 );
 
@@ -393,19 +398,19 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	comboStyleShape->setEditable(false);
 	switch (prefsData->dLineArt)
 	{
-	case SolidLine:
+	case Qt::SolidLine:
 		comboStyleShape->setCurrentItem(0);
 		break;
-	case DashLine:
+	case Qt::DashLine:
 		comboStyleShape->setCurrentItem(1);
 		break;
-	case DotLine:
+	case Qt::DotLine:
 		comboStyleShape->setCurrentItem(2);
 		break;
-	case DashDotLine:
+	case Qt::DashDotLine:
 		comboStyleShape->setCurrentItem(3);
 		break;
-	case DashDotDotLine:
+	case Qt::DashDotDotLine:
 		comboStyleShape->setCurrentItem(4);
 		break;
 	default:
@@ -466,19 +471,19 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	comboStyleLine->setEditable(false);
 	switch (prefsData->dLstyleLine)
 	{
-	case SolidLine:
+	case Qt::SolidLine:
 		comboStyleLine->setCurrentItem(0);
 		break;
-	case DashLine:
+	case Qt::DashLine:
 		comboStyleLine->setCurrentItem(1);
 		break;
-	case DotLine:
+	case Qt::DotLine:
 		comboStyleLine->setCurrentItem(2);
 		break;
-	case DashDotLine:
+	case Qt::DashDotLine:
 		comboStyleLine->setCurrentItem(3);
 		break;
-	case DashDotDotLine:
+	case Qt::DashDotDotLine:
 		comboStyleLine->setCurrentItem(4);
 		break;
 	default:
@@ -521,7 +526,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	subTabImage = new QWidget( subStackTools, "subTabImage" );
 	subTabImageLayout = new QGridLayout( subTabImage, 1, 1, 11, 6, "subTabImageLayout");
 	subTabImageLayout->setAlignment( Qt::AlignTop );
-	buttonGroup3 = new QButtonGroup( subTabImage, "buttonGroup3" );
+	buttonGroup3 = new Q3ButtonGroup( subTabImage, "buttonGroup3" );
 	buttonGroup3->setCheckable( true );
 	buttonGroup3->setChecked( prefsData->scaleType );
 	buttonGroup3->setColumnLayout(0, Qt::Vertical );
@@ -551,7 +556,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	chainButton->setAutoRaise(true);
 	buttonGroup3Layout->addMultiCellWidget( chainButton, 0, 1, 2, 2, Qt::AlignLeft );
 	subTabImageLayout->addMultiCellWidget( buttonGroup3, 0, 0, 0, 1 );
-	buttonGroup5 = new QButtonGroup( subTabImage, "buttonGroup5" );
+	buttonGroup5 = new Q3ButtonGroup( subTabImage, "buttonGroup5" );
 	buttonGroup5->setCheckable( true );
 	buttonGroup5->setChecked( !prefsData->scaleType );
 	buttonGroup5->setColumnLayout(0, Qt::Vertical );
@@ -605,7 +610,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	embeddedPath->setText( tr( "Use embedded Clipping Path" ) );
 	embeddedPath->setChecked(prefsData->useEmbeddedPath);
 	subTabImageLayout->addMultiCellWidget( embeddedPath, 4, 4, 0, 1 );
-	buttonGroupRes = new QButtonGroup( subTabImage, "buttonGroup3" );
+	buttonGroupRes = new Q3ButtonGroup( subTabImage, "buttonGroup3" );
 	buttonGroupRes->setColumnLayout(0, Qt::Vertical );
 	buttonGroupRes->layout()->setSpacing( 6 );
 	buttonGroupRes->layout()->setMargin( 11 );

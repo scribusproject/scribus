@@ -16,9 +16,12 @@
  ***************************************************************************/
 
 #include "mspinbox.h"
-#include "mspinbox.moc"
 #include <qapplication.h>
 #include <qlineedit.h>
+//Added by qt3to4:
+#include <QWheelEvent>
+#include <QKeyEvent>
+#include <QEvent>
 #include <cmath>
 #include "fparser.h"
 #include "units.h"
@@ -36,13 +39,14 @@
 MSpinBox::MSpinBox(QWidget *pa, int s):QSpinBox(pa)
 {
 	setParameters(s);
-	setValidator(0);
-	ed = editor();
+	//setValidator(0);
+	//ed = editor();
+	qWarning("spin box is messed up");
 	QSpinBox::setLineStep(Decimals);
 	oldLineStep=0;
 	readOnly=false;
 	edited = false;
-    connect( ed, SIGNAL(textChanged(const QString&)), SLOT(textChanged()) );
+	//connect( ed, SIGNAL(textChanged(const QString&)), SLOT(textChanged()) );
 }
 /*!
  \fn MSpinBox(double minValue, double maxValue, QWidget *pa, int s)
@@ -57,15 +61,16 @@ MSpinBox::MSpinBox(QWidget *pa, int s):QSpinBox(pa)
 MSpinBox::MSpinBox(double minValue, double maxValue, QWidget *pa, int s):QSpinBox(pa)
 {
 	setParameters(s);
-	setValidator(0);
-	ed = editor();
+	//setValidator(0);
+	//ed = editor();
 	QSpinBox::setLineStep(Decimals);
 	oldLineStep=0;
 	setMinValue(minValue);
 	setMaxValue(maxValue);
 	readOnly=false;
 	edited = false;
-    connect( ed, SIGNAL(textChanged(const QString&)), SLOT(textChanged()) );
+	qDebug( "spinbox is messed up" );
+	//connect( ed, SIGNAL(textChanged(const QString&)), SLOT(textChanged()) );
 }
 
 void MSpinBox::setParameters( int s )
@@ -89,7 +94,7 @@ bool MSpinBox::eventFilter( QObject* ob, QEvent* ev )
 	if ( ev->type() == QEvent::KeyPress )
 	{
 		QKeyEvent* k = (QKeyEvent*)ev;
-		if (k->key() == Key_Shift)
+		if (k->key() == Qt::Key_Shift)
 		{
 			setLineStep(QMAX(Decimals / 10, 1));
 			retval = true;
@@ -100,7 +105,7 @@ bool MSpinBox::eventFilter( QObject* ob, QEvent* ev )
 	if ( ev->type() == QEvent::KeyRelease )
 	{
 		QKeyEvent* k = (QKeyEvent*)ev;
-		if (k->key() == Key_Shift)
+		if (k->key() == Qt::Key_Shift)
 		{
 			setLineStep(Decimals);
 			retval = true;
@@ -111,14 +116,14 @@ bool MSpinBox::eventFilter( QObject* ob, QEvent* ev )
 	if ( ev->type() == QEvent::Wheel )
 	{
 		QWheelEvent* k = (QWheelEvent*)ev;
-		if (k->state() & ShiftButton)
+		if (k->state() & Qt::ShiftModifier)
 		{
 			setLineStep(QMAX(Decimals / 10, 1));
 			retval = true;
 			qApp->sendEvent( this, ev );
 			return retval;
 		}	
-		if (!(k->state() & ShiftButton))
+		if (!(k->state() & Qt::ShiftModifier))
 		{
 			setLineStep(Decimals);
 			retval = true;
@@ -241,10 +246,10 @@ void MSpinBox::stepDown()
 {
 	if ( edited )
 		QSpinBox::interpretText();
-	if ( wrapping() && ( QSpinBox::value()-lineStep() < QSpinBox::minValue() ) )
-		QSpinBox::setValue( QSpinBox::maxValue() - (QSpinBox::maxValue() % lineStep()));
-	else
-		QSpinBox::subtractLine();
+	// if ( wrapping() && ( QSpinBox::value()-lineStep() < QSpinBox::minValue() ) )
+// 		QSpinBox::setValue( QSpinBox::maxValue() - (QSpinBox::maxValue() % lineStep()));
+// 	else
+// 		QSpinBox::subtractLine();
 }
 
 void MSpinBox::setValues(double min, double max, int deci, double val)
@@ -370,11 +375,11 @@ void MSpinBox::setReadOnly( bool ro )
 	if (readOnly!=ro) 
 	{
 		if (!readOnly && ro) {
-			oldLineStep=QSpinBox::lineStep();
+			//oldLineStep=QSpinBox::lineStep();
 			QSpinBox::setLineStep( 0 );
 		}
 		else if (readOnly && !ro) {
-			QSpinBox::setLineStep( oldLineStep );
+			//QSpinBox::setLineStep( oldLineStep );
 			oldLineStep=0;
 		}
 		ed->setReadOnly( ro );

@@ -7,9 +7,15 @@
  *                                                                         *
  ***************************************************************************/
 #include "tabpdfoptions.h"
-#include "tabpdfoptions.moc"
 
 #include <qpainter.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <Q3ValueList>
+#include <QVBoxLayout>
 #include "units.h"
 #include "pdfoptions.h"
 #include "prefsmanager.h"
@@ -27,7 +33,7 @@ extern bool CMSavail;
 
 TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &AllFonts,
 								ProfilesL *PDFXProfiles, QMap<QString,int> DocFonts,
-								QValueList<PDFPresentationData> Eff, int unitIndex,
+			      Q3ValueList<PDFPresentationData> Eff, int unitIndex,
 								double PageH, double PageB, ScribusView *vie ) : QTabWidget( parent, "pdf" )
 {
 
@@ -47,7 +53,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	tabLayout->setSpacing( 5 );
 	tabLayout->setMargin( 0 );
 	Layout13 = new QHBoxLayout( 0, 0, 5, "Layout13");
-	RangeGroup = new QButtonGroup( tabGeneral, "RangeGroup" );
+	RangeGroup = new Q3ButtonGroup( tabGeneral, "RangeGroup" );
 	RangeGroup->setTitle( tr( "Export Range" ) );
 	RangeGroup->setColumnLayout(0, Qt::Vertical );
 	RangeGroup->layout()->setSpacing( 5 );
@@ -89,7 +95,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	RangeGroupLayout->addLayout( Layout11a );
 	Layout13->addWidget( RangeGroup );
 
-	GroupBox1 = new QGroupBox( tr( "File Options" ), tabGeneral, "GroupBox1" );
+	GroupBox1 = new Q3GroupBox( tr( "File Options" ), tabGeneral, "GroupBox1" );
 	GroupBox1->setColumnLayout(0, Qt::Vertical );
 	GroupBox1->layout()->setSpacing( 0 );
 	GroupBox1->layout()->setMargin( 0 );
@@ -98,7 +104,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	GroupBox1Layout->setSpacing( 5 );
 	GroupBox1Layout->setMargin( 10 );
 	TextLabel1 = new QLabel( tr( "Compatibilit&y:" ), GroupBox1, "TextLabel1" );
-	TextLabel1->setAlignment( static_cast<int>( QLabel::AlignVCenter | QLabel::AlignLeft ) );
+	TextLabel1->setAlignment( static_cast<int>( Qt::AlignVCenter | Qt::AlignLeft ) );
 	GroupBox1Layout->addWidget( TextLabel1, 0, 0 );
 	PDFVersionCombo = new QComboBox( true, GroupBox1, "PDFVersionCombo" );
 	PDFVersionCombo->setEditable(false);
@@ -128,7 +134,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 		PDFVersionCombo->setCurrentItem(2);
 	GroupBox1Layout->addMultiCellWidget( PDFVersionCombo, 0, 0, 1, 2 );
 	TextLabel1x = new QLabel( tr( "&Binding:" ), GroupBox1, "TextLabel1" );
-	TextLabel1x->setAlignment( static_cast<int>( QLabel::AlignVCenter | QLabel::AlignLeft ) );
+	TextLabel1x->setAlignment( static_cast<int>( Qt::AlignVCenter | Qt::AlignLeft ) );
 	GroupBox1Layout->addWidget( TextLabel1x, 1, 0 );
 	ComboBind = new QComboBox( true, GroupBox1, "ComboBind" );
 	ComboBind->insertItem( tr("Left Margin"));
@@ -159,15 +165,15 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	Resolution->setValue(Optionen->Resolution);
 	Resolution->setSuffix( tr( " dpi" ) );
 	TextLabel2 = new QLabel( Resolution, tr( "&Resolution for EPS Graphics:" ), GroupBox1, "TextLabel2" );
-	TextLabel2->setAlignment( static_cast<int>( QLabel::AlignVCenter | QLabel::AlignLeft ) );
+	TextLabel2->setAlignment( static_cast<int>( Qt::AlignVCenter | Qt::AlignLeft ) );
 	GroupBox1Layout->addWidget( TextLabel2, 6, 0 );
-	GroupBox1Layout->addWidget( Resolution, 6, 1, AlignLeft );
+	GroupBox1Layout->addWidget( Resolution, 6, 1, Qt::AlignLeft );
 	Layout13->addWidget( GroupBox1 );
 	tabLayout->addLayout( Layout13 );
 	Compression = new QCheckBox( tr( "Com&press Text and Vector Graphics" ), tabGeneral, "Compression" );
 	Compression->setChecked( Optionen->Compress );
 	tabLayout->addWidget( Compression );
-	CBox = new QGroupBox( tr( "Image Settings" ), tabGeneral, "CBox" );
+	CBox = new Q3GroupBox( tr( "Image Settings" ), tabGeneral, "CBox" );
 	CBox->setColumnLayout(0, Qt::Vertical );
 	CBox->layout()->setSpacing( 5 );
 	CBox->layout()->setMargin( 11 );
@@ -205,7 +211,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	ValC->setMinValue( 35 );
 	ValC->setValue(Optionen->PicRes);
 	ValC->setEnabled(DSColor->isChecked() ? true : false);
-	CBoxLayout->addWidget( ValC, 2, 1, AlignLeft );
+	CBoxLayout->addWidget( ValC, 2, 1, Qt::AlignLeft );
 	tabLayout->addWidget( CBox );
 	insertTab( tabGeneral, tr( "&General" ) );
 	if (vie != 0)
@@ -218,7 +224,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 		tabLayout_3->addWidget( EmbedFonts );
 		SubsetFonts = new QCheckBox( tr( "&Subset all Fonts" ), tabFonts, "SubsetFonts" );
 		tabLayout_3->addWidget( SubsetFonts );
-		GroupFont = new QGroupBox( tr( "Embedding" ), tabFonts, "GroupFont" );
+		GroupFont = new Q3GroupBox( tr( "Embedding" ), tabFonts, "GroupFont" );
 		GroupFont->setColumnLayout(0, Qt::Vertical );
 		GroupFont->layout()->setSpacing( 0 );
 		GroupFont->layout()->setMargin( 0 );
@@ -231,7 +237,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 		Layout4_2->setMargin( 0 );
 		TextFont1 = new QLabel( tr( "Available Fonts:" ), GroupFont, "TextFont1" );
 		Layout4_2->addWidget( TextFont1 );
-		AvailFlist = new QListBox( GroupFont, "AvailFlist" );
+		AvailFlist = new Q3ListBox( GroupFont, "AvailFlist" );
 		QMap<QString,int>::Iterator it;
 		for (it = DocFonts.begin(); it != DocFonts.end(); ++it)
 		{
@@ -264,7 +270,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 		Layout6->setMargin( 0 );
 		TextFont1_2 = new QLabel( tr( "Fonts to embed:" ), GroupFont, "TextFont1_2" );
 		Layout6->addWidget( TextFont1_2 );
-		EmbedList = new QListBox( GroupFont, "EmbedList" );
+		EmbedList = new Q3ListBox( GroupFont, "EmbedList" );
 		EmbedList->setMinimumSize(QSize(150, 40));
 		Layout6->addWidget( EmbedList );
 		
@@ -286,7 +292,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 		Layout6->addLayout( Layout5_2a );
 		TextFont1_2a = new QLabel( tr( "Fonts to subset:" ), GroupFont, "TextFont1_2a" );
 		Layout6->addWidget( TextFont1_2a );
-		SubsetList = new QListBox( GroupFont, "SubsetList" );
+		SubsetList = new Q3ListBox( GroupFont, "SubsetList" );
 		SubsetList->setMinimumSize(QSize(150, 40));
 		Layout6->addWidget( SubsetList );
 		if ((Optionen->EmbedList.count() == 0) && (Optionen->SubsetList.count() == 0))
@@ -296,7 +302,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 		}
 		else
 		{
-			for (uint fe = 0; fe < Optionen->EmbedList.count(); ++fe)
+			for (int fe = 0; fe < Optionen->EmbedList.count(); ++fe)
 			{
 				EmbedList->insertItem(Optionen->EmbedList[fe]);
 				FontsToEmbed.append(Optionen->EmbedList[fe]);
@@ -304,7 +310,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 		}
 		if (Optionen->SubsetList.count() != 0)
 		{
-			for (uint fe = 0; fe < Optionen->SubsetList.count(); ++fe)
+			for (int fe = 0; fe < Optionen->SubsetList.count(); ++fe)
 			{
 				SubsetList->insertItem(Optionen->SubsetList[fe]);
 				FontsToSubset.append(Optionen->SubsetList[fe]);
@@ -320,13 +326,13 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 		CheckBox10 = new QCheckBox( tr( "Enable &Presentation Effects" ), tabPresentation, "CheckBox10" );
 		CheckBox10->setChecked(Optionen->PresentMode);
 		tabLayout_5->addMultiCellWidget( CheckBox10, 0, 0, 0, 1 );
-		Pages = new QListBox( tabPresentation, "Pages" );
+		Pages = new Q3ListBox( tabPresentation, "Pages" );
 		Pages->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, Pages->sizePolicy().hasHeightForWidth() ) );
 		QString tmp;
 		struct PDFPresentationData ef;
 		if (EffVal.count() != 0)
 		{
-			for (uint pg2 = 0; pg2 < view->Doc->Pages->count(); ++pg2)
+			for (int pg2 = 0; pg2 < view->Doc->Pages->count(); ++pg2)
 			{
 				Pages->insertItem( tr("Page")+" "+tmp.setNum(pg2+1));
 				if (EffVal.count()-1 < pg2)
@@ -359,7 +365,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 		PagePrev = new QCheckBox( tr( "Show Page Pre&views" ), tabPresentation, "CheckBox10" );
 		PagePrev->setChecked(false);
 		tabLayout_5->addWidget( PagePrev, 2, 0 );
-		Effects = new QGroupBox( tr( "Effects" ), tabPresentation, "Effects" );
+		Effects = new Q3GroupBox( tr( "Effects" ), tabPresentation, "Effects" );
 		Effects->setColumnLayout(0, Qt::Vertical );
 		Effects->layout()->setSpacing( 0 );
 		Effects->layout()->setMargin( 0 );
@@ -432,7 +438,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	Encry = new QCheckBox( tr( "&Use Encryption" ), tabSecurity, "Enc" );
 	Encry->setChecked( Optionen->Encrypt );
 	tabSecurityLayout->addWidget( Encry );
-	GroupPass = new QGroupBox( tr( "Passwords" ), tabSecurity, "GroupPass" );
+	GroupPass = new Q3GroupBox( tr( "Passwords" ), tabSecurity, "GroupPass" );
 	GroupPass->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)5, (QSizePolicy::SizeType)1, 0, 0,
 	                                       GroupPass->sizePolicy().hasHeightForWidth() ) );
 	GroupPass->setColumnLayout(0, Qt::Vertical );
@@ -456,7 +462,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	GroupPassLayout->addWidget( PassUser, 1, 1 );
 	tabSecurityLayout->addWidget( GroupPass );
 
-	GroupSecSet = new QGroupBox( tr( "Settings" ), tabSecurity, "GroupSecSet" );
+	GroupSecSet = new Q3GroupBox( tr( "Settings" ), tabSecurity, "GroupSecSet" );
 	GroupSecSet->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)5, (QSizePolicy::SizeType)7, 0, 0,
 	                            GroupSecSet->sizePolicy().hasHeightForWidth() ) );
 	GroupSecSet->setColumnLayout(0, Qt::Vertical );
@@ -486,7 +492,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 
 	tabColor = new QWidget( this, "tabColor" );
 	tabColorLayout = new QVBoxLayout( tabColor, 11, 5, "tabColorLayout");
-	ColorGroup = new QGroupBox( tr( "General" ), tabColor, "ColorGroup" );
+	ColorGroup = new Q3GroupBox( tr( "General" ), tabColor, "ColorGroup" );
 	ColorGroup->setColumnLayout(0, Qt::Vertical );
 	ColorGroup->layout()->setSpacing( 5 );
 	ColorGroup->layout()->setMargin( 10 );
@@ -519,7 +525,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	UseLPI = new QCheckBox( tr( "&Use Custom Rendering Settings" ), tabColor, "UseLPI" );
 	UseLPI->setChecked(Optionen->UseLPI);
 	tabColorLayout->addWidget( UseLPI );
-	LPIgroup = new QGroupBox( tr( "Rendering Settings" ), tabColor, "LPIgroup" );
+	LPIgroup = new Q3GroupBox( tr( "Rendering Settings" ), tabColor, "LPIgroup" );
 	LPIgroup->setColumnLayout(0, Qt::Vertical );
 	LPIgroup->layout()->setSpacing( 5 );
 	LPIgroup->layout()->setMargin( 10 );
@@ -565,7 +571,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	tabColorLayout->addWidget( LPIgroup );
 	SelLPIcolor = LPIcolor->currentText();
 
-	GroupBox9 = new QGroupBox( tr( "Solid Colors:" ), tabColor, "GroupBox9" );
+	GroupBox9 = new Q3GroupBox( tr( "Solid Colors:" ), tabColor, "GroupBox9" );
 	GroupBox9->setColumnLayout(0, Qt::Vertical );
 	GroupBox9->layout()->setSpacing( 5 );
 	GroupBox9->layout()->setMargin( 10 );
@@ -592,7 +598,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	IntendS->setEditable(false);
 	GroupBox9Layout->addWidget( IntendS, 2, 1 );
 	tabColorLayout->addWidget( GroupBox9 );
-	ProfsGroup = new QGroupBox( tr( "Images:" ), tabColor, "ProfsGroup" );
+	ProfsGroup = new Q3GroupBox( tr( "Images:" ), tabColor, "ProfsGroup" );
 	ProfsGroup->setColumnLayout(0, Qt::Vertical );
 	ProfsGroup->layout()->setSpacing( 5 );
 	ProfsGroup->layout()->setMargin( 10 );
@@ -690,7 +696,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 
 	tabPDFX = new QWidget( this, "tabPDFX" );
 	tabPDFXLayout = new QVBoxLayout( tabPDFX, 11, 5, "tabPDFXLayout");
-	X3Group = new QGroupBox( tabPDFX, "X3Group" );
+	X3Group = new Q3GroupBox( tabPDFX, "X3Group" );
 	X3Group->setTitle( tr( "PDF/X-3 Output Intent" ) );
 	X3Group->setColumnLayout(0, Qt::Vertical );
 	X3Group->layout()->setSpacing( 5 );
@@ -726,7 +732,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	PDFX1 = new QLabel( PrintProfC, tr( "Output &Profile:" ), X3Group, "PDFX1" );
 	X3GroupLayout->addWidget( PDFX1, 0, 0 );
 	tabPDFXLayout->addWidget( X3Group );
-	BleedGroup = new QGroupBox( tabPDFX, "BleedGroup" );
+	BleedGroup = new Q3GroupBox( tabPDFX, "BleedGroup" );
 	BleedGroup->setTitle( tr( "Trim Box" ) );
 	BleedGroup->setColumnLayout(0, Qt::Vertical );
 	BleedGroup->layout()->setSpacing( 5 );
@@ -739,7 +745,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	BleedIcon->setFrameShape( QLabel::Panel );
 	BleedIcon->setFrameShadow( QLabel::Sunken );
 	BleedIcon->setScaledContents( false );
-	BleedIcon->setAlignment( static_cast<int>( QLabel::AlignCenter ) );
+	BleedIcon->setAlignment( static_cast<int>( Qt::AlignCenter ) );
 	BleedGroupLayout->addWidget( BleedIcon, 1, 2 );
 	BleedTop = new MSpinBox( BleedGroup, precision );
 	BleedGroupLayout->addWidget( BleedTop, 0, 2 );
@@ -802,12 +808,12 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 			SetEffOpts(EffectType->currentItem());
 		}
 		connect(EmbedFonts, SIGNAL(clicked()), this, SLOT(EmbedAll()));
-		connect(AvailFlist, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SelAFont(QListBoxItem*)));
-		connect(EmbedList, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SelEFont(QListBoxItem*)));
+		connect(AvailFlist, SIGNAL(clicked(Q3ListBoxItem*)), this, SLOT(SelAFont(Q3ListBoxItem*)));
+		connect(EmbedList, SIGNAL(clicked(Q3ListBoxItem*)), this, SLOT(SelEFont(Q3ListBoxItem*)));
 		connect(ToEmbed, SIGNAL(clicked()), this, SLOT(PutToEmbed()));
 		connect(FromEmbed, SIGNAL(clicked()), this, SLOT(RemoveEmbed()));
 		connect(SubsetFonts, SIGNAL(clicked()), this, SLOT(SubsetAll()));
-		connect(SubsetList, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SelSFont(QListBoxItem*)));
+		connect(SubsetList, SIGNAL(clicked(Q3ListBoxItem*)), this, SLOT(SelSFont(Q3ListBoxItem*)));
 		connect(ToSubset, SIGNAL(clicked()), this, SLOT(PutToSubset()));
 		connect(FromSubset, SIGNAL(clicked()), this, SLOT(RemoveSubset()));
 		connect(PagePrev, SIGNAL(clicked()), this, SLOT(PagePr()));
@@ -919,13 +925,13 @@ void TabPDFOptions::BleedChanged()
 	BleedRight->setMaxValue(pageB*unitRatio-BleedLeft->value());
 	BleedLeft->setMaxValue(pageB*unitRatio-BleedRight->value());
 	QPixmap pm(70,80);
-	pm.fill(white);
+	pm.fill(Qt::white);
 	QPainter p;
 	p.begin(&pm);
-	p.setBrush(NoBrush);
-	p.setPen(black);
+	p.setBrush(Qt::NoBrush);
+	p.setPen(Qt::black);
 	p.drawRect(0, 0, pm.width(), pm.height());
-	p.setPen(QPen(black, 1, DotLine, FlatCap, MiterJoin));
+	p.setPen(QPen(Qt::black, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 	int x = qRound((BleedLeft->value() / unitRatio) * (70.0 / pageB));
 	int y = qRound((BleedTop->value() / unitRatio) * (80.0 / pageH));
 	int w =qRound((pageB-((BleedLeft->value()+BleedRight->value())/unitRatio))*(70.0/pageB));
@@ -1184,8 +1190,9 @@ void TabPDFOptions::DoEffects()
 
 void TabPDFOptions::ValidDI(int nr)
 {
-	if (!EDirection_2_2->listBox()->item(nr)->isSelectable())
-		EDirection_2_2->setCurrentItem(0);
+	qWarning("again listbox() .. ");
+	//if (!EDirection_2_2->listBox()->item(nr)->isSelectable())
+	//EDirection_2_2->setCurrentItem(0);
 }
 
 void TabPDFOptions::SetPgEff(int nr)
@@ -1210,9 +1217,10 @@ void TabPDFOptions::SetPgEff(int nr)
 
 void TabPDFOptions::SetEffOpts(int nr)
 {
-	EDirection_2_2->listBox()->item(2)->setSelectable(false);
-	EDirection_2_2->listBox()->item(3)->setSelectable(false);
-	EDirection_2_2->listBox()->item(4)->setSelectable(false);
+	qWarning( "listbox!!!!" );
+	//EDirection_2_2->listBox()->item(2)->setSelectable(false);
+	//EDirection_2_2->listBox()->item(3)->setSelectable(false);
+	//EDirection_2_2->listBox()->item(4)->setSelectable(false);
 	switch (nr)
 	{
 	case 0:
@@ -1238,11 +1246,14 @@ void TabPDFOptions::SetEffOpts(int nr)
 		EDirection_2_2->setEnabled(true);
 		if (nr == 6)
 		{
-			EDirection_2_2->listBox()->item(2)->setSelectable(true);
-			EDirection_2_2->listBox()->item(3)->setSelectable(true);
+			qWarning( "lisbox one more time..." );
+			//EDirection_2_2->listBox()->item(2)->setSelectable(true);
+			//EDirection_2_2->listBox()->item(3)->setSelectable(true);
 		}
-		else
-			EDirection_2_2->listBox()->item(4)->setSelectable(true);
+		else {
+			qWarning( "lisbox one more time..." );
+			//EDirection_2_2->listBox()->item(4)->setSelectable(true);
+		}
 		break;
 	case 5:
 		EDirection->setEnabled(true);
@@ -1404,7 +1415,7 @@ void TabPDFOptions::PutToSubset()
 	}
 }
 
-void TabPDFOptions::SelAFont(QListBoxItem *c)
+void TabPDFOptions::SelAFont(Q3ListBoxItem *c)
 {
 	if ((c != NULL) && (!EmbedFonts->isChecked()))
 	{
@@ -1418,7 +1429,7 @@ void TabPDFOptions::SelAFont(QListBoxItem *c)
 	}
 }
 
-void TabPDFOptions::SelEFont(QListBoxItem *c)
+void TabPDFOptions::SelEFont(Q3ListBoxItem *c)
 {
 	if ((c != NULL) && (!EmbedFonts->isChecked()))
 	{
@@ -1432,7 +1443,7 @@ void TabPDFOptions::SelEFont(QListBoxItem *c)
 	}
 }
 
-void TabPDFOptions::SelSFont(QListBoxItem *c)
+void TabPDFOptions::SelSFont(Q3ListBoxItem *c)
 {
 	if ((c != NULL) && (!EmbedFonts->isChecked()))
 	{

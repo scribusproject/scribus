@@ -15,8 +15,15 @@
  *                                                                         *
  ***************************************************************************/
 #include "preview.h"
-#include "preview.moc"
 #include <qimage.h>
+//Added by qt3to4:
+#include <QApplication>
+#include <QDesktopWidget>
+#include <QPixmap>
+#include <QTextStream>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QVBoxLayout>
 #include <cstdlib>
 #include <qcursor.h>
 #include <qpainter.h>
@@ -24,7 +31,7 @@
 #include <qtooltip.h>
 #include <qfile.h>
 #include <qspinbox.h>
-#include <qtable.h>
+#include <q3table.h>
 #include "pslib.h"
 #include "checkDocument.h"
 #include "prefsfile.h"
@@ -143,7 +150,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 
 	if (HaveTiffSep != 0)
 	{
-		Anzeige = new QScrollView(this);
+		Anzeige = new Q3ScrollView(this);
 		PLayout->addWidget(Anzeige);
 	}
 	else
@@ -151,13 +158,13 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 		Layout5 = new QHBoxLayout();
 		Layout5->setSpacing(0);
 		Layout5->setMargin(0);
-		Anzeige = new QScrollView(this);
+		Anzeige = new Q3ScrollView(this);
 		Anzeige->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)7, (QSizePolicy::SizeType)7, 0, 0, Anzeige->sizePolicy().hasHeightForWidth() ) );
 		Layout5->addWidget(Anzeige);
 		ColorList usedSpots;
 		doc->getUsedColors(usedSpots, true);
 		QStringList spots = usedSpots.keys();
-		Table = new QTable( this );
+		Table = new Q3Table( this );
 		Table->setNumRows( spots.count()+4 );
 		Table->setNumCols( 2 );
 		Table->horizontalHeader()->setLabel(0, loadIcon("Layervisible.xpm"), "");
@@ -167,8 +174,8 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 		Table->setColumnWidth(0, 24);
 		Table->setRowMovingEnabled(false);
 		Table->setSorting(false);
-		Table->setSelectionMode( QTable::NoSelection );
-		Table->setFocusStyle( QTable::FollowStyle );
+		Table->setSelectionMode( Q3Table::NoSelection );
+		Table->setFocusStyle( Q3Table::FollowStyle );
 		Table->setLeftMargin(0);
 		Table->verticalHeader()->hide();
 		flagsVisible.clear();
@@ -197,7 +204,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 		connect(cp, SIGNAL(clicked()), this, SLOT(ToggleCMYK_Colour()));
 		Table->setCellWidget(3, 0, cp);
 		flagsVisible.insert("Black", cp);
-		for (uint sp = 0; sp < spots.count(); ++sp)
+		for (int sp = 0; sp < spots.count(); ++sp)
 		{
 			Table->setText(sp+4, 1, spots[sp]);
 			cp = new QCheckBox(this, "");
@@ -218,7 +225,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	scaleLabel = new QLabel(tr("Scaling:"), this, "scaleLabel");
 	scaleBox = new QComboBox( true, this, "unitSwitcher" );
 	scaleBox->setEditable(false);
-	scaleBox->setFocusPolicy(QWidget::NoFocus);
+	scaleBox->setFocusPolicy(Qt::NoFocus);
 	scaleBox->insertItem("50%");
 	scaleBox->insertItem("100%");
 	scaleBox->insertItem("150%");
@@ -546,7 +553,7 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 	QStringList spots = usedSpots.keys();
 	cmd3 = " -sDEVICE=tiffsep -c \"<< /SeparationColorNames ";
 	QString allSeps ="[ /Cyan /Magenta /Yellow /Black ";
-	for (uint sp = 0; sp < spots.count(); ++sp)
+	for (int sp = 0; sp < spots.count(); ++sp)
 	{
 		allSeps += "("+spots[sp]+") ";
 	}
@@ -555,7 +562,7 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 	ret = system(cmd1 + cmd3 + cmd2);
 	QFile sepInfo(QDir::convertSeparators(prefsManager->preferencesLocation()+"/sc.tif.txt"));
 	sepsToFileNum.clear();
-	if (sepInfo.open(IO_ReadOnly))
+	if (sepInfo.open(QIODevice::ReadOnly))
 	{
 		QString Sname;
 		QTextStream tsC(&sepInfo);
@@ -571,7 +578,7 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 	sepInfo.close();
 	QString currSeps = "";
 	uint spc = 0;
-	for (uint sp = 0; sp < spots.count(); ++sp)
+	for (int sp = 0; sp < spots.count(); ++sp)
 	{
 		currSeps += "("+spots[sp]+") ";
 		spc++;
@@ -608,10 +615,10 @@ void PPreview::blendImages(QImage &target, ScImage &source, ScColor col)
 			cyan = 255 - qRed(*pq);
 			if (cyan != 0)
 			{
-				(c == 0) ? cc = qRed(*p) : cc = QMIN(c * cyan / 255 + qRed(*p), 255);
-				(m == 0) ? mm = qGreen(*p) : mm = QMIN(m * cyan / 255 + qGreen(*p), 255);
-				(yc == 0) ? yy = qBlue(*p) : yy = QMIN(yc * cyan / 255 + qBlue(*p), 255);
-				(k == 0) ? kk = qAlpha(*p) : kk = QMIN(k * cyan / 255 + qAlpha(*p), 255);
+				(c == 0) ? cc = qRed(*p) : cc = QMIN(c * Qt::cyan / 255 + qRed(*p), 255);
+				(m == 0) ? mm = qGreen(*p) : mm = QMIN(m * Qt::cyan / 255 + qGreen(*p), 255);
+				(yc == 0) ? yy = qBlue(*p) : yy = QMIN(yc * Qt::cyan / 255 + qBlue(*p), 255);
+				(k == 0) ? kk = qAlpha(*p) : kk = QMIN(k * Qt::cyan / 255 + qAlpha(*p), 255);
 				*p = qRgba(cc, mm, yy, kk);
 			}
 			p++;
@@ -635,7 +642,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 	QPixmap Bild;
 	double b = doc->Pages->at(Seite)->width() * Res / 72.0;
 	double h = doc->Pages->at(Seite)->height() * Res / 72.0;
-	qApp->setOverrideCursor(QCursor(waitCursor), true);
+	qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
 	if ((Seite != APage) || (EnableCMYK->isChecked() != CMode) || (SMode != scaleBox->currentItem())
 	        || (AliasText->isChecked() != TxtAl) || (AliasGr->isChecked() != GrAl) || (EnableGCR->isChecked() != GMode)
 	        || ((AliasTr->isChecked() != Trans) && (!EnableCMYK->isChecked())))
@@ -646,7 +653,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			if (ret != 0)
 			{
 				Bild.resize(1,1);
-				qApp->setOverrideCursor(QCursor(arrowCursor), true);
+				qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 				APage = Seite;
 				return Bild;
 			}
@@ -710,7 +717,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 					yellow = qBlue(*q);
 					black = qAlpha(*q);
 					if ((cyan != 0) || (magenta != 0) || (yellow != 0 ) || (black != 0))
-						*q = qRgba(255-QMIN(255, cyan+black), 255-QMIN(255,magenta+black), 255-QMIN(255,yellow+black), 255);
+						*q = qRgba(255-QMIN(255, Qt::cyan+Qt::black), 255-QMIN(255,Qt::magenta+Qt::black), 255-QMIN(255,Qt::yellow+Qt::black), 255);
 					else
 					{
 						if (!AliasTr->isChecked())
@@ -728,7 +735,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			image = QImage(w, h2, 32);
 			QByteArray imgc(w2);
 			QFile f(prefsManager->preferencesLocation()+"/sc.png");
-			if (f.open(IO_ReadOnly))
+			if (f.open(QIODevice::ReadOnly))
 			{
 				for (int y=0; y < h2; ++y )
 				{
@@ -752,7 +759,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 							alpha = 0;
 						else
 							alpha = 255;
-						*p = qRgba(255-QMIN(255, cyan+black), 255-QMIN(255,magenta+black), 255-QMIN(255,yellow+black), alpha);
+						*p = qRgba(255-QMIN(255, Qt::cyan+Qt::black), 255-QMIN(255,Qt::magenta+Qt::black), 255-QMIN(255,Qt::yellow+Qt::black), alpha);
 						p++;
 					}
 				}
@@ -793,7 +800,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 	}
 	else
 		Bild.convertFromImage(image);
-	qApp->setOverrideCursor(QCursor(arrowCursor), true);
+	qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 	APage = Seite;
 	CMode = EnableCMYK->isChecked();
 	TxtAl = AliasText->isChecked();

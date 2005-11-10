@@ -1,10 +1,9 @@
 #include "pageselector.h"
-#include "pageselector.moc"
 
 #include <qvariant.h>
 #include <qcombobox.h>
 #include <qlineedit.h>
-#include <qpopupmenu.h>
+#include <q3popupmenu.h>
 #if OPTION_USE_QTOOLBUTTON
     #include <qtoolbutton.h>
 #else
@@ -13,9 +12,11 @@
 #include <qlayout.h>
 #include <qtoolbutton.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
 #include <qimage.h>
 #include <qpixmap.h>
+//Added by qt3to4:
+#include <QHBoxLayout>
 #include "sccombobox.h"
 
 extern QPixmap loadIcon(QString nam);
@@ -86,17 +87,18 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, "pgs
 	Last->setFlat(OPTION_FLAT_BUTTON);
 #endif
 	Start->setPixmap( loadIcon("start.png") );
-	Start->setFocusPolicy(QWidget::NoFocus);
+	Start->setFocusPolicy(Qt::NoFocus);
 	PageSelectorLayout->addWidget( Start );
 
 	Back->setPixmap( loadIcon("back.png") );
-	Back->setFocusPolicy(QWidget::NoFocus);
+	Back->setFocusPolicy(Qt::NoFocus);
 	Back->setAutoRepeat(true);
 	PageSelectorLayout->addWidget( Back );
 
 	v = new PageValidator(1, LastPG, this);
 	PageCombo = new ScComboBox( true, this, "PageCombo" );
 	PageCombo->setDuplicatesEnabled( false );
+        if (PageCombo->lineEdit()) // #### Huh?
 	PageCombo->lineEdit()->setAlignment(Qt::AlignHCenter);
 	QString tmp;
 	for (int a = 0; a < LastPG; ++a)
@@ -105,16 +107,16 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, "pgs
 	}
 	PageCombo->setValidator(v);
 	PageCombo->setMinimumSize(fontMetrics().width( "999 of 999" )+20, 20);
-	PageCombo->setFocusPolicy(QWidget::ClickFocus);
+	PageCombo->setFocusPolicy(Qt::ClickFocus);
 	PageSelectorLayout->addWidget( PageCombo );
 	
 	Forward->setPixmap( loadIcon("forward.png") );
-	Forward->setFocusPolicy(QWidget::NoFocus);
+	Forward->setFocusPolicy(Qt::NoFocus);
 	Forward->setAutoRepeat(true);
 	PageSelectorLayout->addWidget( Forward );
 
 	Last->setPixmap( loadIcon("finish.png") );
-	Last->setFocusPolicy(QWidget::NoFocus);
+	Last->setFocusPolicy(Qt::NoFocus);
 	PageSelectorLayout->addWidget( Last );
 	Forward->setEnabled(true);
 	Last->setEnabled(true);
@@ -141,7 +143,7 @@ bool PageSelector::hasFocus()
 }
 
 
-void PageSelector::focusPolicy(QWidget::FocusPolicy policy)
+void PageSelector::focusPolicy(Qt::FocusPolicy policy)
 {
 	PageCombo->setFocusPolicy(policy);
 }
@@ -171,7 +173,7 @@ void PageSelector::GotoPg(int a)
 {
 	disconnect( PageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
 	PageCombo->setCurrentItem(a);
-	PageCombo->setEditText( tr( "%1 of %1" ).arg(a+1).arg(LastPG) );
+	PageCombo->setEditText( tr( "%1 of %2" ).arg(a+1).arg(LastPG) );
 	APage = a+1;
 	Back->setEnabled(true);
 	Start->setEnabled(true);
@@ -201,7 +203,7 @@ void PageSelector::setMaxValue(int a)
 	{
 		PageCombo->insertItem(tmp.setNum(b+1));
 	}
-	PageCombo->setEditText( tr( "%1 of %1" ).arg(APage).arg(LastPG) );
+	PageCombo->setEditText( tr( "%1 of %2" ).arg(APage).arg(LastPG) );
 	connect( PageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
 }
 

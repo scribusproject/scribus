@@ -2,8 +2,10 @@
 #define OODPLUG_H
 
 #include <qobject.h>
-#include <qdict.h>
-#include <qptrlist.h>
+#include <q3dict.h>
+#include <q3ptrlist.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 #include "pluginapi.h"
 #include "loadsaveplugin.h"
 #include "stylestack.h"
@@ -55,7 +57,7 @@ public:
 	OODPlug( QString fName, bool isInteractive );
 	~OODPlug();
 	void convert();
-	QPtrList<PageItem> parseGroup(const QDomElement &e);
+	Q3PtrList<PageItem> parseGroup(const QDomElement &e);
 	void createStyleMap( QDomDocument &docstyles );
 	void insertDraws( const QDomElement& styles );
 	void insertStyles( const QDomElement& styles );
@@ -80,14 +82,14 @@ public:
 	QDomDocument inpContents;
 	QDomDocument inpStyles;
 	QDomDocument inpMeta;
-	QDict<QDomElement> m_styles, m_draws;
+	Q3Dict<QDomElement> m_styles, m_draws;
 	StyleStack m_styleStack;
 	QString stylePath;
 	QString contentPath;
 	QString metaPath;
 	double CurrX, CurrY, StartX, StartY;
 	int PathLen;
-	QPtrList<PageItem> Elements;
+	Q3PtrList<PageItem> Elements;
 	bool FirstM, WasM, PathClosed, HaveMeta;
 protected:
 	bool interactive;

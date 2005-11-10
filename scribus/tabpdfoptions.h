@@ -5,11 +5,11 @@
 #include <qwidget.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qlistbox.h>
+#include <q3listbox.h>
 #include <qmap.h>
-#include <qvaluelist.h>
-#include <qbuttongroup.h>
-#include <qgroupbox.h>
+#include <q3valuelist.h>
+#include <q3buttongroup.h>
+#include <q3groupbox.h>
 #include <qcheckbox.h>
 #include <qcombobox.h>
 #include <qradiobutton.h>
@@ -20,6 +20,10 @@
 #include <qtoolbutton.h>
 #include <qlineedit.h>
 #include <qlabel.h>
+//Added by qt3to4:
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 
 #include "scribusapi.h"
 #include "bookmwin.h"
@@ -34,7 +38,7 @@ class SCRIBUS_API TabPDFOptions : public QTabWidget
 public:
 	TabPDFOptions(  QWidget* parent, PDFOptions *Optionen, SCFonts &AllFonts,
 					ProfilesL *PDFXProfiles, QMap<QString,int> DocFonts,
-					QValueList<PDFPresentationData> Eff, int unitIndex,
+					Q3ValueList<PDFPresentationData> Eff, int unitIndex,
 					double PageH, double PageB, ScribusView *vie = 0 );
 	~TabPDFOptions() {};
 	void restoreDefaults();
@@ -53,12 +57,12 @@ public:
 	QCheckBox* Compression;
 	QCheckBox* DSColor;
 	QSpinBox* ValC;
-	QGroupBox* CBox;
+	Q3GroupBox* CBox;
 	QLabel* TextCom1;
 	QLabel* TextCom2;
 	QComboBox* CQuality;
 	QComboBox* CMethod;
-	QGroupBox* GroupBox1;
+	Q3GroupBox* GroupBox1;
 	QLabel* TextLabel2;
 	QComboBox* PDFVersionCombo;
 	QLabel* TextLabel1x;
@@ -83,34 +87,34 @@ public:
 	QComboBox* EDirection_2_2;
 	QSpinBox* PageTime;
 	QSpinBox* EffectTime;
-	QListBox* Pages;
-	QGroupBox* Effects;
+	Q3ListBox* Pages;
+	Q3GroupBox* Effects;
 	QCheckBox* PagePrev;
 	QCheckBox* CheckBM;
 	QCheckBox* EmbedFonts;
-	QGroupBox* GroupFont;
+	Q3GroupBox* GroupFont;
 	QLabel* TextFont1;
-	QListBox* AvailFlist;
+	Q3ListBox* AvailFlist;
 	QPushButton* ToEmbed;
 	QPushButton* FromEmbed;
 	QLabel* TextFont1_2;
 	QLabel* TextFont1_2a;
-	QButtonGroup* RangeGroup;
+	Q3ButtonGroup* RangeGroup;
 	QRadioButton* AllPages;
 	QRadioButton* OnlySome;
 	QLineEdit* PageNr;
-	QListBox* EmbedList;
+	Q3ListBox* EmbedList;
 	QPushButton* ToSubset;
 	QPushButton* FromSubset;
-	QListBox* SubsetList;
+	Q3ListBox* SubsetList;
 	QCheckBox* SubsetFonts;
-	QGroupBox* ColorGroup;
-	QGroupBox* GroupBox9;
+	Q3GroupBox* ColorGroup;
+	Q3GroupBox* GroupBox9;
 	QLabel* ColorText1;
 	QComboBox* OutCombo;
 	QCheckBox* EmbedProfs;
 	QCheckBox* EmbedProfs2;
-	QGroupBox* ProfsGroup;
+	Q3GroupBox* ProfsGroup;
 	QComboBox* SolidPr;
 	QLabel* ProfsTxt1;
 	QComboBox* ImageP;
@@ -120,30 +124,30 @@ public:
 	QLabel* ProfsTxt2;
 	QComboBox* IntendS;
 	QComboBox* IntendI;
-	QGroupBox* X3Group;
+	Q3GroupBox* X3Group;
 	QComboBox* PrintProfC;
 	QLineEdit* InfoString;
 	QLabel* PDFX2;
 	QLabel* PDFX1;
-	QGroupBox* BleedGroup;
+	Q3GroupBox* BleedGroup;
 	QLabel* BleedIcon;
 	MSpinBox* BleedTop;
 	MSpinBox* BleedBottom;
 	MSpinBox* BleedRight;
 	MSpinBox* BleedLeft;
-	QGroupBox* GroupPass;
+	Q3GroupBox* GroupPass;
 	QLabel* TextSec2;
 	QLabel* TextSec1;
 	QLineEdit* PassOwner;
 	QLineEdit* PassUser;
-	QGroupBox* GroupSecSet;
+	Q3GroupBox* GroupSecSet;
 	QCheckBox* PrintSec;
 	QCheckBox* PrintSec2;
 	QCheckBox* ModifySec;
 	QCheckBox* CopySec;
 	QCheckBox* AddSec;
 	QCheckBox* Encry;
-	QGroupBox* LPIgroup;
+	Q3GroupBox* LPIgroup;
 	QCheckBox* UseLPI;
 	QSpinBox* LPIfreq;
 	QSpinBox* LPIangle;
@@ -153,10 +157,10 @@ public:
 	QLabel* textLPI3;
 	QComboBox* LPIcolor;
 	QComboBox* LPIfunc;
-	QValueList<QString> FontsToEmbed;
-	QValueList<QString> FontsToSubset;
+	Q3ValueList<QString> FontsToEmbed;
+	Q3ValueList<QString> FontsToSubset;
 	ScribusView *view;
-	QValueList<PDFPresentationData> EffVal;
+	Q3ValueList<PDFPresentationData> EffVal;
 	int PgSel;
 	QString SelLPIcolor;
 	PDFOptions *Opts;
@@ -178,9 +182,9 @@ public slots:
 	void PutToEmbed();
 	void RemoveSubset();
 	void PutToSubset();
-	void SelAFont(QListBoxItem*);
-	void SelEFont(QListBoxItem*);
-	void SelSFont(QListBoxItem*);
+	void SelAFont(Q3ListBoxItem*);
+	void SelEFont(Q3ListBoxItem*);
+	void SelSFont(Q3ListBoxItem*);
 	void EmbedAll();
 	void SubsetAll();
 	void PagePr();

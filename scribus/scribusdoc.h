@@ -21,15 +21,15 @@
 #endif
 // include files for QT
 #include <qobject.h>
-#include <qdict.h>
+#include <q3dict.h>
 #include <qcolor.h>
-#include <qvaluelist.h>
-#include <qvaluevector.h>
+#include <q3valuelist.h>
+#include <q3valuevector.h>
 #include <qpixmap.h>
-#include <qptrlist.h>
+#include <q3ptrlist.h>
 #include <qfont.h>
 #include <qmap.h>
-#include <qpointarray.h>
+#include <q3pointarray.h>
 #include <qstringlist.h>
 #include <qtimer.h>
 
@@ -197,7 +197,7 @@ public:
 	 * @param Number of the layer
 	 * @return Name of the layer
 	 */
-	const QString &layerName(const int);
+	const QString layerName(const int);
 	/**
 	 * @brief Change the name of a layer
 	 * @param Number of the layer
@@ -229,7 +229,7 @@ public:
 	bool AddFont(QString name, int fsize = 10);
 	void OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo);
 	void CloseCMSProfiles();
-	void loadStylesFromFile(QString fileName, QValueList<ParagraphStyle> *tempStyles = NULL);
+	void loadStylesFromFile(QString fileName, Q3ValueList<ParagraphStyle> *tempStyles = NULL);
 	/**
 	 * @brief Should guides be locked or not
 	 * @param isLocked If true guides on pages cannot be moved if false they
@@ -357,7 +357,7 @@ public:
 	/**
 	 * @brief Find the minX,MinY and maxX,maxY for the canvas required for the doc
 	 */
-	void canvasMinMax(FPoint&, FPoint&);
+	void canvasMinMax(QPointF&, QPointF&);
 	
 	int OnPage(double x2, double  y2);
 	int OnPage(PageItem *currItem);
@@ -423,23 +423,23 @@ public: // Public attributes
 	double ScratchTop;
 	double ScratchBottom;
 /** Minimum and Maximum Points of Document */
-	FPoint minCanvasCoordinate;
-	FPoint maxCanvasCoordinate;
+	QPointF minCanvasCoordinate;
+	QPointF maxCanvasCoordinate;
 	double rulerXoffset;
 	double rulerYoffset;
   /** List of Pages */
-	QPtrList<Page>* Pages;
+	Q3PtrList<Page>* Pages;
   /** List of Master Pages */
-	QPtrList<Page> MasterPages;
+	Q3PtrList<Page> MasterPages;
   /** List of Document Pages */
-	QPtrList<Page> DocPages;
+	Q3PtrList<Page> DocPages;
   /** Mapping Master Page Name to Master Page numbers */
 	QMap<QString,int> MasterNames;
   /** List of Objects */
-	QPtrList<PageItem>* Items;
-	QPtrList<PageItem> MasterItems;
-	QPtrList<PageItem> DocItems;
-	QPtrList<PageItem> FrameItems;
+	Q3PtrList<PageItem>* Items;
+	Q3PtrList<PageItem> MasterItems;
+	Q3PtrList<PageItem> DocItems;
+	Q3PtrList<PageItem> FrameItems;
   /** Pagewidth  */
 	double pageWidth;
   /** Pageheight */
@@ -448,7 +448,7 @@ public: // Public attributes
 	int pageCount;
   /** Margins */
 	MarginStruct pageMargins;
-	QValueList<PageSet> pageSets;
+	Q3ValueList<PageSet> pageSets;
   /** Number of Columns */
 	double PageSp;
   /** Distance of Columns */
@@ -509,9 +509,9 @@ public: // Public attributes
 	bool leaveDrag;
 	PageItem *DraggedElem;
 	PageItem *ElemToLink;
-	QValueList<uint> DragElements;
-	QValueList<ParagraphStyle> docParagraphStyles;
-	QValueList<Layer> Layers;
+	Q3ValueList<uint> DragElements;
+	Q3ValueList<ParagraphStyle> docParagraphStyles;
+	Q3ValueList<Layer> Layers;
 	bool marginColored;
 	int GroupCounter;
 	CMSData CMSSettings;
@@ -558,7 +558,7 @@ public: // Public attributes
 					int Prev;
 					int Next;
 					};
-	QValueList<BookMa> BookMarks;
+	Q3ValueList<BookMa> BookMarks;
 	bool OldBM;
 	bool hasName;
 	int RotMode;
@@ -568,10 +568,10 @@ public: // Public attributes
 	FT_Library   library;
 	QMap<QString,FT_Face> FFonts;
 	QMap<QString,multiLine> MLineStyles;
-	QValueList<ArrowDesc> arrowStyles;
+	Q3ValueList<ArrowDesc> arrowStyles;
 	QWidget* WinHan;
 	bool DoDrawing;
-	QValueList<int> OpenNodes;
+	Q3ValueList<int> OpenNodes;
 	QTimer *CurTimer;
 	QMap<int, errorCodes> docItemErrors;
 	QMap<int, errorCodes> masterItemErrors;

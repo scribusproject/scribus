@@ -2,7 +2,10 @@
 #define SVGPLUG_H
 
 #include <qdom.h>
-#include <qptrstack.h>
+#include <q3ptrstack.h>
+#include <Q3ValueList>
+#include <Q3PtrList>
+#include <QMap>
 #include "pluginapi.h"
 #include "loadsaveplugin.h"
 #include "vgradient.h"
@@ -60,7 +63,7 @@ public:
 		y2Valid = true;
 		gradient = VGradient(VGradient::linear);
 		gradientValid = false;
-		matrix = QWMatrix();
+		matrix = QMatrix();
 		matrixValid = false;
 		reference = "";
 		}
@@ -79,7 +82,7 @@ public:
 	bool y2Valid;
 	bool CSpace;
 	bool cspaceValid;
-	QWMatrix	matrix;
+	QMatrix	matrix;
 	bool matrixValid;
 	};
 
@@ -105,8 +108,8 @@ public:
 		CSpace = false;
 		Family = "";
 		FontSize = 12;
-		matrix = QWMatrix();
-		matrixg = QWMatrix();
+		matrix = QMatrix();
+		matrixg = QMatrix();
 		PLineArt = Qt::SolidLine;
 		PLineJoin = Qt::MiterJoin;
 		PLineEnd = Qt::FlatCap;
@@ -114,8 +117,8 @@ public:
 		dashOffset = 0;
 		dashArray.clear();
 		}
-	QWMatrix	matrix;
-	QWMatrix	matrixg;
+	QMatrix	matrix;
+	QMatrix	matrixg;
 	double LWidth;
 	Qt::PenStyle PLineArt;
 	Qt::PenJoinStyle PLineJoin;
@@ -138,7 +141,7 @@ public:
 	double TranspStroke;
 	bool InherCol;
 	double dashOffset;
-	QValueList<double> dashArray;
+	Q3ValueList<double> dashArray;
 };
 
 class SVGPlug : public QObject
@@ -151,10 +154,10 @@ public:
 	void convert();
 	void addGraphicContext();
 	void setupTransform( const QDomElement &e );
-	QPtrList<PageItem> parseGroup(const QDomElement &e);
+	Q3PtrList<PageItem> parseGroup(const QDomElement &e);
 	double fromPercentage( const QString &s );
 	double parseUnit(const QString &unit);
-	QWMatrix parseTransform(const QString &transform);
+	QMatrix parseTransform(const QString &transform);
 	const char * getCoord( const char *ptr, double &number );
 	bool parseSVG( const QString &s, FPointArray *ite );
 	void calculateArc(FPointArray *ite, bool relative, double &curx, double &cury, double angle, double x, double y, double r1, double r2, bool largeArcFlag, bool sweepFlag);
@@ -168,16 +171,16 @@ public:
 	void parseStyle( SvgStyle *obj, const QDomElement &e );
 	void parseColorStops(GradientHelper *gradient, const QDomElement &e);
 	void parseGradient( const QDomElement &e );
-	FPoint GetMaxClipO(FPointArray Clip);
-	FPoint GetMinClipO(FPointArray Clip);
-	QPtrList<PageItem> parseText(double x, double y, const QDomElement &e);
+	QPointF GetMaxClipO(FPointArray Clip);
+	QPointF GetMinClipO(FPointArray Clip);
+	Q3PtrList<PageItem> parseText(double x, double y, const QDomElement &e);
 
 	ScribusDoc* currDoc;
 	QDomDocument inpdoc;
 	double CurrX, CurrY, StartX, StartY, Conversion;
 	int PathLen;
-	QPtrList<PageItem> Elements;
-	QPtrStack<SvgStyle>	m_gc;
+	Q3PtrList<PageItem> Elements;
+	Q3PtrStack<SvgStyle>	m_gc;
 	QMap<QString, GradientHelper>	m_gradients;
 	bool FirstM, WasM, PathClosed;
 	double viewTransformX;

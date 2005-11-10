@@ -1,7 +1,7 @@
 #ifndef PAGESTRUCTS_H
 #define PAGESTRUCTS_H
 
-#include <qvaluevector.h>
+#include <q3valuevector.h>
 #include <qstring.h>
 
 struct ObjectAttribute 
@@ -15,7 +15,7 @@ struct ObjectAttribute
 	QString autoaddto;
 };
 
-typedef QValueVector<ObjectAttribute> ObjAttrVector;
+typedef Q3ValueVector<ObjectAttribute> ObjAttrVector;
 
 typedef enum {Beginning, End, NotShown} TOCPageLocation;
 
@@ -31,5 +31,5 @@ struct ToCSetup
 	//QString pageNumberParaStyle; //Paragraph style for page numbers
 };
 
-typedef QValueVector<ToCSetup> ToCSetupVector;
+typedef Q3ValueVector<ToCSetup> ToCSetupVector;
 #endif

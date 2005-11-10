@@ -1,14 +1,20 @@
 #include "muster.h"
-#include "muster.moc"
 #include "newtemp.h"
 #include "mergedoc.h"
 #include <qlayout.h>
-#include <qlistbox.h>
+#include <q3listbox.h>
 #include <qpushbutton.h>
 #include <qmessagebox.h>
 #include <qcursor.h>
 #include <qstring.h>
 #include <qtooltip.h>
+
+#include <QApplication>
+#include <QCloseEvent>
+#include <Q3PtrList>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+
 #include "page.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
@@ -16,7 +22,7 @@
 #include "commonstrings.h"
 
 MasterPagesPalette::MasterPagesPalette( QWidget* parent, ScribusDoc *pCurrentDoc, ScribusView *pCurrentView, QString masterPageName)
-		: QDialog( parent, "Muster", false, WDestructiveClose)
+		: QDialog( parent, "Muster", false, Qt::WDestructiveClose)
 {
 	setCaption( tr( "Edit Master Pages" ) );
 	setIcon(loadIcon("AppIcon.png"));
@@ -39,7 +45,7 @@ MasterPagesPalette::MasterPagesPalette( QWidget* parent, ScribusDoc *pCurrentDoc
 	buttonLayout->addWidget( importButton );
 	buttonLayout->addWidget( deleteButton );
 	masterPagesLayout->addLayout( buttonLayout );
-	masterPageData = new QListBox( this, "masterPageData" );
+	masterPageData = new Q3ListBox( this, "masterPageData" );
 	masterPageData->setMinimumSize( QSize( 100, 240 ) );
 	masterPagesLayout->addWidget( masterPageData );
 
@@ -68,7 +74,7 @@ MasterPagesPalette::MasterPagesPalette( QWidget* parent, ScribusDoc *pCurrentDoc
 	connect(deleteButton, SIGNAL(clicked()), this, SLOT(deleteMasterPage()));
 	connect(newButton, SIGNAL(clicked()), this, SLOT(newMasterPage()));
 	connect(importButton, SIGNAL(clicked()), this, SLOT(appendPage()));
-	connect(masterPageData, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selectMasterPage(QListBoxItem*)));
+	connect(masterPageData, SIGNAL(highlighted(Q3ListBoxItem*)), this, SLOT(selectMasterPage(Q3ListBoxItem*)));
 }
 
 void MasterPagesPalette::reject()
@@ -154,26 +160,28 @@ void MasterPagesPalette::duplicateMasterPage()
 		}
 		int inde = currentDoc->MasterNames[sMuster];
 		QMap<int,int> TableID;
-		QPtrList<PageItem> TableItems;
+		Q3PtrList<PageItem> TableItems;
 		TableID.clear();
 		TableItems.clear();
 		if (currentDoc->Pages->at(inde)->YGuides.count() != 0)
 		{
 			currentDoc->currentPage->YGuides.clear();
-			for (uint y = 0; y < currentDoc->Pages->at(inde)->YGuides.count(); ++y)
+			for (int y = 0; y < currentDoc->Pages->at(inde)->YGuides.count(); ++y)
 			{
 				currentDoc->currentPage->YGuides.append(currentDoc->Pages->at(inde)->YGuides[y]);
 			}
-			qHeapSort(currentDoc->currentPage->YGuides);
+			qWarning( "qSort messed up" );
+			//qSort(currentDoc->currentPage->YGuides);
 		}
 		if (currentDoc->Pages->at(inde)->XGuides.count() != 0)
 		{
 			currentDoc->currentPage->XGuides.clear();
-			for (uint x = 0; x < currentDoc->Pages->at(inde)->XGuides.count(); ++x)
+			for (int x = 0; x < currentDoc->Pages->at(inde)->XGuides.count(); ++x)
 			{
 				currentDoc->currentPage->XGuides.append(currentDoc->Pages->at(inde)->XGuides[x]);
 			}
-			qHeapSort(currentDoc->currentPage->XGuides);
+			qWarning( "qSort messed up" );
+			//qSort(currentDoc->currentPage->XGuides);
 		}
 		uint end = currentDoc->Items->count();
 		int GrMax = currentDoc->GroupCounter;
@@ -186,8 +194,8 @@ void MasterPagesPalette::duplicateMasterPage()
 				if (itemToCopy->Groups.count() != 0)
 				{
 					Buffer.Groups.clear();
-					QValueStack<int>::Iterator nx;
-					QValueStack<int> tmpGroup;
+					Q3ValueStack<int>::Iterator nx;
+					Q3ValueStack<int> tmpGroup;
 					for (nx = itemToCopy->Groups.begin(); nx != itemToCopy->Groups.end(); ++nx)
 					{
 						tmpGroup.push((*nx)+currentDoc->GroupCounter);
@@ -303,7 +311,7 @@ void MasterPagesPalette::appendPage()
 	MergeDoc *dia = new MergeDoc(this, true);
 	if (dia->exec())
 	{
-		qApp->setOverrideCursor(QCursor(waitCursor), true);
+		qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
 		nr = currentDoc->Pages->count();
 		currentDoc->pageCount = 0;
 		atf = currentDoc->usesAutomaticTextFrames();
@@ -326,14 +334,14 @@ void MasterPagesPalette::appendPage()
 		updateMasterPageList(MasterPageName2);
 		currentDoc->setUsesAutomaticTextFrames(atf);
 		currentView->showMasterPage(currentDoc->MasterNames[MasterPageName2]);
-		qApp->setOverrideCursor(QCursor(arrowCursor), true);
+		qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 		//currentDoc->MasterPages = currentDoc->Pages;
 		emit docAltered();
 	}
 	delete dia;
 }
 
-void MasterPagesPalette::selectMasterPage(QListBoxItem *item)
+void MasterPagesPalette::selectMasterPage(Q3ListBoxItem *item)
 {
 	sMuster = item->text();
 	deleteButton->setEnabled(currentDoc->MasterNames.count() == 1 ? false : true);

@@ -2,14 +2,14 @@
 #define GUIDEMANAGER_H
 
 #include <qdialog.h>
-#include <qvaluelist.h>
-#include <qgroupbox.h>
+#include <q3valuelist.h>
+#include <q3groupbox.h>
 #include <qlabel.h>
-#include <qlistbox.h>
+#include <q3listbox.h>
 #include <qpushbutton.h>
 #include <qcheckbox.h>
 #include <qtooltip.h>
-#include <qhbuttongroup.h>
+#include <Q3HButtonGroup>
 
 #include "scribusapi.h"
 #include "mspinbox.h"
@@ -38,9 +38,9 @@ public:
 
 private:
 	/*! \brief A list with horizontal guides */
-	QValueList<double> horizontalGuides;
+	Q3ValueList<double> horizontalGuides;
 	/*! \brief A list with vertical guides */
-	QValueList<double> verticalGuides;
+	Q3ValueList<double> verticalGuides;
 	/*! \brief "Guides are locked" indicator */
 	bool lockedGuides;
 
@@ -57,15 +57,15 @@ private:
 	int selHor;
 	int selVer;
 
-	QGroupBox* VerGroup;
-	QListBox* VerList;
+	Q3GroupBox* VerGroup;
+	Q3ListBox* VerList;
 	QLabel* TextLabel1;
 	MSpinBox* VerSpin;
 	QPushButton* VerSet;
 	QPushButton* VerDel;
 
-	QGroupBox* HorGroup;
-	QListBox* HorList;
+	Q3GroupBox* HorGroup;
+	Q3ListBox* HorList;
 	QLabel* TextLabel2;
 	MSpinBox* HorSpin;
 	QPushButton* HorSet;
@@ -73,7 +73,7 @@ private:
 
 	QSpinBox* ColSpin;
 	QSpinBox* RowSpin;
-	QHButtonGroup *BGroup;
+	Q3HButtonGroup *BGroup;
 
 	QCheckBox* Lock;
 
@@ -107,13 +107,13 @@ private:
 	This algorithm is used for guides creating and deleting too.
 	\retval QValueList<double> a list with guides positions
 	*/
-	QValueList<double> getRowValues();
+	Q3ValueList<double> getRowValues();
 
 	/*! \brief Calculates the column position of the guide.
 	This algorithm is used for guides creating and deleting too.
 	\retval QValueList<double> a list with guides positions
 	*/
-	QValueList<double> getColValues();
+	Q3ValueList<double> getColValues();
 
 private slots:
 
@@ -125,8 +125,8 @@ private slots:
 
 	void HandleLock();
 
-	void selHorIte(QListBoxItem *c);
-	void selVerIte(QListBoxItem *c);
+	void selHorIte(Q3ListBoxItem *c);
+	void selVerIte(Q3ListBoxItem *c);
 
 	void ChangeHorVal();
 	void ChangeVerVal();

@@ -1,14 +1,16 @@
 #ifndef ALIGNSELECT_H
 #define ALIGNSELECT_H
 
-#include <qbuttongroup.h>
+#include <q3buttongroup.h>
 #include <qtoolbutton.h>
 #include <qlayout.h>
 #include <qtooltip.h>
+//Added by qt3to4:
+#include <QGridLayout>
 
 #include "scribusapi.h"
 
-class SCRIBUS_API AlignSelect : public QButtonGroup
+class SCRIBUS_API AlignSelect : public Q3ButtonGroup
 {
 
 Q_OBJECT
@@ -19,7 +21,7 @@ public:
 	void setStyle(int s);
 	int getStyle();
 
-	QButtonGroup* GroupAlign;
+	Q3ButtonGroup* GroupAlign;
 	QToolButton* TextL;
 	QToolButton* TextR;
 	QToolButton* TextC;

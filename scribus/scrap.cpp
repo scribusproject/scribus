@@ -5,16 +5,24 @@
 **
 ****************************************************************************/
 #include "scrap.h"
-#include "scrap.moc"
 #include <qfileinfo.h>
 #include <qfile.h>
-#include <qurl.h>
+#include <q3url.h>
 #include <qtextstream.h>
 #include <qdom.h>
-#include <qfiledialog.h>
+#include <q3filedialog.h>
 #include <qmessagebox.h>
 #include <qcursor.h>
 #include "query.h"
+//Added by qt3to4:
+#include <QApplication>
+#include <QPixmap>
+#include <QKeyEvent>
+#include <Q3Frame>
+#include <QDropEvent>
+#include <Q3ValueList>
+#include <QVBoxLayout>
+#include <Q3PopupMenu>
 #include "scpreview.h"
 #include "prefsfile.h"
 #include "util.h"
@@ -24,7 +32,7 @@
 
 /* The Scrapbook View Class
  * inherited from QIconView */
-BibView::BibView(QWidget* parent) : QIconView(parent)
+BibView::BibView(QWidget* parent) : Q3IconView(parent)
 {
 	objectMap.clear();
 }
@@ -32,9 +40,9 @@ BibView::BibView(QWidget* parent) : QIconView(parent)
 void BibView::keyPressEvent(QKeyEvent *k)
 {
 	//Why doesnt this widget send Escape to the QDialog? Lets make Escape work for now anyway.
-	if (k->key()==Key_Escape && k->state() == 0)
+	if (k->key()==Qt::Key_Escape && k->state() == 0)
 	{
-		QFrame *f=dynamic_cast<QFrame *>(parent());
+		Q3Frame *f=dynamic_cast<Q3Frame *>(parent());
 		if (f)
 		{
 			QDialog *d=dynamic_cast<QDialog *>(f->parent());
@@ -43,13 +51,13 @@ void BibView::keyPressEvent(QKeyEvent *k)
 		}
 	}
 	else
-		QIconView::keyPressEvent(k);
+		Q3IconView::keyPressEvent(k);
 }
 
-QDragObject *BibView::dragObject()
+Q3DragObject *BibView::dragObject()
 {
 	QString dt = objectMap[currentItem()->text()].Data.utf8();
-	QDragObject *dr = new QTextDrag(dt, this);
+	Q3DragObject *dr = new Q3TextDrag(dt, this);
 	dr->setPixmap(loadIcon("DragPix.xpm"));
 	return dr;
 }
@@ -76,11 +84,11 @@ void BibView::SaveContents(QString name)
 		ele.appendChild(dc);
 	}
 	QFile f(name);
-	if(!f.open(IO_WriteOnly))
+	if(!f.open(QIODevice::WriteOnly))
 		return ;
 	QTextStream s(&f);
 	QString wr = docu.toString().utf8();
-	s.writeRawBytes(wr, wr.length());
+	s << wr;
 	f.close();
 }
 
@@ -117,7 +125,7 @@ void BibView::ReadContents(QString name)
 	QMap<QString,Elem>::Iterator itf;
 	for (itf = objectMap.begin(); itf != objectMap.end(); ++itf)
 	{
-		(void) new QIconViewItem(this, itf.key(), itf.data().Preview);
+		(void) new Q3IconViewItem(this, itf.key(), itf.data().Preview);
 	}
 }
 
@@ -129,7 +137,7 @@ void BibView::RebuildView()
 	{
 		ScPreview *pre = new ScPreview();
 		itf.data().Preview = pre->createPreview(itf.data().Data);
-		(void) new QIconViewItem(this, itf.key(), itf.data().Preview);
+		(void) new Q3IconViewItem(this, itf.key(), itf.data().Preview);
 		delete pre;
 	}
 }
@@ -144,13 +152,13 @@ Biblio::Biblio( QWidget* parent) : ScrPaletteBase( parent, "Sclib", false, 0 )
 	BiblioLayout = new QVBoxLayout( this );
 	BiblioLayout->setSpacing( 0 );
 	BiblioLayout->setMargin( 0 );
-	fmenu = new QPopupMenu();
-	fNew = fmenu->insertItem(loadIcon("DateiNeu16.png"), "", this, SLOT(NewLib()), CTRL+Key_N);
-	fLoad = fmenu->insertItem(loadIcon("DateiOpen16.png"), "", this, SLOT(Load()), CTRL+Key_O);
-	fSave = fmenu->insertItem(loadIcon("DateiSave16.png"), "", this, SLOT(Save()), CTRL+Key_S);
+	fmenu = new Q3PopupMenu();
+	fNew = fmenu->insertItem(loadIcon("DateiNeu16.png"), "", this, SLOT(NewLib()), Qt::CTRL+Qt::Key_N);
+	fLoad = fmenu->insertItem(loadIcon("DateiOpen16.png"), "", this, SLOT(Load()), Qt::CTRL+Qt::Key_O);
+	fSave = fmenu->insertItem(loadIcon("DateiSave16.png"), "", this, SLOT(Save()), Qt::CTRL+Qt::Key_S);
 	fSaveAs = fmenu->insertItem( "", this, SLOT(SaveAs()));
 	fClose = fmenu->insertItem(loadIcon("DateiClos16.png"), "", this, SLOT(close()));
-	vmenu = new QPopupMenu();
+	vmenu = new Q3PopupMenu();
 	vSmall = vmenu->insertItem( "" );
 	vMedium = vmenu->insertItem( "" );
 	vLarge = vmenu->insertItem( "" );
@@ -171,9 +179,9 @@ Biblio::Biblio( QWidget* parent) : ScrPaletteBase( parent, "Sclib", false, 0 )
 	mView=menuBar->insertItem( "", vmenu);
 	BiblioLayout->setMenuBar( menuBar );
 
-	Frame3 = new QFrame( this, "Frame3" );
-	Frame3->setFrameShape( QFrame::Box );
-	Frame3->setFrameShadow( QFrame::Sunken );
+	Frame3 = new Q3Frame( this, "Frame3" );
+	Frame3->setFrameShape( Q3Frame::Box );
+	Frame3->setFrameShadow( Q3Frame::Sunken );
 	Frame3Layout = new QVBoxLayout( Frame3 );
 	Frame3Layout->setSpacing( 6 );
 	Frame3Layout->setMargin( 11 );
@@ -181,13 +189,13 @@ Biblio::Biblio( QWidget* parent) : ScrPaletteBase( parent, "Sclib", false, 0 )
 	BibWin = new BibView(Frame3);
 	BibWin->setAutoArrange(true);
 	BibWin->setSorting(true);
-	BibWin->setResizeMode(QIconView::Adjust);
+	BibWin->setResizeMode(Q3IconView::Adjust);
 	Frame3Layout->addWidget( BibWin );
 	BiblioLayout->addWidget( Frame3 );
 	languageChange();
-	connect(BibWin, SIGNAL(dropped(QDropEvent *, const QValueList<QIconDragItem> &)), this, SLOT(DropOn(QDropEvent *)));
-	connect(BibWin, SIGNAL(rightButtonClicked(QIconViewItem*, const QPoint &)), this, SLOT(HandleMouse(QIconViewItem*)));
-	connect(BibWin, SIGNAL(itemRenamed(QIconViewItem*)), this, SLOT(ItemRenamed(QIconViewItem*)));
+	connect(BibWin, SIGNAL(dropped(QDropEvent *, const Q3ValueList<Q3IconDragItem> &)), this, SLOT(DropOn(QDropEvent *)));
+	connect(BibWin, SIGNAL(rightButtonClicked(Q3IconViewItem*, const QPoint &)), this, SLOT(HandleMouse(Q3IconViewItem*)));
+	connect(BibWin, SIGNAL(itemRenamed(Q3IconViewItem*)), this, SLOT(ItemRenamed(Q3IconViewItem*)));
 	connect(vmenu, SIGNAL(activated(int)), this, SLOT(SetPreview(int)));
 }
 
@@ -223,8 +231,8 @@ void Biblio::readContents(QString fileName)
 
 void Biblio::installEventFilter(const QObject *filterObj)
 {
-	ScrPaletteBase::installEventFilter(filterObj);
-	BibWin->installEventFilter(filterObj);
+	ScrPaletteBase::installEventFilter(const_cast<QObject*>( filterObj ));
+	BibWin->installEventFilter(const_cast<QObject*>( filterObj ));
 }
 
 
@@ -240,7 +248,7 @@ void Biblio::Save()
 void Biblio::SaveAs()
 {
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
-	QString fn = QFileDialog::getSaveFileName(dirs->get("scrap_saveas", "."),
+	QString fn = Q3FileDialog::getSaveFileName(dirs->get("scrap_saveas", "."),
 	                                          tr("Scrapbooks (*.scs);;All Files (*)"), this);
 	if (!fn.isEmpty())
 	{
@@ -262,7 +270,7 @@ void Biblio::Load()
 {
 	Save();
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
-	QString fileName = QFileDialog::getOpenFileName(dirs->get("scrap_load", "."),
+	QString fileName = Q3FileDialog::getOpenFileName(dirs->get("scrap_load", "."),
 	                                                tr("Scrapbooks (*.scs);;All Files (*)"),this);
 	if (!fileName.isEmpty())
 	{
@@ -312,13 +320,13 @@ void Biblio::AdjustMenu()
 	}
 }
 
-void Biblio::HandleMouse(QIconViewItem *ite)
+void Biblio::HandleMouse(Q3IconViewItem *ite)
 {
 	int mret, del, ren;
 	if (ite != 0)
 	{
-		QPopupMenu *pmenu = new QPopupMenu();
-		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+		Q3PopupMenu *pmenu = new Q3PopupMenu();
+		qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 		ren = pmenu->insertItem( tr("Rename"));
 		del = pmenu->insertItem( tr("Delete"));
 		mret = pmenu->exec(QCursor::pos());
@@ -345,7 +353,7 @@ void Biblio::NewLib()
 	fmenu->setItemEnabled(fSave, 0);
 }
 
-void Biblio::DeleteObj(QString name, QIconViewItem *ite)
+void Biblio::DeleteObj(QString name, Q3IconViewItem *ite)
 {
 	BibWin->objectMap.remove(name);
 	delete ite;
@@ -356,11 +364,11 @@ void Biblio::DeleteObj(QString name, QIconViewItem *ite)
 		Save();
 }
 
-void Biblio::ItemRenamed(QIconViewItem *ite)
+void Biblio::ItemRenamed(Q3IconViewItem *ite)
 {
 	QString ObjData;
 	QPixmap ObjPreview;
-	disconnect(BibWin, SIGNAL(itemRenamed(QIconViewItem*)), this, SLOT(ItemRenamed(QIconViewItem*)));
+	disconnect(BibWin, SIGNAL(itemRenamed(Q3IconViewItem*)), this, SLOT(ItemRenamed(Q3IconViewItem*)));
 	if (OldName != ite->text())
 	{
 		if (BibWin->objectMap.contains(ite->text()))
@@ -381,7 +389,7 @@ void Biblio::ItemRenamed(QIconViewItem *ite)
 				Save();
 		}
 	}
-	connect(BibWin, SIGNAL(itemRenamed(QIconViewItem*)), this, SLOT(ItemRenamed(QIconViewItem*)));
+	connect(BibWin, SIGNAL(itemRenamed(Q3IconViewItem*)), this, SLOT(ItemRenamed(Q3IconViewItem*)));
 }
 
 void Biblio::DropOn(QDropEvent *e)
@@ -389,9 +397,9 @@ void Biblio::DropOn(QDropEvent *e)
 	QString text, tmp, nam;
 	bool img;
 	tmp = "";
-	if (QTextDrag::decode(e, text))
+	if (Q3TextDrag::decode(e, text))
 	{
-		QUrl ur(text);
+		Q3Url ur(text);
 		QFileInfo fi = QFileInfo(ur.path());
 		QString ext = fi.extension(false).lower();
 		img = ((ext=="eps")||(ext=="ps")||(ext=="png")||(ext=="gif")||(ext=="jpg")||(ext=="xpm"));
@@ -452,7 +460,7 @@ void Biblio::ObjFromMenu(QString text)
 	ScPreview *pre = new ScPreview();
 	QPixmap pm = pre->createPreview(ff);
 	BibWin->AddObj(nam, ff, pm);
-	(void) new QIconViewItem(BibWin, nam, pm);
+	(void) new Q3IconViewItem(BibWin, nam, pm);
 	Changed = true;
 	delete pre;
 }

@@ -7,6 +7,8 @@
 
 #include <qcolor.h>
 #include <qstring.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 #include "scribusstructs.h"
 #include "pdfoptions.h"
 #include "scfonts.h"
@@ -132,8 +134,8 @@ struct toolPrefs
 struct ApplicationPrefs
 {
 	SCFonts AvailFonts;
-	QValueList<ArrowDesc> arrowStyles;
-	QValueList<PageSet> pageSets;
+	Q3ValueList<ArrowDesc> arrowStyles;
+	Q3ValueList<PageSet> pageSets;
 	ColorList DColors;
 	int Wheelval;
 	int AppFontSize;
@@ -158,7 +160,7 @@ struct ApplicationPrefs
 	bool SaveAtQ;
 	bool marginColored;
 	QStringList RecentDocs;
-	uint RecentDCount;
+	int RecentDCount;
 	CMSData DCMSset;
 	QMap<QString,Keys> KeyActions;
 	QString PrinterName;

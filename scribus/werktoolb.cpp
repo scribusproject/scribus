@@ -16,12 +16,11 @@
  ***************************************************************************/
 
 #include <qtooltip.h>
-#include <qpopupmenu.h>
+#include <q3popupmenu.h>
 #include <qpixmap.h>
 
 #include "werktoolb.h"
-#include "werktoolb.moc"
-
+#include "polyprops.h"
 #include "autoformbuttongroup.h"
 #include "menumanager.h"
 #include "polyprops.h"
@@ -32,7 +31,7 @@
 extern QPixmap loadIcon(QString nam);
 
 
-WerkToolB::WerkToolB(QMainWindow* parent) : QToolBar( tr("Tools"), parent)
+WerkToolB::WerkToolB(Q3MainWindow* parent) : Q3ToolBar( tr("Tools"), parent)
 {
 	SubMode = 0;
 	ValCount = 32;
@@ -55,10 +54,11 @@ WerkToolB::WerkToolB(QMainWindow* parent) : QToolBar( tr("Tools"), parent)
 	if (insertShapeButton)
 		insertShapeButton->setPopupDelay(0);
 	Rechteck = new AutoformButtonGroup( NULL );
-	insertShapeButtonMenu->insertItem( Rechteck );
+	qWarning( "crap widget inside a menu" );
+	//insertShapeButtonMenu->insertItem( Rechteck );
 	QImage newShapeIcon = Rechteck->getIconPixmap(0).convertToImage();
 	newShapeIcon.smoothScale(16,16);
-	ScApp->scrActions["toolsInsertShape"]->setIconSet(QIconSet(newShapeIcon,Rechteck->getIconPixmap(0)));
+	ScApp->scrActions["toolsInsertShape"]->setIconSet(QIcon(Rechteck->getIconPixmap(0)));
 
 	ScApp->scrActions["toolsInsertPolygon"]->addTo(this);
 	ScApp->scrMenuMgr->createMenu("insertPolygonButtonMenu", "insertPolygonButtonMenu");
@@ -83,16 +83,16 @@ WerkToolB::WerkToolB(QMainWindow* parent) : QToolBar( tr("Tools"), parent)
 	ScApp->scrActions["toolsCopyProperties"]->addTo(this);
 	ScApp->scrActions["toolsEyeDropper"]->addTo(this);
 
-	setCloseMode(QDockWindow::Undocked);
+	setCloseMode(Q3DockWindow::Undocked);
 	languageChange();
-	connect(this, SIGNAL(placeChanged(QDockWindow::Place)), this, SLOT(Docken(QDockWindow::Place)));
+	connect(this, SIGNAL(placeChanged(Q3DockWindow::Place)), this, SLOT(Docken(Q3DockWindow::Place)));
 	connect(this, SIGNAL(visibilityChanged(bool)), this, SLOT(Verbergen(bool)));
 	connect(Rechteck, SIGNAL(FormSel(int, int, double *)), this, SLOT(SelShape(int, int, double *)));
 }
 
-void WerkToolB::Docken(QDockWindow::Place p)
+void WerkToolB::Docken(Q3DockWindow::Place p)
 {
-	setOrientation(p == InDock ? Horizontal : Vertical);
+	setOrientation(p == InDock ? Qt::Horizontal : Qt::Vertical);
 }
 
 void WerkToolB::Verbergen(bool vis)
@@ -114,7 +114,7 @@ void WerkToolB::SelShape(int s, int c, double *vals)
 	const QPixmap* newIcon = Rechteck->find(s)->pixmap();
 	QImage newShapeIcon = Rechteck->find(s)->pixmap()->convertToImage();
 	newShapeIcon.smoothScale(16,16);
-	ScApp->scrActions["toolsInsertShape"]->setIconSet(QIconSet(newShapeIcon, *newIcon));
+	ScApp->scrActions["toolsInsertShape"]->setIconSet(QIcon(*newIcon));
 	insertShapeButtonMenu->hide();
 	SubMode = s;
 	ValCount = c;
@@ -128,23 +128,23 @@ void WerkToolB::languageChange()
 }
 
 
-WerkToolBP::WerkToolBP(QMainWindow* parent) : QToolBar( tr("PDF Tools"), parent)
+WerkToolBP::WerkToolBP(Q3MainWindow* parent) : Q3ToolBar( tr("PDF Tools"), parent)
 {
-	PDFM = new QPopupMenu();
+	PDFM = new Q3PopupMenu();
 	PDFTool = new QToolButton(loadIcon("pushbutton.png"), "Insert PDF Fields", QString::null, this, SLOT(ModeFromTB()), this);
 	PDFTool->setToggleButton(true);
 	PDFTool->setPopup(PDFM);
 	PDFTool->setPopupDelay(0);
 	PDFwerkz = 0;
-	PDFA = new QPopupMenu();
+	PDFA = new Q3PopupMenu();
 	PDFaTool = new QToolButton(loadIcon("charset.png"), "Insert PDF Annotations", QString::null, this, SLOT(ModeFromTB()), this);
 	PDFaTool->setToggleButton(true);
 	PDFaTool->setPopup(PDFA);
 	PDFaTool->setPopupDelay(0);
 	PDFnotiz = 0;
-	setCloseMode(QDockWindow::Undocked);
+	setCloseMode(Q3DockWindow::Undocked);
 	languageChange();
-	connect(this, SIGNAL(placeChanged(QDockWindow::Place)), this, SLOT(Docken(QDockWindow::Place)));
+	connect(this, SIGNAL(placeChanged(Q3DockWindow::Place)), this, SLOT(Docken(Q3DockWindow::Place)));
 	connect(this, SIGNAL(visibilityChanged(bool)), this, SLOT(Verbergen(bool)));
 	connect(PDFM, SIGNAL(activated(int)), this, SLOT(setPDFtool(int)));
 	connect(PDFA, SIGNAL(activated(int)), this, SLOT(setPDFnotiz(int)));
@@ -179,9 +179,9 @@ void WerkToolBP::setPDFtool(int id)
 	emit NewMode(modeInsertPDFButton+PDFwerkz);
 }
 
-void WerkToolBP::Docken(QDockWindow::Place )
+void WerkToolBP::Docken(Q3DockWindow::Place )
 {
-	setOrientation(Horizontal);
+	setOrientation(Qt::Horizontal);
 }
 
 void WerkToolBP::Verbergen(bool vis)
@@ -213,11 +213,11 @@ void WerkToolBP::languageChange()
 	QString tmp_txt[] = { tr("Button"), tr("Text Field"), tr("Check Box"), tr("Combo Box"), tr("List Box")};
 	size_t ar_tmp = sizeof(tmp_icn) / sizeof(*tmp_icn);
 	for (uint a = 0; a < ar_tmp; ++a)
-		PDFM->insertItem(loadIcon(tmp_icn[a]), tmp_txt[a]);
+		PDFM->insertItem(loadIcon(tmp_icn[a]));
 		
 	PDFTool->setTextLabel( tr("Insert PDF Fields"));
 	PDFaTool->setTextLabel( tr("Insert PDF Annotations"));
 	PDFA->clear();
-	PDFA->insertItem(loadIcon("charset.png"), tr("Text"));
-	PDFA->insertItem(loadIcon("goto.png"), tr("Link"));
+	PDFA->insertItem(loadIcon("charset.png"));
+	PDFA->insertItem(loadIcon("goto.png"));
 }

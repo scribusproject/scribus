@@ -24,41 +24,23 @@
 // libart wrapper
 
 #include <qglobal.h>
-#include <qwmatrix.h>
-#include <qvaluelist.h>
-#include <qvaluestack.h>
+#include <qmatrix.h>
+#include <q3valuelist.h>
+#include <q3valuestack.h>
 #include <qcolor.h>
 #include <qfont.h>
 #include <qpixmap.h>
 #include "scribusapi.h"
 #include "scconfig.h"
-#include "fpoint.h"
 #include "fpointarray.h"
 #include "vgradient.h"
 
-// If defined, use gdk-pixbuf for ScPainter::end() on X11 (ignored on other
-// platforms). Otherwise use portable ScPainter::end() and omit X11-specific
-// code and pixbuf support.
-#ifndef SC_USE_PIXBUF
-#define SC_USE_PIXBUF
-#endif
-
-// If defined, use Win32 GDI functions for ScPainter::end() on Win32 (ignored 
-// on other platforms). Otherwise use portable ScPainter::end()
-#ifndef SC_USE_GDI
-#define SC_USE_GDI
-#endif
-
 
 class QPainter;
-#ifdef HAVE_CAIRO
-typedef struct _cairo cairo_t;
-#else
 struct _ArtVpath;
 struct _ArtBpath;
 struct _ArtSVP;
 struct _ArtGradientStop;
-#endif
 
 class SCRIBUS_API ScPainter
 {
@@ -73,8 +55,8 @@ public:
 	virtual void clear( const QColor & );
 
 	// matrix manipulation
-	virtual void setWorldMatrix( const QWMatrix & );
-	virtual const QWMatrix worldMatrix();
+	virtual void setWorldMatrix( const QMatrix & );
+	virtual const QMatrix worldMatrix();
 	virtual void setZoomFactor( double );
 	virtual double zoomFactor() { return m_zoomFactor; }
 	virtual void translate( double, double );
@@ -84,7 +66,7 @@ public:
 	// drawing
 	virtual void moveTo( const double &, const double & );
 	virtual void lineTo( const double &, const double & );
-	virtual void curveTo( FPoint p1, FPoint p2, FPoint p3 );
+	virtual void curveTo( QPointF p1, QPointF p2, QPointF p3 );
 	virtual void newPath();
 	virtual void fillTextPath();
 	virtual void strokeTextPath();
@@ -93,7 +75,7 @@ public:
 	virtual void setFillRule( bool fillRule );
 	virtual bool fillRule() { return m_fillRule; }
 	virtual void setFillMode( int fill );
-	virtual void setGradient( VGradient::VGradientType mode, FPoint orig, FPoint vec, FPoint foc = FPoint(0,0));
+	virtual void setGradient( VGradient::VGradientType mode, QPointF orig, QPointF vec, QPointF foc = QPointF(0,0));
 	virtual void setClipPath();
 
 	virtual void drawImage( QImage *image );
@@ -101,7 +83,7 @@ public:
 	virtual void setupTextPolygon(FPointArray *points);
 	virtual void drawPolygon();
 	virtual void drawPolyLine();
-	virtual void drawLine(FPoint start, FPoint end);
+	virtual void drawLine(QPointF start, QPointF end);
 	virtual void drawRect(double, double, double, double);
 
 	// pen + brush
@@ -111,7 +93,7 @@ public:
 	virtual void setPen( const QColor &c, double w, Qt::PenStyle st, Qt::PenCapStyle ca, Qt::PenJoinStyle jo );
 	virtual void setPenOpacity( double op );
 	virtual void setLineWidth( double w);
-	virtual void setDash(const QValueList<double>& array, double ofs);
+	virtual void setDash(const Q3ValueList<double>& array, double ofs);
 	virtual void setBrush( const QColor & );
 	virtual void setBrushOpacity( double op );
 	virtual void setOpacity( double op );
@@ -122,9 +104,6 @@ public:
 	// stack management
 	virtual void save();
 	virtual void restore();
-
-	//
-	virtual void setRasterOp( int op );
 
 	virtual QPaintDevice *device() { return m_target; }
 	unsigned char *buffer() { return m_buffer; }
@@ -156,7 +135,7 @@ private:
 	unsigned int m_height;
 	unsigned int m_x;
 	unsigned int m_y;
-	QWMatrix m_matrix;
+	QMatrix m_matrix;
 	QFont m_font;
 	bool mf_underline;
 	bool mf_strikeout;
@@ -178,10 +157,10 @@ private:
 /* Line Join Style */
   Qt::PenJoinStyle PLineJoin;
 /* The Dash Array */
-	QValueList<double> m_array;
+	Q3ValueList<double> m_array;
 	double m_offset;
 /* Transformation Stack */
-	QValueStack<QWMatrix> MStack;
+	Q3ValueStack<QMatrix> MStack;
 /* Zoom Factor of the Painter */
 	double m_zoomFactor;
 	bool imageMode;

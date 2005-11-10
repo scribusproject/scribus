@@ -19,6 +19,8 @@
  ***************************************************************************/
 
 #include "undoobject.h"
+//Added by qt3to4:
+#include <QPixmap>
 
 ulong UndoObject::nextId = 1;
 

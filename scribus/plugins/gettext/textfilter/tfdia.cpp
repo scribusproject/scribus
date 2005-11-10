@@ -1,12 +1,16 @@
 #include "tfdia.h"
-#include "tfdia.moc"
 #include "prefsmanager.h"
 #include <prefsfile.h>
 #include <qpixmap.h>
 #include <qtooltip.h>
 #include <qlabel.h>
-#include <qframe.h>
+#include <q3frame.h>
 #include <qrect.h>
+//Added by qt3to4:
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QResizeEvent>
+#include <QBoxLayout>
 #include <prefstable.h>
 #include <qsizepolicy.h>
 
@@ -59,15 +63,15 @@ void tfDia::createLayout()
 	layout->addLayout(layout1);
 
 	QBoxLayout* flayout = new QHBoxLayout(0,0,0, "flayout");
-	QFrame* f = new QFrame(this, "f");
-	f->setFrameStyle(QFrame::HLine | QFrame::Sunken);
+	Q3Frame* f = new Q3Frame(this, "f");
+	f->setFrameStyle(Q3Frame::HLine | Q3Frame::Sunken);
 	flayout->addWidget(f);
 	layout->addLayout(flayout);
 
 	
-	qsv = new QScrollView(this, "qsv");
+	qsv = new Q3ScrollView(this, "qsv");
 	QVBoxLayout *a1layout = new QVBoxLayout(0, 5, 12, "a1layout");
-	vbox = new QFrame(this);
+	vbox = new Q3Frame(this);
 	vbox->setFixedWidth(qsv->viewport()->width());
 	qsv->viewport()->resize(width() - 12, vbox->height());
 	a1layout->addWidget(qsv);
@@ -80,8 +84,8 @@ void tfDia::createLayout()
 	filters[0]->setRemovable((filters.size() >= 2));
 	
 	QBoxLayout* flayout2 = new QHBoxLayout(0,0,0, "flayout2");
-	QFrame* f2 = new QFrame(this, "f2");
-	f2->setFrameStyle(QFrame::HLine | QFrame::Sunken);
+	Q3Frame* f2 = new Q3Frame(this, "f2");
+	f2->setFrameStyle(Q3Frame::HLine | Q3Frame::Sunken);
 	flayout2->addWidget(f2);
 	layout->addLayout(flayout2);
 

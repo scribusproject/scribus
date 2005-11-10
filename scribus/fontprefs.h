@@ -3,15 +3,19 @@
 
 #include <qlayout.h>
 #include <qpushbutton.h>
-#include <qtable.h>
+#include <q3table.h>
 #include <qcheckbox.h>
-#include <qheader.h>
-#include <qptrlist.h>
+#include <q3header.h>
+#include <q3ptrlist.h>
 #include <qtabwidget.h>
 #include <qwidget.h>
 #include <qcombobox.h>
-#include <qlistbox.h>
-#include <qlistview.h>
+#include <q3listbox.h>
+#include <q3listview.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 #include "scribusapi.h"
 #include "scribusstructs.h"
 #include "prefsmanager.h"
@@ -30,11 +34,11 @@ public:
 	QWidget* tab1;
 	QWidget* tab;
 	QWidget* tab3;
-	QListBox* PathList;
-	QListView* fontList;
-	QTable* Table3;
-	QHeader *Header;
-	QHeader *Header2;
+	Q3ListBox* PathList;
+	Q3ListView* fontList;
+	Q3Table* Table3;
+	Q3Header *Header;
+	Q3Header *Header2;
 	QPushButton* DelB;
 	QPushButton* ChangeB;
 	QPushButton* AddB;
@@ -48,7 +52,7 @@ public:
 		bool FlagNames;
 	};
 	QMap<QString, fontSet> fontFlags;
-	QPtrList<QComboBox> FlagsRepl;
+	Q3PtrList<QComboBox> FlagsRepl;
 	QMap<QString,QString> RList;
 	QStringList UsedFonts;
 	QString HomeP;
@@ -62,11 +66,11 @@ public:
 	QPixmap empty;
 
 public slots:
-	void slotClick(QListViewItem* ite, const QPoint &, int col);
+	void slotClick(Q3ListViewItem* ite, const QPoint &, int col);
 	void ReplaceSel(int r, int c);
 	void UpdateFliste();
 	void DelEntry();
-	void SelectPath(QListBoxItem *c);
+	void SelectPath(Q3ListBoxItem *c);
 	void AddPath();
 	void ChangePath();
 	void DelPath();

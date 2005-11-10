@@ -25,11 +25,11 @@
 
 // include files for QT
 #include <qapplication.h>
-#include <qmainwindow.h>
+#include <q3mainwindow.h>
 #include <qaction.h>
 #include <qmenubar.h>
-#include <qpopupmenu.h>
-#include <qtoolbar.h>
+#include <q3popupmenu.h>
+#include <q3toolbar.h>
 #include <qtoolbutton.h>
 #include <qstatusbar.h>
 #include <qtooltip.h>
@@ -38,17 +38,25 @@
 #include <qmessagebox.h>
 #include <qpainter.h>
 #include <qmap.h>
-#include <qdict.h>
-#include <qguardedptr.h>
+#include <q3dict.h>
+#include <qpointer.h>
 #include <qfont.h>
 #include <qtimer.h>
-#include <qintdict.h>
-#include <qprogressdialog.h>
-#include <qprogressbar.h>
+#include <q3intdict.h>
+#include <q3progressdialog.h>
+#include <q3progressbar.h>
 #include <qworkspace.h>
-#include <qptrlist.h>
+#include <q3ptrlist.h>
 #include <qclipboard.h>
-#include <qprocess.h>
+#include <q3process.h>
+//Added by qt3to4:
+#include <QWheelEvent>
+#include <Q3ActionGroup>
+#include <QCloseEvent>
+#include <QKeyEvent>
+#include <QEvent>
+#include <QLabel>
+#include <QMouseEvent>
 
 // application specific includes
 #include "scribusapi.h"
@@ -102,7 +110,7 @@ extern ScribusApp* ScApp;
   * and statusbar. For the main view, an instance of class ScribusView is
   * created which creates your view.
   */
-class SCRIBUS_API ScribusApp : public QMainWindow, public UndoObject
+class SCRIBUS_API ScribusApp : public Q3MainWindow, public UndoObject
 {
 	Q_OBJECT
 
@@ -150,7 +158,7 @@ public:
 	void GetCMSProfiles();
 	void GetCMSProfilesDir(QString pfad);
 	//Recalculate the colors after changing CMS settings. Call the appropriate document function and then update the GUI elements.
-	void recalcColors(QProgressBar *dia = 0);
+	void recalcColors(Q3ProgressBar *dia = 0);
 	void SwitchWin();
 	void RestoreBookMarks();
 	void AdjustBM();
@@ -200,7 +208,7 @@ public:
     /** the splash screen */
 	SplashScreen *splashScreen;
 	QLabel* mainWindowStatusLabel;
-	QProgressBar* mainWindowProgressBar;
+	Q3ProgressBar* mainWindowProgressBar;
 	QLabel* mainWindowXPosLabel;
 	QLabel* mainWindowXPosDataLabel;
 	QLabel* mainWindowYPosLabel;
@@ -237,13 +245,13 @@ public:
 	QMap<QString, QStringList> InstLang;
 	QMap<QString,QString> LangTransl;
 	FileWatcher* fileWatcher;
-	QProcess *ExternalApp;
+	Q3Process *ExternalApp;
 
-	QMap<QString, QGuardedPtr<ScrAction> > scrActions;
-	QMap<QString, QGuardedPtr<ScrAction> > scrRecentFileActions;
-	QMap<QString, QGuardedPtr<ScrAction> > scrWindowsActions;
-	QMap<QString, QGuardedPtr<ScrAction> > scrLayersActions;
-	QDict<QActionGroup> scrActionGroups;
+	QMap<QString, QPointer<ScrAction> > scrActions;
+	QMap<QString, QPointer<ScrAction> > scrRecentFileActions;
+	QMap<QString, QPointer<ScrAction> > scrWindowsActions;
+	QMap<QString, QPointer<ScrAction> > scrLayersActions;
+	Q3Dict<Q3ActionGroup> scrActionGroups;
 	MenuManager* scrMenuMgr;
 	ActionManager* actionManager;
 	PluginManager* pluginManager;
@@ -522,7 +530,7 @@ private:
 	void initPalettes();
 	void initScrapbook();
 	void initCMS();
-	void updateColorMenu(QProgressBar* progressBar=NULL);
+	void updateColorMenu(Q3ProgressBar* progressBar=NULL);
 
 	QString guiLanguage;
 	QString recentFileMenuName;
@@ -531,12 +539,12 @@ private:
 	bool scribusInitialized;
 	QComboBox *ColorMenC;
 	/** ShapeMenu enthaelt die Rahmenformen */
-	QPopupMenu *ShapeMenu;
+	Q3PopupMenu *ShapeMenu;
 	/** FontMenu enthaelt die Fonts */
-	QPopupMenu *FontMenu;
+	Q3PopupMenu *FontMenu;
 	FontCombo* FontSub;
-	QToolBar *fileToolBar;
-	QToolBar *editToolBar;
+	Q3ToolBar *fileToolBar;
+	Q3ToolBar *editToolBar;
 	WerkToolBP* pdfToolBar;
 	QToolButton* DatOpe;
 	QToolButton* DatSav;

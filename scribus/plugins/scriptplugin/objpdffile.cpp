@@ -6,6 +6,9 @@
 
 #include <structmember.h>
 #include <qfileinfo.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <Q3ValueList>
 #include <vector>
 
 // these functions are located at utils.cpp
@@ -272,9 +275,9 @@ static int PDFfile_init(PDFfile *self, PyObject */*args*/, PyObject */*kwds*/)
 	ReallyUsed.clear();
 	ScApp->doc->getUsedFonts(&ReallyUsed);
 	// create list of all used fonts
-	QValueList<QString> tmpEm;
+	Q3ValueList<QString> tmpEm;
 	tmpEm = ReallyUsed.keys();
-	QValueList<QString>::Iterator itef;
+	Q3ValueList<QString>::Iterator itef;
 	for (itef = tmpEm.begin(); itef != tmpEm.end(); ++itef) {
 		if (PrefsManager::instance()->appPrefs.AvailFonts[(*itef).ascii()]->HasMetrics) {
 			PyObject *tmp= NULL;
@@ -1000,7 +1003,7 @@ static PyObject *PDFfile_save(PDFfile *self)
 // apply presentation attribute
 	ScApp->doc->PDF_Options.PresentMode = self->presentation;
 
-	QValueList<PDFPresentationData> PresentVals;
+	Q3ValueList<PDFPresentationData> PresentVals;
 	PresentVals.clear();
 	int tmpnum;
 	tmpnum=PyList_Size(self->effval);

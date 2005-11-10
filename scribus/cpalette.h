@@ -19,19 +19,26 @@
 #define CPALETTE_H
 
 #include <qtooltip.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QGridLayout>
+#include <Q3Frame>
+#include <QLabel>
+#include <QVBoxLayout>
+#include <Q3PopupMenu>
 #include "scribusapi.h"
 #include "scribusstructs.h"
 #include "gradienteditor.h"
 
-class QListBox;
-class QListBoxItem;
+class Q3ListBox;
+class Q3ListBoxItem;
 class QPixmap;
 class QRect;
-class QPopupMenu;
+class Q3PopupMenu;
 class QFont;
 class QLayout;
 class QToolButton;
-class QButtonGroup;
+class Q3ButtonGroup;
 class QComboBox;
 class QLabel;
 class QSpinBox;
@@ -59,7 +66,7 @@ public slots:
 	void SetColors(ColorList newColorList);
 	void updateCList();
 	void updateBoxS(QString Farbe);
-	void selectColor(QListBoxItem *c);
+	void selectColor(Q3ListBoxItem *c);
 	QColor setColor(QString farbe, int shad);
 	void slotGrad(int nr);
 	void slotColor(QString n, int s);
@@ -102,13 +109,13 @@ protected:
 	DynamicTip* dynTip;
 	
 	
-	QListBox *colorListQLBox;
+	Q3ListBox *colorListQLBox;
 	QToolButton *Inhalt;
 	QToolButton *Innen;
 	QSpinBox *PM1;
 	QComboBox* gradientQCombo;
 	GradientEditor* gradEdit;
-	QFrame* freeGradientQFrame;
+	Q3Frame* freeGradientQFrame;
 	QLabel* GTextX1;
 	QLabel* GTextY1;
 	QLabel* GTextX2;

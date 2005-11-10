@@ -10,12 +10,16 @@
 #define DELPAGES_H
 
 #include "scribusapi.h"
+//Added by qt3to4:
+#include <QDialog>
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 
-class QDialog;
 class QLabel;
 class QLayout;
-class QPushbutton;
-class QSpinbox;
+class QPushButton;
+class QSpinBox;
 
 class SCRIBUS_API DelPages : public QDialog
 { 

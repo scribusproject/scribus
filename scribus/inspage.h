@@ -10,15 +10,21 @@
 #define INSPAGE_H
 
 #include "scribusapi.h"
-#include <qptrlist.h>
+#include <q3ptrlist.h>
 #include <qstringlist.h>
-class QDialog;
-class QComboBox;
+//Added by qt3to4:
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QGridLayout>
+#include <QDialog>
+#include <QComboBox> // needed for ~QComboBox() from Q3PtrList<QComboBox>
+
 class QLayout;
 class QLabel;
 class QPushButton;
 class QSpinBox;
-class QGroupBox;
+class Q3GroupBox;
 class QCheckBox;
 class MSpinBox;
 class ScribusDoc;
@@ -30,8 +36,8 @@ class SCRIBUS_API InsPage : public QDialog
 public:
 	InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int maxPages );
 	~InsPage() {};
-	QGroupBox* dsGroupBox7;
-	QGroupBox* masterPageGroup;
+	Q3GroupBox* dsGroupBox7;
+	Q3GroupBox* masterPageGroup;
 	MSpinBox* widthMSpinBox;
 	MSpinBox* heightMSpinBox;
 	QLabel*	widthQLabel;
@@ -43,7 +49,7 @@ public:
 	QCheckBox* moveObjects;
 	double unitRatio;
 	QString prefsPageSizeName;
-	QPtrList<QComboBox> masterPageCombos;
+	Q3PtrList<QComboBox> masterPageCombos;
 
 	const QStringList InsPage::getMasterPages();
 	const QString getMasterPageN(uint n);

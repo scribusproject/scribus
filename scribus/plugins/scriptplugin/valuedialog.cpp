@@ -1,16 +1,19 @@
 
 #include "valuedialog.h"
-#include "valuedialog.moc"
 #include <qvariant.h>
 #include <qpushbutton.h>
 #include <qlabel.h>
 #include <qlineedit.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
+//Added by qt3to4:
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QGridLayout>
 #include "commonstrings.h"
 
-ValueDialog::ValueDialog( QWidget* parent, const char* name, bool modal, WFlags fl )
+ValueDialog::ValueDialog( QWidget* parent, const char* name, bool modal, Qt::WFlags fl )
 	: QDialog( parent, name, modal, fl )
 {
 	if ( !name )
@@ -41,7 +44,7 @@ ValueDialog::ValueDialog( QWidget* parent, const char* name, bool modal, WFlags 
 	ScripterValueLayout->addLayout( layout3, 0, 0 );
 	languageChange();
 	//resize( QSize(315, 101).expandedTo(minimumSizeHint()) );
-	clearWState( WState_Polished );
+	setAttribute( Qt::WA_WState_Polished, false );
 
 	// signals and slots connections
 	connect( okButton, SIGNAL( clicked() ), this, SLOT( okButton_pressed() ) );

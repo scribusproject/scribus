@@ -1,12 +1,13 @@
 #include "measurements.h"
-#include "measurements.moc"
 
 #include <qvariant.h>
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
 #include <qpixmap.h>
+//Added by qt3to4:
+#include <QGridLayout>
 #include <cmath>
 #include "units.h"
 
@@ -57,7 +58,7 @@ Measurements::Measurements( QWidget* parent ) : ScrPaletteBase( parent, "Measure
 	angleData->setMinimumSize(textWidth, 12);
 	lengthData->setMinimumSize(textWidth, 12);
 
-	int labelAlignment=int( QLabel::AlignVCenter | QLabel::AlignRight );
+	int labelAlignment=int( Qt::AlignVCenter | Qt::AlignRight );
 	x1Data->setAlignment( labelAlignment );
 	y1Data->setAlignment( labelAlignment );
 	x2Data->setAlignment( labelAlignment );

@@ -21,9 +21,9 @@
 #ifndef STYLESTACK_H
 #define STYLESTACK_H
 
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 #include <qdom.h>
-#include <qvaluestack.h>
+#include <q3valuestack.h>
 
 /**
  *  This class implements a stack for the different styles of an object.
@@ -127,11 +127,11 @@ public:
 
 private:
     // For save/restore: stack of "marks". Each mark is an index in m_stack.
-    QValueStack<int> m_marks;
+    Q3ValueStack<int> m_marks;
 
     // We use QValueList instead of QValueStack because we need access to all styles
     // not only the top one.
-    QValueList<QDomElement> m_stack;
+    Q3ValueList<QDomElement> m_stack;
 };
 
 

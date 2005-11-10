@@ -15,10 +15,9 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <qlistbox.h>
+#include <q3listbox.h>
 #include "scribusdoc.h"
 #include "spalette.h"
-#include "spalette.moc"
 
 #include "page.h"
 
@@ -56,12 +55,12 @@ void Spalette::updateFormatList()
 		QStringList st;
 		st.clear();
 		insertItem( tr("No Style"));
-		for (uint x = 5; x < currentDoc->docParagraphStyles.count(); ++x)
+		for (int x = 5; x < currentDoc->docParagraphStyles.count(); ++x)
 			st.append(currentDoc->docParagraphStyles[x].Vname);
 		st.sort();
 		insertStringList(st);
 	}
-	listBox()->setMinimumWidth(listBox()->maxItemWidth()+24);
+	//listBox()->setMinimumWidth(listBox()->maxItemWidth()+24);
 	connect(this, SIGNAL(activated(int)), this, SLOT(selFormat(int)));
 }
 
@@ -72,7 +71,7 @@ void Spalette::selFormat(int e)
 		emit newStyle(0);
 		return;
 	}
-	for (uint x = 5; x < currentDoc->docParagraphStyles.count(); ++x)
+	for (int x = 5; x < currentDoc->docParagraphStyles.count(); ++x)
 	{
 		if (currentDoc->docParagraphStyles[x].Vname == currentText())
 		{

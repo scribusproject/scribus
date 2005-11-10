@@ -1,7 +1,12 @@
 #include "csvdia.h"
-#include "csvdia.moc"
 
 #include "scribusapi.h"
+//Added by qt3to4:
+#include <QPixmap>
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QBoxLayout>
 
 extern QPixmap SCRIBUS_API loadIcon(QString nam);
 

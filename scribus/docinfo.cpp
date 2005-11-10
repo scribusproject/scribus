@@ -7,7 +7,10 @@
 ** WARNING! All changes made in this file will be lost!
 ****************************************************************************/
 #include "docinfo.h"
-#include "docinfo.moc"
+//Added by qt3to4:
+#include <QPixmap>
+#include <QLabel>
+#include <QGridLayout>
 
 extern QPixmap loadIcon(QString nam);
 
@@ -45,16 +48,16 @@ DocInfos::DocInfos( QWidget* parent, DocumentInformation& docInfo )
 	layout1->addWidget( authorLabel, 1, 0 );
 	layout1->addWidget( authorEdit, 1, 1 );
 
-	keywordsEdit = new QMultiLineEdit( page1, "keywordsEdit" );
+	keywordsEdit = new Q3MultiLineEdit( page1, "keywordsEdit" );
 	keywordsLabel = new QLabel( keywordsEdit, tr("&Keywords:"), page1, "keywordsLabel" );
-	keywordsLabel->setAlignment( static_cast<int>( QLabel::AlignTop | QLabel::AlignLeft ) );
+	keywordsLabel->setAlignment( static_cast<int>( Qt::AlignTop | Qt::AlignLeft ) );
 	keywordsEdit->setMinimumSize(QSize(200, 105));
 	layout1->addWidget( keywordsLabel, 2, 0 );
 	layout1->addWidget( keywordsEdit, 2, 1 );
 
-	descriptionEdit = new QMultiLineEdit( page1, "descriptionEdit" );
+	descriptionEdit = new Q3MultiLineEdit( page1, "descriptionEdit" );
 	descriptionLabel = new QLabel( descriptionEdit, tr("Descri&ption:"), page1, "descriptionLabel" );
-	descriptionLabel->setAlignment( static_cast<int>( QLabel::AlignTop | QLabel::AlignLeft ) );
+	descriptionLabel->setAlignment( static_cast<int>( Qt::AlignTop | Qt::AlignLeft ) );
 	descriptionEdit->setMinimumSize(QSize(200, 105));
 	layout1->addWidget( descriptionLabel, 3, 0 );
 	layout1->addWidget( descriptionEdit, 3, 1 );
@@ -70,9 +73,9 @@ DocInfos::DocInfos( QWidget* parent, DocumentInformation& docInfo )
 	layout2->addWidget( publisherLabel, 0, 0 );
 	layout2->addWidget( publisherEdit, 0, 1 );
 
-	contributorsEdit = new QMultiLineEdit( page2, "contributorsEdit" );
+	contributorsEdit = new Q3MultiLineEdit( page2, "contributorsEdit" );
 	contributorsLabel = new QLabel( contributorsEdit, tr("&Contributors:"), page2, "contributorsLabel" );
-	contributorsLabel->setAlignment( static_cast<int>( QLabel::AlignTop | QLabel::AlignLeft ) );
+	contributorsLabel->setAlignment( static_cast<int>( Qt::AlignTop | Qt::AlignLeft ) );
 	contributorsEdit->setMinimumSize(QSize(200, 105));
 	layout2->addWidget( contributorsLabel, 1, 0 );
 	layout2->addWidget( contributorsEdit, 1, 1 );

@@ -1,8 +1,12 @@
 #include "editformats.h"
-#include "editformats.moc"
 #include "edit1format.h"
 #include <qmessagebox.h>
-#include <qheader.h>
+#include <q3header.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QHBoxLayout>
+#include <Q3ValueList>
+#include <QVBoxLayout>
 
 #include "commonstrings.h"
 #include "scribusdoc.h"
@@ -15,7 +19,7 @@
 
 extern QPixmap loadIcon(QString nam);
 
-DelStyle::DelStyle(QWidget* parent, QValueList<ParagraphStyle> sty, QString styleName)
+DelStyle::DelStyle(QWidget* parent, Q3ValueList<ParagraphStyle> sty, QString styleName)
 		: QDialog( parent, "dd", true, 0 )
 {
 	setName( "DelColor" );
@@ -32,7 +36,7 @@ DelStyle::DelStyle(QWidget* parent, QValueList<ParagraphStyle> sty, QString styl
 	replaceLabel = new QLabel( tr( "Replace With:" ), this, "replaceLabel" );
 	delStyleLayout->addWidget( replaceLabel, 1, 0 );
 	replacementStyleData = new ScComboBox(false, this);
-	for (uint x = 5; x < sty.count(); ++x)
+	for (int x = 5; x < sty.count(); ++x)
 	{
 		if (sty[x].Vname != styleName)
 			replacementStyleData->insertItem(sty[x].Vname);
@@ -68,13 +72,13 @@ const QString DelStyle::getReplacementStyle()
 	return replacementStyle;
 }
 
-ChooseStyles::ChooseStyles( QWidget* parent, QValueList<ParagraphStyle> *styleList, QValueList<ParagraphStyle> *styleOld)
+ChooseStyles::ChooseStyles( QWidget* parent, Q3ValueList<ParagraphStyle> *styleList, Q3ValueList<ParagraphStyle> *styleOld)
 		: QDialog( parent, "ChooseStyles", true, 0 )
 {
 	setCaption( tr( "Choose Styles" ) );
 	setIcon(loadIcon("AppIcon.png"));
 	ChooseStylesLayout = new QVBoxLayout( this, 10, 5, "ChooseStylesLayout");
-	StyleView = new QListView( this, "StyleView" );
+	StyleView = new Q3ListView( this, "StyleView" );
 	StyleView->clear();
 	StyleView->addColumn( tr( "Available Styles" ) );
 	StyleView->header()->setClickEnabled( false, StyleView->header()->count() - 1 );
@@ -82,13 +86,13 @@ ChooseStyles::ChooseStyles( QWidget* parent, QValueList<ParagraphStyle> *styleLi
 	StyleView->setSorting(-1);
 	int counter = 5;
 	bool tabEQ = false;
-	for (uint x = 5; x < styleList->count(); ++x)
+	for (int x = 5; x < styleList->count(); ++x)
 	{
 		struct ParagraphStyle vg;
 		struct ParagraphStyle vg2;
 		vg = (*styleList)[x];
 		bool found = false;
-		for (uint xx=0; xx<styleOld->count(); ++xx)
+		for (int xx=0; xx<styleOld->count(); ++xx)
 		{
 			vg2 = (*styleOld)[xx];
 			if (vg.Vname == vg2.Vname)
@@ -99,12 +103,12 @@ ChooseStyles::ChooseStyles( QWidget* parent, QValueList<ParagraphStyle> *styleLi
 					tabEQ = true;
 				else
 				{
-					for (uint t1 = 0; t1 < vg2.TabValues.count(); t1++)
+					for (int t1 = 0; t1 < vg2.TabValues.count(); t1++)
 					{
 						tb.tabPosition = vg2.TabValues[t1].tabPosition;
 						tb.tabType = vg2.TabValues[t1].tabType;
 						tb.tabFillChar = vg2.TabValues[t1].tabFillChar;
-						for (uint t2 = 0; t2 < vg.TabValues.count(); t2++)
+						for (int t2 = 0; t2 < vg.TabValues.count(); t2++)
 						{
 							struct PageItem::TabRecord tb2;
 							tb2.tabPosition = vg.TabValues[t2].tabPosition;
@@ -143,7 +147,7 @@ ChooseStyles::ChooseStyles( QWidget* parent, QValueList<ParagraphStyle> *styleLi
 		}
 		if (!found)
 		{
-			QCheckListItem *item = new QCheckListItem (StyleView, vg.Vname, QCheckListItem::CheckBox);
+			Q3CheckListItem *item = new Q3CheckListItem (StyleView, vg.Vname, Q3CheckListItem::CheckBox);
 			item->setOn(true);
 			storedStyles.insert(item, counter);
 		}
@@ -160,7 +164,7 @@ ChooseStyles::ChooseStyles( QWidget* parent, QValueList<ParagraphStyle> *styleLi
 	layout2->addWidget( CancelButton );
 	ChooseStylesLayout->addLayout( layout2 );
 	resize(230, 280);
-	clearWState( WState_Polished );
+	setAttribute( Qt::WA_WState_Polished, false );
 	connect(CancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 	connect(OkButton, SIGNAL(clicked()), this, SLOT(accept()));
 }
@@ -176,7 +180,7 @@ StilFormate::StilFormate( QWidget* parent, ScribusDoc *doc) : QDialog( parent, "
 	StilFormateLayout->setSpacing( 5 );
 	StilFormateLayout->setMargin( 10 );
 
-	ListBox1 = new QListBox( this, "ListBox1" );
+	ListBox1 = new Q3ListBox( this, "ListBox1" );
 	ListBox1->setMinimumSize( QSize( 200, 240 ) );
 	StilFormateLayout->addWidget( ListBox1 );
 
@@ -224,8 +228,8 @@ StilFormate::StilFormate( QWidget* parent, ScribusDoc *doc) : QDialog( parent, "
 	connect(LoadS, SIGNAL(clicked()), this, SLOT(loadStyles()));
 	connect(DublicateB, SIGNAL(clicked()), this, SLOT(dupFormat()));
 	connect(DeleteB, SIGNAL(clicked()), this, SLOT(deleteFormat()));
-	connect(ListBox1, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selFormat(QListBoxItem*)));
-	connect(ListBox1, SIGNAL(selected(QListBoxItem*)), this, SLOT(selEditFormat(QListBoxItem*)));
+	connect(ListBox1, SIGNAL(highlighted(Q3ListBoxItem*)), this, SLOT(selFormat(Q3ListBoxItem*)));
+	connect(ListBox1, SIGNAL(selected(Q3ListBoxItem*)), this, SLOT(selEditFormat(Q3ListBoxItem*)));
 	TempVorl = doc->docParagraphStyles;
 	UpdateFList();
 }
@@ -235,9 +239,9 @@ void StilFormate::saveIt()
 	emit saveStyle(this);
 }
 
-void StilFormate::selFormat(QListBoxItem *c)
+void StilFormate::selFormat(Q3ListBoxItem *c)
 {
-	for (uint x = 5; x < TempVorl.count(); ++x)
+	for (int x = 5; x < TempVorl.count(); ++x)
 	{
 		if (TempVorl[x].Vname == c->text())
 		{
@@ -250,9 +254,9 @@ void StilFormate::selFormat(QListBoxItem *c)
 	DeleteB->setEnabled(true);
 }
 
-void StilFormate::selEditFormat(QListBoxItem *c)
+void StilFormate::selEditFormat(Q3ListBoxItem *c)
 {
-	for (uint x = 5; x < TempVorl.count(); ++x)
+	for (int x = 5; x < TempVorl.count(); ++x)
 	{
 		if (TempVorl[x].Vname == c->text())
 		{
@@ -406,7 +410,7 @@ void StilFormate::loadStyles()
 	{
 		QString selectedFile = dia.selectedFile();
 		dirs->set("editformats", selectedFile.left(selectedFile.findRev("/")));
-		QValueList<ParagraphStyle> TempVorl2;
+		Q3ValueList<ParagraphStyle> TempVorl2;
 		for (uint x = 0; x < 5; ++x)
 		{
 			TempVorl2.append(TempVorl[x]);
@@ -417,7 +421,7 @@ void StilFormate::loadStyles()
 		{
 			QStringList neededColors;
 			neededColors.clear();
-			QMap<QCheckListItem*, int>::Iterator it;
+			QMap<Q3CheckListItem*, int>::Iterator it;
 			for (it = dia2->storedStyles.begin(); it != dia2->storedStyles.end(); ++it)
 			{
 				struct ParagraphStyle sty;
@@ -458,7 +462,7 @@ void StilFormate::UpdateFList()
 	ListBox1->clear();
 	if (TempVorl.count() < 6)
 		return;
-	for (uint x = 5; x < TempVorl.count(); ++x)
+	for (int x = 5; x < TempVorl.count(); ++x)
 		ListBox1->insertItem(TempVorl[x].Vname);
 	if (ListBox1->currentItem() == -1)
 	{

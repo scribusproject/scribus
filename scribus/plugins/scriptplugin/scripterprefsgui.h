@@ -3,15 +3,21 @@
 
 #include "cmdvar.h"
 #include "qvariant.h"
+//Added by qt3to4:
+#include <QLabel>
+#include <QVBoxLayout>
+#include <Q3Frame>
+#include <QHBoxLayout>
+#include <QGridLayout>
 #include "prefspanel.h"
 
 class QVBoxLayout;
 class QHBoxLayout;
 class QGridLayout;
 class QSpacerItem;
-class QGroupBox;
+class Q3GroupBox;
 class QCheckBox;
-class QFrame;
+class Q3Frame;
 class QLabel;
 class QLineEdit;
 class PrefsPanel;
@@ -30,9 +36,9 @@ class ScripterPrefsGui : public PrefsPanel
 		void apply();
 
 	protected:
-		QGroupBox* extGroup;
+		Q3GroupBox* extGroup;
 		QCheckBox* extensionScriptsChk;
-		QFrame* startupScriptFrame;
+		Q3Frame* startupScriptFrame;
 		QLabel* startupScriptEditLabel;
 		QLineEdit* startupScriptEdit;
 

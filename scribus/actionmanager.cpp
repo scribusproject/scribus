@@ -14,11 +14,13 @@
 ***************************************************************************/
 
 #include "actionmanager.h"
-#include "actionmanager.moc"
 
 #include "scribus.h"
 #include "scribusview.h"
 #include "undomanager.h"
+//Added by qt3to4:
+#include <QPixmap>
+#include <Q3ActionGroup>
 
 ActionManager::ActionManager ( QObject * parent, const char * name ) : QObject ( parent, name )
 {
@@ -58,27 +60,27 @@ void ActionManager::createActions()
 void ActionManager::initFileMenuActions()
 {
 	//File Menu
-	scrActions->insert("fileNew", new ScrAction(QIconSet(loadIcon("DateiNeu16.png"), loadIcon("DateiNeu.xpm")), "", CTRL+Key_N, ScApp, "fileNew"));
-	scrActions->insert("fileOpen", new ScrAction(QIconSet(loadIcon("DateiOpen16.png"), loadIcon("DateiOpen.xpm")), "", CTRL+Key_O, ScApp, "fileOpen"));
-	scrActions->insert("fileClose", new ScrAction(QIconSet(loadIcon("DateiClos16.png"), loadIcon("DateiClose.png")), "", CTRL+Key_W, ScApp, "fileClose"));
-	scrActions->insert("fileSave", new ScrAction(QIconSet(loadIcon("DateiSave16.png"), loadIcon("DateiSave2.png")), "", CTRL+Key_S, ScApp, "fileSave"));
-	scrActions->insert("fileSaveAs", new ScrAction(loadIcon("filesaveas.png"), "", CTRL+SHIFT+Key_S, ScApp, "fileSaveAs"));
+	scrActions->insert("fileNew", new ScrAction(QIcon(loadIcon("DateiNeu.xpm")), "", Qt::CTRL+Qt::Key_N, ScApp, "fileNew"));
+	scrActions->insert("fileOpen", new ScrAction(QIcon(loadIcon("DateiOpen.xpm")), "", Qt::CTRL+Qt::Key_O, ScApp, "fileOpen"));
+	scrActions->insert("fileClose", new ScrAction(QIcon(loadIcon("DateiClose.png")), "", Qt::CTRL+Qt::Key_W, ScApp, "fileClose"));
+	scrActions->insert("fileSave", new ScrAction(QIcon(loadIcon("DateiSave2.png")), "", Qt::CTRL+Qt::Key_S, ScApp, "fileSave"));
+	scrActions->insert("fileSaveAs", new ScrAction(loadIcon("filesaveas.png"), "", Qt::CTRL+Qt::SHIFT+Qt::Key_S, ScApp, "fileSaveAs"));
 	scrActions->insert("fileRevert", new ScrAction(loadIcon("revert.png"), "", QKeySequence(), ScApp, "fileRevert"));
-	scrActions->insert("fileCollect", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScApp, "fileCollect"));
+	scrActions->insert("fileCollect", new ScrAction(QIcon(noIcon),"", QKeySequence(), ScApp, "fileCollect"));
 	//File Import Menu
-	scrActions->insert("fileImportText", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScApp, "fileImportText"));
-	scrActions->insert("fileImportAppendText", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScApp, "fileImportAppendText"));
-	scrActions->insert("fileImportImage", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScApp, "fileImportImage"));
+	scrActions->insert("fileImportText", new ScrAction(QIcon(noIcon),"", QKeySequence(), ScApp, "fileImportText"));
+	scrActions->insert("fileImportAppendText", new ScrAction(QIcon(noIcon),"", QKeySequence(), ScApp, "fileImportAppendText"));
+	scrActions->insert("fileImportImage", new ScrAction(QIcon(noIcon),"", QKeySequence(), ScApp, "fileImportImage"));
 
 	//File Export Menu
-	scrActions->insert("fileExportText", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScApp, "fileExportText"));
-	scrActions->insert("fileExportAsEPS", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScApp, "fileExportAsEPS"));
+	scrActions->insert("fileExportText", new ScrAction(QIcon(noIcon),"", QKeySequence(), ScApp, "fileExportText"));
+	scrActions->insert("fileExportAsEPS", new ScrAction(QIcon(noIcon),"", QKeySequence(), ScApp, "fileExportAsEPS"));
 	scrActions->insert("fileExportAsPDF", new ScrAction(loadIcon("acrobat.png"), "", QKeySequence(), ScApp, "fileExportAsPDF"));
 	//Rest of File Menu
 	scrActions->insert("fileDocSetup", new ScrAction(QPixmap(loadIcon("scribusdoc16.png")), "", 0, ScApp, "fileDocSetup"));
-	scrActions->insert("filePrint", new ScrAction(QIconSet(loadIcon("DateiPrint16.png"), loadIcon("DateiPrint.xpm")), "", CTRL+Key_P, ScApp, "filePrint"));
-	scrActions->insert("PrintPreview", new ScrAction(QIconSet(noIcon), "", CTRL+ALT+Key_P, ScApp, "PrintPreview"));
-	scrActions->insert("fileQuit", new ScrAction(QPixmap(loadIcon("exit.png")), "", CTRL+Key_Q, ScApp, "fileQuit"));
+	scrActions->insert("filePrint", new ScrAction(QIcon(loadIcon("DateiPrint.xpm")), "", Qt::CTRL+Qt::Key_P, ScApp, "filePrint"));
+	scrActions->insert("PrintPreview", new ScrAction(QIcon(noIcon), "", Qt::CTRL+Qt::ALT+Qt::Key_P, ScApp, "PrintPreview"));
+	scrActions->insert("fileQuit", new ScrAction(QPixmap(loadIcon("exit.png")), "", Qt::CTRL+Qt::Key_Q, ScApp, "fileQuit"));
 
 	//Connect our signals and slots
 	//File Menu
@@ -107,17 +109,17 @@ void ActionManager::initFileMenuActions()
 void ActionManager::initEditMenuActions()
 {
 	//Edit Menu
-	scrActions->insert("editUndoAction", new ScrAction(ScrAction::DataInt, QIconSet(loadIcon("u_undo16.png"), loadIcon("u_undo.png")), "", CTRL+Key_Z, ScApp, "editUndoAction",1));
-	scrActions->insert("editRedoAction", new ScrAction(ScrAction::DataInt, QIconSet(loadIcon("u_redo16.png"), loadIcon("u_redo.png")), "", CTRL+SHIFT+Key_Z, ScApp, "editRedoAction", 1));
-	scrActions->insert("editActionMode", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScApp, "editActionMode"));
+	scrActions->insert("editUndoAction", new ScrAction(ScrAction::DataInt, QIcon(loadIcon("u_undo.png")), "", Qt::CTRL+Qt::Key_Z, ScApp, "editUndoAction",1));
+	scrActions->insert("editRedoAction", new ScrAction(ScrAction::DataInt, QIcon(loadIcon("u_redo.png")), "", Qt::CTRL+Qt::SHIFT+Qt::Key_Z, ScApp, "editRedoAction", 1));
+	scrActions->insert("editActionMode", new ScrAction(QIcon(noIcon),"", QKeySequence(), ScApp, "editActionMode"));
 	(*scrActions)["editActionMode"]->setToggleAction(true);
-	scrActions->insert("editCut", new ScrAction(QIconSet(loadIcon("editcut.png"), loadIcon("editcut22.png")), "", CTRL+Key_X, ScApp, "editCut"));
-	scrActions->insert("editCopy", new ScrAction(QIconSet(loadIcon("editcopy.png"), loadIcon("editcopy.png")), "", CTRL+Key_C, ScApp, "editCopy"));
-	scrActions->insert("editPaste", new ScrAction(QIconSet(loadIcon("editpaste.png"), loadIcon("editpaste.png")), "", CTRL+Key_V, ScApp, "editPaste"));
-	scrActions->insert("editClearContents", new ScrAction(QIconSet(loadIcon("editdelete.png"), loadIcon("editdelete22.png")), "", QKeySequence(), ScApp, "editClearContents"));
-	scrActions->insert("editSelectAll", new ScrAction(QIconSet(noIcon), "", CTRL+Key_A, ScApp, "editSelectAll"));
-	scrActions->insert("editDeselectAll", new ScrAction(QIconSet(noIcon), "", CTRL+SHIFT+Key_A, ScApp, "editDeselectAll"));
-	scrActions->insert("editSearchReplace", new ScrAction(QIconSet(loadIcon("find16.png"), loadIcon("find16.png")), "", QKeySequence(CTRL+Key_F), ScApp, "editSearchReplace"));
+	scrActions->insert("editCut", new ScrAction(QIconSet(loadIcon("editcut.png")), "", Qt::CTRL+Qt::Key_X, ScApp, "editCut"));
+	scrActions->insert("editCopy", new ScrAction(QIconSet(loadIcon("editcopy.png")), "", Qt::CTRL+Qt::Key_C, ScApp, "editCopy"));
+	scrActions->insert("editPaste", new ScrAction(QIconSet(loadIcon("editpaste.png")), "", Qt::CTRL+Qt::Key_V, ScApp, "editPaste"));
+	scrActions->insert("editClearContents", new ScrAction(QIconSet(loadIcon("editdelete.png")), "", QKeySequence(), ScApp, "editClearContents"));
+	scrActions->insert("editSelectAll", new ScrAction(QIconSet(noIcon), "", Qt::CTRL+Qt::Key_A, ScApp, "editSelectAll"));
+	scrActions->insert("editDeselectAll", new ScrAction(QIconSet(noIcon), "", Qt::CTRL+Qt::SHIFT+Qt::Key_A, ScApp, "editDeselectAll"));
+	scrActions->insert("editSearchReplace", new ScrAction(QIconSet(loadIcon("find16.png")), "", QKeySequence(Qt::CTRL+Qt::Key_F), ScApp, "editSearchReplace"));
 
 	scrActions->insert("editEditWithImageEditor", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScApp, "editEditWithImageEditor"));
 
@@ -150,8 +152,8 @@ void ActionManager::initEditMenuActions()
 void ActionManager::initStyleMenuActions()
 {
 	//Text Size actions
-	(*scrActionGroups).insert("fontSize", new QActionGroup(ScApp, "fontSize", true));
-	scrActions->insert("fontSizeOther", new ScrAction(ScrAction::DataInt, QIconSet(), "", QKeySequence(), (*scrActionGroups)["fontSize"], "fontSizeOther", -1));
+	(*scrActionGroups).insert("fontSize", new Q3ActionGroup(ScApp, "fontSize", true));
+	scrActions->insert("fontSizeOther", new ScrAction(ScrAction::DataInt, QIcon(), "", QKeySequence(), (*scrActionGroups)["fontSize"], "fontSizeOther", -1));
 	connect( (*scrActions)["fontSizeOther"], SIGNAL(activatedData(int)), ScApp, SLOT(setItemFSize(int)));
 
 	int font_sizes[] = {7, 9, 10, 11, 12, 14, 18, 24, 36, 48, 60, 72};
@@ -159,17 +161,17 @@ void ActionManager::initStyleMenuActions()
 	for (uint s = 0; s < f_size; ++s)
 	{
 		QString fontSizeName=QString("fontSize%1").arg(font_sizes[s]);
-		scrActions->insert(fontSizeName, new ScrAction(ScrAction::DataInt, QIconSet(), "", QKeySequence(), (*scrActionGroups)["fontSize"], fontSizeName, font_sizes[s]));
+		scrActions->insert(fontSizeName, new ScrAction(ScrAction::DataInt, QIcon(), "", QKeySequence(), (*scrActionGroups)["fontSize"], fontSizeName, font_sizes[s]));
 		(*scrActions)[fontSizeName]->setToggleAction(true);
 		connect( (*scrActions)[fontSizeName], SIGNAL(activatedData(int)), ScApp, SLOT(setItemFSize(int)));
 	}
 
 	//Alignment actions
-	scrActions->insert("alignLeft", new ScrAction(ScrAction::DataInt, QIconSet(), "", QKeySequence(), ScApp, "alignLeft", 0));
-	scrActions->insert("alignCenter", new ScrAction(ScrAction::DataInt, QIconSet(), "", QKeySequence(), ScApp, "alignCenter", 1));
-	scrActions->insert("alignRight", new ScrAction(ScrAction::DataInt, QIconSet(), "", QKeySequence(), ScApp, "alignRight", 2));
-	scrActions->insert("alignBlock", new ScrAction(ScrAction::DataInt, QIconSet(), "", QKeySequence(), ScApp, "alignBlock", 3));
-	scrActions->insert("alignForced", new ScrAction(ScrAction::DataInt, QIconSet(), "", QKeySequence(), ScApp, "alignForced", 4));
+	scrActions->insert("alignLeft", new ScrAction(ScrAction::DataInt, QIcon(), "", QKeySequence(), ScApp, "alignLeft", 0));
+	scrActions->insert("alignCenter", new ScrAction(ScrAction::DataInt, QIcon(), "", QKeySequence(), ScApp, "alignCenter", 1));
+	scrActions->insert("alignRight", new ScrAction(ScrAction::DataInt, QIcon(), "", QKeySequence(), ScApp, "alignRight", 2));
+	scrActions->insert("alignBlock", new ScrAction(ScrAction::DataInt, QIcon(), "", QKeySequence(), ScApp, "alignBlock", 3));
+	scrActions->insert("alignForced", new ScrAction(ScrAction::DataInt, QIcon(), "", QKeySequence(), ScApp, "alignForced", 4));
 
 	(*scrActions)["alignLeft"]->setToggleAction(true);
 	(*scrActions)["alignCenter"]->setToggleAction(true);
@@ -184,29 +186,29 @@ void ActionManager::initStyleMenuActions()
 	connect( (*scrActions)["alignForced"], SIGNAL(activatedData(int)), ScApp, SLOT(setNewAbStyle(int)));
 
 	//Shade actions
-	scrActionGroups->insert("shade", new QActionGroup(ScApp, "shade", true));
-	scrActions->insert("shadeOther", new ScrAction(ScrAction::DataInt, QIconSet(), "", QKeySequence(), (*scrActionGroups)["shade"], "shadeOther", -1));
+	scrActionGroups->insert("shade", new Q3ActionGroup(ScApp, "shade", true));
+	scrActions->insert("shadeOther", new ScrAction(ScrAction::DataInt, QIcon(), "", QKeySequence(), (*scrActionGroups)["shade"], "shadeOther", -1));
 	connect( (*scrActions)["shadeOther"], SIGNAL(activatedData(int)), ScApp, SLOT(setItemShade(int)));
 	for (uint i=0; i<=100 ; i+=10)
 	{
 		QString shadeName=QString("shade%1").arg(i);
-		scrActions->insert(shadeName, new ScrAction(ScrAction::DataInt, QIconSet(), "", QKeySequence(), (*scrActionGroups)["shade"], shadeName, i));
+		scrActions->insert(shadeName, new ScrAction(ScrAction::DataInt, QIcon(), "", QKeySequence(), (*scrActionGroups)["shade"], shadeName, i));
 		(*scrActions)[shadeName]->setToggleAction(true);
 		connect( (*scrActions)[shadeName], SIGNAL(activatedData(int)), ScApp, SLOT(setItemShade(int)));
 	}
 
 	//Type Effects actions
-	scrActionGroups->insert("typeEffects", new QActionGroup(ScApp, "typeEffects", false));
-	scrActions->insert("typeEffectNormal", new ScrAction(ScrAction::DataInt, QIconSet(), "", QKeySequence(), (*scrActionGroups)["typeEffects"], "typeEffectNormal", 0));
-	scrActions->insert("typeEffectUnderline", new ScrAction(ScrAction::DataInt, QIconSet(), "", QKeySequence(), (*scrActionGroups)["typeEffects"], "typeEffectUnderline", 1));
-	scrActions->insert("typeEffectUnderlineWords", new ScrAction(ScrAction::DataInt, QIconSet(), "", QKeySequence(), (*scrActionGroups)["typeEffects"], "typeEffectUnderlineWords", 8));
-	scrActions->insert("typeEffectStrikeThrough", new ScrAction(ScrAction::DataInt, QIconSet(), "", QKeySequence(), (*scrActionGroups)["typeEffects"], "typeEffectStrikeThrough", 2));
-	scrActions->insert("typeEffectAllCaps", new ScrAction(ScrAction::DataInt, QIconSet(), "", QKeySequence(), (*scrActionGroups)["typeEffects"], "typeEffectAllCaps", 7));
-	scrActions->insert("typeEffectSmallCaps", new ScrAction(ScrAction::DataInt, QIconSet(), "", QKeySequence(), (*scrActionGroups)["typeEffects"], "typeEffectSmallCaps", 3));
-	scrActions->insert("typeEffectSuperscript", new ScrAction(ScrAction::DataInt, QIconSet(), "", QKeySequence(), (*scrActionGroups)["typeEffects"], "typeEffectSuperscript", 4));
-	scrActions->insert("typeEffectSubscript", new ScrAction(ScrAction::DataInt, QIconSet(), "", QKeySequence(), (*scrActionGroups)["typeEffects"], "typeEffectSubscript", 5));
-	scrActions->insert("typeEffectOutline", new ScrAction(ScrAction::DataInt, QIconSet(), "", QKeySequence(), (*scrActionGroups)["typeEffects"], "typeEffectOutline", 6));
-	scrActions->insert("typeEffectShadow", new ScrAction(ScrAction::DataInt, QIconSet(), "", QKeySequence(), (*scrActionGroups)["typeEffects"], "typeEffectShadow", 9));
+	scrActionGroups->insert("typeEffects", new Q3ActionGroup(ScApp, "typeEffects", false));
+	scrActions->insert("typeEffectNormal", new ScrAction(ScrAction::DataInt, QIcon(), "", QKeySequence(), (*scrActionGroups)["typeEffects"], "typeEffectNormal", 0));
+	scrActions->insert("typeEffectUnderline", new ScrAction(ScrAction::DataInt, QIcon(), "", QKeySequence(), (*scrActionGroups)["typeEffects"], "typeEffectUnderline", 1));
+	scrActions->insert("typeEffectUnderlineWords", new ScrAction(ScrAction::DataInt, QIcon(), "", QKeySequence(), (*scrActionGroups)["typeEffects"], "typeEffectUnderlineWords", 8));
+	scrActions->insert("typeEffectStrikeThrough", new ScrAction(ScrAction::DataInt, QIcon(), "", QKeySequence(), (*scrActionGroups)["typeEffects"], "typeEffectStrikeThrough", 2));
+	scrActions->insert("typeEffectAllCaps", new ScrAction(ScrAction::DataInt, QIcon(), "", QKeySequence(), (*scrActionGroups)["typeEffects"], "typeEffectAllCaps", 7));
+	scrActions->insert("typeEffectSmallCaps", new ScrAction(ScrAction::DataInt, QIcon(), "", QKeySequence(), (*scrActionGroups)["typeEffects"], "typeEffectSmallCaps", 3));
+	scrActions->insert("typeEffectSuperscript", new ScrAction(ScrAction::DataInt, QIcon(), "", QKeySequence(), (*scrActionGroups)["typeEffects"], "typeEffectSuperscript", 4));
+	scrActions->insert("typeEffectSubscript", new ScrAction(ScrAction::DataInt, QIcon(), "", QKeySequence(), (*scrActionGroups)["typeEffects"], "typeEffectSubscript", 5));
+	scrActions->insert("typeEffectOutline", new ScrAction(ScrAction::DataInt, QIcon(), "", QKeySequence(), (*scrActionGroups)["typeEffects"], "typeEffectOutline", 6));
+	scrActions->insert("typeEffectShadow", new ScrAction(ScrAction::DataInt, QIcon(), "", QKeySequence(), (*scrActionGroups)["typeEffects"], "typeEffectShadow", 9));
 	(*scrActions)["typeEffectNormal"]->setToggleAction(true);
 	(*scrActions)["typeEffectUnderline"]->setToggleAction(true);
 	(*scrActions)["typeEffectUnderlineWords"]->setToggleAction(true);
@@ -239,19 +241,19 @@ void ActionManager::initStyleMenuActions()
 void ActionManager::initItemMenuActions()
 {
 	//Item Menu
-	scrActions->insert("itemDuplicate", new ScrAction("", CTRL+Key_D, ScApp, "itemDuplicate"));
+	scrActions->insert("itemDuplicate", new ScrAction("", Qt::CTRL+Qt::Key_D, ScApp, "itemDuplicate"));
 	scrActions->insert("itemMulDuplicate", new ScrAction(ScApp, "itemMulDuplicate"));
-	scrActions->insert("itemDelete", new ScrAction("", CTRL+Key_K, ScApp, "itemDelete"));
-	scrActions->insert("itemGroup", new ScrAction("", CTRL+Key_G, ScApp, "itemGroup"));
-	scrActions->insert("itemUngroup", new ScrAction("", CTRL+Key_U, ScApp, "itemUngroup"));
-	scrActions->insert("itemLock", new ScrAction("", CTRL+Key_L, ScApp, "itemLock"));
-	scrActions->insert("itemLockSize", new ScrAction("", CTRL+SHIFT+Key_L, ScApp, "itemLockSize"));
+	scrActions->insert("itemDelete", new ScrAction("", Qt::CTRL+Qt::Key_K, ScApp, "itemDelete"));
+	scrActions->insert("itemGroup", new ScrAction("", Qt::CTRL+Qt::Key_G, ScApp, "itemGroup"));
+	scrActions->insert("itemUngroup", new ScrAction("", Qt::CTRL+Qt::Key_U, ScApp, "itemUngroup"));
+	scrActions->insert("itemLock", new ScrAction("", Qt::CTRL+Qt::Key_L, ScApp, "itemLock"));
+	scrActions->insert("itemLockSize", new ScrAction("", Qt::CTRL+Qt::SHIFT+Qt::Key_L, ScApp, "itemLockSize"));
 	(*scrActions)["itemLock"]->setToggleAction(true);
 	(*scrActions)["itemLockSize"]->setToggleAction(true);
-	scrActions->insert("itemLowerToBottom", new ScrAction(QIconSet(loadIcon("lower-to-bottom.png"), loadIcon("lower-to-bottom.png")), "", QKeySequence(Key_End), ScApp, "itemLowerToBottom"));
-	scrActions->insert("itemRaiseToTop", new ScrAction(QIconSet(loadIcon("raise-to-top.png"), loadIcon("raise-to-top.png")), "", QKeySequence(Key_Home), ScApp, "itemRaiseToTop"));
-	scrActions->insert("itemLower", new ScrAction(QIconSet(loadIcon("lower.png"), loadIcon("lower.png")), "", QKeySequence(CTRL+Key_End), ScApp, "itemLower"));
-	scrActions->insert("itemRaise", new ScrAction(QIconSet(loadIcon("raise.png"), loadIcon("raise.png")), "", QKeySequence(CTRL+Key_Home), ScApp, "itemRaise"));
+	scrActions->insert("itemLowerToBottom", new ScrAction(QIcon(loadIcon("lower-to-bottom.png")), "", QKeySequence(Qt::Key_End), ScApp, "itemLowerToBottom"));
+	scrActions->insert("itemRaiseToTop", new ScrAction(QIcon(loadIcon("raise-to-top.png")), "", QKeySequence(Qt::Key_Home), ScApp, "itemRaiseToTop"));
+	scrActions->insert("itemLower", new ScrAction(QIcon(loadIcon("lower.png")), "", QKeySequence(Qt::CTRL+Qt::Key_End), ScApp, "itemLower"));
+	scrActions->insert("itemRaise", new ScrAction(QIcon(loadIcon("raise.png")), "", QKeySequence(Qt::CTRL+Qt::Key_Home), ScApp, "itemRaise"));
 	
 	scrActions->insert("itemSendToScrapbook", new ScrAction(ScApp, "itemSendToScrapbook"));
 
@@ -261,9 +263,9 @@ void ActionManager::initItemMenuActions()
 	scrActions->insert("itemUpdateImage", new ScrAction(ScApp, "itemUpdateImage"));
 	scrActions->insert("itemAdjustFrameToImage", new ScrAction(ScApp, "itemAdjustFrameToImage"));
 	scrActions->insert("itemExtendedImageProperties", new ScrAction(ScApp, "itemExtendedImageProperties"));
-	scrActions->insert("itemPreviewLow", new ScrAction(ScrAction::DataInt, QIconSet(), "", QKeySequence(), ScApp, "itemPreviewLow", 2));
-	scrActions->insert("itemPreviewNormal", new ScrAction(ScrAction::DataInt, QIconSet(), "", QKeySequence(), ScApp, "itemPreviewNormal", 1));
-	scrActions->insert("itemPreviewFull", new ScrAction(ScrAction::DataInt, QIconSet(), "", QKeySequence(), ScApp, "itemPreviewFull", 0));
+	scrActions->insert("itemPreviewLow", new ScrAction(ScrAction::DataInt, QIcon(), "", QKeySequence(), ScApp, "itemPreviewLow", 2));
+	scrActions->insert("itemPreviewNormal", new ScrAction(ScrAction::DataInt, QIcon(), "", QKeySequence(), ScApp, "itemPreviewNormal", 1));
+	scrActions->insert("itemPreviewFull", new ScrAction(ScrAction::DataInt, QIcon(), "", QKeySequence(), ScApp, "itemPreviewFull", 0));
 	scrActions->insert("itemPDFIsBookmark", new ScrAction(ScApp, "itemPDFIsBookmark"));
 	(*scrActions)["itemPDFIsBookmark"]->setToggleAction(true);
 	scrActions->insert("itemPDFIsAnnotation", new ScrAction(ScApp, "itemPDFIsAnnotation"));
@@ -326,8 +328,8 @@ void ActionManager::initItemMenuActions()
 void ActionManager::initInsertMenuActions()
 {
 	//Insert Menu
-	scrActions->insert("insertGlyph", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScApp, "insertGlyph"));
-	scrActions->insert("insertSampleText", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScApp, "insertSampleText"));
+	scrActions->insert("insertGlyph", new ScrAction(QIcon(noIcon),"", QKeySequence(), ScApp, "insertGlyph"));
+	scrActions->insert("insertSampleText", new ScrAction(QIcon(noIcon),"", QKeySequence(), ScApp, "insertSampleText"));
 
 	connect( (*scrActions)["insertGlyph"], SIGNAL(activated()), ScApp, SLOT(slotCharSelect()) );
 	connect( (*scrActions)["insertSampleText"], SIGNAL(activated()), ScApp, SLOT(insertSampleText()) );
@@ -359,12 +361,12 @@ void ActionManager::initPageMenuActions()
 
 void ActionManager::initViewMenuActions()
 {
-	scrActions->insert("viewFitInWindow", new ScrAction(ScrAction::DataDouble, QIconSet(), "", CTRL+Key_0, ScApp, "viewFitInWindow", 0, -100.0));
-	scrActions->insert("viewFit50", new ScrAction(ScrAction::DataDouble, QIconSet(), "", QKeySequence(), ScApp, "viewFit50", 0, 50.0));
-	scrActions->insert("viewFit75", new ScrAction(ScrAction::DataDouble, QIconSet(), "", QKeySequence(), ScApp, "viewFit75", 0, 75.0));
-	scrActions->insert("viewFit100", new ScrAction(ScrAction::DataDouble, QIconSet(), "", CTRL+Key_1, ScApp, "viewFit100", 0, 100.0));
-	scrActions->insert("viewFit200", new ScrAction(ScrAction::DataDouble, QIconSet(), "", QKeySequence(), ScApp, "viewFit200", 0, 200.0));
-	scrActions->insert("viewFit20", new ScrAction(ScrAction::DataDouble, QIconSet(), "", QKeySequence(), ScApp, "viewFit20", 0, 20.0));
+	scrActions->insert("viewFitInWindow", new ScrAction(ScrAction::DataDouble, QIcon(), "", Qt::CTRL+Qt::Key_0, ScApp, "viewFitInWindow", 0, -100.0));
+	scrActions->insert("viewFit50", new ScrAction(ScrAction::DataDouble, QIcon(), "", QKeySequence(), ScApp, "viewFit50", 0, 50.0));
+	scrActions->insert("viewFit75", new ScrAction(ScrAction::DataDouble, QIcon(), "", QKeySequence(), ScApp, "viewFit75", 0, 75.0));
+	scrActions->insert("viewFit100", new ScrAction(ScrAction::DataDouble, QIcon(), "", Qt::CTRL+Qt::Key_1, ScApp, "viewFit100", 0, 100.0));
+	scrActions->insert("viewFit200", new ScrAction(ScrAction::DataDouble, QIcon(), "", QKeySequence(), ScApp, "viewFit200", 0, 200.0));
+	scrActions->insert("viewFit20", new ScrAction(ScrAction::DataDouble, QIcon(), "", QKeySequence(), ScApp, "viewFit20", 0, 20.0));
 	scrActions->insert("viewShowMargins", new ScrAction(ScApp, "viewShowMargins"));
 	scrActions->insert("viewShowFrames", new ScrAction(ScApp, "viewShowFrames"));
 	scrActions->insert("viewShowImages", new ScrAction(ScApp, "viewShowImages"));
@@ -423,37 +425,37 @@ void ActionManager::initToolsMenuActions()
 	scrActions->insert("toolsProperties", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScApp, "toolsProperties"));
 	scrActions->insert("toolsOutline", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScApp, "toolsOutline"));
 	scrActions->insert("toolsScrapbook", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScApp, "toolsScrapbook"));
-	scrActions->insert("toolsLayers", new ScrAction(QIconSet(noIcon),"", QKeySequence(Key_F6), ScApp, "toolsLayers"));
+	scrActions->insert("toolsLayers", new ScrAction(QIconSet(noIcon),"", QKeySequence(Qt::Key_F6), ScApp, "toolsLayers"));
 	scrActions->insert("toolsPages", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScApp, "toolsPages"));
 	scrActions->insert("toolsBookmarks", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScApp, "toolsBookmarks"));
-	scrActions->insert("toolsMeasurements", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("dist.png"), loadIcon("dist22.png")), "", QKeySequence(), ScApp, "toolsMeasurements", modeMeasurementTool));
+	scrActions->insert("toolsMeasurements", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("dist.png")), "", QKeySequence(), ScApp, "toolsMeasurements", modeMeasurementTool));
 	scrActions->insert("toolsActionHistory", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScApp, "toolsActionHistory"));
-	scrActions->insert("toolsPreflightVerifier", new ScrAction(QIconSet(loadIcon("launch16.png"), loadIcon("launch.png")),"", QKeySequence(), ScApp, "toolsPreflightVerifier"));
+	scrActions->insert("toolsPreflightVerifier", new ScrAction(QIconSet(loadIcon("launch16.png")),"", QKeySequence(), ScApp, "toolsPreflightVerifier"));
 	scrActions->insert("toolsAlignDistribute", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScApp, "toolsAlignDistribute"));
 	scrActions->insert("toolsToolbarTools", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScApp, "toolsToolbarTools"));
 	scrActions->insert("toolsToolbarPDF", new ScrAction(QIconSet(noIcon),"", QKeySequence(), ScApp, "toolsToolbarPDF"));
 
 	//toolbar only items
-	scrActions->insert("toolsSelect", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Kreuz.xpm"), loadIcon("Kreuz.xpm")), "", QKeySequence(Key_C), ScApp, "toolsSelect", modeNormal));
-	scrActions->insert("toolsInsertTextFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Text16.xpm"), loadIcon("Text.xpm")), "", QKeySequence(Key_T), ScApp, "toolsInsertTextFrame", modeDrawText));
-	scrActions->insert("toolsInsertImageFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Bild16.xpm"), loadIcon("Bild.xpm")), "", QKeySequence(Key_I), ScApp, "toolsInsertImageFrame", modeDrawPicture));
-	scrActions->insert("toolsInsertTableFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("frame_table16.png"), loadIcon("frame_table.png")), "", QKeySequence(Key_A), ScApp, "toolsInsertTableFrame", modeDrawTable));
-	scrActions->insert("toolsInsertShape", new ScrAction(ScrAction::DataInt,QIconSet(), "", QKeySequence(Key_S), ScApp, "toolsInsertShape", modeDrawShapes));
-	scrActions->insert("toolsInsertPolygon", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("spline16.png"), loadIcon("spline.png")), "", QKeySequence(Key_P), ScApp, "toolsInsertPolygon", modeDrawRegularPolygon));
-	scrActions->insert("toolsInsertLine", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Stift16.xpm"), loadIcon("Stift.xpm")), "", QKeySequence(Key_L), ScApp, "toolsInsertLine", modeDrawLine));
-	scrActions->insert("toolsInsertBezier", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("beziertool16.png"), loadIcon("beziertool.png")), "", QKeySequence(Key_B), ScApp, "toolsInsertBezier", modeDrawBezierLine));
-	scrActions->insert("toolsInsertFreehandLine", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Stiftalt16.xpm"), loadIcon("Stiftalt.xpm")), "", QKeySequence(Key_F), ScApp, "toolsInsertFreehandLine", modeDrawFreehandLine));
+	scrActions->insert("toolsSelect", new ScrAction(ScrAction::DataInt,QIcon(loadIcon("Kreuz.xpm")), "", QKeySequence(Qt::Key_C), ScApp, "toolsSelect", modeNormal));
+	scrActions->insert("toolsInsertTextFrame", new ScrAction(ScrAction::DataInt,QIcon(loadIcon("Text.xpm")), "", QKeySequence(Qt::Key_T), ScApp, "toolsInsertTextFrame", modeDrawText));
+	scrActions->insert("toolsInsertImageFrame", new ScrAction(ScrAction::DataInt,QIcon(loadIcon("Bild.xpm")), "", QKeySequence(Qt::Key_I), ScApp, "toolsInsertImageFrame", modeDrawPicture));
+	scrActions->insert("toolsInsertTableFrame", new ScrAction(ScrAction::DataInt,QIcon(loadIcon("frame_table.png")), "", QKeySequence(Qt::Key_A), ScApp, "toolsInsertTableFrame", modeDrawTable));
+	scrActions->insert("toolsInsertShape", new ScrAction(ScrAction::DataInt,QIcon(), "", QKeySequence(Qt::Key_S), ScApp, "toolsInsertShape", modeDrawShapes));
+	scrActions->insert("toolsInsertPolygon", new ScrAction(ScrAction::DataInt,QIcon(loadIcon("spline.png")), "", QKeySequence(Qt::Key_P), ScApp, "toolsInsertPolygon", modeDrawRegularPolygon));
+	scrActions->insert("toolsInsertLine", new ScrAction(ScrAction::DataInt,QIcon(loadIcon("Stift.xpm")), "", QKeySequence(Qt::Key_L), ScApp, "toolsInsertLine", modeDrawLine));
+	scrActions->insert("toolsInsertBezier", new ScrAction(ScrAction::DataInt,QIcon(loadIcon("beziertool.png")), "", QKeySequence(Qt::Key_B), ScApp, "toolsInsertBezier", modeDrawBezierLine));
+	scrActions->insert("toolsInsertFreehandLine", new ScrAction(ScrAction::DataInt,QIcon(loadIcon("Stiftalt.xpm")), "", QKeySequence(Qt::Key_F), ScApp, "toolsInsertFreehandLine", modeDrawFreehandLine));
 
-	scrActions->insert("toolsRotate", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Rotieren.xpm"), loadIcon("Rotieren.xpm")), "", QKeySequence(Key_R), ScApp, "toolsRotate", modeRotation));
-	scrActions->insert("toolsZoom", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Lupe.xpm"), loadIcon("Lupe.xpm")), "", QKeySequence(Key_Z), ScApp, "toolsZoom", modeMagnifier));
-	scrActions->insert("toolsZoomIn", new ScrAction(QIconSet(loadIcon("viewmagin.png"), loadIcon("viewmagin.png")), "", QKeySequence(CTRL+Key_Plus), ScApp, "toolsZoomIn"));
-	scrActions->insert("toolsZoomOut", new ScrAction(QIconSet(loadIcon("viewmagout.png"), loadIcon("viewmagout.png")), "", QKeySequence(CTRL+Key_Minus), ScApp, "toolsZoomOut"));
-	scrActions->insert("toolsEditContents", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Editm.xpm"), loadIcon("Editm.xpm")), "", QKeySequence(Key_E), ScApp, "toolsEditContents", modeEdit));
-	scrActions->insert("toolsEditWithStoryEditor", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("signature2.png"), loadIcon("signature.png")), "", QKeySequence(CTRL+Key_Y), ScApp, "toolsEditWithStoryEditor", modeStoryEditor));
-	scrActions->insert("toolsLinkTextFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Lock.xpm"), loadIcon("Lock.xpm")), "", QKeySequence(Key_N), ScApp, "toolsLinkTextFrame", modeLinkFrames));
-	scrActions->insert("toolsUnlinkTextFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Unlock.xpm"), loadIcon("Unlock.xpm")), "", QKeySequence(Key_U), ScApp, "toolsUnlinkTextFrame", modeUnlinkFrames));
-	scrActions->insert("toolsEyeDropper", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("colorpicker.png"), loadIcon("colorpicker.png")), "", QKeySequence(Key_Y), ScApp, "toolsEyeDropper", modeEyeDropper));
-	scrActions->insert("toolsCopyProperties", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("wizard.png"), loadIcon("wizard.png")), "", QKeySequence(), ScApp, "toolsCopyProperties", modeCopyProperties));
+	scrActions->insert("toolsRotate", new ScrAction(ScrAction::DataInt,QIcon(loadIcon("Rotieren.xpm")), "", QKeySequence(Qt::Key_R), ScApp, "toolsRotate", modeRotation));
+	scrActions->insert("toolsZoom", new ScrAction(ScrAction::DataInt,QIcon(loadIcon("Lupe.xpm")), "", QKeySequence(Qt::Key_Z), ScApp, "toolsZoom", modeMagnifier));
+	scrActions->insert("toolsZoomIn", new ScrAction(QIcon(loadIcon("viewmagin.png")), "", QKeySequence(Qt::CTRL+Qt::Key_Plus), ScApp, "toolsZoomIn"));
+	scrActions->insert("toolsZoomOut", new ScrAction(QIcon(loadIcon("viewmagout.png")), "", QKeySequence(Qt::CTRL+Qt::Key_Minus), ScApp, "toolsZoomOut"));
+	scrActions->insert("toolsEditContents", new ScrAction(ScrAction::DataInt,QIcon(loadIcon("Editm.xpm")), "", QKeySequence(Qt::Key_E), ScApp, "toolsEditContents", modeEdit));
+	scrActions->insert("toolsEditWithStoryEditor", new ScrAction(ScrAction::DataInt,QIcon(loadIcon("signature.png")), "", QKeySequence(Qt::CTRL+Qt::Key_Y), ScApp, "toolsEditWithStoryEditor", modeStoryEditor));
+	scrActions->insert("toolsLinkTextFrame", new ScrAction(ScrAction::DataInt,QIcon(loadIcon("Lock.xpm")), "", QKeySequence(Qt::Key_N), ScApp, "toolsLinkTextFrame", modeLinkFrames));
+	scrActions->insert("toolsUnlinkTextFrame", new ScrAction(ScrAction::DataInt,QIcon(loadIcon("Unlock.xpm")), "", QKeySequence(Qt::Key_U), ScApp, "toolsUnlinkTextFrame", modeUnlinkFrames));
+	scrActions->insert("toolsEyeDropper", new ScrAction(ScrAction::DataInt,QIcon(loadIcon("colorpicker.png")), "", QKeySequence(Qt::Key_Y), ScApp, "toolsEyeDropper", modeEyeDropper));
+	scrActions->insert("toolsCopyProperties", new ScrAction(ScrAction::DataInt,QIcon(loadIcon("wizard.png")), "", QKeySequence(), ScApp, "toolsCopyProperties", modeCopyProperties));
 
 	(*scrActions)["toolsProperties"]->setToggleAction(true);
 	(*scrActions)["toolsOutline"]->setToggleAction(true);
@@ -517,8 +519,8 @@ void ActionManager::initExtrasMenuActions()
 
 void ActionManager::initWindowsMenuActions()
 {
-	scrActions->insert("windowsCascade", new ScrAction( QIconSet(noIcon),"", QKeySequence(), ScApp, "windowsCascade"));
-	scrActions->insert("windowsTile", new ScrAction( QIconSet(noIcon),"", QKeySequence(), ScApp, "windowstile"));
+	scrActions->insert("windowsCascade", new ScrAction( QIcon(noIcon),"", QKeySequence(), ScApp, "windowsCascade"));
+	scrActions->insert("windowsTile", new ScrAction( QIcon(noIcon),"", QKeySequence(), ScApp, "windowstile"));
 }
 
 void ActionManager::initScriptMenuActions()
@@ -531,7 +533,7 @@ void ActionManager::initHelpMenuActions()
 	scrActions->insert("helpAboutPlugins", new ScrAction(ScApp, "helpAboutPlugins"));
 	scrActions->insert("helpAboutQt", new ScrAction(ScApp, "helpAboutQt"));
 	scrActions->insert("helpTooltips", new ScrAction(ScApp, "helpTooltips"));
-	scrActions->insert("helpManual", new ScrAction("", Key_F1, ScApp, "helpManual"));
+	scrActions->insert("helpManual", new ScrAction("", Qt::Key_F1, ScApp, "helpManual"));
 
 	(*scrActions)["helpTooltips"]->setToggleAction(true);
 	(*scrActions)["helpTooltips"]->setOn(true);
@@ -546,41 +548,41 @@ void ActionManager::initHelpMenuActions()
 void ActionManager::initSpecialActions()
 {
 	//typography
-	scrActions->insert("specialSmartHyphen", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", CTRL+SHIFT+Key_Minus, ScApp, "specialSmartHyphen",-1));
-	scrActions->insert("specialNonBreakingHyphen", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", CTRL+ALT+Key_Minus, ScApp, "specialNonBreakingHyphen",24));
-	scrActions->insert("specialNonBreakingSpace", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", CTRL+Key_Space, ScApp, "specialNonBreakingSpace",29));
-	scrActions->insert("specialPageNumber", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", CTRL+SHIFT+ALT+Key_P, ScApp, "specialPageNumber",30));
-	scrActions->insert("specialNewLine", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", SHIFT+Key_Return, ScApp, "specialNewLine",28));
-	scrActions->insert("specialFrameBreak", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", CTRL+Key_Return, ScApp, "specialFrameBreak",27));
-	scrActions->insert("specialColumnBreak", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", CTRL+SHIFT+Key_Return, ScApp, "specialColumnBreak",26));
-	scrActions->insert("specialCopyRight", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialCopyRight",0x0A9));
-	scrActions->insert("specialRegdTM", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialRegdTM",0x00AE));
-	scrActions->insert("specialTM", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialTM",0x2122));
-	scrActions->insert("specialBullet", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialBullet",0x2022));
-	scrActions->insert("specialDashEm", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialDashEm",0x2014));
-	scrActions->insert("specialDashEn", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialDashEn",0x2013));
-	scrActions->insert("specialDashFigure", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialDashFigure",0x2012));
-	scrActions->insert("specialDashQuotation", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialDashQuotation",0x2015));
+	scrActions->insert("specialSmartHyphen", new ScrAction(ScrAction::UnicodeChar, QIcon(), "", Qt::CTRL+Qt::SHIFT+Qt::Key_Minus, ScApp, "specialSmartHyphen",-1));
+	scrActions->insert("specialNonBreakingHyphen", new ScrAction(ScrAction::UnicodeChar, QIcon(), "", Qt::CTRL+Qt::ALT+Qt::Key_Minus, ScApp, "specialNonBreakingHyphen",24));
+	scrActions->insert("specialNonBreakingSpace", new ScrAction(ScrAction::UnicodeChar, QIcon(), "", Qt::CTRL+Qt::Key_Space, ScApp, "specialNonBreakingSpace",29));
+	scrActions->insert("specialPageNumber", new ScrAction(ScrAction::UnicodeChar, QIcon(), "", Qt::CTRL+Qt::SHIFT+Qt::ALT+Qt::Key_P, ScApp, "specialPageNumber",30));
+	scrActions->insert("specialNewLine", new ScrAction(ScrAction::UnicodeChar, QIcon(), "", Qt::SHIFT+Qt::Key_Return, ScApp, "specialNewLine",28));
+	scrActions->insert("specialFrameBreak", new ScrAction(ScrAction::UnicodeChar, QIcon(), "", Qt::CTRL+Qt::Key_Return, ScApp, "specialFrameBreak",27));
+	scrActions->insert("specialColumnBreak", new ScrAction(ScrAction::UnicodeChar, QIcon(), "", Qt::CTRL+Qt::SHIFT+Qt::Key_Return, ScApp, "specialColumnBreak",26));
+	scrActions->insert("specialCopyRight", new ScrAction(ScrAction::UnicodeChar, QIcon(), "", QKeySequence(), ScApp, "specialCopyRight",0x0A9));
+	scrActions->insert("specialRegdTM", new ScrAction(ScrAction::UnicodeChar, QIcon(), "", QKeySequence(), ScApp, "specialRegdTM",0x00AE));
+	scrActions->insert("specialTM", new ScrAction(ScrAction::UnicodeChar, QIcon(), "", QKeySequence(), ScApp, "specialTM",0x2122));
+	scrActions->insert("specialBullet", new ScrAction(ScrAction::UnicodeChar, QIcon(), "", QKeySequence(), ScApp, "specialBullet",0x2022));
+	scrActions->insert("specialDashEm", new ScrAction(ScrAction::UnicodeChar, QIcon(), "", QKeySequence(), ScApp, "specialDashEm",0x2014));
+	scrActions->insert("specialDashEn", new ScrAction(ScrAction::UnicodeChar, QIcon(), "", QKeySequence(), ScApp, "specialDashEn",0x2013));
+	scrActions->insert("specialDashFigure", new ScrAction(ScrAction::UnicodeChar, QIcon(), "", QKeySequence(), ScApp, "specialDashFigure",0x2012));
+	scrActions->insert("specialDashQuotation", new ScrAction(ScrAction::UnicodeChar, QIcon(), "", QKeySequence(), ScApp, "specialDashQuotation",0x2015));
 
-	scrActions->insert("specialQuoteApostrophe", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialQuoteApostrophe",0x0027));
-	scrActions->insert("specialQuoteStraight", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialQuoteStraight",0x0022));
-	scrActions->insert("specialQuoteSingleLeft", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialQuoteSingleLeft",0x2018));
-	scrActions->insert("specialQuoteSingleRight", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialQuoteSingleRight",0x2019));
-	scrActions->insert("specialQuoteDoubleLeft", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialQuoteDoubleLeft",0x201C));
-	scrActions->insert("specialQuoteDoubleRight", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialQuoteDoubleRight",0x201D));
-	scrActions->insert("specialQuoteSingleReversed", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialQuoteSingleReversed",0x201B));
-	scrActions->insert("specialQuoteDoubleReversed", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialQuoteDoubleReversed",0x201F));
-	scrActions->insert("specialQuoteSingleLeftGuillemet", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialQuoteSingleLeftGuillemet",0x2039));
-	scrActions->insert("specialQuoteSingleRightGuillemet", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialQuoteSingleRightGuillemet",0x203A));
-	scrActions->insert("specialQuoteDoubleLeftGuillemet", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialQuoteDoubleLeftGuillemet",0x00AB));
-	scrActions->insert("specialQuoteDoubleRightGuillemet", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialQuoteDoubleRightGuillemet",0x00BB));
-	scrActions->insert("specialQuoteLowSingleComma", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialQuoteLowSingleComma",0x201A));
-	scrActions->insert("specialQuoteLowDoubleComma", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialQuoteLowDoubleComma",0x201E));
+	scrActions->insert("specialQuoteApostrophe", new ScrAction(ScrAction::UnicodeChar, QIcon(), "", QKeySequence(), ScApp, "specialQuoteApostrophe",0x0027));
+	scrActions->insert("specialQuoteStraight", new ScrAction(ScrAction::UnicodeChar, QIcon(), "", QKeySequence(), ScApp, "specialQuoteStraight",0x0022));
+	scrActions->insert("specialQuoteSingleLeft", new ScrAction(ScrAction::UnicodeChar, QIcon(), "", QKeySequence(), ScApp, "specialQuoteSingleLeft",0x2018));
+	scrActions->insert("specialQuoteSingleRight", new ScrAction(ScrAction::UnicodeChar, QIcon(), "", QKeySequence(), ScApp, "specialQuoteSingleRight",0x2019));
+	scrActions->insert("specialQuoteDoubleLeft", new ScrAction(ScrAction::UnicodeChar, QIcon(), "", QKeySequence(), ScApp, "specialQuoteDoubleLeft",0x201C));
+	scrActions->insert("specialQuoteDoubleRight", new ScrAction(ScrAction::UnicodeChar, QIcon(), "", QKeySequence(), ScApp, "specialQuoteDoubleRight",0x201D));
+	scrActions->insert("specialQuoteSingleReversed", new ScrAction(ScrAction::UnicodeChar, QIcon(), "", QKeySequence(), ScApp, "specialQuoteSingleReversed",0x201B));
+	scrActions->insert("specialQuoteDoubleReversed", new ScrAction(ScrAction::UnicodeChar, QIcon(), "", QKeySequence(), ScApp, "specialQuoteDoubleReversed",0x201F));
+	scrActions->insert("specialQuoteSingleLeftGuillemet", new ScrAction(ScrAction::UnicodeChar, QIcon(), "", QKeySequence(), ScApp, "specialQuoteSingleLeftGuillemet",0x2039));
+	scrActions->insert("specialQuoteSingleRightGuillemet", new ScrAction(ScrAction::UnicodeChar, QIcon(), "", QKeySequence(), ScApp, "specialQuoteSingleRightGuillemet",0x203A));
+	scrActions->insert("specialQuoteDoubleLeftGuillemet", new ScrAction(ScrAction::UnicodeChar, QIcon(), "", QKeySequence(), ScApp, "specialQuoteDoubleLeftGuillemet",0x00AB));
+	scrActions->insert("specialQuoteDoubleRightGuillemet", new ScrAction(ScrAction::UnicodeChar, QIcon(), "", QKeySequence(), ScApp, "specialQuoteDoubleRightGuillemet",0x00BB));
+	scrActions->insert("specialQuoteLowSingleComma", new ScrAction(ScrAction::UnicodeChar, QIcon(), "", QKeySequence(), ScApp, "specialQuoteLowSingleComma",0x201A));
+	scrActions->insert("specialQuoteLowDoubleComma", new ScrAction(ScrAction::UnicodeChar, QIcon(), "", QKeySequence(), ScApp, "specialQuoteLowDoubleComma",0x201E));
 	//scrActions->insert("specialQuoteDoubleTurnedComma", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialQuoteDoubleTurnedComma",0x201C));
-	scrActions->insert("specialQuoteCJKSingleLeft", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialQuoteCJKSingleLeft",0x300C));
-	scrActions->insert("specialQuoteCJKSingleRight", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialQuoteCJKSingleRight",0x300D));
-	scrActions->insert("specialQuoteCJKDoubleLeft", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialQuoteCJKDoubleLeft",0x300E));
-	scrActions->insert("specialQuoteCJKDoubleRight", new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", QKeySequence(), ScApp, "specialQuoteCJKDoubleRight",0x300F));
+	scrActions->insert("specialQuoteCJKSingleLeft", new ScrAction(ScrAction::UnicodeChar, QIcon(), "", QKeySequence(), ScApp, "specialQuoteCJKSingleLeft",0x300C));
+	scrActions->insert("specialQuoteCJKSingleRight", new ScrAction(ScrAction::UnicodeChar, QIcon(), "", QKeySequence(), ScApp, "specialQuoteCJKSingleRight",0x300D));
+	scrActions->insert("specialQuoteCJKDoubleLeft", new ScrAction(ScrAction::UnicodeChar, QIcon(), "", QKeySequence(), ScApp, "specialQuoteCJKDoubleLeft",0x300E));
+	scrActions->insert("specialQuoteCJKDoubleRight", new ScrAction(ScrAction::UnicodeChar, QIcon(), "", QKeySequence(), ScApp, "specialQuoteCJKDoubleRight",0x300F));
 
 	//Spaces and special characters
 	*unicodeCharActionNames << "specialSmartHyphen" << "specialNonBreakingHyphen" << "specialNonBreakingSpace" << "specialPageNumber";
@@ -610,8 +612,8 @@ void ActionManager::initSpecialActions()
 	enableUnicodeActions(false);
 
 	//GUI
-	scrActions->insert("specialToggleAllPalettes", new ScrAction(ScrAction::DataQString, QIconSet(), "", Key_F10, ScApp, "specialToggleAllPalettes",0,0.0,"specialToggleAllPalettes"));
-	scrActions->insert("specialToggleAllGuides", new ScrAction(ScrAction::DataQString, QIconSet(), "", Key_F11, ScApp, "specialToggleAllGuides",0,0.0,"specialToggleAllGuides"));
+	scrActions->insert("specialToggleAllPalettes", new ScrAction(ScrAction::DataQString, QIcon(), "", Qt::Key_F10, ScApp, "specialToggleAllPalettes",0,0.0,"specialToggleAllPalettes"));
+	scrActions->insert("specialToggleAllGuides", new ScrAction(ScrAction::DataQString, QIcon(), "", Qt::Key_F11, ScApp, "specialToggleAllGuides",0,0.0,"specialToggleAllGuides"));
 
 	connect( (*scrActions)["specialToggleAllPalettes"], SIGNAL(activated()), ScApp, SLOT(ToggleAllPalettes()) );
 	connect( (*scrActions)["specialToggleAllGuides"], SIGNAL(activated()), ScApp, SLOT(ToggleAllGuides()) );

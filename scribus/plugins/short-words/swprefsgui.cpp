@@ -13,6 +13,11 @@
 #include <qmessagebox.h>
 #include <qtooltip.h>
 #include <qtextcodec.h>
+//Added by qt3to4:
+#include <QTextStream>
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 
 
 SWPrefsGui::SWPrefsGui(QWidget* parent )
@@ -24,7 +29,7 @@ SWPrefsGui::SWPrefsGui(QWidget* parent )
 
 	titleLabel = new QLabel(this, "titleLabel");
 	editLayout->addWidget(titleLabel);
-	cfgEdit = new QTextEdit(this, "cfgEdit");
+	cfgEdit = new Q3TextEdit(this, "cfgEdit");
 	editLayout->addWidget(cfgEdit);
 
 	buttonLayout = new QHBoxLayout(0, 0, 6, "buttonLayout");
@@ -41,7 +46,7 @@ SWPrefsGui::SWPrefsGui(QWidget* parent )
 	SWPrefsGuiLayout->addLayout(editLayout, 0, 0);
 	languageChange();
 	resize(QSize(362, 359).expandedTo(minimumSizeHint()));
-	clearWState(WState_Polished);
+	//clearWState(WState_Polished);
 
 	// defaults
 	if (QFile::exists(RC_PATH_USR))
@@ -97,7 +102,7 @@ void SWPrefsGui::okButton_pressed()
 			return;
 	}
 	QFile f(RC_PATH_USR);
-	if (!f.open(IO_WriteOnly))
+	if (!f.open(QIODevice::WriteOnly))
 	{
 		QMessageBox::warning(this, tr("Short Words"),
 			 "<qt>" + tr("Cannot write file %1.").arg(RC_PATH_USR) + "</qt>",
@@ -130,7 +135,7 @@ void SWPrefsGui::cfgEdit_changed()
 bool SWPrefsGui::loadCfgFile(QString filename)
 {
 	QFile f(filename);
-	if (!f.open(IO_ReadOnly))
+	if (!f.open(QIODevice::ReadOnly))
 	{
 		titleLabel->setText(tr("Cannot open file %1").arg(f.name()));
 		return false;
@@ -148,8 +153,8 @@ bool SWPrefsGui::loadCfgFile(QString filename)
 /*
  * Syntax highlighting
  */
-SWSyntaxHighlighter::SWSyntaxHighlighter(QTextEdit *textEdit)
-	: QSyntaxHighlighter(textEdit)
+SWSyntaxHighlighter::SWSyntaxHighlighter(Q3TextEdit *textEdit)
+	: Q3SyntaxHighlighter(textEdit)
 {
 }
 
@@ -165,4 +170,3 @@ int SWSyntaxHighlighter::highlightParagraph(const QString &text, int)
 	return 0;
 }
 
-#include "swprefsgui.moc"

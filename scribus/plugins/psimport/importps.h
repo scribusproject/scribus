@@ -4,8 +4,8 @@
 #include "qglobal.h"
 #include "qobject.h"
 #include "qstring.h"
-#include "qvaluelist.h"
-#include "qptrlist.h"
+#include "q3valuelist.h"
+#include "q3ptrlist.h"
 
 #include "pluginapi.h"
 #include "pageitem.h"
@@ -25,15 +25,15 @@ public:
 	void Curve(FPointArray *i, QString vals);
 	QString parseColor(QString vals, colorModel model = colorModelCMYK);
 
-	QPtrList<PageItem> Elements;
+	Q3PtrList<PageItem> Elements;
 	ColorList CustColors;
 	double LineW, Opacity, DashOffset;
-	QValueList<double> DashPattern;
+	Q3ValueList<double> DashPattern;
 	QString CurrColor;
 	FPointArray Coords;
 	bool FirstM, WasM, ClosedPath;
-	PenCapStyle CapStyle;
-	PenJoinStyle JoinStyle;
+	Qt::PenCapStyle CapStyle;
+	Qt::PenJoinStyle JoinStyle;
 	bool interactive;
 };
 

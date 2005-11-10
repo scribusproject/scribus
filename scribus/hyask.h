@@ -6,6 +6,10 @@
 #include <qpushbutton.h>
 #include <qlayout.h>
 #include <qtooltip.h>
+//Added by qt3to4:
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QKeyEvent>
 
 #include "scribusapi.h"
 

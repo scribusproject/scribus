@@ -22,6 +22,8 @@
 #include <qfileinfo.h>
 #include <qstring.h>
 #include <qxml.h>
+//Added by qt3to4:
+#include <QTextStream>
 #include "prefsfile.h"
 #include "prefsreader.h"
 #include "prefstable.h"
@@ -74,7 +76,7 @@ void PrefsFile::write()
 	if ((!ioEnabled) || ((contexts.size() == 0) && (pluginContexts.size() == 0)))
 		return; // No prefs file path set -> can't write or no prefs to write
 	QFile* prefsXML = new QFile(prefsFilePath);
-	if (prefsXML->open(IO_WriteOnly))
+	if (prefsXML->open(QIODevice::WriteOnly))
 	{
 		QTextStream stream(prefsXML);
 		stream.setEncoding(QTextStream::UnicodeUTF8);

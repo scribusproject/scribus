@@ -13,11 +13,11 @@
 #include <qapplication.h>
 #include <qfile.h>
 #include <qfileinfo.h>
-#include <qstrlist.h>
+#include <q3strlist.h>
 #include <qstring.h>
 #include <qtextstream.h>
 #include <qfont.h>
-#include <qdict.h>
+#include <q3dict.h>
 #include <qmap.h>
 #include <qdir.h>
 #include <qregexp.h>
@@ -35,6 +35,8 @@
 #ifdef Q_WS_X11
 #include <X11/X.h>
 #include <X11/Xlib.h>
+#elif defined(Q_OS_WIN)
+#include <shlobj.h>
 #endif
 
 #ifdef HAVE_FONTCONFIG
@@ -339,14 +341,14 @@ class Foi_pfb : public Foi_postscript
 			{
 				QString tmp3="";
 				QString tmp4 = "";
-				uint posi,cxxc=0;
+				int posi,cxxc=0;
 				for (posi = 6; posi < bb.size(); ++posi)
 				{
 					if ((bb[posi] == char(0x80)) && (posi+1 < bb.size()) && (static_cast<int>(bb[posi+1]) == 2))
 						break;
 					str += bb[posi];
 				}
-				uint ulen;
+				int ulen;
 				if (posi+6 < bb.size()) 
 				{
 					ulen = bb[posi+2] & 0xff;
@@ -358,7 +360,7 @@ class Foi_pfb : public Foi_postscript
 						ulen = bb.size() - posi - 1;
 					char linebuf[80];
 					cxxc=0;
-					for (uint j = 0; j < ulen; ++j)
+					for (int j = 0; j < ulen; ++j)
 					{
 						unsigned char u=bb[posi];
 						linebuf[cxxc]=((u >> 4) & 15) + '0';
@@ -381,7 +383,7 @@ class Foi_pfb : public Foi_postscript
 					str += "\n";
 				}
 				posi += 6;
-				for (uint j = posi; j < bb.size(); ++j)
+				for (int j = posi; j < bb.size(); ++j)
 				{
 					if ((bb[j] == static_cast<char>(0x80)) && (j+1 < bb.size()) && (static_cast<int>(bb[j+1]) == 3))
 						break;
@@ -434,7 +436,7 @@ class Foi_pfa : public Foi_postscript
 
 /***************************************************************************/
 
-SCFonts::SCFonts() : QDict<Foi>(), FontPath(true)
+SCFonts::SCFonts() : Q3Dict<Foi>(), FontPath(true)
 {
 	setAutoDelete(true);
 	showFontInformation=false;
@@ -955,7 +957,7 @@ void SCFonts::AddFontconfigFonts()
 }
 
 #else
-#ifndef QT_MAC
+#if !defined(Q_OS_MAC) && !defined(Q_OS_WIN)
 
 void SCFonts::AddXFontPath()
 {
@@ -984,7 +986,7 @@ void SCFonts::AddXFontServerPath()
 		}
 	}
 
-	if (fs.open(IO_ReadOnly))
+	if (fs.open(QIODevice::ReadOnly))
 	{
 		QString fsconfig,paths,tmp;
 		QTextStream tsx(&fs);
@@ -1045,7 +1047,7 @@ void SCFonts::ReadCacheList(QString pf)
 	struct testCache foCache;
 	QDomDocument docu("fontcacherc");
 	QFile f(pf + "/checkfonts.xml");
-	if(!f.open(IO_ReadOnly))
+	if(!f.open(QIODevice::ReadOnly))
 		return;
 	ScApp->setSplashStatus( QObject::tr("Reading Font Cache") );
 	QTextStream ts(&f);
@@ -1096,7 +1098,7 @@ void SCFonts::WriteCacheList(QString pf)
 	}
 	ScApp->setSplashStatus( QObject::tr("Writing updated Font Cache") );
 	QFile f(pf + "/checkfonts.xml");
-	if(f.open(IO_WriteOnly))
+	if(f.open(QIODevice::WriteOnly))
 	{
 		QTextStream s(&f);
 		s.setEncoding(QTextStream::UnicodeUTF8);
@@ -1115,7 +1117,7 @@ void SCFonts::GetFonts(QString pf, bool showFontInfo)
 	AddUserPath(pf);
 // if fontconfig is there, it does all the work
 #if HAVE_FONTCONFIG
-	for(QStrListIterator fpi(FontPath) ; fpi.current() ; ++fpi)
+	for(Q3StrListIterator fpi(FontPath) ; fpi.current() ; ++fpi)
 		AddScalableFonts(fpi.current());
 	AddFontconfigFonts();
 #else
@@ -1132,8 +1134,22 @@ void SCFonts::GetFonts(QString pf, bool showFontInfo)
 	AddXFontServerPath();
 #endif
 // add user and X11 fonts:
-	for(QStrListIterator fpi(FontPath) ; fpi.current() ; ++fpi) 
-		AddScalableFonts(fpi.current());
+        foreach(QString fp, FontPath)
+            AddScalableFonts(fp);
+#endif
+// on Windows look here:
+#ifdef Q_OS_WIN
+        char windowsPath[MAX_PATH];
+        if(SUCCEEDED(SHGetFolderPathA(NULL,
+                                      CSIDL_WINDOWS,
+                                      NULL,
+                                      0,
+                                      windowsPath)))
+        {
+            QString winPath = QLatin1String(windowsPath) + QLatin1String("\\Fonts\\");
+            AddScalableFonts(winPath);
+            qDebug("Added Windows font path to freetype system (%s)", qPrintable(winPath));
+        }
 #endif
 	updateFontMap();
 	WriteCacheList(pf);

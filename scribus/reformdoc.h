@@ -4,14 +4,18 @@
 #include <qlayout.h>
 #include <qcheckbox.h>
 #include <qcombobox.h>
-#include <qgroupbox.h>
-#include <qbuttongroup.h>
+#include <q3groupbox.h>
+#include <q3buttongroup.h>
 #include <qradiobutton.h>
 #include <qlabel.h>
 #include <qlineedit.h>
 #include <qpushbutton.h>
 #include <qtoolbutton.h>
 #include <qcolor.h>
+//Added by qt3to4:
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QGridLayout>
 
 #include "scribusapi.h"
 #include "scribusstructs.h"
@@ -84,9 +88,9 @@ protected:
 		QWidget* tabPage;
 	PageLayouts* docLayout;
 	MarginWidget* GroupRand;
-	QGroupBox* groupBox7a;
-	QGroupBox* dsGroupBox7;
-	QGroupBox* groupScratch;
+	Q3GroupBox* groupBox7a;
+	Q3GroupBox* dsGroupBox7;
+	Q3GroupBox* groupScratch;
 	QLabel* TextLabel5s;
 	QLabel* TextLabel7s;
 	QLabel* TextLabel1_3;
@@ -99,7 +103,7 @@ protected:
 	MSpinBox* bottomScratch;
 	MSpinBox* leftScratch;
 	MSpinBox* rightScratch;
-	QGroupBox* groupGap;
+	Q3GroupBox* groupGap;
 	MSpinBox* gapVertical;
 	MSpinBox* gapHorizontal;
 	QLabel* TextLabel5sg;
@@ -131,9 +135,9 @@ protected:
 	TabPDFOptions* tabPDF;
 	QLabel* textLabel9;
 	QPushButton* backColor;
-	QButtonGroup* pageBackground;
+	Q3ButtonGroup* pageBackground;
 	QCheckBox* checkUnprintable;
-	QGroupBox* groupAutoSave;
+	Q3GroupBox* groupAutoSave;
 	QLabel* textLabel1m;
 	QSpinBox* autoSaveTime;
 	QComboBox* unitCombo;

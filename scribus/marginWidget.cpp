@@ -1,10 +1,12 @@
 #include "marginWidget.h"
-#include "marginWidget.moc"
 #include "mspinbox.h"
 #include <qtooltip.h>
+//Added by qt3to4:
+#include <QLabel>
+#include <QGridLayout>
 
 
-MarginWidget::MarginWidget( QWidget* parent, QString title, MarginStruct* margs, int decimals, double unit, QString einh) : QGroupBox( title, parent, "marginWidget")
+MarginWidget::MarginWidget( QWidget* parent, QString title, MarginStruct* margs, int decimals, double unit, QString einh) : Q3GroupBox( title, parent, "marginWidget")
 {
 	setColumnLayout(0, Qt::Vertical );
 	layout()->setSpacing( 5 );

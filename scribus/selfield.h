@@ -3,10 +3,13 @@
 
 #include <qdialog.h>
 #include <qlabel.h>
-#include <qlistbox.h>
+#include <q3listbox.h>
 #include <qpushbutton.h>
 #include <qlayout.h>
 #include <qtooltip.h>
+//Added by qt3to4:
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 
 #include "scribusapi.h"
 #include "pageitem.h"
@@ -21,11 +24,11 @@ public:
 	~SelectFields() {};
 
 	QLabel* Text1;
-	QListBox* AvailFields;
+	Q3ListBox* AvailFields;
 	QPushButton* ToSel;
 	QPushButton* FromSel;
 	QLabel* Text2;
-	QListBox* SelFields;
+	Q3ListBox* SelFields;
 	QPushButton* OK;
 	QPushButton* Cancel;
 	QString S_Fields;
@@ -35,8 +38,8 @@ public slots:
 	void SetRetVal();
 	void RemoveSel();
 	void PutToSel();
-	void SelAField(QListBoxItem *c);
-	void SelEField(QListBoxItem *c);
+	void SelAField(Q3ListBoxItem *c);
+	void SelEField(Q3ListBoxItem *c);
 
 protected:
 	QVBoxLayout* SelectFieldsLayout;

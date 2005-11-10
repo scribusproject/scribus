@@ -21,8 +21,8 @@
 #include <utility>
 
 class QString;
-#include "qvaluelist.h"
-#include "qptrlist.h"
+#include "q3valuelist.h"
+#include "q3ptrlist.h"
 
 #include "scribusapi.h"
 #include "undoobject.h"
@@ -60,15 +60,15 @@ public:
 	QString PageNam;
 	QString PageSize;
 	int PageOri;
-	QValueList<double> XGuides;
-	QValueList<double> YGuides;
-	QPtrList<PageItem> FromMaster;
+	Q3ValueList<double> XGuides;
+	Q3ValueList<double> YGuides;
+	Q3PtrList<PageItem> FromMaster;
 	void setPageNr(const int pageNr);
 	uint pageNr();
 	void addXGuide(double position);
 	void addYGuide(double position);
-	void addXGuides(QValueList<double>& guides);
-	void addYGuides(QValueList<double>& guides);
+	void addXGuides(Q3ValueList<double>& guides);
+	void addYGuides(Q3ValueList<double>& guides);
 	void removeXGuide(double position);
 	void removeXGuide(int index);
 	void removeYGuide(double position);

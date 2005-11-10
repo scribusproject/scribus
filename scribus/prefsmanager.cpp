@@ -19,10 +19,12 @@
 #include <qmessagebox.h>
 #include <qstring.h>
 #include <qstylefactory.h>
-#include <qwmatrix.h>
+#include <qmatrix.h>
+//Added by qt3to4:
+#include <QTextStream>
+#include <Q3ValueList>
 
 #include "prefsmanager.h"
-#include "prefsmanager.moc"
 #include "filewatcher.h"
 #include "missing.h"
 #include "pagesize.h"
@@ -125,7 +127,7 @@ void PrefsManager::initDefaults()
 	}
 	else
 	{
-		if (fiC.open(IO_ReadOnly))
+		if (fiC.open(QIODevice::ReadOnly))
 		{
 			QString ColorEn, Cname;
 			int Rval, Gval, Bval;
@@ -134,7 +136,7 @@ void PrefsManager::initDefaults()
 			while (!tsC.atEnd())
 			{
 				ColorEn = tsC.readLine();
-				QTextStream CoE(&ColorEn, IO_ReadOnly);
+				QTextStream CoE(&ColorEn, QIODevice::ReadOnly);
 				CoE >> Rval;
 				CoE >> Gval;
 				CoE >> Bval;
@@ -167,11 +169,11 @@ void PrefsManager::initDefaults()
 	appPrefs.guidesSettings.guideRad = 10;
 	appPrefs.guidesSettings.minorGrid = 20;
 	appPrefs.guidesSettings.majorGrid = 100;
-	appPrefs.guidesSettings.minorColor = QColor(green);
-	appPrefs.guidesSettings.majorColor = QColor(green);
-	appPrefs.guidesSettings.margColor = QColor(blue);
-	appPrefs.guidesSettings.guideColor = QColor(darkBlue);
-	appPrefs.guidesSettings.baseColor = QColor(lightGray);
+	appPrefs.guidesSettings.minorColor = QColor(Qt::green);
+	appPrefs.guidesSettings.majorColor = QColor(Qt::green);
+	appPrefs.guidesSettings.margColor = QColor(Qt::blue);
+	appPrefs.guidesSettings.guideColor = QColor(Qt::darkBlue);
+	appPrefs.guidesSettings.baseColor = QColor(Qt::lightGray);
 	appPrefs.typographicSettings.valueSuperScript = 33;
 	appPrefs.typographicSettings.scalingSuperScript = 100;
 	appPrefs.typographicSettings.valueSubScript = 33;
@@ -192,7 +194,7 @@ void PrefsManager::initDefaults()
 	appPrefs.toolSettings.dBrush = "Black";
 	appPrefs.toolSettings.dShade = 100;
 	appPrefs.toolSettings.dShade2 = 100;
-	appPrefs.toolSettings.dLineArt = SolidLine;
+	appPrefs.toolSettings.dLineArt = Qt::SolidLine;
 	appPrefs.toolSettings.dWidth = 1;
 	appPrefs.toolSettings.dPenLine = "Black";
 	appPrefs.toolSettings.dPenText = "Black";
@@ -205,11 +207,11 @@ void PrefsManager::initDefaults()
 	appPrefs.toolSettings.dTextStrokeShade = 100;
 	appPrefs.toolSettings.tabFillChar = "";
 	appPrefs.toolSettings.dTabWidth = 36.0;
-	appPrefs.DpapColor = QColor(white);
+	appPrefs.DpapColor = QColor(Qt::white);
 	appPrefs.toolSettings.dCols = 1;
 	appPrefs.toolSettings.dGap = 0.0;
 	appPrefs.toolSettings.dShadeLine = 100;
-	appPrefs.toolSettings.dLstyleLine = SolidLine;
+	appPrefs.toolSettings.dLstyleLine = Qt::SolidLine;
 	appPrefs.toolSettings.dWidthLine = 1;
 	appPrefs.toolSettings.dStartArrow = 0;
 	appPrefs.toolSettings.dEndArrow = 0;
@@ -276,7 +278,7 @@ void PrefsManager::initDefaults()
 	appPrefs.gs_AntiAliasText = true;
 	appPrefs.gs_exe = getGSDefaultExeName();
 	appPrefs.gs_Resolution = 72;
-	appPrefs.STEcolor = QColor(white);
+	appPrefs.STEcolor = QColor(Qt::white);
 	appPrefs.DCMSset.DefaultMonitorProfile = "";
 	appPrefs.DCMSset.DefaultPrinterProfile = "";
 	appPrefs.DCMSset.DefaultImageRGBProfile = "";
@@ -396,7 +398,7 @@ void PrefsManager::initArrowStyles()
 {
 	struct ArrowDesc arrow;
 	FPointArray points;
-	QWMatrix arrowScaling;
+	QMatrix arrowScaling;
 	arrowScaling.scale(0.5, 0.5);
 	arrow.name = "Arrow1L";
 	arrow.userArrow = false;
@@ -563,7 +565,7 @@ bool PrefsManager::copy12Preferences()
 			if ( (QMessageBox::question( ScApp, tr("Migrate Old Scribus Settings?"),
 				tr("Scribus has detected existing Scribus 1.2 preferences files.\n"
 						"Do you want to migrate them to the new Scribus version?"),
-				QMessageBox::Yes | QMessageBox::Default, QMessageBox::No, QMessageBox::NoButton))==QMessageBox::Yes )
+				QMessageBox::Yes | QMessageBox::Default, QMessageBox::No, Qt::NoButton))==QMessageBox::Yes )
 			{
 				for (uint i=0;i<4;++i)
 				{
@@ -588,7 +590,7 @@ void PrefsManager::convert12Preferences()
 {
 	// Import 1.2 font search path prefs
 	QFile fontPrefsFile12(QDir::convertSeparators(prefsLocation+"/scribusfont.rc"));
-	if (fontPrefsFile12.open(IO_ReadOnly))
+	if (fontPrefsFile12.open(QIODevice::ReadOnly))
 	{
 		PrefsContext *pc = prefsFile->getContext("Fonts");
 		PrefsTable *fontPrefs = pc->getTable("ExtraFontDirs");
@@ -596,7 +598,7 @@ void PrefsManager::convert12Preferences()
 		QString extraPath = tsx.read();
 		fontPrefsFile12.close();
 		QStringList extraFonts = QStringList::split("\n",extraPath);
-		for (uint i = 0; i < extraFonts.count(); ++i)
+		for (int i = 0; i < extraFonts.count(); ++i)
 			fontPrefs->set(i, 0, extraFonts[i]);
 	}
 }
@@ -611,7 +613,7 @@ void PrefsManager::ReadPrefs()
 		}
 	ScApp->setDefaultPrinter(appPrefs.PrinterName, appPrefs.PrinterFile, appPrefs.PrinterCommand);
 
-	uint max = QMIN(appPrefs.RecentDCount, appPrefs.RecentDocs.count());
+	uint max = qMin<int>(appPrefs.RecentDCount, appPrefs.RecentDocs.count());
 	for (uint m = 0; m < max; ++m)
 	{
 		QFileInfo fd(appPrefs.RecentDocs[m]);
@@ -661,7 +663,7 @@ void PrefsManager::SavePrefs()
 	appPrefs.pdfToolBarSettings.visible = ScApp->pdfToolBarVisible();
 
 	appPrefs.RecentDocs.clear();
-	uint max = QMIN(appPrefs.RecentDCount, ScApp->RecentDocs.count());
+	uint max = qMin<int>(appPrefs.RecentDCount, ScApp->RecentDocs.count());
 	for (uint m = 0; m < max; ++m)
 	{
 		appPrefs.RecentDocs.append(ScApp->RecentDocs[m]);
@@ -762,7 +764,7 @@ void PrefsManager::setKeyEntry(const QString& actName, const QString& cleanMenuT
 	Keys ke;
 	if (!actName.isEmpty())
 	{
-		if (ScApp->scrActions[actName])
+		if (!ScApp->scrActions[actName].isNull())
 		{
 			ke.actionName=actName;
 			ke.keySequence = keyseq;
@@ -951,7 +953,7 @@ bool PrefsManager::WritePref(QString ho)
 	dc76.setAttribute("AutoSaveTime", appPrefs.AutoSaveTime);
 	elem.appendChild(dc76);
 	QDomElement pageSetAttr = docu.createElement("PageSets");
-	QValueList<PageSet>::Iterator itpgset;
+	Q3ValueList<PageSet>::Iterator itpgset;
 	for(itpgset = appPrefs.pageSets.begin(); itpgset != appPrefs.pageSets.end(); ++itpgset )
 	{
 		QDomElement pgst = docu.createElement("Set");
@@ -1061,7 +1063,7 @@ bool PrefsManager::WritePref(QString ho)
 		fn.setAttribute("SUBSET", static_cast<int>(itf.current()->Subset));
 		elem.appendChild(fn);
 	}
-	for (uint rd=0; rd<appPrefs.RecentDocs.count(); ++rd)
+	for (int rd=0; rd<appPrefs.RecentDocs.count(); ++rd)
 	{
 		QDomElement rde=docu.createElement("RECENT");
 		rde.setAttribute("NAME",appPrefs.RecentDocs[rd]);
@@ -1071,7 +1073,7 @@ bool PrefsManager::WritePref(QString ho)
 	{
 		QDomElement kscc=docu.createElement("SHORTCUT");
 		kscc.setAttribute("ACTION",ksc.data().actionName);
-		kscc.setAttribute("SEQUENCE",QString(ksc.data().keySequence).utf8());
+		kscc.setAttribute("SEQUENCE",QString(ksc.data().keySequence));
 		elem.appendChild(kscc);
 	}
 	QMap<QString,QString>::Iterator itfsu;
@@ -1082,7 +1084,7 @@ bool PrefsManager::WritePref(QString ho)
 		fosu.setAttribute("Replace",itfsu.data());
 		elem.appendChild(fosu);
 	}
-	for (uint ccs=0; ccs<appPrefs.CustomColorSets.count(); ++ccs)
+	for (int ccs=0; ccs<appPrefs.CustomColorSets.count(); ++ccs)
 	{
 		QDomElement cos=docu.createElement("COLORSET");
 		cos.setAttribute("NAME",appPrefs.CustomColorSets[ccs]);
@@ -1176,7 +1178,7 @@ bool PrefsManager::WritePref(QString ho)
 	// write file
 	bool result = false;
 	QFile f(ho);
-	if(!f.open(IO_WriteOnly))
+	if(!f.open(QIODevice::WriteOnly))
 	{
 		m_lastError = tr("Could not open preferences file \"%1\" for writing: %2")
 			.arg(ho).arg(qApp->translate("QFile",f.errorString()));
@@ -1204,7 +1206,7 @@ bool PrefsManager::ReadPref(QString ho)
 {
 	QDomDocument docu("scridoc");
 	QFile f(ho);
-	if(!f.open(IO_ReadOnly))
+	if(!f.open(QIODevice::ReadOnly))
 	{
 		m_lastError = tr("Failed to open prefs file \"%1\": %2")
 			.arg(ho).arg( qApp->translate("QFile",f.errorString()) );
@@ -1653,7 +1655,7 @@ bool PrefsManager::ReadPref(QString ho)
 					tocsetup.name=tocElem.attribute("Name");
 					tocsetup.itemAttrName=tocElem.attribute("ItemAttributeName");
 					tocsetup.frameName=tocElem.attribute("FrameName");
-					tocsetup.listNonPrintingFrames=tocElem.attribute("ListNonPrinting");
+					tocsetup.listNonPrintingFrames=tocElem.attribute("ListNonPrinting").toInt();
 					tocsetup.textStyle=tocElem.attribute("Style");
 					QString numberPlacement=tocElem.attribute("NumberPlacement");
 					if (numberPlacement=="Beginning")
@@ -1729,7 +1731,7 @@ void PrefsManager::alertSavePrefsFailed() const
 			   .arg(lastError())
 			+ "</qt>",
 			QMessageBox::Ok|QMessageBox::Default|QMessageBox::Escape,
-			QMessageBox::NoButton);
+			Qt::NoButton);
 }
 
 // It's hard to say whether this should be here and called from ReadPrefs, or
@@ -1747,7 +1749,7 @@ void PrefsManager::alertLoadPrefsFailed() const
 			   .arg(lastError())
 			+ "</qt>",
 			QMessageBox::Ok|QMessageBox::Default|QMessageBox::Escape,
-			QMessageBox::NoButton);
+			Qt::NoButton);
 	ScApp->showSplash(splashShowing);
 }
 

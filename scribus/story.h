@@ -19,21 +19,31 @@
 #define STORY_H
 
 #include <qvariant.h>
-#include <qmainwindow.h>
-#include <qptrlist.h>
-#include <qtable.h>
-#include <qtextedit.h>
-#include <qpopupmenu.h>
+#include <q3mainwindow.h>
+#include <q3ptrlist.h>
+#include <q3table.h>
+#include <q3textedit.h>
+#include <q3popupmenu.h>
 #include <qmenubar.h>
 #include <qstatusbar.h>
 #include <qlabel.h>
-#include <qbuttongroup.h>
+#include <q3buttongroup.h>
 #include <qspinbox.h>
 #include <qtoolbutton.h>
-#include <qtoolbar.h>
+#include <q3toolbar.h>
 #include <qlayout.h>
 #include <qsplitter.h>
 #include <qcheckbox.h>
+//Added by qt3to4:
+#include <QFocusEvent>
+#include <QPaintEvent>
+#include <QGridLayout>
+#include <QCloseEvent>
+#include <QKeyEvent>
+#include <QEvent>
+#include <QHBoxLayout>
+#include <Q3ValueList>
+#include <QMouseEvent>
 
 #include "scribusapi.h"
 #include "pageitem.h"
@@ -70,7 +80,7 @@ struct PtiSmall {
 			PageItem* cembedded;
 		   };
 
-class SCRIBUS_API SEditor : public QTextEdit
+class SCRIBUS_API SEditor : public Q3TextEdit
 {
 	Q_OBJECT
 
@@ -92,10 +102,10 @@ public:
 	void insStyledText();
 	void copyStyledText();
 
-	typedef QPtrList<PtiSmall> ChList;
-	QPtrList<ChList> StyledText;
-	QPtrList<PageItem> FrameItems;
-	QValueList<int> ParagStyles;
+	typedef Q3PtrList<PtiSmall> ChList;
+	Q3PtrList<ChList> StyledText;
+	Q3PtrList<PageItem> FrameItems;
+	Q3ValueList<int> ParagStyles;
 	ScribusDoc* doc;
 	bool unicodeTextEditMode;
 	bool wasMod;
@@ -132,9 +142,9 @@ public:
 
 protected:
 	void keyPressEvent(QKeyEvent *k);
-	void imEndEvent(QIMEvent *e);
+	//void imEndEvent(QIMEvent *e);
 	void focusOutEvent(QFocusEvent *e);
-	QPopupMenu* createPopupMenu(const QPoint & pos);
+	Q3PopupMenu* createPopupMenu(const QPoint & pos);
 
 public slots:
 	void cut();
@@ -160,7 +170,7 @@ public:
 	int offs;
 	int CurrentPar;
 	SEditor *editor;
-	QPopupMenu *pmen;
+	Q3PopupMenu *pmen;
 	bool noUpdt;
 	bool inRep;
 
@@ -182,12 +192,12 @@ public slots:
 	void editStyles();
 };
 
-class SCRIBUS_API SToolBColorF : public QToolBar
+class SCRIBUS_API SToolBColorF : public Q3ToolBar
 {
 	Q_OBJECT
 
 public:
-	SToolBColorF(QMainWindow* parent, ScribusDoc *doc);
+	SToolBColorF(Q3MainWindow* parent, ScribusDoc *doc);
 	~SToolBColorF() {};
 	void setCurrentDocument(ScribusDoc *doc);
 	QLabel* FillIcon;
@@ -204,12 +214,12 @@ signals:
 	void NewColor(int, int);
 };
 
-class SCRIBUS_API SToolBColorS : public QToolBar
+class SCRIBUS_API SToolBColorS : public Q3ToolBar
 {
 	Q_OBJECT
 
 public:
-	SToolBColorS(QMainWindow* parent, ScribusDoc *doc);
+	SToolBColorS(Q3MainWindow* parent, ScribusDoc *doc);
 	~SToolBColorS() {};
 	void setCurrentDocument(ScribusDoc *doc);
 	QLabel* StrokeIcon;
@@ -226,12 +236,12 @@ signals:
 	void NewColor(int, int);
 };
 
-class SCRIBUS_API SToolBStyle : public QToolBar
+class SCRIBUS_API SToolBStyle : public Q3ToolBar
 {
 	Q_OBJECT
 
 public:
-	SToolBStyle(QMainWindow* parent);
+	SToolBStyle(Q3MainWindow* parent);
 	~SToolBStyle() {};
 	StyleSelect* SeStyle;
 	QLabel* trackingLabel;
@@ -260,12 +270,12 @@ signals:
 	void newStyle(int);
 };
 
-class SCRIBUS_API SToolBAlign : public QToolBar
+class SCRIBUS_API SToolBAlign : public Q3ToolBar
 {
 	Q_OBJECT
 
 public:
-	SToolBAlign(QMainWindow* parent);
+	SToolBAlign(Q3MainWindow* parent);
 	~SToolBAlign() {};
 	AlignSelect* GroupAlign;
 	Spalette *Spal;
@@ -280,12 +290,12 @@ signals:
 	void newStyle(int);
 };
 
-class SCRIBUS_API SToolBFont : public QToolBar
+class SCRIBUS_API SToolBFont : public Q3ToolBar
 {
 	Q_OBJECT
 
 public:
-	SToolBFont(QMainWindow* parent);
+	SToolBFont(Q3MainWindow* parent);
 	~SToolBFont() {};
 	FontCombo* Fonts;
 	MSpinBox* Size;
@@ -309,7 +319,7 @@ signals:
 	void NewScaleV(int);
 };
 
-class SCRIBUS_API StoryEditor : public QMainWindow
+class SCRIBUS_API StoryEditor : public Q3MainWindow
 {
 	Q_OBJECT
 
@@ -328,10 +338,10 @@ public:
 	PageItem* currentItem() const;
 	ScribusDoc* currentDocument() const;
 
-	QPopupMenu* fmenu;
-	QPopupMenu* emenu;
-	QPopupMenu* settingsMenu;
-	QToolBar* FileTools;
+	Q3PopupMenu* fmenu;
+	Q3PopupMenu* emenu;
+	Q3PopupMenu* settingsMenu;
+	Q3ToolBar* FileTools;
 	QToolButton* DatNeu;
 	QToolButton* DatOpe;
 	QToolButton* DatSav;
@@ -348,8 +358,8 @@ public:
 	QSplitter* EdSplit;
 	SideBar* EditorBar;
 	SEditor* Editor;
-	QButtonGroup* ButtonGroup1;
-	QButtonGroup* ButtonGroup2;
+	Q3ButtonGroup* ButtonGroup1;
+	Q3ButtonGroup* ButtonGroup2;
 	QLabel* WordCT1;
 	QLabel* WordCT3;
 	QLabel* ParCT;

@@ -16,7 +16,9 @@
  ***************************************************************************/
 
 #include "bookpalette.h"
-#include "bookpalette.moc"
+//Added by qt3to4:
+#include <QPixmap>
+#include <QVBoxLayout>
 extern QPixmap loadIcon(QString nam);
 
 /*!

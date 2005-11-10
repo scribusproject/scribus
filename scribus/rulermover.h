@@ -19,6 +19,8 @@
 #define RULERMOVER_H
 
 #include <qwidget.h>
+//Added by qt3to4:
+#include <QMouseEvent>
 
 #include "scribusapi.h"
 class ScribusView;

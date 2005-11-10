@@ -2,12 +2,17 @@
 #define MARGINDIALOG_H
 
 #include "scribusapi.h"
+//Added by qt3to4:
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QGridLayout>
+#include <QDialog>
 
-class QDialog;
 class QLayout;
-class QGroupBox;
+class Q3GroupBox;
 class QLabel;
-class QPushbutton;
+class QPushButton;
 class QComboBox;
 class QCheckBox;
 class MSpinBox;
@@ -21,7 +26,7 @@ class SCRIBUS_API MarginDialog : public QDialog
 public:
 	MarginDialog( QWidget* parent,  ScribusDoc* doc);
 	~MarginDialog() {};
-	QGroupBox* dsGroupBox7;
+	Q3GroupBox* dsGroupBox7;
 	MSpinBox* widthMSpinBox;
 	MSpinBox* heightMSpinBox;
 	QLabel*	widthQLabel;

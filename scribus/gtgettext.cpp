@@ -18,10 +18,13 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#include "scribusstructs.h"
 #include "gtgettext.h"
 #include "pluginmanager.h"
 #include "scpaths.h"
 #include "scribus.h"
+//Added by qt3to4:
+#include <QPixmap>
 
 extern QPixmap loadIcon(QString nam);
 
@@ -61,7 +64,7 @@ void gtGetText::loadImporterPlugins()
 {
 	QString gtdir = ScPaths::instance().pluginDir();
 	gtdir += "gettext";
-	QString libPattern = QString("*.%1*").arg(PluginManager::platformDllExtension());
+	QString libPattern = QString("*.%1*").arg(PluginManager::platformDllExtension().data());
 	QDir d(gtdir, libPattern, QDir::Name, QDir::Files | QDir::Executable | QDir::NoSymLinks);
 
 	struct ImporterData ida;
@@ -92,7 +95,7 @@ void gtGetText::run(bool append)
 		if (importers[i].fileEndings.count() != 0)
 		{
 			filters += importers[i].fileFormatName + " (";
-			for (uint j = 0; j < importers[i].fileEndings.count(); ++j)
+			for (int j = 0; j < importers[i].fileEndings.count(); ++j)
 			{
 				filters += "*." + importers[i].fileEndings[j] + " ";
 				allSupported += "*." + importers[i].fileEndings[j] + " ";
@@ -180,7 +183,7 @@ void gtGetText::createMap()
 {
 	for (uint i = 0; i < importers.size(); ++i)
 	{
-		for (uint j = 0; j < importers[i].fileEndings.count(); ++j)
+		for (int j = 0; j < importers[i].fileEndings.count(); ++j)
 				importerMap.insert(importers[i].fileEndings[j], &importers[i]);
 	}
 }

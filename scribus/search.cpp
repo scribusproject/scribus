@@ -1,18 +1,22 @@
 #include "search.h"
-#include "search.moc"
 
 #include <qvariant.h>
 #include <qregexp.h>
 #include <qcheckbox.h>
 #include <qcombobox.h>
-#include <qgroupbox.h>
+#include <q3groupbox.h>
 #include <qlineedit.h>
 #include <qlabel.h>
 #include <qpushbutton.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
 #include <qmessagebox.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QGridLayout>
 #include "mspinbox.h"
 #include "fontcombo.h"
 #include "page.h"
@@ -41,7 +45,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	SMode = mode;
 	SearchReplaceLayout = new QVBoxLayout( this, 10, 5, "SearchReplaceLayout"); 
 	SelLayout = new QHBoxLayout( 0, 0, 6, "SelLayout"); 
-	Search = new QGroupBox( this, "Search" );
+	Search = new Q3GroupBox( this, "Search" );
 	Search->setTitle( tr( "Search for:" ) );
 	Search->setColumnLayout(0, Qt::Vertical );
 	Search->layout()->setSpacing( 2 );
@@ -86,10 +90,11 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 		SStyleVal->insertItem(tmp_sty[a]);
 	if (doc->docParagraphStyles.count() > 5)
 	{
-		for (uint x = 5; x < doc->docParagraphStyles.count(); ++x)
+		for (int x = 5; x < doc->docParagraphStyles.count(); ++x)
 			SStyleVal->insertItem(doc->docParagraphStyles[x].Vname);
 	}
-	SStyleVal->listBox()->setMinimumWidth(SStyleVal->listBox()->maxItemWidth()+24);
+	qWarning("combobox without listbox errors!!! ");
+	//SStyleVal->listBox()->setMinimumWidth(SStyleVal->listBox()->maxItemWidth()+24);
 	SStyleVal->setCurrentItem(doc->currentParaStyle);
 	SStyleVal->setEnabled(false);
 	SearchLayout->addWidget( SStyleVal, 1, 1 );
@@ -117,7 +122,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 		pm = getWidePixmap(doc->PageColors[it.key()].getRawRGBColor());
 		SFillVal->insertItem(*pm, it.key());
 	}
-	SFillVal->listBox()->setMinimumWidth(SFillVal->listBox()->maxItemWidth()+24);
+	//SFillVal->listBox()->setMinimumWidth(SFillVal->listBox()->maxItemWidth()+24);
 	SFillVal->setCurrentText(doc->CurrTextFill);
 	SFillVal->setEnabled(false);
 	SearchLayout->addWidget( SFillVal, 5, 1 );
@@ -132,7 +137,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 		pm = getWidePixmap(doc->PageColors[it.key()].getRawRGBColor());
 		SStrokeVal->insertItem(*pm, it.key());
 	}
-	SStrokeVal->listBox()->setMinimumWidth(SStrokeVal->listBox()->maxItemWidth()+24);
+	//SStrokeVal->listBox()->setMinimumWidth(SStrokeVal->listBox()->maxItemWidth()+24);
 	SStrokeVal->setCurrentText(doc->CurrTextStroke);
 	SStrokeVal->setEnabled(false);
 	SearchLayout->addWidget( SStrokeVal, 7, 1 );
@@ -141,7 +146,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	SearchLayout->addWidget( SStrokeSVal, 8, 1, Qt::AlignLeft );
 	SelLayout->addWidget( Search );
 
-	Replace = new QGroupBox( this, "Replace" );
+	Replace = new Q3GroupBox( this, "Replace" );
 	Replace->setTitle( tr( "Replace with:" ) );
 	Replace->setColumnLayout(0, Qt::Vertical );
 	Replace->layout()->setSpacing( 2 );
@@ -184,10 +189,10 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 		RStyleVal->insertItem(tmp_sty[a]);
 	if (doc->docParagraphStyles.count() > 5)
 	{
-		for (uint x = 5; x < doc->docParagraphStyles.count(); ++x)
+		for (int x = 5; x < doc->docParagraphStyles.count(); ++x)
 			RStyleVal->insertItem(doc->docParagraphStyles[x].Vname);
 	}
-	RStyleVal->listBox()->setMinimumWidth(RStyleVal->listBox()->maxItemWidth()+24);
+	//RStyleVal->listBox()->setMinimumWidth(RStyleVal->listBox()->maxItemWidth()+24);
 	RStyleVal->setCurrentItem(doc->currentParaStyle);
 	RStyleVal->setEnabled(false);
 	ReplaceLayout->addWidget( RStyleVal, 1, 1 );
@@ -215,7 +220,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 		pm = getWidePixmap(doc->PageColors[it.key()].getRawRGBColor());
 		RFillVal->insertItem(*pm, it.key());
 	}
-	RFillVal->listBox()->setMinimumWidth(RFillVal->listBox()->maxItemWidth()+24);
+	//RFillVal->listBox()->setMinimumWidth(RFillVal->listBox()->maxItemWidth()+24);
 	RFillVal->setCurrentText(doc->CurrTextFill);
 	RFillVal->setEnabled(false);
 	ReplaceLayout->addWidget( RFillVal, 5, 1 );
@@ -230,7 +235,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 		pm = getWidePixmap(doc->PageColors[it.key()].getRawRGBColor());
 		RStrokeVal->insertItem(*pm, it.key());
 	}
-	RStrokeVal->listBox()->setMinimumWidth(RStrokeVal->listBox()->maxItemWidth()+24);
+	//RStrokeVal->listBox()->setMinimumWidth(RStrokeVal->listBox()->maxItemWidth()+24);
 	RStrokeVal->setCurrentText(doc->CurrTextStroke);
 	RStrokeVal->setEnabled(false);
 	ReplaceLayout->addWidget( RStrokeVal, 7, 1 );
@@ -393,7 +398,7 @@ void SearchReplace::slotDoSearch()
 		sSize = qRound(SSizeVal->value() * 10);
 	if (sText.length() > 0)
 		found = false;
-	uint inde = 0;
+	int inde = 0;
 	uint as = Item->CPos;
 	ReplStart = as;
 	uint a;
@@ -552,7 +557,7 @@ void SearchReplace::slotDoSearch()
 							fpa = pa;
 							found = true;
 							inde = 0;
-							for (uint ap = 0; ap < sText.length(); ++ap)
+							for (int ap = 0; ap < sText.length(); ++ap)
 							{
 								struct PtiSmall *hg;
 								hg = chars->at(as+ap);
@@ -661,7 +666,7 @@ void SearchReplace::slotDoReplace()
 	if (SMode)
 	{
 		QString repl, sear;
-		uint cs, cx;
+		int cs, cx;
 		struct ScText *hg;
 		if (RText->isChecked())
 		{
@@ -736,7 +741,7 @@ void SearchReplace::slotDoReplace()
 				{
 					for (cs = 0; cs < repl.length(); ++cs)
 						Item->itemText.at(ReplStart+cs)->ch = repl[cs];
-					for (uint cxx = cs; cxx < sear.length(); ++cxx)
+					for (int cxx = cs; cxx < sear.length(); ++cxx)
 						Item->itemText.remove(ReplStart+cs);
 					Item->CPos = ReplStart+cs;
 				}

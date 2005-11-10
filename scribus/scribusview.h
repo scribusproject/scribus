@@ -22,8 +22,8 @@
 
 #include <vector>
 // include files for QT
-#include <qscrollview.h>
-#include <qptrlist.h>
+#include <q3scrollview.h>
+#include <q3ptrlist.h>
 #include <qlineedit.h>
 #include <qscrollbar.h>
 #if OPTION_USE_QTOOLBUTTON
@@ -31,11 +31,21 @@
 #else
     #include <qpushbutton.h>
 #endif
-#include <qpopupmenu.h>
+#include <q3popupmenu.h>
 #include <qlabel.h>
 #include <qcombobox.h>
-#include <qprogressdialog.h>
+#include <q3progressdialog.h>
 #include <qspinbox.h>
+//Added by qt3to4:
+#include <QWheelEvent>
+#include <QDragLeaveEvent>
+#include <QPaintEvent>
+#include <QEvent>
+#include <QDragMoveEvent>
+#include <QDropEvent>
+#include <Q3ValueList>
+#include <QDragEnterEvent>
+#include <QMouseEvent>
 // application specific includes
 #include "scribusapi.h"
 #include "scribusdoc.h"
@@ -56,7 +66,7 @@ class PageSelector;
  * This class provides an incomplete base for your application view.
  */
 
-class SCRIBUS_API ScribusView : public QScrollView
+class SCRIBUS_API ScribusView : public Q3ScrollView
 {
 	Q_OBJECT
 
@@ -78,6 +88,7 @@ public:
 	QPushButton *zoomOutToolbarButton;
 	QPushButton *zoomInToolbarButton;
 #endif
+	QImage viewportImage;
 	QComboBox *layerMenu; //Menu for layers at bottom of view
 	QComboBox *unitSwitcher; //Menu for units at bottom of view
   /** Dokument zu dem die Seite gehoert */
@@ -126,17 +137,17 @@ public:
 	bool MoveSym;
 	bool CursVis;
 	bool previewMode;
-	FPoint RCenter;
+	QPointF RCenter;
 	FPointArray RecordP;
 	void DrawMasterItems(ScPainter *painter, Page *page, QRect clip);
 	void DrawPageItems(ScPainter *painter, QRect clip);
 	void DrawPageMarks(ScPainter *p, Page* page, QRect clip);
 	Page* addPage(int nr, bool mov = true);
-	QPtrList<PageItem> SelItem;
-	QPtrList<PageItem> linkedFramesToShow;
-	QValueList<int> SelNode;
+	Q3PtrList<PageItem> SelItem;
+	Q3PtrList<PageItem> linkedFramesToShow;
+	Q3ValueList<int> SelNode;
 
-	QValueList<AlignObjs> AObjects;
+	Q3ValueList<AlignObjs> AObjects;
 	struct oldPageVar
 	{
 		uint newPg;
@@ -152,7 +163,7 @@ public:
 	int CountElements();
 	QImage PageToPixmap(int Nr, int maxGr);
 	QImage MPageToPixmap(QString name, int maxGr);
-	void RecalcPictures(ProfilesL *Pr, QProgressBar *dia = 0);
+	void RecalcPictures(ProfilesL *Pr, Q3ProgressBar *dia = 0);
 	void RecalcPicturesRes();
 	void rulerMove(QMouseEvent *m);
 	void setRuler(QMouseEvent *m);
@@ -162,8 +173,8 @@ public:
 	void SetXGuide(QMouseEvent *m, int oldIndex);
 	bool ApplyGuides(double *x, double *y);
 	void SnapToGuides(PageItem *currItem);
-	QPoint ApplyGrid(const QPoint& in);
-	FPoint ApplyGridF(const FPoint& in);
+	QPoint ApplyGrid(const QPoint &in);
+	QPointF ApplyGridF(const QPointF &in);
 	//CB moved to pageitem QRect getRedrawBounding(PageItem *currItem);
 	void setRedrawBounding(PageItem *currItem);
 	void setGroupRect();
@@ -186,12 +197,12 @@ public:
 	void TransformPoly(int mode, int rot = 1, double scaling = 1.0);
 	void Reset1Control();
 	void ResetControl();
-	void MoveClipPoint(PageItem *currItem, FPoint np);
+	void MoveClipPoint(PageItem *currItem, QPointF np);
 	bool SizeItem(double newX, double newY, int ite, bool fromMP = false, bool DoUpdateClip = true, bool redraw = true);
 	bool SizeItem(double newX, double newY, PageItem *pi, bool fromMP = false, bool DoUpdateClip = true, bool redraw = true);
 	void moveGroup(double x, double y, bool fromMP = false);
-	void MoveRotated(PageItem *currItem, FPoint npv, bool fromMP = false);
-	bool MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP = false);
+	void MoveRotated(PageItem *currItem, QPointF npv, bool fromMP = false);
+	bool MoveSizeItem(QPointF newX, QPointF newY, int ite, bool fromMP = false);
 	void RotateGroup(double win);
 	void scaleGroup(double scx, double scy);
 	void RotateItem(double win, int ite);
@@ -224,9 +235,9 @@ public:
 	void SetFrameOval();
 	void insertColor(QString nam, double c, double m, double y, double k);
 	void ChLineWidth(double w);
-	void ChLineArt(PenStyle w);
-	void ChLineJoin(PenJoinStyle w);
-	void ChLineEnd(PenCapStyle w);
+	void ChLineArt(Qt::PenStyle w);
+	void ChLineJoin(Qt::PenJoinStyle w);
+	void ChLineEnd(Qt::PenCapStyle w);
 	void ChLineSpa(double w);
 	void ChLineSpaMode(int w);
 	void ChLocalXY(double x, double y);
@@ -265,7 +276,7 @@ public:
 	void setGroupTransactionStarted(bool isOn);
 	void setScale(const double newScale);
 	const double getScale();
-	void adjustCanvas(FPoint minPos, FPoint maxPos);
+	void adjustCanvas(QPointF minPos, QPointF maxPos);
 
 public slots: // Public slots
 	void languageChange();
@@ -320,8 +331,8 @@ public slots: // Public slots
 	void changePreview(int id);
 
 private: // Private attributes
-	QPopupMenu *pmen3;
-	QPopupMenu *pmenResolution;
+	Q3PopupMenu *pmen3;
+	Q3PopupMenu *pmenResolution;
 	bool Ready;
 	int    oldX;
 	int    oldY;
@@ -340,6 +351,7 @@ private slots:
 
 protected: // Protected methods
 	virtual void viewportPaintEvent ( QPaintEvent * p );
+	virtual void viewportResizeEvent ( QResizeEvent * event );
 	virtual void drawContents(QPainter *p, int clipx, int clipy, int clipw, int cliph);
 	virtual void leaveEvent(QEvent *);
 	virtual void contentsDragEnterEvent(QDragEnterEvent *e);
@@ -365,7 +377,7 @@ signals:
 	void PStatus(int, uint);
 	void SetAngle(double);
 	void SetSizeValue(double);
-	void SetLineArt(PenStyle, PenCapStyle, PenJoinStyle);
+	void SetLineArt(Qt::PenStyle, Qt::PenCapStyle, Qt::PenJoinStyle);
 	void SetLocalValues(double, double, double, double);
 	void ItemFarben(QString, QString, int, int);
 	void ItemGradient(int);

@@ -19,10 +19,14 @@
 #define BOOKMWIN_H
 
 #include <qdialog.h>
-#include <qlistview.h>
+#include <q3listview.h>
 #include <qevent.h>
 #include <qpoint.h>
 #include <qlayout.h>
+//Added by qt3to4:
+#include <QMouseEvent>
+#include <QDragMoveEvent>
+#include <QDropEvent>
 
 #include "scribusapi.h"
 #include "scribusview.h"
@@ -33,15 +37,15 @@
 *@author Franz Schmid
 */
 
-class SCRIBUS_API BookMItem : public QListViewItem
+class SCRIBUS_API BookMItem : public Q3ListViewItem
 {
 public:
-	BookMItem(QListViewItem* parent, struct ScribusDoc::BookMa *Bm);
-	BookMItem(QListViewItem* parent, QListViewItem* after, struct ScribusDoc::BookMa *Bm);
-	BookMItem(QListView* parent, QListViewItem* after, struct ScribusDoc::BookMa *Bm);
-	BookMItem(QListView* parent, struct ScribusDoc::BookMa *Bm);
-	BookMItem(QListView* parent, QListViewItem* after, int nr, int s, int el);
-	BookMItem(QListView* parent, int nr, int s, int el);
+	BookMItem(Q3ListViewItem* parent, struct ScribusDoc::BookMa *Bm);
+	BookMItem(Q3ListViewItem* parent, Q3ListViewItem* after, struct ScribusDoc::BookMa *Bm);
+	BookMItem(Q3ListView* parent, Q3ListViewItem* after, struct ScribusDoc::BookMa *Bm);
+	BookMItem(Q3ListView* parent, struct ScribusDoc::BookMa *Bm);
+	BookMItem(Q3ListView* parent, Q3ListViewItem* after, int nr, int s, int el);
+	BookMItem(Q3ListView* parent, int nr, int s, int el);
 	~BookMItem() {};
 	void SetUp(struct ScribusDoc::BookMa *Bm);
 	virtual QString key(int, bool) const;
@@ -58,7 +62,7 @@ public:
 	int Pare;
 };
 
-class SCRIBUS_API BookMView : public QListView
+class SCRIBUS_API BookMView : public Q3ListView
 {
 	Q_OBJECT
 

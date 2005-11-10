@@ -14,7 +14,6 @@ or documentation
 
 #include "scconfig.h"
 #include "configuration.h"
-#include "configuration.moc"
 #include "scpaths.h"
 #include "version.h"
 
@@ -24,6 +23,8 @@ or documentation
 #include "prefsfile.h"
 #include <qdir.h>
 #include <qstringlist.h>
+//Added by qt3to4:
+#include <QTextStream>
 
 extern ScribusApp SCRIBUS_API *ScApp;
 
@@ -59,10 +60,10 @@ QStringList SWConfig::getShortWordsFromFile(QString lang, QString filename)
 		qDebug("Short Words config file not found");
 		return QStringList();
 	}
-	if (f.open(IO_ReadOnly))
+	if (f.open(QIODevice::ReadOnly))
 	{
 		QTextStream t(&f);
-		while (!t.eof())
+		while (!t.atEnd())
 		{
 			aRow = t.readLine();
 			if (aRow.left(2) == lang)
@@ -98,10 +99,10 @@ QString SWConfig::getAvailableLanguagesFromFile(QString filename)
 	QString aRow;
 
 	QFile f(filename);
-	if (f.open(IO_ReadOnly))
+	if (f.open(QIODevice::ReadOnly))
 	{
 		QTextStream t(&f);
-		while (!t.eof())
+		while (!t.atEnd())
 		{
 			aRow = t.readLine();
 			if (aRow.left(1) != "#" && aRow.length() != 0 && aRow.left(1) != " " && !langs.contains(aRow.left(2)))

@@ -14,15 +14,20 @@
 #include <qcolor.h>
 #include <qcheckbox.h>
 #include <qcombobox.h>
-#include <qframe.h>
+#include <q3frame.h>
 #include <qlabel.h>
 #include <qpushbutton.h>
 #include <qslider.h>
 #include <qlayout.h>
 #include <qtooltip.h>
 #include <qlineedit.h>
-#include <qwidgetstack.h>
-#include <qlistbox.h>
+#include <q3widgetstack.h>
+#include <q3listbox.h>
+//Added by qt3to4:
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QMouseEvent>
 
 class ScColor;
 #include "scribusapi.h"
@@ -52,11 +57,11 @@ public:
 	QLabel* NewC;
 	QPushButton* Cancel;
 	QPushButton* Cancel_2;
-	QFrame* Frame4;
-	QWidgetStack* TabStack;
-	QFrame* Frame5;
-	QFrame* Frame5a;
-	QListBox* ColorSwatch;
+	Q3Frame* Frame4;
+	Q3WidgetStack* TabStack;
+	Q3Frame* Frame5;
+	Q3Frame* Frame5a;
+	Q3ListBox* ColorSwatch;
 	ColorChart* ColorMap;
 	QLabel* CyanP;
 	QLabel* CyanT;

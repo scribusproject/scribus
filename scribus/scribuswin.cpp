@@ -16,10 +16,13 @@
  ***************************************************************************/
 #include <qfileinfo.h>
 #include <qdir.h>
+//Added by qt3to4:
+#include <Q3Frame>
+#include <QHBoxLayout>
+#include <QCloseEvent>
 #include "scribuswin.h"
 #include "pageselector.h"
 #include "scmessagebox.h"
-#include "scribuswin.moc"
 #include "scribusXml.h"
 #include "scribus.h"
 #include "story.h"
@@ -28,7 +31,7 @@
 
 
 
-ScribusWin::ScribusWin(QWidget* parent, ScribusDoc* ddoc) : QMainWindow(parent, "", WDestructiveClose)
+ScribusWin::ScribusWin(QWidget* parent, ScribusDoc* ddoc) : Q3MainWindow(parent, "", Qt::WDestructiveClose)
 {
 	setIcon(loadIcon("AppIcon2.png"));
 	doc = ddoc;
@@ -42,7 +45,7 @@ void ScribusWin::setView(ScribusView* dview)
 	doc->viewID++;
 	winIndex = doc->viewID;
 	QPoint point = QPoint(0,0);
-	statusFrame = new QFrame(this, "newDocFrame");
+	statusFrame = new Q3Frame(this, "newDocFrame");
 	statusFrameLayout = new QHBoxLayout( statusFrame, 0, 0, "statusFrame");
 	view->unitSwitcher->reparent(statusFrame, point);
 	view->layerMenu->reparent(statusFrame, point);

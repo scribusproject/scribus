@@ -1,6 +1,9 @@
 #include "picsearch.h"
-#include "picsearch.moc"
 #include <qpixmap.h>
+//Added by qt3to4:
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 #include "scribusstructs.h"
 #include "scimage.h"
 extern QPixmap loadIcon(QString nam);
@@ -46,7 +49,7 @@ PicSearch::PicSearch(QWidget* parent, const QString & fileName, const QStringLis
     Layout3->setSpacing( 6 );
     Layout3->setMargin( 0 );
 
-    ListBox1 = new QListBox( this, "ListBox1" );
+    ListBox1 = new Q3ListBox( this, "ListBox1" );
     ListBox1->setMinimumSize( QSize( 250, 210 ) );
     ListBox1->setMaximumSize( QSize( 250, 32767 ) );
     ListBox1->insertStringList( alt );
@@ -78,9 +81,9 @@ PicSearch::PicSearch(QWidget* parent, const QString & fileName, const QStringLis
 
     PixmapLabel1 = new QLabel( this, "PixmapLabel1" );
     PixmapLabel1->setMinimumSize( QSize( 210, 210 ) );
-    PixmapLabel1->setAlignment(AlignLeft | AlignTop);
+    PixmapLabel1->setAlignment(Qt::AlignLeft | Qt::AlignTop);
     PixmapLabel1->setScaledContents( FALSE );
-    PixmapLabel1->setBackgroundColor( white );
+    PixmapLabel1->setBackgroundColor( Qt::white );
     PixmapLabel1->setFrameShape( QLabel::WinPanel );
     PixmapLabel1->setFrameShadow( QLabel::Sunken );
     Layout3->addWidget( PixmapLabel1 );
@@ -91,7 +94,7 @@ PicSearch::PicSearch(QWidget* parent, const QString & fileName, const QStringLis
     connect( CancelB, SIGNAL( clicked() ), this, SLOT( reject() ) );
     connect( UseB, SIGNAL( clicked() ), this, SLOT( accept() ) );
     connect( Preview, SIGNAL( clicked() ), this, SLOT( ShowPrev() ) );
-  	connect(ListBox1, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selBild(QListBoxItem*)));
+  	connect(ListBox1, SIGNAL(clicked(Q3ListBoxItem*)), this, SLOT(selBild(Q3ListBoxItem*)));
 }
 
 /*!
@@ -126,7 +129,7 @@ void PicSearch::ShowPrev()
  \param c QListBoxItem
  \retval None
  */
-void PicSearch::selBild(QListBoxItem *c)
+void PicSearch::selBild(Q3ListBoxItem *c)
 {
 	if (c == NULL)
 		return;

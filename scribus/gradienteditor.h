@@ -19,10 +19,16 @@
 #define GRADEDITOR_H
 
 #include <qlabel.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 #include <qspinbox.h>
 #include <qlayout.h>
 #include <qtooltip.h>
+//Added by qt3to4:
+#include <QMouseEvent>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QEvent>
+#include <QPaintEvent>
 
 #include "scribusapi.h"
 #include "vgradient.h"
@@ -45,7 +51,7 @@ public:
 	void setActTrans(double t);
 	void setActStep(double t);
 	VGradient fill_gradient;
-	QValueList<int> StopM;
+	Q3ValueList<int> StopM;
 	bool Mpressed;
 	bool outside;
 	bool onlyselect;

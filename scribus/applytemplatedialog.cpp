@@ -7,19 +7,21 @@
  *                                                                         *
  ***************************************************************************/
 #include "applytemplatedialog.h"
-#include "applytemplatedialog.moc"
 
 #include <qvariant.h>
 #include <qpushbutton.h>
 #include <qlabel.h>
 #include <qcombobox.h>
-#include <qbuttongroup.h>
+#include <q3buttongroup.h>
 #include <qradiobutton.h>
 #include <qcheckbox.h>
 #include <qspinbox.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
+//Added by qt3to4:
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 
 #include "commonstrings.h"
 #include "scribusdoc.h"
@@ -39,7 +41,7 @@ enum {
  *  The dialog will by default be modeless, unless you set 'modal' to
  *  true to construct a modal dialog.
  */
-ApplyMasterPageDialog::ApplyMasterPageDialog( QWidget* parent, const char* name, bool modal, WFlags fl )
+ApplyMasterPageDialog::ApplyMasterPageDialog( QWidget* parent, const char* name, bool modal, Qt::WFlags fl )
 		: QDialog( parent, name, modal, fl )
 {
 	if ( !name )
@@ -57,9 +59,9 @@ ApplyMasterPageDialog::ApplyMasterPageDialog( QWidget* parent, const char* name,
 	templateNameLayout->addWidget( masterPageComboBox );
 	ApplyMasterPageDialogLayout->addLayout( templateNameLayout );
 
-	applyToPageButtonGroup = new QButtonGroup( this, "applyToPageButtonGroup" );
+	applyToPageButtonGroup = new Q3ButtonGroup( this, "applyToPageButtonGroup" );
 	applyToPageButtonGroup->setMinimumSize( QSize( 250, 0 ) );
-	applyToPageButtonGroup->setFrameShape( QButtonGroup::GroupBoxPanel );
+	//applyToPageButtonGroup->setFrameShape( QFrame::StyledPanel );
 	applyToPageButtonGroup->setColumnLayout(0, Qt::Vertical );
 	applyToPageButtonGroup->layout()->setSpacing( 6 );
 	applyToPageButtonGroup->layout()->setMargin( 11 );
@@ -113,7 +115,7 @@ ApplyMasterPageDialog::ApplyMasterPageDialog( QWidget* parent, const char* name,
 	ApplyMasterPageDialogLayout->addLayout( layout8 );
 	languageChange();
 	resize( QSize(272, 230).expandedTo(minimumSizeHint()) );
-	clearWState( WState_Polished );
+	setAttribute( Qt::WA_WState_Polished, false );
 
 	// signals and slots connections
 	connect( useRangeCheckBox, SIGNAL( toggled(bool) ), this, SLOT( enableRange(bool) ) );

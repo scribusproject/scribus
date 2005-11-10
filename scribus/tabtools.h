@@ -6,11 +6,15 @@
 #include <qlayout.h>
 #include <qlabel.h>
 #include <qtoolbutton.h>
-#include <qbuttongroup.h>
+#include <q3buttongroup.h>
 #include <qcombobox.h>
 #include <qcheckbox.h>
 #include <qradiobutton.h>
-#include <qwidgetstack.h>
+#include <q3widgetstack.h>
+//Added by qt3to4:
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QGridLayout>
 
 #include "scribusapi.h"
 class LinkButton;
@@ -31,14 +35,14 @@ public:
 	~TabTools() {};
 	void restoreDefaults();
 
-	QButtonGroup* buttonGroupTools;
+	Q3ButtonGroup* buttonGroupTools;
 	QToolButton* toolShape;
 	QToolButton* toolPoly;
 	QToolButton* toolImage;
 	QToolButton* toolText;
 	QToolButton* toolLine;
 	QToolButton* toolZoom;
-	QWidgetStack* subStackTools;
+	Q3WidgetStack* subStackTools;
 	QWidget* subTabText;
 	QLabel* textLabel3b;
 	QLabel* textLabel3b2;
@@ -96,16 +100,16 @@ public:
 	QLabel* textLabel19b;
 	QSpinBox* shadingFillImage;
 	QLabel* textLabel20b;
-	QButtonGroup* buttonGroup3;
+	Q3ButtonGroup* buttonGroup3;
 	QLabel* textLabel17b;
 	QLabel* textLabel18b;
 	QSpinBox* scalingHorizontal;
 	QSpinBox* scalingVertical;
 	LinkButton* chainButton;
-	QButtonGroup* buttonGroup5;
+	Q3ButtonGroup* buttonGroup5;
 	QCheckBox* checkRatioImage;
 	QCheckBox* embeddedPath;
-	QButtonGroup* buttonGroupRes;
+	Q3ButtonGroup* buttonGroupRes;
 	QRadioButton* checkFullRes;
 	QRadioButton* checkNormalRes;
 	QRadioButton* checkHalfRes;

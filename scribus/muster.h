@@ -2,8 +2,12 @@
 #define MUSTERPAGES_H
 
 #include <qdialog.h>
-class QListBox;
-class QListBoxItem;
+//Added by qt3to4:
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QCloseEvent>
+class Q3ListBox;
+class Q3ListBoxItem;
 class QToolButton;
 class QHBoxLayout;
 class QVBoxLayout;
@@ -29,7 +33,7 @@ protected slots:
 	void reject();
 
 private:
-	QListBox* masterPageData;
+	Q3ListBox* masterPageData;
 	QToolButton* importButton;
 	QToolButton* newButton;
 	QToolButton* duplicateButton;
@@ -48,7 +52,7 @@ private slots:
 	void deleteMasterPage();
 	void newMasterPage();
 	void appendPage();
-	void selectMasterPage(QListBoxItem *item);
+	void selectMasterPage(Q3ListBoxItem *item);
 
 signals:
 	void createNew(int);

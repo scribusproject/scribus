@@ -15,7 +15,7 @@
 #include <qstring.h>
 #include <qdatastream.h>
 #include <qmap.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 #include <qfile.h>
 #include <qdir.h>
 #include <qstringlist.h>
@@ -71,7 +71,7 @@ public:
 	void Convert2JPG(QString fn, int Quality, bool isCMYK, bool isGray);
 	QString MaskToTxt(bool PDF = true);
 	QString MaskToTxt14();
-	void applyEffect(QValueList<imageEffect> effectsList, QMap<QString,ScColor> colors, bool cmyk);
+	void applyEffect(Q3ValueList<imageEffect> effectsList, QMap<QString,ScColor> colors, bool cmyk);
 	void solarize(double factor, bool cmyk);
 	void blur(double radius= 0.0, double sigma = 1.0);
 	void sharpen(double radius= 0.0, double sigma = 1.0);
@@ -113,8 +113,8 @@ public:
 
 	struct PSDLayer
 	{
-		QValueList<uint> channelLen;
-		QValueList<int> channelType;
+		Q3ValueList<uint> channelLen;
+		Q3ValueList<int> channelType;
 		int xpos;
 		int ypos;
 		int width;
@@ -161,7 +161,7 @@ public:
 		QString clipPath;
 		QString usedPath;
 		QString profileName;
-		QValueList<PSDLayer> layerInfo;
+		Q3ValueList<PSDLayer> layerInfo;
 		ExifValues exifInfo;
 	} imgInfo;
 
@@ -180,7 +180,7 @@ private:
 	void RGBTOHLS ( uchar& red, uchar& green, uchar& blue );
 	int HLSVALUE ( double n1, double n2, double hue );
 	void HLSTORGB ( uchar& hue, uchar& lightness, uchar& saturation );
-	bool loadLayerChannels( QDataStream & s, const PSDHeader & header, QValueList<PSDLayer> &layerInfo, uint layer, bool* firstLayer);
+	bool loadLayerChannels( QDataStream & s, const PSDHeader & header, Q3ValueList<PSDLayer> &layerInfo, uint layer, bool* firstLayer);
 	bool loadLayer( QDataStream & s, const PSDHeader & header);
 	QString getLayerString(QDataStream & s);
 	QString getPascalString(QDataStream & s);

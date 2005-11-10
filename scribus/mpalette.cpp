@@ -1,14 +1,25 @@
 
 
 #include "mpalette.h"
-#include "mpalette.moc"
 
 #include <cmath>
 #include <qpoint.h>
-#include <qwmatrix.h>
+#include <qmatrix.h>
 #include <qmessagebox.h>
 #include <qradiobutton.h>
-#include <qobjectlist.h>
+#include <qobject.h>
+//Added by qt3to4:
+#include <Q3PopupMenu>
+#include <QMouseEvent>
+#include <QFocusEvent>
+#include <Q3Frame>
+#include <QGridLayout>
+#include <QKeyEvent>
+#include <QEvent>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QPixmap>
+#include <QLabel>
 #include "scribusview.h"
 #include "autoform.h"
 #include "tabmanager.h"
@@ -51,19 +62,19 @@ bool LabelButton::getState()
 
 void LabelButton::enterEvent(QEvent*)
 {
-	setFrameStyle( QFrame::Panel | QFrame::Raised );
+	setFrameStyle( Q3Frame::Panel | Q3Frame::Raised );
 	setLineWidth( 2 );
 }
 
 void LabelButton::leaveEvent(QEvent*)
 {
-	setFrameStyle( QFrame::Panel | QFrame::Plain );
+	setFrameStyle( Q3Frame::Panel | Q3Frame::Plain );
 	setLineWidth( 0 );
 }
 
 void LabelButton::mousePressEvent(QMouseEvent*)
 {
-	setFrameStyle( QFrame::Panel | QFrame::Sunken );
+	setFrameStyle( Q3Frame::Panel | Q3Frame::Sunken );
 	setLineWidth( 2 );
 }
 
@@ -74,7 +85,7 @@ void LabelButton::mouseReleaseEvent(QMouseEvent*)
 		setText(TextA);
 	else
 		setText(TextB);
-	setFrameStyle( QFrame::Panel | QFrame::Raised );
+	setFrameStyle( Q3Frame::Panel | Q3Frame::Raised );
 	setLineWidth( 2 );
 	emit clicked();
 }
@@ -113,7 +124,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "Mdouble", false,
 	page = new QWidget( TabStack, "page" );
 	pageLayout = new QVBoxLayout( page, 0, 5, "pageLayout");
 
-	NameGroup = new QGroupBox( "Name", page, "NameGroup" );
+	NameGroup = new Q3GroupBox( "Name", page, "NameGroup" );
 	NameGroup->setColumnLayout(0, Qt::Vertical );
 	NameGroup->layout()->setSpacing( 4 );
 	NameGroup->layout()->setMargin( 5 );
@@ -123,7 +134,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "Mdouble", false,
 	NameGroupLayout->addWidget( NameEdit );
 	pageLayout->addWidget( NameGroup );
 
-	GeoGroup = new QGroupBox( "Geometry", page, "GeoGroup" );
+	GeoGroup = new Q3GroupBox( "Geometry", page, "GeoGroup" );
 	GeoGroup->setColumnLayout(0, Qt::Vertical );
 	GeoGroup->layout()->setSpacing( 4 );
 	GeoGroup->layout()->setMargin( 5 );
@@ -166,8 +177,8 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "Mdouble", false,
 	GeoGroupLayout->addWidget( Rot, 4, 1 );
 	basepointLabel = new QLabel( "Basepoint:", GeoGroup, "basepointLabel" );
 	GeoGroupLayout->addWidget( basepointLabel, 5, 0 );
-	RotationGroup = new QButtonGroup( "", GeoGroup, "RotationGroup" );
-	RotationGroup->setFrameShape( QButtonGroup::NoFrame );
+	RotationGroup = new Q3ButtonGroup( "", GeoGroup, "RotationGroup" );
+	//RotationGroup->setFrameShape( Q3ButtonGroup::NoFrame );
 	RotationGroup->setColumnLayout(0, Qt::Vertical );
 	RotationGroup->layout()->setSpacing( 0 );
 	RotationGroup->layout()->setMargin( 0 );
@@ -178,45 +189,45 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "Mdouble", false,
 	TopLeft->setText( "" );
 	TopLeft->setChecked( true );
 	Layout12->addWidget( TopLeft, 0, 0, Qt::AlignCenter );
-	Line1 = new QFrame( RotationGroup, "Line1" );
+	Line1 = new Q3Frame( RotationGroup, "Line1" );
 	Line1->setMinimumSize( QSize( 20, 4 ) );
 	Line1->setMaximumSize( QSize( 20, 4 ) );
-	Line1->setFrameShape( QFrame::HLine );
-	Line1->setFrameShadow( QFrame::Plain );
+	Line1->setFrameShape( Q3Frame::HLine );
+	Line1->setFrameShadow( Q3Frame::Plain );
 	Line1->setLineWidth( 3 );
-	Line1->setFrameShape( QFrame::HLine );
+	Line1->setFrameShape( Q3Frame::HLine );
 	Layout12->addWidget( Line1, 0, 1, Qt::AlignCenter );
 	TopRight = new QRadioButton( RotationGroup, "TopRight" );
 	TopRight->setText( "" );
 	Layout12->addWidget( TopRight, 0, 2, Qt::AlignCenter );
-	Line2 = new QFrame( RotationGroup, "Line2" );
+	Line2 = new Q3Frame( RotationGroup, "Line2" );
 	Line2->setMinimumSize( QSize( 4, 20 ) );
 	Line2->setMaximumSize( QSize( 4, 20 ) );
-	Line2->setFrameShape( QFrame::VLine );
-	Line2->setFrameShadow( QFrame::Plain );
+	Line2->setFrameShape( Q3Frame::VLine );
+	Line2->setFrameShadow( Q3Frame::Plain );
 	Line2->setLineWidth( 3 );
-	Line2->setFrameShape( QFrame::VLine );
+	Line2->setFrameShape( Q3Frame::VLine );
 	Layout12->addWidget( Line2, 1, 0, Qt::AlignCenter );
 	Center = new QRadioButton( RotationGroup, "Center" );
 	Center->setText( "" );
 	Layout12->addWidget( Center, 1, 1, Qt::AlignCenter );
-	Line4 = new QFrame( RotationGroup, "Line4" );
+	Line4 = new Q3Frame( RotationGroup, "Line4" );
 	Line4->setMinimumSize( QSize( 4, 20 ) );
 	Line4->setMaximumSize( QSize( 4, 20 ) );
-	Line4->setFrameShadow( QFrame::Plain );
+	Line4->setFrameShadow( Q3Frame::Plain );
 	Line4->setLineWidth( 3 );
-	Line4->setFrameShape( QFrame::VLine );
+	Line4->setFrameShape( Q3Frame::VLine );
 	Layout12->addWidget( Line4, 1, 2, Qt::AlignCenter );
 	BottomLeft = new QRadioButton( RotationGroup, "BottomLeft" );
 	BottomLeft->setText( "" );
 	Layout12->addWidget( BottomLeft, 2, 0, Qt::AlignCenter );
-	Line5 = new QFrame( RotationGroup, "Line5" );
+	Line5 = new Q3Frame( RotationGroup, "Line5" );
 	Line5->setMinimumSize( QSize( 20, 4 ) );
 	Line5->setMaximumSize( QSize( 20, 4 ) );
-	Line5->setFrameShape( QFrame::HLine );
-	Line5->setFrameShadow( QFrame::Plain );
+	Line5->setFrameShape( Q3Frame::HLine );
+	Line5->setFrameShadow( Q3Frame::Plain );
 	Line5->setLineWidth( 3 );
-	Line5->setFrameShape( QFrame::HLine );
+	Line5->setFrameShape( Q3Frame::HLine );
 	Layout12->addWidget( Line5, 2, 1, Qt::AlignCenter );
 	BottomRight = new QRadioButton( RotationGroup, "BottomRight" );
 	BottomRight->setText( "" );
@@ -229,7 +240,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "Mdouble", false,
 
 	layout60 = new QHBoxLayout( 0, 0, 5, "layout60");
 
-	LayerGroup = new QGroupBox( "Level", page, "LayerGroup" );
+	LayerGroup = new Q3GroupBox( "Level", page, "LayerGroup" );
 	LayerGroup->setColumnLayout(0, Qt::Vertical );
 	LayerGroup->layout()->setSpacing( 4 );
 	LayerGroup->layout()->setMargin( 5 );
@@ -270,23 +281,23 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "Mdouble", false,
 	Layout44->addWidget( FlipV, 1, 0 );
 	Locked = new QToolButton( page, "Lock" );
 	Locked->setToggleButton( true );
-	QIconSet a = QIconSet();
-	a.setPixmap(loadIcon("locked.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::On);
-	a.setPixmap(loadIcon("unlock.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::Off);
+	QIcon a = QIcon();
+	a.setPixmap(loadIcon("locked.png"), QIcon::Automatic, QIcon::Normal, QIcon::On);
+	a.setPixmap(loadIcon("unlock.png"), QIcon::Automatic, QIcon::Normal, QIcon::Off);
 	Locked->setIconSet(a);
 	Layout44->addWidget( Locked, 0, 1 );
 	NoPrint = new QToolButton( page, "NoPrint" );
 	NoPrint->setToggleButton( true );
-	QIconSet a2 = QIconSet();
-	a2.setPixmap(loadIcon("NoPrint.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::On);
-	a2.setPixmap(loadIcon("DateiPrint16.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::Off);
+	QIcon a2 = QIcon();
+	a2.setPixmap(loadIcon("NoPrint.png"), QIcon::Automatic, QIcon::Normal, QIcon::On);
+	a2.setPixmap(loadIcon("DateiPrint16.png"), QIcon::Automatic, QIcon::Normal, QIcon::Off);
 	NoPrint->setIconSet(a2);
 	Layout44->addWidget( NoPrint, 1, 1 );
 	NoResize = new QToolButton( page, "NoResize" );
 	NoResize->setToggleButton( true );
-	QIconSet a3 = QIconSet();
-	a3.setPixmap(loadIcon("framenoresize.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::On);
-	a3.setPixmap(loadIcon("frameresize.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::Off);
+	QIcon a3 = QIcon();
+	a3.setPixmap(loadIcon("framenoresize.png"), QIcon::Automatic, QIcon::Normal, QIcon::On);
+	a3.setPixmap(loadIcon("frameresize.png"), QIcon::Automatic, QIcon::Normal, QIcon::Off);
 	NoResize->setIconSet(a3);
 	Layout44->addWidget( NoResize, 0, 2 );
 	layout60->addLayout( Layout44 );
@@ -300,8 +311,8 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "Mdouble", false,
 	page_2 = new QWidget( TabStack, "page_2" );
 	pageLayout_2 = new QVBoxLayout( page_2, 0, 5, "pageLayout_2");
 
-	ShapeGroup = new QButtonGroup( "", page_2, "ShapeGroup" );
-	ShapeGroup->setFrameShape( QButtonGroup::NoFrame );
+	ShapeGroup = new Q3ButtonGroup( "", page_2, "ShapeGroup" );
+	//ShapeGroup->setFrameShape( Q3ButtonGroup::NoFrame );
 	ShapeGroup->setExclusive( true );
 	ShapeGroup->setColumnLayout(0, Qt::Vertical );
 	ShapeGroup->layout()->setSpacing( 2 );
@@ -325,12 +336,12 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "Mdouble", false,
 	Layout13->addWidget( RoundRect );
 	pageLayout_2->addLayout( Layout13 );
 
-	TabStack2 = new QWidgetStack( page_2, "TabStack2" );
-	TabStack2->setFrameShape( QWidgetStack::NoFrame );
+	TabStack2 = new Q3WidgetStack( page_2, "TabStack2" );
+	TabStack2->setFrameShape( Q3WidgetStack::NoFrame );
 
 	page_2a = new QWidget( TabStack2, "page" );
 	pageLayout_2a = new QVBoxLayout( page_2a, 0, 5, "pageLayout_2");
-	Distance = new QGroupBox( "Distance of Text", page_2a, "Distance" );
+	Distance = new Q3GroupBox( "Distance of Text", page_2a, "Distance" );
 	Distance->setColumnLayout(0, Qt::Vertical );
 	Distance->layout()->setSpacing( 2 );
 	Distance->layout()->setMargin( 5 );
@@ -377,7 +388,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "Mdouble", false,
 
 	page_2b = new QWidget( TabStack2, "page" );
 	pageLayout_2b = new QVBoxLayout( page_2b, 0, 5, "pageLayout_2");
-	Distance2 = new QGroupBox( "Path Text Properties", page_2b, "Distance" );
+	Distance2 = new Q3GroupBox( "Path Text Properties", page_2b, "Distance" );
 	Distance2->setColumnLayout(0, Qt::Vertical );
 	Distance2->layout()->setSpacing( 2 );
 	Distance2->layout()->setMargin( 5 );
@@ -402,7 +413,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "Mdouble", false,
 
 	pageLayout_2->addWidget( TabStack2 );
 
-	textFlowsAroundFrame = new QButtonGroup( page_2, "textFlowsAroundFrame" );
+	textFlowsAroundFrame = new Q3ButtonGroup( page_2, "textFlowsAroundFrame" );
 	textFlowsAroundFrame->setColumnLayout(0, Qt::Vertical );
 	textFlowsAroundFrame->layout()->setSpacing( 5 );
 	textFlowsAroundFrame->layout()->setMargin( 10 );
@@ -448,7 +459,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "Mdouble", false,
 	layout41->addWidget( ChBase, 1, 3 );
 	LineSp = new MSpinBox( page_3, 1 );
 	layout41->addWidget( LineSp, 2, 1 );
-	lineSpacingPop = new QPopupMenu();
+	lineSpacingPop = new Q3PopupMenu();
 	lineSpacingPop->insertItem( tr("Fixed Linespacing"));
 	lineSpacingPop->insertItem( tr("Automatic Linespacing"));
 	lineSpacingPop->insertItem( tr("Align to Baseline Grid"));
@@ -595,11 +606,11 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "Mdouble", false,
 
 	Layout18 = new QHBoxLayout( 0, 0, 6, "Layout18");
 
-	Frame4 = new QFrame( page_4, "Frame4" );
+	Frame4 = new Q3Frame( page_4, "Frame4" );
 	Frame4->setMinimumSize( QSize( 15, 2 ) );
 	Frame4->setMaximumSize( QSize( 15, 10 ) );
-	Frame4->setFrameShape( QFrame::NoFrame );
-	Frame4->setFrameShadow( QFrame::Plain );
+	Frame4->setFrameShape( Q3Frame::NoFrame );
+	Frame4->setFrameShadow( Q3Frame::Plain );
 	Layout18->addWidget( Frame4 );
 
 	Aspect = new QCheckBox( page_4, "Aspect" );
@@ -611,12 +622,12 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "Mdouble", false,
 	Layout24->addLayout( Layout18 );
 	pageLayout_4->addLayout( Layout24 );
 
-	GroupBoxCM = new QGroupBox( "", page_4, "GroupBoxcm" );
+	GroupBoxCM = new Q3GroupBox( "", page_4, "GroupBoxcm" );
 	GroupBoxCM->setColumnLayout(0, Qt::Vertical );
 	GroupBoxCM->layout()->setSpacing( 2 );
 	GroupBoxCM->layout()->setMargin( 5 );
-	GroupBoxCM->setFrameShape( QFrame::NoFrame );
-	GroupBoxCM->setFrameShadow( QFrame::Plain );
+	//GroupBoxCM->setFrameShape( Q3Frame::NoFrame );
+	//GroupBoxCM->setFrameShadow( Q3Frame::Plain );
 	GroupBoxCMLayout = new QVBoxLayout( GroupBoxCM->layout() );
 	GroupBoxCMLayout->setAlignment( Qt::AlignTop );
 	TextCms1 = new QLabel( GroupBoxCM, "xposLabel" );
@@ -673,19 +684,19 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "Mdouble", false,
 	Layout12_2->addWidget( LEndStyle, 5, 1 );
 	pageLayout_5->addLayout( Layout12_2 );
 
-	TabStack3 = new QWidgetStack( page_5, "TabStack3" );
-	TabStack3->setFrameShape( QWidgetStack::NoFrame );
+	TabStack3 = new Q3WidgetStack( page_5, "TabStack3" );
+	TabStack3->setFrameShape( Q3WidgetStack::NoFrame );
 
 	page_5a = new QWidget( TabStack3, "page" );
 	pageLayout_5a = new QVBoxLayout( page_5a, 0, 5, "pageLayout_5a");
-	StyledLine = new QListBox(page_5a, "StyledL");
+	StyledLine = new Q3ListBox(page_5a, "StyledL");
 	StyledLine->insertItem( "No Style", 0);
 	pageLayout_5a->addWidget(StyledLine);
 	TabStack3->addWidget( page_5a, 0 );
 
 	page_5b = new QWidget( TabStack3, "page" );
 	pageLayout_5b = new QVBoxLayout( page_5b, 0, 5, "pageLayout_5a");
-	TLines = new QGroupBox( "Cell Lines", page_5b, "Distance" );
+	TLines = new Q3GroupBox( "Cell Lines", page_5b, "Distance" );
 	TLines->setColumnLayout(0, Qt::Vertical );
 	TLines->layout()->setSpacing( 2 );
 	TLines->layout()->setMargin( 5 );
@@ -765,7 +776,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "Mdouble", false,
 	connect(DRight, SIGNAL(valueChanged(int)), this, SLOT(NewTDist()));
 	connect(DBottom, SIGNAL(valueChanged(int)), this, SLOT(NewTDist()));
 	connect(TabStack, SIGNAL(currentChanged(int)), this, SLOT(SelTab(int)));
-	connect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SetSTline(QListBoxItem*)));
+	connect(StyledLine, SIGNAL(clicked(Q3ListBoxItem*)), this, SLOT(SetSTline(Q3ListBoxItem*)));
 	connect(Fonts, SIGNAL(fontSelected(QString )), this, SLOT(NewTFont(QString)));
 	connect(TxFill, SIGNAL(activated(int)), this, SLOT(newTxtFill()));
 	connect(TxStroke, SIGNAL(activated(int)), this, SLOT(newTxtStroke()));
@@ -908,7 +919,7 @@ void Mpalette::SetCurItem(PageItem *i)
 {
 	if (ScApp->ScriptRunning)
 		return;
-	disconnect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SetSTline(QListBoxItem*)));
+	disconnect(StyledLine, SIGNAL(clicked(Q3ListBoxItem*)), this, SLOT(SetSTline(Q3ListBoxItem*)));
 	disconnect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
 	disconnect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
 	disconnect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
@@ -947,7 +958,7 @@ void Mpalette::SetCurItem(PageItem *i)
 	DCol->setValue(i->Cols);
 	if (colgapLabel->getState())
 	{
-		dGap->setMaxValue(QMAX((i->Width / i->Cols - i->Extra - i->RExtra)*Umrech, 0));
+		dGap->setMaxValue(QMAX((i->Width / i->Cols - i->Extra - i->RExtra)*Umrech, 0.0));
 		dGap->setValue(i->ColGap*Umrech);
 	}
 	else
@@ -958,7 +969,7 @@ void Mpalette::SetCurItem(PageItem *i)
 		else
 			lineCorr = 0;
 		double ColWidth = (i->Width - (i->ColGap * (i->Cols - 1)) - i->Extra - i->RExtra - lineCorr) / i->Cols;
-		dGap->setMaxValue(QMAX((i->Width / i->Cols)*Umrech, 0));
+		dGap->setMaxValue(QMAX((i->Width / i->Cols)*Umrech, 0.0));
 		dGap->setValue(ColWidth*Umrech);
 	}
 	DLeft->setValue(i->Extra*Umrech);
@@ -991,7 +1002,7 @@ void Mpalette::SetCurItem(PageItem *i)
 	LSize->setEnabled(setter);
 	LJoinStyle->setEnabled(setter);
 	LEndStyle->setEnabled(setter);
-	connect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SetSTline(QListBoxItem*)));
+	connect(StyledLine, SIGNAL(clicked(Q3ListBoxItem*)), this, SLOT(SetSTline(Q3ListBoxItem*)));
 	connect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
 	connect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
 	connect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
@@ -1110,15 +1121,15 @@ void Mpalette::NewSel(int nr)
 		double gx, gy, gh, gw;
 		ScApp->view->getGroupRect(&gx, &gy, &gw, &gh);
 		if (TopLeft->isChecked())
-			ScApp->view->RCenter = FPoint(gx, gy);
+			ScApp->view->RCenter = QPointF(gx, gy);
 		if (TopRight->isChecked())
-			ScApp->view->RCenter = FPoint(gx + gw, gy);
+			ScApp->view->RCenter = QPointF(gx + gw, gy);
 		if (Center->isChecked())
-			ScApp->view->RCenter = FPoint(gx + gw / 2.0, gy + gh / 2.0);
+			ScApp->view->RCenter = QPointF(gx + gw / 2.0, gy + gh / 2.0);
 		if (BottomLeft->isChecked())
-			ScApp->view->RCenter = FPoint(gx, gy + gh);
+			ScApp->view->RCenter = QPointF(gx, gy + gh);
 		if (BottomRight->isChecked())
-			ScApp->view->RCenter = FPoint(gx + gw, gy + gh);
+			ScApp->view->RCenter = QPointF(gx + gw, gy + gh);
 		xposLabel->setText( tr( "&X-Pos:" ) );
 		widthLabel->setText( tr( "&Width:" ) );
 		yposLabel->setText( tr( "&Y-Pos:" ) );
@@ -1382,8 +1393,8 @@ void Mpalette::setXY(double x, double y)
 	disconnect(Ypos, SIGNAL(valueChanged(int)), this, SLOT(NewY()));
 	bool tmp = HaveItem;
 	double inX, inY, b, h, r, dummy1, dummy2;
-	QWMatrix ma;
-	FPoint n;
+	QMatrix ma;
+	QPointF n;
 	if (HaveItem)
 	{
 		if (ScApp->view->GroupSel)
@@ -1408,15 +1419,15 @@ void Mpalette::setXY(double x, double y)
 	ma.translate(x, y);
 	ma.rotate(r);
 	if (TopLeft->isChecked())
-		n = FPoint(0.0, 0.0);
+		n = QPointF(0.0, 0.0);
 	if (TopRight->isChecked())
-		n = FPoint(b, 0.0);
+		n = QPointF(b, 0.0);
 	if (Center->isChecked())
-		n = FPoint(b / 2.0, h / 2.0);
+		n = QPointF(b / 2.0, h / 2.0);
 	if (BottomLeft->isChecked())
-		n = FPoint(0.0, h);
+		n = QPointF(0.0, h);
 	if (BottomRight->isChecked())
-		n = FPoint(b, h);
+		n = QPointF(b, h);
 	inX = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
 	inY = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
 	if (tmp)
@@ -1444,13 +1455,13 @@ void Mpalette::setBH(double x, double y)
 		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
-	QWMatrix ma;
+	QMatrix ma;
 	QPoint dp;
 	if ((LMode) && (CurItem->asLine()))
 	{
 		ma.translate(static_cast<double>(Xpos->value()) / Umrech, static_cast<double>(Ypos->value()) / Umrech);
 		ma.rotate(static_cast<double>(Rot->value())*(-1));
-		dp = ma * QPoint(static_cast<int>(x), static_cast<int>(y));
+		dp = ma.map( QPoint(static_cast<int>(x), static_cast<int>(y)) );
 		Width->setValue(dp.x()*Umrech);
 		Height->setValue(dp.y()*Umrech);
 	}
@@ -1499,7 +1510,8 @@ void Mpalette::setCols(int r, double g)
 		DCol->setMaxValue(QMAX(qRound(CurItem->Width / QMAX(CurItem->ColGap, 10.0)), 1));
 		if (colgapLabel->getState())
 		{
-			dGap->setMaxValue(QMAX((CurItem->Width / CurItem->Cols - CurItem->Extra - CurItem->RExtra)*Umrech, 0));
+			dGap->setMaxValue(QMAX((CurItem->Width / CurItem->Cols - CurItem->Extra - CurItem->RExtra)*Umrech,
+					       0.0));
 			dGap->setValue(CurItem->ColGap*Umrech);
 		}
 		else
@@ -1510,7 +1522,7 @@ void Mpalette::setCols(int r, double g)
 			else
 				lineCorr = 0;
 			double ColWidth = (CurItem->Width - (CurItem->ColGap * (CurItem->Cols - 1)) - CurItem->Extra - CurItem->RExtra - lineCorr) / CurItem->Cols;
-			dGap->setMaxValue(QMAX((CurItem->Width / CurItem->Cols)*Umrech, 0));
+			dGap->setMaxValue(QMAX((CurItem->Width / CurItem->Cols)*Umrech, 0.0));
 			dGap->setValue(ColWidth*Umrech);
 		}
 	}
@@ -1657,7 +1669,7 @@ void Mpalette::setSvalue(double s)
 	HaveItem = tmp;
 }
 
-void Mpalette::setLIvalue(PenStyle p, PenCapStyle pc, PenJoinStyle pj)
+void Mpalette::setLIvalue(Qt::PenStyle p, Qt::PenCapStyle pc, Qt::PenJoinStyle pj)
 {
 	if (ScApp->ScriptRunning)
 		return;
@@ -1665,19 +1677,19 @@ void Mpalette::setLIvalue(PenStyle p, PenCapStyle pc, PenJoinStyle pj)
 	HaveItem = false;
 	switch (p)
 	{
-	case SolidLine:
+	case Qt::SolidLine:
 		LStyle->setCurrentItem(0);
 		break;
-	case DashLine:
+	case Qt::DashLine:
 		LStyle->setCurrentItem(1);
 		break;
-	case DotLine:
+	case Qt::DotLine:
 		LStyle->setCurrentItem(2);
 		break;
-	case DashDotLine:
+	case Qt::DashDotLine:
 		LStyle->setCurrentItem(3);
 		break;
-	case DashDotDotLine:
+	case Qt::DashDotDotLine:
 		LStyle->setCurrentItem(4);
 		break;
 	default:
@@ -1686,13 +1698,13 @@ void Mpalette::setLIvalue(PenStyle p, PenCapStyle pc, PenJoinStyle pj)
 	}
 	switch (pc)
 	{
-	case FlatCap:
+	case Qt::FlatCap:
 		LEndStyle->setCurrentItem(0);
 		break;
-	case SquareCap:
+	case Qt::SquareCap:
 		LEndStyle->setCurrentItem(1);
 		break;
-	case RoundCap:
+	case Qt::RoundCap:
 		LEndStyle->setCurrentItem(2);
 		break;
 	default:
@@ -1701,13 +1713,13 @@ void Mpalette::setLIvalue(PenStyle p, PenCapStyle pc, PenJoinStyle pj)
 	}
 	switch (pj)
 	{
-	case MiterJoin:
+	case Qt::MiterJoin:
 		LJoinStyle->setCurrentItem(0);
 		break;
-	case BevelJoin:
+	case Qt::BevelJoin:
 		LJoinStyle->setCurrentItem(1);
 		break;
-	case RoundJoin:
+	case Qt::RoundJoin:
 		LJoinStyle->setCurrentItem(2);
 		break;
 	default:
@@ -1815,7 +1827,7 @@ void Mpalette::NewX()
 	if (ScApp->ScriptRunning)
 		return;
 	double x,y,w,h, gx, gy, gh, gw, base;
-	QWMatrix ma;
+	QMatrix ma;
 	x = Xpos->value() / Umrech;
 	y = Ypos->value() / Umrech;
 	w = Width->value() / Umrech;
@@ -1877,7 +1889,7 @@ void Mpalette::NewY()
 	if (ScApp->ScriptRunning)
 		return;
 	double x,y,w,h, gx, gy, gh, gw, base;
-	QWMatrix ma;
+	QMatrix ma;
 	x = Xpos->value() / Umrech;
 	y = Ypos->value() / Umrech;
 	w = Width->value() / Umrech;
@@ -1993,19 +2005,19 @@ void Mpalette::NewW()
 						bb2 = bb;
 						while (bb2->RightLink != 0)
 						{
-							ScApp->view->MoveRotated(bb2->RightLink, FPoint(dist, 0), true);
+							ScApp->view->MoveRotated(bb2->RightLink, QPointF(dist, 0), true);
 							bb2 = bb2->RightLink;
 						}
-						ScApp->view->MoveSizeItem(FPoint(0, 0), FPoint(-dist, 0), bb->ItemNr, true);
+						ScApp->view->MoveSizeItem(QPointF(0, 0), QPointF(-dist, 0), bb->ItemNr, true);
 						bb = bb->BottomLink;
 					}
 					bb2 = bb;
 					while (bb2->RightLink != 0)
 					{
-						ScApp->view->MoveRotated(bb2->RightLink, FPoint(dist, 0), true);
+						ScApp->view->MoveRotated(bb2->RightLink, QPointF(dist, 0), true);
 						bb2 = bb2->RightLink;
 					}
-					ScApp->view->MoveSizeItem(FPoint(0, 0), FPoint(-dist, 0), bb->ItemNr, true);
+					ScApp->view->MoveSizeItem(QPointF(0, 0), QPointF(-dist, 0), bb->ItemNr, true);
 					doc->RotMode = rmo;
 					if (keepFrameWHRatioButton->isOn())
 					{
@@ -2090,19 +2102,19 @@ void Mpalette::NewH()
 						bb2 = bb;
 						while (bb2->BottomLink != 0)
 						{
-							ScApp->view->MoveRotated(bb2->BottomLink, FPoint(0, dist), true);
+							ScApp->view->MoveRotated(bb2->BottomLink, QPointF(0, dist), true);
 							bb2 = bb2->BottomLink;
 						}
-						ScApp->view->MoveSizeItem(FPoint(0, 0), FPoint(0, -dist), bb->ItemNr, true);
+						ScApp->view->MoveSizeItem(QPointF(0, 0), QPointF(0, -dist), bb->ItemNr, true);
 						bb = bb->RightLink;
 					}
 					bb2 = bb;
 					while (bb2->BottomLink != 0)
 					{
-						ScApp->view->MoveRotated(bb2->BottomLink, FPoint(0, dist), true);
+						ScApp->view->MoveRotated(bb2->BottomLink, QPointF(0, dist), true);
 						bb2 = bb2->BottomLink;
 					}
-					ScApp->view->MoveSizeItem(FPoint(0, 0), FPoint(0, -dist), bb->ItemNr, true);
+					ScApp->view->MoveSizeItem(QPointF(0, 0), QPointF(0, -dist), bb->ItemNr, true);
 					doc->RotMode = rmo;
 					if (keepFrameWHRatioButton->isOn())
 					{
@@ -2213,7 +2225,7 @@ void Mpalette::NewGap()
 			else
 				lineCorr = 0;
 			double newWidth = dGap->value() / Umrech;
-			double newGap = QMAX(((CurItem->Width - CurItem->Extra - CurItem->RExtra - lineCorr) - (newWidth * CurItem->Cols)) / (CurItem->Cols - 1), 0);
+			double newGap = QMAX(((CurItem->Width - CurItem->Extra - CurItem->RExtra - lineCorr) - (newWidth * CurItem->Cols)) / (CurItem->Cols - 1), 0.0);
 			CurItem->ColGap = newGap;
 		}
 		ScApp->view->RefreshItem(CurItem);
@@ -2341,23 +2353,23 @@ void Mpalette::NewLSty()
 {
 	if (ScApp->ScriptRunning)
 		return;
-	PenStyle c = SolidLine;
+	Qt::PenStyle c = Qt::SolidLine;
 	switch (LStyle->currentItem())
 	{
 	case 0:
-		c = SolidLine;
+		c = Qt::SolidLine;
 		break;
 	case 1:
-		c = DashLine;
+		c = Qt::DashLine;
 		break;
 	case 2:
-		c = DotLine;
+		c = Qt::DotLine;
 		break;
 	case 3:
-		c = DashDotLine;
+		c = Qt::DashDotLine;
 		break;
 	case 4:
-		c = DashDotDotLine;
+		c = Qt::DashDotDotLine;
 		break;
 	}
 	if ((HaveDoc) && (HaveItem))
@@ -2401,17 +2413,17 @@ void Mpalette::NewLJoin()
 {
 	if (ScApp->ScriptRunning)
 		return;
-	PenJoinStyle c = MiterJoin;
+	Qt::PenJoinStyle c = Qt::MiterJoin;
 	switch (LJoinStyle->currentItem())
 	{
 	case 0:
-		c = MiterJoin;
+		c = Qt::MiterJoin;
 		break;
 	case 1:
-		c = BevelJoin;
+		c = Qt::BevelJoin;
 		break;
 	case 2:
-		c = RoundJoin;
+		c = Qt::RoundJoin;
 		break;
 	}
 	if ((HaveDoc) && (HaveItem))
@@ -2425,17 +2437,17 @@ void Mpalette::NewLEnd()
 {
 	if (ScApp->ScriptRunning)
 		return;
-	PenCapStyle c = FlatCap;
+	Qt::PenCapStyle c = Qt::FlatCap;
 	switch (LEndStyle->currentItem())
 	{
 	case 0:
-		c = FlatCap;
+		c = Qt::FlatCap;
 		break;
 	case 1:
-		c = SquareCap;
+		c = Qt::SquareCap;
 		break;
 	case 2:
-		c = RoundCap;
+		c = Qt::RoundCap;
 		break;
 	}
 	if ((HaveDoc) && (HaveItem))
@@ -2726,31 +2738,31 @@ void Mpalette::NewRotMode(int m)
 			ScApp->view->getGroupRect(&gx, &gy, &gw, &gh);
 			if (m == 0)
 			{
-				ScApp->view->RCenter = FPoint(gx, gy);
+				ScApp->view->RCenter = QPointF(gx, gy);
 				inX = gx;
 				inY = gy;
 			}
 			if (m == 1)
 			{
-				ScApp->view->RCenter = FPoint(gx+gw, gy);
+				ScApp->view->RCenter = QPointF(gx+gw, gy);
 				inX = gx+gw;
 				inY = gy;
 			}
 			if (m == 2)
 			{
-				ScApp->view->RCenter = FPoint(gx + gw / 2.0, gy + gh / 2.0);
+				ScApp->view->RCenter = QPointF(gx + gw / 2.0, gy + gh / 2.0);
 				inX = gx + gw / 2.0;
 				inY = gy + gh / 2.0;
 			}
 			if (m == 3)
 			{
-				ScApp->view->RCenter = FPoint(gx, gy+gh);
+				ScApp->view->RCenter = QPointF(gx, gy+gh);
 				inX = gx;
 				inY = gy+gh;
 			}
 			if (m == 4)
 			{
-				ScApp->view->RCenter = FPoint(gx+gw, gy+gh);
+				ScApp->view->RCenter = QPointF(gx+gw, gy+gh);
 				inX = gx+gw;
 				inY = gy+gh;
 			}
@@ -2760,23 +2772,23 @@ void Mpalette::NewRotMode(int m)
 		else
 		{
 			double b, h, r;
-			QWMatrix ma;
-			FPoint n;
+			QMatrix ma;
+			QPointF n;
 			b = CurItem->Width;
 			h = CurItem->Height;
 			r = CurItem->Rot;
 			ma.translate(CurItem->Xpos-doc->getXOffsetForPage(CurItem->OwnPage), CurItem->Ypos-doc->getXOffsetForPage(CurItem->OwnPage));
 			ma.rotate(r);
 			if (TopLeft->isChecked())
-				n = FPoint(0.0, 0.0);
+				n = QPointF(0.0, 0.0);
 			if (TopRight->isChecked())
-				n = FPoint(b, 0.0);
+				n = QPointF(b, 0.0);
 			if (Center->isChecked())
-				n = FPoint(b / 2.0, h / 2.0);
+				n = QPointF(b / 2.0, h / 2.0);
 			if (BottomLeft->isChecked())
-				n = FPoint(0.0, h);
+				n = QPointF(0.0, h);
 			if (BottomRight->isChecked())
-				n = FPoint(b, h);
+				n = QPointF(b, h);
 			inX = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
 			inY = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
 			Xpos->setValue(inX*Umrech);
@@ -2954,7 +2966,7 @@ void Mpalette::SetLineFormats(ScribusDoc *dd)
 {
 	if (ScApp->ScriptRunning)
 		return;
-	disconnect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SetSTline(QListBoxItem*)));
+	disconnect(StyledLine, SIGNAL(clicked(Q3ListBoxItem*)), this, SLOT(SetSTline(Q3ListBoxItem*)));
 	StyledLine->clear();
 	if (dd != 0)
 	{
@@ -2962,7 +2974,7 @@ void Mpalette::SetLineFormats(ScribusDoc *dd)
 		for (it = dd->MLineStyles.begin(); it != dd->MLineStyles.end(); ++it)
 		{
 			QPixmap pm = QPixmap(37, 37);
-			pm.fill(white);
+			pm.fill(Qt::white);
 			QPainter p;
 			p.begin(&pm);
 			QColor tmpf;
@@ -2985,9 +2997,9 @@ void Mpalette::SetLineFormats(ScribusDoc *dd)
 				}
 				p.setPen(QPen(tmpf,
 								QMAX(static_cast<int>(ml[its].Width), 1),
-								 static_cast<PenStyle>(ml[its].Dash),
-								 static_cast<PenCapStyle>(ml[its].LineEnd),
-								 static_cast<PenJoinStyle>(ml[its].LineJoin)));
+					      static_cast<Qt::PenStyle>(ml[its].Dash),
+					      static_cast<Qt::PenCapStyle>(ml[its].LineEnd),
+					      static_cast<Qt::PenJoinStyle>(ml[its].LineJoin)));
 				p.drawLine(0, 18, 37, 18);
 				}
 			p.end();
@@ -2997,10 +3009,10 @@ void Mpalette::SetLineFormats(ScribusDoc *dd)
 		StyledLine->insertItem( tr("No Style"), 0);
 		StyledLine->setSelected(StyledLine->currentItem(), false);
 	}
-	connect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SetSTline(QListBoxItem*)));
+	connect(StyledLine, SIGNAL(clicked(Q3ListBoxItem*)), this, SLOT(SetSTline(Q3ListBoxItem*)));
 }
 
-void Mpalette::SetSTline(QListBoxItem *c)
+void Mpalette::SetSTline(Q3ListBoxItem *c)
 {
 	if (ScApp->ScriptRunning)
 		return;
@@ -3044,8 +3056,8 @@ void Mpalette::updateCList()
 		TxFill->insertItem(*pm, it.key());
 		TxStroke->insertItem(*pm, it.key());
 	}
-	TxFill->listBox()->setMinimumWidth(TxFill->listBox()->maxItemWidth()+24);
-	TxStroke->listBox()->setMinimumWidth(TxStroke->listBox()->maxItemWidth()+24);
+	//TxFill->listBox()->setMinimumWidth(TxFill->listBox()->maxItemWidth()+24);
+	//TxStroke->listBox()->setMinimumWidth(TxStroke->listBox()->maxItemWidth()+24);
 }
 
 void Mpalette::updateCmsList()
@@ -3397,7 +3409,7 @@ void Mpalette::fillLangCombo(QMap<QString,QString> langMap)
 	for (it = langMap.begin(); it != langMap.end(); ++it)
 		sortList.push_back(it.data());
 	langCombo->insertStringList(sortQStringList(sortList));
-	langCombo->listBox()->setMinimumWidth(langCombo->listBox()->maxItemWidth() + 24);
+	//langCombo->listBox()->setMinimumWidth(langCombo->listBox()->maxItemWidth() + 24);
 }
 
 void Mpalette::NewLanguage()
@@ -3449,14 +3461,14 @@ void Mpalette::HandleTLines()
 
 void Mpalette::installSniffer(MSpinBox *spinBox)
 {
-	const QObjectList* list = spinBox->children();
-	if (list)
+	const QList<QObject*> list = spinBox->children();
+	if (!list.isEmpty())
 	{
-		QObjectListIterator it(*list);
+		QList<QObject*>::const_iterator it = list.begin();
 		QObject *obj;
-		while ((obj = it.current()) != 0)
+		for (; it != list.end(); ++it)
 		{
-			++it;
+			obj = *it;
 			obj->installEventFilter(userActionSniffer);
 		}
 	}
@@ -3808,13 +3820,13 @@ bool UserActionSniffer::eventFilter(QObject*, QEvent *e)
 	else if (e->type() == QEvent::KeyPress)
 	{
 		QKeyEvent *k = dynamic_cast<QKeyEvent*>(e);
-		if (k && !k->isAutoRepeat() && (k->key() == Key_Up || k->key() == Key_Down))
+		if (k && !k->isAutoRepeat() && (k->key() == Qt::Key_Up || k->key() == Qt::Key_Down))
 			emit actionStart();
 	}
 	else if (e->type() == QEvent::KeyRelease)
 	{
 		QKeyEvent *k = dynamic_cast<QKeyEvent*>(e);
-		if (k && !k->isAutoRepeat() && (k->key() == Key_Up || k->key() == Key_Down))
+		if (k && !k->isAutoRepeat() && (k->key() == Qt::Key_Up || k->key() == Qt::Key_Down))
 			emit actionEnd();
 	}
 	return false;

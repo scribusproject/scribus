@@ -1,9 +1,15 @@
 #include "newfile.h"
-#include "newfile.moc"
 
 #include <qtooltip.h>
-#include <qobjectlist.h>
+#include <qobject.h>
 #include <qpoint.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QGridLayout>
+#include <Q3Frame>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QVBoxLayout>
 
 #include "fileloader.h"
 #include "prefsfile.h"
@@ -94,24 +100,24 @@ NewDoc::NewDoc( QWidget* parent, bool startUp ) : QDialog( parent, "newDoc", tru
 	connect(ComboBox3, SIGNAL(activated(int)), this, SLOT(setUnit(int)));
 	connect(Distance, SIGNAL(valueChanged(int)), this, SLOT(setDist(int)));
 	if (startUp)
-		connect(recentDocList, SIGNAL(doubleClicked(QListBoxItem*)), this, SLOT(recentDocList_doubleClicked(QListBoxItem*)));
+		connect(recentDocList, SIGNAL(doubleClicked(Q3ListBoxItem*)), this, SLOT(recentDocList_doubleClicked(Q3ListBoxItem*)));
 
 	setMinimumSize(minimumSizeHint());
 	setMaximumSize(minimumSizeHint());
 	resize(minimumSizeHint());
-	clearWState( WState_Polished );
+	setAttribute( Qt::WA_WState_Polished, false );
 }
 
 void NewDoc::createNewDocPage()
 {
-	newDocFrame = new QFrame(this, "newDocFrame");
+	newDocFrame = new Q3Frame(0, "newDocFrame");
 	NewDocLayout = new QHBoxLayout( newDocFrame, 10, 5, "NewDocLayout");
 	docLayout = new PageLayouts(newDocFrame, prefsManager->appPrefs.pageSets);
 	docLayout->selectItem(prefsManager->appPrefs.FacingPages);
 	docLayout->firstPage->setCurrentItem(prefsManager->appPrefs.pageSets[prefsManager->appPrefs.FacingPages].FirstPage);
 	NewDocLayout->addWidget( docLayout );
 	Layout9 = new QVBoxLayout(0, 0, 5, "Layout9");
-	ButtonGroup1_2 = new QButtonGroup(newDocFrame, "ButtonGroup1_2" );
+	ButtonGroup1_2 = new Q3ButtonGroup(newDocFrame, "ButtonGroup1_2" );
 	ButtonGroup1_2->setTitle( tr( "Page Size" ));
 	ButtonGroup1_2->setColumnLayout(0, Qt::Vertical);
 	ButtonGroup1_2->layout()->setSpacing(6);
@@ -185,7 +191,7 @@ void NewDoc::createNewDocPage()
 	Hoehe->setValue(prefsManager->appPrefs.PageHeight * unitRatio);
 	Layout10 = new QVBoxLayout( 0, 0, 6, "Layout10");
 
-	GroupBox3 = new QGroupBox( newDocFrame, "GroupBox3" );
+	GroupBox3 = new Q3GroupBox( newDocFrame, "GroupBox3" );
 	GroupBox3->setTitle( tr( "Options" ) );
 	GroupBox3->setColumnLayout(0, Qt::Vertical );
 	GroupBox3->layout()->setSpacing( 5 );
@@ -216,7 +222,7 @@ void NewDoc::createNewDocPage()
 	GroupBox3Layout->addMultiCellWidget( ComboBox3, 2, 2, 1, 2 );
 	Layout10->addWidget( GroupBox3 );
 
-	AutoFrame = new QGroupBox( newDocFrame, "GroupBox4" );
+	AutoFrame = new Q3GroupBox( newDocFrame, "GroupBox4" );
 	AutoFrame->setTitle( tr( "&Automatic Text Frames" ) );
 	AutoFrame->setColumnLayout(0, Qt::Vertical );
 	AutoFrame->layout()->setSpacing( 0 );
@@ -262,20 +268,18 @@ void NewDoc::createOpenDocPage()
 	else
 		docDir = docContext->get("docsopen", ".");
 	QString formats(FileLoader::getLoadFilterString());
-	openDocFrame = new QFrame(this, "openDocFrame");
+	openDocFrame = new Q3Frame(this, "openDocFrame");
 	QVBoxLayout* openDocLayout = new QVBoxLayout(openDocFrame, 5,5, "openDocLayout");
 	fileDialog = new CustomFDialog(openDocFrame, docDir, tr("Open"), formats, false,  true, false, false, false);
 	fileDialog->setSizeGripEnabled(false);
 	fileDialog->setModal(false);
-	QObjectList *l = fileDialog->queryList("QPushButton");
-	QObjectListIt it(*l);
-	QObject *obj;
-	while ((obj = it.current()) != 0)
+	QObjectList l = fileDialog->queryList("QPushButton");
+	QObjectList::iterator it = l.begin();
+	for ( ; it != l.end(); ++it )
 	{
-		++it;
+		QObject *obj = *it;
 		((QPushButton*)obj)->hide();
 	}
-	delete l;
 	QPoint point = QPoint(0,0);
 	fileDialog->reparent(openDocFrame, point);
 	openDocLayout->addWidget(fileDialog);
@@ -289,11 +293,11 @@ void NewDoc::openFile(const QString &)
 
 void NewDoc::createRecentDocPage()
 {
-	recentDocFrame = new QFrame(this, "recentDocFrame");
+	recentDocFrame = new Q3Frame(0, "recentDocFrame");
 	recentDocLayout = new QVBoxLayout(recentDocFrame, 5, 5, "recentDocLayout");
-	recentDocList = new QListBox(recentDocFrame, "recentDocList");
+	recentDocList = new Q3ListBox(recentDocFrame, "recentDocList");
 	recentDocLayout->addWidget(recentDocList);
-	uint max = QMIN(prefsManager->appPrefs.RecentDCount, ScApp->RecentDocs.count());
+	uint max = QMIN(( int )prefsManager->appPrefs.RecentDCount, ScApp->RecentDocs.count());
 	for (uint m = 0; m < max; ++m)
 	{
 		recentDocList->insertItem(ScApp->RecentDocs[m]);
@@ -463,7 +467,7 @@ void NewDoc::setDS(int layout)
 	docLayout->firstPage->setCurrentItem(prefsManager->appPrefs.pageSets[choosenLayout].FirstPage);
 }
 
-void NewDoc::recentDocList_doubleClicked(QListBoxItem * /*item*/)
+void NewDoc::recentDocList_doubleClicked(Q3ListBoxItem * /*item*/)
 {
 	/* Yep. There is nothing to solve. ScribusApp handles all
 	openings etc. It's Franz's programming style ;) */

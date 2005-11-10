@@ -21,7 +21,7 @@
 #ifndef GTPARAGRAPHSTYLE_H
 #define GTPARAGRAPHSTYLE_H
 
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 #include "scribusapi.h"
 #include "gtstyle.h"
 #include "pageitem.h"
@@ -54,7 +54,7 @@ protected:
 	double firstLineIndent;
 	double spaceAbove;
 	double spaceBelow;
-	QValueList<PageItem::TabRecord> tabValues;
+	Q3ValueList<PageItem::TabRecord> tabValues;
 	bool dropCap;
 	int  dropCapHeight;
 	bool adjToBaseline;
@@ -76,7 +76,7 @@ public:
 	void   setSpaceAbove(double newSpaceAbove);
 	double getSpaceBelow();
 	void   setSpaceBelow(double newSpaceBelow);
-	QValueList<PageItem::TabRecord>* getTabValues();
+	Q3ValueList<PageItem::TabRecord>* getTabValues();
 	void   setTabValue(double newTabValue, TabType ttype = LEFT_T);
 	bool   hasDropCap();
 	void   setDropCap(bool newDropCap);

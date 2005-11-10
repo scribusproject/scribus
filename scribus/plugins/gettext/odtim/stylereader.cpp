@@ -324,7 +324,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  		else if ((attrs.localName(i) == "style:justify-single-word") && (pstyle != NULL))
  			force = attrs.value(i);
  	}
- 	if (align != NULL)
+ 	if (!align.isNull())
  	{
  		if (align == "end")
  			pstyle->setAlignment(RIGHT);
@@ -405,7 +405,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  // 				tmp->setAutoLineSpacing(true);
  				currentStyle = tmp;
  			}
- 			if (listName != NULL)
+ 			if (!listName.isNull())
  			{
  				listParents[listName] = currentStyle;
  			}
@@ -424,8 +424,8 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  	if (currentStyle->target() == "paragraph")
  	{
  		gtParagraphStyle* pstyle = dynamic_cast<gtParagraphStyle*>(currentStyle);
- 		QString pos = NULL;
- 		QString type = NULL;
+ 		QString pos;
+ 		QString type;
  		for (int i = 0; i < attrs.count(); ++i)
  		{
  			if (attrs.localName(i) == "style:position")
@@ -434,9 +434,9 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  				type = attrs.value(i);
  				
  		}
- 		if (pos != NULL)
+ 		if (!pos.isNull())
  		{
- 			if (type == NULL)
+ 			if (type.isNull())
  				type = "left";
  			double posd = getSize(pos);
  			if (type == "left")
@@ -684,7 +684,7 @@ ListStyle* StyleReader::getList(const QString &name)
  	else if ((key == "style:justify-single-word") && (pstyle != NULL))
  		force = value;
  
- 	if (align != NULL)
+ 	if (!align.isNull())
  	{
  		if (align == "end")
  			pstyle->setAlignment(RIGHT);

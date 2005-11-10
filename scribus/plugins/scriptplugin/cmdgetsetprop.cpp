@@ -2,8 +2,8 @@
 #include "cmdutil.h"
 
 #include <qmetaobject.h>
-#include <qstrlist.h>
-#include <qobjectlist.h>
+#include <q3strlist.h>
+#include <qobject.h>
 
 QObject* getQObjectFromPyArg(PyObject* arg)
 {
@@ -41,16 +41,16 @@ PyObject* wrapQObject(QObject* obj)
 }
 
 
-const char* getpropertytype(QObject* obj, const char* propname, bool includesuper)
+const char* getpropertytype(QObject* obj, const char* propname)
 {
-	QMetaObject* objmeta = obj->metaObject();
-	int i = objmeta->findProperty(propname, includesuper);
+	const QMetaObject* objmeta = obj->metaObject();
+	int i = objmeta->indexOfProperty(propname);
 	if (i == -1)
 		return NULL;
-	const QMetaProperty* propmeta = objmeta->property(i, includesuper);
-	if (propmeta == NULL)
+	const QMetaProperty propmeta = objmeta->property(i);
+	if (!propmeta.isValid())
 		return NULL;
-	const char* type = propmeta->type();
+	const char* type = propmeta.typeName();
 	assert(type);
 	return type;
 }
@@ -86,9 +86,9 @@ PyObject* scribus_propertyctype(PyObject* /*self*/, PyObject* args, PyObject* kw
 }
 
 
-PyObject* convert_QStrList_to_PyListObject(QStrList& origlist)
+PyObject* convert_QStrList_to_PyListObject(Q3StrList& origlist)
 {
-	QStrListIterator it (origlist);
+	Q3StrListIterator it (origlist);
 	char* item = NULL;
 
 	PyObject* resultList = PyList_New(0);
@@ -118,7 +118,7 @@ PyObject* convert_QStringList_to_PyListObject(QStringList& origlist)
 }
 
 
-PyObject* convert_QObjectList_to_PyListObject(QObjectList* origlist)
+PyObject* convert_QObjectList_to_PyListObject(const QObjectList &origlist)
 {
 	PyObject* resultList = PyList_New(0);
 	if (!resultList)
@@ -127,10 +127,10 @@ PyObject* convert_QObjectList_to_PyListObject(QObjectList* origlist)
 	PyObject* objPtr = NULL;
 	// Loop over the objects in the list and add them to the python
 	// list wrapped in PyCObjects .
-	for ( origlist->first(); origlist->current(); origlist->next() )
+        for ( int i = 0; i < origlist.count(); ++i )
 	{
 		// Wrap up the object pointer
-		objPtr = wrapQObject(origlist->current());
+		objPtr = wrapQObject(origlist.at(i));
 		if (!objPtr)
 		{
 			// Failed to wrap the object. An exception is already set.
@@ -171,9 +171,8 @@ PyObject* scribus_getchildren(PyObject* /*self*/, PyObject* args, PyObject* kw)
 
 	// Our job is to return a Python list containing the children of this
 	// widget (as PyCObjects).
-	QObjectList* children = obj->queryList(ofclass, ofname, regexpmatch, recursive);
+	QObjectList children = obj->queryList(ofclass, ofname, regexpmatch, recursive);
 	PyObject* itemlist = convert_QObjectList_to_PyListObject(children);
-	delete children;
 	return itemlist;
 }
 
@@ -233,12 +232,14 @@ PyObject* scribus_getpropertynames(PyObject* /*self*/, PyObject* args, PyObject*
 	objArg = NULL; // no need to decref, it's borrowed
 
 	// Retrive the object's meta object so we can query it
-	QMetaObject* objmeta = obj->metaObject();
+	const QMetaObject* objmeta = obj->metaObject();
 	assert(objmeta);
 
 	// Return the list of properties
-	QStrList propertyNames = objmeta->propertyNames(includesuper);
-	return convert_QStrList_to_PyListObject(propertyNames);
+        QStringList propertyNames;
+        for (int i = 0, cnt = objmeta->propertyCount(); i < cnt; ++i)
+            propertyNames << objmeta->property(i).name();
+	return convert_QStringList_to_PyListObject(propertyNames);
 }
 
 
@@ -261,16 +262,16 @@ PyObject* scribus_getproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 
 	// Get the QMetaProperty for the property, so we can check
 	// if it's a set/enum and do name/value translation.
-	QMetaObject* objmeta = obj->metaObject();
-	int i = objmeta->findProperty(propertyName, true);
+	const QMetaObject* objmeta = obj->metaObject();
+	int i = objmeta->indexOfProperty(propertyName);
 	if (i == -1)
 	{
 		PyErr_SetString(PyExc_ValueError,
 				QObject::tr("Property not found"));
 		return NULL;
 	}
-	const QMetaProperty* propmeta = objmeta->property(i, true);
-	assert(propmeta);
+	const QMetaProperty propmeta = objmeta->property(i);
+	assert(propmeta.isValid());
 
 	// Get the property value as a variant type
 	QVariant prop = obj->property(propertyName);

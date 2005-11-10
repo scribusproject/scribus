@@ -3,13 +3,16 @@
 
 #include <qdialog.h>
 #include <qpushbutton.h>
-#include <qtable.h>
+#include <q3table.h>
 #include <qlayout.h>
 #include <qtooltip.h>
 #include <qcheckbox.h>
-#include <qheader.h>
-#include <qptrlist.h>
-#include <qvaluelist.h>
+#include <q3header.h>
+#include <q3ptrlist.h>
+#include <q3valuelist.h>
+//Added by qt3to4:
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 
 #include "scribusapi.h"
 class ScribusDoc;
@@ -24,15 +27,15 @@ public:
     PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi);
     ~PicStatus() {};
 
-    QTable* PicTable;
-    QHeader *Header;
+    Q3Table* PicTable;
+    Q3Header *Header;
     QPushButton* CancelB;
     QPushButton* OkB;
     ScribusDoc *doc;
     ScribusView *view;
     int Zeilen;
-    QPtrList<QCheckBox> FlagsPic;
-    QValueList<uint> ItemNrs;
+    Q3PtrList<QCheckBox> FlagsPic;
+    Q3ValueList<uint> ItemNrs;
 
 public slots:
 	void languageChange();

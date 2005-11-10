@@ -16,10 +16,13 @@
  ***************************************************************************/
 
 #include "rulermover.h"
-#include "rulermover.moc"
 #include "scribusview.h"
 #include "scribusdoc.h"
 #include <qcursor.h>
+//Added by qt3to4:
+#include <QApplication>
+#include <QPixmap>
+#include <QMouseEvent>
 extern QPixmap loadIcon(QString nam);
 
 RulerMover::RulerMover(ScribusView *pa) : QWidget(pa)
@@ -42,7 +45,7 @@ void RulerMover::mousePressEvent(QMouseEvent *m)
 	QPoint py = currView->viewport()->mapFromGlobal(m->globalPos());
 	currView->DrVX = py.x();
 	currView->DrHY = py.y();
-	qApp->setOverrideCursor(QCursor(SizeAllCursor), true);
+	qApp->setOverrideCursor(QCursor(Qt::SizeAllCursor), true);
 }
 
 void RulerMover::mouseReleaseEvent(QMouseEvent *m)
@@ -53,7 +56,7 @@ void RulerMover::mouseReleaseEvent(QMouseEvent *m)
 		currView->DrHY = -1;
 		currView->setRuler(m);
 	}
-	qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+	qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 	Mpressed = false;
 }
 

@@ -12,7 +12,7 @@ EXTRA_DIST = parse.h vlnadialog.h shortwords.h version.h configuration.h scribus
 
 KDE_OPTIONS = qtonly
 
-AM_LDFLAGS = $(LIBFREETYPE_LIBS) $(MODULE_LINK_FLAGS)
+AM_LDFLAGS = -DQT3_SUPPORT $(LIBFREETYPE_LIBS) $(MODULE_LINK_FLAGS)
 
 AM_CPPFLAGS = \
     -I$(top_builddir)/scribus \
@@ -24,11 +24,5 @@ AM_CPPFLAGS = \
     -DLIBDIR=\"$(libdir)/scribus/\" \
     -DPLUGINDIR=\"$(libdir)/scribus/plugins/\" \
     -DPLUGINDATA=\"$(datadir)/scribus/plugins/\" \
+    -DQT3_SUPPORT \
     $(GCC4_VISIBILITY_FLAGS)
-
-install-data-local:
-	$(mkinstalldirs) $(datadir)/scribus/plugins/
-	$(INSTALL_DATA) $(srcdir)/scribus-short-words.rc $(datadir)/scribus/plugins/scribus-short-words.rc
-
-uninstall-local:
-	-rm -f $(datadir)/scribus/plugins/scribus-short-words.rc

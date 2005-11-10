@@ -10,18 +10,26 @@
 #define SEITENPAL_H
 
 #include <qdialog.h>
-#include <qtable.h>
+#include <q3table.h>
 #include <qlabel.h>
-#include <qlistbox.h>
+#include <q3listbox.h>
 #include <qcheckbox.h>
 #include <qpushbutton.h>
 #include <qlayout.h>
 #include <qtooltip.h>
 #include <qimage.h>
 #include <qpixmap.h>
-#include <qdragobject.h>
+#include <q3dragobject.h>
 #include <qevent.h>
 #include <qsplitter.h>
+//Added by qt3to4:
+#include <QDragLeaveEvent>
+#include <QDragMoveEvent>
+#include <QDropEvent>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QDragEnterEvent>
+#include <QMouseEvent>
 
 #include "scribusapi.h"
 #include "scrpalettebase.h"
@@ -29,7 +37,7 @@ class ScribusView;
 class DynamicTip;
 class PageLayouts;
 
-class SCRIBUS_API SeDrag : public QStoredDrag
+class SCRIBUS_API SeDrag : public Q3StoredDrag
 {
 public:
 	SeDrag( QString s, QWidget * parent = 0, const char * name = 0 );
@@ -39,7 +47,7 @@ public:
 	static bool decode( QDropEvent* e, QString& s );
 };
 
-class SCRIBUS_API SeItem : public QTableItem
+class SCRIBUS_API SeItem : public Q3TableItem
 {
 
 friend class PagePalette;
@@ -47,7 +55,7 @@ friend class SeView;
 
 
 public:
-	SeItem(QTable* parent, QString text, QPixmap Pix);
+	SeItem(Q3Table* parent, QString text, QPixmap Pix);
 	~SeItem() {};
 	
 	const QString& getPageName();
@@ -56,7 +64,7 @@ protected:
 	QString pageName;
 };
 
-class SCRIBUS_API SeList : public QListBox
+class SCRIBUS_API SeList : public Q3ListBox
 {
 friend class PagePalette;
 
@@ -78,13 +86,13 @@ protected:
 	void mouseMoveEvent(QMouseEvent* e);
 	
 	QPoint Mpos;
-	QListBoxItem *CurItem;
+	Q3ListBoxItem *CurItem;
 	bool Mpressed;
 	bool Thumb;
 
 };
 
-class SCRIBUS_API SeView : public QTable
+class SCRIBUS_API SeView : public Q3Table
 {
 	Q_OBJECT
 	

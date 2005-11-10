@@ -18,8 +18,11 @@
 #include <qtextstream.h>
 #include <qimage.h>
 #include <qcolor.h>
-#include <qcstring.h>
+#include <q3cstring.h>
 #include <qfontinfo.h>
+//Added by qt3to4:
+#include <Q3PtrList>
+#include <Q3ValueList>
 #include <cstdlib>
 #include <qregexp.h>
 
@@ -118,7 +121,7 @@ PSLib::PSLib(bool psart, SCFonts &AllFonts, QMap<QString,int> DocFonts, ColorLis
 			for (ig = AllFonts[it.key()]->RealGlyphs.begin(); ig != AllFonts[it.key()]->RealGlyphs.end(); ++ig)
 			{
 				FontDesc += "/G"+IToStr(ig.key())+" { newpath\n";
-				FPoint np, np1, np2;
+				QPointF np, np1, np2;
 				bool nPath = true;
 				if (ig.data().size() > 3)
 				{
@@ -220,13 +223,13 @@ PSLib::PSLib(bool psart, SCFonts &AllFonts, QMap<QString,int> DocFonts, ColorLis
 void PSLib::PutSeite(QString c)
 {
 	QTextStream t(&Spool);
-	t.writeRawBytes(c, c.length());
+	t << c;
 }
 
 void PSLib::PutDoc(QString c)
 {
 	QTextStream t(&Spool);
-	t.writeRawBytes(c, c.length());
+	t << c;
 }
 
 QString PSLib::ToStr(double c)
@@ -254,7 +257,7 @@ void PSLib::PS_set_Info(QString art, QString was)
 bool PSLib::PS_set_file(QString fn)
 {
 	Spool.setName(fn);
-	return Spool.open(IO_WriteOnly);
+	return Spool.open(QIODevice::WriteOnly);
 }
 
 void PSLib::PS_begin_doc(int, double x, double y, double breite, double hoehe, int numpage, bool doDev, bool sep)
@@ -411,14 +414,14 @@ void PSLib::PS_setlinewidth(double w)
 	LineW = w;
 }
 
-void PSLib::PS_setdash(Qt::PenStyle st, double offset, QValueList<double> dash)
+void PSLib::PS_setdash(Qt::PenStyle st, double offset, Q3ValueList<double> dash)
 {
-	QString Dt = ToStr(QMAX(2*LineW, 1));
-	QString Da = ToStr(QMAX(6*LineW, 1));
+	QString Dt = ToStr(qMax<double>(2*LineW, 1));
+	QString Da = ToStr(qMax<double>(6*LineW, 1));
 	if (dash.count() != 0)
 	{
 		PutSeite("[ ");
-		QValueList<double>::iterator it;
+		Q3ValueList<double>::iterator it;
 		for ( it = dash.begin(); it != dash.end(); ++it )
 		{
 			PutSeite(IToStr(static_cast<int>(*it))+" ");
@@ -522,12 +525,12 @@ void PSLib::PS_newpath()
 	PutSeite("newpath\n");
 }
 
-void PSLib::PS_MultiRadGradient(double w, double h, double x, double y, QValueList<double> Stops, QStringList Colors)
+void PSLib::PS_MultiRadGradient(double w, double h, double x, double y, Q3ValueList<double> Stops, QStringList Colors)
 {
 	bool first = true;
 	PutSeite( "clipsave\n" );
 	PutSeite("eoclip\n");
-	for (uint c = 0; c < Colors.count()-1; ++c)
+	for (int c = 0; c < Colors.count()-1; ++c)
 	{
 		PutSeite("<<\n");
 		PutSeite("/ShadingType 3\n");
@@ -574,12 +577,12 @@ void PSLib::PS_MultiRadGradient(double w, double h, double x, double y, QValueLi
 	PutSeite("cliprestore\n");
 }
 
-void PSLib::PS_MultiLinGradient(double w, double h, QValueList<double> Stops, QStringList Colors)
+void PSLib::PS_MultiLinGradient(double w, double h, Q3ValueList<double> Stops, QStringList Colors)
 {
 	bool first = true;
 	PutSeite( "clipsave\n" );
 	PutSeite("eoclip\n");
-	for (uint c = 0; c < Colors.count()-1; ++c)
+	for (int c = 0; c < Colors.count()-1; ++c)
 	{
 		PutSeite("<<\n");
 		PutSeite("/ShadingType 2\n");
@@ -966,7 +969,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 		pagemult = spots.count();
 	else
 		pagemult = 1;
-	QValueList<double> dum;
+	Q3ValueList<double> dum;
 	double gx, gy, gw, gh;
 	dum.clear();
 	PS_set_Info("Author", Doc->documentInfo.getAuthor());
@@ -987,10 +990,13 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 			{
 				FPointArray pb;
 				pb.resize(0);
-				pb.addPoint(FPoint(currItem->Xpos-lw, currItem->Ypos-lw));
-				pb.addPoint(FPoint(currItem->Width+lw*2.0, -lw, currItem->Xpos-lw, currItem->Ypos-lw, currItem->Rot, 1.0, 1.0));
-				pb.addPoint(FPoint(currItem->Width+lw*2.0, currItem->Height+lw*2.0, currItem->Xpos-lw, currItem->Ypos-lw, currItem->Rot, 1.0, 1.0));
-				pb.addPoint(FPoint(-lw, currItem->Height+lw*2.0, currItem->Xpos-lw, currItem->Ypos-lw, currItem->Rot, 1.0, 1.0));
+				pb.addPoint(QPointF(currItem->Xpos-lw, currItem->Ypos-lw));
+				QMatrix ma;
+				ma.translate(currItem->Xpos-lw, currItem->Ypos-lw);
+				ma.rotate(currItem->Rot);
+				pb.addPoint(ma.map( QPointF(currItem->Width+lw*2.0, -lw )));
+				pb.addPoint(ma.map( QPointF(currItem->Width+lw*2.0, currItem->Height+lw*2.0 )));
+				pb.addPoint(ma.map( QPointF(-lw, currItem->Height+lw*2.0 )));
 				for (uint pc = 0; pc < 4; ++pc)
 				{
 					minx = QMIN(minx, pb.point(pc).x());
@@ -1026,7 +1032,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 			struct Layer ll;
 			ll.isPrintable = false;
 			ll.LNr = 0;
-			for (uint lam = 0; lam < Doc->Layers.count(); ++lam)
+			for (int lam = 0; lam < Doc->Layers.count(); ++lam)
 			{
 				Level2Layer(Doc, &ll, Lnr);
 				if (ll.isPrintable)
@@ -1104,7 +1110,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 		if (!Doc->Pages->at(a)->MPageNam.isEmpty())
 		{
 			int h, s, v, k;
-			QCString chxc;
+			Q3CString chxc;
 			QString chx;
 			int Lnr = 0;
 			struct Layer ll;
@@ -1113,7 +1119,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 			Page* mPage = Doc->MasterPages.at(Doc->MasterNames[Doc->Pages->at(a)->MPageNam]);
 			if (Doc->MasterItems.count() != 0)
 			{
-				for (uint lam = 0; lam < Doc->Layers.count(); ++lam)
+				for (int lam = 0; lam < Doc->Layers.count(); ++lam)
 				{
 					Level2Layer(Doc, &ll, Lnr);
 					if (ll.isPrintable)
@@ -1338,7 +1344,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 	int h, s, v, k, tsz;
 	uint d;
 	struct ScText *hl;
-	QValueList<double> dum;
+	Q3ValueList<double> dum;
 	dum.clear();
 	QString tmps, chx;
 	if (c->printable())
@@ -1445,7 +1451,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				{
 					if ((c->itemText.at(d)->ch == QChar(13)) || (c->itemText.at(d)->ch == QChar(10)) || (c->itemText.at(d)->ch == QChar(28)))
 						break;
-					bm += "\\"+cc.setNum(QMAX(c->itemText.at(d)->ch.at(0).unicode(), 32), 8);
+					bm += "\\"+cc.setNum(qMax<int>(c->itemText.at(d)->ch.at(0).unicode(), 32), 8);
 				}
 				PDF_Bookmark(bm, a->pageNr()+1);
 			}
@@ -1455,7 +1461,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				QString cc;
 				for (d = 0; d < c->itemText.count(); ++d)
 				{
-					bm += "\\"+cc.setNum(QMAX(c->itemText.at(d)->ch.at(0).unicode(), 32), 8);
+					bm += "\\"+cc.setNum(qMax<int>(c->itemText.at(d)->ch.at(0).unicode(), 32), 8);
 				}
 				PDF_Annotation(bm, 0, 0, c->Width, -c->Height);
 				break;
@@ -1534,7 +1540,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			}
 			if (c->startArrowIndex != 0)
 			{
-				QWMatrix arrowTrans;
+				QMatrix arrowTrans;
 				FPointArray arrow = (*Doc->arrowStyles.at(c->startArrowIndex-1)).points.copy();
 				arrowTrans.translate(0, 0);
 				arrowTrans.scale(c->Pwidth, c->Pwidth);
@@ -1549,7 +1555,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			}
 			if (c->endArrowIndex != 0)
 			{
-				QWMatrix arrowTrans;
+				QMatrix arrowTrans;
 				FPointArray arrow = (*Doc->arrowStyles.at(c->endArrowIndex-1)).points.copy();
 				arrowTrans.translate(c->Width, 0);
 				arrowTrans.scale(c->Pwidth, c->Pwidth);
@@ -1638,14 +1644,14 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			}
 			if (c->startArrowIndex != 0)
 			{
-				FPoint Start = c->PoLine.point(0);
+				QPointF Start = c->PoLine.point(0);
 				for (uint xx = 1; xx < c->PoLine.size(); xx += 2)
 				{
-					FPoint Vector = c->PoLine.point(xx);
+					QPointF Vector = c->PoLine.point(xx);
 					if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
 					{
 						double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
-						QWMatrix arrowTrans;
+						QMatrix arrowTrans;
 						FPointArray arrow = (*Doc->arrowStyles.at(c->startArrowIndex-1)).points.copy();
 						arrowTrans.translate(Start.x(), Start.y());
 						arrowTrans.rotate(r);
@@ -1663,14 +1669,14 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			}
 			if (c->endArrowIndex != 0)
 			{
-				FPoint End = c->PoLine.point(c->PoLine.size()-2);
+				QPointF End = c->PoLine.point(c->PoLine.size()-2);
 				for (uint xx = c->PoLine.size()-1; xx > 0; xx -= 2)
 				{
-					FPoint Vector = c->PoLine.point(xx);
+					QPointF Vector = c->PoLine.point(xx);
 					if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
 					{
 						double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
-						QWMatrix arrowTrans;
+						QMatrix arrowTrans;
 						FPointArray arrow = (*Doc->arrowStyles.at(c->endArrowIndex-1)).points.copy();
 						arrowTrans.translate(End.x(), End.y());
 						arrowTrans.rotate(r);
@@ -1806,15 +1812,15 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, b
 {
 	uint b;
 	int h, s, v, k;
-	QCString chxc;
+	Q3CString chxc;
 	QString chx, chglyph, tmp;
 	PageItem *c;
-	QPtrList<PageItem> PItems;
+	Q3PtrList<PageItem> PItems;
 	int Lnr = 0;
 	struct Layer ll;
 	ll.isPrintable = false;
 	ll.LNr = 0;
-	for (uint la = 0; la < Doc->Layers.count(); ++la)
+	for (int la = 0; la < Doc->Layers.count(); ++la)
 	{
 		Level2Layer(Doc, &ll, Lnr);
 		if (!a->PageNam.isEmpty())
@@ -1928,7 +1934,7 @@ void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 	double StartY = 0;
 	double EndX = 0;
 	double EndY =0;
-	QPtrVector<VColorStop> cstops = c->fill_gradient.colorStops();
+	Q3PtrVector<VColorStop> cstops = c->fill_gradient.colorStops();
 	switch (c->GrType)
 	{
 		case 1:
@@ -1971,13 +1977,13 @@ void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 			break;
 		case 6:
 		case 7:
-			StartX = QMIN(QMAX(c->GrStartX, 0), c->Width);
-			StartY = QMIN(QMAX(c->GrStartY, 0), c->Height);
-			EndX = QMIN(QMAX(c->GrEndX, 0), c->Width);
-			EndY = QMIN(QMAX(c->GrEndY, 0), c->Height);
+			StartX = QMIN(QMAX(c->GrStartX, 0.0), c->Width);
+			StartY = QMIN(QMAX(c->GrStartY, 0.0), c->Height);
+			EndX = QMIN(QMAX(c->GrEndX, 0.0), c->Width);
+			EndY = QMIN(QMAX(c->GrEndY, 0.0), c->Height);
 			break;
 	}
-	QValueList<double> StopVec;
+	Q3ValueList<double> StopVec;
 	QStringList Gcolors;
 	QString hs,ss,vs,ks;
 	if ((c->GrType == 5) || (c->GrType == 7))
@@ -1997,7 +2003,7 @@ void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 		StopVec.clear();
 		for (uint cst = 0; cst < c->fill_gradient.Stops(); ++cst)
 		{
-			QWMatrix ma;
+			QMatrix ma;
 			ma.translate(StartX, StartY);
 			ma.rotate(atan2(EndY - StartY, EndX - StartX)*(180.0/M_PI));
 			double w2 = sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2))*cstops.at(cst)->rampPoint;
@@ -2035,7 +2041,7 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, Page* pg
 	struct ScText *hl;
 	double tabDist;
 	uint tabCc = 0;
-	QValueList<PageItem::TabRecord> tTabValues;
+	Q3ValueList<PageItem::TabRecord> tTabValues;
 	if (ite->lineColor() != "None")
 		tabDist = ite->Extra + ite->Pwidth / 2.0;
 	else
@@ -2159,7 +2165,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 	QString chx;
 	int h, s, v, k, tsz;
 	double wideR;
-	QValueList<double> dum;
+	Q3ValueList<double> dum;
 	dum.clear();
 	chx = hl->ch;
 	tsz = hl->csize;
@@ -2180,7 +2186,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 	}
 	if ((hl->ch == QChar(25)) && (hl->cembedded != 0))
 	{
-		QPtrList<PageItem> emG;
+		Q3PtrList<PageItem> emG;
 		emG.clear();
 		emG.append(hl->cembedded);
 		if (hl->cembedded->Groups.count() != 0)
@@ -2369,7 +2375,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 		if (hl->cfont->CharWidth.contains(chr))
 		{
 			FPointArray gly = hl->cfont->GlyphArray[chr].Outlines.copy();
-			QWMatrix chma, chma2, chma3;
+			QMatrix chma, chma2, chma3;
 			chma.scale(tsz / 100.0, tsz / 100.0);
 			chma2.scale(hl->cscale / 1000.0, hl->cscalev / 1000.0);
 			if (hl->cbase != 0)
@@ -2377,7 +2383,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 			gly.map(chma * chma2 * chma3);
 			if (ite->Reverse)
 			{
-				chma = QWMatrix();
+				chma = QMatrix();
 				chma.scale(-1, 1);
 				chma.translate(wideR, 0);
 				gly.map(chma);
@@ -2417,12 +2423,12 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 			if (hl->cstrikewidth != -1)
 				lw = (hl->cstrikewidth / 1000.0) * (hl->csize / 10.0);
 			else
-				lw = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
+				lw = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1.0);
 		}
 		else
 		{
 			Upos = hl->cfont->strikeout_pos * (hl->csize / 10.0);
-			lw = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
+			lw = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1.0);
 		}
 		if (hl->cbase != 0)
 			Upos += (hl->csize / 10.0) * (hl->cbase / 1000.0);
@@ -2455,12 +2461,12 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 			if (hl->cunderwidth != -1)
 				lw = (hl->cunderwidth / 1000.0) * (hl->csize / 10.0);
 			else
-				lw = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
+				lw = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1.0);
 		}
 		else
 		{
 			Upos = hl->cfont->underline_pos * (hl->csize / 10.0);
-			lw = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
+			lw = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1.0);
 		}
 		if (hl->cbase != 0)
 			Upos += (hl->csize / 10.0) * (hl->cbase / 1000.0);
@@ -2486,10 +2492,10 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 		if (hl->cfont->CharWidth.contains(chr))
 		{
 			FPointArray gly = hl->cfont->GlyphArray[chr].Outlines.copy();
-			QWMatrix chma;
+			QMatrix chma;
 			chma.scale(tsz / 100.0, tsz / 100.0);
 			gly.map(chma);
-			chma = QWMatrix();
+			chma = QMatrix();
 			chma.scale(hl->cscale / 1000.0, hl->cscalev / 1000.0);
 			gly.map(chma);
 			if (hl->ccolor != "None")
@@ -2560,7 +2566,7 @@ void PSLib::putColor(QString color, int shade, bool fill)
 
 void PSLib::SetClipPath(FPointArray *c, bool poly)
 {
-	FPoint np, np1, np2;
+	QPointF np, np1, np2;
 	bool nPath = true;
 	if (c->size() > 3)
 	{

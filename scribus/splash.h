@@ -3,6 +3,8 @@
 
 #include <qpixmap.h>
 #include <qwidget.h>
+//Added by qt3to4:
+#include <QMouseEvent>
 #include "scribusapi.h"
 
 class SCRIBUS_API SplashScreen : public QWidget

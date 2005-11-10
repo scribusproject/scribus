@@ -1,8 +1,9 @@
 #include "arrowchooser.h"
-#include "arrowchooser.moc"
 #include "fpointarray.h"
 #include <qpixmap.h>
-#include <qlistbox.h>
+#include <q3listbox.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 #include "scpainter.h"
 #include <qimage.h>
 #include "util.h"
@@ -12,17 +13,17 @@ ArrowChooser::ArrowChooser(QWidget* pa, bool direction)  : QComboBox(true, pa)
 	setEditable(false);
 	clear();
 	insertItem( tr("None"));
-	setMaximumWidth(listBox()->maxItemWidth()*2+22);
+	setMaximumWidth(maximumWidth()*2+22);
 	arrowDirection = direction;
 }
 
-void ArrowChooser::rebuildList(QValueList<ArrowDesc> *arrowStyles)
+void ArrowChooser::rebuildList(Q3ValueList<ArrowDesc> *arrowStyles)
 {
 	clear();
 	FPointArray Path;
 	Path.resize(0);
 	insertItem( tr("None"));
-	for (uint a = 0; a < arrowStyles->count(); ++a)
+	for (int a = 0; a < arrowStyles->count(); ++a)
 	{
 		QPixmap Ico(22, 22);
 		ScPainter *painter = new ScPainter(&Ico, 22, 22);
@@ -32,11 +33,11 @@ void ArrowChooser::rebuildList(QValueList<ArrowDesc> *arrowStyles)
 		painter->translate(3.0, 3.0);
 		Path.resize(0);
 		Path = (*arrowStyles->at(a)).points.copy();
-		FPoint min = getMinClipF(&Path);
+		QPointF min = getMinClipF(&Path);
 		Path.translate(-min.x(), -min.y());
-		FPoint max = Path.WidthHeight();
-		QWMatrix mm;
-		QWMatrix mm2;
+		QPointF max = Path.WidthHeight();
+		QMatrix mm;
+		QMatrix mm2;
 		if (arrowDirection)
 		{
 			mm2.scale(-1, 1);
@@ -69,5 +70,4 @@ void ArrowChooser::rebuildList(QValueList<ArrowDesc> *arrowStyles)
 		Ico.convertFromImage(image);
 		insertItem(Ico, (*arrowStyles->at(a)).name);
 	}
-	listBox()->setMinimumWidth(listBox()->maxItemWidth()+24);
 }

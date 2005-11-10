@@ -1,5 +1,8 @@
 #include "cmsprefs.h"
-#include "cmsprefs.moc"
+//Added by qt3to4:
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QGridLayout>
 
 CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, ProfilesL *InputProfilesCMYK, ProfilesL *PrinterProfiles, ProfilesL *MonitorProfiles)
 	: QWidget( parent, "CMS" )
@@ -15,7 +18,7 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, Pro
 	checkBox1->setChecked(Vor->CMSinUse);
 	cmsPrefsLayout->addWidget( checkBox1 );
 
-	sysProfiles = new QGroupBox( tr( "System Profiles" ), this, "SysProfiles" );
+	sysProfiles = new Q3GroupBox( tr( "System Profiles" ), this, "SysProfiles" );
 	if (!checkBox1->isChecked())
 		sysProfiles->setEnabled( false );
 	sysProfiles->setColumnLayout(0, Qt::Vertical );
@@ -94,7 +97,7 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, Pro
 	sysProfilesLayout->addWidget( printerP, 4, 1 );
 	cmsPrefsLayout->addWidget( sysProfiles );
 
-	render = new QGroupBox( tr( "Rendering Intents" ), this, "Render" );
+	render = new Q3GroupBox( tr( "Rendering Intents" ), this, "Render" );
 	if (!checkBox1->isChecked())
 		render->setEnabled( false );
 	render->setColumnLayout(0, Qt::Vertical );

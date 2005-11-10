@@ -23,7 +23,7 @@
 
 #include <qcolor.h>
 #include <qtextcodec.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 #include <qmap.h>
 #include <qstring.h>
 class PageItem;

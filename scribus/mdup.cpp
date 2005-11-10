@@ -1,5 +1,4 @@
 #include "mdup.h"
-#include "mdup.moc"
 
 #include <qlabel.h>
 #include <qlineedit.h>
@@ -7,6 +6,11 @@
 #include <qlayout.h>
 #include <qvariant.h>
 #include <qtooltip.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QGridLayout>
 #include "units.h"
 #include "commonstrings.h"
 

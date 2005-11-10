@@ -14,7 +14,11 @@
 #include <qpushbutton.h>
 #include <qcombobox.h>
 #include <qpixmap.h>
-#include <qiconset.h>
+#include <qicon.h>
+//Added by qt3to4:
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QGridLayout>
 
 #include "commonstrings.h"
 #include "scribusdoc.h"
@@ -22,7 +26,6 @@
 #include "sccombobox.h"
 
 #include "dcolor.h"
-#include "dcolor.moc"
 
 
 extern QPixmap loadIcon(QString nam);

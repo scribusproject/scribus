@@ -1,6 +1,9 @@
 #include "javadocs.h"
-#include "javadocs.moc"
 #include "query.h"
+//Added by qt3to4:
+#include <QPixmap>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 #include "editor.h"
 #include <qmessagebox.h>
 #include "scribusdoc.h"
@@ -18,7 +21,7 @@ JavaDocs::JavaDocs(QWidget* parent, ScribusDoc *doc, ScribusView* vie)
 	View = vie;
     JavaDocsLayout = new QHBoxLayout( this, 11, 6, "JavaDocsLayout"); 
 
-    Scripts = new QListBox( this, "Scripts" );
+    Scripts = new Q3ListBox( this, "Scripts" );
     Scripts->setMinimumSize( QSize( 150, 200 ) );
 	QMap<QString,QString>::Iterator it;
 	for (it = Doc->JavaScripts.begin(); it != Doc->JavaScripts.end(); ++it)
@@ -53,7 +56,7 @@ JavaDocs::JavaDocs(QWidget* parent, ScribusDoc *doc, ScribusView* vie)
 	connect(EditScript, SIGNAL(clicked()), this, SLOT(slotEdit()));
 	connect(DeleteScript, SIGNAL(clicked()), this, SLOT(slotDelete()));
 	connect(ExitDia, SIGNAL(clicked()), this, SLOT(accept()));
-	connect( Scripts, SIGNAL( selected(QListBoxItem*) ), this, SLOT( slotEdit() ) );
+	connect( Scripts, SIGNAL( selected(Q3ListBoxItem*) ), this, SLOT( slotEdit() ) );
 }
 
 void JavaDocs::slotAdd()

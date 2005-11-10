@@ -7,7 +7,7 @@
 class QLabel;
 class QSpinBox;
 class QPushButton;
-class QGroupBox;
+class Q3GroupBox;
 class QGridLayout;
 class QVBoxLayout;
 class QColor;
@@ -26,7 +26,7 @@ class CwSetColor: public QDialog
 	Q_OBJECT
 
 	public:
-		CwSetColor(QColor beginColor, QWidget* parent = 0, const char* name = 0, bool modal = FALSE, WFlags fl = 0);
+		CwSetColor(QColor beginColor, QWidget* parent = 0, const char* name = 0, bool modal = FALSE);
 		~CwSetColor(){};
 
 		/*! \brief This is the color which user created.
@@ -62,11 +62,11 @@ class CwSetColor: public QDialog
 		QPushButton* hsvButton;
 		QPushButton* rgbButton;
 		QPushButton* cmykButton;
-		QGroupBox* rgbBox;
+		Q3GroupBox* rgbBox;
 		QGridLayout* rgbBoxLayout;
-		QGroupBox* hsvBox;
+		Q3GroupBox* hsvBox;
 		QGridLayout* hsvBoxLayout;
-		QGroupBox* cmykBox;
+		Q3GroupBox* cmykBox;
 		QGridLayout* cmykBoxLayout;
 		QVBoxLayout* mainLayout;
 		QGridLayout* CwSetColorLayout;

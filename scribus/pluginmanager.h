@@ -4,7 +4,9 @@
 #include <qobject.h>
 #include <qstring.h>
 #include <qmap.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
+//Added by qt3to4:
+#include <Q3CString>
 
 #include "scribusapi.h"
 
@@ -55,7 +57,7 @@ public:
 	 * \param includeDisabled return true if a plugin is loaded but not enabled
 	 * \return bool
 	 */
-	bool DLLexists(QCString pluginName, bool includeDisabled = false) const;
+	bool DLLexists(Q3CString pluginName, bool includeDisabled = false) const;
 
 	/*! \brief Returns a pointer to the requested plugin, or 0 if not found.
 	 *
@@ -63,7 +65,7 @@ public:
 	 * are returned. If it is false, 0 is returned if the requested plugin
 	 * is loaded but not enabled.
 	 */
-	ScPlugin* getPlugin(const QCString & pluginName, bool includeDisabled) const;
+	ScPlugin* getPlugin(const Q3CString & pluginName, bool includeDisabled) const;
 
 	/*! \brief Shutdowns all plugins. Called at scribus quit */
 	void cleanupPlugins();
@@ -72,7 +74,7 @@ public:
 	void savePreferences();
 
 	/*! \brief Return file extension used for shared libs on this platform */
-	static QCString platformDllExtension();
+	static Q3CString platformDllExtension();
 
 	/*! \brief Call the named plugin with "arg" and return true for success.
 	 *
@@ -82,14 +84,14 @@ public:
 	 *
 	 * This is a bit of a compatability kludge.
 	 */
-	bool callImportExportPlugin(const QCString pluginName, const QString & arg);
+	bool callImportExportPlugin(const Q3CString pluginName, const QString & arg);
 
 	/*! \brief  Call the named plugin with "arg" and return true for success, storing the return string in retval
 	 *
 	 * This is a lot of a compatibility kludge. Avoid using it in new code, you should probably
 	 * prefer to dynamic_cast<> to the plugin class and call a plugin specific method.
 	 */
-	bool callImportExportPlugin(const QCString pluginName, const QString & arg, QString & retval);
+	bool callImportExportPlugin(const Q3CString pluginName, const QString & arg, QString & retval);
 
 	/// Return a pointer to this instance.
 	//
@@ -99,14 +101,14 @@ public:
 
 	// Return the path to the file for the named plugin. An invalid
 	// plugin name is an error.
-	const QString & getPluginPath(const QCString pluginName) const;
+	const QString & getPluginPath(const Q3CString pluginName) const;
 
 	// Whether the given plug-in will be enabled on start-up.
 	// Usable as an lvalue. An invalid plugin name is an error.
-	bool & enableOnStartup(const QCString pluginName);
+	bool & enableOnStartup(const Q3CString pluginName);
 	
 	// Whether the given plugin is currently enabled
-	bool enabled(const QCString pluginName);
+	bool enabled(const Q3CString pluginName);
 
 	/** \brief Return a list of plugin names currently known.
 	 *
@@ -122,7 +124,7 @@ public:
 	 * \sa getPluginNamesT
 	 * \sa getPlugin
 	 */
-	QValueList<QCString> pluginNames(bool includeDisabled = false,
+	Q3ValueList<Q3CString> pluginNames(bool includeDisabled = false,
 									 const char* inherits = 0) const;
 
 public slots:
@@ -153,7 +155,7 @@ protected:
 	struct PluginData
 	{
 		QString pluginFile; // Datei;
-		QCString pluginName;
+		Q3CString pluginName;
 		void* pluginDLL;
 		ScPlugin* plugin;
 		bool enableOnStartup;
@@ -164,7 +166,7 @@ protected:
 	bool loadPlugin(PluginData & pluginData);
 
 	// Determines the plugin name from the file name and returns it.
-	static QCString getPluginName(QString fileName);
+	static Q3CString getPluginName(QString fileName);
 
 	// Called by loadPlugin to hook the loaded plugin into the GUI,
 	// call its setup routine, etc. Not responsible for creating
@@ -193,7 +195,7 @@ protected:
 	PrefsContext* prefs;
 
 	// Mapping of plugin names to plugin info structures.
-	typedef QMap<QCString,PluginData> PluginMap;
+	typedef QMap<Q3CString,PluginData> PluginMap;
 
 	/*! \brief Plugin mapping.
 	 * Each plugin has its record key() -> PluginData

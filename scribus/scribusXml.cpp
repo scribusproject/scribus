@@ -7,15 +7,17 @@
  ***************************************************************************/
 
 #include "scribusXml.h"
-#include "scribusXml.moc"
 #include <qfile.h>
 #include <qtextstream.h>
 #include <qapplication.h>
-#include <qtl.h>
+#include <q3tl.h>
 #include <qcursor.h>
 #include <qregexp.h>
 #include <qdir.h>
 #include <qtextcodec.h>
+//Added by qt3to4:
+#include <Q3PtrList>
+#include <Q3ValueList>
 #include <cstdlib>
 #include <cmath>
 #include "missing.h"
@@ -129,7 +131,7 @@ void ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, b
 	int ulw = qRound(QStodouble(it->attribute("CULW","-0.1")) * 10);
 	int stp = qRound(QStodouble(it->attribute("CSTP","-0.1")) * 10);
 	int stw = qRound(QStodouble(it->attribute("CSTW","-0.1")) * 10);
-	for (uint cxx=0; cxx<tmp2.length(); ++cxx)
+	for (int cxx=0; cxx<tmp2.length(); ++cxx)
 	{
 		hg = new ScText;
 		hg->ch = tmp2.at(cxx);
@@ -192,12 +194,12 @@ QString ScriXmlDoc::AskForFont(SCFonts &avail, QString fStr, ScribusDoc *doc)
 	{
 		if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!avail[prefsManager->appPrefs.GFontSub[tmpf]]->UseFont))
 		{
-			qApp->setOverrideCursor(QCursor(arrowCursor), true);
+			qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 			MissingFont *dia = new MissingFont(0, tmpf, doc);
 			dia->exec();
 			tmpf = dia->getReplacementFont();
 			delete dia;
-			qApp->setOverrideCursor(QCursor(waitCursor), true);
+			qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
 			prefsManager->appPrefs.GFontSub[fStr] = tmpf;
 		}
 		else
@@ -374,7 +376,7 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 	}
 	ob->setAttribute("NUMDASH", static_cast<int>(item->DashValues.count()));
 	QString dlp = "";
-	QValueList<double>::Iterator dax;
+	Q3ValueList<double>::Iterator dax;
 	for (dax = item->DashValues.begin(); dax != item->DashValues.end(); ++dax)
 		dlp += tmp.setNum((*dax)) + " ";
 	ob->setAttribute("DASHS", dlp);
@@ -397,7 +399,7 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 	ob->setAttribute("COCOOR", colp);
 	ob->setAttribute("NUMGROUP", static_cast<int>(item->Groups.count()));
 	QString glp = "";
-	QValueStack<int>::Iterator nx;
+	Q3ValueStack<int>::Iterator nx;
 	for (nx = item->Groups.begin(); nx != item->Groups.end(); ++nx)
 		glp += tmp.setNum((*nx)) + " ";
 	ob->setAttribute("GROUPS", glp);
@@ -459,7 +461,7 @@ bool ScriXmlDoc::ReadLStyles(QString fileName, QMap<QString,multiLine> *Sty)
 	return true;
 }
 
-void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl)
+void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, Q3ValueList<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl)
 {
 	bool fou;
 	QString tmpf, tmf, tmV;
@@ -509,7 +511,7 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 	{
 		struct PageItem::TabRecord tb;
 		QString tmp = pg->attribute("TABS");
-		QTextStream tgv(&tmp, IO_ReadOnly);
+		QTextStream tgv(&tmp, QIODevice::ReadOnly);
 		vg->TabValues.clear();
 		for (int cxv = 0; cxv < QStoInt(pg->attribute("NUMTAB","0")); cxv += 2)
 		{
@@ -544,7 +546,7 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 			IT=IT.nextSibling();
 		}
 	}
-	for (uint xx=0; xx<docParagraphStyles.count(); ++xx)
+	for (int xx=0; xx<docParagraphStyles.count(); ++xx)
 	{
 		if (vg->Vname == docParagraphStyles[xx].Vname)
 		{
@@ -554,12 +556,12 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 				tabEQ = true;
 			else
 			{
-				for (uint t1 = 0; t1 < docParagraphStyles[xx].TabValues.count(); t1++)
+				for (int t1 = 0; t1 < docParagraphStyles[xx].TabValues.count(); t1++)
 				{
 					tb.tabPosition = docParagraphStyles[xx].TabValues[t1].tabPosition;
 					tb.tabType = docParagraphStyles[xx].TabValues[t1].tabType;
 					tb.tabFillChar = docParagraphStyles[xx].TabValues[t1].tabFillChar;
-					for (uint t2 = 0; t2 < vg->TabValues.count(); t2++)
+					for (int t2 = 0; t2 < vg->TabValues.count(); t2++)
 					{
 						struct PageItem::TabRecord tb2;
 						tb2.tabPosition = vg->TabValues[t2].tabPosition;
@@ -622,16 +624,16 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 	}
 	if (!fou)
 	{
-		for (uint xx=0; xx< docParagraphStyles.count(); ++xx)
+		for (int xx=0; xx< docParagraphStyles.count(); ++xx)
 		{
 			struct PageItem::TabRecord tb;
 			tabEQ = false;
-			for (uint t1 = 0; t1 < docParagraphStyles[xx].TabValues.count(); t1++)
+			for (int t1 = 0; t1 < docParagraphStyles[xx].TabValues.count(); t1++)
 			{
 				tb.tabPosition = docParagraphStyles[xx].TabValues[t1].tabPosition;
 				tb.tabType = docParagraphStyles[xx].TabValues[t1].tabType;
 				tb.tabFillChar = docParagraphStyles[xx].TabValues[t1].tabFillChar;
-				for (uint t2 = 0; t2 < vg->TabValues.count(); t2++)
+				for (int t2 = 0; t2 < vg->TabValues.count(); t2++)
 				{
 					struct PageItem::TabRecord tb2;
 					tb2.tabPosition = vg->TabValues[t2].tabPosition;
@@ -841,7 +843,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 	LFrames.clear();
 	QString tmV, tmp, tmpf, tmp2, tmp3, tmp4, PgNam, Defont, tmf;
 	QMap<int,int> TableID;
-	QPtrList<PageItem> TableItems;
+	Q3PtrList<PageItem> TableItems;
 	int x, a, counter, baseobj;
 	double xf;
 	bool newVersion = false;
@@ -994,7 +996,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 				if ((pg.hasAttribute("NumVGuides")) && (QStoInt(pg.attribute("NumVGuides","0")) != 0))
 				{
 					tmp = pg.attribute("VerticalGuides");
-					QTextStream fgv(&tmp, IO_ReadOnly);
+					QTextStream fgv(&tmp, QIODevice::ReadOnly);
 					doc->Pages->at(a)->YGuides.clear();
 					for (int cxv = 0; cxv < QStoInt(pg.attribute("NumVGuides","0")); ++cxv)
 					{
@@ -1009,7 +1011,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 				if ((pg.hasAttribute("NumHGuides")) && (QStoInt(pg.attribute("NumHGuides","0")) != 0))
 				{
 					tmp = pg.attribute("HorizontalGuides");
-					QTextStream fgh(&tmp, IO_ReadOnly);
+					QTextStream fgh(&tmp, QIODevice::ReadOnly);
 					doc->Pages->at(a)->XGuides.clear();
 					for (int cxh = 0; cxh < QStoInt(pg.attribute("NumHGuides","0")); ++cxh)
 					{
@@ -1065,7 +1067,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 					if ((obj.hasAttribute("GROUPS")) && (QStoInt(obj.attribute("NUMGROUP","0")) != 0))
 					{
 						tmp = obj.attribute("GROUPS");
-						QTextStream fg(&tmp, IO_ReadOnly);
+						QTextStream fg(&tmp, QIODevice::ReadOnly);
 						OB.Groups.clear();
 						for (int cx = 0; cx < QStoInt(obj.attribute("NUMGROUP","0")); ++cx)
 						{
@@ -1146,7 +1148,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 					PageItem *Its;
 					PageItem *Itn;
 					PageItem *Itr;
-					QValueList<Linked>::Iterator lc;
+					Q3ValueList<Linked>::Iterator lc;
 					for (lc = LFrames.begin(); lc != LFrames.end(); ++lc)
 					{
 						Its = doc->Items->at((*lc).Start);
@@ -1178,7 +1180,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 	return false;
 }
 
-bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, ScribusView *view, QProgressBar *dia2)
+bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, ScribusView *view, Q3ProgressBar *dia2)
 {
 	//Scribus 1.2 docs, see fileloader.cpp for 1.3 docs
 	struct CopyPasteBuffer OB;
@@ -1191,7 +1193,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 	struct Linked Link;
 	QString tmp, tmpf, tmp2, tmp3, tmp4, PgNam, Defont, tmf;
 	QMap<int,int> TableID;
-	QPtrList<PageItem> TableItems;
+	Q3PtrList<PageItem> TableItems;
 	int x, a;
 	double xf, xf2;
 	PageItem *Neu;
@@ -1396,7 +1398,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				if ((pg.hasAttribute("NUMTAB")) && (QStoInt(pg.attribute("NUMTAB","0")) != 0))
 				{
 					tmp = pg.attribute("TABS");
-					QTextStream tgv(&tmp, IO_ReadOnly);
+					QTextStream tgv(&tmp, QIODevice::ReadOnly);
 					vg.TabValues.clear();
 					struct PageItem::TabRecord tb;
 					for (int cxv = 0; cxv < QStoInt(pg.attribute("NUMTAB","0")); cxv += 2)
@@ -1502,7 +1504,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				if ((pg.hasAttribute("NumVGuides")) && (QStoInt(pg.attribute("NumVGuides","0")) != 0))
 				{
 					tmp = pg.attribute("VerticalGuides");
-					QTextStream fgv(&tmp, IO_ReadOnly);
+					QTextStream fgv(&tmp, QIODevice::ReadOnly);
 					doc->Pages->at(a)->YGuides.clear();
 					for (int cxv = 0; cxv < QStoInt(pg.attribute("NumVGuides","0")); ++cxv)
 					{
@@ -1517,7 +1519,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				if ((pg.hasAttribute("NumHGuides")) && (QStoInt(pg.attribute("NumHGuides","0")) != 0))
 				{
 					tmp = pg.attribute("HorizontalGuides");
-					QTextStream fgh(&tmp, IO_ReadOnly);
+					QTextStream fgh(&tmp, QIODevice::ReadOnly);
 					doc->Pages->at(a)->XGuides.clear();
 					for (int cxh = 0; cxh < QStoInt(pg.attribute("NumHGuides","0")); ++cxh)
 					{
@@ -1583,7 +1585,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 					if ((obj.hasAttribute("GROUPS")) && (QStoInt(obj.attribute("NUMGROUP","0")) != 0))
 					{
 						tmp = obj.attribute("GROUPS");
-						QTextStream fg(&tmp, IO_ReadOnly);
+						QTextStream fg(&tmp, QIODevice::ReadOnly);
 						OB.Groups.clear();
 						for (int cx = 0; cx < QStoInt(obj.attribute("NUMGROUP","0")); ++cx)
 						{
@@ -1794,7 +1796,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 		PageItem *Its;
 		PageItem *Itn;
 		PageItem *Itr;
-		QValueList<Linked>::Iterator lc;
+		Q3ValueList<Linked>::Iterator lc;
 		for (lc = LFrames.begin(); lc != LFrames.end(); ++lc)
 		{
 			Its = doc->Items->at((*lc).Start);
@@ -1874,7 +1876,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 	QMap<QString,QString> DoMul;
 	QMap<int,int> TableID;
 	QMap<int,int> arrowID;
-	QPtrList<PageItem> TableItems;
+	Q3PtrList<PageItem> TableItems;
 	bool VorLFound = false;
 	bool newVersion = false;
 	int x;
@@ -1947,7 +1949,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 				arrow.name = pg.attribute("Name");
 				arrow.userArrow = true;
 				QString tmp = pg.attribute("Points");
-				QTextStream fp(&tmp, IO_ReadOnly);
+				QTextStream fp(&tmp, QIODevice::ReadOnly);
 				for (uint cx = 0; cx < pg.attribute("NumPoints").toUInt(); ++cx)
 				{
 					fp >> xa;
@@ -1990,7 +1992,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 			else
 				lf.fromQColor(QColor(pg.attribute("RGB")));
 			if (pg.hasAttribute("Spot"))
-				lf.setSpotColor(static_cast<bool>(pg.attribute("Spot")));
+				lf.setSpotColor(pg.attribute("Spot").toInt());
 			else
 				lf.setSpotColor(false);
 			if (!doc->PageColors.contains(pg.attribute("NAME")))
@@ -2053,7 +2055,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 			if ((pg.hasAttribute("GROUPS")) && (QStoInt(pg.attribute("NUMGROUP","0")) != 0))
 			{
 				tmp = pg.attribute("GROUPS");
-				QTextStream fg(&tmp, IO_ReadOnly);
+				QTextStream fg(&tmp, QIODevice::ReadOnly);
 				OB.Groups.clear();
 				for (int cx = 0; cx < QStoInt(pg.attribute("NUMGROUP","0")); ++cx)
 				{
@@ -2143,7 +2145,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 	return true;
 }
 
-QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, ScribusView *view)
+QString ScriXmlDoc::WriteElem(Q3PtrList<PageItem> *Selitems, ScribusDoc *doc, ScribusView *view)
 {
 	int te, te2, tsh, tsh2, tst, tst2, tsb, tsb2, tshs, tshs2;
 	QString text, tf, tf2, tc, tc2, tcs, tcs2, tmp, tmpy;
@@ -2154,7 +2156,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 	docu.setContent(st);
 	QDomElement elem=docu.documentElement();
 	item = Selitems->at(0);
-	QValueList<uint> ELL;
+	Q3ValueList<uint> ELL;
 	for (uint cor=0; cor<Selitems->count(); ++cor)
 		ELL.append(Selitems->at(cor)->ItemNr);
 	qHeapSort(ELL);
@@ -2280,9 +2282,9 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 				}
 			}
 		}
-		QValueList<int> StyleNumb = UsedStyles.keys();
+		Q3ValueList<int> StyleNumb = UsedStyles.keys();
 		qHeapSort(StyleNumb);
-		for (uint ff = 0; ff < StyleNumb.count(); ++ff)
+		for (int ff = 0; ff < StyleNumb.count(); ++ff)
 		{
 			int actSt = (*StyleNumb.at(ff));
 			UsedMapped2Saved.insert(actSt, NewStylesNum);
@@ -2304,7 +2306,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 			fo.setAttribute("EFFECT", UsedStyles[actSt].FontEffect);
 			if (UsedStyles[actSt].TabValues.count() != 0)
 			{
-				for (uint a = 0; a < UsedStyles[actSt].TabValues.count(); ++a)
+				for (int a = 0; a < UsedStyles[actSt].TabValues.count(); ++a)
 				{
 					QDomElement tabs = docu.createElement("Tabs");
 					tabs.setAttribute("Type", (*UsedStyles[actSt].TabValues.at(a)).tabType);
@@ -2410,7 +2412,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 		ob.setAttribute("BOOKMARK", item->isBookmark ? 1 : 0);
 		if (item->effectsInUse.count() != 0)
 		{
-			for (uint a = 0; a < item->effectsInUse.count(); ++a)
+			for (int a = 0; a < item->effectsInUse.count(); ++a)
 			{
 				QDomElement imeff = docu.createElement("ImageEffect");
 				imeff.setAttribute("Code", (*item->effectsInUse.at(a)).effectCode);
@@ -2420,7 +2422,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 		}
 		if (item->TabValues.count() != 0)
 		{
-			for (uint a = 0; a < item->TabValues.count(); ++a)
+			for (int a = 0; a < item->TabValues.count(); ++a)
 			{
 				QDomElement tabs = docu.createElement("Tabs");
 				tabs.setAttribute("Type", (*item->TabValues.at(a)).tabType);
@@ -2434,7 +2436,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 		}
 		if (item->GrType != 0)
 		{
-			QPtrVector<VColorStop> cstops = item->fill_gradient.colorStops();
+			Q3PtrVector<VColorStop> cstops = item->fill_gradient.colorStops();
 			for (uint cst = 0; cst < item->fill_gradient.Stops(); ++cst)
 			{
 				QDomElement itcl = docu.createElement("CSTOP");
@@ -2621,7 +2623,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 	return docu.toString().utf8();
 }
 
-void ScriXmlDoc::WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, bool master)
+void ScriXmlDoc::WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, Q3ProgressBar *dia2, uint maxC, bool master)
 {
 	uint ObCount = maxC;
 	Page *page;
@@ -2663,19 +2665,19 @@ void ScriXmlDoc::WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc
 		pg.setAttribute("LEFT", page->LeftPg);
 		pg.setAttribute("NumVGuides", static_cast<int>(page->YGuides.count()));
 		QString Vgui = "";
-		for (uint vgu = 0; vgu < page->YGuides.count(); ++vgu)
+		for (int vgu = 0; vgu < page->YGuides.count(); ++vgu)
 			Vgui += tmp.setNum(page->YGuides[vgu]) + " ";
 		pg.setAttribute("VerticalGuides", Vgui);
 		pg.setAttribute("NumHGuides", static_cast<int>(page->XGuides.count()));
 		QString Hgui = "";
-		for (uint hgu = 0; hgu < page->XGuides.count(); ++hgu)
+		for (int hgu = 0; hgu < page->XGuides.count(); ++hgu)
 			Hgui += tmp.setNum(page->XGuides[hgu]) + " ";
 		pg.setAttribute("HorizontalGuides", Hgui);
 		dc->appendChild(pg);
 	}
 }
 
-void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, int master)
+void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, Q3ProgressBar *dia2, uint maxC, int master)
 {
 	int te, te2, tsh, tsh2, tst, tst2, tsb, tsb2, tshs, tshs2, tobj, tobj2;
 	QString text, tf, tf2, tc, tc2, tcs, tcs2, tmp, tmpy, Ndir;
@@ -2727,7 +2729,7 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 		ob.setAttribute("gHeight", item->gHeight);
 		if (item->GrType != 0)
 		{
-			QPtrVector<VColorStop> cstops = item->fill_gradient.colorStops();
+			Q3PtrVector<VColorStop> cstops = item->fill_gradient.colorStops();
 			for (uint cst = 0; cst < item->fill_gradient.Stops(); ++cst)
 			{
 				QDomElement itcl = docu->createElement("CSTOP");
@@ -2744,7 +2746,7 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 		}
 		if (item->effectsInUse.count() != 0)
 		{
-			for (uint a = 0; a < item->effectsInUse.count(); ++a)
+			for (int a = 0; a < item->effectsInUse.count(); ++a)
 			{
 				QDomElement imeff = docu->createElement("ImageEffect");
 				imeff.setAttribute("Code", (*item->effectsInUse.at(a)).effectCode);
@@ -2754,7 +2756,7 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 		}
 		if (item->TabValues.count() != 0)
 		{
-			for (uint a = 0; a < item->TabValues.count(); ++a)
+			for (int a = 0; a < item->TabValues.count(); ++a)
 			{
 				QDomElement tabs = docu->createElement("Tabs");
 				tabs.setAttribute("Type", (*item->TabValues.at(a)).tabType);
@@ -2965,7 +2967,7 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 	}
 }
 
-bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
+bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, Q3ProgressBar *dia2)
 {
 	QString text, tf, tf2, tc, tc2;
 	QDomDocument docu("scribus");
@@ -3152,7 +3154,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 		}
 		dc.appendChild(MuL);
 	}
-	QValueList<ArrowDesc>::Iterator itar;
+	Q3ValueList<ArrowDesc>::Iterator itar;
 	for (itar = doc->arrowStyles.begin(); itar != doc->arrowStyles.end(); ++itar)
 	{
 		if ((*itar).userArrow)
@@ -3180,7 +3182,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 		jav.setAttribute("SCRIPT",itja.data());
 		dc.appendChild(jav);
 	}
-	QValueList<ScribusDoc::BookMa>::Iterator itbm;
+	Q3ValueList<ScribusDoc::BookMa>::Iterator itbm;
 	for (itbm = doc->BookMarks.begin(); itbm != doc->BookMarks.end(); ++itbm)
 	{
 		QDomElement fn=docu.createElement("Bookmark");
@@ -3210,7 +3212,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	}
 	if (doc->docParagraphStyles.count() > 5)
 	{
-		for (uint ff = 5; ff < doc->docParagraphStyles.count(); ++ff)
+		for (int ff = 5; ff < doc->docParagraphStyles.count(); ++ff)
 		{
 			QDomElement fo=docu.createElement("STYLE");
 			fo.setAttribute("NAME",doc->docParagraphStyles[ff].Vname);
@@ -3229,7 +3231,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 			fo.setAttribute("EFFECT", doc->docParagraphStyles[ff].FontEffect);
 			if (doc->docParagraphStyles[ff].TabValues.count() != 0)
 			{
-				for (uint a = 0; a < doc->docParagraphStyles[ff].TabValues.count(); ++a)
+				for (int a = 0; a < doc->docParagraphStyles[ff].TabValues.count(); ++a)
 				{
 					QDomElement tabs = docu.createElement("Tabs");
 					tabs.setAttribute("Type", (*doc->docParagraphStyles[ff].TabValues.at(a)).tabType);
@@ -3310,19 +3312,19 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	pdf.setAttribute("UseLpi", static_cast<int>(doc->PDF_Options.UseLPI));
 	pdf.setAttribute("UseSpotColors", static_cast<int>(doc->PDF_Options.UseSpotColors));
 	pdf.setAttribute("doMultiFile", static_cast<int>(doc->PDF_Options.doMultiFile));
-	for (uint pdoF = 0; pdoF < doc->PDF_Options.EmbedList.count(); ++pdoF)
+	for (int pdoF = 0; pdoF < doc->PDF_Options.EmbedList.count(); ++pdoF)
 	{
 		QDomElement pdf2 = docu.createElement("Fonts");
 		pdf2.setAttribute("Name", doc->PDF_Options.EmbedList[pdoF]);
 		pdf.appendChild(pdf2);
 	}
-	for (uint pdoS = 0; pdoS < doc->PDF_Options.SubsetList.count(); ++pdoS)
+	for (int pdoS = 0; pdoS < doc->PDF_Options.SubsetList.count(); ++pdoS)
 	{
 		QDomElement pdf4 = docu.createElement("Subset");
 		pdf4.setAttribute("Name", doc->PDF_Options.SubsetList[pdoS]);
 		pdf.appendChild(pdf4);
 	}
-	for (uint pdoE = 0; pdoE < doc->PDF_Options.PresentVals.count(); ++pdoE)
+	for (int pdoE = 0; pdoE < doc->PDF_Options.PresentVals.count(); ++pdoE)
 	{
 		QDomElement pdf3 = docu.createElement("Effekte");
 		pdf3.setAttribute("pageEffectDuration", doc->PDF_Options.PresentVals[pdoE].pageEffectDuration);
@@ -3383,7 +3385,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	}
 	dc.appendChild(tocElem);
 	QDomElement pageSetAttr = docu.createElement("PageSets");
-	QValueList<PageSet>::Iterator itpgset;
+	Q3ValueList<PageSet>::Iterator itpgset;
 	for(itpgset = doc->pageSets.begin(); itpgset != doc->pageSets.end(); ++itpgset )
 	{
 		QDomElement pgst = docu.createElement("Set");
@@ -3435,16 +3437,16 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	else
 	{
 		QFile f(fileName);
-		if(!f.open(IO_WriteOnly))
+		if(!f.open(QIODevice::WriteOnly))
 			return false;
 		QTextStream s(&f);
 		QString wr = docu.toString().utf8();
-		s.writeRawBytes(wr, wr.length());
+		s << wr;
 		f.close();
 	}
 #else
 	QFile f(fileName);
-	if(!f.open(IO_WriteOnly))
+	if(!f.open(QIODevice::WriteOnly))
 		return false;
 	QTextStream s(&f);
 	QString wr = docu.toString().utf8();

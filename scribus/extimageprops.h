@@ -3,6 +3,11 @@
 
 #include <qvariant.h>
 #include <qdialog.h>
+//Added by qt3to4:
+#include <Q3PtrList>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QVBoxLayout>
 
 class QVBoxLayout;
 class QHBoxLayout;
@@ -11,9 +16,9 @@ class QWidget;
 class QLabel;
 class QComboBox;
 class QSpinBox;
-class QTable;
-class QListBox;
-class QListBoxItem;
+class Q3Table;
+class Q3ListBox;
+class Q3ListBoxItem;
 class QCheckBox;
 class QPushButton;
 
@@ -36,11 +41,11 @@ public:
 	QComboBox* blendMode;
 	QLabel* textLabel2;
 	QSpinBox* opacitySpinBox;
-	QTable* layerTable;
+	Q3Table* layerTable;
 	QWidget* tab_2;
-	QListBox* pathList;
+	Q3ListBox* pathList;
 	QPushButton* resetPath;
-	QPtrList<QCheckBox> FlagsSicht;
+	Q3PtrList<QCheckBox> FlagsSicht;
 	ScribusView *viewWidget;
 	PageItem *currentItem;
 	int currentLayer;
@@ -50,7 +55,7 @@ public:
 public slots:
 	void changedLayer();
 	void selLayer(int layer);
-	void selPath(QListBoxItem *c);
+	void selPath(Q3ListBoxItem *c);
 	void noPath();
 
 protected:

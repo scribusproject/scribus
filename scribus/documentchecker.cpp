@@ -15,10 +15,11 @@
 *                                                                         *
 ***************************************************************************/
 
-#include "documentchecker.h"
-#include "pageitem.h"
 #include "scribusstructs.h"
 #include "scribusdoc.h"
+
+#include "documentchecker.h"
+#include "pageitem.h"
 #include "page.h"
 
 void DocumentChecker::checkDocument(ScribusDoc *currDoc)
@@ -83,7 +84,7 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 				}
 				if (chr == 9)
 				{
-					for (uint t1 = 0; t1 < currDoc->docParagraphStyles[currItem->itemText.at(e)->cab].TabValues.count(); t1++)
+					for (int t1 = 0; t1 < currDoc->docParagraphStyles[currItem->itemText.at(e)->cab].TabValues.count(); t1++)
 					{
 						if (currDoc->docParagraphStyles[currItem->itemText.at(e)->cab].TabValues[t1].tabFillChar.isNull())
 							continue;
@@ -97,7 +98,7 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 						if ((!currItem->itemText.at(e)->cfont->CharWidth.contains(chr)) && (checkerSettings.checkGlyphs))
 							itemError.insert(1, 0);
 					}
-					for (uint t1 = 0; t1 < currItem->TabValues.count(); t1++)
+					for (int t1 = 0; t1 < currItem->TabValues.count(); t1++)
 					{
 						if (currItem->TabValues[t1].tabFillChar.isNull())
 							continue;
@@ -172,7 +173,7 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 				}
 				if (chr == 9)
 				{
-					for (uint t1 = 0; t1 < currDoc->docParagraphStyles[currItem->itemText.at(e)->cab].TabValues.count(); t1++)
+					for (int t1 = 0; t1 < currDoc->docParagraphStyles[currItem->itemText.at(e)->cab].TabValues.count(); t1++)
 					{
 						if (currDoc->docParagraphStyles[currItem->itemText.at(e)->cab].TabValues[t1].tabFillChar.isNull())
 							continue;
@@ -186,7 +187,7 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 						if ((!currItem->itemText.at(e)->cfont->CharWidth.contains(chr)) && (checkerSettings.checkGlyphs))
 							itemError.insert(1, 0);
 					}
-					for (uint t1 = 0; t1 < currItem->TabValues.count(); t1++)
+					for (int t1 = 0; t1 < currItem->TabValues.count(); t1++)
 					{
 						if (currItem->TabValues[t1].tabFillChar.isNull())
 							continue;

@@ -15,7 +15,6 @@
  *                                                                         *
  ***************************************************************************/
 #include "hyphenator.h"
-#include "hyphenator.moc"
 #include "hyask.h"
 
 #include "scconfig.h"
@@ -23,6 +22,9 @@
 #include <qregexp.h>
 #include <qcursor.h>
 #include <qdir.h>
+//Added by qt3to4:
+#include <QTextStream>
+#include <Q3CString>
 #include <cstdlib>
 #include <string>
 #include "scpaths.h"
@@ -60,7 +62,7 @@ Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok, ScribusApp* app) : QObj
 	}
 	pfad += "dicts/" + Sap->Sprachen[Language];
 	QFile f(pfad);
-	if (f.open(IO_ReadOnly))
+	if (f.open(QIODevice::ReadOnly))
 	{
 		QTextStream st(&f);
     	QString line;
@@ -74,7 +76,7 @@ Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok, ScribusApp* app) : QObj
 		hdict = NULL;
 		return;
 	}
-	QCString fn = pfad.latin1();
+	Q3CString fn = pfad.latin1();
 	filename = fn.data();
 	hdict = hnj_hyphen_load(filename);
 	useAble = hdict == NULL ? false : true;
@@ -113,7 +115,7 @@ void Hyphenator::slotNewDict(QString name)
 	doc->Language = name;
 	pfad += "dicts/" + Sap->Sprachen[Language];
 	QFile f(pfad);
-	if (f.open(IO_ReadOnly))
+	if (f.open(QIODevice::ReadOnly))
 	{
 		QTextStream st(&f);
 		QString line;
@@ -127,7 +129,7 @@ void Hyphenator::slotNewDict(QString name)
 		hdict = NULL;
 		return;
 	}
-	QCString fn = pfad.latin1();
+	Q3CString fn = pfad.latin1();
 	filename = fn.data();
 	hdict = hnj_hyphen_load(filename);
 	useAble = hdict == NULL ? false : true;
@@ -172,9 +174,9 @@ void Hyphenator::slotHyphenateWord(PageItem* it, QString text, int firstC)
 	const char *word;
 	char *buffer;
 	const int BORDER = 2;
-	QCString te;
+	Q3CString te;
 
-	uint maxC = it->itemText.count() - 1;
+	int maxC = it->itemText.count() - 1;
 	QString found = text;
 	if (static_cast<int>(found.length()) > MinWordLen-1)
 	{
@@ -185,7 +187,7 @@ void Hyphenator::slotHyphenateWord(PageItem* it, QString text, int firstC)
 			return;
 		if (!hnj_hyphen_hyphenate(hdict, word, strlen(word), buffer))
 		{
-			uint i = 0;
+			int i = 0;
 		  	buffer[strlen(word)] = '\0';
 			for (i = 1; i < found.length()-1; ++i)
 				it->itemText.at(QMIN(maxC, i+firstC))->cstyle &= 1919;		// Delete any old Hyphens
@@ -236,7 +238,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 	const int BORDER = 2;
 	QString text = "";
 	QString buf;
-	QCString te;
+	Q3CString te;
 	for (uint a = 0; a < nb1->itemText.count(); ++a)
 	{
 		if (nb1->HasSel)
@@ -263,8 +265,8 @@ void Hyphenator::slotHyphenate(PageItem* it)
 	int Ccount = 0;
 	QString found = "";
 	QString found2 = "";
-	uint maxC = nb1->itemText.count() - 1;
-	qApp->setOverrideCursor(QCursor(waitCursor), true);
+	int maxC = nb1->itemText.count() - 1;
+	qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
 	while ((firstC+Ccount < static_cast<int>(text.length())) && (firstC != -1) && 
 			(lastC < static_cast<int>(text.length())))
 	{
@@ -286,7 +288,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 				break;
 			if (!hnj_hyphen_hyphenate(hdict, word, strlen(word), buffer))
 			{
-	  			uint i = 0;
+	  			int i = 0;
   				buffer[strlen(word)] = '\0';
 				for (i = 1; i < found.length()-1; ++i)
 					nb1->itemText.at(QMIN(maxC, i+firstC))->cstyle &= 1919;		// Delete any old Hyphens
@@ -312,7 +314,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 								outs += "-";
 						}
 						outs += found2.right(1);
-						qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+						qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 						PrefsContext* prefs = PrefsManager::instance()->prefsFile->getContext("hyhpen_options");
 						int xpos = prefs->getInt("Xposition", -9999);
 						int ypos = prefs->getInt("Yposition", -9999);
@@ -323,11 +325,11 @@ void Hyphenator::slotHyphenate(PageItem* it)
 						if (dia->exec())
 						{
 							outs = dia->Wort->text();
-							uint ii = 0;
+							int ii = 0;
 							for (i = 1; i < outs.length()-1; ++i)
 							{
 								QChar cht = outs[i];
-								if (cht == "-")
+								if (cht == '-')
 									nb1->itemText.at(QMIN(maxC, ii+firstC))->cstyle |= 128;
 								else
 									ii++;
@@ -344,7 +346,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 						prefs->set("Xposition", dia->xpos);
 						prefs->set("Yposition", dia->ypos);
 						delete dia;
-  						qApp->setOverrideCursor(QCursor(waitCursor), true);
+  						qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
 					}
 					else
 					{
@@ -362,7 +364,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 		if (Ccount == 0)
 			Ccount++;
 	}
-	qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+	qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 	doc->DoDrawing = true;
 }
 
@@ -408,6 +410,6 @@ void Hyphenator::slotDeHyphenate(PageItem* it)
 		else
 			nb1->itemText.at(a)->cstyle &= 1919;
 	}
-	qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+	qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 	doc->DoDrawing = true;
 }

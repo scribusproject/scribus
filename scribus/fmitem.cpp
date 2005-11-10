@@ -22,7 +22,7 @@
 #include <qfontmetrics.h>
 #include <qapplication.h>
 
-FmItem::FmItem(const QString& s, const Foi * f)
+FmItem::FmItem(const QString& s, const Foi *)
 {
 	stringy = s;
 //	font = f;
@@ -33,12 +33,12 @@ FmItem::FmItem(const QString& s, const Foi * f)
 void FmItem::paint(QPainter *p, const QColorGroup&, bool, bool, int x, int y, int w, int h)
 {
 	p->setFont(font);
-	p->drawText(x, y, w, h, AlignLeft | AlignVCenter | ShowPrefix | DontClip, stringy);
+	p->drawText(x, y, w, h, Qt::AlignLeft | Qt::AlignVCenter | Qt::TextShowMnemonic | Qt::TextDontClip, stringy);
 }
 
 QSize FmItem::sizeHint()
 {
-	return QFontMetrics(font).size(AlignLeft | AlignVCenter | ShowPrefix | DontClip, stringy);
+	return QFontMetrics(font).size(Qt::AlignLeft | Qt::AlignVCenter | Qt::TextShowMnemonic | Qt::TextDontClip, stringy);
 }
 
 QString FmItem::Ctext()

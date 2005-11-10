@@ -16,31 +16,34 @@
  ***************************************************************************/
 #include <qstringlist.h>
 #include <qcombobox.h>
-#include <qlistbox.h>
+#include <q3listbox.h>
 #include <qfont.h>
 #include <qpainter.h>
+//Added by qt3to4:
+#include <QVBoxLayout>
 
 #include "sccombobox.h"
 
 #include "scribusdoc.h"
 #include "fontcombo.h"
-#include "fontcombo.moc"
 #include "page.h"
 #include "prefsmanager.h"
 
-FontListItem::FontListItem(QComboBox* parent, QString f, QFont fo) : QListBoxItem(parent->listBox())
+FontListItem::FontListItem(QComboBox* parent, QString f, QFont fo) : QWidget(parent)
 {
 	fontName = f;
 	iFont = fo;
-	setText(fontName);
+	qWarning( "q3boxlistitem not ported" );
+	//setText(fontName);
 }
 
-const int FontListItem::width(const QListBox *listbox)
+const int FontListItem::width(const Q3ListBox *listbox)
 {
-	return listbox->fontMetrics().width(text()) + 2;
+	//return listbox->fontMetrics().width(text()) + 2;
+	return 20;
 }
 
-const int FontListItem::height(const QListBox *listbox)
+const int FontListItem::height(const Q3ListBox *listbox)
 {
 	QFontMetrics fontMetrics(listbox->fontMetrics());
 	return fontMetrics.lineSpacing() + 2;
@@ -72,7 +75,7 @@ FontCombo::FontCombo(QWidget* pa) : QComboBox(true, pa)
 	clear();
 	for (QStringList::ConstIterator it2 = rlist.begin(); it2 != rlist.end(); ++it2)
 		insertItem(*it2);
-	listBox()->setMinimumWidth(listBox()->maxItemWidth()+24);
+	//listBox()->setMinimumWidth(listBox()->maxItemWidth()+24);
 }
 
 void FontCombo::RebuildList(ScribusDoc *currentDoc)
@@ -97,7 +100,7 @@ void FontCombo::RebuildList(ScribusDoc *currentDoc)
 	rlist.sort();
 	for (QStringList::ConstIterator it2 = rlist.begin(); it2 != rlist.end(); ++it2)
 		insertItem(*it2);
-	listBox()->setMinimumWidth(listBox()->maxItemWidth()+24);
+	//listBox()->setMinimumWidth(listBox()->maxItemWidth()+24);
 }
 
 FontComboH::FontComboH(QWidget* parent) : QWidget(parent, "FontComboH")
@@ -147,6 +150,8 @@ void FontComboH::setCurrentFont(QString f)
 {
 	disconnect(fontFamily, SIGNAL(activated(int)), this, SLOT(familySelected(int)));
 	disconnect(fontStyle, SIGNAL(activated(int)), this, SLOT(styleSelected(int)));
+        if (!prefsManager->appPrefs.AvailFonts[f]) // ### Temp hack for no fonts on Windows
+            return;
 	QString family = prefsManager->appPrefs.AvailFonts[f]->family();
 	QString style = prefsManager->appPrefs.AvailFonts[f]->style();
 	fontFamily->setCurrentText(family);

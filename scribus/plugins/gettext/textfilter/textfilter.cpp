@@ -1,5 +1,5 @@
 #include "textfilter.h"
-#include <qcstring.h>
+#include <q3cstring.h>
 #include <qfile.h>
 #include <qfileinfo.h>
 #include <qstring.h>
@@ -58,10 +58,10 @@ void TextFilter::loadText()
 	QFileInfo fi(f);
 	if (!fi.exists())
 		return;
-	uint posi;
+	int posi;
 //	bool ret;
 	QByteArray bb(f.size());
-	if (f.open(IO_ReadOnly))
+	if (f.open(QIODevice::ReadOnly))
 	{
 		f.readBlock(bb.data(), f.size());
 		f.close();
@@ -130,7 +130,7 @@ void TextFilter::write()
 			QString tmpText = list[i];
 			QString tmpText2 = tmpText;
 			tmpText2.simplifyWhiteSpace();
-			int numberOfWords = tmpText2.contains(" ");
+			int numberOfWords = tmpText2.count(" ");
 			++numberOfWords;
 			useStyle = NULL;
 			for (int j = 0; j < static_cast<int>(filters->size()); ++j)

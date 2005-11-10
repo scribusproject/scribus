@@ -7,7 +7,7 @@
 #include <vector>
 #include <utility>
 #include <qfile.h>
-#include <qframe.h>
+#include <q3frame.h>
 #include <qdir.h>
 #include <qtextstream.h>
 #include <qcombobox.h>
@@ -18,7 +18,7 @@
 #include <qpushbutton.h>
 #include <qdialog.h>
 #include <qlineedit.h>
-#include <qtextedit.h>
+#include <q3textedit.h>
 #include <qwidget.h>
 #include <prefscontext.h>
 
@@ -37,8 +37,8 @@ public:
 	QComboBox* catsCombo;
 	QLineEdit* psizeEdit;
 	QLineEdit* colorsEdit;
-	QTextEdit* descrEdit;
-	QTextEdit* usageEdit;
+	Q3TextEdit* descrEdit;
+	Q3TextEdit* usageEdit;
 	QLineEdit* authorEdit;
 	QLineEdit* emailEdit;
 private slots:

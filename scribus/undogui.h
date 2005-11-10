@@ -28,11 +28,15 @@
 #include <qwidget.h>
 #include <qdialog.h>
 #include <qstring.h>
-#include <qlistbox.h>
+#include <q3listbox.h>
 #include <qtoolbutton.h>
 #include <qpainter.h>
 #include <qpixmap.h>
-#include <qpopupmenu.h>
+#include <q3popupmenu.h>
+//Added by qt3to4:
+#include <QHideEvent>
+#include <QKeyEvent>
+#include <QCloseEvent>
 
 class QCheckBox;
 class PrefsContext;
@@ -63,7 +67,7 @@ public:
 	 * @param name Name of the object
 	 * @param f widget flags
 	 */
-	UndoGui(QWidget* parent = 0, const char* name = 0, WFlags f = 0);
+	UndoGui(QWidget* parent = 0, const char* name = 0, Qt::WFlags f = 0);
 
 	/** @brief Destroys the widget */
 	virtual ~UndoGui() {};
@@ -146,8 +150,8 @@ private:
 	QToolButton* undoButton;
 	QToolButton* redoButton;
 	*/
-	QPopupMenu* undoMenu;
-	QPopupMenu* redoMenu;
+	Q3PopupMenu* undoMenu;
+	Q3PopupMenu* redoMenu;
 	void updateUndoMenu();
 	void updateRedoMenu();
 public:
@@ -246,7 +250,7 @@ class SCRIBUS_API UndoPalette : public UndoGui
 private:
 	int currentSelection;
 	int redoItems;
-	QListBox* undoList;
+	Q3ListBox* undoList;
 	QCheckBox* objectBox;
 	QPushButton* undoButton;
 	QPushButton* redoButton;
@@ -260,7 +264,7 @@ private:
 /*** UndoPalette::UndoItem ****************************************************/
 	
 	/** @brief UndoItem provides a custom QListBoxItem for the undo history view. */
-	class UndoItem : public QListBoxItem
+	class UndoItem : public Q3ListBoxItem
 	{
 	private:
 		/** @brief An icon for the undo target */
@@ -299,8 +303,8 @@ private:
                  QPixmap *actionPixmap);
 		~UndoItem();
 		void paint(QPainter *painter);
-		int height(const QListBox*) const;
-		int width(const QListBox*) const;
+		int height(const Q3ListBox*) const;
+		int width(const Q3ListBox*) const;
 		QString getDescription();
 	};
 	
@@ -310,7 +314,7 @@ private slots:
 	void undoClicked();
 	void redoClicked();
 	void undoListClicked(int i);
-	void showToolTip(QListBoxItem *i);
+	void showToolTip(Q3ListBoxItem *i);
 	void removeToolTip();
 	void objectCheckBoxClicked(bool on);
 

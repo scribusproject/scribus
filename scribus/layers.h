@@ -1,11 +1,16 @@
 #ifndef LAYERPALETTE_H
 #define LAYERPALETTE_H
 
-#include <qtable.h>
-#include <qptrlist.h>
-#include <qvaluelist.h>
+#include <q3table.h>
+#include <q3ptrlist.h>
+#include <q3valuelist.h>
 #include <qcheckbox.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 
+#include "scribus.h"
 #include "scribusapi.h"
 #include "scrpalettebase.h"
 
@@ -13,10 +18,10 @@ class QPushButton;
 class QLayout;
 class QToolTip;
 class QPixmap;
-class QHeader;
+class Q3Header;
 
 
-class SCRIBUS_API LayerTable : public QTable
+class SCRIBUS_API LayerTable : public Q3Table
 {
 	Q_OBJECT
 
@@ -39,10 +44,10 @@ public:
 	LayerPalette(QWidget* parent);
 	~LayerPalette() {};
 
-	void setLayers(QValueList<Layer> *layin, int act);
+	void setLayers(Q3ValueList<Layer> *layin, int act);
 	void rebuildList();
 	
-	QTable* Table;	//public for the event filter in scribus.cpp.. TODO
+	Q3Table* Table;	//public for the event filter in scribus.cpp.. TODO
 
 public slots:
 	void updateName(int r);
@@ -65,14 +70,14 @@ signals:
 protected:
 	QVBoxLayout* LayerPaletteLayout;
 	QHBoxLayout* Layout1;
-	QHeader* Header;
+	Q3Header* Header;
 	QPushButton* newLayerButton;
 	QPushButton* deleteLayerButton;
 	QPushButton* raiseLayerButton;
 	QPushButton* lowerLayerButton;
-	QPtrList<QCheckBox> flagsPrintable;
-	QPtrList<QCheckBox> flagsVisible;
-	QValueList<Layer> *layers;
+	Q3PtrList<QCheckBox> flagsPrintable;
+	Q3PtrList<QCheckBox> flagsVisible;
+	Q3ValueList<Layer> *layers;
 };
 
 #endif // LAYERPALETTE_H

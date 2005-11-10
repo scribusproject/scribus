@@ -18,23 +18,25 @@
 #ifndef WERKTOOLB_H
 #define WERKTOOLB_H
 
-#include <qtoolbar.h>
-#include <qmainwindow.h>
+#include <q3toolbar.h>
+#include <q3mainwindow.h>
+//Added by qt3to4:
+#include <Q3PopupMenu>
 #include "scribusapi.h"
 class QToolButton;
-class QPopupMenu;
+class Q3PopupMenu;
 class AutoformButtonGroup;
 
 /**
   *@author Franz Schmid
   */
 
-class SCRIBUS_API WerkToolB : public QToolBar
+class SCRIBUS_API WerkToolB : public Q3ToolBar
 {
 	Q_OBJECT
 
 public: 
-	WerkToolB(QMainWindow* parent);
+	WerkToolB(Q3MainWindow* parent);
 	~WerkToolB() {};
 
 	bool Sichtbar;
@@ -43,7 +45,7 @@ public:
 	double *ShapeVals;
 
 public slots:
-	void Docken(QDockWindow::Place p);
+	void Docken(Q3DockWindow::Place p);
 	void Verbergen(bool vis);
 	void GetPolyProps();
 	void SelShape(int s, int c, double *vals);
@@ -51,25 +53,25 @@ public slots:
 		
 protected:
 	AutoformButtonGroup* Rechteck;
-	QPopupMenu* insertShapeButtonMenu;
-	QPopupMenu* insertPolygonButtonMenu;
+	Q3PopupMenu* insertShapeButtonMenu;
+	Q3PopupMenu* insertPolygonButtonMenu;
 	int idInsertPolygonButtonMenu;
 	
 signals:
 	void Schliessen();
 };
 
-class SCRIBUS_API WerkToolBP : public QToolBar  
+class SCRIBUS_API WerkToolBP : public Q3ToolBar  
 {
 	Q_OBJECT
 
 public:
-	WerkToolBP(QMainWindow* parent);
+	WerkToolBP(Q3MainWindow* parent);
 	~WerkToolBP() {};
 	QToolButton* PDFTool;
-	QPopupMenu* PDFM;
+	Q3PopupMenu* PDFM;
 	QToolButton* PDFaTool;
-	QPopupMenu* PDFA;
+	Q3PopupMenu* PDFA;
 	bool Sichtbar;
 	int PDFwerkz;
 	int PDFnotiz;
@@ -77,7 +79,7 @@ public:
 public slots:
 	void setPDFnotiz(int id);
 	void setPDFtool(int id);
-	void Docken(QDockWindow::Place p);
+	void Docken(Q3DockWindow::Place p);
 	void Verbergen(bool vis);
 	void ModeFromTB();
 	void languageChange();

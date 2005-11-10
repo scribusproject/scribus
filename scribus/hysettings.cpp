@@ -1,6 +1,8 @@
 #include "hysettings.h"
-#include "hysettings.moc"
 #include "sccombobox.h"
+//Added by qt3to4:
+#include <QLabel>
+#include <QGridLayout>
 
 HySettings::HySettings( QWidget* parent, QMap<QString,QString>* langs ) : QWidget( parent, "Settings" )
 {

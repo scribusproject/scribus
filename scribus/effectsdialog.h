@@ -4,8 +4,13 @@
 #include <qvariant.h>
 #include <qpixmap.h>
 #include <qdialog.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 #include <qmap.h>
+//Added by qt3to4:
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QVBoxLayout>
 
 #include "scribusapi.h"
 #include "pageitem.h"
@@ -14,13 +19,13 @@ class QHBoxLayout;
 class QGridLayout;
 class QSpacerItem;
 class QLabel;
-class QListBox;
-class QListBoxItem;
+class Q3ListBox;
+class Q3ListBoxItem;
 class QPushButton;
 class QComboBox;
 class ScribusDoc;
 class ShadeButton;
-class QWidgetStack;
+class Q3WidgetStack;
 class QWidget;
 class QSlider;
 class MSpinBox;
@@ -49,7 +54,7 @@ public:
 	QLabel* textLabel13;
 	QLabel* textLabel14;
 	QLabel* textLabel15;
-	QWidgetStack* optionStack;
+	Q3WidgetStack* optionStack;
 	QWidget* WStackPage;
 	QWidget* WStackPage_2;
 	QComboBox* colData;
@@ -66,17 +71,17 @@ public:
 	MSpinBox* blValue;
 	QWidget* WStackPage_7;
 	QSlider* solarizeSlider;
-	QListBox* usedEffects;
+	Q3ListBox* usedEffects;
 	QPushButton* effectUp;
 	QPushButton* effectDown;
 	QPushButton* toEffects;
 	QPushButton* fromEffects;
-	QListBox* availableEffects;
+	Q3ListBox* availableEffects;
 	QPushButton* okButton;
 	QPushButton* cancelButton;
-	QValueList<ScImage::imageEffect> effectsList;
-	QMap<QListBoxItem*, QString> effectValMap;
-	QListBoxItem* currentOptions;
+	Q3ValueList<ScImage::imageEffect> effectsList;
+	QMap<Q3ListBoxItem*, QString> effectValMap;
+	Q3ListBoxItem* currentOptions;
 	ScribusDoc* doc;
 	PageItem* currItem;
 	ScImage image;
@@ -92,8 +97,8 @@ public slots:
 	virtual void moveFromEffects();
 	virtual void moveEffectUp();
 	virtual void moveEffectDown();
-	virtual void selectEffect(QListBoxItem* c);
-	virtual void selectAvailEffect(QListBoxItem* c);
+	virtual void selectEffect(Q3ListBoxItem* c);
+	virtual void selectAvailEffect(Q3ListBoxItem* c);
 
 protected:
 	QHBoxLayout* EffectsDialogLayout;

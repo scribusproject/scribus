@@ -14,7 +14,6 @@
 ***************************************************************************/
 
 #include "commonstrings.h"
-#include "commonstrings.moc"
 
 QString CommonStrings::_Apply      = "";
 QString CommonStrings::tr_Apply    = "";

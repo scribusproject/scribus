@@ -26,6 +26,12 @@
 #include <qvariant.h>
 #include <qdialog.h>
 #include <qstring.h>
+//Added by qt3to4:
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QVBoxLayout>
+#include <Q3PopupMenu>
 
 #include "scribusapi.h"
 
@@ -35,11 +41,11 @@ class QGridLayout;
 class QSpacerItem;
 class QTabWidget;
 class QWidget;
-class QListView;
-class QListViewItem;
-class QTextBrowser;
+class Q3ListView;
+class Q3ListViewItem;
+class Q3TextBrowser;
 class QToolButton;
-class QPopupMenu;
+class Q3PopupMenu;
 class QSplitter;
 class QLabel;
 class QLineEdit;
@@ -64,7 +70,7 @@ public:
 	~HelpBrowser();
 
 	/*! History menu. It's public because of history reader - separate class */
-	QPopupMenu* histMenu;
+	Q3PopupMenu* histMenu;
 	/*! Mapping the documents for history. */
 	QMap<int, histd> mHistory;
 
@@ -90,9 +96,9 @@ protected:
 	//! Main table of contents - parent widget
 	QWidget* tabContents;
 	//! Main table of contents
-	QListView* listView;
+	Q3ListView* listView;
 	//! There is documentation shown
-	QTextBrowser* textBrowser;
+	Q3TextBrowser* textBrowser;
 	//! Rubber bar between ToC and browser
 	QSplitter* splitter;
 	//! Selected language is here. If there is no docs for this language, "en" is used.
@@ -101,13 +107,13 @@ protected:
 	QWidget* tabSearching;
 	QLineEdit* searchingEdit;
 	QPushButton* searchingButton;
-	QListView* searchingView;
+	Q3ListView* searchingView;
 	//! bookmarks
 	QWidget* tabBookmarks;
 	QPushButton* bookmarkButton;
 	QPushButton* deleteBookmarkButton;
 	QPushButton* deleteAllBookmarkButton;
-	QListView* bookmarksView;
+	Q3ListView* bookmarksView;
 	//! menu
 	QMenuBar *menuBar;
 
@@ -130,12 +136,12 @@ protected slots:
 	virtual void languageChange();
 
 	/*! Load doc file when user select filename in content view. */
-	void itemSelected( QListViewItem *);
+	void itemSelected( Q3ListViewItem *);
 
 	/*! Load doc file when user select filename in search view.
 	Then it performs some doc-finding and highlighting.
 	\author Petr Vanek <petr@yarpen.cz> */
-	void itemSearchSelected( QListViewItem *);
+	void itemSearchSelected( Q3ListViewItem *);
 	void histChosen(int i);
 	void jumpToHelpSection(QString jumpToSection, QString jumpToFile="");
 	void loadHelp(QString filename);

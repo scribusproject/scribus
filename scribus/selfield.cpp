@@ -1,8 +1,12 @@
 
 #include "scfonts.h"
 #include "selfield.h"
-#include "selfield.moc"
 #include <qstringlist.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 
 #include "commonstrings.h"
 
@@ -20,7 +24,7 @@ SelectFields::SelectFields( QWidget* parent, QString Felder, QString Own, Scribu
 
 	Text1 = new QLabel( tr( "Available Fields" ), this, "Text1" );
 	Layout1->addWidget( Text1 );
-	AvailFields = new QListBox( this, "AvailFields" );
+	AvailFields = new Q3ListBox( this, "AvailFields" );
 	AvailFields->setMinimumSize( QSize( 130, 180 ) );
 	for (uint se = 0; se < Doc->Items->count(); ++se)
 	{
@@ -54,20 +58,20 @@ SelectFields::SelectFields( QWidget* parent, QString Felder, QString Own, Scribu
 		Layout3 = new QVBoxLayout( 0, 0, 6, "Layout3");
 		Text2 = new QLabel( tr( "Selected Fields" ), this, "Text2" );
 		Layout3->addWidget( Text2 );
-		SelFields = new QListBox( this, "SelFields" );
+		SelFields = new Q3ListBox( this, "SelFields" );
 		SelFields->setMinimumSize( QSize( 130, 180 ) );
 		QStringList pfol;
 		pfol = pfol.split(",", Felder);
 		if (pfol.count() > 0)
 		{
-			for (uint cfx = 0; cfx < pfol.count(); ++cfx)
+			for (int cfx = 0; cfx < pfol.count(); ++cfx)
 				SelFields->insertItem(pfol[cfx].stripWhiteSpace());
 		}
 		FromSel->setEnabled(false);
 		ToSel->setEnabled(false);
 		Layout3->addWidget( SelFields );
 		Layout5->addLayout( Layout3 );
-		connect(SelFields, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SelEField(QListBoxItem*)));
+		connect(SelFields, SIGNAL(clicked(Q3ListBoxItem*)), this, SLOT(SelEField(Q3ListBoxItem*)));
 		connect(ToSel, SIGNAL(clicked()), this, SLOT(PutToSel()));
 		connect(FromSel, SIGNAL(clicked()), this, SLOT(RemoveSel()));
 	}
@@ -86,7 +90,7 @@ SelectFields::SelectFields( QWidget* parent, QString Felder, QString Own, Scribu
 	SelectFieldsLayout->addLayout( Layout4 );
 	connect(OK, SIGNAL(clicked()), this, SLOT(SetRetVal()));
 	connect(Cancel, SIGNAL(clicked()), this, SLOT(reject()));
-	connect(AvailFields, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SelAField(QListBoxItem*)));
+	connect(AvailFields, SIGNAL(clicked(Q3ListBoxItem*)), this, SLOT(SelAField(Q3ListBoxItem*)));
 }
 
 void SelectFields::SetRetVal()
@@ -123,7 +127,7 @@ void SelectFields::PutToSel()
 		SelFields->insertItem(AvailFields->currentText());
 }
 
-void SelectFields::SelAField(QListBoxItem *c)
+void SelectFields::SelAField(Q3ListBoxItem *c)
 {
 	if ((c != NULL) && (FTyp > 1))
 	{
@@ -133,7 +137,7 @@ void SelectFields::SelAField(QListBoxItem *c)
 	}
 }
 
-void SelectFields::SelEField(QListBoxItem *c)
+void SelectFields::SelEField(Q3ListBoxItem *c)
 {
 	if (c != NULL)
 	{

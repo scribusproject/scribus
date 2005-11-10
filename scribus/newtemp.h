@@ -7,6 +7,9 @@
 #include <qlineedit.h>
 #include <qpushbutton.h>
 #include <qcombobox.h>
+//Added by qt3to4:
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 
 #include "scribusapi.h"
 class ScribusDoc;

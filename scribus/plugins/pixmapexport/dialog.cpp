@@ -1,19 +1,23 @@
 #include "dialog.h"
-#include "dialog.moc"
 #include <qvariant.h>
 #include <qpushbutton.h>
 #include <qlabel.h>
 #include <qlineedit.h>
 #include <qcombobox.h>
 #include <qspinbox.h>
-#include <qbuttongroup.h>
-#include <qgroupbox.h>
+#include <q3buttongroup.h>
+#include <q3groupbox.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
 #include <qimage.h>
 #include <qdir.h>
-#include <qfiledialog.h>
+#include <q3filedialog.h>
+//Added by qt3to4:
+#include <QImageReader>
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 #include "prefsmanager.h"
 #include <prefsfile.h>
 #include <prefscontext.h>
@@ -44,7 +48,7 @@ ExportForm::ExportForm(QWidget* parent, int size, int quality, QString type)
 	ExportFormLayout->addLayout( layout1 );
 
 	layout3 = new QHBoxLayout( 0, 0, 5, "layout3");
-	groupBox1 = new QGroupBox( this, "groupBox1" );
+	groupBox1 = new Q3GroupBox( this, "groupBox1" );
 	groupBox1->setColumnLayout(0, Qt::Vertical );
 	groupBox1->layout()->setSpacing( 5 );
 	groupBox1->layout()->setMargin( 10 );
@@ -60,7 +64,12 @@ ExportForm::ExportForm(QWidget* parent, int size, int quality, QString type)
 	groupBox1Layout->addWidget( textLabel4, 3, 0 );
 	BitmapType = new QComboBox( false, groupBox1, "BitmapType" );
     BitmapType->clear();
-	BitmapType->insertStrList(QImageIO::outputFormats());
+	QStringList formats;
+	QList<QByteArray> fmts = QImageReader::supportedImageFormats();
+	foreach( QByteArray format,  fmts )
+		formats += format;
+
+	BitmapType->addItems(formats);
 	BitmapType->setCurrentText(type);
 	BitmapType->setEditable(false);
 	groupBox1Layout->addMultiCellWidget( BitmapType, 0, 0, 1, 2 );
@@ -81,7 +90,7 @@ ExportForm::ExportForm(QWidget* parent, int size, int quality, QString type)
 	groupBox1Layout->addWidget( EnlargementBox, 3, 1 );
 	layout3->addWidget( groupBox1 );
 
-	ButtonGroup1 = new QButtonGroup( this, "ButtonGroup1" );
+	ButtonGroup1 = new Q3ButtonGroup( this, "ButtonGroup1" );
 	ButtonGroup1->setColumnLayout(0, Qt::Vertical );
 	ButtonGroup1->layout()->setSpacing( 5 );
 	ButtonGroup1->layout()->setMargin( 10 );
@@ -131,7 +140,7 @@ ExportForm::ExportForm(QWidget* parent, int size, int quality, QString type)
 void ExportForm::OutputDirectoryButton_pressed()
 {
 	QString lastDir = prefs->get("wdir", ".");
-	QString d = QFileDialog::getExistingDirectory(lastDir, this, "d", tr("Choose a Export Directory"), true);
+	QString d = Q3FileDialog::getExistingDirectory(lastDir, this, "d", tr("Choose a Export Directory"), true);
 	if (d.length()>0)
 	{
 		OutputDirectory->setText(d);

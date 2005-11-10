@@ -1,16 +1,18 @@
 #include "checkDocument.h"
-#include "checkDocument.moc"
 
 #include <qvariant.h>
-#include <qheader.h>
-#include <qlistview.h>
+#include <q3header.h>
+#include <q3listview.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
 #include <qimage.h>
 #include <qpixmap.h>
 #include <qmap.h>
 #include <qlabel.h>
+//Added by qt3to4:
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 
 #include "sccombobox.h"
 #include "scribus.h"
@@ -130,7 +132,7 @@ CheckDocument::CheckDocument( QWidget* parent, bool modal )  : ScrPaletteBase( p
 	curCheckProfile = new ScComboBox( false, this, "Profiles" );
 	layout1->addWidget( curCheckProfile );
 	checkDocumentLayout->addLayout( layout1 );
-	reportDisplay = new QListView( this, "reportDisplay" );
+	reportDisplay = new Q3ListView( this, "reportDisplay" );
 	reportDisplay->addColumn("Items");
 	reportDisplay->header()->setClickEnabled( false, reportDisplay->header()->count() - 1 );
 	reportDisplay->header()->setResizeEnabled( false, reportDisplay->header()->count() - 1 );
@@ -154,7 +156,7 @@ CheckDocument::CheckDocument( QWidget* parent, bool modal )  : ScrPaletteBase( p
 	masterPageMap.clear();
 	masterPageItemMap.clear();
 	resize( QSize(306, 259).expandedTo(minimumSizeHint()) );
-	clearWState( WState_Polished );
+	setAttribute( Qt::WA_WState_Polished, false );
 	connect(ignoreErrors, SIGNAL(clicked()), this, SIGNAL(ignoreAllErrors()));
 	connect(curCheckProfile, SIGNAL(activated(const QString&)), this, SLOT(newScan(const QString&)));
 }
@@ -170,7 +172,7 @@ void CheckDocument::keyPressEvent(QKeyEvent *ke)
 	QDialog::keyPressEvent(ke);
 }
 */
-void CheckDocument::slotSelect(QListViewItem* ite)
+void CheckDocument::slotSelect(Q3ListViewItem* ite)
 {
 	if (itemMap.contains(ite))
 	{
@@ -209,7 +211,7 @@ void CheckDocument::newScan(const QString& name)
 
 void CheckDocument::clearErrorList()
 {
-	disconnect(reportDisplay, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
+	disconnect(reportDisplay, SIGNAL(selectionChanged(Q3ListViewItem*)), this, SLOT(slotSelect(Q3ListViewItem*)));
 	reportDisplay->clear();
 	itemMap.clear();
 	pageMap.clear();
@@ -240,7 +242,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 	reportDisplay->setSorting(-1);
 	itemMap.clear();
 	pageMap.clear();
-	QListViewItem * item = new QListViewItem( reportDisplay, 0 );
+	Q3ListViewItem * item = new Q3ListViewItem( reportDisplay, 0 );
 	item->setText( 0, tr( "Document" ) );
 	if ((doc->docItemErrors.count() == 0) && (doc->masterItemErrors.count() == 0))
 	{
@@ -251,13 +253,13 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 	{
 		bool hasError = false;
 		bool hasGraveError = false;
-		QListViewItem * pagep = 0;
+		Q3ListViewItem * pagep = 0;
 		for (int a = 0; a < static_cast<int>(doc->MasterPages.count()); ++a)
 		{
 			QString tmp;
 			hasError = false;
 			bool pageGraveError = false;
-			QListViewItem * page = new QListViewItem( item, pagep );
+			Q3ListViewItem * page = new Q3ListViewItem( item, pagep );
 			masterPageMap.insert(page, doc->MasterPages.at(a)->PageNam);
 			pagep = page;
 			QMap<int, errorCodes>::Iterator it2;
@@ -267,7 +269,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 				{
 					hasError = true;
 					bool itemError = false;
-					QListViewItem * object = new QListViewItem( page, 0 );
+					Q3ListViewItem * object = new Q3ListViewItem( page, 0 );
 					masterPageItemMap.insert(object, doc->MasterItems.at(it2.key())->ItemNr);
 					object->setText(0, doc->MasterItems.at(it2.key())->itemName());
 					errorCodes::Iterator it3;
@@ -315,7 +317,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 					{
 						for (it3 = it2.data().begin(); it3 != it2.data().end(); ++it3)
 						{
-							QListViewItem * errorText = new QListViewItem( object, 0 );
+							Q3ListViewItem * errorText = new Q3ListViewItem( object, 0 );
 							switch (it3.key())
 							{
 							case 1:
@@ -386,7 +388,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 			QString tmp;
 			hasError = false;
 			bool pageGraveError = false;
-			QListViewItem * page = new QListViewItem( item, pagep );
+			Q3ListViewItem * page = new Q3ListViewItem( item, pagep );
 			pageMap.insert(page, a);
 			pagep = page;
 			QMap<int, errorCodes>::Iterator it2;
@@ -396,7 +398,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 				{
 					hasError = true;
 					bool itemError = false;
-					QListViewItem * object = new QListViewItem( page, 0 );
+					Q3ListViewItem * object = new Q3ListViewItem( page, 0 );
 					object->setText(0, doc->DocItems.at(it2.key())->itemName());
 					itemMap.insert(object, doc->DocItems.at(it2.key())->ItemNr);
 					errorCodes::Iterator it3;
@@ -444,7 +446,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 					{
 						for (it3 = it2.data().begin(); it3 != it2.data().end(); ++it3)
 						{
-							QListViewItem * errorText = new QListViewItem( object, 0 );
+							Q3ListViewItem * errorText = new Q3ListViewItem( object, 0 );
 							switch (it3.key())
 							{
 							case 1:
@@ -524,14 +526,14 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 		{
 			bool hasError = false;
 			bool pageGraveError = false;
-			QListViewItem * page = new QListViewItem( item, pagep );
+			Q3ListViewItem * page = new Q3ListViewItem( item, pagep );
 			pagep = page;
 			for (it2 = doc->docItemErrors.begin(); it2 != doc->docItemErrors.end(); ++it2)
 			{
 				if (doc->DocItems.at(it2.key())->OwnPage == -1)
 				{
 					hasError = true;
-					QListViewItem * object = new QListViewItem( page, 0 );
+					Q3ListViewItem * object = new Q3ListViewItem( page, 0 );
 					object->setText(0, doc->DocItems.at(it2.key())->itemName());
 					itemMap.insert(object, doc->DocItems.at(it2.key())->ItemNr);
 					errorCodes::Iterator it3;
@@ -576,7 +578,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 					{
 						for (it3 = it2.data().begin(); it3 != it2.data().end(); ++it3)
 						{
-							QListViewItem * errorText = new QListViewItem( object, 0 );
+							Q3ListViewItem * errorText = new Q3ListViewItem( object, 0 );
 							switch (it3.key())
 							{
 							case 1:
@@ -650,7 +652,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 		ignoreErrors->hide();
 	else
 		ignoreErrors->show();
-	connect(reportDisplay, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
+	connect(reportDisplay, SIGNAL(selectionChanged(Q3ListViewItem*)), this, SLOT(slotSelect(Q3ListViewItem*)));
 }
 
 /*

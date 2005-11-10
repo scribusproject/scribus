@@ -7,6 +7,7 @@
 #include "prefsfile.h"
 #include "undomanager.h"
 #include "customfdialog.h"
+#include <Q3ValueList>
 #include "scraction.h"
 #include "menumanager.h"
 
@@ -152,4 +153,3 @@ bool ImportPSPlugin::import(QString fileName)
 	return true;
 }
 
-#include "importpsplugin.moc"

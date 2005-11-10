@@ -1,5 +1,4 @@
 #include "collect4output.h"
-#include "collect4output.moc"
 
 #include "scribus.h"
 #include "scribusapp.h"

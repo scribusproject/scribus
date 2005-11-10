@@ -1,10 +1,11 @@
 #include "tabtypography.h"
-#include "tabtypography.moc"
 #include <qlayout.h>
-#include <qgroupbox.h>
+#include <q3groupbox.h>
 #include <qlabel.h>
 #include <qtooltip.h>
 #include <qspinbox.h>
+//Added by qt3to4:
+#include <QGridLayout>
 #include "mspinbox.h"
 #include "prefsstructs.h"
 #include "scribusstructs.h"
@@ -12,7 +13,7 @@
 TabTypograpy::TabTypograpy( QWidget* parent, struct typoPrefs *prefsData) : QWidget( parent, "tabtypo", 0 )
 {
 	tabTypoLayout = new QGridLayout( this, 1, 1, 0, 6, "tabTypoLayout");
-	groupBox1a = new QGroupBox( this, "groupBox1a" );
+	groupBox1a = new Q3GroupBox( this, "groupBox1a" );
 	groupBox1a->setColumnLayout(0, Qt::Vertical );
 	groupBox1a->layout()->setSpacing( 6 );
 	groupBox1a->layout()->setMargin( 11 );
@@ -33,7 +34,7 @@ TabTypograpy::TabTypograpy( QWidget* parent, struct typoPrefs *prefsData) : QWid
 	textLabel2a = new QLabel(subScaling, tr( "&Scaling:" ), groupBox1a, "textLabel2a" );
 	groupBox1aLayout->addWidget( textLabel2a, 0, 2 );
 	tabTypoLayout->addMultiCellWidget( groupBox1a, 0, 0, 0, 1 );
-	groupBox2a = new QGroupBox( this, "groupBox2a" );
+	groupBox2a = new Q3GroupBox( this, "groupBox2a" );
 	groupBox2a->setColumnLayout(0, Qt::Vertical );
 	groupBox2a->layout()->setSpacing( 6 );
 	groupBox2a->layout()->setMargin( 11 );
@@ -55,7 +56,7 @@ TabTypograpy::TabTypograpy( QWidget* parent, struct typoPrefs *prefsData) : QWid
 	groupBox2aLayout->addWidget( textLabel4a, 0, 2 );
 	tabTypoLayout->addMultiCellWidget( groupBox2a, 1, 1, 0, 1 );
 
-	underlineGroup = new QGroupBox( this, "underlineGroup" );
+	underlineGroup = new Q3GroupBox( this, "underlineGroup" );
 	underlineGroup->setTitle( tr( "Underline" ) );
 	underlineGroup->setColumnLayout(0, Qt::Vertical );
 	underlineGroup->layout()->setSpacing( 6 );
@@ -80,7 +81,7 @@ TabTypograpy::TabTypograpy( QWidget* parent, struct typoPrefs *prefsData) : QWid
 	underlineGroupLayout->addWidget( underlineWidth, 0, 3 );
 	tabTypoLayout->addMultiCellWidget( underlineGroup, 2, 2, 0, 1 );
 
-	strikethruGroup = new QGroupBox( this, "strikethruGroup" );
+	strikethruGroup = new Q3GroupBox( this, "strikethruGroup" );
 	strikethruGroup->setTitle( tr( "Strikethru" ) );
 	strikethruGroup->setColumnLayout(0, Qt::Vertical );
 	strikethruGroup->layout()->setSpacing( 6 );
@@ -105,7 +106,7 @@ TabTypograpy::TabTypograpy( QWidget* parent, struct typoPrefs *prefsData) : QWid
 	strikethruGroupLayout->addWidget( strikethruWidth, 0, 3 );
 	tabTypoLayout->addMultiCellWidget( strikethruGroup, 3, 3, 0, 1 );
 
-	groupBox3a = new QGroupBox( this, "groupBox3a" );
+	groupBox3a = new Q3GroupBox( this, "groupBox3a" );
 	groupBox3a->setColumnLayout(0, Qt::Vertical );
 	groupBox3a->layout()->setSpacing( 6 );
 	groupBox3a->layout()->setMargin( 11 );
@@ -121,7 +122,7 @@ TabTypograpy::TabTypograpy( QWidget* parent, struct typoPrefs *prefsData) : QWid
 	groupBox3aLayout->addWidget( textLabel5a, 0, 0 );
 	tabTypoLayout->addWidget( groupBox3a, 4, 0 );
 
-	groupBox4a = new QGroupBox( this, "groupBox3a" );
+	groupBox4a = new Q3GroupBox( this, "groupBox3a" );
 	groupBox4a->setColumnLayout(0, Qt::Vertical );
 	groupBox4a->layout()->setSpacing( 6 );
 	groupBox4a->layout()->setMargin( 11 );

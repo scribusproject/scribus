@@ -8,6 +8,11 @@
 #include <qpixmap.h>
 #include <qwidget.h>
 #include <qvalidator.h>
+//Added by qt3to4:
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QGridLayout>
+#include <Q3PopupMenu>
 #include "scribusapi.h"
 
 class QVBoxLayout;
@@ -15,7 +20,7 @@ class QHBoxLayout;
 class QGridLayout;
 class QComboBox;
 class QLineEdit;
-class QPopupMenu;
+class Q3PopupMenu;
 class QPushButton;
 class QToolButton;
 
@@ -27,7 +32,7 @@ public:
 	PageSelector( QWidget* parent, int maxPg );
 	~PageSelector() {};
 	bool hasFocus();
-	void focusPolicy(QWidget::FocusPolicy policy);
+	void focusPolicy(Qt::FocusPolicy policy);
 
 #if OPTION_USE_QTOOLBUTTON
 	QToolButton* Start;

@@ -6,13 +6,13 @@
 #include <qlayout.h>
 #include <qspinbox.h>
 #include <qpushbutton.h>
-#include <qgroupbox.h>
+#include <q3groupbox.h>
 #include <qpixmap.h>
 #include <qpainter.h>
 
 
-CwSetColor::CwSetColor(QColor beginColor, QWidget* parent, const char* name, bool modal, WFlags fl)
-	: QDialog(parent, name, modal, fl)
+CwSetColor::CwSetColor(QColor beginColor, QWidget* parent, const char* name, bool modal)
+	: QDialog(parent, name, modal)
 {
 	if (!name)
 		setName("CwSetColor");
@@ -21,7 +21,7 @@ CwSetColor::CwSetColor(QColor beginColor, QWidget* parent, const char* name, boo
 	mainLayout = new QVBoxLayout(0, 0, 6, "mainLayout");
 
 	// CMYK
-	cmykBox = new QGroupBox(this, "cmykBox");
+	cmykBox = new Q3GroupBox(this, "cmykBox");
 	cmykBox->setColumnLayout(0, Qt::Vertical );
 	cmykBox->layout()->setSpacing(6);
 	cmykBox->layout()->setMargin(11);
@@ -63,7 +63,7 @@ CwSetColor::CwSetColor(QColor beginColor, QWidget* parent, const char* name, boo
 	cmykBoxLayout->addWidget(cmykButton, 0, 9);
 
 	// RGB
-	rgbBox = new QGroupBox(this, "rgbBox");
+	rgbBox = new Q3GroupBox(this, "rgbBox");
 	rgbBox->setColumnLayout(0, Qt::Vertical );
 	rgbBox->layout()->setSpacing(6);
 	rgbBox->layout()->setMargin(11);
@@ -98,7 +98,7 @@ CwSetColor::CwSetColor(QColor beginColor, QWidget* parent, const char* name, boo
 	rgbBoxLayout->addWidget(rgbButton, 0, 9);
 
 	// HSV
-	hsvBox = new QGroupBox(this, "hsvBox");
+	hsvBox = new Q3GroupBox(this, "hsvBox");
 	hsvBox->setColumnLayout(0, Qt::Vertical );
 	hsvBox->layout()->setSpacing(6);
 	hsvBox->layout()->setMargin(11);
@@ -147,7 +147,6 @@ CwSetColor::CwSetColor(QColor beginColor, QWidget* parent, const char* name, boo
 	CwSetColorLayout->addLayout(mainLayout, 0, 0);
 	resize(QSize(288, 310).expandedTo(minimumSizeHint()));
 	languageChange();
-	clearWState(WState_Polished);
 
 	// fill begin values
 	fillBeginComponents(beginColor);

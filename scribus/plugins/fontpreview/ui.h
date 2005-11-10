@@ -3,13 +3,19 @@
 
 #include "qdialog.h"
 #include "qpixmap.h"
+//Added by qt3to4:
+#include <QLabel>
+#include <QMap>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QGridLayout>
 
 class QVBoxLayout;
 class QHBoxLayout;
 class QGridLayout;
-class QListView;
-class QListViewItem;
-class QListBoxItem;
+class Q3ListView;
+class Q3ListViewItem;
+class Q3ListBoxItem;
 class QPushButton;
 class QLabel;
 class QSpinBox;
@@ -29,7 +35,7 @@ public:
 	QLabel* searchLabel;
 	QLineEdit* searchEdit;
 	QPushButton* searchButton;
-	QListView* fontList;
+	Q3ListView* fontList;
 	QPushButton* okButton;
 	QPushButton* cancelButton;
 	QLabel* fontPreview;

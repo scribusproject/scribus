@@ -10,6 +10,11 @@
 #include <qfileinfo.h>
 #include <qbitmap.h>
 #include <qdir.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <Q3PointArray>
+#include <Q3PtrList>
+#include <Q3ValueList>
 #include <cmath>
 #include <cstdlib>
 
@@ -38,7 +43,7 @@ QPixmap ScPreview::createPreview(QString data)
 	struct CopyPasteBuffer OB;
 	struct ScText *hg;
 	struct ScText *hl;
-	QPtrList<ScText> Ptexti;
+	Q3PtrList<ScText> Ptexti;
 	bool error;
 	ScColor lf = ScColor();
 	QFont fo;
@@ -53,14 +58,14 @@ QPixmap ScPreview::createPreview(QString data)
 	QBitmap bmd;
 	QPixmap pmd;
 	QImage ip2;
-	FPoint gv;
+	QPointF gv;
 	int chs;
-	QPointArray cl;
+	Q3PointArray cl;
 	QColor tmpfa;
 	QString chx;
-	uint a, zae;
+	int a, zae;
 	double CurY, EndX, CurX, wide, rota, wid;
-	QValueList<ArrowDesc> arrowStyles;
+	Q3ValueList<ArrowDesc> arrowStyles;
 	arrowStyles = prefsManager->appPrefs.arrowStyles;
 	QDomDocument docu("scridoc");
 	docu.setContent(data);
@@ -90,7 +95,7 @@ QPixmap ScPreview::createPreview(QString data)
 			double xa, ya;
 			arrow.name = pg.attribute("Name");
 			QString tmp = pg.attribute("Points");
-			QTextStream fp(&tmp, IO_ReadOnly);
+			QTextStream fp(&tmp, QIODevice::ReadOnly);
 			for (uint cx = 0; cx < pg.attribute("NumPoints").toUInt(); ++cx)
 			{
 				fp >> xa;
@@ -272,7 +277,7 @@ QPixmap ScPreview::createPreview(QString data)
 			{
 				OB.Clip.resize(pg.attribute("NUMCLIP").toUInt());
 				tmpx = pg.attribute("CLIPCOOR");
-				QTextStream f(&tmpx, IO_ReadOnly);
+				QTextStream f(&tmpx, QIODevice::ReadOnly);
 				for (uint c=0; c<pg.attribute("NUMCLIP").toUInt(); ++c)
 				{
 					f >> x;
@@ -286,7 +291,7 @@ QPixmap ScPreview::createPreview(QString data)
 			{
 				OB.PoLine.resize(pg.attribute("NUMPO").toUInt());
 				tmpx = pg.attribute("POCOOR");
-				QTextStream fp(&tmpx, IO_ReadOnly);
+				QTextStream fp(&tmpx, QIODevice::ReadOnly);
 				for (uint cx=0; cx<pg.attribute("NUMPO").toUInt(); ++cx)
 				{
 					fp >> xf;
@@ -328,7 +333,7 @@ QPixmap ScPreview::createPreview(QString data)
 					tmp3 += it.attribute("CSTROKE","None") + "\t";
 					tmp3 += it.attribute("CSHADE2","100") + "\t";
 					tmp3 += it.attribute("CSCALE","100") + "\n";
-					for (uint cxx=0; cxx<tmp2.length(); cxx++)
+					for (int cxx=0; cxx<tmp2.length(); cxx++)
 					{
 						tmpx += tmp2.at(cxx)+tmp3;
 					}
@@ -338,7 +343,7 @@ QPixmap ScPreview::createPreview(QString data)
 			OB.itemText = tmpx;
 			if (!OB.itemText.isEmpty())
 			{
-				QTextStream t(&OB.itemText, IO_ReadOnly);
+				QTextStream t(&OB.itemText, QIODevice::ReadOnly);
 				QString cc;
 				while (!t.atEnd())
 				{
@@ -365,27 +370,27 @@ QPixmap ScPreview::createPreview(QString data)
 					hg->cshade = (*it).toInt();
 					hg->cselect = false;
 					it++;
-					if (it == NULL)
+					if (it == wt.end())
 						hg->cstyle = 0;
 					else
 						hg->cstyle = (*it).toInt();
 					it++;
-					if (it == NULL)
+					if (it == wt.end())
 						hg->cab = 0;
 					else
 						hg->cab = (*it).toInt();
 					it++;
-					if (it == NULL)
+					if (it == wt.end())
 						hg->cstroke = "None";
 					else
 						hg->cstroke = *it;
 					it++;
-					if (it == NULL)
+					if (it == wt.end())
 						hg->cshade2 = 100;
 					else
 						hg->cshade2 = (*it).toInt();
 					it++;
-					if (it == NULL)
+					if (it == wt.end())
 						hg->cscale = 100;
 					else
 						hg->cscale = (*it).toInt();
@@ -398,7 +403,7 @@ QPixmap ScPreview::createPreview(QString data)
 				}
 			}
 			tmpx = GetAttr(&pg, "TEXTCOOR","0 0");
-			QTextStream ft(&tmpx, IO_ReadOnly);
+			QTextStream ft(&tmpx, QIODevice::ReadOnly);
 			for (uint ct=0; ct<GetAttr(&pg, "NUMTEXT","0").toUInt(); ct++)
 			{
 				ft >> Ptexti.at(ct)->xp;
@@ -453,7 +458,7 @@ QPixmap ScPreview::createPreview(QString data)
 				}
 				else
 					pS->fill_gradient = OB.fill_gradient;
-				QWMatrix grm;
+				QMatrix grm;
 				grm.rotate(OB.Rot);
 				FPointArray gra;
 				switch (OB.GrType)
@@ -481,10 +486,10 @@ QPixmap ScPreview::createPreview(QString data)
 					break;
 				case 5:
 					if (OB.Width > OB.Height)
-						gv = FPoint(OB.Width, OB.Height / 2.0);
+						gv = QPointF(OB.Width, OB.Height / 2.0);
 					else
-						gv = FPoint(OB.Width / 2.0, OB.Height);
-					pS->setGradient(VGradient::radial, FPoint(OB.Width / 2.0,OB.Height / 2.0), gv, FPoint(OB.Width / 2.0,OB.Height / 2.0));
+						gv = QPointF(OB.Width / 2.0, OB.Height);
+					pS->setGradient(VGradient::radial, QPointF(OB.Width / 2.0,OB.Height / 2.0), gv, QPointF(OB.Width / 2.0,OB.Height / 2.0));
 					break;
 				case 6:
 					gra.setPoints(2, OB.GrStartX, OB.GrStartY, OB.GrEndX, OB.GrEndY);
@@ -604,7 +609,7 @@ QPixmap ScPreview::createPreview(QString data)
 				break;
 			case PageItem::Line:
 				if (OB.NamedLStyle.isEmpty())
-					pS->drawLine(FPoint(0, 0), FPoint(OB.Width, 0));
+					pS->drawLine(QPointF(0, 0), QPointF(OB.Width, 0));
 				else
 				{
 					multiLine ml = MLineStyles[OB.NamedLStyle];
@@ -616,12 +621,12 @@ QPixmap ScPreview::createPreview(QString data)
 						           static_cast<Qt::PenStyle>(ml[it].Dash),
 						           static_cast<Qt::PenCapStyle>(ml[it].LineEnd),
 						           static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
-						pS->drawLine(FPoint(0, 0), FPoint(OB.Width, 0));
+						pS->drawLine(QPointF(0, 0), QPointF(OB.Width, 0));
 					}
 				}
 				if (OB.startArrowIndex != 0)
 				{
-					QWMatrix arrowTrans;
+					QMatrix arrowTrans;
 					FPointArray arrow = (*arrowStyles.at(OB.startArrowIndex-1)).points.copy();
 					arrowTrans.translate(0, 0);
 					arrowTrans.scale(OB.Pwidth, OB.Pwidth);
@@ -635,7 +640,7 @@ QPixmap ScPreview::createPreview(QString data)
 				}
 				if (OB.endArrowIndex != 0)
 				{
-					QWMatrix arrowTrans;
+					QMatrix arrowTrans;
 					FPointArray arrow = (*arrowStyles.at(OB.endArrowIndex-1)).points.copy();
 					arrowTrans.translate(OB.Width, 0);
 					arrowTrans.scale(OB.Pwidth, OB.Pwidth);
@@ -677,14 +682,14 @@ QPixmap ScPreview::createPreview(QString data)
 				}
 				if (OB.startArrowIndex != 0)
 				{
-					FPoint Start = OB.PoLine.point(0);
+					QPointF Start = OB.PoLine.point(0);
 					for (uint xx = 1; xx < OB.PoLine.size(); xx += 2)
 					{
-						FPoint Vector = OB.PoLine.point(xx);
+						QPointF Vector = OB.PoLine.point(xx);
 						if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
 						{
 							double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
-							QWMatrix arrowTrans;
+							QMatrix arrowTrans;
 							FPointArray arrow = (*arrowStyles.at(OB.startArrowIndex-1)).points.copy();
 							arrowTrans.translate(Start.x(), Start.y());
 							arrowTrans.rotate(r);
@@ -701,14 +706,14 @@ QPixmap ScPreview::createPreview(QString data)
 				}
 				if (OB.endArrowIndex != 0)
 				{
-					FPoint End = OB.PoLine.point(OB.PoLine.size()-2);
+					QPointF End = OB.PoLine.point(OB.PoLine.size()-2);
 					for (uint xx = OB.PoLine.size()-1; xx > 0; xx -= 2)
 					{
-						FPoint Vector = OB.PoLine.point(xx);
+						QPointF Vector = OB.PoLine.point(xx);
 						if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
 						{
 							double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
-							QWMatrix arrowTrans;
+							QMatrix arrowTrans;
 							FPointArray arrow = (*arrowStyles.at(OB.endArrowIndex-1)).points.copy();
 							arrowTrans.translate(End.x(), End.y());
 							arrowTrans.rotate(r);
@@ -733,13 +738,13 @@ QPixmap ScPreview::createPreview(QString data)
 				if (Ptexti.count() != 0)
 					CurX += Ptexti.at(0)->csize * Ptexti.at(0)->cextra / 10000.0;
 				zae = 0;
-				wid = sqrt(pow(cl.point(zae+1).x()-cl.point(zae).x(),2.0)+pow(cl.point(zae+1).y()-cl.point(zae).y(),2.0));
+				wid = sqrt(pow(double(cl.point(zae+1).x()-cl.point(zae).x()),double(2.0))+pow(double(cl.point(zae+1).y()-cl.point(zae).y()),double(2.0)));
 				while (wid < 1)
 				{
 					zae++;
 					if (zae == cl.size()-1)
 						goto PfadEnd;
-					wid = sqrt(pow(cl.point(zae+1).x()-cl.point(zae).x(),2.0)+pow(cl.point(zae+1).y()-cl.point(zae).y(),2.0));
+					wid = sqrt(pow(double(cl.point(zae+1).x()-cl.point(zae).x()),double(2.0))+pow(double(cl.point(zae+1).y()-cl.point(zae).y()),double(2.0)));
 				}
 				rota = xy2Deg(cl.point(zae+1).x()-cl.point(zae).x(),cl.point(zae+1).y()-cl.point(zae).y());
 				for (a = 0; a < Ptexti.count(); a++)
@@ -793,7 +798,7 @@ QPixmap ScPreview::createPreview(QString data)
 									zae++;
 									if (zae == cl.size()-1)
 										goto PfadEnd;
-									wid = sqrt(pow(cl.point(zae+1).x()-cl.point(zae).x(),2.0)+pow(cl.point(zae+1).y()-cl.point(zae).y(),2.0));
+									wid = sqrt(pow(double(cl.point(zae+1).x()-cl.point(zae).x()),double(2.0))+pow(double(cl.point(zae+1).y()-cl.point(zae).y()),double(2.0)));
 									rota = xy2Deg(cl.point(zae+1).x()-cl.point(zae).x(),cl.point(zae+1).y()-cl.point(zae).y());
 								}
 								while (wid == 0);
@@ -874,20 +879,20 @@ void ScPreview::DrawZeichenS(ScPainter *p, double xco, double yco, QString ch, Q
 	if (prefsManager->appPrefs.AvailFonts[ZFo]->CharWidth.contains(chr))
 	{
 		wide = prefsManager->appPrefs.AvailFonts[ZFo]->CharWidth[chr]*(Siz / 10.0);
-		QWMatrix chma;
+		QMatrix chma;
 		chma.scale(csi, csi);
 		FPointArray gly = prefsManager->appPrefs.AvailFonts[ZFo]->GlyphArray[chr].Outlines.copy();
 		if (gly.size() < 4)
 			return;
 		gly.map(chma);
-		chma = QWMatrix();
+		chma = QMatrix();
 		p->setFillMode(1);
 		if (Reverse)
 		{
 			chma.scale(-1, 1);
 			chma.translate(-wide, 0);
 			gly.map(chma);
-			chma = QWMatrix();
+			chma = QMatrix();
 			chma.translate(xco, yco-(Siz / 10.0));
 		}
 		else
@@ -905,14 +910,14 @@ void ScPreview::DrawZeichenS(ScPainter *p, double xco, double yco, QString ch, Q
 		if (Style & 16)
 		{
 			double st = prefsManager->appPrefs.AvailFonts[ZFo]->strikeout_pos * (Siz / 10.0);
-			p->setLineWidth(QMAX(prefsManager->appPrefs.AvailFonts[ZFo]->strokeWidth * (Siz / 10.0), 1));
-			p->drawLine(FPoint(xco, yco-st), FPoint(xco+wide, yco-st));
+			p->setLineWidth(QMAX(prefsManager->appPrefs.AvailFonts[ZFo]->strokeWidth * (Siz / 10.0), 1.0));
+			p->drawLine(QPointF(xco, yco-st), QPointF(xco+wide, yco-st));
 		}
 		if (Style & 8)
 		{
 			double st = prefsManager->appPrefs.AvailFonts[ZFo]->underline_pos * (Siz / 10.0);
-			p->setLineWidth(QMAX(prefsManager->appPrefs.AvailFonts[ZFo]->strokeWidth * (Siz / 10.0), 1));
-			p->drawLine(FPoint(xco, yco-st), FPoint(xco+wide, yco-st));
+			p->setLineWidth(QMAX(prefsManager->appPrefs.AvailFonts[ZFo]->strokeWidth * (Siz / 10.0), 1.0));
+			p->drawLine(QPointF(xco, yco-st), QPointF(xco+wide, yco-st));
 		}
 	}
 	else

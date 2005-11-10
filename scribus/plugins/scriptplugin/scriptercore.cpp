@@ -8,8 +8,11 @@
 #include <qtextcodec.h>
 #include <qdom.h>
 #include <qtextstream.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <Q3CString>
 #include <cstdlib>
-#include <qtextedit.h>
+#include <q3textedit.h>
 
 #include "runscriptdialog.h"
 #include "helpbrowser.h"
@@ -26,7 +29,6 @@
 #include "prefstable.h"
 #include "prefsmanager.h"
 
-#include "scriptercore.moc"
 
 ScripterCore::ScripterCore(QWidget* parent)
 {
@@ -81,7 +83,7 @@ void ScripterCore::buildScribusScriptsMenu()
 		{
 			QFileInfo fs(ds[dc]);
 			QString strippedName=fs.baseName(false);
-			scrScripterActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, QIconSet(), strippedName, QKeySequence(), this, strippedName));
+			scrScripterActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, QIcon(), strippedName, QKeySequence(), this, strippedName));
 			connect( scrScripterActions[strippedName], SIGNAL(activatedData(QString)), this, SLOT(StdScript(QString)) );
 			menuMgr->addMenuItem(scrScripterActions[strippedName], "ScribusScripts");
 		}
@@ -92,7 +94,7 @@ void ScripterCore::buildScribusScriptsMenu()
 
 void ScripterCore::rebuildRecentScriptsMenu()
 {
-	for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = scrRecentScriptActions.begin(); it!=scrRecentScriptActions.end(); ++it )
+	for( QMap<QString, QPointer<ScrAction> >::Iterator it = scrRecentScriptActions.begin(); it!=scrRecentScriptActions.end(); ++it )
 		menuMgr->removeMenuItem((*it), "RecentScripts");
 
 	scrRecentScriptActions.clear();
@@ -101,7 +103,7 @@ void ScripterCore::rebuildRecentScriptsMenu()
 	{
 		QString strippedName=RecentScripts[m];
 		strippedName.remove(QDir::separator());
-		scrRecentScriptActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, QIconSet(), RecentScripts[m], QKeySequence(), this, strippedName));
+		scrRecentScriptActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, QIcon(), RecentScripts[m], QKeySequence(), this, strippedName));
 		connect( scrRecentScriptActions[strippedName], SIGNAL(activatedData(QString)), this, SLOT(RecentScript(QString)) );
 		menuMgr->addMenuItem(scrRecentScriptActions[strippedName], "RecentScripts");
 	}
@@ -121,7 +123,7 @@ void ScripterCore::buildRecentScriptsMenu()
 			{
 				QString strippedName=SavedRecentScripts[m];
 				strippedName.remove(QDir::separator());
-				scrRecentScriptActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, QIconSet(), SavedRecentScripts[m], QKeySequence(), this, strippedName));
+				scrRecentScriptActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, QIcon(), SavedRecentScripts[m], QKeySequence(), this, strippedName));
 				connect( scrRecentScriptActions[strippedName], SIGNAL(activatedData(QString)), this, SLOT(RecentScript(QString)) );
 				menuMgr->addMenuItem(scrRecentScriptActions[strippedName], "RecentScripts");
 			}
@@ -252,12 +254,12 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 {
 	PyThreadState *stateo, *state;
 	QFileInfo fi(fileName);
-	QCString na = fi.fileName().latin1();
+	Q3CString na = fi.fileName().latin1();
 	// Set up a sub-interpreter if needed:
 	if (!inMainInterpreter)
 	{
 		ScApp->ScriptRunning = true;
-		qApp->setOverrideCursor(QCursor(waitCursor), false);
+		qApp->setOverrideCursor(QCursor(Qt::waitCursor), false);
 		// Create the sub-interpreter
 		// FIXME: This calls abort() in a Python debug build. We're doing something wrong.
 		stateo = PyEval_SaveThread();
@@ -314,7 +316,7 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 		// the fact that an exception has ocurred.
 		cm        += QString("    raise\n");
 		// FIXME: if cmd contains chars outside 7bit ascii, might be problems
-		QCString cmd = cm.latin1();
+		Q3CString cmd = cm.latin1();
 		// Now run the script in the interpreter's global scope. It'll run in a
 		// sub-interpreter if we created and switched to one earlier, otherwise
 		// it'll run in the main interpreter.
@@ -362,7 +364,7 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 QString ScripterCore::slotRunScript(QString Script)
 {
 	ScApp->ScriptRunning = true;
-	qApp->setOverrideCursor(QCursor(waitCursor), false);
+	qApp->setOverrideCursor(QCursor(Qt::waitCursor), false);
 	InValue = Script;
 	QString CurDir = QDir::currentDirPath();
 	QString cm(
@@ -394,7 +396,7 @@ QString ScripterCore::slotRunScript(QString Script)
 				"sys.stderr = sys.__stderr__\n"
 			  );
 	}
-	QCString cmd = cm.utf8();
+	Q3CString cmd = cm.utf8();
 	// Set up sys.argv
 	char* comm[1];
 	comm[0] = const_cast<char*>("scribus");
@@ -499,10 +501,10 @@ void ScripterCore::aboutScript()
 	QFileInfo fi = QFileInfo(fname);
 	QString html = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/aboutScript.html");
 	QFile input(fname);
-	if(!input.open(IO_ReadOnly))
+	if(!input.open(QIODevice::ReadOnly))
 		return;
 	QFile output(html);
-	if(!output.open(IO_WriteOnly))
+	if(!output.open(QIODevice::WriteOnly))
 		return;
 	QTextStream intputstream(&input);
 	QTextStream outputstream(&output);
@@ -532,7 +534,7 @@ void ScripterCore::initExtensionScripts()
 
 void ScripterCore::runStartupScript()
 {
-	if ((m_enableExtPython) && (m_startupScript))
+	if ((m_enableExtPython) && (!m_startupScript.isEmpty()))
 	{
 		if (QFile::exists(this->m_startupScript))
 		{
@@ -570,7 +572,7 @@ bool ScripterCore::setupMainInterpreter()
 		).arg(ScPaths::instance().scriptDir());
 	if (m_importAllNames)
 		cm += "from scribus import *\n";
-	QCString cmd = cm.utf8();
+	Q3CString cmd = cm.utf8();
 	if (PyRun_SimpleString(cmd.data()))
 	{
 		PyErr_Print();

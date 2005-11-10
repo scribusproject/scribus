@@ -2,11 +2,12 @@
  *   Riku Leino, tsoots@gmail.com                                          *
  ***************************************************************************/
 #include "satemplate.h"
-#include "satemplate.moc"
 #include "satdialog.h"
 #include "scribus.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
+//Added by qt3to4:
+#include <QTextStream>
 
 int saveastemplateplugin_getPluginAPIVersion()
 {
@@ -165,7 +166,7 @@ void sat::createTmplXml()
 	xml += "<templates>\n";
 	xml += getTemplateTag();
 	xml += "</templates>\n";
-	if ( tmplXml.open( IO_WriteOnly ) )
+	if ( tmplXml.open( QIODevice::WriteOnly ) )
 	{
 		QTextStream stream(&tmplXml);
 		stream.setEncoding(QTextStream::UnicodeUTF8);
@@ -201,12 +202,12 @@ void sat::createImages()
 void sat::appendTmplXml()
 {
 	QFile tmplXml(tmplXmlFile);
-	if (tmplXml.open(IO_ReadOnly))
+	if (tmplXml.open(QIODevice::ReadOnly))
 	{
 		QTextStream stream(&tmplXml);
 		QString tmp = stream.readLine();
 		QString file = "";
-		while (tmp != NULL)
+		while (!tmp.isNull())
 		{
 			file += tmp + "\n";
 			tmp = stream.readLine();
@@ -214,7 +215,7 @@ void sat::appendTmplXml()
 				file += getTemplateTag();
 		}
 		tmplXml.close();
-		if ( tmplXml.open( IO_WriteOnly ) )
+		if ( tmplXml.open( QIODevice::WriteOnly ) )
 		{
 			QTextStream stream2(&tmplXml);
 			stream2.setEncoding(QTextStream::UnicodeUTF8);

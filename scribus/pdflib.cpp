@@ -16,7 +16,6 @@
  ***************************************************************************/
 
 #include "pdflib.h"
-#include "pdflib.moc"
 
 #include "scconfig.h"
 
@@ -27,8 +26,11 @@
 #include <qdatetime.h>
 #include <qfileinfo.h>
 #include <qtextstream.h>
-#include <qprogressbar.h>
+#include <q3progressbar.h>
 #include <qdir.h>
+#include <QPixmap>
+#include <Q3PtrList>
+#include <Q3ValueList>
 #include <cstdlib>
 #include <cmath>
 #ifdef HAVE_UNISTD_H
@@ -113,7 +115,7 @@ PDFlib::PDFlib(ScribusDoc *docu)
 		KeyGen[a] = kg_array[a];
 }
 
-bool PDFlib::doExport(QString fn, QString nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs, QProgressBar *dia2)
+bool PDFlib::doExport(QString fn, QString nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs, Q3ProgressBar *dia2)
 {
 	QPixmap pm;
 	bool ret = false;
@@ -175,7 +177,7 @@ QString PDFlib::IToStr(int c)
 void PDFlib::PutDoc(QString in)
 {
 	QTextStream t(&Spool);
-	t.writeRawBytes(in.latin1(), in.length());
+	t << in;
 	Spool.flush();
 	Dokument += in.length();
 }
@@ -195,7 +197,7 @@ QString PDFlib::PDFEncode(QString in)
 {
 	QString tmp = "";
 	QString cc;
-	for (uint d = 0; d < in.length(); ++d)
+	for (int d = 0; d < in.length(); ++d)
 	{
 		cc = in.at(d);
 		if ((cc == "(") || (cc == ")") || (cc == "\\"))
@@ -217,8 +219,8 @@ QString PDFlib::EncStream(QString *in, int ObjNum)
 		tmp = *in;
 		QByteArray us(tmp.length());
 		QByteArray ou(tmp.length());
-		for (uint a = 0; a < tmp.length(); ++a)
-			us[a] = uchar(QChar(tmp.at(a)));
+		for (int a = 0; a < tmp.length(); ++a)
+			us[a] = tmp.at(a).cell();
 		QByteArray data(10);
 		if (KeyLen > 5)
 			data.resize(21);
@@ -237,7 +239,7 @@ QString PDFlib::EncStream(QString *in, int ObjNum)
  		rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), QMIN(KeyLen+5, 16));
  		rc4_encrypt(&rc4, reinterpret_cast<uchar*>(us.data()), reinterpret_cast<uchar*>(ou.data()), tmp.length());
 		QString uk = "";
-		for (uint cl = 0; cl < tmp.length(); ++cl)
+		for (int cl = 0; cl < tmp.length(); ++cl)
 			uk += QChar(ou[cl]);
 		tmp = uk;
 	}
@@ -258,8 +260,8 @@ QString PDFlib::EncString(QString in, int ObjNum)
 		tmp = in.mid(1, in.length()-2);
 		QByteArray us(tmp.length());
 		QByteArray ou(tmp.length());
-		for (uint a = 0; a < tmp.length(); ++a)
-			us[a] = static_cast<uchar>(QChar(tmp.at(a)));
+		for (int a = 0; a < tmp.length(); ++a)
+			us[a] = tmp.at(a).cell();
 		QByteArray data(10);
 		if (KeyLen > 5)
 			data.resize(21);
@@ -278,7 +280,7 @@ QString PDFlib::EncString(QString in, int ObjNum)
   		rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), QMIN(KeyLen+5, 16));
   		rc4_encrypt(&rc4, reinterpret_cast<uchar*>(us.data()), reinterpret_cast<uchar*>(ou.data()), tmp.length());
 		QString uk = "";
-		for (uint cl = 0; cl < tmp.length(); ++cl)
+		for (int cl = 0; cl < tmp.length(); ++cl)
 			uk += QChar(ou[cl]);
 		tmp = "<"+String2Hex(&uk, false)+">";
 	}
@@ -323,7 +325,7 @@ void PDFlib::CalcOwnerKey(QString Owner, QString User)
 	if (KeyLen > 5)
 	{
 		for (uint a2 = 0; a2 < 32; ++a2)
-			OwnerKey[a2] = static_cast<uchar>(QChar(pw.at(a2)));
+			OwnerKey[a2] = pw.at(a2).cell();
 		for (int rl = 0; rl < 20; rl++)
 		{
 		  	for (int j = 0; j < 16; j ++)
@@ -336,7 +338,7 @@ void PDFlib::CalcOwnerKey(QString Owner, QString User)
 	else
 	{
 		for (uint a = 0; a < 32; ++a)
-			us[a] = static_cast<uchar>(QChar(pw.at(a)));
+			us[a] = pw.at(a).cell();
 		rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), 5);
   		rc4_encrypt(&rc4, reinterpret_cast<uchar*>(us.data()), 
 					reinterpret_cast<uchar*>(OwnerKey.data()), 32);
@@ -399,15 +401,15 @@ void PDFlib::CalcUserKey(QString User, int Permission)
 QByteArray PDFlib::ComputeMD5(QString in)
 {
 	QByteArray TBytes(in.length());
-	for (uint a = 0; a < in.length(); ++a)
-		TBytes[a] = static_cast<uchar>(QChar(in.at(a)));
+	for (int a = 0; a < in.length(); ++a)
+		TBytes[a] = in.at(a).cell();
 	return ComputeMD5Sum(&TBytes);
 }
 
 bool PDFlib::PDF_Begin_Doc(QString fn, PDFOptions *opts, SCFonts &AllFonts, QMap<QString,int> DocFonts, BookMView* vi)
 {
   	Spool.setName(fn);
-	if (!Spool.open(IO_WriteOnly))
+	if (!Spool.open(QIODevice::WriteOnly))
 		return false;
 	QString tmp;
 	QString ok = "";
@@ -582,12 +584,12 @@ bool PDFlib::PDF_Begin_Doc(QString fn, PDFOptions *opts, SCFonts &AllFonts, QMap
 			QMap<uint,FPointArray>::Iterator ig;
 			for (ig = AllFonts[it.key()]->RealGlyphs.begin(); ig != AllFonts[it.key()]->RealGlyphs.end(); ++ig)
 			{
-				FPoint np, np1, np2;
+				QPointF np, np1, np2;
 				bool nPath = true;
 				if (ig.data().size() > 3)
 				{
 					FPointArray gly = ig.data().copy();
-					QWMatrix mat;
+					QMatrix mat;
 					mat.scale(0.1, 0.1);
 					gly.map(mat);
 					for (uint poi = 0; poi < gly.size()-3; poi += 4)
@@ -641,7 +643,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, PDFOptions *opts, SCFonts &AllFonts, QMap
 				StartObj(ObjCounter);
 				QByteArray bb;
 				AllFonts[it.key()]->RawData(bb);
-				uint posi;
+				int posi;
 				for (posi = 6; posi < bb.size(); ++posi)
 				{
 					if ((bb[posi] == static_cast<char>(0x80)) && (static_cast<int>(bb[posi+1]) == 2))
@@ -649,7 +651,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, PDFOptions *opts, SCFonts &AllFonts, QMap
 					fon += QChar(bb[posi]);
 				}
 				int len1 = fon.length();
-				uint ulen;
+				int ulen;
 				ulen = bb[posi+2] & 0xff;
 				ulen |= (bb[posi+3] << 8) & 0xff00;
 				ulen |= (bb[posi+4] << 16) & 0xff0000;
@@ -657,11 +659,11 @@ bool PDFlib::PDF_Begin_Doc(QString fn, PDFOptions *opts, SCFonts &AllFonts, QMap
 				if (ulen > bb.size())
 					ulen = bb.size()-7;
 				posi += 6;
-				for (uint j = 0; j < ulen; ++j)
+				for (int j = 0; j < ulen; ++j)
 					fon += QChar(bb[posi++]);
 				posi += 6;
 				int len2 = fon.length()-len1;
-				for (uint j = posi; j < bb.size(); ++j)
+				for (int j = posi; j < bb.size(); ++j)
 				{
 					if ((bb[j] == static_cast<char>(0x80)) && (static_cast<int>(bb[j+1]) == 3))
 						break;
@@ -727,7 +729,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, PDFOptions *opts, SCFonts &AllFonts, QMap
 				QByteArray bb;
 				AllFonts[it.key()]->RawData(bb);
 				//AV: += and append() dont't work because they stop at '\0' :-(
-				for (unsigned int i=0; i < bb.size(); i++)
+				for (int i=0; i < bb.size(); i++)
 					fon += QChar(bb[i]);
 				int len = fon.length();
 				if ((Options->Compress) && (CompAvail))
@@ -982,7 +984,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, PDFOptions *opts, SCFonts &AllFonts, QMap
 		ll.LNr = 0;
 		int Lnr = 0;
 		QString ocgNam = "oc";
-		for (uint la = 0; la < doc->Layers.count(); ++la)
+		for (int la = 0; la < doc->Layers.count(); ++la)
 		{
 			QString tmp = "";
 			Level2Layer(doc, &ll, Lnr);
@@ -1007,14 +1009,14 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 	QString tmp;
 	ActPageP = pag;
 	PageItem* ite;
-	QPtrList<PageItem> PItems;
+	Q3PtrList<PageItem> PItems;
 	int Lnr = 0;
 	struct Layer ll;
 	ll.isPrintable = false;
 	ll.LNr = 0;
 	Inhalt = "";
 	Seite.AObjects.clear();
-	for (uint la = 0; la < doc->Layers.count(); ++la)
+	for (int la = 0; la < doc->Layers.count(); ++la)
 	{
 		Level2Layer(doc, &ll, Lnr);
 		PItems = doc->MasterItems;
@@ -1060,7 +1062,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 				if (ite->DashValues.count() != 0)
 				{
 					PutPage("[ ");
-					QValueList<double>::iterator it;
+					Q3ValueList<double>::iterator it;
 					for ( it = ite->DashValues.begin(); it != ite->DashValues.end(); ++it )
 					{
 						int da = static_cast<int>(*it);
@@ -1071,8 +1073,8 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 				}
 				else
 				{
-					QString Dt = FToStr(QMAX(2*fabs(ite->Pwidth), 1));
-					QString Da = FToStr(QMAX(6*fabs(ite->Pwidth), 1));
+					QString Dt = FToStr(QMAX(2*fabs(ite->Pwidth), 1.0));
+					QString Da = FToStr(QMAX(6*fabs(ite->Pwidth), 1.0));
 					switch (ite->PLineArt)
 					{
 						case Qt::SolidLine:
@@ -1203,7 +1205,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 						}
 						if (ite->startArrowIndex != 0)
 						{
-							QWMatrix arrowTrans;
+							QMatrix arrowTrans;
 							FPointArray arrow = (*doc->arrowStyles.at(ite->startArrowIndex-1)).points.copy();
 							arrowTrans.translate(0, 0);
 							arrowTrans.scale(ite->Pwidth, ite->Pwidth);
@@ -1229,7 +1231,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 						}
 						if (ite->endArrowIndex != 0)
 						{
-							QWMatrix arrowTrans;
+							QMatrix arrowTrans;
 							FPointArray arrow = (*doc->arrowStyles.at(ite->endArrowIndex-1)).points.copy();
 							arrowTrans.translate(ite->Width, 0);
 							arrowTrans.scale(ite->Pwidth, ite->Pwidth);
@@ -1319,14 +1321,14 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 						}
 						if (ite->startArrowIndex != 0)
 						{
-							FPoint Start = ite->PoLine.point(0);
+							QPointF Start = ite->PoLine.point(0);
 							for (uint xx = 1; xx < ite->PoLine.size(); xx += 2)
 							{
-								FPoint Vector = ite->PoLine.point(xx);
+								QPointF Vector = ite->PoLine.point(xx);
 								if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
 								{
 									double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
-									QWMatrix arrowTrans;
+									QMatrix arrowTrans;
 									FPointArray arrow = (*doc->arrowStyles.at(ite->startArrowIndex-1)).points.copy();
 									arrowTrans.translate(Start.x(), Start.y());
 									arrowTrans.rotate(r);
@@ -1355,14 +1357,14 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 						}
 						if (ite->endArrowIndex != 0)
 						{
-							FPoint End = ite->PoLine.point(ite->PoLine.size()-2);
+							QPointF End = ite->PoLine.point(ite->PoLine.size()-2);
 							for (uint xx = ite->PoLine.size()-1; xx > 0; xx -= 2)
 							{
-								FPoint Vector = ite->PoLine.point(xx);
+								QPointF Vector = ite->PoLine.point(xx);
 								if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
 								{
 									double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
-									QWMatrix arrowTrans;
+									QMatrix arrowTrans;
 									FPointArray arrow = (*doc->arrowStyles.at(ite->endArrowIndex-1)).points.copy();
 									arrowTrans.translate(End.x(), End.y());
 									arrowTrans.rotate(r);
@@ -1535,7 +1537,7 @@ void PDFlib::PDF_End_Page()
 	if (Seite.AObjects.count() != 0)
 	{
 		PutDoc("/Annots [ ");
-		for (uint b = 0; b < Seite.AObjects.count(); ++b)
+		for (int b = 0; b < Seite.AObjects.count(); ++b)
 			PutDoc(IToStr(Seite.AObjects[b])+" 0 R ");
 		PutDoc("]\n");
 	}
@@ -1622,7 +1624,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 	QString tmp;
 	ActPageP = pag;
 	PageItem* ite;
-	QPtrList<PageItem> PItems;
+	Q3PtrList<PageItem> PItems;
 	int Lnr = 0;
 	struct Layer ll;
 	ll.isPrintable = false;
@@ -1649,7 +1651,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 		{
 			if (!Options->MirrorH)
 				PutPage("1 0 0 1 0 0 cm\n");
-			for (uint lam = 0; lam < doc->Layers.count(); ++lam)
+			for (int lam = 0; lam < doc->Layers.count(); ++lam)
 			{
 				Level2Layer(doc, &ll, Lnr);
 				Lnr++;
@@ -1680,7 +1682,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 							if (ite->DashValues.count() != 0)
 							{
 								PutPage("[ ");
-								QValueList<double>::iterator it;
+								Q3ValueList<double>::iterator it;
 								for ( it = ite->DashValues.begin(); it != ite->DashValues.end(); ++it )
 								{
 									int da = static_cast<int>(*it);
@@ -1691,8 +1693,8 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 							}
 							else
 							{
-								QString Dt = FToStr(QMAX(2*fabs(ite->Pwidth), 1));
-								QString Da = FToStr(QMAX(6*fabs(ite->Pwidth), 1));
+								QString Dt = FToStr(QMAX(2*fabs(ite->Pwidth), 1.0));
+								QString Da = FToStr(QMAX(6*fabs(ite->Pwidth), 1.0));
 								switch (ite->PLineArt)
 								{
 									case Qt::SolidLine:
@@ -1802,7 +1804,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 						if (ite->DashValues.count() != 0)
 						{
 							PutPage("[ ");
-							QValueList<double>::iterator it;
+							Q3ValueList<double>::iterator it;
 							for ( it = ite->DashValues.begin(); it != ite->DashValues.end(); ++it )
 							{
 								int da = static_cast<int>(*it);
@@ -1813,8 +1815,8 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 						}
 						else
 						{
-							QString Dt = FToStr(QMAX(2*fabs(ite->Pwidth), 1));
-							QString Da = FToStr(QMAX(6*fabs(ite->Pwidth), 1));
+							QString Dt = FToStr(QMAX(2*fabs(ite->Pwidth), 1.0));
+							QString Da = FToStr(QMAX(6*fabs(ite->Pwidth), 1.0));
 							switch (ite->PLineArt)
 							{
 								case Qt::SolidLine:
@@ -1899,7 +1901,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 	ll.isPrintable = false;
 	ll.LNr = 0;
 	Lnr = 0;
-	for (uint la = 0; la < doc->Layers.count(); ++la)
+	for (int la = 0; la < doc->Layers.count(); ++la)
 	{
 		Level2Layer(doc, &ll, Lnr);
 		if (!pag->PageNam.isEmpty())
@@ -1954,7 +1956,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 					if (ite->DashValues.count() != 0)
 					{
 						PutPage("[ ");
-						QValueList<double>::iterator it;
+						Q3ValueList<double>::iterator it;
 						for ( it = ite->DashValues.begin(); it != ite->DashValues.end(); ++it )
 						{
 							int da = static_cast<int>(*it);
@@ -1965,8 +1967,8 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 					}
 					else
 					{
-						QString Dt = FToStr(QMAX(2*fabs(ite->Pwidth), 1));
-						QString Da = FToStr(QMAX(6*fabs(ite->Pwidth), 1));
+						QString Dt = FToStr(QMAX(2*fabs(ite->Pwidth), 1.0));
+						QString Da = FToStr(QMAX(6*fabs(ite->Pwidth), 1.0));
 						switch (ite->PLineArt)
 						{
 							case Qt::SolidLine:
@@ -2087,7 +2089,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, Page* pag, uint PNr, bool embedde
 	if (ite->DashValues.count() != 0)
 	{
 		tmp += "[ ";
-		QValueList<double>::iterator it;
+		Q3ValueList<double>::iterator it;
 		for ( it = ite->DashValues.begin(); it != ite->DashValues.end(); ++it )
 		{
 			int da = static_cast<int>(*it);
@@ -2098,8 +2100,8 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, Page* pag, uint PNr, bool embedde
 	}
 	else
 	{
-		QString Dt = FToStr(QMAX(2*fabs(ite->Pwidth), 1));
-		QString Da = FToStr(QMAX(6*fabs(ite->Pwidth), 1));
+		QString Dt = FToStr(QMAX(2*fabs(ite->Pwidth), 1.0));
+		QString Da = FToStr(QMAX(6*fabs(ite->Pwidth), 1.0));
 		switch (ite->PLineArt)
 		{
 			case Qt::SolidLine:
@@ -2273,7 +2275,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, Page* pag, uint PNr, bool embedde
 			}
 			if (ite->startArrowIndex != 0)
 			{
-				QWMatrix arrowTrans;
+				QMatrix arrowTrans;
 				FPointArray arrow = (*doc->arrowStyles.at(ite->startArrowIndex-1)).points.copy();
 				arrowTrans.translate(0, 0);
 				arrowTrans.scale(ite->Pwidth, ite->Pwidth);
@@ -2299,7 +2301,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, Page* pag, uint PNr, bool embedde
 			}
 			if (ite->endArrowIndex != 0)
 			{
-				QWMatrix arrowTrans;
+				QMatrix arrowTrans;
 				FPointArray arrow = (*doc->arrowStyles.at(ite->endArrowIndex-1)).points.copy();
 				arrowTrans.translate(ite->Width, 0);
 				arrowTrans.scale(ite->Pwidth, ite->Pwidth);
@@ -2389,14 +2391,14 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, Page* pag, uint PNr, bool embedde
 			}
 			if (ite->startArrowIndex != 0)
 			{
-				FPoint Start = ite->PoLine.point(0);
+				QPointF Start = ite->PoLine.point(0);
 				for (uint xx = 1; xx < ite->PoLine.size(); xx += 2)
 				{
-					FPoint Vector = ite->PoLine.point(xx);
+					QPointF Vector = ite->PoLine.point(xx);
 					if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
 					{
 						double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
-						QWMatrix arrowTrans;
+						QMatrix arrowTrans;
 						FPointArray arrow = (*doc->arrowStyles.at(ite->startArrowIndex-1)).points.copy();
 						arrowTrans.translate(Start.x(), Start.y());
 						arrowTrans.rotate(r);
@@ -2425,14 +2427,14 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, Page* pag, uint PNr, bool embedde
 			}
 			if (ite->endArrowIndex != 0)
 			{
-				FPoint End = ite->PoLine.point(ite->PoLine.size()-2);
+				QPointF End = ite->PoLine.point(ite->PoLine.size()-2);
 				for (uint xx = ite->PoLine.size()-1; xx > 0; xx -= 2)
 				{
-					FPoint Vector = ite->PoLine.point(xx);
+					QPointF Vector = ite->PoLine.point(xx);
 					if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
 					{
 						double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
-						QWMatrix arrowTrans;
+						QMatrix arrowTrans;
 						FPointArray arrow = (*doc->arrowStyles.at(ite->endArrowIndex-1)).points.copy();
 						arrowTrans.translate(End.x(), End.y());
 						arrowTrans.rotate(r);
@@ -2582,9 +2584,9 @@ QString PDFlib::setStrokeMulti(struct SingleLine *sl)
 	QString tmp = "";
 	tmp += putColor(sl->Color, sl->Shade, false);
 	tmp += FToStr(sl->Width)+" w\n";
-	QString Dt = FToStr(QMAX(2*sl->Width, 1));
-	QString Da = FToStr(QMAX(6*sl->Width, 1));
-	switch (static_cast<PenStyle>(sl->Dash))
+	QString Dt = FToStr(QMAX(2*sl->Width, 1.0));
+	QString Da = FToStr(QMAX(6*sl->Width, 1.0));
+	switch (static_cast<Qt::PenStyle>(sl->Dash))
 	{
 		case Qt::SolidLine:
 			tmp += "[] 0 d\n";
@@ -2605,7 +2607,7 @@ QString PDFlib::setStrokeMulti(struct SingleLine *sl)
 			tmp += "[] 0 d\n";
 			break;
 		}
-	switch (static_cast<PenCapStyle>(sl->LineEnd))
+	switch (static_cast<Qt::PenCapStyle>(sl->LineEnd))
 	{
 		case Qt::FlatCap:
 			tmp += "0 J\n";
@@ -2620,7 +2622,7 @@ QString PDFlib::setStrokeMulti(struct SingleLine *sl)
 			tmp += "0 J\n";
 			break;
 	}
-	switch (static_cast<PenJoinStyle>(sl->LineJoin))
+	switch (static_cast<Qt::PenJoinStyle>(sl->LineJoin))
 	{
 		case Qt::MiterJoin:
 			tmp += "0 j\n";
@@ -2645,7 +2647,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, Page* pag)
 	QString tmp2 = "";
 	double tabDist;
 	uint tabCc = 0;
-	QValueList<PageItem::TabRecord> tTabValues;
+	Q3ValueList<PageItem::TabRecord> tTabValues;
 	if (ite->lineColor() != "None")
 		tabDist = ite->Extra + ite->Pwidth / 2.0;
 	else
@@ -2777,8 +2779,8 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 	if (ite->asPathText())
 	{
 		tmp += "q\n";
-		QWMatrix trafo = QWMatrix( 1, 0, 0, -1, -hl->PRot, 0 );
-		trafo *= QWMatrix( hl->PtransX, -hl->PtransY, -hl->PtransY, -hl->PtransX, hl->xp, -hl->yp );
+		QMatrix trafo = QMatrix( 1, 0, 0, -1, -hl->PRot, 0 );
+		trafo *= QMatrix( hl->PtransX, -hl->PtransY, -hl->PtransY, -hl->PtransX, hl->xp, -hl->yp );
 		tmp += FToStr(trafo.m11())+" "+FToStr(trafo.m12())+" "+FToStr(trafo.m21())+" "+FToStr(trafo.m22())+" "+FToStr(trafo.dx())+" "+FToStr(trafo.dy())+" cm\n";
 		if (ite->BaseOffs != 0)
 			tmp += "1 0 0 1 0 "+FToStr( -ite->BaseOffs)+" cm\n";
@@ -2803,7 +2805,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 	}
 	if ((hl->ch == QChar(25)) && (hl->cembedded != 0))
 	{
-		QPtrList<PageItem> emG;
+		Q3PtrList<PageItem> emG;
 		emG.clear();
 		emG.append(hl->cembedded);
 		if (hl->cembedded->Groups.count() != 0)
@@ -2910,8 +2912,8 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 			tmp2 += "q\n";
 			if (ite->itemType() == PageItem::PathText)
 			{
-				QWMatrix trafo = QWMatrix( 1, 0, 0, -1, -hl->PRot, 0 );
-				trafo *= QWMatrix( hl->PtransX, -hl->PtransY, -hl->PtransY, -hl->PtransX, hl->xp, -hl->yp );
+				QMatrix trafo = QMatrix( 1, 0, 0, -1, -hl->PRot, 0 );
+				trafo *= QMatrix( hl->PtransX, -hl->PtransY, -hl->PtransY, -hl->PtransX, hl->xp, -hl->yp );
 				tmp2 += FToStr(trafo.m11())+" "+FToStr(trafo.m12())+" "+FToStr(trafo.m21())+" "+FToStr(trafo.m22())+" "+FToStr(trafo.dx())+" "+FToStr(trafo.dy())+" cm\n";
 			}
 			if (!ite->asPathText())
@@ -2937,17 +2939,18 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 			}
 			if (hl->cscalev != 1000)
 				tmp2 += "1 0 0 1 0 "+FToStr( (((tsz / 10.0) - (tsz / 10.0) * (hl->cscalev / 1000.0)) / (tsz / 10.0)) * -1)+" cm\n";
-			tmp2 += FToStr(QMIN(QMAX(hl->cscale, 100), 4000) / 1000.0)+" 0 0 "+FToStr(QMIN(QMAX(hl->cscalev, 100), 4000) / 1000.0)+" 0 0 cm\n";
+			tmp2 += FToStr(qMin<int>(qMax<int>(hl->cscale, 100), 4000) / 1000.0)+" 0 0 "+
+				FToStr(qMin<int>(qMax<int>(hl->cscalev, 100), 4000) / 1000.0)+" 0 0 cm\n";
 			if (hl->ccolor != "None")
 				tmp2 += "/"+hl->cfont->RealName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+IToStr(chr)+" Do\n";
 			if (hl->cstyle & 4)
 			{
 				FPointArray gly = hl->cfont->GlyphArray[chr].Outlines.copy();
-				QWMatrix mat;
+				QMatrix mat;
 				mat.scale(0.1, 0.1);
 				gly.map(mat);
 				bool nPath = true;
-				FPoint np;
+				QPointF np;
 				if (gly.size() > 3)
 				{
 					for (uint poi=0; poi<gly.size()-3; poi += 4)
@@ -2982,11 +2985,11 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 				chx = "-";
 				chr = chx[0].unicode();
 				FPointArray gly = hl->cfont->GlyphArray[chr].Outlines.copy();
-				QWMatrix mat;
+				QMatrix mat;
 				mat.scale(0.1, 0.1);
 				gly.map(mat);
 				bool nPath = true;
-				FPoint np;
+				QPointF np;
 				if (gly.size() > 3)
 				{
 					for (uint poi=0; poi<gly.size()-3; poi += 4)
@@ -3058,13 +3061,13 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 				else
 					wtr = Cwidth(doc, hl->cfont, chx, chs) * (hl->cscale / 1000.0);
 				tmp += "-1 0 0 1 "+FToStr(hl->xp+wtr)+" "+FToStr(-hl->yp)+" Tm\n";
-				tmp +=  FToStr(-QMIN(QMAX(hl->cscale, 100), 4000) / 1000.0)+" 0 0 "+FToStr(QMIN(QMAX(hl->cscalev, 100), 4000) / 1000.0)+" "+FToStr(hl->xp)+" "+FToStr(-hl->yp+(hl->csize / 10.0) * (hl->cbase / 1000.0))+" Tm\n";
+				tmp +=  FToStr(-qMin<int>(qMax<int>(hl->cscale, 100), 4000) / 1000.0)+" 0 0 "+FToStr(qMin<int>(qMax<int>(hl->cscalev, 100), 4000) / 1000.0)+" "+FToStr(hl->xp)+" "+FToStr(-hl->yp+(hl->csize / 10.0) * (hl->cbase / 1000.0))+" Tm\n";
 			}
 			else
-				tmp +=  FToStr(QMIN(QMAX(hl->cscale, 100), 4000) / 1000.0)+" 0 0 "+FToStr(QMIN(QMAX(hl->cscalev, 100), 4000) / 1000.0)+" "+FToStr(hl->xp)+" "+FToStr(-hl->yp+(hl->csize / 10.0) * (hl->cbase / 1000.0))+" Tm\n";
+				tmp +=  FToStr(qMin<int>(qMax<int>(hl->cscale, 100), 4000) / 1000.0)+" 0 0 "+FToStr(qMin<int>(qMax<int>(hl->cscalev, 100), 4000) / 1000.0)+" "+FToStr(hl->xp)+" "+FToStr(-hl->yp+(hl->csize / 10.0) * (hl->cbase / 1000.0))+" Tm\n";
 		}
 		else
-			tmp += FToStr(QMIN(QMAX(hl->cscale, 100), 4000) / 1000.0)+" 0 0 "+FToStr(QMIN(QMAX(hl->cscalev, 100), 4000) / 1000.0)+" 0 0 Tm\n";
+			tmp += FToStr(qMin<int>(qMax<int>(hl->cscale, 100), 4000) / 1000.0)+" 0 0 "+FToStr(qMin<int>(qMax<int>(hl->cscalev, 100), 4000) / 1000.0)+" 0 0 Tm\n";
 		uchar idx2 = idx & 0xFF;
 		tmp += "<"+QString(toHex(idx2))+"> Tj\n";
 		if (! ite->asPathText())
@@ -3103,12 +3106,12 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 			if (hl->cunderwidth != -1)
 				Uwid = (hl->cunderwidth / 1000.0) * (hl->csize / 10.0);
 			else
-				Uwid = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
+				Uwid = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1.0);
 		}
 		else
 		{
 			Upos = hl->cfont->underline_pos * (hl->csize / 10.0);
-			Uwid = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
+			Uwid = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1.0);
 		}
 		if (hl->cbase != 0)
 			Upos += (hl->csize / 10.0) * (hl->cbase / 1000.0);
@@ -3136,12 +3139,12 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 			if (hl->cstrikewidth != -1)
 				Uwid = (hl->cstrikewidth / 1000.0) * (hl->csize / 10.0);
 			else
-				Uwid = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
+				Uwid = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1.0);
 		}
 		else
 		{
 			Upos = hl->cfont->strikeout_pos * (hl->csize / 10.0);
-			Uwid = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1);
+			Uwid = QMAX(hl->cfont->strokeWidth * (hl->csize / 10.0), 1.0);
 		}
 		if (hl->cbase != 0)
 			Upos += (hl->csize / 10.0) * (hl->cbase / 1000.0);
@@ -3211,7 +3214,7 @@ QString PDFlib::SetClipPathImage(PageItem *ite)
 {
 	bool nPath = true;
 	QString tmp = "";
-	FPoint np;
+	QPointF np;
 	if (ite->imageClip.size() > 3)
 	{
 		for (uint poi=0; poi<ite->imageClip.size()-3; poi += 4)
@@ -3243,7 +3246,7 @@ QString PDFlib::SetClipPath(PageItem *ite, bool poly)
 {
 	bool nPath = true;
 	QString tmp = "";
-	FPoint np;
+	QPointF np;
 	if (ite->PoLine.size() > 3)
 	{
 		for (uint poi=0; poi<ite->PoLine.size()-3; poi += 4)
@@ -3276,7 +3279,7 @@ QString PDFlib::SetClipPathArray(FPointArray *ite, bool poly)
 {
 	bool nPath = true;
 	QString tmp = "";
-	FPoint np;
+	QPointF np;
 	if (ite->size() > 3)
 	{
 		for (uint poi=0; poi<ite->size()-3; poi += 4)
@@ -3330,10 +3333,10 @@ QString PDFlib::PDF_Gradient(PageItem *currItem)
 	double StartY = 0;
 	double EndX = 0;
 	double EndY =0;
-	QValueList<double> StopVec;
-	QValueList<double> TransVec;
+	Q3ValueList<double> StopVec;
+	Q3ValueList<double> TransVec;
 	QStringList Gcolors;
-	QPtrVector<VColorStop> cstops = currItem->fill_gradient.colorStops();
+	Q3PtrVector<VColorStop> cstops = currItem->fill_gradient.colorStops();
 	switch (currItem->GrType)
 	{
 		case 1:
@@ -3376,10 +3379,10 @@ QString PDFlib::PDF_Gradient(PageItem *currItem)
 			break;
 		case 6:
 		case 7:
-			StartX = QMIN(QMAX(currItem->GrStartX, 0), currItem->Width);
-			StartY = QMIN(QMAX(currItem->GrStartY, 0), currItem->Height);
-			EndX = QMIN(QMAX(currItem->GrEndX, 0), currItem->Width);
-			EndY = QMIN(QMAX(currItem->GrEndY, 0), currItem->Height);
+			StartX = QMIN(QMAX(currItem->GrStartX, 0.0), currItem->Width);
+			StartY = QMIN(QMAX(currItem->GrStartY, 0.0), currItem->Height);
+			EndX = QMIN(QMAX(currItem->GrEndX, 0.0), currItem->Width);
+			EndY = QMIN(QMAX(currItem->GrEndY, 0.0), currItem->Height);
 			break;
 	}
 	StopVec.clear();
@@ -3398,7 +3401,7 @@ QString PDFlib::PDF_Gradient(PageItem *currItem)
 	{
 		for (uint cst = 0; cst < currItem->fill_gradient.Stops(); ++cst)
 		{
-			QWMatrix ma;
+			QMatrix ma;
 			ma.translate(StartX, StartY);
 			ma.rotate(atan2(EndY - StartY, EndX - StartX)*(180.0/M_PI));
 			double w2 = sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2))*cstops.at(cst)->rampPoint;
@@ -3413,16 +3416,16 @@ QString PDFlib::PDF_Gradient(PageItem *currItem)
 	return PDF_DoLinGradient(currItem, StopVec, TransVec, Gcolors);
 }
 
-QString PDFlib::PDF_DoLinGradient(PageItem *currItem, QValueList<double> Stops, QValueList<double> Trans, QStringList Colors)
+QString PDFlib::PDF_DoLinGradient(PageItem *currItem, Q3ValueList<double> Stops, Q3ValueList<double> Trans, QStringList Colors)
 {
 	QString tmp = "";
 	bool first = true;
 	double w = currItem->Width;
 	double h = -currItem->Height;
-	double w2 = QMIN(QMAX(currItem->GrStartX, 0), currItem->Width);
-	double h2 = -1.0 * QMIN(QMAX(currItem->GrStartY, 0), currItem->Height);
+	double w2 = QMIN(QMAX(currItem->GrStartX, 0.0), currItem->Width);
+	double h2 = -1.0 * QMIN(QMAX(currItem->GrStartY, 0.0), currItem->Height);
 	QString TRes = "";
-	for (uint c = 0; c < Colors.count()-1; ++c)
+	for (int c = 0; c < Colors.count()-1; ++c)
 	{
 		if ((Options->Version >= 14) && (((*Trans.at(c+1)) != 1) || ((*Trans.at(c)) != 1)))
 		{
@@ -3707,7 +3710,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 					cnx += ")";
 					PutDoc(EncString(cnx,ObjCounter-1)+"\n");
 					PutDoc("/Opt [ ");
-					for (uint bmc = 0; bmc < bmst.count(); ++bmc)
+					for (int bmc = 0; bmc < bmst.count(); ++bmc)
 						PutDoc(EncString("("+bmst[bmc]+")",ObjCounter-1)+"\n");
 					PutDoc("]\n");
 					PutDoc("/AP << /N "+IToStr(ObjCounter)+" 0 R >>\n");
@@ -3932,7 +3935,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		if (bmst.count() > 1)
 		{
 			cc += "1 0 0 1 0 0 Tm\n0 0 Td\n";
-			for (uint mz = 0; mz < bmst.count(); ++mz)
+			for (int mz = 0; mz < bmst.count(); ++mz)
 			{
 				cc += EncString("("+bmst[mz]+")",ObjCounter-1);
 				cc += " Tj\nT*\n";
@@ -4207,7 +4210,7 @@ QString PDFlib::PDF_Image(PageItem* c, QString fn, double sx, double sy, double 
 			else
 			{
 				QFile f(fn);
-				if (f.open(IO_ReadOnly))
+				if (f.open(QIODevice::ReadOnly))
 				{
 					QTextStream ts(&f);
 					while (!ts.atEnd())
@@ -4615,7 +4618,7 @@ void PDFlib::PDF_End_Doc(QString PrintPr, QString Name, int Components)
 	int Basis;
 	int ResO;
 	BookMItem* ip;
-	QListViewItem* pp;
+	Q3ListViewItem* pp;
 	QString Inhal = "";
 	QMap<int,QString> Inha;
 	Inha.clear();
@@ -4637,7 +4640,7 @@ void PDFlib::PDF_End_Doc(QString PrintPr, QString Name, int Components)
 			}
 			pp = pp->nextSibling();
 		}
-		QListViewItemIterator it(Bvie);
+		Q3ListViewItemIterator it(Bvie);
 		for ( ; it.current(); ++it)
 		{
 			ip = (BookMItem*)it.current();
@@ -4645,7 +4648,7 @@ void PDFlib::PDF_End_Doc(QString PrintPr, QString Name, int Components)
 			Bmc++;
 			Inhal += IToStr(ip->ItemNr+Basis)+ " 0 obj\n";
 			QString encText = QString(QChar(254))+QString(QChar(255));
-			for (uint telen = 0; telen < ip->Titel.length(); telen++)
+			for (int telen = 0; telen < ip->Titel.length(); telen++)
 			{
 				QChar ch = ip->Titel.at(telen);
 				encText += QChar(ch.row());
@@ -4740,7 +4743,7 @@ void PDFlib::PDF_End_Doc(QString PrintPr, QString Name, int Components)
 		ll.isPrintable = false;
 		ll.LNr = 0;
 		int Lnr = 0;
-		for (uint la = 0; la < doc->Layers.count(); ++la)
+		for (int la = 0; la < doc->Layers.count(); ++la)
 		{
 			Level2Layer(doc, &ll, la);
 			PutDoc("/"+OCGEntries[ll.Name].Name+" "+IToStr(OCGEntries[ll.Name].ObjNum)+" 0 R\n");
@@ -4761,7 +4764,7 @@ void PDFlib::PDF_End_Doc(QString PrintPr, QString Name, int Components)
 	PutDoc(">>\nendobj\n");
 	XRef[3] = Dokument;
 	PutDoc("4 0 obj\n<<\n/Type /Pages\n/Kids [");
-	for (uint b = 0; b < PageTree.Kids.count(); ++b)
+	for (int b = 0; b < PageTree.Kids.count(); ++b)
 		PutDoc(IToStr(PageTree.Kids[b])+" 0 R ");
 	PutDoc("]\n");
 	PutDoc("/Count "+IToStr(PageTree.Count)+"\n");
@@ -4771,7 +4774,7 @@ void PDFlib::PDF_End_Doc(QString PrintPr, QString Name, int Components)
 	PutDoc("5 0 obj\n<<\n");
 	if (NamedDest.count() != 0)
 	{
-		QValueList<Dest>::Iterator vt;
+		Q3ValueList<Dest>::Iterator vt;
 		for (vt = NamedDest.begin(); vt != NamedDest.end(); ++vt)
 		{
 			if ((*vt).Seite < static_cast<int>(PageTree.Kids.count()))
@@ -4784,14 +4787,14 @@ void PDFlib::PDF_End_Doc(QString PrintPr, QString Name, int Components)
 	if (Seite.FormObjects.count() != 0)
 	{
 		PutDoc("/Fields [ ");
-		for (uint fo = 0; fo < Seite.FormObjects.count(); ++fo)
+		for (int fo = 0; fo < Seite.FormObjects.count(); ++fo)
 			PutDoc(IToStr(Seite.FormObjects[fo])+" 0 R ");
 		PutDoc(" ]\n");
 	}
 	if (CalcFields.count() != 0)
 	{
 		PutDoc("/CO [ ");
-		for (uint foc = 0; foc < CalcFields.count(); ++foc)
+		for (int foc = 0; foc < CalcFields.count(); ++foc)
 			PutDoc(IToStr(CalcFields[foc])+" 0 R ");
 		PutDoc(" ]\n");
 	}
@@ -4881,7 +4884,7 @@ void PDFlib::PDF_End_Doc(QString PrintPr, QString Name, int Components)
 				tel->Redrawn = true;
 				Beads[0].Prev = fir + Beads.count()-1;
 				Beads[Beads.count()-1].Next = fir;
-				for (uint beac = 0; beac < Beads.count(); ++beac)
+				for (int beac = 0; beac < Beads.count(); ++beac)
 				{
 					StartObj(ObjCounter);	
 					ObjCounter++;
@@ -4902,7 +4905,7 @@ void PDFlib::PDF_End_Doc(QString PrintPr, QString Name, int Components)
 	}
 	XRef[7] = Dokument;
 	PutDoc("8 0 obj\n[");
-	for (uint th = 0; th < Threads.count(); ++th)
+	for (int th = 0; th < Threads.count(); ++th)
 		PutDoc(IToStr(Threads[th])+" 0 R ");
 	PutDoc("]\nendobj\n");
 	if ((Options->Version == 15) && (Options->useLayers))
@@ -4916,7 +4919,7 @@ void PDFlib::PDF_End_Doc(QString PrintPr, QString Name, int Components)
 		{
 			lay.prepend(IToStr(itoc.data().ObjNum)+" 0 R ");
 		}
-		for (uint layc = 0; layc < lay.count(); ++layc)
+		for (int layc = 0; layc < lay.count(); ++layc)
 		{
 			PutDoc(lay[layc]);
 		}
@@ -4962,7 +4965,7 @@ void PDFlib::PDF_End_Doc(QString PrintPr, QString Name, int Components)
 	PutDoc("xref\n");
 	PutDoc("0 "+IToStr(ObjCounter)+"\n");
 	PutDoc("0000000000 65535 f \n");
-	for (uint a = 0; a < XRef.count(); ++a)
+	for (int a = 0; a < XRef.count(); ++a)
 	{
 		tmp.sprintf("%10d", XRef[a]);
 		tmp.replace(QRegExp(" "), "0");

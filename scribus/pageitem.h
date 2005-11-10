@@ -20,12 +20,13 @@
 
 #include <qobject.h>
 #include <qwidget.h>
-#include <qpointarray.h>
-#include <qptrlist.h>
+#include <q3pointarray.h>
+#include <q3ptrlist.h>
 #include <qpixmap.h>
-#include <qvaluestack.h>
-#include <qvaluelist.h>
+#include <q3valuestack.h>
+#include <q3valuelist.h>
 
+#include "sctextstruct.h"
 #include "scribusapi.h"
 #include "scpainter.h"
 #include "undoobject.h"
@@ -87,12 +88,12 @@ class SCRIBUS_API PageItem : public QObject, public UndoObject
 	// FIXME: QMetaProperty can't translate these to/from enumerator names, probably because the
 	// properties aren't moc'd in the Qt sources. They work fine in their
 	// current state as plain integer properties.
-	Q_ENUMS(PenStyle)
-	Q_PROPERTY(PenStyle lineStyle READ lineStyle WRITE setLineStyle DESIGNABLE false)
-	Q_ENUMS(PenCapStyle)
-	Q_PROPERTY(PenCapStyle lineEnd READ lineEnd WRITE setLineEnd DESIGNABLE false)
-	Q_ENUMS(PenJoinStyle)
-	Q_PROPERTY(PenJoinStyle lineJoin READ lineJoin WRITE setLineJoin DESIGNABLE false)
+	Q_ENUMS(Qt::PenStyle)
+	Q_PROPERTY(Qt::PenStyle lineStyle READ lineStyle WRITE setLineStyle DESIGNABLE false)
+	Q_ENUMS(Qt::PenCapStyle)
+	Q_PROPERTY(Qt::PenCapStyle lineEnd READ lineEnd WRITE setLineEnd DESIGNABLE false)
+	Q_ENUMS(Qt::PenJoinStyle)
+	Q_PROPERTY(Qt::PenJoinStyle lineJoin READ lineJoin WRITE setLineJoin DESIGNABLE false)
 
 	// This property may not hang around for too long, but should be useful
 	// when testing out the pageitem refactoring work.  Setting it is unlikely
@@ -254,7 +255,7 @@ public:
 	double SetZeichAttr(struct ScText *hl, int *chs, QString *chx);
 	void SetFarbe(QColor *tmp, QString farbe, int shad);
 	void DrawZeichenS(ScPainter *p, struct ZZ *hl);
-	void DrawPolyL(QPainter *p, QPointArray pts);
+	void DrawPolyL(QPainter *p, Q3PointArray pts);
 	QString ExpandToken(uint base);
 	bool Reverse;
   /** X-Position auf der Seite */
@@ -311,19 +312,19 @@ public:
 	double Pwidth;
 	double OldPwidth;
   /** Linienart */
-	PenStyle PLineArt;
-	PenCapStyle PLineEnd;
-	PenJoinStyle PLineJoin;
+	Qt::PenStyle PLineArt;
+	Qt::PenCapStyle PLineEnd;
+	Qt::PenJoinStyle PLineJoin;
 	QString NamedLStyle;
   /** Element selektiert Ja/Nein */
 	bool Select;
   /** Definiert die Clipping-Region des Elements; */
-	QPointArray Clip;
+	Q3PointArray Clip;
 	FPointArray PoLine;
 	FPointArray ContourLine;
 	FPointArray imageClip;
-	QValueList<uint> Segments;
-	QValueList<ScImage::imageEffect> effectsInUse;
+	Q3ValueList<uint> Segments;
+	Q3ValueList<ScImage::imageEffect> effectsInUse;
 	bool PoShow;
 	double BaseOffs;
 	bool ClipEdited;
@@ -381,7 +382,7 @@ public:
   /** Cursorposition */
 	int CPos;
   /** Text des Elements */
-	QPtrList<ScText> itemText;
+	Q3PtrList<ScText> itemText;
   /** Flag fuer PDF-Bookmark */
 	bool isBookmark;
 	int BMnr;
@@ -451,9 +452,9 @@ public:
 	int LayerNr;
 	bool ScaleType;
 	bool AspectRatio;
-	QValueStack<int> Groups;
-	QValueList<double> DashValues;
-	QValueList<TabRecord> TabValues;
+	Q3ValueStack<int> Groups;
+	Q3ValueList<double> DashValues;
+	Q3ValueList<TabRecord> TabValues;
 	double DashOffset;
 	VGradient fill_gradient;
 	bool fillRule;
@@ -553,13 +554,13 @@ public:
 	void setLineTransparency(double newTransparency);
 
 	/** @brief Get the style of line */
-	PenStyle lineStyle() const;
+	Qt::PenStyle lineStyle() const;
 	/**
 	 * @brief Set the style of line.
 	 * @param newStyle style of line
 	 * @sa Qt::PenStyle
 	 */
-	void setLineStyle(PenStyle newStyle);
+	void setLineStyle(Qt::PenStyle newStyle);
 
 	/** @brief Get the width of the line */
 	double lineWidth() const;
@@ -570,22 +571,22 @@ public:
 	void setLineWidth(double newWidth);
 
 	/** @brief Get the end cap style of the line */
-	PenCapStyle lineEnd() const;
+	Qt::PenCapStyle lineEnd() const;
 	/**
 	 * @brief Set the end style of line
 	 * @param newStyle end style of line
 	 * @sa Qt::PenCapStyle
 	 */
-	void setLineEnd(PenCapStyle newStyle);
+	void setLineEnd(Qt::PenCapStyle newStyle);
 
 	/** @brief Get the join style of multi-segment lines */
-	PenJoinStyle lineJoin() const;
+	Qt::PenJoinStyle lineJoin() const;
 	/**
 	 * @brief Set the join style of line
 	 * @param newStyle join style of line
 	 * @sa Qt::PenJoinStyle
 	 */
-	void setLineJoin(PenJoinStyle newStyle);
+	void setLineJoin(Qt::PenJoinStyle newStyle);
 
 	/** @brief Get name of active custom line style */
 	QString customLineStyle() const;

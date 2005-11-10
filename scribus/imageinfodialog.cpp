@@ -12,7 +12,7 @@ ImageInfoDialog::ImageInfoDialog( QWidget* parent, ScImage::ImageInfoRecord *inf
 	setIcon(loadIcon("AppIcon.png"));
 
 	ImageInfoDialogLayout = new QVBoxLayout( this, 10, 5, "InsertTableLayout");
-	GenGroup = new QGroupBox(this, "GenGroup");
+	GenGroup = new Q3GroupBox(this, "GenGroup");
 	GenGroup->setTitle( tr("General Info"));
 	GenGroup->setColumnLayout(0, Qt::Vertical);
 	GenGroup->layout()->setSpacing(5);
@@ -48,7 +48,7 @@ ImageInfoDialog::ImageInfoDialog( QWidget* parent, ScImage::ImageInfoRecord *inf
 		emLayer->setText( tr("No"));
 	ImageInfoDialogLayout->addWidget(GenGroup);
 
-	ExGroup = new QGroupBox(this, "ExGroup");
+	ExGroup = new Q3GroupBox(this, "ExGroup");
 	ExGroup->setTitle( tr("EXIF Info"));
 	ExGroup->setColumnLayout(0, Qt::Vertical);
 	ExGroup->layout()->setSpacing(5);

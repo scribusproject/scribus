@@ -1,15 +1,17 @@
 #include "tabcheckdoc.h"
-#include "tabcheckdoc.moc"
 #include <qvariant.h>
 #include <qcheckbox.h>
-#include <qgroupbox.h>
+#include <q3groupbox.h>
 #include <qlabel.h>
 #include <qspinbox.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
 #include <qcombobox.h>
 #include <qpushbutton.h>
+//Added by qt3to4:
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 
 #include "prefsstructs.h"
 
@@ -49,7 +51,7 @@ TabCheckDoc::TabCheckDoc( QWidget* parent, CheckerPrefsList prefsData, QString p
 	missingPictures = new QCheckBox( this, "missingPictures" );
 	missingPictures->setText( tr( "Check for missing images" ) );
 	TabCheckDocLayout->addWidget( missingPictures );
-	pictResolution = new QGroupBox( this, "pictResolution" );
+	pictResolution = new Q3GroupBox( this, "pictResolution" );
 	pictResolution->setTitle( tr( "Check image resolution" ) );
 	pictResolution->setCheckable( true );
 	pictResolution->setColumnLayout(0, Qt::Vertical );
@@ -114,7 +116,7 @@ TabCheckDoc::TabCheckDoc( QWidget* parent, CheckerPrefsList prefsData, QString p
 	
 	connect(removeProfile, SIGNAL(clicked()), this, SLOT(delProf()));
 	connect(addProfile, SIGNAL(clicked()), this, SLOT(addProf()));
-	clearWState( WState_Polished );
+	setAttribute( Qt::WA_WState_Polished, false );
 }
 
 void TabCheckDoc::restoreDefaults()

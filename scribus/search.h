@@ -3,6 +3,11 @@
 
 #include <qvariant.h>
 #include <qdialog.h>
+//Added by qt3to4:
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QGridLayout>
 
 #include "scribusapi.h"
 #include "scribusstructs.h"
@@ -11,7 +16,7 @@ class QHBoxLayout;
 class QGridLayout;
 class QCheckBox;
 class QComboBox;
-class QGroupBox;
+class Q3GroupBox;
 class QLineEdit;
 class QPushButton;
 class MSpinBox;
@@ -36,7 +41,7 @@ public:
 
 	QLabel* SText1;
 	QLabel* RText1;
-	QGroupBox* Search;
+	Q3GroupBox* Search;
 	QCheckBox* SStroke;
 	QCheckBox* SFill;
 	QCheckBox* SStrokeS;
@@ -55,7 +60,7 @@ public:
 	ShadeButton *SFillSVal;
 	QComboBox* SStrokeVal;
 	ShadeButton *SStrokeSVal;
-	QGroupBox* Replace;
+	Q3GroupBox* Replace;
 	QCheckBox* RStroke;
 	QCheckBox* RStrokeS;
 	QCheckBox* RFill;

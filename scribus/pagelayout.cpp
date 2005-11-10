@@ -1,20 +1,22 @@
 #include "pagelayout.h"
-#include "pagelayout.moc"
 #include "sccombobox.h"
 
 #include <qvariant.h>
-#include <qgroupbox.h>
-#include <qiconview.h>
+#include <q3groupbox.h>
+#include <q3iconview.h>
 #include <qlabel.h>
 #include <qspinbox.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
 #include <qpixmap.h>
+//Added by qt3to4:
+#include <QVBoxLayout>
+#include <Q3ValueList>
 
 extern QPixmap loadIcon(QString nam);
 
-PageLayouts::PageLayouts( QWidget* parent, QValueList<PageSet> pSets, bool mode )  : QGroupBox( parent )
+PageLayouts::PageLayouts( QWidget* parent, Q3ValueList<PageSet> pSets, bool mode )  : Q3GroupBox( parent )
 {
 	pageSets = pSets;
 	modus = mode;
@@ -25,16 +27,16 @@ PageLayouts::PageLayouts( QWidget* parent, QValueList<PageSet> pSets, bool mode 
 	layoutGroupLayout->setAlignment( Qt::AlignTop );
 	if (modus)
 	{
-		layoutsView = new QIconView( this, "layoutsView" );
-		layoutsView->setHScrollBarMode( QIconView::AlwaysOff );
-		layoutsView->setVScrollBarMode( QIconView::Auto );
-		layoutsView->setArrangement(QIconView::LeftToRight);
+		layoutsView = new Q3IconView( this, "layoutsView" );
+		layoutsView->setHScrollBarMode( Q3IconView::AlwaysOff );
+		layoutsView->setVScrollBarMode( Q3IconView::Auto );
+		layoutsView->setArrangement(Q3IconView::LeftToRight);
 		layoutsView->setItemsMovable(false);
 		layoutsView->setAutoArrange( false );
 		layoutsView->setSorting( false );
-		layoutsView->setFocusPolicy(QWidget::NoFocus);
+		layoutsView->setFocusPolicy(Qt::NoFocus);
 		layoutsView->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)0, (QSizePolicy::SizeType)7, 0, 0, layoutsView->sizePolicy().hasHeightForWidth() ) );
-		layoutsView->setSelectionMode(QIconView::Single);
+		layoutsView->setSelectionMode(Q3IconView::Single);
 		layoutGroupLayout->addWidget( layoutsView );
 	}
 	else
@@ -47,20 +49,20 @@ PageLayouts::PageLayouts( QWidget* parent, QValueList<PageSet> pSets, bool mode 
 	firstPage = new ScComboBox( false, this, "firstPage" );
 	layoutGroupLayout->addWidget( firstPage );
 	languageChange();
-	clearWState( WState_Polished );
+	setAttribute( Qt::WA_WState_Polished, false );
 	if (modus)
-		connect(layoutsView, SIGNAL(clicked(QIconViewItem *)), this, SLOT(itemSelected(QIconViewItem* )));
+		connect(layoutsView, SIGNAL(clicked(Q3IconViewItem *)), this, SLOT(itemSelected(Q3IconViewItem* )));
 	else
 		connect(layoutsCombo, SIGNAL(activated(int)), this, SLOT(itemSelected(int)));
 	connect(firstPage, SIGNAL(activated(int)), this, SIGNAL(selectedFirstPage(int)));
 }
 
-void PageLayouts::updateLayoutSelector(QValueList<PageSet> pSets)
+void PageLayouts::updateLayoutSelector(Q3ValueList<PageSet> pSets)
 {
 	disconnect(layoutsCombo, SIGNAL(activated(int)), this, SLOT(itemSelected(int)));
 	pageSets = pSets;
 	layoutsCombo->clear();
-	for (uint pg = 0; pg < pageSets.count(); ++pg)
+	for (int pg = 0; pg < pageSets.count(); ++pg)
 	{
 		if (pg == 0)
 			layoutsCombo->insertItem(loadIcon("pagesingle16.png"), pageSets[pg].Name);
@@ -85,11 +87,11 @@ void PageLayouts::selectFirstP(int nr)
 
 void PageLayouts::selectItem(uint nr)
 {
-	QIconViewItem* ic;
+	Q3IconViewItem* ic;
 	uint cce;
 	if (modus)
 	{
-		disconnect(layoutsView, SIGNAL(clicked(QIconViewItem *)), this, SLOT(itemSelected(QIconViewItem* )));
+		disconnect(layoutsView, SIGNAL(clicked(Q3IconViewItem *)), this, SLOT(itemSelected(Q3IconViewItem* )));
 		ic = layoutsView->firstItem();
 		cce = layoutsView->count();
 	}
@@ -132,7 +134,7 @@ void PageLayouts::selectItem(uint nr)
 			ic = ic->nextItem();
 	}
 	if (modus)
-		connect(layoutsView, SIGNAL(clicked(QIconViewItem *)), this, SLOT(itemSelected(QIconViewItem* )));
+		connect(layoutsView, SIGNAL(clicked(Q3IconViewItem *)), this, SLOT(itemSelected(Q3IconViewItem* )));
 	else
 		connect(layoutsCombo, SIGNAL(activated(int)), this, SLOT(itemSelected(int)));
 	connect(firstPage, SIGNAL(activated(int)), this, SIGNAL(selectedFirstPage(int)));
@@ -166,7 +168,7 @@ void PageLayouts::itemSelected(int ic)
 	emit selectedLayout(ic);
 }
 
-void PageLayouts::itemSelected(QIconViewItem* ic)
+void PageLayouts::itemSelected(Q3IconViewItem* ic)
 {
 	if (ic == 0)
 		return;
@@ -180,21 +182,21 @@ void PageLayouts::languageChange()
 	if (modus)
 	{
 		layoutsView->clear();
-		for (uint pg = 0; pg < pageSets.count(); ++pg)
+		for (int pg = 0; pg < pageSets.count(); ++pg)
 		{
 			if (pg == 0)
-				(void) new QIconViewItem( layoutsView, pageSets[pg].Name, loadIcon("pagesingle.png") );
+				(void) new Q3IconViewItem( layoutsView, pageSets[pg].Name, loadIcon("pagesingle.png") );
 			else if (pg == 1)
-				(void) new QIconViewItem( layoutsView, pageSets[pg].Name, loadIcon("pagedouble.png") );
+				(void) new Q3IconViewItem( layoutsView, pageSets[pg].Name, loadIcon("pagedouble.png") );
 			else if (pg == 2)
-				(void) new QIconViewItem( layoutsView, pageSets[pg].Name, loadIcon("pagetriple.png") );
+				(void) new Q3IconViewItem( layoutsView, pageSets[pg].Name, loadIcon("pagetriple.png") );
 			else if (pg == 3)
-				(void) new QIconViewItem( layoutsView, pageSets[pg].Name, loadIcon("pagequadro.png") );
+				(void) new Q3IconViewItem( layoutsView, pageSets[pg].Name, loadIcon("pagequadro.png") );
 			else
-				(void) new QIconViewItem( layoutsView, pageSets[pg].Name, loadIcon("page.png") );
+				(void) new Q3IconViewItem( layoutsView, pageSets[pg].Name, loadIcon("page.png") );
 		}
 		int maxWidth = 0;
-		QIconViewItem* ic = layoutsView->firstItem();
+		Q3IconViewItem* ic = layoutsView->firstItem();
 		int startY = 5;
 		for (uint cc = 0; cc < layoutsView->count(); ++cc)
 		{
@@ -204,7 +206,7 @@ void PageLayouts::languageChange()
 		}
 		ic = layoutsView->firstItem();
 		layoutsView->setAutoArrange( false );
-		layoutsView->setResizeMode(QIconView::Fixed);
+		layoutsView->setResizeMode(Q3IconView::Fixed);
 		for (uint cc = 0; cc < layoutsView->count(); ++cc)
 		{
 			int w = ic->width();
@@ -217,7 +219,7 @@ void PageLayouts::languageChange()
 	else
 	{
 		layoutsCombo->clear();
-		for (uint pg = 0; pg < pageSets.count(); ++pg)
+		for (int pg = 0; pg < pageSets.count(); ++pg)
 		{
 			if (pg == 0)
 				layoutsCombo->insertItem(loadIcon("pagesingle16.png"), pageSets[pg].Name);

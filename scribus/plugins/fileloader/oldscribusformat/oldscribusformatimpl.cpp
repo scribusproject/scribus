@@ -5,7 +5,8 @@
 #include <qmessagebox.h>
 
 // Initialize members here, if any
-OldScribusFormatImpl::OldScribusFormatImpl() : QObject(0, "OldScribusFormatImpl")
+OldScribusFormatImpl::OldScribusFormatImpl()
+	: QObject(0)
 {
 }
 

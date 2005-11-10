@@ -1,12 +1,5 @@
 EXTRA_DIST = scribus13.ksxml
 
-install-data-local:
-	$(mkinstalldirs) $(libdir)/scribus/keysets/
-	$(INSTALL_DATA) $(srcdir)/scribus13.ksxml $(libdir)/scribus/keysets/scribus13.ksxml
-
-uninstall-local:
-	-rm -f $(libdir)/scribus/keysets/scribus13.ksxml
-
 AM_CPPFLAGS = \
     -DDOCDIR=\"$(datadir)/scribus/doc/\" \
     -DICONDIR=\"$(datadir)/scribus/icons/\" \

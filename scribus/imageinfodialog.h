@@ -8,7 +8,7 @@
 #include <qlayout.h>
 #include <qtooltip.h>
 #include <qwhatsthis.h>
-#include <qgroupbox.h>
+#include <q3groupbox.h>
 
 #include "scribusapi.h"
 #include "scimage.h"
@@ -24,7 +24,7 @@ public:
 protected:
 	QVBoxLayout* ImageInfoDialogLayout;
 	QHBoxLayout* layout1;
-	QGroupBox *GenGroup;
+	Q3GroupBox *GenGroup;
 	QGridLayout* layout3;
 	QLabel* Text1g;
 	QLabel* emProfile;
@@ -34,7 +34,7 @@ protected:
 	QLabel* emPath;
 	QLabel* Text4g;
 	QLabel* emLayer;
-	QGroupBox *ExGroup;
+	Q3GroupBox *ExGroup;
 	QGridLayout* layout2;
 	QLabel* Text1;
 	QLabel* Text2;

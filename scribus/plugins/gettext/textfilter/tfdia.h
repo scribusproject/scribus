@@ -7,9 +7,13 @@
 #include <qpushbutton.h>
 #include <qlineedit.h>
 #include <qlayout.h>
-#include <qscrollview.h>
-#include <qvbox.h>
+#include <q3scrollview.h>
+#include <q3vbox.h>
 #include <qevent.h>
+//Added by qt3to4:
+#include <Q3Frame>
+#include <QResizeEvent>
+#include <QBoxLayout>
 #include <prefscontext.h>
 #include "tffilter.h"
 
@@ -27,8 +31,8 @@ private:
 	QPushButton* okButton;
 	QPushButton* cancelButton;
 	QString currentFilter;
-	QScrollView* qsv;
-	QFrame* vbox;
+	Q3ScrollView* qsv;
+	Q3Frame* vbox;
 	int currentIndex;
 	void clear();
 	void createLayout();

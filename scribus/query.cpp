@@ -7,7 +7,10 @@
 ** WARNING! All changes made in this file will be lost!
 ****************************************************************************/
 #include "query.h"
-#include "query.moc"
+//Added by qt3to4:
+#include <QPixmap>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 extern QPixmap loadIcon(QString nam);
 
 #include <qtooltip.h>
@@ -19,7 +22,7 @@ extern QPixmap loadIcon(QString nam);
 
 #include "commonstrings.h"
 
-Query::Query( QWidget* parent,  const char* name, bool modal, WFlags fl, QString text, QString titel )
+Query::Query( QWidget* parent,  const char* name, bool modal, Qt::WFlags fl, QString text, QString titel )
     : QDialog( parent, name, modal, fl )
 {
     if ( !name )
@@ -32,8 +35,8 @@ Query::Query( QWidget* parent,  const char* name, bool modal, WFlags fl, QString
     editLayout->setMargin( 0 );
     answerEdit = new QLineEdit( this, "answerEdit" );
     questionLabel = new QLabel( answerEdit, text, this, "questionLabel" );
-    questionLabel->setFrameShape( QLabel::MShape );
-    questionLabel->setFrameShadow( QLabel::MShadow );
+    //questionLabel->setFrameShape( QLabel::MShape );
+    //questionLabel->setFrameShadow( QLabel::MShadow );
     questionLabel->adjustSize();
     editLayout->addWidget( questionLabel );
     editLayout->addWidget( answerEdit );

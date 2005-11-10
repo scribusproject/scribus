@@ -1,5 +1,6 @@
 #include "filewatcher.h"
-#include "filewatcher.moc"
+
+#include <QWidget>
 
 #include "scconfig.h"
 
@@ -10,6 +11,8 @@
 #ifdef _WIN32
 #include <windows.h>
 #endif
+
+#include <Q3ValueList>
 
 FileWatcher::FileWatcher( QWidget* parent) : QObject(parent)
 {
@@ -92,7 +95,7 @@ bool FileWatcher::isActive()
 	return blockAddRemove;
 }
 
-QValueList<QString> FileWatcher::files()
+Q3ValueList<QString> FileWatcher::files()
 {
 	return watchedFiles.keys();
 }

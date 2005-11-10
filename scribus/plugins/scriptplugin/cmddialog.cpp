@@ -64,8 +64,8 @@ PyObject *scribus_messdia(PyObject* /* self */, PyObject* args, PyObject* kw)
 	uint result;
 	QMessageBox::Icon ico = QMessageBox::NoIcon;
 	int butt1 = QMessageBox::Ok|QMessageBox::Default;
-	int butt2 = QMessageBox::NoButton;
-	int butt3 = QMessageBox::NoButton;
+	int butt2 = Qt::NoButton;
+	int butt3 = Qt::NoButton;
 	char* kwargs[] = {const_cast<char*>("caption"), const_cast<char*>("message"),
 						const_cast<char*>("icon"), const_cast<char*>("button1"),
 						const_cast<char*>("button2"), const_cast<char*>("button3"), NULL};

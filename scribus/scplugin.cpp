@@ -1,11 +1,12 @@
 #include "scplugin.h"
 #include "qwidget.h"
+//Added by qt3to4:
+#include <QPixmap>
 #include "deferredtask.h"
 #include "scribus.h"
 #include "scribusapp.h"
 #include "prefspanel.h"
 
-#include "scplugin.moc"
 
 //=====================================================//
 //                        ScPlugin                     //

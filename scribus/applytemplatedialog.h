@@ -11,6 +11,11 @@
 
 #include <qvariant.h>
 #include <qdialog.h>
+//Added by qt3to4:
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QGridLayout>
 
 #include "scribusapi.h"
 #include "scribusdoc.h"
@@ -22,7 +27,7 @@ class QGridLayout;
 class QSpacerItem;
 class QLabel;
 class QComboBox;
-class QButtonGroup;
+class Q3ButtonGroup;
 class QRadioButton;
 class QCheckBox;
 class QSpinBox;
@@ -33,12 +38,12 @@ class SCRIBUS_API ApplyMasterPageDialog : public QDialog
 	Q_OBJECT
 
 public:
-	ApplyMasterPageDialog( QWidget* parent = 0, const char* name = 0, bool modal = FALSE, WFlags fl = 0 );
+	ApplyMasterPageDialog( QWidget* parent = 0, const char* name = 0, bool modal = FALSE, Qt::WFlags fl = 0 );
 	~ApplyMasterPageDialog();
 
 	QLabel* masterPageLabel;
 	QComboBox* masterPageComboBox;
-	QButtonGroup* applyToPageButtonGroup;
+	Q3ButtonGroup* applyToPageButtonGroup;
 	QRadioButton* currentPageRadioButton;
 	QRadioButton* evenPagesRadioButton;
 	QRadioButton* oddPagesRadioButton;

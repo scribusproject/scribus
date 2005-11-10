@@ -12,9 +12,9 @@
 #include "scribusapi.h"
 
 #include <qdialog.h>
-#include <qbuttongroup.h>
+#include <q3buttongroup.h>
 #include <qcombobox.h>
-#include <qgroupbox.h>
+#include <q3groupbox.h>
 #include <qlabel.h>
 #include <qlineedit.h>
 #include <qpushbutton.h>
@@ -26,6 +26,10 @@
 #include <qcheckbox.h>
 #include <qtabwidget.h>
 #include <qwidget.h>
+//Added by qt3to4:
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 
 class PrefsContext;
 
@@ -88,12 +92,12 @@ private slots:
 	void okButtonClicked();
 
 private:
-	QGroupBox* Drucker;
+	Q3GroupBox* Drucker;
 	QComboBox* PrintDest;
 	QLabel* DateiT;
 	QLineEdit* LineEdit1;
 	QToolButton* ToolButton1;
-	QButtonGroup* rangeGroup;
+	Q3ButtonGroup* rangeGroup;
 	QRadioButton* RadioButton2;
 	QLabel* TextLabel3;
 	QSpinBox* Copies;
@@ -104,11 +108,11 @@ private:
 	QComboBox* SepArt;
 	QComboBox* psLevel;
 	QWidget* tab_2;
-	QGroupBox* pageOpts;
+	Q3GroupBox* pageOpts;
 	QCheckBox* MirrorHor;
 	QCheckBox* MirrorVert;
 	QCheckBox* devPar;
-	QButtonGroup* colorOpts;
+	Q3ButtonGroup* colorOpts;
 	QCheckBox* GcR;
 	QCheckBox* spotColors;
 	QCheckBox* UseICC;

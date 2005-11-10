@@ -3,9 +3,12 @@
 
 #include <qvariant.h>
 #include <qwidget.h>
+//Added by qt3to4:
+#include <QLabel>
+#include <QGridLayout>
 #include "scribusapi.h"
 class QGridLayout;
-class QGroupBox;
+class Q3GroupBox;
 class QLabel;
 class MSpinBox;
 class QSpinBox;
@@ -19,30 +22,30 @@ public:
 	~TabTypograpy() {};
 	void restoreDefaults(struct typoPrefs *prefsData);
 
-	QGroupBox* groupBox1a;
+	Q3GroupBox* groupBox1a;
 	QLabel* textLabel1a;
 	QLabel* textLabel2a;
 	QSpinBox* subDisplacement;
 	QSpinBox* subScaling;
-	QGroupBox* groupBox2a;
+	Q3GroupBox* groupBox2a;
 	QLabel* textLabel3a;
 	QLabel* textLabel4a;
 	QSpinBox* superDisplacement;
 	QSpinBox* superScaling;
-	QGroupBox* groupBox3a;
+	Q3GroupBox* groupBox3a;
 	QLabel* textLabel5a;
 	QSpinBox* capsScaling;
-	QGroupBox* underlineGroup;
+	Q3GroupBox* underlineGroup;
 	QLabel* textLabel1;
 	MSpinBox* underlinePos;
 	QLabel* textLabel2;
 	MSpinBox* underlineWidth;
-	QGroupBox* strikethruGroup;
+	Q3GroupBox* strikethruGroup;
 	QLabel* textLabel1_2;
 	MSpinBox* strikethruPos;
 	QLabel* textLabel2_2;
 	MSpinBox* strikethruWidth;
-	QGroupBox* groupBox4a;
+	Q3GroupBox* groupBox4a;
 	QLabel* textLabel8a;
 	QSpinBox* autoLine;
 

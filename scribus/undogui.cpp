@@ -27,9 +27,14 @@
 #include <qcheckbox.h>
 #include <qfont.h>
 #include <qfontmetrics.h>
+//Added by qt3to4:
+#include <QHideEvent>
+#include <QCloseEvent>
+#include <QKeyEvent>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
  
 #include "undogui.h"
-#include "undogui.moc"
 #include "prefsmanager.h"
 #include "prefsfile.h"
 #include "prefscontext.h"
@@ -40,7 +45,7 @@
 extern QPixmap loadIcon(QString nam);
 
 
-UndoGui::UndoGui(QWidget* parent, const char* name, WFlags f) : QWidget(parent, name, f)
+UndoGui::UndoGui(QWidget* parent, const char* name, Qt::WFlags f) : QWidget(parent, name, f)
 {
 
 }
@@ -237,9 +242,9 @@ UndoPalette::UndoPalette(QWidget* parent, const char* name)
 	layout->addWidget(objectBox);
 // 	objectBox->setEnabled(false);
 
-	undoList = new QListBox(this, "undoList");
+	undoList = new Q3ListBox(this, "undoList");
 	undoList->setMultiSelection(false);
-	undoList->setSelectionMode(QListBox::Single);
+	undoList->setSelectionMode(Q3ListBox::Single);
 	layout->addWidget(undoList);
 	
 	QHBoxLayout* buttonLayout = new QHBoxLayout(0, 0, 5, "buttonLayout"); 
@@ -259,7 +264,7 @@ UndoPalette::UndoPalette(QWidget* parent, const char* name)
 	connect(undoButton, SIGNAL(clicked()), this, SLOT(undoClicked()));
 	connect(redoButton, SIGNAL(clicked()), this, SLOT(redoClicked()));
 	connect(undoList, SIGNAL(highlighted(int)), this, SLOT(undoListClicked(int)));
-	connect(undoList, SIGNAL(onItem(QListBoxItem*)), this, SLOT(showToolTip(QListBoxItem*)));
+	connect(undoList, SIGNAL(onItem(Q3ListBoxItem*)), this, SLOT(showToolTip(Q3ListBoxItem*)));
 	connect(undoList, SIGNAL(onViewport()), this, SLOT(removeToolTip()));
 	connect(objectBox, SIGNAL(toggled(bool)), this, SLOT(objectCheckBoxClicked(bool)));
 	connect(ScApp->scrActions["editActionMode"], SIGNAL(toggled(bool)),
@@ -318,7 +323,7 @@ void UndoPalette::hideEvent(QHideEvent*)
 
 void UndoPalette::keyPressEvent(QKeyEvent* e)
 {
-	if (e->key() == Key_Escape)
+	if (e->key() == Qt::Key_Escape)
 		hide();
 	QWidget::keyPressEvent(e);
 }
@@ -327,7 +332,7 @@ void UndoPalette::keyPressEvent(QKeyEvent* e)
 void UndoPalette::keyReleaseEvent(QKeyEvent* e)
 {
 	//TODO Do we need to check more meta keys, CTRL, SHIFT, META, UNICODE_ACCEL ? Could just grab the meta keys used
-	QKeySequence ks(ALT + e->key());
+	QKeySequence ks(Qt::ALT + e->key());
 	//QKeySequence ks(e->key()|e->state());
 	if (ks==initialUndoKS)
 		undoClicked();
@@ -442,13 +447,13 @@ void UndoPalette::objectCheckBoxClicked(bool on)
 	emit objectMode(on);
 }
 
-void UndoPalette::showToolTip(QListBoxItem *i)
+void UndoPalette::showToolTip(Q3ListBoxItem *i)
 {
 	UndoItem *item = dynamic_cast<UndoItem*>(i);
 	if (item)
 	{
 		QString tip = item->getDescription();
-		if (tip != 0)
+		if (!tip.isEmpty())
 		  QToolTip::add(undoList, tip);
 	}
 	else
@@ -467,7 +472,7 @@ UndoPalette::~UndoPalette()
 
 /*** UndoPalette::UndoItem ****************************************************/
 
-UndoPalette::UndoItem::UndoItem() : QListBoxItem()
+UndoPalette::UndoItem::UndoItem() : Q3ListBoxItem()
 {
 	target = "";
 	action = "";
@@ -476,7 +481,7 @@ UndoPalette::UndoItem::UndoItem() : QListBoxItem()
 	actionpixmap = NULL;
 }
 
-UndoPalette::UndoItem::UndoItem(const UndoItem &another) : QListBoxItem()
+UndoPalette::UndoItem::UndoItem(const UndoItem &another) : Q3ListBoxItem()
 {
 	target = another.target;
 	action = another.action;
@@ -490,7 +495,7 @@ UndoPalette::UndoItem::UndoItem(const QString &targetName,
                                 const QString &actionDescription,
                                 QPixmap *targetPixmap,
                                 QPixmap *actionPixmap)
-: QListBoxItem()
+: Q3ListBoxItem()
 {
 	target = targetName;
 	action = actionName;
@@ -514,7 +519,7 @@ void UndoPalette::UndoItem::paint(QPainter *painter)
 	painter->drawText(32, (2 * QFontMetrics(painter->font()).height()), action);
 }
 
-int UndoPalette::UndoItem::height(const QListBox *lb) const
+int UndoPalette::UndoItem::height(const Q3ListBox *lb) const
 {
 	if (lb)
 	{
@@ -532,7 +537,7 @@ int UndoPalette::UndoItem::height(const QListBox *lb) const
 		return 0;
 }
 
-int UndoPalette::UndoItem::width(const QListBox *lb) const
+int UndoPalette::UndoItem::width(const Q3ListBox *lb) const
 {
 	if (lb)
 		return target.length() > action.length() ?

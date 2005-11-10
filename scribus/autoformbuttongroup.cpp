@@ -1,16 +1,17 @@
 #include <qimage.h>
 #include <qlayout.h>
-#include <qpopupmenu.h>
+#include <q3popupmenu.h>
 #include <qbitmap.h>
 #include <qpixmap.h>
-#include <qbuttongroup.h>
+#include <q3buttongroup.h>
+//Added by qt3to4:
+#include <QGridLayout>
 
 #include "autoformbuttongroup.h"
-#include "autoformbuttongroup.moc"
 #include "fpointarray.h"
 #include "scpainter.h"
 
-AutoformButtonGroup::AutoformButtonGroup( QWidget* parent ) : QButtonGroup( parent, "autoformbuttongroup" )
+AutoformButtonGroup::AutoformButtonGroup( QWidget* parent ) : Q3ButtonGroup( parent, "autoformbuttongroup" )
 {
 	this->setExclusive( true );
 	this->setColumnLayout(0, Qt::Vertical );

@@ -12,13 +12,6 @@ libimportps_la_SOURCES = importps.cpp importpsplugin.cpp
 
 EXTRA_DIST = import.prolog importps.h importpsplugin.h
 
-install-data-local:
-	$(mkinstalldirs) $(libdir)/scribus/
-	$(INSTALL_DATA) $(srcdir)/import.prolog $(libdir)/scribus/import.prolog
-
-uninstall-local:
-	-rm -f $(libdir)/scribus/import.prolog
-
 KDE_OPTIONS = qtonly
 AM_LDFLAGS = $(LIBFREETYPE_LIBS) $(MODULE_LINK_FLAGS) 
 
@@ -31,4 +24,5 @@ AM_CPPFLAGS = \
     -DTEMPLATEDIR=\"$(datadir)/scribus/templates/\" \
     -DLIBDIR=\"$(libdir)/scribus/\" \
     -DPLUGINDIR=\"$(libdir)/scribus/plugins/\" \
+    -DQT3_SUPPORT \
     $(GCC4_VISIBILITY_FLAGS)

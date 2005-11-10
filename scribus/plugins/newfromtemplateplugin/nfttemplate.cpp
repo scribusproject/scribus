@@ -3,12 +3,14 @@
  ***************************************************************************/
 #include "nfttemplate.h"
 #include <qfileinfo.h>
+//Added by qt3to4:
+#include <QTextStream>
 
 nfttemplate::nfttemplate(QFile* tmplXmlFile, const QString &tmplCategory) 
 {
 	tmplXml = tmplXmlFile;
 	templateCategory = tmplCategory;
-	isWritable = tmplXml->open(IO_WriteOnly | IO_ReadOnly);
+	isWritable = tmplXml->open(QIODevice::WriteOnly | QIODevice::ReadOnly);
 	tmplXml->close();
 	isDeleted = false;
 }
@@ -20,10 +22,10 @@ void nfttemplate::remove()
 		QString newTmplXml = "";
 		QString tmp;
 		bool collect = false;
-		tmplXml->open(IO_ReadOnly);
+		tmplXml->open(QIODevice::ReadOnly);
 		QTextStream stream(tmplXml);
 		QString line = stream.readLine();
-		while (line != NULL)
+		while (!line.isNull())
 		{
 			if ((line.find(enCategory) != -1) || collect)
 			{
@@ -63,7 +65,7 @@ void nfttemplate::remove()
 			line = stream.readLine();
 		}
 		tmplXml->close();
-		tmplXml->open(IO_WriteOnly);
+		tmplXml->open(QIODevice::WriteOnly);
 		QTextStream instream(tmplXml);
 		instream.setEncoding(QTextStream::UnicodeUTF8);
 		instream << newTmplXml;

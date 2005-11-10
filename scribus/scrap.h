@@ -9,20 +9,24 @@
 #ifndef BIBLIO_H
 #define BIBLIO_H
 
-#include <qiconview.h>
-#include <qframe.h>
-#include <qpopupmenu.h>
+#include <q3iconview.h>
+#include <q3frame.h>
+#include <q3popupmenu.h>
 #include <qmenubar.h>
 #include <qlayout.h>
 #include <qtooltip.h>
 #include <qpixmap.h>
-#include <qdragobject.h>
+#include <q3dragobject.h>
+//Added by qt3to4:
+#include <QVBoxLayout>
+#include <QKeyEvent>
+#include <QDropEvent>
 
 #include "scribusapi.h"
 #include "scrpalettebase.h"
 #include "scribusstructs.h"
 
-class SCRIBUS_API BibView : public QIconView
+class SCRIBUS_API BibView : public Q3IconView
 {
 	Q_OBJECT
 
@@ -48,7 +52,7 @@ signals:
 	void CloseTpal();
 
 protected:
-	virtual QDragObject *dragObject();
+	virtual Q3DragObject *dragObject();
 };
 
 class SCRIBUS_API Biblio : public ScrPaletteBase
@@ -73,9 +77,9 @@ public slots:
 	void languageChange();
 
 private slots:
-	void HandleMouse(QIconViewItem *ite);
-	void DeleteObj(QString name, QIconViewItem *ite);
-	void ItemRenamed(QIconViewItem *ite);
+	void HandleMouse(Q3IconViewItem *ite);
+	void DeleteObj(QString name, Q3IconViewItem *ite);
+	void ItemRenamed(Q3IconViewItem *ite);
 	void DropOn(QDropEvent *e);
 	void SaveAs();
 	void Load();
@@ -85,11 +89,11 @@ private slots:
 
 protected:
 //	QMap<QString, QGuardedPtr<ScrAction> > scrapbookActions;
-	QPopupMenu* pmenu;
-	QPopupMenu* fmenu;
-	QPopupMenu* vmenu;
+	Q3PopupMenu* pmenu;
+	Q3PopupMenu* fmenu;
+	Q3PopupMenu* vmenu;
 	QMenuBar* menuBar;
-	QFrame* Frame3;
+	Q3Frame* Frame3;
 	QVBoxLayout* BiblioLayout;
 	QVBoxLayout* Frame3Layout;
 	QString ScFilename;

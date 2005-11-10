@@ -4,9 +4,13 @@
 #include <qpushbutton.h>
 #include <qspinbox.h>
 #include <qlayout.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QGridLayout>
 
 #include "movepage.h"
-#include "movepage.moc"
 
 #include "commonstrings.h"
 

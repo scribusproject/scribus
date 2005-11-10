@@ -1,6 +1,8 @@
 #include "scimage.h"
 #include "scribus.h"
 #include <qtextstream.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 #include <cassert>
 #ifdef HAVE_CMS
 	#include CMS_INC
@@ -88,11 +90,11 @@ void ScImage::initialize()
 	imgInfo.exifInfo.thumbnail = QImage();
 }
 
-void ScImage::applyEffect(QValueList<imageEffect> effectsList, QMap<QString,ScColor> colors, bool cmyk)
+void ScImage::applyEffect(Q3ValueList<imageEffect> effectsList, QMap<QString,ScColor> colors, bool cmyk)
 {
 	if (effectsList.count() != 0)
 	{
-		for (uint a = 0; a < effectsList.count(); ++a)
+		for (int a = 0; a < effectsList.count(); ++a)
 		{
 			if ((*effectsList.at(a)).effectCode == EF_INVERT)
 				invert(cmyk);
@@ -103,7 +105,7 @@ void ScImage::applyEffect(QValueList<imageEffect> effectsList, QMap<QString,ScCo
 				QString tmpstr = (*effectsList.at(a)).effectParameters;
 				QString col = "None";
 				int shading = 100;
-				QTextStream fp(&tmpstr, IO_ReadOnly);
+				QTextStream fp(&tmpstr, QIODevice::ReadOnly);
 				fp >> col;
 				fp >> shading;
 				colorize(colors[col], shading, cmyk);
@@ -112,7 +114,7 @@ void ScImage::applyEffect(QValueList<imageEffect> effectsList, QMap<QString,ScCo
 			{
 				QString tmpstr = (*effectsList.at(a)).effectParameters;
 				int brightnessValue = 0;
-				QTextStream fp(&tmpstr, IO_ReadOnly);
+				QTextStream fp(&tmpstr, QIODevice::ReadOnly);
 				fp >> brightnessValue;
 				brightness(brightnessValue, cmyk);
 			}
@@ -120,7 +122,7 @@ void ScImage::applyEffect(QValueList<imageEffect> effectsList, QMap<QString,ScCo
 			{
 				QString tmpstr = (*effectsList.at(a)).effectParameters;
 				int contrastValue = 0;
-				QTextStream fp(&tmpstr, IO_ReadOnly);
+				QTextStream fp(&tmpstr, QIODevice::ReadOnly);
 				fp >> contrastValue;
 				contrast(contrastValue, cmyk);
 			}
@@ -128,7 +130,7 @@ void ScImage::applyEffect(QValueList<imageEffect> effectsList, QMap<QString,ScCo
 			{
 				QString tmpstr = (*effectsList.at(a)).effectParameters;
 				double radius, sigma;
-				QTextStream fp(&tmpstr, IO_ReadOnly);
+				QTextStream fp(&tmpstr, QIODevice::ReadOnly);
 				fp >> radius;
 				fp >> sigma;
 				sharpen(radius, sigma);
@@ -137,7 +139,7 @@ void ScImage::applyEffect(QValueList<imageEffect> effectsList, QMap<QString,ScCo
 			{
 				QString tmpstr = (*effectsList.at(a)).effectParameters;
 				double radius, sigma;
-				QTextStream fp(&tmpstr, IO_ReadOnly);
+				QTextStream fp(&tmpstr, QIODevice::ReadOnly);
 				fp >> radius;
 				fp >> sigma;
 				blur(radius, sigma);
@@ -146,7 +148,7 @@ void ScImage::applyEffect(QValueList<imageEffect> effectsList, QMap<QString,ScCo
 			{
 				QString tmpstr = (*effectsList.at(a)).effectParameters;
 				double sigma;
-				QTextStream fp(&tmpstr, IO_ReadOnly);
+				QTextStream fp(&tmpstr, QIODevice::ReadOnly);
 				fp >> sigma;
 				solarize(sigma, cmyk);
 			}
@@ -1346,7 +1348,7 @@ void ScImage::HLSTORGB ( uchar& hue, uchar& lightness, uchar& saturation )
 	}
 }
 
-bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QValueList<PSDLayer> &layerInfo, uint layer, bool* firstLayer)
+bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, Q3ValueList<PSDLayer> &layerInfo, uint layer, bool* firstLayer)
 {
 	// Find out if the data is compressed.
 	// Known values:
@@ -1364,7 +1366,7 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 	if( compression > 1 )
 		return false;
 	uint channel_num = layerInfo[layer].channelLen.count();
-	channel_num = QMIN(channel_num, 39);
+	channel_num = qMin<int>(channel_num, 39);
 	uint components[40];
 	for(uint channel = 0; channel < channel_num; channel++)
 	{
@@ -1908,7 +1910,7 @@ void ScImage::parseRessourceData( QDataStream & s, const PSDHeader & header, uin
 	offset = 0;
 	bool first = false;
 	bool pathOpen = false;
-	FPoint firstPoint, firstControl;
+	QPointF firstPoint, firstControl;
 	FPointArray clip2;
 	while ((offset + 6)< size)
 	{
@@ -1978,10 +1980,10 @@ void ScImage::parseRessourceData( QDataStream & s, const PSDHeader & header, uin
 				case 2:
 					if (first)
 					{
-						firstControl = FPoint(frac2 * header.width, frac1 * header.height);
-						firstPoint = FPoint(frac4 * header.width, frac3 * header.height);
-						clip2.addPoint(FPoint(frac4 * header.width, frac3 * header.height));
-						clip2.addPoint(FPoint(frac6 * header.width, frac5 * header.height));
+						firstControl = QPointF(frac2 * header.width, frac1 * header.height);
+						firstPoint = QPointF(frac4 * header.width, frac3 * header.height);
+						clip2.addPoint(QPointF(frac4 * header.width, frac3 * header.height));
+						clip2.addPoint(QPointF(frac6 * header.width, frac5 * header.height));
 					}
 					else
 					{
@@ -2457,7 +2459,7 @@ QString ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes)
 	else if ((ext == "eps") || (ext == "ps"))
 	{
 		QFile f(fn);
-		if (f.open(IO_ReadOnly))
+		if (f.open(QIODevice::ReadOnly))
 		{
 			QTextStream ts(&f);
 			while (!ts.atEnd())
@@ -2490,7 +2492,7 @@ QString ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes)
 		f.close();
 		if (found)
 		{
-			QTextStream ts2(&BBox, IO_ReadOnly);
+			QTextStream ts2(&BBox, QIODevice::ReadOnly);
 			ts2 >> x >> y >> b >> h;
 			x = x * gsRes / 72.0;
 			y = y * gsRes / 72.0;
@@ -2581,7 +2583,7 @@ QString ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes)
 	else if (ext == "psd")
 	{
 		QFile f(fn);
-		if (f.open(IO_ReadOnly))
+		if (f.open(QIODevice::ReadOnly))
 		{
 			xres = 72.0;
 			yres = 72.0;
@@ -2823,7 +2825,7 @@ void ScImage::getEmbeddedProfile(QString fn, QString *profile, int *components)
 	if (ext == "psd")
 	{
 		QFile f(fn);
-		if (f.open(IO_ReadOnly))
+		if (f.open(QIODevice::ReadOnly))
 		{
 			imgInfo.xres = 72;
 			imgInfo.yres = 72;
@@ -3004,7 +3006,7 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 		if (reqType == 4)
 			reqType = 1;
 		QFile f(fn);
-		if (f.open(IO_ReadOnly))
+		if (f.open(QIODevice::ReadOnly))
 		{
 			QTextStream ts(&f);
 			while (!ts.atEnd())
@@ -3037,7 +3039,7 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 		f.close();
 		if (found)
 		{
-			QTextStream ts2(&BBox, IO_ReadOnly);
+			QTextStream ts2(&BBox, QIODevice::ReadOnly);
 			ts2 >> x >> y >> b >> h;
 			x = x * gsRes / 72.0;
 			y = y * gsRes / 72.0;
@@ -3203,7 +3205,7 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 				{
 					QByteArray arrayPhot(PhotoshopLen);
 					arrayPhot.duplicate((const char*)PhotoshopBuffer,PhotoshopLen);
-					QDataStream strPhot(arrayPhot,IO_ReadOnly);
+					QDataStream strPhot(&arrayPhot,QIODevice::ReadOnly);
 					strPhot.setByteOrder( QDataStream::BigEndian );
 					PSDHeader fakeHeader;
 					fakeHeader.width = width();
@@ -3247,7 +3249,7 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 		if (reqType == 4)
 			reqType = 1;
 		QFile f(fn);
-		if (f.open(IO_ReadOnly))
+		if (f.open(QIODevice::ReadOnly))
 		{
 			imgInfo.xres = 72;
 			imgInfo.yres = 72;
@@ -3439,7 +3441,7 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 			{
 				QByteArray arrayPhot(PhotoshopLen);
 				arrayPhot.setRawData((const char*)PhotoshopBuffer,PhotoshopLen);
-				QDataStream strPhot(arrayPhot,IO_ReadOnly);
+				QDataStream strPhot(&arrayPhot,QIODevice::ReadOnly);
 				strPhot.setByteOrder( QDataStream::BigEndian );
 				PSDHeader fakeHeader;
 				fakeHeader.width = cinfo.output_width;
