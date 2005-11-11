@@ -6533,167 +6533,6 @@ void ScribusView::AdvanceSel(PageItem *currItem, int oldPos, int len, int dir, i
 	}
 }
 
-/*
-// jjsa added on 15-mar-2004
-// calculate the end position while ctrl + arrow pressed
-
-void ScribusView::setNewPos(PageItem *currItem, int oldPos, int len, int dir)
-{
-	int i;
-	bool isSpace;
-	if ( dir > 0 && oldPos < len )
-	{
-		isSpace = currItem->itemText.at(oldPos)->ch.at(0).isSpace();
-		currItem->CPos = oldPos +1;
-		for (i=oldPos+1; i < len; i++)
-		{
-			if ( currItem->itemText.at(i)->ch.at(0).isSpace() != isSpace )
-				break;
-			currItem->CPos++;
-		}
-	}
-	else if ( dir < 0 && oldPos > 0 )
-	{
-		oldPos--;
-		isSpace = currItem->itemText.at(oldPos)->ch.at(0).isSpace();
-		for (i=oldPos; i >= 0; i--)
-		{
-			if (  currItem->itemText.at(i)->ch.at(0).isSpace() != isSpace )
-				break;
-			currItem->CPos--;
-		}
-	}
-}
-*/
-/*
-// jjsa added on 15-mar-2004 expand / decrease selection
-
-// jjsa added on 14-mar-2004 text selection with pressed
-// shift button and <-, -> cursor keys
-// Parameters
-//   PageItem *currItem text item to be processed
-//   inc < 0 for left key > 0 for right key
-//  if value is +/-1 work on slection
-//  if value is +/-2 refresh if text under cursor is selected
-
-void ScribusView::ExpandSel(PageItem *currItem, int dir, int oldPos)
-{
-	int len = currItem->itemText.count();
-	bool rightSel = false; // assume left right and actual char not selected
-	bool leftSel  = false;
-	bool actSel   = false;
-	bool selMode  = false;
-
-	if ( dir == -1 || dir == 1 )
-		selMode = true;
-	else
-	{
-		if ( dir > 0 )
-			dir = 1;
-		else
-			dir = -1;
-	}
-   // show for selection of previous, actual and next character
-	if ( currItem->HasSel ) // selection already present
-	{
-		if (dir > 0 && oldPos < len) // -> key
-		{
-			if ( oldPos == 0 )
-				leftSel = false;
-			else
-				leftSel = currItem->itemText.at(oldPos-1)->cselect;
-			actSel =   currItem->itemText.at(oldPos)->cselect;
-			rightSel = false; // not relevant
-		}
-		else if ( dir > 0 && oldPos == len) // -> key
-		{
-			return;
-		}
-		else if ( dir < 0 && oldPos > 0 ) // <- key
-		{
-			actSel  =   currItem->itemText.at(oldPos-1)->cselect;
-			leftSel = false; // not relevant
-			if ( oldPos < len  )
-				rightSel = currItem->itemText.at(oldPos)->cselect;
-			else
-				rightSel = false;
-		}
-		else if ( dir < 0 && oldPos == 0 ) // <- key
-		{
-         return;
-		}
-		if ( selMode && !(leftSel||actSel||rightSel) )
-		{
-         // selected outside from concerned range
-         // deselect all
-			int i;
-			for (i=0; i < len; i++ )
-			{
-				currItem->itemText.at(i)->cselect = false;
-			}
-			currItem->HasSel = false;
-			emit HasNoTextSel();
-		}
-		else if ( !selMode )
-		{
-			if (leftSel||actSel||rightSel)
-				RefreshItem(currItem);
-		}
-	}
-	if ( !selMode )
-		return;
-   // no selection
-	if ( !currItem->HasSel )
-	{
-		currItem->HasSel = true;
-		emit HasTextSel();
-		leftSel = true;
-		rightSel = true;
-	}
-	int i;
-	int start;
-	int end;
-	int sel;
-	if (dir == 1) // ->  key
-	{
-		start = oldPos;
-		end   = currItem->CPos;
-		sel = leftSel == true;
-	}
-	else
-	{
-		start = currItem->CPos;
-		end   = oldPos;
-		sel = rightSel == true;
-	}
-	for ( i = start; i < end; i++)
-		currItem->itemText.at(i)->cselect = sel;
-	if ( ! sel )
-		emit  HasNoTextSel();
-	RefreshItem(currItem);
-}
-
-void ScribusView::deselectAll(PageItem *currItem)
-{
-	PageItem *item = currItem;
-	while( item->BackBox )
-		item=item->BackBox;
-
-	while ( item )
-	{
-		if ( item->HasSel )
-		{
-			uint l = item->itemText.count();
-			for (uint n=0; n < l; ++n )
-				item->itemText.at(n)->cselect = false;
-			RefreshItem(item);
-			item->HasSel = false;
-		}
-		item = item->NextBox;
-	}
-	emit HasNoTextSel();
-}
-*/
 bool ScribusView::slotSetCurs(int x, int y)
 {
 	PageItem *currItem;
@@ -8717,13 +8556,6 @@ void ScribusView::hideMasterPage()
 //	DrawNew();
 }
 
-/*CB Only called by reform doc which can access the item count anyway.
-int ScribusView::CountElements()
-{
-	return static_cast<int>(Doc->Items->count());
-}
-*/
-
 void ScribusView::RecalcPictures(ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *dia)
 {
 	uint docItemCount=Doc->Items->count();
@@ -8772,16 +8604,8 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr)
 	{
 		double sca = Scale;
 		bool frs = Doc->guidesSettings.framesShown;
-		//bool mas = Doc->masterPageMode();
 		Page* act = Doc->currentPage;
 		Doc->currentPage = Doc->MasterPages.at(Nr);
-		/*
-		if (!mas)
-		{
-			Doc->DocItems = Doc->Items;
-			Doc->Items = Doc->MasterItems;
-		}
-		*/
 		Doc->guidesSettings.framesShown = false;
 		setScale(1.0);
 		previewMode = true;
@@ -8797,14 +8621,6 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr)
 		Doc->guidesSettings.framesShown = frs;
 		setScale(sca);
 		Doc->currentPage = act;
-		/*
-		if (!mas)
-		{
-			Doc->MasterItems = Doc->Items;
-			Doc->Items = Doc->DocItems;
-		}
-		*/
-		//Doc->masterPageMode = mas;
 		painter->end();
 		double sx = im.width() / static_cast<double>(maxGr);
 		double sy = im.height() / static_cast<double>(maxGr);

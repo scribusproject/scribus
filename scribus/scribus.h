@@ -136,8 +136,6 @@ public:
 	void keyReleaseEvent(QKeyEvent *k);
 	void mouseReleaseEvent(QMouseEvent *m);
 	void wheelEvent(QWheelEvent *w);
-	//CB Moved to pageitem_textframe
-	//void deleteSelectedTextFromFrame(PageItem *currItem);
 	void setTBvals(PageItem *currItem);
 	void ShowSubs();
 	void applyNewMaster(QString name);
@@ -231,9 +229,6 @@ public:
 	WerkToolB* mainToolBar;
 	int HavePngAlpha;
 	int HaveTiffSep;
-	bool unicodeTextEditMode;
-	//int unicodeInputCount;
-	//QString unicodeInputString;
 
 	QMap<QString, QStringList> InstLang;
 	QMap<QString,QString> LangTransl;
@@ -346,7 +341,7 @@ public slots:
 	void slotNewPageP(int wo, QString templ);
 	void slotNewPageM();
 	void slotNewMasterPage(int w, const QString &);
-	void slotNewPage(int w, bool mov = true);
+	void slotNewPage(int w, const QString& masterPageName=QString::null, bool mov = true);
 	void duplicateToMasterPage();
 	/** Loescht die aktuelle Seite */
 	void DeletePage();

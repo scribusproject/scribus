@@ -85,10 +85,11 @@ public:
 	 * @brief Add a master page with this function, do not use addPage
 	 */
 	Page* addMasterPage(const int, const QString&);
+
 	/**
-	 * 
-	 * @param  
-	 * @return 
+	 * @brief Add the automatic text frame to the page
+	 * @param pageIndex
+	 * @return number of frame
 	 */
 	const int addAutomaticTextFrame(const int);
 	/**

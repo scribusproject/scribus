@@ -153,7 +153,6 @@ public:
 	void updateLayerMenu();
 	void showMasterPage(int nr);
 	void hideMasterPage();
-	//int CountElements();
 	QImage PageToPixmap(int Nr, int maxGr);
 	QImage MPageToPixmap(QString name, int maxGr);
 	void RecalcPictures(ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *dia = 0);
@@ -168,7 +167,6 @@ public:
 	void SnapToGuides(PageItem *currItem);
 	QPoint ApplyGrid(const QPoint& in);
 	FPoint ApplyGridF(const FPoint& in);
-	//CB moved to pageitem QRect getRedrawBounding(PageItem *currItem);
 	void setRedrawBounding(PageItem *currItem);
 	void setGroupRect();
 	void getGroupRect(double *x, double *y, double *w, double *h);
@@ -180,9 +178,7 @@ public:
 	bool MoveItem(double newX, double newY, PageItem* ite, bool fromMP = false);
 	void MoveItemI(PageItem* currItem, double newX, double newY, bool redraw = true);
 	void UpdateClip(PageItem *currItem);
-	//void SetPolyClip(PageItem *currItem, int up);
 	void ConvertClip(PageItem *currItem);
-	//void UpdatePolyClip(PageItem *currItem);
 	void MarkClip(PageItem *currItem, FPointArray cli, bool once = false);
 	bool PointOnLine(QPoint Start, QPoint Ende, QRect MArea);
 	void MirrorPolyH();
@@ -202,18 +198,12 @@ public:
 	void RotateItem(double win, PageItem *currItem);
 	void AdjustItemSize(PageItem *currItem);
 	void AdvanceSel(PageItem *currItem, int oldPos, int len, int dir, int expandSel, int state);
-	//void setNewPos(PageItem *currItem, int oldPos, int len, int dir);
-	//void ExpandSel(PageItem *currItem, int dir, int oldPos);
-	//void deselectAll(PageItem *currItem);
 	bool slotSetCurs(int x, int y);
 	void slotDoCurs(bool draw);
 	void HandleCurs(QPainter *p, PageItem *currItem, QRect mpo);
 	void HandleSizer(QPainter *p, PageItem *currItem, QRect mpo, QMouseEvent *m);
 	bool GetItem(PageItem **b, int nr = -1);
 	void Deselect(bool prop = true);
-	//int OnPage(double x2, double  y2);
-	//int OnPage(PageItem *currItem);
-	//void GroupOnPage(PageItem *currItem);
 	void SelectItemNr(int nr, bool draw = true, bool single = false);
 	void SelectItem(PageItem *pi, bool draw = true, bool single = false);
 	void selectPage(QMouseEvent *m);
