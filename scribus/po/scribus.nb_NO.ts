@@ -1877,11 +1877,11 @@ example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
     </message>
     <message>
         <source>Enabled:</source>
-        <translation type="unfinished"></translation>
+        <translation>Skrudd på:</translation>
     </message>
     <message>
         <source>Release Date:</source>
-        <translation type="unfinished"></translation>
+        <translation>Utgivelses dato:</translation>
     </message>
     <message>
         <source>Copyright:</source>
@@ -1972,7 +1972,7 @@ example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
     </message>
     <message>
         <source>&amp;Quit</source>
-        <translation>Avs&amp;lutt</translation>
+        <translation>A&amp;vslutt</translation>
     </message>
     <message>
         <source>&amp;Undo</source>
@@ -2152,11 +2152,11 @@ example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
     </message>
     <message>
         <source>Lower to &amp;Bottom</source>
-        <translation type="unfinished"></translation>
+        <translation>Legg &amp;underst</translation>
     </message>
     <message>
         <source>Raise to &amp;Top</source>
-        <translation>Hev til &amp;toppen</translation>
+        <translation>Legg &amp;øverst</translation>
     </message>
     <message>
         <source>&amp;Lower</source>
@@ -2372,7 +2372,7 @@ example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
     </message>
     <message>
         <source>&amp;Arrange Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Arranger sidene</translation>
     </message>
     <message>
         <source>&amp;Bookmarks</source>
@@ -2392,7 +2392,7 @@ example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
     </message>
     <message>
         <source>&amp;Align and Distribute</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Still opp og fordel</translation>
     </message>
     <message>
         <source>&amp;Tools</source>
@@ -2432,11 +2432,11 @@ example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
     </message>
     <message>
         <source>Zoom in</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoom inn</translation>
     </message>
     <message>
         <source>Zoom out</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoom ut</translation>
     </message>
     <message>
         <source>Edit Contents of Frame</source>
@@ -2560,7 +2560,7 @@ example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
     </message>
     <message>
         <source>Copyright</source>
-        <translation type="unfinished"></translation>
+        <translation>Copyright</translation>
     </message>
     <message>
         <source>Registered Trademark</source>
@@ -2680,7 +2680,7 @@ example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
     </message>
     <message>
         <source>Print Previe&amp;w</source>
-        <translation type="unfinished">Forhåndsvisning av &amp;utskrift</translation>
+        <translation>Forhåndsvisning &amp;av utskrift</translation>
     </message>
     <message>
         <source>&amp;JavaScripts...</source>
@@ -2692,15 +2692,15 @@ example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
     </message>
     <message>
         <source>&amp;Cascade</source>
-        <translation type="unfinished">&amp;Legg over hverandre</translation>
+        <translation>&amp;Legg over hverandre</translation>
     </message>
     <message>
         <source>&amp;Tile</source>
-        <translation type="unfinished">L&amp;egg ved siden av hverandre</translation>
+        <translation>L&amp;egg ved siden av hverandre</translation>
     </message>
     <message>
         <source>&amp;About Plug-ins</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Om Plug-ins</translation>
     </message>
     <message>
         <source>More Info...</source>
@@ -4682,7 +4682,7 @@ and the Delete key removes the last inserted one</source>
     <name>ColorWheelDialog</name>
     <message>
         <source>Color Wheel</source>
-        <translation type="unfinished"></translation>
+        <translation>Fargeratt</translation>
     </message>
     <message>
         <source>Color</source>
@@ -4766,11 +4766,11 @@ and the Delete key removes the last inserted one</source>
     </message>
     <message>
         <source>Vision Defect:</source>
-        <translation type="unfinished"></translation>
+        <translation>Synsdefekt:</translation>
     </message>
     <message>
         <source>Cr&amp;eate color...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Lag farge ...</translation>
     </message>
     <message>
         <source>&amp;Import existing color...</source>
@@ -4790,7 +4790,7 @@ and the Delete key removes the last inserted one</source>
     </message>
     <message>
         <source>C&amp;olor</source>
-        <translation type="unfinished">F&amp;arge</translation>
+        <translation>F&amp;arge</translation>
     </message>
     <message>
         <source>Value:</source>
@@ -4822,7 +4822,7 @@ and the Delete key removes the last inserted one</source>
     </message>
     <message>
         <source>New Color</source>
-        <translation type="unfinished">Ny farge</translation>
+        <translation>Ny farge</translation>
     </message>
     <message>
         <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
@@ -4846,7 +4846,7 @@ and the Delete key removes the last inserted one</source>
     </message>
     <message>
         <source>Color %1 exists already!</source>
-        <translation type="unfinished"></translation>
+        <translation>Farge %1 finnes allerede!</translation>
     </message>
     <message>
         <source>Color %1 appended.</source>
@@ -5169,19 +5169,19 @@ dokumenter. Denne kan du selv velge i Preferanser.</translation>
     </message>
     <message>
         <source>HSV</source>
-        <translation type="unfinished"></translation>
+        <translation>HSV</translation>
     </message>
     <message>
         <source>H:</source>
-        <translation type="unfinished"></translation>
+        <translation>H:</translation>
     </message>
     <message>
         <source>S:</source>
-        <translation type="unfinished"></translation>
+        <translation>S:</translation>
     </message>
     <message>
         <source>V:</source>
-        <translation type="unfinished"></translation>
+        <translation>V:</translation>
     </message>
     <message>
         <source>R:</source>
@@ -5565,7 +5565,7 @@ eventuelt fulgt av en dash og en ISO-3166 lande kode, f.eks nn-NO, nb-NO, fr-CH,
     </message>
     <message>
         <source>Active</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiv</translation>
     </message>
     <message>
         <source>From</source>
@@ -5624,7 +5624,7 @@ eventuelt fulgt av en dash og en ISO-3166 lande kode, f.eks nn-NO, nb-NO, fr-CH,
     </message>
     <message>
         <source>Text Frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekstramme</translation>
     </message>
     <message>
         <source>Image Frames</source>
@@ -5660,7 +5660,7 @@ eventuelt fulgt av en dash og en ISO-3166 lande kode, f.eks nn-NO, nb-NO, fr-CH,
     </message>
     <message>
         <source>Parameter</source>
-        <translation type="unfinished"></translation>
+        <translation>Parameter</translation>
     </message>
     <message>
         <source>Relationship</source>
@@ -5684,7 +5684,7 @@ eventuelt fulgt av en dash og en ISO-3166 lande kode, f.eks nn-NO, nb-NO, fr-CH,
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kopier</translation>
     </message>
     <message>
         <source>Alt+C</source>
@@ -6306,7 +6306,7 @@ Er du sikker på at du vil overskrive den?</translation>
     </message>
     <message>
         <source>Options:</source>
-        <translation type="unfinished"></translation>
+        <translation>Innstillinger:</translation>
     </message>
     <message>
         <source>Color:</source>
@@ -6358,7 +6358,7 @@ Er du sikker på at du vil overskrive den?</translation>
     </message>
     <message>
         <source>Grayscale</source>
-        <translation type="unfinished"></translation>
+        <translation>Gråskala</translation>
     </message>
     <message>
         <source>Invert</source>
@@ -6671,7 +6671,7 @@ Bruk 72 dpi for bilder som er ment for skjermen</translation>
     </message>
     <message>
         <source>Grayscale</source>
-        <translation type="unfinished"></translation>
+        <translation>Gråskala</translation>
     </message>
     <message>
         <source>Colorspace:</source>
@@ -7075,14 +7075,14 @@ Bruk 72 dpi for bilder som er ment for skjermen</translation>
     </message>
     <message>
         <source>&amp;Append</source>
-        <translation type="unfinished">&amp;Legg til</translation>
+        <translation>&amp;Legg til</translation>
     </message>
 </context>
 <context>
     <name>FontPreviewPlugin</name>
     <message>
         <source>&amp;Font Preview...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Forhåndsvisning av skrifttype ...</translation>
     </message>
     <message>
         <source>Font Preview dialog</source>
@@ -7247,7 +7247,7 @@ Bruk 72 dpi for bilder som er ment for skjermen</translation>
     </message>
     <message>
         <source>&amp;Selection</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Utvalg</translation>
     </message>
     <message>
         <source>&amp;Close</source>
@@ -7296,7 +7296,7 @@ and www.scribus.net for downloads.</source>
     </message>
     <message>
         <source>Se&amp;arch</source>
-        <translation type="unfinished"></translation>
+        <translation>Sø&amp;k</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -7312,7 +7312,7 @@ and www.scribus.net for downloads.</source>
     </message>
     <message>
         <source>Book&amp;marks</source>
-        <translation type="unfinished"></translation>
+        <translation>Bok&amp;merker</translation>
     </message>
     <message>
         <source>&amp;Print...</source>
@@ -7320,7 +7320,7 @@ and www.scribus.net for downloads.</source>
     </message>
     <message>
         <source>E&amp;xit</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Avslutt</translation>
     </message>
     <message>
         <source>Searching is case unsensitive</source>
@@ -7348,35 +7348,35 @@ and www.scribus.net for downloads.</source>
     </message>
     <message>
         <source>&amp;File</source>
-        <translation type="unfinished">&amp;Fil</translation>
+        <translation>&amp;Fil</translation>
     </message>
     <message>
         <source>&amp;Find...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Finn ...</translation>
     </message>
     <message>
         <source>Find &amp;Next</source>
-        <translation type="unfinished"></translation>
+        <translation>Finn &amp;neste</translation>
     </message>
     <message>
         <source>Find &amp;Previous</source>
-        <translation type="unfinished"></translation>
+        <translation>Finn &amp;forrige</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation type="unfinished">&amp;Rediger</translation>
+        <translation>&amp;Rediger</translation>
     </message>
     <message>
         <source>&amp;Add Bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Lett til bokmerke</translation>
     </message>
     <message>
         <source>D&amp;elete All</source>
-        <translation type="unfinished"></translation>
+        <translation>S&amp;lett alle</translation>
     </message>
     <message>
         <source>&amp;Bookmarks</source>
-        <translation type="unfinished">&amp;Bokmerker</translation>
+        <translation>&amp;Bokmerker</translation>
     </message>
 </context>
 <context>
@@ -7459,11 +7459,11 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>General Info</source>
-        <translation type="unfinished"></translation>
+        <translation>Generell info</translation>
     </message>
     <message>
         <source>Date / Time:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dato / Tid:</translation>
     </message>
     <message>
         <source>Has Embedded Profile:</source>
@@ -7499,7 +7499,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Comment:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kommentar:</translation>
     </message>
     <message>
         <source>User Comment:</source>
@@ -7515,7 +7515,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Description:</source>
-        <translation type="unfinished"></translation>
+        <translation>Beskrivelse:</translation>
     </message>
     <message>
         <source>Copyright:</source>
@@ -7907,19 +7907,19 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Add a new layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Legg et nytt lag</translation>
     </message>
     <message>
         <source>Delete layer</source>
-        <translation type="unfinished">Slett lag</translation>
+        <translation>Slett lag</translation>
     </message>
     <message>
         <source>Raise layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Hev lag</translation>
     </message>
     <message>
         <source>Lower layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Senk lag</translation>
     </message>
 </context>
 <context>
@@ -8280,7 +8280,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Landscape</source>
-        <translation type="unfinished"></translation>
+        <translation>Landskap</translation>
     </message>
     <message>
         <source>&amp;Width:</source>
@@ -9875,15 +9875,15 @@ Hvis Motstående Sider er markert kan denne brukes til å få til den korrekte m
     </message>
     <message>
         <source>&amp;New Document</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Nytt dokument</translation>
     </message>
     <message>
         <source>Open &amp;Existing Document</source>
-        <translation type="unfinished"></translation>
+        <translation>Åpne &amp;eksisterende dokument</translation>
     </message>
     <message>
         <source>Open Recent &amp;Document</source>
-        <translation type="unfinished"></translation>
+        <translation>Nylig åpnede &amp;dokumenter</translation>
     </message>
 </context>
 <context>
@@ -10057,32 +10057,32 @@ ellers er Koordinater relative til Objektet.</translation>
     <name>OODrawImportPlugin</name>
     <message>
         <source>Import &amp;OpenOffice.org Draw...</source>
-        <translation type="unfinished"></translation>
+        <translation>Importer &amp;OpenOffice.org Draw...</translation>
     </message>
     <message>
         <source>Imports OpenOffice.org Draw Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Importerer OpenOffice.org Draw filer</translation>
     </message>
     <message>
         <source>Imports most OpenOffice.org Draw files into the current document, converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importerer de fleste OpenOffice.org Draw filene inn i det gjeldene dokumentet, ved å konvertere deres vektor data til Scribus objekter.</translation>
     </message>
     <message>
         <source>OpenDocument 1.0 Draw</source>
         <comment>Import/export format name</comment>
-        <translation type="unfinished"></translation>
+        <translation>OpenDocument 1.0 Draw</translation>
     </message>
     <message>
         <source>OpenOffice.org 1.x Draw</source>
         <comment>Import/export format name</comment>
-        <translation type="unfinished"></translation>
+        <translation>OpenOffice.org 1.x Draw</translation>
     </message>
 </context>
 <context>
     <name>OdtDialog</name>
     <message>
         <source>OpenDocument Importer Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Opsjoner for import av OpenDocument </translation>
     </message>
     <message>
         <source>Overwrite Paragraph Styles</source>
@@ -10975,19 +10975,19 @@ UCR reduserer muligheten for overmettning med CMY farger.</translation>
     </message>
     <message>
         <source>Cyan</source>
-        <translation type="unfinished">Cyan</translation>
+        <translation>Cyan</translation>
     </message>
     <message>
         <source>Magenta</source>
-        <translation type="unfinished">Magenta</translation>
+        <translation>Magenta</translation>
     </message>
     <message>
         <source>Yellow</source>
-        <translation type="unfinished">Gult</translation>
+        <translation>Gult</translation>
     </message>
     <message>
         <source>Black</source>
-        <translation type="unfinished">Svart</translation>
+        <translation>Svart</translation>
     </message>
     <message>
         <source>Scaling:</source>
@@ -10995,7 +10995,7 @@ UCR reduserer muligheten for overmettning med CMY farger.</translation>
     </message>
     <message>
         <source>Print...</source>
-        <translation type="unfinished">Skriv ut ...</translation>
+        <translation>Skriv ut ...</translation>
     </message>
     <message>
         <source>Provides a more pleasant view of text items in the viewer, at the expense of a slight slowdown in previewing. This only affects Type 1 fonts</source>
@@ -11015,7 +11015,7 @@ UCR reduserer muligheten for overmettning med CMY farger.</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">Lukk</translation>
+        <translation>Lukk</translation>
     </message>
 </context>
 <context>
@@ -11431,11 +11431,11 @@ UCR reduserer muligheten for overmettning med CMY farger.</translation>
     <name>PageLayouts</name>
     <message>
         <source>Page Layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Side utseende</translation>
     </message>
     <message>
         <source>First Page is:</source>
-        <translation type="unfinished"></translation>
+        <translation>Første side er:</translation>
     </message>
 </context>
 <context>
@@ -11670,7 +11670,7 @@ UCR reduserer muligheten for overmettning med CMY farger.</translation>
     </message>
     <message>
         <source>The search failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Søket feilet: %1</translation>
     </message>
     <message>
         <source>No images named &quot;%1&quot; were found.</source>
@@ -11685,7 +11685,7 @@ UCR reduserer muligheten for overmettning med CMY farger.</translation>
     </message>
     <message>
         <source>Export As Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Eskporter som bilde</translation>
     </message>
     <message>
         <source>Exports selected pages as bitmap images.</source>
@@ -12867,7 +12867,7 @@ UCR reduserer muligheten for overmettning med CMY farger.</translation>
     </message>
     <message>
         <source>Units:</source>
-        <translation type="unfinished"></translation>
+        <translation>Enhetr:</translation>
     </message>
     <message>
         <source>Undo/Redo</source>
@@ -12883,7 +12883,7 @@ UCR reduserer muligheten for overmettning med CMY farger.</translation>
     </message>
     <message>
         <source>Fonts</source>
-        <translation type="unfinished"></translation>
+        <translation>Skrifttyper</translation>
     </message>
     <message>
         <source>Preflight Verifier</source>
@@ -12895,7 +12895,7 @@ UCR reduserer muligheten for overmettning med CMY farger.</translation>
     </message>
     <message>
         <source>PDF Export</source>
-        <translation type="unfinished">PDF Eksport</translation>
+        <translation>PDF Eksport</translation>
     </message>
     <message>
         <source>Document Item Attributes</source>
@@ -12907,7 +12907,7 @@ UCR reduserer muligheten for overmettning med CMY farger.</translation>
     </message>
     <message>
         <source>Keyboard Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Tastatur snarveier</translation>
     </message>
     <message>
         <source>Page Display</source>
@@ -12951,7 +12951,7 @@ UCR reduserer muligheten for overmettning med CMY farger.</translation>
     </message>
     <message>
         <source>Resolution:</source>
-        <translation type="unfinished">Oppløsning:</translation>
+        <translation>Oppløsning:</translation>
     </message>
     <message>
         <source>Always ask before fonts are replaced when loading a document</source>
@@ -12979,7 +12979,7 @@ UCR reduserer muligheten for overmettning med CMY farger.</translation>
     </message>
     <message>
         <source>Miscellaneous</source>
-        <translation type="unfinished"></translation>
+        <translation>Diverse</translation>
     </message>
     <message>
         <source>Type</source>
@@ -12999,7 +12999,7 @@ UCR reduserer muligheten for overmettning med CMY farger.</translation>
     </message>
     <message>
         <source>Plugins</source>
-        <translation type="unfinished"></translation>
+        <translation>Plugins</translation>
     </message>
     <message>
         <source>Display non-printing characters such as paragraph markers in text frames</source>
@@ -13056,7 +13056,7 @@ instance of gimp.</source>
     </message>
     <message>
         <source>Rulers relative to Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Linjaler i relativ i forhold til siden</translation>
     </message>
     <message>
         <source>Gaps between Pages</source>
@@ -13064,11 +13064,11 @@ instance of gimp.</source>
     </message>
     <message>
         <source>Horizontal:</source>
-        <translation type="unfinished"></translation>
+        <translation>Horisontal:</translation>
     </message>
     <message>
         <source>Vertical:</source>
-        <translation type="unfinished"></translation>
+        <translation>Vertikal:</translation>
     </message>
     <message>
         <source>Locate Ghostscript</source>
@@ -14013,7 +14013,7 @@ Sjekk sti og filnavn.</translation>
     </message>
     <message>
         <source>Font %1 is broken, discarding it</source>
-        <translation>Skrifttype %1 er ødelagt</translation>
+        <translation>Skrifttype %1 er ødelagt, forkaster den</translation>
     </message>
     <message>
         <source>Template: </source>
@@ -14659,7 +14659,7 @@ Eksterne lenker</translation>
     </message>
     <message>
         <source>Font %1 is broken (FreeType2), discarding it</source>
-        <translation type="unfinished"></translation>
+        <translation>Skrifttype %1 er ødelagt (FreeType2), forkaster den</translation>
     </message>
     <message>
         <source>Font %1 is broken (no Face), discarding it</source>
@@ -15296,7 +15296,7 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>page</source>
         <comment>page export</comment>
-        <translation type="unfinished"></translation>
+        <translation>Side </translation>
     </message>
     <message>
         <source>Copy #%1 of </source>
@@ -15344,7 +15344,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Save As Template</source>
-        <translation type="unfinished"></translation>
+        <translation>Lagre som mal</translation>
     </message>
     <message>
         <source>Scripter</source>
@@ -15356,11 +15356,11 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>SVG Export</source>
-        <translation type="unfinished"></translation>
+        <translation>SVG Eksport</translation>
     </message>
     <message>
         <source>SVG Import</source>
-        <translation type="unfinished"></translation>
+        <translation>SVG Import</translation>
     </message>
     <message>
         <source>OpenOffice.org Draw Importer</source>
@@ -17892,7 +17892,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>&amp;Discard</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Forkast</translation>
     </message>
 </context>
 <context>
@@ -18975,7 +18975,7 @@ edited to match the one being imported, or left untouched</source>
     </message>
     <message>
         <source>Show Guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Vis hjelpelinjer</translation>
     </message>
     <message>
         <source>Color:</source>
@@ -18983,7 +18983,7 @@ edited to match the one being imported, or left untouched</source>
     </message>
     <message>
         <source>Show Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Vis marglinjer</translation>
     </message>
     <message>
         <source>Show Page Grid</source>
@@ -19433,7 +19433,7 @@ edited to match the one being imported, or left untouched</source>
     </message>
     <message>
         <source>Grayscale</source>
-        <translation type="unfinished">Gråskala</translation>
+        <translation>Gråskala</translation>
     </message>
     <message>
         <source>&amp;Use Custom Rendering Settings</source>
@@ -19525,7 +19525,7 @@ edited to match the one being imported, or left untouched</source>
     </message>
     <message>
         <source>Output &amp;Profile:</source>
-        <translation type="unfinished">Output &amp;Profil:</translation>
+        <translation>Output &amp;Profil:</translation>
     </message>
     <message>
         <source>Trim Box</source>
@@ -19668,7 +19668,7 @@ Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does 
     <message>
         <source>Choose a master password which enables or disables all the
 security features in your exported PDF</source>
-        <translation type="unfinished">Velg et hovedpassord som aktiverer og deaktiverer alle
+        <translation>Velg et hovedpassord som aktiverer og deaktiverer alle
 sikkerhetsfunksjonen i din eksporterte PDF</translation>
     </message>
     <message>
@@ -19677,7 +19677,7 @@ sikkerhetsfunksjonen i din eksporterte PDF</translation>
     </message>
     <message>
         <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
-        <translation type="unfinished">Tillat utskriving av PDFen.</translation>
+        <translation>Tillat utskriving av PDFen.</translation>
     </message>
     <message>
         <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
@@ -19891,7 +19891,7 @@ Unless you have a reason, leave this checked. This reduces PDF file size.</sourc
     </message>
     <message>
         <source>Arrows:</source>
-        <translation type="unfinished"></translation>
+        <translation>Piler:</translation>
     </message>
     <message>
         <source>Start:</source>
@@ -20087,11 +20087,11 @@ Unless you have a reason, leave this checked. This reduces PDF file size.</sourc
     </message>
     <message>
         <source>Custom:</source>
-        <translation type="unfinished"></translation>
+        <translation>Brukerdefinert:</translation>
     </message>
     <message>
         <source>Custom: </source>
-        <translation type="unfinished"></translation>
+        <translation>Brukerdefinert: </translation>
     </message>
     <message>
         <source>Text Color:</source>
@@ -20119,7 +20119,7 @@ Unless you have a reason, leave this checked. This reduces PDF file size.</sourc
     </message>
     <message>
         <source>Custom</source>
-        <translation type="unfinished">Brukerdefinert</translation>
+        <translation>Brukerdefinert</translation>
     </message>
 </context>
 <context>
@@ -20301,11 +20301,11 @@ Unless you have a reason, leave this checked. This reduces PDF file size.</sourc
     </message>
     <message>
         <source>Custom:</source>
-        <translation type="unfinished"></translation>
+        <translation>Brukerdefinert:</translation>
     </message>
     <message>
         <source>Custom: </source>
-        <translation type="unfinished"></translation>
+        <translation>Brukerdefinert: </translation>
     </message>
     <message>
         <source>Dot</source>
@@ -20402,7 +20402,7 @@ Vennligst velg et annet.</translation>
     </message>
     <message>
         <source>Free Objects</source>
-        <translation type="unfinished"></translation>
+        <translation>Frie objekter</translation>
     </message>
     <message>
         <source>Page </source>
@@ -20432,35 +20432,35 @@ Vennligst velg et annet.</translation>
     <name>UndoManager</name>
     <message>
         <source>Add vertical guide</source>
-        <translation type="unfinished"></translation>
+        <translation>Legg til vertikal hjelpelinje</translation>
     </message>
     <message>
         <source>Add horizontal guide</source>
-        <translation type="unfinished"></translation>
+        <translation>Legg til horisontal hjelpelinje</translation>
     </message>
     <message>
         <source>Remove vertical guide</source>
-        <translation type="unfinished"></translation>
+        <translation>Fjern vertikal hjelpelinje</translation>
     </message>
     <message>
         <source>Remove horizontal guide</source>
-        <translation type="unfinished"></translation>
+        <translation>Fjern horisontal hjelpelinje</translation>
     </message>
     <message>
         <source>Move vertical guide</source>
-        <translation type="unfinished"></translation>
+        <translation>Flytt vertikal hjelpelinje</translation>
     </message>
     <message>
         <source>Move horizontal guide</source>
-        <translation type="unfinished"></translation>
+        <translation>Flytt horisontal hjelpelinje</translation>
     </message>
     <message>
         <source>Lock guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Lås fast hjelpelinjene</translation>
     </message>
     <message>
         <source>Unlock guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Lås opp hjelpelinjene</translation>
     </message>
     <message>
         <source>Move</source>
@@ -20488,7 +20488,7 @@ W2: %3, H2: %4</translation>
     </message>
     <message>
         <source>Selection</source>
-        <translation type="unfinished">Utvalg</translation>
+        <translation>Utvalg</translation>
     </message>
     <message>
         <source>Group</source>
@@ -20526,7 +20526,7 @@ W: %3, H: %4</translation>
     </message>
     <message>
         <source>Color1: %1, Color2: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Farge1: %1, Farge2: %2</translation>
     </message>
     <message>
         <source>Set fill color shade</source>
@@ -20558,11 +20558,11 @@ W: %3, H: %4</translation>
     </message>
     <message>
         <source>Lock size</source>
-        <translation type="unfinished"></translation>
+        <translation>Lås størrelse</translation>
     </message>
     <message>
         <source>Unlock size</source>
-        <translation type="unfinished"></translation>
+        <translation>Lås opp størrelse</translation>
     </message>
     <message>
         <source>Ungroup</source>
@@ -20640,11 +20640,11 @@ til %2</translation>
     </message>
     <message>
         <source>Create table</source>
-        <translation type="unfinished"></translation>
+        <translation>Lag tabell</translation>
     </message>
     <message>
         <source>Rows: %1, Cols: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Rader: %1, Kolonner: %2</translation>
     </message>
     <message>
         <source>Set font</source>
@@ -20832,7 +20832,7 @@ til %2</translation>
     </message>
     <message>
         <source>Raise layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Hev lag</translation>
     </message>
     <message>
         <source>Lower layer</source>
@@ -20860,7 +20860,7 @@ til %2</translation>
     </message>
     <message>
         <source>Text on a Path</source>
-        <translation type="unfinished">Legg tekst til sti</translation>
+        <translation>Legg tekst til sti</translation>
     </message>
 </context>
 <context>
