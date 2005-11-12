@@ -514,6 +514,7 @@ void ScribusApp::initPalettes()
 	measurementPalette->hide();
 	docCheckerPalette = new CheckDocument(this, false);
 	connect( scrActions["toolsPreflightVerifier"], SIGNAL(toggled(bool)) , docCheckerPalette, SLOT(setPaletteShown(bool)) );
+	connect( scrActions["toolsPreflightVerifier"], SIGNAL(toggled(bool)) , this, SLOT(docCheckToggle(bool)) );
 	connect( docCheckerPalette, SIGNAL(paletteShown(bool)), scrActions["toolsPreflightVerifier"], SLOT(setOn(bool)));
 	connect( docCheckerPalette, SIGNAL(paletteShown(bool)), this, SLOT(docCheckToggle(bool)));
 	docCheckerPalette->setPrefsContext("DocCheckerPalette");
@@ -8153,6 +8154,14 @@ void ScribusApp::docCheckToggle(bool visible)
 		docCheckerPalette->ignoreErrors->hide();
 		docCheckerPalette->checkMode = 0;
 		docCheckerPalette->noButton = true;
+	}
+	else
+	{
+		if (HaveDoc)
+		{
+			scanDocument();
+			docCheckerPalette->buildErrorList(doc);
+		}
 	}
 }
 

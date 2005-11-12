@@ -48,6 +48,18 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 			itemError.insert(7, 0);
 		if (((currItem->fillTransparency() != 0.0) || (currItem->lineTransparency() != 0.0)) && (checkerSettings.checkTransparency))
 			itemError.insert(6, 0);
+		if ((currItem->GrType != 0) && (checkerSettings.checkTransparency))
+		{
+			QPtrVector<VColorStop> colorStops = currItem->fill_gradient.colorStops();
+			for( uint offset = 0 ; offset < colorStops.count() ; offset++ )
+			{
+				if (colorStops[offset]->opacity != 1.0)
+				{
+					itemError.insert(6, 0);
+					break;
+				}
+			}
+		}
 		if ((currItem->OwnPage == -1) && (checkerSettings.checkOrphans))
 			itemError.insert(3, 0);
 		if (currItem->asImageFrame())
@@ -135,6 +147,18 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 		itemError.clear();
 		if (((currItem->fillTransparency() != 0.0) || (currItem->lineTransparency() != 0.0)) && (checkerSettings.checkTransparency))
 			itemError.insert(6, 0);
+		if ((currItem->GrType != 0) && (checkerSettings.checkTransparency))
+		{
+			QPtrVector<VColorStop> colorStops = currItem->fill_gradient.colorStops();
+			for( uint offset = 0 ; offset < colorStops.count() ; offset++ )
+			{
+				if (colorStops[offset]->opacity != 1.0)
+				{
+					itemError.insert(6, 0);
+					break;
+				}
+			}
+		}
 		if (((currItem->isAnnotation) || (currItem->isBookmark)) && (checkerSettings.checkAnnotations))
 			itemError.insert(7, 0);
 		if ((currItem->OwnPage == -1) && (checkerSettings.checkOrphans))
