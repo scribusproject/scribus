@@ -2025,6 +2025,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	Editor->setFocus();
 	Editor->setFarbe(false);
 	blockUpdate = false;
+	loadPrefs();
 }
 
 /* Main Story Editor Class, no current document */
@@ -2047,6 +2048,35 @@ StoryEditor::StoryEditor(QWidget* parent) : QMainWindow(parent, "StoryEditor", W
 	Editor->setFocus();
 	Editor->setFarbe(false);
 	blockUpdate = false;
+	loadPrefs();
+}
+
+StoryEditor::~StoryEditor()
+{
+	savePrefs();
+}
+
+void StoryEditor::savePrefs()
+{
+	// save prefs
+	prefs->set("left", x());
+	prefs->set("top", y());
+	prefs->set("width", width());
+	prefs->set("height", height());
+}
+
+void StoryEditor::loadPrefs()
+{
+	prefs = PrefsManager::instance()->prefsFile->getPluginContext("StoryEditor");
+	int vleft   = QMAX(-80, prefs->getInt("left", 10));
+#ifndef QT_MAC
+	int vtop    = QMAX(-80, prefs->getInt("top", 10));
+#else
+	int vtop    = QMAX(64, prefs->getInt("top", 10));
+#endif
+	int vwidth  = QMAX(600, prefs->getInt("width", 600));
+	int vheight = QMAX(400, prefs->getInt("height", 400));
+	setGeometry(vleft, vtop, vwidth, vheight);
 }
 
 void StoryEditor::buildGUI()
@@ -2361,6 +2391,7 @@ void StoryEditor::closeEvent(QCloseEvent *)
 	else
 		result = QDialog::Rejected;
 	setCurrentDocumentAndItem(currDoc, NULL);
+	savePrefs();
 	hide();
 	blockUpdate = false;
 }

@@ -45,6 +45,8 @@ class AlignSelect;
 class FontCombo;
 class ShadeButton;
 class PrefsManager;
+class PrefsContext;
+
 
 struct PtiSmall {
 		    int csize;
@@ -316,7 +318,7 @@ class SCRIBUS_API StoryEditor : public QMainWindow
 public:
 	StoryEditor( QWidget* parent );
 	StoryEditor( QWidget* parent, ScribusDoc *docc, PageItem* ite );
-	~StoryEditor() {};
+	~StoryEditor();
 	void closeEvent(QCloseEvent *);
 	void keyPressEvent (QKeyEvent * e);
 	bool eventFilter( QObject* ob, QEvent* ev );
@@ -434,12 +436,18 @@ protected:
 	void buildGUI();
 	void connectSignals();
 	void disconnectSignals();
+	/*! \brief Loading the preferences (position).
+	It's in separate method due the 2 constructors. */
+	void loadPrefs();
+	/*! \brief Saving the preferences (position). */
+	void savePrefs();
 
     QHBoxLayout* StoryEd2Layout;
 	QGridLayout* ButtonGroup1Layout;
 	QGridLayout* ButtonGroup2Layout;
-	
+
 	PrefsManager* prefsManager;
+	PrefsContext* prefs;
 };
 
 #endif
