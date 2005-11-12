@@ -1756,8 +1756,6 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					if ((hl->cfont->CharWidth.contains(chr)) && (chr != 32))
 					{
 						PS_save();
-						if (hl->cscale != 1000)
-							PS_scale(hl->cscale / 1000.0, 1);
 						if (hl->ccolor != "None")
 						{
 							SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
@@ -1768,11 +1766,26 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 							PS_translate(0, (tsz / 10.0));
 							if (c->BaseOffs != 0)
 								PS_translate(0, -c->BaseOffs);
+							if (hl->cscale != 1000)
+								PS_scale(hl->cscale / 1000.0, 1);
 							if ((colorsToUse[hl->ccolor].isSpotColor()) && (!DoSep))
 								PutSeite(ToStr(hl->cshade / 100.0)+" "+spotMap[hl->ccolor]);
 							else
 								PutSeite(FillColor + " cmyk");
 							PS_showSub(chr, hl->cfont->RealName().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ), tsz / 10.0, false);
+							if ((hl->cstroke != "None") && ((tsz * hl->coutline / 10000.0) != 0))
+							{
+								PS_save();
+								PS_setlinewidth(tsz * hl->coutline / 10000.0);
+								SetFarbe(hl->cstroke, hl->cshade2, &h, &s, &v, &k, gcr);
+								PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+								if ((colorsToUse[hl->cstroke].isSpotColor()) && (!DoSep))
+									PutSeite(ToStr(hl->cshade2 / 100.0)+" "+spotMap[hl->cstroke]);
+								else
+									PutSeite(StrokeColor + " cmyk");
+								PS_showSub(chr, hl->cfont->RealName().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ), tsz / 10.0, true);
+								PS_restore();
+							}
 						}
 						PS_restore();
 					}
@@ -1793,6 +1806,23 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					}
 					else
 						PS_show_xyG(hl->cfont->scName(), chx, 0, 0, false);
+					if ((hl->cstroke != "None") && ((tsz * hl->coutline / 10000.0) != 0))
+					{
+						uint chr = chx[0].unicode();
+						FPointArray gly = hl->cfont->GlyphArray[chr].Outlines.copy();
+						QWMatrix chma;
+						chma.scale(tsz / 100.0, tsz / 100.0);
+						gly.map(chma);
+						PS_save();
+						PS_setlinewidth(tsz * hl->coutline / 10000.0);
+						PS_translate(0,  tsz / 10.0);
+						SetFarbe(hl->cstroke, hl->cshade2, &h, &s, &v, &k, gcr);
+						PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+						SetClipPath(&gly);
+						PS_closepath();
+						putColor(hl->cstroke, hl->cshade2, false);
+						PS_restore();
+					}
 					PS_restore();
 				}
 			}
