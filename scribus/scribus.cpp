@@ -5184,6 +5184,7 @@ void ScribusApp::setAppMode(int mode)
 					return;
 				}
 				setTBvals(currItem);
+				currItem->CPos = 0;
 			}
 			scrActions["editPaste"]->setEnabled(false);
 			scrActions["insertGlyph"]->setEnabled(true);
