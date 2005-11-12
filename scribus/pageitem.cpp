@@ -3363,6 +3363,8 @@ void PageItem::updateGradientVectors()
 	GrEndY = QMIN(QMAX(GrEndY, 0), Height);
 	GrStartX = QMIN(QMAX(GrStartX, 0), Width);
 	GrStartY = QMIN(QMAX(GrStartY, 0), Height);
+	if (ScApp->view->SelItem.count()!=0 && this==ScApp->view->SelItem.at(0))
+		ScApp->propertiesPalette->updateColorSpecialGradient();
 }
 
 void PageItem::SetPolyClip(int up)

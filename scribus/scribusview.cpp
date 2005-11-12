@@ -5259,7 +5259,7 @@ void ScribusView::UpdateClip(PageItem* currItem)
 		}
 		break;
 	}
-	updateGradientVectors(currItem);
+	currItem->updateGradientVectors();
 }
 
 void ScribusView::MarkClip(PageItem *currItem, FPointArray cli, bool once)
@@ -6007,7 +6007,7 @@ bool ScribusView::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, 
 		p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
 		currItem->DrawPolyL(&p, currItem->Clip);
 		UpdateClip(currItem);
-		updateGradientVectors(currItem);
+		currItem->updateGradientVectors();
 		currItem->DrawPolyL(&p, currItem->Clip);
 		p.end();
 		return true;
@@ -6030,7 +6030,7 @@ bool ScribusView::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, 
 		}
 		UpdateClip(currItem);
 	}
-	updateGradientVectors(currItem);
+	currItem->updateGradientVectors();
 	if (redraw)
 	{
 		QRect newR(currItem->getRedrawBounding(Scale));
@@ -6354,7 +6354,7 @@ void ScribusView::scaleGroup(double scx, double scy)
 		bb->GrStartY = gr.point(0).y();
 		bb->GrEndX = gr.point(1).x();
 		bb->GrEndY = gr.point(1).y();
-		updateGradientVectors(bb);
+		bb->updateGradientVectors();
 		if ((Doc->RotMode != 0) && (!Doc->isLoading()))
 		{
 			switch (Doc->RotMode)
@@ -7559,7 +7559,8 @@ void ScribusView::Deselect(bool prop)
 void ScribusView::updateGradientVectors(PageItem *currItem)
 {
 	currItem->updateGradientVectors();
-	ScApp->propertiesPalette->updateColorSpecialGradient();
+	if (currItem==SelItem.at(0))
+		ScApp->propertiesPalette->updateColorSpecialGradient();
 }
 
 void ScribusView::SetupDraw(int nr)
@@ -9568,7 +9569,7 @@ void ScribusView::ItemGradFill(int typ)
 		{
 			currItem = SelItem.at(a);
 			currItem->GrType = typ;
-			updateGradientVectors(currItem);
+			currItem->updateGradientVectors();
 			RefreshItem(currItem);
 		}
 	}
@@ -10701,7 +10702,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		currItem->GrStartY = Buffer->GrStartY;
 		currItem->GrEndX = Buffer->GrEndX;
 		currItem->GrEndY = Buffer->GrEndY;
-		updateGradientVectors(currItem);
+		currItem->updateGradientVectors();
 	}
 	currItem->setObjectAttributes(&(Buffer->pageItemAttributes));
 	setRedrawBounding(currItem);
