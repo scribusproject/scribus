@@ -1695,8 +1695,6 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 				unsigned char r, g, b, a, src_r, src_g, src_b, src_a, mask_a;
 				for (unsigned int j = startSrcX; j < static_cast<unsigned int>(layerInfo[layer].width); j++)
 				{
-//					if (j == width())
-//						break;
 					unsigned char *d = (unsigned char *) dst;
 					unsigned char *s = (unsigned char *) src;
 					unsigned char *sm = (unsigned char *) srcm;
@@ -1801,6 +1799,25 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 								src_r = d[0]  < src_r ? d[0]  : src_r;
 								src_g = d[1] < src_g ? d[1] : src_g;
 								src_b = d[2] < src_b ? d[2] : src_b;
+							}
+						}
+					}
+					else if (layBlend == "hLit")
+					{
+						if (header.color_mode == CM_CMYK)
+						{
+							src_r = src_r <= 128 ? INT_MULT(src_r, d[0]) : 255 - INT_MULT(255 - d[0], 255 - src_r);
+							src_g = src_g <= 128 ? INT_MULT(src_g, d[1]) : 255 - INT_MULT(255 - d[1], 255 - src_g);
+							src_b = src_b <= 128 ? INT_MULT(src_b, d[2]) : 255 - INT_MULT(255 - d[2], 255 - src_b);
+							src_a = src_a <= 128 ? INT_MULT(src_a, d[3]) : 255 - INT_MULT(255 - d[3], 255 - src_a);
+						}
+						else
+						{
+							if (d[3] > 0)
+							{
+								src_r = abs(src_r - 127) == 127 ? d[0] : src_r < 127 ? INT_MULT(src_r, d[0]) : 255 - INT_MULT(255 - d[0], 255 - src_r);
+								src_g = abs(src_g - 127) == 127 ? d[1] : src_g < 127 ? INT_MULT(src_g, d[1]) : 255 - INT_MULT(255 - d[1], 255 - src_g);
+								src_b = abs(src_b - 127) == 127 ? d[2] : src_b < 127 ? INT_MULT(src_b, d[2]) : 255 - INT_MULT(255 - d[2], 255 - src_b);
 							}
 						}
 					}
@@ -1913,14 +1930,14 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 						if (header.color_mode == CM_CMYK)
 							a = (d[3] * (255 - layOpa) + src_a * layOpa) / 255;
 						else
-							a = INT_MULT(src_a, layOpa);
+							a = (src_a * layOpa) / 255;
 					}
 					else
 					{
 						r = src_r;
 						g = src_g;
 						b = src_b;
-						a = INT_MULT(src_a, layOpa);
+						a = src_a;
 					}
 					if (header.color_mode == CM_CMYK)
 					{
