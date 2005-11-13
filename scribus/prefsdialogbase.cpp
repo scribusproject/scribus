@@ -7,10 +7,14 @@
 #include <qwhatsthis.h>
 #include <qlabel.h>
 #include <qfont.h>
+#include <qfiledialog.h>
 
 #include "commonstrings.h"
+#include "prefsmanager.h"
+
 
 extern QPixmap loadIcon(QString nam);
+
 
 PrefsDialogBase::PrefsDialogBase( QWidget* parent ) : QDialog( parent, "PrefsDialogBase", true, 0 )
 {
@@ -18,8 +22,8 @@ PrefsDialogBase::PrefsDialogBase( QWidget* parent ) : QDialog( parent, "PrefsDia
 	setName( "PrefsDialogBase" );
 	setIcon(loadIcon("AppIcon.png"));
 	setSizeGripEnabled( true );
-	prefsLayout = new QVBoxLayout( this, 11, 6, "prefsLayout"); 
-	layout3 = new QHBoxLayout( 0, 0, 6, "layout3"); 
+	prefsLayout = new QVBoxLayout( this, 11, 6, "prefsLayout");
+	layout3 = new QHBoxLayout( 0, 0, 6, "layout3");
 	prefsSelection = new QIconView( this, "prefsSelection" );
 	prefsSelection->setHScrollBarMode( QIconView::AlwaysOff );
 	prefsSelection->setVScrollBarMode( QIconView::Auto );
@@ -44,6 +48,10 @@ PrefsDialogBase::PrefsDialogBase( QWidget* parent ) : QDialog( parent, "PrefsDia
 	layout3->addLayout(layout5);
 	prefsLayout->addLayout( layout3 );
 	layout4 = new QHBoxLayout( 0, 0, 6, "layout4");
+	saveButton = new QPushButton(this, "saveButton");
+	saveButton->setAutoDefault( false );
+	saveButton->setDefault( false );
+	layout4->addWidget(saveButton);
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout4->addItem( spacer );
 	backToDefaults = new QPushButton( this, "backToDefaults" );
@@ -63,6 +71,7 @@ PrefsDialogBase::PrefsDialogBase( QWidget* parent ) : QDialog( parent, "PrefsDia
 	connect(prefsSelection, SIGNAL(clicked(QIconViewItem *)), this, SLOT(itemSelected(QIconViewItem* )));
 	connect( buttonOk, SIGNAL( clicked() ), this, SLOT( accept() ) );
 	connect( buttonCancel, SIGNAL( clicked() ), this, SLOT( reject() ) );
+	connect(saveButton, SIGNAL(clicked()), this, SLOT(saveButton_clicked()));
 }
 
 int PrefsDialogBase::addItem(QString name, QPixmap icon, QWidget *tab)
@@ -115,8 +124,22 @@ void PrefsDialogBase::itemSelected(QIconViewItem* ic)
  */
 void PrefsDialogBase::languageChange()
 {
-    buttonOk->setText( CommonStrings::tr_OK );
-    buttonCancel->setText( CommonStrings::tr_Cancel );
-    backToDefaults->setText( tr( "&Defaults" ) );
+	buttonOk->setText( CommonStrings::tr_OK );
+	buttonCancel->setText( CommonStrings::tr_Cancel );
+	saveButton->setText(tr("Save..."));
+	backToDefaults->setText( tr( "&Defaults" ) );
 }
 
+void PrefsDialogBase::saveButton_clicked()
+{
+	QString s = QFileDialog::getSaveFileName(
+			QDir::currentDirPath(),
+			"All Files (*)",
+			this,
+			"save prefs",
+			tr("Save Preferences"));
+	if (s.isEmpty())
+		return;
+	PrefsManager *pm = PrefsManager::instance();
+	pm->SavePrefs(s);
+}

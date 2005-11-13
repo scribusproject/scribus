@@ -111,7 +111,7 @@ public:
 	ScribusApp();
 	/** destructor */
 	~ScribusApp() {};
-	int initScribus(bool showSplash, bool showFontInfo, const QString newGuiLanguage);
+	int initScribus(bool showSplash, bool showFontInfo, const QString newGuiLanguage, const QString prefsUserFile);
 	void showSplash(bool);
 	bool splashShowing() const;
 	void closeSplash();
@@ -127,7 +127,7 @@ public:
 	const bool editToolBarVisible();
 	const bool fileToolBarVisible();
 	const bool fileWatcherActive();
-	
+
 	bool doFileNew(double width, double h, double tpr, double lr, double rr, double br, double ab, double sp,
 					bool atf, int fp, int einh, int firstleft, int Ori, int SNr, const QString&, int pageCount=1);
 	bool DoFileSave(QString fn);
@@ -156,7 +156,7 @@ public:
 	void ReorgFonts();
 
 	void emergencySave();
-	
+
 	/**
 	 * @brief Returns true if an arrow key is pressed down.
 	 * @return true if an arrow key is pressed down otherwise returns false

@@ -37,7 +37,7 @@ class SCRIBUS_API ScribusQApp : public QApplication
 		const bool usingGUI();
 		/**
 		 * @brief Are we trying to adhere to Apple Mac HIG ?
-		 * @retva√l bool true if we are on Qt/Mac
+		 * @retval bool true if we are on Qt/Mac
 		 */
 		const bool isMacGUI();
 		/**
@@ -45,20 +45,22 @@ class SCRIBUS_API ScribusQApp : public QApplication
 		 * @retval bool if we are swapping
 		 */
 		const bool reverseDialogButtons();
-		
+
 		static bool useGUI;
-		
+
 	private:
 		ScribusApp *scribus;
 		void showHeader();
 		void showVersion();
 		void showUsage();
 		void showAvailLangs();
-		
+
 		QString lang;
 		bool showSplash;
 		bool showFontInfo;
 		bool swapDialogButtonOrder;
+		//! \brief If is there user given prefs file...
+		QString prefsUserFile;
 		QString file;
 
 	signals:

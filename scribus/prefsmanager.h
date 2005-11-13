@@ -24,7 +24,7 @@ class PrefsFile;
 /**
   * @author Craig Bradney
   * @brief Manage Scribus preferences here, and here alone
-  * Start to move the preferences out of scribus.cpp and provide some 
+  * Start to move the preferences out of scribus.cpp and provide some
   * more features and hide some of the data within this class
   * TODO Move prefsFile in here from scribus.cpp and stop passing it in for convert12Preferences
   * TODO Lots more :)
@@ -35,7 +35,7 @@ Q_OBJECT
 public:
 	PrefsManager(QObject *parent = 0, const char *name = 0);
 	~PrefsManager();
-	
+
 	/**
 	* @brief Returns a pointer to the PrefsManager instance
 	* @return A pointer to the PrefsManager instance
@@ -63,14 +63,23 @@ public:
 	/// convert 1.2 style preferences to new XML format
 	void convert12Preferences();
 	const QString preferencesLocation();
-	void ReadPrefs();
+
+	/*! \brief Read the preferences.
+	\param fname optional filename with preferences. If is not given,
+	the defualt is used. */
+	void ReadPrefs(const QString & fname=QString::null);
 	void ReadPrefsXML();
-	void SavePrefs();
+
+	/*! \brief Save the preferences.
+	\param fname optional filename with preferences. If is not given,
+	the defualt is used. */
+	void SavePrefs(const QString & fname=QString::null);
 	void SavePrefsXML();
+
 	//Moved from scribusXml.cpp
 	bool WritePref(QString ho);
 	bool ReadPref(QString ho);
-	
+
 	void setGhostscriptExecutable(const QString&);
 	void setImageEditorExecutable(const QString&);
 	const QString ghostscriptExecutable();
@@ -82,7 +91,7 @@ public:
 	const QString& guiLanguage(); // Get the GUI language from preferences
 	const QString& guiStyle(); // Get the GUI style from preferences
 	const int& guiFontSize(); // Get the GUI style from preferences
-	void setKeyEntry(const QString&, const QString&, const QString&, const int&);	
+	void setKeyEntry(const QString&, const QString&, const QString&, const int&);
 	void setShowStartupDialog(const bool);
 	void setColorSet(const ColorList&); // Sets the preferences' color set
 	void setColorSetName(const QString&); // Sets the preferences' color set name
@@ -103,7 +112,7 @@ public:
 	// by a signal emitted here.
 	void alertSavePrefsFailed() const;
 	void alertLoadPrefsFailed() const;
-	
+
 	//Temporarily public while this class takes shape so progress can happen and cvs can build
 	struct ApplicationPrefs appPrefs;
 	PrefsFile* prefsFile;
@@ -115,7 +124,7 @@ private:
 	* instance().
 	*/
 	static PrefsManager* _instance;
-	
+
 	QString prefsLocation;
 	bool importingFrom12;
 

@@ -334,7 +334,7 @@ void PrefsManager::initDefaults()
 	appPrefs.useStandardLI = false;
 	appPrefs.paragraphsLI = 10;
 	appPrefs.showStartupDialog = true;
-	initDefaultCheckerPrefs(&appPrefs.checkerProfiles);	
+	initDefaultCheckerPrefs(&appPrefs.checkerProfiles);
 	appPrefs.curCheckProfile = tr("PostScript");
 	appPrefs.PDF_Options.Thumbnails = false;
 	appPrefs.PDF_Options.Articles = false;
@@ -388,8 +388,8 @@ void PrefsManager::initDefaults()
 
 void PrefsManager::initDefaultGUIFont(const QFont& guiFont)
 {
-	appPrefs.AppFontSize = guiFont.pointSize();	
-	appPrefs.STEfont = guiFont.toString();	
+	appPrefs.AppFontSize = guiFont.pointSize();
+	appPrefs.STEfont = guiFont.toString();
 }
 
 void PrefsManager::initArrowStyles()
@@ -601,14 +601,23 @@ void PrefsManager::convert12Preferences()
 	}
 }
 
-void PrefsManager::ReadPrefs()
+void PrefsManager::ReadPrefs(const QString & fname)
 {
-	if (QFile::exists(prefsLocation+"/scribus13.rc"))
-		if (!ReadPref(prefsLocation+"/scribus13.rc"))
+	QString realFile;
+	if (fname.isNull())
+		realFile = prefsLocation + "/scribus13.rc";
+	else
+		realFile = fname;
+
+	if (QFile::exists(realFile))
+	{
+		if (!ReadPref(realFile))
 		{
 			alertLoadPrefsFailed();
 			return;
 		}
+	}
+
 	ScApp->setDefaultPrinter(appPrefs.PrinterName, appPrefs.PrinterFile, appPrefs.PrinterCommand);
 
 	uint max = QMIN(appPrefs.RecentDCount, appPrefs.RecentDocs.count());
@@ -627,7 +636,7 @@ void PrefsManager::ReadPrefs()
 	ReadPrefsXML();
 	if (appPrefs.checkerProfiles.count() == 0)
 	{
-		initDefaultCheckerPrefs(&appPrefs.checkerProfiles);	
+		initDefaultCheckerPrefs(&appPrefs.checkerProfiles);
 		appPrefs.curCheckProfile = tr("PostScript");
 	}
 }
@@ -646,7 +655,7 @@ void PrefsManager::ReadPrefsXML()
 }
 
 
-void PrefsManager::SavePrefs()
+void PrefsManager::SavePrefs(const QString & fname)
 {
 	// If closing because of a crash don't save prefs as we can
 	// accidentally nuke the settings if the crash is before prefs are loaded
@@ -669,7 +678,12 @@ void PrefsManager::SavePrefs()
 	ScApp->getDefaultPrinter(&appPrefs.PrinterName, &appPrefs.PrinterFile, &appPrefs.PrinterCommand);
 
 	SavePrefsXML();
-	if (!WritePref(prefsLocation+"/scribus13.rc"))
+	QString realFile;
+	if (fname.isNull())
+		realFile = prefsLocation+"/scribus13.rc";
+	else
+		realFile = fname;
+	if (!WritePref(realFile))
 		alertSavePrefsFailed();
 }
 
@@ -1518,7 +1532,7 @@ bool PrefsManager::ReadPref(QString ho)
 			QString newFont = "";
 			if (!appPrefs.AvailFonts.find(tmpf))
 			{
-				ScApp->showSplash(false);	
+				ScApp->showSplash(false);
 				MissingFont *dia = new MissingFont(0, tmpf, 0);
 				dia->exec();
 				newFont = dia->getReplacementFont();

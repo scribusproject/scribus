@@ -30,6 +30,7 @@ public:
 	QPushButton* backToDefaults;
 	QPushButton* buttonOk;
 	QPushButton* buttonCancel;
+	QPushButton* saveButton;
 	QIconView* prefsSelection;
 	QMap<QIconViewItem*, int> itemMap;
 	int counter;
@@ -46,6 +47,7 @@ protected:
 
 protected slots:
 	virtual void languageChange();
+	virtual void saveButton_clicked();
 
 };
 

@@ -1,6 +1,6 @@
 /***************************************************************************
 	begin                : May 2005
-	copyright            : (C) 2005 by Craig Bradney	
+	copyright            : (C) 2005 by Craig Bradney
 	email                : cbradney@zip.com.au
 	copyright            : (C) 2001 by Franz Schmid
 	email                : Franz.Schmid@altmuehlnet.de
@@ -44,6 +44,7 @@
 #define ARG_DISPLAY "--display"
 #define ARG_FONTINFO "--font-info"
 #define ARG_SWAPDIABUTTONS "--swap-buttons"
+#define ARG_PREFS "--prefs"
 
 #define ARG_VERSION_SHORT "-v"
 #define ARG_HELP_SHORT "-h"
@@ -95,10 +96,10 @@ void ScribusQApp::parseCommandLine()
 	swapDialogButtonOrder=false;
 
 	//Parse for command line information options, and lang
-	for(int i = 1; i < argc(); i++) 
+	for(int i = 1; i < argc(); i++)
 	{
 		arg = argv()[i];
-		
+
 		if ((arg == ARG_LANG || arg == ARG_LANG_SHORT) && (++i < argc())) {
 			lang = argv()[i];
 		}
@@ -114,7 +115,7 @@ void ScribusQApp::parseCommandLine()
 		}
 	}
 	//Init translations
-	initLang();	
+	initLang();
 	//Show command line help
 	if (header)
 		showHeader();
@@ -132,7 +133,7 @@ void ScribusQApp::parseCommandLine()
 	//We are going to run something other than command line help
 	for(int i = 1; i < argc(); i++) {
 		arg = argv()[i];
-		
+
 		if ((arg == ARG_LANG || arg == ARG_LANG_SHORT) && (++i < argc())) {
 		}
 		else if (arg == ARG_NOSPLASH || arg == ARG_NOSPLASH_SHORT) {
@@ -142,11 +143,26 @@ void ScribusQApp::parseCommandLine()
 		} else if (arg == ARG_FONTINFO || arg == ARG_FONTINFO_SHORT) {
 			showFontInfo=true;
 		} else if (arg == ARG_SWAPDIABUTTONS || arg == ARG_SWAPDIABUTTONS_SHORT) {
-			swapDialogButtonOrder=true;	
+			swapDialogButtonOrder=true;
 		} else if ((arg == ARG_DISPLAY || arg==ARG_DISPLAY_SHORT || arg==ARG_DISPLAY_QT) && ++i < argc()) {
 			// allow setting of display, QT expect the option -display <display_name> so we discard the
 			// last argument. FIXME: Qt only understands -display not --display and -d , we need to work
 			// around this.
+		} else if (arg == ARG_PREFS) {
+			prefsUserFile = QFile::decodeName(argv()[i + 1]);
+			if (!QFileInfo(prefsUserFile).exists()) {
+				showHeader();
+				if (file.left(1) == "-" || file.left(2) == "--") {
+					std::cout << QObject::tr("Invalid argument: ") << file << std::endl;
+				} else {
+					std::cout << QObject::tr("File %1 does not exist, aborting.").arg(file) << std::endl;
+				}
+				showUsage();
+				useGUI=false;
+				return;
+			} else {
+				++i;
+			}
 		} else if (strncmp(arg,"-psn_",4) == 0)
 		{
 			// Andreas Vox: Qt/Mac has -psn_blah flags that must be accepted.
@@ -176,7 +192,7 @@ int ScribusQApp::init()
 		ScApp=scribus;
 		if (!scribus)
 			exit(EXIT_FAILURE);
-		int scribusRetVal = scribus->initScribus(showSplash, showFontInfo, lang);
+		int scribusRetVal = scribus->initScribus(showSplash, showFontInfo, lang, prefsUserFile);
 		if (scribusRetVal == 1)
 			return(EXIT_FAILURE);
 
@@ -228,7 +244,7 @@ QStringList ScribusQApp::getLang(QString lang)
 	// read the locales
 	if (!lang.isEmpty())
 		langs.push_back(lang);
-	
+
 	//add in user preferences lang, only overridden by lang command line option
 	QString Pff = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus");
 	QFileInfo Pffi = QFileInfo(Pff);
@@ -270,7 +286,7 @@ QStringList ScribusQApp::getLang(QString lang)
 			it = langs.remove(it);
 
 	return langs;
-} 
+}
 
 
 /*!
@@ -287,7 +303,7 @@ void ScribusQApp::installTranslators(QStringList langs)
 {
 	QString lang = "";
 	static QTranslator *trans = 0;
-	
+
 	if ( trans )
 	{
 		removeTranslator( trans );
@@ -355,7 +371,8 @@ void ScribusQApp::showUsage()
 	std::cout << "  " << ARG_FONTINFO_SHORT       << ", "  << ARG_FONTINFO         << "        "      << QObject::tr("Show information on the console when fonts are being loaded") << std::endl;
 	std::cout << "  " << ARG_NOSPLASH_SHORT       << ", "  << ARG_NOSPLASH         << "        "      << QObject::tr("Do not show the splashscreen on startup")     << std::endl;
 	std::cout << "  " << ARG_VERSION_SHORT        << ",  " << ARG_VERSION          << "          "    << QObject::tr("Output version information and exit")       << std::endl;
-	std::cout << "  " << ARG_SWAPDIABUTTONS_SHORT << ",  " << ARG_SWAPDIABUTTONS   << "    "    << QObject::tr("Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)")       << std::endl;
+	std::cout << "  " << ARG_SWAPDIABUTTONS_SHORT << ", " << ARG_SWAPDIABUTTONS   << "     "    << QObject::tr("Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)")       << std::endl;
+	std::cout << "       " << ARG_PREFS << " filename   " << QObject::tr("Use filename as path for user given preferences") << std::endl;
 /*
 	std::cout << "-file|-- name Open file 'name'" << std::endl;
 	std::cout << "name          Open file 'name', the file name must not begin with '-'" << std::endl;
@@ -401,7 +418,7 @@ void ScribusQApp::showHeader()
 	std::cout << QObject::tr("Documentation:  http://docs.scribus.net") << std::endl;
 	std::cout << QObject::tr("Wiki:           http://wiki.scribus.net") << std::endl;
 	std::cout << QObject::tr("Issues:         http://bugs.scribus.net") << std::endl;
-	std::cout << std::endl;	
+	std::cout << std::endl;
 }
 
 const bool ScribusQApp::usingGUI()
@@ -434,7 +451,7 @@ const bool ScribusQApp::reverseDialogButtons()
 	QString gnomesession= ::getenv("GNOME_DESKTOP_SESSION_ID");
 	if (!gnomesession.isEmpty())
 		return true;
-	
+
 	//KDE/KDE Aqua - dont switch
 	//Best guess for now if we are running under KDE
 	QString kdesession= ::getenv("KDE_FULL_SESSION");

@@ -204,7 +204,7 @@ ScribusApp::ScribusApp()
 /*
  * retval 0 - ok, 1 - no fonts, ...
  */
-int ScribusApp::initScribus(bool showSplash, bool showFontInfo, const QString newGuiLanguage)
+int ScribusApp::initScribus(bool showSplash, bool showFontInfo, const QString newGuiLanguage, const QString prefsUserFile)
 {
 	CommonStrings::languageChange();
 	noneString = tr("None");
@@ -278,7 +278,10 @@ int ScribusApp::initScribus(bool showSplash, bool showFontInfo, const QString ne
 		setSplashStatus( tr("Initializing Keyboard Shortcuts") );
 		initKeyboardShortcuts();
 		setSplashStatus( tr("Reading Preferences") );
-		prefsManager->ReadPrefs();
+		if (prefsUserFile.isNull())
+			prefsManager->ReadPrefs();
+		else
+			prefsManager->ReadPrefs(prefsUserFile);
 		setSplashStatus( tr("Initializing Story Editor") );
 		storyEditor = new StoryEditor(this);
 
@@ -474,7 +477,7 @@ void ScribusApp::initPalettes()
 	connect( scrActions["toolsProperties"], SIGNAL(toggled(bool)) , propertiesPalette, SLOT(setPaletteShown(bool)) );
 	connect( propertiesPalette, SIGNAL(paletteShown(bool)), scrActions["toolsProperties"], SLOT(setOn(bool)));
 	propertiesPalette->setPrefsContext("PropertiesPalette");
-	//CB dont need this until we have a doc... 
+	//CB dont need this until we have a doc...
 	//propertiesPalette->Cpal->SetColors(prefsManager->colorSet());
 	propertiesPalette->Cpal->UseTrans(true);
 	propertiesPalette->Fonts->RebuildList(0);
@@ -1292,7 +1295,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 		 * - With PageDown, scroll down
 		 * - With Tab, change active document windowActivated
 		 */
-		
+
 		if ((doc->appMode != modeEdit) && (view->SelItem.count() == 0))
 		{
 			switch (kk)
@@ -1344,7 +1347,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 				break;
 			}
 		}
-		/** Now if we have an item selected 
+		/** Now if we have an item selected
 		 * - In normal mode we can:
 		 * -- Use backspace or delete to delete the item
 		 * -- Use PageUp to raise an item
@@ -1358,8 +1361,8 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 				moveBy=10.0;
 			else if (buttonState & ControlButton)
 				moveBy=0.1;
-		
-		
+
+
 			PageItem *currItem = view->SelItem.at(0);
 			switch (doc->appMode)
 			{
@@ -1695,7 +1698,7 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 	if (CMSavail && doc->CMSSettings.CMSinUse)
 		recalcColors();
 	doc->setPage(width, h, tpr, lr, rr, br, sp, ab, atf, fp);
-	doc->setMasterPageMode(false);	
+	doc->setMasterPageMode(false);
 	doc->addMasterPage(0, "Normal");
 	int createCount=pageCount;
 	if (createCount<=0)
@@ -1709,7 +1712,7 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 	doc->setLoading(false);
 	doc->currentPage = doc->Pages->at(0);
 	doc->OpenNodes.clear();
-	
+
 	//<<View and window code
 	ScribusWin* w = new ScribusWin(wsp, doc);
 	if (view!=NULL)
@@ -1728,7 +1731,7 @@ bool ScribusApp::doFileNew(double width, double h, double tpr, double lr, double
 	w->setCentralWidget(view);
 	view->reformPages(true);
 	//>>
-	
+
 	connect(undoManager, SIGNAL(undoRedoDone()), view, SLOT(DrawNew()));
 	//connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
 	connect(view, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
@@ -1818,7 +1821,7 @@ void ScribusApp::newActWin(QWidget *w)
 	QString newDocName = "";
 	if (ActWin && ActWin->doc)
 		newDocName = ActWin->doc->DocName;
-		
+
 	if (oldDocName != newDocName)
 		undoManager->switchStack(newDocName);
 
@@ -3283,7 +3286,7 @@ bool ScribusApp::loadDoc(QString fileName)
 			/*
 			if (ite->Groups.count() != 0)
 				doc->GroupOnPage(ite);
-			else 
+			else
 				ite->OwnPage = doc->OnPage(ite);
 			*/
 			//view->setRedrawBounding(ite);
@@ -3770,7 +3773,7 @@ bool ScribusApp::DoFileClose()
 		mainToolBar->setEnabled(false);
 		pdfToolBar->setEnabled(false);
 		ColorMenC->clear();
-		//CB dont need this until we have a doc... 
+		//CB dont need this until we have a doc...
 		//propertiesPalette->Cpal->SetColors(prefsManager->colorSet());
 		propertiesPalette->Cpal->ChooseGrad(0);
 		mainWindowStatusLabel->setText( tr("Ready"));
@@ -6502,7 +6505,7 @@ void ScribusApp::updtGradFill()
 void ScribusApp::GetBrushPen()
 {
 	//What? we come back here from mpalette and then go to the view.. someones kidding
-	
+
 	//why this.. ugh. setActiveWindow();
 	//
 	if (HaveDoc)
@@ -7954,7 +7957,7 @@ void ScribusApp::initHyphenator()
 			InstLang.insert(languageOfHyphFile, QStringList());
 		}
 	}
-	
+
 	//For each qm file existing, load the file and find the translations of the names
 	QString pfad = ScPaths::instance().libDir();
 	QDir d2(pfad, "*.*", QDir::Name, QDir::Files | QDir::NoSymLinks);
@@ -7968,7 +7971,7 @@ void ScribusApp::initHyphenator()
 			{
     			QTranslator *trans = new QTranslator(0);
 				trans->load(pfad + d2[dc]);
-				
+
 				QString translatedLang;
 				for (QMap<QString, QStringList>::Iterator it=InstLang.begin(); it!=InstLang.end(); ++it)
 				{
