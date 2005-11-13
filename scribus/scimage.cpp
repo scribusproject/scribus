@@ -1806,18 +1806,37 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 					{
 						if (header.color_mode == CM_CMYK)
 						{
-							src_r = src_r <= 128 ? INT_MULT(src_r, d[0]) : 255 - INT_MULT(255 - d[0], 255 - src_r);
-							src_g = src_g <= 128 ? INT_MULT(src_g, d[1]) : 255 - INT_MULT(255 - d[1], 255 - src_g);
-							src_b = src_b <= 128 ? INT_MULT(src_b, d[2]) : 255 - INT_MULT(255 - d[2], 255 - src_b);
-							src_a = src_a <= 128 ? INT_MULT(src_a, d[3]) : 255 - INT_MULT(255 - d[3], 255 - src_a);
+							src_r = src_r < 128 ? src_r * d[0] / 128 : 255 - ((255-src_r) * (255-d[0]) / 128);
+							src_g = src_g < 128 ? src_g * d[1] / 128 : 255 - ((255-src_g) * (255-d[1]) / 128);
+							src_b = src_b < 128 ? src_b * d[2] / 128 : 255 - ((255-src_b) * (255-d[2]) / 128);
+							src_a = src_a < 128 ? src_a * d[3] / 128 : 255 - ((255-src_a) * (255-d[3]) / 128);
 						}
 						else
 						{
 							if (d[3] > 0)
 							{
-								src_r = abs(src_r - 127) == 127 ? d[0] : src_r < 127 ? INT_MULT(src_r, d[0]) : 255 - INT_MULT(255 - d[0], 255 - src_r);
-								src_g = abs(src_g - 127) == 127 ? d[1] : src_g < 127 ? INT_MULT(src_g, d[1]) : 255 - INT_MULT(255 - d[1], 255 - src_g);
-								src_b = abs(src_b - 127) == 127 ? d[2] : src_b < 127 ? INT_MULT(src_b, d[2]) : 255 - INT_MULT(255 - d[2], 255 - src_b);
+								src_r = src_r < 128 ? src_r * d[0] / 128 : 255 - ((255-src_r) * (255-d[0]) / 128);
+								src_g = src_g < 128 ? src_g * d[1] / 128 : 255 - ((255-src_g) * (255-d[1]) / 128);
+								src_b = src_b < 128 ? src_b * d[2] / 128 : 255 - ((255-src_b) * (255-d[2]) / 128);
+							}
+						}
+					}
+					else if (layBlend == "sLit")
+					{
+						if (header.color_mode == CM_CMYK)
+						{
+							src_r = src_r * d[0] / 256 + src_r * (255 - ((255-src_r)*(255-d[0]) / 256) - src_r * d[0] / 256) / 256;
+							src_g = src_g * d[1] / 256 + src_g * (255 - ((255-src_g)*(255-d[1]) / 256) - src_g * d[1] / 256) / 256;
+							src_b = src_b * d[2] / 256 + src_b * (255 - ((255-src_b)*(255-d[2]) / 256) - src_b * d[2] / 256) / 256;
+							src_a = src_a * d[3] / 256 + src_a * (255 - ((255-src_a)*(255-d[3]) / 256) - src_a * d[3] / 256) / 256;
+						}
+						else
+						{
+							if (d[3] > 0)
+							{
+								src_r = src_r * d[0] / 256 + src_r * (255 - ((255-src_r)*(255-d[0]) / 256) - src_r * d[0] / 256) / 256;
+								src_g = src_g * d[1] / 256 + src_g * (255 - ((255-src_g)*(255-d[1]) / 256) - src_g * d[1] / 256) / 256;
+								src_b = src_b * d[2] / 256 + src_b * (255 - ((255-src_b)*(255-d[2]) / 256) - src_b * d[2] / 256) / 256;
 							}
 						}
 					}
