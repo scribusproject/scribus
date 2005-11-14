@@ -7924,68 +7924,6 @@ void ScribusView::ClearItem()
 		Doc->updateFrameItems();
 		updateContents();
 		emit DocChanged();
-			/*
-			if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame))
-			{
-				if (currItem->asTextFrame())
-				{
-					if ((currItem->itemText.count() != 0) && ((currItem->NextBox == 0) || (currItem->BackBox == 0)))
-					{
-						int t = QMessageBox::warning(this, CommonStrings::trWarning,
-											tr("Do you really want to clear all your text?"),
-											QMessageBox::No, QMessageBox::Yes, QMessageBox::NoButton);
-						if (t == QMessageBox::No)
-							return;
-					}
-					PageItem *nextItem = currItem;
-					while (nextItem != 0)
-					{
-						if (nextItem->BackBox != 0)
-							nextItem = nextItem->BackBox;
-						else
-							break;
-					}
-					while (nextItem != 0)
-					{
-						for (ScText *it = nextItem->itemText.first(); it != 0; it = nextItem->itemText.next())
-						{
-							if ((it->ch == QChar(25)) && (it->cembedded != 0))
-							{
-								Doc->FrameItems.remove(it->cembedded);
-								delete it->cembedded;
-							}
-						}
-						nextItem->itemText.clear();
-						nextItem->CPos = 0;
-						nextItem = nextItem->NextBox;
-					}
-				}
-				if ((currItem->asImageFrame()) && ((ScApp->fileWatcher->files().contains(currItem->Pfile) != 0) && (currItem->PicAvail)))
-					ScApp->fileWatcher->removeFile(currItem->Pfile);
-				currItem->Pfile = "";
-				currItem->PicAvail = false;
-				currItem->pixm = ScImage();
-				if (currItem->asImageFrame())
-				{
-					currItem->LocalScX = 1;
-					currItem->LocalScY = 1;
-					currItem->OrigW = 0;
-					currItem->OrigH = 0;
-					currItem->LocalX = 0;
-					currItem->LocalY = 0;
-					currItem->setImageFlippedH(false);
-					currItem->setImageFlippedV(false);
-					currItem->textAlignment = 0;
-					currItem->EmProfile = "";
-					currItem->ScaleType = true;
-					currItem->AspectRatio = true;
-					currItem->setFillTransparency(0.0);
-					currItem->setLineTransparency(0.0);
-					currItem->imageClip.resize(0);
-					//	emit UpdtObj(Doc->currentPage->pageNr(), currItem->ItemNr); 
-				}
-			}
-		}*/
 	}
 }
 
