@@ -96,4 +96,5 @@ uninstall-local:
 	-rm -f $(libdir)/scribus/dicts/README_sl_SI.txt
 	-rm -f $(libdir)/scribus/dicts/README_sv_SE.txt
 	-rm -f $(libdir)/scribus/dicts/README_uk_UA.txt
+	-rmdir $(libdir)/scribus/dicts/ 2>/dev/null
 	

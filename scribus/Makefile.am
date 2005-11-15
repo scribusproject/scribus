@@ -198,6 +198,10 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/langlist.h
 	-rm -f $(prefix)/include/scribus/missing.h
 	-rm -f $(prefix)/include/scribus/gradienteditor.h
+	-rmdir $(prefix)/include/scribus/libpostscript 2>/dev/null
+	-rmdir $(prefix)/include/scribus/libpdf 2>/dev/null
+	-rmdir $(prefix)/include/scribus/ 2>/dev/null
+	
 
 scribus_LDADD  = $(LIBJPEG) $(LIBART_LIBS) $(LIBFREETYPE_LIBS) $(LIBCUPS) $(LIBLCMS) $(LIBDL) $(LIBDL2) $(LIBTIFF) -lm $(LIB_QT) -lXext -lX11 $(LIBSOCKET)
 

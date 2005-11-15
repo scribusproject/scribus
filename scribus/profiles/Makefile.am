@@ -17,5 +17,6 @@ uninstall-local:
 	-rm -f $(DESTDIR)$(libdir)/scribus/profiles/srgb.license
 	-rm -f $(DESTDIR)$(libdir)/scribus/profiles/Fogra27L.icm
 	-rm -f $(DESTDIR)$(libdir)/scribus/profiles/tr01_d50.icm
+	-rmdir 	$(DESTDIR)$(libdir)/scribus/profiles/ 2>/dev/null
 
 ####### kdevelop will overwrite this part!!! (end)############
