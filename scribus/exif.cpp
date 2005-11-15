@@ -335,7 +335,7 @@ int ExifData::ReadJpegSections (QFile & infile, ReadMode_t ReadMode)
                 }else{
                     // Discard this section.
                     free(Sections[--SectionsRead].Data);
-                    return false;
+//                    return false;
                 }
                 break;
 

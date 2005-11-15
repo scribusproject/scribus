@@ -3726,6 +3726,7 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 	{
 		imgInfo.typ = 0;
 		ExifData ExifInf;
+		imgInfo.exifInfo.thumbnail = QImage();
 		struct jpeg_decompress_struct cinfo;
 		struct my_error_mgr         jerr;
 		FILE     *infile;
@@ -3798,6 +3799,8 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 		}
 		else
 			imgInfo.exifDataValid = false;
+		if (reqType == 4)
+			reqType = 1;
 #ifdef HAVE_CMS
 		unsigned int EmbedLen = 0;
 		unsigned char* EmbedBuffer;
@@ -3856,6 +3859,7 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 		{
 			if (PhotoshopLen != 0)
 			{
+				bool savEx = imgInfo.exifDataValid;
 				QByteArray arrayPhot(PhotoshopLen);
 				arrayPhot.setRawData((const char*)PhotoshopBuffer,PhotoshopLen);
 				QDataStream strPhot(arrayPhot,IO_ReadOnly);
@@ -3879,6 +3883,7 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 				imgInfo.valid = (imgInfo.PDSpathData.size())>0?true:false; // The only interest is vectormask
 				arrayPhot.resetRawData((const char*)PhotoshopBuffer,PhotoshopLen);
 				free( PhotoshopBuffer );
+				imgInfo.exifDataValid = savEx;
 			}
 		}
 		if ( cinfo.output_components == 3 || cinfo.output_components == 4)
