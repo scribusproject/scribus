@@ -1,0 +1,66 @@
+<qt>
+<title>Creating and Destroying Objects</title>
+<h2>Creating and Destroying Objects</h2>
+
+<dl>
+
+<dt><a name="-createBezierLine"><strong>createBezierLine</strong></a>(...)</dt>
+<dd><tt><a href="#-createBezierLine">createBezierLine</a>(list, ["name"]) -&gt; string</tt>
+<p>Creates a new bezier curve and returns its name. The points for the bezier curve are stored in the list "list" in the following order: [x1, y1, kx1, ky1, x2, y2, kx2, ky2...xn. yn, kxn. kyn] In the points list, x and y mean the x and y coordinates of the point and kx and ky meaning the control point for the curve.  The coordinates are given in the current measurement units of the document (see UNIT constants). "name" should be a unique identifier for the object because you need this name for further access to that object. If "name" is not given Scribus will create one for you.</p>
+<p>May raise <a href="scripterapi.html#NameExistsError">NameExistsError</a> if you explicitly pass a name that's already used. May raise ValueError if an insufficient number of points is passed or if the number of values passed don't group into points without leftovers.</p></dd>
+
+<dt><a name="-createEllipse"><strong>createEllipse</strong></a>(...)</dt>
+<dd><tt><a href="#-createEllipse">createEllipse</a>(x, y, width, height, ["name"]) -&gt; string</tt>
+<p>Creates a new ellipse on the current page and returns its name. The coordinates are given in the current measurement units of the document (see UNIT constants). "name" should be a unique identifier for the object because you need this name for further referencing of that object. If "name" is not given Scribus will create one for you.</p>
+<p>May raise <a href="scripterapi.html#NameExistsError">NameExistsError</a> if you explicitly pass a name that's already used.</p></dd></dt>
+
+<dt><a name="-createImage"><strong>createImage</strong></a>(...)</dt>
+<dd><tt><a href="#-createImage">createImage</a>(x, y, width, height, ["name"]) -&gt; string</tt>
+<p>Creates a new picture frame on the current page and returns its name. The coordinates are given in the current measurement units of the document. "name" should be a unique identifier for the object because you need this name for further access to that object. If "name" is not given Scribus will create one for you.</p>
+<p>May raise <a href="scripterapi.html#NameExistsError">NameExistsError</a> if you explicitly pass a name that's already used.</p></dd>
+
+<dt><a name="-createLine"><strong>createLine</strong></a>(...)</dt>
+<dd><tt><a href="#-createLine">createLine</a>(x1, y1, x2, y2, ["name"]) -&gt; string</tt>
+<p>Creates a new line from the point(x1, y1) to the point(x2, y2) and returns its name. The coordinates are given in the current measurement unit of the document (see UNIT constants). "name" should be a unique identifier for the object because you need this name for further access to that object. If "name" is not given Scribus will create one for you.</p>
+<p>May raise <a href="scripterapi.html#NameExistsError">NameExistsError</a> if you explicitly pass a name that's already used.</p></dd>
+
+<dt><a name="-createPathText"><strong>createPathText</strong></a>(...)</dt>
+<dd><tt><a href="#-createPathText">createPathText</a>(x, y, "textbox", "beziercurve", ["name"]) -&gt; string</tt>
+<p>Creates a new pathText by merging the two objects "textbox" and "beziercurve" and returns its name. The coordinates are given in the current measurement unit of the document (see UNIT constants). "name" should be a unique identifier for the object because you need this name for further access to that object. If "name" is not given Scribus will create one for you.</p>
+<p>May raise <a href="scripterapi.html#NameExistsError">NameExistsError</a> if you explicitly pass a name that's already used.
+May raise <a href="scripterapi.html#NotFoundError">NotFoundError</a> if one or both of the named base object don't exist.</p></dd>
+
+<dt><a name="-createPolyLine"><strong>createPolyLine</strong></a>(...)</dt>
+<dd><tt><a href="#-createPolyLine">createPolyLine</a>(list, ["name"]) -&gt; string</tt>
+<p>Creates a new polyline and returns its name. The points for the polyline are stored in the list "list" in the following order: [x1, y1, x2, y2...xn. yn]. The coordinates are given in the current measurement units of the document (see UNIT constants). "name" should be a unique identifier for the object because you need this name for further access to that object. If "name" is not given Scribus will create one for you.</p>
+<p>May raise <a href="scripterapi.html#NameExistsError">NameExistsError</a> if you explicitly pass a name that's already used. May raise ValueError if an insufficient number of points is passed or if the number of values passed don't group into points without leftovers.</p></dd>
+
+<dt><a name="-createPolygon"><strong>createPolygon</strong></a>(...)</dt>
+<dd><tt><a href="#-createPolygon">createPolygon</a>(list, ["name"]) -&gt; string</tt>
+<p>Creates a new polygon and returns its name. The points for the polygon are stored in the list "list" in the following order: [x1, y1, x2, y2...xn. yn]. At least three points are required. There is no need to repeat the first point to close the polygon. The polygon is automatically closed by connecting the first and the last point. The coordinates are given in the current measurement units of the document (see UNIT constants). "name" should be a unique identifier for the object because you need this name for further access to that object. If "name" is not given Scribus will create one for you.</p>
+<p>May raise <a href="scripterapi.html#NameExistsError">NameExistsError</a> if you explicitly pass a name that's already used. May raise ValueError if an insufficient number of points is passed or if the number of values passed don't group into points without leftovers.</p></dd>
+
+<dt><a name="-createRect"><strong>createRect</strong></a>(...)</dt>
+<dd><tt><a href="#-createRect">createRect</a>(x, y, width, height, ["name"]) -&gt; string</tt>
+<p>Creates a new rectangle on the current page and returns its name. The coordinates are given in the current measurement units of the document (see UNIT constants). "name" should be a unique identifier for the object because you need this name to reference that object in future. If "name" is not given Scribus will create one for you.</p>
+<p>May raise <a href="scripterapi.html#NameExistsError">NameExistsError</a> if you explicitly pass a name that's already used.</p></dd>
+
+<dt><a name="-createText"><strong>createText</strong></a>(...)</dt>
+<dd><tt><a href="#-createText">createText</a>(x, y, width, height, ["name"]) -&gt; string</tt>
+<p>Creates a new text frame on the actual page and returns its name. The coordinates are given in the actual measurement unit of the document (see UNIT constants). "name" should be a unique identifier for the object because you need this name for further referencing of that object. If "name" is not given Scribus will create one for you.</p>
+<p>May raise <a href="scripterapi.html#NameExistsError">NameExistsError</a> if you explicitly pass a name that's already used.</p></dd>
+
+<dt><a name="-deleteObject"><strong>deleteObject</strong></a>(...)</dt>
+<dd><tt><a href="#-deleteObject">deleteObject</a>(["name"])</tt>
+<p>Deletes the item with the name "name". If "name" is not given the currently selected item is deleted.</p></dd>
+
+<dt><a name="-getAllStyles"><strong>getAllStyles</strong></a>(...)</dt>
+<dd><tt><a href="#-getAllStyles">getAllStyles</a>() -&gt; list</tt>
+<p>Return a list of the names of all paragraph styles in the current document.</p></dd>
+	
+<dt><a name="-objectExists"><strong>objectExists</strong></a>(...)</dt>
+<dd><tt><a href="#-objectExists">objectExists</a>(["name"]) -&gt; bool</tt>
+<p>Test if an object with specified name really exists in the document. The optional parameter is the object name. When no object name is given, returns True if there is something selected.</p></dd>
+
+</dl>
+</qt>

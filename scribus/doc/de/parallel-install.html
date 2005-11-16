@@ -1,0 +1,33 @@
+<qt>
+<title>Wie Sie mehr als eine Scribus-Version auf demselben Computer installieren</title>
+<h2>Wie Sie mehr als eine Scribus-Version auf demselben Computer installieren</h2>
+
+<p>Stellen Sie sich vor, Sie h&auml;tten Scribus bereits 1x Installiert. Das ist gar nicht so unwahrscheinlich, denn wegen seiner Qualit&auml;t und Brauchbarkeit ist Scribus ja bereits in vielen Distributionen enthalten. :)</p>
+<p>Und dann k&auml;me der Tag X - der Tag, an dem Sie zuf&auml;llig lesen, da&szlig; die CVS-Version von Scribus <em><strong>das absolute Super-Feature</strong></em> enth&auml;lt! Sie wollen die Version unbedingt ausprobieren, bef&uuml;rchten aber Probleme mit ungetestetem Code usw., weshalb ein Austausch gegen das stabile Paket, das ja installiert ist, nicht in Frage kommt.</p>
+<p>Nehmen wir an, Sie hatten Scribus von Ihrer bevorzugten Distribution installiert (rpm, deb usw. - je nach Distribution) oder von Quelldateien (tar.gz - meist nach  <code>/usr/local</code>) gebildet, und Sie besitzen nun eine brandhei&szlig;e Kopie vom CVS-Server. F&uuml;hren Sie folgende Schritte als normaler Benutzer durch, nicht als <code>root</code>.</p>
+<p>Erstellen Sie (mit dem Dateimanager ihrer Wahl) ein Installationsverzeichnis f&uuml;r das neue Scribus, z.B.:</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<pre> mkdir ~/scribus_cvs</pre>
+</small></td></tr></table></blockquote>
+<p>Dann wechseln Sie in das Verzeichnis des heruntergeladenen und entpackten CVS-Pakets:</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<pre>cd ~/Scribus</pre>
+</small></td></tr></table></blockquote>
+<p>Geben Sie ein: (nur f&uuml;r CVS n&ouml;tig)</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<pre>make -f Makefile.cvs</pre>
+</small></td></tr></table></blockquote>
+<p>Jetzt kommt das Wichtigste. Sie m&uuml;ssen als Ziel das Installationsverzeichnis f&uuml;r das CVS-Scribus angeben, damit das Paket aus Ihrer Distribution oder ein standardm&auml;&szlig;ig installiertes tar.gz-Paket nicht &uuml;berschrieben wird:</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<pre>
+$./configure --prefix=/home/yourusername/scribus_cvs</pre>
+</small></td></tr></table></blockquote>
+<p>Danach kommt das klassische:</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<pre>
+make
+make install
+</pre>
+</small></td></tr></table></blockquote>
+<p>Wenn das erledigt ist, k&ouml;nnen Sie die neue Version starten, indem Sie eingeben: <code>~/scribus_cvs/bin/scribus</code></p>
+</qt>

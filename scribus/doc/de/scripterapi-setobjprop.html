@@ -1,0 +1,81 @@
+<qt>
+<title>Setting Object Properties</title>
+<h2>Setting Object Properties</h2>
+
+<dl>
+
+<dt><a name="-linkTextFrames"><strong>linkTextFrames</strong></a>(...)</dt>
+<dd><code><a href="#-linkTextFrames">linkTextFrames</a>("fromname", "toname")</code>
+<p>Link two text frames. The frame named "fromname" is linked to the frame named "toname". The target frame must be an empty text frame and must not link to or be linked from any other frames already.</p>
+<p>May throw <a href="#ScribusException">ScribusException</a> if linking rules are violated.</p></dd>
+
+<dt><a name="-loadImage"><strong>loadImage</strong></a>(...)</dt>
+<dd><code><a href="#-loadImage">loadImage</a>("filename" [, "name"])</code>
+<p>Loads the picture "picture" into the image frame "name". If "name" is not given the currently selected item is used.</p>
+<p>May raise <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a> if the target frame is not an image frame</p></dd></dt>
+	
+<dt><a name="-scaleImage"><strong>scaleImage</strong></a>(...)</dt>
+<dd><code><a href="#-scaleImage">scaleImage</a>(x, y [, "name"])</code>
+<p>Sets the scaling factors of the picture in the image frame "name". If "name" is not given the currently selected item is used. A number of 1 means 100 %.</p>
+<p>May raise <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a> if the target frame is not an image frame</p></dd>
+
+<dt><a name="-setCornerRadius"><strong>setCornerRadius</strong></a>(...)</dt>
+<dd><code><a href="#-setCornerRadius">setCornerRadius</a>(radius, ["name"])</code>
+<p>Sets the corner radius of the object "name". The radius is expressed in points. If "name" is not given the currently selected item is used.</p> 
+<p>May raise ValueError if the corner radius is negative.</p></dd>
+	
+<dt><a name="-setFillColor"><strong>setFillColor</strong></a>(...)</dt>
+<dd><code><a href="#-setFillColor">setFillColor</a>("color", ["name"])</code>
+<p>Sets the fill color of the object "name" to the color "color". "color" is the name of one of the defined colors. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-setFillShade"><strong>setFillShade</strong></a>(...)</dt>
+<dd><code><a href="#-setFillShade">setFillShade</a>(shade, ["name"])</code>
+<p>Sets the shading of the fill color of the object "name" to "shade". "shade" must be an integer value in the range from 0 (lightest) to 100 (full Color intensity). If "name" is not given the currently selected Item is used.<p>
+<p>May raise ValueError if the fill shade is out of bounds.</p></dd>
+
+<dt><a name="-setGradientFill"><strong>setGradientFill</strong></a>(...)</dt>
+<dd><code><a href="#-setGradientFill">setGradientFill</a>(type, "color1", shade1, "color2", shade2, ["name"])</code>
+<p>Sets the gradient fill of the object "name" to type. Color descriptions are the same as for <a href="#-setFillColor">setFillColor</a>() and <a href="#-setFillShade">setFillShade</a>(). See the constants for available types (FILL_&lt;type&gt;).</p></dd>
+
+<dt><a name="-setLineCap"><strong>setLineCap</strong></a>(...)</dt>
+<dd><code>setLineEnd(endtype, ["name"])</code>
+<p>Sets the line cap style of the object "name" to the style "cap". If "name" is not given the currently selected item is used. There are predefined constants for "cap" - CAP_&lt;type&gt;.</p></dd>
+
+<dt><a name="-setLineColor"><strong>setLineColor</strong></a>(...)</dt>
+<dd><code><a href="#-setLineColor">setLineColor</a>("color", ["name"])</code>
+<p>Sets the line color of the object "name" to the color "color". If "name" is not given the currently selected item is used.</p></dd>
+	
+<dt><a name="-setMultiLine"><strong>setMultiLine</strong></a>(...)</dt>
+<dd><code><a href="#-setMultiLine">setMultiLine</a>("namedStyle", ["name"])</code>
+<p>Sets the line style of the object "name" to the named style "namedStyle". If "name" is not given the currently selected item is used.</p>
+<p>May raise <a href="scripterapi.html#NotFoundError">NotFoundError</a> if the line style doesn't exist.</p></dd>
+	
+<dt><a name="-setLineJoin"><strong>setLineJoin</strong></a>(...)</dt>
+<dd><code><a href="#-setLineJoin">setLineJoin</a>(join, ["name"])</code>
+<p>Sets the line join style of the object "name" to the style "join". If "name" is not given the currently selected item is used. There are predefined constants for join - JOIN_&lt;type&gt;.</p></dd>
+
+<dt><a name="-setLineShade"><strong>setLineShade</strong></a>(...)</dt>
+<dd><code><a href="#-setLineShade">setLineShade</a>(shade, ["name"])</code>
+<p>Sets the shading of the line color of the object "name" to "shade". "shade" must be an integer value in the range from 0 (lightest) to 100 (full color intensity). If "name" is not given the currently selected item is used.</p>
+<p>May raise ValueError if the line shade is out of bounds.</p></dd>
+	
+<dt><a name="-setLineStyle"><strong>setLineStyle</strong></a>(...)</dt>
+<dd><code><a href="#-setLineStyle">setLineStyle</a>(style, ["name"])</code>
+<p>Sets the line style of the object "name" to the style "style". If "name" is not given the currently selected item is used. There are predefined constants for "style" - LINE_&lt;style&gt;.</p></dd>
+
+<dt><a name="-setLineWidth"><strong>setLineWidth</strong></a>(...)</dt>
+<dd><code><a href="#-setLineWidth">setLineWidth</a>(width, ["name"])</code>
+<p>Sets line width of the object "name" to "width". "width" must be in the range from 0.0 to 12.0 inclusive, and is measured in points. If "name" is not given the currently selected item is used.</p> 
+<p>May raise ValueError if the line width is out of bounds.</p></dd>
+
+<dt><a name="-traceText"><strong>traceText</strong></a>(...)</dt>
+<dd><code><a href="#-traceText">traceText</a>(["name"])</code>
+<p>Convert the text frame "name" to outlines. If "name" is not given the currently selected item is used.</p></dd>
+	
+<dt><a name="-unlinkTextFrames"><strong>unlinkTextFrames</strong></a>(...)</dt>
+<dd><code><a href="#-unlinkTextFrames">unlinkTextFrames</a>("name")</code>
+<p>Remove the specified (named) object from the text frame flow/linkage. If the frame was in the middle of a chain, the previous and next frames will be connected, eg 'a-&gt;b-&gt;c' becomes 'a-&gt;c' when you <a href="#-unlinkTextFrames">unlinkTextFrames</a>(b)'</p>
+<p>May throw <a href="#ScribusException">ScribusException</a> if linking rules are violated.</p></dd>
+
+</dl>
+</qt>

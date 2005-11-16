@@ -1,0 +1,38 @@
+<qt>
+<title>Scripting Scribus with Python</title>
+<h2>Scripting Scribus with Python</h2>
+
+<h4>Overview</h4>
+<p>This is the description how to use the Scripting plug-in for Scribus. The scripter allows you to use the powerful Python Language as a scripting language in Scribus. This can allow you to automate otherwise repetitive tasks among other features. </p>
+
+<p>This manual is the first version, by no means complete or fully accurate. Additions to the scripter are made frequently, so a short note to the mailing list is in order if you have questions.</p>
+
+<p>There are some simple example scripts in the samples subdirectory where Scribus is installed. If you have created scripts which would be useful for other users, please feel free to upload it to www.scribus.net or mail mrdocs at scribus.info with an attachment. We hope to add a plug-in gallery to the main website in the future. </p>
+
+<h3>Using the Plug-in</h3>
+
+<table width="100%"><tr><td align="center"><img src="images/Scripter.png" align="center" alt="Running a script" title="Running a script" /></td></tr></table>
+
+<p>To execute a Python Script select "Script-&gt;Execute Script..." Scribus will display a File select Box which allows you to select a Python Script. Below that, there is a menu item "Recent Scripts" where the most recently run scripts are listed. The number listed depends on your preferences setting. </p> 
+
+<p>You can use many Python modules with this Plug-in. The only exception are scripts who expect parameters from the command Line. They won't work because the plug-in gives the Python interpreter an empty command line.</p>
+
+<p>The menu item "Show Console" gives you an interactive Python console, where you can execute commands directly. There is no need to do a "from scribus import *", this has already been enabled in the console. You can use all the commands in the Scripter API section directly without any prefix.</p>
+
+<p>You can find some useful information about any script calling "Script-&gt;About Script...". This info box may give some hints on usage and or other python modules which may need to be installed for a script to work properly. </p>
+
+<h4>Error Reporting</h4>
+<p>When running scripts from the menu, if the script fails, the scripter will catch the exceptions and display a dialog box with the error. It also helpfully copies this to your system clipboard for pasting in a bug report or a mail client for further information. </p>
+
+<h4>Scripter Preferences</h4>
+<table width="100%"><tr><td align="center"><img src="images/scripterprefs.png" align="center" title="Scripter Preferences" alt="Scripter Preferences"/></td></tr></table>
+
+<ul>
+<li><strong>Enable Scripter Extensions</strong> is <strong>off</strong> by default. Enabling this does have some security implications. This only enable it if you trust the script or who wrote it. Python gives you full access to the file system and any permissions you have as a user extend to the scripter. Startup extensions and macros are scripts which are run when the scripter is initialized. In the example above, this script enables http network access.</li>
+<li><strong>Import All Names at Start-up</strong> enables "from Scribus import *" when starting the Scripter console.</li>
+<li><strong>Enable Legacy Name Aliases</strong> enables using OldStyle function names in Scripts. If you have self written scripts, you should update them to the new function names as they will be removed at some point in the future.</li>
+<li><strong>Use Fake Stdin</strong> replaces sys.stdin with a fake one. Some scripts will try to read from sys.stdin. The prevents Scribus from hanging when the script cannot access sys.stdin.</li>
+</ul>
+<p>There is a more detailed explanation of the <a href="scripter-extensions.html">Scripter Extensions here </a>.</p>
+<p>You can display the full Scripter reference manual when you select "Help-&gt;Scripter Manual...".</p>
+</qt>

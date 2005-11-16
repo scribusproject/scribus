@@ -1,0 +1,851 @@
+<qt>
+<title>Python: module scribus</title>
+<h2>Python: module scribus</h2>
+
+<h1>Scribus Python interface module</h1>
+<p>This module is the Python interface for Scribus. It provides functions to control scribus and to manipulate objects on the canvas. Each function is documented individually below. A few things are common across most of the interface. Most functions operate on frames. Frames are identified by their name, a string - they are not real Python objects. Many functions take an optional (non-keyword) parameter, a frame name. Many exceptions are also common across most functions. These are not currently documented in the docstring for each function. </p>
+<ul>
+	<li> Many functions will raise a NoDocOpenError if you try to use them without a document to operate on.</li>
+	<li> If you do not pass a frame name to a function that requires one, the function will use the currently selected frame, if any, or raise a NoValidObjectError if it can't find anything to operate on.</li>
+	<li> Many functions will raise WrongFrameTypeError if you try to use them on a frame type that they do not make sense with. For example, setting the text colour on a graphics frame doesn't make sense, and will result in this exception being raised.</li>
+	<li> Errors resulting from calls to the underlying Python API will be passed through unaltered. As such, the list of exceptions thrown by any function as provided here and in its docstring is incomplete.</li>
+</ul>
+<p>Details of what exceptions each function may throw are provided on the function's documentation.</p>
+
+<hr />
+<h3>Modules</h3>
+
+<h4>Classes</h4>
+
+<ul>
+	<li>exceptions.Exception
+	<ul>
+		<li>ScribusException</li>
+		<li>NameExistsError</li>
+		<li>NoDocOpenError</li>
+		<li>NoValidObjectError</li>
+		<li>NotFoundError</li>
+		<li>WrongFrameTypeError</li>
+	</ul>
+	</li>
+</ul>
+<hr />
+<table>
+	<tr>
+		<td>
+			<a name="NameExistsError">class <strong>NameExistsError</strong></a>(<a href="scribus.html#ScribusException">ScribusException</a>)
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<dl>
+				<dt>Method resolution order:</dt>
+				<dd><a href="scribus.html#NameExistsError">NameExistsError</a></dd>
+				<dd><a href="scribus.html#ScribusException">ScribusException</a></dd>
+				<dd><a href="exceptions.html#Exception">exceptions.Exception</a></dd>
+			</dl>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Methods inherited from <a href="exceptions.html#Exception">exceptions.Exception</a>:<br>
+			<dl>
+				<dt><a name="NameExistsError-__getitem__"><strong>__getitem__</strong></a>(...)</dt>
+				<dt><a name="NameExistsError-__init__"><strong>__init__</strong></a>(...)</dt>
+				<dt><a name="NameExistsError-__str__"><strong>__str__</strong></a>(...)</dt>
+			</dl>
+		</td>
+	</tr>
+</table>
+<hr />
+
+<table>
+	<tr>
+		<td>
+			<a name="NoDocOpenError">class <strong>NoDocOpenError</strong></a>(<a href="scribus.html#ScribusException">ScribusException</a>)
+		</td>
+	</tr>
+	<tr>
+		<td width="100%">
+			<dl>
+				<dt>Method resolution order:</dt>
+				<dd><a href="scribus.html#NoDocOpenError">NoDocOpenError</a></dd>
+				<dd><a href="scribus.html#ScribusException">ScribusException</a></dd>
+				<dd><a href="exceptions.html#Exception">exceptions.Exception</a></dd>
+			</dl>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Methods inherited from <a href="exceptions.html#Exception">exceptions.Exception</a>:<br>
+			<dl>
+				<dt><a name="NoDocOpenError-__getitem__"><strong>__getitem__</strong></a>(...)</dt>
+				<dt><a name="NoDocOpenError-__init__"><strong>__init__</strong></a>(...)</dt>
+				<dt><a name="NoDocOpenError-__str__"><strong>__str__</strong></a>(...)</dt>
+			</dl>
+		</td>
+	</tr>
+</table>
+<hr />
+
+<table>
+	<tr>
+		<td>
+			<a name="NoValidObjectError">class <strong>NoValidObjectError</strong></a>(<a href="scribus.html#ScribusException">ScribusException</a>)
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<dl>
+				<dt>Method resolution order:</dt>
+				<dd><a href="scribus.html#NoValidObjectError">NoValidObjectError</a></dd>
+				<dd><a href="scribus.html#ScribusException">ScribusException</a></dd>
+				<dd><a href="exceptions.html#Exception">exceptions.Exception</a></dd>
+			</dl>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Methods inherited from <a href="exceptions.html#Exception">exceptions.Exception</a>:<br>
+			<dl>
+				<dt><a name="NoValidObjectError-__getitem__"><strong>__getitem__</strong></a>(...)</dt>
+				<dt><a name="NoValidObjectError-__init__"><strong>__init__</strong></a>(...)</dt>
+				<dt><a name="NoValidObjectError-__str__"><strong>__str__</strong></a>(...)</dt>
+			</dl>
+		</td>
+	</tr>
+</table>
+<hr />
+
+<table>
+	<tr>
+		<td>
+			<a name="NotFoundError">class <strong>NotFoundError</strong></a>(<a href="scribus.html#ScribusException">ScribusException</a>)
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<dl>
+				<dt>Method resolution order:</dt>
+				<dd><a href="scribus.html#NotFoundError">NotFoundError</a></dd>
+				<dd><a href="scribus.html#ScribusException">ScribusException</a></dd>
+				<dd><a href="exceptions.html#Exception">exceptions.Exception</a></dd>
+			</dl>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Methods inherited from <a href="exceptions.html#Exception">exceptions.Exception</a>:<br>
+			<dl>
+				<dt><a name="NotFoundError-__getitem__"><strong>__getitem__</strong></a>(...)</dt>
+				<dt><a name="NotFoundError-__init__"><strong>__init__</strong></a>(...)</dt>
+				<dt><a name="NotFoundError-__str__"><strong>__str__</strong></a>(...)</dt>
+			</dl>
+		</td>
+	</tr>
+</table>
+
+<hr />
+
+<table>
+	<tr>
+		<td>
+			<a name="ScribusException">class <strong>ScribusException</strong></a>(<a href="exceptions.html#Exception">exceptions.Exception</a>)
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Methods inherited from <a href="exceptions.html#Exception">exceptions.Exception</a>:<br>
+			<dl>
+				<dt><a name="ScribusException-__getitem__"><strong>__getitem__</strong></a>(...)</dt>
+				<dt><a name="ScribusException-__init__"><strong>__init__</strong></a>(...)</dt>
+				<dt><a name="ScribusException-__str__"><strong>__str__</strong></a>(...)</dt>
+			</dl>
+		</td>
+	</tr>
+</table>
+
+<hr />
+
+<table>
+	<tr>
+		<td>
+			<a name="WrongFrameTypeError">class <strong>WrongFrameTypeError</strong></a>(<a href="scribus.html#ScribusException">ScribusException</a>)
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<dl>
+				<dt>Method resolution order:</dt>
+				<dd><a href="scribus.html#WrongFrameTypeError">WrongFrameTypeError</a></dd>
+				<dd><a href="scribus.html#ScribusException">ScribusException</a></dd>
+				<dd><a href="exceptions.html#Exception">exceptions.Exception</a></dd>
+			</dl>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Methods inherited from <a href="exceptions.html#Exception">exceptions.Exception</a>:<br>
+			<dl>
+				<dt><a name="WrongFrameTypeError-__getitem__"><strong>__getitem__</strong></a>(...)</dt>
+				<dt><a name="WrongFrameTypeError-__init__"><strong>__init__</strong></a>(...)</dt>
+				<dt><a name="WrongFrameTypeError-__str__"><strong>__str__</strong></a>(...)</dt>
+			</dl>
+		</td>
+	</tr>
+</table>
+
+<hr />
+<h3>Functions</h3>
+
+<dl>
+	<dt><a name="-changeColor"><strong>changeColor</strong></a>(...)</dt>
+	<dd><code><a href="#-changeColor">changeColor</a>("name", c, m, y, k)<br><br>Changes the color "name" to the specified CMYK value. The color value is defined via four components c = Cyan, m = Magenta, y = Yellow and k = Black. Color components should be in the range from 0 to 255.<br /><br>May raise <a href="#NotFoundError">NotFoundError</a> if the named color wasn't found.<br>May raise ValueError if an invalid color name is specified.</code></dd>
+
+	<dt><a name="-closeDoc"><strong>closeDoc</strong></a>(...)</dt>
+	<dd><code><a href="#-closeDoc">closeDoc</a>()<br><br>Closes the current document without prompting to save.<br><br>May throw <a href="#NoDocOpenError">NoDocOpenError</a> if there is no document to close</code></dd>
+
+	<dt><a name="-createBezierLine"><strong>createBezierLine</strong></a>(...)</dt>
+	<dd><code><a href="#-createBezierLine">createBezierLine</a>(list, ["name"]) -&gt; string<br><br>Creates a new bezier curve and returns its name. The points for the bezier curve are stored in the list "list" in the following order:<br>[x1, y1, kx1, ky1, x2, y2, kx2, ky2...xn. yn, kxn. kyn]<br>In the points list, x and y mean the x and y coordinates of the point and kx and ky meaning the control point for the curve.  The coordinates are given in the current measurement units of the document (see UNIT constants). "name" should be a unique identifier for the object because you need this name for further access to that object. If "name" is not given Scribus will create one for you.<br /><br>May raise <a href="#NameExistsError">NameExistsError</a> if you explicitly pass a name that's already used.<br>May raise ValueError if an insufficient number of points is passed or if the number of values passed don't group into points without leftovers.</code></dd>
+
+
+	<dt><a name="-createEllipse"><strong>createEllipse</strong></a>(...)</dt>
+	<dd><code><a href="#-createEllipse">createEllipse</a>(x, y, width, height, ["name"]) -&gt; string<br><br>Creates a new ellipse on the current page and returns its name. The coordinates are given in the current measurement units of the document (see UNIT constants). "name" should be a unique identifier for the object because you need this name for further referencing of that object. If "name" is not given Scribus will create one for you.<br><br>May raise <a href="#NameExistsError">NameExistsError</a> if you explicitly pass a name that's already used.</code></dd>
+
+	<dt><a name="-createImage"><strong>createImage</strong></a>(...)</dt>
+	<dd><code><a href="#-createImage">createImage</a>(x, y, width, height, ["name"]) -&gt; string<br><br>Creates a new picture frame on the current page and returns its name. The coordinates are given in the current measurement units of the document. "name" should be a unique identifier for the object because you need this name for further access to that object. If "name" is not given Scribus will create one for you.<br><br>May raise <a href="#NameExistsError">NameExistsError</a> if you explicitly pass a name that's already used.</code></dd>
+
+	<dt><a name="-createLayer"><strong>createLayer</strong></a>(...)</dt>
+	<dd><code><a href="#-createLayer">createLayer</a>(layer)<br><br>Creates a new layer with the name "name".<br><br>May raise ValueError if the layer name isn't acceptable.</code></dd>
+
+	<dt><a name="-createLine"><strong>createLine</strong></a>(...)</dt>
+	<dd><code><a href="#-createLine">createLine</a>(x1, y1, x2, y2, ["name"]) -&gt; string<br><br>Creates a new line from the point(x1, y1) to the point(x2, y2) and returns its name. The coordinates are given in the current measurement unit of the document (see UNIT constants). "name" should be a unique identifier for the object because you need this name for further access to that object. If "name" is not given Scribus will create one for you.<br><br>May raise <a href="#NameExistsError">NameExistsError</a> if you explicitly pass a name that's already used.</code></dd>
+
+	<dt><a name="-createPathText"><strong>createPathText</strong></a>(...)</dt>
+	<dd><code><a href="#-createPathText">createPathText</a>(x, y, "textbox", "beziercurve", ["name"]) -&gt; string<br><br>Creates a new pathText by merging the two objects "textbox" and "beziercurve" and returns its name. The coordinates are given in the current measurement unit of the document (see UNIT constants). "name" should be a unique identifier for the object because you need this name for further access to that object. If "name" is not given Scribus will create one for you.<br><br>May raise <a href="#NameExistsError">NameExistsError</a> if you explicitly pass a name that's already used.<br>May raise <a href="#NotFoundError">NotFoundError</a> if one or both of the named base object don't exist.</code></dd>
+
+	<dt><a name="-createPolyLine"><strong>createPolyLine</strong></a>(...)</dt>
+	<dd><code><a href="#-createPolyLine">createPolyLine</a>(list, ["name"]) -&gt; string<br> <br>Creates a new polyline and returns its name. The points for the polyline are stored in the list "list" in the following order: [x1, y1, x2, y2...xn. yn]. The coordinates are given in the current measurement units of the document (see UNIT constants). "name" should be a unique identifier for the object because you need this name for further access to that object. If "name" is not given Scribus will create one for you.<br><br>May raise <a href="#NameExistsError">NameExistsError</a> if you explicitly pass a name that's already used.<br>May raise ValueError if an insufficient number of points is passed or if the number of values passed don't group into points without leftovers.</code></dd>
+
+	<dt><a name="-createPolygon"><strong>createPolygon</strong></a>(...)</dt>
+	<dd><code><a href="#-createPolygon">createPolygon</a>(list, ["name"]) -&gt; string<br><br>Creates a new polygon and returns its name. The points for the polygon are stored in the list "list" in the following order: [x1, y1, x2, y2...xn. yn]. At least three points are required. There is no need to repeat the first point to close the polygon. The polygon is automatically closed by connecting the first and the last point.  The coordinates are given in the current measurement units of the document (see UNIT constants).  "name" should be a unique identifier for the object because you need this name for further access to that object. If "name" is not given Scribus will create one for you.<br /><br>May raise <a href="#NameExistsError">NameExistsError</a> if you explicitly pass a name that's already used.<br>May raise ValueError if an insufficient number of points is passed or if<br>the number of values passed don't group into points without leftovers.</code></dd>
+
+	<dt><a name="-createRect"><strong>createRect</strong></a>(...)</dt>
+	<dd><code><a href="#-createRect">createRect</a>(x, y, width, height, ["name"]) -&gt; string<br><br>Creates a new rectangle on the current page and returns its name. The coordinates are given in the current measurement units of the document (see UNIT constants). "name" should be a unique identifier for the object because you need this name to reference that object in future. If "name" is not given Scribus will create one for you.<br><br>May raise <a href="#NameExistsError">NameExistsError</a> if you explicitly pass a name that's already used.</code></dd>
+
+	<dt><a name="-createText"><strong>createText</strong></a>(...)</dt><dd><code><a href="#-createText">createText</a>(x, y, width, height, ["name"]) -&gt; string<br><br>Creates a new text frame on the actual page and returns its name. The coordinates are given in the actual measurement unit of the document (see UNIT constants). "name" should be a unique identifier for the object because you need this name for further referencing of that object. If "name" is not given Scribus will create one for you.<br><br>May raise <a href="#NameExistsError">NameExistsError</a> if you explicitly pass a name that's already used.</code></dd>
+
+	<dt><a name="-currentPage"><strong>currentPage</strong></a>(...)</dt>
+	<dd><code><a href="#-currentPage">currentPage</a>() -&gt; integer<br><br>Returns the number of the current working page. Page numbers are counted from 1 upwards, no matter what the displayed first page number of your document is.</code></dd>
+
+	<dt><a name="-defineColor"><strong>defineColor</strong></a>(...)</dt>
+	<dd><code><a href="#-defineColor">defineColor</a>("name", c, m, y, k)<br><br>Defines a new color "name". The color Value is defined via four components:<br>c = Cyan, m = Magenta, y = Yellow and k = Black. Color components should be in the range from 0 to 255.<br><br>May raise ValueError if an invalid color name is specified.</code></dd>
+
+	<dt><a name="-deleteColor"><strong>deleteColor</strong></a>(...)</dt>
+	<dd><code><a href="#-deleteColor">deleteColor</a>("name", "replace")<br><br>Deletes the color "name". Every occurence of that color is replaced by the color "replace". If not specified, "replace" defaults to the color "None" - transparent.<br><br>deleteColor works on the default document colors if there is no document open. In that case, "replace", if specified, has no effect.<br><br>May raise <a href="#NotFoundError">NotFoundError</a> if a named color wasn't found.<br>May raise ValueError if an invalid color name is specified.</code></dd>
+
+	<dt><a name="-deleteLayer"><strong>deleteLayer</strong></a>(...)</dt>
+	<dd><code><a href="#-deleteLayer">deleteLayer</a>("layer")<br><br>Deletes the layer with the name "layer". Nothing happens if the layer doesn't exists or if it's the only layer in the document.<br><br>May raise <a href="#NotFoundError">NotFoundError</a> if the layer can't be found.<br>May raise ValueError if the layer name isn't acceptable.</code></dd>
+
+	<dt><a name="-deleteObject"><strong>deleteObject</strong></a>(...)</dt>
+	<dd><code><a href="#-deleteObject">deleteObject</a>(["name"])<br><br>Deletes the item with the name "name". If "name" is not given the currently selected item is deleted.</code></dd>
+
+	<dt><a name="-deletePage"><strong>deletePage</strong></a>(...)</dt>
+	<dd><code><a href="#-deletePage">deletePage</a>(nr)<br><br>Deletes the given page. Does nothing if the document contains only one page. Page numbers are counted from 1 upwards, no matter what the displayed first page number is.<br><br>May raise IndexError if the page number is out of range</code></dd>
+
+	<dt><a name="-deleteText"><strong>deleteText</strong></a>(...)</dt>
+	<dd><code><a href="#-deleteText">deleteText</a>(["name"])<br><br>Deletes any text in the text frame "name". If there is some text selected, only the selected text will be deleted. If "name" is not given the currently selected item is used.</code></dd>
+
+	<dt><a name="-deselectAll"><strong>deselectAll</strong></a>(...)</dt>
+	<dd><code><a href="#-deselectAll">deselectAll</a>()<br><br>Deselects all objects in the whole document.</code></dd>
+
+	<dt><a name="-docChanged"><strong>docChanged</strong></a>(...)</dt>
+	<dd><code><a href="#-docChanged">docChanged</a>(bool)<br><br>Enable/disable save icon in the Scribus icon bar and the Save menu item. It's useful to call this procedure when you're changing the document, because Scribus won't automatically notice when you change the document using a script.</code></dd>
+
+	<dt><a name="-fileDialog"><strong>fileDialog</strong></a>(...)</dt><dd><code><a href="#-fileDialog">fileDialog</a>("caption", ["filter", "defaultname" ,haspreview, issave]) -&gt; string with filename<br><br>Shows a File Open dialog box with the caption "caption". Files are filtered with the filter string "filter". A default filename or file path can also supplied, leave this string empty when you don't want to use it. A value of True for haspreview enables a small preview widget in the FileSelect box. When the issave parameter is set to True the dialog acts like a "Save As" dialog otherwise it acts like a "File Open Dialog". The default for both of the opional parameters is False.<br><br>The filter, if specified, takes the form 'comment (*.type *.type2 ...)'.<br>For example 'Images (*.png *.xpm *.jpg)'.<br><br>Refer to the Qt-Documentation for QFileDialog for details on filters.<br><br>Example: <a href="#-fileDialog">fileDialog</a>('Open input', 'CSV files (*.csv)')<br>Example: <a href="#-fileDialog">fileDialog</a>('Save report', defaultname='report.txt', issave=True)</code></dd>
+
+	<dt><a name="-getActiveLayer"><strong>getActiveLayer</strong></a>(...)</dt>
+	<dd><code><a href="#-getActiveLayer">getActiveLayer</a>() -&gt; string<br><br>Returns the name of the current active layer.</code></dd>
+
+	<dt><a name="-getAllObjects"><strong>getAllObjects</strong></a>(...)</dt>
+	<dd><code><a href="#-getAllObjects">getAllObjects</a>() -&gt; list<br><br>Returns a list containing the names of all objects on the current page.</code></dd>
+
+	<dt><a name="-getAllStyles"><strong>getAllStyles</strong></a>(...)</dt>
+	<dd><code><a href="#-getAllStyles">getAllStyles</a>() -&gt; list<br><br>Return a list of the names of all paragraph styles in the current document.</code></dd>
+
+	<dt><a name="-getAllText"><strong>getAllText</strong></a>(...)</dt>
+	<dd><code><a href="#-getAllText">getAllText</a>(["name"]) -&gt; string<br><br>Returns the text of the text frame "name" and of all text frames which are linked with this frame. If this textframe has some text selected, the selected text is returned. If "name" is not given the currently selected item is used.</code></dd>
+
+	<dt><a name="-getColor"><strong>getColor</strong></a>(...)</dt>
+	<dd><code><a href="#-getColor">getColor</a>("name") -&gt; tuple<br><br>Returns a tuple (C, M, Y, K) containing the four color components of the color "name" from the current document. If no document is open, returns the value of the named color from the default document colors.<br><br>May raise <a href="#NotFoundError">NotFoundError</a> if the named color wasn't found.<br>May raise ValueError if an invalid color name is specified.</code></dd>
+
+	<dt><a name="-getColorAsRGB"><strong>getColorAsRGB</strong></a>(...)</dt>
+	<dd><code><a href="#-getColorAsRGB">getColorAsRGB</a>("name") -&gt; tuple</code>
+	<p>Returns a tuple (R,G,B) containing the three color components of the color "name" from the current document, converted to the RGB colour space. If no document is open, returns the value of the named color from the default document colors.</p>
+	<p>May raise NotFoundError if the named color wasn't found. May raise ValueError if an invalid color name is specified.</p></dd>
+
+	<dt><a name="-getColorNames"><strong>getColorNames</strong></a>(...)</dt>
+	<dd><code><a href="#-getColorNames">getColorNames</a>() -&gt; list<br><br>Returns a list containing the names of all defined colors in the document. If no document is open, returns a list of the default document colors.</code></dd>
+
+	<dt><a name="-getColumnGap"><strong>getColumnGap</strong></a>(...)</dt>
+	<dd><code><a href="#-getColumnGap">getColumnGap</a>(["name"]) -&gt; float<br><br>Returns the column gap size of the text frame "name" expressed in points. If "name" is not given the currently selected item is used.</code></dd>
+
+	<dt><a name="-getColumns"><strong>getColumns</strong></a>(...)</dt>
+	<dd><code><a href="#-getColumns">getColumns</a>(["name"]) -&gt; integer<br><br>Gets the number of columns of the text frame "name". If "name" is not given the currently selected item is used.</code></dd>
+
+	<dt><a name="-getCornerRadius"><strong>getCornerRadius</strong></a>(...)</dt>
+	<dd><code><a href="#-getCornerRadius">getCornerRadius</a>(["name"]) -&gt; integer<br><br>Returns the corner radius of the object "name". The radius is expressed in points. If "name" is not given the currently selected item is used.</code></dd>
+
+	<dt><a name="-getFillColor"><strong>getFillColor</strong></a>(...)</dt>
+	<dd><code><a href="#-getFillColor">getFillColor</a>(["name"]) -&gt; string<br><br>Returns the name of the fill color of the object "name". If "name" is not given the currently selected item is used.</code></dd>
+
+	<dt><a name="-getFillShade"><strong>getFillShade</strong></a>(...)</dt>
+	<dd><code><a href="#-getFillShade">getFillShade</a>(["name"]) -&gt; integer<br><br>Returns the shading value of the fill color of the object "name". If "name" is not given the currently selected item is used.</code></dd>
+
+	<dt><a name="-getFont"><strong>getFont</strong></a>(...)</dt>
+	<dd><code><a href="#-getFont">getFont</a>(["name"]) -&gt; string<br><br>Returns the font name for the text frame "name". If this text frame has some text selected the value assigned to the first character of the selection is returned. If "name" is not given the currently selected item is used.</code></dd>
+
+	<dt><a name="-getFontNames"><strong>getFontNames</strong></a>(...)</dt>
+	<dd><code><a href="#-getFontNames">getFontNames</a>() -&gt; list<br /><br>Returns a list with the names of all available fonts.</code></dd>
+
+	<dt><a name="-getFontSize"><strong>getFontSize</strong></a>(...)</dt>
+	<dd><code><a href="#-getFontSize">getFontSize</a>(["name"]) -&gt; float<br><br>Returns the font size in points for the text frame "name". If this text frame has some text selected the value assigned to the first character of the selection is returned. If "name" is not given the currently selected item is used.</code></dd>
+
+	<dt><a name="-getGuiLanguage"><strong>getGuiLanguage</strong></a>(...)</dt>
+	<dd><code><a href="#-getGuiLanguage">getGuiLanguage</a>() -&gt; string<br><br>Returns a string with the -lang value.</code></dd>
+
+	<dt><a name="-getHGuides"><strong>getHGuides</strong></a>(...)</dt>
+	<dd><code><a href="#-getHGuides">getHGuides</a>() -&gt; list<br><br>Returns a list containing positions of the horizontal guides. Values are in the document's current units - see UNIT_&lt;type&gt; constants.</code></dd>
+
+	<dt><a name="-getImageFile"><strong>getImageFile</strong></a>(...)</dt>
+	<dd><code>getImageName(["name"]) -&gt; string<br><br>Returns the filename for the image in the image frame. If "name" is not given the currently selected item is used.</code></dd>
+
+	<dt><a name="-getImageScale"><strong>getImageScale</strong></a>(...)</dt>
+	<dd><code><a href="#-getImageScale">getImageScale</a>(["name"]) -&gt; (x,y)<br><br>Returns a (x, y) tuple containing the scaling values of the image frame "name".  If "name" is not given the currently selected item is used.</code></dd>
+
+	<dt><a name="-getLayers"><strong>getLayers</strong></a>(...)</dt>
+	<dd><code><a href="#-getLayers">getLayers</a>() -&gt; list<br><br>Returns a list with the names of all defined layers.</code></dd>
+
+	<dt><a name="-getLineCap"><strong>getLineCap</strong></a>(...)</dt>
+	<dd><code>getLineEnd(["name"]) -&gt; integer (see constants)<br><br>Returns the line cap style of the object "name". If "name" is not given the currently selected item is used. The cap types are:<br>CAP_FLAT, CAP_ROUND, CAP_SQUARE</code></dd>
+
+	<dt><a name="-getLineColor"><strong>getLineColor</strong></a>(...)</dt>
+	<dd><code><a href="#-getLineColor">getLineColor</a>(["name"]) -&gt; string<br><br>Returns the name of the line color of the object "name". If "name" is not given the currently selected item is used.</code></dd>
+
+	<dt><a name="-getLineJoin"><strong>getLineJoin</strong></a>(...)</dt>
+	<dd><code><a href="#-getLineJoin">getLineJoin</a>(["name"]) -&gt; integer (see contants)<br><br>Returns the line join style of the object "name". If "name" is not given the currently selected item is used.  The join types are:<br>JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND</code></dd>
+
+	<dt><a name="-getLineShade"><strong>getLineShade</strong></a>(...)</dt>
+	<dd><code><a href="#-getLineShade">getLineShade</a>(["name"]) -&gt; integer<br><br>Returns the shading value of the line color of the object "name". If "name" is not given the currently selected item is used.</code></dd>
+
+	<dt><a name="-getLineSpacing"><strong>getLineSpacing</strong></a>(...)</dt>
+	<dd><code><a href="#-getLineSpacing">getLineSpacing</a>(["name"]) -&gt; float<br><br>Returns the line spacing ("leading") of the text frame "name" expressed in points. If "name" is not given the currently selected item is used.</code></dd>
+
+	<dt><a name="-getLineStyle"><strong>getLineStyle</strong></a>(...)</dt>
+	<dd><code><a href="#-getLineStyle">getLineStyle</a>(["name"]) -&gt; integer (see constants)<br><br>Returns the line style of the object "name". If "name" is not given the currently selected item is used. Line style constants are:<br />LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID</code></dd>
+
+	<dt><a name="-getLineWidth"><strong>getLineWidth</strong></a>(...)</dt>
+	<dd><code><a href="#-getLineWidth">getLineWidth</a>(["name"]) -&gt; integer<br><br>Returns the line width of the object "name". If "name" is not given the currently selected Item is used.</code></dd>
+
+	<dt><a name="-getPageItems"><strong>getPageItems</strong></a>(...)</dt>
+	<dd><code><a href="#-getPageItems">getPageItems</a>() -&gt; list<br><br>Returns a list of tuples with items on the current page. The tuple is:<br>(name, objectType, order) E.g. [('Text1', 4, 0), ('Image1', 2, 1)]<br>means that object named 'Text1' is a text frame (type 4) and is the first at<br>the page...</code></dd>
+
+	<dt><a name="-getPageMargins"><strong>getPageMargins</strong></a>(...)</dt>
+	<dd><code><a href="#-getPageMargins">getPageMargins</a>()<br><br>Returns the page margins as a (left, right, top, bottom) tuple in the current units. See UNIT_&lt;type&gt; constants and <a href="#-getPageSize">getPageSize</a>().</code></dd>
+
+	<dt><a name="-getPageSize"><strong>getPageSize</strong></a>(...)</dt>
+	<dd><code><a href="#-getPageSize">getPageSize</a>() -&gt; tuple<br><br>Returns a tuple with page dimensions measured in the document's current units.<br>See UNIT_&lt;type&gt; constants and <a href="#-getPageMargins">getPageMargins</a>()</code></dd>
+
+	<dt><a name="-getPosition"><strong>getPosition</strong></a>(...)</dt>
+	<dd><code><a href="#-getPosition">getPosition</a>(["name"]) -&gt; (x,y)<br><br>Returns a (x, y) tuple with the position of the object "name". If "name" is not given the currently selected item is used. The position is expressed in the actual measurement unit of the document - see UNIT_&lt;type&gt; for reference.</code></dd>
+
+	<dt><a name="-getRotation"><strong>getRotation</strong></a>(...)</dt>
+	<dd><code><a href="#-getRotation">getRotation</a>(["name"]) -&gt; integer<br><br>Returns the rotation of the object "name". The value is expressed in degrees, and clockwise is positive. If "name" is not given the currently selected item is used.</code></dd>
+
+	<dt><a name="-getSelectedObject"><strong>getSelectedObject</strong></a>(...)</dt>
+	<dd><code><a href="#-getSelectedObject">getSelectedObject</a>([nr]) -&gt; string<br><br>Returns the name of the selected object. "nr" if given indicates the number of the selected object, e.g. 0 means the first selected object, 1 means the second selected Object and so on.</code></br></dd>
+
+	<dt><a name="-getSize"><strong>getSize</strong></a>(...)</dt>
+	<dd><code><a href="#-getSize">getSize</a>(["name"]) -&gt; (width,height)<br><br>Returns a (width, height) tuple with the size of the object "name". If "name" is not given the currently selected item is used. The size is expressed in the current measurement unit of the document - see UNIT_&lt;type&gt; for reference.</code></dd>
+
+	<dt><a name="-getText"><strong>getText</strong></a>(...)</dt>
+	<dd><code><a href="#-getText">getText</a>(["name"]) -&gt; string<br><br>Returns the text of the text frame "name". If this text frame has some text selected, the selected text is returned. All text in the frame, not just currently visible text, is returned. If "name" is not given the currently selected item is used.</code></dd>
+
+	<dt><a name="-getTextColor"><strong>getTextColor</strong></a>(...)</dt>
+	<dd><code><a href="#-getLineColor">getLineColor</a>(["name"]) -&gt; string<br><br>Returns the name of the line color of the object "name".If "name" is not given the currently selected item is used.</code></dd>
+
+	<dt><a name="-getTextLength"><strong>getTextLength</strong></a>(...)</dt>
+	<dd><code><a href="#-getTextLength">getTextLength</a>(["name"]) -&gt; integer<br><br>Returns the length of the text in the text frame "name". If "name" is not given the currently selected item is used.</code></dd>
+
+	<dt><a name="-getTextShade"><strong>getTextShade</strong></a>(...)</dt>
+	<dd><code><a href="#-getLineShade">getLineShade</a>(["name"]) -&gt; integer<br><br>Returns the shading value of the line color of the object "name". If "name" is not given the currently selected item is used.</code></dd>
+
+	<dt><a name="-getUnit"><strong>getUnit</strong></a>(...)</dt>
+	<dd><code><a href="#-getUnit">getUnit</a>() -&gt; integer (Scribus unit constant)<br><br>Returns the measurement units of the document. The returned value will be one of the UNIT_* constants:<br>UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.</code></dd>
+
+	<dt><a name="-getVGuides"><strong>getVGuides</strong></a>(...)</dt>
+	<dd><code><a href="#-getVGuides">getVGuides</a>()<br><br>See getHGuides.</code></dd>
+
+	<dt><a name="-getXFontNames"><strong>getXFontNames</strong></a>(...)</dt>
+	<dd><code><a href="#-getXFontNames">getXFontNames</a>() -&gt; list of tuples<br><br>Returns a larger font info. It's a list of the tuples with:<br>[ (Scribus name, Family, Real name, subset (1|0), embed PS (1|0), font file), (...), ... ]</code></dd>
+
+	<dt><a name="-getval"><strong>getval</strong></a>(...)</dt>
+	<dd><code>Scribus internal.</code></dd>
+
+	<dt><a name="-gotoPage"><strong>gotoPage</strong></a>(...)</dt>
+	<dd><code><a href="#-gotoPage">gotoPage</a>(nr)<br><br>Moves to the page "nr" (that is, makes the current page "nr"). Note that gotoPage doesn't (curently) change the page the user's view is displaying, it just sets the page that script commands will operates on.<br><br>May raise IndexError if the page number is out of range.</code></dd>
+
+	<dt><a name="-groupObjects"><strong>groupObjects</strong></a>(...)</dt>
+	<dd><code><a href="#-groupObjects">groupObjects</a>(list)<br><br>Groups the objects named in "list" together. "list" must contain the names of the objects to be grouped. If "list" is not given the currently selected items are used.</code></dd>
+
+	<dt><a name="-haveDoc"><strong>haveDoc</strong></a>(...)</dt>
+	<dd><code><a href="#-haveDoc">haveDoc</a>() -&gt; bool<br><br>Returns true if there is a document open.</code></dd>
+
+	<dt><a name="-insertText"><strong>insertText</strong></a>(...)</dt>
+	<dd><code><a href="#-insertText">insertText</a>("text", pos, ["name"])<br><br>Inserts the text "text" at the position "pos" into the text frame. Text must be UTF encoded (see <a href="#-setText">setText</a>() as reference) The first character has an index of 0. "name" If "name" is not given the currently selected Item is used.<br><br>May throw IndexError for an insertion out of bounds.</code></dd>
+
+	<dt><a name="-isLayerPrintable"><strong>isLayerPrintable</strong></a>(...)</dt>
+	<dd><code><a href="#-isLayerPrintable">isLayerPrintable</a>("layer") -&gt; bool<br><br>Returns whether the layer "layer" is printable or not, a value of True means that the layer "layer" can be printed, a value of False means that printing the layer "layer" is disabled.<br><br>May raise <a href="#NotFoundError">NotFoundError</a> if the layer can't be found.<br>May raise ValueError if the layer name isn't acceptable.</code></dd>
+
+	<dt><a name="-isLayerVisible"><strong>isLayerVisible</strong></a>(...)</dt>
+	<dd><code><a href="#-isLayerPrintable">isLayerPrintable</a>("layer") -&gt; bool<br><br>Returns whether the Layer "layer" is visible or not, a value of True means that the layer "layer" is visible, a value of False means that the layer "layer" is invisible.<br><br>May raise <a href="#NotFoundError">NotFoundError</a> if the layer can't be found.<br>May raise ValueError if the layer name isn't acceptable.</code></dd>
+
+	<dt><a name="-isLocked"><strong>isLocked</strong></a>(...)</dt>
+	<dd><code><a href="#-isLocked">isLocked</a>(["name"]) -&gt; bool<br><br>Returns true if is the object "name" locked.  If "name" is not given the currently selected item is used.</code></dd>
+
+	<dt><a name="-isPDFBookmark"><strong>isPDFBookmark</strong></a>(...)</dt>
+	<dd><code><a href="#-isPDFBookmark">isPDFBookmark</a>(["name"]) -&gt; bool</code>
+	<p>Returns true if the text frame "name" is a PDF bookmark. If "name" is not given the currently selected item is used.</p>
+	<p>May raise WrongFrameTypeError if the target frame is not a text frame.</p></dd>
+
+	<dt><a name="-linkTextFrames"><strong>linkTextFrames</strong></a>(...)</dt>
+	<dd><code><a href="#-linkTextFrames">linkTextFrames</a>("fromname", "toname")<br><br>Link two text frames. The frame named "fromname" is linked to the frame named "toname". The target frame must be an empty text frame and must not link to or be linked from any other frames already.<br /><br>May throw <a href="#ScribusException">ScribusException</a> if linking rules are violated.</code></dd>
+
+	<dt><a name="-loadImage"><strong>loadImage</strong></a>(...)</dt>
+	<dd><code><a href="#-loadImage">loadImage</a>("filename" [, "name"])<br><br>Loads the picture "picture" into the image frame "name". If "name" is not given the currently selected item is used.<br /><br>May raise <a href="#WrongFrameTypeError">WrongFrameTypeError</a> if the target frame is not an image frame</br></dd>
+
+	<dt><a name="-loadStylesFromFile"><strong>loadStylesFromFile</strong></a>(...)</dt>
+	<dd><code><a href="#-loadStylesFromFile">loadStylesFromFile</a>("filename")<br><br>Loads paragraph styles from the Scribus document at "filename" into the current document.</code></dd>
+
+	<dt><a name="-lockObject"><strong>lockObject</strong></a>(...)</dt>
+	<dd><code><a href="#-lockObject">lockObject</a>(["name"]) -&gt; bool<br><br>Locks the object "name" if it's unlocked or unlock it if it's locked. If "name" is not given the currently selected item is used. Returns true if locked.</code></dd>
+
+	<dt><a name="-messageBox"><strong>messageBox</strong></a>(...)</dt>
+	<dd><code><a href="#-messageBox">messageBox</a>("caption", "message", icon=ICON_NONE, button1=BUTTON_OK|BUTTONOPT_DEFAULT, button2=BUTTON_NONE, button3=BUTTON_NONE) -&gt; integer<br><br>Displays a message box with the title "caption", the message "message", and an icon "icon" and up to 3 buttons. By default no icon is used and a single button, OK, is displayed. Only the caption and message arguments are required, though setting an icon and appropriate button(s) is strongly recommended. The message text may contain simple HTML-like markup.<br /> <br>Returns the number of the button the user pressed. Button numbers start at 1.<br><br>For the icon and the button parameters there are predefined constants available with the same names as in the Qt Documentation. These are the BUTTON_* and ICON_* constants defined in the module. There are also two extra constants that can be binary-ORed with button constants:<br>
+    BUTTONOPT_DEFAULT   Pressing enter presses this button.<br>
+    BUTTONOPT_ESCAPE    Pressing escape presses this button.<br>
+ <br>
+Usage examples:<br>
+result = <a href="#-messageBox">messageBox</a>('Script failed',<br>
+                    'This script only works when you have a text frame selected.',<br>
+                    ICON_ERROR)<br>
+result = <a href="#-messageBox">messageBox</a>('Monkeys!', 'Something went ook! &lt;i&gt;Was it a monkey?&lt;/i&gt;',<br>
+                    ICON_WARNING, BUTTON_YES|BUTTONOPT_DEFAULT,<br>
+                    BUTTON_NO, BUTTON_IGNORE|BUTTONOPT_ESCAPE)<br>
+ <br>
+Defined button and icon constants:<br>
+BUTTON_NONE, BUTTON_ABORT, BUTTON_CANCEL, BUTTON_IGNORE, BUTTON_NO,<br>
+BUTTON_NOALL, BUTTON_OK, BUTTON_RETRY, BUTTON_YES, BUTTON_YESALL,<br>
+ICON_NONE, ICON_INFORMATION, ICON_WARNING, ICON_CRITICAL.</code></dd>
+
+	<dt><a name="-messagebarText"><strong>messagebarText</strong></a>(...)</dt><dd><code><a href="#-messagebarText">messagebarText</a>("string")<br>
+ <br>
+Writes the "string" into the Scribus message bar (status line). The text<br>
+must be UTF8 encoded or 'unicode' string(recommended).</code></dd></dl>
+<dt><a name="-moveObject"><strong>moveObject</strong></a>(...)</dt><dd><code><a href="#-moveObject">moveObject</a>(dx, dy [, "name"])<br>
+ <br>
+Moves the object "name" by dx and dy relative to its current position. The<br>
+distances are expressed in the current measurement unit of the document (see<br>
+UNIT constants). If "name" is not given the currently selected item is used.<br>
+If the object "name" belongs to a group, the whole group is moved.</code></dd></dl>
+<dt><a name="-moveObjectAbs"><strong>moveObjectAbs</strong></a>(...)</dt><dd><code><a href="#-moveObjectAbs">moveObjectAbs</a>(x, y [, "name"])<br>
+ <br>
+Moves the object "name" to a new location. The coordinates are expressed in<br>
+the current measurement unit of the document (see UNIT constants).  If "name"<br>
+is not given the currently selected item is used.  If the object "name"<br>
+belongs to a group, the whole group is moved.</code></dd></dl>
+<dt><a name="-newDoc"><strong>newDoc</strong></a>(...)</dt><dd><code><a href="#-newDoc">newDoc</a>(size, margins, orientation, firstPageNumber,<br>
+                   unit, facingPages, firstSideLeft) -&gt; bool<br>
+ <br>
+Creates a new document and returns true if successful. The parameters have the<br>
+following meaning:<br>
+ <br>
+    size = A tuple (width, height) describing the size of the document. You can<br>
+    use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.<br>
+ <br>
+    margins = A tuple (left, right, top, bottom) describing the document<br>
+    margins<br>
+ <br>
+    orientation = the page orientation - constants PORTRAIT, LANDSCAPE<br>
+ <br>
+    firstPageNumber = is the number of the first page in the document used for<br>
+    pagenumbering. While you'll usually want 1, it's useful to have higher<br>
+    numbers if you're creating a document in several parts.<br>
+ <br>
+    unit: this value sets the measurement units used by the document. Use a<br>
+    predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,<br>
+    UNIT_PICAS, UNIT_POINTS.<br>
+ <br>
+    facingPages = FACINGPAGES, NOFACINGPAGES<br>
+ <br>
+    firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT<br>
+ <br>
+The values for width, height and the margins are expressed in the given unit<br>
+for the document. PAPER_* constants are expressed in points. If your document<br>
+is not in points, make sure to account for this.<br>
+ <br>
+example: <a href="#-newDoc">newDoc</a>(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,<br>
+                FACINGPAGES, FIRSTPAGERIGHT)</code></dd></dl>
+<dt><a name="-newDocDialog"><strong>newDocDialog</strong></a>(...)</dt><dd><code><a href="#-newDocDialog">newDocDialog</a>() -&gt; bool<br>
+ <br>
+Displays the "New Document" dialog box. Creates a new document if the user accepts the settings. Does not create a document if the user presses cancel. Returns true if a new document was created.</code></dd>
+
+	<dt><a name="-newPage"><strong>newPage</strong></a>(...)</dt>
+	<dd><code><a href="#-newPage">newPage</a>(where [,"template"])<br><br>Creates a new page. If "where" is -1 the new Page is appended to the document, otherwise the new page is inserted before "where". Page numbers are counted from 1 upwards, no matter what the displayed first page number of your document is. The optional parameter "template" specifies the name of the template page for the new page.<br><br>May raise IndexError if the page number is out of range</code></dd>
+
+	<dt><a name="-objectExists"><strong>objectExists</strong></a>(...)</dt>
+	<dd><code><a href="#-objectExists">objectExists</a>(["name"]) -&gt; bool<br><br>Test if an object with specified name really exists in the document. The optional parameter is the object name. When no object name is given, returns True if there is something selected.</code></dd>
+
+	<dt><a name="-openDoc"><strong>openDoc</strong></a>(...)</dt>
+	<dd><code><a href="#-openDoc">openDoc</a>("name")<br><br>Opens the document "name".<br> <br>May raise ScribusError if the document could not be opened.</code></dd>
+
+	<dt><a name="-pageCount"><strong>pageCount</strong></a>(...)</dt>
+	<dd><code><a href="#-pageCount">pageCount</a>() -&gt; integer<br><br>Returns the number of pages in the document.</code></dd>
+
+	<dt><a name="-pageDimension"><strong>pageDimension</strong></a>(...)</dt>
+	<dd><code><a href="#-getPageSize">getPageSize</a>() -&gt; tuple<br><br>Returns a tuple with page dimensions measured in the document's current units.<br>See UNIT_&lt;type&gt; constants and <a href="#-getPageMargins">getPageMargins</a>()</code></dd>
+
+	<dt><a name="-progressReset"><strong>progressReset</strong></a>(...)</dt>
+	<dd><code><a href="#-progressReset">progressReset</a>()<br><br>Cleans up the Scribus progress bar previous settings. It is called before the new progress bar use. See progressSet.</code></dd>
+
+	<dt><a name="-progressSet"><strong>progressSet</strong></a>(...)</dt>
+	<dd><code><a href="#-progressSet">progressSet</a>(nr)<br><br>Set the progress bar position to "nr", a value relative to the previously set progressTotal. The progress bar uses the concept of steps; you give it the total number of steps and the number of steps completed so far and it will display the percentage of steps that have been completed. You can specify the total number of steps with <a href="#-progressTotal">progressTotal</a>(). The current number of steps is set with <a href="#-progressSet">progressSet</a>(). The progress bar can be rewound to the beginning with <a href="#-progressReset">progressReset</a>(). [based on info taken from Trolltech's Qt docs]</code></dd>
+
+	<dt><a name="-progressTotal"><strong>progressTotal</strong></a>(...)</dt>
+	<dd><code><a href="#-progressTotal">progressTotal</a>(max)<br><br>Sets the progress bar's maximum steps value to the specified number. See progressSet.</code></dd>
+
+	<dt><a name="-redrawAll"><strong>redrawAll</strong></a>(...)</dt>
+	<dd><code><a href="#-redrawAll">redrawAll</a>()<br><br>Redraws all pages.</code></dd>
+
+	<dt><a name="-renderFont"><strong>renderFont</strong></a>(...)</dt>
+	<dd><code>rendeFont("name", "filename", "sample", size, format="PPM") -&gt; bool</code>
+	<p>Creates an image preview of font "name" with given text "sample" and size. Image is saved into "filename". Returns true when success. The optional "format" argument specifies the image format to generate, and supports any format allowed by QPixmap.save(). Common formats are PPM, JPEG, PNG and XPM.</p>
+	<p>May raise <a href="scripterapi.html#NotFoundError">NotFoundError</a> if the specified font can't be found. May raise ValueError if an empty sample or filename is passed.</p></dd></dl>
+
+	<dt><a name="-replaceColor"><strong>replaceColor</strong></a>(...)</dt>
+	<dd><code><a href="#-replaceColor">replaceColor</a>("name", "replace")<br><br>Every occurence of the color "name" is replaced by the color "replace".<br><br>May raise <a href="#NotFoundError">NotFoundError</a> if a named color wasn't found.<br>May raise ValueError if an invalid color name is specified.</code></dd>
+
+	<dt><a name="-retval"><strong>retval</strong></a>(...)</dt>
+	<dd><code>Scribus internal.</code></dd>
+
+	<dt><a name="-rotateObject"><strong>rotateObject</strong></a>(...)</dt>
+	<dd><code><a href="#-rotateObject">rotateObject</a>(rot [, "name"])<br><br>Rotates the object "name" by "rot" degrees relatively. The object is rotated by the vertex that is currently selected as the rotation point - by default, the top left vertext at zero rotation. Positive values mean counter clockwise rotation when the default rotation point is used. If "name" is not given the currently selected item is used.</code></dd>
+
+	<dt><a name="-rotateObjectAbs"><strong>rotateObjectAbs</strong></a>(...)</dt>
+	<dd><code><a href="#-rotateObjectAbs">rotateObjectAbs</a>(rot [, "name"])<br><br>Sets the rotation of the object "name" to "rot". Positive values mean counter clockwise rotation. If "name" is not given the currently selected item is used.</code></dd>
+
+	<dt><a name="-saveDoc"><strong>saveDoc</strong></a>(...)</dt>
+	<dd><code><a href="#-saveDoc">saveDoc</a>()<br><br>Saves the current document with its current name, returns true if successful. If the document has not already been saved, this may bring up an interactive save file dialog.<br><br>If the save fails, there is currently no way to tell.</code></dd>
+
+	<dt><a name="-saveDocAs"><strong>saveDocAs</strong></a>(...)</dt><dd><code><a href="#-saveDocAs">saveDocAs</a>("name")<br><br>Saves the current document under the new name "name" (which may be a full or relative path).<br><br>May raise ScribusError if the save fails.</code></dd>
+
+	<dt><a name="-savePageAsEPS"><strong>savePageAsEPS</strong></a>(...)</dt>
+	<dd><code><a href="#-savePageAsEPS">savePageAsEPS</a>("name")<br><br>Saves the current page as an EPS to the file "name".<br><br>May raise ScribusError if the save failed.</code></dd>
+
+	<dt><a name="-scaleGroup"><strong>scaleGroup</strong></a>(...)</dt>
+	<dd><code><a href="#-scaleGroup">scaleGroup</a>(factor [,"name"])<br><br>Scales the group the object "name" belongs to. Values greater than 1 enlarge the group, values smaller than 1 make the group smaller e.g a value of 0.5 scales the group to 50 % of its original size, a value of 1.5 scales the group to 150 % of its original size.  The value for "factor" must be greater than 0. If "name" is not given the currently selected item is used.<br><br>May raise ValueError if an invalid scale factor is passed.</code></dd>
+
+	<dt><a name="-scaleImage"><strong>scaleImage</strong></a>(...)</dt>
+	<dd><code><a href="#-scaleImage">scaleImage</a>(x, y [, "name"])<br><br>Sets the scaling factors of the picture in the image frame "name". If "name" is not given the currently selected item is used. A number of 1 means 100 %.<br><br>May raise <a href="#WrongFrameTypeError">WrongFrameTypeError</a> if the target frame is not an image frame</code></dd>
+
+	<dt><a name="-selectObject"><strong>selectObject</strong></a>(...)</dt><dd><code><a href="#-selectObject">selectObject</a>("name")<br><br>Selects the object with the given "name".</code></dd>
+
+	<dt><a name="-selectText"><strong>selectText</strong></a>(...)</dt>
+	<dd><code><a href="#-selectText">selectText</a>(start, count, ["name"])<br><br>Selects "count" characters of text in the text frame "name" starting from the character "start". Character counting starts at 0. If "count" is zero, any text selection will be cleared.  If "name" is not given the currently selected item is used.<br><br>May throw IndexError if the selection is outside the bounds of the text.</code></dd>
+
+	<dt><a name="-selectionCount"><strong>selectionCount</strong></a>(...)</dt>
+	<dd><code><a href="#-selectionCount">selectionCount</a>() -&gt; integer<br><br>Returns the number of selected objects.</code></dd>
+
+	<dt><a name="-sentToLayer"><strong>sentToLayer</strong></a>(...)</dt>
+	<dd><code><a href="#-sentToLayer">sentToLayer</a>("layer" [, "name"])<br><br>Sends the object "name" to the layer "layer". The layer must exist. If "name" is not given the currently selected item is used.<br><br>May raise <a href="#NotFoundError">NotFoundError</a> if the layer can't be found.<br>May raise ValueError if the layer name isn't acceptable.</code></dd>
+
+	<dt><a name="-setActiveLayer"><strong>setActiveLayer</strong></a>(...)</dt>
+	<dd><code><a href="#-setActiveLayer">setActiveLayer</a>("name")<br><br>Sets the active layer to the layer named "name".<br><br>May raise <a href="#NotFoundError">NotFoundError</a> if the layer can't be found.<br>May raise ValueError if the layer name isn't acceptable.</code></dd>
+
+	<dt><a name="-setColumnGap"><strong>setColumnGap</strong></a>(...)</dt>
+	<dd><code><a href="#-setColumnGap">setColumnGap</a>(size, ["name"])<br><br>Sets the column gap of the text frame "name" to the value "size". If "name" is not given the currently selected item is used.<br><br>May throw ValueError if the column gap is out of bounds (must be positive).</code></dd>
+
+	<dt><a name="-setColumns"><strong>setColumns</strong></a>(...)</dt>
+	<dd><code><a href="#-setColumns">setColumns</a>(nr, ["name"])<br><br>Sets the number of columns of the text frame "name" to the integer "nr". If "name" is not given the currently selected item is used.<br><br>May throw ValueError if number of columns is not at least one.</code></dd>
+
+	<dt><a name="-setCornerRadius"><strong>setCornerRadius</strong></a>(...)</dt>
+	<dd><code><a href="#-setCornerRadius">setCornerRadius</a>(radius, ["name"])<br><br>Sets the corner radius of the object "name". The radius is expressed in points. If "name" is not given the currently selected item is used.<br><br>May raise ValueError if the corner radius is negative.</code></dd>
+
+	<dt><a name="-setCursor"><strong>setCursor</strong></a>(...)</dt>
+	<dd><code><a href="#-setCursor">setCursor</a>()<br><br>[UNSUPPORTED!] This might break things, so steer clear for now.</code></dd>
+
+	<dt><a name="-setDocType"><strong>setDocType</strong></a>(...)</dt><dd><code><a href="#-setDocType">setDocType</a>(facingPages, firstPageLeft)<br>
+ <br>Sets the document type. To get facing pages set the first parameter to FACINGPAGES, to switch facingPages off use NOFACINGPAGES instead.  If you want to be the first page a left side set the second parameter to FIRSTPAGELEFT, for a right page use FIRSTPAGERIGHT.</code></dd>
+
+	<dt><a name="-setFillColor"><strong>setFillColor</strong></a>(...)</dt>
+	<dd><code><a href="#-setFillColor">setFillColor</a>("color", ["name"])<br><br>Sets the fill color of the object "name" to the color "color". "color" is the name of one of the defined colors. If "name" is not given the currently selected item is used.</code></dd>
+
+	<dt><a name="-setFillShade"><strong>setFillShade</strong></a>(...)</dt>
+	<dd><code><a href="#-setFillShade">setFillShade</a>(shade, ["name"])<br><br>Sets the shading of the fill color of the object "name" to "shade". "shade" must be an integer value in the range from 0 (lightest) to 100 (full Color intensity). If "name" is not given the currently selected Item is used. May raise ValueError if the fill shade is out of bounds.</code></dd>
+
+ 	<dt><a name="-setFont"><strong>setFont</strong></a>(...)</dt>
+	<dd><code><a href="#-setFont">setFont</a>("font", ["name"])<br><br>Sets the font of the text frame "name" to "font". If there is some text selected only the selected text is changed.  If "name" is not given the currently selected item is used.<br><br>May throw ValueError if the font cannot be found.</code></dd>
+
+	<dt><a name="-setFontSize"><strong>setFontSize</strong></a>(...)</dt>
+	<dd><code><a href="#-setFontSize">setFontSize</a>(size, ["name"])<br><br>Sets the font size of the text frame "name" to "size". "size" is treated as a value in points. If there is some text selected only the selected text is changed. "size" must be in the range 1 to 512. If "name" is not given the currently selected item is used.<br><br>May throw ValueError for a font size that's out of bounds.</code></dd>
+	<dt><a name="-setGradientFill"><strong>setGradientFill</strong></a>(...)</dt><dd><code><a href="#-setGradientFill">setGradientFill</a>(type, "color1", shade1, "color2", shade2, ["name"])<br><br>Sets the gradient fill of the object "name" to type. Color descriptions are the same as for <a href="#-setFillColor">setFillColor</a>() and <a href="#-setFillShade">setFillShade</a>(). See the constants for available types (FILL_&lt;type&gt;).</code></dd>
+
+	<dt><a name="-setHGuides"><strong>setHGuides</strong></a>(...)</dt>
+	<dd><code><a href="#-setHGuides">setHGuides</a>(list)<br><br>Sets horizontal guides. Input parameter must be a list of guide positions measured in the current document units - see UNIT_&lt;type&gt; constants.<br><br>Example: <a href="#-setHGuides">setHGuides</a>(<a href="#-getHGuides">getHGuides</a>() + [200.0, 210.0] # add new guides without any lost<br>
+         <a href="#-setHGuides">setHGuides</a>([90,250]) # replace current guides entirely</code></dd>
+
+	<dt><a name="-setInfo"><strong>setInfo</strong></a>(...)</dt>
+	<dd><code><a href="#-saveDocAs">saveDocAs</a>("author", "info", "description") -&gt; bool<br><br>Sets the document information. "Author", "Info", "Description" are strings.</code></dd>
+
+	<dt><a name="-setLayerPrintable"><strong>setLayerPrintable</strong></a>(...)</dt><dd><code><a href="#-setLayerPrintable">setLayerPrintable</a>("layer", printable)<br><br>Sets the layer "layer" to be printable or not. If is the printable set to false the layer won't be printed.<br><br>May raise <a href="#NotFoundError">NotFoundError</a> if the layer can't be found.<br>May raise ValueError if the layer name isn't acceptable.</code></dd>
+
+	<dt><a name="-setLayerVisible"><strong>setLayerVisible</strong></a>(...)</dt><dd><code><a href="#-setLayerVisible">setLayerVisible</a>("layer", visible)<br><br>Sets the layer "layer" to be visible or not. If is the visible set to false the layer is invisible.<br> <br>May raise <a href="#NotFoundError">NotFoundError</a> if the layer can't be found.<br>May raise ValueError if the layer name isn't acceptable.</code></dd>
+
+	<dt><a name="-setLineCap"><strong>setLineCap</strong></a>(...)</dt>
+	<dd><code>setLineEnd(endtype, ["name"])<br><br>Sets the line cap style of the object "name" to the style "cap".<br>If "name" is not given the currently selected item is used. There are predefined constants for "cap" - CAP_&lt;type&gt;.</code></dd>
+
+	<dt><a name="-setLineColor"><strong>setLineColor</strong></a>(...)</dt>
+	<dd><code><a href="#-setLineColor">setLineColor</a>("color", ["name"])<br><br>Sets the line color of the object "name" to the color "color". If "name" is not given the currently selected item is used.</code></dd>
+
+	<dt><a name="-setLineJoin"><strong>setLineJoin</strong></a>(...)</dt>
+	<dd><code><a href="#-setLineJoin">setLineJoin</a>(join, ["name"])<br><br>Sets the line join style of the object "name" to the style "join". If "name" is not given the currently selected item is used. There are predefined constants for join - JOIN_&lt;type&gt;.</code></dd>
+
+	<dt><a name="-setLineShade"><strong>setLineShade</strong></a>(...)</dt>
+	<dd><code><a href="#-setLineShade">setLineShade</a>(shade, ["name"])<br><br>Sets the shading of the line color of the object "name" to "shade". "shade" must be an integer value in the range from 0 (lightest) to 100 (full color intensity). If "name" is not given the currently selected item is used.<br><br>May raise ValueError if the line shade is out of bounds.</code></dd>
+
+	<dt><a name="-setLineSpacing"><strong>setLineSpacing</strong></a>(...)</dt><dd><code><a href="#-setLineSpacing">setLineSpacing</a>(size, ["name"])<br><br>Sets the line spacing ("leading") of the text frame "name" to "size". "size" is a value in points. If "name" is not given the currently selected item is used.<br><br>May throw ValueError if the line spacing is out of bounds.</code></dd>
+
+	<dt><a name="-setLineStyle"><strong>setLineStyle</strong></a>(...)</dt>
+	<dd><code><a href="#-setLineStyle">setLineStyle</a>(style, ["name"])<br><br>Sets the line style of the object "name" to the style "style". If "name" is not given the currently selected item is used. There are predefined constants for "style" - LINE_&lt;style&gt;.</code></dd>
+
+	<dt><a name="-setLineWidth"><strong>setLineWidth</strong></a>(...)</dt>
+	<dd><code><a href="#-setLineWidth">setLineWidth</a>(width, ["name"])<br><br>Sets line width of the object "name" to "width". "width" must be in the range from 0.0 to 12.0 inclusive, and is measured in points. If "name" is not given the currently selected item is used.<br><br>May raise ValueError if the line width is out of bounds.</code></dd>
+
+	<dt><a name="-setMargins"><strong>setMargins</strong></a>(...)</dt>
+	<dd><code><a href="#-setMargins">setMargins</a>(lr, rr, tr, br)<br><br>Sets the margins of the document, Left(lr), Right(rr), Top(tr) and Bottom(br) margins are given in the measurement units of the document - see UNIT_&lt;type&gt; constants.</code></dd>
+
+	<dt><a name="-setMultiLine"><strong>setMultiLine</strong></a>(...)</dt>
+	<dd><code><a href="#-setMultiLine">setMultiLine</a>("namedStyle", ["name"])<br><br>Sets the line style of the object "name" to the named style "namedStyle". If "name" is not given the currently selected item is used.<br/><br/>May raise <a href="#NotFoundError">NotFoundError</a> if the line style doesn't exist.</code></dd>
+
+	<dt><a name="-setPDFBookmark"><strong>setPDFBookmark</strong></a>(...)</dt>
+	<dd><code><a href="#-setPDFBookmark">setPDFBookmark</a>("toggle", ["name"])</code>
+	<p>Sets wether (toggle = 1) the text frame "name" is a bookmark nor not. If "name" is not given the currently selected item is used.</p> 
+	<p>May raise WrongFrameTypeError if the target frame is not a text frame.</p></dd>
+
+	<dt><a name="-setRedraw"><strong>setRedraw</strong></a>(...)</dt>
+	<dd><code><a href="#-setRedraw">setRedraw</a>(bool)<br><br>Disables page redraw when bool = False, otherwise redrawing is enabled. This change will persist even after the script exits, so make sure to call <a href="#-setRedraw">setRedraw</a>(True) in a finally: clause at the top level of your script.</code></dd>
+
+	<dt><a name="-setScaleImageToFrame"><strong>setScaleImageToFrame</strong></a>(...)</dt>
+	<dd><code><a href="#-setScaleImageToFrame">setScaleImageToFrame</a>(scaletoframe, proportional=None, name=&lt;selection&gt;)</code>
+	<p>Sets the scale to frame on the selected or specified image frame to `scaletoframe'. If `proportional' is specified, set fixed aspect ratio scaling to `proportional'. Both `scaletoframe' and `proportional' are boolean.</p>
+	<p>May raise WrongFrameTypeError.</p></dd>
+
+	<dt><a name="-setStyle"><strong>setStyle</strong></a>(...)</dt>
+	<dd><code><a href="#-setStyle">setStyle</a>("style" [, "name"])<br><br>Apply the named "style" to the object named "name". If is no object name given, it's applied on the selected object.</code></dd>
+
+	<dt><a name="-setText"><strong>setText</strong></a>(...)</dt>
+	<dd><code><a href="#-setText">setText</a>("text", ["name"])<br><br>Sets the text of the text frame "name" to the text of the string "text". Text must be UTF8 encoded - use e.g. unicode(text, 'iso-8859-2'). See the FAQ for more details. If "name" is not given the currently selected item is used.</code></dd>
+
+	<dt><a name="-setTextAlignment"><strong>setTextAlignment</strong></a>(...)</dt>
+	<dd><code><a href="#-setTextAlignment">setTextAlignment</a>(align, ["name"])<br><br>Sets the text alignment of the text frame "name" to the specified alignment. If "name" is not given the currently selected item is used. "align" should be one of the ALIGN_ constants defined in this module - see dir(scribus).<br><br>May throw ValueError for an invalid alignment constant.</code></dd>
+
+	<dt><a name="-setTextColor"><strong>setTextColor</strong></a>(...)</dt>
+	<dd><code><a href="#-setTextColor">setTextColor</a>("color", ["name"])<br /><br>Sets the text color of the text frame "name" to the color "color". If there is some text selected only the selected text is changed. If "name" is not given the currently selected item is used.</code></dd>
+
+	<dt><a name="-setTextShade"><strong>setTextShade</strong></a>(...)</dt>
+	<dd><code><a href="#-setTextShade">setTextShade</a>(shade, ["name"])<br><br>Sets the shading of the text color of the object "name" to "shade". If there is some text selected only the selected text is changed. "shade" must be an integer value in the range from 0 (lightest) to 100 (full color intensity). If "name" is not given the currently selected item is used.</code></dd>
+
+	<dt><a name="-setTextStroke"><strong>setTextStroke</strong></a>(...)</dt>
+	<dd><code><a href="#-setTextStroke">setTextStroke</a>("color", ["name"])<br><br>Set "color" of the text stroke. If "name" is not given the currently selected item is used.</code></dd>
+
+	<dt><a name="-setUnit"><strong>setUnit</strong></a>(...)</dt>
+	<dd><code><a href="#-setUnit">setUnit</a>(type)<br><br>Changes the measurement unit of the document. Possible values for "unit" are defined as constants UNIT_&lt;type&gt;.<br> <br>May raise ValueError if an invalid unit is passed.</code></dd>
+
+	<dt><a name="-setVGuides"><strong>setVGuides</strong></a>(...)</dt>
+	<dd><code><a href="#-setVGuides">setVGuides</a>()<br><br>See setHGuides.</code></dd>
+
+	<dt><a name="-sizeObject"><strong>sizeObject</strong></a>(...)</dt>
+	<dd><code><a href="#-sizeObject">sizeObject</a>(width, height [, "name"])<br><br>Resizes the object "name" to the given width and height. If "name" is not given the currently selected item is used.</code></dd>
+
+	<dt><a name="-statusMessage"><strong>statusMessage</strong></a>(...)</dt>
+	<dd><code><a href="#-messagebarText">messagebarText</a>("string")<br><br>Writes the "string" into the Scribus message bar (status line). The text must be UTF8 encoded or 'unicode' string(recommended).</code></dd>
+
+	<dt><a name="-textFlowsAroundFrame"><strong>textFlowsAroundFrame</strong></a>(...)</dt>
+	<dd><code><a href="#-textFlowsAroundFrame">textFlowsAroundFrame</a>("name" [, state])<br> <br>Enables/disables "Text Flows Around Frame" feature for object "name". Called with parameters string name and optional boolean "state". If "state" is not passed, text flow is toggled.</code></dd>
+
+	<dt><a name="-traceText"><strong>traceText</strong></a>(...)</dt>
+	<dd><code><a href="#-traceText">traceText</a>(["name"])<br><br>Convert the text frame "name" to outlines. If "name" is not given the currently selected item is used.</code></dd>
+
+	<dt><a name="-unGroupObject"><strong>unGroupObject</strong></a>(...)</dt>
+	<dd><code>unGroupObjects("name")<br><br>Destructs the group the object "name" belongs to.If "name" is not given the currently selected item is used.</code></dd>
+
+	<dt><a name="-unlinkTextFrames"><strong>unlinkTextFrames</strong></a>(...)</dt><dd>
+	<code><a href="#-unlinkTextFrames">unlinkTextFrames</a>("name")<br><br>Remove the specified (named) object from the text frame flow/linkage. If the frame was in the middle of a chain, the previous and next frames will be connected, eg 'a-&gt;b-&gt;c' becomes 'a-&gt;c' when you <a href="#-unlinkTextFrames">unlinkTextFrames</a>(b)'<br><br>May throw <a href="#ScribusException">ScribusException</a> if linking rules are violated.</code></dd>
+
+	<dt><a name="-valueDialog"><strong>valueDialog</strong></a>(...)</dt><dd><code><a href="#-valueDialog">valueDialog</a>(caption, message [,defaultvalue]) -&gt; string<br> <br>Shows the common 'Ask for string' dialog and returns its value as a string<br>Parameters: window title, text in the window and optional 'default' value.<br> <br>Example: <a href="#-valueDialog">valueDialog</a>('title', 'text in the window', 'optional')</code></dd>
+</dl>
+
+<hr />
+<h3>Data</h3>
+
+<strong>ALIGN_BLOCK</strong> = 4<br>
+<strong>ALIGN_CENTERED</strong> = 1<br>
+<strong>ALIGN_FORCED</strong> = 4<br>
+<strong>ALIGN_LEFT</strong> = 0<br>
+<strong>ALIGN_RIGHT</strong> = 2<br>
+<strong>Abort</strong> = 5<br>
+<strong>BUTTON_ABORT</strong> = 5<br>
+<strong>BUTTON_CANCEL</strong> = 2<br>
+<strong>BUTTON_IGNORE</strong> = 7<br>
+<strong>BUTTON_NO</strong> = 4<br>
+<strong>BUTTON_NONE</strong> = 0<br>
+<strong>BUTTON_OK</strong> = 1<br>
+<strong>BUTTON_RETRY</strong> = 6<br>
+<strong>BUTTON_YES</strong> = 3<br>
+<strong>BevelJoin</strong> = 64<br>
+<strong>CAP_FLAT</strong> = 0<br>
+<strong>CAP_ROUND</strong> = 32<br>
+<strong>CAP_SQUARE</strong> = 16<br>
+<strong>Cancel</strong> = 2<br>
+<strong>Centered</strong> = 1<br>
+<strong>Critical</strong> = 3<br>
+<strong>CrossDiagonalGradient</strong> = 4<br>
+<strong>DashDotDotLine</strong> = 5<br>
+<strong>DashDotLine</strong> = 4<br>
+<strong>DashLine</strong> = 2<br>
+<strong>DiagonalGradient</strong> = 3<br>
+<strong>DotLine</strong> = 3<br>
+<strong>FACINGPAGES</strong> = 1<br>
+<strong>FILL_CROSSDIAGONALG</strong> = 4<br>
+<strong>FILL_DIAGONALG</strong> = 3<br>
+<strong>FILL_HORIZONTALG</strong> = 1<br>
+<strong>FILL_NOG</strong> = 0<br>
+<strong>FILL_RADIALG</strong> = 5<br>
+<strong>FILL_VERTICALG</strong> = 2<br>
+<strong>FIRSTPAGELEFT</strong> = 1<br>
+<strong>FIRSTPAGERIGHT</strong> = 0<br>
+<strong>FacingPages</strong> = 1<br>
+<strong>FirstPageLeft</strong> = 1<br>
+<strong>FirstPageRight</strong> = 0<br>
+<strong>FlatCap</strong> = 0<br>
+<strong>Forced</strong> = 4<br>
+<strong>HorizontalGradient</strong> = 1<br>
+<strong>ICON_CRITICAL</strong> = 3<br>
+<strong>ICON_INFORMATION</strong> = 1<br>
+<strong>ICON_NONE</strong> = 0<br>
+<strong>ICON_WARNING</strong> = 2<br>
+<strong>Ignore</strong> = 7<br>
+<strong>Inches</strong> = 2<br>
+<strong>Information</strong> = 1<br>
+<strong>JOIN_BEVEL</strong> = 64<br>
+<strong>JOIN_MITTER</strong> = 0<br>
+<strong>JOIN_ROUND</strong> = 128<br>
+<strong>LANDSCAPE</strong> = 1<br>
+<strong>LINE_DASH</strong> = 2<br>
+<strong>LINE_DASHDOT</strong> = 4<br>
+<strong>LINE_DASHDOTDOT</strong> = 5<br>
+<strong>LINE_DOT</strong> = 3<br>
+<strong>LINE_SOLID</strong> = 1<br>
+<strong>Landscape</strong> = 1<br>
+<strong>LeftAlign</strong> = 0<br>
+<strong>Millimeters</strong> = 1<br>
+<strong>MiterJoin</strong> = 0<br>
+<strong>NOFACINGPAGES</strong> = 0<br>
+<strong>No</strong> = 4<br>
+<strong>NoButton</strong> = 0<br>
+<strong>NoFacingPages</strong> = 0<br>
+<strong>NoGradient</strong> = 0<br>
+<strong>NoIcon</strong> = 0<br>
+<strong>Ok</strong> = 1<br>
+<strong>PAPER_A0</strong> = (2380.0, 3368.0)<br>
+<strong>PAPER_A1</strong> = (1684.0, 2380.0)<br>
+<strong>PAPER_A2</strong> = (1190.0, 1684.0)<br>
+<strong>PAPER_A3</strong> = (842.0, 1190.0)<br>
+<strong>PAPER_A4</strong> = (595.0, 842.0)<br>
+<strong>PAPER_A5</strong> = (421.0, 595.0)<br>
+<strong>PAPER_A6</strong> = (297.0, 421.0)<br>
+<strong>PAPER_A7</strong> = (210.0, 297.0)<br>
+<strong>PAPER_A8</strong> = (148.0, 210.0)<br>
+<strong>PAPER_A9</strong> = (105.0, 148.0)<br>
+<strong>PAPER_B0</strong> = (2836.0, 4008.0)<br>
+<strong>PAPER_B1</strong> = (2004.0, 2836.0)<br>
+<strong>PAPER_B10</strong> = (89.0, 125.0)<br>
+<strong>PAPER_B2</strong> = (1418.0, 2004.0)<br>
+<strong>PAPER_B3</strong> = (1002.0, 1418.0)<br>
+<strong>PAPER_B4</strong> = (709.0, 1002.0)<br>
+<strong>PAPER_B5</strong> = (501.0, 709.0)<br>
+<strong>PAPER_B6</strong> = (355.0, 501.0)<br>
+<strong>PAPER_B7</strong> = (250.0, 355.0)<br>
+<strong>PAPER_B8</strong> = (178.0, 250.0)<br>
+<strong>PAPER_B9</strong> = (125.0, 178.0)<br>
+<strong>PAPER_C5E</strong> = (462.0, 649.0)<br>
+<strong>PAPER_COMM10E</strong> = (298.0, 683.0)<br>
+<strong>PAPER_DLE</strong> = (312.0, 624.0)<br>
+<strong>PAPER_EXECUTIVE</strong> = (542.0, 720.0)<br>
+<strong>PAPER_FOLIO</strong> = (595.0, 935.0)<br>
+<strong>PAPER_LEDGER</strong> = (1224.0, 792.0)<br>
+<strong>PAPER_LEGAL</strong> = (612.0, 1008.0)<br>
+<strong>PAPER_LETTER</strong> = (612.0, 792.0)<br>
+<strong>PAPER_TABLOID</strong> = (792.0, 1224.0)<br>
+<strong>PORTRAIT</strong> = 0<br>
+<strong>Paper_A0</strong> = (2380.0, 3368.0)<br>
+<strong>Paper_A1</strong> = (1684.0, 2380.0)<br>
+<strong>Paper_A2</strong> = (1190.0, 1684.0)<br>
+<strong>Paper_A3</strong> = (842.0, 1190.0)<br>
+<strong>Paper_A4</strong> = (595.0, 842.0)<br>
+<strong>Paper_A5</strong> = (421.0, 595.0)<br>
+<strong>Paper_A6</strong> = (297.0, 421.0)<br>
+<strong>Paper_A7</strong> = (210.0, 297.0)<br>
+<strong>Paper_A8</strong> = (148.0, 210.0)<br>
+<strong>Paper_A9</strong> = (105.0, 148.0)<br>
+<strong>Paper_B0</strong> = (2836.0, 4008.0)<br>
+<strong>Paper_B1</strong> = (2004.0, 2836.0)<br>
+<strong>Paper_B10</strong> = (89.0, 125.0)<br>
+<strong>Paper_B2</strong> = (1418.0, 2004.0)<br>
+<strong>Paper_B3</strong> = (1002.0, 1418.0)<br>
+<strong>Paper_B4</strong> = (709.0, 1002.0)<br>
+<strong>Paper_B5</strong> = (501.0, 709.0)<br>
+<strong>Paper_B6</strong> = (355.0, 501.0)<br>
+<strong>Paper_B7</strong> = (250.0, 355.0)<br>
+<strong>Paper_B8</strong> = (178.0, 250.0)<br>
+<strong>Paper_B9</strong> = (125.0, 178.0)<br>
+<strong>Paper_C5E</strong> = (462.0, 649.0)<br>
+<strong>Paper_Comm10E</strong> = (298.0, 683.0)<br>
+<strong>Paper_DLE</strong> = (312.0, 624.0)<br>
+<strong>Paper_Executive</strong> = (542.0, 720.0)<br>
+<strong>Paper_Folio</strong> = (595.0, 935.0)<br>
+<strong>Paper_Ledger</strong> = (1224.0, 792.0)<br>
+<strong>Paper_Legal</strong> = (612.0, 1008.0)<br>
+<strong>Paper_Letter</strong> = (612.0, 792.0)<br>
+<strong>Paper_Tabloid</strong> = (792.0, 1224.0)<br>
+<strong>Picas</strong> = 3<br>
+<strong>Points</strong> = 0<br>
+<strong>Portrait</strong> = 0<br>
+<strong>RadialGradient</strong> = 5<br>
+<strong>Retry</strong> = 6<br>
+<strong>RightAlign</strong> = 2<br>
+<strong>RoundCap</strong> = 32<br>
+<strong>RoundJoin</strong> = 128<br>
+<strong>SolidLine</strong> = 1<br>
+<strong>SquareCap</strong> = 16<br>
+<strong>UNIT_INCHES</strong> = 2<br>
+<strong>UNIT_MILLIMETERS</strong> = 1<br>
+<strong>UNIT_PICAS</strong> = 3<br>
+<strong>UNIT_POINTS</strong> = 0<br>
+<strong>VerticalGradient</strong> = 2<br>
+<strong>Warning</strong> = 2<br>
+<strong>Yes</strong> = 3<br>
+<br>
+<strong>scribus_version</strong> = '1.2.2'<br>
+<strong>scribus_version_info</strong> = (1, 2, 2, '', 0)<br>
+</qt>

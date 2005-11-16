@@ -1,0 +1,27 @@
+<qt>
+<title>Schriftarten im Vergleich - Teil 1</title>
+<h2>Schriftarten im Vergleich - Teil 1</h2>
+
+<h4>Wie l&auml;&szlig;t sich entscheiden, welche Schriftarten gut, schlecht oder mittelm&auml;&szlig;ig sind? </h4>
+
+<p>Nehmen wir an, Sie haben irgendwo eine Auswahl von Schriftarten heruntergeladen und installiert. Quer durch alle Dokumentationen, Mailing-Listen und IRC-Channels taucht &uuml;berall die Frage nach guten Schriftarten auf: Woran erkenne ich sie? Wie kann ich sie beurteilen? Nachfolgend gibt es eine kleine Checkliste, die Sie benutzen k&ouml;nnen. Sie ist nicht v&ouml;llig narrensicher und gibt nat&uuml;rlich keine Garantie: </p>
+
+<p>Eine sehr n&uuml;tzliche Funktion in KDE 3.3+ nennt sich KioFonts-Slave und kann die Metadaten von Schriftarten abrufen, um diese dann im Konqueror anschauen und auswerten zu lassen. Zur Einsch&auml;tzung einer Schriftart setze ich dieses Hilfsmittel stets als erstes ein. Um es zu benutzen, brauchen Sie lediglich den Konqueror zu starten, in ein Verzeichnis mit Schriftarten zu wechseln und die Symbolansicht zu aktivieren, so da&szlig; die Vorschaugrafiken im Hintergrund erzeugt werden. Wenn Sie dann den Mauszeiger &uuml;ber das Symbol einer bestimmten Schriftart halten, werden weitere Informationen sichtbar. Alternativ k&ouml;nnen Sie auch darauf rechtsklicken und <strong>&Ouml;ffnen mit ... KfontView</strong> w&auml;hlen.</strong></p><br />
+
+<table width="100%"><tr><td align="center"><img src="images/fonts3.png" alt="font previews in Konqueror" title="font previews in Konqueror" /></td></tr></table>
+
+<p>In obigem Beispiel gibt es eine Reihe von Hinweisen auf m&ouml;glicherweise problematische Schriftarten. Zun&auml;chst fehlt die Vorschau, was auf ein internes Problem hindeutet. Von mehr als zwei Dutzend Schriftarten ohne Vorschau hatte fast jede Druck-/Export-Schwierigkeiten in Scribus. Als n&auml;chstes fehlt die Herstellerangabe, was darauf hindeuten kann, da&szlig; es sich um die m&auml;&szlig;ige Klonkopie eines hochqualitativen Originals handelt.</p>
+
+<ul>
+	<li>&Uuml;berpr&uuml;fen Sie die Daten: Type1-Schriftarten aus der Zeit vor 1991 sind anf&auml;llig f&uuml;r Probleme.</li>
+	<li>Wenn Sie Type1-Schriftarten &uuml;berpr&uuml;fen, erzeugt die <strong>.pfb</strong>-Datei die Vorschau. Dateien mit der Endung <strong>.afm</strong> und <strong>.pfm</strong> enthalten die Schriftarten-Eigenschaften, z.B. f&uuml;r Ligaturen und Unterschneidungen von Zeichenpaaren.</li>
+	<li>&Uuml;berpr&uuml;fen Sie die Gr&ouml;&szlig;e. Es ist zwar kein Mu&szlig;, doch die kleineren Gr&ouml;&szlig;en offenbaren  - <em>insbesondere</em> bei TrueType-Schriftarten - manchmal fehlende Zeichenelemente. Dies ist nicht der Fall bei Sonderzeichens&auml;tzen wie Symbolen oder sonstigen Schriftarten. Beachten Sie bitte, da&szlig; Scribus ab der Version 1.3 die fehlenden Zeichenelemente einer Schriftart automatisch anzeigt, und zwar direkt auf der (virtuellen) Leinwand.</li>
+	<li>Stammt die Schriftart von einem namhaften Hersteller? Wenn der Hersteller als &quot;unbekannt&quot; bezeichnet ist, lassen Sie Vorsicht walten - und seien Sie nicht erstaunt, wenn es damit in Scribus Schwierigkeiten gibt. Dies ist ebenfalls kein Mu&szlig;. Es gibt f&uuml;r Sonderzwecke einige hervorragende Schriftarten, denen dieser Informationsinhalt aus irgendeinem Grunde fehlt.</li>
+	<li>Zeigt die Schriftart als Hersteller die Namen Altsys oder Macromedia an? Macromedia vertreibt Fontographer, eine Programm zum Erzeugen und Bearbeiten von Schriftzeichen, das vormals von Altsys vertrieben wurde. Einige Klonkopien sind tats&auml;chlich Schriftarten, die mit Fontographer erzeugt wurden, ohne dessen Standardeinstellung zu &auml;ndern, so da&szlig; als Hersteller Macromedia oder Altsys erscheinen. Namhafte Schriften-Designer bringen ganz &uuml;berwiegend ihren Namen (oder den des Herstellers) in die Schriftartdatei ein. Seien Sie also vorsichtig, wenn Sie eine Schriftart mit dem Zusatz Altsys oder Macromedia erworben haben. Fontographer selbst ist - in den richtigen H&auml;nden - ein vorz&uuml;gliches Hilfsprogramm.</li>
+</ul>
+<p>Unten sehen Sie eine gute Schriftart von einem namhaften und zuverl&auml;ssigen Hersteller, bei der korrekte Metadaten angezeigt werden.</p>
+
+<table width="100%"><tr><td align="center"><img src="images/fonts4.png" alt="A correct listing of font metadata" title="A correct listing of font metadata" /></td></tr></table>
+
+
+</qt>

@@ -1,0 +1,38 @@
+<qt>
+<title>Wie Sie die Quelldateien von Scribus bekommen</title>
+<h2>Wie Sie die Quelldateien von Scribus bekommen</h2>
+<p>Die aktuellste Version von Scribus bekommen Sie von:</p>
+<ul class="simple">
+<li>der Scribus-Hauptseite - <a href="http://www.scribus.net">http://www.scribus.net</a></li>
+<li> <a href="http://sourceforge.net/project/showfiles.php?group_id=125235">als Download von Scribus Sourceforge:</a></li>
+<!--<li>ibiblio Mirror - US - http://www.ibiblio.org/pub/linux/apps/office/</li>
+<li>Scribus mirror at Planetmirror.com - http://scribus.planetmirror.com/</li>
+<li>Scribus mirror at National Technical University of Athens - http://mirrors.ntua.gr/Scribus/</li>-->
+
+</ul>
+<p>Dank N@twork gibt es einen anonymen Zugang zu CVS, wo Dateien t&auml;glich aktualisiert werden; empfehlenswert eher f&uuml;r jene, die stets auf dem neuesten Stand bleiben wollen. Und so bekommen Sie die neuesten Quelldateien vom CVS-Server: </p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<pre>
+export CVSROOT=:pserver:anoncvs@scribus.info:/cvs
+</pre>
+</small></td></tr></table></blockquote>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<pre>
+cvs login
+</pre>
+</small></td></tr></table></blockquote>
+<!--<p>when it asks for a password, press return</p>-->
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<pre>
+cvs -z3 co Scribus
+</pre>
+</small></td></tr></table></blockquote>
+<p>Damit beginnt das Herunterladen der Quelldateien, die in Ihrem aktuellen Arbeitsordner landen. Anschlie&szlig;end:</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<pre>
+cd Scribus
+make -f Makefile.cvs
+</pre>
+</small></td></tr></table></blockquote>
+<p>Wenn Sie hier angelangt sind, folgen sie bitte den Anweisungen unter <a href="install3.html">Compiling and Installing</a>.</p>
+</qt>

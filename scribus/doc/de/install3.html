@@ -1,0 +1,68 @@
+<qt>
+<title>Kompilieren und Installieren</title>
+<h2>Kompilieren und Installieren</h2>
+<p>Um Scribus auf Ihrem System zu installieren, entpacken Sie bitte das heruntergeladene Archiv mit den Quelldateien. Geben Sie dann im Basisverzeichnis der Scribus-Quelldateien folgendes in die Konsole ein:</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<pre>
+./configure
+make
+make install
+</pre>
+</small></td></tr></table></blockquote>
+<p>Den Befehl <code>make install</code> m&uuml;ssen Sie stets als Benutzer mit root-Rechten ausf&uuml;hren, es sei denn, Sie haben <code>./configure</code> mit der Option <code>--prefix=[dir]</code> aufgerufen, um ein anderes Verzeichnis festzulegen. Das folgende Beispiel zeigt, wie Sie Scribus in Ihr home-Verzeichnis installieren k&ouml;nnen. (Mehr Informationen als in der folgenden Zeile finden Sie im Kapitel <a href="parallel-install.html">Parallel Install</a>, wo behandelt wird, wie sich mehr als eine Version von Scribus gleichzeitig installieren lassen.)</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<pre>
+./configure --prefix=/usr;make;make install prefix=~/scribus/cvs
+</pre>
+</small></td></tr></table></blockquote>
+
+<p>Wenn Sie beim Ausf&uuml;hren von <code>./configure</code> eine Warnmeldung erhalten, m&uuml;ssen Sie die Versionen von <code>autoconf</code> und <code>automake</code> &uuml;berpr&uuml;fen, indem Sie eingeben:</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<pre>
+autoconf --version
+automake --version
+</pre>
+</small></td></tr></table></blockquote>
+<p>Wenn sie nicht wenigstens den Versionen entsprechen, die im Kapitel <a href="install2.html">Requirements</a> genannt werden, m&uuml;ssen Sie eventuell - je nach Ihrer Distribution - angeben, da&szlig; eine h&ouml;here Version verwendet werden soll, und zwar etwa so:</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<pre>
+export WANT_AUTOCONF=&quot;2.5&quot;
+export WANT_AUTOMAKE=&quot;1.7&quot;
+</pre>
+</small></td></tr></table></blockquote>
+<p>Nachdem Sie diese beiden Befehl ausgef&uuml;hrt haben, vergleichen Sie bitte erneut die Versionsnummern. Wenn sie immer noch nicht den erforderlichen entsprechen, bleibt Ihnen nur, diese Programme zu aktualisieren; jedoch enthalten die meisten Distributionen eine ausreichend hohe Version.</p>
+<p>&Uuml;ber die Kommandozeile k&ouml;nnen Sie Scribus mit folgenden Optionen aufrufen:</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<pre>
+scribus --help
+</pre>
+</small></td></tr></table></blockquote>
+<p>Ausgabe:</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<pre>
+Scribus, Open Source Desktop Publishing
+---------------------------------------
+Homepage:       http://www.scribus.net
+Documentation:  http://docs.scribus.net
+Issues:         http://bugs.scribus.net
+
+Usage: scribus [option ... ] [file]
+Options:
+-l,  --lang xx          Uses xx as shortcut for a language
+-la, --langs-available  Lists the currently installed interface languages
+-h,  --help             Print help (this message) and exit
+-v,  --version          Output version information and exit
+</pre>
+</small></td></tr></table></blockquote>
+<p>Standardm&auml;&szlig;ig befindet sich die ausf&uuml;hrbare Scribus-Datei in <code>/usr/local/bin</code>. Die Dokumentation befindet sich in <code>/usr/local/lib/scribus/doc. </code></p>
+<p>Au&szlig;erdem gibt es noch eine <code>desktop.config</code>-Datei namens <code>scribus.desktop</code>, die als Men&uuml;k&uuml;rzel oder als Schnellstarter auf dem Desktop dienen kann. Kopieren Sie die Datei einfach aus dem Installationverzeichnis auf Ihren KDE-Desktop, dort k&ouml;nnen Sie dann Scribus starten. Wenn Sie die Datei auf den Desktop gezogen haben, m&uuml;ssen Sie noch daf&uuml;r sorgen, da&szlig; sie &quot;ausf&uuml;hrbar&quot; ist. Mit einem Rechtsklick k&ouml;nnen Sie pr&uuml;fen, ob das entsprechende Kontrollk&auml;stchen aktiviert ist. Diese Datei entspricht den j&uuml;ngsten Spezifikationen von <a href="http://www.freedesktop.org">www.freedesktop.org</a>.</p>
+<p>Da Scribus <code>autoconf</code> verwendet, sollten Sie - sofern Sie die korrekten Versionen der Entwickler-Bibliotheken besitzen - kaum Probleme beim Kompilieren haben. Falls es dennoch zu Schwierigkeiten kommt, wenden Sie sich bitte an die Scribus-Mailingliste oder unseren IRC-Channel. Beachten Sie hierzu das Kapitel <a href="resources.html">Community Resources</a> in diesem Handbuch.</p>
+<p>Zuguterletzt:</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<pre>man scribus</pre>
+</small></td></tr></table></blockquote>
+
+
+<p> liefert zus&auml;tzliche Informationen f&uuml;r den Anfang.</p>
+
+</qt>

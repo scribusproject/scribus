@@ -1,0 +1,115 @@
+<qt>
+<title>Wie Sie das Debian-Repository f&uuml;r Scribus nutzen</title>
+<h2>Wie Sie das Debian-Repository f&uuml;r Scribus nutzen</h2>
+<p><em>Die folgenden Erl&auml;uterungen wurden freundlicherweise bereitgestellt vom Betreuer unserer Debian-Pakete, Oleksandr Moskalenko</em> &lt;malex at tagancha.org&gt;. Bitte richten Sie Fragen, die Scribus unter Debian betreffen, direkt an vorgenannte Mailadresse.</p>
+
+<p>Wichtig: Benutzen Sie APT, denn auf diesem Wege installieren Sie Debian-Pakete ordnungsgem&auml;&szlig; als Bin&auml;r- und/oder Quelldateien. Falls Sie vorhaben, sich von Quelltexten selbst ein Paket zu erstellen, stellen Sie bitte sicher, da&szlig; dpkg-dev installiert ist.</p>
+
+<p>Die Scribus-Pakete f&uuml;r Debian GNU/Linux werden von Oleksandr (Alex) Moskalenko (malex at tagancha.org) erstellt. Bitte schreiben Sie mir eine eMail, wenn Sie Fragen haben, die nicht unter das Debian- oder Scribus-BTS (Bug Tracking System) fallen oder Sie etwas zu dieser Seite anmerken m&ouml;chten.</p>
+
+<p>Wenn Sie bei der Scribus-Entwicklung gern auf dem Laufenden bleiben wollen, verwenden Sie bitte Versionen aus einem Upstream-Repository (also Entwickler-Originale), denn ich kann Scribus nur &uuml;ber einen Sponsor nach Debian hochladen, und es braucht meist Wochen, bis er dort erscheint. Aus diesem Grunde sind die offiziellen Pakete meist deutlich &auml;lter als jene, die via Upstream-Repository verf&uuml;gbar sind. Um den von Ihnen entdeckten Fehler zu testen, nehmen Sie bitte ein Paket aus einem Upstream-Verzeichnis, denn vielleicht ist er in dem neuen Paket ja schon beseitigt. Das nennt sich &quot;Scribus magic&trade;&quot;, eine Art Zauberei. Bitte beachten Sie, da&szlig; jedes unten aufgef&uuml;hrte Repository hinsichtlich Backup und zus&auml;tzlicher &Uuml;bertragungsrate (falls n&ouml;tig) absolut GLEICH ist. Und jedes enth&auml;lt Pakete f&uuml;r Debian mit Status &quot;stable, testing &amp; unstable&quot; sowie f&uuml;r die Ubuntu-Distributionen Hoary und Breezy.
+<h3>Vorbereitung:</h3>
+</p>So nutzen Sie Upstream-Repositories:<p>
+
+
+<p>F&uuml;gen Sie folgende Zeilen in Ihre <code>/etc/apt/sources.list:</code></p>
+<p> Debian stable</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<!--<pre>
+deb         http://debian.scribus.net/debian/ unstable/
+deb-src     http://debian.scribus.net/debian/ unstable/
+</pre>-->
+
+<pre>#Debian stable
+# debian.scribus.net - Primary repository
+deb         http://debian.scribus.net/debian/ stable main non-free contrib
+deb-src     http://debian.scribus.net/debian/ stable main non-free contrib
+
+# debian.tagancha.org - Backup repository
+deb         http://debian.tagancha.org/debian/ stable main non-free contrib
+deb-src     http://debian.tagancha.org/debian/ stable main non-free contrib</pre>
+</small></td></tr></table></blockquote>
+<p> Debian testing</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<pre>#Debian testing
+# debian.scribus.net - Primary repository
+deb         http://debian.scribus.net/debian/ testing main non-free contrib
+deb-src     http://debian.scribus.net/debian/ testing main non-free contrib
+
+# debian.tagancha.org - Backup repository
+deb         http://debian.tagancha.org/debian/ testing main non-free contrib
+deb-src     http://debian.tagancha.org/debian/ testing main non-free contrib</pre>
+</small></td></tr></table></blockquote>
+
+<p> Debian unstable</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<pre>#Debian testing
+# debian.scribus.net - Primary repository
+deb         http://debian.scribus.net/debian/ unstable main non-free contrib
+deb-src     http://debian.scribus.net/debian/ unstable main non-free contrib
+
+# debian.tagancha.org - Backup repository
+deb         http://debian.tagancha.org/debian/ unstable main non-free contrib
+deb-src     http://debian.tagancha.org/debian/ unstable main non-free contrib</pre>
+</small></td></tr></table></blockquote>
+
+<p> Ubuntu Hoary</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<pre># Ubuntu Hoary
+deb         http://debian.scribus.net/debian/ hoary main restricted
+deb-src     http://debian.scribus.net/debian/ hoary main restricted
+
+deb         http://debian.tagancha.org/debian/ hoary main restricted
+deb-src     http://debian.tagancha.org/debian/ hoary main restricted</pre>
+</small></td></tr></table></blockquote>
+
+<p> Ubuntu Breezy</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<pre># Ubuntu Breezy
+deb         http://debian.scribus.net/debian/ breezy main restricted
+deb-src     http://debian.scribus.net/debian/ breezy main restricted
+
+deb         http://debian.tagancha.org/debian/ breezy main restricted
+deb-src     http://debian.tagancha.org/debian/ breezy main restricted</pre>
+</small></td></tr></table></blockquote>
+
+<p>Sobald die Zeilen f&uuml;r die relevanten Quellen eingetragen sind, k&ouml;nnen Sie</p>
+
+<p>die Paket-Datenbank aktualisieren:</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<pre> aptitude install scribus scribus-cvs </pre>
+</small></td></tr></table></blockquote>
+<p>oder</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<pre> apt-get install scribus scribus-cvs </pre>
+</small></td></tr></table></blockquote>
+
+<p>Alternativ k&ouml;nnen Sie eine von Ihnen bevorzugte grafische &quot;apt-get&quot;-Bedienoberfl&auml;che wie den Synaptic Package Manager verwenden (Vergessen Sie dort bitte nicht, mit &quot;Reload Package List&quot; die Paketliste neu zu laden. Es ist dasselbe wie der &quot;update&quot;-Befehl von apt-get und mu&szlig; ausgef&uuml;hrt werden, bevor Ihnen neue Pakete aus diesen Repositories zur Verf&uuml;gung stehen).</p>
+
+<p>Das Paket &quot;scribus&quot; steht f&uuml;r die &quot;stable&quot;-Serie der Version 1.2.xcvs, w&auml;hrend Ihnen das Paket &quot;scribus-cvs&quot; die M&ouml;glichkeit gibt, die neue Serie 1.3cvs auszuprobieren, die schon ziemlich stabil ist und deutlich mehr zu bieten hat als Version 1.2. Das Paket &quot;scribus-cvs&quot; installiert sich im Dateisystem nach /usr/local und kann parallel zum scribus-Paket existieren, weshalb Sie beide zugleich installiert haben und sogar gleichzeitig ausf&uuml;hren k&ouml;nnen. Stellen Sie aber bitte KEINE Fehlerberichte &uuml;ber das 1.3er scribus-cvs-Paket (oder &uuml;berhaupt irgendeines aus den Upstream-Repositories) in das Debian- oder Ubuntu-BTS. Benutzen Sie das Distributions-BTS nur f&uuml;r Paketversionen, die zu dieser Distribution geh&ouml;ren. Wenn Sie mit Scribus ein Problem haben, das nichts mit der Debian-Paketerstellung zu tun hat, dann ist es viel besser, Sie benutzen das Scribus-BTS, um Fehler zu melden. Gehen Sie zu <a href="http://bugs.scribus.net/" name="http://bugs.scribus.net/">http://bugs.scribus.net/</a> - und viel Spa&szlig;!</p>
+
+
+<h3> Andere Entwicklungslinien (Branches)</h3>
+<p><strong><small>Die nachfolgenden Anweisungen haben sich f&uuml;r die x86-Architektur meist als veraltet erwiesen - durch die neuen Repositories. Falls Sie andere Hardware (als x86) einsetzen oder gern ein optimiertes Paket erstellen m&ouml;chten, sind diese Anweisungen immer noch von Nutzen. Sie k&ouml;nnen mir Pakete f&uuml;r andere Architekturen zuschicken, und ich werde sie ins Repository stellen.</small></strong></p>
+<h4> Wenn Ihre Distribution noch nicht unterst&uuml;tzt wird:</h4>
+
+<p>Besuchen Sie bitte <a href="http://wiki.scribus.net/index.php/Scribus_on_Debian_GNU/Linux">Scribus Wiki</a>, und Sie bekommen Tipps von Endbenutzern. </p>
+<!--<p>If you have a non-x86 arch or would like to optimize the packages for your CPT you can achive these goals by a very simple package rebuild. Make sure that you have the deb-src lines for scribus repositories uncommented and run the following commands:</p>
+<h3> The cool way &#8482; - as root or set up sudo for yourself as a user:</h3>
+
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<pre>apt-get install apt-build</pre>
+<pre>apt-build update</pre>
+<pre>apt-build install scribus (or scribus-cvs)</pre>
+</small></td></tr></table></blockquote>
+<p>Answer questions about your CPU and stuff - see an excellent document at: <a href="http://julien.danjou.info/article-apt-build.html">http://julien.danjou.info/article-apt-build.html</a></p>
+
+<h3> User notes about installation on other Debian-based distributions:</h3>-->
+
+
+<h3>Verweise:</h3>
+<p>Diese Anleitung ist zum Teil auch hier erh&auml;ltlich:</p>
+<a href="http://www.debian.org/doc/FAQ/ch-pkg_basics.en.html">http://www.debian.org/doc/FAQ/ch-pkg_basics.en.html</a>
+<p>Unter Abschnitt 6.13 finden Sie &quot;How do I install a source package?&quot; und unter 6.14 &quot;How do I build binary packages from a source package?&quot;</p>
+<p>Viel Freude mit Scribus!</p>
+</qt>

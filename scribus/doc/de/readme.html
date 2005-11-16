@@ -1,0 +1,63 @@
+<h2>Info-Datei zu Scribus Version 1.2.2</h2>
+<h4>Was gibt es Neues?</h4>
+<p>Wichtiges Merkmal der Scribus-Versionen 1.2.x ist eine vollst&auml;ndige Neuschreibung der Rendering-Routine. Die Umsetzung geschieht allein mittels Libart und FreeType2, wozu nat&uuml;rlich libart_lgpl und freetype2 installiert sein m&uuml;ssen.</p>
+
+<p>Die Version 1.2.2 beinhaltet nun das Plug-in &quot;Short Words&quot;, das zuvor als separates Plug-in installiert war. Um Problemen beim Aktualisieren vorzubeugen, ist es vielleicht besser, das Plug-in zu deinstallieren, falls es mittels Paket oder RPM installiert wurde. Es war auch unter dem Paketnamen &quot;scribus-vlna&quot; erh&auml;ltlich, sowohl im Quell- als auch im RPM-Format. Weitere Einzelheiten finden Sie unter PACKAGING.</p>
+
+<p>Scribus 1.2.2 besitzt auch neue Importfilter f&uuml;r OpenOffice.org, und zwar f&uuml;r Writer und Draw. Hierf&uuml;r ist Libxml2 erforderlich, m&ouml;glichst Version 2.6.x oder h&ouml;her. Der Filter f&uuml;r OpenOffice.org.-Writer importiert Vorlagen von (OpenOffice.org) doc-Dateien und erzeugt daraus &auml;hnliche Vorlagen in Ihrem Scribus-Dokument. Die Version 1.2.1 unterst&uuml;tzte die Dateiformate von OpenOffice 1.1.x und StarOffice 6/7. Version 1.2.2 unterst&uuml;tzt nun auch OpenOffice 2.x/StarOffice 8.x (OASIS).
+</p>
+
+<p>Au&szlig;erdem benutzt Scribus jetzt einen anderen Weg bei der Suche nach verwendeten Schriftarten, wobei diese leider einige Namens&auml;nderungen erfahren haben. Um alte Dokumente zu konvertieren, verfahren Sie wie folgt:</p>
+
+<ul>
+<li>Erstellen Sie mit der alten Scribus-Version ein Dokument, das all Ihre Schriftarten enth&auml;lt.</li>
+<li>Starten Sie den neuen Scribus und &ouml;ffnen Sie (unter Schriftarten) die Auflistung der Font-Ersetzungen.
+</li>Entfernen Sie alle aktuellen Ersetzungen.
+<li>&Ouml;ffnen Sie das soeben erstellte Dokument, und ersetzen Sie alle Schriftarten durch die korrekten neuen Fonts.</li>
+<li>Wenn Sie nun alte Dokumente &ouml;ffnen, dann wird Scribus die Namen s&auml;mtlicher Schriftarten automatisch konvertieren.</li>
+</ul>
+<p>N&auml;heres zu den &Auml;nderungen finden Sie unter ChangeLog.</p>
+
+<p>Um Scribus in Ihrer Muttersprache zu verwenden, stellen Sie sicher, da&szlig; die Umgebungsvariable LC_ALL, LC_MESSAGES, LANG, Qt locale ODER die Befehlszeilenoption -l/--lang <lang> korrekt gesetzt ist.</p>
+	
+<p>Die neue M&ouml;glichkeit der Versionen 1.2.x, EPS/PS zu importieren, nutzt die erweiterten Funktionen von Ghostscript. Wir empfehlen allen Benutzern DRINGEND eine Aktualisierung auf die neueste Version von Ghostscript, die f&uuml;r ihre Distribution erh&auml;ltlich ist. Auf der Seite docs.scribus.net beschreibt eine detaillierte Anweisung, wie Sie GS 8.x parallel zu der GS-Version installieren, die Ihre Distribution bereith&auml;lt.</p>
+	
+<p>Um das Farbmanagement nutzen zu k&ouml;nnen, *m&uuml;ssen* CMYK- und RGB-ICC-Profile installiert sein. Einzelheiten finden Sie in den Hilfedateien Ihrer lokalen Installation sowie unter http://docs.scribus.net. Graustufen-ICC-Profile in Bildern werden in dieser Version nicht unterst&uuml;tzt.</p>
+	<p>
+	Wenn Sie eine 64-Bit-Version von Qt verwenden, kann es vorkommen, da&szlig; ./configure die Kopfdaten der 64-Bit-Version nicht erkennt. Probieren Sie: <pre>./configure --enable-libsuffix=64</pre> um so die 64-Bit-Versionen der Bibliotheken zu testen.</p>
+	
+	
+	<p>Weitere Anmerkungen bzw. zum Zeitpunkt der Erscheinens bekannte Probleme:</p>
+	
+<p>Bei Umsetzung der Fontkontur tritt bei einigen Schriftarten in den FreeType-Bibliotheken ein Fehler auf. Daran wird gerade gearbeitet, von unten nach oben. Schreiben Sie keinen Fehlerbericht. &Auml;ndern Sie stattdessen die Schriftart, wenn Sie die Konturen brauchen. Dies ist kein Scribus-Fehler. Einige Tests haben ergeben, da&szlig; dieser Fehler bei FreeType 2.1.9 nicht auftritt, doch raten wir bei dem Versuch, FreeType2 zu aktualisieren, zur Vorsicht. Die Aktualisierung von FreeType2 kann bei einigen Distributionen recht schwierig sein.</p>
+	
+<p>	Problem mit Farbverl&auml;ufen:</p>
+	
+<p>Wenn Sie einen Farbverlauf (z.B. mit schwarzer Farbe) haben, mit 50% Schattierung sowohl am Anfang wie am Ende des Verlaufs, ist das Ergebnis in der Mitte dunkler als an den R&auml;ndern. Dabei w&auml;re zu erwarten, da&szlig; der Verlauf von Anfang bis Ende die gleiche Schattierung hat, insbesondere wenn es dazwischen keine weiteren Color-Stops gibt. Wir halten dies f&uuml;r eine Libart-Problematik, die nicht von uns behoben werden kann. Exportiert und im Druckergebnis ist der Farbverlauf einwandfrei.</p>
+	
+<strong>	F&uuml;r Debian-Benutzer:	</strong>
+<p>
+	Wenn Scribus sich nicht starten l&auml;&szlig;t und dabei das Fehlen von PostScript-Schriftarten beklagt, installieren Sie bitte entweder xfonts-scalable oder gsfonts-x11. Sie finden sich unter den &quot;Recommends&quot; (Empfehlungen) und werden von jeder vern&uuml;nftigen apt-Bedienoberfl&auml;che installiert.
+</p>	
+<p><strong>	F&uuml;r SuSE 9.x-Benutzer:</strong></p>
+	<ul>
+<li>Die littlecms-Bibliothek 1.10, welche in Suse 9.0 enthalten war, bietet keine vollst&auml;ndige Unterst&uuml;tzung f&uuml;r die allerneuesten CMS-M&ouml;glichkeiten von Scribus 1.2. Auf der Seite von Scribus.net stehen aktualisierte RPM-Pakete f&uuml;r SuSE 9.x zur Verf&uuml;gung. Au&szlig;erdem empfehlen wir die Verwendung der neuesten Version von lcms.</li>
+	
+<li>Wenn Sie Qt 3.3.x verwenden, stellen Sie bitte sicher, da&szlig; Sie nur RPM-Pakete ab Qt 3.3.2-2 benutzen. Diese Versionen beinhalten eine Korrektur, die f&uuml;r das Drag-and-Drop in Scribus wichtig ist.</li>
+	<li>
+	Um eine direkte Unterst&uuml;tzung von CUPS zu erm&ouml;glichen (was wir empfehlen), stellen Sie bitte sicher, da&szlig; sowohl cups-devel als auch openssl-devel installiert sind. Suse aktiviert die SSL-Unterst&uuml;tzung in CUPS.</li></ul>
+	
+	<p>Fedora/RH mit Qt ab Version 3.3.2-6 beinhaltet dieselben Korrekturen.</p>
+	
+<p>Eine gesonderte Datei namens PACKAGING gibt detaillierte Tipps und Hinweise, wie sich Pakete f&uuml;r Scribus erstellen lassen.</p>
+	
+<p>Eine Reihe weiterer Tipps und Informationen finden sich auf den Seiten von www.scribus.net und docs.scribus.net. Hilfen zum vollst&auml;ndigen Kompilieren, zur Installation sowie FAQs stehen dort zur Verf&uuml;gung.</p>
+	
+<p>Es gibt eine lebendige, interaktive Netz-Gemeinde, sowohl &uuml;ber IRC @ #scribus bei irc.freenode.net als auch &uuml;ber die Mailingliste. Infos zur Mailingliste gibt es unter: http://nashi.altmuehlnet.de/mailman/listinfo/scribus</p>
+	
+	<p>F&uuml;r das Scribus-Team,</p>
+	
+<p>Franz Schmid<br />
+	Peter Linnell<br />
+	im Juni 2005<br />
+</p>
