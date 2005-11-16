@@ -194,6 +194,9 @@ void ScripterCore::FinishScriptRun()
 		else
 			ScApp->HaveNewSel(-1);
 		ScApp->view->DrawNew();
+		//CB Really only need (want?) this for new docs, but we need it after a call to ScApp doFileNew.
+		//We don't want it in cmddoc calls as itll interact with the GUI before a script may be finished.
+		ScApp->HaveNewDoc();
 	}
 }
 
