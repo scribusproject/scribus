@@ -28,6 +28,7 @@ public:
 
 	const QString getFromDoc();
 	const int getMasterPageNameItem();
+	const QString& getMasterPageNameText();
 	const int getImportWhere();
 	const int getImportWherePage();
 	const bool getCreatePageChecked();

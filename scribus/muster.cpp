@@ -117,7 +117,7 @@ void MasterPagesPalette::duplicateMasterPage()
 {
 	QString MasterPageName;
 	int nr;
-	bool atf;
+	//bool atf;
 	struct CopyPasteBuffer Buffer;
 	NewTm *dia = new NewTm(this, tr("&Name:"), tr("New Master Page"), currentDoc);
 	dia->Answer->setText( tr("Copy of %1").arg(sMuster));
@@ -135,11 +135,12 @@ void MasterPagesPalette::duplicateMasterPage()
 			MasterPageName = dia->Answer->text();
 		}
 		nr = currentDoc->Pages->count();
-		currentDoc->MasterNames.insert(MasterPageName, nr);
-		currentDoc->pageCount = 0;
-		atf = currentDoc->usesAutomaticTextFrames();
-		currentDoc->setUsesAutomaticTextFrames(false);
-		emit createNew(nr);
+		//currentDoc->MasterNames.insert(MasterPageName, nr);
+		//currentDoc->pageCount = 0;
+		//atf = currentDoc->usesAutomaticTextFrames();
+		//currentDoc->setUsesAutomaticTextFrames(false);
+		//emit createNew(nr);
+		currentDoc->addMasterPage(nr, MasterPageName);
 		currentDoc->setLoading(true);
 		if (currentDoc->currentPageLayout != singlePage)
 		{
@@ -233,10 +234,10 @@ void MasterPagesPalette::duplicateMasterPage()
 		}
 		currentView->Deselect(true);
 		currentView->DrawNew();
-		currentDoc->Pages->at(nr)->setPageName(MasterPageName);
-		currentDoc->Pages->at(nr)->MPageNam = "";
+		//currentDoc->Pages->at(nr)->setPageName(MasterPageName);
+		//currentDoc->Pages->at(nr)->MPageNam = "";
 		updateMasterPageList(MasterPageName);
-		currentDoc->setUsesAutomaticTextFrames(atf);
+		//currentDoc->setUsesAutomaticTextFrames(atf);
 		//currentDoc->MasterPages = currentDoc->Pages;
 		currentDoc->setLoading(false);
 		currentView->DrawNew();
@@ -298,21 +299,29 @@ void MasterPagesPalette::newMasterPage()
 
 void MasterPagesPalette::appendPage()
 {
-	QString MasterPageName, MasterPageName2;
-	int nr;
-	bool atf;
+	//bool atf;
 	MergeDoc *dia = new MergeDoc(this, true);
 	if (dia->exec())
 	{
 		qApp->setOverrideCursor(QCursor(waitCursor), true);
-		nr = currentDoc->Pages->count();
-		currentDoc->pageCount = 0;
-		atf = currentDoc->usesAutomaticTextFrames();
-		currentDoc->setUsesAutomaticTextFrames(false);
-		emit createNew(nr);
+		int nr = currentDoc->Pages->count();
+		//currentDoc->pageCount = 0;
+		//atf = currentDoc->usesAutomaticTextFrames();
+		//currentDoc->setUsesAutomaticTextFrames(false);
+		//emit createNew(nr);
+		QString MasterPageName(dia->getMasterPageNameText());
+		QString MasterPageName2(MasterPageName);
+		int copyC = 1;
+		while (currentDoc->MasterNames.contains(MasterPageName2))
+		{
+			MasterPageName2 = tr("Copy #%1 of ").arg(copyC)+MasterPageName;
+			copyC++;
+		}
+		currentDoc->addMasterPage(nr, MasterPageName2);
 		qApp->processEvents();
 		emit loadPage(dia->getFromDoc(), dia->getMasterPageNameItem(), true);
 		qApp->processEvents();
+		/*
 		MasterPageName = currentDoc->Pages->at(nr)->PageNam;
 		MasterPageName2 = MasterPageName;
 		int copyC = 1;
@@ -324,8 +333,9 @@ void MasterPagesPalette::appendPage()
 		currentDoc->MasterNames.insert(MasterPageName2, nr);
 		currentDoc->Pages->at(nr)->setPageName(MasterPageName2);
 		currentDoc->Pages->at(nr)->MPageNam = "";
+		*/
 		updateMasterPageList(MasterPageName2);
-		currentDoc->setUsesAutomaticTextFrames(atf);
+		//currentDoc->setUsesAutomaticTextFrames(atf);
 		currentView->showMasterPage(currentDoc->MasterNames[MasterPageName2]);
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 		//currentDoc->MasterPages = currentDoc->Pages;
