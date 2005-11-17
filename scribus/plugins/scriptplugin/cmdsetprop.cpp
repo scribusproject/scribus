@@ -41,8 +41,9 @@ PyObject *scribus_setfillcolor(PyObject* /* self */, PyObject* args)
 	if (i == NULL)
 		return NULL;
 	i->setFillColor(QString::fromUtf8(Color));
-	if (i->fillColor() != "None")
-		i->fillQColor = ScApp->doc->PageColors[i->fillColor()].getShadeColorProof(i->fillShade());
+	//CB moved to setFillColor
+	//if (i->fillColor() != "None")
+	//	i->fillQColor = ScApp->doc->PageColors[i->fillColor()].getShadeColorProof(i->fillShade());
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -59,8 +60,9 @@ PyObject *scribus_setlinecolor(PyObject* /* self */, PyObject* args)
 	if (it == NULL)
 		return NULL;
 	it->setLineColor(QString::fromUtf8(Color));
-	if (it->lineColor() != "None")
-		it->strokeQColor = ScApp->doc->PageColors[it->lineColor()].getShadeColorProof(it->lineShade());
+	//CB Moved to setLineColor
+	//if (it->lineColor() != "None")
+	//	it->strokeQColor = ScApp->doc->PageColors[it->lineColor()].getShadeColorProof(it->lineShade());
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -103,8 +105,9 @@ PyObject *scribus_setlineshade(PyObject* /* self */, PyObject* args)
 	if (it == NULL)
 		return NULL;
 	it->setLineShade(w);
-	if (it->lineColor() != "None")
-		it->strokeQColor = ScApp->doc->PageColors[it->lineColor()].getShadeColorProof(it->lineShade());
+	//CB Moved to setLineShade
+	//if (it->lineColor() != "None")
+	//	it->strokeQColor = ScApp->doc->PageColors[it->lineColor()].getShadeColorProof(it->lineShade());
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -126,8 +129,9 @@ PyObject *scribus_setfillshade(PyObject* /* self */, PyObject* args)
 	if (i == NULL)
 		return NULL;
 	i->setFillShade(w);
-	if (i->fillColor() != "None")
-		i->fillQColor = ScApp->doc->PageColors[i->fillColor()].getShadeColorProof(i->fillShade());
+	//CB Moved to setFillShade
+	//if (i->fillColor() != "None")
+	//	i->fillQColor = ScApp->doc->PageColors[i->fillColor()].getShadeColorProof(i->fillShade());
 	Py_INCREF(Py_None);
 	return Py_None;
 }
