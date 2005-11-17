@@ -518,7 +518,6 @@ public: // Public attributes
 	QPtrList<PageItem> MasterItems;
 	QPtrList<PageItem> DocItems;
 	QPtrList<PageItem> FrameItems;
-	Selection selection;
   /** Pagewidth  */
 	double pageWidth;
   /** Pageheight */
