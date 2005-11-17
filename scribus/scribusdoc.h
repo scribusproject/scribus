@@ -43,7 +43,6 @@
 #include "pageitem_line.h"
 #include "pageitem_textframe.h"
 #include "pagestructs.h"
-#include "selection.h"
 
 #ifdef HAVE_CMS
 	#include CMS_INC
