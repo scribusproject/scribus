@@ -481,8 +481,6 @@ public:
 	int startArrowIndex;
 	int endArrowIndex;
 	bool isEmbedded;
-	QColor fillQColor;
-	QColor strokeQColor;
 
 	/** @brief Manages undostack and is where all undo actions/states are sent. */
 	UndoManager *undoManager;
@@ -550,6 +548,11 @@ public:
 	 * @param newTransparency transparency of the line color
 	 */
 	void setLineTransparency(double newTransparency);
+
+	/** @brief Set the QColor for the line */
+	void setLineQColor();
+	/** @brief Set the QColor for the fill */
+	void setFillQColor();
 
 	/** @brief Get the style of line */
 	PenStyle lineStyle() const;
@@ -1043,6 +1046,9 @@ protected:
 	 * @sa PageItem::isTagged(), PageItem::setTagged()
 	 */
 	bool tagged;
+	
+	QColor fillQColor;
+	QColor strokeQColor;
 
 };
 

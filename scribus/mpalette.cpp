@@ -908,6 +908,12 @@ void Mpalette::SetCurItem(PageItem *i)
 {
 	if (ScApp->ScriptRunning)
 		return;
+	//CB We shouldnt really need to process this if our item is the same one
+	//maybe we do if the item has been changed by scripter.. but that should probably
+	//set some status if so.
+	//FIXME: This wont work until when a canvas deselect happens, CurItem must be NULL.
+	//if (CurItem == i)
+	//	return;
 	disconnect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SetSTline(QListBoxItem*)));
 	disconnect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
 	disconnect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
@@ -943,8 +949,8 @@ void Mpalette::SetCurItem(PageItem *i)
 	LevelTxt->setText(tm.setNum(i->ItemNr));
 	DCol->setMaxValue(QMAX(qRound(i->Width / QMAX(i->ColGap, 10.0)), 1));
 	DCol->setMinValue(1);
-	dGap->setMinValue(0);
 	DCol->setValue(i->Cols);
+	dGap->setMinValue(0);
 	if (colgapLabel->getState())
 	{
 		dGap->setMaxValue(QMAX((i->Width / i->Cols - i->Extra - i->RExtra)*Umrech, 0));

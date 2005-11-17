@@ -43,6 +43,7 @@
 #include "pageitem_line.h"
 #include "pageitem_textframe.h"
 #include "pagestructs.h"
+#include "selection.h"
 
 #ifdef HAVE_CMS
 	#include CMS_INC
@@ -453,9 +454,26 @@ public:
 	 *
 	 *
 	 */
+	/**
+	 * 
+	 * @param otherPageIndex 
+	 * @param location 
+	 * @param count 
+	 */
 	void addPageToSection(const uint otherPageIndex, const uint location, const uint count=1);
+	/**
+	 * 
+	 * @param pageIndex 
+	 */
 	void removePageFromSection(const uint pageIndex);
+	/**
+	 * 
+	 */
 	void setFirstSectionFromFirstPageNumber();
+	/**
+	 * @brief Update the fill and line QColors for all items in the doc
+	 */
+	void updateAllItemQColors();
 	
 
 protected:
@@ -501,6 +519,7 @@ public: // Public attributes
 	QPtrList<PageItem> MasterItems;
 	QPtrList<PageItem> DocItems;
 	QPtrList<PageItem> FrameItems;
+	Selection selection;
   /** Pagewidth  */
 	double pageWidth;
   /** Pageheight */

@@ -1261,7 +1261,10 @@ QString PageItem::fillColor() const
 void PageItem::setFillColor(const QString &newColor)
 {
 	if (fillColorVal == newColor)
-		return; // nothing to do -> return
+	{
+		setFillQColor();
+		return;
+	}
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::SetFill,
@@ -1273,6 +1276,7 @@ void PageItem::setFillColor(const QString &newColor)
 		undoManager->action(this, ss);
 	}
 	fillColorVal = newColor;
+	setFillQColor();
 }
 
 int PageItem::fillShade() const
@@ -1283,7 +1287,10 @@ int PageItem::fillShade() const
 void PageItem::setFillShade(int newShade)
 {
 	if (fillShadeVal == newShade)
-		return; // nothing to do -> return
+	{
+		setFillQColor();
+		return;
+	}
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::SetShade,
@@ -1295,6 +1302,7 @@ void PageItem::setFillShade(int newShade)
 		undoManager->action(this, ss);
 	}
 	fillShadeVal = newShade;
+	setFillQColor();
 }
 
 double PageItem::fillTransparency() const
@@ -1327,7 +1335,10 @@ QString PageItem::lineColor() const
 void PageItem::setLineColor(const QString &newColor)
 {
 	if (lineColorVal == newColor)
-		return; // nothing to do -> return
+	{
+		setLineQColor();
+		return;
+	}
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::SetLineColor,
@@ -1339,6 +1350,7 @@ void PageItem::setLineColor(const QString &newColor)
 		undoManager->action(this, ss);
 	}
 	lineColorVal = newColor;
+	setLineQColor();
 }
 
 int PageItem::lineShade() const
@@ -1349,7 +1361,10 @@ int PageItem::lineShade() const
 void PageItem::setLineShade(int newShade)
 {
 	if (lineShadeVal == newShade)
-		return; // nothing to do -> return
+	{
+		setLineQColor();
+		return;
+	}
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::SetLineShade,
@@ -1361,8 +1376,20 @@ void PageItem::setLineShade(int newShade)
 		undoManager->action(this, ss);
 	}
 	lineShadeVal = newShade;
+	setLineQColor();
 }
 
+void PageItem::setLineQColor()
+{
+	if (lineColorVal != "None")
+		strokeQColor = Doc->PageColors[lineColorVal].getShadeColorProof(lineShadeVal);
+}
+
+void PageItem::setFillQColor()
+{
+	if (fillColorVal != "None")
+		fillQColor = Doc->PageColors[fillColorVal].getShadeColorProof(fillShadeVal);
+}
 
 double PageItem::lineTransparency() const
 {

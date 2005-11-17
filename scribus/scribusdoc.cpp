@@ -2049,13 +2049,16 @@ void ScribusDoc::recalculateColors()
 		PageColors[it.key()].RecalcRGB();
 	//Adjust Items of the 3 types to the colors
 	uint itemsCount=Items->count();
+	updateAllItemQColors();
 	for (uint c=0; c<itemsCount; ++c)
 	{
 		PageItem *ite = Items->at(c);
+		/*
 		if (ite->fillColor() != "None")
 			ite->fillQColor = PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
 		if (ite->lineColor() != "None")
 			ite->strokeQColor = PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
+		*/
 		QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 		for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 		{
@@ -2068,10 +2071,12 @@ void ScribusDoc::recalculateColors()
 	for (uint c=0; c<masterItemsCount; ++c)
 	{
 		PageItem *ite = MasterItems.at(c);
+		/*
 		if (ite->fillColor() != "None")
 			ite->fillQColor = PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
 		if (ite->lineColor() != "None")
 			ite->strokeQColor = PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
+		*/
 		QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 		for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 		{
@@ -2084,10 +2089,12 @@ void ScribusDoc::recalculateColors()
 	for (uint c=0; c<frameItemsCount; ++c)
 	{
 		PageItem *ite = FrameItems.at(c);
+		/*
 		if (ite->fillColor() != "None")
 			ite->fillQColor = PageColors[ite->fillColor()].getShadeColorProof(ite->fillShade());
 		if (ite->lineColor() != "None")
 			ite->strokeQColor = PageColors[ite->lineColor()].getShadeColorProof(ite->lineShade());
+		*/
 		QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 		for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 		{
@@ -2384,10 +2391,13 @@ void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageIte
 		newItem->setLineShade(toolSettings.dShade2);
 	}
 	//ItemType::image,text,polygon,polyline
+	//CB handled by the set shade and line code
+	/*
 	if (newItem->fillColor() != "None")
 		newItem->fillQColor = PageColors[newItem->fillColor()].getShadeColorProof(newItem->fillShade());
 	if (newItem->lineColor() != "None")
 		newItem->strokeQColor = PageColors[newItem->lineColor()].getShadeColorProof(newItem->lineShade());
+	*/
 }
 
 
@@ -3346,4 +3356,26 @@ void ScribusDoc::setLocationBasedPageLRMargins(const uint pageIndex)
 	}
 	pageToAdjust->setXOffset(xOffset);
 	*/
+}
+
+void ScribusDoc::updateAllItemQColors()
+{
+	for (uint c=0; c<DocItems.count(); ++c)
+	{
+		PageItem *ite = DocItems.at(c);
+		ite->setLineQColor();
+		ite->setFillQColor();
+	}
+	for (uint c=0; c<MasterItems.count(); ++c)
+	{
+		PageItem *ite = MasterItems.at(c);
+		ite->setLineQColor();
+		ite->setFillQColor();
+	}
+	for (uint c=0; c<FrameItems.count(); ++c)
+	{
+		PageItem *ite = FrameItems.at(c);
+		ite->setLineQColor();
+		ite->setFillQColor();
+	}
 }
