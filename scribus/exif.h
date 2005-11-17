@@ -40,7 +40,6 @@ typedef struct {
 
 class ExifData {
     Section_t Sections[MAX_SECTIONS];
-
     QString CameraMake;
     QString CameraModel;
     QString DateTime;
@@ -106,6 +105,7 @@ public:
     QImage getThumbnail();
     bool isThumbnailSane();
     bool isNullThumbnail() { return !isThumbnailSane(); }
+	bool exifDataValid;
 };
 
 class FatalError {

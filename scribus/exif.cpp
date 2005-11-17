@@ -328,11 +328,15 @@ int ExifData::ReadJpegSections (QFile & infile, ReadMode_t ReadMode)
                 // Seen files from some 'U-lead' software with Vivitar scanner
                 // that uses marker 31 for non exif stuff.  Thus make sure
                 // it says 'Exif' in the section before treating it as exif.
-                if ((ReadMode & READ_EXIF) && memcmp(Data+2, "Exif", 4) == 0){
+                if ((ReadMode & READ_EXIF) && memcmp(Data+2, "Exif", 4) == 0)
+                {
                     process_EXIF((uchar *)Data, itemlen); // FIXME: This call
 			// requires Data to be array of at least 8 bytes. Code
 			// above only checks for itemlen < 2.
-                }else{
+					exifDataValid = true;
+                }
+                else
+                {
                     // Discard this section.
                     free(Sections[--SectionsRead].Data);
 //                    return false;
@@ -880,6 +884,7 @@ ExifData::ExifData()
     ExposureProgram = 0;
     ISOequivalent = 0;
     CompressionLevel = 0;
+	exifDataValid = false;
 }
 
 //--------------------------------------------------------------------------

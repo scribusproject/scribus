@@ -1859,6 +1859,63 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 							}
 						}
 					}
+					else if (layBlend == "smud")
+					{
+						if (header.color_mode == CM_CMYK)
+						{
+							src_r = d[0] + src_r - src_r * d[0] / 128;
+							src_g = d[1] + src_g - src_g * d[1] / 128;
+							src_b = d[2] + src_b - src_b * d[2] / 128;
+							src_a = d[3] + src_a - src_a * d[3] / 128;
+						}
+						else
+						{
+							if (d[3] > 0)
+							{
+								src_r = d[0] + src_r - src_r * d[0] / 128;
+								src_g = d[1] + src_g - src_g * d[1] / 128;
+								src_b = d[2] + src_b - src_b * d[2] / 128;
+							}
+						}
+					}
+					else if (layBlend == "div ")
+					{
+						if (header.color_mode == CM_CMYK)
+						{
+							src_r = src_r == 255 ? 255 : ((d[0] * 256) / (255-src_r)) > 255 ? 255 : (d[0] * 256) / (255-src_r);
+							src_g = src_g == 255 ? 255 : ((d[1] * 256) / (255-src_g)) > 255 ? 255 : (d[1] * 256) / (255-src_g);
+							src_b = src_b == 255 ? 255 : ((d[2] * 256) / (255-src_b)) > 255 ? 255 : (d[2] * 256) / (255-src_b);
+							src_a = src_a == 255 ? 255 : ((d[3] * 256) / (255-src_a)) > 255 ? 255 : (d[3] * 256) / (255-src_a);
+						}
+						else
+						{
+							if (d[3] > 0)
+							{
+								src_r = src_r == 255 ? 255 : ((d[0] * 256) / (255-src_r)) > 255 ? 255 : (d[0] * 256) / (255-src_r);
+								src_g = src_g == 255 ? 255 : ((d[1] * 256) / (255-src_g)) > 255 ? 255 : (d[1] * 256) / (255-src_g);
+								src_b = src_b == 255 ? 255 : ((d[2] * 256) / (255-src_b)) > 255 ? 255 : (d[2] * 256) / (255-src_b);
+							}
+						}
+					}
+					else if (layBlend == "idiv")
+					{
+						if (header.color_mode == CM_CMYK)
+						{
+							src_r = src_r == 0 ? 0 : (255 - (((255-d[0]) * 256) / src_r)) < 0 ? 0 : 255 - (((255-d[0]) * 256) / src_r);
+							src_g = src_g == 0 ? 0 : (255 - (((255-d[1]) * 256) / src_g)) < 0 ? 0 : 255 - (((255-d[1]) * 256) / src_g);
+							src_b = src_b == 0 ? 0 : (255 - (((255-d[2]) * 256) / src_b)) < 0 ? 0 : 255 - (((255-d[2]) * 256) / src_b);
+							src_a = src_a == 0 ? 0 : (255 - (((255-d[3]) * 256) / src_a)) < 0 ? 0 : 255 - (((255-d[3]) * 256) / src_a);
+						}
+						else
+						{
+							if (d[3] > 0)
+							{
+								src_r = src_r == 0 ? 0 : (255 - (((255-d[0]) * 256) / src_r)) < 0 ? 0 : 255 - (((255-d[0]) * 256) / src_r);
+								src_g = src_g == 0 ? 0 : (255 - (((255-d[1]) * 256) / src_g)) < 0 ? 0 : 255 - (((255-d[1]) * 256) / src_g);
+								src_b = src_b == 0 ? 0 : (255 - (((255-d[2]) * 256) / src_b)) < 0 ? 0 : 255 - (((255-d[2]) * 256) / src_b);
+							}
+						}
+					}
 					else if (layBlend == "hue ")
 					{
 						if (header.color_mode != CM_CMYK)
@@ -3748,7 +3805,8 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 		jpeg_save_markers(&cinfo, PHOTOSHOP_MARKER, 0xFFFF);
 		jpeg_read_header(&cinfo, true);
 		jpeg_start_decompress(&cinfo);
-		if (ExifInf.scan(fn))
+		bool exi = ExifInf.scan(fn);
+		if ((exi) && (ExifInf.exifDataValid))
 		{
 			if ((!ExifInf.isNullThumbnail()) && (reqType == 4))
 				*this = ExifInf.getThumbnail();

@@ -6847,7 +6847,7 @@ void ScribusApp::printPreview()
 			{
 				connect(docCheckerPalette, SIGNAL(ignoreAllErrors()), this, SLOT(doPrintPreview()));
 				docCheckerPalette->noButton = false;
-				docCheckerPalette->checkMode = 2;
+				docCheckerPalette->checkMode = 4;
 				docCheckerPalette->buildErrorList(doc);
 				docCheckerPalette->show();
 				scrActions["toolsPreflightVerifier"]->setOn(true);
@@ -8156,14 +8156,16 @@ void ScribusApp::ReorgFonts()
 
 void ScribusApp::docCheckToggle(bool visible)
 {
-	if (docCheckerPalette->checkMode == 1)
-		disconnect(docCheckerPalette, SIGNAL(ignoreAllErrors()), this, SLOT(doSaveAsPDF()));
-	if (docCheckerPalette->checkMode == 2)
-		disconnect(docCheckerPalette, SIGNAL(ignoreAllErrors()), this, SLOT(reallySaveAsEps()));
-	if (docCheckerPalette->checkMode == 3)
-		disconnect(docCheckerPalette, SIGNAL(ignoreAllErrors()), this, SLOT(slotReallyPrint()));
 	if (!visible)
 	{
+		if (docCheckerPalette->checkMode == 1)
+			disconnect(docCheckerPalette, SIGNAL(ignoreAllErrors()), this, SLOT(doSaveAsPDF()));
+		if (docCheckerPalette->checkMode == 2)
+			disconnect(docCheckerPalette, SIGNAL(ignoreAllErrors()), this, SLOT(reallySaveAsEps()));
+		if (docCheckerPalette->checkMode == 3)
+			disconnect(docCheckerPalette, SIGNAL(ignoreAllErrors()), this, SLOT(slotReallyPrint()));
+		if (docCheckerPalette->checkMode == 4)
+			disconnect(docCheckerPalette, SIGNAL(ignoreAllErrors()), this, SLOT(doPrintPreview()));
 		docCheckerPalette->ignoreErrors->hide();
 		docCheckerPalette->checkMode = 0;
 		docCheckerPalette->noButton = true;
