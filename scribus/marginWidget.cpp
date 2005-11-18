@@ -213,14 +213,14 @@ void MarginWidget::setPreset()
 PresetLayout::PresetLayout(QWidget *parent, const char * name) : QComboBox(parent, name)
 {
 	insertItem(tr("None"), PresetLayout::none);
-	insertItem(tr("Guttenberg"), PresetLayout::guttenberg);
+	insertItem(tr("Gutenberg"), PresetLayout::gutenberg);
 	insertItem(tr("Magazine"), PresetLayout::magazine);
 	insertItem(tr("Fibonacci"), PresetLayout::fibonacci);
 	insertItem(tr("Golden Mean"), PresetLayout::goldencut);
 	insertItem(tr("Nine Parts"), PresetLayout::nineparts);
 	setCurrentItem(PresetLayout::none);
 
-	QToolTip::add(this, "<qt>" +tr("You can select predefined page layout here. 'None' leave margins as is, Guttenberg sets margins classically. 'Magazine' sets all margins for same value. Leading is Left/Inside value.") + "</qt>");
+	QToolTip::add(this, "<qt>" +tr("You can select predefined page layout here. 'None' leave margins as is, Gutenberg sets margins classically. 'Magazine' sets all margins for same value. Leading is Left/Inside value.") + "</qt>");
 }
 
 MarginStruct PresetLayout::getMargins(int index, double pageWidth, double pageHeight, double leftMargin)
@@ -234,7 +234,7 @@ MarginStruct PresetLayout::getMargins(int index, double pageWidth, double pageHe
 		case PresetLayout::magazine:
 			ret.Top = ret.Bottom = ret.Left = ret.Right = leftMargin;
 			break;
-		case PresetLayout::guttenberg:
+		case PresetLayout::gutenberg:
 			{
 				double ratio = pageHeight / pageWidth;
 				ret.Left = leftMargin;

@@ -39,7 +39,7 @@ public:
 	enum presetID
 	{
 		none = 0,
-		guttenberg = 1,
+		gutenberg = 1,
 		magazine = 2,
 		fibonacci = 3,
 		goldencut = 4,
