@@ -1,0 +1,25 @@
+<qt>
+<title>Adding Lipsum in your Language</title>
+<h2>Adding Lipsum in your Language</h2>
+<p>When creating page layouts Lorem ipsum, also known simply as lipsum, is used as a placeholder for actual text before the real text is inserted. Scribus makes this very convenient to use by simply selecting, then right clicking a text frame and selecting <strong>Sample Text.</strong>. This allows you to visualize the layout or experiment with different fonts and effects before finalizing your design. Lipsum, based on a speech by Cicero is chosen as it uses a broad selection of letters from the Roman alphabet. However, if you use a non-Latin language, this can be a great distraction to your layout.  </p>
+<P>Thus, this simple howto shows you how easy it is to add your own language if it not yet included with Scribus. </P>
+<p>The structure of the file is very simple XML, which anyone can use. Below is a shortened version of lipsum in Finnish.</p>
+<pre>
+ &#060;?xml version="1.0" encoding="utf8"?&#062;
+&#060;lorem>
+	&#060;name>Finnish&#060;/name&#062;
+	&#060;author>http://www.dlc.fi/~frank/ite.htm&#060;/author&#062;
+	&#060;url>http://www.dlc.fi/~frank/huumori/trans/&#060;/url&#062;
+
+&#060;p>Vaimo ja mies ajattelivat pitää illallisjuhlat kaikille Rooman silmäätekeville Italiassa.
+Vaimo jännitti kovasti ja halusi kaiken  sujuvan täydellisesti. Viime minuuteilla hän tajusi, ettei
+hänellä ollut illallisille yhtään etanoita, jolloin hän käski miestään juoksemaan
+alas rannalle ja keräämään koriin joitain etanoita.&#060;/p&#062;
+&#060;lorem&#062;
+</pre>
+
+<p>Now, you can search on the internet for lipsum in your language - it has been translated into many many languages. </p>
+<p>Insert the text, replace the name, author and url data with the correct ones. Then simply put html-like tags around each of the paragraphs.</p><p>Insert the text, then save is as <code>language.xml</code></p>
+<p> Important, make sure you save the text in UTF-8 encoding. Then, you can copy it in the subdirectory /scribus/loremipsum/ where Scribus is installed. Linux users may have to use sudo or login as root. MacOSX users can find the Scribus folder under Applications usually. Windows users will find it in Program Files\Scribus. </p>
+<p>Now that you have done this major bit of engineering, head over to <a href="http://bugs.scribus.net" name="http://bugs.scribus.net.">http://bugs.scribus.net.</a> File a bug with severity 'feature' and upload your newly created XML file. One of the scribus developers will add it to the next release of Scribus for all to enjoy.</p>
+</qt>
