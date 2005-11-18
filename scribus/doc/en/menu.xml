@@ -114,6 +114,7 @@
 	<submenuitem text="GetText Howto" file="gettexthowto.html"/>
 	<submenuitem text="Coding Standards" file="codingstandards.html"/>
 	<submenuitem text="Translation Howto" file="translation_howto.html"/>
+	<submenuitem text="Lipsum Howto" file="lipsum.html"/>
 </area>
 <area text="Other Information" file="otherinfo.html">
 	<submenuitem text="Community" file="resources.html"/>

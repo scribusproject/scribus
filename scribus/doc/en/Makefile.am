@@ -43,6 +43,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/irc.html $(prefix)/share/scribus/doc/en/irc.html
 	$(INSTALL_DATA) $(srcdir)/javascriptpdf.html $(prefix)/share/scribus/doc/en/javascriptpdf.html
 	$(INSTALL_DATA) $(srcdir)/keys.html $(prefix)/share/scribus/doc/en/keys.html
+	$(INSTALL_DATA) $(srcdir)/lipsum.html $(prefix)/share/scribus/doc/en/lipsum.html
 	$(INSTALL_DATA) $(srcdir)/machints1.html $(prefix)/share/scribus/doc/en/machints1.html
 	$(INSTALL_DATA) $(srcdir)/machints2.html $(prefix)/share/scribus/doc/en/machints2.html
 	$(INSTALL_DATA) $(srcdir)/menu.xml $(prefix)/share/scribus/doc/en/menu.xml
@@ -151,6 +152,7 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/doc/en/irc.html
 	-rm -f $(prefix)/share/scribus/doc/en/javascriptpdf.html
 	-rm -f $(prefix)/share/scribus/doc/en/keys.html
+	-rm -f $(prefix)/share/scribus/doc/en/lipsum.html
 	-rm -f $(prefix)/share/scribus/doc/en/machints1.html
 	-rm -f $(prefix)/share/scribus/doc/en/machints2.html
 	-rm -f $(prefix)/share/scribus/doc/en/menu.xml
