@@ -209,7 +209,7 @@ const int MergeDoc::getMasterPageNameItem()
 	return masterPageNameData->currentItem();
 }
 
-const QString& MergeDoc::getMasterPageNameText()
+const QString MergeDoc::getMasterPageNameText()
 {
 	return masterPageNameData->currentText();
 }
