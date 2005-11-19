@@ -159,8 +159,8 @@ PyObject *scribus_getposi(PyObject* /* self */, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
 	if (!i)
 		return NULL;
-	return Py_BuildValue("(ff)", docUnitXToPageX(i->Xpos),
-								 docUnitYToPageY(i->Ypos));
+	return Py_BuildValue("(ff)", docUnitXToPageX(i->xPos()),
+								 docUnitYToPageY(i->yPos()));
 }
 
 PyObject *scribus_getsize(PyObject* /* self */, PyObject* args)

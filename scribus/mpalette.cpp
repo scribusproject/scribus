@@ -1101,7 +1101,7 @@ void Mpalette::SetCurItem(PageItem *i)
 			imgDpiY->setEnabled(setter);
 		}
 	}
-	setXY(i->Xpos, i->Ypos);
+	setXY(i->xPos(), i->yPos());
 }
 
 void Mpalette::NewSel(int nr)
@@ -1853,16 +1853,16 @@ void Mpalette::NewX()
 			{
 				double r = atan2(h-y,w-x)*(180.0/M_PI);
 				w = sqrt(pow(w-x,2)+pow(h-y,2));
-				ScApp->view->MoveItem(x - CurItem->Xpos, 0, CurItem, true);
+				ScApp->view->MoveItem(x - CurItem->xPos(), 0, CurItem, true);
 				ScApp->view->SizeItem(w, CurItem->Height, CurItem->ItemNr, true);
 				ScApp->view->RotateItem(r, CurItem->ItemNr);
 			}
 			else
 			{
-				ma.translate(CurItem->Xpos, CurItem->Ypos);
+				ma.translate(CurItem->xPos(), CurItem->yPos());
 				ma.rotate(CurItem->Rot);
 				if (TopLeft->isChecked())
-					base = CurItem->Xpos;
+					base = CurItem->xPos();
 				if (Center->isChecked())
 					base = ma.m11() * (CurItem->Width / 2.0) + ma.m21() * (CurItem->Height / 2.0) + ma.dx();
 				if (TopRight->isChecked())
@@ -1915,16 +1915,16 @@ void Mpalette::NewY()
 			{
 				double r = atan2(h-y,w-x)*(180.0/M_PI);
 				w = sqrt(pow(w-x,2)+pow(h-y,2));
-				ScApp->view->MoveItem(0, y - CurItem->Ypos, CurItem, true);
+				ScApp->view->MoveItem(0, y - CurItem->yPos(), CurItem, true);
 				ScApp->view->SizeItem(w, CurItem->Height, CurItem->ItemNr, true);
 				ScApp->view->RotateItem(r, CurItem->ItemNr);
 			}
 			else
 			{
-				ma.translate(CurItem->Xpos, CurItem->Ypos);
+				ma.translate(CurItem->xPos(), CurItem->yPos());
 				ma.rotate(CurItem->Rot);
 				if (TopLeft->isChecked())
-					base = CurItem->Ypos;
+					base = CurItem->yPos();
 				if (Center->isChecked())
 					base = ma.m22() * (CurItem->Height / 2.0) + ma.m12() * (CurItem->Width / 2.0) + ma.dy();
 				if (TopRight->isChecked())
@@ -2771,7 +2771,7 @@ void Mpalette::NewRotMode(int m)
 			b = CurItem->Width;
 			h = CurItem->Height;
 			r = CurItem->Rot;
-			ma.translate(CurItem->Xpos-doc->getXOffsetForPage(CurItem->OwnPage), CurItem->Ypos-doc->getXOffsetForPage(CurItem->OwnPage));
+			ma.translate(CurItem->xPos()-doc->getXOffsetForPage(CurItem->OwnPage), CurItem->yPos()-doc->getXOffsetForPage(CurItem->OwnPage));
 			ma.rotate(r);
 			if (TopLeft->isChecked())
 				n = FPoint(0.0, 0.0);

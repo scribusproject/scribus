@@ -363,7 +363,7 @@ void NodePalette::MovePoint()
 	if (doc->EditClipMode == 0)
 	{
 		FPoint np = FPoint(XSpin->value()/doc->unitRatio(), YSpin->value()/doc->unitRatio());
-		FPoint zp = FPoint(view->SelItem.at(0)->Xpos, view->SelItem.at(0)->Ypos);
+		FPoint zp = FPoint(view->SelItem.at(0)->xPos(), view->SelItem.at(0)->yPos());
 		if (AbsMode->isChecked())
 			np -= zp;
 		view->MoveClipPoint(view->SelItem.at(0), np);
@@ -386,7 +386,7 @@ void NodePalette::SetXY(double x, double y)
 	disconnect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 	disconnect(YSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 	if (AbsMode->isChecked())
-		zp = FPoint(view->SelItem.at(0)->Xpos, view->SelItem.at(0)->Ypos);
+		zp = FPoint(view->SelItem.at(0)->xPos(), view->SelItem.at(0)->yPos());
 	XSpin->setValue((x + zp.x())*doc->unitRatio());
 	YSpin->setValue((y + zp.y())*doc->unitRatio());
 	connect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
@@ -395,7 +395,7 @@ void NodePalette::SetXY(double x, double y)
 
 void NodePalette::ToggleAbsMode()
 {
-	FPoint zp = FPoint(view->SelItem.at(0)->Xpos, view->SelItem.at(0)->Ypos);
+	FPoint zp = FPoint(view->SelItem.at(0)->xPos(), view->SelItem.at(0)->yPos());
 	disconnect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 	disconnect(YSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 	double unitRatio=doc->unitRatio();

@@ -221,8 +221,8 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 	if (newFormat)
 		ob->setAttribute("OwnPage", item->OwnPage);
 	ob->setAttribute("PTYPE",item->itemType());
-	ob->setAttribute("XPOS",item->Xpos);
-	ob->setAttribute("YPOS",item->Ypos);
+	ob->setAttribute("XPOS",item->xPos());
+	ob->setAttribute("YPOS",item->yPos());
 	ob->setAttribute("WIDTH",item->Width);
 	ob->setAttribute("HEIGHT",item->Height);
 	ob->setAttribute("RADRECT",item->RadRect);
@@ -2145,8 +2145,8 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 	}
 	else
 	{
-		xp = item->Xpos - doc->currentPage->xOffset();
-		yp = item->Ypos - doc->currentPage->yOffset();
+		xp = item->xPos() - doc->currentPage->xOffset();
+		yp = item->yPos() - doc->currentPage->yOffset();
 		elem.setAttribute("W", item->Width);
 		elem.setAttribute("H", item->Height);
 	}
@@ -2387,8 +2387,8 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 		else
 			ob.setAttribute("ALIGN",item->textAlignment);
  		SetItemProps(&ob, item, false);
-		ob.setAttribute("XPOS",item->Xpos - doc->currentPage->xOffset());
-		ob.setAttribute("YPOS",item->Ypos - doc->currentPage->yOffset());
+		ob.setAttribute("XPOS",item->xPos() - doc->currentPage->xOffset());
+		ob.setAttribute("YPOS",item->yPos() - doc->currentPage->yOffset());
 		ob.setAttribute("BOOKMARK", item->isBookmark ? 1 : 0);
 		if (item->effectsInUse.count() != 0)
 		{

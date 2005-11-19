@@ -337,7 +337,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 				}
 				else
 					stroke = "stroke:none;";
-				trans = "translate("+FToStr(Item->Xpos-Seite->xOffset())+", "+FToStr(Item->Ypos-Seite->yOffset())+")";
+				trans = "translate("+FToStr(Item->xPos()-Seite->xOffset())+", "+FToStr(Item->yPos()-Seite->yOffset())+")";
 				if (Item->Rot != 0)
 					trans += " rotate("+FToStr(Item->Rot)+")";
 				strokeW = "stroke-width:"+FToStr(Item->Pwidth)+"pt;";

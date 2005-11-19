@@ -458,7 +458,7 @@ void AlignDistributePalette::alignLeftOut()
 		{
 			double diff=newX-(*alignObjects)[i].x2;
 			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
-				(*alignObjects)[i].Objects.at(j)->Xpos+=diff;
+				(*alignObjects)[i].Objects.at(j)->move(diff, 0.0);
 		}
 		endAlign();
 	}
@@ -501,7 +501,7 @@ void AlignDistributePalette::alignLeftIn()
 		{
 			double diff=newX-(*alignObjects)[i].x1;
 			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
-				(*alignObjects)[i].Objects.at(j)->Xpos+=diff;
+				(*alignObjects)[i].Objects.at(j)->move(diff, 0.0);
 		}
 		endAlign();
 	}
@@ -554,7 +554,7 @@ void AlignDistributePalette::alignCenterHor()
 		{
 			double diff=newX-(*alignObjects)[i].x1-((*alignObjects)[i].width)/2;
 			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
-				(*alignObjects)[i].Objects.at(j)->Xpos+=diff;
+				(*alignObjects)[i].Objects.at(j)->move(diff, 0.0);
 		}
 		endAlign();
 	}
@@ -599,7 +599,7 @@ void AlignDistributePalette::alignRightIn()
 		{
 			double diff=newX-(*alignObjects)[i].x2;
 			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
-				(*alignObjects)[i].Objects.at(j)->Xpos+=diff;
+				(*alignObjects)[i].Objects.at(j)->move(diff, 0.0);
 		}
 		endAlign();
 	}
@@ -644,7 +644,7 @@ void AlignDistributePalette::alignRightOut()
 		{
 			double diff=newX-(*alignObjects)[i].x1;
 			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
-				(*alignObjects)[i].Objects.at(j)->Xpos+=diff;
+				(*alignObjects)[i].Objects.at(j)->move(diff, 0.0);
 		}
 		endAlign();
 	}
@@ -687,7 +687,7 @@ void AlignDistributePalette::alignTopOut()
 		{
 			double diff=newY-(*alignObjects)[i].y2;
 			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
-				(*alignObjects)[i].Objects.at(j)->Ypos+=diff;
+				(*alignObjects)[i].Objects.at(j)->move(0.0, diff);
 		}
 		endAlign();
 	}
@@ -730,7 +730,7 @@ void AlignDistributePalette::alignTopIn()
 		{
 			double diff=newY-(*alignObjects)[i].y1;
 			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
-				(*alignObjects)[i].Objects.at(j)->Ypos+=diff;
+				(*alignObjects)[i].Objects.at(j)->move(0.0, diff);
 		}
 		endAlign();
 	}
@@ -784,7 +784,7 @@ void AlignDistributePalette::alignCenterVer()
 		{
 			double diff=newY-(*alignObjects)[i].y1-((*alignObjects)[i].height)/2;
 			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
-				(*alignObjects)[i].Objects.at(j)->Ypos+=diff;
+				(*alignObjects)[i].Objects.at(j)->move(0.0, diff);
 		}
 		endAlign();
 	}
@@ -830,7 +830,7 @@ void AlignDistributePalette::alignBottomIn()
 		{
 			double diff=newY-(*alignObjects)[i].y2;
 			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
-				(*alignObjects)[i].Objects.at(j)->Ypos+=diff;
+				(*alignObjects)[i].Objects.at(j)->move(0.0, diff);
 		}
 		endAlign();
 	}
@@ -875,7 +875,7 @@ void AlignDistributePalette::alignBottomOut()
 		{
 			double diff=newY-(*alignObjects)[i].y1;
 			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
-				(*alignObjects)[i].Objects.at(j)->Ypos+=diff;
+				(*alignObjects)[i].Objects.at(j)->move(0.0, diff);
 		}
 		endAlign();
 	}
@@ -913,7 +913,7 @@ void AlignDistributePalette::distributeLeft()
 		{
 			double diff=minX + i*separation-(*alignObjects)[it.data()].x1;
 			for (uint j = 0; j < (*alignObjects)[it.data()].Objects.count(); ++j)
-				(*alignObjects)[it.data()].Objects.at(j)->Xpos+=diff;
+				(*alignObjects)[it.data()].Objects.at(j)->move(diff, 0.0);
 			i++;
 		}
 		endAlign();
@@ -951,7 +951,7 @@ void AlignDistributePalette::distributeCenterH()
 		{
 			double diff=minX + i*separation-(*alignObjects)[it.data()].x1-((*alignObjects)[it.data()].width)/2;
 			for (uint j = 0; j < (*alignObjects)[it.data()].Objects.count(); ++j)
-				(*alignObjects)[it.data()].Objects.at(j)->Xpos+=diff;
+				(*alignObjects)[it.data()].Objects.at(j)->move(diff, 0.0);
 			i++;
 		}
 		endAlign();
@@ -989,7 +989,7 @@ void AlignDistributePalette::distributeRight()
 		{
 			double diff=minX + i*separation-(*alignObjects)[it.data()].x2;
 			for (uint j = 0; j < (*alignObjects)[it.data()].Objects.count(); ++j)
-				(*alignObjects)[it.data()].Objects.at(j)->Xpos+=diff;
+				(*alignObjects)[it.data()].Objects.at(j)->move(diff, 0.0);
 			i++;
 		}
 		endAlign();
@@ -1044,7 +1044,7 @@ void AlignDistributePalette::distributeDistH()
 
 			double diff=currX-(*alignObjects)[it.data()].x1;
 			for (uint j = 0; j < (*alignObjects)[it.data()].Objects.count(); ++j)
-				(*alignObjects)[it.data()].Objects.at(j)->Xpos+=diff;
+				(*alignObjects)[it.data()].Objects.at(j)->move(diff, 0.0);
 			currX+=(*alignObjects)[it.data()].width;
 		}
 		endAlign();
@@ -1089,7 +1089,7 @@ void AlignDistributePalette::distributeBottom()
 		{
 			double diff=minY + i*separation-(*alignObjects)[it.data()].y2;
 			for (uint j = 0; j < (*alignObjects)[it.data()].Objects.count(); ++j)
-				(*alignObjects)[it.data()].Objects.at(j)->Ypos+=diff;
+				(*alignObjects)[it.data()].Objects.at(j)->move(0.0, diff);
 			i++;
 		}
 		endAlign();
@@ -1127,7 +1127,7 @@ void AlignDistributePalette::distributeCenterV()
 		{
 			double diff=minY + i*separation-(*alignObjects)[it.data()].y1-((*alignObjects)[it.data()].height)/2;
 			for (uint j = 0; j < (*alignObjects)[it.data()].Objects.count(); ++j)
-				(*alignObjects)[it.data()].Objects.at(j)->Ypos+=diff;
+				(*alignObjects)[it.data()].Objects.at(j)->move(0.0, diff);
 			i++;
 		}
 		endAlign();
@@ -1165,7 +1165,7 @@ void AlignDistributePalette::distributeTop()
 		{
 			double diff=minY + i*separation-(*alignObjects)[it.data()].y1;
 			for (uint j = 0; j < (*alignObjects)[it.data()].Objects.count(); ++j)
-				(*alignObjects)[it.data()].Objects.at(j)->Ypos+=diff;
+				(*alignObjects)[it.data()].Objects.at(j)->move(0.0,diff);
 			i++;
 		}
 		endAlign();
@@ -1220,7 +1220,7 @@ void AlignDistributePalette::distributeDistV()
 
 			double diff=currY-(*alignObjects)[it.data()].y1;
 			for (uint j = 0; j < (*alignObjects)[it.data()].Objects.count(); ++j)
-				(*alignObjects)[it.data()].Objects.at(j)->Ypos+=diff;
+				(*alignObjects)[it.data()].Objects.at(j)->move(0.0,diff);
 			currY+=(*alignObjects)[it.data()].height;
 		}
 		endAlign();

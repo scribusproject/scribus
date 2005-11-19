@@ -32,12 +32,14 @@
 #include "scpaths.h"
 #include "page.h"
 #include "scribus.h"
+#include "scribusapp.h"
 #include "scribusstructs.h"
 #include "scribusdoc.h"
 #include "prefsmanager.h"
 #include "undomanager.h"
 #include "undostate.h"
 #include "mpalette.h"
+#include "cpalette.h"
 
 #include "scconfig.h"
 
@@ -51,11 +53,12 @@ using namespace std;
 
 PageItem::PageItem(const PageItem & other)
 	: QObject(other.parent()),
+	 UndoObject(other),
 
 // 200 attributes! That is madness, or to quote some famous people from Kriquet:
 // "THAT ALL HAS TO GO!"
 	Reverse(other.Reverse),
- 	Xpos(other.Xpos),
+	Xpos(other.Xpos),
 	oldXpos(other.oldXpos),
 	Ypos(other.Ypos),
 	oldYpos(other.oldYpos),
@@ -67,10 +70,10 @@ PageItem::PageItem(const PageItem & other)
 	gYpos(other.gYpos),
 	gWidth(other.gWidth),
 	gHeight(other.gHeight),
- 	RadRect(other.RadRect),
- 	Rot(other.Rot),
+	RadRect(other.RadRect),
+	Rot(other.Rot),
 	oldRot(other.oldRot),
- 	Doc(other.Doc),
+	Doc(other.Doc),
 	GrType(other.GrType),
 	GrStartX(other.GrStartX),
 	GrStartY(other.GrStartY),
@@ -93,9 +96,9 @@ PageItem::PageItem(const PageItem & other)
 	TxtStrikeWidth(other.TxtStrikeWidth),
 	Cols(other.Cols),
 	ColGap(other.ColGap),
-  	Pwidth(other.Pwidth),
+	Pwidth(other.Pwidth),
 	OldPwidth(other.OldPwidth),
- 	PLineArt(other.PLineArt),
+	PLineArt(other.PLineArt),
 	PLineEnd(other.PLineEnd),
 	PLineJoin(other.PLineJoin),
 	NamedLStyle(other.NamedLStyle),
@@ -114,37 +117,37 @@ PageItem::PageItem(const PageItem & other)
 	Frame(other.Frame),
 	OwnPage(other.OwnPage),
 	oldOwnPage(other.oldOwnPage),
- 	pixm(other.pixm),
-  	Pfile(other.Pfile),
+	pixm(other.pixm),
+	Pfile(other.Pfile),
 	Pfile2(other.Pfile2),
 	Pfile3(other.Pfile3),
 	IProfile(other.IProfile),
 	UseEmbedded(other.UseEmbedded),
 	EmProfile(other.EmProfile),
 	IRender(other.IRender),
-  	PicArt(other.PicArt),
-   	PicAvail(other.PicAvail),
-   	LocalScX(other.LocalScX),
-   	LocalScY(other.LocalScY),
-   	LocalX(other.LocalX),
-   	LocalY(other.LocalY),
+	PicArt(other.PicArt),
+	PicAvail(other.PicAvail),
+	LocalScX(other.LocalScX),
+	LocalScY(other.LocalScY),
+	LocalX(other.LocalX),
+	LocalY(other.LocalY),
 	OrigW(other.OrigW),
 	OrigH(other.OrigH),
-   	BBoxX(other.BBoxX),
- 	BBoxH(other.BBoxH),
- 	Extra(other.Extra),
+	BBoxX(other.BBoxX),
+	BBoxH(other.BBoxH),
+	Extra(other.Extra),
 	TExtra(other.TExtra),
 	BExtra(other.BExtra),
 	RExtra(other.RExtra),
-  	LineSp(other.LineSp),
+	LineSp(other.LineSp),
 	LineSpMode(other.LineSpMode),
 	CurX(other.CurX),
 	CurY(other.CurY),
 	CPos(other.CPos),
 	itemText(other.itemText),
-  	isBookmark(other.isBookmark),
+	isBookmark(other.isBookmark),
 	BMnr(other.BMnr),
-   	isAnnotation(other.isAnnotation),
+	isAnnotation(other.isAnnotation),
 	AnType(other.AnType),
 	AnActType(other.AnActType),
 	AnAction(other.AnAction),
@@ -179,10 +182,10 @@ PageItem::PageItem(const PageItem & other)
 	AnIPlace(other.AnIPlace),
 	AnScaleW(other.AnScaleW),
 	AnFormat(other.AnFormat),
- 	IFont(other.IFont),
-  	ISize(other.ISize),
- 	HasSel(other.HasSel),
- 	FrameOnly(other.FrameOnly),
+	IFont(other.IFont),
+	ISize(other.ISize),
+	HasSel(other.HasSel),
+	FrameOnly(other.FrameOnly),
 	BackBox(other.BackBox),
 	NextBox(other.NextBox),
 	NextIt(other.NextIt),
@@ -233,12 +236,9 @@ PageItem::PageItem(const PageItem & other)
 	startArrowIndex(other.startArrowIndex),
 	endArrowIndex(other.endArrowIndex),
 	isEmbedded(other.isEmbedded),
-	fillQColor(other.fillQColor),
-	strokeQColor(other.strokeQColor),
 	undoManager(other.undoManager),
 
 	// protected
-	
 	AnName(other.AnName),
 	fillColorVal(other.fillColorVal),
 	lineColorVal(other.lineColorVal),
@@ -255,7 +255,9 @@ PageItem::PageItem(const PageItem & other)
 	textFlowUsesContourLineVal(other.textFlowUsesContourLineVal),
 	pageItemAttributes(other.pageItemAttributes),
 	isPrintable(other.isPrintable),
-	tagged(other.tagged)
+	tagged(other.tagged),
+	fillQColor(other.fillQColor),
+	strokeQColor(other.strokeQColor)
 {
 }
 
@@ -521,6 +523,35 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 			pageItemAttributes.append(*objAttrIt);
 	}
 }
+
+const double PageItem::xPos()
+{
+	return Xpos;
+}
+
+const double PageItem::yPos()
+{
+	return Ypos;
+}
+
+void PageItem::setXPos(const double newXPos)
+{
+	Xpos=newXPos;
+}
+
+void PageItem::setYPos(const double newYPos)
+{
+	Ypos=newYPos;
+}
+
+void PageItem::move(const double dX, const double dY)
+{
+	if (dX!=0.0)
+		Xpos+=dX;
+	if (dY!=0.0)
+		Ypos+=dY;
+}
+
 
 /** Zeichnet das Item */
 void PageItem::DrawObj(ScPainter *p, QRect e)
@@ -3451,4 +3482,55 @@ void PageItem::UpdatePolyClip()
 
 void PageItem::handleModeEditKey(QKeyEvent *k, bool &keyRepeat)
 {
+}
+
+bool PageItem::connectToGUI()
+{
+	if (!ScQApp->usingGUI())
+		return false;
+		
+	connect(this, SIGNAL(position(double, double )), ScApp->propertiesPalette, SLOT(setXY(double, double)));
+	connect(this, SIGNAL(widthAndHeight(double, double)), ScApp->propertiesPalette, SLOT(setBH(double, double)));
+	connect(this, SIGNAL(colors(QString, QString, int, int)), ScApp, SLOT(setCSMenu(QString, QString, int, int)));
+	connect(this, SIGNAL(colors(QString, QString, int, int)), ScApp->propertiesPalette->Cpal, SLOT(setActFarben(QString, QString, int, int)));
+	connect(this, SIGNAL(gradientType(int)), ScApp->propertiesPalette->Cpal, SLOT(setActGradient(int)));
+	connect(this, SIGNAL(rotation(double)), ScApp->propertiesPalette, SLOT(setR(double)));
+	connect(this, SIGNAL(transparency(double, double)), ScApp->propertiesPalette->Cpal, SLOT(setActTrans(double, double)));
+	//Shape signals
+	//Not connected when transferring code: void columns(int, double); //Number, gap
+	connect(this, SIGNAL(cornerRadius(double)), ScApp->propertiesPalette, SLOT(setRR(double)));
+	//	connect(view, SIGNAL(ItemTextCols(int, double)), propertiesPalette, SLOT(setCols(int, double)));
+	//Line signals
+	connect(this, SIGNAL(lineWidth(double)), ScApp->propertiesPalette, SLOT(setSvalue(double)));
+	connect(this, SIGNAL(imageOffsetScale(double, double, double, double)), ScApp->propertiesPalette, SLOT(setLvalue(double, double, double, double)));
+	connect(this, SIGNAL(lineStyleCapJoin(PenStyle, PenCapStyle, PenJoinStyle)), ScApp->propertiesPalette, SLOT( setLIvalue(PenStyle, PenCapStyle, PenJoinStyle)));
+	//Frame text signals
+	connect(this, SIGNAL(lineSpacing(double)), ScApp->propertiesPalette, SLOT(setLsp(double)));
+	connect(this, SIGNAL(textToFrameDistances(double, double, double, double)), ScApp->propertiesPalette, SLOT(setDvals(double, double, double, double)));
+	connect(this, SIGNAL(textKerning(int)), ScApp->propertiesPalette, SLOT(setExtra(int)));	
+	connect(this, SIGNAL(textStyle(int)), ScApp->propertiesPalette, SLOT(setStil(int)));
+	connect(this, SIGNAL(textStyle(int)), ScApp, SLOT(setStilvalue(int)));
+	connect(this, SIGNAL(textFont(QString)), ScApp, SLOT(AdjustFontMenu(QString)));
+	connect(this, SIGNAL(textSize(int)), ScApp->propertiesPalette, SLOT(setSize(int)));
+	connect(this, SIGNAL(textSize(int)), ScApp, SLOT(setFSizeMenu(int)));
+	connect(this, SIGNAL(textWidthScale(int)), ScApp->propertiesPalette, SLOT(setTScale(int)));
+	connect(this, SIGNAL(textHeightScale(int)), ScApp->propertiesPalette, SLOT(setTScaleV(int)));
+	connect(this, SIGNAL(textBaseLineOffset(int)), ScApp->propertiesPalette, SLOT(setTBase(int)));
+	connect(this, SIGNAL(textOutline(int)), ScApp->propertiesPalette, SLOT(setOutlineW(int)));
+	connect(this, SIGNAL(textShadow(int, int )), ScApp->propertiesPalette, SLOT(setShadowOffs(int, int )));
+	connect(this, SIGNAL(textUnderline(int, int)), ScApp->propertiesPalette, SLOT(setUnderline(int, int)));
+	connect(this, SIGNAL(textStrike(int, int)), ScApp->propertiesPalette, SLOT(setStrike(int, int)));
+	connect(this, SIGNAL(textColor(QString, QString, int, int)), ScApp->propertiesPalette, SLOT(setActFarben(QString, QString, int, int)));
+	connect(this, SIGNAL(textFormatting(int)), ScApp->propertiesPalette, SLOT(setAli(int)));
+	connect(this, SIGNAL(textFormatting(int)), ScApp, SLOT(setAbsValue(int)));
+
+	return true;
+}
+
+bool PageItem::disconnectFromGUI()
+{
+	if (!ScQApp->usingGUI())
+		return false;
+	disconnect(this, 0, 0, 0);
+	return true;
 }

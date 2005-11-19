@@ -257,12 +257,8 @@ public:
 	void DrawPolyL(QPainter *p, QPointArray pts);
 	QString ExpandToken(uint base);
 	bool Reverse;
-  /** X-Position auf der Seite */
-	double Xpos;
 	/** @brief Stores the old X-position for undo action. Is used to detect move actions.*/
 	double oldXpos;
-  /** Y-Position auf der Seite */
-	double Ypos;
 	/** @brief Stores the old Y-position for undo action. Is used to detect move actions. */
 	double oldYpos;
   /** Breite des Elements */
@@ -481,6 +477,13 @@ public:
 	int startArrowIndex;
 	int endArrowIndex;
 	bool isEmbedded;
+	
+	
+	const double xPos();
+	const double yPos();
+	void setXPos(const double);
+	void setYPos(const double);
+	void move(const double, const double);
 
 	/** @brief Manages undostack and is where all undo actions/states are sent. */
 	UndoManager *undoManager;
@@ -876,6 +879,10 @@ public:
 	 */
 	bool loadImage(const QString& filename, const bool reload, const int gsResolution=-1);
 	
+	
+	bool connectToGUI();
+	bool disconnectFromGUI();
+	
 protected:
 	/**
 	 * @name Restore helper methods
@@ -1049,7 +1056,46 @@ protected:
 	
 	QColor fillQColor;
 	QColor strokeQColor;
+	
+	/** X position on the page */
+	double Xpos;
+	/** Y position on the page */
+	double Ypos;
 
+
+signals:
+	//Frame signals
+	void position(double, double); //X,Y
+	void widthAndHeight(double, double); //W,H
+	void colors(QString, QString, int, int); //lineColor, fillColor, lineShade, fillShade
+	void gradientType(int); //Normal, horizontal, vertical, etc.
+	void rotation(double); //Degrees rotation
+	void transparency(double, double); //fillTransparency, lineTransparency
+	//Shape signals
+	void columns(int, double); //Number, gap
+	void cornerRadius(double); //Corner radius of the shape
+	//Line signals
+	void lineWidth(double);
+	void lineStyleCapJoin(PenStyle, PenCapStyle, PenJoinStyle);
+	//Frame text signals
+	void lineSpacing(double);
+	void textToFrameDistances(double, double, double, double); //left, top, bottom, right: Extra, TExtra, BExtra, RExtra
+	void textKerning(int); //ExtraV
+	void textStyle(int); //Style setting
+	void textFont(QString); //Text font
+	void textSize(int); //Text size
+	void textWidthScale(int); //Scaling width of text, ChScale in mpalette
+	void textHeightScale(int); //Scaling height of text, ChScaleV in mpalette
+	void textBaseLineOffset(int); //Offset from baseline to text
+	void textOutline(int); //Outline
+	void textShadow(int, int); //Shadow
+	void textUnderline(int, int); //Underline
+	void textStrike(int, int); //Strikethrough
+	void textColor(QString, QString, int, int); //itemText.at(i)-> cstroke, ccolor, cshade2, cshade
+	void textFormatting(int); //Underline, subscript, etc
+	//Frame image signals
+	void imageOffsetScale(double, double, double, double);
+	
 };
 
 #endif

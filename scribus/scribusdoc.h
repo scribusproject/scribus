@@ -44,6 +44,7 @@
 #include "pageitem_textframe.h"
 #include "pagestructs.h"
 
+
 #ifdef HAVE_CMS
 	#include CMS_INC
 #endif
@@ -55,6 +56,7 @@ class UndoManager;
 class UndoState;
 class PDFOptions;
 class Hyphenator;
+class Selection;
 
 
 /**
@@ -518,6 +520,7 @@ public: // Public attributes
 	QPtrList<PageItem> MasterItems;
 	QPtrList<PageItem> DocItems;
 	QPtrList<PageItem> FrameItems;
+	Selection* selection;
   /** Pagewidth  */
 	double pageWidth;
   /** Pageheight */

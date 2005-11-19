@@ -409,7 +409,7 @@ PyObject *scribus_pathtext(PyObject* /* self */, PyObject* args)
 	ScApp->view->SelItem.append(ScApp->doc->Items->at(ii));
 	PageItem *it = ScApp->doc->Items->at(i);
 	ScApp->view->ToPathText();
-	ScApp->view->MoveItem(pageUnitXToDocX(x) - it->Xpos, pageUnitYToDocY(y) - it->Ypos, it);
+	ScApp->view->MoveItem(pageUnitXToDocX(x) - it->xPos(), pageUnitYToDocY(y) - it->yPos(), it);
 	if (Name != "")
 		it->setItemName(QString::fromUtf8(Name));
 	return PyString_FromString(it->itemName().utf8());

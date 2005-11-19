@@ -987,10 +987,10 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 			{
 				FPointArray pb;
 				pb.resize(0);
-				pb.addPoint(FPoint(currItem->Xpos-lw, currItem->Ypos-lw));
-				pb.addPoint(FPoint(currItem->Width+lw*2.0, -lw, currItem->Xpos-lw, currItem->Ypos-lw, currItem->Rot, 1.0, 1.0));
-				pb.addPoint(FPoint(currItem->Width+lw*2.0, currItem->Height+lw*2.0, currItem->Xpos-lw, currItem->Ypos-lw, currItem->Rot, 1.0, 1.0));
-				pb.addPoint(FPoint(-lw, currItem->Height+lw*2.0, currItem->Xpos-lw, currItem->Ypos-lw, currItem->Rot, 1.0, 1.0));
+				pb.addPoint(FPoint(currItem->xPos()-lw, currItem->yPos()-lw));
+				pb.addPoint(FPoint(currItem->Width+lw*2.0, -lw, currItem->xPos()-lw, currItem->yPos()-lw, currItem->Rot, 1.0, 1.0));
+				pb.addPoint(FPoint(currItem->Width+lw*2.0, currItem->Height+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->Rot, 1.0, 1.0));
+				pb.addPoint(FPoint(-lw, currItem->Height+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->Rot, 1.0, 1.0));
 				for (uint pc = 0; pc < 4; ++pc)
 				{
 					minx = QMIN(minx, pb.point(pc).x());
@@ -1001,10 +1001,10 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 			}
 			else
 			{
-				minx = QMIN(minx, currItem->Xpos-lw);
-				miny = QMIN(miny, currItem->Ypos-lw);
-				maxx = QMAX(maxx, currItem->Xpos-lw + currItem->Width+lw*2.0);
-				maxy = QMAX(maxy, currItem->Ypos-lw + currItem->Height+lw*2.0);
+				minx = QMIN(minx, currItem->xPos()-lw);
+				miny = QMIN(miny, currItem->yPos()-lw);
+				maxx = QMAX(maxx, currItem->xPos()-lw + currItem->Width+lw*2.0);
+				maxy = QMAX(maxy, currItem->yPos()-lw + currItem->Height+lw*2.0);
 			}
 		}
 		gx = minx;
@@ -1129,7 +1129,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 							else if (ite->asImageFrame())
 							{
 								PS_save();
-								PS_translate(ite->Xpos - mPage->xOffset(), mPage->height() -(ite->Ypos) - mPage->yOffset());
+								PS_translate(ite->xPos() - mPage->xOffset(), mPage->height() -(ite->yPos()) - mPage->yOffset());
 								if (ite->Rot != 0)
 									PS_rotate(-ite->Rot);
 								if (ite->fillColor() != "None")
@@ -1207,7 +1207,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 									SetFarbe(ite->fillColor(), ite->fillShade(), &h, &s, &v, &k, gcr);
 									PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 								}
-								PS_translate(ite->Xpos - mPage->xOffset(), mPage->height() - (ite->Ypos - mPage->yOffset()));
+								PS_translate(ite->xPos() - mPage->xOffset(), mPage->height() - (ite->yPos() - mPage->yOffset()));
 								if (ite->Rot != 0)
 									PS_rotate(-ite->Rot);
 								if ((ite->fillColor() != "None") || (ite->GrType != 0))
@@ -1276,7 +1276,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 							PS_setlinewidth(ite->Pwidth);
 							PS_setcapjoin(ite->PLineEnd, ite->PLineJoin);
 							PS_setdash(ite->PLineArt, ite->DashOffset, ite->DashValues);
-							PS_translate(ite->Xpos - mPage->xOffset(), mPage->height() - (ite->Ypos - mPage->yOffset()));
+							PS_translate(ite->xPos() - mPage->xOffset(), mPage->height() - (ite->yPos() - mPage->yOffset()));
 							if (ite->Rot != 0)
 								PS_rotate(-ite->Rot);
 							if ((ite->TopLine) || (ite->RightLine) || (ite->BottomLine) || (ite->LeftLine))
@@ -1359,7 +1359,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 		PS_setdash(c->PLineArt, c->DashOffset, c->DashValues);
 		if (!embedded)
 		{
-			PS_translate(c->Xpos - a->xOffset(), a->height() - (c->Ypos - a->yOffset()));
+			PS_translate(c->xPos() - a->xOffset(), a->height() - (c->yPos() - a->yOffset()));
 		}
 		if (c->Rot != 0)
 			PS_rotate(-c->Rot);
@@ -1917,7 +1917,7 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, b
 				PS_setlinewidth(c->Pwidth);
 				PS_setcapjoin(c->PLineEnd, c->PLineJoin);
 				PS_setdash(c->PLineArt, c->DashOffset, c->DashValues);
-				PS_translate(c->Xpos - a->xOffset(), a->height() - (c->Ypos - a->yOffset()));
+				PS_translate(c->xPos() - a->xOffset(), a->height() - (c->yPos() - a->yOffset()));
 				if (c->Rot != 0)
 					PS_rotate(-c->Rot);
 				if ((c->TopLine) || (c->RightLine) || (c->BottomLine) || (c->LeftLine))

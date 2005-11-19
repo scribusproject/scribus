@@ -420,7 +420,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 								if (docItem->textFlowsAroundFrame())
 								{
 									pp.begin(ScApp->view->viewport());
-									pp.translate(docItem->Xpos - Mp->xOffset() + Dp->xOffset(), docItem->Ypos - Mp->yOffset() + Dp->yOffset());
+									pp.translate(docItem->xPos() - Mp->xOffset() + Dp->xOffset(), docItem->yPos() - Mp->yOffset() + Dp->yOffset());
 									pp.rotate(docItem->Rot);
 									if (docItem->textFlowUsesBoundingBox())
 									{
@@ -454,7 +454,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 							if (docItem->textFlowsAroundFrame())
 							{
 								pp.begin(ScApp->view->viewport());
-								pp.translate(docItem->Xpos, docItem->Ypos);
+								pp.translate(docItem->xPos(), docItem->yPos());
 								pp.rotate(docItem->Rot);
 								if (docItem->textFlowUsesBoundingBox())
 								{
@@ -491,7 +491,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 							if (docItem->textFlowsAroundFrame())
 							{
 								pp.begin(ScApp->view->viewport());
-								pp.translate(docItem->Xpos, docItem->Ypos);
+								pp.translate(docItem->xPos(), docItem->yPos());
 								pp.rotate(docItem->Rot);
 								if (docItem->textFlowUsesBoundingBox())
 								{

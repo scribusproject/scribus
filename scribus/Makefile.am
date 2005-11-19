@@ -180,6 +180,7 @@ scribus_SOURCES = \
 	scrpalettebase.cpp	\
 	search.cpp	\
 	seiten.cpp	\
+	selection.cpp	\
 	selfield.cpp	\
 	serializer.cpp	\
 	shadebutton.cpp	\
@@ -386,6 +387,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/scrpalettebase.h              $(prefix)/include/scribus/scrpalettebase.h
 	$(INSTALL_DATA) $(srcdir)/search.h                      $(prefix)/include/scribus/search.h
 	$(INSTALL_DATA) $(srcdir)/seiten.h                      $(prefix)/include/scribus/seiten.h
+	$(INSTALL_DATA) $(srcdir)/selection.h                   $(prefix)/include/scribus/selection.h
 	$(INSTALL_DATA) $(srcdir)/selfield.h                    $(prefix)/include/scribus/selfield.h
 	$(INSTALL_DATA) $(srcdir)/serializer.h                  $(prefix)/include/scribus/serializer.h
 	$(INSTALL_DATA) $(srcdir)/shadebutton.h                 $(prefix)/include/scribus/shadebutton.h
@@ -566,6 +568,7 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/scrpalettebase.h
 	-rm -f $(prefix)/include/scribus/search.h
 	-rm -f $(prefix)/include/scribus/seiten.h
+	-rm -f $(prefix)/include/scribus/selection.h
 	-rm -f $(prefix)/include/scribus/selfield.h
 	-rm -f $(prefix)/include/scribus/serializer.h
 	-rm -f $(prefix)/include/scribus/shadebutton.h

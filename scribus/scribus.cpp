@@ -2327,7 +2327,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			scrActions["insertGlyph"]->setEnabled(true);
 			if (currItem->asTextFrame())
 				actionManager->enableUnicodeActions(true);
-			view->horizRuler->setItemPosition(currItem->Xpos, currItem->Width);
+			view->horizRuler->setItemPosition(currItem->xPos(), currItem->Width);
 			if (currItem->lineColor() != "None")
 				view->horizRuler->lineCorr = currItem->Pwidth / 2.0;
 			else
@@ -4335,8 +4335,8 @@ void ScribusApp::slotEditPaste()
 					currItem2->isEmbedded = true;
 					currItem2->isAnnotation = false;
 					currItem2->isBookmark = false;
-					currItem2->gXpos = currItem2->Xpos - gx;
-					currItem2->gYpos = currItem2->Ypos - gy;
+					currItem2->gXpos = currItem2->xPos() - gx;
+					currItem2->gYpos = currItem2->yPos() - gy;
 					currItem2->gWidth = gw;
 					currItem2->gHeight = gh;
 					currItem2->ItemNr = doc->FrameItems.count();
@@ -6568,8 +6568,8 @@ void ScribusApp::ObjektDup()
 	for (uint b=0; b<view->SelItem.count(); ++b)
 	{
 		view->SelItem.at(b)->setLocked(false);
-		view->SelItem.at(b)->Xpos;
-		view->SelItem.at(b)->Ypos;
+		//CB WTF? view->SelItem.at(b)->xPos();
+		//CB WTF? view->SelItem.at(b)->yPos();
 		view->MoveItem(DispX, DispY, view->SelItem.at(b));
 	}
 	doc->useRaster = savedAlignGrid;
@@ -6603,8 +6603,8 @@ void ScribusApp::ObjektDupM()
 				for (uint b=0; b<view->SelItem.count(); ++b)
 				{
 					view->SelItem.at(b)->setLocked(false);
-					view->SelItem.at(b)->Xpos;
-					view->SelItem.at(b)->Ypos;
+					//CB WTF? view->SelItem.at(b)->xPos();
+					//CB WTF? view->SelItem.at(b)->Ypos;
 					view->MoveItem(dH2, dV2, view->SelItem.at(b), true);
 				}
 				dH2 += dH;
@@ -6635,28 +6635,29 @@ void ScribusApp::selectItemsFromOutlines(int Page, int Item, bool single)
 	 // jjsa 23-05-2004 added for centering of rotated objects
 		if ( currItem->Rot != 0.0 )
 		{
-			double y1 = sin(currItem->Rot/180.*M_PI) * currItem->Width;
-			double x1 = cos(currItem->Rot/180.*M_PI) * currItem->Width;
-			double y2 = sin((currItem->Rot+90.)/180*M_PI) * currItem->Height;
-			double x2 = cos((currItem->Rot+90.)/180*M_PI) * currItem->Height;
-			double mx = currItem->Xpos + ((x1 + x2)/2.0);
-			double my = currItem->Ypos + ((y1 + y2)/2.0);
+			double MPI180=1.0/(180.0*M_PI);
+			double y1 = sin(currItem->Rot*MPI180) * currItem->Width;
+			double x1 = cos(currItem->Rot*MPI180) * currItem->Width;
+			double y2 = sin((currItem->Rot+90.0)*MPI180) * currItem->Height;
+			double x2 = cos((currItem->Rot+90.0)*MPI180) * currItem->Height;
+			double mx = currItem->xPos() + ((x1 + x2)/2.0);
+			double my = currItem->yPos() + ((y1 + y2)/2.0);
 			double viewScale=view->getScale();
-			if ((qRound((currItem->Xpos + QMAX(x1, x2)) * viewScale) > view->contentsWidth()) ||
-				(qRound((currItem->Ypos + QMAX(y1, y2)) * viewScale) > view->contentsHeight()))
-				view->resizeContents(QMAX(qRound((currItem->Xpos + QMAX(x1, x2)) * viewScale), view->contentsWidth()),
-														  QMAX(qRound((currItem->Ypos + QMAX(y1, y2)) * viewScale), view->contentsHeight()));
+			if ((qRound((currItem->xPos() + QMAX(x1, x2)) * viewScale) > view->contentsWidth()) ||
+				(qRound((currItem->yPos() + QMAX(y1, y2)) * viewScale) > view->contentsHeight()))
+				view->resizeContents(QMAX(qRound((currItem->xPos() + QMAX(x1, x2)) * viewScale), view->contentsWidth()),
+														  QMAX(qRound((currItem->yPos() + QMAX(y1, y2)) * viewScale), view->contentsHeight()));
 			view->SetCCPo(static_cast<int>(mx), static_cast<int>(my));
 		}
 		else
 		{
 			double viewScale=view->getScale();
-			if ((qRound((currItem->Xpos + currItem->Width) * viewScale) > view->contentsWidth()) ||
-				(qRound((currItem->Ypos + currItem->Height) * viewScale) > view->contentsHeight())
+			if ((qRound((currItem->xPos() + currItem->Width) * viewScale) > view->contentsWidth()) ||
+				(qRound((currItem->yPos() + currItem->Height) * viewScale) > view->contentsHeight())
 				)
-				view->resizeContents(QMAX(qRound((currItem->Xpos + currItem->Width) * viewScale), view->contentsWidth()),
-									 QMAX(qRound((currItem->Ypos + currItem->Height) * viewScale), view->contentsHeight()));
-			view->SetCCPo(static_cast<int>(currItem->Xpos + currItem->Width/2), static_cast<int>(currItem->Ypos + currItem->Height/2));
+				view->resizeContents(QMAX(qRound((currItem->xPos() + currItem->Width) * viewScale), view->contentsWidth()),
+									 QMAX(qRound((currItem->yPos() + currItem->Height) * viewScale), view->contentsHeight()));
+			view->SetCCPo(static_cast<int>(currItem->xPos() + currItem->Width/2), static_cast<int>(currItem->yPos() + currItem->Height/2));
 		}
 	}
 }

@@ -615,8 +615,7 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 					int docGc = doc->GroupCounter;
 					doc->GroupCounter = 0;
 					Neu = PasteItem(&pg, doc);
-					Neu->Xpos = Neu->Xpos - pageX + Apage->xOffset();
-					Neu->Ypos = Neu->Ypos - pageY + Apage->yOffset();
+					Neu->move(-pageX + Apage->xOffset(), - pageY + Apage->yOffset());
 					//view->setRedrawBounding(Neu);
 					Neu->setRedrawBounding();
 					//Neu->OwnPage = view->OnPage(Neu);

@@ -618,8 +618,9 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			case PageItem::ImageFrame:
 				{
 					QWMatrix mm = gc->matrix;
-					ite->Xpos += mm.dx();
-					ite->Ypos += mm.dy();
+					//ite->Xpos += mm.dx();
+					//ite->Ypos += mm.dy();
+					ite->move(mm.dx(), mm.dy());
 					ite->Width = ite->Width * mm.m11();
 					ite->Height = ite->Height * mm.m22();
 					ite->Pwidth = ite->Pwidth * ((mm.m11() + mm.m22()) / 2.0);
@@ -706,10 +707,10 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 					gc->GY1 = gra.point(0).y();
 					gc->GX2 = gra.point(1).x();
 					gc->GY2 = gra.point(1).y();
-					ite->GrStartX = gc->GX1 - ite->Xpos+BaseX;
-					ite->GrStartY = gc->GY1 - ite->Ypos+BaseY;
-					ite->GrEndX = gc->GX2 - ite->Xpos+BaseX;
-					ite->GrEndY = gc->GY2 - ite->Ypos+BaseY;
+					ite->GrStartX = gc->GX1 - ite->xPos()+BaseX;
+					ite->GrStartY = gc->GY1 - ite->yPos()+BaseY;
+					ite->GrEndX = gc->GX2 - ite->xPos()+BaseX;
+					ite->GrEndY = gc->GY2 - ite->yPos()+BaseY;
 				}
 				ite->GrType = gc->Gradient;
 			}
@@ -1985,15 +1986,15 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 				double y1 = parseUnit( tspan.attribute( "y", "0" ) );
 				double mx = mm.m11() * x1 + mm.m21() * y1 + mm.dx();
 				double my = mm.m22() * y1 + mm.m12() * x1 + mm.dy();
-				ite->Xpos = mx;
-				ite->Ypos = my;
+				ite->setXPos(mx);
+				ite->setYPos(my);
 			}
 			else
 			{
 				double mx = mm.m11() * x + mm.m21() * y + mm.dx();
 				double my = mm.m22() * y + mm.m12() * x + mm.dy();
-				ite->Xpos = mx;
-				ite->Ypos = my;
+				ite->setXPos(mx);
+				ite->setYPos(my);
 			}
 			if (!tspan.text().isNull())
 				Text = QString::fromUtf8(tspan.text()).stripWhiteSpace();
@@ -2067,7 +2068,7 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 			ScApp->view->setGroupRect();
 			ScApp->view->scaleGroup(mm.m11(), mm.m22());
 			ScApp->view->Deselect();
-			ite->Ypos -= asce * mm.m22();
+			ite->move(0.0, -asce * mm.m22());
 			if( !e.attribute("id").isEmpty() )
 				ite->setItemName(" "+e.attribute("id"));
 			ite->setFillTransparency(gc->Transparency);

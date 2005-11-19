@@ -105,7 +105,7 @@ PyObject *scribus_moveobjabs(PyObject* /* self */, PyObject* args)
 		ScApp->view->moveGroup(pageUnitXToDocX(x) - x2, pageUnitYToDocY(y) - y2);
 	}
 	else
-		ScApp->view->MoveItem(pageUnitXToDocX(x) - item->Xpos, pageUnitYToDocY(y) - item->Ypos, item);
+		ScApp->view->MoveItem(pageUnitXToDocX(x) - item->xPos(), pageUnitYToDocY(y) - item->yPos(), item);
 	// Now restore the selection. We just have to go through and select
 	// each and every item, unfortunately.
 	ScApp->view->Deselect();
