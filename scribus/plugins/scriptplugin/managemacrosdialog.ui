@@ -72,20 +72,32 @@ The table in the center of the dialog lists what macros are currently loaded and
                 <property name="text">
                     <string>Macro</string>
                 </property>
+                <property name="pixmap">
+                    <pixmap></pixmap>
+                </property>
             </column>
             <column>
                 <property name="text">
                     <string>Edit</string>
+                </property>
+                <property name="pixmap">
+                    <pixmap></pixmap>
                 </property>
             </column>
             <column>
                 <property name="text">
                     <string>Accel</string>
                 </property>
+                <property name="pixmap">
+                    <pixmap></pixmap>
+                </property>
             </column>
             <column>
                 <property name="text">
                     <string>Description</string>
+                </property>
+                <property name="pixmap">
+                    <pixmap></pixmap>
                 </property>
             </column>
             <property name="name">
@@ -109,7 +121,7 @@ The table in the center of the dialog lists what macros are currently loaded and
             <property name="whatsThis" stdset="0">
                 <string>&lt;p&gt;This table lists the macros that are currently defined.&lt;/p&gt;
 
-&lt;p&gt;&lt;b&gt;Name:&lt;/b&gt; The name of the macro, as shown in the menu bar and in other places around Scribus.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Macro:&lt;/b&gt; The name of the macro, as shown in the menu bar and in other places around Scribus.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Edit:&lt;/b&gt; If the macro can be edited, "Yes" appears in this column. Usually if a macro cannot be edited it was created using the register_macro command in a script.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Accel:&lt;/b&gt; The menu shortcut key sequence, if any, associated with the macro. For example, CTRL-F8 means that you can press Control-F8 when in Scribus to run the macro.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Description:&lt;/b&gt; If the macro contains a "docstring", a special string at the start of its definition that describes it, that is shown here. If the docstring is long, only the beginning is shown - use "What's This" on the macro's entry in the Macro menu to see the full description.&lt;/p&gt;</string>
