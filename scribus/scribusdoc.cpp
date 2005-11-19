@@ -997,7 +997,7 @@ Page* ScribusDoc::addMasterPage(const int pageNumber, const QString& pageName)
 	Q_ASSERT(addedPage!=NULL);
 	addedPage->Margins.Top = pageMargins.Top;
 	addedPage->Margins.Bottom = pageMargins.Bottom;
-	addedPage->Margins.Left = pageMargins.Left;
+	addedPage->Margins.Left = pageMargins.Left;//todo fix for layouts
 	addedPage->Margins.Right = pageMargins.Right;
 	addedPage->initialMargins.Top = pageMargins.Top;
 	addedPage->initialMargins.Bottom = pageMargins.Bottom;
