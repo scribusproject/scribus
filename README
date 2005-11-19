@@ -17,12 +17,12 @@ within your Scribus document.
 Version 1.2.1 supported Open Office 1.1.x and Star Office 6/7 file formats. 
 Version 1.2.2+ supports Open Office 2.x/Star Office 8.x (OASIS) as well.
 
-Scribus 1.2.3 also includes 2 icc color profiles to make sure color management
+Scribus 1.2.3+ also includes 2 icc color profiles to make sure color management
 is working immediately after install. Note that these are basic generic profiles
 are *not* sufficient to ensure good color management. See the help files for details 
 under color management. Grey scale icc profiles in images are not supported in this release.
 
-Scribus 1.2.3 also supports the proposed OpenIcc standard icc profile 
+Scribus 1.2.3+ also supports the proposed OpenIcc standard icc profile 
 locations: $home/.color/icc and /usr/share/color/icc/ under linux. Scribus
 will automatically detect them in these locations. Some distro neutral rpms
 for installing profiles are available on www.scribus.net.
@@ -50,7 +50,7 @@ versions of libraries.
 Other notes/known issues at the time of release:
 
 Registration color 100%C 100%M 100%Y 100%K does no work properly with UCR enabled.
-A fix is expected in the next release. Registration with UCR disabled works properly. 
+Registration with UCR disabled works properly. This is fixed in the Scribus 1.3.x releases.
 
 There is a bug in font outline handling for some fonts in the freetype
 libraries. It's being worked on upstream. Don't file a bug report. Instead
@@ -58,6 +58,10 @@ change the font used if you need the outlines. This is not a Scribus bug.
 Some testing has shown that this bug is not present in freetype 2.1.9, but 
 we counsel caution trying to upgrade freetype2. Upgrading freetype2 on some
 distros can be quite difficult.
+
+If you offset and image and then re-scale the image within Scribus, the offset
+measurements are incorrect. To avoid this, perform scaling operations, then do
+and offset moves needed. This is resolved in Scribus 1.3.x releases.
 
 Issue with gradients:
 
