@@ -101,5 +101,16 @@ de=d. h. ,d.h. , a. a. O., a.a.O.,ŕ ,§ ,§§ , EUR, USD, DM, GBP, A. D. , A.D.
 #  German short words - THE END
 
 
+#  Russian short words START here
+## физические и математические единицы
+ru= кг, г, м, см, мм, мл, л, гл, с, мс, Вт, кВт, мВт, В, А, %,
+## разные знаки и символы валют
+ru= § , & , $, *, €,
+## академические звания
+ru=проф. , Проф. ,
+## география
+ru=ул. , корп. ,
+#  Russian short words - THE END
+
 
 # end of the config file
