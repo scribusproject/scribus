@@ -980,11 +980,12 @@ Page* ScribusDoc::addPage(const int pageIndex, const QString& masterPageName, co
 	Q_ASSERT(insertsuccess==true && DocPages.at(pageIndex)!=NULL);
 	currentPage = addedPage;
 	//if (!masterPageMode())
-	addedPage->MPageNam = masterPageName;
+	if (!masterPageName.isNull())
+		applyMasterPage(masterPageName, pageIndex);
 	setLocationBasedPageLRMargins(pageIndex);
 	if (addAutoFrame && automaticTextFrames)
 		addAutomaticTextFrame(pageIndex);
-	++pageCount;	
+	++pageCount;
 	return addedPage;
 }
 
@@ -996,6 +997,8 @@ Page* ScribusDoc::addMasterPage(const int pageNumber, const QString& pageName)
 	Q_ASSERT(addedPage!=NULL);
 	addedPage->Margins.Top = pageMargins.Top;
 	addedPage->Margins.Bottom = pageMargins.Bottom;
+	addedPage->Margins.Left = pageMargins.Left;
+	addedPage->Margins.Right = pageMargins.Right;
 	addedPage->initialMargins.Top = pageMargins.Top;
 	addedPage->initialMargins.Bottom = pageMargins.Bottom;
 	addedPage->initialMargins.Left = pageMargins.Left;
