@@ -1,5 +1,13 @@
 Scribus - 1.3.2cvs
 ==================
+- 0002850: [Translation] Updated nb_NO translation for 1.3.2cvs (plinnell)
+- 0002847: [User Interface] Spelling mistake in new document dialog (cbradney)
+- 0002423: [Documentation] add a howto for lipsum (plinnell)
+- 0002848: [Import / Export] Scribus generated PDF has a wrong layout in Acrobat Reader (fschmid)
+- 0002824: [Import / Export] import image: preview is buggy for some pictures (fschmid)
+- 0002815: [Printing] prepress checker doesnt recognize transparency in gradients for print preview (fschmid)
+- 0002829: [General] Ignore Button in pre-flighter does not work (fschmid)
+- 0002837: [User Interface] Sig11 on duplicate or import of master pages (cbradney)
 - 0002739: [Picture Frames] images gets "invisible" while editing shape (fschmid)
 - 0002830: [Scripter] Cannot edit the text frames created using font sampler script (cbradney)
 - 0002810: [Translation] Updated nb_NO translation for 1.3.2cvs (plinnell)
