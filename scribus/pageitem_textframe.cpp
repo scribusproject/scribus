@@ -360,8 +360,8 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 					tabDist = Zli3.xco+Zli3.wide;
 				}
 				if (itemText.count() > MaxChars)
-				{
-					if (!Doc->RePos)
+				{//CB && added here for jghali prior to commit access
+					if (!Doc->RePos && !ScApp->view->previewMode)
 					{
 						double scp1 = 1 / QMAX(ScApp->view->getScale(), 1);
 						double scp16 = 16 * scp1;
@@ -1956,7 +1956,8 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 			}
 			else
 			{
-				if (!Doc->RePos)
+				//CB && added here for jghali prior to commit access
+				if (!Doc->RePos && !ScApp->view->previewMode)
 				{
 					double scp1 = 1.0/QMAX(ScApp->view->getScale(), 1);
 					double scp16 = 16.0*scp1;
