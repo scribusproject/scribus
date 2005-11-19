@@ -451,7 +451,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, PDFOptions *opts, SCFonts &AllFont
 	if (doc->currentPageLayout == doublePage)
 	{
 		PutDoc("/PageLayout ");
-		if (doc->pageSets[doc->currentPageLayout].FirstPage)
+		if (doc->pageSets[doc->currentPageLayout].FirstPage == 0)
 			PutDoc("/TwoColumnLeft\n");
 		else
 			PutDoc("/TwoColumnRight\n");
