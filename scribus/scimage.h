@@ -204,5 +204,6 @@ private:
 	uint icclen;
 	std::valarray<int> curveTable;
 	QValueList<unsigned int> colorTable;
+	int random_table[4096];
 };
 #endif

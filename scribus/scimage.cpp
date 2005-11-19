@@ -1679,6 +1679,23 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 		}
 		else
 		{
+			QString layBlend2 = layerInfo[layer].blend;
+			if ((imgInfo.isRequest) && (imgInfo.RequestProps.contains(layer)))
+				layBlend2 = imgInfo.RequestProps[layer].blend;
+			if ((layBlend2 == "diss") && (header.color_mode != CM_CMYK))
+			{
+				for (int l = 0; l < tmpImg.height(); l++)
+				{
+					srand(random_table[ l  % 4096]);
+					for (int k = 0; k < tmpImg.width(); k++)
+					{
+						int rand_val = rand() & 0xff;
+						QRgb pixel = tmpImg.pixel(k, l);
+						if (rand_val > 128)
+							tmpImg.setPixel(k, l, qRgba(qRed(pixel), qGreen(pixel), qBlue(pixel), 0));
+					}
+				}
+			}
 			for (int i = static_cast<int>(startSrcY); i < layerInfo[layer].height; i++)
 			{
 				unsigned int *dst = (unsigned int *)scanLine(QMIN(static_cast<int>(startDstY), height()-1));
@@ -2558,6 +2575,19 @@ bool ScImage::LoadPSD( QDataStream & s, const PSDHeader & header)
 	uint startRessource;
 	uint layerDataLen;
 	uint startLayers;
+
+	srand(314159265);
+	for (int i = 0; i < 4096; i++)
+		random_table[i] = rand();
+	for (int i = 0; i < 4096; i++)
+	{
+		int tmp;
+		int swap = i + rand() % (4096 - i);
+		tmp = random_table[i];
+		random_table[i] = random_table[swap];
+		random_table[swap] = tmp;
+	}
+
 	// Skip mode data. FIX: this is incorrect, it's the Colormap Data for indexed Images
 	s >> tmp;
 	cdataStart = s.device()->at();
