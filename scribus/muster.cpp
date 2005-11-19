@@ -140,7 +140,7 @@ void MasterPagesPalette::duplicateMasterPage()
 		//atf = currentDoc->usesAutomaticTextFrames();
 		//currentDoc->setUsesAutomaticTextFrames(false);
 		//emit createNew(nr);
-		currentDoc->addMasterPage(nr, MasterPageName);
+		currentDoc->currentPage=currentDoc->addMasterPage(nr, MasterPageName);
 		currentDoc->setLoading(true);
 		if (currentDoc->currentPageLayout != singlePage)
 		{
@@ -267,7 +267,7 @@ void MasterPagesPalette::newMasterPage()
 			MasterPageName = dia->Answer->text();
 		}
 		int nr = currentDoc->Pages->count();
-		currentDoc->addMasterPage(nr, MasterPageName);
+		currentDoc->currentPage=currentDoc->addMasterPage(nr, MasterPageName);
 		
 		//currentDoc->MasterNames.insert(MasterPageName, nr);
 		//currentDoc->pageCount = 0;
