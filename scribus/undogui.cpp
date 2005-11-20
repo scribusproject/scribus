@@ -227,7 +227,7 @@ UndoWidget::~UndoWidget()
 /*** UndoPalette **************************************************************/
 
 UndoPalette::UndoPalette(QWidget* parent, const char* name)
-: UndoGui(parent, name, Qt::WType_Dialog)
+: UndoGui(parent, name, Qt::WType_Dialog | Qt::WStyle_Customize | Qt::WStyle_Tool | Qt::WStyle_Title)
 {
 	currentSelection = 0;
 	redoItems = 0;
