@@ -2242,6 +2242,11 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 		currItem->AdjustPictScale();
 	if (!(currItem->asTextFrame()) && !(currItem->asPathText()))
 		currItem->IFont = doc->toolSettings.defFont;
+	if (currItem->asPathText())
+	{
+		currItem->UpdatePolyClip();
+		currItem->Frame = true;
+	}
 	currItem->GrType = QStoInt(obj->attribute("GRTYP","0"));
 	QString GrColor;
 	QString GrColor2;
