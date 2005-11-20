@@ -1519,7 +1519,7 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 		return false;
 	}
 	tmpImg.setAlphaBuffer( true );
-	tmpImg.fill(qRgba(0, 0, 0, 0));
+	tmpImg.fill(qRgba(255, 255, 255, 0));
 	channel_num = QMIN(channel_num, 39);
 	uint components[40];
 	for(uint channel = 0; channel < channel_num; channel++)
@@ -1551,7 +1551,7 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 			QRgb * s = (QRgb*)(tmpImg.scanLine( i ));
 			for (int j = 0; j < tmpImg.width(); j++)
 			{
-				*s++ = qRgba(0, 0, 0, 255);
+				*s++ = qRgba(255, 255, 255, 255);
 			}
 		}
 	}
@@ -1568,7 +1568,7 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 			if (!mask.create( layerInfo[layer].maskWidth, layerInfo[layer].maskHeight, 32 ))
 				break;
 			mask.setAlphaBuffer( true );
-			mask.fill(qRgba(0, 0, 0, 0));
+			mask.fill(qRgba(255, 255, 255, 0));
 			if (!loadChannel(s, header, layerInfo, layer, channel, components[channel], mask))
 				break;
 		}
@@ -1660,6 +1660,23 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 			startSrcXm = 0;
 			startDstXm = layerInfo[layer].maskXpos;
 		}
+		QString layBlend2 = layerInfo[layer].blend;
+		if ((imgInfo.isRequest) && (imgInfo.RequestProps.contains(layer)))
+			layBlend2 = imgInfo.RequestProps[layer].blend;
+		if ((layBlend2 == "diss") && (header.color_mode != CM_CMYK))
+		{
+			for (int l = 0; l < tmpImg.height(); l++)
+			{
+				srand(random_table[ l  % 4096]);
+				for (int k = 0; k < tmpImg.width(); k++)
+				{
+					int rand_val = rand() & 0xff;
+					QRgb pixel = tmpImg.pixel(k, l);
+					if (rand_val > 128)
+						tmpImg.setPixel(k, l, qRgba(qRed(pixel), qGreen(pixel), qBlue(pixel), 0));
+				}
+			}
+		}
 		if (*firstLayer)
 		{
 			for( int yi=static_cast<int>(startSrcY); yi < QMIN(tmpImg.height(), height()); ++yi )
@@ -1679,23 +1696,6 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 		}
 		else
 		{
-			QString layBlend2 = layerInfo[layer].blend;
-			if ((imgInfo.isRequest) && (imgInfo.RequestProps.contains(layer)))
-				layBlend2 = imgInfo.RequestProps[layer].blend;
-			if ((layBlend2 == "diss") && (header.color_mode != CM_CMYK))
-			{
-				for (int l = 0; l < tmpImg.height(); l++)
-				{
-					srand(random_table[ l  % 4096]);
-					for (int k = 0; k < tmpImg.width(); k++)
-					{
-						int rand_val = rand() & 0xff;
-						QRgb pixel = tmpImg.pixel(k, l);
-						if (rand_val > 128)
-							tmpImg.setPixel(k, l, qRgba(qRed(pixel), qGreen(pixel), qBlue(pixel), 0));
-					}
-				}
-			}
 			for (int i = static_cast<int>(startSrcY); i < layerInfo[layer].height; i++)
 			{
 				unsigned int *dst = (unsigned int *)scanLine(QMIN(static_cast<int>(startDstY), height()-1));
@@ -2030,7 +2030,7 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 						r = src_r;
 						g = src_g;
 						b = src_b;
-						a = src_a;
+						a = (src_a * layOpa) / 255;
 					}
 					if (header.color_mode == CM_CMYK)
 					{
