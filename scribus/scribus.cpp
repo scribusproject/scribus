@@ -472,47 +472,39 @@ void ScribusApp::initPalettes()
 	outlinePalette = new Tree(this, this);
 	connect( scrActions["toolsOutline"], SIGNAL(toggled(bool)) , outlinePalette, SLOT(setPaletteShown(bool)) );
 	connect( outlinePalette, SIGNAL(paletteShown(bool)), scrActions["toolsOutline"], SLOT(setOn(bool)));
-	outlinePalette->setPrefsContext("OutlinePalette");
 	propertiesPalette = new Mpalette(this);
 	connect( scrActions["toolsProperties"], SIGNAL(toggled(bool)) , propertiesPalette, SLOT(setPaletteShown(bool)) );
 	connect( propertiesPalette, SIGNAL(paletteShown(bool)), scrActions["toolsProperties"], SLOT(setOn(bool)));
-	propertiesPalette->setPrefsContext("PropertiesPalette");
+
 	//CB dont need this until we have a doc...
 	//propertiesPalette->Cpal->SetColors(prefsManager->colorSet());
 	propertiesPalette->Cpal->UseTrans(true);
 	propertiesPalette->Fonts->RebuildList(0);
 	propertiesPalette->installEventFilter(this);
 	nodePalette = new NodePalette(this);
-	nodePalette->setPrefsContext("NodePalette");
 	nodePalette->installEventFilter(this);
-
 	layerPalette = new LayerPalette(this);
 	connect( scrActions["toolsLayers"], SIGNAL(toggled(bool)) , layerPalette, SLOT(setPaletteShown(bool)) );
 	connect( layerPalette, SIGNAL(paletteShown(bool)), scrActions["toolsLayers"], SLOT(setOn(bool)));
-	layerPalette->setPrefsContext("LayerPalette");
 	layerPalette->installEventFilter(this);
 	layerPalette->Table->installEventFilter(this);
 	scrapbookPalette = new Biblio(this);
 	connect( scrActions["toolsScrapbook"], SIGNAL(toggled(bool)) , scrapbookPalette, SLOT(setPaletteShown(bool)) );
 	connect( scrapbookPalette, SIGNAL(paletteShown(bool)), scrActions["toolsScrapbook"], SLOT(setOn(bool)));
-	scrapbookPalette->setPrefsContext("ScrapbookPalette");
 	scrapbookPalette->installEventFilter(this);
 	pagePalette = new PagePalette(this);
 	connect( scrActions["toolsPages"], SIGNAL(toggled(bool)) , pagePalette, SLOT(setPaletteShown(bool)) );
 	connect( scrActions["toolsPages"], SIGNAL(toggled(bool)) , this, SLOT(setPagePalette(bool)) );
 	connect( pagePalette, SIGNAL(paletteShown(bool)), scrActions["toolsPages"], SLOT(setOn(bool)));
-	pagePalette->setPrefsContext("PagePalette");
 	pagePalette->installEventFilter(this);
 	bookmarkPalette = new BookPalette(this);
 	connect( scrActions["toolsBookmarks"], SIGNAL(toggled(bool)) , bookmarkPalette, SLOT(setPaletteShown(bool)) );
 	connect( bookmarkPalette, SIGNAL(paletteShown(bool)), scrActions["toolsBookmarks"], SLOT(setOn(bool)));
-	bookmarkPalette->setPrefsContext("BookmarkPalette");
 	bookmarkPalette->installEventFilter(this);
 	measurementPalette = new Measurements(this);
 	connect( scrActions["toolsMeasurements"], SIGNAL(toggled(bool)) , measurementPalette, SLOT(setPaletteShown(bool)) );
 	connect( scrActions["toolsMeasurements"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
 	connect( measurementPalette, SIGNAL(paletteShown(bool)), scrActions["toolsMeasurements"], SLOT(setOn(bool)));
-	measurementPalette->setPrefsContext("MeasurementPalette");
 	measurementPalette->installEventFilter(this);
 	measurementPalette->hide();
 	docCheckerPalette = new CheckDocument(this, false);
@@ -520,7 +512,6 @@ void ScribusApp::initPalettes()
 	connect( scrActions["toolsPreflightVerifier"], SIGNAL(toggled(bool)) , this, SLOT(docCheckToggle(bool)) );
 	connect( docCheckerPalette, SIGNAL(paletteShown(bool)), scrActions["toolsPreflightVerifier"], SLOT(setOn(bool)));
 	connect( docCheckerPalette, SIGNAL(paletteShown(bool)), this, SLOT(docCheckToggle(bool)));
-	docCheckerPalette->setPrefsContext("DocCheckerPalette");
 	docCheckerPalette->installEventFilter(this);
 	docCheckerPalette->hide();
 
@@ -528,12 +519,10 @@ void ScribusApp::initPalettes()
 	connect( scrActions["toolsAlignDistribute"], SIGNAL(toggled(bool)) , alignDistributePalette, SLOT(setPaletteShown(bool)) );
 	connect( alignDistributePalette, SIGNAL(paletteShown(bool)), scrActions["toolsAlignDistribute"], SLOT(setOn(bool)));
 	connect( alignDistributePalette, SIGNAL(documentChanged()), this, SLOT(slotDocCh()));
-	alignDistributePalette->setPrefsContext("AlignDistributePalette");
 	alignDistributePalette->installEventFilter(this);
 	alignDistributePalette->hide();
 
 	undoPalette = new UndoPalette(this, "undoPalette");
-	undoPalette->setPrefsContext("undoPalette");
 	undoPalette->installEventFilter(this);
 	undoManager->registerGui(undoPalette);
 	connect(undoPalette, SIGNAL(paletteShown(bool)), this, SLOT(setUndoPalette(bool)));
@@ -4806,7 +4795,7 @@ void ScribusApp::toggleCheckPal()
 
 void ScribusApp::setUndoPalette(bool visible)
 {
-	visible ? undoPalette->show() : undoPalette->hide();
+	undoPalette->setPaletteShown(visible);
 	scrActions["toolsActionHistory"]->setOn(visible);
 }
 /*

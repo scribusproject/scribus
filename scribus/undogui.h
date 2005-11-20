@@ -64,7 +64,7 @@ public:
 	 * @param name Name of the object
 	 * @param f widget flags
 	 */
-	UndoGui(QWidget* parent = 0, const char* name = 0, WFlags f = 0);
+	UndoGui(QWidget* parent = 0, const char* name = "UndoGui", WFlags f = 0);
 
 	/** @brief Destroys the widget */
 	virtual ~UndoGui() {};
@@ -402,12 +402,7 @@ signals:
 	 * @param steps How many redo steps to take
 	 */
 	void redo(int steps);
-	/** 
-	 * @brief Emitted when palette is closed.
-	 * 
-	 * When the user closes the palette this signal is emitted.
-	 */
-	/*void paletteShown(bool);*/
+
 };
 
 #endif // UNDOGUI_H

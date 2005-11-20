@@ -33,8 +33,6 @@ class SCRIBUS_API ScrPaletteBase : public QDialog
 	public:
 		ScrPaletteBase( QWidget * parent = NULL, const char * name = NULL, bool modal = false, WFlags f = 0 );
 		~ScrPaletteBase() {};
-		/** @brief Set the Preferences context to be used for storage of startup visibility and position and size */
-		virtual void setPrefsContext(QString context);
 		/** @brief Sample way to grab keystrokes, simply calls superclass at this point */
 		//virtual void keyPressEvent(QKeyEvent *keyEvent);
 		/** @brief Captures the close event and changes it to hide */
@@ -53,6 +51,8 @@ class SCRIBUS_API ScrPaletteBase : public QDialog
 		void paletteShown(bool);
 		
 	protected:
+		/** @brief Set the Preferences context to be used for storage of startup visibility and position and size */
+		virtual void setPrefsContext(QString context);
 		void storePosition();
 		void storePosition(int newX, int newY);
 		void storeSize();
