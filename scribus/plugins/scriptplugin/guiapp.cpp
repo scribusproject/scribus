@@ -82,3 +82,20 @@ PyObject *scribus_docchanged(PyObject* /* self */, PyObject* args)
 	return Py_None;
 }
 
+PyObject *scribus_zoomdocument(PyObject* /* self */, PyObject* args)
+{
+	double zoomFactor;
+	if (!PyArg_ParseTuple(args, "d", &zoomFactor))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	if (zoomFactor > 0.0 || zoomFactor == -100.0)
+		ScApp->slotZoom(zoomFactor);
+	else
+	{
+		PyErr_SetString(PyExc_ValueError, QString("The zoom factor should be greater than 0.0 or equal to -100.0. See help(zoomFactor)."));
+		return NULL;
+	}
+	Py_INCREF(Py_None);
+	return Py_None;
+}
