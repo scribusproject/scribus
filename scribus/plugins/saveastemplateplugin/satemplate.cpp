@@ -79,7 +79,7 @@ void SaveAsTemplatePlugin::deleteAboutData(const AboutData* about) const
 }
 
 bool SaveAsTemplatePlugin::run(QString target)
-{
+/*{
 	Q_ASSERT(target.isEmpty());
 	Sat = new MenuSAT();
 	Sat->RunSATPlug();
@@ -87,7 +87,19 @@ bool SaveAsTemplatePlugin::run(QString target)
 	Sat = 0;
 	return true;
 }
-
+*/
+/* jghali's fix when the new file dialog is cancelled SaT is still active in the menu - PL */
+{
+ 	if ( ScApp->doc )
+{
+	Q_ASSERT(target.isEmpty());
+	Sat = new MenuSAT();
+	Sat->RunSATPlug();
+	delete Sat;
+	Sat = 0;
+}
+	return true;
+}
 void MenuSAT::RunSATPlug()
 {
 	QDir templates(QDir::homeDirPath() + "/.scribus");
