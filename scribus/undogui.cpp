@@ -40,7 +40,7 @@
 extern QPixmap loadIcon(QString nam);
 
 
-UndoGui::UndoGui(QWidget* parent, const char* name, WFlags f) : QWidget(parent, name, f)
+UndoGui::UndoGui(QWidget* parent, const char* name, WFlags f) : ScrPaletteBase(parent, name, f)
 {
 
 }
@@ -227,7 +227,7 @@ UndoWidget::~UndoWidget()
 /*** UndoPalette **************************************************************/
 
 UndoPalette::UndoPalette(QWidget* parent, const char* name)
-: UndoGui(parent, name, Qt::WType_Dialog | Qt::WStyle_Customize | Qt::WStyle_Tool | Qt::WStyle_Title)
+: UndoGui(parent, name)
 {
 	currentSelection = 0;
 	redoItems = 0;
@@ -252,7 +252,6 @@ UndoPalette::UndoPalette(QWidget* parent, const char* name)
 	initialRedoKS = redoButton->accel();
 	layout->addLayout(buttonLayout);
 
-	undoPrefs = PrefsManager::instance()->prefsFile->getContext("undo");
 	updateFromPrefs();
 	languageChange();
 	connect(ScApp, SIGNAL(prefsChanged()), this, SLOT(updateFromPrefs()));
@@ -276,27 +275,6 @@ void UndoPalette::clear()
 	redoButton->setEnabled(false);
 }
 
-void UndoPalette::closeEvent(QCloseEvent* e)
-{
-	emit paletteShown(false);
-	e->ignore();
-	hide();
-}
-
-void UndoPalette::show()
-{
-	QWidget::show();
-	if (undoPrefs->contains("up_left"))
-	{
-		int left   = undoPrefs->getInt("up_left", 100);
-		int top    = undoPrefs->getInt("up_top", 100);
-		int width  = undoPrefs->getInt("up_width", 200);
-		int height = undoPrefs->getInt("up_height", 350);
-		QRect r(left, top, width, height);
-		setGeometry(r);
-	}
-}
-
 void UndoPalette::updateFromPrefs()
 {
 	undoButton->setAccel(ScApp->scrActions["editUndoAction"]->accel());
@@ -309,31 +287,6 @@ void UndoPalette::languageChange()
 	objectBox->setText( tr("Show selected object only"));
 	undoButton->setText( tr("&Undo"));
 	redoButton->setText( tr("&Redo"));
-}
-
-void UndoPalette::hideEvent(QHideEvent*)
-{
-	storePosition();
-}
-
-void UndoPalette::keyPressEvent(QKeyEvent* e)
-{
-	if (e->key() == Key_Escape)
-		hide();
-	QWidget::keyPressEvent(e);
-}
-
-
-void UndoPalette::keyReleaseEvent(QKeyEvent* e)
-{
-	//TODO Do we need to check more meta keys, CTRL, SHIFT, META, UNICODE_ACCEL ? Could just grab the meta keys used
-	QKeySequence ks(ALT + e->key());
-	//QKeySequence ks(e->key()|e->state());
-	if (ks==initialUndoKS)
-		undoClicked();
-	if (ks==initialRedoKS)
-		redoClicked();
-	QWidget::keyReleaseEvent(e);
 }
 
 void UndoPalette::insertUndoItem(UndoObject* target, UndoState* state)
@@ -402,19 +355,6 @@ void UndoPalette::clearRedo()
 		undoList->removeItem(i);
 }
 
-void UndoPalette::storePosition()
-{
-	QRect r    = frameGeometry();
-	int left   = r.left();
-	int top    = r.top();
-	int width  = r.width();
-	int height = r.height();
-	undoPrefs->set("up_left", left);
-	undoPrefs->set("up_top", top);
-	undoPrefs->set("up_width", width);
-	undoPrefs->set("up_height", height);
-}
-
 void UndoPalette::undoClicked()
 {
 	emit undo(1);
@@ -462,7 +402,7 @@ void UndoPalette::removeToolTip()
 
 UndoPalette::~UndoPalette()
 {
-	storePosition();
+	
 }
 
 /*** UndoPalette::UndoItem ****************************************************/

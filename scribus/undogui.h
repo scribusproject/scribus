@@ -24,6 +24,7 @@
 #include "scribusapi.h"
 #include "undoobject.h"
 #include "undostate.h"
+#include "scrpalettebase.h"
 #include <vector>
 #include <qwidget.h>
 #include <qdialog.h>
@@ -52,7 +53,7 @@ class PrefsContext;
  * @author Riku Leino  tsoots@gmail.com
  * @date December 2004
  */
-class SCRIBUS_API UndoGui : public QWidget
+class SCRIBUS_API UndoGui : public ScrPaletteBase
 {
 	Q_OBJECT
 
@@ -252,10 +253,8 @@ private:
 	QPushButton* redoButton;
 	QKeySequence initialUndoKS;
 	QKeySequence initialRedoKS;
-	PrefsContext* undoPrefs;
 	void updateList();
 	void removeRedoItems();
-	void storePosition();
 	
 /*** UndoPalette::UndoItem ****************************************************/
 	
@@ -313,23 +312,6 @@ private slots:
 	void showToolTip(QListBoxItem *i);
 	void removeToolTip();
 	void objectCheckBoxClicked(bool on);
-
-protected:
-	/**
-	 * @brief Captures the close event and changes it to hide.
-	 * 
-	 * UndoPalette should not be closed but hidden instead. Method closeEvent()
-	 * will catch the close attempt and will transfer it to hide.
-	 */
-	void closeEvent(QCloseEvent* e);
-
-	/** @brief Stores the geometry of the window when hiding. */
-	void hideEvent(QHideEvent*);
-
-	/** @brief Hide the window when ESC is pressed */
-	void keyPressEvent(QKeyEvent* e);
-
-	void keyReleaseEvent(QKeyEvent* e);
 
 public:
 	/** 
@@ -394,9 +376,6 @@ public slots:
 	/** @brief Remove the last (oldest) item from the undo stack representation. */
 	void popBack();
 
-	/** @brief Restore the size and position of the window when shown. */
-	void show();
-			   
 	/** @brief Recieve prefsChanged() signal to update shortcuts. */
 	void updateFromPrefs();
 
@@ -428,7 +407,7 @@ signals:
 	 * 
 	 * When the user closes the palette this signal is emitted.
 	 */
-	void paletteShown(bool);
+	/*void paletteShown(bool);*/
 };
 
 #endif // UNDOGUI_H

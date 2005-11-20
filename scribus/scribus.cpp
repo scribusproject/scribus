@@ -533,6 +533,7 @@ void ScribusApp::initPalettes()
 	alignDistributePalette->hide();
 
 	undoPalette = new UndoPalette(this, "undoPalette");
+	undoPalette->setPrefsContext("undoPalette");
 	undoPalette->installEventFilter(this);
 	undoManager->registerGui(undoPalette);
 	connect(undoPalette, SIGNAL(paletteShown(bool)), this, SLOT(setUndoPalette(bool)));
@@ -1571,6 +1572,7 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 	pagePalette->hide();
 	measurementPalette->hide();
 	docCheckerPalette->hide();
+	undoPalette->hide();
 
 	// Clean up plugins, THEN save prefs to disk
 	pluginManager->cleanupPlugins();
@@ -4803,7 +4805,7 @@ void ScribusApp::toggleCheckPal()
 
 void ScribusApp::setUndoPalette(bool visible)
 {
-	undoPalette->setShown(visible);
+	visible ? undoPalette->show() : undoPalette->hide();
 	scrActions["toolsActionHistory"]->setOn(visible);
 }
 /*
@@ -6769,6 +6771,7 @@ void ScribusApp::ShowSubs()
 	measurementPalette->startup();
 	docCheckerPalette->startup();
 	alignDistributePalette->startup();
+	undoPalette->startup();
 
 	setTools(prefsManager->appPrefs.mainToolBarSettings.visible);
 	setPDFTools(prefsManager->appPrefs.pdfToolBarSettings.visible);
