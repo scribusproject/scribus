@@ -27,9 +27,10 @@
 #include "prefsfile.h"
 #include "prefscontext.h"
 
-ScrPaletteBase::ScrPaletteBase(  QWidget * parent, const char * name, bool modal, WFlags f) : QDialog ( parent, name, modal, f) 
+ScrPaletteBase::ScrPaletteBase(  QWidget * parent, const char * name, bool modal, WFlags f) : QDialog ( parent, name, modal, f | Qt::WStyle_Customize | Qt::WStyle_Tool | Qt::WStyle_Title)
 {
 	palettePrefs=NULL;
+	prefsContextName=QString::null;
 }
 
 void ScrPaletteBase::setPrefsContext(QString context)
