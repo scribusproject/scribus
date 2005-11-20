@@ -89,4 +89,16 @@ Enable/disable save icon
 */
 PyObject *scribus_docchanged(PyObject */*self*/, PyObject* args);
 
+PyDoc_STRVAR(scribus_zoomdocument__doc__,
+QT_TR_NOOP("zoomDocument(double)\n\
+\n\
+Zoom the document in main GUI window. Actions have whole number\n\
+values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.\n\
+"));
+/**
+Zooming the document
+\author Petr Vanek <petr@yarpen.cz>
+*/
+PyObject *scribus_zoomdocument(PyObject */*self*/, PyObject* args);
+
 #endif

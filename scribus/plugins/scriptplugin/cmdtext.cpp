@@ -846,6 +846,47 @@ PyObject *scribus_tracetext(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
+PyObject *scribus_istextoverflowing(PyObject * /*self*/, PyObject* args, PyObject* kw)
+{
+	char *name = const_cast<char*>("");
+	bool nolinks = false;
+	char *kwargs[] = {const_cast<char*>("name"), const_cast<char*>("nolinks"), NULL};
+	if (!PyArg_ParseTupleAndKeywords(args, kw, "|esi", kwargs, "utf-8", &name, &nolinks))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
+	if (item == NULL)
+		return NULL;
+	if (item->PType != FRAME_TEXT)
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Only text frames can be checked for overflowing", "python error"));
+		return NULL;
+	}
+	/* original solution
+	if (item->itemText.count() > item->MaxChars)
+	return PyBool_FromLong(static_cast<long>(true));
+	return PyBool_FromLong(static_cast<long>(false)); */
+	uint firstFrame = 0;
+	if (nolinks)
+		firstFrame = item->Ptext.count();
+	uint chars = item->Ptext.count();
+	uint maxchars = item->MaxChars;
+	while (item->NextBox != 0) {
+		item = item->NextBox;
+		chars += item->Ptext.count();
+		maxchars += item->MaxChars;
+	}
+	// no overrun
+	if (nolinks)
+		return PyInt_FromLong(maxchars - firstFrame);
+
+	if (maxchars > chars)
+		return PyInt_FromLong(0);
+	// number of overrunning letters
+	return PyInt_FromLong(static_cast<long>(chars - maxchars));
+}
+
 PyObject *scribus_setpdfbookmark(PyObject */*self*/, PyObject* args)
 {
 	char *name = const_cast<char*>("");

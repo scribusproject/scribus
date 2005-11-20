@@ -388,6 +388,8 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("unGroupObject"), scribus_ungroupobj, METH_VARARGS, tr(scribus_ungroupobj__doc__)},
 	{const_cast<char*>("unlinkTextFrames"), scribus_unlinktextframes, METH_VARARGS, tr(scribus_unlinktextframes__doc__)},
 	{const_cast<char*>("valueDialog"), scribus_valdialog, METH_VARARGS, tr(scribus_valdialog__doc__)},
+	{const_cast<char*>("textOverflows"), (PyCFunction)scribus_istextoverflowing, METH_KEYWORDS, tr(scribus_istextoverflowing__doc__)},
+	{const_cast<char*>("zoomDocument"), scribus_zoomdocument, METH_VARARGS, tr(scribus_zoomdocument__doc__)},
 	// Functions for use by extension scripts
 	{const_cast<char*>("register_macro_callable"), (PyCFunction)register_macro_callable, METH_KEYWORDS, tr(register_macro_callable__doc__)},
 	{const_cast<char*>("register_macro_code"), (PyCFunction)register_macro_code, METH_KEYWORDS, tr(register_macro_code__doc__)},
