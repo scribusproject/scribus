@@ -3332,8 +3332,8 @@ void Mpalette::handlePathDist()
 	if ((HaveDoc) && (HaveItem))
 	{
 		CurItem->Extra = Dist->value();
-		CurItem->UpdatePolyClip();
 		ScApp->view->AdjustItemSize(CurItem);
+		CurItem->UpdatePolyClip();
 		ScApp->view->RefreshItem(CurItem);
 		emit DocChanged();
 	}
@@ -3346,8 +3346,8 @@ void Mpalette::handlePathOffs()
 	if ((HaveDoc) && (HaveItem))
 	{
 		CurItem->BaseOffs = -LineW->value();
-		CurItem->UpdatePolyClip();
 		ScApp->view->AdjustItemSize(CurItem);
+		CurItem->UpdatePolyClip();
 		ScApp->view->RefreshItem(CurItem);
 		emit DocChanged();
 	}

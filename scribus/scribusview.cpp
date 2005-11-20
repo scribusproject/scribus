@@ -10639,6 +10639,11 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	}
 	if ((currItem->asTextFrame()) && !(currItem->asPathText()))
 		currItem->IFont = Doc->toolSettings.defFont;
+	if (currItem->asPathText())
+	{
+		currItem->UpdatePolyClip();
+		currItem->Frame = true;
+	}
 	if (Buffer->GrType != 0)
 	{
 		if ((!Buffer->GrColor.isEmpty()) && (!Buffer->GrColor2.isEmpty()))

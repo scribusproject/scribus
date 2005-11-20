@@ -2882,7 +2882,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 		case PageItem::PathText:
 			{
 				newItem->convertTo(PageItem::PathText);
-				newItem->Frame = false;
+				newItem->Frame = true;
 				newItem->ClipEdited = true;
 				newItem->PoLine = secondaryItem->PoLine.copy();
 				newItem->Pwidth = secondaryItem->Pwidth;
@@ -2892,9 +2892,9 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 				newItem->PLineJoin = secondaryItem->PLineJoin;
 				/*	if (!Doc->loading)
 					emit UpdtObj(Doc->currentPage->pageNr(), b->ItemNr); */
-				newItem->UpdatePolyClip();
 				//FIXME: Stop using the view here
 				ScApp->view->AdjustItemSize(newItem);
+				newItem->UpdatePolyClip();
 				double dx = secondaryItem->xPos() - newItem->xPos();
 				double dy = secondaryItem->yPos() - newItem->yPos();
 				ScApp->view->MoveItem(dx, dy, newItem);

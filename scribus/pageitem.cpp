@@ -362,7 +362,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	BBoxX = 0;
 	BBoxH = 0;
 	RadRect = 0;
-	if ((itemTypeVal == TextFrame) || (itemTypeVal == ImageFrame))
+	if ((itemTypeVal == TextFrame) || (itemTypeVal == ImageFrame) || (itemTypeVal == PathText))
 		// TODO: Frame should become a read-only calculated property
 		Frame = true;
 	else
@@ -685,7 +685,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 	if ((!isEmbedded) && (!Doc->RePos))
 	{
 		double scpInv = 1.0 / (QMAX(ScApp->view->getScale(), 1));
-		if ((Frame) && (Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (itemType() == TextFrame)))
+		if ((Frame) && (Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (itemType() == TextFrame) || (itemType() == PathText)))
 		{
 			p->setPen(black, scpInv, DotLine, FlatCap, MiterJoin);
 			if ((isBookmark) || (isAnnotation))
@@ -696,7 +696,27 @@ void PageItem::DrawObj_Post(ScPainter *p)
 				p->setPen(darkRed, scpInv, SolidLine, FlatCap, MiterJoin);
 
 			p->setFillMode(0);
-			p->setupPolygon(&PoLine);
+			if (itemType()==PathText)
+			{
+				if (Clip.count() != 0)
+				{
+					FPointArray tclip;
+					FPoint np = FPoint(Clip.point(0));
+					tclip.resize(2);
+					tclip.setPoint(0, np);
+					tclip.setPoint(1, np);
+					for (uint a = 1; a < Clip.size(); ++a)
+					{
+						np = FPoint(Clip.point(a));
+						tclip.putPoints(tclip.size(), 4, np.x(), np.y(), np.x(), np.y(), np.x(), np.y(), np.x(), np.y());
+					}
+					np = FPoint(Clip.point(0));
+					tclip.putPoints(tclip.size(), 2, np.x(), np.y(), np.x(), np.y());
+					p->setupPolygon(&tclip);
+				}
+			}
+			else
+				p->setupPolygon(&PoLine);
 			p->strokePath();
 		}
 		if ((Doc->guidesSettings.framesShown) && textFlowUsesContourLine() && (ContourLine.size() != 0))
@@ -3477,7 +3497,7 @@ void PageItem::UpdatePolyClip()
 		if (des > desc)
 			desc = des;
 	}
-	SetPolyClip(static_cast<int>(asce+BaseOffs));
+	SetPolyClip(static_cast<int>(asce-BaseOffs));
 }
 
 void PageItem::handleModeEditKey(QKeyEvent *k, bool &keyRepeat)

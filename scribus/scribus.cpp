@@ -3255,7 +3255,7 @@ bool ScribusApp::loadDoc(QString fileName)
 			{
 				if (ite->asPathText())
 				{
-					ite->Frame = false;
+					ite->Frame = true;
 					ite->UpdatePolyClip();
 				}
 				else
@@ -3294,7 +3294,7 @@ bool ScribusApp::loadDoc(QString fileName)
 			{
 				if (ite->itemType() == PageItem::PathText)
 				{
-					ite->Frame = false;
+					ite->Frame = true;
 					ite->UpdatePolyClip();
 					ite->DrawObj(painter, rd);
 				}
@@ -3335,7 +3335,7 @@ bool ScribusApp::loadDoc(QString fileName)
 			{
 				if (ite->itemType() == PageItem::PathText)
 				{
-					ite->Frame = false;
+					ite->Frame = true;
 					ite->UpdatePolyClip();
 				}
 				ite->DrawObj(painter, rd);
