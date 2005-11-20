@@ -1573,6 +1573,7 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 	measurementPalette->hide();
 	docCheckerPalette->hide();
 	undoPalette->hide();
+	alignDistributePalette->hide();
 
 	// Clean up plugins, THEN save prefs to disk
 	pluginManager->cleanupPlugins();
