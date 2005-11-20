@@ -130,7 +130,7 @@ PageItem::PageItem(Page *pa, int art, double x, double y, double w, double h, do
 	BBoxX = 0;
 	BBoxH = 0;
 	RadRect = 0;
-	if ((art == 4) || (art == 2))
+	if ((art == 4) || (art == 2) || (art == 8))
 		Frame = true;
 	else
 		Frame = false;
@@ -1909,7 +1909,7 @@ NoRoom: pf2.end();
 	if (!Doc->RePos)
 	{
 		double scp = QMAX(Doc->Scale, 1);
-		if ((Frame) && (ScApp->Prefs.FramesShown) && ((PType == 2) || (PType == 4)))
+		if ((Frame) && (ScApp->Prefs.FramesShown) && ((PType == 2) || (PType == 4) || (PType == 8)))
 		{
 			p->setPen(black, 1 / scp, DotLine, FlatCap, MiterJoin);
 			if ((isBookmark) || (isAnnotation))
@@ -1919,7 +1919,27 @@ NoRoom: pf2.end();
 			if (Locked)
 				p->setPen(darkRed, 1 / scp, SolidLine, FlatCap, MiterJoin);
 			p->setFillMode(0);
-			p->setupPolygon(&PoLine);
+			if (PType == 8)
+			{
+				if (Clip.count() != 0)
+				{
+					FPointArray tclip;
+					FPoint np = FPoint(Clip.point(0));
+					tclip.resize(2);
+					tclip.setPoint(0, np);
+					tclip.setPoint(1, np);
+					for (uint a = 1; a < Clip.size(); ++a)
+					{
+						np = FPoint(Clip.point(a));
+						tclip.putPoints(tclip.size(), 4, np.x(), np.y(), np.x(), np.y(), np.x(), np.y(), np.x(), np.y());
+					}
+					np = FPoint(Clip.point(0));
+					tclip.putPoints(tclip.size(), 2, np.x(), np.y(), np.x(), np.y());
+					p->setupPolygon(&tclip);
+				}
+			}
+			else
+				p->setupPolygon(&PoLine);
 			p->drawPolyLine();
 		}
 		if ((ScApp->Prefs.FramesShown) && (UseContour) && (ContourLine.size() != 0))

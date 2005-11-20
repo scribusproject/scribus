@@ -17,7 +17,10 @@ AC_CANONICAL_SYSTEM
 AC_ARG_PROGRAM
 
 dnl Automake doc recommends to do this only here. (Janos)
-AM_INIT_AUTOMAKE(scribus,1.2.2)
+AM_INIT_AUTOMAKE(scribus,1.2.3.99)
+
+dnl Add the libs and includes from --with-extra-libs and --with-extra-includes
+KDE_CHECK_EXTRA_LIBS
 
 dnl KDE_SET_PREFIX
 
@@ -62,8 +65,27 @@ if test -n "$FREETYPE_CONFIG"; then
 	if test $hafree = yes; then
 		AC_DEFINE_UNQUOTED(HAVE_FREETYPE, 1, [Defines if your system has the libfreetype library])
 	else
-  	AC_MSG_ERROR([You need at least freetype 2.1.0])
+		AC_MSG_ERROR([You need at least freetype 2.1.0])
 	fi
+
+	dnl Warn the user if they have less than freetype 2.1.9
+	AC_MSG_CHECKING(freetype version > 2.1.9)
+	SAVE_CFLAGS="${CFLAGS}"
+	CFLAGS=" ${LIBFREETYPE_CFLAGS} "
+	AC_TRY_COMPILE([
+	#include <ft2build.h>
+	#include FT_FREETYPE_H
+	],[
+	#if FREETYPE_MAJOR == 2 && FREETYPE_MINOR == 1 && FREETYPE_PATCH < 9
+	#error freetype 2.1 older than 2.1.9
+	#endif
+	], [hafree_post219=yes], [hafree_post219=no])
+	CFLAGS="${SAVE_CFLAGS}"
+	AC_MSG_RESULT($hafree_post219)
+	if test hafree_post219 = no; then
+		AC_MSG_WARN([Your libfreetype is old - version 2.1.9 or newer is recommended])
+	fi
+
 	AC_SUBST(LIBFREETYPE_LIBS)
 	AC_SUBST(LIBFREETYPE_CFLAGS)
 else
@@ -196,6 +218,7 @@ AC_CONFIG_FILES([ scribus/doc/Makefile ])
 AC_CONFIG_FILES([ scribus/doc/cs/Makefile ])
 AC_CONFIG_FILES([ scribus/doc/cs/tutorials/Makefile ])
 AC_CONFIG_FILES([ scribus/doc/cs/tutorials/short-words/Makefile ])
+AC_CONFIG_FILES([ scribus/doc/de/Makefile ])
 AC_CONFIG_FILES([ scribus/doc/en/Makefile ])
 AC_CONFIG_FILES([ scribus/doc/en/images/Makefile ])
 AC_CONFIG_FILES([ scribus/doc/en/tutorials/Makefile ])
@@ -242,7 +265,11 @@ AC_OUTPUT
 echo "Configuration Summary:"
 echo ""
 if test $hafree = yes; then
-	echo "FreeType2 installed: Yes"
+	if test "$hafree_post219" = yes; then
+		echo "FreeType2 installed: Yes"
+	else
+		echo "FreeType2 installed: Yes (old version)"
+	fi
 else
 	echo "FreeType2 installed: No"
 fi
@@ -270,12 +297,20 @@ if test $COMPILE_PYTHON = no; then
 	echo "The Scripter-Plugin will not be compiled."
 else
 	if test $hapython = yes; then
-  	echo "Using Python 2.3"
+		echo "Using Python 2.3"
 	else
-  	echo "Using Python < 2.3"
+		echo "Using Python < 2.3 (or Python 2.4)"
 	fi
 fi
 echo ""
+
+if test "$hafree" = yes && test "$hafree_post219" = no; then
+	echo
+	echo "NOTE:"
+	echo "  FreeType version 2.1.9 or later is recommended. You may have some problems"
+	echo "  using older versions of FreeType, particularly with the outline font style."
+	echo
+fi
 # Check if KDE_SET_PREFIX was called, and --prefix was passed to configure
 if test -n "$kde_libs_prefix" -a -n "$given_prefix"; then
   # And if so, warn when they don't match

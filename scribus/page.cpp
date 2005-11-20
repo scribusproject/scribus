@@ -7050,7 +7050,7 @@ void Page::UpdatePolyClip(PageItem *b)
 		if (des > desc)
 			desc = des;
 	}
-	SetPolyClip(b, static_cast<int>(asce+b->BaseOffs));
+	SetPolyClip(b, static_cast<int>(asce-b->BaseOffs));
 }
 
 void Page::SplitObj()
@@ -7286,7 +7286,7 @@ void Page::ToPathText()
 		}
 		if (bb->PType != 7)
 			return;
-		b->Frame = false;
+		b->Frame = true;
 		b->ClipEdited = true;
 		b->PType = 8;
 		b->PoLine = bb->PoLine.copy();
@@ -7297,8 +7297,8 @@ void Page::ToPathText()
 		b->PLineJoin = bb->PLineJoin;
 		if (!doku->loading)
 			emit UpdtObj(PageNr, b->ItemNr);
-		UpdatePolyClip(b);
 		AdjustItemSize(b);
+		UpdatePolyClip(b);
 		double dx = bb->Xpos - b->Xpos;
 		double dy = bb->Ypos - b->Ypos;
 		MoveItem(dx, dy, b);
