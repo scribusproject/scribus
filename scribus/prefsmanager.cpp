@@ -25,6 +25,7 @@
 #include "prefsmanager.moc"
 #include "filewatcher.h"
 #include "missing.h"
+#include "keymanager.h"
 #include "pagesize.h"
 #include "pdfoptions.h"
 #include "prefsfile.h"
@@ -776,7 +777,7 @@ void PrefsManager::setColorSetName(const QString& colorSetName)
 }
 
 
-void PrefsManager::setKeyEntry(const QString& actName, const QString& cleanMenuText, const QString& keyseq, const int& rowNumber)
+void PrefsManager::setKeyEntry(const QString& actName, const QString& cleanMenuText, const QKeySequence& keyseq, const int& rowNumber)
 {
 	Keys ke;
 	if (!actName.isEmpty())
@@ -1090,7 +1091,7 @@ bool PrefsManager::WritePref(QString ho)
 	{
 		QDomElement kscc=docu.createElement("SHORTCUT");
 		kscc.setAttribute("ACTION",ksc.data().actionName);
-		kscc.setAttribute("SEQUENCE",QString(ksc.data().keySequence).utf8());
+		kscc.setAttribute("SEQUENCE",KeyManager::getKeyText(ksc.data().keySequence));
 		elem.appendChild(kscc);
 	}
 	QMap<QString,QString>::Iterator itfsu;
@@ -1385,6 +1386,37 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.mainWinSettings.yPosition = QStoInt(dc.attribute("YPOS", "0"));
 			appPrefs.mainWinSettings.width = QStoInt(dc.attribute("WIDTH", "640"));
 			appPrefs.mainWinSettings.height = QStoInt(dc.attribute("HEIGHT", "480"));
+			QDesktopWidget *d = QApplication::desktop();
+			QSize gStrut = QApplication::globalStrut();
+			int minX = 0;
+#ifndef QT_MAC
+			int minY = 0;
+#else
+			// on Mac you're dead if the titlebar is not on screen
+			int minY = 22;
+#endif
+			if (appPrefs.mainWinSettings.xPosition < minX )
+				appPrefs.mainWinSettings.xPosition = minX;
+			if (appPrefs.mainWinSettings.yPosition <  minY)
+				appPrefs.mainWinSettings.yPosition = minY;
+			int minWidth = 5*gStrut.width();
+			int minHeight = 5*gStrut.width();
+			int maxWidth = d->width();
+			int maxHeight = d->height();
+			if (appPrefs.mainWinSettings.width > maxWidth)
+				appPrefs.mainWinSettings.width = maxWidth;
+			if (appPrefs.mainWinSettings.width < minWidth)
+				appPrefs.mainWinSettings.width = minWidth;
+			if (appPrefs.mainWinSettings.height > maxHeight)
+				appPrefs.mainWinSettings.height = maxHeight;
+			if (appPrefs.mainWinSettings.height < minHeight)
+				appPrefs.mainWinSettings.height = minHeight;
+			int maxX = d->width() - minWidth;
+			int maxY = d->height() - minHeight;
+			if (appPrefs.mainWinSettings.xPosition >= maxX)
+				appPrefs.mainWinSettings.xPosition = maxX;
+			if (appPrefs.mainWinSettings.yPosition >= maxY)
+				appPrefs.mainWinSettings.yPosition = maxY;
 		}
 		if (dc.tagName()=="PAGEPALETTE")
 		{
@@ -1464,7 +1496,9 @@ bool PrefsManager::ReadPref(QString ho)
 			if (appPrefs.KeyActions.contains(dc.attribute("ACTION")))
 			{
 				appPrefs.KeyActions[dc.attribute("ACTION")].actionName = dc.attribute("ACTION");
-				appPrefs.KeyActions[dc.attribute("ACTION")].keySequence = dc.attribute("SEQUENCE");
+				QKeySequence newKeySequence = QKeySequence(dc.attribute("SEQUENCE"));
+//				qDebug(QString("reading shortcut for %2 %1").arg(QString(newKeySequence)).arg(dc.attribute("ACTION")));
+				appPrefs.KeyActions[dc.attribute("ACTION")].keySequence = newKeySequence;
 			}
 		}
 		if (dc.tagName()=="RECENT")

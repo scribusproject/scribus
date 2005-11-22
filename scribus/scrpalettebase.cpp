@@ -107,16 +107,31 @@ void ScrPaletteBase::show()
 	QDialog::show();
 	if (palettePrefs)
 	{
+		QDesktopWidget *d = QApplication::desktop();
+		QSize gStrut = QApplication::globalStrut();
 		if (palettePrefs->contains("left"))
 		{
-			int vleft   = QMAX(-80, palettePrefs->getInt("left"));
+			// all palettes should have enough room for 3x3 min widgets
+			int vwidth  = QMIN(QMAX(3*gStrut.width(), palettePrefs->getInt("width")),
+			                   d->width());
+			int vheight = QMIN(QMAX(3*gStrut.height(), palettePrefs->getInt("height")),
+			                   d->height());
+			// palettes should not use too much screen space
+			if (vwidth > d->width()/3 && vheight > d->height()/3)
+				vwidth = d->width()/3;
+			// and should be partly visible
+			int vleft   = QMIN(QMAX(-vwidth + gStrut.width(), palettePrefs->getInt("left")),
+			                   d->width() - gStrut.width());
+			int vtop = QMIN(palettePrefs->getInt("top"), d->height() - gStrut.height());
 #ifndef QT_MAC
-			int vtop    = QMAX(-80, palettePrefs->getInt("top"));
+			vtop    = QMAX(-vheight + gStrut.height(), vtop);
 #else
-			int vtop    = QMAX(64, palettePrefs->getInt("top"));
+			// on Mac you're dead if the titlebar is not on screen
+			vtop    = QMAX(64, vtop);
 #endif
-			int vwidth  = QMAX(100, palettePrefs->getInt("width"));
-			int vheight = QMAX(100, palettePrefs->getInt("height"));
+			
+//			qDebug(QString("root %1x%2 %7 palette %3x%4 @ (%5,%6)").arg(d->width()).arg(d->height())
+//				.arg(vwidth).arg(vheight).arg(vleft).arg(vtop).arg(name()));
 			setGeometry(vleft, vtop, vwidth, vheight);
 		}
 		storeVisibility(true);
