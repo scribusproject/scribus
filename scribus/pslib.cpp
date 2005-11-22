@@ -976,7 +976,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 	if (!farb)
 		PS_setGray();
 	//if ((!Art) && (view->SelItem.count() != 0))
-	int docSelectionCount=Doc->selection->count();
+	uint docSelectionCount=Doc->selection->count();
 	if ((!Art) && (docSelectionCount != 0))
 	{
 		double minx = 99999.9;

@@ -8039,7 +8039,7 @@ void ScribusView::LowerItem()
 			Doc->Items->insert(d+1, Doc->selection->itemAt(Oindex[c]));
 		}
 		//SelItem.clear();
-		//Doc->selection->clear();
+		Doc->selection->clear();
 		for (uint a = 0; a < Doc->Items->count(); ++a)
 		{
 			Doc->Items->at(a)->ItemNr = a;
@@ -8068,7 +8068,6 @@ void ScribusView::RaiseItem()
 	PageItem *b2;
 	uint docSelectionCount=Doc->selection->count();
 	int tempList=Doc->selection->backupToTempList(0);
-	qDebug(QString("%1 %2").arg(docSelectionCount).arg((int)Doc->selection->itemAt(0)));
 	//if ((Doc->Items->count() > 1) && (SelItem.count() != 0))
 	if ((Doc->Items->count() > 1) && (docSelectionCount != 0))
 	{
