@@ -22,7 +22,6 @@
 extern ScribusQApp* ScQApp;
 
 
-
 CollectForOutput::CollectForOutput(bool withFonts, bool compressDoc)
 	: QObject(ScQApp, 0)
 {
@@ -62,20 +61,23 @@ QString CollectForOutput::collect()
 		outputDirectory += "/";
 	dirs->set("collect", outputDirectory.left(outputDirectory.findRev("/",-2)));
 	ScApp->mainWindowStatusLabel->setText(tr("Collecting..."));
-	if (!collectItems())
-	{
-		QMessageBox::warning(ScApp, tr("Warning"), "<qt>" + tr("Cannot collect all files for output for file:\n%1").arg(newName) + "</qt>", CommonStrings::tr_OK);
-		return "";
-	}
-	if (!collectDocument())
-		return "";
-	if (withFonts)
-		collectFonts();
+
 	if (!collectDocument())
 	{
 		QMessageBox::warning(ScApp, CommonStrings::trWarning, "<qt>" + tr("Cannot collect the file: \n%1").arg(newName) + "</qt>", CommonStrings::tr_OK);
 		return "";
 	}
+
+	if (!collectItems())
+	{
+		QMessageBox::warning(ScApp, tr("Warning"), "<qt>" + tr("Cannot collect all files for output for file:\n%1").arg(newName) + "</qt>", CommonStrings::tr_OK);
+		return "";
+	}
+
+	if (withFonts)
+		collectFonts();
+
+	PrefsManager::instance()->setDocumentDir(outputDirectory);
 	QDir::setCurrent(outputDirectory);
 	ScApp->updateActiveWindowCaption(newName);
 	UndoManager::instance()->renameStack(newName);
@@ -127,12 +129,6 @@ bool CollectForOutput::collectDocument()
 
 bool CollectForOutput::collectItems()
 {
-	/*
-	if (ScApp->doc->masterPageMode)
-		ScApp->doc->MasterPages = ScApp->doc->Pages;
-	else
-		ScApp->doc->DocPages = ScApp->doc->Pages;
-	*/
 	uint counter = 0;
 	for (uint lc = 0; lc < 3; ++lc)
 	{
@@ -165,10 +161,18 @@ bool CollectForOutput::collectItems()
 			}
 			if (ite->asImageFrame())
 			{
-				QFileInfo itf = QFileInfo(ite->Pfile);
+				/* hack for subsequent c4o "./" -> "/doc/full/path" */
+				QString ofName(ite->Pfile);
+				QFileInfo itf = QFileInfo(ofName);
+				if (!itf.exists())
+				{
+					ofName = QDir::convertSeparators(PrefsManager::instance()->documentDir() + "/" + ofName);
+					itf.setFile(ofName);
+				}
+				// end of hack
 				if (itf.exists())
 				{
-					QString oldFile = ite->Pfile;
+					QString oldFile = ofName;
 					ite->Pfile = collectFile(oldFile, itf.fileName());
 					if (ScApp->fileWatcherActive())
 					{
@@ -232,6 +236,7 @@ QString CollectForOutput::collectFile(QString oldFile, QString newFile)
 {
 	uint cnt = 1;
 	bool copy = true;
+
 	while (collectedFiles.contains(newFile))
 	{
 		// overwrite only different sources

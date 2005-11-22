@@ -726,6 +726,11 @@ const QString PrefsManager::documentDir()
 	return appPrefs.DocDir;
 }
 
+void PrefsManager::setDocumentDir(const QString& dirname)
+{
+	appPrefs.DocDir = dirname;
+}
+
 const int PrefsManager::mouseWheelValue()
 {
 	return appPrefs.Wheelval;

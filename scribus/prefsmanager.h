@@ -86,6 +86,7 @@ public:
 	const QString imageEditorExecutable();
 	const int gsResolution(); //Get the users preferred preview resolution
 	const QString documentDir(); // Get the users preferred document directory
+	void setDocumentDir(const QString& dirname);
 	const int mouseWheelValue();
 	const double displayScale(); // Get the user set display scale
 	const QString& guiLanguage(); // Get the GUI language from preferences
