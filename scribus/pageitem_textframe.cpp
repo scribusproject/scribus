@@ -421,15 +421,15 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 								{
 									pp.begin(ScApp->view->viewport());
 									pp.translate(docItem->xPos() - Mp->xOffset() + Dp->xOffset(), docItem->yPos() - Mp->yOffset() + Dp->yOffset());
-									pp.rotate(docItem->Rot);
+									pp.rotate(docItem->rotation());
 									if (docItem->textFlowUsesBoundingBox())
 									{
 										QPointArray tcli;
 										tcli.resize(4);
 										tcli.setPoint(0, QPoint(0,0));
-										tcli.setPoint(1, QPoint(qRound(docItem->Width), 0));
-										tcli.setPoint(2, QPoint(qRound(docItem->Width), qRound(docItem->Height)));
-										tcli.setPoint(3, QPoint(0, qRound(docItem->Height)));
+										tcli.setPoint(1, QPoint(qRound(docItem->width()), 0));
+										tcli.setPoint(2, QPoint(qRound(docItem->width()), qRound(docItem->height())));
+										tcli.setPoint(3, QPoint(0, qRound(docItem->height())));
 										cm = QRegion(pp.xForm(tcli));
 									}
 									else
@@ -455,15 +455,15 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 							{
 								pp.begin(ScApp->view->viewport());
 								pp.translate(docItem->xPos(), docItem->yPos());
-								pp.rotate(docItem->Rot);
+								pp.rotate(docItem->rotation());
 								if (docItem->textFlowUsesBoundingBox())
 								{
 									QPointArray tcli;
 									tcli.resize(4);
 									tcli.setPoint(0, QPoint(0,0));
-									tcli.setPoint(1, QPoint(qRound(docItem->Width), 0));
-									tcli.setPoint(2, QPoint(qRound(docItem->Width), qRound(docItem->Height)));
-									tcli.setPoint(3, QPoint(0, qRound(docItem->Height)));
+									tcli.setPoint(1, QPoint(qRound(docItem->width()), 0));
+									tcli.setPoint(2, QPoint(qRound(docItem->width()), qRound(docItem->height())));
+									tcli.setPoint(3, QPoint(0, qRound(docItem->height())));
 									cm = QRegion(pp.xForm(tcli));
 								}
 								else
@@ -492,15 +492,15 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 							{
 								pp.begin(ScApp->view->viewport());
 								pp.translate(docItem->xPos(), docItem->yPos());
-								pp.rotate(docItem->Rot);
+								pp.rotate(docItem->rotation());
 								if (docItem->textFlowUsesBoundingBox())
 								{
 									QPointArray tcli;
 									tcli.resize(4);
 									tcli.setPoint(0, QPoint(0,0));
-									tcli.setPoint(1, QPoint(qRound(docItem->Width), 0));
-									tcli.setPoint(2, QPoint(qRound(docItem->Width), qRound(docItem->Height)));
-									tcli.setPoint(3, QPoint(0, qRound(docItem->Height)));
+									tcli.setPoint(1, QPoint(qRound(docItem->width()), 0));
+									tcli.setPoint(2, QPoint(qRound(docItem->width()), qRound(docItem->height())));
+									tcli.setPoint(3, QPoint(0, qRound(docItem->height())));
 									cm = QRegion(pp.xForm(tcli));
 								}
 								else

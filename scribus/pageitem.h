@@ -261,12 +261,8 @@ public:
 	double oldXpos;
 	/** @brief Stores the old Y-position for undo action. Is used to detect move actions. */
 	double oldYpos;
-  /** Breite des Elements */
-	double Width;
 	/** @brief Stores the old width for undo action. Is used to detect resize actions. */
 	double oldWidth;
-  /** Hoehe des Elements */
-	double Height;
 	/** @brief Stores the old height for undo action. Is used to detect resize actions. */
 	double oldHeight;
 	double gXpos;
@@ -275,8 +271,6 @@ public:
 	double gHeight;
   /** Eckrundung von Rechtecken */
 	double RadRect;
-  /** Winkel um den das Item gedreht wird */
-	double Rot;
 	/** @brief Stores the old rotation value for undo action. Is used to detect rotation actions. */
 	double oldRot;
   /** Enthaelt das Dokument */
@@ -311,8 +305,6 @@ public:
 	PenCapStyle PLineEnd;
 	PenJoinStyle PLineJoin;
 	QString NamedLStyle;
-  /** Element selektiert Ja/Nein */
-	bool Select;
   /** Definiert die Clipping-Region des Elements; */
 	QPointArray Clip;
 	FPointArray PoLine;
@@ -478,12 +470,28 @@ public:
 	int endArrowIndex;
 	bool isEmbedded;
 	
-	
+	//Position
 	const double xPos();
 	const double yPos();
+	FPoint xyPos();
 	void setXPos(const double);
 	void setYPos(const double);
-	void move(const double, const double);
+	void setXYPos(const double, const double);
+	void moveBy(const double, const double);
+	//Size
+	const double width();
+	const double height();
+	void setWidth(const double);
+	void setHeight(const double);
+	void setWidthHeight(const double, const double);
+	void resizeBy(const double, const double);
+	//Rotation
+	const double rotation();
+	void setRotation(const double);
+	void rotateBy(const double);
+	//Selection
+	const bool isSelected();
+	void setSelected(const bool);
 
 	/** @brief Manages undostack and is where all undo actions/states are sent. */
 	UndoManager *undoManager;
@@ -1061,22 +1069,29 @@ protected:
 	double Xpos;
 	/** Y position on the page */
 	double Ypos;
-
+	/** Width of the item */
+	double Width;
+	/** Height of the item */
+	double Height;
+	/** Rotation of the item */
+	double Rot;
+	/** Element selected? */
+	bool Select;
 
 signals:
 	//Frame signals
 	void position(double, double); //X,Y
 	void widthAndHeight(double, double); //W,H
+	void rotation(double); //Degrees rotation	
 	void colors(QString, QString, int, int); //lineColor, fillColor, lineShade, fillShade
 	void gradientType(int); //Normal, horizontal, vertical, etc.
-	void rotation(double); //Degrees rotation
 	void transparency(double, double); //fillTransparency, lineTransparency
 	//Shape signals
 	void columns(int, double); //Number, gap
 	void cornerRadius(double); //Corner radius of the shape
 	//Line signals
 	void lineWidth(double);
-	void lineStyleCapJoin(PenStyle, PenCapStyle, PenJoinStyle);
+	void lineStyleCapJoin(Qt::PenStyle, Qt::PenCapStyle, Qt::PenJoinStyle);
 	//Frame text signals
 	void lineSpacing(double);
 	void textToFrameDistances(double, double, double, double); //left, top, bottom, right: Extra, TExtra, BExtra, RExtra
@@ -1095,7 +1110,6 @@ signals:
 	void textFormatting(int); //Underline, subscript, etc
 	//Frame image signals
 	void imageOffsetScale(double, double, double, double);
-	
 };
 
 #endif

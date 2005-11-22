@@ -158,6 +158,7 @@
 #include "hyphenator.h"
 #include "scmessagebox.h"
 #include "imageinfodialog.h"
+#include "selection.h"
 
 using namespace std;
 
@@ -520,7 +521,7 @@ void ScribusApp::initPalettes()
 	connect( alignDistributePalette, SIGNAL(paletteShown(bool)), scrActions["toolsAlignDistribute"], SLOT(setOn(bool)));
 	connect( alignDistributePalette, SIGNAL(documentChanged()), this, SLOT(slotDocCh()));
 	alignDistributePalette->installEventFilter(this);
-	alignDistributePalette->hide();
+	//alignDistributePalette->hide();
 
 	undoPalette = new UndoPalette(this, "undoPalette");
 	undoPalette->installEventFilter(this);
@@ -1072,10 +1073,12 @@ void ScribusApp::specialActionKeyEvent(QString actionName, int unicodevalue)
 	{
 		if (doc->appMode==modeEdit)
 		{
-			if (view->SelItem.count() == 1)
+			//if (view->SelItem.count() == 1)
+			if (doc->selection->count() == 1)
 			{
 				struct ScText *hg = new ScText;
-				PageItem *currItem = view->SelItem.at(0);
+				//PageItem *currItem = view->SelItem.at(0);
+				PageItem *currItem = doc->selection->itemAt(0);
 				if (unicodevalue!=-1)
 				{
 					hg->ch = QString(QChar(unicodevalue));
@@ -1217,9 +1220,11 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 	{
 		keyrep = false;
 		PageItem *currItem;
-		if ((view->SelItem.count() != 0))
+		//if (view->SelItem.count() != 0)
+		if (doc->selection->count() != 0)
 		{
-			currItem = view->SelItem.at(0);
+			//currItem = view->SelItem.at(0);
+			currItem = doc->selection->itemAt(0);
 			switch (doc->appMode)
 			{
 				case modeNormal:
@@ -1286,7 +1291,8 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 		 * - With Tab, change active document windowActivated
 		 */
 
-		if ((doc->appMode != modeEdit) && (view->SelItem.count() == 0))
+		//if ((doc->appMode != modeEdit) && (view->SelItem.count() == 0))
+		if ((doc->appMode != modeEdit) && (doc->selection->count() == 0))
 		{
 			switch (kk)
 			{
@@ -1344,7 +1350,8 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 		 * -- Use PageDown to lower an item
 		 * -- Use the arrow keys to move an item or group around, with no meta, by 1.0, Ctrl by 0.1, Shift by 10.0.
 		 */
-		if (view->SelItem.count() != 0)
+		//if (view->SelItem.count() != 0)
+		if (doc->selection->count() != 0)
 		{
 			double moveBy=1.0;
 			if (buttonState & ShiftButton)
@@ -1353,7 +1360,8 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 				moveBy=0.1;
 
 
-			PageItem *currItem = view->SelItem.at(0);
+			//PageItem *currItem = view->SelItem.at(0);
+			PageItem *currItem = doc->selection->itemAt(0);
 			switch (doc->appMode)
 			{
 			case modeNormal:
@@ -1520,11 +1528,16 @@ void ScribusApp::keyReleaseEvent(QKeyEvent *k)
 			_arrowKeyDown = false;
 			if ((HaveDoc) && (!view->zoomSpinBox->hasFocus()) && (!view->pageSelector->hasFocus()))
 			{
-				if ((view->SelItem.count() != 0) && (doc->appMode == modeNormal) && (doc->EditClip) && (view->ClRe != -1))
+				uint docSelectionCount=doc->selection->count();
+				//if ((view->SelItem.count() != 0) && (doc->appMode == modeNormal) && (doc->EditClip) && (view->ClRe != -1))
+				if ((docSelectionCount != 0) && (doc->appMode == modeNormal) && (doc->EditClip) && (view->ClRe != -1))
 					view->updateContents();
-				for (uint i = 0; i < view->SelItem.count(); ++i)
-					view->SelItem.at(i)->checkChanges(true);
-				if (view->SelItem.count() > 1 && view->groupTransactionStarted())
+				//for (uint i = 0; i < view->SelItem.count(); ++i)
+				for (uint i = 0; i < docSelectionCount; ++i)
+					//view->SelItem.at(i)->checkChanges(true);
+					doc->selection->itemAt(i)->checkChanges(true);
+				//if (view->SelItem.count() > 1 && view->groupTransactionStarted())
+				if (docSelectionCount > 1 && view->groupTransactionStarted())
 					undoManager->commit();
 			}
 	}
@@ -1867,10 +1880,13 @@ void ScribusApp::newActWin(QWidget *w)
 	RestoreBookMarks();
 	if (!doc->isLoading())
 	{
-		if (view->SelItem.count() != 0)
+		//if (view->SelItem.count() != 0)
+		if (doc->selection->count() != 0)
 		{
-			HaveNewSel(view->SelItem.at(0)->itemType());
-			view->EmitValues(view->SelItem.at(0));
+			//HaveNewSel(view->SelItem.at(0)->itemType());
+			HaveNewSel(doc->selection->itemAt(0)->itemType());
+			//view->EmitValues(view->SelItem.at(0));
+			view->EmitValues(doc->selection->itemAt(0));
 		}
 		else
 			HaveNewSel(-1);
@@ -2097,7 +2113,7 @@ void ScribusApp::HaveNewDoc()
 	connect(view, SIGNAL(SetAngle(double)), propertiesPalette, SLOT(setR(double)));
 	connect(view, SIGNAL(SetSizeValue(double)), propertiesPalette, SLOT(setSvalue(double)));
 	connect(view, SIGNAL(SetLocalValues(double, double, double, double)), propertiesPalette, SLOT(setLvalue(double, double, double, double)));
-	connect(view, SIGNAL(SetLineArt(PenStyle, PenCapStyle, PenJoinStyle)), propertiesPalette, SLOT( setLIvalue(PenStyle, PenCapStyle, PenJoinStyle)));
+	connect(view, SIGNAL(SetLineArt(Qt::PenStyle, Qt::PenCapStyle, Qt::PenJoinStyle)), propertiesPalette, SLOT( setLIvalue(Qt::PenStyle, Qt::PenCapStyle, Qt::PenJoinStyle)));
 	connect(view, SIGNAL(ItemFarben(QString, QString, int, int)), this, SLOT(setCSMenu(QString, QString, int, int)));
 	connect(view, SIGNAL(ItemFarben(QString, QString, int, int)), propertiesPalette->Cpal, SLOT(setActFarben(QString, QString, int, int)));
 	connect(view, SIGNAL(ItemGradient(int)), propertiesPalette->Cpal, SLOT(setActGradient(int)));
@@ -2160,9 +2176,11 @@ void ScribusApp::HaveNewSel(int Nr)
 	PageItem *currItem = NULL;
 	if (Nr != -1)
 	{
-		if (view->SelItem.count() != 0)
+		//if (view->SelItem.count() != 0)
+		if (doc->selection->count() != 0)
 		{
-			currItem = view->SelItem.at(0);
+			//currItem = view->SelItem.at(0);
+			currItem = doc->selection->itemAt(0);
 			if (!currItem)
 				Nr=-1;
 		}
@@ -2319,7 +2337,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			scrActions["insertGlyph"]->setEnabled(true);
 			if (currItem->asTextFrame())
 				actionManager->enableUnicodeActions(true);
-			view->horizRuler->setItemPosition(currItem->xPos(), currItem->Width);
+			view->horizRuler->setItemPosition(currItem->xPos(), currItem->width());
 			if (currItem->lineColor() != "None")
 				view->horizRuler->lineCorr = currItem->Pwidth / 2.0;
 			else
@@ -2483,7 +2501,9 @@ void ScribusApp::HaveNewSel(int Nr)
 	}
 	doc->CurrentSel = Nr;
 	propertiesPalette->RotationGroup->setButton(doc->RotMode);
-	if (view->SelItem.count() > 1)
+	uint docSelectionCount=doc->selection->count();
+	//if (view->SelItem.count() > 1)
+	if (docSelectionCount > 1)
 	{
 		scrActions["itemConvertToBezierCurve"]->setEnabled(false);
 		scrActions["itemConvertToImageFrame"]->setEnabled(false);
@@ -2497,13 +2517,18 @@ void ScribusApp::HaveNewSel(int Nr)
 		int firstElem = -1;
 		if (currItem->Groups.count() != 0)
 			firstElem = currItem->Groups.top();
-		for (uint bx=0; bx<view->SelItem.count(); ++bx)
+		//for (uint bx=0; bx<view->SelItem.count(); ++bx)
+		for (uint bx=0; bx<docSelectionCount; ++bx)
 		{
-			if (!view->SelItem.at(bx)->asPolygon())
+			PageItem* bxi=doc->selection->itemAt(bx);
+			//if (!view->SelItem.at(bx)->asPolygon())
+			if (!bxi->asPolygon())
 				hPoly = false;
-			if (view->SelItem.at(bx)->Groups.count() != 0)
+			//if (view->SelItem.at(bx)->Groups.count() != 0)
+			if (bxi->Groups.count() != 0)
 			{
-				if (view->SelItem.at(bx)->Groups.top() != firstElem)
+				//if (view->SelItem.at(bx)->Groups.top() != firstElem)
+				if (bxi->Groups.top() != firstElem)
 					isGroup = false;
 			}
 			else
@@ -2511,11 +2536,14 @@ void ScribusApp::HaveNewSel(int Nr)
 		}
 		scrActions["itemGroup"]->setEnabled(!isGroup);
 		scrActions["itemCombinePolygons"]->setEnabled(hPoly);
-		if (view->SelItem.count() == 2)
+		//if (view->SelItem.count() == 2)
+		if (docSelectionCount == 2)
 		{
-			if (((currItem->itemType() == PageItem::TextFrame) || (view->SelItem.at(1)->itemType() == PageItem::TextFrame)) && ((currItem->itemType() == PageItem::PolyLine) || (view->SelItem.at(1)->itemType() == PageItem::PolyLine)))
+			PageItem* bx=doc->selection->itemAt(1);
+			//if (((currItem->itemType() == PageItem::TextFrame) || (view->SelItem.at(1)->itemType() == PageItem::TextFrame)) && ((currItem->itemType() == PageItem::PolyLine) || (view->SelItem.at(1)->itemType() == PageItem::PolyLine)))
+			if (((currItem->itemType() == PageItem::TextFrame) || (bx->itemType() == PageItem::TextFrame)) && ((currItem->itemType() == PageItem::PolyLine) || (bx->itemType() == PageItem::PolyLine)))
 			{
-				PageItem* bx = view->SelItem.at(1);
+				//PageItem* bx = view->SelItem.at(1);
 				if ((currItem->NextBox == 0) && (currItem->BackBox == 0) && (bx->NextBox == 0) && (bx->BackBox == 0) && (currItem->Groups.count() == 0))
 					scrActions["itemAttachTextToPath"]->setEnabled(true);
 			}
@@ -2528,7 +2556,8 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["itemAttachTextToPath"]->setEnabled(false);
 		scrActions["itemCombinePolygons"]->setEnabled(false);
 	}
-	if (view->SelItem.count() != 0)
+	//if (view->SelItem.count() != 0)
+	if (docSelectionCount != 0)
 	{
 		actionManager->setPDFActions(view);
 		updateItemLayerList();
@@ -2729,8 +2758,10 @@ void ScribusApp::updateItemLayerList()
 			disconnect( (*it), SIGNAL(activatedData(int)), 0, 0 );
 			(*it)->setOn(false);
 		}
-		if (view->SelItem.count()>0 && view->SelItem.at(0))
-			scrLayersActions[QString("%1").arg(view->SelItem.at(0)->LayerNr)]->setOn(true);
+		//if (view->SelItem.count()>0 && view->SelItem.at(0))
+		if (doc->selection->count()>0 && doc->selection->itemAt(0))
+			//scrLayersActions[QString("%1").arg(view->SelItem.at(0)->LayerNr)]->setOn(true);
+			scrLayersActions[QString("%1").arg(doc->selection->itemAt(0)->LayerNr)]->setOn(true);
 		for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=itend; ++it )
 			connect( (*it), SIGNAL(activatedData(int)), this, SLOT(sendToLayer(int)) );
 	}
@@ -2740,18 +2771,24 @@ void ScribusApp::sendToLayer(int layerNumber)
 {
 	if (HaveDoc)
 	{
-		if (view->SelItem.count() != 0)
+		//if (view->SelItem.count() != 0)
+		uint docSelectionCount=doc->selection->count();
+		if (docSelectionCount != 0)
 		{
-			if (UndoManager::undoEnabled() && view->SelItem.count() > 1)
+			//if (UndoManager::undoEnabled() && view->SelItem.count() > 1)
+			if (UndoManager::undoEnabled() && docSelectionCount > 1)
 				undoManager->beginTransaction();
 			QString tooltip = Um::ItemsInvolved + "\n";
-			for (uint a = 0; a < view->SelItem.count(); ++a)
+			//for (uint a = 0; a < view->SelItem.count(); ++a)
+			for (uint a = 0; a < docSelectionCount; ++a)
 			{
-				PageItem *currItem = view->SelItem.at(a);
+				//PageItem *currItem = view->SelItem.at(a);
+				PageItem *currItem = doc->selection->itemAt(a);
 				currItem->setLayer(layerNumber);
 				tooltip += "\t" + currItem->getUName() + "\n";
 			}
-			if (UndoManager::undoEnabled() && view->SelItem.count() > 1)
+			//if (UndoManager::undoEnabled() && view->SelItem.count() > 1)
+			if (UndoManager::undoEnabled() && docSelectionCount > 1)
 				undoManager->commit(Um::Selection,
 									Um::IGroup,
 									Um::SendToLayer,
@@ -3397,9 +3434,11 @@ bool ScribusApp::postLoadDoc()
 
 void ScribusApp::slotFileOpen()
 {
-	if (view->SelItem.count() != 0)
+	//if (view->SelItem.count() != 0)
+	if (doc->selection->count() != 0)
 	{
-		PageItem *currItem = view->SelItem.at(0);
+		//PageItem *currItem = view->SelItem.at(0);
+		PageItem *currItem = doc->selection->itemAt(0);
 		if (currItem->itemType() == PageItem::ImageFrame)
 		{
 			QString formats = "";
@@ -3498,13 +3537,15 @@ void ScribusApp::slotFileOpen()
  */
 void ScribusApp::slotFileAppend()
 {
-	if (view->SelItem.count() != 0)
+	//if (view->SelItem.count() != 0)
+	if (doc->selection->count() != 0)
 	{
 		gtGetText* gt = new gtGetText();
 		gt->run(true);
 		delete gt;
 		if (doc->docHyphenator->AutoCheck)
-			doc->docHyphenator->slotHyphenate(view->SelItem.at(0));
+			//doc->docHyphenator->slotHyphenate(view->SelItem.at(0));
+			doc->docHyphenator->slotHyphenate(doc->selection->itemAt(0));
 		view->DrawNew();
 		slotDocCh();
 	}
@@ -4021,12 +4062,15 @@ void ScribusApp::slotEditCut()
 	uint a;
 	NoFrameEdit();
 	QString BufferI = "";
-	if ((HaveDoc) && (view->SelItem.count() != 0))
+	//if ((HaveDoc) && (view->SelItem.count() != 0))
+	uint docSelectionCount=doc->selection->count();
+	if ((HaveDoc) && (docSelectionCount != 0))
 	{
 		PageItem *currItem;
-		for (uint i = 0; i < view->SelItem.count(); ++i)
+		for (uint i = 0; i < docSelectionCount; ++i)
 		{
-			currItem=view->SelItem.at(i);
+			//currItem=view->SelItem.at(i);
+			currItem=doc->selection->itemAt(i);
 			if ((currItem->asTextFrame() || currItem->asPathText()) && currItem==ScApp->storyEditor->currentItem() && doc==ScApp->storyEditor->currentDocument())
 			{
 					QMessageBox::critical(ScApp, tr("Cannot Cut In-Use Item"), tr("The item %1 is currently being edited by Story Editor. The cut operation will be cancelled").arg(currItem->itemName()), QMessageBox::Ok, QMessageBox::NoButton, QMessageBox::NoButton);
@@ -4035,14 +4079,20 @@ void ScribusApp::slotEditCut()
 		}
 		if (UndoManager::undoEnabled())
 		{
-			if (view->SelItem.count() > 1)
+			//if (view->SelItem.count() > 1)
+			if (docSelectionCount > 1)
 				undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Cut,"",Um::ICut);
 			else
-				undoManager->beginTransaction(view->SelItem.at(0)->getUName(),
-											  view->SelItem.at(0)->getUPixmap(), Um::Cut, "", Um::ICut);
+			{
+				PageItem* item=doc->selection->itemAt(0);
+				//undoManager->beginTransaction(view->SelItem.at(0)->getUName(),
+				//							  view->SelItem.at(0)->getUPixmap(), Um::Cut, "", Um::ICut);
+				undoManager->beginTransaction(item->getUName(), item->getUPixmap(), Um::Cut, "", Um::ICut);
+			}
 		}
 		Buffer2 = "<SCRIBUSTEXT>";
-		currItem = view->SelItem.at(0);
+		//currItem = view->SelItem.at(0);
+		currItem = doc->selection->itemAt(0);
 		if (doc->appMode == modeEdit)
 		{
 			if ((currItem->itemText.count() == 0) || (!currItem->HasSel))
@@ -4108,7 +4158,8 @@ void ScribusApp::slotEditCut()
 			if (currItem->isTableItem && currItem->isSingleSel)
 				return;
 			ScriXmlDoc *ss = new ScriXmlDoc();
-			BufferI = ss->WriteElem(&view->SelItem, doc, view);
+			//BufferI = ss->WriteElem(&view->SelItem, doc, view);
+			BufferI = ss->WriteElem(doc, view, 0);
 			Buffer2 = BufferI;
 			view->DeleteItem();
 		}
@@ -4126,10 +4177,12 @@ void ScribusApp::slotEditCopy()
 	uint a;
 	NoFrameEdit();
 	QString BufferI = "";
-	if ((HaveDoc) && (view->SelItem.count() != 0))
+	//if ((HaveDoc) && (view->SelItem.count() != 0))
+	if ((HaveDoc) && (doc->selection->count() != 0))
 	{
 		Buffer2 = "<SCRIBUSTEXT>";
-		PageItem *currItem = view->SelItem.at(0);
+		//PageItem *currItem = view->SelItem.at(0);
+		PageItem *currItem = doc->selection->itemAt(0);
 		if ((doc->appMode == modeEdit) && (currItem->HasSel))
 		{
 			Buffer2 += "";
@@ -4192,7 +4245,8 @@ void ScribusApp::slotEditCopy()
 			if (currItem->isTableItem && currItem->isSingleSel)
 				return;
 			ScriXmlDoc *ss = new ScriXmlDoc();
-			BufferI = ss->WriteElem(&view->SelItem, doc, view);
+			//BufferI = ss->WriteElem(&view->SelItem, doc, view);
+			BufferI = ss->WriteElem(doc, view, 0);
 			Buffer2 = BufferI;
 			delete ss;
 		}
@@ -4212,7 +4266,8 @@ void ScribusApp::slotEditPaste()
 			return;
 		if (doc->appMode == modeEdit)
 		{
-			PageItem_TextFrame *currItem = dynamic_cast<PageItem_TextFrame*>(view->SelItem.at(0));
+			//PageItem_TextFrame *currItem = dynamic_cast<PageItem_TextFrame*>(view->SelItem.at(0));
+			PageItem_TextFrame *currItem = dynamic_cast<PageItem_TextFrame*>(doc->selection->itemAt(0));
 			if (currItem->HasSel)
 				currItem->deleteSelectedTextFromFrame();
 			if (Buffer2.startsWith("<SCRIBUSTEXT>"))
@@ -4306,13 +4361,16 @@ void ScribusApp::slotEditPaste()
 				slotElemRead(Buffer2, 0, 0, false, true, doc, view);
 				doc->useRaster = savedAlignGrid;
 				doc->SnapGuides = savedAlignGuides;
-				QPtrList<PageItem> bSel = view->SelItem;
-				view->SelItem.clear();
+				//QPtrList<PageItem> bSel = view->SelItem;
+				int tempList=doc->selection->backupToTempList(0);
+				//view->SelItem.clear();
+				doc->selection->clear();
 				if (doc->Items->count() - ac > 1)
 					isGroup = true;
 				for (uint as = ac; as < doc->Items->count(); ++as)
 				{
-					view->SelItem.append(doc->Items->at(as));
+					//view->SelItem.append(doc->Items->at(as));
+					doc->selection->addItem(doc->Items->at(as));
 					if (isGroup)
 						doc->Items->at(as)->Groups.push(doc->GroupCounter);
 				}
@@ -4339,8 +4397,10 @@ void ScribusApp::slotEditPaste()
 				{
 					doc->Items->take(ac);
 				}
-				view->SelItem.clear();
-				view->SelItem = bSel;
+				//view->SelItem.clear();
+				doc->selection->clear();
+				//view->SelItem = bSel;
+				doc->selection->restoreFromTempList(0, tempList);
 				view->resizeContents(qRound((maxSize.x() - minSize.x()) * view->getScale()), qRound((maxSize.y() - minSize.y()) * view->getScale()));
 				view->scrollBy(qRound((doc->minCanvasCoordinate.x() - minSize.x()) * view->getScale()), qRound((doc->minCanvasCoordinate.y() - minSize.y()) * view->getScale()));
 				doc->minCanvasCoordinate = minSize;
@@ -4404,7 +4464,8 @@ void ScribusApp::SelectAll()
 {
 	if (doc->appMode == modeEdit)
 	{
-		PageItem *currItem = view->SelItem.at(0);
+		//PageItem *currItem = view->SelItem.at(0);
+		PageItem *currItem = doc->selection->itemAt(0);
 		PageItem *nextItem = currItem;
 		while (nextItem != 0)
 		{
@@ -4435,16 +4496,18 @@ void ScribusApp::SelectAll()
 			currItem = doc->Items->at(a);
 			if (currItem->LayerNr == doc->activeLayer())
 			{
-				if (!currItem->Select)
+				if (!currItem->isSelected())
 				{
-					view->SelItem.append(currItem);
-					currItem->Select = true;
+					//view->SelItem.append(currItem);
+					doc->selection->addItem(currItem);
+					//currItem->Select = true;
 					currItem->FrameOnly = true;
 					currItem->paintObj();
 				}
 			}
 		}
-		if (view->SelItem.count() > 1)
+		//if (view->SelItem.count() > 1)
+		if (docItemsCount > 1)
 		{
 			view->setGroupRect();
 			view->paintGroupRect();
@@ -4453,9 +4516,11 @@ void ScribusApp::SelectAll()
 			propertiesPalette->setXY(x, y);
 			propertiesPalette->setBH(w, h);
 		}
-		if (view->SelItem.count() > 0)
+		//if (view->SelItem.count() > 0)
+		if (docItemsCount > 0)
 		{
-			currItem = view->SelItem.at(0);
+			//currItem = view->SelItem.at(0);
+			currItem = doc->selection->itemAt(0);
 			view->EmitValues(currItem);
 			HaveNewSel(currItem->itemType());
 		}
@@ -4553,7 +4618,8 @@ void ScribusApp::SaveText()
 	{
 		dirs->set("save_text", fn.left(fn.findRev("/")));
 		Serializer *se = new Serializer(fn);
-		se->PutText(view->SelItem.at(0));
+		//se->PutText(view->SelItem.at(0));
+		se->PutText(doc->selection->itemAt(0));
 		se->Write(LoadEnc);
 		delete se;
 	}
@@ -4571,7 +4637,7 @@ void ScribusApp::slotNewPageP(int wo, QString templ)
 {
 	NoFrameEdit();
 	view->Deselect(true);
-	slotNewPage(wo, templ);
+	slotNewPage(wo, templ); //master page is applied now
 	//applyNewMaster(templ);
 	outlinePalette->BuildTree();
 	pagePalette->RebuildPage();
@@ -4638,7 +4704,7 @@ void ScribusApp::addNewPages(int wo, int where, int numPages, double height, dou
 		wot=doc->Pages->count();
 	for (cc = 0; cc < numPages; ++cc)
 	{
-		slotNewPage(wot, QString::null, mov);
+		slotNewPage(wot, QString::null, mov); //Avoid the master page application with QString::null
 		doc->currentPage->setInitialHeight(height);
 		doc->currentPage->setInitialWidth(width);
 		doc->currentPage->PageOri = orient;
@@ -5036,9 +5102,11 @@ void ScribusApp::ToggleFrameEdit()
 		pdfToolBar->PDFTool->setEnabled(false);
 		pdfToolBar->PDFaTool->setEnabled(false);
 		scrActions["itemDelete"]->setEnabled(false);
-		if (view->SelItem.count() != 0)
+		//if (view->SelItem.count() != 0)
+		if (doc->selection->count() != 0)
 		{
-			PageItem *currItem = view->SelItem.at(0);
+			//PageItem *currItem = view->SelItem.at(0);
+			PageItem *currItem = doc->selection->itemAt(0);
 			view->MarkClip(currItem, currItem->PoLine, true);
 			nodePalette->EditCont->setEnabled(currItem->ContourLine.size() != 0);
 			nodePalette->ResetCont->setEnabled(false);
@@ -5076,9 +5144,11 @@ void ScribusApp::NoFrameEdit()
 	{
 		doc->EditClip = false;
 		view->EditContour = false;
-		if (view->SelItem.count() != 0)
+		//if (view->SelItem.count() != 0)
+		if (doc->selection->count() != 0)
 		{
-			HaveNewSel(view->SelItem.at(0)->itemType());
+			//HaveNewSel(view->SelItem.at(0)->itemType());
+			HaveNewSel(doc->selection->itemAt(0)->itemType());
 			view->DrawNew();
 		}
 		else
@@ -5130,8 +5200,10 @@ void ScribusApp::setAppMode(int mode)
 	//setActiveWindow();
 	if (HaveDoc)
 	{
-		if (view->SelItem.count() != 0)
-			currItem = view->SelItem.at(0);
+		//if (view->SelItem.count() != 0)
+		if (doc->selection->count() != 0)
+			//currItem = view->SelItem.at(0);
+			currItem = doc->selection->itemAt(0);
 		else
 			currItem = 0;
 		int oldMode = doc->appMode;
@@ -5212,9 +5284,11 @@ void ScribusApp::setAppMode(int mode)
 				view->RefreshItem(currItem);
 			}
 		}
+		int docSelectionCount=doc->selection->count();		
 		if (mode == modeDrawBezierLine)
 		{
-			if (view->SelItem.count() != 0)
+			//if (view->SelItem.count() != 0)
+			if (docSelectionCount != 0)
 				view->Deselect(true);
 			view->FirstPoly = true;
 		}
@@ -5228,32 +5302,38 @@ void ScribusApp::setAppMode(int mode)
 		switch (mode)
 		{
 			case modeDrawShapes:
-				if (view->SelItem.count() != 0)
+				//if (view->SelItem.count() != 0)
+				if (docSelectionCount!=0)
 					view->Deselect(true);
 				qApp->setOverrideCursor(QCursor(loadIcon("DrawFrame.xpm")), true);
 				break;
 			case modeDrawPicture:
-				if (view->SelItem.count() != 0)
+				//if (view->SelItem.count() != 0)
+				if (docSelectionCount!=0)
 					view->Deselect(true);
 				qApp->setOverrideCursor(QCursor(loadIcon("DrawImageFrame.xpm")), true);
 				break;
 			case modeDrawText:
-				if (view->SelItem.count() != 0)
+				//if (view->SelItem.count() != 0)
+				if (docSelectionCount!=0)
 					view->Deselect(true);
 				qApp->setOverrideCursor(QCursor(loadIcon("DrawTextFrame.xpm")), true);
 				break;
 			case modeDrawTable:
-				if (view->SelItem.count() != 0)
+				//if (view->SelItem.count() != 0)
+				if (docSelectionCount!=0)
 					view->Deselect(true);
 				qApp->setOverrideCursor(QCursor(loadIcon("DrawTable.xpm")), true);
 				break;
 			case modeDrawRegularPolygon:
-				if (view->SelItem.count() != 0)
+				//if (view->SelItem.count() != 0)
+				if (docSelectionCount!=0)
 					view->Deselect(true);
 				qApp->setOverrideCursor(QCursor(loadIcon("DrawPolylineFrame.xpm")), true);
 				break;
 			case modeMagnifier:
-				if (view->SelItem.count() != 0)
+				//if (view->SelItem.count() != 0)
+				if (docSelectionCount!=0)
 					view->Deselect(true);
 				qApp->setOverrideCursor(QCursor(loadIcon("LupeZ.xpm")), true);
 				break;
@@ -5266,7 +5346,8 @@ void ScribusApp::setAppMode(int mode)
 			case modeInsertPDFTextAnnotation:
 			case modeInsertPDFLinkAnnotation:
 			case modeDrawFreehandLine:
-				if (view->SelItem.count() != 0)
+				//if (view->SelItem.count() != 0)
+				if (docSelectionCount!=0)
 					view->Deselect(true);
 				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 				break;
@@ -5291,7 +5372,8 @@ void ScribusApp::setAppMode(int mode)
 			propertiesPalette->setGradientEditMode(false);
 		}
 		if (mode == modeLinkFrames)
-			doc->ElemToLink = view->SelItem.at(0);
+			//doc->ElemToLink = view->SelItem.at(0);
+			doc->ElemToLink = doc->selection->itemAt(0);
 		if ((mode == modeLinkFrames) || (mode == modeUnlinkFrames) || (oldMode == modeLinkFrames) || (oldMode == modeUnlinkFrames))
 			view->updateContents();
 		if (mode == modeStoryEditor)
@@ -5305,9 +5387,11 @@ void ScribusApp::setAppMode(int mode)
 			releaseMouse();
 		if (mode == modeCopyProperties)
 		{
-			if (view->SelItem.count() != 0)
+			//if (view->SelItem.count() != 0)
+			if (doc->selection->count() != 0)
 			{
-				doc->ElemToLink = view->SelItem.at(0);
+				//doc->ElemToLink = view->SelItem.at(0);
+				doc->ElemToLink = doc->selection->itemAt(0);
 				view->Deselect(true);
 				scrActions["toolsCopyProperties"]->setEnabled(true);
 			}
@@ -5396,7 +5480,8 @@ void ScribusApp::setStilvalue(int s)
 
 void ScribusApp::setItemHoch(int h)
 {
-	if (view->SelItem.count() != 0)
+	//if (view->SelItem.count() != 0)
+	if (doc->selection->count() != 0)
 	{
 		//setActiveWindow();
 		doc->CurrentStyle = h;
@@ -5439,7 +5524,8 @@ void ScribusApp::DeletePage2(int pg)
 		undoManager->beginTransaction(doc->DocName, Um::IDocument, Um::DeletePage, "", Um::IDelete);
 /*	if (!doc->masterPageMode)
 		disconnect(doc->currentPage, SIGNAL(DelObj(uint, uint)), outlinePalette, SLOT(slotRemoveElement(uint, uint))); */
-	view->SelItem.clear();
+	//view->SelItem.clear();
+	doc->selection->clear();
 	for (uint d = 0; d < doc->Items->count(); ++d)
 	{
 		ite = doc->Items->at(d);
@@ -5450,10 +5536,12 @@ void ScribusApp::DeletePage2(int pg)
 			if (ite->isBookmark)
 				DelBookMark(ite);
 			ite->isBookmark = false;
-			view->SelItem.append(ite);
+			//view->SelItem.append(ite);
+			doc->selection->addItem(ite);
 		}
 	}
-	if (view->SelItem.count() != 0)
+	//if (view->SelItem.count() != 0)
+	if (doc->selection->count() != 0)
 		view->DeleteItem();
 	if (UndoManager::undoEnabled())
 	{
@@ -5501,7 +5589,8 @@ void ScribusApp::DeletePage(int from, int to)
 									  (from - to == 0) ? Um::DeletePage : Um::DeletePages, "",
 									  Um::IDelete);
 	PageItem* ite;
-	view->SelItem.clear();
+	//view->SelItem.clear();
+	doc->selection->clear();
 	for (int a = to - 1; a >= from - 1; a--)
 	{
 		for (uint d = 0; d < doc->Items->count(); ++d)
@@ -5514,12 +5603,14 @@ void ScribusApp::DeletePage(int from, int to)
 				if (ite->isBookmark)
 					DelBookMark(ite);
 				ite->isBookmark = false;
-				view->SelItem.append(ite);
+				//view->SelItem.append(ite);
+				doc->selection->addItem(ite);
 			}
 		}
 		AdjustBM();
 	}
-	if (view->SelItem.count() != 0)
+	//if (view->SelItem.count() != 0)
+	if (doc->selection->count() != 0)
 		view->DeleteItem();
 	for (int a = to - 1; a >= from - 1; a--)
 	{
@@ -5663,9 +5754,11 @@ void ScribusApp::SetNewFont(const QString& nf)
 		}
 		else
 		{
-			if (view->SelItem.count() != 0)
+			//if (view->SelItem.count() != 0)
+			if (doc->selection->count() != 0)
 			{
-				PageItem *currItem = view->SelItem.at(0);
+				//PageItem *currItem = view->SelItem.at(0);
+				PageItem *currItem = doc->selection->itemAt(0);
 				nf2 = currItem->IFont;
 			}
 			propertiesPalette->Fonts->RebuildList(doc);
@@ -5719,9 +5812,11 @@ void ScribusApp::setFSizeMenu(int size)
 
 void ScribusApp::setItemFarbe(int id)
 {
-	if (view->SelItem.count() != 0)
+	//if (view->SelItem.count() != 0)
+	if (doc->selection->count() != 0)
 	{
-		PageItem *currItem = view->SelItem.at(0);
+		//PageItem *currItem = view->SelItem.at(0);
+		PageItem *currItem = doc->selection->itemAt(0);
 		if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::PathText))
 			view->ItemTextBrush(ColorMenC->text(id));
 		else
@@ -5735,9 +5830,11 @@ void ScribusApp::setItemShade(int id)
 {
 	int c = id;
 	bool ok = false;
-	if (view->SelItem.count() != 0)
+	//if (view->SelItem.count() != 0)
+	if (doc->selection->count() != 0)
 	{
-		PageItem *currItem = view->SelItem.at(0);
+		//PageItem *currItem = view->SelItem.at(0);
+		PageItem *currItem = doc->selection->itemAt(0);
 		if (c != -1)
 		{
 			if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::PathText))
@@ -5771,9 +5868,11 @@ void ScribusApp::setCSMenu(QString , QString l, int  , int ls)
 	QString la;
 	int lb;
 	PageItem *currItem;
-	if (view->SelItem.count() != 0)
+	//if (view->SelItem.count() != 0)
+	if (doc->selection->count() != 0)
 	{
-		currItem = view->SelItem.at(0);
+		//currItem = view->SelItem.at(0);
+		currItem = doc->selection->itemAt(0);
 		if ((currItem->asTextFrame()) || (currItem->asPathText()))
 		{
 			if ((doc->appMode == modeEdit) && (currItem->itemText.count() != 0))
@@ -6229,7 +6328,8 @@ void ScribusApp::setNewAbStyle(int a)
 		doc->currentParaStyle = a;
 		view->SetAbStyle(a);
 		propertiesPalette->setAli(a);
-		PageItem *currItem = view->SelItem.at(0);
+		//PageItem *currItem = view->SelItem.at(0);
+		PageItem *currItem = doc->selection->itemAt(0);
 		setTBvals(currItem);
 		slotDocCh();
 	}
@@ -6493,9 +6593,11 @@ void ScribusApp::updtGradFill()
 {
 	if (HaveDoc)
 	{
-		if (view->SelItem.count() != 0)
+		//if (view->SelItem.count() != 0)
+		if (doc->selection->count() != 0)
 		{
-			PageItem *currItem = view->SelItem.at(0);
+			//PageItem *currItem = view->SelItem.at(0);
+			PageItem *currItem = doc->selection->itemAt(0);
 			currItem->fill_gradient = propertiesPalette->getFillGradient();
 			view->RefreshItem(currItem);
 			slotDocCh();
@@ -6518,7 +6620,8 @@ void ScribusApp::GetBrushPen()
 
 void ScribusApp::MakeFrame(int f, int c, double *vals)
 {
-	PageItem *currItem = view->SelItem.at(0);
+	//PageItem *currItem = view->SelItem.at(0);
+	PageItem *currItem = doc->selection->itemAt(0);
 	switch (f)
 	{
 	case 0:
@@ -6557,12 +6660,15 @@ void ScribusApp::ObjektDup()
 	slotEditCopy();
 	view->Deselect(true);
 	slotEditPaste();
-	for (uint b=0; b<view->SelItem.count(); ++b)
+	//for (uint b=0; b<view->SelItem.count(); ++b)
+	for (uint b=0; b<doc->selection->count(); ++b)
 	{
-		view->SelItem.at(b)->setLocked(false);
+		//view->SelItem.at(b)->setLocked(false);
+		doc->selection->itemAt(b)->setLocked(false);
 		//CB WTF? view->SelItem.at(b)->xPos();
 		//CB WTF? view->SelItem.at(b)->yPos();
-		view->MoveItem(DispX, DispY, view->SelItem.at(b));
+		//view->MoveItem(DispX, DispY, view->SelItem.at(b));
+		view->MoveItem(DispX, DispY, doc->selection->itemAt(b));
 	}
 	doc->useRaster = savedAlignGrid;
 	doc->SnapGuides = savedAlignGuides;
@@ -6592,12 +6698,16 @@ void ScribusApp::ObjektDupM()
 			for (a=0; a<anz; ++a)
 			{
 				slotEditPaste();
-				for (uint b=0; b<view->SelItem.count(); ++b)
+				//for (uint b=0; b<view->SelItem.count(); ++b)
+				for (uint b=0; b<doc->selection->count(); ++b)
 				{
-					view->SelItem.at(b)->setLocked(false);
+					PageItem* bItem=doc->selection->itemAt(b);
+					//view->SelItem.at(b)->setLocked(false);
+					bItem->setLocked(false);
 					//CB WTF? view->SelItem.at(b)->xPos();
 					//CB WTF? view->SelItem.at(b)->Ypos;
-					view->MoveItem(dH2, dV2, view->SelItem.at(b), true);
+					//view->MoveItem(dH2, dV2, view->SelItem.at(b), true);
+					view->MoveItem(dH2, dV2, bItem, true);
 				}
 				dH2 += dH;
 				dV2 += dV;
@@ -6621,35 +6731,39 @@ void ScribusApp::selectItemsFromOutlines(int Page, int Item, bool single)
 	if ((Page != -1) && (Page != static_cast<int>(doc->currentPage->pageNr())))
 		view->GotoPage(Page);
 	view->SelectItemNr(Item, true, single);
-	if (view->SelItem.count() != 0)
+	//if (view->SelItem.count() != 0)
+	if (doc->selection->count() != 0)
 	{
-		PageItem *currItem = view->SelItem.at(0);
+		//PageItem *currItem = view->SelItem.at(0);
+		PageItem *currItem = doc->selection->itemAt(0);
 	 // jjsa 23-05-2004 added for centering of rotated objects
-		if ( currItem->Rot != 0.0 )
+	 	double rotation=currItem->rotation();
+		if ( rotation != 0.0 )
 		{
 			double MPI180=1.0/(180.0*M_PI);
-			double y1 = sin(currItem->Rot*MPI180) * currItem->Width;
-			double x1 = cos(currItem->Rot*MPI180) * currItem->Width;
-			double y2 = sin((currItem->Rot+90.0)*MPI180) * currItem->Height;
-			double x2 = cos((currItem->Rot+90.0)*MPI180) * currItem->Height;
+			double y1 = sin(rotation*MPI180) * currItem->width();
+			double x1 = cos(rotation*MPI180) * currItem->width();
+			double y2 = sin((rotation+90.0)*MPI180) * currItem->height();
+			double x2 = cos((rotation+90.0)*MPI180) * currItem->height();
 			double mx = currItem->xPos() + ((x1 + x2)/2.0);
 			double my = currItem->yPos() + ((y1 + y2)/2.0);
 			double viewScale=view->getScale();
 			if ((qRound((currItem->xPos() + QMAX(x1, x2)) * viewScale) > view->contentsWidth()) ||
 				(qRound((currItem->yPos() + QMAX(y1, y2)) * viewScale) > view->contentsHeight()))
-				view->resizeContents(QMAX(qRound((currItem->xPos() + QMAX(x1, x2)) * viewScale), view->contentsWidth()),
-														  QMAX(qRound((currItem->yPos() + QMAX(y1, y2)) * viewScale), view->contentsHeight()));
+				view->resizeContents(QMAX(qRound((currItem->xPos() + QMAX(x1, x2)) * viewScale),
+									view->contentsWidth()),
+									QMAX(qRound((currItem->yPos() + QMAX(y1, y2)) * viewScale), view->contentsHeight()));
 			view->SetCCPo(static_cast<int>(mx), static_cast<int>(my));
 		}
 		else
 		{
 			double viewScale=view->getScale();
-			if ((qRound((currItem->xPos() + currItem->Width) * viewScale) > view->contentsWidth()) ||
-				(qRound((currItem->yPos() + currItem->Height) * viewScale) > view->contentsHeight())
+			if ((qRound((currItem->xPos() + currItem->width()) * viewScale) > view->contentsWidth()) ||
+				(qRound((currItem->yPos() + currItem->height()) * viewScale) > view->contentsHeight())
 				)
-				view->resizeContents(QMAX(qRound((currItem->xPos() + currItem->Width) * viewScale), view->contentsWidth()),
-									 QMAX(qRound((currItem->yPos() + currItem->Height) * viewScale), view->contentsHeight()));
-			view->SetCCPo(static_cast<int>(currItem->xPos() + currItem->Width/2), static_cast<int>(currItem->yPos() + currItem->Height/2));
+				view->resizeContents(QMAX(qRound((currItem->xPos() + currItem->width()) * viewScale), view->contentsWidth()),
+									 QMAX(qRound((currItem->yPos() + currItem->height()) * viewScale), view->contentsHeight()));
+			view->SetCCPo(static_cast<int>(currItem->xPos() + currItem->width()/2), static_cast<int>(currItem->yPos() + currItem->height()/2));
 		}
 	}
 }
@@ -7404,12 +7518,14 @@ void ScribusApp::GroupObj(bool showLockDia)
 		double x, y, w, h;
 		int t = -1; // show locked dialog only once
 		QString tooltip = Um::ItemsInvolved + "\n";
-		uint selectedItemCount=view->SelItem.count();
+		//uint selectedItemCount=view->SelItem.count();
+		uint selectedItemCount=doc->selection->count();
 		if (showLockDia)
 		{
 			for (uint a=0; a<selectedItemCount; ++a)
 			{
-				if (t == -1 && view->SelItem.at(a)->locked())
+				//if (t == -1 && view->SelItem.at(a)->locked())
+				if (t == -1 && doc->selection->itemAt(a)->locked())
 					t = QMessageBox::warning(this, CommonStrings::trWarning,
 											 tr("Some objects are locked."),
 											 CommonStrings::tr_Cancel,
@@ -7423,12 +7539,14 @@ void ScribusApp::GroupObj(bool showLockDia)
 
 			for (uint a=0; a<selectedItemCount; ++a)
 			{
-				currItem = view->SelItem.at(a);
+				//currItem = view->SelItem.at(a);
+				currItem = doc->selection->itemAt(a);
 				if (currItem->locked())
 				{
 					for (uint c=0; c<selectedItemCount; ++c)
 					{
-						bb = view->SelItem.at(c);
+						//bb = view->SelItem.at(c);
+						bb = doc->selection->itemAt(c);
 						bool t1=(t==1);
 						bb->setLocked(t1);
 						scrActions["itemLock"]->setOn(t1);
@@ -7444,7 +7562,8 @@ void ScribusApp::GroupObj(bool showLockDia)
 
 		for (uint a=0; a<selectedItemCount; ++a)
 		{
-			currItem = view->SelItem.at(a);
+			//currItem = view->SelItem.at(a);
+			currItem = doc->selection->itemAt(a);
 			currItem->Groups.push(doc->GroupCounter);
 			ss->set(QString("item%1").arg(a), currItem->ItemNr);
 		}
@@ -7466,12 +7585,16 @@ void ScribusApp::UnGroupObj()
 	{
 		SimpleState *ss = new SimpleState(Um::Ungroup);
 		ss->set("UNGROUP", "ungroup");
-		ss->set("itemcount", view->SelItem.count());
+		//ss->set("itemcount", view->SelItem.count());
+		uint docSelectionCount=doc->selection->count();
+		ss->set("itemcount", docSelectionCount);
 		QString tooltip = Um::ItemsInvolved + "\n";
 		PageItem *currItem;
-		for (uint a=0; a<view->SelItem.count(); ++a)
+		//for (uint a=0; a<view->SelItem.count(); ++a)
+		for (uint a=0; a<docSelectionCount; ++a)
 		{
-			currItem = view->SelItem.at(a);
+			//currItem = view->SelItem.at(a);
+			currItem = doc->selection->itemAt(a);
 			currItem->Groups.pop();
 			currItem->isTableItem = false;
 			currItem->LeftLink = 0;
@@ -7827,9 +7950,11 @@ void ScribusApp::recalcColors(QProgressBar *dia)
 
 void ScribusApp::ModifyAnnot()
 {
-	if (view->SelItem.count() != 0)
+	//if (view->SelItem.count() != 0)
+	if (doc->selection->count() != 0)
 	{
-		PageItem *currItem = view->SelItem.at(0);
+		//PageItem *currItem = view->SelItem.at(0);
+		PageItem *currItem = doc->selection->itemAt(0);
 		if ((currItem->AnType == 0) || (currItem->AnType == 1) || (currItem->AnType > 9))
 		{
 			int AnType = currItem->AnType;
@@ -7871,7 +7996,8 @@ void ScribusApp::SetShortCut()
 void ScribusApp::PutScrap()
 {
 	ScriXmlDoc *ss = new ScriXmlDoc();
-	QString objectString = ss->WriteElem(&(view->SelItem), doc, view);
+	//QString objectString = ss->WriteElem(&(view->SelItem), doc, view);
+	QString objectString = ss->WriteElem(doc, view, 0);
 	scrapbookPalette->ObjFromMenu(objectString);
 	delete ss;
 }
@@ -7900,30 +8026,35 @@ void ScribusApp::LayerRemove(int l, bool dl)
 		{
 			if (dl)
 			{
-				view->SelItem.append(doc->MasterItems.at(b));
+				//view->SelItem.append(doc->MasterItems.at(b));
+				doc->selection->addItem(doc->MasterItems.at(b));
 				doc->DocItems.at(b)->setLocked(false);
 			}
 			else
 				doc->MasterItems.at(b)->setLayer(0);
 		}
 	}
-	if (view->SelItem.count() != 0)
+	//if (view->SelItem.count() != 0)
+	if (doc->selection->count() != 0)
 		view->DeleteItem();
-	view->SelItem.clear();
+	//view->SelItem.clear();
+	doc->selection->clear();
 	for (uint b = 0; b < doc->DocItems.count(); ++b)
 	{
 		if (doc->DocItems.at(b)->LayerNr == l)
 		{
 			if (dl)
 			{
-				view->SelItem.append(doc->DocItems.at(b));
+				//view->SelItem.append(doc->DocItems.at(b));
+				doc->selection->addItem(doc->DocItems.at(b));
 				doc->DocItems.at(b)->setLocked(false);
 			}
 			else
 				doc->DocItems.at(b)->setLayer(0);
 		}
 	}
-	if (view->SelItem.count() != 0)
+	//if (view->SelItem.count() != 0)
+	if (doc->selection->count() != 0)
 		view->DeleteItem();
 	rebuildLayersList();
 	view->updateLayerMenu();
@@ -8033,12 +8164,14 @@ void ScribusApp::doHyphenate()
 {
 	if (HaveDoc)
 	{
-		uint selectedItemCount=view->SelItem.count();
+		//uint selectedItemCount=view->SelItem.count();
+		uint selectedItemCount=doc->selection->count();
 		if (selectedItemCount != 0)
 		{
 			for (uint i = 0; i < selectedItemCount; ++i)
 			{
-				PageItem *currItem = view->SelItem.at(i);
+				//PageItem *currItem = view->SelItem.at(i);
+				PageItem *currItem = doc->selection->itemAt(i);
 				if (doc->docHyphenator->Language != currItem->Language)
 					doc->docHyphenator->slotNewDict(currItem->Language);
 				doc->docHyphenator->slotHyphenate(currItem);
@@ -8053,12 +8186,14 @@ void ScribusApp::doDeHyphenate()
 {
 	if (HaveDoc)
 	{
-		uint selectedItemCount=view->SelItem.count();
+		//uint selectedItemCount=view->SelItem.count();
+		uint selectedItemCount=doc->selection->count();
 		if (selectedItemCount != 0)
 		{
 			for (uint i = 0; i < selectedItemCount; ++i)
 			{
-				PageItem *currItem = view->SelItem.at(i);
+				//PageItem *currItem = view->SelItem.at(i);
+				PageItem *currItem = doc->selection->itemAt(i);
 				doc->docHyphenator->slotDeHyphenate(currItem);
 			}
 			view->DrawNew();
@@ -8081,12 +8216,14 @@ void ScribusApp::setItemFillTransparency(double t)
 {
 	if (HaveDoc)
 	{
-		uint selectedItemCount=view->SelItem.count();
+		//uint selectedItemCount=view->SelItem.count();
+		uint selectedItemCount=doc->selection->count();
 		if (selectedItemCount != 0)
 		{
 			for (uint i = 0; i < selectedItemCount; ++i)
 			{
-				PageItem *currItem = view->SelItem.at(i);
+				//PageItem *currItem = view->SelItem.at(i);
+				PageItem *currItem = doc->selection->itemAt(i);
 				currItem->setFillTransparency(t);
 			}
 			view->DrawNew();
@@ -8099,12 +8236,14 @@ void ScribusApp::setItemLineTransparency(double t)
 {
 	if (HaveDoc)
 	{
-		uint selectedItemCount=view->SelItem.count();
+		//uint selectedItemCount=view->SelItem.count();
+		uint selectedItemCount=doc->selection->count();
 		if (selectedItemCount != 0)
 		{
 			for (uint i = 0; i < selectedItemCount; ++i)
 			{
-				PageItem *currItem = view->SelItem.at(i);
+				//PageItem *currItem = view->SelItem.at(i);
+				PageItem *currItem = doc->selection->itemAt(i);
 				currItem->setLineTransparency(t);
 			}
 			view->DrawNew();
@@ -8117,9 +8256,12 @@ void ScribusApp::ImageEffects()
 {
 	if (HaveDoc)
 	{
-		if (view->SelItem.count() != 0)
+		uint docSelectionCount=doc->selection->count();
+		//if (view->SelItem.count() != 0)
+		if (docSelectionCount != 0)
 		{
-			PageItem *currItem = view->SelItem.at(0);
+			//PageItem *currItem = view->SelItem.at(0);
+			PageItem *currItem = doc->selection->itemAt(0);
 			EffectsDialog* dia = new EffectsDialog(this, currItem, doc);
 			if (dia->exec())
 			{
@@ -8182,9 +8324,11 @@ void ScribusApp::scanDocument()
 
 void ScribusApp::HaveRaster(bool art)
 {
-	if (art && view->SelItem.count() != 0)
+	//if (art && view->SelItem.count() != 0)
+	if (art && doc->selection->count() != 0)
 	{
-		PageItem *currItem = view->SelItem.at(0);
+		//PageItem *currItem = view->SelItem.at(0);
+		PageItem *currItem = doc->selection->itemAt(0);
 		if (currItem->asImageFrame())
 		{
 			scrMenuMgr->clearMenu("Style");
@@ -8196,9 +8340,11 @@ void ScribusApp::HaveRaster(bool art)
 
 void ScribusApp::slotStoryEditor()
 {
-	if (view->SelItem.count() != 0)
+	//if (view->SelItem.count() != 0)
+	if (doc->selection->count() != 0)
 	{
-		PageItem *currItem = view->SelItem.at(0);
+		//PageItem *currItem = view->SelItem.at(0);
+		PageItem *currItem = doc->selection->itemAt(0);
 		PageItem *currItemSE=storyEditor->currentItem();
 		ScribusDoc *currDocSE=storyEditor->currentDocument();
 		if (currItem==currItemSE && doc==currDocSE)
@@ -8262,10 +8408,12 @@ void ScribusApp::EditTabs()
 {
 	if (HaveDoc)
 	{
-		if (view->SelItem.count() != 0)
+		//if (view->SelItem.count() != 0)
+		if (doc->selection->count() != 0)
 		{
-			PageItem *currItem = view->SelItem.at(0);
-			TabManager *dia = new TabManager(this, doc->unitIndex(), currItem->TabValues, currItem->Width);
+			//PageItem *currItem = view->SelItem.at(0);
+			PageItem *currItem = doc->selection->itemAt(0);
+			TabManager *dia = new TabManager(this, doc->unitIndex(), currItem->TabValues, currItem->width());
 			if (dia->exec())
 			{
 				currItem->TabValues = dia->tmpTab;
@@ -8279,7 +8427,8 @@ void ScribusApp::EditTabs()
 
 void ScribusApp::SearchText()
 {
-	PageItem *currItem = view->SelItem.at(0);
+	//PageItem *currItem = view->SelItem.at(0);
+	PageItem *currItem = doc->selection->itemAt(0);
 	setAppMode(modeEdit);
 	currItem->CPos = 0;
 	SearchReplace* dia = new SearchReplace(this, doc, currItem);
@@ -8306,7 +8455,8 @@ void ScribusApp::imageEditorExited()
 /* call gimp and wait upon completion */
 void ScribusApp::callImageEditor()
 {
-	if (view->SelItem.count() != 0)
+	if (doc->selection->count() != 0)
+	//if (view->SelItem.count() != 0)
 	{
 		QString imageEditorExecutable=prefsManager->imageEditorExecutable();
 		if (ExternalApp != 0)
@@ -8314,7 +8464,8 @@ void ScribusApp::callImageEditor()
 			QMessageBox::information(this, tr("Information"), "<qt>" + tr("The program %1 is already running!").arg(imageEditorExecutable) + "</qt>", 1, 0, 0);
 			return;
 		}
-		PageItem *currItem = view->SelItem.at(0);
+		//PageItem *currItem = view->SelItem.at(0);
+		PageItem *currItem = doc->selection->itemAt(0);
 		if (currItem->PicAvail)
 		{
 			ExternalApp = new QProcess(NULL);
@@ -8335,9 +8486,11 @@ void ScribusApp::callImageEditor()
 
 void ScribusApp::slotCharSelect()
 {
-	if ((HaveDoc) && (view->SelItem.count() != 0))
+	//if ((HaveDoc) && (view->SelItem.count() != 0))
+	if ((HaveDoc) && (doc->selection->count() != 0))
 	{
-		PageItem *currItem = view->SelItem.at(0);
+		//PageItem *currItem = view->SelItem.at(0);
+		PageItem *currItem = doc->selection->itemAt(0);
 		if ((currItem->asTextFrame()) && (doc->appMode == modeEdit))
 		{
 			CharSelect *dia = new CharSelect(this, currItem);
@@ -8355,9 +8508,12 @@ void ScribusApp::setUndoMode(bool isObjectSpecific)
 		undoManager->showObject(Um::GLOBAL_UNDO_MODE);
 	else if (HaveDoc)
 	{
-		if (view->SelItem.count() == 1)
-			undoManager->showObject(view->SelItem.at(0)->getUId());
-		else if (view->SelItem.count() == 0)
+		uint docSelectionCount=doc->selection->count();
+		//if (view->SelItem.count() == 1)
+		if (docSelectionCount == 1)
+			//undoManager->showObject(view->SelItem.at(0)->getUId());
+			undoManager->showObject(doc->selection->itemAt(0)->getUId());
+		else if (docSelectionCount == 0)
 			undoManager->showObject(doc->currentPage->getUId());
 		else
 			undoManager->showObject(Um::NO_UNDO_STACK);
@@ -8379,9 +8535,11 @@ void ScribusApp::slotTest2()
 
 void ScribusApp::getImageInfo()
 {
-	if ((HaveDoc) && (view->SelItem.count() == 1))
+	//if ((HaveDoc) && (view->SelItem.count() == 1))
+	if ((HaveDoc) && (doc->selection->count() == 1))
 	{
-		PageItem *pageItem = view->SelItem.at(0);
+		//PageItem *pageItem = view->SelItem.at(0);
+		PageItem *pageItem = doc->selection->itemAt(0);
 		if (pageItem != NULL)
 		{
 			if (pageItem->itemType() == PageItem::ImageFrame)
@@ -8396,9 +8554,11 @@ void ScribusApp::getImageInfo()
 
 void ScribusApp::objectAttributes()
 {
-	if ((HaveDoc) && (view->SelItem.count() == 1))
+	//if ((HaveDoc) && (view->SelItem.count() == 1))
+	if ((HaveDoc) && (doc->selection->count() == 1))
 	{
-		PageItem *pageItem = view->SelItem.at(0);
+		//PageItem *pageItem = view->SelItem.at(0);
+		PageItem *pageItem = doc->selection->itemAt(0);
 		if (pageItem!=NULL)
 		{
 			PageItemAttributes *pageItemAttrs = new PageItemAttributes( this );
@@ -8468,13 +8628,16 @@ void ScribusApp::mouseReleaseEvent(QMouseEvent *m)
 				else
 					colorName=QString::null;
 			}
-			if (!colorName.isNull() && view->SelItem.count() > 0)
+			uint docSelectionCount=doc->selection->count();
+			//if (!colorName.isNull() && view->SelItem.count() > 0)
+			if (!colorName.isNull() && docSelectionCount > 0)
 			{
-				for (uint i = 0; i < view->SelItem.count(); ++i)
+				for (uint i = 0; i < docSelectionCount; ++i)
 				{
-					if (view->SelItem.at(i)!=NULL)
+					//PageItem *currItem=view->SelItem.at(i);
+					PageItem *currItem=doc->selection->itemAt(i);
+					if (currItem!=NULL)
 					{
-						PageItem *currItem=view->SelItem.at(i);
 						if ((m->stateAfter() & Qt::ControlButton) && (currItem->asTextFrame() || currItem->asPathText()))
 							view->ItemTextBrush(colorName); //Text colour
 						else

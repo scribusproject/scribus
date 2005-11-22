@@ -1,6 +1,7 @@
 #include "cmdutil.h"
 #include "units.h"
 #include "page.h"
+#include "selection.h"
 
 ScribusApp* Carrier;
 ScribusDoc* doc;
@@ -56,8 +57,10 @@ int GetItem(QString Name)
 	}
 	else
 	{
-		if (ScApp->view->SelItem.count() != 0)
-			return ScApp->view->SelItem.at(0)->ItemNr;
+		//if (ScApp->view->SelItem.count() != 0)
+		if (ScApp->doc->selection->count() != 0)
+			//return ScApp->view->SelItem.at(0)->ItemNr;
+			return ScApp->doc->selection->itemAt(0)->ItemNr;
 	}
 	return -1;
 }
@@ -127,8 +130,10 @@ void ReplaceColor(QString col, QString rep)
 PageItem* GetUniqueItem(QString name)
 {
 	if (name.length()==0)
-		if (ScApp->view->SelItem.count() != 0)
-			return ScApp->view->SelItem.at(0);
+		//if (ScApp->view->SelItem.count() != 0)
+		if (ScApp->doc->selection->count() != 0)
+			//return ScApp->view->SelItem.at(0);
+			return ScApp->doc->selection->itemAt(0);
 		else
 		{
 			PyErr_SetString(NoValidObjectError, QString("Cannot use empty string for object name when there is no selection"));
@@ -191,11 +196,14 @@ bool checkHaveDocument()
 
 QStringList getSelectedItemsByName()
 {
+	/*
 	QStringList names;
 	QPtrListIterator<PageItem> it(ScApp->view->SelItem);
 	for ( ; it.current() != 0 ; ++it)
 		names.append(it.current()->itemName());
 	return names;
+	*/
+	return ScApp->doc->selection->getSelectedItemsByName();
 }
 
 bool setSelectedItemsByName(QStringList& itemNames)

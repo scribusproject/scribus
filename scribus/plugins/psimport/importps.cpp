@@ -19,6 +19,7 @@
 #include "undomanager.h"
 #include "scpaths.h"
 #include "scfontmetrics.h"
+#include "selection.h"
 #include "util.h"
 #include "prefsmanager.h"
 
@@ -167,7 +168,8 @@ EPSPlug::EPSPlug(QString fName, bool isInteractive)
 	QDir::setCurrent(fi.dirPath());
 	if (convert(fName, x, y, b, h))
 	{
-		ScApp->view->SelItem.clear();
+		//ScApp->view->SelItem.clear();
+		Doku->selection->clear();
 		QDir::setCurrent(CurDirP);
 		if ((Elements.count() > 1) && (interactive))
 		{
@@ -190,11 +192,13 @@ EPSPlug::EPSPlug(QString fName, bool isInteractive)
 			for (uint dre=0; dre<Elements.count(); ++dre)
 			{
 				Doku->DragElements.append(Elements.at(dre)->ItemNr);
-				ScApp->view->SelItem.append(Elements.at(dre));
+				//ScApp->view->SelItem.append(Elements.at(dre));
+				Doku->selection->addItem(Elements.at(dre));
 			}
 			ScriXmlDoc *ss = new ScriXmlDoc();
 			ScApp->view->setGroupRect();
-			QDragObject *dr = new QTextDrag(ss->WriteElem(&ScApp->view->SelItem, Doku, ScApp->view), ScApp->view->viewport());
+			//QDragObject *dr = new QTextDrag(ss->WriteElem(&ScApp->view->SelItem, Doku, ScApp->view), ScApp->view->viewport());
+			QDragObject *dr = new QTextDrag(ss->WriteElem(Doku, ScApp->view, 0),ScApp->view->viewport());
 			ScApp->view->DeleteItem();
 			ScApp->view->resizeContents(qRound((maxSize.x() - minSize.x()) * ScApp->view->getScale()), qRound((maxSize.y() - minSize.y()) * ScApp->view->getScale()));
 			ScApp->view->scrollBy(qRound((Doku->minCanvasCoordinate.x() - minSize.x()) * ScApp->view->getScale()), qRound((Doku->minCanvasCoordinate.y() - minSize.y()) * ScApp->view->getScale()));
@@ -370,8 +374,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						ite->ClipEdited = true;
 						ite->FrameType = 3;
 						FPoint wh = getMaxClipF(&ite->PoLine);
-						ite->Width = wh.x();
-						ite->Height = wh.y();
+						ite->setWidthHeight(wh.x(),wh.y());
 						ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 						ite->setFillTransparency(1.0 - Opacity);
 						ScApp->view->AdjustItemSize(ite);
@@ -416,8 +419,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						ite->DashOffset = DashOffset;
 						ite->DashValues = DashPattern;
 						FPoint wh = getMaxClipF(&ite->PoLine);
-						ite->Width = wh.x();
-						ite->Height = wh.y();
+						ite->setWidthHeight(wh.x(), wh.y());
 						ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 						ite->setLineTransparency(1.0 - Opacity);
 						ScApp->view->AdjustItemSize(ite);

@@ -10,6 +10,8 @@ This program is free software - see LICENSE file in the distribution
 or documentation
 */
 
+#include <qregexp.h>
+
 #include "shortwords.h"
 #include "parse.h"
 #include "parse.moc"
@@ -19,7 +21,7 @@ or documentation
 #include "scribus.h"
 #include "page.h"
 #include "pageitem.h"
-#include <qregexp.h>
+#include "selection.h"
 
 extern ScribusApp SCRIBUS_API *ScApp;
 
@@ -108,14 +110,16 @@ void SWParse::parseItem(PageItem *aFrame)
 
 void SWParse::parseSelection()
 {
-	uint cnt = ScApp->view->SelItem.count();
-	ScApp->mainWindowProgressBar->setTotalSteps(cnt);
-	for (uint i=0; i < cnt; ++i)
+	//uint docSelectionCount = ScApp->view->SelItem.count();
+	uint docSelectionCount = ScApp->doc->selection->count();
+	ScApp->mainWindowProgressBar->setTotalSteps(docSelectionCount);
+	for (uint i=0; i < docSelectionCount; ++i)
 	{
 		ScApp->mainWindowProgressBar->setProgress(i);
-		parseItem(ScApp->view->SelItem.at(i));
+		//parseItem(ScApp->view->SelItem.at(i));
+		parseItem(ScApp->doc->selection->itemAt(i));
 	} // for items
-	ScApp->mainWindowProgressBar->setProgress(cnt);
+	ScApp->mainWindowProgressBar->setProgress(docSelectionCount);
 }
 
 

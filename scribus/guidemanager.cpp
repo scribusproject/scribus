@@ -17,6 +17,7 @@
  ***************************************************************************/
 
 #include "scribus.h"
+#include "selection.h"
 #include "guidemanager.h"
 #include "guidemanager.moc"
 #include "page.h"
@@ -36,16 +37,18 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 	FPoint selectionTopLeft = FPoint(0, 0);
 	FPoint selectionBottomRight = FPoint(0, 0);
 
-	if (ScApp->view->SelItem.count() > 1)
+	int docSelectionCount=ScApp->doc->selection->count();
+	if (docSelectionCount > 1)
 	{
 		selectionTopLeft.setXY(ScApp->view->GroupX - ScApp->doc->ScratchLeft,
 							   ScApp->view->GroupY - ScApp->doc->ScratchTop);
 		selectionBottomRight.setXY(ScApp->view->GroupW,
 								   ScApp->view->GroupH);
 	}
-	else if (ScApp->view->SelItem.count() == 1)
+	else if (docSelectionCount == 1)
 	{
-		PageItem *currItem = ScApp->view->SelItem.at(0);
+		//PageItem *currItem = ScApp->view->SelItem.at(0);
+		PageItem *currItem = ScApp->doc->selection->itemAt(0);
 		selectionTopLeft.setXY(currItem->BoundingX - ScApp->doc->ScratchLeft,
 							   currItem->BoundingY - ScApp->doc->ScratchTop);
 		selectionBottomRight.setXY(currItem->BoundingW, currItem->BoundingH);

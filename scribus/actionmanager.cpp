@@ -18,6 +18,7 @@
 
 #include "scribus.h"
 #include "scribusview.h"
+#include "selection.h"
 #include "undomanager.h"
 #include "util.h"
 
@@ -751,7 +752,8 @@ void ActionManager::setPDFActions(ScribusView *currView)
 {
 	if (currView==NULL)
 		return;
-	PageItem* currItem = currView->SelItem.at(0);
+	//PageItem* currItem = currView->SelItem.at(0);
+	PageItem* currItem = ScApp->doc->selection->itemAt(0);
 	if (currItem==NULL)
 		return;
 

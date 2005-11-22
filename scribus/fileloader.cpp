@@ -615,7 +615,7 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 					int docGc = doc->GroupCounter;
 					doc->GroupCounter = 0;
 					Neu = PasteItem(&pg, doc);
-					Neu->move(-pageX + Apage->xOffset(), - pageY + Apage->yOffset());
+					Neu->moveBy(-pageX + Apage->xOffset(), - pageY + Apage->yOffset());
 					//view->setRedrawBounding(Neu);
 					Neu->setRedrawBounding();
 					//Neu->OwnPage = view->OnPage(Neu);
@@ -695,9 +695,9 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 					Neu->gXpos = QStodouble(pg.attribute("gXpos","0.0"));
 					Neu->gYpos = QStodouble(pg.attribute("gYpos","0.0"));
 					QString defaultVal;
-					defaultVal.setNum(Neu->Width);
+					defaultVal.setNum(Neu->width());
 					Neu->gWidth = QStodouble(pg.attribute("gWidth",defaultVal));
-					defaultVal.setNum(Neu->Height);
+					defaultVal.setNum(Neu->height());
 					Neu->gHeight = QStodouble(pg.attribute("gHeight",defaultVal));
 					if (Neu->LineSpMode == 3)
 					{
@@ -1605,9 +1605,9 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 					Neu->gXpos = QStodouble(pg.attribute("gXpos","0.0"));
 					Neu->gYpos = QStodouble(pg.attribute("gYpos","0.0"));
 					QString defaultVal;
-					defaultVal.setNum(Neu->Width);
+					defaultVal.setNum(Neu->width());
 					Neu->gWidth = QStodouble(pg.attribute("gWidth",defaultVal));
-					defaultVal.setNum(Neu->Height);
+					defaultVal.setNum(Neu->height());
 					Neu->gHeight = QStodouble(pg.attribute("gHeight",defaultVal));
 					if (Neu->LineSpMode == 3)
 					{
@@ -2034,7 +2034,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	currItem->TxtStrikePos=qRound(QStodouble(obj->attribute("TXTSTP", "-0.1")) * 10);
 	currItem->TxtStrikeWidth=qRound(QStodouble(obj->attribute("TXTSTW", "-0.1")) * 10);
 	currItem->TxTStyle = QStoInt(obj->attribute("TXTSTYLE", "0"));
-	currItem->Rot = QStodouble(obj->attribute("ROT"));
+	currItem->setRotation(QStodouble(obj->attribute("ROT")));
 	currItem->Extra = QStodouble(obj->attribute("EXTRA"));
 	currItem->TExtra = QStodouble(obj->attribute("TEXTRA", "1"));
 	currItem->BExtra = QStodouble(obj->attribute("BEXTRA", "1"));
@@ -2233,10 +2233,10 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 		int ph = static_cast<int>(QMAX(1.0, currItem->Pwidth / 2.0));
 		currItem->Segments.clear();
 		currItem->PoLine.resize(0);
-		currItem->Clip.setPoints(4, -ph,-ph, static_cast<int>(currItem->Width+ph),-ph,
-		                  static_cast<int>(currItem->Width+ph),static_cast<int>(currItem->Height+ph),
-		                  -ph,static_cast<int>(currItem->Height+ph));
-		currItem->Height = 1;
+		currItem->Clip.setPoints(4, -ph,-ph, static_cast<int>(currItem->width()+ph),-ph,
+		                  static_cast<int>(currItem->width()+ph),static_cast<int>(currItem->height()+ph),
+		                  -ph,static_cast<int>(currItem->height()+ph));
+		currItem->setHeight(1.0);
 	}
 	if (currItem->asImageFrame())
 		currItem->AdjustPictScale();

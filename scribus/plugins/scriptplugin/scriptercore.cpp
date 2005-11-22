@@ -21,6 +21,7 @@
 #include "pconsole.h"
 #include "scraction.h"
 #include "scpaths.h"
+#include "selection.h"
 #include "prefsfile.h"
 #include "prefscontext.h"
 #include "prefstable.h"
@@ -186,10 +187,13 @@ void ScripterCore::FinishScriptRun()
 		}
 		delete painter;
 		ScApp->doc->RePos = false;
-		if (ScApp->view->SelItem.count() != 0)
+		//if (ScApp->view->SelItem.count() != 0)
+		if (ScApp->doc->selection->count() != 0)
 		{
-			ScApp->view->EmitValues(ScApp->view->SelItem.at(0));
-			ScApp->HaveNewSel(ScApp->view->SelItem.at(0)->itemType());
+			//ScApp->view->EmitValues(ScApp->view->SelItem.at(0));
+			ScApp->view->EmitValues(ScApp->doc->selection->itemAt(0));
+			//ScApp->HaveNewSel(ScApp->view->SelItem.at(0)->itemType());
+			ScApp->HaveNewSel(ScApp->doc->selection->itemAt(0)->itemType());
 		}
 		else
 			ScApp->HaveNewSel(-1);

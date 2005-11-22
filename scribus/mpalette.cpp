@@ -9,20 +9,22 @@
 #include <qmessagebox.h>
 #include <qradiobutton.h>
 #include <qobjectlist.h>
-#include "scribusview.h"
-#include "autoform.h"
-#include "tabmanager.h"
-#include "scribus.h"
-#include "styleselect.h"
-#include "cpalette.h"
-#include "spalette.h"
+
 #include "arrowchooser.h"
+#include "autoform.h"
+#include "commonstrings.h"
+#include "cpalette.h"
+#include "sccombobox.h"
+#include "scfonts.h"
+#include "scribus.h"
+#include "scribusview.h"
+#include "selection.h"
+#include "spalette.h"
+#include "styleselect.h"
+#include "tabmanager.h"
 #include "units.h"
 #include "undomanager.h"
 #include "util.h"
-#include "commonstrings.h"
-#include "sccombobox.h"
-#include "scfonts.h"
 
 using namespace std;
 
@@ -947,13 +949,13 @@ void Mpalette::SetCurItem(PageItem *i)
 	RoundRect->setValue(i->RadRect*Umrech);
 	QString tm;
 	LevelTxt->setText(tm.setNum(i->ItemNr));
-	DCol->setMaxValue(QMAX(qRound(i->Width / QMAX(i->ColGap, 10.0)), 1));
+	DCol->setMaxValue(QMAX(qRound(i->width() / QMAX(i->ColGap, 10.0)), 1));
 	DCol->setMinValue(1);
 	DCol->setValue(i->Cols);
 	dGap->setMinValue(0);
 	if (colgapLabel->getState())
 	{
-		dGap->setMaxValue(QMAX((i->Width / i->Cols - i->Extra - i->RExtra)*Umrech, 0));
+		dGap->setMaxValue(QMAX((i->width() / i->Cols - i->Extra - i->RExtra)*Umrech, 0));
 		dGap->setValue(i->ColGap*Umrech);
 	}
 	else
@@ -963,8 +965,8 @@ void Mpalette::SetCurItem(PageItem *i)
 			lineCorr = i->Pwidth;
 		else
 			lineCorr = 0;
-		double ColWidth = (i->Width - (i->ColGap * (i->Cols - 1)) - i->Extra - i->RExtra - lineCorr) / i->Cols;
-		dGap->setMaxValue(QMAX((i->Width / i->Cols)*Umrech, 0));
+		double ColWidth = (i->width() - (i->ColGap * (i->Cols - 1)) - i->Extra - i->RExtra - lineCorr) / i->Cols;
+		dGap->setMaxValue(QMAX((i->width() / i->Cols)*Umrech, 0));
 		dGap->setValue(ColWidth*Umrech);
 	}
 	DLeft->setValue(i->Extra*Umrech);
@@ -1204,7 +1206,8 @@ void Mpalette::NewSel(int nr)
 			FlipH->setEnabled(true);
 			FlipV->setEnabled(true);
 			ShapeGroup->setEnabled(true);
-			if ((ScApp->view->SelItem.at(0)->FrameType == 0) || (ScApp->view->SelItem.at(0)->FrameType == 2))
+			//if ((ScApp->view->SelItem.at(0)->FrameType == 0) || (ScApp->view->SelItem.at(0)->FrameType == 2))
+			if ((doc->selection->itemAt(0)->FrameType == 0) || (doc->selection->itemAt(0)->FrameType == 2))
 				RoundRect->setEnabled(true);
 			EditShape->setEnabled(true);
 			if (visID == 2)
@@ -1219,7 +1222,8 @@ void Mpalette::NewSel(int nr)
 			FlipH->setEnabled(true);
 			FlipV->setEnabled(true);
 			ShapeGroup->setEnabled(true);
-			if ((ScApp->view->SelItem.at(0)->FrameType == 0) || (ScApp->view->SelItem.at(0)->FrameType == 2))
+			//if ((ScApp->view->SelItem.at(0)->FrameType == 0) || (ScApp->view->SelItem.at(0)->FrameType == 2))
+			if ((doc->selection->itemAt(0)->FrameType == 0) || (doc->selection->itemAt(0)->FrameType == 2))
 				RoundRect->setEnabled(true);
 			Distance->setEnabled(true);
 			EditShape->setEnabled(true);
@@ -1253,7 +1257,8 @@ void Mpalette::NewSel(int nr)
 			EditShape->setEnabled(true);
 			FlipH->setEnabled(true);
 			FlipV->setEnabled(true);
-			if ((ScApp->view->SelItem.at(0)->FrameType == 0) || (ScApp->view->SelItem.at(0)->FrameType == 2))
+			//if ((ScApp->view->SelItem.at(0)->FrameType == 0) || (ScApp->view->SelItem.at(0)->FrameType == 2))
+			if ((doc->selection->itemAt(0)->FrameType == 0) || (doc->selection->itemAt(0)->FrameType == 2))
 				RoundRect->setEnabled(true);
 			if ((visID == 2) || (visID == 3))
 				TabStack->setCurrentIndex(0);
@@ -1399,9 +1404,9 @@ void Mpalette::setXY(double x, double y)
 		}
 		else
 		{
-			b = CurItem->Width;
-			h = CurItem->Height;
-			r = CurItem->Rot;
+			b = CurItem->width();
+			h = CurItem->height();
+			r = CurItem->rotation();
 		}
 	}
 	else
@@ -1438,7 +1443,7 @@ void Mpalette::setXY(double x, double y)
 	Xpos->setValue(inX*Umrech);
 	Ypos->setValue(inY*Umrech);
 	if ((LMode) && (tmp))
-		setBH(CurItem->Width, CurItem->Height);
+		setBH(CurItem->width(), CurItem->height());
 	HaveItem = tmp;
 	connect(Xpos, SIGNAL(valueChanged(int)), this, SLOT(NewX()));
 	connect(Ypos, SIGNAL(valueChanged(int)), this, SLOT(NewY()));
@@ -1502,10 +1507,10 @@ void Mpalette::setCols(int r, double g)
 	dGap->setValue(g*Umrech);
 	if (tmp)
 	{
-		DCol->setMaxValue(QMAX(qRound(CurItem->Width / QMAX(CurItem->ColGap, 10.0)), 1));
+		DCol->setMaxValue(QMAX(qRound(CurItem->width() / QMAX(CurItem->ColGap, 10.0)), 1));
 		if (colgapLabel->getState())
 		{
-			dGap->setMaxValue(QMAX((CurItem->Width / CurItem->Cols - CurItem->Extra - CurItem->RExtra)*Umrech, 0));
+			dGap->setMaxValue(QMAX((CurItem->width() / CurItem->Cols - CurItem->Extra - CurItem->RExtra)*Umrech, 0));
 			dGap->setValue(CurItem->ColGap*Umrech);
 		}
 		else
@@ -1515,8 +1520,8 @@ void Mpalette::setCols(int r, double g)
 				lineCorr = CurItem->Pwidth;
 			else
 				lineCorr = 0;
-			double ColWidth = (CurItem->Width - (CurItem->ColGap * (CurItem->Cols - 1)) - CurItem->Extra - CurItem->RExtra - lineCorr) / CurItem->Cols;
-			dGap->setMaxValue(QMAX((CurItem->Width / CurItem->Cols)*Umrech, 0));
+			double ColWidth = (CurItem->width() - (CurItem->ColGap * (CurItem->Cols - 1)) - CurItem->Extra - CurItem->RExtra - lineCorr) / CurItem->Cols;
+			dGap->setMaxValue(QMAX((CurItem->width() / CurItem->Cols)*Umrech, 0));
 			dGap->setValue(ColWidth*Umrech);
 		}
 	}
@@ -1854,23 +1859,23 @@ void Mpalette::NewX()
 				double r = atan2(h-y,w-x)*(180.0/M_PI);
 				w = sqrt(pow(w-x,2)+pow(h-y,2));
 				ScApp->view->MoveItem(x - CurItem->xPos(), 0, CurItem, true);
-				ScApp->view->SizeItem(w, CurItem->Height, CurItem->ItemNr, true);
+				ScApp->view->SizeItem(w, CurItem->height(), CurItem->ItemNr, true);
 				ScApp->view->RotateItem(r, CurItem->ItemNr);
 			}
 			else
 			{
 				ma.translate(CurItem->xPos(), CurItem->yPos());
-				ma.rotate(CurItem->Rot);
+				ma.rotate(CurItem->rotation());
 				if (TopLeft->isChecked())
 					base = CurItem->xPos();
 				if (Center->isChecked())
-					base = ma.m11() * (CurItem->Width / 2.0) + ma.m21() * (CurItem->Height / 2.0) + ma.dx();
+					base = ma.m11() * (CurItem->width() / 2.0) + ma.m21() * (CurItem->height() / 2.0) + ma.dx();
 				if (TopRight->isChecked())
-					base = ma.m11() * CurItem->Width + ma.m21() * 0.0 + ma.dx();
+					base = ma.m11() * CurItem->width() + ma.m21() * 0.0 + ma.dx();
 				if (BottomRight->isChecked())
-					base = ma.m11() * CurItem->Width + ma.m21() * CurItem->Height + ma.dx();
+					base = ma.m11() * CurItem->width() + ma.m21() * CurItem->height() + ma.dx();
 				if (BottomLeft->isChecked())
-					base = ma.m11() * 0.0 + ma.m21() * CurItem->Height + ma.dx();
+					base = ma.m11() * 0.0 + ma.m21() * CurItem->height() + ma.dx();
 				ScApp->view->MoveItem(x - base, 0, CurItem, true);
 			}
 		}
@@ -1916,23 +1921,23 @@ void Mpalette::NewY()
 				double r = atan2(h-y,w-x)*(180.0/M_PI);
 				w = sqrt(pow(w-x,2)+pow(h-y,2));
 				ScApp->view->MoveItem(0, y - CurItem->yPos(), CurItem, true);
-				ScApp->view->SizeItem(w, CurItem->Height, CurItem->ItemNr, true);
+				ScApp->view->SizeItem(w, CurItem->height(), CurItem->ItemNr, true);
 				ScApp->view->RotateItem(r, CurItem->ItemNr);
 			}
 			else
 			{
 				ma.translate(CurItem->xPos(), CurItem->yPos());
-				ma.rotate(CurItem->Rot);
+				ma.rotate(CurItem->rotation());
 				if (TopLeft->isChecked())
 					base = CurItem->yPos();
 				if (Center->isChecked())
-					base = ma.m22() * (CurItem->Height / 2.0) + ma.m12() * (CurItem->Width / 2.0) + ma.dy();
+					base = ma.m22() * (CurItem->height() / 2.0) + ma.m12() * (CurItem->width() / 2.0) + ma.dy();
 				if (TopRight->isChecked())
-					base = ma.m22() * 0.0 + ma.m12() * CurItem->Width + ma.dy();
+					base = ma.m22() * 0.0 + ma.m12() * CurItem->width() + ma.dy();
 				if (BottomRight->isChecked())
-					base = ma.m22() * CurItem->Height + ma.m12() * CurItem->Width + ma.dy();
+					base = ma.m22() * CurItem->height() + ma.m12() * CurItem->width() + ma.dy();
 				if (BottomLeft->isChecked())
-					base = ma.m22() * CurItem->Height + ma.m12() * 0.0 + ma.dy();
+					base = ma.m22() * CurItem->height() + ma.m12() * 0.0 + ma.dy();
 				ScApp->view->MoveItem(0, y - base, CurItem, true);
 			}
 		}
@@ -1968,8 +1973,8 @@ void Mpalette::NewW()
 		}
 		else
 		{
-			CurItem->OldB2 = CurItem->Width;
-			CurItem->OldH2 = CurItem->Height;
+			CurItem->OldB2 = CurItem->width();
+			CurItem->OldH2 = CurItem->height();
 			if (CurItem->asLine())
 			{
 				if (LMode)
@@ -1978,7 +1983,7 @@ void Mpalette::NewW()
 					ScApp->view->RotateItem(r, CurItem->ItemNr);
 					w = sqrt(pow(w-x,2)+pow(h-y,2));
 				}
-				ScApp->view->SizeItem(w, CurItem->Height, CurItem->ItemNr, true);
+				ScApp->view->SizeItem(w, CurItem->height(), CurItem->ItemNr, true);
 			}
 			else
 			{
@@ -1986,8 +1991,8 @@ void Mpalette::NewW()
 				{
 					int rmo = doc->RotMode;
 					doc->RotMode = 0;
-					double dist = w - CurItem->Width;
-					double oldW = CurItem->Width;
+					double dist = w - CurItem->width();
+					double oldW = CurItem->width();
 					PageItem* bb2;
 					PageItem* bb = CurItem;
 					while (bb->TopLink != 0)
@@ -2016,7 +2021,7 @@ void Mpalette::NewW()
 					if (keepFrameWHRatioButton->isOn())
 					{
 						keepFrameWHRatioButton->setOn(false);
-						setBH(w, (w / oldW) * CurItem->Height);
+						setBH(w, (w / oldW) * CurItem->height());
 						NewH();
 						keepFrameWHRatioButton->setOn(true);
 					}
@@ -2025,11 +2030,11 @@ void Mpalette::NewW()
 				{
 					if (keepFrameWHRatioButton->isOn())
 					{
-						setBH(w, (w / CurItem->Width) * CurItem->Height);
-						ScApp->view->SizeItem(w, (w / CurItem->Width) * CurItem->Height, CurItem->ItemNr, true);
+						setBH(w, (w / CurItem->width()) * CurItem->height());
+						ScApp->view->SizeItem(w, (w / CurItem->width()) * CurItem->height(), CurItem->ItemNr, true);
 					}
 					else
-						ScApp->view->SizeItem(w, CurItem->Height, CurItem->ItemNr, true);
+						ScApp->view->SizeItem(w, CurItem->height(), CurItem->ItemNr, true);
 				}
 			}
 			emit DocChanged();
@@ -2065,8 +2070,8 @@ void Mpalette::NewH()
 		}
 		else
 		{
-			CurItem->OldB2 = CurItem->Width;
-			CurItem->OldH2 = CurItem->Height;
+			CurItem->OldB2 = CurItem->width();
+			CurItem->OldH2 = CurItem->height();
 			if (CurItem->asLine())
 			{
 				if (LMode)
@@ -2075,7 +2080,7 @@ void Mpalette::NewH()
 					ScApp->view->RotateItem(r, CurItem->ItemNr);
 					w = sqrt(pow(w-x,2)+pow(h-y,2));
 				}
-				ScApp->view->SizeItem(w, CurItem->Height, CurItem->ItemNr, true);
+				ScApp->view->SizeItem(w, CurItem->height(), CurItem->ItemNr, true);
 			}
 			else
 			{
@@ -2083,8 +2088,8 @@ void Mpalette::NewH()
 				{
 					int rmo = doc->RotMode;
 					doc->RotMode = 0;
-					double dist = h - CurItem->Height;
-					double oldH = CurItem->Height;
+					double dist = h - CurItem->height();
+					double oldH = CurItem->height();
 					PageItem* bb2;
 					PageItem* bb = CurItem;
 					while (bb->LeftLink != 0)
@@ -2113,7 +2118,7 @@ void Mpalette::NewH()
 					if (keepFrameWHRatioButton->isOn())
 					{
 						keepFrameWHRatioButton->setOn(false);
-						setBH((h / oldH) * CurItem->Width, h);
+						setBH((h / oldH) * CurItem->width(), h);
 						NewW();
 						keepFrameWHRatioButton->setOn(true);
 					}
@@ -2122,11 +2127,11 @@ void Mpalette::NewH()
 				{
 					if (keepFrameWHRatioButton->isOn())
 					{
-						setBH((h / CurItem->Height) * CurItem->Width, h);
-						ScApp->view->SizeItem((h / CurItem->Height) * CurItem->Width, h, CurItem->ItemNr, true);
+						setBH((h / CurItem->height()) * CurItem->width(), h);
+						ScApp->view->SizeItem((h / CurItem->height()) * CurItem->width(), h, CurItem->ItemNr, true);
 					}
 					else
-						ScApp->view->SizeItem(CurItem->Width, h, CurItem->ItemNr, true);
+						ScApp->view->SizeItem(CurItem->width(), h, CurItem->ItemNr, true);
 				}
 			}
 		}
@@ -2219,7 +2224,7 @@ void Mpalette::NewGap()
 			else
 				lineCorr = 0;
 			double newWidth = dGap->value() / Umrech;
-			double newGap = QMAX(((CurItem->Width - CurItem->Extra - CurItem->RExtra - lineCorr) - (newWidth * CurItem->Cols)) / (CurItem->Cols - 1), 0);
+			double newGap = QMAX(((CurItem->width() - CurItem->Extra - CurItem->RExtra - lineCorr) - (newWidth * CurItem->Cols)) / (CurItem->Cols - 1), 0);
 			CurItem->ColGap = newGap;
 		}
 		ScApp->view->RefreshItem(CurItem);
@@ -2397,7 +2402,7 @@ void Mpalette::NewLMode()
 		Height->setEnabled(true);
 		LMode = true;
 	}
-	setBH(CurItem->Width, CurItem->Height);
+	setBH(CurItem->width(), CurItem->height());
 	updateGeometry();
 	setFocus();
 	repaint();
@@ -2768,9 +2773,9 @@ void Mpalette::NewRotMode(int m)
 			double b, h, r;
 			QWMatrix ma;
 			FPoint n;
-			b = CurItem->Width;
-			h = CurItem->Height;
-			r = CurItem->Rot;
+			b = CurItem->width();
+			h = CurItem->height();
+			r = CurItem->rotation();
 			ma.translate(CurItem->xPos()-doc->getXOffsetForPage(CurItem->OwnPage), CurItem->yPos()-doc->getXOffsetForPage(CurItem->OwnPage));
 			ma.rotate(r);
 			if (TopLeft->isChecked())
@@ -3243,10 +3248,12 @@ void Mpalette::handleLock()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		uint selectedItemCount=ScApp->view->SelItem.count();
+		//uint selectedItemCount=ScApp->view->SelItem.count();
+		uint selectedItemCount=doc->selection->count();
 		if (selectedItemCount > 1)
 		{
-			if (ScApp->view->SelItem.at(0)->locked())
+			//if (ScApp->view->SelItem.at(0)->locked())
+			if (doc->selection->itemAt(0)->locked())
 				ScApp->view->undoManager->beginTransaction(Um::SelectionGroup,
 											  Um::IGroup, Um::UnLock, 0, Um::IUnLock);
 			else
@@ -3255,8 +3262,10 @@ void Mpalette::handleLock()
 		}
 		for ( uint a = 0; a < selectedItemCount; ++a)
 		{
-			ScApp->view->SelItem.at(a)->setLocked(Locked->isOn());
-			ScApp->view->RefreshItem(ScApp->view->SelItem.at(a));
+			//ScApp->view->SelItem.at(a)->setLocked(Locked->isOn());
+			doc->selection->itemAt(a)->setLocked(Locked->isOn());
+			//ScApp->view->RefreshItem(ScApp->view->SelItem.at(a));
+			ScApp->view->RefreshItem(doc->selection->itemAt(a));
 		}
 		bool setter = Locked->isOn();
 		Xpos->setReadOnly(setter);
@@ -3278,10 +3287,10 @@ void Mpalette::handlePrint()
 {
 	if ((HaveDoc) && (HaveItem))
 	{
-		for ( uint a = 0; a < ScApp->view->SelItem.count(); ++a)
-		{
-			ScApp->view->SelItem.at(a)->setPrintable(!NoPrint->isOn());
-		}
+		//for ( uint a = 0; a < ScApp->view->SelItem.count(); ++a)
+		for ( uint a = 0; a < doc->selection->count(); ++a)
+			//ScApp->view->SelItem.at(a)->setPrintable(!NoPrint->isOn());
+			doc->selection->itemAt(a)->setPrintable(!NoPrint->isOn());
 		emit DocChanged();
 	}
 }
@@ -3290,10 +3299,12 @@ void Mpalette::handleResize()
 {
 	if ((HaveDoc) && (HaveItem))
 	{
-		uint selectedItemCount=ScApp->view->SelItem.count();
+		//uint selectedItemCount=ScApp->view->SelItem.count();
+		uint selectedItemCount=doc->selection->count();
 		if (selectedItemCount > 1)
 		{
-			if (ScApp->view->SelItem.at(0)->sizeLocked())
+			//if (ScApp->view->SelItem.at(0)->sizeLocked())
+			if (doc->selection->itemAt(0)->sizeLocked())
 				ScApp->view->undoManager->beginTransaction(Um::SelectionGroup,
 											  Um::IGroup, Um::SizeUnLock, 0, Um::IUnLock);
 			else
@@ -3302,8 +3313,10 @@ void Mpalette::handleResize()
 		}
 		for ( uint a = 0; a < selectedItemCount; ++a)
 		{
-			ScApp->view->SelItem.at(a)->setSizeLocked(NoResize->isOn());
-			ScApp->view->RefreshItem(ScApp->view->SelItem.at(a));
+			//ScApp->view->SelItem.at(a)->setSizeLocked(NoResize->isOn());
+			doc->selection->itemAt(a)->setSizeLocked(NoResize->isOn());
+			//ScApp->view->RefreshItem(ScApp->view->SelItem.at(a));
+			ScApp->view->RefreshItem(doc->selection->itemAt(a));
 		}
 		Width->setReadOnly(NoResize->isOn());
 		Height->setReadOnly(NoResize->isOn());
@@ -3426,9 +3439,9 @@ void Mpalette::ManageTabs()
 			lineCorr = 0;
 		double ColWidth;
 		if (CurItem->Cols > 1)
-			ColWidth = (CurItem->Width - (CurItem->ColGap * (CurItem->Cols - 1)) - CurItem->Extra - CurItem->RExtra - lineCorr) / CurItem->Cols;
+			ColWidth = (CurItem->width() - (CurItem->ColGap * (CurItem->Cols - 1)) - CurItem->Extra - CurItem->RExtra - lineCorr) / CurItem->Cols;
 		else
-			ColWidth = CurItem->Width;
+			ColWidth = CurItem->width();
 		TabManager *dia = new TabManager(this, doc->unitIndex(), CurItem->TabValues, ColWidth);
 		if (dia->exec())
 		{
@@ -3482,8 +3495,10 @@ void Mpalette::mspinboxFinishUserAction()
 {
 	_userActionOn = false;
 
-	for (uint i = 0; i < ScApp->view->SelItem.count(); ++i)
-		ScApp->view->SelItem.at(i)->checkChanges(true);
+	//for (uint i = 0; i < ScApp->view->SelItem.count(); ++i)
+	for (uint i = 0; i < doc->selection->count(); ++i)
+		//ScApp->view->SelItem.at(i)->checkChanges(true);
+		doc->selection->itemAt(i)->checkChanges(true);
 	if (ScApp->view->groupTransactionStarted())
 	{
 		UndoManager::instance()->commit();
@@ -3790,13 +3805,15 @@ void Mpalette::updateColorSpecialGradient()
 {
 	if (!HaveDoc)
 		return;
-	if(ScApp->view->SelItem.count()==0)
+	//if(ScApp->view->SelItem.count()==0)
+	if(doc->selection->count()==0)
 		return;
 	double dur=doc->unitRatio();
-	PageItem *currItem=ScApp->view->SelItem.at(0);
+	//PageItem *currItem=ScApp->view->SelItem.at(0);
+	PageItem *currItem=doc->selection->itemAt(0);
 	Cpal->setSpecialGradient(currItem->GrStartX * dur, currItem->GrStartY * dur,
 							currItem->GrEndX * dur, currItem->GrEndY * dur,
-							currItem->Width * dur, currItem->Height * dur);
+							currItem->width() * dur, currItem->height() * dur);
 }
 
 

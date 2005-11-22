@@ -25,7 +25,8 @@ typedef enum {
 	GUISelection=0,
 	NonGUISelection=1,
 	Delete=2,
-	CustomStart=10
+	CustomStart=10,
+	TempStart=100
 } SelectionListType;
 
 typedef QValueList< QGuardedPtr<PageItem> > SelectionList;
@@ -42,6 +43,10 @@ class Selection : public QObject
 		void setDoc(ScribusDoc*);
 		
 		QPtrList<PageItem>* requestList();
+		int backupToTempList(int listNumber);
+		bool restoreFromTempList(int listNumber, int fromTempListNumber);
+		
+		
 		bool connectItemToGUI(int listNumber);
 		/**
 		 * Disconnect all items from the GUI slots. 
@@ -51,10 +56,15 @@ class Selection : public QObject
 		 */
 		bool disconnectAllItemsFromGUI();
 		bool addItem(PageItem *item, int listNumber=GUISelection);
+		bool prependItem(PageItem *item, int listNumber=GUISelection);
 		bool addGroup();
 		bool removeItem(PageItem *item, int listNumber=GUISelection);
+		bool removeFirst(int listNumber=GUISelection);
 		bool removeGroup();
-		int count(int listNumber=GUISelection);
+		PageItem* takeItem(int itemIndex, int listNumber=GUISelection);
+		const int findItem(PageItem *item, int listNumber=GUISelection);
+		uint count(int listNumber=GUISelection);
+		bool isEmpty(int listNumber=GUISelection);
 		bool clear(int listNumber=GUISelection);
 		void clearAll();
 		/**
@@ -62,13 +72,15 @@ class Selection : public QObject
 		 * @param item 
 		 * @return 
 		 */
-		const bool primarySelectionIsMyself(const PageItem* item, int listNumber);
+		const bool primarySelectionIsMyself(const PageItem* item, int listNumber=GUISelection);
 		PageItem *itemAt(int index=0, int listNumber=GUISelection);
+		QStringList getSelectedItemsByName(int listNumber=GUISelection);
 		
 	protected:
 		ScribusDoc* m_Doc;
 		ListOfSelections sellists;
 		ListBool hasGroupSelection;
+		int nextTemp;
 };
 
 #endif

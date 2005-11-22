@@ -134,7 +134,8 @@ public:
 	//CB This MUST now be called AFTER a call to doc->addPage or doc->addMasterPage as it
 	//does NOT create a page anymore.
 	Page* addPage(int nr, bool mov = true);
-	QPtrList<PageItem> SelItem;
+	//CB replaced with selection class, per ScribusDoc 
+	//QPtrList<PageItem> SelItem;
 	QPtrList<PageItem> linkedFramesToShow;
 	QValueList<int> SelNode;
 
@@ -145,8 +146,8 @@ public:
 		double oldXO;
 		double oldYO;
 	};
-	static const int moveWithFullOutlinesThreshold = 21;
-	static const int moveWithBoxesOnlyThreshold = 41;
+	static const uint moveWithFullOutlinesThreshold = 21;
+	static const uint moveWithBoxesOnlyThreshold = 41;
   /** Deletes a Page */
 	void delPage(int Nr);
 	void reformPages(bool moveObjects = true);
@@ -359,7 +360,7 @@ signals:
 	void PStatus(int, uint);
 	void SetAngle(double);
 	void SetSizeValue(double);
-	void SetLineArt(PenStyle, PenCapStyle, PenJoinStyle);
+	void SetLineArt(Qt::PenStyle, Qt::PenCapStyle, Qt::PenJoinStyle);
 	void SetLocalValues(double, double, double, double);
 	void ItemFarben(QString, QString, int, int);
 	void ItemGradient(int);

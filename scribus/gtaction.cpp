@@ -27,13 +27,14 @@
 #include "color.h"
 #include "prefsmanager.h"
 #include "hyphenator.h"
-
+#include "selection.h"
 
 
 gtAction::gtAction(bool append)
 {
 	prefsManager=PrefsManager::instance();
-	textFrame = ScApp->view->SelItem.at(0);
+	//textFrame = ScApp->view->SelItem.at(0);
+	textFrame = ScApp->doc->selection->itemAt(0);
 	it = textFrame;
 	lastParagraphStyle = -1;
 	inPara = false;
@@ -546,7 +547,7 @@ double gtAction::getLineSpacing(int fontSize)
 
 double gtAction::getFrameWidth()
 {
-	return textFrame->Width;
+	return textFrame->width();
 }
 
 QString gtAction::getFrameName()

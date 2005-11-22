@@ -442,7 +442,7 @@ void readAdobeGlyphNames() {
 		if (pattern.search(table[i]) >= 0) {
 			FT_ULong unicode = pattern.cap(2).toULong(0, 16);
 			qDebug("%s", QString("reading glyph name %1 fo unicode %2(%3)").arg(pattern.cap(1)).arg(unicode).arg(pattern.cap(2)).ascii());
-			adobeGlyphNames[unicode] = pattern.cap(1);
+			adobeGlyphNames.insert(unicode, pattern.cap(1));
 		}
 	}
 }

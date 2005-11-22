@@ -171,7 +171,7 @@ PyObject *scribus_getsize(PyObject* /* self */, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
-	return (i != NULL) ? Py_BuildValue("(ff)", PointToValue(i->Width), PointToValue(i->Height)) : NULL;
+	return (i != NULL) ? Py_BuildValue("(ff)", PointToValue(i->width()), PointToValue(i->height())) : NULL;
 }
 
 PyObject *scribus_getrotation(PyObject* /* self */, PyObject* args)
@@ -182,7 +182,7 @@ PyObject *scribus_getrotation(PyObject* /* self */, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
-	return i != NULL ? PyFloat_FromDouble(static_cast<double>(i->Rot * -1)) : NULL;
+	return i != NULL ? PyFloat_FromDouble(static_cast<double>(i->rotation() * -1)) : NULL;
 }
 
 PyObject *scribus_getallobj(PyObject* /* self */, PyObject* args)

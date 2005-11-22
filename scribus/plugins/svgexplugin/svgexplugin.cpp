@@ -271,32 +271,32 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 						{
 							case 1:
 								grad.setAttribute("x1", "0");
-								grad.setAttribute("y1", FToStr(Item->Height / 2));
-								grad.setAttribute("x2", FToStr(Item->Width));
-								grad.setAttribute("y2", FToStr(Item->Height / 2));
+								grad.setAttribute("y1", FToStr(Item->height() / 2));
+								grad.setAttribute("x2", FToStr(Item->width()));
+								grad.setAttribute("y2", FToStr(Item->height() / 2));
 								break;
 							case 2:
-								grad.setAttribute("x1", FToStr(Item->Width / 2));
+								grad.setAttribute("x1", FToStr(Item->width()/ 2));
 								grad.setAttribute("y1", "0");
-								grad.setAttribute("x2", FToStr(Item->Width/ 2));
-								grad.setAttribute("y2", FToStr(Item->Height));
+								grad.setAttribute("x2", FToStr(Item->width()/ 2));
+								grad.setAttribute("y2", FToStr(Item->height()));
 								break;
 							case 3:
 								grad.setAttribute("x1", "0");
 								grad.setAttribute("y1", "0");
-								grad.setAttribute("x2", FToStr(Item->Width));
-								grad.setAttribute("y2", FToStr(Item->Height));
+								grad.setAttribute("x2", FToStr(Item->width()));
+								grad.setAttribute("y2", FToStr(Item->height()));
 								break;
 							case 4:
 								grad.setAttribute("x1", "0");
-								grad.setAttribute("y1", FToStr(Item->Height));
-								grad.setAttribute("x2", FToStr(Item->Width));
+								grad.setAttribute("y1", FToStr(Item->height()));
+								grad.setAttribute("x2", FToStr(Item->width()));
 								grad.setAttribute("y2", "0");
 								break;
 							case 5:
-								grad.setAttribute("r", FToStr(QMAX(Item->Width / 2, Item->Height / 2)));
-								grad.setAttribute("cx", FToStr(Item->Width / 2));
-								grad.setAttribute("cy", FToStr(Item->Height / 2));
+								grad.setAttribute("r", FToStr(QMAX(Item->width() / 2, Item->height() / 2)));
+								grad.setAttribute("cx", FToStr(Item->width() / 2));
+								grad.setAttribute("cy", FToStr(Item->height() / 2));
 								break;
 							case 6:
 								grad.setAttribute("x1", FToStr(Item->GrStartX));
@@ -305,7 +305,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 								grad.setAttribute("y2", FToStr(Item->GrEndY));
 								break;
 							case 7:
-								grad.setAttribute("r", FToStr(QMAX(Item->Width / 2, Item->Height / 2)));
+								grad.setAttribute("r", FToStr(QMAX(Item->width() / 2, Item->height() / 2)));
 								grad.setAttribute("cx", FToStr(Item->GrStartX));
 								grad.setAttribute("cy", FToStr(Item->GrStartY));
 								break;
@@ -338,8 +338,8 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 				else
 					stroke = "stroke:none;";
 				trans = "translate("+FToStr(Item->xPos()-Seite->xOffset())+", "+FToStr(Item->yPos()-Seite->yOffset())+")";
-				if (Item->Rot != 0)
-					trans += " rotate("+FToStr(Item->Rot)+")";
+				if (Item->rotation() != 0)
+					trans += " rotate("+FToStr(Item->rotation())+")";
 				strokeW = "stroke-width:"+FToStr(Item->Pwidth)+"pt;";
 				strokeLC = "stroke-linecap:";
 				switch (Item->PLineEnd)
@@ -480,8 +480,8 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 							ob.setAttribute("xlink:href", fi.baseName()+".png");
 							ob.setAttribute("x", "0pt");
 							ob.setAttribute("y", "0pt");
-							ob.setAttribute("width", FToStr(Item->Width)+"pt");
-							ob.setAttribute("height", FToStr(Item->Height)+"pt");
+							ob.setAttribute("width", FToStr(Item->width())+"pt");
+							ob.setAttribute("height", FToStr(Item->height())+"pt");
 							ClipCount++;
 							gr.appendChild(ob);
 						}
@@ -554,7 +554,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 						if (Item->NamedLStyle.isEmpty())
 						{
 							ob = docu->createElement("path");
-							ob.setAttribute("d", "M 0 0 L "+FToStr(Item->Width)+" 0");
+							ob.setAttribute("d", "M 0 0 L "+FToStr(Item->width())+" 0");
 						}
 						else
 						{
@@ -562,7 +562,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 							for (int it = ml.size()-1; it > -1; it--)
 							{
 								ob = docu->createElement("path");
-								ob.setAttribute("d", "M 0 0 L "+FToStr(Item->Width)+" 0");
+								ob.setAttribute("d", "M 0 0 L "+FToStr(Item->width())+" 0");
 								ob.setAttribute("style", GetMultiStroke(&ml[it], Item));
 								gr.appendChild(ob);
 							}

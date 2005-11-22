@@ -29,6 +29,7 @@
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "scpaths.h"
+#include "selection.h"
 #include "serializer.h"
 #include "prefsmanager.h"
 #include "commonstrings.h"
@@ -199,18 +200,24 @@ void LoremManager::insertLoremIpsum(QString name, int paraCount)
 	// is it really applied?
 	bool done = false;
 
-	for (uint i = 0; i < ScApp->view->SelItem.count(); ++i)
+	//for (uint i = 0; i < ScApp->view->SelItem.count(); ++i)
+	for (uint i = 0; i < ScApp->doc->selection->count(); ++i)
 	{
-		if (ScApp->view->SelItem.at(i) == NULL)
+		//if (ScApp->view->SelItem.at(i) == NULL)
+		PageItem* currItem=ScApp->doc->selection->itemAt(i);
+		if (currItem == NULL)
 			continue;
-		if (! ScApp->view->SelItem.at(i)->asTextFrame())
+		//if (! ScApp->view->SelItem.at(i)->asTextFrame())
+		if (!currItem->asTextFrame())
 			continue;
-		if (ScApp->view->SelItem.at(i)->itemText.count() != 0)
+		//if (ScApp->view->SelItem.at(i)->itemText.count() != 0)
+		if (currItem->itemText.count() != 0)
 		{
 			ScApp->view->ClearItem();
 			/* ClearItem() doesn't return true or false so
 			the following test has to be done */
-			if (ScApp->view->SelItem.at(i)->itemText.count() != 0)
+			//if (ScApp->view->SelItem.at(i)->itemText.count() != 0)
+			if (currItem->itemText.count() != 0)
 				continue;
 		}
 
@@ -225,15 +232,20 @@ void LoremManager::insertLoremIpsum(QString name, int paraCount)
 		{
 			done = true;
 			ss->Objekt = lp->createLorem(paraCount);
-			int st = ScApp->view->SelItem.at(i)->Doc->currentParaStyle;
+			//int st = ScApp->view->SelItem.at(i)->Doc->currentParaStyle;
+			int st = currItem->Doc->currentParaStyle;
 			if (st > 5)
-				ss->GetText(ScApp->view->SelItem.at(i), st, ScApp->view->SelItem.at(i)->Doc->docParagraphStyles[st].Font, ScApp->view->SelItem.at(i)->Doc->docParagraphStyles[st].FontSize, true);
+				//ss->GetText(ScApp->view->SelItem.at(i), st, ScApp->view->SelItem.at(i)->Doc->docParagraphStyles[st].Font, ScApp->view->SelItem.at(i)->Doc->docParagraphStyles[st].FontSize, true);
+				ss->GetText(currItem, st, currItem->Doc->docParagraphStyles[st].Font, currItem->Doc->docParagraphStyles[st].FontSize, true);
 			else
-				ss->GetText(ScApp->view->SelItem.at(i), st, ScApp->view->SelItem.at(i)->IFont, ScApp->view->SelItem.at(i)->ISize, true);
+				//ss->GetText(ScApp->view->SelItem.at(i), st, ScApp->view->SelItem.at(i)->IFont, ScApp->view->SelItem.at(i)->ISize, true);
+				ss->GetText(currItem, st, currItem->IFont, currItem->ISize, true);
 			delete ss;
 		}
-		if (ScApp->view->SelItem.at(i)->Doc->docHyphenator->AutoCheck)
-			ScApp->view->SelItem.at(i)->Doc->docHyphenator->slotHyphenate(ScApp->view->SelItem.at(i));
+		//if (ScApp->view->SelItem.at(i)->Doc->docHyphenator->AutoCheck)
+		//	ScApp->view->SelItem.at(i)->Doc->docHyphenator->slotHyphenate(ScApp->view->SelItem.at(i));
+		if (currItem->Doc->docHyphenator->AutoCheck)
+			currItem->Doc->docHyphenator->slotHyphenate(currItem);
 	}
 	if (done)
 	{

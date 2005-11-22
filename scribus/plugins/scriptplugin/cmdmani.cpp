@@ -1,6 +1,7 @@
 #include "cmdmani.h"
 #include "cmdutil.h"
 #include "mpalette.h" //CB argh.. noooooooooooooooooooooooooooooooooooo FIXME see other FIXME
+#include "selection.h"
 
 PyObject *scribus_loadimage(PyObject* /* self */, PyObject* args)
 {
@@ -59,22 +60,25 @@ PyObject *scribus_moveobjrel(PyObject* /* self */, PyObject* args)
 	if (item==NULL)
 		return NULL;
 	// Grab the old selection
-	QPtrList<PageItem> oldSelection = ScApp->view->SelItem;
+	//QPtrList<PageItem> oldSelection = ScApp->view->SelItem;
+	int tempList=ScApp->doc->selection->backupToTempList(0);
 	// Clear the selection
 	ScApp->view->Deselect();
 	// Select the item, which will also select its group if
 	// there is one.
 	ScApp->view->SelectItemNr(item->ItemNr);
 	// Move the item, or items
-	if (ScApp->view->SelItem.count() > 1)
+	//if (ScApp->view->SelItem.count() > 1)
+	if (ScApp->doc->selection->count() > 1)
 		ScApp->view->moveGroup(ValueToPoint(x), ValueToPoint(y));
 	else
 		ScApp->view->MoveItem(ValueToPoint(x), ValueToPoint(y), item);
 	// Now restore the selection. We just have to go through and select
 	// each and every item, unfortunately.
-	ScApp->view->Deselect();
-	for ( oldSelection.first(); oldSelection.current(); oldSelection.next() )
-		ScApp->view->SelectItemNr(oldSelection.current()->ItemNr);
+	ScApp->doc->selection->restoreFromTempList(0, tempList);
+	//ScApp->view->Deselect();
+	//for ( oldSelection.first(); oldSelection.current(); oldSelection.next() )
+	//	ScApp->view->SelectItemNr(oldSelection.current()->ItemNr);
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -91,14 +95,16 @@ PyObject *scribus_moveobjabs(PyObject* /* self */, PyObject* args)
 	if (item == NULL)
 		return NULL;
 	// Grab the old selection
-	QPtrList<PageItem> oldSelection = ScApp->view->SelItem;
+	//QPtrList<PageItem> oldSelection = ScApp->view->SelItem;
+	int tempList=ScApp->doc->selection->backupToTempList(0);
 	// Clear the selection
 	ScApp->view->Deselect();
 	// Select the item, which will also select its group if
 	// there is one.
 	ScApp->view->SelectItemNr(item->ItemNr);
 	// Move the item, or items
-	if (ScApp->view->SelItem.count() > 1)
+	//if (ScApp->view->SelItem.count() > 1)
+	if (ScApp->doc->selection->count() > 1)
 	{
 		double x2, y2, w, h;
 		ScApp->view->getGroupRect(&x2, &y2, &w, &h);
@@ -108,9 +114,10 @@ PyObject *scribus_moveobjabs(PyObject* /* self */, PyObject* args)
 		ScApp->view->MoveItem(pageUnitXToDocX(x) - item->xPos(), pageUnitYToDocY(y) - item->yPos(), item);
 	// Now restore the selection. We just have to go through and select
 	// each and every item, unfortunately.
-	ScApp->view->Deselect();
-	for ( oldSelection.first(); oldSelection.current(); oldSelection.next() )
-		ScApp->view->SelectItemNr(oldSelection.current()->ItemNr);
+	ScApp->doc->selection->restoreFromTempList(0, tempList);
+	//ScApp->view->Deselect();
+	//for ( oldSelection.first(); oldSelection.current(); oldSelection.next() )
+//		ScApp->view->SelectItemNr(oldSelection.current()->ItemNr);
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -126,7 +133,7 @@ PyObject *scribus_rotobjrel(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == NULL)
 		return NULL;
-	ScApp->view->RotateItem(item->Rot - x, item->ItemNr);
+	ScApp->view->RotateItem(item->rotation() - x, item->ItemNr);
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -199,9 +206,11 @@ PyObject *scribus_groupobj(PyObject* /* self */, PyObject* args)
 		setSelectedItemsByName(oldSelection);
 	}
 	// or if no argument list was given but there is a selection...
-	else if (ScApp->view->SelItem.count() != 0)
+	//else if (ScApp->view->SelItem.count() != 0)
+	else if (ScApp->doc->selection->count() != 0)
 	{
-		if (ScApp->view->SelItem.count() < 2)
+		//if (ScApp->view->SelItem.count() < 2)
+		if (ScApp->doc->selection->count() < 2)
 		{
 			// We can't very well group only one item
 			PyErr_SetString(NoValidObjectError, QObject::tr("Can't group less than two items", "python error"));
@@ -267,8 +276,10 @@ PyObject *scribus_getselobjnam(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if ((i < static_cast<int>(ScApp->view->SelItem.count())) && (i > -1))
-		return PyString_FromString(ScApp->view->SelItem.at(i)->itemName().utf8());
+	//if ((i < static_cast<int>(ScApp->view->SelItem.count())) && (i > -1))
+	if ((i < static_cast<int>(ScApp->doc->selection->count())) && (i > -1))
+		//return PyString_FromString(ScApp->view->SelItem.at(i)->itemName().utf8());
+		return PyString_FromString(ScApp->doc->selection->itemAt(i)->itemName().utf8());
 	else
 		// FIXME: Should probably return None if no selection?
 		return PyString_FromString("");
@@ -278,7 +289,8 @@ PyObject *scribus_selcount(PyObject* /* self */)
 {
 	if(!checkHaveDocument())
 		return NULL;
-	return PyInt_FromLong(static_cast<long>(ScApp->view->SelItem.count()));
+	//return PyInt_FromLong(static_cast<long>(ScApp->view->SelItem.count()));
+	return PyInt_FromLong(static_cast<long>(ScApp->doc->selection->count()));
 }
 
 PyObject *scribus_selectobj(PyObject* /* self */, PyObject* args)

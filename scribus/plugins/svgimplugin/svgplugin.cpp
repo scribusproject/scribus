@@ -18,16 +18,17 @@
 #ifdef HAVE_LIBZ
 #include <zlib.h>
 #endif
-#include "undomanager.h"
-#include "util.h"
-#include "scfontmetrics.h"
+#include "commonstrings.h"
+#include "fpointarray.h"
+#include "menumanager.h"
 #include "prefsmanager.h"
 #include "pageitem.h"
-#include "scribusdoc.h"
-#include "fpointarray.h"
+#include "scfontmetrics.h"
 #include "scraction.h"
-#include "menumanager.h"
-#include "commonstrings.h"
+#include "scribusdoc.h"
+#include "selection.h"
+#include "undomanager.h"
+#include "util.h"
 
 using namespace std;
 
@@ -292,7 +293,8 @@ void SVGPlug::convert()
 		haveViewBox = true;
 	}
 	parseGroup( docElem );
-	ScApp->view->SelItem.clear();
+	//ScApp->view->SelItem.clear();
+	currDoc->selection->clear();
 	if (Elements.count() > 1)
 	{
 		for (uint a = 0; a < Elements.count(); ++a)
@@ -315,11 +317,13 @@ void SVGPlug::convert()
 		for (uint dre=0; dre<Elements.count(); ++dre)
 		{
 			currDoc->DragElements.append(Elements.at(dre)->ItemNr);
-			ScApp->view->SelItem.append(Elements.at(dre));
+			//ScApp->view->SelItem.append(Elements.at(dre));
+			currDoc->selection->addItem(Elements.at(dre));
 		}
 		ScriXmlDoc *ss = new ScriXmlDoc();
 		ScApp->view->setGroupRect();
-		QDragObject *dr = new QTextDrag(ss->WriteElem(&ScApp->view->SelItem, currDoc, ScApp->view), ScApp->view->viewport());
+		//QDragObject *dr = new QTextDrag(ss->WriteElem(&ScApp->view->SelItem, currDoc, ScApp->view), ScApp->view->viewport());
+		QDragObject *dr = new QTextDrag(ss->WriteElem(currDoc, ScApp->view, 0), ScApp->view->viewport());
 		ScApp->view->DeleteItem();
 		ScApp->view->resizeContents(qRound((maxSize.x() - minSize.x()) * ScApp->view->getScale()), qRound((maxSize.y() - minSize.y()) * ScApp->view->getScale()));
 		ScApp->view->scrollBy(qRound((currDoc->minCanvasCoordinate.x() - minSize.x()) * ScApp->view->getScale()), qRound((currDoc->minCanvasCoordinate.y() - minSize.y()) * ScApp->view->getScale()));
@@ -443,8 +447,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			mm.translate(x, y);
 			ite->PoLine.map(mm);
 			FPoint wh = getMaxClipF(&ite->PoLine);
-			ite->Width = wh.x();
-			ite->Height = wh.y();
+			ite->setWidthHeight(wh.x(), wh.y());
 		}
 		else if( STag == "ellipse" )
 		{
@@ -462,8 +465,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			mm.translate(x, y);
 			ite->PoLine.map(mm);
 			FPoint wh = getMaxClipF(&ite->PoLine);
-			ite->Width = wh.x();
-			ite->Height = wh.y();
+			ite->setWidthHeight(wh.x(), wh.y());
 		}
 		else if( STag == "circle" )
 		{
@@ -480,8 +482,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			mm.translate(x, y);
 			ite->PoLine.map(mm);
 			FPoint wh = getMaxClipF(&ite->PoLine);
-			ite->Width = wh.x();
-			ite->Height = wh.y();
+			ite->setWidthHeight(wh.x(), wh.y());
 		}
 		else if( STag == "line" )
 		{
@@ -521,7 +522,8 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 				ite->convertTo(PageItem::PolyLine);
 			if (ite->PoLine.size() < 4)
 			{
-				ScApp->view->SelItem.append(ite);
+				//ScApp->view->SelItem.append(ite);
+				currDoc->selection->addItem(ite);
 				ScApp->view->DeleteItem();
 				z = -1;
 			}
@@ -620,14 +622,13 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 					QWMatrix mm = gc->matrix;
 					//ite->Xpos += mm.dx();
 					//ite->Ypos += mm.dy();
-					ite->move(mm.dx(), mm.dy());
-					ite->Width = ite->Width * mm.m11();
-					ite->Height = ite->Height * mm.m22();
+					ite->moveBy(mm.dx(), mm.dy());
+					ite->setWidthHeight(ite->width() * mm.m11(), ite->height() * mm.m22());
 					ite->Pwidth = ite->Pwidth * ((mm.m11() + mm.m22()) / 2.0);
 					if (ite->PicAvail)
 					{
-						ite->LocalScX = ite->Width / ite->pixm.width();
-						ite->LocalScY = ite->Height / ite->pixm.height();
+						ite->LocalScX = ite->width() / ite->pixm.width();
+						ite->LocalScY = ite->height() / ite->pixm.height();
 					}
 					break;
 				}
@@ -652,8 +653,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 					}
 					ite->Pwidth = ite->Pwidth * ((mm.m11() + mm.m22()) / 2.0);
 					FPoint wh = getMaxClipF(&ite->PoLine);
-					ite->Width = wh.x();
-					ite->Height = wh.y();
+					ite->setWidthHeight(wh.x(), wh.y());
 					ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 					ScApp->view->AdjustItemSize(ite);
 					break;
@@ -673,10 +673,10 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 				ite->fill_gradient = gc->GradCo;
 				if (!gc->CSpace)
 				{
-					ite->GrStartX = gc->GX1 * ite->Width;
-					ite->GrStartY = gc->GY1 * ite->Height;
-					ite->GrEndX = gc->GX2 * ite->Width;
-					ite->GrEndY = gc->GY2 * ite->Height;
+					ite->GrStartX = gc->GX1 * ite->width();
+					ite->GrStartY = gc->GY1 * ite->height();
+					ite->GrEndX = gc->GX2 * ite->width();
+					ite->GrEndY = gc->GY2 * ite->height();
 					double angle1 = atan2(gc->GY2-gc->GY1,gc->GX2-gc->GX1)*(180.0/M_PI);
 					double angle2 = atan2(ite->GrEndY-ite->GrStartX,ite->GrEndX-ite->GrStartX)*(180.0/M_PI);
 					double dx = ite->GrStartX + (ite->GrEndX-ite->GrStartX) / 2.0;
@@ -1977,7 +1977,7 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 			ite->BExtra = 0;
 			ite->RExtra = 0;
 			ite->LineSp = gc->FontSize / 10.0 + 2;
-			ite->Height = ite->LineSp+desc+2;
+			ite->setHeight(ite->LineSp+desc+2);
 			ScApp->SetNewFont(gc->Family);
 			QWMatrix mm = gc->matrix;
 			if( (!tspan.attribute("x").isEmpty()) && (!tspan.attribute("y").isEmpty()) )
@@ -2054,21 +2054,21 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 				tempW += RealCWidth(currDoc, hg->cfont, hg->ch, hg->csize)+1;
 				if (hg->ch == QChar(13))
 				{
-					ite->Height += ite->LineSp+desc;
-					ite->Width = QMAX(ite->Width, tempW);
+					ite->setWidthHeight(QMAX(ite->width(), tempW), ite->height() + ite->LineSp+desc);
 					tempW = 0;
 				}
 			}
-			ite->Width = QMAX(ite->Width, tempW);
+			ite->setWidth(QMAX(ite->width(), tempW));
 			ite->SetRectFrame();
 			ScApp->view->setRedrawBounding(ite);
 			ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-			ScApp->view->SelItem.append(ite);
+			//ScApp->view->SelItem.append(ite);
+			currDoc->selection->addItem(ite);
 			ScApp->view->HowTo = 1;
 			ScApp->view->setGroupRect();
 			ScApp->view->scaleGroup(mm.m11(), mm.m22());
 			ScApp->view->Deselect();
-			ite->move(0.0, -asce * mm.m22());
+			ite->moveBy(0.0, -asce * mm.m22());
 			if( !e.attribute("id").isEmpty() )
 				ite->setItemName(" "+e.attribute("id"));
 			ite->setFillTransparency(gc->Transparency);
@@ -2153,8 +2153,8 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 			hg->PtransY = 0;
 			hg->cembedded = 0;
 			ite->itemText.append(hg);
-			ite->Width += RealCWidth(currDoc, hg->cfont, hg->ch, hg->csize)+1;
-			ite->Height = ite->LineSp+desc+2;
+			ite->setWidth(ite->width() + RealCWidth(currDoc, hg->cfont, hg->ch, hg->csize)+1);
+			ite->setHeight(ite->LineSp+desc+2);
 		}
 		ite->SetRectFrame();
 		ScApp->view->setRedrawBounding(ite);

@@ -12,9 +12,10 @@
 
 #include <prefsfile.h>
 
-#include "scfontmetrics.h"
-#include "prefsmanager.h"
 #include "commonstrings.h"
+#include "prefsmanager.h"
+#include "scfontmetrics.h"
+#include "selection.h"
 
 extern QPixmap SCRIBUS_API loadIcon(QString nam);
 
@@ -113,7 +114,8 @@ FontPreview::FontPreview(QString fontName)
 		item = fontList->findItem(fontName, 0);
 	else
 	{
-		if (ScApp->view->SelItem.count() != 0)
+		//if (ScApp->view->SelItem.count() != 0)
+		if (ScApp->doc->selection->count() != 0)
 			item = fontList->findItem(ScApp->doc->CurrFont, 0);
 		else
 			item = fontList->findItem(PrefsManager::instance()->appPrefs.toolSettings.defFont, 0);

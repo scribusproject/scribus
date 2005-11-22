@@ -129,8 +129,8 @@ void ButtonIcon::SetAllVals()
 	ScaleW->setCurrentItem(Item->AnScaleW);
 	ScaleH->setCurrentItem(Item->LocalScX != Item->LocalScY ? 1 : 0);
 	SetScaleHow(ScaleW->currentItem());
-	SliderX->setValue(static_cast<int>(Item->LocalX / (Item->Width - Item->pixm.width()) * 1000));
-	SliderY->setValue(static_cast<int>(Item->LocalY / (Item->Height - Item->pixm.height()) * 1000));
+	SliderX->setValue(static_cast<int>(Item->LocalX / (Item->width() - Item->pixm.width()) * 1000));
+	SliderY->setValue(static_cast<int>(Item->LocalY / (Item->height() - Item->pixm.height()) * 1000));
 	TextLabel3->setGeometry(QRect(static_cast<int>(SliderX->value() / 1000.0 * 100),
 	                              static_cast<int>(SliderY->value() / 1000.0 * 100), 48, 48));
 }

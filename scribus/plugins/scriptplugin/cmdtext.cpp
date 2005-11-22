@@ -2,6 +2,7 @@
 #include "cmdutil.h"
 #include "pageitem_textframe.h"
 #include "prefsmanager.h"
+#include "selection.h"
 
 PyObject *scribus_getfontsize(PyObject* /* self */, PyObject* args)
 {
@@ -412,8 +413,10 @@ PyObject *scribus_setalign(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	int Apm = ScApp->doc->appMode;
-	ScApp->view->SelItem.clear();
-	ScApp->view->SelItem.append(i);
+	//ScApp->view->SelItem.clear();
+	ScApp->doc->selection->clear();
+	//ScApp->view->SelItem.append(i);
+	ScApp->doc->selection->addItem(i);
 	if (i->HasSel)
 		ScApp->doc->appMode = modeEdit;
 	ScApp->setNewAbStyle(alignment);
@@ -446,8 +449,10 @@ PyObject *scribus_setfontsize(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	int Apm = ScApp->doc->appMode;
-	ScApp->view->SelItem.clear();
-	ScApp->view->SelItem.append(i);
+	//ScApp->view->SelItem.clear();
+	ScApp->doc->selection->clear();
+	//ScApp->view->SelItem.append(i);
+	ScApp->doc->selection->addItem(i);
 	if (i->HasSel)
 		ScApp->doc->appMode = modeEdit;
 	ScApp->view->chFSize(qRound(size * 10.0));
@@ -476,8 +481,10 @@ PyObject *scribus_setfont(PyObject* /* self */, PyObject* args)
 	if (PrefsManager::instance()->appPrefs.AvailFonts.find(QString::fromUtf8(Font)))
 	{
 		int Apm = ScApp->doc->appMode;
-		ScApp->view->SelItem.clear();
-		ScApp->view->SelItem.append(i);
+		//ScApp->view->SelItem.clear();
+		ScApp->doc->selection->clear();
+		//ScApp->view->SelItem.append(i);
+		ScApp->doc->selection->addItem(i);
 		if (i->HasSel)
 			ScApp->doc->appMode = modeEdit;
 		ScApp->SetNewFont(QString::fromUtf8(Font));

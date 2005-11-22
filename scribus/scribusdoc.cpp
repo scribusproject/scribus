@@ -2412,7 +2412,7 @@ bool ScribusDoc::itemAddCommit(const int /*itemNumber*/)
 	//TODO use the parameter
 	if (_itemCreationTransactionStarted && appMode !=  modeDrawBezierLine)
 	{
-		PageItem *createdItem=ScApp->view->SelItem.at(0);
+		PageItem *createdItem=selection->itemAt(0);
 		if (createdItem!=NULL)
 		{
 			createdItem->checkChanges(true);
@@ -2487,16 +2487,16 @@ void ScribusDoc::canvasMinMax(FPoint& minPoint, FPoint& maxPoint)
 	for (uint ic = 0; ic < docItemsCount; ++ic)
 	{
 		currItem = Items->at(ic);
-		if (currItem->Rot != 0)
+		if (currItem->rotation() != 0)
 		{
 			FPointArray pb;
 			pb.resize(0);
 			pb.addPoint(FPoint(currItem->xPos(), currItem->yPos()));
-			FPoint p1(currItem->Width, 0.0, currItem->xPos(), currItem->yPos(), currItem->Rot, 1.0, 1.0);
+			FPoint p1(currItem->width(), 0.0, currItem->xPos(), currItem->yPos(), currItem->rotation(), 1.0, 1.0);
 			pb.addPoint(p1);
-			FPoint p2(currItem->Width, currItem->Height, currItem->xPos(), currItem->yPos(), currItem->Rot, 1.0, 1.0);
+			FPoint p2(currItem->width(), currItem->height(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1.0, 1.0);
 			pb.addPoint(p2);
-			FPoint p3(0.0, currItem->Height, currItem->xPos(), currItem->yPos(), currItem->Rot, 1.0, 1.0);
+			FPoint p3(0.0, currItem->height(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1.0, 1.0);
 			pb.addPoint(p3);
 			for (uint pc = 0; pc < 4; ++pc)
 			{
@@ -2510,8 +2510,8 @@ void ScribusDoc::canvasMinMax(FPoint& minPoint, FPoint& maxPoint)
 		{
 			minx = QMIN(minx, currItem->xPos());
 			miny = QMIN(miny, currItem->yPos());
-			maxx = QMAX(maxx, currItem->xPos() + currItem->Width);
-			maxy = QMAX(maxy, currItem->yPos() + currItem->Height);
+			maxx = QMAX(maxx, currItem->xPos() + currItem->width());
+			maxy = QMAX(maxy, currItem->yPos() + currItem->height());
 		}
 	}
 	minPoint.setX(minx);
@@ -2562,8 +2562,8 @@ int ScribusDoc::OnPage(PageItem *currItem)
 		int h = static_cast<int>(currentPage->height());
 		int x2 = static_cast<int>(currItem->xPos());
 		int y2 = static_cast<int>(currItem->yPos());
-		int w2 = QMAX(static_cast<int>(currItem->Width), 1);
-		int h2 = QMAX(static_cast<int>(currItem->Height), 1);
+		int w2 = QMAX(static_cast<int>(currItem->width()), 1);
+		int h2 = QMAX(static_cast<int>(currItem->height()), 1);
 		if (QRect(x, y, w, h).intersects(QRect(x2, y2, w2, h2)))
 			retw = currentPage->pageNr();
 	}
@@ -2578,8 +2578,8 @@ int ScribusDoc::OnPage(PageItem *currItem)
 			int h = static_cast<int>(Pages->at(a)->height());
 			int x2 = static_cast<int>(currItem->xPos());
 			int y2 = static_cast<int>(currItem->yPos());
-			int w2 = QMAX(static_cast<int>(currItem->Width), 1);
-			int h2 = QMAX(static_cast<int>(currItem->Height), 1);
+			int w2 = QMAX(static_cast<int>(currItem->width()), 1);
+			int h2 = QMAX(static_cast<int>(currItem->height()), 1);
 			if (QRect(x, y, w, h).intersects(QRect(x2, y2, w2, h2)))
 			{
 				retw = static_cast<int>(a);;
@@ -2735,7 +2735,7 @@ void ScribusDoc::reformPages(double& maxX, double& maxY, bool moveObjects)
 				if (moveObjects)
 				{
 					oldPg = pageTable[item->OwnPage];
-					item->move(-oldPg.oldXO + Pages->at(oldPg.newPg)->xOffset(), -oldPg.oldYO + Pages->at(oldPg.newPg)->yOffset());
+					item->moveBy(-oldPg.oldXO + Pages->at(oldPg.newPg)->xOffset(), -oldPg.oldYO + Pages->at(oldPg.newPg)->yOffset());
 					item->OwnPage = static_cast<int>(oldPg.newPg);
 				}
 				else
@@ -2840,12 +2840,12 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 			newItem->Frame = true;
 			if (oldItem->itemType()==PageItem::PathText)
 			{
-				uint newPolyItemNo = itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->Width, currItem->Height, currItem->Pwidth, "None", currItem->lineColor(), true);
+				uint newPolyItemNo = itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->Pwidth, "None", currItem->lineColor(), true);
 				PageItem *polyLineItem = Items->at(newPolyItemNo);
 				polyLineItem->PoLine = currItem->PoLine.copy();
 				polyLineItem->ClipEdited = true;
 				polyLineItem->FrameType = 3;
-				polyLineItem->Rot = currItem->Rot;
+				polyLineItem->setRotation(currItem->rotation());
 				polyLineItem->SetPolyClip(qRound(QMAX(polyLineItem->Pwidth / 2, 1)));
 				ScApp->view->AdjustItemSize(polyLineItem);
 				
@@ -2898,7 +2898,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 				double dx = secondaryItem->xPos() - newItem->xPos();
 				double dy = secondaryItem->yPos() - newItem->yPos();
 				ScApp->view->MoveItem(dx, dy, newItem);
-				newItem->Rot = secondaryItem->Rot;
+				newItem->setRotation(secondaryItem->rotation());
 				newItem->FrameType = 3;
 			}
 			break;

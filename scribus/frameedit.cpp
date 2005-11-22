@@ -3,6 +3,7 @@
 #include "page.h"
 #include "pageitem.h"
 #include "scribusview.h"
+#include "selection.h"
 #include "units.h"
 #include "undomanager.h"
 #include "undostate.h"
@@ -349,11 +350,16 @@ void NodePalette::ResetContour()
 		{
 			ItemState<FPointArray> *is = new ItemState<FPointArray>(Um::ResetContourLine, "",Um::IBorder);
 			is->set("RESET_CONTOUR", "reset_contour");
-			is->setItem(view->SelItem.at(0)->ContourLine);
-			UndoManager::instance()->action(view->SelItem.at(0), is);
+			//is->setItem(view->SelItem.at(0)->ContourLine);
+			is->setItem(doc->selection->itemAt(0)->ContourLine);
+			//UndoManager::instance()->action(view->SelItem.at(0), is);
+			UndoManager::instance()->action(doc->selection->itemAt(0), is);
 		}
-		view->SelItem.at(0)->ContourLine = view->SelItem.at(0)->PoLine.copy();
-		view->SelItem.at(0)->ClipEdited = true;
+		//view->SelItem.at(0)->ContourLine = view->SelItem.at(0)->PoLine.copy();
+		//FIXME make an internal item copy poline to contourline member
+		doc->selection->itemAt(0)->ContourLine = doc->selection->itemAt(0)->PoLine.copy();
+		//view->SelItem.at(0)->ClipEdited = true;
+		doc->selection->itemAt(0)->ClipEdited = true;
 		view->updateContents();
 	}
 }
@@ -362,11 +368,14 @@ void NodePalette::MovePoint()
 {
 	if (doc->EditClipMode == 0)
 	{
-		FPoint np = FPoint(XSpin->value()/doc->unitRatio(), YSpin->value()/doc->unitRatio());
-		FPoint zp = FPoint(view->SelItem.at(0)->xPos(), view->SelItem.at(0)->yPos());
+		//FPoint np = FPoint(XSpin->value()/doc->unitRatio(), YSpin->value()/doc->unitRatio());
+		FPoint np(XSpin->value()/doc->unitRatio(), YSpin->value()/doc->unitRatio());
+		//FPoint zp = FPoint(view->SelItem.at(0)->xPos(), view->SelItem.at(0)->yPos());
+		FPoint zp(doc->selection->itemAt(0)->xPos(), doc->selection->itemAt(0)->yPos());
 		if (AbsMode->isChecked())
 			np -= zp;
-		view->MoveClipPoint(view->SelItem.at(0), np);
+		//view->MoveClipPoint(view->SelItem.at(0), np);
+		view->MoveClipPoint(doc->selection->itemAt(0), np);
 	}
 }
 
@@ -382,11 +391,12 @@ void NodePalette::SetAsym()
 
 void NodePalette::SetXY(double x, double y)
 {
-	FPoint zp = FPoint(0.0, 0.0);
+	FPoint zp(0.0, 0.0);
 	disconnect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 	disconnect(YSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 	if (AbsMode->isChecked())
-		zp = FPoint(view->SelItem.at(0)->xPos(), view->SelItem.at(0)->yPos());
+		//zp = FPoint(view->SelItem.at(0)->xPos(), view->SelItem.at(0)->yPos());
+		zp = FPoint(doc->selection->itemAt(0)->xPos(), doc->selection->itemAt(0)->yPos());
 	XSpin->setValue((x + zp.x())*doc->unitRatio());
 	YSpin->setValue((y + zp.y())*doc->unitRatio());
 	connect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
@@ -395,11 +405,12 @@ void NodePalette::SetXY(double x, double y)
 
 void NodePalette::ToggleAbsMode()
 {
-	FPoint zp = FPoint(view->SelItem.at(0)->xPos(), view->SelItem.at(0)->yPos());
+	//FPoint zp = FPoint(view->SelItem.at(0)->xPos(), view->SelItem.at(0)->yPos());
+	FPoint zp(doc->selection->itemAt(0)->xPos(), doc->selection->itemAt(0)->yPos());
 	disconnect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 	disconnect(YSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 	double unitRatio=doc->unitRatio();
-	FPoint np = FPoint(XSpin->value()/unitRatio, YSpin->value()/unitRatio);
+	FPoint np(XSpin->value()/unitRatio, YSpin->value()/unitRatio);
 	if (AbsMode->isChecked())
 		np += zp;
 	else
@@ -471,11 +482,15 @@ void NodePalette::HaveNode(bool have, bool mov)
 	{
 		uint cc;
 		bool leaveEd = false;
+		PageItem*currItem=doc->selection->itemAt(0);
 		if (view->EditContour)
-			cc = view->SelItem.at(0)->ContourLine.size();
+			//cc = view->SelItem.at(0)->ContourLine.size();
+			cc = currItem->ContourLine.size();
 		else
-			cc = view->SelItem.at(0)->PoLine.size();
-		if (view->SelItem.at(0)->asPolyLine())
+			//cc = view->SelItem.at(0)->PoLine.size();
+			cc = currItem->PoLine.size();
+		//if (view->SelItem.at(0)->asPolyLine())
+		if (currItem->asPolyLine())
 		{
 			if (cc < 5)
 				leaveEd = true;
@@ -497,7 +512,8 @@ void NodePalette::MoveK()
 {
 	doc->EditClipMode = 0;
 	view->EdPoints = false;
-	PageItem *currItem = view->SelItem.at(0);
+	//PageItem *currItem = view->SelItem.at(0);
+	PageItem *currItem = doc->selection->itemAt(0);
 	if (view->EditContour)
 		view->MarkClip(currItem, currItem->ContourLine, true);
 	else
@@ -512,7 +528,8 @@ void NodePalette::MoveN()
 {
 	doc->EditClipMode = 0;
 	view->EdPoints = true;
-	PageItem *currItem = view->SelItem.at(0);
+	//PageItem *currItem = view->SelItem.at(0);
+	PageItem *currItem = doc->selection->itemAt(0);
 	if (view->EditContour)
 		view->MarkClip(currItem, currItem->ContourLine, true);
 	else
@@ -616,3 +633,4 @@ void NodePalette::languageChange()
 	QToolTip::add(ResetCont, tr("Reset the Contour Line to the Original Shape of the Frame"));
 	QToolTip::add(AbsMode,  "<qt>" + tr("When checked use coordinates relative to the page, otherwise coordinates are relative to the Object.") + "</qt>");
 }
+

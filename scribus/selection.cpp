@@ -20,6 +20,7 @@ Selection::Selection()
 {
 	sellists.insert(0, QValueList< QGuardedPtr<PageItem> >()); //Create the default GUI selected item list
 	hasGroupSelection.insert(0, false);
+	nextTemp=TempStart;
 }
 
 
@@ -32,12 +33,25 @@ void Selection::setDoc(ScribusDoc* doc)
 	m_Doc=doc;
 }
 
+const int Selection::findItem(PageItem *item, int listNumber)
+{
+	if (sellists.contains(listNumber))
+		return sellists[listNumber].findIndex(item);
+	return -1;
+}
 
-int Selection::count(int listNumber)
+uint Selection::count(int listNumber)
 {
 	if (sellists.contains(listNumber))
 		return sellists[listNumber].count();
-	return -1;
+	return 0;
+}
+
+bool Selection::isEmpty(int listNumber)
+{
+	if (sellists.contains(listNumber))
+		return (sellists[listNumber].count()==0);
+	return false;
 }
 
 bool Selection::clear(int listNumber)
@@ -50,7 +64,7 @@ bool Selection::clear(int listNumber)
 			SelectionList::Iterator it=sellists[listNumber].begin();
 			while (it!=itend)
 			{
-				(*it)->Select=false;
+				(*it)->setSelected(false);
 				(*it)->isSingleSel=false;
 				(*it)->disconnectFromGUI();
 				++it;
@@ -58,7 +72,7 @@ bool Selection::clear(int listNumber)
 		}
 		sellists[listNumber].clear();
 		hasGroupSelection[listNumber]=false;
-		qDebug(QString("clearing %1").arg(listNumber));
+		//qDebug(QString("clearing %1").arg(listNumber));
 		return true;
 	}
 	return false;
@@ -124,35 +138,43 @@ bool Selection::addItem(PageItem *item, int listNumber)
 		return false;
 	if (sellists.contains(listNumber))
 	{
+		//qDebug(QString("trying to add %1").arg(item->ItemNr));
 		bool listIsEmpty=sellists[listNumber].isEmpty();
+		//if (listIsEmpty) qDebug("list is empty");
+		//if (sellists[listNumber].contains(item)) qDebug(QString("list already contains %1").arg(item->ItemNr));
 		if (listIsEmpty || !sellists[listNumber].contains(item))
 		{
+			//qDebug(QString("adding %1").arg(item->ItemNr));
+			sellists[listNumber].append(item);
 			if (listIsEmpty && listNumber==0)
 				item->connectToGUI();
-			sellists[listNumber].append(item);
-			item->Select=true;
-			qDebug(QString("adding %1 %2").arg(listNumber).arg(item->ItemNr));
+			item->setSelected(true);
+			//qDebug(QString("adding %1 %2").arg(listNumber).arg(item->ItemNr));
 			return true;
 		}
 	}
 	return false;
 }
 
-bool Selection::removeItem(PageItem *item, int listNumber)
+bool Selection::prependItem(PageItem *item, int listNumber)
 {
+	if (item==NULL)
+		return false;
 	if (sellists.contains(listNumber))
-		if (!sellists[listNumber].isEmpty() && sellists[listNumber].contains(item))
+	{
+		if (!sellists[listNumber].contains(item))
 		{
-			bool removeOk=sellists[listNumber].remove(item);
-			if (removeOk)
+			if (listNumber==0)
 			{
-				item->Select=false;
-				item->isSingleSel = false;
+				if (!sellists[listNumber].isEmpty())
+					sellists[listNumber][0]->disconnectFromGUI();
+				item->connectToGUI();
 			}
-			if (sellists[listNumber].count()==0)
-				hasGroupSelection[listNumber]=false;
-			return removeOk;
+			sellists[listNumber].prepend(item);
+			item->setSelected(true);
+			return true;
 		}
+	}
 	return false;
 }
 
@@ -178,4 +200,106 @@ PageItem *Selection::itemAt(int index, int listNumber)
 			return NULL;
 		}
 	return NULL;
+}
+
+bool Selection::removeFirst(int listNumber)
+{
+	if (sellists.contains(listNumber) && !sellists[listNumber].isEmpty())
+	{
+		//qDebug(QString("%1").arg("removing first"));
+		removeItem(sellists[listNumber].first(), listNumber);
+		if (sellists[listNumber].isEmpty() || listNumber!=0)
+			return true;
+		sellists[listNumber].first()->connectToGUI();
+	}
+	return false;
+}
+
+bool Selection::removeItem(PageItem *item, int listNumber)
+{
+	if (sellists.contains(listNumber))
+		if (!sellists[listNumber].isEmpty() && sellists[listNumber].contains(item))
+		{
+			//qDebug(QString("removing item %1").arg(item->ItemNr));
+			bool removeOk=sellists[listNumber].remove(item);
+			if (removeOk)
+			{
+				item->setSelected(false);
+				item->isSingleSel = false;
+			}
+			if (sellists[listNumber].count()==0)
+				hasGroupSelection[listNumber]=false;
+			else
+				sellists[listNumber].first()->connectToGUI();
+			return removeOk;
+		}
+	return false;
+}
+
+PageItem* Selection::takeItem(int itemIndex, int listNumber)
+{
+	if (itemIndex>=0 && sellists.contains(listNumber))
+		if (!sellists[listNumber].isEmpty() && itemIndex<sellists[listNumber].count())
+		{
+			PageItem *item=sellists[listNumber][itemIndex];
+			bool removeOk=sellists[listNumber].remove(item);
+			if (removeOk)
+			{
+				item->setSelected(false);
+				item->isSingleSel = false;
+				if (listNumber==0 && itemIndex==0)
+				{
+					item->disconnectFromGUI();
+					if (sellists[listNumber].count()>0)
+						sellists[listNumber][0]->connectToGUI();
+				}
+				if (sellists[listNumber].count()==0)
+					hasGroupSelection[listNumber]=false;
+				return item;
+			}
+		}
+	return NULL;
+}
+
+int Selection::backupToTempList(int listNumber)
+{
+	if (!sellists.contains(listNumber))
+		return -1;
+	
+	sellists.insert(nextTemp, sellists[listNumber]);
+	hasGroupSelection.insert(nextTemp, hasGroupSelection[listNumber]);
+	int temp=nextTemp++;
+	return temp;
+}
+
+bool Selection::restoreFromTempList(int listNumber, int fromTempListNumber)
+{
+	if (!sellists.contains(listNumber) || !sellists.contains(fromTempListNumber))
+		return false;
+	sellists[listNumber].clear();
+	sellists[listNumber]=sellists[fromTempListNumber];
+	sellists[fromTempListNumber].clear();
+	sellists.remove(fromTempListNumber);
+	hasGroupSelection.remove(fromTempListNumber);
+	if (listNumber==0)
+	{
+		SelectionList::Iterator it=sellists[listNumber].begin();
+		SelectionList::Iterator itend=sellists[listNumber].end();
+		for ( ; it!=itend ; ++it)
+			(*it)->setSelected(true);
+	}
+	--nextTemp;
+	return true;
+}
+
+QStringList Selection::getSelectedItemsByName(int listNumber)
+{
+	if (!sellists.contains(listNumber))
+		return QStringList();
+	QStringList names;
+	SelectionList::Iterator it=sellists[listNumber].begin();
+	SelectionList::Iterator itend=sellists[listNumber].end();
+	for ( ; it!=itend ; ++it)
+		names.append((*it)->itemName());
+	return names;
 }

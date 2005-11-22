@@ -27,6 +27,7 @@
 #include "prefscontext.h"
 #include "prefstable.h"
 #include "fileunzip.h"
+#include "selection.h"
 #include "serializer.h"
 #include "undomanager.h"
 #include "pluginmanager.h"
@@ -325,7 +326,8 @@ void OODPlug::convert()
 		fillStyleStack( dpg );
 		parseGroup( dpg );
 	}
-	ScApp->view->SelItem.clear();
+	//ScApp->view->SelItem.clear();
+	Doku->selection->clear();
 	if ((Elements.count() > 1) && (interactive))
 	{
 		for (uint a = 0; a < Elements.count(); ++a)
@@ -348,11 +350,13 @@ void OODPlug::convert()
 		for (uint dre=0; dre<Elements.count(); ++dre)
 		{
 			Doku->DragElements.append(Elements.at(dre)->ItemNr);
-			ScApp->view->SelItem.append(Elements.at(dre));
+			//ScApp->view->SelItem.append(Elements.at(dre));
+			Doku->selection->addItem(Elements.at(dre));
 		}
 		ScriXmlDoc *ss = new ScriXmlDoc();
 		ScApp->view->setGroupRect();
-		QDragObject *dr = new QTextDrag(ss->WriteElem(&ScApp->view->SelItem, Doku, ScApp->view), ScApp->view->viewport());
+		//QDragObject *dr = new QTextDrag(ss->WriteElem(&ScApp->view->SelItem, Doku, ScApp->view), ScApp->view->viewport());
+		QDragObject *dr = new QTextDrag(ss->WriteElem(Doku, ScApp->view, 0), ScApp->view->viewport());
 		ScApp->view->DeleteItem();
 		ScApp->view->resizeContents(qRound((maxSize.x() - minSize.x()) * ScApp->view->getScale()), qRound((maxSize.y() - minSize.y()) * ScApp->view->getScale()));
 		ScApp->view->scrollBy(qRound((Doku->minCanvasCoordinate.x() - minSize.x()) * ScApp->view->getScale()), qRound((Doku->minCanvasCoordinate.y() - minSize.y()) * ScApp->view->getScale()));
@@ -556,8 +560,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			ite->PoLine.setPoint(2, FPoint(x2, y2));
 			ite->PoLine.setPoint(3, FPoint(x2, y2));
 			FPoint wh = getMaxClipF(&ite->PoLine);
-			ite->Width = wh.x();
-			ite->Height = wh.y();
+			ite->setWidthHeight(wh.x(), wh.y());
 			ite->ClipEdited = true;
 			ite->FrameType = 3;
 			if (!b.hasAttribute("draw:transform"))
@@ -573,8 +576,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			ite->PoLine.resize(0);
 			appendPoints(&ite->PoLine, b);
 			FPoint wh = getMaxClipF(&ite->PoLine);
-			ite->Width = wh.x();
-			ite->Height = wh.y();
+			ite->setWidthHeight(wh.x(), wh.y());
 			ite->ClipEdited = true;
 			ite->FrameType = 3;
 			if (!b.hasAttribute("draw:transform"))
@@ -590,8 +592,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			ite->PoLine.resize(0);
 			appendPoints(&ite->PoLine, b);
 			FPoint wh = getMaxClipF(&ite->PoLine);
-			ite->Width = wh.x();
-			ite->Height = wh.y();
+			ite->setWidthHeight(wh.x(), wh.y());
 			ite->ClipEdited = true;
 			ite->FrameType = 3;
 			if (!b.hasAttribute("draw:transform"))
@@ -609,7 +610,8 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 				ite->convertTo(PageItem::PolyLine);
 			if (ite->PoLine.size() < 4)
 			{
-				ScApp->view->SelItem.append(ite);
+				//ScApp->view->SelItem.append(ite);
+				Doku->selection->addItem(ite);
 				ScApp->view->DeleteItem();
 				z = -1;
 			}
@@ -629,8 +631,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 				mat.scale(w / vw, h / vh);
 				ite->PoLine.map(mat);
 				FPoint wh = getMaxClipF(&ite->PoLine);
-				ite->Width = wh.x();
-				ite->Height = wh.y();
+				ite->setWidthHeight(wh.x(), wh.y());
 				ite->ClipEdited = true;
 				ite->FrameType = 3;
 				if (!b.hasAttribute("draw:transform"))
@@ -701,8 +702,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 				ite->ClipEdited = true;
 				ite->FrameType = 3;
 				FPoint wh = getMaxClipF(&ite->PoLine);
-				ite->Width = wh.x();
-				ite->Height = wh.y();
+				ite->setWidthHeight(wh.x(), wh.y());
 				ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 				ScApp->view->AdjustItemSize(ite);
 			}
@@ -736,36 +736,36 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 							flipped = true;
 						}
 						double xpos;
-						xpos = (ite->Width / 2) * tan(GradientAngle* M_PI / 180.0) * (ite->Height / ite->Width) + (ite->Width / 2);
-						if ((xpos < 0) || (xpos > ite->Width))
+						xpos = (ite->width() / 2) * tan(GradientAngle* M_PI / 180.0) * (ite->height() / ite->width()) + (ite->width() / 2);
+						if ((xpos < 0) || (xpos > ite->width()))
 						{
-							xpos = (ite->Height / 2)- (ite->Height / 2) * tan(GradientAngle* M_PI / 180.0) * (ite->Height / ite->Width);
+							xpos = (ite->height() / 2)- (ite->height() / 2) * tan(GradientAngle* M_PI / 180.0) * (ite->height() / ite->width());
 							if (flipped)
 							{
-								ite->GrEndX = ite->Width;
-								ite->GrEndY = ite->Height - xpos;
+								ite->GrEndX = ite->width();
+								ite->GrEndY = ite->height() - xpos;
 								ite->GrStartX = 0;
 								ite->GrStartY = xpos;
 							}
 							else
 							{
 								ite->GrEndY = xpos;
-								ite->GrEndX = ite->Width;
+								ite->GrEndX = ite->width();
 								ite->GrStartX = 0;
-								ite->GrStartY = ite->Height - xpos;
+								ite->GrStartY = ite->height() - xpos;
 							}
 						}
 						else
 						{
 							ite->GrEndX = xpos;
-							ite->GrEndY = ite->Height;
-							ite->GrStartX = ite->Width - xpos;
+							ite->GrEndY = ite->height();
+							ite->GrStartX = ite->width() - xpos;
 							ite->GrStartY = 0;
 						}
 						if (flipped)
 						{
-							ite->GrEndX = ite->Width - xpos;
-							ite->GrEndY = ite->Height;
+							ite->GrEndX = ite->width() - xpos;
+							ite->GrEndY = ite->height();
 							ite->GrStartX = xpos;
 							ite->GrStartY = 0;
 						}
@@ -775,17 +775,17 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 				if (GradientType == 2)
 				{
 					ite->GrType = 7;
-					ite->GrStartX = ite->Width * xGoff;
-					ite->GrStartY = ite->Height* yGoff;
-					if (ite->Width >= ite->Height)
+					ite->GrStartX = ite->width() * xGoff;
+					ite->GrStartY = ite->height()* yGoff;
+					if (ite->width() >= ite->height())
 					{
-						ite->GrEndX = ite->Width;
-						ite->GrEndY = ite->Height / 2.0;
+						ite->GrEndX = ite->width();
+						ite->GrEndY = ite->height() / 2.0;
 					}
 					else
 					{
-						ite->GrEndX = ite->Width / 2.0;
-						ite->GrEndY = ite->Height;
+						ite->GrEndX = ite->width() / 2.0;
+						ite->GrEndY = ite->height();
 					}
 					ScApp->view->updateGradientVectors(ite);
 				}

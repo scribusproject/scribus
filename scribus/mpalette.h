@@ -136,7 +136,7 @@ public slots:
 	void ChangeScaling();
 	void setLvalue(double scx, double scy, double x, double y);
 	void setSvalue(double s);
-	void setLIvalue(PenStyle p, PenCapStyle pc, PenJoinStyle pj);
+	void setLIvalue(Qt::PenStyle p, Qt::PenCapStyle pc, Qt::PenJoinStyle pj);
 	void setStil(int s);
 	void setAli(int e);
 	void setShadowOffs(int x, int y);

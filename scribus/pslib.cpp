@@ -29,9 +29,11 @@
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "scfonts.h"
+#include "scfontmetrics.h"
+#include "selection.h"
 #include <cmath>
 #include "util.h"
-#include "scfontmetrics.h"
+
 
 PSLib::PSLib(bool psart, SCFonts &AllFonts, QMap<QString,int> DocFonts, ColorList DocColors, bool pdf, bool spot)
 {
@@ -973,24 +975,27 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 	PS_set_Info("Title", Doc->documentInfo.getTitle());
 	if (!farb)
 		PS_setGray();
-	if ((!Art) && (view->SelItem.count() != 0))
+	//if ((!Art) && (view->SelItem.count() != 0))
+	int docSelectionCount=Doc->selection->count();
+	if ((!Art) && (docSelectionCount != 0))
 	{
 		double minx = 99999.9;
 		double miny = 99999.9;
 		double maxx = -99999.9;
 		double maxy = -99999.9;
-		for (uint ep = 0; ep < view->SelItem.count(); ++ep)
+		for (uint ep = 0; ep < docSelectionCount; ++ep)
 		{
-			PageItem* currItem = view->SelItem.at(ep);
+			//PageItem* currItem = view->SelItem.at(ep);
+			PageItem* currItem = Doc->selection->itemAt(ep);
 			double lw = currItem->lineWidth() / 2.0;
-			if (currItem->Rot != 0)
+			if (currItem->rotation() != 0)
 			{
 				FPointArray pb;
 				pb.resize(0);
 				pb.addPoint(FPoint(currItem->xPos()-lw, currItem->yPos()-lw));
-				pb.addPoint(FPoint(currItem->Width+lw*2.0, -lw, currItem->xPos()-lw, currItem->yPos()-lw, currItem->Rot, 1.0, 1.0));
-				pb.addPoint(FPoint(currItem->Width+lw*2.0, currItem->Height+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->Rot, 1.0, 1.0));
-				pb.addPoint(FPoint(-lw, currItem->Height+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->Rot, 1.0, 1.0));
+				pb.addPoint(FPoint(currItem->width()+lw*2.0, -lw, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
+				pb.addPoint(FPoint(currItem->width()+lw*2.0, currItem->height()+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
+				pb.addPoint(FPoint(-lw, currItem->height()+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
 				for (uint pc = 0; pc < 4; ++pc)
 				{
 					minx = QMIN(minx, pb.point(pc).x());
@@ -1003,8 +1008,8 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 			{
 				minx = QMIN(minx, currItem->xPos()-lw);
 				miny = QMIN(miny, currItem->yPos()-lw);
-				maxx = QMAX(maxx, currItem->xPos()-lw + currItem->Width+lw*2.0);
-				maxy = QMAX(maxy, currItem->yPos()-lw + currItem->Height+lw*2.0);
+				maxx = QMAX(maxx, currItem->xPos()-lw + currItem->width()+lw*2.0);
+				maxy = QMAX(maxy, currItem->yPos()-lw + currItem->height()+lw*2.0);
 			}
 		}
 		gx = minx;
@@ -1065,7 +1070,8 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 	while (aa < pageNs.size())
 	{
 		a = pageNs[aa]-1;
-		if ((!Art) && (view->SelItem.count() != 0))
+		//if ((!Art) && (view->SelItem.count() != 0))
+		if ((!Art) && (Doc->selection->count() != 0))
 		{
 			struct MarginStruct Ma;
 			Ma.Left = gx;
@@ -1130,8 +1136,8 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 							{
 								PS_save();
 								PS_translate(ite->xPos() - mPage->xOffset(), mPage->height() -(ite->yPos()) - mPage->yOffset());
-								if (ite->Rot != 0)
-									PS_rotate(-ite->Rot);
+								if (ite->rotation() != 0)
+									PS_rotate(-ite->rotation());
 								if (ite->fillColor() != "None")
 								{
 									SetClipPath(&ite->PoLine);
@@ -1151,12 +1157,12 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 								PS_save();
 								if (ite->imageFlippedH())
 								{
-									PS_translate(ite->Width, 0);
+									PS_translate(ite->width(), 0);
 									PS_scale(-1, 1);
 								}
 								if (ite->imageFlippedV())
 								{
-									PS_translate(0, -ite->Height);
+									PS_translate(0, -ite->height());
 									PS_scale(1, -1);
 								}
 								if ((ite->PicAvail) && (!ite->Pfile.isEmpty()))
@@ -1208,8 +1214,8 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 									PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 								}
 								PS_translate(ite->xPos() - mPage->xOffset(), mPage->height() - (ite->yPos() - mPage->yOffset()));
-								if (ite->Rot != 0)
-									PS_rotate(-ite->Rot);
+								if (ite->rotation() != 0)
+									PS_rotate(-ite->rotation());
 								if ((ite->fillColor() != "None") || (ite->GrType != 0))
 								{
 									SetClipPath(&ite->PoLine);
@@ -1218,12 +1224,12 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 								}
 								if (ite->imageFlippedH())
 								{
-									PS_translate(ite->Width, 0);
+									PS_translate(ite->width(), 0);
 									PS_scale(-1, 1);
 								}
 								if (ite->imageFlippedV())
 								{
-									PS_translate(0, -ite->Height);
+									PS_translate(0, -ite->height());
 									PS_scale(1, -1);
 								}
 								setTextSt(Doc, ite, gcr, a, mPage, sep, farb, Ic, true);
@@ -1277,29 +1283,29 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 							PS_setcapjoin(ite->PLineEnd, ite->PLineJoin);
 							PS_setdash(ite->PLineArt, ite->DashOffset, ite->DashValues);
 							PS_translate(ite->xPos() - mPage->xOffset(), mPage->height() - (ite->yPos() - mPage->yOffset()));
-							if (ite->Rot != 0)
-								PS_rotate(-ite->Rot);
+							if (ite->rotation() != 0)
+								PS_rotate(-ite->rotation());
 							if ((ite->TopLine) || (ite->RightLine) || (ite->BottomLine) || (ite->LeftLine))
 							{
 								if (ite->TopLine)
 								{
 									PS_moveto(0, 0);
-									PS_lineto(ite->Width, 0);
+									PS_lineto(ite->width(), 0);
 								}
 								if (ite->RightLine)
 								{
-									PS_moveto(ite->Width, 0);
-									PS_lineto(ite->Width, -ite->Height);
+									PS_moveto(ite->width(), 0);
+									PS_lineto(ite->width(), -ite->height());
 								}
 								if (ite->BottomLine)
 								{
-									PS_moveto(0, -ite->Height);
-									PS_lineto(ite->Width, -ite->Height);
+									PS_moveto(0, -ite->height());
+									PS_lineto(ite->width(), -ite->height());
 								}
 								if (ite->LeftLine)
 								{
 									PS_moveto(0, 0);
-									PS_lineto(0, -ite->Height);
+									PS_lineto(0, -ite->height());
 								}
 								putColor(ite->lineColor(), ite->lineShade(), false);
 							}
@@ -1361,8 +1367,8 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 		{
 			PS_translate(c->xPos() - a->xOffset(), a->height() - (c->yPos() - a->yOffset()));
 		}
-		if (c->Rot != 0)
-			PS_rotate(-c->Rot);
+		if (c->rotation() != 0)
+			PS_rotate(-c->rotation());
 		switch (c->itemType())
 		{
 		case PageItem::ImageFrame:
@@ -1373,7 +1379,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				SetClipPath(&c->PoLine);
 				PS_closepath();
 				if ((c->GrType != 0) && (a->PageNam.isEmpty()))
-					HandleGradient(c, c->Width, c->Height, gcr);
+					HandleGradient(c, c->width(), c->height(), gcr);
 				else
 					putColor(c->fillColor(), c->fillShade(), true);
 				PS_newpath();
@@ -1387,12 +1393,12 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			PS_clip(true);
 			if (c->imageFlippedH())
 			{
-				PS_translate(c->Width, 0);
+				PS_translate(c->width(), 0);
 				PS_scale(-1, 1);
 			}
 			if (c->imageFlippedV())
 			{
-				PS_translate(0, -c->Height);
+				PS_translate(0, -c->height());
 				PS_scale(1, -1);
 			}
 			if ((c->PicAvail) && (!c->Pfile.isEmpty()))
@@ -1457,7 +1463,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				{
 					bm += "\\"+cc.setNum(QMAX(c->itemText.at(d)->ch.at(0).unicode(), 32), 8);
 				}
-				PDF_Annotation(bm, 0, 0, c->Width, -c->Height);
+				PDF_Annotation(bm, 0, 0, c->width(), -c->height());
 				break;
 			}
 			if ((c->fillColor() != "None") || (c->GrType != 0))
@@ -1465,18 +1471,18 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				SetClipPath(&c->PoLine);
 				PS_closepath();
 				if ((c->GrType != 0) && (a->PageNam.isEmpty()))
-					HandleGradient(c, c->Width, c->Height, gcr);
+					HandleGradient(c, c->width(), c->height(), gcr);
 				else
 					putColor(c->fillColor(), c->fillShade(), true);
 			}
 			if (c->imageFlippedH())
 			{
-				PS_translate(c->Width, 0);
+				PS_translate(c->width(), 0);
 				PS_scale(-1, 1);
 			}
 			if (c->imageFlippedV())
 			{
-				PS_translate(0, -c->Height);
+				PS_translate(0, -c->height());
 				PS_scale(1, -1);
 			}
 			setTextSt(Doc, c, gcr, PNr-1, a, sep, farb, ic, master);
@@ -1514,7 +1520,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			if ((c->NamedLStyle.isEmpty()) && (c->Pwidth != 0.0))
 			{
 				PS_moveto(0, 0);
-				PS_lineto(c->Width, 0);
+				PS_lineto(c->width(), 0);
 				putColor(c->lineColor(), c->lineShade(), false);
 			}
 			else
@@ -1528,7 +1534,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					PS_setcapjoin(static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
 					PS_setdash(static_cast<Qt::PenStyle>(ml[it].Dash), 0, dum);
 					PS_moveto(0, 0);
-					PS_lineto(c->Width, 0);
+					PS_lineto(c->width(), 0);
 					putColor(ml[it].Color, ml[it].Shade, false);
 				}
 			}
@@ -1551,7 +1557,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			{
 				QWMatrix arrowTrans;
 				FPointArray arrow = (*Doc->arrowStyles.at(c->endArrowIndex-1)).points.copy();
-				arrowTrans.translate(c->Width, 0);
+				arrowTrans.translate(c->width(), 0);
 				arrowTrans.scale(c->Pwidth, c->Pwidth);
 				arrow.map(arrowTrans);
 				SetFarbe(c->lineColor(), c->lineShade(), &h, &s, &v, &k, gcr);
@@ -1574,7 +1580,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				SetClipPath(&c->PoLine);
 				PS_closepath();
 				if (c->GrType != 0)
-					HandleGradient(c, c->Width, c->Height, gcr);
+					HandleGradient(c, c->width(), c->height(), gcr);
 				else
 					putColor(c->fillColor(), c->fillShade(), true);
 			}
@@ -1609,7 +1615,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				SetClipPath(&c->PoLine);
 				PS_closepath();
 				if (c->GrType != 0)
-					HandleGradient(c, c->Width, c->Height, gcr);
+					HandleGradient(c, c->width(), c->height(), gcr);
 				else
 					putColor(c->fillColor(), c->fillShade(), true);
 				PS_newpath();
@@ -1862,7 +1868,8 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, b
 					continue;
 				if ((!a->PageNam.isEmpty()) && (c->asImageFrame()) && ((sep) || (!farb)))
 					continue;
-				if ((!Art) && (view->SelItem.count() != 0) && (!c->Select))
+				//if ((!Art) && (view->SelItem.count() != 0) && (!c->Select))
+				if ((!Art) && (!c->isSelected()) && (Doc->selection->count() != 0))
 					continue;
 				int x = static_cast<int>(a->xOffset());
 				int y = static_cast<int>(a->yOffset());
@@ -1918,29 +1925,29 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, b
 				PS_setcapjoin(c->PLineEnd, c->PLineJoin);
 				PS_setdash(c->PLineArt, c->DashOffset, c->DashValues);
 				PS_translate(c->xPos() - a->xOffset(), a->height() - (c->yPos() - a->yOffset()));
-				if (c->Rot != 0)
-					PS_rotate(-c->Rot);
+				if (c->rotation() != 0)
+					PS_rotate(-c->rotation());
 				if ((c->TopLine) || (c->RightLine) || (c->BottomLine) || (c->LeftLine))
 				{
 					if (c->TopLine)
 					{
 						PS_moveto(0, 0);
-						PS_lineto(c->Width, 0);
+						PS_lineto(c->width(), 0);
 					}
 					if (c->RightLine)
 					{
-						PS_moveto(c->Width, 0);
-						PS_lineto(c->Width, -c->Height);
+						PS_moveto(c->width(), 0);
+						PS_lineto(c->width(), -c->height());
 					}
 					if (c->BottomLine)
 					{
-						PS_moveto(0, -c->Height);
-						PS_lineto(c->Width, -c->Height);
+						PS_moveto(0, -c->height());
+						PS_lineto(c->width(), -c->height());
 					}
 					if (c->LeftLine)
 					{
 						PS_moveto(0, 0);
-						PS_lineto(0, -c->Height);
+						PS_lineto(0, -c->height());
 					}
 					putColor(c->lineColor(), c->lineShade(), false);
 				}
@@ -2001,10 +2008,10 @@ void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 			break;
 		case 6:
 		case 7:
-			StartX = QMIN(QMAX(c->GrStartX, 0), c->Width);
-			StartY = QMIN(QMAX(c->GrStartY, 0), c->Height);
-			EndX = QMIN(QMAX(c->GrEndX, 0), c->Width);
-			EndY = QMIN(QMAX(c->GrEndY, 0), c->Height);
+			StartX = QMIN(QMAX(c->GrStartX, 0), c->width());
+			StartY = QMIN(QMAX(c->GrStartY, 0), c->height());
+			EndX = QMIN(QMAX(c->GrEndX, 0), c->width());
+			EndY = QMIN(QMAX(c->GrEndY, 0), c->height());
 			break;
 	}
 	QValueList<double> StopVec;

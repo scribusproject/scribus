@@ -35,6 +35,7 @@
 #include "scribusapp.h"
 #include "scribusstructs.h"
 #include "scribusdoc.h"
+#include "selection.h"
 #include "prefsmanager.h"
 #include "undomanager.h"
 #include "undostate.h"
@@ -58,20 +59,15 @@ PageItem::PageItem(const PageItem & other)
 // 200 attributes! That is madness, or to quote some famous people from Kriquet:
 // "THAT ALL HAS TO GO!"
 	Reverse(other.Reverse),
-	Xpos(other.Xpos),
 	oldXpos(other.oldXpos),
-	Ypos(other.Ypos),
 	oldYpos(other.oldYpos),
-	Width(other.Width),
 	oldWidth(other.oldWidth),
-	Height(other.Height),
 	oldHeight(other.oldHeight),
 	gXpos(other.gXpos),
 	gYpos(other.gYpos),
 	gWidth(other.gWidth),
 	gHeight(other.gHeight),
 	RadRect(other.RadRect),
-	Rot(other.Rot),
 	oldRot(other.oldRot),
 	Doc(other.Doc),
 	GrType(other.GrType),
@@ -257,7 +253,12 @@ PageItem::PageItem(const PageItem & other)
 	isPrintable(other.isPrintable),
 	tagged(other.tagged),
 	fillQColor(other.fillQColor),
-	strokeQColor(other.strokeQColor)
+	strokeQColor(other.strokeQColor),
+	Xpos(other.Xpos),
+	Ypos(other.Ypos),
+	Width(other.Width),
+	Height(other.Height),
+	Rot(other.Rot)
 {
 }
 
@@ -534,24 +535,108 @@ const double PageItem::yPos()
 	return Ypos;
 }
 
+FPoint PageItem::xyPos()
+{
+	return FPoint(Xpos, Ypos);
+}
+
 void PageItem::setXPos(const double newXPos)
 {
-	Xpos=newXPos;
+	Xpos = newXPos;
+	emit position(Xpos, Ypos);
 }
 
 void PageItem::setYPos(const double newYPos)
 {
-	Ypos=newYPos;
+	Ypos = newYPos;
+	emit position(Xpos, Ypos);
 }
 
-void PageItem::move(const double dX, const double dY)
+void PageItem::setXYPos(const double newXPos, const double newYPos)
 {
+	Xpos = newXPos;
+	Ypos = newYPos;
+	emit position(Xpos, Ypos);
+}
+
+void PageItem::moveBy(const double dX, const double dY)
+{
+	if (dX==0.0 && dY==0.0)
+		return;
 	if (dX!=0.0)
 		Xpos+=dX;
 	if (dY!=0.0)
 		Ypos+=dY;
+	emit position(Xpos, Ypos);
 }
 
+const double PageItem::width()
+{
+	return Width;
+}
+
+const double PageItem::height()
+{
+	return Height;
+}
+
+void PageItem::setWidth(const double newWidth)
+{
+	Width = newWidth;
+	emit widthAndHeight(Width, Height);
+}
+
+void PageItem::setHeight(const double newHeight)
+{
+	Height = newHeight;
+	emit widthAndHeight(Width, Height);
+}
+
+void PageItem::setWidthHeight(const double newWidth, const double newHeight)
+{
+	Width = newWidth;
+	Height = newHeight;
+	emit widthAndHeight(Width, Height);
+}
+
+void PageItem::resizeBy(const double dH, const double dW)
+{
+	if (dH==0.0 && dW==0.0)
+		return;
+	if (dH!=0.0)
+		Width+=dH;
+	if (dW!=0.0)
+		Height+=dW;
+	emit widthAndHeight(Width, Height);
+}
+
+const double PageItem::rotation()
+{
+	return Rot;
+}
+
+void PageItem::setRotation(const double newRotation)
+{
+	Rot=newRotation;
+}
+
+void PageItem::rotateBy(const double dR)
+{
+	if (dR==0.0)
+		return;
+	Rot+=dR;
+	emit rotation(Rot);
+}
+
+const bool PageItem::isSelected()
+{
+	return Select;
+}
+
+void PageItem::setSelected(const bool toSelect)
+{
+	Select=toSelect;
+}
 
 /** Zeichnet das Item */
 void PageItem::DrawObj(ScPainter *p, QRect e)
@@ -891,7 +976,7 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 	{
 		if (Select) // && (!Doc->EditClip))
 		{
-			if (!ScApp->view->SelItem.isEmpty())
+			if (!Doc->selection->isEmpty())
 			{
 				if (Groups.count() == 0)
 				{
@@ -939,7 +1024,8 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 					p.setPen(QPen(darkCyan, 1, DotLine, FlatCap, MiterJoin));
 					p.setBrush(NoBrush);
 					p.drawRect(-1, -1, static_cast<int>(Width+2), static_cast<int>(Height+2));
-					if (ScApp->view->SelItem.count() == 1)
+					//if (ScApp->view->SelItem.count() == 1)
+					if (Doc->selection->count() == 1)
 					{
 						QPainter pr;
 						pr.begin(ScApp->view->viewport());
@@ -3441,7 +3527,8 @@ void PageItem::updateGradientVectors()
 	GrEndY = QMIN(QMAX(GrEndY, 0), Height);
 	GrStartX = QMIN(QMAX(GrStartX, 0), Width);
 	GrStartY = QMIN(QMAX(GrStartY, 0), Height);
-	if (ScApp->view->SelItem.count()!=0 && this==ScApp->view->SelItem.at(0))
+	//if (ScApp->view->SelItem.count()!=0 && this==ScApp->view->SelItem.at(0))
+	if (Doc->selection->count()!=0 && Doc->selection->primarySelectionIsMyself(this))
 		ScApp->propertiesPalette->updateColorSpecialGradient();
 }
 
@@ -3508,8 +3595,10 @@ bool PageItem::connectToGUI()
 {
 	if (!ScQApp->usingGUI())
 		return false;
+	if (!Doc->selection->primarySelectionIsMyself(this))
+		return false;
 		
-	connect(this, SIGNAL(position(double, double )), ScApp->propertiesPalette, SLOT(setXY(double, double)));
+	connect(this, SIGNAL(position(double, double)), ScApp->propertiesPalette, SLOT(setXY(double, double)));
 	connect(this, SIGNAL(widthAndHeight(double, double)), ScApp->propertiesPalette, SLOT(setBH(double, double)));
 	connect(this, SIGNAL(colors(QString, QString, int, int)), ScApp, SLOT(setCSMenu(QString, QString, int, int)));
 	connect(this, SIGNAL(colors(QString, QString, int, int)), ScApp->propertiesPalette->Cpal, SLOT(setActFarben(QString, QString, int, int)));
@@ -3523,7 +3612,7 @@ bool PageItem::connectToGUI()
 	//Line signals
 	connect(this, SIGNAL(lineWidth(double)), ScApp->propertiesPalette, SLOT(setSvalue(double)));
 	connect(this, SIGNAL(imageOffsetScale(double, double, double, double)), ScApp->propertiesPalette, SLOT(setLvalue(double, double, double, double)));
-	connect(this, SIGNAL(lineStyleCapJoin(PenStyle, PenCapStyle, PenJoinStyle)), ScApp->propertiesPalette, SLOT( setLIvalue(PenStyle, PenCapStyle, PenJoinStyle)));
+	connect(this, SIGNAL(lineStyleCapJoin(Qt::PenStyle, Qt::PenCapStyle, Qt::PenJoinStyle)), ScApp->propertiesPalette, SLOT( setLIvalue(Qt::PenStyle, Qt::PenCapStyle, Qt::PenJoinStyle)));
 	//Frame text signals
 	connect(this, SIGNAL(lineSpacing(double)), ScApp->propertiesPalette, SLOT(setLsp(double)));
 	connect(this, SIGNAL(textToFrameDistances(double, double, double, double)), ScApp->propertiesPalette, SLOT(setDvals(double, double, double, double)));

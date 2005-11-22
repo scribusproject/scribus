@@ -1,7 +1,8 @@
 #include "cmdobj.h"
 #include "cmdutil.h"
-
+#include "selection.h"
 #include "util.h"
+
 
 PyObject *scribus_newrect(PyObject* /* self */, PyObject* args)
 {
@@ -404,9 +405,12 @@ PyObject *scribus_pathtext(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(NotFoundError, QObject::tr("Object not found.","python error"));
 		return NULL;
 	}
-	ScApp->view->SelItem.clear();
-	ScApp->view->SelItem.append(ScApp->doc->Items->at(i));
-	ScApp->view->SelItem.append(ScApp->doc->Items->at(ii));
+	//ScApp->view->SelItem.clear();
+	ScApp->doc->selection->clear();
+	//ScApp->view->SelItem.append(ScApp->doc->Items->at(i));
+	ScApp->doc->selection->addItem(ScApp->doc->Items->at(i));
+	//ScApp->view->SelItem.append(ScApp->doc->Items->at(ii));
+	ScApp->doc->selection->addItem(ScApp->doc->Items->at(ii));
 	PageItem *it = ScApp->doc->Items->at(i);
 	ScApp->view->ToPathText();
 	ScApp->view->MoveItem(pageUnitXToDocX(x) - it->xPos(), pageUnitYToDocY(y) - it->yPos(), it);
@@ -428,8 +432,10 @@ PyObject *scribus_deleteobj(PyObject* /* self */, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
 	if (i == NULL)
 		return NULL;
-	ScApp->view->SelItem.clear();
-	ScApp->view->SelItem.append(i);
+	//ScApp->view->SelItem.clear();
+	ScApp->doc->selection->clear();
+	//ScApp->view->SelItem.append(i);
+	ScApp->doc->selection->addItem(i);
 	ScApp->view->DeleteItem();
 	Py_INCREF(Py_None);
 	return Py_None;
@@ -513,7 +519,8 @@ PyObject *scribus_setstyle(PyObject* /* self */, PyObject* args)
 			return NULL;
 		}
 		// for current item only
-		if (ScApp->view->SelItem.count() == 0 || name != "")
+		//if (ScApp->view->SelItem.count() == 0 || name != "")
+		if (ScApp->doc->selection->count() == 0 || name != "")
 		{
 			// quick hack to always apply on the right frame - pv
 			ScApp->view->Deselect(true);
@@ -524,8 +531,10 @@ PyObject *scribus_setstyle(PyObject* /* self */, PyObject* args)
 		}
 		else // for multiple selection
 		{
-			for (int i = 0; i < ScApp->view->SelItem.count(); ++i)
-				ScApp->view->chAbStyle(ScApp->view->SelItem.at(i), styleid);
+			//for (int i = 0; i < ScApp->view->SelItem.count(); ++i)
+			for (int i = 0; i < ScApp->doc->selection->count(); ++i)
+				//ScApp->view->chAbStyle(ScApp->view->SelItem.at(i), styleid);
+				ScApp->view->chAbStyle(ScApp->doc->selection->itemAt(i), styleid);
 		}
 
 	}
