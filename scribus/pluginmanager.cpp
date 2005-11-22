@@ -218,7 +218,7 @@ bool PluginManager::setupPluginActions(ScActionPlugin* plugin)
 	//Insert DLL Action into Dictionary with values from plugin interface
 	ScActionPlugin::ActionInfo ai(plugin->actionInfo());
 	ScrAction* action = new ScrAction(
-			ScrAction::DLL, ai.iconSet, ai.text, QKeySequence(ai.keySequence),
+			ScrAction::DLL, ai.iconSet, ai.text, ai.keySequence,
 			ScApp, ai.name);
 	Q_CHECK_PTR(action);
 	ScApp->scrActions.insert(ai.name, action);

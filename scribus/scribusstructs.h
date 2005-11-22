@@ -10,6 +10,7 @@
 #include <qvaluevector.h>
 #include <qstring.h>
 #include <qaction.h>
+#include <qkeysequence.h>
 #include <vector>
 
 #include "sctextstruct.h"
@@ -287,7 +288,7 @@ struct Keys
 {
 	QString actionName;
 	QString cleanMenuText;
-	QString keySequence;
+	QKeySequence keySequence;
 	int tableRow;
 };
 

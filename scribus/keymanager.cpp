@@ -44,6 +44,7 @@ KeyManager::KeyManager(QWidget* parent, QMap<QString,Keys> oldKeyMap): QWidget( 
 {
 	keyMap.clear();
 	keyMap = oldKeyMap;
+	Part0 = "";
 	Part1 = "";
 	Part2 = "";
 	Part3 = "";
@@ -224,13 +225,17 @@ void KeyManager::keyPressEvent(QKeyEvent *k)
 		{
 			tl = tl.split("+", keyDisplay->text());
 			Part4 = tl[tl.count()-1];
-			if (Part4 == tr("Alt") || Part4 == tr("Ctrl") || Part4 == tr("Shift"))
+			if (Part4 == tr("Alt") || Part4 == tr("Ctrl") || Part4 == tr("Shift") || Part4 == tr("Meta"))
 				Part4 = "";
 		}
 		else
 			Part4 = "";
 		switch (k->key())
 		{
+			case Key_Meta:
+				Part0 = tr("Meta+");
+				keyCode |= META;
+				break;
 			case Key_Shift:
 				Part3 = tr("Shift+");
 				keyCode |= SHIFT;
@@ -245,6 +250,7 @@ void KeyManager::keyPressEvent(QKeyEvent *k)
 				break;
 			default:
 				keyCode |= k->key();
+//				qDebug(QString("got key %1 %2").arg(keyCode).arg(getKeyText(keyCode)));
 				keyDisplay->setText(getKeyText(keyCode));
 				if (checkKey(keyCode))
 				{
@@ -255,13 +261,13 @@ void KeyManager::keyPressEvent(QKeyEvent *k)
 					keyTable->setText(currRow, 1, "");
 					keyDisplay->setText("");
 					if (currentKeyMapRow!=NULL)
-						currentKeyMapRow.data().keySequence="";
+						currentKeyMapRow.data().keySequence=QKeySequence();
 					noKey->setChecked(true);
 				}
 				else
 				{
-					QString newKeySequence=QString(QKeySequence(keyCode));
-					keyTable->setText(currRow, 1, newKeySequence);
+					QKeySequence newKeySequence(keyCode);
+					keyTable->setText(currRow, 1, QString(newKeySequence));
 					if (currentKeyMapRow!=NULL)
 						currentKeyMapRow.data().keySequence=newKeySequence;
 					userDef->setChecked(true);
@@ -271,7 +277,7 @@ void KeyManager::keyPressEvent(QKeyEvent *k)
 		}
 	}
 	if (setKeyButton->isOn())
-		keyDisplay->setText(Part1+Part2+Part3+Part4);
+		keyDisplay->setText(Part0+Part1+Part2+Part3+Part4);
 }
 
 void KeyManager::keyReleaseEvent(QKeyEvent *k)
@@ -283,27 +289,32 @@ void KeyManager::keyReleaseEvent(QKeyEvent *k)
 			QStringList tl;
 			tl = tl.split("+", keyDisplay->text());
 			Part4 = tl[tl.count()-1];
-			if (Part4 == tr("Alt") || Part4 == tr("Ctrl") || Part4 == tr("Shift"))
+			if (Part4 == tr("Alt") || Part4 == tr("Ctrl") || Part4 == tr("Shift") || Part4 == tr("Meta"))
 				Part4 = "";
 		}
 		else
 			Part4 = "";
+		if (k->key() == Key_Meta)
+		{
+			Part0 = "";
+			keyCode &= ~META;
+		}
 		if (k->key() == Key_Shift)
 		{
 			Part3 = "";
-			keyCode &= ~0x00200000;
+			keyCode &= ~SHIFT;
 		}
 		if (k->key() == Key_Alt)
 		{
 			Part2 = "";
-			keyCode &= ~0x00800000;
+			keyCode &= ~ALT;
 		}
 		if (k->key() == Key_Control)
 		{
 			Part1 = "";
-			keyCode &= ~0x00400000;
+			keyCode &= ~CTRL;
 		}
-		keyDisplay->setText(Part1+Part2+Part3+Part4);
+		keyDisplay->setText(Part0+Part1+Part2+Part3+Part4);
 	}
 }
 
@@ -312,6 +323,7 @@ void KeyManager::setKeyText()
 	if (setKeyButton->isOn())
 	{
 		keyCode = 0;
+		Part0 = "";
 		Part1 = "";
 		Part2 = "";
 		Part3 = "";
@@ -348,21 +360,42 @@ void KeyManager::setNoKey()
 		keyTable->setText(currRow, 1, "");
 		keyDisplay->setText("");
 		if (currentKeyMapRow!=NULL)
-			currentKeyMapRow.data().keySequence="";
+			currentKeyMapRow.data().keySequence=QKeySequence();
 	}
 }
 
 QString KeyManager::getKeyText(int KeyC)
 {
+	if ((KeyC & ~(Qt::META | Qt::CTRL | Qt::ALT | Qt::SHIFT)) == 0)
+		return "";
+	// on OSX Qt translates modifiers to forsaken symbols, arrows and the like
+	// we prefer plain English
+	QString res;
+	if ((KeyC & Qt::META) != 0)
+		res += "Meta+";
+	if ((KeyC & Qt::CTRL) != 0)
+		res += "Ctrl+";
+	if ((KeyC & Qt::ALT) != 0)
+		res += "Alt+";
+	if ((KeyC & Qt::SHIFT) != 0)
+		res += "Shift+";
+	return res + QString(QKeySequence(KeyC & ~(Qt::META | Qt::CTRL | Qt::ALT | Qt::SHIFT)));
+}
+
+/*
+ * QString KeyManager::getDisplayKeyText(int KeyC)
+{
 	return ((KeyC == 0) ? "" : QString(QKeySequence(KeyC)));
 }
+*/
 
 bool KeyManager::checkKey(int code)
 {
 	bool ret = false;
+	QKeySequence key = QKeySequence(code);
 	for (QMap<QString,Keys>::Iterator it=keyMap.begin(); it!=keyMap.end(); ++it)
 	{
-		if (it.data().keySequence == QString(QKeySequence(code)))
+		if (key.matches(it.data().keySequence) != Qt::NoMatch)
 		{
 			ret = true;
 			break;
@@ -432,7 +465,7 @@ void KeyManager::importKeySet(QString filename)
 			//clear current menu entries
 			for (QMap<QString,Keys>::Iterator it=keyMap.begin(); it!=keyMap.end(); ++it)
 			{
-				it.data().keySequence = "";
+				it.data().keySequence = QKeySequence();
 				keyTable->setText(it.data().tableRow, 1, "");
 			}
 			
@@ -449,7 +482,7 @@ void KeyManager::importKeySet(QString filename)
 						QDomAttr shortcutAttr = e.attributeNode( "shortcut" );
 						if (keyMap.contains(nameAttr.value()))
 						{
-							keyMap[nameAttr.value()].keySequence=shortcutAttr.value();
+							keyMap[nameAttr.value()].keySequence=QKeySequence(shortcutAttr.value());
 							keyTable->setText(keyMap[nameAttr.value()].tableRow,1,shortcutAttr.value());
 						}
 					}
@@ -488,7 +521,7 @@ bool KeyManager::exportKeySet(QString filename)
 				continue;
 			QDomElement function_shortcut=doc.createElement("function");
 			function_shortcut.setAttribute("name",it.key());
-			function_shortcut.setAttribute("shortcut",it.data().keySequence);
+			function_shortcut.setAttribute("shortcut",getKeyText(it.data().keySequence));
 			keySetElement.appendChild(function_shortcut);
 		}
 		QFile f(filename);

@@ -34,6 +34,8 @@ public:
 	void keyPressEvent(QKeyEvent *k);
 	void keyReleaseEvent(QKeyEvent *k);
 
+	static QString getKeyText(int KeyC);
+
 public slots:
 	void setKeyText();
 	void dispKey(int row);
@@ -55,11 +57,11 @@ protected:
 	QMap<QString,Keys>::Iterator currentKeyMapRow;
 	int currRow;
 	int keyCode;
+	QString Part0;
 	QString Part1;
 	QString Part2;
 	QString Part3;
 	QString Part4;
-	QString getKeyText(int KeyC);
 	bool checkKey(int Code);
 	QGroupBox* loadableGroupBox;
 	QHBoxLayout* loadableGroupBoxLayout;
