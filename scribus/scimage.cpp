@@ -2020,10 +2020,10 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 						r = (d[0] * (255 - layOpa) + src_r * layOpa) / 255;
 						g = (d[1] * (255 - layOpa) + src_g * layOpa) / 255;
 						b = (d[2] * (255 - layOpa) + src_b * layOpa) / 255;
-						if (header.color_mode == CM_CMYK)
+//						if (header.color_mode == CM_CMYK)
 							a = (d[3] * (255 - layOpa) + src_a * layOpa) / 255;
-						else
-							a = (src_a * layOpa) / 255;
+//						else
+//							a = (src_a * layOpa) / 255;
 					}
 					else
 					{
@@ -2046,7 +2046,8 @@ bool ScImage::loadLayerChannels( QDataStream & s, const PSDHeader & header, QVal
 							d[0] = r;
 							d[1] = g;
 							d[2] = b;
-							if ((mask.isNull()) && (d[3] < a))
+//							if ((mask.isNull()) && (d[3] < a))
+							if (d[3] < a)
 								d[3] = a;
 						}
 					}

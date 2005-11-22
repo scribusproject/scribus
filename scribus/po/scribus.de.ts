@@ -7060,7 +7060,7 @@ Bildschirm betrachten wollen</translation>
     </message>
     <message>
         <source>Dissolve</source>
-        <translation>Sprenkeln</translation>
+        <translation>Auflösen</translation>
     </message>
     <message>
         <source>Overlay</source>
