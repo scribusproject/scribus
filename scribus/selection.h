@@ -33,7 +33,7 @@ typedef QValueList< QGuardedPtr<PageItem> > SelectionList;
 typedef QMap<int, SelectionList > ListOfSelections;
 typedef QMap<int, bool> ListBool;
 
-class Selection : public QObject
+class SCRIBUS_API Selection : public QObject
 {
 	Q_OBJECT
 	public:
