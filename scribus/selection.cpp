@@ -147,7 +147,10 @@ bool Selection::addItem(PageItem *item, int listNumber)
 			//qDebug(QString("adding %1").arg(item->ItemNr));
 			sellists[listNumber].append(item);
 			if (listIsEmpty && listNumber==0)
+			{
 				item->connectToGUI();
+				item->emitAllToGUI();
+			}
 			item->setSelected(true);
 			//qDebug(QString("adding %1 %2").arg(listNumber).arg(item->ItemNr));
 			return true;
@@ -169,6 +172,7 @@ bool Selection::prependItem(PageItem *item, int listNumber)
 				if (!sellists[listNumber].isEmpty())
 					sellists[listNumber][0]->disconnectFromGUI();
 				item->connectToGUI();
+				item->emitAllToGUI();
 			}
 			sellists[listNumber].prepend(item);
 			item->setSelected(true);

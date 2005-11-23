@@ -4333,7 +4333,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				}
 				else
 				{
-					SeleItem(m);
+					SeleItem(m); //Where we send the mouse press event to select an item
 					//if (SelItem.count() != 0)
 					if (Doc->selection->count() != 0)
 					{
@@ -7403,6 +7403,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 			currItem = Doc->Items->prev();
 		}
 	}
+	//Where all basic selection occurs having found the click location and the current page
 	for (a = 0; a < Doc->Items->count(); ++a)
 	{
 		if (currItem == NULL)
@@ -7429,6 +7430,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 				{
 					if ((m->state() != ShiftButton) || (Doc->appMode == modeLinkFrames) || (Doc->appMode == modeUnlinkFrames))
 						Deselect(false);
+					//If we are selecting an item that is part of a group...
 					if (currItem->Groups.count() != 0)
 					{
 						//if (SelItem.count() != 0)
@@ -7440,10 +7442,8 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 								Doc->selection->addItem(currItem);
 						}
 						else
-						{
 							//SelItem.append(currItem);
 							Doc->selection->addItem(currItem);
-						}
 						//CB This is where we add the items of an unselected group
 						if (m->state() != (ControlButton | AltButton))
 						{
@@ -7476,6 +7476,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 						}
 					}
 					else
+					//If we are just selecting one item
 					{
 						//SelItem.append(currItem);
 						Doc->selection->addItem(currItem);

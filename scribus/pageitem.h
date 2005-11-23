@@ -888,8 +888,16 @@ public:
 	bool loadImage(const QString& filename, const bool reload, const int gsResolution=-1);
 	
 	
+	/**
+	 * @brief Connect the item's signals to the GUI, primarily the Properties palette, also some to ScApp
+	 * @return 
+	 */
 	bool connectToGUI();
 	bool disconnectFromGUI();
+	/**
+	 * @brief Emit the items properties to the GUI in one go
+	 */
+	void emitAllToGUI();
 	
 protected:
 	/**

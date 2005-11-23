@@ -55,20 +55,80 @@ class Selection : public QObject
 		 * @return 
 		 */
 		bool disconnectAllItemsFromGUI();
+		/**
+		 * @brief Add an item to the selection. 
+		 * If its added to the GUISelection listNumber and its item 0, its connected to the GUI too
+		 * @param item Item to add
+		 * @param listNumber List to add the item to
+		 * @return If the item was added
+		 */
 		bool addItem(PageItem *item, int listNumber=GUISelection);
+		/**
+		 * @brief Prepend an item to the selection. 
+		 * If its added to the GUISelection listNumber and its item 0, its connected to the GUI too
+		 * @param item Item to add
+		 * @param listNumber List to add the item to
+		 * @return If the item was added
+		 */
 		bool prependItem(PageItem *item, int listNumber=GUISelection);
+		/**
+		 * Unused
+		 * @return 
+		 */
 		bool addGroup();
+		/**
+		 * Remove an item from list listNumber
+		 * @param item 
+		 * @param listNumber List to remove the item from 
+		 * @return 
+		 */
 		bool removeItem(PageItem *item, int listNumber=GUISelection);
+		/**
+		 * Remove the first item from the list
+		 * @param listNumber List to remove the item
+		 * @return If the remove was successful
+		 */
 		bool removeFirst(int listNumber=GUISelection);
+		/**
+		 * Unused
+		 * @return 
+		 */
 		bool removeGroup();
+		/**
+		 * Remove an item from list listNumber and return a pointer to it
+		 * @param itemIndex Index of the item in the list
+		 * @param listNumber List to remove the item from 
+		 * @return Item
+		 */
 		PageItem* takeItem(int itemIndex, int listNumber=GUISelection);
+		/**
+		 * Find an item from list listNumber and return an index to it
+		 * @param item Item pointer to find in the list
+		 * @param listNumber List to find th item in
+		 * @return Item
+		 */
 		const int findItem(PageItem *item, int listNumber=GUISelection);
+		/**
+		 * Return the count of a list
+		 * @param listNumber List to count
+		 * @return 
+		 */
 		uint count(int listNumber=GUISelection);
+		/**
+		 * 
+		 * @param listNumber List to empty
+		 * @return 
+		 */
 		bool isEmpty(int listNumber=GUISelection);
+		/**
+		 * Clear a list
+		 * @param listNumber List to clear
+		 * @return 
+		 */
 		bool clear(int listNumber=GUISelection);
 		void clearAll();
 		/**
-		 * See if the first selected item is "me", called from an item object with "this".
+		 * See if the first selected item is "me", usually called from an item object with "this".
 		 * @param item 
 		 * @return 
 		 */

@@ -3643,3 +3643,11 @@ bool PageItem::disconnectFromGUI()
 	disconnect(this, 0, 0, 0);
 	return true;
 }
+
+void PageItem::emitAllToGUI()
+{
+	emit position(Xpos, Ypos);
+	emit widthAndHeight(Width, Height);
+	emit rotation(Rot);
+	// TODO, add the rest
+}
