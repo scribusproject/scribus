@@ -7673,12 +7673,10 @@ bool ScribusView::GetItem(PageItem **currItem, int nr)
 	//if (SelItem.count() != 0)
 	if (Doc->selection->count() != 0)
 	{
-		if (nr == -1)
-			//*(currItem) = SelItem.at(0);
-			*(currItem) = Doc->selection->itemAt(0);
-		else
-			//*(currItem) = SelItem.at(nr);
-			*(currItem) = Doc->selection->itemAt(nr);
+		int n=nr;
+		if (n == -1)
+			n=0;
+		*(currItem) = Doc->selection->itemAt(n);
 		return true;
 	}
 	else
@@ -7691,7 +7689,7 @@ bool ScribusView::GetItem(PageItem **currItem, int nr)
 void ScribusView::Deselect(bool prop)
 {
 	//if (SelItem.count() != 0)
-	if (Doc->selection->count() != 0)
+	if (!Doc->selection->isEmpty())
 	{
 		PageItem* currItem;
 		//for (uint a = 0; a < SelItem.count(); ++a)

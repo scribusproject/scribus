@@ -98,7 +98,6 @@ PageItem::PageItem(const PageItem & other)
 	PLineEnd(other.PLineEnd),
 	PLineJoin(other.PLineJoin),
 	NamedLStyle(other.NamedLStyle),
-	Select(other.Select),
 	Clip(other.Clip),
 	PoLine(other.PoLine),
 	ContourLine(other.ContourLine),
@@ -258,7 +257,8 @@ PageItem::PageItem(const PageItem & other)
 	Ypos(other.Ypos),
 	Width(other.Width),
 	Height(other.Height),
-	Rot(other.Rot)
+	Rot(other.Rot),
+	Select(other.Select)
 {
 }
 

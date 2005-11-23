@@ -435,7 +435,7 @@ int PPreview::RenderPreview(int Seite, int Res)
 			std::vector<int> pageNs;
 			pageNs.push_back(Seite+1);
 			QStringList spots;
-			dd->CreatePS(doc, view, pageNs, false, tr("All"), spots, true, false, false, false, EnableGCR->isChecked(), false);
+			dd->CreatePS(doc, /*view, */pageNs, false, tr("All"), spots, true, false, false, false, EnableGCR->isChecked(), false);
 			delete dd;
 		}
 		else
@@ -508,7 +508,7 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 			std::vector<int> pageNs;
 			pageNs.push_back(Seite+1);
 			QStringList spots;
-			dd->CreatePS(doc, view, pageNs, false, tr("All"), spots, true, false, false, false, EnableGCR->isChecked(), false);
+			dd->CreatePS(doc, /*view, */pageNs, false, tr("All"), spots, true, false, false, false, EnableGCR->isChecked(), false);
 			delete dd;
 		}
 		else

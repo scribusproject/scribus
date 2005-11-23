@@ -23,7 +23,7 @@
 #include <qfile.h>
 #include <vector>
 class ScribusDoc;
-class ScribusView;
+//class ScribusView;
 #include "scribusapi.h"
 #include "page.h"
 #include "pageitem.h"
@@ -81,9 +81,9 @@ public:
 	virtual void PS_TemplateEnd();
 	virtual void PS_UseTemplate(QString Name);
 	virtual void PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bool UseEmbedded, bool UseProf);
-	virtual void CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageNs, bool sep, QString SepNam, QStringList spots, bool farb, bool Hm, bool Vm, bool Ic, bool gcr, bool doDev);
+	virtual void CreatePS(ScribusDoc* Doc, /*ScribusView* view, */std::vector<int> &pageNs, bool sep, QString SepNam, QStringList spots, bool farb, bool Hm, bool Vm, bool Ic, bool gcr, bool doDev);
 	virtual void ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool sep, bool farb, bool ic, bool gcr, bool master, bool embedded = false);
-	virtual void ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, bool sep = false, bool farb = true, bool ic = false, bool gcr = true);
+	virtual void ProcessPage(ScribusDoc* Doc, /*ScribusView* view,*/Page* a, uint PNr, bool sep = false, bool farb = true, bool ic = false, bool gcr = true);
 	virtual void putColor(QString color, int shade, bool fill);
 	virtual void SetClipPath(FPointArray *c, bool poly = true);
 	virtual void HandleGradient(PageItem *c, double w, double h, bool gcr);

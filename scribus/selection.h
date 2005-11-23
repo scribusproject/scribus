@@ -116,9 +116,9 @@ class SCRIBUS_API Selection : public QObject
 		 */
 		uint count(int listNumber=GUISelection);
 		/**
-		 * 
-		 * @param listNumber List to empty
-		 * @return 
+		 * Check if the list specified is empty.
+		 * @param listNumber List to check empty state
+		 * @return
 		 */
 		bool isEmpty(int listNumber=GUISelection);
 		/**

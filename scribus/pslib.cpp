@@ -26,8 +26,9 @@
 #include "pslib.h"
 #include "scconfig.h"
 #include "pluginapi.h"
+#include "prefsmanager.h"
 #include "scribusdoc.h"
-#include "scribusview.h"
+//#include "scribusview.h"
 #include "scfonts.h"
 #include "scfontmetrics.h"
 #include "selection.h"
@@ -959,7 +960,7 @@ void PSLib::PS_insert(QString i)
 	PutDoc(i);
 }
 
-void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageNs, bool sep, QString SepNam, QStringList spots, bool farb, bool Hm, bool Vm, bool Ic, bool gcr, bool doDev)
+void PSLib::CreatePS(ScribusDoc* Doc, /*ScribusView* view, */std::vector<int> &pageNs, bool sep, QString SepNam, QStringList spots, bool farb, bool Hm, bool Vm, bool Ic, bool gcr, bool doDev)
 {
 	uint a;
 	int sepac;
@@ -1081,7 +1082,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 			PS_begin_page(Doc->Pages->at(a)->width(), Doc->Pages->at(a)->height(), &Ma, true);
 		}
 		else
-			PS_begin_page(Doc->Pages->at(a)->width(), Doc->Pages->at(a)->height(), &Doc->Pages->at(a)->Margins, view->Prefs->ClipMargin);
+			PS_begin_page(Doc->Pages->at(a)->width(), Doc->Pages->at(a)->height(), &Doc->Pages->at(a)->Margins, PrefsManager::instance()->appPrefs.ClipMargin);
 		if (Hm)
 		{
 			PS_translate(Doc->Pages->at(a)->width(), 0);
@@ -1316,7 +1317,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 				}
 			}
 		}
-		ProcessPage(Doc, view, Doc->Pages->at(a), a+1, sep, farb, Ic, gcr);
+		ProcessPage(Doc, /*view, */Doc->Pages->at(a), a+1, sep, farb, Ic, gcr);
 		PS_end_page();
 		if (sep)
 		{
@@ -1838,7 +1839,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 	}
 }
 
-void PSLib::ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, bool sep, bool farb, bool ic, bool gcr)
+void PSLib::ProcessPage(ScribusDoc* Doc, /*ScribusView* view,*/Page* a, uint PNr, bool sep, bool farb, bool ic, bool gcr)
 {
 	uint b;
 	int h, s, v, k;

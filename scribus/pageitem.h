@@ -41,7 +41,7 @@ class PageItem_Line;
 class PageItem_Polygon;
 class PageItem_PolyLine;
 class PageItem_TextFrame;
-class PageItem_PathText;     
+class PageItem_PathText;
 
 struct CopyPasteBuffer;
 /**

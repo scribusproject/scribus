@@ -4001,7 +4001,7 @@ bool ScribusApp::doPrint(PrintOptions *options)
 		{
 			// Write the PS to a file
 			ScColor::UseProf = options->useICC;
-			dd->CreatePS(doc, view, options->pageNumbers, options->outputSeparations, options->separationName, options->allSeparations,
+			dd->CreatePS(doc, /*view, */options->pageNumbers, options->outputSeparations, options->separationName, options->allSeparations,
 			               options->useColor, options->mirrorH, options->mirrorV, options->useICC, options->doGCR, options->setDevParam);
 			ScColor::UseProf = true;
 			if (options->PSLevel != 3)
@@ -6985,7 +6985,7 @@ bool ScribusApp::DoSaveAsEps(QString fn)
 	if (dd != NULL)
 	{
 		if (dd->PS_set_file(fn))
-			dd->CreatePS(doc, view, pageNs, false, tr("All"), spots, true, false, false, true, prefsManager->appPrefs.GCRMode, false);
+			dd->CreatePS(doc, /*view, */pageNs, false, tr("All"), spots, true, false, false, true, prefsManager->appPrefs.GCRMode, false);
 		else
 			return_value = false;
 		delete dd;
