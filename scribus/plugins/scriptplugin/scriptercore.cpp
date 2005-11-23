@@ -191,7 +191,8 @@ void ScripterCore::FinishScriptRun()
 		if (ScApp->doc->selection->count() != 0)
 		{
 			//ScApp->view->EmitValues(ScApp->view->SelItem.at(0));
-			ScApp->view->EmitValues(ScApp->doc->selection->itemAt(0));
+			//ScApp->view->EmitValues(ScApp->doc->selection->itemAt(0));
+			ScApp->doc->selection->itemAt(0)->emitAllToGUI();
 			//ScApp->HaveNewSel(ScApp->view->SelItem.at(0)->itemType());
 			ScApp->HaveNewSel(ScApp->doc->selection->itemAt(0)->itemType());
 		}

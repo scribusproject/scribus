@@ -718,12 +718,14 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 						if ((GradientAngle == 0) || (GradientAngle == 180))
 						{
 							ite->GrType = 2;
-							ScApp->view->updateGradientVectors(ite);
+							//ScApp->view->updateGradientVectors(ite);
+							ite->updateGradientVectors();
 						}
 						else if ((GradientAngle == 90) || (GradientAngle == 270))
 						{
 							ite->GrType = 1;
-							ScApp->view->updateGradientVectors(ite);
+							//ScApp->view->updateGradientVectors(ite);
+							ite->updateGradientVectors();
 						}
 					}
 					else
@@ -787,7 +789,8 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 						ite->GrEndX = ite->width() / 2.0;
 						ite->GrEndY = ite->height();
 					}
-					ScApp->view->updateGradientVectors(ite);
+					//ScApp->view->updateGradientVectors(ite);
+					ite->updateGradientVectors();
 				}
 				HaveGradient = false;
 			}

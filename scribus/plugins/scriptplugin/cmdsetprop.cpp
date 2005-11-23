@@ -23,7 +23,8 @@ PyObject *scribus_setgradfill(PyObject* /* self */, PyObject* args)
 	currItem->SetFarbe(&tmp, c2, shade2);
 	currItem->fill_gradient.addStop(tmp, 1.0, 0.5, 1.0, c2, shade2);
 	currItem->GrType = typ;
-	ScApp->view->updateGradientVectors(currItem);
+	//ScApp->view->updateGradientVectors(currItem);
+	currItem->updateGradientVectors();
 	ScApp->view->RefreshItem(currItem);
 	Py_INCREF(Py_None);
 	return Py_None;

@@ -1886,7 +1886,8 @@ void ScribusApp::newActWin(QWidget *w)
 			//HaveNewSel(view->SelItem.at(0)->itemType());
 			HaveNewSel(doc->selection->itemAt(0)->itemType());
 			//view->EmitValues(view->SelItem.at(0));
-			view->EmitValues(doc->selection->itemAt(0));
+			//view->EmitValues(doc->selection->itemAt(0));
+			doc->selection->itemAt(0)->emitAllToGUI();
 		}
 		else
 			HaveNewSel(-1);
@@ -4521,7 +4522,9 @@ void ScribusApp::SelectAll()
 		{
 			//currItem = view->SelItem.at(0);
 			currItem = doc->selection->itemAt(0);
-			view->EmitValues(currItem);
+			//CB Dont need this with the new selection code
+			//view->EmitValues(currItem);
+			//currItem->emitAllToGUI();
 			HaveNewSel(currItem->itemType());
 		}
 	}

@@ -1232,8 +1232,9 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 			}
 			else
 				//EmitValues(SelItem.at(0));
-				EmitValues(Doc->selection->itemAt(0));
-					updateContents();
+				//EmitValues(Doc->selection->itemAt(0));
+				Doc->selection->itemAt(0)->emitAllToGUI();
+			updateContents();
 //		}
 	}
 }
@@ -1262,7 +1263,8 @@ void ScribusView::contentsMouseDoubleClickEvent(QMouseEvent *m)
 					currItem->isSingleSel = true;
 					//currItem->Select = true;
 					emit HaveSel(currItem->itemType());
-					EmitValues(currItem);
+					//EmitValues(currItem);
+					currItem->emitAllToGUI();
 					currItem->paintObj();
 				}
 			}
@@ -2708,7 +2710,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					setMenTxt(currItem->OwnPage);
 				}
 				emit HaveSel(currItem->itemType());
-				EmitValues(currItem);
+				//EmitValues(currItem);
+				currItem->emitAllToGUI();
 				updateContents();
 				emit DocChanged();
 			}
@@ -2781,7 +2784,10 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			else
 			{
 				emit HaveSel(currItem->itemType());
-				EmitValues(currItem);
+				//CB Dont think we need this here with the new selection code
+				//For a select, deselect operation, this will cause 2x emit
+				//EmitValues(currItem);
+				//currItem->emitAllToGUI();
 			}
 		}
 	}
@@ -7148,7 +7154,8 @@ void ScribusView::SelectItem(PageItem *currItem, bool draw, bool single)
 			emit ItemGeom(w, h);
 		}
 		else
-			EmitValues(currItem);
+			//EmitValues(currItem);
+			currItem->emitAllToGUI();
 		emit HaveSel(currItem->itemType());
 	}
 }
@@ -7364,7 +7371,8 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 					}
 					else
 					{
-						EmitValues(currItem);
+						//EmitValues(currItem);
+						currItem->emitAllToGUI();
 						if (currItem->asLine())
 							emit ItemGeom(currItem->width(), currItem->height());
 						emit HaveSel(currItem->itemType());
@@ -7523,10 +7531,12 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 				}
 				else
 				{
-					EmitValues(currItem);
+					//CB Dont need this as creating the 0th selection does this
+					//EmitValues(currItem);
+					//currItem->emitAllToGUI();
 					currItem->paintObj();
-					if (currItem->asLine())
-						emit ItemGeom(currItem->width(), currItem->height());
+					//if (currItem->asLine())
+					//	emit ItemGeom(currItem->width(), currItem->height());
 					emit HaveSel(currItem->itemType());
 				}
 				//if (SelItem.count() == 1)
@@ -7725,6 +7735,7 @@ void ScribusView::Deselect(bool prop)
 	ScApp->propertiesPalette->setGradientEditMode(false);
 }
 
+/*
 void ScribusView::updateGradientVectors(PageItem *currItem)
 {
 	currItem->updateGradientVectors();
@@ -7732,6 +7743,7 @@ void ScribusView::updateGradientVectors(PageItem *currItem)
 	if (Doc->selection->primarySelectionIsMyself(currItem))
 		ScApp->propertiesPalette->updateColorSpecialGradient();
 }
+*/
 
 void ScribusView::SetupDraw(int nr)
 {
@@ -7751,11 +7763,14 @@ void ScribusView::SetupDraw(int nr)
 	Doc->appMode = modeNormal;
 	emit DocChanged();
 	currItem->Sizing =  currItem->asLine() ? false : true;
-	EmitValues(currItem);
+	//EmitValues(currItem);
+	currItem->emitAllToGUI();
 }
 
+/*
 void ScribusView::EmitValues(PageItem *currItem)
 {
+	
 	//emit ItemPos(currItem->xPos(), currItem->yPos());
 	//emit ItemGeom(currItem->width(), currItem->height());
 	//emit SetAngle(currItem->rotation());
@@ -7778,7 +7793,7 @@ void ScribusView::EmitValues(PageItem *currItem)
 	}
 	ScApp->propertiesPalette->updateColorSpecialGradient();
 }
-
+*/
 void ScribusView::ToggleBookmark()
 {
 	//if (SelItem.count() != 0)
@@ -8909,7 +8924,8 @@ void ScribusView::setRuler(QMouseEvent *m)
 		}
 		else
 			//EmitValues(SelItem.at(0));
-			EmitValues(Doc->selection->itemAt(0));
+			//EmitValues(Doc->selection->itemAt(0));
+			Doc->selection->itemAt(0)->emitAllToGUI();
 	}
 }
 
@@ -11018,7 +11034,8 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		//SelItem.append(currItem);
 		Doc->selection->addItem(currItem);
 		emit HaveSel(currItem->itemType());
-		EmitValues(currItem);
+		//EmitValues(currItem);
+		currItem->emitAllToGUI();
 		emit DocChanged();
 		updateContents();
 	}
@@ -11101,7 +11118,8 @@ void ScribusView::ToPicFrame()
 	emit HaveSel(newItem->itemType());
 	if (!Doc->isLoading())
 		emit UpdtObj(Doc->currentPage->pageNr(), newItem->ItemNr);
-	EmitValues(newItem);
+	//EmitValues(newItem);
+	newItem->emitAllToGUI();
 	emit DocChanged();
 }
 
@@ -11116,7 +11134,8 @@ void ScribusView::ToPolyFrame()
 	emit HaveSel(newItem->itemType());
 	if (!Doc->isLoading())
 		emit UpdtObj(Doc->currentPage->pageNr(), newItem->ItemNr);
-	EmitValues(newItem);
+	//EmitValues(newItem);
+	newItem->emitAllToGUI();
 	emit DocChanged();
 }
 
@@ -11131,7 +11150,8 @@ void ScribusView::ToTextFrame()
 	emit HaveSel(newItem->itemType());
 	if (!Doc->isLoading())
 		emit UpdtObj(Doc->currentPage->pageNr(), newItem->ItemNr);
-	EmitValues(newItem);
+	//EmitValues(newItem);
+	newItem->emitAllToGUI();
 	emit DocChanged();
 }
 
@@ -11146,7 +11166,8 @@ void ScribusView::ToBezierFrame()
 	emit HaveSel(newItem->itemType());
 	if (!Doc->isLoading())
 		emit UpdtObj(Doc->currentPage->pageNr(), newItem->ItemNr);
-	EmitValues(newItem);
+	//EmitValues(newItem);
+	newItem->emitAllToGUI();
 	emit DocChanged();
 }
 
@@ -11161,7 +11182,8 @@ void ScribusView::Bezier2Poly()
 	emit HaveSel(newItem->itemType());
 	if (!Doc->isLoading())
 		emit UpdtObj(Doc->currentPage->pageNr(), newItem->ItemNr);
-	EmitValues(newItem);
+	//EmitValues(newItem);
+	newItem->emitAllToGUI();
 	emit DocChanged();
 }
 
@@ -11193,7 +11215,8 @@ void ScribusView::ToPathText()
 		emit HaveSel(newItem->itemType());
 		if (!Doc->isLoading())
 			emit UpdtObj(Doc->currentPageNumber(), newItem->ItemNr);
-		EmitValues(newItem);
+		//EmitValues(newItem);
+		newItem->emitAllToGUI();
 		emit DocChanged();
 	}
 }

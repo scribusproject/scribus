@@ -221,7 +221,8 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 		RulerCode = 0;
 		currView->DrawNew();
 		//currView->EmitValues(currView->SelItem.at(0));
-		currView->EmitValues(currDoc->selection->itemAt(0));
+		//currView->EmitValues(currDoc->selection->itemAt(0));
+		currDoc->selection->itemAt(0)->emitAllToGUI();
 	}
 	else
 	{

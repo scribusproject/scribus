@@ -1093,6 +1093,7 @@ signals:
 	void rotation(double); //Degrees rotation	
 	void colors(QString, QString, int, int); //lineColor, fillColor, lineShade, fillShade
 	void gradientType(int); //Normal, horizontal, vertical, etc.
+	void gradientColorUpdate(double, double, double, double, double, double); //Cpal updatespecialgradient
 	void transparency(double, double); //fillTransparency, lineTransparency
 	//Shape signals
 	void columns(int, double); //Number, gap

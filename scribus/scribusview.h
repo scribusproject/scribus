@@ -210,8 +210,8 @@ public:
 	void selectPage(QMouseEvent *m);
 	bool SeleItem(QMouseEvent *m);
 	void SetupDraw(int Nr);
-	void updateGradientVectors(PageItem *currItem);
-	void EmitValues(PageItem *currItem);
+	//void updateGradientVectors(PageItem *currItem);
+	//void EmitValues(PageItem *currItem);
 	void Transform(PageItem *currItem, QPainter *p);
 	void TransformM(PageItem *currItem, QPainter *p);
 	void SetFrameRect();

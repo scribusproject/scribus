@@ -3528,8 +3528,11 @@ void PageItem::updateGradientVectors()
 	GrStartX = QMIN(QMAX(GrStartX, 0), Width);
 	GrStartY = QMIN(QMAX(GrStartY, 0), Height);
 	//if (ScApp->view->SelItem.count()!=0 && this==ScApp->view->SelItem.at(0))
-	if (Doc->selection->count()!=0 && Doc->selection->primarySelectionIsMyself(this))
-		ScApp->propertiesPalette->updateColorSpecialGradient();
+	//if (Doc->selection->count()!=0 && Doc->selection->primarySelectionIsMyself(this))
+	//	ScApp->propertiesPalette->updateColorSpecialGradient();
+	//CB Will only emit if connected, ie is first in GUI selection
+	double dur=Doc->unitRatio();
+	emit gradientColorUpdate(GrStartX*dur, GrStartY*dur, GrEndX*dur, GrEndY*dur, Width*dur, Height*dur);
 }
 
 void PageItem::SetPolyClip(int up)
@@ -3603,6 +3606,7 @@ bool PageItem::connectToGUI()
 	connect(this, SIGNAL(colors(QString, QString, int, int)), ScApp, SLOT(setCSMenu(QString, QString, int, int)));
 	connect(this, SIGNAL(colors(QString, QString, int, int)), ScApp->propertiesPalette->Cpal, SLOT(setActFarben(QString, QString, int, int)));
 	connect(this, SIGNAL(gradientType(int)), ScApp->propertiesPalette->Cpal, SLOT(setActGradient(int)));
+	connect(this, SIGNAL(gradientColorUpdate(double, double, double, double, double, double)), ScApp->propertiesPalette->Cpal, SLOT(setSpecialGradient(double, double, double, double, double, double)));
 	connect(this, SIGNAL(rotation(double)), ScApp->propertiesPalette, SLOT(setR(double)));
 	connect(this, SIGNAL(transparency(double, double)), ScApp->propertiesPalette->Cpal, SLOT(setActTrans(double, double)));
 	//Shape signals
@@ -3649,5 +3653,23 @@ void PageItem::emitAllToGUI()
 	emit position(Xpos, Ypos);
 	emit widthAndHeight(Width, Height);
 	emit rotation(Rot);
-	// TODO, add the rest
+	emit lineWidth(Pwidth);
+	emit lineStyleCapJoin(PLineArt, PLineEnd, PLineJoin);
+	emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY );
+	emit colors(lineColorVal, fillColorVal, lineShadeVal, fillShadeVal);
+	emit gradientType(GrType);
+	double dur=Doc->unitRatio();
+	emit gradientColorUpdate(GrStartX*dur, GrStartY*dur, GrEndX*dur, GrEndY*dur, Width*dur, Height*dur);
+	if (GrType == 0)
+		emit transparency(fillTransparencyVal, lineTransparencyVal);
+	emit lineSpacing(LineSp);
+	emit textKerning(ExtraV);
+	emit textToFrameDistances(Extra, TExtra, BExtra, RExtra);
+	emit columns(Cols, ColGap);
+	if (Doc->appMode != modeEdit)
+	{
+		emit textStyle(textAlignment);
+		emit textFont(IFont);
+		emit textSize(ISize);
+	}
 }
