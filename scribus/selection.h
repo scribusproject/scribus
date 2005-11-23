@@ -20,6 +20,7 @@
 #include <qvaluevector.h>
 
 #include "pageitem.h"
+#include "scribusapi.h"
 
 typedef enum {
 	GUISelection=0,
