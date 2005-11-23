@@ -68,7 +68,9 @@ public:
 	QLabel* guiLangLabel;
 	QLabel* TextGstil;
 	QLabel* TextGstil2;
+	QLabel* TextGstil3;
 	QSpinBox* GFsize;
+	QSpinBox* GTFsize;
 	QComboBox* guiLangCombo;
 	QComboBox* GUICombo;
 	QComboBox* UnitCombo;

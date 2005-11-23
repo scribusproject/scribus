@@ -45,6 +45,7 @@ class SCRIBUS_API ScrPaletteBase : public QDialog
 		
 	public slots:
 		virtual void setPaletteShown(bool);
+		virtual void setFontSize();
 		
 	signals:
 		/** @brief Let the action for this palette know when something changes and it hasnt caused it */

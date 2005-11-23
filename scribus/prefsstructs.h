@@ -137,6 +137,7 @@ struct ApplicationPrefs
 	ColorList DColors;
 	int Wheelval;
 	int AppFontSize;
+	int PaletteFontSize;
 	QColor DpapColor;
 	QString GUI;
 	guidesPrefs guidesSettings;

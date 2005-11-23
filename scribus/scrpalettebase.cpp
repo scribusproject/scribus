@@ -23,16 +23,21 @@
 
 #include "scrpalettebase.h"
 #include "scrpalettebase.moc"
+#include "scribus.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
 #include "prefscontext.h"
 
-ScrPaletteBase::ScrPaletteBase(  QWidget * parent, const char * name, bool modal, WFlags f) : QDialog ( parent, name, modal, f | Qt::WStyle_Customize | Qt::WStyle_Tool | Qt::WStyle_Title | Qt::WStyle_MinMax | Qt::WStyle_SysMenu),
+
+ScrPaletteBase::ScrPaletteBase(  QWidget * parent, const char * name, bool modal, WFlags f) : QDialog ( parent, name, modal, f | Qt::WStyle_Customize | Qt::WStyle_Tool | Qt::WStyle_Title | Qt::WStyle_MinMax | Qt::WStyle_SysMenu | Qt::WStyle_NormalBorder),
 palettePrefs(0),
 prefsContextName(QString::null),
 visibleOnStartup(false)
 {
 	setPrefsContext(name);
+	ScribusApp *scapp = dynamic_cast<ScribusApp*>(parent);
+	if (scapp)
+		connect(scapp, SIGNAL(prefsChanged()), this, SLOT(setFontSize()));
 }
 
 void ScrPaletteBase::setPrefsContext(QString context)
@@ -62,6 +67,13 @@ void ScrPaletteBase::setPaletteShown(bool visible)
 	storeVisibility(visible);
 	setShown(visible);
 }
+
+void ScrPaletteBase::setFontSize() {
+	QFont *newfont = new QFont(font());
+	newfont->setPointSize(PrefsManager::instance()->appPrefs.PaletteFontSize);
+	setFont(*newfont);
+}
+
 /*
 void ScrPaletteBase::keyPressEvent(QKeyEvent *keyEvent)
 {

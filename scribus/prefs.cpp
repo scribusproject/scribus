@@ -114,19 +114,27 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	GFsize = new QSpinBox(8, 22, 1, ButtonGroup1, "gfs" );
 	GFsize->setSuffix( tr( " pt" ) );
 	GFsize->setValue( prefsData->AppFontSize );
-	TextGstil2 = new QLabel(GFsize, tr("&Font Size:"), ButtonGroup1, "dd");
+	TextGstil2 = new QLabel(GFsize, tr("&Font Size (Menus):"), ButtonGroup1, "dd");
 	ButtonGroup1Layout->addWidget( TextGstil2, 2, 0 );
 	ButtonGroup1Layout->addWidget( GFsize, 2, 1, Qt::AlignLeft );
+
+	GTFsize = new QSpinBox(5, 22, 1, ButtonGroup1, "gtfs");
+	GTFsize->setSuffix(tr(" pt"));
+	GTFsize->setValue( prefsData->PaletteFontSize); // temp solution
+	TextGstil3 = new QLabel(GTFsize, tr("Font Size (&Palettes):"), ButtonGroup1, "dd");
+	ButtonGroup1Layout->addWidget(TextGstil3, 3, 0);
+	ButtonGroup1Layout->addWidget(GTFsize, 3, 1, Qt::AlignLeft);
+
 	SpinBox3 = new QSpinBox( 0, 1000, 10, ButtonGroup1, "SpinBox3" );
 	SpinBox3->setValue( prefsData->Wheelval );
 	TextLabel1_2 = new QLabel( SpinBox3, tr( "&Wheel Jump:" ), ButtonGroup1, "TextLabel1_2" );
-	ButtonGroup1Layout->addWidget( TextLabel1_2, 3, 0 );
-	ButtonGroup1Layout->addWidget( SpinBox3, 3, 1, Qt::AlignLeft );
+	ButtonGroup1Layout->addWidget( TextLabel1_2, 4, 0 );
+	ButtonGroup1Layout->addWidget( SpinBox3, 4, 1, Qt::AlignLeft );
 	Recen = new QSpinBox( 1, 30, 1, ButtonGroup1, "Recen" );
 	Recen->setValue( prefsData->RecentDCount );
 	TextLabel4c = new QLabel( Recen, tr( "&Recent Documents:" ), ButtonGroup1, "TextLabel4c" );
-	ButtonGroup1Layout->addWidget( TextLabel4c, 4, 0);
-	ButtonGroup1Layout->addWidget( Recen, 4, 1, Qt::AlignLeft );
+	ButtonGroup1Layout->addWidget( TextLabel4c, 5, 0);
+	ButtonGroup1Layout->addWidget( Recen, 5, 1, Qt::AlignLeft );
 	tabLayout->addWidget( ButtonGroup1, 0, 0 );
 
 	GroupBox200 = new QGroupBox( tr( "Paths" ), tab, "GroupBox200" );
@@ -702,7 +710,8 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 
 	setDS(prefsData->FacingPages);
 	//tab order
-	QWidget::setTabOrder( GFsize, SpinBox3 );
+	QWidget::setTabOrder( GFsize, GTFsize );
+	QWidget::setTabOrder( GTFsize, SpinBox3 );
 	QWidget::setTabOrder( SpinBox3, UnitCombo );
 	QWidget::setTabOrder( UnitCombo, Recen );
 	QWidget::setTabOrder( Recen, Docs );
@@ -722,6 +731,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	QToolTip::add( guiLangCombo, "<qt>" + tr( "Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus" )+"</qt>" );
 	QToolTip::add( GUICombo, "<qt>" + tr( "Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes" ) + "</qt>" );
 	QToolTip::add( GFsize, "<qt>" + tr( "Default font size for the menus and windows" ) + "</qt>" );
+	QToolTip::add( GTFsize, "<qt>" + tr("Default font size for the tool windows") + "</qt>" );
 	QToolTip::add( UnitCombo, "<qt>" + tr( "Default unit of measurement for document editing" ) + "</qt>" );
 	QToolTip::add( SpinBox3, "<qt>" + tr( "Number of lines Scribus will scroll for each move of the mouse wheel" ) + "</qt>" );
 	QToolTip::add( Recen, "<qt>" + tr( "Number of recently edited documents to show in the File menu" ) + "</qt>" );
@@ -1316,6 +1326,7 @@ void Preferences::setTOCIndexData(QWidget *widgetToShow)
 void Preferences::updatePreferences()
 {
 	prefsManager->appPrefs.AppFontSize = GFsize->value();
+	prefsManager->appPrefs.PaletteFontSize = GTFsize->value();
 	prefsManager->appPrefs.Wheelval = SpinBox3->value();
 	prefsManager->appPrefs.RecentDCount = Recen->value();
 	prefsManager->appPrefs.DocDir = Docs->text();

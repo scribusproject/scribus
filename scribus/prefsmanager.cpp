@@ -391,6 +391,7 @@ void PrefsManager::initDefaultGUIFont(const QFont& guiFont)
 {
 	appPrefs.AppFontSize = guiFont.pointSize();
 	appPrefs.STEfont = guiFont.toString();
+	appPrefs.PaletteFontSize = appPrefs.AppFontSize;
 }
 
 void PrefsManager::initArrowStyles()
@@ -815,6 +816,11 @@ const int& PrefsManager::guiFontSize()
 	return appPrefs.AppFontSize;
 }
 
+const int& PrefsManager::paletteFontSize()
+{
+	return appPrefs.PaletteFontSize;
+}
+
 bool PrefsManager::WritePref(QString ho)
 {
 	QDomDocument docu("scribusrc");
@@ -825,6 +831,7 @@ bool PrefsManager::WritePref(QString ho)
 	dc.setAttribute("STILT",appPrefs.GUI);
 	dc.setAttribute("RAD",appPrefs.Wheelval);
 	dc.setAttribute("APF",appPrefs.AppFontSize);
+	dc.setAttribute("PFS",appPrefs.PaletteFontSize);
 	dc.setAttribute("GRAB",appPrefs.guidesSettings.grabRad);
 	dc.setAttribute("UNIT",appPrefs.docUnitIndex);
 	dc.setAttribute("RCD", appPrefs.RecentDCount);
@@ -1260,6 +1267,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.guidesSettings.grabRad = QStoInt(dc.attribute("GRAB","4"));
 			appPrefs.docUnitIndex = QStoInt(dc.attribute("UNIT","0"));
 			appPrefs.AppFontSize = QStoInt(dc.attribute("APF","12"));
+			appPrefs.PaletteFontSize = QStoInt(dc.attribute("PFS", "10"));
 			appPrefs.RecentDCount = dc.attribute("RCD","5").toUInt();
 			appPrefs.DocDir = dc.attribute("DOC","");
 			appPrefs.ProfileDir = dc.attribute("PROFILES","");

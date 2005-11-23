@@ -92,6 +92,7 @@ public:
 	const QString& guiLanguage(); // Get the GUI language from preferences
 	const QString& guiStyle(); // Get the GUI style from preferences
 	const int& guiFontSize(); // Get the GUI style from preferences
+	const int& paletteFontSize();
 	void setKeyEntry(const QString&, const QString&, const QKeySequence&, const int&);
 	void setShowStartupDialog(const bool);
 	void setColorSet(const ColorList&); // Sets the preferences' color set
