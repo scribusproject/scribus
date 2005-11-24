@@ -39,21 +39,23 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 	FPoint selectionBottomRight = FPoint(0, 0);
 
 	int docSelectionCount=ScApp->doc->selection->count();
+	// multiselection
 	if (docSelectionCount > 1)
 	{
-		selectionTopLeft.setXY(ScApp->view->GroupX - ScApp->doc->ScratchLeft,
-							   ScApp->view->GroupY - ScApp->doc->ScratchTop);
+		selectionTopLeft.setXY(ScApp->view->GroupX - ScApp->doc->currentPage->xOffset(),
+							   ScApp->view->GroupY - ScApp->doc->currentPage->yOffset());
 		selectionBottomRight.setXY(ScApp->view->GroupW,
 								   ScApp->view->GroupH);
 	}
+	// only one item selected
 	else if (docSelectionCount == 1)
 	{
-		//PageItem *currItem = ScApp->view->SelItem.at(0);
 		PageItem *currItem = ScApp->doc->selection->itemAt(0);
-		selectionTopLeft.setXY(currItem->BoundingX - ScApp->doc->ScratchLeft,
-							   currItem->BoundingY - ScApp->doc->ScratchTop);
-		selectionBottomRight.setXY(currItem->BoundingW, currItem->BoundingH);
+		selectionTopLeft.setXY(currItem->xPos() - ScApp->doc->currentPage->xOffset(),
+							   currItem->yPos() - ScApp->doc->currentPage->yOffset());
+		selectionBottomRight.setXY(currItem->width(), currItem->height());
 	}
+
 	bool selected = true;
 	if (selectionBottomRight != FPoint(0, 0))
 	{
@@ -89,13 +91,16 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 		if (counter >= ScApp->doc->pageSets[ScApp->doc->currentPageLayout].Columns)
 			counter = 0;
 	}
+	// middle page
 	locLeft = ScApp->doc->pageMargins.Left;
 	locRight = ScApp->doc->pageMargins.Left;
+	// left page
 	if (counter == 0)
 	{
 		locLeft = ScApp->doc->pageMargins.Right;
 		locRight = ScApp->doc->pageMargins.Left;
 	}
+	// right page
 	if (counter == ScApp->doc->pageSets[ScApp->doc->currentPageLayout].Columns-1)
 	{
 		locRight = ScApp->doc->pageMargins.Right;
