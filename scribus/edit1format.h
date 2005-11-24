@@ -26,6 +26,8 @@ class Tabruler;
 class PageItem_TextFrame;
 
 
+/*! \brief GUI dialog for Paragraph Style setting.
+*/
 class SCRIBUS_API EditStyle : public QDialog
 {
 	Q_OBJECT
@@ -83,14 +85,16 @@ public:
 	bool IsNew;
 	double AutoVal;
 	int DocsEin;
-	//! Label for holding "style preview" bitmap 12/30/2004 petr vanek
+	//! \brief Label for holding "style preview" bitmap 12/30/2004 petr vanek
 	QLabel *previewText;
 	QCheckBox *previewCaption;
-	//! sample text for preview
+	//! \brief Preview background
+	QPushButton *previewBgColor;
+	//! \brief sample text for preview
 	QString lorem;
-	//! sample text frame
+	//! \brief sample text frame
 	PageItem *previewItem;
-	//! Reference to the own ScribusDoc (preferences etc.) 12/30/2004 petr vanek
+	//! \brief Reference to the own ScribusDoc (preferences etc.) 12/30/2004 petr vanek
 	ScribusDoc *parentDoc;
 
 private slots:
@@ -99,7 +103,7 @@ private slots:
 	void FontChange();
 	void ColorChange();
 
-	/*! Enables or disables the style previewer */
+	/*! \brief Enables or disables the style previewer */
 	void togglePreview();
 	/*! \brief Paragraph style preview generator.
 	It takes values from the UI form, creates a temporary style.
@@ -109,6 +113,9 @@ private slots:
 	\date 4/7/2005
 	 */
 	void updatePreview();
+
+	/*! \brief Sets the preview bg with user chosen color. */
+	void setPreviewBackground();
 
 protected:
 	QHBoxLayout* Layout17;
@@ -120,6 +127,7 @@ protected:
 	QHBoxLayout* layout9a;
 	QHBoxLayout* layout9b;
 	QVBoxLayout* layoutPreview;
+	QHBoxLayout* layoutPrevSet;
 	QVBoxLayout* EditStyleLayout;
 	QVBoxLayout* GroupBox10Layout;
 	QGridLayout* AbstandVLayout;

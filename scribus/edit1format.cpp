@@ -5,6 +5,7 @@
 
 #include <qmessagebox.h>
 #include <qtooltip.h>
+#include <qcolordialog.h>
 
 #include "sccombobox.h"
 #include "commonstrings.h"
@@ -21,8 +22,6 @@
 #include "prefsmanager.h"
 
 
-
-
 EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<ParagraphStyle> v, bool neu, double au, int dEin, ScribusDoc *doc)
 		: QDialog( parent, "EditST", true, 0)
 {
@@ -31,6 +30,7 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	setIcon(loadIcon("AppIcon.png"));
 	AutoVal = au;
 	DocsEin = dEin;
+
 	EditStyleLayout = new QVBoxLayout( this, 10, 5, "EditStyleLayout");
 
 	TextLabel1 = new QLabel( tr( "&Name:" ), this, "TextLabel1" );
@@ -284,12 +284,24 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	EditStyleLayout->addWidget( GroupBox10 );
 
 	// Label for holding "style preview" bitmap 12/30/2004 petr vanek
-	layoutPreview = new QVBoxLayout;
+	layoutPreview = new QVBoxLayout; // paragraphs and check
 	layoutPreview->setSpacing(6);
 	layoutPreview->setMargin(0);
+	layoutPrevSet = new QHBoxLayout; // all preview items
+	layoutPrevSet->setSpacing(6);
+	layoutPrevSet->setMargin(0);
+
 	previewCaption = new QCheckBox( tr("Preview of the Paragraph Style"), this, "previewCaption" );
 	previewCaption->setChecked(PrefsManager::instance()->appPrefs.haveStylePreview);
-	layoutPreview->addWidget(previewCaption);
+	QSpacerItem* spacerBg = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+	previewBgColor = new QPushButton(this, "previewBgColor");
+	previewBgColor->setText(tr("Background"));
+	layoutPrevSet->addWidget(previewCaption);
+	layoutPrevSet->addItem(spacerBg);
+	layoutPrevSet->addWidget(previewBgColor);
+
+	layoutPreview->addLayout(layoutPrevSet);
+
 	previewText = new QLabel(this, "previewText");
 	previewText->setMinimumSize(640, 200);
 	previewText->setMaximumSize(640, 200);
@@ -297,6 +309,9 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	previewText->setFrameShape(QFrame::Box);
 	previewText->setPaletteBackgroundColor(paletteBackgroundColor());
 	layoutPreview->addWidget(previewText);
+
+	EditStyleLayout->addLayout(layoutPreview);
+
 	// preview setting - reading first paragraphs from LoremIpsum.txt etc.
 	previewItem = new PageItem_TextFrame(parentDoc, 0, 0, previewText->width(), previewText->height(), 0, "None", parentDoc->toolSettings.dPenText);
 	previewItem->FrameType = PageItem::TextFrame;
@@ -315,8 +330,8 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	Cancel = new QPushButton( CommonStrings::tr_Cancel, this, "Cancel" );
 	OkButton->setDefault( true );
 	Layout17->addWidget( Cancel );
-	layoutPreview->addLayout(Layout17);
-	EditStyleLayout->addLayout( layoutPreview );
+	EditStyleLayout->addLayout(Layout17);
+
 	werte = vor;
 	allV = v;
 	// tooltips
@@ -366,6 +381,7 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	connect(DropLines, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
 	connect(DropDist, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
 	connect(previewCaption, SIGNAL( clicked() ), this, SLOT( togglePreview() ) );
+	connect(previewBgColor, SIGNAL(clicked()), this, SLOT(setPreviewBackground()));
 	connect(lineSpacingPop, SIGNAL(activated(int)), this, SLOT(toggleLsp(int )));
 	connect(fontKern, SIGNAL(valueChanged(int)), this, SLOT(updatePreview()));
 
@@ -409,11 +425,13 @@ void EditStyle::togglePreview()
 	{
 		previewText->show();
 		previewText->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred));
+		previewBgColor->show();
 		updatePreview();
 	}
 	else
 	{
 		previewText->hide();
+		previewBgColor->hide();
 		previewText->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 	}
 	PrefsManager::instance()->appPrefs.haveStylePreview = previewCaption->isChecked();
@@ -526,8 +544,8 @@ void EditStyle::updatePreview()
 	int y = previewText->height();
 	QPixmap pm(x, y);
 	ScPainter *painter = new ScPainter(&pm, x, y, 0, 0);
-	painter->clear(white);
-	pm.fill(white);
+	painter->clear(previewText->paletteBackgroundColor());
+	pm.fill(previewText->paletteBackgroundColor());
 	previewText->clear();
 
 	double sca = ScApp->view->getScale();
@@ -624,4 +642,15 @@ void EditStyle::updatePreview()
 	delete(painter);
 	ScApp->view->setScale(sca);
 	parentDoc->docParagraphStyles.remove(parentDoc->docParagraphStyles.fromLast());
+}
+
+void EditStyle::setPreviewBackground()
+{
+	QColor bg;
+	bg = QColorDialog::getColor(previewText->paletteBackgroundColor(), this);
+	if (bg.isValid())
+	{
+		previewText->setPaletteBackgroundColor(bg);
+		updatePreview();
+	}
 }
