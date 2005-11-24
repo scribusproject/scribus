@@ -27,6 +27,7 @@
 #include <qcursor.h>
 
 #include "commonstrings.h"
+#include "units.h"
 
 
 extern QPixmap loadIcon(QString nam);
@@ -405,8 +406,9 @@ QValueList<double> GuideManager::getRowValues()
 	{
 		if (useRowGap->isChecked())
 		{
-			values.append(offset + (spacing * i) + (rowGap->value() / 2));
-			values.append(offset + (spacing * i) - (rowGap->value() / 2));
+			double gapValue = value2pts(rowGap->value(), ScApp->doc->unitIndex());
+			values.append(offset + (spacing * i) + (gapValue / 2.0));
+			values.append(offset + (spacing * i) - (gapValue / 2.0));
 		}
 		else
 			values.append(offset + (spacing * i));
@@ -437,8 +439,9 @@ QValueList<double> GuideManager::getColValues()
 	{
 		if (useColGap->isChecked())
 		{
-			values.append(offset + spacing * i + colGap->value() / 2);
-			values.append(offset + spacing * i - colGap->value() / 2);
+			double gapValue = value2pts(colGap->value(), ScApp->doc->unitIndex());
+			values.append(offset + spacing * i + (gapValue / 2.0));
+			values.append(offset + spacing * i - (gapValue / 2.0));
 		}
 		else
 			values.append(offset + spacing * i);
