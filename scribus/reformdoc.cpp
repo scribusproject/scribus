@@ -988,7 +988,7 @@ void ReformDoc::updateDocumentSettings()
 			currDoc->PDF_Options.PrintProf = currDoc->CMSSettings.DefaultPrinterProfile;
 			currDoc->PDF_Options.Intent = currDoc->CMSSettings.DefaultIntentMonitor;
 			ScApp->recalcColors(ScApp->mainWindowProgressBar);
-			ScApp->view->RecalcPictures(&ScApp->InputProfiles, &ScApp->InputProfilesCMYK, ScApp->mainWindowProgressBar);
+			currDoc->RecalcPictures(&ScApp->InputProfiles, &ScApp->InputProfilesCMYK, ScApp->mainWindowProgressBar);
 #endif
 			ScApp->mainWindowProgressBar->setProgress(cc);
 			qApp->setOverrideCursor(QCursor(arrowCursor), true);

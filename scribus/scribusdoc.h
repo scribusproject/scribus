@@ -58,6 +58,8 @@ class PDFOptions;
 class Hyphenator;
 class Selection;
 
+class QProgressBar;
+
 
 /**
   * the Document Class
@@ -382,8 +384,20 @@ public:
 	 * @retval Return false on failure
 	 */
 	const bool LoadPict(QString fn, int ItNr, bool reload = false);
+	/**
+	 * 
+	 * @param fn 
+	 * @param pageItem 
+	 * @param reload 
+	 * @return 
+	 */
 	const bool loadPict(QString fn, PageItem *pageItem, bool reload = false);
-	
+	/**
+	 * 
+	 * @param currItem 
+	 * @return 
+	 */
+	void RecalcPictures(ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *dia = 0);
 	/**
 	 * @brief Find the minX,MinY and maxX,maxY for the canvas required for the doc
 	 */
@@ -475,6 +489,10 @@ public:
 	 * @brief Update the fill and line QColors for all items in the doc
 	 */
 	void updateAllItemQColors();
+	/**
+	 * 
+	 */
+	void buildAlignItemList();
 	
 
 protected:
@@ -520,6 +538,8 @@ public: // Public attributes
 	QPtrList<PageItem> MasterItems;
 	QPtrList<PageItem> DocItems;
 	QPtrList<PageItem> FrameItems;
+	/**List of objects for alignment purposes*/
+	QValueList<AlignObjs> AObjects;
 	Selection* selection;
   /** Pagewidth  */
 	double pageWidth;

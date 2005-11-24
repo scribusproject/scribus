@@ -1760,8 +1760,6 @@ void PageItem::setImageScalingMode(bool freeScale, bool keepRatio)
 	ScaleType = freeScale;
 	AspectRatio = keepRatio;
 	AdjustPictScale();
-	//FIXME emit here instead
-	ScApp->propertiesPalette->setLvalue(LocalScX, LocalScY, LocalX, LocalY);
 	ScApp->view->RefreshItem(this);
 }
 
@@ -3451,8 +3449,7 @@ void PageItem::AdjustPictScale()
 		cl.scale(LocalScX, LocalScY);
 		imageClip.map(cl);
 	}
-	//FIXME Make this emit here, currently pasted after calls to this function in the view
-	//emit SetLocalValues(LocalScX, LocalScY, LocalX, LocalY );
+	emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY );
 }
 
 QRect PageItem::getRedrawBounding(const double viewScale)
@@ -3650,6 +3647,7 @@ bool PageItem::disconnectFromGUI()
 
 void PageItem::emitAllToGUI()
 {
+	qDebug("bling");
 	emit position(Xpos, Ypos);
 	emit widthAndHeight(Width, Height);
 	emit rotation(Rot);

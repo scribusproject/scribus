@@ -22,6 +22,7 @@
 
 #include <utility>
 #include <qfile.h>
+#include <qprogressbar.h>
 
 #include "filewatcher.h"
 #include "hyphenator.h"
@@ -3382,5 +3383,101 @@ void ScribusDoc::updateAllItemQColors()
 		PageItem *ite = FrameItems.at(c);
 		ite->setLineQColor();
 		ite->setFillQColor();
+	}
+}
+
+//CB Moved from view
+void ScribusDoc::RecalcPictures(ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *dia)
+{
+	uint docItemCount=Items->count();
+	if ( docItemCount!= 0)
+	{
+		int counter;
+		bool usingGUI=ScQApp->usingGUI();
+		if (usingGUI)
+		{
+			if (dia != NULL)
+				counter = dia->progress();
+			else
+				counter = 0;
+		}
+		PageItem* it;
+		for (uint i=0; i < docItemCount; ++i)
+		{
+			it = Items->at(i);
+			if ((it->itemType() == PageItem::ImageFrame) && (it->PicAvail))
+			{
+				if (it->pixm.imgInfo.colorspace == 1)
+				{
+					if (!PrCMYK->contains(it->IProfile))
+						it->IProfile = CMSSettings.DefaultImageCMYKProfile;
+				}
+				else
+				{
+					if (!Pr->contains(it->IProfile))
+						it->IProfile = CMSSettings.DefaultImageRGBProfile;
+				}
+				LoadPict(it->Pfile, i, true);
+			}
+			if (usingGUI)
+			{
+				++counter;
+				if (dia != NULL)
+					dia->setProgress(counter);
+			}
+		}
+	}
+}
+
+void ScribusDoc::buildAlignItemList()
+{
+	PageItem *currItem;
+	int ObjGroup;
+	struct AlignObjs Object;
+	AObjects.clear();
+	//for (uint a = 0; a < SelItem.count(); ++a)
+	for (uint a = 0; a < selection->count(); ++a)
+	{
+		//currItem = SelItem.at(a);
+		currItem = selection->itemAt(a);
+		Object.Objects.clear();
+		currItem->getBoundingRect(&Object.x1, &Object.y1, &Object.x2, &Object.y2);
+		if (currItem->Groups.count() > 0)
+		{
+			ObjGroup = currItem->Groups.top();
+			bool found = false;
+			for (uint a2 = 0; a2 < AObjects.count(); ++a2)
+			{
+				if (AObjects[a2].Group == ObjGroup)
+				{
+					AObjects[a2].x1 = QMIN(AObjects[a2].x1, Object.x1);
+					AObjects[a2].y1 = QMIN(AObjects[a2].y1, Object.y1);
+					AObjects[a2].x2 = QMAX(AObjects[a2].x2, Object.x2);
+					AObjects[a2].y2 = QMAX(AObjects[a2].y2, Object.y2);
+					AObjects[a2].Objects.append(currItem);
+					found = true;
+					break;
+				}
+			}
+			if (!found)
+			{
+				Object.Group = ObjGroup;
+				Object.ObjNr = 0;
+				Object.Objects.append(currItem);
+				AObjects.append(Object);
+			}
+		}
+		else
+		{
+			Object.Group = 0;
+			Object.ObjNr = currItem->ItemNr;
+			Object.Objects.append(currItem);
+			AObjects.append(Object);
+		}
+	}
+	for (uint i = 0; i < AObjects.count(); ++i)
+	{
+		AObjects[i].width = AObjects[i].x2 - AObjects[i].x1;
+		AObjects[i].height = AObjects[i].y2 - AObjects[i].y1;
 	}
 }

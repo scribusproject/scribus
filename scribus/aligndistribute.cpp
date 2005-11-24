@@ -363,20 +363,20 @@ void AlignDistributePalette::setView( ScribusView * newView )
 	currView=newView;
 	if (currView!=NULL)
 	{
-		alignObjects=&(currView->AObjects);
 		currDoc=currView->Doc;
+		alignObjects=&(currDoc->AObjects);
 	}
 	else
 	{
-		alignObjects=NULL;
 		currDoc=NULL;
+		alignObjects=NULL;
 	}
 	unitChange();
 }
 
 bool AlignDistributePalette::startAlign()
 {
-	currView->BuildAObj();
+	currDoc->buildAlignItemList();
 	alignObjectsCount=alignObjects->count();
 	if (alignObjectsCount==0)
 		return false;

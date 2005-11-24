@@ -139,7 +139,7 @@ public:
 	QPtrList<PageItem> linkedFramesToShow;
 	QValueList<int> SelNode;
 
-	QValueList<AlignObjs> AObjects;
+	
 	struct oldPageVar
 	{
 		uint newPg;
@@ -156,10 +156,14 @@ public:
 	void hideMasterPage();
 	QImage PageToPixmap(int Nr, int maxGr);
 	QImage MPageToPixmap(QString name, int maxGr);
-	void RecalcPictures(ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *dia = 0);
+	//void RecalcPictures(ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *dia = 0);
 	void RecalcPicturesRes();
 	void rulerMove(QMouseEvent *m);
-	void setRuler(QMouseEvent *m);
+	/**
+	 * Called when the ruler origin is dragged
+	 * @param m mouse event
+	 */
+	void setNewRulerOrigin(QMouseEvent *m);
 	void FromHRuler(QMouseEvent *m);
 	void FromVRuler(QMouseEvent *m);
 	void SetYGuide(QMouseEvent *m, int oldIndex);
@@ -252,7 +256,6 @@ public:
 	void FlipImageV();
 	//void AdjustPictScale(PageItem *currItem, bool reload = true);
 	void PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool drag = false);
-	void BuildAObj();
 	void QueryFarben();
 	void rememberPreviousSettings(int mx=0, int my=0);
 	bool mousePressed();
@@ -286,7 +289,10 @@ public slots: // Public slots
 	void editExtendedImageProperties();
 	void TogglePic();
 	void UpdatePic();
-	void FrameToPic();
+	/**
+	 * Adjust an image frame's size to fit the size of the image in it
+	 */
+	void adjustFrametoImageSize();
 	void ToggleBookmark();
 	void ToggleAnnotation();
 	void ToggleLock();
@@ -328,6 +334,11 @@ private: // Private attributes
 
 private slots:
 	void Zval();
+	/**
+	 * Called to update the GUI when the canvas(view) scrollbars are moved
+	 * @param x 
+	 * @param y 
+	 */
 	void setRulerPos(int x, int y);
 	void selectionChanged();
 	void setObjectUndoMode();

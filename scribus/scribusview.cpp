@@ -83,6 +83,7 @@
 #endif
 
 #include "scfontmetrics.h"
+#include "scmessagebox.h"
 #include "util.h"
 #include "story.h"
 #include "prefsmanager.h"
@@ -1899,9 +1900,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				if ((!currItem->isTableItem) && (!currItem->isSingleSel))
 				{
 					pmen->insertItem( tr("Le&vel"), pmenLevel);
+					ScApp->scrActions["itemRaiseToTop"]->addTo(pmenLevel);
 					ScApp->scrActions["itemRaise"]->addTo(pmenLevel);
 					ScApp->scrActions["itemLower"]->addTo(pmenLevel);
-					ScApp->scrActions["itemRaiseToTop"]->addTo(pmenLevel);
 					ScApp->scrActions["itemLowerToBottom"]->addTo(pmenLevel);
 				}
 			}
@@ -2630,7 +2631,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					if (currItem->itemType() == PageItem::ImageFrame)
 					{
 						currItem->AdjustPictScale();
+						/*Dont need this now adjustpictscale will emit for 1st selected item
 						emit SetLocalValues(currItem->LocalScX, currItem->LocalScY, currItem->LocalX, currItem->LocalY );
+						*/
 					}
 					UpdateClip(currItem);
 					emit ItemTextCols(currItem->Cols, currItem->ColGap);
@@ -5676,7 +5679,7 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 		}
 		return;
 	}
-	FPoint oldPos = FPoint(currItem->xPos(), currItem->yPos());
+	FPoint oldPos(currItem->xyPos());
 	double offsX = currItem->width() / 2.0;
 	double offsY = currItem->height() / 2.0;
 	ma.translate(-offsX, -offsY);
@@ -6057,7 +6060,9 @@ bool ScribusView::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, 
 	if ((currItem->asImageFrame()) && (!currItem->Sizing) && (!Doc->EditClip))
 	{
 		currItem->AdjustPictScale();
+		/*Dont need this now adjustpictscale will emit for 1st selected item
 		emit SetLocalValues(currItem->LocalScX, currItem->LocalScY, currItem->LocalX, currItem->LocalY );
+		*/
 	}
 	if (currItem->asLine())
 	{
@@ -7179,11 +7184,10 @@ void ScribusView::selectionChanged()
 
 void ScribusView::selectPage(QMouseEvent *m)
 {
-	QRect mpo;
 	Mpressed = true;
 	Mxp = static_cast<int>(m->x()/Scale);
 	Myp = static_cast<int>(m->y()/Scale);
-	mpo = QRect(m->x()-Doc->guidesSettings.grabRad, m->y()-Doc->guidesSettings.grabRad, Doc->guidesSettings.grabRad*2, Doc->guidesSettings.grabRad*2);
+	QRect mpo(m->x()-Doc->guidesSettings.grabRad, m->y()-Doc->guidesSettings.grabRad, Doc->guidesSettings.grabRad*2, Doc->guidesSettings.grabRad*2);
 	mpo.moveBy(qRound(Doc->minCanvasCoordinate.x() * Scale), qRound(Doc->minCanvasCoordinate.y() * Scale));
 	ClRe = -1;
 	Deselect(false);
@@ -7763,8 +7767,9 @@ void ScribusView::SetupDraw(int nr)
 	Doc->appMode = modeNormal;
 	emit DocChanged();
 	currItem->Sizing =  currItem->asLine() ? false : true;
+	//CB unnecessary now with addItem
 	//EmitValues(currItem);
-	currItem->emitAllToGUI();
+	//currItem->emitAllToGUI();
 }
 
 /*
@@ -8163,9 +8168,9 @@ void ScribusView::ClearItem()
 			{
 				if (currItem->itemText.count() != 0 && (currItem->NextBox == 0 || currItem->BackBox == 0))
 				{
-					int t = QMessageBox::warning(this, CommonStrings::trWarning,
+					int t = ScMessageBox::warning(this, CommonStrings::trWarning,
 										tr("Do you really want to clear all your text?"),
-										QMessageBox::No, QMessageBox::Yes, QMessageBox::NoButton);
+										QMessageBox::Yes, QMessageBox::No, QMessageBox::NoButton);
 					if (t == QMessageBox::No)
 						continue;
 				}
@@ -8358,7 +8363,7 @@ void ScribusView::setGroupTransactionStarted(bool isOn)
 	_groupTransactionStarted = isOn;
 }
 
-// jjsa 27-03-2004 add for better settinf while zooming
+// jjsa 27-03-2004 add for better setting while zooming
 void ScribusView::rememberPreviousSettings(int mx, int my)
 {
 	oldX = mx;
@@ -8384,6 +8389,7 @@ void ScribusView::setRulerPos(int x, int y)
 	horizRuler->repaint();
 	vertRuler->repaint();
 	evSpon = true;
+	QString newStatusBarText;
 	if ((verticalScrollBar()->draggingSlider()) || (horizontalScrollBar()->draggingSlider()))
 	{
 		QValueList<int> pag;
@@ -8401,10 +8407,9 @@ void ScribusView::setRulerPos(int x, int y)
 				pag.append(a+1);
 		}
 		if (!pag.isEmpty())
-			ScApp->mainWindowStatusLabel->setText( tr("Page %1 to %2").arg(pag.first()).arg(pag.last()));
+			newStatusBarText=( tr("Page %1 to %2").arg(pag.first()).arg(pag.last()));
 	}
-	else
-		ScApp->mainWindowStatusLabel->setText("");
+	ScApp->mainWindowStatusLabel->setText(newStatusBarText);
 }
 
 void ScribusView::Zval()
@@ -8690,18 +8695,18 @@ void ScribusView::GotoLa(int l)
 	emit changeLA(layerNumber);
 }
 
-void ScribusView::GotoPa(int Seite)
-{
-	GotoPage(Seite-1);
-	//ScApp->setFocus();
-}
-
 void ScribusView::ChgUnit(int art)
 {
 	emit changeUN(art);
 	unitChange();
 	vertRuler->repaint();
 	horizRuler->repaint();
+}
+
+void ScribusView::GotoPa(int Seite)
+{
+	GotoPage(Seite-1);
+	//ScApp->setFocus();
 }
 
 void ScribusView::GotoPage(int Seite)
@@ -8753,6 +8758,7 @@ void ScribusView::hideMasterPage()
 //	DrawNew();
 }
 
+/*CB Moved to doc
 void ScribusView::RecalcPictures(ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *dia)
 {
 	uint docItemCount=Doc->Items->count();
@@ -8787,6 +8793,7 @@ void ScribusView::RecalcPictures(ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar 
 		}
 	}
 }
+*/
 
 QImage ScribusView::MPageToPixmap(QString name, int maxGr)
 {
@@ -8899,7 +8906,7 @@ void ScribusView::rulerMove(QMouseEvent *m)
 	DrVX = newX;
 }
 
-void ScribusView::setRuler(QMouseEvent *m)
+void ScribusView::setNewRulerOrigin(QMouseEvent *m)
 {
 	QPoint py = viewport()->mapFromGlobal(m->globalPos());
 	Doc->rulerXoffset = (py.x() + contentsX()) / Scale + Doc->minCanvasCoordinate.x();
@@ -8912,10 +8919,11 @@ void ScribusView::setRuler(QMouseEvent *m)
 	setRulerPos(contentsX(), contentsY());
 	updateContents();
 	//if (SelItem.count() != 0)
-	if (Doc->selection->count() != 0)
+	int docSelectionCount=Doc->selection->count();
+	if (docSelectionCount != 0)
 	{
 		//if (SelItem.count() > 1)
-		if (Doc->selection->count() > 1)
+		if (docSelectionCount > 1)
 		{
 			double x, y, w, h;
 			getGroupRect(&x, &y, &w, &h);
@@ -10454,12 +10462,14 @@ void ScribusView::updatePict(QString name)
 	//We only need to emit this for the 1st item in the selection, if theres no item selected, 
 	//prop pal is showing 0s anyway. Multi selection needs fixing for prop pal anyway
 	//if (SelItem.count()!=0)
+	/*Dont need this now adjustpictscale will emit for 1st selected item
 	if (Doc->selection->count()!=0)
 	{
 		//PageItem* currItem=SelItem.at(0);
 		PageItem* currItem=Doc->selection->itemAt(0);
 		emit SetLocalValues(currItem->LocalScX, currItem->LocalScY, currItem->LocalX, currItem->LocalY );
 	}
+	*/
 	emit DocChanged();
 }
 
@@ -10508,12 +10518,14 @@ void ScribusView::RecalcPicturesRes()
 	//We only need to emit this for the 1st item in the selection, if theres no item selected, 
 	//prop pal is showing 0s anyway. Multi selection needs fixing for prop pal anyway
 	//if (SelItem.count()!=0)
+	/*Dont need this now adjustpictscale will emit for 1st selected item
 	if (Doc->selection->count()!=0)
 	{
 		//PageItem* currItem=SelItem.at(0);
 		PageItem* currItem=Doc->selection->itemAt(0);
 		emit SetLocalValues(currItem->LocalScX, currItem->LocalScY, currItem->LocalX, currItem->LocalY );
 	}
+	*/
 	updateContents();
 	emit DocChanged();
 }
@@ -10556,11 +10568,11 @@ void ScribusView::removePict(QString name)
 void ScribusView::UpdatePic()
 {
 	//uint selectedItemCount=SelItem.count();
-	uint selectedItemCount=Doc->selection->count();
-	if (selectedItemCount > 0)
+	uint docSelectionCount=Doc->selection->count();
+	if (docSelectionCount > 0)
 	{
 		bool toUpdate=false;
-		for (uint i = 0; i < selectedItemCount; ++i)
+		for (uint i = 0; i < docSelectionCount; ++i)
 		{
 			//if (SelItem.at(i)!=NULL)
 			if (Doc->selection->itemAt(i)!=NULL)
@@ -10568,7 +10580,7 @@ void ScribusView::UpdatePic()
 				if (Doc->selection->itemAt(i)->asImageFrame())
 				{
 					//PageItem *currItem = SelItem.at(0);
-					PageItem *currItem = Doc->selection->itemAt(0);
+					PageItem *currItem = Doc->selection->itemAt(i);//CB should be i, not 0
 					if (currItem->PicAvail)
 					{
 						int fho = currItem->imageFlippedH();
@@ -10583,15 +10595,17 @@ void ScribusView::UpdatePic()
 		}
 		if (toUpdate)
 		{
+			/*Dont need this now adjustpictscale will emit for 1st selected item
 			//PageItem* currItem=SelItem.at(0);
 			PageItem* currItem=Doc->selection->itemAt(0);
 			emit SetLocalValues(currItem->LocalScX, currItem->LocalScY, currItem->LocalX, currItem->LocalY );
+			*/
 			updateContents();
 		}
 	}
 }
 
-void ScribusView::FrameToPic()
+void ScribusView::adjustFrametoImageSize()
 {
 	uint docSelectionCount=Doc->selection->count();
 	//if (SelItem.count() > 0)
@@ -10605,33 +10619,30 @@ void ScribusView::FrameToPic()
 			//if (SelItem.at(i)!=NULL)
 			if (currItem!=NULL)
 				//if (SelItem.at(i)->asImageFrame())
-				if (currItem->asImageFrame())
+				if (currItem->asImageFrame() && currItem->PicAvail && !currItem->isTableItem)
 				{
-					//PageItem *currItem = SelItem.at(i);
-					if (currItem->PicAvail)
+					double w, h;
+					if (currItem->pixm.imgInfo.lowResType == 0)
 					{
-						double w, h, x, y;
-						if (currItem->pixm.imgInfo.lowResType == 0)
-						{
-							w = static_cast<double>(currItem->pixm.width()) * currItem->LocalScX;
-							h = static_cast<double>(currItem->pixm.height()) * currItem->LocalScY;
-						}
-						else
-						{
-							w = static_cast<double>(currItem->pixm.width())*currItem->pixm.imgInfo.lowResScale * currItem->LocalScX;
-							h = static_cast<double>(currItem->pixm.height())*currItem->pixm.imgInfo.lowResScale * currItem->LocalScY;
-						}
-						x = currItem->LocalX * currItem->LocalScX;
-						y = currItem->LocalY * currItem->LocalScY;
-						if (!currItem->isTableItem)
-						{
-							SizeItem(w, h, currItem->ItemNr);
-							MoveItem(x, y, currItem);
-							currItem->LocalX = 0;
-							currItem->LocalY = 0;
-						}
-						toUpdate=true;
+						w = static_cast<double>(currItem->pixm.width()) * currItem->LocalScX;
+						h = static_cast<double>(currItem->pixm.height()) * currItem->LocalScY;
 					}
+					else
+					{
+						w = static_cast<double>(currItem->pixm.width())*currItem->pixm.imgInfo.lowResScale * currItem->LocalScX;
+						h = static_cast<double>(currItem->pixm.height())*currItem->pixm.imgInfo.lowResScale * currItem->LocalScY;
+					}
+					double x = currItem->LocalX * currItem->LocalScX;
+					double y = currItem->LocalY * currItem->LocalScY;
+					//CB Why is this here? We do nothing if it is a table item so push it up to the other if
+					//if (!currItem->isTableItem)
+					//{
+						SizeItem(w, h, currItem->ItemNr);
+						MoveItem(x, y, currItem);
+						currItem->LocalX = 0;
+						currItem->LocalY = 0;
+					//}
+					toUpdate=true;
 				}
 		}
 		if (toUpdate)
@@ -10982,8 +10993,10 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	if (currItem->asImageFrame())
 	{
 		currItem->AdjustPictScale();
+		/*Dont need this now adjustpictscale will emit for 1st selected item
 		//FIXME: From old AdjustPictScale, Emit the new scale to the Prop Pal.. 
 		emit SetLocalValues(currItem->LocalScX, currItem->LocalScY, currItem->LocalX, currItem->LocalY );
+		*/
 	}
 	if ((currItem->asTextFrame()) && !(currItem->asPathText()))
 		currItem->IFont = Doc->toolSettings.defFont;
@@ -11041,59 +11054,6 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	}
 /*	if ((currItem->isBookmark) && (!loading))
 		emit NewBMNr(currItem->BMnr, z); */
-}
-
-void ScribusView::BuildAObj()
-{
-	PageItem *currItem;
-	int ObjGroup;
-	struct AlignObjs Object;
-	AObjects.clear();
-	//for (uint a = 0; a < SelItem.count(); ++a)
-	for (uint a = 0; a < Doc->selection->count(); ++a)
-	{
-		//currItem = SelItem.at(a);
-		currItem = Doc->selection->itemAt(a);
-		Object.Objects.clear();
-		currItem->getBoundingRect(&Object.x1, &Object.y1, &Object.x2, &Object.y2);
-		if (currItem->Groups.count() > 0)
-		{
-			ObjGroup = currItem->Groups.top();
-			bool found = false;
-			for (uint a2 = 0; a2 < AObjects.count(); ++a2)
-			{
-				if (AObjects[a2].Group == ObjGroup)
-				{
-					AObjects[a2].x1 = QMIN(AObjects[a2].x1, Object.x1);
-					AObjects[a2].y1 = QMIN(AObjects[a2].y1, Object.y1);
-					AObjects[a2].x2 = QMAX(AObjects[a2].x2, Object.x2);
-					AObjects[a2].y2 = QMAX(AObjects[a2].y2, Object.y2);
-					AObjects[a2].Objects.append(currItem);
-					found = true;
-					break;
-				}
-			}
-			if (!found)
-			{
-				Object.Group = ObjGroup;
-				Object.ObjNr = 0;
-				Object.Objects.append(currItem);
-				AObjects.append(Object);
-			}
-		}
-		else
-		{
-			Object.Group = 0;
-			Object.ObjNr = currItem->ItemNr;
-			Object.Objects.append(currItem);
-			AObjects.append(Object);
-		}
-	}
-	for (uint i = 0; i < AObjects.count(); ++i)
-	{
-		AObjects[i].width = AObjects[i].x2 - AObjects[i].x1;
-		AObjects[i].height = AObjects[i].y2 - AObjects[i].y1;
-	}
 }
 
 void ScribusView::QueryFarben()
