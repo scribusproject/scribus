@@ -524,12 +524,12 @@ QPixmap ScPreview::createPreview(QString data)
 						pS->setupPolygon(&OB.PoLine);
 						pS->setClipPath();
 						pS->save();
-						if (OB.flippedH % 2 != 0)
+						if (OB.flippedH)
 						{
 							pS->translate(OB.Width, 0);
 							pS->scale(-1, 1);
 						}
-						if (OB.flippedV % 2 != 0)
+						if (OB.flippedV)
 						{
 							pS->translate(0, OB.Height);
 							pS->scale(1, -1);
@@ -552,12 +552,12 @@ QPixmap ScPreview::createPreview(QString data)
 						pS->setupPolygon(&OB.PoLine);
 						pS->drawPolygon();
 					}
-					if (OB.flippedH % 2 != 0)
+					if (OB.flippedH)
 					{
 						pS->translate(OB.Width, 0);
 						pS->scale(-1, 1);
 					}
-					if (OB.flippedV % 2 != 0)
+					if (OB.flippedV)
 					{
 						pS->translate(0, OB.Height);
 						pS->scale(1, -1);
