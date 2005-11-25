@@ -1825,10 +1825,13 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					ScApp->scrActions["itemPreviewFull"]->addTo(pmenResolution);
 					if ((currItem->PicAvail) && (currItem->pixm.imgInfo.valid))
 						ScApp->scrActions["itemExtendedImageProperties"]->addTo(pmen);
+					if (currItem->PicAvail && currItem->isRaster)
+					{
+						ScApp->scrActions["styleInvertPict"]->addTo(pmen);
+						ScApp->scrActions["editEditWithImageEditor"]->addTo(pmen);
+					}
 					if (currItem->PicAvail)
 						ScApp->scrActions["itemUpdateImage"]->addTo(pmen);
-					if (currItem->PicAvail && currItem->isRaster)
-						ScApp->scrActions["editEditWithImageEditor"]->addTo(pmen);
 					if ((currItem->PicAvail) && (!currItem->isTableItem))
 						ScApp->scrActions["itemAdjustFrameToImage"]->addTo(pmen);
 				}
@@ -10554,7 +10557,7 @@ void ScribusView::removePict(QString name)
 		if ((currItem->PicAvail) && (currItem->Pfile == name))
 		{
 			currItem->PicAvail = false;
-			currItem->pixm = QImage();
+			currItem->pixm = ScImage();
 /*			if (currItem->itemType() == PageItem::ImageFrame)
 				emit UpdtObj(Doc->currentPage->pageNr(), currItem->ItemNr); */
 		}
@@ -10565,7 +10568,7 @@ void ScribusView::removePict(QString name)
 		if ((currItem->PicAvail) && (currItem->Pfile == name))
 		{
 			currItem->PicAvail = false;
-			currItem->pixm = QImage();
+			currItem->pixm = ScImage();
 		}
 	}
 	for (uint a = 0; a < Doc->FrameItems.count(); ++a)
@@ -10574,7 +10577,7 @@ void ScribusView::removePict(QString name)
 		if ((currItem->PicAvail) && (currItem->Pfile == name))
 		{
 			currItem->PicAvail = false;
-			currItem->pixm = QImage();
+			currItem->pixm = ScImage();
 		}
 	}
 	updateContents();

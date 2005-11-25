@@ -80,6 +80,7 @@ public:
 	ScribusDoc* doc;
 	PageItem* currItem;
 	ScImage image;
+	QTime tim;
 
 public slots:
 	virtual void leaveOK();

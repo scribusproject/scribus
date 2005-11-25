@@ -2259,7 +2259,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["editSearchReplace"]->setEnabled(false);
 		scrActions["extrasHyphenateText"]->setEnabled(false);
 		scrActions["extrasDeHyphenateText"]->setEnabled(false);
-		scrMenuMgr->setMenuEnabled("Style", true);
+		scrMenuMgr->setMenuEnabled("Style", false);
 		scrMenuMgr->setMenuEnabled("Item", true);
 		scrMenuMgr->setMenuEnabled("ItemShapes", !(currItem->isTableItem && currItem->isSingleSel));
 		scrMenuMgr->setMenuEnabled("ItemConvertTo", true);
@@ -2269,9 +2269,9 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["itemConvertToPolygon"]->setEnabled(!currItem->isTableItem && doc->appMode != modeEdit);
 		scrActions["itemConvertToTextFrame"]->setEnabled(doc->appMode != modeEdit);
 		scrMenuMgr->clearMenu("Style");
-		scrMenuMgr->addMenuToMenu("Color","Style");
-		if (currItem->isRaster)
-			scrMenuMgr->addMenuItem(scrActions["styleInvertPict"], "Style");
+//		scrMenuMgr->addMenuToMenu("Color","Style");
+//		if (currItem->isRaster)
+//			scrMenuMgr->addMenuItem(scrActions["styleInvertPict"], "Style");
 		scrActions["toolsUnlinkTextFrame"]->setEnabled(false);
 		scrActions["toolsLinkTextFrame"]->setEnabled(false);
 		scrActions["toolsEditContents"]->setEnabled(currItem->ScaleType);
@@ -2474,11 +2474,11 @@ void ScribusApp::HaveNewSel(int Nr)
 
 		scrActions["extrasHyphenateText"]->setEnabled(false);
 		scrActions["extrasDeHyphenateText"]->setEnabled(false);
-		scrMenuMgr->setMenuEnabled("Style", true);
+		scrMenuMgr->setMenuEnabled("Style", false);
 		scrMenuMgr->setMenuEnabled("Item", true);
 		scrMenuMgr->clearMenu("Style");
-		scrMenuMgr->addMenuToMenu("Color","Style");
-		scrMenuMgr->addMenuToMenu("Shade","Style");
+//		scrMenuMgr->addMenuToMenu("Color","Style");
+//		scrMenuMgr->addMenuToMenu("Shade","Style");
 		if (Nr == 6) //Polygon
 		{
 			scrMenuMgr->setMenuEnabled("ItemShapes", true);

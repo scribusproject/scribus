@@ -118,6 +118,7 @@ void PageItem_ImageFrame::clearContents()
 {
 	Pfile = "";
 	PicAvail = false;
+	effectsInUse.clear();
 	pixm = ScImage();
 	
 	LocalScX = 1;

@@ -321,12 +321,16 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	connect( colData, SIGNAL(activated(int)), this, SLOT( createPreview()));
 	connect( shade, SIGNAL(clicked()), this, SLOT(createPreview()));
 	connect( brightnessSlider, SIGNAL(valueChanged(int)), this, SLOT(updateBright(int)));
+	connect( brightnessSlider, SIGNAL(sliderReleased()), this, SLOT(createPreview()));
 	connect( contrastSlider, SIGNAL(valueChanged(int)), this, SLOT(updateContrast(int)));
+	connect( contrastSlider, SIGNAL(sliderReleased()), this, SLOT(createPreview()));
 	connect( shRadius, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
 	connect( shValue, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
 	connect( blRadius, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
 	connect( blValue, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
 	connect( solarizeSlider, SIGNAL(valueChanged(int)), this, SLOT(updateSolarize(int)));
+	connect( solarizeSlider, SIGNAL(sliderReleased()), this, SLOT(createPreview()));
+	tim.start();
 }
 
 void EffectsDialog::leaveOK()
@@ -361,10 +365,13 @@ void EffectsDialog::updateBright(int val)
 
 void EffectsDialog::createPreview()
 {
+	if (tim.elapsed() < 50)
+		return;
 	ScImage im = image.copy();
 	saveValues();
 	im.applyEffect(effectsList, doc->PageColors, false);
 	pixmapLabel1->setPixmap( im );
+	tim.start();
 }
 
 void EffectsDialog::saveValues()
@@ -637,6 +644,7 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 		else if (c->text() == tr("Brightness"))
 		{
 			disconnect( brightnessSlider, SIGNAL(valueChanged(int)), this, SLOT(updateBright(int)));
+			disconnect( brightnessSlider, SIGNAL(sliderReleased()), this, SLOT(createPreview()));
 			QString tmpstr = effectValMap[c];
 			int brightness;
 			QTextStream fp(&tmpstr, IO_ReadOnly);
@@ -647,10 +655,12 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 			textLabel7->setText(tmp);
 			optionStack->raiseWidget(2);
 			connect( brightnessSlider, SIGNAL(valueChanged(int)), this, SLOT(updateBright(int)));
+			connect( brightnessSlider, SIGNAL(sliderReleased()), this, SLOT(createPreview()));
 		}
 		else if (c->text() == tr("Contrast"))
 		{
 			disconnect( contrastSlider, SIGNAL(valueChanged(int)), this, SLOT(updateContrast(int)));
+			disconnect( contrastSlider, SIGNAL(sliderReleased()), this, SLOT(createPreview()));
 			QString tmpstr = effectValMap[c];
 			int contrast;
 			QTextStream fp(&tmpstr, IO_ReadOnly);
@@ -661,6 +671,7 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 			textLabel9->setText(tmp);
 			optionStack->raiseWidget(3);
 			connect( contrastSlider, SIGNAL(valueChanged(int)), this, SLOT(updateContrast(int)));
+			connect( contrastSlider, SIGNAL(sliderReleased()), this, SLOT(createPreview()));
 		}
 		else if (c->text() == tr("Sharpen"))
 		{
@@ -695,6 +706,7 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 		else if (c->text() == tr("Posterize"))
 		{
 			disconnect( solarizeSlider, SIGNAL(valueChanged(int)), this, SLOT(updateSolarize(int)));
+			disconnect( solarizeSlider, SIGNAL(sliderReleased()), this, SLOT(createPreview()));
 			QString tmpstr = effectValMap[c];
 			int solarize;
 			QTextStream fp(&tmpstr, IO_ReadOnly);
@@ -705,6 +717,7 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 			textLabel15->setText(tmp);
 			optionStack->raiseWidget(6);
 			connect( solarizeSlider, SIGNAL(valueChanged(int)), this, SLOT(updateSolarize(int)));
+			connect( solarizeSlider, SIGNAL(sliderReleased()), this, SLOT(createPreview()));
 		}
 		else
 			optionStack->raiseWidget(0);
