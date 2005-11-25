@@ -618,6 +618,7 @@ const double PageItem::rotation()
 void PageItem::setRotation(const double newRotation)
 {
 	Rot=newRotation;
+	emit rotation(Rot);
 }
 
 void PageItem::rotateBy(const double dR)
@@ -2195,6 +2196,7 @@ void PageItem::convertTo(ItemType newType)
 	}
 	*/
 	itemTypeVal = newType;
+	emit frameType(itemTypeVal);
 }
 
 void PageItem::setLayer(int layerId)
@@ -3598,6 +3600,10 @@ bool PageItem::connectToGUI()
 	if (!Doc->selection->primarySelectionIsMyself(this))
 		return false;
 		
+	connect(this, SIGNAL(myself(PageItem *)), ScApp->propertiesPalette, SLOT(SetCurItem(PageItem *)));
+	connect(this, SIGNAL(frameType(int)), ScApp, SLOT(HaveNewSel(int)));
+	connect(this, SIGNAL(frameType(int)), ScApp->view, SLOT(selectionChanged()));
+	connect(this, SIGNAL(frameType(int)), ScApp->propertiesPalette, SLOT(NewSel(int)));
 	connect(this, SIGNAL(position(double, double)), ScApp->propertiesPalette, SLOT(setXY(double, double)));
 	connect(this, SIGNAL(widthAndHeight(double, double)), ScApp->propertiesPalette, SLOT(setBH(double, double)));
 	connect(this, SIGNAL(colors(QString, QString, int, int)), ScApp, SLOT(setCSMenu(QString, QString, int, int)));
@@ -3647,7 +3653,8 @@ bool PageItem::disconnectFromGUI()
 
 void PageItem::emitAllToGUI()
 {
-	qDebug("bling");
+	emit myself(this);
+	emit frameType(itemTypeVal);
 	emit position(Xpos, Ypos);
 	emit widthAndHeight(Width, Height);
 	emit rotation(Rot);

@@ -1088,6 +1088,8 @@ protected:
 
 signals:
 	//Frame signals
+	void myself(PageItem *);
+	void frameType(int);
 	void position(double, double); //X,Y
 	void widthAndHeight(double, double); //W,H
 	void rotation(double); //Degrees rotation	

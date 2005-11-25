@@ -2610,10 +2610,10 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["itemLock"]->setOn(currItem->locked());
 		scrActions["itemLockSize"]->setOn(currItem->sizeLocked());
 	}
-	propertiesPalette->NewSel(Nr);
+	//propertiesPalette->NewSel(Nr);
 	if (Nr != -1)
 	{
-		propertiesPalette->SetCurItem(currItem);
+		//propertiesPalette->SetCurItem(currItem);
 		outlinePalette->slotShowSelect(currItem->OwnPage, currItem->ItemNr);
 		if (currItem->FrameType == 0)
 			SCustom->setPixmap(SCustom->getIconPixmap(0));
@@ -2623,6 +2623,8 @@ void ScribusApp::HaveNewSel(int Nr)
 			SCustom->setPixmap(SCustom->getIconPixmap(currItem->FrameType-2));
 		actionManager->connectNewSelectionActions(view);
 	}
+	else
+		propertiesPalette->NewSel(Nr);
 }
 
 void ScribusApp::slotDocCh(bool /*reb*/)
@@ -6641,7 +6643,7 @@ void ScribusApp::MakeFrame(int f, int c, double *vals)
 		currItem->FrameType = f+2;
 		break;
 	}
-	propertiesPalette->SetCurItem(currItem);
+	//propertiesPalette->SetCurItem(currItem);
 	view->RefreshItem(currItem);
 	slotDocCh();
 }

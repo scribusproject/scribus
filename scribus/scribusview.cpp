@@ -1219,8 +1219,9 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 						emit AddBM(currItem);
 				}
 			}
+			//CB done by addItem
 			//emit HaveSel(SelItem.at(0)->itemType());
-			emit HaveSel(Doc->selection->itemAt(0)->itemType());
+			//emit HaveSel(Doc->selection->itemAt(0)->itemType());
 			//if (SelItem.count() > 1)
 			if (Doc->selection->count() > 1)
 			{
@@ -1263,8 +1264,10 @@ void ScribusView::contentsMouseDoubleClickEvent(QMouseEvent *m)
 					Doc->selection->addItem(currItem);
 					currItem->isSingleSel = true;
 					//currItem->Select = true;
-					emit HaveSel(currItem->itemType());
+					//CB done by additem if 1st item and emitAllToGUI if not
+					//emit HaveSel(currItem->itemType());
 					//EmitValues(currItem);
+					//CB FIXME dont call this if the added item is item 0
 					currItem->emitAllToGUI();
 					currItem->paintObj();
 				}
@@ -1533,7 +1536,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			emit ItemFarben(currItem->lineColor(), currItem->fillColor(), currItem->lineShade(), currItem->fillShade());
 			emit ItemGradient(currItem->GrType);
 			emit ItemTrans(currItem->fillTransparency(), currItem->lineTransparency());
-			emit HaveSel(PageItem::PolyLine);
+			//emit HaveSel(PageItem::PolyLine);
 		}
 		updateContents();
 		emit PaintingDone();
@@ -2712,7 +2715,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					Doc->currentPage = Doc->Pages->at(currItem->OwnPage);
 					setMenTxt(currItem->OwnPage);
 				}
-				emit HaveSel(currItem->itemType());
+				//CB done with emitAllToGUI
+				//emit HaveSel(currItem->itemType());
 				//EmitValues(currItem);
 				currItem->emitAllToGUI();
 				updateContents();
@@ -2778,20 +2782,21 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			{
 				setGroupRect();
 				paintGroupRect();
-				emit HaveSel(currItem->itemType());
+				//CB shouldnt need this i think
+				//emit HaveSel(currItem->itemType());
 				double x, y, w, h;
 				getGroupRect(&x, &y, &w, &h);
 				emit ItemPos(x, y);
 				emit ItemGeom(w, h);
 			}
-			else
+			/*else
 			{
-				emit HaveSel(currItem->itemType());
 				//CB Dont think we need this here with the new selection code
 				//For a select, deselect operation, this will cause 2x emit
+				//emit HaveSel(currItem->itemType());
 				//EmitValues(currItem);
 				//currItem->emitAllToGUI();
-			}
+			}*/
 		}
 	}
 	if ((Doc->appMode == modeEdit) && !HanMove)
@@ -4419,19 +4424,22 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				SetupDraw(z);
 				break;
 			}
-			emit HaveSel(PageItem::Polygon);
+			//CB done with addItem
+			//emit HaveSel(PageItem::Polygon);
 			break;
 		case modeDrawPicture:
 			selectPage(m);
 			z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, 1, Doc->toolSettings.dBrushPict, "None", !Mpressed);
 			SetupDraw(z);
-			emit HaveSel(PageItem::ImageFrame);
+			//CB done with addItem
+			//emit HaveSel(PageItem::ImageFrame);
 			break;
 		case modeDrawText:
 			selectPage(m);
 			z = Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, "None", Doc->toolSettings.dPenText, Mpressed);
 			SetupDraw(z);
-			emit HaveSel(PageItem::TextFrame);
+			//CB done with addItem
+			//emit HaveSel(PageItem::TextFrame);
 			break;
 		case modeMagnifier:
 			Mpressed = true;
@@ -4547,13 +4555,14 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			Doc->selection->addItem(currItem);
 			currItem->paintObj();
 			Imoved = true;
-			qDebug("emit ItemPos(currItem->xPos(), currItem->yPos());");
-			emit SetSizeValue(currItem->Pwidth);
-			emit SetLineArt(currItem->PLineArt, currItem->PLineEnd, currItem->PLineJoin);
-			emit ItemFarben(currItem->lineColor(), currItem->fillColor(), currItem->lineShade(), currItem->fillShade());
-			emit ItemGradient(currItem->GrType);
-			emit ItemTrans(currItem->fillTransparency(), currItem->lineTransparency());
-			emit HaveSel(PageItem::Line);
+			//CB done with addItem
+			//emit ItemPos(currItem->xPos(), currItem->yPos());
+			//emit SetSizeValue(currItem->Pwidth);
+			//emit SetLineArt(currItem->PLineArt, currItem->PLineEnd, currItem->PLineJoin);
+			//emit ItemFarben(currItem->lineColor(), currItem->fillColor(), currItem->lineShade(), currItem->fillShade());
+			//emit ItemGradient(currItem->GrType);
+			//emit ItemTrans(currItem->fillTransparency(), currItem->lineTransparency());
+			//emit HaveSel(PageItem::Line);
 			break;
 		case modeRotation:
 			if (GetItem(&currItem))
@@ -4698,13 +4707,14 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				Doc->selection->addItem(currItem);
 				currItem->paintObj();
 				Imoved = true;
-				qDebug("emit ItemPos(currItem->xPos(), currItem->yPos());");
-				emit SetSizeValue(currItem->Pwidth);
-				emit SetLineArt(currItem->PLineArt, currItem->PLineEnd, currItem->PLineJoin);
-				emit ItemFarben(currItem->lineColor(), currItem->fillColor(), currItem->lineShade(), currItem->fillShade());
-				emit ItemGradient(currItem->GrType);
-				emit ItemTrans(currItem->fillTransparency(), currItem->lineTransparency());
-				emit HaveSel(PageItem::Polygon);
+				//CB done with additem
+				//emit ItemPos(currItem->xPos(), currItem->yPos());
+				//emit SetSizeValue(currItem->Pwidth);
+				//emit SetLineArt(currItem->PLineArt, currItem->PLineEnd, currItem->PLineJoin);
+				//emit ItemFarben(currItem->lineColor(), currItem->fillColor(), currItem->lineShade(), currItem->fillShade());
+				//emit ItemGradient(currItem->GrType);
+				//emit ItemTrans(currItem->fillTransparency(), currItem->lineTransparency());
+				//emit HaveSel(PageItem::Polygon);
 				break;
 			}
 		case modeDrawBezierLine:
@@ -4746,13 +4756,15 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			SizeItem(currItem->PoLine.WidthHeight().x(), currItem->PoLine.WidthHeight().y(), currItem->ItemNr, false, false, false);
 			currItem->SetPolyClip(qRound(QMAX(currItem->Pwidth / 2, 1)));
 			currItem->paintObj();
-			qDebug("emit ItemPos(currItem->xPos(), currItem->yPos());");
+			//qDebug("emit ItemPos(currItem->xPos(), currItem->yPos());");
+			//CB FIXME are these emitted already?
 			emit SetSizeValue(currItem->Pwidth);
 			emit SetLineArt(currItem->PLineArt, currItem->PLineEnd, currItem->PLineJoin);
 			emit ItemFarben(currItem->lineColor(), currItem->fillColor(), currItem->lineShade(), currItem->fillShade());
 			emit ItemGradient(currItem->GrType);
 			emit ItemTrans(currItem->fillTransparency(), currItem->lineTransparency());
-			emit HaveSel(PageItem::PolyLine);
+			//CB Should have been emitted already
+			//emit HaveSel(PageItem::PolyLine);
 			break;
 		case modeInsertPDFButton:
 		case modeInsertPDFTextfield:
@@ -4796,7 +4808,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				break;
 			}
 			SetupDraw(z);
-			emit HaveSel(PageItem::TextFrame);
+			//CB done with addItem
+			//emit HaveSel(PageItem::TextFrame);
 			break;
 		case modeDrawFreehandLine:
 			RecordP.resize(0);
@@ -7157,11 +7170,13 @@ void ScribusView::SelectItem(PageItem *currItem, bool draw, bool single)
 			getGroupRect(&x, &y, &w, &h);
 			emit ItemPos(x, y);
 			emit ItemGeom(w, h);
+			//CB move in here as the emitAllToGUI will do it otherwise
+			emit HaveSel(currItem->itemType());
 		}
 		else
 			//EmitValues(currItem);
 			currItem->emitAllToGUI();
-		emit HaveSel(currItem->itemType());
+		
 	}
 }
 
@@ -7377,9 +7392,10 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 					{
 						//EmitValues(currItem);
 						currItem->emitAllToGUI();
-						if (currItem->asLine())
-							emit ItemGeom(currItem->width(), currItem->height());
-						emit HaveSel(currItem->itemType());
+						//CB done by the emitAllToGUI
+						//if (currItem->asLine())
+						//	emit ItemGeom(currItem->width(), currItem->height());
+						//emit HaveSel(currItem->itemType());
 					}
 					p.end();
 					if (!currItem->ChangedMasterItem)
@@ -7541,7 +7557,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 					currItem->paintObj();
 					//if (currItem->asLine())
 					//	emit ItemGeom(currItem->width(), currItem->height());
-					emit HaveSel(currItem->itemType());
+					//emit HaveSel(currItem->itemType());
 				}
 				//if (SelItem.count() == 1)
 				if (Doc->selection->count() == 1)
