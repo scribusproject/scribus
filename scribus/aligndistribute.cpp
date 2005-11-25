@@ -30,6 +30,7 @@
 
 #include "aligndistribute.moc"
 #include "page.h"
+#include "scmessagebox.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "selection.h"
@@ -388,11 +389,11 @@ bool AlignDistributePalette::startAlign()
 					oneLocked=true;
 	if (oneLocked)
 	{
-		int t = QMessageBox::warning(ScApp, CommonStrings::trWarning,
+		int t = ScMessageBox::warning(ScApp, CommonStrings::trWarning,
 											tr("Some objects are locked."),
-											CommonStrings::tr_Cancel,
-											tr("&Unlock All"), 0, 0);
-		if (t == 0)
+											tr("&Unlock All"), CommonStrings::tr_Cancel,
+											0, 0);
+		if (t == 1)
 			return false;
 		for (uint i = 0; i < alignObjectsCount; ++i)
 			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)

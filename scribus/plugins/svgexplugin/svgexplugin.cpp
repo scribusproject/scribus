@@ -31,6 +31,7 @@
 #include "prefsmanager.h"
 #include "prefsfile.h"
 #include "prefscontext.h"
+#include "scmessagebox.h"
 #include "util.h"
 
 int svgexplugin_getPluginAPIVersion()
@@ -124,7 +125,7 @@ bool SVGExportPlugin::run(QString filename)
 			QFile f(fileName);
 			if (f.exists())
 			{
-				int exit=QMessageBox::warning(ScApp, QObject::tr("Warning"),
+				int exit=ScMessageBox::warning(ScApp, QObject::tr("Warning"),
 					QObject::tr("Do you really want to overwrite the File:\n%1 ?").arg(fileName),
 					QObject::tr("Yes"),
 					QObject::tr("No"),

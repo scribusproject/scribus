@@ -16,7 +16,6 @@
 #include <qdir.h>
 #include <qdom.h>
 #include <qfile.h>
-#include <qmessagebox.h>
 #include <qstring.h>
 #include <qstylefactory.h>
 #include <qwmatrix.h>
@@ -30,6 +29,7 @@
 #include "pdfoptions.h"
 #include "prefsfile.h"
 #include "scfonts.h"
+#include "scmessagebox.h"
 #include "scpaths.h"
 #include "scribus.h"
 #include "scribusstructs.h"
@@ -562,7 +562,7 @@ bool PrefsManager::copy12Preferences()
 		if (ScQApp->usingGUI())
 		{
 			ScApp->showSplash(false);
-			if ( (QMessageBox::question( ScApp, tr("Migrate Old Scribus Settings?"),
+			if ( (ScMessageBox::question( ScApp, tr("Migrate Old Scribus Settings?"),
 				tr("Scribus has detected existing Scribus 1.2 preferences files.\n"
 						"Do you want to migrate them to the new Scribus version?"),
 				QMessageBox::Yes | QMessageBox::Default, QMessageBox::No, QMessageBox::NoButton))==QMessageBox::Yes )

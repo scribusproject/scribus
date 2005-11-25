@@ -182,14 +182,21 @@ QListViewItem* Tree::getListItem(uint SNr, int Nr)
 			retVal = pageMapRev[SNr];
 		else
 		{
-			if (currDoc->DocItems.at(Nr)->Groups.count() == 0)
-				retVal = itemMapRev[Nr];
+			//CB watch for these assert messages, we sometimes get here when we shouldnt.
+			Q_ASSERT(currDoc->DocItems.at(Nr)!=0);
+			if (currDoc->DocItems.at(Nr)==0)
+				retVal = pageMapRev[SNr];
 			else
 			{
-				if (currDoc->DocItems.at(Nr)->isSingleSel)
+				if (currDoc->DocItems.at(Nr)->Groups.count() == 0)
 					retVal = itemMapRev[Nr];
 				else
-					retVal = groupMapRev[Nr];
+				{
+					if (currDoc->DocItems.at(Nr)->isSingleSel)
+						retVal = itemMapRev[Nr];
+					else
+						retVal = groupMapRev[Nr];
+				}
 			}
 		}
 	}

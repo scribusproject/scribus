@@ -2,7 +2,7 @@
 #include "javadocs.moc"
 #include "query.h"
 #include "editor.h"
-#include <qmessagebox.h>
+#include "scmessagebox.h"
 #include "scribusdoc.h"
 #include "page.h"
 #include "commonstrings.h"
@@ -101,13 +101,13 @@ void JavaDocs::slotEdit()
 
 void JavaDocs::slotDelete()
 {
-	int exit=QMessageBox::warning(this,
+	int exit=ScMessageBox::warning(this,
 	                              CommonStrings::trWarning,
 	                              tr("Do you really want to delete this script?"),
-	                              tr("&No"),
 	                              tr("&Yes"),
+	                              tr("&No"),
 	                              0, 0, 0);
-	if (exit == 1)
+	if (exit == 0)
 	{
 		QString nam = Scripts->currentText();
 		Doc->JavaScripts.remove(nam);

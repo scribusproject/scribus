@@ -5,7 +5,6 @@
 #include <qlayout.h>
 #include <qlistbox.h>
 #include <qpushbutton.h>
-#include <qmessagebox.h>
 #include <qcursor.h>
 #include <qstring.h>
 #include <qtooltip.h>
@@ -14,6 +13,8 @@
 #include "scribusview.h"
 #include "util.h"
 #include "commonstrings.h"
+
+#include "scmessagebox.h"
 
 MasterPagesPalette::MasterPagesPalette( QWidget* parent, ScribusDoc *pCurrentDoc, ScribusView *pCurrentView, QString masterPageName)
 		: QDialog( parent, "Muster", false, WDestructiveClose)
@@ -87,13 +88,13 @@ void MasterPagesPalette::deleteMasterPage()
 {
 	if (sMuster == "Normal")
 		return;
-	int exit=QMessageBox::warning(this,
+	int exit=ScMessageBox::warning(this,
 	                              CommonStrings::trWarning,
 	                              tr("Do you really want to delete this master page?"),
-	                              tr("&No"),
 	                              tr("&Yes"),
+	                              tr("&No"),
 	                              0, QMessageBox::No, QMessageBox::Yes);
-	if (exit == 1)
+	if (exit == 0)
 	{
 		currentDoc->pageCount = currentDoc->Pages->count();
 		emit removePage(currentDoc->MasterNames[sMuster]);

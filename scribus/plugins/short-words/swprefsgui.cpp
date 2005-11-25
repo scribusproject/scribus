@@ -10,10 +10,10 @@
 #include <qlabel.h>
 #include <qfile.h>
 #include <qdir.h>
-#include <qmessagebox.h>
 #include <qtooltip.h>
 #include <qtextcodec.h>
 
+#include "scmessagebox.h"
 
 SWPrefsGui::SWPrefsGui(QWidget* parent )
 	: PrefsPanel(parent, "SWPrefsGui")
@@ -88,11 +88,11 @@ void SWPrefsGui::okButton_pressed()
 {
 	if (QFile::exists(RC_PATH_USR))
 	{
-		if ((QMessageBox::warning(this, tr("Short Words"),
+		if ((ScMessageBox::warning(this, tr("Short Words"),
 				"<qt>" + tr("User configuration exists elready. "
 						"Do you really want to overwrite it?") + "</qt>",
-				"Yes",
-				"No", 0, 0, 1)
+				QObject::tr("Yes"),
+				QObject::tr("No"), 0, 0, 1)
 			) == 1)
 			return;
 	}

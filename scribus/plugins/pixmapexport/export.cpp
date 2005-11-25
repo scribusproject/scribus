@@ -6,6 +6,7 @@
 #include <qdir.h>
 #include <qcursor.h>
 
+#include "scmessagebox.h"
 #include "scribus.h"
 #include "scraction.h"
 #include "menumanager.h"
@@ -176,16 +177,16 @@ bool ExportBitmap::exportPage(uint pageNr, bool single = true)
 /* Changed the following Code from the original QMessageBox::question to QMessageBox::warning
 	 to keep the Code compatible to Qt-3.1.x
 	 f.s 12.05.2004 */
-		over = QMessageBox::warning(ScApp,
+		over = ScMessageBox::warning(ScApp,
 				QObject::tr("File exists. Overwrite?"),
 				fileName +"\n"+ QObject::tr("exists already. Overwrite?"),
-				QObject::tr("No"),
 				QObject::tr("Yes"),
+				QObject::tr("No"),
 				// hack for multiple overwritting (petr)
 				(single==true) ? QString::null : QObject::tr("Yes all"),
 				0, 0);
 		QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-		if (over == 1)
+		if (over == 0)
 			return im.save(fileName, bitmapType, quality);
 		if (over == 2)
 			overwrite = true;

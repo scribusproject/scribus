@@ -2861,32 +2861,27 @@ bool ScribusApp::slotPageImport()
 			if (pageNs.size() > (doc->pageCount - doc->currentPage->pageNr()))
 			{
 				qApp->setOverrideCursor(QCursor(arrowCursor), true);
-				QMessageBox mb( tr("Import Page(s)"),
-				tr("<p>You are trying to import more pages than there are available "
-				   "in the current document counting from the active page.</p>"
-				"Choose one of the following:<br>"
+				int scmReturn=ScMessageBox::information(this, tr("Import Page(s)"), "<qt>" +
+				QObject::tr("<p>You are trying to import more pages than there are available in the current document counting from the active page.</p>Choose one of the following:<br>"
 				"<ul><li><b>Create</b> missing pages</li>"
 				"<li><b>Import</b> pages until the last page</li>"
-				"<li><b>Cancel</b></li></ul><br>"),
-				QMessageBox::Information,
-				QMessageBox::Yes | QMessageBox::Default,
-				QMessageBox::No,
-				QMessageBox::Cancel | QMessageBox::Escape );
-				mb.setButtonText( QMessageBox::Yes, tr("Create") );
-				mb.setButtonText( QMessageBox::No, tr("Import") );
-				mb.setTextFormat(Qt::RichText);
-				switch( mb.exec() ) {
-					case QMessageBox::Yes:
+				"<li><b>Cancel</b></li></ul>") + "</qt>",
+				QObject::tr("C&reate"),
+				QObject::tr("&Import"),
+				CommonStrings::tr_Cancel, 2, 2);
+				switch( scmReturn )
+				{
+					case 0:
 						nrToImport = pageNs.size();
 						addNewPages(doc->pageCount, 2, pageNs.size() - (doc->pageCount - doc->currentPage->pageNr()), doc->pageHeight, doc->pageWidth, doc->PageOri, doc->PageSize, true);
-					break;
-					case QMessageBox::No:
+						break;
+					case 1:
 						nrToImport = doc->pageCount - doc->currentPage->pageNr();
-					break;
-					case QMessageBox::Cancel:
+						break;
+					case 2:
 						doIt = false;
 						mainWindowStatusLabel->setText("");
-					break;
+						break;
 				}
 				qApp->setOverrideCursor(QCursor(waitCursor), true);
 			}
@@ -7009,7 +7004,7 @@ void ScribusApp::SaveAsEps()
 		{
 			if (doc->checkerProfiles[doc->curCheckProfile].ignoreErrors)
 			{
-				int t = QMessageBox::warning(this, CommonStrings::trWarning,
+				int t = ScMessageBox::warning(this, CommonStrings::trWarning,
 											tr("Scribus detected some errors.\nConsider using the Preflight Verifier  to correct them."),
 											tr("&Abort"), tr("&Ignore"), 0, 0, 0);
 				if (t == 0)

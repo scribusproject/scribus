@@ -6,7 +6,6 @@
 **
 **
 ****************************************************************************/
-#include <qmessagebox.h>
 #include <qpushbutton.h>
 #include <qlayout.h>
 #include <qtooltip.h>
@@ -17,6 +16,7 @@
 #include <qtooltip.h>
 #include <qcheckbox.h>
 
+#include "scmessagebox.h"
 #include "scribus.h"
 
 #include "layers.h"
@@ -193,12 +193,14 @@ void LayerPalette::removeLayer()
 	bool delToo = false;
 	if (ScApp->doc->layerContainsItems(layerNumber))
 	{
-		if (QMessageBox::warning(this, tr("Delete Layer"),
+		int scmReturn=ScMessageBox::warning(this, tr("Delete Layer"),
 									tr("Do you want to delete all objects on this layer too?"),
-									QMessageBox::No | QMessageBox::Default | QMessageBox::Escape,
 									QMessageBox::Yes,
-									QMessageBox::NoButton)
-			== QMessageBox::Yes)
+									QMessageBox::No,
+									QMessageBox::Cancel | QMessageBox::Default | QMessageBox::Escape);
+		if (scmReturn == QMessageBox::Cancel)
+			return;
+		if (scmReturn == QMessageBox::Yes)
 			delToo = true;
 	}
 

@@ -1,7 +1,6 @@
 #include "lineformats.h"
 #include "lineformats.moc"
 
-#include <qmessagebox.h>
 #include <qpainter.h>
 
 #include "customfdialog.h"
@@ -11,6 +10,7 @@
 #include "multiline.h"
 #include "commonstrings.h"
 #include "scribusdoc.h"
+#include "scmessagebox.h"
 #include "page.h"
 
 extern QPixmap loadIcon(QString nam);
@@ -161,15 +161,15 @@ void LineFormate::editFormat()
 
 void LineFormate::deleteFormat()
 {
-	int exit=QMessageBox::warning(this,
+	int exit=ScMessageBox::warning(this,
 	                              CommonStrings::trWarning,
 	                              tr("Do you really want to delete this style?"),
-	                              tr("&No"),
 	                              tr("&Yes"),
+	                              tr("&No"),
 	                              0, 0, 0);
 	/* PFJ - 29.02.04 - Changed from 1 to QMessageBox::Yes */
 	/* FS - 12.05.04 the 1 is correct in this version of QMessageBox, it returns the Nr of the clicked Button either 0 or 1 or 2 */
-	if (exit == 1)
+	if (exit == 0)
 	{
 		Replacement.insert(sFnumber, "");
 		TempStyles.remove(sFnumber);
