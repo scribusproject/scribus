@@ -348,6 +348,7 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 						nextItem = linkedFramesToShow.at(lks);
 						while (nextItem != 0)
 						{
+							//Calculate the link points of the frames
 							double x11 = nextItem->xPos();
 							double y11 = nextItem->yPos();
 							double x12 = x11+nextItem->width();
@@ -407,36 +408,14 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 								if (y21<y11 && y22>y11) { b1 = y1mid; b2 = y2mid; }
 
 							}
-
+							//Draw the link frame lines
 							FPoint Start(a1-nextItem->xPos(), b1-nextItem->yPos(), nextItem->xPos(), nextItem->yPos(), nextItem->rotation(), 1, 1);
 							//FPoint Start = transformPoint(FPoint(nextItem->Width/2, nextItem->Height), nextItem->xPos(), nextItem->yPos(), nextItem->Rot, 1, 1);
 							nextItem = nextItem->NextBox;
 							if (nextItem != NULL)
 							{
 								FPoint End(a2-nextItem->xPos(), b2-nextItem->yPos(), nextItem->xPos(), nextItem->yPos(), nextItem->rotation(), 1, 1);
-								//FPoint End = transformPoint(FPoint(nextItem->Width/2, 0), nextItem->Xpos, nextItem->Ypos, nextItem->Rot, 1, 1);
-								painter->setPen(black, 1.0 / Scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-								painter->setPenOpacity(1.0);
-								painter->drawLine(Start, End);
-								QWMatrix arrowTrans;
-								arrowTrans.translate(End.x(), End.y());
-								double r = atan2(End.y()-Start.y(),End.x()-Start.x())*(180.0/M_PI);
-								arrowTrans.rotate(r);
-								double sc = 0.8 / Scale;
-								arrowTrans.scale(sc, sc);
-								FPointArray arrow;
-								arrow.addQuadPoint(-12, 0, -12, 0, -12, 0, -12, 0);
-								arrow.addQuadPoint(-15, -5, -15, -5, -15, -5, -15, -5);
-								arrow.addQuadPoint(0, 0, 0, 0, 0, 0, 0, 0);
-								arrow.addQuadPoint(-15, 5, -15, 5, -15, 5, -15, 5);
-								arrow.addQuadPoint(-12, 0, -12, 0, -12, 0, -12, 0);
-								arrow.map(arrowTrans);
-								painter->setBrush(painter->pen());
-								painter->setBrushOpacity(1.0);
-								painter->setLineWidth(0);
-								painter->setFillMode(ScPainter::Solid);
-								painter->setupPolygon(&arrow);
-								painter->fillPath();
+								drawLinkFrameLine(painter, Start, End);
 							}
 						}
 					}
@@ -454,12 +433,12 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 					{
 						FPoint Start(nextItem->width()/2, nextItem->height(), nextItem->xPos(), nextItem->yPos(), nextItem->rotation(), 1, 1);
 						nextItem = nextItem->NextBox;
+						//Draw the link frame indicator for a new link
+						//CB unsure if we need to do this
 						if (nextItem != 0)
 						{
 							FPoint End(nextItem->width()/2, 0, nextItem->xPos(), nextItem->yPos(), nextItem->rotation(), 1, 1);
-							painter->setPen(black, 5.0 / Scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-							painter->setPenOpacity(0.3);
-							painter->drawLine(Start, End);
+							drawLinkFrameLine(painter, Start, End);
 						}
 					}
 				}
@@ -11593,4 +11572,33 @@ void ScribusView::setScale(const double newScale)
 const double ScribusView::getScale()
 {
 	return Scale;
+}
+
+
+void ScribusView::drawLinkFrameLine(ScPainter* painter, FPoint &start, FPoint &end)
+{
+//CB FIXME Add some checking that the painter is setup?
+	Q_ASSERT(painter!=NULL);
+	painter->setPen(black, 1.0 / Scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	painter->setPenOpacity(1.0);
+	painter->drawLine(start, end);
+	QWMatrix arrowTrans;
+	arrowTrans.translate(end.x(), end.y());
+	double r = atan2(end.y()-start.y(), end.x()-start.x())*(180.0/M_PI);
+	arrowTrans.rotate(r);
+	double sc = 0.8 / Scale;
+	arrowTrans.scale(sc, sc);
+	FPointArray arrow;
+	arrow.addQuadPoint(-12, 0, -12, 0, -12, 0, -12, 0);
+	arrow.addQuadPoint(-15, -5, -15, -5, -15, -5, -15, -5);
+	arrow.addQuadPoint(0, 0, 0, 0, 0, 0, 0, 0);
+	arrow.addQuadPoint(-15, 5, -15, 5, -15, 5, -15, 5);
+	arrow.addQuadPoint(-12, 0, -12, 0, -12, 0, -12, 0);
+	arrow.map(arrowTrans);
+	painter->setBrush(painter->pen());
+	painter->setBrushOpacity(1.0);
+	painter->setLineWidth(0);
+	painter->setFillMode(ScPainter::Solid);
+	painter->setupPolygon(&arrow);
+	painter->fillPath();
 }
