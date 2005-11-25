@@ -451,14 +451,16 @@ void readAdobeGlyphNames() {
 /// if in AGL, use that name, else use "uni1234" or "u12345"
 QString adobeGlyphName(FT_ULong charcode) {
 	static const char HEX[] = "0123456789ABCDEF";
-	QString result = adobeGlyphNames[charcode];
-	if (result.length() == 0 && charcode < 0x10000) {
+	QString result;
+	if (adobeGlyphNames.contains(charcode))
+		return adobeGlyphNames[charcode];
+	else if (charcode < 0x10000) {
 		result = QString("uni") + HEX[charcode>>12 & 0xF] 
 		                        + HEX[charcode>> 8 & 0xF] 
 		                        + HEX[charcode>> 4 & 0xF] 
 		                        + HEX[charcode     & 0xF];
 	}
-	else if (result.length() == 0) {
+	else  {
 		result = QString("u");
 		for (int i= 28; i >= 0; i-=4) {
 			if (charcode & (0xF << i))
