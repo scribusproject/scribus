@@ -755,6 +755,7 @@ void ScribusView::DrawPageMarks(ScPainter *p, Page *page, QRect)
 	p->setLineWidth(lw);
 	double pageHeight=page->height();
 	double pageWidth=page->width();
+	//Draw the margins
 	if (Doc->guidesSettings.marginsShown)
 	{
 		p->setPen(Doc->guidesSettings.margColor);
@@ -772,12 +773,14 @@ void ScribusView::DrawPageMarks(ScPainter *p, Page *page, QRect)
 		p->drawLine(FPoint(page->Margins.Left, 0), FPoint(page->Margins.Left, pageHeight));
 		p->drawLine(FPoint(pageWidth - page->Margins.Right, 0), FPoint(pageWidth - page->Margins.Right, pageHeight));
 	}
+	//Draw the baseline grid
 	if (Doc->guidesSettings.baseShown)
 	{
 		p->setPen(Doc->guidesSettings.baseColor, lw, SolidLine, FlatCap, MiterJoin);
 		for (double yg = Doc->typographicSettings.offsetBaseGrid; yg < pageHeight; yg += Doc->typographicSettings.valueBaseGrid)
 			p->drawLine(FPoint(0, yg), FPoint(pageWidth, yg));
 	}
+	//Draw the grid lines
 	if (Doc->guidesSettings.gridShown)
 	{
 		double stx = 0;
@@ -813,6 +816,7 @@ void ScribusView::DrawPageMarks(ScPainter *p, Page *page, QRect)
 				p->drawLine(FPoint(b, 0), FPoint(b, pageHeight));
 		}
 	}
+	//Draw the guides
 	if (Doc->guidesSettings.guidesShown)
 	{
 		p->setPen(Doc->guidesSettings.guideColor, lw, DotLine, FlatCap, MiterJoin);
@@ -1265,6 +1269,8 @@ void ScribusView::contentsMouseDoubleClickEvent(QMouseEvent *m)
 				contentsMousePressEvent(m);
 				return;
 			}
+			//If we double click on an image frame and theres no image assigned, open the
+			//load picture dialog, else put it into edit mode
 			if ((currItem->itemType() == PageItem::ImageFrame) && (currItem->Pfile.isEmpty()))
  				emit LoadPic();
  			else
@@ -1285,7 +1291,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 	Mpressed = false;
 	if (Doc->guidesSettings.guidesShown)
 	{
-		bool fg = false;
+		bool foundGuide = false;
 		double nx = m->x()/Scale + Doc->minCanvasCoordinate.x();
 		double ny = m->y()/Scale + Doc->minCanvasCoordinate.y();
 		if (Doc->currentPage->YGuides.count() != 0)
@@ -1295,7 +1301,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				if ((Doc->currentPage->YGuides[yg]+Doc->currentPage->yOffset()< (ny+Doc->guidesSettings.grabRad)) &&
 					 (Doc->currentPage->YGuides[yg]+Doc->currentPage->yOffset()> (ny-Doc->guidesSettings.grabRad)))
 				{
-					fg = true;
+					foundGuide = true;
 					break;
 				}
 			}
@@ -1307,12 +1313,12 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				if ((Doc->currentPage->XGuides[xg]+Doc->currentPage->xOffset()< (nx+Doc->guidesSettings.grabRad)) &&
 					 (Doc->currentPage->XGuides[xg]+Doc->currentPage->xOffset()> (nx-Doc->guidesSettings.grabRad)))
 				{
-					fg = true;
+					foundGuide = true;
 					break;
 				}
 			}
 		}
-		if ((fg) && (m->button() == RightButton) && (!GetItem(&currItem)))
+		if ((foundGuide) && (m->button() == RightButton) && (!GetItem(&currItem)))
 		{
 			qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 			MoveGY = false;
@@ -7156,10 +7162,10 @@ void ScribusView::SelectItem(PageItem *currItem, bool draw, bool single)
 			//CB move in here as the emitAllToGUI will do it otherwise
 			emit HaveSel(currItem->itemType());
 		}
-		else
+		//CB done by addItem for single selection or the frame data is already there
+		//else
 			//EmitValues(currItem);
-			currItem->emitAllToGUI();
-		
+			//currItem->emitAllToGUI();
 	}
 }
 
@@ -11074,11 +11080,13 @@ void ScribusView::ToPicFrame()
 	PageItem* newItem=Doc->convertItemTo(currItem, PageItem::ImageFrame);
 	RefreshItem(newItem);
 	SelectItem(newItem);
-	emit HaveSel(newItem->itemType());
+	//CB done by addItem in SelectItem
+	//emit HaveSel(newItem->itemType());
 	if (!Doc->isLoading())
 		emit UpdtObj(Doc->currentPage->pageNr(), newItem->ItemNr);
 	//EmitValues(newItem);
-	newItem->emitAllToGUI();
+	//CB done by addItem in SelectItem
+	//newItem->emitAllToGUI();
 	emit DocChanged();
 }
 
@@ -11090,11 +11098,13 @@ void ScribusView::ToPolyFrame()
 	PageItem* newItem=Doc->convertItemTo(currItem, PageItem::Polygon);
 	RefreshItem(newItem);
 	SelectItem(newItem);
-	emit HaveSel(newItem->itemType());
+	//CB done by addItem in SelectItem
+	//emit HaveSel(newItem->itemType());
 	if (!Doc->isLoading())
 		emit UpdtObj(Doc->currentPage->pageNr(), newItem->ItemNr);
 	//EmitValues(newItem);
-	newItem->emitAllToGUI();
+	//CB done by addItem in SelectItem
+	//newItem->emitAllToGUI();
 	emit DocChanged();
 }
 
@@ -11106,11 +11116,13 @@ void ScribusView::ToTextFrame()
 	PageItem* newItem=Doc->convertItemTo(currItem, PageItem::TextFrame);
 	RefreshItem(newItem);
 	SelectItem(newItem);
-	emit HaveSel(newItem->itemType());
+	//CB done by addItem in SelectItem
+	//emit HaveSel(newItem->itemType());
 	if (!Doc->isLoading())
 		emit UpdtObj(Doc->currentPage->pageNr(), newItem->ItemNr);
 	//EmitValues(newItem);
-	newItem->emitAllToGUI();
+	//CB done by addItem in SelectItem
+	//newItem->emitAllToGUI();
 	emit DocChanged();
 }
 
@@ -11122,11 +11134,13 @@ void ScribusView::ToBezierFrame()
 	PageItem* newItem=Doc->convertItemTo(currItem, PageItem::PolyLine);
 	RefreshItem(newItem);
 	SelectItem(newItem);
-	emit HaveSel(newItem->itemType());
+	//CB done by addItem in SelectItem
+	//emit HaveSel(newItem->itemType());
 	if (!Doc->isLoading())
 		emit UpdtObj(Doc->currentPage->pageNr(), newItem->ItemNr);
 	//EmitValues(newItem);
-	newItem->emitAllToGUI();
+	//CB done by addItem in SelectItem
+	//newItem->emitAllToGUI();
 	emit DocChanged();
 }
 
@@ -11138,11 +11152,13 @@ void ScribusView::Bezier2Poly()
 	PageItem* newItem=Doc->convertItemTo(currItem, PageItem::Polygon);
 	RefreshItem(newItem);
 	SelectItem(newItem);
-	emit HaveSel(newItem->itemType());
+	//CB done by addItem in SelectItem
+	//emit HaveSel(newItem->itemType());
 	if (!Doc->isLoading())
 		emit UpdtObj(Doc->currentPage->pageNr(), newItem->ItemNr);
 	//EmitValues(newItem);
-	newItem->emitAllToGUI();
+	//CB done by addItem in SelectItem
+	//newItem->emitAllToGUI();
 	emit DocChanged();
 }
 
@@ -11171,11 +11187,13 @@ void ScribusView::ToPathText()
 		PageItem* newItem=Doc->convertItemTo(currItem, PageItem::PathText, polyLineItem);
 		RefreshItem(newItem);
 		SelectItem(newItem);
-		emit HaveSel(newItem->itemType());
+		//CB done by addItem in SelectItem
+		//emit HaveSel(newItem->itemType());
 		if (!Doc->isLoading())
 			emit UpdtObj(Doc->currentPageNumber(), newItem->ItemNr);
 		//EmitValues(newItem);
-		newItem->emitAllToGUI();
+		//CB done by addItem in SelectItem
+		//newItem->emitAllToGUI();
 		emit DocChanged();
 	}
 }
