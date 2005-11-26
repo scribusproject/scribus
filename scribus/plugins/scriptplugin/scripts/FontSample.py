@@ -1,8 +1,8 @@
-#!/usr/bin/env python2.3
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 # ****************************************************************************
-#  This program is free software; you can redistribute it and/or modify 
+#  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
 #  the Free Software Foundation; either version 2 of the License, or
 #  (at your option) any later version.
@@ -15,7 +15,7 @@
 #  You should have received a copy of the GNU General Public License
 #  along with this program; if not, write to the Free Software
 #  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
-# 
+#
 # ****************************************************************************
 
 """
@@ -28,7 +28,7 @@ one or more fonts and create an example sheet(s) to print or create a PDF
 from. It is heavily commented to make it easier for the user to adjust it
 for his / her own needs.
 
-Note: this version needs read/write access to .scribus directory in users 
+Note: this version needs read/write access to .scribus directory in users
 home. You will also need Python Imaging Library (PIL) installed.
 If your system does not meet these requirements then change showPreviewPanel
 to a value of 0. This will disable the new preview features.
@@ -36,7 +36,7 @@ to a value of 0. This will disable the new preview features.
 ******************************************************************************
 
 First release    : 30/12/2003
-This release     : v0.7.5tk (released 30th Sep 2005)
+This release     : v0.8tk final (released 24th Nov 2005)
 Copyright        : (C) 2003 - 2005 Steve Callcott
 Latest releases
 and support      : www.firstwish.co.uk/sjc/scribus/index.php
@@ -47,230 +47,422 @@ For revision history see the ChangeLog file.
 Bugs and future plans are listed in the TODO file.
 See NEWS for new features since last version.
 
-WHATS NEW v0.7.5tk
-Fixed bug in table of contents. TOC rows value was not being honoured.
-Would create an unrequired blank headed toc page when the toc rows count setting
-matched the amount of samples selected.
+WHATS NEW v0.8tk Final:
+Cleaned up the checkbox labels and layout.
 
-WHATS NEW v0.7.4tk
-Now updates the Scribus Progress Bar (one increment for each font drawn).
+WHATS NEW v0.8tk Preview 3:
+Calls the new Scribus zoomDocument() function to make the completed font
+sample document fit in Scribus window.
 
-WHATS NEW v0.7.3tk
-Fix typo in exception code.
-Modified case of some script variables to make compatible with changes
-in Scribus 1.3 scriptor.
-Removed the reduntant "self.master.maxsize(1, 1)" from the application class.
+Grey out "Start page number count from first page" when "Print TOC" is
+not checked as without a table of contents the first page would always 
+start on the same page number making this option irrelevant.
 
-WHATS NEW v0.7.2tk
-More cleanups in font preview code. If a font cannot be displayed
-then the preview panel is cleared. Removed many error messages returned
+WHATS NEW v0.8tk Preview 2:
+Replaced the newDoc() with newDocument(). Have not put any fallback code
+for use with earlier Scribus versions.
+
+When using double sided option we now make use of Scribus ability to display
+pages side by side as default. You may need to zoom out to view the
+complete document width.
+
+WHATS NEW v0.8tk Preview 1:
+Rearanged the initialisation. If no fonts are found for the Table of
+Contents, page numbers and font sample labels, the script shows a
+message box listing the problem and a possible solution as well as a message
 to the console.
 
-WHATS NEW v0.7.1tk
-Removed discontinued email address.
+A Scribus messagebox alerts the user if Tkinter is not found. Previously
+this message was only printed to the console.
 
-WHATS NEW v0.7tk
-Added a preview panel so user can see a sample of what a font may look like
-before selecting it to use.
-Detects failure of Python Imaging Library module to load and tests for the
-ability to write to .scribus folder then disables preview if necessary.
-Incorporated Craig Ringers boilerplate and Scribus function case changes.
-Put labels on the left and right listboxes describing what they do.
-Listboxes now get focus when selected with the mouse. This allows Up Down
-keys to be used to scroll through font names.
-When selecting a single item in a listbox, the font highlighted will be
-displayed in a panel.
-Some function names have changed and some docstrings added.
-The main window should no longer be expandable.
+Now able to do a dummy run to calculate and report the amount of samples
+that will fit on a page. This enables the script to correctly calculate
+how many sheets will be required. Previously it was always assumed that
+there would be 3 sample blocks on a sheet. This is now not always the case.
+
+Added menu. Also added "about" and "settings" dialogs.
+
+Sample rows can be selected or unselected to save on paper. The settings are
+automatically saved when changed and can be set as user defaults.
+
+User can choose to have page numbers count from first page of the toc instead
+of the first page of samples. This can be helpful if wanting to quickly look
+up a font in the toc and then using the Scribus page navigator dialog to go to
+the actual page on the screen to view it without printing it out.
+
+Added initial support for a sample paragraph. The sample paragraph defaults
+to "off" due to the amount of space it uses on the page.
+
+Some widgets read their defaults from a config dictionary.
+
+Many code cleanups. Classes used for settings storage have been replaced with
+dictionaries to make it easier for users to customise.
 
 ******************************************************************************
 """
 
 import sys
 import os
+import cPickle
+
+
+showPreviewPanel = 1 # change to 0 to permanently hide the preview
+TEMP_PATH = os.path.join(os.path.expanduser('~'), '.scribus')
+CONFIG_PATH = os.path.join(os.path.expanduser('~'), '.scribus/fontsampler')
+
 
 try:
     import scribus
 except ImportError,err:
-    print "This Python script is written for the Scribus scripting interface."
-    print "It can only be run from within Scribus."
+    print 'This Python script is written for the Scribus scripting interface.'
+    print 'It can only be run from within Scribus.'
     sys.exit(1)
+
 
 try:
     from Tkinter import *
 except ImportError,err:
-    print "This script will not work without Tkinter"
+    print 'This script will not work without Tkinter'
+    scribus.messageBox('Error','This script will not work without Tkinter\nPlease install and try again',
+                    scribus.ICON_WARNING)
     sys.exit(1)
 
 
-WINDOWTITLE = "Font Sampler v0.7.5tk - Steve Callcott"
-TEMPPATH = os.path.join(os.path.expanduser("~"), ".scribus")
-
-showPreviewPanel = 1  # change to 0 to permanently hide the preview
-
-if showPreviewPanel:
-    if not os.path.exists(TEMPPATH):
-        print ".scribus folder not found, disabling font preview panel"
-        showPreviewPanel = 0
-
-if showPreviewPanel:
-    if not os.access(TEMPPATH, os.W_OK):   
-        print "Unable to write to .scribus folder, disabling font preview panel"
-        showPreviewPanel = 0
-
-
-if showPreviewPanel:
+if not os.path.exists(CONFIG_PATH):
     try:
-        import Image
-    except ImportError,err:
-        print "You need to install Python Imaging Library (PIL)."
-        print "If using gentoo then you need to emerge /dev-python/imaging"
-        print "If using an RPM based linux distribution then you add python-imaging or similar."
-        print "Script will continue without the font preview panel."
-        showPreviewPanel = 0
+        print 'Attempting to creating configuration file directory...'
+        os.mkdir(CONFIG_PATH)
+        print 'Success, now testing for write access of new directory...'
+        if os.access(CONFIG_PATH, os.W_OK):
+            print 'Write access ok.'
+        else:
+            print 'Error, unable to write to .scribus/fontsampler directory.'
+    except:
+        CONFIG_PATH = ''
+        print 'Failed to make configuration file directory,'
+        print 'do you have a .scribus directory in your home directory?'
+        print 'font sampler will not be able to save your preferences'
+
+
+try:
+    import Image
+except ImportError,err:
+    print 'You need to install Python Imaging Library (PIL).'
+    print 'If using gentoo then you need to emerge /dev-python/imaging'
+    print 'If using an RPM based linux distribution then you add python-imaging or similar.'
+    print 'Script will continue without the font preview panel.'
+    showPreviewPanel = 0
+
+
+try:
+    import ImageTk
+except ImportError,err:
+    print 'Module ImageTk not found, font preview disabled'
+    showPreviewPanel = 0
 
 
 if showPreviewPanel:
-    try:
-        import ImageTk
-    except ImportError,err:
-        print "Module ImageTk not found, font preview disabled"
+    if not os.path.exists(TEMP_PATH):
+        print '.scribus folder not found, disabling font preview panel'
+        showPreviewPanel = 0
+    if not os.access(TEMP_PATH, os.W_OK):
+        print 'Unable to write to .scribus folder, disabling font preview panel'
         showPreviewPanel = 0
 
 
-# Define some empty containers for later...
-app = None
-root = None
-samplePic = None
-previewId = None
+# A few globals for use later...
+gSamplePic = None
+gPreviewId = None
 
-class BookStyle:
-    pass
-bookstyle = BookStyle()
+#*************************************************************************
 
+WINDOW_TITLE = 'Font Sampler v0.8tk - Steve Callcott'
+SUPPORT_PAGE = 'www.firstwish.co.uk/sjc/scribus/index.php'
 
-class TocStyle:
-    pass
-tocstyle = TocStyle()
+fontsListFixed = (
+    'Luxi Mono Regular',
+    'Nimbus Mono L Regular',
+    'Courier 10 Pitch Regular',
+    'Courier New Regular',
+    'Courier Regular',
+    'Andale Mono Regular',
+    'Larabiefont Regular'
+)
 
+fontsListProportional = (
+    'Nimbus Sans L Regular',
+    'Luxi Sans Regular',
+    'Bitstream Vera Sans',
+    'Helvetica',
+    'Arial Regular'
+)
 
-class Paper:
-    pass
-paper = Paper()
+defaultPrefs = {
+    'wantDoubleSided': 0,
+    'paperSize':'A4',           # currently PAPER_LETTER or PAPER_A4
+    'wantTOC': 1,
+    'wantBindingOffset': 0,
+    'wantPageNumbers': 1,
+    'wantPageOneOnFirst': 0,
+    'wantAlphabet' : 1,
+    'want6Point' : 1,
+    'want8Point' : 1,
+    'want10Point' : 1,
+    'want12Point' : 1,
+    'want16Point' : 1,
+    'want20Point' : 1,
+    'want32Point' : 1,
+    'wantParagraph' : 0         # Uses a lot of space so default is off
+}
 
+userPrefs = {}
 
-bookstyle.fixedfont = ""
-bookstyle.propfont = ""
-tocstyle.charsInRow = 75
+geometriesList = [
+    {
+        'paperName' : 'A4',
+        'paperSize' : scribus.PAPER_A4,
+        'paperWidth' : 595,
+        'paperHeight' : 842,
+        'paperTopMargin' : 60,
+        'paperBottomMargin' : 50,
+        'paperLeftMargin' : 50,
+        'paperRightMargin' : 50,
+        'paperBinding' : 16,
+        'tocRowsPerPage' : 57,
+        'paperPageNumVertOffset' : 16
+    },
+    {
+        'paperName' : 'US Letter',
+        'paperSize' : scribus.PAPER_LETTER,
+        'paperWidth' : 612,
+        'paperHeight' : 792,
+        'paperTopMargin' : 27,
+        'paperBottomMargin' : 45,
+        'paperLeftMargin' : 50,
+        'paperRightMargin' : 50,
+        'paperBinding' : 18,
+        'tocRowsPerPage' : 56,
+        'paperPageNumVertOffset' : 16
+    }
+]
 
+# define our data dictionary and some of the data...
+dD = {
+    'tocHeaderTitle' : 'Table of Contents',
+    'tocCharsInRow' : 75,
+    'previewpanelFontHeight' : 28,
+    'previewpanelSampleText' : 'Woven silk pyjamas exchanged for blue quartz'
+}
 
-def setFixedFont():
-    fixed = (
-    "Luxi Mono Regular",
-    "Nimbus Mono L Regular",
-    "Courier 10 Pitch Regular",
-    "Courier New Regular",
-    "Courier Regular",
-    "Andale Mono Regular",
-    "Larabiefont Regular"
-    )
+samplesHeader = {
+    'fontSize' : 16,
+    'lineSpace' : 15,
+    'textHeight' : 23
+}
 
-    fontList = scribus.getFontNames()
+# Use \xBC etc to insert Hex ascii chars into the sample strings below.
+sampleAlphabet = {
+    'fontSize' : 10.5,
+    'lineSpace' : 12,
+    'textString' : 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#?$*&',
+    'textHeight' : 18
+}
+
+sample6Point = {
+    'fontSize' : 6,
+    'lineSpace' : 6,
+    'textString' : 'This line is in 6 point',
+    'textHeight' : 13
+}
+
+sample8Point = {
+    'fontSize' : 8,
+    'lineSpace' : 8,
+    'textString' : 'This line is in 8 point',
+    'textHeight' : 16
+}
+
+sample10Point = {
+    'fontSize' : 10,
+    'lineSpace' : 11,
+    'textString' : 'This line is in 10 point',
+    'textHeight' : 19
+}
+
+sample12Point = {
+    'fontSize' : 12,
+    'lineSpace' : 11,
+    'textString' : 'This line is in 12 point',
+    'textHeight' : 21
+}
+
+sample16Point = {
+    'fontSize' : 16,
+    'lineSpace' : 13,
+    'textString' : 'This line is in 16 point',
+    'textHeight' : 26
+}
+
+sample20Point = {
+    'fontSize' : 20,
+    'lineSpace' : 16,
+    'textString' : 'This line is in 20 point',
+    'textHeight' : 31
+}
+
+sample32Point = {
+    'fontSize' : 32,
+    'lineSpace' : 29,
+    'textString' : 'This line is in 32 point',
+    'textHeight' : 49
+}
+
+sampleParagraph = {
+    'fontSize' : 9,
+    'lineSpace' : 10.8,
+    'textHeight' : 175
+}
+
+sampleParagraphText = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut a sapien. \
+Aliquam aliquet purus molestie dolor. Integer quis eros ut erat posuere dictum. \
+Curabitur dignissim. Integer orci. Fusce vulputate lacus at ipsum. Quisque in libero \
+nec mi laoreet volutpat. Aliquam eros pede, scelerisque quis, tristique cursus, \
+placerat convallis, velit. Nam condimentum. Nulla ut mauris. Curabitur adipiscing, \
+mauris non dictum aliquam, arcu risus dapibus diam, nec sollicitudin quam erat quis \
+ligula. Aenean massa nulla, volutpat eu, accumsan et, fringilla eget, odio. \
+Nulla placerat porta justo. Nulla vitae turpis.\n\nPraesent lacus.Lorem ipsum dolor sit \
+amet, consectetuer adipiscing elit. Pellentesque habitant morbi tristique senectus \
+et netus et malesuada fames ac turpis egestas. Quisque vel erat eget diam \
+consectetuer iaculis. Cras ante velit, suscipit et, porta tempus, dignissim quis, \
+magna. Vivamus viverra, turpis nec rhoncus ultricies, diam turpis eleifend nisl, a \
+eleifend ante felis ac sapien. Integer bibendum. Suspendisse in mi non neque \
+bibendum convallis. Suspendisse potenti. Sed sit amet purus at felis adipiscing \
+aliquam. Vivamus et nisl sit amet mauris aliquet molestie. Integer tortor massa, \
+aliquam a, lacinia nonummy, sagittis nec, eros.'
+
+#*************************************************************************
+
+def set_font_fixed(fontList):
+    """Find a matching font for the Table of Contents."""
+    availableFonts = scribus.getFontNames()
     found = 0
-    for f in fixed:
-        if found == 1:
+    for f in fontList:
+        if found:
             break
-        for i in fontList:
-            if found == 0:
+        for i in availableFonts:
+            if not found:
                 if f == i:
-                    bookstyle.fixedfont = f
+                    return f
                     found = 1
                     break
-    if found == 0:
-        print "No suitable fixed width font found."
-        print "Please install at least one of these fixed width fonts:"
-        print fixed
+    if not found:
+        errorList = ''
+        for j in fontList:
+            errorList = errorList + j + '\n'
+        errorMessage ='No suitable fixed width font found.\nPlease install at least one of these fixed width fonts:\n'+errorList
+        print errorMessage
+        raise Exception(errorMessage)
 
 
-def setPropFont():
-    proportional = (
-    "Nimbus Sans L Regular",
-    "Luxi Sans Regular",
-    "Bitstream Vera Sans",
-    "Helvetica",
-    "Arial Regular"
-    )
-
-    fontList = scribus.getFontNames()
+def set_font_proportional(fontList):
+    """Find a matching font for the page numbers and font names above samples."""
+    availableFonts = scribus.getFontNames()
     found = 0
-    for p in proportional:
-        if found == 1:
+    for p in fontList:
+        if found:
             break
-        for i in fontList:
-            if found == 0:
+        for i in availableFonts:
+            if not found:
                 if p == i:
-                    bookstyle.propfont = p
+                    return p
                     found = 1
                     break
-    if found == 0:
-        print "No suitable proportional font found."
-        print "Please install at least one of these proportional fonts:"
-        print proportional
+    if not found:
+        errorList = ''
+        for j in fontList:
+            errorList = errorList + j + '\n'
+        errorMessage = 'No suitable proportional font found.\nPlease install at least one of these proportional fonts:\n'+errorList
+        print errorMessage
+        raise Exception(errorMessage)
 
 
-def setPaperSize(paperSize):
-    if paperSize == 1:              # A4 - 595 x 842 Points
-        paper.size = scribus.PAPER_A4
-        paper.width = 595
-        paper.height = 842
-        paper.tmargin = 60
-        paper.bmargin = 50
-        paper.lmargin = 50
-        paper.rmargin = 50
-        paper.binding = 16
-        tocstyle.tocRows = 57
-        paper.pagenumvoffset = 16
-        paper.textwidth = paper.width - paper.lmargin - paper.rmargin - 2
-        paper.lmarginOdd = paper.lmargin + paper.binding
-        paper.rmarginEven = paper.rmargin + paper.binding
-        paper.textheight = paper.height - paper.tmargin - paper.bmargin
-        paper.margins = paper.lmargin, paper.rmargin, paper.tmargin, paper.bmargin
-    if paperSize == 2:              # US Letter - 612 x 792 Points
-        paper.size = scribus.PAPER_LETTER
-        paper.width = 612
-        paper.height = 792
-        paper.tmargin = 27
-        paper.bmargin = 45
-        paper.lmargin = 50
-        paper.rmargin = 50
-        paper.binding = 18
-        tocstyle.tocRows = 56
-        paper.pagenumvoffset = 16
-        paper.textwidth = paper.width - paper.lmargin - paper.rmargin - 2
-        paper.lmarginOdd = paper.lmargin + paper.binding
-        paper.rmarginEven = paper.rmargin + paper.binding
-        paper.textheight = paper.height - paper.tmargin - paper.bmargin
-        paper.margins = paper.lmargin, paper.rmargin, paper.tmargin, paper.bmargin
+def save_user_conf(path):
+    """Save the data to the save file on the path specified by CONFIG_PATH.
+
+    Note initialisation unsets the CONFIG_PATH if it failed to verify or create"""
+    if not path == '':
+        try:
+            file = open(os.path.join(path,'fontsampler.conf'), 'w')
+            data = {
+                'a' : defaultPrefs,
+                'b' : userPrefs
+            }
+            cPickle.dump(data, file)
+            file.close()
+        except:
+            print 'failed to save data'
 
 
-def setTextWidthForBinding(wantBindingOffset):
-    # if we are adding a binding offset to the margins then we will have less width for our text.
-    if wantBindingOffset == 1:
-        paper.textwidth = paper.width - paper.lmargin - paper.rmargin - paper.binding - 2
-    else:
-        paper.textwidth = paper.width - paper.lmargin - paper.rmargin -2
+def restore_user_conf(path):
+    """Restore the data from the save file on the path specified by CONFIG_PATH."""
+    try:
+        file = open(os.path.join(path,'fontsampler.conf'), 'r')
+        data = cPickle.load(file)
+        file.close()
+        defaultPrefs.update(data['a'])
+        userPrefs.update(data['b'])
+    except:
+        userPrefs.update(defaultPrefs)
+        print 'failed to load saved data so using default values defined in the script'
 
 
-def setPageGeometries():
-    setPaperSize(app.paper.get())
-    setTextWidthForBinding(app.wantBindingOffset.get())
+def set_page_geometry(dD, geometriesList, paperSize, wantBindingOffset):
+    """This is the experimental replacement paper size setting function.
+
+    Each paper size and other associated data are stored in a dictionary.
+    The dictionaries are stored in a list. We copy appropriate dictionary
+    and custom calculations into a work dictionary for use.
+    The advantage of this is its easier to add new paper definitions.
+    Returns a new dictionary, use .update to merge in new values into dD.
+    """
+    try:
+        result={}
+        for i in geometriesList:
+            if i['paperName'] == paperSize:
+                dD.update(i)
+
+        result['paperLeftMarginOdd'] = dD['paperLeftMargin'] + \
+                                       dD['paperBinding']
+        result['paperRightMarginEven'] = dD['paperRightMargin'] + \
+                                         dD['paperBinding']
+        result['paperTextHeight'] = dD['paperHeight'] - \
+                                    dD['paperTopMargin'] - \
+                                    dD['paperBottomMargin']
+        result['paperMargins'] =  dD['paperLeftMargin'],dD['paperRightMargin'],dD['paperTopMargin'],dD['paperBottomMargin']
+
+        # if we are adding a binding offset to the margins then we will have less width for our text...
+        if wantBindingOffset:
+            result['paperTextWidth'] = dD['paperWidth'] - \
+                                       dD['paperLeftMargin'] - \
+                                       dD['paperRightMargin'] - \
+                                       dD['paperBinding'] - \
+                                       2
+        else:
+            result['paperTextWidth'] = dD['paperWidth'] - \
+                                       dD['paperLeftMargin'] - \
+                                       dD['paperRightMargin'] - \
+                                       2
+        return result
+    except:
+        errorMessage = 'set_page_geometry() failure: %s' % sys.exc_info()[1]
+        print errorMessage
 
 
-def setOddEven(pageNum):
-    """ Sets the left and right margins.
+def set_odd_even(pageNum):
+    """ Sets the left margin position.
 
-    Checks the number passed to it and sets left and right
-    margins accordingly. Call once after each new page is created.
+    Checks the number passed to it and sets left margin accordingly.
+    Call once after each new page is created.
     Returns 1 if even and 0 if odd page.
     """
     if pageNum % 2 == 0:
@@ -278,70 +470,95 @@ def setOddEven(pageNum):
     else:
         isEvenPage = 0                                          # Odd side
 
-    if app.wantBindingOffset.get() == 1:
-        if isEvenPage == 1 and app.wantDoubleSided.get() == 1:  # Even (when double sided)
-            paper.leftSide = paper.lmargin + 1
-            paper.rightSide = paper.rmarginEven + 1
+    if userPrefs['wantBindingOffset']:
+        if isEvenPage and userPrefs['wantDoubleSided']:         # Even (when double sided)
+            dD['paperLeftSide'] = dD['paperLeftMargin'] + 1
         else:                                                   # Odd side
-            paper.leftSide = paper.lmarginOdd + 1
-            paper.rightSide = paper.rmargin + 1
+            dD['paperLeftSide'] = dD['paperLeftMarginOdd'] + 1
     else:                                                       # No binding
-        paper.leftSide = paper.lmargin + 1
-        paper.rightSide = paper.rmargin + 1
-
+        dD['paperLeftSide'] = dD['paperLeftMargin'] + 1
     return isEvenPage
 
 
-def addSampleRow(font, fontSize, lineSpace, textString, x, y, w, h, style, getSizeOnly):
-    if getSizeOnly == 0:
+def draw_sample_row(font, fontSize, lineSpace, textString, x, y, w, h, getSizeOnly):
+    """Creates one row of samples or a header for the top of the block.
+
+    Called once by draw_sample_block() to create a block label then as many times
+    as required to create each actual sample found in the list of dictionaries
+    containing each samples definition.
+    """
+    if not getSizeOnly:
         f = scribus.createText(x, y, w, h)
         scribus.insertText(textString, 0, f)
-        if style == "l":
-            scribus.setFont(bookstyle.propfont, f)
-        else:
-            scribus.setFont(font, f)
+        scribus.setFont(font, f)
         scribus.setFontSize(fontSize, f)
         scribus.setLineSpacing(lineSpace, f)
         scribus.setTextAlignment(0, f)
     return y + h + 1
 
 
-def drawSampleBlock(fontName, x, y, w, getSizeOnly):
+def draw_sample_block(fontName, x, y, w, getSizeOnly):
+    """Drawing of a complete sample block starts from here.
+
+    Iterates through each sample declared in the "samples" tuple. Places one
+    complete block using the font specified in fontname.
+    Note top line on page is drawn outside of this function. This ensures ease
+    of returning same height of every sample block. Line could have been drawn
+    at top inside this function and page finalised with line at bottom instead.
+    If getSizeOnly is true then returns the overall height of the entire text
+    block but without actually placing it.
+    """
     startPos = y
+    # Note there are 2 points of space before horizontal line at bottom of block.
+    # This 2 points will not appear at top of page so need to add it.
 
-    # An "l" as last parameter will result in that line being in a plain font.
-    # Use \xBC etc to insert Hex ascii chars into the sample strings below.
+    # set space below horizontal line to the top of the text block
+    y = y + 4
 
-    samples = (
-    # Template: fontsize, linespace, textstring, height, style
-    # comment out any sample lines below that you do not require...
-    [16, 15, fontName + '\n', 23, "l"],
-    [10.5, 12, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#?$*&\n", 18, ""],
-    [6, 6, "This line is in 6 point\n", 13, ""],
-    [8, 8, "This line is in 8 point\n", 16, ""],
-    [10, 11, "This line is in 10 point\n", 19, ""],
-    [12, 11, "This line is in 12 point\n", 21, ""],
-    [16, 13, "This line is in 16 point\n", 26, ""],
-    [20, 16, "This line is in 20 point\n", 31, ""],
-    [32, 29, "This line is in 32 point\n", 49, ""]
-    )
+    # (note there is one extra point inserted by addSampleRow() for each row generated)...
 
-    for i in samples:
-        # (note there is one extra point inserted by addSampleRow() for each row generated)...
-        y = addSampleRow(fontName, i[0], i[1], i[2], x, y, w, i[3], i[4], getSizeOnly)
-    y = y + 1
+    # first need a header...
+    y = draw_sample_row(dD['bookstylePropFont'], samplesHeader['fontSize'], samplesHeader['lineSpace'], fontName, x, y, w, samplesHeader['textHeight'], getSizeOnly)
 
-    if getSizeOnly == 0:
-        scribus.createLine(x, y, (w + x), y)
-    else:
-        y = y + 1   # if changing line above then check this, it should be exactly the same as the line height
-    y = y + 5
+    if userPrefs['wantAlphabet']:
+        y = draw_sample_row(fontName, sampleAlphabet['fontSize'], sampleAlphabet['lineSpace'], sampleAlphabet['textString'], x, y, w, sampleAlphabet['textHeight'], getSizeOnly)
+
+    if userPrefs['want6Point']:
+        y = draw_sample_row(fontName, sample6Point['fontSize'], sample6Point['lineSpace'], sample6Point['textString'], x, y, w, sample6Point['textHeight'], getSizeOnly)
+
+    if userPrefs['want8Point']:
+        y = draw_sample_row(fontName, sample8Point['fontSize'], sample8Point['lineSpace'], sample8Point['textString'], x, y, w, sample8Point['textHeight'], getSizeOnly)
+
+    if userPrefs['want10Point']:
+        y = draw_sample_row(fontName, sample10Point['fontSize'], sample10Point['lineSpace'], sample10Point['textString'], x, y, w, sample10Point['textHeight'], getSizeOnly)
+
+    if userPrefs['want12Point']:
+        y = draw_sample_row(fontName, sample12Point['fontSize'], sample12Point['lineSpace'], sample12Point['textString'], x, y, w, sample12Point['textHeight'], getSizeOnly)
+
+    if userPrefs['want16Point']:
+        y = draw_sample_row(fontName, sample16Point['fontSize'], sample16Point['lineSpace'], sample16Point['textString'], x, y, w, sample16Point['textHeight'], getSizeOnly)
+
+    if userPrefs['want20Point']:
+        y = draw_sample_row(fontName, sample20Point['fontSize'], sample20Point['lineSpace'], sample20Point['textString'], x, y, w, sample20Point['textHeight'], getSizeOnly)
+
+    if userPrefs['want32Point']:
+        y = draw_sample_row(fontName, sample32Point['fontSize'], sample32Point['lineSpace'], sample32Point['textString'], x, y, w, sample32Point['textHeight'], getSizeOnly)
+
+    if userPrefs['wantParagraph']:
+        y = draw_sample_row(fontName, sampleParagraph['fontSize'], sampleParagraph['lineSpace'], sampleParagraphText, x, y, w, sampleParagraph['textHeight'], getSizeOnly)
+
+    y = y + 1   # one extra point of space above bottom Horiz. line
+
+    lineHeight = draw_horiz_line(y, x, w + x, getSizeOnly)
+    y = y + lineHeight
+
     return y - startPos
 
 
-def addTocRow(fontName, pageNum, yPos, frame):
+def insert_toc_row(fontName, pageNum, yPos, frame):
+    """Called once for each content line to be drawn in the text frame."""
     dotLine = ""
-    dotQuant = tocstyle.charsInRow - len(fontName) - len(str(pageNum)) + 1
+    dotQuant = dD['tocCharsInRow'] - len(fontName) - len(str(pageNum)) + 1
     for i in range(dotQuant):
         dotLine = dotLine + '.'
     oneLine = fontName + dotLine + str(pageNum) + "\n"
@@ -350,111 +567,198 @@ def addTocRow(fontName, pageNum, yPos, frame):
     return yPos
 
 
-def buildTocPageFrames():
+def build_toc_page_template():
+    """Inserts empty toc template into the currently selected page."""
     # first put a header on the empty page...
-    textstring = "Table of Contents"
-    yPos = paper.tmargin + 1
-    header = scribus.createText(paper.leftSide, yPos, paper.textwidth, 35)
+    textstring = dD['tocHeaderTitle']
+    yPos = dD['paperTopMargin'] + 1
+    header = scribus.createText(dD['paperLeftSide'], yPos, dD['paperTextWidth'], 35)
     scribus.insertText(textstring, 0, header)
-    scribus.setFont(bookstyle.propfont, header)
+    scribus.setFont(dD['bookstylePropFont'], header)
     scribus.setFontSize(24, header)
     scribus.setTextAlignment(1, header)
-
     # now create a text frame for the table of contents...
     yPos = yPos + 36
-    body = scribus.createText(paper.leftSide, yPos, paper.textwidth, paper.height - yPos - paper.bmargin - 1)
-    scribus.setFont(bookstyle.fixedfont, body)
+    body = scribus.createText(dD['paperLeftSide'], yPos, dD['paperTextWidth'], dD['paperHeight'] - yPos - dD['paperBottomMargin'] - 1)
+    scribus.setFont(dD['bookstyleFixedFont'], body)
     scribus.setFontSize(10, body)
     scribus.setLineSpacing(12, body)
     return body
 
 
-def addToc(tocList):
+def build_toc(tocList):
+    """Creates all the Table of Contents pages.
+
+    Calls tocPageFramesBuild() to write the header and empty frame for the
+    toc rows each time a new page is added.
+    Then calls tocRowAdd() to add each line to the toc frame. Creates new page
+    each time it completes last row on page.
+    """
     rowCount = 0
     yPos = 0
     tocPageNum = 1
     tocPageCount = 1
 
     scribus.newPage(tocPageNum)
-    isEvenPage = setOddEven(tocPageNum)
-    body = buildTocPageFrames()             # create frames for new empty page
+    isEvenPage = set_odd_even(tocPageNum)
+    body = build_toc_page_template()             # create frames for new empty page
     if isEvenPage == 0:
         scribus.setTextAlignment(2, body)
     else:
         scribus.setTextAlignment(0, body)
     for i in tocList:
-        if rowCount == tocstyle.tocRows:     # Need to build a new TOC page (started from zero, not one)
+        if rowCount == dD['tocRowsPerPage']: # Need to build a new TOC page (count is from zero, not one)
             tocPageNum = tocPageNum + 1
             scribus.newPage(tocPageNum)
-            isEvenPage = setOddEven(tocPageNum)
-            body = buildTocPageFrames()
-            if isEvenPage == 0:
+            isEvenPage = set_odd_even(tocPageNum)
+            body = build_toc_page_template()
+            if not isEvenPage:
                 scribus.setTextAlignment(2, body)
             else:
                 scribus.setTextAlignment(0, body)
             rowCount = 0
             yPos = 0
             tocPageCount = tocPageCount + 1
-        yPos = addTocRow(i[0], i[1], yPos, body)
+        yPos = insert_toc_row(i[0], i[1], yPos, body)
         rowCount = rowCount + 1
-    if app.wantDoubleSided.get() == 1:
+    if userPrefs['wantDoubleSided']:
         if tocPageCount % 2 != 0:           # Odd page
             tocPageNum = tocPageNum + 1
             scribus.newPage(tocPageNum)     # Add an extra page if odd number
 
 
-def addPageNum(pageNum):
-    yPos = paper.height - paper.bmargin - paper.pagenumvoffset
-    footer = scribus.createText(paper.leftSide, yPos, paper.textwidth, 15)
-    scribus.insertText("%s" % pageNum, 0, footer)
-    scribus.setFont(bookstyle.propfont, footer)
+def add_page_num(pageNum):
+    yPos = dD['paperHeight'] - \
+           dD['paperBottomMargin'] - \
+           dD['paperPageNumVertOffset']
+    footer = scribus.createText(dD['paperLeftSide'], yPos, dD['paperTextWidth'], 15)
+    scribus.insertText('%s' % pageNum, 0, footer)
+    scribus.setFont(dD['bookstylePropFont'], footer)
     scribus.setFontSize(9, footer)
     scribus.setTextAlignment(1, footer)
     scribus.setLineSpacing(10, footer)
 
 
-def useSelection(fontList):
-    """Draws the sample blocks onto the Scribus canvas. Also updates the Progress Bar."""
+def create_empty_samplepage(pageNum, getSizeOnly):
+    """Creates a new page and increments page number by one.
+
+    Note getSizeOnly is now evaluated. Will still generate page number increment
+    but will not actually create the new page or place the number on the page."""
+    if not getSizeOnly:
+        scribus.newPage(-1)
+    pageNum = pageNum + 1
+    set_odd_even(pageNum)
+    if not getSizeOnly:
+        if userPrefs['wantPageNumbers']:
+            add_page_num(pageNum)
+    return pageNum
+
+
+def draw_horiz_line(yPos, xStart, xEnd, getSizeOnly):
+    """Draws a line and returns the height.
+
+    If getSizeOnly is set then returns the height it would have
+    used but without actually creating a line.
+    """
+    lineWidth = 1
+    if not getSizeOnly:
+        newLine = scribus.createLine(xStart, yPos, xEnd, yPos)
+        scribus.setLineWidth(lineWidth, newLine)
+    return lineWidth
+
+
+def draw_selection(fontList, getSizeOnly):
+    """Draws the sample blocks onto the Scribus canvas.
+
+    Measure one font sample block including any horizontal lines and extra
+    vertical spaces.
+    Get the amount of vertical space available for the text area between the
+    top line and top of page number area.
+    Use these two values to calculate how many complete sample blocks will fit
+    in the space available. This is the "pageBlocks"
+    Note we always draw the top horizontal line before placing the blocks. This
+    is taken into account when calculating the available text area.
+    Next, if "getSizeOnly" is false we create a page then create the sample
+    blocks while incrementing a counter until it matches the "pageBlocks".
+    Reset the counter and create new page. We keep going until we have processed
+    all the fonts in the selection list.
+    We update the Scribus progress bar as we create each font sample block.
+    The returned result is used to update some values in the status bar.
+    """
     progress = 1
     scribus.progressReset()
     scribus.progressTotal(len(fontList))
     tocList = []
-    yPos = paper.tmargin + 1
     pageNum = 1
-    if scribus.newDoc(paper.size, paper.margins, scribus.PORTRAIT, 1, scribus.UNIT_POINTS, scribus.NOFACINGPAGES, scribus.FIRSTPAGERIGHT):
-        # We have a new page by default so set it up first...
-        setOddEven(pageNum)
-        if app.wantPageNum.get() == 1:
-            addPageNum(pageNum)
-        scribus.createLine(paper.leftSide, yPos, paper.leftSide + paper.textwidth, yPos)
-        yPos = yPos + 5
-        for i in fontList:
-            # Test if fits...
-            blockHeight = drawSampleBlock(i, paper.leftSide, yPos, paper.textwidth, 1)
-            if yPos + blockHeight > paper.height - paper.bmargin - paper.pagenumvoffset:
-                # Not enough room so create a new page first...
-                scribus.newPage(-1)
+    blockCounter = 0
+    counter = 0
+    facingPages = scribus.NOFACINGPAGES
+    
+    # Just get blocks per page value...
+    set_odd_even(pageNum)
+    lineHeight = 1 # include the one point of space below top margin
+    lineHeight = lineHeight + draw_horiz_line(0, dD['paperLeftSide'], dD['paperLeftSide'] + dD['paperTextWidth'], 1)
+    usuableArea = dD['paperHeight'] - \
+                  dD['paperTopMargin'] - \
+                  lineHeight - \
+                  dD['paperBottomMargin'] - \
+                  dD['paperPageNumVertOffset']
+
+    blockHeight = draw_sample_block(fontList[0], dD['paperLeftSide'], 0, dD['paperTextWidth'], 1)
+    pageBlocks = int(usuableArea / blockHeight)
+    #print blockHeight
+    #print "Usuable area %s points high" % usuableArea
+    #print "Used space on page is %s points high" % (blockHeight * pageBlocks)
+
+    if not getSizeOnly:
+        # not a dummy run so start by setting up page numbering...
+        if userPrefs['wantPageOneOnFirst'] and userPrefs['wantTOC']:
+            tocPageCount = divmod(len(fontList), dD['tocRowsPerPage'])
+            pageNum = pageNum + tocPageCount[0]
+            if tocPageCount[1] != 0:
+                # (adding more to page number as not whole number)
                 pageNum = pageNum + 1
-                setOddEven(pageNum)
-                yPos = paper.tmargin +1     # Reset y position back to top of page
-                if app.wantPageNum.get() == 1:
-                    addPageNum(pageNum)
-                scribus.createLine(paper.leftSide, yPos, paper.leftSide + paper.textwidth, yPos)
-                yPos = yPos + 5
-            # Now place the actual sample block...
-            blockHeight = drawSampleBlock(i, paper.leftSide, yPos, paper.textwidth, 0)
+            if userPrefs['wantDoubleSided']:
+                oddEvenTest = divmod(pageNum, 2)
+                if oddEvenTest[1] == 0:
+                    # (adding extra one to start number as odd amount)
+                    pageNum = pageNum + 1
+        if userPrefs['wantDoubleSided']:
+            facingPages = scribus.FACINGPAGES
+        # now create a new document with empty page and start building...
+        scribus.newDocument(dD['paperSize'], dD['paperMargins'], scribus.PORTRAIT, 1, scribus.UNIT_POINTS, facingPages, scribus.FIRSTPAGERIGHT)
+        scribus.zoomDocument(-100)
+        # A new doc gives us a new page by default so set it up first...
+        set_odd_even(pageNum)
+        yPos = dD['paperTopMargin'] + 1
+        lineHeight = draw_horiz_line(yPos, dD['paperLeftSide'], dD['paperLeftSide'] + dD['paperTextWidth'], getSizeOnly)
+        yPos = yPos + lineHeight
+        if userPrefs['wantPageNumbers']:
+            add_page_num(pageNum)
+        for i in fontList:
+            # Now place the actual sample block but create a new page if needed...
+            if counter == pageBlocks:
+                pageNum = create_empty_samplepage(pageNum, getSizeOnly)
+                yPos = dD['paperTopMargin'] + 1
+                lineHeight = draw_horiz_line(yPos, dD['paperLeftSide'], dD['paperLeftSide'] + dD['paperTextWidth'], getSizeOnly)
+                yPos = yPos + lineHeight
+                counter = 0
+            blockHeight = draw_sample_block(i, dD['paperLeftSide'], yPos, dD['paperTextWidth'], getSizeOnly)
+            yPos = yPos + blockHeight
             # and also increment the Scribus progress bar...
             scribus.progressSet(progress)
             progress = progress + 1
-            yPos = yPos + blockHeight
-            tocList.append([i, pageNum])    # Add to TOC
-        if app.wantToc.get() == 1:
-            addToc(tocList)                 # Insert table of contents - (before page numbering)
+            # Add current font to TOC...
+            tocList.append([i, pageNum])
+            counter = counter + 1
+        if userPrefs['wantTOC']:
+            # Insert table of contents - (before page numbering)...
+            build_toc(tocList)
         scribus.gotoPage(1)
-    app.quit()
+    return pageBlocks
 
 
-def fontPreview(fontName):
+def preview_font(app, fontName):
     """Gets the named font and puts a sample in the preview panel.
 
     Pick up the temp sample qpixmap file and display it in a canvas object
@@ -464,29 +768,193 @@ def fontPreview(fontName):
     garbage collection removes our image before we have even displayed it.
     Note app.previewPanel is the actual canvas.
     """
-    global samplePic
-    global previewId
-    scribus.renderFont(fontName, os.path.join(TEMPPATH,"temp079r.bmp"),"Woven silk pyjamas exchanged for blue quartz",28)    
+    global gSamplePic
+    global gPreviewId
+    scribus.renderFont(fontName, os.path.join(TEMP_PATH,'temp079r.bmp'),dD['previewpanelSampleText'],dD['previewpanelFontHeight'])
     try:
-        tempPic = Image.open(os.path.join(TEMPPATH,"temp079r.bmp"))
-        tempPic.save(os.path.join(TEMPPATH,"temp079r.jpeg"),format="JPEG")
-        tempImage = Image.open(os.path.join(TEMPPATH,"temp079r.jpeg"))
+        tempPic = Image.open(os.path.join(TEMP_PATH,'temp079r.bmp'))
+        tempPic.save(os.path.join(TEMP_PATH,'temp079r.jpeg'),format='JPEG')
+        tempImage = Image.open(os.path.join(TEMP_PATH,'temp079r.jpeg'))
         imgDimen = tempPic.getbbox()
-        samplePic = ImageTk.PhotoImage(tempImage)
+        gSamplePic = ImageTk.PhotoImage(tempImage)
         # To center the image use "Half display height minus half the image height"
         # preview panel is allegedly 56 (60 less a 2 pixel border top and bottom)
-        # need to be lower than that to look correct visually... 
+        # need to be lower than that to look correct visually...
         topEdge = (32 - (imgDimen[3] / 2))
-        previewId = app.previewPanel.create_image(5, topEdge, anchor=NW, image=samplePic)
-        os.remove(os.path.join(TEMPPATH,"temp079r.bmp"))
-        os.remove(os.path.join(TEMPPATH,"temp079r.jpeg"))
+        gPreviewId = app.previewPanel.create_image(5, topEdge, anchor=NW, image=gSamplePic)
+        os.remove(os.path.join(TEMP_PATH,'temp079r.bmp'))
+        os.remove(os.path.join(TEMP_PATH,'temp079r.jpeg'))
     except IOError:
-        samplePic = None
-        previewId = app.previewPanel.create_image(0, 0, anchor=NW, image=samplePic)
+        gSamplePic = None
+        gPreviewId = app.previewPanel.create_image(0, 0, anchor=NW, image=gSamplePic)
     return
 
 
+class AboutDialog(Toplevel):
+
+    def __init__(self, parent):
+        Toplevel.__init__(self, parent)
+        self.transient(parent)
+        self.title('About')
+        self.parent = parent
+        self.result = None
+        self.resizable(0, 0)
+
+        infoLabel = Label(self, text=WINDOW_TITLE+'\nSupport page at %s' % SUPPORT_PAGE)
+        infoLabel.pack(padx=5, pady=5)
+        # now the frame for contents...
+        contentFrame = Frame(self)
+        self.btnOk = Button(contentFrame, text='OK', command=self.ok, default=ACTIVE)
+        self.btnOk.pack(side=LEFT, padx=5, pady=5)
+        contentFrame.pack()
+        self.bind('<Return>', self.ok)
+        self.grab_set()
+        self.protocol('WM_DELETE_WINDOW', self.ok)
+        self.initial_focus = self.btnOk
+        self.wait_window(self)
+
+    def ok(self, event=None):
+        self.withdraw()
+        self.update_idletasks()
+        self.parent.focus_set()
+        self.destroy()
+
+
+class ConfigurationDialog(Toplevel):
+
+    def __init__(self, parent):
+        Toplevel.__init__(self, parent)
+        self.transient(parent)
+        self.title('Configuration')
+        self.parent = parent
+        self.result = None
+        self.resizable(0, 0)
+
+        # Create outer frame...
+        self.topFrame = Frame(self, bd=1, relief=FLAT)
+        self.topFrame.grid(row=0, column=0, padx=5, pady=5)
+
+        self.paperSizeLabel = Label(self.topFrame, text='Sample Rows:')
+        self.paperSizeLabel.grid(row=0, column=0, sticky=W)
+
+        # This frame holds each sample selector...
+        self.sampleSelectFrame = Frame(self.topFrame, bd=1, relief=RIDGE)
+        self.sampleSelectFrame.grid(row=1, column=0, padx=0, pady=2)
+
+        # now create the sample selector widgets for the frame...
+        self.__wantAlphabet = IntVar()
+        self.btnWantAlphabet = Checkbutton(self.sampleSelectFrame, text='want alphabet row', variable=self.__wantAlphabet, offvalue=0, onvalue=1, command=self.__sampleSelectionClick)
+        self.btnWantAlphabet.grid(row=0, column=0, padx=10, pady=0, sticky=W)
+        if userPrefs['wantAlphabet']:
+            self.btnWantAlphabet.select()
+
+        self.__want6Point = IntVar()
+        self.btnWant6Point = Checkbutton(self.sampleSelectFrame, text='want 6 point row', variable=self.__want6Point, offvalue=0, onvalue=1, command=self.__sampleSelectionClick)
+        self.btnWant6Point.grid(row=1, column=0, padx=10, pady=0, sticky=W)
+        if userPrefs['want6Point']:
+            self.btnWant6Point.select()
+
+        self.__want8Point = IntVar()
+        self.btnWant8Point = Checkbutton(self.sampleSelectFrame, text='want 8 point row', variable=self.__want8Point, offvalue=0, onvalue=1, command=self.__sampleSelectionClick)
+        self.btnWant8Point.grid(row=2, column=0, padx=10, pady=0, sticky=W)
+        if userPrefs['want8Point']:
+            self.btnWant8Point.select()
+
+        self.__want10Point = IntVar()
+        self.btnWant10Point = Checkbutton(self.sampleSelectFrame, text='want 10 point row', variable=self.__want10Point, offvalue=0, onvalue=1, command=self.__sampleSelectionClick)
+        self.btnWant10Point.grid(row=3, column=0, padx=10, pady=0, sticky=W)
+        if userPrefs['want10Point']:
+            self.btnWant10Point.select()
+
+        self.__want12Point = IntVar()
+        self.btnWant12Point = Checkbutton(self.sampleSelectFrame, text='want 12 point row', variable=self.__want12Point, offvalue=0, onvalue=1, command=self.__sampleSelectionClick)
+        self.btnWant12Point.grid(row=4, column=0, padx=10, pady=0, sticky=W)
+        if userPrefs['want12Point']:
+            self.btnWant12Point.select()
+
+        self.__want16Point = IntVar()
+        self.btnWant16Point = Checkbutton(self.sampleSelectFrame, text='want 16 point row', variable=self.__want16Point, offvalue=0, onvalue=1, command=self.__sampleSelectionClick)
+        self.btnWant16Point.grid(row=5, column=0, padx=10, pady=0, sticky=W)
+        if userPrefs['want16Point']:
+            self.btnWant16Point.select()
+
+        self.__want20Point = IntVar()
+        self.btnWant20Point = Checkbutton(self.sampleSelectFrame, text='want 20 point row', variable=self.__want20Point, offvalue=0, onvalue=1, command=self.__sampleSelectionClick)
+        self.btnWant20Point.grid(row=6, column=0, padx=10, pady=0, sticky=W)
+        if userPrefs['want20Point']:
+            self.btnWant20Point.select()
+
+        self.__want32Point = IntVar()
+        self.btnWant32Point = Checkbutton(self.sampleSelectFrame, text='want 32 point row', variable=self.__want32Point, offvalue=0, onvalue=1, command=self.__sampleSelectionClick)
+        self.btnWant32Point.grid(row=7, column=0, padx=10, pady=0, sticky=W)
+        if userPrefs['want32Point']:
+            self.btnWant32Point.select()
+
+        self.__wantParagraph = IntVar()
+        self.btnParagraphSelect = Checkbutton(self.sampleSelectFrame, text='want sample paragraph', variable=self.__wantParagraph, offvalue=0, onvalue=1, command=self.__sampleSelectionClick)
+        self.btnParagraphSelect.grid(row=8, column=0, padx=10, pady=0, sticky=W)
+        if userPrefs['wantParagraph']:
+            self.btnParagraphSelect.select()
+
+        self.paperSizeLabel = Label(self.topFrame, text='Paper Sizes:')
+        self.paperSizeLabel.grid(row=2, column=0, sticky=W)
+
+        self.paperSizeFrame = Frame(self.topFrame, bd=1, relief=RIDGE)
+        self.paperSizeFrame.grid(row=3, column=0, padx=0, pady=2, sticky=W)
+
+        self.__paper = StringVar()
+        self.a4papersizeSelect = Radiobutton(self.paperSizeFrame, text='A4', variable=self.__paper, value='A4', command=self.__paperSelectionClick)
+        self.a4papersizeSelect.grid(row=1, column=0, padx=10, sticky=W)
+        self.uspapersizeSelect = Radiobutton(self.paperSizeFrame, text='US Letter', variable=self.__paper, value='US Letter', command=self.__paperSelectionClick)
+        self.uspapersizeSelect.grid(row=2, column=0, padx=10, sticky=W)
+
+        # set to match prefs...
+        if userPrefs['paperSize'] == 'US Letter':
+            self.uspapersizeSelect.select()
+        if userPrefs['paperSize'] == 'A4':
+            self.a4papersizeSelect.select()
+
+        self.btnFrame = Frame(self.topFrame)
+        self.btnFrame.grid(row=4, column=0, padx=10, pady=2)
+        self.btnOk = Button(self.btnFrame, text='OK', command=self.ok)
+        self.btnOk.grid(row=2, column=0, pady=5)
+        self.bind('<Return>', self.ok)
+        self.grab_set()
+        self.initial_focus = self.btnOk
+        self.wait_window(self)
+
+
+    def __sampleSelectionClick(self):
+        """Get and store all the selections.
+        
+        Just assigns the lot at once. Not worth being picky and only
+        assigning values that have changed since last time.
+        """
+        userPrefs['wantAlphabet'] = self.__wantAlphabet.get()
+        userPrefs['want6Point'] = self.__want6Point.get()
+        userPrefs['want8Point'] = self.__want8Point.get()
+        userPrefs['want10Point'] = self.__want10Point.get()
+        userPrefs['want12Point'] = self.__want12Point.get()
+        userPrefs['want16Point'] = self.__want16Point.get()
+        userPrefs['want20Point'] = self.__want20Point.get()
+        userPrefs['want32Point'] = self.__want32Point.get()
+        userPrefs['wantParagraph'] = self.__wantParagraph.get()
+        self.parent.statusbarUpdate()
+
+    def __paperSelectionClick(self):
+        userPrefs['paperSize'] = self.__paper.get()
+        self.parent.statusbarUpdate()
+
+    def ok(self, event=None):
+        dD.update(set_page_geometry(dD, geometriesList, userPrefs['paperSize'], userPrefs['wantBindingOffset']))
+        self.withdraw()
+        self.update_idletasks()
+        self.parent.focus_set()
+        self.destroy()
+
+
 class Application(Frame):
+
     def __init__(self, master = None):
         Frame.__init__(self, master)
 
@@ -494,7 +962,22 @@ class Application(Frame):
 
         # Remove maximise button and resize. Not good to allow resizable window
         # because the listboxes are fixed width...
-        self.master.resizable(0, 0)   
+        self.master.resizable(0, 0)
+
+        # build the menu...
+        menubar = Menu(self)
+        settingsmenu = Menu(menubar, tearoff=0)
+        settingsmenu.add_command(label='Configuration', command=self.__configurationDlgShow)
+        settingsmenu.add_separator()
+        settingsmenu.add_command(label='Save current settings as user defaults', command=self.__saveCurrentSettingsAsDefaults)
+        settingsmenu.add_command(label='Restore current settings from defaults', command=self.__restoreCurrentSettingsFromDefault)
+
+        menubar.add_cascade(label='Settings', menu=settingsmenu)
+        helpmenu = Menu(menubar, tearoff=0)
+        helpmenu.add_command(label='About', command=self.__aboutDlgShow)
+        menubar.add_cascade(label='Help', menu=helpmenu)
+        # display menu...
+        self.master.config(menu=menubar)
 
         # now start adding our widgets starting with the top frame...
         self.listbox_frame = Frame(self)
@@ -504,7 +987,7 @@ class Application(Frame):
         self.leftListbox_frame = Frame(self.listbox_frame, borderwidth=1, relief=SUNKEN)
         self.leftListbox_frame.grid(row=1, column=0)
 
-        self.leftLabel = Label(self.listbox_frame, text="Available Fonts")
+        self.leftLabel = Label(self.listbox_frame, text='Available Fonts')
         self.leftLabel.grid(row=0, column=0, sticky=NS)
 
         self.yScroll1 = Scrollbar(self.leftListbox_frame, orient=VERTICAL)
@@ -518,15 +1001,15 @@ class Application(Frame):
             selectmode=EXTENDED,
             height=20, width=40)
         self.listbox1.grid(row=0, column=0, sticky=NSEW)
-        self.xScroll1["command"] = self.listbox1.xview
-        self.yScroll1["command"] = self.listbox1.yview
+        self.xScroll1['command'] = self.listbox1.xview
+        self.yScroll1['command'] = self.listbox1.yview
 
         def __listbox1KeyRelease(event):
             """Check if an Up or Down key has been pressed and released and
-            if so the preview panel is refreshed. If the keys are held down 
-            the file system slows the scroll. Need a timer here to delay 
+            if so the preview panel is refreshed. If the keys are held down
+            the file system slows the scroll. Need a timer here to delay
             updates."""
-            if (event.keysym == "Down" or event.keysym == "Up"):
+            if (event.keysym == 'Down' or event.keysym == 'Up'):
                 __listbox1DoLogicCallback(self)
 
         def __listbox1SingleClick(event):
@@ -536,17 +1019,17 @@ class Application(Frame):
             is released."""
             self.listbox1.focus_set()
             __listbox1DoLogicCallback(self)
-        self.listbox1.bind("<ButtonRelease-1>", __listbox1SingleClick)
+        self.listbox1.bind('<ButtonRelease-1>', __listbox1SingleClick)
 
         def __listbox1DoLogicCallback(event):
-            """Decides if current selection should be previewed. 
+            """Decides if current selection should be previewed.
 
             Start by counting items in selection list and if equal to one then
             show selected font, ignoring if more or less than one. Then also
-            set up buttons logic depending on selection. We bind the FocusIn 
+            set up buttons logic depending on selection. We bind the FocusIn
             to this too so button logic and preview gets updated when focus
             enters the listbox.
-            """         
+            """
             # note we are not making use of "self.listbox1.get(ACTIVE)" due to
             # it not getting the real active name. Always one selection behind
             # even though we are doing all this in the ButtonRelease event.
@@ -562,10 +1045,10 @@ class Application(Frame):
                 except:
                     pass
             #else:
-                #selectedFont = self.listbox1.get(ACTIVE) 
+                #selectedFont = self.listbox1.get(ACTIVE)
                 #print selectedFont  # for testing
                 #if selectedFont != "":
-                    #self.__curSelectedItem(selectedFont)                
+                    #self.__curSelectedItem(selectedFont)
 
             # Now do the button logic...
             self.listbox2.selection_clear(0,END)
@@ -574,39 +1057,41 @@ class Application(Frame):
                 self.__setSelButtonsActive(0, 1)
             else:
                 self.__setSelButtonsActive(0, 0)
-        self.listbox1.bind("<FocusIn>", __listbox1DoLogicCallback)
+
+        self.listbox1.bind('<FocusIn>', __listbox1DoLogicCallback)
         self.listbox1.bind('<Any-KeyRelease>', __listbox1KeyRelease)
 
         def __listbox1DoubleClickCallback(event):
             """The single click event will fire also when left listbox
             is double clicked but we are detecting the single click button up event."""
             self.__listSelectionToRight()
-        self.listbox1.bind("<Double-Button-1>", __listbox1DoubleClickCallback)
+
+        self.listbox1.bind('<Double-Button-1>', __listbox1DoubleClickCallback)
 
         # middle button frame assembly
         self.midbutton_frame = Frame(self.listbox_frame)
         self.midbutton_frame.grid(row=0, rowspan=2, column=1, sticky=NSEW)
 
-        self.rsingleButton = Button(self.midbutton_frame, state='disabled', text=">", command=self.__rsingleButtonClick)
+        self.rsingleButton = Button(self.midbutton_frame, state='disabled', text='>', command=self.__rsingleButtonClick)
         self.rsingleButton.grid(row=0, column=0, padx=5, pady=5, sticky=EW)
-        self.rdoubleButton = Button(self.midbutton_frame, text=">>", command=self.__rdoubleButtonClick)
+        self.rdoubleButton = Button(self.midbutton_frame, text='>>', command=self.__rdoubleButtonClick)
         self.rdoubleButton.grid(row=1, column=0, padx=5, pady=5, sticky=EW)
 
-        self.itemupButton = Button(self.midbutton_frame, state='disabled', text="Up", command=self.__itemupButtonClick)
+        self.itemupButton = Button(self.midbutton_frame, state='disabled', text='Up', command=self.__itemupButtonClick)
         self.itemupButton.grid(row=2, column=0, padx=5, pady=5, sticky=EW)
-        self.itemdownButton = Button(self.midbutton_frame, state='disabled', text="Down", command=self.__itemdownButtonClick)
+        self.itemdownButton = Button(self.midbutton_frame, state='disabled', text='Down', command=self.__itemdownButtonClick)
         self.itemdownButton.grid(row=3, column=0, padx=5, pady=5, sticky=EW)
 
-        self.lsingleButton = Button(self.midbutton_frame, state='disabled', text="<", command=self.__lsingleButtonClick)
+        self.lsingleButton = Button(self.midbutton_frame, state='disabled', text='<', command=self.__lsingleButtonClick)
         self.lsingleButton.grid(row=4, column=0, padx=5, pady=5, sticky=EW)
-        self.ldoubleButton = Button(self.midbutton_frame, state='disabled', text="<<", command=self.__ldoubleButtonClick)
+        self.ldoubleButton = Button(self.midbutton_frame, state='disabled', text='<<', command=self.__ldoubleButtonClick)
         self.ldoubleButton.grid(row=5, column=0, padx=5, pady=5, sticky=EW)
 
         # Right hand listbox assembly
         self.rightListbox_frame = Frame(self.listbox_frame, borderwidth=1, relief=SUNKEN)
         self.rightListbox_frame.grid(row=1, column=2)
 
-        self.rightLabel = Label(self.listbox_frame, text="Selected Fonts")
+        self.rightLabel = Label(self.listbox_frame, text='Selected Fonts')
         self.rightLabel.grid(row=0, column=2, sticky=NS)
 
         self.yScroll2 = Scrollbar(self.rightListbox_frame, orient=VERTICAL)
@@ -620,21 +1105,21 @@ class Application(Frame):
             selectmode=EXTENDED,
             height=20, width=40)
         self.listbox2.grid(row=0, column=0, sticky=NSEW)
-        self.xScroll2["command"] = self.listbox2.xview
-        self.yScroll2["command"] = self.listbox2.yview
+        self.xScroll2['command'] = self.listbox2.xview
+        self.yScroll2['command'] = self.listbox2.yview
 
         def __listbox2SingleClick(event):
             """Similar to __listbox1SingleClick()."""
             self.listbox2.focus_set()
             __listbox2DoLogicCallback(self)
-        self.listbox2.bind("<ButtonRelease-1>", __listbox2SingleClick)
+        self.listbox2.bind('<ButtonRelease-1>', __listbox2SingleClick)
 
         def __listbox2KeyRelease(event):
-            if (event.keysym == "Down" or event.keysym == "Up"):
+            if (event.keysym == 'Down' or event.keysym == 'Up'):
                 __listbox2DoLogicCallback(self)
 
         def __listbox2DoLogicCallback(event):
-            """Similar to __listbox1DoLogicCallback()."""         
+            """Similar to __listbox1DoLogicCallback()."""
             names = self.listbox2.curselection()
             if len(names) == 1:
                 selectedFont = self.listbox2.get(names[0])
@@ -652,61 +1137,61 @@ class Application(Frame):
                 self.__setSelButtonsActive(1, 0)
             else:
                 self.__setSelButtonsActive(0, 0)
-        self.listbox2.bind("<FocusIn>", __listbox2DoLogicCallback)
+        self.listbox2.bind('<FocusIn>', __listbox2DoLogicCallback)
         self.listbox2.bind('<Any-KeyRelease>', __listbox2KeyRelease)
 
         def __listbox2DoubleClickCallback(event):
             """Similar to __listbox1DoubleClickCallback()."""
             self.__listSelectionToLeft()
-        self.listbox2.bind("<Double-Button-1>", __listbox2DoubleClickCallback)
+        self.listbox2.bind('<Double-Button-1>', __listbox2DoubleClickCallback)
 
         # now draw the bottom font preview frame if required...
         if showPreviewPanel:
             self.preview_frame = Frame(self)
             self.preview_frame.grid(row=1, column=0, sticky=EW)
-            self.previewPanel = Canvas(self.preview_frame, height=60, bg="white", bd=2, relief=SUNKEN)
+            self.previewPanel = Canvas(self.preview_frame, height=60, bg='white', bd=2, relief=SUNKEN)
             self.previewPanel.pack(fill=X)
 
         # now draw the bottom controls frame...
         self.controls_frame = Frame(self)
         self.controls_frame.grid(row=2, column=0, sticky=EW)
 
-        # now the paper size radio buttons...
-        self.paper = IntVar()
-        self.radiobutton_frame = Frame(self.controls_frame, bd=1, relief=RIDGE)
-        self.radiobutton_frame.grid(row=0, column=0, padx=10, pady=2)
-        self.a4papersizeSelect = Radiobutton(self.radiobutton_frame, text="A4", variable=self.paper, value=1, command=self.__a4paperButtonClick)
-        self.a4papersizeSelect.grid(row=0, column=0, padx=0, sticky=W)
-        self.uspapersizeSelect = Radiobutton(self.radiobutton_frame, text="US Letter", variable=self.paper, value=2, command=self.__uspaperButtonClick)
-        self.uspapersizeSelect.grid(row=1, column=0, padx=0, sticky=W)
-        self.a4papersizeSelect.select()
-
-        # now the TOC and page number selection buttons...
-        self.wantToc = IntVar()
-        self.wantPageNum = IntVar()
-        self.togglebutton_frame = Frame(self.controls_frame, bd=1, relief=RIDGE)
-        self.togglebutton_frame.grid(row=0, column=1, padx=10, pady=2)
-        self.pagenumSelect = Checkbutton(self.togglebutton_frame, text="want page numbers", variable=self.wantPageNum, offvalue=0, onvalue=1)
+        # create a container...
+        self.button_frame1 = Frame(self.controls_frame, bd=1, relief=RIDGE)
+        self.button_frame1.grid(row=0, column=0, padx=10, pady=2)
+        # create and add page number selection button...
+        self.__wantPageNum = IntVar()
+        self.pagenumSelect = Checkbutton(self.button_frame1, text='Print page numbers', variable=self.__wantPageNum, offvalue=0, onvalue=1, command=self.__pageNumberSelectButtonClick)
         self.pagenumSelect.grid(row=0, column=0, padx=0, sticky=W)
-        self.tocSelect = Checkbutton(self.togglebutton_frame, text="Print TOC", variable=self.wantToc, offvalue=0, onvalue=1)
-        self.tocSelect.grid(row=1, column=0, padx=0, sticky=W)
-        self.pagenumSelect.select()
-        self.tocSelect.select()
 
-        # now the binding offset and double sided selection buttons...
-        self.wantBindingOffset = IntVar()
-        self.wantDoubleSided = IntVar()
-        self.bindingbutton_frame = Frame(self.controls_frame, bd=1, relief=RIDGE)
-        self.bindingbutton_frame.grid(row=0, column=2, padx=10, pady=2)
-        self.bindingoffsetSelect = Checkbutton(self.bindingbutton_frame, text="Extra offset for binding", variable=self.wantBindingOffset, offvalue=0, onvalue=1, command=self.__bindingoffsetSelectButtonClick)
+        # create a container...
+        self.button_frame2 = Frame(self.controls_frame, bd=1, relief=RIDGE)
+        self.button_frame2.grid(row=0, column=1, padx=10, pady=2)
+        # create and add the TOC selector...
+        self.__wantToc = IntVar()
+        self.tocSelect = Checkbutton(self.button_frame2, text='Print table of contents', variable=self.__wantToc, offvalue=0, onvalue=1, command=self.__tocSelectButtonClick)
+        self.tocSelect.grid(row=0, column=0, padx=0, sticky=W)
+        # create and add page one on first selector...
+        self.__wantPageOneOnFirst = IntVar()
+        self.btnPageOneOnFirst = Checkbutton(self.button_frame2, text='Page count includes TOC', variable=self.__wantPageOneOnFirst, offvalue=0, onvalue=1, command=self.__wantPageOneOnFirstClick)
+        self.btnPageOneOnFirst.grid(row=1, column=0, padx=0, sticky=W)
+
+        # create a container...
+        self.button_frame3 = Frame(self.controls_frame, bd=1, relief=RIDGE)
+        self.button_frame3.grid(row=0, column=2, padx=10, pady=2)
+        # create and add the binding offset...
+        self.__wantBindingOffset = IntVar()
+        self.bindingoffsetSelect = Checkbutton(self.button_frame3, text='Extra offset for binding', variable=self.__wantBindingOffset, offvalue=0, onvalue=1, command=self.__bindingoffsetSelectButtonClick)
         self.bindingoffsetSelect.grid(row=0, column=0, sticky=W)
-        self.doublesidedSelect = Checkbutton(self.bindingbutton_frame, text="Double sided pages", variable=self.wantDoubleSided, offvalue=0, onvalue=1)
+        # create and add the double sided selection buttons...
+        self.__wantDoubleSided = IntVar()
+        self.doublesidedSelect = Checkbutton(self.button_frame3, text='Double sided pages', variable=self.__wantDoubleSided, offvalue=0, onvalue=1, command=self.__doubleSidedSelectButtonClick)
         self.doublesidedSelect.grid(row=1, column=0, rowspan=2, sticky=W)
 
         # now the ok and cancel buttons...
-        self.cancelButton = Button(self.controls_frame, text="Cancel", command=self.__cancelButtonClick)
+        self.cancelButton = Button(self.controls_frame, text='Cancel', command=self.__cancelButtonClick)
         self.cancelButton.grid(row=0, column=3, padx=5)
-        self.okButton = Button(self.controls_frame, text="OK", state='disabled', command=self.__okButtonClick)
+        self.okButton = Button(self.controls_frame, text='OK', state='disabled', command=self.__okButtonClick)
         self.okButton.grid(row=0, column=4, padx=5)
 
         # now create the bottom status bar frame and contents...
@@ -717,20 +1202,34 @@ class Application(Frame):
         self.status1 = Label(self.status_frame, bd=1, relief=SUNKEN, anchor=W)
         self.status1.pack(side=LEFT)
         self.status2 = Label(self.status_frame, bd=1, relief=SUNKEN, anchor=W)
-        self.status2.pack(fill=X)
+        self.status2.pack(side=LEFT)
+        self.status3 = Label(self.status_frame, bd=1, relief=SUNKEN, anchor=W)
+        self.status3.pack(side=LEFT)
+        self.statusPaperSize = Label(self.status_frame, bd=1, relief=SUNKEN, anchor=W)
+        self.statusPaperSize.pack(fill=X)
 
     def statusbarUpdate(self):
+        """Draws the status bar contents.
+
+        Note "draw_selection()" does a dummy run to count the amount of sample
+        blocks on a sheet.
+        TODO: Statusbar setting and recalculation should be separated. Just recalc
+        and refresh panels as required instead of all of them each time.
+        """
         available = self.listbox1.size()
         selected = self.listbox2.size()
         size = FloatType(selected)
-        value = size / 3
+        blocksPerSheet = draw_selection(scribus.getFontNames(), 1)
+        value = size / blocksPerSheet
         pages = IntType(value)                  # Get whole part of number
         value = value - pages                   # Remove whole number part
         if value > 0:                           # Test remainder
             pages = pages + 1                   # Had remainder so add a page
-        self.status0['text'] = "Fonts available: %s    " % (available + selected)
-        self.status1['text'] = "Fonts selected: %s    " % selected
-        self.status2['text'] = "Sheets required: %s    " % pages
+        self.status0['text'] = 'Fonts available: %s   ' % (available + selected)
+        self.status1['text'] = 'Fonts selected: %s   ' % selected
+        self.status2['text'] = 'Sheets required: %s   ' % pages
+        self.status3['text'] = 'Fonts per sheet: %s   ' % blocksPerSheet
+        self.statusPaperSize['text'] = 'Paper size: %s   ' % userPrefs['paperSize']
 
     def __listSelectionToRight(self):
         toMoveRight = ListType(self.listbox1.curselection())
@@ -772,7 +1271,12 @@ class Application(Frame):
         self.statusbarUpdate()
 
     def __listAllToLeft(self):
-        # This quick way just clears both sides and reloads left listbox in correct order from scratch
+        """Moves all selected fonts back to the left hand pane.
+
+        Note we just clear both panes then reload the left listbox in correct
+        order from scratch as this is probably quicker than moving each
+        item individually.
+        """
         self.listbox1.delete(0, END)
         fontList = scribus.getFontNames()
         fontList.sort()
@@ -819,7 +1323,7 @@ class Application(Frame):
     def __itemUp(self):
         """Test if one item is selected then move it up one position."""
         selection = self.listbox2.curselection()
-        if len(selection) == 1:        
+        if len(selection) == 1:
             indexId = IntType(selection[0]) # Get the first (only) item as integer type
             if indexId > 0:
                 fontString = self.listbox2.get(indexId)
@@ -850,8 +1354,10 @@ class Application(Frame):
                 self.__testUpDownState()
 
     def __setUpDownActive(self, up, down):
-        """Just sets the buttons active or inactive
-        See testUpDown() for actual evaluation"""
+        """Just sets the buttons active or inactive.
+
+        See testUpDown() for the actual evaluation
+        """
         if up == 1:
             self.itemupButton['state'] = NORMAL
         else:
@@ -862,10 +1368,11 @@ class Application(Frame):
             self.itemdownButton['state'] = DISABLED
 
     def __testUpDownState(self):
-        # Only ungray the up and down buttons when just a single item is
-        # selected and then it should be up, down or both depending on its
-        # position in the listbox. At all other times gray out both.
+        """Only enable the up and down buttons when just a single item is selected.
 
+        Enable should be applied to up, down or both depending on its
+        position in the listbox. At all other times disable both.
+        """
         # Get a count of how many items are currently selected...
         selection = list(self.listbox2.curselection())
         tcount = 0
@@ -893,10 +1400,7 @@ class Application(Frame):
     def __curSelectedItem(self, selectedFont):
         """Send the selected font to the preview function if preview available."""
         if showPreviewPanel:
-            fontPreview(selectedFont)
-
-    def quit(self):
-        self.master.destroy()
+            preview_font(self, selectedFont)
 
     # create the button events...
     def __rsingleButtonClick(self):
@@ -919,56 +1423,123 @@ class Application(Frame):
     def __itemdownButtonClick(self):
         self.__itemDown()
 
-    def __cancelButtonClick(self):
-        self.master.destroy()
+    def __tocSelectButtonClick(self):
+        userPrefs['wantTOC'] = self.__wantToc.get()
+        if userPrefs['wantTOC']:
+            self.btnPageOneOnFirst['state'] = NORMAL
+        else:
+            self.btnPageOneOnFirst['state'] = DISABLED
+
+    def __pageNumberSelectButtonClick(self):
+        userPrefs['wantPageNumbers'] = self.__wantPageNum.get()
 
     def __bindingoffsetSelectButtonClick(self):
-        setPageGeometries()
+        userPrefs['wantBindingOffset'] = self.__wantBindingOffset.get()
+        dD.update(set_page_geometry(dD, geometriesList, userPrefs['paperSize'], userPrefs['wantBindingOffset']))
 
-    def __a4paperButtonClick(self):
-        setPageGeometries()
+    def __doubleSidedSelectButtonClick(self):
+        userPrefs['wantDoubleSided'] = self.__wantDoubleSided.get()
 
-    def __uspaperButtonClick(self):
-        setPageGeometries()
+    def __wantPageOneOnFirstClick(self):
+        userPrefs['wantPageOneOnFirst'] = self.__wantPageOneOnFirst.get()
 
-    def __okButtonClick(event):
-        useSelection(app.listbox2.get(0, END))
+    def __cancelButtonClick(self):
+        """We exit the app here if user presses cancel."""
+        self.master.destroy()
+
+    def __okButtonClick(self):
+        """User presses ok, so lets create the pages."""
+        save_user_conf(CONFIG_PATH)
+        draw_selection(self.listbox2.get(0, END), 0)
+        self.master.destroy()
+
+    def __configurationDlgShow(self):
+        """Opens the configuration dialog where user can set up the options"""
+        configs = ConfigurationDialog(self)
+        self.statusbarUpdate()
+
+    def __saveCurrentSettingsAsDefaults(self):
+        """Stores current settings as defaults."""
+        defaultPrefs.update(userPrefs)
+        save_user_conf(CONFIG_PATH)
+        self.initialiseWidgets()
+
+    def __restoreCurrentSettingsFromDefault(self):
+        """Restores current settings from defaults."""
+        userPrefs.update(defaultPrefs)
+        self.initialiseWidgets()
+
+    def initialiseWidgets(self):
+        if userPrefs['wantPageNumbers']:
+            self.pagenumSelect.select()
+        else:
+            self.pagenumSelect.deselect()
+        if userPrefs['wantTOC']:
+            self.tocSelect.select()
+            self.btnPageOneOnFirst['state'] = NORMAL
+        else:
+            self.tocSelect.deselect()
+            self.btnPageOneOnFirst['state'] = DISABLED
+        if userPrefs['wantBindingOffset']:
+            self.bindingoffsetSelect.select()
+        else:
+            self.bindingoffsetSelect.deselect()
+        if userPrefs['wantDoubleSided']:
+            self.doublesidedSelect.select()
+        else:
+            self.doublesidedSelect.deselect()
+        if userPrefs['wantPageOneOnFirst']:
+            self.btnPageOneOnFirst.select()
+        else:
+            self.btnPageOneOnFirst.deselect()
+
+    def __aboutDlgShow(self):
+        """Brings up a dialog with support url etc."""
+        about = AboutDialog(self)
 
 
-def setupTk():
+def setup_tk():
     """Create and setup the Tkinter app."""
-    global root
-    global app
     root = Tk()
     app = Application(root)
-    app.master.title(WINDOWTITLE)
+    app.master.title(WINDOW_TITLE)
 
-
-def initialiseGui():
-    """Setup the default settings for the window."""
-    # get and set the initial paper size to match default radiobutton selection
-    setPageGeometries() 
-    # now get a list of all the fonts...
+    # now get a list of all the fonts Scribus knows about...
     fontList = scribus.getFontNames()
     fontList.sort()
-    # and put the list in the GUI listbox...
+    # and load the list into the GUI listbox...
     for i in fontList:
         app.listbox1.insert(END, i)
-    setFixedFont()
-    setPropFont()
-    app.statusbarUpdate()    
+    app.sampleBlocksPerPage = draw_selection(scribus.getFontNames(), 1)
+    # now set the status bar message...
+    app.statusbarUpdate()
+    # set up widgets using data from userPrefs...
+    app.initialiseWidgets()
+    return app
+
+def initialisation():
+    """Test for suitable fonts and on success creates tkinter app."""
+    try:
+        dD['bookstyleFixedFont'] = set_font_fixed(fontsListFixed)
+        dD['bookstylePropFont'] = set_font_proportional(fontsListProportional)
+    except:
+        scribus.messageBox('Font problem',
+                           '%s' % sys.exc_info()[1],
+                           scribus.ICON_WARNING)
+        sys.exit(1)
+    # load users saved defaults...
+    restore_user_conf(CONFIG_PATH)
+    # get and set the initial paper size to match default radiobutton selection...
+    dD.update(set_page_geometry(dD, geometriesList, userPrefs['paperSize'], userPrefs['wantBindingOffset']))
+    # Made it this far so its time to create our Tkinter app...
+    app = setup_tk()
+    # now show the main window and wait for user to do something...
+    app.mainloop()
 
 
 def main(argv):
     """Application initialization, font checks and initial setup."""
-    # first create our Tkinter app...
-    setupTk()
-
-    # Set up defaults...
-    initialiseGui()
-
-    # now show the fonts list and wait for user to make a choice...
-    app.mainloop()
+    initialisation()
 
 
 def main_wrapper(argv):
@@ -977,7 +1548,7 @@ def main_wrapper(argv):
     the main() function. Once everything finishes it cleans up after the main()
     function, making sure everything is sane before the script terminates."""
     try:
-        scribus.statusMessage("Running script...")
+        scribus.statusMessage('Running script...')
         scribus.progressReset()
         main(argv)
     finally:
@@ -986,7 +1557,7 @@ def main_wrapper(argv):
         # drawing is enabled.
         if scribus.haveDoc():
             scribus.setRedraw(True)
-        scribus.statusMessage("")
+        scribus.statusMessage('')
         scribus.progressReset()
 
 
