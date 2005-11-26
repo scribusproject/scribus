@@ -3123,7 +3123,8 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 				//QDragObject *dr = new QTextDrag(ss->WriteElem(&SelItem, Doc, this), this);
 				QDragObject *dr = new QTextDrag(ss->WriteElem(Doc, this, 0), this);
 				dr->setPixmap(loadIcon("DragPix.xpm"));
-				dr->drag();
+				if (!dr->drag())
+					qDebug("ScribusView::contentsMouseMoveEvent: couldn't start drag operation!");
 				delete ss;
 				ss=NULL;
 				Doc->DragP = false;

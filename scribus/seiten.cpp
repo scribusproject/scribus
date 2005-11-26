@@ -102,7 +102,8 @@ void SeList::mouseMoveEvent(QMouseEvent* e)
 		{
 			QDragObject *dr = new SeDrag("1"+i->text(), this, "te");
 			dr->setPixmap(loadIcon("doc.png"));
-			dr->drag();
+			if (!dr->drag())
+				qDebug("SeList::mouseMoveEvent: couldn't start drag operation!");;
 		}
 	}
 }
