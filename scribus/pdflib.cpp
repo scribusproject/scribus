@@ -4493,6 +4493,7 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 		}
 #endif
 		int cm = Options->CompressMethod;
+		bool specialCMYK = false;
 		if (((ext == "jpg") || (ext == "jpeg")) && (cm != 3))
 		{
 			if (((Options->UseRGB || Options->UseProfiles2) && (cm == 0) && (c->effectsInUse.count() == 0) && (img.imgInfo.colorspace == 0)) && (!img.imgInfo.progressive) && (!Options->RecalcPic))
@@ -4500,6 +4501,13 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 				im = "";
 				loadText(fn, &im);
 				cm = 1;
+			}
+			else if (((!Options->UseRGB) && (!Options->isGrayscale) && (!Options->UseProfiles2)) && (cm== 0) && (c->effectsInUse.count() == 0) && (img.imgInfo.colorspace == 1) && (!Options->RecalcPic) && (!img.imgInfo.progressive))
+			{
+				im = "";
+				loadText(fn, &im);
+				cm = 1;
+				specialCMYK = true;
 			}
 			else
 			{
@@ -4568,6 +4576,8 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 			else if (cm != 3)
 				PutDoc("/Filter /FlateDecode\n");
 		}
+		if (specialCMYK)
+			PutDoc("/Decode [1 0 1 0 1 0 1 0]\n");
 		if (alphaM)
 		{
 			if (Options->Version >= 14)

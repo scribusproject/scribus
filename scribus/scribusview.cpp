@@ -8158,7 +8158,7 @@ void ScribusView::ClearItem()
 			currItem = Doc->selection->itemAt(i);
 			if (currItem->asImageFrame())
 			{
-				if (ScApp->fileWatcher->files().contains(currItem->Pfile) != 0 && currItem->PicAvail)
+				if ((ScApp->fileWatcher->files().contains(currItem->Pfile) != 0) && (currItem->PicAvail))
 					ScApp->fileWatcher->removeFile(currItem->Pfile);
 			}
 			else

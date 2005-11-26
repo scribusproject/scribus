@@ -116,9 +116,9 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, double sc)
 
 void PageItem_ImageFrame::clearContents()
 {
-	Pfile = "";
-	PicAvail = false;
 	effectsInUse.clear();
+	PicAvail = false;
+	Pfile = "";
 	pixm = ScImage();
 	
 	LocalScX = 1;
