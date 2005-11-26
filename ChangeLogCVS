@@ -1,5 +1,17 @@
 Scribus - 1.3.2cvs
 ==================
+- 0000709: [User Interface] Switched Yes/No and Yes/No/Cancel dialogues (cbradney)
+- 0002398: [Internal] Get plugins to compile on Windows (win32) (jghali)
+- 0002634: [Story Editor / Text Frames] "Automatic guides" referring to "selection" doesn' t work for columns (subik)
+- 0000774: [User Interface] option to add guidelines to every page in a document (subik)
+- 0002633: [Story Editor / Text Frames] "Automatic Guides" doesn't take into account different page margins (subik)
+- 0002859: [-] Bright fonts in the paragraph preview are unreadable (subik)
+- 0001083: [User Interface] Smaller font size for tool palettes (Tsoots)
+- 0002856: [Import / Export] Running collect for output a subsequent time does not copy the images or update their paths (subik)
+- 0002606: [General] "Delete" key doesn't delete frames (cbradney)
+- 0002854: [General] Scribus crashes after canceling startup dialog (plinnell)
+- 0002830: [Scripter] Cannot edit the text frames created using font sampler script (cbradney)
+- 0002848: [Import / Export] Scribus generated PDF has a wrong layout in Acrobat Reader (fschmid)
 - 0002850: [Translation] Updated nb_NO translation for 1.3.2cvs (plinnell)
 - 0002847: [User Interface] Spelling mistake in new document dialog (cbradney)
 - 0002423: [Documentation] add a howto for lipsum (plinnell)
