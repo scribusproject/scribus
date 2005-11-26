@@ -2387,6 +2387,7 @@ QStringList getSystemProfilesDirs(void)
 #elif defined(Q_WS_X11)
 	iccProfDirs.append(QDir::homeDirPath()+"/color/icc/");
 	iccProfDirs.append(QDir::homeDirPath()+"/.color/icc/");
+	iccProfDirs.append("/usr/local/share/color/icc/");
 	iccProfDirs.append("/usr/share/color/icc/");
 #elif defined(_WIN32)
 	// On Windows it's more complicated, profiles location depends on OS version

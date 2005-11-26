@@ -23,8 +23,8 @@ are *not* sufficient to ensure good color management. See the help files for det
 under color management. Grey scale icc profiles in images are not supported in this release.
 
 Scribus 1.2.3+ also supports the proposed OpenIcc standard icc profile 
-locations: $home/.color/icc and /usr/share/color/icc/ under linux. Scribus
-will automatically detect them in these locations. Some distro neutral rpms
+locations: $home/.color/icc and /usr/share/color/icc/ and /usr/local/color/icc/ under linux.
+Scribus will automatically detect them in these locations. Some distro neutral rpms
 for installing profiles are available on www.scribus.net.
 
 When you now open old documents Scribus will convert all Font Names
