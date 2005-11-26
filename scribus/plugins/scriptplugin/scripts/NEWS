@@ -1,4 +1,23 @@
-New since v0.6.1   
+New since 0.7 series:
+
+    Now able to do a dummy run to calculate and report the amount of samples
+    that will fit on a page. This enables the script to correctly calculate
+    how many sheets will be required. Previously it was always assumed that
+    there would be 3 sample blocks on a sheet. This is now not always the case.
+
+    Sample rows can be selected or unselected to save on paper. The settings are
+    automatically saved when changed and can be set as user defaults.
+
+    User can choose to have page numbers count from first page of the toc instead
+    of the first page of samples. This can be helpful if wanting to quickly look
+    up a font in the toc and then using the Scribus page navigator dialog to go to
+    the actual page on the screen to view it without printing it out.
+
+    Added initial support for a sample paragraph. The sample paragraph defaults
+    to "off" due to the amount of space it uses on the page. 
+
+New since v0.6.1:
+
     Added a font sample preview panel. This will only be displayed if certain system
     requirements are met. Otherwise the panel will be hidden.    
     Changed version numbers to accomodate parallel releases using other widget sets.
@@ -6,7 +25,8 @@ New since v0.6.1
     qt version would be "qt". Note that a qt version will not be appearing until issues will PyQt
     can be resolved.
 
-New since V0.5a
+New since V0.5a:
+
     Optional Page Numbers.
     Optional Table of Contents creation.
     Added an optional binding offset. Leaves extra space for the binding edge.

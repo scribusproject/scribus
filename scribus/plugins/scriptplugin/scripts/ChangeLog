@@ -1,3 +1,57 @@
+20051124 v0.8tk final:
+    Cleaned up the checkbox labels and layout.
+
+20051121 v0.8tk preview 3:
+    Calls the new Scribus zoomDocument() function to make the completed font
+    sample document fit in Scribus window.
+    
+    Grey out "Start page number count from first page" when "Print TOC" is
+    not checked as without a table of contents the first page would always 
+    start on the same page number making this option irrelevant.
+
+20051120 v0.8tk preview 2:
+    Replaced the newDoc() with newDocument(). Have not put any fallback code
+    for use with earlier Scribus versions.
+    
+    When using double sided option we now make use of Scribus ability to display
+    pages side by side as default. You may need to zoom out to view the
+    complete document width. This is because currently there is no way of setting
+    "Fit To Page" from the Scripter.
+
+20050902 v0.8tk preview 1:
+    Rearanged the initialisation. If no fonts are found for the Table of
+    Contents, page numbers and font sample labels, the script shows a
+    message box listing the problem and a possible solution as well as a message
+    to the console.
+    
+    A Scribus messagebox alerts the user if Tkinter is not found. Previously
+    this message was only printed to the console.
+    
+    Now able to do a dummy run to calculate and report the amount of samples
+    that will fit on a page. This enables the script to correctly calculate
+    how many sheets will be required. Previously it was always assumed that
+    there would be 3 sample blocks on a sheet. This is now not always the case.
+    
+    Added menu. Also added "about" and "settings" dialogs.
+    
+    Sample rows can be selected or unselected to save on paper. The settings are
+    automatically saved when changed and can be set as user defaults.
+    
+    User can choose to have page numbers count from first page of the toc instead
+    of the first page of samples. This can be helpful if wanting to quickly look
+    up a font in the toc and then using the Scribus page navigator dialog to go to
+    the actual page on the screen to view it without printing it out.
+    
+    Added initial support for a sample paragraph. The sample paragraph defaults
+    to "off" due to the amount of space it uses on the page.
+    
+    Some widgets read their defaults from a config dictionary.
+    
+    Many code cleanups. Classes used for settings storage have been replaced with
+    dictionaries to make it easier for users to customise.
+
+###################################################
+
 20050930 v0.7.5tk
     Fixed bug in table of contents. TOC rows value was not being honoured.
     Would create an unrequired blank headed toc page when the TOC rows count setting
