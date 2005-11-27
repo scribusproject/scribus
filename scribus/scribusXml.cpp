@@ -1216,6 +1216,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 	dia2->setTotalSteps(DOC.childNodes().count());
 	dia2->setProgress(0);
 	int ObCount = 0;
+	int activeLayer = 0;
 	while(!DOC.isNull())
 	{
 		QDomElement dc=DOC.toElement();
@@ -1311,7 +1312,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 		doc->CMSSettings.DefaultIntentPrinter = QStoInt(dc.attribute("DIPr","0"));
 		doc->CMSSettings.DefaultIntentMonitor = QStoInt(dc.attribute("DIMo","1"));
 		doc->CMSSettings.DefaultIntentImages = QStoInt(dc.attribute("DIMo2","1"));
-		doc->setActiveLayer(QStoInt(dc.attribute("ALAYER","0")));
+		activeLayer = QStoInt(dc.attribute("ALAYER","0"));
 		doc->Language = dc.attribute("LANGUAGE", "");
 		doc->MinWordLen = QStoInt(dc.attribute("MINWORDLEN", "3"));
 		doc->HyCount = QStoInt(dc.attribute("HYCOUNT", "2"));
@@ -1768,6 +1769,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 		la.isPrintable = true;
 		doc->Layers.append(la);
 	}
+	doc->setActiveLayer(activeLayer);
 	if (LFrames.count() != 0)
 	{
 		PageItem *Its;
