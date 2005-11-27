@@ -16,17 +16,6 @@ ColorWheel::ColorWheel(QWidget * parent, const char * name) : QLabel(parent, nam
 	widthH = heightH = 150;
 }
 
-QPixmap ColorWheel::sample(QColor c)
-{
-	QPixmap pmap(30, 10);
-	QPainter p(&pmap);
-	p.setPen(Qt::black);
-	p.setBrush(c);
-	p.drawRect(0, 0, 30, 10);
-	p.end();
-	return pmap;
-}
-
 void ColorWheel::mousePressEvent(QMouseEvent *e)
 {
 	mouseReleaseEvent(e);

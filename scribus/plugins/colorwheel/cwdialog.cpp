@@ -23,6 +23,7 @@
 #include "mpalette.h"
 #include "colorblind.h"
 #include "cwsetcolor.h"
+#include "util.h"
 
 
 extern ScribusApp SCRIBUS_API *ScApp;
@@ -61,21 +62,18 @@ ScribusColorList::ScribusColorList(QWidget* parent, const char* name, bool modal
 	ColorList::Iterator it;
 	PrefsManager *prefsManager = PrefsManager::instance();
 	ColorList clist = prefsManager->colorSet();
-	// only for sample() method
-	ColorWheel *cw = new ColorWheel(this, "cw");
 	for (it = clist.begin(); it != clist.end(); ++it)
 	{
 		if (it.key() != "None" && it.key() != tr("None"))
 		{
 			ScColor col = clist[it.key()];
-			QPixmap pm = cw->sample(col.getRGBColor());
+			QPixmap *pm = getSmallPixmap(col.getRGBColor());
 			QListViewItem *item = new QListViewItem(listView);
-			item->setPixmap(0, pm);
+			item->setPixmap(0, *pm);
 			item->setText(1, it.key());
 			listView->insertItem(item);
 		}
 	}
-	delete cw;
 
 	connect(okButton, SIGNAL(clicked()), this, SLOT(okButton_clicked()));
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
@@ -268,7 +266,8 @@ void ColorWheelDialog::fillColorList()
 	{
 		int c, m, y, k;
 		QListViewItem *item = new QListViewItem(colorList);
-		item->setPixmap(0, colorWheel->sample(it.data().getRGBColor()));
+		QPixmap *pm = getSmallPixmap(it.data().getRGBColor());
+		item->setPixmap(0, *pm);
 		item->setText(1, it.key());
 		it.data().getCMYK(&c, &m, &y, &k);
 		item->setText(2, QString("%1").arg(c));

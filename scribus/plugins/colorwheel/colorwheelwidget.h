@@ -60,11 +60,6 @@ class ColorWheel : public QLabel
 		\retval QString Translated method name. */
 		QString getTypeDescription(MethodType aType);
 
-		/** Draws a sample square filled with specified color.
-		\param c A QColor to fill sample pixmap.
-		\retval QPixmap An image with sample. */
-		QPixmap sample(QColor c);
-
 		/** \brief Counts the monochromatic colors.
 		The monochromatic color scheme uses variations in lightness
 		and saturation of a single color. It's clean and elegant color

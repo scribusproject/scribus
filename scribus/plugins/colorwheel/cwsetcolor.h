@@ -72,10 +72,6 @@ class CwSetColor: public QDialog
 		QGridLayout* CwSetColorLayout;
 		QPushButton* cancelButton;
 
-		/*! \brief Draws a pixmap sample.
-		\param c a color to fill with. */
-		QPixmap sample(QColor c);
-
 	protected slots:
 		virtual void languageChange();
 		virtual void hsvButton_clicked();

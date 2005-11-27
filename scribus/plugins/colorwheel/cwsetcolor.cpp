@@ -1,6 +1,7 @@
 #include "cwsetcolor.h"
 #include "commonstrings.h"
 #include "cmykfw.h"
+#include "util.h"
 
 #include <qlabel.h>
 #include <qlayout.h>
@@ -212,35 +213,30 @@ void CwSetColor::cmykButton_clicked()
 	accept();
 }
 
-QPixmap CwSetColor::sample(QColor c)
-{
-	QPixmap pmap(30, 30);
-	QPainter p(&pmap);
-	p.setPen(Qt::black);
-	p.setBrush(c);
-	p.drawRect(0, 0, 30, 30);
-	p.end();
-	return pmap;
-}
-
 void CwSetColor::sampleRGB()
 {
 	QColor col;
+	QPixmap *pm;
 	col.setRgb(rSpin->value(), gSpin->value(), bSpin->value());
-	rgbSample->setPixmap(sample(col));
+	pm = getWidePixmap(col);
+	rgbSample->setPixmap(*pm);
 }
 
 void CwSetColor::sampleHSV()
 {
 	QColor col;
+	QPixmap *pm;
 	col.setHsv(hSpin->value(), sSpin->value(), vSpin->value());
-	hsvSample->setPixmap(sample(col));
+	pm = getWidePixmap(col);
+	hsvSample->setPixmap(*pm);
 }
 
 void CwSetColor::sampleCMYK()
 {
+	QPixmap *pm;
 	ScColor col = ScColor(cSpin->value(), mSpin->value(), ySpin->value(), kSpin->value());
-	cmykSample->setPixmap(sample(col.getRGBColor()));
+	pm = getWidePixmap(col.getRGBColor());
+	cmykSample->setPixmap(*pm);
 }
 
 void CwSetColor::fillBeginComponents(QColor col)
