@@ -148,33 +148,46 @@ QString FileLoader::readSLA(const QString & fileName)
 	if(fileName.right(2) == "gz")
 	{
 #ifdef HAVE_LIBZ
+		static const int gzipExpansionFactor=8;
+		// The file is gzip encoded and we can load gzip files.
 		/**
 		  * added to support gz docs
 		  * 2.7.2002 C.Toepp
 		  * <c.toepp@gmx.de>
 		  */
-		// The file is gzip encoded and we can load
-		// gzip files.
+		// Set up to read the gzip file
 		gzFile gzDoc;
-		char buff[4097];
 		int i;
 		gzDoc = gzopen(fileName.latin1(),"rb");
 		if(gzDoc == NULL)
-			return "";
-		while((i = gzread(gzDoc,&buff,4096)) > 0)
 		{
-			buff[i] = '\0';
-			// FIXME: Very, very, very slow. What we SHOULD be doing here is
-			// allocating a std::string or QCString of at least the file size
-			// of the gzipped doc (perhaps 1.5x or 2x), rather than
-			// reallocating it on every 4096 byte append.
-			//
-			// We should then either have gzread(...) write directly into the
-			// allocated string by passing it a pointer to the right place, or
-			// should be doing the copy into the preallocated string ourselves.
-			//
-			// This is bad and slow and evil, see bug #2764:
-			docBytes.append(buff);
+			// FIXME: Needs better error return
+			return "";
+		}
+		// Allocate a buffer of a multiple of the compressed size of the file
+		// as a starting point for loading. We'll expand this buffer by powers
+		// of two if we run out of space.
+		const QFileInfo fi(fileName);
+		uint bufSize = fi.size()*gzipExpansionFactor;
+		docBytes = QCString(bufSize);
+		char* buf = docBytes.data();
+		uint bytesRead = 0;
+		// While there's free space, read into the buffer....
+		while ((i = gzread(gzDoc,buf,bufSize-bytesRead-1)) > 0)
+		{
+			// Ensure the string is null-terminated and move the
+			// write pointer to the current position.
+			buf[i]=0;
+			buf+=i;
+			bytesRead += i;
+			// And check that there's free space to work with, expanding the
+			// buffer if there's not.
+			if (bufSize - bytesRead < 4096)
+			{
+				bufSize *= 2;
+				docBytes.resize(bufSize);
+				buf = docBytes.data() + bytesRead;
+			}
 		}
 		gzclose(gzDoc);
 #else
@@ -184,8 +197,10 @@ QString FileLoader::readSLA(const QString & fileName)
 #endif
 	}
 	else
+	{
 		// Not gzip encoded, just load it
 		loadRawText(fileName, docBytes);
+	}
 	QString docText("");
 	if (docBytes.left(12) == "<SCRIBUSUTF8")
 		docText = QString::fromUtf8(docBytes);
