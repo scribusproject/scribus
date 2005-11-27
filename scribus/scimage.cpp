@@ -800,10 +800,10 @@ void ScImage::Convert2JPG(QString fn, int Quality, bool isCMYK, bool isGray)
 			QRgb* rgba = (QRgb*)scanLine(cinfo.next_scanline);
 			for (int i=0; i<w; ++i)
 			{
-				*row++ = qRed(*rgba);
-				*row++ = qGreen(*rgba);
-				*row++ = qBlue(*rgba);
-				*row++ = qAlpha(*rgba);
+				*row++ = 255-qRed(*rgba);
+				*row++ = 255-qGreen(*rgba);
+				*row++ = 255-qBlue(*rgba);
+				*row++ = 255-qAlpha(*rgba);
 				++rgba;
 			}
 		}

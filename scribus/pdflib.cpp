@@ -4521,7 +4521,10 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 						if (Options->isGrayscale)
 							img.Convert2JPG(tmpFile, Options->Quality, false, true);
 						else
+						{
 							img.Convert2JPG(tmpFile, Options->Quality, true, false);
+							specialCMYK = true;
+						}
 					}
 					im = "";
 					loadText(tmpFile, &im);
@@ -4544,7 +4547,10 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 					if (Options->isGrayscale)
 						img.Convert2JPG(tmpFile, Options->Quality, false, true);
 					else
+					{
 						img.Convert2JPG(tmpFile, Options->Quality, true, false);
+						specialCMYK = true;
+					}
 				}
 				if (Options->CompressMethod == 0)
 				{
