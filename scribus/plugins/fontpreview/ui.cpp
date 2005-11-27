@@ -175,7 +175,7 @@ void FontPreview::fontList_changed()
 	QString t = tr("Woven silk pyjamas exchanged for blue quartz", "font preview");
 	t.replace('\n', " "); // remove French <NL> from translation...
 	QListViewItem *item = fontList->currentItem();
-	QPixmap pixmap = fontSamples(PrefsManager::instance()->appPrefs.AvailFonts[item->text(0)], sizeSpin->value(), t, white /*paletteBackgroundColor()*/);
+	QPixmap pixmap = FontSample(PrefsManager::instance()->appPrefs.AvailFonts[item->text(0)], sizeSpin->value(), t, white /*paletteBackgroundColor()*/);
 	fontPreview->clear();
 	if (!pixmap.isNull())
 		fontPreview->setPixmap(pixmap);
