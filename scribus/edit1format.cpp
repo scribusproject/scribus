@@ -6,6 +6,7 @@
 #include <qmessagebox.h>
 #include <qtooltip.h>
 #include <qcolordialog.h>
+#include <qcursor.h>
 
 #include "sccombobox.h"
 #include "commonstrings.h"
@@ -25,6 +26,7 @@
 EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<ParagraphStyle> v, bool neu, double au, int dEin, ScribusDoc *doc)
 		: QDialog( parent, "EditST", true, 0)
 {
+	qApp->setOverrideCursor(QCursor(waitCursor));
 	parentDoc = doc;
 	setCaption( tr( "Edit Style" ) );
 	setIcon(loadIcon("AppIcon.png"));
@@ -403,6 +405,7 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	DropDist->setValue(vor->DropDist * parentDoc->unitRatio());
 	ColorChange();
 	togglePreview();
+	qApp->restoreOverrideCursor();
 }
 
 void EditStyle::toggleLsp(int id)
@@ -540,6 +543,7 @@ void EditStyle::updatePreview()
 {
 	if (!previewCaption->isChecked())
 		return;
+	qApp->setOverrideCursor(QCursor(waitCursor));
 	int x = previewText->width();
 	int y = previewText->height();
 	QPixmap pm(x, y);
@@ -642,6 +646,7 @@ void EditStyle::updatePreview()
 	delete(painter);
 	ScApp->view->setScale(sca);
 	parentDoc->docParagraphStyles.remove(parentDoc->docParagraphStyles.fromLast());
+	qApp->restoreOverrideCursor();
 }
 
 void EditStyle::setPreviewBackground()
