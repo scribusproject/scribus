@@ -10869,6 +10869,10 @@ zonder u telkens om bevestiging te vragen</translation>
         <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
         <translation>Deze instellingen als standaard instellen en er niet om vragen bij het importeren van een OASIS OpenDocument.</translation>
     </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Annuleren</translation>
+    </message>
 </context>
 <context>
     <name>PConsole</name>
@@ -17234,6 +17238,10 @@ zonder u telkens om bevestiging te vragen</translation>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
         <translation>Deze instellingen als standaard instellen en er niet om vragen bij het importeren van een OpenOffice.org 1.x document.</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Annuleren</translation>
     </message>
 </context>
 <context>

@@ -8038,6 +8038,10 @@ Scribus.</translation>
         <translation>Зробити ці установки установками по умовчанню і не запитувати знову під
 час імпорту документу OASIS OpenDocument.</translation>
     </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Вихід</translation>
+    </message>
 </context>
 <context>
     <name>PConsole</name>
@@ -14642,6 +14646,10 @@ Scribus.</translation>
         <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
         <translation>Зробити ці установки установками по умовчанню і не запитувати знову під
 час імпорту документу OASIS OpenDocument версій 1.х.</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Вихід</translation>
     </message>
 </context>
 <context>

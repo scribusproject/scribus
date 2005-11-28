@@ -7675,6 +7675,10 @@ a nikdy znovu nevyžadovat potvrzení</translation>
         <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
         <translation>Nastavit tyto vlastnosti jako implicitní a neptat se na ně při každém importu OASIS OpenDocument formátu.</translation>
     </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Zrušit</translation>
+    </message>
 </context>
 <context>
     <name>PConsole</name>
@@ -14151,6 +14155,10 @@ příliš upravovat.</translation>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
         <translation>Nastavit tyto vlastnosti jako implicitní a neptat se na ně při každém importu OASIS OpenDocument formátu.</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Zrušit</translation>
     </message>
 </context>
 <context>

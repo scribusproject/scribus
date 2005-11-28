@@ -7707,6 +7707,10 @@ ellers er coordinaterne vist i forhold til objektet</translation>
         <source>Merge Paragraph Styles</source>
         <translation>Sammenflet afsnits typografier</translation>
     </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Annullér</translation>
+    </message>
 </context>
 <context>
     <name>PConsole</name>
@@ -13814,6 +13818,10 @@ til vinduet nedenunder, for at lave en ny side.</translation>
     <message>
         <source>Update Paragraph Styles</source>
         <translation>Opdatër afsnits typografier</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Annullér</translation>
     </message>
 </context>
 <context>

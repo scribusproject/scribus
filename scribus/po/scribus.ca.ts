@@ -7991,6 +7991,10 @@ mai tornarà a preguntar de nou</translation>
         <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
         <translation>Fes que les característiques actuals siguin per defecte i no preguntis més al importar un document OASIS.</translation>
     </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Cancel.la</translation>
+    </message>
 </context>
 <context>
     <name>PConsole</name>
@@ -14517,6 +14521,10 @@ després d&apos;importar-lo.</translation>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
         <translation>Fes que les característiques actuals siguin per defecte i no preguntis més al importar un document OpenOffice.org 1.x.</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Cancel.la</translation>
     </message>
 </context>
 <context>

@@ -6875,6 +6875,10 @@ otherwise Coordinates are relative to the Object.</source>
         <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
         <translation>Сделать эти настройки стандартными и больше никогда про них не спрашивать.</translation>
     </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PConsole</name>
@@ -13032,6 +13036,10 @@ drag a Template to the Pageview below.</source>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
         <translation>Сделать эти настройки стандартными и больше никогда про них не спрашивать.</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

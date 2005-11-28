@@ -6762,6 +6762,10 @@ gebruik, anders is koördinate relatief tot die objek.</translation>
         <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
         <translation>Maak hierdie instellings die verstek en moenie weer vra as &apos;n OASIS OopDokument oopgemaak word nie.</translation>
     </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Kanselleer</translation>
+    </message>
 </context>
 <context>
     <name>PConsole</name>
@@ -12840,6 +12844,10 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Kanselleer</translation>
     </message>
 </context>
 <context>

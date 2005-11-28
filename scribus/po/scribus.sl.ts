@@ -6877,6 +6877,10 @@ in nikoli več ne zahtevam potrditve</translation>
         <source>Enabling this will overwrite existing styles in the current Scribus document</source>
         <translation>S tem boste prepisali obstoječe sloge v dokumentu</translation>
     </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Prekliči</translation>
+    </message>
 </context>
 <context>
     <name>PConsole</name>
@@ -13171,6 +13175,10 @@ in nikoli več ne zahtevam potrditve</translation>
     <message>
         <source>Enabling this will overwrite existing styles in the current Scribus document</source>
         <translation>S tem boste prepisali obstoječe sloge v dokumentu</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Prekliči</translation>
     </message>
 </context>
 <context>

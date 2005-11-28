@@ -7543,6 +7543,10 @@ w innym przypadku do obiektu.</translation>
         <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
         <translation>Zapisz te ustawienia jako domyślne i pytaj więcej w trakcie importu dokumentu z formatu OASIS OpenDocument.</translation>
     </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Anuluj</translation>
+    </message>
 </context>
 <context>
     <name>PConsole</name>
@@ -13694,6 +13698,10 @@ przeciągnij szablon na widok strony na dole.</translation>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
         <translation>Zapisz te ustawienia jako domyślne i pytaj więcej w trakcie importu dokumentu z formatu OASIS OpenDocument.</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Anuluj</translation>
     </message>
 </context>
 <context>

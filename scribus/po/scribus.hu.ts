@@ -6685,6 +6685,10 @@ otherwise Coordinates are relative to the Object.</source>
         <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Mégsem</translation>
+    </message>
 </context>
 <context>
     <name>PConsole</name>
@@ -12691,6 +12695,10 @@ egy mesteroldalt kell az oldalak közé húzni.</translation>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Mégsem</translation>
     </message>
 </context>
 <context>

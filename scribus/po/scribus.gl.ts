@@ -7942,6 +7942,10 @@ e non pedir máis a súa configuración</translation>
         <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
         <translation>Configurar isto como predeterminado e non perguntar máis cando se importe un documento OpenDocument OASIS.</translation>
     </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Cancelar</translation>
+    </message>
 </context>
 <context>
     <name>PConsole</name>
@@ -14803,6 +14807,10 @@ após importalo.</translation>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
         <translation>Configurar isto como predeterminado e non perguntar máis cando se importe un documento OpenDocument OASIS.</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Cancelar</translation>
     </message>
 </context>
 <context>

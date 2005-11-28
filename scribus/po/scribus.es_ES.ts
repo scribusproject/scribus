@@ -7814,6 +7814,10 @@ de otro modo las coordenadas son relativas al objeto.</translation>
         <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
         <translation>Establecer estas opciones por defecto y no preguntar de nuevo cuando se importe un OASIS OpenDocument.</translation>
     </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Cancelar</translation>
+    </message>
 </context>
 <context>
     <name>PConsole</name>
@@ -13925,6 +13929,10 @@ arrastra una plantilla en la vista de páginas de abajo.</translation>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
         <translation>Establecer estas opciones por defecto y no preguntar de nuevo cuando se importe un documento de OpenOffice.org 1.x</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Cancelar</translation>
     </message>
 </context>
 <context>
