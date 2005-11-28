@@ -70,9 +70,12 @@ OdtDialog::OdtDialog(bool update, bool prefix, bool pack) : QDialog(0, "sxwdia",
 	blayout->addStretch(10);
 	okButton = new QPushButton(tr("OK"), this, "okButton");
 	blayout->addWidget(okButton);
+	cancelButton = new QPushButton(tr("Cancel"), this, "cancelButton");
+	blayout->addWidget(cancelButton);
 	layout->addLayout(blayout);
 
 	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
+	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 }
 
 bool OdtDialog::shouldUpdate()

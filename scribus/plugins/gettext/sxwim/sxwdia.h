@@ -31,6 +31,7 @@ private:
 	QCheckBox* doNotAskCheck;
 	QCheckBox* packCheck;
 	QPushButton* okButton;
+	QPushButton* cancelButton;
 };
 
 #endif // HAVE_XML
