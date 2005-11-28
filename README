@@ -82,7 +82,7 @@ PostScript fonts please install either xfonts-scalable or gsfonts-x11.
 They are in the "Recommends" and will be installed by all sensible apt
 front-ends.
 
-For SuSE 9.x Users:
+For SuSE 9.x/10.0 Users:
 
 - The littlecms libs 1.10, which shipped with 9.0 does not offer complete 
   support for all the the latest CMS features in Scribus 1.2. There are updated
@@ -92,7 +92,8 @@ For SuSE 9.x Users:
 - If you are using Qt 3.3.x, please ensure you are using Qt 3.3.2-2+ or greater
   rpms. These versions have an important fix for drag and drop in Scribus. 
 
-- When compiling from source, to enable direct CUPS support which we recommend, make sure    both cups-devel and  openssl-devel are installed. Suse enables ssl support in CUPS. 
+- When compiling from source, to enable direct CUPS support which we recommend, make sure
+ both cups-devel and  openssl-devel are installed. Suse enables ssl support in CUPS. 
 
 - There is an issue with certain dialogs in Scribus with Suse 9.3 and 10.0
   and Yes, No order. This is adressed in: 
