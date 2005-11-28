@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-29 23:12+0200\n"
+"POT-Creation-Date: 2005-11-28 11:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -73,7 +73,7 @@ msgstr ""
 msgid "Additional Paths"
 msgstr ""
 
-msgid "Postscript"
+msgid "PostScript"
 msgstr ""
 
 msgid "Yes"
@@ -2055,7 +2055,7 @@ msgstr ""
 msgid "Editable"
 msgstr ""
 
-msgid "Java Script"
+msgid "JavaScript"
 msgstr ""
 
 msgid "Go To"
@@ -2241,7 +2241,7 @@ msgstr ""
 msgid "Open"
 msgstr ""
 
-msgid "Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)"
+msgid "Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)"
 msgstr ""
 
 msgid "Example:"
@@ -2696,7 +2696,7 @@ msgstr ""
 msgid "Show Layers"
 msgstr ""
 
-msgid "Javascripts..."
+msgid "JavaScripts..."
 msgstr ""
 
 msgid "Undo"
@@ -2852,7 +2852,7 @@ msgstr ""
 msgid "Templates..."
 msgstr ""
 
-msgid "&Javascripts..."
+msgid "&JavaScripts..."
 msgstr ""
 
 msgid "Select New Font"
@@ -3214,6 +3214,11 @@ msgid "Loading..."
 msgstr ""
 
 msgid ""
+"The changes to your document have not been saved and you have requested to "
+"revert them. Do you wish to continue?"
+msgstr ""
+
+msgid ""
 "Can't write the File: \n"
 "%1"
 msgstr ""
@@ -3245,10 +3250,10 @@ msgstr ""
 msgid "The following Programs are missing:"
 msgstr ""
 
-msgid "Ghostscript : You cannot use EPS Images"
+msgid "GhostScript : You cannot use EPS Images"
 msgstr ""
 
-msgid "EPS-Files (*.eps);;All Files (*)"
+msgid "EPS Files (*.eps);;All Files (*)"
 msgstr ""
 
 msgid "Some Objects are locked."
@@ -3358,7 +3363,7 @@ msgstr ""
 
 msgid ""
 "This enables you to explicitely set,\n"
-"the media size of the postscript file.\n"
+"the media size of the PostScript file.\n"
 "Not recommended unless\n"
 " requested by your printer."
 msgstr ""
@@ -3440,7 +3445,7 @@ msgstr ""
 msgid "&Print"
 msgstr ""
 
-msgid "Postscript-Files (*.ps);;All Files (*)"
+msgid "PostScript Files (*.ps);;All Files (*)"
 msgstr ""
 
 msgid "Insert Page"
@@ -4534,7 +4539,7 @@ msgstr ""
 msgid "&Get Field Names"
 msgstr ""
 
-msgid "Javascripts (*.js);;All Files (*)"
+msgid "JavaScripts (*.js);;All Files (*)"
 msgstr ""
 
 msgid "Move Bookmark"
@@ -4797,6 +4802,9 @@ msgstr ""
 msgid "French:"
 msgstr ""
 
+msgid "Galician:"
+msgstr ""
+
 msgid "German:"
 msgstr ""
 
@@ -4849,9 +4857,6 @@ msgid "Brazilian:"
 msgstr ""
 
 msgid "Bulgarian:"
-msgstr ""
-
-msgid "Galician:"
 msgstr ""
 
 msgid "Hungarian:"
@@ -5122,7 +5127,7 @@ msgstr ""
 msgid "To adjust the display drag the ruler below with the Slider."
 msgstr ""
 
-msgid "Postscript Interpreter"
+msgid "PostScript Interpreter"
 msgstr ""
 
 msgid "&Name of Executable:"
@@ -5371,7 +5376,7 @@ msgstr ""
 msgid "Set the default zoom level"
 msgstr ""
 
-msgid "File system location for the Ghostscript interpreter"
+msgid "File system location for the GhostScript interpreter"
 msgstr ""
 
 msgid "Antialias text for EPS and PDF onscreen rendering"
@@ -5889,6 +5894,9 @@ msgstr ""
 msgid "Enable/disable the K (Black) ink plate"
 msgstr ""
 
+msgid "firstPageOrder is bigger than allowed."
+msgstr ""
+
 msgid "Failed to open document"
 msgstr ""
 
@@ -6024,8 +6032,8 @@ msgstr ""
 msgid ""
 "<p>This table lists the macros that are currently defined.</p>\n"
 "\n"
-"<p><b>Name:</b> The name of the macro, as shown in the menu bar and in other "
-"places around Scribus.</p>\n"
+"<p><b>Macro:</b> The name of the macro, as shown in the menu bar and in "
+"other places around Scribus.</p>\n"
 "<p><b>Edit:</b> If the macro can be edited, \"Yes\" appears in this column. "
 "Usually if a macro cannot be edited it was created using the register_macro "
 "command in a script.</p>\n"
@@ -6469,6 +6477,9 @@ msgstr ""
 msgid "Cannot convert a non-text frame to outlines."
 msgstr ""
 
+msgid "Only text frames can be checked for overflowing"
+msgstr ""
+
 msgid "Can't set bookmark on a non-text frame"
 msgstr ""
 
@@ -6596,7 +6607,7 @@ msgid "<qt>Enable the use of OldStyle function names</qt>"
 msgstr ""
 
 msgid ""
-"<qt><p><tt>Enable Legacy Aliases</tt> is an advanced option. You should "
+"<qt><p><tt>Enable Legacy Name Aliases</tt> is an advanced option. You should "
 "probably leave it how it is.</p>\n"
 "<p>If checked, this option will cause the scripter to create a large number "
 "of function and constant name aliases for 1.2.0 script compatibility. It "
