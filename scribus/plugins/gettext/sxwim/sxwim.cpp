@@ -63,15 +63,19 @@ SxwIm::SxwIm(QString fileName, gtWriter* w, bool textOnly)
 		if (ask)
 		{
 			SxwDialog* sxwdia = new SxwDialog(update, prefix, pack);
-			sxwdia->exec();
-			update = sxwdia->shouldUpdate();
-			prefix = sxwdia->usePrefix();
-			pack   = sxwdia->packStyles();
-			prefs->set("update", update);
-			prefs->set("prefix", sxwdia->usePrefix());
-			prefs->set("askAgain", sxwdia->askAgain());
-			prefs->set("pack", sxwdia->packStyles());
-			delete sxwdia;
+			if (sxwdia->exec()) {
+				update = sxwdia->shouldUpdate();
+				prefix = sxwdia->usePrefix();
+				pack   = sxwdia->packStyles();
+				prefs->set("update", update);
+				prefs->set("prefix", sxwdia->usePrefix());
+				prefs->set("askAgain", sxwdia->askAgain());
+				prefs->set("pack", sxwdia->packStyles());
+				delete sxwdia;
+			} else {
+				delete sxwdia;
+				return;
+			}
 		}
 	}
 	filename = fileName;

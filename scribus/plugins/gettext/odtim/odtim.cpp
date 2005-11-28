@@ -64,15 +64,19 @@ OdtIm::OdtIm(QString fileName, QString enc, gtWriter* w, bool textOnly)
 		if (ask)
 		{
 			OdtDialog* sxwdia = new OdtDialog(update, prefix, pack);
-			sxwdia->exec();
-			update = sxwdia->shouldUpdate();
-			prefix = sxwdia->usePrefix();
-			pack = sxwdia->packStyles();
-			prefs->set("update", update);
-			prefs->set("prefix", sxwdia->usePrefix());
-			prefs->set("askAgain", sxwdia->askAgain());
-			prefs->set("pack", sxwdia->packStyles());
-			delete sxwdia;
+			if (sxwdia->exec()) {
+				update = sxwdia->shouldUpdate();
+				prefix = sxwdia->usePrefix();
+				pack = sxwdia->packStyles();
+				prefs->set("update", update);
+				prefs->set("prefix", sxwdia->usePrefix());
+				prefs->set("askAgain", sxwdia->askAgain());
+				prefs->set("pack", sxwdia->packStyles());
+				delete sxwdia;
+			} else {
+				delete sxwdia;
+				return;
+			}
 		}
 	}
 	filename = fileName;
