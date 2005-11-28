@@ -1472,11 +1472,13 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				PgNam = pg.attribute("NAM", "");
 				QString Mus = "";
 				Mus = pg.attribute("MNAM","Normal");
-				
 				if (PgNam.isEmpty())
 				{
+					//We store the pages master page but do not apply it now
+					//as it may not exist yet. They are applied in scribus.cpp for now.
 					doc->setMasterPageMode(false);
-					doc->currentPage=doc->addPage(a, Mus);
+					doc->currentPage=doc->addPage(a);
+					doc->currentPage->MPageNam=Mus;
 				}
 				else
 				{
