@@ -59,7 +59,7 @@ is not in points, make sure to account for this.
 example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
                 FACINGPAGES, FIRSTPAGERIGHT)
 </source>
-        <translation>newDoc(size, margins, orientation, firstPageNumber,
+        <translation type="obsolete">newDoc(size, margins, orientation, firstPageNumber,
                     unit, facingPages, firstSideLeft) -&gt; bool
 
 Luo uuden asiakirjan ja palauttaa true, jos se onnistuu. Parametreillä on seuraavat
@@ -232,6 +232,51 @@ methods are quite acceptable, as are instances of classes that provide a
 __call__ method with no arguments. There is no problem with registering
 a callable more than once, nor with registering multiple bound methods
 of a single instance.</translation>
+    </message>
+    <message>
+        <source>newDocument(size, margins, orientation, firstPageNumber,
+unit, pagesType, firstPageOrder) -&gt; bool
+
+WARNING: This is backported function from 1.3.x series. You are using constants
+larger PAGE_3 and bigger on your own risk. So do you with firstPageOrder biger
+than 1.
+
+Creates a new document and returns true if successful. The parameters have the
+following meaning:
+
+size = A tuple (width, height) describing the size of the document. You can
+use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
+
+margins = A tuple (left, right, top, bottom) describing the document
+margins
+
+orientation = the page orientation - constants PORTRAIT, LANDSCAPE
+
+firstPageNumer = is the number of the first page in the document used for
+pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
+numbers if you&apos;re creating a document in several parts.
+
+unit: this value sets the measurement units used by the document. Use a
+predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
+UNIT_PICAS, UNIT_POINTS.
+
+pagesType = One of the predefined constants PAGE_n. PAGE_1 is single page,
+PAGE_2 is for double sided documents, PAGE_3 is for 3 pages fold and
+PAGE_4 is 4-fold.
+
+firstPageOrder = What is position of first page in the document.
+Indexed from 0 (0 = first).
+
+The values for width, height and the margins are expressed in the given unit
+for the document. PAPER_* constants are expressed in points. If your document
+is not in points, make sure to account for this.
+
+example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
+PAGE_4, 3)
+
+May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
+</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2272,6 +2317,90 @@ is not given the currently selected Item is used.
 
 May throw IndexError for an insertion out of bounds.</translation>
     </message>
+    <message>
+        <source>newDoc(size, margins, orientation, firstPageNumber,
+                   unit, facingPages, firstSideLeft) -&gt; bool
+
+Creates a new document and returns true if successful. The parameters have the
+following meaning:
+
+    size = A tuple (width, height) describing the size of the document. You can
+    use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
+
+    margins = A tuple (left, right, top, bottom) describing the document
+    margins
+
+    orientation = the page orientation - constants PORTRAIT, LANDSCAPE
+
+    firstPageNumber = is the number of the first page in the document used for
+    pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
+    numbers if you&apos;re creating a document in several parts.
+
+    unit: this value sets the measurement units used by the document. Use a
+    predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
+    UNIT_PICAS, UNIT_POINTS.
+
+    facingPages = FACINGPAGES, NOFACINGPAGES
+
+    firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT
+
+The values for width, height and the margins are expressed in the given unit
+for the document. PAPER_* constants are expressed in points. If your document
+is not in points, make sure to account for this.
+
+example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
+                FACINGPAGES, FIRSTPAGERIGHT)
+</source>
+        <translation type="unfinished">newDoc(size, margins, orientation, firstPageNumber,
+                    unit, facingPages, firstSideLeft) -&gt; bool
+
+Luo uuden asiakirjan ja palauttaa true, jos se onnistuu. Parametreillä on seuraavat
+merkitykset:
+
+    size = Tuple (leveys, korkeus) kuvaa asiakirjan koon. Voit käyttää valmiiksi
+    määriteltyjä vakioita PAPER_&lt;paperin tyyppi&gt; esim. PAPER_A4 jne.
+
+    margins = Tuple (vasen, oikea, ylä, ala) kuva asiakirjan reunukset.
+
+    orientation = Sivun suunta -  vakiot PORTRAIT, LANDSCAPE (pystysuora, vaakasuora).
+
+    firstPageNumber = Asiakirjan ensimmäisellä sivulla käytettävä sivunumero. Hyödyllinen
+    Hyödyllinen esimerkiksi luotaessa asikirja useassa osassa.
+
+    unit: Asikirjassa käytettävä mittayksikkö. Käytä valmiiksi määriteltyjä vakioita: 
+    UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.
+
+    facingPages = FACINGPAGES (vastakkaiset sivut), NOFACINGPAGES (peräkkäiset sivut)
+
+    firstSideLeft = FIRSTPAGELEFT (ensimmäinen sivu vasen), FIRSTPAGERIGHT (oikea)
+
+Leveys, korkeus ja reunukset tulee antaa asikirjassa käytössä olevalla yksiköllä.
+PAPER_*-vakiot annetaan pisteinä (points). Jos asikirjasi ei ole pisteissä, huomioi
+tämä.
+
+example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
+                FACINGPAGES, FIRSTPAGERIGHT)
+</translation>
+    </message>
+    <message>
+        <source>textOverflows([&quot;name&quot;, nolinks]) -&gt; integer
+
+Returns the actual number of overflowing characters in text frame &quot;name&quot;.
+If is nolinks set to non zero value it takes only one frame - it doesn&apos;t
+use text frame linking. Without this parameter it search all linking chain.
+
+May raise WrongFrameTypeError if the target frame is not an text frame
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>zoomDocument(double)
+
+Zoom the document in main GUI window. Actions have whole number
+values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -2564,10 +2693,17 @@ Parhaan tuloksen saavuttamiseksi tarvitaan tapauskohtaista testausta.</translati
 the media size of the postscript file.
 Not recommended unless
  requested by your printer.</source>
-        <translation>Mahdollistaa käytetyn median koon
+        <translation type="obsolete">Mahdollistaa käytetyn median koon
 määrittämisen PostScript-tiedostossa. 
 Käyttöä suositellaan ainoastaan, jos 
 paino on sitä vaatinut.</translation>
+    </message>
+    <message>
+        <source>This enables you to explicitely set,
+the media size of the PostScript file.
+Not recommended unless
+ requested by your printer.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2988,7 +3124,7 @@ paino on sitä vaatinut.</translation>
     </message>
     <message>
         <source>Java Script</source>
-        <translation>Javaskripti</translation>
+        <translation type="obsolete">Javaskripti</translation>
     </message>
     <message>
         <source>Width:</source>
@@ -3008,7 +3144,7 @@ paino on sitä vaatinut.</translation>
     </message>
     <message>
         <source>Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)</source>
-        <translation>Kuvat (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Kaikki tiedostot (*)</translation>
+        <translation type="obsolete">Kuvat (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Kaikki tiedostot (*)</translation>
     </message>
     <message>
         <source>Submit Data as HTML</source>
@@ -3233,6 +3369,14 @@ paino on sitä vaatinut.</translation>
     <message>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>PDF-tiedostot (*.pdf);;Kaikki tiedostot (*)</translation>
+    </message>
+    <message>
+        <source>JavaScript</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4294,7 +4438,7 @@ jota voidaan jatkaa tavuviivalla ja ISO-3166 maakoodilla</translation>
     </message>
     <message>
         <source>Postscript-Files (*.ps);;All Files (*)</source>
-        <translation>Postscript-tiedostot (*.ps);;Kaikki tiedostot (*)</translation>
+        <translation type="obsolete">Postscript-tiedostot (*.ps);;Kaikki tiedostot (*)</translation>
     </message>
     <message>
         <source>Options</source>
@@ -4408,6 +4552,10 @@ kuvaamaan kaikkia sivuja tai 1-5 sivuväliä.</translation>
         <source>Use an alternative print manager, such as kprinter or gtklp,
 to utilize additional printing options</source>
         <translation>Käytä vaihtoehtoista tulostuksenhallintaa kuten kprinter tai gtklp</translation>
+    </message>
+    <message>
+        <source>PostScript Files (*.ps);;All Files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4742,7 +4890,7 @@ Virhe oli:
     </message>
     <message>
         <source>Javascripts (*.js);;All Files (*)</source>
-        <translation>Javascript (*.js);;Kaikki tiedostot (*)</translation>
+        <translation type="obsolete">Javascript (*.js);;Kaikki tiedostot (*)</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -4799,6 +4947,10 @@ Virhe oli:
     <message>
         <source>&amp;Edit</source>
         <translation>&amp;Muokkaa</translation>
+    </message>
+    <message>
+        <source>JavaScripts (*.js);;All Files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5110,7 +5262,7 @@ joita on tarkoitus katsella näytöltä</translation>
     </message>
     <message>
         <source>Postscript</source>
-        <translation>Postscript</translation>
+        <translation type="obsolete">Postscript</translation>
     </message>
     <message>
         <source>Global Font Settings</source>
@@ -5163,6 +5315,10 @@ joita on tarkoitus katsella näytöltä</translation>
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Peruuta</translation>
+    </message>
+    <message>
+        <source>PostScript</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5911,7 +6067,7 @@ Taulukko ikkunan keskellä listaa kaikki ladatut makrot ja tietoa näistä.&lt;/
 &lt;p&gt;&lt;b&gt;Edit:&lt;/b&gt; If the macro can be edited, &quot;Yes&quot; appears in this column. Usually if a macro cannot be edited it was created using the register_macro command in a script.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Accel:&lt;/b&gt; The menu shortcut key sequence, if any, associated with the macro. For example, CTRL-F8 means that you can press Control-F8 when in Scribus to run the macro.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Description:&lt;/b&gt; If the macro contains a &quot;docstring&quot;, a special string at the start of its definition that describes it, that is shown here. If the docstring is long, only the beginning is shown - use &quot;What&apos;s This&quot; on the macro&apos;s entry in the Macro menu to see the full description.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Tämä taulukko näyttää kaikki määritellyt makrot&lt;p&gt;
+        <translation type="obsolete">&lt;p&gt;Tämä taulukko näyttää kaikki määritellyt makrot&lt;p&gt;
 
 &lt;p&gt;&lt;b&gt;Nimi:&lt;/b&gt; Makron nimi, jota käyttöliittymässä käytetään viitattaessa tähän makroon.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Muokkaa:&lt;/b&gt; Jos makroa voidaan muokata, tässä sarakkeessa on teksti &quot;Kyllä&quot;.&lt;/p&gt;
@@ -6079,6 +6235,15 @@ Taulukko ikkunan keskellä listaa kaikki ladatut makrot ja tietoa näistä.&lt;/
     <message>
         <source>No</source>
         <translation>Ei</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;This table lists the macros that are currently defined.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Macro:&lt;/b&gt; The name of the macro, as shown in the menu bar and in other places around Scribus.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Edit:&lt;/b&gt; If the macro can be edited, &quot;Yes&quot; appears in this column. Usually if a macro cannot be edited it was created using the register_macro command in a script.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Accel:&lt;/b&gt; The menu shortcut key sequence, if any, associated with the macro. For example, CTRL-F8 means that you can press Control-F8 when in Scribus to run the macro.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Description:&lt;/b&gt; If the macro contains a &quot;docstring&quot;, a special string at the start of its definition that describes it, that is shown here. If the docstring is long, only the beginning is shown - use &quot;What&apos;s This&quot; on the macro&apos;s entry in the Macro menu to see the full description.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8950,7 +9115,7 @@ positiivinen kuperan</translation>
     </message>
     <message>
         <source>Postscript Interpreter</source>
-        <translation>Postscript-tulkitsija</translation>
+        <translation type="obsolete">Postscript-tulkitsija</translation>
     </message>
     <message>
         <source>Image Processing Tool</source>
@@ -9728,7 +9893,15 @@ jos asiakirjoja on avoinna.</translation>
     </message>
     <message>
         <source>File system location for the Ghostscript interpreter</source>
-        <translation>Ghostscript-tulkin sijainti tiedostojärjestelmässä</translation>
+        <translation type="obsolete">Ghostscript-tulkin sijainti tiedostojärjestelmässä</translation>
+    </message>
+    <message>
+        <source>PostScript Interpreter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File system location for the GhostScript interpreter</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11113,6 +11286,20 @@ function&apos;s documentation.</translation>
         <comment>page export</comment>
         <translation>sivu</translation>
     </message>
+    <message>
+        <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>firstPageOrder is bigger than allowed.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Only text frames can be checked for overflowing</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -11663,7 +11850,7 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>EPS-Files (*.eps);;All Files (*)</source>
-        <translation>EPS-tiedostot (*.eps);;Kaikki tiedostot (*)</translation>
+        <translation type="obsolete">EPS-tiedostot (*.eps);;Kaikki tiedostot (*)</translation>
     </message>
     <message>
         <source>Delete...</source>
@@ -11855,7 +12042,7 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>Javascripts...</source>
-        <translation>Javascriptit...</translation>
+        <translation type="obsolete">Javascriptit...</translation>
     </message>
     <message>
         <source>Fit in Window</source>
@@ -12293,7 +12480,7 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>&amp;Javascripts...</source>
-        <translation>&amp;Javascriptit...</translation>
+        <translation type="obsolete">&amp;Javascriptit...</translation>
     </message>
     <message>
         <source>D&amp;uplicate</source>
@@ -12565,7 +12752,7 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>Ghostscript : You cannot use EPS Images</source>
-        <translation>Ghostscript: Et voi käyttää EPS-kuvia</translation>
+        <translation type="obsolete">Ghostscript: Et voi käyttää EPS-kuvia</translation>
     </message>
     <message>
         <source>Import &amp;Page(s)...</source>
@@ -12678,6 +12865,26 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     <message>
         <source>Croatian</source>
         <translation>kroatia</translation>
+    </message>
+    <message>
+        <source>JavaScripts...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;JavaScripts...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>GhostScript : You cannot use EPS Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>EPS Files (*.eps);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Norwegian</source>
+        <translation type="unfinished">norja</translation>
     </message>
 </context>
 <context>
@@ -12961,7 +13168,7 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Enable Legacy Aliases&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
 &lt;p&gt;If checked, this option will cause the scripter to create a large number of function and constant name aliases for 1.2.0 script compatibility. It defaults to checked.&lt;/p&gt;
 &lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Käytä sovitettuja nimiä&lt;/tt&gt; on ominaisuus, jota käytettäessä skripteri luo suuren määrän funktioita ja vakioita 1.2.0 yhteensopivuuden varmistamiseksi. Suurella todennäköisyydellä tämä pitäisi jättää oletusarvoonsa.&lt;/p&gt;
+        <translation type="obsolete">&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Käytä sovitettuja nimiä&lt;/tt&gt; on ominaisuus, jota käytettäessä skripteri luo suuren määrän funktioita ja vakioita 1.2.0 yhteensopivuuden varmistamiseksi. Suurella todennäköisyydellä tämä pitäisi jättää oletusarvoonsa.&lt;/p&gt;
 &lt;p&gt;Muutos tulee voimaan Scribuksen uudelleenkäynnistyksen yhteydessä.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
@@ -12979,6 +13186,12 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
         <translation>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Käytä simuloitua stdiniä&lt;/tt&gt; on edistynyt ominaisuus, joka tulisi jättää oletusarvoonsa.&lt;/p&gt;
 &lt;p&gt;Oletuksena Scribus vie Pythonille tiedoston &lt;tt&gt;sys.stdin&lt;/tt&gt;:n käyttöön. Tämän johdosta lukeminen stdinistä palauttaa aina tyhjän stringin. Jos oikea &lt;tt&gt;sys.stdin&lt;/tt&gt; on käytössä, skriptit jotka yrittävät lukea siitä estävät ohjelman käytön kunnes stdin saa odottamansa syötteen.&lt;/p&gt;
 &lt;p&gt;Voit poistaa ominaisuuden käytöstä mahdollistaaksesi oikean stdinin käytön. Yleensä olisi suositeltavaa käyttää &lt;tt&gt;os.popen&lt;/tt&gt;:a tai jotain muuta keinoa syötteen saamiseksi.&lt;/p&gt;&lt;/qt&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Enable Legacy Name Aliases&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
+&lt;p&gt;If checked, this option will cause the scripter to create a large number of function and constant name aliases for 1.2.0 script compatibility. It defaults to checked.&lt;/p&gt;
+&lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

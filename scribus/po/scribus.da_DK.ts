@@ -2428,6 +2428,25 @@ eksempel: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
                 FACINGPAGES, FIRSTPAGERIGHT)
 </translation>
     </message>
+    <message>
+        <source>textOverflows([&quot;name&quot;, nolinks]) -&gt; integer
+
+Returns the actual number of overflowing characters in text frame &quot;name&quot;.
+If is nolinks set to non zero value it takes only one frame - it doesn&apos;t
+use text frame linking. Without this parameter it search all linking chain.
+
+May raise WrongFrameTypeError if the target frame is not an text frame
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>zoomDocument(double)
+
+Zoom the document in main GUI window. Actions have whole number
+values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -6101,7 +6120,7 @@ Tabellen i midten af vinduet viser de makroer, der for øjeblikket er indlæst o
 &lt;p&gt;&lt;b&gt;Edit:&lt;/b&gt; If the macro can be edited, &quot;Yes&quot; appears in this column. Usually if a macro cannot be edited it was created using the register_macro command in a script.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Accel:&lt;/b&gt; The menu shortcut key sequence, if any, associated with the macro. For example, CTRL-F8 means that you can press Control-F8 when in Scribus to run the macro.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Description:&lt;/b&gt; If the macro contains a &quot;docstring&quot;, a special string at the start of its definition that describes it, that is shown here. If the docstring is long, only the beginning is shown - use &quot;What&apos;s This&quot; on the macro&apos;s entry in the Macro menu to see the full description.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Denne tabel viser de makroer, der allerede er defineret.&lt;/p&gt;
+        <translation type="obsolete">&lt;p&gt;Denne tabel viser de makroer, der allerede er defineret.&lt;/p&gt;
 
 &lt;p&gt;&lt;b&gt;Navn:&lt;/b&gt; Makroens navn, som den er vist i menuen og andre steder i Scribus&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Redigering:&lt;/b&gt; Hvis makroen kan redigeres, står der &quot;Ja&quot; i denne kolonne. Hvis en makro ikke kan redigeres, er den som regel lavet med register_macro kommandoen i en script.&lt;/p&gt;
@@ -6269,6 +6288,15 @@ Tabellen i midten af vinduet viser de makroer, der for øjeblikket er indlæst o
     <message>
         <source>No</source>
         <translation>Nej</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;This table lists the macros that are currently defined.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Macro:&lt;/b&gt; The name of the macro, as shown in the menu bar and in other places around Scribus.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Edit:&lt;/b&gt; If the macro can be edited, &quot;Yes&quot; appears in this column. Usually if a macro cannot be edited it was created using the register_macro command in a script.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Accel:&lt;/b&gt; The menu shortcut key sequence, if any, associated with the macro. For example, CTRL-F8 means that you can press Control-F8 when in Scribus to run the macro.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Description:&lt;/b&gt; If the macro contains a &quot;docstring&quot;, a special string at the start of its definition that describes it, that is shown here. If the docstring is long, only the beginning is shown - use &quot;What&apos;s This&quot; on the macro&apos;s entry in the Macro menu to see the full description.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11336,6 +11364,11 @@ funktionens dokumentation. </translation>
         <comment>python error</comment>
         <translation>førsteSideOrden er større end tilladt.</translation>
     </message>
+    <message>
+        <source>Only text frames can be checked for overflowing</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -13196,7 +13229,7 @@ Kun scripts, som er skrevet til at blive kørt som udvidelses scripts, bør kald
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Enable Legacy Aliases&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
 &lt;p&gt;If checked, this option will cause the scripter to create a large number of function and constant name aliases for 1.2.0 script compatibility. It defaults to checked.&lt;/p&gt;
 &lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Aktivér forældet navne alias&lt;/tt&gt; er et avanceret tilvalg. Du bør sansynligvis lade det være, som det er.&lt;/p&gt;
+        <translation type="obsolete">&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Aktivér forældet navne alias&lt;/tt&gt; er et avanceret tilvalg. Du bør sansynligvis lade det være, som det er.&lt;/p&gt;
 &lt;p&gt;Dette tilvalg vil det forårsage, at scripter laver et stort antal funktion og konstant alias for 1.2.0 script kompatibilitet.
 Tilvalgt er standard.&lt;/p&gt;
 &lt;p&gt;dette tilvalg træder ikke i funktion før Scribus er genstartet.&lt;/p&gt;&lt;/qt&gt;</translation>
@@ -13217,6 +13250,12 @@ Tilvalgt er standard.&lt;/p&gt;
 &lt;p&gt;Normalt vil Scribus give Python et erstatnings-fil objekt for &lt;tt&gt;sys.stdin&lt;/tt&gt;, så læsning fra stdin altid returnerer en tom streng.
 Hvis den virkelige &lt;tt&gt;sys.stdin&lt;/tt&gt; er på sin plads, så vil scripts, der prøver at læse fra den blokere - og derved blokere Scribus i at køre, så programmet ser ud til at hænge - indtil data ankommer til stdin. Det er usædvanligt, at GUI programmer forventer noget som helst fra stdin, så de fleste brugere vil tænke, at Scribus er brudt sammen.&lt;/p&gt; 
 &lt;p&gt;Du kan deaktivere dette tilvalg, hvis du ønsker at acceptere indput fra stdin. Generelt bør du bruge &lt;tt&gt;os.popen&lt;/tt&gt; til at lave en kanal i stedet, eller brug en anden indput makanisme, men dette tilvalg er her for alle tilfældes skyld.&lt;/p&gt;&lt;/qt&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Enable Legacy Name Aliases&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
+&lt;p&gt;If checked, this option will cause the scripter to create a large number of function and constant name aliases for 1.2.0 script compatibility. It defaults to checked.&lt;/p&gt;
+&lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

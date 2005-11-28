@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-22 02:20+0200\n"
+"POT-Creation-Date: 2005-11-28 11:07+0100\n"
 "PO-Revision-Date: 2001-12-14 01:18+0200\n"
 "Last-Translator: Vasko Tomanov <vasko@web.bg>\n"
 "Content-Type: text/plain; charset=cp1251\n"
@@ -70,7 +70,7 @@ msgid "Additional Paths"
 msgstr ""
 
 #, fuzzy
-msgid "Postscript"
+msgid "PostScript"
 msgstr "Прав формат"
 
 msgid "Yes"
@@ -2273,8 +2273,9 @@ msgstr ""
 msgid "Editable"
 msgstr ""
 
-msgid "Java Script"
-msgstr ""
+#, fuzzy
+msgid "JavaScript"
+msgstr "Стандартно"
 
 msgid "Go To"
 msgstr ""
@@ -2462,7 +2463,8 @@ msgstr ""
 msgid "Open"
 msgstr "Отвори"
 
-msgid "Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)"
+#, fuzzy
+msgid "Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)"
 msgstr ""
 "Илюстрации (*.tif *.png *.jpg *.xpm);;Векторна графика (*.eps);;Всички "
 "файлове (*)"
@@ -2973,8 +2975,9 @@ msgstr ""
 msgid "Show Layers"
 msgstr ""
 
-msgid "Javascripts..."
-msgstr ""
+#, fuzzy
+msgid "JavaScripts..."
+msgstr "Стандартно"
 
 msgid "Undo"
 msgstr ""
@@ -3152,8 +3155,9 @@ msgstr "Форми..."
 msgid "Templates..."
 msgstr "Форми..."
 
-msgid "&Javascripts..."
-msgstr ""
+#, fuzzy
+msgid "&JavaScripts..."
+msgstr "Стандартно"
 
 #, fuzzy
 msgid "Select New Font"
@@ -3568,6 +3572,11 @@ msgstr ""
 msgid "Loading..."
 msgstr ""
 
+msgid ""
+"The changes to your document have not been saved and you have requested to "
+"revert them. Do you wish to continue?"
+msgstr ""
+
 #, fuzzy
 msgid ""
 "Can't write the File: \n"
@@ -3608,11 +3617,11 @@ msgid "The following Programs are missing:"
 msgstr "Липсващи приложения:"
 
 #, fuzzy
-msgid "Ghostscript : You cannot use EPS Images"
+msgid "GhostScript : You cannot use EPS Images"
 msgstr "Ghostscript : Няма възможност за EPS-Илюстрации"
 
 #, fuzzy
-msgid "EPS-Files (*.eps);;All Files (*)"
+msgid "EPS Files (*.eps);;All Files (*)"
 msgstr "Текстов файл (*.txt);;Всички файлове (*)"
 
 msgid "Some Objects are locked."
@@ -3736,7 +3745,7 @@ msgstr ""
 
 msgid ""
 "This enables you to explicitely set,\n"
-"the media size of the postscript file.\n"
+"the media size of the PostScript file.\n"
 "Not recommended unless\n"
 " requested by your printer."
 msgstr ""
@@ -3836,7 +3845,7 @@ msgid "&Print"
 msgstr "Печат"
 
 #, fuzzy
-msgid "Postscript-Files (*.ps);;All Files (*)"
+msgid "PostScript Files (*.ps);;All Files (*)"
 msgstr "Текстов файл (*.txt);;Всички файлове (*)"
 
 msgid "Insert Page"
@@ -5083,7 +5092,7 @@ msgid "&Get Field Names"
 msgstr ""
 
 #, fuzzy
-msgid "Javascripts (*.js);;All Files (*)"
+msgid "JavaScripts (*.js);;All Files (*)"
 msgstr "Библиотека (*.scs);; Всички файлове (*)"
 
 msgid "Move Bookmark"
@@ -5378,6 +5387,10 @@ msgstr ""
 msgid "French:"
 msgstr "Френски:"
 
+#, fuzzy
+msgid "Galician:"
+msgstr "Украйнски:"
+
 msgid "German:"
 msgstr "Немски:"
 
@@ -5439,10 +5452,6 @@ msgstr "Украйнски:"
 #, fuzzy
 msgid "Bulgarian:"
 msgstr "Български"
-
-#, fuzzy
-msgid "Galician:"
-msgstr "Украйнски:"
 
 #, fuzzy
 msgid "Hungarian:"
@@ -5771,8 +5780,9 @@ msgstr ""
 msgid "To adjust the display drag the ruler below with the Slider."
 msgstr ""
 
-msgid "Postscript Interpreter"
-msgstr ""
+#, fuzzy
+msgid "PostScript Interpreter"
+msgstr "Стандартно"
 
 msgid "&Name of Executable:"
 msgstr ""
@@ -6025,7 +6035,7 @@ msgstr ""
 msgid "Set the default zoom level"
 msgstr ""
 
-msgid "File system location for the Ghostscript interpreter"
+msgid "File system location for the GhostScript interpreter"
 msgstr ""
 
 msgid "Antialias text for EPS and PDF onscreen rendering"
@@ -6607,6 +6617,9 @@ msgstr ""
 msgid "Enable/disable the K (Black) ink plate"
 msgstr ""
 
+msgid "firstPageOrder is bigger than allowed."
+msgstr ""
+
 #, fuzzy
 msgid "Failed to open document"
 msgstr "Заоис на текущ документ"
@@ -6756,8 +6769,8 @@ msgstr "За Scribus"
 msgid ""
 "<p>This table lists the macros that are currently defined.</p>\n"
 "\n"
-"<p><b>Name:</b> The name of the macro, as shown in the menu bar and in other "
-"places around Scribus.</p>\n"
+"<p><b>Macro:</b> The name of the macro, as shown in the menu bar and in "
+"other places around Scribus.</p>\n"
 "<p><b>Edit:</b> If the macro can be edited, \"Yes\" appears in this column. "
 "Usually if a macro cannot be edited it was created using the register_macro "
 "command in a script.</p>\n"
@@ -7244,6 +7257,9 @@ msgstr ""
 msgid "Cannot convert a non-text frame to outlines."
 msgstr "Редактиране на промените на рамката"
 
+msgid "Only text frames can be checked for overflowing"
+msgstr ""
+
 #, fuzzy
 msgid "Can't set bookmark on a non-text frame"
 msgstr "Редактиране на промените на рамката"
@@ -7381,7 +7397,7 @@ msgid "<qt>Enable the use of OldStyle function names</qt>"
 msgstr ""
 
 msgid ""
-"<qt><p><tt>Enable Legacy Aliases</tt> is an advanced option. You should "
+"<qt><p><tt>Enable Legacy Name Aliases</tt> is an advanced option. You should "
 "probably leave it how it is.</p>\n"
 "<p>If checked, this option will cause the scripter to create a large number "
 "of function and constant name aliases for 1.2.0 script compatibility. It "

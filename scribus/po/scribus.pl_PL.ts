@@ -176,7 +176,7 @@ is not in points, make sure to account for this.
 example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
                 FACINGPAGES, FIRSTPAGERIGHT)
 </source>
-        <translation>O Scribusie %1</translation>
+        <translation type="obsolete">O Scribusie %1</translation>
     </message>
     <message>
         <source>register_macro_callable(name, callable, accel=&apos;&apos;)
@@ -204,6 +204,51 @@ Funkcje i &quot;bound methods&quot; są dopuszczalne, jako że są instancjami k
 zawierają metodę __call__ bez argumentów. Można również rejestrować 
 obiekt &quot;callable&quot; więcej niż raz oraz wielokrotne &quot;bound methods&quot; pojedyńczej
 instancji.</translation>
+    </message>
+    <message>
+        <source>newDocument(size, margins, orientation, firstPageNumber,
+unit, pagesType, firstPageOrder) -&gt; bool
+
+WARNING: This is backported function from 1.3.x series. You are using constants
+larger PAGE_3 and bigger on your own risk. So do you with firstPageOrder biger
+than 1.
+
+Creates a new document and returns true if successful. The parameters have the
+following meaning:
+
+size = A tuple (width, height) describing the size of the document. You can
+use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
+
+margins = A tuple (left, right, top, bottom) describing the document
+margins
+
+orientation = the page orientation - constants PORTRAIT, LANDSCAPE
+
+firstPageNumer = is the number of the first page in the document used for
+pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
+numbers if you&apos;re creating a document in several parts.
+
+unit: this value sets the measurement units used by the document. Use a
+predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
+UNIT_PICAS, UNIT_POINTS.
+
+pagesType = One of the predefined constants PAGE_n. PAGE_1 is single page,
+PAGE_2 is for double sided documents, PAGE_3 is for 3 pages fold and
+PAGE_4 is 4-fold.
+
+firstPageOrder = What is position of first page in the document.
+Indexed from 0 (0 = first).
+
+The values for width, height and the margins are expressed in the given unit
+for the document. PAPER_* constants are expressed in points. If your document
+is not in points, make sure to account for this.
+
+example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
+PAGE_4, 3)
+
+May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
+</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2181,6 +2226,61 @@ Tekst musi być zakodowany w UTF (zobacz też setText() dla porównania).
 Pierwszy znak ma indeks 0. Wstawienie na pozycji -1 dołącza tekst do ramki.
 Jesli &quot;nazwa&quot; nie zostanie podana, zostanie użyty aktualnie wybrany obiekt.</translation>
     </message>
+    <message>
+        <source>newDoc(size, margins, orientation, firstPageNumber,
+                   unit, facingPages, firstSideLeft) -&gt; bool
+
+Creates a new document and returns true if successful. The parameters have the
+following meaning:
+
+    size = A tuple (width, height) describing the size of the document. You can
+    use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
+
+    margins = A tuple (left, right, top, bottom) describing the document
+    margins
+
+    orientation = the page orientation - constants PORTRAIT, LANDSCAPE
+
+    firstPageNumber = is the number of the first page in the document used for
+    pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
+    numbers if you&apos;re creating a document in several parts.
+
+    unit: this value sets the measurement units used by the document. Use a
+    predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
+    UNIT_PICAS, UNIT_POINTS.
+
+    facingPages = FACINGPAGES, NOFACINGPAGES
+
+    firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT
+
+The values for width, height and the margins are expressed in the given unit
+for the document. PAPER_* constants are expressed in points. If your document
+is not in points, make sure to account for this.
+
+example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
+                FACINGPAGES, FIRSTPAGERIGHT)
+</source>
+        <translation type="unfinished">O Scribusie %1</translation>
+    </message>
+    <message>
+        <source>textOverflows([&quot;name&quot;, nolinks]) -&gt; integer
+
+Returns the actual number of overflowing characters in text frame &quot;name&quot;.
+If is nolinks set to non zero value it takes only one frame - it doesn&apos;t
+use text frame linking. Without this parameter it search all linking chain.
+
+May raise WrongFrameTypeError if the target frame is not an text frame
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>zoomDocument(double)
+
+Zoom the document in main GUI window. Actions have whole number
+values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -2475,10 +2575,17 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
 the media size of the postscript file.
 Not recommended unless
  requested by your printer.</source>
-        <translation>Opcja ta pozwala na podanie rozmiaru
+        <translation type="obsolete">Opcja ta pozwala na podanie rozmiaru
 nośnika pliku postcriptowego. 
 Niezalecane, jeśli nie będzie wymagane
 przez drukarnię.</translation>
+    </message>
+    <message>
+        <source>This enables you to explicitely set,
+the media size of the PostScript file.
+Not recommended unless
+ requested by your printer.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2867,7 +2974,7 @@ LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID</translation>
     </message>
     <message>
         <source>Java Script</source>
-        <translation>Java Script</translation>
+        <translation type="obsolete">Java Script</translation>
     </message>
     <message>
         <source>Go To</source>
@@ -3127,7 +3234,7 @@ LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID</translation>
     </message>
     <message>
         <source>Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)</source>
-        <translation>Obrazki (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Wszystkie pliki (*)</translation>
+        <translation type="obsolete">Obrazki (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Wszystkie pliki (*)</translation>
     </message>
     <message>
         <source>Example:</source>
@@ -3148,6 +3255,14 @@ LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID</translation>
     <message>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>Pliki PDF (*.pdf);;Wszystkie pliki (*)</translation>
+    </message>
+    <message>
+        <source>JavaScript</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4221,7 +4336,7 @@ opcjonalnie uzupełniony o myślnik i kod kraju zgodny z ISO-3166, np pl-PL, fr-
     </message>
     <message>
         <source>Postscript-Files (*.ps);;All Files (*)</source>
-        <translation>Postscript (*.ps);;Wszystkie pliki (*)</translation>
+        <translation type="obsolete">Postscript (*.ps);;Wszystkie pliki (*)</translation>
     </message>
     <message>
         <source>Cyan</source>
@@ -4324,6 +4439,10 @@ a pojedynczy numer oznacza numer strony.</translation>
 to utilize additional printing options</source>
         <translation>Użyj alternatywnego menedżera wydruku, takiego jak kprinter
 lub gtklp, by uzyskać dostęp do dodatkowych opcji drukowania</translation>
+    </message>
+    <message>
+        <source>PostScript Files (*.ps);;All Files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4663,7 +4782,7 @@ zapisane w aktualnej formie. Wystąpił następujący błąd:
     </message>
     <message>
         <source>Javascripts (*.js);;All Files (*)</source>
-        <translation>Skrypty Javascript (*.js);;Wszystkie pliki(*)</translation>
+        <translation type="obsolete">Skrypty Javascript (*.js);;Wszystkie pliki(*)</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -4720,6 +4839,10 @@ zapisane w aktualnej formie. Wystąpił następujący błąd:
     <message>
         <source>&amp;Edit</source>
         <translation>&amp;Edycja</translation>
+    </message>
+    <message>
+        <source>JavaScripts (*.js);;All Files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5011,7 +5134,7 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     </message>
     <message>
         <source>Postscript</source>
-        <translation>Postscript</translation>
+        <translation type="obsolete">Postscript</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -5084,6 +5207,10 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Anuluj</translation>
+    </message>
+    <message>
+        <source>PostScript</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5824,7 +5951,7 @@ Tabela pośrodku okna zawiera listę makr, które są aktualnie pobrane oraz nie
 &lt;p&gt;&lt;b&gt;Edit:&lt;/b&gt; If the macro can be edited, &quot;Yes&quot; appears in this column. Usually if a macro cannot be edited it was created using the register_macro command in a script.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Accel:&lt;/b&gt; The menu shortcut key sequence, if any, associated with the macro. For example, CTRL-F8 means that you can press Control-F8 when in Scribus to run the macro.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Description:&lt;/b&gt; If the macro contains a &quot;docstring&quot;, a special string at the start of its definition that describes it, that is shown here. If the docstring is long, only the beginning is shown - use &quot;What&apos;s This&quot; on the macro&apos;s entry in the Macro menu to see the full description.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Tabela ta zawiera listę aktualnie zdefiniowanych makr.&lt;/p&gt;
+        <translation type="obsolete">&lt;p&gt;Tabela ta zawiera listę aktualnie zdefiniowanych makr.&lt;/p&gt;
 
 &lt;p&gt;&lt;b&gt;Nazwa:&lt;/b&gt; Nazwa makra, która pokazywana jest w listwie menu i w innych miejscach w Scribusie.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Edycja:&lt;/b&gt; Jeśli makro da się edytować, szpalta ta zawierać będzie &quot;Yes&quot;. Jeśli makro nie da się edytować, najczęściej zostało ono utworzone 
@@ -6005,6 +6132,15 @@ Może on być wykonany za pomocą opcji &lt;tt&gt;Pobierz skrypt rozszerzający&
     <message>
         <source>No</source>
         <translation>Nie</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;This table lists the macros that are currently defined.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Macro:&lt;/b&gt; The name of the macro, as shown in the menu bar and in other places around Scribus.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Edit:&lt;/b&gt; If the macro can be edited, &quot;Yes&quot; appears in this column. Usually if a macro cannot be edited it was created using the register_macro command in a script.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Accel:&lt;/b&gt; The menu shortcut key sequence, if any, associated with the macro. For example, CTRL-F8 means that you can press Control-F8 when in Scribus to run the macro.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Description:&lt;/b&gt; If the macro contains a &quot;docstring&quot;, a special string at the start of its definition that describes it, that is shown here. If the docstring is long, only the beginning is shown - use &quot;What&apos;s This&quot; on the macro&apos;s entry in the Macro menu to see the full description.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8919,7 +9055,7 @@ wartość dodatnia zmieni jego kształt na wypukły</translation>
     </message>
     <message>
         <source>Postscript Interpreter</source>
-        <translation>Interpreter Postscript</translation>
+        <translation type="obsolete">Interpreter Postscript</translation>
     </message>
     <message>
         <source>Image Processing Tool</source>
@@ -9686,7 +9822,7 @@ zmienić, kiedy w Scribusie są otwarte dokumenty.</translation>
     </message>
     <message>
         <source>File system location for the Ghostscript interpreter</source>
-        <translation>Położenie interpretera Ghostscriptu w systemie plików</translation>
+        <translation type="obsolete">Położenie interpretera Ghostscriptu w systemie plików</translation>
     </message>
     <message>
         <source>File system location for graphics editor. If you use gimp
@@ -9697,6 +9833,14 @@ instance of gimp.</source>
 i twoja dystrybucja zawiera go, najlepiej wpisz tutaj  &apos;gimp-remote&apos;,
 ponieważ pozwoli to na edycję obrazka w pracującym już gimpie, bez
 konieczności startowania programu za każdym razem od nowa.</translation>
+    </message>
+    <message>
+        <source>PostScript Interpreter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File system location for the GhostScript interpreter</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11083,6 +11227,20 @@ Szczegóły na temat wyjątków zwracanych przez każdą funkcję zawarte są w 
         <comment>page export</comment>
         <translation>strona</translation>
     </message>
+    <message>
+        <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>firstPageOrder is bigger than allowed.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Only text frames can be checked for overflowing</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -11497,7 +11655,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Javascripts...</source>
-        <translation>Skrypty w Javascript...</translation>
+        <translation type="obsolete">Skrypty w Javascript...</translation>
     </message>
     <message>
         <source>Undo</source>
@@ -11911,7 +12069,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>EPS-Files (*.eps);;All Files (*)</source>
-        <translation>Pliki EPS (*.eps);;Wszystkie pliki (*)</translation>
+        <translation type="obsolete">Pliki EPS (*.eps);;Wszystkie pliki (*)</translation>
     </message>
     <message>
         <source>Loading:</source>
@@ -12263,7 +12421,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>&amp;Javascripts...</source>
-        <translation>Skrypty w &amp;Javascript...</translation>
+        <translation type="obsolete">Skrypty w &amp;Javascript...</translation>
     </message>
     <message>
         <source>D&amp;uplicate</source>
@@ -12535,7 +12693,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Ghostscript : You cannot use EPS Images</source>
-        <translation>Ghostscript: nie możesz użyć grafik EPS</translation>
+        <translation type="obsolete">Ghostscript: nie możesz użyć grafik EPS</translation>
     </message>
     <message>
         <source>Import &amp;Page(s)...</source>
@@ -12648,6 +12806,26 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     <message>
         <source>Croatian</source>
         <translation>Chorwacki</translation>
+    </message>
+    <message>
+        <source>JavaScripts...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;JavaScripts...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>GhostScript : You cannot use EPS Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>EPS Files (*.eps);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Norwegian</source>
+        <translation type="unfinished">Norweski</translation>
     </message>
 </context>
 <context>
@@ -12933,7 +13111,7 @@ Za pomocą opcj &lt;tt&gt;Pobierz skrypt rozszerzający&lt;/tt&gt; oraz jako skr
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Enable Legacy Aliases&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
 &lt;p&gt;If checked, this option will cause the scripter to create a large number of function and constant name aliases for 1.2.0 script compatibility. It defaults to checked.&lt;/p&gt;
 &lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Włącz tradycyjne aliasy nazw&lt;/tt&gt; to zaawansowana opcja. Najlepiej zostawić ją bez zmian.&lt;/p&gt;
+        <translation type="obsolete">&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Włącz tradycyjne aliasy nazw&lt;/tt&gt; to zaawansowana opcja. Najlepiej zostawić ją bez zmian.&lt;/p&gt;
 &lt;p&gt;Jeśli ją zakreślisz, skryptownik utworzy dużą ilość aliasów nazw funkcji i stałych zgodnych z wersją 1.2.0. Wartością domyślną jest zakreślenie tej opcji.&lt;/p&gt;
 &lt;p&gt;Zmiana tej opcji zaczyna obowiązywać po ponownym wystartowaniu Scribusa.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
@@ -12952,6 +13130,12 @@ Za pomocą opcj &lt;tt&gt;Pobierz skrypt rozszerzający&lt;/tt&gt; oraz jako skr
         <translation>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Użyj symulacji Stdin&lt;/tt&gt; to zaawansowana opcja. Najlepiej zostawić ją bez zmian.&lt;/p&gt;
 &lt;p&gt;W normalny przypadku Scribus udostępnia Pythonowi plik symulujący &lt;tt&gt;sys.stdin&lt;/tt&gt;, tak aby czytanie z stdin zawsze zwracało pusty ciąg znaków. W przypadku użycia prawdziwego &lt;tt&gt;sys.stdin&lt;/tt&gt;, skrypty próbujące czytać z niego zatrzymają się i spowodują przerwę w wykonywaniu Scribusa do czasu, aż w stdin pojawią się dane. Dla aplikacji z graficznym interfejsem użytkownika oczekiwanie na dane z stdin jest nietypowe i większość użytkowników może być przekonana, że Scribus zakończył działanie.&lt;/p&gt;
 &lt;p&gt;Możesz wyłączyć tę opcję, jeśli chcesz akceptować dane ze stdin. Generalnie powinieneś używać  &lt;tt&gt;os.popen&lt;/tt&gt;, aby utworzyć zamiast tego potok, lub użyć innego mechanizmu wejściowego, ale opcja ta istnieje tutaj na wszelki wypadek.&lt;/p&gt;&lt;/qt&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Enable Legacy Name Aliases&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
+&lt;p&gt;If checked, this option will cause the scripter to create a large number of function and constant name aliases for 1.2.0 script compatibility. It defaults to checked.&lt;/p&gt;
+&lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus.sk_SK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-22 02:20+0200\n"
+"POT-Creation-Date: 2005-11-28 11:07+0100\n"
 "PO-Revision-Date: 2004-12-19 22:54+0100\n"
 "Last-Translator: Zdenko Podobný <zdpo@mailbox.sk>\n"
 "Language-Team: Slovak <<sk-i18n@lists.linux.sk>>\n"
@@ -78,7 +78,8 @@ msgstr "Substitúcia písem"
 msgid "Additional Paths"
 msgstr "Dodatočné cesty"
 
-msgid "Postscript"
+#, fuzzy
+msgid "PostScript"
 msgstr "Postscript"
 
 msgid "Yes"
@@ -2151,7 +2152,8 @@ msgstr "Štandardne je označené"
 msgid "Editable"
 msgstr "Upraviteľné"
 
-msgid "Java Script"
+#, fuzzy
+msgid "JavaScript"
 msgstr "Java skript"
 
 msgid "Go To"
@@ -2343,7 +2345,8 @@ msgstr ""
 msgid "Open"
 msgstr "Otvoriť"
 
-msgid "Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)"
+#, fuzzy
+msgid "Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)"
 msgstr ""
 "Obrázky (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Všetky súbory (*)"
 
@@ -2835,7 +2838,8 @@ msgstr "Pripojiť text k ceste"
 msgid "Show Layers"
 msgstr "Zobraziť vrstvy"
 
-msgid "Javascripts..."
+#, fuzzy
+msgid "JavaScripts..."
 msgstr "Java skript..."
 
 msgid "Undo"
@@ -2991,7 +2995,8 @@ msgstr "Ša&blóny..."
 msgid "Templates..."
 msgstr "Šablóny..."
 
-msgid "&Javascripts..."
+#, fuzzy
+msgid "&JavaScripts..."
 msgstr "&Java skript"
 
 msgid "Select New Font"
@@ -3357,6 +3362,11 @@ msgid "Loading..."
 msgstr "Načítavam..."
 
 msgid ""
+"The changes to your document have not been saved and you have requested to "
+"revert them. Do you wish to continue?"
+msgstr ""
+
+msgid ""
 "Can't write the File: \n"
 "%1"
 msgstr ""
@@ -3390,10 +3400,12 @@ msgstr "Zobraziť mriežku základných čiar"
 msgid "The following Programs are missing:"
 msgstr "Tieto programy chýbajú:"
 
-msgid "Ghostscript : You cannot use EPS Images"
+#, fuzzy
+msgid "GhostScript : You cannot use EPS Images"
 msgstr "Ghostscript : Nemôžete používať EPS obrázky"
 
-msgid "EPS-Files (*.eps);;All Files (*)"
+#, fuzzy
+msgid "EPS Files (*.eps);;All Files (*)"
 msgstr "EPS obrázky (*.eps);;Všetky súbory (*)"
 
 msgid "Some Objects are locked."
@@ -3508,7 +3520,7 @@ msgstr ""
 
 msgid ""
 "This enables you to explicitely set,\n"
-"the media size of the postscript file.\n"
+"the media size of the PostScript file.\n"
 "Not recommended unless\n"
 " requested by your printer."
 msgstr ""
@@ -3599,7 +3611,8 @@ msgstr "&Pokročilé možnosti..."
 msgid "&Print"
 msgstr "&Tlač"
 
-msgid "Postscript-Files (*.ps);;All Files (*)"
+#, fuzzy
+msgid "PostScript Files (*.ps);;All Files (*)"
 msgstr "Postscript súbory(*.ps);;Všetky súbory (*)"
 
 msgid "Insert Page"
@@ -4713,7 +4726,8 @@ msgstr "U&končiť bez uloženia"
 msgid "&Get Field Names"
 msgstr "&Získať názvy polí"
 
-msgid "Javascripts (*.js);;All Files (*)"
+#, fuzzy
+msgid "JavaScripts (*.js);;All Files (*)"
 msgstr "Java skripty (*.js);;Všetky súbory (*)"
 
 msgid "Move Bookmark"
@@ -5017,6 +5031,9 @@ msgstr "Fínsky:"
 msgid "French:"
 msgstr "Francúzsky:"
 
+msgid "Galician:"
+msgstr "Galícky:"
+
 msgid "German:"
 msgstr "Nemecký:"
 
@@ -5071,9 +5088,6 @@ msgstr "Brazílsky:"
 
 msgid "Bulgarian:"
 msgstr "Bulharský:"
-
-msgid "Galician:"
-msgstr "Galícky:"
 
 msgid "Hungarian:"
 msgstr "Maďarský:"
@@ -5348,7 +5362,8 @@ msgstr "P&rispôsobiť veľkosti obrazovky"
 msgid "To adjust the display drag the ruler below with the Slider."
 msgstr "Obrazovku si prispôsobíte pomocou jazdca na dolnom pravítku."
 
-msgid "Postscript Interpreter"
+#, fuzzy
+msgid "PostScript Interpreter"
 msgstr "Interpret postscriptu"
 
 msgid "&Name of Executable:"
@@ -5608,7 +5623,7 @@ msgid "Set the default zoom level"
 msgstr "Nastavenie štandardnej úrovne zväčšenie"
 
 #, fuzzy
-msgid "File system location for the Ghostscript interpreter"
+msgid "File system location for the GhostScript interpreter"
 msgstr "Umiestnenie Ghostscript interpreta v súborovom systéme"
 
 msgid "Antialias text for EPS and PDF onscreen rendering"
@@ -6170,6 +6185,9 @@ msgstr "Povolí/zakáže Y (žltú) zložku"
 msgid "Enable/disable the K (Black) ink plate"
 msgstr "Povolí/zakáže K (čiernu) zložku"
 
+msgid "firstPageOrder is bigger than allowed."
+msgstr ""
+
 msgid "Failed to open document"
 msgstr "Nepodarilo sa otvoriť dokument"
 
@@ -6321,8 +6339,8 @@ msgstr "O Scribuse"
 msgid ""
 "<p>This table lists the macros that are currently defined.</p>\n"
 "\n"
-"<p><b>Name:</b> The name of the macro, as shown in the menu bar and in other "
-"places around Scribus.</p>\n"
+"<p><b>Macro:</b> The name of the macro, as shown in the menu bar and in "
+"other places around Scribus.</p>\n"
 "<p><b>Edit:</b> If the macro can be edited, \"Yes\" appears in this column. "
 "Usually if a macro cannot be edited it was created using the register_macro "
 "command in a script.</p>\n"
@@ -6821,6 +6839,9 @@ msgstr ""
 msgid "Cannot convert a non-text frame to outlines."
 msgstr "Nie je možné konvertovať netextový rám na obrysy"
 
+msgid "Only text frames can be checked for overflowing"
+msgstr ""
+
 #, fuzzy
 msgid "Can't set bookmark on a non-text frame"
 msgstr "Nie je možné použiť štýl na netextový rám"
@@ -6958,7 +6979,7 @@ msgid "<qt>Enable the use of OldStyle function names</qt>"
 msgstr ""
 
 msgid ""
-"<qt><p><tt>Enable Legacy Aliases</tt> is an advanced option. You should "
+"<qt><p><tt>Enable Legacy Name Aliases</tt> is an advanced option. You should "
 "probably leave it how it is.</p>\n"
 "<p>If checked, this option will cause the scripter to create a large number "
 "of function and constant name aliases for 1.2.0 script compatibility. It "

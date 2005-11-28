@@ -22,42 +22,6 @@ Returns true if a new document was created.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>newDoc(size, margins, orientation, firstPageNumber,
-                   unit, facingPages, firstSideLeft) -&gt; bool
-
-Creates a new document and returns true if successful. The parameters have the
-following meaning:
-
-    size = A tuple (width, height) describing the size of the document. You can
-    use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
-
-    margins = A tuple (left, right, top, bottom) describing the document
-    margins
-
-    orientation = the page orientation - constants PORTRAIT, LANDSCAPE
-
-    firstPageNumber = is the number of the first page in the document used for
-    pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
-    numbers if you&apos;re creating a document in several parts.
-
-    unit: this value sets the measurement units used by the document. Use a
-    predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
-    UNIT_PICAS, UNIT_POINTS.
-
-    facingPages = FACINGPAGES, NOFACINGPAGES
-
-    firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT
-
-The values for width, height and the margins are expressed in the given unit
-for the document. PAPER_* constants are expressed in points. If your document
-is not in points, make sure to account for this.
-
-example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
-                FACINGPAGES, FIRSTPAGERIGHT)
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>getFillColor([&quot;name&quot;]) -&gt; string
 
 Returns the name of the fill color of the object &quot;name&quot;.
@@ -150,6 +114,51 @@ methods are quite acceptable, as are instances of classes that provide a
 __call__ method with no arguments. There is no problem with registering
 a callable more than once, nor with registering multiple bound methods
 of a single instance.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>newDocument(size, margins, orientation, firstPageNumber,
+unit, pagesType, firstPageOrder) -&gt; bool
+
+WARNING: This is backported function from 1.3.x series. You are using constants
+larger PAGE_3 and bigger on your own risk. So do you with firstPageOrder biger
+than 1.
+
+Creates a new document and returns true if successful. The parameters have the
+following meaning:
+
+size = A tuple (width, height) describing the size of the document. You can
+use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
+
+margins = A tuple (left, right, top, bottom) describing the document
+margins
+
+orientation = the page orientation - constants PORTRAIT, LANDSCAPE
+
+firstPageNumer = is the number of the first page in the document used for
+pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
+numbers if you&apos;re creating a document in several parts.
+
+unit: this value sets the measurement units used by the document. Use a
+predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
+UNIT_PICAS, UNIT_POINTS.
+
+pagesType = One of the predefined constants PAGE_n. PAGE_1 is single page,
+PAGE_2 is for double sided documents, PAGE_3 is for 3 pages fold and
+PAGE_4 is 4-fold.
+
+firstPageOrder = What is position of first page in the document.
+Indexed from 0 (0 = first).
+
+The values for width, height and the margins are expressed in the given unit
+for the document. PAPER_* constants are expressed in points. If your document
+is not in points, make sure to account for this.
+
+example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
+PAGE_4, 3)
+
+May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -1471,6 +1480,61 @@ May throw IndexError for an insertion out of bounds.
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>newDoc(size, margins, orientation, firstPageNumber,
+                   unit, facingPages, firstSideLeft) -&gt; bool
+
+Creates a new document and returns true if successful. The parameters have the
+following meaning:
+
+    size = A tuple (width, height) describing the size of the document. You can
+    use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
+
+    margins = A tuple (left, right, top, bottom) describing the document
+    margins
+
+    orientation = the page orientation - constants PORTRAIT, LANDSCAPE
+
+    firstPageNumber = is the number of the first page in the document used for
+    pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
+    numbers if you&apos;re creating a document in several parts.
+
+    unit: this value sets the measurement units used by the document. Use a
+    predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
+    UNIT_PICAS, UNIT_POINTS.
+
+    facingPages = FACINGPAGES, NOFACINGPAGES
+
+    firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT
+
+The values for width, height and the margins are expressed in the given unit
+for the document. PAPER_* constants are expressed in points. If your document
+is not in points, make sure to account for this.
+
+example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
+                FACINGPAGES, FIRSTPAGERIGHT)
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>textOverflows([&quot;name&quot;, nolinks]) -&gt; integer
+
+Returns the actual number of overflowing characters in text frame &quot;name&quot;.
+If is nolinks set to non zero value it takes only one frame - it doesn&apos;t
+use text frame linking. Without this parameter it search all linking chain.
+
+May raise WrongFrameTypeError if the target frame is not an text frame
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>zoomDocument(double)
+
+Zoom the document in main GUI window. Actions have whole number
+values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -1782,10 +1846,17 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
 the media size of the postscript file.
 Not recommended unless
  requested by your printer.</source>
-        <translation>Tu lahko izrecno nastavite velikost
+        <translation type="obsolete">Tu lahko izrecno nastavite velikost
 medija v postscript datoteki.
 To ni priporočljivo, razen
 če vaš tiskalnik to zahteva.</translation>
+    </message>
+    <message>
+        <source>This enables you to explicitely set,
+the media size of the PostScript file.
+Not recommended unless
+ requested by your printer.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2202,7 +2273,7 @@ To ni priporočljivo, razen
     </message>
     <message>
         <source>Java Script</source>
-        <translation>Java Script</translation>
+        <translation type="obsolete">Java Script</translation>
     </message>
     <message>
         <source>Width:</source>
@@ -2222,7 +2293,7 @@ To ni priporočljivo, razen
     </message>
     <message>
         <source>Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)</source>
-        <translation>Slike (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Vse datoteke (*)</translation>
+        <translation type="obsolete">Slike (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Vse datoteke (*)</translation>
     </message>
     <message>
         <source>Submit Data as HTML</source>
@@ -2451,6 +2522,14 @@ To ni priporočljivo, razen
     <message>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>PDF datoteke (*.pdf);;Vse datoteke (*)</translation>
+    </message>
+    <message>
+        <source>JavaScript</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3529,7 +3608,7 @@ patenti, blagovne znamke</translation>
     </message>
     <message>
         <source>Postscript-Files (*.ps);;All Files (*)</source>
-        <translation>Postscript datoteke (*.ps);;Vse datoteke (*)</translation>
+        <translation type="obsolete">Postscript datoteke (*.ps);;Vse datoteke (*)</translation>
     </message>
     <message>
         <source>Yellow</source>
@@ -3636,6 +3715,10 @@ več strani ali samo številka ene strani.</translation>
 to utilize additional printing options</source>
         <translation>Uporabite drug upravljalnik tiskanja, na primer kprinter ali 
 gtklp, za dodatne možnosti tiskanja</translation>
+    </message>
+    <message>
+        <source>PostScript Files (*.ps);;All Files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3975,7 +4058,7 @@ ne morem shraniti. Napaka je bila:
     </message>
     <message>
         <source>Javascripts (*.js);;All Files (*)</source>
-        <translation>Java skripti (*.js);;Vse datoteke (*)</translation>
+        <translation type="obsolete">Java skripti (*.js);;Vse datoteke (*)</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -4032,6 +4115,10 @@ ne morem shraniti. Napaka je bila:
     <message>
         <source>&amp;Edit</source>
         <translation>Ur&amp;edi</translation>
+    </message>
+    <message>
+        <source>JavaScripts (*.js);;All Files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4347,7 +4434,7 @@ uporabite 72 dpi</translation>
     </message>
     <message>
         <source>Postscript</source>
-        <translation>Postscript</translation>
+        <translation type="obsolete">Postscript</translation>
     </message>
     <message>
         <source>Font &amp;Substitutions</source>
@@ -4396,6 +4483,10 @@ uporabite 72 dpi</translation>
     <message>
         <source>&amp;Cancel</source>
         <translation>Prekli&amp;či</translation>
+    </message>
+    <message>
+        <source>PostScript</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5135,7 +5226,7 @@ Tabela v sredini okna prikazuje spisek trenutno naložnih makrojev in osnovnih i
 &lt;p&gt;&lt;b&gt;Edit:&lt;/b&gt; If the macro can be edited, &quot;Yes&quot; appears in this column. Usually if a macro cannot be edited it was created using the register_macro command in a script.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Accel:&lt;/b&gt; The menu shortcut key sequence, if any, associated with the macro. For example, CTRL-F8 means that you can press Control-F8 when in Scribus to run the macro.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Description:&lt;/b&gt; If the macro contains a &quot;docstring&quot;, a special string at the start of its definition that describes it, that is shown here. If the docstring is long, only the beginning is shown - use &quot;What&apos;s This&quot; on the macro&apos;s entry in the Macro menu to see the full description.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;V tej tabeli so trenutno določeni makri.&lt;/p&gt;
+        <translation type="obsolete">&lt;p&gt;V tej tabeli so trenutno določeni makri.&lt;/p&gt;
 
 &lt;p&gt;&lt;b&gt;Ime:&lt;/b&gt; Ime makra, kor je prikazano v menijih.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Uredi:&lt;/b&gt; Če se makro lahko ureja, bo tu pisalo &apos;Da&apos;. Če se ga ne da urejati, to običajno pomeni, da je bil priprabljen z ukazom register_macro.&lt;/p&gt;(new line)
@@ -5311,6 +5402,15 @@ Tabela v sredini okna prikazuje spisek trenutno naložnih makrojev in osnovnih i
     <message>
         <source>No</source>
         <translation>Ne</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;This table lists the macros that are currently defined.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Macro:&lt;/b&gt; The name of the macro, as shown in the menu bar and in other places around Scribus.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Edit:&lt;/b&gt; If the macro can be edited, &quot;Yes&quot; appears in this column. Usually if a macro cannot be edited it was created using the register_macro command in a script.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Accel:&lt;/b&gt; The menu shortcut key sequence, if any, associated with the macro. For example, CTRL-F8 means that you can press Control-F8 when in Scribus to run the macro.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Description:&lt;/b&gt; If the macro contains a &quot;docstring&quot;, a special string at the start of its definition that describes it, that is shown here. If the docstring is long, only the beginning is shown - use &quot;What&apos;s This&quot; on the macro&apos;s entry in the Macro menu to see the full description.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8300,7 +8400,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Postscript Interpreter</source>
-        <translation>Postscript upodobljevalnik</translation>
+        <translation type="obsolete">Postscript upodobljevalnik</translation>
     </message>
     <message>
         <source>Custom</source>
@@ -9104,7 +9204,7 @@ spremeniti, če imate odprte dokumente.</translation>
     </message>
     <message>
         <source>File system location for the Ghostscript interpreter</source>
-        <translation>Lokacija upodobljevalnika Ghostscript na sistemu</translation>
+        <translation type="obsolete">Lokacija upodobljevalnika Ghostscript na sistemu</translation>
     </message>
     <message>
         <source>File system location for graphics editor. If you use gimp
@@ -9114,6 +9214,14 @@ instance of gimp.</source>
         <translation>Lokacija grafičnega urejevalnika. Če uporabljate gimp,
 ki je vključen v distribucijo, predlagamo uporabo
 &apos;gimp-remote&apos;, ki omogoča uporabo že zagnanega gimpa.</translation>
+    </message>
+    <message>
+        <source>PostScript Interpreter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File system location for the GhostScript interpreter</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10549,6 +10657,20 @@ function&apos;s documentation.</source>
         <comment>page export</comment>
         <translation>stran</translation>
     </message>
+    <message>
+        <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>firstPageOrder is bigger than allowed.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Only text frames can be checked for overflowing</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -11167,7 +11289,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>EPS-Files (*.eps);;All Files (*)</source>
-        <translation>EPS datoteke (*.eps);;Vse datoteke (*)</translation>
+        <translation type="obsolete">EPS datoteke (*.eps);;Vse datoteke (*)</translation>
     </message>
     <message>
         <source>&amp;Tools</source>
@@ -11391,7 +11513,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Javascripts...</source>
-        <translation>Java skripti...</translation>
+        <translation type="obsolete">Java skripti...</translation>
     </message>
     <message>
         <source>Fit in Window</source>
@@ -11741,7 +11863,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>&amp;Javascripts...</source>
-        <translation>&amp;Java skripti...</translation>
+        <translation type="obsolete">&amp;Java skripti...</translation>
     </message>
     <message>
         <source>D&amp;uplicate</source>
@@ -12013,7 +12135,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Ghostscript : You cannot use EPS Images</source>
-        <translation>Ghostscript: Ne morete uporabiti EPS slik</translation>
+        <translation type="obsolete">Ghostscript: Ne morete uporabiti EPS slik</translation>
     </message>
     <message>
         <source>Import &amp;Page(s)...</source>
@@ -12127,6 +12249,26 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Croatian</source>
         <translation>Hrvaščina</translation>
+    </message>
+    <message>
+        <source>JavaScripts...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;JavaScripts...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>GhostScript : You cannot use EPS Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>EPS Files (*.eps);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Norwegian</source>
+        <translation type="unfinished">Norveščina</translation>
     </message>
 </context>
 <context>
@@ -12404,12 +12546,6 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
         <translation>&lt;qt&gt;Omogoči OldStyle poimenovanje funkcij&lt;/qt&gt;</translation>
     </message>
     <message>
-        <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Enable Legacy Aliases&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
-&lt;p&gt;If checked, this option will cause the scripter to create a large number of function and constant name aliases for 1.2.0 script compatibility. It defaults to checked.&lt;/p&gt;
-&lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Use Fake Stdin</source>
         <translation>Uporabi lažni vhod stdin</translation>
     </message>
@@ -12421,6 +12557,12 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Use Fake Stdin&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
 &lt;p&gt;Normally, scribus will provide Python with a fake file object for &lt;tt&gt;sys.stdin&lt;/tt&gt;, so that reads from stdin always return an empty string. If the real &lt;tt&gt;sys.stdin&lt;/tt&gt; is left in place, scripts that try to read from it will block - and in turn block scribus&apos;s execution, making the app appear to hang - until input arrives on stdin. It&apos;s unusual for GUI apps to expect anything on stdin, so mostly users will think scribus has crashed.&lt;/p&gt;
 &lt;p&gt;You can disable this option if you want to accept input on stdin. Generally you should use &lt;tt&gt;os.popen&lt;/tt&gt; to make a pipe instead, or use some other input mechanism, but this option is here just in case.&lt;/p&gt;&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Enable Legacy Name Aliases&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
+&lt;p&gt;If checked, this option will cause the scripter to create a large number of function and constant name aliases for 1.2.0 script compatibility. It defaults to checked.&lt;/p&gt;
+&lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

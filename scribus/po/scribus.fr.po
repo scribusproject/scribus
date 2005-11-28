@@ -35,7 +35,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 1.2.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-22 02:20+0200\n"
+"POT-Creation-Date: 2005-11-28 11:07+0100\n"
 "PO-Revision-Date: 2005-05-27 02:06+0100\n"
 "Last-Translator: Nicolas Boos <nicolas.boos@wanadoo.fr>\n"
 "Language-Team: French <traduc@traduc.org>\n"
@@ -103,7 +103,8 @@ msgstr "Substitutions de polices"
 msgid "Additional Paths"
 msgstr "Chemins additionnels"
 
-msgid "Postscript"
+#, fuzzy
+msgid "PostScript"
 msgstr "PostScript"
 
 msgid "Yes"
@@ -2186,7 +2187,8 @@ msgstr "Cochée par défaut"
 msgid "Editable"
 msgstr "Modifiable"
 
-msgid "Java Script"
+#, fuzzy
+msgid "JavaScript"
 msgstr "Javascript"
 
 msgid "Go To"
@@ -2374,7 +2376,8 @@ msgstr ""
 msgid "Open"
 msgstr "Ouvrir"
 
-msgid "Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)"
+#, fuzzy
+msgid "Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)"
 msgstr ""
 "Images (*.tif *.png *.jpg *.xpm);;PostScript encapsulé (*.eps);;Tous les "
 "fichiers (*)"
@@ -2858,7 +2861,8 @@ msgstr "Joindre le texte au tracé"
 msgid "Show Layers"
 msgstr "Afficher les calques"
 
-msgid "Javascripts..."
+#, fuzzy
+msgid "JavaScripts..."
 msgstr "Javascripts..."
 
 msgid "Undo"
@@ -3014,7 +3018,8 @@ msgstr "&Maquettes..."
 msgid "Templates..."
 msgstr "Maquettes..."
 
-msgid "&Javascripts..."
+#, fuzzy
+msgid "&JavaScripts..."
 msgstr "&Javascripts..."
 
 msgid "Select New Font"
@@ -3381,6 +3386,11 @@ msgid "Loading..."
 msgstr "Chargement..."
 
 msgid ""
+"The changes to your document have not been saved and you have requested to "
+"revert them. Do you wish to continue?"
+msgstr ""
+
+msgid ""
 "Can't write the File: \n"
 "%1"
 msgstr ""
@@ -3414,10 +3424,12 @@ msgstr "Afficher la grille typographique"
 msgid "The following Programs are missing:"
 msgstr "Le programme suivant est absent :"
 
-msgid "Ghostscript : You cannot use EPS Images"
+#, fuzzy
+msgid "GhostScript : You cannot use EPS Images"
 msgstr "Ghostscript : vous ne pouvez pas utiliser d'images EPS"
 
-msgid "EPS-Files (*.eps);;All Files (*)"
+#, fuzzy
+msgid "EPS Files (*.eps);;All Files (*)"
 msgstr "Fichiers EPS (*.eps);;Tous les fichiers (*)"
 
 msgid "Some Objects are locked."
@@ -3535,9 +3547,10 @@ msgstr ""
 "Crée un fichier PS niveau 1. Attention, le\n"
 "fichier créé peut être très volumineux"
 
+#, fuzzy
 msgid ""
 "This enables you to explicitely set,\n"
-"the media size of the postscript file.\n"
+"the media size of the PostScript file.\n"
 "Not recommended unless\n"
 " requested by your printer."
 msgstr ""
@@ -3633,7 +3646,8 @@ msgstr "A&utres options..."
 msgid "&Print"
 msgstr "Im&primer"
 
-msgid "Postscript-Files (*.ps);;All Files (*)"
+#, fuzzy
+msgid "PostScript Files (*.ps);;All Files (*)"
 msgstr "Fichiers PS (*.ps);;Tous les fichiers (*)"
 
 msgid "Insert Page"
@@ -4750,7 +4764,8 @@ msgstr "&Quitter sans enregistrer"
 msgid "&Get Field Names"
 msgstr "O&btenir les noms des champs"
 
-msgid "Javascripts (*.js);;All Files (*)"
+#, fuzzy
+msgid "JavaScripts (*.js);;All Files (*)"
 msgstr "Javascripts (*.js);;Tous les fichiers (*)"
 
 msgid "Move Bookmark"
@@ -5044,6 +5059,9 @@ msgstr "Finnois :"
 msgid "French:"
 msgstr "Français :"
 
+msgid "Galician:"
+msgstr "Galicien :"
+
 msgid "German:"
 msgstr "Allemand :"
 
@@ -5097,9 +5115,6 @@ msgstr "Brésilien :"
 
 msgid "Bulgarian:"
 msgstr "Bulgare :"
-
-msgid "Galician:"
-msgstr "Galicien :"
 
 msgid "Hungarian:"
 msgstr "Hongrois :"
@@ -5378,7 +5393,8 @@ msgid "To adjust the display drag the ruler below with the Slider."
 msgstr ""
 "Pour régler l'affichage, ajustez la règle ci-dessous à l'aide du curseur."
 
-msgid "Postscript Interpreter"
+#, fuzzy
+msgid "PostScript Interpreter"
 msgstr "Interpréteur PostScript"
 
 msgid "&Name of Executable:"
@@ -5644,7 +5660,8 @@ msgstr "Activer les fonctions de transparence lors d'une exportation PDF 1.4"
 msgid "Set the default zoom level"
 msgstr "Définir le niveau d'échelle par défaut"
 
-msgid "File system location for the Ghostscript interpreter"
+#, fuzzy
+msgid "File system location for the GhostScript interpreter"
 msgstr "Emplacement de l'interpréteur Ghostscript"
 
 msgid "Antialias text for EPS and PDF onscreen rendering"
@@ -6215,6 +6232,9 @@ msgstr "Activer/désactiver la couche J (jaune)"
 msgid "Enable/disable the K (Black) ink plate"
 msgstr "Activer/désactiver la couche N (noir)"
 
+msgid "firstPageOrder is bigger than allowed."
+msgstr ""
+
 msgid "Failed to open document"
 msgstr "Impossible d'ouvrir le document"
 
@@ -6380,11 +6400,12 @@ msgstr "Fermer cette boîte de dialogue"
 msgid "Return to Scribus"
 msgstr "Retourner à Scribus"
 
+#, fuzzy
 msgid ""
 "<p>This table lists the macros that are currently defined.</p>\n"
 "\n"
-"<p><b>Name:</b> The name of the macro, as shown in the menu bar and in other "
-"places around Scribus.</p>\n"
+"<p><b>Macro:</b> The name of the macro, as shown in the menu bar and in "
+"other places around Scribus.</p>\n"
 "<p><b>Edit:</b> If the macro can be edited, \"Yes\" appears in this column. "
 "Usually if a macro cannot be edited it was created using the register_macro "
 "command in a script.</p>\n"
@@ -6963,6 +6984,9 @@ msgstr ""
 msgid "Cannot convert a non-text frame to outlines."
 msgstr "Seul un cadre de texte peut être converti en contours."
 
+msgid "Only text frames can be checked for overflowing"
+msgstr ""
+
 msgid "Can't set bookmark on a non-text frame"
 msgstr "Un signet ne peut être défini que dans un cadre de texte"
 
@@ -7119,14 +7143,23 @@ msgstr ""
 msgid "<qt>Enable the use of OldStyle function names</qt>"
 msgstr "<qt>Activer l'utilisation des noms de fonction « OldStyle »</qt>"
 
+#, fuzzy
 msgid ""
-"<qt><p><tt>Enable Legacy Aliases</tt> is an advanced option. You should "
+"<qt><p><tt>Enable Legacy Name Aliases</tt> is an advanced option. You should "
 "probably leave it how it is.</p>\n"
 "<p>If checked, this option will cause the scripter to create a large number "
 "of function and constant name aliases for 1.2.0 script compatibility. It "
 "defaults to checked.</p>\n"
 "<p>This option does not take effect until Scribus is restarted.</p></qt>"
 msgstr ""
+"<qt><p><tt>Importer tous les noms au démarrage</tt> est une option avancée. "
+"Vous devriez la laisser activée sauf si vous avez lu la documentation et que "
+"vous savez ce que vous faites.</p>\n"
+"<p>Désactiver cette fonction empêchera l'outil de script de démarrer depuis "
+"la commande habituelle <tt>from scribus import *</tt> quand il initialise "
+"l'interpréteur principal -- utilisé pour la console de script et les scripts "
+"d'extension -- au démarrage.</p>\n"
+"<p>Cette option n'a pas d'effet tant que Scribus n'a pas redémarré.</p></qt>"
 
 msgid "Use Fake Stdin"
 msgstr "Utiliser une fausse entrée standard"

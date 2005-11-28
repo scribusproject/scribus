@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-22 02:20+0200\n"
+"POT-Creation-Date: 2005-11-28 11:07+0100\n"
 "PO-Revision-Date: 2005-01-08 17:40+0100\n"
 "Last-Translator: Pier Luigi Cinquantini <plcinquantini@katamail.com>\n"
 "Language-Team: esperanto <eo@li.org>\n"
@@ -78,7 +78,8 @@ msgstr "Tipar-anstataŭoj"
 msgid "Additional Paths"
 msgstr "Kromaj dosierindikoj"
 
-msgid "Postscript"
+#, fuzzy
+msgid "PostScript"
 msgstr "Postskripto"
 
 msgid "Yes"
@@ -2170,7 +2171,8 @@ msgstr "Defaŭlte estas markita"
 msgid "Editable"
 msgstr "Redaktebla"
 
-msgid "Java Script"
+#, fuzzy
+msgid "JavaScript"
 msgstr "Ĝavaskripto"
 
 msgid "Go To"
@@ -2356,7 +2358,8 @@ msgstr "Necesas minimume normala piktogramo por uzi piktogramojn kiel butonojn"
 msgid "Open"
 msgstr "Malfermu"
 
-msgid "Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)"
+#, fuzzy
+msgid "Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)"
 msgstr ""
 "Bildoj (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Ĉiaj dosieroj (*)"
 
@@ -2847,7 +2850,8 @@ msgstr "Kunigu la tekston al la desegno"
 msgid "Show Layers"
 msgstr "Montru nivelojn"
 
-msgid "Javascripts..."
+#, fuzzy
+msgid "JavaScripts..."
 msgstr "Ĝavaskriptoj..."
 
 msgid "Undo"
@@ -3003,7 +3007,8 @@ msgstr "Ŝa&blonoj..."
 msgid "Templates..."
 msgstr "Ŝablonoj..."
 
-msgid "&Javascripts..."
+#, fuzzy
+msgid "&JavaScripts..."
 msgstr "Ĝa&vaskriptoj..."
 
 msgid "Select New Font"
@@ -3369,6 +3374,11 @@ msgid "Loading..."
 msgstr "Ŝargas..."
 
 msgid ""
+"The changes to your document have not been saved and you have requested to "
+"revert them. Do you wish to continue?"
+msgstr ""
+
+msgid ""
 "Can't write the File: \n"
 "%1"
 msgstr ""
@@ -3402,10 +3412,12 @@ msgstr "Montru bazlinian kradon"
 msgid "The following Programs are missing:"
 msgstr "Mankas la ĉi-sekvaj programoj:"
 
-msgid "Ghostscript : You cannot use EPS Images"
+#, fuzzy
+msgid "GhostScript : You cannot use EPS Images"
 msgstr "Ghostscript: Vi ne povas utiligi EPS-bildojn"
 
-msgid "EPS-Files (*.eps);;All Files (*)"
+#, fuzzy
+msgid "EPS Files (*.eps);;All Files (*)"
 msgstr "EPS-dosieroj (*eps);; Ĉiaj dosieroj (*)"
 
 msgid "Some Objects are locked."
@@ -3520,7 +3532,7 @@ msgstr ""
 
 msgid ""
 "This enables you to explicitely set,\n"
-"the media size of the postscript file.\n"
+"the media size of the PostScript file.\n"
 "Not recommended unless\n"
 " requested by your printer."
 msgstr ""
@@ -3611,7 +3623,8 @@ msgstr "Kro&maj opcioj..."
 msgid "&Print"
 msgstr "&Printu"
 
-msgid "Postscript-Files (*.ps);;All Files (*)"
+#, fuzzy
+msgid "PostScript Files (*.ps);;All Files (*)"
 msgstr "Postskriptdosieroj (*.ps);; Ĉiaj dosieroj (*)"
 
 msgid "Insert Page"
@@ -4723,7 +4736,8 @@ msgstr "Fi&nu ne konservante"
 msgid "&Get Field Names"
 msgstr "Enmetu &kamponomojn"
 
-msgid "Javascripts (*.js);;All Files (*)"
+#, fuzzy
+msgid "JavaScripts (*.js);;All Files (*)"
 msgstr "Ĝavaskriptoj (*.js);; Ĉiaj dosieroj (*)"
 
 msgid "Move Bookmark"
@@ -5028,6 +5042,9 @@ msgstr "Finna:"
 msgid "French:"
 msgstr "Franca:"
 
+msgid "Galician:"
+msgstr "Galega:"
+
 msgid "German:"
 msgstr "Germana:"
 
@@ -5082,9 +5099,6 @@ msgstr "Brazila:"
 
 msgid "Bulgarian:"
 msgstr "Bulgara:"
-
-msgid "Galician:"
-msgstr "Galega:"
 
 msgid "Hungarian:"
 msgstr "Hungara:"
@@ -5358,7 +5372,8 @@ msgstr "&Alĝustigu paĝograndon"
 msgid "To adjust the display drag the ruler below with the Slider."
 msgstr "Por alĝustigi la montratan paĝon ŝovu la tenilon sub la liniilo."
 
-msgid "Postscript Interpreter"
+#, fuzzy
+msgid "PostScript Interpreter"
 msgstr "Postskript-interpretilo"
 
 msgid "&Name of Executable:"
@@ -5616,7 +5631,7 @@ msgid "Set the default zoom level"
 msgstr "Agordu la aprioran grandignivelon"
 
 #, fuzzy
-msgid "File system location for the Ghostscript interpreter"
+msgid "File system location for the GhostScript interpreter"
 msgstr "Dosierindiko de la Postskript-interpretilo"
 
 msgid "Antialias text for EPS and PDF onscreen rendering"
@@ -6181,6 +6196,9 @@ msgstr "Ebligas/malebligas la Y (Flava) inkotavolon"
 msgid "Enable/disable the K (Black) ink plate"
 msgstr "Ebligas/malebligas la K (Nigra) inkotavolon"
 
+msgid "firstPageOrder is bigger than allowed."
+msgstr ""
+
 msgid "Failed to open document"
 msgstr "La dokumentmalfermo malsukcesis"
 
@@ -6332,8 +6350,8 @@ msgstr "Pri Scribus"
 msgid ""
 "<p>This table lists the macros that are currently defined.</p>\n"
 "\n"
-"<p><b>Name:</b> The name of the macro, as shown in the menu bar and in other "
-"places around Scribus.</p>\n"
+"<p><b>Macro:</b> The name of the macro, as shown in the menu bar and in "
+"other places around Scribus.</p>\n"
 "<p><b>Edit:</b> If the macro can be edited, \"Yes\" appears in this column. "
 "Usually if a macro cannot be edited it was created using the register_macro "
 "command in a script.</p>\n"
@@ -6877,6 +6895,9 @@ msgstr ""
 msgid "Cannot convert a non-text frame to outlines."
 msgstr "Ne eblas konverti ne-tekstan kadron al konturoj"
 
+msgid "Only text frames can be checked for overflowing"
+msgstr ""
+
 #, fuzzy
 msgid "Can't set bookmark on a non-text frame"
 msgstr "Ne eblas agordi stilon en ne-tekstaj kadroj"
@@ -7014,7 +7035,7 @@ msgid "<qt>Enable the use of OldStyle function names</qt>"
 msgstr ""
 
 msgid ""
-"<qt><p><tt>Enable Legacy Aliases</tt> is an advanced option. You should "
+"<qt><p><tt>Enable Legacy Name Aliases</tt> is an advanced option. You should "
 "probably leave it how it is.</p>\n"
 "<p>If checked, this option will cause the scripter to create a large number "
 "of function and constant name aliases for 1.2.0 script compatibility. It "

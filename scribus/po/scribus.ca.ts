@@ -189,7 +189,7 @@ is not in points, make sure to account for this.
 example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
                 FACINGPAGES, FIRSTPAGERIGHT)
 </source>
-        <translation>newDoc(mida, marges, orientació, primerNúmeroPàgina,
+        <translation type="obsolete">newDoc(mida, marges, orientació, primerNúmeroPàgina,
                    unitats, PaginesAcarades, primeraPaginaEsquerra) -&gt; bool
 
 Crea un nou document i retorna cert si tot ha anat bé. Els paràmetres tenen el 
@@ -250,6 +250,51 @@ __call__ sense arguments. No hi haurà problemes per registrar
 un objecte usable més d&apos;un cop, ni per registrar múltiples mètodes embedits 
 d&apos;una sola instància.
 </translation>
+    </message>
+    <message>
+        <source>newDocument(size, margins, orientation, firstPageNumber,
+unit, pagesType, firstPageOrder) -&gt; bool
+
+WARNING: This is backported function from 1.3.x series. You are using constants
+larger PAGE_3 and bigger on your own risk. So do you with firstPageOrder biger
+than 1.
+
+Creates a new document and returns true if successful. The parameters have the
+following meaning:
+
+size = A tuple (width, height) describing the size of the document. You can
+use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
+
+margins = A tuple (left, right, top, bottom) describing the document
+margins
+
+orientation = the page orientation - constants PORTRAIT, LANDSCAPE
+
+firstPageNumer = is the number of the first page in the document used for
+pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
+numbers if you&apos;re creating a document in several parts.
+
+unit: this value sets the measurement units used by the document. Use a
+predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
+UNIT_PICAS, UNIT_POINTS.
+
+pagesType = One of the predefined constants PAGE_n. PAGE_1 is single page,
+PAGE_2 is for double sided documents, PAGE_3 is for 3 pages fold and
+PAGE_4 is 4-fold.
+
+firstPageOrder = What is position of first page in the document.
+Indexed from 0 (0 = first).
+
+The values for width, height and the margins are expressed in the given unit
+for the document. PAPER_* constants are expressed in points. If your document
+is not in points, make sure to account for this.
+
+example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
+PAGE_4, 3)
+
+May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
+</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2494,6 +2539,93 @@ May throw IndexError for an insertion out of bounds.
 </source>
         <translation>Agafa el nom de document per l&apos;estil de paràgraf en Scribus.</translation>
     </message>
+    <message>
+        <source>newDoc(size, margins, orientation, firstPageNumber,
+                   unit, facingPages, firstSideLeft) -&gt; bool
+
+Creates a new document and returns true if successful. The parameters have the
+following meaning:
+
+    size = A tuple (width, height) describing the size of the document. You can
+    use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
+
+    margins = A tuple (left, right, top, bottom) describing the document
+    margins
+
+    orientation = the page orientation - constants PORTRAIT, LANDSCAPE
+
+    firstPageNumber = is the number of the first page in the document used for
+    pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
+    numbers if you&apos;re creating a document in several parts.
+
+    unit: this value sets the measurement units used by the document. Use a
+    predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
+    UNIT_PICAS, UNIT_POINTS.
+
+    facingPages = FACINGPAGES, NOFACINGPAGES
+
+    firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT
+
+The values for width, height and the margins are expressed in the given unit
+for the document. PAPER_* constants are expressed in points. If your document
+is not in points, make sure to account for this.
+
+example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
+                FACINGPAGES, FIRSTPAGERIGHT)
+</source>
+        <translation type="unfinished">newDoc(mida, marges, orientació, primerNúmeroPàgina,
+                   unitats, PaginesAcarades, primeraPaginaEsquerra) -&gt; bool
+
+Crea un nou document i retorna cert si tot ha anat bé. Els paràmetres tenen el 
+següent significat:
+
+    mida = Una parella (amplada, alçada) que descriu la mida del document. Pots
+    fer servir constants predefinides com PAPER_&lt;tipus de paper&gt; ex. PAPER_A4 etc.
+
+    marges = Una agrupació (esquerra, dreta, dalt, baix) que descriu els marges
+    del document.
+
+    orientació = la orientació de la pàgina - constants PORTRAIT, LANDSCAPE
+
+    PrimerNúmeroPàgina = és el número de la primera pàgina en el document que farem
+    servir per numerar les pàgines. Encara que normalment es farà servir 1, a vegades
+    es útil poder posar números més grans si es creen documents en parts.
+
+    unitats : aquest valor estableix les unitats que el document farà servir. Cal usar una 
+    constant predefinida, pot ser una de: UNIT_INCHES, UNIT_MILLIMETERS, 
+    UNIT_PICAS, UNIT_POINTS.
+
+    PàginesAcarades = FACINPAGES, NOFACINPAGES
+
+    PrimeraPàginaEsquerra = FIRSTPAGELEFT, FIRSTPAGERIGHT
+
+Els valors per l&apos;amplada, l&apos;alçada i els marges està expressada en les unitats donades
+pel document. Les constants PAPER_* estan expressades en punts. Si el nostre document
+no està en punts, cal tenir-ho en compte.
+
+exemple: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
+                 FACINGPAGES, FIRSTPAGERIGHT)
+</translation>
+    </message>
+    <message>
+        <source>textOverflows([&quot;name&quot;, nolinks]) -&gt; integer
+
+Returns the actual number of overflowing characters in text frame &quot;name&quot;.
+If is nolinks set to non zero value it takes only one frame - it doesn&apos;t
+use text frame linking. Without this parameter it search all linking chain.
+
+May raise WrongFrameTypeError if the target frame is not an text frame
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>zoomDocument(double)
+
+Zoom the document in main GUI window. Actions have whole number
+values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -2810,10 +2942,17 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
 the media size of the postscript file.
 Not recommended unless
  requested by your printer.</source>
-        <translation>Això posa explícitament
+        <translation type="obsolete">Això posa explícitament
 la mida de pàgina al fitxer postscript.
 No es recomana a menys
 que ho demani la impressora.</translation>
+    </message>
+    <message>
+        <source>This enables you to explicitely set,
+the media size of the PostScript file.
+Not recommended unless
+ requested by your printer.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3202,7 +3341,7 @@ que ho demani la impressora.</translation>
     </message>
     <message>
         <source>Java Script</source>
-        <translation>Java Script</translation>
+        <translation type="obsolete">Java Script</translation>
     </message>
     <message>
         <source>Go To</source>
@@ -3466,7 +3605,7 @@ que ho demani la impressora.</translation>
     </message>
     <message>
         <source>Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)</source>
-        <translation>Imatges (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Tots els Fitxers (*)</translation>
+        <translation type="obsolete">Imatges (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Tots els Fitxers (*)</translation>
     </message>
     <message>
         <source>Example:</source>
@@ -3479,6 +3618,14 @@ que ho demani la impressora.</translation>
     <message>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>Fitxers PDF (*.pdf);;Tots els fitxers (*)</translation>
+    </message>
+    <message>
+        <source>JavaScript</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4663,7 +4810,11 @@ un rang de pàgines o un número sol.
     </message>
     <message>
         <source>Postscript-Files (*.ps);;All Files (*)</source>
-        <translation>Fitxers Postscript (*.ps);;Tots els fitxers(*)</translation>
+        <translation type="obsolete">Fitxers Postscript (*.ps);;Tots els fitxers(*)</translation>
+    </message>
+    <message>
+        <source>PostScript Files (*.ps);;All Files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5062,7 +5213,11 @@ es pot desar amb aquest formulari. L&apos;error és:
     </message>
     <message>
         <source>Javascripts (*.js);;All Files (*)</source>
-        <translation>Javascripts (*.js);;Tots els fitxers (*)</translation>
+        <translation type="obsolete">Javascripts (*.js);;Tots els fitxers (*)</translation>
+    </message>
+    <message>
+        <source>JavaScripts (*.js);;All Files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5355,7 +5510,7 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
     </message>
     <message>
         <source>Postscript</source>
-        <translation>Postscript</translation>
+        <translation type="obsolete">Postscript</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -5428,6 +5583,10 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
     <message>
         <source>Choose a Directory</source>
         <translation>Tria un Directori</translation>
+    </message>
+    <message>
+        <source>PostScript</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6169,7 +6328,7 @@ La taula del centre del diàleg llista quines macros estan actualment carregades
 &lt;p&gt;&lt;b&gt;Edit:&lt;/b&gt; If the macro can be edited, &quot;Yes&quot; appears in this column. Usually if a macro cannot be edited it was created using the register_macro command in a script.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Accel:&lt;/b&gt; The menu shortcut key sequence, if any, associated with the macro. For example, CTRL-F8 means that you can press Control-F8 when in Scribus to run the macro.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Description:&lt;/b&gt; If the macro contains a &quot;docstring&quot;, a special string at the start of its definition that describes it, that is shown here. If the docstring is long, only the beginning is shown - use &quot;What&apos;s This&quot; on the macro&apos;s entry in the Macro menu to see the full description.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Aquesta taula llista les macros que estan definides actualment.&lt;/p&gt;
+        <translation type="obsolete">&lt;p&gt;Aquesta taula llista les macros que estan definides actualment.&lt;/p&gt;
 
 &lt;p&gt;&lt;b&gt;Nom:&lt;/b&gt; El nom de la macro, es mostra en la barra de menús entre d&apos;altres llocs de l&apos;Scribus.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Edició:&lt;/b&gt;Si la macro es pot editar, apareix un &quot;Si&quot; en aquesta columna. Normalment si una macro no es pot editar és perquè s&apos;ha creat fent servir la comanda register_macro d&apos;un script.&lt;/p&gt;
@@ -6345,6 +6504,15 @@ La taula del centre del diàleg llista quines macros estan actualment carregades
     <message>
         <source>No</source>
         <translation>No</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;This table lists the macros that are currently defined.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Macro:&lt;/b&gt; The name of the macro, as shown in the menu bar and in other places around Scribus.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Edit:&lt;/b&gt; If the macro can be edited, &quot;Yes&quot; appears in this column. Usually if a macro cannot be edited it was created using the register_macro command in a script.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Accel:&lt;/b&gt; The menu shortcut key sequence, if any, associated with the macro. For example, CTRL-F8 means that you can press Control-F8 when in Scribus to run the macro.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Description:&lt;/b&gt; If the macro contains a &quot;docstring&quot;, a special string at the start of its definition that describes it, that is shown here. If the docstring is long, only the beginning is shown - use &quot;What&apos;s This&quot; on the macro&apos;s entry in the Macro menu to see the full description.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9670,7 +9838,7 @@ i un valor positiu el farà convex</translation>
     </message>
     <message>
         <source>Postscript Interpreter</source>
-        <translation>Interpret Postscript</translation>
+        <translation type="obsolete">Interpret Postscript</translation>
     </message>
     <message>
         <source>&amp;Name of Executable:</source>
@@ -10152,7 +10320,7 @@ canviar pels documents oberts.</translation>
     </message>
     <message>
         <source>File system location for the Ghostscript interpreter</source>
-        <translation>Localització del interpret de Ghostcript</translation>
+        <translation type="obsolete">Localització del interpret de Ghostcript</translation>
     </message>
     <message>
         <source>File system location for graphics editor. If you use gimp
@@ -10163,6 +10331,14 @@ instance of gimp.</source>
 i la teva distribució l&apos;inclou, et recomanem &apos;gimp-remote&apos;,
 ja que permet editar la imatge en una instància de Gimp
 que ja estigui engegada.</translation>
+    </message>
+    <message>
+        <source>PostScript Interpreter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File system location for the GhostScript interpreter</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11800,6 +11976,20 @@ la documentació de la funció.
         <comment>page export</comment>
         <translation>pàgina</translation>
     </message>
+    <message>
+        <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>firstPageOrder is bigger than allowed.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Only text frames can be checked for overflowing</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -12254,7 +12444,7 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     </message>
     <message>
         <source>Javascripts...</source>
-        <translation>Javascripts...</translation>
+        <translation type="obsolete">Javascripts...</translation>
     </message>
     <message>
         <source>Undo</source>
@@ -12494,7 +12684,7 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     </message>
     <message>
         <source>&amp;Javascripts...</source>
-        <translation>&amp;Javascripts...</translation>
+        <translation type="obsolete">&amp;Javascripts...</translation>
     </message>
     <message>
         <source>Select New Font</source>
@@ -13180,7 +13370,7 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     </message>
     <message>
         <source>Ghostscript : You cannot use EPS Images</source>
-        <translation>Ghostscript: No pots fer servir imatges EPS</translation>
+        <translation type="obsolete">Ghostscript: No pots fer servir imatges EPS</translation>
     </message>
     <message>
         <source>All</source>
@@ -13188,7 +13378,7 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     </message>
     <message>
         <source>EPS-Files (*.eps);;All Files (*)</source>
-        <translation>Fitxers EPS (*.eps);;Tots els Fitxers (*)</translation>
+        <translation type="obsolete">Fitxers EPS (*.eps);;Tots els Fitxers (*)</translation>
     </message>
     <message>
         <source>pt</source>
@@ -13377,6 +13567,26 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     <message>
         <source>Croatian</source>
         <translation>Croat</translation>
+    </message>
+    <message>
+        <source>JavaScripts...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;JavaScripts...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>GhostScript : You cannot use EPS Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>EPS Files (*.eps);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Norwegian</source>
+        <translation type="unfinished">Noruec</translation>
     </message>
 </context>
 <context>
@@ -13664,7 +13874,7 @@ Només les seqüències escrites per ser executades com extensions es poden fer 
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Enable Legacy Aliases&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
 &lt;p&gt;If checked, this option will cause the scripter to create a large number of function and constant name aliases for 1.2.0 script compatibility. It defaults to checked.&lt;/p&gt;
 &lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Activa Àlies de Noms&lt;/tt&gt; és una opció avançada. Normalment s&apos;hauría de deixar tal com està.&lt;/p&gt;
+        <translation type="obsolete">&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Activa Àlies de Noms&lt;/tt&gt; és una opció avançada. Normalment s&apos;hauría de deixar tal com està.&lt;/p&gt;
 &lt;p&gt;Si està marcat, aquesta opció provocarà que el sequenciador crei una gran quantitat de àlies de funcions i constants per compatibilitat amb les versions 1.2.0. Per defecte està activat.&lt;/p&gt;
 &lt;p&gt;Aquesta opció no pren efecte fins que es reinicii Scribus.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
@@ -13683,6 +13893,12 @@ Només les seqüències escrites per ser executades com extensions es poden fer 
         <translation>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Fer servir una entrada estàndard falsa&lt;/tt&gt; és una opció avançada. Normalment s&apos;hauria de deixar tal com està.&lt;/p&gt;
 &lt;p&gt;Normalment, Scribus dóna a Python una entrada estàndard falsa &lt;tt&gt;sys.stdin&lt;/tt&gt;, i fa que la resposta sigui una cadena buida per totes les peticions. Si es posa el fitxer real &lt;tt&gt;sys.stdin&lt;/tt&gt; en el seu lloc, quan les seqüències vulguin carregar entrades bloquejaran la execucio del programa fins que es faci l&apos;entrada de teclat -donant la impressió de que s&apos;ha bloquejat Scribus-.És rar que les aplicacions gràfiques esperin una entrada de teclat per executar-se, i per tant molts usuaris es pensaran que l&apos;Scribus ha fallat.&lt;/p&gt;
 &lt;p&gt;Pots desactivar aquesta opció si vols acceptar entrades de l&apos;entrada estàndard. Generalment hauras de fer servir &lt;tt&gt;os.popen&lt;/tt&gt; per fer una pila, o bé fer servir algun mecanisme d&apos;entrada, però aquesta opció només funcionarà en casos concrets.&lt;/p&gt;&lt;/qt&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Enable Legacy Name Aliases&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
+&lt;p&gt;If checked, this option will cause the scripter to create a large number of function and constant name aliases for 1.2.0 script compatibility. It defaults to checked.&lt;/p&gt;
+&lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

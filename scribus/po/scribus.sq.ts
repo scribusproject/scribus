@@ -61,7 +61,7 @@ is not in points, make sure to account for this.
 example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
                 FACINGPAGES, FIRSTPAGERIGHT)
 </source>
-        <translation type="unfinished">newDoc(size, margins, orientation, firstPageNumber,
+        <translation type="obsolete">newDoc(size, margins, orientation, firstPageNumber,
                    unit, facingPages, firstSideLeft) -&gt; bool
 
 Krijon një dokument të ri dhe përgjigjet me një &quot;true&quot; nëse ka sukses. Parametrat kanë 
@@ -317,6 +317,51 @@ nuk është në pikë, sigurohuni që i bëni llogaritë në pikë.
 shembull: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
                 FACINGPAGES, FIRSTPAGERIGHT)
 </translation>
+    </message>
+    <message>
+        <source>newDocument(size, margins, orientation, firstPageNumber,
+unit, pagesType, firstPageOrder) -&gt; bool
+
+WARNING: This is backported function from 1.3.x series. You are using constants
+larger PAGE_3 and bigger on your own risk. So do you with firstPageOrder biger
+than 1.
+
+Creates a new document and returns true if successful. The parameters have the
+following meaning:
+
+size = A tuple (width, height) describing the size of the document. You can
+use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
+
+margins = A tuple (left, right, top, bottom) describing the document
+margins
+
+orientation = the page orientation - constants PORTRAIT, LANDSCAPE
+
+firstPageNumer = is the number of the first page in the document used for
+pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
+numbers if you&apos;re creating a document in several parts.
+
+unit: this value sets the measurement units used by the document. Use a
+predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
+UNIT_PICAS, UNIT_POINTS.
+
+pagesType = One of the predefined constants PAGE_n. PAGE_1 is single page,
+PAGE_2 is for double sided documents, PAGE_3 is for 3 pages fold and
+PAGE_4 is 4-fold.
+
+firstPageOrder = What is position of first page in the document.
+Indexed from 0 (0 = first).
+
+The values for width, height and the margins are expressed in the given unit
+for the document. PAPER_* constants are expressed in points. If your document
+is not in points, make sure to account for this.
+
+example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
+PAGE_4, 3)
+
+May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
+</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9022,6 +9067,93 @@ May throw IndexError for an insertion out of bounds.
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>newDoc(size, margins, orientation, firstPageNumber,
+                   unit, facingPages, firstSideLeft) -&gt; bool
+
+Creates a new document and returns true if successful. The parameters have the
+following meaning:
+
+    size = A tuple (width, height) describing the size of the document. You can
+    use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
+
+    margins = A tuple (left, right, top, bottom) describing the document
+    margins
+
+    orientation = the page orientation - constants PORTRAIT, LANDSCAPE
+
+    firstPageNumber = is the number of the first page in the document used for
+    pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
+    numbers if you&apos;re creating a document in several parts.
+
+    unit: this value sets the measurement units used by the document. Use a
+    predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
+    UNIT_PICAS, UNIT_POINTS.
+
+    facingPages = FACINGPAGES, NOFACINGPAGES
+
+    firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT
+
+The values for width, height and the margins are expressed in the given unit
+for the document. PAPER_* constants are expressed in points. If your document
+is not in points, make sure to account for this.
+
+example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
+                FACINGPAGES, FIRSTPAGERIGHT)
+</source>
+        <translation type="unfinished">newDoc(size, margins, orientation, firstPageNumber,
+                   unit, facingPages, firstSideLeft) -&gt; bool
+
+Krijon një dokument të ri dhe përgjigjet me një &quot;true&quot; nëse ka sukses. Parametrat kanë 
+domethënien vijuese:
+
+    size = Një &quot;tuple&quot; (gjerësi, lartësi) që përshkruan madhësinë e dokumentit. Mund
+    të përdorni konstante të paracaktuara të emërtuara PAPER_&lt;lloj_letre&gt; p.sh. PAPER_A4 etj.
+
+    margins = Një &quot;tuple&quot; (majtas, djathtas, sipër, poshtë) që përshkruan mënjanat 
+    e dokumentit
+
+    orientation = drejtimi i faqes - constants PORTRET, SË GJERI
+
+    firstPageNumber = është numri i faqes së parë te dokumenti përdorur për
+    numërim faqesh. Edhe pse do ta donit zakonisht 1, është e dobishme të keni vlera
+    më të mëdha nëse krijoni një dokument me disa pjesë.
+
+    unit: kjo vlerë cakton njësitë matëse të përdorura nga dokumenti. Përdorni për
+    këtë një konstante të paracaktuar, një prej: UNIT_INCHES, UNIT_MILLIMETERS,
+    UNIT_PICAS, UNIT_POINTS.
+
+    facingPages = FACINGPAGES, NOFACINGPAGES
+
+    firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT
+
+Vlerat për gjerësi, lartësi dhe mënjana shprehen në njësinë e dhënë për
+dokumentin. Konstantet PAPER_* shprehen në pikë. Nëse dokumenti juaj
+nuk është në pikë, bëni ndryshimin përkatës.
+
+shembull: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
+                FACINGPAGES, FIRSTPAGERIGHT)
+</translation>
+    </message>
+    <message>
+        <source>textOverflows([&quot;name&quot;, nolinks]) -&gt; integer
+
+Returns the actual number of overflowing characters in text frame &quot;name&quot;.
+If is nolinks set to non zero value it takes only one frame - it doesn&apos;t
+use text frame linking. Without this parameter it search all linking chain.
+
+May raise WrongFrameTypeError if the target frame is not an text frame
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>zoomDocument(double)
+
+Zoom the document in main GUI window. Actions have whole number
+values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -9935,7 +10067,7 @@ UCR zvogëlon mundësinë e mbingopjes me bojëra CMY.</translation>
     </message>
     <message>
         <source>This enables you to explicitely set,
-the media size of the postscript file.
+the media size of the PostScript file.
 Not recommended unless
  requested by your printer.</source>
         <translation type="unfinished"></translation>
@@ -10327,7 +10459,7 @@ Not recommended unless
     </message>
     <message>
         <source>Java Script</source>
-        <translation>Java Script</translation>
+        <translation type="obsolete">Java Script</translation>
     </message>
     <message>
         <source>Go To</source>
@@ -10591,7 +10723,7 @@ Not recommended unless
     </message>
     <message>
         <source>Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)</source>
-        <translation>Pamje (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Tërë Kartelat (*)</translation>
+        <translation type="obsolete">Pamje (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Tërë Kartelat (*)</translation>
     </message>
     <message>
         <source>Example:</source>
@@ -10604,6 +10736,14 @@ Not recommended unless
     <message>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>Kartela PDF (*.pdf);;Tërë Kartelat (*)</translation>
+    </message>
+    <message>
+        <source>JavaScript</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12387,11 +12527,15 @@ një interval faqesh ose një numër faqeje të vetme.</translation>
     </message>
     <message>
         <source>Postscript-Files (*.ps);;All Files (*)</source>
-        <translation type="unfinished">Kartela Postscript (*.ps);;Tërë Kartelat (*)</translation>
+        <translation type="obsolete">Kartela Postscript (*.ps);;Tërë Kartelat (*)</translation>
     </message>
     <message>
         <source>Postscript Files (*.ps);;All Files (*)</source>
         <translation type="obsolete">Kartela Postscript (*.ps);;Tërë Kartelat(*)</translation>
+    </message>
+    <message>
+        <source>PostScript Files (*.ps);;All Files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12795,7 +12939,11 @@ të ruhet në formën e tanishme. Gabimi qe:
     </message>
     <message>
         <source>Javascripts (*.js);;All Files (*)</source>
-        <translation>Javascripts (*.js);;Tërë Kartelat (*)</translation>
+        <translation type="obsolete">Javascripts (*.js);;Tërë Kartelat (*)</translation>
+    </message>
+    <message>
+        <source>JavaScripts (*.js);;All Files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13182,7 +13330,7 @@ Emri i kartelës eksport do të jetë &apos;emërdokumenti-numërfaqeje.tipkarte
     </message>
     <message>
         <source>Postscript</source>
-        <translation>Postscript</translation>
+        <translation type="obsolete">Postscript</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -13280,6 +13428,10 @@ Emri i kartelës eksport do të jetë &apos;emërdokumenti-numërfaqeje.tipkarte
         <source>Path to Font File</source>
         <comment>font preview</comment>
         <translation type="obsolete">Shteg për te Kartelë Gërmash</translation>
+    </message>
+    <message>
+        <source>PostScript</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14303,7 +14455,7 @@ Tabela në qendër të dialogut liston cilat makro janë për çastin të ngarku
 &lt;p&gt;&lt;b&gt;Edit:&lt;/b&gt; If the macro can be edited, &quot;Yes&quot; appears in this column. Usually if a macro cannot be edited it was created using the register_macro command in a script.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Accel:&lt;/b&gt; The menu shortcut key sequence, if any, associated with the macro. For example, CTRL-F8 means that you can press Control-F8 when in Scribus to run the macro.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Description:&lt;/b&gt; If the macro contains a &quot;docstring&quot;, a special string at the start of its definition that describes it, that is shown here. If the docstring is long, only the beginning is shown - use &quot;What&apos;s This&quot; on the macro&apos;s entry in the Macro menu to see the full description.&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;p&gt;Kjo tabelë liston makrot që janë për çastin të përcaktuara.&lt;/p&gt;
+        <translation type="obsolete">&lt;p&gt;Kjo tabelë liston makrot që janë për çastin të përcaktuara.&lt;/p&gt;
 
 &lt;p&gt;&lt;b&gt;Emër:&lt;/b&gt; Emri i makros, si tregohet në shtyllën e menusë dhe në vende të tjerë nëpër Scribus.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Përpunoni:&lt;/b&gt; Nëse makroja mund të përpunohet, në këtë shtyllë shfaqet &quot;Po&quot;. Zakonisht nëse një makro nuk mund të përpunohet ka pas qenë krijuar duke përdorur urdhrin register_macro në një programth.&lt;/p&gt;
@@ -14484,6 +14636,15 @@ Tabela në qendër të dialogut liston cilat makro janë për çastin të ngarku
         <source>&lt;p&gt;Edit the selected macro. &lt;/p&gt;
 &lt;p&gt;If this button is greyed out, either there is no selected macro or the macro manager does not have the source code for the macro you have selected (in which case &lt;tt&gt;No&lt;/tt&gt; will be shown in the &lt;tt&gt;Edit &lt;/tt&gt;column of the macro).&lt;/p&gt;
 &lt;p&gt;If Scribus doesn&apos;t have the source, the macro was probably created by a script.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;This table lists the macros that are currently defined.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Macro:&lt;/b&gt; The name of the macro, as shown in the menu bar and in other places around Scribus.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Edit:&lt;/b&gt; If the macro can be edited, &quot;Yes&quot; appears in this column. Usually if a macro cannot be edited it was created using the register_macro command in a script.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Accel:&lt;/b&gt; The menu shortcut key sequence, if any, associated with the macro. For example, CTRL-F8 means that you can press Control-F8 when in Scribus to run the macro.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Description:&lt;/b&gt; If the macro contains a &quot;docstring&quot;, a special string at the start of its definition that describes it, that is shown here. If the docstring is long, only the beginning is shown - use &quot;What&apos;s This&quot; on the macro&apos;s entry in the Macro menu to see the full description.&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -18269,7 +18430,7 @@ një vlerë pozitive do ta bëjë atë të mysët</translation>
     </message>
     <message>
         <source>Postscript Interpreter</source>
-        <translation>Interpretues PostScript</translation>
+        <translation type="obsolete">Interpretues PostScript</translation>
     </message>
     <message>
         <source>&amp;Name of Executable:</source>
@@ -18934,7 +19095,11 @@ be changed with documents open.</source>
         <translation type="unfinished">Rritje në përqindje mbi madhësi gërmash për ndërvijën</translation>
     </message>
     <message>
-        <source>File system location for the Ghostscript interpreter</source>
+        <source>PostScript Interpreter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File system location for the GhostScript interpreter</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -20929,6 +21094,20 @@ Doni të zëvendësohet me kartelën që po ruani?</translation>
         <comment>page export</comment>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>firstPageOrder is bigger than allowed.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Only text frames can be checked for overflowing</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -21491,7 +21670,7 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
     <message>
         <source>Javascripts...</source>
-        <translation type="unfinished">Javascripts...</translation>
+        <translation type="obsolete">Javascripts...</translation>
     </message>
     <message>
         <source>Undo</source>
@@ -21731,7 +21910,7 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
     <message>
         <source>&amp;Javascripts...</source>
-        <translation type="unfinished">&amp;Javascripts...</translation>
+        <translation type="obsolete">&amp;Javascripts...</translation>
     </message>
     <message>
         <source>Select New Font</source>
@@ -22397,7 +22576,7 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
     <message>
         <source>Ghostscript : You cannot use EPS Images</source>
-        <translation>Ghostscript: Nuk mund të përdorni Pamje EPS</translation>
+        <translation type="obsolete">Ghostscript: Nuk mund të përdorni Pamje EPS</translation>
     </message>
     <message>
         <source>All</source>
@@ -22405,7 +22584,7 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
     <message>
         <source>EPS-Files (*.eps);;All Files (*)</source>
-        <translation type="unfinished">Kartela EPS (*.eps);;Tërë Kartelat (*)</translation>
+        <translation type="obsolete">Kartela EPS (*.eps);;Tërë Kartelat (*)</translation>
     </message>
     <message>
         <source>pt</source>
@@ -22711,7 +22890,7 @@ nuk është në një format të pranueshëm</translation>
     </message>
     <message>
         <source>EPS Files (*.eps);;All Files (*)</source>
-        <translation type="obsolete">Kartela EPS (*.eps);;Tërë Kartelat (*)</translation>
+        <translation type="unfinished">Kartela EPS (*.eps);;Tërë Kartelat (*)</translation>
     </message>
     <message>
         <source>Cannot write the file: 
@@ -22778,6 +22957,22 @@ nuk është në një format të pranueshëm</translation>
     <message>
         <source>&lt;qt&gt;Color management is not supported by this Scribus build (not compiled in).&lt;/qt&gt;</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>JavaScripts...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;JavaScripts...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>GhostScript : You cannot use EPS Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Norwegian</source>
+        <translation type="unfinished">Norvegjeze</translation>
     </message>
 </context>
 <context>
@@ -23197,7 +23392,7 @@ Me &lt;tt&gt;Ngarko Programth të Jashtëm&lt;/tt&gt; ose si programthe fillimi 
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Enable Legacy Aliases&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
 &lt;p&gt;If checked, this option will cause the scripter to create a large number of function and constant name aliases for 1.2.0 script compatibility. It defaults to checked.&lt;/p&gt;
 &lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished">&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Aktivizo Aliase të Dikurshëm Emrash&lt;/tt&gt; është një mundësi e mëtejshme. Mbase do të duhej ta lini siç është.&lt;/p&gt;
+        <translation type="obsolete">&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Aktivizo Aliase të Dikurshëm Emrash&lt;/tt&gt; është një mundësi e mëtejshme. Mbase do të duhej ta lini siç është.&lt;/p&gt;
 &lt;p&gt;Në qoftë e shenjuar, kjo mundësi do të bëjë që programuesi të krijojë një numër të madh aliasesh emrash funksionesh dhe konstantesh për përputhshmëri me programthe 1.2.0. Parazgjedhja është shenjimi.&lt;/p&gt;
 &lt;p&gt;Kjo mundësi nuk ka veprim para se të rinisset Scribus-i.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
@@ -23216,6 +23411,12 @@ Me &lt;tt&gt;Ngarko Programth të Jashtëm&lt;/tt&gt; ose si programthe fillimi 
         <translation type="unfinished">&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Përdor Stdin të Rremë&lt;/tt&gt; është një mundësi e mëtejshme. Mbaset duhet ta lini siç është.&lt;/p&gt;
 &lt;p&gt;Normalisht, Scribus-i do t&apos;i ofrojë Python-it një objekt të rremë kartele për &lt;tt&gt;sys.stdin&lt;/tt&gt;, që leximet prej stdin të kthejnë përherë një varg bosh. Nëse lihet &lt;tt&gt;sys.stdin&lt;/tt&gt; i vërtetë, programthet që përpiqen të lexojnë prej tij do të bllokohen - e kështu do të bllokojnë edhe punën e Scribus-it, duke bërë që zbatimi i tërë të duket sikur ngeci - deri sa të ketë futje në stdin. Është e pazakontë për zbatime GUI të presin diçka në stdin, kështu që shumica e përdoruesve do të mendojnë se Scribus-i u vithis.&lt;/p&gt;
 &lt;p&gt;Mund ta çaktivizoni këtë mundësi nëse doni të pranohen futje prej stdin. Përgjithësisht më mirë do të duhej të përdornit &lt;tt&gt;os.popen&lt;/tt&gt; për të pasur një kanal lidhës, ose përdorni ndonjë mekanizëm tjetër futjesh, por kjo mundësi mbetet këtu për çdo rast.&lt;/p&gt;&lt;/qt&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Enable Legacy Name Aliases&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
+&lt;p&gt;If checked, this option will cause the scripter to create a large number of function and constant name aliases for 1.2.0 script compatibility. It defaults to checked.&lt;/p&gt;
+&lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
