@@ -264,7 +264,48 @@ PAGE_4, 3)
 
 May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>newDocument(size, margins, orientation, firstPageNumber,
+unit, pagesType, firstPageOrder) -&gt; bool
+
+WARNING: This is backported function from 1.3.x series. You are using constants
+larger PAGE_3 and bigger on your own risk. So do you with firstPageOrder biger
+than 1.
+
+Creates a new document and returns true if successful. The parameters have the
+following meaning:
+
+size = A tuple (width, height) describing the size of the document. You can
+use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
+
+margins = A tuple (left, right, top, bottom) describing the document
+margins
+
+orientation = the page orientation - constants PORTRAIT, LANDSCAPE
+
+firstPageNumer = is the number of the first page in the document used for
+pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
+numbers if you&apos;re creating a document in several parts.
+
+unit: this value sets the measurement units used by the document. Use a
+predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
+UNIT_PICAS, UNIT_POINTS.
+
+pagesType = One of the predefined constants PAGE_n. PAGE_1 is single page,
+PAGE_2 is for double sided documents, PAGE_3 is for 3 pages fold and
+PAGE_4 is 4-fold.
+
+firstPageOrder = What is position of first page in the document.
+Indexed from 0 (0 = first).
+
+The values for width, height and the margins are expressed in the given unit
+for the document. PAPER_* constants are expressed in points. If your document
+is not in points, make sure to account for this.
+
+example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
+PAGE_4, 3)
+
+May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
+</translation>
     </message>
 </context>
 <context>
@@ -2306,7 +2347,7 @@ is not in points, make sure to account for this.
 example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
                 FACINGPAGES, FIRSTPAGERIGHT)
 </source>
-        <translation type="unfinished">newDoc(size, margins, orientation, firstPageNumber, unit, facingPages, firstSideLeft) -&gt; bool
+        <translation>newDoc(size, margins, orientation, firstPageNumber, unit, facingPages, firstSideLeft) -&gt; bool
 
 Vytvoří nový dokument a vrátí true v případě úspěchu. Parametry mají tento význam:
     size - Tuple (šířka, výška) rozměrů velikost stránky. Viz. konstanty PAPER_&lt;typ&gt; např. PAPER_A4.
@@ -2333,7 +2374,13 @@ use text frame linking. Without this parameter it search all linking chain.
 
 May raise WrongFrameTypeError if the target frame is not an text frame
 </source>
-        <translation type="unfinished"></translation>
+        <translation>textOverflows([&quot;name&quot;, nolinks]) -&gt; integer
+
+Returns the actual number of overflowing characters in text frame &quot;name&quot;.
+If is nolinks set to non zero value it takes only one frame - it doesn&apos;t
+use text frame linking. Without this parameter it search all linking chain.
+
+May raise WrongFrameTypeError if the target frame is not an text frame</translation>
     </message>
     <message>
         <source>zoomDocument(double)
@@ -2341,7 +2388,10 @@ May raise WrongFrameTypeError if the target frame is not an text frame
 Zoom the document in main GUI window. Actions have whole number
 values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>zoomDocument(double)
+
+Zoom the document in main GUI window. Actions have whole number
+values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.</translation>
     </message>
 </context>
 <context>
@@ -2649,7 +2699,10 @@ tiskárna.</translation>
 the media size of the PostScript file.
 Not recommended unless
  requested by your printer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zde můžete nastavit velikost média
+(papíru) postscriptového souboru.
+Nezadávejte, pokud to nevyžaduje
+tiskárna.</translation>
     </message>
 </context>
 <context>
@@ -3318,11 +3371,11 @@ Not recommended unless
     </message>
     <message>
         <source>JavaScript</source>
-        <translation type="unfinished"></translation>
+        <translation>JavaScript</translation>
     </message>
     <message>
         <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Obrázky (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;Všechny soubory (*)</translation>
     </message>
 </context>
 <context>
@@ -4501,7 +4554,7 @@ Správce tisku nastaví dodatečné volby</translation>
     </message>
     <message>
         <source>PostScript Files (*.ps);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>PostScript (*.ps);;Všechny soubory (*)</translation>
     </message>
 </context>
 <context>
@@ -4907,7 +4960,7 @@ Chyba byla:
     </message>
     <message>
         <source>JavaScripts (*.js);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>JavaScript (*.js);;Všechny soubory (*)</translation>
     </message>
 </context>
 <context>
@@ -5275,7 +5328,7 @@ Použijte 72 dpi, jestliže je obrázek určen na web nebo monitor</translation>
     </message>
     <message>
         <source>PostScript</source>
-        <translation type="unfinished"></translation>
+        <translation>PostScript</translation>
     </message>
 </context>
 <context>
@@ -6197,7 +6250,11 @@ The table in the center of the dialog lists what macros are currently loaded and
 &lt;p&gt;&lt;b&gt;Edit:&lt;/b&gt; If the macro can be edited, &quot;Yes&quot; appears in this column. Usually if a macro cannot be edited it was created using the register_macro command in a script.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Accel:&lt;/b&gt; The menu shortcut key sequence, if any, associated with the macro. For example, CTRL-F8 means that you can press Control-F8 when in Scribus to run the macro.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Description:&lt;/b&gt; If the macro contains a &quot;docstring&quot;, a special string at the start of its definition that describes it, that is shown here. If the docstring is long, only the beginning is shown - use &quot;What&apos;s This&quot; on the macro&apos;s entry in the Macro menu to see the full description.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Tabulka definovaných maker.&lt;/p&gt;
+&lt;p&gt;Jméno: Jméno makra.&lt;/p&gt;
+&lt;p&gt;Edit: Příznak, zda bylo makro upravováno.&lt;/p&gt;
+&lt;p&gt;Klávesová zkratka: Sekvence kláves, která makro spustí.&lt;/p&gt;
+&lt;p&gt;Popis: Python &quot;docstring&quot;, t.j. dokumentační řetězec, makra.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -7677,7 +7734,7 @@ a nikdy znovu nevyžadovat potvrzení</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Zrušit</translation>
+        <translation>Zrušit</translation>
     </message>
 </context>
 <context>
@@ -10004,11 +10061,11 @@ běžící instanci GIMPu.</translation>
     </message>
     <message>
         <source>PostScript Interpreter</source>
-        <translation type="unfinished"></translation>
+        <translation>Itnterpre PostScriptu</translation>
     </message>
     <message>
         <source>File system location for the GhostScript interpreter</source>
-        <translation type="unfinished"></translation>
+        <translation>Umístění interpretu GhostScriptu</translation>
     </message>
 </context>
 <context>
@@ -10479,11 +10536,11 @@ Zkontrolujte cestu a název souboru.</translation>
     </message>
     <message>
         <source>SVG-Images (*.svg *.svgz);;All Files (*)</source>
-        <translation>SVG-obrázky (*.svg *.svgz);;All Files (*)</translation>
+        <translation>SVG-obrázky (*.svg *.svgz);;Všechny soubory (*)</translation>
     </message>
     <message>
         <source>SVG-Images (*.svg);;All Files (*)</source>
-        <translation>SVG-obrázky (*.svg);;All Files (*)</translation>
+        <translation>SVG-obrázky (*.svg);;Všechny soubory (*)</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -11645,17 +11702,17 @@ Detaily a výjimky Scripteru jsou popsány v dokumentaci jednotlivých funkcí.<
     </message>
     <message>
         <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation>Přejete si zrušit změny v dokumentu, který nebyl uložen. Mám opravdu pokračovat?</translation>
     </message>
     <message>
         <source>firstPageOrder is bigger than allowed.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Hodnota firstPageOrder je větší, než je povoleno. </translation>
     </message>
     <message>
         <source>Only text frames can be checked for overflowing</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Pouze textov lze testovat na zřetězení</translation>
     </message>
 </context>
 <context>
@@ -13237,23 +13294,23 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
     </message>
     <message>
         <source>JavaScripts...</source>
-        <translation type="unfinished"></translation>
+        <translation>JavaScripty...</translation>
     </message>
     <message>
         <source>&amp;JavaScripts...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;JavaScripty...</translation>
     </message>
     <message>
         <source>GhostScript : You cannot use EPS Images</source>
-        <translation type="unfinished"></translation>
+        <translation>GhostScript: nelze použít EPS obrázky</translation>
     </message>
     <message>
         <source>EPS Files (*.eps);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>EPS soubory (*.eps);;Všechny soubory (*)</translation>
     </message>
     <message>
         <source>Norwegian</source>
-        <translation type="unfinished">Norština</translation>
+        <translation>Norština</translation>
     </message>
 </context>
 <context>
@@ -13378,7 +13435,7 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
     </message>
     <message>
         <source>Python Scripts (*.py);; All Files (*)</source>
-        <translation>Python skripty (*.py);; All Files (*)</translation>
+        <translation>Python skripty (*.py);; Všechny soubory (*)</translation>
     </message>
     <message>
         <source>Script error</source>
@@ -13558,7 +13615,8 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Enable Legacy Name Aliases&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
 &lt;p&gt;If checked, this option will cause the scripter to create a large number of function and constant name aliases for 1.2.0 script compatibility. It defaults to checked.&lt;/p&gt;
 &lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;Pokud nevíte, jaké byly staré a již nahrazené Python funkce Scribusu, nechte beze změny.&lt;/p&gt;
+&lt;p&gt;Změna se projeví až po novém spuštěni aplikace.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
 </context>
 <context>
@@ -14158,7 +14216,7 @@ příliš upravovat.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Zrušit</translation>
+        <translation>Zrušit</translation>
     </message>
 </context>
 <context>
