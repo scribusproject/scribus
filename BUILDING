@@ -238,7 +238,7 @@ More info can be found in the README.
 SuSE
 ====
 
-Recommended packages for compiling from source on SuSE 9.x:
+Recommended packages for compiling from source on SuSE 9.x/10.x:
 	qt3-devel (required)
 	libart_lgpl-devel (required)
 	freetype2-devel (required)
@@ -247,7 +247,7 @@ Recommended packages for compiling from source on SuSE 9.x:
 	libtiff-devel
 	libxml2-devel
 	cups-devel
-	openssl-devel
+	openssl-devel (required if CUPS support is needed) 
 	libpng-devel
 	libjpeg-devel
 	update-desktop-files
