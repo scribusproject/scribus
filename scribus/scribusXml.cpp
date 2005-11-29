@@ -323,10 +323,10 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 	ob->setAttribute("TEXTFLOW2", item->textFlowUsesBoundingBox() ? 1 : 0);
 	ob->setAttribute("TEXTFLOW3", item->textFlowUsesContourLine() ? 1 : 0);
 	ob->setAttribute("AUTOTEXT", item->isAutoText ? 1 : 0);
-	ob->setAttribute("EXTRA",item->Extra);
-	ob->setAttribute("TEXTRA",item->TExtra);
-	ob->setAttribute("BEXTRA",item->BExtra);
-	ob->setAttribute("REXTRA",item->RExtra);
+	ob->setAttribute("EXTRA",item->textToFrameDistLeft());
+	ob->setAttribute("TEXTRA",item->textToFrameDistTop());
+	ob->setAttribute("BEXTRA",item->textToFrameDistBottom());
+	ob->setAttribute("REXTRA",item->textToFrameDistRight());
 	if (((item->asImageFrame()) || (item->asTextFrame())) && (!item->Pfile.isEmpty()))
 		ob->setAttribute("PFILE",Path2Relative(item->Pfile));
 	else
@@ -345,7 +345,7 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 	ob->setAttribute("EMBEDDED", item->UseEmbedded ? 1 : 0);
 	ob->setAttribute("LOCK", item->locked() ? 1 : 0);
 	ob->setAttribute("LOCKR", item->sizeLocked() ? 1 : 0);
-	ob->setAttribute("REVERS", item->Reverse ? 1 : 0);
+	ob->setAttribute("REVERS", item->reversed() ? 1 : 0);
 	ob->setAttribute("TransValue", item->fillTransparency());
 	ob->setAttribute("TransValueS", item->lineTransparency());
 	ob->setAttribute("isTableItem", static_cast<int>(item->isTableItem));

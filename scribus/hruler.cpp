@@ -166,12 +166,12 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 			{
 				case 1:
 					//currView->SelItem.at(0)->Extra = Extra;
-					currDoc->selection->itemAt(0)->Extra = Extra;
+					currDoc->selection->itemAt(0)->setTextToFrameDistLeft(Extra);
 					emit DocChanged(false);
 					break;
 				case 2:
 					//currView->SelItem.at(0)->RExtra = RExtra;
-					currDoc->selection->itemAt(0)->RExtra = RExtra;
+					currDoc->selection->itemAt(0)->setTextToFrameDistRight(RExtra);
 					emit DocChanged(false);
 					break;
 				case 3:

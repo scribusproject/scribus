@@ -256,16 +256,12 @@ public:
 	void DrawZeichenS(ScPainter *p, struct ZZ *hl);
 	void DrawPolyL(QPainter *p, QPointArray pts);
 	QString ExpandToken(uint base);
-	bool Reverse;
-
 	double gXpos;
 	double gYpos;
 	double gWidth;
 	double gHeight;
   /** Eckrundung von Rechtecken */
 	double RadRect;
-	/** @brief Stores the old rotation value for undo action. Is used to detect rotation actions. */
-	double oldRot;
   /** Enthaelt das Dokument */
 	ScribusDoc *Doc;
 	int GrType;
@@ -338,11 +334,6 @@ public:
 	double BBoxX;
   /** BoundingBox-H */
 	double BBoxH;
-  /** Extra Abstand vom Rand */
-	double Extra;
-	double TExtra;
-	double BExtra;
-	double RExtra;
   /** Linespacing */
 	double LineSp;
 	int LineSpMode;
@@ -489,6 +480,30 @@ public:
 	void setImageYOffset(const double);
 	void moveImageXYOffsetBy(const double, const double);
 	void setImageXYOffset(const double, const double);
+	//Reverse
+	bool reversed();
+	void setReversed(bool);
+
+
+	//Text Data - Move to PageItem_TextFrame at some point?
+	double textToFrameDistLeft();
+	double textToFrameDistRight();
+	double textToFrameDistTop();
+	double textToFrameDistBottom();
+	void setTextToFrameDistLeft(double);
+	void setTextToFrameDistRight(double);
+	void setTextToFrameDistTop(double);
+	void setTextToFrameDistBottom(double);
+	/**
+	 * Set the text to frame distances all at once
+	 * @param Left
+	 * @param Right
+	 * @param Top
+	 * @param Bottom
+	 */
+	void setTextToFrameDist(double newLeft, double newRight, double newTop, double newBottom);
+	
+	
 
 	/** @brief Manages undostack and is where all undo actions/states are sent. */
 	UndoManager *undoManager;
@@ -1090,8 +1105,14 @@ protected:
 	double LocalX;
 	/** Image Y Offset to frame */
 	double LocalY;
+	/** If the frame is reversed */
+	bool Reverse;
 	
-	
+  	/** Left, Top, Bottom, Right distances of text from the frame */
+	double Extra;
+	double TExtra;
+	double BExtra;
+	double RExtra;
 	
 	//Undo Data
 	/** @brief Stores the old X-position for undo action. Is used to detect move actions.*/
@@ -1102,6 +1123,8 @@ protected:
 	double oldWidth;
 	/** @brief Stores the old height for undo action. Is used to detect resize actions. */
 	double oldHeight;
+	/** @brief Stores the old rotation value for undo action. Is used to detect rotation actions. */
+	double oldRot;
 	
 	
 signals:

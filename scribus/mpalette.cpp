@@ -929,8 +929,8 @@ void Mpalette::setCurrentItem(PageItem *i)
 	setBH(i->width(), i->height());
 	setR(i->rotation());
 	
-	Revert->setOn(i->Reverse);
-	setDvals(i->Extra, i->TExtra, i->BExtra, i->RExtra);
+	Revert->setOn(i->reversed());
+	setDvals(i->textToFrameDistLeft(), i->textToFrameDistTop(), i->textToFrameDistBottom(), i->textToFrameDistRight());
 	LevelTxt->setText(QString::number(i->ItemNr));
 	textFlowsAroundFrame->setChecked(i->textFlowsAroundFrame());
 	textFlowUsesBoundingBox->setChecked(i->textFlowUsesBoundingBox());
@@ -974,7 +974,7 @@ void Mpalette::setCurrentItem(PageItem *i)
 	dGap->setMinValue(0);
 	if (colgapLabel->getState())
 	{
-		dGap->setMaxValue(QMAX((i->width() / i->Cols - i->Extra - i->RExtra)*Umrech, 0));
+		dGap->setMaxValue(QMAX((i->width() / i->Cols - i->textToFrameDistLeft() - i->textToFrameDistRight())*Umrech, 0));
 		dGap->setValue(i->ColGap*Umrech);
 	}
 	else
@@ -984,7 +984,7 @@ void Mpalette::setCurrentItem(PageItem *i)
 			lineCorr = i->Pwidth;
 		else
 			lineCorr = 0;
-		double ColWidth = (i->width() - (i->ColGap * (i->Cols - 1)) - i->Extra - i->RExtra - lineCorr) / i->Cols;
+		double ColWidth = (i->width() - (i->ColGap * (i->Cols - 1)) - i->textToFrameDistLeft() - i->textToFrameDistRight() - lineCorr) / i->Cols;
 		dGap->setMaxValue(QMAX((i->width() / i->Cols)*Umrech, 0));
 		dGap->setValue(ColWidth*Umrech);
 	}
@@ -1046,7 +1046,7 @@ void Mpalette::setCurrentItem(PageItem *i)
 		TabStack2->raiseWidget(1);
 		showcurveCheckBox->setChecked(i->PoShow);
 		LineW->setValue(i->BaseOffs * -1);
-		Dist->setValue(i->Extra);
+		Dist->setValue(i->textToFrameDistLeft());
 	}
 	else
 		TabStack2->raiseWidget(0);
@@ -1167,7 +1167,7 @@ void Mpalette::SetCurItem(PageItem *i)
 	dGap->setMinValue(0);
 	if (colgapLabel->getState())
 	{
-		dGap->setMaxValue(QMAX((i->width() / i->Cols - i->Extra - i->RExtra)*Umrech, 0));
+		dGap->setMaxValue(QMAX((i->width() / i->Cols - i->textToFrameDistLeft() - i->textToFrameDistRight())*Umrech, 0));
 		dGap->setValue(i->ColGap*Umrech);
 	}
 	else
@@ -1177,15 +1177,15 @@ void Mpalette::SetCurItem(PageItem *i)
 			lineCorr = i->Pwidth;
 		else
 			lineCorr = 0;
-		double ColWidth = (i->width() - (i->ColGap * (i->Cols - 1)) - i->Extra - i->RExtra - lineCorr) / i->Cols;
+		double ColWidth = (i->width() - (i->ColGap * (i->Cols - 1)) - i->textToFrameDistLeft() - i->textToFrameDistRight() - lineCorr) / i->Cols;
 		dGap->setMaxValue(QMAX((i->width() / i->Cols)*Umrech, 0));
 		dGap->setValue(ColWidth*Umrech);
 	}
-	DLeft->setValue(i->Extra*Umrech);
-	DTop->setValue(i->TExtra*Umrech);
-	DBottom->setValue(i->BExtra*Umrech);
-	DRight->setValue(i->RExtra*Umrech);
-	Revert->setOn(i->Reverse);
+	DLeft->setValue(i->textToFrameDistLeft()*Umrech);
+	DTop->setValue(i->textToFrameDistTop()*Umrech);
+	DBottom->setValue(i->textToFrameDistBottom()*Umrech);
+	DRight->setValue(i->textToFrameDistRight()*Umrech);
+	Revert->setOn(i->reversed());
 	textFlowsAroundFrame->setChecked(i->textFlowsAroundFrame());
 	textFlowUsesBoundingBox->setChecked(i->textFlowUsesBoundingBox());
 	Textflow3->setChecked(i->textFlowUsesContourLine());
@@ -1252,7 +1252,7 @@ void Mpalette::SetCurItem(PageItem *i)
 		TabStack2->raiseWidget(1);
 		showcurveCheckBox->setChecked(i->PoShow);
 		LineW->setValue(i->BaseOffs * -1);
-		Dist->setValue(i->Extra);
+		Dist->setValue(i->textToFrameDistLeft());
 	}
 	else
 		TabStack2->raiseWidget(0);
@@ -1722,7 +1722,7 @@ void Mpalette::setCols(int r, double g)
 		DCol->setMaxValue(QMAX(qRound(CurItem->width() / QMAX(CurItem->ColGap, 10.0)), 1));
 		if (colgapLabel->getState())
 		{
-			dGap->setMaxValue(QMAX((CurItem->width() / CurItem->Cols - CurItem->Extra - CurItem->RExtra)*Umrech, 0));
+			dGap->setMaxValue(QMAX((CurItem->width() / CurItem->Cols - CurItem->textToFrameDistLeft() - CurItem->textToFrameDistRight())*Umrech, 0));
 			dGap->setValue(CurItem->ColGap*Umrech);
 		}
 		else
@@ -1732,7 +1732,7 @@ void Mpalette::setCols(int r, double g)
 				lineCorr = CurItem->Pwidth;
 			else
 				lineCorr = 0;
-			double ColWidth = (CurItem->width() - (CurItem->ColGap * (CurItem->Cols - 1)) - CurItem->Extra - CurItem->RExtra - lineCorr) / CurItem->Cols;
+			double ColWidth = (CurItem->width() - (CurItem->ColGap * (CurItem->Cols - 1)) - CurItem->textToFrameDistLeft() - CurItem->textToFrameDistRight() - lineCorr) / CurItem->Cols;
 			dGap->setMaxValue(QMAX((CurItem->width() / CurItem->Cols)*Umrech, 0));
 			dGap->setValue(ColWidth*Umrech);
 		}
@@ -2436,7 +2436,7 @@ void Mpalette::NewGap()
 			else
 				lineCorr = 0;
 			double newWidth = dGap->value() / Umrech;
-			double newGap = QMAX(((CurItem->width() - CurItem->Extra - CurItem->RExtra - lineCorr) - (newWidth * CurItem->Cols)) / (CurItem->Cols - 1), 0);
+			double newGap = QMAX(((CurItem->width() - CurItem->textToFrameDistLeft() - CurItem->textToFrameDistRight() - lineCorr) - (newWidth * CurItem->Cols)) / (CurItem->Cols - 1), 0);
 			CurItem->ColGap = newGap;
 		}
 		ScApp->view->RefreshItem(CurItem);
@@ -3105,10 +3105,7 @@ void Mpalette::NewTDist()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		CurItem->Extra = DLeft->value() / Umrech;
-		CurItem->TExtra = DTop->value() / Umrech;
-		CurItem->BExtra = DBottom->value() / Umrech;
-		CurItem->RExtra = DRight->value() / Umrech;
+		CurItem->setTextToFrameDist(DLeft->value() / Umrech, DRight->value() / Umrech, DTop->value() / Umrech, DBottom->value() / Umrech);
 		setCols(CurItem->Cols, CurItem->ColGap);
 		ScApp->view->RefreshItem(CurItem);
 		emit DocChanged();
@@ -3158,16 +3155,9 @@ void Mpalette::DoRevert()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		if (Revert->isOn())
-		{
-			CurItem->setImageFlippedH(true);
-			CurItem->Reverse = true;
-		}
-		else
-		{
-			CurItem->setImageFlippedH(false);
-			CurItem->Reverse = false;
-		}
+		bool setter=Revert->isOn();
+		CurItem->setImageFlippedH(setter);
+		CurItem->setReversed(setter);
 		ScApp->view->RefreshItem(CurItem);
 		emit DocChanged();
 	}
@@ -3556,7 +3546,7 @@ void Mpalette::handlePathDist()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		CurItem->Extra = Dist->value();
+		CurItem->setTextToFrameDistLeft(Dist->value());
 		ScApp->view->AdjustItemSize(CurItem);
 		CurItem->UpdatePolyClip();
 		ScApp->view->RefreshItem(CurItem);
@@ -3651,7 +3641,7 @@ void Mpalette::ManageTabs()
 			lineCorr = 0;
 		double ColWidth;
 		if (CurItem->Cols > 1)
-			ColWidth = (CurItem->width() - (CurItem->ColGap * (CurItem->Cols - 1)) - CurItem->Extra - CurItem->RExtra - lineCorr) / CurItem->Cols;
+			ColWidth = (CurItem->width() - (CurItem->ColGap * (CurItem->Cols - 1)) - CurItem->textToFrameDistLeft() - CurItem->textToFrameDistRight() - lineCorr) / CurItem->Cols;
 		else
 			ColWidth = CurItem->width();
 		TabManager *dia = new TabManager(this, doc->unitIndex(), CurItem->TabValues, ColWidth);

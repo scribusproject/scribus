@@ -240,7 +240,7 @@ bool Selection::removeItem(PageItem *item, int listNumber)
 	return false;
 }
 
-PageItem* Selection::takeItem(int itemIndex, int listNumber)
+PageItem* Selection::takeItem(uint itemIndex, int listNumber)
 {
 	if (itemIndex>=0 && sellists.contains(listNumber))
 		if (!sellists[listNumber].isEmpty() && itemIndex<sellists[listNumber].count())

@@ -2647,13 +2647,11 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, Page* pag)
 	struct ScText *hl;
 	QString tmp = "";
 	QString tmp2 = "";
-	double tabDist;
 	uint tabCc = 0;
 	QValueList<PageItem::TabRecord> tTabValues;
+	double tabDist=ite->textToFrameDistLeft();
 	if (ite->lineColor() != "None")
-		tabDist = ite->Extra + ite->Pwidth / 2.0;
-	else
-		tabDist = ite->Extra;
+		tabDist += ite->Pwidth / 2.0;
 	if (ite->itemType() == PageItem::TextFrame)
 		tmp += "BT\n";
 	for (uint d = 0; d < ite->MaxChars; ++d)
@@ -2923,7 +2921,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 			}
 			if (!ite->asPathText())
 			{
-				if (ite->Reverse)
+				if (ite->reversed())
 				{
 					double wid = Cwidth(doc, hl->cfont, chx, hl->csize) * (hl->cscale / 1000.0);
 					tmp2 += "1 0 0 1 "+FToStr(hl->xp)+" "+FToStr((hl->yp - (tsz / 10.0)) * -1 + ((tsz / 10.0) * (hl->cbase / 1000.0)))+" cm\n";
@@ -3049,7 +3047,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 			tmp += "0 Tr\n";
 		if (!ite->asPathText())
 		{
-			if (ite->Reverse)
+			if (ite->reversed())
 			{
 				int chs = hl->csize;
 				double wtr;

@@ -1969,10 +1969,7 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 			//int z = ScApp->view->PaintText(x, y, 10, 10, gc->LWidth, gc->FillCol);
 			int z = currDoc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y, 10, 10, gc->LWidth, "None", gc->FillCol, !ScApp->view->Mpressed);
 			PageItem* ite = currDoc->Items->at(z);
-			ite->Extra = 0;
-			ite->TExtra = 0;
-			ite->BExtra = 0;
-			ite->RExtra = 0;
+			ite->setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
 			ite->LineSp = gc->FontSize / 10.0 + 2;
 			ite->setHeight(ite->LineSp+desc+2);
 			ScApp->SetNewFont(gc->Family);
@@ -2093,10 +2090,7 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 		//int z = ScApp->view->PaintText(x, y - qRound(gc->FontSize / 10.0), 10, 10, gc->LWidth, gc->FillCol);
 		int z = currDoc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y - qRound(gc->FontSize / 10.0), 10, 10, gc->LWidth, "None", gc->FillCol, !ScApp->view->Mpressed);
 		PageItem* ite = currDoc->Items->at(z);
-		ite->Extra = 0;
-		ite->TExtra = 0;
-		ite->BExtra = 0;
-		ite->RExtra = 0;
+		ite->setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
 		ite->LineSp = gc->FontSize / 10.0 + 2;
 		ScApp->SetNewFont(gc->Family);
 		ite->IFont = gc->Family;

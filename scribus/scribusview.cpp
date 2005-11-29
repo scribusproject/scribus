@@ -691,11 +691,11 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 									horizRuler->lineCorr = 0;
 								horizRuler->ColGap = currItem->ColGap;
 								horizRuler->Cols = currItem->Cols;
-								horizRuler->Extra = currItem->Extra;
-								horizRuler->RExtra = currItem->RExtra;
+								horizRuler->Extra = currItem->textToFrameDistLeft();
+								horizRuler->RExtra = currItem->textToFrameDistRight();
 								horizRuler->First = Doc->docParagraphStyles[Doc->currentParaStyle].First;
 								horizRuler->Indent = Doc->docParagraphStyles[Doc->currentParaStyle].Indent;
-								if (currItem->imageFlippedH() || (currItem->Reverse))
+								if (currItem->imageFlippedH() || (currItem->reversed()))
 									horizRuler->Revers = true;
 								else
 									horizRuler->Revers = false;
@@ -4836,10 +4836,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				currItem->TopLine = Doc->ElemToLink->TopLine;
 				currItem->LeftLine = Doc->ElemToLink->LeftLine;
 				currItem->RightLine = Doc->ElemToLink->RightLine;
-				currItem->BExtra = Doc->ElemToLink->BExtra;
-				currItem->RExtra = Doc->ElemToLink->RExtra;
-				currItem->Extra = Doc->ElemToLink->Extra;
-				currItem->TExtra = Doc->ElemToLink->TExtra;
+				currItem->setTextToFrameDist(Doc->ElemToLink->textToFrameDistLeft(), Doc->ElemToLink->textToFrameDistRight(), Doc->ElemToLink->textToFrameDistTop(), Doc->ElemToLink->textToFrameDistBottom());
 				currItem->setLineStyle(Doc->ElemToLink->lineStyle());
 				currItem->setLineWidth(Doc->ElemToLink->lineWidth());
 				currItem->setLineTransparency(Doc->ElemToLink->lineTransparency());
@@ -6957,8 +6954,8 @@ void ScribusView::slotDoCurs(bool draw)
 					lineCorr = currItem->Pwidth / 2.0;
 				else
 					lineCorr = 0;
-				xp = static_cast<int>(currItem->Extra + lineCorr);
-				yp = static_cast<int>(currItem->TExtra + lineCorr + currItem->LineSp);
+				xp = static_cast<int>(currItem->textToFrameDistLeft() + lineCorr);
+				yp = static_cast<int>(currItem->textToFrameDistTop() + lineCorr + currItem->LineSp);
 				desc = static_cast<int>((*Doc->AllFonts)[currItem->IFont]->numDescender * (-currItem->ISize / 10.0));
 				asce = static_cast<int>((*Doc->AllFonts)[currItem->IFont]->numAscent * (currItem->ISize / 10.0));
 			}
@@ -6971,8 +6968,8 @@ void ScribusView::slotDoCurs(bool draw)
 						lineCorr = currItem->Pwidth / 2.0;
 					else
 						lineCorr = 0;
-					xp = static_cast<int>(currItem->Extra + lineCorr);
-					yp = static_cast<int>(currItem->TExtra + lineCorr + currItem->LineSp);
+					xp = static_cast<int>(currItem->textToFrameDistLeft() + lineCorr);
+					yp = static_cast<int>(currItem->textToFrameDistTop() + lineCorr + currItem->LineSp);
 					desc = static_cast<int>((*Doc->AllFonts)[currItem->IFont]->numDescender * (-currItem->ISize / 10.0));
 					asce = static_cast<int>((*Doc->AllFonts)[currItem->IFont]->numAscent * (currItem->ISize / 10.0));
 				}
@@ -10141,11 +10138,11 @@ void ScribusView::chAbStyle(PageItem *currItem, int s)
 			horizRuler->lineCorr = 0;
 		horizRuler->ColGap = currItem->ColGap;
 		horizRuler->Cols = currItem->Cols;
-		horizRuler->Extra = currItem->Extra;
-		horizRuler->RExtra = currItem->RExtra;
+		horizRuler->Extra = currItem->textToFrameDistLeft();
+		horizRuler->RExtra = currItem->textToFrameDistRight();
 		horizRuler->First = Doc->docParagraphStyles[s].First;
 		horizRuler->Indent = Doc->docParagraphStyles[s].Indent;
-		horizRuler->Revers = (currItem->imageFlippedH() || (currItem->Reverse));
+		horizRuler->Revers = (currItem->imageFlippedH() || (currItem->reversed()));
 		horizRuler->ItemPosValid = true;
 		if (s < 5)
 			horizRuler->TabValues = currItem->TabValues;
@@ -10850,10 +10847,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	currItem->TxtStrikePos = Buffer->TxtStrikePos;
 	currItem->TxtStrikeWidth = Buffer->TxtStrikeWidth;
 	currItem->setRotation(Buffer->Rot);
-	currItem->Extra = Buffer->Extra;
-	currItem->TExtra = Buffer->TExtra;
-	currItem->BExtra = Buffer->BExtra;
-	currItem->RExtra = Buffer->RExtra;
+	currItem->setTextToFrameDist(Buffer->Extra, Buffer->RExtra, Buffer->TExtra, Buffer->BExtra);
 	currItem->PLineArt = PenStyle(Buffer->PLineArt);
 	currItem->PLineEnd = PenCapStyle(Buffer->PLineEnd);
 	currItem->PLineJoin = PenJoinStyle(Buffer->PLineJoin);
@@ -10940,7 +10934,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	currItem->setSizeLocked(Buffer->LockRes);
 	currItem->setFillTransparency(Buffer->Transparency);
 	currItem->setLineTransparency(Buffer->TranspStroke);
-	currItem->Reverse = Buffer->Reverse;
+	currItem->setReversed(Buffer->Reverse);
 	currItem->NamedLStyle = Buffer->NamedLStyle;
 	currItem->Language = ScApp->GetLang(Buffer->Language);
 	currItem->Cols = Buffer->Cols;
@@ -11284,7 +11278,7 @@ void ScribusView::TextToPath()
 					}
 					chma.scale(csi, csi);
 					chma2.scale(hl->cscale / 1000.0, hl->cscalev / 1000.0);
-					if (currItem->Reverse)
+					if (currItem->reversed())
 					{
 						if (a < currItem->itemText.count()-1)
 							wide = Cwidth(Doc, hl->cfont, chx, hl->csize, currItem->itemText.at(a+1)->ch);
@@ -11323,7 +11317,7 @@ void ScribusView::TextToPath()
 					chma.scale(hl->cscale / 1000.0, hl->cscalev / 1000.0);
 					pts.map(chma);
 					chma = QWMatrix();
-					if (currItem->imageFlippedH() && (!currItem->Reverse))
+					if (currItem->imageFlippedH() && (!currItem->reversed()))
 						chma.scale(-1, 1);
 					if (currItem->imageFlippedV())
 						chma.scale(1, -1);

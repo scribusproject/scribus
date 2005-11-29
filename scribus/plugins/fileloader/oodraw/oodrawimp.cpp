@@ -657,10 +657,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 		if (z != -1)
 		{
 			PageItem* ite = Doku->Items->at(z);
-			ite->Extra = 0;
-			ite->TExtra = 0;
-			ite->BExtra = 0;
-			ite->RExtra = 0;
+			ite->setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
 			bool firstPa = false;
 			for ( QDomNode n = b.firstChild(); !n.isNull(); n = n.nextSibling() )
 			{

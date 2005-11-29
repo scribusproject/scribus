@@ -2041,10 +2041,11 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	currItem->TxtStrikeWidth=qRound(QStodouble(obj->attribute("TXTSTW", "-0.1")) * 10);
 	currItem->TxTStyle = QStoInt(obj->attribute("TXTSTYLE", "0"));
 	currItem->setRotation(QStodouble(obj->attribute("ROT")));
-	currItem->Extra = QStodouble(obj->attribute("EXTRA"));
-	currItem->TExtra = QStodouble(obj->attribute("TEXTRA", "1"));
-	currItem->BExtra = QStodouble(obj->attribute("BEXTRA", "1"));
-	currItem->RExtra = QStodouble(obj->attribute("REXTRA", "1"));
+	currItem->setTextToFrameDist(QStodouble(obj->attribute("EXTRA")),
+								QStodouble(obj->attribute("REXTRA", "1")),
+								QStodouble(obj->attribute("TEXTRA", "1")),
+								QStodouble(obj->attribute("BEXTRA", "1")));
+	
 	currItem->PLineArt = Qt::PenStyle(QStoInt(obj->attribute("PLINEART")));
 	currItem->PLineEnd = Qt::PenCapStyle(QStoInt(obj->attribute("PLINEEND","0")));
 	currItem->PLineJoin = Qt::PenJoinStyle(QStoInt(obj->attribute("PLINEJOIN","0")));
@@ -2118,7 +2119,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	else
 		currItem->ExtraV = QStoInt(obj->attribute("TXTKERN"));
 	currItem->DashOffset = QStodouble(obj->attribute("DASHOFF","0.0"));
-	currItem->Reverse = static_cast<bool>(QStoInt(obj->attribute("REVERS","0")));
+	currItem->setReversed(static_cast<bool>(QStoInt(obj->attribute("REVERS","0"))));
 	currItem->setLocked(static_cast<bool>(QStoInt(obj->attribute("LOCK","0"))));
 	currItem->setSizeLocked(static_cast<bool>(QStoInt(obj->attribute("LOCKR","0"))));
 	currItem->setFillTransparency(QStodouble(obj->attribute("TransValue","0.0")));

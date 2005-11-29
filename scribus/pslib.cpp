@@ -2071,13 +2071,12 @@ void PSLib::SetFarbe(QString farb, int shade, int *h, int *s, int *v, int *k, bo
 void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, Page* pg, bool sep, bool farb, bool ic, bool master)
 {
 	struct ScText *hl;
-	double tabDist;
 	uint tabCc = 0;
 	QValueList<PageItem::TabRecord> tTabValues;
+	double tabDist = ite->textToFrameDistLeft();
 	if (ite->lineColor() != "None")
-		tabDist = ite->Extra + ite->Pwidth / 2.0;
-	else
-		tabDist = ite->Extra;
+		tabDist += ite->Pwidth / 2.0;
+		
 	for (uint d = 0; d < ite->MaxChars; ++d)
 	{
 		hl = ite->itemText.at(d);
@@ -2317,7 +2316,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 		if ((hl->cfont->CharWidth.contains(chr)) && (chr != 32))
 		{
 			PS_save();
-			if (ite->Reverse)
+			if (ite->reversed())
 			{
 				PS_translate(hl->xp, (hl->yp - (tsz / 10.0)) * -1);
 				PS_scale(-1, 1);
@@ -2363,7 +2362,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 		PS_selectfont(hl->cfont->scName(), tsz / 10.0);
 		PS_save();
 		PS_translate(hl->xp, -hl->yp);
-		if (ite->Reverse)
+		if (ite->reversed())
 		{
 			int chs = hl->csize;
 			ite->SetZeichAttr(hl, &chs, &chx);
@@ -2416,7 +2415,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 			if (hl->cbase != 0)
 				chma3.translate(0, -(hl->csize / 10.0) * (hl->cbase / 1000.0));
 			gly.map(chma * chma2 * chma3);
-			if (ite->Reverse)
+			if (ite->reversed())
 			{
 				chma = QWMatrix();
 				chma.scale(-1, 1);

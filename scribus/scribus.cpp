@@ -2345,11 +2345,11 @@ void ScribusApp::HaveNewSel(int Nr)
 				view->horizRuler->lineCorr = 0;
 			view->horizRuler->ColGap = currItem->ColGap;
 			view->horizRuler->Cols = currItem->Cols;
-			view->horizRuler->Extra = currItem->Extra;
-			view->horizRuler->RExtra = currItem->RExtra;
+			view->horizRuler->Extra = currItem->textToFrameDistLeft();
+			view->horizRuler->RExtra = currItem->textToFrameDistRight();
 			view->horizRuler->First = doc->docParagraphStyles[doc->currentParaStyle].First;
 			view->horizRuler->Indent = doc->docParagraphStyles[doc->currentParaStyle].Indent;
-			if (currItem->imageFlippedH() || (currItem->Reverse))
+			if (currItem->imageFlippedH() || (currItem->reversed()))
 				view->horizRuler->Revers = true;
 			else
 				view->horizRuler->Revers = false;

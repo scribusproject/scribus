@@ -58,11 +58,6 @@ PageItem::PageItem(const PageItem & other)
 
 // 200 attributes! That is madness, or to quote some famous people from Kriquet:
 // "THAT ALL HAS TO GO!"
-	Reverse(other.Reverse),
-	oldXpos(other.oldXpos),
-	oldYpos(other.oldYpos),
-	oldWidth(other.oldWidth),
-	oldHeight(other.oldHeight),
 	gXpos(other.gXpos),
 	gYpos(other.gYpos),
 	gWidth(other.gWidth),
@@ -258,7 +253,12 @@ PageItem::PageItem(const PageItem & other)
 	Width(other.Width),
 	Height(other.Height),
 	Rot(other.Rot),
-	Select(other.Select)
+	Select(other.Select),
+	Reverse(other.Reverse),
+	oldXpos(other.oldXpos),
+	oldYpos(other.oldYpos),
+	oldWidth(other.oldWidth),
+	oldHeight(other.oldHeight)	
 {
 }
 
@@ -644,14 +644,14 @@ double PageItem::imageXScale()
 	return LocalScX;
 }
 
-void PageItem::setImageXScale(const double newImageXScale)
-{
-	LocalScX=newImageXScale;
-}
-
 double PageItem::imageYScale()
 {
 	return LocalScY;
+}
+
+void PageItem::setImageXScale(const double newImageXScale)
+{
+	LocalScX=newImageXScale;
 }
 
 void PageItem::setImageYScale(const double newImageYScale)
@@ -670,14 +670,14 @@ double PageItem::imageXOffset()
 	return LocalX;
 }
 
-void PageItem::setImageXOffset(const double newImageXOffset)
-{
-	LocalX=newImageXOffset;
-}
-
 double PageItem::imageYOffset()
 {
 	return LocalY;
+}
+
+void PageItem::setImageXOffset(const double newImageXOffset)
+{
+	LocalX=newImageXOffset;
 }
 
 void PageItem::setImageYOffset(const double newImageYOffset)
@@ -702,6 +702,63 @@ void PageItem::moveImageXYOffsetBy(const double dX, const double dY)
 	//emit (LocalX, LocalY);
 }
 
+bool PageItem::reversed()
+{
+	return Reverse;
+}
+
+void PageItem::setReversed(bool newReversed)
+{
+	Reverse=newReversed;
+}
+
+double PageItem::textToFrameDistLeft()
+{
+	return Extra;
+}
+
+double PageItem::textToFrameDistRight()
+{
+	return RExtra;
+}
+
+double PageItem::textToFrameDistTop()
+{
+	return TExtra;
+}
+
+double PageItem::textToFrameDistBottom()
+{
+	return BExtra;
+}
+
+void PageItem::setTextToFrameDistLeft(double newLeft)
+{
+	Extra=newLeft;
+}
+
+void PageItem::setTextToFrameDistRight(double newRight)
+{
+	RExtra=newRight;
+}
+
+void PageItem::setTextToFrameDistTop(double newTop)
+{
+	TExtra=newTop;
+}
+
+void PageItem::setTextToFrameDistBottom(double newBottom)
+{
+	BExtra=newBottom;
+}
+
+void PageItem::setTextToFrameDist(double newLeft, double newRight, double newTop, double newBottom)
+{
+	Extra=newLeft;
+	RExtra=newRight;
+	TExtra=newTop;
+	BExtra=newBottom;
+}
 
 
 

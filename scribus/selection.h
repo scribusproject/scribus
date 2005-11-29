@@ -101,7 +101,7 @@ class SCRIBUS_API Selection : public QObject
 		 * @param listNumber List to remove the item from 
 		 * @return Item
 		 */
-		PageItem* takeItem(int itemIndex, int listNumber=GUISelection);
+		PageItem* takeItem(uint itemIndex, int listNumber=GUISelection);
 		/**
 		 * Find an item from list listNumber and return an index to it
 		 * @param item Item pointer to find in the list
