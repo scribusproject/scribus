@@ -74,7 +74,7 @@ public:
 	~ScribusDoc();
 	void setup(const int, const int, const int, const int, const int, const QString&, const QString&);
 	void setLoading(const bool);
-	const bool isLoading();
+	bool isLoading() const;
 	void setModified(const bool);
 	bool isModified() const;
 /** Setzt die Seitenattribute */
@@ -95,7 +95,7 @@ public:
 	 * @param pageIndex
 	 * @return number of frame
 	 */
-	const int addAutomaticTextFrame(const int);
+	int addAutomaticTextFrame(const int);
 	/**
 	 * Set the left and right margins based on the location of the page
 	 * @param pageIndex 
@@ -126,19 +126,19 @@ public:
 	 * @param Mark the layer active
 	 * @return Number of the layer created
 	 */
-	const int addLayer(const QString&, const bool);
+	int addLayer(const QString&, const bool);
 	/**
 	 * @brief Delete a layer from the current document
 	 * @param Number of layer
 	 * @param Delete the items on the layer too?
 	 * @return Success or failure
 	 */
-	const bool deleteLayer(const int, const bool);
+	bool deleteLayer(const int, const bool);
 	/**
 	 * @brief Return the number of the current layer
 	 * @return Active layer number
 	 */
-	const int activeLayer();
+	int activeLayer();
 
 	/**
 	 * @brief Return the name of the current layer
@@ -150,113 +150,113 @@ public:
 	 * @param Number of the layer
 	 * @return Success or failure
 	 */
-	const bool setActiveLayer(const int);
+	bool setActiveLayer(const int);
 	/**
 	 * @brief Set the active layer via the layer name
 	 * @param Name of the layer
 	 * @return Success or failure
 	 */
-	const bool setActiveLayer(const QString &);
+	bool setActiveLayer(const QString &);
 	/**
 	 * @brief Set the layer printable via the layer number
 	 * @param Number of the layer
 	 * @param Printable bool
 	 * @return Success or failure
 	 */
-	const bool setLayerPrintable(const int, const bool);
+	bool setLayerPrintable(const int, const bool);
 	/**
 	 * @brief Is the layer printable
 	 * @param Number of the layer
 	 * @return Printable or not
 	 */
-	const bool layerPrintable(const int);
+	bool layerPrintable(const int);
 	/**
 	 * @brief Set the layer visible via the layer number
 	 * @param Number of the layer
 	 * @param Visible bool
 	 * @return Success or failure
 	 */
-	const bool setLayerVisible(const int, const bool);
+	bool setLayerVisible(const int, const bool);
 	/**
 	 * @brief Is the layer visible
 	 * @param Number of the layer
 	 * @return Visible or not
 	 */
-	const bool layerVisible(const int);
+	bool layerVisible(const int);
 	/**
 	 * @brief Return the level of the requested layer
 	 * @param Number of the layer
 	 * @return Level of the layer
 	 */
-	const int layerLevelFromNumber(const int);
+	int layerLevelFromNumber(const int);
 	/**
 	 * @brief Return the number of the layer at a certain level
 	 * @param Layer level
 	 * @return Layer number
 	 */
-	const int layerNumberFromLevel(const int);
+	int layerNumberFromLevel(const int);
 	/**
 	 * @brief Return the layer count
 	 * @return Number of layers in doc
 	 */
-	const int layerCount();
+	int layerCount() const;
 	/**
 	 * @brief Lower a layer
 	 * @param Number of the layer
 	 * @return Success or failure
 	 */
-	const bool lowerLayer(const int);
+	bool lowerLayer(const int);
 	/**
 	 * @brief Lower a layer using the level
 	 * @param Level of the layer
 	 * @return Success or failure
 	 */
-	const bool lowerLayerByLevel(const int);
+	bool lowerLayerByLevel(const int);
 	/**
 	 * @brief Raise a layer
 	 * @param Number of the layer
 	 * @return Success or failure
 	 */
-	const bool raiseLayer(const int);
+	bool raiseLayer(const int);
 	/**
 	 * @brief Raise a layer using the level
 	 * @param Level of the layer
 	 * @return Success or failure
 	 */
-	const bool raiseLayerByLevel(const int);
+	bool raiseLayerByLevel(const int);
 	/**
 	 * @brief Return the layer name
 	 * @param Number of the layer
 	 * @return Name of the layer
 	 */
-	const QString &layerName(const int);
+	const QString &layerName(const int) const;
 	/**
 	 * @brief Change the name of a layer
 	 * @param Number of the layer
 	 * @param New name of the layer
 	 * @return Success or failure
 	 */
-	const bool changeLayerName(const int, const QString&);
+	bool changeLayerName(const int, const QString&);
 	/**
 	 * @brief Does the layer have items on it?
 	 * @param Number of the layer
 	 * @return Layer contains items bool
 	 */
-	const bool layerContainsItems(const int);
+	bool layerContainsItems(const int);
 	/**
 	 * @brief Renumber a layer. Used in particular for reinsertion for undo/redo
 	 * @param Existing layer number
 	 * @param New layer number
 	 * @return Success or failure
 	 */
-	const bool renumberLayer(const int, const int);
+	bool renumberLayer(const int, const int);
 	/**
 	 * @brief Return a list of the layers in their order
 	 * @param QStringList to insert the layer names into
 	 */
 	void orderedLayerList(QStringList*);
 	//Items
-	const bool deleteTaggedItems();
+	bool deleteTaggedItems();
 
 	bool AddFont(QString name, int fsize = 10);
 	void OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo);
@@ -303,12 +303,12 @@ public:
 	 * @brief Set and get the document's unit index
 	 */
 	void setUnitIndex(const int);
-	const int unitIndex();
-	const double unitRatio();
+	int unitIndex() const;
+	double unitRatio() const;
 	/**
 	 * @brief Apply a master page
 	 */
-	const bool applyMasterPage(const QString& in, const int);
+	bool applyMasterPage(const QString& in, const int);
 	/**
 	 * @brief Undo function for applying a master page
 	 */
@@ -316,11 +316,11 @@ public:
 	/**
 	 * @brief Save function
 	 */
-	const bool save(const QString&);
+	bool save(const QString&);
 	/**
 	 * @brief Set the page margins. Current code uses current page only, also provide a (currently, TODO) option for this.
 	 */
-	const bool changePageMargins(const double initialTop, const double initialBottom, const double initialLeft, const double initialRight, const double initialHeight, const double initialWidth, const double Height, const double width, const int orientation, const QString& pageSize, const int pageNumber=-1, const int pageType = 0);
+	bool changePageMargins(const double initialTop, const double initialBottom, const double initialLeft, const double initialRight, const double initialHeight, const double initialWidth, const double Height, const double width, const int orientation, const QString& pageSize, const int pageNumber=-1, const int pageType = 0);
 	/**
 	 * @brief Recalculate the colors after CMS settings change. Update the items in the doc accordingly.
 	 */
@@ -376,14 +376,14 @@ public:
 	/**
 	 * @brief Doc uses automatic text frames?
 	 */
-	const bool usesAutomaticTextFrames();
+	bool usesAutomaticTextFrames() const;
 	void setUsesAutomaticTextFrames(const bool);
 	
 	/**
 	 * @brief Load images into an image frame, moved from the view
 	 * @retval Return false on failure
 	 */
-	const bool LoadPict(QString fn, int ItNr, bool reload = false);
+	bool LoadPict(QString fn, int ItNr, bool reload = false);
 	/**
 	 * 
 	 * @param fn 
@@ -391,7 +391,7 @@ public:
 	 * @param reload 
 	 * @return 
 	 */
-	const bool loadPict(QString fn, PageItem *pageItem, bool reload = false);
+	bool loadPict(QString fn, PageItem *pageItem, bool reload = false);
 	/**
 	 * 
 	 * @param currItem 
@@ -439,7 +439,7 @@ public:
 	 * Do we need to return if the move to master page mode was successful?
 	 */
 	void setMasterPageMode(const bool);
-	const bool masterPageMode();
+	bool masterPageMode() const;
 	
 	/**
 	 * @brief Add a section to the document sections list
@@ -449,7 +449,7 @@ public:
 	/**
 	 * @brief Delete a section from the document sections list
 	 */
-	const bool deleteSection(const uint);
+	bool deleteSection(const uint);
 	/**
 	 * @brief Gets the page number to be printed based on the section it is in.
 	 * Returns QString::null on failure to find the pageIndex
@@ -459,7 +459,7 @@ public:
 	 * @brief Gets the key of the sections map based on the section the page index is in.
 	 * Returns -1 on failure to find the pageIndex
 	 */
-	const int getSectionKeyForPageIndex(const uint pageIndex) const;
+	int getSectionKeyForPageIndex(const uint pageIndex) const;
 	/**
 	 *
 	 *

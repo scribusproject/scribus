@@ -68,7 +68,7 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 				itemError.insert(4, 0);
 			else
 			{
-				if  (((qRound(72.0 / currItem->LocalScX) < checkerSettings.minResolution) || (qRound(72.0 / currItem->LocalScY) < checkerSettings.minResolution))
+				if  (((qRound(72.0 / currItem->imageXScale()) < checkerSettings.minResolution) || (qRound(72.0 / currItem->imageYScale()) < checkerSettings.minResolution))
 				          && (currItem->isRaster) && (checkerSettings.checkResolution))
 					itemError.insert(5, 0);
 				QFileInfo fi = QFileInfo(currItem->Pfile);
@@ -169,7 +169,7 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 				itemError.insert(4, 0);
 			else
 			{
-				if  (((qRound(72.0 / currItem->LocalScX) < checkerSettings.minResolution) || (qRound(72.0 / currItem->LocalScY) < checkerSettings.minResolution))
+				if  (((qRound(72.0 / currItem->imageYScale()) < checkerSettings.minResolution) || (qRound(72.0 / currItem->imageYScale()) < checkerSettings.minResolution))
 				           && (currItem->isRaster) && (checkerSettings.checkResolution))
 					itemError.insert(5, 0);
 				QFileInfo fi = QFileInfo(currItem->Pfile);

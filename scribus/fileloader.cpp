@@ -1886,10 +1886,8 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	case PageItem::ImageFrame:
 		z = doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, x, y, w, h, 1, doc->toolSettings.dBrushPict, "None", true);
 		currItem = doc->Items->at(z);
-		currItem->LocalScX = scx;
-		currItem->LocalScY = scy;
-		currItem->LocalX = QStodouble(obj->attribute("LOCALX"));
-		currItem->LocalY = QStodouble(obj->attribute("LOCALY"));
+		currItem->setImageXYScale(scx, scy);
+		currItem->setImageXYOffset(QStodouble(obj->attribute("LOCALX")), QStodouble(obj->attribute("LOCALY")));
 		currItem->Pfile = obj->attribute("PFILE");
 		currItem->IProfile = obj->attribute("PRFILE","");
 		currItem->EmProfile = obj->attribute("EPROF","");
@@ -1915,16 +1913,15 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 		currItem->EmProfile = obj->attribute("EPROF","");
 		currItem->IRender = QStoInt(obj->attribute("IRENDER","1"));
 		currItem->UseEmbedded = QStoInt(obj->attribute("EMBEDDED","1"));
-		currItem->LocalScX = scx;
-		currItem->LocalScY = scy;
+		currItem->setImageXYScale(scx, scy);
 		clPath = obj->attribute("ImageClip", "");
 		if (currItem->pixm.imgInfo.PDSpathData.contains(clPath))
 		{
 			currItem->imageClip = currItem->pixm.imgInfo.PDSpathData[clPath].copy();
 			currItem->pixm.imgInfo.usedPath = clPath;
 			QWMatrix cl;
-			cl.translate(currItem->LocalX*currItem->LocalScX, currItem->LocalY*currItem->LocalScY);
-			cl.scale(currItem->LocalScX, currItem->LocalScY);
+			cl.translate(currItem->imageXOffset()*currItem->imageXScale(), currItem->imageYOffset()*currItem->imageYScale());
+			cl.scale(currItem->imageXScale(), currItem->imageYScale());
 			currItem->imageClip.map(cl);
 		}
 		currItem->PicArt = QStoInt(obj->attribute("PICART"));
@@ -1945,10 +1942,8 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 		currItem = doc->Items->at(z);
 		if ((QStoInt(obj->attribute("ANNOTATION","0"))) && (static_cast<bool>(QStoInt(obj->attribute("ANICON","0")))))
 		{
-			currItem->LocalScX = scx;
-			currItem->LocalScY = scy;
-			currItem->LocalX = QStodouble(obj->attribute("LOCALX"));
-			currItem->LocalY = QStodouble(obj->attribute("LOCALY"));
+			currItem->setImageXYScale(scx, scy);
+			currItem->setImageXYOffset(QStodouble(obj->attribute("LOCALX")), QStodouble(obj->attribute("LOCALY")));
 			currItem->Pfile = obj->attribute("PFILE");
 			currItem->Pfile2 = obj->attribute("PFILE2","");
 			currItem->Pfile3 = obj->attribute("PFILE3","");
@@ -1957,8 +1952,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 			currItem->IRender = QStoInt(obj->attribute("IRENDER","1"));
 			currItem->UseEmbedded = QStoInt(obj->attribute("EMBEDDED","1"));
 			doc->LoadPict(currItem->Pfile, z);
-			currItem->LocalScX = scx;
-			currItem->LocalScY = scy;
+			currItem->setImageXYScale(scx, scy);
 			currItem->PicArt = QStoInt(obj->attribute("PICART"));
 			currItem->BBoxX = QStodouble(obj->attribute("BBOXX"));
 			currItem->BBoxH = QStodouble(obj->attribute("BBOXH"));
@@ -1974,10 +1968,8 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 		currItem = doc->Items->at(z);
 		if ((QStoInt(obj->attribute("ANNOTATION","0"))) && (static_cast<bool>(QStoInt(obj->attribute("ANICON","0")))))
 		{
-			currItem->LocalScX = scx;
-			currItem->LocalScY = scy;
-			currItem->LocalX = QStodouble(obj->attribute("LOCALX"));
-			currItem->LocalY = QStodouble(obj->attribute("LOCALY"));
+			currItem->setImageXYScale(scx, scy);
+			currItem->setImageXYOffset(QStodouble(obj->attribute("LOCALX")), QStodouble(obj->attribute("LOCALY")));
 			currItem->Pfile = obj->attribute("PFILE");
 			currItem->Pfile2 = obj->attribute("PFILE2","");
 			currItem->Pfile3 = obj->attribute("PFILE3","");
@@ -1986,8 +1978,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 			currItem->IRender = QStoInt(obj->attribute("IRENDER","1"));
 			currItem->UseEmbedded = QStoInt(obj->attribute("EMBEDDED","1"));
 			doc->LoadPict(currItem->Pfile, z);
-			currItem->LocalScX = scx;
-			currItem->LocalScY = scy;
+			currItem->setImageXYScale(scx, scy);
 			currItem->PicArt = QStoInt(obj->attribute("PICART"));
 			currItem->BBoxX = QStodouble(obj->attribute("BBOXX"));
 			currItem->BBoxH = QStodouble(obj->attribute("BBOXH"));

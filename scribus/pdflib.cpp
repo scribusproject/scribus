@@ -1164,7 +1164,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 						if (ite->imageFlippedV())
 							PutPage("1 0 0 -1 0 "+FToStr(-ite->height())+" cm\n");
 						if ((ite->PicAvail) && (!ite->Pfile.isEmpty()))
-							PutPage(PDF_Image(ite, ite->Pfile, ite->LocalScX, ite->LocalScY, ite->LocalX, -ite->LocalY, false, ite->IProfile, ite->UseEmbedded, ite->IRender));
+							PutPage(PDF_Image(ite, ite->Pfile, ite->imageXScale(), ite->imageYScale(), ite->imageXOffset(), -ite->imageYOffset(), false, ite->IProfile, ite->UseEmbedded, ite->IRender));
 						PutPage("Q\n");
 						if (((ite->lineColor() != "None") || (!ite->NamedLStyle.isEmpty())) && (!ite->isTableItem))
 						{
@@ -2194,7 +2194,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, Page* pag, uint PNr, bool embedde
 			if (ite->imageFlippedV())
 				tmp += "1 0 0 -1 0 "+FToStr(-ite->height())+" cm\n";
 			if ((ite->PicAvail) && (!ite->Pfile.isEmpty()))
-				tmp += PDF_Image(ite, ite->Pfile, ite->LocalScX, ite->LocalScY, ite->LocalX, -ite->LocalY, false, ite->IProfile, ite->UseEmbedded, ite->IRender);
+				tmp += PDF_Image(ite, ite->Pfile, ite->imageXScale(), ite->imageYScale(), ite->imageXOffset(), -ite->imageYOffset(), false, ite->IProfile, ite->UseEmbedded, ite->IRender);
 			tmp += "Q\n";
 			if (((ite->lineColor() != "None") || (!ite->NamedLStyle.isEmpty())) && (!ite->isTableItem))
 			{
@@ -3773,21 +3773,21 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 						QString x[] = {"A", "S", "B", "N"};
 						PutDoc(x[ite->AnScaleW]);
 						PutDoc(" /S /");
-						PutDoc(ite->LocalScX != ite->LocalScY ? "A" : "P");
+						PutDoc(ite->imageXScale() != ite->imageYScale() ? "A" : "P");
 						PutDoc(" /A [ ");
-						if ((ite->width()/ite->LocalScX - ite->pixm.width()) != 0)
+						if ((ite->width()/ite->imageXScale() - ite->pixm.width()) != 0)
 						{
 							if (ite->AnScaleW == 3)
-								PutDoc(FToStr(QMAX(ite->LocalX / (ite->width()/ite->LocalScX - ite->pixm.width()), 0.01)));
+								PutDoc(FToStr(QMAX(ite->imageXOffset() / (ite->width()/ite->imageXScale() - ite->pixm.width()), 0.01)));
 							else
 								PutDoc("0.5 ");
 						}
 						else
 							PutDoc("0 ");
-						if ((ite->height()/ite->LocalScY - ite->pixm.height()) != 0)
+						if ((ite->height()/ite->imageYScale() - ite->pixm.height()) != 0)
 						{
 							if (ite->AnScaleW == 3)
-								PutDoc(FToStr(QMAX(ite->LocalY / (ite->height()/ite->LocalScY - ite->pixm.height()), 0.01)));
+								PutDoc(FToStr(QMAX(ite->imageYOffset() / (ite->height()/ite->imageYScale() - ite->pixm.height()), 0.01)));
 							else
 								PutDoc("0.5");
 						}
@@ -3906,21 +3906,21 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 	{
 		if (!ite->Pfile.isEmpty())
 		{
-			PDF_Image(ite, ite->Pfile, ite->LocalScX, ite->LocalScY, ite->LocalX, -ite->LocalY, true);
+			PDF_Image(ite, ite->Pfile, ite->imageXScale(), ite->imageYScale(), ite->imageXOffset(), -ite->imageYOffset(), true);
 			cc = IToStr(ite->pixm.width())+" 0 0 "+IToStr(ite->pixm.height())+" 0 0 cm\n";
 			cc += "/"+ResNam+IToStr(ResCount-1)+" Do";
 			PDF_xForm(ite->pixm.width(), ite->pixm.height(), cc);
 		}
 		if (!ite->Pfile2.isEmpty())
 		{
-			PDF_Image(ite, ite->Pfile2, ite->LocalScX, ite->LocalScY, ite->LocalX, -ite->LocalY, true);
+			PDF_Image(ite, ite->Pfile2, ite->imageXScale(), ite->imageYScale(), ite->imageXOffset(), -ite->imageYOffset(), true);
 			cc = IToStr(img.width())+" 0 0 "+IToStr(img.height())+" 0 0 cm\n";
 			cc += "/"+ResNam+IToStr(ResCount-1)+" Do";
 			PDF_xForm(img.width(), img.height(), cc);
 		}
 		if (!ite->Pfile3.isEmpty())
 		{
-			PDF_Image(ite, ite->Pfile3, ite->LocalScX, ite->LocalScY, ite->LocalX, -ite->LocalY, true);
+			PDF_Image(ite, ite->Pfile3, ite->imageXScale(), ite->imageYScale(), ite->imageXOffset(), -ite->imageYOffset(), true);
 			cc = IToStr(img2.width())+" 0 0 "+IToStr(img2.height())+" 0 0 cm\n";
 			cc += "/"+ResNam+IToStr(ResCount-1)+" Do";
 			PDF_xForm(img2.width(), img2.height(), cc);

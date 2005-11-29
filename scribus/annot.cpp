@@ -1128,26 +1128,20 @@ void Annot::IPlace()
 		double sc = QMIN(sw, sh);
 		if (dia->IcScaleH == 3)
 		{
-			item->LocalScX = 1;
-			item->LocalScY = 1;
-			item->LocalX = (item->width() - w) * dia->IcPlaceX;
-			item->LocalY = (item->height() - h) * dia->IcPlaceY;
+			item->setImageXYScale(1.0, 1.0);
+			item->setImageXYOffset((item->width()-w)*dia->IcPlaceX, (item->height()-h)*dia->IcPlaceY);
 		}
 		else
 		{
 			if (dia->ScaleH->currentItem() == 0)
 			{
-				item->LocalScX = sc;
-				item->LocalScY = sc;
-				item->LocalX = ((item->width() - w * sc) / sc) / 2.0 / sc;
-				item->LocalY = ((item->height() - h * sc) / sc) / 2.0 / sc;
+				item->setImageXYScale(sc, sc);
+				item->setImageXYOffset(((item->width()-w*sc)/sc)/2.0/ sc, ((item->height()-h*sc)/sc)/2.0/sc);
 			}
 			else
 			{
-				item->LocalScX = sw;
-				item->LocalScY = sh;
-				item->LocalX = 0;
-				item->LocalY = 0;
+				item->setImageXYScale(sw, sh);
+				item->setImageXYOffset(0.0, 0.0);
 			}
 		}
 		item->AnIPlace = dia->Place->currentItem();
@@ -1221,10 +1215,8 @@ void Annot::GetNIcon()
 		double sw = item->width() / w;
 		double sh = item->height() / h;
 		double sc = QMIN(sw,sh);
-		item->LocalScX = sc;
-		item->LocalScY = sc;
-		item->LocalX = ((item->width() - (w * sc)) / 2) / sc;
-		item->LocalY = ((item->height() - (h * sc)) / 2) / sc;
+		item->setImageXYScale(sc, sc);
+		item->setImageXYOffset(((item->width()-(w*sc))/2)/sc, ((item->height()-(h*sc))/2)/sc);
 		IconNR->setEnabled(true);
 	}
 }

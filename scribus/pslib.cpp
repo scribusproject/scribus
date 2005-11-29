@@ -1168,11 +1168,11 @@ void PSLib::CreatePS(ScribusDoc* Doc, /*ScribusView* view, */std::vector<int> &p
 								}
 								if ((ite->PicAvail) && (!ite->Pfile.isEmpty()))
 								{
-									PS_translate(0, -ite->BBoxH*ite->LocalScY);
+									PS_translate(0, -ite->BBoxH*ite->imageYScale());
 									if ((!sep) && (farb))
-										PS_image(ite, -ite->BBoxX+ite->LocalX, -ite->LocalY, ite->Pfile, ite->LocalScX, ite->LocalScY, ite->IProfile, ite->UseEmbedded, Ic, ite->itemName());
+										PS_image(ite, -ite->BBoxX+ite->imageXOffset(), -ite->imageYOffset(), ite->Pfile, ite->imageXScale(), ite->imageYScale(), ite->IProfile, ite->UseEmbedded, Ic, ite->itemName());
 									else
-										PS_image(ite, -ite->BBoxX+ite->LocalX, -ite->LocalY, ite->Pfile, ite->LocalScX, ite->LocalScY, ite->IProfile, ite->UseEmbedded, Ic);
+										PS_image(ite, -ite->BBoxX+ite->imageXOffset(), -ite->imageYOffset(), ite->Pfile, ite->imageXScale(), ite->imageYScale(), ite->IProfile, ite->UseEmbedded, Ic);
 								}
 								PS_restore();
 								if (((ite->lineColor() != "None") || (!ite->NamedLStyle.isEmpty())) && (!ite->isTableItem))
@@ -1404,11 +1404,11 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			}
 			if ((c->PicAvail) && (!c->Pfile.isEmpty()))
 			{
-				PS_translate(0, -c->BBoxH*c->LocalScY);
+				PS_translate(0, -c->BBoxH*c->imageYScale());
 				if ((!a->PageNam.isEmpty()) && (!sep) && (farb))
-					PS_image(c, -c->BBoxX+c->LocalX, -c->LocalY, c->Pfile, c->LocalScX, c->LocalScY, c->IProfile, c->UseEmbedded, ic, c->itemName());
+					PS_image(c, -c->BBoxX+c->imageXOffset(), -c->imageYOffset(), c->Pfile, c->imageXScale(), c->imageYScale(), c->IProfile, c->UseEmbedded, ic, c->itemName());
 				else
-					PS_image(c, -c->BBoxX+c->LocalX, -c->LocalY, c->Pfile, c->LocalScX, c->LocalScY, c->IProfile, c->UseEmbedded, ic);
+					PS_image(c, -c->BBoxX+c->imageXOffset(), -c->imageYOffset(), c->Pfile, c->imageXScale(), c->imageYScale(), c->IProfile, c->UseEmbedded, ic);
 			}
 			PS_restore();
 			if (((c->lineColor() != "None") || (!c->NamedLStyle.isEmpty())) && (!c->isTableItem))

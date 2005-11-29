@@ -3495,7 +3495,7 @@ void ScribusApp::slotFileOpen()
 				//view->AdjustPictScale(currItem, false);
 				//false was ignored anyway
 				currItem->AdjustPictScale();
-				propertiesPalette->setLvalue(currItem->LocalScX, currItem->LocalScY, currItem->LocalX, currItem->LocalY);
+				propertiesPalette->setLvalue(currItem->imageXScale(), currItem->imageYScale(), currItem->imageXOffset(), currItem->imageYOffset());
 				qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
 				qApp->restoreOverrideCursor();
 				view->DrawNew();

@@ -309,8 +309,8 @@ void ExtImageProps::selPath(QListBoxItem *c)
 	currentItem->imageClip = currentItem->pixm.imgInfo.PDSpathData[c->text()].copy();
 	currentItem->pixm.imgInfo.usedPath = c->text();
 	QWMatrix cl;
-	cl.translate(currentItem->LocalX*currentItem->LocalScX, currentItem->LocalY*currentItem->LocalScY);
-	cl.scale(currentItem->LocalScX, currentItem->LocalScY);
+	cl.translate(currentItem->imageXOffset()*currentItem->imageXScale(), currentItem->imageYOffset()*currentItem->imageYScale());
+	cl.scale(currentItem->imageXScale(), currentItem->imageYScale());
 	currentItem->imageClip.map(cl);
 	viewWidget->updateContents();
 }

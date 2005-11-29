@@ -525,12 +525,12 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	}
 }
 
-const double PageItem::xPos()
+double PageItem::xPos()
 {
 	return Xpos;
 }
 
-const double PageItem::yPos()
+double PageItem::yPos()
 {
 	return Ypos;
 }
@@ -570,12 +570,12 @@ void PageItem::moveBy(const double dX, const double dY)
 	emit position(Xpos, Ypos);
 }
 
-const double PageItem::width()
+double PageItem::width()
 {
 	return Width;
 }
 
-const double PageItem::height()
+double PageItem::height()
 {
 	return Height;
 }
@@ -610,7 +610,7 @@ void PageItem::resizeBy(const double dH, const double dW)
 	emit widthAndHeight(Width, Height);
 }
 
-const double PageItem::rotation()
+double PageItem::rotation()
 {
 	return Rot;
 }
@@ -629,7 +629,7 @@ void PageItem::rotateBy(const double dR)
 	emit rotation(Rot);
 }
 
-const bool PageItem::isSelected()
+bool PageItem::isSelected()
 {
 	return Select;
 }
@@ -638,6 +638,81 @@ void PageItem::setSelected(const bool toSelect)
 {
 	Select=toSelect;
 }
+
+double PageItem::imageXScale()
+{
+	return LocalScX;
+}
+
+void PageItem::setImageXScale(const double newImageXScale)
+{
+	LocalScX=newImageXScale;
+}
+
+double PageItem::imageYScale()
+{
+	return LocalScY;
+}
+
+void PageItem::setImageYScale(const double newImageYScale)
+{
+	LocalScY=newImageYScale;
+}
+
+void PageItem::setImageXYScale(const double newImageXScale, const double newImageYScale)
+{
+	LocalScX=newImageXScale;
+	LocalScY=newImageYScale;
+}
+
+double PageItem::imageXOffset()
+{
+	return LocalX;
+}
+
+void PageItem::setImageXOffset(const double newImageXOffset)
+{
+	LocalX=newImageXOffset;
+}
+
+double PageItem::imageYOffset()
+{
+	return LocalY;
+}
+
+void PageItem::setImageYOffset(const double newImageYOffset)
+{
+	LocalY=newImageYOffset;
+}
+
+void PageItem::setImageXYOffset(const double newImageXOffset, const double newImageYOffset)
+{
+	LocalX=newImageXOffset;
+	LocalY=newImageYOffset;
+}
+
+void PageItem::moveImageXYOffsetBy(const double dX, const double dY)
+{
+	if (dX==0.0 && dY==0.0)
+		return;
+	if (dX!=0.0)
+		LocalX+=dX;
+	if (dY!=0.0)
+		LocalY+=dY;
+	//emit (LocalX, LocalY);
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 /** Zeichnet das Item */
 void PageItem::DrawObj(ScPainter *p, QRect e)
@@ -3660,7 +3735,7 @@ void PageItem::emitAllToGUI()
 	emit rotation(Rot);
 	emit lineWidth(Pwidth);
 	emit lineStyleCapJoin(PLineArt, PLineEnd, PLineJoin);
-	emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY );
+	emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY);
 	emit colors(lineColorVal, fillColorVal, lineShadeVal, fillShadeVal);
 	emit gradientType(GrType);
 	double dur=Doc->unitRatio();

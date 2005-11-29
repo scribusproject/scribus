@@ -117,7 +117,7 @@ public slots:
 	void languageChange();
 	void setDoc(ScribusDoc *d);
 	void unsetDoc();
-	
+	void setCurrentItem(PageItem *);
 	
 	void NewSel(int nr);
 	void SetCurItem(PageItem *i);

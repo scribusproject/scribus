@@ -626,10 +626,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 					ite->setWidthHeight(ite->width() * mm.m11(), ite->height() * mm.m22());
 					ite->Pwidth = ite->Pwidth * ((mm.m11() + mm.m22()) / 2.0);
 					if (ite->PicAvail)
-					{
-						ite->LocalScX = ite->width() / ite->pixm.width();
-						ite->LocalScY = ite->height() / ite->pixm.height();
-					}
+						ite->setImageXYScale(ite->width() / ite->pixm.width(), ite->height() / ite->pixm.height());
 					break;
 				}
 			case PageItem::TextFrame:

@@ -36,8 +36,8 @@ class UndoManager;
 class UndoState;
 class Foi;
 
-class PageItem_ImageFrame;   
-class PageItem_Line;         
+class PageItem_ImageFrame;
+class PageItem_Line;
 class PageItem_Polygon;
 class PageItem_PolyLine;
 class PageItem_TextFrame;
@@ -257,14 +257,7 @@ public:
 	void DrawPolyL(QPainter *p, QPointArray pts);
 	QString ExpandToken(uint base);
 	bool Reverse;
-	/** @brief Stores the old X-position for undo action. Is used to detect move actions.*/
-	double oldXpos;
-	/** @brief Stores the old Y-position for undo action. Is used to detect move actions. */
-	double oldYpos;
-	/** @brief Stores the old width for undo action. Is used to detect resize actions. */
-	double oldWidth;
-	/** @brief Stores the old height for undo action. Is used to detect resize actions. */
-	double oldHeight;
+
 	double gXpos;
 	double gYpos;
 	double gWidth;
@@ -339,14 +332,6 @@ public:
 	bool PicArt;
   /** Bild verfuegbar */
 	bool PicAvail;
-  /** Lokales Scaling x*/
-	double LocalScX;
-  /** Lokales Scaling y*/
-	double LocalScY;
-  /** Lokales X */
-	double LocalX;
-  /** Lokales Y */
-	double LocalY;
 	int OrigW;
 	int OrigH;
   /** BoundigBox-X */
@@ -471,27 +456,39 @@ public:
 	bool isEmbedded;
 	
 	//Position
-	const double xPos();
-	const double yPos();
+	double xPos();
+	double yPos();
 	FPoint xyPos();
 	void setXPos(const double);
 	void setYPos(const double);
 	void setXYPos(const double, const double);
 	void moveBy(const double, const double);
 	//Size
-	const double width();
-	const double height();
+	double width();
+	double height();
 	void setWidth(const double);
 	void setHeight(const double);
 	void setWidthHeight(const double, const double);
 	void resizeBy(const double, const double);
 	//Rotation
-	const double rotation();
+	double rotation();
 	void setRotation(const double);
 	void rotateBy(const double);
 	//Selection
-	const bool isSelected();
+	bool isSelected();
 	void setSelected(const bool);
+	//Image Data
+	double imageXScale();
+	double imageYScale();
+	void setImageXScale(const double);
+	void setImageYScale(const double);
+	void setImageXYScale(const double, const double);
+	double imageXOffset();
+	double imageYOffset();
+	void setImageXOffset(const double);
+	void setImageYOffset(const double);
+	void moveImageXYOffsetBy(const double, const double);
+	void setImageXYOffset(const double, const double);
 
 	/** @brief Manages undostack and is where all undo actions/states are sent. */
 	UndoManager *undoManager;
@@ -1085,7 +1082,28 @@ protected:
 	double Rot;
 	/** Element selected? */
 	bool Select;
-
+	/** Scaling X Factor for images */
+	double LocalScX;
+	/** Scaling Y Factor for images*/
+	double LocalScY;
+	/** Image X Offset to frame */
+	double LocalX;
+	/** Image Y Offset to frame */
+	double LocalY;
+	
+	
+	
+	//Undo Data
+	/** @brief Stores the old X-position for undo action. Is used to detect move actions.*/
+	double oldXpos;
+	/** @brief Stores the old Y-position for undo action. Is used to detect move actions. */
+	double oldYpos;
+	/** @brief Stores the old width for undo action. Is used to detect resize actions. */
+	double oldWidth;
+	/** @brief Stores the old height for undo action. Is used to detect resize actions. */
+	double oldHeight;
+	
+	
 signals:
 	//Frame signals
 	void myself(PageItem *);

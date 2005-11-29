@@ -40,8 +40,7 @@ PyObject *scribus_scaleimage(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame.","python error"));
 		return NULL;
 	}
-	item->LocalScX = x;
-	item->LocalScY = y;
+	item->setImageXYScale(x, y);
 	ScApp->view->ChLocalSc(x, y);
 	ScApp->view->UpdatePic();
 	Py_INCREF(Py_None);
@@ -378,7 +377,7 @@ PyObject *scribus_setscaleimagetoframe(PyObject* /* self */, PyObject* args, PyO
 	// Force the braindead app to notice the changes
 	
 	//FIXME emit or something so we dont need this
-	ScApp->propertiesPalette->setLvalue(item->LocalScX, item->LocalScY, item->LocalX, item->LocalY);
+	ScApp->propertiesPalette->setLvalue(item->imageXScale(), item->imageYScale(), item->imageXOffset(), item->imageYOffset());
 	item->AdjustPictScale();
 	//ScApp->view->AdjustPictScale(item);
 	

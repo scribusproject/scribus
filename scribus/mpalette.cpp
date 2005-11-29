@@ -906,6 +906,216 @@ void Mpalette::unsetDoc()
 	HaveDoc = false;
 }
 
+void Mpalette::setCurrentItem(PageItem *i)
+{
+	if (ScApp->ScriptRunning)
+		return;
+	//CB We shouldnt really need to process this if our item is the same one
+	//maybe we do if the item has been changed by scripter.. but that should probably
+	//set some status if so.
+	//FIXME: This wont work until when a canvas deselect happens, CurItem must be NULL.
+	//if (CurItem == i)
+	//	return;
+	disconnect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SetSTline(QListBoxItem*)));
+	disconnect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
+	disconnect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
+	disconnect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
+	HaveItem = false;
+	CurItem = i;
+	
+	NewSel(i->itemType());
+	NameEdit->setText(i->itemName());
+	setXY(i->xPos(), i->yPos());
+	setBH(i->width(), i->height());
+	setR(i->rotation());
+	
+	Revert->setOn(i->Reverse);
+	setDvals(i->Extra, i->TExtra, i->BExtra, i->RExtra);
+	LevelTxt->setText(QString::number(i->ItemNr));
+	textFlowsAroundFrame->setChecked(i->textFlowsAroundFrame());
+	textFlowUsesBoundingBox->setChecked(i->textFlowUsesBoundingBox());
+	RoundRect->setValue(i->RadRect*Umrech);
+	
+	Textflow3->setChecked(i->textFlowUsesContourLine());
+	disconnect(FlipH, SIGNAL(clicked()), this, SLOT(DoFlipH()));
+	disconnect(FlipV, SIGNAL(clicked()), this, SLOT(DoFlipV()));
+	FlipH->setOn(i->imageFlippedH());
+	FlipV->setOn(i->imageFlippedV());
+	connect(FlipH, SIGNAL(clicked()), this, SLOT(DoFlipH()));
+	connect(FlipV, SIGNAL(clicked()), this, SLOT(DoFlipV()));
+	langCombo->setCurrentText(ScApp->LangTransl[i->Language]);
+	if (TabStack->currentIndex() == 5)
+		Cpal->setActGradient(CurItem->GrType);
+	updateColorSpecialGradient();
+	Cpal->gradEdit->Preview->fill_gradient = CurItem->fill_gradient;
+	Cpal->gradEdit->Preview->updateDisplay();
+	if (i->FrameType == 0)
+		SCustom->setPixmap(SCustom->getIconPixmap(0));
+	if (i->FrameType == 1)
+		SCustom->setPixmap(SCustom->getIconPixmap(1));
+	if (i->FrameType > 3)
+		SCustom->setPixmap(SCustom->getIconPixmap(i->FrameType-2));
+	if ((i->asLine()) || (i->asPolyLine()))
+	{
+		startArrow->setEnabled(true);
+		endArrow->setEnabled(true);
+		startArrow->setCurrentItem(i->startArrowIndex);
+		endArrow->setCurrentItem(i->endArrowIndex);
+	}
+	else
+	{
+		startArrow->setEnabled(false);
+		endArrow->setEnabled(false);
+	}
+	
+	DCol->setMaxValue(QMAX(qRound(i->width() / QMAX(i->ColGap, 10.0)), 1));
+	DCol->setMinValue(1);
+	DCol->setValue(i->Cols);
+	dGap->setMinValue(0);
+	if (colgapLabel->getState())
+	{
+		dGap->setMaxValue(QMAX((i->width() / i->Cols - i->Extra - i->RExtra)*Umrech, 0));
+		dGap->setValue(i->ColGap*Umrech);
+	}
+	else
+	{
+		double lineCorr;
+		if (i->lineColor() != "None")
+			lineCorr = i->Pwidth;
+		else
+			lineCorr = 0;
+		double ColWidth = (i->width() - (i->ColGap * (i->Cols - 1)) - i->Extra - i->RExtra - lineCorr) / i->Cols;
+		dGap->setMaxValue(QMAX((i->width() / i->Cols)*Umrech, 0));
+		dGap->setValue(ColWidth*Umrech);
+	}
+	
+
+	bool setter;
+	if (i->NamedLStyle.isEmpty())
+	{
+		StyledLine->setCurrentItem(0);
+		setter = true;
+	}
+	else
+	{
+		StyledLine->setSelected(StyledLine->findItem(i->NamedLStyle), true);
+		setter = false;
+	}
+	LStyle->setEnabled(setter);
+	LSize->setEnabled(setter);
+	LJoinStyle->setEnabled(setter);
+	LEndStyle->setEnabled(setter);
+	connect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SetSTline(QListBoxItem*)));
+	connect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
+	connect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
+	connect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
+	NoPrint->setOn(!i->printable());
+	setter = i->locked();
+	//keepFrameWHRatioButton->setOn(false);
+	Width->setReadOnly(setter);
+	Height->setReadOnly(setter);
+	RoundRect->setEnabled(!setter);
+	EditShape->setEnabled(!setter);
+	ShapeGroup->setEnabled(!setter);
+	LayerGroup->setEnabled(!setter);
+	Locked->setOn(setter);
+	if ((i->isTableItem) && (i->isSingleSel))
+	{
+		setter = true;
+		TabStack3->raiseWidget(1);
+		TopLine->setChecked(i->TopLine);
+		LeftLine->setChecked(i->LeftLine);
+		RightLine->setChecked(i->RightLine);
+		BottomLine->setChecked(i->BottomLine);
+	}
+	else
+		TabStack3->raiseWidget(0);
+	LayerGroup->setEnabled(!setter);
+	Xpos->setReadOnly(setter);
+	Ypos->setReadOnly(setter);
+	Rot->setReadOnly(setter);
+	setter = i->sizeLocked();
+	NoResize->setOn(setter);
+	if (!i->locked())
+	{
+		Width->setReadOnly(setter);
+		Height->setReadOnly(setter);
+	}
+	if (i->asPathText())
+	{
+		TabStack2->raiseWidget(1);
+		showcurveCheckBox->setChecked(i->PoShow);
+		LineW->setValue(i->BaseOffs * -1);
+		Dist->setValue(i->Extra);
+	}
+	else
+		TabStack2->raiseWidget(0);
+	// Frame type 3 is obsolete: CR 2005-02-06
+	//if (((i->itemType() == PageItem::TextFrame) || (i->itemType() == PageItem::ImageFrame) || (i->itemType() == 3)) &&  (!i->ClipEdited))
+	if (((i->asTextFrame()) || (i->asImageFrame())) &&  (!i->ClipEdited))
+		RoundRect->setEnabled(true);
+	else
+	{
+		if ((i->asPolygon()) && ((i->FrameType == 0) || (i->FrameType == 2)))
+			RoundRect->setEnabled(true);
+		else
+			RoundRect->setEnabled(false);
+	}
+
+	if ((i->itemType() == PageItem::Line) && LMode) {
+		xposLabel->setText( tr( "&X1:" ) );
+		widthLabel->setText( tr( "X&2:" ) );
+		yposLabel->setText( tr( "Y&1:" ) );
+		heightLabel->setText( tr( "&Y2:" ) );
+		Rot->setEnabled(false);
+	} else {
+		xposLabel->setText( tr( "&X-Pos:" ) );
+		widthLabel->setText( tr( "&Width:" ) );
+		yposLabel->setText( tr( "&Y-Pos:" ) );
+		heightLabel->setText( tr( "&Height:" ) );
+		Rot->setEnabled(true);
+	}
+	HaveItem = true;
+	if (i->asLine())
+	{
+		keepFrameWHRatioButton->setEnabled(false);
+		if (LMode && !i->locked())
+			Height->setEnabled(true);
+		else
+			Height->setEnabled(false);
+	}
+	else
+	{
+		Height->setEnabled(true);
+		keepFrameWHRatioButton->setEnabled(true);
+		if (i->asImageFrame())
+		{
+			updateCmsList();
+			setter = i->ScaleType;
+			FreeScale->setChecked(setter);
+			FrameScale->setChecked(!setter);
+			if (setter == true)
+			{
+				keepImageWHRatioButton->setOn(setter);
+				keepImageDPIRatioButton->setOn(setter);
+			}
+			Aspect->setEnabled(!setter);
+			Aspect->setChecked(i->AspectRatio);
+			LXpos->setEnabled(setter);
+			LYpos->setEnabled(setter);
+			ScaleX->setEnabled(setter);
+			ScaleY->setEnabled(setter);
+			imgDpiX->setEnabled(setter);
+			imgDpiY->setEnabled(setter);
+		}
+	}
+	connect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SetSTline(QListBoxItem*)));
+	connect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
+	connect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
+	connect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));	
+}
+
+
 void Mpalette::SetCurItem(PageItem *i)
 {
 	if (ScApp->ScriptRunning)
@@ -920,6 +1130,8 @@ void Mpalette::SetCurItem(PageItem *i)
 	disconnect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
 	disconnect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
 	disconnect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
+	disconnect(TabStack, SIGNAL(currentChanged(int)), this, SLOT(SelTab(int)));
+	
 	HaveItem = false;
 	CurItem = i;
 	if (TabStack->currentIndex() == 5)
@@ -1639,12 +1851,12 @@ void Mpalette::setLvalue(double scx, double scy, double x, double y)
 	HaveItem = false;
 	if (tmp)
 	{
-		LXpos->setValue(x * Umrech * CurItem->LocalScX);
-		LYpos->setValue(y * Umrech * CurItem->LocalScY);
+		LXpos->setValue(x * Umrech * CurItem->imageXScale());
+		LYpos->setValue(y * Umrech * CurItem->imageYScale());
 		ScaleX->setValue(scx * 100 / 72.0 * CurItem->pixm.imgInfo.xres);
 		ScaleY->setValue(scy * 100 / 72.0 * CurItem->pixm.imgInfo.yres);
-		imgDpiX->setValue(qRound(720.0 / CurItem->LocalScX) / 10.0);
-		imgDpiY->setValue(qRound(720.0 / CurItem->LocalScX) / 10.0);
+		imgDpiX->setValue(qRound(720.0 / CurItem->imageXScale()) / 10.0);
+		imgDpiY->setValue(qRound(720.0 / CurItem->imageXScale()) / 10.0); //CB I assume this douple X is right?
 	}
 	else
 	{
@@ -2272,7 +2484,7 @@ void Mpalette::NewLocalXY()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		ScApp->view->ChLocalXY(LXpos->value() / Umrech / CurItem->LocalScX, LYpos->value() / Umrech / CurItem->LocalScY);
+		ScApp->view->ChLocalXY(LXpos->value() / Umrech / CurItem->imageXScale(), LYpos->value() / Umrech / CurItem->imageYScale());
 		emit DocChanged();
 	}
 }
@@ -2284,11 +2496,11 @@ void Mpalette::NewLocalSC()
 	if ((HaveDoc) && (HaveItem))
 	{
 		ScApp->view->ChLocalSc(ScaleX->value() / 100.0 / CurItem->pixm.imgInfo.xres * 72.0, ScaleY->value() / 100.0 / CurItem->pixm.imgInfo.yres * 72.0);
-		ScApp->view->ChLocalXY(LXpos->value() / Umrech / CurItem->LocalScX, LYpos->value() / Umrech / CurItem->LocalScY);
+		ScApp->view->ChLocalXY(LXpos->value() / Umrech / CurItem->imageXScale(), LYpos->value() / Umrech / CurItem->imageYScale());
 		disconnect(imgDpiX, SIGNAL(valueChanged(int)), this, SLOT(HChangeD()));
 		disconnect(imgDpiY, SIGNAL(valueChanged(int)), this, SLOT(VChangeD()));
-		imgDpiX->setValue(qRound(720.0 / CurItem->LocalScX) / 10.0);
-		imgDpiY->setValue(qRound(720.0 / CurItem->LocalScX) / 10.0);
+		imgDpiX->setValue(qRound(720.0 / CurItem->imageXScale()) / 10.0);
+		imgDpiY->setValue(qRound(720.0 / CurItem->imageXScale()) / 10.0);
 		connect(imgDpiX, SIGNAL(valueChanged(int)), this, SLOT(HChangeD()));
 		connect(imgDpiY, SIGNAL(valueChanged(int)), this, SLOT(VChangeD()));
 		emit DocChanged();
@@ -2302,11 +2514,11 @@ void Mpalette::NewLocalDpi()
 	if ((HaveDoc) && (HaveItem))
 	{
 		ScApp->view->ChLocalSc(72.0 / imgDpiX->value(), 72.0 / imgDpiY->value());
-		ScApp->view->ChLocalXY(LXpos->value() / Umrech / CurItem->LocalScX, LYpos->value() / Umrech / CurItem->LocalScY);
+		ScApp->view->ChLocalXY(LXpos->value() / Umrech / CurItem->imageXScale(), LYpos->value() / Umrech / CurItem->imageYScale());
 		disconnect(ScaleX, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
 		disconnect(ScaleY, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
-		ScaleX->setValue(CurItem->LocalScX * 100 / 72.0 * CurItem->pixm.imgInfo.xres);
-		ScaleY->setValue(CurItem->LocalScY * 100 / 72.0 * CurItem->pixm.imgInfo.yres);
+		ScaleX->setValue(CurItem->imageXScale() * 100 / 72.0 * CurItem->pixm.imgInfo.xres);
+		ScaleY->setValue(CurItem->imageYScale() * 100 / 72.0 * CurItem->pixm.imgInfo.yres);
 		connect(ScaleX, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
 		connect(ScaleY, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
 		emit DocChanged();
