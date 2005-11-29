@@ -33,15 +33,15 @@ public:
 	PluginManager();
 	~PluginManager();
 
-	// Static methods for loading, unloading plugins and resolving symbols
-	// These methods are platform independent, but each platform uses a different
-	// implementation.
+	/*! \brief Static methods for loading, unloading plugins and resolving symbols
+	 These methods are platform independent, but each platform uses a different
+	 implementation. */
 	static void* loadDLL( QString plugin );
 	static void* resolveSym( void* plugin, const char* sym );
 	static void  unloadDLL( void* plugin );
 
 	/*! \brief Ininitalization of all plugins. It's called at scribus start.
-	 * 
+	 *
 	 * This method loadDLL(...)'s each plug-in, creates a Plugin instance for
 	 * them, stores a PluginData for the plugin, sets up the plug-in's
 	 * actions, and connects them to any required signals.
@@ -91,21 +91,21 @@ public:
 	 */
 	bool callImportExportPlugin(const QCString pluginName, const QString & arg, QString & retval);
 
-	/// Return a pointer to this instance.
-	//
-	// Note: for now, returns a reference to (*ScApp->pluginManager); should
-	// probably be turned into a singleton later.
+	/*! \brief Return a pointer to this instance.
+
+	 \Note: for now, returns a reference to (*ScApp->pluginManager); should
+	 probably be turned into a singleton later. */
 	static PluginManager & instance();
 
-	// Return the path to the file for the named plugin. An invalid
-	// plugin name is an error.
+	/*! \brief Return the path to the file for the named plugin.
+	An invalid plugin name is an error.*/
 	const QString & getPluginPath(const QCString pluginName) const;
 
-	// Whether the given plug-in will be enabled on start-up.
-	// Usable as an lvalue. An invalid plugin name is an error.
+	/*! \brief Whether the given plug-in will be enabled on start-up.
+	Usable as an lvalue. An invalid plugin name is an error. */
 	bool & enableOnStartup(const QCString pluginName);
-	
-	// Whether the given plugin is currently enabled
+
+	/*! \brief Whether the given plugin is currently enabled */
 	bool enabled(const QCString pluginName);
 
 	/** \brief Return a list of plugin names currently known.
@@ -163,23 +163,23 @@ protected:
 	/*! \brief Reads available info and fills PluginData structure */
 	bool loadPlugin(PluginData & pluginData);
 
-	// Determines the plugin name from the file name and returns it.
+	/*! \brief Determines the plugin name from the file name and returns it. */
 	static QCString getPluginName(QString fileName);
 
-	// Called by loadPlugin to hook the loaded plugin into the GUI,
-	// call its setup routine, etc. Not responsible for creating
-	// the ScPlugin instance or loading the plugin.
+	/*! \brief Called by loadPlugin to hook the loaded plugin into the GUI,
+	call its setup routine, etc. Not responsible for creating
+	the ScPlugin instance or loading the plugin. */
 	void enablePlugin(PluginData &);
 
-	// Called by finalizePlug when shutting down a plug-in. Unhooks
-	// the plug-in from the GUI, calls its cleanup routine, etc.
-	// DOES NOT destroy the ScPlugin instance or unload the plugin.
+	/*! \brief Called by finalizePlug when shutting down a plug-in. Unhooks
+	 the plug-in from the GUI, calls its cleanup routine, etc.
+	 DOES NOT destroy the ScPlugin instance or unload the plugin. */
 	void disablePlugin(PluginData & pda);
 
-	// Called by enablePlugin to hook the loaded plugin into the GUI.
+	/*! \brief Called by enablePlugin to hook the loaded plugin into the GUI. */
 	bool setupPluginActions(ScActionPlugin*);
 
-	/*! \brief Runs plugin's languageChange() method, and returns main menu item text if one exists */	
+	/*! \brief Runs plugin's languageChange() method, and returns main menu item text if one exists */
 	QString callDLLForNewLanguage(const PluginData & pluginData);
 
 	/*! \brief Shuts down one plug-in. The DLL may not be unloaded, but
@@ -192,7 +192,7 @@ protected:
 	/** \brief Configuration structure */
 	PrefsContext* prefs;
 
-	// Mapping of plugin names to plugin info structures.
+	/*! \brief Mapping of plugin names to plugin info structures. */
 	typedef QMap<QCString,PluginData> PluginMap;
 
 	/*! \brief Plugin mapping.

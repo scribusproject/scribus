@@ -167,7 +167,7 @@ class SCRIBUS_API ScPlugin : public QObject
 		virtual bool newPrefsPanelWidget(QWidget* parent, PrefsPanel*& panel,
 										 QString& caption, QPixmap& icon);
 
-		/* @brief Return descriptive information about the plug-in
+		/*! @brief Return descriptive information about the plug-in
 		 *
 		 * Returns a structure containing descriptive information about the
 		 * plug-in. This information is used in places like the Help->About
@@ -181,7 +181,7 @@ class SCRIBUS_API ScPlugin : public QObject
 		virtual const AboutData* getAboutData() const = 0;
 		virtual void deleteAboutData(const AboutData* about) const = 0;
 
-		/* @brief Text summary of last error encountered
+		/*! @brief Text summary of last error encountered
 		 *
 		 * Return the human readable, translated text of last error to be
 		 * encountered by this plugin. DO NOT ATTEMPT TO USE THIS VALUE TO MAKE
@@ -190,7 +190,7 @@ class SCRIBUS_API ScPlugin : public QObject
 		 */
 		const QString & lastError() const;
 
-		/* @brief Update all user-visible text to reflect current UI language
+		/*! @brief Update all user-visible text to reflect current UI language
 		 *
 		 * Updates the text on all widgets on the plug-in to reflect the new
 		 * language. You should generally use this method to set all the widget
@@ -203,16 +203,16 @@ class SCRIBUS_API ScPlugin : public QObject
 		 */
 		virtual void languageChange() = 0;
 
-		/// Returns human readable plugin type from plug-in's pluginType
+		//! \brief Returns human readable plugin type from plug-in's pluginType
 		const QString pluginTypeName() const;
 
 	protected:
-		// Human readable, translated version of last error to occur.
+		//! \brief Human readable, translated version of last error to occur.
 		QString m_lastError;
 };
 
 
-/*
+/*!
  * @brief A plug-in that performs a single action
  *
  * ScActionPlugin describes a plug-in that is used to perform a single well
@@ -235,7 +235,7 @@ class SCRIBUS_API ScActionPlugin : public ScPlugin
 		 */
 		ScActionPlugin();
 
-		// Pure virtual dtor - abstract class
+		//! \brief Pure virtual dtor - abstract class
 		virtual ~ScActionPlugin() = 0;
 
 		// Information about actions, to be returned by actionInfo()
@@ -354,7 +354,7 @@ class SCRIBUS_API ScActionPlugin : public ScPlugin
 		// DO NOT USE THIS INTERFACE FOR NEW PLUG-INS; you should
 		// dynamic_cast<> to the plugin type then call a plug-in specific
 		// method instead.
-		/// Obsolete method - do not use this or rely on it in new code.
+		///! Obsolete method - do not use this or rely on it in new code.
 		const QString & runResult() const;
 
 	protected:
@@ -389,7 +389,7 @@ class SCRIBUS_API ScPersistentPlugin : public ScPlugin
 		 */
 		ScPersistentPlugin();
 
-		// Pure virtual dtor for abstract class
+		//! \brief Pure virtual dtor for abstract class
 		virtual ~ScPersistentPlugin() = 0;
 
 		/**
