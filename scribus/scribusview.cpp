@@ -1522,11 +1522,13 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			currItem->FrameType = 3;
 			currItem->OwnPage = Doc->OnPage(currItem);
 			//qDebug("emit ItemPos(currItem->xPos(), currItem->yPos());");
+			/*CB Done with addItem
 			emit SetSizeValue(currItem->Pwidth);
 			emit SetLineArt(currItem->PLineArt, currItem->PLineEnd, currItem->PLineJoin);
 			emit ItemFarben(currItem->lineColor(), currItem->fillColor(), currItem->lineShade(), currItem->fillShade());
 			emit ItemGradient(currItem->GrType);
 			emit ItemTrans(currItem->fillTransparency(), currItem->lineTransparency());
+			*/
 			//emit HaveSel(PageItem::PolyLine);
 		}
 		updateContents();
@@ -4753,15 +4755,16 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			SizeItem(currItem->PoLine.WidthHeight().x(), currItem->PoLine.WidthHeight().y(), currItem->ItemNr, false, false, false);
 			currItem->SetPolyClip(qRound(QMAX(currItem->Pwidth / 2, 1)));
 			currItem->paintObj();
-			//qDebug("emit ItemPos(currItem->xPos(), currItem->yPos());");
-			//CB FIXME are these emitted already?
+			//CB emitted already
+			/*
+			emit ItemPos(currItem->xPos(), currItem->yPos());");
 			emit SetSizeValue(currItem->Pwidth);
 			emit SetLineArt(currItem->PLineArt, currItem->PLineEnd, currItem->PLineJoin);
 			emit ItemFarben(currItem->lineColor(), currItem->fillColor(), currItem->lineShade(), currItem->fillShade());
 			emit ItemGradient(currItem->GrType);
 			emit ItemTrans(currItem->fillTransparency(), currItem->lineTransparency());
-			//CB Should have been emitted already
-			//emit HaveSel(PageItem::PolyLine);
+			emit HaveSel(PageItem::PolyLine);
+			*/
 			break;
 		case modeInsertPDFButton:
 		case modeInsertPDFTextfield:
@@ -5217,7 +5220,8 @@ void ScribusView::MoveItemI(PageItem* currItem, double newX, double newY, bool r
 	}
 	if (redraw)
 		updateContents(currItem->getRedrawBounding(Scale));
-	emit SetLocalValues(currItem->imageXScale(), currItem->imageYScale(), currItem->imageXOffset(), currItem->imageYOffset());
+	//Done by moveImageXYOffsetBy
+	//emit SetLocalValues(currItem->imageXScale(), currItem->imageYScale(), currItem->imageXOffset(), currItem->imageYOffset());
 }
 
 void ScribusView::ConvertClip(PageItem *currItem)

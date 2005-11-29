@@ -678,17 +678,20 @@ double PageItem::imageYOffset()
 void PageItem::setImageXOffset(const double newImageXOffset)
 {
 	LocalX=newImageXOffset;
+	emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY);
 }
 
 void PageItem::setImageYOffset(const double newImageYOffset)
 {
 	LocalY=newImageYOffset;
+	emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY);
 }
 
 void PageItem::setImageXYOffset(const double newImageXOffset, const double newImageYOffset)
 {
 	LocalX=newImageXOffset;
 	LocalY=newImageYOffset;
+	emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY);
 }
 
 void PageItem::moveImageXYOffsetBy(const double dX, const double dY)
@@ -699,7 +702,7 @@ void PageItem::moveImageXYOffsetBy(const double dX, const double dY)
 		LocalX+=dX;
 	if (dY!=0.0)
 		LocalY+=dY;
-	//emit (LocalX, LocalY);
+	emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY);
 }
 
 bool PageItem::reversed()
@@ -735,21 +738,25 @@ double PageItem::textToFrameDistBottom()
 void PageItem::setTextToFrameDistLeft(double newLeft)
 {
 	Extra=newLeft;
+	emit textToFrameDistances(Extra, TExtra, BExtra, RExtra);
 }
 
 void PageItem::setTextToFrameDistRight(double newRight)
 {
 	RExtra=newRight;
+	emit textToFrameDistances(Extra, TExtra, BExtra, RExtra);
 }
 
 void PageItem::setTextToFrameDistTop(double newTop)
 {
 	TExtra=newTop;
+	emit textToFrameDistances(Extra, TExtra, BExtra, RExtra);
 }
 
 void PageItem::setTextToFrameDistBottom(double newBottom)
 {
 	BExtra=newBottom;
+	emit textToFrameDistances(Extra, TExtra, BExtra, RExtra);
 }
 
 void PageItem::setTextToFrameDist(double newLeft, double newRight, double newTop, double newBottom)
@@ -758,6 +765,7 @@ void PageItem::setTextToFrameDist(double newLeft, double newRight, double newTop
 	RExtra=newRight;
 	TExtra=newTop;
 	BExtra=newBottom;
+	emit textToFrameDistances(Extra, TExtra, BExtra, RExtra);
 }
 
 double PageItem::cornerRadius()
