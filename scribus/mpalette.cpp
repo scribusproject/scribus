@@ -934,7 +934,7 @@ void Mpalette::setCurrentItem(PageItem *i)
 	LevelTxt->setText(QString::number(i->ItemNr));
 	textFlowsAroundFrame->setChecked(i->textFlowsAroundFrame());
 	textFlowUsesBoundingBox->setChecked(i->textFlowUsesBoundingBox());
-	RoundRect->setValue(i->RadRect*Umrech);
+	RoundRect->setValue(i->cornerRadius()*Umrech);
 	
 	Textflow3->setChecked(i->textFlowUsesContourLine());
 	disconnect(FlipH, SIGNAL(clicked()), this, SLOT(DoFlipH()));
@@ -1158,7 +1158,7 @@ void Mpalette::SetCurItem(PageItem *i)
 		endArrow->setEnabled(false);
 	}
 	NameEdit->setText(i->itemName());
-	RoundRect->setValue(i->RadRect*Umrech);
+	RoundRect->setValue(i->cornerRadius()*Umrech);
 	QString tm;
 	LevelTxt->setText(tm.setNum(i->ItemNr));
 	DCol->setMaxValue(QMAX(qRound(i->width() / QMAX(i->ColGap, 10.0)), 1));
@@ -2377,7 +2377,7 @@ void Mpalette::NewRR()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		CurItem->RadRect = RoundRect->value() / Umrech;
+		CurItem->setCornerRadius(RoundRect->value() / Umrech);
 		ScApp->view->SetFrameRounded();
 		emit DocChanged();
 	}

@@ -533,7 +533,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			PageItem* ite = Doku->Items->at(z);
 			if (corner != 0)
 			{
-				ite->RadRect = corner;
+				ite->setCornerRadius(corner);
 				ite->SetFrameRound();
 				ScApp->view->setRedrawBounding(ite);
 			}

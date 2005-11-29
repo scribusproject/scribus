@@ -260,8 +260,6 @@ public:
 	double gYpos;
 	double gWidth;
 	double gHeight;
-  /** Eckrundung von Rechtecken */
-	double RadRect;
   /** Enthaelt das Dokument */
 	ScribusDoc *Doc;
 	int GrType;
@@ -483,6 +481,9 @@ public:
 	//Reverse
 	bool reversed();
 	void setReversed(bool);
+	//Rounded Corners
+	double cornerRadius();
+	void setCornerRadius(double);
 
 
 	//Text Data - Move to PageItem_TextFrame at some point?
@@ -1113,6 +1114,8 @@ protected:
 	double TExtra;
 	double BExtra;
 	double RExtra;
+	/** Radius of rounded corners */
+	double RadRect;
 	
 	//Undo Data
 	/** @brief Stores the old X-position for undo action. Is used to detect move actions.*/

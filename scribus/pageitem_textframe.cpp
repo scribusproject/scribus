@@ -66,6 +66,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 	{
 		case TextFrame:
 		{
+
 			QPainter pp, pf2;
 			PageItem *nextItem;
 			QPoint pt1, pt2;
@@ -305,7 +306,6 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 							if (e2.intersects(pf2.xForm(QRect(qRound(Zli3.xco+Zli3.wide),qRound(Zli3.yco-asce), qRound(Zli3.wide+1), qRound(asce+desc)))))
 							{
 								FPointArray points;
-								QWMatrix chma, chma2, chma4, chma5;
 								double ytrans, xtrans;
 								if (chx == QChar(13))
 								{
@@ -332,6 +332,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 									else
 										xtrans = Zli3.xco;
 								}
+								QWMatrix chma, chma2, chma4, chma5;
 								chma4.translate(xtrans, ytrans);
 								chma.scale(Zli3.Siz / 100.0, Zli3.Siz / 100.0);
 								chma2.scale(Zli3.scale / 1000.0, Zli3.scalev / 1000.0);
@@ -424,8 +425,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 									pp.rotate(docItem->rotation());
 									if (docItem->textFlowUsesBoundingBox())
 									{
-										QPointArray tcli;
-										tcli.resize(4);
+										QPointArray tcli(4);
 										tcli.setPoint(0, QPoint(0,0));
 										tcli.setPoint(1, QPoint(qRound(docItem->width()), 0));
 										tcli.setPoint(2, QPoint(qRound(docItem->width()), qRound(docItem->height())));
@@ -458,8 +458,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 								pp.rotate(docItem->rotation());
 								if (docItem->textFlowUsesBoundingBox())
 								{
-									QPointArray tcli;
-									tcli.resize(4);
+									QPointArray tcli(4);
 									tcli.setPoint(0, QPoint(0,0));
 									tcli.setPoint(1, QPoint(qRound(docItem->width()), 0));
 									tcli.setPoint(2, QPoint(qRound(docItem->width()), qRound(docItem->height())));
@@ -495,8 +494,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 								pp.rotate(docItem->rotation());
 								if (docItem->textFlowUsesBoundingBox())
 								{
-									QPointArray tcli;
-									tcli.resize(4);
+									QPointArray tcli(4);
 									tcli.setPoint(0, QPoint(0,0));
 									tcli.setPoint(1, QPoint(qRound(docItem->width()), 0));
 									tcli.setPoint(2, QPoint(qRound(docItem->width()), qRound(docItem->height())));
@@ -738,18 +736,16 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 					}
 					else
 					{
+						double hlcsize10=hl->csize / 10.0;
 						if ((hl->ch == QChar(25)) && (hl->cembedded != 0))
 						{
-							asce = hl->cfont->numAscent * (hl->csize / 10.0);
-							desc2 = 0;
-							desc = 0;
+							desc = desc2 = 0;
 						}
 						else
 						{
-							desc2 = -hl->cfont->numDescender * (hl->csize / 10.0);
-							desc = -hl->cfont->numDescender * (hl->csize / 10.0);
-							asce = hl->cfont->numAscent * (hl->csize / 10.0);
+							desc = desc2 = -hl->cfont->numDescender * hlcsize10;
 						}
+						asce = hl->cfont->numAscent * hlcsize10;
 					}
 					wide = wide * (hl->cscale / 1000.0);
 					fBorder = false;
@@ -1125,8 +1121,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						CurX += Doc->docParagraphStyles[hl->cab].DropDist;
 						CurX = QMAX(CurX, ColBound.x());
 						maxDX = CurX;
-						QPointArray tcli;
-						tcli.resize(4);
+						QPointArray tcli(4);
 						if (Doc->docParagraphStyles[hl->cab].BaseAdj)
 						{
 							CurY -= Doc->typographicSettings.valueBaseGrid * (DropLines-1);

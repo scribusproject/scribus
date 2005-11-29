@@ -5274,7 +5274,6 @@ void ScribusView::UpdateClip(PageItem* currItem)
 				ClRe = -1;
 				currItem->SetFrameRound();
 				setRedrawBounding(currItem);
-				emit ItemRadius(currItem->RadRect);
 				break;
 			default:
 				break;
@@ -6065,7 +6064,7 @@ bool ScribusView::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, 
 			break;
 		}
 	}
-	currItem->RadRect = QMIN(currItem->RadRect, QMIN(currItem->width(),currItem->height())/2);
+	currItem->setCornerRadius(QMIN(currItem->cornerRadius(), QMIN(currItem->width(),currItem->height())/2));
 	if ((currItem->asImageFrame()) && (!currItem->Sizing) && (!Doc->EditClip))
 	{
 		currItem->AdjustPictScale();
@@ -6090,7 +6089,8 @@ bool ScribusView::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, 
 	if (currItem->Sizing)
 	{
 		emit ItemGeom(currItem->width(), currItem->height());
-		emit ItemRadius(currItem->RadRect);
+		//CB Seemingly unneeded to send this as when sizing, the value doesnt change anyway
+		//emit ItemRadius(currItem->cornerRadius());
 		currItem->FrameOnly = true;
 		currItem->Tinput = true;
 		if ((HowTo == 1) && !(currItem->asLine()))
@@ -6150,7 +6150,6 @@ bool ScribusView::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, 
 		else
 			emit ItemGeom(currItem->width(), currItem->height());
 	}
-	emit ItemRadius(currItem->RadRect);
 	return true;
 }
 
@@ -9069,14 +9068,13 @@ void ScribusView::SetFrameRounded()
 	PageItem *currItem;
 	if (GetItem(&currItem))
 	{
-		if (currItem->RadRect == 0)
+		if (currItem->cornerRadius() == 0)
 		{
 			SetFrameRect();
 			return;
 		}
 		currItem->SetFrameRound();
 		setRedrawBounding(currItem);
-		emit ItemRadius(currItem->RadRect);
 		updateContents(currItem->getRedrawBounding(Scale));
 	}
 }
@@ -10818,7 +10816,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	}
 	currItem->setImageFlippedH(Buffer->flippedH);
 	currItem->setImageFlippedV(Buffer->flippedV);
-	currItem->RadRect = Buffer->RadRect;
+	currItem->setCornerRadius(Buffer->RadRect);
 	currItem->FrameType = Buffer->FrameType;
 	currItem->ClipEdited = Buffer->ClipEdited;
 	currItem->setFillColor(Buffer->Pcolor);
@@ -10975,12 +10973,11 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	// OBSOLETE CR 2005-02-06
 	if (currItem->itemType() == PageItem::ItemType3)
 	{
-		if (currItem->RadRect != 0)
+		if (currItem->cornerRadius() != 0.0)
 		{
 			ClRe = -1;
 			currItem->SetFrameRound();
 			setRedrawBounding(currItem);
-			emit ItemRadius(currItem->RadRect);
 		}
 		else
 		{

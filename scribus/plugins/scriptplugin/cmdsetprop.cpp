@@ -202,7 +202,7 @@ PyObject *scribus_setcornerrad(PyObject* /* self */, PyObject* args)
 	if (currItem == NULL)
 		return NULL;
 	// apply rounding
-	currItem->RadRect = w;
+	currItem->setCornerRadius(w);
 	currItem->SetFrameRound();
 	ScApp->view->setRedrawBounding(currItem);
 	ScApp->view->SetFrameRounded();

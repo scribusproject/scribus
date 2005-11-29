@@ -124,7 +124,7 @@ PyObject *scribus_getcornerrad(PyObject* /* self */, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
-	return i != NULL ? PyInt_FromLong(static_cast<long>(i->RadRect)) : NULL;
+	return i != NULL ? PyInt_FromLong(static_cast<long>(i->cornerRadius())) : NULL;
 }
 
 PyObject *scribus_getimgscale(PyObject* /* self */, PyObject* args)

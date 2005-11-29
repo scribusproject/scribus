@@ -2013,7 +2013,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	currItem->textAlignment = QStoInt(obj->attribute("ALIGN","0"));
 	currItem->setImageFlippedH(QStoInt(obj->attribute("FLIPPEDH")));
 	currItem->setImageFlippedV(QStoInt(obj->attribute("FLIPPEDV")));
-	currItem->RadRect = QStodouble(obj->attribute("RADRECT","0"));
+	currItem->setCornerRadius(QStodouble(obj->attribute("RADRECT","0")));
 	currItem->ClipEdited = QStoInt(obj->attribute("CLIPEDIT", "0"));
 	currItem->setFillColor(Pcolor);
 	currItem->setLineColor(Pcolor2);

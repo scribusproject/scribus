@@ -226,7 +226,7 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 	ob->setAttribute("YPOS",item->yPos());
 	ob->setAttribute("WIDTH",item->width());
 	ob->setAttribute("HEIGHT",item->height());
-	ob->setAttribute("RADRECT",item->RadRect);
+	ob->setAttribute("RADRECT",item->cornerRadius());
 	ob->setAttribute("FRTYPE", item->FrameType);
 	ob->setAttribute("CLIPEDIT", item->ClipEdited ? 1 : 0);
 	ob->setAttribute("PWIDTH",item->Pwidth);

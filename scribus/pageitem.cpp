@@ -760,7 +760,16 @@ void PageItem::setTextToFrameDist(double newLeft, double newRight, double newTop
 	BExtra=newBottom;
 }
 
-
+double PageItem::cornerRadius()
+{
+	return RadRect;
+}
+	
+void PageItem::setCornerRadius(double newRadius)
+{
+	RadRect=newRadius;
+	emit cornerRadius(RadRect);
+}
 
 
 
@@ -3372,7 +3381,7 @@ void PageItem::SetOvalFrame()
 
 void PageItem::SetFrameRound()
 {
-	RadRect = QMIN(RadRect, QMIN(Width,Height)/2);
+	setCornerRadius(QMIN(RadRect, QMIN(Width,Height)/2));
 	PoLine.resize(0);
 	double rr = fabs(RadRect);
 	double bezierFactor=0.552284749; //Bezier Control Point Factor: 8/3*(sin(45)-0.5)

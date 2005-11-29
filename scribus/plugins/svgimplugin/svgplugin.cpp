@@ -439,7 +439,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			PageItem* ite = currDoc->Items->at(z);
 			if ((rx != 0) || (ry != 0))
 			{
-				ite->RadRect = QMAX(rx, ry);
+				ite->setCornerRadius(QMAX(rx, ry));
 				ite->SetFrameRound();
 				ScApp->view->setRedrawBounding(ite);
 			}
