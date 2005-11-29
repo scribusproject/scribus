@@ -324,8 +324,8 @@ private: // Private attributes
 	QPopupMenu *pmen3;
 	QPopupMenu *pmenResolution;
 	bool Ready;
-	int    oldX;
-	int    oldY;
+	int  oldX;
+	int  oldY;
 	bool _groupTransactionStarted;
 	bool _isGlobalMode;
 	bool evSpon;

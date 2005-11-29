@@ -99,11 +99,45 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc) :
 	QScrollView(parent, "s", WRepaintNoErase | WNorthWestGravity),
 	Doc(doc),
 	Prefs(&(PrefsManager::instance()->appPrefs)),
-	undoManager(UndoManager::instance())
+	undoManager(UndoManager::instance()),
+	OldScale(0),
+	GroupX(0), GroupY(0), GroupW(0), GroupH(0),
+	oldW(-1), oldCp(-1),
+	Mxp(-1), Myp(-1), Dxp(-1), Dyp(-1),
+	HowTo(-1),
+	SeRx(-1), SeRy(-1), GyM(-1), GxM(-1),
+	ClRe(-1), ClRe2(-1),
+	SegP1(-1), SegP2(-1),
+	RotMode(0),
+	DrHY(-1), DrVX(-1),
+	EdPoints(true),
+	Mpressed(false),
+	Imoved(false),
+	MoveGY(false), MoveGX(false),
+	HaveSelRect(false),
+	mCG(false),
+	EditContour(false),
+	GroupSel(false),
+	DraggedGroup(false),
+	DraggedGroupFirst(false),
+	HanMove(false),
+	MidButt(false),
+	updateOn(true),
+	FirstPoly(true),
+	Magnify(false),
+	MoveSym(false),
+	CursVis(false),
+	previewMode(false),
+	RCenter(-1,-1),
+	RecordP(),
+	Ready(false),
+	oldX(0), oldY(0),
+	_groupTransactionStarted(false),
+	_isGlobalMode(true),
+	evSpon(false),
+	forceRedraw(false),
+	Scale(Prefs->DisScale)
 {
-	Ready = false;
-	updateOn = true;
-	Scale=Prefs->DisScale;
 	setHScrollBarMode(QScrollView::AlwaysOn);
 	setVScrollBarMode(QScrollView::AlwaysOn);
 	setMargins(17, 17, 0, 0);
@@ -167,38 +201,10 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc) :
 	viewport()->setAcceptDrops(true);
 	setDragAutoScroll(false);
 	//SelItem.clear();
+//	languageChange();
 	Doc->DragP = false;
 	Doc->leaveDrag = false;
-	Imoved = false;
-	Mpressed = false;
-	MidButt = false;
-	HaveSelRect = false;
-	Magnify = false;
-	FirstPoly = true;
-	EdPoints = true;
-	GroupSel = false;
-	DraggedGroup = false;
-	MoveGY = false;
-	MoveGX = false;
-	EditContour = false;
-	CursVis = false;
-	mCG = false;
-	MidButt = false;
-	previewMode = false;
 	Doc->SubMode = -1;
-	GroupX = 0;
-	GroupY = 0;
-	GroupW = 0;
-	GroupH = 0;
-	DrHY = -1;
-	DrVX = -1;
-	GxM = -1;
-	GyM = -1;
-	ClRe = -1;
-	ClRe2 = -1;
-	_groupTransactionStarted = false;
-	_isGlobalMode = true;
-//	languageChange();
 	connect(zoomOutToolbarButton, SIGNAL(clicked()), this, SLOT(slotZoomOut()));
 	connect(zoomInToolbarButton, SIGNAL(clicked()), this, SLOT(slotZoomIn()));
 	connect(zoomDefaultToolbarButton, SIGNAL(clicked()), this, SLOT(slotZoom100()));
@@ -208,7 +214,6 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc) :
 	connect(unitSwitcher, SIGNAL(activated(int)), this, SLOT(ChgUnit(int)));
 	connect(this, SIGNAL(contentsMoving(int, int)), this, SLOT(setRulerPos(int, int)));
 	connect(this, SIGNAL(HaveSel(int)), this, SLOT(selectionChanged()));
-	evSpon = false;
 }
 
 void ScribusView::languageChange()
