@@ -1583,10 +1583,7 @@ void Mpalette::UnitChange()
 	DRight->setMaxValue( 300 );
 	DRight->setValue(newDR);
 
-	RoundRect->setDecimals(decimals);
-	RoundRect->setMaxValue(newRM);
-	RoundRect->setValue(newRR);
-
+	RoundRect->setValues(-newRM, newRM, decimals, newRR);
 	Cpal->UnitChange(oldRatio, Umrech, doc->unitIndex());
 	HaveItem = tmp;
 }
@@ -1680,6 +1677,7 @@ void Mpalette::setBH(double x, double y)
 	else
 	{
 		RoundRect->setMaxValue(QMIN(x, y)/2*Umrech);
+		RoundRect->setMinValue(-QMIN(x, y)/2*Umrech);
 		Width->setValue(x*Umrech);
 		Height->setValue(y*Umrech);
 	}
