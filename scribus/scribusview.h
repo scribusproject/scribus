@@ -81,9 +81,9 @@ public:
 	QComboBox *layerMenu; //Menu for layers at bottom of view
 	QComboBox *unitSwitcher; //Menu for units at bottom of view
   /** Dokument zu dem die Seite gehoert */
-	ScribusDoc *Doc;
-	ApplicationPrefs *Prefs;
-	UndoManager *undoManager;
+	ScribusDoc * const Doc;
+	ApplicationPrefs * const Prefs;
+	UndoManager * const undoManager;
 	double OldScale;
 	double GroupX;
 	double GroupY;

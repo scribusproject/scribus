@@ -95,12 +95,14 @@ using namespace std;
 
 
 
-ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc) : QScrollView(parent, "s", WRepaintNoErase | WNorthWestGravity)
+ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc) :
+	QScrollView(parent, "s", WRepaintNoErase | WNorthWestGravity),
+	Doc(doc),
+	Prefs(&(PrefsManager::instance()->appPrefs)),
+	undoManager(UndoManager::instance())
 {
 	Ready = false;
 	updateOn = true;
-	Doc = doc;
-	Prefs = &(PrefsManager::instance()->appPrefs);
 	Scale=Prefs->DisScale;
 	setHScrollBarMode(QScrollView::AlwaysOn);
 	setVScrollBarMode(QScrollView::AlwaysOn);
@@ -196,7 +198,6 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc) : QScrollView(parent,
 	ClRe2 = -1;
 	_groupTransactionStarted = false;
 	_isGlobalMode = true;
-	undoManager = UndoManager::instance();
 //	languageChange();
 	connect(zoomOutToolbarButton, SIGNAL(clicked()), this, SLOT(slotZoomOut()));
 	connect(zoomInToolbarButton, SIGNAL(clicked()), this, SLOT(slotZoomIn()));
