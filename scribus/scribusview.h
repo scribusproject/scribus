@@ -394,7 +394,7 @@ signals:
 	void ItemTextStrike(int, int);
 	void ItemTextFarben(QString, QString, int, int);
 	void ItemTextStil(int);
-	void ItemRadius(double);
+	//void ItemRadius(double);
 	void HasTextSel();
 	void HasNoTextSel();
 	void MVals(double, double, double, double, double, double, int);

@@ -201,7 +201,7 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc) :
 	viewport()->setAcceptDrops(true);
 	setDragAutoScroll(false);
 	//SelItem.clear();
-	languageChange();
+	//languageChange();
 	Doc->DragP = false;
 	Doc->leaveDrag = false;
 	Doc->SubMode = -1;
