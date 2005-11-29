@@ -21,9 +21,8 @@
 
 //Create transformed point
 FPoint::FPoint(const double x, const double y, const double dx, const double dy, const double rot, const double sx, const double sy, const bool invert)
+	: xp(x), yp(y)
 {
-	xp=x;
-	yp=y;
 	transform(dx,dy,rot,sx,sy,invert);
 }
 
