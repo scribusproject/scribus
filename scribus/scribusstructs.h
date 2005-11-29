@@ -167,13 +167,16 @@ struct CopyPasteBuffer
 	ObjAttrVector pageItemAttributes;
 };
 
-  /** Pagemargins */
+/** Pagemargins */
 struct MarginStruct
 {
+	MarginStruct() : Top(0), Left(0), Bottom(0), Right(0) {}
+	MarginStruct(double top, double left, double bottom, double right) :
+		Top(top), Left(left), Bottom(bottom), Right(right) {}
 	double Top;
 	double Left;
-	double Right;
 	double Bottom;
+	double Right;
 };
 
 struct PageSet

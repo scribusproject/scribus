@@ -41,24 +41,26 @@
  \param app ScribusApp reference. It's used for preferences accessing.
  \retval None
 */
-Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok, ScribusApp* app) : QObject( parent, "bu")
+Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok)
+	: QObject( parent, "bu"),
+	doc(dok),
+	MinWordLen(doc->MinWordLen),
+	HyCount(doc->HyCount),
+	Automatic(doc->Automatic),
+	AutoCheck(doc->AutoCheck),
+	hdict(0),
+	useAble(false),
+	codec(0)
 {
-	char *filename = NULL;
-	doc = dok;
-	Sap = app;
-	MinWordLen = doc->MinWordLen;
-	Automatic = doc->Automatic;
-	AutoCheck = doc->AutoCheck;
-	HyCount = doc->HyCount;
  	QString pfad = ScPaths::instance().libDir();
-	if (Sap->Sprachen.contains(doc->Language))
+	if (ScApp->Sprachen.contains(doc->Language))
 		Language = doc->Language;
 	else
 	{
 		Language = PrefsManager::instance()->appPrefs.Language;
 		doc->Language = Language;
 	}
-	pfad += "dicts/" + Sap->Sprachen[Language];
+	pfad += "dicts/" + ScApp->Sprachen[Language];
 	QFile f(pfad);
 	if (f.open(IO_ReadOnly))
 	{
@@ -75,7 +77,7 @@ Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok, ScribusApp* app) : QObj
 		return;
 	}
 	QCString fn = pfad.latin1();
-	filename = fn.data();
+	const char * filename = fn.data();
 	hdict = hnj_hyphen_load(filename);
 	useAble = hdict == NULL ? false : true;
 }
@@ -103,7 +105,7 @@ Hyphenator::~Hyphenator()
  */
 void Hyphenator::slotNewDict(QString name)
 {
-	if (!Sap->Sprachen.contains(name))
+	if (!ScApp->Sprachen.contains(name))
 		return;
 	char *filename = NULL;
 	if (hdict != NULL)
@@ -111,7 +113,7 @@ void Hyphenator::slotNewDict(QString name)
  	QString pfad = ScPaths::instance().libDir();
 	Language = name;
 	doc->Language = name;
-	pfad += "dicts/" + Sap->Sprachen[Language];
+	pfad += "dicts/" + ScApp->Sprachen[Language];
 	QFile f(pfad);
 	if (f.open(IO_ReadOnly))
 	{
@@ -167,7 +169,7 @@ void Hyphenator::slotNewSettings(int Wordlen, bool Autom, bool ACheck, int Num)
  */
 void Hyphenator::slotHyphenateWord(PageItem* it, QString text, int firstC)
 {
-	if ((!useAble) || (!Sap->Sprachen.contains(it->Language)))
+	if ((!useAble) || (!ScApp->Sprachen.contains(it->Language)))
 		return;
 	const char *word;
 	char *buffer;

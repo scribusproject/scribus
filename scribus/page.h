@@ -81,7 +81,7 @@ public:
 	void restore(UndoState* state, bool isUndo);
 
 private:
-	UndoManager* undoManager;
+	UndoManager * const undoManager;
 	void restorePageItemCreation(ItemState<PageItem*> *state, bool isUndo);
 	void restorePageItemDeletion(ItemState<PageItem*> *state, bool isUndo);
 	void restorePageItemConversion(ItemState<std::pair<PageItem*, PageItem*> >*state, bool isUndo);

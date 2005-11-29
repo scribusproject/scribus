@@ -136,7 +136,6 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 	// CMSSettings, HasCMS, etc done by setup()
 	JavaScripts(),
 	TotalItems(0),
-	docHyphenator(new Hyphenator(ScApp, this, ScApp)),
 	MinWordLen(prefsData.MinWordLen),
 	HyCount(prefsData.HyCount),
 	Language(prefsData.Language),
@@ -165,6 +164,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 	docToCSetups(prefsData.defaultToCSetups),
 	// sections
 	symReturn(), symNewLine(), symTab(), symNonBreak(), symNewCol(), symNewFrame(),
+	docHyphenator(new Hyphenator(ScApp, this)), // MUST be constructed late
 	_itemCreationTransactionStarted(false)
 {
 	Q_CHECK_PTR(selection);

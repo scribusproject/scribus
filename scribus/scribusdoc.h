@@ -637,7 +637,6 @@ public: // Public attributes
 	bool HasCMS;
 	QMap<QString,QString> JavaScripts;
 	int TotalItems;
-	Hyphenator * const docHyphenator;
 	int MinWordLen;
 	int HyCount;
 	QString Language;
@@ -687,6 +686,7 @@ public: // Public attributes
 	FPointArray symNewCol;
 	FPointArray symNewFrame;
 	
+	Hyphenator * const docHyphenator;
 private:
 	bool _itemCreationTransactionStarted;
 	

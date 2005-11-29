@@ -23,29 +23,24 @@
 extern QPixmap loadIcon(QString nam);
 
 
-Page::Page(const double x, const double y, const double b, const double h) : UndoObject(QObject::tr("Page"))
+Page::Page(const double x, const double y, const double b, const double h) :
+	UndoObject(QObject::tr("Page")),
+	Margins(40,40,40,40),
+	initialMargins(40,40,40,40),
+	LeftPg(0),
+	MPageNam(""),
+	PageNam(""),
+	XGuides(),
+	YGuides(),
+	FromMaster(),
+	undoManager(UndoManager::instance()),
+	m_xOffset(x),
+	m_yOffset(y),
+	m_width(b),
+	m_height(h),
+	m_initialWidth(b),
+	m_initialHeight(h)
 {
-	m_xOffset = x;
-	m_yOffset = y;
-	m_width = b;
-	m_height = h;
-	m_initialWidth = b;
-	m_initialHeight = h;
-	Margins.Top = 40;
-	Margins.Left = 40;
-	Margins.Right = 40;
-	Margins.Bottom = 40;
-	initialMargins.Top = 40;
-	initialMargins.Left = 40;
-	initialMargins.Right = 40;
-	initialMargins.Bottom = 40;
-	LeftPg = 0;
-	PageNam = "";
-	MPageNam = "";
-	XGuides.clear();
-	YGuides.clear();
-	FromMaster.clear();
-	undoManager = UndoManager::instance();
 }
 
 void Page::setPageNr(const int pageNr)
