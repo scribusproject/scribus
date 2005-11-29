@@ -69,141 +69,138 @@ extern int IntentPrinter;
 extern bool CMSavail;
 extern QPixmap loadIcon(QString nam);
 
-ScribusDoc::ScribusDoc() : UndoObject( tr("Document"))
+ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
+	prefsData(PrefsManager::instance()->appPrefs),
+	undoManager(UndoManager::instance()),
+	loading(false),
+	modified(false),
+	ActiveLayer(0),
+	docUnitIndex(prefsData.docUnitIndex),
+	docUnitRatio(unitGetRatioFromIndex(docUnitIndex)),
+	automaticTextFrames(0),
+	m_masterPageMode(false),
+	is12doc(false),
+	NrItems(0),
+	First(1), Last(0),
+	viewCount(0), viewID(0),
+	SnapGuides(false), GuideLock(false),
+	ScratchLeft(prefsData.ScratchLeft),
+	ScratchRight(prefsData.ScratchRight),
+	ScratchTop(prefsData.ScratchTop),
+	ScratchBottom(prefsData.ScratchBottom),
+	minCanvasCoordinate(FPoint(0, 0)),
+	maxCanvasCoordinate(FPoint(ScratchLeft + ScratchRight, ScratchTop + ScratchBottom)),
+	rulerXoffset(0.0), rulerYoffset(0.0),
+	Pages(), MasterPages(), DocPages(),
+	MasterNames(),
+	Items(), MasterItems(), DocItems(), FrameItems(),
+	selection(new Selection()),
+	pageWidth(0), pageHeight(0), pageCount(0),
+	// pageMargins
+	pageSets(prefsData.pageSets),
+	PageSp(1), PageSpa(0),
+	currentPageLayout(0),
+	PageOri(0), PageSize(0),
+	FirstPnum(1),
+	useRaster(false),
+	currentPage(0),
+	// documentInfo
+	appMode(modeNormal),
+	SubMode(-1),
+	ShapeValues(0),
+	ValCount(0),
+	DocName(tr("Document")+"-"),
+	UsedFonts(),
+	AllFonts(&prefsData.AvailFonts),
+	AObjects(),
+	papColor(prefsData.DpapColor),
+	CurrentSel(-1),
+	CurrentStyle(0), currentParaStyle(0),
+	// CurrFont, blah blah to CurrTextStrikeWidth are poked externally
+	EditClip(false),
+	EditClipMode(0),
+	typographicSettings(prefsData.typographicSettings),
+	guidesSettings(prefsData.guidesSettings),
+	toolSettings(prefsData.toolSettings),
+	checkerProfiles(prefsData.checkerProfiles),
+	curCheckProfile(prefsData.curCheckProfile),
+	LastAuto(0), FirstAuto(0),
+	// DragP, leaveDrag
+	DraggedElem(0),
+	ElemToLink(0),
+	DragElements(),
+	docParagraphStyles(),
+	Layers(),
+	marginColored(prefsData.marginColored),
+	GroupCounter(1),
+	// CMSSettings, HasCMS, etc done by setup()
+	JavaScripts(),
+	TotalItems(0),
+	docHyphenator(new Hyphenator(ScApp, this, ScApp)),
+	MinWordLen(prefsData.MinWordLen),
+	HyCount(prefsData.HyCount),
+	Language(prefsData.Language),
+	Automatic(prefsData.Automatic),
+	AutoCheck(prefsData.AutoCheck),
+	PDF_Options(prefsData.PDF_Options),
+	RePos(false),
+	BookMarks(),
+	OldBM(false),
+	hasName(false),
+	RotMode(0),
+	AutoSave(prefsData.AutoSave),
+	AutoSaveTime(prefsData.AutoSaveTime),
+	autoSaveTimer(new QTimer(this)),
+	// library
+	FFonts(),
+	MLineStyles(),
+	arrowStyles(prefsData.arrowStyles),
+	WinHan(0),
+	DoDrawing(true),
+	OpenNodes(),
+	CurTimer(0),
+	docItemErrors(),
+	masterItemErrors(),
+	docItemAttributes(prefsData.defaultItemAttributes),
+	docToCSetups(prefsData.defaultToCSetups),
+	// sections
+	symReturn(), symNewLine(), symTab(), symNonBreak(), symNewCol(), symNewFrame(),
+	_itemCreationTransactionStarted(false)
 {
-	selection=new Selection();
 	Q_CHECK_PTR(selection);
-	ApplicationPrefs* prefsData=&(PrefsManager::instance()->appPrefs);
-	modified = false;
-	_itemCreationTransactionStarted=false;
-	NrItems = 0;
-	First = 1;
-	Last = 0;
-	viewCount = 0;
-	viewID = 0;
-	is12doc=false;
-	UsedFonts.clear();
+	Q_CHECK_PTR(docHyphenator);
+	Q_CHECK_PTR(autoSaveTimer);
+
 	FT_Init_FreeType( &library );
-	AllFonts = &prefsData->AvailFonts;
-	AddFont(prefsData->toolSettings.defFont);//, prefsData->AvailFonts[prefsData->toolSettings.defFont]->Font);
-	toolSettings.defFont = prefsData->toolSettings.defFont;
-	toolSettings.defSize = prefsData->toolSettings.defSize;
-	toolSettings.tabFillChar = prefsData->toolSettings.tabFillChar;
-	guidesSettings.marginsShown = prefsData->guidesSettings.marginsShown;
-	guidesSettings.framesShown = prefsData->guidesSettings.framesShown;
-	guidesSettings.gridShown = prefsData->guidesSettings.gridShown;
-	guidesSettings.guidesShown = prefsData->guidesSettings.guidesShown;
-	guidesSettings.baseShown = prefsData->guidesSettings.baseShown;
-	guidesSettings.linkShown = prefsData->guidesSettings.linkShown;
-	guidesSettings.showPic = prefsData->guidesSettings.showPic;
-	guidesSettings.showControls = prefsData->guidesSettings.showControls;
-	guidesSettings.rulerMode = prefsData->guidesSettings.rulerMode;
-	guidesSettings.grabRad = prefsData->guidesSettings.grabRad;
-	guidesSettings.guideRad = prefsData->guidesSettings.guideRad;
-	guidesSettings.minorGrid = prefsData->guidesSettings.minorGrid;
-	guidesSettings.majorGrid = prefsData->guidesSettings.majorGrid;
-	guidesSettings.minorColor = prefsData->guidesSettings.minorColor;
-	guidesSettings.majorColor = prefsData->guidesSettings.majorColor;
-	papColor = prefsData->DpapColor;
-	guidesSettings.margColor = prefsData->guidesSettings.margColor;
-	guidesSettings.guideColor = prefsData->guidesSettings.guideColor;
-	guidesSettings.baseColor = prefsData->guidesSettings.baseColor;
-	guidesSettings.before = prefsData->guidesSettings.before;
-	PageColors.clear();
+	AddFont(prefsData.toolSettings.defFont);//, prefsData.AvailFonts[prefsData.toolSettings.defFont]->Font);
+	toolSettings.defFont = prefsData.toolSettings.defFont;
+	toolSettings.defSize = prefsData.toolSettings.defSize;
+	toolSettings.tabFillChar = prefsData.toolSettings.tabFillChar;
 	PageColors.insert("Black", ScColor(0, 0, 0, 255));
 	PageColors.insert("White", ScColor(0, 0, 0, 0));
-	if (prefsData->toolSettings.dPen != "None")
-		PageColors.insert(prefsData->toolSettings.dPen, prefsData->DColors[prefsData->toolSettings.dPen]);
-	toolSettings.dPen = prefsData->toolSettings.dPen;
-	if (prefsData->toolSettings.dPenLine != "None")
-		PageColors.insert(prefsData->toolSettings.dPenLine, prefsData->DColors[prefsData->toolSettings.dPenLine]);
-	toolSettings.dPenLine = prefsData->toolSettings.dPenLine;
-	if (prefsData->toolSettings.dPenText != "None")
-		PageColors.insert(prefsData->toolSettings.dPenText, prefsData->DColors[prefsData->toolSettings.dPenText]);
-	toolSettings.dPenText = prefsData->toolSettings.dPenText;
-	if (prefsData->toolSettings.dStrokeText != "None")
-		PageColors.insert(prefsData->toolSettings.dStrokeText, prefsData->DColors[prefsData->toolSettings.dStrokeText]);
-	toolSettings.dStrokeText = prefsData->toolSettings.dStrokeText;
-	if (prefsData->toolSettings.dBrush != "None")
-		PageColors.insert(prefsData->toolSettings.dBrush, prefsData->DColors[prefsData->toolSettings.dBrush]);
-	toolSettings.dBrush = prefsData->toolSettings.dBrush;
-	if (prefsData->toolSettings.dBrushPict != "None")
-		PageColors.insert(prefsData->toolSettings.dBrushPict, prefsData->DColors[prefsData->toolSettings.dBrushPict]);
-	toolSettings.dBrushPict = prefsData->toolSettings.dBrushPict;
-	if (prefsData->toolSettings.dTextBackGround != "None")
-		PageColors.insert(prefsData->toolSettings.dTextBackGround, prefsData->DColors[prefsData->toolSettings.dTextBackGround]);
-	toolSettings.dTextBackGround = prefsData->toolSettings.dTextBackGround;
-	if (prefsData->toolSettings.dTextLineColor != "None")
-		PageColors.insert(prefsData->toolSettings.dTextLineColor, prefsData->DColors[prefsData->toolSettings.dTextLineColor]);
-	toolSettings.dTextLineColor = prefsData->toolSettings.dTextLineColor;
-	toolSettings.dTextBackGroundShade = prefsData->toolSettings.dTextBackGroundShade;
-	toolSettings.dTextLineShade = prefsData->toolSettings.dTextLineShade;
-	toolSettings.dTextPenShade = prefsData->toolSettings.dTextPenShade;
-	toolSettings.dTextStrokeShade = prefsData->toolSettings.dTextStrokeShade;
-	typographicSettings.valueSuperScript = prefsData->typographicSettings.valueSuperScript;
-	typographicSettings.scalingSuperScript = prefsData->typographicSettings.scalingSuperScript;
-	typographicSettings.valueSubScript = prefsData->typographicSettings.valueSubScript;
-	typographicSettings.scalingSubScript = prefsData->typographicSettings.scalingSubScript;
-	typographicSettings.valueSmallCaps = prefsData->typographicSettings.valueSmallCaps;
-	typographicSettings.autoLineSpacing = prefsData->typographicSettings.autoLineSpacing;
-	typographicSettings.valueBaseGrid = prefsData->typographicSettings.valueBaseGrid;
-	typographicSettings.offsetBaseGrid = prefsData->typographicSettings.offsetBaseGrid;
-	typographicSettings.valueUnderlinePos = prefsData->typographicSettings.valueUnderlinePos;
-	typographicSettings.valueUnderlineWidth = prefsData->typographicSettings.valueUnderlineWidth;
-	typographicSettings.valueStrikeThruPos = prefsData->typographicSettings.valueStrikeThruPos;
-	typographicSettings.valueStrikeThruWidth = prefsData->typographicSettings.valueStrikeThruWidth;
-	toolSettings.dShade = prefsData->toolSettings.dShade;
-	toolSettings.dShade2 = prefsData->toolSettings.dShade2;
-	toolSettings.shadePict = prefsData->toolSettings.shadePict;
-	toolSettings.scaleX = prefsData->toolSettings.scaleX;
-	toolSettings.scaleY = prefsData->toolSettings.scaleY;
-	toolSettings.scaleType = prefsData->toolSettings.scaleType;
-	toolSettings.aspectRatio = prefsData->toolSettings.aspectRatio;
-	toolSettings.useEmbeddedPath = prefsData->toolSettings.useEmbeddedPath;
-	toolSettings.lowResType = prefsData->toolSettings.lowResType;
-	toolSettings.dCols = prefsData->toolSettings.dCols;
-	toolSettings.dGap = prefsData->toolSettings.dGap;
-	toolSettings.dTabWidth = prefsData->toolSettings.dTabWidth;
-	toolSettings.dLineArt = PenStyle(prefsData->toolSettings.dLineArt);
-	toolSettings.dWidth = prefsData->toolSettings.dWidth;
-	toolSettings.dShadeLine = prefsData->toolSettings.dShadeLine;
-	toolSettings.dLstyleLine = PenStyle(prefsData->toolSettings.dLstyleLine);
-	toolSettings.dWidthLine = prefsData->toolSettings.dWidthLine;
-	toolSettings.dStartArrow = prefsData->toolSettings.dStartArrow;
-	toolSettings.dEndArrow = prefsData->toolSettings.dEndArrow;
-	toolSettings.polyC = prefsData->toolSettings.polyC;
-	toolSettings.polyF = prefsData->toolSettings.polyF;
-	toolSettings.polyS = prefsData->toolSettings.polyS;
-	toolSettings.polyFd = prefsData->toolSettings.polyFd;
-	toolSettings.polyR = prefsData->toolSettings.polyR;
-	toolSettings.magMin = prefsData->toolSettings.magMin;
-	toolSettings.magMax = prefsData->toolSettings.magMax;
-	toolSettings.magStep = prefsData->toolSettings.magStep;
-	checkerProfiles = prefsData->checkerProfiles;
-	curCheckProfile = prefsData->curCheckProfile;
-	docUnitIndex = prefsData->docUnitIndex;
-	marginColored = prefsData->marginColored;
-	Language = prefsData->Language;
-	MinWordLen = prefsData->MinWordLen;
-	HyCount = prefsData->HyCount;
-	Automatic = prefsData->Automatic;
-	AutoCheck = prefsData->AutoCheck;
-	GuideLock = false;
-	SnapGuides = false;
-	useRaster = false;
-	EditClip = false;
-	EditClipMode = 0;
-	loading = false;
-	DocName = tr("Document")+"-";
-	CurrentSel = -1;
-	pageCount = 0;
-	LastAuto = 0;
-	FirstAuto = 0;
-	DraggedElem = 0;
-	GroupCounter = 1;
-	rulerXoffset = 0.0;
-	rulerYoffset = 0.0;
-	docParagraphStyles.clear();
+	if (prefsData.toolSettings.dPen != "None")
+		PageColors.insert(prefsData.toolSettings.dPen, prefsData.DColors[prefsData.toolSettings.dPen]);
+	toolSettings.dPen = prefsData.toolSettings.dPen;
+	if (prefsData.toolSettings.dPenLine != "None")
+		PageColors.insert(prefsData.toolSettings.dPenLine, prefsData.DColors[prefsData.toolSettings.dPenLine]);
+	toolSettings.dPenLine = prefsData.toolSettings.dPenLine;
+	if (prefsData.toolSettings.dPenText != "None")
+		PageColors.insert(prefsData.toolSettings.dPenText, prefsData.DColors[prefsData.toolSettings.dPenText]);
+	toolSettings.dPenText = prefsData.toolSettings.dPenText;
+	if (prefsData.toolSettings.dStrokeText != "None")
+		PageColors.insert(prefsData.toolSettings.dStrokeText, prefsData.DColors[prefsData.toolSettings.dStrokeText]);
+	toolSettings.dStrokeText = prefsData.toolSettings.dStrokeText;
+	if (prefsData.toolSettings.dBrush != "None")
+		PageColors.insert(prefsData.toolSettings.dBrush, prefsData.DColors[prefsData.toolSettings.dBrush]);
+	toolSettings.dBrush = prefsData.toolSettings.dBrush;
+	if (prefsData.toolSettings.dBrushPict != "None")
+		PageColors.insert(prefsData.toolSettings.dBrushPict, prefsData.DColors[prefsData.toolSettings.dBrushPict]);
+	toolSettings.dBrushPict = prefsData.toolSettings.dBrushPict;
+	if (prefsData.toolSettings.dTextBackGround != "None")
+		PageColors.insert(prefsData.toolSettings.dTextBackGround, prefsData.DColors[prefsData.toolSettings.dTextBackGround]);
+	toolSettings.dTextBackGround = prefsData.toolSettings.dTextBackGround;
+	if (prefsData.toolSettings.dTextLineColor != "None")
+		PageColors.insert(prefsData.toolSettings.dTextLineColor, prefsData.DColors[prefsData.toolSettings.dTextLineColor]);
 	struct ParagraphStyle vg;
 	vg.Vname = "Normal Internal";
 	vg.LineSpaMode = 0;
@@ -249,7 +246,6 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document"))
 	vg.Vname = "EBlock Internal";
 	vg.textAlignment = 4;
 	docParagraphStyles.append(vg);
-	Layers.clear();
 	struct Layer ll;
 	ll.LNr = 0;
 	ll.Level = 0;
@@ -257,96 +253,15 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document"))
 	ll.isViewable = true;
 	ll.isPrintable = true;
 	Layers.append(ll);
-	ActiveLayer = 0;
-	JavaScripts.clear();
-	CurrentStyle = 0;
-	currentParaStyle = 0;
-	TotalItems = 0;
-	PDF_Options.Thumbnails = prefsData->PDF_Options.Thumbnails;
-	PDF_Options.Articles = prefsData->PDF_Options.Articles;
-	PDF_Options.Compress = prefsData->PDF_Options.Compress;
-	PDF_Options.CompressMethod = prefsData->PDF_Options.CompressMethod;
-	PDF_Options.Quality = prefsData->PDF_Options.Quality;
-	PDF_Options.RecalcPic = prefsData->PDF_Options.RecalcPic;
-	PDF_Options.Bookmarks = prefsData->PDF_Options.Bookmarks;
-	PDF_Options.PicRes = prefsData->PDF_Options.PicRes;
 	// Fixme: Check PDF version input
-	PDF_Options.Version = (PDFOptions::PDFVersion)prefsData->PDF_Options.Version;
-	PDF_Options.Resolution = prefsData->PDF_Options.Resolution;
-	PDF_Options.Binding = prefsData->PDF_Options.Binding;
-	PDF_Options.EmbedList = prefsData->PDF_Options.EmbedList;
-	PDF_Options.SubsetList = prefsData->PDF_Options.SubsetList;
-	PDF_Options.MirrorH = prefsData->PDF_Options.MirrorH;
-	PDF_Options.MirrorV = prefsData->PDF_Options.MirrorV;
-	PDF_Options.RotateDeg = prefsData->PDF_Options.RotateDeg;
-	PDF_Options.PresentMode = prefsData->PDF_Options.PresentMode;
-	PDF_Options.Datei = prefsData->PDF_Options.Datei;
-	PDF_Options.PresentVals = prefsData->PDF_Options.PresentVals;
-	PDF_Options.isGrayscale = prefsData->PDF_Options.isGrayscale;
-	PDF_Options.UseRGB = prefsData->PDF_Options.UseRGB;
-	PDF_Options.UseProfiles = prefsData->PDF_Options.UseProfiles;
-	PDF_Options.UseProfiles2 = prefsData->PDF_Options.UseProfiles2;
-	PDF_Options.SolidProf = prefsData->PDF_Options.SolidProf;
-	PDF_Options.SComp = prefsData->PDF_Options.SComp;
-	PDF_Options.ImageProf = prefsData->PDF_Options.ImageProf;
-	PDF_Options.PrintProf = prefsData->PDF_Options.PrintProf;
-	PDF_Options.Info = prefsData->PDF_Options.Info;
-	PDF_Options.Intent = prefsData->PDF_Options.Intent;
-	PDF_Options.Intent2 = prefsData->PDF_Options.Intent2;
-	PDF_Options.BleedTop = prefsData->PDF_Options.BleedTop;
-	PDF_Options.BleedLeft = prefsData->PDF_Options.BleedLeft;
-	PDF_Options.BleedRight = prefsData->PDF_Options.BleedRight;
-	PDF_Options.BleedBottom = prefsData->PDF_Options.BleedBottom;
-	PDF_Options.EmbeddedI = prefsData->PDF_Options.EmbeddedI;
-	PDF_Options.Encrypt = prefsData->PDF_Options.Encrypt;
-	PDF_Options.PassOwner = prefsData->PDF_Options.PassOwner;
-	PDF_Options.PassUser = prefsData->PDF_Options.PassUser;
-	PDF_Options.Permissions = prefsData->PDF_Options.Permissions;
-	PDF_Options.UseLPI = prefsData->PDF_Options.UseLPI;
-	PDF_Options.LPISettings = prefsData->PDF_Options.LPISettings;
-	PDF_Options.useLayers = prefsData->PDF_Options.useLayers;
-	PDF_Options.doMultiFile = prefsData->PDF_Options.doMultiFile;
-	
-	//CB Moved from scribus.cpp.
-	CurTimer = NULL;
+	PDF_Options.Version = (PDFOptions::PDFVersion)prefsData.PDF_Options.Version;
 
-	docItemAttributes = prefsData->defaultItemAttributes;
-	docToCSetups = prefsData->defaultToCSetups;
-
-	RePos = false;
-	BookMarks.clear();
-	OldBM = false;
-	hasName = false;
-	DoDrawing = true;
-	RotMode = 0;
-	SubMode = -1;
-	autoSaveTimer = new QTimer(this);
-	AutoSave = prefsData->AutoSave;
-	AutoSaveTime = prefsData->AutoSaveTime;
 	if (AutoSave && ScQApp->usingGUI())
 		autoSaveTimer->start(AutoSaveTime);
-	MLineStyles.clear();
-	MasterPages.clear();
-	DocPages.clear();
-	MasterItems.clear();
-	DocItems.clear();
-	FrameItems.clear();
 	//Do this after all the collections have been created and cleared!
 	m_masterPageMode=true; // quick hack to force the change of pointers in setMasterPageMode();
 	setMasterPageMode(false);
-	ScratchLeft = prefsData->ScratchLeft;
-	ScratchRight = prefsData->ScratchRight;
-	ScratchTop = prefsData->ScratchTop;
-	ScratchBottom = prefsData->ScratchBottom;
-	pageSets = prefsData->pageSets;
-	minCanvasCoordinate = FPoint(0, 0);
-	maxCanvasCoordinate = FPoint(ScratchLeft + ScratchRight, ScratchTop + ScratchBottom);
-	arrowStyles = prefsData->arrowStyles;
-	undoManager = UndoManager::instance();
-	docItemErrors.clear();
-	masterItemErrors.clear();
 	addSymbols();
-	docHyphenator = new Hyphenator(ScApp, this, ScApp);
 }
 
 ScribusDoc::~ScribusDoc()
@@ -398,18 +313,7 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 	PrefsManager *prefsManager=PrefsManager::instance();
 	PageColors = prefsManager->colorSet();
 
-	CMSSettings.DefaultImageRGBProfile = prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile;
-	CMSSettings.DefaultImageCMYKProfile = prefsManager->appPrefs.DCMSset.DefaultImageCMYKProfile;
-	CMSSettings.DefaultSolidColorProfile = prefsManager->appPrefs.DCMSset.DefaultSolidColorProfile;
-	CMSSettings.DefaultMonitorProfile = prefsManager->appPrefs.DCMSset.DefaultMonitorProfile;
-	CMSSettings.DefaultPrinterProfile = prefsManager->appPrefs.DCMSset.DefaultPrinterProfile;
-	CMSSettings.DefaultIntentPrinter = prefsManager->appPrefs.DCMSset.DefaultIntentPrinter;
-	CMSSettings.DefaultIntentMonitor = prefsManager->appPrefs.DCMSset.DefaultIntentMonitor;
-	CMSSettings.DefaultIntentImages = prefsManager->appPrefs.DCMSset.DefaultIntentImages;
-	CMSSettings.SoftProofOn = prefsManager->appPrefs.DCMSset.SoftProofOn;
-	CMSSettings.GamutCheck = prefsManager->appPrefs.DCMSset.GamutCheck;
-	CMSSettings.BlackPoint = prefsManager->appPrefs.DCMSset.BlackPoint;
-	CMSSettings.CMSinUse = prefsManager->appPrefs.DCMSset.CMSinUse;
+	CMSSettings = prefsManager->appPrefs.DCMSset;
 	PDF_Options.SolidProf = CMSSettings.DefaultSolidColorProfile;
 	PDF_Options.ImageProf = CMSSettings.DefaultImageRGBProfile;
 	PDF_Options.PrintProf = CMSSettings.DefaultPrinterProfile;

@@ -493,16 +493,16 @@ public:
 	 * 
 	 */
 	void buildAlignItemList();
-	
 
 protected:
 	void addSymbols();
+	ApplicationPrefs& prefsData;
+	UndoManager * const undoManager;
 	bool loading;
 	bool modified;
 	int ActiveLayer;
 	int docUnitIndex;
 	double docUnitRatio;
-	UndoManager *undoManager;
 	bool automaticTextFrames; // Flag for automatic Textframes
 	bool m_masterPageMode;
 	
@@ -539,7 +539,6 @@ public: // Public attributes
 	QPtrList<PageItem> DocItems;
 	QPtrList<PageItem> FrameItems;
 	/**List of objects for alignment purposes*/
-	QValueList<AlignObjs> AObjects;
 	Selection* selection;
   /** Pagewidth  */
 	double pageWidth;
@@ -574,7 +573,8 @@ public: // Public attributes
 	int ValCount;
 	QString DocName;
 	QMap<QString,int> UsedFonts;
-	SCFonts *AllFonts;
+	SCFonts * const AllFonts;
+	QValueList<AlignObjs> AObjects;
 	QColor papColor;
 	int CurrentSel;
 	int CurrentStyle;
