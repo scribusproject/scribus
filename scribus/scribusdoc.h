@@ -637,7 +637,7 @@ public: // Public attributes
 	bool HasCMS;
 	QMap<QString,QString> JavaScripts;
 	int TotalItems;
-	Hyphenator *docHyphenator;
+	Hyphenator * const docHyphenator;
 	int MinWordLen;
 	int HyCount;
 	QString Language;
@@ -665,7 +665,7 @@ public: // Public attributes
 	int RotMode;
 	bool AutoSave;
 	int AutoSaveTime;
-	QTimer *autoSaveTimer;
+	QTimer * const autoSaveTimer;
 	FT_Library   library;
 	QMap<QString,FT_Face> FFonts;
 	QMap<QString,multiLine> MLineStyles;
