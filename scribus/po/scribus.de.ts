@@ -2632,18 +2632,18 @@ C-C-T steht dabei für C=littlecms, C=CUPS und T=TIFF.
     </message>
     <message>
         <source>Creates PostScript Level 3</source>
-        <translation>Erstellt eine Postscript Level 3-Datei</translation>
+        <translation>Erstellt eine Postscript-Level 3-Datei</translation>
     </message>
     <message>
         <source>Creates PostScript Level 2 only, beware,
 this can create huge files</source>
-        <translation>Erstellt eine Postscript Level 2-Datei. Vorsicht:
+        <translation>Erstellt eine Postscript-Level-2-Datei. Vorsicht:
 hierbei können sehr große Dateien entstehen</translation>
     </message>
     <message>
         <source>Creates PostScript Level 1 only, beware,
 this can create huge files</source>
-        <translation>Erstellt eine Postscript Level 1-Datei. Vorsicht:
+        <translation>Erstellt eine Postscript-Level 1-Datei. Vorsicht:
 hierbei können sehr große Dateien entstehen</translation>
     </message>
     <message>
@@ -2713,7 +2713,9 @@ nur, wenn es Ihre Druckerei fordert.</translation>
 the media size of the PostScript file.
 Not recommended unless
  requested by your printer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Diese Option setzt die Mediengröße
+der Postscript-Datei. Aktivieren Sie die Option
+nur, wenn es Ihre Druckerei fordert.</translation>
     </message>
 </context>
 <context>
@@ -2736,7 +2738,7 @@ Not recommended unless
     </message>
     <message>
         <source>Middles</source>
-        <translation>Mittig</translation>
+        <translation>Mitte</translation>
     </message>
     <message>
         <source>Right Sides</source>
@@ -3166,11 +3168,11 @@ Not recommended unless
     </message>
     <message>
         <source>Value must be greater than or equal to:</source>
-        <translation>Wert muss größer oder gleich sein als:</translation>
+        <translation>Wert größer oder gleich:</translation>
     </message>
     <message>
         <source>and less or equal to:</source>
-        <translation>und kleiner oder gleich als:</translation>
+        <translation>und kleiner oder gleich:</translation>
     </message>
     <message>
         <source>Custom validate script:</source>
@@ -3382,11 +3384,11 @@ Not recommended unless
     </message>
     <message>
         <source>JavaScript</source>
-        <translation type="unfinished"></translation>
+        <translation>JavaScript</translation>
     </message>
     <message>
         <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Bilder (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Alle Dateien (*)</translation>
     </message>
 </context>
 <context>
@@ -3650,7 +3652,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Non Proportional</source>
-        <translation>Unproportional</translation>
+        <translation>Nicht-proportional</translation>
     </message>
     <message>
         <source>Icon</source>
@@ -3753,7 +3755,7 @@ und kein generisches Profil (z. B. sRGB) sein.</translation>
         <source>Black Point Compensation is a method of improving contrast in photos.
 It is recommended that you enable this if you have photos in your document.</source>
         <translation>Tiefenkompensierung ist eine Methode zur Verbesserung des Kontrasts in Fotos.
-Diese Option sollte aktiviert sein, wenn Sie Fotos im Dokument haben..</translation>
+Diese Option sollte aktiviert sein, wenn Sie Fotos im Dokument haben.</translation>
     </message>
     <message>
         <source>Default rendering intent for your monitor. Unless you know why to change it,
@@ -4585,7 +4587,7 @@ um zusätzliche Optionen einstellen zu können</translation>
     </message>
     <message>
         <source>PostScript Files (*.ps);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Postscript-Dateien (*.ps;;Alle Dateien (*)</translation>
     </message>
 </context>
 <context>
@@ -4600,7 +4602,7 @@ der Datei
     </message>
     <message>
         <source>Fatal Error</source>
-        <translation>Fataler Fehler</translation>
+        <translation>Schwerer Fehler</translation>
     </message>
 </context>
 <context>
@@ -4652,7 +4654,7 @@ Fehler:
     </message>
     <message>
         <source>&lt;qt&gt;This is the Edit Macro / New Macro dialog box. Here you can change the source code to macros. Edit the source code to the macro in the text editing area below the &quot;Source Code&quot; label and click OK to save your changes to the macro.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Das ist der Makro bearbeiten / Neues Makro - Dialog. Hier können Sie den Quellcode der Makros bearbeiten. Verändern Sie dazu den Code im Bereich &quot;Quellcode&quot; und klicken Sie auf OK, um die Änderungen zu übernehmen.&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;Dies ist der Makro bearbeiten / Neues Makro-Dialog. Hier können Sie den Quellcode der Makros bearbeiten. Verändern Sie dazu den Code im Bereich &quot;Quellcode&quot; und klicken Sie auf OK, um die Änderungen zu übernehmen.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Source Code:</source>
@@ -4887,7 +4889,7 @@ Fehler:
     </message>
     <message>
         <source>F&amp;ill Color:</source>
-        <translation>Füll&amp;farbe:</translation>
+        <translation type="unfinished">Füllf&amp;arbe:</translation>
     </message>
     <message>
         <source>St&amp;roke Color:</source>
@@ -4986,7 +4988,7 @@ Fehler:
     </message>
     <message>
         <source>JavaScripts (*.js);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>JavaScripts (*.js;;Alle Dateien (*)</translation>
     </message>
 </context>
 <context>
@@ -5362,7 +5364,7 @@ setHGuides([90,250]) # ersetzt alle vorhandenen Hilfslinien</translation>
     </message>
     <message>
         <source>PostScript</source>
-        <translation type="unfinished"></translation>
+        <translation>Postscript</translation>
     </message>
 </context>
 <context>
@@ -5385,8 +5387,7 @@ setHGuides([90,250]) # ersetzt alle vorhandenen Hilfslinien</translation>
     </message>
     <message>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
-        <translation>Quintus spränge öfter über große Zysten, wenn Xaver 
-endlich mit Power querjagen könnte!</translation>
+        <translation>Falsches Üben von Xylophonmusik quält jeden größeren Zwerg</translation>
     </message>
     <message>
         <source>Fonts Preview</source>
@@ -5543,7 +5544,7 @@ and www.scribus.net for downloads.</source>
     <name>HyAsk</name>
     <message>
         <source>Possible Hyphenation</source>
-        <translation>Trennungsvorschlag</translation>
+        <translation>Trennvorschlag</translation>
     </message>
     <message>
         <source>Accept</source>
@@ -6286,7 +6287,12 @@ Die Übersicht in diesem Dialog zeigt Ihnen, welche Makros bereits geladen sind 
 &lt;p&gt;&lt;b&gt;Edit:&lt;/b&gt; If the macro can be edited, &quot;Yes&quot; appears in this column. Usually if a macro cannot be edited it was created using the register_macro command in a script.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Accel:&lt;/b&gt; The menu shortcut key sequence, if any, associated with the macro. For example, CTRL-F8 means that you can press Control-F8 when in Scribus to run the macro.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Description:&lt;/b&gt; If the macro contains a &quot;docstring&quot;, a special string at the start of its definition that describes it, that is shown here. If the docstring is long, only the beginning is shown - use &quot;What&apos;s This&quot; on the macro&apos;s entry in the Macro menu to see the full description.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;
+&lt;p&gt;Diese Tabelle enthält alle gegenwärtig definierten Makros&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Name:&lt;/b&gt; Name des Makros, wie er auch in der Titelleiste und an anderen Stellen in Scribus erscheint.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Bearbeiten:&lt;/b&gt; Wenn das Makro bearbeitet werden kann, erscheint in dieser Spalte das Wort &quot;Ja&quot;. Makros, die mit dem Befehl register_macro erstellt wurden, können Sie normalerweise nicht bearbeiten.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Kürzel:&lt;/b&gt; Zeigt das Tastenkürzel für dieses Makro an, falls vorhanden. Zum Beispiel bedeutet CTRL-F8, dass Sie genau diese Zeichenfolge drücken müssen, um das Makro in Scribus zu starten.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Beschreibung:&lt;/b&gt; Wenn das Makro einen &quot;docstring&quot; enthält, wird der hier angezeigt. Möglicherweise wird er auch gekürzt, wenn er zu lang für dieses Feld ist. Die volle Beschreibung sehen Sie, wenn Sie &quot;What&apos;s this&quot; auf den entsprechenden Eintrag anwenden.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -7012,7 +7018,7 @@ ab&amp;runden:</translation>
     </message>
     <message>
         <source>Colu&amp;mns:</source>
-        <translation>&amp;Spalten:</translation>
+        <translation>S&amp;palten:</translation>
     </message>
     <message>
         <source>&amp;Gap:</source>
@@ -7754,7 +7760,7 @@ Sie werden dann nicht mehr um Bestätigung gebeten</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Abbrechen</translation>
+        <translation>Abbrechen</translation>
     </message>
 </context>
 <context>
@@ -8754,7 +8760,7 @@ Dafür erhöht sich benötigte Renderzeit gerinfügig</translation>
     </message>
     <message>
         <source>Show &amp;Baseline Grid</source>
-        <translation>&amp;Grundlinienraster anzeigen</translation>
+        <translation type="unfinished">Gr&amp;undlinienraster anzeigen</translation>
     </message>
     <message>
         <source>Sn&amp;ap to Grid</source>
@@ -8850,7 +8856,7 @@ Dafür erhöht sich benötigte Renderzeit gerinfügig</translation>
     </message>
     <message>
         <source>Send to S&amp;crapbook</source>
-        <translation>In &amp;Bibliothek speichern</translation>
+        <translation type="unfinished">In Bibliot&amp;hek speichern</translation>
     </message>
     <message>
         <source>Send to La&amp;yer</source>
@@ -8922,7 +8928,7 @@ Dafür erhöht sich benötigte Renderzeit gerinfügig</translation>
     </message>
     <message>
         <source>C&amp;lear Contents</source>
-        <translation>Inhalt lösc&amp;hen</translation>
+        <translation type="unfinished">Inhalt lös&amp;chen</translation>
     </message>
     <message>
         <source>Show P&amp;roperties...</source>
@@ -9222,8 +9228,7 @@ ein positiver Wert für eine konvexe Form</translation>
     </message>
     <message>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
-        <translation>Quintus spränge öfter über große Zysten, wenn Xaver 
-endlich mit Power querjagen könnte!</translation>
+        <translation>Falsches Üben von Xylophonmusik quält jeden größeren Zwerg</translation>
     </message>
     <message>
         <source>None</source>
@@ -9698,7 +9703,7 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>C&amp;hange...</source>
-        <translation>Ä&amp;ndern...</translation>
+        <translation type="unfinished">&amp;Ändern...</translation>
     </message>
     <message>
         <source>&amp;Scripts:</source>
@@ -9754,7 +9759,7 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>&amp;Interval:</source>
-        <translation>&amp;Intervall:</translation>
+        <translation type="unfinished">I&amp;ntervall:</translation>
     </message>
     <message>
         <source>M&amp;inor Grid Spacing:</source>
@@ -9778,11 +9783,11 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>&amp;User Guides Color:</source>
-        <translation>Farbe der &amp;Hilfslinien:</translation>
+        <translation type="unfinished">Farbe der Hi&amp;lfslinien:</translation>
     </message>
     <message>
         <source>Base&amp;line Grid Color:</source>
-        <translation>&amp;Farbe des Grundlinienrasters:</translation>
+        <translation type="unfinished">Farbe des &amp;Grundlinienrasters:</translation>
     </message>
     <message>
         <source>In the &amp;Background</source>
@@ -9862,7 +9867,7 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>&amp;Fill Color:</source>
-        <translation>Füll&amp;farbe:</translation>
+        <translation type="unfinished">Fü&amp;llfarbe:</translation>
     </message>
     <message>
         <source>S&amp;hading:</source>
@@ -9962,7 +9967,7 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>&amp;Name of Executable:</source>
-        <translation>Name der &amp;ausführbaren Datei:</translation>
+        <translation type="unfinished">&amp;Name der ausführbaren Datei:</translation>
     </message>
     <message>
         <source>Antialias &amp;Text</source>
@@ -10093,11 +10098,11 @@ weil Sie Bilder in bereits laufenden Instanzen von Gimp bearbeiten können.</tra
     </message>
     <message>
         <source>PostScript Interpreter</source>
-        <translation type="unfinished"></translation>
+        <translation>PostScript Interpreter</translation>
     </message>
     <message>
         <source>File system location for the GhostScript interpreter</source>
-        <translation type="unfinished"></translation>
+        <translation>Pfad zu GhostScript</translation>
     </message>
 </context>
 <context>
@@ -10713,7 +10718,7 @@ wirklich überschreiben?</translation>
     </message>
     <message>
         <source>&amp;Insert Special</source>
-        <translation>&amp;Sonderzeichen einfügen</translation>
+        <translation type="unfinished">S&amp;onderzeichen einfügen</translation>
     </message>
     <message>
         <source>Save as &amp;Image...</source>
@@ -11744,17 +11749,21 @@ Details zu den Fehlern der einzelnen Funktionen finden Sie in der Funktionsbesch
     </message>
     <message>
         <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Änderungen in Ihrem Dokument wurden noch nicht gespeichert. Möchten Sie fortfahren?</translation>
     </message>
     <message>
         <source>firstPageOrder is bigger than allowed.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">firstPageOrder ist größer als erlaubt.
+
+python error</translation>
     </message>
     <message>
         <source>Only text frames can be checked for overflowing</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nur Textrahmen können auf Überlauf geprüft werden.
+
+python error</translation>
     </message>
 </context>
 <context>
@@ -12248,7 +12257,7 @@ Abstand eingestellt werden.</translation>
     </message>
     <message>
         <source>Document Info...</source>
-        <translation>Information...</translation>
+        <translation>Dokumentinformation...</translation>
     </message>
     <message>
         <source>Document Setup...</source>
@@ -12759,11 +12768,11 @@ nicht speichern</translation>
     </message>
     <message>
         <source>Show Baseline Grid</source>
-        <translation>Grundlinien-Raster anzeigen</translation>
+        <translation>Grundlinienraster anzeigen</translation>
     </message>
     <message>
         <source>Hide Baseline Grid</source>
-        <translation>Grundlinien-Raster verbergen</translation>
+        <translation>Grundlinienraster verbergen</translation>
     </message>
     <message>
         <source>Some Objects are locked.</source>
@@ -12863,7 +12872,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>Collect for O&amp;utput...</source>
-        <translation>&amp;Für Ausgabe sammeln...</translation>
+        <translation type="unfinished">Für Aus&amp;gabe sammeln...</translation>
     </message>
     <message>
         <source>&amp;Get Text/Picture...</source>
@@ -12939,11 +12948,11 @@ nicht speichern</translation>
     </message>
     <message>
         <source>&amp;Paragraph Styles...</source>
-        <translation>&amp;Absatzstile...</translation>
+        <translation type="unfinished">A&amp;bsatzstile...</translation>
     </message>
     <message>
         <source>&amp;Line Styles...</source>
-        <translation>&amp;Linienstile...</translation>
+        <translation>L&amp;inienstile...</translation>
     </message>
     <message>
         <source>&amp;Templates...</source>
@@ -13015,7 +13024,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>Split &amp;Polygons</source>
-        <translation>Polygone &amp;teilen</translation>
+        <translation>Poly&amp;gone teilen</translation>
     </message>
     <message>
         <source>C&amp;onvert to Outlines</source>
@@ -13051,15 +13060,15 @@ nicht speichern</translation>
     </message>
     <message>
         <source>Show &amp;Grid</source>
-        <translation>Ra&amp;ster zeigen</translation>
+        <translation>Ra&amp;ster anzeigen</translation>
     </message>
     <message>
         <source>Sna&amp;p to Guides</source>
-        <translation>&amp;Magnetische Hilfslinien</translation>
+        <translation>M&amp;agnetische Hilfslinien</translation>
     </message>
     <message>
         <source>Show &amp;Baseline Grid</source>
-        <translation>&amp;Grundlinienraster anzeigen</translation>
+        <translation>Gr&amp;undlinienraster anzeigen</translation>
     </message>
     <message>
         <source>&amp;Properties</source>
@@ -13287,7 +13296,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>Document &amp;Information...</source>
-        <translation>Dokument&amp;informationen...</translation>
+        <translation>Dokumen&amp;tinformationen...</translation>
     </message>
     <message>
         <source>&amp;Undo Delete Object</source>
@@ -13303,7 +13312,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>&amp;Edit Shape</source>
-        <translation>&amp;Form bearbeiten</translation>
+        <translation>Form &amp;bearbeiten</translation>
     </message>
     <message>
         <source>File %1 is not in Scribus format</source>
@@ -13339,23 +13348,23 @@ nicht speichern</translation>
     </message>
     <message>
         <source>JavaScripts...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">JavaScripts</translation>
     </message>
     <message>
         <source>&amp;JavaScripts...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;JavaScripts...</translation>
     </message>
     <message>
         <source>GhostScript : You cannot use EPS Images</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ghostscript: Sie können keine EPS-Dateien verwenden</translation>
     </message>
     <message>
         <source>EPS Files (*.eps);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>EPS-Dateien (*.eps);;Alle Dateien (*)</translation>
     </message>
     <message>
         <source>Norwegian</source>
-        <translation type="unfinished">Norwegisch</translation>
+        <translation>Norwegisch</translation>
     </message>
 </context>
 <context>
