@@ -7838,12 +7838,12 @@ void ScribusApp::GetCMSProfilesDir(QString pfad)
 		for (uint dc = 0; dc < d.count(); ++dc)
 		{
 			QFileInfo fi(pfad + "/" + d[dc]);
-#ifdef QT_MAC
 			if (fi.isDir() && d[dc][0] != '.')
 			{
 				GetCMSProfilesDir(fi.filePath()+"/");
 				continue;
 			}
+#ifdef QT_MAC
 			QFile f(fi.filePath());
 			QByteArray bb(40);
 			if (!f.open(IO_ReadOnly)) {

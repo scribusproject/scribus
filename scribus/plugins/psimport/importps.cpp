@@ -49,8 +49,7 @@ EPSPlug::EPSPlug(QString fName, bool isInteractive)
 	h = PrefsManager::instance()->appPrefs.PageHeight;
 	if ((ext == "eps") || (ext == "ps"))
 	{
-		QString tmp, BBox, tmp2, dummy, FarNam;
-		QChar tc;
+		QString tmp, BBox, tmp2, FarNam;
 		ScColor cc;
 		QFile f(fName);
 		if (f.open(IO_ReadOnly))
@@ -59,14 +58,7 @@ EPSPlug::EPSPlug(QString fName, bool isInteractive)
 			QTextStream ts(&f);
 			while (!ts.atEnd())
 			{
-				tc = ' ';
-				tmp = "";
-				while ((tc != '\n') && (tc != '\r'))
-				{
-					ts >> tc;
-					if ((tc != '\n') && (tc != '\r'))
-						tmp += tc;
-				}
+				tmp = ts.readLine();
 				if (tmp.startsWith("%%BoundingBox:"))
 				{
 					found = true;
@@ -83,33 +75,30 @@ EPSPlug::EPSPlug(QString fName, bool isInteractive)
 /* Read CustomColors if available */
 				if (tmp.startsWith("%%CMYKCustomColor"))
 				{
+					tmp = tmp.remove(0,17);
 					QTextStream ts2(&tmp, IO_ReadOnly);
-					ts2 >> dummy >> c >> m >> y >> k;
+					ts2 >> c >> m >> y >> k;
 					FarNam = ts2.read();
 					FarNam = FarNam.stripWhiteSpace();
 					FarNam = FarNam.remove(0,1);
 					FarNam = FarNam.remove(FarNam.length()-1,1);
 					cc = ScColor(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y), static_cast<int>(255 * k));
+					cc.setSpotColor(true);
 					CustColors.insert(FarNam, cc);
 					while (!ts.atEnd())
 					{
-						tc = ' ';
-						tmp = "";
-						while ((tc != '\n') && (tc != '\r'))
-						{
-							ts >> tc;
-							if ((tc != '\n') && (tc != '\r'))
-								tmp += tc;
-						}
+						tmp = ts.readLine();
 						if (!tmp.startsWith("%%+"))
 							break;
+						tmp = tmp.remove(0,3);
 						QTextStream ts2(&tmp, IO_ReadOnly);
-						ts2 >> dummy >> c >> m >> y >> k;
+						ts2 >> c >> m >> y >> k;
 						FarNam = ts2.read();
 						FarNam = FarNam.stripWhiteSpace();
 						FarNam = FarNam.remove(0,1);
 						FarNam = FarNam.remove(FarNam.length()-1,1);
 						cc = ScColor(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y), static_cast<int>(255 * k));
+						cc.setSpotColor(true);
 						CustColors.insert(FarNam, cc);
 					}
 				}
