@@ -2437,7 +2437,14 @@ use text frame linking. Without this parameter it search all linking chain.
 
 May raise WrongFrameTypeError if the target frame is not an text frame
 </source>
-        <translation type="unfinished"></translation>
+        <translation>textOverflows([&quot;navn&quot;, ingenlænker]) -&gt; integer
+
+Returnerer det faktiske antal tegn, der flyder over i tekstrammen &quot;navn&quot;.
+hvis ingenlænker er sat til andet end nul, undersøges kun en ramme - den bruger 
+ikke tekstramme sammenkædning. uden denne parameter søges igennem hele kæden.
+
+Kan rejse WrongFrameTypeError, hvis målrammen ikke er en tekst-ramme
+</translation>
     </message>
     <message>
         <source>zoomDocument(double)
@@ -2445,7 +2452,11 @@ May raise WrongFrameTypeError if the target frame is not an text frame
 Zoom the document in main GUI window. Actions have whole number
 values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>zoomDocument(dobbelt)
+
+Zoom dokumentet i hoved GUI vinduet. Funktionen bruger heltals-værdier
+som 20.0, 100.0, etc. Zoom så siden fylder vinduet  bruger -100 som mærke.
+</translation>
     </message>
 </context>
 <context>
@@ -6114,20 +6125,6 @@ Tabellen i midten af vinduet viser de makroer, der for øjeblikket er indlæst o
         <translation>Beskrivelse</translation>
     </message>
     <message>
-        <source>&lt;p&gt;This table lists the macros that are currently defined.&lt;/p&gt;
-
-&lt;p&gt;&lt;b&gt;Name:&lt;/b&gt; The name of the macro, as shown in the menu bar and in other places around Scribus.&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Edit:&lt;/b&gt; If the macro can be edited, &quot;Yes&quot; appears in this column. Usually if a macro cannot be edited it was created using the register_macro command in a script.&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Accel:&lt;/b&gt; The menu shortcut key sequence, if any, associated with the macro. For example, CTRL-F8 means that you can press Control-F8 when in Scribus to run the macro.&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Description:&lt;/b&gt; If the macro contains a &quot;docstring&quot;, a special string at the start of its definition that describes it, that is shown here. If the docstring is long, only the beginning is shown - use &quot;What&apos;s This&quot; on the macro&apos;s entry in the Macro menu to see the full description.&lt;/p&gt;</source>
-        <translation type="obsolete">&lt;p&gt;Denne tabel viser de makroer, der allerede er defineret.&lt;/p&gt;
-
-&lt;p&gt;&lt;b&gt;Navn:&lt;/b&gt; Makroens navn, som den er vist i menuen og andre steder i Scribus&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Redigering:&lt;/b&gt; Hvis makroen kan redigeres, står der &quot;Ja&quot; i denne kolonne. Hvis en makro ikke kan redigeres, er den som regel lavet med register_macro kommandoen i en script.&lt;/p&gt;
- &lt;p&gt;&lt;b&gt;Accel:&lt;/b&gt; Menu genvejstaster, der er knyttet til makroen. For eksempel CTRL-F8 betyder, at du kan taste Control-F8 i scribus for at køre makroen.&lt;/p&gt;
- &lt;p&gt;&lt;b&gt;Beskrivelse:&lt;/b&gt; Hvis makroen indeholder en &quot;docstring&quot;, en speciel streng i starten af dens defination, som beskriver den. så er den vist her. Hvis beskrivelsen er lang, så er kun begyndelsen vist - brug &quot;Hvad er det&quot; ud for makroen i Makro menuen for at se den fulde beskrivelse.&lt;/p&gt;</translation>
-    </message>
-    <message>
         <source>Rena&amp;me</source>
         <translation>Om&amp;døb</translation>
     </message>
@@ -6296,7 +6293,12 @@ Tabellen i midten af vinduet viser de makroer, der for øjeblikket er indlæst o
 &lt;p&gt;&lt;b&gt;Edit:&lt;/b&gt; If the macro can be edited, &quot;Yes&quot; appears in this column. Usually if a macro cannot be edited it was created using the register_macro command in a script.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Accel:&lt;/b&gt; The menu shortcut key sequence, if any, associated with the macro. For example, CTRL-F8 means that you can press Control-F8 when in Scribus to run the macro.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Description:&lt;/b&gt; If the macro contains a &quot;docstring&quot;, a special string at the start of its definition that describes it, that is shown here. If the docstring is long, only the beginning is shown - use &quot;What&apos;s This&quot; on the macro&apos;s entry in the Macro menu to see the full description.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Denne tabel viser alle de makroer, der nu er defineret&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Makro:&lt;/b&gt; Makroens navn, som vist i menubjælken og andre steder i Scribus.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Redigeres:&lt;/b&gt; Hvis makroen kan redigeres, står der &quot;ja&quot; i denne kolonne. Hvis en makro ikke kan redigeres, er den som regel lavet med register_macro kommandoen i en script.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Genvej:&lt;/b&gt; Menu genvejstasterne, hvis der er nogen forbundet med makroen. For eksempel, CTRL-F8 betyder at du kan trykke Control-F8 i Scribus for at køre makroen.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Beskrivelse:&lt;/b&gt; Hvis makroen indeholder en &quot;docstring&quot;, en speciel streng ved starten af dens defination, som beskriver den, så vises den her. Hvis tekststrengen er lang, vises kun begyndelsen - brug &quot;Hvad er dette&quot; i makroens indgang i Makromenuen for at se den fulde beskrivelse.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -7709,7 +7711,7 @@ ellers er coordinaterne vist i forhold til objektet</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Annullér</translation>
+        <translation>Annullér</translation>
     </message>
 </context>
 <context>
@@ -11371,7 +11373,7 @@ funktionens dokumentation. </translation>
     <message>
         <source>Only text frames can be checked for overflowing</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kun tekst-rammer kan testes for overløb</translation>
     </message>
 </context>
 <context>
@@ -13230,15 +13232,6 @@ Kun scripts, som er skrevet til at blive kørt som udvidelses scripts, bør kald
         <translation>&lt;qt&gt;Aktivér brugen af GammelStil funktions-navne&lt;/qt&gt;</translation>
     </message>
     <message>
-        <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Enable Legacy Aliases&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
-&lt;p&gt;If checked, this option will cause the scripter to create a large number of function and constant name aliases for 1.2.0 script compatibility. It defaults to checked.&lt;/p&gt;
-&lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="obsolete">&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Aktivér forældet navne alias&lt;/tt&gt; er et avanceret tilvalg. Du bør sansynligvis lade det være, som det er.&lt;/p&gt;
-&lt;p&gt;Dette tilvalg vil det forårsage, at scripter laver et stort antal funktion og konstant alias for 1.2.0 script kompatibilitet.
-Tilvalgt er standard.&lt;/p&gt;
-&lt;p&gt;dette tilvalg træder ikke i funktion før Scribus er genstartet.&lt;/p&gt;&lt;/qt&gt;</translation>
-    </message>
-    <message>
         <source>Use Fake Stdin</source>
         <translation>Brug Erstatnings Stdin</translation>
     </message>
@@ -13259,7 +13252,9 @@ Hvis den virkelige &lt;tt&gt;sys.stdin&lt;/tt&gt; er på sin plads, så vil scri
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Enable Legacy Name Aliases&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
 &lt;p&gt;If checked, this option will cause the scripter to create a large number of function and constant name aliases for 1.2.0 script compatibility. It defaults to checked.&lt;/p&gt;
 &lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Opret alias for forældede funktionsnavne&lt;/tt&gt; er en anvanceret valgmulighed. Du bør sansynligvis lade det være som det er.&lt;/p&gt;
+&lt;p&gt;Hvis dette tilvalg aktiveres, bliver der genereret et stort antal funktions og konstant alias for 1.2.0 script kompatibilitet. Det er tilvalgt som standard.&lt;/p&gt;
+&lt;p&gt;Dette tilvalg træder ikke i funktion før Scribus er genstartet.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
 </context>
 <context>
@@ -13821,7 +13816,7 @@ til vinduet nedenunder, for at lave en ny side.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Annullér</translation>
+        <translation>Annullér</translation>
     </message>
 </context>
 <context>
