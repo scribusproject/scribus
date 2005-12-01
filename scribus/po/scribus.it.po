@@ -1,4 +1,6 @@
-# translation of scribus.po to 
+# translation of scribus.1.2.4.po to
+# translation of scribus.po to
+# translation of scribus.po to
 # translation of scribus.po to
 # translation of scribus.po to
 # translation of scribus.po to
@@ -17,16 +19,16 @@
 # Pier Luigi Cinquantini <plcinquantini@katamail.com>, 2004, 2005.
 msgid ""
 msgstr ""
-"Project-Id-Version: scribus\n"
+"Project-Id-Version: scribus.1.2.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-28 11:07+0100\n"
-"PO-Revision-Date: 2005-09-07 10:22+0200\n"
+"POT-Creation-Date: 2005-11-28 13:43+0100\n"
+"PO-Revision-Date: 2005-11-30 17:03+0100\n"
 "Last-Translator: Pier Luigi Cinquantini <plcinquantini@katamail.com>\n"
 "Language-Team:  <it@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.3.1\n"
+"X-Generator: KBabel 1.10.2\n"
 
 msgid "Distances"
 msgstr "Distanze"
@@ -85,7 +87,6 @@ msgstr "Sostituzione font"
 msgid "Additional Paths"
 msgstr "Percorsi aggiuntivi"
 
-#, fuzzy
 msgid "PostScript"
 msgstr "Postscript"
 
@@ -1357,8 +1358,7 @@ msgstr ""
 "Incorpora i font nel file PDF. Incorporandoli\n"
 "si conserverà l'impaginazione e l'aspetto del documento."
 
-msgid ""
-"Enables presentation effects when using Acrobat Reader in full screen mode."
+msgid "Enables presentation effects when using Acrobat Reader in full screen mode."
 msgstr ""
 "Permette gli effetti di presentazione quando si usa Acrobat Reader in "
 "modalità \"a tutto schermo\"."
@@ -1383,8 +1383,7 @@ msgstr ""
 msgid "Type of the display effect."
 msgstr "Tipo dell'effetto di visualizzazione."
 
-msgid ""
-"Direction of the effect of moving lines for the split and blind effects."
+msgid "Direction of the effect of moving lines for the split and blind effects."
 msgstr "Direzione delle linee mobili per gli effetti offusca e dividi."
 
 msgid "Starting position for the box and split effects."
@@ -1421,16 +1420,14 @@ msgstr ""
 "le caratteristiche di sicurezza esportate nel file PDF"
 
 msgid "Choose a password for users to be able to read your PDF."
-msgstr ""
-"Sceglie una password per utenti che dà la possibilità di leggere il file PDF."
+msgstr "Sceglie una password per utenti che dà la possibilità di leggere il file PDF."
 
 msgid "Allow printing of the PDF. If un-checked, printing is prevented. "
 msgstr ""
 "Consente la stampa del file PDF. Se non è selezionata, la stampa non è "
 "possibile. "
 
-msgid ""
-"Allow modifying of the PDF. If un-checked, modifying the PDF is prevented."
+msgid "Allow modifying of the PDF. If un-checked, modifying the PDF is prevented."
 msgstr ""
 "Consente la modifica del file PDF. Se non è selezionata, la modifica non è "
 "possibile."
@@ -1489,8 +1486,7 @@ msgid "Embed a color profile for images"
 msgstr "Incorpora un profilo di colore per immagini"
 
 msgid "Do not use color profiles that are embedded in source images"
-msgstr ""
-"Non usare profili di colore che sono incorporati nelle immagini originali"
+msgstr "Non usare profili di colore che sono incorporati nelle immagini originali"
 
 msgid "Color profile for images"
 msgstr "Profilo di colore per immagini"
@@ -1513,20 +1509,16 @@ msgstr ""
 "conforme al PDF/X. Si raccomanda di usare il titolo del documento."
 
 msgid "Distance for bleed from the top of the physical page"
-msgstr ""
-"Distanza dal margine superiore della pagina fisica per scritte fuori pagina"
+msgstr "Distanza dal margine superiore della pagina fisica per scritte fuori pagina"
 
 msgid "Distance for bleed from the bottom of the physical page"
-msgstr ""
-"Distanza dal margine inferiore della pagina fisica per scritte fuori pagina"
+msgstr "Distanza dal margine inferiore della pagina fisica per scritte fuori pagina"
 
 msgid "Distance for bleed from the left of the physical page"
-msgstr ""
-"Distanza dal margine sinistro della pagina fisica per scritte fuori pagina"
+msgstr "Distanza dal margine sinistro della pagina fisica per scritte fuori pagina"
 
 msgid "Distance for bleed from the right of the physical page"
-msgstr ""
-"Distanza dal margine destro della pagina fisica per scritte fuori pagina "
+msgstr "Distanza dal margine destro della pagina fisica per scritte fuori pagina "
 
 msgid "Mirror Page(s) horizontally"
 msgstr "Rifletti pagina/e"
@@ -1856,8 +1848,7 @@ msgstr "Dimensione pagina documento, standard o personalizzata"
 msgid "Orientation of the document's pages"
 msgstr "Orientamento delle pagine del documento"
 
-msgid ""
-"Width of the document's pages, editable if you have chosen a custom page size"
+msgid "Width of the document's pages, editable if you have chosen a custom page size"
 msgstr ""
 "Larghezza pagine del documento, modificabile se si è scelto dimensione "
 "personalizzata"
@@ -1906,12 +1897,10 @@ msgid "Default unit of measurement for document editing"
 msgstr "Unità di misura predefinita per la redazione del documento"
 
 msgid "Create text frames automatically when new pages are added"
-msgstr ""
-"Crea cornici di testo automaticamente quando vengono aggiunte nuove pagine"
+msgstr "Crea cornici di testo automaticamente quando vengono aggiunte nuove pagine"
 
 msgid "Number of columns to create in automatically created text frames"
-msgstr ""
-"Numero di colonne da creare nelle cornici di testo create automaticamente"
+msgstr "Numero di colonne da creare nelle cornici di testo create automaticamente"
 
 msgid "Distance between automatically created columns"
 msgstr "Distanza tra le colonne create automaticamente"
@@ -2192,9 +2181,8 @@ msgstr "E' selezionato di default"
 msgid "Editable"
 msgstr "Modificabile"
 
-#, fuzzy
 msgid "JavaScript"
-msgstr "Java Script"
+msgstr "Javascript"
 
 msgid "Go To"
 msgstr "Vai a"
@@ -2379,10 +2367,8 @@ msgstr "È necessaria almeno l'icona normale per usare un icona come bottone"
 msgid "Open"
 msgstr "Apri"
 
-#, fuzzy
 msgid "Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)"
-msgstr ""
-"Immagini (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Tutti i file (*)"
+msgstr "Immagini (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Tutti i file (*)"
 
 msgid "Example:"
 msgstr "Esempio:"
@@ -2612,14 +2598,12 @@ msgstr ""
 "in un file PDF, per aiutare le ricerche e l'indicizzazione dei file PDF"
 
 msgid "A person or organisation responsible for making the document available"
-msgstr ""
-"Una persona o un'organizzazione responsabile della diffusione del documento"
+msgstr "Una persona o un'organizzazione responsabile della diffusione del documento"
 
 msgid ""
 "A person or organisation responsible for making contributions to the content "
 "of the document"
-msgstr ""
-"Una persona o un'organizzazione che ha contribuito al contenuto del documento"
+msgstr "Una persona o un'organizzazione che ha contribuito al contenuto del documento"
 
 msgid ""
 "A date associated with an event in the life cycle of the document, in YYYY-"
@@ -2686,8 +2670,7 @@ msgstr ""
 msgid ""
 "Information about rights held in and over the document, eg. copyright, "
 "patent or trademark"
-msgstr ""
-"Informazioni sui diritti del documento, es. copyright, brevetto o marchio"
+msgstr "Informazioni sui diritti del documento, es. copyright, brevetto o marchio"
 
 msgid "Edit Color"
 msgstr "Modifica colore"
@@ -2808,8 +2791,7 @@ msgid "Position:"
 msgstr "Posizione:"
 
 msgid "Here you can add, change or remove Color-Stops."
-msgstr ""
-"Qui è possibile aggiungere, modificare o rimuovere i limiti dei colori."
+msgstr "Qui è possibile aggiungere, modificare o rimuovere i limiti dei colori."
 
 msgid "Initializing..."
 msgstr "Inizializzazione..."
@@ -2874,7 +2856,6 @@ msgstr "Unisci testo a tracciato"
 msgid "Show Layers"
 msgstr "Mostra livelli"
 
-#, fuzzy
 msgid "JavaScripts..."
 msgstr "Javascript..."
 
@@ -2929,6 +2910,7 @@ msgstr "Salva con &nome..."
 msgid "Save as..."
 msgstr "Salva con nome..."
 
+#, fuzzy
 msgid "Re&vert to Saved"
 msgstr "Ritorna al documento sal&vato"
 
@@ -3031,7 +3013,6 @@ msgstr "&Modelli..."
 msgid "Templates..."
 msgstr "Modelli..."
 
-#, fuzzy
 msgid "&JavaScripts..."
 msgstr "&Javascript..."
 
@@ -3400,7 +3381,7 @@ msgstr "Caricamento..."
 msgid ""
 "The changes to your document have not been saved and you have requested to "
 "revert them. Do you wish to continue?"
-msgstr ""
+msgstr "Le modifiche del documento non sono state salvate ed è stato richiesto di rinunciarvi. Vuoi continuare?"
 
 msgid ""
 "Can't write the File: \n"
@@ -3436,11 +3417,9 @@ msgstr "Mostra griglia linee di base"
 msgid "The following Programs are missing:"
 msgstr "Mancano i seguenti programmi:"
 
-#, fuzzy
 msgid "GhostScript : You cannot use EPS Images"
-msgstr "Ghostscript: Non è possibile usare immagini EPS"
+msgstr "Ghostscript : Non è possibile usare immagini EPS"
 
-#, fuzzy
 msgid "EPS Files (*.eps);;All Files (*)"
 msgstr "File EPS (*.eps);;Tutti i file (*)"
 
@@ -3658,7 +3637,6 @@ msgstr "Op&zioni avanzate..."
 msgid "&Print"
 msgstr "&Stampa"
 
-#, fuzzy
 msgid "PostScript Files (*.ps);;All Files (*)"
 msgstr "File Postscript (*.ps);;Tutti i file (*)"
 
@@ -4159,8 +4137,7 @@ msgstr "In primo piano"
 msgid "Move to back"
 msgstr "In fondo"
 
-msgid ""
-"Indicates the level the object is on, 0 means the object is at the bottom"
+msgid "Indicates the level the object is on, 0 means the object is at the bottom"
 msgstr "Indica il livello dell'oggetto; 0 significa che è in fondo"
 
 msgid "Lock or unlock the object"
@@ -4173,8 +4150,7 @@ msgid "Enable or disable printing of the object"
 msgstr "Consente o impedisce la stampa dell'oggetto"
 
 msgid "Make text in lower frames flow around the object shape"
-msgstr ""
-"Fa fluire il testo delle caselle inferiori intorno alla forma dell'oggetto"
+msgstr "Fa fluire il testo delle caselle inferiori intorno alla forma dell'oggetto"
 
 msgid "Use a surrounding box instead of the frame's shape for text flow"
 msgstr ""
@@ -4420,8 +4396,7 @@ msgstr "Tabulazioni e rientri"
 msgid "Name of your paragraph style"
 msgstr "Nome dello stile del paragrafo"
 
-msgid ""
-"Provides an oversized first letter for a paragraph. Used for stylistic effect"
+msgid "Provides an oversized first letter for a paragraph. Used for stylistic effect"
 msgstr ""
 "Fornisce la prima lettera del paragrafo ingrandita (capolettera). Usata per "
 "effetto stilistico"
@@ -4777,9 +4752,8 @@ msgstr "&Abbandona"
 msgid "&Get Field Names"
 msgstr "Ac&quisisci nomi campi"
 
-#, fuzzy
 msgid "JavaScripts (*.js);;All Files (*)"
-msgstr "JavaScript (*.js);;Tutti i file (*)"
+msgstr "Javascript (*.js);;Tutti i file (*)"
 
 msgid "Move Bookmark"
 msgstr "Sposta segnalibro"
@@ -5143,13 +5117,13 @@ msgid "&Translations"
 msgstr "&Traduzioni"
 
 msgid "Homepage"
-msgstr "Homepage"
+msgstr "Sito Web"
 
 msgid "Online Reference"
 msgstr "Referenze online"
 
 msgid "Bugs and Feature Requests"
-msgstr "Richieste di caratteristiche e bug"
+msgstr "Segnalazioni errori e richiesta nuove funzioni"
 
 msgid "Mailing List"
 msgstr "Lista di discussione"
@@ -5400,10 +5374,8 @@ msgid "&Adjust Display Size"
 msgstr "Modifica mis&ura pagina visualizzata"
 
 msgid "To adjust the display drag the ruler below with the Slider."
-msgstr ""
-"Per modificare la pagina visualizzata trascina la maniglia sotto il righello."
+msgstr "Per modificare la pagina visualizzata trascina la maniglia sotto il righello."
 
-#, fuzzy
 msgid "PostScript Interpreter"
 msgstr "Interprete postscript"
 
@@ -5444,8 +5416,7 @@ msgstr "Dimensione carattere predefinito per i menù e le finestre"
 msgid "Number of lines Scribus will scroll for each move of the mouse wheel"
 msgstr "Numero di linee che Scribus scorrerà per ogni scatto della rotellina"
 
-msgid ""
-"Radius of the area where Scribus will allow you to grab an objects handles"
+msgid "Radius of the area where Scribus will allow you to grab an objects handles"
 msgstr ""
 "Raggio dell'area nel quale Scribus permetterà l'aggancio delle maniglie di "
 "un oggetto"
@@ -5480,8 +5451,7 @@ msgstr ""
 "Larghezza delle pagine del documento, modificabile se si è scelto dimensione "
 "della pagina personalizzata"
 
-msgid ""
-"Height of document pages, editable if you have chosen a custom page size"
+msgid "Height of document pages, editable if you have chosen a custom page size"
 msgstr ""
 "Altezza delle pagine del documento, modificabile se si è scelto dimensione "
 "della pagina personalizzata"
@@ -5544,8 +5514,7 @@ msgid "Relative size of the subscript compared to the normal font"
 msgstr "Dimensione relativa del pedice comparata con il carattere normale"
 
 msgid "Relative size of the small caps font compared to the normal font"
-msgstr ""
-"Dimensione relativa del maiuscoletto comparata con il carattere normale"
+msgstr "Dimensione relativa del maiuscoletto comparata con il carattere normale"
 
 msgid "Percentage increase over the font size for the line spacing"
 msgstr "Aumento percentuale oltre la dimensione del carattere per l'interlinea"
@@ -5650,8 +5619,7 @@ msgid "Save the scrapbook contents everytime after a change"
 msgstr "Salva sempre il contenuto della biblioteca dopo le modifiche"
 
 msgid "When using facing pages, show the two pages side by side"
-msgstr ""
-"Quando si usa l'opzione Pagine Affiancate, mostra le pagine fianco a fianco"
+msgstr "Quando si usa l'opzione Pagine Affiancate, mostra le pagine fianco a fianco"
 
 msgid "Color for paper"
 msgstr "Colore per la carta"
@@ -5663,8 +5631,7 @@ msgid "Mask the area outside the margins in the margin color"
 msgstr "Colora l'area fuori dei margini con lo stesso colore del margine"
 
 msgid "Enable transparency features within PDF 1.4 export"
-msgstr ""
-"Abilita le caratteristiche di trasparenza per l'esportazione in PDF 1.4"
+msgstr "Abilita le caratteristiche di trasparenza per l'esportazione in PDF 1.4"
 
 msgid "Set the default zoom level"
 msgstr "Configura il livello di zoom predefinito"
@@ -5690,8 +5657,7 @@ msgstr ""
 "così da permettere di modificare l'immagine in una sessione\n"
 "già aperta di gimp."
 
-msgid ""
-"Do not show objects outside the margins on the printed page or exported file"
+msgid "Do not show objects outside the margins on the printed page or exported file"
 msgstr ""
 "Non mostrare gli oggetti fuori dei margini nella pagina stampata o nel file "
 "esportato"
@@ -6105,9 +6071,7 @@ msgstr "Opzioni Importatore OpenDocument"
 msgid "Update paragraph Styles"
 msgstr "Aggiorna stil paragrafo"
 
-#, fuzzy
-msgid ""
-"Enabling this will overwrite existing styles in the current Scribus document"
+msgid "Enabling this will overwrite existing styles in the current Scribus document"
 msgstr ""
 "Se si abilita, si sovrascriveranno gli stili esistenti nell'attuale "
 "documento di Scribus"
@@ -6291,8 +6255,7 @@ msgstr "Modifica macro:"
 msgid "The name of the macro being edited."
 msgstr "Nome della macro da modificare."
 
-msgid ""
-"</qt>This item displays the name of the macro you are currently editing.<qt>"
+msgid "</qt>This item displays the name of the macro you are currently editing.<qt>"
 msgstr "<qt>Indica il nome della macro in corso di modifica.</qt>"
 
 msgid "<qt>Discard all changes and exit.</qt>"
@@ -6338,8 +6301,7 @@ msgid "Alt+L"
 msgstr "Alt+L"
 
 msgid "<qt>Replace the current source code with code from a file.</qt>"
-msgstr ""
-"<qt>Sostituisci l'attuale codice sorgente con il codice di un file.</qt>"
+msgstr "<qt>Sostituisci l'attuale codice sorgente con il codice di un file.</qt>"
 
 msgid ""
 "<qt>Load new source code into the editing area from \"file\". Any source "
@@ -6463,8 +6425,7 @@ msgstr "Alt+M"
 msgid "Rename the selected macro."
 msgstr "Rinomina la macro selezionata."
 
-msgid ""
-"<qt>Rename the selected macro. You will be prompted for the new name.</qt>"
+msgid "<qt>Rename the selected macro. You will be prompted for the new name.</qt>"
 msgstr ""
 "<qt>Rinomina la macro selezionata. Verrà richiesto d'inserire il nuovo nome."
 "</qt>"
@@ -6472,8 +6433,7 @@ msgstr ""
 msgid "Alt+E"
 msgstr "Alt+E"
 
-msgid ""
-"<qt>Edit the source of the selected macro, if the source is availible.</qt>"
+msgid "<qt>Edit the source of the selected macro, if the source is availible.</qt>"
 msgstr ""
 "<qt>Modifica il sorgente della macro selezionata, se il sorgente è "
 "disponibile.</qt>"
@@ -6515,8 +6475,7 @@ msgid "&Set Accel"
 msgstr "Impo&sta scorciatoia"
 
 msgid "<qt>Set the keyboard shortcut for the selected macro.</qt>"
-msgstr ""
-"<qt>Imposta il tasto di selezione rapida per la macro selezionata.</qt>"
+msgstr "<qt>Imposta il tasto di selezione rapida per la macro selezionata.</qt>"
 
 msgid ""
 "<p>Set the keyboard shortcut (accelerator) key of the selected macro. You "
@@ -6865,8 +6824,7 @@ msgid "Line shade out of bounds, must be 0 <= shade <= 100"
 msgstr "Intensità della linea fuori limite, deve essere 0 <= intensità <= 100"
 
 msgid "Fill shade out of bounds, must be 0 <= shade <= 100"
-msgstr ""
-"Intensità del riempimento fuori limite, deve essere 0 <= intensità <= 100"
+msgstr "Intensità del riempimento fuori limite, deve essere 0 <= intensità <= 100"
 
 msgid "Corner radius must be a positive number."
 msgstr "Il raggio dell'angolo deve essere un numero positivo."
@@ -6884,26 +6842,22 @@ msgid "Specified item not an image frame."
 msgstr "L'oggetto non è una cornice immagine."
 
 msgid "Cannot get font size of non-text frame."
-msgstr ""
-"Non è possibile ottenere la dimensione carattere di una cornice non di testo."
+msgstr "Non è possibile ottenere la dimensione carattere di una cornice non di testo."
 
 msgid "Cannot get font of non-text frame."
 msgstr "Non è possibile ottenere il carattere di una cornice non di testo."
 
 msgid "Cannot get text size of non-text frame."
-msgstr ""
-"Non è possibile ottenere la dimensione del testo di una cornice non di testo."
+msgstr "Non è possibile ottenere la dimensione del testo di una cornice non di testo."
 
 msgid "Cannot get column count of non-text frame."
-msgstr ""
-"Non è possibile ottenere il numero di colonne di una cornice non di testo."
+msgstr "Non è possibile ottenere il numero di colonne di una cornice non di testo."
 
 msgid "Cannot get line space of non-text frame."
 msgstr "Non è possibile ottenere l'interlinea di una cornice non di testo."
 
 msgid "Cannot get column gap of non-text frame."
-msgstr ""
-"Non è possibile ottenere la distanza colone di una cornice non di testo."
+msgstr "Non è possibile ottenere la distanza colone di una cornice non di testo."
 
 msgid "Cannot get text of non-text frame."
 msgstr "Non è possibile ottenere il testo di una cornice non di testo."
@@ -6919,16 +6873,13 @@ msgid "Insert index out of bounds."
 msgstr "Indice di inserimento fuori limite."
 
 msgid "Alignment out of range. Use one of the scribus.ALIGN* constants."
-msgstr ""
-"Allineamento fuori intervallo. Usa una delle costanti di scribus.ALIGN*."
+msgstr "Allineamento fuori intervallo. Usa una delle costanti di scribus.ALIGN*."
 
 msgid "Cannot set text alignment on a non-text frame."
-msgstr ""
-"Non è possibile impostare l'allineamento testo su una cornice non di testo."
+msgstr "Non è possibile impostare l'allineamento testo su una cornice non di testo."
 
 msgid "Font size out of bounds - must be 1 <= size <= 512."
-msgstr ""
-"Dimensione carattere fuori limite - deve essere 1 <= dimensione <= 512."
+msgstr "Dimensione carattere fuori limite - deve essere 1 <= dimensione <= 512."
 
 msgid "Cannot set font size on a non-text frame."
 msgstr ""
@@ -6951,15 +6902,13 @@ msgid "Column gap out of bounds, must be positive."
 msgstr "Distanza colonne fuori limite, deve essere positiva."
 
 msgid "Cannot set column gap on a non-text frame."
-msgstr ""
-"Non è possibile impostare la distanza colonne in una cornice non di testo."
+msgstr "Non è possibile impostare la distanza colonne in una cornice non di testo."
 
 msgid "Column count out of bounds, must be > 1."
 msgstr "Numero di colonne fuori limite, deve essere > 1."
 
 msgid "Cannot set number of columns on a non-text frame."
-msgstr ""
-"Non è possibile impostare il numero di colonne in una cornice non di testo."
+msgstr "Non è possibile impostare il numero di colonne in una cornice non di testo."
 
 msgid "Selection index out of bounds"
 msgstr "Indice di selezione fuori limite"
@@ -7004,8 +6953,7 @@ msgid "Cannot unlink a non-text frame."
 msgstr "Non è possibile scollegare una cornice non di testo."
 
 msgid "Object is not a linked text frame, cannot unlink."
-msgstr ""
-"L'oggetto non è una cornice di testo collegata, non è possibile scollegarla."
+msgstr "L'oggetto non è una cornice di testo collegata, non è possibile scollegarla."
 
 msgid ""
 "Object the last frame in a series, cannot unlink. Unlink the previous frame "
@@ -7017,8 +6965,9 @@ msgstr ""
 msgid "Cannot convert a non-text frame to outlines."
 msgstr "Non è possibile convertire una cornice non di testo in contorni."
 
+#, fuzzy
 msgid "Only text frames can be checked for overflowing"
-msgstr ""
+msgstr "Possono essere scelte solo le cornici di testo per l'overflowing"
 
 msgid "Can't set bookmark on a non-text frame"
 msgstr "Non è possibile aggiungere un segnalibri in una cornice non di testo"
@@ -7177,7 +7126,6 @@ msgstr "Abilita alias vecchi"
 msgid "<qt>Enable the use of OldStyle function names</qt>"
 msgstr "<qt>Attiva l'uso dei nomi funzione degli OldStyle</qt>"
 
-#, fuzzy
 msgid ""
 "<qt><p><tt>Enable Legacy Name Aliases</tt> is an advanced option. You should "
 "probably leave it how it is.</p>\n"
@@ -7191,7 +7139,7 @@ msgstr ""
 "<p>Se marcata, quest'opzione farà creare allo scripter un grande numero di "
 "alias di funzioni e costanti per la compatibilità con script 1.2.0. "
 "Predefinitivamente è marcata.</p>\n"
-"<p>Questa opzione non avrà effetto fino a che Scribus non è riavviato.</p></"
+"<p>Questa opzione non avrà effetto fino a che Scribus non sarà riavviato.</p></"
 "qt>"
 
 msgid "Use Fake Stdin"
@@ -7325,10 +7273,8 @@ msgstr "Scribus - Modifica Macro"
 msgid "Enter name for new macro: "
 msgstr "Nome per la nuova macro: "
 
-msgid ""
-"<qt>The macro name you requested is already taken  by another macro.</qt>"
-msgstr ""
-"<qt>Il nome macro che hai scelto appartiene già ad un'altra macro.</qt>"
+msgid "<qt>The macro name you requested is already taken  by another macro.</qt>"
+msgstr "<qt>Il nome macro che hai scelto appartiene già ad un'altra macro.</qt>"
 
 msgid ""
 "<qt>Macro creation failed. The macro manager was unable to set up the macro."
@@ -7476,3 +7422,4 @@ msgstr ""
 "Importazione file:\n"
 "%1\n"
 "fallita!"
+
