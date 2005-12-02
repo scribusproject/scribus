@@ -1846,16 +1846,6 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>This enables you to explicitely set,
-the media size of the postscript file.
-Not recommended unless
- requested by your printer.</source>
-        <translation type="obsolete">Самостоятельно задать формат 
-листа в файле Postscript.
-Не рекомендуется включать, 
-если того не требует принтер.</translation>
-    </message>
-    <message>
-        <source>This enables you to explicitely set,
 the media size of the PostScript file.
 Not recommended unless
  requested by your printer.</source>
@@ -2243,10 +2233,6 @@ Not recommended unless
         <translation>Параметры</translation>
     </message>
     <message>
-        <source>Java Script</source>
-        <translation type="obsolete">Java Script</translation>
-    </message>
-    <message>
         <source>Go To</source>
         <translation>Перейти</translation>
     </message>
@@ -2504,10 +2490,6 @@ Not recommended unless
         <translation>Открыть</translation>
     </message>
     <message>
-        <source>Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)</source>
-        <translation type="obsolete">Изображения (*.tif *.png *.jpg *.xpm);;Файлы Postscript (*.eps);;Все файлы (*)</translation>
-    </message>
-    <message>
         <source>Example:</source>
         <translation>Пример:</translation>
     </message>
@@ -2530,11 +2512,11 @@ Not recommended unless
     </message>
     <message>
         <source>JavaScript</source>
-        <translation type="unfinished"></translation>
+        <translation>JavaScript</translation>
     </message>
     <message>
         <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Изображения (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;Все файлы (*)</translation>
     </message>
 </context>
 <context>
@@ -3638,10 +3620,6 @@ optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH<
         <translation>Сохранить как</translation>
     </message>
     <message>
-        <source>Postscript-Files (*.ps);;All Files (*)</source>
-        <translation type="obsolete">Файлы Postscript (*.ps);;Все файлы (*)</translation>
-    </message>
-    <message>
         <source>Cyan</source>
         <translation>Cyan</translation>
     </message>
@@ -3747,7 +3725,7 @@ to utilize additional printing options</source>
     </message>
     <message>
         <source>PostScript Files (*.ps);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Файлы PostScript (*.ps);;Все файлы (*)</translation>
     </message>
 </context>
 <context>
@@ -4088,10 +4066,6 @@ be saved in its current form. The error was:
         <translation>Редактор</translation>
     </message>
     <message>
-        <source>Javascripts (*.js);;All Files (*)</source>
-        <translation type="obsolete">Javascripts (*.js);;Все файлы (*)</translation>
-    </message>
-    <message>
         <source>&amp;New</source>
         <translation>&amp;Новый</translation>
     </message>
@@ -4149,7 +4123,7 @@ be saved in its current form. The error was:
     </message>
     <message>
         <source>JavaScripts (*.js);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Сценарии на JavaScripts (*.js);;Все файлы (*)</translation>
     </message>
 </context>
 <context>
@@ -4444,10 +4418,6 @@ Use 72 dpi for Images intended for the Screen</source>
         <translation>Дополнительные пути</translation>
     </message>
     <message>
-        <source>Postscript</source>
-        <translation type="obsolete">Postscript</translation>
-    </message>
-    <message>
         <source>Yes</source>
         <translation>Да</translation>
     </message>
@@ -4521,7 +4491,7 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>PostScript</source>
-        <translation type="unfinished"></translation>
+        <translation>PostScript</translation>
     </message>
 </context>
 <context>
@@ -5257,20 +5227,6 @@ The table in the center of the dialog lists what macros are currently loaded and
     <message>
         <source>Description</source>
         <translation>Описание</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;This table lists the macros that are currently defined.&lt;/p&gt;
-
-&lt;p&gt;&lt;b&gt;Name:&lt;/b&gt; The name of the macro, as shown in the menu bar and in other places around Scribus.&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Edit:&lt;/b&gt; If the macro can be edited, &quot;Yes&quot; appears in this column. Usually if a macro cannot be edited it was created using the register_macro command in a script.&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Accel:&lt;/b&gt; The menu shortcut key sequence, if any, associated with the macro. For example, CTRL-F8 means that you can press Control-F8 when in Scribus to run the macro.&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Description:&lt;/b&gt; If the macro contains a &quot;docstring&quot;, a special string at the start of its definition that describes it, that is shown here. If the docstring is long, only the beginning is shown - use &quot;What&apos;s This&quot; on the macro&apos;s entry in the Macro menu to see the full description.&lt;/p&gt;</source>
-        <translation type="obsolete">&lt;p&gt;В этой таблице перечисляются доступные в данный момент макросы.&lt;/p&gt;
-
-&lt;p&gt;&lt;b&gt;Имя:&lt;/b&gt; Имя макроса, каким оно представлено в меню и прочих частях интерфейса Scribus.&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Правка:&lt;/b&gt; Если макрос можно изменить, в этом столбце указывается &quot;Да&quot;. Обычно если макрос изменить нельзя, то скорее всего он был создан командой register_macro из сценария.&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Сочетание:&lt;/b&gt; Горячие клавишы для исполнения макроса, если таковые назначены. К примеру,нажатие, скажем, CTRL-F8 в Scribus приведёт к исполнению того или иного макроса.&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Описание:&lt;/b&gt; Если в макросе содержится &quot;docstring&quot;, специальная строка в начале описания, то она отображается в этом столбце. Слишком длинное описание при отображении укорачивается - щёлкните знаком вопроса с кнопки &quot;Что это&quot; по строке для просмотра полного описания.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Rena&amp;me</source>
@@ -6877,7 +6833,7 @@ otherwise Coordinates are relative to the Object.</source>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Отменить</translation>
     </message>
 </context>
 <context>
@@ -8390,10 +8346,6 @@ EPS, PDF и векторной графики при просмотре цено
         <translation>Разное</translation>
     </message>
     <message>
-        <source>Postscript Interpreter</source>
-        <translation type="obsolete">Интерпретатор Postscript</translation>
-    </message>
-    <message>
         <source>Image Processing Tool</source>
         <translation>Инструмент обработки графики</translation>
     </message>
@@ -9185,16 +9137,12 @@ be changed with documents open.</source>
         <translation>Выключить опорную сетку</translation>
     </message>
     <message>
-        <source>File system location for the Ghostscript interpreter</source>
-        <translation type="obsolete">Местоположение интерпретатора Ghostscript в системе</translation>
-    </message>
-    <message>
         <source>PostScript Interpreter</source>
-        <translation type="unfinished"></translation>
+        <translation>Интерпретатор PostScript</translation>
     </message>
     <message>
         <source>File system location for the GhostScript interpreter</source>
-        <translation type="unfinished"></translation>
+        <translation>Местоположение интерпретатора Ghostscript в файловой системе</translation>
     </message>
 </context>
 <context>
@@ -9609,7 +9557,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Customize...</source>
-        <translation>Настроить...</translation>
+        <translation type="unfinished">&amp;Настройки</translation>
     </message>
 </context>
 <context>
@@ -10552,7 +10500,7 @@ function&apos;s documentation.</source>
     </message>
     <message>
         <source>Normal</source>
-        <translation type="unfinished"></translation>
+        <translation>Normal</translation>
     </message>
     <message>
         <source>page</source>
@@ -10561,7 +10509,7 @@ function&apos;s documentation.</source>
     </message>
     <message>
         <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation>Внесённые изменения не были сохранены и вы собираетесь от них отказаться. Вы уверены?</translation>
     </message>
     <message>
         <source>firstPageOrder is bigger than allowed.</source>
@@ -10988,10 +10936,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Показать Слои</translation>
     </message>
     <message>
-        <source>Javascripts...</source>
-        <translation type="obsolete">Javascripts...</translation>
-    </message>
-    <message>
         <source>Undo</source>
         <translation>Откатить</translation>
     </message>
@@ -11333,7 +11277,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Text Files (*.txt);;All Files(*)</source>
-        <translation>Текстовый файлы (*.txt);;Все файлы (*)</translation>
+        <translation>Текстовые файлы (*.txt);;Все файлы (*)</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -11384,10 +11328,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>All</source>
         <translation>Все</translation>
-    </message>
-    <message>
-        <source>EPS-Files (*.eps);;All Files (*)</source>
-        <translation type="obsolete">EPS-изображения (*.eps);;Все файлы (*)</translation>
     </message>
     <message>
         <source>Loading:</source>
@@ -11754,10 +11694,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>&amp;Шаблоны...</translation>
     </message>
     <message>
-        <source>&amp;Javascripts...</source>
-        <translation type="obsolete">&amp;Javascripts...</translation>
-    </message>
-    <message>
         <source>D&amp;uplicate</source>
         <translation>&amp;Продублировать</translation>
     </message>
@@ -12026,10 +11962,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Показать &amp;направляющие</translation>
     </message>
     <message>
-        <source>Ghostscript : You cannot use EPS Images</source>
-        <translation type="obsolete">Ghostscript : Вы не можете использовать изображения в формате EPS</translation>
-    </message>
-    <message>
         <source>Import &amp;Page(s)...</source>
         <translation>Импортировать &amp;страницы...</translation>
     </message>
@@ -12143,23 +12075,23 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>JavaScripts...</source>
-        <translation type="unfinished"></translation>
+        <translation>Сценарии на JavaScript...</translation>
     </message>
     <message>
         <source>&amp;JavaScripts...</source>
-        <translation type="unfinished"></translation>
+        <translation>С&amp;ценарии на JavaScript...</translation>
     </message>
     <message>
         <source>GhostScript : You cannot use EPS Images</source>
-        <translation type="unfinished"></translation>
+        <translation>GhostScript : вы не можете использовать изображения EPS</translation>
     </message>
     <message>
         <source>EPS Files (*.eps);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Файлы EPS (*.eps);;Все файлы (*)</translation>
     </message>
     <message>
         <source>Norwegian</source>
-        <translation type="unfinished">Норвежский</translation>
+        <translation>Норвежский</translation>
     </message>
 </context>
 <context>
@@ -12448,14 +12380,6 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
         <translation>&lt;qt&gt;Разрешить использование имён функций в старом стиле&lt;/qt&gt;</translation>
     </message>
     <message>
-        <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Enable Legacy Aliases&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
-&lt;p&gt;If checked, this option will cause the scripter to create a large number of function and constant name aliases for 1.2.0 script compatibility. It defaults to checked.&lt;/p&gt;
-&lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="obsolete">&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Использовать унаследованные имена функций&lt;/tt&gt; - это расширенная функция. Лучше оставить её включённой.&lt;/p&gt;
-&lt;p&gt;Пока она включена, сценарист будет создавать много функций и постоянных псевдонимов имён для совместимости со сценариями Scribus 1.2.0. По умолчанию функция включена.&lt;/p&gt;
-&lt;p&gt;Включение и отключение этой функции учитывается только при повторном запуске Scribus.&lt;/p&gt;&lt;/qt&gt;</translation>
-    </message>
-    <message>
         <source>Use Fake Stdin</source>
         <translation>Эмулировать Stdin</translation>
     </message>
@@ -12475,7 +12399,9 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Enable Legacy Name Aliases&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
 &lt;p&gt;If checked, this option will cause the scripter to create a large number of function and constant name aliases for 1.2.0 script compatibility. It defaults to checked.&lt;/p&gt;
 &lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Разрешить устаревшие имена функций&lt;/tt&gt; - расширенный параметр. Вероятно, вам не захочется его трогать.&lt;/p&gt;
+&lt;p&gt;Если включено, Сценарист создаёт большое количество &quot;обёрток&quot; к функциям и именам констант из Scribus 1.2.0 для обеспечения совместимости сценариев. По умолчанию параметр включён.&lt;/p&gt;
+&lt;p&gt;Включение и отключение этого параметра возымеет эффект только после перезапуска Scribus.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
 </context>
 <context>
@@ -12941,7 +12867,7 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>&amp;Settings</source>
-        <translation>&amp;Настроить...</translation>
+        <translation type="unfinished">&amp;Настройки</translation>
     </message>
     <message>
         <source>Clear all Text</source>
@@ -13039,7 +12965,7 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Отменить</translation>
     </message>
 </context>
 <context>
