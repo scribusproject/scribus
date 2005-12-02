@@ -1826,9 +1826,9 @@ void Annot::SetVals()
 				item->An_K_act = "AFPercent_Keystroke("+Nfo;
 				break;
 			case 3:
-				Nfo = Format0c->currentText()+")";
-				item->An_F_act = "AFDate_FormatEx("+Nfo;
-				item->An_K_act = "AFDate_KeystrokeEx("+Nfo;
+				Nfo = Format0c->currentText()+"\")";
+				item->An_F_act = "AFDate_FormatEx(\""+Nfo;
+				item->An_K_act = "AFDate_KeystrokeEx(\""+Nfo;
 				break;
 			case 4:
 				Nfo = tmp.setNum(FormNum)+")";
