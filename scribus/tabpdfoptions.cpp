@@ -146,7 +146,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	CheckBM = new QCheckBox( tr( "&Include Bookmarks" ), GroupBox1, "E" );
 	CheckBM->setChecked(Optionen->Bookmarks);
 	GroupBox1Layout->addMultiCellWidget( CheckBM, 4, 4, 0, 2 );
-	useLayers = new QCheckBox( tr( "Include Layers" ), GroupBox1, "LI" );
+	useLayers = new QCheckBox( tr( "Include La&yers" ), GroupBox1, "LI" );
 	useLayers->setChecked(Optionen->useLayers);
 	GroupBox1Layout->addMultiCellWidget( useLayers, 5, 5, 0, 2 );
 	if (Optionen->Version == 15)
@@ -181,7 +181,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	CMethod->insertItem( tr( "None" ) );
 	CMethod->setEditable(false);
 	CMethod->setCurrentItem(Optionen->CompressMethod);
-	TextCom1 = new QLabel( CMethod, tr( "Compression &Method:" ), CBox, "TextCom1" );
+	TextCom1 = new QLabel( CMethod, tr( "Compression Metho&d:" ), CBox, "TextCom1" );
 	CBoxLayout->addWidget( TextCom1, 0, 0 );
 	CBoxLayout->addWidget( CMethod, 0, 1 );
 	CQuality = new QComboBox( true, CBox, "CQuality" );
@@ -196,7 +196,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	TextCom2 = new QLabel( CQuality, tr( "Compression &Quality:" ), CBox, "TextCom2" );
 	CBoxLayout->addWidget( TextCom2, 1, 0 );
 	CBoxLayout->addWidget( CQuality, 1, 1 );
-	DSColor = new QCheckBox( tr( "Resample Images to:" ), CBox, "DSColor" );
+	DSColor = new QCheckBox( tr( "Resa&mple Images to:" ), CBox, "DSColor" );
 	DSColor->setChecked(Optionen->RecalcPic);
 	CBoxLayout->addWidget( DSColor, 2, 0 );
 	ValC = new QSpinBox( CBox, "ValC" );
