@@ -755,7 +755,7 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 
 void ScribusView::DrawPageMarks(ScPainter *p, Page *page, QRect)
 {
-	double lw = 1.0 / Scale;
+	double lw = 0.5 / Scale;
 	double z = p->zoomFactor();
 	p->save();
 	p->setZoomFactor(Scale);
