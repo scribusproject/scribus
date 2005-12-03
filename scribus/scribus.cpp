@@ -8241,12 +8241,17 @@ void ScribusApp::GetCMSProfilesDir(QString pfad)
 	QString nam = "";
 	const char *Descriptor;
 	cmsHPROFILE hIn;
-	QDir d(pfad, "*.*", QDir::Name, QDir::Files | QDir::NoSymLinks);
+	QDir d(pfad, "*", QDir::Name, QDir::Files | QDir::Readable | QDir::Dirs | QDir::NoSymLinks);
 	if ((d.exists()) && (d.count() != 0))
 	{
 		for (uint dc = 0; dc < d.count(); ++dc)
 		{
 			QFileInfo fi(pfad + d[dc]);
+			if (fi.isDir() && d[dc][0] != '.')
+			{
+				GetCMSProfilesDir(fi.filePath()+"/");
+				continue;
+			}
 			QString ext = fi.extension(false).lower();
 			if ((ext == "icm") || (ext == "icc"))
 			{
