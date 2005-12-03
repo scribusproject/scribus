@@ -27,137 +27,119 @@
                 <cstring>sectionsGroupBox</cstring>
             </property>
             <property name="title">
-                <string>Sections</string>
+                <string></string>
             </property>
             <vbox>
                 <property name="name">
                     <cstring>unnamed</cstring>
                 </property>
+                <widget class="QTable">
+                    <column>
+                        <property name="text">
+                            <string>Name</string>
+                        </property>
+                        <property name="pixmap">
+                            <pixmap></pixmap>
+                        </property>
+                    </column>
+                    <column>
+                        <property name="text">
+                            <string>Shown</string>
+                        </property>
+                        <property name="pixmap">
+                            <pixmap></pixmap>
+                        </property>
+                    </column>
+                    <column>
+                        <property name="text">
+                            <string>From</string>
+                        </property>
+                        <property name="pixmap">
+                            <pixmap></pixmap>
+                        </property>
+                    </column>
+                    <column>
+                        <property name="text">
+                            <string>To</string>
+                        </property>
+                        <property name="pixmap">
+                            <pixmap></pixmap>
+                        </property>
+                    </column>
+                    <column>
+                        <property name="text">
+                            <string>Style</string>
+                        </property>
+                        <property name="pixmap">
+                            <pixmap></pixmap>
+                        </property>
+                    </column>
+                    <column>
+                        <property name="text">
+                            <string>Start</string>
+                        </property>
+                        <property name="pixmap">
+                            <pixmap></pixmap>
+                        </property>
+                    </column>
+                    <property name="name">
+                        <cstring>sectionsTable</cstring>
+                    </property>
+                    <property name="numRows">
+                        <number>0</number>
+                    </property>
+                    <property name="numCols">
+                        <number>6</number>
+                    </property>
+                </widget>
                 <widget class="QLayoutWidget">
                     <property name="name">
-                        <cstring>sectionsVBox</cstring>
+                        <cstring>sectionsHBox</cstring>
                     </property>
-                    <vbox>
+                    <hbox>
                         <property name="name">
                             <cstring>unnamed</cstring>
                         </property>
-                        <widget class="QTable">
-                            <column>
-                                <property name="text">
-                                    <string>Name</string>
-                                </property>
-                                <property name="pixmap">
-                                    <pixmap></pixmap>
-                                </property>
-                            </column>
-                            <column>
-                                <property name="text">
-                                    <string>Active</string>
-                                </property>
-                                <property name="pixmap">
-                                    <pixmap></pixmap>
-                                </property>
-                            </column>
-                            <column>
-                                <property name="text">
-                                    <string>From</string>
-                                </property>
-                                <property name="pixmap">
-                                    <pixmap></pixmap>
-                                </property>
-                            </column>
-                            <column>
-                                <property name="text">
-                                    <string>To</string>
-                                </property>
-                                <property name="pixmap">
-                                    <pixmap></pixmap>
-                                </property>
-                            </column>
-                            <column>
-                                <property name="text">
-                                    <string>Style</string>
-                                </property>
-                                <property name="pixmap">
-                                    <pixmap></pixmap>
-                                </property>
-                            </column>
-                            <column>
-                                <property name="text">
-                                    <string>Start</string>
-                                </property>
-                                <property name="pixmap">
-                                    <pixmap></pixmap>
-                                </property>
-                            </column>
-                            <column>
-                                <property name="text">
-                                    <string>End</string>
-                                </property>
-                                <property name="pixmap">
-                                    <pixmap></pixmap>
-                                </property>
-                            </column>
+                        <spacer>
                             <property name="name">
-                                <cstring>sectionsTable</cstring>
+                                <cstring>buttonSpacer</cstring>
                             </property>
-                            <property name="numRows">
-                                <number>0</number>
+                            <property name="orientation">
+                                <enum>Horizontal</enum>
                             </property>
-                            <property name="numCols">
-                                <number>7</number>
+                            <property name="sizeType">
+                                <enum>Expanding</enum>
+                            </property>
+                            <property name="sizeHint">
+                                <size>
+                                    <width>192</width>
+                                    <height>21</height>
+                                </size>
+                            </property>
+                        </spacer>
+                        <widget class="QPushButton">
+                            <property name="name">
+                                <cstring>addButton</cstring>
+                            </property>
+                            <property name="text">
+                                <string>&amp;Add</string>
+                            </property>
+                            <property name="accel">
+                                <string>Alt+A</string>
                             </property>
                         </widget>
-                        <widget class="QLayoutWidget">
+                        <widget class="QPushButton">
                             <property name="name">
-                                <cstring>sectionsHBox</cstring>
+                                <cstring>deleteButton</cstring>
                             </property>
-                            <hbox>
-                                <property name="name">
-                                    <cstring>unnamed</cstring>
-                                </property>
-                                <spacer>
-                                    <property name="name">
-                                        <cstring>buttonSpacer</cstring>
-                                    </property>
-                                    <property name="orientation">
-                                        <enum>Horizontal</enum>
-                                    </property>
-                                    <property name="sizeType">
-                                        <enum>Expanding</enum>
-                                    </property>
-                                    <property name="sizeHint">
-                                        <size>
-                                            <width>192</width>
-                                            <height>21</height>
-                                        </size>
-                                    </property>
-                                </spacer>
-                                <widget class="QPushButton">
-                                    <property name="name">
-                                        <cstring>addButton</cstring>
-                                    </property>
-                                    <property name="text">
-                                        <string>&amp;Add</string>
-                                    </property>
-                                    <property name="accel">
-                                        <string>Alt+A</string>
-                                    </property>
-                                </widget>
-                                <widget class="QPushButton">
-                                    <property name="name">
-                                        <cstring>deleteButton</cstring>
-                                    </property>
-                                    <property name="text">
-                                        <string>&amp;Delete</string>
-                                    </property>
-                                    <property name="accel">
-                                        <string>Alt+D</string>
-                                    </property>
-                                </widget>
-                            </hbox>
+                            <property name="text">
+                                <string>&amp;Delete</string>
+                            </property>
+                            <property name="accel">
+                                <string>Alt+D</string>
+                            </property>
                         </widget>
-                    </vbox>
+                    </hbox>
                 </widget>
             </vbox>
         </widget>

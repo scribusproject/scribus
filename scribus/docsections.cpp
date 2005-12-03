@@ -29,6 +29,13 @@ void DocSections::languageChange()
 {
 	QToolTip::add(addButton, "<qt>"+ tr("Add a page numbering section to the document. The new section will be added after the currently selected section.") + "</qt>");
 	QToolTip::add(deleteButton, "<qt>"+ tr("Delete the currently selected section.") + "</qt>");
+	QToolTip::add(sectionsTable, "<qt>"+ tr("Name: Optional name for section eg. Index<br/>"
+											"Shown: Select to show the page numbers in this section if there is one or more text frames setup to do so.<br/>"
+											"From: The page index for this section to start at.<br/>"
+											"To: The page index for this section to stop at.<br/>"
+											"Style: Select the page number style to be used.<br/>"
+											"Start: The index within the Style's range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b.<br/>"
+	) +"</qt>");
 }
 
 void DocSections::setup(const DocumentSectionMap docSections, int maxPageIndex)
@@ -69,10 +76,11 @@ void DocSections::updateTable()
 		QTableItem *item6 = new QTableItem(sectionsTable, QTableItem::WhenCurrent, QString::number((*it).sectionstartindex));
 		sectionsTable->setItem(row, i++, item6);
 		//End Page Number
+		/*
 		QTableItem *item7 = new QTableItem(sectionsTable, QTableItem::WhenCurrent, QString::number((*it).sectionstartindex + (*it).toindex - (*it).fromindex));
 		item7->setEnabled(false);
 		sectionsTable->setItem(row, i++, item7);
-		
+		*/
 		sectionsTable->verticalHeader()->setLabel(row, QString("%1").arg(row));
 		row++;
 	}
