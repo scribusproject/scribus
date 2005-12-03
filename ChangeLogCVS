@@ -1,5 +1,21 @@
 Scribus - 1.2.4cvs
 ==================
+
+- 0002882: [Integration] allow ICC profile subdirectories (fschmid)
+- 0002865: [Import / Export] PDF form with text field format set to display a date mm/dd/yy (fschmid)
+- 0002891: [Translation] update of russian translation for upcoming v1.2.4 (plinnell)
+- 0002869: [Integration] Please Add Graphics to the Scribus Desktop file category (plinnell)
+- 0002889: [Translation] Updated Danish Translation for (plinnell)
+- 0002883: [Translation] Galician translation update (plinnell)
+- 0002885: [Translation] Updated German translation for 1.2.4 (plinnell)
+- 0002880: [Translation] Brazilian Portuguese translation update (plinnell)
+- 0002864: [Integration] Patch to read /usr/local/share/color/icc (plinnell)
+- 0002874: [User Interface] Add Cancel button to OpenOffice.org import dialogs (Tsoots)
+- 0002868: [Scripter] Update the Font Sampler to the latest version (plinnell)
+- 0002838: [Documentation] Add German docs to 1.2.4 (plinnell)
+- 0002852: [Scripter] need a scripter view function to set a document to "fit in window" (subik)
+- 0002512: [Scripter] mistakes in help messages (plinnell)
+- 0002813: [Story Editor / Text Frames] texts on paths have no frame around the object if you enable "show frames" on the canvas (fschmid)
 - 0002531: [Build System] Make uninstall is not cleaning up after itself (plinnell)
 - 0001519: [Story Editor / Text Frames] In Layout-mode, align works only on a per sentence/paragraph basis (fschmid)
 - 0002802: [Translation] Updated Danish 1.2.4 translation (plinnell)
