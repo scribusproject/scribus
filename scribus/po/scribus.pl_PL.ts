@@ -2585,7 +2585,10 @@ przez drukarnię.</translation>
 the media size of the PostScript file.
 Not recommended unless
  requested by your printer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Opcja ta umożliwia podanie 
+rozmiaru mediów pliku PostScript.
+Nie jest zalecane, chyba że wymaga
+tego drukarnia.</translation>
     </message>
 </context>
 <context>
@@ -3258,11 +3261,11 @@ LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID</translation>
     </message>
     <message>
         <source>JavaScript</source>
-        <translation type="unfinished"></translation>
+        <translation>JavaScript</translation>
     </message>
     <message>
         <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Obrazki (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;Wszystkie pliki (*)</translation>
     </message>
 </context>
 <context>
@@ -4442,7 +4445,7 @@ lub gtklp, by uzyskać dostęp do dodatkowych opcji drukowania</translation>
     </message>
     <message>
         <source>PostScript Files (*.ps);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Pliki PostScript  (*.ps);;Wszystkie pliki (*)</translation>
     </message>
 </context>
 <context>
@@ -4842,7 +4845,7 @@ zapisane w aktualnej formie. Wystąpił następujący błąd:
     </message>
     <message>
         <source>JavaScripts (*.js);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Pliki JavaScript (*.js);;Wszystkie pliki (*)</translation>
     </message>
 </context>
 <context>
@@ -5210,7 +5213,7 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     </message>
     <message>
         <source>PostScript</source>
-        <translation type="unfinished"></translation>
+        <translation>PostScript</translation>
     </message>
 </context>
 <context>
@@ -6140,7 +6143,12 @@ Może on być wykonany za pomocą opcji &lt;tt&gt;Pobierz skrypt rozszerzający&
 &lt;p&gt;&lt;b&gt;Edit:&lt;/b&gt; If the macro can be edited, &quot;Yes&quot; appears in this column. Usually if a macro cannot be edited it was created using the register_macro command in a script.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Accel:&lt;/b&gt; The menu shortcut key sequence, if any, associated with the macro. For example, CTRL-F8 means that you can press Control-F8 when in Scribus to run the macro.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Description:&lt;/b&gt; If the macro contains a &quot;docstring&quot;, a special string at the start of its definition that describes it, that is shown here. If the docstring is long, only the beginning is shown - use &quot;What&apos;s This&quot; on the macro&apos;s entry in the Macro menu to see the full description.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Tabela ta zawiera aktualnie zdefiniowane makra.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Macro:&lt;/b&gt;Nazwa makra pokazywana w menu i w innych miejscach w Scribusie.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Edycja:&lt;/b&gt;Jeśli makro daje się edytować, w szpalcie tej pojawi się &quot;Tak&quot;. Zazwyczaj jeśli makro nie daje się edytować, zostało ono utworzone z użyciem polecenia register_macro wewnątrz skryptu.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Skrót:&lt;/b&gt; Skrót klawiaturowy przypisany do makra. Np. CTRL-F8 oznacza, że należy wcisnąć klawisze Control i F8, aby uruchomić makro wewnątrz Scribusa.&lt;/p&gt;
+ &lt;p&gt;&lt;b&gt;Opis:&lt;/b&gt; Jeśli makro zawiera &quot;docstring&quot;, czyli specjalny ciąg znaków na początku jego definicji służący jako opis makra, zostanie on wyświetlony w tym miejscu. Jeśli docstring jest długi, zostanie wyświetlony tylko jego początek - użyj funkcji &quot;Co to jest?&quot; najeżdżając kursorem na wiersz makra w menu makr, aby zobaczyć pełny opis.&lt;/p&gt; </translation>
     </message>
 </context>
 <context>
@@ -7545,7 +7553,7 @@ w innym przypadku do obiektu.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Anuluj</translation>
+        <translation>Anuluj</translation>
     </message>
 </context>
 <context>
@@ -9840,11 +9848,11 @@ konieczności startowania programu za każdym razem od nowa.</translation>
     </message>
     <message>
         <source>PostScript Interpreter</source>
-        <translation type="unfinished"></translation>
+        <translation>Interpreter Postscriptu</translation>
     </message>
     <message>
         <source>File system location for the GhostScript interpreter</source>
-        <translation type="unfinished"></translation>
+        <translation>Położenie interpretera GhostScriptu w systemie plików</translation>
     </message>
 </context>
 <context>
@@ -11233,17 +11241,17 @@ Szczegóły na temat wyjątków zwracanych przez każdą funkcję zawarte są w 
     </message>
     <message>
         <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation>Zmiany w twoim dokumencie nie zostały jeszcze zapisane, czy naprawdę chcesz je cofnąć?</translation>
     </message>
     <message>
         <source>firstPageOrder is bigger than allowed.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>firstPageOrder jest większy od dozwolonej wielkości.</translation>
     </message>
     <message>
         <source>Only text frames can be checked for overflowing</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Przelewanie się tekstu można kontrolować tylko w ramkach tekstowych</translation>
     </message>
 </context>
 <context>
@@ -12813,23 +12821,23 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>JavaScripts...</source>
-        <translation type="unfinished"></translation>
+        <translation>Skrypty w JavaScript...</translation>
     </message>
     <message>
         <source>&amp;JavaScripts...</source>
-        <translation type="unfinished"></translation>
+        <translation>Skrypty w &amp;JavaScript...</translation>
     </message>
     <message>
         <source>GhostScript : You cannot use EPS Images</source>
-        <translation type="unfinished"></translation>
+        <translation>GhostScript: Nie możesz użyć grafik EPS</translation>
     </message>
     <message>
         <source>EPS Files (*.eps);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Pliki EPS (*.eps);;Wszystkie pliki (*)</translation>
     </message>
     <message>
         <source>Norwegian</source>
-        <translation type="unfinished">Norweski</translation>
+        <translation>Norweski</translation>
     </message>
 </context>
 <context>
@@ -13139,7 +13147,9 @@ Za pomocą opcj &lt;tt&gt;Pobierz skrypt rozszerzający&lt;/tt&gt; oraz jako skr
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Enable Legacy Name Aliases&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
 &lt;p&gt;If checked, this option will cause the scripter to create a large number of function and constant name aliases for 1.2.0 script compatibility. It defaults to checked.&lt;/p&gt;
 &lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Włącz aliasy starych nazw&lt;/tt&gt; to zaawansowana opcja. Najlepiej nic nie zmieniaj, jeśli nie wiesz dokładnie, co chcesz zrobićs.&lt;/p&gt;
+&lt;p&gt;Zakreślenie tej opcji spowoduje, że skryptownik utworzy dużą ilość aliasów nazw funkcji i stałych w celu zapewnienia kompatybilności z wersją 1.2.0. Domyślną wartością jest zakreślenie.&lt;/p&gt;
+&lt;p&gt;Zmiana tej opcji zostanie włączona dopiero po ponownym uruchomieniu Scribusa.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
 </context>
 <context>
@@ -13701,7 +13711,7 @@ przeciągnij szablon na widok strony na dole.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Anuluj</translation>
+        <translation>Anuluj</translation>
     </message>
 </context>
 <context>
