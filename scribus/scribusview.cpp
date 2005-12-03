@@ -233,8 +233,10 @@ void ScribusView::languageChange()
 
 void ScribusView::viewportPaintEvent ( QPaintEvent * p )
 {
+	#ifndef _WIN32
 	if (p->spontaneous())
 		evSpon = true;
+	#endif
 	QScrollView::viewportPaintEvent(p);
 }
 
