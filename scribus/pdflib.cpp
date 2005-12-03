@@ -48,6 +48,7 @@
 #include "prefsmanager.h"
 #include "prefscontext.h"
 #include "pdfoptions.h"
+#include "sccolor.h"
 
 using namespace std;
 
@@ -2548,19 +2549,32 @@ QString PDFlib::putColor(const QString& color, int shade, bool fill)
 #ifdef HAVE_CMS
 		if ((CMSuse) && (Options->UseProfiles))
 		{
-			QString tmp2[] = {"/Perceptual", "/RelativeColorimetric", "/Saturation", "/AbsoluteColorimetric"};
-			tmp += tmp2[Options->Intent]+ " ri\n";
-			if (color != "None")
+			if (tmpC.getColorModel() == colorModelCMYK)
 			{
-				if (fill)
+				if (color != "None")
 				{
-					tmp += "/"+ICCProfiles[Options->SolidProf].ResName+" cs\n";
-					tmp += colString+" scn\n";
+					if (fill)
+						tmp += colString+" k\n";
+					else
+						tmp += colString+" K\n";
 				}
-				else
+			}
+			else
+			{
+				QString tmp2[] = {"/Perceptual", "/RelativeColorimetric", "/Saturation", "/AbsoluteColorimetric"};
+				tmp += tmp2[Options->Intent]+ " ri\n";
+				if (color != "None")
 				{
-					tmp += "/"+ICCProfiles[Options->SolidProf].ResName+" CS\n";
-					tmp += colString+" SCN\n";
+					if (fill)
+					{
+						tmp += "/"+ICCProfiles[Options->SolidProf].ResName+" cs\n";
+						tmp += colString+" scn\n";
+					}
+					else
+					{
+						tmp += "/"+ICCProfiles[Options->SolidProf].ResName+" CS\n";
+						tmp += colString+" SCN\n";
+					}
 				}
 			}
 		}
@@ -3189,15 +3203,23 @@ QString PDFlib::SetFarbe(const QString& farbe, int Shade)
 #ifdef HAVE_CMS
 		if ((CMSuse) && (Options->UseProfiles))
 		{
-			if (Options->SComp == 3)
-			{
-				tmpC.getShadeColorRGB(&h, &s, &v, Shade);
-				tmp = FToStr(h / 255.0)+" "+FToStr(s / 255.0)+" "+FToStr(v / 255.0);
-			}
-			else
+			if (tmpC.getColorModel() == colorModelCMYK)
 			{
 				tmpC.getShadeColorCMYK(&h, &s, &v, &k, Shade);
 				tmp = FToStr(h / 255.0)+" "+FToStr(s / 255.0)+" "+FToStr(v / 255.0)+" "+FToStr(k / 255.0);
+			}
+			else
+			{
+				if (Options->SComp == 3)
+				{
+					tmpC.getShadeColorRGB(&h, &s, &v, Shade);
+					tmp = FToStr(h / 255.0)+" "+FToStr(s / 255.0)+" "+FToStr(v / 255.0);
+				}
+				else
+				{
+					tmpC.getShadeColorCMYK(&h, &s, &v, &k, Shade);
+					tmp = FToStr(h / 255.0)+" "+FToStr(s / 255.0)+" "+FToStr(v / 255.0)+" "+FToStr(k / 255.0);
+				}
 			}
 		}
 		else
