@@ -34,8 +34,7 @@ void DocSections::languageChange()
 											"From: The page index for this section to start at.<br/>"
 											"To: The page index for this section to stop at.<br/>"
 											"Style: Select the page number style to be used.<br/>"
-											"Start: The index within the Style's range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b.<br/>"
-	) +"</qt>");
+											"Start: The index within the Style's range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b.") +"</qt>");
 }
 
 void DocSections::setup(const DocumentSectionMap docSections, int maxPageIndex)

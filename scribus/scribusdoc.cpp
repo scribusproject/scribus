@@ -3385,3 +3385,13 @@ void ScribusDoc::buildAlignItemList()
 		AObjects[i].height = AObjects[i].y2 - AObjects[i].y1;
 	}
 }
+
+void ScribusDoc::insertColor(QString nam, double c, double m, double y, double k)
+{
+	if (!PageColors.contains(nam))
+	{
+		ScColor tmp = ScColor(static_cast<int>(255 * c), static_cast<int>(255 * m),
+		                          static_cast<int>(255 * y), static_cast<int>(255 * k));
+		PageColors.insert(nam, tmp);
+	}
+}

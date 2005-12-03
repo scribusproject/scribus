@@ -221,7 +221,7 @@ public:
 	void SetFrameRect();
 	void SetFrameRounded();
 	void SetFrameOval();
-	void insertColor(QString nam, double c, double m, double y, double k);
+	//void insertColor(QString nam, double c, double m, double y, double k);
 	void ChLineWidth(double w);
 	void ChLineArt(PenStyle w);
 	void ChLineJoin(PenJoinStyle w);

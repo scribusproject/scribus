@@ -1257,7 +1257,8 @@ void ScribusView::contentsMouseDoubleClickEvent(QMouseEvent *m)
 					//emit HaveSel(currItem->itemType());
 					//EmitValues(currItem);
 					//CB FIXME dont call this if the added item is item 0
-					currItem->emitAllToGUI();
+					if (!Doc->selection->primarySelectionIs(currItem))
+						currItem->emitAllToGUI();
 					currItem->paintObj();
 				}
 			}
@@ -5150,7 +5151,7 @@ void ScribusView::PaintSizeRect(QPainter *p, QRect neu)
 
 void ScribusView::ToView(QPainter *p)
 {
-	QPoint out = contentsToViewport(QPoint(0, 0));
+	QPoint out(contentsToViewport(QPoint(0, 0)));
 	p->translate(qRound(-Doc->minCanvasCoordinate.x()*Scale), qRound(-Doc->minCanvasCoordinate.y()*Scale));
 	p->translate(out.x(), out.y());
 }
@@ -6054,21 +6055,17 @@ bool ScribusView::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, 
 	currItem->setWidthHeight(newX, newY);
 	if ((Doc->RotMode != 0) && (fromMP) && (!Doc->isLoading()))
 	{
-		switch (Doc->RotMode)
+		double moveX=dX, moveY=dY;
+		if (Doc->RotMode==2)
 		{
-		case 2:
-			MoveItem(dX / 2.0, dY / 2.0, currItem);
-			break;
-		case 4:
-			MoveItem(dX, dY, currItem);
-			break;
-		case 3:
-			MoveItem(0.0, dY, currItem);
-			break;
-		case 1:
-			MoveItem(dX, 0.0, currItem);
-			break;
+			moveX/=2.0;
+			moveY/=2.0;
 		}
+		else if (Doc->RotMode==3)
+			moveX=0.0;
+		else if (Doc->RotMode==1)
+			moveY=0.0;
+		MoveItem(moveX, moveY, currItem);
 	}
 	currItem->setCornerRadius(QMIN(currItem->cornerRadius(), QMIN(currItem->width(),currItem->height())/2));
 	if ((currItem->asImageFrame()) && (!currItem->Sizing) && (!Doc->EditClip))
@@ -9097,6 +9094,7 @@ void ScribusView::SetFrameOval()
 	}
 }
 
+/* CB moved to the doc
 void ScribusView::insertColor(QString nam, double c, double m, double y, double k)
 {
 	if (!Doc->PageColors.contains(nam))
@@ -9106,6 +9104,7 @@ void ScribusView::insertColor(QString nam, double c, double m, double y, double 
 		Doc->PageColors.insert(nam, tmp);
 	}
 }
+*/
 
 void ScribusView::ChLineWidth(double w)
 {
@@ -9344,7 +9343,8 @@ void ScribusView::ItemPen(QString farbe)
 			//if (i->lineColor() != "None")
 			//	i->strokeQColor = Doc->PageColors[farbe].getShadeColorProof(i->lineShade());
 			RefreshItem(i);
-			emit ItemFarben(i->lineColor(), i->fillColor(), i->lineShade(), i->fillShade());
+			//CB Moved to set*Color
+			//emit ItemFarben(i->lineColor(), i->fillColor(), i->lineShade(), i->fillShade());
 		}
 		if (selectedItemCount > 1)
 			undoManager->commit();
@@ -9383,7 +9383,8 @@ void ScribusView::ItemTextBrush(QString farbe)
 				}
 			}
 			RefreshItem(currItem);
-			emit ItemFarben(currItem->lineColor(), currItem->fillColor(), currItem->lineShade(), currItem->fillShade());
+			//CB Why send this when 
+			//emit ItemFarben(currItem->lineColor(), currItem->fillColor(), currItem->lineShade(), currItem->fillShade());
 		}
 		if (selectedItemCount > 1)
 			undoManager->commit();
@@ -9421,7 +9422,8 @@ void ScribusView::ItemTextBrushS(int sha)
 				}
 			}
 			RefreshItem(currItem);
-			emit ItemFarben(currItem->lineColor(), currItem->fillColor(), currItem->lineShade(), currItem->fillShade());
+			//CB Moved to the item
+			//emit ItemFarben(currItem->lineColor(), currItem->fillColor(), currItem->lineShade(), currItem->fillShade());
 		}
 		if (selectedItemCount > 1)
 			undoManager->commit();
@@ -9777,7 +9779,8 @@ void ScribusView::ItemBrush(QString farbe)
 			//if (currItem->fillColor() != "None")
 			//	currItem->fillQColor = Doc->PageColors[farbe].getShadeColorProof(currItem->fillShade());
 			RefreshItem(currItem);
-			emit ItemFarben(currItem->lineColor(), currItem->fillColor(), currItem->lineShade(), currItem->fillShade());
+			//CB Moved to the item
+			//emit ItemFarben(currItem->lineColor(), currItem->fillColor(), currItem->lineShade(), currItem->fillShade());
 		}
 		//if (SelItem.count() > 1)
 		if (selectedItemCount > 1)
@@ -9804,7 +9807,8 @@ void ScribusView::ItemBrushShade(int sha)
 			//CB Moved to currItem->setFillShade();
 			//if (currItem->fillColor() != "None")
 			//	currItem->fillQColor = Doc->PageColors[currItem->fillColor()].getShadeColorProof(sha);
-			emit ItemFarben(currItem->lineColor(), currItem->fillColor(), currItem->lineShade(), currItem->fillShade());
+			//CB Moved to the item
+			//emit ItemFarben(currItem->lineColor(), currItem->fillColor(), currItem->lineShade(), currItem->fillShade());
 			RefreshItem(currItem);
 		}
 		if (selectedItemCount > 1)
@@ -9830,7 +9834,8 @@ void ScribusView::ItemPenShade(int sha)
 			//CB Moved to currItem->setLineShade()
 			//if (currItem->lineColor() != "None")
 			//	currItem->strokeQColor = Doc->PageColors[currItem->lineColor()].getShadeColorProof(sha);
-			emit ItemFarben(currItem->lineColor(), currItem->fillColor(), currItem->lineShade(), currItem->fillShade());
+			//CB Moved to the item
+			//emit ItemFarben(currItem->lineColor(), currItem->fillColor(), currItem->lineShade(), currItem->fillShade());
 			RefreshItem(currItem);
 		}
 		if (selectedItemCount > 1)

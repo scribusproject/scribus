@@ -182,7 +182,7 @@ bool Selection::prependItem(PageItem *item, int listNumber)
 	return false;
 }
 
-const bool Selection::primarySelectionIsMyself(const PageItem* item, int listNumber)
+const bool Selection::primarySelectionIs(const PageItem* item, int listNumber)
 {
 	if (sellists.contains(listNumber))
 		if (!sellists[listNumber].isEmpty() && (item==sellists[listNumber].first()))

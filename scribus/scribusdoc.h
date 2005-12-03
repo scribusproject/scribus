@@ -493,6 +493,15 @@ public:
 	 * 
 	 */
 	void buildAlignItemList();
+	/**
+	 * Insert a color into the documents color list
+	 * @param nam Name of the colour
+	 * @param c Cyan component
+	 * @param m Magenta component
+	 * @param y Yellow component
+	 * @param k Black component
+	 */
+	void insertColor(QString nam, double c, double m, double y, double k);
 
 protected:
 	void addSymbols();

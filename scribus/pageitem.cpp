@@ -62,8 +62,6 @@ PageItem::PageItem(const PageItem & other)
 	gYpos(other.gYpos),
 	gWidth(other.gWidth),
 	gHeight(other.gHeight),
-	RadRect(other.RadRect),
-	oldRot(other.oldRot),
 	Doc(other.Doc),
 	GrType(other.GrType),
 	GrStartX(other.GrStartX),
@@ -117,18 +115,10 @@ PageItem::PageItem(const PageItem & other)
 	IRender(other.IRender),
 	PicArt(other.PicArt),
 	PicAvail(other.PicAvail),
-	LocalScX(other.LocalScX),
-	LocalScY(other.LocalScY),
-	LocalX(other.LocalX),
-	LocalY(other.LocalY),
 	OrigW(other.OrigW),
 	OrigH(other.OrigH),
 	BBoxX(other.BBoxX),
 	BBoxH(other.BBoxH),
-	Extra(other.Extra),
-	TExtra(other.TExtra),
-	BExtra(other.BExtra),
-	RExtra(other.RExtra),
 	LineSp(other.LineSp),
 	LineSpMode(other.LineSpMode),
 	CurX(other.CurX),
@@ -254,11 +244,21 @@ PageItem::PageItem(const PageItem & other)
 	Height(other.Height),
 	Rot(other.Rot),
 	Select(other.Select),
-	Reverse(other.Reverse),
+	LocalScX(other.LocalScX),
+	LocalScY(other.LocalScY),
+	LocalX(other.LocalX),
+	LocalY(other.LocalY),
+	Reverse(other.Reverse),	
+	Extra(other.Extra),
+	TExtra(other.TExtra),
+	BExtra(other.BExtra),
+	RExtra(other.RExtra),
+	RadRect(other.RadRect),
 	oldXpos(other.oldXpos),
 	oldYpos(other.oldYpos),
 	oldWidth(other.oldWidth),
-	oldHeight(other.oldHeight)	
+	oldHeight(other.oldHeight),
+	oldRot(other.oldRot)
 {
 }
 
@@ -1564,6 +1564,7 @@ void PageItem::setFillColor(const QString &newColor)
 	}
 	fillColorVal = newColor;
 	setFillQColor();
+	emit colors(lineColorVal, fillColorVal, lineShadeVal, fillShadeVal);
 }
 
 int PageItem::fillShade() const
@@ -1590,6 +1591,7 @@ void PageItem::setFillShade(int newShade)
 	}
 	fillShadeVal = newShade;
 	setFillQColor();
+	emit colors(lineColorVal, fillColorVal, lineShadeVal, fillShadeVal);
 }
 
 double PageItem::fillTransparency() const
@@ -1638,6 +1640,7 @@ void PageItem::setLineColor(const QString &newColor)
 	}
 	lineColorVal = newColor;
 	setLineQColor();
+	emit colors(lineColorVal, fillColorVal, lineShadeVal, fillShadeVal);
 }
 
 int PageItem::lineShade() const
@@ -1664,6 +1667,7 @@ void PageItem::setLineShade(int newShade)
 	}
 	lineShadeVal = newShade;
 	setLineQColor();
+	emit colors(lineColorVal, fillColorVal, lineShadeVal, fillShadeVal);
 }
 
 void PageItem::setLineQColor()
@@ -2070,6 +2074,8 @@ void PageItem::setFontFillColor(const QString& newColor)
 		undoManager->action(this, ss);
 	}
 	TxtFill = newColor;
+	//CB Moved from the view, but we havent updated this, so unsure why we need this.
+	emit colors(lineColorVal, fillColorVal, lineShadeVal, fillShadeVal);
 }
 
 QString PageItem::fontStrokeColor() const
@@ -2113,6 +2119,8 @@ void PageItem::setFontFillShade(int newShade)
 		undoManager->action(this, ss);
 	}
 	ShTxtFill = newShade;
+	//CB Moved from the view, but we havent updated this, so unsure why we need this.
+	emit colors(lineColorVal, fillColorVal, lineShadeVal, fillShadeVal);
 }
 
 int PageItem::fontStrokeShade() const
@@ -3746,7 +3754,7 @@ bool PageItem::connectToGUI()
 {
 	if (!ScQApp->usingGUI())
 		return false;
-	if (!Doc->selection->primarySelectionIsMyself(this))
+	if (!Doc->selection->primarySelectionIs(this))
 		return false;
 		
 	connect(this, SIGNAL(myself(PageItem *)), ScApp->propertiesPalette, SLOT(SetCurItem(PageItem *)));

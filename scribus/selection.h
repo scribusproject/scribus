@@ -133,7 +133,7 @@ class SCRIBUS_API Selection : public QObject
 		 * @param item 
 		 * @return 
 		 */
-		const bool primarySelectionIsMyself(const PageItem* item, int listNumber=GUISelection);
+		const bool primarySelectionIs(const PageItem* item, int listNumber=GUISelection);
 		PageItem *itemAt(int index=0, int listNumber=GUISelection);
 		QStringList getSelectedItemsByName(int listNumber=GUISelection);
 		
