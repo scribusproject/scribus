@@ -117,6 +117,9 @@ bool MSpinBox::eventFilter( QObject* ob, QEvent* ev )
 	}
 	if ( ev->type() == QEvent::Wheel )
 	{
+		//If read only dont spin
+		if (readOnly)
+			return false;
 		QWheelEvent* k = (QWheelEvent*)ev;
 		if (k->state() & ShiftButton)
 		{
