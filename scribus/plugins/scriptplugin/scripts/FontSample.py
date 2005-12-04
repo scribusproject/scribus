@@ -36,7 +36,7 @@ to a value of 0. This will disable the new preview features.
 ******************************************************************************
 
 First release    : 30/12/2003
-This release     : v0.8tk final (released 24th Nov 2005)
+This release     : v0.8.1tk (released 4th Dec 2005)
 Copyright        : (C) 2003 - 2005 Steve Callcott
 Latest releases
 and support      : www.firstwish.co.uk/sjc/scribus/index.php
@@ -46,6 +46,11 @@ Email            : stotte@firstwish.co.uk
 For revision history see the ChangeLog file.
 Bugs and future plans are listed in the TODO file.
 See NEWS for new features since last version.
+
+WHATS NEW v0.8.1tk:
+After reloading users saved preferences the status bar was not showing
+correct calculations.
+Changed text in settings menu.
 
 WHATS NEW v0.8tk Final:
 Cleaned up the checkbox labels and layout.
@@ -176,7 +181,7 @@ gPreviewId = None
 
 #*************************************************************************
 
-WINDOW_TITLE = 'Font Sampler v0.8tk - Steve Callcott'
+WINDOW_TITLE = 'Font Sampler v0.8.1tk - Steve Callcott'
 SUPPORT_PAGE = 'www.firstwish.co.uk/sjc/scribus/index.php'
 
 fontsListFixed = (
@@ -969,8 +974,8 @@ class Application(Frame):
         settingsmenu = Menu(menubar, tearoff=0)
         settingsmenu.add_command(label='Configuration', command=self.__configurationDlgShow)
         settingsmenu.add_separator()
-        settingsmenu.add_command(label='Save current settings as user defaults', command=self.__saveCurrentSettingsAsDefaults)
-        settingsmenu.add_command(label='Restore current settings from defaults', command=self.__restoreCurrentSettingsFromDefault)
+        settingsmenu.add_command(label='Save current settings', command=self.__saveCurrentSettingsAsDefaults)
+        settingsmenu.add_command(label='Load saved settings', command=self.__restoreCurrentSettingsFromDefault)
 
         menubar.add_cascade(label='Settings', menu=settingsmenu)
         helpmenu = Menu(menubar, tearoff=0)
@@ -1462,12 +1467,12 @@ class Application(Frame):
         """Stores current settings as defaults."""
         defaultPrefs.update(userPrefs)
         save_user_conf(CONFIG_PATH)
-        self.initialiseWidgets()
 
     def __restoreCurrentSettingsFromDefault(self):
         """Restores current settings from defaults."""
         userPrefs.update(defaultPrefs)
         self.initialiseWidgets()
+        self.statusbarUpdate()
 
     def initialiseWidgets(self):
         if userPrefs['wantPageNumbers']:
