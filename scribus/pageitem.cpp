@@ -3466,6 +3466,15 @@ void PageItem::getBoundingRect(double *x1, double *y1, double *x2, double *y2)
 	}
 }
 
+
+bool PageItem::pointWithinItem(const int x, const int y)
+{
+	double x1,y1,x2,y2;
+	setRedrawBounding();
+	QRect itemRect(BoundingX, BoundingY, BoundingW, BoundingH);
+	return itemRect.contains(x, y);
+}
+
 bool PageItem::loadImage(const QString& filename, const bool reload, const int gsResolution)
 {
 	if (! asImageFrame())

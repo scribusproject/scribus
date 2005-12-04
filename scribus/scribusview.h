@@ -359,7 +359,7 @@ protected: // Protected methods
 	virtual void contentsWheelEvent ( QWheelEvent *ev );
 	virtual void setHBarGeometry(QScrollBar &bar, int x, int y, int w, int h);
 	virtual void setVBarGeometry(QScrollBar &bar, int x, int y, int w, int h);
-	
+
 	void drawLinkFrameLine(ScPainter* painter, FPoint &start, FPoint &end);
 
 signals:

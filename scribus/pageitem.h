@@ -241,6 +241,12 @@ public:
 	//QRect getRedrawBounding(const double);
 	//void setRedrawBounding();
 	void getBoundingRect(double *x1, double *y1, double *x2, double *y2);
+	/**
+	 * @brief Check if a QPoint is within the items boundaries
+	 * @param p 
+	 * @return 
+	 */
+	bool pointWithinItem(const int x, const int y);
 	void copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer);
 	
 	virtual void handleModeEditKey(QKeyEvent *k, bool &keyRepeat);

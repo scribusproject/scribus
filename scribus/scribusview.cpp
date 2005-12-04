@@ -1010,13 +1010,29 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		if (ext == "JPG")
 			ext = "JPEG";
 		img = ((imfo.contains(ext))||(ext=="PS")||(ext=="EPS")||(ext=="PDF")||(ext=="TIF"));
-
+		bool selectedItemByDrag=false;
+		int pscx=qRound(e->pos().x()/Scale), pscy=qRound(e->pos().y()/Scale);
+		//Loop through all items and see which one(s) were under the drop point on the current layer
+		//Should make a nice function for this.
+		for (int i=0; i<Doc->Items->count(); ++i)
+		{
+			if (Doc->Items->at(i)->LayerNr==Doc->activeLayer())
+			{
+				if (Doc->Items->at(i)->pointWithinItem(pscx, pscy))
+				{
+					Deselect(false);
+					SelectItem(Doc->Items->at(i));
+					selectedItemByDrag=true;
+					break;
+				}
+			}
+		}
 		//CB When we drag an image to a page from outside
 		//SeleItemPos is from 1.2.x. Needs reenabling for dragging *TO* a frame
-		if ((fi.exists()) && (img))// && (!SeleItemPos(e->pos())))
+		if ((fi.exists()) && (img) && !selectedItemByDrag)// && (!SeleItemPos(e->pos())))
 		{
 			//int z = PaintPict(qRound(e->pos().x()/doku->Scale), qRound(e->pos().y()/doku->Scale), 1, 1);
-			int z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, qRound(e->pos().x()/Scale), qRound(e->pos().y()/Scale), 1, 1, 1, Doc->toolSettings.dBrushPict, "None", true);
+			int z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, pscx, pscy, 1, 1, 1, Doc->toolSettings.dBrushPict, "None", true);
 			PageItem *b = Doc->Items->at(z);
 			Doc->LoadPict(ur.path(), b->ItemNr);
 			b->setWidth(static_cast<double>(b->pixm.width()));
@@ -1027,77 +1043,83 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 			emit DocChanged();
 			update();
 			return;
-		} 
-/*		if ((SeleItemPos(e->pos())) && (!text.startsWith("<SCRIBUSELEM")))
+		}
+
+		//if ((SeleItemPos(e->pos())) && (!text.startsWith("<SCRIBUSELEM")))
+		if (Doc->selection->count()>0)
 		{
-			b = SelItem.at(0);
-			if (b->itemType() == PageItem::ImageFrame)
+			if (Doc->selection->itemAt(0)->pointWithinItem(pscx, pscy) && (!text.startsWith("<SCRIBUSELEM")))
 			{
-				if ((fi.exists()) && (img))
+				PageItem *b = Doc->selection->itemAt(0);
+				if (b->itemType() == PageItem::ImageFrame)
 				{
-					LoadPict(ur.path(), b->ItemNr);
-					update();
-				}
-			}
-			if (b->PType == 4)
-			{
-				if ((b->BackBox != 0) && (b->itemText.count() == 0))
-					return;
-				if ((fi.exists()) && (!img) && (fi.size() < 500000))
-				{
-					Serializer *ss = new Serializer(ur.path());
-					if (ss->Read())
+					if ((fi.exists()) && (img))
 					{
-						int st = doku->currentParaStyle;
-						ss->GetText(b, st, doku->docParagraphStyles[st].Font, doku->docParagraphStyles[st].FontSize, true);
-						emit DocChanged();
+						Doc->LoadPict(ur.path(), b->ItemNr);
+						update();
 					}
-					delete ss;
-					ss=NULL;
-					update();
 				}
-				else
+				/* CB leaving this out for now... 
+				if (b->PType == 4)
 				{
-					slotDoCurs(false);
-					slotSetCurs(e->pos().x(), e->pos().y());
-					if (text.startsWith("<SCRIBUSELEM"))
+					if ((b->BackBox != 0) && (b->itemText.count() == 0))
 						return;
-					for (a=0; a<text.length(); ++a)
+					if ((fi.exists()) && (!img) && (fi.size() < 500000))
 					{
-						hg = new ScText;
-						hg->ch = text.at(a);
-						if (hg->ch == QChar(10))
-							hg->ch = QChar(13);
-						if (hg->ch == QChar(4))
-							hg->ch = QChar(9);
-						if (hg->ch == QChar(5))
-							hg->ch = QChar(13);
-						hg->cfont = b->IFont;
-						hg->csize = b->ISize;
-						hg->ccolor = b->TxtFill;
-						hg->cshade = b->ShTxtFill;
-						hg->cstroke = b->TxtStroke;
-						hg->cshade2 = b->ShTxtStroke;
-						hg->cselect = false;
-						hg->cscale = b->TxtScale;
-						hg->cextra = 0;
-						hg->cstyle = 0;
-						hg->cab = 0;
-						hg->xp = 0;
-						hg->yp = 0;
-						hg->PRot = 0;
-						hg->PtransX = 0;
-						hg->PtransY = 0;
-						b->itemText.insert(b->CPos, hg);
-						b->CPos += 1;
+						Serializer *ss = new Serializer(ur.path());
+						if (ss->Read())
+						{
+							int st = doku->currentParaStyle;
+							ss->GetText(b, st, doku->docParagraphStyles[st].Font, doku->docParagraphStyles[st].FontSize, true);
+							emit DocChanged();
+						}
+						delete ss;
+						ss=NULL;
+						update();
 					}
-					emit DocChanged();
-					update();
-				}
+					else
+					{
+						slotDoCurs(false);
+						slotSetCurs(e->pos().x(), e->pos().y());
+						if (text.startsWith("<SCRIBUSELEM"))
+							return;
+						for (a=0; a<text.length(); ++a)
+						{
+							hg = new ScText;
+							hg->ch = text.at(a);
+							if (hg->ch == QChar(10))
+								hg->ch = QChar(13);
+							if (hg->ch == QChar(4))
+								hg->ch = QChar(9);
+							if (hg->ch == QChar(5))
+								hg->ch = QChar(13);
+							hg->cfont = b->IFont;
+							hg->csize = b->ISize;
+							hg->ccolor = b->TxtFill;
+							hg->cshade = b->ShTxtFill;
+							hg->cstroke = b->TxtStroke;
+							hg->cshade2 = b->ShTxtStroke;
+							hg->cselect = false;
+							hg->cscale = b->TxtScale;
+							hg->cextra = 0;
+							hg->cstyle = 0;
+							hg->cab = 0;
+							hg->xp = 0;
+							hg->yp = 0;
+							hg->PRot = 0;
+							hg->PtransX = 0;
+							hg->PtransY = 0;
+							b->itemText.insert(b->CPos, hg);
+							b->CPos += 1;
+						}
+						emit DocChanged();
+						update();
+					}
+				}*/
 			}
 		}
 		else
-		{ */
+		{ 
 			for (uint as = 0; as < Doc->Items->count(); ++as)
 			{
 				Doc->Items->at(as)->setSelected(false);
@@ -1232,7 +1254,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 				//EmitValues(Doc->selection->itemAt(0));
 				//Doc->selection->itemAt(0)->emitAllToGUI();
 			updateContents();
-//		}
+		}
 	}
 }
 
