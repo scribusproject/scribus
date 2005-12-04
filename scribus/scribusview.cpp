@@ -1010,20 +1010,24 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		if (ext == "JPG")
 			ext = "JPEG";
 		img = ((imfo.contains(ext))||(ext=="PS")||(ext=="EPS")||(ext=="PDF")||(ext=="TIF"));
-/*		if ((fi.exists()) && (img) && (!SeleItemPos(e->pos())))
+
+		//CB When we drag an image to a page from outside
+		//SeleItemPos is from 1.2.x. Needs reenabling for dragging *TO* a frame
+		if ((fi.exists()) && (img))// && (!SeleItemPos(e->pos())))
 		{
-			int z = PaintPict(qRound(e->pos().x()/doku->Scale), qRound(e->pos().y()/doku->Scale), 1, 1);
-			b = Items.at(z);
-			LoadPict(ur.path(), b->ItemNr);
-			b->Width = static_cast<double>(b->pixm.width());
-			b->Height = static_cast<double>(b->pixm.height());
-			b->OldB2 = b->Width;
-			b->OldH2 = b->Height;
+			//int z = PaintPict(qRound(e->pos().x()/doku->Scale), qRound(e->pos().y()/doku->Scale), 1, 1);
+			int z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, qRound(e->pos().x()/Scale), qRound(e->pos().y()/Scale), 1, 1, 1, Doc->toolSettings.dBrushPict, "None", true);
+			PageItem *b = Doc->Items->at(z);
+			Doc->LoadPict(ur.path(), b->ItemNr);
+			b->setWidth(static_cast<double>(b->pixm.width()));
+			b->setHeight(static_cast<double>(b->pixm.height()));
+			b->OldB2 = b->width();
+			b->OldH2 = b->height();
 			UpdateClip(b);
 			emit DocChanged();
 			update();
 			return;
-		} */
+		} 
 /*		if ((SeleItemPos(e->pos())) && (!text.startsWith("<SCRIBUSELEM")))
 		{
 			b = SelItem.at(0);
@@ -1223,10 +1227,10 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 				emit ItemPos(x, y);
 				emit ItemGeom(w, h);
 			}
-			else
+			//else
 				//EmitValues(SelItem.at(0));
 				//EmitValues(Doc->selection->itemAt(0));
-				Doc->selection->itemAt(0)->emitAllToGUI();
+				//Doc->selection->itemAt(0)->emitAllToGUI();
 			updateContents();
 //		}
 	}
@@ -2724,6 +2728,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				emit DocChanged();
 			}
 		}
+		//CB Drag selection performed here
 		//if ((SelItem.count() == 0) && (HaveSelRect) && (!MidButt))
 		if ((Doc->selection->count() == 0) && (HaveSelRect) && (!MidButt))
 		{
@@ -2762,8 +2767,11 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					p.end();
 					if ((Doc->masterPageMode()) && (docItem->OnMasterPage != Doc->currentPage->PageNam))
 						continue;
+					//CB Finally Items are selected here
 					if (((Sele.contains(apr.boundingRect())) || (Sele.contains(apr2))) && (docItem->LayerNr == Doc->activeLayer()))
-						SelectItemNr(a, false);
+					//CB set draw to true to (dis)enable some actions via emit to HaveNewSel in scapp.
+					//CB FIXME emit from selection when multiple selected instead
+						SelectItemNr(a, true);
 				}
 			}
 			HaveSelRect = false;
