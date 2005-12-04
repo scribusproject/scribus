@@ -22,7 +22,7 @@ Important notes on the differences between 1.2.x and 1.3.x:
    1.2 in /usr/local and 1.3 in /opt or $home/bin. You can use the --prefix
    argument to configure to set where Scribus should be installed.
 
-Additionally, Scribus uses a different way to find fonts from Scribus 1.1.1 .
+Additionally, Scribus uses a different way to find fonts from Scribus 1.1.1.
 To convert older( =< 1.1.1) documents follow the procedure below:
 
 1) Create a document with the old Version of Scribus containing all your Fonts.
@@ -77,11 +77,11 @@ and end of gradient, you end up with darker center than edges. One expects the
 gradient to be with equal shade from beginning to end, especially if there is
 no other Color-Stops in-between them.
 
-This we believe is a libart issue and not fixable by us. The gradient will export
-and print properly. Our experimental Cairo build does not have these issues. 
-We encourage those willing to test the Cairo backend builds and report issues
-to the mailing list and/IRC. We *know* the Cairo enabled build is slower, but
-are encouraged by the on-going development by the Cairo team.
+This we believe strongly is a libart issue and not fixable by us. The gradient
+ will export and print properly. Our experimental Cairo build does not have 
+these issues.  We encourage those willing to test the Cairo backend builds 
+and report issues to the mailing list and/IRC. We *know* the Cairo enabled 
+build is slower, but are encouraged by the on-going development by the Cairo team.
 
 FONT ISSUES
 ===========
