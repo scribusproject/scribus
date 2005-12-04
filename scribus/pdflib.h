@@ -206,6 +206,7 @@ private:
 	QString spotNam;
 	int spotCount;
 	QTextStream t;
+	QMap<QString, QString> StdFonts;
 };
 
 #endif

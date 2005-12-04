@@ -542,11 +542,21 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, PDFOptions *opts, SCFonts &AllFont
 	QMap<QString,int> ReallyUsed;
 	ReallyUsed.clear();
 	PageItem* pgit;
+	QMap<int, QString> ind2PDFabr;
+	const QString tmpf[] = {"/Courier", "/Courier-Bold", "/Courier-Oblique", "/Courier-BoldOblique", 
+												"/Helvetica", "/Helvetica-Bold", "/Helvetica-Oblique", "/Helvetica-BoldOblique",
+												"/Times-Roman", "/Times-Bold", "/Times-Italic", "/Times-BoldItalic", 
+												"/ZapfDingbats", "/Symbol"};
+	size_t ar = sizeof(tmpf) / sizeof(*tmpf);
+	for (uint ax = 0; ax < ar; ++ax)
+		ind2PDFabr[ax] = tmpf[ax];
 	for (uint c = 0; c < doc->FrameItems.count(); ++c)
 	{
 		pgit = doc->FrameItems.at(c);
 		if ((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText))
 		{
+			if (pgit->isAnnotation)
+				StdFonts.insert(ind2PDFabr[pgit->AnFont], "");
 			for (uint e = 0; e < pgit->itemText.count(); ++e)
 			{
 				ReallyUsed.insert(pgit->itemText.at(e)->cfont->scName(), DocFonts[pgit->itemText.at(e)->cfont->scName()]);
@@ -558,6 +568,8 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, PDFOptions *opts, SCFonts &AllFont
 		pgit = doc->MasterItems.at(c);
 		if ((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText))
 		{
+			if (pgit->isAnnotation)
+				StdFonts.insert(ind2PDFabr[pgit->AnFont], "");
 			for (uint e = 0; e < pgit->itemText.count(); ++e)
 			{
 				ReallyUsed.insert(pgit->itemText.at(e)->cfont->scName(), DocFonts[pgit->itemText.at(e)->cfont->scName()]);
@@ -569,11 +581,26 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, PDFOptions *opts, SCFonts &AllFont
 		pgit = doc->Items->at(d);
 		if ((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText))
 		{
+			if (pgit->isAnnotation)
+				StdFonts.insert(ind2PDFabr[pgit->AnFont], "");
 			for (uint e = 0; e < pgit->itemText.count(); ++e)
 			{
 				ReallyUsed.insert(pgit->itemText.at(e)->cfont->scName(), DocFonts[pgit->itemText.at(e)->cfont->scName()]);
 			}
 		}
+	}
+	a = 0;
+	QMap<QString, QString>::Iterator itStd;
+	for (itStd = StdFonts.begin(); itStd != StdFonts.end(); ++itStd)
+	{
+		StartObj(ObjCounter);
+		PutDoc("<<\n/Type /Font\n/Subtype /Type1\n");
+		PutDoc("/BaseFont "+itStd.key()+"\n");
+		PutDoc(">>\nendobj\n");
+		Seite.FObjects["FoStd"+IToStr(a)] = ObjCounter;
+		itStd.data() = "FoStd"+IToStr(a);
+		ObjCounter++;
+		a++;
 	}
 	QMap<QString,int>::Iterator it;
 	a = 0;
@@ -3922,6 +3949,14 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 	}
 	PutDoc("/Rect [ "+FToStr(x)+" "+FToStr(y2)+" "+FToStr(x2)+" "+FToStr(y)+" ]\n");
 	PutDoc(">>\nendobj\n");
+	QMap<int, QString> ind2PDFabr2;
+	const QString tmpf[] = {"/Courier", "/Courier-Bold", "/Courier-Oblique", "/Courier-BoldOblique", 
+												"/Helvetica", "/Helvetica-Bold", "/Helvetica-Oblique", "/Helvetica-BoldOblique",
+												"/Times-Roman", "/Times-Bold", "/Times-Italic", "/Times-BoldItalic", 
+												"/ZapfDingbats", "/Symbol"};
+	size_t ar2 = sizeof(tmpf) / sizeof(*tmpf);
+	for (uint ax = 0; ax < ar2; ++ax)
+		ind2PDFabr2[ax] = tmpf[ax];
 	if ((ite->AnType == 2) && (ite->AnUseIcons))
 	{
 		if (!ite->Pfile.isEmpty())
@@ -3955,7 +3990,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		cc += "/Tx BMC\nBT\n";
 		if (ite->TxtFill != "None")
 			cc += putColor(ite->TxtFill, ite->ShTxtFill, true);
-		cc += ind2PDFabr[ite->AnFont];
+		cc += "/"+StdFonts[ind2PDFabr2[ite->AnFont]];
 		cc += " "+FToStr(ite->ISize / 10.0)+" Tf\n";
 		if (bmst.count() > 1)
 		{
@@ -3969,7 +4004,8 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		}
 		else
 			cc += "1 0 0 1 0 0 Tm\n0 0 Td\n"+EncString("("+bm+")",ObjCounter-1)+" Tj\nET\nEMC";
-		PDF_Form(cc);
+//		PDF_Form(cc);
+		PDF_xForm(ite->width(), ite->height(), cc);
 	}
 	if (ite->AnType == 4)
 	{
@@ -3978,7 +4014,8 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 			cc += putColor(ite->TxtFill, ite->ShTxtFill, true);
 		cc += "/ZaDb "+FToStr(ite->ISize / 10.0)+" Tf\n";
 		cc += "0 0 Td\n("+ct+") Tj\nET\nQ";
-		PDF_Form(cc);
+//		PDF_Form(cc);
+		PDF_xForm(ite->width(), ite->height(), cc);
 	}
 	if ((ite->AnType == 5) || (ite->AnType == 6))
 	{
@@ -3993,7 +4030,8 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		cc += "0 0 "+FToStr(x2-x)+" "+FToStr(y-y2)+" re\nS\n";
 		cc += "/Tx BMC\nq\nBT\n";
 		cc += "0 g\n";
-		cc += ind2PDFabr[ite->AnFont];
+		cc += "/"+StdFonts[ind2PDFabr2[ite->AnFont]];
+//		cc += ind2PDFabr[ite->AnFont];
 		cc += " "+FToStr(ite->ISize / 10.0)+" Tf\n";
 		cc += "1 0 0 1 0 0 Tm\n0 0 Td\n";
 		if (bmst.count() > 0)
