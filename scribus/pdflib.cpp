@@ -1228,7 +1228,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 								PutDoc("/BM /Normal\n>>\nendobj\n");
 								PutPage("/"+ShName+" gs\n");
 							}
-							PutPage(putColor(ite->lineColor(), ite->lineShade(), false));
+							PutPage(putColor(ite->lineColor(), ite->lineShade(), true));
 							PutPage(SetClipPathArray(&arrow));
 							PutPage("h\nf*\n");
 						}
@@ -1253,7 +1253,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 								PutDoc("/BM /Normal\n>>\nendobj\n");
 								PutPage("/"+ShName+" gs\n");
 							}
-							PutPage(putColor(ite->lineColor(), ite->lineShade(), false));
+							PutPage(putColor(ite->lineColor(), ite->lineShade(), true));
 							PutPage(SetClipPathArray(&arrow));
 							PutPage("h\nf*\n");
 						}
@@ -1351,7 +1351,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 										PutDoc("/BM /Normal\n>>\nendobj\n");
 										PutPage("/"+ShName+" gs\n");
 									}
-									PutPage(putColor(ite->lineColor(), ite->lineShade(), false));
+									PutPage(putColor(ite->lineColor(), ite->lineShade(), true));
 									PutPage(SetClipPathArray(&arrow));
 									PutPage("h\nf*\n");
 									break;
@@ -1387,7 +1387,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 										PutDoc("/BM /Normal\n>>\nendobj\n");
 										PutPage("/"+ShName+" gs\n");
 									}
-									PutPage(putColor(ite->lineColor(), ite->lineShade(), false));
+									PutPage(putColor(ite->lineColor(), ite->lineShade(), true));
 									PutPage(SetClipPathArray(&arrow));
 									PutPage("h\nf*\n");
 									break;
@@ -2298,7 +2298,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, Page* pag, uint PNr, bool embedde
 					PutDoc("/BM /Normal\n>>\nendobj\n");
 					tmp += "/"+ShName+" gs\n";
 				}
-				tmp += putColor(ite->lineColor(), ite->lineShade(), false);
+				tmp += putColor(ite->lineColor(), ite->lineShade(), true);
 				tmp += SetClipPathArray(&arrow);
 				tmp += "h\nf*\n";
 			}
@@ -2323,7 +2323,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, Page* pag, uint PNr, bool embedde
 					PutDoc("/BM /Normal\n>>\nendobj\n");
 					tmp += "/"+ShName+" gs\n";
 				}
-				tmp += putColor(ite->lineColor(), ite->lineShade(), false);
+				tmp += putColor(ite->lineColor(), ite->lineShade(), true);
 				tmp += SetClipPathArray(&arrow);
 				tmp += "h\nf*\n";
 			}
@@ -2421,7 +2421,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, Page* pag, uint PNr, bool embedde
 							PutDoc("/BM /Normal\n>>\nendobj\n");
 							tmp += "/"+ShName+" gs\n";
 						}
-						tmp += putColor(ite->lineColor(), ite->lineShade(), false);
+						tmp += putColor(ite->lineColor(), ite->lineShade(), true);
 						tmp += SetClipPathArray(&arrow);
 						tmp += "h\nf*\n";
 						break;
@@ -2457,7 +2457,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, Page* pag, uint PNr, bool embedde
 							PutDoc("/BM /Normal\n>>\nendobj\n");
 							tmp += "/"+ShName+" gs\n";
 						}
-						tmp += putColor(ite->lineColor(), ite->lineShade(), false);
+						tmp += putColor(ite->lineColor(), ite->lineShade(), true);
 						tmp += SetClipPathArray(&arrow);
 						tmp += "h\nf*\n";
 						break;
