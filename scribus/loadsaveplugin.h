@@ -9,7 +9,7 @@
 #include <qvaluelist.h>
 #include <qstringlist.h>
 
-struct FileFormat;
+class FileFormat;
 
 /*
  * @brief Superclass for all file import/export/load/save plugins
@@ -110,50 +110,51 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 //
 // This class also provides methods to ask the implementation to load / save a
 // file in this format.
-struct SCRIBUS_API FileFormat
+class SCRIBUS_API FileFormat
 {
-	// Default ctor to make QValueList happy
-	FileFormat() : load(false), save(false), plug(0) {}
-	// Standard ctor that sets up a valid FileFormat
-	FileFormat(LoadSavePlugin * plug) : load(false), save(false), plug(plug) {}
-	// Load a file with this format
-	bool loadFile(const QString & fileName) const;
-	// Save a file with this format
-	bool saveFile(const QString & fileName) const;
-	//
-	// Data members
-	//
-	// An integer ID code used to idenfify formats. Should be unique
-	// across all FileFormat structures except where they implement
-	// support for the same file format, eg sla 1.2.x, sla 1.3.x and
-	// "new format" SLA should all have equal IDs (with different
-	// priorities to control what order they're tried in when a user
-	// tries to open a file).
-	// Note that dialog box options are sorted in descending `id' order.
-	unsigned int formatId;
-	// The human-readable, translated name of this file format.
-	QString trName;
-	// A filter in the format used by QFileDialog that should be used to
-	// select for this format.
-	QString filter;
-	// Regexp to match filenames for this format
-	QRegExp nameMatch;
-	// MIME type(s) that should be matched by this format.
-	QStringList mimeTypes;
-	// Can we load it?
-	bool load;
-	// Can we save it?
-	bool save;
-	// Priority of this format from 0 (lowest, tried last) to
-	// 255 (highest, tried first). 64-128 recommended in general.
-	// Priority controls the order options are displayed in when a file
-	// of a given type is selected in a dialog, and controls the order
-	// loaders are tried in when multiple plugins support the same file
-	// type.
-	unsigned short int priority;
-	// For convenience, a pointer back to the plugin to use to open
-	// this format.
-	LoadSavePlugin * const plug;
+	public:
+		// Default ctor to make QValueList happy
+		FileFormat() : load(false), save(false), plug(0) {}
+		// Standard ctor that sets up a valid FileFormat
+		FileFormat(LoadSavePlugin * plug) : load(false), save(false), plug(plug) {}
+		// Load a file with this format
+		bool loadFile(const QString & fileName) const;
+		// Save a file with this format
+		bool saveFile(const QString & fileName) const;
+		//
+		// Data members
+		//
+		// An integer ID code used to idenfify formats. Should be unique
+		// across all FileFormat structures except where they implement
+		// support for the same file format, eg sla 1.2.x, sla 1.3.x and
+		// "new format" SLA should all have equal IDs (with different
+		// priorities to control what order they're tried in when a user
+		// tries to open a file).
+		// Note that dialog box options are sorted in descending `id' order.
+		unsigned int formatId;
+		// The human-readable, translated name of this file format.
+		QString trName;
+		// A filter in the format used by QFileDialog that should be used to
+		// select for this format.
+		QString filter;
+		// Regexp to match filenames for this format
+		QRegExp nameMatch;
+		// MIME type(s) that should be matched by this format.
+		QStringList mimeTypes;
+		// Can we load it?
+		bool load;
+		// Can we save it?
+		bool save;
+		// Priority of this format from 0 (lowest, tried last) to
+		// 255 (highest, tried first). 64-128 recommended in general.
+		// Priority controls the order options are displayed in when a file
+		// of a given type is selected in a dialog, and controls the order
+		// loaders are tried in when multiple plugins support the same file
+		// type.
+		unsigned short int priority;
+		// For convenience, a pointer back to the plugin to use to open
+		// this format.
+		LoadSavePlugin * const plug;
 };
 
 
