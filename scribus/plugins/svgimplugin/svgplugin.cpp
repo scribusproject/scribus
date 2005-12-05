@@ -246,6 +246,7 @@ void SVGPlug::convert()
 	if (!interactive)
 	{
 		ScApp->doc->setPage(width, height, 0, 0, 0, 0, 0, 0, false, false);
+		ScApp->doc->addPage(0);
 		ScApp->view->addPage(0);
 	}
 	else
@@ -440,7 +441,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			SvgStyle *gc = m_gc.current();
 			parseStyle( gc, b );
 			//z = ScApp->view->PaintRect(BaseX, BaseY, width, height, gc->LWidth, gc->FillCol, gc->StrokeCol);
-			z = currDoc->itemAdd(PageItem::Polygon, PageItem::Rectangle, BaseX, BaseY, width, height, gc->LWidth, gc->FillCol, gc->StrokeCol, !ScApp->view->Mpressed);
+			z = currDoc->itemAdd(PageItem::Polygon, PageItem::Rectangle, BaseX, BaseY, width, height, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
 			PageItem* ite = currDoc->Items->at(z);
 			if ((rx != 0) || (ry != 0))
 			{
@@ -464,7 +465,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			SvgStyle *gc = m_gc.current();
 			parseStyle( gc, b );
 			//z = ScApp->view->PaintEllipse(BaseX, BaseY, rx * 2.0, ry * 2.0, gc->LWidth, gc->FillCol, gc->StrokeCol);
-			z = currDoc->itemAdd(PageItem::Polygon, PageItem::Ellipse, BaseX, BaseY, rx * 2.0, ry * 2.0, gc->LWidth, gc->FillCol, gc->StrokeCol, !ScApp->view->Mpressed);
+			z = currDoc->itemAdd(PageItem::Polygon, PageItem::Ellipse, BaseX, BaseY, rx * 2.0, ry * 2.0, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
 			PageItem* ite = currDoc->Items->at(z);
 			QWMatrix mm = QWMatrix();
 			mm.translate(x, y);
@@ -481,7 +482,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			SvgStyle *gc = m_gc.current();
 			parseStyle( gc, b );
 			//z = ScApp->view->PaintEllipse(BaseX, BaseY, r * 2.0, r * 2.0, gc->LWidth, gc->FillCol, gc->StrokeCol);
-			z = currDoc->itemAdd(PageItem::Polygon, PageItem::Ellipse, BaseX, BaseY, r * 2.0, r * 2.0, gc->LWidth, gc->FillCol, gc->StrokeCol, !ScApp->view->Mpressed);
+			z = currDoc->itemAdd(PageItem::Polygon, PageItem::Ellipse, BaseX, BaseY, r * 2.0, r * 2.0, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
 			PageItem* ite = currDoc->Items->at(z);
 			QWMatrix mm = QWMatrix();
 			mm.translate(x, y);
@@ -499,7 +500,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			SvgStyle *gc = m_gc.current();
 			parseStyle( gc, b );
 			//z = ScApp->view->PaintPoly(BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol);
-			z = currDoc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, !ScApp->view->Mpressed);
+			z = currDoc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
 			PageItem* ite = currDoc->Items->at(z);
 			ite->PoLine.resize(4);
 			ite->PoLine.setPoint(0, FPoint(x1, y1));
@@ -520,7 +521,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			SvgStyle *gc = m_gc.current();
 			parseStyle( gc, b );
 			//z = ScApp->view->PaintPoly(BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol);
-			z = currDoc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, !ScApp->view->Mpressed);
+			z = currDoc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
 			PageItem* ite = currDoc->Items->at(z);
 			ite->PoLine.resize(0);
 			if (parseSVG( b.attribute( "d" ), &ite->PoLine ))
@@ -540,10 +541,10 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			parseStyle( gc, b );
 			if( b.tagName() == "polygon" )
 				//z = ScApp->view->PaintPoly(BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol);
-				z = currDoc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, !ScApp->view->Mpressed);
+				z = currDoc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
 			else
 				//z = ScApp->view->PaintPolyLine(BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol);
-				z = currDoc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, !ScApp->view->Mpressed);
+				z = currDoc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
 			PageItem* ite = currDoc->Items->at(z);
 			ite->PoLine.resize(0);
 			bool bFirst = true;
@@ -600,7 +601,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			double w = b.attribute( "width" ).isEmpty() ? 1.0 : parseUnit( b.attribute( "width" ) );
 			double h = b.attribute( "height" ).isEmpty() ? 1.0 : parseUnit( b.attribute( "height" ) );
 			//z = ScApp->view->PaintPict(x+BaseX, y+BaseY, w, h);
-			z = currDoc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, x+BaseX, y+BaseY, w, h, 1, currDoc->toolSettings.dBrushPict, "None", !ScApp->view->Mpressed);
+			z = currDoc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, x+BaseX, y+BaseY, w, h, 1, currDoc->toolSettings.dBrushPict, "None", true);
 			if (!fname.isEmpty())
 				currDoc->LoadPict(fname, z);
 			PageItem* ite = currDoc->Items->at(z);
@@ -1972,7 +1973,7 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 			SvgStyle *gc = m_gc.current();
 			parseStyle(gc, tspan);
 			//int z = ScApp->view->PaintText(x, y, 10, 10, gc->LWidth, gc->FillCol);
-			int z = currDoc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y, 10, 10, gc->LWidth, "None", gc->FillCol, !ScApp->view->Mpressed);
+			int z = currDoc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y, 10, 10, gc->LWidth, "None", gc->FillCol, true);
 			PageItem* ite = currDoc->Items->at(z);
 			ite->setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
 			ite->LineSp = gc->FontSize / 10.0 + 2;
@@ -2093,7 +2094,7 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 	{
 		SvgStyle *gc = m_gc.current();
 		//int z = ScApp->view->PaintText(x, y - qRound(gc->FontSize / 10.0), 10, 10, gc->LWidth, gc->FillCol);
-		int z = currDoc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y - qRound(gc->FontSize / 10.0), 10, 10, gc->LWidth, "None", gc->FillCol, !ScApp->view->Mpressed);
+		int z = currDoc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y - qRound(gc->FontSize / 10.0), 10, 10, gc->LWidth, "None", gc->FillCol, true);
 		PageItem* ite = currDoc->Items->at(z);
 		ite->setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
 		ite->LineSp = gc->FontSize / 10.0 + 2;

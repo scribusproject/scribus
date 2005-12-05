@@ -315,7 +315,10 @@ void OODPlug::convert()
 	{
 		QDomElement dpg = drawPag.toElement();
 		if (!interactive)
+		{
+			ScApp->doc->addPage(PageCounter);
 			ScApp->view->addPage(PageCounter);
+		}
 		PageCounter++;
 		m_styleStack.clear();
 		fillStyleStack( dpg );

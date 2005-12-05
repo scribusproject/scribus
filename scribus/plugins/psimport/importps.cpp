@@ -120,7 +120,8 @@ EPSPlug::EPSPlug(QString fName, bool isInteractive)
 	if (!interactive)
 	{
 		ScApp->doc->setPage(b-x, h-y, 0, 0, 0, 0, 0, 0, false, false);
-		ScApp->view->addPage(0);
+		ScApp->doc->addPage(0);
+		ScApp->view->addPage(0, true);
 	}
 	else
 	{
@@ -317,7 +318,8 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 			params = Code.read();
 			if ((lasttoken == "sp") && (!interactive) && (!eps))
 			{
-				ScApp->view->addPage(pagecount);
+				ScApp->doc->addPage(pagecount);
+				ScApp->view->addPage(pagecount, true);
 				pagecount++;
 			}
 			if (token == "n")
@@ -353,10 +355,10 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 					{
 						if (ClosedPath)
 							//z = ScApp->view->PaintPoly(0, 0, 10, 10, LineW, CurrColor, "None");
-							z = ScApp->doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, 0, 0, 10, 10, LineW, CurrColor, "None", !ScApp->view->Mpressed);
+							z = ScApp->doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, 0, 0, 10, 10, LineW, CurrColor, "None", true);
 						else
 							//z = ScApp->view->PaintPolyLine(0, 0, 10, 10, LineW, CurrColor, "None");
-							z = ScApp->doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, 0, 0, 10, 10, LineW, CurrColor, "None", !ScApp->view->Mpressed);
+							z = ScApp->doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, 0, 0, 10, 10, LineW, CurrColor, "None", true);
 						ite = ScApp->doc->Items->at(z);
 						ite->PoLine = Coords.copy();
 						ite->PoLine.translate(ScApp->doc->currentPage->xOffset(), ScApp->doc->currentPage->yOffset());
@@ -394,10 +396,10 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						ScribusDoc* Doku = ScApp->doc;
 						if (ClosedPath)
 							//z = ScApp->view->PaintPoly(0, 0, 10, 10, LineW, "None", CurrColor);
-							z = Doku->itemAdd(PageItem::Polygon, PageItem::Unspecified, 0, 0, 10, 10, LineW, "None", CurrColor, !ScApp->view->Mpressed);
+							z = Doku->itemAdd(PageItem::Polygon, PageItem::Unspecified, 0, 0, 10, 10, LineW, "None", CurrColor, true);
 						else
 							//z = ScApp->view->PaintPolyLine(0, 0, 10, 10, LineW, "None", CurrColor);
-							z = Doku->itemAdd(PageItem::PolyLine, PageItem::Unspecified, 0, 0, 10, 10, LineW, "None", CurrColor, !ScApp->view->Mpressed);
+							z = Doku->itemAdd(PageItem::PolyLine, PageItem::Unspecified, 0, 0, 10, 10, LineW, "None", CurrColor, true);
 						ite = Doku->Items->at(z);
 						ite->PoLine = Coords.copy();
 						ite->PoLine.translate(Doku->currentPage->xOffset(), Doku->currentPage->yOffset());
