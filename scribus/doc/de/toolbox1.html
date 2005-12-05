@@ -12,30 +12,30 @@
 
 <p>Right away, getting the preferences right in Reader is important to ensure the default preferences to set improve the reliability for our purposes with Scribus. There are a many preferences in Reader 7. The page display part is the most important. </p>
 
-<table width="100%"><tr><td align="center"><img src="images/acro1.png" alt="Acrobat Reader General Preferences" /></td></tr></table>
+<table width="100%"><tr><td align="center"><img src="../en/images/acro1.png" alt="Acrobat Reader General Preferences" /></td></tr></table>
 <p>This dialog is <strong>very</strong> important to set up properly for optimized viewing Scribus created PDFs.</p>
 
 <p><strong>Display Edge to Edge</strong> will give you a larger viewing area to view your PDF.</p>
 
  <p>Ensure <strong>Smooth Text, Smooth Line Art and Smooth Images</strong> are enabled as they apply a bit of anti-aliasing when viewing. If you send someone a Scribus created PDF and they complain the text or gradients) look like barbed wire or are "banded", advise the user to enable these settings which are commonly available on all later versions of Acrobat Reader - regardless of platform. There are other cross- platform fonts hints in the PDF Export Options section. <strong>Cool Type</strong> is a feature specific for making PDF readable on LCD laptop screens. It is a way of adjusting the anti-aliasing and sub-pixel rendering. Otherwise, leave it unchecked.</p>
 <p>If you are creating Scribus files with transparency effects and export PDF 1.4 (PDF 1.3 does not support transparency), you can enable <strong>Show Transparency Grid</strong>. </p>
-<table width="100%"><tr><td align="center"><img src="images/acro2.png" alt="" title="" /></td></tr></table>
+<table width="100%"><tr><td align="center"><img src="../en/images/acro2.png" alt="" title="" /></td></tr></table>
 
 <p>The other options are mostly for the web browser plug-in. I find splash screens a bother, so I leave that unchecked.</p>
-<table width="100%"><tr><td align="center"><img src="images/acro3.png" alt="Acrobat Reader Screen shot" title="Acrobat Reader Screenshot" /></td></tr></table>
+<table width="100%"><tr><td align="center"><img src="../en/images/acro3.png" alt="Acrobat Reader Screen shot" title="Acrobat Reader Screenshot" /></td></tr></table>
 <p>Next, looking at the Reader window above, there are 3 features which can be useful:</p>
 <ol>
 	<li><strong>Thumbnails (which Scribus can optionally embed in the PDF when exporting) are useful for navigating.</strong> </li>
 	<li><strong>The corner triangle</strong> is a short cut to <strong>View &#062; Document Info, Document Fonts, Document Security</strong>.</li> 
 	<li><strong>Notes, which are non-printing, can be used to give definitions or hints in a document.</strong> What we care about is document information. Within Scribus <strong>File &#062; Document Information</strong> there is a panel to enter author and title of the document. This shows up in a panel below:</li>
 </ol>
-<table width="100%"><tr><td align="center"><img src="images/acroinfo.png" alt="Acrobat Reader General Info Panel" /></td></tr></table>
+<table width="100%"><tr><td align="center"><img src="../en/images/acroinfo.png" alt="Acrobat Reader General Info Panel" /></td></tr></table>
 <p>This shows the document size, date of creation and creating application. This information is automatically embedded. Scribus can optionally add author and document title. In addition, this shows Dublin Core RDF (Resource Definition Format) and document security strength.</p>
 <p><strong>Document Security.</strong> Scribus has the ability to encrypt a document with specific user rights. If you enable Security in the PDF export dialog, when you export PDF 1.3, encryption is 40 bit strength.</p>
 
-<table width="100%"><tr><td align="center"><img src="images/acropass.png" alt="Password Dialog for Opening a Protected PDF" title="Password Dialog for Opening a Protected PDF" /></td></tr></table>
+<table width="100%"><tr><td align="center"><img src="../en/images/acropass.png" alt="Password Dialog for Opening a Protected PDF" title="Password Dialog for Opening a Protected PDF" /></td></tr></table>
 <p>If you export a PDF 1.4 file, encryption is 128 bit strength:</p>
-<table width="100%"><tr><td align="center"><img src="images/acrosec.png" alt="Acrobat Reader Security Panel" /></td></tr></table>
+<table width="100%"><tr><td align="center"><img src="../en/images/acrosec.png" alt="Acrobat Reader Security Panel" /></td></tr></table>
 <p><strong>Annotations</strong> are non-printing notes which Scribus can optionally embed within a PDF. This is really simple. Create a text frame. Then add your notes and right click, select PDF Options and check "Is PDF Annotation".</p>
 <p>For other "hidden" features, read through the online help, which is actually a PDF. Beginning with page 10, there are a number of less well known features, including the console command line options. The command line options are specific to Linux/Unix and include some neat options to export PDF into PostScript. There also hints on settings specific to Acrobat Reader in <code>~/Xdefaults</code>.</p>
 <p><strong>Advanced Settings</strong> - Fortunately, Adobe enabled a graphical UI choice for enabling/disabling local fonts. <strong>Document &gt; Use Local Fonts </strong>. What this choice does is enable Acrobat to use locally installed fonts which are named in the PDF, if it can find them in your font path.</p>

@@ -17,7 +17,7 @@
 
 <p> When importing text from OO.org there are three important options which need to be carefully considered:</p>
 
-<table width="100%"><tr><td align="center"><img src="images/oogettext1.png" alt="Import Options for OO.org Writer and OASIS (Open Document) files." align="middle" title="Import Options for OO.org Writer and OASIS (Open Document) files." /></td></tr></table>
+<table width="100%"><tr><td align="center"><img src="../en/images/oogettext1.png" alt="Import Options for OO.org Writer and OASIS (Open Document) files." align="middle" title="Import Options for OO.org Writer and OASIS (Open Document) files." /></td></tr></table>
 
 <ul>
    <li><strong>Update Paragraph Styles</strong> This option will tell Scribus to change the formatting of any created styles in your Scribus document to follow those in OO.org document. </li>
@@ -30,7 +30,7 @@
 <h4>Importing Charts and Tables from Calc </h4>
 <p>This is a special case which needs to be done carefully. After you have created your Chart or Table in Calc, then <strong>Copy > Paste Special </strong> and embed the chart <strong>not</strong> as a GDI image, but as a linked object into a Draw Document, like below:</p>
 
-<table width="100%"><tr><td align="center"><img src="images/oochart.png" alt="Embedding a Chart in to OO.org Draw" align="middle" title="Embedding a Chart in to OO.org Draw" /></td></tr></table>
+<table width="100%"><tr><td align="center"><img src="../en/images/oochart.png" alt="Embedding a Chart in to OO.org Draw" align="middle" title="Embedding a Chart in to OO.org Draw" /></td></tr></table>
 
 <p>After placing the linked object, import using one of the two methods below.</p>
 
@@ -41,7 +41,7 @@
 <p>The most reliable way I have found is to save your formula as desired and Close Math. Then open OO.org Draw and create a new file. Then, <strong>Insert Object > Formula</strong>. You will have a tiny embedded square on Draw's canvas. Then, right click the embedded object > <strong>Edit Object</strong>. Then, Draw will launch Math. In Math, select <strong>Tools > Import Formula</strong> and browse to your saved formula. Then save to close the file and the embedded formula is now scalable in Draw with the context menus. Save this Draw file, then export as EPS and import into Scribus. The formulas and text will import as a grouped objects as scalable vector items. Any text is imported as outlines as well. This will result in formulas which will print with <strong>very</strong> high quality and little worries when exported as PDF. Saving the Draw file and attempting to import the Draw file with embedded objects will fail, as Scribus cannot access those object directly.</p>
 <h4>Export Settings from OO.org Draw</h4>
 <p>Below are the recommended settings when exporting from all versions of OO.org Draw.</p>
-<table width="100%"><tr><td align="center"><img src="images/ooeps1.png" alt="Recommended EPS Export Settings" align="middle" title="Recommended EPS Export Settings" /></td></tr></table>
+<table width="100%"><tr><td align="center"><img src="../en/images/ooeps1.png" alt="Recommended EPS Export Settings" align="middle" title="Recommended EPS Export Settings" /></td></tr></table>
 
 <p>Using the settings above and a recent Ghostscript (8.50+), I have encountered only minor difficulties importing files from OpenOffice.org. Even then, ungrouping the import and minor touching up is easily done. The most noticeable issue I have found is some lines on charts or freehand lines are too thin when viewed as imported EPS in Scribus and a quick adjustment of the size of the line with the Properties Palette in Scribus sets things right.</p>
 </qt>
