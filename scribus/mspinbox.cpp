@@ -121,27 +121,37 @@ bool MSpinBox::eventFilter( QObject* ob, QEvent* ev )
 		if (readOnly)
 			return false;
 		QWheelEvent* k = (QWheelEvent*)ev;
-		if (k->state() & ShiftButton)
+		bool shiftB=k->state() & ShiftButton;
+		bool controlB=k->state() & ControlButton;
+		if (shiftB && !controlB)
 		{
 			setLineStep(QMAX(Decimals / 10, 1));
 			retval = true;
 			qApp->sendEvent( this, ev );
 			return retval;
 		} 
-		else if (k->state()  & ControlButton)
+		else if (!shiftB && controlB)
 		{
 			setLineStep(QMAX(Decimals * 10, 1));
 			retval = true;
 		    qApp->sendEvent( this, ev );
 			return retval;
 		}
-		if ((!(k->state() & ShiftButton)) && (!(k->state() & ControlButton)))
+		else if (shiftB && controlB)
+		{
+			setLineStep(QMAX(Decimals / 100, 1));
+			retval = true;
+		    qApp->sendEvent( this, ev );
+			return retval;
+		}
+		else
+		if (!shiftB && !controlB)
 		{
 			setLineStep(Decimals);
 			retval = true;
 			qApp->sendEvent( this, ev );
 			return retval;
-		}	
+		}
 	}
 	return QSpinBox::eventFilter(ob, ev);
 }
