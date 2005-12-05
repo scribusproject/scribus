@@ -209,6 +209,8 @@ bool PDFlib::doExport(const QString& fn, const QString& nam, int Components, std
 			closeAndCleanup();
 		//dia2->reset();
 	}
+	if (usingGUI)
+		progressDialog->close();
 	return ret;
 }
 
