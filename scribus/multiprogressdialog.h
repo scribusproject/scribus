@@ -18,36 +18,45 @@
 *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
 ***************************************************************************/
 
-#ifndef DOCSECTIONS_H
-#define DOCSECTIONS_H
+#ifndef MULTIPROGRESSDIALOG_H
+#define MULTIPROGRESSDIALOG_H
 
-#include <qmap.h>
+#include "multiprogressdialogbase.h"
+
+#include <qprogressbar.h>
+#include <qpushbutton.h>
+#include <qlabel.h>
+#include <qlayout.h>
 #include <qstringlist.h>
-#include "docsectionsbase.h"
-#include "pagestructs.h"
+#include <qstring.h>
+#include <qdialog.h>
+#include <qmap.h>
 
-class DocSections : public DocSectionsBase
+class MultiProgressDialog : public MultiProgressDialogBase
 {
 	Q_OBJECT
 
 	public:
-		DocSections(QWidget* parent);
-		~DocSections();
+		MultiProgressDialog(QWidget* parent=0, const char*name=0, bool modal=false, WFlags f=0);
+		MultiProgressDialog(const QString& titleText, const QString & cancelButtonText, QWidget* parent=0, const char*name=0, bool modal=true, WFlags f=0);
+		~MultiProgressDialog();
 		
-		virtual void setup(const DocumentSectionMap docSections, int maxPageIndex);
-		virtual void updateTable();
-		const DocumentSectionMap& getNewSections();
+		void removeExtraProgressBars();
+		bool addExtraProgressBars(const QStringList &barsList, const QStringList &barsTexts);
+		bool setLabel(const QString &barName, const QString & newLabel);
+		bool setTotalSteps(const QString &barName, int totalSteps);
+		bool setProgress(const QString &barName, int progress);
+		bool setProgress(const QString &barName, int progress, int totalSteps);
+		bool setOverallTotalSteps(int totalSteps);
+		bool setOverallProgress(int progress);
+		bool setOverallProgress(int progress, int totalSteps);
+		bool setupBar(const QString &barName, const QString &barText, int progress, int totalSteps);
+		void setCancelButtonText(const QString & cancelButtonText);
 		
-	protected slots:
-		virtual void languageChange();
-		virtual void tableItemChanged(int, int);
-		virtual void addEntry();
-		virtual void deleteEntry();
-	
 	protected:
-		DocumentSectionMap localSections;
-		uint m_maxpageindex;
-		QStringList styles;
+		QStringList progressBarTitles;
+		QMap<QString, QProgressBar*> progressBars;
+		QMap<QString, QLabel*> progressLabels;
 };
 
 #endif

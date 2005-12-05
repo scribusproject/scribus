@@ -36,12 +36,14 @@
 #endif
 #include "rc4.h"
 
+#include "commonstrings.h"
 #include "page.h"
 #include "pageitem.h"
 #include "bookmwin.h"
 #include "scribus.h"
+#include "scribusapp.h"
 #include "scribusdoc.h"
-
+#include "multiprogressdialog.h"
 #include "bookpalette.h"
 #include "scfontmetrics.h"
 #include "util.h"
@@ -59,10 +61,10 @@ extern bool CMSuse;
 	#include <tiffio.h>
 #endif
 
-
 PDFlib::PDFlib(ScribusDoc *docu)
 {
 	doc = docu;
+	abortExport=false;
 	OwnerKey = QByteArray(32);
 	UserKey = QByteArray(32);
 	FileID = QByteArray(16);
@@ -112,13 +114,30 @@ PDFlib::PDFlib(ScribusDoc *docu)
 			  0x64, 0x53, 0x69, 0x7a};
 	for (int a = 0; a < 32; ++a)
 		KeyGen[a] = kg_array[a];
+	usingGUI=ScQApp->usingGUI();
+	if (usingGUI)
+	{
+		progressDialog=new MultiProgressDialog(tr("Saving PDF"), CommonStrings::tr_Cancel, ScMW, "pdfexportprogress");
+		if (progressDialog==0)
+			usingGUI=false;
+		else
+		{
+			QStringList barNames, barTexts;
+			barNames << "EMP" << "EP";
+			barTexts << QT_TR_NOOP("Exporting Master Pages:") << QT_TR_NOOP("Exporting Pages:");
+			progressDialog->addExtraProgressBars(barNames, barTexts);
+			connect(progressDialog->buttonCancel, SIGNAL(clicked()), this, SLOT(cancelRequested()));
+		}
+	}
 }
 
-bool PDFlib::doExport(const QString& fn, const QString& nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs, QProgressBar *dia2)
+bool PDFlib::doExport(const QString& fn, const QString& nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs, QProgressBar */*dia2*/)
 {
 	QPixmap pm;
 	bool ret = false;
-	int progresscount=0;
+	int pc_exportpages=0;
+	int pc_exportmasterpages=0;
+	if (usingGUI) progressDialog->show();
 	if (PDF_Begin_Doc(fn, &doc->PDF_Options, PrefsManager::instance()->appPrefs.AvailFonts, doc->UsedFonts, ScMW->bookmarkPalette->BView))
 	{
 		QMap<int, int> pageNsMpa;
@@ -126,37 +145,69 @@ bool PDFlib::doExport(const QString& fn, const QString& nam, int Components, std
 		{
 			pageNsMpa.insert(doc->MasterNames[doc->Pages->at(pageNs[a]-1)->MPageNam], 0);
 		}
-		dia2->reset();
-		dia2->setTotalSteps(pageNsMpa.count()+pageNs.size());
-		dia2->setProgress(0);
-		for (uint ap = 0; ap < doc->MasterPages.count(); ++ap)
+		//dia2->reset();
+		//dia2->setTotalSteps(pageNsMpa.count()+pageNs.size());
+		//dia2->setProgress(0);
+		if (usingGUI)
+		{
+			progressDialog->setOverallTotalSteps(pageNsMpa.count()+pageNs.size());
+			progressDialog->setTotalSteps("EMP", pageNsMpa.count());
+			progressDialog->setTotalSteps("EP", pageNs.size());
+			progressDialog->setOverallProgress(0);
+			progressDialog->setProgress("EMP", 0);
+			progressDialog->setProgress("EP", 0);
+		}
+		for (uint ap = 0; ap < doc->MasterPages.count() && !abortExport; ++ap)
 		{
 			if (doc->MasterItems.count() != 0)
 			{
 				if (pageNsMpa.contains(ap))
 				{
+					ScQApp->processEvents();
 					PDF_TemplatePage(doc->MasterPages.at(ap));
-					progresscount++;
+					++pc_exportmasterpages;
 				}
 			}
-			dia2->setProgress(progresscount);
+			//dia2->setProgress(pc_exportmasterpages+pc_exportpages);
+			
+			if (usingGUI) 
+			{	
+				progressDialog->setProgress("EMP", pc_exportmasterpages);
+				progressDialog->setOverallProgress(pc_exportmasterpages+pc_exportpages);
+			}
 		}
-		for (uint a = 0; a < pageNs.size(); ++a)
+		for (uint a = 0; a < pageNs.size() && !abortExport; ++a)
 		{
 			if (doc->PDF_Options.Thumbnails)
 				pm = thumbs[pageNs[a]];
+			ScQApp->processEvents();
+			if (abortExport) break;
 			PDF_Begin_Page(doc->Pages->at(pageNs[a]-1), pm);
+			ScQApp->processEvents();
+			if (abortExport) break;
 			PDF_ProcessPage(doc->Pages->at(pageNs[a]-1), pageNs[a]-1);
+			ScQApp->processEvents();
+			if (abortExport) break;
 			PDF_End_Page();
-			progresscount++;
-			dia2->setProgress(progresscount);
+			pc_exportpages++;
+			//dia2->setProgress(pc_exportmasterpages+pc_exportpages);
+			if (usingGUI)
+			{
+				progressDialog->setProgress("EP", pc_exportpages);
+				progressDialog->setOverallProgress(pc_exportmasterpages+pc_exportpages);
+			}
 		}
-		if (doc->PDF_Options.Version == PDFOptions::PDFVersion_X3)
-			PDF_End_Doc(ScMW->PrinterProfiles[doc->PDF_Options.PrintProf], nam, Components);
+		ret = true;//Even when aborting we return true. Dont want that "couldnt write msg"
+		if (!abortExport)
+		{
+			if (doc->PDF_Options.Version == PDFOptions::PDFVersion_X3)
+				PDF_End_Doc(ScMW->PrinterProfiles[doc->PDF_Options.PrintProf], nam, Components);
+			else
+				PDF_End_Doc();
+		}
 		else
-			PDF_End_Doc();
-		ret = true;
-		dia2->reset();
+			closeAndCleanup();
+		//dia2->reset();
 	}
 	return ret;
 }
@@ -5060,7 +5111,17 @@ void PDFlib::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Compon
 		PutDoc("/Encrypt "+IToStr(Encrypt)+" 0 R\n");
 	PutDoc(">>\nstartxref\n");
 	PutDoc(IToStr(StX)+"\n%%EOF\n");
+	closeAndCleanup();
+}
+
+void PDFlib::closeAndCleanup()
+{
 	Spool.close();
+	if (abortExport)
+	{
+		if (Spool.exists())
+			Spool.remove();
+	}
 	Seite.XObjects.clear();
 	Seite.ImgObjects.clear();
 	Seite.FObjects.clear();
@@ -5070,5 +5131,10 @@ void PDFlib::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Compon
 	Shadings.clear();
 	Transpar.clear();
 	ICCProfiles.clear();
+
 }
 
+void PDFlib::cancelRequested()
+{
+	abortExport=true;
+}

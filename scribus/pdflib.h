@@ -33,6 +33,7 @@ class ScribusDoc;
 class Page;
 class PDFOptions;
 class PrefsContext;
+class MultiProgressDialog;
 
 #include "scribusstructs.h"
 
@@ -54,6 +55,7 @@ public:
 	void PDF_TemplatePage(Page* pag, bool clip = false);
 	void PDF_ProcessPage(Page* pag, uint PNr, bool clip = false);
 	void PDF_End_Doc(const QString& PrintPr = "", const QString& Name = "", int Components = 0);
+	void closeAndCleanup();
 	struct GlNamInd
 	{
 		uint Code;
@@ -207,6 +209,12 @@ private:
 	int spotCount;
 	QTextStream t;
 	QMap<QString, QString> StdFonts;
+	MultiProgressDialog* progressDialog;
+	bool usingGUI;
+	bool abortExport;
+	
+protected slots:
+	void cancelRequested();
 };
 
 #endif

@@ -120,6 +120,8 @@ scribus_SOURCES = \
 	mpalette.cpp	\
 	mspinbox.cpp	\
 	multiline.cpp	\
+	multiprogressdialogbase.ui	\
+	multiprogressdialog.cpp	\
 	muster.cpp	\
 	navigator.cpp	\
 	newfile.cpp	\
@@ -335,6 +337,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/mpalette.h                    $(prefix)/include/scribus/mpalette.h
 	$(INSTALL_DATA) $(srcdir)/mspinbox.h                    $(prefix)/include/scribus/mspinbox.h
 	$(INSTALL_DATA) $(srcdir)/multiline.h                   $(prefix)/include/scribus/multiline.h
+	$(INSTALL_DATA) $(srcdir)/multiprogressdialog.h         $(prefix)/include/scribus/multiprogressdialog.h
 	$(INSTALL_DATA) $(srcdir)/muster.h                      $(prefix)/include/scribus/muster.h
 	$(INSTALL_DATA) $(srcdir)/navigator.h                   $(prefix)/include/scribus/navigator.h
 	$(INSTALL_DATA) $(srcdir)/newfile.h                     $(prefix)/include/scribus/newfile.h
