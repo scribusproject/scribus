@@ -102,9 +102,9 @@ void SVGImportPlugin::deleteAboutData(const AboutData* about) const
 void SVGImportPlugin::registerFormats()
 {
 	QString svgName = tr("Scalable Vector Graphics");
-	FormatSupport fmt;
+	FileFormat fmt(this);
 	fmt.trName = svgName;
-	fmt.formatId = 3;
+	fmt.formatId = FORMATID_SVGIMPORT;
 #ifdef HAVE_LIBZ
 	fmt.filter = svgName + " (*.svg *.svgz)";
 	fmt.nameMatch = QRegExp("\\.(svg|svgz)$", false);
@@ -116,7 +116,6 @@ void SVGImportPlugin::registerFormats()
 	fmt.save = false;
 	fmt.mimeTypes = QStringList("image/svg+xml");
 	fmt.priority = 64;
-	fmt.plug = this;
 	registerFormat(fmt);
 }
 
@@ -124,6 +123,12 @@ bool SVGImportPlugin::fileSupported(QIODevice* /* file */) const
 {
 	// TODO: identify valid SVG
 	return true;
+}
+
+bool SVGImportPlugin::loadFile(const QString & fileName, const FileFormat & /* fmt */)
+{
+	// For now, "load file" and import are the same thing for this plugin
+	return import(fileName);
 }
 
 /*!

@@ -27,6 +27,13 @@
 #include "units.h"
 #include "loadsaveplugin.h"
 
+// We need to include the headers for the plugins we support until we start
+// using LoadSavePlugin to pick them for us. We only use these headers to
+// get the format IDs, NOTHING ELSE.
+#include "plugins/svgimplugin/svgplugin.h"
+#include "plugins/psimport/importpsplugin.h"
+#include "plugins/fileloader/oodraw/oodrawimp.h"
+
 #ifdef HAVE_LIBZ
 	#include <zlib.h>
 #endif
@@ -42,14 +49,15 @@
  \retval None
  */
 FileLoader::FileLoader(const QString & fileName) :
-	QObject(0, "FileLoader")
+	QObject(0, "FileLoader"),
+	FileName(fileName),
+	FileType(-1),
+	formatPS(LoadSavePlugin::getFormatById(FORMATID_PSIMPORT)),
+	formatSVG(LoadSavePlugin::getFormatById(FORMATID_SVGIMPORT)),
+	formatSXD(LoadSavePlugin::getFormatById(FORMATID_SXDIMPORT)),
+	formatODG(LoadSavePlugin::getFormatById(FORMATID_ODGIMPORT)),
+	prefsManager(PrefsManager::instance())
 {
-	prefsManager=PrefsManager::instance();
-	FileName = fileName;
-	FileType = -1;
-	havePS = ScApp->pluginManager->DLLexists("importps");
-	haveSVG = ScApp->pluginManager->DLLexists("svgimplugin");
-	haveSXD = ScApp->pluginManager->DLLexists("oodrawimp");
 }
 
 // FIXME: This static method is here as a temporary transitional
@@ -97,12 +105,14 @@ int FileLoader::TestFile()
 	QString ext = fi.extension(true).lower();
 	if ((ext.endsWith("sla.gz")) || (ext.endsWith("sla")) || (ext.endsWith("scd.gz")) || (ext.endsWith("scd")))
 		ret = CheckScribus();
-	else if (((ext.endsWith("ps")) || (ext.endsWith("eps"))) && (havePS))
+	else if (((ext.endsWith("ps")) || (ext.endsWith("eps"))) && (formatPS))
 		ret = 2;
-	else if (((ext.endsWith("svg")) || (ext.endsWith("svgz"))) && (haveSVG))
+	else if (((ext.endsWith("svg")) || (ext.endsWith("svgz"))) && (formatSVG))
 		ret = 3;
-	else if ((ext.endsWith("sxd")) && (haveSXD))
+	else if ((ext.endsWith("sxd")) && (formatSXD))
 		ret = 5;
+	else if ((ext.endsWith("odg")) && (formatODG))
+		ret = 6;
 /*	if (ext == "pdf")
 		ret = 4; */
 	FileType = ret;
@@ -375,13 +385,16 @@ bool FileLoader::LoadFile()
 			ret = ReadDoc(FileName, prefsManager->appPrefs.AvailFonts, ScApp->doc, ScApp->mainWindowProgressBar);
 			break;
 		case 2:
-			ret = ScApp->pluginManager->callImportExportPlugin("importps", FileName);
+			ret = formatPS->loadFile(FileName);
 			break;
 		case 3:
-			ret = ScApp->pluginManager->callImportExportPlugin("svgimplugin", FileName);
+			ret = formatSVG->loadFile(FileName);
 			break;
 		case 5:
-			ret = ScApp->pluginManager->callImportExportPlugin("oodrawimp", FileName);
+			ret = formatSXD->loadFile(FileName);
+			break;
+		case 6:
+			ret = formatODG->loadFile(FileName);
 			break;
 		default:
 			ret = false;

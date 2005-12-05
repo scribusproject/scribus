@@ -48,7 +48,7 @@ void OldScribusFormat::deleteAboutData(const AboutData* about) const
 
 void OldScribusFormat::registerFormats()
 {
-	FormatSupport fmt;
+	FileFormat fmt(this);
 	fmt.trName = tr("Scribus Document");
 	fmt.formatId = 0;
 	fmt.load = true;
@@ -63,9 +63,8 @@ void OldScribusFormat::registerFormats()
 	fmt.mimeTypes = QStringList();
 	fmt.mimeTypes.append("application/x-scribus");
 	fmt.priority = 64;
-	fmt.plug = this;
 	registerFormat(fmt);
-	FormatSupport fmt2;
+	FileFormat fmt2(this);
 	fmt2.trName = tr("Scribus 1.2.x Document");
 	fmt2.formatId = 0;
 	fmt2.load = true;
@@ -82,12 +81,12 @@ bool OldScribusFormat::fileSupported(QIODevice* /* file */) const
 	return true;
 }
 
-bool OldScribusFormat::loadFile(const QString & /* fileName */, const LoadSavePlugin::FormatSupport & /* fmt */)
+bool OldScribusFormat::loadFile(const QString & /* fileName */, const FileFormat & /* fmt */)
 {
 	return false;
 }
 
-bool OldScribusFormat::saveFile(const QString & /* fileName */, const LoadSavePlugin::FormatSupport & /* fmt */)
+bool OldScribusFormat::saveFile(const QString & /* fileName */, const FileFormat & /* fmt */)
 {
 	return false;
 }

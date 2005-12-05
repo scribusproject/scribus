@@ -9,6 +9,16 @@
 
 class ScrAction;
 
+/**
+ * The ID for the SVG Import format. This must be a macro not a static const member
+ * because it must be available even when the SVGImportPlugin is not linked in
+ * or even compiled.
+ */
+#define FORMATID_SVGIMPORT 3
+
+/**
+ * A class providing the plugin interface implementation for this plugin
+ */
 class PLUGIN_API SVGImportPlugin : public LoadSavePlugin
 {
 	Q_OBJECT
@@ -22,6 +32,7 @@ class PLUGIN_API SVGImportPlugin : public LoadSavePlugin
 		virtual void deleteAboutData(const AboutData* about) const;
 		virtual void languageChange();
 		virtual bool fileSupported(QIODevice* file) const;
+		virtual bool loadFile(const QString & fileName, const FileFormat & fmt);
 
 	public slots:
 		virtual bool import(QString target = QString::null);
@@ -44,101 +55,100 @@ class FPointArray;
 class GradientHelper
 {
 public:
-	GradientHelper()
+	GradientHelper() :
+		CSpace(false),
+		cspaceValid(true),
+		gradient(VGradient::linear),
+		gradientValid(false),
+		matrix(),
+		matrixValid(false),
+		reference(""),
+		Type(1),
+		typeValid(false),
+		X1(0),
+		x1Valid(true),
+		X2(1),
+		x2Valid(true),
+		Y1(0),
+		y1Valid(true),
+		Y2(0),
+		y2Valid(true)
 		{
-		Type = 1;
-		typeValid = false;
-		CSpace = false;
-		cspaceValid = true;
-		X1 = 0;
-		x1Valid = true;
-		X2 = 1;
-		x2Valid = true;
-		Y1 = 0;
-		y1Valid = true;
-		Y2 = 0;
-		y2Valid = true;
-		gradient = VGradient(VGradient::linear);
-		gradientValid = false;
-		matrix = QWMatrix();
-		matrixValid = false;
-		reference = "";
 		}
-	int Type;
-	bool typeValid;
-	QString reference;
-	VGradient gradient;
-	bool gradientValid;
-	double X1;
-	bool x1Valid;
-	double Y1;
-	bool y1Valid;
-	double X2;
-	bool x2Valid;
-	double Y2;
-	bool y2Valid;
 	bool CSpace;
 	bool cspaceValid;
-	QWMatrix	matrix;
+	VGradient gradient;
+	bool gradientValid;
+	QWMatrix matrix;
 	bool matrixValid;
+	QString reference;
+	int Type;
+	bool typeValid;
+	double X1;
+	bool x1Valid;
+	double X2;
+	bool x2Valid;
+	double Y1;
+	bool y1Valid;
+	double Y2;
+	bool y2Valid;
 	};
 
 class SvgStyle
 {
 public:
-	SvgStyle()
+	SvgStyle() :
+		CSpace(false),
+		CurCol("None"),
+		dashOffset(0),
+		Family(""),
+		FillCol("Black"),
+		FontSize(12),
+		GCol1("Black"),
+		GCol2("Black"),
+		GradCo(VGradient::linear),
+		Gradient(0),
+		GX1(0),
+		GX2(0),
+		GY1(0),
+		GY2(0),
+		InherCol(false),
+		LWidth(1.0),
+		matrix(),
+		matrixg(),
+		PLineArt(Qt::SolidLine),
+		PLineEnd(Qt::FlatCap),
+		PLineJoin(Qt::MiterJoin),
+		StrokeCol("None"),
+		Transparency(0.0),
+		TranspStroke(0.0)
 		{
-		LWidth = 1.0;
-		Transparency = 0.0;
-		TranspStroke = 0.0;
-		StrokeCol = "None";
-		FillCol = "Black";
-		CurCol = "None";
-		Gradient = 0;
-		GCol1 = "Black";
-		GCol2 = "Black";
-		GX1 = 0;
-		GY1 = 0;
-		GX2 = 0;
-		GY2 = 0;
-		GradCo = VGradient(VGradient::linear);
-		CSpace = false;
-		Family = "";
-		FontSize = 12;
-		matrix = QWMatrix();
-		matrixg = QWMatrix();
-		PLineArt = Qt::SolidLine;
-		PLineJoin = Qt::MiterJoin;
-		PLineEnd = Qt::FlatCap;
-		InherCol = false;
-		dashOffset = 0;
-		dashArray.clear();
 		}
-	QWMatrix	matrix;
-	QWMatrix	matrixg;
-	double LWidth;
-	Qt::PenStyle PLineArt;
-	Qt::PenJoinStyle PLineJoin;
-	Qt::PenCapStyle PLineEnd;
-	QString StrokeCol;
-	QString FillCol;
+	bool CSpace;
 	QString CurCol;
+	QValueList<double> dashArray;
+	double dashOffset;
+	QString Family;
+	QString FillCol;
+	int FontSize;
 	QString GCol1;
 	QString GCol2;
-	double GX1;
-	double GY1;
-	double GX2;
-	double GY2;
-	int Gradient;
 	VGradient	GradCo;
-	bool CSpace;
-	int FontSize;
-	QString Family;
+	int Gradient;
+	double GX1;
+	double GX2;
+	double GY1;
+	double GY2;
+	bool InherCol;
+	double LWidth;
+	QWMatrix matrix;
+	QWMatrix matrixg;
+	Qt::PenStyle PLineArt;
+	Qt::PenCapStyle PLineEnd;
+	Qt::PenJoinStyle PLineJoin;
+	QString StrokeCol;
 	double Transparency;
 	double TranspStroke;
-	bool InherCol;
-	double dashOffset;
-	QValueList<double> dashArray;
 };
 
 class SVGPlug : public QObject

@@ -44,9 +44,6 @@ int oodrawimp_getPluginAPIVersion()
 	return PLUGIN_API_VERSION;
 }
 
-static const unsigned int formatId_odt = 1;
-static const unsigned int formatId_sxd = 2;
-
 ScPlugin* oodrawimp_getPlugin()
 {
 	OODrawImportPlugin* plug = new OODrawImportPlugin();
@@ -114,29 +111,27 @@ void OODrawImportPlugin::deleteAboutData(const AboutData* about) const
 void OODrawImportPlugin::registerFormats()
 {
 	QString odtName = tr("OpenDocument 1.0 Draw", "Import/export format name");
-	FormatSupport odtformat;
+	FileFormat odtformat(this);
 	odtformat.trName = odtName; // Human readable name
-	odtformat.formatId = formatId_odt;
+	odtformat.formatId = FORMATID_ODGIMPORT;
 	odtformat.filter = odtName + " (*.odg)"; // QFileDialog filter
 	odtformat.nameMatch = QRegExp("\\.odg$", false);
 	odtformat.load = true;
 	odtformat.save = false;
 	odtformat.mimeTypes = QStringList("application/vnd.oasis.opendocument.graphics"); // MIME types
 	odtformat.priority = 64; // Priority
-	odtformat.plug = this;
 	registerFormat(odtformat);
 
 	QString sxdName = tr("OpenOffice.org 1.x Draw", "Import/export format name");
-	FormatSupport sxdformat;
+	FileFormat sxdformat(this);
 	sxdformat.trName = sxdName; // Human readable name
-	sxdformat.formatId = formatId_sxd;
+	sxdformat.formatId = FORMATID_SXDIMPORT;
 	sxdformat.filter = sxdName + " (*.sxd)"; // QFileDialog filter
 	sxdformat.nameMatch = QRegExp("\\.sxd$", false);
 	sxdformat.load = true;
 	sxdformat.save = false;
 	sxdformat.mimeTypes = QStringList("application/vnd.sun.xml.draw"); // MIME types
 	sxdformat.priority = 64; // Priority
-	sxdformat.plug = this;
 	registerFormat(sxdformat);
 }
 
@@ -146,7 +141,7 @@ bool OODrawImportPlugin::fileSupported(QIODevice* /* file */) const
 	return true;
 }
 
-bool OODrawImportPlugin::loadFile(const QString & fileName, const LoadSavePlugin::FormatSupport & fmt)
+bool OODrawImportPlugin::loadFile(const QString & fileName, const FileFormat & fmt)
 {
 	// For this plugin, right now "load" and "import" are the same thing
 	return import(fileName);

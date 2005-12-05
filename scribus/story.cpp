@@ -2883,7 +2883,7 @@ void StoryEditor::Do_fontPrev()
 	QString retval;
 	if (ScApp->pluginManager->DLLexists("fontpreview"))
 	{
-		bool result = ScApp->pluginManager->callImportExportPlugin("fontpreview", Editor->CurrFont, retval);
+		bool result = ScApp->pluginManager->callSpecialActionPlugin("fontpreview", Editor->CurrFont, retval);
 		if (result && !retval.isEmpty())
 		{
 			sDebug("Got retval");

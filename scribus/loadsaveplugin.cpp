@@ -1,6 +1,6 @@
 #include "loadsaveplugin.h"
 
-QValueList<LoadSavePlugin::FormatSupport> LoadSavePlugin::formats;
+QValueList<FileFormat> LoadSavePlugin::formats;
 
 LoadSavePlugin::LoadSavePlugin()
 	: ScPlugin()
@@ -12,9 +12,18 @@ LoadSavePlugin::~LoadSavePlugin()
 }
 
 // STATIC method - return a list of all existing formats
-const QValueList<LoadSavePlugin::FormatSupport> & LoadSavePlugin::supportedFormats()
+const QValueList<FileFormat> & LoadSavePlugin::supportedFormats()
 {
 	return formats;
+}
+
+const FileFormat * LoadSavePlugin::getFormatById(const int id)
+{
+	QValueList<FileFormat>::iterator it(findFormat(id));
+	if (it == formats.end())
+		return 0;
+	else
+		return &(*it);
 }
 
 const QStringList LoadSavePlugin::fileDialogLoadFilter()
@@ -29,8 +38,8 @@ const QStringList LoadSavePlugin::fileDialogSaveFilter()
 
 const QStringList LoadSavePlugin::getDialogFilter(bool forLoad)
 {
-	QValueList<LoadSavePlugin::FormatSupport>::const_iterator it(formats.constBegin());
-	QValueList<LoadSavePlugin::FormatSupport>::const_iterator itEnd(formats.constEnd());
+	QValueList<FileFormat>::const_iterator it(formats.constBegin());
+	QValueList<FileFormat>::const_iterator itEnd(formats.constEnd());
 	QStringList filterList;
 	// We know the list is sorted by id, then priority, so we can just take the
 	// highest priority entry for each ID, and we can start with the first entry
@@ -52,18 +61,18 @@ const QStringList LoadSavePlugin::getDialogFilter(bool forLoad)
 }
 
 bool LoadSavePlugin::saveFile(const QString & /* fileName */,
-							  const LoadSavePlugin::FormatSupport & /* fmt */)
+							  const FileFormat & /* fmt */)
 {
 	return false;
 }
 
 bool LoadSavePlugin::loadFile(const QString & /* fileName */,
-							  const LoadSavePlugin::FormatSupport & /* fmt */)
+							  const FileFormat & /* fmt */)
 {
 	return false;
 }
 
-void LoadSavePlugin::registerFormat(const LoadSavePlugin::FormatSupport & fmt)
+void LoadSavePlugin::registerFormat(const FileFormat & fmt)
 {
 	// We insert the format in a very specific location so that the formats
 	// list is sorted by ascending id, then descending priority.
@@ -72,8 +81,8 @@ void LoadSavePlugin::registerFormat(const LoadSavePlugin::FormatSupport & fmt)
 	//     - Equal ID and lesser or equal priority; or
 	//     - Greater ID
 	// If we don't find one, we insert before the end iterator, ie append.
-	QValueList<LoadSavePlugin::FormatSupport>::iterator it(formats.begin());
-	QValueList<LoadSavePlugin::FormatSupport>::iterator itEnd(formats.end());
+	QValueList<FileFormat>::iterator it(formats.begin());
+	QValueList<FileFormat>::iterator itEnd(formats.end());
 	while (it != itEnd)
 	{
 		if ( ( ((*it).formatId == fmt.formatId) && ((*it).priority <= fmt.priority) ) ||
@@ -89,8 +98,8 @@ void LoadSavePlugin::registerFormat(const LoadSavePlugin::FormatSupport & fmt)
 void LoadSavePlugin::printFormatList()
 {
 	qDebug("Current format list:");
-	QValueList<LoadSavePlugin::FormatSupport>::const_iterator it(formats.constBegin());
-	QValueList<LoadSavePlugin::FormatSupport>::const_iterator itEnd(formats.constEnd());
+	QValueList<FileFormat>::const_iterator it(formats.constBegin());
+	QValueList<FileFormat>::const_iterator itEnd(formats.constEnd());
 	for ( ; it != itEnd ; ++it )
 	{
 		qDebug("    Format: Id: %3u, Prio: %3hu, Name: %s",
@@ -101,15 +110,15 @@ void LoadSavePlugin::printFormatList()
 
 void LoadSavePlugin::unregisterFormat(unsigned int id)
 {
-	QValueList<LoadSavePlugin::FormatSupport>::iterator it(findFormat(id, this));
+	QValueList<FileFormat>::iterator it(findFormat(id, this));
 	Q_ASSERT(it != formats.end());
 	formats.remove(it);
 }
 
 void LoadSavePlugin::unregisterAll()
 {
-	QValueList<LoadSavePlugin::FormatSupport>::iterator it(formats.begin());
-	QValueList<LoadSavePlugin::FormatSupport>::iterator itEnd(formats.end());
+	QValueList<FileFormat>::iterator it(formats.begin());
+	QValueList<FileFormat>::iterator itEnd(formats.end());
 	while (it != itEnd)
 	{
 		if ((*it).plug == this)
@@ -119,12 +128,12 @@ void LoadSavePlugin::unregisterAll()
 	}
 }
 
-QValueList<LoadSavePlugin::FormatSupport>::iterator
+QValueList<FileFormat>::iterator
 LoadSavePlugin::findFormat(unsigned int id,
 						   LoadSavePlugin* plug,
-						   QValueList<LoadSavePlugin::FormatSupport>::iterator it)
+						   QValueList<FileFormat>::iterator it)
 {
-	QValueList<LoadSavePlugin::FormatSupport>::iterator itEnd(formats.end());
+	QValueList<FileFormat>::iterator itEnd(formats.end());
 	for ( ; it != itEnd ; ++it )
 	{
 		if (
@@ -134,4 +143,16 @@ LoadSavePlugin::findFormat(unsigned int id,
 			return it;
 	}
 	return itEnd;
+}
+
+
+
+bool FileFormat::loadFile(const QString & fileName) const
+{
+	return (plug && load) ? plug->loadFile(fileName, *this) : false;
+}
+
+bool FileFormat::saveFile(const QString & fileName) const
+{
+	return (plug && save) ? plug->saveFile(fileName, *this) : false;
 }

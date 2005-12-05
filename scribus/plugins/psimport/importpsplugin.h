@@ -6,6 +6,8 @@
 
 class ScrAction;
 
+#define FORMATID_PSIMPORT 4
+
 class PLUGIN_API ImportPSPlugin : public LoadSavePlugin
 {
 	Q_OBJECT
@@ -19,6 +21,7 @@ class PLUGIN_API ImportPSPlugin : public LoadSavePlugin
 		virtual void deleteAboutData(const AboutData* about) const;
 		virtual void languageChange();
 		virtual bool fileSupported(QIODevice* file) const;
+		virtual bool loadFile(const QString & fileName, const FileFormat & fmt);
 
 	public slots:
 		// Import menu item

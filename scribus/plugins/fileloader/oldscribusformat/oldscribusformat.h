@@ -18,8 +18,8 @@ class PLUGIN_API OldScribusFormat : public LoadSavePlugin
 		virtual void languageChange();
 		virtual bool fileSupported(QIODevice* file) const;
 
-		virtual bool loadFile(const QString & fileName, const FormatSupport & fmt);
-		virtual bool saveFile(const QString & fileName, const FormatSupport & fmt);
+		virtual bool loadFile(const QString & fileName, const FileFormat & fmt);
+		virtual bool saveFile(const QString & fileName, const FileFormat & fmt);
 
 		// Special features - .sla page extraction support
 		bool loadPage(int pageNumber, bool Mpage);

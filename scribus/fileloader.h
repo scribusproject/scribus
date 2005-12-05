@@ -14,6 +14,7 @@ class ScribusDoc;
 class ScribusView;
 class SCFonts;
 class PrefsManager;
+class FileFormat;
 
 class SCRIBUS_API FileLoader : public QObject
 {
@@ -34,9 +35,10 @@ public:
 	void informReplacementFonts();
 	QString FileName;
 	int FileType;
-	bool havePS;
-	bool haveSVG;
-	bool haveSXD;
+	const FileFormat * const formatPS;
+	const FileFormat * const formatSVG;
+	const FileFormat * const formatSXD;
+	const FileFormat * const formatODG;
 	bool newReplacement;
 	QValueList<int> LFrames;
 	QMap<QString,QString> ReplacedFonts;
@@ -47,6 +49,7 @@ public:
 	static const QString getLoadFilterString();
 	static QString readSLA(const QString & fileName);
 private:
+
 	PrefsManager* prefsManager;
 	double maximumX;
 	double maximumY;

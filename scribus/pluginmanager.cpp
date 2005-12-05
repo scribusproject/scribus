@@ -409,17 +409,7 @@ ScPlugin* PluginManager::getPlugin(const QCString & pluginName, bool includeDisa
 }
 
 // Compatability kludge
-bool PluginManager::callImportExportPlugin(const QCString pluginName, const QString & arg, QString & retval)
-{
-	if (callImportExportPlugin(pluginName, arg))
-	{
-		retval = dynamic_cast<ScActionPlugin*>(pluginMap[pluginName].plugin)->runResult();
-		return true;
-	}
-	return false;
-}
-
-bool PluginManager::callImportExportPlugin(const QCString pluginName, const QString & arg)
+bool PluginManager::callSpecialActionPlugin(const QCString pluginName, const QString & arg, QString & retval)
 {
 	bool result = false;
 	if (DLLexists(pluginName))
@@ -428,6 +418,11 @@ bool PluginManager::callImportExportPlugin(const QCString pluginName, const QStr
 			dynamic_cast<ScActionPlugin*>(pluginMap[pluginName].plugin);
 		if (plugin)
 			result = plugin->run(arg);
+	}
+	if (result)
+	{
+		retval = dynamic_cast<ScActionPlugin*>(pluginMap[pluginName].plugin)->runResult();
+		result = true;
 	}
 	return result;
 }

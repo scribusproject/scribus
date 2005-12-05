@@ -10,6 +10,9 @@
 #include "pageitem.h"
 #include "scribusstructs.h"
 
+#define FORMATID_ODGIMPORT 1
+#define FORMATID_SXDIMPORT 2
+
 class ScrAction;
 
 class PLUGIN_API OODrawImportPlugin : public LoadSavePlugin
@@ -25,7 +28,7 @@ class PLUGIN_API OODrawImportPlugin : public LoadSavePlugin
 		virtual void deleteAboutData(const AboutData* about) const;
 		virtual void languageChange();
 		virtual bool fileSupported(QIODevice* file) const;
-		virtual bool loadFile(const QString & fileName, const FormatSupport & fmt);
+		virtual bool loadFile(const QString & fileName, const FileFormat & fmt);
 
 		// Special features - File->Import slot
 	public slots:
