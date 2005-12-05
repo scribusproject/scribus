@@ -25,7 +25,6 @@
 class QString;
 class QRect;
 class QImage;
-class QProgressBar;
 class PageItem;
 class BookMItem;
 class BookMView;
@@ -48,7 +47,7 @@ class SCRIBUS_API PDFlib : public QObject
 public:
 	PDFlib(ScribusDoc *docu);
 	~PDFlib() {};
-	bool doExport(const QString& fn, const QString& nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs, QProgressBar *dia2);
+	bool doExport(const QString& fn, const QString& nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs);
 	bool PDF_Begin_Doc(const QString& fn, PDFOptions *opts, SCFonts &AllFonts, QMap<QString,int> DocFonts, BookMView* vi);
 	void PDF_Begin_Page(Page* pag, QPixmap pm = 0);
 	void PDF_End_Page();

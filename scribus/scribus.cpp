@@ -7074,7 +7074,7 @@ bool ScribusMainWindow::getPDFDriver(QString fn, QString nam, int Components, st
 	PDFlib *dia = new PDFlib(doc);
 	fileWatcher->forceScan();
 	fileWatcher->stop();
-	ret = dia->doExport(fn, nam, Components, pageNs, thumbs, mainWindowProgressBar);
+	ret = dia->doExport(fn, nam, Components, pageNs, thumbs);
 	fileWatcher->start();
 	delete dia;
 	return ret;

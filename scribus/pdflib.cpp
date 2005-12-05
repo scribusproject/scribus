@@ -123,15 +123,15 @@ PDFlib::PDFlib(ScribusDoc *docu)
 		else
 		{
 			QStringList barNames, barTexts;
-			barNames << "EMP" << "EP";
-			barTexts << QT_TR_NOOP("Exporting Master Pages:") << QT_TR_NOOP("Exporting Pages:");
+			barNames << "EMP" << "EP" << "ECPI";
+			barTexts << QT_TR_NOOP("Exporting Master Pages:") << QT_TR_NOOP("Exporting Pages:") << QT_TR_NOOP("Exporting Items on Current Page:");
 			progressDialog->addExtraProgressBars(barNames, barTexts);
 			connect(progressDialog->buttonCancel, SIGNAL(clicked()), this, SLOT(cancelRequested()));
 		}
 	}
 }
 
-bool PDFlib::doExport(const QString& fn, const QString& nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs, QProgressBar */*dia2*/)
+bool PDFlib::doExport(const QString& fn, const QString& nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs)
 {
 	QPixmap pm;
 	bool ret = false;
@@ -145,9 +145,6 @@ bool PDFlib::doExport(const QString& fn, const QString& nam, int Components, std
 		{
 			pageNsMpa.insert(doc->MasterNames[doc->Pages->at(pageNs[a]-1)->MPageNam], 0);
 		}
-		//dia2->reset();
-		//dia2->setTotalSteps(pageNsMpa.count()+pageNs.size());
-		//dia2->setProgress(0);
 		if (usingGUI)
 		{
 			progressDialog->setOverallTotalSteps(pageNsMpa.count()+pageNs.size());
@@ -168,7 +165,6 @@ bool PDFlib::doExport(const QString& fn, const QString& nam, int Components, std
 					++pc_exportmasterpages;
 				}
 			}
-			//dia2->setProgress(pc_exportmasterpages+pc_exportpages);
 			
 			if (usingGUI) 
 			{	
@@ -190,7 +186,6 @@ bool PDFlib::doExport(const QString& fn, const QString& nam, int Components, std
 			if (abortExport) break;
 			PDF_End_Page();
 			pc_exportpages++;
-			//dia2->setProgress(pc_exportmasterpages+pc_exportpages);
 			if (usingGUI)
 			{
 				progressDialog->setProgress("EP", pc_exportpages);
@@ -207,7 +202,6 @@ bool PDFlib::doExport(const QString& fn, const QString& nam, int Components, std
 		}
 		else
 			closeAndCleanup();
-		//dia2->reset();
 	}
 	if (usingGUI)
 		progressDialog->close();
@@ -1727,6 +1721,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 	}
 	else
 		PutPage("0 0 "+FToStr(ActPageP->width())+" "+FToStr(ActPageP->height())+" re W n\n");
+	
 	if (!pag->MPageNam.isEmpty())
 	{
 		Page* mPage = doc->MasterPages.at(doc->MasterNames[doc->Pages->at(PNr)->MPageNam]);
@@ -1984,7 +1979,11 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 	ll.isPrintable = false;
 	ll.LNr = 0;
 	Lnr = 0;
-	for (uint la = 0; la < doc->Layers.count(); ++la)
+	//CB *2 because the Pitems count loop runs twice.. y.. dunno.
+	if (usingGUI && pag->PageNam.isEmpty())
+		progressDialog->setProgress("ECPI", 0, doc->DocItems.count()*2);
+	int pc_exportpagesitems=0;
+	for (uint la = 0; la < doc->Layers.count() && !abortExport; ++la)
 	{
 		Level2Layer(doc, &ll, Lnr);
 		if (!pag->PageNam.isEmpty())
@@ -1995,15 +1994,25 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 		{
 			if ((Options->Version == 15) && (Options->useLayers))
 				PutPage("/OC /"+OCGEntries[ll.Name].Name+" BDC\n");
-			for (uint a = 0; a < PItems.count(); ++a)
+			for (uint a = 0; a < PItems.count() && !abortExport; ++a)
 			{
+				if (usingGUI)
+				{
+					progressDialog->setProgress("ECPI", ++pc_exportpagesitems);
+					ScQApp->processEvents();
+				}
 				ite = PItems.at(a);
 				if (ite->LayerNr != ll.LNr)
 					continue;
 				PutPage(PDF_ProcessItem(ite, pag, PNr));
 			}
-				for (uint a = 0; a < PItems.count(); ++a)
+				for (uint a = 0; a < PItems.count() && !abortExport; ++a)
 				{
+					if (usingGUI)
+					{
+						progressDialog->setProgress("ECPI", ++pc_exportpagesitems);
+						ScQApp->processEvents();
+					}
 					ite = PItems.at(a);
 					if (ite->LayerNr != ll.LNr)
 						continue;
