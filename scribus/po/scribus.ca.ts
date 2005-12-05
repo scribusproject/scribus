@@ -294,7 +294,48 @@ PAGE_4, 3)
 
 May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>newDocument(size, margins, orientation, firstPageNumber,(new line)
+unit, pagesType, firstPageOrder) -&gt; bool
+
+AVÍS: Aquesta funció s&apos;ha portat de les versions 1.3.x. Estas fent servir constants
+més grans PAGE_3 sota la teva responsabilitat. Per fer-ho fes servir firstPageOrder més 
+gran que 1.
+
+Crea un nou document i retorna cert si ha funcionat. Els paràmetres tenen el
+següent significat:
+
+size = Una parella (amplada, alçada) que descriu la mida del document. Pots fer
+servir constants predefinides PAPER_&lt;tipus de paper&gt;. Ex. PAPER_A4 etc.
+
+margins = una tupla (esquerra, dreta, dalt, baix) que descriu els marges del 
+document
+
+orientation = la orientació de la pàgina - constants PORTRAIT, LANDSCAPE
+
+firstPageNumber = és el número de la primera pàgina que farà servir el document
+Normalment farem servir 1, però a vegades és útil tenir números més grans
+si es crea un document en varies parts
+
+unit: thaquest valor estableix les unitats que el document farà servir. Cal usar una 
+    constant predefinida, pot ser una de: UNIT_INCHES, UNIT_MILLIMETERS, 
+    UNIT_PICAS, UNIT_POINTS.
+
+pagesType = Una de les constants predefinides PAGE_n. PAGE_1 és una pàgina simple, 
+PAGE_2 és per pàgines pels dos costats, PAGE_3 és per pàgines amb tres plecs
+PAGE_4 és per pàgines amb 4 plecs
+
+firstPageOrder = Quina és la posició de la primera pàgina del document.
+Indexades des de 0 (0 = primera)
+
+Els valors per amplada i alçada i els marges han d&apos;estar expressats en les unitats per defecte
+del document. Les constants PAPER_* estan expressades en punts. Recorda-ho si el teu document
+no està en punts
+
+exemple: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,(new line)
+PAGE_4, 3)(new line)
+(new line)
+Pot generar un ScribusError si firstPageOrder és més gran que el permès per pagesType.
+</translation>
     </message>
 </context>
 <context>
@@ -2573,7 +2614,7 @@ is not in points, make sure to account for this.
 example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
                 FACINGPAGES, FIRSTPAGERIGHT)
 </source>
-        <translation type="unfinished">newDoc(mida, marges, orientació, primerNúmeroPàgina,
+        <translation>newDoc(mida, marges, orientació, primerNúmeroPàgina,
                    unitats, PaginesAcarades, primeraPaginaEsquerra) -&gt; bool
 
 Crea un nou document i retorna cert si tot ha anat bé. Els paràmetres tenen el 
@@ -2616,7 +2657,13 @@ use text frame linking. Without this parameter it search all linking chain.
 
 May raise WrongFrameTypeError if the target frame is not an text frame
 </source>
-        <translation type="unfinished"></translation>
+        <translation>textOverflows([&quot;nom&quot;, nolinks]) -&gt; integer
+
+Retorna el número actual de caràcters que sobreeixen del marc de text &quot;nom&quot;.
+Si &apos;nolinks&apos; val zero només mira un marc - no segueix els enllaços de
+text. Sense aquest paràmetre busca per tots els marcs que estiguin enllaçats.
+
+Pot generar un WrongFrameTypeError si el marc de destí no és un marc de text</translation>
     </message>
     <message>
         <source>zoomDocument(double)
@@ -2624,7 +2671,11 @@ May raise WrongFrameTypeError if the target frame is not an text frame
 Zoom the document in main GUI window. Actions have whole number
 values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>zoomDocument(double)
+
+Amplia la visió del document en la finestra principal. Les accions tenen un
+número amb valors 20.0, 100.0 etc. Per ajustar a la pàgina posem -100.
+</translation>
     </message>
 </context>
 <context>
@@ -2832,7 +2883,7 @@ La falta de llibreries està indicat per un *
     </message>
     <message>
         <source>About Scribus %1</source>
-        <translation></translation>
+        <translation>Sobre Scribus %1</translation>
     </message>
     <message>
         <source>This panel shows the version, build date and
@@ -2952,7 +3003,10 @@ que ho demani la impressora.</translation>
 the media size of the PostScript file.
 Not recommended unless
  requested by your printer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Això et permet establir explicitament,
+la mida del fitxers PostScript.
+No es recomana a menys que
+t&apos;ho demani el teu impressor.</translation>
     </message>
 </context>
 <context>
@@ -3621,11 +3675,11 @@ Not recommended unless
     </message>
     <message>
         <source>JavaScript</source>
-        <translation type="unfinished"></translation>
+        <translation>JavaScript</translation>
     </message>
     <message>
         <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Imatges (*.tif *.png *.jpg *.xpm);PostScript (*.eps);;All Files (*)</translation>
     </message>
 </context>
 <context>
@@ -4814,7 +4868,7 @@ un rang de pàgines o un número sol.
     </message>
     <message>
         <source>PostScript Files (*.ps);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Fitxers PostScript (*.ps);;Tots els Fitxers (*)</translation>
     </message>
 </context>
 <context>
@@ -5217,7 +5271,7 @@ es pot desar amb aquest formulari. L&apos;error és:
     </message>
     <message>
         <source>JavaScripts (*.js);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>JavaScripts (*.js);;Tots els Fitxers (*)</translation>
     </message>
 </context>
 <context>
@@ -5586,7 +5640,7 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
     </message>
     <message>
         <source>PostScript</source>
-        <translation type="unfinished"></translation>
+        <translation>PostScript</translation>
     </message>
 </context>
 <context>
@@ -6512,7 +6566,12 @@ La taula del centre del diàleg llista quines macros estan actualment carregades
 &lt;p&gt;&lt;b&gt;Edit:&lt;/b&gt; If the macro can be edited, &quot;Yes&quot; appears in this column. Usually if a macro cannot be edited it was created using the register_macro command in a script.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Accel:&lt;/b&gt; The menu shortcut key sequence, if any, associated with the macro. For example, CTRL-F8 means that you can press Control-F8 when in Scribus to run the macro.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Description:&lt;/b&gt; If the macro contains a &quot;docstring&quot;, a special string at the start of its definition that describes it, that is shown here. If the docstring is long, only the beginning is shown - use &quot;What&apos;s This&quot; on the macro&apos;s entry in the Macro menu to see the full description.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Aquesta taula llista les macros que estan definides actualment.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Macro:&lt;/b&gt;El nom de la macro, es mostra a la barra de menus i en altres llocs dins d&apos;Scribus.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Edit:&lt;/b&gt;Si la macro es editable, apareix &quot;Si&quot; en aquesta columna. Normalment si una macro es pot editar va ser creada fent servir gravar macro en una seqüència.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Accel:&lt;/b&gt;La drecera de teclat, si n&apos;hi ha, associada a la macro. Per exempre CTRL-F8 significa que prement CTRL-F8 perquè Scribus executi la macro.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Descripció:&lt;/p&gt;Si la macro conté una &quot;docstring&quot;, una cadena especial al principi de la definició que la descriu, es mostra aquí. Si la cadena és massa llarga, només es mostra el principi - feu servir &quot;Què és&quot; en la entrada de la macro del menú per veure la descripció completa.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -7993,7 +8052,7 @@ mai tornarà a preguntar de nou</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Cancel.la</translation>
+        <translation>Cancel.la</translation>
     </message>
 </context>
 <context>
@@ -10338,11 +10397,11 @@ que ja estigui engegada.</translation>
     </message>
     <message>
         <source>PostScript Interpreter</source>
-        <translation type="unfinished"></translation>
+        <translation>Interpret PostScript</translation>
     </message>
     <message>
         <source>File system location for the GhostScript interpreter</source>
-        <translation type="unfinished"></translation>
+        <translation>Localització de l&apos;interpret GhostScript</translation>
     </message>
 </context>
 <context>
@@ -11982,17 +12041,17 @@ la documentació de la funció.
     </message>
     <message>
         <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation>Els canvis en el teu document no han estat desats i has demanat de descartar-los. Vols continuar?</translation>
     </message>
     <message>
         <source>firstPageOrder is bigger than allowed.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>firstPageOrder és més gran del permès.</translation>
     </message>
     <message>
         <source>Only text frames can be checked for overflowing</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Només es pot comprovar el sobreeiximent en marcs de text</translation>
     </message>
 </context>
 <context>
@@ -13574,23 +13633,23 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     </message>
     <message>
         <source>JavaScripts...</source>
-        <translation type="unfinished"></translation>
+        <translation>JavaScripts...</translation>
     </message>
     <message>
         <source>&amp;JavaScripts...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;JavaScripts...</translation>
     </message>
     <message>
         <source>GhostScript : You cannot use EPS Images</source>
-        <translation type="unfinished"></translation>
+        <translation>GhostScript : No pots usar imatges EPS</translation>
     </message>
     <message>
         <source>EPS Files (*.eps);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Fitxers EPS (*.eps);;Tots els fitxers (*)</translation>
     </message>
     <message>
         <source>Norwegian</source>
-        <translation type="unfinished">Noruec</translation>
+        <translation>Noruec</translation>
     </message>
 </context>
 <context>
@@ -13902,7 +13961,9 @@ Només les seqüències escrites per ser executades com extensions es poden fer 
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Enable Legacy Name Aliases&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
 &lt;p&gt;If checked, this option will cause the scripter to create a large number of function and constant name aliases for 1.2.0 script compatibility. It defaults to checked.&lt;/p&gt;
 &lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Activa Àlies de Noms&lt;/tt&gt; és una opció avançada. Normalment s&apos;hauría de deixar tal com està.&lt;/p&gt;
+&lt;p&gt;Si està marcat, aquesta opció provocarà que el sequenciador crei una gran quantitat de àlies de funcions i constants per compatibilitat amb les versions 1.2.0. Per defecte està activat.&lt;/p&gt;
+&lt;p&gt;Aquesta opció no pren efecte fins que es reinicii Scribus.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
 </context>
 <context>
@@ -14524,7 +14585,7 @@ després d&apos;importar-lo.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Cancel.la</translation>
+        <translation>Cancel.la</translation>
     </message>
 </context>
 <context>
