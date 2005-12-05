@@ -83,7 +83,7 @@ bool FontPreviewPlugin::run(QString target)
 	if (dlg->exec() == QDialog::Accepted)
 	{
 		if  (target.isEmpty())
-			ScApp->SetNewFont(dlg->fontList->currentItem()->text(0));
+			ScMW->SetNewFont(dlg->fontList->currentItem()->text(0));
 		else
 			m_runResult = dlg->fontList->currentItem()->text(0);
 	}

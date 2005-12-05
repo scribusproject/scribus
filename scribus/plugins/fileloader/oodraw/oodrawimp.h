@@ -44,7 +44,7 @@ extern "C" PLUGIN_API ScPlugin* oodrawimp_getPlugin();
 extern "C" PLUGIN_API void oodrawimp_freePlugin(ScPlugin* plugin);
 
 class QWidget;
-class ScribusApp;
+class ScribusMainWindow;
 class ScribusDoc;
 class FPointArray;
 class QDomDocument;

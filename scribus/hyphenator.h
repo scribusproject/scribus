@@ -7,7 +7,7 @@
 #include "scribusapi.h"
 #include "hyphen.h"
 class ScribusDoc;
-class ScribusApp;
+class ScribusMainWindow;
 class PageItem;
 
 /*!

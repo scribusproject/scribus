@@ -13,7 +13,7 @@ bool MyPluginImpl::run(const QString & target)
 {
 	// Do the bulk of your work here
 	QMessageBox::information(
-			ScApp,
+			ScMW,
 			tr("Scribus - My Plugin"),
 			tr("The plugin worked!"),
 			QMessageBox::Ok|QMessageBox::Default|QMessageBox::Escape,

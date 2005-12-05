@@ -552,8 +552,8 @@ void EditStyle::updatePreview()
 	pm.fill(previewText->paletteBackgroundColor());
 	previewText->clear();
 
-	double sca = ScApp->view->getScale();
-	ScApp->view->setScale(1.0);
+	double sca = ScMW->view->getScale();
+	ScMW->view->setScale(1.0);
 	ParagraphStyle tmpStyle;
 	tmpStyle.Vname = Name->text() + " (preview temporary)";
 	tmpStyle.FontEffect = EffeS->getStyle();
@@ -644,7 +644,7 @@ void EditStyle::updatePreview()
 	painter->end();
 	previewText->setPixmap(pm);
 	delete(painter);
-	ScApp->view->setScale(sca);
+	ScMW->view->setScale(sca);
 	parentDoc->docParagraphStyles.remove(parentDoc->docParagraphStyles.fromLast());
 	qApp->restoreOverrideCursor();
 }

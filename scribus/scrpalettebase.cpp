@@ -35,7 +35,7 @@ prefsContextName(QString::null),
 visibleOnStartup(false)
 {
 	setPrefsContext(name);
-	ScribusApp *scapp = dynamic_cast<ScribusApp*>(parent);
+	ScribusMainWindow *scapp = dynamic_cast<ScribusMainWindow*>(parent);
 	if (scapp)
 		connect(scapp, SIGNAL(prefsChanged()), this, SLOT(setFontSize()));
 }

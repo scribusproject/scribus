@@ -8,7 +8,7 @@
 
 /***************************************************************************
 *                                                                         *
-*   ScApp program is free software; you can redistribute it and/or modify  *
+*   ScMW program is free software; you can redistribute it and/or modify  *
 *   it under the terms of the GNU General Public License as published by  *
 *   the Free Software Foundation; either version 2 of the License, or     *
 *   (at your option) any later version.                                   *
@@ -67,7 +67,7 @@ bool ScribusQApp::useGUI=false;
 ScribusQApp::ScribusQApp( int & argc, char ** argv ) : QApplication(argc, argv)
 {
 	ScQApp=this;
-	ScApp=NULL;
+	ScMW=NULL;
 	lang="";
 }
 
@@ -188,8 +188,8 @@ int ScribusQApp::init()
 	processEvents();
 	if (useGUI)
 	{
-		scribus = new ScribusApp();
-		ScApp=scribus;
+		scribus = new ScribusMainWindow();
+		ScMW=scribus;
 		if (!scribus)
 			exit(EXIT_FAILURE);
 		int scribusRetVal = scribus->initScribus(showSplash, showFontInfo, lang, prefsUserFile);

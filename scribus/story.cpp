@@ -213,9 +213,9 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 
 	QString uc = k->text();
 	QKeySequence currKeySeq = QKeySequence(k->key() | keyMod);
-	if (currKeySeq == ScApp->scrActions["specialPageNumber"]->accel())
+	if (currKeySeq == ScMW->scrActions["specialPageNumber"]->accel())
 	{
-		insChars(QString(QChar(ScApp->scrActions["specialPageNumber"]->actionInt())));
+		insChars(QString(QChar(ScMW->scrActions["specialPageNumber"]->actionInt())));
 		setFarbe(true);
 		insert("#");
 		setFarbe(false);
@@ -223,9 +223,9 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 		emit SideBarUpdate();
 		return;
 	}
-	if (currKeySeq == ScApp->scrActions["specialNonBreakingSpace"]->accel())
+	if (currKeySeq == ScMW->scrActions["specialNonBreakingSpace"]->accel())
 	{
-		insChars(QString(QChar(ScApp->scrActions["specialNonBreakingSpace"]->actionInt())));
+		insChars(QString(QChar(ScMW->scrActions["specialNonBreakingSpace"]->actionInt())));
 		setFarbe(true);
 		insert("_");
 		setFarbe(false);
@@ -233,9 +233,9 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 		emit SideBarUpdate();
 		return;
 	}
-	if (currKeySeq == ScApp->scrActions["specialFrameBreak"]->accel())
+	if (currKeySeq == ScMW->scrActions["specialFrameBreak"]->accel())
 	{
-		insChars(QString(QChar(ScApp->scrActions["specialFrameBreak"]->actionInt())));
+		insChars(QString(QChar(ScMW->scrActions["specialFrameBreak"]->actionInt())));
 		setFarbe(true);
 		insert("|");
 		setFarbe(false);
@@ -243,9 +243,9 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 		emit SideBarUpdate();
 		return;
 	}
-	if (currKeySeq == ScApp->scrActions["specialNewLine"]->accel())
+	if (currKeySeq == ScMW->scrActions["specialNewLine"]->accel())
 	{
-		insChars(QString(QChar(ScApp->scrActions["specialNewLine"]->actionInt())));
+		insChars(QString(QChar(ScMW->scrActions["specialNewLine"]->actionInt())));
 		setFarbe(true);
 		insert("*");
 		setFarbe(false);
@@ -253,9 +253,9 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 		emit SideBarUpdate();
 		return;
 	}
-	if (currKeySeq == ScApp->scrActions["specialColumnBreak"]->accel())
+	if (currKeySeq == ScMW->scrActions["specialColumnBreak"]->accel())
 	{
-		insChars(QString(QChar(ScApp->scrActions["specialColumnBreak"]->actionInt())));
+		insChars(QString(QChar(ScMW->scrActions["specialColumnBreak"]->actionInt())));
 		setFarbe(true);
 		insert("^");
 		setFarbe(false);
@@ -263,9 +263,9 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 		emit SideBarUpdate();
 		return;
 	}
-	if (currKeySeq == ScApp->scrActions["specialNonBreakingHyphen"]->accel())
+	if (currKeySeq == ScMW->scrActions["specialNonBreakingHyphen"]->accel())
 	{
-		insChars(QString(QChar(ScApp->scrActions["specialNonBreakingHyphen"]->actionInt())));
+		insChars(QString(QChar(ScMW->scrActions["specialNonBreakingHyphen"]->actionInt())));
 		setFarbe(true);
 		insert("=");
 		setFarbe(false);
@@ -1031,7 +1031,7 @@ void SEditor::loadItemText(PageItem *currItem)
 				}
 				if ((Ali == hg->cab) && (Csty == hg->cstyle))
 				{
-					if (hg->ch == QChar(ScApp->scrActions["specialPageNumber"]->actionInt()))
+					if (hg->ch == QChar(ScMW->scrActions["specialPageNumber"]->actionInt()))
 					{
 						setAlign(Ali);
 						setStyle(Csty);
@@ -1043,7 +1043,7 @@ void SEditor::loadItemText(PageItem *currItem)
 						chars->append(hg);
 						continue;
 					}
-					else if (hg->ch == QChar(ScApp->scrActions["specialNonBreakingSpace"]->actionInt()))
+					else if (hg->ch == QChar(ScMW->scrActions["specialNonBreakingSpace"]->actionInt()))
 					{
 						setAlign(Ali);
 						setStyle(Csty);
@@ -1055,7 +1055,7 @@ void SEditor::loadItemText(PageItem *currItem)
 						chars->append(hg);
 						continue;
 					}
-					else if (hg->ch == QChar(ScApp->scrActions["specialFrameBreak"]->actionInt()))
+					else if (hg->ch == QChar(ScMW->scrActions["specialFrameBreak"]->actionInt()))
 					{
 						setAlign(Ali);
 						setStyle(Csty);
@@ -1067,7 +1067,7 @@ void SEditor::loadItemText(PageItem *currItem)
 						chars->append(hg);
 						continue;
 					}
-					else if (hg->ch == QChar(ScApp->scrActions["specialColumnBreak"]->actionInt()))
+					else if (hg->ch == QChar(ScMW->scrActions["specialColumnBreak"]->actionInt()))
 					{
 						setAlign(Ali);
 						setStyle(Csty);
@@ -1079,7 +1079,7 @@ void SEditor::loadItemText(PageItem *currItem)
 						chars->append(hg);
 						continue;
 					}
-					else if (hg->ch == QChar(ScApp->scrActions["specialNonBreakingHyphen"]->actionInt()))
+					else if (hg->ch == QChar(ScMW->scrActions["specialNonBreakingHyphen"]->actionInt()))
 					{
 						setAlign(Ali);
 						setStyle(Csty);
@@ -1091,7 +1091,7 @@ void SEditor::loadItemText(PageItem *currItem)
 						chars->append(hg);
 						continue;
 					}
-					else if (hg->ch == QChar(ScApp->scrActions["specialNewLine"]->actionInt()))
+					else if (hg->ch == QChar(ScMW->scrActions["specialNewLine"]->actionInt()))
 					{
 						setAlign(Ali);
 						setStyle(Csty);
@@ -1241,7 +1241,7 @@ void SEditor::updateAll()
 			}
 			if ((Ali == hg->cab) && (Csty == hg->cstyle))
 			{
-				if (hg->ch == QChar(ScApp->scrActions["specialPageNumber"]->actionInt()))
+				if (hg->ch == QChar(ScMW->scrActions["specialPageNumber"]->actionInt()))
 				{
 					setAlign(Ali);
 					setStyle(Csty);
@@ -1252,7 +1252,7 @@ void SEditor::updateAll()
 					Text = "";
 					continue;
 				}
-				else if (hg->ch == QChar(ScApp->scrActions["specialNonBreakingSpace"]->actionInt()))
+				else if (hg->ch == QChar(ScMW->scrActions["specialNonBreakingSpace"]->actionInt()))
 				{
 					setAlign(Ali);
 					setStyle(Csty);
@@ -1263,7 +1263,7 @@ void SEditor::updateAll()
 					Text = "";
 					continue;
 				}
-				else if (hg->ch == QChar(ScApp->scrActions["specialFrameBreak"]->actionInt()))
+				else if (hg->ch == QChar(ScMW->scrActions["specialFrameBreak"]->actionInt()))
 				{
 					setAlign(Ali);
 					setStyle(Csty);
@@ -1274,7 +1274,7 @@ void SEditor::updateAll()
 					Text = "";
 					continue;
 				}
-				else if (hg->ch == QChar(ScApp->scrActions["specialColumnBreak"]->actionInt()))
+				else if (hg->ch == QChar(ScMW->scrActions["specialColumnBreak"]->actionInt()))
 				{
 					setAlign(Ali);
 					setStyle(Csty);
@@ -1286,7 +1286,7 @@ void SEditor::updateAll()
 					chars->append(hg);
 					continue;
 				}
-				else if (hg->ch == QChar(ScApp->scrActions["specialNonBreakingHyphen"]->actionInt()))
+				else if (hg->ch == QChar(ScMW->scrActions["specialNonBreakingHyphen"]->actionInt()))
 				{
 					setAlign(Ali);
 					setStyle(Csty);
@@ -1298,7 +1298,7 @@ void SEditor::updateAll()
 					chars->append(hg);
 					continue;
 				}
-				else if (hg->ch == QChar(ScApp->scrActions["specialNewLine"]->actionInt()))
+				else if (hg->ch == QChar(ScMW->scrActions["specialNewLine"]->actionInt()))
 				{
 					setAlign(Ali);
 					setStyle(Csty);
@@ -2881,9 +2881,9 @@ void StoryEditor::Do_fontPrev()
 {
 	blockUpdate = true;
 	QString retval;
-	if (ScApp->pluginManager->DLLexists("fontpreview"))
+	if (ScMW->pluginManager->DLLexists("fontpreview"))
 	{
-		bool result = ScApp->pluginManager->callSpecialActionPlugin("fontpreview", Editor->CurrFont, retval);
+		bool result = ScMW->pluginManager->callSpecialActionPlugin("fontpreview", Editor->CurrFont, retval);
 		if (result && !retval.isEmpty())
 		{
 			sDebug("Got retval");
@@ -2933,7 +2933,7 @@ void StoryEditor::Do_leave()
 void StoryEditor::Do_saveDocument()
 {
 	updateTextFrame();
-	ScApp->slotFileSave();
+	ScMW->slotFileSave();
 }
 
 bool StoryEditor::Do_new()
@@ -3118,7 +3118,7 @@ void StoryEditor::updateTextFrame()
 		nb2->Dirty = false;
 		nb2 = nb2->NextBox;
 	}
-	ScApp->view->DrawNew();
+	ScMW->view->DrawNew();
 	textChanged = false;
 	emenu->setItemEnabled(Mupdt, 0);
 	fmenu->setItemEnabled(M_FileRevert, 0);
@@ -3152,10 +3152,10 @@ void StoryEditor::slotEditStyles()
 	//emit EditSt();
 
 	StilFormate *dia = new StilFormate(this, currDoc);
-	connect(dia, SIGNAL(saveStyle(StilFormate *)), ScApp, SLOT(saveStyles(StilFormate *)));
+	connect(dia, SIGNAL(saveStyle(StilFormate *)), ScMW, SLOT(saveStyles(StilFormate *)));
 	if (dia->exec())
-		ScApp->saveStyles(dia);
-	disconnect(dia, SIGNAL(saveStyle(StilFormate *)), ScApp, SLOT(saveStyles(StilFormate *)));
+		ScMW->saveStyles(dia);
+	disconnect(dia, SIGNAL(saveStyle(StilFormate *)), ScMW, SLOT(saveStyles(StilFormate *)));
 	delete dia;
 
 	AlignTools->Spal->setFormats(currDoc);

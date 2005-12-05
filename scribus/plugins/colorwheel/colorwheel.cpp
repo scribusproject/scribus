@@ -75,7 +75,7 @@ void ColorWheelPlugin::deleteAboutData(const AboutData* about) const
 bool ColorWheelPlugin::run(QString target)
 {
 	Q_ASSERT(target.isNull());
-	ColorWheelDialog *dlg = new ColorWheelDialog(ScApp, "dlg", true, 0);
+	ColorWheelDialog *dlg = new ColorWheelDialog(ScMW, "dlg", true, 0);
 	if (dlg)
 	{
 		dlg->exec();

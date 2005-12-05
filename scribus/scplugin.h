@@ -10,7 +10,7 @@
 #include "scribusapi.h"
 
 class QWidget;
-class ScribusApp;
+class ScribusMainWindow;
 class DeferredTask;
 class PrefsPanel;
 

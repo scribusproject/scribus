@@ -64,7 +64,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	prefsManager=PrefsManager::instance();
 	ApplicationPrefs* prefsData=&(prefsManager->appPrefs);
 	int decimals;
-	ap = (ScribusApp*)parent;
+	ap = (ScribusMainWindow*)parent;
 	docUnitIndex = prefsData->docUnitIndex;
 	unitRatio = unitGetRatioFromIndex(docUnitIndex);
 	decimals = unitGetPrecisionFromIndex(docUnitIndex);
@@ -160,13 +160,13 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	ProPfad = new QLineEdit( GroupBox200, "Datei1" );
 	ProPfad->setMinimumSize( QSize( 268, 22 ) );
 	ProPfad->setText(prefsData->ProfileDir);
-	if (ScApp->HaveDoc)
+	if (ScMW->HaveDoc)
 		ProPfad->setEnabled(false);
 	PfadText2 = new QLabel( ProPfad, tr("&ICC Profiles:"), GroupBox200, "Pfadtext1" );
 	FileC2 = new QToolButton( GroupBox200, "FileC1" );
 	FileC2->setMinimumSize( QSize( 88, 24 ) );
 	FileC2->setText( tr( "C&hange..." ) );
-	if (ScApp->HaveDoc)
+	if (ScMW->HaveDoc)
 		FileC2->setEnabled(false);
 	GroupBox200Layout->addWidget( PfadText2, 1, 0 );
 	GroupBox200Layout->addWidget( ProPfad, 1, 1 );
@@ -1420,29 +1420,29 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.typographicSettings.valueStrikeThruPos = qRound(tabTypo->strikethruPos->value() * 10);
 	prefsManager->appPrefs.typographicSettings.valueStrikeThruWidth = qRound(tabTypo->strikethruWidth->value() * 10);
 	prefsManager->appPrefs.toolSettings.dTextBackGround = tabTools->colorComboTextBackground->currentText();
-	if (prefsManager->appPrefs.toolSettings.dTextBackGround == ScApp->noneString)
+	if (prefsManager->appPrefs.toolSettings.dTextBackGround == ScMW->noneString)
 		prefsManager->appPrefs.toolSettings.dTextBackGround = "None";
 	prefsManager->appPrefs.toolSettings.dTextLineColor = tabTools->colorComboTextLine->currentText();
-	if (prefsManager->appPrefs.toolSettings.dTextLineColor == ScApp->noneString)
+	if (prefsManager->appPrefs.toolSettings.dTextLineColor == ScMW->noneString)
 		prefsManager->appPrefs.toolSettings.dTextLineColor = "None";
 	prefsManager->appPrefs.toolSettings.dTextBackGroundShade = tabTools->shadingTextBack->value();
 	prefsManager->appPrefs.toolSettings.dTextLineShade = tabTools->shadingTextLine->value();
 	prefsManager->appPrefs.toolSettings.dTextPenShade = tabTools->shadingText->value();
 	prefsManager->appPrefs.toolSettings.dTextStrokeShade = tabTools->shadingTextStroke->value();
 	prefsManager->appPrefs.toolSettings.dPen = tabTools->colorComboLineShape->currentText();
-	if (prefsManager->appPrefs.toolSettings.dPen == ScApp->noneString)
+	if (prefsManager->appPrefs.toolSettings.dPen == ScMW->noneString)
 		prefsManager->appPrefs.toolSettings.dPen = "None";
 	prefsManager->appPrefs.toolSettings.dPenText = tabTools->colorComboText->currentText();
-	if (prefsManager->appPrefs.toolSettings.dPenText == ScApp->noneString)
+	if (prefsManager->appPrefs.toolSettings.dPenText == ScMW->noneString)
 		prefsManager->appPrefs.toolSettings.dPenText = "None";
 	prefsManager->appPrefs.toolSettings.dStrokeText = tabTools->colorComboStrokeText->currentText();
-	if (prefsManager->appPrefs.toolSettings.dStrokeText == ScApp->noneString)
+	if (prefsManager->appPrefs.toolSettings.dStrokeText == ScMW->noneString)
 		prefsManager->appPrefs.toolSettings.dStrokeText = "None";
 	prefsManager->appPrefs.toolSettings.dCols = tabTools->columnsText->value();
 	prefsManager->appPrefs.toolSettings.dGap = tabTools->gapText->value() / prefsUnitRatio;
 	prefsManager->appPrefs.toolSettings.dTabWidth = tabTools->gapTab->value() / prefsUnitRatio;
 	prefsManager->appPrefs.toolSettings.dBrush = tabTools->comboFillShape->currentText();
-	if (prefsManager->appPrefs.toolSettings.dBrush == ScApp->noneString)
+	if (prefsManager->appPrefs.toolSettings.dBrush == ScMW->noneString)
 		prefsManager->appPrefs.toolSettings.dBrush = "None";
 	prefsManager->appPrefs.toolSettings.dShade = tabTools->shadingFillShape->value();
 	prefsManager->appPrefs.toolSettings.dShade2 = tabTools->shadingLineShape->value();
@@ -1484,7 +1484,7 @@ void Preferences::updatePreferences()
 	}
 	prefsManager->appPrefs.toolSettings.dWidth = tabTools->lineWidthShape->value();
 	prefsManager->appPrefs.toolSettings.dPenLine = tabTools->colorComboLine->currentText();
-	if (prefsManager->appPrefs.toolSettings.dPenLine == ScApp->noneString)
+	if (prefsManager->appPrefs.toolSettings.dPenLine == ScMW->noneString)
 		prefsManager->appPrefs.toolSettings.dPenLine = "None";
 	prefsManager->appPrefs.toolSettings.dShadeLine = tabTools->shadingLine->value();
 	switch (tabTools->comboStyleLine->currentItem())
@@ -1512,7 +1512,7 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.toolSettings.magMax = tabTools->maximumZoom->value();
 	prefsManager->appPrefs.toolSettings.magStep = tabTools->zoomStep->value();
 	prefsManager->appPrefs.toolSettings.dBrushPict = tabTools->comboFillImage->currentText();
-	if (prefsManager->appPrefs.toolSettings.dBrushPict == ScApp->noneString)
+	if (prefsManager->appPrefs.toolSettings.dBrushPict == ScMW->noneString)
 		prefsManager->appPrefs.toolSettings.dBrushPict = "None";
 	prefsManager->appPrefs.toolSettings.shadePict = tabTools->shadingFillImage->value();
 	prefsManager->appPrefs.toolSettings.scaleX = static_cast<double>(tabTools->scalingHorizontal->value()) / 100.0;
@@ -1531,7 +1531,7 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.AutoSave = GroupAS->isChecked();
 	prefsManager->appPrefs.AutoSaveTime = ASTime->value() * 60 * 1000;
 	prefsManager->appPrefs.MinWordLen = tabHyphenator->wordLen->value();
-	prefsManager->appPrefs.Language = ScApp->GetLang(tabHyphenator->language->currentText());
+	prefsManager->appPrefs.Language = ScMW->GetLang(tabHyphenator->language->currentText());
 	prefsManager->appPrefs.Automatic = !tabHyphenator->verbose->isChecked();
 	prefsManager->appPrefs.AutoCheck = tabHyphenator->input->isChecked();
 	prefsManager->appPrefs.HyCount = tabHyphenator->maxCount->value();

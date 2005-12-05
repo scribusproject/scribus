@@ -13,6 +13,6 @@ OldScribusFormatImpl::OldScribusFormatImpl() : QObject(0, "OldScribusFormatImpl"
 // For now, we just call back into Scribus
 bool OldScribusFormatImpl::run(const QString & target)
 {
-	ScApp->slotPageImport();
+	ScMW->slotPageImport();
 	return true;
 }

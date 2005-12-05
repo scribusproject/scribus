@@ -119,7 +119,7 @@ bool PDFlib::doExport(const QString& fn, const QString& nam, int Components, std
 	QPixmap pm;
 	bool ret = false;
 	int progresscount=0;
-	if (PDF_Begin_Doc(fn, &doc->PDF_Options, PrefsManager::instance()->appPrefs.AvailFonts, doc->UsedFonts, ScApp->bookmarkPalette->BView))
+	if (PDF_Begin_Doc(fn, &doc->PDF_Options, PrefsManager::instance()->appPrefs.AvailFonts, doc->UsedFonts, ScMW->bookmarkPalette->BView))
 	{
 		QMap<int, int> pageNsMpa;
 		for (uint a = 0; a < pageNs.size(); ++a)
@@ -152,7 +152,7 @@ bool PDFlib::doExport(const QString& fn, const QString& nam, int Components, std
 			dia2->setProgress(progresscount);
 		}
 		if (doc->PDF_Options.Version == PDFOptions::PDFVersion_X3)
-			PDF_End_Doc(ScApp->PrinterProfiles[doc->PDF_Options.PrintProf], nam, Components);
+			PDF_End_Doc(ScMW->PrinterProfiles[doc->PDF_Options.PrintProf], nam, Components);
 		else
 			PDF_End_Doc();
 		ret = true;
@@ -947,7 +947,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, PDFOptions *opts, SCFonts &AllFont
 		ObjCounter++;
 		QString dataP;
 		struct ICCD dataD;
-		loadText(ScApp->InputProfiles[Options->SolidProf], &dataP);
+		loadText(ScMW->InputProfiles[Options->SolidProf], &dataP);
 		PutDoc("<<\n");
 		if ((Options->Compress) && (CompAvail))
 		{
@@ -4400,12 +4400,12 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 					{
 						if (img.imgInfo.colorspace == 1)
 						{
-							loadText((Embedded ? ScApp->InputProfilesCMYK[Options->ImageProf] : ScApp->InputProfilesCMYK[Profil]), &dataP);
+							loadText((Embedded ? ScMW->InputProfilesCMYK[Options->ImageProf] : ScMW->InputProfilesCMYK[Profil]), &dataP);
 							components = 4;
 						}
 						else
 						{
-							loadText((Embedded ? ScApp->InputProfiles[Options->ImageProf] : ScApp->InputProfiles[Profil]), &dataP);
+							loadText((Embedded ? ScMW->InputProfiles[Options->ImageProf] : ScMW->InputProfiles[Profil]), &dataP);
 							components = 3;
 						}
 					}
@@ -4414,12 +4414,12 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 				{
 					if (img.imgInfo.colorspace == 1)
 					{
-						loadText((Embedded ? ScApp->InputProfilesCMYK[Options->ImageProf] : ScApp->InputProfilesCMYK[Profil]), &dataP);
+						loadText((Embedded ? ScMW->InputProfilesCMYK[Options->ImageProf] : ScMW->InputProfilesCMYK[Profil]), &dataP);
 						components = 4;
 					}
 					else
 					{
-						loadText((Embedded ? ScApp->InputProfiles[Options->ImageProf] : ScApp->InputProfiles[Profil]), &dataP);
+						loadText((Embedded ? ScMW->InputProfiles[Options->ImageProf] : ScMW->InputProfiles[Profil]), &dataP);
 						components = 3;
 					}
 				}

@@ -6,7 +6,7 @@
 
 /***************************************************************************
 *                                                                         *
-*   ScApp program is free software; you can redistribute it and/or modify  *
+*   ScMW program is free software; you can redistribute it and/or modify  *
 *   it under the terms of the GNU General Public License as published by  *
 *   the Free Software Foundation; either version 2 of the License, or     *
 *   (at your option) any later version.                                   *
@@ -56,7 +56,7 @@ AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* nam
 {
 	if ( !name )
 		setName( "AlignDistributePalette" );
-	ScApp = (ScribusApp *)parent;
+	ScMW = (ScribusMainWindow *)parent;
 	currDoc=NULL;
 	AlignDistributePaletteLayout = new QVBoxLayout( this, 5, 6, "AlignDistributePaletteLayout"); 
 
@@ -389,7 +389,7 @@ bool AlignDistributePalette::startAlign()
 					oneLocked=true;
 	if (oneLocked)
 	{
-		int t = ScMessageBox::warning(ScApp, CommonStrings::trWarning,
+		int t = ScMessageBox::warning(ScMW, CommonStrings::trWarning,
 											tr("Some objects are locked."),
 											tr("&Unlock All"), CommonStrings::tr_Cancel,
 											0, 0);
@@ -414,8 +414,8 @@ bool AlignDistributePalette::startAlign()
 void AlignDistributePalette::endAlign()
 {
 	emit documentChanged();
-	//ScApp->HaveNewSel(currView->SelItem.at(0)->itemType());
-	ScApp->HaveNewSel(currDoc->selection->itemAt(0)->itemType());
+	//ScMW->HaveNewSel(currView->SelItem.at(0)->itemType());
+	ScMW->HaveNewSel(currDoc->selection->itemAt(0)->itemType());
 	//for (uint i = 0; i < currView->SelItem.count(); ++i)
 	for (uint i = 0; i < currDoc->selection->count(); ++i)
 	{

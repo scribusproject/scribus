@@ -21,7 +21,7 @@ class QHBoxLayout;
 class QGridLayout;
 class QListView;
 class QListViewItem;
-class ScribusApp;
+class ScribusMainWindow;
 class ScribusDoc;
 class PageItem;
 
@@ -30,7 +30,7 @@ class SCRIBUS_API Tree : public ScrPaletteBase
 	Q_OBJECT
 
 public:
-	Tree( QWidget* parent, ScribusApp* scApp );
+	Tree( QWidget* parent, ScribusMainWindow* scApp );
 	//void keyPressEvent(QKeyEvent *k);
 	//void closeEvent(QCloseEvent *ce);
 	void resizeEvent(QResizeEvent *r);
@@ -90,7 +90,7 @@ protected:
 	QMap<QString, QListViewItem*> masterPageMapRev;
 	QListViewItem* freeObjects;
 	QListViewItem* rootObject;
-	ScribusApp* ScApp;
+	ScribusMainWindow* ScMW;
 	QPixmap imageIcon;
 	QPixmap textIcon;
 	QPixmap lineIcon;

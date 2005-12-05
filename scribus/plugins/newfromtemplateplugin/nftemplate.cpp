@@ -88,7 +88,7 @@ void NewFromTemplatePlugin::deleteAboutData(const AboutData* about) const
 bool NewFromTemplatePlugin::run(QString target)
 {
 	Q_ASSERT(target.isNull());
-	Nft = new MenuNFT(ScApp);
+	Nft = new MenuNFT(ScMW);
 	Q_CHECK_PTR(Nft);
 	Nft->RunNFTPlug();
 	return true;
@@ -97,17 +97,17 @@ bool NewFromTemplatePlugin::run(QString target)
 
 void MenuNFT::RunNFTPlug()
 {
-	nftdialog* nftdia = new nftdialog(ScApp, ScApp->getGuiLanguage(), PrefsManager::instance()->appPrefs.documentTemplatesDir);
+	nftdialog* nftdia = new nftdialog(ScMW, ScMW->getGuiLanguage(), PrefsManager::instance()->appPrefs.documentTemplatesDir);
 	if (nftdia->exec())
 	{
 		qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
-		ScApp->loadDoc(QDir::cleanDirPath(nftdia->currentDocumentTemplate->file));
-		ScApp->doc->hasName = false;
+		ScMW->loadDoc(QDir::cleanDirPath(nftdia->currentDocumentTemplate->file));
+		ScMW->doc->hasName = false;
 		UndoManager::instance()->renameStack(nftdia->currentDocumentTemplate->name);
-		ScApp->doc->DocName = nftdia->currentDocumentTemplate->name;
-		ScApp->updateActiveWindowCaption(QObject::tr("Document Template: ") + nftdia->currentDocumentTemplate->name);
+		ScMW->doc->DocName = nftdia->currentDocumentTemplate->name;
+		ScMW->updateActiveWindowCaption(QObject::tr("Document Template: ") + nftdia->currentDocumentTemplate->name);
 		QDir::setCurrent(PrefsManager::instance()->documentDir());
-		ScApp->removeRecent(QDir::cleanDirPath(nftdia->currentDocumentTemplate->file));
+		ScMW->removeRecent(QDir::cleanDirPath(nftdia->currentDocumentTemplate->file));
 		qApp->restoreOverrideCursor();
 	}
 	delete nftdia;

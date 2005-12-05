@@ -26,7 +26,7 @@
 
 class ScribusView;
 class ScribusDoc;
-class ScribusApp;
+class ScribusMainWindow;
 class PrefsManager;
 /**Waagrechtes Lineal
 *@author Franz Schmid

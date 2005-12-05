@@ -58,7 +58,7 @@ KeyManager::KeyManager(QWidget* parent, QMap<QString,Keys> oldKeyMap): QWidget( 
 	
 	//Generate our list of entries in the key manager from the menu system
 	QStringList menuKeys;
-	ScApp->scrMenuMgr->generateKeyManList(&menuKeys);
+	ScMW->scrMenuMgr->generateKeyManList(&menuKeys);
 	uint currentRow=0;
 	for ( QStringList::Iterator it = menuKeys.begin(); it != menuKeys.end(); ++it )
 	{
@@ -82,7 +82,7 @@ KeyManager::KeyManager(QWidget* parent, QMap<QString,Keys> oldKeyMap): QWidget( 
 	
 	//Add in non menu item ScrActions, make a list, sort and add	
 	QStringList menuKeys2;
-	for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = ScApp->scrActions.begin(); it!=ScApp->scrActions.end(); ++it )
+	for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = ScMW->scrActions.begin(); it!=ScMW->scrActions.end(); ++it )
 	{
 		if (*it)
 			if (!menuKeys.contains(QString(it.key())))

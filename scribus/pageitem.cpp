@@ -818,7 +818,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 
 void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 {
-	sc = ScApp->view->getScale();
+	sc = ScMW->view->getScale();
 	p->save();
 	if (!isEmbedded)
 	{
@@ -919,7 +919,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 	}
 	if ((!isEmbedded) && (!Doc->RePos))
 	{
-		double scpInv = 1.0 / (QMAX(ScApp->view->getScale(), 1));
+		double scpInv = 1.0 / (QMAX(ScMW->view->getScale(), 1));
 		if ((Frame) && (Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (itemType() == TextFrame) || (itemType() == PathText)))
 		{
 			p->setPen(black, scpInv, DotLine, FlatCap, MiterJoin);
@@ -1090,25 +1090,25 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 	}
 	//qDebug("paintObj(QRect e, QPixmap *ppX)");
 	QPainter p;
-	double sc = ScApp->view->getScale();
+	double sc = ScMW->view->getScale();
 	if (toPixmap)
 		p.begin(ppX);
 	else
-		p.begin(ScApp->view->viewport());
+		p.begin(ScMW->view->viewport());
 	if ((!toPixmap) && (!Doc->RePos))
 	{
 		if (!e.isEmpty())
 			p.setClipRect(e);
 		else
 		{
-			int x = ScApp->view->contentsX();
-			int y = ScApp->view->contentsY();
-			QPoint out = ScApp->view->contentsToViewport(QPoint(x,y));
-			p.setClipRect(QRect(out.x(), out.y(), ScApp->view->visibleWidth(), ScApp->view->visibleWidth()));
+			int x = ScMW->view->contentsX();
+			int y = ScMW->view->contentsY();
+			QPoint out = ScMW->view->contentsToViewport(QPoint(x,y));
+			p.setClipRect(QRect(out.x(), out.y(), ScMW->view->visibleWidth(), ScMW->view->visibleWidth()));
 		}
 	}
 	QPoint in  = QPoint(qRound((Xpos-Doc->minCanvasCoordinate.x())*sc), qRound((Ypos-Doc->minCanvasCoordinate.y())*sc));
-	QPoint out = ScApp->view->contentsToViewport(in);
+	QPoint out = ScMW->view->contentsToViewport(in);
 	p.translate(out.x(), out.y());
 	p.scale(sc, sc);
 	p.rotate(Rot);
@@ -1131,7 +1131,7 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 				if (Groups.count() == 0)
 				{
 					QPainter pr;
-					pr.begin(ScApp->view->viewport());
+					pr.begin(ScMW->view->viewport());
 					pr.translate(out.x(), out.y());
 					pr.rotate(Rot);
 					if (Locked)
@@ -1174,11 +1174,11 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 					p.setPen(QPen(darkCyan, 1, DotLine, FlatCap, MiterJoin));
 					p.setBrush(NoBrush);
 					p.drawRect(-1, -1, static_cast<int>(Width+2), static_cast<int>(Height+2));
-					//if (ScApp->view->SelItem.count() == 1)
+					//if (ScMW->view->SelItem.count() == 1)
 					if (Doc->selection->count() == 1)
 					{
 						QPainter pr;
-						pr.begin(ScApp->view->viewport());
+						pr.begin(ScMW->view->viewport());
 						pr.translate(out.x(), out.y());
 						pr.rotate(Rot);
 						pr.setPen(QPen(darkCyan, 1, SolidLine, FlatCap, MiterJoin));
@@ -1473,7 +1473,7 @@ void PageItem::DrawPolyL(QPainter *p, QPointArray pts)
 				{
 					SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
 					p->setPen(QPen(tmp,
-									 QMAX(static_cast<int>(ml[it].Width*ScApp->view->getScale()), 1),
+									 QMAX(static_cast<int>(ml[it].Width*ScMW->view->getScale()), 1),
 									 static_cast<PenStyle>(ml[it].Dash),
 									 static_cast<PenCapStyle>(ml[it].LineEnd),
 									 static_cast<PenJoinStyle>(ml[it].LineJoin)));
@@ -1491,7 +1491,7 @@ void PageItem::DrawPolyL(QPainter *p, QPointArray pts)
 			{
 				SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
 				p->setPen(QPen(tmp,
-								 QMAX(static_cast<int>(ml[it].Width*ScApp->view->getScale()), 1),
+								 QMAX(static_cast<int>(ml[it].Width*ScMW->view->getScale()), 1),
 								 static_cast<PenStyle>(ml[it].Dash),
 								 static_cast<PenCapStyle>(ml[it].LineEnd),
 								 static_cast<PenJoinStyle>(ml[it].LineJoin)));
@@ -1510,7 +1510,7 @@ void PageItem::DrawPolyL(QPainter *p, QPointArray pts)
 			{
 				SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
 				p->setPen(QPen(tmp,
-								 QMAX(static_cast<int>(ml[it].Width*ScApp->view->getScale()), 1),
+								 QMAX(static_cast<int>(ml[it].Width*ScMW->view->getScale()), 1),
 								 static_cast<PenStyle>(ml[it].Dash),
 								 static_cast<PenCapStyle>(ml[it].LineEnd),
 								 static_cast<PenJoinStyle>(ml[it].LineJoin)));
@@ -1914,7 +1914,7 @@ void PageItem::setImageScalingMode(bool freeScale, bool keepRatio)
 	ScaleType = freeScale;
 	AspectRatio = keepRatio;
 	AdjustPictScale();
-	ScApp->view->RefreshItem(this);
+	ScMW->view->RefreshItem(this);
 }
 
 void PageItem::toggleLock()
@@ -2388,9 +2388,9 @@ void PageItem::checkChanges(bool force)
 
 bool PageItem::shouldCheck()
 {
-	return ((!ScApp->view->mousePressed()) &&
-			(!ScApp->arrowKeyDown()) &&
-			(!ScApp->propertiesPalette->userActionOn()));
+	return ((!ScMW->view->mousePressed()) &&
+			(!ScMW->arrowKeyDown()) &&
+			(!ScMW->propertiesPalette->userActionOn()));
 }
 
 void PageItem::moveUndoAction()
@@ -2406,11 +2406,11 @@ void PageItem::moveUndoAction()
 		if (oldOwnPage == -1)
 			oldp = Um::ScratchSpace;
 		else
-			oldp = QString(Um::PageNmbr).arg(ScApp->doc->FirstPnum + oldOwnPage);
+			oldp = QString(Um::PageNmbr).arg(ScMW->doc->FirstPnum + oldOwnPage);
 		if (OwnPage == -1)
 			newp = Um::ScratchSpace;
 		else
-			newp = QString(Um::PageNmbr).arg(ScApp->doc->FirstPnum + OwnPage);
+			newp = QString(Um::PageNmbr).arg(ScMW->doc->FirstPnum + OwnPage);
 		SimpleState *ss = new SimpleState(Um::Move,
                                           QString(Um::MoveFromTo).arg(oldXpos).arg(oldYpos).arg(oldp).
                                                                   arg(Xpos).arg(Ypos).arg(newp), Um::IMove);
@@ -2509,22 +2509,22 @@ void PageItem::restore(UndoState *state, bool isUndo)
 		else if (ss->contains("IMAGEFLIPH"))
 		{
 			select();
-			ScApp->view->FlipImageH();
+			ScMW->view->FlipImageH();
 		}
 		else if (ss->contains("IMAGEFLIPV"))
 		{
 			select();
-			ScApp->view->FlipImageV();
+			ScMW->view->FlipImageV();
 		}
 		else if (ss->contains("LOCK"))
 		{
 			select();
-			ScApp->view->ToggleLock();
+			ScMW->view->ToggleLock();
 		}
 		else if (ss->contains("SIZE_LOCK"))
 		{
 			select();
-			ScApp->view->ToggleSizeLock();
+			ScMW->view->ToggleSizeLock();
 		}
 		else if (ss->contains("NEW_NAME"))
 			restoreName(ss, isUndo);
@@ -2586,19 +2586,19 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreContourLine(ss, isUndo);
 		else if (ss->contains("MIRROR_PATH_H"))
 		{
-			bool editContour = ScApp->view->EditContour;
-			ScApp->view->EditContour = ss->getBool("IS_CONTOUR");
+			bool editContour = ScMW->view->EditContour;
+			ScMW->view->EditContour = ss->getBool("IS_CONTOUR");
 			select();
-			ScApp->view->MirrorPolyH();
-			ScApp->view->EditContour = editContour;
+			ScMW->view->MirrorPolyH();
+			ScMW->view->EditContour = editContour;
 		}
 		else if (ss->contains("MIRROR_PATH_V"))
 		{
-			bool editContour = ScApp->view->EditContour;
-			ScApp->view->EditContour = ss->getBool("IS_CONTOUR");
+			bool editContour = ScMW->view->EditContour;
+			ScMW->view->EditContour = ss->getBool("IS_CONTOUR");
 			select();
-			ScApp->view->MirrorPolyV();
-			ScApp->view->EditContour = editContour;
+			ScMW->view->MirrorPolyV();
+			ScMW->view->EditContour = editContour;
 		}
 		else if (ss->contains("SEND_TO_LAYER"))
 			restoreLayer(ss, isUndo);
@@ -2620,7 +2620,7 @@ void PageItem::restoreMove(SimpleState *state, bool isUndo)
 		mx = -mx;
 		my = -my;
 	}
-	ScApp->view->MoveItem(mx, my, this, false);
+	ScMW->view->MoveItem(mx, my, this, false);
 	oldXpos = Xpos;
 	oldYpos = Ypos;
 	oldOwnPage = OwnPage;
@@ -2642,17 +2642,17 @@ void PageItem::restoreResize(SimpleState *state, bool isUndo)
 	double  my = oy - y;
 	if (isUndo)
 	{
-		ScApp->view->SizeItem(ow, oh, this, false, true, true);
-		ScApp->view->MoveItem(mx, my, this, false);
-		ScApp->view->RotateItem(ort, this);
+		ScMW->view->SizeItem(ow, oh, this, false, true, true);
+		ScMW->view->MoveItem(mx, my, this, false);
+		ScMW->view->RotateItem(ort, this);
 	}
 	else
 	{
 		mx = -mx;
 		my = -my;
-		ScApp->view->SizeItem(w, h, this, false, true, true);
-		ScApp->view->MoveItem(mx, my, this, false);
-		ScApp->view->RotateItem(rt, this);
+		ScMW->view->SizeItem(w, h, this, false, true, true);
+		ScMW->view->MoveItem(mx, my, this, false);
+		ScMW->view->RotateItem(rt, this);
 	}
 	oldWidth = Width;
 	oldHeight = Height;
@@ -2678,17 +2678,17 @@ void PageItem::restoreRotate(SimpleState *state, bool isUndo)
 	double my = oy - y;
 	if (isUndo)
 	{
-		ScApp->view->RotateItem(ort, this);
-		ScApp->view->MoveItem(mx, my, this, false);
-		ScApp->view->SizeItem(ow, oh, this, false, true, true);
+		ScMW->view->RotateItem(ort, this);
+		ScMW->view->MoveItem(mx, my, this, false);
+		ScMW->view->SizeItem(ow, oh, this, false, true, true);
 	}
 	else
 	{
 		mx = -mx;
 		my = -my;
-		ScApp->view->RotateItem(rt, this);
-		ScApp->view->MoveItem(mx, my, this, false);
-		ScApp->view->SizeItem(w, h, this, false, true, true);
+		ScMW->view->RotateItem(rt, this);
+		ScMW->view->MoveItem(mx, my, this, false);
+		ScMW->view->SizeItem(w, h, this, false, true, true);
 	}
 	oldRot = Rot;
 	oldXpos = Xpos;
@@ -2704,7 +2704,7 @@ void PageItem::restoreFill(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		fill = state->get("NEW_FILL");
 	select();
-	ScApp->view->ItemBrush(fill);
+	ScMW->view->ItemBrush(fill);
 }
 
 void PageItem::restoreShade(SimpleState *state, bool isUndo)
@@ -2713,7 +2713,7 @@ void PageItem::restoreShade(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		shade = state->getInt("NEW_SHADE");
 	select();
-	ScApp->view->ItemBrushShade(shade);
+	ScMW->view->ItemBrushShade(shade);
 }
 
 void PageItem::restoreLineColor(SimpleState *state, bool isUndo)
@@ -2722,7 +2722,7 @@ void PageItem::restoreLineColor(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		fill = state->get("NEW_COLOR");
 	select();
-	ScApp->view->ItemPen(fill);
+	ScMW->view->ItemPen(fill);
 }
 
 void PageItem::restoreLineShade(SimpleState *state, bool isUndo)
@@ -2731,7 +2731,7 @@ void PageItem::restoreLineShade(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		shade = state->getInt("NEW_SHADE");
 	select();
-	ScApp->view->ItemPenShade(shade);
+	ScMW->view->ItemPenShade(shade);
 }
 
 void PageItem::restoreFillTP(SimpleState *state, bool isUndo)
@@ -2740,7 +2740,7 @@ void PageItem::restoreFillTP(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		tp = state->getDouble("NEW_TP");
 	select();
-	ScApp->setItemFillTransparency(tp);
+	ScMW->setItemFillTransparency(tp);
 }
 
 void PageItem::restoreLineTP(SimpleState *state, bool isUndo)
@@ -2749,7 +2749,7 @@ void PageItem::restoreLineTP(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		tp = state->getDouble("NEW_TP");
 	select();
-	ScApp->setItemLineTransparency(tp);
+	ScMW->setItemLineTransparency(tp);
 }
 
 
@@ -2759,7 +2759,7 @@ void PageItem::restoreLineStyle(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		ps = static_cast<PenStyle>(state->getInt("NEW_STYLE"));
 	select();
-	ScApp->view->ChLineArt(ps);
+	ScMW->view->ChLineArt(ps);
 }
 
 void PageItem::restoreLineEnd(SimpleState *state, bool isUndo)
@@ -2768,7 +2768,7 @@ void PageItem::restoreLineEnd(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		pcs = static_cast<PenCapStyle>(state->getInt("NEW_STYLE"));
 	select();
-	ScApp->view->ChLineEnd(pcs);
+	ScMW->view->ChLineEnd(pcs);
 }
 
 void PageItem::restoreLineJoin(SimpleState *state, bool isUndo)
@@ -2777,7 +2777,7 @@ void PageItem::restoreLineJoin(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		pjs = static_cast<PenJoinStyle>(state->getInt("NEW_STYLE"));
 	select();
-	ScApp->view->ChLineJoin(pjs);
+	ScMW->view->ChLineJoin(pjs);
 }
 
 void PageItem::restoreLineWidth(SimpleState *state, bool isUndo)
@@ -2786,7 +2786,7 @@ void PageItem::restoreLineWidth(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		w = state->getDouble("NEW_WIDTH");
 	select();
-	ScApp->view->ChLineWidth(w);
+	ScMW->view->ChLineWidth(w);
 }
 
 void PageItem::restoreCustomLineStyle(SimpleState *state, bool isUndo)
@@ -2822,7 +2822,7 @@ void PageItem::restoreFont(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		font = state->get("NEW_FONT");
 	select();
-	ScApp->view->ItemFont(font);
+	ScMW->view->ItemFont(font);
 }
 
 void PageItem::restoreFontSize(SimpleState *state, bool isUndo)
@@ -2831,7 +2831,7 @@ void PageItem::restoreFontSize(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		size = state->getInt("NEW_SIZE");
 	select();
-	ScApp->view->chFSize(size);
+	ScMW->view->chFSize(size);
 }
 
 void PageItem::restoreFontWidth(SimpleState *state, bool isUndo)
@@ -2840,7 +2840,7 @@ void PageItem::restoreFontWidth(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		width = state->getInt("NEW_WIDTH");
 	select();
-	ScApp->view->ItemTextScale(width);
+	ScMW->view->ItemTextScale(width);
 }
 
 void PageItem::restoreFontFill(SimpleState *state, bool isUndo)
@@ -2849,7 +2849,7 @@ void PageItem::restoreFontFill(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		color = state->get("NEW_FILL");
 	select();
-	ScApp->view->ItemTextBrush(color);
+	ScMW->view->ItemTextBrush(color);
 }
 
 void PageItem::restoreFontStroke(SimpleState *state, bool isUndo)
@@ -2858,7 +2858,7 @@ void PageItem::restoreFontStroke(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		color = state->get("NEW_STROKE");
 	select();
-	ScApp->view->ItemTextPen(color);
+	ScMW->view->ItemTextPen(color);
 }
 
 void PageItem::restoreFontFillShade(SimpleState *state, bool isUndo)
@@ -2867,7 +2867,7 @@ void PageItem::restoreFontFillShade(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		shade = state->getInt("NEW_SHADE");
 	select();
-	ScApp->view->ItemTextBrushS(shade);
+	ScMW->view->ItemTextBrushS(shade);
 }
 
 void PageItem::restoreFontStrokeShade(SimpleState *state, bool isUndo)
@@ -2876,7 +2876,7 @@ void PageItem::restoreFontStrokeShade(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		shade = state->getInt("NEW_SHADE");
 	select();
-	ScApp->view->ItemTextPenS(shade);
+	ScMW->view->ItemTextPenS(shade);
 }
 
 void PageItem::restoreKerning(SimpleState *state, bool isUndo)
@@ -2885,7 +2885,7 @@ void PageItem::restoreKerning(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		kerning = state->getInt("NEW_KERNING");
 	select();
-	ScApp->view->chKerning(kerning);
+	ScMW->view->chKerning(kerning);
 }
 
 void PageItem::restoreLineSpacing(SimpleState *state, bool isUndo)
@@ -2894,7 +2894,7 @@ void PageItem::restoreLineSpacing(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		lsp = state->getDouble("NEW_SPACING");
 	select();
-	ScApp->view->ChLineSpa(lsp);
+	ScMW->view->ChLineSpa(lsp);
 }
 
 void PageItem::restoreLanguage(SimpleState *state, bool isUndo)
@@ -2910,7 +2910,7 @@ void PageItem::restorePStyle(SimpleState *state, bool isUndo)
 	int styleid = state->getInt("OLD_STYLE");
 	if (!isUndo)
 		styleid = state->getInt("NEW_STYLE");
-	ScApp->view->chAbStyle(this, styleid);
+	ScMW->view->chAbStyle(this, styleid);
 }
 
 void PageItem::restoreFontEffect(SimpleState *state, bool isUndo)
@@ -2919,7 +2919,7 @@ void PageItem::restoreFontEffect(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		effect = state->getInt("NEW_EFFECT");
 	select();
-	ScApp->view->chTyStyle(effect);
+	ScMW->view->chTyStyle(effect);
 }
 
 
@@ -2932,15 +2932,15 @@ void PageItem::restoreType(SimpleState *state, bool isUndo)
 	int type = state->getInt("OLD_TYPE");
 	if (!isUndo)
 		type = state->getInt("NEW_TYPE");
-	ScApp->view->Deselect(false);
-	ScApp->view->SelectItem(item, false);
+	ScMW->view->Deselect(false);
+	ScMW->view->SelectItem(item, false);
 	switch (type) {
-		case ImageFrame: ScApp->view->ToPicFrame(); break;
-		case TextFrame: ScApp->view->ToTextFrame(); break;
-		case Polygon: ScApp->view->ToPolyFrame(); break;
-		case PolyLine: ScApp->view->ToBezierFrame(); break;
+		case ImageFrame: ScMW->view->ToPicFrame(); break;
+		case TextFrame: ScMW->view->ToTextFrame(); break;
+		case Polygon: ScMW->view->ToPolyFrame(); break;
+		case PolyLine: ScMW->view->ToBezierFrame(); break;
 	}
-	ScApp->setAppMode(modeNormal);
+	ScMW->setAppMode(modeNormal);
 }
 
 void PageItem::restoreTextFlowing(SimpleState *state, bool isUndo)
@@ -2996,8 +2996,8 @@ void PageItem::restorePoly(SimpleState *state, bool isUndo, bool isContour)
 	int mode    = state->getInt("MODE");
 	int rot     = state->getInt("ROT");
 	double scaling = state->getDouble("SCALING");
-	bool editContour = ScApp->view->EditContour;
-	ScApp->view->EditContour = isContour;
+	bool editContour = ScMW->view->EditContour;
+	ScMW->view->EditContour = isContour;
 	select();
 	if (isUndo)
 	{
@@ -3010,8 +3010,8 @@ void PageItem::restorePoly(SimpleState *state, bool isUndo, bool isContour)
 		else if (mode == 3)
 			scaling = ((100.0 / (100.0 - scaling)) - 1.0) * 100.0;
 	}
-	ScApp->view->TransformPoly(mode, rot, scaling);
-	ScApp->view->EditContour = editContour;
+	ScMW->view->TransformPoly(mode, rot, scaling);
+	ScMW->view->EditContour = editContour;
 }
 
 void PageItem::restoreContourLine(SimpleState *state, bool isUndo)
@@ -3030,8 +3030,8 @@ void PageItem::restoreContourLine(SimpleState *state, bool isUndo)
 void PageItem::restoreLayer(SimpleState *state, bool isUndo)
 {
 	setLayer(isUndo ? state->getInt("OLD_LAYER") : state->getInt("NEW_LAYER"));
-	ScApp->view->Deselect(true);
-	ScApp->view->updateContents();
+	ScMW->view->Deselect(true);
+	ScMW->view->updateContents();
 }
 
 void PageItem::restoreGetImage(SimpleState *state, bool isUndo)
@@ -3042,7 +3042,7 @@ void PageItem::restoreGetImage(SimpleState *state, bool isUndo)
 	if (fn.isEmpty())
 	{
 		select();
-		ScApp->view->ClearItem();
+		ScMW->view->ClearItem();
 	}
 	else
 		loadImage(fn, false);
@@ -3050,8 +3050,8 @@ void PageItem::restoreGetImage(SimpleState *state, bool isUndo)
 
 void PageItem::select()
 {
-	ScApp->view->Deselect(false);
-	ScApp->view->SelectItem(this, false);
+	ScMW->view->Deselect(false);
+	ScMW->view->SelectItem(this, false);
 }
 
 ObjAttrVector* PageItem::getObjectAttributes()
@@ -3692,9 +3692,9 @@ void PageItem::updateGradientVectors()
 	GrEndY = QMIN(QMAX(GrEndY, 0), Height);
 	GrStartX = QMIN(QMAX(GrStartX, 0), Width);
 	GrStartY = QMIN(QMAX(GrStartY, 0), Height);
-	//if (ScApp->view->SelItem.count()!=0 && this==ScApp->view->SelItem.at(0))
+	//if (ScMW->view->SelItem.count()!=0 && this==ScMW->view->SelItem.at(0))
 	//if (Doc->selection->count()!=0 && Doc->selection->primarySelectionIsMyself(this))
-	//	ScApp->propertiesPalette->updateColorSpecialGradient();
+	//	ScMW->propertiesPalette->updateColorSpecialGradient();
 	//CB Will only emit if connected, ie is first in GUI selection
 	double dur=Doc->unitRatio();
 	emit gradientColorUpdate(GrStartX*dur, GrStartY*dur, GrEndX*dur, GrEndY*dur, Width*dur, Height*dur);
@@ -3766,45 +3766,45 @@ bool PageItem::connectToGUI()
 	if (!Doc->selection->primarySelectionIs(this))
 		return false;
 		
-	connect(this, SIGNAL(myself(PageItem *)), ScApp->propertiesPalette, SLOT(SetCurItem(PageItem *)));
-	connect(this, SIGNAL(frameType(int)), ScApp, SLOT(HaveNewSel(int)));
-	connect(this, SIGNAL(frameType(int)), ScApp->view, SLOT(selectionChanged()));
-	connect(this, SIGNAL(frameType(int)), ScApp->propertiesPalette, SLOT(NewSel(int)));
-	connect(this, SIGNAL(position(double, double)), ScApp->propertiesPalette, SLOT(setXY(double, double)));
-	connect(this, SIGNAL(widthAndHeight(double, double)), ScApp->propertiesPalette, SLOT(setBH(double, double)));
-	connect(this, SIGNAL(colors(QString, QString, int, int)), ScApp, SLOT(setCSMenu(QString, QString, int, int)));
-	connect(this, SIGNAL(colors(QString, QString, int, int)), ScApp->propertiesPalette->Cpal, SLOT(setActFarben(QString, QString, int, int)));
-	connect(this, SIGNAL(gradientType(int)), ScApp->propertiesPalette->Cpal, SLOT(setActGradient(int)));
-	connect(this, SIGNAL(gradientColorUpdate(double, double, double, double, double, double)), ScApp->propertiesPalette->Cpal, SLOT(setSpecialGradient(double, double, double, double, double, double)));
-	connect(this, SIGNAL(rotation(double)), ScApp->propertiesPalette, SLOT(setR(double)));
-	connect(this, SIGNAL(transparency(double, double)), ScApp->propertiesPalette->Cpal, SLOT(setActTrans(double, double)));
+	connect(this, SIGNAL(myself(PageItem *)), ScMW->propertiesPalette, SLOT(SetCurItem(PageItem *)));
+	connect(this, SIGNAL(frameType(int)), ScMW, SLOT(HaveNewSel(int)));
+	connect(this, SIGNAL(frameType(int)), ScMW->view, SLOT(selectionChanged()));
+	connect(this, SIGNAL(frameType(int)), ScMW->propertiesPalette, SLOT(NewSel(int)));
+	connect(this, SIGNAL(position(double, double)), ScMW->propertiesPalette, SLOT(setXY(double, double)));
+	connect(this, SIGNAL(widthAndHeight(double, double)), ScMW->propertiesPalette, SLOT(setBH(double, double)));
+	connect(this, SIGNAL(colors(QString, QString, int, int)), ScMW, SLOT(setCSMenu(QString, QString, int, int)));
+	connect(this, SIGNAL(colors(QString, QString, int, int)), ScMW->propertiesPalette->Cpal, SLOT(setActFarben(QString, QString, int, int)));
+	connect(this, SIGNAL(gradientType(int)), ScMW->propertiesPalette->Cpal, SLOT(setActGradient(int)));
+	connect(this, SIGNAL(gradientColorUpdate(double, double, double, double, double, double)), ScMW->propertiesPalette->Cpal, SLOT(setSpecialGradient(double, double, double, double, double, double)));
+	connect(this, SIGNAL(rotation(double)), ScMW->propertiesPalette, SLOT(setR(double)));
+	connect(this, SIGNAL(transparency(double, double)), ScMW->propertiesPalette->Cpal, SLOT(setActTrans(double, double)));
 	//Shape signals
 	//Not connected when transferring code: void columns(int, double); //Number, gap
-	connect(this, SIGNAL(cornerRadius(double)), ScApp->propertiesPalette, SLOT(setRR(double)));
+	connect(this, SIGNAL(cornerRadius(double)), ScMW->propertiesPalette, SLOT(setRR(double)));
 	//	connect(view, SIGNAL(ItemTextCols(int, double)), propertiesPalette, SLOT(setCols(int, double)));
 	//Line signals
-	connect(this, SIGNAL(lineWidth(double)), ScApp->propertiesPalette, SLOT(setSvalue(double)));
-	connect(this, SIGNAL(imageOffsetScale(double, double, double, double)), ScApp->propertiesPalette, SLOT(setLvalue(double, double, double, double)));
-	connect(this, SIGNAL(lineStyleCapJoin(Qt::PenStyle, Qt::PenCapStyle, Qt::PenJoinStyle)), ScApp->propertiesPalette, SLOT( setLIvalue(Qt::PenStyle, Qt::PenCapStyle, Qt::PenJoinStyle)));
+	connect(this, SIGNAL(lineWidth(double)), ScMW->propertiesPalette, SLOT(setSvalue(double)));
+	connect(this, SIGNAL(imageOffsetScale(double, double, double, double)), ScMW->propertiesPalette, SLOT(setLvalue(double, double, double, double)));
+	connect(this, SIGNAL(lineStyleCapJoin(Qt::PenStyle, Qt::PenCapStyle, Qt::PenJoinStyle)), ScMW->propertiesPalette, SLOT( setLIvalue(Qt::PenStyle, Qt::PenCapStyle, Qt::PenJoinStyle)));
 	//Frame text signals
-	connect(this, SIGNAL(lineSpacing(double)), ScApp->propertiesPalette, SLOT(setLsp(double)));
-	connect(this, SIGNAL(textToFrameDistances(double, double, double, double)), ScApp->propertiesPalette, SLOT(setDvals(double, double, double, double)));
-	connect(this, SIGNAL(textKerning(int)), ScApp->propertiesPalette, SLOT(setExtra(int)));	
-	connect(this, SIGNAL(textStyle(int)), ScApp->propertiesPalette, SLOT(setStil(int)));
-	connect(this, SIGNAL(textStyle(int)), ScApp, SLOT(setStilvalue(int)));
-	connect(this, SIGNAL(textFont(QString)), ScApp, SLOT(AdjustFontMenu(QString)));
-	connect(this, SIGNAL(textSize(int)), ScApp->propertiesPalette, SLOT(setSize(int)));
-	connect(this, SIGNAL(textSize(int)), ScApp, SLOT(setFSizeMenu(int)));
-	connect(this, SIGNAL(textWidthScale(int)), ScApp->propertiesPalette, SLOT(setTScale(int)));
-	connect(this, SIGNAL(textHeightScale(int)), ScApp->propertiesPalette, SLOT(setTScaleV(int)));
-	connect(this, SIGNAL(textBaseLineOffset(int)), ScApp->propertiesPalette, SLOT(setTBase(int)));
-	connect(this, SIGNAL(textOutline(int)), ScApp->propertiesPalette, SLOT(setOutlineW(int)));
-	connect(this, SIGNAL(textShadow(int, int )), ScApp->propertiesPalette, SLOT(setShadowOffs(int, int )));
-	connect(this, SIGNAL(textUnderline(int, int)), ScApp->propertiesPalette, SLOT(setUnderline(int, int)));
-	connect(this, SIGNAL(textStrike(int, int)), ScApp->propertiesPalette, SLOT(setStrike(int, int)));
-	connect(this, SIGNAL(textColor(QString, QString, int, int)), ScApp->propertiesPalette, SLOT(setActFarben(QString, QString, int, int)));
-	connect(this, SIGNAL(textFormatting(int)), ScApp->propertiesPalette, SLOT(setAli(int)));
-	connect(this, SIGNAL(textFormatting(int)), ScApp, SLOT(setAbsValue(int)));
+	connect(this, SIGNAL(lineSpacing(double)), ScMW->propertiesPalette, SLOT(setLsp(double)));
+	connect(this, SIGNAL(textToFrameDistances(double, double, double, double)), ScMW->propertiesPalette, SLOT(setDvals(double, double, double, double)));
+	connect(this, SIGNAL(textKerning(int)), ScMW->propertiesPalette, SLOT(setExtra(int)));	
+	connect(this, SIGNAL(textStyle(int)), ScMW->propertiesPalette, SLOT(setStil(int)));
+	connect(this, SIGNAL(textStyle(int)), ScMW, SLOT(setStilvalue(int)));
+	connect(this, SIGNAL(textFont(QString)), ScMW, SLOT(AdjustFontMenu(QString)));
+	connect(this, SIGNAL(textSize(int)), ScMW->propertiesPalette, SLOT(setSize(int)));
+	connect(this, SIGNAL(textSize(int)), ScMW, SLOT(setFSizeMenu(int)));
+	connect(this, SIGNAL(textWidthScale(int)), ScMW->propertiesPalette, SLOT(setTScale(int)));
+	connect(this, SIGNAL(textHeightScale(int)), ScMW->propertiesPalette, SLOT(setTScaleV(int)));
+	connect(this, SIGNAL(textBaseLineOffset(int)), ScMW->propertiesPalette, SLOT(setTBase(int)));
+	connect(this, SIGNAL(textOutline(int)), ScMW->propertiesPalette, SLOT(setOutlineW(int)));
+	connect(this, SIGNAL(textShadow(int, int )), ScMW->propertiesPalette, SLOT(setShadowOffs(int, int )));
+	connect(this, SIGNAL(textUnderline(int, int)), ScMW->propertiesPalette, SLOT(setUnderline(int, int)));
+	connect(this, SIGNAL(textStrike(int, int)), ScMW->propertiesPalette, SLOT(setStrike(int, int)));
+	connect(this, SIGNAL(textColor(QString, QString, int, int)), ScMW->propertiesPalette, SLOT(setActFarben(QString, QString, int, int)));
+	connect(this, SIGNAL(textFormatting(int)), ScMW->propertiesPalette, SLOT(setAli(int)));
+	connect(this, SIGNAL(textFormatting(int)), ScMW, SLOT(setAbsValue(int)));
 
 	return true;
 }

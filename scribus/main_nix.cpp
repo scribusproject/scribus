@@ -35,7 +35,7 @@ int mainApp(int argc, char **argv);
 void initCrashHandler();
 static void defaultCrashHandler(int sig);
 
-ScribusApp SCRIBUS_API *ScApp;
+ScribusMainWindow SCRIBUS_API *ScMW;
 ScribusQApp SCRIBUS_API *ScQApp;
 bool emergencyActivated;
 
@@ -116,10 +116,10 @@ void defaultCrashHandler(int sig)
 		std::cout << sigMsg << std::endl;
 		if (ScribusQApp::useGUI)
 		{
-			ScApp->closeSplash();
-			QMessageBox::critical(ScApp, sigHdr, sigMsg, QObject::tr("&OK"));
-			ScApp->emergencySave();
-			ScApp->close();
+			ScMW->closeSplash();
+			QMessageBox::critical(ScMW, sigHdr, sigMsg, QObject::tr("&OK"));
+			ScMW->emergencySave();
+			ScMW->close();
 		}
 		alarm(300);
 	}

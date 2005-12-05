@@ -35,7 +35,7 @@ or documentation
 
 #include "commonstrings.h"
 
-extern ScribusApp SCRIBUS_API *ScApp;
+extern ScribusMainWindow SCRIBUS_API *ScMW;
 
 
 SWDialog::SWDialog(QWidget* parent, const char* name, bool modal, WFlags fl)

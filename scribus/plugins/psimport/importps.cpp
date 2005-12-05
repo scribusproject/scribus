@@ -24,12 +24,12 @@
 #include "prefsmanager.h"
 
 /*!
- \fn EPSPlug::EPSPlug( QWidget* parent, ScribusApp *plug, QString fName )
+ \fn EPSPlug::EPSPlug( QWidget* parent, ScribusMainWindow *plug, QString fName )
  \author Franz Schmid
  \date
  \brief Create the EPS importer window.
  \param parent QWidget *
- \param plug ScribusApp *
+ \param plug ScribusMainWindow *
  \param fName QString
  \retval EPSPlug plugin
  */
@@ -119,28 +119,28 @@ EPSPlug::EPSPlug(QString fName, bool isInteractive)
 	}
 	if (!interactive)
 	{
-		ScApp->doc->setPage(b-x, h-y, 0, 0, 0, 0, 0, 0, false, false);
-		ScApp->doc->addPage(0);
-		ScApp->view->addPage(0, true);
+		ScMW->doc->setPage(b-x, h-y, 0, 0, 0, 0, 0, 0, false, false);
+		ScMW->doc->addPage(0);
+		ScMW->view->addPage(0, true);
 	}
 	else
 	{
-		if (!ScApp->HaveDoc)
+		if (!ScMW->HaveDoc)
 		{
-			ScApp->doFileNew(b-x, h-y, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom");
+			ScMW->doFileNew(b-x, h-y, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom");
 			ret = true;
 		}
 	}
 	if ((ret) || (!interactive))
 	{
 		if (b-x > h-y)
-			ScApp->doc->PageOri = 1;
+			ScMW->doc->PageOri = 1;
 		else
-			ScApp->doc->PageOri = 0;
-		ScApp->doc->PageSize = "Custom";
+			ScMW->doc->PageOri = 0;
+		ScMW->doc->PageSize = "Custom";
 	}
 	ColorList::Iterator it;
-	ScribusDoc* Doku = ScApp->doc;
+	ScribusDoc* Doku = ScMW->doc;
 	for (it = CustColors.begin(); it != CustColors.end(); ++it)
 	{
 		if (!Doku->PageColors.contains(it.key()))
@@ -151,14 +151,14 @@ EPSPlug::EPSPlug(QString fName, bool isInteractive)
 	FPoint maxSize = Doku->maxCanvasCoordinate;
 	Doku->setLoading(true);
 	Doku->DoDrawing = false;
-	ScApp->view->setUpdatesEnabled(false);
-	ScApp->ScriptRunning = true;
+	ScMW->view->setUpdatesEnabled(false);
+	ScMW->ScriptRunning = true;
 	qApp->setOverrideCursor(QCursor(waitCursor), true);
 	QString CurDirP = QDir::currentDirPath();
 	QDir::setCurrent(fi.dirPath());
 	if (convert(fName, x, y, b, h))
 	{
-		//ScApp->view->SelItem.clear();
+		//ScMW->view->SelItem.clear();
 		Doku->selection->clear();
 		QDir::setCurrent(CurDirP);
 		if ((Elements.count() > 1) && (interactive))
@@ -170,8 +170,8 @@ EPSPlug::EPSPlug(QString fName, bool isInteractive)
 			Doku->GroupCounter++;
 		}
 		Doku->DoDrawing = true;
-		ScApp->view->setUpdatesEnabled(true);
-		ScApp->ScriptRunning = false;
+		ScMW->view->setUpdatesEnabled(true);
+		ScMW->ScriptRunning = false;
 		Doku->setLoading(false);
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 		if ((Elements.count() > 0) && (!ret) && (interactive))
@@ -182,19 +182,19 @@ EPSPlug::EPSPlug(QString fName, bool isInteractive)
 			for (uint dre=0; dre<Elements.count(); ++dre)
 			{
 				Doku->DragElements.append(Elements.at(dre)->ItemNr);
-				//ScApp->view->SelItem.append(Elements.at(dre));
+				//ScMW->view->SelItem.append(Elements.at(dre));
 				Doku->selection->addItem(Elements.at(dre));
 			}
 			ScriXmlDoc *ss = new ScriXmlDoc();
-			ScApp->view->setGroupRect();
-			//QDragObject *dr = new QTextDrag(ss->WriteElem(&ScApp->view->SelItem, Doku, ScApp->view), ScApp->view->viewport());
-			QDragObject *dr = new QTextDrag(ss->WriteElem(Doku, ScApp->view, 0),ScApp->view->viewport());
-			ScApp->view->DeleteItem();
-			ScApp->view->resizeContents(qRound((maxSize.x() - minSize.x()) * ScApp->view->getScale()), qRound((maxSize.y() - minSize.y()) * ScApp->view->getScale()));
-			ScApp->view->scrollBy(qRound((Doku->minCanvasCoordinate.x() - minSize.x()) * ScApp->view->getScale()), qRound((Doku->minCanvasCoordinate.y() - minSize.y()) * ScApp->view->getScale()));
+			ScMW->view->setGroupRect();
+			//QDragObject *dr = new QTextDrag(ss->WriteElem(&ScMW->view->SelItem, Doku, ScMW->view), ScMW->view->viewport());
+			QDragObject *dr = new QTextDrag(ss->WriteElem(Doku, ScMW->view, 0),ScMW->view->viewport());
+			ScMW->view->DeleteItem();
+			ScMW->view->resizeContents(qRound((maxSize.x() - minSize.x()) * ScMW->view->getScale()), qRound((maxSize.y() - minSize.y()) * ScMW->view->getScale()));
+			ScMW->view->scrollBy(qRound((Doku->minCanvasCoordinate.x() - minSize.x()) * ScMW->view->getScale()), qRound((Doku->minCanvasCoordinate.y() - minSize.y()) * ScMW->view->getScale()));
 			Doku->minCanvasCoordinate = minSize;
 			Doku->maxCanvasCoordinate = maxSize;
-			ScApp->view->updateContents();
+			ScMW->view->updateContents();
 			dr->setPixmap(loadIcon("DragPix.xpm"));
 			dr->drag();
 			delete ss;
@@ -205,15 +205,15 @@ EPSPlug::EPSPlug(QString fName, bool isInteractive)
 		else
 		{
 			Doku->setModified(false);
-			ScApp->slotDocCh();
+			ScMW->slotDocCh();
 		}
 	}
 	else
 	{
 		QDir::setCurrent(CurDirP);
 		Doku->DoDrawing = true;
-		ScApp->view->setUpdatesEnabled(true);
-		ScApp->ScriptRunning = false;
+		ScMW->view->setUpdatesEnabled(true);
+		ScMW->ScriptRunning = false;
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	}
 	if (interactive)
@@ -235,7 +235,7 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	QString cmd1, cmd2, cmd3, tmp, tmp2, tmp3, tmp4;
 	// import.prolog do not cope with filenames containing blank spaces
 	// so take care that output filename does not (win32 compatibility)
-	QString tmpFile = getShortPathName(ScApp->PrefsPfad)+ "/ps.out";
+	QString tmpFile = getShortPathName(ScMW->PrefsPfad)+ "/ps.out";
 	QString pfad = ScPaths::instance().libDir();
 	QString pfad2 = QDir::convertSeparators(pfad + "import.prolog");
 	QFileInfo fi = QFileInfo(fn);
@@ -318,8 +318,8 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 			params = Code.read();
 			if ((lasttoken == "sp") && (!interactive) && (!eps))
 			{
-				ScApp->doc->addPage(pagecount);
-				ScApp->view->addPage(pagecount, true);
+				ScMW->doc->addPage(pagecount);
+				ScMW->view->addPage(pagecount, true);
 				pagecount++;
 			}
 			if (token == "n")
@@ -354,21 +354,21 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 					else
 					{
 						if (ClosedPath)
-							//z = ScApp->view->PaintPoly(0, 0, 10, 10, LineW, CurrColor, "None");
-							z = ScApp->doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, 0, 0, 10, 10, LineW, CurrColor, "None", true);
+							//z = ScMW->view->PaintPoly(0, 0, 10, 10, LineW, CurrColor, "None");
+							z = ScMW->doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, 0, 0, 10, 10, LineW, CurrColor, "None", true);
 						else
-							//z = ScApp->view->PaintPolyLine(0, 0, 10, 10, LineW, CurrColor, "None");
-							z = ScApp->doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, 0, 0, 10, 10, LineW, CurrColor, "None", true);
-						ite = ScApp->doc->Items->at(z);
+							//z = ScMW->view->PaintPolyLine(0, 0, 10, 10, LineW, CurrColor, "None");
+							z = ScMW->doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, 0, 0, 10, 10, LineW, CurrColor, "None", true);
+						ite = ScMW->doc->Items->at(z);
 						ite->PoLine = Coords.copy();
-						ite->PoLine.translate(ScApp->doc->currentPage->xOffset(), ScApp->doc->currentPage->yOffset());
+						ite->PoLine.translate(ScMW->doc->currentPage->xOffset(), ScMW->doc->currentPage->yOffset());
 						ite->ClipEdited = true;
 						ite->FrameType = 3;
 						FPoint wh = getMaxClipF(&ite->PoLine);
 						ite->setWidthHeight(wh.x(),wh.y());
 						ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 						ite->setFillTransparency(1.0 - Opacity);
-						ScApp->view->AdjustItemSize(ite);
+						ScMW->view->AdjustItemSize(ite);
 						Elements.append(ite);
 					}
 					lastPath = currPath;
@@ -393,12 +393,12 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 					}
 					else
 					{
-						ScribusDoc* Doku = ScApp->doc;
+						ScribusDoc* Doku = ScMW->doc;
 						if (ClosedPath)
-							//z = ScApp->view->PaintPoly(0, 0, 10, 10, LineW, "None", CurrColor);
+							//z = ScMW->view->PaintPoly(0, 0, 10, 10, LineW, "None", CurrColor);
 							z = Doku->itemAdd(PageItem::Polygon, PageItem::Unspecified, 0, 0, 10, 10, LineW, "None", CurrColor, true);
 						else
-							//z = ScApp->view->PaintPolyLine(0, 0, 10, 10, LineW, "None", CurrColor);
+							//z = ScMW->view->PaintPolyLine(0, 0, 10, 10, LineW, "None", CurrColor);
 							z = Doku->itemAdd(PageItem::PolyLine, PageItem::Unspecified, 0, 0, 10, 10, LineW, "None", CurrColor, true);
 						ite = Doku->Items->at(z);
 						ite->PoLine = Coords.copy();
@@ -413,7 +413,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						ite->setWidthHeight(wh.x(), wh.y());
 						ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 						ite->setLineTransparency(1.0 - Opacity);
-						ScApp->view->AdjustItemSize(ite);
+						ScMW->view->AdjustItemSize(ite);
 						Elements.append(ite);
 					}
 					lastPath = currPath;
@@ -575,7 +575,7 @@ void EPSPlug::Curve(FPointArray *i, QString vals)
  */
 QString EPSPlug::parseColor(QString vals, colorModel model)
 {
-	ScribusDoc* Doku = ScApp->doc;
+	ScribusDoc* Doku = ScMW->doc;
 	QString ret = "None";
 	if (vals.isEmpty())
 		return ret;
@@ -637,7 +637,7 @@ QString EPSPlug::parseColor(QString vals, colorModel model)
 	if (!found)
 	{
 		Doku->PageColors.insert("FromEPS"+tmp.name(), tmp);
-		ScApp->propertiesPalette->updateColorList();
+		ScMW->propertiesPalette->updateColorList();
 		ret = "FromEPS"+tmp.name();
 	}
 	return ret;

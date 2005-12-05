@@ -41,47 +41,47 @@ WerkToolB::WerkToolB(QMainWindow* parent) : QToolBar( tr("Tools"), parent)
 									0.0, 100.0, 0.0, 100.0, 0.0, 0.0, 0.0, 0.0};
 	ShapeVals = AutoShapes0;
 
-	ScApp->scrActions["toolsSelect"]->addTo(this);
-	ScApp->scrActions["toolsInsertTextFrame"]->addTo(this);
-	ScApp->scrActions["toolsInsertImageFrame"]->addTo(this);
-	ScApp->scrActions["toolsInsertTableFrame"]->addTo(this);
+	ScMW->scrActions["toolsSelect"]->addTo(this);
+	ScMW->scrActions["toolsInsertTextFrame"]->addTo(this);
+	ScMW->scrActions["toolsInsertImageFrame"]->addTo(this);
+	ScMW->scrActions["toolsInsertTableFrame"]->addTo(this);
 	
-	ScApp->scrActions["toolsInsertShape"]->addTo(this);
-	ScApp->scrMenuMgr->createMenu("insertShapeButtonMenu", "insertShapeButtonMenu");
-	insertShapeButtonMenu=ScApp->scrMenuMgr->getLocalPopupMenu("insertShapeButtonMenu");
-	ScApp->scrMenuMgr->addMenuToWidgetOfAction("insertShapeButtonMenu", ScApp->scrActions["toolsInsertShape"]);
+	ScMW->scrActions["toolsInsertShape"]->addTo(this);
+	ScMW->scrMenuMgr->createMenu("insertShapeButtonMenu", "insertShapeButtonMenu");
+	insertShapeButtonMenu=ScMW->scrMenuMgr->getLocalPopupMenu("insertShapeButtonMenu");
+	ScMW->scrMenuMgr->addMenuToWidgetOfAction("insertShapeButtonMenu", ScMW->scrActions["toolsInsertShape"]);
 	
-	QToolButton *insertShapeButton = dynamic_cast<QToolButton*>(ScApp->scrActions["toolsInsertShape"]->getWidgetAddedTo());
+	QToolButton *insertShapeButton = dynamic_cast<QToolButton*>(ScMW->scrActions["toolsInsertShape"]->getWidgetAddedTo());
 	if (insertShapeButton)
 		insertShapeButton->setPopupDelay(0);
 	Rechteck = new AutoformButtonGroup( NULL );
 	insertShapeButtonMenu->insertItem( Rechteck );
 	QImage newShapeIcon = Rechteck->getIconPixmap(0).convertToImage();
 	newShapeIcon.smoothScale(16,16);
-	ScApp->scrActions["toolsInsertShape"]->setIconSet(QIconSet(newShapeIcon,Rechteck->getIconPixmap(0)));
+	ScMW->scrActions["toolsInsertShape"]->setIconSet(QIconSet(newShapeIcon,Rechteck->getIconPixmap(0)));
 
-	ScApp->scrActions["toolsInsertPolygon"]->addTo(this);
-	ScApp->scrMenuMgr->createMenu("insertPolygonButtonMenu", "insertPolygonButtonMenu");
-	insertPolygonButtonMenu=ScApp->scrMenuMgr->getLocalPopupMenu("insertPolygonButtonMenu");
-	ScApp->scrMenuMgr->addMenuToWidgetOfAction("insertPolygonButtonMenu", ScApp->scrActions["toolsInsertPolygon"]);
+	ScMW->scrActions["toolsInsertPolygon"]->addTo(this);
+	ScMW->scrMenuMgr->createMenu("insertPolygonButtonMenu", "insertPolygonButtonMenu");
+	insertPolygonButtonMenu=ScMW->scrMenuMgr->getLocalPopupMenu("insertPolygonButtonMenu");
+	ScMW->scrMenuMgr->addMenuToWidgetOfAction("insertPolygonButtonMenu", ScMW->scrActions["toolsInsertPolygon"]);
 	idInsertPolygonButtonMenu=insertPolygonButtonMenu->insertItem( "Properties...", this, SLOT(GetPolyProps()));
 	
-	QToolButton *insertPolygonButton = dynamic_cast<QToolButton*>(ScApp->scrActions["toolsInsertPolygon"]->getWidgetAddedTo());
+	QToolButton *insertPolygonButton = dynamic_cast<QToolButton*>(ScMW->scrActions["toolsInsertPolygon"]->getWidgetAddedTo());
 	if (insertPolygonButton)
 		insertPolygonButton->setPopupDelay(0);
 	
-	ScApp->scrActions["toolsInsertLine"]->addTo(this);
-	ScApp->scrActions["toolsInsertBezier"]->addTo(this);
-	ScApp->scrActions["toolsInsertFreehandLine"]->addTo(this);
-	ScApp->scrActions["toolsRotate"]->addTo(this);
-	ScApp->scrActions["toolsZoom"]->addTo(this);
-	ScApp->scrActions["toolsEditContents"]->addTo(this);
-	ScApp->scrActions["toolsEditWithStoryEditor"]->addTo(this);
-	ScApp->scrActions["toolsLinkTextFrame"]->addTo(this);
-	ScApp->scrActions["toolsUnlinkTextFrame"]->addTo(this);
-	ScApp->scrActions["toolsMeasurements"]->addTo(this);
-	ScApp->scrActions["toolsCopyProperties"]->addTo(this);
-	ScApp->scrActions["toolsEyeDropper"]->addTo(this);
+	ScMW->scrActions["toolsInsertLine"]->addTo(this);
+	ScMW->scrActions["toolsInsertBezier"]->addTo(this);
+	ScMW->scrActions["toolsInsertFreehandLine"]->addTo(this);
+	ScMW->scrActions["toolsRotate"]->addTo(this);
+	ScMW->scrActions["toolsZoom"]->addTo(this);
+	ScMW->scrActions["toolsEditContents"]->addTo(this);
+	ScMW->scrActions["toolsEditWithStoryEditor"]->addTo(this);
+	ScMW->scrActions["toolsLinkTextFrame"]->addTo(this);
+	ScMW->scrActions["toolsUnlinkTextFrame"]->addTo(this);
+	ScMW->scrActions["toolsMeasurements"]->addTo(this);
+	ScMW->scrActions["toolsCopyProperties"]->addTo(this);
+	ScMW->scrActions["toolsEyeDropper"]->addTo(this);
 
 	setCloseMode(QDockWindow::Undocked);
 	languageChange();
@@ -103,9 +103,9 @@ void WerkToolB::Verbergen(bool vis)
 
 void WerkToolB::GetPolyProps()
 {
-	PolygonProps* dia = new PolygonProps(this, ScApp->doc->toolSettings.polyC, ScApp->doc->toolSettings.polyFd, ScApp->doc->toolSettings.polyF, ScApp->doc->toolSettings.polyS, ScApp->doc->toolSettings.polyR);
+	PolygonProps* dia = new PolygonProps(this, ScMW->doc->toolSettings.polyC, ScMW->doc->toolSettings.polyFd, ScMW->doc->toolSettings.polyF, ScMW->doc->toolSettings.polyS, ScMW->doc->toolSettings.polyR);
 	if (dia->exec())
-		dia->getValues(&ScApp->doc->toolSettings.polyC, &ScApp->doc->toolSettings.polyFd, &ScApp->doc->toolSettings.polyF, &ScApp->doc->toolSettings.polyS, &ScApp->doc->toolSettings.polyR);
+		dia->getValues(&ScMW->doc->toolSettings.polyC, &ScMW->doc->toolSettings.polyFd, &ScMW->doc->toolSettings.polyF, &ScMW->doc->toolSettings.polyS, &ScMW->doc->toolSettings.polyR);
 	delete dia;
 }
 
@@ -114,12 +114,12 @@ void WerkToolB::SelShape(int s, int c, double *vals)
 	const QPixmap* newIcon = Rechteck->find(s)->pixmap();
 	QImage newShapeIcon = Rechteck->find(s)->pixmap()->convertToImage();
 	newShapeIcon.smoothScale(16,16);
-	ScApp->scrActions["toolsInsertShape"]->setIconSet(QIconSet(newShapeIcon, *newIcon));
+	ScMW->scrActions["toolsInsertShape"]->setIconSet(QIconSet(newShapeIcon, *newIcon));
 	insertShapeButtonMenu->hide();
 	SubMode = s;
 	ValCount = c;
 	ShapeVals = vals;
-	ScApp->scrActions["toolsInsertShape"]->setOn(true);
+	ScMW->scrActions["toolsInsertShape"]->setOn(true);
 }
 
 void WerkToolB::languageChange()

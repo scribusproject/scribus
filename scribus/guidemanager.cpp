@@ -38,21 +38,21 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 	FPoint selectionTopLeft = FPoint(0, 0);
 	FPoint selectionBottomRight = FPoint(0, 0);
 
-	int docSelectionCount=ScApp->doc->selection->count();
+	int docSelectionCount=ScMW->doc->selection->count();
 	// multiselection
 	if (docSelectionCount > 1)
 	{
-		selectionTopLeft.setXY(ScApp->view->GroupX - ScApp->doc->currentPage->xOffset(),
-							   ScApp->view->GroupY - ScApp->doc->currentPage->yOffset());
-		selectionBottomRight.setXY(ScApp->view->GroupW,
-								   ScApp->view->GroupH);
+		selectionTopLeft.setXY(ScMW->view->GroupX - ScMW->doc->currentPage->xOffset(),
+							   ScMW->view->GroupY - ScMW->doc->currentPage->yOffset());
+		selectionBottomRight.setXY(ScMW->view->GroupW,
+								   ScMW->view->GroupH);
 	}
 	// only one item selected
 	else if (docSelectionCount == 1)
 	{
-		PageItem *currItem = ScApp->doc->selection->itemAt(0);
-		selectionTopLeft.setXY(currItem->xPos() - ScApp->doc->currentPage->xOffset(),
-							   currItem->yPos() - ScApp->doc->currentPage->yOffset());
+		PageItem *currItem = ScMW->doc->selection->itemAt(0);
+		selectionTopLeft.setXY(currItem->xPos() - ScMW->doc->currentPage->xOffset(),
+							   currItem->yPos() - ScMW->doc->currentPage->yOffset());
 		selectionBottomRight.setXY(currItem->width(), currItem->height());
 	}
 
@@ -71,40 +71,40 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 	setIcon(loadIcon("AppIcon.png"));
 
 	/* Initialise the global variables */
-	docUnitIndex = ScApp->doc->unitIndex();
+	docUnitIndex = ScMW->doc->unitIndex();
 	docUnitRatio = unitGetRatioFromIndex(docUnitIndex);
 	int decimals = unitGetDecimalsFromIndex(docUnitIndex);
 
-	horizontalGuides = ScApp->doc->currentPage->YGuides; // in page XGuides and YGuides are inverted
-	verticalGuides = ScApp->doc->currentPage->XGuides;
-	locPageWidth = ScApp->doc->currentPage->width();
-	locPageHeight = ScApp->doc->currentPage->height();
-	lockedGuides = ScApp->doc->GuideLock;
+	horizontalGuides = ScMW->doc->currentPage->YGuides; // in page XGuides and YGuides are inverted
+	verticalGuides = ScMW->doc->currentPage->XGuides;
+	locPageWidth = ScMW->doc->currentPage->width();
+	locPageHeight = ScMW->doc->currentPage->height();
+	lockedGuides = ScMW->doc->GuideLock;
 
-	locTop = ScApp->doc->pageMargins.Top;
-	locBottom = ScApp->doc->pageMargins.Bottom;
+	locTop = ScMW->doc->pageMargins.Top;
+	locBottom = ScMW->doc->pageMargins.Bottom;
 	// left or right page? See ScribusView::reformPages(bool moveObjects) as example
-	int counter = ScApp->doc->pageSets[ScApp->doc->currentPageLayout].FirstPage;
-	for (uint i = 0; i < ScApp->doc->currentPage->pageNr(); ++i)
+	int counter = ScMW->doc->pageSets[ScMW->doc->currentPageLayout].FirstPage;
+	for (uint i = 0; i < ScMW->doc->currentPage->pageNr(); ++i)
 	{
 		++counter;
-		if (counter >= ScApp->doc->pageSets[ScApp->doc->currentPageLayout].Columns)
+		if (counter >= ScMW->doc->pageSets[ScMW->doc->currentPageLayout].Columns)
 			counter = 0;
 	}
 	// middle page
-	locLeft = ScApp->doc->pageMargins.Left;
-	locRight = ScApp->doc->pageMargins.Left;
+	locLeft = ScMW->doc->pageMargins.Left;
+	locRight = ScMW->doc->pageMargins.Left;
 	// left page
 	if (counter == 0)
 	{
-		locLeft = ScApp->doc->pageMargins.Right;
-		locRight = ScApp->doc->pageMargins.Left;
+		locLeft = ScMW->doc->pageMargins.Right;
+		locRight = ScMW->doc->pageMargins.Left;
 	}
 	// right page
-	if (counter == ScApp->doc->pageSets[ScApp->doc->currentPageLayout].Columns-1)
+	if (counter == ScMW->doc->pageSets[ScMW->doc->currentPageLayout].Columns-1)
 	{
-		locRight = ScApp->doc->pageMargins.Right;
-		locLeft = ScApp->doc->pageMargins.Left;
+		locRight = ScMW->doc->pageMargins.Right;
+		locLeft = ScMW->doc->pageMargins.Left;
 	}
 
 	selHor = selVer = -1;
@@ -411,7 +411,7 @@ QValueList<double> GuideManager::getRowValues()
 	{
 		if (useRowGap->isChecked())
 		{
-			double gapValue = value2pts(rowGap->value(), ScApp->doc->unitIndex());
+			double gapValue = value2pts(rowGap->value(), ScMW->doc->unitIndex());
 			values.append(offset + (spacing * i) + (gapValue / 2.0));
 			values.append(offset + (spacing * i) - (gapValue / 2.0));
 		}
@@ -444,7 +444,7 @@ QValueList<double> GuideManager::getColValues()
 	{
 		if (useColGap->isChecked())
 		{
-			double gapValue = value2pts(colGap->value(), ScApp->doc->unitIndex());
+			double gapValue = value2pts(colGap->value(), ScMW->doc->unitIndex());
 			values.append(offset + spacing * i + (gapValue / 2.0));
 			values.append(offset + spacing * i - (gapValue / 2.0));
 		}
@@ -653,25 +653,25 @@ void GuideManager::UpdateVerList()
 
 void GuideManager::refreshDoc()
 {
-	ScApp->doc->currentPage->addXGuides(verticalGuides);
-	ScApp->doc->currentPage->addYGuides(horizontalGuides);
-	ScApp->doc->lockGuides(lockedGuides);
-	ScApp->view->DrawNew();
+	ScMW->doc->currentPage->addXGuides(verticalGuides);
+	ScMW->doc->currentPage->addYGuides(horizontalGuides);
+	ScMW->doc->lockGuides(lockedGuides);
+	ScMW->view->DrawNew();
 }
 
 void GuideManager::refreshWholeDoc()
 {
-	int origPage = ScApp->doc->currentPage->pageNr();
+	int origPage = ScMW->doc->currentPage->pageNr();
 
-	for (int i = 0; i < ScApp->doc->pageCount; ++i)
+	for (int i = 0; i < ScMW->doc->pageCount; ++i)
 	{
-		ScApp->view->GotoPage(i);
-		ScApp->doc->currentPage->addXGuides(verticalGuides);
-		ScApp->doc->currentPage->addYGuides(horizontalGuides);
-		ScApp->doc->lockGuides(lockedGuides);
+		ScMW->view->GotoPage(i);
+		ScMW->doc->currentPage->addXGuides(verticalGuides);
+		ScMW->doc->currentPage->addYGuides(horizontalGuides);
+		ScMW->doc->lockGuides(lockedGuides);
 	}
-	ScApp->view->GotoPage(origPage);
-	ScApp->view->DrawNew();
+	ScMW->view->GotoPage(origPage);
+	ScMW->view->DrawNew();
 }
 
 void GuideManager::useRowGap_clicked(bool state)

@@ -33,7 +33,7 @@ public:
 	DocumentInformation infos;
 
 	/*! Returns the changed values.
-	Used e.g. in ScribusApp::SetupDoc().
+	Used e.g. in ScribusMainWindow::SetupDoc().
 	\retval DocumentInformation structure */
 	DocumentInformation getDocInfo();
 

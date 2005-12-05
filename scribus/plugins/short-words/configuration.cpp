@@ -25,7 +25,7 @@ or documentation
 #include <qdir.h>
 #include <qstringlist.h>
 
-extern ScribusApp SCRIBUS_API *ScApp;
+extern ScribusMainWindow SCRIBUS_API *ScMW;
 
 SWConfig::SWConfig()
 {
@@ -142,7 +142,7 @@ QString SWConfig::getLangFromCode(QString code)
 	QMap<QString,QString>::Iterator it;
 	QString lang;
 
-	for (it = ScApp->Sprachen.begin(); it != ScApp->Sprachen.end(); ++it)
+	for (it = ScMW->Sprachen.begin(); it != ScMW->Sprachen.end(); ++it)
 	{
 		lang = getLangCodeFromHyph(it.data());
 		if (lang == code)

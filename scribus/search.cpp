@@ -338,12 +338,12 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 void SearchReplace::slotSearch()
 {
 	if (SMode)
-		ScApp->view->slotDoCurs(false);
+		ScMW->view->slotDoCurs(false);
 	slotDoSearch();
 	if (SMode)
 	{
-		ScApp->view->slotDoCurs(true);
-		ScApp->view->RefreshItem(Item);
+		ScMW->view->slotDoCurs(true);
+		ScMW->view->RefreshItem(Item);
 	}
 }
 
@@ -506,7 +506,7 @@ void SearchReplace::slotDoSearch()
 		if ((!found) || (a == Item->itemText.count()))
 		{
 			Doc->DoDrawing = true;
-			ScApp->view->RefreshItem(Item);
+			ScMW->view->RefreshItem(Item);
 			DoReplace->setEnabled(false);
 			AllReplace->setEnabled(false);
 			QMessageBox::information(this, tr("Search/Replace"), tr("Search finished"), CommonStrings::tr_OK);
@@ -516,37 +516,37 @@ void SearchReplace::slotDoSearch()
 	}
 	else
 	{
-		if (ScApp->CurrStED != NULL)
+		if (ScMW->CurrStED != NULL)
 		{
 			int p, i;
-			ScApp->CurrStED->Editor->getCursorPosition(&p, &i);
+			ScMW->CurrStED->Editor->getCursorPosition(&p, &i);
 			uint inde = 0;
 			int as = i;
 			uint fpa = p;
 			int fch = i;
 			found = false;
-			if (ScApp->CurrStED->Editor->StyledText.count() != 0)
+			if (ScMW->CurrStED->Editor->StyledText.count() != 0)
 			{
-				for (uint pa = p; pa < ScApp->CurrStED->Editor->StyledText.count(); ++pa)
+				for (uint pa = p; pa < ScMW->CurrStED->Editor->StyledText.count(); ++pa)
 				{
 					SEditor::ChList *chars;
-					chars = ScApp->CurrStED->Editor->StyledText.at(pa);
+					chars = ScMW->CurrStED->Editor->StyledText.at(pa);
 					if (SText->isChecked())
 					{
 						if (Word->isChecked())
 						{
 							QRegExp rx( "(\\b"+sText+"\\b)" );
 							if (CaseIgnore->isChecked())
-								as = rx.search( ScApp->CurrStED->Editor->text(pa).lower(), i );
+								as = rx.search( ScMW->CurrStED->Editor->text(pa).lower(), i );
 							else
-								as = rx.search( ScApp->CurrStED->Editor->text(pa), i );
+								as = rx.search( ScMW->CurrStED->Editor->text(pa), i );
 						}
 						else
 						{
 							if (CaseIgnore->isChecked())
-								as = ScApp->CurrStED->Editor->text(pa).lower().find(sText, i);
+								as = ScMW->CurrStED->Editor->text(pa).lower().find(sText, i);
 							else
-								as = ScApp->CurrStED->Editor->text(pa).find(sText, i);
+								as = ScMW->CurrStED->Editor->text(pa).find(sText, i);
 						}
 						if (as != -1)
 						{
@@ -625,9 +625,9 @@ void SearchReplace::slotDoSearch()
 				}
 				if (found)
 				{
-					ScApp->CurrStED->Editor->setSelection(fpa, fch, fpa, fch+inde);
-					ScApp->CurrStED->updateProps(fpa, fch);
-					ScApp->CurrStED->Editor->setCursorPosition(fpa, fch+inde);
+					ScMW->CurrStED->Editor->setSelection(fpa, fch, fpa, fch+inde);
+					ScMW->CurrStED->updateProps(fpa, fch);
+					ScMW->CurrStED->Editor->setCursorPosition(fpa, fch+inde);
 					if (rep)
 					{
 						DoReplace->setEnabled(true);
@@ -638,8 +638,8 @@ void SearchReplace::slotDoSearch()
 				{
 					QMessageBox::information(this, tr("Search/Replace"), tr("Search finished"), CommonStrings::tr_OK);
 					NotFound = false;
-					ScApp->CurrStED->Editor->removeSelection();
-					ScApp->CurrStED->Editor->setCursorPosition(0, 0);
+					ScMW->CurrStED->Editor->removeSelection();
+					ScMW->CurrStED->Editor->setCursorPosition(0, 0);
 				}
 			}
 		}
@@ -649,12 +649,12 @@ void SearchReplace::slotDoSearch()
 void SearchReplace::slotReplace()
 {
 	if (SMode)
-		ScApp->view->slotDoCurs(false);
+		ScMW->view->slotDoCurs(false);
 	slotDoReplace();
 	if (SMode)
 	{
-		ScApp->view->slotDoCurs(true);
-		ScApp->view->RefreshItem(Item);
+		ScMW->view->slotDoCurs(true);
+		ScMW->view->RefreshItem(Item);
 	}
 }
 
@@ -747,17 +747,17 @@ void SearchReplace::slotDoReplace()
 		if (RStyle->isChecked())
 			emit NewAbs(RStyleVal->currentItem());
 		if (RFill->isChecked())
-			ScApp->view->ItemTextBrush(RFillVal->currentText());
+			ScMW->view->ItemTextBrush(RFillVal->currentText());
 		if (RFillS->isChecked())
-			ScApp->view->ItemTextBrushS(RFillSVal->getValue());
+			ScMW->view->ItemTextBrushS(RFillSVal->getValue());
 		if (RStroke->isChecked())
-			ScApp->view->ItemTextPen(RStrokeVal->currentText());
+			ScMW->view->ItemTextPen(RStrokeVal->currentText());
 		if (RStrokeS->isChecked())
-			ScApp->view->ItemTextPenS(RStrokeSVal->getValue());
+			ScMW->view->ItemTextPenS(RStrokeSVal->getValue());
 		if (RFont->isChecked())
 			emit NewFont(RFontVal->currentText());
 		if (RSize->isChecked())
-			ScApp->view->chFSize(qRound(RSizeVal->value() * 10.0));
+			ScMW->view->chFSize(qRound(RSizeVal->value() * 10.0));
 		if (REffect->isChecked())
 			{
 			int s = REffVal->getStyle();
@@ -779,36 +779,36 @@ void SearchReplace::slotDoReplace()
 	}
 	else
 	{
-		if (ScApp->CurrStED != NULL)
+		if (ScMW->CurrStED != NULL)
 		{
 			if (RStyle->isChecked())
-				ScApp->CurrStED->newAlign(RStyleVal->currentItem());
+				ScMW->CurrStED->newAlign(RStyleVal->currentItem());
 			if (RFill->isChecked())
-				ScApp->CurrStED->newTxFill(RFillVal->currentItem(), -1);
+				ScMW->CurrStED->newTxFill(RFillVal->currentItem(), -1);
 			if (RFillS->isChecked())
-				ScApp->CurrStED->newTxFill(-1, RFillSVal->getValue());
+				ScMW->CurrStED->newTxFill(-1, RFillSVal->getValue());
 			if (RStroke->isChecked())
-				ScApp->CurrStED->newTxStroke(RStrokeVal->currentItem(), -1);
+				ScMW->CurrStED->newTxStroke(RStrokeVal->currentItem(), -1);
 			if (RStrokeS->isChecked())
-				ScApp->CurrStED->newTxStroke(-1, RStrokeSVal->getValue());
+				ScMW->CurrStED->newTxStroke(-1, RStrokeSVal->getValue());
 			if (RFont->isChecked())
-				ScApp->CurrStED->newTxFont(RFontVal->currentText());
+				ScMW->CurrStED->newTxFont(RFontVal->currentText());
 			if (RSize->isChecked())
-				ScApp->CurrStED->newTxSize(RSizeVal->value());
+				ScMW->CurrStED->newTxSize(RSizeVal->value());
 			if (REffect->isChecked())
-				ScApp->CurrStED->newTxStyle(REffVal->getStyle());
+				ScMW->CurrStED->newTxStyle(REffVal->getStyle());
 			if (RText->isChecked())
 			{
-				disconnect(ScApp->CurrStED->Editor, SIGNAL(cursorPositionChanged(int, int)), ScApp->CurrStED, SLOT(updateProps(int, int)));
+				disconnect(ScMW->CurrStED->Editor, SIGNAL(cursorPositionChanged(int, int)), ScMW->CurrStED, SLOT(updateProps(int, int)));
 				int PStart, PEnd, SelStart, SelEnd;
-				ScApp->CurrStED->Editor->getSelection(&PStart, &SelStart, &PEnd, &SelEnd);
-				ScApp->CurrStED->Editor->insChars(RTextVal->text());
-				ScApp->CurrStED->Editor->setSelection(PStart, SelStart, PEnd, SelEnd);
-				ScApp->CurrStED->Editor->removeSelectedText();
-				ScApp->CurrStED->Editor->setStyle(ScApp->CurrStED->Editor->CurrentStyle);
-				ScApp->CurrStED->Editor->insert(RTextVal->text());
-				connect(ScApp->CurrStED->Editor, SIGNAL(cursorPositionChanged(int, int)), ScApp->CurrStED, SLOT(updateProps(int, int)));
-				ScApp->CurrStED->newAlign(ScApp->CurrStED->Editor->currentParaStyle);
+				ScMW->CurrStED->Editor->getSelection(&PStart, &SelStart, &PEnd, &SelEnd);
+				ScMW->CurrStED->Editor->insChars(RTextVal->text());
+				ScMW->CurrStED->Editor->setSelection(PStart, SelStart, PEnd, SelEnd);
+				ScMW->CurrStED->Editor->removeSelectedText();
+				ScMW->CurrStED->Editor->setStyle(ScMW->CurrStED->Editor->CurrentStyle);
+				ScMW->CurrStED->Editor->insert(RTextVal->text());
+				connect(ScMW->CurrStED->Editor, SIGNAL(cursorPositionChanged(int, int)), ScMW->CurrStED, SLOT(updateProps(int, int)));
+				ScMW->CurrStED->newAlign(ScMW->CurrStED->Editor->currentParaStyle);
 			}
 		}
 	}
@@ -821,7 +821,7 @@ void SearchReplace::slotReplaceAll()
 {
 	if (SMode)
 	{
-		ScApp->view->slotDoCurs(false);
+		ScMW->view->slotDoCurs(false);
 		Doc->DoDrawing = false;
 	}
 	do
@@ -833,8 +833,8 @@ void SearchReplace::slotReplaceAll()
 	if (SMode)
 	{
 		Doc->DoDrawing = true;
-		ScApp->view->slotDoCurs(true);
-		ScApp->view->RefreshItem(Item);
+		ScMW->view->slotDoCurs(true);
+		ScMW->view->RefreshItem(Item);
 	}
 }
 

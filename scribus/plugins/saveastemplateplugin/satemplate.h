@@ -50,7 +50,7 @@ public slots:
 class sat
 {
 private:
-	ScribusApp* sapp;
+	ScribusMainWindow* sapp;
 	satdialog* dia;
 	QString file;
 	QString dir;
@@ -63,7 +63,7 @@ private:
 public:
 	void createTmplXml();
 	void createImages();
-	sat(ScribusApp* scribusApp, satdialog* satdia, QString fileName, QString tmplDir);
+	sat(ScribusMainWindow* scribusApp, satdialog* satdia, QString fileName, QString tmplDir);
 	~sat();
 };
 

@@ -526,11 +526,11 @@ PagePalette::PagePalette(QWidget* parent) : ScrPaletteBase( parent, "SP", false,
 	connect(pageLayout, SIGNAL(selectedLayout(int )), this, SLOT(handlePageLayout(int )));
 	connect(pageLayout, SIGNAL(selectedFirstPage(int )), this, SLOT(handleFirstPage(int )));
 	
-	connect(this, SIGNAL(EditTemp(QString)), ScApp, SLOT(manageMasterPages(QString)));
-	connect(pageView, SIGNAL(UseTemp(QString, int)), ScApp, SLOT(Apply_MasterPage(QString, int)));
-	connect(pageView, SIGNAL(NewPage(int, QString)), ScApp, SLOT(slotNewPageP(int, QString)));
-	connect(Trash, SIGNAL(DelPage(int)), ScApp, SLOT(DeletePage2(int)));
-	connect(this, SIGNAL(GotoSeite(int)), ScApp, SLOT(selectPagesFromOutlines(int)));
+	connect(this, SIGNAL(EditTemp(QString)), ScMW, SLOT(manageMasterPages(QString)));
+	connect(pageView, SIGNAL(UseTemp(QString, int)), ScMW, SLOT(Apply_MasterPage(QString, int)));
+	connect(pageView, SIGNAL(NewPage(int, QString)), ScMW, SLOT(slotNewPageP(int, QString)));
+	connect(Trash, SIGNAL(DelPage(int)), ScMW, SLOT(DeletePage2(int)));
+	connect(this, SIGNAL(GotoSeite(int)), ScMW, SLOT(selectPagesFromOutlines(int)));
 	
 	QToolTip::add(Trash, "<qt>" + tr("Drag pages or master pages onto the trashbin to delete them") + "</qt>");
 	QToolTip::add(masterPageList, "<qt>" + tr("Here are all your master pages. To create a new page, drag a master page to the page view below") + "</qt>");
@@ -633,7 +633,7 @@ void PagePalette::handleFirstPage(int fp)
 
 void PagePalette::RebuildTemp()
 {
-	if (ScApp->ScriptRunning)
+	if (ScMW->ScriptRunning)
 		return;
 	masterPageList->clear();
 	if (currView == 0)
@@ -654,7 +654,7 @@ void PagePalette::RebuildTemp()
 
 void PagePalette::RebuildPage()
 {
-	if (ScApp->ScriptRunning)
+	if (ScMW->ScriptRunning)
 		return;
 	QString str;
 	disconnect(pageLayout, SIGNAL(selectedLayout(int )), this, SLOT(handlePageLayout(int )));

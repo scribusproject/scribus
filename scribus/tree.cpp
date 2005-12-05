@@ -15,9 +15,9 @@
 
 extern QPixmap loadIcon(QString nam);
 
-Tree::Tree( QWidget* parent, ScribusApp* scApp ) : ScrPaletteBase( parent, "Tree", false, 0 )
+Tree::Tree( QWidget* parent, ScribusMainWindow* scApp ) : ScrPaletteBase( parent, "Tree", false, 0 )
 {
-	ScApp = scApp;
+	ScMW = scApp;
 	resize( 220, 240 );
 	setMinimumSize( QSize( 220, 240 ) );
 	setMaximumSize( QSize( 800, 600 ) );
@@ -79,7 +79,7 @@ void Tree::slotRightClick(QListViewItem* , const QPoint &, int)
 {
 /*	if (ite == NULL)
 		return;
-	if (ScApp->ScriptRunning)
+	if (ScMW->ScriptRunning)
 		return;
 	if (vie->Doc->masterPageMode)
 		return;
@@ -97,7 +97,7 @@ void Tree::slotRightClick(QListViewItem* , const QPoint &, int)
 
 void Tree::slotDoRename(QListViewItem* , int )
 {
-/*	if (ScApp->ScriptRunning)
+/*	if (ScMW->ScriptRunning)
 		return;
 	if (vie->Doc->masterPageMode)
 		return;
@@ -145,8 +145,8 @@ void Tree::slotDoRename(QListViewItem* , int )
 					{
 						vie->Pages.at(sref)->Items.at(oref)->AnName = NameNew;
 						vie->Pages.at(sref)->Items.at(oref)->AutoName = false;
-						ScApp->slotDocCh(false);
-						ScApp->HaveNewSel(vie->Pages.at(sref)->Items.at(oref)->PType);
+						ScMW->slotDocCh(false);
+						ScMW->HaveNewSel(vie->Pages.at(sref)->Items.at(oref)->PType);
 						break;
 					}
 				}
@@ -205,7 +205,7 @@ QListViewItem* Tree::getListItem(uint SNr, int Nr)
 
 void Tree::slotShowSelect(uint SNr, int Nr)
 {
-	if (ScApp->ScriptRunning)
+	if (ScMW->ScriptRunning)
 		return;
 	if (currDoc==NULL)
 		return;
@@ -221,7 +221,7 @@ void Tree::slotShowSelect(uint SNr, int Nr)
 
 void Tree::slotRemoveElement(uint , uint )
 {
-/*	if (ScApp->ScriptRunning)
+/*	if (ScMW->ScriptRunning)
 		return;
 	if ((vie->Doc->masterPageMode) || (vie->Doc->loading))
 		return;
@@ -237,7 +237,7 @@ void Tree::slotRemoveElement(uint , uint )
 
 void Tree::slotUpdateElement(uint SNr, uint Nr)
 {
-	if (ScApp->ScriptRunning)
+	if (ScMW->ScriptRunning)
 		return;
 	QListViewItem *item = getListItem(SNr, Nr);
 	if (!item)
@@ -331,7 +331,7 @@ void Tree::setItemIcon(QListViewItem *item, int typ)
 
 void Tree::slotAddElement(PageItem *item)
 {
-	if (ScApp->ScriptRunning)
+	if (ScMW->ScriptRunning)
 		return;
 	if (currDoc->isLoading())
 		return;
@@ -376,7 +376,7 @@ void Tree::slotAddElement(PageItem *item)
 
 void Tree::slotMoveElement(uint , uint , uint )
 {
-/*	if (ScApp->ScriptRunning)
+/*	if (ScMW->ScriptRunning)
 		return;
 	if ((vie->Doc->masterPageMode) || (vie->Doc->loading))
 		return;
@@ -386,7 +386,7 @@ void Tree::slotMoveElement(uint , uint , uint )
 
 void Tree::slotAddPage(uint )
 {
-/*	if (ScApp->ScriptRunning)
+/*	if (ScMW->ScriptRunning)
 		return;
 	QString cc;
 	if (ListView1->childCount() == 0)
@@ -399,7 +399,7 @@ void Tree::slotAddPage(uint )
 
 void Tree::slotDelPage(uint )
 {
-/*	if (ScApp->ScriptRunning)
+/*	if (ScMW->ScriptRunning)
 		return;
 	if (vie->Doc->masterPageMode)
 		return;
@@ -414,7 +414,7 @@ void Tree::slotDelPage(uint )
 
 void Tree::rebuildPageD()
 {
-/*	if (ScApp->ScriptRunning)
+/*	if (ScMW->ScriptRunning)
 		return;
 	QString cc,tmpstr;
 	uint pagenumwidth;
@@ -431,7 +431,7 @@ void Tree::rebuildPageD()
 
 void Tree::reopenTree(QValueList<int> )
 {
-/*	if (ScApp->ScriptRunning)
+/*	if (ScMW->ScriptRunning)
 		return;
 	if (op.count() == 0)
 		return;
@@ -463,12 +463,12 @@ QValueList<int> Tree::buildReopenVals()
 
 void Tree::slotSelect(QListViewItem* ite)
 {
-	if (ScApp->ScriptRunning)
+	if (ScMW->ScriptRunning)
 		return;
 	selectionTriggered = true;
 	if (itemMap.contains(ite))
 	{
-		ScApp->closeActiveWindowMasterPageEditor();
+		ScMW->closeActiveWindowMasterPageEditor();
 		if (currDoc->DocItems.at(itemMap[ite])->Groups.count() == 0)
 			emit selectElement(currDoc->DocItems.at(itemMap[ite])->OwnPage, itemMap[ite], false);
 		else
@@ -478,14 +478,14 @@ void Tree::slotSelect(QListViewItem* ite)
 	}
 	if (groupMap.contains(ite))
 	{
-		ScApp->closeActiveWindowMasterPageEditor();
+		ScMW->closeActiveWindowMasterPageEditor();
 		emit selectElement(currDoc->DocItems.at(groupMap[ite])->OwnPage, groupMap[ite], false);
 		selectionTriggered = false;
 		return;
 	}
 	if (pageMap.contains(ite))
 	{
-		ScApp->closeActiveWindowMasterPageEditor();
+		ScMW->closeActiveWindowMasterPageEditor();
 		emit selectPage(pageMap[ite]);
 		selectionTriggered = false;
 		return;
@@ -538,7 +538,7 @@ void Tree::resizeEvent(QResizeEvent *r)
 
 void Tree::BuildTree()
 {
-	if (ScApp->ScriptRunning)
+	if (ScMW->ScriptRunning)
 		return;
 	disconnect(reportDisplay, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
 	clearPalette();

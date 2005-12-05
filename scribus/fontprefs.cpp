@@ -151,7 +151,7 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, QString PPath
 	// preferences, we let the user customize font search paths. Because things
 	// go rather badly if paths are changed/removed while a doc is open, the
 	// control is also not displayed if there is a document open.
-	if (!DocAvail && !ScApp->HaveDoc)
+	if (!DocAvail && !ScMW->HaveDoc)
 	{
 		PathList = new QListBox( tab3, "PathList" );
 		readPaths();

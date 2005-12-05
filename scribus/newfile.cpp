@@ -293,10 +293,10 @@ void NewDoc::createRecentDocPage()
 	recentDocLayout = new QVBoxLayout(recentDocFrame, 5, 5, "recentDocLayout");
 	recentDocList = new QListBox(recentDocFrame, "recentDocList");
 	recentDocLayout->addWidget(recentDocList);
-	uint max = QMIN(prefsManager->appPrefs.RecentDCount, ScApp->RecentDocs.count());
+	uint max = QMIN(prefsManager->appPrefs.RecentDCount, ScMW->RecentDocs.count());
 	for (uint m = 0; m < max; ++m)
 	{
-		recentDocList->insertItem(ScApp->RecentDocs[m]);
+		recentDocList->insertItem(ScMW->RecentDocs[m]);
 	}
 }
 
@@ -465,7 +465,7 @@ void NewDoc::setDS(int layout)
 
 void NewDoc::recentDocList_doubleClicked(QListBoxItem * /*item*/)
 {
-	/* Yep. There is nothing to solve. ScribusApp handles all
+	/* Yep. There is nothing to solve. ScribusMainWindow handles all
 	openings etc. It's Franz's programming style ;) */
 	ExitOK();
 }

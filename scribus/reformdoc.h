@@ -20,7 +20,7 @@
 class QSpinBox;
 class DocSections;
 class ScribusDoc;
-class ScribusApp;
+class ScribusMainWindow;
 class TabTypograpy;
 class HySettings;
 class CMSPrefs;
@@ -49,7 +49,7 @@ public:
 	const bool colorManagementSettingsChanged();
 	void updateDocumentSettings();	
 
-	ScribusApp *ScApp;
+	ScribusMainWindow *ScMW;
 	ScribusDoc* currDoc;
 	int einheit;
 	int decimals;

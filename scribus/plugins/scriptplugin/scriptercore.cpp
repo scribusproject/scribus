@@ -32,7 +32,7 @@
 ScripterCore::ScripterCore(QWidget* parent)
 {
 	pcon = new PythonConsole(parent);
-	menuMgr = ScApp->scrMenuMgr;
+	menuMgr = ScMW->scrMenuMgr;
 	scrScripterActions.clear();
 	scrRecentScriptActions.clear();
 
@@ -132,30 +132,30 @@ void ScripterCore::buildRecentScriptsMenu()
 
 void ScripterCore::FinishScriptRun()
 {
-	if (ScApp->HaveDoc)
+	if (ScMW->HaveDoc)
 	{
-		ScApp->propertiesPalette->setDoc(ScApp->doc);
-		ScApp->propertiesPalette->updateCList();
-		ScApp->propertiesPalette->Spal->setFormats(ScApp->doc);
-		ScApp->propertiesPalette->SetLineFormats(ScApp->doc);
-		ScApp->propertiesPalette->updateColorList();
-		ScApp->layerPalette->setLayers(&ScApp->doc->Layers, ScApp->doc->activeLayer());
-		ScApp->outlinePalette->setDoc(ScApp->doc);
-		ScApp->outlinePalette->BuildTree();
-		ScApp->pagePalette->setView(ScApp->view);
-		ScApp->pagePalette->Rebuild();
-		ScApp->doc->RePos = true;
+		ScMW->propertiesPalette->setDoc(ScMW->doc);
+		ScMW->propertiesPalette->updateCList();
+		ScMW->propertiesPalette->Spal->setFormats(ScMW->doc);
+		ScMW->propertiesPalette->SetLineFormats(ScMW->doc);
+		ScMW->propertiesPalette->updateColorList();
+		ScMW->layerPalette->setLayers(&ScMW->doc->Layers, ScMW->doc->activeLayer());
+		ScMW->outlinePalette->setDoc(ScMW->doc);
+		ScMW->outlinePalette->BuildTree();
+		ScMW->pagePalette->setView(ScMW->view);
+		ScMW->pagePalette->Rebuild();
+		ScMW->doc->RePos = true;
 		QPixmap pgPix(10, 10);
 		QRect rd = QRect(0,0,9,9);
 		ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
-		for (uint azz=0; azz<ScApp->doc->Items->count(); ++azz)
+		for (uint azz=0; azz<ScMW->doc->Items->count(); ++azz)
 		{
-			PageItem *ite = ScApp->doc->Items->at(azz);
+			PageItem *ite = ScMW->doc->Items->at(azz);
 			if (ite->Groups.count() != 0)
-				ScApp->doc->GroupOnPage(ite);
+				ScMW->doc->GroupOnPage(ite);
 			else
-				ite->OwnPage = ScApp->doc->OnPage(ite);
-			//ScApp->view->setRedrawBounding(ite);
+				ite->OwnPage = ScMW->doc->OnPage(ite);
+			//ScMW->view->setRedrawBounding(ite);
 			ite->setRedrawBounding();
 			if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText) && (!ite->Redrawn))
 			{
@@ -186,22 +186,22 @@ void ScripterCore::FinishScriptRun()
 			}
 		}
 		delete painter;
-		ScApp->doc->RePos = false;
-		//if (ScApp->view->SelItem.count() != 0)
-		if (ScApp->doc->selection->count() != 0)
+		ScMW->doc->RePos = false;
+		//if (ScMW->view->SelItem.count() != 0)
+		if (ScMW->doc->selection->count() != 0)
 		{
-			//ScApp->view->EmitValues(ScApp->view->SelItem.at(0));
-			//ScApp->view->EmitValues(ScApp->doc->selection->itemAt(0));
-			ScApp->doc->selection->itemAt(0)->emitAllToGUI();
-			//ScApp->HaveNewSel(ScApp->view->SelItem.at(0)->itemType());
-			ScApp->HaveNewSel(ScApp->doc->selection->itemAt(0)->itemType());
+			//ScMW->view->EmitValues(ScMW->view->SelItem.at(0));
+			//ScMW->view->EmitValues(ScMW->doc->selection->itemAt(0));
+			ScMW->doc->selection->itemAt(0)->emitAllToGUI();
+			//ScMW->HaveNewSel(ScMW->view->SelItem.at(0)->itemType());
+			ScMW->HaveNewSel(ScMW->doc->selection->itemAt(0)->itemType());
 		}
 		else
-			ScApp->HaveNewSel(-1);
-		ScApp->view->DrawNew();
-		//CB Really only need (want?) this for new docs, but we need it after a call to ScApp doFileNew.
+			ScMW->HaveNewSel(-1);
+		ScMW->view->DrawNew();
+		//CB Really only need (want?) this for new docs, but we need it after a call to ScMW doFileNew.
 		//We don't want it in cmddoc calls as itll interact with the GUI before a script may be finished.
-		ScApp->HaveNewDoc();
+		ScMW->HaveNewDoc();
 	}
 }
 
@@ -209,7 +209,7 @@ void ScripterCore::runScriptDialog()
 {
 	QString fileName;
 	QString curDirPath = QDir::currentDirPath();
-	RunScriptDialog dia( ScApp, m_enableExtPython );
+	RunScriptDialog dia( ScMW, m_enableExtPython );
 	if (dia.exec())
 	{
 		fileName = dia.selectedFile();
@@ -264,7 +264,7 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 	// Set up a sub-interpreter if needed:
 	if (!inMainInterpreter)
 	{
-		ScApp->ScriptRunning = true;
+		ScMW->ScriptRunning = true;
 		qApp->setOverrideCursor(QCursor(waitCursor), false);
 		// Create the sub-interpreter
 		// FIXME: This calls abort() in a Python debug build. We're doing something wrong.
@@ -273,7 +273,7 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 		// Chdir to the dir the script is in
 		QDir::setCurrent(fi.dirPath(true));
 		// Init the scripter module in the sub-interpreter
-		initscribus(ScApp);
+		initscribus(ScMW);
 	}
 	// Make sure sys.argv[0] is the path to the script
 	char* comm[1];
@@ -348,7 +348,7 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 				// Display a dialog to the user with the exception
 				QClipboard *cp = QApplication::clipboard();
 				cp->setText(errorMsg);
-				QMessageBox::warning(ScApp,
+				QMessageBox::warning(ScMW,
 									tr("Script error"),
 									tr("If you are running an official script report it at <a href=\"http://bugs.scribus.net\">bugs.scribus.net</a> please.")
 									+ "<pre>" +errorMsg + "</pre>"
@@ -364,12 +364,12 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 		PyEval_RestoreThread(stateo);
 		qApp->restoreOverrideCursor();
 	}
-	ScApp->ScriptRunning = false;
+	ScMW->ScriptRunning = false;
 }
 
 QString ScripterCore::slotRunScript(QString Script)
 {
-	ScApp->ScriptRunning = true;
+	ScMW->ScriptRunning = true;
 	qApp->setOverrideCursor(QCursor(waitCursor), false);
 	InValue = Script;
 	QString CurDir = QDir::currentDirPath();
@@ -379,7 +379,7 @@ QString ScripterCore::slotRunScript(QString Script)
 			);
 	if(PyThreadState_Get() != NULL)
 	{
-		initscribus(ScApp);
+		initscribus(ScMW);
 		if (RetVal == 0)
 			cm += (
 				"scribus._bu = cStringIO.StringIO()\n"
@@ -421,13 +421,13 @@ QString ScripterCore::slotRunScript(QString Script)
 		if (result == NULL)
 		{
 			PyErr_Print();
-			QMessageBox::warning(ScApp, tr("Script error"),
+			QMessageBox::warning(ScMW, tr("Script error"),
 					"<qt>" + tr("There was an internal error while trying the "
 					   "command you entered. Details were printed to "
 					   "stderr. ") + "</qt>");
 		}
 	}
-	ScApp->ScriptRunning = false;
+	ScMW->ScriptRunning = false;
 	qApp->restoreOverrideCursor();
 	return RetString;
 }
@@ -501,7 +501,7 @@ void ScripterCore::SavePlugPrefs()
  */
 void ScripterCore::aboutScript()
 {
-	QString fname = ScApp->CFileDialog(".", tr("Examine Script"), tr("Python Scripts (*.py)"), "", 0, 0, 0, 0);
+	QString fname = ScMW->CFileDialog(".", tr("Examine Script"), tr("Python Scripts (*.py)"), "", 0, 0, 0, 0);
 	if (fname == QString::null)
 		return;
 	QFileInfo fi = QFileInfo(fname);
@@ -582,7 +582,7 @@ bool ScripterCore::setupMainInterpreter()
 	if (PyRun_SimpleString(cmd.data()))
 	{
 		PyErr_Print();
-		QMessageBox::warning(ScApp, tr("Script error"),
+		QMessageBox::warning(ScMW, tr("Script error"),
 				tr("Setting up the Python plugin failed. "
 				   "Error details were printed to stderr. "));
 		return false;

@@ -6,7 +6,7 @@
 
 /***************************************************************************
 *                                                                         *
-*   ScApp program is free software; you can redistribute it and/or modify  *
+*   ScMW program is free software; you can redistribute it and/or modify  *
 *   it under the terms of the GNU General Public License as published by  *
 *   the Free Software Foundation; either version 2 of the License, or     *
 *   (at your option) any later version.                                   *
@@ -36,7 +36,7 @@ class QComboBox;
 class QToolButton;
 class MSpinBox;
 
-class ScribusApp;
+class ScribusMainWindow;
 class ScribusDoc;
 class UndoManager;
 
@@ -140,7 +140,7 @@ private:
 	bool startAlign();
 	void endAlign();
 	UndoManager *undoManager;
-	ScribusApp* ScApp;
+	ScribusMainWindow* ScMW;
 	AlignTo currAlignTo;
 	QValueList<AlignObjs> *alignObjects;
 	uint alignObjectsCount;

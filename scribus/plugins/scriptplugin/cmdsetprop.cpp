@@ -23,9 +23,9 @@ PyObject *scribus_setgradfill(PyObject* /* self */, PyObject* args)
 	currItem->SetFarbe(&tmp, c2, shade2);
 	currItem->fill_gradient.addStop(tmp, 1.0, 0.5, 1.0, c2, shade2);
 	currItem->GrType = typ;
-	//ScApp->view->updateGradientVectors(currItem);
+	//ScMW->view->updateGradientVectors(currItem);
 	currItem->updateGradientVectors();
-	ScApp->view->RefreshItem(currItem);
+	ScMW->view->RefreshItem(currItem);
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -44,7 +44,7 @@ PyObject *scribus_setfillcolor(PyObject* /* self */, PyObject* args)
 	i->setFillColor(QString::fromUtf8(Color));
 	//CB moved to setFillColor
 	//if (i->fillColor() != "None")
-	//	i->fillQColor = ScApp->doc->PageColors[i->fillColor()].getShadeColorProof(i->fillShade());
+	//	i->fillQColor = ScMW->doc->PageColors[i->fillColor()].getShadeColorProof(i->fillShade());
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -63,7 +63,7 @@ PyObject *scribus_setlinecolor(PyObject* /* self */, PyObject* args)
 	it->setLineColor(QString::fromUtf8(Color));
 	//CB Moved to setLineColor
 	//if (it->lineColor() != "None")
-	//	it->strokeQColor = ScApp->doc->PageColors[it->lineColor()].getShadeColorProof(it->lineShade());
+	//	it->strokeQColor = ScMW->doc->PageColors[it->lineColor()].getShadeColorProof(it->lineShade());
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -108,7 +108,7 @@ PyObject *scribus_setlineshade(PyObject* /* self */, PyObject* args)
 	it->setLineShade(w);
 	//CB Moved to setLineShade
 	//if (it->lineColor() != "None")
-	//	it->strokeQColor = ScApp->doc->PageColors[it->lineColor()].getShadeColorProof(it->lineShade());
+	//	it->strokeQColor = ScMW->doc->PageColors[it->lineColor()].getShadeColorProof(it->lineShade());
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -132,7 +132,7 @@ PyObject *scribus_setfillshade(PyObject* /* self */, PyObject* args)
 	i->setFillShade(w);
 	//CB Moved to setFillShade
 	//if (i->fillColor() != "None")
-	//	i->fillQColor = ScApp->doc->PageColors[i->fillColor()].getShadeColorProof(i->fillShade());
+	//	i->fillQColor = ScMW->doc->PageColors[i->fillColor()].getShadeColorProof(i->fillShade());
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -204,8 +204,8 @@ PyObject *scribus_setcornerrad(PyObject* /* self */, PyObject* args)
 	// apply rounding
 	currItem->setCornerRadius(w);
 	currItem->SetFrameRound();
-	ScApp->view->setRedrawBounding(currItem);
-	ScApp->view->SetFrameRounded();
+	ScMW->view->setRedrawBounding(currItem);
+	ScMW->view->SetFrameRounded();
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -221,7 +221,7 @@ PyObject *scribus_setmultiline(PyObject* /* self */, PyObject* args)
 	PageItem *currItem = GetUniqueItem(QString::fromUtf8(Name));
 	if (currItem == NULL)
 		return NULL;
-	if (!ScApp->doc->MLineStyles.contains(QString::fromUtf8(Style)))
+	if (!ScMW->doc->MLineStyles.contains(QString::fromUtf8(Style)))
 	{
 		PyErr_SetString(NotFoundError, QObject::tr("Line style not found.","python error"));
 		return NULL;

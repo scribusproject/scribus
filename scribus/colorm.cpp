@@ -342,16 +342,16 @@ void Farbmanager::delUnused()
 	for (it = EditColors.begin(); it != EditColors.end(); ++it)
 	{
 		found = false;
-		if ((it.key() == ScApp->doc->toolSettings.dBrush) || (it.key() == ScApp->doc->toolSettings.dPen) ||
-		        (it.key() == ScApp->doc->toolSettings.dBrushPict)
-		        || (it.key() == ScApp->doc->toolSettings.dPenLine) || (it.key() == ScApp->doc->toolSettings.dPenText))
+		if ((it.key() == ScMW->doc->toolSettings.dBrush) || (it.key() == ScMW->doc->toolSettings.dPen) ||
+		        (it.key() == ScMW->doc->toolSettings.dBrushPict)
+		        || (it.key() == ScMW->doc->toolSettings.dPenLine) || (it.key() == ScMW->doc->toolSettings.dPenText))
 		{
 			UsedC.insert(it.key(), it.data());
 			continue;
 		}
-		for (uint c = 0; c < ScApp->doc->MasterItems.count(); ++c)
+		for (uint c = 0; c < ScMW->doc->MasterItems.count(); ++c)
 		{
-			ite = ScApp->doc->MasterItems.at(c);
+			ite = ScMW->doc->MasterItems.at(c);
 			QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 			{
@@ -383,9 +383,9 @@ void Farbmanager::delUnused()
 			UsedC.insert(it.key(), it.data());
 			continue;
 		}
-		for (uint c = 0; c < ScApp->doc->FrameItems.count(); ++c)
+		for (uint c = 0; c < ScMW->doc->FrameItems.count(); ++c)
 		{
-			ite = ScApp->doc->FrameItems.at(c);
+			ite = ScMW->doc->FrameItems.at(c);
 			QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 			{
@@ -417,9 +417,9 @@ void Farbmanager::delUnused()
 			UsedC.insert(it.key(), it.data());
 			continue;
 		}
-		for (uint c = 0; c < ScApp->doc->DocItems.count(); ++c)
+		for (uint c = 0; c < ScMW->doc->DocItems.count(); ++c)
 		{
-			ite = ScApp->doc->DocItems.at(c);
+			ite = ScMW->doc->DocItems.at(c);
 			QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 			{
@@ -447,8 +447,8 @@ void Farbmanager::delUnused()
 				break;
 		}
 		/* PFJ - 29.02.04 - Merged if's */
-		if ((it.key() == ScApp->doc->CurrTextFill) ||
-		        (it.key() == ScApp->doc->CurrTextStroke))
+		if ((it.key() == ScMW->doc->CurrTextFill) ||
+		        (it.key() == ScMW->doc->CurrTextStroke))
 			found = true;
 		if (found)
 		{

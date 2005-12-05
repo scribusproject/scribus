@@ -17,7 +17,7 @@
 
 /*! \brief \brief GuideManager is the dialog for guides managing ;).
 Its public interface is used in scrubus.cpp
-ScribusApp::ManageGuides() via refreshDoc().
+ScribusMainWindow::ManageGuides() via refreshDoc().
 Guides are applied via void Page::addXGuides(QValueList<double>& guides)
 and void Page::addYGuides(QValueList<double>& guides).
 \author Petr Vanek <petr@yarpen.cz>

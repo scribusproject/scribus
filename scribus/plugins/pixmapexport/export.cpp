@@ -87,11 +87,11 @@ bool PixmapExportPlugin::run(QString target)
 	Q_ASSERT(target.isEmpty());
 	bool res;
 	ExportBitmap *ex = new ExportBitmap();
-	ExportForm *dia = new ExportForm(ScApp, ex->pageDPI, ex->quality, ex->bitmapType);
+	ExportForm *dia = new ExportForm(ScMW, ex->pageDPI, ex->quality, ex->bitmapType);
 
 	// interval widgets handling
 	QString tmp;
-	dia->RangeVal->setText(tmp.setNum(ScApp->doc->currentPageNumber()+1));
+	dia->RangeVal->setText(tmp.setNum(ScMW->doc->currentPageNumber()+1));
 	// main "loop"
 	if (dia->exec()==QDialog::Accepted)
 	{
@@ -102,27 +102,27 @@ bool PixmapExportPlugin::run(QString target)
 		ex->quality = dia->QualityBox->value();
 		ex->exportDir = dia->OutputDirectory->text();
 		ex->bitmapType = dia->bitmapType;
-		ScApp->mainWindowProgressBar->reset();
+		ScMW->mainWindowProgressBar->reset();
 		if (dia->OnePageRadio->isChecked())
 			res = ex->exportActual();
 		else
 		{
 			if (dia->AllPagesRadio->isChecked())
-				parsePagesString("*", &pageNs, ScApp->doc->pageCount);
+				parsePagesString("*", &pageNs, ScMW->doc->pageCount);
 			else
-				parsePagesString(dia->RangeVal->text(), &pageNs, ScApp->doc->pageCount);
+				parsePagesString(dia->RangeVal->text(), &pageNs, ScMW->doc->pageCount);
 			res = ex->exportInterval(pageNs);
 		}
-		ScApp->mainWindowProgressBar->reset();
+		ScMW->mainWindowProgressBar->reset();
 		QApplication::restoreOverrideCursor();
 		if (!res)
 		{
-			QMessageBox::warning(ScApp, QObject::tr("Save as Image"), QObject::tr("Error writing the output file(s)."));
-			ScApp->mainWindowStatusLabel->setText(QObject::tr("Error writing the output file(s)."));
+			QMessageBox::warning(ScMW, QObject::tr("Save as Image"), QObject::tr("Error writing the output file(s)."));
+			ScMW->mainWindowStatusLabel->setText(QObject::tr("Error writing the output file(s)."));
 		}
 		else
 		{
-			ScApp->mainWindowStatusLabel->setText(QObject::tr("Export successful."));
+			ScMW->mainWindowStatusLabel->setText(QObject::tr("Export successful."));
 		}
 	} // if accepted
 	// clean the trash
@@ -156,7 +156,7 @@ bool ExportBitmap::exportPage(uint pageNr, bool single = true)
 	uint over = 0;
 	QString fileName = getFileName(pageNr);
 
-	if (!ScApp->doc->Pages->at(pageNr))
+	if (!ScMW->doc->Pages->at(pageNr))
 		return false;
 
 	/* a little magic here - I need to compute the "maxGr" value...
@@ -164,10 +164,10 @@ bool ExportBitmap::exportPage(uint pageNr, bool single = true)
 	* portrait and user defined sizes.
 	*/
 	double pixmapSize;
-	(ScApp->doc->pageHeight > ScApp->doc->pageWidth)
-			? pixmapSize = ScApp->doc->pageHeight
-			: pixmapSize = ScApp->doc->pageWidth;
-	QImage im = ScApp->view->PageToPixmap(pageNr, qRound(pixmapSize * enlargement * (pageDPI / 72.0) / 100.0));
+	(ScMW->doc->pageHeight > ScMW->doc->pageWidth)
+			? pixmapSize = ScMW->doc->pageHeight
+			: pixmapSize = ScMW->doc->pageWidth;
+	QImage im = ScMW->view->PageToPixmap(pageNr, qRound(pixmapSize * enlargement * (pageDPI / 72.0) / 100.0));
 	int dpm = qRound(100.0 / 2.54 * pageDPI);
 	im.setDotsPerMeterY(dpm);
 	im.setDotsPerMeterX(dpm);
@@ -177,7 +177,7 @@ bool ExportBitmap::exportPage(uint pageNr, bool single = true)
 /* Changed the following Code from the original QMessageBox::question to QMessageBox::warning
 	 to keep the Code compatible to Qt-3.1.x
 	 f.s 12.05.2004 */
-		over = ScMessageBox::warning(ScApp,
+		over = ScMessageBox::warning(ScMW,
 				QObject::tr("File exists. Overwrite?"),
 				fileName +"\n"+ QObject::tr("exists already. Overwrite?"),
 				QObject::tr("Yes"),
@@ -196,16 +196,16 @@ bool ExportBitmap::exportPage(uint pageNr, bool single = true)
 
 bool ExportBitmap::exportActual()
 {
-	return exportPage(ScApp->doc->currentPageNumber(), true);
+	return exportPage(ScMW->doc->currentPageNumber(), true);
 }
 
 bool ExportBitmap::exportInterval(std::vector<int> &pageNs)
 {
 	bool res;
-	ScApp->mainWindowProgressBar->setTotalSteps(pageNs.size());
+	ScMW->mainWindowProgressBar->setTotalSteps(pageNs.size());
 	for (uint a = 0; a < pageNs.size(); ++a)
 	{
-		ScApp->mainWindowProgressBar->setProgress(a);
+		ScMW->mainWindowProgressBar->setProgress(a);
 		res = exportPage(pageNs[a]-1, false);
 		if (!res)
 			return false;

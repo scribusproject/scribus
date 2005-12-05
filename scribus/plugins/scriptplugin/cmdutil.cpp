@@ -3,32 +3,32 @@
 #include "page.h"
 #include "selection.h"
 
-ScribusApp* Carrier;
+ScribusMainWindow* Carrier;
 ScribusDoc* doc;
 
 /// Convert a value in points to a value in the current document units
 double PointToValue(double Val)
 {
-	return pts2value(Val, ScApp->doc->unitIndex());
+	return pts2value(Val, ScMW->doc->unitIndex());
 }
 
 /// Convert a value in the current document units to a value in points
 double ValueToPoint(double Val)
 {
-	return value2pts(Val, ScApp->doc->unitIndex());
+	return value2pts(Val, ScMW->doc->unitIndex());
 }
 
 /// Convert an X co-ordinate part in page units to a document co-ordinate
 /// in system units.
 double pageUnitXToDocX(double pageUnitX)
 {
-	return ValueToPoint(pageUnitX) + ScApp->doc->currentPage->xOffset();
+	return ValueToPoint(pageUnitX) + ScMW->doc->currentPage->xOffset();
 }
 
 // Convert doc units to page units
 double docUnitXToPageX(double pageUnitX)
 {
-	return PointToValue(pageUnitX - ScApp->doc->currentPage->xOffset());
+	return PointToValue(pageUnitX - ScMW->doc->currentPage->xOffset());
 }
 
 /// Convert a Y co-ordinate part in page units to a document co-ordinate
@@ -37,30 +37,30 @@ double docUnitXToPageX(double pageUnitX)
 /// origin on the top left of the current page.
 double pageUnitYToDocY(double pageUnitY)
 {
-	return ValueToPoint(pageUnitY) + ScApp->doc->currentPage->yOffset();
+	return ValueToPoint(pageUnitY) + ScMW->doc->currentPage->yOffset();
 }
 
 double docUnitYToPageY(double pageUnitY)
 {
-	return PointToValue(pageUnitY - ScApp->doc->currentPage->yOffset());
+	return PointToValue(pageUnitY - ScMW->doc->currentPage->yOffset());
 }
 
 int GetItem(QString Name)
 {
 	if (!Name.isEmpty())
 	{
-		for (uint a = 0; a < ScApp->doc->Items->count(); a++)
+		for (uint a = 0; a < ScMW->doc->Items->count(); a++)
 		{
-			if (ScApp->doc->Items->at(a)->itemName() == Name)
+			if (ScMW->doc->Items->at(a)->itemName() == Name)
 				return static_cast<int>(a);
 		}
 	}
 	else
 	{
-		//if (ScApp->view->SelItem.count() != 0)
-		if (ScApp->doc->selection->count() != 0)
-			//return ScApp->view->SelItem.at(0)->ItemNr;
-			return ScApp->doc->selection->itemAt(0)->ItemNr;
+		//if (ScMW->view->SelItem.count() != 0)
+		if (ScMW->doc->selection->count() != 0)
+			//return ScMW->view->SelItem.at(0)->ItemNr;
+			return ScMW->doc->selection->itemAt(0)->ItemNr;
 	}
 	return -1;
 }
@@ -68,9 +68,9 @@ int GetItem(QString Name)
 void ReplaceColor(QString col, QString rep)
 {
 	QColor tmpc;
-	for (uint c = 0; c < ScApp->doc->Items->count(); c++)
+	for (uint c = 0; c < ScMW->doc->Items->count(); c++)
 	{
-		PageItem *ite = ScApp->doc->Items->at(c);
+		PageItem *ite = ScMW->doc->Items->at(c);
 		if (ite->itemType() == PageItem::TextFrame)
 		{
 			for (uint d = 0; d < ite->itemText.count(); d++)
@@ -96,9 +96,9 @@ void ReplaceColor(QString col, QString rep)
 			}
 		}
 	}
-	for (uint c = 0; c < ScApp->doc->MasterItems.count(); c++)
+	for (uint c = 0; c < ScMW->doc->MasterItems.count(); c++)
 	{
-		PageItem *ite = ScApp->doc->MasterItems.at(c);
+		PageItem *ite = ScMW->doc->MasterItems.at(c);
 		if (ite->itemType() == PageItem::TextFrame)
 		{
 			for (uint d = 0; d < ite->itemText.count(); d++)
@@ -130,10 +130,10 @@ void ReplaceColor(QString col, QString rep)
 PageItem* GetUniqueItem(QString name)
 {
 	if (name.length()==0)
-		//if (ScApp->view->SelItem.count() != 0)
-		if (ScApp->doc->selection->count() != 0)
-			//return ScApp->view->SelItem.at(0);
-			return ScApp->doc->selection->itemAt(0);
+		//if (ScMW->view->SelItem.count() != 0)
+		if (ScMW->doc->selection->count() != 0)
+			//return ScMW->view->SelItem.at(0);
+			return ScMW->doc->selection->itemAt(0);
 		else
 		{
 			PyErr_SetString(NoValidObjectError, QString("Cannot use empty string for object name when there is no selection"));
@@ -150,10 +150,10 @@ PageItem* getPageItemByName(QString name)
 		PyErr_SetString(PyExc_ValueError, QString("Cannot accept empty name for pageitem"));
 		return NULL;
 	}
-	for (uint j = 0; j<ScApp->doc->Items->count(); j++)
+	for (uint j = 0; j<ScMW->doc->Items->count(); j++)
 	{
-		if (name==ScApp->doc->Items->at(j)->itemName())
-			return ScApp->doc->Items->at(j);
+		if (name==ScMW->doc->Items->at(j)->itemName())
+			return ScMW->doc->Items->at(j);
 	} // for items
 	PyErr_SetString(NoValidObjectError, QString("Object not found"));
 	return NULL;
@@ -169,9 +169,9 @@ bool ItemExists(QString name)
 {
 	if (name.length() == 0)
 		return false;
-	for (uint j = 0; j<ScApp->doc->Items->count(); j++)
+	for (uint j = 0; j<ScMW->doc->Items->count(); j++)
 	{
-		if (name==ScApp->doc->Items->at(j)->itemName())
+		if (name==ScMW->doc->Items->at(j)->itemName())
 			return true;
 	} // for items
 	return false;
@@ -186,7 +186,7 @@ bool ItemExists(QString name)
  */
 bool checkHaveDocument()
 {
-    if (ScApp->HaveDoc)
+    if (ScMW->HaveDoc)
         return true;
     // Caller is required to check for false return from this function
     // and return NULL.
@@ -198,29 +198,29 @@ QStringList getSelectedItemsByName()
 {
 	/*
 	QStringList names;
-	QPtrListIterator<PageItem> it(ScApp->view->SelItem);
+	QPtrListIterator<PageItem> it(ScMW->view->SelItem);
 	for ( ; it.current() != 0 ; ++it)
 		names.append(it.current()->itemName());
 	return names;
 	*/
-	return ScApp->doc->selection->getSelectedItemsByName();
+	return ScMW->doc->selection->getSelectedItemsByName();
 }
 
 bool setSelectedItemsByName(QStringList& itemNames)
 {
-	ScApp->view->Deselect();
+	ScMW->view->Deselect();
 	// For each named item
 	for (QStringList::Iterator it = itemNames.begin() ; it != itemNames.end() ; it++)
 	{
 		// Search for the named item
 		PageItem* item = 0;
-		for (uint j = 0; j < ScApp->doc->Items->count(); j++)
-			if (*it == ScApp->doc->Items->at(j)->itemName())
-				item = ScApp->doc->Items->at(j);
+		for (uint j = 0; j < ScMW->doc->Items->count(); j++)
+			if (*it == ScMW->doc->Items->at(j)->itemName())
+				item = ScMW->doc->Items->at(j);
 		if (!item)
 			return false;
 		// and select it
-		ScApp->view->SelectItemNr(item->ItemNr);
+		ScMW->view->SelectItemNr(item->ItemNr);
 	}
 	return true;
 }

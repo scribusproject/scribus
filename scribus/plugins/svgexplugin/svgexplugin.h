@@ -7,7 +7,7 @@
 #include "loadsaveplugin.h"
 
 class QString;
-class ScribusApp;
+class ScribusMainWindow;
 class PageItem;
 class Page;
 

@@ -40,7 +40,7 @@
 extern bool printDinUse;
 
 /*!
- \fn PPreview::PPreview( QWidget* parent, ScribusApp *pl)
+ \fn PPreview::PPreview( QWidget* parent, ScribusMainWindow *pl)
  \author Franz Schmid
  \date
  \brief Create the Print Preview window

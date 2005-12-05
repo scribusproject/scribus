@@ -5,7 +5,7 @@
 #include <qmap.h>
 
 class QString;
-class ScribusApp;
+class ScribusMainWindow;
 class PrefsContext;
 
 

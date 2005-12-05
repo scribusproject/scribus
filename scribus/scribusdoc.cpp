@@ -164,7 +164,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 	docToCSetups(prefsData.defaultToCSetups),
 	// sections
 	symReturn(), symNewLine(), symTab(), symNonBreak(), symNewCol(), symNewFrame(),
-	docHyphenator(new Hyphenator(ScApp, this)), // MUST be constructed late
+	docHyphenator(new Hyphenator(ScMW, this)), // MUST be constructed late
 	_itemCreationTransactionStarted(false)
 {
 	Q_CHECK_PTR(selection);
@@ -329,7 +329,7 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 	if ((CMSavail) && (CMSSettings.CMSinUse))
 	{
 #ifdef HAVE_CMS
-		OpenCMSProfiles(ScApp->InputProfiles, ScApp->MonitorProfiles, ScApp->PrinterProfiles);
+		OpenCMSProfiles(ScMW->InputProfiles, ScMW->MonitorProfiles, ScMW->PrinterProfiles);
 		stdProofG = stdProof;
 		stdTransG = stdTrans;
 		stdProofImgG = stdProofImg;
@@ -657,8 +657,8 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 		{
 			if (ScQApp->usingGUI())
 			{
-				ScApp->changeLayer(ss->getInt("ACTIVE"));
-				ScApp->layerPalette->rebuildList();
+				ScMW->changeLayer(ss->getInt("ACTIVE"));
+				ScMW->layerPalette->rebuildList();
 			}
 		}
 	}
@@ -1053,7 +1053,7 @@ bool ScribusDoc::deleteLayer(const int layerNumber, const bool deleteItems)
 		undoManager->beginTransaction("Layer", Um::IDocument, Um::DeleteLayer, "", Um::IDelete);
 
 	if (ScQApp->usingGUI())
-		ScApp->LayerRemove(layerNumber, deleteItems);
+		ScMW->LayerRemove(layerNumber, deleteItems);
 	/*
 	//Layer found, do we want to delete its items too?
 	if (masterPageMode)
@@ -1906,7 +1906,7 @@ bool ScribusDoc::save(const QString& fileName)
 	QProgressBar* mainWindowProgressBar=NULL;
 	if (ScQApp->usingGUI())
 	{
-		mainWindowProgressBar=ScApp->mainWindowProgressBar;
+		mainWindowProgressBar=ScMW->mainWindowProgressBar;
 		mainWindowProgressBar->reset();
 	}
 	ScriXmlDoc *ss = new ScriXmlDoc();
@@ -2112,7 +2112,7 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 					BufferT.Groups.push((*nx));
 				}
 			}
-			ScApp->view->PasteItem(&BufferT, true, true);
+			ScMW->view->PasteItem(&BufferT, true, true);
 			PageItem* Neu = Items->at(Items->count()-1);
 			Neu->OnMasterPage = masterPageName;
 			Neu->OwnPage=MasterNames[masterPageName];
@@ -2281,7 +2281,7 @@ void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageIte
 		newItem->SetRectFrame();
 		//TODO one day hopefully, if(ScQApp->usingGUI())
 		newItem->setRedrawBounding();
-		//ScApp->view->setRedrawBounding(newItem);
+		//ScMW->view->setRedrawBounding(newItem);
 		newItem->ContourLine = newItem->PoLine.copy();
 	}
 	
@@ -2290,7 +2290,7 @@ void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageIte
 		newItem->SetOvalFrame();
 		//TODO one day hopefully, if(ScQApp->usingGUI())
 		newItem->setRedrawBounding();
-		//ScApp->view->setRedrawBounding(newItem);
+		//ScMW->view->setRedrawBounding(newItem);
 		newItem->ContourLine = newItem->PoLine.copy();
 	}
 	
@@ -2360,23 +2360,23 @@ bool ScribusDoc::loadPict(QString fn, PageItem *pageItem, bool reload)
 {
 	if (!reload)
 	{
-		if ((ScApp->fileWatcher->files().contains(pageItem->Pfile) != 0) && (pageItem->PicAvail))
-			ScApp->fileWatcher->removeFile(pageItem->Pfile);
+		if ((ScMW->fileWatcher->files().contains(pageItem->Pfile) != 0) && (pageItem->PicAvail))
+			ScMW->fileWatcher->removeFile(pageItem->Pfile);
 	}
 	if(!pageItem->loadImage(fn, reload))
 		return false;
 	if (!reload)
-		ScApp->fileWatcher->addFile(pageItem->Pfile);
+		ScMW->fileWatcher->addFile(pageItem->Pfile);
 	if (!isLoading())
 	{
 		//TODO: Make this a signal again one day
 		//emit RasterPic(pageItem->isRaster);
-		ScApp->HaveRaster(pageItem->isRaster);
+		ScMW->HaveRaster(pageItem->isRaster);
 		//TODO: Previously commented out.. unsure why, remove later
 		//emit UpdtObj(PageNr, ItNr);
 		//TODO: Make this a signal again one day
 		//emit DocChanged();
-		ScApp->slotDocCh();
+		ScMW->slotDocCh();
 	}
 	return true;
 }
@@ -2752,7 +2752,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 				polyLineItem->FrameType = 3;
 				polyLineItem->setRotation(currItem->rotation());
 				polyLineItem->SetPolyClip(qRound(QMAX(polyLineItem->Pwidth / 2, 1)));
-				ScApp->view->AdjustItemSize(polyLineItem);
+				ScMW->view->AdjustItemSize(polyLineItem);
 				
 				newItem->setLineColor("None");
 				newItem->SetRectFrame();
@@ -2782,7 +2782,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 			newItem->convertTo(PageItem::PolyLine);
 			newItem->ClipEdited = true;
 			newItem->SetPolyClip(qRound(QMAX(newItem->Pwidth / 2, 1)));
-			ScApp->view->AdjustItemSize(newItem);
+			ScMW->view->AdjustItemSize(newItem);
 			break;
 		case PageItem::PathText:
 			{
@@ -2798,11 +2798,11 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 				/*	if (!Doc->loading)
 					emit UpdtObj(Doc->currentPage->pageNr(), b->ItemNr); */
 				//FIXME: Stop using the view here
-				ScApp->view->AdjustItemSize(newItem);
+				ScMW->view->AdjustItemSize(newItem);
 				newItem->UpdatePolyClip();
 				double dx = secondaryItem->xPos() - newItem->xPos();
 				double dy = secondaryItem->yPos() - newItem->yPos();
-				ScApp->view->MoveItem(dx, dy, newItem);
+				ScMW->view->MoveItem(dx, dy, newItem);
 				newItem->setRotation(secondaryItem->rotation());
 				newItem->FrameType = 3;
 			}
@@ -2818,10 +2818,10 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 	if (newType==PageItem::PathText)
 	{
 		//FIXME: Stop using the view here
-		ScApp->view->SelectItem(secondaryItem);
-		ScApp->view->DeleteItem();
-		ScApp->view->updateContents();
-		ScApp->view->Deselect(true);
+		ScMW->view->SelectItem(secondaryItem);
+		ScMW->view->DeleteItem();
+		ScMW->view->updateContents();
+		ScMW->view->Deselect(true);
 	}
 	//Create the undo action for the new item
 	if (UndoManager::undoEnabled())
@@ -3083,7 +3083,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 			--destLocation;
 		else if (whereToInsert==2)
 			destLocation=DocPages.count();
-		//ScApp->slotNewPage(destLocation);
+		//ScMW->slotNewPage(destLocation);
 		currentPage=addPage(destLocation, from->MPageNam);
 		Page* destination = currentPage; //slotNewPage sets currentPage
 		destination->setInitialHeight(from->height());
@@ -3094,7 +3094,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 		destination->initialMargins.Bottom = from->Margins.Bottom;
 		destination->initialMargins.Left = from->Margins.Left;
 		destination->initialMargins.Right = from->Margins.Right;
-		ScApp->view->reformPages();
+		ScMW->view->reformPages();
 		QMap<int,int> TableID;
 		QPtrList<PageItem> TableItems;
 		TableID.clear();
@@ -3124,11 +3124,11 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 						Buffer.Groups.push((*nx));
 					}
 				}
-				ScApp->view->PasteItem(&Buffer, true, true);
+				ScMW->view->PasteItem(&Buffer, true, true);
 				PageItem* Neu = Items->at(Items->count()-1);
 				Neu->OnMasterPage = "";
 				if (itemToCopy->isBookmark)
-					ScApp->AddBookMark(Neu);
+					ScMW->AddBookMark(Neu);
 				if (Neu->isTableItem)
 				{
 					TableItems.append(Neu);
@@ -3159,7 +3159,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 					ta->BottomLink = 0;
 			}
 		}
-		//ScApp->Apply_MasterPage(from->MPageNam, destination->pageNr(), false);
+		//ScMW->Apply_MasterPage(from->MPageNam, destination->pageNr(), false);
 		if (from->YGuides.count() != 0)
 		{
 			for (uint y = 0; y < from->YGuides.count(); ++y)

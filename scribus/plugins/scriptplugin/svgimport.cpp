@@ -30,7 +30,7 @@ PyObject *scribus_importsvg(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 
-	ScApp->doc->setLoading(false);
+	ScMW->doc->setLoading(false);
 
 	Py_INCREF(Py_None);
 	return Py_None;

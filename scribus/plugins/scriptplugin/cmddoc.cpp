@@ -50,14 +50,14 @@ PyObject *scribus_newdocument(PyObject* /* self */, PyObject* args)
 	topMargin = value2pts(topMargin, unit);
 	bottomMargin = value2pts(bottomMargin, unit);
 
-	bool ret = ScApp->doFileNew(pageWidth, pageHeight,
+	bool ret = ScMW->doFileNew(pageWidth, pageHeight,
 								topMargin, leftMargin, rightMargin, bottomMargin,
 								// autoframes. It's disabled in python
 								// columnDistance, numberCols, autoframes,
 								0, 1, false,
 								pagesType, unit, firstPageOrder,
 								orientation, firstPageNr, "Custom");
-	ScApp->doc->pageSets[pagesType].FirstPage = firstPageOrder;
+	ScMW->doc->pageSets[pagesType].FirstPage = firstPageOrder;
 
 	return PyInt_FromLong(static_cast<long>(ret));
 }
@@ -91,7 +91,7 @@ PyObject *scribus_newdoc(PyObject* /* self */, PyObject* args)
 	lr = value2pts(lr, unit);
 	rr = value2pts(rr, unit);
 	btr = value2pts(btr, unit);
-	bool ret = ScApp->doFileNew(b, h, tpr, lr, rr, btr, 0, 1, false, ds, unit, fsl, ori, fNr, "Custom");
+	bool ret = ScMW->doFileNew(b, h, tpr, lr, rr, btr, 0, 1, false, ds, unit, fsl, ori, fNr, "Custom");
 	//	qApp->processEvents();
 	return PyInt_FromLong(static_cast<long>(ret));
 }
@@ -107,11 +107,11 @@ PyObject *scribus_setmargins(PyObject* /* self */, PyObject* args)
 	lr = ValueToPoint(lr);
 	rr = ValueToPoint(rr);
 	btr = ValueToPoint(btr);
-	ScApp->doc->resetPage(tpr, lr, rr, btr, ScApp->doc->currentPageLayout);
-	ScApp->view->reformPages();
-	ScApp->doc->setModified(true);
-	ScApp->view->GotoPage(ScApp->doc->currentPageNumber());
-	ScApp->view->DrawNew();
+	ScMW->doc->resetPage(tpr, lr, rr, btr, ScMW->doc->currentPageLayout);
+	ScMW->view->reformPages();
+	ScMW->doc->setModified(true);
+	ScMW->view->GotoPage(ScMW->doc->currentPageNumber());
+	ScMW->view->DrawNew();
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -120,15 +120,15 @@ PyObject *scribus_closedoc(PyObject* /* self */)
 {
 	if(!checkHaveDocument())
 		return NULL;
-	ScApp->doc->setModified(false);
-	bool ret = ScApp->slotFileClose();
+	ScMW->doc->setModified(false);
+	bool ret = ScMW->slotFileClose();
 	qApp->processEvents();
 	return PyInt_FromLong(static_cast<long>(ret));
 }
 
 PyObject *scribus_havedoc(PyObject* /* self */)
 {
-	return PyInt_FromLong(static_cast<long>(ScApp->HaveDoc));
+	return PyInt_FromLong(static_cast<long>(ScMW->HaveDoc));
 }
 
 PyObject *scribus_opendoc(PyObject* /* self */, PyObject* args)
@@ -136,7 +136,7 @@ PyObject *scribus_opendoc(PyObject* /* self */, PyObject* args)
 	char *Name;
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
 		return NULL;
-	bool ret = ScApp->loadDoc(QString::fromUtf8(Name));
+	bool ret = ScMW->loadDoc(QString::fromUtf8(Name));
 	if (!ret)
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Failed to open document.","python error"));
@@ -150,7 +150,7 @@ PyObject *scribus_savedoc(PyObject* /* self */)
 {
 	if(!checkHaveDocument())
 		return NULL;
-	ScApp->slotFileSave();
+	ScMW->slotFileSave();
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -162,7 +162,7 @@ PyObject *scribus_savedocas(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	bool ret = ScApp->DoFileSave(QString::fromUtf8(Name));
+	bool ret = ScMW->DoFileSave(QString::fromUtf8(Name));
 	if (!ret)
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Failed to save document.","python error"));
@@ -183,10 +183,10 @@ PyObject *scribus_setinfo(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	ScApp->doc->documentInfo.setAuthor(QString::fromUtf8(Author));
-	ScApp->doc->documentInfo.setTitle(QString::fromUtf8(Title));
-	ScApp->doc->documentInfo.setComments(QString::fromUtf8(Desc));
-	ScApp->slotDocCh();
+	ScMW->doc->documentInfo.setAuthor(QString::fromUtf8(Author));
+	ScMW->doc->documentInfo.setTitle(QString::fromUtf8(Title));
+	ScMW->doc->documentInfo.setComments(QString::fromUtf8(Desc));
+	ScMW->slotDocCh();
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -203,7 +203,7 @@ PyObject *scribus_setunit(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Unit out of range. Use one of the scribus.UNIT_* constants.","python error"));
 		return NULL;
 	}
-	ScApp->slotChangeUnit(e);
+	ScMW->slotChangeUnit(e);
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -212,7 +212,7 @@ PyObject *scribus_getunit(PyObject* /* self */)
 {
 	if(!checkHaveDocument())
 		return NULL;
-	return PyInt_FromLong(static_cast<long>(ScApp->doc->unitIndex()));
+	return PyInt_FromLong(static_cast<long>(ScMW->doc->unitIndex()));
 }
 
 PyObject *scribus_loadstylesfromfile(PyObject* /* self */, PyObject *args)
@@ -222,7 +222,7 @@ PyObject *scribus_loadstylesfromfile(PyObject* /* self */, PyObject *args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	ScApp->doc->loadStylesFromFile(QString::fromUtf8(fileName));
+	ScMW->doc->loadStylesFromFile(QString::fromUtf8(fileName));
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -234,13 +234,13 @@ PyObject *scribus_setdoctype(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (ScApp->doc->currentPageLayout = fp)
-		ScApp->doc->pageSets[ScApp->doc->currentPageLayout].FirstPage = fsl;
-	ScApp->view->reformPages();
-	ScApp->view->GotoPage(ScApp->doc->currentPageNumber()); // is this needed?
-	ScApp->view->DrawNew();   // is this needed?
-	//CB TODO ScApp->pagePalette->RebuildPage(); // is this needed?
-	ScApp->slotDocCh();
+	if (ScMW->doc->currentPageLayout = fp)
+		ScMW->doc->pageSets[ScMW->doc->currentPageLayout].FirstPage = fsl;
+	ScMW->view->reformPages();
+	ScMW->view->GotoPage(ScMW->doc->currentPageNumber()); // is this needed?
+	ScMW->view->DrawNew();   // is this needed?
+	//CB TODO ScMW->pagePalette->RebuildPage(); // is this needed?
+	ScMW->slotDocCh();
 	Py_INCREF(Py_None);
 	return Py_None;
 }

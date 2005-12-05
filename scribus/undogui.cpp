@@ -75,25 +75,25 @@ UndoWidget::UndoWidget(QWidget* parent, const char* name)
 	redoButton->setAutoRaise(true);
 	*/
 	//Scribus action based toolbar button construction
-	ScApp->scrActions["editUndoAction"]->addTo(parent);
-	ScApp->scrActions["editRedoAction"]->addTo(parent);
-	ScApp->scrMenuMgr->createMenu("undoButtonMenu", "undoButtonMenu");
-	ScApp->scrMenuMgr->createMenu("redoButtonMenu", "redoButtonMenu");
-	undoMenu=ScApp->scrMenuMgr->getLocalPopupMenu("undoButtonMenu");
-	redoMenu=ScApp->scrMenuMgr->getLocalPopupMenu("redoButtonMenu");
-	ScApp->scrMenuMgr->addMenuToWidgetOfAction("undoButtonMenu", ScApp->scrActions["editUndoAction"]);
-	ScApp->scrMenuMgr->addMenuToWidgetOfAction("redoButtonMenu", ScApp->scrActions["editRedoAction"]);
-	QToolButton *undoButton = dynamic_cast<QToolButton*>(ScApp->scrActions["editUndoAction"]->getWidgetAddedTo());
-	QToolButton *redoButton = dynamic_cast<QToolButton*>(ScApp->scrActions["editRedoAction"]->getWidgetAddedTo());
+	ScMW->scrActions["editUndoAction"]->addTo(parent);
+	ScMW->scrActions["editRedoAction"]->addTo(parent);
+	ScMW->scrMenuMgr->createMenu("undoButtonMenu", "undoButtonMenu");
+	ScMW->scrMenuMgr->createMenu("redoButtonMenu", "redoButtonMenu");
+	undoMenu=ScMW->scrMenuMgr->getLocalPopupMenu("undoButtonMenu");
+	redoMenu=ScMW->scrMenuMgr->getLocalPopupMenu("redoButtonMenu");
+	ScMW->scrMenuMgr->addMenuToWidgetOfAction("undoButtonMenu", ScMW->scrActions["editUndoAction"]);
+	ScMW->scrMenuMgr->addMenuToWidgetOfAction("redoButtonMenu", ScMW->scrActions["editRedoAction"]);
+	QToolButton *undoButton = dynamic_cast<QToolButton*>(ScMW->scrActions["editUndoAction"]->getWidgetAddedTo());
+	QToolButton *redoButton = dynamic_cast<QToolButton*>(ScMW->scrActions["editRedoAction"]->getWidgetAddedTo());
 	if (undoButton && redoButton)
 	{
 		undoButton->setPopupDelay(0);
 		redoButton->setPopupDelay(0);
 	}
 	
-	ScApp->scrActions["editCut"]->addTo(parent);
-	ScApp->scrActions["editCopy"]->addTo(parent);
-	ScApp->scrActions["editPaste"]->addTo(parent);
+	ScMW->scrActions["editCut"]->addTo(parent);
+	ScMW->scrActions["editCopy"]->addTo(parent);
+	ScMW->scrActions["editPaste"]->addTo(parent);
 	
 	/* BnF Undo buttons
 	connect(undoButton, SIGNAL(clicked()), this, SLOT(undoClicked()));
@@ -108,13 +108,13 @@ void UndoWidget::clear()
 	undoMenu->clear();
 	undoItems.clear();
 	//Scribus disable
-	ScApp->scrActions["editUndoAction"]->setEnabled(false);
+	ScMW->scrActions["editUndoAction"]->setEnabled(false);
 	// BnF disable
 	//undoButton->setEnabled(false);
 	redoMenu->clear();
 	redoItems.clear();
 	//Scribus disable;
-	ScApp->scrActions["editRedoAction"]->setEnabled(false);			
+	ScMW->scrActions["editRedoAction"]->setEnabled(false);			
 	// BnF disable
 	//redoButton->setEnabled(false);
 }
@@ -174,7 +174,7 @@ void UndoWidget::updateUndoMenu()
 	//BnF
 	//undoButton->setEnabled(undoMenu->count() != 0);
 	//SCribus
-	ScApp->scrActions["editUndoAction"]->setEnabled(undoMenu->count() != 0);
+	ScMW->scrActions["editUndoAction"]->setEnabled(undoMenu->count() != 0);
 }
 
 void UndoWidget::updateRedoMenu()
@@ -185,7 +185,7 @@ void UndoWidget::updateRedoMenu()
 	//BnF
 	//redoButton->setEnabled(redoMenu->count() != 0);
 	//Scribus
-	ScApp->scrActions["editRedoAction"]->setEnabled(redoMenu->count() != 0);
+	ScMW->scrActions["editRedoAction"]->setEnabled(redoMenu->count() != 0);
 }
 
 void UndoWidget::updateUndo(int steps)
@@ -254,17 +254,17 @@ UndoPalette::UndoPalette(QWidget* parent, const char* name)
 
 	updateFromPrefs();
 	languageChange();
-	connect(ScApp, SIGNAL(prefsChanged()), this, SLOT(updateFromPrefs()));
+	connect(ScMW, SIGNAL(prefsChanged()), this, SLOT(updateFromPrefs()));
 	connect(undoButton, SIGNAL(clicked()), this, SLOT(undoClicked()));
 	connect(redoButton, SIGNAL(clicked()), this, SLOT(redoClicked()));
 	connect(undoList, SIGNAL(highlighted(int)), this, SLOT(undoListClicked(int)));
 	connect(undoList, SIGNAL(onItem(QListBoxItem*)), this, SLOT(showToolTip(QListBoxItem*)));
 	connect(undoList, SIGNAL(onViewport()), this, SLOT(removeToolTip()));
 	connect(objectBox, SIGNAL(toggled(bool)), this, SLOT(objectCheckBoxClicked(bool)));
-	connect(ScApp->scrActions["editActionMode"], SIGNAL(toggled(bool)),
+	connect(ScMW->scrActions["editActionMode"], SIGNAL(toggled(bool)),
 	        objectBox, SLOT(setChecked(bool)));
 	connect(objectBox, SIGNAL(toggled(bool)), 
-			ScApp->scrActions["editActionMode"], SLOT(setOn(bool)));
+			ScMW->scrActions["editActionMode"], SLOT(setOn(bool)));
 }
 
 void UndoPalette::clear()
@@ -277,8 +277,8 @@ void UndoPalette::clear()
 
 void UndoPalette::updateFromPrefs()
 {
-	undoButton->setAccel(ScApp->scrActions["editUndoAction"]->accel());
-	redoButton->setAccel(ScApp->scrActions["editRedoAction"]->accel());
+	undoButton->setAccel(ScMW->scrActions["editUndoAction"]->accel());
+	redoButton->setAccel(ScMW->scrActions["editRedoAction"]->accel());
 }
 
 void UndoPalette::languageChange()

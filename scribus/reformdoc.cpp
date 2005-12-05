@@ -61,7 +61,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 {
 	einheit = doc->unitIndex();
 	currDoc = doc;
-	ScApp = (ScribusApp*)parent;
+	ScMW = (ScribusMainWindow*)parent;
 	unitRatio = doc->unitRatio();
 	QString ein = unitGetSuffixFromIndex(einheit);
 	decimals = unitGetDecimalsFromIndex(einheit);
@@ -366,22 +366,22 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	tabTools = new TabTools(  prefsWidgets, &doc->toolSettings, einheit, doc);
 	addItem( tr("Tools"), loadIcon("tools.png"), tabTools);
 
-	tabHyphenator = new HySettings(prefsWidgets, &ScApp->LangTransl);
+	tabHyphenator = new HySettings(prefsWidgets, &ScMW->LangTransl);
 	tabHyphenator->verbose->setChecked(!doc->docHyphenator->Automatic);
 	tabHyphenator->input->setChecked(doc->docHyphenator->AutoCheck);
-	tabHyphenator->language->setCurrentText(ScApp->LangTransl[doc->docHyphenator->Language]);
+	tabHyphenator->language->setCurrentText(ScMW->LangTransl[doc->docHyphenator->Language]);
 	tabHyphenator->wordLen->setValue(doc->docHyphenator->MinWordLen);
 	tabHyphenator->maxCount->setValue(doc->docHyphenator->HyCount);
 	addItem( tr("Hyphenator"), loadIcon("hyphenate.png"), tabHyphenator);
 
-	tabFonts = new FontPrefs(  prefsWidgets, PrefsManager::instance()->appPrefs.AvailFonts, true, ScApp->PrefsPfad, doc);
+	tabFonts = new FontPrefs(  prefsWidgets, PrefsManager::instance()->appPrefs.AvailFonts, true, ScMW->PrefsPfad, doc);
 	addItem( tr("Fonts"), loadIcon("font.png"), tabFonts);
 
 	tabDocChecker = new TabCheckDoc(  prefsWidgets, doc->checkerProfiles, doc->curCheckProfile);
 	addItem( tr("Preflight Verifier"), loadIcon("checkdoc.png"), tabDocChecker);
 
 	tabPDF = new TabPDFOptions( prefsWidgets, &doc->PDF_Options, PrefsManager::instance()->appPrefs.AvailFonts,
-								&ScApp->PDFXProfiles, doc->UsedFonts, doc->PDF_Options.PresentVals,
+								&ScMW->PDFXProfiles, doc->UsedFonts, doc->PDF_Options.PresentVals,
 								einheit, doc->pageHeight, doc->pageWidth, 0 );
 	addItem( tr("PDF Export"), loadIcon("acroread.png"), tabPDF);
 
@@ -403,7 +403,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	int cmsTab = 0;
 	if (CMSavail)
 	{
-		tabColorManagement = new CMSPrefs(prefsWidgets, &doc->CMSSettings, &ScApp->InputProfiles, &ScApp->InputProfilesCMYK, &ScApp->PrinterProfiles, &ScApp->MonitorProfiles);
+		tabColorManagement = new CMSPrefs(prefsWidgets, &doc->CMSSettings, &ScMW->InputProfiles, &ScMW->InputProfilesCMYK, &ScMW->PrinterProfiles, &ScMW->MonitorProfiles);
 		cmsTab = addItem( tr("Color Management"), loadIcon("blend.png"), tabColorManagement);
 	}
 
@@ -487,7 +487,7 @@ void ReformDoc::restoreDefaults()
 	{
 		tabHyphenator->verbose->setChecked(!currDoc->docHyphenator->Automatic);
 		tabHyphenator->input->setChecked(currDoc->docHyphenator->AutoCheck);
-		tabHyphenator->language->setCurrentText(ScApp->LangTransl[currDoc->docHyphenator->Language]);
+		tabHyphenator->language->setCurrentText(ScMW->LangTransl[currDoc->docHyphenator->Language]);
 		tabHyphenator->wordLen->setValue(currDoc->docHyphenator->MinWordLen);
 		tabHyphenator->maxCount->setValue(currDoc->docHyphenator->HyCount);
 	}
@@ -818,16 +818,16 @@ void ReformDoc::updateDocumentSettings()
 			break;
 	}
 	// TODO fix these tr("None") things
-	if (currDoc->toolSettings.dStrokeText == ScApp->noneString)
+	if (currDoc->toolSettings.dStrokeText == ScMW->noneString)
 		currDoc->toolSettings.dStrokeText = "None";
 	currDoc->toolSettings.dPenText = tabTools->colorComboText->currentText();
-	if (currDoc->toolSettings.dPenText == ScApp->noneString)
+	if (currDoc->toolSettings.dPenText == ScMW->noneString)
 		currDoc->toolSettings.dPenText = "None";
 	currDoc->toolSettings.dTextBackGround = tabTools->colorComboTextBackground->currentText();
-	if (currDoc->toolSettings.dTextBackGround == ScApp->noneString)
+	if (currDoc->toolSettings.dTextBackGround == ScMW->noneString)
 		currDoc->toolSettings.dTextBackGround = "None";
 	currDoc->toolSettings.dTextLineColor = tabTools->colorComboTextLine->currentText();
-	if (currDoc->toolSettings.dTextLineColor == ScApp->noneString)
+	if (currDoc->toolSettings.dTextLineColor == ScMW->noneString)
 		currDoc->toolSettings.dTextLineColor = "None";
 	currDoc->toolSettings.dTextBackGroundShade = tabTools->shadingTextBack->value();
 	currDoc->toolSettings.dTextLineShade = tabTools->shadingTextLine->value();
@@ -837,10 +837,10 @@ void ReformDoc::updateDocumentSettings()
 	currDoc->toolSettings.dGap = tabTools->gapText->value() / currDoc->unitRatio();
 	currDoc->toolSettings.dTabWidth = tabTools->gapTab->value() / currDoc->unitRatio();
 	currDoc->toolSettings.dPen = tabTools->colorComboLineShape->currentText();
-	if (currDoc->toolSettings.dPen == ScApp->noneString)
+	if (currDoc->toolSettings.dPen == ScMW->noneString)
 		currDoc->toolSettings.dPen = "None";
 	currDoc->toolSettings.dBrush = tabTools->comboFillShape->currentText();
-	if (currDoc->toolSettings.dBrush == ScApp->noneString)
+	if (currDoc->toolSettings.dBrush == ScMW->noneString)
 		currDoc->toolSettings.dBrush = "None";
 	currDoc->toolSettings.dShade = tabTools->shadingFillShape->value();
 	currDoc->toolSettings.dShade2 = tabTools->shadingLineShape->value();
@@ -869,7 +869,7 @@ void ReformDoc::updateDocumentSettings()
 	currDoc->toolSettings.magMax = tabTools->maximumZoom->value();
 	currDoc->toolSettings.magStep = tabTools->zoomStep->value();
 	currDoc->toolSettings.dPenLine = tabTools->colorComboLine->currentText();
-	if (currDoc->toolSettings.dPenLine == ScApp->noneString)
+	if (currDoc->toolSettings.dPenLine == ScMW->noneString)
 		currDoc->toolSettings.dPenLine = "None";
 	currDoc->toolSettings.dShadeLine = tabTools->shadingLine->value();
 	switch (tabTools->comboStyleLine->currentItem())
@@ -892,7 +892,7 @@ void ReformDoc::updateDocumentSettings()
 	}
 	currDoc->toolSettings.dWidthLine = tabTools->lineWidthLine->value();
 	currDoc->toolSettings.dBrushPict = tabTools->comboFillImage->currentText();
-	if (currDoc->toolSettings.dBrushPict == ScApp->noneString)
+	if (currDoc->toolSettings.dBrushPict == ScMW->noneString)
 		currDoc->toolSettings.dBrushPict = "None";
 	currDoc->toolSettings.shadePict = tabTools->shadingFillImage->value();
 	currDoc->toolSettings.scaleX = static_cast<double>(tabTools->scalingHorizontal->value()) / 100.0;
@@ -926,7 +926,7 @@ void ReformDoc::updateDocumentSettings()
 		currDoc->autoSaveTimer->stop();
 		currDoc->autoSaveTimer->start(currDoc->AutoSaveTime);
 	}
-	currDoc->docHyphenator->slotNewDict(ScApp->GetLang(tabHyphenator->language->currentText()));
+	currDoc->docHyphenator->slotNewDict(ScMW->GetLang(tabHyphenator->language->currentText()));
 	currDoc->docHyphenator->slotNewSettings(tabHyphenator->wordLen->value(),
 																!tabHyphenator->verbose->isChecked(),
 																tabHyphenator->input->isChecked(),
@@ -937,10 +937,10 @@ void ReformDoc::updateDocumentSettings()
 		tabColorManagement->setValues();
 		if (tabColorManagement->changed)
 		{
-			ScApp->mainWindowStatusLabel->setText( tr("Adjusting Colors"));
-			ScApp->mainWindowProgressBar->reset();
+			ScMW->mainWindowStatusLabel->setText( tr("Adjusting Colors"));
+			ScMW->mainWindowProgressBar->reset();
 			int cc = currDoc->PageColors.count() + currDoc->Items->count();
-			ScApp->mainWindowProgressBar->setTotalSteps(cc);
+			ScMW->mainWindowProgressBar->setTotalSteps(cc);
 #ifdef HAVE_CMS
 			currDoc->HasCMS = currDoc->CMSSettings.CMSinUse;
 			currDoc->SoftProofing = currDoc->CMSSettings.SoftProofOn;
@@ -958,7 +958,7 @@ void ReformDoc::updateDocumentSettings()
 			currDoc->CMSSettings.CMSinUse = oldCM;
 			currDoc->CloseCMSProfiles();
 			currDoc->CMSSettings.CMSinUse = newCM;
-			currDoc->OpenCMSProfiles(ScApp->InputProfiles, ScApp->MonitorProfiles, ScApp->PrinterProfiles);
+			currDoc->OpenCMSProfiles(ScMW->InputProfiles, ScMW->MonitorProfiles, ScMW->PrinterProfiles);
 			stdProofG = currDoc->stdProof;
 			stdTransG = currDoc->stdTrans;
 			stdProofImgG = currDoc->stdProofImg;
@@ -987,13 +987,13 @@ void ReformDoc::updateDocumentSettings()
 			currDoc->PDF_Options.ImageProf = currDoc->CMSSettings.DefaultImageRGBProfile;
 			currDoc->PDF_Options.PrintProf = currDoc->CMSSettings.DefaultPrinterProfile;
 			currDoc->PDF_Options.Intent = currDoc->CMSSettings.DefaultIntentMonitor;
-			ScApp->recalcColors(ScApp->mainWindowProgressBar);
-			currDoc->RecalcPictures(&ScApp->InputProfiles, &ScApp->InputProfilesCMYK, ScApp->mainWindowProgressBar);
+			ScMW->recalcColors(ScMW->mainWindowProgressBar);
+			currDoc->RecalcPictures(&ScMW->InputProfiles, &ScMW->InputProfilesCMYK, ScMW->mainWindowProgressBar);
 #endif
-			ScApp->mainWindowProgressBar->setProgress(cc);
+			ScMW->mainWindowProgressBar->setProgress(cc);
 			qApp->setOverrideCursor(QCursor(arrowCursor), true);
-			ScApp->mainWindowStatusLabel->setText("");
-			ScApp->mainWindowProgressBar->reset();
+			ScMW->mainWindowStatusLabel->setText("");
+			ScMW->mainWindowProgressBar->reset();
 		}
 	}
 	PrefsManager* prefsManager=PrefsManager::instance();

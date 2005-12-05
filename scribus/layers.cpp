@@ -111,7 +111,7 @@ LayerPalette::LayerPalette(QWidget* parent)
 void LayerPalette::updateName(int r)
 {
 	changeName(r, 0);
-	ScApp->changeLayer(ScApp->doc->activeLayer());
+	ScMW->changeLayer(ScMW->doc->activeLayer());
 }
 
 void LayerPalette::ClearInhalt()
@@ -148,22 +148,22 @@ void LayerPalette::rebuildList()
 	flagsVisible.clear();
 	QString tmp;
 	QValueList<Layer>::iterator it;
-	int layerCount=ScApp->doc->layerCount();
+	int layerCount=ScMW->doc->layerCount();
 	Table->setNumRows(layerCount);
 	for (it = layers->begin(); it != layers->end(); ++it)
 	{
 		int layerNumber=(*it).LNr;
 		//TODO once "layers" is not set anymore, need to get layer number differently
-		int layerLevel=ScApp->doc->layerLevelFromNumber(layerNumber);
+		int layerLevel=ScMW->doc->layerLevelFromNumber(layerNumber);
 		int row=layerCount-layerLevel-1;
-		Table->setText(row, 2, ScApp->doc->layerName(layerNumber));
+		Table->setText(row, 2, ScMW->doc->layerName(layerNumber));
 		QCheckBox *cp = new QCheckBox(this, tmp.setNum(layerLevel));
-		cp->setChecked(ScApp->doc->layerPrintable(layerNumber));
+		cp->setChecked(ScMW->doc->layerPrintable(layerNumber));
 		Table->setCellWidget(row, 1, cp);
 		flagsPrintable.append(cp);
 		connect(cp, SIGNAL(clicked()), this, SLOT(printLayer()));
 		QCheckBox *cp2 = new QCheckBox(this, tmp.setNum(layerLevel));
-		cp2->setChecked(ScApp->doc->layerVisible(layerNumber));
+		cp2->setChecked(ScMW->doc->layerVisible(layerNumber));
 		flagsVisible.append(cp2);
 		connect(cp2, SIGNAL(clicked()), this, SLOT(visibleLayer()));
 		Table->setCellWidget(row, 0, cp2);
@@ -176,22 +176,22 @@ void LayerPalette::rebuildList()
 
 void LayerPalette::addLayer()
 {
-	ScApp->doc->addLayer(QString::null, true);
+	ScMW->doc->addLayer(QString::null, true);
 	rebuildList();
 	markActiveLayer();
-	ScApp->changeLayer(ScApp->doc->activeLayer());
-	ScApp->slotDocCh();
+	ScMW->changeLayer(ScMW->doc->activeLayer());
+	ScMW->slotDocCh();
 }
 
 void LayerPalette::removeLayer()
 {
-	int layerCount=ScApp->doc->layerCount();
+	int layerCount=ScMW->doc->layerCount();
 	if (layerCount < 2)
 		return;
 	int level = layerCount-1-Table->currentRow();
-	int layerNumber=ScApp->doc->layerNumberFromLevel(level);
+	int layerNumber=ScMW->doc->layerNumberFromLevel(level);
 	bool delToo = false;
-	if (ScApp->doc->layerContainsItems(layerNumber))
+	if (ScMW->doc->layerContainsItems(layerNumber))
 	{
 		int scmReturn=ScMessageBox::warning(this, tr("Delete Layer"),
 									tr("Do you want to delete all objects on this layer too?"),
@@ -204,53 +204,53 @@ void LayerPalette::removeLayer()
 			delToo = true;
 	}
 
-	if (!ScApp->doc->deleteLayer(layerNumber, delToo))
+	if (!ScMW->doc->deleteLayer(layerNumber, delToo))
 		return;
 	
 	rebuildList();
 	markActiveLayer();
-	ScApp->changeLayer(ScApp->doc->activeLayer());
-	ScApp->slotDocCh();
+	ScMW->changeLayer(ScMW->doc->activeLayer());
+	ScMW->slotDocCh();
 }
 
 void LayerPalette::upLayer()
 {
-	int layerCount=ScApp->doc->layerCount();
+	int layerCount=ScMW->doc->layerCount();
 	if ((layerCount < 2) || (Table->currentRow() == 0))
 		return;
 	int layerLevel = layerCount-1-Table->currentRow();
-	ScApp->doc->raiseLayerByLevel(layerLevel);
+	ScMW->doc->raiseLayerByLevel(layerLevel);
 	rebuildList();
 	markActiveLayer();
-	ScApp->changeLayer(ScApp->doc->activeLayer());
+	ScMW->changeLayer(ScMW->doc->activeLayer());
 	emit LayerChanged();
-	ScApp->slotDocCh();
+	ScMW->slotDocCh();
 }
 
 void LayerPalette::downLayer()
 {
-	int layerCount=ScApp->doc->layerCount();
+	int layerCount=ScMW->doc->layerCount();
 	if ((layerCount < 2) || (Table->currentRow() == static_cast<int>(layerCount) - 1))
 		return;
 	int layerLevel = layerCount-1-Table->currentRow();
-	ScApp->doc->lowerLayerByLevel(layerLevel);
+	ScMW->doc->lowerLayerByLevel(layerLevel);
 	rebuildList();
-	ScApp->changeLayer(ScApp->doc->activeLayer());
+	ScMW->changeLayer(ScMW->doc->activeLayer());
 	emit LayerChanged();
 	markActiveLayer();
-	ScApp->slotDocCh();
+	ScMW->slotDocCh();
 }
 
 void LayerPalette::changeName(int row, int col)
 {
 	if (col == 2)
 	{
-		int layerLevel = ScApp->doc->layerCount()-1-row;
-		int layerNumber=ScApp->doc->layerNumberFromLevel(layerLevel);
+		int layerLevel = ScMW->doc->layerCount()-1-row;
+		int layerNumber=ScMW->doc->layerNumberFromLevel(layerLevel);
 		if (layerNumber!=-1)
 		{
-			if (ScApp->doc->changeLayerName(layerNumber, Table->text(row, col)))
-				ScApp->slotDocCh();
+			if (ScMW->doc->changeLayerName(layerNumber, Table->text(row, col)))
+				ScMW->slotDocCh();
 		}
 	}
 }
@@ -258,29 +258,29 @@ void LayerPalette::changeName(int row, int col)
 void LayerPalette::visibleLayer()
 {
 	int level = QString(sender()->name()).toInt();
-	int layerNumber=ScApp->doc->layerNumberFromLevel(level);
+	int layerNumber=ScMW->doc->layerNumberFromLevel(level);
 	if (layerNumber==-1)
 		return;
 	const QObject* senderBox=sender();
 	if (senderBox->isA("QCheckBox"))
 	{
-		ScApp->doc->setLayerVisible(layerNumber,((QCheckBox*)(senderBox))->isChecked());
+		ScMW->doc->setLayerVisible(layerNumber,((QCheckBox*)(senderBox))->isChecked());
 		emit LayerChanged();
-		ScApp->slotDocCh();
+		ScMW->slotDocCh();
 	}
 }
 
 void LayerPalette::printLayer()
 {
 	int level = QString(sender()->name()).toInt();
-	int layerNumber=ScApp->doc->layerNumberFromLevel(level);
+	int layerNumber=ScMW->doc->layerNumberFromLevel(level);
 	if (layerNumber==-1)
 		return;
 	const QObject* senderBox=sender();
 	if (senderBox->isA("QCheckBox"))
 	{
-		ScApp->doc->setLayerPrintable(layerNumber,((QCheckBox*)(senderBox))->isChecked());
-		ScApp->slotDocCh();
+		ScMW->doc->setLayerPrintable(layerNumber,((QCheckBox*)(senderBox))->isChecked());
+		ScMW->slotDocCh();
 	}
 }
 
@@ -289,17 +289,17 @@ void LayerPalette::markActiveLayer(int layerNumber)
 	disconnect(Table, SIGNAL(currentChanged(int, int)), this, SLOT(setActiveLayer(int)));
 	int layerToMark=layerNumber;
 	if (layerNumber==-1)
-		layerToMark=ScApp->doc->activeLayer();
-	Table->setCurrentCell(ScApp->doc->layerCount()-1-ScApp->doc->layerLevelFromNumber(layerToMark), 2);
+		layerToMark=ScMW->doc->activeLayer();
+	Table->setCurrentCell(ScMW->doc->layerCount()-1-ScMW->doc->layerLevelFromNumber(layerToMark), 2);
 	connect(Table, SIGNAL(currentChanged(int, int)), this, SLOT(setActiveLayer(int)));
 }
 
 void LayerPalette::setActiveLayer(int row)
 {
-	int layerNumber=ScApp->doc->layerNumberFromLevel(ScApp->doc->layerCount()-1-row);
-	bool found=ScApp->doc->setActiveLayer(layerNumber);
+	int layerNumber=ScMW->doc->layerNumberFromLevel(ScMW->doc->layerCount()-1-row);
+	bool found=ScMW->doc->setActiveLayer(layerNumber);
 	if (found)
-		ScApp->changeLayer(ScApp->doc->activeLayer());
+		ScMW->changeLayer(ScMW->doc->activeLayer());
 }
 
 void LayerPalette::languageChange()

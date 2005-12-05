@@ -144,7 +144,7 @@ void PluginManager::initPlugs()
 
 	if ((dirList.exists()) && (dirList.count() != 0))
 	{
-		ScApp->scrMenuMgr->addMenuSeparator("Extras");
+		ScMW->scrMenuMgr->addMenuSeparator("Extras");
 		for (uint dc = 0; dc < dirList.count(); ++dc)
 		{
 			PluginData pda;
@@ -158,8 +158,8 @@ void PluginManager::initPlugs()
 			pda.pluginDLL = 0;
 			pda.enabled = false;
 			pda.enableOnStartup = prefs->getBool(pda.pluginName, true);
-			if (ScApp->splashScreen != NULL)
-				ScApp->splashScreen->setStatus(
+			if (ScMW->splashScreen != NULL)
+				ScMW->splashScreen->setStatus(
 						tr("Plugin: loading %1", "plugin manager").arg(pda.pluginName));
 			if (loadPlugin(pda))
 			{
@@ -198,14 +198,14 @@ void PluginManager::enablePlugin(PluginData & pda)
 		pda.enabled = true;
 	else
 		failReason = tr("unknown plugin type", "plugin load error");
-	if (ScApp->splashScreen != NULL)
+	if (ScMW->splashScreen != NULL)
 	{
 		if (pda.enabled)
-			ScApp->splashScreen->setStatus(
+			ScMW->splashScreen->setStatus(
 					tr("Plugin: %1 loaded", "plugin manager")
 					.arg(pda.plugin->fullTrName()));
 		else
-			ScApp->splashScreen->setStatus(
+			ScMW->splashScreen->setStatus(
 					tr("Plugin: %1 failed to load: %2", "plugin manager")
 					.arg(pda.plugin->fullTrName()).arg(failReason));
 	}
@@ -219,20 +219,20 @@ bool PluginManager::setupPluginActions(ScActionPlugin* plugin)
 	ScActionPlugin::ActionInfo ai(plugin->actionInfo());
 	ScrAction* action = new ScrAction(
 			ScrAction::DLL, ai.iconSet, ai.text, ai.keySequence,
-			ScApp, ai.name);
+			ScMW, ai.name);
 	Q_CHECK_PTR(action);
-	ScApp->scrActions.insert(ai.name, action);
+	ScMW->scrActions.insert(ai.name, action);
 
 	// then enable and connect up the action
-	ScApp->scrActions[ai.name]->setEnabled(ai.enabledOnStartup);
+	ScMW->scrActions[ai.name]->setEnabled(ai.enabledOnStartup);
 	// Connect action's activated signal with the plugin's run method
-	result = connect( ScApp->scrActions[ai.name], SIGNAL(activated()),
+	result = connect( ScMW->scrActions[ai.name], SIGNAL(activated()),
 					  plugin, SLOT(run()) );
 	//Get the menu manager to add the DLL's menu item to the right menu, after the chosen existing item
 	if ( ai.menuAfterName.isEmpty() )
-		ScApp->scrMenuMgr->addMenuItem(ScApp->scrActions[ai.name], ai.menu);
+		ScMW->scrMenuMgr->addMenuItem(ScMW->scrActions[ai.name], ai.menu);
 	else
-		ScApp->scrMenuMgr->addMenuItemAfter(ScApp->scrActions[ai.name], ai.menu, ai.menuAfterName);
+		ScMW->scrMenuMgr->addMenuItemAfter(ScMW->scrActions[ai.name], ai.menu, ai.menuAfterName);
 
 	return result;
 }
@@ -342,7 +342,7 @@ void PluginManager::disablePlugin(PluginData & pda)
 		ScActionPlugin* plugin = dynamic_cast<ScActionPlugin*>(pda.plugin);
 		Q_ASSERT(plugin);
 		// FIXME: Correct way to delete action?
-		delete ScApp->scrActions[plugin->actionInfo().name];
+		delete ScMW->scrActions[plugin->actionInfo().name];
 	}
 	else if (pda.plugin->inherits("ScPersistentPlugin"))
 	{
@@ -393,7 +393,7 @@ void PluginManager::languageChange()
 			if (ixplug)
 			{
 				ScActionPlugin::ActionInfo ai(ixplug->actionInfo());
-				ScrAction* pluginAction = ScApp->scrActions[ai.name];
+				ScrAction* pluginAction = ScMW->scrActions[ai.name];
 				if (pluginAction != 0)
 					pluginAction->setMenuText( ai.text );
 			}
@@ -429,7 +429,7 @@ bool PluginManager::callSpecialActionPlugin(const QCString pluginName, const QSt
 
 PluginManager & PluginManager::instance()
 {
-	return (*ScApp->pluginManager);
+	return (*ScMW->pluginManager);
 }
 
 const QString & PluginManager::getPluginPath(const QCString pluginName) const

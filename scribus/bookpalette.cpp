@@ -42,7 +42,7 @@ BookPalette::BookPalette(QWidget* parent) : ScrPaletteBase( parent, "Books", fal
  \fn void BookPalette::closeEvent(QCloseEvent *ce)
  \author Franz Schmid
  \date
- \brief Emits the Signal Schliessen and accepts close event. The Signal is used in ScribusApp to adjust the Menues.
+ \brief Emits the Signal Schliessen and accepts close event. The Signal is used in ScribusMainWindow to adjust the Menues.
  \param ce Close Event
  \retval None
 			  */

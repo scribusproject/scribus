@@ -908,7 +908,7 @@ public:
 	
 	
 	/**
-	 * @brief Connect the item's signals to the GUI, primarily the Properties palette, also some to ScApp
+	 * @brief Connect the item's signals to the GUI, primarily the Properties palette, also some to ScMW
 	 * @return 
 	 */
 	bool connectToGUI();

@@ -22,7 +22,7 @@ extern PyObject* wrappedMainWindow;
 extern ScripterCore* scripterCore;
 
 /** @brief Initialize the 'scribus' Python module in the currently active interpreter */
-extern "C" void initscribus(ScribusApp *pl);
+extern "C" void initscribus(ScribusMainWindow *pl);
 
 /** @brief String representation of result returned by last python console command */
 extern QString RetString;

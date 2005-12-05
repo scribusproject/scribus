@@ -24,7 +24,7 @@
 #include "scribusapi.h"
 #include "scraction.h"
 
-class ScribusApp;
+class ScribusMainWindow;
 class ScribusQApp;
 class ScribusView;
 class UndoManager;
@@ -71,7 +71,7 @@ class SCRIBUS_API ActionManager : public QObject
 		void initSpecialActions();
 	
 		QPixmap noIcon;
-		ScribusApp *ScApp;
+		ScribusMainWindow *ScMW;
 		ScribusQApp *ScQApp;
 		UndoManager *undoManager;
 		QMap<QString, QGuardedPtr<ScrAction> > *scrActions;

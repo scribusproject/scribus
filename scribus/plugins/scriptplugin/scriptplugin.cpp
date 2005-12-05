@@ -158,9 +158,9 @@ bool ScriptPlugin::initPlugin()
 	}
 	RetVal = 0;
 
-	scripterCore = new ScripterCore(ScApp);
+	scripterCore = new ScripterCore(ScMW);
 	Q_CHECK_PTR(scripterCore);
-	initscribus(ScApp);
+	initscribus(ScMW);
 	scripterCore->setupMainInterpreter();
 	scripterCore->initExtensionScripts();
 	scripterCore->runStartupScript();
@@ -193,7 +193,7 @@ void run()
 	QString pfad = ScPaths::instance().docDir();
 	QString pfad2;
 	pfad2 = QDir::convertSeparators(pfad + "en/Scripter/index.html");
-	HelpBrowser *dia = new HelpBrowser(0, QObject::tr("Online Reference"), ScApp->getGuiLanguage(), "scripter");
+	HelpBrowser *dia = new HelpBrowser(0, QObject::tr("Online Reference"), ScMW->getGuiLanguage(), "scripter");
 	dia->show();
 }
 */
@@ -440,7 +440,7 @@ void initscribus_failed(const char* fileName, int lineNo)
 	return;
 }
 
-void initscribus(ScribusApp *pl)
+void initscribus(ScribusMainWindow *pl)
 {
 	if (!scripterCore)
 	{
@@ -623,7 +623,7 @@ void initscribus(ScribusApp *pl)
 	else
 		qDebug("Couldn't parse version string '%s' in scripter", VERSION);
 
-	ScApp = pl;
+	ScMW = pl;
 	// Function aliases for compatibility
 	// We need to import the __builtins__, warnings and exceptions modules to be able to run
 	// the generated Python functions from inside the `scribus' module's context.
@@ -717,10 +717,10 @@ is not exhaustive due to exceptions from called functions.\n\
 	Py_DECREF(wrappedQApp);
 	wrappedQApp = NULL;
 
-	wrappedMainWindow = wrapQObject(ScApp);
+	wrappedMainWindow = wrapQObject(ScMW);
 	if (!wrappedMainWindow)
 	{
-		qDebug("Failed to wrap up ScApp");
+		qDebug("Failed to wrap up ScMW");
 		PyErr_Print();
 	}
 	// Push it into the module dict, stealing a ref in the process

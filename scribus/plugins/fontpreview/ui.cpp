@@ -28,7 +28,7 @@ extern QPixmap SCRIBUS_API loadIcon(QString nam);
  *  true to construct a modal dialog.
  */
 FontPreview::FontPreview(QString fontName)
-	: QDialog(ScApp, "FontPreview")
+	: QDialog(ScMW, "FontPreview")
 {
 	setIcon(loadIcon("AppIcon.png"));
 	// scribus config
@@ -98,7 +98,7 @@ FontPreview::FontPreview(QString fontName)
 
 	/* go through available fonts and check their properties */
 	reallyUsedFonts.clear();
-	ScApp->doc->getUsedFonts(&reallyUsedFonts);
+	ScMW->doc->getUsedFonts(&reallyUsedFonts);
 	ttfFont = loadIcon("font_truetype16.png");
 	otfFont = loadIcon("font_otf16.png");
 	psFont = loadIcon("font_type1_16.png");
@@ -114,9 +114,9 @@ FontPreview::FontPreview(QString fontName)
 		item = fontList->findItem(fontName, 0);
 	else
 	{
-		//if (ScApp->view->SelItem.count() != 0)
-		if (ScApp->doc->selection->count() != 0)
-			item = fontList->findItem(ScApp->doc->CurrFont, 0);
+		//if (ScMW->view->SelItem.count() != 0)
+		if (ScMW->doc->selection->count() != 0)
+			item = fontList->findItem(ScMW->doc->CurrFont, 0);
 		else
 			item = fontList->findItem(PrefsManager::instance()->appPrefs.toolSettings.defFont, 0);
 	}

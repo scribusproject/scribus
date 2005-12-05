@@ -43,7 +43,7 @@ bool CollectForOutput::newDirDialog()
 			wdir = dirs->get("collect", prefsDocDir);
 		else
 			wdir = dirs->get("collect", ".");
-		outputDirectory = ScApp->CFileDialog(wdir, tr("Choose a Directory"), "", "", false, false, false, false, true, &compressDoc, &withFonts);
+		outputDirectory = ScMW->CFileDialog(wdir, tr("Choose a Directory"), "", "", false, false, false, false, true, &compressDoc, &withFonts);
 	}
 	if (outputDirectory.isEmpty())
 		return false;
@@ -55,22 +55,22 @@ QString CollectForOutput::collect()
 {
 	if (!newDirDialog())
 		return "";
-	ScApp->fileWatcher->forceScan();
-	ScApp->fileWatcher->stop();
+	ScMW->fileWatcher->forceScan();
+	ScMW->fileWatcher->stop();
 	if(outputDirectory.right(1) != "/")
 		outputDirectory += "/";
 	dirs->set("collect", outputDirectory.left(outputDirectory.findRev("/",-2)));
-	ScApp->mainWindowStatusLabel->setText(tr("Collecting..."));
+	ScMW->mainWindowStatusLabel->setText(tr("Collecting..."));
 
 	if (!collectDocument())
 	{
-		QMessageBox::warning(ScApp, CommonStrings::trWarning, "<qt>" + tr("Cannot collect the file: \n%1").arg(newName) + "</qt>", CommonStrings::tr_OK);
+		QMessageBox::warning(ScMW, CommonStrings::trWarning, "<qt>" + tr("Cannot collect the file: \n%1").arg(newName) + "</qt>", CommonStrings::tr_OK);
 		return "";
 	}
 
 	if (!collectItems())
 	{
-		QMessageBox::warning(ScApp, tr("Warning"), "<qt>" + tr("Cannot collect all files for output for file:\n%1").arg(newName) + "</qt>", CommonStrings::tr_OK);
+		QMessageBox::warning(ScMW, tr("Warning"), "<qt>" + tr("Cannot collect all files for output for file:\n%1").arg(newName) + "</qt>", CommonStrings::tr_OK);
 		return "";
 	}
 
@@ -79,14 +79,14 @@ QString CollectForOutput::collect()
 
 	PrefsManager::instance()->setDocumentDir(outputDirectory);
 	QDir::setCurrent(outputDirectory);
-	ScApp->updateActiveWindowCaption(newName);
+	ScMW->updateActiveWindowCaption(newName);
 	UndoManager::instance()->renameStack(newName);
-	ScApp->scrActions["fileSave"]->setEnabled(false);
-	ScApp->scrActions["fileRevert"]->setEnabled(false);
-	ScApp->updateRecent(newName);
-	ScApp->mainWindowStatusLabel->setText("");
-	ScApp->mainWindowProgressBar->reset();
-	ScApp->fileWatcher->start();
+	ScMW->scrActions["fileSave"]->setEnabled(false);
+	ScMW->scrActions["fileRevert"]->setEnabled(false);
+	ScMW->updateRecent(newName);
+	ScMW->mainWindowStatusLabel->setText("");
+	ScMW->mainWindowProgressBar->reset();
+	ScMW->fileWatcher->start();
 	collectedFiles.clear();
 	return newName;
 }
@@ -100,15 +100,15 @@ bool CollectForOutput::collectDocument()
 	if (!fi.isDir() || !fi.isWritable())
 		return false;
 
-	if (ScApp->doc->hasName)
+	if (ScMW->doc->hasName)
 	{
-		QFileInfo fis(ScApp->doc->DocName);
+		QFileInfo fis(ScMW->doc->DocName);
 		newName += fis.fileName();
 	}
 	else
-		newName += ScApp->doc->DocName+".sla";
+		newName += ScMW->doc->DocName+".sla";
 
-	ScApp->doc->hasName = true;
+	ScMW->doc->hasName = true;
 	if (compressDoc)
 	{
 		if (!newName.endsWith(".gz"))
@@ -120,9 +120,9 @@ bool CollectForOutput::collectDocument()
 		}
 	}
 
-	if (!overwrite(ScApp, newName))
+	if (!overwrite(ScMW, newName))
 		return false;
-	if (!ScApp->DoFileSave(newName))
+	if (!ScMW->DoFileSave(newName))
 		return false;
 	return true;
 }
@@ -136,13 +136,13 @@ bool CollectForOutput::collectItems()
 		switch (lc)
 		{
 			case 0:
-				counter = ScApp->doc->MasterItems.count();
+				counter = ScMW->doc->MasterItems.count();
 				break;
 			case 1:
-				counter = ScApp->doc->DocItems.count();
+				counter = ScMW->doc->DocItems.count();
 				break;
 			case 2:
-				counter = ScApp->doc->FrameItems.count();
+				counter = ScMW->doc->FrameItems.count();
 				break;
 		}
 		for (uint b = 0; b < counter; ++b)
@@ -150,13 +150,13 @@ bool CollectForOutput::collectItems()
 			switch (lc)
 			{
 				case 0:
-					ite = ScApp->doc->MasterItems.at(b);
+					ite = ScMW->doc->MasterItems.at(b);
 					break;
 				case 1:
-					ite = ScApp->doc->DocItems.at(b);
+					ite = ScMW->doc->DocItems.at(b);
 					break;
 				case 2:
-					ite = ScApp->doc->FrameItems.at(b);
+					ite = ScMW->doc->FrameItems.at(b);
 					break;
 			}
 			if (ite->asImageFrame())
@@ -174,10 +174,10 @@ bool CollectForOutput::collectItems()
 				{
 					QString oldFile = ofName;
 					ite->Pfile = collectFile(oldFile, itf.fileName());
-					if (ScApp->fileWatcherActive())
+					if (ScMW->fileWatcherActive())
 					{
-						ScApp->fileWatcher->removeFile(oldFile);
-						ScApp->fileWatcher->addFile(ite->Pfile);
+						ScMW->fileWatcher->removeFile(oldFile);
+						ScMW->fileWatcher->addFile(ite->Pfile);
 					}
 				}
 			}
@@ -193,10 +193,10 @@ bool CollectForOutput::collectItems()
 						{
 							QString oldFile = ite->Pfile;
 							ite->Pfile = collectFile(oldFile, itf.fileName());
-							if (ScApp->fileWatcherActive())
+							if (ScMW->fileWatcherActive())
 							{
-								ScApp->fileWatcher->removeFile(oldFile);
-								ScApp->fileWatcher->addFile(ite->Pfile);
+								ScMW->fileWatcher->removeFile(oldFile);
+								ScMW->fileWatcher->addFile(ite->Pfile);
 							}
 						}
 					}
@@ -223,8 +223,8 @@ bool CollectForOutput::collectFonts()
 {
 	PrefsManager *prefsManager = PrefsManager::instance();
 	QMap<QString,int>::Iterator it3;
-	QMap<QString,int>::Iterator it3end = ScApp->doc->UsedFonts.end();
-	for (it3 = ScApp->doc->UsedFonts.begin(); it3 != it3end; ++it3)
+	QMap<QString,int>::Iterator it3end = ScMW->doc->UsedFonts.end();
+	for (it3 = ScMW->doc->UsedFonts.begin(); it3 != it3end; ++it3)
 	{
 		QFileInfo itf = QFileInfo(prefsManager->appPrefs.AvailFonts[it3.key()]->fontFilePath());
 		copyFile(prefsManager->appPrefs.AvailFonts[it3.key()]->fontFilePath(), outputDirectory + itf.fileName());

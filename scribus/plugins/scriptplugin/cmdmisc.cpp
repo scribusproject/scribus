@@ -14,7 +14,7 @@ PyObject *scribus_setredraw(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	ScApp->doc->DoDrawing = static_cast<bool>(e);
+	ScMW->doc->DoDrawing = static_cast<bool>(e);
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -139,9 +139,9 @@ PyObject *scribus_getlayers(PyObject* /* self */)
 	if(!checkHaveDocument())
 		return NULL;
 	PyObject *l;
-	l = PyList_New(ScApp->doc->Layers.count());
-	for (uint lam=0; lam < ScApp->doc->Layers.count(); lam++)
-		PyList_SetItem(l, lam, PyString_FromString(ScApp->doc->Layers[lam].Name.utf8()));
+	l = PyList_New(ScMW->doc->Layers.count());
+	for (uint lam=0; lam < ScMW->doc->Layers.count(); lam++)
+		PyList_SetItem(l, lam, PyString_FromString(ScMW->doc->Layers[lam].Name.utf8()));
 	return l;
 }
 
@@ -157,9 +157,9 @@ PyObject *scribus_setactlayer(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error"));
 		return NULL;
 	}
-	bool found = ScApp->doc->setActiveLayer(QString::fromUtf8(Name));
+	bool found = ScMW->doc->setActiveLayer(QString::fromUtf8(Name));
 	if (found)
-		ScApp->changeLayer(ScApp->doc->activeLayer());
+		ScMW->changeLayer(ScMW->doc->activeLayer());
 	else
 	{
 		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error"));
@@ -173,7 +173,7 @@ PyObject *scribus_getactlayer(PyObject* /* self */)
 {
 	if(!checkHaveDocument())
 		return NULL;
-	return PyString_FromString(ScApp->doc->activeLayerName().utf8());
+	return PyString_FromString(ScMW->doc->activeLayerName().utf8());
 }
 
 PyObject *scribus_senttolayer(PyObject* /* self */, PyObject* args)
@@ -192,13 +192,13 @@ PyObject *scribus_senttolayer(PyObject* /* self */, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
 	if (i == NULL)
 		return NULL;
-	ScApp->view->SelectItemNr(i->ItemNr);
+	ScMW->view->SelectItemNr(i->ItemNr);
 	bool found = false;
-	for (uint lam=0; lam < ScApp->doc->Layers.count(); ++lam)
+	for (uint lam=0; lam < ScMW->doc->Layers.count(); ++lam)
 	{
-		ScApp->view->SelectItemNr(i->ItemNr);
-		for (uint lam=0; lam < ScApp->doc->Layers.count(); ++lam)
-			if (ScApp->doc->Layers[lam].Name == QString::fromUtf8(Layer))
+		ScMW->view->SelectItemNr(i->ItemNr);
+		for (uint lam=0; lam < ScMW->doc->Layers.count(); ++lam)
+			if (ScMW->doc->Layers[lam].Name == QString::fromUtf8(Layer))
 			{
 				i->LayerNr = static_cast<int>(lam);
 				found = true;
@@ -229,11 +229,11 @@ PyObject *scribus_layervisible(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	bool found = false;
-	for (uint lam=0; lam < ScApp->doc->Layers.count(); ++lam)
+	for (uint lam=0; lam < ScMW->doc->Layers.count(); ++lam)
 	{
-		if (ScApp->doc->Layers[lam].Name == QString::fromUtf8(Name))
+		if (ScMW->doc->Layers[lam].Name == QString::fromUtf8(Name))
 		{
-			ScApp->doc->Layers[lam].isViewable = vis;
+			ScMW->doc->Layers[lam].isViewable = vis;
 			found = true;
 			break;
 		}
@@ -261,11 +261,11 @@ PyObject *scribus_layerprint(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	bool found = false;
-	for (uint lam=0; lam < ScApp->doc->Layers.count(); ++lam)
+	for (uint lam=0; lam < ScMW->doc->Layers.count(); ++lam)
 	{
-		if (ScApp->doc->Layers[lam].Name == QString::fromUtf8(Name))
+		if (ScMW->doc->Layers[lam].Name == QString::fromUtf8(Name))
 		{
-			ScApp->doc->Layers[lam].isPrintable = vis;
+			ScMW->doc->Layers[lam].isPrintable = vis;
 			found = true;
 			break;
 		}
@@ -293,11 +293,11 @@ PyObject *scribus_glayervisib(PyObject* /* self */, PyObject* args)
 	}
 	int i = 0;
 	bool found = false;
-	for (uint lam=0; lam < ScApp->doc->Layers.count(); lam++)
+	for (uint lam=0; lam < ScMW->doc->Layers.count(); lam++)
 	{
-		if (ScApp->doc->Layers[lam].Name == QString::fromUtf8(Name))
+		if (ScMW->doc->Layers[lam].Name == QString::fromUtf8(Name))
 		{
-			i = static_cast<int>(ScApp->doc->Layers[lam].isViewable);
+			i = static_cast<int>(ScMW->doc->Layers[lam].isViewable);
 			found = true;
 			break;
 		}
@@ -324,11 +324,11 @@ PyObject *scribus_glayerprint(PyObject* /* self */, PyObject* args)
 	}
 	int i = 0;
 	bool found = false;
-	for (uint lam=0; lam < ScApp->doc->Layers.count(); ++lam)
+	for (uint lam=0; lam < ScMW->doc->Layers.count(); ++lam)
 	{
-		if (ScApp->doc->Layers[lam].Name == QString::fromUtf8(Name))
+		if (ScMW->doc->Layers[lam].Name == QString::fromUtf8(Name))
 		{
-			i = static_cast<int>(ScApp->doc->Layers[lam].isPrintable);
+			i = static_cast<int>(ScMW->doc->Layers[lam].isPrintable);
 			found = true;
 			break;
 		}
@@ -353,17 +353,17 @@ PyObject *scribus_removelayer(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error"));
 		return NULL;
 	}
-	if (ScApp->doc->Layers.count() == 1)
+	if (ScMW->doc->Layers.count() == 1)
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Cannot remove the last layer.","python error"));
 		return NULL;
 	}
 	bool found = false;
-	for (uint lam=0; lam < ScApp->doc->Layers.count(); ++lam)
+	for (uint lam=0; lam < ScMW->doc->Layers.count(); ++lam)
 	{
-		if (ScApp->doc->Layers[lam].Name == QString::fromUtf8(Name))
+		if (ScMW->doc->Layers[lam].Name == QString::fromUtf8(Name))
 		{
-			QValueList<Layer>::iterator it2 = ScApp->doc->Layers.at(lam);
+			QValueList<Layer>::iterator it2 = ScMW->doc->Layers.at(lam);
 			int num2 = (*it2).LNr;
 			if (!num2)
 			{
@@ -372,17 +372,17 @@ PyObject *scribus_removelayer(PyObject* /* self */, PyObject* args)
 				return Py_None;
 			}
 			int num = (*it2).Level;
-			ScApp->doc->Layers.remove(it2);
+			ScMW->doc->Layers.remove(it2);
 			QValueList<Layer>::iterator it;
-			for (uint l = 0; l < ScApp->doc->Layers.count(); l++)
+			for (uint l = 0; l < ScMW->doc->Layers.count(); l++)
 			{
-				it = ScApp->doc->Layers.at(l);
+				it = ScMW->doc->Layers.at(l);
 				if ((*it).Level > num)
 					(*it).Level -= 1;
 			}
-			ScApp->LayerRemove(num2);
-			ScApp->doc->setActiveLayer(0);
-			ScApp->changeLayer(0);
+			ScMW->LayerRemove(num2);
+			ScMW->doc->setActiveLayer(0);
+			ScMW->changeLayer(0);
 			found = true;
 			break;
 		}
@@ -408,13 +408,13 @@ PyObject *scribus_createlayer(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot create layer without a name.","python error"));
 		return NULL;
 	}
-	ScApp->doc->addLayer(QString::fromUtf8(Name), true);
-	ScApp->changeLayer(ScApp->doc->activeLayer());
+	ScMW->doc->addLayer(QString::fromUtf8(Name), true);
+	ScMW->changeLayer(ScMW->doc->activeLayer());
 	Py_INCREF(Py_None);
 	return Py_None;
 }
 
 PyObject *scribus_getlanguage(PyObject* /* self */)
 {
-	return PyString_FromString(ScApp->getGuiLanguage().utf8());
+	return PyString_FromString(ScMW->getGuiLanguage().utf8());
 }

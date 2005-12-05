@@ -77,7 +77,7 @@ class PrefsManager;
 class PrefsContext;
 class PSLib;
 class ScrAction;
-class ScribusApp;
+class ScribusMainWindow;
 class ScribusQApp;
 class ScribusWin;
 class SimpleState;
@@ -93,7 +93,7 @@ class WerkToolB;
 class WerkToolBP;
 
 extern ScribusQApp* ScQApp;
-extern ScribusApp* ScApp;
+extern ScribusMainWindow* ScMW;
 
 
 /**
@@ -102,15 +102,15 @@ extern ScribusApp* ScApp;
   * and statusbar. For the main view, an instance of class ScribusView is
   * created which creates your view.
   */
-class SCRIBUS_API ScribusApp : public QMainWindow, public UndoObject
+class SCRIBUS_API ScribusMainWindow : public QMainWindow, public UndoObject
 {
 	Q_OBJECT
 
 public:
 	/** constructor */
-	ScribusApp();
+	ScribusMainWindow();
 	/** destructor */
-	~ScribusApp() {};
+	~ScribusMainWindow() {};
 	int initScribus(bool showSplash, bool showFontInfo, const QString newGuiLanguage, const QString prefsUserFile);
 	void showSplash(bool);
 	bool splashShowing() const;
@@ -289,7 +289,7 @@ public slots:
 	bool slotPageImport();
 	bool loadPage(QString fileName, int Nr, bool Mpa);
 	/** open a document */
-	void slotFileOpen();
+	void slotGetContent();
 	void slotFileAppend();
 	/** open a document */
 	void removeRecent(QString fn);

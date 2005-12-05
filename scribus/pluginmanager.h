@@ -14,7 +14,7 @@
  * It contains methods and attributes for plugin running and its settings
  * and returning values.
  *
- * Derived from Franz's ScribusApp stuff (petr vanek)
+ * Derived from Franz's ScribusMainWindow stuff (petr vanek)
  *
  */
 
@@ -84,7 +84,7 @@ public:
 
 	/*! \brief Return a pointer to this instance.
 
-	 \Note: for now, returns a reference to (*ScApp->pluginManager); should
+	 \Note: for now, returns a reference to (*ScMW->pluginManager); should
 	 probably be turned into a singleton later. */
 	static PluginManager & instance();
 

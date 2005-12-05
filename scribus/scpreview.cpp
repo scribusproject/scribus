@@ -70,10 +70,10 @@ QPixmap ScPreview::createPreview(QString data)
 		QPixmap tmp = QPixmap(0, 0);
 		return tmp;
 	}
-	double GrX = QStodouble(elem.attribute("XP"));
-	double GrY = QStodouble(elem.attribute("YP"));
-	double GrW = QStodouble(elem.attribute("W"));
-	double GrH = QStodouble(elem.attribute("H"));
+	double GrX = elem.attribute("XP").toDouble();
+	double GrY = elem.attribute("YP").toDouble();
+	double GrW = elem.attribute("W").toDouble();
+	double GrH = elem.attribute("H").toDouble();
 	double pmmax = prefsManager->appPrefs.PSize / QMAX(GrW+50, GrH+50);
 	QPixmap tmp(static_cast<int>(GrW)+50, static_cast<int>(GrH)+50);
 	ScPainter *pS = new ScPainter(&tmp, tmp.width(), tmp.height());
@@ -98,7 +98,7 @@ QPixmap ScPreview::createPreview(QString data)
 				arrow.points.addPoint(xa, ya);
 			}
 			arrowStyles.append(arrow);
-			arrowID.insert(QStoInt(pg.attribute("Index")), arrowStyles.count());
+			arrowID.insert(pg.attribute("Index").toInt(), arrowStyles.count());
 		}
 		if(pg.tagName()=="FONT")
 		{
@@ -107,14 +107,14 @@ QPixmap ScPreview::createPreview(QString data)
 			{
 				if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!prefsManager->appPrefs.AvailFonts[prefsManager->appPrefs.GFontSub[tmpf]]->UseFont))
 				{
-					if (ScApp->splashScreen != NULL)
-						ScApp->splashScreen->hide();
+					if (ScMW->splashScreen != NULL)
+						ScMW->splashScreen->hide();
 					MissingFont *dia = new MissingFont(0, tmpf, 0);
 					dia->exec();
 					tmpf = dia->getReplacementFont();
 					delete dia;
-					if (ScApp->splashScreen != NULL)
-						ScApp->splashScreen->show();
+					if (ScMW->splashScreen != NULL)
+						ScMW->splashScreen->show();
 					prefsManager->appPrefs.GFontSub[pg.attribute("NAME")] = tmpf;
 				}
 				else
@@ -157,11 +157,11 @@ QPixmap ScPreview::createPreview(QString data)
 				QDomElement MuL = MuLn.toElement();
 				struct SingleLine sl;
 				sl.Color = MuL.attribute("Color");
-				sl.Dash = QStoInt(MuL.attribute("Dash"));
-				sl.LineEnd = QStoInt(MuL.attribute("LineEnd"));
-				sl.LineJoin = QStoInt(MuL.attribute("LineJoin"));
-				sl.Shade = QStoInt(MuL.attribute("Shade"));
-				sl.Width = QStodouble(MuL.attribute("Width"));
+				sl.Dash = MuL.attribute("Dash").toInt();
+				sl.LineEnd = MuL.attribute("LineEnd").toInt();
+				sl.LineJoin = MuL.attribute("LineJoin").toInt();
+				sl.Shade = MuL.attribute("Shade").toInt();
+				sl.Width = MuL.attribute("Width").toDouble();
 				ml.push_back(sl);
 				MuLn = MuLn.nextSibling();
 			}
@@ -180,92 +180,92 @@ QPixmap ScPreview::createPreview(QString data)
 			QDir::setCurrent(QDir::homeDirPath());
 			Segments.clear();
 			// TODO: Nicer conversion
-			OB.PType = static_cast<PageItem::ItemType>(QStoInt(pg.attribute("PTYPE")));
-			OB.Xpos = QStodouble(pg.attribute("XPOS")) - GrX;
-			OB.Ypos = QStodouble(pg.attribute("YPOS")) - GrY;
-			OB.Width = QStodouble(pg.attribute("WIDTH"));
-			OB.Height = QStodouble(pg.attribute("HEIGHT"));
-			OB.RadRect = QStodouble(pg.attribute("RADRECT","0"));
-			OB.ClipEdited = QStoInt(pg.attribute("CLIPEDIT", "0"));
-			OB.FrameType = QStoInt(pg.attribute("FRTYPE", "0"));
-			OB.Pwidth = QStodouble(pg.attribute("PWIDTH"));
+			OB.PType = static_cast<PageItem::ItemType>(pg.attribute("PTYPE").toInt());
+			OB.Xpos = pg.attribute("XPOS").toDouble() - GrX;
+			OB.Ypos = pg.attribute("YPOS").toDouble() - GrY;
+			OB.Width = pg.attribute("WIDTH").toDouble();
+			OB.Height = pg.attribute("HEIGHT").toDouble();
+			OB.RadRect = pg.attribute("RADRECT", "0").toDouble();
+			OB.ClipEdited = pg.attribute("CLIPEDIT", "0").toInt();
+			OB.FrameType = pg.attribute("FRTYPE", "0").toInt();
+			OB.Pwidth = pg.attribute("PWIDTH").toDouble();
 			OB.Pcolor = pg.attribute("PCOLOR");
 			OB.Pcolor2 = pg.attribute("PCOLOR2");
 			OB.NamedLStyle = pg.attribute("NAMEDLST", "");
 			if (!MLineStyles.contains(OB.NamedLStyle))
 				OB.NamedLStyle = "";
-			OB.Shade = QStoInt(pg.attribute("SHADE"));
-			OB.Shade2 = QStoInt(pg.attribute("SHADE2"));
+			OB.Shade = pg.attribute("SHADE").toInt();
+			OB.Shade2 = pg.attribute("SHADE2").toInt();
 			OB.TxtFill = pg.attribute("TXTFILL", "Black");
 			OB.TxtStroke = pg.attribute("TXTSTROKE", "None");
-			OB.ShTxtFill = QStoInt(pg.attribute("TXTFILLSH", "100"));
-			OB.ShTxtStroke = QStoInt(pg.attribute("TXTSTRSH", "100"));
-			OB.TxtScale = qRound(QStodouble(pg.attribute("TXTSCALE", "100")) * 10);
-			OB.TxtScaleV = qRound(QStodouble(pg.attribute("TXTSCALEV", "100")) * 10);
-			OB.TxTBase = qRound(QStodouble(pg.attribute("TXTBASE", "0")) * 10);
-			OB.TxTStyle = QStoInt(pg.attribute("TXTSTYLE", "0"));
-			OB.GrType = QStoInt(pg.attribute("GRTYP","0"));
+			OB.ShTxtFill = pg.attribute("TXTFILLSH", "100").toInt();
+			OB.ShTxtStroke = pg.attribute("TXTSTRSH", "100").toInt();
+			OB.TxtScale = qRound(pg.attribute("TXTSCALE", "100").toDouble() * 10);
+			OB.TxtScaleV = qRound(pg.attribute("TXTSCALEV", "100").toDouble() * 10);
+			OB.TxTBase = qRound(pg.attribute("TXTBASE", "0").toDouble() * 10);
+			OB.TxTStyle = pg.attribute("TXTSTYLE", "0").toInt();
+			OB.GrType = pg.attribute("GRTYP", "0").toInt();
 			OB.fill_gradient.clearStops();
 			if (OB.GrType != 0)
 			{
-				OB.GrStartX = QStodouble(pg.attribute("GRSTARTX","0.0"));
-				OB.GrStartY = QStodouble(pg.attribute("GRSTARTY","0.0"));
-				OB.GrEndX = QStodouble(pg.attribute("GRENDX","0.0"));
-				OB.GrEndY = QStodouble(pg.attribute("GRENDY","0.0"));
+				OB.GrStartX = pg.attribute("GRSTARTX", "0.0").toDouble();
+				OB.GrStartY = pg.attribute("GRSTARTY", "0.0").toDouble();
+				OB.GrEndX = pg.attribute("GRENDX", "0.0").toDouble();
+				OB.GrEndY = pg.attribute("GRENDY", "0.0").toDouble();
 				OB.GrColor = pg.attribute("GRCOLOR","");
 				if (!OB.GrColor.isEmpty())
 				{
 					OB.GrColor2 = pg.attribute("GRCOLOR2","");
-					OB.GrShade = QStoInt(pg.attribute("GRSHADE","100"));
-					OB.GrShade2 = QStoInt(pg.attribute("GRSHADE2","100"));
+					OB.GrShade = pg.attribute("GRSHADE", "100").toInt();
+					OB.GrShade2 = pg.attribute("GRSHADE2", "100").toInt();
 				}
 			}
-			OB.Rot = QStodouble(pg.attribute("ROT"));
-			OB.PLineArt = Qt::PenStyle(QStoInt(pg.attribute("PLINEART")));
-			OB.PLineEnd = Qt::PenCapStyle(QStoInt(pg.attribute("PLINEEND","0")));
-			OB.PLineJoin = Qt::PenJoinStyle(QStoInt(pg.attribute("PLINEJOIN","0")));
-			OB.LineSp = QStodouble(pg.attribute("LINESP"));
-			OB.ExtraV = static_cast<int>(QStodouble(pg.attribute("EXTRAV","0"))); // temporary compiler silencing
-			OB.LocalScX = QStodouble(pg.attribute("LOCALSCX"));
-			OB.LocalScY = QStodouble(pg.attribute("LOCALSCY"));
-			OB.LocalX = QStodouble(pg.attribute("LOCALX"));
-			OB.LocalY = QStodouble(pg.attribute("LOCALY"));
-			OB.PicArt = QStoInt(pg.attribute("PICART"));
-			OB.flippedH = QStoInt(pg.attribute("FLIPPEDH"));
-			OB.flippedV = QStoInt(pg.attribute("FLIPPEDV"));
-			OB.ScaleType = QStoInt(pg.attribute("SCALETYPE","1"));
-			OB.AspectRatio = QStoInt(pg.attribute("RATIO","0"));
-			OB.BBoxX = QStodouble(pg.attribute("BBOXX"));
-			OB.BBoxH = QStodouble(pg.attribute("BBOXH"));
-			OB.isPrintable = QStoInt(pg.attribute("PRINTABLE"));
+			OB.Rot = pg.attribute("ROT").toDouble();
+			OB.PLineArt = Qt::PenStyle(pg.attribute("PLINEART").toInt());
+			OB.PLineEnd = Qt::PenCapStyle(pg.attribute("PLINEEND", "0").toInt());
+			OB.PLineJoin = Qt::PenJoinStyle(pg.attribute("PLINEJOIN", "0").toInt());
+			OB.LineSp = pg.attribute("LINESP").toDouble();
+			OB.ExtraV = static_cast<int>(pg.attribute("EXTRAV", "0").toDouble()); // temporary compiler silencing
+			OB.LocalScX = pg.attribute("LOCALSCX").toDouble();
+			OB.LocalScY = pg.attribute("LOCALSCY").toDouble();
+			OB.LocalX = pg.attribute("LOCALX").toDouble();
+			OB.LocalY = pg.attribute("LOCALY").toDouble();
+			OB.PicArt = pg.attribute("PICART").toInt();
+			OB.flippedH = pg.attribute("FLIPPEDH").toInt();
+			OB.flippedV = pg.attribute("FLIPPEDV").toInt();
+			OB.ScaleType = pg.attribute("SCALETYPE", "1").toInt();
+			OB.AspectRatio = pg.attribute("RATIO", "0").toInt();
+			OB.BBoxX = pg.attribute("BBOXX").toDouble();
+			OB.BBoxH = pg.attribute("BBOXH").toDouble();
+			OB.isPrintable = pg.attribute("PRINTABLE").toInt();
 			OB.isBookmark = false;
 			OB.BMnr = 0;
-			OB.isAnnotation = QStoInt(pg.attribute("ANNOTATION","0"));
-			if (QStoInt(pg.attribute("TRANSPARENT","0")) == 1)
+			OB.isAnnotation = pg.attribute("ANNOTATION", "0").toInt();
+			if (pg.attribute("TRANSPARENT", "0").toInt() == 1)
 				OB.Pcolor = "None";
-			OB.Textflow = QStoInt(pg.attribute("TEXTFLOW"));
-			OB.Textflow2 = QStoInt(pg.attribute("TEXTFLOW2","0"));
-			OB.Extra = QStodouble(pg.attribute("EXTRA"));
-			OB.TExtra = QStodouble(pg.attribute("TEXTRA", "1"));
-			OB.BExtra = QStodouble(pg.attribute("BEXTRA", "1"));
-			OB.RExtra = QStodouble(pg.attribute("REXTRA", "1"));
-			OB.PoShow = QStoInt(pg.attribute("PTLSHOW","0"));
-			OB.BaseOffs = QStodouble(pg.attribute("BASEOF","0"));
-			OB.textAlignment = QStoInt(pg.attribute("ALIGN","0"));
+			OB.Textflow = pg.attribute("TEXTFLOW").toInt();
+			OB.Textflow2 = pg.attribute("TEXTFLOW2", "0").toInt();
+			OB.Extra = pg.attribute("EXTRA").toDouble();
+			OB.TExtra = pg.attribute("TEXTRA", "1").toDouble();
+			OB.BExtra = pg.attribute("BEXTRA", "1").toDouble();
+			OB.RExtra = pg.attribute("REXTRA", "1").toDouble();
+			OB.PoShow = pg.attribute("PTLSHOW", "0").toInt();
+			OB.BaseOffs = pg.attribute("BASEOF", "0").toDouble();
+			OB.textAlignment = pg.attribute("ALIGN", "0").toInt();
 			OB.IFont = DoFonts[pg.attribute("IFONT")];
-			OB.ISize = qRound(QStodouble(pg.attribute("ISIZE","12")) * 10.0);
+			OB.ISize = qRound(pg.attribute("ISIZE", "12").toDouble() * 10.0);
 			OB.Pfile = pg.attribute("PFILE");
 			OB.Pfile2 = pg.attribute("PFILE2","");
 			OB.Pfile3 = pg.attribute("PFILE3","");
 			OB.IProfile = pg.attribute("PRFILE","");
 			OB.EmProfile = pg.attribute("EPROF","");
-			OB.IRender = QStoInt(pg.attribute("IRENDER","1"));
-			OB.UseEmbedded = QStoInt(pg.attribute("EMBEDDED","1"));
-			OB.Locked = static_cast<bool>(QStoInt(pg.attribute("LOCK","0")));
-			OB.Reverse = static_cast<bool>(QStoInt(pg.attribute("REVERS","0")));
-			OB.Transparency = QStodouble(pg.attribute("TransValue","0.0"));
+			OB.IRender = pg.attribute("IRENDER", "1").toInt();
+			OB.UseEmbedded = pg.attribute("EMBEDDED", "1").toInt();
+			OB.Locked = static_cast<bool>(pg.attribute("LOCK", "0").toInt());
+			OB.Reverse = static_cast<bool>(pg.attribute("REVERS", "0").toInt());
+			OB.Transparency = pg.attribute("TransValue", "0.0").toDouble();
 			if (pg.hasAttribute("TransValueS"))
-				OB.TranspStroke = QStodouble(pg.attribute("TransValueS","0.0"));
+				OB.TranspStroke = pg.attribute("TransValueS", "0.0").toDouble();
 			else
 				OB.TranspStroke = OB.Transparency;
 			if (pg.hasAttribute("NUMCLIP"))
@@ -307,8 +307,8 @@ QPixmap ScPreview::createPreview(QString data)
 				if (it.tagName()=="CSTOP")
 				{
 					QString name = it.attribute("NAME");
-					double ramp = QStodouble(it.attribute("RAMP","0.0"));
-					int shade = QStoInt(it.attribute("SHADE","100"));
+					double ramp = it.attribute("RAMP", "0.0").toDouble();
+					int shade = it.attribute("SHADE", "100").toInt();
 					SetFarbe(&tmpfa, name, shade);
 					OB.fill_gradient.addStop(tmpfa, ramp, 0.5, 1.0, name, shade);
 				}
@@ -413,8 +413,8 @@ QPixmap ScPreview::createPreview(QString data)
 				OB.Clip.setPoints(4, -1,-1, static_cast<int>(OB.Width+1),-1, static_cast<int>(OB.Width+1), static_cast<int>(OB.Height+1), -1, static_cast<int>(OB.Height+1));
 			}
 			OB.LayerNr = -1;
-			OB.startArrowIndex =  arrowID[QStoInt(pg.attribute("startArrowIndex","0"))];
-			OB.endArrowIndex =  arrowID[QStoInt(pg.attribute("endArrowIndex","0"))];
+			OB.startArrowIndex =  arrowID[pg.attribute("startArrowIndex", "0").toInt()];
+			OB.endArrowIndex =  arrowID[pg.attribute("endArrowIndex", "0").toInt()];
 			pS->save();
 			pS->translate(OB.Xpos, OB.Ypos);
 			pS->rotate(static_cast<double>(OB.Rot));

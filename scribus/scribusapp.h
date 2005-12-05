@@ -6,7 +6,7 @@
 
 /***************************************************************************
 *                                                                         *
-*   ScApp program is free software; you can redistribute it and/or modify  *
+*   ScMW program is free software; you can redistribute it and/or modify  *
 *   it under the terms of the GNU General Public License as published by  *
 *   the Free Software Foundation; either version 2 of the License, or     *
 *   (at your option) any later version.                                   *
@@ -19,7 +19,7 @@
 #include <qstring.h>
 
 #include "scribusapi.h"
-class ScribusApp;
+class ScribusMainWindow;
 
 class SCRIBUS_API ScribusQApp : public QApplication
 {
@@ -49,7 +49,7 @@ class SCRIBUS_API ScribusQApp : public QApplication
 		static bool useGUI;
 
 	private:
-		ScribusApp *scribus;
+		ScribusMainWindow *scribus;
 		void showHeader();
 		void showVersion();
 		void showUsage();

@@ -23,7 +23,7 @@ or documentation
 #include "pageitem.h"
 #include "selection.h"
 
-extern ScribusApp SCRIBUS_API *ScApp;
+extern ScribusMainWindow SCRIBUS_API *ScMW;
 
 
 SWParse::SWParse()
@@ -53,8 +53,8 @@ void SWParse::parseItem(PageItem *aFrame)
 
 	// an ugly hack to get the language code from the item language property
 	lang = aFrame->Language;
-	if (ScApp->Sprachen.contains(lang))
-		lang = cfg->getLangCodeFromHyph(ScApp->Sprachen[lang]);
+	if (ScMW->Sprachen.contains(lang))
+		lang = cfg->getLangCodeFromHyph(ScMW->Sprachen[lang]);
 	// apply spaces after shorts
 	shorts = cfg->getShortWords(lang);
 	if (shorts.count()==0)
@@ -110,51 +110,51 @@ void SWParse::parseItem(PageItem *aFrame)
 
 void SWParse::parseSelection()
 {
-	//uint docSelectionCount = ScApp->view->SelItem.count();
-	uint docSelectionCount = ScApp->doc->selection->count();
-	ScApp->mainWindowProgressBar->setTotalSteps(docSelectionCount);
+	//uint docSelectionCount = ScMW->view->SelItem.count();
+	uint docSelectionCount = ScMW->doc->selection->count();
+	ScMW->mainWindowProgressBar->setTotalSteps(docSelectionCount);
 	for (uint i=0; i < docSelectionCount; ++i)
 	{
-		ScApp->mainWindowProgressBar->setProgress(i);
-		//parseItem(ScApp->view->SelItem.at(i));
-		parseItem(ScApp->doc->selection->itemAt(i));
+		ScMW->mainWindowProgressBar->setProgress(i);
+		//parseItem(ScMW->view->SelItem.at(i));
+		parseItem(ScMW->doc->selection->itemAt(i));
 	} // for items
-	ScApp->mainWindowProgressBar->setProgress(docSelectionCount);
+	ScMW->mainWindowProgressBar->setProgress(docSelectionCount);
 }
 
 
 void SWParse::parsePage()
 {
-	parsePage(ScApp->doc->currentPageNumber());
+	parsePage(ScMW->doc->currentPageNumber());
 }
 
 void SWParse::parsePage(int page)
 {
 	uint cnt = 0;
-	uint docItemsCount=ScApp->doc->Items->count();
+	uint docItemsCount=ScMW->doc->Items->count();
 	for (uint a = 0; a < docItemsCount; ++a)
 	{
-		PageItem* b = ScApp->doc->Items->at(a);
+		PageItem* b = ScMW->doc->Items->at(a);
 		if (b->OwnPage == page)
 			++cnt;
 	}
-	ScApp->mainWindowProgressBar->setTotalSteps(cnt);
-	ScApp->view->GotoPage(page);
+	ScMW->mainWindowProgressBar->setTotalSteps(cnt);
+	ScMW->view->GotoPage(page);
 	uint i = 0;
 	for (uint a = 0; a < docItemsCount; ++a)
 	{
-		PageItem* b = ScApp->doc->Items->at(a);
+		PageItem* b = ScMW->doc->Items->at(a);
 		if (b->OwnPage == page)
 		{
-			ScApp->mainWindowProgressBar->setProgress(++i);
+			ScMW->mainWindowProgressBar->setProgress(++i);
 			parseItem(b);
 		}
 	}
-	ScApp->mainWindowProgressBar->setProgress(cnt);
+	ScMW->mainWindowProgressBar->setProgress(cnt);
 }
 
 void SWParse::parseAll()
 {
-	for (uint i=0; i < ScApp->doc->Pages->count(); ++i)
+	for (uint i=0; i < ScMW->doc->Pages->count(); ++i)
 		parsePage(i);
 }

@@ -274,13 +274,13 @@ bool MenuManager::addMenuItemAfter(ScrAction *menuAction, const QString &parent,
 	ScrAction *actionFromName=NULL;
 	//quick hack to make this work for existing plugins for now
 	if (parent=="File" && afterMenuName=="New")
-		actionFromName=ScApp->scrActions["fileNew"];
+		actionFromName=ScMW->scrActions["fileNew"];
 	if (parent=="File" && afterMenuName=="Print")
-		actionFromName=ScApp->scrActions["filePrint"];
+		actionFromName=ScMW->scrActions["filePrint"];
 	if (parent=="File" && afterMenuName=="SaveAs")
-		actionFromName=ScApp->scrActions["fileSaveAs"];
+		actionFromName=ScMW->scrActions["fileSaveAs"];
 	if (parent=="Help" && afterMenuName=="Manual")
-		actionFromName=ScApp->scrActions["helpManual"];
+		actionFromName=ScMW->scrActions["helpManual"];
 		
 	if (menuList.contains(parent) && menuList[parent]!=NULL)
 		retVal=menuList[parent]->insertMenuItemAfter(menuAction, actionFromName);

@@ -8,7 +8,7 @@
 #include "prefsmanager.h"
 #include <prefsfile.h>
 
-extern ScribusApp SCRIBUS_API *ScApp;
+extern ScribusMainWindow SCRIBUS_API *ScMW;
 extern QPixmap SCRIBUS_API loadIcon(QString nam);
 
 tfFilter::tfFilter(QWidget *parent, const char *name,
@@ -470,9 +470,9 @@ void tfFilter::resetBRow()
 void tfFilter::getParagraphStyles()
 {
 	thirdCombo->insertItem("");
-	for (uint i = 5; i < ScApp->doc->docParagraphStyles.size(); ++i)
+	for (uint i = 5; i < ScMW->doc->docParagraphStyles.size(); ++i)
 	{
-		thirdCombo->insertItem(ScApp->doc->docParagraphStyles[i].Vname);
+		thirdCombo->insertItem(ScMW->doc->docParagraphStyles[i].Vname);
 	}
 }
 

@@ -2891,7 +2891,7 @@ QString ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes)
 			load(tmpFile);
 			unlink(tmpFile);
 			setAlphaBuffer(true);
-			if (ScApp->HavePngAlpha != 0)
+			if (ScMW->HavePngAlpha != 0)
 			{
 				for( int yi=0; yi < height(); ++yi )
 				{
@@ -2961,7 +2961,7 @@ QString ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes)
 				QImage image;
 				image.load(tmpFile);
 				image.setAlphaBuffer(true);
-				if (ScApp->HavePngAlpha != 0)
+				if (ScMW->HavePngAlpha != 0)
 				{
 					int wi = image.width();
 					int hi = image.height();
@@ -3435,7 +3435,7 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 			load(tmpFile);
 			unlink(tmpFile);
 			setAlphaBuffer(true);
-			if (ScApp->HavePngAlpha != 0)
+			if (ScMW->HavePngAlpha != 0)
 			{
 				for( int yi=0; yi < height(); ++yi )
 				{
@@ -3512,7 +3512,7 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 				QImage image;
 				image.load(tmpFile);
 				image.setAlphaBuffer(true);
-				if (ScApp->HavePngAlpha != 0)
+				if (ScMW->HavePngAlpha != 0)
 				{
 					int wi = image.width();
 					int hi = image.height();
@@ -4092,19 +4092,19 @@ bool ScImage::LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, 
 			QCString profilePath;
 			if (isCMYK)
 			{
-				if (ScApp->InputProfilesCMYK.contains(Prof))
+				if (ScMW->InputProfilesCMYK.contains(Prof))
 					imgInfo.profileName = Prof;
 				else
-					imgInfo.profileName = ScApp->doc->CMSSettings.DefaultImageCMYKProfile;
-				profilePath = ScApp->InputProfilesCMYK[imgInfo.profileName].local8Bit();
+					imgInfo.profileName = ScMW->doc->CMSSettings.DefaultImageCMYKProfile;
+				profilePath = ScMW->InputProfilesCMYK[imgInfo.profileName].local8Bit();
 			}
 			else
 			{
-				if (ScApp->InputProfiles.contains(Prof))
+				if (ScMW->InputProfiles.contains(Prof))
 					imgInfo.profileName = Prof;
 				else
-					imgInfo.profileName = ScApp->doc->CMSSettings.DefaultImageRGBProfile;
-				profilePath = ScApp->InputProfiles[imgInfo.profileName].local8Bit();
+					imgInfo.profileName = ScMW->doc->CMSSettings.DefaultImageRGBProfile;
+				profilePath = ScMW->InputProfiles[imgInfo.profileName].local8Bit();
 			}
 			inputProf = cmsOpenProfileFromFile(profilePath.data(), "r");
 		}

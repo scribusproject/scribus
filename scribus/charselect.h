@@ -17,7 +17,7 @@ class QWidget;
 
 class FontCombo;
 class PageItem;
-class ScribusApp;
+class ScribusMainWindow;
 
 class SCRIBUS_API Zoom : public QDialog
 {
@@ -59,7 +59,7 @@ public:
 	QPushButton* deleteButton;
 	QPushButton* closeButton;
 	PageItem *ite;
-	ScribusApp *ap;
+	ScribusMainWindow *ap;
 	typedef QValueList<uint> charClassDef;
 	QValueList<charClassDef> allClasses;
 	QValueList<uint> characters;
@@ -106,7 +106,7 @@ public slots:
 	void insChar();
 
 protected:
-	void run(QWidget* parent, PageItem* item, ScribusApp* pl);
+	void run(QWidget* parent, PageItem* item, ScribusMainWindow* pl);
 	bool eventFilter( QObject *obj, QEvent *ev );
 	void recalcCellSizes();
 	QVBoxLayout* zAuswahlLayout;
@@ -119,7 +119,7 @@ class SCRIBUS_API ChTable : public QTable
     Q_OBJECT
 
 public:
-	ChTable(CharSelect* parent, ScribusApp *pl);
+	ChTable(CharSelect* parent, ScribusMainWindow *pl);
 	~ChTable() {};
 	void resizeData( int ) {};
 	QRect cellGeometry ( int row, int col ) const;
@@ -129,7 +129,7 @@ public:
 	bool mPressed;
 	bool alternate;
 	Zoom* dia;
-	ScribusApp *ap;
+	ScribusMainWindow *ap;
 	CharSelect* par;
 	QTimer* watchTimer;
 	uint maxCount;

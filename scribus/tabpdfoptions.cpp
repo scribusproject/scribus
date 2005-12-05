@@ -633,7 +633,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 #ifdef HAVE_CMS
 
 	QString tp = Optionen->SolidProf;
-	if (!ScApp->InputProfiles.contains(tp))
+	if (!ScMW->InputProfiles.contains(tp))
 	{
 		if (vie != 0)
 			tp = vie->Doc->CMSSettings.DefaultSolidColorProfile;
@@ -641,8 +641,8 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 			tp = PrefsManager::instance()->appPrefs.DCMSset.DefaultSolidColorProfile;
 	}
 	ProfilesL::Iterator itp;
-	ProfilesL::Iterator itpend=ScApp->InputProfiles.end();
-	for (itp = ScApp->InputProfiles.begin(); itp != itpend; ++itp)
+	ProfilesL::Iterator itpend=ScMW->InputProfiles.end();
+	for (itp = ScMW->InputProfiles.begin(); itp != itpend; ++itp)
 	{
 		SolidPr->insertItem(itp.key());
 		if (itp.key() == tp)
@@ -654,7 +654,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	if ((CMSuse) && (CMSavail))
 		IntendS->setCurrentItem(Optionen->Intent);
 	QString tp1 = Optionen->ImageProf;
-	if (!ScApp->InputProfiles.contains(tp1))
+	if (!ScMW->InputProfiles.contains(tp1))
 	{
 		if (vie != 0)
 			tp1 = vie->Doc->CMSSettings.DefaultSolidColorProfile;
@@ -662,8 +662,8 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 			tp1 = PrefsManager::instance()->appPrefs.DCMSset.DefaultSolidColorProfile;
 	}
 	ProfilesL::Iterator itp2;
-	ProfilesL::Iterator itp2end=ScApp->InputProfiles.end();
-	for (itp2 = ScApp->InputProfiles.begin(); itp2 != itp2end; ++itp2)
+	ProfilesL::Iterator itp2end=ScMW->InputProfiles.end();
+	for (itp2 = ScMW->InputProfiles.begin(); itp2 != itp2end; ++itp2)
 	{
 		ImageP->insertItem(itp2.key());
 		if (itp2.key() == tp1)
@@ -1052,7 +1052,7 @@ void TabPDFOptions::EnableLPI(int a)
 	{
 #ifdef HAVE_CMS
 		QString tp = Opts->SolidProf;
-		if (!ScApp->InputProfiles.contains(tp))
+		if (!ScMW->InputProfiles.contains(tp))
 		{
 			if (view != 0)
 				tp = view->Doc->CMSSettings.DefaultSolidColorProfile;
@@ -1061,8 +1061,8 @@ void TabPDFOptions::EnableLPI(int a)
 		}
 		SolidPr->clear();
 		ProfilesL::Iterator itp;
-		ProfilesL::Iterator itpend=ScApp->InputProfiles.end();
-		for (itp = ScApp->InputProfiles.begin(); itp != itpend; ++itp)
+		ProfilesL::Iterator itpend=ScMW->InputProfiles.end();
+		for (itp = ScMW->InputProfiles.begin(); itp != itpend; ++itp)
 		{
 			SolidPr->insertItem(itp.key());
 			if (itp.key() == tp)
@@ -1074,7 +1074,7 @@ void TabPDFOptions::EnableLPI(int a)
 		if (cms)
 			IntendS->setCurrentItem(Opts->Intent);
 		QString tp1 = Opts->ImageProf;
-		if (!ScApp->InputProfiles.contains(tp1))
+		if (!ScMW->InputProfiles.contains(tp1))
 		{
 			if (view != 0)
 				tp1 = view->Doc->CMSSettings.DefaultSolidColorProfile;
@@ -1083,8 +1083,8 @@ void TabPDFOptions::EnableLPI(int a)
 		}
 		ImageP->clear();
 		ProfilesL::Iterator itp2;
-		ProfilesL::Iterator itp2end=ScApp->InputProfiles.end();
-		for (itp2 = ScApp->InputProfiles.begin(); itp2 != itp2end; ++itp2)
+		ProfilesL::Iterator itp2end=ScMW->InputProfiles.end();
+		for (itp2 = ScMW->InputProfiles.begin(); itp2 != itp2end; ++itp2)
 		{
 			ImageP->insertItem(itp2.key());
 			if (itp2.key() == tp1)

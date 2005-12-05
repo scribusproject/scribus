@@ -26,7 +26,7 @@
 #include "util.h"
 
 
-extern ScribusApp SCRIBUS_API *ScApp;
+extern ScribusMainWindow SCRIBUS_API *ScMW;
 
 ScribusColorList::ScribusColorList(QWidget* parent, const char* name, bool modal, WFlags fl)
 	: QDialog(parent, name, modal, fl)
@@ -337,7 +337,7 @@ void ColorWheelDialog::addButton_clicked()
 	bool err = false;
 	for (ColorList::iterator it = colorWheel->colorList.begin(); it != colorWheel->colorList.end(); ++it)
 	{
-		if (ScApp->doc->PageColors.contains(it.key()))
+		if (ScMW->doc->PageColors.contains(it.key()))
 		{
 			status += "<b>" + tr("Error: ") + "</b>" + tr("Color %1 exists already!").arg(it.key()) + "<br/>";
 			err = true;
@@ -345,18 +345,18 @@ void ColorWheelDialog::addButton_clicked()
 		else
 		{
 			status += tr("Color %1 appended.").arg(it.key()) + "<br/>";
-			ScApp->doc->PageColors[it.key()] = it.data();
+			ScMW->doc->PageColors[it.key()] = it.data();
 		}
 	}
 	status += "<p>" + tr("Now opening the color manager.") + "</p></qt>";
 	if (err)
 	{
 		QMessageBox::information(this, tr("Color Merging"), status);
-		ScApp->slotEditColors();
+		ScMW->slotEditColors();
 		return;
 	}
-	ScApp->propertiesPalette->updateColorList();
-	ScApp->propertiesPalette->updateCList();
+	ScMW->propertiesPalette->updateColorList();
+	ScMW->propertiesPalette->updateCList();
 	accept();
 }
 
@@ -364,10 +364,10 @@ void ColorWheelDialog::replaceButton_clicked()
 {
 	for (ColorList::iterator it = colorWheel->colorList.begin(); it != colorWheel->colorList.end(); ++it)
 	{
-		ScApp->doc->PageColors[it.key()] = it.data();
+		ScMW->doc->PageColors[it.key()] = it.data();
 	}
-	ScApp->propertiesPalette->updateColorList();
-	ScApp->propertiesPalette->updateCList();
+	ScMW->propertiesPalette->updateColorList();
+	ScMW->propertiesPalette->updateCList();
 	accept();
 }
 

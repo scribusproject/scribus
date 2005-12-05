@@ -32,13 +32,13 @@
 
 
 /*!
- \fn Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok, ScribusApp* app)
+ \fn Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok, ScribusMainWindow* app)
  \brief Constructor reads user configuration and sets hyphenator properties.
  \date
  \author Franz Schmid
  \param parent unused
  \param dok ScribusDoc reference. It's used for preferences accessing.
- \param app ScribusApp reference. It's used for preferences accessing.
+ \param app ScribusMainWindow reference. It's used for preferences accessing.
  \retval None
 */
 Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok)
@@ -53,14 +53,14 @@ Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok)
 	codec(0)
 {
  	QString pfad = ScPaths::instance().libDir();
-	if (ScApp->Sprachen.contains(doc->Language))
+	if (ScMW->Sprachen.contains(doc->Language))
 		Language = doc->Language;
 	else
 	{
 		Language = PrefsManager::instance()->appPrefs.Language;
 		doc->Language = Language;
 	}
-	pfad += "dicts/" + ScApp->Sprachen[Language];
+	pfad += "dicts/" + ScMW->Sprachen[Language];
 	QFile f(pfad);
 	if (f.open(IO_ReadOnly))
 	{
@@ -105,7 +105,7 @@ Hyphenator::~Hyphenator()
  */
 void Hyphenator::slotNewDict(QString name)
 {
-	if (!ScApp->Sprachen.contains(name))
+	if (!ScMW->Sprachen.contains(name))
 		return;
 	char *filename = NULL;
 	if (hdict != NULL)
@@ -113,7 +113,7 @@ void Hyphenator::slotNewDict(QString name)
  	QString pfad = ScPaths::instance().libDir();
 	Language = name;
 	doc->Language = name;
-	pfad += "dicts/" + ScApp->Sprachen[Language];
+	pfad += "dicts/" + ScMW->Sprachen[Language];
 	QFile f(pfad);
 	if (f.open(IO_ReadOnly))
 	{
@@ -169,7 +169,7 @@ void Hyphenator::slotNewSettings(int Wordlen, bool Autom, bool ACheck, int Num)
  */
 void Hyphenator::slotHyphenateWord(PageItem* it, QString text, int firstC)
 {
-	if ((!useAble) || (!ScApp->Sprachen.contains(it->Language)))
+	if ((!useAble) || (!ScMW->Sprachen.contains(it->Language)))
 		return;
 	const char *word;
 	char *buffer;

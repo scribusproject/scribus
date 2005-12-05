@@ -193,7 +193,7 @@ public:
 	int choosenLayout;
 	int docUnitIndex;
 	double DisScale;
-	ScribusApp *ap;
+	ScribusMainWindow *ap;
 	QColor colorPaper;
 
 signals:

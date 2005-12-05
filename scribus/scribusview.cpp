@@ -892,7 +892,7 @@ void ScribusView::contentsDragEnterEvent(QDragEnterEvent *e)
 		double gx, gy, gw, gh;
 		setActiveWindow();
 		raise();
-		ScApp->newActWin(Doc->WinHan);
+		ScMW->newActWin(Doc->WinHan);
 		updateContents();
 //		SeleItemPos(e->pos());
 		QUrl ur(text);
@@ -1658,7 +1658,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 	if ((!GetItem(&currItem)) && (m->button() == RightButton) && (!Doc->DragP) && (Doc->appMode == modeNormal))
 	{
 		QPopupMenu *pmen = new QPopupMenu();
-		if (ScApp->Buffer2.startsWith("<SCRIBUSELEM"))
+		if (ScMW->Buffer2.startsWith("<SCRIBUSELEM"))
 		{
 			Mxp = m->x();
 			Myp = m->y();
@@ -1666,26 +1666,26 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			pmen->insertSeparator();
 		}
 		setObjectUndoMode();
-		ScApp->scrActions["editUndoAction"]->addTo(pmen);
-		ScApp->scrActions["editRedoAction"]->addTo(pmen);
+		ScMW->scrActions["editUndoAction"]->addTo(pmen);
+		ScMW->scrActions["editRedoAction"]->addTo(pmen);
 		pmen->insertSeparator();
-		ScApp->scrActions["viewShowMargins"]->addTo(pmen);
-		ScApp->scrActions["viewShowFrames"]->addTo(pmen);
-		ScApp->scrActions["viewShowImages"]->addTo(pmen);
-		ScApp->scrActions["viewShowGrid"]->addTo(pmen);
-		ScApp->scrActions["viewShowGuides"]->addTo(pmen);
-		ScApp->scrActions["viewShowBaseline"]->addTo(pmen);
-		ScApp->scrActions["viewShowTextChain"]->addTo(pmen);
-		ScApp->scrActions["viewRulerMode"]->addTo(pmen);
+		ScMW->scrActions["viewShowMargins"]->addTo(pmen);
+		ScMW->scrActions["viewShowFrames"]->addTo(pmen);
+		ScMW->scrActions["viewShowImages"]->addTo(pmen);
+		ScMW->scrActions["viewShowGrid"]->addTo(pmen);
+		ScMW->scrActions["viewShowGuides"]->addTo(pmen);
+		ScMW->scrActions["viewShowBaseline"]->addTo(pmen);
+		ScMW->scrActions["viewShowTextChain"]->addTo(pmen);
+		ScMW->scrActions["viewRulerMode"]->addTo(pmen);
 		pmen->insertSeparator();
 //		pmen->insertItem( tr("Unit"), unitSwitcher);
 //		pmen->insertSeparator();
-		ScApp->scrActions["viewSnapToGrid"]->addTo(pmen);
-		ScApp->scrActions["viewSnapToGuides"]->addTo(pmen);
+		ScMW->scrActions["viewSnapToGrid"]->addTo(pmen);
+		ScMW->scrActions["viewSnapToGuides"]->addTo(pmen);
 		pmen->insertSeparator();
-		ScApp->scrActions["pageApplyMasterPage"]->addTo(pmen);
-		ScApp->scrActions["pageManageGuides"]->addTo(pmen);
-		ScApp->scrActions["pageManageMargins"]->addTo(pmen);
+		ScMW->scrActions["pageApplyMasterPage"]->addTo(pmen);
+		ScMW->scrActions["pageManageGuides"]->addTo(pmen);
+		ScMW->scrActions["pageManageMargins"]->addTo(pmen);
 		pmen->exec(QCursor::pos());
 		setGlobalUndoMode();
 		delete pmen;
@@ -1827,12 +1827,12 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 
 				pmen4->insertItem(InfoGroup);
 				if ((currItem->itemType() == PageItem::ImageFrame) && (currItem->pixm.imgInfo.exifDataValid))
-					ScApp->scrActions["itemImageInfo"]->addTo(pmen4);
+					ScMW->scrActions["itemImageInfo"]->addTo(pmen4);
 				pmen->insertItem( tr("In&fo"), pmen4);
 			}
 			pmen->insertSeparator();
-			ScApp->scrActions["editUndoAction"]->addTo(pmen);
-			ScApp->scrActions["editRedoAction"]->addTo(pmen);
+			ScMW->scrActions["editUndoAction"]->addTo(pmen);
+			ScMW->scrActions["editRedoAction"]->addTo(pmen);
 			if (currItem->itemType() == PageItem::ImageFrame ||
 				currItem->itemType() == PageItem::TextFrame ||
 				currItem->itemType() == PageItem::PathText)
@@ -1840,61 +1840,61 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				pmen->insertSeparator();
 				if (currItem->itemType() == PageItem::ImageFrame)
 				{
-					ScApp->scrActions["fileImportImage"]->addTo(pmen);
-					ScApp->scrActions["itemImageIsVisible"]->addTo(pmen);
+					ScMW->scrActions["fileImportImage"]->addTo(pmen);
+					ScMW->scrActions["itemImageIsVisible"]->addTo(pmen);
 					pmen->insertItem( tr("Preview Settings"), pmenResolution);
-					ScApp->scrActions["itemPreviewLow"]->addTo(pmenResolution);
-					ScApp->scrActions["itemPreviewNormal"]->addTo(pmenResolution);
-					ScApp->scrActions["itemPreviewFull"]->addTo(pmenResolution);
+					ScMW->scrActions["itemPreviewLow"]->addTo(pmenResolution);
+					ScMW->scrActions["itemPreviewNormal"]->addTo(pmenResolution);
+					ScMW->scrActions["itemPreviewFull"]->addTo(pmenResolution);
 					if ((currItem->PicAvail) && (currItem->pixm.imgInfo.valid))
-						ScApp->scrActions["itemExtendedImageProperties"]->addTo(pmen);
+						ScMW->scrActions["itemExtendedImageProperties"]->addTo(pmen);
 					if (currItem->PicAvail && currItem->isRaster)
 					{
-						ScApp->scrActions["styleInvertPict"]->addTo(pmen);
-						ScApp->scrActions["editEditWithImageEditor"]->addTo(pmen);
+						ScMW->scrActions["styleInvertPict"]->addTo(pmen);
+						ScMW->scrActions["editEditWithImageEditor"]->addTo(pmen);
 					}
 					if (currItem->PicAvail)
-						ScApp->scrActions["itemUpdateImage"]->addTo(pmen);
+						ScMW->scrActions["itemUpdateImage"]->addTo(pmen);
 					if ((currItem->PicAvail) && (!currItem->isTableItem))
-						ScApp->scrActions["itemAdjustFrameToImage"]->addTo(pmen);
+						ScMW->scrActions["itemAdjustFrameToImage"]->addTo(pmen);
 				}
 				if (currItem->itemType() == PageItem::TextFrame)
 				{
-					ScApp->scrActions["fileImportText"]->addTo(pmen);
-					ScApp->scrActions["fileImportAppendText"]->addTo(pmen);
-					ScApp->scrActions["toolsEditWithStoryEditor"]->addTo(pmen);
-					ScApp->scrActions["insertSampleText"]->addTo(pmen);
+					ScMW->scrActions["fileImportText"]->addTo(pmen);
+					ScMW->scrActions["fileImportAppendText"]->addTo(pmen);
+					ScMW->scrActions["toolsEditWithStoryEditor"]->addTo(pmen);
+					ScMW->scrActions["insertSampleText"]->addTo(pmen);
 				}
 				if (currItem->itemType() == PageItem::PathText)
-					ScApp->scrActions["toolsEditWithStoryEditor"]->addTo(pmen);
+					ScMW->scrActions["toolsEditWithStoryEditor"]->addTo(pmen);
 			}
 			pmen->insertSeparator();
-			ScApp->scrActions["itemAttributes"]->addTo(pmen);
+			ScMW->scrActions["itemAttributes"]->addTo(pmen);
 			if (currItem->itemType() == PageItem::TextFrame)
 			{
 				if (Doc->currentPage->PageNam.isEmpty())
 				{
-					ScApp->scrActions["itemPDFIsAnnotation"]->addTo(pmenPDF);
-					ScApp->scrActions["itemPDFIsBookmark"]->addTo(pmenPDF);
+					ScMW->scrActions["itemPDFIsAnnotation"]->addTo(pmenPDF);
+					ScMW->scrActions["itemPDFIsBookmark"]->addTo(pmenPDF);
 					if (currItem->isAnnotation)
 					{
 						if ((currItem->AnType == 0) || (currItem->AnType == 1) || (currItem->AnType > 9))
-							ScApp->scrActions["itemPDFAnnotationProps"]->addTo(pmenPDF);
+							ScMW->scrActions["itemPDFAnnotationProps"]->addTo(pmenPDF);
 						else
-							ScApp->scrActions["itemPDFFieldProps"]->addTo(pmenPDF);
+							ScMW->scrActions["itemPDFFieldProps"]->addTo(pmenPDF);
 					}
 				}
 				pmen->insertItem( tr("&PDF Options"), pmenPDF);
 			}
 			pmen->insertSeparator();
-			ScApp->scrActions["itemLock"]->addTo(pmen);
-			ScApp->scrActions["itemLockSize"]->addTo(pmen);
+			ScMW->scrActions["itemLock"]->addTo(pmen);
+			ScMW->scrActions["itemLockSize"]->addTo(pmen);
 			if (!currItem->isSingleSel)
 			{
-				ScApp->scrActions["itemSendToScrapbook"]->addTo(pmen);
+				ScMW->scrActions["itemSendToScrapbook"]->addTo(pmen);
 				if (Doc->layerCount() > 1)
 				{
-					for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = ScApp->scrLayersActions.begin(); it!=ScApp->scrLayersActions.end(); ++it )
+					for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = ScMW->scrLayersActions.begin(); it!=ScMW->scrLayersActions.end(); ++it )
 						(*it)->addTo(pmen3);
 					pmen->insertItem( tr("Send to La&yer"), pmen3);
 				}
@@ -1922,17 +1922,17 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 							isGroup = false;
 					}
 					if (!isGroup)
-						ScApp->scrActions["itemGroup"]->addTo(pmen);
+						ScMW->scrActions["itemGroup"]->addTo(pmen);
 				}
 				if (currItem->Groups.count() != 0)
-					ScApp->scrActions["itemUngroup"]->addTo(pmen);
+					ScMW->scrActions["itemUngroup"]->addTo(pmen);
 				if ((!currItem->isTableItem) && (!currItem->isSingleSel))
 				{
 					pmen->insertItem( tr("Le&vel"), pmenLevel);
-					ScApp->scrActions["itemRaiseToTop"]->addTo(pmenLevel);
-					ScApp->scrActions["itemRaise"]->addTo(pmenLevel);
-					ScApp->scrActions["itemLower"]->addTo(pmenLevel);
-					ScApp->scrActions["itemLowerToBottom"]->addTo(pmenLevel);
+					ScMW->scrActions["itemRaiseToTop"]->addTo(pmenLevel);
+					ScMW->scrActions["itemRaise"]->addTo(pmenLevel);
+					ScMW->scrActions["itemLower"]->addTo(pmenLevel);
+					ScMW->scrActions["itemLowerToBottom"]->addTo(pmenLevel);
 				}
 			}
 			if (Doc->appMode != modeEdit) //Create convertTo Menu
@@ -1942,49 +1942,49 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				{
 					insertConvertToMenu=true;
 					if (currItem->itemType() == PageItem::PathText)
-						ScApp->scrActions["itemConvertToOutlines"]->addTo(pmen2);
+						ScMW->scrActions["itemConvertToOutlines"]->addTo(pmen2);
 					else
 					{
 						if (currItem->isTableItem)
-							ScApp->scrActions["itemConvertToImageFrame"]->addTo(pmen2);
+							ScMW->scrActions["itemConvertToImageFrame"]->addTo(pmen2);
 						if ((!currItem->isTableItem) && (currItem->BackBox == 0) && (currItem->NextBox == 0))
 						{
-							ScApp->scrActions["itemConvertToImageFrame"]->addTo(pmen2);
-							ScApp->scrActions["itemConvertToOutlines"]->addTo(pmen2);
-							ScApp->scrActions["itemConvertToPolygon"]->addTo(pmen2);
+							ScMW->scrActions["itemConvertToImageFrame"]->addTo(pmen2);
+							ScMW->scrActions["itemConvertToOutlines"]->addTo(pmen2);
+							ScMW->scrActions["itemConvertToPolygon"]->addTo(pmen2);
 						}
 					}
 				}
 				if (currItem->itemType() == PageItem::ImageFrame)
 				{
 					insertConvertToMenu=true;
-					ScApp->scrActions["itemConvertToTextFrame"]->addTo(pmen2);
+					ScMW->scrActions["itemConvertToTextFrame"]->addTo(pmen2);
 					if (!currItem->isTableItem)
-						ScApp->scrActions["itemConvertToPolygon"]->addTo(pmen2);
+						ScMW->scrActions["itemConvertToPolygon"]->addTo(pmen2);
 				}
 				if (currItem->itemType() == PageItem::Polygon)
 				{
 					insertConvertToMenu=true;
-					ScApp->scrActions["itemConvertToBezierCurve"]->addTo(pmen2);
-					ScApp->scrActions["itemConvertToImageFrame"]->addTo(pmen2);
-					ScApp->scrActions["itemConvertToTextFrame"]->addTo(pmen2);
+					ScMW->scrActions["itemConvertToBezierCurve"]->addTo(pmen2);
+					ScMW->scrActions["itemConvertToImageFrame"]->addTo(pmen2);
+					ScMW->scrActions["itemConvertToTextFrame"]->addTo(pmen2);
 				}
 				if (insertConvertToMenu)
 					pmen->insertItem( tr("Conve&rt to"), pmen2);
 			}
 			pmen->insertSeparator();
 			if (!currItem->locked() && !(currItem->isTableItem && currItem->isSingleSel))
-				ScApp->scrActions["editCut"]->addTo(pmen);
+				ScMW->scrActions["editCut"]->addTo(pmen);
 			if (!(currItem->isTableItem && currItem->isSingleSel))
-				ScApp->scrActions["editCopy"]->addTo(pmen);
-			if ((Doc->appMode == modeEdit) && (ScApp->Buffer2.startsWith("<SCRIBUSTEXT")) && (currItem->itemType() == PageItem::TextFrame))
-				ScApp->scrActions["editPaste"]->addTo(pmen);
+				ScMW->scrActions["editCopy"]->addTo(pmen);
+			if ((Doc->appMode == modeEdit) && (ScMW->Buffer2.startsWith("<SCRIBUSTEXT")) && (currItem->itemType() == PageItem::TextFrame))
+				ScMW->scrActions["editPaste"]->addTo(pmen);
 			if (!currItem->locked() && (Doc->appMode != modeEdit) && (!(currItem->isTableItem && currItem->isSingleSel)))
 				pmen->insertItem( tr("&Delete"), this, SLOT(DeleteItem()));
 			if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame))
-				ScApp->scrActions["editClearContents"]->addTo(pmen);
+				ScMW->scrActions["editClearContents"]->addTo(pmen);
 			pmen->insertSeparator();
-			ScApp->scrActions["toolsProperties"]->addTo(pmen);
+			ScMW->scrActions["toolsProperties"]->addTo(pmen);
 
 			pmen->exec(QCursor::pos());
 			setGlobalUndoMode();
@@ -3094,7 +3094,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 		Mxp = newX;
 		Myp = newY;
 		RefreshItem(currItem);
-		ScApp->propertiesPalette->updateColorSpecialGradient();
+		ScMW->propertiesPalette->updateColorSpecialGradient();
 		return;
 	}
 	if (Mpressed && (Doc->appMode == modeMeasurementTool))
@@ -4564,12 +4564,12 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 							if (Doc->Items->at(a)->isBookmark)
 								emit NewBMNr(Doc->Items->at(a)->BMnr, a);
 						}
-						ScApp->outlinePalette->BuildTree();
+						ScMW->outlinePalette->BuildTree();
 					}
 					else
 					{
-						if (ScApp->Buffer2.startsWith("<SCRIBUSTEXT"))
-							ScApp->slotEditPaste();
+						if (ScMW->Buffer2.startsWith("<SCRIBUSTEXT"))
+							ScMW->slotEditPaste();
 					}
 					RefreshItem(currItem);
 				}
@@ -7212,7 +7212,7 @@ void ScribusView::SelectItem(PageItem *currItem, bool draw, bool single)
 
 void ScribusView::selectionChanged()
 {
-	if (ScApp->isObjectSpecificUndo())
+	if (ScMW->isObjectSpecificUndo())
 	{
 		uint docSelectionCount=Doc->selection->count();
 		//if (SelItem.count() == 1)
@@ -7782,7 +7782,7 @@ void ScribusView::Deselect(bool prop)
 	}
 	if (prop)
 		emit HaveSel(-1);
-	ScApp->propertiesPalette->setGradientEditMode(false);
+	ScMW->propertiesPalette->setGradientEditMode(false);
 }
 
 /*
@@ -7791,7 +7791,7 @@ void ScribusView::updateGradientVectors(PageItem *currItem)
 	currItem->updateGradientVectors();
 	//if (currItem==SelItem.at(0))
 	if (Doc->selection->primarySelectionIsMyself(currItem))
-		ScApp->propertiesPalette->updateColorSpecialGradient();
+		ScMW->propertiesPalette->updateColorSpecialGradient();
 }
 */
 
@@ -7842,7 +7842,7 @@ void ScribusView::EmitValues(PageItem *currItem)
 		emit ItemTextFont(currItem->IFont);
 		emit ItemTextSize(currItem->ISize);
 	}
-	ScApp->propertiesPalette->updateColorSpecialGradient();
+	ScMW->propertiesPalette->updateColorSpecialGradient();
 }
 */
 void ScribusView::ToggleBookmark()
@@ -7875,7 +7875,7 @@ void ScribusView::ToggleBookmark()
 				}
 			}
 		}
-		ScApp->actionManager->setPDFActions(this);
+		ScMW->actionManager->setPDFActions(this);
 		emit DocChanged();
 	}
 }
@@ -7902,7 +7902,7 @@ void ScribusView::ToggleAnnotation()
 				}
 			}
 		}
-		ScApp->actionManager->setPDFActions(this);
+		ScMW->actionManager->setPDFActions(this);
 		emit DocChanged();
 	}
 }
@@ -8010,7 +8010,7 @@ void ScribusView::ToBack()
 			if (Doc->Items->at(a)->isBookmark)
 				emit NewBMNr(Doc->Items->at(a)->BMnr, a);
 		}
-		ScApp->outlinePalette->BuildTree();
+		ScMW->outlinePalette->BuildTree();
 		emit LevelChanged(0);
 		emit DocChanged();
 		updateContents();
@@ -8049,7 +8049,7 @@ void ScribusView::ToFront()
 			if (Doc->Items->at(a)->isBookmark)
 				emit NewBMNr(Doc->Items->at(a)->BMnr, a);
 		}
-		ScApp->outlinePalette->BuildTree();
+		ScMW->outlinePalette->BuildTree();
 		//emit LevelChanged(SelItem.at(0)->ItemNr);
 		emit LevelChanged(Doc->selection->itemAt(0)->ItemNr);
 		emit DocChanged();
@@ -8114,7 +8114,7 @@ void ScribusView::LowerItem()
 				//SelItem.append(Doc->Items->at(a));
 				//Doc->selection->addItem(Doc->Items->at(a));
 		}
-		ScApp->outlinePalette->BuildTree();
+		ScMW->outlinePalette->BuildTree();
 		//emit LevelChanged(SelItem.at(0)->ItemNr);
 		Doc->selection->restoreFromTempList(0, tempList);
 		emit LevelChanged(Doc->selection->itemAt(0)->ItemNr);
@@ -8183,7 +8183,7 @@ void ScribusView::RaiseItem()
 				//SelItem.append(Doc->Items->at(a));
 				//Doc->selection->addItem(Doc->Items->at(a));
 		}
-		ScApp->outlinePalette->BuildTree();
+		ScMW->outlinePalette->BuildTree();
 		//emit LevelChanged(SelItem.at(0)->ItemNr);
 		Doc->selection->restoreFromTempList(0, tempList);
 		emit LevelChanged(Doc->selection->itemAt(0)->ItemNr);
@@ -8206,8 +8206,8 @@ void ScribusView::ClearItem()
 			currItem = Doc->selection->itemAt(i);
 			if (currItem->asImageFrame())
 			{
-				if ((ScApp->fileWatcher->files().contains(currItem->Pfile) != 0) && (currItem->PicAvail))
-					ScApp->fileWatcher->removeFile(currItem->Pfile);
+				if ((ScMW->fileWatcher->files().contains(currItem->Pfile) != 0) && (currItem->PicAvail))
+					ScMW->fileWatcher->removeFile(currItem->Pfile);
 			}
 			else
 			if (currItem->asTextFrame())
@@ -8249,9 +8249,9 @@ void ScribusView::DeleteItem()
 				offs++;
 				continue;
 			}
-			if ((currItem->asTextFrame() || currItem->asPathText()) && currItem==ScApp->storyEditor->currentItem() && Doc==ScApp->storyEditor->currentDocument())
+			if ((currItem->asTextFrame() || currItem->asPathText()) && currItem==ScMW->storyEditor->currentItem() && Doc==ScMW->storyEditor->currentDocument())
 			{
-				QMessageBox::critical(ScApp, tr("Cannot Delete In-Use Item"), tr("The item %1 is currently being edited by Story Editor. The delete operation will be cancelled").arg(currItem->itemName()), QMessageBox::Ok, QMessageBox::NoButton, QMessageBox::NoButton);
+				QMessageBox::critical(ScMW, tr("Cannot Delete In-Use Item"), tr("The item %1 is currently being edited by Story Editor. The delete operation will be cancelled").arg(currItem->itemName()), QMessageBox::Ok, QMessageBox::NoButton, QMessageBox::NoButton);
 				return;
 			}
 			tooltip += "\t" + currItem->getUName() + "\n";
@@ -8270,8 +8270,8 @@ void ScribusView::DeleteItem()
 		{
 			//currItem = delItems.at(0);
 			currItem = delItems.last();
-			if ((currItem->asImageFrame()) && ((ScApp->fileWatcher->files().contains(currItem->Pfile) != 0) && (currItem->PicAvail)))
-				ScApp->fileWatcher->removeFile(currItem->Pfile);
+			if ((currItem->asImageFrame()) && ((ScMW->fileWatcher->files().contains(currItem->Pfile) != 0) && (currItem->PicAvail)))
+				ScMW->fileWatcher->removeFile(currItem->Pfile);
 			if (currItem->asTextFrame())
 			{
 				for (ScText *it = currItem->itemText.first(); it != 0; it = currItem->itemText.next())
@@ -8345,7 +8345,7 @@ void ScribusView::DeleteItem()
 			undoManager->commit();
 		updateContents();
 		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-		ScApp->outlinePalette->BuildTree();
+		ScMW->outlinePalette->BuildTree();
 		//if (SelItem.count() == 0)
 		if (Doc->selection->count() == 0)
 			emit HaveSel(-1);
@@ -8361,7 +8361,7 @@ void ScribusView::PasteToPage()
 	uint ac = Doc->Items->count();
 	if (UndoManager::undoEnabled())
 		undoManager->beginTransaction(Doc->currentPage->getUName(), 0, Um::Paste, "", Um::IPaste);
-	emit LoadElem(ScApp->Buffer2, Mxp / Scale, Myp / Scale, false, false, Doc, this);
+	emit LoadElem(ScMW->Buffer2, Mxp / Scale, Myp / Scale, false, false, Doc, this);
 	Doc->DraggedElem = 0;
 	Doc->DragElements.clear();
 	updateContents();
@@ -8418,7 +8418,7 @@ void ScribusView::rememberPreviousSettings(int mx, int my)
 
 void ScribusView::setRulerPos(int x, int y)
 {
-	if (ScApp->ScriptRunning)
+	if (ScMW->ScriptRunning)
 		return;
 	if (Doc->guidesSettings.rulerMode)
 	{
@@ -8455,7 +8455,7 @@ void ScribusView::setRulerPos(int x, int y)
 		if (!pag.isEmpty())
 			newStatusBarText=( tr("Page %1 to %2").arg(pag.first()).arg(pag.last()));
 	}
-	ScApp->mainWindowStatusLabel->setText(newStatusBarText);
+	ScMW->mainWindowStatusLabel->setText(newStatusBarText);
 }
 
 void ScribusView::Zval()
@@ -8467,7 +8467,7 @@ void ScribusView::Zval()
 	rememberPreviousSettings(w / 2 + x,h / 2 + y);
 	setScale(zoomSpinBox->value() / 100.0 * Prefs->DisScale);
 	slotDoZoom();
-	ScApp->setFocus();
+	ScMW->setFocus();
 }
 
 //CB This MUST now be called AFTER a call to doc->addPage or doc->addMasterPage as it
@@ -8502,7 +8502,7 @@ Page* ScribusView::addPage(int nr, bool mov)
 		Doc->RePos = savre;
 	}
 	*/
-	if ((!ScApp->ScriptRunning) && (!Doc->isLoading()) && (!Doc->masterPageMode()))
+	if ((!ScMW->ScriptRunning) && (!Doc->isLoading()) && (!Doc->masterPageMode()))
 		pageSelector->GotoPg(nr);
 	connect(pageSelector, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
 	Mpressed = false;
@@ -8539,7 +8539,7 @@ void ScribusView::reformPages(bool moveObjects)
 	Doc->reformPages(maxXPos, maxYPos, moveObjects);
 	FPoint maxSize(maxXPos, maxYPos);
 	adjustCanvas(FPoint(0,0), maxSize);
-	if (!ScApp->ScriptRunning)
+	if (!ScMW->ScriptRunning)
 		setContentsPos(qRound((Doc->currentPage->xOffset()-10 - Doc->minCanvasCoordinate.x()) * Scale), qRound((Doc->currentPage->yOffset()-10 - Doc->minCanvasCoordinate.y()) * Scale));
 	if (!Doc->isLoading())
 	{
@@ -8573,7 +8573,7 @@ void ScribusView::adjustCanvas(FPoint minPos, FPoint maxPos)
 
 void ScribusView::setMenTxt(int Seite)
 {
-	if (ScApp->ScriptRunning)
+	if (ScMW->ScriptRunning)
 		return;
 	disconnect(pageSelector, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
 	pageSelector->setMaxValue(Doc->pageCount);
@@ -8683,7 +8683,7 @@ void ScribusView::slotZoomOut2(int mx,int my)
 
 void ScribusView::DrawNew()
 {
-	if (ScApp->ScriptRunning)
+	if (ScMW->ScriptRunning)
 		return;
 	evSpon = false;
 	forceRedraw = true;
@@ -8697,7 +8697,7 @@ void ScribusView::DrawNew()
 
 void ScribusView::SetCCPo(int x, int y)
 {
-	if (ScApp->ScriptRunning)
+	if (ScMW->ScriptRunning)
 		return;
 	center(static_cast<int>((x - Doc->minCanvasCoordinate.x()) * Scale), static_cast<int>((y - Doc->minCanvasCoordinate.y())* Scale));
 	setRulerPos(contentsX(), contentsY());
@@ -8705,7 +8705,7 @@ void ScribusView::SetCCPo(int x, int y)
 
 void ScribusView::SetCPo(int x, int y)
 {
-	if (ScApp->ScriptRunning)
+	if (ScMW->ScriptRunning)
 		return;
 	setContentsPos(static_cast<int>((x - Doc->minCanvasCoordinate.x()) * Scale), static_cast<int>((y - Doc->minCanvasCoordinate.y())* Scale));
 	setRulerPos(contentsX(), contentsY());
@@ -8752,13 +8752,13 @@ void ScribusView::ChgUnit(int art)
 void ScribusView::GotoPa(int Seite)
 {
 	GotoPage(Seite-1);
-	//ScApp->setFocus();
+	//ScMW->setFocus();
 }
 
 void ScribusView::GotoPage(int Seite)
 {
 	Doc->currentPage = Doc->Pages->at(Seite);
-	if (ScApp->ScriptRunning)
+	if (ScMW->ScriptRunning)
 		return;
 	disconnect(pageSelector, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
 	SetCPo(qRound(Doc->currentPage->xOffset()-10), qRound(Doc->currentPage->yOffset()-10));
@@ -9358,7 +9358,7 @@ void ScribusView::ItemPen(QString farbe)
 	uint selectedItemCount=Doc->selection->count();
 	if (selectedItemCount != 0)
 	{
-		if (farbe == ScApp->noneString)
+		if (farbe == ScMW->noneString)
 			farbe = "None";	
 		if (selectedItemCount > 1)
 			undoManager->beginTransaction(Um::SelectionGroup,
@@ -9390,7 +9390,7 @@ void ScribusView::ItemTextBrush(QString farbe)
 	uint selectedItemCount=Doc->selection->count();
 	if (selectedItemCount != 0)
 	{
-		if (farbe == ScApp->noneString)
+		if (farbe == ScMW->noneString)
 			farbe = "None";	
 		if (selectedItemCount > 1)
 			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SetFontFill,
@@ -9465,7 +9465,7 @@ void ScribusView::ItemTextBrushS(int sha)
 
 void ScribusView::ItemTextPen(QString farbe)
 {
-	if (farbe == ScApp->noneString)
+	if (farbe == ScMW->noneString)
 		farbe = "None";
 	//uint selectedItemCount=SelItem.count();
 	uint selectedItemCount=Doc->selection->count();
@@ -9792,7 +9792,7 @@ void ScribusView::setItemTextOutline(int sha)
 
 void ScribusView::ItemBrush(QString farbe)
 {
-	if (farbe == ScApp->noneString)
+	if (farbe == ScMW->noneString)
 		farbe = "None";
 	//uint selectedItemCount=SelItem.count();
 	uint selectedItemCount=Doc->selection->count();
@@ -10439,15 +10439,15 @@ void ScribusView::changePreview(int id)
 		if (!found) //No image frames in the current selection!
 			return;
 		UpdatePic();
-		disconnect( ScApp->scrActions["itemPreviewLow"], SIGNAL(activatedData(int)) , 0, 0 );
-		disconnect( ScApp->scrActions["itemPreviewNormal"], SIGNAL(activatedData(int)) , 0, 0 );
-		disconnect( ScApp->scrActions["itemPreviewFull"], SIGNAL(activatedData(int)) , 0, 0 );
-		ScApp->scrActions["itemPreviewLow"]->setOn(id==ScApp->scrActions["itemPreviewLow"]->actionInt());
-		ScApp->scrActions["itemPreviewNormal"]->setOn(id==ScApp->scrActions["itemPreviewNormal"]->actionInt());
-		ScApp->scrActions["itemPreviewFull"]->setOn(id==ScApp->scrActions["itemPreviewFull"]->actionInt());
-		connect( ScApp->scrActions["itemPreviewLow"], SIGNAL(activatedData(int)), this, SLOT(changePreview(int)) );
-		connect( ScApp->scrActions["itemPreviewNormal"], SIGNAL(activatedData(int)), this, SLOT(changePreview(int)) );
-		connect( ScApp->scrActions["itemPreviewFull"], SIGNAL(activatedData(int)), this, SLOT(changePreview(int)) );
+		disconnect( ScMW->scrActions["itemPreviewLow"], SIGNAL(activatedData(int)) , 0, 0 );
+		disconnect( ScMW->scrActions["itemPreviewNormal"], SIGNAL(activatedData(int)) , 0, 0 );
+		disconnect( ScMW->scrActions["itemPreviewFull"], SIGNAL(activatedData(int)) , 0, 0 );
+		ScMW->scrActions["itemPreviewLow"]->setOn(id==ScMW->scrActions["itemPreviewLow"]->actionInt());
+		ScMW->scrActions["itemPreviewNormal"]->setOn(id==ScMW->scrActions["itemPreviewNormal"]->actionInt());
+		ScMW->scrActions["itemPreviewFull"]->setOn(id==ScMW->scrActions["itemPreviewFull"]->actionInt());
+		connect( ScMW->scrActions["itemPreviewLow"], SIGNAL(activatedData(int)), this, SLOT(changePreview(int)) );
+		connect( ScMW->scrActions["itemPreviewNormal"], SIGNAL(activatedData(int)), this, SLOT(changePreview(int)) );
+		connect( ScMW->scrActions["itemPreviewFull"], SIGNAL(activatedData(int)), this, SLOT(changePreview(int)) );
 	}
 }
 
@@ -10978,7 +10978,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	currItem->setLineTransparency(Buffer->TranspStroke);
 	currItem->setReversed(Buffer->Reverse);
 	currItem->NamedLStyle = Buffer->NamedLStyle;
-	currItem->Language = ScApp->GetLang(Buffer->Language);
+	currItem->Language = ScMW->GetLang(Buffer->Language);
 	currItem->Cols = Buffer->Cols;
 	currItem->ColGap = Buffer->ColGap;
 	if (Buffer->LayerNr != -1)
@@ -11248,7 +11248,7 @@ void ScribusView::FromPathText()
 
 void ScribusView::TextToPath()
 {
-	ScApp->NoFrameEdit();
+	ScMW->NoFrameEdit();
 	//uint selectedItemCount=SelItem.count();
 	uint selectedItemCount=Doc->selection->count();
 	if (selectedItemCount != 0)
@@ -11262,9 +11262,9 @@ void ScribusView::TextToPath()
 			bool cont=false;
 			if ((!((currItem->asTextFrame()) || (currItem->asPathText()))) || (currItem->isTableItem && currItem->isSingleSel) || (currItem->locked()) || currItem->itemText.count() == 0)
 				cont=true;
-			if (currItem==ScApp->storyEditor->currentItem() && Doc==ScApp->storyEditor->currentDocument())
+			if (currItem==ScMW->storyEditor->currentItem() && Doc==ScMW->storyEditor->currentDocument())
 			{
-				QMessageBox::information(ScApp, tr("Cannot Convert In-Use Item"), "<qt>" + tr("The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped").arg(currItem->itemName()) + "</qt>", QMessageBox::Ok, QMessageBox::NoButton, QMessageBox::NoButton);
+				QMessageBox::information(ScMW, tr("Cannot Convert In-Use Item"), "<qt>" + tr("The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped").arg(currItem->itemName()) + "</qt>", QMessageBox::Ok, QMessageBox::NoButton, QMessageBox::NoButton);
 				cont=true;
 			}
 			//Deselect();
@@ -11570,9 +11570,9 @@ void ScribusView::contentsWheelEvent(QWheelEvent *w)
 void ScribusView::setObjectUndoMode()
 {
 	_isGlobalMode = undoManager->isGlobalMode();
-	if (ScApp->HaveDoc)
+	if (ScMW->HaveDoc)
 	{
-		ScApp->scrActions["editActionMode"]->setOn(true);
+		ScMW->scrActions["editActionMode"]->setOn(true);
 		uint docSelectionCount=Doc->selection->count();
 		//if (SelItem.count() == 1)
 		if (docSelectionCount == 1)
@@ -11589,9 +11589,9 @@ void ScribusView::setObjectUndoMode()
 
 void ScribusView::setGlobalUndoMode()
 {
-	if (ScApp->HaveDoc)
+	if (ScMW->HaveDoc)
 	{
-		ScApp->scrActions["editActionMode"]->setOn(!_isGlobalMode);
+		ScMW->scrActions["editActionMode"]->setOn(!_isGlobalMode);
 		if (_isGlobalMode)
 			undoManager->showObject(Um::GLOBAL_UNDO_MODE);
 		else

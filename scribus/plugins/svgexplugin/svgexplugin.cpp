@@ -98,26 +98,26 @@ void SVGExportPlugin::deleteAboutData(const AboutData* about) const
 }
 
 /*!
- \fn void Run(QWidget *d, ScribusApp *plug)
+ \fn void Run(QWidget *d, ScribusMainWindow *plug)
  \author Franz Schmid
  \date
  \brief Run the SVG export
  \param d QWidget *
- \param plug ScribusApp *
+ \param plug ScribusMainWindow *
  \retval None
  */
 bool SVGExportPlugin::run(QString filename)
 {
 	Q_ASSERT(filename.isEmpty());
-	if (ScApp->HaveDoc)
+	if (ScMW->HaveDoc)
 	{
 		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("svgex");
 		QString wdir = prefs->get("wdir", ".");
-		QString defaultName = getFileNameByPage(ScApp->doc->currentPage->pageNr(), "svg");
+		QString defaultName = getFileNameByPage(ScMW->doc->currentPage->pageNr(), "svg");
 #ifdef HAVE_LIBZ
-		QString fileName = ScApp->CFileDialog(wdir, QObject::tr("Save as"), QObject::tr("SVG-Images (*.svg *.svgz);;All Files (*)"), defaultName, false, false, true);
+		QString fileName = ScMW->CFileDialog(wdir, QObject::tr("Save as"), QObject::tr("SVG-Images (*.svg *.svgz);;All Files (*)"), defaultName, false, false, true);
 #else
-		QString fileName = ScApp->CFileDialog(wdir, QObject::tr("Save as"), QObject::tr("SVG-Images (*.svg);;All Files (*)"), defaultName, false, false);
+		QString fileName = ScMW->CFileDialog(wdir, QObject::tr("Save as"), QObject::tr("SVG-Images (*.svg);;All Files (*)"), defaultName, false, false);
 #endif
 		if (!fileName.isEmpty())
 		{
@@ -125,7 +125,7 @@ bool SVGExportPlugin::run(QString filename)
 			QFile f(fileName);
 			if (f.exists())
 			{
-				int exit=ScMessageBox::warning(ScApp, QObject::tr("Warning"),
+				int exit=ScMessageBox::warning(ScMW, QObject::tr("Warning"),
 					QObject::tr("Do you really want to overwrite the File:\n%1 ?").arg(fileName),
 					QObject::tr("Yes"),
 					QObject::tr("No"),
@@ -143,12 +143,12 @@ bool SVGExportPlugin::run(QString filename)
 }
 
 /*!
- \fn SVGExPlug::SVGExPlug( QWidget* parent, ScribusApp *plug, QString fName )
+ \fn SVGExPlug::SVGExPlug( QWidget* parent, ScribusMainWindow *plug, QString fName )
  \author Franz Schmid
  \date
  \brief Create the SVG exporter window
  \param parent QWidget *
- \param plug ScribusApp *
+ \param plug ScribusMainWindow *
  \param fName QString
  \retval SVGExPlug plugin
  */
@@ -159,16 +159,16 @@ SVGExPlug::SVGExPlug( QString fName )
 	QString st = "<svg></svg>";
 	docu.setContent(st);
 	QDomElement elem = docu.documentElement();
-	elem.setAttribute("width", FToStr(ScApp->doc->pageWidth)+"pt");
-	elem.setAttribute("height", FToStr(ScApp->doc->pageHeight)+"pt");
+	elem.setAttribute("width", FToStr(ScMW->doc->pageWidth)+"pt");
+	elem.setAttribute("height", FToStr(ScMW->doc->pageHeight)+"pt");
 	elem.setAttribute("xmlns", "http://www.w3.org/2000/svg");
 	elem.setAttribute("xmlns:xlink","http://www.w3.org/1999/xlink");
 	Page *Seite;
 	GradCount = 0;
 	ClipCount = 0;
-	Seite = ScApp->doc->MasterPages.at(ScApp->doc->MasterNames[ScApp->doc->currentPage->MPageNam]);
+	Seite = ScMW->doc->MasterPages.at(ScMW->doc->MasterNames[ScMW->doc->currentPage->MPageNam]);
 	ProcessPage(Seite, &docu, &elem);
-	Seite = ScApp->doc->currentPage;
+	Seite = ScMW->doc->currentPage;
 	ProcessPage(Seite, &docu, &elem);
 #ifdef HAVE_LIBZ
 	if(fName.right(2) == "gz")
@@ -205,11 +205,11 @@ SVGExPlug::SVGExPlug( QString fName )
 }
 
 /*!
- \fn void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, QDomElement *elem)
+ \fn void SVGExPlug::ProcessPage(ScribusMainWindow *plug, Page *Seite, QDomDocument *docu, QDomElement *elem)
  \author Franz Schmid
  \date
  \brief Process a page to export to SVG format
- \param plug ScribusApp
+ \param plug ScribusMainWindow
  \param Seite Page *
  \param docu QDomDocument *
  \param elem QDomElement *
@@ -230,15 +230,15 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 	gradi = "Grad";
 	Clipi = "Clip";
 	QPtrList<PageItem> Items;
-	Page* SavedAct = ScApp->doc->currentPage;
-	ScApp->doc->currentPage = Seite;
+	Page* SavedAct = ScMW->doc->currentPage;
+	ScMW->doc->currentPage = Seite;
 	if (Seite->PageNam.isEmpty())
-		Items = ScApp->doc->DocItems;
+		Items = ScMW->doc->DocItems;
 	else
-		Items = ScApp->doc->MasterItems;
-	for (uint la = 0; la < ScApp->doc->Layers.count(); la++)
+		Items = ScMW->doc->MasterItems;
+	for (uint la = 0; la < ScMW->doc->Layers.count(); la++)
 		{
-		Level2Layer(ScApp->doc, &ll, Lnr);
+		Level2Layer(ScMW->doc, &ll, Lnr);
 		if (ll.isPrintable)
 			{
 			for(uint j = 0; j < Items.count(); ++j)
@@ -440,7 +440,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 							ob.setAttribute("d", SetClipPath(Item)+"Z");
 							ob.setAttribute("style", fill);
 							gr.appendChild(ob);
-							multiLine ml = ScApp->doc->MLineStyles[Item->NamedLStyle];
+							multiLine ml = ScMW->doc->MLineStyles[Item->NamedLStyle];
 							for (int it = ml.size()-1; it > -1; it--)
 							{
 								ob = docu->createElement("path");
@@ -494,7 +494,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 						}
 						else
 						{
-							multiLine ml = ScApp->doc->MLineStyles[Item->NamedLStyle];
+							multiLine ml = ScMW->doc->MLineStyles[Item->NamedLStyle];
 							for (int it = ml.size()-1; it > -1; it--)
 							{
 								ob = docu->createElement("path");
@@ -512,7 +512,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 						}
 						else
 						{
-							multiLine ml = ScApp->doc->MLineStyles[Item->NamedLStyle];
+							multiLine ml = ScMW->doc->MLineStyles[Item->NamedLStyle];
 							for (int it = ml.size()-1; it > -1; it--)
 							{
 								ob = docu->createElement("path");
@@ -559,7 +559,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 						}
 						else
 						{
-							multiLine ml = ScApp->doc->MLineStyles[Item->NamedLStyle];
+							multiLine ml = ScMW->doc->MLineStyles[Item->NamedLStyle];
 							for (int it = ml.size()-1; it > -1; it--)
 							{
 								ob = docu->createElement("path");
@@ -580,7 +580,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 							}
 							else
 							{
-								multiLine ml = ScApp->doc->MLineStyles[Item->NamedLStyle];
+								multiLine ml = ScMW->doc->MLineStyles[Item->NamedLStyle];
 								for (int it = ml.size()-1; it > -1; it--)
 								{
 									ob = docu->createElement("path");
@@ -625,7 +625,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 		}
 		Lnr++;
 	}
-	ScApp->doc->currentPage = SavedAct;
+	ScMW->doc->currentPage = SavedAct;
 }
 
 /*!
@@ -729,13 +729,13 @@ QString SVGExPlug::IToStr(int c)
 }
 
 /*!
- \fn void SVGExPlug::SetTextProps(QDomElement *tp, struct ScText *hl, ScribusApp *plug)
+ \fn void SVGExPlug::SetTextProps(QDomElement *tp, struct ScText *hl, ScribusMainWindow *plug)
  \author Franz Schmid
  \date
  \brief Set text properties
  \param tp QDomElement *
  \param hl struct ScText *
- \param plug ScribusApp *
+ \param plug ScribusMainWindow *
  \retval None
  */
 void SVGExPlug::SetTextProps(QDomElement *tp, struct ScText *hl)
@@ -748,12 +748,12 @@ void SVGExPlug::SetTextProps(QDomElement *tp, struct ScText *hl)
 	if ((hl->cstroke != "None") && (chst & 4))
 		{
 		tp->setAttribute("stroke", SetFarbe(hl->cstroke, hl->cshade2));
-		tp->setAttribute("stroke-width", FToStr((*ScApp->doc->AllFonts)[hl->cfont->scName()]->strokeWidth * (hl->csize / 10.0))+"pt");
+		tp->setAttribute("stroke-width", FToStr((*ScMW->doc->AllFonts)[hl->cfont->scName()]->strokeWidth * (hl->csize / 10.0))+"pt");
 		}
 	else
 		tp->setAttribute("stroke", "none");
 	tp->setAttribute("font-size", (hl->csize / 10.0));
-	tp->setAttribute("font-family", (*ScApp->doc->AllFonts)[hl->cfont->scName()]->family());
+	tp->setAttribute("font-family", (*ScMW->doc->AllFonts)[hl->cfont->scName()]->family());
 	if (chst != 0)
 		{
 		if (chst & 64)
@@ -768,26 +768,26 @@ void SVGExPlug::SetTextProps(QDomElement *tp, struct ScText *hl)
 }
 
 /*!
- \fn QString SVGExPlug::SetFarbe(QString farbe, int shad, ScribusApp *plug)
+ \fn QString SVGExPlug::SetFarbe(QString farbe, int shad, ScribusMainWindow *plug)
  \author Franz Schmid
  \date
  \brief
  \param farbe QString
  \param shad int
- \param plug ScribusApp *
+ \param plug ScribusMainWindow *
  \retval QString Colour settings
  */
 QString SVGExPlug::SetFarbe(QString farbe, int shad)
 {
-	return ScApp->doc->PageColors[farbe].getShadeColorProof(shad).name();
+	return ScMW->doc->PageColors[farbe].getShadeColorProof(shad).name();
 }
 
 /*!
- \fn QString SVGExPlug::GetMultiStroke(ScribusApp *plug, struct SingleLine *sl, PageItem *Item)
+ \fn QString SVGExPlug::GetMultiStroke(ScribusMainWindow *plug, struct SingleLine *sl, PageItem *Item)
  \author Franz Schmid
  \date
  \brief
- \param plug ScribusApp *
+ \param plug ScribusMainWindow *
  \param sl struct SingleLine *
  \param Item PageItem *
  \retval QString Stroke settings

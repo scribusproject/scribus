@@ -87,23 +87,23 @@ void ScribusWin::closeEvent(QCloseEvent *ce)
 {
 	if (doc->isModified() && (doc->viewCount == 1))
 	{
-		int exit=ScMessageBox::information(ScApp, CommonStrings::trWarning,
+		int exit=ScMessageBox::information(ScMW, CommonStrings::trWarning,
 		                                  tr("Document:")+" "+doc->DocName+"\n"+ tr("has been changed since the last save."),
 		                                  CommonStrings::tr_Save, tr("&Discard"), CommonStrings::tr_Cancel, 2, 2);
 		switch (exit)
 		{
 		case 0:
-			if (ScApp->DoSaveClose())
+			if (ScMW->DoSaveClose())
 			{
-				if (doc==ScApp->storyEditor->currentDocument())
-					ScApp->storyEditor->close();
+				if (doc==ScMW->storyEditor->currentDocument())
+					ScMW->storyEditor->close();
 				ce->accept();
 			}
 			else
 				return;
 			break;
 		case 1:
-			ScApp->DoFileClose();
+			ScMW->DoFileClose();
 			//emit Schliessen();
 			ce->accept();
 			break;
@@ -114,7 +114,7 @@ void ScribusWin::closeEvent(QCloseEvent *ce)
 	}
 	else
 	{
-		ScApp->DoFileClose();
+		ScMW->DoFileClose();
 		//emit Schliessen();
 		ce->accept();
 	}

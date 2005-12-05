@@ -117,7 +117,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 			LiList.setAutoDelete(true);
 			QRect e2 = QRect(qRound(e.x()  / sc + Doc->minCanvasCoordinate.x()), qRound(e.y()  / sc + Doc->minCanvasCoordinate.y()), qRound(e.width() / sc), qRound(e.height() / sc));
 			p->save();
-			pf2.begin(ScApp->view->viewport());
+			pf2.begin(ScMW->view->viewport());
 			pf2.translate(Xpos, Ypos);
 			pf2.rotate(Rot);
 			if ((fillColor() != "None") || (GrType != 0))
@@ -362,9 +362,9 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 				}
 				if (itemText.count() > MaxChars)
 				{//CB && added here for jghali prior to commit access
-					if (!Doc->RePos && !ScApp->view->previewMode)
+					if (!Doc->RePos && !ScMW->view->previewMode)
 					{
-						double scp1 = 1 / QMAX(ScApp->view->getScale(), 1);
+						double scp1 = 1 / QMAX(ScMW->view->getScale(), 1);
 						double scp16 = 16 * scp1;
 						double scp14 = 14 * scp1;
 						double scp3 = 3 * scp1;
@@ -420,7 +420,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 							{
 								if (docItem->textFlowsAroundFrame())
 								{
-									pp.begin(ScApp->view->viewport());
+									pp.begin(ScMW->view->viewport());
 									pp.translate(docItem->xPos() - Mp->xOffset() + Dp->xOffset(), docItem->yPos() - Mp->yOffset() + Dp->yOffset());
 									pp.rotate(docItem->rotation());
 									if (docItem->textFlowUsesBoundingBox())
@@ -453,7 +453,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 							PageItem* docItem = Doc->Items->at(a);
 							if (docItem->textFlowsAroundFrame())
 							{
-								pp.begin(ScApp->view->viewport());
+								pp.begin(ScMW->view->viewport());
 								pp.translate(docItem->xPos(), docItem->yPos());
 								pp.rotate(docItem->rotation());
 								if (docItem->textFlowUsesBoundingBox())
@@ -489,7 +489,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						{
 							if (docItem->textFlowsAroundFrame())
 							{
-								pp.begin(ScApp->view->viewport());
+								pp.begin(ScMW->view->viewport());
 								pp.translate(docItem->xPos(), docItem->yPos());
 								pp.rotate(docItem->rotation());
 								if (docItem->textFlowUsesBoundingBox())
@@ -1952,9 +1952,9 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 			else
 			{
 				//CB && added here for jghali prior to commit access
-				if (!Doc->RePos && !ScApp->view->previewMode)
+				if (!Doc->RePos && !ScMW->view->previewMode)
 				{
-					double scp1 = 1.0/QMAX(ScApp->view->getScale(), 1);
+					double scp1 = 1.0/QMAX(ScMW->view->getScale(), 1);
 					double scp16 = 16.0*scp1;
 					double scp14 = 14.0*scp1;
 					double scp3 = 3.0*scp1;
@@ -2040,7 +2040,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		break;
 	}
 
-	ScApp->view->slotDoCurs(false);
+	ScMW->view->slotDoCurs(false);
 	switch (kk)
 	{
 	case Key_Prior:
@@ -2107,8 +2107,8 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				itemText.insert(CPos, hg);
 				CPos += 1;
 				Tinput = true;
-				ScApp->setTBvals(this);
-				ScApp->view->RefreshItem(this);
+				ScMW->setTBvals(this);
+				ScMW->view->RefreshItem(this);
 				keyRepeat = false;
 				return;
 			}
@@ -2261,9 +2261,9 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 					{
 						if (NextBox->itemText.count() != 0)
 						{
-							ScApp->view->Deselect(true);
+							ScMW->view->Deselect(true);
 							NextBox->CPos = 0;
-							ScApp->view->SelectItemNr(NextBox->ItemNr);
+							ScMW->view->SelectItemNr(NextBox->ItemNr);
 							//currItem = currItem->NextBox;
 						}
 					}
@@ -2274,16 +2274,16 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			{
 				if (NextBox->itemText.count() != 0)
 				{
-					ScApp->view->Deselect(true);
+					ScMW->view->Deselect(true);
 					NextBox->CPos = 0;
-					ScApp->view->SelectItemNr(NextBox->ItemNr);
+					ScMW->view->SelectItemNr(NextBox->ItemNr);
 					//currItem = currItem->NextBox;
 				}
 			}
 		}
 		if ( this->HasSel )
-			ScApp->view->RefreshItem(this);
-		ScApp->setTBvals(this);
+			ScMW->view->RefreshItem(this);
+		ScMW->setTBvals(this);
 		break;
 	case Key_Up:
 		if (CPos > 0)
@@ -2320,9 +2320,9 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				{
 					if (BackBox != 0)
 					{
-						ScApp->view->Deselect(true);
+						ScMW->view->Deselect(true);
 						BackBox->CPos = BackBox->itemText.count();
-						ScApp->view->SelectItemNr(BackBox->ItemNr);
+						ScMW->view->SelectItemNr(BackBox->ItemNr);
 						//currItem = currItem->BackBox;
 					}
 				}
@@ -2332,27 +2332,27 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			CPos = 0;
 			if (BackBox != 0)
 			{
-				ScApp->view->Deselect(true);
+				ScMW->view->Deselect(true);
 				BackBox->CPos = BackBox->itemText.count();
-				ScApp->view->SelectItemNr(BackBox->ItemNr);
+				ScMW->view->SelectItemNr(BackBox->ItemNr);
 				//currItem = currItem->BackBox;
 			}
 		}
 		if ( this->HasSel )
-			ScApp->view->RefreshItem(this);
-		ScApp->setTBvals(this);
+			ScMW->view->RefreshItem(this);
+		ScMW->setTBvals(this);
 		break;
 	case Key_Prior:
 		CPos = 0;
 		if ( buttonState & ShiftButton )
 			ExpandSel(-1, oldPos);
-		ScApp->setTBvals(this);
+		ScMW->setTBvals(this);
 		break;
 	case Key_Next:
 		CPos = static_cast<int>(itemText.count());
 		if ( buttonState & ShiftButton )
 			ExpandSel(1, oldPos);
-		ScApp->setTBvals(this);
+		ScMW->setTBvals(this);
 		break;
 	case Key_Left:
 		if ( buttonState & ControlButton )
@@ -2377,9 +2377,9 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				CPos = 0;
 				if (BackBox != 0)
 				{
-					ScApp->view->Deselect(true);
+					ScMW->view->Deselect(true);
 					BackBox->CPos = BackBox->itemText.count();
-					ScApp->view->SelectItemNr(BackBox->ItemNr);
+					ScMW->view->SelectItemNr(BackBox->ItemNr);
 					//currItem = currItem->BackBox;
 				}
 			}
@@ -2407,8 +2407,8 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			}
 		}
 		if ( HasSel )
-			ScApp->view->RefreshItem(this);
-		ScApp->setTBvals(this);
+			ScMW->view->RefreshItem(this);
+		ScMW->setTBvals(this);
 		break;
 	case Key_Right:
 		if ( buttonState & ControlButton )
@@ -2435,17 +2435,17 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				{
 					if (NextBox->itemText.count() != 0)
 					{
-						ScApp->view->Deselect(true);
+						ScMW->view->Deselect(true);
 						NextBox->CPos = 0;
-						ScApp->view->SelectItemNr(NextBox->ItemNr);
+						ScMW->view->SelectItemNr(NextBox->ItemNr);
 						//currItem = currItem->NextBox;
 					}
 				}
 			}
 		}
 		if ( HasSel )
-			ScApp->view->RefreshItem(this);
-		ScApp->setTBvals(this);
+			ScMW->view->RefreshItem(this);
+		ScMW->setTBvals(this);
 		break;
 	case Key_Delete:
 		if (CPos == static_cast<int>(itemText.count()))
@@ -2453,8 +2453,8 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			if (HasSel)
 			{
 				deleteSelectedTextFromFrame();
-				ScApp->setTBvals(this);
-				ScApp->view->RefreshItem(this);
+				ScMW->setTBvals(this);
+				ScMW->view->RefreshItem(this);
 			}
 			keyRepeat = false;
 			return;
@@ -2471,11 +2471,11 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		Tinput = false;
 		if ((cr == QChar(13)) && (itemText.count() != 0))
 		{
-			ScApp->view->chAbStyle(this, itemText.at(QMAX(CPos-1,0))->cab);
+			ScMW->view->chAbStyle(this, itemText.at(QMAX(CPos-1,0))->cab);
 			Tinput = false;
 		}
-		ScApp->setTBvals(this);
-		ScApp->view->RefreshItem(this);
+		ScMW->setTBvals(this);
+		ScMW->view->RefreshItem(this);
 		break;
 	case Key_Backspace:
 		if (CPos == 0)
@@ -2483,8 +2483,8 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			if (HasSel)
 			{
 				deleteSelectedTextFromFrame();
-				ScApp->setTBvals(this);
-				ScApp->view->RefreshItem(this);
+				ScMW->setTBvals(this);
+				ScMW->view->RefreshItem(this);
 			}
 			break;
 		}
@@ -2500,11 +2500,11 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		Tinput = false;
 		if ((cr == QChar(13)) && (itemText.count() != 0))
 		{
-			ScApp->view->chAbStyle(this, itemText.at(QMAX(CPos-1,0))->cab);
+			ScMW->view->chAbStyle(this, itemText.at(QMAX(CPos-1,0))->cab);
 			Tinput = false;
 		}
-		ScApp->setTBvals(this);
-		ScApp->view->RefreshItem(this);
+		ScMW->setTBvals(this);
+		ScMW->view->RefreshItem(this);
 		break;
 	default:
 		if ((HasSel) && (kk < 0x1000))
@@ -2529,7 +2529,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			itemText.insert(CPos, hg);
 			CPos += 1;
 			Tinput = true;
-			ScApp->view->RefreshItem(this);
+			ScMW->view->RefreshItem(this);
 			break;
 		}
 		if (((uc[0] > QChar(31)) || (as == 13) || (as == 30)) && ((*Doc->AllFonts)[Doc->CurrFont]->CharWidth.contains(uc[0].unicode())))
@@ -2569,11 +2569,11 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				}
 			}
 			Tinput = true;
-			ScApp->view->RefreshItem(this);
+			ScMW->view->RefreshItem(this);
 		}
 		break;
 	}
-	ScApp->view->slotDoCurs(true);
+	ScMW->view->slotDoCurs(true);
 	if ((kk == Key_Left) || (kk == Key_Right) || (kk == Key_Up) || (kk == Key_Down))
 	{
 		keyRepeat = false;
@@ -2617,7 +2617,7 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame()
 		CPos = 0;
 	HasSel = false;
 	Doc->updateFrameItems();
-	ScApp->DisableTxEdit();
+	ScMW->DisableTxEdit();
 }
 
 // jjsa added on 15-mar-2004
@@ -2720,12 +2720,12 @@ void PageItem_TextFrame::ExpandSel(int dir, int oldPos)
 			}
 			HasSel = false;
 			//CB Replace with direct call for now //emit HasNoTextSel();
-			ScApp->DisableTxEdit();
+			ScMW->DisableTxEdit();
 		}
 		else if ( !selMode )
 		{
 			if (leftSel||actSel||rightSel)
-				ScApp->view->RefreshItem(this);
+				ScMW->view->RefreshItem(this);
 		}
 	}
 	if ( !selMode )
@@ -2735,7 +2735,7 @@ void PageItem_TextFrame::ExpandSel(int dir, int oldPos)
 	{
 		HasSel = true;
 		//CB Replace with direct call for now //emit HasTextSel();
-		ScApp->EnableTxEdit();
+		ScMW->EnableTxEdit();
 		leftSel = true;
 		rightSel = true;
 	}
@@ -2759,8 +2759,8 @@ void PageItem_TextFrame::ExpandSel(int dir, int oldPos)
 		itemText.at(i)->cselect = sel;
 	if ( ! sel )
 		//CB Replace with direct call for now //emit  HasNoTextSel();
-		ScApp->DisableTxEdit();
-	ScApp->view->RefreshItem(this);
+		ScMW->DisableTxEdit();
+	ScMW->view->RefreshItem(this);
 }
 
 void PageItem_TextFrame::deselectAll()
@@ -2776,11 +2776,11 @@ void PageItem_TextFrame::deselectAll()
 			uint l = item->itemText.count();
 			for (uint n=0; n < l; ++n )
 				item->itemText.at(n)->cselect = false;
-			ScApp->view->RefreshItem(this);
+			ScMW->view->RefreshItem(this);
 			item->HasSel = false;
 		}
 		item = item->NextBox;
 	}
 	//CB Replace with direct call for now //emit HasNoTextSel();
-	ScApp->DisableTxEdit();
+	ScMW->DisableTxEdit();
 }

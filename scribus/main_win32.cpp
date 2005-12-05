@@ -44,7 +44,7 @@ static LONG exceptionFilter(DWORD exceptionCode);
 static QString exceptionDescription(DWORD exceptionCode);
 static void defaultCrashHandler(DWORD exceptionCode);
 
-ScribusApp SCRIBUS_API *ScApp;
+ScribusMainWindow SCRIBUS_API *ScMW;
 ScribusQApp SCRIBUS_API *ScQApp;
 bool emergencyActivated;
 
@@ -195,10 +195,10 @@ void defaultCrashHandler(DWORD exceptionCode)
 		std::cout << (const char*) expMsg << std::endl;
 		if (ScribusQApp::useGUI)
 		{
-			ScApp->closeSplash();
-			QMessageBox::critical(ScApp, expHdr, expMsg, QObject::tr("&OK"));
-			ScApp->emergencySave();
-			ScApp->close();
+			ScMW->closeSplash();
+			QMessageBox::critical(ScMW, expHdr, expMsg, QObject::tr("&OK"));
+			ScMW->emergencySave();
+			ScMW->close();
 		}
 	}
 	ExitProcess(255);

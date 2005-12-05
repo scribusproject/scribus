@@ -38,7 +38,7 @@ ImportPSPlugin::ImportPSPlugin() : LoadSavePlugin(),
 
 	importAction->setEnabled(true);
 	connect( importAction, SIGNAL(activated()), SLOT(import()) );
-	ScApp->scrMenuMgr->addMenuItem(importAction, "FileImport");
+	ScMW->scrMenuMgr->addMenuItem(importAction, "FileImport");
 }
 
 void ImportPSPlugin::languageChange()
@@ -131,7 +131,7 @@ bool ImportPSPlugin::import(QString fileName)
 		QString wdir = prefs->get("wdir", ".");
 		QString formats = QObject::tr("All Supported Formats (*.eps *.EPS *.ps *.PS);;");
 		formats += "EPS (*.eps *.EPS);;PS (*.ps *.PS);;" + QObject::tr("All Files (*)");
-		CustomFDialog diaf(ScApp, wdir, QObject::tr("Open"), formats);
+		CustomFDialog diaf(ScMW, wdir, QObject::tr("Open"), formats);
 		if (diaf.exec())
 		{
 			fileName = diaf.selectedFile();
@@ -140,11 +140,11 @@ bool ImportPSPlugin::import(QString fileName)
 		else
 			return true;
 	}
-	if (UndoManager::undoEnabled() && ScApp->HaveDoc)
+	if (UndoManager::undoEnabled() && ScMW->HaveDoc)
 	{
-		UndoManager::instance()->beginTransaction(ScApp->doc->currentPage->getUName(),Um::IImageFrame,Um::ImportEPS, fileName, Um::IEPS);
+		UndoManager::instance()->beginTransaction(ScMW->doc->currentPage->getUName(),Um::IImageFrame,Um::ImportEPS, fileName, Um::IEPS);
 	}
-	else if (UndoManager::undoEnabled() && !ScApp->HaveDoc)
+	else if (UndoManager::undoEnabled() && !ScMW->HaveDoc)
 		UndoManager::instance()->setUndoEnabled(false);
 	EPSPlug *dia = new EPSPlug(fileName, interactive);
 	Q_CHECK_PTR(dia);

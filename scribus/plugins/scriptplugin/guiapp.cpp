@@ -9,14 +9,14 @@ PyObject *scribus_messagebartext(PyObject* /* self */, PyObject* args)
 	char *aText;
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &aText))
 		return NULL;
-	ScApp->mainWindowStatusLabel->setText(QString::fromUtf8(aText));
+	ScMW->mainWindowStatusLabel->setText(QString::fromUtf8(aText));
 	Py_INCREF(Py_None);
 	return Py_None;
 }
 
 PyObject *scribus_progressreset(PyObject* /* self */)
 {
-	ScApp->mainWindowProgressBar->reset();
+	ScMW->mainWindowProgressBar->reset();
 	qApp->processEvents();
 	Py_INCREF(Py_None);
 	return Py_None;
@@ -27,8 +27,8 @@ PyObject *scribus_progresssettotalsteps(PyObject* /* self */, PyObject* args)
 	int steps;
 	if (!PyArg_ParseTuple(args, "i", &steps))
 		return NULL;
-	ScApp->mainWindowProgressBar->setTotalSteps(steps);
-	ScApp->mainWindowProgressBar->setProgress(0);
+	ScMW->mainWindowProgressBar->setTotalSteps(steps);
+	ScMW->mainWindowProgressBar->setProgress(0);
 	qApp->processEvents();
 	Py_INCREF(Py_None);
 	return Py_None;
@@ -39,12 +39,12 @@ PyObject *scribus_progresssetprogress(PyObject* /* self */, PyObject* args)
 	int position;
 	if (!PyArg_ParseTuple(args, "i", &position))
 		return NULL;
-	if (position > ScApp->mainWindowProgressBar->totalSteps())
+	if (position > ScMW->mainWindowProgressBar->totalSteps())
 	{
 		PyErr_SetString(PyExc_ValueError, QString("Tried to set progress > maximum progress"));
 		return NULL;
 	}
-	ScApp->mainWindowProgressBar->setProgress(position);
+	ScMW->mainWindowProgressBar->setProgress(position);
 	qApp->processEvents();
 	Py_INCREF(Py_None);
 	return Py_None;
@@ -72,12 +72,12 @@ PyObject *scribus_docchanged(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	ScApp->slotDocCh(static_cast<bool>(aValue));
+	ScMW->slotDocCh(static_cast<bool>(aValue));
 	/*
 	if (aValue>0)
-		ScApp->slotDocCh(true);
+		ScMW->slotDocCh(true);
 	else
-		ScApp->slotDocCh(false);*/
+		ScMW->slotDocCh(false);*/
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -90,7 +90,7 @@ PyObject *scribus_zoomdocument(PyObject* /* self */, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	if (zoomFactor > 0.0 || zoomFactor == -100.0)
-		ScApp->slotZoom(zoomFactor);
+		ScMW->slotZoom(zoomFactor);
 	else
 	{
 		PyErr_SetString(PyExc_ValueError, QString("The zoom factor should be greater than 0.0 or equal to -100.0. See help(zoomFactor)."));

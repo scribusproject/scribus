@@ -60,7 +60,7 @@ void Zoom::paintEvent(QPaintEvent *)
 	p.end();
 }
 
-ChTable::ChTable(CharSelect* parent, ScribusApp *pl) : QTable(parent)
+ChTable::ChTable(CharSelect* parent, ScribusMainWindow *pl) : QTable(parent)
 {
 	watchTimer = new QTimer(this);
 //	connect(watchTimer, SIGNAL(timeout()), this, SLOT(showAlternate()));
@@ -231,10 +231,10 @@ void ChTable::showAlternate()
 
 CharSelect::CharSelect( QWidget* parent, PageItem *item) : QDialog( parent, "CharSelect", true, 0 )
 {
-	fontInUse = ScApp->doc->CurrFont;
+	fontInUse = ScMW->doc->CurrFont;
 	needReturn = false;
 	installEventFilter(this);
-	run(parent, item, ScApp);
+	run(parent, item, ScMW);
 }
 
 CharSelect::CharSelect( QWidget* parent, PageItem *item, QString font) : QDialog( parent, "CharSelect", true, 0 )
@@ -242,7 +242,7 @@ CharSelect::CharSelect( QWidget* parent, PageItem *item, QString font) : QDialog
 	fontInUse = font;
 	needReturn = true;
 	installEventFilter(this);
-	run(parent, item, ScApp);
+	run(parent, item, ScMW);
 }
 
 
@@ -252,7 +252,7 @@ const QString & CharSelect::getCharacters()
 }
 
 
-void CharSelect::run( QWidget* /*parent*/, PageItem *item, ScribusApp *pl)
+void CharSelect::run( QWidget* /*parent*/, PageItem *item, ScribusMainWindow *pl)
 {
 	setCaption( tr( "Select Character:" )+" "+fontInUse );
 	ite = item;
@@ -711,11 +711,11 @@ void CharSelect::newFont(int font)
 	delEdit();
 	setCaption( tr( "Select Character:" )+" "+fontInUse );
 	ap->SetNewFont(fontInUse);
-	if (ScApp->doc->CurrFont != fontInUse)
+	if (ScMW->doc->CurrFont != fontInUse)
 	{
 		disconnect(fontSelector, SIGNAL(activated(int)), this, SLOT(newFont(int)));
-		fontSelector->RebuildList(ScApp->doc);
-		fontInUse = ScApp->doc->CurrFont;
+		fontSelector->RebuildList(ScMW->doc);
+		fontInUse = ScMW->doc->CurrFont;
 		setCaption( tr( "Select Character:" )+" "+fontInUse );
 		fontSelector->setCurrentText(fontInUse);
 		connect(fontSelector, SIGNAL(activated(int)), this, SLOT(newFont(int)));
