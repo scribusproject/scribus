@@ -27,7 +27,6 @@
 #include <qdatetime.h>
 #include <qfileinfo.h>
 #include <qtextstream.h>
-#include <qprogressbar.h>
 #include <qdir.h>
 #include <cstdlib>
 #include <cmath>

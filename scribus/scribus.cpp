@@ -4001,8 +4001,16 @@ bool ScribusMainWindow::doPrint(PrintOptions *options)
 		{
 			// Write the PS to a file
 			ScColor::UseProf = options->useICC;
-			dd->CreatePS(doc, /*view, */options->pageNumbers, options->outputSeparations, options->separationName, options->allSeparations,
+			int psCreationRetVal=dd->CreatePS(doc, options->pageNumbers, options->outputSeparations, options->separationName, options->allSeparations,
 			               options->useColor, options->mirrorH, options->mirrorV, options->useICC, options->doGCR, options->setDevParam);
+			if (psCreationRetVal!=0)
+			{
+				unlink(filename);
+				if (psCreationRetVal==2)
+					return true;
+				else
+					return false;
+			}
 			ScColor::UseProf = true;
 			if (options->PSLevel != 3)
 			{

@@ -14,6 +14,10 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
+
+#include "pslib.h"
+#include "pslib.moc"
+
 #include <qfileinfo.h>
 #include <qtextstream.h>
 #include <qimage.h>
@@ -23,21 +27,23 @@
 #include <cstdlib>
 #include <qregexp.h>
 
-#include "pslib.h"
+#include "commonstrings.h"
 #include "scconfig.h"
 #include "pluginapi.h"
 #include "prefsmanager.h"
 #include "scribusdoc.h"
-//#include "scribusview.h"
+#include "scribus.h"
 #include "scfonts.h"
 #include "scfontmetrics.h"
 #include "selection.h"
 #include <cmath>
 #include "util.h"
-
+#include "multiprogressdialog.h"
+#include "scribusapp.h"
 
 PSLib::PSLib(bool psart, SCFonts &AllFonts, QMap<QString,int> DocFonts, ColorList DocColors, bool pdf, bool spot)
 {
+	usingGUI=ScQApp->usingGUI();
 	QString tmp, tmp2, tmp3, tmp4, CHset;
 	QStringList wt;
 	Seiten = 0;
@@ -960,7 +966,7 @@ void PSLib::PS_insert(QString i)
 	PutDoc(i);
 }
 
-void PSLib::CreatePS(ScribusDoc* Doc, /*ScribusView* view, */std::vector<int> &pageNs, bool sep, QString SepNam, QStringList spots, bool farb, bool Hm, bool Vm, bool Ic, bool gcr, bool doDev)
+int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString SepNam, QStringList spots, bool farb, bool Hm, bool Vm, bool Ic, bool gcr, bool doDev)
 {
 	uint a;
 	int sepac;
@@ -976,6 +982,32 @@ void PSLib::CreatePS(ScribusDoc* Doc, /*ScribusView* view, */std::vector<int> &p
 	PS_set_Info("Title", Doc->documentInfo.getTitle());
 	if (!farb)
 		PS_setGray();
+	
+	if (usingGUI)
+	{
+		QString title=QObject::tr("Exporting PostScript File");
+		if (Art)
+			title=QObject::tr("Printing File");
+		progressDialog=new MultiProgressDialog(title, CommonStrings::tr_Cancel, ScMW, "psexportprogress");
+		if (progressDialog==0)
+			usingGUI=false;
+		else
+		{
+			QStringList barNames, barTexts;
+			barNames << "EMP" << "EP";
+			barTexts << QT_TR_NOOP("Processing Master Pages:") << QT_TR_NOOP("Exporting Pages:");
+			progressDialog->addExtraProgressBars(barNames, barTexts);
+			progressDialog->setOverallTotalSteps(pageNs.size()+Doc->MasterPages.count());
+			progressDialog->setTotalSteps("EMP", Doc->MasterPages.count());
+			progressDialog->setTotalSteps("EP", pageNs.size());
+			progressDialog->setOverallProgress(0);
+			progressDialog->setProgress("EMP", 0);
+			progressDialog->setProgress("EP", 0);
+			progressDialog->show();
+			connect(progressDialog->buttonCancel, SIGNAL(clicked()), this, SLOT(cancelRequested()));
+			ScQApp->processEvents();
+		}
+	}
 	//if ((!Art) && (view->SelItem.count() != 0))
 	uint docSelectionCount=Doc->selection->count();
 	if ((!Art) && (docSelectionCount != 0))
@@ -1023,9 +1055,15 @@ void PSLib::CreatePS(ScribusDoc* Doc, /*ScribusView* view, */std::vector<int> &p
 		PS_begin_doc(Doc->PageOri, gx, Doc->pageHeight - (gy+gh), gx + gw, Doc->pageHeight - gy, 1*pagemult, false, sep);
 	}
 	else
-		PS_begin_doc(Doc->PageOri, 0.0, 0.0, Doc->pageWidth, Doc->pageHeight, pageNs.size()*pagemult, doDev, sep);
-	for (uint ap = 0; ap < Doc->MasterPages.count(); ++ap)
 	{
+		PS_begin_doc(Doc->PageOri, 0.0, 0.0, Doc->pageWidth, Doc->pageHeight, pageNs.size()*pagemult, doDev, sep);
+	}
+	uint ap=0;
+	for (; ap < Doc->MasterPages.count() && !abortExport; ++ap)
+	{
+		progressDialog->setOverallProgress(ap);
+		progressDialog->setProgress("EMP", ap);
+		ScQApp->processEvents();
 		if (Doc->MasterItems.count() != 0)
 		{
 			int Lnr = 0;
@@ -1068,8 +1106,11 @@ void PSLib::CreatePS(ScribusDoc* Doc, /*ScribusView* view, */std::vector<int> &p
 	}
 	sepac = 0;
 	uint aa = 0;
-	while (aa < pageNs.size())
+	while (aa < pageNs.size() && !abortExport)
 	{
+		progressDialog->setProgress("EP", aa);
+		progressDialog->setOverallProgress(ap+aa);
+		ScQApp->processEvents();
 		a = pageNs[aa]-1;
 		//if ((!Art) && (view->SelItem.count() != 0))
 		if ((!Art) && (Doc->selection->count() != 0))
@@ -1317,8 +1358,10 @@ void PSLib::CreatePS(ScribusDoc* Doc, /*ScribusView* view, */std::vector<int> &p
 				}
 			}
 		}
-		ProcessPage(Doc, /*view, */Doc->Pages->at(a), a+1, sep, farb, Ic, gcr);
-		PS_end_page();
+		if (!abortExport)
+			ProcessPage(Doc, Doc->Pages->at(a), a+1, sep, farb, Ic, gcr);
+		if (!abortExport)
+			PS_end_page();
 		if (sep)
 		{
 			if (SepNam != QObject::tr("All"))
@@ -1338,6 +1381,11 @@ void PSLib::CreatePS(ScribusDoc* Doc, /*ScribusView* view, */std::vector<int> &p
 			aa++;
 	}
 	PS_close();
+	if (usingGUI) progressDialog->close();
+	if (!abortExport)
+		return 0;
+	else
+		return 2; //CB Lets leave 1 for general error condition
 }
 
 void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool sep, bool farb, bool ic, bool gcr, bool master, bool embedded)
@@ -1839,7 +1887,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 	}
 }
 
-void PSLib::ProcessPage(ScribusDoc* Doc, /*ScribusView* view,*/Page* a, uint PNr, bool sep, bool farb, bool ic, bool gcr)
+void PSLib::ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep, bool farb, bool ic, bool gcr)
 {
 	uint b;
 	int h, s, v, k;
@@ -2625,4 +2673,9 @@ void PSLib::SetClipPath(FPointArray *c, bool poly)
 			PS_curve(np.x(), -np.y(), np1.x(), -np1.y(), np2.x(), -np2.y());
 		}
 	}
+}
+
+void PSLib::cancelRequested()
+{
+	abortExport=true;
 }
