@@ -311,7 +311,8 @@ int ScribusMainWindow::initScribus(bool showSplash, bool showFontInfo, const QSt
 		initScrapbook();
 		setSplashStatus( tr("Setting up Shortcuts") );
 		SetShortCut();
-
+		scrActions["helpTooltips"]->setOn(prefsManager->appPrefs.showToolTips);
+		ToggleTips();
 		emit prefsChanged();
 
 		connect(fileWatcher, SIGNAL(fileDeleted(QString )), this, SLOT(removeRecent(QString)));
@@ -4612,6 +4613,7 @@ void ScribusMainWindow::slotOnlineHelp()
 void ScribusMainWindow::ToggleTips()
 {
 	QToolTip::setGloballyEnabled(scrActions["helpTooltips"]->isOn());
+	prefsManager->appPrefs.showToolTips = scrActions["helpTooltips"]->isOn();
 }
 
 void ScribusMainWindow::SaveText()

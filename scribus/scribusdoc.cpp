@@ -295,19 +295,22 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 	currentPageLayout = fp;
 	setName(documentName);
 	HasCMS = true;
-
-	struct LPIData lpo;
-	lpo.Frequency = 75;
-	lpo.SpotFunc = 2;
-	lpo.Angle = 105;
-	PDF_Options.LPISettings.insert("Cyan", lpo);
-	lpo.Angle = 75;
-	PDF_Options.LPISettings.insert("Magenta", lpo);
-	lpo.Angle = 90;
-	PDF_Options.LPISettings.insert("Yellow", lpo);
-	lpo.Angle = 45;
-	PDF_Options.LPISettings.insert("Black", lpo);
-	ActiveLayer = 0;
+	if (!PDF_Options.UseLPI)
+	{
+		PDF_Options.LPISettings.clear();
+		struct LPIData lpo;
+		lpo.Frequency = 75;
+		lpo.SpotFunc = 2;
+		lpo.Angle = 105;
+		PDF_Options.LPISettings.insert("Cyan", lpo);
+		lpo.Angle = 75;
+		PDF_Options.LPISettings.insert("Magenta", lpo);
+		lpo.Angle = 90;
+		PDF_Options.LPISettings.insert("Yellow", lpo);
+		lpo.Angle = 45;
+		PDF_Options.LPISettings.insert("Black", lpo);
+		ActiveLayer = 0;
+	}
 
 	appMode = modeNormal;
 	PrefsManager *prefsManager=PrefsManager::instance();

@@ -186,6 +186,7 @@ void PrefsManager::initDefaults()
 	appPrefs.typographicSettings.valueBaseGrid = 14.4;
 	appPrefs.typographicSettings.offsetBaseGrid = 0.0;
 	appPrefs.GUI = "Default";
+	appPrefs.showToolTips = true;
 	//FIXME
 	//Black here causes issues when a colour set is loaded without "Black" in it.
 	//"Black" is created with wrong values. Eg SVG colour set
@@ -855,6 +856,7 @@ bool PrefsManager::WritePref(QString ho)
 	dc.setAttribute("STEFONT", appPrefs.STEfont);
 	dc.setAttribute("STYLEPREVIEW", static_cast<int>(appPrefs.haveStylePreview));
 	dc.setAttribute("StartUp", static_cast<int>(appPrefs.showStartupDialog));
+	dc.setAttribute("ToolTips", static_cast<int>(appPrefs.showToolTips));
 	elem.appendChild(dc);
 	QDomElement dc1=docu.createElement("GRID");
 	dc1.setAttribute("MINOR",appPrefs.guidesSettings.minorGrid);
@@ -1291,6 +1293,7 @@ bool PrefsManager::ReadPref(QString ho)
 				appPrefs.STEcolor = QColor(dc.attribute("STECOLOR"));
 			if (dc.hasAttribute("STEFONT"))
 				appPrefs.STEfont = dc.attribute("STEFONT");
+			appPrefs.showToolTips = static_cast<bool>(dc.attribute("ToolTips", "1").toInt());
 		}
 		if (dc.tagName()=="GRID")
 		{
@@ -1665,6 +1668,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.PDF_Options.UseSpotColors = static_cast<bool>(dc.attribute("UseSpotColors", "1").toInt());
 			appPrefs.PDF_Options.doMultiFile = static_cast<bool>(dc.attribute("doMultiFile", "0").toInt());
 			QDomNode PFO = DOC.firstChild();
+			appPrefs.PDF_Options.LPISettings.clear();
 			while(!PFO.isNull())
 			{
 				QDomElement pdfF = PFO.toElement();

@@ -214,6 +214,7 @@ struct ApplicationPrefs
 	double ScratchBottom;
 	bool askBeforeSubstituite;
 	bool haveStylePreview;
+	bool showToolTips;
 	// lorem ipsum
 	bool useStandardLI;
 	int paragraphsLI;
