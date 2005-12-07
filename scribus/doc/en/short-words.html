@@ -1,15 +1,14 @@
 <qt>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Short Words for Scribus</title>
-
 <h2>Short Words for Scribus</h2>
 
-<h2>What the Short Words Plug-in Does:</h2>
+<h4>What the Short Words Plug-in Does:</h4>
 <p>Short Words for Scribus is a special plug-in for adding non-breaking spaces before or after, so called, short words.</p>
 <p>These short words are specific to every language's typography rules,  e.g. according to Czech, Polish, and Slovak typographical standards it is not allowed to leave one letter conjunctions at line ends, if the line contains more than 25 signs. A common issue are measure and weight units, where for obvious reasons non-breaking spaces should be put in-between the preceding numbers and the units. Last but not least, there are plenty of abbreviated academic degrees, military ranks etc, which should not be separated from their owners.</p>
 <p>Although Scribus team cannot individually address every one of these national standards, one of the Scribus core team developers, Petr Van&#283;k, decided to provide Scribus users with a plug-in, that can be easily customized to meet their specific needs.</p>
 
-<h3>How it Works</h3>
+<h4>How it Works</h4>
 <p>The screen shot below shows a sample text containing a short word before applying non-breaking spaces.</p>
 <p><b>Text sample before executing Short Words</b></p>
 <table width="100%"><tr><td align="center"><img src="images/before_short_words.png" alt="Text sample before executing Short Words"  title="Text sample before executing Short Words " /></td></tr></table>
@@ -17,7 +16,7 @@
 <p>The same text after applying non-breaking spaces. The red encircled word Mr jumped to the next line, because the normal space between Mr and Justice has been replaced by a non-breaking space.</p>
 <p><b>Text sample after executing Short Words</b></p>
 <table width="100%"><tr><td align="center"><img src="images/after_short_words.png" alt="Text sample after executing Short Words"  title="Text sample after executing Short Words " /></td></tr></table>
-<h3>How to execute Short Words</h3>
+<h4>How to execute Short Words</h4>
 <p>If you successfully installed the plug-in, go to the <code>Extras</code> menu and choose the <code>Short Words...</code> option:</p>
 <p><b>Calling Short Words for Scribus</b></p>
 <table width="100%"><tr><td align="center"><img src="images/swmenu.png" alt="Calling Short Words for Scribus"  title="Calling Short Words for Scribus " /></td></tr></table>
@@ -25,18 +24,13 @@
 <p><b>Short Words dialog window</b></p>
 <center><img src="images/" alt="" /></center>
 <table width="100%"><tr><td align="center"><img src="images/swdialog.png" alt="Short Words dialog window"  title="Short Words dialog window " /></td></tr></table>
-<dl>
-<dt>Selected frames</dt>
-	<dd><p>Apply non-breaking spaces to selected text frames.</p></dd>
-<dt>Active page</dt>
-	<dd><p>Apply non-breaking spaces to all frames of the current page.</p></dd>
-<dt><p>All items</p></dt>
-	<dd><p>Apply non-breaking spaces to the <em>whole document</em>.</p></dd>
-<dt>Replace defaults by user config</dt>
-	<dd><p>When the user config file exists you can choose if you want to append your config to the global configuration by unchecked button. You can replace predefined values with yours with checked button too.</p></dd>
-</dl>
-
-<h2>Configuration</h2>
+<ul>
+<li><strong>Selected frames</strong> - Apply non-breaking spaces to selected text frames</li>
+<li><strong>Active page</strong> - Apply non-breaking spaces to all frames of the current page.</li>
+<li><strong>All items </strong> - Apply non-breaking spaces to the whole document.</li>
+<li><strong>Replace defaults by user config</strong> -  When the user config file exists you can choose if you want to append your config to the global configuration by unchecked button. You can replace predefined values with yours with checked button too.</li>
+</ul>
+<h4>Configuration</h4>
 <p>Short Words for Scribus provides a system wide configuration file <code>scribus-short-words.rc</code>, which is usually located in the <code>$prefix/lib/scribus/plugins</code> directory (the actual directory depends on where you or your distribution installed Scribus). This configuration file is self explanatory, basically it contains a list of short words for a given language, preceded or followed by a space and separated by commas. The position of the space, before or after a short word, indicates to the plug-in, where the non-breaking space should be put. Every line with configuration settings has to start with the language it is meant for, e.g. en for English or cs for Czech:
 </p>
 <pre>
@@ -67,5 +61,4 @@ General Public License for more details.</p><p>You should have received a copy o
 License along with this program; if not, write to the Free Software
 Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.</p>
 <p>Document Copyright © 2004 Petr Van&#283;k, Maciej Hanski, under the opencontent.org license included with these documents with Elected Option IV</p></p>
-
 </qt>
