@@ -47,9 +47,9 @@ class MultiProgressDialog : public MultiProgressDialogBase
 		bool setTotalSteps(const QString &barName, int totalSteps);
 		bool setProgress(const QString &barName, int progress);
 		bool setProgress(const QString &barName, int progress, int totalSteps);
-		bool setOverallTotalSteps(int totalSteps);
-		bool setOverallProgress(int progress);
-		bool setOverallProgress(int progress, int totalSteps);
+		void setOverallTotalSteps(int totalSteps);
+		void setOverallProgress(int progress);
+		void setOverallProgress(int progress, int totalSteps);
 		bool setupBar(const QString &barName, const QString &barText, int progress, int totalSteps);
 		void setCancelButtonText(const QString & cancelButtonText);
 		
