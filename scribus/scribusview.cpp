@@ -1060,7 +1060,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 						update();
 					}
 				}
-				/* CB leaving this out for now... 
+				/* CB leaving this out for now...
 				if (b->PType == 4)
 				{
 					if ((b->BackBox != 0) && (b->itemText.count() == 0))
@@ -1120,7 +1120,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 			}
 		}
 		else
-		{ 
+		{
 			for (uint as = 0; as < Doc->Items->count(); ++as)
 			{
 				Doc->Items->at(as)->setSelected(false);
@@ -3512,7 +3512,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 								}
 								else
 								{
-									//Control proportional resize 
+									//Control proportional resize
 									if ((m->state() & ControlButton) && (!(m->state() & ShiftButton)))
 									{
 										int nX = qRound(m->x()/sc + Doc->minCanvasCoordinate.x());
@@ -6376,7 +6376,7 @@ void ScribusView::RotateGroup(double win)
 	gyS -= Doc->minCanvasCoordinate.y();
 	QRect oldR = QRect(static_cast<int>(gxS*sc-5), static_cast<int>(gyS*sc-5), static_cast<int>(gwS*sc+10), static_cast<int>(ghS*sc+10));
 	//for (uint a = 0; a < SelItem.count(); ++a)
-	FPoint n;	
+	FPoint n;
 	for (uint a = 0; a < Doc->selection->count(); ++a)
 	{
 		//currItem = SelItem.at(a);
@@ -6415,7 +6415,7 @@ void ScribusView::scaleGroup(double scx, double scy)
 	double gx, gy, gh, gw, x, y;
 	uint aa;
 	double sc = Scale;
-	
+
 	getGroupRect(&gx, &gy, &gw, &gh);
 	gx -= Doc->minCanvasCoordinate.x();
 	gy -= Doc->minCanvasCoordinate.y();
@@ -7357,7 +7357,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 													//SelItem.append(Doc->Items->at(ga));
 													Doc->selection->addItem(Doc->Items->at(ga));
 												}
-													
+
 											}
 											Doc->Items->at(ga)->isSingleSel = false;
 											//Doc->Items->at(ga)->Select = true;
@@ -7557,7 +7557,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 						currItem->FrameOnly = true;
 						currItem->paintObj();
 						bb->FrameOnly = true;
-						//CB dont think we need to paint here when we paint below 
+						//CB dont think we need to paint here when we paint below
 						bb->paintObj();
 					}
 				}
@@ -7821,7 +7821,7 @@ void ScribusView::SetupDraw(int nr)
 /*
 void ScribusView::EmitValues(PageItem *currItem)
 {
-	
+
 	//emit ItemPos(currItem->xPos(), currItem->yPos());
 	//emit ItemGeom(currItem->width(), currItem->height());
 	//emit SetAngle(currItem->rotation());
@@ -8488,7 +8488,7 @@ Page* ScribusView::addPage(int nr, bool mov)
 	int newFrameNumber=Doc->addAutomaticTextFrame(nr);
 	if (newFrameNumber > 0)
 	{
-		//Do we really need to run the views setRedrawBounding which calls adjustCanvas. 
+		//Do we really need to run the views setRedrawBounding which calls adjustCanvas.
 		//The frame is on the page, not hanging off the page?
 		bool savre = Doc->RePos;
 		Doc->RePos = true;
@@ -9359,7 +9359,7 @@ void ScribusView::ItemPen(QString farbe)
 	if (selectedItemCount != 0)
 	{
 		if (farbe == ScMW->noneString)
-			farbe = "None";	
+			farbe = "None";
 		if (selectedItemCount > 1)
 			undoManager->beginTransaction(Um::SelectionGroup,
 										  Um::IGroup, Um::SetLineColor, farbe, Um::IFill);
@@ -9370,7 +9370,7 @@ void ScribusView::ItemPen(QString farbe)
 			i = Doc->selection->itemAt(a);
 			if ((i->asLine()) && (farbe == "None"))
 				continue;
-			
+
 			i->setLineColor(farbe);
 			//CB Moved to set**
 			//if (i->lineColor() != "None")
@@ -9391,7 +9391,7 @@ void ScribusView::ItemTextBrush(QString farbe)
 	if (selectedItemCount != 0)
 	{
 		if (farbe == ScMW->noneString)
-			farbe = "None";	
+			farbe = "None";
 		if (selectedItemCount > 1)
 			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SetFontFill,
 										  farbe, Um::IFont);
@@ -9416,7 +9416,7 @@ void ScribusView::ItemTextBrush(QString farbe)
 				}
 			}
 			RefreshItem(currItem);
-			//CB Why send this when 
+			//CB Why send this when
 			//emit ItemFarben(currItem->lineColor(), currItem->fillColor(), currItem->lineShade(), currItem->fillShade());
 		}
 		if (selectedItemCount > 1)
@@ -9538,7 +9538,7 @@ void ScribusView::ItemTextPenS(int sha)
 }
 
 void ScribusView::ItemTextScaleV(int sha)
-{	
+{
 	//uint selectedItemCount=SelItem.count();
 	uint selectedItemCount=Doc->selection->count();
 	if (selectedItemCount != 0)
@@ -9977,7 +9977,8 @@ void ScribusView::chAbStyle(PageItem *currItem, int s)
 				}
 				if (s > 4)
 				{
-					if (!Doc->docParagraphStyles[s].Font.isEmpty())
+					if (!Doc->docParagraphStyles[s].Font.isEmpty()
+						&& (!nextItem->HasSel || nextItem->itemText.at(a)->cselect))
 					{
 						nextItem->itemText.at(a)->cfont = (*Doc->AllFonts)[Doc->docParagraphStyles[s].Font];
 						nextItem->itemText.at(a)->csize = Doc->docParagraphStyles[s].FontSize;
@@ -10043,7 +10044,8 @@ void ScribusView::chAbStyle(PageItem *currItem, int s)
 			{
 				if (s > 4)
 				{
-					if (!Doc->docParagraphStyles[s].Font.isEmpty())
+					if (!Doc->docParagraphStyles[s].Font.isEmpty()
+						&& (!nextItem->HasSel || nextItem->itemText.at(a)->cselect))
 					{
 						nextItem->itemText.at(a)->cfont = (*Doc->AllFonts)[Doc->docParagraphStyles[s].Font];
 						nextItem->itemText.at(a)->csize = Doc->docParagraphStyles[s].FontSize;
@@ -10510,7 +10512,7 @@ void ScribusView::updatePict(QString name)
 		}
 	}
 	updateContents();
-	//We only need to emit this for the 1st item in the selection, if theres no item selected, 
+	//We only need to emit this for the 1st item in the selection, if theres no item selected,
 	//prop pal is showing 0s anyway. Multi selection needs fixing for prop pal anyway
 	//if (SelItem.count()!=0)
 	/*Dont need this now adjustpictscale will emit for 1st selected item
@@ -10566,7 +10568,7 @@ void ScribusView::RecalcPicturesRes()
 			currItem->AdjustPictScale();
 		}
 	}
-	//We only need to emit this for the 1st item in the selection, if theres no item selected, 
+	//We only need to emit this for the 1st item in the selection, if theres no item selected,
 	//prop pal is showing 0s anyway. Multi selection needs fixing for prop pal anyway
 	//if (SelItem.count()!=0)
 	/*Dont need this now adjustpictscale will emit for 1st selected item
@@ -11034,7 +11036,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	{
 		currItem->AdjustPictScale();
 		/*Dont need this now adjustpictscale will emit for 1st selected item
-		//FIXME: From old AdjustPictScale, Emit the new scale to the Prop Pal.. 
+		//FIXME: From old AdjustPictScale, Emit the new scale to the Prop Pal..
 		emit SetLocalValues(currItem->LocalScX, currItem->LocalScY, currItem->LocalX, currItem->LocalY );
 		*/
 	}
@@ -11217,7 +11219,7 @@ void ScribusView::ToPathText()
 		}
 		if (!polyLineItem->asPolyLine())
 			return;
-	
+
 		Deselect(true);
 		PageItem* newItem=Doc->convertItemTo(currItem, PageItem::PathText, polyLineItem);
 		RefreshItem(newItem);
@@ -11272,7 +11274,7 @@ void ScribusView::TextToPath()
 			{
 				++offset;
 				continue;
-			}				
+			}
 			newGroupedItems.clear();
 			FPointArray pts;
 			double x, y, wide;
@@ -11447,7 +11449,7 @@ void ScribusView::TextToPath()
 			//delItems.append(SelItem.take(offset));
 			delItems.append(Doc->selection->takeItem(offset));
 		}
-		
+
 		uint toDeleteItemCount=delItems.count();
 		if (toDeleteItemCount != 0)
 		{

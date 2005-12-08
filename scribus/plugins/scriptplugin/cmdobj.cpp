@@ -519,7 +519,6 @@ PyObject *scribus_setstyle(PyObject* /* self */, PyObject* args)
 			return NULL;
 		}
 		// for current item only
-		//if (ScMW->view->SelItem.count() == 0 || name != "")
 		if (ScMW->doc->selection->count() == 0 || name != "")
 		{
 			// quick hack to always apply on the right frame - pv
@@ -527,16 +526,19 @@ PyObject *scribus_setstyle(PyObject* /* self */, PyObject* args)
 			//CB I dont think we need to draw here. Its faster if we dont.
 			ScMW->view->SelectItem(item, false);
 			// Now apply the style.
+			int mode = ScMW->doc->appMode;
+			ScMW->doc->appMode = modeEdit;
 			ScMW->setNewAbStyle(styleid);
+			ScMW->doc->appMode = mode;
 		}
 		else // for multiple selection
 		{
-			//for (int i = 0; i < ScMW->view->SelItem.count(); ++i)
+			int mode = ScMW->doc->appMode;
+			ScMW->doc->appMode = modeEdit;
 			for (int i = 0; i < ScMW->doc->selection->count(); ++i)
-				//ScMW->view->chAbStyle(ScMW->view->SelItem.at(i), styleid);
 				ScMW->view->chAbStyle(ScMW->doc->selection->itemAt(i), styleid);
+			ScMW->doc->appMode = mode;
 		}
-
 	}
 	else
 	{
