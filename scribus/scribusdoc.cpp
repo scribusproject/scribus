@@ -2072,7 +2072,7 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 			lp = 0;
 		else
 			++lp;
-		Pages->at(nr)->LeftPg = lp;
+		targetPage->LeftPg = lp;
 	}
 	QMap<int,int> TableID;
 	QPtrList<PageItem> TableItems;
@@ -2116,14 +2116,21 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 				}
 			}
 			ScMW->view->PasteItem(&BufferT, true, true);
-			PageItem* Neu = Items->at(Items->count()-1);
-			Neu->OnMasterPage = masterPageName;
-			Neu->OwnPage=MasterNames[masterPageName];
-			if (Neu->isTableItem)
+			PageItem* newItem = Items->at(Items->count()-1);
+			newItem->OnMasterPage = masterPageName;
+			newItem->OwnPage=MasterNames[masterPageName];
+			if (newItem->isTableItem)
 			{
-				TableItems.append(Neu);
-				TableID.insert(a, Neu->ItemNr);
+				TableItems.append(newItem);
+				TableID.insert(a, newItem->ItemNr);
 			}
+			//CB 2906 When this item is pasted it needs moving relative to the origin of the master page
+			double OldBX = newItem->BoundingX;
+			double OldBY = newItem->BoundingY;
+			newItem->moveBy(-sourcePage->xOffset() + targetPage->xOffset(), -sourcePage->yOffset() + targetPage->yOffset());
+			newItem->BoundingX = OldBX - sourcePage->xOffset() + targetPage->xOffset();
+			newItem->BoundingY = OldBY - sourcePage->yOffset() + targetPage->yOffset();
+			
 		}
 	}
 	uint tableItemsCount = TableItems.count();
@@ -2155,6 +2162,7 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 	GroupCounter = GrMax + 1;
 	//Reset the current page.. 
 	setMasterPageMode(false);
+	pageCount = DocPages.count();
 	currentPage=sourcePage;
 	return true;
 }
