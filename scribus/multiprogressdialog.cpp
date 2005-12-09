@@ -24,10 +24,6 @@
 MultiProgressDialog::MultiProgressDialog(QWidget* parent, const char*name, bool modal, WFlags f)
 : MultiProgressDialogBase(parent, name, modal, f)
 {
-	//progressBars=new QDict<QProgressBar>();
-	//progressLabels=new QDict<QLabel>();
-	//progressBars.setAutoDelete(true);
-	//progressLabels.setAutoDelete(true);
 }
 
 MultiProgressDialog::MultiProgressDialog(const QString& titleText, const QString & cancelButtonText, QWidget* parent, const char*name, bool modal, WFlags f)
@@ -39,8 +35,6 @@ MultiProgressDialog::MultiProgressDialog(const QString& titleText, const QString
 
 MultiProgressDialog::~MultiProgressDialog()
 {
-	//delete progressBars;
-	//delete progressLabels;
 }
 
 void MultiProgressDialog::removeExtraProgressBars()
