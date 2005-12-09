@@ -93,10 +93,11 @@ void ScribusWin::closeEvent(QCloseEvent *ce)
 		switch (exit)
 		{
 		case 0:
-			if (ScMW->DoSaveClose())
+			if (ScMW->slotFileSave())
 			{
 				if (doc==ScMW->storyEditor->currentDocument())
 					ScMW->storyEditor->close();
+				ScMW->DoFileClose();
 				ce->accept();
 			}
 			else

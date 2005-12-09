@@ -1774,10 +1774,12 @@ void ScribusMainWindow::newView()
 	//connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
 }
 
+/*CB Unnecessary code, used once, lets use the slot directly
 bool ScribusMainWindow::DoSaveClose()
 {
 	return slotFileSave();
 }
+*/
 
 void ScribusMainWindow::windowsMenuAboutToShow()
 {
@@ -3702,6 +3704,7 @@ bool ScribusMainWindow::slotFileClose()
 	else
 		return true;
 	windowsMenuAboutToShow();
+
 }
 
 bool ScribusMainWindow::DoFileClose()

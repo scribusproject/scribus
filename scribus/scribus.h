@@ -265,7 +265,7 @@ public slots:
 	void setItemLineTransparency(double t);
 	void setMousePositionOnStatusBar(double xp, double yp);
 	bool DoFileClose();
-	bool DoSaveClose();
+	//bool DoSaveClose();
 	void windowsMenuAboutToShow();
 	void newActWin(QWidget *w);
 	void closeActiveWindowMasterPageEditor();
