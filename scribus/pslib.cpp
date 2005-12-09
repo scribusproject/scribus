@@ -63,6 +63,7 @@ PSLib::PSLib(bool psart, SCFonts &AllFonts, QMap<QString,int> DocFonts, ColorLis
 	FontDesc = "";
 	GraySc = false;
 	DoSep = false;
+	abortExport = false;
 	useSpotColors = spot;
 #ifdef HAVE_LIBZ
 	CompAvail = true;
@@ -1263,7 +1264,10 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 								{
 									SetClipPath(&ite->PoLine);
 									PS_closepath();
-									putColor(ite->fillColor(), ite->fillShade(), true);
+									if (ite->GrType != 0)
+										HandleGradient(ite, ite->width(), ite->height(), gcr);
+									else
+										putColor(ite->fillColor(), ite->fillShade(), true);
 								}
 								if (ite->imageFlippedH())
 								{

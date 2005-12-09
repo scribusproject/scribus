@@ -140,7 +140,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	}
 	Layout1->addLayout(Layout4);
 	PLayout->addLayout(Layout1);
-
+	int tbWidth = 0;
 	if (HaveTiffSep != 0)
 	{
 		Anzeige = new QScrollView(this);
@@ -210,6 +210,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 		Table->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, 0, 0, Table->sizePolicy().hasHeightForWidth() ) );
 		Layout5->addWidget(Table);
 		PLayout->addLayout(Layout5);
+		tbWidth = Table->columnWidth(1);
 	}
 	Layout6 = new QHBoxLayout();
 	Layout6->setSpacing(0);
@@ -239,8 +240,8 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	Anz = new QLabel(Anzeige->viewport());
 	Anz->setPixmap(CreatePreview(0, 72));
 	Anzeige->addChild(Anz, 0, 0);
-	int w = Anz->width() + 20;
-	Anzeige->resize(QMIN(QApplication::desktop()->width(),w), 500);
+	int w = Anz->width() + tbWidth + 50;
+	resize(QMIN(QApplication::desktop()->width()-30,w), 500);
 	if (!PrefsManager::instance()->appPrefs.PrPr_Mode)
 	{
 		if (HaveTiffSep != 0)
