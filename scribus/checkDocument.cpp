@@ -233,7 +233,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 	for (it = doc->checkerProfiles.begin(); it != itend ; ++it)
 		curCheckProfile->insertItem(it.key());
 	curCheckProfile->setCurrentText(doc->curCheckProfile);
-	connect(curCheckProfile, SIGNAL(activated(const QString&)), this, SLOT(newScan(const QString&)));
+	
 	QString missingGlyph = tr("Glyphs missing");
 	QString textOverflow = tr("Text overflow");
 	QString notOnPage = tr("Object is not on a Page");
@@ -653,6 +653,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 		ignoreErrors->hide();
 	else
 		ignoreErrors->show();
+	connect(curCheckProfile, SIGNAL(activated(const QString&)), this, SLOT(newScan(const QString&)));
 	connect(reportDisplay, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
 }
 

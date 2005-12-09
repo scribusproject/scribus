@@ -136,12 +136,16 @@ class SCRIBUS_API Selection : public QObject
 		const bool primarySelectionIs(const PageItem* item, int listNumber=GUISelection);
 		PageItem *itemAt(int index=0, int listNumber=GUISelection);
 		QStringList getSelectedItemsByName(int listNumber=GUISelection);
+		bool isMultipleSelection(int listNumber=GUISelection);
 		
 	protected:
 		ScribusDoc* m_Doc;
 		ListOfSelections sellists;
 		ListBool hasGroupSelection;
 		int nextTemp;
+		
+	signals:
+		void selectionIsMultiple(int, bool);
 };
 
 #endif

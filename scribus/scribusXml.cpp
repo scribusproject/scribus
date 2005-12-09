@@ -2145,7 +2145,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, int selectionL
 		//ELL.append(Selitems->at(cor)->ItemNr);
 		ELL.append(doc->selection->itemAt(cor, selectionListNumber)->ItemNr);
 	qHeapSort(ELL);
-	if (view->GroupSel)
+	if (doc->selection->isMultipleSelection())
 	{
 		xp = view->GroupX - doc->currentPage->xOffset();
 		yp = view->GroupY - doc->currentPage->yOffset();

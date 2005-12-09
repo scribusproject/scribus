@@ -1324,7 +1324,7 @@ void Mpalette::NewSel(int nr)
 		return;
 	int visID;
 	disconnect(TabStack, SIGNAL(currentChanged(int)), this, SLOT(SelTab(int)));
-	if (ScMW->view->GroupSel)
+	if (doc->selection->isMultipleSelection())
 	{
 		RoVal = 0;
 		double gx, gy, gh, gw;
@@ -1506,6 +1506,14 @@ void Mpalette::NewSel(int nr)
 	connect(TabStack, SIGNAL(currentChanged(int)), this, SLOT(SelTab(int)));
 }
 
+void Mpalette::setMultipleSelection(int selectionList, bool isMultiple)
+{
+	if (selectionList>0)
+		return;
+	FlipH->setEnabled(!isMultiple);
+	FlipV->setEnabled(!isMultiple);
+}
+
 void Mpalette::UnitChange()
 {
 	double oldRatio = Umrech;
@@ -1606,7 +1614,7 @@ void Mpalette::setXY(double x, double y)
 	FPoint n;
 	if (HaveItem)
 	{
-		if (ScMW->view->GroupSel)
+		if (doc->selection->isMultipleSelection())
 		{
 			ScMW->view->getGroupRect(&dummy1, &dummy2, &b, &h);
 			r = 0.0;
@@ -2051,7 +2059,7 @@ void Mpalette::NewX()
 			x += doc->currentPage->xOffset();
 			y += doc->currentPage->yOffset();
 		}
-		if (ScMW->view->GroupSel)
+		if (doc->selection->isMultipleSelection())
 		{
 			ScMW->view->getGroupRect(&gx, &gy, &gw, &gh);
 			if ((TopLeft->isChecked()) || (BottomLeft->isChecked()))
@@ -2113,7 +2121,7 @@ void Mpalette::NewY()
 			x += doc->currentPage->xOffset();
 			y += doc->currentPage->yOffset();
 		}
-		if (ScMW->view->GroupSel)
+		if (doc->selection->isMultipleSelection())
 		{
 			ScMW->view->getGroupRect(&gx, &gy, &gw, &gh);
 			if ((TopLeft->isChecked()) || (TopRight->isChecked()))
@@ -2166,7 +2174,7 @@ void Mpalette::NewW()
 	h = Height->value() / Umrech;
 	if ((HaveDoc) && (HaveItem))
 	{
-		if (ScMW->view->GroupSel)
+		if (doc->selection->isMultipleSelection())
 		{
 			ScMW->view->getGroupRect(&gx, &gy, &gw, &gh);
 			if (keepFrameWHRatioButton->isOn())
@@ -2263,7 +2271,7 @@ void Mpalette::NewH()
 	h = Height->value() / Umrech;
 	if ((HaveDoc) && (HaveItem))
 	{
-		if (ScMW->view->GroupSel)
+		if (doc->selection->isMultipleSelection())
 		{
 			ScMW->view->getGroupRect(&gx, &gy, &gw, &gh);
 			if (keepFrameWHRatioButton->isOn())
@@ -2356,7 +2364,7 @@ void Mpalette::NewR()
 	double gx, gy, gh, gw;
 	if ((HaveDoc) && (HaveItem))
 	{
-		if (ScMW->view->GroupSel)
+		if (doc->selection->isMultipleSelection())
 		{
 			ScMW->view->RotateGroup((Rot->value() - RoVal)*(-1));
 			ScMW->view->getGroupRect(&gx, &gy, &gw, &gh);
@@ -2941,7 +2949,7 @@ void Mpalette::NewRotMode(int m)
 	if ((HaveDoc) && (HaveItem))
 	{
 		HaveItem = false;
-		if (ScMW->view->GroupSel)
+		if (doc->selection->isMultipleSelection())
 		{
 			ScMW->view->setGroupRect();
 			ScMW->view->getGroupRect(&gx, &gy, &gw, &gh);

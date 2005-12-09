@@ -85,7 +85,8 @@ void Selection::clearAll()
 	ListOfSelections::Iterator it=sellists.begin();
 	while (it!=itend)
 	{
-		hasGroupSelection[it.key()]=false;
+		//CB done in clear()
+		//hasGroupSelection[it.key()]=false;
 		clear(it.key());
 		++it;
 	}
@@ -138,13 +139,9 @@ bool Selection::addItem(PageItem *item, int listNumber)
 		return false;
 	if (sellists.contains(listNumber))
 	{
-		//qDebug(QString("trying to add %1").arg(item->ItemNr));
 		bool listIsEmpty=sellists[listNumber].isEmpty();
-		//if (listIsEmpty) qDebug("list is empty");
-		//if (sellists[listNumber].contains(item)) qDebug(QString("list already contains %1").arg(item->ItemNr));
 		if (listIsEmpty || !sellists[listNumber].contains(item))
 		{
-			//qDebug(QString("adding %1").arg(item->ItemNr));
 			sellists[listNumber].append(item);
 			if (listIsEmpty && listNumber==0)
 			{
@@ -152,7 +149,8 @@ bool Selection::addItem(PageItem *item, int listNumber)
 				item->emitAllToGUI();
 			}
 			item->setSelected(true);
-			//qDebug(QString("adding %1 %2").arg(listNumber).arg(item->ItemNr));
+			hasGroupSelection[listNumber]=(sellists[listNumber].count()>1);
+			emit selectionIsMultiple(listNumber, hasGroupSelection[listNumber]);
 			return true;
 		}
 	}
@@ -176,6 +174,8 @@ bool Selection::prependItem(PageItem *item, int listNumber)
 			}
 			sellists[listNumber].prepend(item);
 			item->setSelected(true);
+			hasGroupSelection[listNumber]=(sellists[listNumber].count()>1);
+			emit selectionIsMultiple(listNumber, hasGroupSelection[listNumber]);
 			return true;
 		}
 	}
@@ -242,7 +242,8 @@ bool Selection::removeItem(PageItem *item, int listNumber)
 
 PageItem* Selection::takeItem(uint itemIndex, int listNumber)
 {
-	if (itemIndex>=0 && sellists.contains(listNumber))
+	//if ((itemIndex>=0) && 
+	if (sellists.contains(listNumber))
 		if (!sellists[listNumber].isEmpty() && itemIndex<sellists[listNumber].count())
 		{
 			PageItem *item=sellists[listNumber][itemIndex];
@@ -306,4 +307,11 @@ QStringList Selection::getSelectedItemsByName(int listNumber)
 	for ( ; it!=itend ; ++it)
 		names.append((*it)->itemName());
 	return names;
+}
+
+bool Selection::isMultipleSelection(int listNumber)
+{
+	if (hasGroupSelection.contains(listNumber))
+		return hasGroupSelection[listNumber];
+	return false;
 }

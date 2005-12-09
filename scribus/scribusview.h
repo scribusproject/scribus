@@ -115,7 +115,7 @@ public:
 	bool HaveSelRect;
 	bool mCG;
 	bool EditContour;
-	bool GroupSel;
+	//bool GroupSel;
 	bool DraggedGroup;
 	bool DraggedGroupFirst;
 	bool HanMove;

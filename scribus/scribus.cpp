@@ -1695,7 +1695,9 @@ bool ScribusMainWindow::doFileNew(double width, double h, double tpr, double lr,
 {
 	QString cc;
 	if (HaveDoc)
+	{
 		doc->OpenNodes = outlinePalette->buildReopenVals();
+	}
 	doc = new ScribusDoc();
 	doc->setLoading(true);
 	doc->setup(einh, fp, firstleft, Ori, SNr, defaultPageSize, doc->DocName+cc.setNum(DocNr));
@@ -1835,11 +1837,16 @@ void ScribusMainWindow::newActWin(QWidget *w)
 	{
 		actionManager->disconnectNewViewActions();
 		disconnect(view, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
+		if (ScQApp->usingGUI())
+			disconnect(doc->selection, SIGNAL(selectionIsMultiple(int, bool)), 0, 0);
 	}
 	doc = ActWin->doc;
 	view = ActWin->view;
 	actionManager->connectNewViewActions(view);
 	connect(view, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
+	if (ScQApp->usingGUI())
+		connect(doc->selection, SIGNAL(selectionIsMultiple(int, bool)), propertiesPalette, SLOT( setMultipleSelection(int, bool)));
+
 	pagePalette->setView(view);
 	alignDistributePalette->setView(view);
 	ScribusWin* swin;
@@ -2131,7 +2138,7 @@ void ScribusMainWindow::HaveNewDoc()
 	connect(view, SIGNAL(Amode(int)), this, SLOT(setAppMode(int)));
 	connect(view, SIGNAL(PaintingDone()), this, SLOT(slotSelect()));
 	connect(view, SIGNAL(DocChanged()), this, SLOT(slotDocCh()));
-	connect(view, SIGNAL(HavePoint(bool, bool)), nodePalette, SLOT(HaveNode(bool, bool)));
+	//connect(view, SIGNAL(HavePoint(bool, bool)), nodePalette, SLOT(HaveNode(bool, bool)));
 	connect(view, SIGNAL(MousePos(double, double)), this, SLOT(setMousePositionOnStatusBar(double, double)));
 	//connect(view, SIGNAL(ItemRadius(double)), propertiesPalette, SLOT(setRR(double)));
 	connect(view, SIGNAL(ItemTextStil(int)), propertiesPalette, SLOT(setStil(int)));
@@ -4515,8 +4522,9 @@ void ScribusMainWindow::SelectAll()
 				}
 			}
 		}
+		int docSelectionCount=doc->selection->count();
 		//if (view->SelItem.count() > 1)
-		if (docItemsCount > 1)
+		if (docSelectionCount > 1)
 		{
 			view->setGroupRect();
 			view->paintGroupRect();
@@ -4526,7 +4534,7 @@ void ScribusMainWindow::SelectAll()
 			propertiesPalette->setBH(w, h);
 		}
 		//if (view->SelItem.count() > 0)
-		if (docItemsCount > 0)
+		if (docSelectionCount > 0)
 		{
 			//currItem = view->SelItem.at(0);
 			currItem = doc->selection->itemAt(0);
@@ -5093,6 +5101,7 @@ void ScribusMainWindow::ToggleFrameEdit()
 		nodePalette->HaveNode(false, false);
 		nodePalette->MoveNode->setOn(true);
 		nodePalette->show();
+		connect(view, SIGNAL(HavePoint(bool, bool)), nodePalette, SLOT(HaveNode(bool, bool)));
 		doc->EditClipMode = 0;
 		doc->EditClip = true;
 		scrActions["toolsSelect"]->setEnabled(false);
@@ -5130,6 +5139,7 @@ void ScribusMainWindow::ToggleFrameEdit()
 
 void ScribusMainWindow::NoFrameEdit()
 {
+	disconnect(view, SIGNAL(HavePoint(bool, bool)), nodePalette, SLOT(HaveNode(bool, bool)));
 	actionManager->disconnectModeActions();
 	nodePalette->hide();
 	scrActions["toolsSelect"]->setEnabled(true);
