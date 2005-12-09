@@ -44,6 +44,7 @@
 PSLib::PSLib(bool psart, SCFonts &AllFonts, QMap<QString,int> DocFonts, ColorList DocColors, bool pdf, bool spot)
 {
 	usingGUI=ScQApp->usingGUI();
+	abortExport=false;
 	QString tmp, tmp2, tmp3, tmp4, CHset;
 	QStringList wt;
 	Seiten = 0;
