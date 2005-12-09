@@ -88,6 +88,11 @@ void ScImage::initialize()
 	imgInfo.exifInfo.thumbnail = QImage();
 }
 
+ScImage::~ScImage()
+{
+	curveTable.resize(0);
+}
+
 void ScImage::applyEffect(QValueList<imageEffect> effectsList, QMap<QString,ScColor> colors, bool cmyk)
 {
 	if (effectsList.count() != 0)

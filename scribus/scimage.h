@@ -10,7 +10,8 @@
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
-#include <valarray>
+//#include <valarray>
+#include <qmemarray.h>
 #include <qimage.h>
 #include <qstring.h>
 #include <qdatastream.h>
@@ -44,7 +45,7 @@ public:
 	ScImage();
 	ScImage(QImage image);
 	ScImage( int width, int height );
-	~ScImage() {};
+	~ScImage();
 	
 	enum ImageEffectCode
 	{
@@ -202,7 +203,8 @@ private:
 	bool read_jpeg_marker (UINT8 requestmarker, j_decompress_ptr cinfo, JOCTET **icc_data_ptr, unsigned int *icc_data_len);
 	char* iccbuf;
 	uint icclen;
-	std::valarray<int> curveTable;
+	//std::valarray<int> curveTable;
+	QMemArray<int> curveTable;
 	QValueList<unsigned int> colorTable;
 	int random_table[4096];
 };
