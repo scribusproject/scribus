@@ -211,6 +211,7 @@ void CheckDocument::clearErrorList()
 {
 	disconnect(reportDisplay, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
 	reportDisplay->clear();
+	reportDisplay->setSorting(-1);
 	itemMap.clear();
 	pageMap.clear();
 	masterPageMap.clear();
@@ -222,6 +223,11 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 	document = doc;
 	disconnect(curCheckProfile, SIGNAL(activated(const QString&)), this, SLOT(newScan(const QString&)));
 	curCheckProfile->clear();
+	clearErrorList();
+	
+	if (document==0)
+		return;
+		
 	CheckerPrefsList::Iterator it;
 	CheckerPrefsList::Iterator itend=doc->checkerProfiles.end();
 	for (it = doc->checkerProfiles.begin(); it != itend ; ++it)
@@ -236,10 +242,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 	QString transpar = tr("Object has transparency");
 	QString annot = tr("Object is a PDF Annotation or Field");
 	QString rasterPDF = tr("Object is a placed PDF");
-	reportDisplay->clear();
-	reportDisplay->setSorting(-1);
-	itemMap.clear();
-	pageMap.clear();
+
 	QListViewItem * item = new QListViewItem( reportDisplay, 0 );
 	item->setText( 0, tr( "Document" ) );
 	if ((doc->docItemErrors.count() == 0) && (doc->masterItemErrors.count() == 0))

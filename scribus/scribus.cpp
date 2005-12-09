@@ -3817,7 +3817,7 @@ bool ScribusMainWindow::DoFileClose()
 	delete view;
 	doc->setLoading(true);
 	layerPalette->ClearInhalt();
-	docCheckerPalette->clearErrorList();
+	docCheckerPalette->buildErrorList(0);
 	HaveDoc--;
 	view = NULL;
 	delete doc;
