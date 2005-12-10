@@ -1426,7 +1426,10 @@ void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString
 								{
 									SetClipPath(p, &ite->PoLine);
 									p->PS_closepath();
-									p->PS_fill();
+									if (ite->GrType != 0)
+										HandleGradient(p, ite, ite->Width, ite->Height, gcr);
+									else
+										p->PS_fill();
 								}
 								if ((ite->flippedH % 2) != 0)
 								{
