@@ -476,28 +476,39 @@ void Farbmanager::duplFarbe()
 
 void Farbmanager::neueFarbe()
 {
+	int selectedIndex=ListBox1->currentItem();
+	int topIndex=ListBox1->topItem();
 	ScColor tmpFarbe = ScColor(0, 0, 0, 0);
 	CMYKChoose* dia = new CMYKChoose(this, tmpFarbe, tr("New Color"), &EditColors, CColSet);
+	int newItemIndex=0;
+	int colCount=0;
 	if (dia->exec())
 	{
 		dia->Farbe.setSpotColor(dia->Separations->isChecked());
-		EditColors.insert(dia->Farbname->text(), dia->Farbe);
-		if (dia->Regist->isChecked())
+		ColorList::Iterator itnew=EditColors.insert(dia->Farbname->text(), dia->Farbe);
+		bool regChecked=dia->Regist->isChecked();
+		ColorList::Iterator it;
+		
+		for (it = EditColors.begin(); it != EditColors.end(); ++it)
 		{
-			ColorList::Iterator it;
-			for (it = EditColors.begin(); it != EditColors.end(); ++it)
-			{
+			if (regChecked)
 				EditColors[it.key()].setRegistrationColor(false);
-			}
+			if (it==itnew)
+				newItemIndex=colCount;
+			++colCount;
 		}
 		EditColors[dia->Farbname->text()].setRegistrationColor(dia->Regist->isChecked());
 		updateCList();
 	}
 	delete dia;
+	ListBox1->setSelected(newItemIndex, true);
+	ListBox1->setTopItem(newItemIndex);
 }
 
 void Farbmanager::editFarbe()
 {
+	int selectedIndex=ListBox1->currentItem();
+	int topIndex=ListBox1->topItem();
 	ScColor tmpFarbe = EditColors[sFarbe];
 	CMYKChoose* dia = new CMYKChoose(this, tmpFarbe, sFarbe, &EditColors, CColSet);
 	if (dia->exec())
@@ -521,10 +532,14 @@ void Farbmanager::editFarbe()
 		updateCList();
 	}
 	delete dia;
+	ListBox1->setSelected(selectedIndex, true);
+	ListBox1->setTopItem(topIndex);
 }
 
 void Farbmanager::delFarbe()
 {
+	int selectedIndex=ListBox1->currentItem();
+	int topIndex=ListBox1->topItem();
 	DelColor *dia = new DelColor(this, EditColors, sFarbe, HaveDoc);
 	if (dia->exec())
 	{
@@ -542,6 +557,11 @@ void Farbmanager::delFarbe()
 		updateCList();
 	}
 	delete dia;
+	int listBoxCount=ListBox1->count();
+	if (listBoxCount>selectedIndex)
+		ListBox1->setSelected(selectedIndex, true);
+	if (listBoxCount>topIndex)
+		ListBox1->setTopItem(topIndex);
 }
 
 void Farbmanager::selFarbe(QListBoxItem *c)
