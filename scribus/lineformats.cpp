@@ -122,6 +122,8 @@ void LineFormate::dupFormat()
 
 void LineFormate::neuesFormat()
 {
+	int selectedIndex=ListBox1->currentItem();
+	int topIndex=ListBox1->topItem();
 	struct SingleLine sl;
 	sl.Color = "Black";
 	sl.Shade = 100;
@@ -138,10 +140,14 @@ void LineFormate::neuesFormat()
 		sFnumber = dia->SName->text();
 	}
 	UpdateFList();
+	ListBox1->setSelected(selectedIndex, true);
+	ListBox1->setTopItem(topIndex);
 }
 
 void LineFormate::editFormat()
 {
+	int selectedIndex=ListBox1->currentItem();
+	int topIndex=ListBox1->topItem();
 	MultiLine* dia = new MultiLine(this, Docu, TempStyles[sFnumber], sFnumber, &TempStyles);
 	if (dia->exec())
 	{
@@ -157,10 +163,14 @@ void LineFormate::editFormat()
 	}
 	delete dia;
 	UpdateFList();
+	ListBox1->setSelected(selectedIndex, true);
+	ListBox1->setTopItem(topIndex);
 }
 
 void LineFormate::deleteFormat()
 {
+	int selectedIndex=ListBox1->currentItem();
+	int topIndex=ListBox1->topItem();
 	int exit=ScMessageBox::warning(this,
 	                              CommonStrings::trWarning,
 	                              tr("Do you really want to delete this style?"),
@@ -174,6 +184,11 @@ void LineFormate::deleteFormat()
 		Replacement.insert(sFnumber, "");
 		TempStyles.remove(sFnumber);
 		UpdateFList();
+		int listBoxCount=ListBox1->count();
+		if (listBoxCount>selectedIndex)
+			ListBox1->setSelected(selectedIndex, true);
+		if (listBoxCount>topIndex)
+			ListBox1->setTopItem(topIndex);
 	}
 }
 

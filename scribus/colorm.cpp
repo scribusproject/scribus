@@ -476,8 +476,6 @@ void Farbmanager::duplFarbe()
 
 void Farbmanager::neueFarbe()
 {
-	int selectedIndex=ListBox1->currentItem();
-	int topIndex=ListBox1->topItem();
 	ScColor tmpFarbe = ScColor(0, 0, 0, 0);
 	CMYKChoose* dia = new CMYKChoose(this, tmpFarbe, tr("New Color"), &EditColors, CColSet);
 	int newItemIndex=0;
@@ -488,7 +486,6 @@ void Farbmanager::neueFarbe()
 		ColorList::Iterator itnew=EditColors.insert(dia->Farbname->text(), dia->Farbe);
 		bool regChecked=dia->Regist->isChecked();
 		ColorList::Iterator it;
-		
 		for (it = EditColors.begin(); it != EditColors.end(); ++it)
 		{
 			if (regChecked)

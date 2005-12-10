@@ -313,6 +313,8 @@ void StilFormate::dupFormat()
 
 void StilFormate::neuesFormat()
 {
+	int selectedIndex=ListBox1->currentItem();
+	int topIndex=ListBox1->topItem();
 	struct ParagraphStyle sty;
 	sty.Vname = tr("New Style");
 	sty.LineSpaMode = 0;
@@ -352,15 +354,21 @@ void StilFormate::neuesFormat()
 		TempVorl.remove(TempVorl.fromLast());
 	delete dia2;
 	UpdateFList();
+	ListBox1->setSelected(selectedIndex, true);
+	ListBox1->setTopItem(topIndex);
 }
 
 void StilFormate::editFormat()
 {
+	int selectedIndex=ListBox1->currentItem();
+	int topIndex=ListBox1->topItem();
 	EditStyle* dia = new EditStyle(this, &TempVorl[sFnumber], TempVorl, false,
 	                               static_cast<double>(Docu->typographicSettings.autoLineSpacing), Docu->unitIndex(), Docu);
 	dia->exec();
 	delete dia;
 	UpdateFList();
+	ListBox1->setSelected(selectedIndex, true);
+	ListBox1->setTopItem(topIndex);
 }
 
 void StilFormate::deleteFormat()
@@ -374,6 +382,8 @@ void StilFormate::deleteFormat()
 	/* PFJ - 29.02.04 - Altered to use the correct QMessageBox value. It was 1 */
 	/* FS - 13.03.04 the 1 is correct in this version of QMessageBox, it returns the Nr of the clicked Button either 0 or 1 or 2 */
 //	if (exit == 1)
+	int selectedIndex=ListBox1->currentItem();
+	int topIndex=ListBox1->topItem();
 	DelStyle *dia = new DelStyle(this, TempVorl, TempVorl[sFnumber].Vname);
 	if (dia->exec())
 	{
@@ -392,6 +402,11 @@ void StilFormate::deleteFormat()
 		UpdateFList();
 	}
 	delete dia;
+	int listBoxCount=ListBox1->count();
+	if (listBoxCount>selectedIndex)
+		ListBox1->setSelected(selectedIndex, true);
+	if (listBoxCount>topIndex)
+		ListBox1->setTopItem(topIndex);
 }
 
 void StilFormate::loadStyles()
