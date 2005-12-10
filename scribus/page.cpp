@@ -1562,7 +1562,7 @@ bool Page::SizeItem(double newX, double newY, int ite, bool fromMP, bool DoUpdat
 	double dY = ma.m22() * (b->Height - newY) + ma.m12() * (b->Width - newX) + ma.dy();
 	b->Width = newX;
 	b->Height = newY;
-	if ((doku->RotMode != 0) && (fromMP))
+	if ((doku->RotMode != 0) && (fromMP) && (doku->AppMode == 1))
 	{
 		switch (doku->RotMode)
 		{
@@ -2844,7 +2844,6 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 	}
 	if (doku->AppMode == 21)
 	{
-		doku->AppMode = 1;
 		if (RecordP.size() > 1)
 		{
 			uint z = PaintPolyLine(0, 0, 1, 1, doku->Dwidth, "None", doku->Dpen);
@@ -2876,6 +2875,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 			emit HaveSel(7);
 		}
 		update();
+		doku->AppMode = 1;
 		emit PaintingDone();
 		emit DocChanged();
 		return;
