@@ -2088,8 +2088,17 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 				QDomElement it=IT.toElement();
 				if (it.tagName()=="ITEXT")
 					GetItemText(&it, doc, VorLFound, true, Neu);
+				if (it.tagName()=="ImageEffect")
+				{
+					struct ScImage::imageEffect ef;
+					ef.effectParameters = it.attribute("Param");
+					ef.effectCode = it.attribute("Code").toInt();
+					Neu->effectsInUse.append(ef);
+				}
 				IT=IT.nextSibling();
 			}
+			if (Neu->effectsInUse.count() != 0)
+				doc->LoadPict(Neu->Pfile, Neu->ItemNr, true);
 			if (Neu->isTableItem)
 			{
 				TableItems.append(Neu);
