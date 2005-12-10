@@ -1524,7 +1524,6 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 	}
 	if (Doc->appMode == modeDrawFreehandLine)
 	{
-		Doc->appMode = modeNormal;
 		if (RecordP.size() > 1)
 		{
 			//uint z = PaintPolyLine(0, 0, 1, 1, Doc->toolSettings.dWidth, "None", Doc->toolSettings.dPenLine);
@@ -1561,6 +1560,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			*/
 			//emit HaveSel(PageItem::PolyLine);
 		}
+		Doc->appMode = modeNormal;
 		updateContents();
 		emit PaintingDone();
 		emit DocChanged();
@@ -6087,7 +6087,7 @@ bool ScribusView::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, 
 	double dX = ma.m11() * (currItem->width() - newX) + ma.m21() * (currItem->height() - newY) + ma.dx();
 	double dY = ma.m22() * (currItem->height() - newY) + ma.m12() * (currItem->width() - newX) + ma.dy();
 	currItem->setWidthHeight(newX, newY);
-	if ((Doc->RotMode != 0) && (fromMP) && (!Doc->isLoading()))
+	if ((Doc->RotMode != 0) && (fromMP) && (!Doc->isLoading()) && (Doc->appMode = modeNormal))
 	{
 		double moveX=dX, moveY=dY;
 		if (Doc->RotMode==2)
