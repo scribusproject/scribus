@@ -19,3 +19,7 @@ tgz:
 tbz:
 	tar -cf Scribus-devel-docs.tar *
 	bzip2 Scribus-devel-docs.tar
+
+codecheck:
+	flawfinder --html -c ../scribus > code-check.html
+
