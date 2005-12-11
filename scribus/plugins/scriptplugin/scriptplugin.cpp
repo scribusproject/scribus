@@ -285,6 +285,7 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("defineColor"), scribus_newcolor, METH_VARARGS, tr(scribus_newcolor__doc__)},
 	{const_cast<char*>("deleteColor"), scribus_delcolor, METH_VARARGS, tr(scribus_delcolor__doc__)},
 	{const_cast<char*>("deleteLayer"), scribus_removelayer, METH_VARARGS, tr(scribus_removelayer__doc__)},
+	{const_cast<char*>("deleteMasterPage"), scribus_deletemasterpage, METH_VARARGS, tr(scribus_deletemasterpage__doc__)},
 	{const_cast<char*>("deleteObject"), scribus_deleteobj, METH_VARARGS, tr(scribus_deleteobj__doc__)},
 	{const_cast<char*>("deletePage"), scribus_deletepage, METH_VARARGS, tr(scribus_deletepage__doc__)},
 	{const_cast<char*>("deleteText"), scribus_deletetext, METH_VARARGS, tr(scribus_deletetext__doc__)},

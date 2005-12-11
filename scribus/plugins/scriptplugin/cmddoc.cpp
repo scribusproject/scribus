@@ -306,3 +306,29 @@ PyObject* scribus_createmasterpage(PyObject* /* self */, PyObject* args)
 	Py_INCREF(Py_None);
 	return Py_None;
 }
+
+PyObject* scribus_deletemasterpage(PyObject* /* self */, PyObject* args)
+{
+	char* name = 0;
+	if (!PyArg_ParseTuple(args, "es", const_cast<char*>("utf-8"), &name))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	const QString masterPageName(name);
+	if (!ScMW->doc->MasterNames.contains(masterPageName))
+	{
+		PyErr_SetString(PyExc_ValueError, "Master page does not exist");
+		return NULL;
+	}
+	if (masterPageName == "Normal")
+	{
+		PyErr_SetString(PyExc_ValueError, "Can not delete the Normal master page");
+		return NULL;
+	}
+	bool oldMode = ScMW->doc->masterPageMode();
+	ScMW->doc->setMasterPageMode(true);
+	ScMW->DeletePage2(ScMW->doc->MasterNames[masterPageName]);
+	ScMW->doc->setMasterPageMode(oldMode);
+	Py_INCREF(Py_None);
+	return Py_None;
+}

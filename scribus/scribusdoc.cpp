@@ -943,6 +943,23 @@ bool ScribusDoc::deletePage(const int pageNumber)
 	delete Seite;
 	--pageCount;
 	currentPage = Pages->at(0);
+	if (masterPageMode())
+	{
+		// remove the master page from the master page name list
+		bool found = false;
+		QMap<QString,int>::iterator it(MasterNames.begin());
+		QMap<QString,int>::iterator itEnd(MasterNames.end());
+		for ( ; it != itEnd; ++it )
+		{
+			if (it.data() == pageNumber)
+			{
+				MasterNames.remove(it);
+				found = true;
+				break;
+			}
+		}
+		Q_ASSERT(found);
+	}
 	return true;
 }
 

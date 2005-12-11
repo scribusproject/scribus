@@ -241,5 +241,12 @@ editing.\n\
 "));
 PyObject* scribus_createmasterpage(PyObject* self, PyObject* args);
 
+PyDoc_STRVAR(scribus_deletemasterpage__doc__,
+QT_TR_NOOP("deleteMasterPage(pageName)\n\
+\n\
+Delete the named master page.\n\
+"));
+PyObject* scribus_deletemasterpage(PyObject* self, PyObject* args);
+
 #endif
 
