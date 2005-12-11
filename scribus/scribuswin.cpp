@@ -82,7 +82,10 @@ void ScribusWin::closeEvent(QCloseEvent *ce)
 		{
 		case 0:
 			if (ScApp->DoSaveClose())
+			{
+				ScApp->DoFileClose();
 				ce->accept();
+			}
 			else
 				return;
 			break;
