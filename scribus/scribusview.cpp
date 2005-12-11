@@ -10660,41 +10660,27 @@ void ScribusView::UpdatePic()
 void ScribusView::adjustFrametoImageSize()
 {
 	uint docSelectionCount=Doc->selection->count();
-	//if (SelItem.count() > 0)
 	if (docSelectionCount > 0)
 	{
 		bool toUpdate=false;
-		//for (uint i = 0; i < SelItem.count(); ++i)
 		for (uint i = 0; i < docSelectionCount; ++i)
 		{
 			PageItem *currItem = Doc->selection->itemAt(i);
-			//if (SelItem.at(i)!=NULL)
 			if (currItem!=NULL)
-				//if (SelItem.at(i)->asImageFrame())
+			{
 				if (currItem->asImageFrame() && currItem->PicAvail && !currItem->isTableItem)
 				{
-					double w, h;
-					if (currItem->pixm.imgInfo.lowResType == 0)
-					{
-						w = static_cast<double>(currItem->pixm.width()) * currItem->imageXScale();
-						h = static_cast<double>(currItem->pixm.height()) * currItem->imageYScale();
-					}
-					else
-					{
-						w = static_cast<double>(currItem->pixm.width())*currItem->pixm.imgInfo.lowResScale * currItem->imageXScale();
-						h = static_cast<double>(currItem->pixm.height())*currItem->pixm.imgInfo.lowResScale * currItem->imageYScale();
-					}
-					double x = currItem->imageXOffset() * currItem->imageXScale();
-					double y = currItem->imageYOffset() * currItem->imageYScale();
-					//CB Why is this here? We do nothing if it is a table item so push it up to the other if
-					//if (!currItem->isTableItem)
-					//{
-						SizeItem(w, h, currItem->ItemNr);
-						MoveItem(x, y, currItem);
-						currItem->setImageXYOffset(0.0, 0.0);
-					//}
+					double w, h, x, y;
+					w = currItem->OrigW * currItem->imageXScale();
+					h = currItem->OrigH * currItem->imageYScale();
+					x = currItem->imageXOffset() * currItem->imageXScale();
+					y = currItem->imageYOffset() * currItem->imageYScale();
+					SizeItem(w, h, currItem->ItemNr);
+					MoveItem(x, y, currItem);
+					currItem->setImageXYOffset(0.0, 0.0);
 					toUpdate=true;
 				}
+			}
 		}
 		if (toUpdate)
 		{
