@@ -210,20 +210,36 @@ a right page use FIRSTPAGERIGHT.\n\
 "));
 PyObject *scribus_setdoctype(PyObject */*self*/, PyObject* args);
 
-PyDoc_STRVAR(scribus_getmasterpagemode__doc__,
-QT_TR_NOOP("getTemplateMode()\n\
+PyDoc_STRVAR(scribus_closemasterpage__doc__,
+QT_TR_NOOP("closeMasterPage()\n\
 \n\
-Returns true if we're currently working in master page mode, where all\n\
-commands affect page masterpages.\n\
+Closes the currently active master page, if any, and returns editing\n\
+to normal. Begin editing with editMasterPage().\n\
 "));
-PyObject* scribus_getmasterpagemode(PyObject* self);
+PyObject* scribus_closemasterpage(PyObject* self);
 
-PyDoc_STRVAR(scribus_setmasterpagemode__doc__,
-QT_TR_NOOP("setTemplateMode(bool)\n\
+PyDoc_STRVAR(scribus_masterpagenames__doc__,
+QT_TR_NOOP("masterPageNames()\n\
 \n\
-Enables/disables master page mode based on boolean parameter.\n\
+Returns a list of the names of all master pages in the document.\n\
 "));
-PyObject* scribus_setmasterpagemode(PyObject* self, PyObject* args);
+PyObject* scribus_masterpagenames(PyObject* self);
+
+PyDoc_STRVAR(scribus_editmasterpage__doc__,
+QT_TR_NOOP("editMasterPage(pageName)\n\
+\n\
+Enables master page editing and opens the named master page\n\
+for editing. Finish editing with closeMasterPage().\n\
+"));
+PyObject* scribus_editmasterpage(PyObject* self, PyObject* args);
+
+PyDoc_STRVAR(scribus_createmasterpage__doc__,
+QT_TR_NOOP("createMasterPage(pageName)\n\
+\n\
+Creates a new master page named pageName and opens it for\n\
+editing.\n\
+"));
+PyObject* scribus_createmasterpage(PyObject* self, PyObject* args);
 
 #endif
 

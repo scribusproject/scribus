@@ -245,21 +245,64 @@ PyObject *scribus_setdoctype(PyObject* /* self */, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_getmasterpagemode(PyObject* /* self */)
+PyObject *scribus_closemasterpage(PyObject* /* self */)
 {
 	if(!checkHaveDocument())
 		return NULL;
-	return PyBool_FromLong(ScMW->doc->masterPageMode());
+	ScMW->view->hideMasterPage();
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
-PyObject *scribus_setmasterpagemode(PyObject* /* self */, PyObject* args)
+PyObject *scribus_masterpagenames(PyObject* /* self */)
 {
-	int enable;
-	if (!PyArg_ParseTuple(args, "i", &enable))
+	if(!checkHaveDocument())
+		return NULL;
+	PyObject* names = PyList_New(ScMW->doc->MasterPages.count());
+	QMap<QString,int>::const_iterator it(ScMW->doc->MasterNames.constBegin());
+	QMap<QString,int>::const_iterator itEnd(ScMW->doc->MasterNames.constEnd());
+	int n = 0;
+	for ( ; it != itEnd; ++it )
+	{
+		PyList_SET_ITEM(names, n++, PyString_FromString(it.key().utf8().data()) );
+	}
+	return names;
+}
+
+PyObject *scribus_editmasterpage(PyObject* /* self */, PyObject* args)
+{
+	char* name = 0;
+	if (!PyArg_ParseTuple(args, "es", const_cast<char*>("utf-8"), &name))
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	ScMW->doc->setMasterPageMode(enable);
+	const QString masterPageName(name);
+	const QMap<QString,int>& masterNames(ScMW->doc->MasterNames);
+	const QMap<QString,int>::const_iterator it(masterNames.find(masterPageName));
+	if ( it == masterNames.constEnd() )
+	{
+		PyErr_SetString(PyExc_ValueError, "Master page not found");
+		return NULL;
+	}
+	ScMW->view->showMasterPage(*it);
+	Py_INCREF(Py_None);
+	return Py_None;
+}
+
+PyObject* scribus_createmasterpage(PyObject* /* self */, PyObject* args)
+{
+	char* name = 0;
+	if (!PyArg_ParseTuple(args, "es", const_cast<char*>("utf-8"), &name))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	const QString masterPageName(name);
+	if (ScMW->doc->MasterNames.contains(masterPageName))
+	{
+		PyErr_SetString(PyExc_ValueError, "Master page already exists");
+		return NULL;
+	}
+	ScMW->doc->addMasterPage(ScMW->doc->MasterPages.count(), masterPageName);
 	Py_INCREF(Py_None);
 	return Py_None;
 }
