@@ -13,6 +13,7 @@
 #include "scribusview.h"
 #include "util.h"
 #include "commonstrings.h"
+#include "scribus.h"
 
 #include "scmessagebox.h"
 
@@ -96,17 +97,7 @@ void MasterPagesPalette::deleteMasterPage()
 	                              0, QMessageBox::No, QMessageBox::Yes);
 	if (exit == 0)
 	{
-		currentDoc->pageCount = currentDoc->Pages->count();
-		emit removePage(currentDoc->MasterNames[sMuster]);
-		currentDoc->MasterNames.clear();
-		for (uint a = 0; a < currentDoc->Pages->count(); ++a)
-			currentDoc->MasterNames[currentDoc->Pages->at(a)->PageNam] = currentDoc->Pages->at(a)->pageNr();
-		for (uint b = 0; b < currentDoc->DocPages.count(); ++b)
-		{
-			if (currentDoc->DocPages.at(b)->MPageNam == sMuster)
-				currentDoc->DocPages.at(b)->MPageNam = "Normal";
-		}
-		currentDoc->pageCount = 1;
+		ScMW->DeletePage2(currentDoc->MasterNames[sMuster]);
 		sMuster = "Normal";
 		updateMasterPageList(sMuster);
 		//currentDoc->MasterPages = currentDoc->Pages;

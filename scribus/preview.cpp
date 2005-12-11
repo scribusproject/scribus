@@ -52,6 +52,7 @@ extern bool printDinUse;
  */
 PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int pngAlpha, int tiffSep) : QDialog( parent, "Preview", true, 0 )
 {
+	Q_ASSERT(!docu->masterPageMode());
 	prefsManager=PrefsManager::instance();
 	QString tmp;
 	setCaption( tr("Print Preview"));
@@ -60,7 +61,6 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	HavePngAlpha = pngAlpha;
 	HaveTiffSep = tiffSep;
 	APage = -1;
-	MPage = doc->pageCount;
 	CMode = false;
 	TxtAl = false;
 	GrAl = false;
@@ -75,7 +75,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	Layout1 = new QHBoxLayout;
 	Layout1->setSpacing(5);
 	Layout1->setMargin(5);
-	PGSel = new PageSelector(this, MPage);
+	PGSel = new PageSelector(this, doc->DocPages.count());
 	PGSel->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, 0, 0, PGSel->sizePolicy().hasHeightForWidth() ) );
 	Layout1->addWidget(PGSel);
 

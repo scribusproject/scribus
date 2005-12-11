@@ -8227,8 +8227,6 @@ Page* ScribusView::addPage(int nr, bool mov)
 		return 0;
 	//Note this picks up the new page or master page depending on the mode.
 
-	disconnect(pageSelector, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
-	pageSelector->setMaxValue(Doc->pageCount);
 	reformPages(mov);
 	//CB is done in ScribusDoc::addPage();
 	/*
@@ -8249,9 +8247,7 @@ Page* ScribusView::addPage(int nr, bool mov)
 		Doc->RePos = savre;
 	}
 	*/
-	if ((!ScMW->ScriptRunning) && (!Doc->isLoading()) && (!Doc->masterPageMode()))
-		pageSelector->GotoPg(nr);
-	connect(pageSelector, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
+	setMenTxt(nr);
 	Mpressed = false;
 	Doc->DragP = false;
 	Doc->leaveDrag = false;
@@ -8267,17 +8263,6 @@ Page* ScribusView::addPage(int nr, bool mov)
 	MoveGX = false;
 	EditContour = false;
 	return fe;
-}
-
-/** Lscht eine Seite */
-void ScribusView::delPage(int Nr)
-{
-	if (!Doc->deletePage(Nr))
-		return;
-	disconnect(pageSelector, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
-	pageSelector->setMaxValue(Doc->pageCount);
-	pageSelector->GotoPg(0);
-	connect(pageSelector, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
 }
 
 void ScribusView::reformPages(bool moveObjects)
@@ -8323,7 +8308,7 @@ void ScribusView::setMenTxt(int Seite)
 	if (ScMW->ScriptRunning)
 		return;
 	disconnect(pageSelector, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
-	pageSelector->setMaxValue(Doc->pageCount);
+	pageSelector->setMaxValue(Doc->masterPageMode() ? 1 : Doc->Pages->count());
 	if ((!Doc->isLoading()) && (!Doc->masterPageMode()))
 		pageSelector->GotoPg(Seite);
 	connect(pageSelector, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
@@ -8505,12 +8490,7 @@ void ScribusView::GotoPage(int Seite)
 	Doc->currentPage = Doc->Pages->at(Seite);
 	if (ScMW->ScriptRunning)
 		return;
-	disconnect(pageSelector, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
-	SetCPo(qRound(Doc->currentPage->xOffset()-10), qRound(Doc->currentPage->yOffset()-10));
-	pageSelector->setMaxValue(Doc->pageCount);
-	if ((!Doc->isLoading()) && (!Doc->masterPageMode()))
-		pageSelector->GotoPg(Seite);
-	connect(pageSelector, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
+	setMenTxt(Seite);
 }
 
 void ScribusView::showMasterPage(int nr)
@@ -8518,7 +8498,6 @@ void ScribusView::showMasterPage(int nr)
 	Deselect(false);
 	OldScale = Scale;
 	Doc->setMasterPageMode(true);
-	Doc->pageCount = 1;
 	Doc->currentPage = Doc->Pages->at(nr);
 	pageSelector->setEnabled(false);
 	updateOn = false;
@@ -8534,7 +8513,6 @@ void ScribusView::showMasterPage(int nr)
 void ScribusView::hideMasterPage()
 {
 	Deselect(true);
-	Doc->pageCount = Doc->DocPages.count();
 	Doc->setMasterPageMode(false);
 	Doc->currentPage = Doc->Pages->at(0);
 	pageSelector->setEnabled(true);

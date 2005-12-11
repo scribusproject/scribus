@@ -39,7 +39,7 @@ class SCRIBUS_API Page : public UndoObject
 {
 public:
 	Page(const double x, const double y, const double b, const double h);
-	~Page() {};
+	~Page();
 	const double xOffset();
 	const double yOffset();
 	const double width();

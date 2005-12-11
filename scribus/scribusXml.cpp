@@ -1758,7 +1758,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 		DOC=DOC.nextSibling();
 	}
 	//doc->Pages = &doc->DocPages;
-	doc->pageCount = doc->Pages->count();
+	//doc->pageCount = doc->Pages->count();
 	//doc->Items = doc->DocItems;
 	doc->setMasterPageMode(false);
 	view->reformPages();

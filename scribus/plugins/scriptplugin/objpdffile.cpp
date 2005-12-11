@@ -298,7 +298,7 @@ static int PDFfile_init(PDFfile *self, PyObject */*args*/, PyObject */*kwds*/)
 	int num = 0;
 	// which one should I use ???
 	// new = ScMW->view->Pages.count()
-	num = ScMW->doc->pageCount;
+	num = ScMW->doc->Pages->count();
 	pages = PyList_New(num);
 	if (!pages){
 		PyErr_SetString(PyExc_SystemError, "Can not initialize 'pages' attribute");
@@ -355,7 +355,7 @@ static int PDFfile_init(PDFfile *self, PyObject */*args*/, PyObject */*kwds*/)
 	num = 0;
 	// which one should I use ???
 	// new = ScMW->view->Pages.count();
-	num = ScMW->doc->pageCount;
+	num = ScMW->doc->Pages->count();
 	effval = PyList_New(num);
 	if (!effval){
 		PyErr_SetString(PyExc_SystemError, "Can not initialize 'effval' attribute");
@@ -621,7 +621,7 @@ static int PDFfile_setpages(PDFfile *self, PyObject *value, void */*closure*/)
 			PyErr_SetString(PyExc_TypeError, "'pages' list must contain only integers.");
 			return -1;
 		}
-		if (PyInt_AsLong(tmp) > ScMW->doc->pageCount || PyInt_AsLong(tmp) < 1) {
+		if (PyInt_AsLong(tmp) > ScMW->doc->Pages->count() || PyInt_AsLong(tmp) < 1) {
 			PyErr_SetString(PyExc_ValueError, "'pages' value out of range.");
 			return -1;
 		}

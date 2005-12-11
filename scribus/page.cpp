@@ -43,6 +43,21 @@ Page::Page(const double x, const double y, const double b, const double h) :
 {
 }
 
+Page::~Page()
+{
+	// Clean up any modified template items (unused)
+	PageItem *currItem;
+	for (currItem = FromMaster.first(); currItem; currItem = FromMaster.next())
+	{
+		if (currItem->ChangedMasterItem)
+		{
+			FromMaster.remove(currItem);
+			delete currItem;
+		}
+	}
+	FromMaster.clear();
+}
+
 void Page::setPageNr(const int pageNr)
 {
 	m_pageNr = pageNr;

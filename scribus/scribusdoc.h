@@ -84,7 +84,8 @@ public:
 	// Add, delete and move pages
 	
 	Page* addPage(const int pageNumber, const QString& masterPageName=QString::null, const bool addAutoFrame=false);
-	bool deletePage(const int);
+	void deleteMasterPage(const int);
+	void deletePage(const int);
 	/**
 	 * @brief Add a master page with this function, do not use addPage
 	 */
@@ -556,7 +557,7 @@ public: // Public attributes
   /** Pageheight */
 	double pageHeight;
   /** Number of Pages */
-	int pageCount;
+	// int pageCount; Disabled CR no longer required
   /** Margins */
 	MarginStruct pageMargins;
 	QValueList<PageSet> pageSets;

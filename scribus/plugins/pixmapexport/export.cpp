@@ -85,6 +85,7 @@ void PixmapExportPlugin::deleteAboutData(const AboutData* about) const
 bool PixmapExportPlugin::run(QString target)
 {
 	Q_ASSERT(target.isEmpty());
+	Q_ASSERT(!ScMW->doc->masterPageMode());
 	bool res;
 	ExportBitmap *ex = new ExportBitmap();
 	ExportForm *dia = new ExportForm(ScMW, ex->pageDPI, ex->quality, ex->bitmapType);
@@ -108,9 +109,9 @@ bool PixmapExportPlugin::run(QString target)
 		else
 		{
 			if (dia->AllPagesRadio->isChecked())
-				parsePagesString("*", &pageNs, ScMW->doc->pageCount);
+				parsePagesString("*", &pageNs, ScMW->doc->DocPages.count());
 			else
-				parsePagesString(dia->RangeVal->text(), &pageNs, ScMW->doc->pageCount);
+				parsePagesString(dia->RangeVal->text(), &pageNs, ScMW->doc->DocPages.count());
 			res = ex->exportInterval(pageNs);
 		}
 		ScMW->mainWindowProgressBar->reset();

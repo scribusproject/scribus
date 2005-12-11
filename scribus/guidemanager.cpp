@@ -663,7 +663,7 @@ void GuideManager::refreshWholeDoc()
 {
 	int origPage = ScMW->doc->currentPage->pageNr();
 
-	for (int i = 0; i < ScMW->doc->pageCount; ++i)
+	for (int i = 0; i < ScMW->doc->Pages->count(); ++i)
 	{
 		ScMW->view->GotoPage(i);
 		ScMW->doc->currentPage->addXGuides(verticalGuides);

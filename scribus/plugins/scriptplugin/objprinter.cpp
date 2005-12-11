@@ -202,7 +202,7 @@ static int Printer_init(Printer *self, PyObject */*args*/, PyObject */*kwds*/)
 	if (ScMW->HaveDoc)
 		// which one should I use ???
 		// new = ScMW->view->Pages.count()
-		num = ScMW->doc->pageCount;
+		num = ScMW->doc->Pages->count();
 	pages = PyList_New(num);
 	if (pages){
 		Py_DECREF(self->pages);
@@ -361,7 +361,7 @@ static int Printer_setpages(Printer *self, PyObject *value, void */*closure*/)
 			PyErr_SetString(PyExc_TypeError, "'pages' attribute must be list containing only integers.");
 			return -1;
 		}
-		if (PyInt_AsLong(tmp) > ScMW->doc->pageCount || PyInt_AsLong(tmp) < 1) {
+		if (PyInt_AsLong(tmp) > ScMW->doc->Pages->count() || PyInt_AsLong(tmp) < 1) {
 			PyErr_SetString(PyExc_ValueError, "'pages' value out of range.");
 			return -1;
 		}

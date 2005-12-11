@@ -148,8 +148,6 @@ public:
 	};
 	static const uint moveWithFullOutlinesThreshold = 21;
 	static const uint moveWithBoxesOnlyThreshold = 41;
-  /** Deletes a Page */
-	void delPage(int Nr);
 	void reformPages(bool moveObjects = true);
 	void updateLayerMenu();
 	void showMasterPage(int nr);

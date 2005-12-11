@@ -674,8 +674,8 @@ void PagePalette::RebuildPage()
 	int counter, rowcounter, colmult, rowmult, coladd,rowadd;
 	counter = currView->Doc->pageSets[currView->Doc->currentPageLayout].FirstPage;
 	int cols = currView->Doc->pageSets[currView->Doc->currentPageLayout].Columns;
-	int rows = (currView->Doc->pageCount+counter) / currView->Doc->pageSets[currView->Doc->currentPageLayout].Columns;
-	if (((currView->Doc->pageCount+counter) % currView->Doc->pageSets[currView->Doc->currentPageLayout].Columns) != 0)
+	int rows = (currView->Doc->Pages->count()+counter) / currView->Doc->pageSets[currView->Doc->currentPageLayout].Columns;
+	if (((currView->Doc->Pages->count()+counter) % currView->Doc->pageSets[currView->Doc->currentPageLayout].Columns) != 0)
 		rows++;
 	rowcounter = 0;
 	if (cols == 1)

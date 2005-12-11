@@ -95,7 +95,8 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 	MasterNames(),
 	Items(0), MasterItems(), DocItems(), FrameItems(),
 	selection(new Selection()),
-	pageWidth(0), pageHeight(0), pageCount(0),
+	pageWidth(0), pageHeight(0),
+	// pageCount(0) CR
 	// pageMargins
 	pageSets(prefsData.pageSets),
 	PageSp(1), PageSpa(0),
@@ -873,7 +874,7 @@ void ScribusDoc::addSymbols()
 Page* ScribusDoc::addPage(const int pageIndex, const QString& masterPageName, const bool addAutoFrame)
 {
 	Q_ASSERT(masterPageMode()==false);
-	Page* addedPage = new Page(ScratchLeft, pageCount*(pageHeight+ScratchBottom+ScratchTop)+ScratchTop, pageWidth, pageHeight);
+	Page* addedPage = new Page(ScratchLeft, DocPages.count()*(pageHeight+ScratchBottom+ScratchTop)+ScratchTop, pageWidth, pageHeight);
 	Q_ASSERT(addedPage!=NULL);
 	addedPage->Margins.Top = pageMargins.Top;
 	addedPage->Margins.Bottom = pageMargins.Bottom;
@@ -893,14 +894,13 @@ Page* ScribusDoc::addPage(const int pageIndex, const QString& masterPageName, co
 	setLocationBasedPageLRMargins(pageIndex);
 	if (addAutoFrame && automaticTextFrames)
 		addAutomaticTextFrame(pageIndex);
-	++pageCount;
 	return addedPage;
 }
 
 Page* ScribusDoc::addMasterPage(const int pageNumber, const QString& pageName)
 {
 	//CB We dont create master pages (yet) with a pageCount based location
-	//Page* addedPage = new Page(ScratchLeft, pageCount*(pageHeight+ScratchBottom+ScratchTop)+ScratchTop, pageWidth, pageHeight);
+	//Page* addedPage = new Page(ScratchLeft, MasterPages.count()*(pageHeight+ScratchBottom+ScratchTop)+ScratchTop, pageWidth, pageHeight);
 	Page* addedPage = new Page(ScratchLeft, ScratchTop, pageWidth, pageHeight);
 	Q_ASSERT(addedPage!=NULL);
 	addedPage->Margins.Top = pageMargins.Top;
@@ -922,45 +922,29 @@ Page* ScribusDoc::addMasterPage(const int pageNumber, const QString& pageName)
 	return addedPage;
 }
 
-bool ScribusDoc::deletePage(const int pageNumber)
+void ScribusDoc::deleteMasterPage(const int pageNumber)
 {
-	if (pageCount == 1)
-		return false;
-	if (pageCount < pageNumber-1)
-		return false;
-	Page* Seite = Pages->at(pageNumber);
-	PageItem *currItem;
-	for (currItem = Seite->FromMaster.first(); currItem; currItem = Seite->FromMaster.next())
-	{
-		if (currItem->ChangedMasterItem)
-		{
-			Seite->FromMaster.remove(currItem);
-			delete currItem;
-		}
-	}
-	Seite->FromMaster.clear();
+	Q_ASSERT( Pages->count() > 1 && Pages->count() > pageNumber );
+	Page* page = Pages->at(pageNumber);
 	Pages->remove(pageNumber);
-	delete Seite;
-	--pageCount;
-	currentPage = Pages->at(0);
-	if (masterPageMode())
+	delete page;
+	// remove the master page from the master page name list
+	MasterNames.remove(page->PageNam);
+	// and fix up any pages that refer to the deleted master page
+	for (Page* docPage = DocPages.first(); docPage; docPage = DocPages.next() )
 	{
-		// remove the master page from the master page name list
-		bool found = false;
-		QMap<QString,int>::iterator it(MasterNames.begin());
-		QMap<QString,int>::iterator itEnd(MasterNames.end());
-		for ( ; it != itEnd; ++it )
-		{
-			if (it.data() == pageNumber)
-			{
-				MasterNames.remove(it);
-				found = true;
-				break;
-			}
-		}
-		Q_ASSERT(found);
+		if (docPage->MPageNam == page->PageNam)
+			docPage->MPageNam = "Normal";
 	}
-	return true;
+}
+
+void ScribusDoc::deletePage(const int pageNumber)
+{
+	Q_ASSERT( Pages->count() > 1 && Pages->count() > pageNumber );
+	Page* page = Pages->at(pageNumber);
+	Pages->remove(pageNumber);
+	delete page;
+	currentPage = Pages->at(0);
 }
 
 void ScribusDoc::movePage(const int from, const int to, const int ziel, const int art)
@@ -2075,7 +2059,7 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 	int GrMax = GroupCounter;
 	Page* sourcePage = Pages->at(pageNumber);
 	int nr = MasterPages.count();
-	pageCount = 0;
+	//pageCount = 0;
 	Page* targetPage=addMasterPage(nr, masterPageName);
 	Q_ASSERT(targetPage!=NULL);
 	setLoading(true);
@@ -2179,7 +2163,6 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 	GroupCounter = GrMax + 1;
 	//Reset the current page.. 
 	setMasterPageMode(false);
-	pageCount = DocPages.count();
 	currentPage=sourcePage;
 	return true;
 }
@@ -2900,13 +2883,11 @@ void ScribusDoc::setMasterPageMode(const bool changeToMasterPageMode)
 	{
 		Pages=&MasterPages;
 		Items=&MasterItems;
-		pageCount = MasterPages.count();
 	}
 	else
 	{
 		Pages=&DocPages;
 		Items=&DocItems;
-		pageCount = DocPages.count();
 	}
 	m_masterPageMode=changeToMasterPageMode;
 }

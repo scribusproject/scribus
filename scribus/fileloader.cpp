@@ -1461,7 +1461,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 				{
 					Apage = doc->addPage(a);
 					//doc->DocPages = doc->Pages;
-					++doc->pageCount;
+					//++doc->pageCount;
 				}
 				else
 				{
@@ -1701,7 +1701,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 	doc->setActiveLayer(layerToSetActive);
 	//doc->Pages = &doc->DocPages;
 	doc->setMasterPageMode(false);
-	doc->pageCount = doc->Pages->count();
+	//doc->pageCount = doc->Pages->count();
 	//doc->Items = doc->DocItems;
 	//ScMW->view->reformPages();
 	doc->reformPages(maximumX, maximumY);
