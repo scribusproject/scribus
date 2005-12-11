@@ -2883,11 +2883,13 @@ void ScribusDoc::setMasterPageMode(const bool changeToMasterPageMode)
 	{
 		Pages=&MasterPages;
 		Items=&MasterItems;
+		pageCount = MasterPages.count();
 	}
 	else
 	{
 		Pages=&DocPages;
 		Items=&DocItems;
+		pageCount = DocPages.count();
 	}
 	m_masterPageMode=changeToMasterPageMode;
 }
