@@ -82,6 +82,7 @@ ApplyMasterPageDialog::ApplyMasterPageDialog( QWidget* parent, const char* name,
 	rangeLayout = new QHBoxLayout( 0, 0, 6, "rangeLayout");
 
 	useRangeCheckBox = new QCheckBox( applyToPageButtonGroup, "useRangeCheckBox" );
+	useRangeCheckBox->setEnabled( false );	
 	rangeLayout->addWidget( useRangeCheckBox );
 
 	fromPageSpinBox = new QSpinBox( applyToPageButtonGroup, "fromPageSpinBox" );
