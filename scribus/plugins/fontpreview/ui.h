@@ -16,6 +16,8 @@ class QSpinBox;
 class QSpacerItem;
 class QLineEdit;
 class PrefsContext;
+class SampleItem;
+
 
 class FontPreview : public QDialog
 {
@@ -63,6 +65,7 @@ protected:
 	/*! Setup fontList by search string.
 	If the search string is empty list all fonts */
 	void updateFontList(QString);
+	SampleItem *sampleItem;
 
 protected slots:
 	/** tr() */

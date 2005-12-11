@@ -161,6 +161,7 @@ scribus_SOURCES = \
 	rc4.c	\
 	reformdoc.cpp	\
 	rulermover.cpp	\
+	sampleitem.cpp \
 	sccolor.cpp	\
 	sccombobox.cpp	\
 	scfonts.cpp	\
@@ -214,7 +215,7 @@ scribus_SOURCES = \
 	scribus.cpp	\
 	scribusapp.cpp	\
 	main.cpp
-	
+
 #	NOTE we have no conditional for this file yet, as Makefile.am is not used on win32 VCC.
 #	main_win32.cpp. Needs to be enabled in the future for mingw compilation
 
@@ -368,6 +369,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/rc4.h                         $(prefix)/include/scribus/rc4.h
 	$(INSTALL_DATA) $(srcdir)/rulermover.h                  $(prefix)/include/scribus/rulermover.h
 	$(INSTALL_DATA) $(srcdir)/reformdoc.h                   $(prefix)/include/scribus/reformdoc.h
+	$(INSTALL_DATA) $(srcdir)/sampleitem.h                     $(prefix)/include/scribus/sampleitem.h
 	$(INSTALL_DATA) $(srcdir)/sccolor.h                     $(prefix)/include/scribus/sccolor.h
 	$(INSTALL_DATA) $(srcdir)/scfonts.h                     $(prefix)/include/scribus/scfonts.h
 	$(INSTALL_DATA) $(srcdir)/scfonts_ttf.h                 $(prefix)/include/scribus/scfonts_ttf.h
@@ -551,6 +553,7 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/rc4.h
 	-rm -f $(prefix)/include/scribus/rulermover.h
 	-rm -f $(prefix)/include/scribus/reformdoc.h
+	-rm -f $(prefix)/include/scribus/sampleitem.h
 	-rm -f $(prefix)/include/scribus/sccolor.h
 	-rm -f $(prefix)/include/scribus/scfonts.h
 	-rm -f $(prefix)/include/scribus/scfonts_ttf.h

@@ -23,7 +23,7 @@
 class ScribusDoc;
 class StyleSelect;
 class Tabruler;
-class PageItem_TextFrame;
+class SampleItem;
 
 
 /*! \brief GUI dialog for Paragraph Style setting.
@@ -35,7 +35,7 @@ class SCRIBUS_API EditStyle : public QDialog
 public:
 	EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<ParagraphStyle> v, bool neu,
 	           double au, int dEin, ScribusDoc *doc);
-	~EditStyle() {};
+	~EditStyle();
 
 	QLabel* TextLabel1;
 	QLabel* TextLabel1_2_2;
@@ -90,10 +90,6 @@ public:
 	QCheckBox *previewCaption;
 	//! \brief Preview background
 	QPushButton *previewBgColor;
-	//! \brief sample text for preview
-	QString lorem;
-	//! \brief sample text frame
-	PageItem *previewItem;
 	//! \brief Reference to the own ScribusDoc (preferences etc.) 12/30/2004 petr vanek
 	ScribusDoc *parentDoc;
 
@@ -118,6 +114,9 @@ private slots:
 	void setPreviewBackground();
 
 protected:
+	/*! \brief sample pixmap generator */
+	SampleItem *sampleItem;
+
 	QHBoxLayout* Layout17;
 	QHBoxLayout* layout5;
 	QHBoxLayout* layout6;

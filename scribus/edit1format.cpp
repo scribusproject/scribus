@@ -12,8 +12,6 @@
 #include "commonstrings.h"
 #include "scribusdoc.h"
 #include "styleselect.h"
-#include "pageitem.h"
-#include "pageitem_textframe.h"
 #include "scribusdoc.h"
 #include "scribusstructs.h"
 #include "scpaths.h"
@@ -21,6 +19,7 @@
 #include "util.h"
 #include "loremipsum.h"
 #include "prefsmanager.h"
+#include "sampleitem.h"
 
 
 EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<ParagraphStyle> v, bool neu, double au, int dEin, ScribusDoc *doc)
@@ -32,6 +31,9 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	setIcon(loadIcon("AppIcon.png"));
 	AutoVal = au;
 	DocsEin = dEin;
+
+	sampleItem = new SampleItem(parent);
+	sampleItem->setLoremIpsum(2);
 
 	EditStyleLayout = new QVBoxLayout( this, 10, 5, "EditStyleLayout");
 
@@ -314,14 +316,6 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 
 	EditStyleLayout->addLayout(layoutPreview);
 
-	// preview setting - reading first paragraphs from LoremIpsum.txt etc.
-	previewItem = new PageItem_TextFrame(parentDoc, 0, 0, previewText->width(), previewText->height(), 0, "None", parentDoc->toolSettings.dPenText);
-	previewItem->FrameType = PageItem::TextFrame;
-	LoremParser *m = new LoremParser("loremipsum.xml");
-	lorem = m->createLorem(3);
-	lorem = QString::fromUtf8(lorem);
-	delete m;
-
 	Layout17 = new QHBoxLayout;
 	Layout17->setSpacing( 6 );
 	Layout17->setMargin( 0 );
@@ -406,6 +400,11 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	ColorChange();
 	togglePreview();
 	qApp->restoreOverrideCursor();
+}
+
+EditStyle::~EditStyle()
+{
+	delete sampleItem;
 }
 
 void EditStyle::toggleLsp(int id)
@@ -544,16 +543,7 @@ void EditStyle::updatePreview()
 	if (!previewCaption->isChecked())
 		return;
 	qApp->setOverrideCursor(QCursor(waitCursor));
-	int x = previewText->width();
-	int y = previewText->height();
-	QPixmap pm(x, y);
-	ScPainter *painter = new ScPainter(&pm, x, y, 0, 0);
-	painter->clear(previewText->paletteBackgroundColor());
-	pm.fill(previewText->paletteBackgroundColor());
-	previewText->clear();
 
-	double sca = ScMW->view->getScale();
-	ScMW->view->setScale(1.0);
 	ParagraphStyle tmpStyle;
 	tmpStyle.Vname = Name->text() + " (preview temporary)";
 	tmpStyle.FontEffect = EffeS->getStyle();
@@ -596,56 +586,9 @@ void EditStyle::updatePreview()
 	tmpStyle.scaleV = qRound(fontVScale->value() * 10.0);
 	tmpStyle.baseOff = qRound(fontBase->value() * 10.0);
 	tmpStyle.kernVal = qRound(fontKern->value() * 10.0);
-
-//	QFont fo = QFont(FontC->currentFont());
-//	fo.setPointSize(qRound(parentDoc->toolSettings.defSize / 10.0));
-	parentDoc->AddFont(FontC->currentFont(), qRound(parentDoc->toolSettings.defSize / 10.0));
-	parentDoc->docParagraphStyles.append(tmpStyle);
-	int tmpIndex = parentDoc->docParagraphStyles.count() - 1;
-	previewItem->itemText.clear();
-	previewItem->IFont = FontC->currentFont();
-	previewItem->Cols = 1;
-	for (uint i = 0; i < lorem.length(); ++i)
-	{
-		ScText *hg = new ScText;
-		hg->ch = lorem.at(i);
-		if ((hg->ch == QChar(10)) || (hg->ch == QChar(5)))
-			hg->ch = QChar(13);
-		hg->cfont = (*parentDoc->AllFonts)[FontC->currentFont()];
-		hg->csize = tmpStyle.FontSize;
-		hg->ccolor = tmpStyle.FColor;
-		hg->cshade = tmpStyle.FShade;
-		hg->cstroke = tmpStyle.SColor;
-		hg->cshade2 = tmpStyle.SShade;
-		hg->cscale = tmpStyle.scaleH;
-		hg->cscalev = tmpStyle.scaleV;
-		hg->cbase = tmpStyle.baseOff;
-		hg->cshadowx = tmpStyle.txtShadowX;
-		hg->cshadowy = tmpStyle.txtShadowY;
-		hg->coutline = tmpStyle.txtOutline;
-		hg->cunderpos = tmpStyle.txtUnderPos;
-		hg->cunderwidth = tmpStyle.txtUnderWidth;
-		hg->cstrikepos = tmpStyle.txtStrikePos;
-		hg->cstrikewidth = tmpStyle.txtStrikeWidth;
-		hg->cselect = false;
-		hg->cstyle = tmpStyle.FontEffect;
-		hg->cab = tmpIndex;
-		hg->cextra = tmpStyle.kernVal;
-		hg->xp = 0;
-		hg->yp = 0;
-		hg->PRot = 0;
-		hg->PtransX = 0;
-		hg->PtransY = 0;
-		hg->cembedded = 0;
-		previewItem->itemText.append(hg);
-	}
-
-	previewItem->DrawObj(painter, QRect(0, 0, x, y));
-	painter->end();
+	sampleItem->setStyle(tmpStyle);
+	QPixmap pm = sampleItem->getSample(previewText->width(), previewText->height());
 	previewText->setPixmap(pm);
-	delete(painter);
-	ScMW->view->setScale(sca);
-	parentDoc->docParagraphStyles.remove(parentDoc->docParagraphStyles.fromLast());
 	qApp->restoreOverrideCursor();
 }
 
@@ -656,6 +599,7 @@ void EditStyle::setPreviewBackground()
 	if (bg.isValid())
 	{
 		previewText->setPaletteBackgroundColor(bg);
+		sampleItem->setBgColor(bg);
 		updatePreview();
 	}
 }

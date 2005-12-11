@@ -16,6 +16,8 @@
 #include "prefsmanager.h"
 #include "scfontmetrics.h"
 #include "selection.h"
+#include "sampleitem.h"
+
 
 extern QPixmap SCRIBUS_API loadIcon(QString nam);
 
@@ -36,6 +38,9 @@ FontPreview::FontPreview(QString fontName)
 	sortColumn = prefs->getUInt("sortColumn", 0);
 	xsize = prefs->getUInt("xsize", 640);
 	ysize = prefs->getUInt("ysize", 480);
+	sampleItem = new SampleItem(this);
+	sampleItem->setBgColor(QColor(255, 255, 255));
+	sampleItem->setText(tr("Woven silk pyjamas exchanged for blue quartz", "font preview"));
 
 	FontPreviewLayout = new QGridLayout(this, 1, 1, 10, 5, "FontPreviewLayout");
 	mainLayout = new QVBoxLayout( 0, 0, 5, "mainLayout");
@@ -145,6 +150,7 @@ FontPreview::~FontPreview()
    prefs->set("xsize", width());
    prefs->set("ysize", height());
    prefs->set("fontSize", sizeSpin->value());
+   delete sampleItem;
 }
 
 /**
@@ -172,10 +178,11 @@ void FontPreview::languageChange()
  */
 void FontPreview::fontList_changed()
 {
-	QString t = tr("Woven silk pyjamas exchanged for blue quartz", "font preview");
-	t.replace('\n', " "); // remove French <NL> from translation...
 	QListViewItem *item = fontList->currentItem();
-	QPixmap pixmap = FontSample(PrefsManager::instance()->appPrefs.AvailFonts[item->text(0)], sizeSpin->value(), t, white /*paletteBackgroundColor()*/);
+	sampleItem->setFontSize(sizeSpin->value() * 10);
+	sampleItem->setLineSpa((sizeSpin->value()  * ScMW->doc->typographicSettings.autoLineSpacing / 100) + sizeSpin->value());
+	sampleItem->setFont(item->text(0));
+	QPixmap pixmap = sampleItem->getSample(fontPreview->width(), fontPreview->height());
 	fontPreview->clear();
 	if (!pixmap.isNull())
 		fontPreview->setPixmap(pixmap);
