@@ -403,8 +403,8 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 		glp += tmp.setNum((*nx)) + " ";
 	ob->setAttribute("GROUPS", glp);
 	ob->setAttribute("LANGUAGE", item->Language);
-	ob->setAttribute("startArrowIndex", item->startArrowIndex);
-	ob->setAttribute("endArrowIndex", item->endArrowIndex);
+	ob->setAttribute("startArrowIndex", item->startArrowIndex());
+	ob->setAttribute("endArrowIndex", item->endArrowIndex());
 }
 
 bool ScriXmlDoc::ReadLStyles(QString fileName, QMap<QString,multiLine> *Sty)
@@ -2362,17 +2362,19 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, int selectionL
 	for (uint co=0; co<doc->selection->count(selectionListNumber); ++co)
 	{
 		item = doc->Items->at(ELL[co]);
-		if (item->startArrowIndex != 0)
+		int startIndex = item->startArrowIndex();
+		int endIndex = item->endArrowIndex();
+		if (startIndex != 0)
 		{
-			arrow.points = (*doc->arrowStyles.at(item->startArrowIndex-1)).points.copy();
-			arrow.name = (*doc->arrowStyles.at(item->startArrowIndex-1)).name;
-			usedArrows.insert(item->startArrowIndex, arrow);
+			arrow.points = (*doc->arrowStyles.at(startIndex-1)).points.copy();
+			arrow.name = (*doc->arrowStyles.at(startIndex-1)).name;
+			usedArrows.insert(startIndex, arrow);
 		}
-		if (item->endArrowIndex != 0)
+		if (endIndex != 0)
 		{
-			arrow.points = (*doc->arrowStyles.at(item->endArrowIndex-1)).points.copy();
-			arrow.name = (*doc->arrowStyles.at(item->endArrowIndex-1)).name;
-			usedArrows.insert(item->endArrowIndex, arrow);
+			arrow.points = (*doc->arrowStyles.at(endIndex-1)).points.copy();
+			arrow.name = (*doc->arrowStyles.at(endIndex-1)).name;
+			usedArrows.insert(endIndex, arrow);
 		}
 	}
 	if (usedArrows.count() != 0)

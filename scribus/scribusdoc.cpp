@@ -2892,11 +2892,6 @@ void ScribusDoc::setMasterPageMode(const bool changeToMasterPageMode)
 	m_masterPageMode=changeToMasterPageMode;
 }
 
-bool ScribusDoc::masterPageMode() const
-{
-	return m_masterPageMode;
-}
-
 void ScribusDoc::addSection(const int number, const QString& name, const uint fromindex, const uint toindex, const DocumentSectionType type, const uint sectionstartindex, const bool reversed, const bool active)
 {
 	struct DocumentSection newSection;

@@ -76,10 +76,10 @@ void PageItem_Line::DrawObj_Item(ScPainter *p)
 				p->drawLine(FPoint(0, 0), FPoint(Width, 0));
 			}
 		}
-		if (startArrowIndex != 0)
+		if (m_startArrowIndex != 0)
 		{
 			QWMatrix arrowTrans;
-			FPointArray arrow = (*Doc->arrowStyles.at(startArrowIndex-1)).points.copy();
+			FPointArray arrow = (*Doc->arrowStyles.at(m_startArrowIndex-1)).points.copy();
 			arrowTrans.translate(0, 0);
 			arrowTrans.scale(Pwidth, Pwidth);
 			arrowTrans.scale(-1,1);
@@ -91,10 +91,10 @@ void PageItem_Line::DrawObj_Item(ScPainter *p)
 			p->setupPolygon(&arrow);
 			p->fillPath();
 		}
-		if (endArrowIndex != 0)
+		if (m_endArrowIndex != 0)
 		{
 			QWMatrix arrowTrans;
-			FPointArray arrow = (*Doc->arrowStyles.at(endArrowIndex-1)).points.copy();
+			FPointArray arrow = (*Doc->arrowStyles.at(m_endArrowIndex-1)).points.copy();
 			arrowTrans.translate(Width, 0);
 			arrowTrans.scale(Pwidth, Pwidth);
 			arrow.map(arrowTrans);

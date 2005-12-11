@@ -1592,10 +1592,10 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					putColor(ml[it].Color, ml[it].Shade, false);
 				}
 			}
-			if (c->startArrowIndex != 0)
+			if (c->startArrowIndex() != 0)
 			{
 				QWMatrix arrowTrans;
-				FPointArray arrow = (*Doc->arrowStyles.at(c->startArrowIndex-1)).points.copy();
+				FPointArray arrow = (*Doc->arrowStyles.at(c->startArrowIndex()-1)).points.copy();
 				arrowTrans.translate(0, 0);
 				arrowTrans.scale(c->Pwidth, c->Pwidth);
 				arrowTrans.scale(-1,1);
@@ -1607,10 +1607,10 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				PS_closepath();
 				putColor(c->lineColor(), c->lineShade(), true);
 			}
-			if (c->endArrowIndex != 0)
+			if (c->endArrowIndex() != 0)
 			{
 				QWMatrix arrowTrans;
-				FPointArray arrow = (*Doc->arrowStyles.at(c->endArrowIndex-1)).points.copy();
+				FPointArray arrow = (*Doc->arrowStyles.at(c->endArrowIndex()-1)).points.copy();
 				arrowTrans.translate(c->width(), 0);
 				arrowTrans.scale(c->Pwidth, c->Pwidth);
 				arrow.map(arrowTrans);
@@ -1696,7 +1696,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					}
 				}
 			}
-			if (c->startArrowIndex != 0)
+			if (c->startArrowIndex() != 0)
 			{
 				FPoint Start = c->PoLine.point(0);
 				for (uint xx = 1; xx < c->PoLine.size(); xx += 2)
@@ -1706,7 +1706,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					{
 						double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
 						QWMatrix arrowTrans;
-						FPointArray arrow = (*Doc->arrowStyles.at(c->startArrowIndex-1)).points.copy();
+						FPointArray arrow = (*Doc->arrowStyles.at(c->startArrowIndex()-1)).points.copy();
 						arrowTrans.translate(Start.x(), Start.y());
 						arrowTrans.rotate(r);
 						arrowTrans.scale(c->Pwidth, c->Pwidth);
@@ -1721,7 +1721,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					}
 				}
 			}
-			if (c->endArrowIndex != 0)
+			if (c->endArrowIndex() != 0)
 			{
 				FPoint End = c->PoLine.point(c->PoLine.size()-2);
 				for (uint xx = c->PoLine.size()-1; xx > 0; xx -= 2)
@@ -1731,7 +1731,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					{
 						double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
 						QWMatrix arrowTrans;
-						FPointArray arrow = (*Doc->arrowStyles.at(c->endArrowIndex-1)).points.copy();
+						FPointArray arrow = (*Doc->arrowStyles.at(c->endArrowIndex()-1)).points.copy();
 						arrowTrans.translate(End.x(), End.y());
 						arrowTrans.rotate(r);
 						arrowTrans.scale(c->Pwidth, c->Pwidth);

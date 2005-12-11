@@ -4883,8 +4883,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				currItem->setLineEnd(Doc->ElemToLink->lineEnd());
 				currItem->setLineJoin(Doc->ElemToLink->lineJoin());
 				currItem->setCustomLineStyle(Doc->ElemToLink->customLineStyle());
-				currItem->setEndArrowIndex(Doc->ElemToLink->getEndArrowIndex());
-				currItem->setStartArrowIndex(Doc->ElemToLink->getStartArrowIndex());
+				currItem->setEndArrowIndex(Doc->ElemToLink->endArrowIndex());
+				currItem->setStartArrowIndex(Doc->ElemToLink->startArrowIndex());
 				currItem->setFillColor(Doc->ElemToLink->fillColor());
 				currItem->setFillShade(Doc->ElemToLink->fillShade());
 				currItem->setFillTransparency(Doc->ElemToLink->fillTransparency());
@@ -10921,8 +10921,8 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	currItem->LeftLinkID = Buffer->LeftLinkID;
 	currItem->RightLinkID = Buffer->RightLinkID;
 	currItem->BottomLinkID = Buffer->BottomLinkID;
-	currItem->startArrowIndex = Buffer->startArrowIndex;
-	currItem->endArrowIndex = Buffer->endArrowIndex;
+	currItem->setStartArrowIndex(Buffer->startArrowIndex);
+	currItem->setEndArrowIndex(Buffer->endArrowIndex);
 	if (!Buffer->AnName.isEmpty())
 	{
 		if (!drag)

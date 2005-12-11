@@ -1279,10 +1279,10 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 								PutPage("S\n");
 							}
 						}
-						if (ite->startArrowIndex != 0)
+						if (ite->startArrowIndex() != 0)
 						{
 							QWMatrix arrowTrans;
-							FPointArray arrow = (*doc->arrowStyles.at(ite->startArrowIndex-1)).points.copy();
+							FPointArray arrow = (*doc->arrowStyles.at(ite->startArrowIndex()-1)).points.copy();
 							arrowTrans.translate(0, 0);
 							arrowTrans.scale(ite->Pwidth, ite->Pwidth);
 							arrowTrans.scale(-1,1);
@@ -1305,10 +1305,10 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 							PutPage(SetClipPathArray(&arrow));
 							PutPage("h\nf*\n");
 						}
-						if (ite->endArrowIndex != 0)
+						if (ite->endArrowIndex() != 0)
 						{
 							QWMatrix arrowTrans;
-							FPointArray arrow = (*doc->arrowStyles.at(ite->endArrowIndex-1)).points.copy();
+							FPointArray arrow = (*doc->arrowStyles.at(ite->endArrowIndex()-1)).points.copy();
 							arrowTrans.translate(ite->width(), 0);
 							arrowTrans.scale(ite->Pwidth, ite->Pwidth);
 							arrow.map(arrowTrans);
@@ -1395,7 +1395,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 								}
 							}
 						}
-						if (ite->startArrowIndex != 0)
+						if (ite->startArrowIndex() != 0)
 						{
 							FPoint Start = ite->PoLine.point(0);
 							for (uint xx = 1; xx < ite->PoLine.size(); xx += 2)
@@ -1405,7 +1405,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 								{
 									double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
 									QWMatrix arrowTrans;
-									FPointArray arrow = (*doc->arrowStyles.at(ite->startArrowIndex-1)).points.copy();
+									FPointArray arrow = (*doc->arrowStyles.at(ite->startArrowIndex()-1)).points.copy();
 									arrowTrans.translate(Start.x(), Start.y());
 									arrowTrans.rotate(r);
 									arrowTrans.scale(ite->Pwidth, ite->Pwidth);
@@ -1431,7 +1431,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 								}
 							}
 						}
-						if (ite->endArrowIndex != 0)
+						if (ite->endArrowIndex() != 0)
 						{
 							FPoint End = ite->PoLine.point(ite->PoLine.size()-2);
 							for (uint xx = ite->PoLine.size()-1; xx > 0; xx -= 2)
@@ -1441,7 +1441,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 								{
 									double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
 									QWMatrix arrowTrans;
-									FPointArray arrow = (*doc->arrowStyles.at(ite->endArrowIndex-1)).points.copy();
+									FPointArray arrow = (*doc->arrowStyles.at(ite->endArrowIndex()-1)).points.copy();
 									arrowTrans.translate(End.x(), End.y());
 									arrowTrans.rotate(r);
 									arrowTrans.scale(ite->Pwidth, ite->Pwidth);
@@ -2364,10 +2364,10 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, Page* pag, uint PNr, bool embedde
 					tmp += "S\n";
 				}
 			}
-			if (ite->startArrowIndex != 0)
+			if (ite->startArrowIndex() != 0)
 			{
 				QWMatrix arrowTrans;
-				FPointArray arrow = (*doc->arrowStyles.at(ite->startArrowIndex-1)).points.copy();
+				FPointArray arrow = (*doc->arrowStyles.at(ite->startArrowIndex()-1)).points.copy();
 				arrowTrans.translate(0, 0);
 				arrowTrans.scale(ite->Pwidth, ite->Pwidth);
 				arrowTrans.scale(-1,1);
@@ -2390,10 +2390,10 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, Page* pag, uint PNr, bool embedde
 				tmp += SetClipPathArray(&arrow);
 				tmp += "h\nf*\n";
 			}
-			if (ite->endArrowIndex != 0)
+			if (ite->endArrowIndex() != 0)
 			{
 				QWMatrix arrowTrans;
-				FPointArray arrow = (*doc->arrowStyles.at(ite->endArrowIndex-1)).points.copy();
+				FPointArray arrow = (*doc->arrowStyles.at(ite->endArrowIndex()-1)).points.copy();
 				arrowTrans.translate(ite->width(), 0);
 				arrowTrans.scale(ite->Pwidth, ite->Pwidth);
 				arrow.map(arrowTrans);
@@ -2480,7 +2480,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, Page* pag, uint PNr, bool embedde
 					}
 				}
 			}
-			if (ite->startArrowIndex != 0)
+			if (ite->startArrowIndex() != 0)
 			{
 				FPoint Start = ite->PoLine.point(0);
 				for (uint xx = 1; xx < ite->PoLine.size(); xx += 2)
@@ -2490,7 +2490,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, Page* pag, uint PNr, bool embedde
 					{
 						double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
 						QWMatrix arrowTrans;
-						FPointArray arrow = (*doc->arrowStyles.at(ite->startArrowIndex-1)).points.copy();
+						FPointArray arrow = (*doc->arrowStyles.at(ite->startArrowIndex()-1)).points.copy();
 						arrowTrans.translate(Start.x(), Start.y());
 						arrowTrans.rotate(r);
 						arrowTrans.scale(ite->Pwidth, ite->Pwidth);
@@ -2516,7 +2516,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, Page* pag, uint PNr, bool embedde
 					}
 				}
 			}
-			if (ite->endArrowIndex != 0)
+			if (ite->endArrowIndex() != 0)
 			{
 				FPoint End = ite->PoLine.point(ite->PoLine.size()-2);
 				for (uint xx = ite->PoLine.size()-1; xx > 0; xx -= 2)
@@ -2526,7 +2526,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, Page* pag, uint PNr, bool embedde
 					{
 						double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
 						QWMatrix arrowTrans;
-						FPointArray arrow = (*doc->arrowStyles.at(ite->endArrowIndex-1)).points.copy();
+						FPointArray arrow = (*doc->arrowStyles.at(ite->endArrowIndex()-1)).points.copy();
 						arrowTrans.translate(End.x(), End.y());
 						arrowTrans.rotate(r);
 						arrowTrans.scale(ite->Pwidth, ite->Pwidth);

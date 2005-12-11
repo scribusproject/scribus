@@ -53,7 +53,7 @@ class SCRIBUS_API PageItem : public QObject, public UndoObject
 	Q_OBJECT
 
 	// Properties - see http://doc.trolltech.com/3.3/properties.html
-	// See the getters and setters of these properties for details on their use.
+	// See the accessors of these properties for details on their use.
 	Q_PROPERTY(QString itemName READ itemName WRITE setItemName DESIGNABLE false)
 	Q_PROPERTY(QString fillColor READ fillColor WRITE setFillColor DESIGNABLE false)
 	Q_PROPERTY(QString lineColor READ lineColor WRITE setLineColor DESIGNABLE false)
@@ -67,8 +67,8 @@ class SCRIBUS_API PageItem : public QObject, public UndoObject
 	Q_PROPERTY(bool imageFlippedH READ imageFlippedH WRITE setImageFlippedH DESIGNABLE false)
 	Q_PROPERTY(double lineWidth READ lineWidth WRITE setLineWidth DESIGNABLE false)
 	Q_PROPERTY(QString customLineStyle READ customLineStyle WRITE setCustomLineStyle DESIGNABLE false)
-	Q_PROPERTY(int startArrowIndex READ getStartArrowIndex WRITE setStartArrowIndex DESIGNABLE false)
-	Q_PROPERTY(int endArrowIndex READ getEndArrowIndex WRITE setEndArrowIndex DESIGNABLE false)
+	Q_PROPERTY(int startArrowIndex READ startArrowIndex WRITE setStartArrowIndex DESIGNABLE false)
+	Q_PROPERTY(int endArrowIndex READ endArrowIndex WRITE setEndArrowIndex DESIGNABLE false)
 	Q_PROPERTY(QString font READ font WRITE setFont DESIGNABLE false)
 	Q_PROPERTY(int fontSize READ fontSize WRITE setFontSize DESIGNABLE false)
 	Q_PROPERTY(int fontWidth READ fontWidth WRITE setFontWidth DESIGNABLE false)
@@ -83,6 +83,21 @@ class SCRIBUS_API PageItem : public QObject, public UndoObject
 	Q_PROPERTY(bool textFlowsAroundFrame READ textFlowsAroundFrame WRITE setTextFlowsAroundFrame DESIGNABLE false)
 	Q_PROPERTY(bool textFlowUsesBoundingBox READ textFlowUsesBoundingBox WRITE setTextFlowUsesBoundingBox DESIGNABLE false)
 	Q_PROPERTY(bool isPrintable READ printable WRITE setPrintable DESIGNABLE false)
+	Q_PROPERTY(double xPos READ xPos WRITE setXPos DESIGNABLE false)
+	Q_PROPERTY(double yPos READ yPos WRITE setYPos DESIGNABLE false)
+	Q_PROPERTY(double width READ width WRITE setWidth DESIGNABLE false)
+	Q_PROPERTY(double height READ height WRITE setHeight DESIGNABLE false)
+	Q_PROPERTY(double rotation READ rotation WRITE setRotation DESIGNABLE false)
+	Q_PROPERTY(double imageXScale READ imageXScale WRITE setImageXScale DESIGNABLE false)
+	Q_PROPERTY(double imageYScale READ imageYScale WRITE setImageYScale DESIGNABLE false)
+	Q_PROPERTY(double imageXOffset READ imageXOffset WRITE setImageXOffset DESIGNABLE false)
+	Q_PROPERTY(double imageYOffset READ imageYOffset WRITE setImageYOffset DESIGNABLE false)
+	Q_PROPERTY(bool reversed READ reversed WRITE setReversed DESIGNABLE false)
+	Q_PROPERTY(double cornerRadius READ cornerRadius WRITE setCornerRadius DESIGNABLE false)
+	Q_PROPERTY(double textToFrameDistLeft READ textToFrameDistLeft WRITE setTextToFrameDistLeft DESIGNABLE false)
+	Q_PROPERTY(double textToFrameDistRight READ textToFrameDistRight WRITE setTextToFrameDistRight DESIGNABLE false)
+	Q_PROPERTY(double textToFrameDistTop READ textToFrameDistTop WRITE setTextToFrameDistTop DESIGNABLE false)
+	Q_PROPERTY(double textToFrameDistBottom READ textToFrameDistBottom WRITE setTextToFrameDistBottom DESIGNABLE false)
 
 	// FIXME: QMetaProperty can't translate these to/from enumerator names, probably because the
 	// properties aren't moc'd in the Qt sources. They work fine in their
@@ -446,57 +461,55 @@ public:
 	double BoundingH;
 	bool ChangedMasterItem;
 	QString OnMasterPage;
-	int startArrowIndex;
-	int endArrowIndex;
 	bool isEmbedded;
 	
 	//Position
-	double xPos();
-	double yPos();
-	FPoint xyPos();
+	double xPos() const { return Xpos; }
+	double yPos() const { return Ypos; }
+	FPoint xyPos() const { return FPoint(Xpos, Ypos); }
 	void setXPos(const double);
 	void setYPos(const double);
 	void setXYPos(const double, const double);
 	void moveBy(const double, const double);
 	//Size
-	double width();
-	double height();
+	double width() const { return Width; }
+	double height() const { return Height; }
 	void setWidth(const double);
 	void setHeight(const double);
 	void setWidthHeight(const double, const double);
 	void resizeBy(const double, const double);
 	//Rotation
-	double rotation();
+	double rotation() const { return Rot; }
 	void setRotation(const double);
 	void rotateBy(const double);
 	//Selection
-	bool isSelected();
+	bool isSelected() const { return Select; }
 	void setSelected(const bool);
 	//Image Data
-	double imageXScale();
-	double imageYScale();
+	double imageXScale() const { return LocalScX; }
+	double imageYScale() const { return LocalScY; }
 	void setImageXScale(const double);
 	void setImageYScale(const double);
 	void setImageXYScale(const double, const double);
-	double imageXOffset();
-	double imageYOffset();
+	double imageXOffset() const { return LocalX; }
+	double imageYOffset() const { return LocalY; }
 	void setImageXOffset(const double);
 	void setImageYOffset(const double);
 	void moveImageXYOffsetBy(const double, const double);
 	void setImageXYOffset(const double, const double);
 	//Reverse
-	bool reversed();
+	bool reversed() const { return Reverse; }
 	void setReversed(bool);
 	//Rounded Corners
-	double cornerRadius();
+	double cornerRadius() const { return RadRect; }
 	void setCornerRadius(double);
 
 
 	//Text Data - Move to PageItem_TextFrame at some point?
-	double textToFrameDistLeft();
-	double textToFrameDistRight();
-	double textToFrameDistTop();
-	double textToFrameDistBottom();
+	double textToFrameDistLeft() const { return Extra; }
+	double textToFrameDistRight() const { return RExtra; }
+	double textToFrameDistTop() const { return TExtra; }
+	double textToFrameDistBottom() const { return BExtra; }
 	void setTextToFrameDistLeft(double);
 	void setTextToFrameDistRight(double);
 	void setTextToFrameDistTop(double);
@@ -509,18 +522,14 @@ public:
 	 * @param Bottom
 	 */
 	void setTextToFrameDist(double newLeft, double newRight, double newTop, double newBottom);
-	
-	
 
-	/** @brief Manages undostack and is where all undo actions/states are sent. */
-	UndoManager *undoManager;
 	/**  @brief Get name of the item
 	 *
 	 * This is unrelated to QObject::name(); the pageItem's name is independent
 	 * of its Qt name.
 	 * See also PageItem::setItemName()
 	 */
-	QString itemName() const;
+	QString itemName() const { return AnName; }
 	/**
 	 * @brief Set name of the item
 	 * @param newName name for the item
@@ -532,7 +541,7 @@ public:
 	void setItemName(const QString& newName);
 
 	/** @brief Get the (name of the) fill color of the object */
-	QString fillColor() const;
+	QString fillColor() const { return fillColorVal; }
 	/**
 	 * @brief Set the fill color of the object.
 	 * @param newColor fill color for the object
@@ -540,7 +549,7 @@ public:
 	void setFillColor(const QString &newColor);
 
 	/** @brief Get the shade of the fill color */
-	int fillShade() const;
+	int fillShade() const { return fillShadeVal; }
 	/**
 	 * @brief Set the fill color shade.
 	 * @param newShade shade for the fill color
@@ -548,7 +557,7 @@ public:
 	void setFillShade(int newShade);
 
 	/** @brief Get the transparency of the fill color */
-	double fillTransparency() const;
+	double fillTransparency() const { return fillTransparencyVal; }
 	/**
 	 * @brief Set the transparency of the fill color.
 	 * @param newTransparency transparency of the fill color
@@ -556,7 +565,7 @@ public:
 	void setFillTransparency(double newTransparency);
 
 	/** @brief Get the line color of the object */
-	QString lineColor() const;
+	QString lineColor() const { return lineColorVal; }
 	/**
 	 * @brief Set the line color of the object.
 	 * @param newFill line color for the object
@@ -564,7 +573,7 @@ public:
 	void setLineColor(const QString &newColor);
 
 	/** @brief Get the line color shade */
-	int lineShade() const;
+	int lineShade() const { return lineShadeVal; }
 	/**
 	 * @brief Set the line color shade.
 	 * @param newColor shade for the line color
@@ -572,7 +581,7 @@ public:
 	void setLineShade(int newShade);
 
 	/** @brief Get the line transparency */
-	double lineTransparency() const;
+	double lineTransparency() const { return lineTransparencyVal; }
 	/**
 	 * @brief Set the transparency of the line color.
 	 * @param newTransparency transparency of the line color
@@ -585,7 +594,7 @@ public:
 	void setFillQColor();
 
 	/** @brief Get the style of line */
-	PenStyle lineStyle() const;
+	PenStyle lineStyle() const { return PLineArt; }
 	/**
 	 * @brief Set the style of line.
 	 * @param newStyle style of line
@@ -594,7 +603,7 @@ public:
 	void setLineStyle(PenStyle newStyle);
 
 	/** @brief Get the width of the line */
-	double lineWidth() const;
+	double lineWidth() const { return Pwidth; }
 	/**
 	 * @brief Set the width of line
 	 * @param newWidth width of line
@@ -602,7 +611,7 @@ public:
 	void setLineWidth(double newWidth);
 
 	/** @brief Get the end cap style of the line */
-	PenCapStyle lineEnd() const;
+	PenCapStyle lineEnd() const { return PLineEnd; }
 	/**
 	 * @brief Set the end style of line
 	 * @param newStyle end style of line
@@ -611,7 +620,7 @@ public:
 	void setLineEnd(PenCapStyle newStyle);
 
 	/** @brief Get the join style of multi-segment lines */
-	PenJoinStyle lineJoin() const;
+	PenJoinStyle lineJoin() const { return PLineJoin; }
 	/**
 	 * @brief Set the join style of line
 	 * @param newStyle join style of line
@@ -620,7 +629,7 @@ public:
 	void setLineJoin(PenJoinStyle newStyle);
 
 	/** @brief Get name of active custom line style */
-	QString customLineStyle() const;
+	QString customLineStyle() const { return NamedLStyle; }
 	/**
 	 * @brief Set custom line style
 	 * @param newStyle name of the custom style
@@ -628,9 +637,9 @@ public:
 	void setCustomLineStyle(const QString& newStyle);
 
 	/** @brief Get start arrow index
-	 * @sa PageItem::getEndArrowIndex(), PageItem::setStartArrowIndex()
+	 * @sa PageItem::endArrowIndex(), PageItem::setStartArrowIndex()
 	 */
-	int getStartArrowIndex() const;
+	int startArrowIndex() const { return m_startArrowIndex; }
 	/**
 	 * @brief Set start arrow index
 	 * @param newIndex index for start arrow
@@ -638,9 +647,9 @@ public:
 	void setStartArrowIndex(int newIndex);
 
 	/** @brief Get end arrow index
-	 * @sa PageItem::getStartArrowIndex(), PageItem::setEndArrowIndex()
+	 * @sa PageItem::startArrowIndex(), PageItem::setEndArrowIndex()
 	 */
-	int getEndArrowIndex() const;
+	int endArrowIndex() const { return m_endArrowIndex; }
 	/**
 	 * @brief Set end arrow index
 	 * @param newIndex index for end arrow
@@ -648,14 +657,14 @@ public:
 	void setEndArrowIndex(int newIndex);
 
 	/** @brief Is the image flipped horizontally? */
-	bool imageFlippedH() const;
+	bool imageFlippedH() const { return imageIsFlippedH; }
 	/** @brief Horizontally flip / unflip the image */
 	void setImageFlippedH(bool flipped);
 	/** @brief Flip an image horizontally. */
 	void flipImageH();
 
 	/** @brief Is the image flipped vertically? */
-	bool imageFlippedV() const;
+	bool imageFlippedV() const { return imageIsFlippedV; }
 	/** @brief Vertically flip / unflip the image */
 	void setImageFlippedV(bool flipped);
 	/** @brief Flip an image vertically */
@@ -671,19 +680,19 @@ public:
 	/** @brief Lock or unlock this pageitem. */
 	void toggleLock();
 	/** @brief is the item locked ? */
-	bool locked() const;
+	bool locked() const { return Locked; }
 	/** @brief Lock or unlock this pageitem */
 	void setLocked(bool isLocked);
 
 	/** @brief Toggle lock for resizing */
 	void toggleSizeLock();
 	/** @brief Is the item's size locked? */
-	bool sizeLocked() const;
+	bool sizeLocked() const { return LockRes; }
 	/** @brief set lock for resizing */
 	void setSizeLocked(bool isLocked);
 
 	/** @brief Get the PageItem-wide font name */
-	QString font() const;
+	QString font() const { return IFont; }
 	/**
 	 * @brief Set font for the PageItem.
 	 * @param newFont name of the font
@@ -691,7 +700,7 @@ public:
 	void setFont(const QString& newFont);
 
 	/** @brief Get the PageItem-wide font size */
-	int fontSize() const;
+	int fontSize() const { return ISize; }
 	/**
 	 * @brief Set the font size of the frame
 	 * @param newSize font size
@@ -699,7 +708,7 @@ public:
 	void setFontSize(int newSize);
 
 	/** @brief Get the PageItem-wide character height scaling percentage */
-	int fontHeight() const;
+	int fontHeight() const { return TxtScaleV; }
 	/**
 	 * @brief Set scaling height of character
 	 * @param newWidth width of character
@@ -707,7 +716,7 @@ public:
 	void setFontHeight(int newHeight);
 
 	/** @brief Get the PageItem-wide character width scaling percentage */
-	int fontWidth() const;
+	int fontWidth() const { return TxtScale; }
 	/**
 	 * @brief Set scaling width of character
 	 * @param newWidth width of character
@@ -715,7 +724,7 @@ public:
 	void setFontWidth(int newWidth);
 
 	/** @brief Get the name of the PageItem-wide font fill color */
-	QString fontFillColor() const;
+	QString fontFillColor() const { return TxtFill; }
 	/**
 	 * @brief Set font fill color
 	 * @param newColor font fill color
@@ -723,7 +732,7 @@ public:
 	void setFontFillColor(const QString& newColor);
 
 	/** @brief Get the PageItem-wide font fill shade */
-	int fontFillShade() const;
+	int fontFillShade() const { return ShTxtFill; }
 	/**
 	 * @brief Set the shade of font fill color
 	 * @param newShade shade of font fill color
@@ -731,7 +740,7 @@ public:
 	void setFontFillShade(int newShade);
 
 	/** @brief Get the PageItem-wide font stroke color */
-	QString fontStrokeColor() const;
+	QString fontStrokeColor() const { return TxtStroke; }
 	/**
 	 * @brief Set the color of font stroke
 	 * @param newColor color of font stroke
@@ -739,7 +748,7 @@ public:
 	void setFontStrokeColor(const QString& newColor);
 
 	/** @brief Get the PageItem-wide font stroke shade */
-	int fontStrokeShade() const;
+	int fontStrokeShade() const { return ShTxtStroke; }
 	/**
 	 * @brief Set the shade of font stroke color
 	 * @param newShade shade of font stroke color
@@ -750,7 +759,7 @@ public:
 	 *
 	 * TODO This should probably be an enum set
 	 */
-	int fontEffects() const;
+	int fontEffects() const { return TxTStyle; }
 	/**
 	 * @brief Set font effects
 	 * @param newEffects font effects
@@ -758,7 +767,7 @@ public:
 	void setFontEffects(int newEffects);
 
 	/** @brief Get PageItem-wide text kerning */
-	int kerning() const;
+	int kerning() const { return ExtraV; }
 	/**
 	 * @brief Set kerning for the text
 	 * @param newKerning kerning for the text
@@ -766,7 +775,7 @@ public:
 	void setKerning(int newKerning);
 
 	/** @brief Get the PageItem-wide line spacing */
-	double lineSpacing() const;
+	double lineSpacing() const { return LineSp; }
 	/**
 	 * @brief Set a line spacing for the frame
 	 * @param newSpacing line spacing for the frame
@@ -774,7 +783,7 @@ public:
 	void setLineSpacing(double newSpacing);
 
 	/** @brief Get the hyphenation language for the frame */
-	QString language() const;
+	QString language() const { return Language; }
 	/**
 	 * @brief Set the hyphenation language for the frame
 	 * @param newLanguage hyphenation language for the frame
@@ -785,7 +794,7 @@ public:
 	 * @brief Does text flow around this object
 	 * @sa setTextFlowsAroundFrame()
 	 */
-	bool textFlowsAroundFrame() const;
+	bool textFlowsAroundFrame() const { return textFlowsAroundFrameVal; }
 	/**
 	 * @brief Enable/disable text flowing around this item
 	 * @param isFlowing true if text is wanted to flow around this object or false if not
@@ -797,7 +806,7 @@ public:
 	 * @brief Should text flow around the object's bounding box if text flow is enabled?
 	 * @sa PageItem::setTextFlowUsesBoundingBox()
 	 */
-	bool textFlowUsesBoundingBox() const;
+	bool textFlowUsesBoundingBox() const { return textFlowUsesBoundingBoxVal; }
 	/**
 	 * @brief Tells if the text flow should follow the square frame border if <code>useBounding</code>
 	 * @brief is true, if it is set false text fill flow around the object border rather than frame.
@@ -816,7 +825,7 @@ public:
 	 * @brief Should text flow around the contour line of the frame?
 	 * @sa setTextFlowUsesContourLine()
 	 */
-	bool textFlowUsesContourLine() const;
+	bool textFlowUsesContourLine() const { return textFlowUsesContourLineVal; }
 	/**
 	 * @brief Tells if the text flow should follow the contour line of the frame.
 	 *
@@ -837,7 +846,7 @@ public:
 	 *            It's here as an interim step to eliminate direct member access
 	 *            on PageItems.
 	 */
-	ItemType itemType() const;
+	ItemType itemType() const { return itemTypeVal; }
 	/**
 	 * @brief Convert this PageItem to PageItem type <code>newType</code>
 	 * @param newType PageItem type for conversion
@@ -883,7 +892,7 @@ public:
 	 * @brief Is this item printed?
 	 * @sa setPrintable()
 	 */
-	bool printable() const;
+	bool printable() const { return isPrintable; }
 	/**
 	 * @brief Tells if the frame is set to be printed or not
 	 * @sa printable()
@@ -891,15 +900,16 @@ public:
 	void setPrintable(bool toPrint);
 	
 	/**
-	 * @brief Set the tagged member for use when deleting items, instead of reselecting them.
-	 * @sa setTagged()
-	 */
-	bool isTagged() const;
-	/**
 	 * @brief Tells if the frame is tagged or not
 	 * @sa isTagged()
 	 */
+	bool isTagged() const { return tagged; }
+	/**
+	 * @brief Set the tagged member for use when deleting items, instead of reselecting them.
+	 * @sa setTagged()
+	 */
 	void setTagged(bool);
+
 	/**
 	 * @brief Load an image into an image frame, moved from ScribusView
 	 * @return True if load succeeded
@@ -919,6 +929,8 @@ public:
 	void emitAllToGUI();
 	
 protected:
+	/** @brief Manages undostack and is where all undo actions/states are sent. */
+	UndoManager * const undoManager;
 	/**
 	 * @name Restore helper methods
 	 * Split the restore method for easier handling.
@@ -1114,6 +1126,9 @@ protected:
 	double LocalY;
 	/** If the frame is reversed */
 	bool Reverse;
+
+	int m_startArrowIndex;
+	int m_endArrowIndex;
 	
   	/** Left, Top, Bottom, Right distances of text from the frame */
 	double Extra;

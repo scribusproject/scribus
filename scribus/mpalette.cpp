@@ -959,8 +959,8 @@ void Mpalette::setCurrentItem(PageItem *i)
 	{
 		startArrow->setEnabled(true);
 		endArrow->setEnabled(true);
-		startArrow->setCurrentItem(i->startArrowIndex);
-		endArrow->setCurrentItem(i->endArrowIndex);
+		startArrow->setCurrentItem(i->startArrowIndex());
+		endArrow->setCurrentItem(i->endArrowIndex());
 	}
 	else
 	{
@@ -1149,8 +1149,8 @@ void Mpalette::SetCurItem(PageItem *i)
 	{
 		startArrow->setEnabled(true);
 		endArrow->setEnabled(true);
-		startArrow->setCurrentItem(i->startArrowIndex);
-		endArrow->setCurrentItem(i->endArrowIndex);
+		startArrow->setCurrentItem(i->startArrowIndex());
+		endArrow->setCurrentItem(i->endArrowIndex());
 	}
 	else
 	{

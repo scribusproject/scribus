@@ -213,12 +213,10 @@ PageItem::PageItem(const PageItem & other)
 	BoundingH(other.BoundingH),
 	ChangedMasterItem(other.ChangedMasterItem),
 	OnMasterPage(other.OnMasterPage),
-	startArrowIndex(other.startArrowIndex),
-	endArrowIndex(other.endArrowIndex),
 	isEmbedded(other.isEmbedded),
-	undoManager(other.undoManager),
 
 	// protected
+	undoManager(other.undoManager),
 	AnName(other.AnName),
 	fillColorVal(other.fillColorVal),
 	lineColorVal(other.lineColorVal),
@@ -248,7 +246,9 @@ PageItem::PageItem(const PageItem & other)
 	LocalScY(other.LocalScY),
 	LocalX(other.LocalX),
 	LocalY(other.LocalY),
-	Reverse(other.Reverse),	
+	Reverse(other.Reverse),
+	m_startArrowIndex(other.m_startArrowIndex),
+	m_endArrowIndex(other.m_endArrowIndex),
 	Extra(other.Extra),
 	TExtra(other.TExtra),
 	BExtra(other.BExtra),
@@ -264,9 +264,10 @@ PageItem::PageItem(const PageItem & other)
 
 
 PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double w, double h, double w2, QString fill, QString outline)
-	// Initialize superclasses
+	// Initialize superclass(es)
 	: QObject(pa),
-	// Initialize member variables - 2005-03-10 CR. Initializer lists can be faster and safer.
+	// Initialize member variables
+	undoManager(UndoManager::instance()),
 	lineShadeVal(100),
 	fillShadeVal(100),
 	fillTransparencyVal(0.0),
@@ -510,9 +511,8 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	ChangedMasterItem = false;
 	isEmbedded = false;
 	OnMasterPage = Doc->currentPage->PageNam;
-	startArrowIndex = Doc->toolSettings.dStartArrow;
-	endArrowIndex = Doc->toolSettings.dEndArrow;
-	undoManager = UndoManager::instance();
+	m_startArrowIndex = Doc->toolSettings.dStartArrow;
+	m_endArrowIndex = Doc->toolSettings.dEndArrow;
 	effectsInUse.clear();
 	//Page Item Attributes
 	pageItemAttributes.clear();
@@ -523,21 +523,6 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 			)
 			pageItemAttributes.append(*objAttrIt);
 	}
-}
-
-double PageItem::xPos()
-{
-	return Xpos;
-}
-
-double PageItem::yPos()
-{
-	return Ypos;
-}
-
-FPoint PageItem::xyPos()
-{
-	return FPoint(Xpos, Ypos);
 }
 
 void PageItem::setXPos(const double newXPos)
@@ -570,16 +555,6 @@ void PageItem::moveBy(const double dX, const double dY)
 	emit position(Xpos, Ypos);
 }
 
-double PageItem::width()
-{
-	return Width;
-}
-
-double PageItem::height()
-{
-	return Height;
-}
-
 void PageItem::setWidth(const double newWidth)
 {
 	Width = newWidth;
@@ -610,11 +585,6 @@ void PageItem::resizeBy(const double dH, const double dW)
 	emit widthAndHeight(Width, Height);
 }
 
-double PageItem::rotation()
-{
-	return Rot;
-}
-
 void PageItem::setRotation(const double newRotation)
 {
 	Rot=newRotation;
@@ -629,24 +599,9 @@ void PageItem::rotateBy(const double dR)
 	emit rotation(Rot);
 }
 
-bool PageItem::isSelected()
-{
-	return Select;
-}
-
 void PageItem::setSelected(const bool toSelect)
 {
 	Select=toSelect;
-}
-
-double PageItem::imageXScale()
-{
-	return LocalScX;
-}
-
-double PageItem::imageYScale()
-{
-	return LocalScY;
 }
 
 void PageItem::setImageXScale(const double newImageXScale)
@@ -663,16 +618,6 @@ void PageItem::setImageXYScale(const double newImageXScale, const double newImag
 {
 	LocalScX=newImageXScale;
 	LocalScY=newImageYScale;
-}
-
-double PageItem::imageXOffset()
-{
-	return LocalX;
-}
-
-double PageItem::imageYOffset()
-{
-	return LocalY;
 }
 
 void PageItem::setImageXOffset(const double newImageXOffset)
@@ -705,34 +650,9 @@ void PageItem::moveImageXYOffsetBy(const double dX, const double dY)
 	emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY);
 }
 
-bool PageItem::reversed()
-{
-	return Reverse;
-}
-
 void PageItem::setReversed(bool newReversed)
 {
 	Reverse=newReversed;
-}
-
-double PageItem::textToFrameDistLeft()
-{
-	return Extra;
-}
-
-double PageItem::textToFrameDistRight()
-{
-	return RExtra;
-}
-
-double PageItem::textToFrameDistTop()
-{
-	return TExtra;
-}
-
-double PageItem::textToFrameDistBottom()
-{
-	return BExtra;
 }
 
 void PageItem::setTextToFrameDistLeft(double newLeft)
@@ -768,11 +688,6 @@ void PageItem::setTextToFrameDist(double newLeft, double newRight, double newTop
 	emit textToFrameDistances(Extra, TExtra, BExtra, RExtra);
 }
 
-double PageItem::cornerRadius()
-{
-	return RadRect;
-}
-	
 void PageItem::setCornerRadius(double newRadius)
 {
 	RadRect=newRadius;
@@ -1520,11 +1435,6 @@ void PageItem::DrawPolyL(QPainter *p, QPointArray pts)
 	}
 }
 
-QString PageItem::itemName() const
-{
-	return AnName;
-}
-
 void PageItem::setItemName(const QString& newName)
 {
 	if (AnName == newName)
@@ -1538,11 +1448,6 @@ void PageItem::setItemName(const QString& newName)
 	}
 	AnName = newName;
 	setUName(newName); // set the name for the UndoObject too
-}
-
-QString PageItem::fillColor() const
-{
-	return fillColorVal;
 }
 
 void PageItem::setFillColor(const QString &newColor)
@@ -1567,11 +1472,6 @@ void PageItem::setFillColor(const QString &newColor)
 	emit colors(lineColorVal, fillColorVal, lineShadeVal, fillShadeVal);
 }
 
-int PageItem::fillShade() const
-{
-	return fillShadeVal;
-}
-
 void PageItem::setFillShade(int newShade)
 {
 	if (fillShadeVal == newShade)
@@ -1594,11 +1494,6 @@ void PageItem::setFillShade(int newShade)
 	emit colors(lineColorVal, fillColorVal, lineShadeVal, fillShadeVal);
 }
 
-double PageItem::fillTransparency() const
-{
-	return fillTransparencyVal;
-}
-
 void PageItem::setFillTransparency(double newTransparency)
 {
 	if (fillTransparencyVal == newTransparency)
@@ -1614,11 +1509,6 @@ void PageItem::setFillTransparency(double newTransparency)
 		undoManager->action(this, ss);
 	}
 	fillTransparencyVal = newTransparency;
-}
-
-QString PageItem::lineColor() const
-{
-	return lineColorVal;
 }
 
 void PageItem::setLineColor(const QString &newColor)
@@ -1641,11 +1531,6 @@ void PageItem::setLineColor(const QString &newColor)
 	lineColorVal = newColor;
 	setLineQColor();
 	emit colors(lineColorVal, fillColorVal, lineShadeVal, fillShadeVal);
-}
-
-int PageItem::lineShade() const
-{
-	return lineShadeVal;
 }
 
 void PageItem::setLineShade(int newShade)
@@ -1682,11 +1567,6 @@ void PageItem::setFillQColor()
 		fillQColor = Doc->PageColors[fillColorVal].getShadeColorProof(fillShadeVal);
 }
 
-double PageItem::lineTransparency() const
-{
-	return lineTransparencyVal;
-}
-
 void PageItem::setLineTransparency(double newTransparency)
 {
 	if (lineTransparencyVal == newTransparency)
@@ -1704,11 +1584,6 @@ void PageItem::setLineTransparency(double newTransparency)
 	lineTransparencyVal = newTransparency;
 }
 
-Qt::PenStyle PageItem::lineStyle() const
-{
-	return PLineArt;
-}
-
 void PageItem::setLineStyle(PenStyle newStyle)
 {
 	if (PLineArt == newStyle)
@@ -1722,11 +1597,6 @@ void PageItem::setLineStyle(PenStyle newStyle)
 		undoManager->action(this, ss);
 	}
 	PLineArt = newStyle;
-}
-
-double PageItem::lineWidth() const
-{
-	return Pwidth;
 }
 
 void PageItem::setLineWidth(double newWidth)
@@ -1745,11 +1615,6 @@ void PageItem::setLineWidth(double newWidth)
 	Pwidth = newWidth;
 }
 
-Qt::PenCapStyle PageItem::lineEnd() const
-{
-	return PLineEnd;
-}
-
 void PageItem::setLineEnd(PenCapStyle newStyle)
 {
 	if (PLineEnd == newStyle)
@@ -1765,11 +1630,6 @@ void PageItem::setLineEnd(PenCapStyle newStyle)
 	PLineEnd = newStyle;
 }
 
-Qt::PenJoinStyle PageItem::lineJoin() const
-{
-	return PLineJoin;
-}
-
 void PageItem::setLineJoin(PenJoinStyle newStyle)
 {
 	if (PLineJoin == newStyle)
@@ -1783,10 +1643,6 @@ void PageItem::setLineJoin(PenJoinStyle newStyle)
 		undoManager->action(this, ss);
 	}
 	PLineJoin = newStyle;
-}
-QString PageItem::customLineStyle() const
-{
-	return NamedLStyle;
 }
 
 void PageItem::setCustomLineStyle(const QString& newStyle)
@@ -1808,49 +1664,34 @@ void PageItem::setCustomLineStyle(const QString& newStyle)
 	NamedLStyle = newStyle;
 }
 
-int PageItem::getStartArrowIndex() const
-{
-	return startArrowIndex;
-}
-
 void PageItem::setStartArrowIndex(int newIndex)
 {
-	if (startArrowIndex == newIndex)
+	if (m_startArrowIndex == newIndex)
 		return; // nothing to do -> return
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::StartArrow,"",Um::IArrow);
 		ss->set("START_ARROW", "startarrow");
-		ss->set("OLD_INDEX", startArrowIndex);
+		ss->set("OLD_INDEX", m_startArrowIndex);
 		ss->set("NEW_INDEX", newIndex);
 		undoManager->action(this, ss);
 	}
-	startArrowIndex = newIndex;
-}
-
-int PageItem::getEndArrowIndex() const
-{
-	return endArrowIndex;
+	m_startArrowIndex = newIndex;
 }
 
 void PageItem::setEndArrowIndex(int newIndex)
 {
-	if (endArrowIndex == newIndex)
+	if (m_endArrowIndex == newIndex)
 		return; // nothing to do -> return
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::EndArrow,"",Um::IArrow);
 		ss->set("END_ARROW", "endarrow");
-		ss->set("OLD_INDEX", endArrowIndex);
+		ss->set("OLD_INDEX", m_endArrowIndex);
 		ss->set("NEW_INDEX", newIndex);
 		undoManager->action(this, ss);
 	}
-	endArrowIndex = newIndex;
-}
-
-bool PageItem::imageFlippedH() const
-{
-	return imageIsFlippedH;
+	m_endArrowIndex = newIndex;
 }
 
 void PageItem::setImageFlippedH(bool flipped)
@@ -1868,11 +1709,6 @@ void PageItem::flipImageH()
 		undoManager->action(this, ss);
 	}
 	imageIsFlippedH = !imageIsFlippedH;
-}
-
-bool PageItem::imageFlippedV() const
-{
-	return imageIsFlippedV;
 }
 
 void PageItem::setImageFlippedV(bool flipped)
@@ -1932,11 +1768,6 @@ void PageItem::toggleLock()
 	Locked = !Locked;
 }
 
-bool PageItem::locked() const
-{
-	return Locked;
-}
-
 void PageItem::setLocked(bool isLocked)
 {
 	if (isLocked != Locked)
@@ -1958,22 +1789,12 @@ void PageItem::toggleSizeLock()
 	LockRes = !LockRes;
 }
 
-bool PageItem::sizeLocked() const
-{
-	return LockRes;
-}
-
 void PageItem::setSizeLocked(bool isLocked)
 {
 	if (isLocked == LockRes)
 		return; // nothing to do return
 	else
 		toggleSizeLock();
-}
-
-QString PageItem::font() const
-{
-	return IFont;
 }
 
 void PageItem::setFont(const QString& newFont)
@@ -1992,11 +1813,6 @@ void PageItem::setFont(const QString& newFont)
 	IFont = newFont;
 }
 
-int PageItem::fontSize() const
-{
-	return ISize;
-}
-
 void PageItem::setFontSize(int newSize)
 {
 	if (ISize == newSize)
@@ -2011,11 +1827,6 @@ void PageItem::setFontSize(int newSize)
 		undoManager->action(this, ss);
 	}
 	ISize = newSize;
-}
-
-int PageItem::fontHeight() const
-{
-	return TxtScaleV;
 }
 
 void PageItem::setFontHeight(int newHeight)
@@ -2034,11 +1845,6 @@ void PageItem::setFontHeight(int newHeight)
 	TxtScaleV = newHeight;
 }
 
-int PageItem::fontWidth() const
-{
-	return TxtScale;
-}
-
 void PageItem::setFontWidth(int newWidth)
 {
 	if (TxtScale == newWidth)
@@ -2053,11 +1859,6 @@ void PageItem::setFontWidth(int newWidth)
 		undoManager->action(this, ss);
 	}
 	TxtScale = newWidth;
-}
-
-QString PageItem::fontFillColor() const
-{
-	return TxtFill;
 }
 
 void PageItem::setFontFillColor(const QString& newColor)
@@ -2078,11 +1879,6 @@ void PageItem::setFontFillColor(const QString& newColor)
 	emit colors(lineColorVal, fillColorVal, lineShadeVal, fillShadeVal);
 }
 
-QString PageItem::fontStrokeColor() const
-{
-	return TxtStroke;
-}
-
 void PageItem::setFontStrokeColor(const QString& newColor)
 {
 	if (TxtStroke == newColor)
@@ -2097,11 +1893,6 @@ void PageItem::setFontStrokeColor(const QString& newColor)
 		undoManager->action(this, ss);
 	}
 	TxtStroke = newColor;
-}
-
-int PageItem::fontFillShade() const
-{
-	return ShTxtFill;
 }
 
 void PageItem::setFontFillShade(int newShade)
@@ -2123,11 +1914,6 @@ void PageItem::setFontFillShade(int newShade)
 	emit colors(lineColorVal, fillColorVal, lineShadeVal, fillShadeVal);
 }
 
-int PageItem::fontStrokeShade() const
-{
-	return ShTxtStroke;
-}
-
 void PageItem::setFontStrokeShade(int newShade)
 {
 	if (ShTxtStroke == newShade)
@@ -2145,11 +1931,6 @@ void PageItem::setFontStrokeShade(int newShade)
 	ShTxtStroke = newShade;
 }
 
-int PageItem::fontEffects() const
-{
-	return TxTStyle;
-}
-
 void PageItem::setFontEffects(int newEffects)
 {
 	if (UndoManager::undoEnabled())
@@ -2162,11 +1943,6 @@ void PageItem::setFontEffects(int newEffects)
 	}
 	TxTStyle &= ~1919;
 	TxTStyle |= newEffects;
-}
-
-int PageItem::kerning() const
-{
-	return ExtraV;
 }
 
 void PageItem::setKerning(int newKerning)
@@ -2186,11 +1962,6 @@ void PageItem::setKerning(int newKerning)
 	ExtraV = newKerning;
 }
 
-double PageItem::lineSpacing() const
-{
-	return LineSp;
-}
-
 void PageItem::setLineSpacing(double newSpacing)
 {
 	if (LineSp == newSpacing)
@@ -2206,11 +1977,6 @@ void PageItem::setLineSpacing(double newSpacing)
 		undoManager->action(this, ss);
 	}
 	LineSp = newSpacing;
-}
-
-QString PageItem::language() const
-{
-	return Language;
 }
 
 void PageItem::setLanguage(const QString& newLanguage)
@@ -2230,11 +1996,6 @@ void PageItem::setLanguage(const QString& newLanguage)
 	Language = newLanguage;
 }
 
-bool PageItem::textFlowsAroundFrame() const
-{
-	return textFlowsAroundFrameVal;
-}
-
 void PageItem::setTextFlowsAroundFrame(bool isFlowing)
 {
 	if (textFlowsAroundFrameVal == isFlowing)
@@ -2246,11 +2007,6 @@ void PageItem::setTextFlowsAroundFrame(bool isFlowing)
 		undoManager->action(this, ss);
 	}
 	textFlowsAroundFrameVal = isFlowing;
-}
-
-bool PageItem::textFlowUsesBoundingBox() const
-{
-	return textFlowUsesBoundingBoxVal;
 }
 
 void PageItem::setTextFlowUsesBoundingBox(bool useBounding)
@@ -2269,11 +2025,6 @@ void PageItem::setTextFlowUsesBoundingBox(bool useBounding)
 	textFlowUsesBoundingBoxVal = useBounding;
 }
 
-bool PageItem::textFlowUsesContourLine() const
-{
-	return textFlowUsesContourLineVal;
-}
-
 void PageItem::setTextFlowUsesContourLine(bool useContour)
 {
 	if (textFlowUsesContourLineVal == useContour)
@@ -2288,11 +2039,6 @@ void PageItem::setTextFlowUsesContourLine(bool useContour)
 	if (useContour && textFlowUsesBoundingBoxVal)
 		textFlowUsesBoundingBoxVal = false;
 	textFlowUsesContourLineVal = useContour;
-}
-
-PageItem::ItemType PageItem::itemType() const
-{
-	return itemTypeVal;
 }
 
 void PageItem::convertTo(ItemType newType)
@@ -3129,19 +2875,9 @@ QString PageItem::generateUniqueCopyName(const QString originalName) const
 	return newname;
 }
 
-bool PageItem::printable() const
-{
-	return isPrintable;
-}
-
 void PageItem::setPrintable(bool toPrint)
 {
 	isPrintable=toPrint;
-}
-
-bool PageItem::isTagged() const
-{
-	return tagged;
 }
 
 void PageItem::setTagged(bool tag)
@@ -3338,8 +3074,8 @@ void PageItem::copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer)
 		else
 			Buffer->BottomLinkID = -1;
 	}
-	Buffer->startArrowIndex = startArrowIndex;
-	Buffer->endArrowIndex = endArrowIndex;
+	Buffer->startArrowIndex = m_startArrowIndex;
+	Buffer->endArrowIndex = m_endArrowIndex;
 }
 
 
@@ -3469,9 +3205,10 @@ void PageItem::getBoundingRect(double *x1, double *y1, double *x2, double *y2)
 
 bool PageItem::pointWithinItem(const int x, const int y)
 {
-	double x1,y1,x2,y2;
 	setRedrawBounding();
-	QRect itemRect(BoundingX, BoundingY, BoundingW, BoundingH);
+	// FIXME: We should be rounding or truncating here, not letting the compiler do it.
+	// Should we be rounding, truncating up, or truncating down?
+	QRect itemRect( BoundingX, BoundingY, BoundingW, BoundingH );
 	return itemRect.contains(x, y);
 }
 
@@ -3574,15 +3311,15 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 }
 
 
-void PageItem::DrawObj_Item(ScPainter *p)
+void PageItem::DrawObj_Item(ScPainter * /* p */)
 {
 }
 
-void PageItem::DrawObj_Item(ScPainter *p, double sc)
+void PageItem::DrawObj_Item(ScPainter * /* p */, double /* sc */)
 {
 }
 
-void PageItem::DrawObj_Item(ScPainter *p, QRect e, double sc)
+void PageItem::DrawObj_Item(ScPainter * /* p */, QRect /* e */, double /* sc */)
 {
 }
 
@@ -3755,7 +3492,7 @@ void PageItem::UpdatePolyClip()
 	SetPolyClip(static_cast<int>(asce-BaseOffs));
 }
 
-void PageItem::handleModeEditKey(QKeyEvent *k, bool &keyRepeat)
+void PageItem::handleModeEditKey(QKeyEvent * /* k */, bool & /* keyRepeat */)
 {
 }
 

@@ -244,3 +244,22 @@ PyObject *scribus_setdoctype(PyObject* /* self */, PyObject* args)
 	Py_INCREF(Py_None);
 	return Py_None;
 }
+
+PyObject *scribus_getmasterpagemode(PyObject* /* self */)
+{
+	if(!checkHaveDocument())
+		return NULL;
+	return PyBool_FromLong(ScMW->doc->masterPageMode());
+}
+
+PyObject *scribus_setmasterpagemode(PyObject* /* self */, PyObject* args)
+{
+	int enable;
+	if (!PyArg_ParseTuple(args, "i", &enable))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	ScMW->doc->setMasterPageMode(enable);
+	Py_INCREF(Py_None);
+	return Py_None;
+}

@@ -2016,8 +2016,8 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 		break;
 	}
 	currItem->FrameType = obj->attribute("FRTYPE", "0").toInt();
-	currItem->startArrowIndex =  obj->attribute("startArrowIndex", "0").toInt();
-	currItem->endArrowIndex =  obj->attribute("endArrowIndex", "0").toInt();
+	currItem->setStartArrowIndex(obj->attribute("startArrowIndex", "0").toInt());
+	currItem->setEndArrowIndex(obj->attribute("endArrowIndex", "0").toInt());
 	currItem->NamedLStyle = obj->attribute("NAMEDLST", "");
 	currItem->isBookmark = obj->attribute("BOOKMARK").toInt();
 	if ((currItem->isBookmark) && (doc->BookMarks.count() == 0))

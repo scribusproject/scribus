@@ -208,8 +208,22 @@ FACINGPAGES, to switch facingPages off use NOFACINGPAGES instead.  If you want\n
 to be the first page a left side set the second parameter to FIRSTPAGELEFT, for\n\
 a right page use FIRSTPAGERIGHT.\n\
 "));
-/*! TODO: comment */
 PyObject *scribus_setdoctype(PyObject */*self*/, PyObject* args);
+
+PyDoc_STRVAR(scribus_getmasterpagemode__doc__,
+QT_TR_NOOP("getTemplateMode()\n\
+\n\
+Returns true if we're currently working in master page mode, where all\n\
+commands affect page masterpages.\n\
+"));
+PyObject* scribus_getmasterpagemode(PyObject* self);
+
+PyDoc_STRVAR(scribus_setmasterpagemode__doc__,
+QT_TR_NOOP("setTemplateMode(bool)\n\
+\n\
+Enables/disables master page mode based on boolean parameter.\n\
+"));
+PyObject* scribus_setmasterpagemode(PyObject* self, PyObject* args);
 
 #endif
 

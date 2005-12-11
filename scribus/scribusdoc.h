@@ -439,7 +439,9 @@ public:
 	 * Do we need to return if the move to master page mode was successful?
 	 */
 	void setMasterPageMode(const bool);
-	bool masterPageMode() const;
+
+	/*** Is the document in master page mode? */
+	bool masterPageMode() const { return m_masterPageMode; }
 	
 	/**
 	 * @brief Add a section to the document sections list
