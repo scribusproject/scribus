@@ -260,7 +260,9 @@ public:
 	bool groupTransactionStarted();
 	void setGroupTransactionStarted(bool isOn);
 	void setScale(const double newScale);
-	const double getScale();
+	double getScale() const { return Scale; }
+
+
 	void adjustCanvas(FPoint minPos, FPoint maxPos);
 
 public slots: // Public slots

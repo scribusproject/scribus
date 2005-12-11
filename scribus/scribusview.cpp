@@ -8491,6 +8491,7 @@ void ScribusView::GotoPage(int Seite)
 	if (ScMW->ScriptRunning)
 		return;
 	setMenTxt(Seite);
+	SetCPo(qRound(Doc->currentPage->xOffset()-10),qRound(Doc->currentPage->yOffset()-10));
 }
 
 void ScribusView::showMasterPage(int nr)
@@ -11101,12 +11102,6 @@ void ScribusView::setScale(const double newScale)
 	Scale=newScale;
 	unitChange();
 }
-
-const double ScribusView::getScale()
-{
-	return Scale;
-}
-
 
 void ScribusView::drawLinkFrameLine(ScPainter* painter, FPoint &start, FPoint &end)
 {
