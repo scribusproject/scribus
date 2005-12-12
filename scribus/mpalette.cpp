@@ -1792,6 +1792,17 @@ void Mpalette::setDvals(double left, double top, double bottom, double right)
 	HaveItem = tmp;
 }
 
+void Mpalette::setFontFace(QString newFont)
+{
+	if (ScMW->ScriptRunning)
+		return;
+	bool tmp = HaveItem;
+	HaveItem = false;
+	Fonts->setCurrentFont(newFont);
+	HaveItem = tmp;
+}
+
+
 void Mpalette::setSize(int s)
 {
 	if (ScMW->ScriptRunning)

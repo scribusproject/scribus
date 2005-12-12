@@ -3775,7 +3775,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 			const QString x[] = {"S", "D", "U", "B", "I"};
 			PutDoc(x[ite->AnBsty]);
 			PutDoc(" >>\n");
-			cnx = "("+ind2PDFabr[ite->AnFont]+" "+FToStr(ite->ISize / 10.0)+" Tf";
+			cnx = "("+ind2PDFabr[ite->AnFont]+" "+FToStr(ite->fontSize() / 10.0)+" Tf";
 			if (ite->TxtFill != "None")
 				cnx += " "+ putColor(ite->TxtFill, ite->ShTxtFill, true);
 			if (ite->fillColor() != "None")
@@ -4052,7 +4052,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		if (ite->TxtFill != "None")
 			cc += putColor(ite->TxtFill, ite->ShTxtFill, true);
 		cc += "/"+StdFonts[ind2PDFabr2[ite->AnFont]];
-		cc += " "+FToStr(ite->ISize / 10.0)+" Tf\n";
+		cc += " "+FToStr(ite->fontSize() / 10.0)+" Tf\n";
 		if (bmst.count() > 1)
 		{
 			cc += "1 0 0 1 0 0 Tm\n0 0 Td\n";
@@ -4073,7 +4073,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		cc = "q\nBT\n";
 		if (ite->TxtFill != "None")
 			cc += putColor(ite->TxtFill, ite->ShTxtFill, true);
-		cc += "/ZaDb "+FToStr(ite->ISize / 10.0)+" Tf\n";
+		cc += "/ZaDb "+FToStr(ite->fontSize() / 10.0)+" Tf\n";
 		cc += "0 0 Td\n("+ct+") Tj\nET\nQ";
 //		PDF_Form(cc);
 		PDF_xForm(ite->width(), ite->height(), cc);
@@ -4093,7 +4093,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		cc += "0 g\n";
 		cc += "/"+StdFonts[ind2PDFabr2[ite->AnFont]];
 //		cc += ind2PDFabr[ite->AnFont];
-		cc += " "+FToStr(ite->ISize / 10.0)+" Tf\n";
+		cc += " "+FToStr(ite->fontSize() / 10.0)+" Tf\n";
 		cc += "1 0 0 1 0 0 Tm\n0 0 Td\n";
 		if (bmst.count() > 0)
 			cc += EncString("("+bmst[0]+")",ObjCounter-1);

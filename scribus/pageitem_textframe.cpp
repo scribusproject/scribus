@@ -105,7 +105,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 				else
 					Doc->docParagraphStyles[xxx].BaseAdj = false;
 				Doc->docParagraphStyles[xxx].LineSpa = LineSp;
-				Doc->docParagraphStyles[xxx].FontSize = ISize;
+				Doc->docParagraphStyles[xxx].FontSize = m_FontSize;
 				Doc->docParagraphStyles[xxx].Indent = 0;
 				Doc->docParagraphStyles[xxx].First = 0;
 				Doc->docParagraphStyles[xxx].gapBefore = 0;
@@ -554,7 +554,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 				}
 				else
 				{
-					desc2 = -(*Doc->AllFonts)[IFont]->numDescender * (ISize / 10.0);
+					desc2 = -(*Doc->AllFonts)[m_Font]->numDescender * (m_FontSize / 10.0);
 					CurY = Doc->docParagraphStyles[0].LineSpa+TExtra+lineCorr-desc2;
 				}
 				firstDes = desc2;

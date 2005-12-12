@@ -162,8 +162,6 @@ PageItem::PageItem(const PageItem & other)
 	AnIPlace(other.AnIPlace),
 	AnScaleW(other.AnScaleW),
 	AnFormat(other.AnFormat),
-	IFont(other.IFont),
-	ISize(other.ISize),
 	HasSel(other.HasSel),
 	FrameOnly(other.FrameOnly),
 	BackBox(other.BackBox),
@@ -258,7 +256,9 @@ PageItem::PageItem(const PageItem & other)
 	oldYpos(other.oldYpos),
 	oldWidth(other.oldWidth),
 	oldHeight(other.oldHeight),
-	oldRot(other.oldRot)
+	oldRot(other.oldRot),
+	m_Font(other.m_Font),
+	m_FontSize(other.m_FontSize)
 {
 }
 
@@ -334,8 +334,8 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	FrameOnly = false;
 	ClipEdited = false;
 	FrameType = 0;
-	IFont = Doc->toolSettings.defFont;
-	ISize = Doc->toolSettings.defSize;
+	setFont(Doc->toolSettings.defFont);
+	setFontSize(Doc->toolSettings.defSize);
 	LineSpMode = 0;
 	LineSp = ((Doc->toolSettings.defSize / 10.0) * static_cast<double>(Doc->typographicSettings.autoLineSpacing) / 100) + (Doc->toolSettings.defSize / 10.0);
 	Doc->docParagraphStyles[0].LineSpa = LineSp;
@@ -1799,34 +1799,36 @@ void PageItem::setSizeLocked(bool isLocked)
 
 void PageItem::setFont(const QString& newFont)
 {
-	if (IFont == newFont)
+	if (m_Font == newFont)
 		return; // nothing to do -> return
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::SetFont,
-										  QString(Um::FromTo).arg(IFont).arg(newFont), Um::IFont);
+										  QString(Um::FromTo).arg(m_Font).arg(newFont), Um::IFont);
 		ss->set("SET_FONT", "setfont");
-		ss->set("OLD_FONT", IFont);
+		ss->set("OLD_FONT", m_Font);
 		ss->set("NEW_FONT", newFont);
 		undoManager->action(this, ss);
 	}
-	IFont = newFont;
+	m_Font = newFont;
+	emit textFont(m_Font);
 }
 
 void PageItem::setFontSize(int newSize)
 {
-	if (ISize == newSize)
+	if (m_FontSize == newSize)
 		return; // nothing to do -> return
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::SetFontSize,
-										  QString(Um::FromTo).arg(ISize/10.0).arg(newSize/10.0), Um::IFont);
+										  QString(Um::FromTo).arg(m_FontSize/10.0).arg(newSize/10.0), Um::IFont);
 		ss->set("SET_FONT_SIZE", "setfontsize");
-		ss->set("OLD_SIZE", ISize);
+		ss->set("OLD_SIZE", m_FontSize);
 		ss->set("NEW_SIZE", newSize);
 		undoManager->action(this, ss);
 	}
-	ISize = newSize;
+	m_FontSize = newSize;
+	emit textSize(m_FontSize);
 }
 
 void PageItem::setFontHeight(int newHeight)
@@ -3030,8 +3032,8 @@ void PageItem::copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer)
 	Buffer->Textflow = textFlowsAroundFrame();
 	Buffer->Textflow2 = textFlowUsesBoundingBox();
 	Buffer->textAlignment = textAlignment;
-	Buffer->IFont = IFont;
-	Buffer->ISize = ISize;
+	Buffer->IFont = m_Font;
+	Buffer->ISize = m_FontSize;
 	Buffer->ExtraV = ExtraV;
 	Buffer->Groups = Groups;
 	Buffer->IProfile = IProfile;
@@ -3530,6 +3532,7 @@ bool PageItem::connectToGUI()
 	connect(this, SIGNAL(textStyle(int)), ScMW->propertiesPalette, SLOT(setStil(int)));
 	connect(this, SIGNAL(textStyle(int)), ScMW, SLOT(setStilvalue(int)));
 	connect(this, SIGNAL(textFont(QString)), ScMW, SLOT(AdjustFontMenu(QString)));
+	connect(this, SIGNAL(textFont(QString)), ScMW->propertiesPalette, SLOT(setFontFace(QString)));
 	connect(this, SIGNAL(textSize(int)), ScMW->propertiesPalette, SLOT(setSize(int)));
 	connect(this, SIGNAL(textSize(int)), ScMW, SLOT(setFSizeMenu(int)));
 	connect(this, SIGNAL(textWidthScale(int)), ScMW->propertiesPalette, SLOT(setTScale(int)));
@@ -3577,7 +3580,7 @@ void PageItem::emitAllToGUI()
 	if (Doc->appMode != modeEdit)
 	{
 		emit textStyle(textAlignment);
-		emit textFont(IFont);
-		emit textSize(ISize);
+		emit textFont(m_Font);
+		emit textSize(m_FontSize);
 	}
 }

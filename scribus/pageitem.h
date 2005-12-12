@@ -405,10 +405,6 @@ public:
 	int AnFormat;
   /** Flag fuer neuzeichnen im EditMode */
 	bool Dirty;
-  /** Item Font */
-	QString IFont;
-  /** Item Fontgroesse */
-	int ISize;
   /** Flag fuer Auswahl */
 	bool HasSel;
   /** Flag fuer Textfluss */
@@ -692,7 +688,7 @@ public:
 	void setSizeLocked(bool isLocked);
 
 	/** @brief Get the PageItem-wide font name */
-	QString font() const { return IFont; }
+	QString font() const { return m_Font; }
 	/**
 	 * @brief Set font for the PageItem.
 	 * @param newFont name of the font
@@ -700,7 +696,7 @@ public:
 	void setFont(const QString& newFont);
 
 	/** @brief Get the PageItem-wide font size */
-	int fontSize() const { return ISize; }
+	int fontSize() const { return m_FontSize; }
 	/**
 	 * @brief Set the font size of the frame
 	 * @param newSize font size
@@ -1150,6 +1146,11 @@ protected:
 	/** @brief Stores the old rotation value for undo action. Is used to detect rotation actions. */
 	double oldRot;
 	
+	/** Item Font */
+	QString m_Font;
+	/** Item Fontsize */
+	int m_FontSize;
+
 	
 signals:
 	//Frame signals

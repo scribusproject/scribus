@@ -272,8 +272,8 @@ void gtAction::applyFrameStyle(gtFrameStyle* fstyle)
 	textFrame->LineSpMode = 0;
 	gtFont* font = fstyle->getFont();
 	QString fontName = validateFont(font);
-	textFrame->IFont = fontName;
-	textFrame->ISize = font->getSize();
+	textFrame->setFont(fontName);
+	textFrame->setFontSize(font->getSize());
 	textFrame->TxtFill = parseColor(font->getColor());
 	textFrame->ShTxtFill = font->getShade();
 	textFrame->TxtStroke = parseColor(font->getStrokeColor());
@@ -293,8 +293,8 @@ void gtAction::applyFrameStyle(gtFrameStyle* fstyle)
 
 void gtAction::getFrameFont(gtFont *font)
 {
-	font->setName(textFrame->IFont);
-	font->setSize(textFrame->ISize);
+	font->setName(textFrame->font());
+	font->setSize(textFrame->fontSize());
 	font->setColor(textFrame->TxtFill);
 	font->setShade(textFrame->ShTxtFill);
 	font->setStrokeColor(textFrame->TxtStroke);
@@ -467,7 +467,7 @@ QString gtAction::validateFont(gtFont* font)
 
 	QString useFont = font->getName();
 	if ((useFont.isNull()) || (useFont.isEmpty()))
-		useFont = textFrame->IFont;
+		useFont = textFrame->font();
 	else if (prefsManager->appPrefs.AvailFonts[font->getName()] == 0)
 	{
 		bool found = false;

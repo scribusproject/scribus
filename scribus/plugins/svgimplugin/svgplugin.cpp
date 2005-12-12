@@ -2000,12 +2000,12 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 				Text = QString::fromUtf8(tspan.text()).stripWhiteSpace();
 			else
 				Text = " ";
-			ite->IFont = gc->Family;
+			ite->setFont(gc->Family);
 			ite->TxtFill = gc->FillCol;
 			ite->ShTxtFill = 100;
 			ite->TxtStroke = gc->StrokeCol;
 			ite->ShTxtStroke = 100;
-			ite->ISize = gc->FontSize;
+			ite->setFontSize(gc->FontSize);
 			ite->TxTStyle = 0;
 			ite->TxtScale = 1000;
 			ite->TxtScaleV = 1000;
@@ -2099,12 +2099,12 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 		ite->setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
 		ite->LineSp = gc->FontSize / 10.0 + 2;
 		ScMW->SetNewFont(gc->Family);
-		ite->IFont = gc->Family;
+		ite->setFont(gc->Family);
 		ite->TxtFill = gc->FillCol;
 		ite->ShTxtFill = 100;
 		ite->TxtStroke = gc->StrokeCol;
 		ite->ShTxtStroke = 100;
-		ite->ISize = gc->FontSize;
+		ite->setFontSize(gc->FontSize);
 		ite->TxTStyle = 0;
 		ite->TxtScale = 1000;
 		ite->TxtScaleV = 1000;

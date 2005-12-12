@@ -239,7 +239,7 @@ void LoremManager::insertLoremIpsum(QString name, int paraCount)
 				ss->GetText(currItem, st, currItem->Doc->docParagraphStyles[st].Font, currItem->Doc->docParagraphStyles[st].FontSize, true);
 			else
 				//ss->GetText(ScMW->view->SelItem.at(i), st, ScMW->view->SelItem.at(i)->IFont, ScMW->view->SelItem.at(i)->ISize, true);
-				ss->GetText(currItem, st, currItem->IFont, currItem->ISize, true);
+				ss->GetText(currItem, st, currItem->font(), currItem->fontSize(), true);
 			delete ss;
 		}
 		//if (ScMW->view->SelItem.at(i)->Doc->docHyphenator->AutoCheck)

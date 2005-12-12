@@ -1787,7 +1787,7 @@ void ScribusDoc::reorganiseFonts()
 					it = FrameItems.at(d);
 					break;
 			}
-			Really.insert(it->IFont, UsedFonts[it->IFont]);
+			Really.insert(it->font(), UsedFonts[it->font()]);
 			if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
 			{
 				uint itemTextCount=it->itemText.count();

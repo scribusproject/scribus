@@ -131,6 +131,7 @@ public slots:
 	void setLspMode(int id);
 	void setLsp(double r);
 	void setSize(int s);
+	void setFontFace(QString);
 	void setExtra(int e);
 	void setDvals(double left, double top, double bottom, double right);
 	void ChangeScaling();

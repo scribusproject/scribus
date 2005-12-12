@@ -275,8 +275,8 @@ bool FileLoader::LoadPage(int PageToLoad, bool Mpage)
 		for (uint d = 0; d < ScMW->doc->MasterItems.count(); ++d)
 		{
 			PageItem *it = ScMW->doc->MasterItems.at(d);
-			if ((!ScMW->doc->UsedFonts.contains(it->IFont)) && (!it->IFont.isEmpty()))
-				it->IFont = ReplacedFonts[it->IFont];
+			if ((!ScMW->doc->UsedFonts.contains(it->font())) && (!it->font().isEmpty()))
+				it->setFont(ReplacedFonts[it->font()]);
 			if ((it->asTextFrame()) || (it->asPathText()))
 			{
 				for (uint e = 0; e < it->itemText.count(); ++e)
@@ -289,8 +289,8 @@ bool FileLoader::LoadPage(int PageToLoad, bool Mpage)
 		for (uint d = 0; d < ScMW->doc->DocItems.count(); ++d)
 		{
 			PageItem *it = ScMW->doc->DocItems.at(d);
-			if ((!ScMW->doc->UsedFonts.contains(it->IFont)) && (!it->IFont.isEmpty()))
-				it->IFont = ReplacedFonts[it->IFont];
+			if ((!ScMW->doc->UsedFonts.contains(it->font())) && (!it->font().isEmpty()))
+				it->setFont(ReplacedFonts[it->font()]);
 			if ((it->asTextFrame()) || (it->asPathText()))
 			{
 				for (uint e = 0; e < it->itemText.count(); ++e)
@@ -303,8 +303,8 @@ bool FileLoader::LoadPage(int PageToLoad, bool Mpage)
 		for (uint d = 0; d < ScMW->doc->FrameItems.count(); ++d)
 		{
 			PageItem *it = ScMW->doc->FrameItems.at(d);
-			if ((!ScMW->doc->UsedFonts.contains(it->IFont)) && (!it->IFont.isEmpty()))
-				it->IFont = ReplacedFonts[it->IFont];
+			if ((!ScMW->doc->UsedFonts.contains(it->font())) && (!it->font().isEmpty()))
+				it->setFont(ReplacedFonts[it->font()]);
 			if ((it->asTextFrame()) || (it->asPathText()))
 			{
 				for (uint e = 0; e < it->itemText.count(); ++e)
@@ -671,7 +671,7 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 							doc->AddFont(tmpf, qRound(doc->toolSettings.defSize / 10.0));
 						}
 					}
-					Neu->IFont = tmpf;
+					Neu->setFont(tmpf);
 					QDomNode IT=pg.firstChild();
 					while(!IT.isNull())
 					{
@@ -1580,7 +1580,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 							doc->AddFont(tmpf, qRound(doc->toolSettings.defSize / 10.0));
 						}
 					}
-					Neu->IFont = tmpf;
+					Neu->setFont(tmpf);
 					QDomNode IT=pg.firstChild();
 					while(!IT.isNull())
 					{
@@ -2126,7 +2126,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	currItem->BaseOffs = obj->attribute("BASEOF", "0").toDouble();
 	currItem->setTextFlowsAroundFrame(obj->attribute("TEXTFLOW").toInt());
 	currItem->setTextFlowUsesBoundingBox(obj->attribute("TEXTFLOW2", "0").toInt());
-	currItem->ISize = qRound(obj->attribute("ISIZE", "12").toDouble() * 10);
+	currItem->setFontSize(qRound(obj->attribute("ISIZE", "12").toDouble() * 10));
 	if (obj->hasAttribute("EXTRAV"))
 		currItem->ExtraV = qRound(obj->attribute("EXTRAV", "0").toDouble() / obj->attribute("ISIZE", "12").toDouble() * 1000.0);
 	else
@@ -2261,7 +2261,7 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	if (currItem->asImageFrame())
 		currItem->AdjustPictScale();
 	if (!(currItem->asTextFrame()) && !(currItem->asPathText()))
-		currItem->IFont = doc->toolSettings.defFont;
+		currItem->setFont(doc->toolSettings.defFont);
 	if (currItem->asPathText())
 	{
 		currItem->UpdatePolyClip();
@@ -2626,8 +2626,8 @@ bool FileLoader::postLoad(bool is12doc)
 		for (uint d = 0; d < ScMW->doc->MasterItems.count(); ++d)
 		{
 			PageItem *it = ScMW->doc->MasterItems.at(d);
-			if ((!ScMW->doc->UsedFonts.contains(it->IFont)) && (!it->IFont.isEmpty()))
-				it->IFont = ReplacedFonts[it->IFont];
+			if ((!ScMW->doc->UsedFonts.contains(it->font())) && (!it->font().isEmpty()))
+				it->setFont(ReplacedFonts[it->font()]);
 			if ((it->asTextFrame()) || (it->asPathText()))
 			{
 				for (uint e = 0; e < it->itemText.count(); ++e)
@@ -2640,8 +2640,8 @@ bool FileLoader::postLoad(bool is12doc)
 		for (uint d = 0; d < ScMW->doc->DocItems.count(); ++d)
 		{
 			PageItem *it = ScMW->doc->DocItems.at(d);
-			if ((!ScMW->doc->UsedFonts.contains(it->IFont)) && (!it->IFont.isEmpty()))
-				it->IFont = ReplacedFonts[it->IFont];
+			if ((!ScMW->doc->UsedFonts.contains(it->font())) && (!it->font().isEmpty()))
+				it->setFont(ReplacedFonts[it->font()]);
 			if ((it->asTextFrame()) || (it->asPathText()))
 			{
 				for (uint e = 0; e < it->itemText.count(); ++e)
@@ -2654,8 +2654,8 @@ bool FileLoader::postLoad(bool is12doc)
 		for (uint d = 0; d < ScMW->doc->FrameItems.count(); ++d)
 		{
 			PageItem *it = ScMW->doc->FrameItems.at(d);
-			if ((!ScMW->doc->UsedFonts.contains(it->IFont)) && (!it->IFont.isEmpty()))
-				it->IFont = ReplacedFonts[it->IFont];
+			if ((!ScMW->doc->UsedFonts.contains(it->font())) && (!it->font().isEmpty()))
+				it->setFont(ReplacedFonts[it->font()]);
 			if ((it->asTextFrame()) || (it->asPathText()))
 			{
 				for (uint e = 0; e < it->itemText.count(); ++e)

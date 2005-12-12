@@ -317,6 +317,7 @@ int ScribusMainWindow::initScribus(bool showSplash, bool showFontInfo, const QSt
 
 		connect(fileWatcher, SIGNAL(fileDeleted(QString )), this, SLOT(removeRecent(QString)));
 		connect(this, SIGNAL(TextIFont(QString)), this, SLOT(AdjustFontMenu(QString)));
+		connect(this, SIGNAL(TextIFont(QString)), propertiesPalette, SLOT(setFontFace(QString)));
 		connect(this, SIGNAL(TextISize(int)), this, SLOT(setFSizeMenu(int)));
 		connect(this, SIGNAL(TextISize(int)), propertiesPalette, SLOT(setSize(int)));
 		connect(this, SIGNAL(TextUSval(int)), propertiesPalette, SLOT(setExtra(int)));
@@ -2118,6 +2119,7 @@ void ScribusMainWindow::HaveNewDoc()
 	connect(view, SIGNAL(SetDistValues(double, double, double, double)), propertiesPalette, SLOT(setDvals(double, double, double, double)));
 	connect(view, SIGNAL(ItemTextAbs(int)), propertiesPalette, SLOT(setAli(int)));
 	connect(view, SIGNAL(ItemTextFont(QString)), this, SLOT(AdjustFontMenu(QString)));
+	connect(view, SIGNAL(ItemTextFont(QString)), propertiesPalette, SLOT(setFontFace(QString)));
 	connect(view, SIGNAL(ItemTextSize(int)), propertiesPalette, SLOT(setSize(int)));
 	//connect(view, SIGNAL(ItemRadius(double)), propertiesPalette, SLOT(setRR(double)));
 	connect(view, SIGNAL(Amode(int)), this, SLOT(setAppMode(int)));
@@ -2353,8 +2355,8 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 		}
 		else
 		{
-			doc->CurrFont = currItem->IFont;
-			doc->CurrFontSize = currItem->ISize;
+			doc->CurrFont = currItem->font();
+			doc->CurrFontSize = currItem->fontSize();
 			doc->CurrTextFill = currItem->TxtFill;
 			doc->CurrTextStroke = currItem->TxtStroke;
 			doc->CurrTextStrokeSh = currItem->ShTxtStroke;
@@ -2424,8 +2426,8 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 			setTBvals(currItem);
 		else
 		{
-			doc->CurrFont = currItem->IFont;
-			doc->CurrFontSize = currItem->ISize;
+			doc->CurrFont = currItem->font();
+			doc->CurrFontSize = currItem->fontSize();
 			doc->CurrTextFill = currItem->TxtFill;
 			doc->CurrTextStroke = currItem->TxtStroke;
 			doc->CurrTextStrokeSh = currItem->ShTxtStroke;
@@ -4393,7 +4395,7 @@ void ScribusMainWindow::slotEditPaste()
 				if (st > 5)
 					ss->GetText(currItem, st, doc->docParagraphStyles[st].Font, doc->docParagraphStyles[st].FontSize, true);
 				else
-					ss->GetText(currItem, st, currItem->IFont, currItem->ISize, true);
+					ss->GetText(currItem, st, currItem->font(), currItem->fontSize(), true);
 				delete ss;
 			}
 			view->RefreshItem(currItem);
@@ -5707,7 +5709,7 @@ void ScribusMainWindow::SetNewFont(const QString& nf)
 			if (doc->selection->count() != 0)
 			{
 				PageItem *currItem = doc->selection->itemAt(0);
-				nf2 = currItem->IFont;
+				nf2 = currItem->font();
 			}
 			propertiesPalette->Fonts->RebuildList(doc);
 			buildFontMenu();
@@ -5723,7 +5725,7 @@ void ScribusMainWindow::AdjustFontMenu(QString nf)
 {
 	QString df;
 	FontSub->setCurrentText(nf);
-	propertiesPalette->Fonts->setCurrentFont(nf);
+	//propertiesPalette->Fonts->setCurrentFont(nf);
 	for (uint a = 2; a < FontMenu->count(); ++a)
 	{
 		df = FontID[FontMenu->idAt(a)];
@@ -6122,7 +6124,7 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
 							ite->itemText.at(e)->cshade = ite->ShTxtFill;
 							ite->itemText.at(e)->cstroke = ite->TxtStroke;
 							ite->itemText.at(e)->cshade2 = ite->ShTxtStroke;
-							ite->itemText.at(e)->csize = ite->ISize;
+							ite->itemText.at(e)->csize = ite->fontSize();
 							ite->itemText.at(e)->cstyle &= ~1919;
 							ite->itemText.at(e)->cstyle |= ite->TxTStyle;
 							ite->itemText.at(e)->cshadowx = ite->TxtShadowX;
@@ -6207,7 +6209,7 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
 							chars->at(e)->cshade = ite->ShTxtFill;
 							chars->at(e)->cstroke = ite->TxtStroke;
 							chars->at(e)->cshade2 = ite->ShTxtStroke;
-							chars->at(e)->csize = ite->ISize;
+							chars->at(e)->csize = ite->fontSize();
 							chars->at(e)->cstyle &= ~1919;
 							chars->at(e)->cstyle |= ite->TxTStyle;
 							chars->at(e)->cshadowx = ite->TxtShadowX;
@@ -7400,7 +7402,6 @@ void ScribusMainWindow::ApplyMasterPage()
 				startPage = pageSelection==1 ? 1 : 0; //if even, startPage is 1 (real page 2)
 				endPage=doc->DocPages.count();
 			}
-
 			for (int pageNum = startPage; pageNum < endPage; ++pageNum)// +=pageStep)
 			{
 				//Increment by 1 and not 2 even for even/odd application as user
@@ -8245,7 +8246,9 @@ void ScribusMainWindow::slotStoryEditor()
 		PageItem *currItemSE=storyEditor->currentItem();
 		ScribusDoc *currDocSE=storyEditor->currentDocument();
 		storyEditor->activFromApp = true;
-		
+		//CB shouldnt these be after the if?
+		//Why are we resetting the doc and item in this case My original code didnt do this.
+		storyEditor->setCurrentDocumentAndItem(doc, currItem);
 		if (currItem==currItemSE && doc==currDocSE)
 		{
 			storyEditor->show();

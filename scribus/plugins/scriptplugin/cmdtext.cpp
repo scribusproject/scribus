@@ -27,7 +27,7 @@ PyObject *scribus_getfontsize(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	else
-		return PyFloat_FromDouble(static_cast<long>(it->ISize / 10.0));
+		return PyFloat_FromDouble(static_cast<long>(it->fontSize() / 10.0));
 }
 
 PyObject *scribus_getfont(PyObject* /* self */, PyObject* args)
@@ -53,7 +53,7 @@ PyObject *scribus_getfont(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	else
-		return PyString_FromString(it->IFont.utf8());
+		return PyString_FromString(it->font().utf8());
 }
 
 PyObject *scribus_gettextsize(PyObject* /* self */, PyObject* args)
@@ -291,8 +291,8 @@ PyObject *scribus_setboxtext(PyObject* /* self */, PyObject* args)
 		hg->ch = Daten.at(a);
 		if (hg->ch == QChar(10))
 			hg->ch = QChar(13);
-		hg->cfont = (*ScMW->doc->AllFonts)[currItem->IFont];
-		hg->csize = currItem->ISize;
+		hg->cfont = (*ScMW->doc->AllFonts)[currItem->font()];
+		hg->csize = currItem->fontSize();
 		hg->ccolor = currItem->TxtFill;
 		hg->cshade = currItem->ShTxtFill;
 		hg->cstroke = currItem->TxtStroke;
@@ -356,8 +356,8 @@ PyObject *scribus_inserttext(PyObject* /* self */, PyObject* args)
 		hg->ch = Daten.at(Daten.length()-1-a);
 		if (hg->ch == QChar(10))
 			hg->ch = QChar(13);
-		hg->cfont = (*ScMW->doc->AllFonts)[it->IFont];
-		hg->csize = it->ISize;
+		hg->cfont = (*ScMW->doc->AllFonts)[it->font()];
+		hg->csize = it->fontSize();
 		hg->ccolor = it->TxtFill;
 		hg->cshade = it->ShTxtFill;
 		hg->cstroke = it->TxtStroke;

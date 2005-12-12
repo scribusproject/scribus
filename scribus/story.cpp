@@ -1159,8 +1159,8 @@ void SEditor::loadText(QString tx, PageItem *currItem)
 		{
 			hg = new PtiSmall;
 			hg->ch = tx[a];
-			hg->cfont = currItem->IFont;
-			hg->csize = currItem->ISize;
+			hg->cfont = currItem->font();
+			hg->csize = currItem->fontSize();
 			hg->ccolor = currItem->TxtFill;
 			hg->cshade = currItem->ShTxtFill;
 			hg->cstroke = currItem->TxtStroke;
@@ -2647,8 +2647,8 @@ void StoryEditor::updateProps(int p, int ch)
 			Editor->CurrTextFillSh = currItem->ShTxtFill;
 			Editor->CurrTextStroke = currItem->TxtStroke;
 			Editor->CurrTextStrokeSh = currItem->ShTxtStroke;
-			Editor->CurrFont = currItem->IFont;
-			Editor->CurrFontSize = currItem->ISize;
+			Editor->CurrFont = currItem->font();
+			Editor->CurrFontSize = currItem->fontSize();
 			Editor->CurrentStyle = currItem->TxTStyle;
 			Editor->currentParaStyle = currItem->textAlignment;
 			Editor->CurrTextKern = currItem->ExtraV;
@@ -2697,8 +2697,8 @@ void StoryEditor::updateProps(int p, int ch)
 			StyleTools->setOutline(currItem->TxtOutline);
 			StyleTools->setUnderline(currItem->TxtUnderPos, currItem->TxtUnderWidth);
 			StyleTools->setStrike(currItem->TxtStrikePos, currItem->TxtStrikeWidth);
-			FontTools->SetSize(currItem->ISize);
-			FontTools->SetFont(currItem->IFont);
+			FontTools->SetSize(currItem->fontSize());
+			FontTools->SetFont(currItem->font());
 			FontTools->SetScale(currItem->TxtScale);
 			FontTools->SetScaleV(currItem->TxtScaleV);
 		}
@@ -3220,8 +3220,8 @@ void StoryEditor::changeAlignSB(int pa, int align)
 					chars->at(s)->cshade = currItem->ShTxtFill;
 					chars->at(s)->cstroke = currItem->TxtStroke;
 					chars->at(s)->cshade2 = currItem->ShTxtStroke;
-					chars->at(s)->cfont = currItem->IFont;
-					chars->at(s)->csize = currItem->ISize;
+					chars->at(s)->cfont = currItem->font();
+					chars->at(s)->csize = currItem->fontSize();
 					chars->at(s)->cstyle &= ~1919;
 					chars->at(s)->cstyle |= currItem->TxTStyle;
 					chars->at(s)->cshadowx = currItem->TxtShadowX;
@@ -3269,8 +3269,8 @@ void StoryEditor::changeAlignSB(int pa, int align)
 			Editor->CurrTextFillSh = currItem->ShTxtFill;
 			Editor->CurrTextStroke = currItem->TxtStroke;
 			Editor->CurrTextStrokeSh = currItem->ShTxtStroke;
-			Editor->CurrFont = currItem->IFont;
-			Editor->CurrFontSize = currItem->ISize;
+			Editor->CurrFont = currItem->font();
+			Editor->CurrFontSize = currItem->fontSize();
 			Editor->CurrentStyle = currItem->TxTStyle;
 			Editor->CurrTextKern = currItem->ExtraV;
 			Editor->CurrTextScale = currItem->TxtScale;
@@ -3363,8 +3363,8 @@ void StoryEditor::changeAlign(int )
 						chars->at(s)->cshade = currItem->ShTxtFill;
 						chars->at(s)->cstroke = currItem->TxtStroke;
 						chars->at(s)->cshade2 = currItem->ShTxtStroke;
-						chars->at(s)->cfont = currItem->IFont;
-						chars->at(s)->csize = currItem->ISize;
+						chars->at(s)->cfont = currItem->font();
+						chars->at(s)->csize = currItem->fontSize();
 						chars->at(s)->cstyle &= ~1919;
 						chars->at(s)->cstyle |= currItem->TxTStyle;
 						chars->at(s)->cshadowx = currItem->TxtShadowX;
@@ -3415,8 +3415,8 @@ void StoryEditor::changeAlign(int )
 			Editor->CurrTextFillSh = currItem->ShTxtFill;
 			Editor->CurrTextStroke = currItem->TxtStroke;
 			Editor->CurrTextStrokeSh = currItem->ShTxtStroke;
-			Editor->CurrFont = currItem->IFont;
-			Editor->CurrFontSize = currItem->ISize;
+			Editor->CurrFont = currItem->font();
+			Editor->CurrFontSize = currItem->fontSize();
 			Editor->CurrentStyle = currItem->TxTStyle;
 			Editor->CurrTextKern = currItem->ExtraV;
 			Editor->CurrTextScale = currItem->TxtScale;

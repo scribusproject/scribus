@@ -239,7 +239,7 @@ QPixmap SampleItem::getSample(int width, int height)
 	ScMW->view->setScale(1.0);
 
 	previewItem->itemText.clear();
-	previewItem->IFont = tmpStyle.Font;
+	previewItem->setFont(tmpStyle.Font);
 	previewItem->Cols = 1;
 	for (uint i = 0; i < text.length(); ++i)
 	{

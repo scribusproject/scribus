@@ -2577,11 +2577,11 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						scx = scx != scy ? scx / scy : 1.0;
 						if (currItem->itemText.count() != 0)
 						{
-							currItem->ISize = QMAX(qRound(currItem->ISize * scy), 1);
-							currItem->LineSp = ((currItem->ISize / 10.0)* static_cast<double>(Doc->typographicSettings.autoLineSpacing) / 100) + (currItem->ISize / 10.0);
+							currItem->setFontSize(QMAX(qRound(currItem->fontSize() * scy), 1));
+							currItem->LineSp = ((currItem->fontSize() / 10.0)* static_cast<double>(Doc->typographicSettings.autoLineSpacing) / 100) + (currItem->fontSize() / 10.0);
 							currItem->TxtScale = QMIN(QMAX(qRound(currItem->TxtScale * scx), 25), 400);
 							Doc->CurrTextScale = currItem->TxtScale;
-							Doc->CurrFontSize = currItem->ISize;
+							Doc->CurrFontSize = currItem->fontSize();
 							Doc->CurrTextBase = currItem->TxtBase;
 							Doc->CurrTextShadowX = currItem->TxtShadowX;
 							Doc->CurrTextShadowY = currItem->TxtShadowY;
@@ -2596,7 +2596,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 							emit ItemTextShadow(currItem->TxtShadowX, currItem->TxtShadowY);
 							emit ItemTextAttr(currItem->LineSp);
 							emit ItemTextCols(currItem->Cols, currItem->ColGap);
-							emit ItemTextSize(currItem->ISize);
+							emit ItemTextSize(currItem->fontSize());
 							emit ItemTextSca(currItem->TxtScale);
 							emit ItemTextScaV(currItem->TxtScaleV);
 							emit ItemTextBase(currItem->TxtBase);
@@ -4470,7 +4470,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 						if (st > 5)
 							ss->GetText(currItem, st, Doc->docParagraphStyles[st].Font, Doc->docParagraphStyles[st].FontSize, true);
 						else
-							ss->GetText(currItem, st, currItem->IFont, currItem->ISize, true);
+							ss->GetText(currItem, st, currItem->font(), currItem->fontSize(), true);
 						delete ss;
 						ss=NULL;
 						if (Doc->docHyphenator->AutoCheck)
@@ -6351,10 +6351,10 @@ void ScribusView::scaleGroup(double scx, double scy)
 				AdjustItemSize(bb);
 			}
 		}
-		bb->ISize = QMAX(qRound(bb->ISize*((scx+scy)/2)), 1);
+		bb->setFontSize(QMAX(qRound(bb->fontSize()*((scx+scy)/2)), 1));
 		if ((bb->itemText.count() != 0) && (!bb->isTableItem))
 		{
-			bb->LineSp = ((bb->ISize / 10.0) * static_cast<double>(Doc->typographicSettings.autoLineSpacing) / 100) + (bb->ISize / 10.0);
+			bb->LineSp = ((bb->fontSize() / 10.0) * static_cast<double>(Doc->typographicSettings.autoLineSpacing) / 100) + (bb->fontSize() / 10.0);
 			for (aa = 0; aa < bb->itemText.count(); ++aa)
 				bb->itemText.at(aa)->csize = QMAX(qRound(bb->itemText.at(aa)->csize*((scx+scy)/2)), 1);
 			if (bb->asPathText())
@@ -6721,8 +6721,8 @@ bool ScribusView::slotSetCurs(int x, int y)
 			}
 			else
 			{
-				Doc->CurrFont = currItem->IFont;
-				Doc->CurrFontSize = currItem->ISize;
+				Doc->CurrFont = currItem->font();
+				Doc->CurrFontSize = currItem->fontSize();
 				Doc->CurrTextFill = currItem->TxtFill;
 				Doc->CurrTextFillSh = currItem->ShTxtFill;
 				Doc->CurrTextStroke = currItem->TxtStroke;
@@ -6744,8 +6744,8 @@ bool ScribusView::slotSetCurs(int x, int y)
 				emit ItemTextSca(currItem->TxtScale);
 				emit ItemTextScaV(currItem->TxtScaleV);
 				emit ItemTextFarben(currItem->TxtStroke, currItem->TxtFill, currItem->ShTxtStroke, currItem->ShTxtFill);
-				emit ItemTextFont(currItem->IFont);
-				emit ItemTextSize(currItem->ISize);
+				emit ItemTextFont(currItem->font());
+				emit ItemTextSize(currItem->fontSize());
 				emit ItemTextUSval(currItem->ExtraV);
 				emit ItemTextStil(currItem->TxTStyle);
 				emit ItemTextAbs(currItem->textAlignment);
@@ -6851,8 +6851,8 @@ void ScribusView::slotDoCurs(bool draw)
 					lineCorr = 0;
 				xp = static_cast<int>(currItem->textToFrameDistLeft() + lineCorr);
 				yp = static_cast<int>(currItem->textToFrameDistTop() + lineCorr + currItem->LineSp);
-				desc = static_cast<int>((*Doc->AllFonts)[currItem->IFont]->numDescender * (-currItem->ISize / 10.0));
-				asce = static_cast<int>((*Doc->AllFonts)[currItem->IFont]->numAscent * (currItem->ISize / 10.0));
+				desc = static_cast<int>((*Doc->AllFonts)[currItem->font()]->numDescender * (-currItem->fontSize() / 10.0));
+				asce = static_cast<int>((*Doc->AllFonts)[currItem->font()]->numAscent * (currItem->fontSize() / 10.0));
 			}
 			else
 			{
@@ -6865,8 +6865,8 @@ void ScribusView::slotDoCurs(bool draw)
 						lineCorr = 0;
 					xp = static_cast<int>(currItem->textToFrameDistLeft() + lineCorr);
 					yp = static_cast<int>(currItem->textToFrameDistTop() + lineCorr + currItem->LineSp);
-					desc = static_cast<int>((*Doc->AllFonts)[currItem->IFont]->numDescender * (-currItem->ISize / 10.0));
-					asce = static_cast<int>((*Doc->AllFonts)[currItem->IFont]->numAscent * (currItem->ISize / 10.0));
+					desc = static_cast<int>((*Doc->AllFonts)[currItem->font()]->numDescender * (-currItem->fontSize() / 10.0));
+					asce = static_cast<int>((*Doc->AllFonts)[currItem->font()]->numAscent * (currItem->fontSize() / 10.0));
 				}
 				else
 				{
@@ -7604,9 +7604,8 @@ void ScribusView::updateGradientVectors(PageItem *currItem)
 void ScribusView::SetupDraw(int nr)
 {
 	PageItem* currItem = Doc->Items->at(nr);
-	//currItem->Select = true;
-	currItem->IFont = Doc->toolSettings.defFont;
-	currItem->ISize = Doc->toolSettings.defSize;
+	currItem->setFont(Doc->toolSettings.defFont);
+	currItem->setFontSize(Doc->toolSettings.defSize);
 	mCG = true;
 	HowTo = 1;
 	qApp->setOverrideCursor(QCursor(SizeFDiagCursor), true);
@@ -7617,38 +7616,9 @@ void ScribusView::SetupDraw(int nr)
 	Doc->appMode = modeNormal;
 	emit DocChanged();
 	currItem->Sizing =  currItem->asLine() ? false : true;
-	//CB unnecessary now with addItem
-	//EmitValues(currItem);
-	//currItem->emitAllToGUI();
 }
 
-/*
-void ScribusView::EmitValues(PageItem *currItem)
-{
 
-	//emit ItemPos(currItem->xPos(), currItem->yPos());
-	//emit ItemGeom(currItem->width(), currItem->height());
-	//emit SetAngle(currItem->rotation());
-	emit SetSizeValue(currItem->Pwidth);
-	emit SetLineArt(currItem->PLineArt, currItem->PLineEnd, currItem->PLineJoin);
-	emit SetLocalValues(currItem->LocalScX, currItem->LocalScY, currItem->LocalX, currItem->LocalY );
-	emit ItemFarben(currItem->lineColor(), currItem->fillColor(), currItem->lineShade(), currItem->fillShade());
-	emit ItemGradient(currItem->GrType);
-	if (currItem->GrType == 0)
-		emit ItemTrans(currItem->fillTransparency(), currItem->lineTransparency());
-	emit ItemTextAttr(currItem->LineSp);
-	emit ItemTextUSval(currItem->ExtraV);
-	emit SetDistValues(currItem->Extra, currItem->TExtra, currItem->BExtra, currItem->RExtra);
-	emit ItemTextCols(currItem->Cols, currItem->ColGap);
-	if (Doc->appMode != modeEdit)
-	{
-		emit ItemTextAbs(currItem->textAlignment);
-		emit ItemTextFont(currItem->IFont);
-		emit ItemTextSize(currItem->ISize);
-	}
-	ScMW->propertiesPalette->updateColorSpecialGradient();
-}
-*/
 void ScribusView::ToggleBookmark()
 {
 	uint docSelectionCount=Doc->selection->count();
@@ -9646,8 +9616,8 @@ void ScribusView::chAbStyle(PageItem *currItem, int s)
 					nextItem->itemText.at(a)->cshade = nextItem->ShTxtFill;
 					nextItem->itemText.at(a)->cstroke = nextItem->TxtStroke;
 					nextItem->itemText.at(a)->cshade2 = nextItem->ShTxtStroke;
-					nextItem->itemText.at(a)->csize = nextItem->ISize;
-					nextItem->itemText.at(a)->cfont = (*Doc->AllFonts)[nextItem->IFont];
+					nextItem->itemText.at(a)->csize = nextItem->fontSize();
+					nextItem->itemText.at(a)->cfont = (*Doc->AllFonts)[nextItem->font()];
 					nextItem->itemText.at(a)->cstyle &= ~1919;
 					nextItem->itemText.at(a)->cstyle |= nextItem->TxTStyle;
 					nextItem->itemText.at(a)->cshadowx = nextItem->TxtShadowX;
@@ -9713,8 +9683,8 @@ void ScribusView::chAbStyle(PageItem *currItem, int s)
 					nextItem->itemText.at(a)->cshade = nextItem->ShTxtFill;
 					nextItem->itemText.at(a)->cstroke = nextItem->TxtStroke;
 					nextItem->itemText.at(a)->cshade2 = nextItem->ShTxtStroke;
-					nextItem->itemText.at(a)->csize = nextItem->ISize;
-					nextItem->itemText.at(a)->cfont = (*Doc->AllFonts)[nextItem->IFont];
+					nextItem->itemText.at(a)->csize = nextItem->fontSize();
+					nextItem->itemText.at(a)->cfont = (*Doc->AllFonts)[nextItem->font()];
 					nextItem->itemText.at(a)->cstyle &= ~1919;
 					nextItem->itemText.at(a)->cstyle |= nextItem->TxTStyle;
 					nextItem->itemText.at(a)->cshadowx = nextItem->TxtShadowX;
@@ -9790,8 +9760,8 @@ void ScribusView::chAbStyle(PageItem *currItem, int s)
 					currItem->itemText.at(a)->cshade = currItem->ShTxtFill;
 					currItem->itemText.at(a)->cstroke = currItem->TxtStroke;
 					currItem->itemText.at(a)->cshade2 = currItem->ShTxtStroke;
-					currItem->itemText.at(a)->cfont = (*Doc->AllFonts)[currItem->IFont];
-					currItem->itemText.at(a)->csize = currItem->ISize;
+					currItem->itemText.at(a)->cfont = (*Doc->AllFonts)[currItem->font()];
+					currItem->itemText.at(a)->csize = currItem->fontSize();
 					currItem->itemText.at(a)->cstyle &= ~1919;
 					currItem->itemText.at(a)->cstyle |= currItem->TxTStyle;
 					currItem->itemText.at(a)->cshadowx = currItem->TxtShadowX;
@@ -9889,13 +9859,13 @@ void ScribusView::ChLineSpaMode(int w)
 				currItem->LineSpMode = w;
 				if (w == 0)
 				{
-					currItem->LineSp = ((currItem->ISize / 10.0) * static_cast<double>(Doc->typographicSettings.autoLineSpacing) / 100) + (currItem->ISize / 10.0);
+					currItem->LineSp = ((currItem->fontSize() / 10.0) * static_cast<double>(Doc->typographicSettings.autoLineSpacing) / 100) + (currItem->fontSize() / 10.0);
 					Doc->docParagraphStyles[0].BaseAdj = false;
 				}
 				else if (w == 1)
 				{
 					Doc->docParagraphStyles[0].BaseAdj = false;
-					currItem->LineSp = RealFHeight(Doc, (*Doc->AllFonts)[currItem->IFont], currItem->ISize);
+					currItem->LineSp = RealFHeight(Doc, (*Doc->AllFonts)[currItem->font()], currItem->fontSize());
 				}
 				else
 				{
@@ -9933,7 +9903,7 @@ void ScribusView::chFSize(int size)
 				}
 				else if (currItem->LineSpMode == 1)
 				{
-					currItem->LineSp = RealFHeight(Doc, (*Doc->AllFonts)[currItem->IFont], currItem->ISize);
+					currItem->LineSp = RealFHeight(Doc, (*Doc->AllFonts)[currItem->font()], currItem->fontSize());
 					Doc->docParagraphStyles[0].LineSpa = currItem->LineSp;
 					emit ItemTextAttr(currItem->LineSp);
 				}
@@ -9943,7 +9913,7 @@ void ScribusView::chFSize(int size)
 					emit ItemTextAttr(currItem->LineSp);
 				}
 				currItem->setFontSize(size);
-				emit ItemTextSize(currItem->ISize);
+				emit ItemTextSize(currItem->fontSize());
 				emit ItemTextCols(currItem->Cols, currItem->ColGap);
 			}
 			uint currItemTextCount=currItem->itemText.count();
@@ -10519,8 +10489,8 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	currItem->setTextFlowsAroundFrame(Buffer->Textflow);
 	currItem->setTextFlowUsesBoundingBox(Buffer->Textflow2);
 	currItem->textAlignment = Buffer->textAlignment;
-	currItem->IFont = Buffer->IFont;
-	currItem->ISize = Buffer->ISize;
+	currItem->setFont(Buffer->IFont);
+	currItem->setFontSize(Buffer->ISize);
 	currItem->ExtraV = Buffer->ExtraV;
 	currItem->Groups = Buffer->Groups;
 	currItem->TabValues = Buffer->TabValues;
@@ -10587,7 +10557,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	if (currItem->asImageFrame())
 		currItem->AdjustPictScale();
 	if ((currItem->asTextFrame()) && !(currItem->asPathText()))
-		currItem->IFont = Doc->toolSettings.defFont;
+		currItem->setFont(Doc->toolSettings.defFont);
 	if (currItem->asPathText())
 	{
 		currItem->UpdatePolyClip();
