@@ -760,7 +760,6 @@ void PagePalette::selMasterPage()
 
 QPixmap PagePalette::CreateIcon(int nr, QPixmap ret)
 {
-	QString tmp;
 	QPainter p;
 	if (p.begin(&ret))
 	{
@@ -769,7 +768,8 @@ QPixmap PagePalette::CreateIcon(int nr, QPixmap ret)
 		p.setBackgroundMode(QPainter::OpaqueMode);
 		p.setPen(QPen(black, 1, SolidLine, FlatCap, MiterJoin));
 		p.setFont(QFont("Helvetica", 12, QFont::Bold));
-		tmp = tmp.setNum(nr+1);
+		//QString tmp = tmp.setNum(nr+1);
+		QString tmp(currView->Doc->getSectionPageNumberForPageIndex(nr));
 		QRect b = p.fontMetrics().boundingRect(tmp);
 		QRect c = QRect((ret.width() / 2 - b.width() / 2)-2, (ret.height() / 2 - b.height() / 2)-2, b.width()+4, b.height()+4);
 		p.drawRect(c);
