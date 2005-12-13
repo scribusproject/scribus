@@ -8,24 +8,41 @@
 class QString;
 class ParagraphStyle;
 class QColor;
+class ScribusDoc;
 //class PageItem;
 //class TabRecord;
 
 
+/*! \brief Provides sample "text frame" as pixmap.
+You can create a pixmap with standard Scribus text frame
+here. It can be used as a kind of preview.
+It needs at least one existing ScribusDoc - so there
+is one created if ScWM->doc is null (then it's destroyed
+of course).
+\author Petr Vanek <petr@yarpen.cz>
+*/
 class SCRIBUS_API SampleItem : QObject
 {
 	Q_OBJECT
 
 	public:
-		SampleItem(QWidget *parent);
+		SampleItem();
 		~SampleItem();
 
+		/*! \brief Set sample text.
+		\param aText QString to set. */
 		void setText(QString aText);
+		/*! \brief Use lorem ipsum generator as text source.
+		\param para count of the LI paragraphs */
 		void setLoremIpsum(int para);
+		/*! \brief Set backgroud color of the pixmap.
+		\param c a QColor */
 		void setBgColor(QColor c);
 
+		/*! \brief Set whole Scribus paragraph style in one.
+		\param aStyle Paragraph style to set.*/
 		void setStyle(ParagraphStyle aStyle);
-		void setBackgroundColor(QColor c);
+		/*! \brief Folowing methods set only one style characteristic */
 		void setLineSpaMode(int lineSpaMode);
 		void setLineSpa(double lineSpa);
 		void setTextAlignment(int textAlignment);
@@ -34,8 +51,10 @@ class SCRIBUS_API SampleItem : QObject
 		void setGapBefore(double gapBefore);
 		void setGapAfter(double gapAfter);
 		void setFont(QString font);
-		/* val * 10.0 usually */
-		void setFontSize(int fontSize);
+		/*! \brief Set size of the font.
+		\param fontSize fontSize * 10.0 usually
+		\param autoLineSpa if true - use automatic line spacing computing */
+		void setFontSize(int fontSize, bool autoLineSpa=false);
 		//void setTabValues(QValueList<PageItem::TabRecord> tabValues);
 		void setDrop(bool drop);
 		void setDropLin(int dropLin);
@@ -58,12 +77,25 @@ class SCRIBUS_API SampleItem : QObject
 		void setBaseOff(int baseOff);
 		void setKernVal(int kernVal);
 
+		/*! \brief Get the sample.
+		\param width W of the sample
+		\param width H of the sample
+		\retval QPixmap rendered image
+		*/
 		QPixmap getSample(int width, int height);
 
 	private:
+		//! \brief Text to be rendered
 		QString text;
+		//! \brief Background color
 		QColor bgColor;
+		//! \brief Internal temporary paragraph style
 		ParagraphStyle tmpStyle;
+		/*! \brief Reference to a document.
+		Existing or created one */
+		ScribusDoc *doc;
+		//! \brief Is the doc created used only? true = used
+		bool used;
 };
 
 #endif

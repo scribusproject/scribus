@@ -1,41 +1,60 @@
 #include "scribus.h"
 #include "sampleitem.h"
 #include "loremipsum.h"
+#include "scribusdoc.h"
 #include <qcolor.h>
 #include <qstring.h>
 
 extern ScribusMainWindow* ScMW;
 
 
-SampleItem::SampleItem(QWidget *parent) : QObject(parent)
+SampleItem::SampleItem() : QObject()
 {
+	used = true;
+	if (ScMW->doc == NULL)
+	{
+		bool ret = ScMW->doFileNew(//pageWidth, pageHeight,
+									0,0,
+									//topMargin, leftMargin, rightMargin, bottomMargin,
+									1, 1, 1, 1,
+									// autoframes. It's disabled in python
+									// columnDistance, numberCols, autoframes,
+									0, 1, false,
+									//pagesType, unit, firstPageOrder,
+									1, 1, 1,
+									//orientation, firstPageNr, "Custom");
+									1, 1, "custom");
+		ScMW->doc->pageSets[1/*pagesType*/].FirstPage = 1;//firstPageOrder;
+		used = false;
+	}
+	doc = ScMW->doc;
 	tmpStyle.Vname = "(preview temporary)";
 	tmpStyle.LineSpaMode = 0;
-	tmpStyle.LineSpa = ((ScMW->doc->toolSettings.defSize / 10.0) * static_cast<double>(ScMW->doc->typographicSettings.autoLineSpacing) / 100) + (ScMW->doc->toolSettings.defSize / 10.0);
+	tmpStyle.LineSpa = ((doc->toolSettings.defSize / 10.0) * static_cast<double>(doc->typographicSettings.autoLineSpacing) / 100) + (doc->toolSettings.defSize / 10.0);
 	tmpStyle.textAlignment = 0;
 	tmpStyle.Indent = 0;
 	tmpStyle.First = 0;
 	tmpStyle.gapBefore = 0;
 	tmpStyle.gapAfter = 0;
-	tmpStyle.Font = ScMW->doc->toolSettings.defFont;
-	tmpStyle.FontSize = ScMW->doc->toolSettings.defSize;
+	tmpStyle.Font = doc->toolSettings.defFont;
+	tmpStyle.FontSize = doc->toolSettings.defSize;
 	tmpStyle.TabValues.clear();
 	tmpStyle.Drop = false;
 	tmpStyle.DropLin = 2;
 	tmpStyle.DropDist = 0;
 	tmpStyle.FontEffect = 0;
-	tmpStyle.FColor = ScMW->doc->toolSettings.dBrush;
-	tmpStyle.FShade = ScMW->doc->toolSettings.dShade;
-	tmpStyle.SColor = ScMW->doc->toolSettings.dPen;
-	tmpStyle.SShade = ScMW->doc->toolSettings.dShade2;
+	tmpStyle.FColor = doc->toolSettings.dBrush;
+	tmpStyle.FShade = doc->toolSettings.dShade;
+	tmpStyle.SColor = doc->toolSettings.dPen;
+	tmpStyle.SShade = doc->toolSettings.dShade2;
 	tmpStyle.BaseAdj = false;
 	tmpStyle.txtShadowX = 50;
 	tmpStyle.txtShadowY = -50;
 	tmpStyle.txtOutline = 10;
-	tmpStyle.txtUnderPos = ScMW->doc->typographicSettings.valueUnderlinePos;
-	tmpStyle.txtUnderWidth = ScMW->doc->typographicSettings.valueUnderlineWidth;
-	tmpStyle.txtStrikePos = ScMW->doc->typographicSettings.valueStrikeThruPos;
-	tmpStyle.txtStrikeWidth = ScMW->doc->typographicSettings.valueStrikeThruPos;
+	tmpStyle.txtUnderPos = doc->typographicSettings.valueUnderlinePos;
+	tmpStyle.txtUnderWidth = doc->typographicSettings.valueUnderlineWidth;
+	tmpStyle.txtStrikePos = doc->typographicSettings.valueStrikeThruPos;
+	tmpStyle.txtStrikeWidth = doc->typographicSettings.valueStrikeThruPos;
 	tmpStyle.scaleH = 1000;
 	tmpStyle.scaleV = 1000;
 	tmpStyle.baseOff = 0;
@@ -45,6 +64,12 @@ SampleItem::SampleItem(QWidget *parent) : QObject(parent)
 
 SampleItem::~SampleItem()
 {
+	if (used == false)
+	{
+		doc->setModified(false);
+		bool ret = ScMW->slotFileClose();
+		//qApp->processEvents();
+	}
 }
 
 void SampleItem::setText(QString aText)
@@ -110,9 +135,11 @@ void SampleItem::setFont(QString font)
 	tmpStyle.Font = font;
 }
 
-void SampleItem::setFontSize(int fontSize)
+void SampleItem::setFontSize(int fontSize, bool autoLineSpa)
 {
 	tmpStyle.FontSize = fontSize;
+	if (autoLineSpa)
+		tmpStyle.LineSpa = ((fontSize / 10)  * (doc->typographicSettings.autoLineSpacing / 100) + (fontSize / 10));
 }
 
 /*void SampleItem::setTabValues(QValueList<PageItem::TabRecord> tabValues)
@@ -222,21 +249,25 @@ void SampleItem::setKernVal(int kernVal)
 
 QPixmap SampleItem::getSample(int width, int height)
 {
-	PageItem_TextFrame *previewItem = new PageItem_TextFrame(ScMW->doc, 0, 0, width, height, 0, "None", ScMW->doc->toolSettings.dPenText);
+	PageItem_TextFrame *previewItem = new PageItem_TextFrame(doc, 0, 0, width, width, 0, "None", doc->toolSettings.dPenText);
 	QPixmap pm(width, height);
 	ScPainter *painter = new ScPainter(&pm, width, height, 0, 0);
-	double sca = ScMW->view->getScale();
+	double sca = 1.0;
+
+	if (ScMW->view != NULL)
+		sca = ScMW->view->getScale();
 
 	QFont fo = QFont(tmpStyle.Font);
-	fo.setPointSize(qRound(ScMW->doc->toolSettings.defSize / 10.0));
-	ScMW->doc->AddFont(tmpStyle.Font, qRound(ScMW->doc->toolSettings.defSize / 10.0));
-	ScMW->doc->docParagraphStyles.append(tmpStyle);
-	int tmpIndex = ScMW->doc->docParagraphStyles.count() - 1;
+	fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
+	doc->AddFont(tmpStyle.Font, qRound(doc->toolSettings.defSize / 10.0));
+	doc->docParagraphStyles.append(tmpStyle);
+	int tmpIndex = doc->docParagraphStyles.count() - 1;
 
 	previewItem->FrameType = PageItem::TextFrame;
 	painter->clear(bgColor);
 	pm.fill(bgColor);
-	ScMW->view->setScale(1.0);
+	if (ScMW->view != NULL)
+		ScMW->view->setScale(1.0);
 
 	previewItem->itemText.clear();
 	previewItem->setFont(tmpStyle.Font);
@@ -247,7 +278,7 @@ QPixmap SampleItem::getSample(int width, int height)
 		hg->ch = text.at(i);
 		if ((hg->ch == QChar(10)) || (hg->ch == QChar(5)))
 			hg->ch = QChar(13);
-		hg->cfont = (*ScMW->doc->AllFonts)[tmpStyle.Font];
+		hg->cfont = (*doc->AllFonts)[tmpStyle.Font];
 		hg->csize = tmpStyle.FontSize;
 		hg->ccolor = tmpStyle.FColor;
 		hg->cshade = tmpStyle.FShade;
@@ -279,9 +310,9 @@ QPixmap SampleItem::getSample(int width, int height)
 	previewItem->DrawObj(painter, QRect(0, 0, width, height));
 	painter->end();
 	delete(painter);
-	ScMW->view->setScale(sca);
+	if (ScMW->view != NULL)
+		ScMW->view->setScale(sca);
 	delete previewItem;
-	ScMW->doc->docParagraphStyles.remove(ScMW->doc->docParagraphStyles.fromLast());
-	// test pm.save("/home/subzero/devel/tests/preview.png", "PNG");
+	doc->docParagraphStyles.remove(doc->docParagraphStyles.fromLast());
 	return pm;
 }

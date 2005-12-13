@@ -17,8 +17,7 @@
 #include "util.h"
 #include "prefsmanager.h"
 #include "scfonts.h"
-
-
+#include "sampleitem.h"
 
 
 TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex, ScribusDoc* doc) : QWidget( parent, "tabtools", 0 )
@@ -27,7 +26,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	unit = unitGetSuffixFromIndex(unitIndex);
 	precision = unitGetPrecisionFromIndex(unitIndex);
 	unitRatio = unitGetRatioFromIndex(unitIndex);
-	
+
 	tabToolsLayout = new QHBoxLayout( this, 0, 5, "tabToolsLayout");
 	buttonGroupTools = new QButtonGroup( this, "buttonGroupTools" );
 	buttonGroupTools->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)0, (QSizePolicy::SizeType)5, 0, 0, buttonGroupTools->sizePolicy().hasHeightForWidth() ) );
@@ -307,8 +306,10 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	textLabel5b = new QLabel(gapText, tr("&Gap:"), subTabText, "TextCol");
 	subTabTextLayout->addWidget( textLabel5b, 7, 2 );
 	previewText = new QLabel( tr( "Woven silk pyjamas exchanged for blue quartz" ), subTabText, "previewText" );
-	previewText->setMinimumSize( QSize( 280, 70 ) );
-	previewText->setAlignment( static_cast<int>( QLabel::AlignVCenter | QLabel::AlignLeft ) );
+	previewText->setMinimumSize(QSize(550, 170));
+	previewText->setMaximumSize(QSize(550, 170));
+	previewText->setFrameShape(QFrame::Box);
+	previewText->setAlignment( static_cast<int>( QLabel::AlignTop | QLabel::AlignLeft ) );
 	subTabTextLayout->addMultiCellWidget( previewText, 8, 8, 0, 3 );
 	subStackTools->addWidget( subTabText, 0 );
 
@@ -773,11 +774,11 @@ void TabTools::setFillChar(int act)
 
 /*!
  \fn void TabTools::ToggleKette()
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief TabTools (Tools, Image Frame), Sets Y Scale value from X Scale value when chain is toggled
  \param None
- \retval None 
+ \retval None
  */
 void TabTools::toggleChain()
 {
@@ -787,11 +788,11 @@ void TabTools::toggleChain()
 
 /*!
  \fn void TabTools::HChange()
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief TabTools (Tools, Image Frame), Sets Y Scale value from X Scale value when X Scale value is changed
  \param None
- \retval None 
+ \retval None
  */
 void TabTools::hChange()
 {
@@ -801,11 +802,11 @@ void TabTools::hChange()
 
 /*!
  \fn void TabTools::vChange()
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief TabTools (Tools, Image Frame). Sets X Scale value from Y Scale value when Y Scale value is changed
  \param None
- \retval None 
+ \retval None
  */
 void TabTools::vChange()
 {
@@ -831,27 +832,31 @@ void TabTools::changeImageScalingRatio(int)
 
 /*!
  \fn void TabTools::SetSample()
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief TabTools (Tools, Text frame), Sets the sample text in selected font in text frame preferences
  \param None
- \retval None 
+ \retval None
  */
 void TabTools::setSample()
 {
-	QString ts = tr( "Woven silk pyjamas exchanged for blue quartz" );
-	int s = sizeComboText->currentText().left(2).toInt();
-	QPixmap pm = fontSamples(PrefsManager::instance()->appPrefs.AvailFonts[fontComboText->currentText()], s, ts, paletteBackgroundColor());
+	SampleItem *si = new SampleItem();
+	si->setText(tr("Woven silk pyjamas exchanged for blue quartz"));
+	si->setBgColor(paletteBackgroundColor());
+	si->setFont(fontComboText->currentText());
+	si->setFontSize(sizeComboText->currentText().left(2).toInt() * 10, true);
+	QPixmap pm = si->getSample(previewText->width(), previewText->height());
 	previewText->setPixmap(pm);
+	delete si;
 }
 
 /*!
  \fn void TabTools::SetTool()
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief TabTools (Tools), Raises widget for selected Tool properties
  \param None
- \retval None 
+ \retval None
  */
 void TabTools::setTool()
 {

@@ -32,7 +32,7 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	AutoVal = au;
 	DocsEin = dEin;
 
-	sampleItem = new SampleItem(parent);
+	sampleItem = new SampleItem();
 	sampleItem->setLoremIpsum(2);
 
 	EditStyleLayout = new QVBoxLayout( this, 10, 5, "EditStyleLayout");

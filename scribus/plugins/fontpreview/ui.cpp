@@ -38,7 +38,7 @@ FontPreview::FontPreview(QString fontName)
 	sortColumn = prefs->getUInt("sortColumn", 0);
 	xsize = prefs->getUInt("xsize", 640);
 	ysize = prefs->getUInt("ysize", 480);
-	sampleItem = new SampleItem(this);
+	sampleItem = new SampleItem();
 	sampleItem->setBgColor(QColor(255, 255, 255));
 	sampleItem->setText(tr("Woven silk pyjamas exchanged for blue quartz", "font preview"));
 
@@ -150,7 +150,7 @@ FontPreview::~FontPreview()
    prefs->set("xsize", width());
    prefs->set("ysize", height());
    prefs->set("fontSize", sizeSpin->value());
-   delete sampleItem;
+   //delete sampleItem;
 }
 
 /**
@@ -179,8 +179,7 @@ void FontPreview::languageChange()
 void FontPreview::fontList_changed()
 {
 	QListViewItem *item = fontList->currentItem();
-	sampleItem->setFontSize(sizeSpin->value() * 10);
-	sampleItem->setLineSpa((sizeSpin->value()  * ScMW->doc->typographicSettings.autoLineSpacing / 100) + sizeSpin->value());
+	sampleItem->setFontSize(sizeSpin->value() * 10, true);
 	sampleItem->setFont(item->text(0));
 	QPixmap pixmap = sampleItem->getSample(fontPreview->width(), fontPreview->height());
 	fontPreview->clear();
