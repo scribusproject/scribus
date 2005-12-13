@@ -93,8 +93,11 @@ void TOCGenerator::generateDefault()
 					ObjectAttribute objattr=currentDocItem->getObjectAttribute((*tocSetupIt).itemAttrName);
 					if (!objattr.name.isNull())
 					{
-						//TODO Handle docs with non consecutive page numbers when that is possible
-						QString key=QString("%1,%2").arg(currentDocItem->OwnPage + currDoc->FirstPnum, pageNumberWidth).arg(pageCounter[currentDocItem->OwnPage]++);
+						//The key is generated to produce a sequence of numbers for the page numbers
+						//First is the page of the item
+						//Second is an incremented counter for the item so multiple per page works
+						//Third is the section based page number which is actually used in the TOC.
+						QString key=QString("%1,%2,%3").arg(currentDocItem->OwnPage + currDoc->FirstPnum, pageNumberWidth).arg(pageCounter[currentDocItem->OwnPage]++).arg(currDoc->getSectionPageNumberForPageIndex(currentDocItem->OwnPage));
 						tocMap.insert(key, objattr.value);
 						if (objattr.value.length()>maxDataWidth)
 							maxDataWidth=objattr.value.length();
@@ -113,7 +116,7 @@ void TOCGenerator::generateDefault()
 			QString oldTocPage=QString::null;
 			for (QMap<QString, QString>::Iterator tocIt=tocMap.begin();tocIt!=tocMap.end();++tocIt)
 			{
-				QString tocPage = tocIt.key().section( ',', 0, 0 ).stripWhiteSpace();
+				QString tocPage(tocIt.key().section( ',', 2, 2 ).stripWhiteSpace());
 				QString tocLine;
 				//Start with text or numbers
 				if ((*tocSetupIt).pageLocation==End || (*tocSetupIt).pageLocation==NotShown)
