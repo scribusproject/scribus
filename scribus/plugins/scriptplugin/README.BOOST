@@ -12,3 +12,7 @@ $ make install
 For more information on Boost::Python see:
 	http://www.boost.org/libs/python/doc/
 	http://www-eleves-isia.cma.fr/documentation/BoostDoc/boost_1_29_0/libs/python/doc/tutorial/
+
+It's strongly recommended that you read the FAQ at:
+	http://www.boost.org/libs/python/doc/v2/faq.html
+(probably once before reading the code, and again after).

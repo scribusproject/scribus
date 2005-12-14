@@ -27,6 +27,7 @@ libscriptplugin_la_SOURCES = \
 	scripter2_base.cpp \
 	scripter2_qttype_qstring.cpp \
 	scripter2_scribusstructs.cpp \
+	scripter2_styles.cpp \
 	scriptercore.cpp \
 	scripterprefsgui.cpp \
 	scriptplugin.cpp \

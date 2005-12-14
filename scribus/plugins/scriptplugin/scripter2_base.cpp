@@ -33,6 +33,9 @@ BOOST_PYTHON_MODULE(scribus2)
 	// Export Scribus types
 	export_ScribusStructs();
 
+	// Export access functions
+	export_styles();
+
 	qDebug("Done");
 }
 
