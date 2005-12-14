@@ -368,14 +368,13 @@ void NodePalette::MovePoint()
 {
 	if (doc->EditClipMode == 0)
 	{
-		//FPoint np = FPoint(XSpin->value()/doc->unitRatio(), YSpin->value()/doc->unitRatio());
 		FPoint np(XSpin->value()/doc->unitRatio(), YSpin->value()/doc->unitRatio());
-		//FPoint zp = FPoint(view->SelItem.at(0)->xPos(), view->SelItem.at(0)->yPos());
 		FPoint zp(doc->selection->itemAt(0)->xPos(), doc->selection->itemAt(0)->yPos());
 		if (AbsMode->isChecked())
 			np -= zp;
-		//view->MoveClipPoint(view->SelItem.at(0), np);
 		view->MoveClipPoint(doc->selection->itemAt(0), np);
+		view->AdjustItemSize(doc->selection->itemAt(0));
+		emit DocChanged();
 	}
 }
 
@@ -574,6 +573,7 @@ void NodePalette::closeEvent(QCloseEvent *ce)
 	}
 	PolySplit->setEnabled( false );
 	BezierClose->setEnabled( false );
+	emit Schliessen();
 	ScrPaletteBase::closeEvent(ce);
 }
 

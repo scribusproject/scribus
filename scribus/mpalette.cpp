@@ -3112,7 +3112,7 @@ void Mpalette::EditSh()
 		}
 		*/
 		emit EditCL();
-		emit DocChanged();
+//		emit DocChanged();
 	}
 }
 

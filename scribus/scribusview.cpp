@@ -1597,6 +1597,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			MoveClipPoint(currItem, np);
 		}
 		AdjustItemSize(currItem);
+		emit DocChanged();
 		updateContents();
 		Imoved = false;
 		return;
@@ -1608,6 +1609,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		currItem = Doc->selection->itemAt(0);
 		Imoved = false;
 		AdjustItemSize(currItem);
+		emit DocChanged();
 		updateContents();
 		return;
 	}
@@ -5488,6 +5490,7 @@ void ScribusView::MirrorPolyH()
 		currItem->paintObj();
 		currItem->FrameOnly = false;
 		MarkClip(currItem, currItem->ContourLine, true);
+		emit DocChanged();
 		return;
 	}
 	ma.scale(-1, 1);
@@ -5507,6 +5510,7 @@ void ScribusView::MirrorPolyH()
 		ss->set("IS_CONTOUR", false);
 		undoManager->action(currItem, ss, Um::IBorder);
 	}
+	emit DocChanged();
 }
 
 void ScribusView::MirrorPolyV()
@@ -5534,6 +5538,7 @@ void ScribusView::MirrorPolyV()
 		currItem->paintObj();
 		currItem->FrameOnly = false;
 		MarkClip(currItem, currItem->ContourLine, true);
+		emit DocChanged();
 		return;
 	}
 	ma.scale(1, -1);
@@ -5553,6 +5558,7 @@ void ScribusView::MirrorPolyV()
 		ss->set("IS_CONTOUR", false);
 		undoManager->action(currItem, ss, Um::IBorder);
 	}
+	emit DocChanged();
 }
 
 void ScribusView::TransformPoly(int mode, int rot, double scaling)
@@ -5612,6 +5618,7 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 			ss->set("SCALING", scaling);
 			undoManager->action(currItem, ss);
 		}
+		emit DocChanged();
 		return;
 	}
 	FPoint oldPos(currItem->xyPos());
@@ -5701,6 +5708,7 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 		ss->set("SCALING", scaling);
 		undoManager->action(currItem, ss);
 	}
+	emit DocChanged();
 }
 
 void ScribusView::Reset1Control()
@@ -5734,6 +5742,7 @@ void ScribusView::Reset1Control()
 	else
 		cli = currItem->PoLine;
 	MarkClip(currItem, cli, true);
+	emit DocChanged();
 }
 
 void ScribusView::ResetControl()
@@ -5783,6 +5792,7 @@ void ScribusView::ResetControl()
 	else
 		cli = currItem->PoLine;
 	MarkClip(currItem, cli, true);
+	emit DocChanged();
 }
 
 void ScribusView::MoveClipPoint(PageItem *currItem, FPoint ip)

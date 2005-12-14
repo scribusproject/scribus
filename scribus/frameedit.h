@@ -102,6 +102,7 @@ protected:
 	
 signals:
 	void Schliessen();
+	void DocChanged();
 };
 
 #endif // NODEPALETTE_H

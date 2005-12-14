@@ -74,6 +74,7 @@ scribus_SOURCES = \
 	fontprefs.cpp	\
 	fontreplacedialog.cpp	\
 	fparser.cpp	\
+	fpoptimizer.cpp	\
 	fpointarray.cpp	\
 	fpoint.cpp	\
 	frameedit.cpp	\
@@ -292,6 +293,9 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/fontprefs.h                   $(prefix)/include/scribus/fontprefs.h
 	$(INSTALL_DATA) $(srcdir)/fontreplacedialog.h           $(prefix)/include/scribus/fontreplacedialog.h
 	$(INSTALL_DATA) $(srcdir)/fparser.h                     $(prefix)/include/scribus/fparser.h
+	$(INSTALL_DATA) $(srcdir)/fpoptimizer.h                 $(prefix)/include/scribus/fpoptimizer.h
+	$(INSTALL_DATA) $(srcdir)/fpconfig.h                    $(prefix)/include/scribus/fpconfig.h
+	$(INSTALL_DATA) $(srcdir)/fptypes.h                     $(prefix)/include/scribus/fptypes.h
 	$(INSTALL_DATA) $(srcdir)/fpoint.h                      $(prefix)/include/scribus/fpoint.h
 	$(INSTALL_DATA) $(srcdir)/fpointarray.h                 $(prefix)/include/scribus/fpointarray.h
 	$(INSTALL_DATA) $(srcdir)/frameedit.h                   $(prefix)/include/scribus/frameedit.h

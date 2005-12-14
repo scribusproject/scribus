@@ -1,7 +1,8 @@
 /***************************************************************************\
-|* Function parser v2.7 by Warp                                            *|
+|* Function parser v2.8 by Warp                                            *|
 |* ----------------------------                                            *|
 |* Parses and evaluates the given function with the given variable values. *|
+|* See fparser.txt for details.                                            *|
 |*                                                                         *|
 \***************************************************************************/
 
@@ -16,9 +17,7 @@
 #include <iostream>
 #endif
 
-#include "scribusapi.h"
-
-class SCRIBUS_API FunctionParser
+class FunctionParser
 {
 public:
     enum ParseErrorType
@@ -113,6 +112,7 @@ private:
     };
 
     Data* data;
+    unsigned evalRecursionLevel;
 
     // Temp data needed in Compile():
     unsigned StackPtr;
@@ -122,7 +122,7 @@ private:
 
 // Private methods:
 // ---------------
-    inline void copyOnWrite();
+    void copyOnWrite();
 
 
     bool checkRecursiveLinking(const FunctionParser*) const;
