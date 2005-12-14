@@ -1,11 +1,3 @@
-/****************************************************************************
-** Form interface generated from reading ui file 'Info.ui'
-**
-** Created: Mon Apr 30 10:14:32 2001
-**      by:  The User Interface Compiler (uic)
-**
-** WARNING! All changes made in this file will be lost!
-****************************************************************************/
 #ifndef DOCINFOS_H
 #define DOCINFOS_H
 

@@ -1,11 +1,3 @@
-/****************************************************************************
-** Form interface generated from reading ui file 'Color.ui'
-**
-** Created: Mon Apr 23 19:09:02 2001
-**      by:  The User Interface Compiler (uic)
-**
-** WARNING! All changes made in this file will be lost!
-****************************************************************************/
 #ifndef FARBMANAGER_H
 #define FARBMANAGER_H
 

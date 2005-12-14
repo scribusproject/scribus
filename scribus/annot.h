@@ -1,11 +1,3 @@
-/****************************************************************************
-** Form interface generated from reading ui file 'Annot.ui'
-**
-** Created: Tue Feb 19 22:31:41 2002
-**      by:  The User Interface Compiler (uic)
-**
-** WARNING! All changes made in this file will be lost!
-****************************************************************************/
 #ifndef ANNOT_H
 #define ANNOT_H
 

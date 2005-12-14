@@ -1,11 +1,3 @@
-/****************************************************************************
-** Form interface generated from reading ui file 'Druck.ui'
-**
-** Created: Mon Sep 17 21:42:05 2001
-**      by:  The User Interface Compiler (uic)
-**
-** WARNING! All changes made in this file will be lost!
-****************************************************************************/
 #ifndef DRUCK_H
 #define DRUCK_H
 

@@ -1,11 +1,3 @@
-/****************************************************************************
-** Form implementation generated from reading ui file 'Color.ui'
-**
-** Created: Mon Apr 23 19:09:31 2001
-**      by:  The User Interface Compiler (uic)
-**
-** WARNING! All changes made in this file will be lost!
-****************************************************************************/
 #include "colorm.h"
 #include "colorm.moc"
 #include <qvariant.h>

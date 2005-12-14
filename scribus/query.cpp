@@ -1,11 +1,3 @@
-/****************************************************************************
-** Form implementation generated from reading ui file 'Query.ui'
-**
-** Created: Mon Apr 23 20:49:10 2001
-**      by:  The User Interface Compiler (uic)
-**
-** WARNING! All changes made in this file will be lost!
-****************************************************************************/
 #include "query.h"
 #include "query.moc"
 extern QPixmap loadIcon(QString nam);

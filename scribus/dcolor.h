@@ -1,11 +1,3 @@
-/****************************************************************************
-** Form interface generated from reading ui file 'Cdel.ui'
-**
-** Created: Tue Apr 24 22:08:26 2001
-**      by:  The User Interface Compiler (uic)
-**
-** WARNING! All changes made in this file will be lost!
-****************************************************************************/
 #ifndef DELCOLOR_H
 #define DELCOLOR_H
 

@@ -1,11 +1,3 @@
-/****************************************************************************
-** Form implementation generated from reading ui file 'Info.ui'
-**
-** Created: Mon Apr 30 10:14:47 2001
-**      by:  The User Interface Compiler (uic)
-**
-** WARNING! All changes made in this file will be lost!
-****************************************************************************/
 #include "docinfo.h"
 #include "docinfo.moc"
 

@@ -1,11 +1,3 @@
-/****************************************************************************
-** Form implementation generated from reading ui file 'Annot.ui'
-**
-** Created: Tue Feb 19 22:31:55 2002
-**      by:  The User Interface Compiler (uic)
-**
-** WARNING! All changes made in this file will be lost!
-****************************************************************************/
 #include "scfonts.h"
 #include "annot.h"
 #include "annot.moc"

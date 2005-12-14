@@ -1,13 +1,3 @@
-/****************************************************************************
-** Form implementation generated from reading ui file 'Cdel.ui'
-**
-** Created: Tue Apr 24 22:08:43 2001
-**      by:  The User Interface Compiler (uic)
-**
-** WARNING! All changes made in this file will be lost!
-****************************************************************************/
-
-
 #include <qdialog.h>
 #include <qlayout.h>
 #include <qlabel.h>

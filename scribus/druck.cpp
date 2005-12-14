@@ -1,11 +1,3 @@
-/****************************************************************************
-** Form implementation generated from reading ui file 'Druck.ui'
-**
-** Created: Mon Sep 17 21:42:19 2001
-**      by:  The User Interface Compiler (uic)
-**
-** WARNING! All changes made in this file will be lost!
-****************************************************************************/
 #include "druck.h"
 #include "druck.moc"
 

@@ -1,11 +1,3 @@
-/****************************************************************************
-** Form interface generated from reading ui file 'Query.ui'
-**
-** Created: Mon Apr 23 20:48:47 2001
-**      by:  The User Interface Compiler (uic)
-**
-** WARNING! All changes made in this file will be lost!
-****************************************************************************/
 #ifndef QUERY_H
 #define QUERY_H
 
