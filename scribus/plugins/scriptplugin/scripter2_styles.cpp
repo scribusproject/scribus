@@ -58,7 +58,7 @@ void addStyle(const ParagraphStyle & style)
 // NOT affect the real paragraph style list. That'll have to happen much later,
 // probably with a "fake mapping" class wrapper around the docParagraphStyles
 // list, since we don't want Python users seeing the int-indexed list.
-dict getStyles()
+dict getStylesVal()
 {
 	dict d;
 	QValueList<ParagraphStyle>::iterator it(ScMW->doc->docParagraphStyles.begin());
@@ -83,12 +83,12 @@ list getStyleNames()
 void export_styles()
 {
 #if defined(HAVE_BOOST_PYTHON)
-	//def("getStyleRef", getStyleRef); // Not working yet, need way to handle reference
+	def("getStyleRef", getStyleRef, return_internal_reference<>());
 	def("getStyleVal", getStyleVal);
-	//def("getStyleRefi", getStyleRefi); // Not working yet, need way to handle reference
+	def("getStyleRefi", getStyleRefi, return_internal_reference<>());
 	def("getStyleVali", getStyleVali);
 	def("addStyle", addStyle);
-	def("getStyles", getStyles);
+	def("getStylesVal", getStylesVal);
 	def("getStyleNames", getStyleNames);
 #endif
 }
