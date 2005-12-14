@@ -245,13 +245,23 @@ void PicStatus::SearchPic()
 {
 	// FIXME: This is a pretty ugly hack IMO - carried over from the old
 	// SearchPic. Table handling needs work.
+	QString workDir;
+	QString searchBase;
 	unsigned int row = QString(sender()->name()).toUInt();
 	QString fileName = PicTable->text(row, 0);
+#ifndef _WIN32
+	workDir = QDir::homeDirPath();
+#endif
+	// Pictures may be located completely outside home or documents directory
+	// so ask base search directory first
+	searchBase = QFileDialog::getExistingDirectory( workDir, NULL, NULL, tr("Select a base directory for search"));
+	if( searchBase.isEmpty() || !QDir().exists(searchBase) )
+		return;
 	// Set up the search, then return to the event loop until it notifies us
 	// that it's done.
 	// Note: search will be deleted when this PicStatus is, so there's no
 	// need to worry about cleanup.
-	FileSearch* search = new FileSearch(this, fileName);
+	FileSearch* search = new FileSearch(this, fileName, searchBase);
 	Q_CHECK_PTR(search);
 	connect(search,
 			SIGNAL(searchComplete(const QStringList&, const QString&)),
