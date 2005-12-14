@@ -348,6 +348,7 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 				// Display a dialog to the user with the exception
 				QClipboard *cp = QApplication::clipboard();
 				cp->setText(errorMsg);
+				ScMW->closeSplash();
 				QMessageBox::warning(ScMW,
 									tr("Script error"),
 									tr("If you are running an official script report it at <a href=\"http://bugs.scribus.net\">bugs.scribus.net</a> please.")
