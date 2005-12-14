@@ -52,7 +52,8 @@ scribus_SOURCES = \
 	deferredtask.cpp	\
 	delpages.cpp	\
 	docinfo.cpp	\
-	docitemattrprefs.ui	\
+	docitemattrprefsbase.ui	\
+	docitemattrprefs.cpp \
 	documentchecker.cpp	\
 	documentinformation.cpp	\
 	docsectionsbase.ui	\

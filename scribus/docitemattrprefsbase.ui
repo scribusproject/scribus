@@ -1,8 +1,8 @@
 <!DOCTYPE UI><UI version="3.3" stdsetdef="1">
-<class>DocumentItemAttributes</class>
+<class>DocumentItemAttributesBase</class>
 <widget class="QWidget">
     <property name="name">
-        <cstring>DocumentItemAttributes</cstring>
+        <cstring>DocumentItemAttributesBase</cstring>
     </property>
     <property name="geometry">
         <rect>
@@ -168,31 +168,31 @@
     <connection>
         <sender>attributesTable</sender>
         <signal>valueChanged(int,int)</signal>
-        <receiver>DocumentItemAttributes</receiver>
+        <receiver>DocumentItemAttributesBase</receiver>
         <slot>tableItemChanged(int,int)</slot>
     </connection>
     <connection>
         <sender>addButton</sender>
         <signal>clicked()</signal>
-        <receiver>DocumentItemAttributes</receiver>
+        <receiver>DocumentItemAttributesBase</receiver>
         <slot>addEntry()</slot>
     </connection>
     <connection>
         <sender>deleteButton</sender>
         <signal>clicked()</signal>
-        <receiver>DocumentItemAttributes</receiver>
+        <receiver>DocumentItemAttributesBase</receiver>
         <slot>deleteEntry()</slot>
     </connection>
     <connection>
         <sender>clearButton</sender>
         <signal>clicked()</signal>
-        <receiver>DocumentItemAttributes</receiver>
+        <receiver>DocumentItemAttributesBase</receiver>
         <slot>clearEntries()</slot>
     </connection>
     <connection>
         <sender>copyButton</sender>
         <signal>clicked()</signal>
-        <receiver>DocumentItemAttributes</receiver>
+        <receiver>DocumentItemAttributesBase</receiver>
         <slot>copyEntry()</slot>
     </connection>
 </connections>
@@ -200,7 +200,6 @@
     <include location="global" impldecl="in implementation">qtable.h</include>
     <include location="global" impldecl="in implementation">qheader.h</include>
     <include location="local" impldecl="in declaration">pagestructs.h</include>
-    <include location="local" impldecl="in implementation">docitemattrprefs.ui.h</include>
 </includes>
 <variables>
     <variable>QStringList typesData;</variable>
