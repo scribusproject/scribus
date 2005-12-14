@@ -293,7 +293,6 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/fontprefs.h                   $(prefix)/include/scribus/fontprefs.h
 	$(INSTALL_DATA) $(srcdir)/fontreplacedialog.h           $(prefix)/include/scribus/fontreplacedialog.h
 	$(INSTALL_DATA) $(srcdir)/fparser.h                     $(prefix)/include/scribus/fparser.h
-	$(INSTALL_DATA) $(srcdir)/fpoptimizer.h                 $(prefix)/include/scribus/fpoptimizer.h
 	$(INSTALL_DATA) $(srcdir)/fpconfig.h                    $(prefix)/include/scribus/fpconfig.h
 	$(INSTALL_DATA) $(srcdir)/fptypes.h                     $(prefix)/include/scribus/fptypes.h
 	$(INSTALL_DATA) $(srcdir)/fpoint.h                      $(prefix)/include/scribus/fpoint.h
