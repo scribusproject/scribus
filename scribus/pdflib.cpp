@@ -4701,7 +4701,7 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 			else if (cm != 3)
 				PutDoc("/Filter /FlateDecode\n");
 		}
-		if (specialCMYK)
+		if ((specialCMYK) && ((cm == 1) && (CompAvail)))
 			PutDoc("/Decode [1 0 1 0 1 0 1 0]\n");
 		if (alphaM)
 		{
