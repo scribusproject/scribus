@@ -68,6 +68,16 @@ dict getStylesVal()
 	return d;
 }
 
+dict getStylesRef()
+{
+	dict d;
+	QValueList<ParagraphStyle>::iterator it(ScMW->doc->docParagraphStyles.begin());
+	QValueList<ParagraphStyle>::iterator itEnd(ScMW->doc->docParagraphStyles.end());
+	for ( ; it != itEnd; ++it)
+		d[(*it).Vname] = boost::ref(*it);
+	return d;
+}
+
 list getStyleNames()
 {
 	list l;
@@ -77,6 +87,8 @@ list getStyleNames()
 		l.append((*it).Vname);
 	return l;
 }
+
+void nothing() { }
 
 #endif
 
@@ -89,6 +101,7 @@ void export_styles()
 	def("getStyleVali", getStyleVali);
 	def("addStyle", addStyle);
 	def("getStylesVal", getStylesVal);
+	def("getStylesRef", getStylesRef);
 	def("getStyleNames", getStyleNames);
 #endif
 }
